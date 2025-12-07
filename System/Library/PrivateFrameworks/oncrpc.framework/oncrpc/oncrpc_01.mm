@@ -1,93 +1,3 @@
-uint64_t _newrpclib_socparms2netid(int a1, int a2, int a3, const char **a4)
-{
-  v4 = 0;
-  *a4 = 0;
-  v5 = "udp";
-  v6 = &dword_27A70EE04;
-  do
-  {
-    if (*(v6 - 1) != a1)
-    {
-      goto LABEL_16;
-    }
-
-    if (a1 == 1)
-    {
-      if (a3)
-      {
-        v8 = __error();
-        goto LABEL_23;
-      }
-
-      if (*v6 == a2)
-      {
-        goto LABEL_21;
-      }
-
-      goto LABEL_15;
-    }
-
-    if (a1 != 30 && a1 != 2)
-    {
-      goto LABEL_20;
-    }
-
-    if (a2)
-    {
-      if (*v6 == a2)
-      {
-        if (!a3)
-        {
-          goto LABEL_21;
-        }
-
-LABEL_14:
-        if (v6[1] == a3)
-        {
-LABEL_21:
-          result = 0;
-          *a4 = v5;
-          return result;
-        }
-      }
-    }
-
-    else if (a3)
-    {
-      goto LABEL_14;
-    }
-
-LABEL_15:
-    v4 = 1;
-LABEL_16:
-    v5 = *(v6 + 3);
-    v6 += 6;
-  }
-
-  while (v5);
-  if (!v4)
-  {
-LABEL_20:
-    v8 = __error();
-    v9 = 46;
-    goto LABEL_24;
-  }
-
-  v7 = a2 - 3;
-  v8 = __error();
-  if (v7 <= 0xFFFFFFFD)
-  {
-    v9 = 41;
-    goto LABEL_24;
-  }
-
-LABEL_23:
-  v9 = 43;
-LABEL_24:
-  *v8 = v9;
-  return 0xFFFFFFFFLL;
-}
-
 uint64_t _newrpclib_netid2socparms(char *__s2, _DWORD *a2, _DWORD *a3, _DWORD *a4, int a5)
 {
   if (!__s2)
@@ -154,12 +64,12 @@ LABEL_19:
 
 uint64_t _newrpclib_uaddr2sa(const char *a1, char *__s2, unsigned __int8 *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v16 = 0u;
-  memset(v17, 0, sizeof(v17));
-  *v15 = 0u;
-  v14 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
+  memset(v16, 0, sizeof(v16));
+  *v14 = 0u;
   v13 = 0;
+  v12 = 0;
   if (!a1)
   {
     goto LABEL_4;
@@ -171,95 +81,105 @@ uint64_t _newrpclib_uaddr2sa(const char *a1, char *__s2, unsigned __int8 *a3)
   }
 
   v5 = *a3;
-  if (_newrpclib_netid2socparms(__s2, &v14 + 1, &v14, &v13, 0))
+  if (_newrpclib_netid2socparms(__s2, &v13 + 1, &v13, &v12, 0))
   {
     goto LABEL_4;
   }
 
-  if (HIDWORD(v14) == 30)
+  if (HIDWORD(v13) == 30)
   {
-    if (v5 >= 0x1C && strlen(a1) <= 0x36)
+    if (v5 < 0x1C)
     {
-      v12 = ugetport(a1, v15);
-      if ((v12 & 0x80000000) == 0)
-      {
-        v9 = v12;
-        *a3 = 0;
-        *(a3 + 6) = 0;
-        *(a3 + 2) = 0;
-        *(a3 + 1) = 0;
-        v10 = inet_pton(30, v15, a3 + 8);
-        if (v10 == 1)
-        {
-          result = 0;
-          v11 = 7708;
-          goto LABEL_23;
-        }
-
-LABEL_24:
-        if (v10)
-        {
-          goto LABEL_5;
-        }
-      }
-    }
-  }
-
-  else
-  {
-    if (HIDWORD(v14) != 2)
-    {
-      if (HIDWORD(v14) == 1 && v5 >= 0x6A)
-      {
-        *(a3 + 90) = 0u;
-        *(a3 + 4) = 0u;
-        *(a3 + 5) = 0u;
-        *(a3 + 2) = 0u;
-        *(a3 + 3) = 0u;
-        *a3 = 0u;
-        *(a3 + 1) = 0u;
-        if (strnlen(a1, 0x68uLL) <= 0x67)
-        {
-          *a3 = 362;
-          strlcpy(a3 + 2, a1, 0x68uLL);
-          result = 0;
-          goto LABEL_6;
-        }
-      }
-
       goto LABEL_4;
     }
 
-    if (v5 >= 0x10 && strlen(a1) <= 0x36)
+    if (strlen(a1) > 0x36)
     {
-      v8 = ugetport(a1, v15);
-      if ((v8 & 0x80000000) == 0)
-      {
-        v9 = v8;
-        *a3 = 0;
-        *(a3 + 1) = 0;
-        v10 = inet_pton(2, v15, a3 + 4);
-        if (v10 == 1)
-        {
-          result = 0;
-          v11 = 528;
-LABEL_23:
-          *a3 = v11;
-          *(a3 + 1) = bswap32(v9) >> 16;
-          goto LABEL_6;
-        }
-
-        goto LABEL_24;
-      }
+      goto LABEL_4;
     }
+
+    v11 = ugetport(a1, v14);
+    if ((v11 & 0x80000000) != 0)
+    {
+      goto LABEL_4;
+    }
+
+    v8 = v11;
+    *a3 = 0;
+    *(a3 + 6) = 0;
+    *(a3 + 2) = 0;
+    *(a3 + 1) = 0;
+    v9 = inet_pton(30, v14, a3 + 8);
+    if (v9 == 1)
+    {
+      result = 0;
+      v10 = 7708;
+      goto LABEL_22;
+    }
+
+LABEL_23:
+    if (v9)
+    {
+      return 0xFFFFFFFFLL;
+    }
+
+    goto LABEL_4;
   }
 
+  if (HIDWORD(v13) != 2)
+  {
+    if (HIDWORD(v13) == 1 && v5 >= 0x6A)
+    {
+      *(a3 + 90) = 0u;
+      *(a3 + 4) = 0u;
+      *(a3 + 5) = 0u;
+      *(a3 + 2) = 0u;
+      *(a3 + 3) = 0u;
+      *a3 = 0u;
+      *(a3 + 1) = 0u;
+      if (strnlen(a1, 0x68uLL) <= 0x67)
+      {
+        *a3 = 362;
+        strlcpy(a3 + 2, a1, 0x68uLL);
+        return 0;
+      }
+    }
+
 LABEL_4:
-  *__error() = 22;
-LABEL_5:
-  result = 0xFFFFFFFFLL;
-LABEL_6:
-  v7 = *MEMORY[0x277D85DE8];
+    *__error() = 22;
+    return 0xFFFFFFFFLL;
+  }
+
+  if (v5 < 0x10)
+  {
+    goto LABEL_4;
+  }
+
+  if (strlen(a1) > 0x36)
+  {
+    goto LABEL_4;
+  }
+
+  v7 = ugetport(a1, v14);
+  if ((v7 & 0x80000000) != 0)
+  {
+    goto LABEL_4;
+  }
+
+  v8 = v7;
+  *a3 = 0;
+  *(a3 + 1) = 0;
+  v9 = inet_pton(2, v14, a3 + 4);
+  if (v9 != 1)
+  {
+    goto LABEL_23;
+  }
+
+  result = 0;
+  v10 = 528;
+LABEL_22:
+  *a3 = v10;
+  *(a3 + 1) = bswap32(v8) >> 16;
   return result;
 }
 
@@ -329,10 +249,10 @@ LABEL_20:
 
 uint64_t _newrpclib_sa2uaddr(char *__s1, char **a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14 = 0u;
-  memset(v15, 0, sizeof(v15));
-  *v13 = 0u;
+  v15 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
+  memset(v14, 0, sizeof(v14));
+  *v12 = 0u;
   *a2 = 0;
   if (!__s1)
   {
@@ -346,16 +266,14 @@ uint64_t _newrpclib_sa2uaddr(char *__s1, char **a2)
     {
       v5 = 4;
 LABEL_7:
-      if (inet_ntop(v4, &__s1[v5], v13, 0x2Eu))
+      if (inet_ntop(v4, &__s1[v5], v12, 0x2Eu))
       {
         v6 = bswap32(*(__s1 + 1));
-        v7 = asprintf(a2, "%s.%d.%d", v13, HIBYTE(v6), BYTE2(v6)) == -1;
+        v7 = asprintf(a2, "%s.%d.%d", v12, HIBYTE(v6), BYTE2(v6)) == -1;
         goto LABEL_9;
       }
 
-LABEL_15:
-      result = 0xFFFFFFFFLL;
-      goto LABEL_16;
+      return 0xFFFFFFFFLL;
     }
 
     if (v4 == 30)
@@ -366,7 +284,7 @@ LABEL_15:
 
 LABEL_14:
     *__error() = 22;
-    goto LABEL_15;
+    return 0xFFFFFFFFLL;
   }
 
   v10 = __s1[2];
@@ -376,23 +294,19 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v12 = strdup(v9);
-  *a2 = v12;
-  v7 = v12 == 0;
+  v11 = strdup(v9);
+  *a2 = v11;
+  v7 = v11 == 0;
 LABEL_9:
   if (v7)
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
   else
   {
-    result = 0;
+    return 0;
   }
-
-LABEL_16:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void freenetconfigent(void **a1)
@@ -445,15 +359,15 @@ _DWORD *getnetconfigent(char *__s2)
 
 uint64_t set_local_ephemeral_sockname(uint64_t a1, const char *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = getenv("TMPDIR");
-  v15 = 0;
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v14 = 0;
   v12 = 0u;
-  *__str = 0u;
+  v13 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  *__str = 0u;
+  v9 = 0u;
   if (!v4 || !*v4)
   {
     v4 = "/tmp";
@@ -466,17 +380,14 @@ uint64_t set_local_ephemeral_sockname(uint64_t a1, const char *a2)
     unlink(__str);
     close(v7);
     strlcpy((a1 + 2), __str, 0x68uLL);
-    result = 0;
+    return 0;
   }
 
   else
   {
     *__error() = 63;
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t cache_init()
@@ -713,7 +624,7 @@ BOOL _newrpclib_xdr_pmaplist(uint64_t (***a1)(void), int *a2)
       LOBYTE(v6) = 0;
       while (_newrpclib_xdr_pmap(a1, v2))
       {
-        v7 = v2[2];
+        v7 = *(v2 + 2);
         if (v6)
         {
           free(v2);
@@ -741,15 +652,15 @@ BOOL _newrpclib_xdr_pmaplist(uint64_t (***a1)(void), int *a2)
       {
         if (!v9)
         {
-          v2[2] = 0;
+          *(v2 + 2) = 0;
           return 1;
         }
 
-        v6 = v2[2];
+        v6 = *(v2 + 2);
         if (!v6)
         {
           v6 = calloc(1uLL, 0x18uLL);
-          v2[2] = v6;
+          *(v2 + 2) = v6;
           if (!v6)
           {
             return v6;
@@ -779,7 +690,7 @@ BOOL _newrpclib_xdr_pmaplist(uint64_t (***a1)(void), int *a2)
 
   while (_newrpclib_xdr_pmap(a1, v2))
   {
-    v2 = v2[2];
+    v2 = *(v2 + 2);
     v9 = v2 != 0;
     v5 = _newrpclib_xdr_int32_t(a1, &v9);
     if (!v5 || !v2)
@@ -821,83 +732,75 @@ uint64_t _newrpclib_xdr_pmap_call_result(uint64_t (***a1)(void), uint64_t a2)
   return result;
 }
 
-uint64_t _newrpclib_pmap_set(int a1, int a2, int a3, int a4)
+void *_newrpclib_pmap_set(int a1, int a2, int a3, int a4)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14 = -1;
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13 = -1;
   if (_newrpclib_pmap_wakeup())
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v11 = 0;
+  v14[0] = 0x100007F6F000210;
+  v14[1] = 0;
+  result = _newrpclib_clntudp_bufcreate_timeout(v14, 100000, 2, &v13, 400, 400, &set_retry_timeout, &set_total_timeout);
+  if (result)
   {
-    v12 = 0;
-    v15[0] = 0x100007F6F000210;
-    v15[1] = 0;
-    result = _newrpclib_clntudp_bufcreate_timeout(v15, 0x186A0u, 2u, &v14, 400, 400, &set_retry_timeout, &set_total_timeout);
-    if (result)
+    v9 = result;
+    v12[0] = a1;
+    v12[1] = a2;
+    v12[2] = a3;
+    v12[3] = a4;
+    v10 = _newrpclib_pmapproc_set_2(v12, &v11, result);
+    (*(v9[1] + 32))(v9);
+    if (v10)
     {
-      v9 = result;
-      v13[0] = a1;
-      v13[1] = a2;
-      v13[2] = a3;
-      v13[3] = a4;
-      v10 = _newrpclib_pmapproc_set_2(v13, &v12, result);
-      (*(*(v9 + 8) + 32))(v9);
-      if (v10)
-      {
-        result = 0;
-      }
+      return 0;
+    }
 
-      else
-      {
-        result = v12;
-      }
+    else
+    {
+      return v11;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _newrpclib_pmap_unset(int a1, int a2)
+void *_newrpclib_pmap_unset(int a1, int a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10 = -1;
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9 = -1;
   if (_newrpclib_pmap_wakeup())
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v7 = 0;
+  v10[0] = 0x100007F6F000210;
+  v10[1] = 0;
+  result = _newrpclib_clntudp_bufcreate_timeout(v10, 100000, 2, &v9, 400, 400, &unset_retry_timeout, &unset_total_timeout);
+  if (result)
   {
-    v8 = 0;
-    v11[0] = 0x100007F6F000210;
-    v11[1] = 0;
-    result = _newrpclib_clntudp_bufcreate_timeout(v11, 0x186A0u, 2u, &v10, 400, 400, &unset_retry_timeout, &unset_total_timeout);
-    if (result)
+    v5 = result;
+    v8[0] = a1;
+    v8[1] = a2;
+    v8[2] = 0;
+    v8[3] = 0;
+    v6 = _newrpclib_pmapproc_unset_2(v8, &v7, result);
+    (*(v5[1] + 32))(v5);
+    if (v6)
     {
-      v5 = result;
-      v9[0] = a1;
-      v9[1] = a2;
-      v9[2] = 0;
-      v9[3] = 0;
-      v6 = _newrpclib_pmapproc_unset_2(v9, &v8, result);
-      (*(*(v5 + 8) + 32))(v5);
-      if (v6)
-      {
-        result = 0;
-      }
+      return 0;
+    }
 
-      else
-      {
-        result = v8;
-      }
+    else
+    {
+      return v7;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -994,7 +897,7 @@ uint64_t _newrpclib_xdr_rpcb(uint64_t (***a1)(void), uint64_t a2)
   return result;
 }
 
-BOOL _newrpclib_xdr_rp__list(uint64_t (***a1)(void), uint64_t a2)
+BOOL _newrpclib_xdr_rp__list(uint64_t (***a1)(void), void *a2)
 {
   v2 = a2;
   v9 = 0;
@@ -1137,7 +1040,7 @@ uint64_t _newrpclib_xdr_rpcb_entry(uint64_t (***a1)(void), uint64_t a2)
   return result;
 }
 
-BOOL _newrpclib_xdr_rpcb_entry_list(uint64_t (***a1)(void), uint64_t a2)
+BOOL _newrpclib_xdr_rpcb_entry_list(uint64_t (***a1)(void), void *a2)
 {
   v2 = a2;
   v9 = 0;
@@ -1445,11 +1348,11 @@ uint64_t _newrpclib_xdr_netbuf(uint64_t (***a1)(void), uint64_t a2)
   return result;
 }
 
-BOOL _newrpclib_rpcb_getaddr_timeout(unsigned __int8 *a1, char *a2, unsigned int a3, unsigned int a4, uint64_t a5, __int128 *a6)
+BOOL _newrpclib_rpcb_getaddr_timeout(unsigned __int8 *a1, char *a2, uint64_t a3, uint64_t a4, _OWORD *a5, __int128 *a6)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v23 = 2;
-  v24 = 4;
+  v24 = *MEMORY[0x277D85DE8];
+  v21 = 2;
+  v22 = 4;
   memset(__src, 0, sizeof(__src));
   v6 = a1[1];
   if (v6 > 0x1E || ((1 << v6) & 0x40000006) == 0)
@@ -1457,15 +1360,15 @@ BOOL _newrpclib_rpcb_getaddr_timeout(unsigned __int8 *a1, char *a2, unsigned int
     result = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
     if (!result)
     {
-      goto LABEL_13;
+      return result;
     }
 
     _newrpclib_rpcb_getaddr_timeout_cold_1(v6);
-LABEL_12:
-    result = 0;
-    goto LABEL_13;
+    return 0;
   }
 
+  v9 = a4;
+  v10 = a3;
   if (v6 == 2)
   {
     v13 = 2;
@@ -1476,73 +1379,69 @@ LABEL_12:
     v13 = 3;
   }
 
-  v14 = *a1;
   __memcpy_chk();
-  v15 = getrpcbind_handle(a2, __src, v13, a5, a6);
-  if (!v15)
+  v14 = getrpcbind_handle(a2, __src, v13, a5, a6);
+  if (!v14)
   {
     i = 4;
     goto LABEL_14;
   }
 
-  v16 = v15;
-  v17 = rpcbind_getaddr_generic(v15, v13, a2, a3, a4, __src);
-  if (!handle_callerror(v16, &v23, &v24))
+  v15 = v14;
+  v16 = rpcbind_getaddr_generic(v14, v13, a2, v10, v9, __src);
+  if (!handle_callerror(v15, &v21, &v22))
   {
-    (*(*(v16 + 8) + 32))(v16);
-    for (i = v24; i >= v23; i = (i - 1))
+    (*(*(v15 + 8) + 32))(v15);
+    for (i = v22; i >= v21; i = (i - 1))
     {
 LABEL_14:
       if (v13 != i)
       {
-        v21 = getrpcbind_handle(a2, __src, i, a5, a6);
-        if (v21)
+        v19 = getrpcbind_handle(a2, __src, i, a5, a6);
+        if (v19)
         {
-          v16 = v21;
-          v17 = rpcbind_getaddr_generic(v21, i, a2, a3, a4, __src);
-          if (handle_callerror(v16, &v23, &v24))
+          v15 = v19;
+          v16 = rpcbind_getaddr_generic(v19, i, a2, v10, v9, __src);
+          if (handle_callerror(v15, &v21, &v22))
           {
             goto LABEL_21;
           }
 
-          (*(*(v16 + 8) + 32))(v16);
+          (*(*(v15 + 8) + 32))(v15);
         }
       }
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
 LABEL_21:
-  (*(*(v16 + 8) + 32))(v16);
-  if (!v17 || LOBYTE(__src[0]) > *a1)
+  (*(*(v15 + 8) + 32))(v15);
+  if (!v16 || LOBYTE(__src[0]) > *a1)
   {
-    goto LABEL_12;
+    return 0;
   }
 
   if (a1[1] == 30)
   {
-    v22 = *(a1 + 6);
+    v20 = *(a1 + 6);
   }
 
   else
   {
-    v22 = 0;
+    v20 = 0;
   }
 
   memcpy(a1, __src, LOBYTE(__src[0]));
-  if (a1[1] == 30 && v22 != *(a1 + 6))
+  if (a1[1] == 30 && v20 != *(a1 + 6))
   {
-    *(a1 + 6) = v22;
+    *(a1 + 6) = v20;
   }
 
-  result = 1;
-LABEL_13:
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-void *getrpcbind_handle(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, __int128 *a5)
+void *getrpcbind_handle(char *a1, uint64_t a2, uint64_t a3, _OWORD *a4, __int128 *a5)
 {
   v13 = 0;
   v11 = -1;
@@ -1584,7 +1483,7 @@ LABEL_14:
     if (v12 == 17)
     {
       *(a2 + 2) = 28416;
-      return (_newrpclib_clntudp_bufcreate_timeout)(a2, 100000, a3, &v11, 400, 400, a4, a5);
+      return _newrpclib_clntudp_bufcreate_timeout(a2, 100000, a3, &v11, 400, 400, a4, a5);
     }
 
     goto LABEL_14;
@@ -1709,7 +1608,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t handle_callerror(uint64_t a1, int *a2, unsigned int *a3)
+uint64_t handle_callerror(uint64_t a1, unsigned int *a2, unsigned int *a3)
 {
   v10 = 0;
   v9 = 0;
@@ -1762,7 +1661,7 @@ uint64_t handle_callerror(uint64_t a1, int *a2, unsigned int *a3)
   return result;
 }
 
-BOOL _newrpclib_rpcb_getversaddr_timeout(unsigned __int8 *a1, char *a2, int a3, int a4, uint64_t a5, __int128 *a6)
+BOOL _newrpclib_rpcb_getversaddr_timeout(unsigned __int8 *a1, char *a2, int a3, int a4, _OWORD *a5, __int128 *a6)
 {
   v10 = getrpcbind_handle(a2, a1, 4, a5, a6);
   if (!v10)
@@ -1791,155 +1690,153 @@ BOOL _newrpclib_rpcb_getversaddr_timeout(unsigned __int8 *a1, char *a2, int a3, 
   return v12;
 }
 
-BOOL _newrpclib_rpcb_getaddr_for_host(char *a1, char *__s2, unsigned int a3, unsigned int a4, unsigned __int8 *a5)
+BOOL _newrpclib_rpcb_getaddr_for_host(char *a1, char *__s2, uint64_t a3, uint64_t a4, unsigned __int8 *a5)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13 = 0;
-  if (_newrpclib_netid2socparms(__s2, &v13, 0, 0, 0) || (memset(__src, 0, sizeof(__src)), gethostaddr(a1, v13, __src)))
+  v14 = *MEMORY[0x277D85DE8];
+  v12 = 0;
+  if (_newrpclib_netid2socparms(__s2, &v12, 0, 0, 0))
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  memset(__src, 0, sizeof(__src));
+  if (gethostaddr(a1, v12, __src))
   {
-    result = _newrpclib_rpcb_getaddr_timeout(__src, __s2, a3, a4, 0, 0);
-    if (result)
+    return 0;
+  }
+
+  result = _newrpclib_rpcb_getaddr_timeout(__src, __s2, a3, a4, 0, 0);
+  if (result)
+  {
+    if (*a5 >= LOBYTE(__src[0]))
     {
-      if (*a5 >= LOBYTE(__src[0]))
-      {
-        v12 = LOBYTE(__src[0]);
-      }
-
-      else
-      {
-        v12 = *a5;
-      }
-
-      memcpy(a5, __src, v12);
-      result = 1;
+      v11 = LOBYTE(__src[0]);
     }
+
+    else
+    {
+      v11 = *a5;
+    }
+
+    memcpy(a5, __src, v11);
+    return 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *_newrpclib_rpcb_set(char *a1, unsigned int a2, unsigned int a3, char *a4)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
+  v36 = *MEMORY[0x277D85DE8];
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  *v21 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  memset(&v19, 0, sizeof(v19));
-  v17 = 0;
-  v18 = 0;
+  v23 = 0u;
+  *v20 = 0u;
+  v21 = 0u;
+  memset(&v18, 0, sizeof(v18));
   v16 = 0;
+  v17 = 0;
+  v15 = 0;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  if (_newrpclib_netid2socparms(a1, &v16, 0, 0, 0))
+  if (_newrpclib_netid2socparms(a1, &v15, 0, 0, 0))
   {
-    goto LABEL_9;
+    return 0;
   }
 
-  memset(v20, 0, sizeof(v20));
-  switch(v16)
+  memset(v19, 0, sizeof(v19));
+  switch(v15)
   {
     case 1:
-      LOWORD(v20[0]) = 362;
+      LOWORD(v19[0]) = 362;
       break;
     case 0x1E:
-      LOWORD(v20[0]) = 7708;
-      *(v20 + 8) = *MEMORY[0x277D85EF0];
+      LOWORD(v19[0]) = 7708;
+      *(v19 + 8) = *MEMORY[0x277D85EF0];
       break;
     case 2:
-      LOWORD(v20[0]) = 528;
-      DWORD1(v20[0]) = 16777343;
+      LOWORD(v19[0]) = 528;
+      DWORD1(v19[0]) = 16777343;
       break;
     default:
-LABEL_9:
-      result = 0;
-      goto LABEL_10;
+      return 0;
   }
 
   if (_newrpclib_pmap_wakeup())
   {
-    goto LABEL_9;
+    return 0;
   }
 
-  result = getrpcbind_handle(a1, v20, 3, &set_retry_timeout_0, &set_total_timeout_0);
+  result = getrpcbind_handle(a1, v19, 3, &set_retry_timeout_0, &set_total_timeout_0);
   if (result)
   {
-    v10 = result;
-    if (!_newrpclib_sa2uaddr(a4, &v17))
+    v9 = result;
+    if (!_newrpclib_sa2uaddr(a4, &v16))
     {
-      *&v14 = __PAIR64__(a3, a2);
-      *(&v14 + 1) = a1;
-      *&v15 = v17;
-      v11 = geteuid();
-      v12 = getpwuid_r(v11, &v19, v21, 0x100uLL, &v18);
+      *&v13 = __PAIR64__(a3, a2);
+      *(&v13 + 1) = a1;
+      *&v14 = v16;
+      v10 = geteuid();
+      v11 = getpwuid_r(v10, &v18, v20, 0x100uLL, &v17);
       pw_name = &unk_2771E704D;
-      if (!v12 && v18)
+      if (!v11 && v17)
       {
-        pw_name = v18->pw_name;
+        pw_name = v17->pw_name;
       }
 
-      *(&v15 + 1) = pw_name;
-      if (_newrpclib_rpcbproc_set_3(&v14, &v16 + 1, v10))
+      *(&v14 + 1) = pw_name;
+      if (_newrpclib_rpcbproc_set_3(&v13, &v15 + 1, v9))
       {
-        HIDWORD(v16) = 0;
+        HIDWORD(v15) = 0;
       }
     }
 
-    (*(*(v10 + 8) + 32))(v10);
-    if (v17)
+    (*(v9[1] + 32))(v9);
+    if (v16)
     {
-      free(v17);
+      free(v16);
     }
 
-    result = HIDWORD(v16);
+    return HIDWORD(v15);
   }
 
-LABEL_10:
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t _newrpclib_rpcb_unset(char *a1, int a2, int a3)
+void *_newrpclib_rpcb_unset(char *a1, int a2, int a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
+  v38 = *MEMORY[0x277D85DE8];
+  v20 = 0;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  *v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
-  memset(&v20, 0, sizeof(v20));
+  v25 = 0u;
+  *v22 = 0u;
+  v23 = 0u;
+  memset(&v19, 0, sizeof(v19));
   v6 = portmap_netid;
-  v19 = 0;
+  v18 = 0;
   if (!portmap_netid)
   {
     v6 = "udp";
@@ -1955,1379 +1852,1200 @@ uint64_t _newrpclib_rpcb_unset(char *a1, int a2, int a3)
     v7 = v6;
   }
 
-  v18 = 0;
-  if (_newrpclib_netid2socparms(v7, &v18, 0, 0, 0))
+  v17 = 0;
+  if (_newrpclib_netid2socparms(v7, &v17, 0, 0, 0))
   {
-    goto LABEL_7;
+    return 0;
   }
 
-  memset(v22, 0, sizeof(v22));
-  if (v18 == 30)
+  memset(v21, 0, sizeof(v21));
+  if (v17 == 30)
   {
-    LOWORD(v22[0]) = 7708;
-    *(v22 + 8) = *MEMORY[0x277D85EF0];
+    LOWORD(v21[0]) = 7708;
+    *(v21 + 8) = *MEMORY[0x277D85EF0];
   }
 
   else
   {
-    if (v18 != 2)
+    if (v17 != 2)
     {
-LABEL_7:
-      result = 0;
-      goto LABEL_8;
+      return 0;
     }
 
-    LOWORD(v22[0]) = 528;
-    DWORD1(v22[0]) = 16777343;
+    LOWORD(v21[0]) = 528;
+    DWORD1(v21[0]) = 16777343;
   }
 
   if (_newrpclib_pmap_wakeup())
   {
-    goto LABEL_7;
+    return 0;
   }
 
-  result = getrpcbind_handle(v7, v22, 3, &unset_retry_timeout_0, &unset_total_timeout_0);
+  result = getrpcbind_handle(v7, v21, 3, &unset_retry_timeout_0, &unset_total_timeout_0);
   if (result)
   {
-    v10 = result;
-    v14[0] = a2;
-    v14[1] = a3;
+    v9 = result;
+    v13[0] = a2;
+    v13[1] = a3;
     pw_name = &unk_2771E704D;
     if (a1)
     {
-      v12 = a1;
+      v11 = a1;
     }
 
     else
     {
-      v12 = &unk_2771E704D;
+      v11 = &unk_2771E704D;
     }
 
-    v15 = v12;
-    v16 = &unk_2771E704D;
-    v13 = geteuid();
-    if (!getpwuid_r(v13, &v20, v23, 0x100uLL, &v19) && v19)
+    v14 = v11;
+    v15 = &unk_2771E704D;
+    v12 = geteuid();
+    if (!getpwuid_r(v12, &v19, v22, 0x100uLL, &v18) && v18)
     {
-      pw_name = v19->pw_name;
+      pw_name = v18->pw_name;
     }
 
-    v17 = pw_name;
-    if (_newrpclib_rpcbproc_unset_3(v14, &v21, v10))
+    v16 = pw_name;
+    if (_newrpclib_rpcbproc_unset_3(v13, &v20, v9))
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    (*(*(v10 + 8) + 32))(v10);
-    result = v21;
+    (*(v9[1] + 32))(v9);
+    return v20;
   }
 
-LABEL_8:
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void _newrpclib_authnone_create_cold_1(int a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = 136316418;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/auth_none.c";
-  v4 = 1024;
-  v5 = 125;
-  v6 = 2080;
-  v7 = "_newrpclib_authnone_create";
-  v8 = 2080;
-  v9 = "pthread_once";
-  v10 = 67108960;
-  v11 = a1;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v2, 0x2Eu);
-  v1 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v1 = 136316418;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/auth_none.c";
+  v3 = 1024;
+  v4 = 125;
+  v5 = 2080;
+  v6 = "_newrpclib_authnone_create";
+  v7 = 2080;
+  v8 = "pthread_once";
+  v9 = 67108960;
+  v10 = a1;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v1, 0x2Eu);
 }
 
 void _newrpclib_authunix_create_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_authunix_create_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_authunix_create_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void _newrpclib_authunix_create_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void marshal_new_auth_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_authunix_create_default_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void _newrpclib_authunix_create_default_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void _newrpclib___rpc_createerr_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 136316418;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib___rpc_createerr_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 136316418;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void tsd_init_rpc_createerr_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 136316418;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _buf_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 136316418;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _buf_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 136316418;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void tsd_init_buf_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 136316418;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_clntraw_create_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = 136315906;
-  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/clnt_raw.c";
-  v3 = 1024;
-  v4 = 144;
-  v5 = 2080;
-  v6 = "_newrpclib_clntraw_create";
-  v7 = 2080;
-  v8 = "xdr_callhdr: Fatal header serialization error.";
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s\n", &v1, 0x26u);
-  v0 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v0 = 136315906;
+  v1 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/clnt_raw.c";
+  v2 = 1024;
+  v3 = 144;
+  v4 = 2080;
+  v5 = "_newrpclib_clntraw_create";
+  v6 = 2080;
+  v7 = "xdr_callhdr: Fatal header serialization error.";
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s\n", &v0, 0x26u);
 }
 
 void clntstrm_create_timeout_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void clntstrm_create_timeout_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void clntstrm_create_timeout_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void clntstrm_create_timeout_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void clntstrm_create_timeout_cold_5(unsigned __int8 *a1)
+void clntstrm_create_timeout_cold_5()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x24u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x24u);
 }
 
 void clntstrm_create_timeout_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void clntstrm_create_timeout_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void clntticotsord_create_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void clntticots_create_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_clnttcp_create_sa_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_clnttcp_create_timeout_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_clnttcp_create_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void clntticotsord_create_timeout_cold_1(uint64_t a1)
+void clntticotsord_create_timeout_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x22u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 void _newrpclib_rpc_control_cold_1(int a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = 136315906;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/rpc_control.c";
-  v4 = 1024;
-  v5 = 171;
-  v6 = 2080;
-  v7 = "_newrpclib_rpc_control";
-  v8 = 1024;
-  v9 = a1;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, Unknown rpc_control command (%d)\n\n", &v2, 0x22u);
-  v1 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/rpc_control.c";
+  v3 = 1024;
+  v4 = 171;
+  v5 = 2080;
+  v6 = "_newrpclib_rpc_control";
+  v7 = 1024;
+  v8 = a1;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, Unknown rpc_control command (%d)\n\n", &v1, 0x22u);
 }
 
 void _newrpclib__authenticate_cold_1()
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v4 = 136316418;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_auth.c";
-  v6 = 1024;
+  v10 = *MEMORY[0x277D85DE8];
+  __error();
+  v2 = 136316418;
+  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_auth.c";
+  v4 = 1024;
   OUTLINED_FUNCTION_0();
-  v7 = "_newrpclib__authenticate";
-  v8 = v1;
-  v9 = "pthread_getugid_np failed.";
-  v10 = 67108960;
-  v11 = v2;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v4, 0x2Eu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = "_newrpclib__authenticate";
+  v6 = v0;
+  v7 = "pthread_getugid_np failed.";
+  v8 = 67108960;
+  v9 = v1;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v2, 0x2Eu);
 }
 
 void _newrpclib__authenticate_cold_2()
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v4 = 136316418;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_auth.c";
-  v6 = 1024;
+  v10 = *MEMORY[0x277D85DE8];
+  __error();
+  v2 = 136316418;
+  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_auth.c";
+  v4 = 1024;
   OUTLINED_FUNCTION_0();
-  v7 = "_newrpclib__authenticate";
-  v8 = v1;
-  v9 = "pthread_setugid_np";
-  v10 = 67108960;
-  v11 = v2;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v4, 0x2Eu);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = "_newrpclib__authenticate";
+  v6 = v0;
+  v7 = "pthread_setugid_np";
+  v8 = 67108960;
+  v9 = v1;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v2, 0x2Eu);
 }
 
 void _newrpclib__authenticate_cold_3()
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = 136316162;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_auth.c";
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = 136316162;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_auth.c";
   OUTLINED_FUNCTION_0();
-  v6 = v0;
-  v7 = "_newrpclib__authenticate";
-  v8 = v0;
-  v9 = v1;
-  v10 = v0;
-  v11 = v2;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, Could not change credentials for uid = %d gid = %d\n", &v4, 0x28u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = v0;
+  v6 = "_newrpclib__authenticate";
+  v7 = v0;
+  v8 = v1;
+  v9 = v0;
+  v10 = v2;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, Could not change credentials for uid = %d gid = %d\n", &v3, 0x28u);
 }
 
 void add_working_xprt_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = 136315906;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_run.c";
-  v4 = 1024;
-  v5 = 137;
-  v6 = 2080;
-  v7 = "add_working_xprt";
-  v8 = 2048;
-  v9 = a1;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, xprt %p is already on workq\n", &v2, 0x26u);
-  v1 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_run.c";
+  v3 = 1024;
+  v4 = 137;
+  v5 = 2080;
+  v6 = "add_working_xprt";
+  v7 = 2048;
+  v8 = a1;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, xprt %p is already on workq\n", &v1, 0x26u);
 }
 
 void add_working_xprt_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = 136315650;
-  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_run.c";
-  v3 = 1024;
-  v4 = 138;
-  v5 = 2080;
-  v6 = "add_working_xprt";
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s aborted.\n", &v1, 0x1Cu);
-  v0 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v0 = 136315650;
+  v1 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_run.c";
+  v2 = 1024;
+  v3 = 138;
+  v4 = 2080;
+  v5 = "add_working_xprt";
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s aborted.\n", &v0, 0x1Cu);
 }
 
 void _newrpclib_svc_pollnext_cold_1()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = *__error();
-  v2 = 136316418;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_run.c";
-  v4 = 1024;
-  v5 = 227;
-  v6 = 2080;
-  v7 = "_newrpclib_svc_pollnext";
-  v8 = 2080;
-  v9 = "EXPECTED CONTROL PIPE, BUT DIDN'T GET IT";
-  v10 = 67108960;
-  v11 = v0;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v2, 0x2Eu);
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136316418;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_run.c";
+  v3 = 1024;
+  v4 = 227;
+  v5 = 2080;
+  v6 = "_newrpclib_svc_pollnext";
+  v7 = 2080;
+  v8 = "EXPECTED CONTROL PIPE, BUT DIDN'T GET IT";
+  v9 = 67108960;
+  v10 = v0;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v1, 0x2Eu);
 }
 
 void _newrpclib_registerrpc_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void _newrpclib_registerrpc_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x30u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_registerrpc_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_registerrpc_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void universal_cold_1(int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void universal_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void universal_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_svctcp_create_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_svctcp_create_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_svctcp_create_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_svctcp_create_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_svctcp_create_cold_5()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_svctcp_create_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_svctcp_create_cold_7()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcstrm_domain_create_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcstrm_domain_create_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcstrm_domain_create_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcticotsord_create_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcticotsord_create_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcticotsord_create_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcticotsord_create_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcticotsord_create_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void svcticotsord_create_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x28u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void svcticotsord_create_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void svcticotsord_create_cold_8()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcticotsord_create_cold_9()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void makefd_xprt_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void makefd_xprt_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void makefd_xprt_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void makefd_xprt_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void makefd_xprt_cold_5()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void rendezvous_request_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcstrm_destroy_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void readstrm_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void readstrm_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void writestrm_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcstrm_recv_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void svcstrm_recv_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcstrm_recv_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void svcstrm_reply_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_svcudp_bufcreate_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_svcudp_bufcreate_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_svcudp_bufcreate_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_svcudp_bufcreate_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_svcudp_bufcreate_cold_5()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_svcudp_bufcreate_cold_6()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcudp_recv_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcudp_recv_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcudp_reply_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svcudp_reply_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 136315906;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s\n", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s\n", v1, v2, v3, v4, v5);
 }
 
 void svcudp_reply_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 136315906;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s\n", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s\n", v1, v2, v3, v4, v5);
 }
 
 void svcudp_reply_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 136315906;
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s\n", v1, v2, v3, v4, 2u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s\n", v1, v2, v3, v4, v5);
 }
 
 void svcudp_destroy_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void svc_xprt_create_cold_1()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = *__error();
-  v2 = 136316418;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_xprt.c";
-  v4 = 1024;
-  v5 = 50;
-  v6 = 2080;
-  v7 = "svc_xprt_create";
-  v8 = 2080;
-  v9 = "mem_alloc failed";
-  v10 = 67108960;
-  v11 = v0;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v2, 0x2Eu);
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136316418;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_xprt.c";
+  v3 = 1024;
+  v4 = 50;
+  v5 = 2080;
+  v6 = "svc_xprt_create";
+  v7 = 2080;
+  v8 = "mem_alloc failed";
+  v9 = 67108960;
+  v10 = v0;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v1, 0x2Eu);
 }
 
 void svc_xprt_create_cold_2()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = *__error();
-  v2 = 136316418;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_xprt.c";
-  v4 = 1024;
-  v5 = 45;
-  v6 = 2080;
-  v7 = "svc_xprt_create";
-  v8 = 2080;
-  v9 = "mem_alloc failed";
-  v10 = 67108960;
-  v11 = v0;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v2, 0x2Eu);
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136316418;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/svc_xprt.c";
+  v3 = 1024;
+  v4 = 45;
+  v5 = 2080;
+  v6 = "svc_xprt_create";
+  v7 = 2080;
+  v8 = "mem_alloc failed";
+  v9 = 67108960;
+  v10 = v0;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v1, 0x2Eu);
 }
 
 void svc_oncrpc_start_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void svc_oncrpc_start_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void svc_oncrpc_start_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
-void svc_armxprt_cold_1(unsigned int *a1)
+void svc_armxprt_cold_1()
 {
-  OUTLINED_FUNCTION_9(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 void svc_armxprt_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void svc_armxprt_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void svc_rmxprt_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void wakeup_kq_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
-void svc_rearmxprt_cold_1(unsigned int *a1)
+void svc_rearmxprt_cold_1()
 {
-  OUTLINED_FUNCTION_9(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 void svc_rearmxprt_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
-void svc_rearmxprt_cold_3(unsigned int *a1)
+void svc_rearmxprt_cold_3()
 {
-  OUTLINED_FUNCTION_9(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
-void svc_unarmxprt_cold_1(unsigned int *a1)
+void svc_unarmxprt_cold_1()
 {
-  OUTLINED_FUNCTION_9(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_9(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
 }
 
 void svc_unarmxprt_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void _newrpclib_svc_enable_localaddr_cold_1(uint64_t **a1)
+void _newrpclib_svc_enable_localaddr_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = **a1;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x26u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
 }
 
 void _newrpclib_svc_enable_localaddr_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Eu);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Eu);
 }
 
 void _newrpclib_svc_enable_localaddr_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x26u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _newrpclib_xdr_array_cold_1()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = *__error();
-  v2 = 136316418;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/xdr_array.c";
-  v4 = 1024;
-  v5 = 122;
-  v6 = 2080;
-  v7 = "_newrpclib_xdr_array";
-  v8 = 2080;
-  v9 = "mem_alloc failed";
-  v10 = 67108960;
-  v11 = v0;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v2, 0x2Eu);
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136316418;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/xdr_array.c";
+  v3 = 1024;
+  v4 = 122;
+  v5 = 2080;
+  v6 = "_newrpclib_xdr_array";
+  v7 = 2080;
+  v8 = "mem_alloc failed";
+  v9 = 67108960;
+  v10 = v0;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v1, 0x2Eu);
 }
 
 void _newrpclib_xdrrec_create_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_xdrrec_create_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_xdrrec_create_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 BOOL xdrrec_isrecordstart_cold_1(uint64_t a1, int a2, int *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     if (*(a1 + 100))
@@ -3341,15 +3059,15 @@ BOOL xdrrec_isrecordstart_cold_1(uint64_t a1, int a2, int *a3)
     }
 
     *buf = 136316162;
-    v11 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/xdr_rec.c";
-    v12 = 1024;
-    v13 = 457;
-    v14 = 2080;
-    v15 = "xdrrec_isrecordstart";
-    v16 = 1024;
-    v17 = a2;
-    v18 = 2080;
-    v19 = v6;
+    v10 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/xdr_rec.c";
+    v11 = 1024;
+    v12 = 457;
+    v13 = 2080;
+    v14 = "xdrrec_isrecordstart";
+    v15 = 1024;
+    v16 = a2;
+    v17 = 2080;
+    v18 = v6;
     _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, Exptected to be at record start. Fbtbc = %d last fragment = %s\n\n", buf, 0x2Cu);
     a2 = *a3;
   }
@@ -3365,101 +3083,92 @@ BOOL xdrrec_isrecordstart_cold_1(uint64_t a1, int a2, int *a3)
   }
 
   warnx("Exptected to be at record start. Fbtbc = %d last fragment = %s\n\n", a2, v7);
-  result = *a3 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return *a3 == 0;
 }
 
 void _newrpclib_xdr_reference_cold_1()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = *__error();
-  v2 = 136316418;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/xdr_reference.c";
-  v4 = 1024;
-  v5 = 104;
-  v6 = 2080;
-  v7 = "_newrpclib_xdr_reference";
-  v8 = 2080;
-  v9 = "mem_alloc failed";
-  v10 = 67108960;
-  v11 = v0;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v2, 0x2Eu);
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136316418;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/xdr_reference.c";
+  v3 = 1024;
+  v4 = 104;
+  v5 = 2080;
+  v6 = "_newrpclib_xdr_reference";
+  v7 = 2080;
+  v8 = "mem_alloc failed";
+  v9 = 67108960;
+  v10 = v0;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v1, 0x2Eu);
 }
 
 void _newrpclib_xdr_bytes_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void xdr_vmbytes_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void _newrpclib_xdr_string_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
+  __error();
+  v5 = 136316418;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v1, "%s:%d in %s, %s returned with %m (%d)\n", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_0(&dword_2771CF000, MEMORY[0x277D86220], v0, "%s:%d in %s, %s returned with %m (%d)\n", v1, v2, v3, v4, v5);
 }
 
 void recvfrom_and_to_cold_1()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = *__error();
-  v2 = 136316418;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/rpc_inet.c";
-  v4 = 1024;
-  v5 = 557;
-  v6 = 2080;
-  v7 = "recvfrom_and_to";
-  v8 = 2080;
-  v9 = "Could not get socket name";
-  v10 = 67108960;
-  v11 = v0;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v2, 0x2Eu);
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136316418;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/rpc_inet.c";
+  v3 = 1024;
+  v4 = 557;
+  v5 = 2080;
+  v6 = "recvfrom_and_to";
+  v7 = 2080;
+  v8 = "Could not get socket name";
+  v9 = 67108960;
+  v10 = v0;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, %s returned with %m (%d)\n", &v1, 0x2Eu);
 }
 
 void cache_init_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = 136315650;
-  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/rpc_inet.c";
-  v3 = 1024;
-  v4 = 385;
-  v5 = 2080;
-  v6 = "cache_init";
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s aborted.\n", &v1, 0x1Cu);
-  v0 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v0 = 136315650;
+  v1 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/rpc_inet.c";
+  v2 = 1024;
+  v3 = 385;
+  v4 = 2080;
+  v5 = "cache_init";
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s aborted.\n", &v0, 0x1Cu);
 }
 
 void _newrpclib_rpcb_getaddr_timeout_cold_1(unsigned __int8 a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = 136315906;
-  v3 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/rpcbind.c";
-  v4 = 1024;
-  v5 = 291;
-  v6 = 2080;
-  v7 = "_newrpclib_rpcb_getaddr_timeout";
-  v8 = 1024;
-  v9 = a1;
-  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, Unsupported address family %d\n", &v2, 0x22u);
-  v1 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "/Library/Caches/com.apple.xbs/Sources/oncrpc/Oncrpc/rpcbind.c";
+  v3 = 1024;
+  v4 = 291;
+  v5 = 2080;
+  v6 = "_newrpclib_rpcb_getaddr_timeout";
+  v7 = 1024;
+  v8 = a1;
+  _os_log_error_impl(&dword_2771CF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s:%d in %s, Unsupported address family %d\n", &v1, 0x22u);
 }

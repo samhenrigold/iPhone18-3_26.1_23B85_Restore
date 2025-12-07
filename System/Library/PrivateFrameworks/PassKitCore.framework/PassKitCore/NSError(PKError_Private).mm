@@ -7,7 +7,7 @@
 - (id)pk_paymentErrorWithLocalizedDescription
 {
   domain = [self domain];
-  if (([domain isEqualToString:@"PKPaymentErrorDomain"] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(domain) & 1) == 0)
   {
 
     goto LABEL_6;
@@ -92,16 +92,16 @@ LABEL_23:
   }
 
   v16 = [v9 objectForKey:@"PKPaymentErrorContactField"];
-  v17 = [v16 isEqualToString:@"phone"];
+  isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-  if (v17)
+  if (isEqualToString)
   {
     v14 = @"IN_APP_PAYMENT_CONTACT_ITEM_INCORRECT_PHONE";
     goto LABEL_36;
   }
 
   v18 = [v9 objectForKey:@"PKPaymentErrorContactField"];
-  v19 = [v18 isEqualToString:@"email"];
+  v19 = objc_msgSend_isEqualToString_(v18);
 
   if (v19)
   {
@@ -110,7 +110,7 @@ LABEL_23:
   }
 
   v20 = [v9 objectForKey:@"PKPaymentErrorContactField"];
-  v21 = [v20 isEqualToString:@"post"];
+  v21 = objc_msgSend_isEqualToString_(v20);
 
   if (v21)
   {
@@ -119,7 +119,7 @@ LABEL_23:
   }
 
   v22 = [v9 objectForKey:@"PKPaymentErrorContactField"];
-  v23 = [v22 isEqualToString:@"name"];
+  v23 = objc_msgSend_isEqualToString_(v22);
 
   if (v23)
   {
@@ -128,7 +128,7 @@ LABEL_23:
   }
 
   v24 = [v9 objectForKey:@"PKPaymentErrorContactField"];
-  v25 = [v24 isEqualToString:@"phoneticName"];
+  v25 = objc_msgSend_isEqualToString_(v24);
 
   if (v25)
   {
@@ -137,7 +137,7 @@ LABEL_23:
   }
 
   v26 = [v9 objectForKey:@"PKPaymentErrorContactField"];
-  v27 = [v26 isEqualToString:@"contactInfo"];
+  v27 = objc_msgSend_isEqualToString_(v26);
 
   if (v27)
   {

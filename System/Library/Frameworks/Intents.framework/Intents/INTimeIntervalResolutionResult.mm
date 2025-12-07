@@ -76,7 +76,7 @@ LABEL_11:
 
 - (id)_intentSlotValueForObject:(id)object slotDescription:(id)description
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   descriptionCopy = description;
   v7 = objc_alloc_init(_INPBIntentSlotValue);
@@ -86,31 +86,31 @@ LABEL_11:
     if ([descriptionCopy valueStyle] == 3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && (objc_msgSend(objectCopy, "firstObject"), v8 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v8, (isKindOfClass & 1) != 0))
     {
       v10 = objectCopy;
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
-      v11 = [v10 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v37;
+        v13 = *v36;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v37 != v13)
+            if (*v36 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = INIntentSlotValueTransformToDouble(*(*(&v36 + 1) + 8 * i));
+            v15 = INIntentSlotValueTransformToDouble(*(*(&v35 + 1) + 8 * i));
             values = [v15 values];
             firstObject = [values firstObject];
             [(_INPBIntentSlotValue *)v7 addPayloadDoubleValue:firstObject];
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v12);
@@ -148,30 +148,30 @@ LABEL_11:
         {
           v20 = objectCopy;
           v21 = objc_alloc_init(_INPBDoubleList);
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
           v22 = v20;
-          v23 = [v22 countByEnumeratingWithState:&v32 objects:v40 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
           if (v23)
           {
             v24 = v23;
-            v25 = *v33;
+            v25 = *v32;
             do
             {
               for (j = 0; j != v24; ++j)
               {
-                if (*v33 != v25)
+                if (*v32 != v25)
                 {
                   objc_enumerationMutation(v22);
                 }
 
-                v27 = INIntentSlotValueTransformToDouble(*(*(&v32 + 1) + 8 * j));
-                [(_INPBDoubleList *)v21 addDataString:v27, v32];
+                v27 = INIntentSlotValueTransformToDouble(*(*(&v31 + 1) + 8 * j));
+                [(_INPBDoubleList *)v21 addDataString:v27, v31];
               }
 
-              v24 = [v22 countByEnumeratingWithState:&v32 objects:v40 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v31 objects:v39 count:16];
             }
 
             while (v24);
@@ -198,8 +198,6 @@ LABEL_11:
   }
 
 LABEL_33:
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

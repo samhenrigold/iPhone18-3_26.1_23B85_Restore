@@ -31,7 +31,7 @@
   if (v5)
   {
     scheme = [lCopy scheme];
-    if ([scheme isEqualToString:@"https"])
+    if (objc_msgSend_isEqualToString_(scheme))
     {
       v7 = [lCopy copy];
       url = v5->_url;
@@ -61,24 +61,25 @@
   if (v10)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v11 = SUUIMobileCoreServicesFramework();
-      v12 = *SUUIWeakLinkedSymbolForString("LSReferrerURLKey", v11);
-      if (v12)
+      v13 = SUUIMobileCoreServicesFramework(isKindOfClass, v12);
+      v14 = *SUUIWeakLinkedSymbolForString("LSReferrerURLKey", v13);
+      if (v14)
       {
-        v13 = [annotationCopy objectForKey:v12];
+        v15 = [annotationCopy objectForKey:v14];
       }
 
       else
       {
-        v13 = 0;
+        v15 = 0;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [(SUUIURL *)v10 setReferrerURLString:v13];
+        [(SUUIURL *)v10 setReferrerURLString:v15];
       }
 
       else
@@ -86,7 +87,7 @@
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          absoluteString = [v13 absoluteString];
+          absoluteString = [v15 absoluteString];
           [(SUUIURL *)v10 setReferrerURLString:absoluteString];
         }
       }
@@ -202,7 +203,7 @@
     {
       v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
       v10 = [_queryDictionary objectForKey:@"action"];
-      v11 = [v10 isEqualToString:@"search"];
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
 
       v29 = 0;
       v30 = &v29;
@@ -212,7 +213,7 @@
       v34 = 0;
       v12 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{@"action", @"bagKey", @"x-apple-serial-number", 0}];
       v13 = v12;
-      if (v11)
+      if (isEqualToString)
       {
         [v12 addObject:@"libraryid"];
       }
@@ -221,7 +222,7 @@
       v23[1] = 3221225472;
       v23[2] = __36__SUUIURL_newURLRequestWithBaseURL___block_invoke;
       v23[3] = &unk_2798F6468;
-      v28 = v11;
+      v28 = isEqualToString;
       v27 = &v29;
       v14 = v13;
       v24 = v14;
@@ -244,7 +245,7 @@
         [v15 addEntriesFromDictionary:v17];
       }
 
-      if (v11)
+      if (isEqualToString)
       {
         v18 = [v15 objectForKey:@"string"];
         if (v18)
@@ -283,7 +284,7 @@ void __36__SUUIURL_newURLRequestWithBaseURL___block_invoke(uint64_t a1, void *a2
 {
   v7 = a2;
   v5 = a3;
-  if (*(a1 + 64) == 1 && (([v7 isEqualToString:@"kind"] & 1) != 0 || objc_msgSend(v7, "isEqualToString:", @"entity")))
+  if (*(a1 + 64) == 1 && ((objc_msgSend_isEqualToString_(v7) & 1) != 0 || objc_msgSend_isEqualToString_(v7)))
   {
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), a3);
   }
@@ -346,7 +347,7 @@ void __21__SUUIURL_searchTerm__block_invoke(uint64_t a1, void *a2, void *a3, _BY
 {
   v14 = a2;
   v7 = a3;
-  if ([v14 isEqualToString:@"term"])
+  if (objc_msgSend_isEqualToString_(v14))
   {
     v8 = [v7 copy];
     v9 = *(*(a1 + 32) + 8);
@@ -356,7 +357,7 @@ void __21__SUUIURL_searchTerm__block_invoke(uint64_t a1, void *a2, void *a3, _BY
     *a4 = 1;
   }
 
-  else if ([v14 rangeOfString:@"term" options:13] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v14, "isEqualToString:", @"string"))
+  else if ([v14 rangeOfString:@"term" options:13] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend_isEqualToString_(v14))
   {
     v11 = [v7 copy];
     v12 = *(*(a1 + 32) + 8);
@@ -374,9 +375,9 @@ void __21__SUUIURL_searchTerm__block_invoke(uint64_t a1, void *a2, void *a3, _BY
   {
     actionString = [(SUUIURL *)self actionString];
     _searchURLBagKey = @"library-link";
-    if (([actionString isEqualToString:@"library-link"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(actionString) & 1) == 0)
     {
-      if ([actionString isEqualToString:@"search"])
+      if (objc_msgSend_isEqualToString_(actionString))
       {
         _searchURLBagKey = [(SUUIURL *)self _searchURLBagKey];
       }
@@ -384,15 +385,15 @@ void __21__SUUIURL_searchTerm__block_invoke(uint64_t a1, void *a2, void *a3, _BY
       else
       {
         _searchURLBagKey = @"newsstand";
-        if (([actionString isEqualToString:@"newsstand"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(actionString) & 1) == 0)
         {
           _searchURLBagKey = @"passbook";
-          if (([actionString isEqualToString:@"passbook"] & 1) == 0)
+          if ((objc_msgSend_isEqualToString_(actionString) & 1) == 0)
           {
             _searchURLBagKey = @"ringtones";
-            if (([actionString isEqualToString:@"ringtones"] & 1) == 0)
+            if ((objc_msgSend_isEqualToString_(actionString) & 1) == 0)
             {
-              if ([actionString isEqualToString:@"accessory-lookup"])
+              if (objc_msgSend_isEqualToString_(actionString))
               {
                 _searchURLBagKey = @"p2-accessory-room";
               }
@@ -489,7 +490,7 @@ void __21__SUUIURL_searchTerm__block_invoke(uint64_t a1, void *a2, void *a3, _BY
 - (id)_searchGroupForSearchKind:(id)kind
 {
   kindCopy = kind;
-  if (([(__CFString *)kindCopy isEqualToString:@"epubBook"]& 1) != 0 || ([(__CFString *)kindCopy isEqualToString:@"metaEbook"]& 1) != 0 || ([(__CFString *)kindCopy isEqualToString:@"ibook"]& 1) != 0 || ([(__CFString *)kindCopy isEqualToString:@"ibookTextbook"]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(kindCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(kindCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(kindCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(kindCopy))
   {
     v4 = @"ebook";
 LABEL_6:
@@ -497,44 +498,44 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if (([(__CFString *)kindCopy isEqualToString:@"book"]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(kindCopy))
   {
     v4 = @"audiobook";
     goto LABEL_6;
   }
 
-  if (([(__CFString *)kindCopy isEqualToString:@"iMix"]& 1) != 0 || ([(__CFString *)kindCopy isEqualToString:@"itunesMix"]& 1) != 0 || ([(__CFString *)kindCopy isEqualToString:@"mix"]& 1) != 0 || ([(__CFString *)kindCopy isEqualToString:@"preorderAlbum"]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(kindCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(kindCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(kindCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(kindCopy))
   {
     v4 = @"album";
     goto LABEL_6;
   }
 
-  if (([(__CFString *)kindCopy isEqualToString:@"shortFilm"]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(kindCopy))
   {
     v4 = @"movie";
     goto LABEL_6;
   }
 
-  if (([(__CFString *)kindCopy isEqualToString:@"tvEpisode"]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(kindCopy))
   {
     v4 = @"tvSeason";
     goto LABEL_6;
   }
 
-  if (([(__CFString *)kindCopy isEqualToString:@"tone"]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(kindCopy))
   {
     v4 = @"ringtone";
     goto LABEL_6;
   }
 
-  if (([(__CFString *)kindCopy isEqualToString:@"course"]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(kindCopy))
   {
     v4 = @"iTunesUCourse";
     goto LABEL_6;
   }
 
   v4 = kindCopy;
-  if ([(__CFString *)kindCopy isEqualToString:@"any-audio"])
+  if (objc_msgSend_isEqualToString_(kindCopy))
   {
     v4 = 0;
     goto LABEL_6;
@@ -559,27 +560,27 @@ LABEL_7:
   mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
-  if (![bundleIdentifier isEqualToString:@"com.apple.AppStore"])
+  if (!objc_msgSend_isEqualToString_(bundleIdentifier))
   {
-    if ([bundleIdentifier isEqualToString:@"com.apple.MobileStore"])
+    if (objc_msgSend_isEqualToString_(bundleIdentifier))
     {
       _appStoreSearchURLBagKey = @"p2-music-search";
       goto LABEL_29;
     }
 
-    if ([bundleIdentifier isEqualToString:@"com.apple.iBooks"])
+    if (objc_msgSend_isEqualToString_(bundleIdentifier))
     {
       _appStoreSearchURLBagKey = @"p2-book-search";
       goto LABEL_29;
     }
 
-    if ([bundleIdentifier isEqualToString:@"com.apple.podcasts"])
+    if (objc_msgSend_isEqualToString_(bundleIdentifier))
     {
       _appStoreSearchURLBagKey = @"p2-podcasts-search";
       goto LABEL_29;
     }
 
-    if ([bundleIdentifier isEqualToString:@"com.apple.itunesu"])
+    if (objc_msgSend_isEqualToString_(bundleIdentifier))
     {
       _appStoreSearchURLBagKey = @"p2-itunesu-search";
       goto LABEL_29;
@@ -588,13 +589,13 @@ LABEL_7:
     _queryDictionary = [(SUUIURL *)self _queryDictionary];
     v9 = [_queryDictionary objectForKey:@"kind"];
 
-    v10 = SUUIItemKindForString(v9);
+    v11 = SUUIItemKindForString(v9, v10);
     _appStoreSearchURLBagKey = 0;
-    if (v10 > 3)
+    if (v11 > 3)
     {
-      if (v10 <= 0x11)
+      if (v11 <= 0x11)
       {
-        if (((1 << v10) & 0x1E9C0) != 0)
+        if (((1 << v11) & 0x1E9C0) != 0)
         {
 LABEL_16:
           _appStoreSearchURLBagKey = @"p2-music-search";
@@ -603,20 +604,20 @@ LABEL_28:
           goto LABEL_29;
         }
 
-        if (((1 << v10) & 0x21020) != 0)
+        if (((1 << v11) & 0x21020) != 0)
         {
           _appStoreSearchURLBagKey = [(SUUIURL *)self _appStoreSearchURLBagKey];
           goto LABEL_28;
         }
 
-        if (((1 << v10) & 0x600) != 0)
+        if (((1 << v11) & 0x600) != 0)
         {
           _appStoreSearchURLBagKey = @"p2-podcasts-search";
           goto LABEL_28;
         }
       }
 
-      if (v10 == 4)
+      if (v11 == 4)
       {
         _appStoreSearchURLBagKey = @"p2-itunesu-search";
       }
@@ -624,15 +625,15 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    if (v10 != 1)
+    if (v11 != 1)
     {
-      if (v10 == 2)
+      if (v11 == 2)
       {
         _appStoreSearchURLBagKey = @"p2-book-search";
         goto LABEL_28;
       }
 
-      if (v10 != 3)
+      if (v11 != 3)
       {
         goto LABEL_28;
       }

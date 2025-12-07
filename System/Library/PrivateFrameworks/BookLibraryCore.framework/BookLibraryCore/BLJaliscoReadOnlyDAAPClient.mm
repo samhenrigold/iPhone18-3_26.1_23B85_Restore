@@ -11,6 +11,7 @@
 - (id)fetchServerItemsForStoreIDs:(id)ds andDSIDS:(id)s;
 - (id)p_allItemsFetchRequestForDSIDs:(id)ds matchingSearchString:(id)string isExplicitRestricted:(BOOL)restricted;
 - (id)p_fetchRequestForStoreIDs:(id)ds dsids:(id)dsids;
+- (id)p_itemsFetchRequestIncludingHiddenItems:(BOOL)items dsids:(id)dsids;
 - (id)p_persistentStoreDirectory;
 - (id)p_persistentStoreFullPathAtSharediBooksLocation;
 - (id)predicateForItems:(BOOL)items dsids:(id)dsids;
@@ -260,7 +261,7 @@ LABEL_6:
 
 - (BOOL)_setupCoreDataStack
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 pathForResource:@"BKPurchases" ofType:@"momd"];
 
@@ -276,21 +277,21 @@ LABEL_6:
 
   if (!self->_model)
   {
-    v24 = objc_alloc(MEMORY[0x277CBEAD8]);
-    v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to load model %@", v5];
-    v26 = [v24 initWithName:@"Nil jalisco model" reason:v25 userInfo:0];
-    v27 = v26;
+    v23 = objc_alloc(MEMORY[0x277CBEAD8]);
+    v24 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to load model %@", v5];
+    v25 = [v23 initWithName:@"Nil jalisco model" reason:v24 userInfo:0];
+    v26 = v25;
 
-    objc_exception_throw(v26);
+    objc_exception_throw(v25);
   }
 
   v8 = *MEMORY[0x277CBE240];
-  v39[0] = *MEMORY[0x277CBE2B0];
-  v39[1] = v8;
+  v38[0] = *MEMORY[0x277CBE2B0];
+  v38[1] = v8;
   v9 = *MEMORY[0x277CCA1B8];
-  v40[0] = MEMORY[0x277CBEC38];
-  v40[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
+  v39[0] = MEMORY[0x277CBEC38];
+  v39[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
   v11 = MEMORY[0x277CBEBC0];
   p_persistentStoreFullPathAtSharediBooksLocation = [(BLJaliscoReadOnlyDAAPClient *)self p_persistentStoreFullPathAtSharediBooksLocation];
   v13 = [v11 fileURLWithPath:p_persistentStoreFullPathAtSharediBooksLocation isDirectory:0];
@@ -301,24 +302,24 @@ LABEL_6:
 
   v16 = self->_psc;
   v17 = *MEMORY[0x277CBE2E8];
-  v36[0] = 0;
-  v18 = [(NSPersistentStoreCoordinator *)v16 addPersistentStoreWithType:v17 configuration:0 URL:v13 options:v10 error:v36];
-  v19 = v36[0];
+  v35[0] = 0;
+  v18 = [(NSPersistentStoreCoordinator *)v16 addPersistentStoreWithType:v17 configuration:0 URL:v13 options:v10 error:v35];
+  v19 = v35[0];
   if (!v18)
   {
-    v28 = objc_alloc(MEMORY[0x277CBEAD8]);
-    v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create a moc for the persistent store %@", v13];
-    v37 = *MEMORY[0x277CCA7E8];
+    v27 = objc_alloc(MEMORY[0x277CBEAD8]);
+    v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create a moc for the persistent store %@", v13];
+    v36 = *MEMORY[0x277CCA7E8];
     null = v19;
     if (!v19)
     {
       null = [MEMORY[0x277CBEB68] null];
     }
 
-    v38 = null;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-    v32 = [v28 initWithName:@"Nil jalisco persistentStore" reason:v29 userInfo:v31];
-    v33 = v32;
+    v37 = null;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+    v31 = [v27 initWithName:@"Nil jalisco persistentStore" reason:v28 userInfo:v30];
+    v32 = v31;
 
     if (!v19)
     {
@@ -326,7 +327,7 @@ LABEL_6:
 
 LABEL_13:
 
-    objc_exception_throw(v32);
+    objc_exception_throw(v31);
   }
 
   v20 = [objc_alloc(MEMORY[0x277CBE440]) initWithConcurrencyType:1];
@@ -338,16 +339,14 @@ LABEL_13:
   [(NSManagedObjectContext *)self->_moc setMergePolicy:*MEMORY[0x277CBE1D0]];
   if (!self->_moc)
   {
-    v34 = objc_alloc(MEMORY[0x277CBEAD8]);
-    v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create a moc for the persistent store %@", v13];
-    v32 = [v34 initWithName:@"Nil jalisco moc" reason:v29 userInfo:0];
-    v35 = v32;
+    v33 = objc_alloc(MEMORY[0x277CBEAD8]);
+    v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create a moc for the persistent store %@", v13];
+    v31 = [v33 initWithName:@"Nil jalisco moc" reason:v28 userInfo:0];
+    v34 = v31;
     goto LABEL_13;
   }
 
-  result = 1;
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 - (id)p_allItemsFetchRequestForDSIDs:(id)ds matchingSearchString:(id)string isExplicitRestricted:(BOOL)restricted
@@ -454,6 +453,31 @@ LABEL_13:
   return v12;
 }
 
+- (id)p_itemsFetchRequestIncludingHiddenItems:(BOOL)items dsids:(id)dsids
+{
+  itemsCopy = items;
+  v6 = MEMORY[0x277CBE428];
+  dsidsCopy = dsids;
+  v8 = objc_opt_class();
+  v9 = NSStringFromClass(v8);
+  v10 = [v6 fetchRequestWithEntityName:v9];
+
+  v11 = [(BLJaliscoReadOnlyDAAPClient *)self predicateForItems:itemsCopy dsids:dsidsCopy];
+
+  [v10 setPredicate:v11];
+  currentAccountDSID = [(BLJaliscoReadOnlyDAAPClient *)self currentAccountDSID];
+
+  if (currentAccountDSID)
+  {
+    v13 = MEMORY[0x277CBEA60];
+    v14 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"artist" ascending:1];
+    v15 = [v13 arrayWithObject:v14];
+    [v10 setSortDescriptors:v15];
+  }
+
+  return v10;
+}
+
 - (id)_itemsFetchRequestForDSIDs:(id)ds excludeStoreIDs:(id)iDs isExplicitRestricted:(BOOL)restricted
 {
   restrictedCopy = restricted;
@@ -516,14 +540,14 @@ LABEL_13:
 
 - (BOOL)p_createPersistentDirectoryIfNeeded
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   p_persistentStoreDirectory = [(BLJaliscoReadOnlyDAAPClient *)self p_persistentStoreDirectory];
   v3 = [MEMORY[0x277CBEBC0] fileURLWithPath:p_persistentStoreDirectory isDirectory:1];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   relativePath = [v3 relativePath];
-  v11 = 0;
-  v6 = [defaultManager createDirectoryAtPath:relativePath withIntermediateDirectories:1 attributes:0 error:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [defaultManager createDirectoryAtPath:relativePath withIntermediateDirectories:1 attributes:0 error:&v10];
+  v7 = v10;
 
   if (v7)
   {
@@ -531,14 +555,13 @@ LABEL_13:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v13 = v3;
-      v14 = 2112;
-      v15 = v7;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v7;
       _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_ERROR, "BLJaliscoReadOnlyDAAPClient: Failed to create a persistent store directory at URL %@. Error: %@", buf, 0x16u);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

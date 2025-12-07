@@ -996,24 +996,24 @@ LABEL_19:
   [v25 _performBlockAfterCATransactionCommits:v27];
 }
 
-uint64_t __88__UISwitchModernVisualElement__handleLongPressWithGestureLocationInBounds_gestureState___block_invoke(uint64_t result)
+id *__88__UISwitchModernVisualElement__handleLongPressWithGestureLocationInBounds_gestureState___block_invoke(id *result)
 {
   v1 = result;
   if (*(result + 48) == 1)
   {
     CFRunLoopRunInMode(*MEMORY[0x1E695E8D0], 0.0, 1u);
-    result = [*(v1 + 32) applyPendingDisplayedOnValueAndSendActions];
+    result = [v1[4] applyPendingDisplayedOnValueAndSendActions];
   }
 
   if (*(v1 + 49) == 1)
   {
     if (*(v1 + 50) == 1)
     {
-      v2 = [*(v1 + 40) switchControl];
-      [v2 visualElementHadTouchUpInside:*(v1 + 40)];
+      v2 = [v1[5] switchControl];
+      [v2 visualElementHadTouchUpInside:v1[5]];
     }
 
-    v3 = *(v1 + 32);
+    v3 = v1[4];
 
     return [v3 reset];
   }
@@ -1040,7 +1040,7 @@ uint64_t __88__UISwitchModernVisualElement__handleLongPressWithGestureLocationIn
   [(UISwitchModernVisualElement *)self _handlePanWithGestureLocationInBounds:state horizontalTranslation:v13 gestureState:v8 resetPanTranslationBlock:v10, v6];
 }
 
-uint64_t __42__UISwitchModernVisualElement__handlePan___block_invoke(uint64_t a1)
+void *__42__UISwitchModernVisualElement__handlePan___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 40) translationInView:*(a1 + 32)];
   *(*(a1 + 32) + 544) = v3;
@@ -1132,7 +1132,7 @@ LABEL_10:
 - (void)setOnTintColor:(id)color
 {
   colorCopy = color;
-  if (![(UIColor *)self->_onTintColor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_onTintColor) & 1) == 0)
   {
     objc_storeStrong(&self->_onTintColor, color);
     switchWellOnImageView = self->_switchWellOnImageView;
@@ -1153,7 +1153,7 @@ LABEL_10:
 - (void)setTintColor:(id)color
 {
   colorCopy = color;
-  if (![(UIColor *)self->_tintColor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_tintColor) & 1) == 0)
   {
     objc_storeStrong(&self->_tintColor, color);
     switchWellOffImageView = self->_switchWellOffImageView;
@@ -1167,7 +1167,7 @@ LABEL_10:
 - (void)setThumbTintColor:(id)color
 {
   colorCopy = color;
-  if (![(UIColor *)self->_thumbTintColor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_thumbTintColor) & 1) == 0)
   {
     objc_storeStrong(&self->_thumbTintColor, color);
   }
@@ -1198,7 +1198,7 @@ LABEL_9:
 - (void)setOnImage:(id)image
 {
   imageCopy = image;
-  if (![(UIImage *)self->_onImage isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_onImage) & 1) == 0)
   {
     objc_storeStrong(&self->_onImage, image);
   }
@@ -1209,7 +1209,7 @@ LABEL_9:
 - (void)setOffImage:(id)image
 {
   imageCopy = image;
-  if (![(UIImage *)self->_offImage isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_offImage) & 1) == 0)
   {
     objc_storeStrong(&self->_offImage, image);
   }
@@ -1652,9 +1652,9 @@ void __68__UISwitchModernVisualElement__transitionKnobToPressed_on_animated___bl
   }
   v6 = ;
   v4 = [*(*(a1 + 32) + 512) tintColor];
-  v5 = [v4 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v4);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     [*(*(a1 + 32) + 512) setTintColor:v6];
   }

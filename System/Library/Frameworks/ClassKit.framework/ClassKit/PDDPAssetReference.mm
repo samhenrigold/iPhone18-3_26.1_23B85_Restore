@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)parentEntityTypeAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsParentEntityType:(id)type;
 - (int)StringAsType:(id)type;
 - (int)parentEntityType;
@@ -47,6 +49,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100205C10 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsType:(id)type
@@ -106,6 +123,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)parentEntityTypeAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100205C30 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsParentEntityType:(id)type
@@ -417,7 +449,6 @@
   toCopy = to;
   if ((*&self->_has & 0x10) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 
@@ -488,7 +519,6 @@
 
   if ((*&self->_has & 0x20) != 0)
   {
-    isOriginal = self->_isOriginal;
     PBDataWriterWriteBOOLField();
   }
 
@@ -499,7 +529,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    fileSizeBytes = self->_fileSizeBytes;
     PBDataWriterWriteInt64Field();
   }
 
@@ -511,14 +540,12 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    displayOrder = self->_displayOrder;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    parentEntityType = self->_parentEntityType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -534,37 +561,35 @@
 
   if (*&self->_has)
   {
-    durationSeconds = self->_durationSeconds;
     PBDataWriterWriteDoubleField();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v12 = self->_classIds;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v13)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_classIds;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v14 = v13;
-    v15 = *v19;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v14; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v15)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v6);
         }
 
-        v17 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v14);
+    while (v8);
   }
 
   if (self->_dateCreated)
@@ -908,7 +933,6 @@
     goto LABEL_77;
   }
 
-  v5 = *(equalCopy + 212);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 212) & 0x10) == 0 || self->_type != *(equalCopy + 48))
@@ -1037,7 +1061,7 @@
   }
 
   has = self->_has;
-  v20 = *(equalCopy + 212);
+  v19 = *(equalCopy + 212);
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 212) & 0x20) == 0)
@@ -1045,7 +1069,6 @@
       goto LABEL_77;
     }
 
-    v22 = *(equalCopy + 208);
     if (self->_isOriginal)
     {
       if ((*(equalCopy + 208) & 1) == 0)
@@ -1074,18 +1097,18 @@
     }
 
     has = self->_has;
-    v20 = *(equalCopy + 212);
+    v19 = *(equalCopy + 212);
   }
 
   if ((has & 2) != 0)
   {
-    if ((v20 & 2) == 0 || self->_fileSizeBytes != *(equalCopy + 2))
+    if ((v19 & 2) == 0 || self->_fileSizeBytes != *(equalCopy + 2))
     {
       goto LABEL_77;
     }
   }
 
-  else if ((v20 & 2) != 0)
+  else if ((v19 & 2) != 0)
   {
     goto LABEL_77;
   }
@@ -1096,38 +1119,38 @@
     if ([(NSString *)fileUttype isEqual:?])
     {
       has = self->_has;
-      v20 = *(equalCopy + 212);
+      v19 = *(equalCopy + 212);
       goto LABEL_50;
     }
 
 LABEL_77:
-    v30 = 0;
+    v27 = 0;
     goto LABEL_78;
   }
 
 LABEL_50:
   if ((has & 4) != 0)
   {
-    if ((v20 & 4) == 0 || self->_displayOrder != *(equalCopy + 26))
+    if ((v19 & 4) == 0 || self->_displayOrder != *(equalCopy + 26))
     {
       goto LABEL_77;
     }
   }
 
-  else if ((v20 & 4) != 0)
+  else if ((v19 & 4) != 0)
   {
     goto LABEL_77;
   }
 
   if ((has & 8) != 0)
   {
-    if ((v20 & 8) == 0 || self->_parentEntityType != *(equalCopy + 42))
+    if ((v19 & 8) == 0 || self->_parentEntityType != *(equalCopy + 42))
     {
       goto LABEL_77;
     }
   }
 
-  else if ((v20 & 8) != 0)
+  else if ((v19 & 8) != 0)
   {
     goto LABEL_77;
   }
@@ -1147,7 +1170,6 @@ LABEL_50:
     }
   }
 
-  v26 = *(equalCopy + 212);
   if (*&self->_has)
   {
     if ((*(equalCopy + 212) & 1) == 0 || self->_durationSeconds != *(equalCopy + 1))
@@ -1179,17 +1201,17 @@ LABEL_50:
   dateLastModified = self->_dateLastModified;
   if (dateLastModified | *(equalCopy + 12))
   {
-    v30 = [(PDDPDate *)dateLastModified isEqual:?];
+    v27 = [(PDDPDate *)dateLastModified isEqual:?];
   }
 
   else
   {
-    v30 = 1;
+    v27 = 1;
   }
 
 LABEL_78:
 
-  return v30;
+  return v27;
 }
 
 - (unint64_t)hash

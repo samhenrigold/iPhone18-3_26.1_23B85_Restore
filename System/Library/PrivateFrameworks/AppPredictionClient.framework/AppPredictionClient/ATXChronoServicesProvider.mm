@@ -111,23 +111,24 @@ void __64__ATXChronoServicesProvider_resetToPrewarmWidgetsInSuggestions___block_
 
 void __64__ATXChronoServicesProvider_resetToPrewarmWidgetsInSuggestions___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 state];
   if (!v7 || v7 == 3)
   {
     v8 = [*(*(a1 + 32) + 24) objectForKeyedSubscript:v5];
+    v9 = v8;
     if (v8)
     {
-      v9 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __atxlog_handle_home_screen(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543618;
-        v11 = v8;
-        v12 = 2112;
-        v13 = v5;
-        _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Short-circuit widget reload because it recently failed at %{public}@: %@", &v10, 0x16u);
+        v11 = 138543618;
+        v12 = v9;
+        v13 = 2112;
+        v14 = v5;
+        _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Short-circuit widget reload because it recently failed at %{public}@: %@", &v11, 0x16u);
       }
 
       [v6 setState:3];
@@ -268,7 +269,7 @@ void __71__ATXChronoServicesProvider__removeOudatedFailureEntriesInGuardedData__
 
               else
               {
-                v17 = __atxlog_handle_home_screen();
+                v17 = __atxlog_handle_home_screen(0);
                 if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
                 {
                   *buf = 138543618;
@@ -333,7 +334,7 @@ void __71__ATXChronoServicesProvider__removeOudatedFailureEntriesInGuardedData__
   v19 = *MEMORY[0x1E69E9840];
   widgetCopy = widget;
   dataCopy = data;
-  v8 = __atxlog_handle_home_screen();
+  v8 = __atxlog_handle_home_screen(dataCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -361,7 +362,7 @@ void __71__ATXChronoServicesProvider__removeOudatedFailureEntriesInGuardedData__
 
     else
     {
-      v13 = __atxlog_handle_home_screen();
+      v13 = __atxlog_handle_home_screen(0);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [ATXChronoServicesProvider _requestChronoToLoadWidget:widgetCopy inGuardedData:v13];
@@ -375,7 +376,7 @@ void __71__ATXChronoServicesProvider__removeOudatedFailureEntriesInGuardedData__
 
   else
   {
-    v10 = __atxlog_handle_home_screen();
+    v10 = __atxlog_handle_home_screen(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [ATXChronoServicesProvider _requestChronoToLoadWidget:widgetCopy inGuardedData:v10];
@@ -408,144 +409,146 @@ void __71__ATXChronoServicesProvider__removeOudatedFailureEntriesInGuardedData__
 
 void __87__ATXChronoServicesProvider__chronoDidReplyHandle_timelineEntries_forWidget_withError___block_invoke(uint64_t a1, void *a2)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v4 = v3;
   if (*(a1 + 32) && !*(a1 + 40))
   {
-    v7 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_home_screen(v3);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 48);
+      v9 = *(a1 + 48);
       *buf = 138412290;
-      v38 = v8;
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Chrono successfully loaded widget %@.", buf, 0xCu);
+      v41 = v9;
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Chrono successfully loaded widget %@.", buf, 0xCu);
     }
 
-    v5 = [*(a1 + 56) _shouldBlockSuggestionForWidget:*(a1 + 48) entries:*(a1 + 64)] ^ 1;
-    v6 = 1;
+    v6 = [*(a1 + 56) _shouldBlockSuggestionForWidget:*(a1 + 48) entries:*(a1 + 64)] ^ 1;
+    v7 = 1;
   }
 
   else
   {
-    v4 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_home_screen(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __87__ATXChronoServicesProvider__chronoDidReplyHandle_timelineEntries_forWidget_withError___block_invoke_cold_1(a1, (a1 + 32), v4);
+      __87__ATXChronoServicesProvider__chronoDidReplyHandle_timelineEntries_forWidget_withError___block_invoke_cold_1(a1, (a1 + 32), v5);
     }
 
-    v5 = 0;
     v6 = 0;
+    v7 = 0;
   }
 
   WeakRetained = objc_loadWeakRetained((*(a1 + 56) + 32));
-  [WeakRetained chronoServiceProvider:*(a1 + 56) reloadDidCompleteForWidget:*(a1 + 48) success:v6 widgetIsReadyForDisplay:v5 error:*(a1 + 40)];
+  [WeakRetained chronoServiceProvider:*(a1 + 56) reloadDidCompleteForWidget:*(a1 + 48) success:v7 widgetIsReadyForDisplay:v6 error:*(a1 + 40)];
 
-  v10 = [v3[2] objectForKeyedSubscript:*(a1 + 48)];
-  if (v10)
+  v11 = [v4[2] objectForKeyedSubscript:*(a1 + 48)];
+  v12 = v11;
+  if (v11)
   {
-    v11 = __atxlog_handle_home_screen();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-    if (v5)
+    v13 = __atxlog_handle_home_screen(v11);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v6)
     {
-      if (v12)
+      if (v14)
       {
-        v13 = *(a1 + 48);
+        v15 = *(a1 + 48);
         *buf = 138412290;
-        v38 = v13;
-        _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Widget is OK to display %@.", buf, 0xCu);
+        v41 = v15;
+        _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Widget is OK to display %@.", buf, 0xCu);
       }
 
-      [v10 setState:2];
-      [v10 setWidgetHandle:*(a1 + 32)];
+      [v12 setState:2];
+      [v12 setWidgetHandle:*(a1 + 32)];
       goto LABEL_30;
     }
 
-    v31 = v10;
-    v32 = v3;
-    if (v12)
+    v34 = v12;
+    v35 = v4;
+    if (v14)
     {
-      v14 = *(a1 + 48);
+      v16 = *(a1 + 48);
       *buf = 138412290;
-      v38 = v14;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Widget is NOT OK to display %@.", buf, 0xCu);
+      v41 = v16;
+      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Widget is NOT OK to display %@.", buf, 0xCu);
     }
 
-    v35 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v15 = *(a1 + 64);
-    v16 = [v15 countByEnumeratingWithState:&v33 objects:v43 count:16];
-    if (!v16)
+    v37 = 0u;
+    v17 = *(a1 + 64);
+    v18 = [v17 countByEnumeratingWithState:&v36 objects:v46 count:16];
+    if (!v18)
     {
 LABEL_29:
 
-      v10 = v31;
-      [v31 setState:3];
-      v30 = [MEMORY[0x1E695DF00] now];
-      v3 = v32;
-      [v32[3] setObject:v30 forKeyedSubscript:*(a1 + 48)];
+      v12 = v34;
+      [v34 setState:3];
+      v33 = [MEMORY[0x1E695DF00] now];
+      v4 = v35;
+      [v35[3] setObject:v33 forKeyedSubscript:*(a1 + 48)];
 
 LABEL_30:
-      if ([*(a1 + 56) _allReloadsAreCompletedInGuardedData:v3])
+      if ([*(a1 + 56) _allReloadsAreCompletedInGuardedData:v4])
       {
-        [*(a1 + 56) _updateAndSendHomeScreenSuggestionsToDelegateWithGuardedData:v3];
+        [*(a1 + 56) _updateAndSendHomeScreenSuggestionsToDelegateWithGuardedData:v4];
       }
 
       goto LABEL_32;
     }
 
-    v17 = v16;
-    v18 = *v34;
+    v19 = v18;
+    v20 = *v37;
 LABEL_18:
-    v19 = 0;
+    v21 = 0;
     while (1)
     {
-      if (*v34 != v18)
+      if (*v37 != v20)
       {
-        objc_enumerationMutation(v15);
+        objc_enumerationMutation(v17);
       }
 
-      v20 = *(*(&v33 + 1) + 8 * v19);
-      v21 = [v20 relevance];
+      v22 = *(*(&v36 + 1) + 8 * v21);
+      v23 = [v22 relevance];
 
-      v22 = __atxlog_handle_home_screen();
-      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-      if (v21)
+      v25 = __atxlog_handle_home_screen(v24);
+      v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+      if (v23)
       {
-        if (v23)
+        if (v26)
         {
-          v24 = [v20 date];
-          v25 = [v20 relevance];
-          [v25 score];
-          v27 = v26;
-          v28 = [v20 relevance];
-          [v28 duration];
+          v27 = [v22 date];
+          v28 = [v22 relevance];
+          [v28 score];
+          v30 = v29;
+          v31 = [v22 relevance];
+          [v31 duration];
           *buf = 138412802;
-          v38 = v24;
-          v39 = 2048;
-          v40 = v27;
-          v41 = 2048;
-          v42 = v29;
-          _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: timeline entry at %@ has relevance score %f duration %f", buf, 0x20u);
+          v41 = v27;
+          v42 = 2048;
+          v43 = v30;
+          v44 = 2048;
+          v45 = v32;
+          _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: timeline entry at %@ has relevance score %f duration %f", buf, 0x20u);
 
 LABEL_26:
         }
       }
 
-      else if (v23)
+      else if (v26)
       {
-        v24 = [v20 date];
+        v27 = [v22 date];
         *buf = 138412290;
-        v38 = v24;
-        _os_log_impl(&dword_1BF549000, v22, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: timeline entry at %@ has nil relevance", buf, 0xCu);
+        v41 = v27;
+        _os_log_impl(&dword_1BF549000, v25, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: timeline entry at %@ has nil relevance", buf, 0xCu);
         goto LABEL_26;
       }
 
-      if (v17 == ++v19)
+      if (v19 == ++v21)
       {
-        v17 = [v15 countByEnumeratingWithState:&v33 objects:v43 count:16];
-        if (!v17)
+        v19 = [v17 countByEnumeratingWithState:&v36 objects:v46 count:16];
+        if (!v19)
         {
           goto LABEL_29;
         }
@@ -560,16 +563,16 @@ LABEL_32:
 
 - (BOOL)_isCurrentTimelineRelevanceScoreNonPositiveForEntries:(id)entries
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = [entries sortedArrayUsingComparator:&__block_literal_global_63];
   [MEMORY[0x1E695DF00] timeIntervalSinceReferenceDate];
   v5 = v4;
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   v6 = v3;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v7)
   {
 
@@ -580,17 +583,17 @@ LABEL_32:
 
   v8 = 0;
   v9 = 0;
-  v10 = *v27;
+  v10 = *v28;
 LABEL_3:
   v11 = 0;
   while (1)
   {
-    if (*v27 != v10)
+    if (*v28 != v10)
     {
       objc_enumerationMutation(v6);
     }
 
-    v12 = *(*(&v26 + 1) + 8 * v11);
+    v12 = *(*(&v27 + 1) + 8 * v11);
     date = [v12 date];
     [date timeIntervalSinceReferenceDate];
     v15 = v14;
@@ -614,7 +617,7 @@ LABEL_3:
 
     if (v7 == ++v11)
     {
-      v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v7)
       {
         goto LABEL_3;
@@ -631,21 +634,21 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  [v9 duration];
-  if (v19 >= 0.0)
+  duration = [v9 duration];
+  if (v20 >= 0.0)
   {
     [v9 duration];
-    if (v20 == 0.0 || ([v8 timeIntervalSinceReferenceDate], v22 = v21, objc_msgSend(v9, "duration"), v5 < v22 + v23))
+    if (v21 == 0.0 || ([v8 timeIntervalSinceReferenceDate], v23 = v22, objc_msgSend(v9, "duration"), v5 < v23 + v24))
     {
       [v9 score];
-      LOBYTE(v7) = v24 <= 0.0;
+      LOBYTE(v7) = v25 <= 0.0;
       goto LABEL_21;
     }
 
     goto LABEL_20;
   }
 
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen(duration);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [ATXChronoServicesProvider _isCurrentTimelineRelevanceScoreNonPositiveForEntries:v7];
@@ -733,7 +736,7 @@ LABEL_13:
 
 - (void)_updateAndSendHomeScreenSuggestionsToDelegateWithGuardedData:(id)data
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   selfCopy = self;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -742,31 +745,31 @@ LABEL_13:
   {
     v6 = objc_opt_new();
     [dataCopy[1] cachedTopOfStackLayouts];
-    v58 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    obj = v61 = 0u;
-    v7 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
+    v62 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    obj = v65 = 0u;
+    v7 = [obj countByEnumeratingWithState:&v62 objects:v72 count:16];
     v8 = dataCopy;
-    v42 = v6;
+    v46 = v6;
     if (!v7)
     {
       goto LABEL_25;
     }
 
     v9 = v7;
-    v10 = *v59;
+    v10 = *v63;
     while (1)
     {
       v11 = 0;
       do
       {
-        if (*v59 != v10)
+        if (*v63 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v58 + 1) + 8 * v11);
+        v12 = *(*(&v62 + 1) + 8 * v11);
         v13 = [obj objectForKeyedSubscript:v12];
         if (![v13 isNPlusOne])
         {
@@ -776,29 +779,30 @@ LABEL_13:
         v14 = [(ATXChronoServicesProvider *)selfCopy _recordFromSuggestionLayout:v13 guardedData:dataCopy];
         if (!v14)
         {
-          v15 = __atxlog_handle_home_screen();
+          v15 = __atxlog_handle_home_screen(0);
           if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
           {
             *buf = 138543618;
-            v65 = v12;
-            v66 = 2112;
-            v67 = v13;
+            v69 = v12;
+            v70 = 2112;
+            v71 = v13;
             _os_log_fault_impl(&dword_1BF549000, v15, OS_LOG_TYPE_FAULT, "ATXChronoServicesProvider: Unable to find record for a N+1 topOfStackLayout for stack %{public}@. Layout %@", buf, 0x16u);
           }
 
-          v6 = v42;
+          v6 = v46;
         }
 
-        if (CFPreferencesGetAppBooleanValue(@"widgetKitDeveloperModeEnabled", @"com.apple.duetexpertd", 0))
+        AppBooleanValue = CFPreferencesGetAppBooleanValue(@"widgetKitDeveloperModeEnabled", @"com.apple.duetexpertd", 0);
+        if (AppBooleanValue)
         {
-          v16 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v17 = __atxlog_handle_home_screen(AppBooleanValue);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v65 = v12;
-            v66 = 2112;
-            v67 = v13;
-            _os_log_impl(&dword_1BF549000, v16, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: widgetkit developer mode on, allowing topOfStackLayout for stack %{public}@. Layout %@", buf, 0x16u);
+            v69 = v12;
+            v70 = 2112;
+            v71 = v13;
+            _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: widgetkit developer mode on, allowing topOfStackLayout for stack %{public}@. Layout %@", buf, 0x16u);
           }
 
           dataCopy = v8;
@@ -809,19 +813,20 @@ LABEL_18:
           goto LABEL_19;
         }
 
-        if ([v14 state] == 2)
+        state = [v14 state];
+        if (state == 2)
         {
           goto LABEL_17;
         }
 
-        v17 = __atxlog_handle_home_screen();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v19 = __atxlog_handle_home_screen(state);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v65 = v12;
-          v66 = 2112;
-          v67 = v13;
-          _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Skipping topOfStackLayout for stack %{public}@ because it's a suggested widget and it's not ready for display. Layout %@", buf, 0x16u);
+          v69 = v12;
+          v70 = 2112;
+          v71 = v13;
+          _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Skipping topOfStackLayout for stack %{public}@ because it's a suggested widget and it's not ready for display. Layout %@", buf, 0x16u);
         }
 
         dataCopy = v8;
@@ -831,139 +836,141 @@ LABEL_19:
       }
 
       while (v9 != v11);
-      v18 = [obj countByEnumeratingWithState:&v58 objects:v68 count:16];
-      v9 = v18;
-      if (!v18)
+      v20 = [obj countByEnumeratingWithState:&v62 objects:v72 count:16];
+      v9 = v20;
+      if (!v20)
       {
 LABEL_25:
-        v44 = objc_opt_new();
+        v48 = objc_opt_new();
         [dataCopy[1] cachedSuggestedWidgetsLayouts];
-        v54 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        v46 = v57 = 0u;
-        v45 = [v46 countByEnumeratingWithState:&v54 objects:v63 count:16];
-        if (!v45)
+        v58 = 0u;
+        v59 = 0u;
+        v60 = 0u;
+        v50 = v61 = 0u;
+        v49 = [v50 countByEnumeratingWithState:&v58 objects:v67 count:16];
+        if (!v49)
         {
           goto LABEL_53;
         }
 
-        v43 = *v55;
+        v47 = *v59;
         while (1)
         {
-          v19 = 0;
+          v21 = 0;
           do
           {
-            if (*v55 != v43)
+            if (*v59 != v47)
             {
-              objc_enumerationMutation(v46);
+              objc_enumerationMutation(v50);
             }
 
-            v48 = v19;
-            v20 = *(*(&v54 + 1) + 8 * v19);
-            v21 = objc_opt_new();
-            v50 = 0u;
-            v51 = 0u;
-            v52 = 0u;
-            v53 = 0u;
-            v22 = [v46 objectForKeyedSubscript:v20];
-            v23 = [v22 countByEnumeratingWithState:&v50 objects:v62 count:16];
-            if (v23)
+            v52 = v21;
+            v22 = *(*(&v58 + 1) + 8 * v21);
+            v23 = objc_opt_new();
+            v54 = 0u;
+            v55 = 0u;
+            v56 = 0u;
+            v57 = 0u;
+            v24 = [v50 objectForKeyedSubscript:v22];
+            v25 = [v24 countByEnumeratingWithState:&v54 objects:v66 count:16];
+            if (v25)
             {
-              v24 = v23;
-              v25 = *v51;
+              v26 = v25;
+              v27 = *v55;
               do
               {
-                v26 = 0;
+                v28 = 0;
                 do
                 {
-                  if (*v51 != v25)
+                  if (*v55 != v27)
                   {
-                    objc_enumerationMutation(v22);
+                    objc_enumerationMutation(v24);
                   }
 
-                  v27 = *(*(&v50 + 1) + 8 * v26);
-                  v28 = [(ATXChronoServicesProvider *)selfCopy _recordFromSuggestionLayout:v27 guardedData:v8];
-                  if (!v28)
+                  v29 = *(*(&v54 + 1) + 8 * v28);
+                  v30 = [(ATXChronoServicesProvider *)selfCopy _recordFromSuggestionLayout:v29 guardedData:v8];
+                  if (!v30)
                   {
-                    v29 = __atxlog_handle_home_screen();
-                    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+                    v31 = __atxlog_handle_home_screen(0);
+                    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
                     {
                       *buf = 138543618;
-                      v65 = v20;
-                      v66 = 2112;
-                      v67 = v27;
-                      _os_log_fault_impl(&dword_1BF549000, v29, OS_LOG_TYPE_FAULT, "ATXChronoServicesProvider: Unable to find record for a suggestedWidgetLayout for stack %{public}@. Layout %@", buf, 0x16u);
+                      v69 = v22;
+                      v70 = 2112;
+                      v71 = v29;
+                      _os_log_fault_impl(&dword_1BF549000, v31, OS_LOG_TYPE_FAULT, "ATXChronoServicesProvider: Unable to find record for a suggestedWidgetLayout for stack %{public}@. Layout %@", buf, 0x16u);
                     }
                   }
 
-                  if (CFPreferencesGetAppBooleanValue(@"widgetKitDeveloperModeEnabled", @"com.apple.duetexpertd", 0))
+                  v32 = CFPreferencesGetAppBooleanValue(@"widgetKitDeveloperModeEnabled", @"com.apple.duetexpertd", 0);
+                  if (v32)
                   {
-                    v30 = __atxlog_handle_home_screen();
-                    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+                    v33 = __atxlog_handle_home_screen(v32);
+                    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138543618;
-                      v65 = v20;
-                      v66 = 2112;
-                      v67 = v27;
-                      _os_log_impl(&dword_1BF549000, v30, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: widgetkit developer mode on, allowing suggestedWidgetLayout for stack %{public}@. Layout %@", buf, 0x16u);
+                      v69 = v22;
+                      v70 = 2112;
+                      v71 = v29;
+                      _os_log_impl(&dword_1BF549000, v33, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: widgetkit developer mode on, allowing suggestedWidgetLayout for stack %{public}@. Layout %@", buf, 0x16u);
                     }
 
 LABEL_44:
-                    [v21 addObject:v27];
+                    [v23 addObject:v29];
                     goto LABEL_45;
                   }
 
-                  if ([v28 state] == 2)
+                  state2 = [v30 state];
+                  if (state2 == 2)
                   {
                     goto LABEL_44;
                   }
 
-                  v31 = __atxlog_handle_home_screen();
-                  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+                  v35 = __atxlog_handle_home_screen(state2);
+                  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138543618;
-                    v65 = v20;
-                    v66 = 2112;
-                    v67 = v27;
-                    _os_log_impl(&dword_1BF549000, v31, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Skipping suggestedWidgetLayout for stack %{public}@ because it's not ready for display. Layout %@", buf, 0x16u);
+                    v69 = v22;
+                    v70 = 2112;
+                    v71 = v29;
+                    _os_log_impl(&dword_1BF549000, v35, OS_LOG_TYPE_DEFAULT, "ATXChronoServicesProvider: Skipping suggestedWidgetLayout for stack %{public}@ because it's not ready for display. Layout %@", buf, 0x16u);
                   }
 
 LABEL_45:
-                  ++v26;
+                  ++v28;
                 }
 
-                while (v24 != v26);
-                v32 = [v22 countByEnumeratingWithState:&v50 objects:v62 count:16];
-                v24 = v32;
+                while (v26 != v28);
+                v36 = [v24 countByEnumeratingWithState:&v54 objects:v66 count:16];
+                v26 = v36;
               }
 
-              while (v32);
+              while (v36);
             }
 
-            [v44 setObject:v21 forKeyedSubscript:v20];
-            v19 = v48 + 1;
+            [v48 setObject:v23 forKeyedSubscript:v22];
+            v21 = v52 + 1;
           }
 
-          while (v48 + 1 != v45);
-          v45 = [v46 countByEnumeratingWithState:&v54 objects:v63 count:16];
-          if (!v45)
+          while (v52 + 1 != v49);
+          v49 = [v50 countByEnumeratingWithState:&v58 objects:v67 count:16];
+          if (!v49)
           {
 LABEL_53:
-            v33 = objc_alloc(MEMORY[0x1E69C5B80]);
+            v37 = objc_alloc(MEMORY[0x1E69C5B80]);
             dataCopy = v8;
             uuid = [v8[1] uuid];
             cachedSuggestionWidgetLayouts = [dataCopy[1] cachedSuggestionWidgetLayouts];
             cachedAppPredictionPanelLayouts = [dataCopy[1] cachedAppPredictionPanelLayouts];
             fallbackSuggestions = [dataCopy[1] fallbackSuggestions];
-            v38 = [v33 initWithUUID:uuid suggestionWidgetLayouts:cachedSuggestionWidgetLayouts appPredictionPanelLayouts:cachedAppPredictionPanelLayouts topOfStackLayouts:v42 suggestedWidgetLayouts:v44 fallbackSuggestions:fallbackSuggestions];
+            v42 = [v37 initWithUUID:uuid suggestionWidgetLayouts:cachedSuggestionWidgetLayouts appPredictionPanelLayouts:cachedAppPredictionPanelLayouts topOfStackLayouts:v46 suggestedWidgetLayouts:v48 fallbackSuggestions:fallbackSuggestions];
 
-            v39 = dataCopy[1];
-            dataCopy[1] = v38;
-            v40 = v38;
+            v43 = dataCopy[1];
+            dataCopy[1] = v42;
+            v44 = v42;
 
-            v41 = objc_loadWeakRetained(&selfCopy->_delegate);
-            [v41 chronoServiceProvider:selfCopy finishedPrewarmingSuggestions:v40];
+            v45 = objc_loadWeakRetained(&selfCopy->_delegate);
+            [v45 chronoServiceProvider:selfCopy finishedPrewarmingSuggestions:v44];
 
             goto LABEL_54;
           }

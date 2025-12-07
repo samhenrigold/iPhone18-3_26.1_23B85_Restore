@@ -1904,7 +1904,7 @@ LABEL_39:
 {
   promiseCopy = promise;
   selfCopy = self;
-  AMSVerifyCredentialsTask.completeMetricsActivity(promise:)();
+  AMSVerifyCredentialsTask.completeMetricsActivity(promise:)(promiseCopy);
 }
 
 @end

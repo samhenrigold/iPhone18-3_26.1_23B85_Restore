@@ -237,7 +237,6 @@
   {
     do
     {
-      v6 = begin_node->_impl._cache.__elems_[0].last - begin_node->_impl._cache.__elems_[0].first;
       blockCopy[2](blockCopy);
       isa = begin_node->_impl._ranges.__tree_.__begin_node_;
       if (isa)
@@ -256,11 +255,11 @@
         do
         {
           left = begin_node->_impl._ranges.__tree_.__end_node_.__left_;
-          v9 = left->super.isa == begin_node;
+          v8 = left->super.isa == begin_node;
           begin_node = left;
         }
 
-        while (!v9);
+        while (!v8);
       }
 
       begin_node = left;

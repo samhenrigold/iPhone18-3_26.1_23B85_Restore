@@ -6,7 +6,7 @@
 
 - (id)hmd_appDataDictionaryWithError:()HMDApplicationData
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = [self objectForKeyedSubscript:@"kAppDataInformationKey"];
   if (v5)
   {
@@ -24,13 +24,13 @@
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = HMFGetLogIdentifier();
-        v14 = 138543874;
-        v15 = v10;
-        v16 = 2048;
-        v17 = v6;
-        v18 = 2048;
-        v19 = +[HMDApplicationData sizeLimit];
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Application data dictionary size %lu exceeds threshold of %lu", &v14, 0x20u);
+        v13 = 138543874;
+        v14 = v10;
+        v15 = 2048;
+        v16 = v6;
+        v17 = 2048;
+        v18 = +[HMDApplicationData sizeLimit];
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Application data dictionary size %lu exceeds threshold of %lu", &v13, 0x20u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -51,8 +51,6 @@
   {
     v11 = MEMORY[0x277CBEC10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

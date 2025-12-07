@@ -7,15 +7,17 @@
 
 + (_NSRange)findFirstDifferenceWithOriginalText:(id)text alternativeText:(id)alternativeText
 {
-  sub_21E4DCF78();
-  sub_21E4DCF78();
-  E012originalText011alternativeJ0So8_NSRangeVSS_SStFZ_0 = _s12SiriSharedUI0aB25UIStringDifferenceUtilityC09findFirstE012originalText011alternativeJ0So8_NSRangeVSS_SStFZ_0();
+  v4 = sub_21E4DCF78();
   v6 = v5;
+  v7 = sub_21E4DCF78();
+  _s12SiriSharedUI0aB25UIStringDifferenceUtilityC09findFirstE012originalText011alternativeJ0So8_NSRangeVSS_SStFZ_0(v4, v6, v7, v8);
+  v10 = v9;
+  v12 = v11;
 
-  v7 = E012originalText011alternativeJ0So8_NSRangeVSS_SStFZ_0;
-  v8 = v6;
-  result.length = v8;
-  result.location = v7;
+  v13 = v10;
+  v14 = v12;
+  result.length = v14;
+  result.location = v13;
   return result;
 }
 

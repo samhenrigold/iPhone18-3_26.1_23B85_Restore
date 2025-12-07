@@ -64,13 +64,13 @@ void __67__MPModelTVEpisode_MPModelObjectMediaItem__mediaItemPropertyValues__blo
     [*(a1 + 40) setObject:v26 forKey:@"title"];
   }
 
-  [*(a1 + 32) duration];
-  [*(a1 + 32) duration];
+  objc_msgSend_duration(*(a1 + 32));
+  objc_msgSend_duration(*(a1 + 32));
   if (v2 > 0.0)
   {
     v3 = MEMORY[0x1E696AD98];
     v4 = *(a1 + 40);
-    [*(a1 + 32) duration];
+    objc_msgSend_duration(*(a1 + 32));
     v5 = [v3 numberWithDouble:?];
     [v4 setObject:v5 forKey:@"playbackDuration"];
   }

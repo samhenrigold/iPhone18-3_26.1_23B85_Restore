@@ -24,58 +24,57 @@
 - (CKMessagesComplicationSpecs)initWithDevice:(id)device
 {
   deviceCopy = device;
-  v13.receiver = self;
-  v13.super_class = CKMessagesComplicationSpecs;
-  v5 = [(CKMessagesComplicationSpecs *)&v13 init];
-  v11 = v5;
+  v8.receiver = self;
+  v8.super_class = CKMessagesComplicationSpecs;
+  v5 = [(CKMessagesComplicationSpecs *)&v8 init];
+  v6 = v5;
   if (v5)
   {
-    objc_msgSend_configureDeviceDependentSpecsForDevice_(v5, v6, v7, v8, v9, v10, deviceCopy);
+    [(CKMessagesComplicationSpecs *)v5 configureDeviceDependentSpecsForDevice:deviceCopy];
   }
 
-  return v11;
+  return v6;
 }
 
 - (void)configureDeviceDependentSpecsForDevice:(id)device
 {
   v4 = MEMORY[0x277CBBAF8];
   deviceCopy = device;
-  v6 = [v4 alloc];
-  v63 = objc_msgSend_initWithDevice_identitySizeClass_(v6, v7, v8, v9, v10, v11, deviceCopy, 2);
+  v28 = [[v4 alloc] initWithDevice:deviceCopy identitySizeClass:2];
 
-  objc_msgSend_scaledSize_withOverride_forSizeClass_(v63, v12, 29.0, 29.0, 26.0, 26.0, 0);
-  self->_canvasSizeModularSmall.width = v13;
-  self->_canvasSizeModularSmall.height = v14;
-  objc_msgSend_scaledSize_(v63, v15, 18.0, 18.0, v16, v17);
-  self->_canvasSizeUtilitarianSmall.width = v18;
-  self->_canvasSizeUtilitarianSmall.height = v19;
-  objc_msgSend_scaledSize_(v63, v20, 12.0, 12.0, v21, v22);
-  self->_canvasSizeUtilitarianSmallFlat.width = v23;
-  self->_canvasSizeUtilitarianSmallFlat.height = v24;
-  objc_msgSend_scaledSize_(v63, v25, 10.0, 10.0, v26, v27);
-  self->_canvasSizeUtilitarianLarge.width = v28;
-  self->_canvasSizeUtilitarianLarge.height = v29;
-  objc_msgSend_scaledSize_withOverride_forSizeClass_(v63, v30, 18.0, 18.0, 16.0, 16.0, 0);
-  self->_canvasSizeCircularSmall.width = v31;
-  self->_canvasSizeCircularSmall.height = v32;
-  objc_msgSend_scaledSize_(v63, v33, 42.0, 42.0, v34, v35);
-  self->_canvasSizeCircular.width = v36;
-  self->_canvasSizeCircular.height = v37;
-  objc_msgSend_scaledSize_(v63, v38, 25.0, 25.0, v39, v40);
-  self->_canvasSizeCircularMedium.width = v41;
-  self->_canvasSizeCircularMedium.height = v42;
-  objc_msgSend_scaledSize_(v63, v43, 120.0, 120.0, v44, v45);
-  self->_canvasSizeCircularXL.width = v46;
-  self->_canvasSizeCircularXL.height = v47;
-  objc_msgSend_scaledSize_(v63, v48, 32.0, 32.0, v49, v50);
-  self->_canvasSizeCorner.width = v51;
-  self->_canvasSizeCorner.height = v52;
-  objc_msgSend_scaledSize_(v63, v53, 20.0, 20.0, v54, v55);
-  self->_canvasSizeCornerSmall.width = v56;
-  self->_canvasSizeCornerSmall.height = v57;
-  objc_msgSend_scaledSize_(v63, v58, 101.5, 101.5, v59, v60);
-  self->_canvasSizeExtraLarge.width = v61;
-  self->_canvasSizeExtraLarge.height = v62;
+  [v28 scaledSize:0 withOverride:29.0 forSizeClass:{29.0, 26.0, 26.0}];
+  self->_canvasSizeModularSmall.width = v6;
+  self->_canvasSizeModularSmall.height = v7;
+  [v28 scaledSize:{18.0, 18.0}];
+  self->_canvasSizeUtilitarianSmall.width = v8;
+  self->_canvasSizeUtilitarianSmall.height = v9;
+  [v28 scaledSize:{12.0, 12.0}];
+  self->_canvasSizeUtilitarianSmallFlat.width = v10;
+  self->_canvasSizeUtilitarianSmallFlat.height = v11;
+  [v28 scaledSize:{10.0, 10.0}];
+  self->_canvasSizeUtilitarianLarge.width = v12;
+  self->_canvasSizeUtilitarianLarge.height = v13;
+  [v28 scaledSize:0 withOverride:18.0 forSizeClass:{18.0, 16.0, 16.0}];
+  self->_canvasSizeCircularSmall.width = v14;
+  self->_canvasSizeCircularSmall.height = v15;
+  [v28 scaledSize:{42.0, 42.0}];
+  self->_canvasSizeCircular.width = v16;
+  self->_canvasSizeCircular.height = v17;
+  [v28 scaledSize:{25.0, 25.0}];
+  self->_canvasSizeCircularMedium.width = v18;
+  self->_canvasSizeCircularMedium.height = v19;
+  [v28 scaledSize:{120.0, 120.0}];
+  self->_canvasSizeCircularXL.width = v20;
+  self->_canvasSizeCircularXL.height = v21;
+  [v28 scaledSize:{32.0, 32.0}];
+  self->_canvasSizeCorner.width = v22;
+  self->_canvasSizeCorner.height = v23;
+  [v28 scaledSize:{20.0, 20.0}];
+  self->_canvasSizeCornerSmall.width = v24;
+  self->_canvasSizeCornerSmall.height = v25;
+  [v28 scaledSize:{101.5, 101.5}];
+  self->_canvasSizeExtraLarge.width = v26;
+  self->_canvasSizeExtraLarge.height = v27;
 }
 
 - (double)verticalTextOffsetForFamily:(int64_t)family withTextBounds:(CGRect)bounds
@@ -84,10 +83,10 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v9 = objc_msgSend_currentDevice(MEMORY[0x277CBBAE8], a2, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height);
-  v15 = objc_msgSend_deviceCategory(v9, v10, v11, v12, v13, v14);
+  currentDevice = [MEMORY[0x277CBBAE8] currentDevice];
+  deviceCategory = [currentDevice deviceCategory];
 
-  if (v15 < 2)
+  if (deviceCategory < 2)
   {
     result = 0.0;
     if (*MEMORY[0x277CBB668] != family)
@@ -105,11 +104,11 @@
     result = 0.0;
     if (family <= 0xC && ((1 << family) & 0x1600) != 0)
     {
-      v17.origin.x = x;
-      v17.origin.y = y;
-      v17.size.width = width;
-      v17.size.height = height;
-      return ceil(CGRectGetHeight(v17) * 0.1);
+      v12.origin.x = x;
+      v12.origin.y = y;
+      v12.size.width = width;
+      v12.size.height = height;
+      return ceil(CGRectGetHeight(v12) * 0.1);
     }
   }
 
@@ -153,9 +152,9 @@
 
 - (CGSize)canvasSizeForFamily:(int64_t)family
 {
-  objc_msgSend_canvasSizeForFamily_andTemplate_(self, a2, v3, v4, v5, v6, family, 0);
-  result.height = v8;
-  result.width = v7;
+  [(CKMessagesComplicationSpecs *)self canvasSizeForFamily:family andTemplate:0];
+  result.height = v4;
+  result.width = v3;
   return result;
 }
 
@@ -170,7 +169,7 @@
       {
         if (family == 7)
         {
-          objc_msgSend_canvasSizeExtraLarge(self, v6, v8, v9, v10, v11);
+          [(CKMessagesComplicationSpecs *)self canvasSizeExtraLarge];
         }
 
         else
@@ -178,12 +177,12 @@
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            objc_msgSend_canvasSizeCornerSmall(self, v18, v19, v20, v21, v22);
+            [(CKMessagesComplicationSpecs *)self canvasSizeCornerSmall];
           }
 
           else
           {
-            objc_msgSend_canvasSizeCorner(self, v18, v19, v20, v21, v22);
+            [(CKMessagesComplicationSpecs *)self canvasSizeCorner];
           }
         }
 
@@ -192,13 +191,13 @@
 
       if ((family - 9) < 2)
       {
-        objc_msgSend_canvasSizeCircular(self, v6, v8, v9, v10, v11);
+        [(CKMessagesComplicationSpecs *)self canvasSizeCircular];
         goto LABEL_3;
       }
 
       if (family == 12)
       {
-        objc_msgSend_canvasSizeCircularXL(self, v6, v8, v9, v10, v11);
+        [(CKMessagesComplicationSpecs *)self canvasSizeCircularXL];
         goto LABEL_3;
       }
     }
@@ -207,13 +206,13 @@
     {
       if (!family)
       {
-        objc_msgSend_canvasSizeModularSmall(self, v6, v8, v9, v10, v11);
+        [(CKMessagesComplicationSpecs *)self canvasSizeModularSmall];
         goto LABEL_3;
       }
 
       if (family == 2)
       {
-        objc_msgSend_canvasSizeUtilitarianSmall(self, v6, v8, v9, v10, v11);
+        [(CKMessagesComplicationSpecs *)self canvasSizeUtilitarianSmall];
         goto LABEL_3;
       }
     }
@@ -223,32 +222,32 @@
       switch(family)
       {
         case 3:
-          objc_msgSend_canvasSizeUtilitarianLarge(self, v6, v8, v9, v10, v11);
+          [(CKMessagesComplicationSpecs *)self canvasSizeUtilitarianLarge];
           goto LABEL_3;
         case 4:
-          objc_msgSend_canvasSizeCircularSmall(self, v6, v8, v9, v10, v11);
+          [(CKMessagesComplicationSpecs *)self canvasSizeCircularSmall];
           goto LABEL_3;
         case 6:
-          objc_msgSend_canvasSizeUtilitarianSmallFlat(self, v6, v8, v9, v10, v11);
+          [(CKMessagesComplicationSpecs *)self canvasSizeUtilitarianSmallFlat];
           goto LABEL_3;
       }
     }
 
-    v14 = *MEMORY[0x277CBF3A8];
-    v15 = *(MEMORY[0x277CBF3A8] + 8);
+    v9 = *MEMORY[0x277CBF3A8];
+    v10 = *(MEMORY[0x277CBF3A8] + 8);
     goto LABEL_4;
   }
 
-  objc_msgSend_canvasSizeCircularMedium(self, v6, v8, v9, v10, v11);
+  [(CKMessagesComplicationSpecs *)self canvasSizeCircularMedium];
 LABEL_3:
-  v14 = v12;
-  v15 = v13;
+  v9 = v7;
+  v10 = v8;
 LABEL_4:
 
-  v16 = v14;
-  v17 = v15;
-  result.height = v17;
-  result.width = v16;
+  v11 = v9;
+  v12 = v10;
+  result.height = v12;
+  result.width = v11;
   return result;
 }
 

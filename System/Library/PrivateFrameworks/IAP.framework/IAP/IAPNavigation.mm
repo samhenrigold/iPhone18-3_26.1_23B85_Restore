@@ -466,7 +466,7 @@ LABEL_21:
 
 - (void)_updateInternalStateWithArrayOfAccessories:(id)accessories
 {
-  v161 = *MEMORY[0x277D85DE8];
+  v160 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   AppBooleanValue = __debugLogEnabled___bNavigationDebug;
   if (__debugLogEnabled___bNavigationDebug == -1)
@@ -492,37 +492,37 @@ LABEL_21:
   }
 
   v7 = [MEMORY[0x277CBEB58] set];
+  v93 = [MEMORY[0x277CBEB58] set];
   v94 = [MEMORY[0x277CBEB58] set];
-  v95 = [MEMORY[0x277CBEB58] set];
   v8 = [MEMORY[0x277CBEB58] set];
+  v147 = 0u;
   v148 = 0u;
   v149 = 0u;
   v150 = 0u;
-  v151 = 0u;
   obj = accessoriesCopy;
-  v9 = [obj countByEnumeratingWithState:&v148 objects:v160 count:16];
-  v93 = v8;
+  v9 = [obj countByEnumeratingWithState:&v147 objects:v159 count:16];
+  v92 = v8;
   if (v9)
   {
     v10 = v9;
     v11 = 0x279780000uLL;
-    v12 = *v149;
-    v92 = v7;
+    v12 = *v148;
+    v91 = v7;
     selfCopy = self;
-    v97 = *v149;
+    v96 = *v148;
     do
     {
       v13 = 0;
-      v99 = v10;
+      v98 = v10;
       do
       {
-        if (*v149 != v12)
+        if (*v148 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = [objc_alloc(*(v11 + 2184)) initWithDict:*(*(&v148 + 1) + 8 * v13)];
-        v108 = v14;
+        v14 = [objc_alloc(*(v11 + 2184)) initWithDict:*(*(&v147 + 1) + 8 * v13)];
+        v107 = v14;
         if (__debugLogEnabled___bNavigationDebug != -1)
         {
           if (!__debugLogEnabled___bNavigationDebug)
@@ -532,12 +532,12 @@ LABEL_21:
 
 LABEL_15:
           NSLog(&cfstr_NavigationIapn_1.isa, v14);
-          v14 = v108;
+          v14 = v107;
           goto LABEL_16;
         }
 
         v30 = CFPreferencesGetAppBooleanValue(@"iAP2LogNavigation", @"com.apple.iapd", 0);
-        v14 = v108;
+        v14 = v107;
         __debugLogEnabled___bNavigationDebug = v30;
         if (v30)
         {
@@ -564,10 +564,10 @@ LABEL_28:
             goto LABEL_28;
           }
 
-          v29 = v108;
-          [(NSSet *)self->_availableAccessories addObject:v108];
-          [v108 set_wasFoundInLastUpdate:1];
-          [v7 addObject:v108];
+          v29 = v107;
+          [(NSSet *)self->_availableAccessories addObject:v107];
+          [v107 set_wasFoundInLastUpdate:1];
+          [v7 addObject:v107];
           goto LABEL_46;
         }
 
@@ -577,25 +577,25 @@ LABEL_28:
           __debugLogEnabled___bNavigationDebug = v16;
         }
 
-        v104 = v13;
+        v103 = v13;
         if (v16)
         {
           NSLog(&cfstr_NavigationAcce.isa);
         }
 
         v17 = MEMORY[0x277CCAC30];
-        v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v108, "identifier")}];
+        v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v107, "identifier")}];
         v19 = [v17 predicateWithFormat:@"identifier = %@", v18];
 
         allObjects = [(NSSet *)self->_availableAccessories allObjects];
-        v102 = v19;
+        v101 = v19;
         v21 = [allObjects filteredArrayUsingPredicate:v19];
         firstObject = [v21 firstObject];
 
         [firstObject set_wasFoundInLastUpdate:1];
         v23 = firstObject;
         components = [firstObject components];
-        components2 = [v108 components];
+        components2 = [v107 components];
         v26 = [components isEqualToSet:components2];
 
         v27 = __debugLogEnabled___bNavigationDebug;
@@ -616,26 +616,26 @@ LABEL_34:
             goto LABEL_34;
           }
 
-          v146 = 0u;
-          v147 = 0u;
-          v144 = 0u;
           v145 = 0u;
-          components3 = [v108 components];
-          v31 = [components3 countByEnumeratingWithState:&v144 objects:v159 count:16];
+          v146 = 0u;
+          v143 = 0u;
+          v144 = 0u;
+          components3 = [v107 components];
+          v31 = [components3 countByEnumeratingWithState:&v143 objects:v158 count:16];
           if (v31)
           {
             v32 = v31;
-            v33 = *v145;
+            v33 = *v144;
             do
             {
               for (i = 0; i != v32; ++i)
               {
-                if (*v145 != v33)
+                if (*v144 != v33)
                 {
                   objc_enumerationMutation(components3);
                 }
 
-                v35 = *(*(&v144 + 1) + 8 * i);
+                v35 = *(*(&v143 + 1) + 8 * i);
                 v36 = MEMORY[0x277CCAC30];
                 v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v35, "identifier")}];
                 v38 = [v36 predicateWithFormat:@"identifier = %@", v37];
@@ -653,43 +653,43 @@ LABEL_34:
                 }
               }
 
-              v32 = [components3 countByEnumeratingWithState:&v144 objects:v159 count:16];
+              v32 = [components3 countByEnumeratingWithState:&v143 objects:v158 count:16];
             }
 
             while (v32);
           }
 
-          v8 = v93;
-          v28 = v94;
-          v7 = v92;
+          v8 = v92;
+          v28 = v93;
+          v7 = v91;
           v11 = 0x279780000;
-          v12 = v97;
-          v10 = v99;
-          v13 = v104;
+          v12 = v96;
+          v10 = v98;
+          v13 = v103;
           goto LABEL_45;
         }
 
         v11 = 0x279780000;
-        v10 = v99;
-        v13 = v104;
+        v10 = v98;
+        v13 = v103;
         if (__debugLogEnabled___bNavigationDebug == -1)
         {
           v27 = CFPreferencesGetAppBooleanValue(@"iAP2LogNavigation", @"com.apple.iapd", 0);
           __debugLogEnabled___bNavigationDebug = v27;
         }
 
-        v28 = v95;
-        v12 = v97;
+        v28 = v94;
+        v12 = v96;
         if (v27)
         {
-          NSLog(&cfstr_NavigationAcce_0.isa, v95);
-          v28 = v95;
+          NSLog(&cfstr_NavigationAcce_0.isa, v94);
+          v28 = v94;
         }
 
 LABEL_45:
         [v28 addObject:v23];
 
-        v29 = v108;
+        v29 = v107;
         self = selfCopy;
 LABEL_46:
 
@@ -697,33 +697,33 @@ LABEL_46:
       }
 
       while (v13 != v10);
-      v43 = [obj countByEnumeratingWithState:&v148 objects:v160 count:16];
+      v43 = [obj countByEnumeratingWithState:&v147 objects:v159 count:16];
       v10 = v43;
     }
 
     while (v43);
   }
 
-  v142 = 0u;
-  v143 = 0u;
-  v140 = 0u;
   v141 = 0u;
+  v142 = 0u;
+  v139 = 0u;
+  v140 = 0u;
   v44 = self->_availableAccessories;
-  v45 = [(NSSet *)v44 countByEnumeratingWithState:&v140 objects:v158 count:16];
+  v45 = [(NSSet *)v44 countByEnumeratingWithState:&v139 objects:v157 count:16];
   if (v45)
   {
     v46 = v45;
-    v47 = *v141;
+    v47 = *v140;
     do
     {
       for (j = 0; j != v46; ++j)
       {
-        if (*v141 != v47)
+        if (*v140 != v47)
         {
           objc_enumerationMutation(v44);
         }
 
-        v49 = *(*(&v140 + 1) + 8 * j);
+        v49 = *(*(&v139 + 1) + 8 * j);
         if ([v49 _wasFoundInLastUpdate])
         {
           [v49 set_wasFoundInLastUpdate:0];
@@ -735,7 +735,7 @@ LABEL_46:
         }
       }
 
-      v46 = [(NSSet *)v44 countByEnumeratingWithState:&v140 objects:v158 count:16];
+      v46 = [(NSSet *)v44 countByEnumeratingWithState:&v139 objects:v157 count:16];
     }
 
     while (v46);
@@ -757,26 +757,26 @@ LABEL_46:
   allObjects3 = [v7 allObjects];
   [(NSSet *)availableAccessories addObjectsFromArray:allObjects3];
 
-  v138 = 0u;
-  v139 = 0u;
-  v136 = 0u;
   v137 = 0u;
-  v103 = v7;
-  v109 = [v103 countByEnumeratingWithState:&v136 objects:v157 count:16];
-  if (v109)
+  v138 = 0u;
+  v135 = 0u;
+  v136 = 0u;
+  v102 = v7;
+  v108 = [v102 countByEnumeratingWithState:&v135 objects:v156 count:16];
+  if (v108)
   {
-    v105 = *v137;
+    v104 = *v136;
     do
     {
       v53 = 0;
       do
       {
-        if (*v137 != v105)
+        if (*v136 != v104)
         {
-          objc_enumerationMutation(v103);
+          objc_enumerationMutation(v102);
         }
 
-        v54 = *(*(&v136 + 1) + 8 * v53);
+        v54 = *(*(&v135 + 1) + 8 * v53);
         v55 = __debugLogEnabled___bNavigationDebug;
         if (__debugLogEnabled___bNavigationDebug == -1)
         {
@@ -784,7 +784,7 @@ LABEL_46:
           __debugLogEnabled___bNavigationDebug = v55;
         }
 
-        v113 = v53;
+        v112 = v53;
         if (v55)
         {
           NSLog(&cfstr_NavigationCall.isa, v54);
@@ -793,27 +793,27 @@ LABEL_46:
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
         [WeakRetained IAPNavigationAccessoryDidBecomeAvailable:v54];
 
-        v134 = 0u;
-        v135 = 0u;
-        v132 = 0u;
         v133 = 0u;
+        v134 = 0u;
+        v131 = 0u;
+        v132 = 0u;
         components5 = [v54 components];
-        v58 = [components5 countByEnumeratingWithState:&v132 objects:v156 count:16];
+        v58 = [components5 countByEnumeratingWithState:&v131 objects:v155 count:16];
         if (v58)
         {
           v59 = v58;
-          v60 = *v133;
+          v60 = *v132;
           do
           {
             v61 = 0;
             do
             {
-              if (*v133 != v60)
+              if (*v132 != v60)
               {
                 objc_enumerationMutation(components5);
               }
 
-              v62 = *(*(&v132 + 1) + 8 * v61);
+              v62 = *(*(&v131 + 1) + 8 * v61);
               if ([v62 isEnabled])
               {
                 if (__debugLogEnabled___bNavigationDebug == -1)
@@ -839,21 +839,21 @@ LABEL_84:
             }
 
             while (v59 != v61);
-            v64 = [components5 countByEnumeratingWithState:&v132 objects:v156 count:16];
+            v64 = [components5 countByEnumeratingWithState:&v131 objects:v155 count:16];
             v59 = v64;
           }
 
           while (v64);
         }
 
-        v53 = v113 + 1;
+        v53 = v112 + 1;
       }
 
-      while (v113 + 1 != v109);
-      v109 = [v103 countByEnumeratingWithState:&v136 objects:v157 count:16];
+      while (v112 + 1 != v108);
+      v108 = [v102 countByEnumeratingWithState:&v135 objects:v156 count:16];
     }
 
-    while (v109);
+    while (v108);
   }
 
   v65 = __debugLogEnabled___bNavigationDebug;
@@ -875,52 +875,52 @@ LABEL_84:
 
     if (v66)
     {
-      NSLog(&cfstr_NavigationUpda.isa, v94);
+      NSLog(&cfstr_NavigationUpda.isa, v93);
     }
   }
 
-  v130 = 0u;
-  v131 = 0u;
-  v128 = 0u;
   v129 = 0u;
-  v100 = v94;
-  v110 = [v100 countByEnumeratingWithState:&v128 objects:v155 count:16];
-  if (v110)
+  v130 = 0u;
+  v127 = 0u;
+  v128 = 0u;
+  v99 = v93;
+  v109 = [v99 countByEnumeratingWithState:&v127 objects:v154 count:16];
+  if (v109)
   {
-    v106 = *v129;
+    v105 = *v128;
     do
     {
       v67 = 0;
       do
       {
-        if (*v129 != v106)
+        if (*v128 != v105)
         {
-          objc_enumerationMutation(v100);
+          objc_enumerationMutation(v99);
         }
 
-        v114 = v67;
-        v68 = *(*(&v128 + 1) + 8 * v67);
+        v113 = v67;
+        v68 = *(*(&v127 + 1) + 8 * v67);
+        v123 = 0u;
         v124 = 0u;
         v125 = 0u;
         v126 = 0u;
-        v127 = 0u;
         components6 = [v68 components];
-        v70 = [components6 countByEnumeratingWithState:&v124 objects:v154 count:16];
+        v70 = [components6 countByEnumeratingWithState:&v123 objects:v153 count:16];
         if (v70)
         {
           v71 = v70;
-          v72 = *v125;
+          v72 = *v124;
           do
           {
             v73 = 0;
             do
             {
-              if (*v125 != v72)
+              if (*v124 != v72)
               {
                 objc_enumerationMutation(components6);
               }
 
-              v74 = *(*(&v124 + 1) + 8 * v73);
+              v74 = *(*(&v123 + 1) + 8 * v73);
               if ([v74 _enabledModified])
               {
                 [v74 set_enabledModified:0];
@@ -973,21 +973,21 @@ LABEL_121:
             }
 
             while (v71 != v73);
-            v76 = [components6 countByEnumeratingWithState:&v124 objects:v154 count:16];
+            v76 = [components6 countByEnumeratingWithState:&v123 objects:v153 count:16];
             v71 = v76;
           }
 
           while (v76);
         }
 
-        v67 = v114 + 1;
+        v67 = v113 + 1;
       }
 
-      while (v114 + 1 != v110);
-      v110 = [v100 countByEnumeratingWithState:&v128 objects:v155 count:16];
+      while (v113 + 1 != v109);
+      v109 = [v99 countByEnumeratingWithState:&v127 objects:v154 count:16];
     }
 
-    while (v110);
+    while (v109);
   }
 
   v77 = __debugLogEnabled___bNavigationDebug;
@@ -999,52 +999,52 @@ LABEL_121:
 
   if (v77)
   {
-    NSLog(&cfstr_NavigationRemo.isa, v93);
+    NSLog(&cfstr_NavigationRemo.isa, v92);
   }
 
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
   v121 = 0u;
-  v98 = v93;
-  v111 = [v98 countByEnumeratingWithState:&v120 objects:v153 count:16];
-  if (v111)
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v97 = v92;
+  v110 = [v97 countByEnumeratingWithState:&v119 objects:v152 count:16];
+  if (v110)
   {
-    v107 = *v121;
+    v106 = *v120;
     do
     {
       v78 = 0;
       do
       {
-        if (*v121 != v107)
+        if (*v120 != v106)
         {
-          objc_enumerationMutation(v98);
+          objc_enumerationMutation(v97);
         }
 
-        v115 = v78;
-        v79 = *(*(&v120 + 1) + 8 * v78);
+        v114 = v78;
+        v79 = *(*(&v119 + 1) + 8 * v78);
         [(NSSet *)self->_availableAccessories removeObject:v79];
-        v118 = 0u;
-        v119 = 0u;
-        v116 = 0u;
         v117 = 0u;
+        v118 = 0u;
+        v115 = 0u;
+        v116 = 0u;
         components7 = [v79 components];
-        v81 = [components7 countByEnumeratingWithState:&v116 objects:v152 count:16];
+        v81 = [components7 countByEnumeratingWithState:&v115 objects:v151 count:16];
         if (v81)
         {
           v82 = v81;
-          v83 = *v117;
+          v83 = *v116;
           do
           {
             v84 = 0;
             do
             {
-              if (*v117 != v83)
+              if (*v116 != v83)
               {
                 objc_enumerationMutation(components7);
               }
 
-              v85 = *(*(&v116 + 1) + 8 * v84);
+              v85 = *(*(&v115 + 1) + 8 * v84);
               if ([v85 isEnabled])
               {
                 if (__debugLogEnabled___bNavigationDebug == -1)
@@ -1070,7 +1070,7 @@ LABEL_147:
             }
 
             while (v82 != v84);
-            v87 = [components7 countByEnumeratingWithState:&v116 objects:v152 count:16];
+            v87 = [components7 countByEnumeratingWithState:&v115 objects:v151 count:16];
             v82 = v87;
           }
 
@@ -1092,14 +1092,14 @@ LABEL_147:
         v89 = objc_loadWeakRetained(&self->_delegate);
         [v89 IAPNavigationAccessoryDidBecomeUnavailable:v79];
 
-        v78 = v115 + 1;
+        v78 = v114 + 1;
       }
 
-      while (v115 + 1 != v111);
-      v111 = [v98 countByEnumeratingWithState:&v120 objects:v153 count:16];
+      while (v114 + 1 != v110);
+      v110 = [v97 countByEnumeratingWithState:&v119 objects:v152 count:16];
     }
 
-    while (v111);
+    while (v110);
   }
 
   v90 = __debugLogEnabled___bNavigationDebug;
@@ -1113,8 +1113,6 @@ LABEL_147:
   {
     NSLog(&cfstr_NavigationAvai.isa, self->_availableAccessories);
   }
-
-  v91 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_convert_xpc_array_to_NSArray:(id)array

@@ -1,4 +1,5 @@
 @interface MBDomainInfo
++ (id)domainInfoWithName:(id)name systemApp:(BOOL)app remoteSize:(unint64_t)size localSize:(unint64_t)localSize enabled:(BOOL)enabled restricted:(BOOL)restricted;
 - (MBDomainInfo)initWithCoder:(id)coder;
 - (MBDomainInfo)initWithDomainName:(id)name systemApp:(BOOL)app remoteSize:(unint64_t)size localSize:(unint64_t)localSize enabled:(BOOL)enabled restricted:(BOOL)restricted;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -6,6 +7,17 @@
 @end
 
 @implementation MBDomainInfo
+
++ (id)domainInfoWithName:(id)name systemApp:(BOOL)app remoteSize:(unint64_t)size localSize:(unint64_t)localSize enabled:(BOOL)enabled restricted:(BOOL)restricted
+{
+  restrictedCopy = restricted;
+  enabledCopy = enabled;
+  appCopy = app;
+  nameCopy = name;
+  v14 = [[MBDomainInfo alloc] initWithDomainName:nameCopy systemApp:appCopy remoteSize:size localSize:localSize enabled:enabledCopy restricted:restrictedCopy];
+
+  return v14;
+}
 
 - (MBDomainInfo)initWithDomainName:(id)name systemApp:(BOOL)app remoteSize:(unint64_t)size localSize:(unint64_t)localSize enabled:(BOOL)enabled restricted:(BOOL)restricted
 {

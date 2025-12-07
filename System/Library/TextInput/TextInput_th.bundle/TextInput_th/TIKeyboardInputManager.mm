@@ -3,7 +3,7 @@
 
 @implementation TIKeyboardInputManager
 
-uint64_t __55__TIKeyboardInputManager_th_validUSetForAutocorrection__block_invoke()
+void *__55__TIKeyboardInputManager_th_validUSetForAutocorrection__block_invoke()
 {
   result = [MEMORY[0x29EDBA0F8] _characterSetWithPattern:@"[:Script=Thai:]"];
   [TIKeyboardInputManager_th validUSetForAutocorrection]::thai_alphabet_set = result;

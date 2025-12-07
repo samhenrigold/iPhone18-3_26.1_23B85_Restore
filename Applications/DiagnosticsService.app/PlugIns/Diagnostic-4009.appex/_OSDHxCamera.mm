@@ -1,4 +1,5 @@
 @interface _OSDHxCamera
+- (BOOL)_enableMotionDataMetadata:(BOOL)metadata error:(id *)error;
 - (BOOL)_startStreaming:(id *)streaming;
 - (BOOL)getDeviceAndStreams:(id *)streams;
 - (BOOL)setFrameRate:(id)rate error:(id *)error;
@@ -194,22 +195,21 @@ LABEL_14:
       goto LABEL_6;
     }
 
-    v8 = layerCopy;
+    v7 = layerCopy;
     [(CALayer *)layerCopy frame];
-    [(CALayer *)v8 frame];
+    [(CALayer *)v7 frame];
     self->__imageQueue = CAImageQueueCreate();
     +[CATransaction begin];
-    [(CALayer *)v8 setContents:self->__imageQueue];
+    [(CALayer *)v7 setContents:self->__imageQueue];
     +[CATransaction commit];
-    v5 = v8;
+    v5 = v7;
     previewLayer = self->_previewLayer;
     self->_previewLayer = v5;
   }
 
   else
   {
-    v8 = 0;
-    imageQueue = self->__imageQueue;
+    v7 = 0;
     CAImageQueueInvalidate();
     CFRelease(self->__imageQueue);
     self->__imageQueue = 0;
@@ -217,7 +217,7 @@ LABEL_14:
     self->_previewLayer = 0;
   }
 
-  layerCopy = v8;
+  layerCopy = v7;
 LABEL_6:
 }
 
@@ -291,6 +291,26 @@ LABEL_6:
   }
 
   return v9;
+}
+
+- (BOOL)_enableMotionDataMetadata:(BOOL)metadata error:(id *)error
+{
+  metadataCopy = metadata;
+  captureStream = [(_OSDHxCamera *)self captureStream];
+  v7 = [captureStream setProperty:kFigCaptureStreamProperty_MotionDataFromISPEnabled BOOLean:metadataCopy error:error];
+
+  if (v7)
+  {
+    v8 = 1.0;
+    if (!error)
+    {
+      v8 = 4.5;
+    }
+
+    [NSThread sleepForTimeInterval:v8];
+  }
+
+  return v7;
 }
 
 @end

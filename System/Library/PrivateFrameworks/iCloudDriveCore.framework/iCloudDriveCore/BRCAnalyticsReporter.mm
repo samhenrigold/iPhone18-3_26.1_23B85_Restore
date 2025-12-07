@@ -10,6 +10,7 @@
 - (void)_cleanupTimedOutEventMetrics:(id)metrics;
 - (void)_forgetEventMetrics:(id)metrics;
 - (void)_gatherAppTelemetryEventsWithSystemTask:(id)task;
+- (void)_handleApplySchedulerTimeoutWithSystemTask:(id)task telemetryEventType:(int)type;
 - (void)_reportSyncUpBackoffInfo;
 - (void)_setupSyncConsistencyCancellationTimerWithSession:(id)session;
 - (void)_setupSyncConsistencyDeferralTimerWithSystemTask:(id)task;
@@ -84,10 +85,73 @@
 
 - (void)registerBackgroundXPCActivities
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] iCloud Analytics collection is disabled, unregistering bgst%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = [BRCUserDefaults defaultsForMangledID:0];
+  objc_initWeak(&location, self);
+  session = self->_session;
+  if (session && ![(BRCAccountSession *)session isCancelled])
+  {
+    v10 = +[BRCBGSystemTaskManager sharedManager];
+    analyticsReportBGSystemTaskConfig = [v3 analyticsReportBGSystemTaskConfig];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke;
+    v21[3] = &unk_2784FFFD0;
+    objc_copyWeak(&v22, &location);
+    [v10 submitBGSystemTaskWithIdentifier:@"com.apple.bird.analytics-report" configuration:analyticsReportBGSystemTaskConfig block:v21];
+
+    v12 = +[BRCBGSystemTaskManager sharedManager];
+    appTelemetryGatherBGSystemTaskConfig = [v3 appTelemetryGatherBGSystemTaskConfig];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_29;
+    v19[3] = &unk_2784FFFD0;
+    objc_copyWeak(&v20, &location);
+    [v12 submitBGSystemTaskWithIdentifier:@"com.apple.bird.app-telemetry" configuration:appTelemetryGatherBGSystemTaskConfig block:v19];
+
+    if ([v3 syncConsistencyCheckerEnabled])
+    {
+      v14 = +[BRCBGSystemTaskManager sharedManager];
+      syncConsistencyCheckerBGSystemTaskConfig = [v3 syncConsistencyCheckerBGSystemTaskConfig];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_36;
+      v17[3] = &unk_2784FFFD0;
+      objc_copyWeak(&v18, &location);
+      [v14 submitBGSystemTaskWithIdentifier:@"com.apple.bird.sync-consistency-check" configuration:syncConsistencyCheckerBGSystemTaskConfig block:v17];
+
+      objc_destroyWeak(&v18);
+    }
+
+    else
+    {
+      v16 = +[BRCBGSystemTaskManager sharedManager];
+      [v16 unregisterTaskWithIdentifier:@"com.apple.bird.sync-consistency-check"];
+    }
+
+    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
+  }
+
+  else
+  {
+    v5 = brc_bread_crumbs();
+    v6 = brc_default_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      [BRCAnalyticsReporter registerBackgroundXPCActivities];
+    }
+
+    v7 = +[BRCBGSystemTaskManager sharedManager];
+    [v7 unregisterTaskWithIdentifier:@"com.apple.bird.analytics-report"];
+
+    v8 = +[BRCBGSystemTaskManager sharedManager];
+    [v8 unregisterTaskWithIdentifier:@"com.apple.bird.app-telemetry"];
+
+    v9 = +[BRCBGSystemTaskManager sharedManager];
+    [v9 unregisterTaskWithIdentifier:@"com.apple.bird.sync-consistency-check"];
+  }
+
+  objc_destroyWeak(&location);
 }
 
 void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke(uint64_t a1, void *a2)
@@ -124,7 +188,7 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke(ui
 
 void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_15(uint64_t a1)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v2 = +[BRCAccountsManager sharedManager];
   v3 = [*(*(a1 + 32) + 8) accountHandler];
   v4 = [v3 acAccountID];
@@ -153,10 +217,10 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_15
   }
 
   v9 = [MEMORY[0x277D77BF8] sharedManager];
-  v38 = [v9 currentPersona];
+  v37 = [v9 currentPersona];
 
-  v52 = 0;
-  v10 = [v38 userPersonaUniqueString];
+  v51 = 0;
+  v10 = [v37 userPersonaUniqueString];
   v11 = v10;
   if (v10 == v8 || ([v10 isEqualToString:v8] & 1) != 0)
   {
@@ -166,37 +230,37 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_15
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v51 = 0;
-    v29 = [v38 copyCurrentPersonaContextWithError:&v51];
+    v50 = 0;
+    v28 = [v37 copyCurrentPersonaContextWithError:&v50];
+    v29 = v50;
     v30 = v51;
-    v31 = v52;
-    v52 = v29;
+    v51 = v28;
 
-    if (v30)
+    if (v29)
     {
-      v32 = brc_bread_crumbs();
-      v33 = brc_default_log();
-      if (os_log_type_enabled(v33, 0x90u))
+      v31 = brc_bread_crumbs();
+      v32 = brc_default_log();
+      if (os_log_type_enabled(v32, 0x90u))
       {
         __br_notify_register_dispatch_block_invoke_cold_4();
       }
     }
 
-    v12 = [v38 br_generateAndRestorePersonaContextWithPersonaUniqueString:v8];
+    v12 = [v37 br_generateAndRestorePersonaContextWithPersonaUniqueString:v8];
 
     if (v12)
     {
-      v34 = brc_bread_crumbs();
-      v35 = brc_default_log();
-      if (os_log_type_enabled(v35, 0x90u))
+      v33 = brc_bread_crumbs();
+      v34 = brc_default_log();
+      if (os_log_type_enabled(v34, 0x90u))
       {
         *buf = 138412802;
-        v57 = v5;
-        v58 = 2112;
-        v59 = v12;
-        v60 = 2112;
-        v61 = v34;
-        _os_log_error_impl(&dword_223E7A000, v35, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v56 = v5;
+        v57 = 2112;
+        v58 = v12;
+        v59 = 2112;
+        v60 = v33;
+        _os_log_error_impl(&dword_223E7A000, v34, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_49:
@@ -205,11 +269,11 @@ LABEL_49:
 
   else
   {
-    if (!v7 && ([v38 isDataSeparatedPersona] & 1) == 0)
+    if (!v7 && ([v37 isDataSeparatedPersona] & 1) == 0)
     {
-      v34 = brc_bread_crumbs();
-      v35 = brc_default_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+      v33 = brc_bread_crumbs();
+      v34 = brc_default_log();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -218,9 +282,9 @@ LABEL_49:
       goto LABEL_49;
     }
 
-    v36 = brc_bread_crumbs();
-    v37 = brc_default_log();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    v35 = brc_bread_crumbs();
+    v36 = brc_default_log();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
     {
       __br_notify_register_dispatch_block_invoke_cold_3();
     }
@@ -232,82 +296,82 @@ LABEL_11:
   v13 = objc_alloc_init(BRCSyncHealthReport);
   [(BRCSyncHealthReport *)v13 generateReportWithSession:*(*(a1 + 32) + 8)];
   [BRCCoreAnalyticsReporter uploadMetricsReport:v13];
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v14 = [(BRCSyncHealthReport *)v13 telemetryErrorEvents];
-  v15 = [v14 countByEnumeratingWithState:&v47 objects:v55 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v46 objects:v54 count:16];
   if (v15)
   {
-    v16 = *v48;
+    v16 = *v47;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v48 != v16)
+        if (*v47 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:7 telemetryTimeEvent:*(*(&v47 + 1) + 8 * i)];
+        [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:7 telemetryTimeEvent:*(*(&v46 + 1) + 8 * i)];
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
     while (v15);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v18 = [(BRCSyncHealthReport *)v13 telemetryOtherEvents];
-  v19 = [v18 countByEnumeratingWithState:&v43 objects:v54 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v42 objects:v53 count:16];
   if (v19)
   {
-    v20 = *v44;
+    v20 = *v43;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v44 != v20)
+        if (*v43 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:7 telemetryTimeEvent:*(*(&v43 + 1) + 8 * j)];
+        [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:7 telemetryTimeEvent:*(*(&v42 + 1) + 8 * j)];
       }
 
-      v19 = [v18 countByEnumeratingWithState:&v43 objects:v54 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v42 objects:v53 count:16];
     }
 
     while (v19);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v22 = [(BRCSyncHealthReport *)v13 aggregatedEvents];
-  v23 = [v22 countByEnumeratingWithState:&v39 objects:v53 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v38 objects:v52 count:16];
   if (v23)
   {
-    v24 = *v40;
+    v24 = *v39;
     do
     {
       for (k = 0; k != v23; ++k)
       {
-        if (*v40 != v24)
+        if (*v39 != v24)
         {
           objc_enumerationMutation(v22);
         }
 
-        [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:*(*(&v39 + 1) + 8 * k)];
+        [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:*(*(&v38 + 1) + 8 * k)];
       }
 
-      v23 = [v22 countByEnumeratingWithState:&v39 objects:v53 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v38 objects:v52 count:16];
     }
 
     while (v23);
@@ -319,7 +383,6 @@ LABEL_11:
   *(v26 + 56) = v13;
 
   _BRRestorePersona();
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_2()
@@ -332,7 +395,7 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_2(
 
 void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_29(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
@@ -380,7 +443,7 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_29
   v17 = [MEMORY[0x277D77BF8] sharedManager];
   v18 = [v17 currentPersona];
 
-  v33 = 0;
+  v32 = 0;
   v19 = [v18 userPersonaUniqueString];
   v20 = v19;
   if (v19 == v16 || ([v19 isEqualToString:v16] & 1) != 0)
@@ -392,17 +455,17 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_29
   {
     if (voucher_process_can_use_arbitrary_personas())
     {
-      v32 = 0;
-      v23 = [v18 copyCurrentPersonaContextWithError:&v32];
+      v31 = 0;
+      v22 = [v18 copyCurrentPersonaContextWithError:&v31];
+      v23 = v31;
       v24 = v32;
-      v25 = v33;
-      v33 = v23;
+      v32 = v22;
 
-      if (v24)
+      if (v23)
       {
-        v26 = brc_bread_crumbs();
-        v27 = brc_default_log();
-        if (os_log_type_enabled(v27, 0x90u))
+        v25 = brc_bread_crumbs();
+        v26 = brc_default_log();
+        if (os_log_type_enabled(v26, 0x90u))
         {
           __br_notify_register_dispatch_block_invoke_cold_4();
         }
@@ -415,17 +478,17 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_29
         goto LABEL_15;
       }
 
-      v28 = brc_bread_crumbs();
-      v29 = brc_default_log();
-      if (os_log_type_enabled(v29, 0x90u))
+      v27 = brc_bread_crumbs();
+      v28 = brc_default_log();
+      if (os_log_type_enabled(v28, 0x90u))
       {
         *buf = 138412802;
-        v35 = v13;
-        v36 = 2112;
-        v37 = v21;
-        v38 = 2112;
-        v39 = v28;
-        _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v34 = v13;
+        v35 = 2112;
+        v36 = v21;
+        v37 = 2112;
+        v38 = v27;
+        _os_log_error_impl(&dword_223E7A000, v28, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
     }
 
@@ -433,9 +496,9 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_29
     {
       if (v15 || ([v18 isDataSeparatedPersona] & 1) != 0)
       {
-        v30 = brc_bread_crumbs();
-        v31 = brc_default_log();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v29 = brc_bread_crumbs();
+        v30 = brc_default_log();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           __br_notify_register_dispatch_block_invoke_cold_3();
         }
@@ -444,9 +507,9 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_29
         goto LABEL_15;
       }
 
-      v28 = brc_bread_crumbs();
-      v29 = brc_default_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v27 = brc_bread_crumbs();
+      v28 = brc_default_log();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -460,8 +523,6 @@ LABEL_15:
 
   _BRRestorePersona();
 LABEL_17:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_30()
@@ -474,7 +535,7 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_30
 
 void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_36(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
@@ -522,7 +583,7 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_36
   v17 = [MEMORY[0x277D77BF8] sharedManager];
   v18 = [v17 currentPersona];
 
-  v33 = 0;
+  v32 = 0;
   v19 = [v18 userPersonaUniqueString];
   v20 = v19;
   if (v19 == v16 || ([v19 isEqualToString:v16] & 1) != 0)
@@ -534,17 +595,17 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_36
   {
     if (voucher_process_can_use_arbitrary_personas())
     {
-      v32 = 0;
-      v23 = [v18 copyCurrentPersonaContextWithError:&v32];
+      v31 = 0;
+      v22 = [v18 copyCurrentPersonaContextWithError:&v31];
+      v23 = v31;
       v24 = v32;
-      v25 = v33;
-      v33 = v23;
+      v32 = v22;
 
-      if (v24)
+      if (v23)
       {
-        v26 = brc_bread_crumbs();
-        v27 = brc_default_log();
-        if (os_log_type_enabled(v27, 0x90u))
+        v25 = brc_bread_crumbs();
+        v26 = brc_default_log();
+        if (os_log_type_enabled(v26, 0x90u))
         {
           __br_notify_register_dispatch_block_invoke_cold_4();
         }
@@ -557,17 +618,17 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_36
         goto LABEL_15;
       }
 
-      v28 = brc_bread_crumbs();
-      v29 = brc_default_log();
-      if (os_log_type_enabled(v29, 0x90u))
+      v27 = brc_bread_crumbs();
+      v28 = brc_default_log();
+      if (os_log_type_enabled(v28, 0x90u))
       {
         *buf = 138412802;
-        v35 = v13;
-        v36 = 2112;
-        v37 = v21;
-        v38 = 2112;
-        v39 = v28;
-        _os_log_error_impl(&dword_223E7A000, v29, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v34 = v13;
+        v35 = 2112;
+        v36 = v21;
+        v37 = 2112;
+        v38 = v27;
+        _os_log_error_impl(&dword_223E7A000, v28, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
     }
 
@@ -575,9 +636,9 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_36
     {
       if (v15 || ([v18 isDataSeparatedPersona] & 1) != 0)
       {
-        v30 = brc_bread_crumbs();
-        v31 = brc_default_log();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v29 = brc_bread_crumbs();
+        v30 = brc_default_log();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
         {
           __br_notify_register_dispatch_block_invoke_cold_3();
         }
@@ -586,9 +647,9 @@ void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_36
         goto LABEL_15;
       }
 
-      v28 = brc_bread_crumbs();
-      v29 = brc_default_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v27 = brc_bread_crumbs();
+      v28 = brc_default_log();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -602,8 +663,6 @@ LABEL_15:
 
   _BRRestorePersona();
 LABEL_17:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_37()
@@ -677,21 +736,77 @@ uint64_t __69__BRCAnalyticsReporter__waitForApplySchedulerToBeIdleWithCompletion
   return v8();
 }
 
+- (void)_handleApplySchedulerTimeoutWithSystemTask:(id)task telemetryEventType:(int)type
+{
+  v4 = *&type;
+  v26 = *MEMORY[0x277D85DE8];
+  taskCopy = task;
+  v6 = self->_session;
+  cloudDocsClientZone = [(BRCAccountSession *)v6 cloudDocsClientZone];
+  rootItemID = [cloudDocsClientZone rootItemID];
+
+  v9 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  v10 = brc_bread_crumbs();
+  v11 = brc_default_log();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v25 = v10;
+    _os_log_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] Telemetry timed out waiting for the apply scheduler%@", buf, 0xCu);
+  }
+
+  clientDB = [(BRCAccountSession *)v6 clientDB];
+  v13 = [clientDB numberWithSQL:{@"SELECT retry_count FROM telemetry_failure_counts WHERE item_id = %@ AND zone_rowid = %@", rootItemID, v9}];
+
+  longLongValue = [v13 longLongValue];
+  v15 = [BRCUserDefaults defaultsForMangledID:0];
+  telemetryRetryCountForPermenentFailure = [v15 telemetryRetryCountForPermenentFailure];
+
+  if (longLongValue >= telemetryRetryCountForPermenentFailure)
+  {
+    if (v4 == -2)
+    {
+      v20 = +[AppTelemetryTimeSeriesEvent newConsistencyCheckerFailedEvent];
+      [(BRCAnalyticsReporter *)self postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v20];
+    }
+
+    else
+    {
+      if (v4 != -1)
+      {
+LABEL_10:
+        clientDB2 = [(BRCAccountSession *)v6 clientDB];
+        [clientDB2 execute:{@"DELETE FROM telemetry_failure_counts WHERE item_id = %@ AND zone_rowid = %@", rootItemID, v9}];
+
+        v18 = +[BRCBGSystemTaskManager sharedManager];
+        v19 = taskCopy;
+        [v18 completeTask:taskCopy];
+        goto LABEL_11;
+      }
+
+      v20 = [BRCUserDefaults defaultsForMangledID:0];
+      v21 = +[AppTelemetryTimeSeriesEvent newPermanentlyInconsistentEventWithZoneMangledID:enhancedDrivePrivacyEnabled:](AppTelemetryTimeSeriesEvent, "newPermanentlyInconsistentEventWithZoneMangledID:enhancedDrivePrivacyEnabled:", 0, [v20 supportsEnhancedDrivePrivacy]);
+      [(BRCAnalyticsReporter *)self postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v21];
+    }
+
+    goto LABEL_10;
+  }
+
+  clientDB3 = [(BRCAccountSession *)v6 clientDB];
+  [clientDB3 execute:{@"INSERT OR REPLACE INTO telemetry_failure_counts (retry_count, item_id, zone_rowid) VALUES (%lld, %@, %@)", longLongValue + 1, rootItemID, v9}];
+
+  v18 = +[BRCBGSystemTaskManager sharedManager];
+  v19 = taskCopy;
+  [v18 expireTask:taskCopy];
+LABEL_11:
+}
+
 - (void)_gatherAppTelemetryEventsWithSystemTask:(id)task
 {
   taskCopy = task;
   v5 = self->_session;
   clientTruthWorkloop = [(BRCAccountSession *)v5 clientTruthWorkloop];
-  if (!clientTruthWorkloop)
-  {
-    goto LABEL_5;
-  }
-
-  v7 = clientTruthWorkloop;
-  applyScheduler = [(BRCAccountSession *)v5 applyScheduler];
-  hasActiveWorkGroup = [applyScheduler hasActiveWorkGroup];
-
-  if (hasActiveWorkGroup)
+  if (clientTruthWorkloop && (v7 = clientTruthWorkloop, -[BRCAccountSession applyScheduler](v5, "applyScheduler"), v8 = objc_claimAutoreleasedReturnValue(), [v8 hasActiveWorkGroup], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, v9))
   {
     if (([taskCopy isTaskExpired] & 1) == 0)
     {
@@ -708,7 +823,6 @@ uint64_t __69__BRCAnalyticsReporter__waitForApplySchedulerToBeIdleWithCompletion
 
   else
   {
-LABEL_5:
     v10 = +[BRCBGSystemTaskManager sharedManager];
     [v10 completeTask:taskCopy];
   }
@@ -729,7 +843,7 @@ void __64__BRCAnalyticsReporter__gatherAppTelemetryEventsWithSystemTask___block_
     v10 = brc_default_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      __64__BRCAnalyticsReporter__gatherAppTelemetryEventsWithSystemTask___block_invoke_cold_1((a1 + 5));
+      __64__BRCAnalyticsReporter__gatherAppTelemetryEventsWithSystemTask___block_invoke_cold_1();
     }
 
     v11 = +[BRCBGSystemTaskManager sharedManager];
@@ -916,16 +1030,16 @@ void __64__BRCAnalyticsReporter__gatherAppTelemetryEventsWithSystemTask___block_
 
 void __73__BRCAnalyticsReporter__setupSyncConsistencyDeferralTimerWithSystemTask___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) isTaskExpired])
   {
     v2 = brc_bread_crumbs();
     v3 = brc_default_log();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v2;
-      _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Deferring the sync consistency checker%@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v2;
+      _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Deferring the sync consistency checker%@", &v6, 0xCu);
     }
 
     v4 = BRDiskCheckerServiceConnection();
@@ -934,8 +1048,6 @@ void __73__BRCAnalyticsReporter__setupSyncConsistencyDeferralTimerWithSystemTask
 
     dispatch_source_cancel(*(a1 + 40));
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __73__BRCAnalyticsReporter__setupSyncConsistencyDeferralTimerWithSystemTask___block_invoke_62(uint64_t a1)
@@ -1040,14 +1152,14 @@ void __73__BRCAnalyticsReporter__setupSyncConsistencyDeferralTimerWithSystemTask
 
 void __74__BRCAnalyticsReporter__setupSyncConsistencyCancellationTimerWithSession___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v2;
-    _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Cancelling the sync consistency checker because it timed out%@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v2;
+    _os_log_impl(&dword_223E7A000, v3, OS_LOG_TYPE_DEFAULT, "[WARNING] Cancelling the sync consistency checker because it timed out%@", &v6, 0xCu);
   }
 
   v4 = *(a1 + 32);
@@ -1055,7 +1167,6 @@ void __74__BRCAnalyticsReporter__setupSyncConsistencyCancellationTimerWithSessio
   [BRCAnalyticsReporter cancelSyncConsistencyReportWithMountPath:v4 queue:v5];
 
   dispatch_source_cancel(*(a1 + 48));
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __74__BRCAnalyticsReporter__setupSyncConsistencyCancellationTimerWithSession___block_invoke_65(uint64_t a1)
@@ -1230,7 +1341,7 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
 
 void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invoke_2(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = *(v4 + 80);
@@ -1256,31 +1367,31 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
 
     if (v9)
     {
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v10 = [v3 telemetryErrorEvents];
-      v11 = [v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v28;
+        v13 = *v27;
         do
         {
           v14 = 0;
           do
           {
-            if (*v28 != v13)
+            if (*v27 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:*(*(&v27 + 1) + 8 * v14++)];
+            [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:*(*(&v26 + 1) + 8 * v14++)];
           }
 
           while (v12 != v14);
-          v12 = [v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v12);
@@ -1294,31 +1405,31 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
       [v15 postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v16];
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v17 = [v3 telemetryWarningEvents];
-    v18 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v24;
+      v20 = *v23;
       do
       {
         v21 = 0;
         do
         {
-          if (*v24 != v20)
+          if (*v23 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:*(*(&v23 + 1) + 8 * v21++)];
+          [*(a1 + 32) postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:*(*(&v22 + 1) + 8 * v21++)];
         }
 
         while (v19 != v21);
-        v19 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
       while (v19);
@@ -1329,35 +1440,33 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
   {
     [*(a1 + 32) _handleApplySchedulerTimeoutWithSystemTask:*(a1 + 40) telemetryEventType:4294967294];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportSyncUpBackoffInfo
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   clientZones = [(BRCAccountSession *)self->_session clientZones];
-  v3 = [clientZones countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v3 = [clientZones countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v3)
   {
     v4 = v3;
-    v25 = 0;
+    v24 = 0;
     v5 = 0;
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(clientZones);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v25 + 1) + 8 * i);
         mangledID = [v8 mangledID];
         if (([v8 isSyncBlocked] & 1) == 0)
         {
@@ -1374,11 +1483,11 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v31 = v8;
-              v32 = 2048;
-              v33 = v12;
-              v34 = 2112;
-              v35 = v16;
+              v30 = v8;
+              v31 = 2048;
+              v32 = v12;
+              v33 = 2112;
+              v34 = v16;
               _os_log_impl(&dword_223E7A000, v17, OS_LOG_TYPE_DEFAULT, "[WARNING] Client zone %@ has a sync up backoff ratio of %f which is too large%@", buf, 0x20u);
             }
 
@@ -1393,22 +1502,22 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412802;
-              v31 = v8;
-              v32 = 2048;
-              v33 = v14;
-              v34 = 2112;
-              v35 = v19;
+              v30 = v8;
+              v31 = 2048;
+              v32 = v14;
+              v33 = 2112;
+              v34 = v19;
               _os_log_impl(&dword_223E7A000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] Client zone %@ has a sync up backoff delay of %f which is too large%@", buf, 0x20u);
             }
 
-            ++v25;
+            ++v24;
           }
 
           [v8 resetSyncUpBackoffRatio];
         }
       }
 
-      v4 = [clientZones countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v4 = [clientZones countByEnumeratingWithState:&v25 objects:v35 count:16];
     }
 
     while (v4);
@@ -1416,21 +1525,19 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
 
   else
   {
-    v25 = 0;
+    v24 = 0;
     v5 = 0;
   }
 
   v21 = [AppTelemetryTimeSeriesEvent newSyncUpBackoffRatioSummaryEventWithNumberOfFailedZones:v5];
   [(BRCAnalyticsReporter *)self postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v21];
-  v22 = [AppTelemetryTimeSeriesEvent newSyncUpBackoffDelaySummaryEventWithNumberOfFailedZones:v25];
+  v22 = [AppTelemetryTimeSeriesEvent newSyncUpBackoffDelaySummaryEventWithNumberOfFailedZones:v24];
   [(BRCAnalyticsReporter *)self postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:v22];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitEventMetric:(id)metric
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   if (metricCopy)
   {
@@ -1441,17 +1548,15 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
       [(BRCAnalyticsReporter *)self postReportForDefaultSubCategoryWithCategory:8 telemetryTimeEvent:associatedAppTelemetryEvent];
     }
 
-    v8[0] = metricCopy;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = metricCopy;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [(BRCAnalyticsReporter *)self _forgetEventMetrics:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forgetEventMetric:(id)metric
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (metric)
   {
     metricCopy = metric;
@@ -1459,53 +1564,51 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
     metricCopy2 = metric;
     v6 = [v4 arrayWithObjects:&metricCopy count:1];
 
-    [(BRCAnalyticsReporter *)self _forgetEventMetrics:v6, metricCopy, v9];
+    [(BRCAnalyticsReporter *)self _forgetEventMetrics:v6, metricCopy, v8];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_forgetEventMetrics:(id)metrics
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   dispatch_assert_queue_V2(self->_queue);
   firstObject = [metricsCopy firstObject];
   eventName = [firstObject eventName];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = metricsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        eventName2 = [*(*(&v16 + 1) + 8 * v11) eventName];
+        eventName2 = [*(*(&v15 + 1) + 8 * v11) eventName];
         v13 = [eventName2 isEqualToString:eventName];
 
         if ((v13 & 1) == 0)
         {
-          [(BRCAnalyticsReporter *)v20 _forgetEventMetrics:?];
+          [(BRCAnalyticsReporter *)v19 _forgetEventMetrics:?];
         }
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v21 count:16];
     }
 
     while (v9);
@@ -1513,13 +1616,11 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
 
   v14 = [(NSMutableDictionary *)self->_eventsByKind objectForKeyedSubscript:eventName];
   [v14 removeObjectsInArray:v7];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupTimedOutEventMetrics:(id)metrics
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   dispatch_assert_queue_V2(self->_queue);
   date = [MEMORY[0x277CBEAA8] date];
@@ -1528,26 +1629,26 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
   v8 = v7;
 
   v9 = objc_opt_new();
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v10 = metricsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v21;
+    v13 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v13)
+        if (*v20 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v20 + 1) + 8 * i);
+        v15 = *(*(&v19 + 1) + 8 * i);
         startTime = [v15 startTime];
         [date timeIntervalSinceDate:startTime];
         v18 = v17;
@@ -1558,13 +1659,11 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_withEventMetricsOfKind:(id)kind accessor:(id)accessor
@@ -2087,49 +2186,49 @@ void __50__BRCAnalyticsReporter_dumpDatabaseInfoToContext___block_invoke(uint64_
 
 - (void)dumpToContext:(id)context
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v30[0] = BRCEventKindFSEventToSyncUp;
-  v30[1] = BRCEventKindUserDownload;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v29[0] = BRCEventKindFSEventToSyncUp;
+  v29[1] = BRCEventKindUserDownload;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
   [contextCopy writeLineWithFormat:@"analytics metrics"];
   [contextCopy writeLineWithFormat:@"-----------------------------------------------------"];
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       v9 = 0;
       do
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * v9);
+        v10 = *(*(&v24 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __38__BRCAnalyticsReporter_dumpToContext___block_invoke;
-        v22[3] = &unk_278500138;
-        v23 = contextCopy;
-        v24 = v10;
-        [(BRCAnalyticsReporter *)self _withEventMetricsOfKind:v10 accessor:v22];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __38__BRCAnalyticsReporter_dumpToContext___block_invoke;
+        v21[3] = &unk_278500138;
+        v22 = contextCopy;
+        v23 = v10;
+        [(BRCAnalyticsReporter *)self _withEventMetricsOfKind:v10 accessor:v21];
 
         objc_autoreleasePoolPop(v11);
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v7);
@@ -2137,26 +2236,24 @@ void __50__BRCAnalyticsReporter_dumpDatabaseInfoToContext___block_invoke(uint64_
 
   [contextCopy writeLineWithFormat:@"SyncHealthReport:"];
   syncHealthReport = self->_syncHealthReport;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __38__BRCAnalyticsReporter_dumpToContext___block_invoke_2;
-  v20[3] = &unk_278500160;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __38__BRCAnalyticsReporter_dumpToContext___block_invoke_2;
+  v19[3] = &unk_278500160;
   v13 = contextCopy;
-  v21 = v13;
-  [(BRCSyncHealthReport *)syncHealthReport syncErrors:v20];
+  v20 = v13;
+  [(BRCSyncHealthReport *)syncHealthReport syncErrors:v19];
   [v13 writeLineWithFormat:&stru_2837504F0];
   [v13 writeLineWithFormat:@"Aggregated Telemetry:"];
   v14 = self->_syncHealthReport;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __38__BRCAnalyticsReporter_dumpToContext___block_invoke_3;
-  v18[3] = &unk_278500160;
-  v19 = v13;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __38__BRCAnalyticsReporter_dumpToContext___block_invoke_3;
+  v17[3] = &unk_278500160;
+  v18 = v13;
   v15 = v13;
-  [(BRCSyncHealthReport *)v14 dumpAggregatedEvents:v18];
+  [(BRCSyncHealthReport *)v14 dumpAggregatedEvents:v17];
   [v15 writeLineWithFormat:&stru_2837504F0];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createFSEventToSyncUpEventForFileID:(unint64_t)d genID:(unsigned int)iD
@@ -2240,72 +2337,6 @@ LABEL_8:
 
 void __74__BRCAnalyticsReporter_lookupFSEventToSyncUpEventByFileID_genID_accessor___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v13;
-    while (2)
-    {
-      for (i = 0; i != v5; ++i)
-      {
-        if (*v13 != v6)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v8 = *(*(&v12 + 1) + 8 * i);
-        v9 = *(a1 + 40);
-        if (v9 == [v8 fileID])
-        {
-          v10 = *(a1 + 48);
-          if (v10 == [v8 genID])
-          {
-            (*(*(a1 + 32) + 16))();
-            goto LABEL_12;
-          }
-        }
-      }
-
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
-      if (v5)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_12:
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)lookupFSEventToSyncUpEventByItemID:(id)d accessor:(id)accessor
-{
-  dCopy = d;
-  accessorCopy = accessor;
-  v8 = BRCEventKindFSEventToSyncUp;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __68__BRCAnalyticsReporter_lookupFSEventToSyncUpEventByItemID_accessor___block_invoke;
-  v11[3] = &unk_2785001D0;
-  v12 = dCopy;
-  v13 = accessorCopy;
-  v9 = accessorCopy;
-  v10 = dCopy;
-  [(BRCAnalyticsReporter *)self _withEventMetricsOfKind:v8 accessor:v11];
-}
-
-void __68__BRCAnalyticsReporter_lookupFSEventToSyncUpEventByItemID_accessor___block_invoke(uint64_t a1, void *a2)
-{
   v16 = *MEMORY[0x277D85DE8];
   v11 = 0u;
   v12 = 0u;
@@ -2326,14 +2357,16 @@ void __68__BRCAnalyticsReporter_lookupFSEventToSyncUpEventByItemID_accessor___bl
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(a1 + 32);
-        v9 = [*(*(&v11 + 1) + 8 * i) itemID];
-        LODWORD(v8) = [v8 isEqualToItemID:v9];
-
-        if (v8)
+        v8 = *(*(&v11 + 1) + 8 * i);
+        v9 = *(a1 + 40);
+        if (v9 == [v8 fileID])
         {
-          (*(*(a1 + 40) + 16))();
-          goto LABEL_11;
+          v10 = *(a1 + 48);
+          if (v10 == [v8 genID])
+          {
+            (*(*(a1 + 32) + 16))();
+            goto LABEL_12;
+          }
         }
       }
 
@@ -2347,9 +2380,69 @@ void __68__BRCAnalyticsReporter_lookupFSEventToSyncUpEventByItemID_accessor___bl
     }
   }
 
-LABEL_11:
+LABEL_12:
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)lookupFSEventToSyncUpEventByItemID:(id)d accessor:(id)accessor
+{
+  dCopy = d;
+  accessorCopy = accessor;
+  v8 = BRCEventKindFSEventToSyncUp;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __68__BRCAnalyticsReporter_lookupFSEventToSyncUpEventByItemID_accessor___block_invoke;
+  v11[3] = &unk_2785001D0;
+  v12 = dCopy;
+  v13 = accessorCopy;
+  v9 = accessorCopy;
+  v10 = dCopy;
+  [(BRCAnalyticsReporter *)self _withEventMetricsOfKind:v8 accessor:v11];
+}
+
+void __68__BRCAnalyticsReporter_lookupFSEventToSyncUpEventByItemID_accessor___block_invoke(uint64_t a1, void *a2)
+{
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v3 = a2;
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v11;
+    while (2)
+    {
+      for (i = 0; i != v5; ++i)
+      {
+        if (*v11 != v6)
+        {
+          objc_enumerationMutation(v3);
+        }
+
+        v8 = *(a1 + 32);
+        v9 = [*(*(&v10 + 1) + 8 * i) itemID];
+        LODWORD(v8) = [v8 isEqualToItemID:v9];
+
+        if (v8)
+        {
+          (*(*(a1 + 40) + 16))();
+          goto LABEL_11;
+        }
+      }
+
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      if (v5)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
 }
 
 - (void)createUserDownloadEventForOperationID:(id)d isRecursive:(BOOL)recursive isForBackup:(BOOL)backup
@@ -2408,27 +2501,27 @@ void __86__BRCAnalyticsReporter_createUserDownloadEventForOperationID_isRecursiv
 
 void __70__BRCAnalyticsReporter_lookupUserDownloadEventByOperationID_accessor___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * i) operationID];
+        v8 = [*(*(&v10 + 1) + 8 * i) operationID];
         v9 = [v8 isEqual:*(a1 + 32)];
 
         if (v9)
@@ -2438,7 +2531,7 @@ void __70__BRCAnalyticsReporter_lookupUserDownloadEventByOperationID_accessor___
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -2449,8 +2542,6 @@ void __70__BRCAnalyticsReporter_lookupUserDownloadEventByOperationID_accessor___
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lookupUserDownloadEventByFileObjectID:(id)d accessor:(id)accessor
@@ -2471,27 +2562,27 @@ LABEL_11:
 
 void __71__BRCAnalyticsReporter_lookupUserDownloadEventByFileObjectID_accessor___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * i) fileObjectIDs];
+        v8 = [*(*(&v10 + 1) + 8 * i) fileObjectIDs];
         v9 = [v8 containsObject:*(a1 + 32)];
 
         if (v9)
@@ -2501,7 +2592,7 @@ void __71__BRCAnalyticsReporter_lookupUserDownloadEventByFileObjectID_accessor__
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -2512,8 +2603,6 @@ void __71__BRCAnalyticsReporter_lookupUserDownloadEventByFileObjectID_accessor__
   }
 
 LABEL_11:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)postReportForDefaultSubCategoryWithCategory:(unint64_t)category telemetryTimeEvent:(id)event
@@ -2524,16 +2613,16 @@ LABEL_11:
 
 + (void)_enumerateAggregatedTelemetryForSession:(id)session withBlock:(id)block
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   blockCopy = block;
-  v24 = sessionCopy;
+  v23 = sessionCopy;
   clientDB = [sessionCopy clientDB];
   v7 = [clientDB fetch:{@"SELECT app_telemetry_identifier, zone_mangled_id, item_id, enhanced_drive_privacy_enabled, error_domain, error_code, error_description, underlying_error_domain, underlying_error_code, count FROM aggregated_daily_telemetry"}];
 
   if ([v7 next])
   {
-    v25 = *MEMORY[0x277CCA7E8];
+    v24 = *MEMORY[0x277CCA7E8];
     do
     {
       v8 = objc_autoreleasePoolPush();
@@ -2541,12 +2630,12 @@ LABEL_11:
       v10 = [v7 stringAtIndex:1];
       if ([v10 length])
       {
-        v33 = [objc_alloc(MEMORY[0x277CFAE60]) initWithMangledString:v10];
+        v32 = [objc_alloc(MEMORY[0x277CFAE60]) initWithMangledString:v10];
       }
 
       else
       {
-        v33 = 0;
+        v32 = 0;
       }
 
       v11 = [v7 stringAtIndex:2];
@@ -2559,33 +2648,33 @@ LABEL_11:
       v12 = [v7 stringAtIndex:3];
       if ([v12 length])
       {
-        v32 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v12, "isEqualToString:", @"1"}];
+        v31 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v12, "isEqualToString:", @"1"}];
       }
 
       else
       {
-        v32 = 0;
+        v31 = 0;
       }
 
       v13 = [v7 stringAtIndex:4];
       v14 = [v7 longLongAtIndex:5];
-      v34 = [v7 stringAtIndex:6];
+      v33 = [v7 stringAtIndex:6];
       v15 = [v7 stringAtIndex:7];
       v16 = [v7 longLongAtIndex:8];
-      v31 = v12;
+      v30 = v12;
       if ([v13 length])
       {
-        v29 = v10;
-        v30 = v8;
+        v28 = v10;
+        v29 = v8;
         v17 = MEMORY[0x277CCA9B8];
         v18 = [v15 length];
         if (v18)
         {
-          v35 = v25;
-          v27 = [MEMORY[0x277CCA9B8] errorWithDomain:v15 code:v16 userInfo:0];
-          v36[0] = v27;
-          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-          v19 = v26;
+          v34 = v24;
+          v26 = [MEMORY[0x277CCA9B8] errorWithDomain:v15 code:v16 userInfo:0];
+          v35[0] = v26;
+          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+          v19 = v25;
         }
 
         else
@@ -2593,14 +2682,14 @@ LABEL_11:
           v19 = 0;
         }
 
-        v20 = [v17 br_errorWithDomain:v13 code:v14 userInfo:v19 description:{@"%@", v34}];
+        v20 = [v17 br_errorWithDomain:v13 code:v14 userInfo:v19 description:{@"%@", v33}];
         v9 = v9;
         if (v18)
         {
         }
 
-        v10 = v29;
-        v21 = v30;
+        v10 = v28;
+        v21 = v29;
       }
 
       else
@@ -2609,7 +2698,7 @@ LABEL_11:
         v21 = v8;
       }
 
-      v22 = +[AppTelemetryTimeSeriesEvent newAggregatedEventWithIdentifier:recordID:zoneMangledID:enhancedDrivePrivacyEnabled:error:count:](AppTelemetryTimeSeriesEvent, "newAggregatedEventWithIdentifier:recordID:zoneMangledID:enhancedDrivePrivacyEnabled:error:count:", v9, v11, v33, v32, v20, [v7 longLongAtIndex:9]);
+      v22 = +[AppTelemetryTimeSeriesEvent newAggregatedEventWithIdentifier:recordID:zoneMangledID:enhancedDrivePrivacyEnabled:error:count:](AppTelemetryTimeSeriesEvent, "newAggregatedEventWithIdentifier:recordID:zoneMangledID:enhancedDrivePrivacyEnabled:error:count:", v9, v11, v32, v31, v20, [v7 longLongAtIndex:9]);
       blockCopy[2](blockCopy, v22);
 
       objc_autoreleasePoolPop(v21);
@@ -2617,8 +2706,6 @@ LABEL_11:
 
     while (([v7 next] & 1) != 0);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)aggregateReportForAppTelemetryIdentifier:(int)identifier itemID:(id)d zoneMangledID:(id)iD enhancedDrivePrivacyEnabled:(id)enabled error:(id)error
@@ -2803,97 +2890,26 @@ uint64_t __120__BRCAnalyticsReporter_aggregateReportForAppTelemetryIdentifier_it
   return [v5 isInternalBuild];
 }
 
-void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_cold_1()
+void __64__BRCAnalyticsReporter__gatherAppTelemetryEventsWithSystemTask___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Reporting analytics metrics%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __55__BRCAnalyticsReporter_registerBackgroundXPCActivities__block_invoke_36_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Checking sync consistency%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__BRCAnalyticsReporter__gatherAppTelemetryEventsWithSystemTask___block_invoke_cold_1(uint64_t a1)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = *(*a1 + 64);
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9();
-  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
 }
 
 void __64__BRCAnalyticsReporter__gatherAppTelemetryEventsWithSystemTask___block_invoke_cold_2()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __64__BRCAnalyticsReporter__gatherAppTelemetryEventsWithSystemTask___block_invoke_60_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v1, v2, "[ERROR] Failed to generate a report for shared folder %@%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setupSyncConsistencyDeferralTimerWithSystemTask:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Already have a deferral timer registered%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setupSyncConsistencyCancellationTimerWithSession:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Already have a cancellation timer registered%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_resumePausedTreeConsistencyCheckOperationWithSystemTask:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Failed resuming tree consistency operation%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_resumePausedTreeConsistencyCheckOperationWithSystemTask:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Successfully resumed existing tree consistency operation%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __81__BRCAnalyticsReporter__resumePausedTreeConsistencyCheckOperationWithSystemTask___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6(&dword_223E7A000, v0, v1, "[ERROR] error connecting to telemetry-disk-checker xpc service: %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_5_0(&dword_223E7A000, v0, v1, "[DEBUG] Deferring activity because a snapshot already exists%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_223E7A000, v1, v2, "[ERROR] Failed to generate a report for shared folder %@%@", v3, DWORD2(v3));
 }
 
 - (void)_forgetEventMetrics:(uint8_t *)a1 .cold.1(uint8_t *a1, void *a2)
@@ -2911,21 +2927,18 @@ void __60__BRCAnalyticsReporter__checkSyncConsistencyWithSystemTask___block_invo
 void __66__BRCAnalyticsReporter_createFSEventToSyncUpEventForFileID_genID___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_18();
-  v7 = *MEMORY[0x277D85DE8];
   [v0 fileID];
   OUTLINED_FUNCTION_9_2();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __86__BRCAnalyticsReporter_createUserDownloadEventForOperationID_isRecursive_isForBackup___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3_0();
-  v4 = v0;
-  _os_log_debug_impl(&dword_223E7A000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] analytics: creating %@ event%@", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_223E7A000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] analytics: creating %@ event%@", v2, 0x16u);
 }
 
 @end

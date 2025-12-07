@@ -152,14 +152,14 @@
 
 - (WFIcon)previewIcon
 {
-  v24[3] = *MEMORY[0x1E69E9840];
-  v23[0] = @"Camera";
-  v23[1] = @"Magnifier";
-  v24[0] = @"camera.fill";
-  v24[1] = @"plus.magnifyingglass";
-  v23[2] = @"Accessibility";
-  v24[2] = @"accessibility.fill";
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:3];
+  v23[3] = *MEMORY[0x1E69E9840];
+  v22[0] = @"Camera";
+  v22[1] = @"Magnifier";
+  v23[0] = @"camera.fill";
+  v23[1] = @"plus.magnifyingglass";
+  v22[2] = @"Accessibility";
+  v23[2] = @"accessibility.fill";
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:3];
   sectionIdentifier = [(WFConfiguredStaccatoAction *)self sectionIdentifier];
   v5 = [v3 objectForKeyedSubscript:sectionIdentifier];
 
@@ -227,7 +227,6 @@
 LABEL_14:
 
 LABEL_15:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

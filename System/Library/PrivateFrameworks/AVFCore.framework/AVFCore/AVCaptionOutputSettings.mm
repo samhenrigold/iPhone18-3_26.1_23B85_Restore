@@ -58,7 +58,7 @@ LABEL_8:
     goto LABEL_12;
   }
 
-  [(__CFDictionary *)v8 CMTimeValue];
+  objc_msgSend_CMTimeValue(v8);
   if ((v14 & 0x1D) == 1)
   {
     goto LABEL_8;
@@ -108,7 +108,7 @@ LABEL_19:
   {
     if (v4)
     {
-      result = [v4 CMTimeValue];
+      result = objc_msgSend_CMTimeValue(v4);
     }
 
     else

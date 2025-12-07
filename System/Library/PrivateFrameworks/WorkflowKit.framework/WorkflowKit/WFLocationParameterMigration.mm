@@ -31,32 +31,32 @@
 
 - (void)migrateWorkflow
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   actions = [(WFWorkflowMigration *)self actions];
-  v4 = [actions countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [actions countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       v7 = 0;
       do
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(actions);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * v7);
+        v8 = *(*(&v21 + 1) + 8 * v7);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v10 = [v8 objectForKeyedSubscript:actionIdentifierKey];
 
-        if ([v10 isEqualToString:@"is.workflow.actions.gettraveltime"])
+        if (objc_msgSend_isEqualToString_(v10))
         {
 LABEL_7:
           actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
@@ -76,7 +76,7 @@ LABEL_7:
           goto LABEL_14;
         }
 
-        if (([v10 isEqualToString:@"is.workflow.actions.weather.currentconditions"] & 1) != 0 || objc_msgSend(v10, "isEqualToString:", @"is.workflow.actions.weather.forecast"))
+        if ((objc_msgSend_isEqualToString_(v10) & 1) != 0 || objc_msgSend_isEqualToString_(v10))
         {
           actionParametersKey2 = [(WFWorkflowMigration *)self actionParametersKey];
           v12 = [v8 objectForKeyedSubscript:actionParametersKey2];
@@ -98,7 +98,7 @@ LABEL_14:
           goto LABEL_15;
         }
 
-        if ([v10 isEqualToString:@"is.workflow.actions.getdistance"])
+        if (objc_msgSend_isEqualToString_(v10))
         {
           goto LABEL_7;
         }
@@ -109,7 +109,7 @@ LABEL_15:
       }
 
       while (v5 != v7);
-      v20 = [actions countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v20 = [actions countByEnumeratingWithState:&v21 objects:v25 count:16];
       v5 = v20;
     }
 
@@ -117,7 +117,6 @@ LABEL_15:
   }
 
   [(WFWorkflowMigration *)self finish];
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 @end

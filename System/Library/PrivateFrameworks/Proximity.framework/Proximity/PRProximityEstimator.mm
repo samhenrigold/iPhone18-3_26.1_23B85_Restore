@@ -87,7 +87,7 @@
 
 - (BOOL)startEstimatingProximityFor:(id)for peerDeviceModel:(id)model withError:(id *)error
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   forCopy = for;
   modelCopy = model;
   v10 = [(NSMutableDictionary *)self->devicesMonitered objectForKeyedSubscript:forCopy];
@@ -95,16 +95,16 @@
   {
     if (self->usingST)
     {
-      v25 = 0;
-      v14 = &v25;
-      v15 = [[PRProximitySingleThresholdDevice alloc] initWithPeer:forCopy andPeerModel:modelCopy withError:&v25];
+      v24 = 0;
+      v14 = &v24;
+      v15 = [[PRProximitySingleThresholdDevice alloc] initWithPeer:forCopy andPeerModel:modelCopy withError:&v24];
     }
 
     else
     {
-      v24 = 0;
-      v14 = &v24;
-      v15 = [[PRProximityDevice alloc] initWithPeer:forCopy andPeerModel:modelCopy withError:&v24];
+      v23 = 0;
+      v14 = &v23;
+      v15 = [[PRProximityDevice alloc] initWithPeer:forCopy andPeerModel:modelCopy withError:&v23];
     }
 
     v10 = v15;
@@ -132,9 +132,9 @@
       else if (error)
       {
         v20 = MEMORY[0x277CCA9B8];
-        v28 = *MEMORY[0x277CCA450];
-        v29[0] = @"Memeory Allocation failure";
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+        v27 = *MEMORY[0x277CCA450];
+        v28[0] = @"Memeory Allocation failure";
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
         *error = [v20 errorWithDomain:@"com.apple.Proximity.ErrorDomain" code:200 userInfo:v21];
       }
 
@@ -147,9 +147,9 @@
   if (error)
   {
     v11 = MEMORY[0x277CCA9B8];
-    v26 = *MEMORY[0x277CCA450];
-    v27 = @"Peer Already being monitored";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v25 = *MEMORY[0x277CCA450];
+    v26 = @"Peer Already being monitored";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     [v11 errorWithDomain:@"com.apple.Proximity.ErrorDomain" code:200 userInfo:v12];
     *error = v13 = 0;
 LABEL_15:
@@ -160,13 +160,12 @@ LABEL_15:
   v13 = 0;
 LABEL_16:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)stopEstimatingProximityFor:(id)for withError:(id *)error
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   forCopy = for;
   v7 = [(NSMutableDictionary *)self->devicesMonitered objectForKeyedSubscript:forCopy];
   if (v7)
@@ -180,41 +179,40 @@ LABEL_16:
   else if (error)
   {
     v9 = MEMORY[0x277CCA9B8];
-    v13 = *MEMORY[0x277CCA450];
-    v14[0] = @"Peer not being monitored";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA450];
+    v13[0] = @"Peer not being monitored";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *error = [v9 errorWithDomain:@"com.apple.Proximity.ErrorDomain" code:201 userInfo:v10];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v7 != 0;
 }
 
 - (BOOL)addRssiSample:(double)sample channel:(unsigned int)channel forPeer:(id)peer withError:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   peerCopy = peer;
   v11 = [(NSMutableDictionary *)self->devicesMonitered objectForKeyedSubscript:peerCopy];
   if (v11)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v22[0] = PRCommonGetMachContinuousTimeSeconds();
-    *&v22[1] = sample;
+    v21[0] = PRCommonGetMachContinuousTimeSeconds();
+    *&v21[1] = sample;
     channelCopy = channel;
-    [v11 addSample:v22];
+    [v11 addSample:v21];
     if ([v11 proxReady])
     {
       WeakRetained = objc_loadWeakRetained(&selfCopy->_delegate);
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __64__PRProximityEstimator_addRssiSample_channel_forPeer_withError___block_invoke;
-      v18[3] = &unk_2788F40B8;
-      v19 = WeakRetained;
-      v20 = selfCopy;
-      v21 = v11;
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __64__PRProximityEstimator_addRssiSample_channel_forPeer_withError___block_invoke;
+      v17[3] = &unk_2788F40B8;
+      v18 = WeakRetained;
+      v19 = selfCopy;
+      v20 = v11;
       v14 = WeakRetained;
-      [(PRProximityEstimator *)selfCopy invokeDelegateBlock:v18];
+      [(PRProximityEstimator *)selfCopy invokeDelegateBlock:v17];
     }
 
     objc_sync_exit(selfCopy);
@@ -224,14 +222,13 @@ LABEL_16:
   if (error)
   {
     v15 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"Peer not being monitored";
-    selfCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"Peer not being monitored";
+    selfCopy = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     *error = [v15 errorWithDomain:@"com.apple.Proximity.ErrorDomain" code:202 userInfo:selfCopy];
 LABEL_7:
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11 != 0;
 }
 

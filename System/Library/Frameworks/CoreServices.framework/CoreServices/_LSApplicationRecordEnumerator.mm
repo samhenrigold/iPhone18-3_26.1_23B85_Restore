@@ -3,6 +3,7 @@
 - (BOOL)_prepareWithContext:(LSContext *)context error:(id *)error;
 - (_LSApplicationRecordEnumerator)initWithContext:(LSContext *)context volumeURL:(id)l options:(unint64_t)options;
 - (id).cxx_construct;
+- (id)_applicationRecordWithContext:(LSContext *)context bundleIdentifierOrUnit:(unsigned int)unit;
 - (id)copyWithZone:(_NSZone *)zone;
 @end
 
@@ -52,10 +53,9 @@
   {
     _enumerateAllBundles = [(_LSApplicationRecordEnumerator *)self _enumerateAllBundles];
     [(_LSDatabase *)context->db store];
-    schema = [(_LSDatabase *)context->db schema];
+    [(_LSDatabase *)context->db schema];
     if (_enumerateAllBundles)
     {
-      v12 = *(schema + 4);
       _CSStoreEnumerateUnits();
     }
 
@@ -64,10 +64,10 @@
       _CSStringBindingEnumerateAllBindings();
     }
 
-    v13 = _LSEnumeratorLog;
+    v11 = _LSEnumeratorLog;
     if (os_log_type_enabled(_LSEnumeratorLog, OS_LOG_TYPE_DEBUG))
     {
-      [(_LSApplicationRecordEnumerator *)self _prepareWithContext:v13 error:v14, v15, v16, v17, v18, v19];
+      [(_LSApplicationRecordEnumerator *)self _prepareWithContext:v11 error:v12, v13, v14, v15, v16, v17];
     }
   }
 
@@ -109,12 +109,90 @@
   return v5;
 }
 
+- (id)_applicationRecordWithContext:(LSContext *)context bundleIdentifierOrUnit:(unsigned int)unit
+{
+  v5 = *&unit;
+  v24 = 0;
+  v23 = 0;
+  _enumerateAllBundles = [(_LSApplicationRecordEnumerator *)self _enumerateAllBundles];
+  db = context->db;
+  if (!_enumerateAllBundles)
+  {
+    [(_LSDatabase *)db store];
+    v5 = _CSStringCopyCFString();
+    if (v5)
+    {
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __96___LSApplicationRecordEnumerator_Private___applicationRecordWithContext_bundleIdentifierOrUnit___block_invoke;
+      v22[3] = &unk_1E6A18FF0;
+      v22[4] = self;
+      v13 = MEMORY[0x1865D71B0](v22);
+      if (self->_volumeContainerAdapter.volumeURLOrContainerOrError.__impl_.__index)
+      {
+        goto LABEL_18;
+      }
+
+      v14 = v13;
+      bundleClass = self->_bundleClass;
+      options = self->_options;
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      LaunchServices::AppRecordEnumeration::findAppByIdentifierForEnumerator(context, v5, bundleClass, options, v18, v14, &v24, &v23);
+    }
+
+    else
+    {
+      v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -10817, 0, "[_LSApplicationRecordEnumerator(Private) _applicationRecordWithContext:bundleIdentifierOrUnit:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Record/Enumerator/LSApplicationRecordEnumerator.mm", 236);
+      _LSEnumeratorFireErrorHandler(self, v14);
+    }
+
+    LODWORD(v5) = v24;
+    v12 = v23 != 0;
+    goto LABEL_11;
+  }
+
+  v10 = _LSBundleGet(db, v5);
+  v23 = v10;
+  if (!v10)
+  {
+    goto LABEL_15;
+  }
+
+  if (self->_volumeContainerAdapter.volumeURLOrContainerOrError.__impl_.__index)
+  {
+LABEL_18:
+    v21 = std::__throw_bad_variant_access[abi:nn200100]();
+
+    _Unwind_Resume(v21);
+  }
+
+  if (!LaunchServices::AppRecordEnumeration::evaluateBundleNoIOCommon(v5, v10, self->_options, v11))
+  {
+    v10 = 0;
+    goto LABEL_15;
+  }
+
+  v24 = v5;
+  v12 = 1;
+LABEL_11:
+  v10 = 0;
+  if (v5 && v12)
+  {
+    v19 = [LSApplicationRecord alloc];
+    v10 = [(LSApplicationRecord *)v19 _initWithContext:context bundleID:v24 bundleData:v23 error:0];
+  }
+
+LABEL_15:
+
+  return v10;
+}
+
 - (void)_prepareWithContext:(uint64_t)a3 error:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = ((*(a1 + 120) - *(a1 + 112)) >> 2) >> 32;
-  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "Will enumerate %llu candidate bundle identifiers/units", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = (*(a1 + 120) - *(a1 + 112)) >> 2;
+  OUTLINED_FUNCTION_1(&dword_18162D000, a2, a3, "Will enumerate %llu candidate bundle identifiers/units", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

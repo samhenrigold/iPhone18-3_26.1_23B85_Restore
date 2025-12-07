@@ -229,7 +229,7 @@
   descriptors = self->_private.attachments->_descriptors;
   do
   {
-    v5 = descriptors[v3 / 2];
+    v5 = descriptors[v3];
     if (v5)
     {
       p_private = &v5->_private;
@@ -240,28 +240,27 @@
       p_private = &_MTLDefaultRenderPipelineAttachmentPrivate;
     }
 
-    *&v21[v3] = *p_private;
-    v3 += 2;
+    v21[v3++] = *p_private;
   }
 
-  while (v3 != 16);
+  while (v3 != 8);
   label = self->_private.label;
-  resourceIndex = self->_private.resourceIndex;
+  v21[8] = self->_private.resourceIndex;
   explicitVisibilityGroupID = self->_private.explicitVisibilityGroupID;
   rasterSampleCount = self->_private.rasterSampleCount;
   textureWriteRoundingMode = self->_private.textureWriteRoundingMode;
   sampleMask = self->_private.sampleMask;
   colorSampleCount = self->_private.colorSampleCount;
   fragmentDepthCompareClampMask = self->_private.fragmentDepthCompareClampMask;
-  v49 = rasterSampleCount;
-  v48 = sampleMask;
+  v46 = rasterSampleCount;
+  v45 = sampleMask;
   sampleCoverageHash = self->_private.var0.sampleCoverageHash;
-  v42 = vmovn_s64(*&self->_private.depthAttachmentPixelFormat);
+  v39 = vmovn_s64(*&self->_private.depthAttachmentPixelFormat);
   var1 = self->_private.var1;
-  v38 = [(NSString *)label hash];
-  v39 = [(MTLFunction *)self->_private.objectFunction hash];
-  v40 = [(MTLFunction *)self->_private.meshFunction hash];
-  v41 = [(MTLFunction *)self->_private.fragmentFunction hash];
+  v35 = [(NSString *)label hash];
+  v36 = [(MTLFunction *)self->_private.objectFunction hash];
+  v37 = [(MTLFunction *)self->_private.meshFunction hash];
+  v38 = [(MTLFunction *)self->_private.fragmentFunction hash];
   v10 = self->_private.objectBuffers->_descriptors;
   for (i = 9; i != 40; ++i)
   {
@@ -275,7 +274,7 @@
       v12 = &_MTLDefaultPipelineBufferPrivate;
     }
 
-    *&v21[2 * i] = *v12;
+    v21[i] = *v12;
     ++v10;
   }
 
@@ -292,7 +291,7 @@
       v14 = &_MTLDefaultPipelineBufferPrivate;
     }
 
-    *&v21[2 * i++] = *v14;
+    v21[i++] = *v14;
     ++v13;
   }
 
@@ -310,34 +309,34 @@
       v17 = &_MTLDefaultPipelineBufferPrivate;
     }
 
-    *&v21[2 * j] = *v17;
+    v21[j] = *v17;
     ++v15;
   }
 
-  v23 = [(NSDictionary *)self->_private.driverCompilerOptions hash];
-  v24 = [(NSDictionary *)self->_private.gpuCompilerSPIOptions hash];
-  v27 = [(NSDictionary *)self->_private.pluginData hash];
-  v28 = MTLHashArray(self->_private.binaryArchives, 1, 0);
-  v25 = *&self->_private.maxTotalThreadsPerObjectThreadgroup;
+  v21[102] = [(NSDictionary *)self->_private.driverCompilerOptions hash];
+  v21[103] = [(NSDictionary *)self->_private.gpuCompilerSPIOptions hash];
+  v24 = [(NSDictionary *)self->_private.pluginData hash];
+  v25 = MTLHashArray(self->_private.binaryArchives, 1, 0);
+  v22 = *&self->_private.maxTotalThreadsPerObjectThreadgroup;
   pipelineMemoryLength = self->_private.pipelineMemoryLength;
   maxTotalThreadgroupsPerMeshGrid = self->_private.maxTotalThreadgroupsPerMeshGrid;
-  v29 = pipelineMemoryLength;
-  v30 = [(MTLLinkedFunctions *)self->_private.objectLinkedFunctions hash];
-  v31 = [(MTLLinkedFunctions *)self->_private.meshLinkedFunctions hash];
-  v32 = [(MTLLinkedFunctions *)self->_private.fragmentLinkedFunctions hash];
-  v33 = MTLHashArray(self->_private.objectPreloadedLibraries, 1, 1);
-  v34 = MTLHashArray(self->_private.meshPreloadedLibraries, 1, 1);
-  v35 = MTLHashArray(self->_private.fragmentPreloadedLibraries, 1, 1);
-  v36 = *&self->_private.maxObjectStackCallDepth;
+  v26 = pipelineMemoryLength;
+  v27 = [(MTLLinkedFunctions *)self->_private.objectLinkedFunctions hash];
+  v28 = [(MTLLinkedFunctions *)self->_private.meshLinkedFunctions hash];
+  v29 = [(MTLLinkedFunctions *)self->_private.fragmentLinkedFunctions hash];
+  v30 = MTLHashArray(self->_private.objectPreloadedLibraries, 1, 1);
+  v31 = MTLHashArray(self->_private.meshPreloadedLibraries, 1, 1);
+  v32 = MTLHashArray(self->_private.fragmentPreloadedLibraries, 1, 1);
+  v33 = *&self->_private.maxObjectStackCallDepth;
   profileControl = self->_private.profileControl;
   maxFragmentStackCallDepth = self->_private.maxFragmentStackCallDepth;
-  v51 = [(MTLProfileControl *)profileControl hash];
-  v52 = *&self->_private.maxAccelerationStructureTraversalDepth;
+  v48 = [(MTLProfileControl *)profileControl hash];
+  v49 = *&self->_private.maxAccelerationStructureTraversalDepth;
   shaderValidationState = self->_private.shaderValidationState;
-  v54 = *&self->_private.requiredThreadsPerObjectThreadgroup.width;
+  v51 = *&self->_private.requiredThreadsPerObjectThreadgroup.width;
   depth = self->_private.requiredThreadsPerObjectThreadgroup.depth;
-  v56 = *&self->_private.requiredThreadsPerMeshThreadgroup.width;
-  v57 = self->_private.requiredThreadsPerMeshThreadgroup.depth;
+  v53 = *&self->_private.requiredThreadsPerMeshThreadgroup.width;
+  v54 = self->_private.requiredThreadsPerMeshThreadgroup.depth;
   colorAttachmentMappingState = self->_private.colorAttachmentMappingState;
   return _MTLHashState(v21, 0x458uLL);
 }
@@ -535,18 +534,18 @@ LABEL_3:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v44[66] = *MEMORY[0x1E69E9840];
+  v43[66] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   [@"\n" stringByPaddingToLength:description + 8 withString:@" " startingAtIndex:0];
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
   requiredThreadsPerObjectThreadgroup = self->_private.requiredThreadsPerObjectThreadgroup;
-  MTLSizeToNSArray(&requiredThreadsPerObjectThreadgroup, &v38);
-  requiredThreadsPerObjectThreadgroup = self->_private.requiredThreadsPerMeshThreadgroup;
   MTLSizeToNSArray(&requiredThreadsPerObjectThreadgroup, &v37);
+  requiredThreadsPerObjectThreadgroup = self->_private.requiredThreadsPerMeshThreadgroup;
+  MTLSizeToNSArray(&requiredThreadsPerObjectThreadgroup, &v36);
   v6 = [MEMORY[0x1E695DF70] arrayWithCapacity:128];
-  v44[0] = v5;
-  v44[1] = @"label =";
+  v43[0] = v5;
+  v43[1] = @"label =";
   label = self->_private.label;
   objectFunction = self->_private.objectFunction;
   if (!label)
@@ -554,18 +553,18 @@ LABEL_3:
     label = @"<none>";
   }
 
-  v44[2] = label;
-  v44[3] = v5;
+  v43[2] = label;
+  v43[3] = v5;
   name = self->_private.name;
   if (!name)
   {
     name = @"<none>";
   }
 
-  v44[4] = @"name =";
-  v44[5] = name;
-  v44[6] = v5;
-  v44[7] = @"objectFunction =";
+  v43[4] = @"name =";
+  v43[5] = name;
+  v43[6] = v5;
+  v43[7] = @"objectFunction =";
   if (objectFunction)
   {
     null = [(MTLFunction *)objectFunction formattedDescription:description + 8];
@@ -576,9 +575,9 @@ LABEL_3:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44[8] = null;
-  v44[9] = v5;
-  v44[10] = @"meshFunction =";
+  v43[8] = null;
+  v43[9] = v5;
+  v43[10] = @"meshFunction =";
   meshFunction = self->_private.meshFunction;
   if (meshFunction)
   {
@@ -590,9 +589,9 @@ LABEL_3:
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44[11] = null2;
-  v44[12] = v5;
-  v44[13] = @"fragmentFunction =";
+  v43[11] = null2;
+  v43[12] = v5;
+  v43[13] = @"fragmentFunction =";
   fragmentFunction = self->_private.fragmentFunction;
   if (fragmentFunction)
   {
@@ -604,12 +603,12 @@ LABEL_3:
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v44[14] = null3;
-  v44[15] = v5;
-  v44[16] = @"maxTotalThreadsPerObjectThreadgroup =";
-  v44[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.maxTotalThreadsPerObjectThreadgroup];
-  v44[18] = v5;
-  v44[19] = @"maxTotalThreadsPerMeshThreadgroup =";
+  v43[14] = null3;
+  v43[15] = v5;
+  v43[16] = @"maxTotalThreadsPerObjectThreadgroup =";
+  v43[17] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.maxTotalThreadsPerObjectThreadgroup];
+  v43[18] = v5;
+  v43[19] = @"maxTotalThreadsPerMeshThreadgroup =";
   v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.maxTotalThreadsPerMeshThreadgroup];
   var1 = self->_private.var1;
   if ((*&var1 & 0x20000000000) != 0)
@@ -622,12 +621,12 @@ LABEL_3:
     v17 = @"NO";
   }
 
-  v44[22] = @"objectThreadgroupSizeIsMultipleOfThreadExecutionWidth =";
-  v44[23] = v17;
-  v44[20] = v15;
-  v44[21] = v5;
-  v44[24] = v5;
-  v44[25] = @"meshThreadgroupSizeIsMultipleOfThreadExecutionWidth =";
+  v43[22] = @"objectThreadgroupSizeIsMultipleOfThreadExecutionWidth =";
+  v43[23] = v17;
+  v43[20] = v15;
+  v43[21] = v5;
+  v43[24] = v5;
+  v43[25] = @"meshThreadgroupSizeIsMultipleOfThreadExecutionWidth =";
   if ((*&var1 & 0x40000000000) != 0)
   {
     v18 = @"YES";
@@ -638,49 +637,49 @@ LABEL_3:
     v18 = @"NO";
   }
 
-  v44[26] = v18;
-  v44[27] = v5;
-  v44[28] = @"payloadMemoryLength =";
-  v44[29] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.pipelineMemoryLength];
-  v44[30] = v5;
-  v44[31] = @"maxTotalThreadgroupsPerMeshGrid =";
-  v44[32] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.maxTotalThreadgroupsPerMeshGrid];
-  v44[33] = v5;
-  v44[34] = @"rasterSampleCount =";
-  v44[35] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.rasterSampleCount];
-  v44[36] = v5;
-  v44[37] = @"alphaToCoverageEnabled =";
-  v44[38] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_private.var1.miscHash[0] & 3];
-  v44[39] = v5;
-  v44[40] = @"alphaToOneEnabled =";
-  v44[41] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(self->_private.var1.miscHash[0] >> 2) & 3];
-  v44[42] = v5;
-  v44[43] = @"rasterizationEnabled =";
-  v44[44] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(self->_private.var1.miscHash[0] >> 4) & 1];
-  v44[45] = v5;
-  v44[46] = @"maxVertexAmplificationCount =";
-  v44[47] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(*&self->_private.var1 >> 37) & 0xFLL];
-  v44[48] = v5;
-  v44[49] = @"supportIndirectCommandBuffers =";
-  v44[50] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(*&self->_private.var1 >> 33) & 1];
-  v44[51] = v5;
-  v44[52] = @"maxAccelerationStructureTraversalDepth =";
-  v44[53] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.maxAccelerationStructureTraversalDepth];
-  v44[54] = v5;
-  v44[55] = @"shaderValidation =";
-  v44[56] = [MEMORY[0x1E696AD98] numberWithInteger:self->_private.shaderValidation];
-  v44[57] = v5;
-  v44[58] = @"shaderValidationState =";
-  v44[59] = [MEMORY[0x1E696AD98] numberWithInteger:self->_private.shaderValidationState];
-  v44[60] = v5;
-  v44[61] = @"requiredThreadsPerObjectThreadgroup =";
-  v44[62] = v38;
-  v44[63] = v5;
-  v44[64] = @"requiredThreadsPerMeshThreadgroup =";
-  v44[65] = v37;
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v44, 66)}];
-  v43[0] = v5;
-  v43[1] = @"objectLinkedFunctions =";
+  v43[26] = v18;
+  v43[27] = v5;
+  v43[28] = @"payloadMemoryLength =";
+  v43[29] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.pipelineMemoryLength];
+  v43[30] = v5;
+  v43[31] = @"maxTotalThreadgroupsPerMeshGrid =";
+  v43[32] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.maxTotalThreadgroupsPerMeshGrid];
+  v43[33] = v5;
+  v43[34] = @"rasterSampleCount =";
+  v43[35] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.rasterSampleCount];
+  v43[36] = v5;
+  v43[37] = @"alphaToCoverageEnabled =";
+  v43[38] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:self->_private.var1.miscHash[0] & 3];
+  v43[39] = v5;
+  v43[40] = @"alphaToOneEnabled =";
+  v43[41] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(self->_private.var1.miscHash[0] >> 2) & 3];
+  v43[42] = v5;
+  v43[43] = @"rasterizationEnabled =";
+  v43[44] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(self->_private.var1.miscHash[0] >> 4) & 1];
+  v43[45] = v5;
+  v43[46] = @"maxVertexAmplificationCount =";
+  v43[47] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(*&self->_private.var1 >> 37) & 0xFLL];
+  v43[48] = v5;
+  v43[49] = @"supportIndirectCommandBuffers =";
+  v43[50] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:(*&self->_private.var1 >> 33) & 1];
+  v43[51] = v5;
+  v43[52] = @"maxAccelerationStructureTraversalDepth =";
+  v43[53] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private.maxAccelerationStructureTraversalDepth];
+  v43[54] = v5;
+  v43[55] = @"shaderValidation =";
+  v43[56] = [MEMORY[0x1E696AD98] numberWithInteger:self->_private.shaderValidation];
+  v43[57] = v5;
+  v43[58] = @"shaderValidationState =";
+  v43[59] = [MEMORY[0x1E696AD98] numberWithInteger:self->_private.shaderValidationState];
+  v43[60] = v5;
+  v43[61] = @"requiredThreadsPerObjectThreadgroup =";
+  v43[62] = v37;
+  v43[63] = v5;
+  v43[64] = @"requiredThreadsPerMeshThreadgroup =";
+  v43[65] = v36;
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v43, 66)}];
+  v42[0] = v5;
+  v42[1] = @"objectLinkedFunctions =";
   objectLinkedFunctions = self->_private.objectLinkedFunctions;
   if (objectLinkedFunctions)
   {
@@ -692,10 +691,10 @@ LABEL_3:
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v43[2] = null4;
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v43, 3)}];
-  v42[0] = v5;
-  v42[1] = @"meshLinkedFunctions =";
+  v42[2] = null4;
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v42, 3)}];
+  v41[0] = v5;
+  v41[1] = @"meshLinkedFunctions =";
   meshLinkedFunctions = self->_private.meshLinkedFunctions;
   if (meshLinkedFunctions)
   {
@@ -707,10 +706,10 @@ LABEL_3:
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v42[2] = null5;
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v42, 3)}];
-  v41[0] = v5;
-  v41[1] = @"fragmentLinkedFunctions =";
+  v41[2] = null5;
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v41, 3)}];
+  v40[0] = v5;
+  v40[1] = @"fragmentLinkedFunctions =";
   fragmentLinkedFunctions = self->_private.fragmentLinkedFunctions;
   if (fragmentLinkedFunctions)
   {
@@ -722,24 +721,24 @@ LABEL_3:
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v41[2] = null6;
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v41, 3)}];
-  v40[0] = v5;
-  v40[1] = @"depthAttachmentPixelFormat =";
-  v40[2] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.depthAttachmentPixelFormat)];
-  v40[3] = v5;
-  v40[4] = @"stencilAttachmentPixelFormat =";
-  v40[5] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.stencilAttachmentPixelFormat)];
-  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v40, 6)}];
+  v40[2] = null6;
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v40, 3)}];
+  v39[0] = v5;
+  v39[1] = @"depthAttachmentPixelFormat =";
+  v39[2] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.depthAttachmentPixelFormat)];
+  v39[3] = v5;
+  v39[4] = @"stencilAttachmentPixelFormat =";
+  v39[5] = [MEMORY[0x1E696AEC0] stringWithUTF8String:MTLPixelFormatGetName(self->_private.stencilAttachmentPixelFormat)];
+  [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v39, 6)}];
   for (i = 0; i != 8; ++i)
   {
     v26 = self->_private.attachments->_descriptors[i];
     if (v26 && v26->_private.var0.var1.var0 >> 42)
     {
-      v39[0] = v5;
-      v39[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
-      v39[2] = pipelineColorAttachmentFormattedDescription(description + 8, v26);
-      [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v39, 3)}];
+      v38[0] = v5;
+      v38[1] = [MEMORY[0x1E696AEC0] stringWithFormat:@"Color Attachment %u:", i];
+      v38[2] = pipelineColorAttachmentFormattedDescription(description + 8, v26);
+      [v6 addObjectsFromArray:{objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v38, 3)}];
     }
   }
 
@@ -776,11 +775,9 @@ LABEL_3:
     }
   }
 
-  v35.receiver = self;
-  v35.super_class = MTLMeshRenderPipelineDescriptor;
-  result = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLMeshRenderPipelineDescriptor description](&v35, sel_description), objc_msgSend(v6, "componentsJoinedByString:", @" "];
-  v34 = *MEMORY[0x1E69E9840];
-  return result;
+  v34.receiver = self;
+  v34.super_class = MTLMeshRenderPipelineDescriptor;
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", -[MTLMeshRenderPipelineDescriptor description](&v34, sel_description), objc_msgSend(v6, "componentsJoinedByString:", @" "];
 }
 
 - (void)setSupportIndirectCommandBuffers:(BOOL)supportIndirectCommandBuffers
@@ -1376,9 +1373,9 @@ LABEL_3:
   if (v7)
   {
     [device registerMeshRenderPipelineDescriptor:self];
-    v52 = 0;
-    memset(v51, 0, sizeof(v51));
-    _MTLMessageContextBegin_(v51, "validateWithDevice", 1842, device, 3, "Mesh Render Pipeline Descriptor Validation");
+    v50 = 0;
+    memset(v49, 0, sizeof(v49));
+    _MTLMessageContextBegin_(v49, "validateWithDevice", 1842, device, 3, "Mesh Render Pipeline Descriptor Validation");
     if ((self->_private.var1.miscHash[0] & 0x10) != 0)
     {
       v11 = 0;
@@ -1408,18 +1405,18 @@ LABEL_7:
       v13 = 0;
     }
 
-    validateFunction(v51, device, self->_private.fragmentFunction, "fragmentFunction", v13, v8, v9, v10);
-    validateFunction(v51, device, self->_private.objectFunction, "objectFunction", 0, v14, v15, v16);
-    validateFunction(v51, device, self->_private.meshFunction, "meshFunction", 1, v17, v18, v19);
-    validateMeshRenderPipelinePostMeshShader(v51, device, &self->_private);
+    validateFunction(v49, device, self->_private.fragmentFunction, "fragmentFunction", v13, v8, v9, v10);
+    validateFunction(v49, device, self->_private.objectFunction, "objectFunction", 0, v14, v15, v16);
+    validateFunction(v49, device, self->_private.meshFunction, "meshFunction", 1, v17, v18, v19);
+    validateMeshRenderPipelinePostMeshShader(v49, device, &self->_private);
     if ([(NSArray *)[(MTLLinkedFunctions *)self->_private.objectLinkedFunctions binaryFunctions] count]|| [(NSArray *)[(MTLLinkedFunctions *)self->_private.meshLinkedFunctions binaryFunctions] count])
     {
-      _MTLMessageContextPush_(v51, 4, @"Binary linked functions are not supported for object and mesh shaders", v20, v21, v22, v23, v24, v46);
+      _MTLMessageContextPush_(v49, 4, @"Binary linked functions are not supported for object and mesh shaders", v20, v21, v22, v23, v24, v46);
     }
 
     if ((*(&self->_private.var1.var0 + 4) & 2) != 0 && ([device supportsMeshShadersInICB] & 1) == 0)
     {
-      _MTLMessageContextPush_(v51, 4, @"Use of mesh shader pipelines in indirect command buffers is not supported by this device.", v25, v26, v27, v28, v29, v46);
+      _MTLMessageContextPush_(v49, 4, @"Use of mesh shader pipelines in indirect command buffers is not supported by this device.", v25, v26, v27, v28, v29, v46);
     }
 
     maxAccelerationStructureTraversalDepth = self->_private.maxAccelerationStructureTraversalDepth;
@@ -1427,20 +1424,20 @@ LABEL_7:
     {
       v40 = self->_private.maxAccelerationStructureTraversalDepth;
       [device maxAccelerationStructureTraversalDepth];
-      _MTLMessageContextPush_(v51, 4, @"maxAccelerationStructureTraversalDepth (%lu) must be less than or equal to %lu", v41, v42, v43, v44, v45, v40);
+      _MTLMessageContextPush_(v49, 4, @"maxAccelerationStructureTraversalDepth (%lu) must be less than or equal to %lu", v41, v42, v43, v44, v45, v40);
     }
 
-    if (self->_private.objectFunction || ((width = self->_private.requiredThreadsPerObjectThreadgroup.width) != 0 || self->_private.requiredThreadsPerObjectThreadgroup.height || self->_private.requiredThreadsPerObjectThreadgroup.depth) && (height = self->_private.requiredThreadsPerObjectThreadgroup.height, v48 = self->_private.requiredThreadsPerObjectThreadgroup.depth, _MTLMessageContextPush_(v51, 4, @"If objectFunction is nil, requiredThreadsPerObjectThreadgroup must be [0, 0, 0] but is [%lu, %lu, %lu]", v31, v32, v33, v34, v35, width), self->_private.objectFunction))
+    if (self->_private.objectFunction || ((width = self->_private.requiredThreadsPerObjectThreadgroup.width) != 0 || self->_private.requiredThreadsPerObjectThreadgroup.height || self->_private.requiredThreadsPerObjectThreadgroup.depth) && (_MTLMessageContextPush_(v49, 4, @"If objectFunction is nil, requiredThreadsPerObjectThreadgroup must be [0, 0, 0] but is [%lu, %lu, %lu]", v31, v32, v33, v34, v35, width), self->_private.objectFunction))
     {
-      v49 = *&self->_private.requiredThreadsPerObjectThreadgroup.width;
+      v47 = *&self->_private.requiredThreadsPerObjectThreadgroup.width;
       depth = self->_private.requiredThreadsPerObjectThreadgroup.depth;
-      validateRequiredThreadsPerThreadgroup(v51, 4, device, &v49, self->_private.maxTotalThreadsPerObjectThreadgroup, "requiredThreadsPerObjectThreadgroup", v34, v35);
+      validateRequiredThreadsPerThreadgroup(v49, 4, device, &v47, self->_private.maxTotalThreadsPerObjectThreadgroup, "requiredThreadsPerObjectThreadgroup", v34, v35);
     }
 
-    v49 = *&self->_private.requiredThreadsPerMeshThreadgroup.width;
+    v47 = *&self->_private.requiredThreadsPerMeshThreadgroup.width;
     depth = self->_private.requiredThreadsPerMeshThreadgroup.depth;
-    validateRequiredThreadsPerThreadgroup(v51, 4, device, &v49, self->_private.maxTotalThreadsPerMeshThreadgroup, "requiredThreadsPerMeshThreadgroup", v34, v35);
-    _MTLMessageContextEnd(v51);
+    validateRequiredThreadsPerThreadgroup(v49, 4, device, &v47, self->_private.maxTotalThreadsPerMeshThreadgroup, "requiredThreadsPerMeshThreadgroup", v34, v35);
+    _MTLMessageContextEnd(v49);
   }
 
   else
@@ -1664,28 +1661,28 @@ LABEL_7:
 
 - (void)setObjectFunction:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF4F4B58] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF4F4B58, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLMeshRenderPipelineDescriptor setObjectFunction:]", 1564, @"objectFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLMeshRenderPipelineDescriptor setObjectFunction:]", 1564, @"objectFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)setMeshFunction:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF4F4B58] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF4F4B58, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLMeshRenderPipelineDescriptor setMeshFunction:]", 1581, @"meshFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLMeshRenderPipelineDescriptor setMeshFunction:]", 1581, @"meshFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
   }
 }
 
 - (void)setFragmentFunction:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  if (([a1 conformsToProtocol:&unk_1EF4F4B58] & 1) == 0)
+  if (([a1 conformsToProtocol:{&unk_1EF4F4B58, a4, a5, a6, a7, a8}] & 1) == 0)
   {
 
-    MTLReportFailure(1, "[MTLMeshRenderPipelineDescriptor setFragmentFunction:]", 1598, @"fragmentFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
+    MTLReportFailure(1uLL, "[MTLMeshRenderPipelineDescriptor setFragmentFunction:]", 1598, @"fragmentFunction is not a MTLFunction.", v9, v10, v11, v12, a9);
   }
 }
 

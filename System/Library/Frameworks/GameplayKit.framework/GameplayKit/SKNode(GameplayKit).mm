@@ -8,11 +8,11 @@
 
 + (id)obstaclesFromSpriteTextures:()GameplayKit accuracy:
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v5 = a4;
   __p = 0;
+  v48 = 0;
   v49 = 0;
-  v50 = 0;
   v6 = [v5 count];
   if (v6)
   {
@@ -25,39 +25,39 @@
   }
 
   v7 = 0;
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v44 objects:v51 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v43 objects:v50 count:16];
   if (v9)
   {
-    v10 = *v45;
-    v41 = v8;
+    v10 = *v44;
+    v40 = v8;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v45 != v10)
+        if (*v44 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v44 + 1) + 8 * i);
+        v13 = *(*(&v43 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
+          v41 = 0;
           v42 = 0;
-          v43 = 0;
           *&v14 = self;
-          if ([v13 _pathFromTextureToPoints:&v43 outSize:&v42 accuracy:v14])
+          if ([v13 _pathFromTextureToPoints:&v42 outSize:&v41 accuracy:v14])
           {
-            if (v42)
+            if (v41)
             {
-              v15 = [GKPolygonObstacle obstacleWithPoints:v43 count:?];
+              v15 = [GKPolygonObstacle obstacleWithPoints:v42 count:?];
               v16 = v15;
-              if (v7 < v50)
+              if (v7 < v49)
               {
                 *v7 = v15;
                 v12 = v7 + 8;
@@ -74,8 +74,8 @@
                   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
                 }
 
-                v21 = v50 - __p;
-                if ((v50 - __p) >> 2 > v20)
+                v21 = v49 - __p;
+                if ((v49 - __p) >> 2 > v20)
                 {
                   v20 = v21 >> 2;
                 }
@@ -100,9 +100,9 @@
                 v12 = (v33 + 1);
                 if (v17 == v7)
                 {
-                  v8 = v41;
+                  v8 = v40;
                   __p = 0;
-                  v50 = 0;
+                  v49 = 0;
                   if (v17)
                   {
                     goto LABEL_38;
@@ -115,7 +115,7 @@
                   v23 = v17;
                   v24 = 0;
                   v25 = (v18 - 8) >= 0x28;
-                  v8 = v41;
+                  v8 = v40;
                   if (!v25)
                   {
                     goto LABEL_55;
@@ -171,7 +171,7 @@ LABEL_55:
                   while (v17 != v7);
                   v17 = __p;
                   __p = 0;
-                  v50 = 0;
+                  v49 = 0;
                   if (v17)
                   {
 LABEL_38:
@@ -180,18 +180,18 @@ LABEL_38:
                 }
               }
 
-              v49 = v12;
+              v48 = v12;
 
               v7 = v12;
             }
 
-            free(v43);
+            free(v42);
             continue;
           }
         }
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v44 objects:v51 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v43 objects:v50 count:16];
       if (!v9)
       {
         v34 = __p;
@@ -207,7 +207,7 @@ LABEL_42:
   v36 = __p;
   if (__p)
   {
-    for (j = v49; j != v36; j -= 8)
+    for (j = v48; j != v36; j -= 8)
     {
       v38 = *(j - 1);
     }
@@ -215,18 +215,16 @@ LABEL_42:
     operator delete(v36);
   }
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v35;
 }
 
 + (id)obstaclesFromNodeBounds:()GameplayKit
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = a3;
   __p = 0;
+  v49 = 0;
   v50 = 0;
-  v51 = 0;
   v4 = [v3 count];
   if (v4)
   {
@@ -239,34 +237,34 @@ LABEL_42:
   }
 
   v5 = 0;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   obj = v3;
-  v6 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+  v6 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
   if (v6)
   {
-    v7 = *v46;
+    v7 = *v45;
     v8 = 0x278A5B000uLL;
     while (1)
     {
       v9 = 0;
       do
       {
-        if (*v46 != v7)
+        if (*v45 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        [*(*(&v45 + 1) + 8 * v9) globalBoundingVerts];
+        [*(*(&v44 + 1) + 8 * v9) globalBoundingVerts];
         *(&v11 + 1) = v10;
         *(&v13 + 1) = v12;
-        v52[0] = v11;
-        v52[1] = v13;
-        v14 = [*(v8 + 3640) obstacleWithPoints:v52 count:4];
+        v51[0] = v11;
+        v51[1] = v13;
+        v14 = [*(v8 + 3640) obstacleWithPoints:v51 count:4];
         v15 = v14;
-        if (v5 < v51)
+        if (v5 < v50)
         {
           *v5 = v14;
           v5 += 8;
@@ -284,8 +282,8 @@ LABEL_42:
           _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
         }
 
-        v22 = v51 - __p;
-        if ((v51 - __p) >> 2 > v21)
+        v22 = v50 - __p;
+        if ((v50 - __p) >> 2 > v21)
         {
           v21 = v22 >> 2;
         }
@@ -313,7 +311,7 @@ LABEL_42:
           v8 = v17;
           v7 = v16;
           __p = 0;
-          v51 = 0;
+          v50 = 0;
           if (!v18)
           {
             goto LABEL_30;
@@ -383,7 +381,7 @@ LABEL_52:
           while (v18 != v5);
           v18 = __p;
           __p = 0;
-          v51 = 0;
+          v50 = 0;
           if (!v18)
           {
             goto LABEL_30;
@@ -394,13 +392,13 @@ LABEL_52:
 LABEL_30:
         v5 = v35;
 LABEL_31:
-        v50 = v5;
+        v49 = v5;
 
         ++v9;
       }
 
       while (v9 != v6);
-      v36 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+      v36 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
       v6 = v36;
       if (!v36)
       {
@@ -417,7 +415,7 @@ LABEL_39:
   v39 = __p;
   if (__p)
   {
-    for (i = v50; i != v39; i -= 8)
+    for (i = v49; i != v39; i -= 8)
     {
       v41 = *(i - 1);
     }
@@ -425,18 +423,16 @@ LABEL_39:
     operator delete(v39);
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return v38;
 }
 
 + (id)obstaclesFromNodePhysicsBodies:()GameplayKit
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v3 = a3;
   __p = 0;
+  v46 = 0;
   v47 = 0;
-  v48 = 0;
   v4 = [v3 count];
   if (v4)
   {
@@ -449,39 +445,39 @@ LABEL_39:
   }
 
   v5 = 0;
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obj = v3;
-  v6 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+  v6 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
   if (v6)
   {
-    v7 = *v43;
+    v7 = *v42;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v43 != v7)
+        if (*v42 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v42 + 1) + 8 * i);
+        v10 = *(*(&v41 + 1) + 8 * i);
         physicsBody = [v10 physicsBody];
         v12 = physicsBody == 0;
 
         if (!v12)
         {
+          v39 = 0;
           v40 = 0;
-          v41 = 0;
-          if ([v10 _pathFromPhysicsBodyToPoints:&v41 outSize:&v40])
+          if ([v10 _pathFromPhysicsBodyToPoints:&v40 outSize:&v39])
           {
-            if (v40)
+            if (v39)
             {
-              v13 = [GKPolygonObstacle obstacleWithPoints:v41 count:?];
+              v13 = [GKPolygonObstacle obstacleWithPoints:v40 count:?];
               v14 = v13;
-              if (v5 < v48)
+              if (v5 < v47)
               {
                 *v5 = v13;
                 v9 = v5 + 8;
@@ -498,8 +494,8 @@ LABEL_39:
                   _ZNSt3__16vectorI12GKCRTreeNodeI8NSObjectDv2_fENS_9allocatorIS4_EEE20__throw_length_errorB8ne200100Ev();
                 }
 
-                v19 = v48 - __p;
-                if ((v48 - __p) >> 2 > v18)
+                v19 = v47 - __p;
+                if ((v47 - __p) >> 2 > v18)
                 {
                   v18 = v19 >> 2;
                 }
@@ -589,24 +585,24 @@ LABEL_54:
                 }
 
                 __p = 0;
-                v48 = 0;
+                v47 = 0;
                 if (v15)
                 {
                   operator delete(v15);
                 }
               }
 
-              v47 = v9;
+              v46 = v9;
 
               v5 = v9;
             }
 
-            free(v41);
+            free(v40);
           }
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+      v6 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
     }
 
     while (v6);
@@ -622,15 +618,13 @@ LABEL_54:
   v34 = __p;
   if (__p)
   {
-    for (j = v47; j != v34; j -= 8)
+    for (j = v46; j != v34; j -= 8)
     {
       v36 = *(j - 1);
     }
 
     operator delete(v34);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v33;
 }

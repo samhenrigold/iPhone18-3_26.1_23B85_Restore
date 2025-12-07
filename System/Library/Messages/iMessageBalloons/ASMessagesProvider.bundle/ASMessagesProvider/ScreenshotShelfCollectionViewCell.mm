@@ -72,7 +72,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_3341AC();
+  sub_3341AC(cellCopy);
 
   (*(v9 + 8))(v11, v8);
 }
@@ -84,7 +84,7 @@
   __chkstk_darwin(v6);
   v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_757590();
-  type metadata accessor for ScreenshotCollectionViewCell();
+  type metadata accessor for ScreenshotCollectionViewCell(0);
   v10 = *(*(swift_dynamicCastClassUnconditional() + OBJC_IVAR____TtC18ASMessagesProvider28ScreenshotCollectionViewCell_borderedScreenshotView) + OBJC_IVAR____TtC18ASMessagesProvider22BorderedScreenshotView_artworkView);
   cellCopy = cell;
   v12 = v10;

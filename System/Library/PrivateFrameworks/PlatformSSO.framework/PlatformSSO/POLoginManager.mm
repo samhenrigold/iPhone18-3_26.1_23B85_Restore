@@ -8,6 +8,7 @@
 - (NSString)registrationToken;
 - (POLoginConfiguration)loginConfiguration;
 - (POLoginManager)initWithCoder:(id)coder;
+- (POLoginManager)initWithUid:(unsigned int)uid;
 - (POUserLoginConfiguration)userLoginConfiguration;
 - (__SecIdentity)copyIdentityForKeyType:(int64_t)type;
 - (__SecKey)copyKeyForKeyType:(int64_t)type;
@@ -38,17 +39,38 @@
 
 @implementation POLoginManager
 
+- (POLoginManager)initWithUid:(unsigned int)uid
+{
+  v3 = *&uid;
+  v5 = PO_LOG_POLoginManager(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    [(POLoginManager *)self initWithUid:v3, v5];
+  }
+
+  v10.receiver = self;
+  v10.super_class = POLoginManager;
+  v6 = [(POLoginManager *)&v10 init];
+  if (v6)
+  {
+    v7 = [[POServiceLoginManagerConnection alloc] initWithUid:v3];
+    serviceConnection = v6->_serviceConnection;
+    v6->_serviceConnection = v7;
+  }
+
+  return v6;
+}
+
 - (void)invalidate
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (BOOL)isDeviceRegistered
 {
-  v3 = PO_LOG_POLoginManager();
+  v3 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager isDeviceRegistered];
@@ -72,7 +94,7 @@
 
 - (BOOL)isUserRegistered
 {
-  v3 = PO_LOG_POLoginManager();
+  v3 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager isUserRegistered];
@@ -96,7 +118,7 @@
 
 - (NSString)registrationToken
 {
-  v3 = PO_LOG_POLoginManager();
+  v3 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager registrationToken];
@@ -146,7 +168,7 @@ void __35__POLoginManager_registrationToken__block_invoke(uint64_t a1, void *a2,
 
 - (int)authenticationMethod
 {
-  v3 = PO_LOG_POLoginManager();
+  v3 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager authenticationMethod];
@@ -184,7 +206,7 @@ void __38__POLoginManager_authenticationMethod__block_invoke(uint64_t a1, int a2
 id __38__POLoginManager_authenticationMethod__block_invoke_2(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"failed to retrieve authenticationMethod"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -240,28 +262,28 @@ void __31__POLoginManager_loginUserName__block_invoke(uint64_t a1, void *a2, voi
 - (void)setLoginUserName:(id)name
 {
   nameCopy = name;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
+  v16 = 0;
+  v11[0] = 0;
+  v11[1] = v11;
+  v11[2] = 0x3032000000;
+  v11[3] = __Block_byref_object_copy__1;
+  v11[4] = __Block_byref_object_dispose__1;
   v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
-  v15 = 0;
-  v10[0] = 0;
-  v10[1] = v10;
-  v10[2] = 0x3032000000;
-  v10[3] = __Block_byref_object_copy__1;
-  v10[4] = __Block_byref_object_dispose__1;
-  v11 = 0;
   serviceConnection = self->_serviceConnection;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __35__POLoginManager_setLoginUserName___block_invoke;
-  v9[3] = &unk_279A3A428;
-  v9[4] = &v12;
-  v9[5] = v10;
-  [(POServiceLoginManagerConnection *)serviceConnection setLoginUserName:nameCopy completion:v9];
-  if (*(v13 + 24) == 1)
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __35__POLoginManager_setLoginUserName___block_invoke;
+  v10[3] = &unk_279A3A428;
+  v10[4] = &v13;
+  v10[5] = v11;
+  v6 = [(POServiceLoginManagerConnection *)serviceConnection setLoginUserName:nameCopy completion:v10];
+  if (*(v14 + 24) == 1)
   {
-    v6 = PO_LOG_POLoginManager();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = PO_LOG_POLoginManager(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [POLoginManager setLoginUserName:];
     }
@@ -269,23 +291,23 @@ void __31__POLoginManager_loginUserName__block_invoke(uint64_t a1, void *a2, voi
 
   else
   {
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __35__POLoginManager_setLoginUserName___block_invoke_6;
-    v8[3] = &unk_279A3A450;
-    v8[4] = v10;
-    v7 = __35__POLoginManager_setLoginUserName___block_invoke_6(v8);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __35__POLoginManager_setLoginUserName___block_invoke_6;
+    v9[3] = &unk_279A3A450;
+    v9[4] = v11;
+    v8 = __35__POLoginManager_setLoginUserName___block_invoke_6(v9);
   }
 
-  _Block_object_dispose(v10, 8);
+  _Block_object_dispose(v11, 8);
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
 }
 
 id __35__POLoginManager_setLoginUserName___block_invoke_6(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(*(*(a1 + 32) + 8) + 40) description:@"failed to save loginUserName"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -296,7 +318,7 @@ id __35__POLoginManager_setLoginUserName___block_invoke_6(uint64_t a1)
 
 - (POUserLoginConfiguration)userLoginConfiguration
 {
-  v3 = PO_LOG_POLoginManager();
+  v3 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager userLoginConfiguration];
@@ -346,31 +368,31 @@ void __40__POLoginManager_userLoginConfiguration__block_invoke(uint64_t a1, void
 
 - (BOOL)saveUserLoginConfiguration:(id)configuration error:(id *)error
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__1;
+  v24 = __Block_byref_object_dispose__1;
   v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__1;
-  v23 = __Block_byref_object_dispose__1;
-  v24 = 0;
   serviceConnection = self->_serviceConnection;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __51__POLoginManager_saveUserLoginConfiguration_error___block_invoke;
-  v18[3] = &unk_279A3A428;
-  v18[4] = &v25;
-  v18[5] = &v19;
-  [(POServiceLoginManagerConnection *)serviceConnection setUserLoginConfiguration:configurationCopy completion:v18];
-  v8 = *(v26 + 24);
-  if (v8 == 1)
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __51__POLoginManager_saveUserLoginConfiguration_error___block_invoke;
+  v19[3] = &unk_279A3A428;
+  v19[4] = &v26;
+  v19[5] = &v20;
+  v8 = [(POServiceLoginManagerConnection *)serviceConnection setUserLoginConfiguration:configurationCopy completion:v19];
+  v9 = *(v27 + 24);
+  if (v9 == 1)
   {
-    v9 = PO_LOG_POLoginManager();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = PO_LOG_POLoginManager(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [POLoginManager saveUserLoginConfiguration:error:];
     }
@@ -378,37 +400,36 @@ void __40__POLoginManager_userLoginConfiguration__block_invoke(uint64_t a1, void
 
   else
   {
-    v10 = v20[5];
-    v29 = *MEMORY[0x277CCA7E8];
-    v30[0] = v10;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-    v11 = MEMORY[0x277CCA9B8];
-    v12 = getASAuthorizationErrorDomain();
-    v13 = [v11 errorWithDomain:v12 code:1000 userInfo:v9];
+    v11 = v21[5];
+    v30 = *MEMORY[0x277CCA7E8];
+    v31[0] = v11;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v12 = MEMORY[0x277CCA9B8];
+    v13 = getASAuthorizationErrorDomain();
+    v14 = [v12 errorWithDomain:v13 code:1000 userInfo:v10];
 
-    v14 = PO_LOG_POLoginManager();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = PO_LOG_POLoginManager(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [POLoginManager saveUserLoginConfiguration:error:];
     }
 
     if (error)
     {
-      v15 = v13;
-      *error = v13;
+      v17 = v14;
+      *error = v14;
     }
   }
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (NSDictionary)ssoTokens
 {
-  v3 = PO_LOG_POLoginManager();
+  v3 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager ssoTokens];
@@ -524,7 +545,7 @@ void __27__POLoginManager_ssoTokens__block_invoke(uint64_t a1, void *a2, void *a
 id __27__POLoginManager_ssoTokens__block_invoke_2()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1006 description:@"missing device encryption key for retrieving sso tokens"];
-  v1 = PO_LOG_POLoginManager();
+  v1 = PO_LOG_POLoginManager(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -536,7 +557,7 @@ id __27__POLoginManager_ssoTokens__block_invoke_2()
 id __27__POLoginManager_ssoTokens__block_invoke_17(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(*(*(a1 + 32) + 8) + 40) description:@"encryption algorithm not supported for retrieving sso tokens"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -550,8 +571,8 @@ id __27__POLoginManager_ssoTokens__block_invoke_21(uint64_t a1)
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:v1 description:@"failed to decrypt tokens for retrieving sso tokens"];
 
-  v3 = PO_LOG_POLoginManager();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POLoginManager(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
   }
@@ -562,7 +583,7 @@ id __27__POLoginManager_ssoTokens__block_invoke_21(uint64_t a1)
 id __27__POLoginManager_ssoTokens__block_invoke_26(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"failed to parse sso tokens for retrieving sso tokens"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -574,7 +595,7 @@ id __27__POLoginManager_ssoTokens__block_invoke_26(uint64_t a1)
 - (void)setSsoTokens:(id)tokens
 {
   tokensCopy = tokens;
-  v5 = PO_LOG_POLoginManager();
+  v5 = PO_LOG_POLoginManager(tokensCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager setSsoTokens:];
@@ -584,82 +605,82 @@ id __27__POLoginManager_ssoTokens__block_invoke_26(uint64_t a1)
   {
     if ([MEMORY[0x277CCAAA0] isValidJSONObject:tokensCopy])
     {
-      v25 = 0;
-      v6 = [MEMORY[0x277CCAAA0] dataWithJSONObject:tokensCopy options:1 error:&v25];
-      v7 = v25;
-      v8 = v7;
-      if (v7 || !v6)
+      v26 = 0;
+      v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:tokensCopy options:1 error:&v26];
+      v8 = v26;
+      v9 = v8;
+      if (v8 || !v7)
       {
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __31__POLoginManager_setSsoTokens___block_invoke_42;
-        v23[3] = &unk_279A3A088;
-        v24 = v7;
-        v16 = __31__POLoginManager_setSsoTokens___block_invoke_42(v23);
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __31__POLoginManager_setSsoTokens___block_invoke_42;
+        v24[3] = &unk_279A3A088;
+        v25 = v8;
+        v17 = __31__POLoginManager_setSsoTokens___block_invoke_42(v24);
       }
 
       else
       {
-        v9 = [(POLoginManager *)self copyKeyForKeyType:11];
-        if (v9)
+        v10 = [(POLoginManager *)self copyKeyForKeyType:11];
+        if (v10)
         {
-          v10 = v9;
-          v11 = SecKeyCopyPublicKey(v9);
-          if (v11)
+          v11 = v10;
+          v12 = SecKeyCopyPublicKey(v10);
+          if (v12)
           {
-            v12 = v11;
-            if (SecKeyIsAlgorithmSupported(v11, kSecKeyOperationTypeEncrypt, *MEMORY[0x277CDC328]))
+            v13 = v12;
+            if (SecKeyIsAlgorithmSupported(v12, kSecKeyOperationTypeEncrypt, *MEMORY[0x277CDC328]))
             {
               error = 0;
-              v13 = SecKeyCreateEncryptedData(v12, *MEMORY[0x277CDC338], v6, &error);
-              CFRelease(v12);
-              if (error || !v13)
+              v14 = SecKeyCreateEncryptedData(v13, *MEMORY[0x277CDC338], v7, &error);
+              CFRelease(v13);
+              if (error || !v14)
               {
-                v21[0] = MEMORY[0x277D85DD0];
-                v21[1] = 3221225472;
-                v21[2] = __31__POLoginManager_setSsoTokens___block_invoke_64;
-                v21[3] = &__block_descriptor_40_e14___NSError_8__0l;
-                v21[4] = error;
-                v20 = __31__POLoginManager_setSsoTokens___block_invoke_64(v21);
+                v22[0] = MEMORY[0x277D85DD0];
+                v22[1] = 3221225472;
+                v22[2] = __31__POLoginManager_setSsoTokens___block_invoke_64;
+                v22[3] = &__block_descriptor_40_e14___NSError_8__0l;
+                v22[4] = error;
+                v21 = __31__POLoginManager_setSsoTokens___block_invoke_64(v22);
               }
 
               else
               {
-                [(POServiceLoginManagerConnection *)self->_serviceConnection setSsoTokens:v13 completion:&__block_literal_global_70];
+                [(POServiceLoginManagerConnection *)self->_serviceConnection setSsoTokens:v14 completion:&__block_literal_global_70];
               }
             }
 
             else
             {
-              CFRelease(v12);
-              v19 = __31__POLoginManager_setSsoTokens___block_invoke_58();
+              CFRelease(v13);
+              v20 = __31__POLoginManager_setSsoTokens___block_invoke_58();
             }
           }
 
           else
           {
-            CFRelease(v10);
-            v18 = __31__POLoginManager_setSsoTokens___block_invoke_52();
+            CFRelease(v11);
+            v19 = __31__POLoginManager_setSsoTokens___block_invoke_52();
           }
         }
 
         else
         {
-          v17 = __31__POLoginManager_setSsoTokens___block_invoke_46();
+          v18 = __31__POLoginManager_setSsoTokens___block_invoke_46();
         }
       }
     }
 
     else
     {
-      v15 = __31__POLoginManager_setSsoTokens___block_invoke_36();
+      v16 = __31__POLoginManager_setSsoTokens___block_invoke_36();
     }
   }
 
   else
   {
-    v14 = PO_LOG_POLoginManager();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = PO_LOG_POLoginManager(v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       [POLoginManager setSsoTokens:];
     }
@@ -674,7 +695,7 @@ void __31__POLoginManager_setSsoTokens___block_invoke(uint64_t a1, int a2, void 
   v5 = v4;
   if (a2)
   {
-    v6 = PO_LOG_POLoginManager();
+    v6 = PO_LOG_POLoginManager(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __31__POLoginManager_setSsoTokens___block_invoke_cold_1();
@@ -696,7 +717,7 @@ void __31__POLoginManager_setSsoTokens___block_invoke(uint64_t a1, int a2, void 
 id __31__POLoginManager_setSsoTokens___block_invoke_32(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"failed to remove sso tokens"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -708,7 +729,7 @@ id __31__POLoginManager_setSsoTokens___block_invoke_32(uint64_t a1)
 id __31__POLoginManager_setSsoTokens___block_invoke_36()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"failed to validate JSON when saving sso tokens"];
-  v1 = PO_LOG_POLoginManager();
+  v1 = PO_LOG_POLoginManager(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -720,7 +741,7 @@ id __31__POLoginManager_setSsoTokens___block_invoke_36()
 id __31__POLoginManager_setSsoTokens___block_invoke_42(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"failed to encode tokens to JSON when saving sso tokens"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -732,7 +753,7 @@ id __31__POLoginManager_setSsoTokens___block_invoke_42(uint64_t a1)
 id __31__POLoginManager_setSsoTokens___block_invoke_46()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1006 description:@"missing device encryption key for saving sso tokens"];
-  v1 = PO_LOG_POLoginManager();
+  v1 = PO_LOG_POLoginManager(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -744,7 +765,7 @@ id __31__POLoginManager_setSsoTokens___block_invoke_46()
 id __31__POLoginManager_setSsoTokens___block_invoke_52()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1006 description:@"missing device encryption public key for saving sso tokens"];
-  v1 = PO_LOG_POLoginManager();
+  v1 = PO_LOG_POLoginManager(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -756,7 +777,7 @@ id __31__POLoginManager_setSsoTokens___block_invoke_52()
 id __31__POLoginManager_setSsoTokens___block_invoke_58()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"encryption algorithm not supported for saving sso tokens"];
-  v1 = PO_LOG_POLoginManager();
+  v1 = PO_LOG_POLoginManager(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -770,8 +791,8 @@ id __31__POLoginManager_setSsoTokens___block_invoke_64(uint64_t a1)
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:v1 description:@"failed to encrypt tokens for saving sso tokens"];
 
-  v3 = PO_LOG_POLoginManager();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POLoginManager(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
   }
@@ -785,7 +806,7 @@ void __31__POLoginManager_setSsoTokens___block_invoke_68(uint64_t a1, int a2, vo
   v5 = v4;
   if (a2)
   {
-    v6 = PO_LOG_POLoginManager();
+    v6 = PO_LOG_POLoginManager(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       __31__POLoginManager_setSsoTokens___block_invoke_68_cold_1();
@@ -807,7 +828,7 @@ void __31__POLoginManager_setSsoTokens___block_invoke_68(uint64_t a1, int a2, vo
 id __31__POLoginManager_setSsoTokens___block_invoke_71(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"failed to save tokens for saving sso tokens"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -818,7 +839,7 @@ id __31__POLoginManager_setSsoTokens___block_invoke_71(uint64_t a1)
 
 - (POLoginConfiguration)loginConfiguration
 {
-  v3 = PO_LOG_POLoginManager();
+  v3 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager loginConfiguration];
@@ -868,31 +889,31 @@ void __36__POLoginManager_loginConfiguration__block_invoke(uint64_t a1, void *a2
 
 - (BOOL)saveLoginConfiguration:(id)configuration error:(id *)error
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__1;
+  v24 = __Block_byref_object_dispose__1;
   v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__1;
-  v23 = __Block_byref_object_dispose__1;
-  v24 = 0;
   serviceConnection = self->_serviceConnection;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __47__POLoginManager_saveLoginConfiguration_error___block_invoke;
-  v18[3] = &unk_279A3A428;
-  v18[4] = &v25;
-  v18[5] = &v19;
-  [(POServiceLoginManagerConnection *)serviceConnection setLoginConfiguration:configurationCopy completion:v18];
-  v8 = *(v26 + 24);
-  if (v8 == 1)
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __47__POLoginManager_saveLoginConfiguration_error___block_invoke;
+  v19[3] = &unk_279A3A428;
+  v19[4] = &v26;
+  v19[5] = &v20;
+  v8 = [(POServiceLoginManagerConnection *)serviceConnection setLoginConfiguration:configurationCopy completion:v19];
+  v9 = *(v27 + 24);
+  if (v9 == 1)
   {
-    v9 = PO_LOG_POLoginManager();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = PO_LOG_POLoginManager(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [POLoginManager saveLoginConfiguration:error:];
     }
@@ -900,37 +921,36 @@ void __36__POLoginManager_loginConfiguration__block_invoke(uint64_t a1, void *a2
 
   else
   {
-    v10 = v20[5];
-    v29 = *MEMORY[0x277CCA7E8];
-    v30[0] = v10;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
-    v11 = MEMORY[0x277CCA9B8];
-    v12 = getASAuthorizationErrorDomain();
-    v13 = [v11 errorWithDomain:v12 code:1000 userInfo:v9];
+    v11 = v21[5];
+    v30 = *MEMORY[0x277CCA7E8];
+    v31[0] = v11;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v12 = MEMORY[0x277CCA9B8];
+    v13 = getASAuthorizationErrorDomain();
+    v14 = [v12 errorWithDomain:v13 code:1000 userInfo:v10];
 
-    v14 = PO_LOG_POLoginManager();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = PO_LOG_POLoginManager(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [POLoginManager saveLoginConfiguration:error:];
     }
 
     if (error)
     {
-      v15 = v13;
-      *error = v13;
+      v17 = v14;
+      *error = v14;
     }
   }
 
-  _Block_object_dispose(&v19, 8);
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v26, 8);
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (void)saveCertificate:(__SecCertificate *)certificate keyType:(int64_t)type
 {
-  v7 = PO_LOG_POLoginManager();
+  v7 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager saveCertificate:keyType:];
@@ -964,7 +984,7 @@ void __36__POLoginManager_loginConfiguration__block_invoke(uint64_t a1, void *a2
 id __42__POLoginManager_saveCertificate_keyType___block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"error with SecCertificateCopyData for saving certificate"];
-  v1 = PO_LOG_POLoginManager();
+  v1 = PO_LOG_POLoginManager(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -975,7 +995,7 @@ id __42__POLoginManager_saveCertificate_keyType___block_invoke()
 
 - (__SecKey)copyKeyForKeyType:(int64_t)type
 {
-  v5 = PO_LOG_POLoginManager();
+  v5 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager copyKeyForKeyType:];
@@ -1052,7 +1072,7 @@ void __36__POLoginManager_copyKeyForKeyType___block_invoke(uint64_t a1, void *a2
 id __36__POLoginManager_copyKeyForKeyType___block_invoke_2(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(*(*(a1 + 32) + 8) + 40) description:@"failed to retrieve SecKeyProxyEndpoint for key"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1064,7 +1084,7 @@ id __36__POLoginManager_copyKeyForKeyType___block_invoke_2(uint64_t a1)
 id __36__POLoginManager_copyKeyForKeyType___block_invoke_88(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(*(*(a1 + 32) + 8) + 40) description:@"failed to create SecKey from SecKeyProxyEndpoint for key"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1075,7 +1095,7 @@ id __36__POLoginManager_copyKeyForKeyType___block_invoke_88(uint64_t a1)
 
 - (__SecIdentity)copyIdentityForKeyType:(int64_t)type
 {
-  v5 = PO_LOG_POLoginManager();
+  v5 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager copyIdentityForKeyType:];
@@ -1152,7 +1172,7 @@ void __41__POLoginManager_copyIdentityForKeyType___block_invoke(uint64_t a1, voi
 id __41__POLoginManager_copyIdentityForKeyType___block_invoke_2(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(*(*(a1 + 32) + 8) + 40) description:@"failed to retrieve SecKeyProxyEndpoint for identity"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1164,7 +1184,7 @@ id __41__POLoginManager_copyIdentityForKeyType___block_invoke_2(uint64_t a1)
 id __41__POLoginManager_copyIdentityForKeyType___block_invoke_95(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(*(*(a1 + 32) + 8) + 40) description:@"failed to create SecIdentityRef from SecKeyProxyEndpoint for key"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1177,7 +1197,7 @@ id __41__POLoginManager_copyIdentityForKeyType___block_invoke_95(uint64_t a1)
 {
   dataCopy = data;
   completionCopy = completion;
-  v10 = PO_LOG_POLoginManager();
+  v10 = PO_LOG_POLoginManager(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager attestKey:clientData:completion:];
@@ -1211,40 +1231,40 @@ void __50__POLoginManager_attestKey_clientData_completion___block_invoke(uint64_
 
 void __50__POLoginManager_attestKey_clientData_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (*(a1 + 32))
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         v12 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = SecCertificateCreateWithData(0, *(*(&v15 + 1) + 8 * v12));
-          [v7 addObject:{v13, v15}];
+          v13 = SecCertificateCreateWithData(0, *(*(&v14 + 1) + 8 * v12));
+          [v7 addObject:{v13, v14}];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -1252,15 +1272,13 @@ void __50__POLoginManager_attestKey_clientData_completion___block_invoke_2(uint6
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attestPendingKey:(int64_t)key clientData:(id)data completion:(id)completion
 {
   dataCopy = data;
   completionCopy = completion;
-  v10 = PO_LOG_POLoginManager();
+  v10 = PO_LOG_POLoginManager(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager attestPendingKey:clientData:completion:];
@@ -1294,40 +1312,40 @@ void __57__POLoginManager_attestPendingKey_clientData_completion___block_invoke(
 
 void __57__POLoginManager_attestPendingKey_clientData_completion___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (*(a1 + 32))
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         v12 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = SecCertificateCreateWithData(0, *(*(&v15 + 1) + 8 * v12));
-          [v7 addObject:{v13, v15}];
+          v13 = SecCertificateCreateWithData(0, *(*(&v14 + 1) + 8 * v12));
+          [v7 addObject:{v13, v14}];
 
           ++v12;
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -1335,14 +1353,12 @@ void __57__POLoginManager_attestPendingKey_clientData_completion___block_invoke_
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userNeedsReauthenticationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POLoginManager();
+  v5 = PO_LOG_POLoginManager(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager userNeedsReauthenticationWithCompletion:];
@@ -1393,7 +1409,7 @@ uint64_t __58__POLoginManager_userNeedsReauthenticationWithCompletion___block_in
     v4 = a3;
   }
 
-  return (*(v3 + 16))(v3, v4);
+  return (*(v3 + 16))(v3, v4, a3);
 }
 
 void __58__POLoginManager_userNeedsReauthenticationWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -1471,29 +1487,27 @@ uint64_t __58__POLoginManager_userNeedsReauthenticationWithCompletion___block_in
     v4 = a3;
   }
 
-  return (*(v3 + 16))(v3, v4);
+  return (*(v3 + 16))(v3, v4, a3);
 }
 
 - (void)deviceRegistrationsNeedsRepair
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)userRegistrationsNeedsRepair
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)presentRegistrationViewControllerWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POLoginManager();
+  v5 = PO_LOG_POLoginManager(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager presentRegistrationViewControllerWithCompletion:];
@@ -1522,31 +1536,28 @@ uint64_t __66__POLoginManager_presentRegistrationViewControllerWithCompletion___
 
 - (void)resetKeys
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)resetDeviceKeys
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)resetUserSecureEnclaveKey
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (__SecKey)rotateKeyForKeyType:(int64_t)type
 {
-  v5 = PO_LOG_POLoginManager();
+  v5 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager rotateKeyForKeyType:];
@@ -1608,7 +1619,7 @@ LABEL_7:
 id __38__POLoginManager_rotateKeyForKeyType___block_invoke_2(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(*(*(a1 + 32) + 8) + 40) description:@"failed to retrieve SecKeyProxyEndpoint for new key"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1620,7 +1631,7 @@ id __38__POLoginManager_rotateKeyForKeyType___block_invoke_2(uint64_t a1)
 id __38__POLoginManager_rotateKeyForKeyType___block_invoke_121(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(*(*(a1 + 32) + 8) + 40) description:@"failed to create SecKey from SecKeyProxyEndpoint for new key"];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1631,7 +1642,7 @@ id __38__POLoginManager_rotateKeyForKeyType___block_invoke_121(uint64_t a1)
 
 - (void)completeRotationKeyForKeyType:(int64_t)type
 {
-  v5 = PO_LOG_POLoginManager();
+  v5 = PO_LOG_POLoginManager(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POLoginManager completeRotationKeyForKeyType:];
@@ -1646,7 +1657,7 @@ void __48__POLoginManager_completeRotationKeyForKeyType___block_invoke(uint64_t 
   v5 = v4;
   if (a2)
   {
-    v6 = PO_LOG_POLoginManager();
+    v6 = PO_LOG_POLoginManager(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -1669,7 +1680,7 @@ void __48__POLoginManager_completeRotationKeyForKeyType___block_invoke(uint64_t 
 id __48__POLoginManager_completeRotationKeyForKeyType___block_invoke_127(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"failed to complete key rotation."];
-  v2 = PO_LOG_POLoginManager();
+  v2 = PO_LOG_POLoginManager(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1687,47 +1698,42 @@ id __48__POLoginManager_completeRotationKeyForKeyType___block_invoke_127(uint64_
 
 - (void)initWithUid:(os_log_t)log .cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[POLoginManager initWithUid:]";
-  v6 = 1026;
-  v7 = a2;
-  v8 = 2112;
-  v9 = a1;
-  _os_log_debug_impl(&dword_25E831000, log, OS_LOG_TYPE_DEBUG, "%s uid = %{public}d on %@", &v4, 0x1Cu);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[POLoginManager initWithUid:]";
+  v5 = 1026;
+  v6 = a2;
+  v7 = 2112;
+  v8 = a1;
+  _os_log_debug_impl(&dword_25E831000, log, OS_LOG_TYPE_DEBUG, "%s uid = %{public}d on %@", &v3, 0x1Cu);
 }
 
 - (void)isDeviceRegistered
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)isUserRegistered
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)registrationToken
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)authenticationMethod
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setLoginUserName:.cold.1()
@@ -1739,18 +1745,9 @@ id __48__POLoginManager_completeRotationKeyForKeyType___block_invoke_127(uint64_
 
 - (void)userLoginConfiguration
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveUserLoginConfiguration:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_25E831000, v0, v1, "failed to save userLoginConfiguration: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)saveUserLoginConfiguration:error:.cold.2()
@@ -1762,18 +1759,16 @@ id __48__POLoginManager_completeRotationKeyForKeyType___block_invoke_127(uint64_
 
 - (void)ssoTokens
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setSsoTokens:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setSsoTokens:.cold.2()
@@ -1799,18 +1794,9 @@ void __31__POLoginManager_setSsoTokens___block_invoke_68_cold_1()
 
 - (void)loginConfiguration
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)saveLoginConfiguration:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_25E831000, v0, v1, "failed to save loginConfiguration: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)saveLoginConfiguration:error:.cold.2()
@@ -1822,74 +1808,65 @@ void __31__POLoginManager_setSsoTokens___block_invoke_68_cold_1()
 
 - (void)saveCertificate:keyType:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)copyKeyForKeyType:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)copyIdentityForKeyType:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)attestKey:clientData:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)attestPendingKey:clientData:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)userNeedsReauthenticationWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)presentRegistrationViewControllerWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)rotateKeyForKeyType:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)completeRotationKeyForKeyType:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 @end

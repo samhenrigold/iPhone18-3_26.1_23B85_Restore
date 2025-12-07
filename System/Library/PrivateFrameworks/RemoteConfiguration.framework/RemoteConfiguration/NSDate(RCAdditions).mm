@@ -21,7 +21,7 @@
 
 + (id)rc_dateFromString:()RCAdditions possibleFormats:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
   if (!v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -44,28 +44,28 @@
   }
 
 LABEL_6:
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
 LABEL_8:
     v11 = 0;
     while (1)
     {
-      if (*v19 != v10)
+      if (*v18 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v18 + 1) + 8 * v11);
+      v12 = *(*(&v17 + 1) + 8 * v11);
       v13 = objc_autoreleasePoolPush();
-      v14 = [MEMORY[0x277CCA968] dateFormatterWithFormat:v12 forReuse:0, v18];
+      v14 = [MEMORY[0x277CCA968] dateFormatterWithFormat:v12 forReuse:0, v17];
       v15 = [v14 dateFromString:v5];
 
       objc_autoreleasePoolPop(v13);
@@ -76,7 +76,7 @@ LABEL_8:
 
       if (v9 == ++v11)
       {
-        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v9)
         {
           goto LABEL_8;
@@ -93,38 +93,32 @@ LABEL_14:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 + (id)rc_dateFromStringWithISO8601Format:()RCAdditions
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v10 = @"yyyy-MM-dd'T'HH:mm:ssZZ";
+  v10 = *MEMORY[0x277D85DE8];
+  v9 = @"yyyy-MM-dd'T'HH:mm:ssZZ";
   v4 = MEMORY[0x277CBEA60];
   v5 = a3;
-  v6 = [v4 arrayWithObjects:&v10 count:1];
-  v7 = [self rc_dateFromString:v5 possibleFormats:{v6, v10, v11}];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = [v4 arrayWithObjects:&v9 count:1];
+  v7 = [self rc_dateFromString:v5 possibleFormats:{v6, v9, v10}];
 
   return v7;
 }
 
 + (id)rc_dateFromStringWithHTTPHeaderFormat:()RCAdditions
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"EEE, dd MMM yyyy HH:mm:ss z";
-  v10[1] = @"EEEE, dd-MMM-yy HH:mm:ss z";
-  v10[2] = @"EEE MMM d HH:mm:ss yyyy";
-  v10[3] = @"EEE MMM dd HH:mm:ss z yyyy";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"EEE, dd MMM yyyy HH:mm:ss z";
+  v9[1] = @"EEEE, dd-MMM-yy HH:mm:ss z";
+  v9[2] = @"EEE MMM d HH:mm:ss yyyy";
+  v9[3] = @"EEE MMM dd HH:mm:ss z yyyy";
   v4 = MEMORY[0x277CBEA60];
   v5 = a3;
-  v6 = [v4 arrayWithObjects:v10 count:4];
+  v6 = [v4 arrayWithObjects:v9 count:4];
   v7 = [self rc_dateFromString:v5 possibleFormats:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -326,9 +320,9 @@ LABEL_7:
 - (id)rc_stringWithYearAndMonthFormat
 {
   _fr_sharedYearAndMonthDateFormatter = [objc_opt_class() _fr_sharedYearAndMonthDateFormatter];
-  v3 = [_fr_sharedYearAndMonthDateFormatter stringFromDate:self];
+  v4 = [_fr_sharedYearAndMonthDateFormatter stringFromDate:self];
 
-  return v3;
+  return v4;
 }
 
 + (id)_fr_sharedYearAndMonthDateFormatter
@@ -338,57 +332,45 @@ LABEL_7:
     +[NSDate(RCAdditions) _fr_sharedYearAndMonthDateFormatter];
   }
 
-  v1 = _fr_sharedYearAndMonthDateFormatter_sharedDateFormatter;
+  v2 = _fr_sharedYearAndMonthDateFormatter_sharedDateFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (void)rc_dateFromString:()RCAdditions possibleFormats:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "string != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "string != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 + (void)rc_dateFromString:()RCAdditions possibleFormats:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "formats != nil"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "formats != nil", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)rc_millisecondTimeIntervalSinceDate:()RCAdditions .cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "date"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "date", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 - (void)rc_GregorianCalendarDaysSinceDate:()RCAdditions .cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s"];
+  v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "date"];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, "date", v7, 2u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2179FC000, MEMORY[0x277D86220], v1, "*** Assertion failure: %s %s:%d %{public}@", v2, v3, v4, v5, v6, v7);
 }
 
 @end

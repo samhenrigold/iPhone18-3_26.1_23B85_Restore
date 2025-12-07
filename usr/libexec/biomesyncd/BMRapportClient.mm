@@ -610,13 +610,13 @@ LABEL_13:
         {
           if (v8)
           {
-            sub_10004A1A4(self);
+            sub_10004A1A4();
           }
         }
 
         else if (v8)
         {
-          sub_10004A21C(self);
+          sub_10004A21C();
         }
       }
 
@@ -625,7 +625,7 @@ LABEL_13:
         WeakRetained = __biome_log_for_category();
         if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
         {
-          sub_10004A294(self);
+          sub_10004A294();
         }
       }
     }
@@ -715,6 +715,7 @@ LABEL_13:
 + (unint64_t)controlFlagsForSharedHomeDiscovery
 {
   v2 = +[BMDeviceMetadataUtils platform];
+  v3 = v2;
   if (v2 <= 4)
   {
     if (v2 <= 2)
@@ -753,10 +754,10 @@ LABEL_13:
   if (v2 != 5)
   {
 LABEL_9:
-    v4 = __biome_log_for_category();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = __biome_log_for_category();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      sub_10004BF9C();
+      sub_10004BF9C(v3);
     }
 
     return 0;

@@ -6,7 +6,7 @@
 
 - (uint64_t)wf_shouldPrewarmAppLaunchWithAction:()ShouldPrewarmAppLaunch
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (([self openAppWhenRun] & 1) == 0)
   {
@@ -14,7 +14,7 @@
     if (os_log_type_enabled(parameters2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v35 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
+      v34 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
       v9 = "%s openAppWhenRun is false";
       goto LABEL_10;
     }
@@ -34,7 +34,7 @@ LABEL_11:
     if (os_log_type_enabled(parameters2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v35 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
+      v34 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
       v9 = "%s Intent conforms to the camera capture protocol";
 LABEL_10:
       _os_log_impl(&dword_1B1DE3000, parameters2, OS_LOG_TYPE_DEFAULT, v9, buf, 0xCu);
@@ -50,7 +50,7 @@ LABEL_10:
     if (os_log_type_enabled(parameters2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v35 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
+      v34 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
       v9 = "%s Intent returns a snippet or dialog";
       goto LABEL_10;
     }
@@ -65,12 +65,12 @@ LABEL_10:
 
     if ([parameters2 count]>= 2)
     {
-      v25 = getWFVoiceShortcutClientLogObject();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v24 = getWFVoiceShortcutClientLogObject();
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v35 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
-        v26 = "%s App Shortcut with multiple required parameters with missing value";
+        v34 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
+        v25 = "%s App Shortcut with multiple required parameters with missing value";
         goto LABEL_34;
       }
 
@@ -80,67 +80,67 @@ LABEL_35:
     }
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   parameters2 = [self parameters];
-  v14 = [parameters2 countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v14)
+  v13 = [parameters2 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  if (v13)
   {
-    v15 = v14;
-    v16 = *v30;
-    v27 = *MEMORY[0x1E69AC598];
+    v14 = v13;
+    v15 = *v29;
+    v26 = *MEMORY[0x1E69AC598];
 LABEL_18:
-    v17 = 0;
+    v16 = 0;
     while (1)
     {
-      if (*v30 != v16)
+      if (*v29 != v15)
       {
         objc_enumerationMutation(parameters2);
       }
 
-      v18 = *(*(&v29 + 1) + 8 * v17);
-      isOptional = [v18 isOptional];
+      v17 = *(*(&v28 + 1) + 8 * v16);
+      isOptional = [v17 isOptional];
       if (v4 && (isOptional & 1) == 0)
       {
         parameters3 = [v4 parameters];
-        v28[0] = MEMORY[0x1E69E9820];
-        v28[1] = 3221225472;
-        v28[2] = __80__LNActionMetadata_ShouldPrewarmAppLaunch__wf_shouldPrewarmAppLaunchWithAction___block_invoke_50;
-        v28[3] = &unk_1E7B01608;
-        v28[4] = v18;
-        v21 = [parameters3 if_firstObjectPassingTest:v28];
-        value = [v21 value];
+        v27[0] = MEMORY[0x1E69E9820];
+        v27[1] = 3221225472;
+        v27[2] = __80__LNActionMetadata_ShouldPrewarmAppLaunch__wf_shouldPrewarmAppLaunchWithAction___block_invoke_50;
+        v27[3] = &unk_1E7B01608;
+        v27[4] = v17;
+        v20 = [parameters3 if_firstObjectPassingTest:v27];
+        value = [v20 value];
 
         if (!value)
         {
-          typeSpecificMetadata = [v18 typeSpecificMetadata];
-          v24 = [typeSpecificMetadata objectForKeyedSubscript:v27];
+          typeSpecificMetadata = [v17 typeSpecificMetadata];
+          v23 = [typeSpecificMetadata objectForKeyedSubscript:v26];
 
-          if (!v24)
+          if (!v23)
           {
-            v25 = getWFVoiceShortcutClientLogObject();
-            if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            v24 = getWFVoiceShortcutClientLogObject();
+            if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               goto LABEL_35;
             }
 
             *buf = 136315138;
-            v35 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
-            v26 = "%s Required parameter is missing a value";
+            v34 = "[LNActionMetadata(ShouldPrewarmAppLaunch) wf_shouldPrewarmAppLaunchWithAction:]";
+            v25 = "%s Required parameter is missing a value";
 LABEL_34:
-            _os_log_impl(&dword_1B1DE3000, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 0xCu);
+            _os_log_impl(&dword_1B1DE3000, v24, OS_LOG_TYPE_DEFAULT, v25, buf, 0xCu);
             goto LABEL_35;
           }
         }
       }
 
-      if (v15 == ++v17)
+      if (v14 == ++v16)
       {
-        v15 = [parameters2 countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v14 = [parameters2 countByEnumeratingWithState:&v28 objects:v32 count:16];
         v10 = 1;
-        if (v15)
+        if (v14)
         {
           goto LABEL_18;
         }
@@ -153,7 +153,6 @@ LABEL_34:
   v10 = 1;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

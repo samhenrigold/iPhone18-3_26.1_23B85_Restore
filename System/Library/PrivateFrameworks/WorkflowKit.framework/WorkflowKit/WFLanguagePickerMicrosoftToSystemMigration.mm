@@ -27,41 +27,40 @@
 
 - (id)localizedLanguageDisplayNamesToLocaleIdentifiers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   languagesSupportedByTranslation = [(WFLanguagePickerMicrosoftToSystemMigration *)self languagesSupportedByTranslation];
-  v5 = [languagesSupportedByTranslation countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [languagesSupportedByTranslation countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(languagesSupportedByTranslation);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:v9];
         wf_displayName = [v10 wf_displayName];
         [v3 setObject:v9 forKey:wf_displayName];
       }
 
-      v6 = [languagesSupportedByTranslation countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [languagesSupportedByTranslation countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
 
   v12 = [v3 copy];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -158,9 +157,9 @@ void __61__WFLanguagePickerMicrosoftToSystemMigration_migrateWorkflow__block_inv
   v12 = a2;
   v3 = [*(a1 + 32) actionIdentifierKey];
   v4 = [v12 objectForKeyedSubscript:v3];
-  v5 = [v4 isEqualToString:@"is.workflow.actions.text.translate"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = [*(a1 + 32) actionParametersKey];
     v7 = [v12 objectForKeyedSubscript:v6];
@@ -171,7 +170,7 @@ void __61__WFLanguagePickerMicrosoftToSystemMigration_migrateWorkflow__block_inv
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if (([v8 isEqualToString:@"Detect Language"] & 1) == 0)
+        if ((objc_msgSend_isEqualToString_(v8) & 1) == 0)
         {
           v9 = [*(a1 + 32) localeIdentifierFromUnmigratedValue:v8];
 

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)supportedServerVersionsAsString:(int)string;
 - (int)supportedServerVersionsAtIndex:(unint64_t)index;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -35,6 +36,21 @@
   }
 
   return p_supportedServerVersions->list[index];
+}
+
+- (id)supportedServerVersionsAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Version1";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (id)description
@@ -109,14 +125,13 @@
     [NPKProtoStandaloneInitializationResponse writeTo:];
   }
 
-  v8 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteSubmessage();
   if (self->_supportedServerVersions.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_supportedServerVersions.list[v5];
       PBDataWriterWriteInt32Field();
       ++v5;
     }
@@ -129,11 +144,11 @@
     PBDataWriterWriteStringField();
   }
 
-  v7 = v8;
+  v6 = v7;
   if (self->_error)
   {
     PBDataWriterWriteSubmessage();
-    v7 = v8;
+    v6 = v7;
   }
 }
 

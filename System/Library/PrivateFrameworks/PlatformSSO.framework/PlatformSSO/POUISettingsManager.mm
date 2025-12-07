@@ -11,7 +11,7 @@
 
 - (POUISettingsManager)init
 {
-  v3 = PO_LOG_POUISettingsManager();
+  v3 = PO_LOG_POUISettingsManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(POUISettingsManager *)self init];
@@ -32,8 +32,8 @@
 
 - (id)deviceStatus
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = PO_LOG_POUISettingsManager();
+  v12 = *MEMORY[0x277D85DE8];
+  v3 = PO_LOG_POUISettingsManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -46,29 +46,27 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v10 = __Block_byref_object_copy__0;
-  v11 = __Block_byref_object_dispose__0;
-  v12 = 0;
+  v9 = __Block_byref_object_copy__0;
+  v10 = __Block_byref_object_dispose__0;
+  v11 = 0;
   serviceConnection = self->_serviceConnection;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __35__POUISettingsManager_deviceStatus__block_invoke;
-  v8[3] = &unk_279A3A1F0;
-  v8[4] = buf;
-  [(POUIServiceConnection *)serviceConnection deviceStatusWithCompletion:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __35__POUISettingsManager_deviceStatus__block_invoke;
+  v7[3] = &unk_279A3A1F0;
+  v7[4] = buf;
+  [(POUIServiceConnection *)serviceConnection deviceStatusWithCompletion:v7];
   v5 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)statusForUserName:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v5 = PO_LOG_POUISettingsManager();
+  v5 = PO_LOG_POUISettingsManager(nameCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -81,28 +79,26 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v12 = __Block_byref_object_copy__0;
-  v13 = __Block_byref_object_dispose__0;
-  v14 = 0;
+  v11 = __Block_byref_object_copy__0;
+  v12 = __Block_byref_object_dispose__0;
+  v13 = 0;
   serviceConnection = self->_serviceConnection;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __41__POUISettingsManager_statusForUserName___block_invoke;
-  v10[3] = &unk_279A3A218;
-  v10[4] = buf;
-  [(POUIServiceConnection *)serviceConnection statusForUser:nameCopy completion:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __41__POUISettingsManager_statusForUserName___block_invoke;
+  v9[3] = &unk_279A3A218;
+  v9[4] = buf;
+  [(POUIServiceConnection *)serviceConnection statusForUser:nameCopy completion:v9];
   v7 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)startDeviceAction:(int64_t)action
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = PO_LOG_POUISettingsManager();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = PO_LOG_POUISettingsManager(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -115,16 +111,15 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v10 = 0;
+  v9 = 0;
   serviceConnection = self->_serviceConnection;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __41__POUISettingsManager_startDeviceAction___block_invoke;
-  v8[3] = &unk_279A3A240;
-  v8[4] = buf;
-  [(POUIServiceConnection *)serviceConnection startDeviceAction:action completion:v8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __41__POUISettingsManager_startDeviceAction___block_invoke;
+  v7[3] = &unk_279A3A240;
+  v7[4] = buf;
+  [(POUIServiceConnection *)serviceConnection startDeviceAction:action completion:v7];
   _Block_object_dispose(buf, 8);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startUserAction:(int64_t)action forUserName:(id)name
@@ -146,13 +141,12 @@
 
 - (void)init
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[POUISettingsManager init]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[POUISettingsManager init]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_debug_impl(&dword_25E831000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25E831000, a2, OS_LOG_TYPE_DEBUG, "%s  on %@", &v2, 0x16u);
 }
 
 @end

@@ -23,49 +23,42 @@
 
 - (DRAppDelegate)init
 {
-  v17.receiver = self;
-  v17.super_class = DRAppDelegate;
-  v2 = [(DRAppDelegate *)&v17 init];
+  v14.receiver = self;
+  v14.super_class = DRAppDelegate;
+  v2 = [(DRAppDelegate *)&v14 init];
   if (v2)
   {
-    v3 = _os_feature_enabled_impl();
-    v4 = &off_100054738;
-    if (!v3)
-    {
-      v4 = off_100054730;
-    }
-
-    v5 = *v4;
-    v6 = objc_opt_new();
+    _os_feature_enabled_impl();
+    v3 = objc_opt_new();
     pasteAnnouncer = v2->_pasteAnnouncer;
-    v2->_pasteAnnouncer = v6;
+    v2->_pasteAnnouncer = v3;
 
-    v8 = +[DRDragSessionManager sharedSessionManager];
-    [v8 setDelegate:v2];
+    v5 = +[DRDragSessionManager sharedSessionManager];
+    [v5 setDelegate:v2];
 
     [(DRAppDelegate *)v2 _setEventFetchThreadPriorityWhenPossible];
-    v9 = getpid();
-    if ((sub_100001D58(v9) & 1) == 0)
+    v6 = getpid();
+    if ((sub_100001D58(v6) & 1) == 0)
     {
-      v10 = [[DRDispatchTimer alloc] initWithQueue:&_dispatch_main_q eventHandler:&stru_100054B08];
-      [(DRDispatchTimer *)v10 resetWithTimeout:3.0 leeway:0.3];
-      [(DRDispatchTimer *)v10 activate];
+      v7 = [[DRDispatchTimer alloc] initWithQueue:&_dispatch_main_q eventHandler:&stru_100054B08];
+      [(DRDispatchTimer *)v7 resetWithTimeout:3.0 leeway:0.3];
+      [(DRDispatchTimer *)v7 activate];
       launchWatchdogTimer = v2->_launchWatchdogTimer;
-      v2->_launchWatchdogTimer = v10;
+      v2->_launchWatchdogTimer = v7;
     }
 
     [NSURL _setAllowsCreationOfFileURLFromItemProvider:1];
-    v12 = +[NSNotificationCenter defaultCenter];
-    [v12 addObserver:v2 selector:"_sceneWillConnect:" name:UISceneWillConnectNotification object:0];
+    v9 = +[NSNotificationCenter defaultCenter];
+    [v9 addObserver:v2 selector:"_sceneWillConnect:" name:UISceneWillConnectNotification object:0];
 
-    v13 = +[NSNotificationCenter defaultCenter];
-    [v13 addObserver:v2 selector:"_sceneDidDisconnect:" name:UISceneDidDisconnectNotification object:0];
+    v10 = +[NSNotificationCenter defaultCenter];
+    [v10 addObserver:v2 selector:"_sceneDidDisconnect:" name:UISceneDidDisconnectNotification object:0];
 
-    v14 = DRLogTarget();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v11 = DRLogTarget();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Running but not yet listening", v16, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Running but not yet listening", v13, 2u);
     }
   }
 

@@ -367,7 +367,7 @@ LABEL_21:
   return v22;
 }
 
-uint64_t __53__MRArtwork_processRequestsExternalArtworkValidation__block_invoke()
+void *__53__MRArtwork_processRequestsExternalArtworkValidation__block_invoke()
 {
   result = [MEMORY[0x1E69B1418] hasBoolEntitlement:@"com.apple.mediaremote.external-artwork-validation" shouldLogForMissingEntitlement:0];
   processRequestsExternalArtworkValidation___entitled = result;
@@ -414,11 +414,10 @@ uint64_t __53__MRArtwork_processRequestsExternalArtworkValidation__block_invoke(
 
 - (void)artworkByResizingWithWidth:(uint64_t)a1 height:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRArtwork] resize failed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRArtwork] resize failed with error: %@", &v2, 0xCu);
 }
 
 @end

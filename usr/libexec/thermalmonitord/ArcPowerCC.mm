@@ -1,5 +1,7 @@
 @interface ArcPowerCC
 - (ArcPowerCC)initWithParams:(__CFDictionary *)params product:(id)product;
+- (__CFString)copyFieldCurrentValueForIndex:(int)index;
+- (__CFString)copyHeaderForIndex:(int)index;
 - (int)numberOfFields;
 - (void)defaultAction;
 - (void)refreshTGraphTelemetry;
@@ -128,7 +130,7 @@
 
       else if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
       {
-        sub_1000534E0(&self->_minArcPower);
+        sub_1000534E0();
       }
 
       if (v8)
@@ -138,7 +140,7 @@
 
     else if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
     {
-      sub_100053558(&self->_minArcPower);
+      sub_100053558();
     }
   }
 }
@@ -176,6 +178,77 @@
   v3.receiver = self;
   v3.super_class = ArcPowerCC;
   return [(ComponentControl *)&v3 numberOfFields]+ 2;
+}
+
+- (__CFString)copyHeaderForIndex:(int)index
+{
+  v3 = *&index;
+  v10.receiver = self;
+  v10.super_class = ArcPowerCC;
+  if ([(ComponentControl *)&v10 numberOfFields]<= index)
+  {
+    v8.receiver = self;
+    v8.super_class = ArcPowerCC;
+    numberOfFields = [(ComponentControl *)&v8 numberOfFields];
+    if (v3 - numberOfFields == 1)
+    {
+      v7 = @"ArcCC current power";
+    }
+
+    else
+    {
+      v7 = 0;
+    }
+
+    if (v3 == numberOfFields)
+    {
+      return @"ArcCC target power";
+    }
+
+    else
+    {
+      return v7;
+    }
+  }
+
+  else
+  {
+    v9.receiver = self;
+    v9.super_class = ArcPowerCC;
+    return [(ComponentControl *)&v9 copyHeaderForIndex:v3];
+  }
+}
+
+- (__CFString)copyFieldCurrentValueForIndex:(int)index
+{
+  v3 = *&index;
+  v11.receiver = self;
+  v11.super_class = ArcPowerCC;
+  if ([(ComponentControl *)&v11 numberOfFields]> index)
+  {
+    v10.receiver = self;
+    v10.super_class = ArcPowerCC;
+    return [(ComponentControl *)&v10 copyFieldCurrentValueForIndex:v3];
+  }
+
+  v9.receiver = self;
+  v9.super_class = ArcPowerCC;
+  v6 = v3 - [(ComponentControl *)&v9 numberOfFields];
+  if (v6 == 1)
+  {
+    v7 = kCFAllocatorDefault;
+    v8 = 168;
+    return CFStringCreateWithFormat(v7, 0, @"%d", *(&self->super.super.super.isa + v8));
+  }
+
+  if (!v6)
+  {
+    v7 = kCFAllocatorDefault;
+    v8 = 164;
+    return CFStringCreateWithFormat(v7, 0, @"%d", *(&self->super.super.super.isa + v8));
+  }
+
+  return 0;
 }
 
 @end

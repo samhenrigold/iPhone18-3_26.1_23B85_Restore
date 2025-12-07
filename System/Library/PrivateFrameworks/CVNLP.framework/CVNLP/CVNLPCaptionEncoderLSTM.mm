@@ -11,9 +11,9 @@
 {
   optionsCopy = options;
   paramsCopy = params;
-  v59.receiver = self;
-  v59.super_class = CVNLPCaptionEncoderLSTM;
-  v8 = [(CVNLPCaptionModelBase *)&v59 initWithOptions:optionsCopy runTimeParams:paramsCopy];
+  v40.receiver = self;
+  v40.super_class = CVNLPCaptionEncoderLSTM;
+  v8 = [(CVNLPCaptionModelBase *)&v40 initWithOptions:optionsCopy runTimeParams:paramsCopy];
   v11 = v8;
   if (v8)
   {
@@ -25,84 +25,62 @@
     v19 = objc_msgSend_path(v15, v16, v17, v18);
     v20 = v19;
     objc_msgSend_UTF8String(v20, v21, v22, v23);
-    p_encoderNet = &v11->encoderNet;
-    v25 = espresso_plan_add_network();
+    v24 = espresso_plan_add_network();
 
-    if (v25)
+    if (v24)
     {
       exception = __cxa_allocate_exception(0x10uLL);
-      encoderPlan = v11->encoderPlan;
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(exception, v40);
+      std::runtime_error::runtime_error(exception, v27);
       __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v26 = v11->encoderPlan;
     if (espresso_plan_build())
     {
-      v41 = __cxa_allocate_exception(0x10uLL);
-      v42 = v11->encoderPlan;
+      v28 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v41, v43);
-      __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v28, v29);
+      __cxa_throw(v28, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    plan = p_encoderNet->plan;
-    v28 = *&v11->encoderNet.network_index;
     if (espresso_network_query_blob_dimensions())
     {
-      v44 = __cxa_allocate_exception(0x10uLL);
-      v45 = v11->encoderPlan;
+      v30 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v44, v46);
-      __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v30, v31);
+      __cxa_throw(v30, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v29 = p_encoderNet->plan;
-    v30 = *&v11->encoderNet.network_index;
     if (c_network_get_output_names())
     {
-      v47 = __cxa_allocate_exception(0x10uLL);
-      v48 = v11->encoderPlan;
+      v32 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v47, v49);
-      __cxa_throw(v47, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v32, v33);
+      __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    if (v11->meanFeaturesPresent)
+    if (v11->meanFeaturesPresent && espresso_network_bind_buffer())
     {
-      v31 = p_encoderNet->plan;
-      v32 = *&v11->encoderNet.network_index;
-      if (espresso_network_bind_buffer())
-      {
-        v56 = __cxa_allocate_exception(0x10uLL);
-        v57 = v11->encoderPlan;
-        espresso_plan_get_error_info();
-        std::runtime_error::runtime_error(v56, v58);
-        __cxa_throw(v56, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
+      v38 = __cxa_allocate_exception(0x10uLL);
+      espresso_plan_get_error_info();
+      std::runtime_error::runtime_error(v38, v39);
+      __cxa_throw(v38, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v33 = p_encoderNet->plan;
-    v34 = *&v11->encoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v50 = __cxa_allocate_exception(0x10uLL);
-      v51 = v11->encoderPlan;
+      v34 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v50, v52);
-      __cxa_throw(v50, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v34, v35);
+      __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v35 = p_encoderNet->plan;
-    v36 = *&v11->encoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v53 = __cxa_allocate_exception(0x10uLL);
-      v54 = v11->encoderPlan;
+      v36 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v53, v55);
-      __cxa_throw(v53, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v36, v37);
+      __cxa_throw(v36, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
   }
 
@@ -111,147 +89,139 @@
 
 - (void)dealloc
 {
-  encoderPlan = self->encoderPlan;
   espresso_plan_destroy();
-  encoderCtx = self->encoderCtx;
   espresso_context_destroy();
-  v5.receiver = self;
-  v5.super_class = CVNLPCaptionEncoderLSTM;
-  [(CVNLPCaptionEncoderLSTM *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = CVNLPCaptionEncoderLSTM;
+  [(CVNLPCaptionEncoderLSTM *)&v3 dealloc];
 }
 
 - (void)computeCaptionForImage:(vImage_Buffer *)image outputs:(id *)outputs
 {
-  v14[3] = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v13 = 0;
+  v13[3] = *MEMORY[0x1E69E9840];
   v11 = 0;
-  objc_msgSend__run_meanFeatures_attnFeatures_projectedAttnFeatures_(self, a2, image, &v13, &v12, &v11);
-  v6 = v13;
-  v7 = v12;
-  v9 = v11;
+  v12 = 0;
+  v10 = 0;
+  objc_msgSend__run_meanFeatures_attnFeatures_projectedAttnFeatures_(self, a2, image, &v12, &v11, &v10);
+  v6 = v12;
+  v7 = v11;
+  v9 = v10;
   if (image->data)
   {
     MEMORY[0x1DA741250](image->data, 0x1000C8077774924);
   }
 
-  v14[0] = v6;
-  v14[1] = v7;
-  v14[2] = v9;
-  *outputs = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v14, 3);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v13[0] = v6;
+  v13[1] = v7;
+  v13[2] = v9;
+  *outputs = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v13, 3);
 }
 
 - (void)_run:(vImage_Buffer *)_run meanFeatures:(id *)features attnFeatures:(id *)attnFeatures projectedAttnFeatures:(id *)projectedAttnFeatures
 {
-  v61 = xmmword_1D9DDE660;
-  v62 = 0;
-  p_encoderNet = &self->encoderNet;
-  plan = self->encoderNet.plan;
-  v12 = *&p_encoderNet->network_index;
-  v13 = *&_run->width;
-  v47 = *&_run->data;
-  v48 = v13;
-  if (espresso_network_bind_input_vimagebuffer_rgba8() || (v14 = self->encoderPlan, espresso_plan_execute_sync()))
+  v56 = xmmword_1D9DDE660;
+  v57 = 0;
+  v10 = *&_run->width;
+  v42 = *&_run->data;
+  v43 = v10;
+  if (espresso_network_bind_input_vimagebuffer_rgba8() || espresso_plan_execute_sync())
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    encoderPlan = self->encoderPlan;
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(exception, v43);
+    std::runtime_error::runtime_error(exception, v38);
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   if (self->meanFeaturesPresent)
   {
-    v58 = 0;
-    v59 = 0;
-    v60 = 0;
-    v18 = *&self->meanFeatsBlob.stride_height;
-    v19 = *&self->meanFeatsBlob.stride_batch_number;
-    v20 = *&self->meanFeatsBlob.channels;
-    v54 = *&self->meanFeatsBlob.sequence_length;
-    v55 = v18;
-    v56 = v19;
-    v57 = *&self->meanFeatsBlob.storage_type;
-    v21 = *&self->meanFeatsBlob.width;
-    v51 = *&self->meanFeatsBlob.stride[2];
-    v52 = v21;
-    v53 = v20;
-    v22 = *self->meanFeatsBlob.dim;
-    v47 = *&self->meanFeatsBlob.data;
-    v48 = v22;
-    v23 = *self->meanFeatsBlob.stride;
-    v49 = *&self->meanFeatsBlob.dim[2];
-    v50 = v23;
-    objc_msgSend__copy_data_from_blob_to_(self, v15, &v47, &v58);
-    *features = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v24, v58, v59 - v58);
-    if (v58)
+    v53 = 0;
+    v54 = 0;
+    v55 = 0;
+    v14 = *&self->meanFeatsBlob.stride_height;
+    v15 = *&self->meanFeatsBlob.stride_batch_number;
+    v16 = *&self->meanFeatsBlob.channels;
+    v49 = *&self->meanFeatsBlob.sequence_length;
+    v50 = v14;
+    v51 = v15;
+    v52 = *&self->meanFeatsBlob.storage_type;
+    v17 = *&self->meanFeatsBlob.width;
+    v46 = *&self->meanFeatsBlob.stride[2];
+    v47 = v17;
+    v48 = v16;
+    v18 = *self->meanFeatsBlob.dim;
+    v42 = *&self->meanFeatsBlob.data;
+    v43 = v18;
+    v19 = *self->meanFeatsBlob.stride;
+    v44 = *&self->meanFeatsBlob.dim[2];
+    v45 = v19;
+    objc_msgSend__copy_data_from_blob_to_(self, v11, &v42, &v53);
+    *features = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v20, v53, v54 - v53);
+    if (v53)
     {
-      v59 = v58;
-      operator delete(v58);
+      v54 = v53;
+      operator delete(v53);
     }
   }
 
   else
   {
-    *features = objc_msgSend_data(MEMORY[0x1E695DEF0], v15, v16, v17);
+    *features = objc_msgSend_data(MEMORY[0x1E695DEF0], v11, v12, v13);
   }
 
-  v58 = 0;
-  v59 = 0;
-  v60 = 0;
-  v26 = *&self->attFeatsBlob.stride_height;
-  v27 = *&self->attFeatsBlob.stride_batch_number;
-  v28 = *&self->attFeatsBlob.channels;
-  v54 = *&self->attFeatsBlob.sequence_length;
-  v55 = v26;
-  v56 = v27;
-  v57 = *&self->attFeatsBlob.storage_type;
-  v29 = *&self->attFeatsBlob.width;
-  v51 = *&self->attFeatsBlob.stride[2];
-  v52 = v29;
-  v53 = v28;
-  v30 = *self->attFeatsBlob.dim;
-  v47 = *&self->attFeatsBlob.data;
-  v48 = v30;
-  v31 = *self->attFeatsBlob.stride;
-  v49 = *&self->attFeatsBlob.dim[2];
-  v50 = v31;
-  objc_msgSend__copy_data_from_blob_to_(self, v25, &v47, &v58);
-  *attnFeatures = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v32, v58, v59 - v58);
+  v53 = 0;
+  v54 = 0;
+  v55 = 0;
+  v22 = *&self->attFeatsBlob.stride_height;
+  v23 = *&self->attFeatsBlob.stride_batch_number;
+  v24 = *&self->attFeatsBlob.channels;
+  v49 = *&self->attFeatsBlob.sequence_length;
+  v50 = v22;
+  v51 = v23;
+  v52 = *&self->attFeatsBlob.storage_type;
+  v25 = *&self->attFeatsBlob.width;
+  v46 = *&self->attFeatsBlob.stride[2];
+  v47 = v25;
+  v48 = v24;
+  v26 = *self->attFeatsBlob.dim;
+  v42 = *&self->attFeatsBlob.data;
+  v43 = v26;
+  v27 = *self->attFeatsBlob.stride;
+  v44 = *&self->attFeatsBlob.dim[2];
+  v45 = v27;
+  objc_msgSend__copy_data_from_blob_to_(self, v21, &v42, &v53);
+  *attnFeatures = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v28, v53, v54 - v53);
   __p = 0;
-  v45 = 0;
-  v46 = 0;
-  v33 = *&self->pAttFeatsBlob.stride_height;
-  v34 = *&self->pAttFeatsBlob.stride_batch_number;
-  v35 = *&self->pAttFeatsBlob.channels;
-  v54 = *&self->pAttFeatsBlob.sequence_length;
-  v55 = v33;
-  v56 = v34;
-  v57 = *&self->pAttFeatsBlob.storage_type;
-  v36 = *&self->pAttFeatsBlob.width;
-  v51 = *&self->pAttFeatsBlob.stride[2];
-  v52 = v36;
-  v53 = v35;
-  v37 = *self->pAttFeatsBlob.dim;
-  v47 = *&self->pAttFeatsBlob.data;
-  v48 = v37;
-  v38 = *self->pAttFeatsBlob.stride;
-  v49 = *&self->pAttFeatsBlob.dim[2];
-  v50 = v38;
-  objc_msgSend__copy_data_from_blob_to_(self, v39, &v47, &__p);
-  *projectedAttnFeatures = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v40, __p, v45 - __p);
+  v40 = 0;
+  v41 = 0;
+  v29 = *&self->pAttFeatsBlob.stride_height;
+  v30 = *&self->pAttFeatsBlob.stride_batch_number;
+  v31 = *&self->pAttFeatsBlob.channels;
+  v49 = *&self->pAttFeatsBlob.sequence_length;
+  v50 = v29;
+  v51 = v30;
+  v52 = *&self->pAttFeatsBlob.storage_type;
+  v32 = *&self->pAttFeatsBlob.width;
+  v46 = *&self->pAttFeatsBlob.stride[2];
+  v47 = v32;
+  v48 = v31;
+  v33 = *self->pAttFeatsBlob.dim;
+  v42 = *&self->pAttFeatsBlob.data;
+  v43 = v33;
+  v34 = *self->pAttFeatsBlob.stride;
+  v44 = *&self->pAttFeatsBlob.dim[2];
+  v45 = v34;
+  objc_msgSend__copy_data_from_blob_to_(self, v35, &v42, &__p);
+  *projectedAttnFeatures = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v36, __p, v40 - __p);
   if (__p)
   {
-    v45 = __p;
+    v40 = __p;
     operator delete(__p);
   }
 
-  if (v58)
+  if (v53)
   {
-    v59 = v58;
-    operator delete(v58);
+    v54 = v53;
+    operator delete(v53);
   }
 }
 

@@ -181,7 +181,7 @@
 
 - (id)outputImage
 {
-  v36[7] = *MEMORY[0x1E69E9840];
+  v38[7] = *MEMORY[0x1E69E9840];
   result = self->inputImage;
   if (result)
   {
@@ -191,30 +191,31 @@
     }
 
     [result extent];
-    if (CGRectIsInfinite(v38) || ([(CIImage *)self->inputBlurMap extent], CGRectIsInfinite(v39)))
+    IsInfinite = CGRectIsInfinite(v40);
+    if (IsInfinite || ([(CIImage *)self->inputBlurMap extent], IsInfinite = CGRectIsInfinite(v41)))
     {
-      v4 = ci_logger_api();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+      v6 = ci_logger_api(IsInfinite, v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        *v34 = 0;
-        _os_log_impl(&dword_19CC36000, v4, OS_LOG_TYPE_INFO, "input image(s) to CIDepthBlurEffect apply is of inifite extent; returning input image", v34, 2u);
+        *v36 = 0;
+        _os_log_impl(&dword_19CC36000, v6, OS_LOG_TYPE_INFO, "input image(s) to CIDepthBlurEffect apply is of inifite extent; returning input image", v36, 2u);
       }
 
       return self->inputImage;
     }
 
-    v5 = metadataFromValue(self->inputAuxDataMetadata);
-    if (v5)
+    v7 = metadataFromValue(self->inputAuxDataMetadata);
+    if (v7)
     {
-      v6 = tuningParametersFromMetaData(v5);
+      v8 = tuningParametersFromMetaData(v7);
     }
 
     else
     {
-      v6 = tuningParametersFromImage(self->inputBlurMap);
+      v8 = tuningParametersFromImage(self->inputBlurMap);
     }
 
-    inputAuxDataMetadata = v6;
+    inputAuxDataMetadata = v8;
     if (self->inputAuxDataMetadata)
     {
       TypeID = CFDictionaryGetTypeID();
@@ -224,11 +225,11 @@
       }
     }
 
-    v9 = [inputAuxDataMetadata objectForKeyedSubscript:@"Version"];
-    v10 = MEMORY[0x1E696AD98];
-    if (v9)
+    v11 = [inputAuxDataMetadata objectForKeyedSubscript:@"Version"];
+    v12 = MEMORY[0x1E696AD98];
+    if (v11)
     {
-      unsignedIntegerValue = [v9 unsignedIntegerValue];
+      unsignedIntegerValue = [v11 unsignedIntegerValue];
     }
 
     else
@@ -236,66 +237,66 @@
       unsignedIntegerValue = 1;
     }
 
-    v12 = [v10 numberWithUnsignedInteger:unsignedIntegerValue];
-    intValue = [v12 intValue];
-    v14 = +[CIFilter minSDOFRenderingVersionSupported];
-    intValue2 = [v12 intValue];
-    if (intValue < v14)
+    v14 = [v12 numberWithUnsignedInteger:unsignedIntegerValue];
+    intValue = [v14 intValue];
+    v16 = +[CIFilter minSDOFRenderingVersionSupported];
+    intValue2 = [v14 intValue];
+    if (intValue < v16)
     {
       if (intValue2)
       {
-        v16 = [(CIImage *)self->inputImage imageByColorMatchingWorkingSpaceToColorSpace:linearP3ColorSpace()];
+        v18 = [(CIImage *)self->inputImage imageByColorMatchingWorkingSpaceToColorSpace:linearP3ColorSpace()];
         inputBlurMap = self->inputBlurMap;
-        v35[0] = @"inputBlurmapImage";
-        v35[1] = @"inputLumaNoiseScale";
+        v37[0] = @"inputBlurmapImage";
+        v37[1] = @"inputLumaNoiseScale";
         inputLumaNoiseScale = self->inputLumaNoiseScale;
-        v36[0] = inputBlurMap;
-        v36[1] = inputLumaNoiseScale;
+        v38[0] = inputBlurMap;
+        v38[1] = inputLumaNoiseScale;
         inputScale = self->inputScale;
-        v35[2] = @"inputScale";
-        v35[3] = @"inputAperture";
+        v37[2] = @"inputScale";
+        v37[3] = @"inputAperture";
         inputAperture = self->inputAperture;
-        v36[2] = inputScale;
-        v36[3] = inputAperture;
-        v35[4] = @"inputImage";
-        v35[5] = @"inputShape";
+        v38[2] = inputScale;
+        v38[3] = inputAperture;
+        v37[4] = @"inputImage";
+        v37[5] = @"inputShape";
         inputShape = self->inputShape;
         if (!inputShape)
         {
           inputShape = &stru_1F1040378;
         }
 
-        v36[4] = v16;
-        v36[5] = inputShape;
-        v35[6] = @"inputDraftMode";
-        v36[6] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{+[CIDepthBlurEffect getDraftMode:](CIDepthBlurEffect, "getDraftMode:", -[CIDepthEffectApplyBlurMap inputDraftMode](self, "inputDraftMode"))}];
-        v22 = +[CIFilter filterWithName:withInputParameters:](CIFilter, "filterWithName:withInputParameters:", @"CIPortraitBlur", [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:7]);
-        v23 = self->inputAuxDataMetadata;
-        v24 = MEMORY[0x1E695F060];
+        v38[4] = v18;
+        v38[5] = inputShape;
+        v37[6] = @"inputDraftMode";
+        v38[6] = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{+[CIDepthBlurEffect getDraftMode:](CIDepthBlurEffect, "getDraftMode:", -[CIDepthEffectApplyBlurMap inputDraftMode](self, "inputDraftMode"))}];
+        v24 = +[CIFilter filterWithName:withInputParameters:](CIFilter, "filterWithName:withInputParameters:", @"CIPortraitBlur", [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:7]);
+        v25 = self->inputAuxDataMetadata;
+        v26 = MEMORY[0x1E695F060];
         integerValue = *MEMORY[0x1E695F060];
         integerValue2 = *(MEMORY[0x1E695F060] + 8);
-        if (v23)
+        if (v25)
         {
-          v27 = CFGetTypeID(v23);
-          if (CGImageMetadataGetTypeID() == v27)
+          v29 = CFGetTypeID(v25);
+          if (CGImageMetadataGetTypeID() == v29)
           {
-            v28 = CGImageMetadataCopyTagWithPath(v23, 0, @"depthData:IntrinsicMatrixReferenceWidth");
-            v29 = CGImageMetadataCopyTagWithPath(v23, 0, @"depthData:IntrinsicMatrixReferenceHeight");
-            if (v28)
+            v30 = CGImageMetadataCopyTagWithPath(v25, 0, @"depthData:IntrinsicMatrixReferenceWidth");
+            v31 = CGImageMetadataCopyTagWithPath(v25, 0, @"depthData:IntrinsicMatrixReferenceHeight");
+            if (v30)
             {
-              integerValue = [CGImageMetadataTagCopyValue(v28) integerValue];
-              CFRelease(v28);
+              integerValue = [CGImageMetadataTagCopyValue(v30) integerValue];
+              CFRelease(v30);
             }
 
-            if (v29)
+            if (v31)
             {
-              integerValue2 = [CGImageMetadataTagCopyValue(v29) integerValue];
-              CFRelease(v29);
+              integerValue2 = [CGImageMetadataTagCopyValue(v31) integerValue];
+              CFRelease(v31);
             }
           }
         }
 
-        if (integerValue != *v24 || integerValue2 != v24[1])
+        if (integerValue != *v26 || integerValue2 != v26[1])
         {
           inputAuxDataMetadata = [MEMORY[0x1E695DF90] dictionaryWithDictionary:inputAuxDataMetadata];
           [inputAuxDataMetadata setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithDouble:", integerValue), @"SensorWidth"}];
@@ -304,24 +305,24 @@
 
         if (inputAuxDataMetadata)
         {
-          [(CIFilter *)v22 setValue:inputAuxDataMetadata forKey:@"inputTuningParameters"];
+          [(CIFilter *)v24 setValue:inputAuxDataMetadata forKey:@"inputTuningParameters"];
         }
 
         inputMatteImage = self->inputMatteImage;
         if (inputMatteImage)
         {
           [(CIImage *)inputMatteImage extent];
-          if (v31 > 1.0)
+          if (v33 > 1.0)
           {
             [(CIImage *)self->inputMatteImage extent];
-            if (v32 > 1.0)
+            if (v34 > 1.0)
             {
-              [(CIFilter *)v22 setValue:self->inputMatteImage forKey:@"inputMatteImage"];
+              [(CIFilter *)v24 setValue:self->inputMatteImage forKey:@"inputMatteImage"];
             }
           }
         }
 
-        return [(CIImage *)[(CIFilter *)v22 outputImage] imageByColorMatchingColorSpaceToWorkingSpace:linearP3ColorSpace()];
+        return [(CIImage *)[(CIFilter *)v24 outputImage] imageByColorMatchingColorSpaceToWorkingSpace:linearP3ColorSpace()];
       }
 
       return self->inputImage;
@@ -332,9 +333,9 @@
       return self->inputImage;
     }
 
-    v33 = self->inputAuxDataMetadata;
+    v35 = self->inputAuxDataMetadata;
 
-    return [(CIDepthEffectApplyBlurMap *)self unifiedRenderingOutputImage:v33];
+    return [(CIDepthEffectApplyBlurMap *)self unifiedRenderingOutputImage:v35];
   }
 
   else

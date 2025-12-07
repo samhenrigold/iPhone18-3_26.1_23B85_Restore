@@ -37,10 +37,10 @@
 
 - (FPXConnectionHandler)init
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = FPXConnectionHandler;
-  v2 = [(FPXConnectionHandler *)&v7 init];
+  v9 = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = FPXConnectionHandler;
+  v2 = [(FPXConnectionHandler *)&v6 init];
   if (v2 && +[FPDaemonConnection runningInSyncBubble])
   {
     v3 = fp_current_or_default_log();
@@ -48,18 +48,17 @@
     {
       v4 = geteuid();
       *buf = 67109120;
-      v9 = v4;
+      v8 = v4;
       _os_log_impl(&dword_1AAAE1000, v3, OS_LOG_TYPE_DEFAULT, "[NOTICE] shared iPad: extension is running in the sync bubble for euid %u", buf, 8u);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)invalidateCurrentContext:(void *)context
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = selfCopy->_activeConnections - 1;
@@ -70,15 +69,15 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       activeConnections = selfCopy->_activeConnections;
-      v13 = 134218240;
+      v12 = 134218240;
       contextCopy2 = context;
-      v15 = 1024;
-      v16 = activeConnections;
+      v14 = 1024;
+      v15 = activeConnections;
       v8 = "[INFO] [helena] connection %p was invalidated, %d left";
       v9 = v6;
       v10 = 18;
 LABEL_6:
-      _os_log_impl(&dword_1AAAE1000, v9, OS_LOG_TYPE_INFO, v8, &v13, v10);
+      _os_log_impl(&dword_1AAAE1000, v9, OS_LOG_TYPE_INFO, v8, &v12, v10);
     }
   }
 
@@ -91,7 +90,7 @@ LABEL_6:
     v6 = fp_current_or_default_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v13 = 134217984;
+      v12 = 134217984;
       contextCopy2 = context;
       v8 = "[INFO] [helena] last connection %p was invalidated, tearing down";
       v9 = v6;
@@ -101,7 +100,6 @@ LABEL_6:
   }
 
   objc_sync_exit(selfCopy);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shouldAcceptConnection:(id)connection
@@ -116,8 +114,8 @@ LABEL_6:
     _os_log_impl(&dword_1AAAE1000, v5, OS_LOG_TYPE_INFO, "[INFO] [helena] accepting connection %@", buf, 0xCu);
   }
 
-  v6 = FPXVendorXPCInterface();
-  [connectionCopy setExportedInterface:v6];
+  v7 = FPXVendorXPCInterface(v6);
+  [connectionCopy setExportedInterface:v7];
 
   makeNewContext = [(FPXConnectionHandler *)self makeNewContext];
   [connectionCopy setExportedObject:makeNewContext];
@@ -141,7 +139,6 @@ LABEL_6:
   objc_destroyWeak(v16);
   objc_destroyWeak(buf);
 
-  v8 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -171,14 +168,13 @@ void __47__FPXConnectionHandler_shouldAcceptConnection___block_invoke_2(uint64_t
 
 - (void)makeNewContext
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *a2;
-  v5 = 138412546;
+  v4 = 138412546;
   selfCopy = self;
-  v7 = 1024;
-  v8 = v3;
-  _os_log_fault_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_FAULT, "[CRIT] [helena] %@ has existing context, so we have gotten two calls to create a connection (connection count is %d)", &v5, 0x12u);
-  v4 = *MEMORY[0x1E69E9840];
+  v6 = 1024;
+  v7 = v3;
+  _os_log_fault_impl(&dword_1AAAE1000, log, OS_LOG_TYPE_FAULT, "[CRIT] [helena] %@ has existing context, so we have gotten two calls to create a connection (connection count is %d)", &v4, 0x12u);
 }
 
 @end

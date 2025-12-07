@@ -63,25 +63,23 @@
 
 void __26__SESAssertion_invalidate__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if (v2)
   {
     v3 = SESDefaultLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_ERROR, "%@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_ERROR, "%@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __26__SESAssertion_invalidate__block_invoke_505(uint64_t a1, char a2, void *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v5 = a3;
   *(*(*(a1 + 32) + 8) + 24) = a2;
   if (v5)
@@ -89,13 +87,11 @@ void __26__SESAssertion_invalidate__block_invoke_505(uint64_t a1, char a2, void 
     v6 = SESDefaultLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138412290;
-      v9 = v5;
-      _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_ERROR, "%@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_ERROR, "%@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)proxy
@@ -128,9 +124,8 @@ void __26__SESAssertion_invalidate__block_invoke_505(uint64_t a1, char a2, void 
   if (!v6)
   {
     v7 = SESDefaultLogObject();
-    v8 = *MEMORY[0x1E69E5148];
-    v9 = SESCreateAndLogError();
-    handlerCopy[2](handlerCopy, v9);
+    v8 = SESCreateAndLogError();
+    handlerCopy[2](handlerCopy, v8);
   }
 
   return v6;

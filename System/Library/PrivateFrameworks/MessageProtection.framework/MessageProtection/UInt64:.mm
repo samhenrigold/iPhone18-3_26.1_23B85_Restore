@@ -9,10 +9,10 @@
   if (!lazy cache variable for type metadata for [UInt64 : SymmetricKey])
   {
     type metadata accessor for SymmetricKey();
-    v0 = type metadata accessor for Dictionary();
-    if (!v1)
+    v1 = type metadata accessor for Dictionary();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [UInt64 : SymmetricKey]);
+      atomic_store(v1, &lazy cache variable for type metadata for [UInt64 : SymmetricKey]);
     }
   }
 }

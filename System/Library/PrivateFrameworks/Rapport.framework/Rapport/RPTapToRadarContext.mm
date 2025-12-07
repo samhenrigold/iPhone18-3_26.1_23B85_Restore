@@ -8,24 +8,23 @@
 
 - (RPTapToRadarContext)initWithTitle:(id)title problemDescription:(id)description
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   titleCopy = title;
   descriptionCopy = description;
-  v13.receiver = self;
-  v13.super_class = RPTapToRadarContext;
-  v8 = [(RPTapToRadarContext *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = RPTapToRadarContext;
+  v8 = [(RPTapToRadarContext *)&v12 init];
   if (v8)
   {
-    v14[0] = @"Title";
-    v14[1] = @"Description";
-    v15[0] = titleCopy;
-    v15[1] = descriptionCopy;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v13[0] = @"Title";
+    v13[1] = @"Description";
+    v14[0] = titleCopy;
+    v14[1] = descriptionCopy;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
     rawContext = v8->_rawContext;
     v8->_rawContext = v9;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -46,8 +45,8 @@
 
 - (id)getTapToRadarURL
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v39 = [objc_alloc(MEMORY[0x1E696AF20]) initWithString:@"tap-to-radar://new"];
+  v44 = *MEMORY[0x1E69E9840];
+  v38 = [objc_alloc(MEMORY[0x1E696AF20]) initWithString:@"tap-to-radar://new"];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = [(NSDictionary *)self->_rawContext objectForKeyedSubscript:@"ComponentID"];
   if (v4)
@@ -142,42 +141,40 @@ LABEL_7:
   [v3 setObject:v24 forKeyedSubscript:@"Keywords"];
 
   array = [MEMORY[0x1E695DF70] array];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v26 = v3;
-  v27 = [v26 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v41;
+    v29 = *v40;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v41 != v29)
+        if (*v40 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v40 + 1) + 8 * i);
+        v31 = *(*(&v39 + 1) + 8 * i);
         v32 = MEMORY[0x1E696AF60];
         v33 = [v26 objectForKeyedSubscript:v31];
         v34 = [v32 queryItemWithName:v31 value:v33];
         [array addObject:v34];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v28);
   }
 
-  [v39 setQueryItems:array];
-  v35 = [v39 URL];
-
-  v36 = *MEMORY[0x1E69E9840];
+  [v38 setQueryItems:array];
+  v35 = [v38 URL];
 
   return v35;
 }

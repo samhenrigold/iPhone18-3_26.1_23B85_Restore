@@ -1,4 +1,5 @@
 @interface AccessoryAction
+- (AccessoryAction)initWithAccount:(id)account accessory:(id)accessory requiresConnectivity:(BOOL)connectivity serverInteractionController:(id)controller;
 - (BOOL)shouldCancelAction:(id)action;
 - (FMDServerInteractionController)serverInteractionController;
 - (void)_enqueueQCAction;
@@ -12,6 +13,30 @@
 @end
 
 @implementation AccessoryAction
+
+- (AccessoryAction)initWithAccount:(id)account accessory:(id)accessory requiresConnectivity:(BOOL)connectivity serverInteractionController:(id)controller
+{
+  connectivityCopy = connectivity;
+  accountCopy = account;
+  accessoryCopy = accessory;
+  controllerCopy = controller;
+  v17.receiver = self;
+  v17.super_class = AccessoryAction;
+  v13 = [(AccessoryAction *)&v17 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(AccessoryAction *)v13 setEnqueuedQC:0];
+    [(AccessoryAction *)v14 setAccount:accountCopy];
+    [(AccessoryAction *)v14 setAccessory:accessoryCopy];
+    [(AccessoryAction *)v14 setRequiresConnectivity:connectivityCopy];
+    [(AccessoryAction *)v14 setServerInteractionController:controllerCopy];
+    v15 = dispatch_queue_create("AccessoryActionSerialQueue", 0);
+    [(AccessoryAction *)v14 setSerialQueue:v15];
+  }
+
+  return v14;
+}
 
 - (void)willCancelAction
 {

@@ -243,31 +243,31 @@
 
 + (id)_extractSourcesLogString:(id)string
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if ([stringCopy count])
   {
     v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(stringCopy, "count")}];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     v5 = stringCopy;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           identifier = [v10 identifier];
 
           if (identifier)
@@ -277,7 +277,7 @@
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -299,39 +299,37 @@
     v13 = @"N/A";
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 + (id)_extractTransportString:(id)string
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if ([stringCopy count])
   {
     v4 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(stringCopy, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v19 = stringCopy;
+    v18 = stringCopy;
     v5 = stringCopy;
-    v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v21;
+      v8 = *v20;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v21 != v8)
+          if (*v20 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v20 + 1) + 8 * i);
+          v10 = *(*(&v19 + 1) + 8 * i);
           transportMode = [v10 transportMode];
           if (transportMode >= 4)
           {
@@ -349,7 +347,7 @@
           [v4 addObject:v15];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v7);
@@ -365,15 +363,13 @@
       v16 = @"N/A";
     }
 
-    stringCopy = v19;
+    stringCopy = v18;
   }
 
   else
   {
     v16 = @"N/A";
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

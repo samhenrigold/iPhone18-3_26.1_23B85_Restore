@@ -47,7 +47,7 @@ void __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withComple
 
 void __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withCompletion___block_invoke_3(void *a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
   v8 = v7;
@@ -65,8 +65,8 @@ void __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withComple
   {
     *buf = 67109378;
     *&buf[4] = a2;
-    LOWORD(v22) = 2112;
-    *(&v22 + 2) = v6;
+    LOWORD(v21) = 2112;
+    *(&v21 + 2) = v6;
     _os_log_impl(&dword_191750000, v8, v9, "Completed saveObjects with success=%d. Error: %@.", buf, 0x12u);
   }
 
@@ -79,22 +79,22 @@ void __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withComple
       __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withCompletion___block_invoke_3_cold_1();
     }
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withCompletion___block_invoke_2_7;
-    v17[3] = &unk_1E73690A0;
-    v19 = v10;
-    v20 = a2;
-    v18 = v6;
-    v12 = v17;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withCompletion___block_invoke_2_7;
+    v16[3] = &unk_1E73690A0;
+    v18 = v10;
+    v19 = a2;
+    v17 = v6;
+    v12 = v16;
     v13 = v11;
     v14 = os_transaction_create();
     *buf = MEMORY[0x1E69E9820];
-    *&v22 = 3221225472;
-    *(&v22 + 1) = __cd_dispatch_async_capture_tx_block_invoke_11;
-    v23 = &unk_1E7367818;
-    v24 = v14;
-    v25 = v12;
+    *&v21 = 3221225472;
+    *(&v21 + 1) = __cd_dispatch_async_capture_tx_block_invoke_11;
+    v22 = &unk_1E7367818;
+    v23 = v14;
+    v24 = v12;
     v15 = v14;
     dispatch_async(v13, buf);
   }
@@ -103,8 +103,6 @@ void __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withComple
   {
     objc_storeStrong((*(a1[7] + 8) + 40), a3);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke_2(void *a1, void *a2)
@@ -151,7 +149,7 @@ void __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withComp
 
 void __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke_3(void *a1, int a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
   v8 = v7;
@@ -169,8 +167,8 @@ void __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withComp
   {
     *buf = 67109378;
     *&buf[4] = a2;
-    LOWORD(v22) = 2112;
-    *(&v22 + 2) = v6;
+    LOWORD(v21) = 2112;
+    *(&v21 + 2) = v6;
     _os_log_impl(&dword_191750000, v8, v9, "Completed deleteObjects with success=%d. Error: %@.", buf, 0x12u);
   }
 
@@ -183,22 +181,22 @@ void __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withComp
       __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke_3_cold_1();
     }
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke_2_10;
-    v17[3] = &unk_1E73690A0;
-    v19 = v10;
-    v20 = a2;
-    v18 = v6;
-    v12 = v17;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withCompletion___block_invoke_2_10;
+    v16[3] = &unk_1E73690A0;
+    v18 = v10;
+    v19 = a2;
+    v17 = v6;
+    v12 = v16;
     v13 = v11;
     v14 = os_transaction_create();
     *buf = MEMORY[0x1E69E9820];
-    *&v22 = 3221225472;
-    *(&v22 + 1) = __cd_dispatch_async_capture_tx_block_invoke_11;
-    v23 = &unk_1E7367818;
-    v24 = v14;
-    v25 = v12;
+    *&v21 = 3221225472;
+    *(&v21 + 1) = __cd_dispatch_async_capture_tx_block_invoke_11;
+    v22 = &unk_1E7367818;
+    v23 = v14;
+    v24 = v12;
     v15 = v14;
     dispatch_async(v13, buf);
   }
@@ -207,8 +205,6 @@ void __79___DKXPCKnowledgeStore_deleteObjects_synchronous_responseQueue_withComp
   {
     objc_storeStrong((*(a1[7] + 8) + 40), a3);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke_11(void *a1, void *a2)
@@ -255,7 +251,7 @@ void __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_
 
 void __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke_3(void *a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
   v8 = v7;
@@ -293,26 +289,24 @@ void __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_
       __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke_3_cold_1();
     }
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke_2_12;
-    v17[3] = &unk_1E736A880;
-    v18 = v10;
-    v19 = *(a1 + 7);
-    v12 = v17;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __100___DKXPCKnowledgeStore_deleteAllEventsInEventStream_synchronous_error_responseQueue_withCompletion___block_invoke_2_12;
+    v16[3] = &unk_1E736A880;
+    v17 = v10;
+    v18 = *(a1 + 7);
+    v12 = v16;
     v13 = v11;
     v14 = os_transaction_create();
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __cd_dispatch_async_capture_tx_block_invoke_11;
-    v21 = &unk_1E7367818;
-    v22 = v14;
-    v23 = v12;
+    v20 = &unk_1E7367818;
+    v21 = v14;
+    v22 = v12;
     v15 = v14;
     dispatch_async(v13, buf);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke_14(void *a1, void *a2)
@@ -359,7 +353,7 @@ void __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_er
 
 void __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke_3(void *a1, uint64_t a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
   v8 = v7;
@@ -397,26 +391,24 @@ void __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_er
       __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke_3_cold_1();
     }
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke_2_15;
-    v17[3] = &unk_1E736A880;
-    v18 = v10;
-    v19 = *(a1 + 7);
-    v12 = v17;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __104___DKXPCKnowledgeStore_deleteAllEventsMatchingPredicate_synchronous_error_responseQueue_withCompletion___block_invoke_2_15;
+    v16[3] = &unk_1E736A880;
+    v17 = v10;
+    v18 = *(a1 + 7);
+    v12 = v16;
     v13 = v11;
     v14 = os_transaction_create();
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __cd_dispatch_async_capture_tx_block_invoke_11;
-    v21 = &unk_1E7367818;
-    v22 = v14;
-    v23 = v12;
+    v20 = &unk_1E7367818;
+    v21 = v14;
+    v22 = v12;
     v15 = v14;
     dispatch_async(v13, buf);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke(uint64_t a1)
@@ -470,7 +462,7 @@ void __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_wit
 
 void __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 40) handleResults:v5 error:v6];
@@ -508,10 +500,10 @@ void __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_wit
 
     *buf = 67109634;
     *&buf[4] = v7 != 0;
-    *v32 = 2048;
-    *&v32[2] = [v7 count];
-    *&v32[10] = 2112;
-    *&v32[12] = v6;
+    *v31 = 2048;
+    *&v31[2] = [v7 count];
+    *&v31[10] = 2112;
+    *&v31[12] = v6;
     v14 = "Completed executeQuery with success=%d, count=%lu. Error: %@.";
     v15 = v10;
     v16 = v12;
@@ -527,8 +519,8 @@ void __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_wit
 
     *buf = 67109378;
     *&buf[4] = v7 != 0;
-    *v32 = 2112;
-    *&v32[2] = v6;
+    *v31 = 2112;
+    *&v31[2] = v6;
     v14 = "Completed executeQuery with success=%d. Error: %@.";
     v15 = v10;
     v16 = v12;
@@ -547,22 +539,22 @@ LABEL_13:
       __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke_3_cold_1();
     }
 
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke_2_19;
-    v27[3] = &unk_1E73691D8;
-    v30 = v18;
-    v28 = v7;
-    v29 = v6;
-    v20 = v27;
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __84___DKXPCKnowledgeStore_executeQuery_synchronous_error_responseQueue_withCompletion___block_invoke_2_19;
+    v26[3] = &unk_1E73691D8;
+    v29 = v18;
+    v27 = v7;
+    v28 = v6;
+    v20 = v26;
     v21 = v19;
     v22 = os_transaction_create();
     *buf = MEMORY[0x1E69E9820];
-    *v32 = 3221225472;
-    *&v32[8] = __cd_dispatch_async_capture_tx_block_invoke_11;
-    *&v32[16] = &unk_1E7367818;
-    v33 = v22;
-    v34 = v20;
+    *v31 = 3221225472;
+    *&v31[8] = __cd_dispatch_async_capture_tx_block_invoke_11;
+    *&v31[16] = &unk_1E7367818;
+    v32 = v22;
+    v33 = v20;
     v23 = v22;
     dispatch_async(v21, buf);
   }
@@ -575,8 +567,6 @@ LABEL_13:
   v24 = *(*(a1 + 72) + 8);
   v25 = *(v24 + 40);
   *(v24 + 40) = v7;
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __45___DKXPCKnowledgeStore_synchronizeWithError___block_invoke(uint64_t a1, void *a2)
@@ -596,7 +586,7 @@ void __45___DKXPCKnowledgeStore_synchronizeWithError___block_invoke(uint64_t a1,
 
 void __45___DKXPCKnowledgeStore_synchronizeWithError___block_invoke_21(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
   v8 = v7;
@@ -612,11 +602,11 @@ void __45___DKXPCKnowledgeStore_synchronizeWithError___block_invoke_21(uint64_t 
 
   if (os_log_type_enabled(v7, v9))
   {
-    v11[0] = 67109378;
-    v11[1] = a2;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_191750000, v8, v9, "Completed synchronizeWithError with success=%d. Error: %@.", v11, 0x12u);
+    v10[0] = 67109378;
+    v10[1] = a2;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_191750000, v8, v9, "Completed synchronizeWithError with success=%d. Error: %@.", v10, 0x12u);
   }
 
   if (v6)
@@ -625,8 +615,6 @@ void __45___DKXPCKnowledgeStore_synchronizeWithError___block_invoke_21(uint64_t 
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __60___DKXPCKnowledgeStore_synchronizeWithUrgency_client_error___block_invoke(uint64_t a1, void *a2)
@@ -646,7 +634,7 @@ void __60___DKXPCKnowledgeStore_synchronizeWithUrgency_client_error___block_invo
 
 void __60___DKXPCKnowledgeStore_synchronizeWithUrgency_client_error___block_invoke_22(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
   v8 = v7;
@@ -662,11 +650,11 @@ void __60___DKXPCKnowledgeStore_synchronizeWithUrgency_client_error___block_invo
 
   if (os_log_type_enabled(v7, v9))
   {
-    v11[0] = 67109378;
-    v11[1] = a2;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_191750000, v8, v9, "Completed synchronizeWithUrgency with success=%d. Error: %@.", v11, 0x12u);
+    v10[0] = 67109378;
+    v10[1] = a2;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_191750000, v8, v9, "Completed synchronizeWithUrgency with success=%d. Error: %@.", v10, 0x12u);
   }
 
   if (v6)
@@ -675,8 +663,6 @@ void __60___DKXPCKnowledgeStore_synchronizeWithUrgency_client_error___block_invo
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __79___DKXPCKnowledgeStore_synchronizeWithUrgency_client_responseQueue_completion___block_invoke(uint64_t a1, void *a2)
@@ -719,7 +705,7 @@ void __79___DKXPCKnowledgeStore_synchronizeWithUrgency_client_responseQueue_comp
 
 void __79___DKXPCKnowledgeStore_synchronizeWithUrgency_client_responseQueue_completion___block_invoke_3(uint64_t a1, int a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = +[_CDLogging knowledgeChannel];
   v7 = v6;
@@ -737,8 +723,8 @@ void __79___DKXPCKnowledgeStore_synchronizeWithUrgency_client_responseQueue_comp
   {
     *buf = 67109378;
     *&buf[4] = a2;
-    LOWORD(v20) = 2112;
-    *(&v20 + 2) = v5;
+    LOWORD(v19) = 2112;
+    *(&v19 + 2) = v5;
     _os_log_impl(&dword_191750000, v7, v8, "Completed synchronizeWithUrgency with success=%d. Error: %@.", buf, 0x12u);
   }
 
@@ -751,26 +737,24 @@ void __79___DKXPCKnowledgeStore_synchronizeWithUrgency_client_responseQueue_comp
       __79___DKXPCKnowledgeStore_synchronizeWithUrgency_client_responseQueue_completion___block_invoke_3_cold_1();
     }
 
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __79___DKXPCKnowledgeStore_synchronizeWithUrgency_client_responseQueue_completion___block_invoke_2_23;
-    v16[3] = &unk_1E7367818;
-    v18 = v9;
-    v17 = v5;
-    v11 = v16;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __79___DKXPCKnowledgeStore_synchronizeWithUrgency_client_responseQueue_completion___block_invoke_2_23;
+    v15[3] = &unk_1E7367818;
+    v17 = v9;
+    v16 = v5;
+    v11 = v15;
     v12 = v10;
     v13 = os_transaction_create();
     *buf = MEMORY[0x1E69E9820];
-    *&v20 = 3221225472;
-    *(&v20 + 1) = __cd_dispatch_async_capture_tx_block_invoke_11;
-    v21 = &unk_1E7367818;
-    v22 = v13;
-    v23 = v11;
+    *&v19 = 3221225472;
+    *(&v19 + 1) = __cd_dispatch_async_capture_tx_block_invoke_11;
+    v20 = &unk_1E7367818;
+    v21 = v13;
+    v22 = v11;
     v14 = v13;
     dispatch_async(v12, buf);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __42___DKXPCKnowledgeStore_deleteRemoteState___block_invoke(uint64_t a1, void *a2)
@@ -790,7 +774,7 @@ void __42___DKXPCKnowledgeStore_deleteRemoteState___block_invoke(uint64_t a1, vo
 
 void __42___DKXPCKnowledgeStore_deleteRemoteState___block_invoke_24(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
   v8 = v7;
@@ -806,11 +790,11 @@ void __42___DKXPCKnowledgeStore_deleteRemoteState___block_invoke_24(uint64_t a1,
 
   if (os_log_type_enabled(v7, v9))
   {
-    v11[0] = 67109378;
-    v11[1] = a2;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_191750000, v8, v9, "Completed deleteRemoteState with success=%d. Error: %@.", v11, 0x12u);
+    v10[0] = 67109378;
+    v10[1] = a2;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_impl(&dword_191750000, v8, v9, "Completed deleteRemoteState with success=%d. Error: %@.", v10, 0x12u);
   }
 
   if (v6)
@@ -819,8 +803,6 @@ void __42___DKXPCKnowledgeStore_deleteRemoteState___block_invoke_24(uint64_t a1,
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __54___DKXPCKnowledgeStore_sourceDeviceIdentityWithError___block_invoke(uint64_t a1, void *a2)
@@ -840,7 +822,7 @@ void __54___DKXPCKnowledgeStore_sourceDeviceIdentityWithError___block_invoke(uin
 
 void __54___DKXPCKnowledgeStore_sourceDeviceIdentityWithError___block_invoke_25(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
@@ -857,11 +839,11 @@ void __54___DKXPCKnowledgeStore_sourceDeviceIdentityWithError___block_invoke_25(
 
   if (os_log_type_enabled(v7, v9))
   {
-    v13[0] = 67109378;
-    v13[1] = v6 == 0;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_191750000, v8, v9, "Completed sourceDeviceIdentityWithError with success=%d. Error: %@.", v13, 0x12u);
+    v12[0] = 67109378;
+    v12[1] = v6 == 0;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_191750000, v8, v9, "Completed sourceDeviceIdentityWithError with success=%d. Error: %@.", v12, 0x12u);
   }
 
   if (v6)
@@ -872,8 +854,6 @@ void __54___DKXPCKnowledgeStore_sourceDeviceIdentityWithError___block_invoke_25(
   v10 = *(*(a1 + 40) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __34___DKXPCKnowledgeStore_deviceUUID__block_invoke(uint64_t a1, void *a2)
@@ -888,7 +868,7 @@ void __34___DKXPCKnowledgeStore_deviceUUID__block_invoke(uint64_t a1, void *a2)
 
 void __34___DKXPCKnowledgeStore_deviceUUID__block_invoke_26(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
@@ -905,18 +885,16 @@ void __34___DKXPCKnowledgeStore_deviceUUID__block_invoke_26(uint64_t a1, void *a
 
   if (os_log_type_enabled(v7, v9))
   {
-    v13[0] = 67109378;
-    v13[1] = v6 == 0;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_191750000, v8, v9, "Completed deviceUUIDWithReply with success=%d. Error: %@.", v13, 0x12u);
+    v12[0] = 67109378;
+    v12[1] = v6 == 0;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_191750000, v8, v9, "Completed deviceUUIDWithReply with success=%d. Error: %@.", v12, 0x12u);
   }
 
   v10 = *(*(a1 + 32) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v5;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __66___DKXPCKnowledgeStore_disableSyncPolicyForFeature_transportType___block_invoke(uint64_t a1, void *a2)
@@ -931,7 +909,7 @@ void __66___DKXPCKnowledgeStore_disableSyncPolicyForFeature_transportType___bloc
 
 void __66___DKXPCKnowledgeStore_disableSyncPolicyForFeature_transportType___block_invoke_29(uint64_t a1, int a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = +[_CDLogging knowledgeChannel];
   v6 = v5;
@@ -947,14 +925,12 @@ void __66___DKXPCKnowledgeStore_disableSyncPolicyForFeature_transportType___bloc
 
   if (os_log_type_enabled(v5, v7))
   {
-    v9[0] = 67109378;
-    v9[1] = a2;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_191750000, v6, v7, "Completed disableSyncPolicyWithReply with success=%d. Error: %@.", v9, 0x12u);
+    v8[0] = 67109378;
+    v8[1] = a2;
+    v9 = 2112;
+    v10 = v4;
+    _os_log_impl(&dword_191750000, v6, v7, "Completed disableSyncPolicyWithReply with success=%d. Error: %@.", v8, 0x12u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __69___DKXPCKnowledgeStore_isSyncPolicyDisabledForFeature_transportType___block_invoke(uint64_t a1, void *a2)
@@ -969,7 +945,7 @@ void __69___DKXPCKnowledgeStore_isSyncPolicyDisabledForFeature_transportType___b
 
 void __69___DKXPCKnowledgeStore_isSyncPolicyDisabledForFeature_transportType___block_invoke_34(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = +[_CDLogging knowledgeChannel];
   v7 = v6;
@@ -985,17 +961,16 @@ void __69___DKXPCKnowledgeStore_isSyncPolicyDisabledForFeature_transportType___b
 
   if (os_log_type_enabled(v6, v8))
   {
-    v10 = 134218498;
-    v11 = a2;
-    v12 = 1024;
-    v13 = v5 == 0;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_191750000, v7, v8, "Completed isSyncPolicyDisabled->%lu with success=%d. Error: %@.", &v10, 0x1Cu);
+    v9 = 134218498;
+    v10 = a2;
+    v11 = 1024;
+    v12 = v5 == 0;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_191750000, v7, v8, "Completed isSyncPolicyDisabled->%lu with success=%d. Error: %@.", &v9, 0x1Cu);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = a2 != 0;
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __51___DKXPCKnowledgeStore_confirmConnectionWithError___block_invoke(uint64_t a1, void *a2)
@@ -1015,7 +990,7 @@ void __51___DKXPCKnowledgeStore_confirmConnectionWithError___block_invoke(uint64
 
 void __51___DKXPCKnowledgeStore_confirmConnectionWithError___block_invoke_35(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = +[_CDLogging knowledgeChannel];
   v8 = v7;
@@ -1033,11 +1008,11 @@ void __51___DKXPCKnowledgeStore_confirmConnectionWithError___block_invoke_35(uin
 
   if (os_log_type_enabled(v7, v11))
   {
-    v13[0] = 67109378;
-    v13[1] = a2;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_191750000, v8, v11, "Completed confirmConnectionWithError with success=%d. Error: %@.", v13, 0x12u);
+    v12[0] = 67109378;
+    v12[1] = a2;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_191750000, v8, v11, "Completed confirmConnectionWithError with success=%d. Error: %@.", v12, 0x12u);
   }
 
   *(*(*(a1 + 32) + 8) + 24) = v10 & 1;
@@ -1045,16 +1020,6 @@ void __51___DKXPCKnowledgeStore_confirmConnectionWithError___block_invoke_35(uin
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
-}
-
-void __77___DKXPCKnowledgeStore_saveObjects_synchronous_responseQueue_withCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_2(&dword_191750000, v0, v1, "XPC error: %@\n", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

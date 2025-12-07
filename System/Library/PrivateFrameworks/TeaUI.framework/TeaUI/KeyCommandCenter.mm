@@ -28,14 +28,14 @@
 
   else
   {
-    memset(v9, 0, sizeof(v9));
+    memset(v10, 0, sizeof(v10));
     selfCopy2 = self;
   }
 
-  v7 = KeyCommandCenter.canPerformAction(_:withSender:)();
+  v8 = KeyCommandCenter.canPerformAction(_:withSender:)(action);
 
-  sub_1D7E70E44(v9, &qword_1EDBBC780);
-  return v7 & 1;
+  sub_1D7E70E44(v10, &qword_1EDBBC780, MEMORY[0x1E69E7CA0] + 8);
+  return v8 & 1;
 }
 
 @end

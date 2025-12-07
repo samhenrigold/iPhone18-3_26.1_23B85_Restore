@@ -77,7 +77,7 @@ void __35__VCPDownloadManager_sharedManager__block_invoke()
 
 - (id)requestDownloadOfResource:(id)resource
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   if ([resourceCopy fileSize] > 0xA00000)
   {
@@ -108,12 +108,12 @@ void __35__VCPDownloadManager_sharedManager__block_invoke()
     v9 = objc_alloc(MEMORY[0x1E695DEF0]);
     mutableBytes = [(NSMutableData *)self->_buffer mutableBytes];
     length = self->_length;
-    v60[0] = MEMORY[0x1E69E9820];
-    v60[1] = 3221225472;
-    v60[2] = __48__VCPDownloadManager_requestDownloadOfResource___block_invoke;
-    v60[3] = &unk_1E8350FC8;
-    v60[4] = self;
-    defaultManager2 = [v9 initWithBytesNoCopy:mutableBytes length:length deallocator:v60];
+    v61[0] = MEMORY[0x1E69E9820];
+    v61[1] = 3221225472;
+    v61[2] = __48__VCPDownloadManager_requestDownloadOfResource___block_invoke;
+    v61[3] = &unk_1E8350FC8;
+    v61[4] = self;
+    defaultManager2 = [v9 initWithBytesNoCopy:mutableBytes length:length deallocator:v61];
     goto LABEL_51;
   }
 
@@ -130,11 +130,11 @@ void __35__VCPDownloadManager_sharedManager__block_invoke()
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v62 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
+  v63 = 0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v60 = 0;
   context = objc_autoreleasePoolPush();
   if (self->_buffer || ([MEMORY[0x1E695DF88] dataWithLength:{10485760, context}], v13 = objc_claimAutoreleasedReturnValue(), buffer = self->_buffer, self->_buffer = v13, buffer, self->_buffer))
   {
@@ -146,92 +146,92 @@ void __35__VCPDownloadManager_sharedManager__block_invoke()
     aBlock[1] = 3221225472;
     aBlock[2] = __48__VCPDownloadManager_requestDownloadOfResource___block_invoke_200;
     aBlock[3] = &unk_1E8350FF0;
-    v54 = &v56;
+    v55 = &v57;
     aBlock[4] = self;
     defaultManager2 = resourceCopy;
-    v53 = defaultManager2;
-    v55 = buf;
-    v41 = _Block_copy(aBlock);
-    v51[0] = 0;
-    v51[1] = v51;
-    v51[2] = 0x2020000000;
-    v51[3] = 0;
-    v16 = VCPSignPostLog();
+    v54 = defaultManager2;
+    v56 = buf;
+    v42 = _Block_copy(aBlock);
+    v52[0] = 0;
+    v52[1] = v52;
+    v52[2] = 0x2020000000;
+    v52[3] = 0;
+    v16 = VCPSignPostLog(v42);
     v17 = os_signpost_id_generate(v16);
 
-    v18 = VCPSignPostLog();
-    v19 = v18;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v19 = VCPSignPostLog(v18);
+    v20 = v19;
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
-      *v50 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "PHAssetResourceManager_requestDataForAssetResource", "", v50, 2u);
+      *v51 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "PHAssetResourceManager_requestDataForAssetResource", "", v51, 2u);
     }
 
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x3032000000;
-    v47 = __Block_byref_object_copy__59;
-    v48 = __Block_byref_object_dispose__59;
-    v49 = dispatch_semaphore_create(0);
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __48__VCPDownloadManager_requestDownloadOfResource___block_invoke_202;
-    v43[3] = &unk_1E8351018;
-    v43[4] = self;
-    v43[5] = buf;
-    v43[6] = &v56;
-    v43[7] = v51;
-    v43[8] = &v44;
-    v43[9] = v17;
-    v40 = _Block_copy(v43);
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x3032000000;
+    v48 = __Block_byref_object_copy__59;
+    v49 = __Block_byref_object_dispose__59;
+    v50 = dispatch_semaphore_create(0);
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __48__VCPDownloadManager_requestDownloadOfResource___block_invoke_202;
+    v44[3] = &unk_1E8351018;
+    v44[4] = self;
+    v44[5] = buf;
+    v44[6] = &v57;
+    v44[7] = v52;
+    v44[8] = &v45;
+    v44[9] = v17;
+    v41 = _Block_copy(v44);
     defaultManager = [MEMORY[0x1E69786E8] defaultManager];
-    v21 = [defaultManager requestDataForAssetResource:defaultManager2 options:v15 dataReceivedHandler:v41 completionHandler:v40];
+    v22 = [defaultManager requestDataForAssetResource:defaultManager2 options:v15 dataReceivedHandler:v42 completionHandler:v41];
 
-    if (v21)
+    if (v22)
     {
       cancel = [(VCPDownloadManager *)self cancel];
 
       if (cancel)
       {
-        v23 = -100000000;
+        v24 = -100000000;
         while (1)
         {
-          v24 = v45[5];
-          v25 = dispatch_time(0, 100000000);
-          if (!dispatch_semaphore_wait(v24, v25))
+          v25 = v46[5];
+          v26 = dispatch_time(0, 100000000);
+          if (!dispatch_semaphore_wait(v25, v26))
           {
             break;
           }
 
-          v23 += 100000000;
-          if (v23 >= 0x3781BF501)
+          v24 += 100000000;
+          if (v24 >= 0x3781BF501)
           {
             if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
             {
-              *v50 = 0;
-              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Download resource timed-out", v50, 2u);
+              *v51 = 0;
+              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Download resource timed-out", v51, 2u);
             }
 
             goto LABEL_44;
           }
 
           cancel2 = [(VCPDownloadManager *)self cancel];
-          v27 = cancel2[2]();
+          v28 = cancel2[2]();
 
-          if (v27)
+          if (v28)
           {
             if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
             {
-              *v50 = 0;
-              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Cancelling download", v50, 2u);
+              *v51 = 0;
+              _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "Cancelling download", v51, 2u);
             }
 
             defaultManager2 = [MEMORY[0x1E69786E8] defaultManager];
-            [defaultManager2 cancelDataRequest:v21];
+            [defaultManager2 cancelDataRequest:v22];
 
-            dispatch_semaphore_wait(v45[5], 0xFFFFFFFFFFFFFFFFLL);
-            v28 = *&buf[8];
-            v29 = -128;
+            dispatch_semaphore_wait(v46[5], 0xFFFFFFFFFFFFFFFFLL);
+            v29 = *&buf[8];
+            v30 = -128;
             goto LABEL_45;
           }
         }
@@ -239,54 +239,54 @@ void __35__VCPDownloadManager_sharedManager__block_invoke()
 LABEL_38:
         if (!*(*&buf[8] + 24))
         {
-          self->_length = v57[3];
+          self->_length = v58[3];
           assetLocalIdentifier3 = [defaultManager2 assetLocalIdentifier];
-          v33 = self->_localIdentifier;
+          v34 = self->_localIdentifier;
           self->_localIdentifier = assetLocalIdentifier3;
 
-          v34 = objc_alloc(MEMORY[0x1E695DEF0]);
+          v35 = objc_alloc(MEMORY[0x1E695DEF0]);
           mutableBytes2 = [(NSMutableData *)self->_buffer mutableBytes];
-          v36 = self->_length;
-          v42[0] = MEMORY[0x1E69E9820];
-          v42[1] = 3221225472;
-          v42[2] = __48__VCPDownloadManager_requestDownloadOfResource___block_invoke_206;
-          v42[3] = &unk_1E8350FC8;
-          v42[4] = self;
-          defaultManager2 = [v34 initWithBytesNoCopy:mutableBytes2 length:v36 deallocator:v42];
-          v37 = 0;
+          v37 = self->_length;
+          v43[0] = MEMORY[0x1E69E9820];
+          v43[1] = 3221225472;
+          v43[2] = __48__VCPDownloadManager_requestDownloadOfResource___block_invoke_206;
+          v43[3] = &unk_1E8350FC8;
+          v43[4] = self;
+          defaultManager2 = [v35 initWithBytesNoCopy:mutableBytes2 length:v37 deallocator:v43];
+          v38 = 0;
 LABEL_47:
 
-          _Block_object_dispose(&v44, 8);
-          _Block_object_dispose(v51, 8);
+          _Block_object_dispose(&v45, 8);
+          _Block_object_dispose(v52, 8);
 
           goto LABEL_48;
         }
 
 LABEL_46:
-        v37 = 1;
+        v38 = 1;
         goto LABEL_47;
       }
 
-      v30 = v45[5];
-      v31 = dispatch_time(0, 15000000000);
-      if (!dispatch_semaphore_wait(v30, v31))
+      v31 = v46[5];
+      v32 = dispatch_time(0, 15000000000);
+      if (!dispatch_semaphore_wait(v31, v32))
       {
         goto LABEL_38;
       }
 
       if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
-        *v50 = 0;
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Download resource timed-out", v50, 2u);
+        *v51 = 0;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Download resource timed-out", v51, 2u);
       }
 
 LABEL_44:
       defaultManager2 = [MEMORY[0x1E69786E8] defaultManager];
-      [defaultManager2 cancelDataRequest:v21];
+      [defaultManager2 cancelDataRequest:v22];
 
-      dispatch_semaphore_wait(v45[5], 0xFFFFFFFFFFFFFFFFLL);
-      v28 = *&buf[8];
-      v29 = -925;
+      dispatch_semaphore_wait(v46[5], 0xFFFFFFFFFFFFFFFFLL);
+      v29 = *&buf[8];
+      v30 = -925;
     }
 
     else
@@ -296,31 +296,31 @@ LABEL_44:
         defaultManager2 = 16;
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          *v50 = 0;
-          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to issue resource request", v50, 2u);
+          *v51 = 0;
+          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to issue resource request", v51, 2u);
         }
       }
 
-      v28 = *&buf[8];
-      v29 = -18;
+      v29 = *&buf[8];
+      v30 = -18;
     }
 
 LABEL_45:
-    *(v28 + 24) = v29;
+    *(v29 + 24) = v30;
     goto LABEL_46;
   }
 
   *(*&buf[8] + 24) = -18;
-  v37 = 1;
+  v38 = 1;
 LABEL_48:
   objc_autoreleasePoolPop(context);
-  if (v37)
+  if (v38)
   {
     dispatch_semaphore_signal(self->_mutex);
     defaultManager2 = 0;
   }
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
   _Block_object_dispose(buf, 8);
 LABEL_51:
 
@@ -381,17 +381,21 @@ void __48__VCPDownloadManager_requestDownloadOfResource___block_invoke_200(uint6
 
 void __48__VCPDownloadManager_requestDownloadOfResource___block_invoke_202(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MediaAnalysisLogLevel();
   if (v3)
   {
-    if (v4 >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    if (v4 >= 3)
     {
-      v5 = [v3 description];
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to download asset resource (%@)", &v9, 0xCu);
+      v4 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      if (v4)
+      {
+        v5 = [v3 description];
+        v10 = 138412290;
+        v11 = v5;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to download asset resource (%@)", &v10, 0xCu);
+      }
     }
 
     *(*(a1[5] + 8) + 24) = -18;
@@ -401,26 +405,26 @@ void __48__VCPDownloadManager_requestDownloadOfResource___block_invoke_202(void 
   {
     if (v4 >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Successfully downloaded asset resource", &v9, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Successfully downloaded asset resource", &v10, 2u);
     }
 
-    [objc_opt_class() _reportDownload:*(*(a1[6] + 8) + 24)];
+    v4 = [objc_opt_class() _reportDownload:*(*(a1[6] + 8) + 24)];
   }
 
-  v6 = VCPSignPostLog();
+  v6 = VCPSignPostLog(v4);
   v7 = v6;
   v8 = a1[9];
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_END, v8, "PHAssetResourceManager_requestDataForAssetResource", "", &v9, 2u);
+    LOWORD(v10) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_END, v8, "PHAssetResourceManager_requestDataForAssetResource", "", &v10, 2u);
   }
 
   if (*(*(a1[7] + 8) + 24))
   {
-    mach_absolute_time();
-    VCPPerformance_LogMeasurement();
+    v9 = mach_absolute_time();
+    VCPPerformance_LogMeasurement("PHAssetResourceManager_requestDataForAssetResource", v9 - *(*(a1[7] + 8) + 24));
   }
 
   dispatch_semaphore_signal(*(*(a1[8] + 8) + 40));

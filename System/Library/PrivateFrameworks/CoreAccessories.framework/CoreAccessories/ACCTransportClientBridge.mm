@@ -1,6 +1,7 @@
 @interface ACCTransportClientBridge
 + (id)sharedBridge;
 - (ACCTransportClientBridge)init;
+- (void)transportClient:(id)client authStatusDidChange:(BOOL)change forConnectionWithUUID:(id)d;
 - (void)transportClient:(id)client propertiesDidChange:(id)change forConnectionWithUUID:(id)d previousProperties:(id)properties;
 - (void)transportClient:(id)client propertiesDidChange:(id)change forEndpointWithUUID:(id)d previousProperties:(id)properties connectionUUID:(id)iD;
 - (void)transportClientServerDisconnected:(id)disconnected;
@@ -51,6 +52,19 @@
   }
 
   return v2;
+}
+
+- (void)transportClient:(id)client authStatusDidChange:(BOOL)change forConnectionWithUUID:(id)d
+{
+  changeCopy = change;
+  dCopy = d;
+  connectionAuthStatusChangedHandler = [(ACCTransportClientBridge *)self connectionAuthStatusChangedHandler];
+
+  if (connectionAuthStatusChangedHandler)
+  {
+    connectionAuthStatusChangedHandler2 = [(ACCTransportClientBridge *)self connectionAuthStatusChangedHandler];
+    (connectionAuthStatusChangedHandler2)[2](connectionAuthStatusChangedHandler2, dCopy, changeCopy);
+  }
 }
 
 - (void)transportClient:(id)client propertiesDidChange:(id)change forConnectionWithUUID:(id)d previousProperties:(id)properties

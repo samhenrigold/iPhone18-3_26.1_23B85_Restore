@@ -6,7 +6,7 @@
 
 - (int64_t)performActionWithManagedObjectContext:(id)context error:(id *)error
 {
-  v98[2] = *MEMORY[0x1E69E9840];
+  v100[2] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v6 = MEMORY[0x1E695D5E0];
   v7 = +[PLPhotosHighlight entityName];
@@ -15,45 +15,45 @@
   v9 = +[PLPhotosHighlight predicateForAllTripHighlights];
   [v8 setPredicate:v9];
 
-  v98[0] = @"dayGroupAssets";
-  v98[1] = @"dayGroupExtendedAssets";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v98 count:2];
+  v100[0] = @"dayGroupAssets";
+  v100[1] = @"dayGroupExtendedAssets";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v100 count:2];
   [v8 setRelationshipKeyPathsForPrefetching:v10];
 
   v11 = objc_alloc_init(PLDateRangeTitleGenerator);
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = __Block_byref_object_copy__43771;
-  v61 = __Block_byref_object_dispose__43772;
-  v62 = 0;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = __Block_byref_object_copy__43771;
+  v63 = __Block_byref_object_dispose__43772;
+  v64 = 0;
   v12 = [PLEnumerateAndSaveController alloc];
   v13 = objc_opt_class();
   v14 = NSStringFromClass(v13);
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __100__PLModelMigrationAction_UpdateTripHighlightDateTitles_performActionWithManagedObjectContext_error___block_invoke;
-  v55[3] = &unk_1E7575B30;
+  v57[0] = MEMORY[0x1E69E9820];
+  v57[1] = 3221225472;
+  v57[2] = __100__PLModelMigrationAction_UpdateTripHighlightDateTitles_performActionWithManagedObjectContext_error___block_invoke;
+  v57[3] = &unk_1E7575B30;
   v15 = contextCopy;
-  v56 = v15;
-  v54[0] = MEMORY[0x1E69E9820];
-  v54[1] = 3221225472;
-  v54[2] = __100__PLModelMigrationAction_UpdateTripHighlightDateTitles_performActionWithManagedObjectContext_error___block_invoke_2;
-  v54[3] = &unk_1E7572E50;
-  v54[4] = self;
-  v54[5] = &v57;
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __100__PLModelMigrationAction_UpdateTripHighlightDateTitles_performActionWithManagedObjectContext_error___block_invoke_3;
-  v51[3] = &unk_1E756C7B0;
+  v58 = v15;
+  v56[0] = MEMORY[0x1E69E9820];
+  v56[1] = 3221225472;
+  v56[2] = __100__PLModelMigrationAction_UpdateTripHighlightDateTitles_performActionWithManagedObjectContext_error___block_invoke_2;
+  v56[3] = &unk_1E7572E50;
+  v56[4] = self;
+  v56[5] = &v59;
+  v53[0] = MEMORY[0x1E69E9820];
+  v53[1] = 3221225472;
+  v53[2] = __100__PLModelMigrationAction_UpdateTripHighlightDateTitles_performActionWithManagedObjectContext_error___block_invoke_3;
+  v53[3] = &unk_1E756C7B0;
   v16 = v11;
-  v52 = v16;
-  v53 = &v57;
-  v17 = [(PLEnumerateAndSaveController *)v12 initWithName:v14 fetchRequest:v8 context:v15 options:0 generateContextBlock:v55 didFetchObjectIDsBlock:v54 processResultBlock:v51];
+  v54 = v16;
+  v55 = &v59;
+  v17 = [(PLEnumerateAndSaveController *)v12 initWithName:v14 fetchRequest:v8 context:v15 options:0 generateContextBlock:v57 didFetchObjectIDsBlock:v56 processResultBlock:v53];
 
-  v50 = 0;
-  v18 = [(PLEnumerateAndSaveController *)v17 processObjectsWithError:&v50];
-  v19 = v50;
+  v52 = 0;
+  v18 = [(PLEnumerateAndSaveController *)v17 processObjectsWithError:&v52];
+  v19 = v52;
   if (v18)
   {
     v20 = PLMigrationGetLog();
@@ -66,18 +66,20 @@
 
       if (v23)
       {
-        v37 = PLMigrationGetLog();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        v40 = PLMigrationGetLog();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
-          completedUnitCount = [v58[5] completedUnitCount];
+          completedUnitCount = [v60[5] completedUnitCount];
           *buf = 134217984;
           *&buf[4] = completedUnitCount;
-          _os_log_impl(&dword_19BF1F000, v37, OS_LOG_TYPE_INFO, "Updated titles for %lu highlights", buf, 0xCu);
+          _os_log_impl(&dword_19BF1F000, v40, OS_LOG_TYPE_INFO, "Updated titles for %lu highlights", buf, 0xCu);
         }
       }
 
       else
       {
+        v98 = 0u;
+        v99 = 0u;
         v96 = 0u;
         v97 = 0u;
         v94 = 0u;
@@ -106,57 +108,66 @@
         v73 = 0u;
         v70 = 0u;
         v71 = 0u;
-        v68 = 0u;
-        v69 = 0u;
         memset(buf, 0, sizeof(buf));
         v24 = PLMigrationGetLog();
-        os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
-        completedUnitCount2 = [v58[5] completedUnitCount];
-        v63 = 134217984;
-        v64 = completedUnitCount2;
-        LODWORD(v48) = 12;
-        v26 = _os_log_send_and_compose_impl();
-
-        v27 = [(PLModelMigrationActionCore *)self logger:&v63];
-        [v27 logWithMessage:v26 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1285, 1}];
-
-        if (v26 != buf)
+        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_INFO);
+        completedUnitCount2 = [v60[5] completedUnitCount];
+        if (v25)
         {
-          free(v26);
+          v27 = 3;
+        }
+
+        else
+        {
+          v27 = 2;
+        }
+
+        v65 = 134217984;
+        v66 = completedUnitCount2;
+        v28 = _os_log_send_and_compose_impl(v27, 0, buf, 512, &dword_19BF1F000, v24, 1, "Updated titles for %lu highlights", &v65);
+
+        logger2 = [(PLModelMigrationActionCore *)self logger];
+        [logger2 logWithMessage:v28 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1285, 1}];
+
+        if (v28 != buf)
+        {
+          free(v28);
         }
       }
     }
 
-    v39 = 1;
+    v42 = 1;
   }
 
   else
   {
-    v28 = PLMigrationGetLog();
-    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+    v30 = PLMigrationGetLog();
+    v31 = os_log_type_enabled(v30, OS_LOG_TYPE_ERROR);
 
-    if (v29)
+    if (v31)
     {
-      logger2 = [(PLModelMigrationActionCore *)self logger];
-      v31 = logger2 == 0;
+      logger3 = [(PLModelMigrationActionCore *)self logger];
+      v33 = logger3 == 0;
 
-      if (v31)
+      if (v33)
       {
-        v40 = PLMigrationGetLog();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v43 = PLMigrationGetLog();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          v41 = objc_opt_class();
-          v42 = NSStringFromClass(v41);
+          v44 = objc_opt_class();
+          v45 = NSStringFromClass(v44);
           *buf = 138543618;
-          *&buf[4] = v42;
+          *&buf[4] = v45;
           *&buf[12] = 2112;
           *&buf[14] = v19;
-          _os_log_impl(&dword_19BF1F000, v40, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
+          _os_log_impl(&dword_19BF1F000, v43, OS_LOG_TYPE_ERROR, "Failed to process %{public}@. Error: %@", buf, 0x16u);
         }
       }
 
       else
       {
+        v98 = 0u;
+        v99 = 0u;
         v96 = 0u;
         v97 = 0u;
         v94 = 0u;
@@ -185,54 +196,60 @@
         v73 = 0u;
         v70 = 0u;
         v71 = 0u;
-        v68 = 0u;
-        v69 = 0u;
         memset(buf, 0, sizeof(buf));
-        v32 = PLMigrationGetLog();
-        os_log_type_enabled(v32, OS_LOG_TYPE_ERROR);
-        v33 = objc_opt_class();
-        v34 = NSStringFromClass(v33);
-        v63 = 138543618;
-        v64 = v34;
-        v65 = 2112;
-        v66 = v19;
-        LODWORD(v48) = 22;
-        v35 = _os_log_send_and_compose_impl();
-
-        v36 = [(PLModelMigrationActionCore *)self logger:&v63];
-        [v36 logWithMessage:v35 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1288, 16}];
-
-        if (v35 != buf)
+        v34 = PLMigrationGetLog();
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
         {
-          free(v35);
+          v35 = 3;
+        }
+
+        else
+        {
+          v35 = 2;
+        }
+
+        v36 = objc_opt_class();
+        v37 = NSStringFromClass(v36);
+        v65 = 138543618;
+        v66 = v37;
+        v67 = 2112;
+        v68 = v19;
+        v38 = _os_log_send_and_compose_impl(v35, 0, buf, 512, &dword_19BF1F000, v34, 16, "Failed to process %{public}@. Error: %@", &v65, 22);
+
+        logger4 = [(PLModelMigrationActionCore *)self logger];
+        [logger4 logWithMessage:v38 fromCodeLocation:"PLModelMigrationActions_18000.m" type:{1288, 16}];
+
+        if (v38 != buf)
+        {
+          free(v38);
         }
       }
     }
 
-    v39 = 3;
+    v42 = 3;
   }
 
   [(PLModelMigrationActionCore *)self finalizeProgress];
-  v43 = v19;
-  v44 = v43;
+  v46 = v19;
+  v47 = v46;
   if (error)
   {
-    v45 = v18;
+    v48 = v18;
   }
 
   else
   {
-    v45 = 1;
+    v48 = 1;
   }
 
-  if ((v45 & 1) == 0)
+  if ((v48 & 1) == 0)
   {
-    v46 = v43;
-    *error = v44;
+    v49 = v46;
+    *error = v47;
   }
 
-  _Block_object_dispose(&v57, 8);
-  return v39;
+  _Block_object_dispose(&v59, 8);
+  return v42;
 }
 
 @end

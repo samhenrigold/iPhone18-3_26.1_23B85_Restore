@@ -52,7 +52,7 @@
 - (void)sendMessageIfNeeded
 {
   selfCopy = self;
-  v99 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   if ([(NSMutableSet *)self->super._participants count])
   {
     v3 = selfCopy->super._state;
@@ -70,31 +70,31 @@
 
           delegate = [(MSPSenderMessageStrategy *)selfCopy delegate];
           v9 = [(NSMutableSet *)selfCopy->super._participants copy];
+          v81 = 0u;
           v82 = 0u;
           v83 = 0u;
           v84 = 0u;
-          v85 = 0u;
           obj = v9;
-          v80 = [obj countByEnumeratingWithState:&v82 objects:v86 count:16];
-          if (!v80)
+          v79 = [obj countByEnumeratingWithState:&v81 objects:v85 count:16];
+          if (!v79)
           {
             goto LABEL_53;
           }
 
-          v79 = *v83;
-          v77 = selfCopy;
-          v78 = v7;
+          v78 = *v82;
+          v76 = selfCopy;
+          v77 = v7;
           log = delegate;
           while (1)
           {
-            for (i = 0; i != v80; ++i)
+            for (i = 0; i != v79; ++i)
             {
-              if (*v83 != v79)
+              if (*v82 != v78)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v11 = *(*(&v82 + 1) + 8 * i);
+              v11 = *(*(&v81 + 1) + 8 * i);
               v12 = [delegate rulesForParticipant:v11];
               etaInfo2 = [v7 etaInfo];
               [etaInfo2 etaTimestamp];
@@ -103,7 +103,7 @@
               [v12 didReceiveUpdateWithETA:v15 lastUpdated:v16];
 
               v17 = [v12 currentlyNecessaryNotificationTypeForState:v7];
-              v18 = MSPGetSharedTripLog();
+              v18 = MSPGetSharedTripLog(v17);
               v19 = v18;
               if (!v17)
               {
@@ -125,13 +125,13 @@
 
                 serviceName = v30->_serviceName;
                 *buf = 138544131;
-                v88 = v31;
-                v89 = 2114;
-                v90 = v33;
-                v91 = 2114;
-                v92 = serviceName;
-                v93 = 2113;
-                v94 = v11;
+                v87 = v31;
+                v88 = 2114;
+                v89 = v33;
+                v90 = 2114;
+                v91 = serviceName;
+                v92 = 2113;
+                v93 = v11;
                 v35 = v19;
                 v36 = OS_LOG_TYPE_INFO;
                 v37 = "[%{public}@] %{public}@%{public}@: no necessary notification for %{private}@";
@@ -159,20 +159,20 @@ LABEL_42:
                 v27 = MSPSharedTripNotificationTypeAsString(v17);
 
                 *buf = 138544387;
-                v88 = v22;
-                v89 = 2114;
-                v90 = v24;
-                v91 = 2114;
-                v92 = v25;
-                v93 = 2114;
-                v94 = v27;
-                v95 = 2113;
-                v96 = v11;
+                v87 = v22;
+                v88 = 2114;
+                v89 = v24;
+                v90 = 2114;
+                v91 = v25;
+                v92 = 2114;
+                v93 = v27;
+                v94 = 2113;
+                v95 = v11;
                 _os_log_impl(&dword_25813A000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@/%{public}@: sendMessageIfNeeded will send %{public}@ to participant %{private}@", buf, 0x34u);
 
                 delegate = log;
-                selfCopy = v77;
-                v7 = v78;
+                selfCopy = v76;
+                v7 = v77;
               }
 
               if (v17 > 3)
@@ -215,7 +215,7 @@ LABEL_42:
               if (!intermediateArrivalMessage)
               {
 LABEL_38:
-                v19 = MSPGetSharedTripLog();
+                v19 = MSPGetSharedTripLog(intermediateArrivalMessage);
                 if (!os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
                 {
                   goto LABEL_51;
@@ -234,13 +234,13 @@ LABEL_38:
 
                 v49 = v46->_serviceName;
                 *buf = 138544131;
-                v88 = v31;
-                v89 = 2114;
-                v90 = v48;
-                v91 = 2114;
-                v92 = v49;
-                v93 = 2113;
-                v94 = v11;
+                v87 = v31;
+                v88 = 2114;
+                v89 = v48;
+                v90 = 2114;
+                v91 = v49;
+                v92 = 2113;
+                v93 = v11;
                 v35 = v19;
                 v36 = OS_LOG_TYPE_FAULT;
                 v37 = "[%{public}@] %{public}@/%{public}@: no message body generated but we expected to send something to %{private}@";
@@ -249,7 +249,7 @@ LABEL_38:
 
               if (selfCopy->super._loggingOnly)
               {
-                v38 = MSPGetSharedTripVirtualReceiverLog();
+                v38 = MSPGetSharedTripVirtualReceiverLog(intermediateArrivalMessage);
                 if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
                 {
                   v39 = MEMORY[0x277CCACA8];
@@ -265,15 +265,15 @@ LABEL_38:
 
                   v44 = v40->_serviceName;
                   *buf = 138544386;
-                  v88 = v41;
-                  v89 = 2114;
-                  v90 = v43;
-                  v91 = 2114;
-                  v92 = v44;
-                  v93 = 2114;
-                  v94 = v11;
-                  v95 = 2114;
-                  v96 = v19;
+                  v87 = v41;
+                  v88 = 2114;
+                  v89 = v43;
+                  v90 = 2114;
+                  v91 = v44;
+                  v92 = 2114;
+                  v93 = v11;
+                  v94 = 2114;
+                  v95 = v19;
                   _os_log_impl(&dword_25813A000, v38, OS_LOG_TYPE_INFO, "[%{public}@] %{public}@/%{public}@: TO %{public}@: %{public}@", buf, 0x34u);
                 }
 
@@ -281,23 +281,23 @@ LABEL_38:
               }
 
               v38 = IDSCopyRawAddressForDestination();
-              v50 = selfCopy->_serviceName;
-              if (IMSPISendMessageWithAttachments())
+              v50 = IMSPISendMessageWithAttachments();
+              if (v50)
               {
-                selfCopy = v77;
+                selfCopy = v76;
 LABEL_45:
 
-                v7 = v78;
-                [v12 didPostNotificationType:v17 forState:v78];
+                v7 = v77;
+                [v12 didPostNotificationType:v17 forState:v77];
                 [delegate touchedRules];
                 goto LABEL_51;
               }
 
-              v51 = MSPGetSharedTripLog();
+              v51 = MSPGetSharedTripLog(v50);
               if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
               {
                 v52 = MEMORY[0x277CCACA8];
-                v53 = v77;
+                v53 = v76;
                 v54 = [v52 stringWithFormat:@"%@<%p>", objc_opt_class(), v53];
 
                 v55 = v53->_type;
@@ -307,23 +307,23 @@ LABEL_45:
                   v56 = off_2798660A8[v55];
                 }
 
-                v57 = v77->_serviceName;
+                v57 = v76->_serviceName;
                 *buf = 138543874;
-                v88 = v54;
-                v89 = 2114;
-                v90 = v56;
-                v91 = 2114;
-                v92 = v57;
+                v87 = v54;
+                v88 = 2114;
+                v89 = v56;
+                v90 = 2114;
+                v91 = v57;
                 _os_log_impl(&dword_25813A000, v51, OS_LOG_TYPE_ERROR, "[%{public}@] %{public}@/%{public}@: IMSPISendMessageWithAttachments returned NO", buf, 0x20u);
               }
 
-              selfCopy = v77;
-              v7 = v78;
+              selfCopy = v76;
+              v7 = v77;
 LABEL_51:
             }
 
-            v80 = [obj countByEnumeratingWithState:&v82 objects:v86 count:16];
-            if (!v80)
+            v79 = [obj countByEnumeratingWithState:&v81 objects:v85 count:16];
+            if (!v79)
             {
 LABEL_53:
 
@@ -339,7 +339,7 @@ LABEL_53:
       }
     }
 
-    delegate = MSPGetSharedTripLog();
+    delegate = MSPGetSharedTripLog(v3);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
     {
       v58 = MEMORY[0x277CCACA8];
@@ -358,7 +358,7 @@ LABEL_53:
         v62 = off_2798660A8[v61];
       }
 
-      v81 = v62;
+      v80 = v62;
       v63 = v59->_serviceName;
       if (v4)
       {
@@ -398,17 +398,17 @@ LABEL_53:
 
       v72 = v71;
       *buf = 138544642;
-      v88 = v60;
-      v89 = 2114;
-      v90 = v81;
-      v91 = 2114;
-      v92 = v63;
-      v93 = 2114;
-      v94 = v65;
-      v95 = 2114;
-      v96 = v69;
-      v97 = 2114;
-      v98 = v72;
+      v87 = v60;
+      v88 = 2114;
+      v89 = v80;
+      v90 = 2114;
+      v91 = v63;
+      v92 = 2114;
+      v93 = v65;
+      v94 = 2114;
+      v95 = v69;
+      v96 = 2114;
+      v97 = v72;
       _os_log_impl(&dword_25813A000, loga, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@/%{public}@: sendMessageIfNeeded called without requisite state (state: %{public}@, etaInfo: %{public}@, destinationInfo: %{public}@)", buf, 0x3Eu);
 
       delegate = loga;
@@ -416,8 +416,6 @@ LABEL_53:
 
 LABEL_69:
   }
-
-  v73 = *MEMORY[0x277D85DE8];
 }
 
 - (MSPSenderMessageStrategyDelegate)delegate

@@ -96,15 +96,6 @@ LABEL_6:
   }
 }
 
-uint64_t __80__ISVisibilityOffsetHelper_getVisibility_offset_targetVisibilityOffset_forView___block_invoke(uint64_t a1)
-{
-  [*(a1 + 32) maximumDistance];
-  result = [*(a1 + 32) maximumDistanceLag];
-  *(a1 + 48);
-  *(a1 + 40);
-  return result;
-}
-
 - (CGRect)boundsForView:(id)view inScrollView:(id)scrollView
 {
   v4 = *MEMORY[0x277CBF3A0];

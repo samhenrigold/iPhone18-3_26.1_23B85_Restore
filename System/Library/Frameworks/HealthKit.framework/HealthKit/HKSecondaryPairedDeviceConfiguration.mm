@@ -44,10 +44,9 @@
   v4 = objc_opt_class();
   nanoRegistryDeviceUUID = self->_nanoRegistryDeviceUUID;
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_setupType];
-  v7 = *&self->_lastName;
-  v8 = [v3 stringWithFormat:@"<%@:%p, UUID:%@, setupType:%@, dateOfBirth:%@, firstName:%@, lastName:%@, DSID:%@, guardianFirstName:%@, guardianLastName:%@, guardianDSID:%@>", v4, self, nanoRegistryDeviceUUID, v6, self->_dateOfBirth, self->_firstName, self->_lastName, self->_dsid, self->_guardianFirstName, self->_guardianLastName, self->_guardianDSID];
+  v7 = [v3 stringWithFormat:@"<%@:%p, UUID:%@, setupType:%@, dateOfBirth:%@, firstName:%@, lastName:%@, DSID:%@, guardianFirstName:%@, guardianLastName:%@, guardianDSID:%@>", v4, self, nanoRegistryDeviceUUID, v6, self->_dateOfBirth, self->_firstName, self->_lastName, self->_dsid, self->_guardianFirstName, self->_guardianLastName, self->_guardianDSID];
 
-  return v8;
+  return v7;
 }
 
 - (HKSecondaryPairedDeviceConfiguration)initWithCoder:(id)coder

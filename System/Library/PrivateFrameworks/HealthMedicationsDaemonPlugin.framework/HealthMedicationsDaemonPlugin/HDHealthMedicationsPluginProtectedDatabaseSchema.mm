@@ -37,15 +37,14 @@
 
 - (NSArray)databaseEntities
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v4[2] = objc_opt_class();
+  v4[3] = objc_opt_class();
+  v4[4] = objc_opt_class();
+  v4[5] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
 
   return v2;
 }
@@ -185,7 +184,7 @@
 
 - (int64_t)_sydney_addSyncIdentityToMedicationScheduleEntityWithTransaction:(id)transaction error:(id *)error
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   protectedDatabase = [transactionCopy protectedDatabase];
   if ([protectedDatabase executeUncachedSQL:@"CREATE TABLE medication_schedules_new (ROWID INTEGER PRIMARY KEY AUTOINCREMENT error:{uuid BLOB UNIQUE NOT NULL, medication_uuid BLOB NOT NULL, medication_identifier TEXT NOT NULL, start_date_time REAL NOT NULL, end_date_time REAL, created_time_zone TEXT NOT NULL, frequency_type INTEGER NOT NULL, cycle_start_date_components BLOB, note TEXT, creation_date REAL NOT NULL, deleted INTEGER NOT NULL, sync_provenance INTEGER NOT NULL, sync_identity INTEGER NOT NULL)", error}])
@@ -194,16 +193,16 @@
     if (v8)
     {
       v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO medication_schedules_new (ROWID, uuid, medication_uuid, medication_identifier, start_date_time, end_date_time, created_time_zone, frequency_type, cycle_start_date_components, note, creation_date, deleted, sync_provenance, sync_identity) SELECT ROWID, uuid, medication_uuid, medication_identifier, start_date_time, end_date_time, created_time_zone, frequency_type, cycle_start_date_components, note, creation_date, deleted, sync_provenance, ? FROM medication_schedules"];;
-      v14 = MEMORY[0x277D85DD0];
-      v15 = 3221225472;
-      v16 = __123__HDHealthMedicationsPluginProtectedDatabaseSchema__sydney_addSyncIdentityToMedicationScheduleEntityWithTransaction_error___block_invoke;
-      v17 = &unk_2796CE028;
-      v18 = v8;
-      if ([protectedDatabase executeSQL:v9 error:error bindingHandler:&v14 enumerationHandler:0])
+      v13 = MEMORY[0x277D85DD0];
+      v14 = 3221225472;
+      v15 = __123__HDHealthMedicationsPluginProtectedDatabaseSchema__sydney_addSyncIdentityToMedicationScheduleEntityWithTransaction_error___block_invoke;
+      v16 = &unk_2796CE028;
+      v17 = v8;
+      if ([protectedDatabase executeSQL:v9 error:error bindingHandler:&v13 enumerationHandler:0])
       {
-        v19[0] = @"DROP TABLE medication_schedules;";
-        v19[1] = @"ALTER TABLE medication_schedules_new RENAME TO medication_schedules;";
-        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:{2, v14, v15, v16, v17}];
+        v18[0] = @"DROP TABLE medication_schedules;";
+        v18[1] = @"ALTER TABLE medication_schedules_new RENAME TO medication_schedules;";
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:{2, v13, v14, v15, v16}];
         v11 = [protectedDatabase executeSQLStatements:v10 error:error] ^ 1;
       }
 
@@ -224,7 +223,6 @@
     v11 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -245,45 +243,45 @@ uint64_t __123__HDHealthMedicationsPluginProtectedDatabaseSchema__sydney_addSync
 
 - (int64_t)_moveLifestyleFactorsFromUserDefaultsToKeyValueDomain:(id)domain error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   domainCopy = domain;
-  v24 = [HDHealthMedicationsPluginProtectedDatabaseSchema _getLegacySyncIdentityWithTransaction:"_getLegacySyncIdentityWithTransaction:errorOut:" errorOut:?];
-  if (v24)
+  v23 = [HDHealthMedicationsPluginProtectedDatabaseSchema _getLegacySyncIdentityWithTransaction:"_getLegacySyncIdentityWithTransaction:errorOut:" errorOut:?];
+  if (v23)
   {
     v6 = objc_alloc(MEMORY[0x277CBEBD0]);
     v7 = [v6 initWithSuiteName:*MEMORY[0x277D114C8]];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v8 = [&unk_2863C2D80 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v8 = [&unk_2863C2D80 countByEnumeratingWithState:&v32 objects:v37 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v34;
+      v10 = *v33;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v34 != v10)
+          if (*v33 != v10)
           {
             objc_enumerationMutation(&unk_2863C2D80);
           }
 
-          v12 = *(*(&v33 + 1) + 8 * i);
-          if ([v7 hk_keyExists:{v12, v24}])
+          v12 = *(*(&v32 + 1) + 8 * i);
+          if ([v7 hk_keyExists:{v12, v23}])
           {
             v13 = [v7 BOOLForKey:v12];
             v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT OR REPLACE INTO key_value_secure (category, domain, key, value, provenance, sync_identity, mod_date) values (?, ?, ?, ?, ?, ?, ?)"];
             protectedDatabase = [domainCopy protectedDatabase];
-            v30[0] = MEMORY[0x277D85DD0];
-            v30[1] = 3221225472;
-            v30[2] = __112__HDHealthMedicationsPluginProtectedDatabaseSchema__moveLifestyleFactorsFromUserDefaultsToKeyValueDomain_error___block_invoke;
-            v30[3] = &unk_2796CE668;
-            v30[4] = v12;
-            v32 = v13;
-            v31 = v24;
-            v16 = [protectedDatabase executeSQL:v14 error:error bindingHandler:v30 enumerationHandler:0];
+            v29[0] = MEMORY[0x277D85DD0];
+            v29[1] = 3221225472;
+            v29[2] = __112__HDHealthMedicationsPluginProtectedDatabaseSchema__moveLifestyleFactorsFromUserDefaultsToKeyValueDomain_error___block_invoke;
+            v29[3] = &unk_2796CE668;
+            v29[4] = v12;
+            v31 = v13;
+            v30 = v23;
+            v16 = [protectedDatabase executeSQL:v14 error:error bindingHandler:v29 enumerationHandler:0];
 
             if (!v16)
             {
@@ -293,7 +291,7 @@ uint64_t __123__HDHealthMedicationsPluginProtectedDatabaseSchema__sydney_addSync
           }
         }
 
-        v9 = [&unk_2863C2D80 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v9 = [&unk_2863C2D80 countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v9)
         {
           continue;
@@ -303,28 +301,28 @@ uint64_t __123__HDHealthMedicationsPluginProtectedDatabaseSchema__sydney_addSync
       }
     }
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
-    v17 = [&unk_2863C2D80 countByEnumeratingWithState:&v26 objects:v37 count:{16, v24}];
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v17 = [&unk_2863C2D80 countByEnumeratingWithState:&v25 objects:v36 count:{16, v23}];
     if (v17)
     {
       v18 = v17;
-      v19 = *v27;
+      v19 = *v26;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v27 != v19)
+          if (*v26 != v19)
           {
             objc_enumerationMutation(&unk_2863C2D80);
           }
 
-          [v7 removeObjectForKey:*(*(&v26 + 1) + 8 * j)];
+          [v7 removeObjectForKey:*(*(&v25 + 1) + 8 * j)];
         }
 
-        v18 = [&unk_2863C2D80 countByEnumeratingWithState:&v26 objects:v37 count:16];
+        v18 = [&unk_2863C2D80 countByEnumeratingWithState:&v25 objects:v36 count:16];
       }
 
       while (v18);
@@ -339,7 +337,6 @@ LABEL_21:
     v21 = 1;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -347,7 +344,6 @@ uint64_t __112__HDHealthMedicationsPluginProtectedDatabaseSchema__moveLifestyleF
 {
   sqlite3_bind_int64(a2, 1, 105);
   HDSQLiteBindStringToStatement();
-  v4 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
   sqlite3_bind_int(a2, 4, *(a1 + 48));
   sqlite3_bind_int(a2, 5, 0);
@@ -359,7 +355,7 @@ uint64_t __112__HDHealthMedicationsPluginProtectedDatabaseSchema__moveLifestyleF
 
 - (int64_t)_addUniqueConstraintToScheduleMedicationIdentifier:(id)identifier error:(id *)error
 {
-  v15[6] = *MEMORY[0x277D85DE8];
+  v14[6] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = _HDCalculateMedicationScheduleSyncAnchorOffset(identifierCopy, error);
   if (v6 < 0)
@@ -373,17 +369,16 @@ uint64_t __112__HDHealthMedicationsPluginProtectedDatabaseSchema__moveLifestyleF
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO medication_schedules_new (ROWID, uuid, medication_uuid, medication_identifier, start_date_time, end_date_time, created_time_zone, frequency_type, cycle_start_date_components, note, creation_date, deleted, sync_provenance, sync_identity, minimum_compatibility_version, origin_compatibility_version, sync_anchor)     SELECT ROWID, uuid, medication_uuid, medication_identifier, start_date_time, end_date_time, created_time_zone, frequency_type, cycle_start_date_components, note, max(creation_date), deleted, sync_provenance, sync_identity, minimum_compatibility_version, origin_compatibility_version, (ROWID + %lld)     FROM medication_schedules     WHERE deleted = 0     GROUP BY medication_identifier", v6];
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO medication_schedules_new (ROWID, uuid, medication_uuid, medication_identifier, start_date_time, end_date_time, created_time_zone, frequency_type, cycle_start_date_components, note, creation_date, deleted, sync_provenance, sync_identity, minimum_compatibility_version, origin_compatibility_version, sync_anchor)     SELECT ROWID, uuid, medication_uuid, null, start_date_time, end_date_time, created_time_zone, frequency_type, cycle_start_date_components, note, creation_date, deleted, sync_provenance, sync_identity, minimum_compatibility_version, origin_compatibility_version, (ROWID + %lld)     FROM medication_schedules     WHERE deleted = 1", v7];
     protectedDatabase = [identifierCopy protectedDatabase];
-    v15[0] = @"CREATE TABLE medication_schedules_new     (     ROWID                         INTEGER PRIMARY KEY AUTOINCREMENT,      uuid                          BLOB UNIQUE    NOT NULL,      medication_uuid               BLOB           NOT NULL,      medication_identifier         TEXT UNIQUE,      start_date_time               REAL           NOT NULL,      end_date_time                 REAL,      created_time_zone             TEXT           NOT NULL,      frequency_type                INTEGER        NOT NULL,      cycle_start_date_components   BLOB,      note                          TEXT,      creation_date                 REAL           NOT NULL,      deleted                       INTEGER        NOT NULL,      sync_provenance               INTEGER        NOT NULL,      sync_identity                 INTEGER        NOT NULL,      minimum_compatibility_version INTEGER        NOT NULL,      origin_compatibility_version  INTEGER        NOT NULL,      sync_anchor                   INTEGER UNIQUE NOT NULL     )";
-    v15[1] = v8;
-    v15[2] = v9;
-    v15[3] = @"DELETE                      FROM medication_schedule_interval_data                      WHERE NOT EXISTS(SELECT *                      FROM medication_schedules_new                      WHERE medication_schedule_interval_data.schedule_id = medication_schedules_new.ROWID)";
-    v15[4] = @"DROP TABLE medication_schedules";
-    v15[5] = @"ALTER TABLE medication_schedules_new RENAME TO medication_schedules";
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:6];
+    v14[0] = @"CREATE TABLE medication_schedules_new     (     ROWID                         INTEGER PRIMARY KEY AUTOINCREMENT,      uuid                          BLOB UNIQUE    NOT NULL,      medication_uuid               BLOB           NOT NULL,      medication_identifier         TEXT UNIQUE,      start_date_time               REAL           NOT NULL,      end_date_time                 REAL,      created_time_zone             TEXT           NOT NULL,      frequency_type                INTEGER        NOT NULL,      cycle_start_date_components   BLOB,      note                          TEXT,      creation_date                 REAL           NOT NULL,      deleted                       INTEGER        NOT NULL,      sync_provenance               INTEGER        NOT NULL,      sync_identity                 INTEGER        NOT NULL,      minimum_compatibility_version INTEGER        NOT NULL,      origin_compatibility_version  INTEGER        NOT NULL,      sync_anchor                   INTEGER UNIQUE NOT NULL     )";
+    v14[1] = v8;
+    v14[2] = v9;
+    v14[3] = @"DELETE                      FROM medication_schedule_interval_data                      WHERE NOT EXISTS(SELECT *                      FROM medication_schedules_new                      WHERE medication_schedule_interval_data.schedule_id = medication_schedules_new.ROWID)";
+    v14[4] = @"DROP TABLE medication_schedules";
+    v14[5] = @"ALTER TABLE medication_schedules_new RENAME TO medication_schedules";
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:6];
     v12 = [protectedDatabase executeSQLStatements:v11 error:error] ^ 1;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -423,23 +418,8 @@ uint64_t __112__HDHealthMedicationsPluginProtectedDatabaseSchema__moveLifestyleF
 {
   valueCopy = value;
   v6 = _HDCalculateMedicationScheduleSyncAnchorOffset(valueCopy, error);
-  if (v6 < 0)
+  if (v6 < 0 || (v7 = v6, [valueCopy protectedDatabase], v8 = objc_claimAutoreleasedReturnValue(), v20[0] = MEMORY[0x277D85DD0], v20[1] = 3221225472, v20[2] = __123__HDHealthMedicationsPluginProtectedDatabaseSchema__setInvalidSchedulesAsLocallyIncompatibleWithMaximumIntegerValue_error___block_invoke, v20[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l, v20[4] = v7, v9 = objc_msgSend(v8, "executeSQL:error:bindingHandler:enumerationHandler:", @"UPDATE medication_schedules SET schedule_type = frequency_type, sync_anchor = (sync_anchor + ?) WHERE schedule_type = 0 AND frequency_type != 0", error, v20, 0), v8, !v9))
   {
-    goto LABEL_4;
-  }
-
-  v7 = v6;
-  protectedDatabase = [valueCopy protectedDatabase];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __123__HDHealthMedicationsPluginProtectedDatabaseSchema__setInvalidSchedulesAsLocallyIncompatibleWithMaximumIntegerValue_error___block_invoke;
-  v20[3] = &__block_descriptor_40_e23_v16__0__sqlite3_stmt__8l;
-  v20[4] = v7;
-  v9 = [protectedDatabase executeSQL:@"UPDATE medication_schedules SET schedule_type = frequency_type error:sync_anchor = (sync_anchor + ?) WHERE schedule_type = 0 AND frequency_type != 0" bindingHandler:error enumerationHandler:{v20, 0}];
-
-  if (!v9)
-  {
-LABEL_4:
     v15 = 1;
   }
 
@@ -448,7 +428,7 @@ LABEL_4:
     v10 = [MEMORY[0x277CBEBB0] timeZoneForSecondsFromGMT:0];
     name = [v10 name];
 
-    protectedDatabase2 = [valueCopy protectedDatabase];
+    protectedDatabase = [valueCopy protectedDatabase];
     v17[0] = MEMORY[0x277D85DD0];
     v17[1] = 3221225472;
     v17[2] = __123__HDHealthMedicationsPluginProtectedDatabaseSchema__setInvalidSchedulesAsLocallyIncompatibleWithMaximumIntegerValue_error___block_invoke_2;
@@ -456,7 +436,7 @@ LABEL_4:
     v18 = name;
     v19 = v7;
     v13 = name;
-    v14 = [protectedDatabase2 executeSQL:@"INSERT OR REPLACE INTO medication_schedules (uuid error:medication_uuid bindingHandler:medication_identifier enumerationHandler:{start_date_time, end_date_time, created_time_zone, frequency_type, cycle_start_date_components, note, creation_date, deleted, sync_provenance, sync_identity, minimum_compatibility_version, origin_compatibility_version, schedule_type, display_options, sync_anchor) SELECT uuid, medication_uuid, medication_identifier, 0.0, NULL, ?, 0, NULL, NULL, creation_date, deleted, sync_provenance, sync_identity, ?, ?, 0, 0, (sync_anchor + ?) FROM medication_schedules WHERE schedule_type = 0 AND frequency_type = 0 AND minimum_compatibility_version <= origin_compatibility_version AND deleted = 0", error, v17, 0}];
+    v14 = [protectedDatabase executeSQL:@"INSERT OR REPLACE INTO medication_schedules (uuid error:medication_uuid bindingHandler:medication_identifier enumerationHandler:{start_date_time, end_date_time, created_time_zone, frequency_type, cycle_start_date_components, note, creation_date, deleted, sync_provenance, sync_identity, minimum_compatibility_version, origin_compatibility_version, schedule_type, display_options, sync_anchor) SELECT uuid, medication_uuid, medication_identifier, 0.0, NULL, ?, 0, NULL, NULL, creation_date, deleted, sync_provenance, sync_identity, ?, ?, 0, 0, (sync_anchor + ?) FROM medication_schedules WHERE schedule_type = 0 AND frequency_type = 0 AND minimum_compatibility_version <= origin_compatibility_version AND deleted = 0", error, v17, 0}];
 
     v15 = v14 ^ 1u;
   }
@@ -466,13 +446,12 @@ LABEL_4:
 
 uint64_t __123__HDHealthMedicationsPluginProtectedDatabaseSchema__setInvalidSchedulesAsLocallyIncompatibleWithMaximumIntegerValue_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
   sqlite3_bind_int64(a2, 2, 0x7FFFFFFFLL);
   sqlite3_bind_int64(a2, 3, 1);
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 4, v5);
+  return sqlite3_bind_int64(a2, 4, v4);
 }
 
 @end

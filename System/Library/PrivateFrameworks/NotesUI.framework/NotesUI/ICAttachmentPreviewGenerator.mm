@@ -1331,7 +1331,7 @@ void __56__ICAttachmentPreviewGenerator_setProgress_forObjectID___block_invoke(u
 void __52__ICAttachmentPreviewGenerator_progressForObjectID___block_invoke(uint64_t a1)
 {
   v5 = [*(a1 + 32) attachmentIDsProgress];
-  v2 = [v5 objectForKeyedSubscript:*(a1 + 40)];
+  v2 = objc_msgSend_objectForKeyedSubscript_(v5);
   v3 = *(*(a1 + 48) + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;

@@ -1,4 +1,4 @@
-uint64_t TPSSIMPasscodeLog()
+uint64_t TPSSIMPasscodeLog(uint64_t a1, uint64_t a2)
 {
   if (qword_D530 != -1)
   {

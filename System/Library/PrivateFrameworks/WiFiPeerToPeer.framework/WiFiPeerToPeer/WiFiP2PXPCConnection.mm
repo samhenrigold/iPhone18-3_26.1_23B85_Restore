@@ -51,7 +51,7 @@
 
 void __39__WiFiP2PXPCConnection_supportsWiFiP2P__block_invoke()
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v0 = SecTaskCreateFromSelf(0);
   if (v0)
   {
@@ -109,9 +109,9 @@ void __39__WiFiP2PXPCConnection_supportsWiFiP2P__block_invoke()
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v16 = *__error();
+      v15 = *__error();
       buffer[0] = 67109120;
-      buffer[1] = v16;
+      buffer[1] = v15;
       _os_log_error_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to check sandbox profile: %{errno}d", buffer, 8u);
     }
 
@@ -133,7 +133,7 @@ void __39__WiFiP2PXPCConnection_supportsWiFiP2P__block_invoke()
   if (!v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 136446210;
-    v18 = v14;
+    v17 = v14;
     _os_log_fault_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Process %{public}s is missing entitlement required for peer to peer Wi-Fi access: <key>com.apple.wifip2pd</key><true/> OR <key>com.apple.developer.wifi-aware</key><true/>", buf, 0xCu);
     if (v12)
     {
@@ -149,36 +149,35 @@ void __39__WiFiP2PXPCConnection_supportsWiFiP2P__block_invoke()
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
     *buf = 136446210;
-    v18 = v14;
+    v17 = v14;
     _os_log_fault_impl(&dword_22DFDF000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Process %{public}s is missing sandbox rule for peer to peer Wi-Fi access: (allow mach-lookup (global-name com.apple.wifip2pd))", buf, 0xCu);
   }
 
 LABEL_31:
   _MergedGlobals_0 = v5 && v12;
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (id)endpointForEndpointType:(unint64_t)type
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (+[WiFiP2PXPCConnection supportsWiFiP2P])
   {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x3032000000;
-    v18 = __Block_byref_object_copy__1;
-    v19 = __Block_byref_object_dispose__1;
-    v20 = 0;
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x3032000000;
+    v17 = __Block_byref_object_copy__1;
+    v18 = __Block_byref_object_dispose__1;
+    v19 = 0;
     v4 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.wifip2pd" options:4096];
     v5 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2841B4128];
     [v4 setRemoteObjectInterface:v5];
 
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __48__WiFiP2PXPCConnection_endpointForEndpointType___block_invoke;
-    v14[3] = &unk_2787AB0E0;
-    v14[4] = &v15;
-    v6 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __48__WiFiP2PXPCConnection_endpointForEndpointType___block_invoke;
+    v13[3] = &unk_2787AB0E0;
+    v13[4] = &v14;
+    v6 = [v4 synchronousRemoteObjectProxyWithErrorHandler:v13];
     [v4 activate];
     v7 = getpid();
     v8 = proc_name(v7, buffer, 0x20u);
@@ -192,28 +191,26 @@ LABEL_31:
       v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:buffer];
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __48__WiFiP2PXPCConnection_endpointForEndpointType___block_invoke_2;
-    v13[3] = &unk_2787AB108;
-    v13[4] = &v15;
-    [v6 endpointForType:type processName:v9 completionHandler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __48__WiFiP2PXPCConnection_endpointForEndpointType___block_invoke_2;
+    v12[3] = &unk_2787AB108;
+    v12[4] = &v14;
+    [v6 endpointForType:type processName:v9 completionHandler:v12];
     if (v8 >= 1)
     {
     }
 
     [v4 invalidate];
 
-    v10 = v16[5];
-    _Block_object_dispose(&v15, 8);
+    v10 = v15[5];
+    _Block_object_dispose(&v14, 8);
   }
 
   else
   {
     v10 = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -668,7 +665,7 @@ void __70__WiFiP2PXPCConnection_withRemoteObjectProxy_clientCompletionHandler___
 {
   v5 = a3;
   v6 = v5;
-  if (a2 || (v8 = *(v5 + 4)) == 0)
+  if (a2 || (v8 = v5[4]) == 0)
   {
     v7 = *(a1 + 40);
     if (v7)
@@ -800,7 +797,7 @@ void __65__WiFiP2PXPCConnection_withRemoteObjectProxy_clientErrorHandler___block
 {
   v5 = a3;
   v6 = v5;
-  if (a2 || (v9 = *(v5 + 4)) == 0)
+  if (a2 || (v9 = v5[4]) == 0)
   {
     v7 = *(a1 + 40);
     if (v7)
@@ -875,44 +872,44 @@ uint64_t __65__WiFiP2PXPCConnection_withRemoteObjectProxy_clientErrorHandler___b
 - (void)cleanUpRemovingNotifyToken:(BOOL)token
 {
   tokenCopy = token;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = self->_queuedRequests;
   array = [MEMORY[0x277CBEB18] array];
   queuedRequests = self->_queuedRequests;
   self->_queuedRequests = array;
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v8 = v5;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       v12 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        (*(*(*(&v19 + 1) + 8 * v12) + 16))(*(*(&v19 + 1) + 8 * v12));
+        (*(*(*(&v18 + 1) + 8 * v12) + 16))(*(*(&v18 + 1) + 8 * v12));
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
-  [(NSXPCConnection *)self->_connection setInvalidationHandler:0, v19];
+  [(NSXPCConnection *)self->_connection setInvalidationHandler:0, v18];
   [(NSXPCConnection *)self->_connection invalidate];
   connection = self->_connection;
   self->_connection = 0;
@@ -934,13 +931,11 @@ uint64_t __65__WiFiP2PXPCConnection_withRemoteObjectProxy_clientErrorHandler___b
     v17 = self->_retryTimer;
     self->_retryTimer = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleError:(int64_t)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   delegate = [(WiFiP2PXPCConnection *)self delegate];
   v6 = self->_queuedRequests;
@@ -950,32 +945,32 @@ uint64_t __65__WiFiP2PXPCConnection_withRemoteObjectProxy_clientErrorHandler___b
 
   if (error)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v9 = v6;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         v13 = 0;
         do
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          (*(*(*(&v25 + 1) + 8 * v13) + 16))(*(*(&v25 + 1) + 8 * v13));
+          (*(*(*(&v24 + 1) + 8 * v13) + 16))(*(*(&v24 + 1) + 8 * v13));
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v11);
@@ -984,10 +979,10 @@ uint64_t __65__WiFiP2PXPCConnection_withRemoteObjectProxy_clientErrorHandler___b
     v14 = objc_opt_respondsToSelector();
     if (v14)
     {
-      [delegate handleError:{error, v25}];
+      [delegate handleError:{error, v24}];
     }
 
-    [(WiFiP2PXPCConnection *)self cleanUpRemovingNotifyToken:v14 & 1, v25];
+    [(WiFiP2PXPCConnection *)self cleanUpRemovingNotifyToken:v14 & 1, v24];
   }
 
   else
@@ -1008,38 +1003,36 @@ uint64_t __65__WiFiP2PXPCConnection_withRemoteObjectProxy_clientErrorHandler___b
       [delegate handleConnectionEstablishedWithProxy:self->_remoteObject];
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v19 = v6;
-    v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v20 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v30;
+      v22 = *v29;
       do
       {
         v23 = 0;
         do
         {
-          if (*v30 != v22)
+          if (*v29 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          (*(*(*(&v29 + 1) + 8 * v23++) + 16))();
+          (*(*(*(&v28 + 1) + 8 * v23++) + 16))();
         }
 
         while (v21 != v23);
-        v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v21 = [(NSMutableArray *)v19 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v21);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleConnectionInvalidated
@@ -1256,7 +1249,7 @@ void __39__WiFiP2PXPCConnection_frameworkBundle__block_invoke()
 
 + (id)localization
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA8D8];
   v3 = +[WiFiP2PXPCConnection frameworkBundle];
   localizations = [v3 localizations];
@@ -1271,8 +1264,8 @@ void __39__WiFiP2PXPCConnection_frameworkBundle__block_invoke()
     localizations2 = [v9 localizations];
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
     localeIdentifier = [currentLocale localeIdentifier];
-    v18[0] = localeIdentifier;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = localeIdentifier;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
     v14 = [v8 preferredLocalizationsFromArray:localizations2 forPreferences:v13];
     firstObject = [v14 firstObject];
 
@@ -1282,8 +1275,6 @@ void __39__WiFiP2PXPCConnection_frameworkBundle__block_invoke()
       firstObject = [currentLocale2 localeIdentifier];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

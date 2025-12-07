@@ -79,9 +79,9 @@
   lCopy = l;
   keyCopy = key;
   delegateCopy = delegate;
-  v30.receiver = self;
-  v30.super_class = PVInstructionGraphImageSourceNode;
-  v18 = [(PVInstructionGraphSourceNode *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = PVInstructionGraphImageSourceNode;
+  v18 = [(PVInstructionGraphSourceNode *)&v29 init];
   v19 = v18;
   if (!v18)
   {
@@ -91,10 +91,10 @@
   [(PVInstructionGraphImageSourceNode *)v18 setUrl:lCopy];
   [(PVInstructionGraphImageSourceNode *)v19 setKey:keyCopy];
   v20 = *&transform->c;
-  v29[0] = *&transform->a;
-  v29[1] = v20;
-  v29[2] = *&transform->tx;
-  [(PVInstructionGraphSourceNode *)v19 setTransform:v29];
+  v28[0] = *&transform->a;
+  v28[1] = v20;
+  v28[2] = *&transform->tx;
+  [(PVInstructionGraphSourceNode *)v19 setTransform:v28];
   [(PVInstructionGraphImageSourceNode *)v19 setImageDelegate:delegateCopy];
   [(PVInstructionGraphImageSourceNode *)v19 setRenderingIntent:v9];
   [(PVInstructionGraphImageSourceNode *)v19 setUseAnimationInfo:0];
@@ -146,14 +146,14 @@ LABEL_9:
   [sInputBitmapCache setCountLimit:v22];
   [sInputBitmapCacheLock unlock];
   CachedImageInfo::SetSourceNode(&v19->super._transform.ty, v19);
-  PVRenderManager::INSTANCE(v25, v29);
+  PVRenderManager::INSTANCE(v28);
   lock = v19->m_cachedImageInfo._lock;
-  v27 = *&v29[0];
-  if (lock == *&v29[0])
+  v26 = *&v28[0];
+  if (lock == *&v28[0])
   {
     if (lock)
     {
-      (*(**&v29[0] + 24))();
+      (*(**&v28[0] + 24))();
     }
   }
 
@@ -162,10 +162,10 @@ LABEL_9:
     if (lock)
     {
       (*(lock->var0 + 3))(v19->m_cachedImageInfo._lock);
-      v27 = *&v29[0];
+      v26 = *&v28[0];
     }
 
-    v19->m_cachedImageInfo._lock = v27;
+    v19->m_cachedImageInfo._lock = v26;
   }
 
 LABEL_18:
@@ -202,9 +202,9 @@ void __114__PVInstructionGraphImageSourceNode_initWithURL_key_transform_isExport
   lCopy = l;
   animationCopy = animation;
   delegateCopy = delegate;
-  v35.receiver = self;
-  v35.super_class = PVInstructionGraphImageSourceNode;
-  v17 = [(PVInstructionGraphSourceNode *)&v35 init];
+  v34.receiver = self;
+  v34.super_class = PVInstructionGraphImageSourceNode;
+  v17 = [(PVInstructionGraphSourceNode *)&v34 init];
   v18 = v17;
   if (!v17)
   {
@@ -212,18 +212,18 @@ void __114__PVInstructionGraphImageSourceNode_initWithURL_key_transform_isExport
   }
 
   v19 = *(MEMORY[0x277CBF2C0] + 16);
-  v32 = *MEMORY[0x277CBF2C0];
-  v33 = v19;
-  v34 = *(MEMORY[0x277CBF2C0] + 32);
+  v31 = *MEMORY[0x277CBF2C0];
+  v32 = v19;
+  v33 = *(MEMORY[0x277CBF2C0] + 32);
   [(PVInstructionGraphImageSourceNode *)v17 setUrl:lCopy];
   path = [lCopy path];
   v21 = [path stringByAppendingFormat:@"_ri%d", v9];
   [(PVInstructionGraphImageSourceNode *)v18 setKey:v21];
 
-  v31[0] = v32;
-  v31[1] = v33;
-  v31[2] = v34;
-  [(PVInstructionGraphSourceNode *)v18 setTransform:v31];
+  v30[0] = v31;
+  v30[1] = v32;
+  v30[2] = v33;
+  [(PVInstructionGraphSourceNode *)v18 setTransform:v30];
   [(PVInstructionGraphSourceNode *)v18 setTransformAnimation:animationCopy];
   [(PVInstructionGraphImageSourceNode *)v18 setImageDelegate:delegateCopy];
   [(PVInstructionGraphImageSourceNode *)v18 setRenderingIntent:v9];
@@ -278,14 +278,14 @@ LABEL_9:
   [sInputBitmapCache setCountLimit:v23];
   [sInputBitmapCacheLock unlock];
   CachedImageInfo::SetSourceNode(&v18->super._transform.ty, v18);
-  PVRenderManager::INSTANCE(v27, v31);
+  PVRenderManager::INSTANCE(v30);
   lock = v18->m_cachedImageInfo._lock;
-  v29 = *&v31[0];
-  if (lock == *&v31[0])
+  v28 = *&v30[0];
+  if (lock == *&v30[0])
   {
     if (lock)
     {
-      (*(**&v31[0] + 24))();
+      (*(**&v30[0] + 24))();
     }
   }
 
@@ -294,10 +294,10 @@ LABEL_9:
     if (lock)
     {
       (*(lock->var0 + 3))(v18->m_cachedImageInfo._lock);
-      v29 = *&v31[0];
+      v28 = *&v30[0];
     }
 
-    v18->m_cachedImageInfo._lock = v29;
+    v18->m_cachedImageInfo._lock = v28;
   }
 
 LABEL_18:
@@ -966,13 +966,13 @@ LABEL_16:
     }
   }
 
-  [(HGInputBitmapCacheItem *)v14 bitmaps];
+  objc_msgSend_bitmaps(v14);
   v86 = *(&v196 + 1) - v196;
   *&v195.a = &v196;
   std::vector<HGRef<HGBitmap>>::__destroy_vector::operator()[abi:ne200100](&v195);
   if (v86 < 9)
   {
-    [(HGInputBitmapCacheItem *)v14 bitmaps];
+    objc_msgSend_bitmaps(v14);
     v93 = *v196;
     v87 = COERCE_DOUBLE(HGObject::operator new(0x1F0uLL));
     HGBitmapLoader::HGBitmapLoader(*&v87, v93);
@@ -984,7 +984,7 @@ LABEL_16:
   {
     v87 = COERCE_DOUBLE(HGObject::operator new(0x1A0uLL));
     HGOverwrite::HGOverwrite(*&v87);
-    [(HGInputBitmapCacheItem *)v14 bitmaps];
+    objc_msgSend_bitmaps(v14);
     v89 = *(&v196 + 1);
     v88 = v196;
     if (v196 != *(&v196 + 1))
@@ -1035,7 +1035,7 @@ LABEL_68:
   CachedImageInfo::Init(&self->super._transform.ty, 1, v218);
   if (LOBYTE(self->m_renderManager.m_Obj) == 1)
   {
-    [(HGInputBitmapCacheItem *)v14 gainMap];
+    objc_msgSend_gainMap(v14);
     if (v196)
     {
       (*(*v196 + 24))(v196);
@@ -1085,9 +1085,9 @@ LABEL_88:
 
       v102 = 1;
 LABEL_92:
-      [(HGInputBitmapCacheItem *)v14 gainMap];
+      objc_msgSend_gainMap(v14);
       LODWORD(v103) = HIDWORD(self->m_renderManager.m_Obj);
-      [(PVInstructionGraphImageSourceNode *)self applyGainMapToGraph:&v207 gainMap:&v206 withHeadroom:v103];
+      objc_msgSend_applyGainMapToGraph_gainMap_withHeadroom_(self, v103);
       v104 = v195.a;
       if (*&v87 == *&v195.a)
       {
@@ -1632,7 +1632,7 @@ LABEL_194:
     goto LABEL_156;
   }
 
-  [(PVInstructionGraphSourceNode *)self transform];
+  objc_msgSend_transform(self);
   v202 = v196;
   v203 = v197;
   *v184 = v198;

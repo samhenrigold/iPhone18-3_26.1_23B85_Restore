@@ -15,7 +15,7 @@
   if (v2)
   {
     v2->_aacBlockSize = 480;
-    v2->_addACC24 = VCFeatureFlagManager_UseAudioCodecACC24ForU1();
+    v2->_addACC24 = VCFeatureFlagManager_UseAudioCodecACC24ForU1(v2);
     v3->_channelCount = 1;
     v3->_minBlockSize = 3;
     v3->_allowLargerBlockSizes = 1;

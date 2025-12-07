@@ -7,6 +7,7 @@
 - (void)pauseSample;
 - (void)playSample:(id)sample;
 - (void)sendPlaybackQueueToRemoteDestination:(id)destination withCompletion:(id)completion;
+- (void)sendPlaybackQueueWithUserActivityDictionary:(id)dictionary forIntentID:(id)d toDestination:(id)destination withIntentData:(id)data prepareQueue:(BOOL)queue withCompletion:(id)completion;
 - (void)setOverrideURL:(id)l;
 - (void)setServerEnvironment:(id)environment;
 - (void)stopAnalyticsWithIdentifier:(id)identifier;
@@ -48,51 +49,51 @@
 
   if (bOOLValue)
   {
-    v10 = [CMSClient clientWithConnection:connectionCopy];
-    v11 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2856B3778];
-    v12 = [v11 classesForSelector:sel_sendPlaybackQueueWithUserActivityDictionary_forIntentID_toDestination_withIntentData_prepareQueue_withCompletion_ argumentIndex:3 ofReply:0];
-    v13 = [v12 mutableCopy];
+    v11 = [CMSClient clientWithConnection:connectionCopy];
+    v12 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2856B3778];
+    v13 = [v12 classesForSelector:sel_sendPlaybackQueueWithUserActivityDictionary_forIntentID_toDestination_withIntentData_prepareQueue_withCompletion_ argumentIndex:3 ofReply:0];
+    v14 = [v13 mutableCopy];
 
-    [v13 addObject:objc_opt_class()];
-    [v11 setClasses:v13 forSelector:sel_sendPlaybackQueueWithUserActivityDictionary_forIntentID_toDestination_withIntentData_prepareQueue_withCompletion_ argumentIndex:3 ofReply:0];
-    [connectionCopy setExportedInterface:v11];
+    [v14 addObject:objc_opt_class()];
+    [v12 setClasses:v14 forSelector:sel_sendPlaybackQueueWithUserActivityDictionary_forIntentID_toDestination_withIntentData_prepareQueue_withCompletion_ argumentIndex:3 ofReply:0];
+    [connectionCopy setExportedInterface:v12];
     [connectionCopy setExportedObject:self];
     objc_initWeak(&location, self);
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __77__CloudMediaServicesInterfaceXPCListener_listener_shouldAcceptNewConnection___block_invoke;
-    v22[3] = &unk_278DDD288;
-    objc_copyWeak(&v24, &location);
-    v14 = connectionCopy;
-    v23 = v14;
-    [v14 setInterruptionHandler:v22];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __77__CloudMediaServicesInterfaceXPCListener_listener_shouldAcceptNewConnection___block_invoke_67;
-    v19[3] = &unk_278DDD288;
-    objc_copyWeak(&v21, &location);
-    v15 = v14;
-    v20 = v15;
-    [v15 setInvalidationHandler:v19];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __77__CloudMediaServicesInterfaceXPCListener_listener_shouldAcceptNewConnection___block_invoke;
+    v23[3] = &unk_278DDD288;
+    objc_copyWeak(&v25, &location);
+    v15 = connectionCopy;
+    v24 = v15;
+    [v15 setInterruptionHandler:v23];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __77__CloudMediaServicesInterfaceXPCListener_listener_shouldAcceptNewConnection___block_invoke_67;
+    v20[3] = &unk_278DDD288;
+    objc_copyWeak(&v22, &location);
+    v16 = v15;
+    v21 = v16;
+    [v16 setInvalidationHandler:v20];
     clients = [(CloudMediaServicesInterfaceXPCListener *)self clients];
     objc_sync_enter(clients);
     clients2 = [(CloudMediaServicesInterfaceXPCListener *)self clients];
-    [clients2 addObject:v10];
+    [clients2 addObject:v11];
 
     objc_sync_exit(clients);
-    [v15 resume];
+    [v16 resume];
 
-    objc_destroyWeak(&v21);
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v10 = _CMSILogingFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _CMSILogingFacility(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [CloudMediaServicesInterfaceXPCListener listener:v10 shouldAcceptNewConnection:?];
+      [CloudMediaServicesInterfaceXPCListener listener:v11 shouldAcceptNewConnection:?];
     }
   }
 
@@ -101,7 +102,7 @@
 
 void __77__CloudMediaServicesInterfaceXPCListener_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1)
 {
-  v2 = _CMSILogingFacility();
+  v2 = _CMSILogingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -114,7 +115,7 @@ void __77__CloudMediaServicesInterfaceXPCListener_listener_shouldAcceptNewConnec
 
 void __77__CloudMediaServicesInterfaceXPCListener_listener_shouldAcceptNewConnection___block_invoke_67(uint64_t a1)
 {
-  v2 = _CMSILogingFacility();
+  v2 = _CMSILogingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -178,6 +179,23 @@ uint64_t __68__CloudMediaServicesInterfaceXPCListener_handleClientDisconnection_
   {
     v8 = objc_loadWeakRetained(&self->_playbackCommandDelegate);
     [v8 sendPlaybackQueueToRemoteDestination:destinationCopy withCompletion:completionCopy];
+  }
+}
+
+- (void)sendPlaybackQueueWithUserActivityDictionary:(id)dictionary forIntentID:(id)d toDestination:(id)destination withIntentData:(id)data prepareQueue:(BOOL)queue withCompletion:(id)completion
+{
+  queueCopy = queue;
+  dictionaryCopy = dictionary;
+  dCopy = d;
+  destinationCopy = destination;
+  dataCopy = data;
+  completionCopy = completion;
+  WeakRetained = objc_loadWeakRetained(&self->_playbackCommandDelegate);
+
+  if (WeakRetained)
+  {
+    v19 = objc_loadWeakRetained(&self->_playbackCommandDelegate);
+    [v19 sendPlaybackQueueWithUserActivityDictionary:dictionaryCopy forIntentID:dCopy toDestination:destinationCopy withIntentData:dataCopy prepareQueue:queueCopy withCompletion:completionCopy];
   }
 }
 

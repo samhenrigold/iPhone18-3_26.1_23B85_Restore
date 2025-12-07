@@ -2,7 +2,10 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBCopyFileIntent)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)destinationTypeAsString:(int)string;
 - (id)dictionaryRepresentation;
+- (id)entityTypeAsString:(int)string;
+- (id)sourceTypeAsString:(int)string;
 - (int)StringAsDestinationType:(id)type;
 - (int)StringAsEntityType:(id)type;
 - (int)StringAsSourceType:(id)type;
@@ -22,7 +25,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   destinationName = [(_INPBCopyFileIntent *)self destinationName];
   dictionaryRepresentation = [destinationName dictionaryRepresentation];
@@ -71,30 +74,30 @@
   if ([(NSArray *)self->_properties count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v15 = self->_properties;
-    v16 = [(NSArray *)v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v16 = [(NSArray *)v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v28;
+      v18 = *v27;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v28 != v18)
+          if (*v27 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          dictionaryRepresentation4 = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v26 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation4];
         }
 
-        v17 = [(NSArray *)v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v17 = [(NSArray *)v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v17);
@@ -122,8 +125,6 @@
 
     [dictionary setObject:v24 forKeyedSubscript:@"sourceType"];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -418,7 +419,7 @@ LABEL_36:
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   toCopy = to;
   destinationName = [(_INPBCopyFileIntent *)self destinationName];
 
@@ -430,7 +431,6 @@ LABEL_36:
 
   if ([(_INPBCopyFileIntent *)self hasDestinationType])
   {
-    destinationType = self->_destinationType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -444,7 +444,6 @@ LABEL_36:
 
   if ([(_INPBCopyFileIntent *)self hasEntityType])
   {
-    entityType = self->_entityType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -456,36 +455,35 @@ LABEL_36:
     PBDataWriterWriteSubmessage();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v13 = self->_properties;
-  v14 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v14)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v11 = self->_properties;
+  v12 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v24;
+    v13 = v12;
+    v14 = *v19;
     do
     {
-      v17 = 0;
+      v15 = 0;
       do
       {
-        if (*v24 != v16)
+        if (*v19 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * v17);
         PBDataWriterWriteSubmessage();
-        ++v17;
+        ++v15;
       }
 
-      while (v15 != v17);
-      v15 = [(NSArray *)v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      while (v13 != v15);
+      v13 = [(NSArray *)v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
   sourceName = [(_INPBCopyFileIntent *)self sourceName];
@@ -498,11 +496,8 @@ LABEL_36:
 
   if ([(_INPBCopyFileIntent *)self hasSourceType])
   {
-    sourceType = self->_sourceType;
     PBDataWriterWriteInt32Field();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsSourceType:(id)type
@@ -531,6 +526,21 @@ LABEL_36:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)sourceTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72829B8[string];
   }
 
   return v4;
@@ -624,6 +634,21 @@ LABEL_36:
   return v4;
 }
 
+- (id)entityTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72829B8[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasEntityType:(BOOL)type
 {
   if (type)
@@ -680,6 +705,21 @@ LABEL_36:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)destinationTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72829B8[string];
   }
 
   return v4;

@@ -3,6 +3,7 @@
 + (BOOL)firstTimeAssistantLanguage:(id)language;
 + (id)bundle;
 + (id)shortTitlesForLanguageIdentifiers:(id)identifiers;
++ (void)presentAssistantEnableAlertForState:(BOOL)state presentingViewController:(id)controller actionHandler:(id)handler;
 + (void)setPendingURLResources:(id)resources;
 - (AssistantController)init;
 - (BOOL)_isCurrentSpecifierQuickTypeGesture;
@@ -15,6 +16,7 @@
 - (BOOL)isFlexibleFollowupsSupported;
 - (BOOL)shouldPromptForDisable;
 - (BOOL)watchSupportsSiriLanguageCode:(id)code;
+- (id)_confirmationPromptDisableHeySiri:(BOOL)siri disableMultiUser:(BOOL)user disableSpokenFeedback:(BOOL)feedback disableRaiseToSpeak:(BOOL)speak;
 - (id)_createEnablementFlowControllerForConfiguration:(id)configuration recognitionLanguageCode:(id)code;
 - (id)_createVoiceSelectionCompletionForSpecifier:(id)specifier recognitionLanguageCode:(id)code;
 - (id)_createVoiceSelectionDismissalHandlerWithSpecifier:(id)specifier actionHandler:(id)handler;
@@ -26,6 +28,7 @@
 - (id)assistantEnabled:(id)enabled;
 - (id)assistantVoice:(id)voice;
 - (id)assistantVoiceLanguage:(id)language;
+- (id)confirmationSpecifierWillDisableHeySiri:(BOOL)siri disableMultiUser:(BOOL)user disableSpokenFeedbackOnWatch:(BOOL)watch disableRaiseToSpeak:(BOOL)speak;
 - (id)detailTextForLanguageSpecifierFromTitles:(id)titles;
 - (id)hardwareButtonTrigger:(id)trigger;
 - (id)isShowInAppLibraryEnabled:(id)enabled;
@@ -69,6 +72,7 @@
 - (void)_setAssistantLanguageHeySiriDisableConfirmed:(id)confirmed;
 - (void)_setAssistantLanguageWatchMismatchConfirmed:(id)confirmed;
 - (void)_showIncompatibleWatchLanguageAlert;
+- (void)_showWillDisableAlertWillDisableHeySiri:(BOOL)siri disableMultiUser:(BOOL)user disableSpokenFeedbackOnWatch:(BOOL)watch disableRaiseToSpeak:(BOOL)speak;
 - (void)_updateSiriFooterGroup:(id)group withStatus:(id)status;
 - (void)_updateSpecifiersForLanguage:(id)language;
 - (void)_updateSpecifiersForSettingsTip;
@@ -112,8 +116,10 @@
 - (void)resetZKWHiddenSuggestions:(id)suggestions;
 - (void)saveSpotlightSettings;
 - (void)setAccessibleFromLockScreen:(id)screen forSpecifier:(id)specifier;
+- (void)setAssistantEnabled:(BOOL)enabled;
 - (void)setAssistantLanguage:(id)language;
 - (void)setAssistantLanguage:(id)language forSpecifier:(id)specifier;
+- (void)setDisabledFromLockScreen:(BOOL)screen;
 - (void)setHardwareButtonTrigger:(id)trigger forSpecifier:(id)specifier;
 - (void)setShowInAppLibraryEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)setShowInSpotlightEnabled:(id)enabled;
@@ -137,7 +143,10 @@
 - (void)skipSetup;
 - (void)startEnrollment:(id)enrollment;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)voiceSelectionController:(id)controller didSelectVoice:(id)voice;
 - (void)willMoveToParentViewController:(id)controller;
 @end
@@ -197,10 +206,9 @@
 
 uint64_t __67__AssistantController_handlePendingURLResourcesChangedNotification__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v1 = objc_opt_class();
 
-  return [v2 setPendingURLResources:0];
+  return [v1 setPendingURLResources:0];
 }
 
 - (void)lowPowerModeChangedNotification:(id)notification
@@ -211,6 +219,26 @@ uint64_t __67__AssistantController_handlePendingURLResourcesChangedNotification_
   block[3] = &unk_278CD1548;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = AssistantController;
+  [(AssistantController *)&v7 viewWillAppear:appear];
+  +[AssistantMetrics didVisit];
+  v4 = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC50]) objectForKey:@"VOICE_FEEDBACK_ID"];
+  [(AssistantController *)self reloadSpecifier:v4];
+
+  if (self->_needsReloadSpecifiersOnViewWillAppear)
+  {
+    v5 = *MEMORY[0x277D3FC48];
+    v6 = *(&self->super.super.super.super.super.isa + v5);
+    *(&self->super.super.super.super.super.isa + v5) = 0;
+
+    [(AssistantController *)self reloadSpecifiers];
+    self->_needsReloadSpecifiersOnViewWillAppear = 0;
+  }
 }
 
 - (void)viewDidLoad
@@ -224,6 +252,63 @@ uint64_t __67__AssistantController_handlePendingURLResourcesChangedNotification_
   [(UAFAssetUtilities *)self->_assetUtils setAutoRetryEnabled:1];
   v3 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
   [v3 fetchStatusAndForceDownloadIfNeededWithPresenter:self];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = AssistantController;
+  [(AssistantController *)&v16 viewDidAppear:appear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter addObserver:self selector:sel_lowPowerModeChangedNotification_ name:*MEMORY[0x277CCA5E8] object:0];
+
+  defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter2 addObserver:self selector:sel_appMovedToBackground_ name:*MEMORY[0x277D76768] object:0];
+
+  [(AssistantController *)self handlePendingURLResourcesChangedNotification];
+  v6 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Siri"];
+  v7 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  deviceSupported = [v7 deviceSupported];
+
+  if (deviceSupported)
+  {
+    v9 = @"Apple Intelligence & Siri";
+  }
+
+  else
+  {
+    v9 = @"Siri";
+  }
+
+  v10 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v12 bundleURL];
+  v14 = [v10 initWithKey:v9 table:0 locale:currentLocale bundleURL:bundleURL];
+
+  [(AssistantController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.siri" title:v14 localizedNavigationComponents:MEMORY[0x277CBEBF8] deepLink:v6];
+  v15 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  LODWORD(currentLocale) = [v15 deviceSupported];
+
+  if (currentLocale)
+  {
+    [(GMAnalyticsProvider *)self->_gmAnalyticsProvider sendAction:1];
+    [(AssistantController *)self _fetchGMWaitListStatus];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = AssistantController;
+  [(AssistantController *)&v6 viewWillDisappear:disappear];
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277CCA5E8] object:0];
+
+  defaultCenter2 = [MEMORY[0x277CCA9A0] defaultCenter];
+  [defaultCenter2 removeObserver:self];
+
+  self->_needsReloadSpecifiersOnViewWillAppear = 1;
 }
 
 + (BOOL)_heySiriSupportedForLanguage:(id)language
@@ -514,7 +599,7 @@ void __64__AssistantController_showUseCellularConfirmationForSiriAssets___block_
 
 - (void)reloadSpecifierID:(id)d
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([dCopy isEqual:@"IMAGE_CREATION"])
   {
@@ -522,7 +607,7 @@ void __64__AssistantController_showUseCellularConfirmationForSiriAssets___block_
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v9 = "[AssistantController reloadSpecifierID:]";
+      v8 = "[AssistantController reloadSpecifierID:]";
       _os_log_impl(&dword_2413B9000, v5, OS_LOG_TYPE_INFO, "%s Entered reload specifier for image creation", buf, 0xCu);
     }
 
@@ -531,12 +616,10 @@ void __64__AssistantController_showUseCellularConfirmationForSiriAssets___block_
 
   else
   {
-    v7.receiver = self;
-    v7.super_class = AssistantController;
-    [(AssistantController *)&v7 reloadSpecifierID:dCopy];
+    v6.receiver = self;
+    v6.super_class = AssistantController;
+    [(AssistantController *)&v6 reloadSpecifierID:dCopy];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)specifiers
@@ -688,7 +771,7 @@ void __45__AssistantController__fetchGMWaitListStatus__block_invoke(uint64_t a1,
 
 void __45__AssistantController__fetchGMWaitListStatus__block_invoke_260(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -698,11 +781,11 @@ void __45__AssistantController__fetchGMWaitListStatus__block_invoke_260(uint64_t
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       v5 = *(a1 + 40);
-      v7 = 136315394;
-      v8 = "[AssistantController _fetchGMWaitListStatus]_block_invoke";
-      v9 = 2048;
-      v10 = v5;
-      _os_log_impl(&dword_2413B9000, v4, OS_LOG_TYPE_INFO, "%s Current ADM Waitlist Status is: %ld", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[AssistantController _fetchGMWaitListStatus]_block_invoke";
+      v8 = 2048;
+      v9 = v5;
+      _os_log_impl(&dword_2413B9000, v4, OS_LOG_TYPE_INFO, "%s Current ADM Waitlist Status is: %ld", &v6, 0x16u);
     }
 
     [v3 reloadSpecifiers];
@@ -712,8 +795,6 @@ void __45__AssistantController__fetchGMWaitListStatus__block_invoke_260(uint64_t
   {
     __45__AssistantController__fetchGMWaitListStatus__block_invoke_260_cold_1();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureSettingsForImageCreation:(id)creation
@@ -1073,7 +1154,7 @@ uint64_t __58__AssistantController_configureSiriRequestsSpecifiersFor___block_in
 
 - (id)_specifiersToRemove:(id)remove
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   v4 = [MEMORY[0x277CBEB18] arrayWithArray:&unk_285320118];
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
@@ -1085,30 +1166,30 @@ uint64_t __58__AssistantController_configureSiriRequestsSpecifiersFor___block_in
   }
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [removeCopy specifierForID:{*(*(&v19 + 1) + 8 * i), v19}];
+        v13 = [removeCopy specifierForID:{*(*(&v18 + 1) + 8 * i), v18}];
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -1122,8 +1203,6 @@ uint64_t __58__AssistantController_configureSiriRequestsSpecifiersFor___block_in
     v16 = [removeCopy specifierForID:@"LANGUAGE_ID"];
     [v7 addObject:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1211,7 +1290,7 @@ LABEL_17:
 
 - (void)_askSiriUseRestrictedFooterWithGroupSpecifier:(id)specifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   v5 = +[AssistantController bundle];
   v6 = [v5 localizedStringForKey:@"SIRI_REQUESTS_ABOUT_LINK_TEXT" value:&stru_285317CF0 table:@"AssistantSettings"];
@@ -1238,15 +1317,13 @@ LABEL_17:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v16 = "[AssistantController _askSiriUseRestrictedFooterWithGroupSpecifier:]";
-    v17 = 2112;
-    v18 = v12;
+    v15 = "[AssistantController _askSiriUseRestrictedFooterWithGroupSpecifier:]";
+    v16 = 2112;
+    v17 = v12;
     _os_log_impl(&dword_2413B9000, v13, OS_LOG_TYPE_INFO, "%s #settings Changing Siri text to %@", buf, 0x16u);
   }
 
   [(AssistantController *)self _addHyperlinkStyleToText:v6 inString:v12 action:sel_showAboutAssistantSheet_ forGroup:specifierCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_askSiriUseDefaultFooterTextWithGroupSpecifier:(id)specifier
@@ -1505,38 +1582,36 @@ LABEL_12:
 
 - (void)confirmResetHiddenSuggestions:(id)suggestions
 {
-  v16[4] = *MEMORY[0x277D85DE8];
+  v15[4] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
-  v15[0] = *MEMORY[0x277D3FE98];
+  v14[0] = *MEMORY[0x277D3FE98];
   v4 = +[AssistantController bundle];
   v5 = [v4 localizedStringForKey:@"SUGGESTIONS_RESET_HIDDEN_TITLE" value:&stru_285317CF0 table:@"AssistantSettings"];
-  v16[0] = v5;
-  v15[1] = *MEMORY[0x277D3FE90];
+  v15[0] = v5;
+  v14[1] = *MEMORY[0x277D3FE90];
   v6 = +[AssistantController bundle];
   v7 = [v6 localizedStringForKey:@"SUGGESTIONS_RESET_HIDDEN_PROMPT" value:&stru_285317CF0 table:@"AssistantSettings"];
-  v16[1] = v7;
-  v15[2] = *MEMORY[0x277D3FE88];
+  v15[1] = v7;
+  v14[2] = *MEMORY[0x277D3FE88];
   v8 = +[AssistantController bundle];
   v9 = [v8 localizedStringForKey:@"SUGGESTIONS_RESET_HIDDEN_TITLE" value:&stru_285317CF0 table:@"AssistantSettings"];
-  v16[2] = v9;
-  v15[3] = *MEMORY[0x277D3FE78];
+  v15[2] = v9;
+  v14[3] = *MEMORY[0x277D3FE78];
   v10 = +[AssistantController bundle];
   v11 = [v10 localizedStringForKey:@"SUGGESTIONS_RESET_HIDDEN_CANCEL" value:&stru_285317CF0 table:@"AssistantSettings"];
-  v16[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v15[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
   [v3 setupWithDictionary:v12];
 
   [v3 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D3FE80]];
   [v3 setTarget:self];
   [v3 setConfirmationAction:sel_resetZKWHiddenSuggestions_];
   [(AssistantController *)self showConfirmationViewForSpecifier:v3];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureExternalAIModelSettingsSpecifiersFor:(id)for
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   forCopy = for;
   v5 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
   optedIn = [v5 optedIn];
@@ -1557,17 +1632,15 @@ LABEL_12:
       v11 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
       eligibility = [v11 eligibility];
       v13 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
-      v15 = 136315650;
-      v16 = "[AssistantController configureExternalAIModelSettingsSpecifiersFor:]";
-      v17 = 2048;
-      v18 = eligibility;
-      v19 = 2048;
+      v14 = 136315650;
+      v15 = "[AssistantController configureExternalAIModelSettingsSpecifiersFor:]";
+      v16 = 2048;
+      v17 = eligibility;
+      v18 = 2048;
       requestState = [v13 requestState];
-      _os_log_impl(&dword_2413B9000, v10, OS_LOG_TYPE_DEFAULT, "%s User is either not opted in or still on waitlist. Will not configure ExternalAIModelSettingsSpecifiers. eligibility: %ld, status: %ld", &v15, 0x20u);
+      _os_log_impl(&dword_2413B9000, v10, OS_LOG_TYPE_DEFAULT, "%s User is either not opted in or still on waitlist. Will not configure ExternalAIModelSettingsSpecifiers. eligibility: %ld, status: %ld", &v14, 0x20u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureSuggestionsSpecifiersFor:(id)for
@@ -1888,7 +1961,7 @@ LABEL_16:
 
 - (id)_localizeTriggerString:(id)string
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CEF368];
   stringCopy = string;
   sharedPreferences = [v3 sharedPreferences];
@@ -1901,11 +1974,11 @@ LABEL_16:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v18 = "[AssistantController _localizeTriggerString:]";
-    v19 = 2112;
-    v20 = languageCode;
-    v21 = 2112;
-    v22 = v8;
+    v17 = "[AssistantController _localizeTriggerString:]";
+    v18 = 2112;
+    v19 = languageCode;
+    v20 = 2112;
+    v21 = v8;
     _os_log_impl(&dword_2413B9000, v9, OS_LOG_TYPE_DEFAULT, "%s languageCode: %@, triggerPhrase: %@", buf, 0x20u);
   }
 
@@ -1915,8 +1988,6 @@ LABEL_16:
   v13 = [v12 localizedStringForKey:stringCopy value:&stru_285317CF0 table:@"AssistantSettings"];
 
   v14 = [v11 stringWithFormat:v13, v10];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1952,6 +2023,141 @@ LABEL_16:
 
   LOBYTE(v9) = [MEMORY[0x277CEF218] siriIsSupportedForLanguageCode:codeCopy productName:v8 productVersion:v10 error:0];
   return v9;
+}
+
+- (void)setAssistantEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v43 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
+  assistantIsEnabled = [mEMORY[0x277CEF368] assistantIsEnabled];
+
+  if (assistantIsEnabled != enabledCopy)
+  {
+    mEMORY[0x277CEF368]2 = [MEMORY[0x277CEF368] sharedPreferences];
+    [mEMORY[0x277CEF368]2 setAssistantIsEnabled:enabledCopy];
+
+    mEMORY[0x277CEF368]3 = [MEMORY[0x277CEF368] sharedPreferences];
+    [mEMORY[0x277CEF368]3 synchronize];
+  }
+
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2050000000;
+  v9 = getBYFlowSkipControllerClass_softClass;
+  v41 = getBYFlowSkipControllerClass_softClass;
+  if (!getBYFlowSkipControllerClass_softClass)
+  {
+    v33 = MEMORY[0x277D85DD0];
+    v34 = 3221225472;
+    v35 = __getBYFlowSkipControllerClass_block_invoke;
+    v36 = &unk_278CD1658;
+    v37 = &v38;
+    __getBYFlowSkipControllerClass_block_invoke(&v33);
+    v9 = v39[3];
+  }
+
+  v10 = v9;
+  _Block_object_dispose(&v38, 8);
+  sharedInstance = [v9 sharedInstance];
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v12 = getBYFlowSkipIdentifierSiriSymbolLoc_ptr;
+  v41 = getBYFlowSkipIdentifierSiriSymbolLoc_ptr;
+  if (!getBYFlowSkipIdentifierSiriSymbolLoc_ptr)
+  {
+    v33 = MEMORY[0x277D85DD0];
+    v34 = 3221225472;
+    v35 = __getBYFlowSkipIdentifierSiriSymbolLoc_block_invoke;
+    v36 = &unk_278CD1658;
+    v37 = &v38;
+    v13 = SetupAssistantLibrary();
+    v14 = dlsym(v13, "BYFlowSkipIdentifierSiri");
+    *(v37[1] + 24) = v14;
+    getBYFlowSkipIdentifierSiriSymbolLoc_ptr = *(v37[1] + 24);
+    v12 = v39[3];
+  }
+
+  _Block_object_dispose(&v38, 8);
+  if (!v12)
+  {
+    [AssistantController setAssistantEnabled:];
+  }
+
+  [sharedInstance didCompleteFlow:*v12];
+
+  if (!enabledCopy)
+  {
+    array = [MEMORY[0x277CBEB18] array];
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v23 = self->_assistantSettings;
+    v24 = [(NSArray *)v23 countByEnumeratingWithState:&v29 objects:v42 count:16];
+    if (v24)
+    {
+      v25 = *v30;
+      do
+      {
+        for (i = 0; i != v24; ++i)
+        {
+          if (*v30 != v25)
+          {
+            objc_enumerationMutation(v23);
+          }
+
+          v27 = *(*(&v29 + 1) + 8 * i);
+          if ([(AssistantController *)self containsSpecifier:v27, v29])
+          {
+            [array addObject:v27];
+          }
+        }
+
+        v24 = [(NSArray *)v23 countByEnumeratingWithState:&v29 objects:v42 count:16];
+      }
+
+      while (v24);
+    }
+
+    [(AssistantController *)self removeContiguousSpecifiers:array animated:1];
+    [(AssistantController *)self removeSpecifier:self->_languageSpecifier];
+    goto LABEL_21;
+  }
+
+  v15 = [(AssistantController *)self specifierForID:@"LANGUAGE_ID"];
+  v16 = v15 == 0;
+
+  if (v16)
+  {
+    assistantSettings = self->_assistantSettings;
+    specifiers = [(AssistantController *)self specifiers];
+    v19 = [specifiers specifierForID:@"ACTIVATION"];
+    [(AssistantController *)self insertContiguousSpecifiers:assistantSettings afterSpecifier:v19 animated:1];
+
+    languageSpecifier = self->_languageSpecifier;
+    array = [(AssistantController *)self specifiers];
+    v22 = [array specifierForID:@"SIRI_REQUESTS_GROUP"];
+    [(AssistantController *)self insertSpecifier:languageSpecifier afterSpecifier:v22];
+
+LABEL_21:
+  }
+
+  v28 = [(AssistantController *)self assistantVoiceLanguage:0, v29];
+  [(AssistantController *)self _updateSpecifiersForLanguage:v28];
+}
+
++ (void)presentAssistantEnableAlertForState:(BOOL)state presentingViewController:(id)controller actionHandler:(id)handler
+{
+  stateCopy = state;
+  handlerCopy = handler;
+  controllerCopy = controller;
+  v11 = objc_alloc_init(AssistantController);
+  objc_setAssociatedObject(controllerCopy, &AssistantControllerIdentifier, v11, 0x301);
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:stateCopy];
+  v10 = [(AssistantController *)v11 specifierForID:@"ACTIVATION_LONG_PRESS_ID"];
+  [(AssistantController *)v11 _setAssistantEnabled:v9 forSpecifier:v10 presentingViewController:controllerCopy actionHandler:handlerCopy];
 }
 
 - (void)_setAssistantEnabled:(id)enabled forSpecifier:(id)specifier presentingViewController:(id)controller actionHandler:(id)handler
@@ -2507,7 +2713,7 @@ BOOL __104__AssistantController_showAssistantConfirmationViewForSpecifier_presen
 
 - (void)_handleThemisEnablementConfirmationForSpecifier:(id)specifier presentingViewController:(id)controller actionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   controllerCopy = controller;
   handlerCopy = handler;
@@ -2525,29 +2731,27 @@ BOOL __104__AssistantController_showAssistantConfirmationViewForSpecifier_presen
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v30 = "[AssistantController _handleThemisEnablementConfirmationForSpecifier:presentingViewController:actionHandler:]";
+    v29 = "[AssistantController _handleThemisEnablementConfirmationForSpecifier:presentingViewController:actionHandler:]";
     _os_log_impl(&dword_2413B9000, v15, OS_LOG_TYPE_DEFAULT, "%s Fetching Enablement Configuration", buf, 0xCu);
   }
 
   v16 = self->_enablementConfigurationProvider;
-  v28 = v14;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __110__AssistantController__handleThemisEnablementConfirmationForSpecifier_presentingViewController_actionHandler___block_invoke;
-  v23[3] = &unk_278CD1CA8;
-  v23[4] = self;
-  v24 = v14;
-  v26 = controllerCopy;
-  v27 = handlerCopy;
-  v25 = specifierCopy;
+  v27 = v14;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __110__AssistantController__handleThemisEnablementConfirmationForSpecifier_presentingViewController_actionHandler___block_invoke;
+  v22[3] = &unk_278CD1CA8;
+  v22[4] = self;
+  v23 = v14;
+  v25 = controllerCopy;
+  v26 = handlerCopy;
+  v24 = specifierCopy;
   v18 = controllerCopy;
   v19 = handlerCopy;
   v20 = specifierCopy;
   v21 = v14;
-  [(AFEnablementFlowConfigurationProvider *)v16 configurationForEnablementFlow:6 recognitionLanguageCodes:v17 completion:v23];
-
-  v22 = *MEMORY[0x277D85DE8];
+  [(AFEnablementFlowConfigurationProvider *)v16 configurationForEnablementFlow:6 recognitionLanguageCodes:v17 completion:v22];
 }
 
 void __110__AssistantController__handleThemisEnablementConfirmationForSpecifier_presentingViewController_actionHandler___block_invoke(uint64_t a1, void *a2)
@@ -2573,17 +2777,17 @@ void __110__AssistantController__handleThemisEnablementConfirmationForSpecifier_
 
 uint64_t __110__AssistantController__handleThemisEnablementConfirmationForSpecifier_presentingViewController_actionHandler___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CEF098];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v22 = 136315394;
-    v23 = "[AssistantController _handleThemisEnablementConfirmationForSpecifier:presentingViewController:actionHandler:]_block_invoke_2";
-    v24 = 2112;
-    v25 = v4;
-    _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_DEFAULT, "%s Enablement Configuration %@", &v22, 0x16u);
+    v21 = 136315394;
+    v22 = "[AssistantController _handleThemisEnablementConfirmationForSpecifier:presentingViewController:actionHandler:]_block_invoke_2";
+    v23 = 2112;
+    v24 = v4;
+    _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_DEFAULT, "%s Enablement Configuration %@", &v21, 0x16u);
   }
 
   objc_storeStrong((*(a1 + 40) + 1688), *(a1 + 32));
@@ -2591,44 +2795,38 @@ uint64_t __110__AssistantController__handleThemisEnablementConfirmationForSpecif
   v6 = *(a1 + 40);
   v7 = *(a1 + 56);
   v8 = *(a1 + 72);
-  if (v5)
+  if (!v5)
   {
-    v9 = [v6 _createVoiceSelectionDismissalHandlerWithSpecifier:v7 actionHandler:v8];
-    v10 = *(a1 + 40);
-    v11 = *(v10 + 1712);
-    *(v10 + 1712) = v9;
-
-    v12 = [*(a1 + 40) _createVoiceSelectionCompletionForSpecifier:*(a1 + 56) recognitionLanguageCode:*(a1 + 48)];
-    v13 = *(a1 + 40);
-    v14 = *(v13 + 1704);
-    *(v13 + 1704) = v12;
-
-    v15 = [*(a1 + 40) _createEnablementFlowControllerForConfiguration:*(a1 + 32) recognitionLanguageCode:*(a1 + 48)];
-    v16 = *(a1 + 40);
-    v17 = *(v16 + 1696);
-    *(v16 + 1696) = v15;
-
-    v18 = *v2;
-    if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v19 = *(a1 + 48);
-      v22 = 136315394;
-      v23 = "[AssistantController _handleThemisEnablementConfirmationForSpecifier:presentingViewController:actionHandler:]_block_invoke";
-      v24 = 2112;
-      v25 = v19;
-      _os_log_impl(&dword_2413B9000, v18, OS_LOG_TYPE_DEFAULT, "%s Presenting Voice selection for %@", &v22, 0x16u);
-    }
-
-    result = [*(a1 + 64) presentViewController:*(*(a1 + 40) + 1696) animated:1 completion:0];
+    return [v6 _handleEnablementConfirmationForSpecifier:v7 actionHandler:v8];
   }
 
-  else
+  v9 = [v6 _createVoiceSelectionDismissalHandlerWithSpecifier:v7 actionHandler:v8];
+  v10 = *(a1 + 40);
+  v11 = *(v10 + 1712);
+  *(v10 + 1712) = v9;
+
+  v12 = [*(a1 + 40) _createVoiceSelectionCompletionForSpecifier:*(a1 + 56) recognitionLanguageCode:*(a1 + 48)];
+  v13 = *(a1 + 40);
+  v14 = *(v13 + 1704);
+  *(v13 + 1704) = v12;
+
+  v15 = [*(a1 + 40) _createEnablementFlowControllerForConfiguration:*(a1 + 32) recognitionLanguageCode:*(a1 + 48)];
+  v16 = *(a1 + 40);
+  v17 = *(v16 + 1696);
+  *(v16 + 1696) = v15;
+
+  v18 = *v2;
+  if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
   {
-    result = [v6 _handleEnablementConfirmationForSpecifier:v7 actionHandler:v8];
+    v19 = *(a1 + 48);
+    v21 = 136315394;
+    v22 = "[AssistantController _handleThemisEnablementConfirmationForSpecifier:presentingViewController:actionHandler:]_block_invoke";
+    v23 = 2112;
+    v24 = v19;
+    _os_log_impl(&dword_2413B9000, v18, OS_LOG_TYPE_DEFAULT, "%s Presenting Voice selection for %@", &v21, 0x16u);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 64) presentViewController:*(*(a1 + 40) + 1696) animated:1 completion:0];
 }
 
 - (id)_createEnablementFlowControllerForConfiguration:(id)configuration recognitionLanguageCode:(id)code
@@ -2742,7 +2940,7 @@ uint64_t __110__AssistantController__handleThemisEnablementConfirmationForSpecif
 
 void __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recognitionLanguageCode___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -2753,11 +2951,11 @@ void __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recog
     {
       v7 = *(a1 + 32);
       *buf = 136315650;
-      v26 = "[AssistantController _createVoiceSelectionCompletionForSpecifier:recognitionLanguageCode:]_block_invoke";
-      v27 = 2112;
-      v28 = v7;
-      v29 = 2112;
-      v30 = v3;
+      v25 = "[AssistantController _createVoiceSelectionCompletionForSpecifier:recognitionLanguageCode:]_block_invoke";
+      v26 = 2112;
+      v27 = v7;
+      v28 = 2112;
+      v29 = v3;
       _os_log_impl(&dword_2413B9000, v6, OS_LOG_TYPE_DEFAULT, "%s Setting Language code %@, output voice: %@", buf, 0x20u);
     }
 
@@ -2789,13 +2987,13 @@ void __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recog
       if (*(a1 + 57) != 1)
       {
         v18 = WeakRetained[212];
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recognitionLanguageCode___block_invoke_629;
-        v23[3] = &unk_278CD1520;
-        objc_copyWeak(&v24, (a1 + 48));
-        [v18 dismissViewControllerAnimated:1 completion:v23];
-        objc_destroyWeak(&v24);
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recognitionLanguageCode___block_invoke_629;
+        v22[3] = &unk_278CD1520;
+        objc_copyWeak(&v23, (a1 + 48));
+        [v18 dismissViewControllerAnimated:1 completion:v22];
+        objc_destroyWeak(&v23);
         goto LABEL_21;
       }
 
@@ -2844,19 +3042,17 @@ void __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recog
     else
     {
       v19 = WeakRetained[212];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recognitionLanguageCode___block_invoke_631;
-      v21[3] = &unk_278CD1520;
-      objc_copyWeak(&v22, (a1 + 48));
-      [v19 dismissViewControllerAnimated:1 completion:v21];
-      objc_destroyWeak(&v22);
+      v20[0] = MEMORY[0x277D85DD0];
+      v20[1] = 3221225472;
+      v20[2] = __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recognitionLanguageCode___block_invoke_631;
+      v20[3] = &unk_278CD1520;
+      objc_copyWeak(&v21, (a1 + 48));
+      [v19 dismissViewControllerAnimated:1 completion:v20];
+      objc_destroyWeak(&v21);
     }
   }
 
 LABEL_21:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recognitionLanguageCode___block_invoke_629(uint64_t a1)
@@ -3386,31 +3582,90 @@ uint64_t __57__AssistantController_setAssistantLanguage_forSpecifier___block_inv
   __break(1u);
 }
 
+- (void)_showWillDisableAlertWillDisableHeySiri:(BOOL)siri disableMultiUser:(BOOL)user disableSpokenFeedbackOnWatch:(BOOL)watch disableRaiseToSpeak:(BOOL)speak
+{
+  v8 = [(AssistantController *)self confirmationSpecifierWillDisableHeySiri:siri disableMultiUser:user disableSpokenFeedbackOnWatch:watch disableRaiseToSpeak:speak];
+  currentDevice = [MEMORY[0x277D75418] currentDevice];
+  -[AssistantController showConfirmationViewForSpecifier:useAlert:swapAlertButtons:](self, "showConfirmationViewForSpecifier:useAlert:swapAlertButtons:", v8, [currentDevice sf_isiPad], 0);
+}
+
+- (id)confirmationSpecifierWillDisableHeySiri:(BOOL)siri disableMultiUser:(BOOL)user disableSpokenFeedbackOnWatch:(BOOL)watch disableRaiseToSpeak:(BOOL)speak
+{
+  speakCopy = speak;
+  watchCopy = watch;
+  userCopy = user;
+  siriCopy = siri;
+  v28[4] = *MEMORY[0x277D85DE8];
+  v11 = [MEMORY[0x277D3F9C8] preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:-1 edit:0];
+  [v11 setConfirmationAction:sel__setAssistantLanguageHeySiriDisableConfirmed_];
+  [v11 setConfirmationCancelAction:sel__setAssistantLanguageCancelled_];
+  v12 = [(AssistantController *)self specifierForID:@"LANGUAGE_ID"];
+  titleDictionary = [v12 titleDictionary];
+  v14 = [titleDictionary valueForKey:self->_pendingLanguage];
+
+  if (!v14)
+  {
+    if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
+    {
+      [AssistantController confirmationSpecifierWillDisableHeySiri:disableMultiUser:disableSpokenFeedbackOnWatch:disableRaiseToSpeak:];
+    }
+
+    v14 = &stru_285317CF0;
+  }
+
+  v15 = [(AssistantController *)self _confirmationPromptDisableHeySiri:siriCopy disableMultiUser:userCopy disableSpokenFeedback:watchCopy disableRaiseToSpeak:speakCopy];
+  v16 = [v15 stringByReplacingOccurrencesOfString:@"%@" withString:v14];
+
+  v17 = +[AssistantController bundle];
+  v18 = [v17 localizedStringForKey:@"ASSISTANT_WATCH_LANGUAGE_CHANGE" value:&stru_285317CF0 table:@"AssistantSettings"];
+
+  v19 = +[AssistantController bundle];
+  v20 = [v19 localizedStringForKey:@"ASSISTANT_WATCH_LANGUAGE_CHANGE" value:&stru_285317CF0 table:@"AssistantSettings"];
+
+  v21 = +[AssistantController bundle];
+  v22 = [v21 localizedStringForKey:@"ASSISTANT_WATCH_LANGUAGE_CANCEL" value:&stru_285317CF0 table:@"AssistantSettings"];
+
+  v23 = *MEMORY[0x277D3FE90];
+  v27[0] = *MEMORY[0x277D3FE98];
+  v27[1] = v23;
+  v28[0] = v18;
+  v28[1] = v16;
+  v24 = *MEMORY[0x277D3FE78];
+  v27[2] = *MEMORY[0x277D3FE88];
+  v27[3] = v24;
+  v28[2] = v20;
+  v28[3] = v22;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
+  [v11 setupWithDictionary:v25];
+
+  return v11;
+}
+
 - (BOOL)_pairedWithSiriSpeaksEnabledNanoHardware
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   sharedInstance = [getNRPairedDeviceRegistryClass() sharedInstance];
   getAllDevices = [sharedInstance getAllDevices];
 
-  v4 = [getAllDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [getAllDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(getAllDevices);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"BFF435BD-ACFF-4AD8-9CC4-4DEA6D51BB3A"];
         LOBYTE(v8) = [v8 supportsCapability:v9];
 
@@ -3421,7 +3676,7 @@ uint64_t __57__AssistantController_setAssistantLanguage_forSpecifier___block_inv
         }
       }
 
-      v5 = [getAllDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [getAllDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -3434,35 +3689,34 @@ uint64_t __57__AssistantController_setAssistantLanguage_forSpecifier___block_inv
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)_pairedWithRaiseToSpeakEnabledNanoHardware
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   sharedInstance = [getNRPairedDeviceRegistryClass() sharedInstance];
   getAllDevices = [sharedInstance getAllDevices];
 
-  v4 = [getAllDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [getAllDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(getAllDevices);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"68E9D2AF-A820-45FC-8FB3-92A04428CBF8"];
         LOBYTE(v8) = [v8 supportsCapability:v9];
 
@@ -3473,7 +3727,7 @@ LABEL_11:
         }
       }
 
-      v5 = [getAllDevices countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [getAllDevices countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -3486,7 +3740,6 @@ LABEL_11:
   v10 = 0;
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -3540,115 +3793,242 @@ void __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___blo
 
 void __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 32);
-  v3 = MEMORY[0x277CEF098];
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CEF098];
   if (*(a1 + 32) && os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___block_invoke_2_cold_1(v2);
+    __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___block_invoke_2_cold_1();
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v5 = WeakRetained;
+  v4 = WeakRetained;
   if (WeakRetained)
   {
     if (WeakRetained[184])
     {
-      if ([WeakRetained[217] count] && (objc_msgSend(v5[217], "containsObject:", v5[184]) & 1) == 0)
+      if ([WeakRetained[217] count] && (objc_msgSend(v4[217], "containsObject:", v4[184]) & 1) == 0)
       {
-        v6 = *(v5 + 1744);
+        v5 = *(v4 + 1744);
       }
 
       else
       {
-        v6 = 0;
+        v5 = 0;
       }
 
-      v7 = [*(a1 + 40) containsObject:v5[184]] ^ 1 | v6;
-      v8 = *v3;
-      if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+      v6 = [*(a1 + 40) containsObject:v4[184]] ^ 1 | v5;
+      v7 = *v2;
+      if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = MEMORY[0x277CCABB0];
-        v10 = v8;
-        v11 = [v9 numberWithBool:v7 & 1];
-        v12 = [MEMORY[0x277CCABB0] numberWithBool:v6 & 1];
-        v19 = 136315650;
-        v20 = "[AssistantController _setAssistantLanguageWatchMismatchConfirmed:]_block_invoke";
-        v21 = 2112;
-        v22 = v11;
-        v23 = 2112;
-        v24 = v12;
-        _os_log_impl(&dword_2413B9000, v10, OS_LOG_TYPE_DEFAULT, "%s #settings Multi user enabled fetch complete. State for current language: %@ (home:%@)", &v19, 0x20u);
+        v8 = MEMORY[0x277CCABB0];
+        v9 = v7;
+        v10 = [v8 numberWithBool:v6 & 1];
+        v11 = [MEMORY[0x277CCABB0] numberWithBool:v5 & 1];
+        v15 = 136315650;
+        v16 = "[AssistantController _setAssistantLanguageWatchMismatchConfirmed:]_block_invoke";
+        v17 = 2112;
+        v18 = v10;
+        v19 = 2112;
+        v20 = v11;
+        _os_log_impl(&dword_2413B9000, v9, OS_LOG_TYPE_DEFAULT, "%s #settings Multi user enabled fetch complete. State for current language: %@ (home:%@)", &v15, 0x20u);
       }
 
-      v13 = [v5 _languageWillDisableHeySiri:v5[184]];
-      v14 = v5[184];
+      v12 = [v4 _languageWillDisableHeySiri:v4[184]];
       if (AFGryphonAssetsExistForLanguage())
       {
-        v15 = 0;
+        v13 = 0;
       }
 
       else
       {
-        v15 = [v5 _pairedWithSiriSpeaksEnabledNanoHardware];
+        v13 = [v4 _pairedWithSiriSpeaksEnabledNanoHardware];
       }
 
-      v16 = v5[184];
       if (AFRaiseToSpeakSupportedForLanguage())
       {
-        v17 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v17 = [v5 _pairedWithRaiseToSpeakEnabledNanoHardware];
+        v14 = [v4 _pairedWithRaiseToSpeakEnabledNanoHardware];
       }
 
-      if (+[AssistantUtilities deviceIsVision]|| ((v13 | v7 | v15 | v17) & 1) == 0)
+      if (+[AssistantUtilities deviceIsVision]|| ((v12 | v6 | v13 | v14) & 1) == 0)
       {
-        [v5 _setAssistantLanguageConfirmed:*(a1 + 48)];
+        [v4 _setAssistantLanguageConfirmed:*(a1 + 48)];
       }
 
       else
       {
-        [v5 _showWillDisableAlertWillDisableHeySiri:v13 disableMultiUser:v7 & 1 disableSpokenFeedbackOnWatch:v15 disableRaiseToSpeak:v17];
+        [v4 _showWillDisableAlertWillDisableHeySiri:v12 disableMultiUser:v6 & 1 disableSpokenFeedbackOnWatch:v13 disableRaiseToSpeak:v14];
       }
     }
 
-    else if (os_log_type_enabled(*v3, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(*v2, OS_LOG_TYPE_ERROR))
     {
       __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___block_invoke_2_cold_2();
     }
   }
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (id)_confirmationPromptDisableHeySiri:(BOOL)siri disableMultiUser:(BOOL)user disableSpokenFeedback:(BOOL)feedback disableRaiseToSpeak:(BOOL)speak
+{
+  speakCopy = speak;
+  feedbackCopy = feedback;
+  userCopy = user;
+  siriCopy = siri;
+  v56 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277CEF098];
+  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = MEMORY[0x277CCABB0];
+    v13 = v11;
+    v14 = [v12 numberWithBool:siriCopy];
+    v15 = [MEMORY[0x277CCABB0] numberWithBool:userCopy];
+    v16 = [MEMORY[0x277CCABB0] numberWithBool:feedbackCopy];
+    *buf = 136315906;
+    v49 = "[AssistantController _confirmationPromptDisableHeySiri:disableMultiUser:disableSpokenFeedback:disableRaiseToSpeak:]";
+    v50 = 2112;
+    v51 = v14;
+    v52 = 2112;
+    v53 = v15;
+    v54 = 2112;
+    v55 = v16;
+    _os_log_impl(&dword_2413B9000, v13, OS_LOG_TYPE_DEFAULT, "%s disableHeySiri:%@ disableMultiUser:%@, disableSpokenFeedback:%@", buf, 0x2Au);
+  }
+
+  if (userCopy)
+  {
+    v17 = +[AssistantController bundle];
+    v18 = [v17 localizedStringForKey:@"ASSISTANT_LANGUAGE_MULTIUSER_DISABLE_WARNING" value:&stru_285317CF0 table:@"AssistantSettings"];
+  }
+
+  else
+  {
+    v18 = &stru_285317CF0;
+  }
+
+  array = [MEMORY[0x277CBEB18] array];
+  if (feedbackCopy)
+  {
+    v20 = +[AssistantController bundle];
+    v21 = [v20 localizedStringForKey:@"SIRI_LANGUAGE_WARNING_UNSUPPORTED_COMPONENT_TTS" value:&stru_285317CF0 table:@"AssistantSettings"];
+    [array addObject:v21];
+  }
+
+  if (speakCopy)
+  {
+    v22 = +[AssistantController bundle];
+    v23 = [v22 localizedStringForKey:@"SIRI_LANGUAGE_WARNING_UNSUPPORTED_COMPONENT_RTS" value:&stru_285317CF0 table:@"AssistantSettings"];
+    [array addObject:v23];
+  }
+
+  if ([array count])
+  {
+    v24 = [MEMORY[0x277CCAAF0] localizedStringByJoiningStrings:array];
+    v25 = MEMORY[0x277CCACA8];
+    v26 = +[AssistantController bundle];
+    v27 = v26;
+    if (userCopy)
+    {
+      v28 = @"ASSISTANT_MULTIPLE_DISABLE_WARNING_WATCH_ADDITIVE";
+    }
+
+    else
+    {
+      v28 = @"ASSISTANT_MULTIPLE_DISABLE_WARNING_WATCH";
+    }
+
+    v29 = [v26 localizedStringForKey:v28 value:&stru_285317CF0 table:@"AssistantSettings"];
+    v30 = [v25 localizedStringWithFormat:v29, v24];
+
+    v31 = [(__CFString *)v18 stringByAppendingString:v30];
+
+    v18 = v31;
+  }
+
+  if (siriCopy)
+  {
+    v32 = +[AssistantController bundle];
+    v33 = [v32 localizedStringForKey:@"ASSISTANT_HEYSIRI_DISABLE_WARNING" value:&stru_285317CF0 table:@"AssistantSettings"];
+    v34 = [(__CFString *)v18 stringByAppendingString:v33];
+
+    v18 = v34;
+  }
+
+  fetchLanguageVariants = [(GMFooterUtility *)self->_gmFooterUtility fetchLanguageVariants];
+  if (([fetchLanguageVariants containsObject:self->_pendingLanguage] & 1) == 0)
+  {
+    v36 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+    activeEnabled = [v36 activeEnabled];
+
+    if (activeEnabled)
+    {
+      currentDevice = +[AssistantController bundle];
+      v39 = [currentDevice localizedStringForKey:@"ASSISTANT_GM_LANGUAGE_WARNING" value:&stru_285317CF0 table:@"AssistantSettings-GM"];
+    }
+
+    else
+    {
+      v40 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+      onWaitlist = [v40 onWaitlist];
+
+      if (!onWaitlist)
+      {
+        goto LABEL_26;
+      }
+
+      currentDevice = [MEMORY[0x277D75418] currentDevice];
+      sf_isiPad = [currentDevice sf_isiPad];
+      v43 = +[AssistantController bundle];
+      v44 = v43;
+      if (sf_isiPad)
+      {
+        v45 = @"ASSISTANT_GM_LANGUAGE_WARNING_WAITLIST_IPAD";
+      }
+
+      else
+      {
+        v45 = @"ASSISTANT_GM_LANGUAGE_WARNING_WAITLIST_IPHONE";
+      }
+
+      v39 = [v43 localizedStringForKey:v45 value:&stru_285317CF0 table:@"AssistantSettings-GM"];
+    }
+
+    v46 = [v39 stringByAppendingString:v18];
+
+    v18 = v46;
+  }
+
+LABEL_26:
+
+  return v18;
 }
 
 - (void)_setAssistantLanguageHeySiriDisableConfirmed:(id)confirmed
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   confirmedCopy = confirmed;
   if ([(NSArray *)self->_languagesInHome count]&& ![(NSArray *)self->_languagesInHome containsObject:self->_pendingLanguage]&& self->_thisIsMeDevice)
   {
     v5 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "[AssistantController _setAssistantLanguageHeySiriDisableConfirmed:]";
-      _os_log_impl(&dword_2413B9000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings Turning off recognize my voice in the home due to language change", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "[AssistantController _setAssistantLanguageHeySiriDisableConfirmed:]";
+      _os_log_impl(&dword_2413B9000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings Turning off recognize my voice in the home due to language change", &v6, 0xCu);
     }
 
     [self->_AFSettingsConnection setRecognizeMyVoiceEnabled:0];
   }
 
   [(AssistantController *)self _setAssistantLanguageConfirmed:confirmedCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)firstTimeAssistantLanguage:(id)language
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   languageCopy = language;
   if ([languageCopy isEqualToString:@"vi-VN"])
   {
@@ -3656,94 +4036,90 @@ void __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___blo
     v5 = [v4 dictionaryForKey:@"subscribedPreviousAssets"];
     v6 = [v5 objectForKeyedSubscript:&stru_285317CF0];
 
-    v7 = 0x277CBE000uLL;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v8 = [v6 objectForKeyedSubscript:@"com.apple.AssistantServices"];
-      v9 = 0x277CBE000uLL;
+      v7 = [v6 objectForKeyedSubscript:@"com.apple.AssistantServices"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        v10 = v8;
-        v11 = [v10 countByEnumeratingWithState:&v42 objects:v47 count:16];
-        if (v11)
+        v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v8 = v7;
+        v9 = [v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
+        if (v9)
         {
-          v36 = *v43;
-          v37 = v11;
-          v32 = v6;
-          v33 = v4;
-          v31 = v8;
-          v35 = v10;
+          v31 = *v38;
+          v32 = v9;
+          v27 = v6;
+          v28 = v4;
+          v26 = v7;
+          v30 = v8;
           do
           {
-            v12 = 0;
-            v13 = v36;
-            v14 = v37;
+            v10 = 0;
+            v11 = v31;
+            v12 = v32;
             do
             {
-              if (*v43 != v13)
+              if (*v38 != v11)
               {
-                objc_enumerationMutation(v10);
+                objc_enumerationMutation(v8);
               }
 
-              v15 = *(*(&v42 + 1) + 8 * v12);
-              v16 = *(v7 + 2752);
+              v13 = *(*(&v37 + 1) + 8 * v10);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v17 = [v15 objectForKeyedSubscript:@"Languages"];
-                v18 = *(v9 + 2656);
+                v14 = [v13 objectForKeyedSubscript:@"Languages"];
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v40 = 0u;
-                  v41 = 0u;
-                  v38 = 0u;
-                  v39 = 0u;
-                  v34 = v17;
-                  v19 = v17;
-                  v20 = [v19 countByEnumeratingWithState:&v38 objects:v46 count:16];
-                  if (v20)
+                  v35 = 0u;
+                  v36 = 0u;
+                  v33 = 0u;
+                  v34 = 0u;
+                  v29 = v14;
+                  v15 = v14;
+                  v16 = [v15 countByEnumeratingWithState:&v33 objects:v41 count:16];
+                  if (v16)
                   {
-                    v21 = v20;
-                    v22 = *v39;
+                    v17 = v16;
+                    v18 = *v34;
                     while (2)
                     {
-                      for (i = 0; i != v21; ++i)
+                      for (i = 0; i != v17; ++i)
                       {
-                        if (*v39 != v22)
+                        if (*v34 != v18)
                         {
-                          objc_enumerationMutation(v19);
+                          objc_enumerationMutation(v15);
                         }
 
-                        v24 = *(*(&v38 + 1) + 8 * i);
+                        v20 = *(*(&v33 + 1) + 8 * i);
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
                           mEMORY[0x277CEF2D8] = [MEMORY[0x277CEF2D8] sharedInstance];
-                          v26 = [mEMORY[0x277CEF2D8] getBaseLocale:v24];
-                          v27 = [v26 isEqualToString:languageCopy];
+                          v22 = [mEMORY[0x277CEF2D8] getBaseLocale:v20];
+                          v23 = [v22 isEqualToString:languageCopy];
 
-                          if (v27)
+                          if (v23)
                           {
 
-                            v28 = 0;
-                            v6 = v32;
-                            v4 = v33;
-                            v8 = v31;
-                            v10 = v35;
+                            v24 = 0;
+                            v6 = v27;
+                            v4 = v28;
+                            v7 = v26;
+                            v8 = v30;
                             goto LABEL_30;
                           }
                         }
                       }
 
-                      v21 = [v19 countByEnumeratingWithState:&v38 objects:v46 count:16];
-                      if (v21)
+                      v17 = [v15 countByEnumeratingWithState:&v33 objects:v41 count:16];
+                      if (v17)
                       {
                         continue;
                       }
@@ -3752,32 +4128,30 @@ void __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___blo
                     }
                   }
 
-                  v7 = 0x277CBE000;
-                  v9 = 0x277CBE000;
-                  v10 = v35;
-                  v13 = v36;
-                  v14 = v37;
-                  v17 = v34;
+                  v8 = v30;
+                  v11 = v31;
+                  v12 = v32;
+                  v14 = v29;
                 }
               }
 
-              ++v12;
+              ++v10;
             }
 
-            while (v12 != v14);
-            v28 = 1;
-            v6 = v32;
-            v4 = v33;
-            v8 = v31;
-            v37 = [v10 countByEnumeratingWithState:&v42 objects:v47 count:16];
+            while (v10 != v12);
+            v24 = 1;
+            v6 = v27;
+            v4 = v28;
+            v7 = v26;
+            v32 = [v8 countByEnumeratingWithState:&v37 objects:v42 count:16];
           }
 
-          while (v37);
+          while (v32);
         }
 
         else
         {
-          v28 = 1;
+          v24 = 1;
         }
 
 LABEL_30:
@@ -3785,28 +4159,27 @@ LABEL_30:
 
       else
       {
-        v28 = 1;
+        v24 = 1;
       }
     }
 
     else
     {
-      v28 = 1;
+      v24 = 1;
     }
   }
 
   else
   {
-    v28 = 0;
+    v24 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-  return v28;
+  return v24;
 }
 
 - (void)_setAssistantLanguageConfirmed:(id)confirmed
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if ([AssistantController firstTimeAssistantLanguage:self->_pendingLanguage])
   {
     if (!self->_enablementConfigurationProvider)
@@ -3821,31 +4194,29 @@ LABEL_30:
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v26 = "[AssistantController _setAssistantLanguageConfirmed:]";
+      v24 = "[AssistantController _setAssistantLanguageConfirmed:]";
       _os_log_impl(&dword_2413B9000, v7, OS_LOG_TYPE_DEFAULT, "%s Fetching Enablement Configuration", buf, 0xCu);
     }
 
     v8 = self->_enablementConfigurationProvider;
-    v24 = v6;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __54__AssistantController__setAssistantLanguageConfirmed___block_invoke;
-    v22[3] = &unk_278CD1D70;
-    v22[4] = self;
-    v23 = v6;
+    v22 = v6;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __54__AssistantController__setAssistantLanguageConfirmed___block_invoke;
+    v20[3] = &unk_278CD1D70;
+    v20[4] = self;
+    v21 = v6;
     v10 = v6;
-    [(AFEnablementFlowConfigurationProvider *)v8 configurationForEnablementFlow:6 recognitionLanguageCodes:v9 completion:v22];
-
-    v11 = *MEMORY[0x277D85DE8];
+    [(AFEnablementFlowConfigurationProvider *)v8 configurationForEnablementFlow:6 recognitionLanguageCodes:v9 completion:v20];
   }
 
   else
   {
     multilingualResponseLanguageVariants = [(AssistantController *)self multilingualResponseLanguageVariants];
-    v13 = [multilingualResponseLanguageVariants containsObject:self->_pendingLanguage];
+    v12 = [multilingualResponseLanguageVariants containsObject:self->_pendingLanguage];
 
-    if (v13)
+    if (v12)
     {
       mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
       [mEMORY[0x277CEF368] setMultilingualResponseEnabled:-[AssistantController selectedLanguageWantsMultilingualEnabled](self forLanguage:{"selectedLanguageWantsMultilingualEnabled"), self->_pendingLanguage}];
@@ -3862,15 +4233,14 @@ LABEL_30:
       [mEMORY[0x277D7A8D0]2 setVoiceTriggerEnabled:{objc_msgSend(mEMORY[0x277D653F8], "isSATEnrolledForSiriProfileId:forLanguageCode:", 0, self->_pendingLanguage)}];
     }
 
-    v19 = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) objectAtIndex:0];
-    [(AssistantController *)self reloadSpecifier:v19];
+    v18 = [*(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]) objectAtIndex:0];
+    [(AssistantController *)self reloadSpecifier:v18];
 
     [(AssistantController *)self reloadSpecifiers];
     [(AssistantController *)self reloadSpecifierID:@"ACTIVATION"];
     [(AssistantController *)self _updateSpecifiersForLanguage:self->_pendingLanguage];
     pendingLanguage = self->_pendingLanguage;
     self->_pendingLanguage = 0;
-    v21 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -3892,17 +4262,17 @@ void __54__AssistantController__setAssistantLanguageConfirmed___block_invoke(uin
 
 uint64_t __54__AssistantController__setAssistantLanguageConfirmed___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CEF098];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v18 = 136315394;
-    v19 = "[AssistantController _setAssistantLanguageConfirmed:]_block_invoke_2";
-    v20 = 2112;
-    v21 = v4;
-    _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_DEFAULT, "%s Enablement Configuration %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[AssistantController _setAssistantLanguageConfirmed:]_block_invoke_2";
+    v19 = 2112;
+    v20 = v4;
+    _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_DEFAULT, "%s Enablement Configuration %@", &v17, 0x16u);
   }
 
   objc_storeStrong((*(a1 + 40) + 1688), *(a1 + 32));
@@ -3925,16 +4295,14 @@ uint64_t __54__AssistantController__setAssistantLanguageConfirmed___block_invoke
   if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
   {
     v15 = *(a1 + 48);
-    v18 = 136315394;
-    v19 = "[AssistantController _setAssistantLanguageConfirmed:]_block_invoke";
-    v20 = 2112;
-    v21 = v15;
-    _os_log_impl(&dword_2413B9000, v14, OS_LOG_TYPE_DEFAULT, "%s Presenting Voice selection for %@", &v18, 0x16u);
+    v17 = 136315394;
+    v18 = "[AssistantController _setAssistantLanguageConfirmed:]_block_invoke";
+    v19 = 2112;
+    v20 = v15;
+    _os_log_impl(&dword_2413B9000, v14, OS_LOG_TYPE_DEFAULT, "%s Presenting Voice selection for %@", &v17, 0x16u);
   }
 
-  result = [*(a1 + 40) presentViewController:*(*(a1 + 40) + 1696) animated:1 completion:0];
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) presentViewController:*(*(a1 + 40) + 1696) animated:1 completion:0];
 }
 
 - (void)_setAssistantLanguageCancelled:(id)cancelled
@@ -4174,6 +4542,24 @@ void __64__AssistantController_setAccessibleFromLockScreen_forSpecifier___block_
   }
 }
 
+- (void)setDisabledFromLockScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
+  disableAssistantWhilePasscodeLocked = [mEMORY[0x277CEF368] disableAssistantWhilePasscodeLocked];
+
+  if (disableAssistantWhilePasscodeLocked != screenCopy)
+  {
+    mEMORY[0x277CEF368]2 = [MEMORY[0x277CEF368] sharedPreferences];
+    [mEMORY[0x277CEF368]2 setDisableAssistantWhilePasscodeLocked:screenCopy];
+
+    mEMORY[0x277CEF368]3 = [MEMORY[0x277CEF368] sharedPreferences];
+    [mEMORY[0x277CEF368]3 synchronize];
+  }
+
+  [AssistantMetrics didToggle:@"Lockscreen" on:screenCopy ^ 1];
+}
+
 - (BOOL)_isVoiceTriggerEnabled
 {
   mEMORY[0x277D7A8D0] = [MEMORY[0x277D7A8D0] sharedPreferences];
@@ -4283,21 +4669,19 @@ LABEL_16:
 
 uint64_t __39__AssistantController_startEnrollment___block_invoke(uint64_t a1)
 {
-  v2 = +[AssistantUtilities shouldShowCompactVoiceTriggerSpecifier];
-  v3 = *(a1 + 32);
-  if (v2)
+  if (+[AssistantUtilities shouldShowCompactVoiceTriggerSpecifier])
   {
-    v4 = @"ACTIVATION_COMPACT_ID";
+    v2 = @"ACTIVATION_COMPACT_ID";
   }
 
   else
   {
-    v4 = @"ACTIVATION";
+    v2 = @"ACTIVATION";
   }
 
-  v5 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  return [v5 reloadSpecifierID:v4];
+  return [v3 reloadSpecifierID:v2];
 }
 
 - (void)handleURL:(id)l withCompletion:(id)completion
@@ -4393,7 +4777,7 @@ LABEL_14:
 
 - (void)loadAppStorePageForBundleId:(id)id
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   v5 = MEMORY[0x277CEE408];
   bagKeySet = [MEMORY[0x277CEE510] bagKeySet];
@@ -4408,29 +4792,27 @@ LABEL_14:
 
   v13 = objc_alloc(MEMORY[0x277CEE510]);
   v14 = [v13 initWithBag:v12 caller:idCopy keyProfile:*MEMORY[0x277CEE1E8]];
-  v23[0] = idCopy;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = idCopy;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   v16 = [v14 performLookupWithBundleIdentifiers:v15 itemIdentifiers:0];
 
   objc_initWeak(&location, self);
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __51__AssistantController_loadAppStorePageForBundleId___block_invoke;
-  v19[3] = &unk_278CD1E10;
-  objc_copyWeak(&v21, &location);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __51__AssistantController_loadAppStorePageForBundleId___block_invoke;
+  v18[3] = &unk_278CD1E10;
+  objc_copyWeak(&v20, &location);
   v17 = idCopy;
-  v20 = v17;
-  [v16 addFinishBlock:v19];
+  v19 = v17;
+  [v16 addFinishBlock:v18];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __51__AssistantController_loadAppStorePageForBundleId___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -4456,11 +4838,11 @@ void __51__AssistantController_loadAppStorePageForBundleId___block_invoke(uint64
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           v12 = *(a1 + 32);
-          v16 = 136315394;
-          v17 = "[AssistantController loadAppStorePageForBundleId:]_block_invoke";
-          v18 = 2112;
-          v19 = v12;
-          _os_log_impl(&dword_2413B9000, v10, OS_LOG_TYPE_INFO, "%s Successfully retrieved store info for %@", &v16, 0x16u);
+          v15 = 136315394;
+          v16 = "[AssistantController loadAppStorePageForBundleId:]_block_invoke";
+          v17 = 2112;
+          v18 = v12;
+          _os_log_impl(&dword_2413B9000, v10, OS_LOG_TYPE_INFO, "%s Successfully retrieved store info for %@", &v15, 0x16u);
         }
 
         v13 = [MEMORY[0x277D75128] sharedApplication];
@@ -4479,8 +4861,6 @@ void __51__AssistantController_loadAppStorePageForBundleId___block_invoke(uint64
   {
     __51__AssistantController_loadAppStorePageForBundleId___block_invoke_cold_3();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showAssistantVoiceActivationController:(id)controller
@@ -4504,7 +4884,7 @@ void __51__AssistantController_loadAppStorePageForBundleId___block_invoke(uint64
 
 - (void)handleGmCFU
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
   deviceSupported = [v3 deviceSupported];
 
@@ -4521,22 +4901,19 @@ void __51__AssistantController_loadAppStorePageForBundleId___block_invoke(uint64
     [(VTUIEnrollTrainingViewController *)self->_enrollmentController setDelegate:self];
     [(AssistantController *)self startEnrollment:0];
     [MEMORY[0x277CFB460] setHasEngagedWithCFU:1];
-    v10 = *MEMORY[0x277D85DE8];
 
     [(AssistantController *)self clearGMCFU];
   }
 
   else
   {
-    v11 = *MEMORY[0x277CEF098];
+    v10 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v13 = 136315138;
-      v14 = "[AssistantController handleGmCFU]";
-      _os_log_impl(&dword_2413B9000, v11, OS_LOG_TYPE_INFO, "%s GM Deeplink was invoked from ineligible hardware. Bailing!", &v13, 0xCu);
+      v11 = 136315138;
+      v12 = "[AssistantController handleGmCFU]";
+      _os_log_impl(&dword_2413B9000, v10, OS_LOG_TYPE_INFO, "%s GM Deeplink was invoked from ineligible hardware. Bailing!", &v11, 0xCu);
     }
-
-    v12 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -4719,10 +5096,19 @@ void __35__AssistantController_cancelSetup___block_invoke(uint64_t a1)
 
 - (void)skipSetup
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  deviceSupported = [v3 deviceSupported];
+
+  if (deviceSupported)
+  {
+
+    [(AssistantController *)self cancelSetup:self];
+  }
+
+  else if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
+  {
+    [AssistantController skipSetup];
+  }
 }
 
 - (void)showLearnMore
@@ -4749,40 +5135,36 @@ void __35__AssistantController_cancelSetup___block_invoke(uint64_t a1)
 
 - (void)_removeSiriInCallSpecifier
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (self->_siriInCallSpecifier && [(AssistantController *)self containsSpecifier:?])
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v5 = 136315138;
-      v6 = "[AssistantController _removeSiriInCallSpecifier]";
-      _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_INFO, "%s Removing in-call setting", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[AssistantController _removeSiriInCallSpecifier]";
+      _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_INFO, "%s Removing in-call setting", &v4, 0xCu);
     }
 
     [(AssistantController *)self removeSpecifier:self->_siriInCallSpecifier animated:1];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_insertSiriInCallSpecifier
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (self->_siriInCallSpecifier && ([(AssistantController *)self containsSpecifier:?]& 1) == 0)
   {
     v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v5 = 136315138;
-      v6 = "[AssistantController _insertSiriInCallSpecifier]";
-      _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_INFO, "%s Inserting in-call setting", &v5, 0xCu);
+      v4 = 136315138;
+      v5 = "[AssistantController _insertSiriInCallSpecifier]";
+      _os_log_impl(&dword_2413B9000, v3, OS_LOG_TYPE_INFO, "%s Inserting in-call setting", &v4, 0xCu);
     }
 
     [(AssistantController *)self insertSpecifier:self->_siriInCallSpecifier afterSpecifierID:@"VOICE_FEEDBACK_ID" animated:1];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)siriInCallEnabled:(id)enabled
@@ -4837,7 +5219,7 @@ void __35__AssistantController_cancelSetup___block_invoke(uint64_t a1)
 
 - (id)meCard:(id)card
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = +[AssistantController bundle];
   v4 = [v3 localizedStringForKey:@"None" value:&stru_285317CF0 table:@"AssistantSettings"];
 
@@ -4845,11 +5227,11 @@ void __35__AssistantController_cancelSetup___block_invoke(uint64_t a1)
   if (v5)
   {
     v6 = [MEMORY[0x277CBDA78] descriptorForRequiredKeysForStyle:0];
-    v15[0] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-    v14 = 0;
-    v8 = [v5 _ios_meContactWithKeysToFetch:v7 error:&v14];
-    v9 = v14;
+    v14[0] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13 = 0;
+    v8 = [v5 _ios_meContactWithKeysToFetch:v7 error:&v13];
+    v9 = v13;
 
     if (v8)
     {
@@ -4860,8 +5242,6 @@ void __35__AssistantController_cancelSetup___block_invoke(uint64_t a1)
       v4 = v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -4900,7 +5280,7 @@ void __49__AssistantController__makeMeDeviceDetermination__block_invoke(uint64_t
 
 void __49__AssistantController__makeMeDeviceDetermination__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -4911,11 +5291,11 @@ void __49__AssistantController__makeMeDeviceDetermination__block_invoke_2(uint64
       v8 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
       {
-        v10 = 136315394;
-        v11 = "[AssistantController _makeMeDeviceDetermination]_block_invoke_2";
-        v12 = 2112;
-        v13 = v6;
-        _os_log_impl(&dword_2413B9000, v8, OS_LOG_TYPE_INFO, "%s #settings Failed to fetch active location sharing device: %@", &v10, 0x16u);
+        v9 = 136315394;
+        v10 = "[AssistantController _makeMeDeviceDetermination]_block_invoke_2";
+        v11 = 2112;
+        v12 = v6;
+        _os_log_impl(&dword_2413B9000, v8, OS_LOG_TYPE_INFO, "%s #settings Failed to fetch active location sharing device: %@", &v9, 0x16u);
       }
 
       WeakRetained[1744] = 0;
@@ -4926,8 +5306,6 @@ void __49__AssistantController__makeMeDeviceDetermination__block_invoke_2(uint64
       WeakRetained[1744] = [v5 isThisDevice];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAssetStatusUpdated
@@ -5025,10 +5403,20 @@ LABEL_5:
 
 - (void)_presentSiriDataSharingOptInViewController
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = [(VTUISiriDataSharingOptInPresenter *)self->_siriDataSharingPresenter dataSharingOptInTextWelcomeControllerForViewStyle:0];
+  siriDataSharingOptInViewController = self->_siriDataSharingOptInViewController;
+  self->_siriDataSharingOptInViewController = v3;
+
+  if (self->_siriDataSharingOptInViewController)
+  {
+
+    [AssistantController presentViewController:"presentViewController:animated:completion:" animated:? completion:?];
+  }
+
+  else if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
+  {
+    [AssistantController _presentSiriDataSharingOptInViewController];
+  }
 }
 
 - (void)siriDataSharingOptInRequestsDismissalFromPresenter:(id)presenter
@@ -5085,7 +5473,7 @@ void __74__AssistantController_siriDataSharingOptInRequestsDismissalFromPresente
 
 void __65__AssistantController_deleteHistorySuccessfulFromViewController___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = WeakRetained;
   if (WeakRetained)
@@ -5098,9 +5486,9 @@ void __65__AssistantController_deleteHistorySuccessfulFromViewController___block
       v5 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
       {
-        v16 = 136315138;
-        v17 = "[AssistantController deleteHistorySuccessfulFromViewController:]_block_invoke";
-        _os_log_impl(&dword_2413B9000, v5, OS_LOG_TYPE_INFO, "%s #RPI on-device Siri History Deletion Request successful. Skipping showing alert.", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = "[AssistantController deleteHistorySuccessfulFromViewController:]_block_invoke";
+        _os_log_impl(&dword_2413B9000, v5, OS_LOG_TYPE_INFO, "%s #RPI on-device Siri History Deletion Request successful. Skipping showing alert.", &v15, 0xCu);
       }
     }
 
@@ -5123,8 +5511,6 @@ void __65__AssistantController_deleteHistorySuccessfulFromViewController___block
       [v2 presentViewController:v10 animated:1 completion:0];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVoiceActivation:(id)activation forSpecifier:(id)specifier withTrainingCompletionIfNecessary:(id)necessary
@@ -5286,49 +5672,29 @@ LABEL_5:
 
 - (void)openStorageManagement:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 description];
-  [v4 UTF8String];
-  OUTLINED_FUNCTION_3(&dword_2413B9000, v5, v6, "%s %s", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  *v11 = 136315394;
+  *&v11[4] = "[AssistantController openStorageManagement:]";
+  *&v11[12] = 2080;
+  *&v11[14] = [v4 UTF8String];
+  OUTLINED_FUNCTION_3(&dword_2413B9000, v5, v6, "%s %s", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }
 
 void __58__AssistantController__refreshAvailableLanguagesInTheHome__block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __45__AssistantController__fetchGMWaitListStatus__block_invoke_cold_1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 localizedDescription];
+  v11 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_3(&dword_2413B9000, v5, v6, "%s error fetching ADM waitlist status: %@", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-void __45__AssistantController__fetchGMWaitListStatus__block_invoke_260_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_updateSiriFooterGroup:withStatus:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_2413B9000, v5, v6, "%s error fetching ADM waitlist status: %@", v7, v8, v9, v10, v11);
 }
 
 - (void)watchSupportsSiriLanguageCode:.cold.1()
@@ -5349,65 +5715,25 @@ void __45__AssistantController__fetchGMWaitListStatus__block_invoke_260_cold_1()
   __break(1u);
 }
 
-void __91__AssistantController__createVoiceSelectionCompletionForSpecifier_recognitionLanguageCode___block_invoke_cold_1()
+- (void)confirmationSpecifierWillDisableHeySiri:disableMultiUser:disableSpokenFeedbackOnWatch:disableRaiseToSpeak:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)confirmationSpecifierWillDisableHeySiri:(uint64_t *)a1 disableMultiUser:disableSpokenFeedbackOnWatch:disableRaiseToSpeak:.cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___block_invoke_2_cold_1(uint64_t *a1)
+void __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __67__AssistantController__setAssistantLanguageWatchMismatchConfirmed___block_invoke_2_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __51__AssistantController_loadAppStorePageForBundleId___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __51__AssistantController_loadAppStorePageForBundleId___block_invoke_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __51__AssistantController_loadAppStorePageForBundleId___block_invoke_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

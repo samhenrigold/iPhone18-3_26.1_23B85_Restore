@@ -38,6 +38,7 @@
 - (void)updateWithMissedRange;
 - (void)updateWithNewRegion:(id)region withTimestamp:(double)timestamp;
 - (void)updateWithPDR:(const void *)r;
+- (void)updateWithPeerDeviceType:(BOOL)type;
 - (void)updateWithPeerLocationFromFMF;
 - (void)updateWithPose:(const void *)pose;
 - (void)updateWithRangeResult:(RangeResult *)result;
@@ -493,7 +494,7 @@ LABEL_97:
           std::mutex::lock(&stru_1009E9B50);
           v66 = ++byte_1009ECD78;
           *buf = &self->_sessionType;
-          v67 = sub_10004EFB0(&xmmword_1009ECD28, &self->_sessionType);
+          v67 = sub_10004EFB0(&xmmword_1009ECD28, &self->_sessionType, &unk_100548C50, buf);
           v68 = *(v67 + 20) + 1;
           *(v67 + 20) = v68;
           if (self->_bundleIdentifier)
@@ -510,7 +511,7 @@ LABEL_97:
             }
 
             *buf = &self->_bundleIdAsStdString;
-            v70 = sub_10004F1E4(&xmmword_1009ECD50, &self->_bundleIdAsStdString);
+            v70 = sub_10004F1E4(&xmmword_1009ECD50, &self->_bundleIdAsStdString, &unk_100548C50, buf, &v86);
             v71 = *(v70 + 40) + 1;
             *(v70 + 40) = v71;
             v72 = v71;
@@ -617,7 +618,7 @@ LABEL_112:
     v86 = 0;
     v87 = 0;
     v88 = 0;
-    sub_1000069DC(&v86, bytes, v47 + bytes, v47);
+    sub_1000069DC(&v86, bytes, &v47[bytes], v47);
 
     v48 = v86;
     v49 = v87 - v86;
@@ -1043,6 +1044,27 @@ LABEL_118:
       ++self->_numberOfLostVerticalConvergence;
     }
   }
+}
+
+- (void)updateWithPeerDeviceType:(BOOL)type
+{
+  sessionType = self->_sessionType;
+  if (sessionType == 4)
+  {
+    v4 = 3010;
+  }
+
+  else
+  {
+    if (sessionType != 3)
+    {
+      return;
+    }
+
+    v4 = 3008;
+  }
+
+  *(&self->super.isa + v4) = type | 0x100;
 }
 
 - (void)updateWithFindeePeerData:(const void *)data
@@ -1877,7 +1899,7 @@ LABEL_58:
         LODWORD(v119) = 1;
       }
 
-      sub_1003FCA04(&self->_pdrAligner, v118, &v117);
+      sub_1003FCA04(&self->_pdrAligner, v118, v117);
       if (*(pose + 20) == 2)
       {
         self->_lastPoseHadNormalTrackingState = 1;
@@ -3100,44 +3122,43 @@ LABEL_11:
 
 - (BOOL)_isSemiStaticFromVIO:(optional<nearby:(optional<nearby:(double)o :algorithms::common::Pose> *)a4 :algorithms::common::Pose> *)a3 ::
 {
-  if (a3[2].var0.__val_.lightEstimate.var0.__null_state_ != 1)
+  result = 0;
+  if (a3[2].var0.__val_.lightEstimate.var0.__null_state_ == 1 && a4[2].var0.__val_.lightEstimate.var0.__null_state_ == 1)
   {
-    return 0;
+    v6 = *&a3[2].var0.__null_state_;
+    v17[6] = *&a3[1].var0.__val_.odometryAvailability.var0.__null_state_;
+    v17[7] = v6;
+    v17[8] = a3[2].var0.__val_.lightEstimate;
+    v7 = *&a3->__engaged_;
+    v17[2] = *&a3->var0.__val_.source.var0.__null_state_;
+    v17[3] = v7;
+    v8 = *&a3[1].var0.__val_.lightEstimate.__engaged_;
+    v17[4] = *&a3[1].var0.__val_.trackingState;
+    v17[5] = v8;
+    lightEstimate = a3->var0.__val_.lightEstimate;
+    v17[0] = *&a3->var0.__null_state_;
+    v17[1] = lightEstimate;
+    v10 = *&a4[2].var0.__null_state_;
+    v16[6] = *&a4[1].var0.__val_.odometryAvailability.var0.__null_state_;
+    v16[7] = v10;
+    v16[8] = a4[2].var0.__val_.lightEstimate;
+    v11 = *&a4->__engaged_;
+    v16[2] = *&a4->var0.__val_.source.var0.__null_state_;
+    v16[3] = v11;
+    v12 = *&a4[1].var0.__val_.lightEstimate.__engaged_;
+    v16[4] = *&a4[1].var0.__val_.trackingState;
+    v16[5] = v12;
+    v13 = a4->var0.__val_.lightEstimate;
+    v16[0] = *&a4->var0.__null_state_;
+    v16[1] = v13;
+    [(NIServerAnalyticsManager *)self _deltaDistanceFromVIOPoses:v17];
+    if (v14 / o < 0.15)
+    {
+      return 1;
+    }
   }
 
-  if (a4[2].var0.__val_.lightEstimate.var0.__null_state_ != 1)
-  {
-    return 0;
-  }
-
-  v6 = *&a3[2].var0.__null_state_;
-  v17[6] = *&a3[1].var0.__val_.odometryAvailability.var0.__null_state_;
-  v17[7] = v6;
-  v17[8] = a3[2].var0.__val_.lightEstimate;
-  v7 = *&a3->__engaged_;
-  v17[2] = *&a3->var0.__val_.source.var0.__null_state_;
-  v17[3] = v7;
-  v8 = *&a3[1].var0.__val_.lightEstimate.__engaged_;
-  v17[4] = *&a3[1].var0.__val_.trackingState;
-  v17[5] = v8;
-  lightEstimate = a3->var0.__val_.lightEstimate;
-  v17[0] = *&a3->var0.__null_state_;
-  v17[1] = lightEstimate;
-  v10 = *&a4[2].var0.__null_state_;
-  v16[6] = *&a4[1].var0.__val_.odometryAvailability.var0.__null_state_;
-  v16[7] = v10;
-  v16[8] = a4[2].var0.__val_.lightEstimate;
-  v11 = *&a4->__engaged_;
-  v16[2] = *&a4->var0.__val_.source.var0.__null_state_;
-  v16[3] = v11;
-  v12 = *&a4[1].var0.__val_.lightEstimate.__engaged_;
-  v16[4] = *&a4[1].var0.__val_.trackingState;
-  v16[5] = v12;
-  v13 = a4->var0.__val_.lightEstimate;
-  v16[0] = *&a4->var0.__null_state_;
-  v16[1] = v13;
-  [(NIServerAnalyticsManager *)self _deltaDistanceFromVIOPoses:v17];
-  return v14 / o < 0.15;
+  return result;
 }
 
 - (void)_calculateIOMetrics:(double)metrics
@@ -3242,65 +3263,63 @@ LABEL_11:
 
 - (void)_calculatePoseSplicingMetrics
 {
-  begin = self->_angleErrorHistory.__begin_;
-  end = self->_angleErrorHistory.__end_;
   std::__sort<std::__less<float,float> &,float *>();
-  v5 = self->_angleErrorHistory.__end_;
-  v6 = self->_angleErrorHistory.__begin_;
-  v7 = v5 - v6;
-  v8 = &v6[(v5 - v6) >> 3];
-  if (((v5 - v6) & 4) != 0)
+  end = self->_angleErrorHistory.__end_;
+  begin = self->_angleErrorHistory.__begin_;
+  v5 = end - begin;
+  v6 = &begin[(end - begin) >> 3];
+  if (((end - begin) & 4) != 0)
   {
-    v9 = *v8;
+    v7 = *v6;
   }
 
   else
   {
-    v9 = (*(v8 - 1) + *v8) * 0.5;
+    v7 = (*(v6 - 1) + *v6) * 0.5;
   }
 
-  if (v6 == v5)
+  if (begin == end)
   {
-    v13 = 0.0;
-    v10 = 0.0;
+    v11 = 0.0;
+    v8 = 0.0;
   }
 
   else
   {
-    v10 = 0.0;
-    v11 = self->_angleErrorHistory.__begin_;
+    v8 = 0.0;
+    v9 = self->_angleErrorHistory.__begin_;
     do
     {
-      v12 = *v11++;
-      v10 = v10 + v12;
+      v10 = *v9++;
+      v8 = v8 + v10;
     }
 
-    while (v11 != v5);
-    v13 = 0.0;
-    v14 = self->_angleErrorHistory.__begin_;
+    while (v9 != end);
+    v11 = 0.0;
+    v12 = self->_angleErrorHistory.__begin_;
     do
     {
-      v15 = *v14++;
-      v13 = v13 + (v15 * v15);
+      v13 = *v12++;
+      v11 = v11 + (v13 * v13);
     }
 
-    while (v14 != v5);
+    while (v12 != end);
   }
 
-  v16 = v6[(v7 * 0.95)];
-  v17 = qword_1009ECD20;
+  v14 = begin[(v5 * 0.95)];
+  v15 = qword_1009ECD20;
   if (os_log_type_enabled(qword_1009ECD20, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = v10 / v7;
-    v19 = 134218752;
-    v20 = v18;
+    v16 = v8 / v5;
+    v17 = 134218752;
+    v18 = v16;
+    v19 = 2048;
+    v20 = sqrt(v11 / v5 - (v16 * v16));
     v21 = 2048;
-    v22 = sqrt(v13 / v7 - (v18 * v18));
+    v22 = v7;
     v23 = 2048;
-    v24 = v9;
-    v25 = 2048;
-    v26 = v16;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#ni-ca,DoT error, mean: %f, std: %f, median: %f, 95th: %f", &v19, 0x2Au);
+    v24 = v14;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#ni-ca,DoT error, mean: %f, std: %f, median: %f, 95th: %f", &v17, 0x2Au);
   }
 }
 
@@ -3403,7 +3422,7 @@ LABEL_11:
   --byte_1009ECD78;
   p_sessionType = &self->_sessionType;
   *buf = &self->_sessionType;
-  v12 = sub_10004EFB0(&xmmword_1009ECD28, &self->_sessionType);
+  v12 = sub_10004EFB0(&xmmword_1009ECD28, &self->_sessionType, &unk_100548C50, buf);
   --*(v12 + 20);
   if (self->_bundleIdentifier)
   {
@@ -3419,7 +3438,7 @@ LABEL_11:
     }
 
     *buf = &self->_bundleIdAsStdString;
-    v14 = sub_10004F1E4(&xmmword_1009ECD50, &self->_bundleIdAsStdString);
+    v14 = sub_10004F1E4(&xmmword_1009ECD50, &self->_bundleIdAsStdString, &unk_100548C50, buf, &v401);
     --*(v14 + 40);
   }
 
@@ -3456,28 +3475,28 @@ LABEL_21:
     return;
   }
 
-  v386 = objc_alloc_init(NSMutableDictionary);
-  [v386 setObject:self->_bundleIdentifier forKey:@"appBundleID"];
+  v388 = objc_alloc_init(NSMutableDictionary);
+  [v388 setObject:self->_bundleIdentifier forKey:@"appBundleID"];
   v15 = timestamp - runTimestamp;
   v16 = [NSNumber numberWithDouble:v15];
-  [v386 setObject:v16 forKey:@"totalDuration"];
+  [v388 setObject:v16 forKey:@"totalDuration"];
 
   v17 = [NSNumber numberWithDouble:self->_timeSpentNotVisible];
-  [v386 setObject:v17 forKey:@"backgroundDuration"];
+  [v388 setObject:v17 forKey:@"backgroundDuration"];
 
-  [v386 setObject:&off_1009C3D88 forKey:@"sessionCount"];
+  [v388 setObject:&off_1009C3D88 forKey:@"sessionCount"];
   v18 = [NSNumber numberWithInt:LODWORD(self->_backgroundMode)];
-  [v386 setObject:v18 forKey:@"configuredBackgroundMode"];
+  [v388 setObject:v18 forKey:@"configuredBackgroundMode"];
 
-  [v386 setObject:self->_lifecycleTimeoutType forKey:@"lifecycleTimeout"];
+  [v388 setObject:self->_lifecycleTimeoutType forKey:@"lifecycleTimeout"];
   v19 = [NSNumber numberWithBool:self->_isCameraAssistanceEnabled];
-  [v386 setObject:v19 forKey:@"isCameraAssistanceEnabled"];
+  [v388 setObject:v19 forKey:@"isCameraAssistanceEnabled"];
 
   v20 = [NSNumber numberWithBool:self->_isExtendedDistanceMeasurementEnabled];
-  [v386 setObject:v20 forKey:@"isExtendedDistanceMeasurementEnabled"];
+  [v388 setObject:v20 forKey:@"isExtendedDistanceMeasurementEnabled"];
 
   v21 = [NSNumber numberWithBool:self->_isLiveActivityEverActive];
-  [v386 setObject:v21 forKey:@"isLiveActivityActive"];
+  [v388 setObject:v21 forKey:@"isLiveActivityActive"];
 
   v22 = *p_sessionType;
   if (*p_sessionType > 3)
@@ -3519,7 +3538,7 @@ LABEL_21:
   {
     v23 = @"Peer";
 LABEL_31:
-    [v386 setObject:v23 forKey:@"configType"];
+    [v388 setObject:v23 forKey:@"configType"];
     goto LABEL_32;
   }
 
@@ -3532,45 +3551,45 @@ LABEL_32:
   if (self->_hasAccessoryDataRate)
   {
     v29 = [NSNumber numberWithInt:self->_accessoryDataRate];
-    [v386 setObject:v29 forKey:@"configuredAccessoryDataRate"];
+    [v388 setObject:v29 forKey:@"configuredAccessoryDataRate"];
   }
 
   if (self->_receivedDistance)
   {
     v30 = [NSNumber numberWithDouble:self->_firstDistance];
-    [v386 setObject:v30 forKey:@"firstDistance"];
+    [v388 setObject:v30 forKey:@"firstDistance"];
 
     v31 = [NSNumber numberWithDouble:self->_lastDistance];
-    [v386 setObject:v31 forKey:@"lastDistance"];
+    [v388 setObject:v31 forKey:@"lastDistance"];
 
     v32 = [NSNumber numberWithDouble:self->_minDistance];
-    [v386 setObject:v32 forKey:@"minDistance"];
+    [v388 setObject:v32 forKey:@"minDistance"];
 
     v33 = [NSNumber numberWithDouble:self->_maxDistance];
-    [v386 setObject:v33 forKey:@"maxDistance"];
+    [v388 setObject:v33 forKey:@"maxDistance"];
   }
 
-  v385 = [v386 mutableCopy];
+  v387 = [v388 mutableCopy];
   v34 = qword_1009ECD20;
   if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
   {
     v35 = self->_bundleIdentifier;
-    v36 = [v385 description];
+    v36 = [v387 description];
     *buf = 138412802;
     *&buf[4] = v35;
-    v418 = 2112;
-    v419 = @"com.apple.nearbyinteraction.sessionV2.summary";
     v420 = 2112;
-    v421 = *&v36;
+    v421 = @"com.apple.nearbyinteraction.sessionV2.summary";
+    v422 = 2112;
+    v423 = *&v36;
     _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
   }
 
-  v412 = _NSConcreteStackBlock;
-  v413 = 3221225472;
-  v414 = sub_10004DE3C;
-  v415 = &unk_10098AED8;
-  v37 = v385;
-  v416 = v37;
+  v414 = _NSConcreteStackBlock;
+  v415 = 3221225472;
+  v416 = sub_10004DE3C;
+  v417 = &unk_10098AED8;
+  v37 = v387;
+  v418 = v37;
   AnalyticsSendEventLazy();
   if (!self->_isCameraAssistanceEnabled)
   {
@@ -3641,692 +3660,694 @@ LABEL_46:
     v55 = [v51 description];
     *buf = 138412802;
     *&buf[4] = v54;
-    v418 = 2112;
-    v419 = @"com.apple.nearbyinteraction.camereEnabledSession.summary";
     v420 = 2112;
-    v421 = *&v55;
+    v421 = @"com.apple.nearbyinteraction.camereEnabledSession.summary";
+    v422 = 2112;
+    v423 = *&v55;
     _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
 
     v37 = v53;
     p_sessionType = &self->_sessionType;
   }
 
-  v407 = _NSConcreteStackBlock;
-  v408 = 3221225472;
-  v409 = sub_10004DE44;
-  v410 = &unk_10098AED8;
-  v411 = v51;
+  v409 = _NSConcreteStackBlock;
+  v410 = 3221225472;
+  v411 = sub_10004DE44;
+  v412 = &unk_10098AED8;
+  v56 = v51;
+  v413 = v56;
   AnalyticsSendEventLazy();
 
 LABEL_49:
-  v56 = *p_sessionType;
+  v57 = *p_sessionType;
   if (*p_sessionType == 3)
   {
     if (self->_numberOfPeerData == -1)
     {
-      v57 = qword_1009ECD20;
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+      v58 = qword_1009ECD20;
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "#ni-ca,Dummy findee CA event", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_INFO, "#ni-ca,Dummy findee CA event", buf, 2u);
       }
     }
 
     else
     {
       [(NIServerAnalyticsManager *)self _submitFindingSessionEndStats];
-      v57 = objc_alloc_init(NSMutableDictionary);
-      [v57 setObject:self->_bundleIdentifier forKey:@"appBundleID"];
+      v58 = objc_alloc_init(NSMutableDictionary);
+      [v58 setObject:self->_bundleIdentifier forKey:@"appBundleID"];
       numberOfBoundedDisplacementFromPeerData = self->_numberOfBoundedDisplacementFromPeerData;
-      v59 = 0.0;
+      v60 = 0.0;
       if (numberOfBoundedDisplacementFromPeerData != -1)
       {
         numberOfPeerData = self->_numberOfPeerData;
         if (numberOfPeerData)
         {
-          v59 = (numberOfBoundedDisplacementFromPeerData / numberOfPeerData);
+          v60 = (numberOfBoundedDisplacementFromPeerData / numberOfPeerData);
         }
       }
 
-      v61 = [NSNumber numberWithDouble:v59];
-      [v57 setObject:v61 forKey:@"SessionWithBoundedDisplacement_percentage"];
+      v62 = [NSNumber numberWithDouble:v60];
+      [v58 setObject:v62 forKey:@"SessionWithBoundedDisplacement_percentage"];
 
       numberOfPDRFromPeerData = self->_numberOfPDRFromPeerData;
-      v63 = 0.0;
+      v64 = 0.0;
       if (numberOfPDRFromPeerData != -1)
       {
-        v64 = self->_numberOfPeerData;
-        if (v64)
+        v65 = self->_numberOfPeerData;
+        if (v65)
         {
-          v63 = (numberOfPDRFromPeerData / v64);
+          v64 = (numberOfPDRFromPeerData / v65);
         }
       }
 
-      v65 = [NSNumber numberWithDouble:v63];
-      [v57 setObject:v65 forKey:@"SessionWithDeltaPositionPDR_percentage"];
+      v66 = [NSNumber numberWithDouble:v64];
+      [v58 setObject:v66 forKey:@"SessionWithDeltaPositionPDR_percentage"];
 
       numberOfVIOFromPeerData = self->_numberOfVIOFromPeerData;
-      v67 = 0.0;
+      v68 = 0.0;
       if (numberOfVIOFromPeerData != -1)
       {
-        v68 = self->_numberOfPeerData;
-        if (v68)
+        v69 = self->_numberOfPeerData;
+        if (v69)
         {
-          v67 = (numberOfVIOFromPeerData / v68);
+          v68 = (numberOfVIOFromPeerData / v69);
         }
       }
 
-      v69 = [NSNumber numberWithDouble:v67];
-      [v57 setObject:v69 forKey:@"SessionWithVIO_percentage"];
+      v70 = [NSNumber numberWithDouble:v68];
+      [v58 setObject:v70 forKey:@"SessionWithVIO_percentage"];
 
       numberOfDeltaVelocityFromPeerData = self->_numberOfDeltaVelocityFromPeerData;
-      v71 = 0.0;
+      v72 = 0.0;
       if (numberOfDeltaVelocityFromPeerData != -1)
       {
-        v72 = self->_numberOfPeerData;
-        if (v72)
+        v73 = self->_numberOfPeerData;
+        if (v73)
         {
-          v71 = (numberOfDeltaVelocityFromPeerData / v72);
+          v72 = (numberOfDeltaVelocityFromPeerData / v73);
         }
       }
 
-      v73 = [NSNumber numberWithDouble:v71];
-      [v57 setObject:v73 forKey:@"SessionWithDeltaVelocity_percentage"];
+      v74 = [NSNumber numberWithDouble:v72];
+      [v58 setObject:v74 forKey:@"SessionWithDeltaVelocity_percentage"];
 
       numberOfLocationFromPeerData = self->_numberOfLocationFromPeerData;
-      v75 = 0.0;
+      v76 = 0.0;
       if (numberOfLocationFromPeerData != -1)
       {
-        v76 = self->_numberOfPeerData;
-        if (v76)
+        v77 = self->_numberOfPeerData;
+        if (v77)
         {
-          v75 = (numberOfLocationFromPeerData / v76);
+          v76 = (numberOfLocationFromPeerData / v77);
         }
       }
 
-      v77 = [NSNumber numberWithDouble:v75];
-      [v57 setObject:v77 forKey:@"SessionWithLocation_percentage"];
+      v78 = [NSNumber numberWithDouble:v76];
+      [v58 setObject:v78 forKey:@"SessionWithLocation_percentage"];
 
       numberOfStatic = self->_numberOfStatic;
-      v79 = 0.0;
+      v80 = 0.0;
       if (numberOfStatic != -1)
       {
-        v80 = self->_numberOfBoundedDisplacementFromPeerData;
-        if (v80)
+        v81 = self->_numberOfBoundedDisplacementFromPeerData;
+        if (v81)
         {
-          v79 = (numberOfStatic / v80);
+          v80 = (numberOfStatic / v81);
         }
       }
 
-      v81 = [NSNumber numberWithDouble:v79];
-      [v57 setObject:v81 forKey:@"Findee_Static_percentage"];
+      v82 = [NSNumber numberWithDouble:v80];
+      [v58 setObject:v82 forKey:@"Findee_Static_percentage"];
 
       numberOfSlowlyMoving = self->_numberOfSlowlyMoving;
-      v83 = 0.0;
+      v84 = 0.0;
       if (numberOfSlowlyMoving != -1)
       {
-        v84 = self->_numberOfBoundedDisplacementFromPeerData;
-        if (v84)
+        v85 = self->_numberOfBoundedDisplacementFromPeerData;
+        if (v85)
         {
-          v83 = (numberOfSlowlyMoving / v84);
+          v84 = (numberOfSlowlyMoving / v85);
         }
       }
 
-      v85 = [NSNumber numberWithDouble:v83];
-      [v57 setObject:v85 forKey:@"Findee_SlowlyMoving_percentage"];
+      v86 = [NSNumber numberWithDouble:v84];
+      [v58 setObject:v86 forKey:@"Findee_SlowlyMoving_percentage"];
 
       numberOfWalkingOrkUnknown = self->_numberOfWalkingOrkUnknown;
-      v87 = 0.0;
+      v88 = 0.0;
       if (numberOfWalkingOrkUnknown != -1)
       {
-        v88 = self->_numberOfBoundedDisplacementFromPeerData;
-        if (v88)
+        v89 = self->_numberOfBoundedDisplacementFromPeerData;
+        if (v89)
         {
-          v87 = (numberOfWalkingOrkUnknown / v88);
+          v88 = (numberOfWalkingOrkUnknown / v89);
         }
       }
 
-      v89 = [NSNumber numberWithDouble:v87];
-      [v57 setObject:v89 forKey:@"Findee_WalkingOrUnknown_percentage"];
+      v90 = [NSNumber numberWithDouble:v88];
+      [v58 setObject:v90 forKey:@"Findee_WalkingOrUnknown_percentage"];
 
       if (self->_timeAtFirstLocationUpdate != -1.0)
       {
-        v90 = timestamp - timeAtFirstLocationUpdate;
+        v91 = timestamp - timeAtFirstLocationUpdate;
         timeLocationFromAccessory = self->_timeLocationFromAccessory;
-        v92 = 0.0;
-        if (timeLocationFromAccessory != -1.0 && v90 != 0.0)
+        v93 = 0.0;
+        if (timeLocationFromAccessory != -1.0 && v91 != 0.0)
         {
-          v93 = timeLocationFromAccessory;
-          v94 = v90;
-          v92 = (v93 / v94);
+          v94 = timeLocationFromAccessory;
+          v95 = v91;
+          v93 = (v94 / v95);
         }
 
-        v95 = [NSNumber numberWithDouble:v92];
-        [v57 setObject:v95 forKey:@"LocationFromAccessory_percentage"];
+        v96 = [NSNumber numberWithDouble:v93];
+        [v58 setObject:v96 forKey:@"LocationFromAccessory_percentage"];
 
         timeLocationFromCell = self->_timeLocationFromCell;
-        v97 = 0.0;
-        if (timeLocationFromCell != -1.0 && v90 != 0.0)
+        v98 = 0.0;
+        if (timeLocationFromCell != -1.0 && v91 != 0.0)
         {
-          v98 = timeLocationFromCell;
-          v99 = v90;
-          v97 = (v98 / v99);
+          v99 = timeLocationFromCell;
+          v100 = v91;
+          v98 = (v99 / v100);
         }
 
-        v100 = [NSNumber numberWithDouble:v97];
-        [v57 setObject:v100 forKey:@"LocationFromCell_percentage"];
+        v101 = [NSNumber numberWithDouble:v98];
+        [v58 setObject:v101 forKey:@"LocationFromCell_percentage"];
 
         timeLocationFromCompensated = self->_timeLocationFromCompensated;
-        v102 = 0.0;
-        if (timeLocationFromCompensated != -1.0 && v90 != 0.0)
+        v103 = 0.0;
+        if (timeLocationFromCompensated != -1.0 && v91 != 0.0)
         {
-          v103 = timeLocationFromCompensated;
-          v104 = v90;
-          v102 = (v103 / v104);
+          v104 = timeLocationFromCompensated;
+          v105 = v91;
+          v103 = (v104 / v105);
         }
 
-        v105 = [NSNumber numberWithDouble:v102];
-        [v57 setObject:v105 forKey:@"LocationFromCompensated_percentage"];
+        v106 = [NSNumber numberWithDouble:v103];
+        [v58 setObject:v106 forKey:@"LocationFromCompensated_percentage"];
 
         timeLocationFromGPS = self->_timeLocationFromGPS;
-        v107 = 0.0;
-        if (timeLocationFromGPS != -1.0 && v90 != 0.0)
+        v108 = 0.0;
+        if (timeLocationFromGPS != -1.0 && v91 != 0.0)
         {
-          v108 = timeLocationFromGPS;
-          v109 = v90;
-          v107 = (v108 / v109);
+          v109 = timeLocationFromGPS;
+          v110 = v91;
+          v108 = (v109 / v110);
         }
 
-        v110 = [NSNumber numberWithDouble:v107];
-        [v57 setObject:v110 forKey:@"LocationFromGPS_percentage"];
+        v111 = [NSNumber numberWithDouble:v108];
+        [v58 setObject:v111 forKey:@"LocationFromGPS_percentage"];
 
         timeLocationFromGPSCoarse = self->_timeLocationFromGPSCoarse;
-        v112 = 0.0;
-        if (timeLocationFromGPSCoarse != -1.0 && v90 != 0.0)
+        v113 = 0.0;
+        if (timeLocationFromGPSCoarse != -1.0 && v91 != 0.0)
         {
-          v113 = timeLocationFromGPSCoarse;
-          v114 = v90;
-          v112 = (v113 / v114);
+          v114 = timeLocationFromGPSCoarse;
+          v115 = v91;
+          v113 = (v114 / v115);
         }
 
-        v115 = [NSNumber numberWithDouble:v112];
-        [v57 setObject:v115 forKey:@"LocationFromGPSCoarse_percentage"];
+        v116 = [NSNumber numberWithDouble:v113];
+        [v58 setObject:v116 forKey:@"LocationFromGPSCoarse_percentage"];
 
-        v116 = self->_timeLocationFromCell;
-        v117 = 0.0;
-        if (v116 != -1.0 && v90 != 0.0)
+        v117 = self->_timeLocationFromCell;
+        v118 = 0.0;
+        if (v117 != -1.0 && v91 != 0.0)
         {
-          v118 = v116;
-          v119 = v90;
-          v117 = (v118 / v119);
+          v119 = v117;
+          v120 = v91;
+          v118 = (v119 / v120);
         }
 
-        v120 = [NSNumber numberWithDouble:v117];
-        [v57 setObject:v120 forKey:@"LocationFromCell_percentage"];
+        v121 = [NSNumber numberWithDouble:v118];
+        [v58 setObject:v121 forKey:@"LocationFromCell_percentage"];
 
         timeLocationFromLAC = self->_timeLocationFromLAC;
-        v122 = 0.0;
-        if (timeLocationFromLAC != -1.0 && v90 != 0.0)
+        v123 = 0.0;
+        if (timeLocationFromLAC != -1.0 && v91 != 0.0)
         {
-          v123 = timeLocationFromLAC;
-          v124 = v90;
-          v122 = (v123 / v124);
+          v124 = timeLocationFromLAC;
+          v125 = v91;
+          v123 = (v124 / v125);
         }
 
-        v125 = [NSNumber numberWithDouble:v122];
-        [v57 setObject:v125 forKey:@"LocationFromLAC_percentage"];
+        v126 = [NSNumber numberWithDouble:v123];
+        [v58 setObject:v126 forKey:@"LocationFromLAC_percentage"];
 
         timeLocationFromLOIOverride = self->_timeLocationFromLOIOverride;
-        v127 = 0.0;
-        if (timeLocationFromLOIOverride != -1.0 && v90 != 0.0)
+        v128 = 0.0;
+        if (timeLocationFromLOIOverride != -1.0 && v91 != 0.0)
         {
-          v128 = timeLocationFromLOIOverride;
-          v129 = v90;
-          v127 = (v128 / v129);
+          v129 = timeLocationFromLOIOverride;
+          v130 = v91;
+          v128 = (v129 / v130);
         }
 
-        v130 = [NSNumber numberWithDouble:v127];
-        [v57 setObject:v130 forKey:@"LocationFromLOIOverride_percentage"];
+        v131 = [NSNumber numberWithDouble:v128];
+        [v58 setObject:v131 forKey:@"LocationFromLOIOverride_percentage"];
 
         timeLocationFromMCC = self->_timeLocationFromMCC;
-        v132 = 0.0;
-        if (timeLocationFromMCC != -1.0 && v90 != 0.0)
+        v133 = 0.0;
+        if (timeLocationFromMCC != -1.0 && v91 != 0.0)
         {
-          v133 = timeLocationFromMCC;
-          v134 = v90;
-          v132 = (v133 / v134);
+          v134 = timeLocationFromMCC;
+          v135 = v91;
+          v133 = (v134 / v135);
         }
 
-        v135 = [NSNumber numberWithDouble:v132];
-        [v57 setObject:v135 forKey:@"LocationFromMCC_percentage"];
+        v136 = [NSNumber numberWithDouble:v133];
+        [v58 setObject:v136 forKey:@"LocationFromMCC_percentage"];
 
         timeLocationFromPipeline = self->_timeLocationFromPipeline;
-        v137 = 0.0;
-        if (timeLocationFromPipeline != -1.0 && v90 != 0.0)
+        v138 = 0.0;
+        if (timeLocationFromPipeline != -1.0 && v91 != 0.0)
         {
-          v138 = timeLocationFromPipeline;
-          v139 = v90;
-          v137 = (v138 / v139);
+          v139 = timeLocationFromPipeline;
+          v140 = v91;
+          v138 = (v139 / v140);
         }
 
-        v140 = [NSNumber numberWithDouble:v137];
-        [v57 setObject:v140 forKey:@"LocationFromPipeline_percentage"];
+        v141 = [NSNumber numberWithDouble:v138];
+        [v58 setObject:v141 forKey:@"LocationFromPipeline_percentage"];
 
         timeLocationFromUnknown = self->_timeLocationFromUnknown;
-        v142 = 0.0;
-        if (timeLocationFromUnknown != -1.0 && v90 != 0.0)
+        v143 = 0.0;
+        if (timeLocationFromUnknown != -1.0 && v91 != 0.0)
         {
-          v143 = timeLocationFromUnknown;
-          v144 = v90;
-          v142 = (v143 / v144);
+          v144 = timeLocationFromUnknown;
+          v145 = v91;
+          v143 = (v144 / v145);
         }
 
-        v145 = [NSNumber numberWithDouble:v142];
-        [v57 setObject:v145 forKey:@"LocationFromUnknown_percentage"];
+        v146 = [NSNumber numberWithDouble:v143];
+        [v58 setObject:v146 forKey:@"LocationFromUnknown_percentage"];
 
         timeLocationFromWiFi = self->_timeLocationFromWiFi;
-        v147 = 0.0;
-        if (timeLocationFromWiFi != -1.0 && v90 != 0.0)
+        v148 = 0.0;
+        if (timeLocationFromWiFi != -1.0 && v91 != 0.0)
         {
-          v148 = timeLocationFromWiFi;
-          v149 = v90;
-          v147 = (v148 / v149);
+          v149 = timeLocationFromWiFi;
+          v150 = v91;
+          v148 = (v149 / v150);
         }
 
-        v150 = [NSNumber numberWithDouble:v147];
-        [v57 setObject:v150 forKey:@"LocationFromWiFi_percentage"];
+        v151 = [NSNumber numberWithDouble:v148];
+        [v58 setObject:v151 forKey:@"LocationFromWiFi_percentage"];
 
         timeLocationFromWiFi2 = self->_timeLocationFromWiFi2;
-        v152 = 0.0;
-        if (timeLocationFromWiFi2 != -1.0 && v90 != 0.0)
+        v153 = 0.0;
+        if (timeLocationFromWiFi2 != -1.0 && v91 != 0.0)
         {
-          v153 = timeLocationFromWiFi2;
-          v154 = v90;
-          v152 = (v153 / v154);
+          v154 = timeLocationFromWiFi2;
+          v155 = v91;
+          v153 = (v154 / v155);
         }
 
-        v155 = [NSNumber numberWithDouble:v152];
-        [v57 setObject:v155 forKey:@"LocationFromWiFi2_percentage"];
+        v156 = [NSNumber numberWithDouble:v153];
+        [v58 setObject:v156 forKey:@"LocationFromWiFi2_percentage"];
       }
 
       if (self->_pdrTimeAtFirstPDRUpdate != -1.0)
       {
         timePDRIndicatesStatic = self->_timePDRIndicatesStatic;
-        v157 = 0.0;
+        v158 = 0.0;
         if (timePDRIndicatesStatic != -1.0 && pdrTimeAtLastPDRUpdate - pdrTimeAtFirstPDRUpdate != 0.0)
         {
-          v158 = timePDRIndicatesStatic;
-          v159 = pdrTimeAtLastPDRUpdate - pdrTimeAtFirstPDRUpdate;
-          v157 = (v158 / v159);
+          v159 = timePDRIndicatesStatic;
+          v160 = pdrTimeAtLastPDRUpdate - pdrTimeAtFirstPDRUpdate;
+          v158 = (v159 / v160);
         }
 
-        v160 = [NSNumber numberWithDouble:v157];
-        [v57 setObject:v160 forKey:@"PDR_indicates_static_percentage"];
+        v161 = [NSNumber numberWithDouble:v158];
+        [v58 setObject:v161 forKey:@"PDR_indicates_static_percentage"];
       }
 
       if (self->_timeAtFirstPeerData != -1.0)
       {
-        v161 = [NSNumber numberWithDouble:self->_timeFindeeWasStatic];
-        [v57 setObject:v161 forKey:@"TimeFindeeWasStatic"];
+        v162 = [NSNumber numberWithDouble:self->_timeFindeeWasStatic];
+        [v58 setObject:v162 forKey:@"TimeFindeeWasStatic"];
 
-        v162 = [NSNumber numberWithDouble:self->_timeFindeeWasSlowlyMoving];
-        [v57 setObject:v162 forKey:@"TimeFindeeWasSlowlyMoving"];
+        v163 = [NSNumber numberWithDouble:self->_timeFindeeWasSlowlyMoving];
+        [v58 setObject:v163 forKey:@"TimeFindeeWasSlowlyMoving"];
 
-        v163 = [NSNumber numberWithDouble:self->_timeFindeeWasWalkingOrUnknown];
-        [v57 setObject:v163 forKey:@"TimeFindeeWasWalkingOrUnknown"];
+        v164 = [NSNumber numberWithDouble:self->_timeFindeeWasWalkingOrUnknown];
+        [v58 setObject:v164 forKey:@"TimeFindeeWasWalkingOrUnknown"];
 
-        v164 = [NSNumber numberWithDouble:self->_timeToSessionEnd];
-        [v57 setObject:v164 forKey:@"TimeToSessionEnd"];
+        v165 = [NSNumber numberWithDouble:self->_timeToSessionEnd];
+        [v58 setObject:v165 forKey:@"TimeToSessionEnd"];
       }
 
-      v165 = [NSNumber numberWithDouble:self->_distanceTraveledFromPDR];
-      [v57 setObject:v165 forKey:@"DistanceTraveledFromPDR"];
+      v166 = [NSNumber numberWithDouble:self->_distanceTraveledFromPDR];
+      [v58 setObject:v166 forKey:@"DistanceTraveledFromPDR"];
 
       numberOfMissedRanges = self->_numberOfMissedRanges;
       if (numberOfMissedRanges == -1)
       {
-        v167 = 0;
+        v168 = 0;
       }
 
       else
       {
-        v167 = numberOfMissedRanges;
+        v168 = numberOfMissedRanges;
       }
 
-      v168 = [NSNumber numberWithInt:v167];
-      [v57 setObject:v168 forKey:@"NumberOfMissedRanges"];
+      v169 = [NSNumber numberWithInt:v168];
+      [v58 setObject:v169 forKey:@"NumberOfMissedRanges"];
 
       numberOfSuccessfulRanges = self->_numberOfSuccessfulRanges;
       if (numberOfSuccessfulRanges == -1)
       {
-        v170 = 0;
+        v171 = 0;
       }
 
       else
       {
-        v170 = numberOfSuccessfulRanges;
+        v171 = numberOfSuccessfulRanges;
       }
 
-      v171 = [NSNumber numberWithInt:v170];
-      [v57 setObject:v171 forKey:@"NumberOfSuccessfulRanges"];
+      v172 = [NSNumber numberWithInt:v171];
+      [v58 setObject:v172 forKey:@"NumberOfSuccessfulRanges"];
 
-      v172 = self->_numberOfSuccessfulRanges;
-      v173 = 0.0;
-      if (v172 != -1)
+      v173 = self->_numberOfSuccessfulRanges;
+      v174 = 0.0;
+      if (v173 != -1)
       {
-        v174 = self->_numberOfMissedRanges + v172;
-        if (v174)
+        v175 = self->_numberOfMissedRanges + v173;
+        if (v175)
         {
-          v173 = (v172 / v174);
+          v174 = (v173 / v175);
         }
       }
 
-      v175 = [NSNumber numberWithDouble:v173];
-      [v57 setObject:v175 forKey:@"SuccesfulRangesToTotalRangingAttempts_percentage"];
+      v176 = [NSNumber numberWithDouble:v174];
+      [v58 setObject:v176 forKey:@"SuccesfulRangesToTotalRangingAttempts_percentage"];
 
       if (self->_isFinderAPhone.__engaged_)
       {
-        v176 = [NSNumber numberWithBool:self->_isFinderAPhone.var0.__null_state_];
-        [v57 setObject:v176 forKey:@"FinderIsPhone"];
+        v177 = [NSNumber numberWithBool:self->_isFinderAPhone.var0.__null_state_];
+        [v58 setObject:v177 forKey:@"FinderIsPhone"];
       }
 
-      v177 = [v57 mutableCopy];
-      v178 = qword_1009ECD20;
-      if (os_log_type_enabled(v178, OS_LOG_TYPE_INFO))
+      v178 = [v58 mutableCopy];
+      v179 = qword_1009ECD20;
+      if (os_log_type_enabled(v179, OS_LOG_TYPE_INFO))
       {
-        v179 = p_sessionType;
-        v180 = v37;
-        v181 = self->_bundleIdentifier;
-        v182 = [v177 description];
+        v180 = p_sessionType;
+        v181 = v37;
+        v182 = self->_bundleIdentifier;
+        v183 = [v178 description];
         *buf = 138412802;
-        *&buf[4] = v181;
-        v418 = 2112;
-        v419 = @"com.apple.nearbyinteraction.peopleFindingSession.FindeeSummary";
+        *&buf[4] = v182;
         v420 = 2112;
-        v421 = *&v182;
-        _os_log_impl(&_mh_execute_header, v178, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
+        v421 = @"com.apple.nearbyinteraction.peopleFindingSession.FindeeSummary";
+        v422 = 2112;
+        v423 = *&v183;
+        _os_log_impl(&_mh_execute_header, v179, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
 
-        v37 = v180;
-        p_sessionType = v179;
+        v37 = v181;
+        p_sessionType = v180;
       }
 
-      v402 = _NSConcreteStackBlock;
-      v403 = 3221225472;
-      v404 = sub_10004DE4C;
-      v405 = &unk_10098AED8;
-      v406 = v177;
+      v404 = _NSConcreteStackBlock;
+      v405 = 3221225472;
+      v406 = sub_10004DE4C;
+      v407 = &unk_10098AED8;
+      v184 = v178;
+      v408 = v184;
       AnalyticsSendEventLazy();
     }
 
-    v56 = *p_sessionType;
+    v57 = *p_sessionType;
   }
 
   p_engaged = &self->_lastSolutionTime.__engaged_;
-  if (v56 == 4)
+  if (v57 == 4)
   {
     [(NIServerAnalyticsManager *)self _submitFindingSessionEndStats];
     if (self->_timeAtFirstPose == -1.0)
     {
-      v184 = qword_1009ECD20;
-      if (os_log_type_enabled(v184, OS_LOG_TYPE_INFO))
+      v186 = qword_1009ECD20;
+      if (os_log_type_enabled(v186, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v184, OS_LOG_TYPE_INFO, "#ni-ca,Dummy finder CA event", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v186, OS_LOG_TYPE_INFO, "#ni-ca,Dummy finder CA event", buf, 2u);
       }
     }
 
     else
     {
-      v184 = objc_alloc_init(NSMutableDictionary);
-      [v184 setObject:self->_bundleIdentifier forKey:@"appBundleID"];
+      v186 = objc_alloc_init(NSMutableDictionary);
+      [v186 setObject:self->_bundleIdentifier forKey:@"appBundleID"];
       [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:timestamp];
-      v186 = v185;
+      v188 = v187;
       if (self->_timeAtFirstOutputRange != -1.0)
       {
         [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:?];
-        v187 = [NSNumber numberWithDouble:?];
-        [v184 setObject:v187 forKey:@"TimeToFirstOutputRange"];
+        v189 = [NSNumber numberWithDouble:?];
+        [v186 setObject:v189 forKey:@"TimeToFirstOutputRange"];
       }
 
       if (self->_timeAtFirstPeerLocation != -1.0)
       {
         [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:?];
-        v188 = [NSNumber numberWithDouble:?];
-        [v184 setObject:v188 forKey:@"TimeToFirstPeerLocation"];
+        v190 = [NSNumber numberWithDouble:?];
+        [v186 setObject:v190 forKey:@"TimeToFirstPeerLocation"];
       }
 
       if (self->_timeAtFirstPeerLocationFromFMF != -1.0)
       {
         [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:?];
-        v189 = [NSNumber numberWithDouble:?];
-        [v184 setObject:v189 forKey:@"TimeToFirstPeerLocationFromFMF"];
+        v191 = [NSNumber numberWithDouble:?];
+        [v186 setObject:v191 forKey:@"TimeToFirstPeerLocationFromFMF"];
       }
 
       if (self->_timeAtFirstPeerLocationFromFindeeData != -1.0)
       {
         [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:?];
-        v190 = [NSNumber numberWithDouble:?];
-        [v184 setObject:v190 forKey:@"TimeToFirstPeerLocationFromFindeeData"];
+        v192 = [NSNumber numberWithDouble:?];
+        [v186 setObject:v192 forKey:@"TimeToFirstPeerLocationFromFindeeData"];
       }
 
       if (self->_timeAtFirstRawUWBRange != -1.0)
       {
         [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:?];
-        v191 = [NSNumber numberWithDouble:?];
-        [v184 setObject:v191 forKey:@"TimeToFirstRawUWBRange"];
+        v193 = [NSNumber numberWithDouble:?];
+        [v186 setObject:v193 forKey:@"TimeToFirstRawUWBRange"];
       }
 
       if (self->_timeAtFirstArrow != -1.0)
       {
         [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:?];
-        v192 = [NSNumber numberWithDouble:?];
-        [v184 setObject:v192 forKey:@"TimeToFirstArrow"];
+        v194 = [NSNumber numberWithDouble:?];
+        [v186 setObject:v194 forKey:@"TimeToFirstArrow"];
       }
 
       if (self->_timeAtArmsLength != -1.0)
       {
         [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:?];
-        v193 = [NSNumber numberWithDouble:?];
-        [v184 setObject:v193 forKey:@"TimeToArmsReach"];
+        v195 = [NSNumber numberWithDouble:?];
+        [v186 setObject:v195 forKey:@"TimeToArmsReach"];
       }
 
       [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstValidPose];
-      v194 = [NSNumber numberWithDouble:?];
-      [v184 setObject:v194 forKey:@"TimeToFirstPose"];
+      v196 = [NSNumber numberWithDouble:?];
+      [v186 setObject:v196 forKey:@"TimeToFirstPose"];
 
       [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstPeerData];
-      v195 = [NSNumber numberWithDouble:?];
-      [v184 setObject:v195 forKey:@"TimeToFirstFindeeData"];
+      v197 = [NSNumber numberWithDouble:?];
+      [v186 setObject:v197 forKey:@"TimeToFirstFindeeData"];
 
       [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstSelfLocation];
-      v196 = [NSNumber numberWithDouble:?];
-      [v184 setObject:v196 forKey:@"TimeToFirstSelfLocation"];
+      v198 = [NSNumber numberWithDouble:?];
+      [v186 setObject:v198 forKey:@"TimeToFirstSelfLocation"];
 
       [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstPDRFromFindeeData];
-      v197 = [NSNumber numberWithDouble:?];
-      [v184 setObject:v197 forKey:@"TimeToFirstPDRFromFindeeData"];
+      v199 = [NSNumber numberWithDouble:?];
+      [v186 setObject:v199 forKey:@"TimeToFirstPDRFromFindeeData"];
 
       [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstVIOFromFindeeData];
-      v198 = [NSNumber numberWithDouble:?];
-      [v184 setObject:v198 forKey:@"TimeToFirstVIOFromFindeeData"];
+      v200 = [NSNumber numberWithDouble:?];
+      [v186 setObject:v200 forKey:@"TimeToFirstVIOFromFindeeData"];
 
       [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstDeltaVelocityFromFindeeData];
-      v199 = [NSNumber numberWithDouble:?];
-      [v184 setObject:v199 forKey:@"TimeToFirstDeltaVelocityFromFindeeData"];
+      v201 = [NSNumber numberWithDouble:?];
+      [v186 setObject:v201 forKey:@"TimeToFirstDeltaVelocityFromFindeeData"];
 
       [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstStaticFromFindeeData];
-      v200 = [NSNumber numberWithDouble:?];
-      [v184 setObject:v200 forKey:@"TimeToFirstStaticFromFindeeData"];
+      v202 = [NSNumber numberWithDouble:?];
+      [v186 setObject:v202 forKey:@"TimeToFirstStaticFromFindeeData"];
 
-      v201 = [NSNumber numberWithDouble:v186];
-      [v184 setObject:v201 forKey:@"TimeToEndSession"];
+      v203 = [NSNumber numberWithDouble:v188];
+      [v186 setObject:v203 forKey:@"TimeToEndSession"];
 
-      v202 = [(NIServerAnalyticsManager *)self _algorithmSourceToString:self->_firstArrowAlgorithmSource];
-      [v184 setObject:v202 forKey:@"FirstArrowAlgorithmSource"];
+      v204 = [(NIServerAnalyticsManager *)self _algorithmSourceToString:self->_firstArrowAlgorithmSource];
+      [v186 setObject:v204 forKey:@"FirstArrowAlgorithmSource"];
 
-      v203 = [(NIServerAnalyticsManager *)self _algorithmSourceToString:self->_firstOutputRangeAlgorithmSource];
-      [v184 setObject:v203 forKey:@"FirstOutputRangeAlgorithmSource"];
+      v205 = [(NIServerAnalyticsManager *)self _algorithmSourceToString:self->_firstOutputRangeAlgorithmSource];
+      [v186 setObject:v205 forKey:@"FirstOutputRangeAlgorithmSource"];
 
-      v204 = [(NIServerAnalyticsManager *)self _algorithmSourceToString:self->_armsReachAlgorithmSource];
-      [v184 setObject:v204 forKey:@"ArmsReachAlgorithmSource"];
+      v206 = [(NIServerAnalyticsManager *)self _algorithmSourceToString:self->_armsReachAlgorithmSource];
+      [v186 setObject:v206 forKey:@"ArmsReachAlgorithmSource"];
 
       numberOfArrowAvailabilityAfterFirstArrow = self->_numberOfArrowAvailabilityAfterFirstArrow;
-      v206 = 0.0;
+      v208 = 0.0;
       if (numberOfArrowAvailabilityAfterFirstArrow != -1)
       {
         numberOfSolutions = self->_numberOfSolutions;
         if (numberOfSolutions)
         {
-          v206 = (numberOfArrowAvailabilityAfterFirstArrow / numberOfSolutions);
+          v208 = (numberOfArrowAvailabilityAfterFirstArrow / numberOfSolutions);
         }
       }
 
-      v208 = [NSNumber numberWithDouble:v206];
-      [v184 setObject:v208 forKey:@"ArrowAvailabilityAfterFirstArrow"];
+      v210 = [NSNumber numberWithDouble:v208];
+      [v186 setObject:v210 forKey:@"ArrowAvailabilityAfterFirstArrow"];
 
       numberOfArrowRevokes = self->_numberOfArrowRevokes;
       if (numberOfArrowRevokes == -1)
       {
-        v210 = 0;
+        v212 = 0;
       }
 
       else
       {
-        v210 = numberOfArrowRevokes;
+        v212 = numberOfArrowRevokes;
       }
 
-      v211 = [NSNumber numberWithInt:v210];
-      [v184 setObject:v211 forKey:@"NumberOfArrowRevokes"];
+      v213 = [NSNumber numberWithInt:v212];
+      [v186 setObject:v213 forKey:@"NumberOfArrowRevokes"];
 
       numberOfVIOResets = self->_numberOfVIOResets;
       if (numberOfVIOResets == -1)
       {
-        v213 = 0;
+        v215 = 0;
       }
 
       else
       {
-        v213 = numberOfVIOResets;
+        v215 = numberOfVIOResets;
       }
 
-      v214 = [NSNumber numberWithInt:v213];
-      [v184 setObject:v214 forKey:@"NumberOfVIOResets"];
+      v216 = [NSNumber numberWithInt:v215];
+      [v186 setObject:v216 forKey:@"NumberOfVIOResets"];
 
       numberOfPeerDataFinder = self->_numberOfPeerDataFinder;
-      v216 = 0.0;
+      v218 = 0.0;
       if (numberOfPeerDataFinder != -1)
       {
         numberOfRawRanges = self->_numberOfRawRanges;
         if (numberOfRawRanges)
         {
-          v216 = (numberOfPeerDataFinder / numberOfRawRanges);
+          v218 = (numberOfPeerDataFinder / numberOfRawRanges);
         }
       }
 
-      v218 = [NSNumber numberWithDouble:v216];
-      [v184 setObject:v218 forKey:@"RatioOfSuccessfulPeerDataToTotalNumRange"];
+      v220 = [NSNumber numberWithDouble:v218];
+      [v186 setObject:v220 forKey:@"RatioOfSuccessfulPeerDataToTotalNumRange"];
 
-      v219 = [NSNumber numberWithBool:self->_didFinderChangeFloor];
-      [v184 setObject:v219 forKey:@"DidFinderChangeFloors"];
+      v221 = [NSNumber numberWithBool:self->_didFinderChangeFloor];
+      [v186 setObject:v221 forKey:@"DidFinderChangeFloors"];
 
-      v220 = [NSNumber numberWithBool:self->_didFindeeChangeFloor];
-      [v184 setObject:v220 forKey:@"DidFindeeChangeFloors"];
+      v222 = [NSNumber numberWithBool:self->_didFindeeChangeFloor];
+      [v186 setObject:v222 forKey:@"DidFindeeChangeFloors"];
 
       if (self->_numberOfRawRanges >= 1)
       {
-        v221 = [NSNumber numberWithDouble:self->_maxDistance_finding];
-        [v184 setObject:v221 forKey:@"MaxRawRangeValueDuringSession"];
+        v223 = [NSNumber numberWithDouble:self->_maxDistance_finding];
+        [v186 setObject:v223 forKey:@"MaxRawRangeValueDuringSession"];
 
-        v222 = [NSNumber numberWithDouble:self->_minDistance_finding];
-        [v184 setObject:v222 forKey:@"MinimumRange"];
+        v224 = [NSNumber numberWithDouble:self->_minDistance_finding];
+        [v186 setObject:v224 forKey:@"MinimumRange"];
 
-        v223 = [NSNumber numberWithDouble:self->_firstDistance_finding];
-        [v184 setObject:v223 forKey:@"FirstRawRangeValueDuringSession"];
+        v225 = [NSNumber numberWithDouble:self->_firstDistance_finding];
+        [v186 setObject:v225 forKey:@"FirstRawRangeValueDuringSession"];
 
-        v224 = [NSNumber numberWithDouble:self->_lastDistance_finding];
-        [v184 setObject:v224 forKey:@"LastRange"];
+        v226 = [NSNumber numberWithDouble:self->_lastDistance_finding];
+        [v186 setObject:v226 forKey:@"LastRange"];
 
-        v225 = [NSNumber numberWithDouble:self->_rangeAtFirstPose];
-        [v184 setObject:v225 forKey:@"RangeAtFirstPose"];
+        v227 = [NSNumber numberWithDouble:self->_rangeAtFirstPose];
+        [v186 setObject:v227 forKey:@"RangeAtFirstPose"];
 
-        v226 = [NSNumber numberWithDouble:self->_rangeAtFirstArrow];
-        [v184 setObject:v226 forKey:@"RangeAtFirstArrow"];
+        v228 = [NSNumber numberWithDouble:self->_rangeAtFirstArrow];
+        [v186 setObject:v228 forKey:@"RangeAtFirstArrow"];
 
-        v227 = [NSNumber numberWithBool:vabdd_f64(self->_lastDistance_finding, self->_rangeAtFirstPose) < 2.0];
-        [v184 setObject:v227 forKey:@"SessionEndedWithNoRange"];
+        v229 = [NSNumber numberWithBool:vabdd_f64(self->_lastDistance_finding, self->_rangeAtFirstPose) < 2.0];
+        [v186 setObject:v229 forKey:@"SessionEndedWithNoRange"];
       }
 
       if (self->_numberOfVIOResets == -1)
       {
         [(NIServerAnalyticsManager *)self _calculateStraightLineDistance];
-        v229 = [NSNumber numberWithDouble:self->_firstArrowStraightLineDistance];
-        [v184 setObject:v229 forKey:@"StraightLineDistanceToFirstArrow"];
+        v231 = [NSNumber numberWithDouble:self->_firstArrowStraightLineDistance];
+        [v186 setObject:v231 forKey:@"StraightLineDistanceToFirstArrow"];
 
-        v230 = [NSNumber numberWithDouble:self->_firstOutputRangeStraightLineDistance];
-        [v184 setObject:v230 forKey:@"StraightLineDistanceToFirstArrow"];
+        v232 = [NSNumber numberWithDouble:self->_firstOutputRangeStraightLineDistance];
+        [v186 setObject:v232 forKey:@"StraightLineDistanceToFirstArrow"];
 
-        v231 = [NSNumber numberWithDouble:self->_armsReachStraightLineDistance];
-        [v184 setObject:v231 forKey:@"StraightLineDistanceToArmsReach"];
+        v233 = [NSNumber numberWithDouble:self->_armsReachStraightLineDistance];
+        [v186 setObject:v233 forKey:@"StraightLineDistanceToArmsReach"];
 
-        v232 = [NSNumber numberWithDouble:self->_radialDisplacementFromVIO];
-        [v184 setObject:v232 forKey:@"RadialDisplacementVIO"];
+        v234 = [NSNumber numberWithDouble:self->_radialDisplacementFromVIO];
+        [v186 setObject:v234 forKey:@"RadialDisplacementVIO"];
 
-        v233 = [NSNumber numberWithDouble:*&self->_anon_778[168]];
-        [v184 setObject:v233 forKey:@"UserMovedDistanceToFirstArrow"];
+        v235 = [NSNumber numberWithDouble:*&self->_anon_778[168]];
+        [v186 setObject:v235 forKey:@"UserMovedDistanceToFirstArrow"];
 
-        v234 = [NSNumber numberWithDouble:*&self->_anon_8a8[168]];
-        [v184 setObject:v234 forKey:@"UserMovedDistanceToFirstOutputRange"];
+        v236 = [NSNumber numberWithDouble:*&self->_anon_8a8[168]];
+        [v186 setObject:v236 forKey:@"UserMovedDistanceToFirstOutputRange"];
 
-        v235 = [NSNumber numberWithDouble:*&self->_anon_9d8[168]];
-        [v184 setObject:v235 forKey:@"UserMovedDistanceToArmsReach"];
+        v237 = [NSNumber numberWithDouble:*&self->_anon_9d8[168]];
+        [v186 setObject:v237 forKey:@"UserMovedDistanceToArmsReach"];
 
-        v236 = [NSNumber numberWithDouble:*&self->_anon_b08[168]];
-        [v184 setObject:v236 forKey:@"TotalUserMovedDistance"];
+        v238 = [NSNumber numberWithDouble:*&self->_anon_b08[168]];
+        [v186 setObject:v238 forKey:@"TotalUserMovedDistance"];
 
-        [(NIServerAnalyticsManager *)self _calculateIOMetrics:v186];
-        v237 = [NSNumber numberWithDouble:self->_stdSpeedFromVIO];
-        [v184 setObject:v237 forKey:@"PDRSpeedErrorStandardDeviation"];
+        [(NIServerAnalyticsManager *)self _calculateIOMetrics:v188];
+        v239 = [NSNumber numberWithDouble:self->_stdSpeedFromVIO];
+        [v186 setObject:v239 forKey:@"PDRSpeedErrorStandardDeviation"];
 
-        v238 = [NSNumber numberWithDouble:self->_pathLengthError];
-        [v184 setObject:v238 forKey:@"PathLengthPDRVsVIOError"];
+        v240 = [NSNumber numberWithDouble:self->_pathLengthError];
+        [v186 setObject:v240 forKey:@"PathLengthPDRVsVIOError"];
 
-        v239 = [NSNumber numberWithDouble:self->_radialDisplacementError];
-        [v184 setObject:v239 forKey:@"RadialDisplacementError"];
+        v241 = [NSNumber numberWithDouble:self->_radialDisplacementError];
+        [v186 setObject:v241 forKey:@"RadialDisplacementError"];
 
-        v240 = [NSNumber numberWithDouble:self->_meanSpeedFromVIO];
-        [v184 setObject:v240 forKey:@"MeanSpeedFromVIO"];
+        v242 = [NSNumber numberWithDouble:self->_meanSpeedFromVIO];
+        [v186 setObject:v242 forKey:@"MeanSpeedFromVIO"];
 
-        v241 = [NSNumber numberWithDouble:self->_meanSpeedFromVIOError];
-        [v184 setObject:v241 forKey:@"MeanSpeedFromVIOError"];
+        v243 = [NSNumber numberWithDouble:self->_meanSpeedFromVIOError];
+        [v186 setObject:v243 forKey:@"MeanSpeedFromVIOError"];
 
-        v242 = [NSNumber numberWithDouble:self->_pdrSSDetectionTruePositiveRate];
-        [v184 setObject:v242 forKey:@"PDRStationaryDetectionTruePositiveRate"];
+        v244 = [NSNumber numberWithDouble:self->_pdrSSDetectionTruePositiveRate];
+        [v186 setObject:v244 forKey:@"PDRStationaryDetectionTruePositiveRate"];
 
-        v243 = [NSNumber numberWithDouble:self->_pdrSSDetectionFalsePositiveRate];
-        [v184 setObject:v243 forKey:@"PDRStationaryDetectionTrueNegativeRate"];
+        v245 = [NSNumber numberWithDouble:self->_pdrSSDetectionFalsePositiveRate];
+        [v186 setObject:v245 forKey:@"PDRStationaryDetectionTrueNegativeRate"];
 
-        v228 = [NSNumber numberWithDouble:self->_percentTimeSSFromVIO];
-        [v184 setObject:v228 forKey:@"TimeSSFromVIO_percentage"];
+        v230 = [NSNumber numberWithDouble:self->_percentTimeSSFromVIO];
+        [v186 setObject:v230 forKey:@"TimeSSFromVIO_percentage"];
       }
 
       else
       {
-        v228 = qword_1009ECD20;
-        if (os_log_type_enabled(v228, OS_LOG_TYPE_INFO))
+        v230 = qword_1009ECD20;
+        if (os_log_type_enabled(v230, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v228, OS_LOG_TYPE_INFO, "#ni-ca,Unable to send user distances between finder and findee (we had VIO reset(s))", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v230, OS_LOG_TYPE_INFO, "#ni-ca,Unable to send user distances between finder and findee (we had VIO reset(s))", buf, 2u);
         }
       }
 
       if (self->_timeAtFirstIOPose.__engaged_)
       {
         [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstIOPose.var0.__val_];
-        v244 = [NSNumber numberWithDouble:?];
-        [v184 setObject:v244 forKey:@"TimeToFirstIOPoseAfterFindButtonPressed"];
+        v246 = [NSNumber numberWithDouble:?];
+        [v186 setObject:v246 forKey:@"TimeToFirstIOPoseAfterFindButtonPressed"];
 
-        v245 = qword_1009ECD20;
-        if (os_log_type_enabled(v245, OS_LOG_TYPE_DEFAULT))
+        v247 = qword_1009ECD20;
+        if (os_log_type_enabled(v247, OS_LOG_TYPE_DEFAULT))
         {
           [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstValidPose];
           if (!self->_timeAtFirstIOPose.__engaged_)
@@ -4334,13 +4355,13 @@ LABEL_49:
             sub_1000195BC();
           }
 
-          v247 = v246;
+          v249 = v248;
           [(NIServerAnalyticsManager *)self _finderTimeFromFirstPoseTo:self->_timeAtFirstIOPose.var0.__val_];
           *buf = 134218240;
-          *&buf[4] = v247;
-          v418 = 2048;
-          v419 = v248;
-          _os_log_impl(&_mh_execute_header, v245, OS_LOG_TYPE_DEFAULT, "#ni-ca,pose times, vio: %f, io: %f", buf, 0x16u);
+          *&buf[4] = v249;
+          v420 = 2048;
+          v421 = v250;
+          _os_log_impl(&_mh_execute_header, v247, OS_LOG_TYPE_DEFAULT, "#ni-ca,pose times, vio: %f, io: %f", buf, 0x16u);
         }
       }
 
@@ -4348,364 +4369,364 @@ LABEL_49:
       ioSourceTime = self->_ioSourceTime;
       deltaVSourceTime = self->_deltaVSourceTime;
       noOdometryAvailableTime = self->_noOdometryAvailableTime;
-      v253 = vioAvailableTime + ioSourceTime + deltaVSourceTime + noOdometryAvailableTime;
-      v254 = vioAvailableTime / v253;
-      v255 = ioSourceTime / v253;
-      v256 = deltaVSourceTime / v253;
-      v257 = noOdometryAvailableTime / v253;
-      v258 = qword_1009ECD20;
-      if (os_log_type_enabled(v258, OS_LOG_TYPE_DEFAULT))
+      v255 = vioAvailableTime + ioSourceTime + deltaVSourceTime + noOdometryAvailableTime;
+      v256 = vioAvailableTime / v255;
+      v257 = ioSourceTime / v255;
+      v258 = deltaVSourceTime / v255;
+      v259 = noOdometryAvailableTime / v255;
+      v260 = qword_1009ECD20;
+      if (os_log_type_enabled(v260, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218752;
-        *&buf[4] = v254;
-        v418 = 2048;
-        v419 = *&v255;
+        *&buf[4] = v256;
         v420 = 2048;
-        v421 = v256;
+        v421 = *&v257;
         v422 = 2048;
-        v423 = v257;
-        _os_log_impl(&_mh_execute_header, v258, OS_LOG_TYPE_DEFAULT, "#ni-ca,odometry source ratio, VIO: %f, IO: %f, DeltaV: %f, None: %f", buf, 0x2Au);
+        v423 = v258;
+        v424 = 2048;
+        v425 = v259;
+        _os_log_impl(&_mh_execute_header, v260, OS_LOG_TYPE_DEFAULT, "#ni-ca,odometry source ratio, VIO: %f, IO: %f, DeltaV: %f, None: %f", buf, 0x2Au);
       }
 
-      v259 = [NSNumber numberWithDouble:v254];
-      [v184 setObject:v259 forKey:@"OdometrySourceVIO"];
-
-      v260 = [NSNumber numberWithDouble:v255];
-      [v184 setObject:v260 forKey:@"OdometrySourceIO"];
-
       v261 = [NSNumber numberWithDouble:v256];
-      [v184 setObject:v261 forKey:@"OdometrySourceDeltaV"];
+      [v186 setObject:v261 forKey:@"OdometrySourceVIO"];
 
       v262 = [NSNumber numberWithDouble:v257];
-      [v184 setObject:v262 forKey:@"OdometrySourceNone"];
+      [v186 setObject:v262 forKey:@"OdometrySourceIO"];
+
+      v263 = [NSNumber numberWithDouble:v258];
+      [v186 setObject:v263 forKey:@"OdometrySourceDeltaV"];
+
+      v264 = [NSNumber numberWithDouble:v259];
+      [v186 setObject:v264 forKey:@"OdometrySourceNone"];
 
       end = self->_pointToPointErrorHistory.__end_;
       begin = self->_pointToPointErrorHistory.__begin_;
-      v265 = end - begin;
-      if (v265 >= 0xB)
+      v267 = end - begin;
+      if (v267 >= 0xB)
       {
-        v401 = 0;
-        v399 = 0u;
-        v400 = 0u;
-        v397 = 0;
-        v398 = 0;
+        v403 = 0;
+        v401 = 0u;
+        v402 = 0u;
+        v399 = 0;
+        v400 = 0;
         __p = 0;
-        sub_10004F564(&__p, begin, end, v265);
-        [(NIServerAnalyticsManager *)self _calculateErrorStatsFromVector:&__p];
+        sub_10004F564(&__p, begin, end, v267);
+        objc_msgSend__calculateErrorStatsFromVector_(self);
         if (__p)
         {
-          v397 = __p;
+          v399 = __p;
           operator delete(__p);
         }
 
-        v266 = qword_1009ECD20;
-        if (os_log_type_enabled(v266, OS_LOG_TYPE_DEFAULT))
+        v268 = qword_1009ECD20;
+        if (os_log_type_enabled(v268, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134219008;
-          *&buf[4] = v399;
-          v418 = 2048;
-          v419 = *(&v399 + 1);
+          *&buf[4] = v401;
           v420 = 2048;
-          v421 = *&v400;
+          v421 = *(&v401 + 1);
           v422 = 2048;
-          v423 = *(&v400 + 1);
+          v423 = *&v402;
           v424 = 2048;
-          v425 = v401;
-          _os_log_impl(&_mh_execute_header, v266, OS_LOG_TYPE_DEFAULT, "#ni-ca,point errors mean: %f, std: %f, median: %f, 95th: %f, n: %zu", buf, 0x34u);
+          v425 = *(&v402 + 1);
+          v426 = 2048;
+          v427 = v403;
+          _os_log_impl(&_mh_execute_header, v268, OS_LOG_TYPE_DEFAULT, "#ni-ca,point errors mean: %f, std: %f, median: %f, 95th: %f, n: %zu", buf, 0x34u);
         }
 
-        v267 = [NSNumber numberWithDouble:*&v399];
-        [v184 setObject:v267 forKey:@"PointToPointErrorMean"];
+        v269 = [NSNumber numberWithDouble:*&v401];
+        [v186 setObject:v269 forKey:@"PointToPointErrorMean"];
 
-        v268 = [NSNumber numberWithDouble:*(&v399 + 1)];
-        [v184 setObject:v268 forKey:@"PointToPointErrorStd"];
+        v270 = [NSNumber numberWithDouble:*(&v401 + 1)];
+        [v186 setObject:v270 forKey:@"PointToPointErrorStd"];
 
-        v269 = [NSNumber numberWithDouble:*&v400];
-        [v184 setObject:v269 forKey:@"PointToPointErrorMedian"];
+        v271 = [NSNumber numberWithDouble:*&v402];
+        [v186 setObject:v271 forKey:@"PointToPointErrorMedian"];
 
-        v270 = [NSNumber numberWithDouble:*(&v400 + 1)];
-        [v184 setObject:v270 forKey:@"PointToPointError95th"];
+        v272 = [NSNumber numberWithDouble:*(&v402 + 1)];
+        [v186 setObject:v272 forKey:@"PointToPointError95th"];
 
-        v271 = [NSNumber numberWithDouble:v401];
-        [v184 setObject:v271 forKey:@"PointToPointErrorN"];
+        v273 = [NSNumber numberWithDouble:v403];
+        [v186 setObject:v273 forKey:@"PointToPointErrorN"];
       }
 
-      v272 = self->_deltaAngleErrorHistory.__end_;
-      v273 = self->_deltaAngleErrorHistory.__begin_;
-      v274 = v272 - v273;
-      if (v274 >= 0xB)
+      v274 = self->_deltaAngleErrorHistory.__end_;
+      v275 = self->_deltaAngleErrorHistory.__begin_;
+      v276 = v274 - v275;
+      if (v276 >= 0xB)
       {
-        v401 = 0;
-        v399 = 0u;
-        v400 = 0u;
-        v394 = 0;
+        v403 = 0;
+        v401 = 0u;
+        v402 = 0u;
+        v396 = 0;
+        v397 = 0;
         v395 = 0;
-        v393 = 0;
-        sub_10004F564(&v393, v273, v272, v274);
-        [(NIServerAnalyticsManager *)self _calculateErrorStatsFromVector:&v393];
-        if (v393)
+        sub_10004F564(&v395, v275, v274, v276);
+        objc_msgSend__calculateErrorStatsFromVector_(self);
+        if (v395)
         {
-          v394 = v393;
-          operator delete(v393);
+          v396 = v395;
+          operator delete(v395);
         }
 
-        v275 = qword_1009ECD20;
-        if (os_log_type_enabled(v275, OS_LOG_TYPE_DEFAULT))
+        v277 = qword_1009ECD20;
+        if (os_log_type_enabled(v277, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134219008;
-          *&buf[4] = v399;
-          v418 = 2048;
-          v419 = *(&v399 + 1);
+          *&buf[4] = v401;
           v420 = 2048;
-          v421 = *&v400;
+          v421 = *(&v401 + 1);
           v422 = 2048;
-          v423 = *(&v400 + 1);
+          v423 = *&v402;
           v424 = 2048;
-          v425 = v401;
-          _os_log_impl(&_mh_execute_header, v275, OS_LOG_TYPE_DEFAULT, "#ni-ca,delta dot errors mean: %f, std: %f, median: %f, 95th: %f, n: %zu", buf, 0x34u);
+          v425 = *(&v402 + 1);
+          v426 = 2048;
+          v427 = v403;
+          _os_log_impl(&_mh_execute_header, v277, OS_LOG_TYPE_DEFAULT, "#ni-ca,delta dot errors mean: %f, std: %f, median: %f, 95th: %f, n: %zu", buf, 0x34u);
         }
 
-        v276 = [NSNumber numberWithDouble:*&v399];
-        [v184 setObject:v276 forKey:@"IODirectionOfTravelErrorDeltaDegreesMean"];
+        v278 = [NSNumber numberWithDouble:*&v401];
+        [v186 setObject:v278 forKey:@"IODirectionOfTravelErrorDeltaDegreesMean"];
 
-        v277 = [NSNumber numberWithDouble:*(&v399 + 1)];
-        [v184 setObject:v277 forKey:@"IODirectionOfTravelErrorDeltaDegreesStd"];
+        v279 = [NSNumber numberWithDouble:*(&v401 + 1)];
+        [v186 setObject:v279 forKey:@"IODirectionOfTravelErrorDeltaDegreesStd"];
 
-        v278 = [NSNumber numberWithDouble:*&v400];
-        [v184 setObject:v278 forKey:@"IODirectionOfTravelErrorDeltaDegreesMedian"];
+        v280 = [NSNumber numberWithDouble:*&v402];
+        [v186 setObject:v280 forKey:@"IODirectionOfTravelErrorDeltaDegreesMedian"];
 
-        v279 = [NSNumber numberWithDouble:*(&v400 + 1)];
-        [v184 setObject:v279 forKey:@"IODirectionOfTravelErrorDeltaDegrees95th"];
+        v281 = [NSNumber numberWithDouble:*(&v402 + 1)];
+        [v186 setObject:v281 forKey:@"IODirectionOfTravelErrorDeltaDegrees95th"];
 
-        v280 = [NSNumber numberWithDouble:v401];
-        [v184 setObject:v280 forKey:@"IODirectionOfTravelErrorDeltaDegreesN"];
+        v282 = [NSNumber numberWithDouble:v403];
+        [v186 setObject:v282 forKey:@"IODirectionOfTravelErrorDeltaDegreesN"];
       }
 
-      v281 = self->_angleErrorHistory.__end_;
-      v282 = self->_angleErrorHistory.__begin_;
-      v283 = v281 - v282;
-      if (v283 >= 0xB)
+      v283 = self->_angleErrorHistory.__end_;
+      v284 = self->_angleErrorHistory.__begin_;
+      v285 = v283 - v284;
+      if (v285 >= 0xB)
       {
-        v401 = 0;
-        v399 = 0u;
-        v400 = 0u;
-        v391 = 0;
+        v403 = 0;
+        v401 = 0u;
+        v402 = 0u;
+        v393 = 0;
+        v394 = 0;
         v392 = 0;
-        v390 = 0;
-        sub_10004F564(&v390, v282, v281, v283);
-        [(NIServerAnalyticsManager *)self _calculateErrorStatsFromVector:&v390];
-        if (v390)
+        sub_10004F564(&v392, v284, v283, v285);
+        objc_msgSend__calculateErrorStatsFromVector_(self);
+        if (v392)
         {
-          v391 = v390;
-          operator delete(v390);
+          v393 = v392;
+          operator delete(v392);
         }
 
-        v284 = qword_1009ECD20;
-        if (os_log_type_enabled(v284, OS_LOG_TYPE_DEFAULT))
+        v286 = qword_1009ECD20;
+        if (os_log_type_enabled(v286, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134219008;
-          *&buf[4] = v399;
-          v418 = 2048;
-          v419 = *(&v399 + 1);
+          *&buf[4] = v401;
           v420 = 2048;
-          v421 = *&v400;
+          v421 = *(&v401 + 1);
           v422 = 2048;
-          v423 = *(&v400 + 1);
+          v423 = *&v402;
           v424 = 2048;
-          v425 = v401;
-          _os_log_impl(&_mh_execute_header, v284, OS_LOG_TYPE_DEFAULT, "#ni-ca,dot errors mean: %f, std: %f, median: %f, 95th: %f, n: %zu", buf, 0x34u);
+          v425 = *(&v402 + 1);
+          v426 = 2048;
+          v427 = v403;
+          _os_log_impl(&_mh_execute_header, v286, OS_LOG_TYPE_DEFAULT, "#ni-ca,dot errors mean: %f, std: %f, median: %f, 95th: %f, n: %zu", buf, 0x34u);
         }
 
-        v285 = [NSNumber numberWithDouble:*&v399];
-        [v184 setObject:v285 forKey:@"IODirectionOfTravelErrorDegreesMean"];
+        v287 = [NSNumber numberWithDouble:*&v401];
+        [v186 setObject:v287 forKey:@"IODirectionOfTravelErrorDegreesMean"];
 
-        v286 = [NSNumber numberWithDouble:*(&v399 + 1)];
-        [v184 setObject:v286 forKey:@"IODirectionOfTravelErrorDegreesStd"];
+        v288 = [NSNumber numberWithDouble:*(&v401 + 1)];
+        [v186 setObject:v288 forKey:@"IODirectionOfTravelErrorDegreesStd"];
 
-        v287 = [NSNumber numberWithDouble:*&v400];
-        [v184 setObject:v287 forKey:@"IODirectionOfTravelErrorDegreesMedian"];
+        v289 = [NSNumber numberWithDouble:*&v402];
+        [v186 setObject:v289 forKey:@"IODirectionOfTravelErrorDegreesMedian"];
 
-        v288 = [NSNumber numberWithDouble:*(&v400 + 1)];
-        [v184 setObject:v288 forKey:@"IODirectionOfTravelErrorDegrees95th"];
+        v290 = [NSNumber numberWithDouble:*(&v402 + 1)];
+        [v186 setObject:v290 forKey:@"IODirectionOfTravelErrorDegrees95th"];
 
-        v289 = [NSNumber numberWithDouble:v401];
-        [v184 setObject:v289 forKey:@"IODirectionOfTravelErrorDegreesN"];
+        v291 = [NSNumber numberWithDouble:v403];
+        [v186 setObject:v291 forKey:@"IODirectionOfTravelErrorDegreesN"];
       }
 
       if (self->_isFindeeAPhone.__engaged_)
       {
-        v290 = [NSNumber numberWithBool:self->_isFindeeAPhone.var0.__null_state_];
-        [v184 setObject:v290 forKey:@"FindeeIsPhone"];
+        v292 = [NSNumber numberWithBool:self->_isFindeeAPhone.var0.__null_state_];
+        [v186 setObject:v292 forKey:@"FindeeIsPhone"];
       }
 
-      v291 = [v184 mutableCopy];
-      v292 = qword_1009ECD20;
-      if (os_log_type_enabled(v292, OS_LOG_TYPE_INFO))
+      v293 = [v186 mutableCopy];
+      v294 = qword_1009ECD20;
+      if (os_log_type_enabled(v294, OS_LOG_TYPE_INFO))
       {
-        v293 = self->_bundleIdentifier;
-        v294 = [v291 description];
+        v295 = self->_bundleIdentifier;
+        v296 = [v293 description];
         *buf = 138412802;
-        *&buf[4] = v293;
-        v418 = 2112;
-        v419 = @"com.apple.nearbyinteraction.peopleFindingSession.FinderSummary";
+        *&buf[4] = v295;
         v420 = 2112;
-        v421 = *&v294;
-        _os_log_impl(&_mh_execute_header, v292, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
+        v421 = @"com.apple.nearbyinteraction.peopleFindingSession.FinderSummary";
+        v422 = 2112;
+        v423 = *&v296;
+        _os_log_impl(&_mh_execute_header, v294, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
 
         p_engaged = &self->_lastSolutionTime.__engaged_;
       }
 
-      v389 = v291;
+      v391 = v293;
       AnalyticsSendEventLazy();
     }
   }
 
-  v295 = *p_sessionType;
+  v297 = *p_sessionType;
   if (*p_sessionType == 5)
   {
-    v296 = qword_1009ECD20;
-    if (os_log_type_enabled(v296, OS_LOG_TYPE_INFO))
+    v298 = qword_1009ECD20;
+    if (os_log_type_enabled(v298, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v296, OS_LOG_TYPE_INFO, "#ni-ca,Item PF event submission", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v298, OS_LOG_TYPE_INFO, "#ni-ca,Item PF event submission", buf, 2u);
     }
 
-    v297 = objc_alloc_init(NSMutableDictionary);
-    v298 = [NSNumber numberWithDouble:v15];
-    [v297 setObject:v298 forKey:@"sessionDuration"];
+    v299 = objc_alloc_init(NSMutableDictionary);
+    v300 = [NSNumber numberWithDouble:v15];
+    [v299 setObject:v300 forKey:@"sessionDuration"];
 
-    v299 = [NSNumber numberWithBool:p_engaged[80]];
-    [v297 setObject:v299 forKey:@"isOwner"];
+    v301 = [NSNumber numberWithBool:p_engaged[80]];
+    [v299 setObject:v301 forKey:@"isOwner"];
 
-    v300 = [NSNumber numberWithInt:self->_clientRequestIndex];
-    [v297 setObject:v300 forKey:@"clientRequestIndex"];
+    v302 = [NSNumber numberWithInt:self->_clientRequestIndex];
+    [v299 setObject:v302 forKey:@"clientRequestIndex"];
 
     typeName = self->_typeName;
     if (typeName)
     {
-      [v297 setObject:typeName forKey:@"productName"];
+      [v299 setObject:typeName forKey:@"productName"];
     }
 
-    v302 = [NSNumber numberWithBool:p_engaged[81]];
-    [v297 setObject:v302 forKey:@"askedToRange"];
+    v304 = [NSNumber numberWithBool:p_engaged[81]];
+    [v299 setObject:v304 forKey:@"askedToRange"];
 
     timeAtFindButton = self->_timeAtFindButton;
     if (timeAtFindButton != -1.0)
     {
-      v304 = [NSNumber numberWithDouble:timeAtFindButton - self->_runTimestamp];
-      [v297 setObject:v304 forKey:@"timeToRangeRequest"];
+      v306 = [NSNumber numberWithDouble:timeAtFindButton - self->_runTimestamp];
+      [v299 setObject:v306 forKey:@"timeToRangeRequest"];
 
-      v305 = [NSNumber numberWithDouble:timestamp - self->_timeAtFindButton];
-      [v297 setObject:v305 forKey:@"rangingDuration"];
+      v307 = [NSNumber numberWithDouble:timestamp - self->_timeAtFindButton];
+      [v299 setObject:v307 forKey:@"rangingDuration"];
 
       timeAtFirstRawUWBRange = self->_timeAtFirstRawUWBRange;
       if (timeAtFirstRawUWBRange == -1.0)
       {
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeToFirstRange"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeFromFindButtonToFirstRange"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeFromConnectToFirstRange"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"firstRawRange"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"lastRawRange"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeToFirstRange"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeFromFindButtonToFirstRange"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeFromConnectToFirstRange"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"firstRawRange"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"lastRawRange"];
       }
 
       else
       {
-        v307 = [NSNumber numberWithDouble:timeAtFirstRawUWBRange - self->_runTimestamp];
-        [v297 setObject:v307 forKey:@"timeToFirstRange"];
+        v309 = [NSNumber numberWithDouble:timeAtFirstRawUWBRange - self->_runTimestamp];
+        [v299 setObject:v309 forKey:@"timeToFirstRange"];
 
-        v308 = [NSNumber numberWithDouble:self->_timeAtFirstRawUWBRange - self->_timeAtFindButton];
-        [v297 setObject:v308 forKey:@"timeFromFindButtonToFirstRange"];
+        v310 = [NSNumber numberWithDouble:self->_timeAtFirstRawUWBRange - self->_timeAtFindButton];
+        [v299 setObject:v310 forKey:@"timeFromFindButtonToFirstRange"];
 
-        v309 = [NSNumber numberWithDouble:self->_timeAtFirstRawUWBRange - self->_timeAtConnect];
-        [v297 setObject:v309 forKey:@"timeFromConnectToFirstRange"];
+        v311 = [NSNumber numberWithDouble:self->_timeAtFirstRawUWBRange - self->_timeAtConnect];
+        [v299 setObject:v311 forKey:@"timeFromConnectToFirstRange"];
 
-        v310 = [NSNumber numberWithDouble:self->_firstDistance_finding];
-        [v297 setObject:v310 forKey:@"firstRawRange"];
+        v312 = [NSNumber numberWithDouble:self->_firstDistance_finding];
+        [v299 setObject:v312 forKey:@"firstRawRange"];
 
-        v311 = [NSNumber numberWithDouble:self->_lastDistance_finding];
-        [v297 setObject:v311 forKey:@"lastRawRange"];
+        v313 = [NSNumber numberWithDouble:self->_lastDistance_finding];
+        [v299 setObject:v313 forKey:@"lastRawRange"];
       }
 
       if (self->_firstOutputDistance == -1.0)
       {
-        [v297 setObject:&off_1009C3DA0 forKey:@"firstOutputRange"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"lastOutputRange"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"maximumOutputRange"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"minimumOutputRange"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"firstOutputRange"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"lastOutputRange"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"maximumOutputRange"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"minimumOutputRange"];
       }
 
       else
       {
-        v312 = [NSNumber numberWithDouble:?];
-        [v297 setObject:v312 forKey:@"firstOutputRange"];
+        v314 = [NSNumber numberWithDouble:?];
+        [v299 setObject:v314 forKey:@"firstOutputRange"];
 
-        v313 = [NSNumber numberWithDouble:self->_lastOutputDistance];
-        [v297 setObject:v313 forKey:@"lastOutputRange"];
+        v315 = [NSNumber numberWithDouble:self->_lastOutputDistance];
+        [v299 setObject:v315 forKey:@"lastOutputRange"];
 
-        v314 = [NSNumber numberWithDouble:self->_maxOutputDistance];
-        [v297 setObject:v314 forKey:@"maximumOutputRange"];
+        v316 = [NSNumber numberWithDouble:self->_maxOutputDistance];
+        [v299 setObject:v316 forKey:@"maximumOutputRange"];
 
-        v315 = [NSNumber numberWithDouble:self->_minOutputDistance];
-        [v297 setObject:v315 forKey:@"minimumOutputRange"];
+        v317 = [NSNumber numberWithDouble:self->_minOutputDistance];
+        [v299 setObject:v317 forKey:@"minimumOutputRange"];
       }
 
       timeAtFirstValidPose = self->_timeAtFirstValidPose;
       if (timeAtFirstValidPose == -1.0)
       {
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeToFirstPose"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeFromFindButtonToFirstPose"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeToFirstPose"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeFromFindButtonToFirstPose"];
       }
 
       else
       {
-        v317 = [NSNumber numberWithDouble:timeAtFirstValidPose - self->_runTimestamp];
-        [v297 setObject:v317 forKey:@"timeToFirstPose"];
+        v319 = [NSNumber numberWithDouble:timeAtFirstValidPose - self->_runTimestamp];
+        [v299 setObject:v319 forKey:@"timeToFirstPose"];
 
-        v318 = [NSNumber numberWithDouble:self->_timeAtFirstValidPose - self->_timeAtFindButton];
-        [v297 setObject:v318 forKey:@"timeFromFindButtonToFirstPose"];
+        v320 = [NSNumber numberWithDouble:self->_timeAtFirstValidPose - self->_timeAtFindButton];
+        [v299 setObject:v320 forKey:@"timeFromFindButtonToFirstPose"];
 
-        v319 = self->_numberOfVIOResets;
-        if (v319 == -1)
+        v321 = self->_numberOfVIOResets;
+        if (v321 == -1)
         {
-          v320 = 0;
+          v322 = 0;
         }
 
         else
         {
-          v320 = v319;
+          v322 = v321;
         }
 
-        v321 = [NSNumber numberWithInt:v320];
-        [v297 setObject:v321 forKey:@"numberOfVIOResets"];
+        v323 = [NSNumber numberWithInt:v322];
+        [v299 setObject:v323 forKey:@"numberOfVIOResets"];
 
         if (self->_numberOfVIOResets == -1)
         {
           [(NIServerAnalyticsManager *)self _calculateStraightLineDistance];
-          v322 = [NSNumber numberWithDouble:self->_firstArrowStraightLineDistance];
-          [v297 setObject:v322 forKey:@"straightLineDistanceToFirstArrow"];
+          v324 = [NSNumber numberWithDouble:self->_firstArrowStraightLineDistance];
+          [v299 setObject:v324 forKey:@"straightLineDistanceToFirstArrow"];
 
-          v323 = [NSNumber numberWithDouble:self->_firstOutputRangeStraightLineDistance];
-          [v297 setObject:v323 forKey:@"straightLineDistanceToFirstOutputRange"];
+          v325 = [NSNumber numberWithDouble:self->_firstOutputRangeStraightLineDistance];
+          [v299 setObject:v325 forKey:@"straightLineDistanceToFirstOutputRange"];
 
-          v324 = [NSNumber numberWithDouble:self->_armsReachStraightLineDistance];
-          [v297 setObject:v324 forKey:@"straightLineDistanceToArmsReach"];
+          v326 = [NSNumber numberWithDouble:self->_armsReachStraightLineDistance];
+          [v299 setObject:v326 forKey:@"straightLineDistanceToArmsReach"];
 
-          v325 = [NSNumber numberWithDouble:*&self->_anon_778[168]];
-          [v297 setObject:v325 forKey:@"userMovedDistanceToFirstArrow"];
+          v327 = [NSNumber numberWithDouble:*&self->_anon_778[168]];
+          [v299 setObject:v327 forKey:@"userMovedDistanceToFirstArrow"];
 
-          v326 = [NSNumber numberWithDouble:*&self->_anon_8a8[168]];
-          [v297 setObject:v326 forKey:@"userMovedDistanceToFirstOutputRange"];
+          v328 = [NSNumber numberWithDouble:*&self->_anon_8a8[168]];
+          [v299 setObject:v328 forKey:@"userMovedDistanceToFirstOutputRange"];
 
-          v327 = [NSNumber numberWithDouble:*&self->_anon_9d8[168]];
-          [v297 setObject:v327 forKey:@"userMovedDistanceToArmsReach"];
+          v329 = [NSNumber numberWithDouble:*&self->_anon_9d8[168]];
+          [v299 setObject:v329 forKey:@"userMovedDistanceToArmsReach"];
 
-          v328 = [NSNumber numberWithDouble:*&self->_anon_b08[168]];
-          [v297 setObject:v328 forKey:@"totalUserMovedDistance"];
+          v330 = [NSNumber numberWithDouble:*&self->_anon_b08[168]];
+          [v299 setObject:v330 forKey:@"totalUserMovedDistance"];
 
           if (self->_anon_688[72] == 1 && self->_anon_5f8[72] == 1)
           {
-            v329 = [NSNumber numberWithDouble:self->_straightLineDistanceFromConnectToFirstRange];
-            [v297 setObject:v329 forKey:@"straightLineDistanceFromConnectToFirstRange"];
+            v331 = [NSNumber numberWithDouble:self->_straightLineDistanceFromConnectToFirstRange];
+            [v299 setObject:v331 forKey:@"straightLineDistanceFromConnectToFirstRange"];
           }
         }
       }
@@ -4713,257 +4734,257 @@ LABEL_49:
       timeAtFirstArrow = self->_timeAtFirstArrow;
       if (timeAtFirstArrow == -1.0)
       {
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeToFirstArrow"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeFromFindButtonToFirstArrow"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeFromFirstRangeToFirstArrow"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"numberOfArrowRevokes"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"arrowAvailabilityAfterFirstArrow"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"rangeAtFirstArrow"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeToFirstArrow"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeFromFindButtonToFirstArrow"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeFromFirstRangeToFirstArrow"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"numberOfArrowRevokes"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"arrowAvailabilityAfterFirstArrow"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"rangeAtFirstArrow"];
       }
 
       else
       {
-        v331 = [NSNumber numberWithDouble:timeAtFirstArrow - self->_runTimestamp];
-        [v297 setObject:v331 forKey:@"timeToFirstArrow"];
+        v333 = [NSNumber numberWithDouble:timeAtFirstArrow - self->_runTimestamp];
+        [v299 setObject:v333 forKey:@"timeToFirstArrow"];
 
-        v332 = [NSNumber numberWithDouble:self->_timeAtFirstArrow - self->_timeAtFindButton];
-        [v297 setObject:v332 forKey:@"timeFromFindButtonToFirstArrow"];
+        v334 = [NSNumber numberWithDouble:self->_timeAtFirstArrow - self->_timeAtFindButton];
+        [v299 setObject:v334 forKey:@"timeFromFindButtonToFirstArrow"];
 
-        v333 = [NSNumber numberWithDouble:self->_timeAtFirstArrow - self->_timeAtFirstRawUWBRange];
-        [v297 setObject:v333 forKey:@"timeFromFirstRangeToFirstArrow"];
+        v335 = [NSNumber numberWithDouble:self->_timeAtFirstArrow - self->_timeAtFirstRawUWBRange];
+        [v299 setObject:v335 forKey:@"timeFromFirstRangeToFirstArrow"];
 
-        v334 = self->_numberOfArrowRevokes;
-        if (v334 == -1)
+        v336 = self->_numberOfArrowRevokes;
+        if (v336 == -1)
         {
-          v335 = 0;
+          v337 = 0;
         }
 
         else
         {
-          v335 = v334;
+          v337 = v336;
         }
 
-        v336 = [NSNumber numberWithInt:v335];
-        [v297 setObject:v336 forKey:@"numberOfArrowRevokes"];
+        v338 = [NSNumber numberWithInt:v337];
+        [v299 setObject:v338 forKey:@"numberOfArrowRevokes"];
 
-        v337 = self->_numberOfArrowAvailabilityAfterFirstArrow;
-        v338 = -1.0;
-        if (v337 != -1)
+        v339 = self->_numberOfArrowAvailabilityAfterFirstArrow;
+        v340 = -1.0;
+        if (v339 != -1)
         {
-          v339 = self->_numberOfSolutions;
-          if (v339)
+          v341 = self->_numberOfSolutions;
+          if (v341)
           {
-            v338 = (v337 / v339);
+            v340 = (v339 / v341);
           }
         }
 
-        v340 = [NSNumber numberWithDouble:v338];
-        [v297 setObject:v340 forKey:@"arrowAvailabilityAfterFirstArrow"];
+        v342 = [NSNumber numberWithDouble:v340];
+        [v299 setObject:v342 forKey:@"arrowAvailabilityAfterFirstArrow"];
 
-        v341 = [NSNumber numberWithDouble:self->_rangeAtFirstArrow];
-        [v297 setObject:v341 forKey:@"rangeAtFirstArrow"];
+        v343 = [NSNumber numberWithDouble:self->_rangeAtFirstArrow];
+        [v299 setObject:v343 forKey:@"rangeAtFirstArrow"];
       }
 
       if (self->_timeAtArmsLength == -1.0)
       {
-        v342 = [NSNumber numberWithBool:0];
-        [v297 setObject:v342 forKey:@"enteredArmsReach"];
+        v344 = [NSNumber numberWithBool:0];
+        [v299 setObject:v344 forKey:@"enteredArmsReach"];
 
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeToArmsReach"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeFromFindButtonToArmsReach"];
-        [v297 setObject:&off_1009C3DA0 forKey:@"timeFromFirstRangeToArmsReach"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeToArmsReach"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeFromFindButtonToArmsReach"];
+        [v299 setObject:&off_1009C3DA0 forKey:@"timeFromFirstRangeToArmsReach"];
       }
 
       else
       {
-        v343 = [NSNumber numberWithBool:1];
-        [v297 setObject:v343 forKey:@"enteredArmsReach"];
+        v345 = [NSNumber numberWithBool:1];
+        [v299 setObject:v345 forKey:@"enteredArmsReach"];
 
-        v344 = [NSNumber numberWithDouble:self->_timeAtArmsLength - self->_runTimestamp];
-        [v297 setObject:v344 forKey:@"timeToArmsReach"];
+        v346 = [NSNumber numberWithDouble:self->_timeAtArmsLength - self->_runTimestamp];
+        [v299 setObject:v346 forKey:@"timeToArmsReach"];
 
-        v345 = [NSNumber numberWithDouble:self->_timeAtArmsLength - self->_timeAtFindButton];
-        [v297 setObject:v345 forKey:@"timeFromFindButtonToArmsReach"];
+        v347 = [NSNumber numberWithDouble:self->_timeAtArmsLength - self->_timeAtFindButton];
+        [v299 setObject:v347 forKey:@"timeFromFindButtonToArmsReach"];
 
-        v346 = [NSNumber numberWithDouble:self->_timeAtArmsLength - self->_timeAtFirstRawUWBRange];
-        [v297 setObject:v346 forKey:@"timeFromFirstRangeToArmsReach"];
+        v348 = [NSNumber numberWithDouble:self->_timeAtArmsLength - self->_timeAtFirstRawUWBRange];
+        [v299 setObject:v348 forKey:@"timeFromFirstRangeToArmsReach"];
       }
     }
 
     timeAtConnect = self->_timeAtConnect;
     if (timeAtConnect == -1.0)
     {
-      [v297 setObject:&off_1009C3DA0 forKey:@"timeToConnect"];
+      [v299 setObject:&off_1009C3DA0 forKey:@"timeToConnect"];
     }
 
     else
     {
-      v348 = [NSNumber numberWithDouble:timeAtConnect - self->_runTimestamp];
-      [v297 setObject:v348 forKey:@"timeToConnect"];
+      v350 = [NSNumber numberWithDouble:timeAtConnect - self->_runTimestamp];
+      [v299 setObject:v350 forKey:@"timeToConnect"];
 
-      v349 = self->_timeAtFindButton;
-      if (v349 != -1.0)
+      v351 = self->_timeAtFindButton;
+      if (v351 != -1.0)
       {
-        v349 = [NSNumber numberWithDouble:self->_timeAtConnect - v349];
-        [v297 setObject:v349 forKey:@"timeFromFindButtonToConnect"];
+        v351 = [NSNumber numberWithDouble:self->_timeAtConnect - v351];
+        [v299 setObject:v351 forKey:@"timeFromFindButtonToConnect"];
       }
     }
 
     timeAtConfigure = self->_timeAtConfigure;
     if (timeAtConfigure == -1.0)
     {
-      [v297 setObject:&off_1009C3DA0 forKey:@"timeToConfigure"];
+      [v299 setObject:&off_1009C3DA0 forKey:@"timeToConfigure"];
     }
 
     else
     {
-      v352 = [NSNumber numberWithDouble:timeAtConfigure - self->_runTimestamp];
-      [v297 setObject:v352 forKey:@"timeToConfigure"];
+      v354 = [NSNumber numberWithDouble:timeAtConfigure - self->_runTimestamp];
+      [v299 setObject:v354 forKey:@"timeToConfigure"];
 
-      v353 = self->_timeAtFindButton;
-      if (v353 != -1.0)
+      v355 = self->_timeAtFindButton;
+      if (v355 != -1.0)
       {
-        v353 = [NSNumber numberWithDouble:self->_timeAtConfigure - v353];
-        [v297 setObject:v353 forKey:@"timeFromFindButtonToConfigure"];
+        v355 = [NSNumber numberWithDouble:self->_timeAtConfigure - v355];
+        [v299 setObject:v355 forKey:@"timeFromFindButtonToConfigure"];
       }
     }
 
     if (self->_rangingMode != -1)
     {
-      v355 = [NSNumber numberWithInt:?];
-      [v297 setObject:v355 forKey:@"rangingMode"];
+      v357 = [NSNumber numberWithInt:?];
+      [v299 setObject:v357 forKey:@"rangingMode"];
     }
 
-    v356 = [v297 mutableCopy];
-    v357 = qword_1009ECD20;
-    if (os_log_type_enabled(v357, OS_LOG_TYPE_INFO))
+    v358 = [v299 mutableCopy];
+    v359 = qword_1009ECD20;
+    if (os_log_type_enabled(v359, OS_LOG_TYPE_INFO))
     {
-      v384 = v297;
-      v358 = p_engaged;
-      v359 = self->_bundleIdentifier;
-      v360 = [v356 description];
+      v386 = v299;
+      v360 = p_engaged;
+      v361 = self->_bundleIdentifier;
+      v362 = [v358 description];
       *buf = 138412802;
-      *&buf[4] = v359;
-      v418 = 2112;
-      v419 = @"com.apple.nearbyinteraction.itemLocalizerSession.Summary";
+      *&buf[4] = v361;
       v420 = 2112;
-      v421 = *&v360;
-      _os_log_impl(&_mh_execute_header, v357, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
+      v421 = @"com.apple.nearbyinteraction.itemLocalizerSession.Summary";
+      v422 = 2112;
+      v423 = *&v362;
+      _os_log_impl(&_mh_execute_header, v359, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
 
-      p_engaged = v358;
-      v297 = v384;
+      p_engaged = v360;
+      v299 = v386;
     }
 
-    v388 = v356;
+    v390 = v358;
     AnalyticsSendEventLazy();
 
-    v295 = *p_sessionType;
+    v297 = *p_sessionType;
   }
 
-  if (v295 == 6)
+  if (v297 == 6)
   {
-    v361 = qword_1009ECD20;
-    if (os_log_type_enabled(v361, OS_LOG_TYPE_INFO))
+    v363 = qword_1009ECD20;
+    if (os_log_type_enabled(v363, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v361, OS_LOG_TYPE_INFO, "#ni-ca,Item BT finding event submission", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v363, OS_LOG_TYPE_INFO, "#ni-ca,Item BT finding event submission", buf, 2u);
     }
 
-    v362 = objc_alloc_init(NSMutableDictionary);
-    v363 = [NSNumber numberWithDouble:v15];
-    [v362 setObject:v363 forKey:@"sessionDuration"];
+    v364 = objc_alloc_init(NSMutableDictionary);
+    v365 = [NSNumber numberWithDouble:v15];
+    [v364 setObject:v365 forKey:@"sessionDuration"];
 
-    v364 = [NSNumber numberWithBool:p_engaged[80]];
-    [v362 setObject:v364 forKey:@"isOwner"];
+    v366 = [NSNumber numberWithBool:p_engaged[80]];
+    [v364 setObject:v366 forKey:@"isOwner"];
 
-    v365 = self->_typeName;
-    if (v365)
+    v367 = self->_typeName;
+    if (v367)
     {
-      [v362 setObject:v365 forKey:@"productName"];
+      [v364 setObject:v367 forKey:@"productName"];
     }
 
-    v366 = self->_timeAtConnect;
-    if (v366 == -1.0)
-    {
-      [v362 setObject:&off_1009C3DA0 forKey:@"timeToConnect"];
-    }
-
-    else
-    {
-      v367 = [NSNumber numberWithDouble:v366 - self->_runTimestamp];
-      [v362 setObject:v367 forKey:@"timeToConnect"];
-    }
-
-    v368 = self->_timeAtConfigure;
+    v368 = self->_timeAtConnect;
     if (v368 == -1.0)
     {
-      [v362 setObject:&off_1009C3DA0 forKey:@"timeToConfigure"];
+      [v364 setObject:&off_1009C3DA0 forKey:@"timeToConnect"];
     }
 
     else
     {
       v369 = [NSNumber numberWithDouble:v368 - self->_runTimestamp];
-      [v362 setObject:v369 forKey:@"timeToConfigure"];
+      [v364 setObject:v369 forKey:@"timeToConnect"];
+    }
+
+    v370 = self->_timeAtConfigure;
+    if (v370 == -1.0)
+    {
+      [v364 setObject:&off_1009C3DA0 forKey:@"timeToConfigure"];
+    }
+
+    else
+    {
+      v371 = [NSNumber numberWithDouble:v370 - self->_runTimestamp];
+      [v364 setObject:v371 forKey:@"timeToConfigure"];
 
       if (p_engaged[168] == 1)
       {
-        v370 = [NSNumber numberWithInt:self->_itemBtTxPower.var0.__val_];
-        [v362 setObject:v370 forKey:@"txPower"];
+        v372 = [NSNumber numberWithInt:self->_itemBtTxPower.var0.__val_];
+        [v364 setObject:v372 forKey:@"txPower"];
       }
     }
 
     timeAtFirstBtRssiMeasurement = self->_timeAtFirstBtRssiMeasurement;
     if (timeAtFirstBtRssiMeasurement != -1.0)
     {
-      v372 = [NSNumber numberWithDouble:timeAtFirstBtRssiMeasurement - self->_runTimestamp];
-      [v362 setObject:v372 forKey:@"timeToFirstMeasurement"];
+      v374 = [NSNumber numberWithDouble:timeAtFirstBtRssiMeasurement - self->_runTimestamp];
+      [v364 setObject:v374 forKey:@"timeToFirstMeasurement"];
 
-      v373 = [NSNumber numberWithDouble:self->_firstBtRssi];
-      [v362 setObject:v373 forKey:@"firstRSSI"];
+      v375 = [NSNumber numberWithDouble:self->_firstBtRssi];
+      [v364 setObject:v375 forKey:@"firstRSSI"];
 
-      v374 = [NSNumber numberWithDouble:self->_lastBtRssi];
-      [v362 setObject:v374 forKey:@"finalRSSI"];
+      v376 = [NSNumber numberWithDouble:self->_lastBtRssi];
+      [v364 setObject:v376 forKey:@"finalRSSI"];
     }
 
     timeAtArmsLength = self->_timeAtArmsLength;
     if (timeAtArmsLength == -1.0)
     {
-      [v362 setObject:&off_1009C3DA0 forKey:@"timeToArmsReach"];
+      [v364 setObject:&off_1009C3DA0 forKey:@"timeToArmsReach"];
       [NSNumber numberWithBool:0];
     }
 
     else
     {
-      v377 = [NSNumber numberWithDouble:timeAtArmsLength - self->_runTimestamp];
-      [v362 setObject:v377 forKey:@"timeToArmsReach"];
+      v379 = [NSNumber numberWithDouble:timeAtArmsLength - self->_runTimestamp];
+      [v364 setObject:v379 forKey:@"timeToArmsReach"];
 
       [NSNumber numberWithBool:1];
     }
-    v376 = ;
-    [v362 setObject:v376 forKey:@"enteredArmsReach"];
+    v378 = ;
+    [v364 setObject:v378 forKey:@"enteredArmsReach"];
 
-    v378 = [NSNumber numberWithInt:self->_numberOfRegionFoundEvents];
-    [v362 setObject:v378 forKey:@"numberOfLevelFoundEvents"];
+    v380 = [NSNumber numberWithInt:self->_numberOfRegionFoundEvents];
+    [v364 setObject:v380 forKey:@"numberOfLevelFoundEvents"];
 
-    v379 = [NSNumber numberWithInt:self->_numberOfRegionRevokes];
-    [v362 setObject:v379 forKey:@"numberOfRevokes"];
+    v381 = [NSNumber numberWithInt:self->_numberOfRegionRevokes];
+    [v364 setObject:v381 forKey:@"numberOfRevokes"];
 
-    v380 = [v362 mutableCopy];
-    v381 = qword_1009ECD20;
-    if (os_log_type_enabled(v381, OS_LOG_TYPE_INFO))
+    v382 = [v364 mutableCopy];
+    v383 = qword_1009ECD20;
+    if (os_log_type_enabled(v383, OS_LOG_TYPE_INFO))
     {
-      v382 = self->_bundleIdentifier;
-      v383 = [v380 description];
+      v384 = self->_bundleIdentifier;
+      v385 = [v382 description];
       *buf = 138412802;
-      *&buf[4] = v382;
-      v418 = 2112;
-      v419 = @"com.apple.nearbyinteraction.btLocalizerSession.Summary";
+      *&buf[4] = v384;
       v420 = 2112;
-      v421 = *&v383;
-      _os_log_impl(&_mh_execute_header, v381, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
+      v421 = @"com.apple.nearbyinteraction.btLocalizerSession.Summary";
+      v422 = 2112;
+      v423 = *&v385;
+      _os_log_impl(&_mh_execute_header, v383, OS_LOG_TYPE_INFO, "#ni-ca,[%@] send analytics event %@:\n%@\n", buf, 0x20u);
     }
 
-    v387 = v380;
+    v389 = v382;
     AnalyticsSendEventLazy();
   }
 }

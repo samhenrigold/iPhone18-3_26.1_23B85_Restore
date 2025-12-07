@@ -78,26 +78,24 @@
 
 + (id)acceptedSourceBundleIds
 {
-  v9[5] = *MEMORY[0x277D85DE8];
+  v8[5] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
   v3 = *MEMORY[0x277D3A648];
-  v9[0] = *MEMORY[0x277D3A698];
-  v9[1] = v3;
+  v8[0] = *MEMORY[0x277D3A698];
+  v8[1] = v3;
   v4 = *MEMORY[0x277D3A650];
-  v9[2] = *MEMORY[0x277D3A658];
-  v9[3] = v4;
-  v9[4] = *MEMORY[0x277D3A608];
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
+  v8[2] = *MEMORY[0x277D3A658];
+  v8[3] = v4;
+  v8[4] = *MEMORY[0x277D3A608];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:5];
   v6 = [v2 setWithArray:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)excludedAlgorithms
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB58] set];
   for (i = 1; i != 18; ++i)
   {
@@ -105,36 +103,35 @@
     [v2 addObject:v4];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = +[_ICPortraitUtilities acceptedAlgorithms];
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (j = 0; j != v7; ++j)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [v2 removeObject:*(*(&v13 + 1) + 8 * j)];
+        [v2 removeObject:*(*(&v12 + 1) + 8 * j)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   v10 = [v2 copy];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -175,19 +172,19 @@
       v16 = 0;
     }
 
-    v21 = _ICPersNamedEntityOSLogFacility();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v22 = _ICPersNamedEntityOSLogFacility(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      [(_ICPortraitUtilities *)recordCopy namedEntityRecordFromPortraitNamedEntityRecord:v21];
+      [(_ICPortraitUtilities *)recordCopy namedEntityRecordFromPortraitNamedEntityRecord:v22];
     }
 
-    v22 = [_ICNamedEntityRecord alloc];
+    v23 = [_ICNamedEntityRecord alloc];
     entity = [recordCopy entity];
     name = [entity name];
     source3 = [recordCopy source];
     date3 = [source3 date];
     [date3 timeIntervalSinceReferenceDate];
-    v20 = [(_ICNamedEntityRecord *)v22 initWithName:name timestamp:v16 passesFilters:?];
+    v20 = [(_ICNamedEntityRecord *)v23 initWithName:name timestamp:v16 passesFilters:?];
   }
 
   else
@@ -203,31 +200,31 @@
 
 + (id)filteredNamedEntitiesFromJSONDonations:(id)donations
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   donationsCopy = donations;
   array = [MEMORY[0x277CBEB18] array];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = donationsCopy;
-  v4 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+  v4 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
   if (v4)
   {
     v5 = v4;
-    v41 = *v43;
+    v40 = *v42;
     do
     {
       v6 = 0;
-      v37 = v5;
+      v36 = v5;
       do
       {
-        if (*v43 != v41)
+        if (*v42 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v42 + 1) + 8 * v6);
+        v7 = *(*(&v41 + 1) + 8 * v6);
         v8 = [v7 objectForKeyedSubscript:@"namedEntities"];
         v9 = [v8 objectAtIndexedSubscript:0];
         v10 = [v9 objectForKeyedSubscript:@"name"];
@@ -254,8 +251,8 @@
 
           v19 = objc_opt_new();
           [v19 setFormatOptions:1907];
-          v39 = v19;
-          v40 = v18;
+          v38 = v19;
+          v39 = v18;
           v20 = [v19 dateFromString:v18];
           v21 = v20;
           if (v20)
@@ -302,7 +299,7 @@
             [array addObject:v8];
           }
 
-          v5 = v37;
+          v5 = v36;
         }
 
 LABEL_19:
@@ -310,35 +307,31 @@ LABEL_19:
       }
 
       while (v6 != v5);
-      v5 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v5 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
     }
 
     while (v5);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return array;
 }
 
 + (void)namedEntityRecordFromPortraitNamedEntityRecord:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = [a1 entity];
   v5 = [v4 name];
   v6 = [v5 UTF8String];
   v7 = [a1 source];
   v8 = [v7 bundleId];
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1, "algorithm")}];
-  v11 = 136315650;
-  v12 = v6;
-  v13 = 2112;
-  v14 = v8;
-  v15 = 2112;
-  v16 = v9;
-  _os_log_debug_impl(&dword_254BD0000, a2, OS_LOG_TYPE_DEBUG, "Performed local filtering in InputContext on Portrait entity with name %s, %@, %@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v10 = 136315650;
+  v11 = v6;
+  v12 = 2112;
+  v13 = v8;
+  v14 = 2112;
+  v15 = v9;
+  _os_log_debug_impl(&dword_254BD0000, a2, OS_LOG_TYPE_DEBUG, "Performed local filtering in InputContext on Portrait entity with name %s, %@, %@", &v10, 0x20u);
 }
 
 @end

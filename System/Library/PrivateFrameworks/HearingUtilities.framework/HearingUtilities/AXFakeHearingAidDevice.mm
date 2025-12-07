@@ -1,4 +1,5 @@
 @interface AXFakeHearingAidDevice
+- (AXFakeHearingAidDevice)initWithDeviceType:(int)type;
 - (BOOL)leftAvailable;
 - (BOOL)programsListsAreEqual;
 - (BOOL)rightAvailable;
@@ -14,9 +15,76 @@
 - (void)persist;
 - (void)registerWriteBlock:(id)block;
 - (void)setValue:(id)value forProperty:(unint64_t)property;
+- (void)writeInt:(unsigned __int8)int toEar:(int)ear forProperty:(unint64_t)property;
+- (void)writeSignedInt:(char)int toEar:(int)ear forProperty:(unint64_t)property;
 @end
 
 @implementation AXFakeHearingAidDevice
+
+- (AXFakeHearingAidDevice)initWithDeviceType:(int)type
+{
+  v3 = *&type;
+  v18[2] = *MEMORY[0x1E69E9840];
+  v16.receiver = self;
+  v16.super_class = AXFakeHearingAidDevice;
+  v4 = [(AXHearingAidDevice *)&v16 initWithPeripheral:0];
+  v5 = v4;
+  if (v4)
+  {
+    [(AXFakeHearingAidDevice *)v4 setType:v3];
+    [(AXFakeHearingAidDevice *)v5 setName:@"Nathan's Hearing Aid"];
+    manufacturerForType = [(AXFakeHearingAidDevice *)v5 manufacturerForType];
+    v18[0] = manufacturerForType;
+    v18[1] = &stru_1F5614A78;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+    [(AXFakeHearingAidDevice *)v5 setManufacturer:v7];
+
+    modelForType = [(AXFakeHearingAidDevice *)v5 modelForType];
+    v17[0] = modelForType;
+    v17[1] = &stru_1F5614A78;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+    [(AXFakeHearingAidDevice *)v5 setModel:v9];
+
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"AppleLeft-%d", arc4random()];
+    [(AXFakeHearingAidDevice *)v5 setLeftUUID:v10];
+
+    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"AppleRight-%d", arc4random()];
+    [(AXFakeHearingAidDevice *)v5 setRightUUID:v11];
+
+    if ([(AXFakeHearingAidDevice *)v5 leftAvailable])
+    {
+      [(AXFakeHearingAidDevice *)v5 setLeftBatteryLevel:1.0];
+      [(AXHearingAidDevice *)v5 setLeftMicrophoneVolume:0.5];
+      [(AXHearingAidDevice *)v5 setLeftStreamVolume:0.5];
+      [(AXFakeHearingAidDevice *)v5 setLeftFirmwareVersion:@"1.0"];
+      [(AXFakeHearingAidDevice *)v5 setLeftHardwareVersion:@"1.0"];
+      [(AXFakeHearingAidDevice *)v5 setLeftMicrophoneVolumeSteps:3];
+      [(AXHearingAidDevice *)v5 setAvailableEars:[(AXHearingAidDevice *)v5 availableEars]| 2];
+    }
+
+    if ([(AXFakeHearingAidDevice *)v5 rightAvailable])
+    {
+      [(AXFakeHearingAidDevice *)v5 setRightBatteryLevel:0.850000024];
+      v12 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:-60.0];
+      [(AXFakeHearingAidDevice *)v5 setRightBatteryLowDate:v12];
+
+      [(AXHearingAidDevice *)v5 setRightMicrophoneVolume:0.5];
+      [(AXHearingAidDevice *)v5 setRightStreamVolume:0.5];
+      [(AXFakeHearingAidDevice *)v5 setRightFirmwareVersion:@"1.0"];
+      [(AXFakeHearingAidDevice *)v5 setRightHardwareVersion:@"1.0"];
+      [(AXHearingAidDevice *)v5 setAvailableEars:[(AXHearingAidDevice *)v5 availableEars]| 4];
+    }
+
+    [(AXFakeHearingAidDevice *)v5 createPrograms];
+    programs = [(AXHearingAidDevice *)v5 programs];
+    firstObject = [programs firstObject];
+    [(AXHearingAidDevice *)v5 selectProgram:firstObject forEar:6];
+
+    [(AXFakeHearingAidDevice *)v5 connect];
+  }
+
+  return v5;
+}
 
 - (void)dealloc
 {
@@ -322,14 +390,14 @@ void __33__AXFakeHearingAidDevice_connect__block_invoke(uint64_t a1)
   _Block_object_dispose(&v32, 8);
 }
 
-uint64_t __40__AXFakeHearingAidDevice_createPrograms__block_invoke(uint64_t a1, void *a2)
+void *__40__AXFakeHearingAidDevice_createPrograms__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 index];
   *(*(*(a1 + 32) + 8) + 24) += 1 << result;
   return result;
 }
 
-uint64_t __40__AXFakeHearingAidDevice_createPrograms__block_invoke_2(uint64_t a1, void *a2)
+void *__40__AXFakeHearingAidDevice_createPrograms__block_invoke_2(uint64_t a1, void *a2)
 {
   result = [a2 index];
   *(*(*(a1 + 32) + 8) + 24) += 1 << result;
@@ -463,21 +531,7 @@ uint64_t __59__AXFakeHearingAidDevice_availablePropertiesForPeripheral___block_i
   LOBYTE(v4) = v4 == [rightPrograms count];
 
   v18 = v4;
-  if (*(v16 + 24) != 1)
-  {
-    goto LABEL_5;
-  }
-
-  leftPrograms2 = [(AXFakeHearingAidDevice *)self leftPrograms];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __47__AXFakeHearingAidDevice_programsListsAreEqual__block_invoke;
-  v14[3] = &unk_1E85CC948;
-  v14[4] = self;
-  v14[5] = &v15;
-  [leftPrograms2 enumerateObjectsUsingBlock:v14];
-
-  if (v16[3])
+  if (*(v16 + 24) == 1 && (-[AXFakeHearingAidDevice leftPrograms](self, "leftPrograms"), v6 = objc_claimAutoreleasedReturnValue(), v14[0] = MEMORY[0x1E69E9820], v14[1] = 3221225472, v14[2] = __47__AXFakeHearingAidDevice_programsListsAreEqual__block_invoke, v14[3] = &unk_1E85CC948, v14[4] = self, v14[5] = &v15, [v6 enumerateObjectsUsingBlock:v14], v6, (v16[3] & 1) != 0))
   {
     leftSelectedProgram = [(AXHearingAidDevice *)self leftSelectedProgram];
     rightSelectedProgram = [(AXHearingAidDevice *)self rightSelectedProgram];
@@ -499,7 +553,6 @@ uint64_t __59__AXFakeHearingAidDevice_availablePropertiesForPeripheral___block_i
 
   else
   {
-LABEL_5:
     v12 = 0;
   }
 
@@ -521,6 +574,41 @@ void __47__AXFakeHearingAidDevice_programsListsAreEqual__block_invoke(uint64_t a
   }
 }
 
+- (void)writeInt:(unsigned __int8)int toEar:(int)ear forProperty:(unint64_t)property
+{
+  v6 = *&ear;
+  intCopy = int;
+  v16 = *MEMORY[0x1E69E9840];
+  v9 = HCLogHearingAids();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = hearingPropertyDescription(property);
+    v13[0] = 67109378;
+    v13[1] = intCopy;
+    v14 = 2112;
+    v15 = v10;
+    _os_log_impl(&dword_1DA5E2000, v9, OS_LOG_TYPE_DEFAULT, "WRITING %d for %@", v13, 0x12u);
+  }
+
+  writeBlock = self->_writeBlock;
+  if (writeBlock)
+  {
+    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:intCopy];
+    writeBlock[2](writeBlock, property, v12, v6);
+  }
+}
+
+- (void)writeSignedInt:(char)int toEar:(int)ear forProperty:(unint64_t)property
+{
+  writeBlock = self->_writeBlock;
+  if (writeBlock)
+  {
+    v7 = *&ear;
+    v8 = [MEMORY[0x1E696AD98] numberWithChar:int];
+    writeBlock[2](writeBlock, property, v8, v7);
+  }
+}
+
 - (id)persistentRepresentation
 {
   v3 = MEMORY[0x1E695DF90];
@@ -537,17 +625,17 @@ void __47__AXFakeHearingAidDevice_programsListsAreEqual__block_invoke(uint64_t a
 
 - (id)valueForProperty:(unint64_t)property
 {
-  v15[2] = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = AXFakeHearingAidDevice;
-  v5 = [(AXHearingAidDevice *)&v13 valueForProperty:?];
+  v14[2] = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = AXFakeHearingAidDevice;
+  v5 = [(AXHearingAidDevice *)&v12 valueForProperty:?];
   if (property == 512)
   {
-    v14[0] = &unk_1F5624130;
-    v14[1] = &unk_1F5624148;
-    v15[0] = &unk_1F5624430;
-    v15[1] = &unk_1F5624448;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v13[0] = &unk_1F5624130;
+    v13[1] = &unk_1F5624148;
+    v14[0] = &unk_1F5624430;
+    v14[1] = &unk_1F5624448;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
   }
 
   else
@@ -577,7 +665,6 @@ void __47__AXFakeHearingAidDevice_programsListsAreEqual__block_invoke(uint64_t a
 
   v5 = v10;
 LABEL_9:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

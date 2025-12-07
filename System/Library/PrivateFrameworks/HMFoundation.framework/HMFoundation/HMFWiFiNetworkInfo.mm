@@ -21,17 +21,17 @@
   if (!addressCopy || dCopy && ![dCopy length])
   {
     v20 = objc_autoreleasePoolPush();
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = HMFGetOSLogHandle(0, v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier(0);
+      v23 = HMFGetLogIdentifier(0);
       *buf = 138543874;
-      v28 = v22;
+      v28 = v23;
       v29 = 2112;
       v30 = addressCopy;
       v31 = 2112;
       v32 = dCopy;
-      _os_log_impl(&dword_22ADEC000, v21, OS_LOG_TYPE_ERROR, "%{public}@Cannot create HMFWiFiNetworkInfo with MACAddress: %@ and SSID: %@", buf, 0x20u);
+      _os_log_impl(&dword_22ADEC000, v22, OS_LOG_TYPE_ERROR, "%{public}@Cannot create HMFWiFiNetworkInfo with MACAddress: %@ and SSID: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v20);
@@ -55,7 +55,6 @@
 LABEL_9:
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

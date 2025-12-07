@@ -56,9 +56,10 @@
 
 - (void)willMoveToState:(int64_t)state
 {
-  OspreyLoggingInit();
+  OspreyLoggingInit(self, a2);
   v5 = OspreyLogContextAbsinthe;
-  if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
+  nacContext = os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG);
+  if (nacContext)
   {
     [(OspreyAbsintheAuthenticator *)self willMoveToState:state, v5];
   }
@@ -80,16 +81,16 @@
 
     else
     {
-      OspreyLoggingInit();
+      OspreyLoggingInit(nacContext, v7);
       if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
       {
         [OspreyAbsintheAuthenticator willMoveToState:];
       }
 
-      [(OspreyConnectionPreferences *)self->_connectionPreferences deleteCertificateData];
+      nacContext = [(OspreyConnectionPreferences *)self->_connectionPreferences deleteCertificateData];
     }
 
-    OspreyLoggingInit();
+    OspreyLoggingInit(nacContext, v7);
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
     {
       [OspreyAbsintheAuthenticator willMoveToState:];
@@ -98,12 +99,12 @@
     nacContext = self->_nacContext;
     if (nacContext)
     {
-      IW1PcFszqNK(nacContext);
+      nacContext = IW1PcFszqNK(nacContext);
     }
 
     self->_nacContext = 0;
 LABEL_14:
-    OspreyLoggingInit();
+    OspreyLoggingInit(nacContext, v7);
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
     {
       [OspreyAbsintheAuthenticator willMoveToState:];
@@ -119,31 +120,31 @@ LABEL_14:
 
 - (void)signData:(id)data success:(id)success failure:(id)failure
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   successCopy = success;
   failureCopy = failure;
-  OspreyLoggingInit();
-  v11 = OspreyLogContextAbsinthe;
+  OspreyLoggingInit(failureCopy, v11);
+  v12 = OspreyLogContextAbsinthe;
   if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v20 = "[OspreyAbsintheAuthenticator signData:success:failure:]";
-    _os_log_impl(&dword_25DDE6000, v11, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
+    v21 = "[OspreyAbsintheAuthenticator signData:success:failure:]";
+    _os_log_impl(&dword_25DDE6000, v12, OS_LOG_TYPE_INFO, "%s ", buf, 0xCu);
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __56__OspreyAbsintheAuthenticator_signData_success_failure___block_invoke;
-  v15[3] = &unk_2799F1E08;
-  v15[4] = self;
-  v16 = dataCopy;
-  v17 = successCopy;
-  v18 = failureCopy;
-  v12 = failureCopy;
-  v13 = successCopy;
-  v14 = dataCopy;
-  [(OspreyAbsintheAuthenticator *)self _ensureAuthenticatedWithCompletion:v15 failure:v12];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __56__OspreyAbsintheAuthenticator_signData_success_failure___block_invoke;
+  v16[3] = &unk_2799F1E08;
+  v16[4] = self;
+  v17 = dataCopy;
+  v18 = successCopy;
+  v19 = failureCopy;
+  v13 = failureCopy;
+  v14 = successCopy;
+  v15 = dataCopy;
+  [(OspreyAbsintheAuthenticator *)self _ensureAuthenticatedWithCompletion:v16 failure:v13];
 }
 
 void __56__OspreyAbsintheAuthenticator_signData_success_failure___block_invoke(uint64_t a1)
@@ -165,39 +166,40 @@ void __56__OspreyAbsintheAuthenticator_signData_success_failure___block_invoke(u
 - (id)_signData:(id)data
 {
   dataCopy = data;
-  v5 = dataCopy;
-  v11 = 0;
+  v6 = dataCopy;
+  v15 = 0;
   nacContext = self->_nacContext;
   if (!nacContext)
   {
-    OspreyLoggingInit();
-    v8 = OspreyLogContextAbsinthe;
+    OspreyLoggingInit(dataCopy, v5);
+    v10 = OspreyLogContextAbsinthe;
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
     {
-      [OspreyAbsintheAuthenticator _signData:v8];
+      [OspreyAbsintheAuthenticator _signData:v10];
     }
 
     goto LABEL_7;
   }
 
-  t1BoNctgaUu66(nacContext, [dataCopy bytes], objc_msgSend(dataCopy, "length"), &v11);
-  if (v7)
+  t1BoNctgaUu66(nacContext, [dataCopy bytes], objc_msgSend(dataCopy, "length"), &v15);
+  if (v8)
   {
-    OspreyLoggingInit();
+    OspreyLoggingInit(v8, v9);
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
     {
       [OspreyAbsintheAuthenticator _signData:];
     }
 
 LABEL_7:
-    v9 = 0;
+    v11 = 0;
     goto LABEL_8;
   }
 
-  v9 = [MEMORY[0x277CBEA90] dataWithBytes:v11 length:0];
-  if (Be81a395Bf0(v11))
+  v11 = [MEMORY[0x277CBEA90] dataWithBytes:v15 length:0];
+  v13 = Be81a395Bf0(v15);
+  if (v13)
   {
-    OspreyLoggingInit();
+    OspreyLoggingInit(v13, v14);
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
     {
       [OspreyAbsintheAuthenticator _signData:];
@@ -206,7 +208,7 @@ LABEL_7:
 
 LABEL_8:
 
-  return v9;
+  return v11;
 }
 
 - (BOOL)isSessionInfoExpired
@@ -222,7 +224,7 @@ LABEL_8:
     return 1;
   }
 
-  OspreyLoggingInit();
+  OspreyLoggingInit(self, a2);
   if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
   {
     [OspreyAbsintheAuthenticator isSessionInfoExpired];
@@ -237,99 +239,101 @@ LABEL_8:
 
 - (void)_ensureAuthenticatedWithCompletion:(id)completion failure:(id)failure
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   failureCopy = failure;
+  v9 = failureCopy;
   state = self->_state;
   if (state != 5)
   {
     if (state == 2)
     {
-      OspreyLoggingInit();
-      v14 = OspreyLogContextAbsinthe;
+      OspreyLoggingInit(failureCopy, v8);
+      v18 = OspreyLogContextAbsinthe;
       if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v39 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
-        _os_log_impl(&dword_25DDE6000, v14, OS_LOG_TYPE_INFO, "%s [Absinthe state] Certificate fetched state", buf, 0xCu);
+        v46 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
+        _os_log_impl(&dword_25DDE6000, v18, OS_LOG_TYPE_INFO, "%s [Absinthe state] Certificate fetched state", buf, 0xCu);
       }
 
       [(OspreyGRPCChannel *)self->_channel setAbsintheTimestampForKey:@"CreateSessionStart"];
       certificateData = [(OspreyConnectionPreferences *)self->_connectionPreferences certificateData];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke_13;
-      v28[3] = &unk_2799F1EF8;
-      v28[4] = self;
-      v29 = completionCopy;
-      v30 = failureCopy;
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke_4;
-      v26[3] = &unk_2799F1ED0;
-      v27 = v30;
-      [(OspreyAbsintheAuthenticator *)self _initializeAbsintheClientWithCertificateData:certificateData success:v28 fail:v26];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke_13;
+      v35[3] = &unk_2799F1EF8;
+      v35[4] = self;
+      v36 = completionCopy;
+      v37 = v9;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke_4;
+      v33[3] = &unk_2799F1ED0;
+      v34 = v37;
+      [(OspreyAbsintheAuthenticator *)self _initializeAbsintheClientWithCertificateData:certificateData success:v35 fail:v33];
 
-      v16 = v29;
+      v20 = v36;
       goto LABEL_27;
     }
 
     if (!state)
     {
-      OspreyLoggingInit();
-      v9 = OspreyLogContextAbsinthe;
+      OspreyLoggingInit(failureCopy, v8);
+      v11 = OspreyLogContextAbsinthe;
       if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v39 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
-        _os_log_impl(&dword_25DDE6000, v9, OS_LOG_TYPE_INFO, "%s [Absinthe state] Initial state", buf, 0xCu);
+        v46 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
+        _os_log_impl(&dword_25DDE6000, v11, OS_LOG_TYPE_INFO, "%s [Absinthe state] Initial state", buf, 0xCu);
       }
 
       [(OspreyGRPCChannel *)self->_channel setAbsintheTimestampForKey:@"GetCertificateStart"];
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke;
-      v35[3] = &unk_2799F1E30;
-      v35[4] = self;
-      v36 = completionCopy;
-      v10 = failureCopy;
-      v37 = v10;
-      v11 = MEMORY[0x25F8A5BA0](v35);
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke;
+      v42[3] = &unk_2799F1E30;
+      v42[4] = self;
+      v43 = completionCopy;
+      v12 = v9;
+      v44 = v12;
+      v13 = MEMORY[0x25F8A5BA0](v42);
       [(OspreyAbsintheAuthenticator *)self setState:1];
       certificateData2 = [(OspreyConnectionPreferences *)self->_connectionPreferences certificateData];
+      v16 = certificateData2;
       if (certificateData2)
       {
-        OspreyLoggingInit();
-        v13 = OspreyLogContextAbsinthe;
+        OspreyLoggingInit(certificateData2, v15);
+        v17 = OspreyLogContextAbsinthe;
         if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v39 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
-          _os_log_impl(&dword_25DDE6000, v13, OS_LOG_TYPE_INFO, "%s Certificate found in cache!", buf, 0xCu);
+          v46 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
+          _os_log_impl(&dword_25DDE6000, v17, OS_LOG_TYPE_INFO, "%s Certificate found in cache!", buf, 0xCu);
         }
 
-        v11[2](v11);
+        v13[2](v13);
       }
 
       else
       {
         authService = self->_authService;
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke_10;
-        v33[3] = &unk_2799F1E58;
-        v33[4] = self;
-        v34 = v11;
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke_2;
-        v31[3] = &unk_2799F1E80;
-        v31[4] = self;
-        v32 = v10;
-        [(OspreyAuthService *)authService certificateDataWithSuccess:v33 failure:v31];
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke_10;
+        v40[3] = &unk_2799F1E58;
+        v40[4] = self;
+        v41 = v13;
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failure___block_invoke_2;
+        v38[3] = &unk_2799F1E80;
+        v38[4] = self;
+        v39 = v12;
+        [(OspreyAuthService *)authService certificateDataWithSuccess:v40 failure:v38];
       }
 
-      v16 = v36;
+      v20 = v43;
 LABEL_27:
 
       goto LABEL_28;
@@ -338,63 +342,64 @@ LABEL_27:
     if (![(OspreyAbsintheAuthenticator *)self isSessionInfoExpired])
     {
       selfCopy2 = self;
-      v20 = 5;
+      v26 = 5;
       goto LABEL_24;
     }
 
 LABEL_19:
     selfCopy2 = self;
-    v20 = 2;
+    v26 = 2;
 LABEL_24:
-    [(OspreyAbsintheAuthenticator *)selfCopy2 setState:v20];
-    [(OspreyAbsintheAuthenticator *)self _ensureAuthenticatedWithCompletion:completionCopy failure:failureCopy];
+    [(OspreyAbsintheAuthenticator *)selfCopy2 setState:v26];
+    [(OspreyAbsintheAuthenticator *)self _ensureAuthenticatedWithCompletion:completionCopy failure:v9];
     goto LABEL_28;
   }
 
-  OspreyLoggingInit();
-  v17 = OspreyLogContextAbsinthe;
+  OspreyLoggingInit(failureCopy, v8);
+  v21 = OspreyLogContextAbsinthe;
   if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v39 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
-    _os_log_impl(&dword_25DDE6000, v17, OS_LOG_TYPE_INFO, "%s [Absinthe state] Session Initialized state", buf, 0xCu);
+    v46 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
+    _os_log_impl(&dword_25DDE6000, v21, OS_LOG_TYPE_INFO, "%s [Absinthe state] Session Initialized state", buf, 0xCu);
   }
 
   [(OspreyGRPCChannel *)self->_channel setAbsintheTimestampForKey:@"SessionEstablishedStart"];
-  if ([(OspreyAbsintheAuthenticator *)self isSessionInfoExpired])
+  isSessionInfoExpired = [(OspreyAbsintheAuthenticator *)self isSessionInfoExpired];
+  if (isSessionInfoExpired)
   {
-    OspreyLoggingInit();
-    v18 = OspreyLogContextAbsinthe;
+    OspreyLoggingInit(isSessionInfoExpired, v23);
+    v24 = OspreyLogContextAbsinthe;
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v39 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
-      _os_log_impl(&dword_25DDE6000, v18, OS_LOG_TYPE_INFO, "%s Session info expired!", buf, 0xCu);
+      v46 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
+      _os_log_impl(&dword_25DDE6000, v24, OS_LOG_TYPE_INFO, "%s Session info expired!", buf, 0xCu);
     }
 
     goto LABEL_19;
   }
 
   nDYmeMqvWb(self->_nacContext, [(NSData *)self->_sessionInfo bytes], [(NSData *)self->_sessionInfo length]);
-  if (v21)
+  if (v27)
   {
-    if (failureCopy)
+    if (v9)
     {
-      v22 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"OspreyAbsintheAuthenticationNACClientErrorDomain" code:v21 userInfo:0];
-      v23 = AbsintheErrorForState(3, v22);
-      (*(failureCopy + 2))(failureCopy, v23);
+      v29 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"OspreyAbsintheAuthenticationNACClientErrorDomain" code:v27 userInfo:0];
+      v30 = AbsintheErrorForState(3, v29);
+      (v9)[2](v9, v30);
     }
   }
 
   else
   {
-    OspreyLoggingInit();
-    v25 = OspreyLogContextAbsinthe;
+    OspreyLoggingInit(v27, v28);
+    v32 = OspreyLogContextAbsinthe;
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v39 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
-      _os_log_impl(&dword_25DDE6000, v25, OS_LOG_TYPE_INFO, "%s Session key established!", buf, 0xCu);
+      v46 = "[OspreyAbsintheAuthenticator _ensureAuthenticatedWithCompletion:failure:]";
+      _os_log_impl(&dword_25DDE6000, v32, OS_LOG_TYPE_INFO, "%s Session key established!", buf, 0xCu);
     }
 
     [(OspreyAbsintheAuthenticator *)self setState:6];
@@ -500,12 +505,12 @@ void __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failur
   v12 = [dataCopy length];
 
   KxmB0CKvgWt(bytes, v12);
-  v14 = v13;
+  v15 = v13;
   if (v13 <= -44023)
   {
     if (v13 == -44302)
     {
-      OspreyLoggingInit();
+      OspreyLoggingInit(v13, v14);
       if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
       {
         [OspreyAbsintheAuthenticator _initializeAbsintheClientWithCertificateData:success:fail:];
@@ -525,8 +530,8 @@ void __74__OspreyAbsintheAuthenticator__ensureAuthenticatedWithCompletion_failur
   if ((v13 + 44022) <= 0x11 && ((1 << (v13 - 10)) & 0x30003) != 0)
   {
 LABEL_4:
-    [(OspreyConnectionPreferences *)self->_connectionPreferences deleteCertificateData];
-    OspreyLoggingInit();
+    deleteCertificateData = [(OspreyConnectionPreferences *)self->_connectionPreferences deleteCertificateData];
+    OspreyLoggingInit(deleteCertificateData, v17);
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
     {
       [OspreyAbsintheAuthenticator _initializeAbsintheClientWithCertificateData:success:fail:];
@@ -534,15 +539,15 @@ LABEL_4:
 
 LABEL_6:
     [(OspreyAbsintheAuthenticator *)self setState:0];
-    v15 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"OspreyAbsintheAuthenticationNACClientErrorDomain" code:v14 userInfo:0];
-    failCopy[2](failCopy, v15);
+    v18 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"OspreyAbsintheAuthenticationNACClientErrorDomain" code:v15 userInfo:0];
+    failCopy[2](failCopy, v18);
     goto LABEL_7;
   }
 
   if (v13)
   {
 LABEL_15:
-    OspreyLoggingInit();
+    OspreyLoggingInit(v13, v14);
     if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_ERROR))
     {
       [OspreyAbsintheAuthenticator _initializeAbsintheClientWithCertificateData:success:fail:];
@@ -551,17 +556,17 @@ LABEL_15:
     goto LABEL_6;
   }
 
-  [(OspreyAbsintheAuthenticator *)self setState:4];
-  OspreyLoggingInit();
+  v19 = [(OspreyAbsintheAuthenticator *)self setState:4];
+  OspreyLoggingInit(v19, v20);
   if (os_log_type_enabled(OspreyLogContextAbsinthe, OS_LOG_TYPE_DEBUG))
   {
     [OspreyAbsintheAuthenticator _initializeAbsintheClientWithCertificateData:success:fail:];
   }
 
   self->_nacContext = 0;
-  v15 = [MEMORY[0x277CBEA90] dataWithBytes:0 length:0];
+  v18 = [MEMORY[0x277CBEA90] dataWithBytes:0 length:0];
   Be81a395Bf0(0);
-  successCopy[2](successCopy, v15);
+  successCopy[2](successCopy, v18);
 LABEL_7:
 }
 
@@ -578,6 +583,20 @@ LABEL_7:
   _os_log_debug_impl(&dword_25DDE6000, log, OS_LOG_TYPE_DEBUG, "%s Moving from state %ld to %ld", &v4, 0x20u);
 }
 
+- (void)_signData:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_1_2(&dword_25DDE6000, v0, v1, "%s Error signing data with NACSign: %d", v2, v3, v4, v5, v6);
+}
+
+- (void)_signData:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_1_2(&dword_25DDE6000, v0, v1, "%s Error disposing validation data %d", v2, v3, v4, v5, v6);
+}
+
 - (void)_signData:(os_log_t)log .cold.3(os_log_t log)
 {
   v3 = *MEMORY[0x277D85DE8];
@@ -586,11 +605,32 @@ LABEL_7:
   _os_log_error_impl(&dword_25DDE6000, log, OS_LOG_TYPE_ERROR, "%s NacContext is null!", &v1, 0xCu);
 }
 
+- (void)_initializeAbsintheClientWithCertificateData:success:fail:.cold.1()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_1_2(&dword_25DDE6000, v0, v1, "%s NAC status: %d -- Error: certificate data outdated.", v2, v3, v4, v5, v6);
+}
+
+- (void)_initializeAbsintheClientWithCertificateData:success:fail:.cold.2()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_1_2(&dword_25DDE6000, v0, v1, "%s NAC status: %d -- Error: entitlement missing for 'abs-client'.", v2, v3, v4, v5, v6);
+}
+
 - (void)_initializeAbsintheClientWithCertificateData:success:fail:.cold.3()
 {
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+- (void)_initializeAbsintheClientWithCertificateData:success:fail:.cold.4()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0_2();
+  OUTLINED_FUNCTION_1_2(&dword_25DDE6000, v0, v1, "%s NAC status: %d -- Error!", v2, v3, v4, v5, v6);
 }
 
 @end

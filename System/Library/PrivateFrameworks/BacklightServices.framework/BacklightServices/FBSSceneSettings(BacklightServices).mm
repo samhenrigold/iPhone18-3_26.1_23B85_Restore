@@ -42,15 +42,15 @@
 
   if (v6)
   {
-    v7 = v6;
+    v8 = v6;
   }
 
   else if (v4)
   {
-    v8 = bls_scenes_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = bls_scenes_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(FBSSceneSettings(BacklightServices) *)v4 bls_visualState:v8];
+      [(FBSSceneSettings(BacklightServices) *)v4 bls_visualState:v9];
     }
   }
 
@@ -102,15 +102,15 @@
 
   if (v6)
   {
-    v7 = v6;
+    v8 = v6;
   }
 
   else if (v4)
   {
-    v8 = bls_scenes_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = bls_scenes_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(FBSSceneSettings(BacklightServices) *)v4 bls_presentationDate:v8];
+      [(FBSSceneSettings(BacklightServices) *)v4 bls_presentationDate:v9];
     }
   }
 
@@ -169,10 +169,10 @@
   {
     if (v4)
     {
-      v8 = bls_scenes_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = bls_scenes_log(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(FBSSceneSettings(BacklightServices) *)v4 bls_renderSeed:v8];
+        [(FBSSceneSettings(BacklightServices) *)v4 bls_renderSeed:v9];
       }
     }
 
@@ -184,23 +184,23 @@
 
 - (void)bls_visualState
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_8(&dword_21FE25000, a2, a3, "%@ is not of class BLSBacklightSceneVisualState", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_8(&dword_21FE25000, a2, a3, "%@ is not of class BLSBacklightSceneVisualState", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)bls_presentationDate
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_8(&dword_21FE25000, a2, a3, "%@ is not of class NSDate", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_8(&dword_21FE25000, a2, a3, "%@ is not of class NSDate", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)bls_renderSeed
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_8(&dword_21FE25000, a2, a3, "%@ is not of class NSNumber", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_8(&dword_21FE25000, a2, a3, "%@ is not of class NSNumber", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

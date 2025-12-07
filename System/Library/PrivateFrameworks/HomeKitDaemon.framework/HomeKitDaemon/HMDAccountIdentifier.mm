@@ -59,7 +59,7 @@
 
 - (NSArray)attributeDescriptions
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   internal = [(HMDAccountIdentifier *)self internal];
   kind = [internal kind];
@@ -68,14 +68,12 @@
   identifier = [(HMDAccountIdentifier *)self identifier];
   uUIDString = [identifier UUIDString];
   v10 = [v7 initWithName:@"ID" value:uUIDString];
-  v17[1] = v10;
+  v16[1] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   senderCorrelationIdentifier = [(HMDAccountIdentifier *)self senderCorrelationIdentifier];
   v13 = [v11 initWithName:@"MID" value:senderCorrelationIdentifier];
-  v17[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
 
   return v14;
 }

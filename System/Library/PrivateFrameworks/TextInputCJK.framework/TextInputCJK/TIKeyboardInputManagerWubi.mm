@@ -2,6 +2,7 @@
 - (BOOL)acceptInputString:(id)string;
 - (BOOL)isWubi:(id)wubi;
 - (BOOL)supportsPairedPunctutationInput;
+- (BOOL)updateCandidatesWithTIWordSearch:(id)search predictionEnabled:(BOOL)enabled;
 - (id)deleteFromInput:(unint64_t *)input;
 - (id)formattedSearchString;
 - (id)inputsToReject;
@@ -135,6 +136,20 @@ LABEL_10:
   [(TIKeyboardInputManagerWubi *)self setAutoConfirmationCandidate:0];
 }
 
+- (BOOL)updateCandidatesWithTIWordSearch:(id)search predictionEnabled:(BOOL)enabled
+{
+  v8.receiver = self;
+  v8.super_class = TIKeyboardInputManagerWubi;
+  v5 = [(TIKeyboardInputManagerShapeBased *)&v8 updateCandidatesWithTIWordSearch:search predictionEnabled:enabled];
+  if (v5)
+  {
+    markedTextWithAutoconvertedCandidates = [(TIKeyboardInputManagerShapeBased *)self markedTextWithAutoconvertedCandidates];
+    [(TIKeyboardInputManagerChinese *)self setInput:markedTextWithAutoconvertedCandidates];
+  }
+
+  return v5;
+}
+
 - (void)notifyUpdateCandidates:(id)candidates forOperation:(id)operation
 {
   candidatesCopy = candidates;
@@ -149,15 +164,15 @@ LABEL_10:
     if ([candidates count])
     {
       objc_initWeak(&location, self);
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __66__TIKeyboardInputManagerWubi_notifyUpdateCandidates_forOperation___block_invoke;
-      v25[3] = &unk_279D9D620;
-      objc_copyWeak(&v27, &location);
-      v26 = candidates;
-      [(TIKeyboardInputManagerMecabra *)self addStickers:candidatesCopy withCompletionHandler:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __66__TIKeyboardInputManagerWubi_notifyUpdateCandidates_forOperation___block_invoke;
+      v24[3] = &unk_279D9D620;
+      objc_copyWeak(&v26, &location);
+      v25 = candidates;
+      [(TIKeyboardInputManagerMecabra *)self addStickers:candidatesCopy withCompletionHandler:v24];
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(&location);
     }
 
@@ -197,10 +212,9 @@ LABEL_10:
       if (currentCandidate)
       {
         [(TIKeyboardInputManagerShapeBased *)self setPreviousActionWasAutoConfirmation:1];
-        v20 = *MEMORY[0x277D6FB00];
         keyboardState3 = [(TIKeyboardInputManagerWubi *)self keyboardState];
         inputMode = [keyboardState3 inputMode];
-        v23 = TIStatisticGetKeyForCandidateAccepted();
+        v22 = TIStatisticGetKeyForCandidateAccepted();
         TIStatisticScalarIncrement();
       }
 

@@ -11,17 +11,15 @@
 
 + (NSSet)allowedStatusKeys
 {
-  v7[5] = *MEMORY[0x277D85DE8];
+  v6[5] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"label";
-  v7[1] = @"program";
-  v7[2] = @"program-arguments";
-  v7[3] = @"checksum";
-  v7[4] = @"device-management";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:5];
+  v6[0] = @"label";
+  v6[1] = @"program";
+  v6[2] = @"program-arguments";
+  v6[3] = @"checksum";
+  v6[4] = @"device-management";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:5];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

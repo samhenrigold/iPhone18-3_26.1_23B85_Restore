@@ -9,12 +9,12 @@
 
 - (GCHapticCapabilityGraph)initWithActuators:(id)actuators nodes:(id)nodes
 {
-  v126 = *MEMORY[0x1E69E9840];
+  v125 = *MEMORY[0x1E69E9840];
   actuatorsCopy = actuators;
   nodesCopy = nodes;
-  v118.receiver = self;
-  v118.super_class = GCHapticCapabilityGraph;
-  v8 = [(GCHapticCapabilityGraph *)&v118 init];
+  v117.receiver = self;
+  v117.super_class = GCHapticCapabilityGraph;
+  v8 = [(GCHapticCapabilityGraph *)&v117 init];
   if (v8)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
@@ -39,32 +39,32 @@
 
     context = objc_autoreleasePoolPush();
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
+    v113 = 0u;
     v114 = 0u;
     v115 = 0u;
     v116 = 0u;
-    v117 = 0u;
-    v83 = actuatorsCopy;
+    v82 = actuatorsCopy;
     v20 = actuatorsCopy;
-    v21 = [v20 countByEnumeratingWithState:&v114 objects:v125 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v113 objects:v124 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v115;
+      v23 = *v114;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v115 != v23)
+          if (*v114 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v114 + 1) + 8 * i);
+          v25 = *(*(&v113 + 1) + 8 * i);
           label = [v25 label];
           [dictionary2 setObject:v25 forKey:label];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v114 objects:v125 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v113 objects:v124 count:16];
       }
 
       while (v22);
@@ -77,27 +77,27 @@
       [GCHapticCapabilityGraph(JSON) initWithActuators:nodes:];
     }
 
-    v112 = 0u;
-    v113 = 0u;
-    v110 = 0u;
     v111 = 0u;
-    v82 = nodesCopy;
+    v112 = 0u;
+    v109 = 0u;
+    v110 = 0u;
+    v81 = nodesCopy;
     obj = nodesCopy;
-    v27 = [obj countByEnumeratingWithState:&v110 objects:v124 count:16];
+    v27 = [obj countByEnumeratingWithState:&v109 objects:v123 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v111;
+      v29 = *v110;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v111 != v29)
+          if (*v110 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v110 + 1) + 8 * j);
+          v31 = *(*(&v109 + 1) + 8 * j);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -113,59 +113,59 @@
           [dictionary3 setObject:v31 forKey:label3];
         }
 
-        v28 = [obj countByEnumeratingWithState:&v110 objects:v124 count:16];
+        v28 = [obj countByEnumeratingWithState:&v109 objects:v123 count:16];
       }
 
       while (v28);
     }
 
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
     v107 = 0u;
+    v108 = 0u;
+    v105 = 0u;
+    v106 = 0u;
     allValues = [dictionary3 allValues];
-    obja = [allValues countByEnumeratingWithState:&v106 objects:v123 count:16];
+    obja = [allValues countByEnumeratingWithState:&v105 objects:v122 count:16];
     if (obja)
     {
-      v85 = *v107;
+      v84 = *v106;
       do
       {
         for (k = 0; k != obja; k = k + 1)
         {
-          if (*v107 != v85)
+          if (*v106 != v84)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v37 = *(*(&v106 + 1) + 8 * k);
+          v37 = *(*(&v105 + 1) + 8 * k);
           v38 = v8->_nodes;
           v39 = [v37 objectForKeyedSubscript:@"label"];
           v40 = [(NSMutableDictionary *)v38 objectForKeyedSubscript:v39];
 
-          v104 = 0u;
-          v105 = 0u;
-          v102 = 0u;
           v103 = 0u;
+          v104 = 0u;
+          v101 = 0u;
+          v102 = 0u;
           v41 = [v37 objectForKeyedSubscript:@"children"];
-          v42 = [v41 countByEnumeratingWithState:&v102 objects:v122 count:16];
+          v42 = [v41 countByEnumeratingWithState:&v101 objects:v121 count:16];
           if (v42)
           {
             v43 = v42;
-            v44 = *v103;
+            v44 = *v102;
             do
             {
               for (m = 0; m != v43; ++m)
               {
-                if (*v103 != v44)
+                if (*v102 != v44)
                 {
                   objc_enumerationMutation(v41);
                 }
 
-                v46 = [(NSMutableDictionary *)v8->_nodes objectForKeyedSubscript:*(*(&v102 + 1) + 8 * m)];
+                v46 = [(NSMutableDictionary *)v8->_nodes objectForKeyedSubscript:*(*(&v101 + 1) + 8 * m)];
                 [v40 addChild:v46];
               }
 
-              v43 = [v41 countByEnumeratingWithState:&v102 objects:v122 count:16];
+              v43 = [v41 countByEnumeratingWithState:&v101 objects:v121 count:16];
             }
 
             while (v43);
@@ -176,30 +176,30 @@
 
           if (!v48)
           {
-            v100 = 0u;
-            v101 = 0u;
-            v98 = 0u;
             v99 = 0u;
+            v100 = 0u;
+            v97 = 0u;
+            v98 = 0u;
             v49 = [v37 objectForKeyedSubscript:@"actuators"];
-            v50 = [v49 countByEnumeratingWithState:&v98 objects:v121 count:16];
+            v50 = [v49 countByEnumeratingWithState:&v97 objects:v120 count:16];
             if (v50)
             {
               v51 = v50;
-              v52 = *v99;
+              v52 = *v98;
               do
               {
                 for (n = 0; n != v51; ++n)
                 {
-                  if (*v99 != v52)
+                  if (*v98 != v52)
                   {
                     objc_enumerationMutation(v49);
                   }
 
-                  v54 = [dictionary2 objectForKeyedSubscript:*(*(&v98 + 1) + 8 * n)];
+                  v54 = [dictionary2 objectForKeyedSubscript:*(*(&v97 + 1) + 8 * n)];
                   [v40 addActuator:v54];
                 }
 
-                v51 = [v49 countByEnumeratingWithState:&v98 objects:v121 count:16];
+                v51 = [v49 countByEnumeratingWithState:&v97 objects:v120 count:16];
               }
 
               while (v51);
@@ -207,33 +207,33 @@
           }
         }
 
-        obja = [allValues countByEnumeratingWithState:&v106 objects:v123 count:16];
+        obja = [allValues countByEnumeratingWithState:&v105 objects:v122 count:16];
       }
 
       while (obja);
     }
 
-    v96 = 0u;
-    v97 = 0u;
-    v94 = 0u;
     v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
     objb = [dictionary3 allValues];
-    v55 = [objb countByEnumeratingWithState:&v94 objects:v120 count:16];
+    v55 = [objb countByEnumeratingWithState:&v93 objects:v119 count:16];
     if (v55)
     {
       v56 = v55;
-      v57 = *v95;
+      v57 = *v94;
       do
       {
         for (ii = 0; ii != v56; ++ii)
         {
-          if (*v95 != v57)
+          if (*v94 != v57)
           {
             objc_enumerationMutation(objb);
           }
 
           v59 = v8->_nodes;
-          v60 = [*(*(&v94 + 1) + 8 * ii) objectForKeyedSubscript:@"label"];
+          v60 = [*(*(&v93 + 1) + 8 * ii) objectForKeyedSubscript:@"label"];
           v61 = [(NSMutableDictionary *)v59 objectForKeyedSubscript:v60];
 
           children2 = [v61 children];
@@ -241,29 +241,29 @@
 
           if (v63)
           {
-            v92 = 0u;
-            v93 = 0u;
-            v90 = 0u;
             v91 = 0u;
+            v92 = 0u;
+            v89 = 0u;
+            v90 = 0u;
             v64 = [(GCHapticCapabilityGraph *)v8 actuatorsForNode:v61];
-            v65 = [v64 countByEnumeratingWithState:&v90 objects:v119 count:16];
+            v65 = [v64 countByEnumeratingWithState:&v89 objects:v118 count:16];
             if (v65)
             {
               v66 = v65;
-              v67 = *v91;
+              v67 = *v90;
               do
               {
                 for (jj = 0; jj != v66; ++jj)
                 {
-                  if (*v91 != v67)
+                  if (*v90 != v67)
                   {
                     objc_enumerationMutation(v64);
                   }
 
-                  [v61 addActuator:*(*(&v90 + 1) + 8 * jj)];
+                  [v61 addActuator:*(*(&v89 + 1) + 8 * jj)];
                 }
 
-                v66 = [v64 countByEnumeratingWithState:&v90 objects:v119 count:16];
+                v66 = [v64 countByEnumeratingWithState:&v89 objects:v118 count:16];
               }
 
               while (v66);
@@ -299,24 +299,23 @@
           }
         }
 
-        v56 = [objb countByEnumeratingWithState:&v94 objects:v120 count:16];
+        v56 = [objb countByEnumeratingWithState:&v93 objects:v119 count:16];
       }
 
       while (v56);
     }
 
     objc_autoreleasePoolPop(context);
-    nodesCopy = v82;
-    actuatorsCopy = v83;
+    nodesCopy = v81;
+    actuatorsCopy = v82;
   }
 
-  v79 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (GCHapticCapabilityGraph)initWithJSONDictionaryRepresentation:(id)representation
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   context = objc_autoreleasePoolPush();
   v5 = objc_opt_new();
@@ -330,26 +329,26 @@
   }
 
   v8 = [representationCopy objectForKeyedSubscript:{@"actuators", a2}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       v12 = 0;
       do
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * v12);
+        v13 = *(*(&v22 + 1) + 8 * v12);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -363,7 +362,7 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v10);
@@ -382,13 +381,12 @@
   v18 = [(GCHapticCapabilityGraph *)self initWithActuators:v5 nodes:v17];
 
   objc_autoreleasePoolPop(context);
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (id)actuatorsForNode:(id)node
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   nodeCopy = node;
   children = [nodeCopy children];
   v6 = [children count];
@@ -396,30 +394,30 @@
   if (v6)
   {
     array = [MEMORY[0x1E695DF70] array];
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v19 = 0u;
     children2 = [nodeCopy children];
-    v9 = [children2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [children2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(children2);
           }
 
-          v13 = [(GCHapticCapabilityGraph *)self actuatorsForNode:*(*(&v16 + 1) + 8 * i)];
+          v13 = [(GCHapticCapabilityGraph *)self actuatorsForNode:*(*(&v15 + 1) + 8 * i)];
           [array addObjectsFromArray:v13];
         }
 
-        v10 = [children2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [children2 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
@@ -431,69 +429,67 @@
     array = [nodeCopy actuators];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (id)jsonDictionaryRepresentation
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   array = [MEMORY[0x1E695DF70] array];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   allValues = [(NSMutableDictionary *)self->_nodes allValues];
-  v6 = [allValues countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        jsonDictionaryRepresentation = [*(*(&v30 + 1) + 8 * i) jsonDictionaryRepresentation];
+        jsonDictionaryRepresentation = [*(*(&v29 + 1) + 8 * i) jsonDictionaryRepresentation];
         [array addObject:jsonDictionaryRepresentation];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v7);
   }
 
-  v25 = dictionary;
+  v24 = dictionary;
   [dictionary setObject:array forKey:@"nodes"];
   array2 = [MEMORY[0x1E695DF70] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v12 = self->_allLeafCapabilities;
-  v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v27;
+    v15 = *v26;
     do
     {
       v16 = 0;
       do
       {
-        if (*v27 != v15)
+        if (*v26 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [(NSMutableDictionary *)self->_nodes objectForKeyedSubscript:*(*(&v26 + 1) + 8 * v16)];
+        v17 = [(NSMutableDictionary *)self->_nodes objectForKeyedSubscript:*(*(&v25 + 1) + 8 * v16)];
         actuators = [v17 actuators];
         v19 = [actuators count];
 
@@ -512,16 +508,15 @@
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v14);
   }
 
-  [v25 setObject:array2 forKey:@"actuators"];
-  v23 = *MEMORY[0x1E69E9840];
+  [v24 setObject:array2 forKey:@"actuators"];
 
-  return v25;
+  return v24;
 }
 
 @end

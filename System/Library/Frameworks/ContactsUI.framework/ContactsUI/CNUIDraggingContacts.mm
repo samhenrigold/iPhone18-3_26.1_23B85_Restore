@@ -432,11 +432,11 @@ LABEL_10:
 LABEL_11:
 }
 
-void __79__CNUIDraggingContacts_provideContactsForDropSession_withKeys_completionBlock___block_invoke_2(uint64_t a1, void *a2)
+void __79__CNUIDraggingContacts_provideContactsForDropSession_withKeys_completionBlock___block_invoke_2(void *a1, void *a2)
 {
-  v3 = *(a1 + 40);
+  v3 = a1[5];
   v4 = a2;
-  v5 = [objc_opt_class() contactsFromDraggingContacts:v4 withKeys:*(a1 + 32)];
+  v5 = [objc_opt_class() contactsFromDraggingContacts:v4 withKeys:a1[4]];
 
   (*(v3 + 16))(v3, v5);
 }
@@ -575,15 +575,15 @@ id __64__CNUIDraggingContacts_itemProviderForContact_withContactStore___block_in
   return v9;
 }
 
-id __60__CNUIDraggingContacts_dragItemForContact_withContactStore___block_invoke()
+id __60__CNUIDraggingContacts_dragItemForContact_withContactStore___block_invoke(uint64_t a1)
 {
-  v0 = objc_alloc(MEMORY[0x1E69DCAE0]);
-  v1 = [objc_opt_class() imageForDragging];
-  v2 = [v0 initWithImage:v1];
+  v1 = objc_alloc(MEMORY[0x1E69DCAE0]);
+  v2 = [objc_opt_class() imageForDragging];
+  v3 = [v1 initWithImage:v2];
 
-  v3 = [objc_alloc(MEMORY[0x1E69DC998]) initWithView:v2];
+  v4 = [objc_alloc(MEMORY[0x1E69DC998]) initWithView:v3];
 
-  return v3;
+  return v4;
 }
 
 @end

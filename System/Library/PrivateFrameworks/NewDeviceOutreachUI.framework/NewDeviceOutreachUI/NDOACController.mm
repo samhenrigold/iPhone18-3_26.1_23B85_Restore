@@ -32,11 +32,11 @@ uint64_t __35__NDOACController_sharedController__block_invoke()
 
 - (NDOACController)initWithSerialNumber:(id)number
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   numberCopy = number;
-  v18.receiver = self;
-  v18.super_class = NDOACController;
-  v5 = [(NDOACController *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = NDOACController;
+  v5 = [(NDOACController *)&v17 init];
   v6 = v5;
   if (v5)
   {
@@ -60,11 +60,11 @@ uint64_t __35__NDOACController_sharedController__block_invoke()
     {
       isDefaultDevice = [(NDOACController *)v6 isDefaultDevice];
       *buf = 136315650;
-      v20 = "[NDOACController initWithSerialNumber:]";
-      v21 = 2112;
-      v22 = numberCopy;
-      v23 = 1024;
-      v24 = isDefaultDevice;
+      v19 = "[NDOACController initWithSerialNumber:]";
+      v20 = 2112;
+      v21 = numberCopy;
+      v22 = 1024;
+      v23 = isDefaultDevice;
       _os_log_impl(&dword_25BD8D000, v11, OS_LOG_TYPE_DEFAULT, "%s: initWithSerialNumber: %@ %d", buf, 0x1Cu);
     }
 
@@ -78,27 +78,26 @@ uint64_t __35__NDOACController_sharedController__block_invoke()
     [ndoSpecifierDataSource2 setHostingController:v6];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (NDOACController)initWithSerialNumber:(id)number updateHandler:(id)handler
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   handlerCopy = handler;
-  v16.receiver = self;
-  v16.super_class = NDOACController;
-  v8 = [(NDOACController *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = NDOACController;
+  v8 = [(NDOACController *)&v15 init];
   if (v8)
   {
     v9 = _NDOLogSystem();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v18 = "[NDOACController initWithSerialNumber:updateHandler:]";
-      v19 = 2112;
-      v20 = numberCopy;
+      v17 = "[NDOACController initWithSerialNumber:updateHandler:]";
+      v18 = 2112;
+      v19 = numberCopy;
       _os_log_impl(&dword_25BD8D000, v9, OS_LOG_TYPE_DEFAULT, "%s: serialNumber: %@", buf, 0x16u);
     }
 
@@ -116,7 +115,6 @@ uint64_t __35__NDOACController_sharedController__block_invoke()
     [ndoSpecifierDataSource3 setHostingController:v8];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

@@ -131,7 +131,7 @@
   v5 = v4;
   if (v4)
   {
-    [v4 auditToken];
+    objc_msgSend_auditToken(v4);
   }
 
   else
@@ -169,7 +169,7 @@
   v5 = v4;
   if (v4)
   {
-    [v4 auditToken];
+    objc_msgSend_auditToken(v4);
   }
 
   else

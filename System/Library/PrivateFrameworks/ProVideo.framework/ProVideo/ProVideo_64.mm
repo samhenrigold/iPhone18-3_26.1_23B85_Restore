@@ -1,3 +1,45 @@
+float createColorBalance@<S0>(void *a1@<X0>, double *a2@<X1>, double *a3@<X2>, double *a4@<X3>, char a5@<W4>, HgcColorBalance **a6@<X8>, double a7@<D0>, double a8@<D1>, double a9@<D2>, double a10@<D3>)
+{
+  v20 = HGObject::operator new(0x1F0uLL);
+  HgcColorBalance::HgcColorBalance(v20);
+  (*(*v20 + 120))(v20, 0, *a1);
+  v21 = *a2;
+  v22 = a2[1];
+  v23 = a2[2];
+  (*(*v20 + 96))(v20, 0, v21, v22, v23, 0.0);
+  v24 = *a3;
+  v25 = a3[1];
+  v26 = a3[2];
+  (*(*v20 + 96))(v20, 1, v24, v25, v26, 0.0);
+  v27 = *a4;
+  v28 = a4[1];
+  v29 = a4[2];
+  (*(*v20 + 96))(v20, 2, v27, v28, v29, 0.0);
+  v30 = a7;
+  (*(*v20 + 96))(v20, 3, v30, v30, v30, v30);
+  v31 = a8;
+  v32 = a9;
+  (*(*v20 + 96))(v20, 4, v31, v32, 0.0, 0.0);
+  result = a10;
+  *(v20 + 121) = result;
+  *(v20 + 488) = a5;
+  *a6 = v20;
+  return result;
+}
+
+uint64_t HSampleTiledNoise::GetDOD(HSampleTiledNoise *this, HGRenderer *a2, int a3, HGRect a4)
+{
+  if (a3)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return HGRectMake4i(*(this + 104) / -2, *(this + 105) / -2, *(this + 104) - *(this + 104) / 2, *(this + 105) - *(this + 105) / 2);
+  }
+}
+
 void HSampleTiledNoise::~HSampleTiledNoise(HGNode *this)
 {
   HgcSampleTiledNoise::~HgcSampleTiledNoise(this);
@@ -22,9 +64,9 @@ uint64_t FxColorDescription::FxColorDescription(uint64_t a1, CGColorSpace *a2, i
   return a1;
 }
 
-void sub_25FF09470(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FF09470(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
@@ -36,11 +78,11 @@ uint64_t FxColorDescription::FxColorDescription(uint64_t a1, uint64_t a2, int a3
   return result;
 }
 
-uint64_t FxGetDefaultWorkingColorDescription@<X0>(uint64_t a1@<X8>)
+uint64_t FxGetDefaultWorkingColorDescription@<X0>(PCColorSpaceCache *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v2 = PCGetGamutColorSpace();
-  v4 = 4;
-  return FxColorDescription::FxColorDescription(a1, v2, 0, &v4, 1);
+  v4 = PCGetGamutColorSpace(a1, a2);
+  v6 = 4;
+  return FxColorDescription::FxColorDescription(a3, v4, 0, &v6, 1);
 }
 
 int8x8_t *FxHashColorDescription(int8x8_t *a1, const FxColorDescription *a2)
@@ -275,13 +317,13 @@ uint64_t HGaussianBlur::GetOutput(HGNode *this, HGRenderer *a2)
   return *(this + 52);
 }
 
-void *FxDeviceMakeSetByAddingDeviceToSet(uint64_t a1, void *a2)
+void *FxDeviceMakeSetByAddingDeviceToSet(void *a1, void *a2)
 {
   v3 = a1;
   if (a1)
   {
     __p = a2;
-    if (a1 + 8 != std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::find<FxDevice const*>(a1, &__p))
+    if (a1 + 1 != std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::find<FxDevice const*>(a1, &__p))
     {
       return v3;
     }
@@ -305,7 +347,7 @@ void *FxDeviceMakeSetByAddingDeviceToSet(uint64_t a1, void *a2)
     v7 = (v13 - __p) >> 4;
     do
     {
-      v8 = &v6[v7 >> 1];
+      v8 = &v6[16 * (v7 >> 1)];
       v9 = operator<(v8, &v11);
       if (v9)
       {
@@ -461,7 +503,7 @@ void sub_25FF0A16C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__n128 *std::vector<FxDeviceKey>::insert(void *a1, __n128 *__src, __n128 *a3)
+char *std::vector<FxDeviceKey>::insert(void *a1, char *__src, __n128 *a3)
 {
   v4 = __src;
   v6 = a1[1];
@@ -469,13 +511,13 @@ __n128 *std::vector<FxDeviceKey>::insert(void *a1, __n128 *__src, __n128 *a3)
   if (v6 >= v7)
   {
     v10 = *a1;
-    v11 = ((v6 - *a1) >> 4) + 1;
+    v11 = (&v6[-*a1] >> 4) + 1;
     if (v11 >> 60)
     {
       std::vector<double>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 3 > v11)
     {
@@ -531,12 +573,12 @@ __n128 *std::vector<FxDeviceKey>::insert(void *a1, __n128 *__src, __n128 *a3)
   else if (__src == v6)
   {
     *v6 = *a3;
-    a1[1] = v6 + 1;
+    a1[1] = v6 + 16;
   }
 
   else
   {
-    v8 = __src + 1;
+    v8 = __src + 16;
     if (v6 < 0x10)
     {
       v9 = a1[1];
@@ -544,14 +586,14 @@ __n128 *std::vector<FxDeviceKey>::insert(void *a1, __n128 *__src, __n128 *a3)
 
     else
     {
-      v9 = v6 + 1;
-      *v6 = v6[-1];
+      v9 = (v6 + 16);
+      *v6 = *(v6 - 1);
     }
 
     a1[1] = v9;
     if (v6 != v8)
     {
-      memmove(&__src[1], __src, v6 - v8);
+      memmove(__src + 16, __src, v6 - v8);
       v9 = a1[1];
     }
 
@@ -593,7 +635,7 @@ uint64_t findOrAddSetToSingletonMap(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   v6 = getSingletonMap(void)::result;
   v7 = std::__tree<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::__map_value_compare<std::vector<FxDeviceKey>,std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::less<std::vector<FxDeviceKey>>,true>,std::allocator<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>>>::find<std::vector<FxDeviceKey>>(getSingletonMap(void)::result, a1);
-  if (v6 + 8 == v7)
+  if (v6 + 1 == v7)
   {
     if (a2)
     {
@@ -612,14 +654,14 @@ uint64_t findOrAddSetToSingletonMap(uint64_t *a1, uint64_t a2, uint64_t a3)
       if (!a3)
       {
 LABEL_9:
-        v7 = std::__tree<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::__map_value_compare<std::vector<FxDeviceKey>,std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::less<std::vector<FxDeviceKey>>,true>,std::allocator<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>>>::__emplace_unique_key_args<std::vector<FxDeviceKey>,std::vector<FxDeviceKey> const&,FxDeviceSetObj>(v6, a1);
+        v7 = std::__tree<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::__map_value_compare<std::vector<FxDeviceKey>,std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::less<std::vector<FxDeviceKey>>,true>,std::allocator<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>>>::__emplace_unique_key_args<std::vector<FxDeviceKey>,std::vector<FxDeviceKey> const&,FxDeviceSetObj>(v6, a1, a1, &v9);
         std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v9, v10[0]);
         goto LABEL_10;
       }
     }
 
     v13 = a3;
-    std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__emplace_unique_key_args<FxDevice const*,FxDevice const* const&>(&v9, &v13);
+    std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__emplace_unique_key_args<FxDevice const*,FxDevice const* const&>(&v9, &v13, &v13);
     goto LABEL_9;
   }
 
@@ -845,15 +887,15 @@ uint64_t logGPUList(const char *a1, void *a2)
   return MEMORY[0x2666E9E10](&v24);
 }
 
-void sub_25FF0A938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
+void sub_25FF0A938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *__p, uint64_t a5, int a6, __int16 a7, char a8, char a9, char a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a23);
-  if (a9 < 0)
+  va_start(va, a28);
+  if (SHIBYTE(a14) < 0)
   {
-    operator delete(__p);
+    operator delete(a12);
   }
 
-  std::ostringstream::~ostringstream(&a10, MEMORY[0x277D82828]);
+  std::ostringstream::~ostringstream(&a15, MEMORY[0x277D82828]);
   MEMORY[0x2666E9E10](va);
   _Unwind_Resume(a1);
 }
@@ -995,7 +1037,7 @@ void *std::set<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice 
   return a1;
 }
 
-uint64_t std::set<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::insert[abi:ne200100]<std::__tree_const_iterator<FxDevice const*,std::__tree_node<FxDevice const*,void *> *,long>>(uint64_t result, void *a2, void *a3)
+void *std::set<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::insert[abi:ne200100]<std::__tree_const_iterator<FxDevice const*,std::__tree_node<FxDevice const*,void *> *,long>>(void *result, void *a2, void *a3)
 {
   if (a2 != a3)
   {
@@ -1003,7 +1045,7 @@ uint64_t std::set<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevi
     v5 = result;
     do
     {
-      result = std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__emplace_hint_unique_key_args<FxDevice const*,FxDevice const* const&>(v5, v5 + 1, v4 + 4);
+      result = std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__emplace_hint_unique_key_args<FxDevice const*,FxDevice const* const&>(v5, (v5 + 8), v4 + 4, v4 + 4);
       v6 = v4[1];
       if (v6)
       {
@@ -1037,15 +1079,15 @@ uint64_t std::set<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevi
   return result;
 }
 
-uint64_t std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__emplace_hint_unique_key_args<FxDevice const*,FxDevice const* const&>(void *a1, void *a2, uint64_t *a3)
+void *std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__emplace_hint_unique_key_args<FxDevice const*,FxDevice const* const&>(uint64_t **a1, void *a2, uint64_t *a3, void *a4)
 {
-  v3 = *std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__find_equal<FxDevice const*>(a1, a2, &v6, &v5, a3);
-  if (!v3)
+  v4 = *std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__find_equal<FxDevice const*>(a1, a2, &v7, &v6, a3);
+  if (!v4)
   {
     operator new();
   }
 
-  return v3;
+  return v4;
 }
 
 uint64_t *std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__find_equal<FxDevice const*>(void *a1, void *a2, void *a3, uint64_t *a4, uint64_t *a5)
@@ -1209,26 +1251,26 @@ LABEL_9:
   return v5;
 }
 
-uint64_t std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__emplace_unique_key_args<FxDevice const*,FxDevice const* const&>(uint64_t a1, uint64_t *a2)
+void *std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__emplace_unique_key_args<FxDevice const*,FxDevice const* const&>(uint64_t **a1, uint64_t *a2, void *a3)
 {
-  v2 = *std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__find_equal<FxDevice const*>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<FxDevice const*,FxDeviceSortOrderFunctor,std::allocator<FxDevice const*>>::__find_equal<FxDevice const*>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t std::__tree<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::__map_value_compare<std::vector<FxDeviceKey>,std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::less<std::vector<FxDeviceKey>>,true>,std::allocator<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>>>::__emplace_unique_key_args<std::vector<FxDeviceKey>,std::vector<FxDeviceKey> const&,FxDeviceSetObj>(uint64_t a1, uint64_t *a2)
+void *std::__tree<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::__map_value_compare<std::vector<FxDeviceKey>,std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::less<std::vector<FxDeviceKey>>,true>,std::allocator<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>>>::__emplace_unique_key_args<std::vector<FxDeviceKey>,std::vector<FxDeviceKey> const&,FxDeviceSetObj>(uint64_t **a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *std::__tree<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::__map_value_compare<std::vector<FxDeviceKey>,std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::less<std::vector<FxDeviceKey>>,true>,std::allocator<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>>>::__find_equal<std::vector<FxDeviceKey>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::__map_value_compare<std::vector<FxDeviceKey>,std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::less<std::vector<FxDeviceKey>>,true>,std::allocator<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>>>::__find_equal<std::vector<FxDeviceKey>>(a1, &v6, a2);
+  if (!v4)
   {
     std::__tree<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::__map_value_compare<std::vector<FxDeviceKey>,std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::less<std::vector<FxDeviceKey>>,true>,std::allocator<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>>>::__construct_node<std::vector<FxDeviceKey> const&,FxDeviceSetObj>();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::__map_value_compare<std::vector<FxDeviceKey>,std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,std::less<std::vector<FxDeviceKey>>,true>,std::allocator<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>>>::__find_equal<std::vector<FxDeviceKey>>(uint64_t a1, void *a2, uint64_t *a3)
@@ -1277,7 +1319,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<std::vector<FxDeviceKey>,FxDeviceSetObj const>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -1294,12 +1336,12 @@ uint64_t std::unique_ptr<std::__tree_node<std::__value_type<std::vector<FxDevice
   return a1;
 }
 
-void *std::pair<std::vector<FxDeviceKey> const,FxDeviceSetObj const>::pair[abi:ne200100]<std::vector<FxDeviceKey> const&,FxDeviceSetObj,0>(void *a1, uint64_t *a2, void *a3)
+uint64_t *std::pair<std::vector<FxDeviceKey> const,FxDeviceSetObj const>::pair[abi:ne200100]<std::vector<FxDeviceKey> const&,FxDeviceSetObj,0>(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
   *a1 = 0;
   a1[1] = 0;
   a1[2] = 0;
-  std::vector<FxDeviceKey>::__init_with_size[abi:ne200100]<FxDeviceKey*,FxDeviceKey*>(a1, *a2, a2[1], (a2[1] - *a2) >> 4);
+  std::vector<FxDeviceKey>::__init_with_size[abi:ne200100]<FxDeviceKey*,FxDeviceKey*>(a1, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 4);
   a1[3] = *a3;
   v5 = a3 + 1;
   v6 = a3[1];
@@ -1323,7 +1365,7 @@ void *std::pair<std::vector<FxDeviceKey> const,FxDeviceSetObj const>::pair[abi:n
   return a1;
 }
 
-uint64_t std::vector<FxDeviceKey>::__init_with_size[abi:ne200100]<FxDeviceKey*,FxDeviceKey*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<FxDeviceKey>::__init_with_size[abi:ne200100]<FxDeviceKey*,FxDeviceKey*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1345,7 +1387,7 @@ void sub_25FF0B2DC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<FxDeviceKey>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<FxDeviceKey>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -1367,7 +1409,7 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::vector<FxDeviceKey> const,Fx
   }
 }
 
-__n128 std::__split_buffer<FxDeviceKey>::emplace_back<FxDeviceKey const&>(__n128 **a1, __n128 *a2)
+__n128 std::__split_buffer<FxDeviceKey>::emplace_back<FxDeviceKey const&>(unint64_t *a1, __n128 *a2)
 {
   v4 = a1[2];
   if (v4 == a1[3])
@@ -1400,38 +1442,38 @@ __n128 std::__split_buffer<FxDeviceKey>::emplace_back<FxDeviceKey const&>(__n128
     }
 
     v4 = (v9 + v10);
-    a1[1] = &v5[v7];
-    a1[2] = (v9 + v10);
+    a1[1] = v5[v7].n128_u64;
+    a1[2] = v9->n128_u64 + v10;
   }
 
   result = *a2;
   *v4 = *a2;
-  ++a1[2];
+  a1[2] += 16;
   return result;
 }
 
-HGNode *applyColorSpaceConform@<X0>(CGColorSpaceRef space@<X1>, CGColorSpace *a2@<X3>, uint64_t *a3@<X0>, CGColorSpace *a4@<X2>, char *a5@<X4>, uint64_t *a6@<X8>)
+HGNode *applyColorSpaceConform@<X0>(uint64_t *a1@<X0>, CGColorSpaceRef space@<X1>, CGColorSpace *a3@<X2>, CGColorSpace *a4@<X3>, char *a5@<X4>, HGNode **a6@<X8>)
 {
   v22 = *MEMORY[0x277D85DE8];
-  if (PCColorSpaceHandle::isSameColorSpace(space, a2, a4))
+  if (PCColorSpaceHandle::isSameColorSpace(space, a4, a3))
   {
 
-    return applyPremultiplyOnly(a3, a4, a5, a6);
+    return applyPremultiplyOnly(a1, a3, a5, a6);
   }
 
   else
   {
     RGBNCLCFromRGBColorSpace = getRGBNCLCFromRGBColorSpace(space);
     v18 = v13;
-    if (PCNCLCCodeIsKnownRGB(&RGBNCLCFromRGBColorSpace) && (*buf = getRGBNCLCFromRGBColorSpace(a2), *&buf[8] = v14, PCNCLCCodeIsKnownRGB(buf)))
+    if (PCNCLCCodeIsKnownRGB(&RGBNCLCFromRGBColorSpace) && (*buf = getRGBNCLCFromRGBColorSpace(a4), *&buf[8] = v14, PCNCLCCodeIsKnownRGB(buf)))
     {
-      return applyNCLCConform(a3, &RGBNCLCFromRGBColorSpace, a4, buf, a5, a6);
+      return applyNCLCConform(a1, &RGBNCLCFromRGBColorSpace, a3, buf, a5, a6);
     }
 
     else
     {
       v15 = CFCopyDescription(space);
-      v16 = CFCopyDescription(a2);
+      v16 = CFCopyDescription(a4);
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
@@ -1443,12 +1485,12 @@ HGNode *applyColorSpaceConform@<X0>(CGColorSpaceRef space@<X1>, CGColorSpace *a2
 
       CFRelease(v15);
       CFRelease(v16);
-      return applyPremultiplyOnly(a3, a4, a5, a6);
+      return applyPremultiplyOnly(a1, a3, a5, a6);
     }
   }
 }
 
-HGNode *FxApplyColorConform@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X4>, uint64_t *a6@<X8>)
+HGNode *FxApplyColorConform@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, char *a5@<X4>, HGNode **a6@<X8>)
 {
   v16 = PCMakeRGBNCLCCode(a2);
   v17 = v11;
@@ -1457,7 +1499,7 @@ HGNode *FxApplyColorConform@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a
   return applyNCLCConform(a1, &v16, a3, &v14, a5, a6);
 }
 
-HGNode *applyNCLCConform@<X0>(uint64_t *a1@<X0>, int *a2@<X1>, uint64_t a3@<X2>, int *a4@<X3>, char *a5@<X4>, uint64_t *a6@<X8>)
+HGNode *applyNCLCConform@<X0>(uint64_t *a1@<X0>, int *a2@<X1>, uint64_t a3@<X2>, int *a4@<X3>, char *a5@<X4>, HGNode **a6@<X8>)
 {
   v47 = *MEMORY[0x277D85DE8];
   if (operator==(a2, a4))
@@ -1568,21 +1610,21 @@ HGNode *applyNCLCConform@<X0>(uint64_t *a1@<X0>, int *a2@<X1>, uint64_t a3@<X2>,
   return result;
 }
 
-void sub_25FF0B978(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF0B978(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-HGNode *FxApplyColorConform@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxColorDescription *a3@<X2>, uint64_t *a4@<X8>)
+HGHLG::HLGToSDR *FxApplyColorConform@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxColorDescription *a3@<X2>, PCColorUtil **a4@<X8>)
 {
-  if (!operator==(a2, a3, a3) && FxColorDescription::isColorManaged(a2) && (FxColorDescription::isColorManaged(a3) & 1) != 0)
+  if (!operator==(a2, a3, a3) && FxColorDescription::isColorManaged(a2) && FxColorDescription::isColorManaged(a3))
   {
-    if (FxColorDescriptionCanToneMap(a2))
+    if (FxColorDescriptionCanToneMap(&a2->_pcColorDesc))
     {
       isSDR = FxColorDescription::isSDR(a2);
       if (isSDR == FxColorDescription::isSDR(a3) || (isHDR = FxColorDescription::isHDR(a2), isHDR == FxColorDescription::isHDR(a3)))
@@ -1614,7 +1656,7 @@ HGNode *FxApplyColorConform@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>,
     v16 = FxColorDescription::getCGColorSpace(a3);
     v17 = FxColorDescription::isPremultiplied(a3);
 
-    return applyColorSpaceConform(CGColorSpace, v16, a1, isPremultiplied, v17, a4);
+    return applyColorSpaceConform(a1, CGColorSpace, isPremultiplied, v16, v17, a4);
   }
 
   else
@@ -1632,7 +1674,7 @@ HGNode *FxApplyColorConform@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>,
   return result;
 }
 
-uint64_t conformInverseToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxColorDescription *a3@<X2>, uint64_t *a4@<X8>)
+PCColorUtil *conformInverseToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxColorDescription *a3@<X2>, PCColorUtil **a4@<X8>)
 {
   v8 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
   ToneMapMethod = FxColorDescription::getToneMapMethod(a2);
@@ -1665,7 +1707,7 @@ uint64_t conformInverseToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X
   {
     v16 = FxColorDescription::getCGColorSpace(a2);
     isPremultiplied = FxColorDescription::isPremultiplied(a2);
-    applyColorSpaceConform(v16, v8, a1, isPremultiplied, 0, &v67);
+    applyColorSpaceConform(a1, v16, isPremultiplied, v8, 0, &v67);
     v18 = *a4;
     v19 = v67;
     if (*a4 == v67)
@@ -1710,7 +1752,7 @@ uint64_t conformInverseToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X
 
     v30 = FxColorDescription::getCGColorSpace(a3);
     v31 = FxColorDescription::isPremultiplied(a3);
-    applyColorSpaceConform(v8, v30, a4, 0, v31, &v67);
+    applyColorSpaceConform(a4, v8, 0, v30, v31, &v67);
     result = *a4;
     v33 = v67;
     if (*a4 != v67)
@@ -1735,7 +1777,7 @@ uint64_t conformInverseToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X
   {
     v20 = FxColorDescription::getCGColorSpace(a2);
     v21 = FxColorDescription::isPremultiplied(a2);
-    applyColorSpaceConform(v20, v8, a1, v21, 0, &v67);
+    applyColorSpaceConform(a1, v20, v21, v8, 0, &v67);
     v22 = *a4;
     v23 = v67;
     if (*a4 == v67)
@@ -1781,7 +1823,7 @@ uint64_t conformInverseToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X
 
     v40 = FxColorDescription::getCGColorSpace(a3);
     v41 = FxColorDescription::isPremultiplied(a3);
-    applyColorSpaceConform(v8, v40, a4, 0, v41, &v67);
+    applyColorSpaceConform(a4, v8, 0, v40, v41, &v67);
     result = *a4;
     v33 = v67;
     if (*a4 != v67)
@@ -1806,7 +1848,7 @@ uint64_t conformInverseToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X
   {
     v24 = FxColorDescription::getCGColorSpace(a2);
     v25 = FxColorDescription::isPremultiplied(a2);
-    applyColorSpaceConform(v24, v8, a1, v25, 0, &v67);
+    applyColorSpaceConform(a1, v24, v25, v8, 0, &v67);
     v26 = *a4;
     v27 = v67;
     if (*a4 == v67)
@@ -1852,7 +1894,7 @@ uint64_t conformInverseToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X
 
     v53 = FxColorDescription::getCGColorSpace(a3);
     v54 = FxColorDescription::isPremultiplied(a3);
-    applyColorSpaceConform(v8, v53, a4, 0, v54, &v67);
+    applyColorSpaceConform(a4, v8, 0, v53, v54, &v67);
     result = *a4;
     v33 = v67;
     if (*a4 != v67)
@@ -1936,7 +1978,7 @@ LABEL_79:
     v65 = 2;
     v61 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020);
     v62 = FxColorDescription::getCGColorSpace(a2);
-    applyColorSpaceConform(v62, v61, a4, 0, 0, &v64);
+    applyColorSpaceConform(a4, v62, 0, v61, 0, &v64);
     v48 = *a4;
     v49 = v64;
     if (*a4 != v64)
@@ -1961,7 +2003,7 @@ LABEL_90:
 
   v46 = PCGetNCLCColorSpace(&kPCNCLC_Rec709);
   v47 = FxColorDescription::getCGColorSpace(a2);
-  applyColorSpaceConform(v47, v46, a4, 0, 0, &v64);
+  applyColorSpaceConform(a4, v47, 0, v46, 0, &v64);
   v48 = *a4;
   v49 = v64;
   if (*a4 == v64)
@@ -2005,7 +2047,7 @@ LABEL_91:
 
   v57 = FxColorDescription::getCGColorSpace(a3);
   v58 = FxColorDescription::isPremultiplied(a3);
-  applyColorSpaceConform(v8, v57, a4, 0, v58, &v63);
+  applyColorSpaceConform(a4, v8, 0, v57, v58, &v63);
   v59 = *a4;
   v60 = v63;
   if (*a4 == v63)
@@ -2035,22 +2077,22 @@ LABEL_91:
   return result;
 }
 
-void sub_25FF0C618(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_25FF0C618(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (v14)
   {
-    (*(*v14 + 24))(v14);
+    (*(*v14 + 24))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*v13)
   {
-    (*(**v13 + 24))(*v13);
+    (*(**v13 + 24))(*v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t conformToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxColorDescription *a3@<X2>, uint64_t *a4@<X8>)
+HGHLG::HLGToSDR *conformToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxColorDescription *a3@<X2>, HGHLG::HLGToSDR **a4@<X8>)
 {
   v8 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
   ToneMapMethod = FxColorDescription::getToneMapMethod(a2);
@@ -2082,7 +2124,7 @@ uint64_t conformToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxC
 
   v16 = FxColorDescription::getCGColorSpace(a2);
   isPremultiplied = FxColorDescription::isPremultiplied(a2);
-  applyColorSpaceConform(v16, v8, a1, isPremultiplied, 0, a4);
+  applyColorSpaceConform(a1, v16, isPremultiplied, v8, 0, a4);
   if (PVPerfStats::FrameStats::GetSize(ToneMapMethod) == 6)
   {
     FxApplySimpleToneCurve(a4, &v54, 0.7, 12.0);
@@ -2109,7 +2151,7 @@ uint64_t conformToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxC
 
     v27 = FxColorDescription::getCGColorSpace(a3);
     v28 = FxColorDescription::isPremultiplied(a3);
-    applyColorSpaceConform(v8, v27, a4, 0, v28, &v54);
+    applyColorSpaceConform(a4, v8, 0, v27, v28, &v54);
     result = *a4;
     v30 = v54;
     if (*a4 != v54)
@@ -2158,7 +2200,7 @@ uint64_t conformToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxC
 
     v38 = FxColorDescription::getCGColorSpace(a3);
     v39 = FxColorDescription::isPremultiplied(a3);
-    applyColorSpaceConform(v8, v38, a4, 0, v39, &v54);
+    applyColorSpaceConform(a4, v8, 0, v38, v39, &v54);
     result = *a4;
     v30 = v54;
     if (*a4 != v54)
@@ -2206,7 +2248,7 @@ uint64_t conformToneMap@<X0>(uint64_t *a1@<X0>, FxColorDescription *a2@<X1>, FxC
 
     v45 = FxColorDescription::getCGColorSpace(a3);
     v46 = FxColorDescription::isPremultiplied(a3);
-    applyColorSpaceConform(v8, v45, a4, 0, v46, &v54);
+    applyColorSpaceConform(a4, v8, 0, v45, v46, &v54);
     result = *a4;
     v30 = v54;
     if (*a4 != v54)
@@ -2256,7 +2298,7 @@ LABEL_60:
 
     v41 = FxColorDescription::getCGColorSpace(a3);
     v42 = FxColorDescription::isPremultiplied(a3);
-    applyColorSpaceConform(v8, v41, &v56, 0, v42, &v54);
+    applyColorSpaceConform(&v56, v8, 0, v41, v42, &v54);
     v43 = *a4;
     v44 = v54;
     if (*a4 == v54)
@@ -2340,7 +2382,7 @@ LABEL_60:
 
     v48 = FxColorDescription::getCGColorSpace(a3);
     v49 = FxColorDescription::isPremultiplied(a3);
-    applyColorSpaceConform(v47, v48, &v53, 0, v49, &v56);
+    applyColorSpaceConform(&v53, v47, 0, v48, v49, &v56);
     v50 = *a4;
     v51 = v56;
     if (*a4 == v56)
@@ -2379,60 +2421,60 @@ LABEL_86:
   return result;
 }
 
-void sub_25FF0D298(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+void sub_25FF0D298(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   if (v15)
   {
-    (*(*v15 + 24))(v15);
+    (*(*v15 + 24))(v15, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v14)
   {
-    (*(*v14 + 24))(v14);
+    (*(*v14 + 24))(v14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a13)
   {
-    (*(*a13 + 24))(a13);
+    (*(*a13 + 24))(a13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*v13)
   {
-    (*(**v13 + 24))(*v13);
+    (*(**v13 + 24))(*v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void FxConvertHLGToPQ(uint64_t *a1, CGColorSpace *a2, CGColorSpace *a3)
+void FxConvertHLGToPQ(uint64_t *a1, CGColorSpace *a2, CGColorSpace *a3, CGColorSpace *a4, uint64_t a5, float a6)
 {
-  v6 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
-  applyColorSpaceConform(a2, v6, a1, a3, 0, &v8);
-  v7 = 1;
-  FxSupport::newHGRefWithInput<HGHLG::OOTF,HGHLG::OOTF::ColorPrimaries const&>();
+  v9 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
+  applyColorSpaceConform(a1, a2, a3, v9, 0, &v11);
+  v10 = 1;
+  FxSupport::newHGRefWithInput<HGHLG::OOTF,HGHLG::OOTF::ColorPrimaries const&>(v11, &v10);
 }
 
-void sub_25FF0D838(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+void sub_25FF0D838(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   if (a11)
   {
-    (*(*a11 + 24))(a11);
+    (*(*a11 + 24))(a11, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (a12)
   {
-    (*(*a12 + 24))(a12);
+    (*(*a12 + 24))(a12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (v12)
   {
-    (*(*v12 + 24))(v12);
+    (*(*v12 + 24))(v12, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t applyPremultiplyOnly@<X0>(uint64_t *a1@<X0>, int a2@<W1>, int a3@<W2>, uint64_t *a4@<X8>)
+void *applyPremultiplyOnly@<X0>(void *a1@<X0>, int a2@<W1>, int a3@<W2>, void *a4@<X8>)
 {
   if (a2 != a3)
   {
@@ -2495,7 +2537,7 @@ uint64_t FxSupport::newHGRefWithInput<HGHLG::HLGToSDR,HGHLG::HLGToSDR::Conversio
   return (*(*v6 + 120))(v6, 0, a1);
 }
 
-uint64_t FxSupport::newHGRefWithInput<HGPQ::InverseOOTF>@<X0>(uint64_t a1@<X0>, HGPQ::InverseOOTF **a2@<X8>)
+uint64_t FxSupport::newHGRefWithInput<HGPQ::InverseOOTF>@<X0>(uint64_t a1@<X0>, HGNode **a2@<X8>)
 {
   v4 = HGObject::operator new(0x1B0uLL);
   HGPQ::InverseOOTF::InverseOOTF(v4, 1, 100.0, 100.0);
@@ -2516,7 +2558,7 @@ uint64_t FxSupport::makeHeliumFormat(int a1)
   }
 }
 
-uint64_t FxSupport::createTextureHandleNode@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X2>, unsigned int *a4@<X3>, HGBitmapLoader **a5@<X8>)
+uint64_t FxSupport::createTextureHandleNode@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unsigned int *a4@<X3>, HGBitmapLoader **a5@<X8>)
 {
   Name = ProGL::TextureHandle::getName(a1);
   Width = ProGL::TextureHandle::getWidth(a1);
@@ -2561,19 +2603,17 @@ void sub_25FF0E21C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-HGBitmapLoader *FxSupport::createBitmapNode@<X0>(PCBitmap **a1@<X0>, unsigned int *a2@<X1>, HGBitmapLoader **a3@<X8>)
+void FxSupport::createBitmapNode(HGBitmapLoader **a1@<X8>, PCBitmap **a2@<X0>, unsigned int *a3@<X1>)
 {
-  FxSupport::pcBitmapToHGBitmap(a1, a2, &v7);
-  v4 = v7;
+  FxSupport::pcBitmapToHGBitmap(a2, a3, &v6);
+  v4 = v6;
   v5 = HGObject::operator new(0x1F0uLL);
-  result = HGBitmapLoader::HGBitmapLoader(v5, v4);
-  *a3 = v5;
+  HGBitmapLoader::HGBitmapLoader(v5, v4);
+  *a1 = v5;
   if (v4)
   {
-    return (*(*v4 + 24))(v4);
+    (*(*v4 + 24))(v4);
   }
-
-  return result;
 }
 
 void sub_25FF0E344(_Unwind_Exception *a1)
@@ -2678,7 +2718,7 @@ double FxDeviceGetComputeDeviceForRenderer@<D0>(const HGRenderer *a1@<X0>, void 
 
   else
   {
-    HGComputeDeviceManager::GetCPUComputeDevice(a1, &v7);
+    HGComputeDeviceManager::GetCPUComputeDevice(&v7, a1);
     result = *&v7;
     *a2 = v7;
   }
@@ -2798,7 +2838,7 @@ void *FxDeviceGetHGDeviceForGPU@<X0>(void *result@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t *FxDeviceGetName(char **a1)
+char *FxDeviceGetName(char **a1)
 {
   if (a1)
   {
@@ -2807,7 +2847,7 @@ uint64_t *FxDeviceGetName(char **a1)
       v2 = *a1;
       if (!*a1)
       {
-        return (v2 + 64);
+        return v2 + 64;
       }
 
 LABEL_8:
@@ -2823,7 +2863,7 @@ LABEL_8:
         }
       }
 
-      return (v2 + 64);
+      return v2 + 64;
     }
 
     if (FxDeviceIsCPU(a1))
@@ -2831,14 +2871,14 @@ LABEL_8:
       v2 = *a1;
       if (!*a1)
       {
-        return (v2 + 64);
+        return v2 + 64;
       }
 
       goto LABEL_8;
     }
   }
 
-  if (atomic_load_explicit(&_MergedGlobals_28, memory_order_acquire))
+  if (atomic_load_explicit(_MergedGlobals_28, memory_order_acquire))
   {
     return &qword_280C5E6E8;
   }
@@ -3014,7 +3054,7 @@ uint64_t FxDeviceSortOrder(uint64_t a1, uint64_t a2)
   return v8 & 1;
 }
 
-_DWORD *FxDeviceGetDeviceForHGDevice(void *a1)
+_DWORD *FxDeviceGetDeviceForHGDevice(uint64_t *a1)
 {
   result = *a1;
   if (result)
@@ -3036,7 +3076,7 @@ _DWORD *FxDeviceGetDeviceForHGDevice(void *a1)
   return result;
 }
 
-uint64_t getFxDeviceForDeviceKey(uint64_t a1, uint64_t a2)
+uint64_t getFxDeviceForDeviceKey(_OWORD *a1, uint64_t *a2)
 {
   {
     operator new();
@@ -3044,29 +3084,31 @@ uint64_t getFxDeviceForDeviceKey(uint64_t a1, uint64_t a2)
 
   v9 = getSingletonLock(void)::mutex;
   PCMutex::lock(getSingletonLock(void)::mutex);
+  v10 = 1;
   {
     operator new();
   }
 
   v4 = getSingletonMap(void)::result;
   v5 = std::__tree<std::__value_type<FxDeviceKey,FxDeviceObj const>,std::__map_value_compare<FxDeviceKey,std::__value_type<FxDeviceKey,FxDeviceObj const>,std::less<FxDeviceKey>,true>,std::allocator<std::__value_type<FxDeviceKey,FxDeviceObj const>>>::find<FxDeviceKey>(getSingletonMap(void)::result, a1);
-  if (v4 + 8 == v5)
+  if (v4 + 1 == v5)
   {
-    v6 = *(a2 + 8);
-    v8 = v6;
+    v6 = a2[1];
+    *&v8 = *a2;
+    *(&v8 + 1) = v6;
     if (v6)
     {
-      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v5 = std::__tree<std::__value_type<FxDeviceKey,FxDeviceObj const>,std::__map_value_compare<FxDeviceKey,std::__value_type<FxDeviceKey,FxDeviceObj const>,std::less<FxDeviceKey>,true>,std::allocator<std::__value_type<FxDeviceKey,FxDeviceObj const>>>::__emplace_unique_key_args<FxDeviceKey,FxDeviceKey const&,FxDeviceObj>(v4, a1);
-    if (v8)
+    v5 = std::__tree<std::__value_type<FxDeviceKey,FxDeviceObj const>,std::__map_value_compare<FxDeviceKey,std::__value_type<FxDeviceKey,FxDeviceObj const>,std::less<FxDeviceKey>,true>,std::allocator<std::__value_type<FxDeviceKey,FxDeviceObj const>>>::__emplace_unique_key_args<FxDeviceKey,FxDeviceKey const&,FxDeviceObj>(v4, a1, a1, &v8);
+    if (*(&v8 + 1))
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      std::__shared_weak_count::__release_shared[abi:ne200100](*(&v8 + 1));
     }
   }
 
-  if (v9)
+  if (v9 && v10 == 1)
   {
     PCMutex::unlock(v9);
   }
@@ -3109,58 +3151,48 @@ void sub_25FF0F238(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t FxDeviceGetLogStdString(char **a1)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v23);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v24);
   Name = FxDeviceGetName(a1);
-  v3 = *(Name + 23);
-  if (v3 >= 0)
+  v4 = Name[23];
+  if (v4 >= 0)
   {
-    v4 = Name;
+    v5 = Name;
   }
 
   else
   {
-    v4 = *Name;
+    v5 = *Name;
   }
 
-  if (v3 >= 0)
+  if (v4 >= 0)
   {
-    v5 = *(Name + 23);
+    v6 = Name[23];
   }
 
   else
   {
-    v5 = Name[1];
+    v6 = *(Name + 1);
   }
 
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, v4, v5);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, v5, v6);
   if (FxDeviceIsGPU(a1))
   {
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, " (", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, " (", 2);
     MemorySize = FxDeviceGetMemorySize(a1);
-    v7 = MemorySize >> 10;
-    v8 = "KB";
-    v9 = MemorySize >> 20;
-    v10 = "MB";
+    v8 = MemorySize >> 10;
+    v9 = "KB";
+    v10 = MemorySize >> 20;
+    v11 = "MB";
     if (MemorySize >> 20 >= 0x401)
     {
-      v9 = MemorySize >> 30;
-      v10 = "GB";
+      v10 = MemorySize >> 30;
+      v11 = "GB";
     }
 
-    if (v7 >= 0x401)
+    if (v8 >= 0x401)
     {
-      v7 = v9;
       v8 = v10;
-    }
-
-    if (MemorySize >= 0x401)
-    {
-      v11 = v7;
-    }
-
-    else
-    {
-      v11 = MemorySize;
+      v9 = v11;
     }
 
     if (MemorySize >= 0x401)
@@ -3170,29 +3202,39 @@ uint64_t FxDeviceGetLogStdString(char **a1)
 
     else
     {
-      v12 = "B";
+      v12 = MemorySize;
     }
 
-    v13 = MEMORY[0x2666E9BA0](&v23, v11);
-    v14 = strlen(v12);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, v12, v14);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, ", ", 2);
-    if (FxDeviceIsRemovable(a1))
+    if (MemorySize >= 0x401)
     {
-      v15 = "external";
+      v13 = v9;
     }
 
     else
     {
-      v15 = "internal";
+      v13 = "B";
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, v15, 8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, ", ", 2);
+    v14 = MEMORY[0x2666E9BA0](&v24, v12);
+    v15 = strlen(v13);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, v13, v15);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ", ", 2);
+    if (FxDeviceIsRemovable(a1))
+    {
+      v16 = "external";
+    }
+
+    else
+    {
+      v16 = "internal";
+    }
+
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, v16, 8);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ", ", 2);
     if (FxDeviceIsDisplayAttached(a1))
     {
-      v16 = "has display";
-      v17 = 11;
+      v17 = "has display";
+      v18 = 11;
     }
 
     else
@@ -3200,30 +3242,30 @@ uint64_t FxDeviceGetLogStdString(char **a1)
       IsHeadless = FxDeviceIsHeadless(a1);
       if (IsHeadless)
       {
-        v16 = "headless";
+        v17 = "headless";
       }
 
       else
       {
-        v16 = "no display";
+        v17 = "no display";
       }
 
       if (IsHeadless)
       {
-        v17 = 8;
+        v18 = 8;
       }
 
       else
       {
-        v17 = 10;
+        v18 = 10;
       }
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, v16, v17);
-    v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, ", virtual screen ", 17);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, v17, v18);
+    v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v24, ", virtual screen ", 17);
     VirtualScreen = FxDeviceGetVirtualScreen(a1);
-    v21 = MEMORY[0x2666E9B50](v19, VirtualScreen);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, ")", 1);
+    v22 = MEMORY[0x2666E9B50](v20, VirtualScreen);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, ")", 1);
   }
 
   else
@@ -3232,25 +3274,25 @@ uint64_t FxDeviceGetLogStdString(char **a1)
   }
 
   std::stringbuf::str();
-  v23 = *MEMORY[0x277D82828];
-  *(&v23 + *(v23 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v24 = MEMORY[0x277D82878] + 16;
-  if (v26 < 0)
+  v24 = *MEMORY[0x277D82828];
+  *(&v24 + *(v24 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v25 = MEMORY[0x277D82878] + 16;
+  if (v27 < 0)
   {
-    operator delete(v25[7].__locale_);
+    operator delete(v26[7].__locale_);
   }
 
-  v24 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v25);
+  v25 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v26);
   std::ostream::~ostream();
-  return MEMORY[0x2666E9E10](&v27);
+  return MEMORY[0x2666E9E10](&v28);
 }
 
-void sub_25FF0F570(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FF0F570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x277D82828]);
-  MEMORY[0x2666E9E10](v2 + 112);
+  MEMORY[0x2666E9E10](v3 + 112);
   _Unwind_Resume(a1);
 }
 
@@ -3303,15 +3345,15 @@ uint64_t *std::__tree<std::__value_type<FxDeviceKey,FxDeviceObj const>,std::__ma
   return v6;
 }
 
-uint64_t std::__tree<std::__value_type<FxDeviceKey,FxDeviceObj const>,std::__map_value_compare<FxDeviceKey,std::__value_type<FxDeviceKey,FxDeviceObj const>,std::less<FxDeviceKey>,true>,std::allocator<std::__value_type<FxDeviceKey,FxDeviceObj const>>>::__emplace_unique_key_args<FxDeviceKey,FxDeviceKey const&,FxDeviceObj>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<FxDeviceKey,FxDeviceObj const>,std::__map_value_compare<FxDeviceKey,std::__value_type<FxDeviceKey,FxDeviceObj const>,std::less<FxDeviceKey>,true>,std::allocator<std::__value_type<FxDeviceKey,FxDeviceObj const>>>::__emplace_unique_key_args<FxDeviceKey,FxDeviceKey const&,FxDeviceObj>(uint64_t **a1, uint64_t a2, _OWORD *a3, __int128 *a4)
 {
-  v2 = *std::__tree<std::__value_type<FxDeviceKey,FxDeviceObj const>,std::__map_value_compare<FxDeviceKey,std::__value_type<FxDeviceKey,FxDeviceObj const>,std::less<FxDeviceKey>,true>,std::allocator<std::__value_type<FxDeviceKey,FxDeviceObj const>>>::__find_equal<FxDeviceKey>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<FxDeviceKey,FxDeviceObj const>,std::__map_value_compare<FxDeviceKey,std::__value_type<FxDeviceKey,FxDeviceObj const>,std::less<FxDeviceKey>,true>,std::allocator<std::__value_type<FxDeviceKey,FxDeviceObj const>>>::__find_equal<FxDeviceKey>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<FxDeviceKey,FxDeviceObj const>,std::__map_value_compare<FxDeviceKey,std::__value_type<FxDeviceKey,FxDeviceObj const>,std::less<FxDeviceKey>,true>,std::allocator<std::__value_type<FxDeviceKey,FxDeviceObj const>>>::__find_equal<FxDeviceKey>(uint64_t a1, void *a2, uint64_t a3)
@@ -3373,13 +3415,13 @@ LABEL_14:
 
 void FxDeviceGetName(void *a1)
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_28))
+  if (__cxa_guard_acquire(_MergedGlobals_28))
   {
     qword_280C5E6F0 = 0;
     unk_280C5E6F8 = 0;
     qword_280C5E6E8 = 0;
     __cxa_atexit(MEMORY[0x277D82640], &qword_280C5E6E8, &dword_25F8F0000);
-    __cxa_guard_release(&_MergedGlobals_28);
+    __cxa_guard_release(_MergedGlobals_28);
   }
 
   *a1 = &qword_280C5E6E8;
@@ -3415,7 +3457,7 @@ uint64_t HSmearToRect::GetDOD(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   Input = HGRenderer::GetInput(a2, this, a3);
   *&v15[0].var0 = HGRenderer::GetDOD(a2, Input);
   *&v15[0].var2 = v10;
-  Effect_toPCRecti(v15, &v16);
+  Effect_toPCRecti(&v16, v15);
   v11 = vadd_s32(v16, -1);
   v12.i64[0] = v11.i32[0];
   v12.i64[1] = v11.i32[1];
@@ -3427,7 +3469,7 @@ uint64_t HSmearToRect::GetDOD(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v15[1] = vcvtq_f64_s64(v12);
   if (PCRect<double>::contains(this + 52, &v15[0].var0))
   {
-    return HGRectMake4i(v16.u32[0], v16.u32[1], v17.i32[0] + v16.i32[0], v17.i32[1] + v16.i32[1]);
+    return HGRectMake4i(v16.i32[0], v16.i32[1], v17.i32[0] + v16.i32[0], v17.i32[1] + v16.i32[1]);
   }
 
   else
@@ -3498,7 +3540,7 @@ uint64_t HSmearToRect::GetROI(HSmearToRect *this, HGRenderer *a2, int a3, HGRect
     v26.var3 = v13 + 2;
   }
 
-  Effect_toPCRecti(&v26, &v23);
+  Effect_toPCRecti(&v23, &v26);
   if (v23.i32[0] <= v9)
   {
     v14 = v9;
@@ -3526,7 +3568,7 @@ uint64_t HSmearToRect::GetROI(HSmearToRect *this, HGRenderer *a2, int a3, HGRect
 
   else
   {
-    v16 = v23.u32[1];
+    v16 = v23.i32[1];
   }
 
   if (v25 + v23.i32[1] >= v12)
@@ -3550,7 +3592,7 @@ HGNode *HSmearToRect::GetOutput(HGNode *this, HGRenderer *a2)
   Input = HGRenderer::GetInput(a2, this, 0);
   *&v24.var0 = HGRenderer::GetDOD(a2, Input);
   *&v24.var2 = v5;
-  Effect_toPCRecti(&v24, &v27);
+  Effect_toPCRecti(&v27, &v24);
   v6 = vadd_s32(v27, -1);
   v7 = vadd_s32(v28, 0x200000002);
   *&v24.var0 = v27.i32[0];
@@ -3665,7 +3707,7 @@ HGColorGamma *PAECreateGammaEncodingNode(uint64_t a1, unsigned int a2, unsigned 
     v19 = v12;
     v20 = 16;
 LABEL_7:
-    HGColorGamma::SetGammaFunction(v19, v20, v13, _Q0, 0, 0, 0, 0, 0, 0);
+    HGColorGamma::SetGammaFunction(v19, v20, _Q0, 0, 0, 0, 0, 0, 0, v13);
     goto LABEL_18;
   }
 
@@ -3730,7 +3772,7 @@ HGColorGamma *PAECreateGammaDecodingNode(uint64_t a1, unsigned int a2, unsigned 
     v19 = v12;
     v20 = 17;
 LABEL_7:
-    HGColorGamma::SetGammaFunction(v19, v20, v13, _Q0, 0, 0, 0, 0, 0, 0);
+    HGColorGamma::SetGammaFunction(v19, v20, _Q0, 0, 0, 0, 0, 0, 0, v13);
     goto LABEL_18;
   }
 
@@ -3783,13 +3825,13 @@ uint64_t PAEUploadBitmap(uint64_t a1, uint64_t a2, uint64_t a3)
   return v8(v7);
 }
 
-void PAEUpload3DLUTEvaluator(uint64_t a1)
+void PAEUpload3DLUTEvaluator(void *a1, HGNode **a2, uint64_t a3)
 {
-  v2 = (*(*a1 + 24))(a1);
-  v3 = (*(*a1 + 32))(a1);
-  v4 = (*(*a1 + 40))(a1) - v3;
-  v5 = HGObject::operator new(0x210uLL);
-  HGApply3DLUT::HGApply3DLUT(v5, v2, 0x19u, 1, 0, 1, 1, 1, v4, v3, 0.0, 1.0, 0.0, 0.0, 0);
+  v4 = (*(*a1 + 24))(a1);
+  v5 = (*(*a1 + 32))(a1);
+  v6 = (*(*a1 + 40))(a1) - v5;
+  v7 = HGObject::operator new(0x210uLL);
+  HGApply3DLUT::HGApply3DLUT(v7, v4, 0x19u, 1, 0, 1, 1, 1, v6, v5, 0.0, 1.0, 0.0, 0.0, 0);
 }
 
 void sub_25FF1057C(_Unwind_Exception *exception_object)
@@ -3853,7 +3895,7 @@ uint64_t FxBalancedBlendRecord::node@<X0>(FxBalancedBlendRecord *this@<X0>, void
   return result;
 }
 
-uint64_t FxSupport::makeHeliumXForm@<X0>(double *a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, int a4@<W3>, void *a5@<X8>)
+HGXForm *FxSupport::makeHeliumXForm@<X0>(double *a1@<X0>, HGXForm **a2@<X1>, int a3@<W2>, int a4@<W3>, HGXForm **a5@<X8>)
 {
   if (PCMatrix44Tmpl<double>::is2Didentity(a1))
   {
@@ -3978,9 +4020,9 @@ uint64_t HContrastBezierRGB::GetROI(HContrastBezierRGB *this, HGRenderer *a2, in
 {
   if (a3 == 1)
   {
-    v5 = HGRectMake4i(0, 0, 0x400u, 1u);
+    v5 = HGRectMake4i(0, 0, 1024, 1);
     v7 = v6;
-    v8 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v8 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(v5, v7, v8);
   }
 
@@ -4012,9 +4054,9 @@ uint64_t HContrastBezierLuma::GetROI(HContrastBezierLuma *this, HGRenderer *a2, 
 {
   if (a3 == 1)
   {
-    v5 = HGRectMake4i(0, 0, 0x400u, 1u);
+    v5 = HGRectMake4i(0, 0, 1024, 1);
     v7 = v6;
-    v8 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v8 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(v5, v7, v8);
   }
 
@@ -4067,7 +4109,7 @@ uint64_t applyClamp@<X0>(void *a1@<X0>, HgcClampToAlpha **a2@<X8>)
   return (*(*v4 + 120))(v4, 0, *a1);
 }
 
-HGInvertAlpha **FxApplyAlphaRequest@<X0>(HGInvertAlpha **result@<X0>, int a2@<W1>, int a3@<W2>, int a4@<W3>, HGInvertAlpha **a5@<X8>)
+HGPremultiply **FxApplyAlphaRequest@<X0>(HGPremultiply **result@<X0>, int a2@<W1>, int a3@<W2>, int a4@<W3>, HGPremultiply **a5@<X8>)
 {
   v9 = *result;
   *a5 = *result;
@@ -4246,33 +4288,33 @@ void sub_25FF11D54(void *a1)
   JUMPOUT(0x25FF11D48);
 }
 
-void sub_25FF12300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25FF12300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   PCCFRef<CGColorSpace *>::~PCCFRef(va);
   _Unwind_Resume(a1);
 }
 
-void PAEGenerateNoise(double a1, double a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8)
+void PAEGenerateNoise(int a1, int a2, int a3, unsigned int a4, int a5, int a6, double a8, double a9)
 {
-  v11 = (a2 + a2);
-  v36 = 0;
+  v12 = (a9 + a9);
   v37 = 0;
-  if (a7)
+  v38 = 0;
+  if (a5)
   {
-    v12 = (a2 + a2);
+    v13 = (a9 + a9);
   }
 
   else
   {
-    v12 = a8;
+    v13 = a6;
   }
 
-  if (a5 <= 1)
+  if (a3 <= 1)
   {
-    if (a5)
+    if (a3)
     {
-      if (a5 != 1)
+      if (a3 != 1)
       {
         goto LABEL_25;
       }
@@ -4280,8 +4322,8 @@ void PAEGenerateNoise(double a1, double a2, uint64_t a3, uint64_t a4, int a5, in
       {
       }
 
-      v13 = v12;
-      v14 = getWhiteNoiseBitmap(int)::bitmaps;
+      v14 = v13;
+      v15 = getWhiteNoiseBitmap(int)::bitmaps;
     }
 
     else
@@ -4289,174 +4331,174 @@ void PAEGenerateNoise(double a1, double a2, uint64_t a3, uint64_t a4, int a5, in
       {
       }
 
-      v13 = v12;
-      v14 = getTVNoiseBitmap(int)::bitmaps;
+      v14 = v13;
+      v15 = getTVNoiseBitmap(int)::bitmaps;
     }
   }
 
   else
   {
-    switch(a5)
+    switch(a3)
     {
       case 2:
         {
         }
 
-        v13 = v12;
-        v14 = getGaussianNoiseBitmap(int)::bitmaps;
+        v14 = v13;
+        v15 = getGaussianNoiseBitmap(int)::bitmaps;
         break;
       case 3:
         {
         }
 
-        v13 = v12;
-        v14 = getBlueNoiseBitmap(int)::bitmaps;
+        v14 = v13;
+        v15 = getBlueNoiseBitmap(int)::bitmaps;
         break;
       case 4:
         {
         }
 
-        v13 = v12;
-        v14 = getPinkNoiseBitmap(int)::bitmaps;
+        v14 = v13;
+        v15 = getPinkNoiseBitmap(int)::bitmaps;
         break;
       default:
         goto LABEL_25;
     }
   }
 
-  v16 = v14;
-  v15 = *v14;
-  v17 = (v16[1] - v15) >> 4;
-  v18 = v12 - v13 / v17 * v17;
-  if (v18 >= 0)
+  v17 = v15;
+  v16 = *v15;
+  v18 = (v17[1] - v16) >> 4;
+  v19 = v13 - v14 / v18 * v18;
+  if (v19 >= 0)
   {
-    LODWORD(v17) = 0;
+    LODWORD(v18) = 0;
   }
 
-  v19 = v15 + 16 * (v17 + v18);
-  v21 = *v19;
-  v20 = *(v19 + 8);
-  if (v20)
+  v20 = v16 + 16 * (v18 + v19);
+  v22 = *v20;
+  v21 = *(v20 + 8);
+  if (v21)
   {
-    atomic_fetch_add_explicit((v20 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v21 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v36 = v21;
-  v37 = v20;
+  v37 = v22;
+  v38 = v21;
 LABEL_25:
-  v41 = 0;
-  FxSupport::createBitmapNode(&v36, &v41, v38);
-  if (a7)
+  v42 = 0;
+  FxSupport::createBitmapNode(v39, &v37, &v42);
+  if (a5)
   {
-    v22 = v11 + 12321 * a8;
+    v23 = v12 + 12321 * a6;
   }
 
   else
   {
-    v22 = a8;
+    v23 = a6;
   }
 
-  std::vector<unsigned char>::vector[abi:ne200100](&v41, 256);
-  v23 = v22 ^ (a6 << 31 >> 31);
-  if (v41 != v42)
+  std::vector<unsigned char>::vector[abi:ne200100](&v42, 256);
+  v24 = v23 ^ ((a4 << 31) >> 31);
+  if (v42 != v43)
   {
-    v24 = vdupq_n_s64(v42 - v41 - 1);
-    v25 = -((v42 - v41 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v26 = v41 + 7;
-    v27 = 15;
+    v25 = vdupq_n_s64(v43 - v42 - 1);
+    v26 = -((v43 - v42 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = v42 + 7;
+    v28 = 15;
     do
     {
-      v28 = v27 - 15;
-      v29 = vdupq_n_s64(v27 - 15);
-      v30 = vmovn_s64(vcgeq_u64(v24, vorrq_s8(v29, xmmword_260343E00)));
-      if (vuzp1_s8(vuzp1_s16(v30, *v24.i8), *v24.i8).u8[0])
+      v29 = v28 - 15;
+      v30 = vdupq_n_s64(v28 - 15);
+      v31 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v30, xmmword_260343E00)));
+      if (vuzp1_s8(vuzp1_s16(v31, *v25.i8), *v25.i8).u8[0])
       {
-        *(v26 - 7) = v28;
+        *(v27 - 7) = v29;
       }
 
-      if (vuzp1_s8(vuzp1_s16(v30, *&v24), *&v24).i8[1])
+      if (vuzp1_s8(vuzp1_s16(v31, *&v25), *&v25).i8[1])
       {
-        *(v26 - 6) = v28 | 1;
+        *(v27 - 6) = v29 | 1;
       }
 
-      if (vuzp1_s8(vuzp1_s16(*&v24, vmovn_s64(vcgeq_u64(v24, vorrq_s8(v29, xmmword_260343DF0)))), *&v24).i8[2])
+      if (vuzp1_s8(vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v30, xmmword_260343DF0)))), *&v25).i8[2])
       {
-        *(v26 - 5) = v28 | 2;
-        *(v26 - 4) = v28 | 3;
+        *(v27 - 5) = v29 | 2;
+        *(v27 - 4) = v29 | 3;
       }
 
-      v31 = vmovn_s64(vcgeq_u64(v24, vorrq_s8(v29, xmmword_2603490E0)));
-      if (vuzp1_s8(*&v24, vuzp1_s16(v31, *&v24)).i32[1])
+      v32 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v30, xmmword_2603490E0)));
+      if (vuzp1_s8(*&v25, vuzp1_s16(v32, *&v25)).i32[1])
       {
-        *(v26 - 3) = v28 | 4;
+        *(v27 - 3) = v29 | 4;
       }
 
-      if (vuzp1_s8(*&v24, vuzp1_s16(v31, *&v24)).i8[5])
+      if (vuzp1_s8(*&v25, vuzp1_s16(v32, *&v25)).i8[5])
       {
-        *(v26 - 2) = v28 | 5;
+        *(v27 - 2) = v29 | 5;
       }
 
-      if (vuzp1_s8(*&v24, vuzp1_s16(*&v24, vmovn_s64(vcgeq_u64(v24, vorrq_s8(v29, xmmword_2603490D0))))).i8[6])
+      if (vuzp1_s8(*&v25, vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v30, xmmword_2603490D0))))).i8[6])
       {
-        *(v26 - 1) = v28 | 6;
-        *v26 = v28 | 7;
+        *(v27 - 1) = v29 | 6;
+        *v27 = v29 | 7;
       }
 
-      v32 = vmovn_s64(vcgeq_u64(v24, vorrq_s8(v29, xmmword_2603490C0)));
-      if (vuzp1_s8(vuzp1_s16(v32, *v24.i8), *v24.i8).u8[0])
+      v33 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v30, xmmword_2603490C0)));
+      if (vuzp1_s8(vuzp1_s16(v33, *v25.i8), *v25.i8).u8[0])
       {
-        v26[1] = v28 | 8;
+        v27[1] = v29 | 8;
       }
 
-      if (vuzp1_s8(vuzp1_s16(v32, *&v24), *&v24).i8[1])
+      if (vuzp1_s8(vuzp1_s16(v33, *&v25), *&v25).i8[1])
       {
-        v26[2] = v28 | 9;
+        v27[2] = v29 | 9;
       }
 
-      if (vuzp1_s8(vuzp1_s16(*&v24, vmovn_s64(vcgeq_u64(v24, vorrq_s8(v29, xmmword_2603490B0)))), *&v24).i8[2])
+      if (vuzp1_s8(vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v30, xmmword_2603490B0)))), *&v25).i8[2])
       {
-        v26[3] = v28 | 0xA;
-        v26[4] = v28 | 0xB;
+        v27[3] = v29 | 0xA;
+        v27[4] = v29 | 0xB;
       }
 
-      v33 = vmovn_s64(vcgeq_u64(v24, vorrq_s8(v29, xmmword_2603490A0)));
-      if (vuzp1_s8(*&v24, vuzp1_s16(v33, *&v24)).i32[1])
+      v34 = vmovn_s64(vcgeq_u64(v25, vorrq_s8(v30, xmmword_2603490A0)));
+      if (vuzp1_s8(*&v25, vuzp1_s16(v34, *&v25)).i32[1])
       {
-        v26[5] = v28 | 0xC;
+        v27[5] = v29 | 0xC;
       }
 
-      if (vuzp1_s8(*&v24, vuzp1_s16(v33, *&v24)).i8[5])
+      if (vuzp1_s8(*&v25, vuzp1_s16(v34, *&v25)).i8[5])
       {
-        v26[6] = v28 | 0xD;
+        v27[6] = v29 | 0xD;
       }
 
-      if (vuzp1_s8(*&v24, vuzp1_s16(*&v24, vmovn_s64(vcgeq_u64(v24, vorrq_s8(v29, xmmword_260349090))))).i8[6])
+      if (vuzp1_s8(*&v25, vuzp1_s16(*&v25, vmovn_s64(vcgeq_u64(v25, vorrq_s8(v30, xmmword_260349090))))).i8[6])
       {
-        v26[7] = v28 | 0xE;
-        v26[8] = v28 | 0xF;
+        v27[7] = v29 | 0xE;
+        v27[8] = v29 | 0xF;
       }
 
+      v28 += 16;
       v27 += 16;
-      v26 += 16;
     }
 
-    while (v25 + v27 != 15);
+    while (v26 + v28 != 15);
   }
 
-  LODWORD(v38[0]) = v23;
-  v34 = 1;
-  v35 = v23;
+  LODWORD(v39[0]) = v24;
+  v35 = 1;
+  v36 = v24;
   do
   {
-    v35 = v34 + 1812433253 * (v35 ^ (v35 >> 30));
-    *(v38 + v34++) = v35;
+    v36 = v35 + 1812433253 * (v36 ^ (v36 >> 30));
+    *(v39 + v35++) = v36;
   }
 
-  while (v34 != 624);
-  v39 = 0u;
-  v40 = -1;
-  PCRandomShuffle<std::__wrap_iter<unsigned char *>,Rand>(v41, v42, v38);
-  PCCreateBitmap(256, 1, 5u);
+  while (v35 != 624);
+  v40 = 0u;
+  v41 = -1;
+  PCRandomShuffle<std::__wrap_iter<unsigned char *>,Rand>(v42, v43, v39);
+  PCCreateBitmap(256, 1, 5, 1);
 }
 
 void sub_25FF13050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
@@ -4526,27 +4568,27 @@ _anonymous_namespace_::Bitmaps *anonymous namespace::Bitmaps::Bitmaps(_anonymous
   return this;
 }
 
-void sub_25FF133D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25FF133D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::vector<std::shared_ptr<HGGPUComputeDevice const>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<std::shared_ptr<PCBitmap>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::shared_ptr<PCBitmap>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::shared_ptr<PCBitmap>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::shared_ptr<PCBitmap>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::shared_ptr<PCBitmap>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::shared_ptr<PCBitmap>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4784,10 +4826,10 @@ std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 429
   return (v6 << 15) & 0xEFC60000 ^ v6 ^ (((v6 << 15) & 0xEFC60000 ^ v6) >> 18);
 }
 
-BOOL Effect_toPCRecti@<W0>(const HGRect *a1@<X0>, int32x2_t *a2@<X8>)
+BOOL Effect_toPCRecti@<W0>(int32x2_t *__return_ptr a1@<X8>, const HGRect *a2@<X0>)
 {
-  *a2 = 0;
-  result = HGRectIsNull(*&a1->var0, *&a1->var2);
+  *a1 = 0;
+  result = HGRectIsNull(*&a2->var0, *&a2->var2);
   if (result)
   {
     v5 = -1;
@@ -4795,13 +4837,13 @@ BOOL Effect_toPCRecti@<W0>(const HGRect *a1@<X0>, int32x2_t *a2@<X8>)
 
   else
   {
-    v6 = vmax_s32(*&a1->var0, vdup_n_s32(0xC0000001));
-    v7 = vmin_s32(*&a1->var2, vdup_n_s32(0x3FFFFFFEu));
-    *a2 = v6;
+    v6 = vmax_s32(*&a2->var0, vdup_n_s32(0xC0000001));
+    v7 = vmin_s32(*&a2->var2, vdup_n_s32(0x3FFFFFFEu));
+    *a1 = v6;
     v5 = vsub_s32(v7, v6);
   }
 
-  a2[1] = v5;
+  a1[1] = v5;
   return result;
 }
 
@@ -4816,9 +4858,9 @@ uint64_t FxSupport::makeHeliumCrop@<X0>(unsigned int *a1@<X0>, void *a2@<X1>, HG
   return result;
 }
 
-__int128 *getFxTimeZero(void)
+__int128 *getFxTimeZero(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_29, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_29, memory_order_acquire) & 1) == 0)
   {
     getFxTimeZero();
   }
@@ -4826,9 +4868,9 @@ __int128 *getFxTimeZero(void)
   return &xmmword_280C5E710;
 }
 
-__int128 *getFxTimeInvalid(void)
+__int128 *getFxTimeInvalid(uint64_t a1, uint64_t a2)
 {
-  if ((atomic_load_explicit(&qword_280C5E708, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E708, memory_order_acquire) & 1) == 0)
   {
     getFxTimeInvalid();
   }
@@ -4856,11 +4898,11 @@ void sub_25FF145F4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_25FF14794(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+void sub_25FF14794(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
   if (a14)
   {
-    (*(*a14 + 24))(a14);
+    (*(*a14 + 24))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4889,89 +4931,89 @@ void sub_25FF14A90(_Unwind_Exception *exception_object)
 
 void getFxTimeZero()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_29))
+  if (__cxa_guard_acquire(_MergedGlobals_29))
   {
     xmmword_280C5E710 = *MEMORY[0x277CC08F0];
     qword_280C5E720 = *(MEMORY[0x277CC08F0] + 16);
 
-    __cxa_guard_release(&_MergedGlobals_29);
+    __cxa_guard_release(_MergedGlobals_29);
   }
 }
 
 void getFxTimeInvalid()
 {
-  if (__cxa_guard_acquire(&qword_280C5E708))
+  if (__cxa_guard_acquire(byte_280C5E708))
   {
     xmmword_280C5E728 = *MEMORY[0x277CC0898];
     qword_280C5E738 = *(MEMORY[0x277CC0898] + 16);
 
-    __cxa_guard_release(&qword_280C5E708);
+    __cxa_guard_release(byte_280C5E708);
   }
 }
 
-int *Interval::pixelToFloat@<X0>(int *this@<X0>, double *a2@<X8>)
+uint64_t *Interval::pixelToFloat@<X0>(double *__return_ptr a1@<X8>, uint64_t *this@<X0>)
 {
-  v4 = this[1];
-  v5 = this[2];
-  v6 = this[3];
-  v7 = *this + 0.5;
-  v8 = v5 + -0.5;
-  if (v8 >= v7)
+  v3 = *(this + 1);
+  v4 = *(this + 2);
+  v5 = *(this + 3);
+  v6 = *this + 0.5;
+  v7 = v4 + -0.5;
+  if (v7 >= v6)
+  {
+    v8 = *this + 0.5;
+  }
+
+  else
+  {
+    v8 = v4 + -0.5;
+  }
+
+  if (v6 >= v7)
   {
     v9 = *this + 0.5;
   }
 
   else
   {
-    v9 = v5 + -0.5;
+    v9 = v4 + -0.5;
   }
 
-  if (v7 >= v8)
+  v10 = v3 + 0.5;
+  v11 = v5 + -0.5;
+  if (v11 >= v10)
   {
-    v10 = *this + 0.5;
+    v12 = v3 + 0.5;
   }
 
   else
   {
-    v10 = v5 + -0.5;
+    v12 = v5 + -0.5;
   }
 
-  v11 = v4 + 0.5;
-  v12 = v6 + -0.5;
-  if (v12 >= v11)
+  if (v10 >= v11)
   {
-    v13 = v4 + 0.5;
+    v13 = v3 + 0.5;
   }
 
   else
   {
-    v13 = v6 + -0.5;
+    v13 = v5 + -0.5;
   }
 
-  if (v11 >= v12)
-  {
-    v14 = v4 + 0.5;
-  }
-
-  else
-  {
-    v14 = v6 + -0.5;
-  }
-
-  if (v9 > v10)
+  if (v8 > v9)
   {
     boost::numeric::interval_lib::exception_create_empty::operator()();
   }
 
-  if (v13 > v14)
+  if (v12 > v13)
   {
     boost::numeric::interval_lib::exception_create_empty::operator()();
   }
 
-  *a2 = v9;
-  a2[1] = v10;
-  a2[2] = v13;
-  a2[3] = v14;
+  *a1 = v8;
+  a1[1] = v9;
+  a1[2] = v12;
+  a1[3] = v13;
   return this;
 }
 
@@ -5093,38 +5135,38 @@ double Interval::eightPointDOD@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void (**
 
 void NewEquirectProjectNode()
 {
-  v0 = HGObject::operator new(0x1B0uLL);
-  *v0 = 0u;
-  *(v0 + 1) = 0u;
-  *(v0 + 2) = 0u;
-  *(v0 + 3) = 0u;
-  *(v0 + 4) = 0u;
-  *(v0 + 5) = 0u;
-  *(v0 + 6) = 0u;
-  *(v0 + 7) = 0u;
-  *(v0 + 8) = 0u;
-  *(v0 + 9) = 0u;
-  *(v0 + 10) = 0u;
-  *(v0 + 11) = 0u;
-  *(v0 + 12) = 0u;
-  *(v0 + 13) = 0u;
-  *(v0 + 14) = 0u;
-  *(v0 + 15) = 0u;
-  *(v0 + 16) = 0u;
-  *(v0 + 17) = 0u;
-  *(v0 + 18) = 0u;
-  *(v0 + 19) = 0u;
-  *(v0 + 20) = 0u;
-  *(v0 + 21) = 0u;
-  *(v0 + 22) = 0u;
-  *(v0 + 23) = 0u;
-  *(v0 + 24) = 0u;
-  *(v0 + 25) = 0u;
-  *(v0 + 26) = 0u;
-  LiHgcEquirectProject::LiHgcEquirectProject(v0);
+  v10 = HGObject::operator new(0x1B0uLL);
+  *v10 = 0u;
+  *(v10 + 1) = 0u;
+  *(v10 + 2) = 0u;
+  *(v10 + 3) = 0u;
+  *(v10 + 4) = 0u;
+  *(v10 + 5) = 0u;
+  *(v10 + 6) = 0u;
+  *(v10 + 7) = 0u;
+  *(v10 + 8) = 0u;
+  *(v10 + 9) = 0u;
+  *(v10 + 10) = 0u;
+  *(v10 + 11) = 0u;
+  *(v10 + 12) = 0u;
+  *(v10 + 13) = 0u;
+  *(v10 + 14) = 0u;
+  *(v10 + 15) = 0u;
+  *(v10 + 16) = 0u;
+  *(v10 + 17) = 0u;
+  *(v10 + 18) = 0u;
+  *(v10 + 19) = 0u;
+  *(v10 + 20) = 0u;
+  *(v10 + 21) = 0u;
+  *(v10 + 22) = 0u;
+  *(v10 + 23) = 0u;
+  *(v10 + 24) = 0u;
+  *(v10 + 25) = 0u;
+  *(v10 + 26) = 0u;
+  LiHgcEquirectProject::LiHgcEquirectProject(v10);
 }
 
-uint64_t RetimeAddBlend2::IntermediateFormat(uint64_t a1, int a2)
+uint64_t RetimeAddBlend2::IntermediateFormat(uint64_t a1, unsigned int a2)
 {
   if (a2 <= 27)
   {
@@ -5137,7 +5179,7 @@ uint64_t RetimeAddBlend2::IntermediateFormat(uint64_t a1, int a2)
   }
 }
 
-uint64_t RetimeAddBlend6::IntermediateFormat(uint64_t a1, int a2)
+uint64_t RetimeAddBlend6::IntermediateFormat(uint64_t a1, unsigned int a2)
 {
   if (a2 <= 27)
   {
@@ -5150,7 +5192,7 @@ uint64_t RetimeAddBlend6::IntermediateFormat(uint64_t a1, int a2)
   }
 }
 
-void FxSupport::makeRetimeAddBlend2(FxSupport *this)
+void FxSupport::makeRetimeAddBlend2()
 {
   v1 = HGObject::operator new(0x1A0uLL);
   *v1 = 0u;
@@ -5182,7 +5224,7 @@ void FxSupport::makeRetimeAddBlend2(FxSupport *this)
   HgcRetimeAddBlend2::HgcRetimeAddBlend2(v1);
 }
 
-void FxSupport::makeRetimeAddBlend6(FxSupport *this)
+void FxSupport::makeRetimeAddBlend6()
 {
   v1 = HGObject::operator new(0x1A0uLL);
   *v1 = 0u;
@@ -5245,26 +5287,26 @@ FxMatrix44 *FxMatrixFromPCMatrix(uint64_t a1)
   return v1;
 }
 
-__n128 FxMatrixToPCMatrix@<Q0>(FxMatrix44 *a1@<X0>, uint64_t a2@<X8>)
+__n128 FxMatrixToPCMatrix@<Q0>(uint64_t *__return_ptr a1@<X8>, FxMatrix44 *a2@<X0>)
 {
-  v3 = [(FxMatrix44 *)a1 matrix];
+  v3 = [(FxMatrix44 *)a2 matrix];
   v4 = *&(*v3)[2][2];
-  *(a2 + 64) = *&(*v3)[2][0];
-  *(a2 + 80) = v4;
+  *(a1 + 4) = *&(*v3)[2][0];
+  *(a1 + 5) = v4;
   v5 = *&(*v3)[3][2];
-  *(a2 + 96) = *&(*v3)[3][0];
-  *(a2 + 112) = v5;
+  *(a1 + 6) = *&(*v3)[3][0];
+  *(a1 + 7) = v5;
   v6 = *&(*v3)[0][2];
-  *a2 = *v3;
-  *(a2 + 16) = v6;
+  *a1 = *v3;
+  *(a1 + 1) = v6;
   result = *&(*v3)[1][0];
   v8 = *&(*v3)[1][2];
-  *(a2 + 32) = result;
-  *(a2 + 48) = v8;
+  *(a1 + 2) = result;
+  *(a1 + 3) = v8;
   return result;
 }
 
-uint64_t FxApplySDRToHDR@<X0>(CGColorSpace *a1@<X1>, uint64_t a2@<X0>, uint64_t a3@<X2>, int a4@<W3>, uint64_t *a5@<X8>)
+uint64_t FxApplySDRToHDR@<X0>(CGColorSpace *a1@<X1>, int a2@<W0>, CGColorSpace *a3@<X2>, int a4@<W3>, uint64_t *a5@<X8>)
 {
   v22 = 0;
   v20 = PCGetNCLCCodeForColorSpace(a1);
@@ -5292,7 +5334,7 @@ uint64_t FxApplySDRToHDR@<X0>(CGColorSpace *a1@<X1>, uint64_t a2@<X0>, uint64_t 
     v22 = v12;
   }
 
-  FxApplyColorConform(a2, a1, 1, v11, 0);
+  FxApplyColorConform(a2, a1, 1, v11);
   v19 = a4 != 0;
   FxSupport::newHGRefWithInput<HGHLG::SDRToHLG,HGHLG::SDRToHLG::SDRInputType &,HGHLG::SDRToHLG::ConversionMethod const&>(*a5, &v22, &v19, &v18);
   v13 = *a5;
@@ -5317,7 +5359,7 @@ uint64_t FxApplySDRToHDR@<X0>(CGColorSpace *a1@<X1>, uint64_t a2@<X0>, uint64_t 
   }
 
   v15 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
-  FxApplyColorConform(a5, v15, 0, a3, 1);
+  FxApplyColorConform(a5, v15, 0, a3);
   result = *a5;
   v17 = v18;
   if (*a5 == v18)
@@ -5342,16 +5384,16 @@ uint64_t FxApplySDRToHDR@<X0>(CGColorSpace *a1@<X1>, uint64_t a2@<X0>, uint64_t 
   return result;
 }
 
-void sub_25FF161F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
+void sub_25FF161F4(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    (*(*a9 + 24))(a9);
+    (*(*a9 + 24))(a9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   if (*v9)
   {
-    (*(**v9 + 24))(*v9);
+    (*(**v9 + 24))(*v9, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5366,121 +5408,121 @@ CGColorSpace **FxApplyBT2446A@<X0>(float *a1@<X0>, float *a2@<X8>)
 
 CGColorSpace **FxApplyBT2446A@<X0>(float *a1@<X0>, CGColorSpace *a2@<X1>, CGColorSpace *a3@<X2>, float *a4@<X8>)
 {
-  PCColor::PCColor(&v41, *a1, a1[1], a1[2], a2);
+  PCColor::PCColor(&v43, *a1, a1[1], a1[2], a2);
   v6 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020);
-  v40 = 0;
-  v39 = 0.0;
-  PCColor::getRGB(&v41, &v40 + 1, &v40, &v39, v6);
-  v38[0] = *(&v40 + 1);
-  LODWORD(v38[1]) = v40;
-  v38[2] = v39;
-  getRec2020RGBToYCbCrMatrix();
-  operator*<float>(&xmmword_280C5E760, v38, &v37.var0.var0);
-  var0 = v37.var0.var0;
-  v7 = *(&v37.var0.var0 + 1);
-  v9 = *v37.var0.var1;
-  v10 = powf(*&v37.var0.var0 * 255.0, flt_26034C7B0[(*&v37.var0.var0 * 255.0) > 70.0] + ((*&v37.var0.var0 * 255.0) * (flt_26034C7A8[(*&v37.var0.var0 * 255.0) > 70.0] + ((*&v37.var0.var0 * 255.0) * flt_26034C7A0[(*&v37.var0.var0 * 255.0) > 70.0]))));
-  v11 = 1.0;
+  v42 = 0;
+  v41 = 0.0;
+  RGB = PCColor::getRGB(&v43, &v42 + 1, &v42, &v41, v6);
+  v40[0] = *(&v42 + 1);
+  LODWORD(v40[1]) = v42;
+  v40[2] = v41;
+  getRec2020RGBToYCbCrMatrix(RGB, v8);
+  operator*<float>(&xmmword_280C5E760, v40, &v39.var0.var0);
+  var0 = v39.var0.var0;
+  v9 = *(&v39.var0.var0 + 1);
+  v11 = *v39.var0.var1;
+  v12 = powf(*&v39.var0.var0 * 255.0, flt_26034C7B0[(*&v39.var0.var0 * 255.0) > 70.0] + ((*&v39.var0.var0 * 255.0) * (flt_26034C7A8[(*&v39.var0.var0 * 255.0) > 70.0] + ((*&v39.var0.var0 * 255.0) * flt_26034C7A0[(*&v39.var0.var0 * 255.0) > 70.0]))));
+  v13 = 1.0;
   if (*&var0 > 0.0)
   {
-    v11 = (v10 / *&var0) * 1.075;
+    v13 = (v12 / *&var0) * 1.075;
   }
 
-  v12 = v7 * v11;
-  v13 = v9 * v11;
-  v14 = v10 + (v13 * 1.4746);
-  if (v14 <= 1000.0)
+  v14 = v9 * v13;
+  v15 = v11 * v13;
+  v16 = v12 + (v15 * 1.4746);
+  if (v16 <= 1000.0)
   {
-    v15 = v10 + (v13 * 1.4746);
+    v17 = v12 + (v15 * 1.4746);
   }
 
   else
   {
-    v15 = 1000.0;
+    v17 = 1000.0;
   }
 
-  v16 = v15 / 1000.0;
-  if (v14 >= 0.0)
+  v18 = v17 / 1000.0;
+  if (v16 >= 0.0)
   {
-    v17 = v16;
+    v19 = v18;
   }
 
   else
   {
-    v17 = 0.0;
+    v19 = 0.0;
   }
 
-  v18 = powf(v17, 2.4);
-  v19 = (v10 + (v12 * -0.16455)) + (v13 * -0.57135);
-  if (v19 <= 1000.0)
+  v20 = powf(v19, 2.4);
+  v21 = (v12 + (v14 * -0.16455)) + (v15 * -0.57135);
+  if (v21 <= 1000.0)
   {
-    v20 = (v10 + (v12 * -0.16455)) + (v13 * -0.57135);
+    v22 = (v12 + (v14 * -0.16455)) + (v15 * -0.57135);
   }
 
   else
   {
-    v20 = 1000.0;
+    v22 = 1000.0;
   }
 
-  v21 = v20 / 1000.0;
-  if (v19 >= 0.0)
+  v23 = v22 / 1000.0;
+  if (v21 >= 0.0)
   {
-    v22 = v21;
+    v24 = v23;
   }
 
   else
   {
-    v22 = 0.0;
+    v24 = 0.0;
   }
 
-  v23 = powf(v22, 2.4);
-  v24 = v10 + (v12 * 1.8814);
-  if (v24 <= 1000.0)
+  v25 = powf(v24, 2.4);
+  v26 = v12 + (v14 * 1.8814);
+  if (v26 <= 1000.0)
   {
-    v25 = v10 + (v12 * 1.8814);
+    v27 = v12 + (v14 * 1.8814);
   }
 
   else
   {
-    v25 = 1000.0;
+    v27 = 1000.0;
   }
 
-  v26 = v25 / 1000.0;
-  if (v24 >= 0.0)
+  v28 = v27 / 1000.0;
+  if (v26 >= 0.0)
   {
-    v27 = v26;
+    v29 = v28;
   }
 
   else
   {
-    v27 = 0.0;
+    v29 = 0.0;
   }
 
-  v28 = powf(v27, 2.4);
-  if ((atomic_load_explicit(&qword_280C5E748, memory_order_acquire) & 1) == 0)
+  v30 = powf(v29, 2.4);
+  if ((atomic_load_explicit(byte_280C5E748, memory_order_acquire) & 1) == 0)
   {
     FxApplyBT2446A();
   }
 
-  v29 = *&dword_280C5E750;
-  v30 = qword_280C5E754;
-  v31 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
-  v32 = ((v18 * v29) + (v23 * *&v30)) + (v28 * *(&v30 + 1));
-  v33 = powf(v32, -0.16667) * 12.0;
-  if (v32 <= 0.0)
+  v31 = *&dword_280C5E750;
+  v32 = qword_280C5E754;
+  v33 = PCGetNCLCColorSpace(&kPCNCLC_Rec2020Linear);
+  v34 = ((v20 * v31) + (v25 * *&v32)) + (v30 * *(&v32 + 1));
+  v35 = powf(v34, -0.16667) * 12.0;
+  if (v34 <= 0.0)
   {
-    v33 = 0.0;
+    v35 = 0.0;
   }
 
-  PCColor::PCColor(&v37, v18 * v33, v23 * v33, v28 * v33, v31);
-  PCColor::getRGB(&v37, &v40 + 1, &v40, &v39, a3);
-  v34 = v40;
-  v35 = v39;
-  *a4 = *(&v40 + 1);
-  *(a4 + 1) = v34;
-  a4[2] = v35;
-  PCCFRef<CGColorSpace *>::~PCCFRef(&v37.var1._obj);
-  return PCCFRef<CGColorSpace *>::~PCCFRef(&v41.var1._obj);
+  PCColor::PCColor(&v39, v20 * v35, v25 * v35, v30 * v35, v33);
+  PCColor::getRGB(&v39, &v42 + 1, &v42, &v41, a3);
+  v36 = v42;
+  v37 = v41;
+  *a4 = *(&v42 + 1);
+  *(a4 + 1) = v36;
+  a4[2] = v37;
+  PCCFRef<CGColorSpace *>::~PCCFRef(&v39.var1._obj);
+  return PCCFRef<CGColorSpace *>::~PCCFRef(&v43.var1._obj);
 }
 
 void sub_25FF165B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, CGColorSpace *a26)
@@ -5503,9 +5545,9 @@ float operator*<float>@<S0>(float *a1@<X0>, float *a2@<X1>, float *a3@<X8>)
   return result;
 }
 
-void getRec2020RGBToYCbCrMatrix(void)
+void getRec2020RGBToYCbCrMatrix(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_30, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_30, memory_order_acquire) & 1) == 0)
   {
     getRec2020RGBToYCbCrMatrix();
   }
@@ -5523,27 +5565,28 @@ __n128 makeRec2020RGBToYCbCrMatrix(void)
 
 void FxApplyBT2446A()
 {
-  if (__cxa_guard_acquire(&qword_280C5E748))
+  v0 = __cxa_guard_acquire(byte_280C5E748);
+  if (v0)
   {
-    getRec2020RGBToYCbCrMatrix();
-    v0 = xmmword_280C5E760;
-    getRec2020RGBToYCbCrMatrix();
-    v1 = DWORD1(xmmword_280C5E760);
-    getRec2020RGBToYCbCrMatrix();
-    dword_280C5E750 = v0;
-    qword_280C5E754 = __PAIR64__(DWORD2(xmmword_280C5E760), v1);
-    __cxa_guard_release(&qword_280C5E748);
+    getRec2020RGBToYCbCrMatrix(v0, v1);
+    v2 = xmmword_280C5E760;
+    getRec2020RGBToYCbCrMatrix(v3, v4);
+    v5 = DWORD1(xmmword_280C5E760);
+    getRec2020RGBToYCbCrMatrix(v6, v7);
+    dword_280C5E750 = v2;
+    qword_280C5E754 = __PAIR64__(DWORD2(xmmword_280C5E760), v5);
+    __cxa_guard_release(byte_280C5E748);
   }
 }
 
 void getRec2020RGBToYCbCrMatrix()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_30))
+  if (__cxa_guard_acquire(_MergedGlobals_30))
   {
     makeRec2020RGBToYCbCrMatrix();
     __cxa_atexit(OZChannelBase::setRangeName, &xmmword_280C5E760, &dword_25F8F0000);
 
-    __cxa_guard_release(&_MergedGlobals_30);
+    __cxa_guard_release(_MergedGlobals_30);
   }
 }
 
@@ -5643,11 +5686,11 @@ uint64_t createContrastRGBNode@<X0>(void *a1@<X0>, int a2@<W1>, int a3@<W2>, Hgc
   return result;
 }
 
-uint64_t HConvolvePass8Tap::GetOutput(HConvolvePass8Tap *this, HGRenderer *a2)
+void HConvolvePass8Tap::GetOutput(HConvolvePass8Tap *this, HGRenderer *a2)
 {
   (*(*this + 136))(this, 0xFFFFFFFFLL, 32);
 
-  return HgcConvolvePass8tap::GetOutput(this, a2);
+  HgcConvolvePass8tap::GetOutput(this, a2);
 }
 
 void HConvolvePass8Tap::~HConvolvePass8Tap(HGNode *this)
@@ -5782,14 +5825,14 @@ void HEquirectWrap::init(uint64_t a1, float32x2_t *a2, float32x2_t *a3, float32x
   HGTransform::~HGTransform(v63);
 }
 
-void sub_25FF179F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_25FF179F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
 {
   if (v57)
   {
-    (*(*v57 + 24))(v57);
+    (*(*v57 + 24))(v57, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  (*(*v60 + 24))(v60);
+  (*(*v60 + 24))(v60, a2, a3, a4, a5, a6, a7, a8);
   (*(*v59 + 24))(v59);
   (*(*v58 + 24))(v58);
   (*(*v56 + 24))(v56);
@@ -5832,9 +5875,9 @@ void HEquirectWrap::~HEquirectWrap(HGNode *this)
   HGNode::~HGNode(this);
 }
 
-void sub_25FF18988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_25FF18988(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   PCAutoreleasePool::~PCAutoreleasePool(va);
   _Unwind_Resume(a1);
 }
@@ -6124,7 +6167,7 @@ uint64_t *HRenderToEquirect::getInputPixelTransform(HRenderToEquirect *this, int
     }
   }
 
-  if (atomic_load_explicit(&_MergedGlobals_31, memory_order_acquire))
+  if (atomic_load_explicit(_MergedGlobals_31, memory_order_acquire))
   {
     return &qword_280C5E790;
   }
@@ -6137,24 +6180,24 @@ uint64_t *HRenderToEquirect::getInputPixelTransform(HRenderToEquirect *this, int
 
 uint64_t HRenderToEquirect::GetROI(HRenderToEquirect *this, HGRenderer *a2, int a3, HGRect a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   (*(*this + 104))(this, 0, &v13, *&a4.var0, *&a4.var2);
   v6 = *&v13;
-  v13 = *&v13 * -0.5;
-  v14 = v13;
+  *&v13 = *&v13 * -0.5;
+  *(&v13 + 1) = v13;
+  v14 = v6;
   v15 = v6;
-  v16 = v6;
   InputPixelTransform = HRenderToEquirect::getInputPixelTransform(this, a3);
   PCMatrix44Tmpl<double>::transformRect<double>(InputPixelTransform, &v13, &v13);
-  v8 = HGRectMake4i(vcvtmd_s64_f64(v13), vcvtmd_s64_f64(v14), vcvtpd_s64_f64(v13 + v15), vcvtpd_s64_f64(v14 + v16));
+  v8 = HGRectMake4i(vcvtmd_s64_f64(*&v13), vcvtmd_s64_f64(*(&v13 + 1)), vcvtpd_s64_f64(*&v13 + v14), vcvtpd_s64_f64(*(&v13 + 1) + v15));
   v10 = v9;
-  v11 = HGRectMake4i(0xFFFFFFFE, 0xFFFFFFFE, 2u, 2u);
+  v11 = HGRectMake4i(-2, -2, 2, 2);
   return HGRectGrow(v8, v10, v11);
 }
 
 void HRenderToEquirect::getInputPixelTransform(void *a1)
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_31))
+  if (__cxa_guard_acquire(_MergedGlobals_31))
   {
     qword_280C5E808 = 0x3FF0000000000000;
     qword_280C5E7E0 = 0x3FF0000000000000;
@@ -6167,7 +6210,7 @@ void HRenderToEquirect::getInputPixelTransform(void *a1)
     xmmword_280C5E7E8 = 0u;
     unk_280C5E7F8 = 0u;
     __cxa_atexit(OZChannelBase::setRangeName, &qword_280C5E790, &dword_25F8F0000);
-    __cxa_guard_release(&_MergedGlobals_31);
+    __cxa_guard_release(_MergedGlobals_31);
   }
 
   *a1 = &qword_280C5E790;
@@ -6230,7 +6273,7 @@ uint64_t HSimpleBorder::GetROI(HSimpleBorder *this, HGRenderer *a2, int a3, HGRe
   }
 }
 
-HGNode *fxSimpleBorder@<X0>(float64x2_t *a1@<X1>, double *a2@<X3>, int a3@<W4>, HGNode **a4@<X8>, unsigned int a5@<S0>, unsigned int a6@<S1>)
+void fxSimpleBorder(void *a1@<X0>, float64x2_t *a2@<X1>, double *a3@<X2>, double *a4@<X3>, int a5@<W4>, HGNode **a6@<X8>, unsigned int a7@<S0>, unsigned int a8@<S1>)
 {
   v45 = 0x3FF0000000000000;
   v42 = 0x3FF0000000000000;
@@ -6242,58 +6285,56 @@ HGNode *fxSimpleBorder@<X0>(float64x2_t *a1@<X1>, double *a2@<X3>, int a3@<W4>, 
   v41 = 0u;
   v43 = 0u;
   v44 = 0u;
-  if (!PCMatrix44Tmpl<double>::planarInverseZ(&v36, a2, 0.0))
+  if (!PCMatrix44Tmpl<double>::planarInverseZ(&v36, a4, 0.0))
   {
-    v19 = HGObject::operator new(0x1A0uLL);
-    result = HGNode::HGNode(v19);
+    v21 = HGObject::operator new(0x1A0uLL);
+    HGNode::HGNode(v21);
     goto LABEL_11;
   }
 
-  v10 = a1[1];
-  v34 = *a1;
-  v35 = v10;
-  if (a3 == 2)
+  v12 = a2[1];
+  v34 = *a2;
+  v35 = v12;
+  if (a5 == 2)
   {
-    v21 = vcvtq_f64_f32(__PAIR64__(a6, a5));
-    v34.f64[0] = v34.f64[0] - v21.f64[0];
-    v34.f64[1] = v34.f64[1] - v21.f64[1];
-    v18 = vaddq_f64(vaddq_f64(v21, v21), v35);
+    v22 = vcvtq_f64_f32(__PAIR64__(a8, a7));
+    v34.f64[0] = v34.f64[0] - v22.f64[0];
+    v34.f64[1] = v34.f64[1] - v22.f64[1];
+    v20 = vaddq_f64(vaddq_f64(v22, v22), v35);
     goto LABEL_7;
   }
 
-  if (a3 == 1)
+  if (a5 == 1)
   {
-    v11 = vcvtq_f64_f32(__PAIR64__(a6, a5));
+    v13 = vcvtq_f64_f32(__PAIR64__(a8, a7));
     __asm { FMOV            V1.2D, #-0.5 }
 
-    v17 = vaddq_f64(v34, vmulq_f64(v11, _Q1));
-    v18 = vaddq_f64(v35, v11);
-    v34 = v17;
+    v19 = vaddq_f64(v34, vmulq_f64(v13, _Q1));
+    v20 = vaddq_f64(v35, v13);
+    v34 = v19;
 LABEL_7:
-    v35 = v18;
+    v35 = v20;
   }
 
-  v31 = 0.0;
-  v32 = 0.0;
+  v32 = 0uLL;
   __asm { FMOV            V0.2D, #-1.0 }
 
   v33 = _Q0;
-  if (PCMatrix44Tmpl<double>::transformRect<double>(a2, v34.f64, &v31))
+  if (PCMatrix44Tmpl<double>::transformRect<double>(a4, v34.f64, &v32))
   {
-    v23 = v31;
-    v24 = v32;
-    v25 = v31 + *&v33;
-    v26 = v32 + *(&v33 + 1);
-    HGRectf::Init(&v30, v23, v24, v25, v26);
-    v27 = HGObject::operator new(0x240uLL);
-    HgcSimpleBorder::HgcSimpleBorder(v27);
+    v24 = *&v32;
+    v25 = *(&v32 + 1);
+    v26 = *&v32 + *&v33;
+    v27 = *(&v32 + 1) + *(&v33 + 1);
+    HGRectf::Init(&v31, v24, v25, v26, v27);
+    v28 = HGObject::operator new(0x240uLL);
+    HgcSimpleBorder::HgcSimpleBorder(v28);
   }
 
-  v19 = HGObject::operator new(0x1A0uLL);
-  result = HGNode::HGNode(v19);
+  v21 = HGObject::operator new(0x1A0uLL);
+  HGNode::HGNode(v21);
 LABEL_11:
-  *a4 = v19;
-  return result;
+  *a6 = v21;
 }
 
 float32_t OMUtil::computeAverageOfVec3fSample@<S0>(void *a1@<X0>, float32x2_t *a2@<X8>, double a3@<D2>)
@@ -6388,7 +6429,7 @@ uint64_t OMUtil::getBoundingBox(float32x2_t **a1, uint64_t a2, int a3, float32x2
   v44 = 0;
   v45 = 0;
   v46 = 0;
-  v21 = PCPrincipalComponentAnalysisCompute<Vec3f,std::vector<Vec3f>>(v18, a4, v10, v11, v12, v13, v14, v15, v16, v49, &v44);
+  v21 = PCPrincipalComponentAnalysisCompute<Vec3f,std::vector<Vec3f>>(v18, a4, v49, &v44, v10, v11, v12, v13, v14, v15, v16);
   if (!v21)
   {
     v23 = *(v44 + 2);
@@ -6408,7 +6449,7 @@ uint64_t OMUtil::getBoundingBox(float32x2_t **a1, uint64_t a2, int a3, float32x2
     *v41[0].f32 = vdiv_f32(v28, vdup_lane_s32(v22, 0));
     v41[0].f32[2] = v27 / *v22.i32;
     OMUtil::setBwMatrixWithDirectionalVector(v49, v42, v41, &v43, v20);
-    inv(&v43, v49);
+    inv(v49, &v43);
     v29 = *v18;
     v30 = vdup_n_s32(0x49742400u);
     v31 = vdup_n_s32(0xC9742400);
@@ -6590,7 +6631,7 @@ void OMUtil::reduceSample(uint64_t *a1, float **a2, double a3)
   }
 }
 
-float OMUtil::setBwMatrixWithDirectionalVector(OMUtil *this, const Vec3f *a2, const Vec3f *a3, const Vec3f *a4, Mat4f *a5)
+float OMUtil::setBwMatrixWithDirectionalVector(OMUtil *this, const Vec3f *a2, const Vec3f *a3, Vec3f *a4, Mat4f *a5)
 {
   Mat4f::MakeDiag(a4, 1.0);
   v9 = *(this + 2);
@@ -6605,23 +6646,21 @@ float OMUtil::setBwMatrixWithDirectionalVector(OMUtil *this, const Vec3f *a2, co
   *&a4[2].var0[2] = *a3->var0;
   a4[3].var0[1] = v11;
   a4[3].var0[2] = 0.0;
-  trans(a4, v13);
+  trans(v13, a4);
   return Mat4f::operator=(a4, v13);
 }
 
-void *std::vector<Vec3f>::reserve(void *result, unint64_t a2)
+void std::vector<Vec3f>::reserve(void *a1, unint64_t a2)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 2) < a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 2) < a2)
   {
     if (a2 < 0x1555555555555556)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<Vec3f>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<Vec3f>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_25FF1ABB0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -6717,7 +6756,7 @@ BOOL OMUtil::findIntersectionOfLineSegmentExclusive(float *a1, float *a2)
   }
 }
 
-void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<float>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -6766,7 +6805,7 @@ void std::vector<float>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -6819,7 +6858,7 @@ void OMUtilErf::setSigma(OMUtilErf *this, float a2, float a3, int a4)
   }
 }
 
-uint64_t PCPrincipalComponentAnalysisCompute<Vec3f,std::vector<Vec3f>>(float32x2_t **a1, float32x2_t *a2, double a3, double a4, double a5, double a6, double a7, double a8, int32x4_t a9, uint64_t a10, void *a11)
+uint64_t PCPrincipalComponentAnalysisCompute<Vec3f,std::vector<Vec3f>>(float32x2_t **a1, float32x2_t *a2, uint64_t a3, void *a4, double a5, double a6, double a7, double a8, double a9, double a10, int32x4_t a11)
 {
   v38 = *MEMORY[0x277D85DE8];
   __lda = 3;
@@ -6833,7 +6872,7 @@ uint64_t PCPrincipalComponentAnalysisCompute<Vec3f,std::vector<Vec3f>>(float32x2
   *__a = 0u;
   v36 = 0u;
   v37 = 0.0;
-  a11[1] = *a11;
+  a4[1] = *a4;
   v12 = *a1;
   v13 = a1[1];
   if (*a1 != v13)
@@ -6847,11 +6886,11 @@ uint64_t PCPrincipalComponentAnalysisCompute<Vec3f,std::vector<Vec3f>>(float32x2
       *&v18 = v12[1].f32[0] - v15;
       v19 = *v12;
       v12 = (v12 + 12);
-      *a9.i8 = vsub_f32(v19, v14);
-      v20 = vdupq_lane_s32(__PAIR64__(a9.u32[1], v18), 0);
-      v20.i32[0] = a9.i32[1];
-      v21 = vextq_s8(vzip1q_s32(a9, a9), a9, 8uLL);
-      v22 = vmul_n_f32(*a9.i8, *a9.i32);
+      *a11.i8 = vsub_f32(v19, v14);
+      v20 = vdupq_lane_s32(__PAIR64__(a11.u32[1], v18), 0);
+      v20.i32[0] = a11.i32[1];
+      v21 = vextq_s8(vzip1q_s32(a11, a11), a11, 8uLL);
+      v22 = vmul_n_f32(*a11.i8, *a11.i32);
       v23 = vmulq_f32(v21, v20);
       *v24.f32 = v22;
       v24.i64[1] = __PAIR64__(v22.u32[1], vextq_s8(v23, v23, 8uLL).u32[0]);
@@ -6876,19 +6915,19 @@ uint64_t PCPrincipalComponentAnalysisCompute<Vec3f,std::vector<Vec3f>>(float32x2
   return __info | v25;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::CVec3LessThan &,Vec3f *,false>(float *a1, float *a2, uint64_t a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,anonymous namespace::CVec3LessThan &,Vec3f *,false>(float *result, float *a2, uint64_t a3, char a4)
 {
 LABEL_1:
   v8 = a2 - 3;
   v9 = a2 - 6;
   v10 = a2 - 9;
-  i = a1;
+  i = result;
   v153 = a2;
   while (1)
   {
-    a1 = i;
+    result = i;
     v12 = a2 - i;
-    v13 = 0xAAAAAAAAAAAAAAABLL * (a2 - i);
+    v13 = 0xAAAAAAAAAAAAAAABLL * ((a2 - i) >> 2);
     v14 = v13 - 2;
     if (v13 > 2)
     {
@@ -6916,11 +6955,11 @@ LABEL_1:
       if (v13 == 2)
       {
         {
-          v80 = *(a1 + 2);
-          v81 = *a1;
-          *a1 = *(a2 - 3);
-          a1[1] = *(a2 - 2);
-          a1[2] = *(a2 - 1);
+          v80 = *(result + 2);
+          v81 = *result;
+          *result = *(a2 - 3);
+          result[1] = *(a2 - 2);
+          result[2] = *(a2 - 1);
           *(a2 - 3) = v81;
           *(a2 - 1) = v80;
         }
@@ -6936,7 +6975,7 @@ LABEL_1:
 
     if (!a3)
     {
-      if (a1 != a2)
+      if (result != a2)
       {
         v99 = v14 >> 1;
         v100 = v14 >> 1;
@@ -6946,13 +6985,13 @@ LABEL_1:
           if (v99 >= v100)
           {
             v102 = (2 * v100) | 1;
-            v103 = &a1[3 * v102];
+            v103 = &result[3 * v102];
             {
               v103 += 3;
               v102 = 2 * v101 + 2;
             }
 
-            v104 = &a1[3 * v101];
+            v104 = &result[3 * v101];
             {
               v105 = *v104;
               v106 = v104[1];
@@ -6965,7 +7004,7 @@ LABEL_1:
                 v108 = v103;
                 v109 = 2 * v102;
                 v102 = (2 * v102) | 1;
-                v103 = &a1[3 * v102];
+                v103 = &result[3 * v102];
                 v110 = v109 + 2;
                 {
                   v103 += 3;
@@ -7025,10 +7064,10 @@ LABEL_232:
         {
           v116 = a2;
           v117 = 0;
-          v119 = *a1;
-          v118 = *(a1 + 1);
-          v120 = *(a1 + 2);
-          v121 = a1;
+          v119 = *result;
+          v118 = *(result + 1);
+          v120 = *(result + 2);
+          v121 = result;
           do
           {
             v122 = &v121[3 * v117];
@@ -7066,12 +7105,12 @@ LABEL_232:
           *(v116 - 3) = v119;
           *(v116 - 2) = v118;
           *(v116 - 1) = v120;
-          v127 = v123 - a1 + 12;
+          v127 = v123 - result + 12;
           if (v127 >= 13)
           {
             v128 = -2 - 0x5555555555555555 * (v127 >> 2);
             v129 = v128 >> 1;
-            v130 = &a1[3 * (v128 >> 1)];
+            v130 = &result[3 * (v128 >> 1)];
             {
               v131 = *v123;
               v132 = v123[1];
@@ -7089,7 +7128,7 @@ LABEL_232:
                 v134 = v130;
                 v135 = v129 - 1;
                 v129 = (v129 - 1) >> 1;
-                v130 = &a1[3 * v129];
+                v130 = &result[3 * v129];
                 v136 = *v130;
                 if (vabds_f32(*v130, v131) >= 0.00001)
                 {
@@ -7150,7 +7189,7 @@ LABEL_260:
     }
 
     v15 = v13 >> 1;
-    v16 = &a1[3 * (v13 >> 1)];
+    v16 = &result[3 * (v13 >> 1)];
     if (v12 < 0x601)
     {
     }
@@ -7158,24 +7197,24 @@ LABEL_260:
     else
     {
       v17 = 3 * v15;
-      v18 = &a1[3 * v15 - 3];
-      v19 = &a1[v17 + 3];
+      v18 = &result[3 * v15 - 3];
+      v19 = &result[v17 + 3];
       a2 = v153;
-      v20 = *(a1 + 2);
-      a1[2] = v16[2];
-      v21 = *a1;
-      *a1 = *v16;
+      v20 = *(result + 2);
+      result[2] = v16[2];
+      v21 = *result;
+      *result = *v16;
       *v16 = v21;
       *(v16 + 2) = v20;
     }
 
     --a3;
     {
-      v51 = *a1;
-      v52 = a1[1];
-      v53 = a1[2];
+      v51 = *result;
+      v52 = result[1];
+      v53 = result[2];
       v54 = *v8;
-      if (vabds_f32(*a1, *v8) >= 0.00001)
+      if (vabds_f32(*result, *v8) >= 0.00001)
       {
         if (v51 < v54)
         {
@@ -7200,7 +7239,7 @@ LABEL_260:
           if (vabds_f32(v53, v56) >= 0.00001 && v53 < v56)
           {
 LABEL_98:
-            for (i = a1 + 3; ; i += 3)
+            for (i = (result + 3); ; i += 12)
             {
               if (vabds_f32(v51, *i) >= 0.00001)
               {
@@ -7212,7 +7251,7 @@ LABEL_98:
 
               else
               {
-                v57 = i[1];
+                v57 = *(i + 4);
                 if (vabds_f32(v52, v57) >= 0.00001)
                 {
                   if (v52 < v57)
@@ -7223,7 +7262,7 @@ LABEL_98:
 
                 else
                 {
-                  v58 = i[2];
+                  v58 = *(i + 8);
                   if (vabds_f32(v53, v58) >= 0.00001 && v53 < v58)
                   {
                     goto LABEL_126;
@@ -7235,7 +7274,7 @@ LABEL_98:
         }
       }
 
-      for (i = a1 + 3; i < a2; i += 3)
+      for (i = (result + 3); i < a2; i += 12)
       {
         if (vabds_f32(v51, *i) >= 0.00001)
         {
@@ -7247,7 +7286,7 @@ LABEL_98:
 
         else
         {
-          v60 = i[1];
+          v60 = *(i + 4);
           if (vabds_f32(v52, v60) >= 0.00001)
           {
             if (v52 < v60)
@@ -7258,7 +7297,7 @@ LABEL_98:
 
           else
           {
-            v61 = i[2];
+            v61 = *(i + 8);
             if (vabds_f32(v53, v61) >= 0.00001 && v53 < v61)
             {
               break;
@@ -7314,9 +7353,9 @@ LABEL_126:
         do
         {
           *i = v69;
-          v70 = *(i + 1);
-          i[1] = j[1];
-          i[2] = j[2];
+          v70 = *(i + 4);
+          *(i + 4) = j[1];
+          *(i + 8) = j[2];
           *j = v68;
           *(j + 1) = v70;
           do
@@ -7325,8 +7364,8 @@ LABEL_126:
             {
               while (1)
               {
-                v71 = i[3];
-                i += 3;
+                v71 = *(i + 12);
+                i += 12;
                 v68 = v71;
                 if (vabds_f32(v51, v71) < 0.00001)
                 {
@@ -7339,7 +7378,7 @@ LABEL_126:
                 }
               }
 
-              v72 = i[1];
+              v72 = *(i + 4);
               if (vabds_f32(v52, v72) < 0.00001)
               {
                 break;
@@ -7351,7 +7390,7 @@ LABEL_126:
               }
             }
 
-            v73 = i[2];
+            v73 = *(i + 8);
           }
 
           while (vabds_f32(v53, v73) < 0.00001 || v53 >= v73);
@@ -7399,27 +7438,27 @@ LABEL_163:
         while (i < j);
       }
 
-      if (i - 3 != a1)
+      if ((i - 12) != result)
       {
-        *a1 = *(i - 3);
-        a1[1] = *(i - 2);
-        a1[2] = *(i - 1);
+        *result = *(i - 12);
+        result[1] = *(i - 8);
+        result[2] = *(i - 4);
       }
 
       a4 = 0;
-      *(i - 3) = v51;
-      *(i - 2) = v52;
-      *(i - 1) = v53;
+      *(i - 12) = v51;
+      *(i - 8) = v52;
+      *(i - 4) = v53;
       continue;
     }
 
     v22 = 0;
-    v23 = *a1;
-    v24 = a1[1];
-    v25 = a1[2];
+    v23 = *result;
+    v24 = result[1];
+    v25 = result[2];
     while (1)
     {
-      v26 = a1[v22 + 3];
+      v26 = result[v22 + 3];
       if (vabds_f32(v26, v23) >= 0.00001)
       {
         if (v26 >= v23)
@@ -7430,7 +7469,7 @@ LABEL_163:
         goto LABEL_27;
       }
 
-      v27 = a1[v22 + 4];
+      v27 = result[v22 + 4];
       if (vabds_f32(v27, v24) < 0.00001)
       {
         break;
@@ -7445,14 +7484,14 @@ LABEL_27:
       v22 += 3;
     }
 
-    v28 = a1[v22 + 5];
+    v28 = result[v22 + 5];
     if (vabds_f32(v28, v25) >= 0.00001 && v28 < v25)
     {
       goto LABEL_27;
     }
 
 LABEL_28:
-    v30 = &a1[v22 + 3];
+    v30 = &result[v22 + 3];
     k = v8;
     if (v22 * 4)
     {
@@ -7547,9 +7586,9 @@ LABEL_59:
       do
       {
         *i = v39;
-        v41 = *(i + 1);
-        i[1] = v40[1];
-        i[2] = v40[2];
+        v41 = *(i + 4);
+        *(i + 4) = v40[1];
+        *(i + 8) = v40[2];
         *v40 = v26;
         *(v40 + 1) = v41;
         do
@@ -7558,8 +7597,8 @@ LABEL_59:
           {
             while (1)
             {
-              v42 = i[3];
-              i += 3;
+              v42 = *(i + 12);
+              i += 12;
               v26 = v42;
               if (vabds_f32(v42, v23) < 0.00001)
               {
@@ -7572,7 +7611,7 @@ LABEL_59:
               }
             }
 
-            v43 = i[1];
+            v43 = *(i + 4);
             if (vabds_f32(v43, v24) < 0.00001)
             {
               break;
@@ -7584,7 +7623,7 @@ LABEL_59:
             }
           }
 
-          v44 = i[2];
+          v44 = *(i + 8);
         }
 
         while (vabds_f32(v44, v25) >= 0.00001 && v44 < v25);
@@ -7632,16 +7671,16 @@ LABEL_83:
       while (i < v40);
     }
 
-    if (i - 3 != a1)
+    if ((i - 12) != result)
     {
-      *a1 = *(i - 3);
-      a1[1] = *(i - 2);
-      a1[2] = *(i - 1);
+      *result = *(i - 12);
+      result[1] = *(i - 8);
+      result[2] = *(i - 4);
     }
 
-    *(i - 3) = v23;
-    *(i - 2) = v24;
-    *(i - 1) = v25;
+    *(i - 12) = v23;
+    *(i - 8) = v24;
+    *(i - 4) = v25;
     if (v30 < k)
     {
 LABEL_91:
@@ -7651,7 +7690,7 @@ LABEL_91:
     else
     {
       {
-        a2 = i - 3;
+        a2 = (i - 12);
         if (v50)
         {
           return;
@@ -7667,8 +7706,8 @@ LABEL_91:
     }
   }
 
-  v82 = a1 + 3;
-  v84 = a1 == a2 || v82 == a2;
+  v82 = result + 3;
+  v84 = result == a2 || v82 == a2;
   if ((a4 & 1) == 0)
   {
     if (v84)
@@ -7676,7 +7715,7 @@ LABEL_91:
       return;
     }
 
-    for (m = a1 + 1; ; m += 3)
+    for (m = result + 1; ; m += 3)
     {
       v142 = v82;
       {
@@ -7685,7 +7724,7 @@ LABEL_91:
 
 LABEL_279:
       v82 = v142 + 3;
-      a1 = v142;
+      result = v142;
       if (v142 + 3 == a2)
       {
         return;
@@ -7693,10 +7732,10 @@ LABEL_279:
     }
 
     v143 = *v142;
-    v144 = a1[4];
-    v145 = a1[5];
+    v144 = result[4];
+    v145 = result[5];
     v146 = m;
-    v147 = *a1;
+    v147 = *result;
     while (1)
     {
       v148 = *v146;
@@ -7748,7 +7787,7 @@ LABEL_278:
   }
 
   v85 = 0;
-  v86 = a1;
+  v86 = result;
   while (2)
   {
     v87 = v82;
@@ -7756,15 +7795,15 @@ LABEL_278:
       goto LABEL_206;
     }
 
-    v88 = v86[3];
-    v89 = v86[4];
-    v90 = v86[5];
-    v91 = *(v86 + 1);
-    v86[3] = *v86;
+    v88 = *(v86 + 12);
+    v89 = *(v86 + 16);
+    v90 = *(v86 + 20);
+    v91 = *(v86 + 4);
+    *(v86 + 12) = *v86;
     *(v87 + 1) = v91;
-    v87[2] = v86[2];
-    v92 = a1;
-    if (v86 == a1)
+    v87[2] = *(v86 + 8);
+    v92 = result;
+    if (v86 == result)
     {
       goto LABEL_205;
     }
@@ -7772,7 +7811,7 @@ LABEL_278:
     v93 = v85;
     while (2)
     {
-      v94 = *(a1 + v93 - 12);
+      v94 = *(result + v93 - 12);
       if (vabds_f32(v88, v94) >= 0.00001)
       {
         if (v88 >= v94)
@@ -7780,30 +7819,30 @@ LABEL_278:
           goto LABEL_204;
         }
 
-        v95 = *(a1 + v93 - 8);
+        v95 = *(result + v93 - 8);
         goto LABEL_202;
       }
 
-      v95 = *(a1 + v93 - 8);
+      v95 = *(result + v93 - 8);
       if (vabds_f32(v89, v95) < 0.00001)
       {
-        v92 = (a1 + v93);
-        v96 = *(a1 + v93 - 4);
+        v92 = (result + v93);
+        v96 = *(result + v93 - 4);
         if (vabds_f32(v90, v96) < 0.00001 || v90 >= v96)
         {
           goto LABEL_205;
         }
 
 LABEL_202:
-        v86 -= 3;
-        v98 = (a1 + v93);
+        v86 -= 12;
+        v98 = (result + v93);
         *v98 = v94;
         v98[1] = v95;
-        v98[2] = *(a1 + v93 - 4);
+        v98[2] = *(result + v93 - 4);
         v93 -= 12;
         if (!v93)
         {
-          v92 = a1;
+          v92 = result;
           goto LABEL_205;
         }
 
@@ -8033,7 +8072,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,anony
     }
   }
 
-  v7 = (a1 + 3);
+  v7 = a1 + 3;
   v8 = a1 + 9;
   if ((a1 + 36) == a2)
   {
@@ -8052,12 +8091,12 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,anony
     v12 = v8[1];
     v13 = v8[2];
     *v8 = *v7;
-    v8[1] = v7[1];
-    v8[2] = v7[2];
+    v8[1] = *(v7 + 1);
+    v8[2] = *(v7 + 2);
     v14 = v9;
     while (1)
     {
-      v15 = a1 + v14;
+      v15 = (a1 + v14);
       v16 = *(a1 + v14 + 12);
       if (vabds_f32(v11, v16) >= 0.00001)
       {
@@ -8070,7 +8109,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,anony
         goto LABEL_25;
       }
 
-      v17 = *(v15 + 16);
+      v17 = v15[4];
       if (vabds_f32(v12, v17) < 0.00001)
       {
         break;
@@ -8082,11 +8121,11 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,anony
       }
 
 LABEL_25:
-      *(v15 + 24) = v16;
-      v20 = a1 + v14;
+      v15[6] = v16;
+      v20 = (a1 + v14);
       v21 = *(a1 + v14 + 20);
-      *(v20 + 28) = v17;
-      *(v20 + 32) = v21;
+      v20[7] = v17;
+      *(v20 + 8) = v21;
       v14 -= 12;
       if (v14 == -24)
       {
@@ -8387,37 +8426,37 @@ float32x4_t operator*@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, float32x4_t *a3@<
   return result;
 }
 
-float trans@<S0>(const Mat4f *a1@<X0>, uint64_t a2@<X8>)
+float trans@<S0>(uint64_t *__return_ptr a1@<X8>, const Mat4f *a2@<X0>)
 {
-  v2 = *(a1 + 1);
-  v3 = *(a1 + 4);
-  v4 = *(a1 + 5);
-  *a2 = *a1;
-  *(a2 + 4) = v3;
-  v5 = *(a1 + 9);
-  v6 = *(a1 + 12);
-  v7 = *(a1 + 13);
-  *(a2 + 8) = *(a1 + 8);
-  *(a2 + 12) = v6;
-  *(a2 + 16) = v2;
-  *(a2 + 20) = v4;
-  *(a2 + 24) = v5;
-  *(a2 + 28) = v7;
-  v8 = *(a1 + 3);
-  v9 = *(a1 + 6);
-  v10 = *(a1 + 7);
-  *(a2 + 32) = *(a1 + 2);
-  *(a2 + 36) = v9;
-  result = *(a1 + 10);
-  v12 = *(a1 + 11);
-  v13 = *(a1 + 14);
-  v14 = *(a1 + 15);
-  *(a2 + 40) = result;
-  *(a2 + 44) = v13;
-  *(a2 + 48) = v8;
-  *(a2 + 52) = v10;
-  *(a2 + 56) = v12;
-  *(a2 + 60) = v14;
+  v2 = *(a2 + 1);
+  v3 = *(a2 + 4);
+  v4 = *(a2 + 5);
+  *a1 = *a2;
+  *(a1 + 1) = v3;
+  v5 = *(a2 + 9);
+  v6 = *(a2 + 12);
+  v7 = *(a2 + 13);
+  *(a1 + 2) = *(a2 + 8);
+  *(a1 + 3) = v6;
+  *(a1 + 4) = v2;
+  *(a1 + 5) = v4;
+  *(a1 + 6) = v5;
+  *(a1 + 7) = v7;
+  v8 = *(a2 + 3);
+  v9 = *(a2 + 6);
+  v10 = *(a2 + 7);
+  *(a1 + 8) = *(a2 + 2);
+  *(a1 + 9) = v9;
+  result = *(a2 + 10);
+  v12 = *(a2 + 11);
+  v13 = *(a2 + 14);
+  v14 = *(a2 + 15);
+  *(a1 + 10) = result;
+  *(a1 + 11) = v13;
+  *(a1 + 12) = v8;
+  *(a1 + 13) = v10;
+  *(a1 + 14) = v12;
+  *(a1 + 15) = v14;
   return result;
 }
 
@@ -8435,9 +8474,9 @@ float32x4_t adj@<Q0>(const Mat4f *a1@<X0>, float32x4_t *a2@<X8>)
   return result;
 }
 
-double inv@<D0>(const Mat4f *a1@<X0>, float32x4_t *a2@<X8>)
+double inv@<D0>(float32x4_t *__return_ptr a1@<X8>, const Mat4f *a2@<X0>)
 {
-  v18 = adj(a1, &v20);
+  v18 = adj(a2, &v20);
   v5 = *(v20.i64 + 4);
   v4 = v20.i32[3];
   v6 = v21;
@@ -8452,25 +8491,25 @@ double inv@<D0>(const Mat4f *a1@<X0>, float32x4_t *a2@<X8>)
   v15 = v30;
   v16 = v31;
   v17 = v32;
-  v18.f32[0] = (((v20.f32[0] * *a1) + (v20.f32[1] * *(a1 + 1))) + (v20.f32[2] * *(a1 + 2))) + (v20.f32[3] * *(a1 + 3));
-  a2->i32[0] = v20.i32[0];
-  a2->i32[1] = v6;
-  a2->i32[2] = v10;
-  a2->i32[3] = v14;
-  a2[1].i32[0] = v5;
-  a2[1].i32[1] = v7;
-  a2[1].i32[2] = v11;
-  a2[1].i32[3] = v15;
-  a2[2].i32[0] = HIDWORD(v5);
-  a2[2].i32[1] = v8;
-  a2[2].i32[2] = v12;
-  a2[2].i32[3] = v16;
-  a2[3].i32[0] = v4;
-  a2[3].i32[1] = v9;
-  a2[3].i32[2] = v13;
-  a2[3].i32[3] = v17;
+  v18.f32[0] = (((v20.f32[0] * *a2) + (v20.f32[1] * *(a2 + 1))) + (v20.f32[2] * *(a2 + 2))) + (v20.f32[3] * *(a2 + 3));
+  a1->i32[0] = v20.i32[0];
+  a1->i32[1] = v6;
+  a1->i32[2] = v10;
+  a1->i32[3] = v14;
+  a1[1].i32[0] = v5;
+  a1[1].i32[1] = v7;
+  a1[1].i32[2] = v11;
+  a1[1].i32[3] = v15;
+  a1[2].i32[0] = HIDWORD(v5);
+  a1[2].i32[1] = v8;
+  a1[2].i32[2] = v12;
+  a1[2].i32[3] = v16;
+  a1[3].i32[0] = v4;
+  a1[3].i32[1] = v9;
+  a1[3].i32[2] = v13;
+  a1[3].i32[3] = v17;
 
-  *&result = Mat4f::operator/=(a2, *v18.f32).u64[0];
+  *&result = Mat4f::operator/=(a1, *v18.f32).u64[0];
   return result;
 }
 
@@ -8638,11 +8677,11 @@ uint64_t FxApplySimpleToneCurve@<X0>(uint64_t *a1@<X0>, void *a2@<X8>, float a3@
   return result;
 }
 
-void sub_25FF1D218(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF1D218(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8658,11 +8697,11 @@ uint64_t FxApplyInverseSimpleToneCurve@<X0>(uint64_t *a1@<X0>, void *a2@<X8>, fl
   return result;
 }
 
-void sub_25FF1D32C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF1D32C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8687,11 +8726,11 @@ uint64_t FxApplyGain@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>, float a3@<S0>)
   return result;
 }
 
-void sub_25FF1D50C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF1D50C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8794,7 +8833,7 @@ void OMKeyer2D::tolAdd(float32x2_t *a1, uint64_t *a2, void *a3, int a4, float *a
     {
 LABEL_4:
       v204[0].var0[0] = 0.0;
-      std::vector<int>::vector[abi:ne200100](v228, 0x168uLL);
+      std::vector<int>::vector[abi:ne200100](v228, 0x168uLL, v204);
       v196 = a1;
       v225 = 0;
       v226 = 0;
@@ -8922,9 +8961,9 @@ LABEL_4:
       }
 
       v204[0].var0[0] = NAN;
-      std::vector<int>::vector[abi:ne200100](v224, 0x168uLL);
+      std::vector<int>::vector[abi:ne200100](v224, 0x168uLL, v204);
       v204[0].var0[0] = NAN;
-      std::vector<int>::vector[abi:ne200100](v223, 0x168uLL);
+      std::vector<int>::vector[abi:ne200100](v223, 0x168uLL, v204);
       v35 = 0;
       v36 = 0;
       v37 = v224[0];
@@ -9301,11 +9340,11 @@ LABEL_42:
               v124[3] = 0;
               v124[4] = 0;
               OMPie::computeOppositeArc(v204, v125, v126);
-              OMPie::getArcOut(v204, 0.6, v213);
+              OMPie::getArcOut(v213, v204, 0.6);
               v215 = v213[0];
-              OMPie::getArcOut(v204, 0.4, v213);
+              OMPie::getArcOut(v213, v204, 0.4);
               *&v214 = v213[0];
-              OMPie::getArcOut(v204, 0.5, v213);
+              OMPie::getArcOut(v213, v204, 0.5);
               v203 = v213[0];
               v217 = v213[0];
               if (__p)
@@ -9325,9 +9364,9 @@ LABEL_42:
             v129 = (*(*v196 + 96))(v196);
             OMPie::computeArc(v129, v130, v131);
             v132 = (*(*v196 + 96))(v196);
-            OMPie::getArcOut(v132, -0.01, v204);
+            OMPie::getArcOut(v204, v132, -0.01);
             v133 = (*(*v196 + 96))(v196);
-            OMPie::getArcOut(v133, 1.01, v213);
+            OMPie::getArcOut(v213, v133, 1.01);
             v134 = vsub_f32(v204[0], v203);
             v135 = vmul_f32(v134, v134);
             v135.f32[0] = sqrtf(vaddv_f32(v135));
@@ -9339,7 +9378,7 @@ LABEL_42:
             v139.f32[0] = sqrtf(vaddv_f32(v139));
             v213[0] = vadd_f32(v203, vmul_f32(vmul_n_f32(vdiv_f32(v138, vdup_lane_s32(v139, 0)), v139.f32[0]), v137));
             v140 = (*(*v196 + 96))(v196);
-            OMPie::getArcOut(v140, 0.5, &v212);
+            OMPie::getArcOut(&v212, v140, 0.5);
             v141 = v212;
             v215 = v204[0];
             *&v214 = v213[0];
@@ -9477,20 +9516,20 @@ void sub_25FF1ECCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a64);
   }
 
-  if (a67)
+  if (a65)
   {
-    operator delete(a67);
+    operator delete(a65);
   }
 
-  if (a70)
+  if (a66)
   {
-    operator delete(a70);
+    operator delete(a66);
   }
 
   _Unwind_Resume(a1);
 }
 
-unint64_t anonymous namespace::chainHull_2D(float32x2_t **a1, uint64_t a2, __n128 a3)
+unint64_t anonymous namespace::chainHull_2D(float32x2_t **a1, float32x2_t **a2, __n128 a3)
 {
   v4 = *a1;
   v5 = a1[1];
@@ -9563,10 +9602,10 @@ unint64_t anonymous namespace::chainHull_2D(float32x2_t **a1, uint64_t a2, __n12
     v14->i32[0] = a3.n128_u32[0];
     a3.n128_u32[0] = HIDWORD(v76);
     v14->i32[1] = HIDWORD(v76);
-    v15 = &v14[1];
+    v15 = v14 + 1;
   }
 
-  v16 = 126 - 2 * __clz((v15 - v4) >> 3);
+  v16 = 126 - 2 * __clz(v15 - v4);
   a1[1] = v15;
   if (v15 == v4)
   {
@@ -9632,7 +9671,7 @@ LABEL_41:
     v42 = v22 + 1;
     v43 = *a2;
     *v43 = v21;
-    *(v43 + 1) = v18->i32[1];
+    *(v43 + 4) = v18->i32[1];
     v44 = v26;
 LABEL_42:
     v45 = v44;
@@ -9653,7 +9692,7 @@ LABEL_42:
       }
 
       v50 = v41 & (v41 >> 31);
-      v51 = &v43[8 * v41];
+      v51 = (v43 + 8 * v41);
       while (1)
       {
         v52 = __OFSUB__(v41--, 1);
@@ -9674,9 +9713,9 @@ LABEL_42:
       }
 
       v41 = v50 + 1;
-      v56 = &v43[8 * v50 + 8];
+      v56 = (v43 + 8 * (v50 + 1));
       *v56 = v48.i32[0];
-      *(v56 + 1) = v46[-1].i32[1];
+      v56[1] = v46[-1].i32[1];
       goto LABEL_42;
     }
 
@@ -9688,9 +9727,9 @@ LABEL_42:
     else
     {
       v57 = ++v41;
-      v58 = &v43[8 * v41];
+      v58 = (v43 + 8 * v41);
       *v58 = v32->i32[0];
-      *(v58 + 1) = v32->i32[1];
+      v58[1] = v32->i32[1];
     }
 
     v59 = v41;
@@ -9724,7 +9763,7 @@ LABEL_55:
       }
 
       v66 = v59 + 1;
-      v67 = &v43[8 * v59];
+      v67 = (v43 + 8 * v59);
       while (v64 > v57)
       {
         --v64;
@@ -9742,18 +9781,18 @@ LABEL_55:
       v66 = v65;
 LABEL_67:
       v59 = v66 + 1;
-      v71 = &v43[8 * v66 + 8];
+      v71 = (v43 + 8 * (v66 + 1));
       *v71 = v62.i32[0];
-      *(v71 + 1) = *v61;
+      v71[1] = *v61;
       goto LABEL_55;
     }
 
     if (v26)
     {
       v72 = v59 + 1;
-      v73 = &v43[8 * v72];
+      v73 = (v43 + 8 * v72);
       *v73 = v18->i32[0];
-      *(v73 + 1) = v18->i32[1];
+      v73[1] = v18->i32[1];
     }
 
     else
@@ -9761,11 +9800,11 @@ LABEL_67:
       v72 = v59;
     }
 
-    v74 = &v43[8 * v72 + 8];
-    v75 = *(a2 + 8);
+    v74 = (v43 + 8 * v72 + 8);
+    v75 = a2[1];
     if (v74 != v75)
     {
-      *(a2 + 8) = v74;
+      a2[1] = v74;
       v75 = v74;
     }
 
@@ -9787,7 +9826,7 @@ LABEL_28:
   v27 = *a2;
   *v27 = v21;
   v28 = v18->f32[1];
-  *(v27 + 1) = v28;
+  *(v27 + 4) = v28;
   v29 = &v18[v26];
   if (v29->f32[1] == v28)
   {
@@ -9796,19 +9835,19 @@ LABEL_28:
 
   else
   {
-    *(v27 + 2) = v29->i32[0];
-    *(v27 + 3) = v29->i32[1];
+    *(v27 + 8) = v29->i32[0];
+    *(v27 + 12) = v29->i32[1];
     v30 = 2;
   }
 
-  v33 = &v27[8 * v30];
-  *v33 = v18->i32[0];
-  *(v33 + 1) = v18->i32[1];
-  v34 = v33 + 8;
-  v35 = *(a2 + 8);
+  v33 = (v27 + 8 * v30);
+  v33->i32[0] = v18->i32[0];
+  v33->i32[1] = v18->i32[1];
+  v34 = v33 + 1;
+  v35 = a2[1];
   if (v34 != v35)
   {
-    *(a2 + 8) = v34;
+    a2[1] = v34;
     v35 = v34;
   }
 

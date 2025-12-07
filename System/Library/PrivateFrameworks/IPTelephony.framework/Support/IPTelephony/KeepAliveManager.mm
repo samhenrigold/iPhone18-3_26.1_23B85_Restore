@@ -2,6 +2,7 @@
 - (BOOL)isNextKeepAliveWithinThreshold:(double)threshold;
 - (KeepAliveManager)initWithIdentifier:(KeepAliveManager *)self minInterval:(SEL)interval maxInterval:()basic_string<char enableWakeUp:()std:(std::allocator<char>> *)std :char_traits<char> delegate:;
 - (id).cxx_construct;
+- (void)connectionManager:(id)manager handleEvent:(int)event;
 - (void)dealloc;
 - (void)growKeepAliveInterval;
 - (void)shrinkKeepAliveInterval;
@@ -242,7 +243,7 @@ LABEL_28:
 
 - (void)startWakeUpOnWifi
 {
-  WakeOnWifiAssertion::get(self, &v5);
+  WakeOnWifiAssertion::get(&v5);
   v3 = v5;
   v5 = 0;
   cntrl = self->_wowAssertion.__cntrl_;
@@ -403,6 +404,85 @@ LABEL_28:
   }
 
   return CFAbsoluteTimeGetCurrent() >= v10;
+}
+
+- (void)connectionManager:(id)manager handleEvent:(int)event
+{
+  v4 = *&event;
+  managerCopy = manager;
+  if (v4 == 2)
+  {
+    v7 = std::string::basic_string[abi:ne200100]<0>(v25, "ims.keepalive");
+    v21[0] = 0;
+    v24 = 0;
+    v8 = ims::debug(v7, v21);
+    (*(*v8 + 32))(v8, &self->_keepAliveId);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v8 + 8), ": Got PC Push Keep Alive event", 30);
+    *(v8 + 17) = 0;
+    (*(*v8 + 64))(v8, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v8 + 17) = 0;
+    if (v24 == 1 && v23 < 0)
+    {
+      operator delete(__p);
+    }
+
+    if (v26 < 0)
+    {
+      operator delete(v25[0]);
+    }
+
+    cntrl = self->_delegate.__cntrl_;
+    if (cntrl)
+    {
+      v10 = std::__shared_weak_count::lock(cntrl);
+      if (v10)
+      {
+        v11 = v10;
+        ptr = self->_delegate.__ptr_;
+        if (ptr)
+        {
+          v19[0] = MEMORY[0x1E69E9820];
+          v19[1] = 3321888768;
+          v19[2] = __50__KeepAliveManager_connectionManager_handleEvent___block_invoke;
+          v19[3] = &__block_descriptor_48_ea8_32c49_ZTSKNSt3__110shared_ptrI20ImsKeepAliveDelegateEE_e5_v8__0l;
+          v19[4] = ptr;
+          v20 = v10;
+          atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
+          ims::performBlock(v19);
+          if (v20)
+          {
+            std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+          }
+        }
+
+        std::__shared_weak_count::__release_shared[abi:ne200100](v11);
+      }
+    }
+  }
+
+  else
+  {
+    v13 = std::string::basic_string[abi:ne200100]<0>(v25, "ims.keepalive");
+    v15[0] = 0;
+    v18 = 0;
+    v14 = ims::debug(v13, v15);
+    (*(*v14 + 32))(v14, &self->_keepAliveId);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*(v14 + 8), ": Got PC event ", 15);
+    *(v14 + 17) = 0;
+    MEMORY[0x1E6923340](*(v14 + 8), v4);
+    *(v14 + 17) = 0;
+    (*(*v14 + 64))(v14, std::endl[abi:ne200100]<char,std::char_traits<char>>);
+    *(v14 + 17) = 0;
+    if (v18 == 1 && v17 < 0)
+    {
+      operator delete(v16);
+    }
+
+    if (v26 < 0)
+    {
+      operator delete(v25[0]);
+    }
+  }
 }
 
 - (id).cxx_construct

@@ -2,7 +2,11 @@
 - (BTXpcSession)init;
 - (BTXpcSession)initWithConnection:(id)connection;
 - (id)_objectForKey:(const char *)key dict:(id)dict optional:(BOOL)optional converters:(id)converters;
+- (id)numberForKey:(const char *)key optional:(BOOL)optional dict:(id)dict;
+- (id)stringForKey:(const char *)key optional:(BOOL)optional dict:(id)dict;
+- (id)xpcDictForKey:(const char *)key optional:(BOOL)optional dict:(id)dict;
 - (void)_handleEvent:(id)event;
+- (void)_sendMsg:(id)msg isReply:(BOOL)reply;
 @end
 
 @implementation BTXpcSession
@@ -57,6 +61,65 @@
   }
 
   return v7;
+}
+
+- (id)numberForKey:(const char *)key optional:(BOOL)optional dict:(id)dict
+{
+  optionalCopy = optional;
+  v8 = qword_10001EF98;
+  dictCopy = dict;
+  if (v8 != -1)
+  {
+    sub_10000E540();
+  }
+
+  v10 = [(BTXpcSession *)self _objectForKey:key dict:dictCopy optional:optionalCopy converters:qword_10001EF90];
+
+  return v10;
+}
+
+- (id)stringForKey:(const char *)key optional:(BOOL)optional dict:(id)dict
+{
+  optionalCopy = optional;
+  v8 = qword_10001EFA8;
+  dictCopy = dict;
+  if (v8 != -1)
+  {
+    sub_10000E554();
+  }
+
+  v10 = [(BTXpcSession *)self _objectForKey:key dict:dictCopy optional:optionalCopy converters:qword_10001EFA0];
+
+  return v10;
+}
+
+- (id)xpcDictForKey:(const char *)key optional:(BOOL)optional dict:(id)dict
+{
+  optionalCopy = optional;
+  v8 = qword_10001EFB8;
+  dictCopy = dict;
+  if (v8 != -1)
+  {
+    sub_10000E568();
+  }
+
+  v10 = [(BTXpcSession *)self _objectForKey:key dict:dictCopy optional:optionalCopy converters:qword_10001EFB0];
+
+  return v10;
+}
+
+- (void)_sendMsg:(id)msg isReply:(BOOL)reply
+{
+  replyCopy = reply;
+  msgCopy = msg;
+  v7 = qword_10001EFD0;
+  if (os_log_type_enabled(qword_10001EFD0, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10000E57C(replyCopy, v7);
+  }
+
+  connection = [(BTXpcSession *)self connection];
+  xpc_connection_send_message(connection, msgCopy);
 }
 
 - (void)_handleEvent:(id)event

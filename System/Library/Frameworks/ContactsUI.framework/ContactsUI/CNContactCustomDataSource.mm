@@ -216,8 +216,8 @@
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  contacts = [(CNContactCustomDataSource *)self contacts];
-  v6 = [contacts countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = objc_msgSend_contacts(self, 0);
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = 0;
@@ -231,7 +231,7 @@
       {
         if (*v15 != v8)
         {
-          objc_enumerationMutation(contacts);
+          objc_enumerationMutation(v5);
         }
 
         identifier2 = [*(*(&v14 + 1) + 8 * v9) identifier];
@@ -248,7 +248,7 @@
       }
 
       while (v6 != v9);
-      v6 = [contacts countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -266,8 +266,8 @@ LABEL_11:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  contacts = [(CNContactCustomDataSource *)self contacts];
-  v6 = [contacts copy];
+  v5 = objc_msgSend_contacts(self);
+  v6 = [v5 copy];
   keysToFetch = [(CNContactCustomDataSource *)self keysToFetch];
   v8 = [keysToFetch copy];
   filter = [(CNContactCustomDataSource *)self filter];

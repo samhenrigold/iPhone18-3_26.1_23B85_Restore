@@ -40,17 +40,15 @@
 
 + (id)actions
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = [SSFilterResult alloc];
   v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"Actions" value:0 table:0];
   v5 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v6 = [v5 localizedStringForKey:@"Shortcuts" value:0 table:0];
-  v11[0] = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   v8 = [(SSFilterResult *)v2 initWithFilterTitle:v4 symbolName:@"app.2.stack.3d" keywords:v7 filterQuery:@"_kMDItemBundleID==com.apple.shortcuts || _kMDItemBundleID==com.apple.duetexpertd" enabledDomains:&unk_1F55B71C0];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -88,19 +86,19 @@
 
 + (id)pasteboard
 {
-  v31[2] = *MEMORY[0x1E69E9840];
+  v30[2] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();
-  v31[0] = @"com.apple.spotlight.pasteboard";
-  v31[1] = @"com.apple.spotlight.pasteboard.continuity";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
+  v30[0] = @"com.apple.spotlight.pasteboard";
+  v30[1] = @"com.apple.spotlight.pasteboard.continuity";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
   [v2 setDomainIdentifiers:v3];
 
   v4 = MEMORY[0x1E695DFF8];
   v5 = +[SSFilesPasteboardResultBuilder spotlightPasteboardCacheDirectory];
   v6 = [v4 fileURLWithPath:v5];
-  v30 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
-  v27 = v2;
+  v29 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
+  v26 = v2;
   [v2 setFilesToDelete:v7];
 
   v8 = objc_opt_new();
@@ -109,9 +107,9 @@
   [v8 setTitle:v10];
 
   [v8 setCommand:v2];
-  v26 = [MEMORY[0x1E695DFF8] URLWithString:@"x-apple.systempreferences:com.apple.Spotlight-Settings.extension"];
+  v25 = [MEMORY[0x1E695DFF8] URLWithString:@"x-apple.systempreferences:com.apple.Spotlight-Settings.extension"];
   v11 = objc_opt_new();
-  v12 = [MEMORY[0x1E69CA320] punchoutWithURL:v26];
+  v12 = [MEMORY[0x1E69CA320] punchoutWithURL:v25];
   [v11 setPunchout:v12];
 
   v13 = objc_opt_new();
@@ -125,14 +123,12 @@
   v18 = [v17 localizedStringForKey:@"Clipboard" value:0 table:0];
   v19 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v20 = [v19 localizedStringForKey:@"Pasteboard" value:0 table:0];
-  v29 = v20;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
-  v28[0] = v8;
-  v28[1] = v13;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+  v28 = v20;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+  v27[0] = v8;
+  v27[1] = v13;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
   v23 = [(SSFilterResult *)v16 initWithFilterTitle:v18 thumbnailType:0 symbolName:@"document.on.document" keywords:v21 filterQueries:&unk_1F55B71F0 folderScopeURLs:0 enabledDomains:&unk_1F55B7208 searchBarButtonItems:v22 contentTypes:0 allowedTypes:0 blockedTypes:0 parentType:0 appBundleId:0 appURL:0 filterSubtitle:0];
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v23;
 }
@@ -149,52 +145,46 @@
 
 + (id)windows
 {
-  v9[2] = *MEMORY[0x1E69E9840];
+  v8[2] = *MEMORY[0x1E69E9840];
   v2 = [SSFilterResult alloc];
   v3 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v4 = [v3 localizedStringForKey:@"Windows" value:0 table:0];
-  v9[0] = @"com.apple.window-tab";
-  v9[1] = @"com.apple.UIIntelligenceIntents.windowTab";
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
+  v8[0] = @"com.apple.window-tab";
+  v8[1] = @"com.apple.UIIntelligenceIntents.windowTab";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
   v6 = [(SSFilterResult *)v2 initWithFilterTitle:v4 thumbnailType:0 symbolName:@"macwindow" keywords:0 filterQueries:0 folderScopeURLs:0 enabledDomains:0 searchBarButtonItems:0 contentTypes:0 allowedTypes:v5 blockedTypes:0 parentType:0 appBundleId:0 appURL:0 filterSubtitle:0];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)PDF
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = [SSFilterResult alloc];
   v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"PDF" value:0 table:0];
   v6 = *MEMORY[0x1E6982F10];
   metadataDomain = [self metadataDomain];
   identifier = [v6 identifier];
-  v13[0] = identifier;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = identifier;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v10 = [(SSFilterResult *)v3 initWithFilterTitle:v5 thumbnailType:v6 symbolName:0 keywords:0 filterQueries:0 folderScopeURLs:0 enabledDomains:metadataDomain searchBarButtonItems:0 contentTypes:0 allowedTypes:v9 blockedTypes:0 parentType:0 appBundleId:0 appURL:0 filterSubtitle:0];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)folders
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = [SSFilterResult alloc];
   v4 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v5 = [v4 localizedStringForKey:@"Folders" value:0 table:0];
   v6 = *MEMORY[0x1E6982DC8];
   metadataDomain = [self metadataDomain];
   identifier = [v6 identifier];
-  v13[0] = identifier;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = identifier;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v10 = [(SSFilterResult *)v3 initWithFilterTitle:v5 thumbnailType:v6 symbolName:0 keywords:0 filterQueries:0 folderScopeURLs:0 enabledDomains:metadataDomain searchBarButtonItems:0 contentTypes:0 allowedTypes:v9 blockedTypes:0 parentType:0 appBundleId:0 appURL:0 filterSubtitle:0];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -228,13 +218,13 @@
 
 + (id)customFilters
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v3 = +[SSFilterResult menuItem];
   v4 = +[SSFilterResult sharedLinks];
-  v11[1] = v4;
+  v10[1] = v4;
   v5 = +[SSFilterResult windows];
-  v11[2] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
+  v10[2] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
 
   if ([self shouldShowPasteboardFilter])
   {
@@ -244,8 +234,6 @@
     v6 = v8;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
@@ -253,7 +241,7 @@
 {
   length = range.length;
   location = range.location;
-  v20[3] = *MEMORY[0x1E69E9840];
+  v19[3] = *MEMORY[0x1E69E9840];
   v6 = MEMORY[0x1E69CA0F0];
   keywordCopy = keyword;
   v8 = [keywordCopy substringToIndex:location];
@@ -270,13 +258,11 @@
 
   [v12 setIsEmphasized:1];
   v16 = objc_opt_new();
-  v20[0] = v9;
-  v20[1] = v12;
-  v20[2] = v15;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:3];
+  v19[0] = v9;
+  v19[1] = v12;
+  v19[2] = v15;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:3];
   [v16 setFormattedTextPieces:v17];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -293,24 +279,23 @@
 
 - (SSFilterResult)initWithFilterTitle:(id)title symbolName:(id)name keywords:(id)keywords filterQuery:(id)query enabledDomains:(id)domains
 {
-  v22[1] = *MEMORY[0x1E69E9840];
-  v22[0] = query;
+  v21[1] = *MEMORY[0x1E69E9840];
+  v21[0] = query;
   v12 = MEMORY[0x1E695DEC8];
   domainsCopy = domains;
   queryCopy = query;
   keywordsCopy = keywords;
   nameCopy = name;
   titleCopy = title;
-  v18 = [v12 arrayWithObjects:v22 count:1];
+  v18 = [v12 arrayWithObjects:v21 count:1];
 
   v19 = [(SSFilterResult *)self initWithFilterTitle:titleCopy thumbnailType:0 symbolName:nameCopy keywords:keywordsCopy filterQueries:v18 folderScopeURLs:0 enabledDomains:domainsCopy searchBarButtonItems:0 contentTypes:0 allowedTypes:0 blockedTypes:0 parentType:0 appBundleId:0 appURL:0 filterSubtitle:0];
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (SSFilterResult)initWithFilterTitle:(id)title thumbnailType:(id)type symbolName:(id)name keywords:(id)keywords filterQueries:(id)queries folderScopeURLs:(id)ls enabledDomains:(id)domains searchBarButtonItems:(id)self0 contentTypes:(id)self1 allowedTypes:(id)self2 blockedTypes:(id)self3 parentType:(id)self4 appBundleId:(id)self5 appURL:(id)self6 filterSubtitle:(id)self7
 {
-  v62[1] = *MEMORY[0x1E69E9840];
+  v61[1] = *MEMORY[0x1E69E9840];
   titleCopy = title;
   typeCopy = type;
   nameCopy = name;
@@ -328,9 +313,9 @@
   idCopy = id;
   lCopy = l;
   subtitleCopy = subtitle;
-  v61.receiver = self;
-  v61.super_class = SSFilterResult;
-  v33 = [(SFSearchResult_SpotlightExtras *)&v61 init];
+  v60.receiver = self;
+  v60.super_class = SSFilterResult;
+  v33 = [(SFSearchResult_SpotlightExtras *)&v60 init];
   v34 = v33;
   if (!v33)
   {
@@ -339,14 +324,14 @@
 
   [(SSFilterResult *)v33 setFilterTitle:titleCopy];
   [(SSFilterResult *)v34 setFilterSubtitle:subtitleCopy];
-  v52 = v24;
+  v51 = v24;
   [(SSFilterResult *)v34 setThumbnailType:v24];
   [(SSFilterResult *)v34 setSymbolName:nameCopy];
-  v51 = idCopy;
+  v50 = idCopy;
   [(SSFilterResult *)v34 setAppBundleId:idCopy];
   [(SSFilterResult *)v34 setAppURL:lCopy];
   [(SSFilterResult *)v34 setKeywords:keywordsCopy];
-  v54 = v25;
+  v53 = v25;
   [(SSFilterResult *)v34 setFilterQueries:v25];
   [(SSFilterResult *)v34 setSearchBarButtonItems:itemsCopy];
   [(SSFilterResult *)v34 setEnabledDomains:domainsCopy];
@@ -376,8 +361,8 @@ LABEL_4:
   [(SSFilterResult *)v34 setAllowedTypes:v36];
 
 LABEL_7:
-  v49 = allowedTypesCopy;
-  v50 = blockedTypesCopy;
+  v48 = allowedTypesCopy;
+  v49 = blockedTypesCopy;
   if (blockedTypesCopy)
   {
     v37 = [MEMORY[0x1E695DFD8] setWithArray:blockedTypesCopy];
@@ -400,42 +385,41 @@ LABEL_7:
   blockedTypes = [(SSFilterResult *)v34 blockedTypes];
   v43 = [v39 buildFilterStringFromIncludes:contentTypes allowedTypes:allowedTypes blockedTypes:blockedTypes];
 
-  v25 = v54;
+  v25 = v53;
   if ([v43 length])
   {
     filterQueries = [(SSFilterResult *)v34 filterQueries];
-    if ([filterQueries count])
+    if (objc_msgSend_count(filterQueries))
     {
       filterQueries2 = [(SSFilterResult *)v34 filterQueries];
       v46 = [filterQueries2 arrayByAddingObject:v43];
       [(SSFilterResult *)v34 setFilterQueries:v46];
 
-      v25 = v54;
+      v25 = v53;
     }
 
     else
     {
-      v62[0] = v43;
-      filterQueries2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:1];
+      v61[0] = v43;
+      filterQueries2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:1];
       [(SSFilterResult *)v34 setFilterQueries:filterQueries2];
     }
   }
 
   [(SSFilterResult *)v34 buildResult];
 
-  idCopy = v51;
-  v24 = v52;
-  allowedTypesCopy = v49;
-  blockedTypesCopy = v50;
+  idCopy = v50;
+  v24 = v51;
+  allowedTypesCopy = v48;
+  blockedTypesCopy = v49;
 LABEL_16:
 
-  v47 = *MEMORY[0x1E69E9840];
   return v34;
 }
 
 + (id)buildFilterStringFromIncludes:(id)includes allowedTypes:(id)types blockedTypes:(id)blockedTypes
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   includesCopy = includes;
   typesCopy = types;
   blockedTypesCopy = blockedTypes;
@@ -454,58 +438,56 @@ LABEL_16:
 
   v14 = v13;
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v15 = includesCopy;
-  v16 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v28;
+    v18 = *v27;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v28 != v18)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [v14 addObject:*(*(&v27 + 1) + 8 * i)];
+        [v14 addObject:*(*(&v26 + 1) + 8 * i)];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v17);
   }
 
-  if ([v14 count])
+  if (objc_msgSend_count(v14))
   {
     objc_msgSend(string, "appendString:", @"(");
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __74__SSFilterResult_buildFilterStringFromIncludes_allowedTypes_blockedTypes___block_invoke;
-    v25[3] = &unk_1E8596008;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __74__SSFilterResult_buildFilterStringFromIncludes_allowedTypes_blockedTypes___block_invoke;
+    v24[3] = &unk_1E8596008;
     v20 = string;
-    v26 = v20;
-    [v14 enumerateObjectsUsingBlock:v25];
+    v25 = v20;
+    [v14 enumerateObjectsUsingBlock:v24];
     [v20 appendString:@""]);
   }
 
   if (blockedTypesCopy)
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __74__SSFilterResult_buildFilterStringFromIncludes_allowedTypes_blockedTypes___block_invoke_2;
-    v23[3] = &unk_1E8596008;
-    v24 = string;
-    [blockedTypesCopy enumerateObjectsUsingBlock:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __74__SSFilterResult_buildFilterStringFromIncludes_allowedTypes_blockedTypes___block_invoke_2;
+    v22[3] = &unk_1E8596008;
+    v23 = string;
+    [blockedTypesCopy enumerateObjectsUsingBlock:v22];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return string;
 }
@@ -534,7 +516,7 @@ void __74__SSFilterResult_buildFilterStringFromIncludes_allowedTypes_blockedType
 
 - (void)buildResult
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   appURL = [(SSFilterResult *)self appURL];
 
   if (appURL)
@@ -571,7 +553,7 @@ LABEL_5:
 
 LABEL_6:
   filterQueries = [(SSFilterResult *)self filterQueries];
-  if ([filterQueries count])
+  if (objc_msgSend_count(filterQueries))
   {
 
 LABEL_9:
@@ -608,7 +590,7 @@ LABEL_11:
   }
 
   folderScopeURLs2 = [(SSFilterResult *)self folderScopeURLs];
-  v9 = [folderScopeURLs2 count];
+  v9 = objc_msgSend_count(folderScopeURLs2);
 
   if (v9)
   {
@@ -667,15 +649,15 @@ LABEL_13:
     v24 = MEMORY[0x1E69CA3A0];
     filterSubtitle2 = [(SSFilterResult *)self filterSubtitle];
     v26 = [v24 textWithString:filterSubtitle2];
-    v42[0] = v26;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
+    v41[0] = v26;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v41 count:1];
     [v17 setDescriptions:v27];
   }
 
   [(SSFilterResult *)self setCardSection:v17];
   v28 = objc_opt_new();
-  v41 = v17;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+  v40 = v17;
+  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v40 count:1];
   [v28 setCardSections:v29];
 
   [(SSFilterResult *)self setInlineCard:v28];
@@ -687,8 +669,6 @@ LABEL_13:
   [(SSFilterResult *)self setSectionBundleIdentifier:@"com.apple.spotlight.filter"];
   title = [v17 title];
   [(SSFilterResult *)self setTitle:title];
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSearchString:(id)string
@@ -700,73 +680,72 @@ LABEL_13:
 
 - (unint64_t)hash
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   symbolName = [(SSFilterResult *)self symbolName];
   v4 = [symbolName hash];
   filterTitle = [(SSFilterResult *)self filterTitle];
   v6 = [filterTitle hash] ^ v4;
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   filterQueries = [(SSFilterResult *)self filterQueries];
-  v8 = [filterQueries countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v8 = [filterQueries countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       v11 = 0;
       do
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(filterQueries);
         }
 
-        v6 ^= [*(*(&v23 + 1) + 8 * v11++) hash];
+        v6 ^= [*(*(&v22 + 1) + 8 * v11++) hash];
       }
 
       while (v9 != v11);
-      v9 = [filterQueries countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v9 = [filterQueries countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v9);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   enabledDomains = [(SSFilterResult *)self enabledDomains];
-  v13 = [enabledDomains countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v13 = [enabledDomains countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       v16 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(enabledDomains);
         }
 
-        v6 ^= [*(*(&v19 + 1) + 8 * v16++) hash];
+        v6 ^= [*(*(&v18 + 1) + 8 * v16++) hash];
       }
 
       while (v14 != v16);
-      v14 = [enabledDomains countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v14 = [enabledDomains countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v14);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -939,34 +918,34 @@ LABEL_13:
 - (BOOL)matchesOnFilterSearchString:(id)string andDisplayHighlightedMatchIfNecessary:(BOOL)necessary
 {
   necessaryCopy = necessary;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   stringCopy = string;
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   filterTitle = [(SSFilterResult *)self filterTitle];
-  v35 = filterTitle;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+  v34 = filterTitle;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
   keywords = [(SSFilterResult *)self keywords];
   v10 = [v8 arrayByAddingObjectsFromArray:keywords];
 
-  v11 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
   if (v11)
   {
     v12 = v11;
-    v29 = necessaryCopy;
-    v13 = *v31;
+    v28 = necessaryCopy;
+    v13 = *v30;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v31 != v13)
+        if (*v30 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v30 + 1) + 8 * i);
+        v15 = *(*(&v29 + 1) + 8 * i);
         v16 = [v15 localizedStandardRangeOfString:stringCopy];
         if (v16 != 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -982,7 +961,7 @@ LABEL_13:
 
           else
           {
-            v23 = !v29;
+            v23 = !v28;
           }
 
           if (v23)
@@ -993,9 +972,9 @@ LABEL_13:
           else
           {
             v24 = [objc_opt_class() buildHighlightedTextFromKeyword:v15 withRange:{v19, v20}];
-            v34 = v24;
+            v33 = v24;
             v18 = 1;
-            v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
+            v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
             cardSection = [(SSFilterResult *)self cardSection];
             [cardSection setDescriptions:v25];
           }
@@ -1004,7 +983,7 @@ LABEL_13:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v30 objects:v36 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v29 objects:v35 count:16];
       if (v12)
       {
         continue;
@@ -1017,7 +996,6 @@ LABEL_13:
   v18 = 0;
 LABEL_16:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

@@ -58,69 +58,13 @@
     v15 = NSStringFromSelector(sel_typeIIConfidence);
     v17 = objc_msgSend_decodeObjectOfClass_forKey_(v13, v16, v14, v15);
 
-    if (!v17)
-    {
-      goto LABEL_9;
-    }
-
-    v5->_typeIIConfidence = objc_msgSend_integerValue(v17, v18, v19);
-
-    v20 = v13;
-    v21 = objc_opt_class();
-    v22 = NSStringFromSelector(sel_typeIIIConfidence);
-    v24 = objc_msgSend_decodeObjectOfClass_forKey_(v20, v23, v21, v22);
-
-    if (!v24)
-    {
-      goto LABEL_9;
-    }
-
-    v5->_typeIIIConfidence = objc_msgSend_integerValue(v24, v25, v26);
-
-    v27 = v20;
-    v28 = objc_opt_class();
-    v29 = NSStringFromSelector(sel_typeIVConfidence);
-    v31 = objc_msgSend_decodeObjectOfClass_forKey_(v27, v30, v28, v29);
-
-    if (!v31)
-    {
-      goto LABEL_9;
-    }
-
-    v5->_typeIVConfidence = objc_msgSend_integerValue(v31, v32, v33);
-
-    v34 = v27;
-    v35 = objc_opt_class();
-    v36 = NSStringFromSelector(sel_typeVConfidence);
-    v38 = objc_msgSend_decodeObjectOfClass_forKey_(v34, v37, v35, v36);
-
-    if (!v38)
-    {
-      goto LABEL_9;
-    }
-
-    v5->_typeVConfidence = objc_msgSend_integerValue(v38, v39, v40);
-
-    v41 = v34;
-    v42 = objc_opt_class();
-    v43 = NSStringFromSelector(sel_typeVIConfidence);
-    v45 = objc_msgSend_decodeObjectOfClass_forKey_(v41, v44, v42, v43);
-
-    if (!v45)
-    {
-      goto LABEL_9;
-    }
-
-    v5->_typeVIConfidence = objc_msgSend_integerValue(v45, v46, v47);
-
-    if (sub_22E5FE920(v41, &v5->_firmwareConfidence, sel_firmwareConfidence))
+    if (v17 && (v5->_typeIIConfidence = objc_msgSend_integerValue(v17, v18, v19), v17, v20 = v13, v21 = objc_opt_class(), NSStringFromSelector(sel_typeIIIConfidence), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v20, v23, v21, v22), v24 = objc_claimAutoreleasedReturnValue(), v20, v22, v24) && (v5->_typeIIIConfidence = objc_msgSend_integerValue(v24, v25, v26), v24, v27 = v20, v28 = objc_opt_class(), NSStringFromSelector(sel_typeIVConfidence), v29 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v27, v30, v28, v29), v31 = objc_claimAutoreleasedReturnValue(), v27, v29, v31) && (v5->_typeIVConfidence = objc_msgSend_integerValue(v31, v32, v33), v31, v34 = v27, v35 = objc_opt_class(), NSStringFromSelector(sel_typeVConfidence), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v34, v37, v35, v36), v38 = objc_claimAutoreleasedReturnValue(), v34, v36, v38) && (v5->_typeVConfidence = objc_msgSend_integerValue(v38, v39, v40), v38, v41 = v34, v42 = objc_opt_class(), NSStringFromSelector(sel_typeVIConfidence), v43 = objc_claimAutoreleasedReturnValue(), objc_msgSend_decodeObjectOfClass_forKey_(v41, v44, v42, v43), v45 = objc_claimAutoreleasedReturnValue(), v41, v43, v45) && (v5->_typeVIConfidence = objc_msgSend_integerValue(v45, v46, v47), v45, sub_22E5FE920(v41, &v5->_firmwareConfidence, sel_firmwareConfidence)))
     {
       v10 = v5;
     }
 
     else
     {
-LABEL_9:
       v10 = 0;
     }
   }

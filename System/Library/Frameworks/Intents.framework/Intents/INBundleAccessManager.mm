@@ -11,33 +11,33 @@
 - (id)_grantForBundleIdentifiers:(id)identifiers error:(id *)error
 {
   errorCopy = error;
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   os_unfair_lock_assert_owner(&self->_lock);
   ++self->_stats._requestCount;
   v6 = objc_opt_new();
-  v34 = objc_opt_new();
+  v33 = objc_opt_new();
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v7 = identifiersCopy;
-  v38 = [v7 countByEnumeratingWithState:&v43 objects:v51 count:16];
-  if (v38)
+  v37 = [v7 countByEnumeratingWithState:&v42 objects:v50 count:16];
+  if (v37)
   {
-    v8 = *v44;
-    v35 = v7;
-    v37 = *v44;
+    v8 = *v43;
+    v34 = v7;
+    v36 = *v43;
     do
     {
-      for (i = 0; i != v38; ++i)
+      for (i = 0; i != v37; ++i)
       {
-        if (*v44 != v8)
+        if (*v43 != v8)
         {
           objc_enumerationMutation(v7);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * i);
+        v10 = *(*(&v42 + 1) + 8 * i);
         securityScopedURLs = [(INBundleAccessManager *)self securityScopedURLs];
         v12 = [securityScopedURLs objectForKey:v10];
 
@@ -47,9 +47,9 @@
           if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v48 = "[INBundleAccessManager _grantForBundleIdentifiers:error:]";
-            v49 = 2112;
-            v50 = v10;
+            v47 = "[INBundleAccessManager _grantForBundleIdentifiers:error:]";
+            v48 = 2112;
+            v49 = v10;
             _os_log_impl(&dword_18E991000, v13, OS_LOG_TYPE_INFO, "%s Using existing security-scoped URL for accessing bundle: %@", buf, 0x16u);
           }
 
@@ -72,45 +72,29 @@
             ++self->_stats._cacheMissCount;
             v16 = [MEMORY[0x1E6963620] bundleRecordWithBundleIdentifier:v10 allowPlaceholder:0 error:0];
             v17 = [v16 URL];
-            if (!v17)
+            if (v17 && (v18 = v17, [MEMORY[0x1E696AC08] defaultManager], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "URL"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "path"), v21 = v6, v22 = objc_claimAutoreleasedReturnValue(), v35 = objc_msgSend(v19, "isReadableFileAtPath:", v22), v22, v6 = v21, v20, v19, v7 = v34, v18, (v35 & 1) == 0))
             {
-              goto LABEL_14;
-            }
-
-            v18 = v17;
-            defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-            v20 = [v16 URL];
-            [v20 path];
-            v22 = v21 = v6;
-            v36 = [defaultManager isReadableFileAtPath:v22];
-
-            v6 = v21;
-            v7 = v35;
-
-            if ((v36 & 1) == 0)
-            {
-              [v34 addObject:v10];
+              [v33 addObject:v10];
             }
 
             else
             {
-LABEL_14:
               accessibleBundleIDs2 = [(INBundleAccessManager *)self accessibleBundleIDs];
               [accessibleBundleIDs2 addObject:v10];
             }
           }
 
-          v8 = v37;
+          v8 = v36;
         }
       }
 
-      v38 = [v7 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      v37 = [v7 countByEnumeratingWithState:&v42 objects:v50 count:16];
     }
 
-    while (v38);
+    while (v37);
   }
 
-  if (![v34 count])
+  if (![v33 count])
   {
     goto LABEL_25;
   }
@@ -119,43 +103,41 @@ LABEL_14:
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v48 = "[INBundleAccessManager _grantForBundleIdentifiers:error:]";
-    v49 = 2112;
-    v50 = v34;
+    v47 = "[INBundleAccessManager _grantForBundleIdentifiers:error:]";
+    v48 = 2112;
+    v49 = v33;
     _os_log_impl(&dword_18E991000, v24, OS_LOG_TYPE_INFO, "%s Requesting access to bundle identifiers from helper. %@", buf, 0x16u);
   }
 
   ++self->_stats._imageServiceLoadCount;
   v25 = +[INImageServiceConnection sharedConnection];
-  v42 = 0;
-  v26 = [v25 securityScopedURLsForBundleIdentifiers:v34 error:&v42];
-  v27 = v42;
+  v41 = 0;
+  v26 = [v25 securityScopedURLsForBundleIdentifiers:v33 error:&v41];
+  v27 = v41;
 
   if (v6)
   {
-    v39[0] = MEMORY[0x1E69E9820];
-    v39[1] = 3221225472;
-    v39[2] = __58__INBundleAccessManager__grantForBundleIdentifiers_error___block_invoke;
-    v39[3] = &unk_1E727F298;
-    v40 = v6;
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __58__INBundleAccessManager__grantForBundleIdentifiers_error___block_invoke;
+    v38[3] = &unk_1E727F298;
+    v39 = v6;
     selfCopy = self;
-    [v26 enumerateKeysAndObjectsUsingBlock:v39];
+    [v26 enumerateKeysAndObjectsUsingBlock:v38];
 
 LABEL_25:
     v28 = [[INBundleAccessGrant alloc] initWithSecurityScopedURLs:v6];
     goto LABEL_29;
   }
 
-  if (v33)
+  if (v32)
   {
     v29 = v27;
-    *v33 = v27;
+    *v32 = v27;
   }
 
   v28 = 0;
 LABEL_29:
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -184,16 +166,15 @@ void __58__INBundleAccessManager__grantForBundleIdentifiers_error___block_invoke
 
 - (id)grantForBundleIdentifier:(id)identifier error:(id *)error
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   os_unfair_lock_lock(&self->_lock);
-  v11[0] = identifierCopy;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = identifierCopy;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
 
   v8 = [(INBundleAccessManager *)self _grantForBundleIdentifiers:v7 error:error];
 
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

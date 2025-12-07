@@ -99,7 +99,7 @@
 
 - (void)_loadSections
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   sections = [(WDAtrialFibrillationEventMetadataViewController *)self sections];
   [sections removeAllObjects];
 
@@ -167,33 +167,31 @@
       v30 = [(WDAtrialFibrillationEventMetadataViewController *)self _shortVersionNumberFromString:v29];
       v31 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.HealthUI"];
       v32 = [v31 localizedStringForKey:@"ATRIAL_FIBRILLATION_PRODUCT_FEATURE_VERSION_WATCH" value:&stru_28641D9B8 table:@"HealthUI-Localizable-Antimony"];
-      v42 = unitController;
-      v45[0] = *MEMORY[0x277CCC950];
-      v33 = v45[0];
-      v45[1] = @"FeatureVersion";
-      [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
-      v34 = v41 = v14;
+      v41 = unitController;
+      v44[0] = *MEMORY[0x277CCC950];
+      v33 = v44[0];
+      v44[1] = @"FeatureVersion";
+      [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+      v34 = v40 = v14;
       HKUIJoinStringsForAutomationIdentifier();
-      v35 = v43 = displayTypeController;
+      v35 = v42 = displayTypeController;
       [v23 addText:v30 detail:v32 baseIdentifier:v35];
 
       v36 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.HealthUI"];
       v37 = [v36 localizedStringForKey:@"ATRIAL_FIBRILLATION_PRODUCT_UPDATE_VERSION_WATCH" value:&stru_28641D9B8 table:@"HealthUI-Localizable-Antimony"];
-      v44[0] = v33;
-      v44[1] = @"UpdateVersion";
-      unitController = v42;
-      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+      v43[0] = v33;
+      v43[1] = @"UpdateVersion";
+      unitController = v41;
+      v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
       v39 = HKUIJoinStringsForAutomationIdentifier();
       [v23 addText:v29 detail:v37 baseIdentifier:v39];
 
-      v14 = v41;
-      displayTypeController = v43;
+      v14 = v40;
+      displayTypeController = v42;
     }
 
-    [(WDAtrialFibrillationEventMetadataViewController *)self _addSectionIfNonNull:v23, v41];
+    [(WDAtrialFibrillationEventMetadataViewController *)self _addSectionIfNonNull:v23, v40];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reloadAtrialFibrillationEducationTableHeaderView
@@ -240,19 +238,8 @@
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
-  if (!changeCopy)
+  if (!changeCopy || (-[WDAtrialFibrillationEventMetadataViewController traitCollection](self, "traitCollection"), v4 = objc_claimAutoreleasedReturnValue(), [v4 preferredContentSizeCategory], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(changeCopy, "preferredContentSizeCategory"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "isEqualToString:", v6), v6, v5, v4, (v7 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  traitCollection = [(WDAtrialFibrillationEventMetadataViewController *)self traitCollection];
-  preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
-  preferredContentSizeCategory2 = [changeCopy preferredContentSizeCategory];
-  v7 = [preferredContentSizeCategory isEqualToString:preferredContentSizeCategory2];
-
-  if ((v7 & 1) == 0)
-  {
-LABEL_3:
     [(WDAtrialFibrillationEventMetadataViewController *)self _reloadAtrialFibrillationEducationTableHeaderView];
   }
 }

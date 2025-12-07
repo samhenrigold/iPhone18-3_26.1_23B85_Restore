@@ -7,7 +7,6 @@
 - (id)debugDescription;
 - (id)initWithContentsOfURL:()NSArray error:;
 - (uint64_t)_stringToWrite;
-- (uint64_t)encodeWithCoder:()NSArray;
 - (uint64_t)initWithCoder:()NSArray;
 - (uint64_t)initWithContentsOfFile:()NSArray;
 - (uint64_t)initWithContentsOfURL:()NSArray;
@@ -17,6 +16,7 @@
 - (uint64_t)writeToFile:()NSArray atomically:;
 - (uint64_t)writeToURL:()NSArray atomically:;
 - (uint64_t)writeToURL:()NSArray error:;
+- (void)encodeWithCoder:()NSArray;
 @end
 
 @implementation NSArray(NSArray)
@@ -73,7 +73,7 @@
   return v3;
 }
 
-- (uint64_t)encodeWithCoder:()NSArray
+- (void)encodeWithCoder:()NSArray
 {
   v31 = *MEMORY[0x1E69E9840];
   if (*MEMORY[0x1E695E100])
@@ -139,7 +139,8 @@ LABEL_12:
               objc_enumerationMutation(self);
             }
 
-            [a3 encodeObject:*(*(&v22 + 1) + 8 * v14++) forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"NS.object.%ld", v12++)}];
+            [a3 encodeObject:*(*(&v22 + 1) + 8 * v14) forKey:{+[NSString stringWithFormat:](NSString, "stringWithFormat:", @"NS.object.%ld", v12++)}];
+            v14 = v14 + 1;
           }
 
           while (v11 != v14);
@@ -183,7 +184,8 @@ LABEL_12:
               objc_enumerationMutation(self);
             }
 
-            [a3 encodeBycopyObject:*(*(&v27 + 1) + 8 * v18++)];
+            [a3 encodeBycopyObject:*(*(&v27 + 1) + 8 * v18)];
+            v18 = v18 + 1;
           }
 
           while (v16 != v18);
@@ -201,15 +203,15 @@ LABEL_12:
 
 - (uint64_t)initWithCoder:()NSArray
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   if (([a3 allowsKeyedCoding] & 1) == 0)
   {
-    v27 = 0;
-    v8 = [a3 decodeValueOfObjCType:"i" at:&v27 size:4];
-    v9 = v27;
+    v28 = 0;
+    v8 = [a3 decodeValueOfObjCType:"i" at:&v28 size:4];
+    v9 = v28;
     v10 = MEMORY[0x1EEE9AC00](v8);
-    v12 = v26 - v11;
-    v26[1] = 0;
+    v12 = &v26 - v11;
+    v27 = 0;
     if (v9 >= 0x101)
     {
       v13 = _CFCreateArrayStorage();
@@ -300,9 +302,9 @@ LABEL_25:
     ++v21;
   }
 
-  v28 = @"NSLocalizedDescription";
-  v29[0] = [NSString stringWithFormat:@"%@: array is too large to unarchive (%qd)", _NSMethodExceptionProem(self, a2), v22];
-  [a3 failWithError:{+[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", @"NSCocoaErrorDomain", 4864, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v29, &v28, 1))}];
+  v29 = @"NSLocalizedDescription";
+  v30[0] = [NSString stringWithFormat:@"%@: array is too large to unarchive (%qd)", _NSMethodExceptionProem(self, a2), v22];
+  [a3 failWithError:{+[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", @"NSCocoaErrorDomain", 4864, objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v30, &v29, 1))}];
 LABEL_31:
   v16 = 0;
 LABEL_32:

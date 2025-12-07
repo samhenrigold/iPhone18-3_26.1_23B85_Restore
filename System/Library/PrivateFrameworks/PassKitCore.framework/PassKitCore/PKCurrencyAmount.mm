@@ -178,69 +178,68 @@
     v7 = 1;
   }
 
-  if (v7)
+  if (!v7)
   {
-    if (amount != v6)
+    if (([(NSDecimalNumber *)amount isEqual:?]& 1) != 0)
     {
+      goto LABEL_9;
+    }
+
 LABEL_20:
-      v16 = 0;
-      goto LABEL_21;
-    }
+    v15 = 0;
+    goto LABEL_21;
   }
 
-  else
+  if (amount != v6)
   {
-    v8 = [(NSDecimalNumber *)amount isEqual:?];
-    if ((v8 & 1) == 0)
-    {
-      goto LABEL_20;
-    }
+    goto LABEL_20;
   }
 
+LABEL_9:
   if (self->_exponent != amountCopy[3])
   {
     goto LABEL_20;
   }
 
-  v9 = amountCopy[4];
-  v10 = self->_preformattedString;
-  v11 = v9;
-  v12 = v11;
-  if (v10 == v11)
+  v8 = amountCopy[4];
+  v9 = self->_preformattedString;
+  v10 = v8;
+  v11 = v10;
+  if (v9 == v10)
   {
 
     goto LABEL_16;
   }
 
-  if (!v10 || !v11)
+  if (!v9 || !v10)
   {
 
     goto LABEL_20;
   }
 
-  v13 = [(NSString *)v10 isEqualToString:v11];
+  isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-  if (!v13)
+  if (!isEqualToString)
   {
     goto LABEL_20;
   }
 
 LABEL_16:
   currency = self->_currency;
-  v15 = amountCopy[2];
-  if (currency && v15)
+  v14 = amountCopy[2];
+  if (currency && v14)
   {
-    v16 = [(NSString *)currency isEqual:?];
+    v15 = [(NSString *)currency isEqual:?];
   }
 
   else
   {
-    v16 = currency == v15;
+    v15 = currency == v14;
   }
 
 LABEL_21:
 
-  return v16;
+  return v15;
 }
 
 - (unint64_t)hash
@@ -346,7 +345,7 @@ LABEL_21:
   currency = self->_currency;
   if (currency)
   {
-    LOBYTE(currency) = ![(NSString *)currency isEqualToString:@"XXX"];
+    LOBYTE(currency) = objc_msgSend_isEqualToString_(currency, a2, @"XXX") ^ 1;
   }
 
   return currency;
@@ -495,9 +494,9 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v12 = [(NSDecimalNumber *)v7 isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v12)
+  if (isEqualToString)
   {
 LABEL_10:
     amount = self->_amount;
@@ -547,9 +546,9 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v12 = [(NSDecimalNumber *)v7 isEqualToString:v8];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v12)
+  if (isEqualToString)
   {
 LABEL_10:
     amount = self->_amount;
@@ -583,9 +582,9 @@ LABEL_12:
 
   if (v9 && v10)
   {
-    v12 = [v9 isEqualToString:v10];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if ((v12 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_10;
     }
@@ -633,9 +632,9 @@ LABEL_13:
 
   if (v9 && v10)
   {
-    v12 = [v9 isEqualToString:v10];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if ((v12 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       goto LABEL_10;
     }
@@ -714,9 +713,9 @@ LABEL_10:
 
   if (!v10)
   {
-    v12 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v12)
+    if (!isEqualToString)
     {
       v11 = 0;
       goto LABEL_12;
@@ -762,9 +761,9 @@ LABEL_10:
 
   if (!v10)
   {
-    v12 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v12)
+    if (!isEqualToString)
     {
       v11 = 0;
       goto LABEL_12;
@@ -810,9 +809,9 @@ LABEL_10:
 
   if (!v10)
   {
-    v12 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v12)
+    if (!isEqualToString)
     {
       v11 = 0;
       goto LABEL_12;

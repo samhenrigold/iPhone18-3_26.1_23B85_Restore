@@ -73,7 +73,7 @@ void __97__PHLivePhotoEditingContext_prepareLivePhotoForPlaybackWithTargetSize_o
     v11 = [v7 videoAsset];
     v22 = 0uLL;
     v23 = 0;
-    [v7 photoTime];
+    objc_msgSend_photoTime(v7);
     v12 = [v8 videoComposition];
     if (v8)
     {
@@ -110,7 +110,7 @@ void __97__PHLivePhotoEditingContext_prepareLivePhotoForPlaybackWithTargetSize_o
   result = self->_editSession;
   if (result)
   {
-    return [(CMTime *)result photoTime];
+    return objc_msgSend_photoTime(result, a3);
   }
 
   retstr->value = 0;
@@ -124,7 +124,7 @@ void __97__PHLivePhotoEditingContext_prepareLivePhotoForPlaybackWithTargetSize_o
   result = self->_editSession;
   if (result)
   {
-    return [(CMTime *)result duration];
+    return objc_msgSend_duration(result, a3);
   }
 
   retstr->value = 0;
@@ -143,7 +143,7 @@ void __97__PHLivePhotoEditingContext_prepareLivePhotoForPlaybackWithTargetSize_o
   v17 = 0;
   if (livePhoto)
   {
-    [livePhoto photoTime];
+    objc_msgSend_photoTime(livePhoto);
   }
 
   if ([(PHContentEditingInput *)v4 mediaSubtypes]== 8 && [(PHContentEditingInput *)v4 playbackStyle]== 5)

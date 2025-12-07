@@ -290,7 +290,7 @@
 
     if (specification && v12)
     {
-      [v12 dataSpec];
+      objc_msgSend_dataSpec(v12);
       *&specification->width = v14;
       *&specification->dataHeight = v15;
     }

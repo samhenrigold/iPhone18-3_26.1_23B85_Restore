@@ -6,10 +6,10 @@
 
 - (id)_removeMemoryLimitsForPid:(int)pid
 {
-  v18 = *MEMORY[0x277D85DE8];
-  *(&v13 + 4) = 0xFFFFFFFF00000000;
-  LODWORD(v13) = -1;
-  HIDWORD(v13) = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  *(&v12 + 4) = 0xFFFFFFFF00000000;
+  LODWORD(v12) = -1;
+  HIDWORD(v12) = 0;
   v4 = memorystatus_control();
   if (v4)
   {
@@ -18,8 +18,8 @@
     {
       *buf = 67109376;
       pidCopy2 = pid;
-      v16 = 1024;
-      v17 = v5;
+      v15 = 1024;
+      v16 = v5;
       v6 = MEMORY[0x277D86220];
       v7 = "DTMemlimitAssertionFactory: failed to remove active and inactive memory limits for pid %d (result = %d)";
       v8 = OS_LOG_TYPE_ERROR;
@@ -37,8 +37,8 @@ LABEL_7:
     {
       *buf = 67109376;
       pidCopy2 = pid;
-      v16 = 1024;
-      v17 = 0;
+      v15 = 1024;
+      v16 = 0;
       v6 = MEMORY[0x277D86220];
       v7 = "DTMemlimitAssertionFactory: removed active and inactive memory limits for pid %d (result = %d)";
       v8 = OS_LOG_TYPE_INFO;
@@ -46,7 +46,6 @@ LABEL_7:
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

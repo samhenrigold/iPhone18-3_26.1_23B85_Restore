@@ -17,6 +17,7 @@
 - (void)dealloc;
 - (void)messageRepository:(id)repository query:(id)query countDidChange:(int64_t)change;
 - (void)setLastSelectedItem:(id)item;
+- (void)setVisibility:(BOOL)visibility forSourceType:(unint64_t)type;
 - (void)updateCollections:(id)collections changeType:(unint64_t)type withReason:(id)reason source:(id)source;
 - (void)updateCollections:(id)collections forItemChangeAddedItems:(id)items removedItems:(id)removedItems withReason:(id)reason source:(id)source;
 - (void)updateCollections:(id)collections forOrderChange:(unint64_t)change withReason:(id)reason source:(id)source;
@@ -488,6 +489,47 @@ LABEL_9:
 
 LABEL_14:
   [(NSRecursiveLock *)self->_lock unlock];
+}
+
+- (void)setVisibility:(BOOL)visibility forSourceType:(unint64_t)type
+{
+  visibilityCopy = visibility;
+  [(NSRecursiveLock *)self->_lock lock];
+  mailboxesCollection = [(FavoritesPersistence *)self mailboxesCollection];
+  items = [mailboxesCollection items];
+  v8 = [FavoriteItem itemForSharedMailboxWithType:type selected:0];
+  v9 = [items indexOfObject:v8];
+
+  if (v9 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v11 = [items objectAtIndex:v9];
+    v12 = v11;
+    if (!v11 || [v11 isSelected] == visibilityCopy)
+    {
+      v10 = 0;
+    }
+
+    else
+    {
+      [v12 setSelected:visibilityCopy];
+      mailboxCollections = [(FavoritesPersistence *)self mailboxCollections];
+      sub_1000221E4(self, mailboxCollections, @"_sharedMailboxControllerBadgeCountDidChange");
+
+      [mailboxesCollection invalidateVisibleItems];
+      v10 = 1;
+    }
+  }
+
+  [(NSRecursiveLock *)self->_lock unlock];
+  if (v10)
+  {
+    sub_1000D2414(self, 0);
+  }
 }
 
 - (void)userNotificationCenterSettingsDidChange:(id)change

@@ -324,7 +324,7 @@
   [coordinatorCopy animateAlongsideTransition:0 completion:v8];
 }
 
-uint64_t __88__CKFullScreenCardAppViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
+void *__88__CKFullScreenCardAppViewController_viewWillTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x1E69DC938] currentDevice];
   v3 = [v2 orientation];

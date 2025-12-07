@@ -53,11 +53,12 @@
 
 - (void)availableUseCasesWithUseCaseIdentifiers:(id)identifiers includeAssetsInformation:(BOOL)information with:(id)with
 {
-  v6 = _Block_copy(with);
-  sub_22D8B1ADC();
-  *(swift_allocObject() + 16) = v6;
+  informationCopy = information;
+  v7 = _Block_copy(with);
+  v8 = sub_22D8B1ADC();
+  *(swift_allocObject() + 16) = v7;
   selfCopy = self;
-  CatalogServiceServer.Server.availableUseCases(useCaseIdentifiers:includeAssetsInformation:with:)();
+  CatalogServiceServer.Server.availableUseCases(useCaseIdentifiers:includeAssetsInformation:with:)(v8, informationCopy);
 }
 
 - (void)debugInformationWithOptions:(id)options with:(id)with

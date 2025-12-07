@@ -2,15 +2,18 @@
 - (ASDAudioDevice)initWithDeviceUID:(id)d withPlugin:(id)plugin;
 - (ASDAudioDevice)initWithPlugin:(id)plugin;
 - (ASDDeviceConfigurationChangeDelegate)configurationChangeDelegate;
+- (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client;
 - (BOOL)hasInput;
 - (BOOL)hasOutput;
 - (BOOL)hasProperty:(const AudioObjectPropertyAddress *)property;
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable;
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client;
 - (BOOL)supportsSamplingRate:(double)rate;
 - (NSArray)samplingRateRanges;
 - (NSArray)samplingRates;
 - (double)samplingRate;
 - (id)controls;
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree;
 - (id)getProperty:(id)property;
 - (id)inputStreams;
 - (id)outputStreams;
@@ -18,6 +21,7 @@
 - (int)performStopIO;
 - (int)startIOForClient:(unsigned int)client;
 - (int)stopIOForClient:(unsigned int)client;
+- (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data;
 - (unsigned)numberOfChannelsInLayoutForScope:(unsigned int)scope;
 - (void)addControl:(id)control;
 - (void)addInputStream:(id)stream;
@@ -94,7 +98,7 @@ double __30__ASDAudioDevice_samplingRate__block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __26__ASDAudioDevice_hasInput__block_invoke(uint64_t a1)
+void *__26__ASDAudioDevice_hasInput__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) count];
   if (result)
@@ -233,82 +237,80 @@ uint64_t __26__ASDAudioDevice_hasInput__block_invoke(uint64_t a1)
 
 void __32__ASDAudioDevice_performStartIO__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(*(a1 + 32) + 64);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7) startStream];
+        [*(*(&v8 + 1) + 8 * v7) startStream];
         *(*(*(a1 + 40) + 8) + 24) = 1;
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __32__ASDAudioDevice_performStartIO__block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(*(a1 + 32) + 80);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7) startStream];
+        [*(*(&v8 + 1) + 8 * v7) startStream];
         *(*(*(a1 + 40) + 8) + 24) = 1;
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (ASDDeviceConfigurationChangeDelegate)configurationChangeDelegate
@@ -393,78 +395,76 @@ void __32__ASDAudioDevice_performStartIO__block_invoke_2(uint64_t a1)
 
 void __31__ASDAudioDevice_performStopIO__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(*(a1 + 32) + 80);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) stopStream];
+        [*(*(&v8 + 1) + 8 * v7++) stopStream];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __31__ASDAudioDevice_performStopIO__block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(*(a1 + 32) + 64);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) stopStream];
+        [*(*(&v8 + 1) + 8 * v7++) stopStream];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (ASDAudioDevice)initWithPlugin:(id)plugin
@@ -823,35 +823,35 @@ LABEL_64:
 
 void __30__ASDAudioDevice_hasProperty___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([*(a1[4] + 64) count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v3 = *(a1[4] + 64);
-    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = [*(*(&v11 + 1) + 8 * i) physicalFormat];
+          v9 = [*(*(&v10 + 1) + 8 * i) physicalFormat];
           v6 += [v9 channelsPerFrame];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -869,40 +869,39 @@ void __30__ASDAudioDevice_hasProperty___block_invoke(void *a1)
   }
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __30__ASDAudioDevice_hasProperty___block_invoke_2(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([*(a1[4] + 80) count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v3 = *(a1[4] + 80);
-    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v4)
     {
       v5 = v4;
       v6 = 0;
-      v7 = *v12;
+      v7 = *v11;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = [*(*(&v11 + 1) + 8 * i) physicalFormat];
+          v9 = [*(*(&v10 + 1) + 8 * i) physicalFormat];
           v6 += [v9 channelsPerFrame];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v5);
@@ -920,7 +919,400 @@ void __30__ASDAudioDevice_hasProperty___block_invoke_2(void *a1)
   }
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x277D85DE8];
+}
+
+- (unsigned)dataSizeForProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size andQualifierData:(const void *)data
+{
+  if (!property)
+  {
+    return 0;
+  }
+
+  mSelector = property->mSelector;
+  v9 = 8;
+  if (property->mSelector > 1818454125)
+  {
+    if (mSelector <= 1870098019)
+    {
+      if (mSelector > 1819173228)
+      {
+        if (mSelector > 1836411235)
+        {
+          if (mSelector == 1836411236)
+          {
+            return v9;
+          }
+
+          if (mSelector == 1853059619)
+          {
+            samplingRateRanges = [(ASDAudioDevice *)self samplingRateRanges];
+            v17 = [samplingRateRanges count];
+
+            return 16 * v17;
+          }
+
+          v10 = 1853059700;
+          goto LABEL_53;
+        }
+
+        if (mSelector == 1819173229)
+        {
+          return v9;
+        }
+
+        v12 = 1819569763;
+LABEL_57:
+        if (mSelector == v12)
+        {
+          return 4;
+        }
+
+LABEL_75:
+        v34.receiver = self;
+        v34.super_class = ASDAudioDevice;
+        return [(ASDObject *)&v34 dataSizeForProperty:property withQualifierSize:*&size andQualifierData:data];
+      }
+
+      if (mSelector <= 1818850925)
+      {
+        if (mSelector == 1818454126)
+        {
+          return v9;
+        }
+
+        v11 = 28270;
+LABEL_27:
+        v10 = v11 | 0x6C630000;
+        goto LABEL_53;
+      }
+
+      if (mSelector != 1818850926)
+      {
+        v10 = 1819107691;
+        goto LABEL_53;
+      }
+
+      return 4;
+    }
+
+    if (mSelector > 1936290670)
+    {
+      if (mSelector <= 1937009954)
+      {
+        if (mSelector != 1936290671)
+        {
+          if (mSelector == 1936879204)
+          {
+            if ([(ASDAudioDevice *)self channelLayoutTagForScope:property->mScope, *&size])
+            {
+              return 12;
+            }
+
+            else
+            {
+              return 20 * [(ASDAudioDevice *)self numberOfChannelsInLayoutForScope:property->mScope]+ 12;
+            }
+          }
+
+          goto LABEL_75;
+        }
+
+        return 4;
+      }
+
+      if (mSelector != 1937009955)
+      {
+        if (mSelector == 1969841184)
+        {
+          return v9;
+        }
+
+        v12 = 1953653102;
+        goto LABEL_57;
+      }
+
+      v45 = 0;
+      v46 = &v45;
+      v47 = 0x2020000000;
+      v48 = 0;
+      mScope = property->mScope;
+      if (mScope == 1768845428 || mScope == 1735159650)
+      {
+        inputStreamQueue = self->_inputStreamQueue;
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke;
+        block[3] = &unk_278CE3E28;
+        block[4] = self;
+        block[5] = &v45;
+        dispatch_sync(inputStreamQueue, block);
+        mScope = property->mScope;
+      }
+
+      if (mScope != 1869968496 && mScope != 1735159650)
+      {
+LABEL_101:
+        v9 = 4 * *(v46 + 6);
+        _Block_object_dispose(&v45, 8);
+        return v9;
+      }
+
+      outputStreamQueue = self->_outputStreamQueue;
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_2;
+      v43[3] = &unk_278CE3E28;
+      v43[4] = self;
+      v43[5] = &v45;
+      v15 = v43;
+LABEL_100:
+      dispatch_sync(outputStreamQueue, v15);
+      goto LABEL_101;
+    }
+
+    if (mSelector > 1935763059)
+    {
+      if (mSelector != 1935763060)
+      {
+        v12 = 1936092276;
+        goto LABEL_57;
+      }
+
+      return 4;
+    }
+
+    if (mSelector != 1870098020)
+    {
+      v12 = 1919512167;
+      goto LABEL_57;
+    }
+
+    if (!size)
+    {
+      v45 = 0;
+      v46 = &v45;
+      v47 = 0x2020000000;
+      v48 = 0;
+      v23 = property->mScope;
+      if (v23 == 1768845428 || v23 == 1735159650)
+      {
+        v24 = self->_inputStreamQueue;
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_7;
+        v37[3] = &unk_278CE3E28;
+        v37[4] = self;
+        v37[5] = &v45;
+        dispatch_sync(v24, v37);
+        v23 = property->mScope;
+      }
+
+      if (v23 == 1869968496 || v23 == 1735159650)
+      {
+        v25 = self->_outputStreamQueue;
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_8;
+        v36[3] = &unk_278CE3E28;
+        v36[4] = self;
+        v36[5] = &v45;
+        dispatch_sync(v25, v36);
+      }
+
+      outputStreamQueue = self->_controlQueue;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_9;
+      v35[3] = &unk_278CE4030;
+      v35[4] = self;
+      v35[5] = &v45;
+      v35[6] = property;
+      v15 = v35;
+      goto LABEL_100;
+    }
+
+    if ((size & 3) == 0)
+    {
+      v26 = 0;
+      v45 = 0;
+      v46 = &v45;
+      v47 = 0x2020000000;
+      v48 = 0;
+      v33 = size >> 2;
+      v27 = 4 * (size >> 2);
+      do
+      {
+        if (*(data + v26) == 1634956402)
+        {
+          v28 = property->mScope;
+          if (v28 == 1768845428 || v28 == 1735159650)
+          {
+            v30 = self->_inputStreamQueue;
+            v41[0] = MEMORY[0x277D85DD0];
+            v41[1] = 3221225472;
+            v41[2] = __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_4;
+            v41[3] = &unk_278CE3E28;
+            v41[4] = self;
+            v41[5] = &v45;
+            dispatch_sync(v30, v41);
+            v28 = property->mScope;
+          }
+
+          if (v28 == 1869968496 || v28 == 1735159650)
+          {
+            v32 = self->_outputStreamQueue;
+            v40[0] = MEMORY[0x277D85DD0];
+            v40[1] = 3221225472;
+            v40[2] = __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_5;
+            v40[3] = &unk_278CE3E28;
+            v40[4] = self;
+            v40[5] = &v45;
+            dispatch_sync(v32, v40);
+          }
+        }
+
+        v26 += 4;
+      }
+
+      while (v27 != v26);
+      outputStreamQueue = self->_controlQueue;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_6;
+      v38[3] = &unk_278CE4058;
+      v39 = v33;
+      v38[6] = data;
+      v38[7] = property;
+      v38[4] = self;
+      v38[5] = &v45;
+      v15 = v38;
+      goto LABEL_100;
+    }
+
+    return 0;
+  }
+
+  if (mSelector > 1668575851)
+  {
+    if (mSelector > 1685222500)
+    {
+      if (mSelector > 1735354733)
+      {
+        if (mSelector == 1735354734 || mSelector == 1751737454)
+        {
+          return 4;
+        }
+
+        v11 = 25454;
+        goto LABEL_27;
+      }
+
+      if (mSelector != 1685222501)
+      {
+        v12 = 1685276755;
+        goto LABEL_57;
+      }
+
+      return 4;
+    }
+
+    if (mSelector > 1684301170)
+    {
+      if (mSelector == 1684301171)
+      {
+        return v9;
+      }
+
+      v12 = 1684434036;
+      goto LABEL_57;
+    }
+
+    if (mSelector != 1668575852)
+    {
+      v10 = 1684236338;
+      goto LABEL_53;
+    }
+
+    v45 = 0;
+    v46 = &v45;
+    v47 = 0x2020000000;
+    outputStreamQueue = self->_controlQueue;
+    v48 = 0;
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_3;
+    v42[3] = &unk_278CE4030;
+    v42[5] = &v45;
+    v42[6] = property;
+    v42[4] = self;
+    v15 = v42;
+    goto LABEL_100;
+  }
+
+  if (mSelector > 1667658617)
+  {
+    if (mSelector > 1668050794)
+    {
+      if (mSelector != 1668050795)
+      {
+        v12 = 1668510818;
+        goto LABEL_57;
+      }
+    }
+
+    else if (mSelector != 1667658618)
+    {
+      v12 = 1668049764;
+      goto LABEL_57;
+    }
+
+    return 4;
+  }
+
+  if (mSelector <= 1667330159)
+  {
+    if (mSelector == 1634429294)
+    {
+      v49[0] = 1633969526;
+      v45 = *&property->mSelector;
+      LODWORD(v46) = property->mElement;
+      owner = [(ASDObject *)self owner];
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        v19 = 1650751011;
+      }
+
+      else
+      {
+        v19 = 1684370979;
+      }
+
+      LODWORD(v45) = v19;
+
+      owner2 = [(ASDObject *)self owner];
+      v9 = [owner2 dataSizeForProperty:&v45 withQualifierSize:4 andQualifierData:v49];
+
+      return v9;
+    }
+
+    v12 = 1635087471;
+    goto LABEL_57;
+  }
+
+  if (mSelector == 1667330160)
+  {
+    return v9;
+  }
+
+  v10 = 1667523955;
+LABEL_53:
+  if (mSelector != v10)
+  {
+    goto LABEL_75;
+  }
+
+  return v9;
 }
 
 uint64_t __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke(uint64_t a1)
@@ -939,29 +1331,29 @@ uint64_t __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifier
 
 void __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_3(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 96);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (*(a1[6] + 4) == 1735159650 || [*(*(&v9 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
+        if (*(a1[6] + 4) == 1735159650 || [*(*(&v8 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
         {
           ++*(*(a1[5] + 8) + 24);
         }
@@ -970,14 +1362,13 @@ void __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_4(uint64_t a1)
@@ -996,24 +1387,24 @@ uint64_t __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifier
 
 void __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_6(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = *(*(a1 + 32) + 96);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
@@ -1021,7 +1412,7 @@ void __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData
         if (*(a1 + 64))
         {
           v8 = 0;
-          v9 = *(*(&v11 + 1) + 8 * v7);
+          v9 = *(*(&v10 + 1) + 8 * v7);
           do
           {
             if ([v9 objectClass] == *(*(a1 + 48) + 4 * v8) && (*(*(a1 + 56) + 4) == 1735159650 || objc_msgSend(v9, "controlScope") == *(*(a1 + 56) + 4)))
@@ -1039,14 +1430,13 @@ void __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData
       }
 
       while (v7 != v5);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_7(uint64_t a1)
@@ -1065,29 +1455,29 @@ uint64_t __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifier
 
 void __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData___block_invoke_9(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 96);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        if (*(a1[6] + 4) == 1735159650 || [*(*(&v9 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
+        if (*(a1[6] + 4) == 1735159650 || [*(*(&v8 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
         {
           ++*(*(a1[5] + 8) + 24);
         }
@@ -1096,35 +1486,1147 @@ void __73__ASDAudioDevice_dataSizeForProperty_withQualifierSize_andQualifierData
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
+}
+
+- (BOOL)getProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int *)dataSize andData:(void *)andData forClient:(int)client
+{
+  v131 = *MEMORY[0x277D85DE8];
+  v126 = 0;
+  v127 = &v126;
+  v128 = 0x2020000000;
+  v129 = 0;
+  if (!property || !dataSize || !andData)
+  {
+    goto LABEL_243;
+  }
+
+  v10 = *&client;
+  v12 = *&size;
+  mSelector = property->mSelector;
+  if (property->mSelector > 1818454125)
+  {
+    if (mSelector > 1870098019)
+    {
+      if (mSelector <= 1936879203)
+      {
+        if (mSelector > 1935763059)
+        {
+          if (mSelector != 1935763060)
+          {
+            if (mSelector == 1936092276)
+            {
+              if (*dataSize >= 4)
+              {
+                canBeDefaultSystemDevice = [(ASDAudioDevice *)self canBeDefaultSystemDevice];
+                goto LABEL_239;
+              }
+
+              goto LABEL_243;
+            }
+
+            if (mSelector == 1936290671)
+            {
+              if (*dataSize >= 4)
+              {
+                canBeDefaultSystemDevice = [(ASDAudioDevice *)self supportsIsolatedIO];
+LABEL_239:
+                *andData = canBeDefaultSystemDevice;
+                goto LABEL_240;
+              }
+
+              goto LABEL_243;
+            }
+
+LABEL_178:
+            v99.receiver = self;
+            v99.super_class = ASDAudioDevice;
+            v72 = [(ASDObject *)&v99 getProperty:property withQualifierSize:*&size qualifierData:data dataSize:dataSize andData:andData forClient:*&client];
+            *(v127 + 24) = v72;
+            goto LABEL_243;
+          }
+
+          if (*dataSize < 4)
+          {
+            goto LABEL_243;
+          }
+
+          mScope = property->mScope;
+          switch(mScope)
+          {
+            case 0x6F757470u:
+              goto LABEL_192;
+            case 0x696E7074u:
+LABEL_151:
+              canBeDefaultSystemDevice = [(ASDAudioDevice *)self inputSafetyOffset];
+              goto LABEL_239;
+            case 0x676C6F62u:
+              inputSafetyOffset = [(ASDAudioDevice *)self inputSafetyOffset];
+              if (inputSafetyOffset > [(ASDAudioDevice *)self outputSafetyOffset])
+              {
+                goto LABEL_151;
+              }
+
+LABEL_192:
+              canBeDefaultSystemDevice = [(ASDAudioDevice *)self outputSafetyOffset];
+              goto LABEL_239;
+          }
+
+LABEL_240:
+          v68 = 4;
+          goto LABEL_241;
+        }
+
+        if (mSelector != 1870098020)
+        {
+          if (mSelector == 1919512167)
+          {
+            if (*dataSize >= 4)
+            {
+              canBeDefaultSystemDevice = [(ASDAudioDevice *)self timestampPeriod];
+              goto LABEL_239;
+            }
+
+            goto LABEL_243;
+          }
+
+          goto LABEL_178;
+        }
+
+        if (size)
+        {
+          if ((size & 3) != 0)
+          {
+            goto LABEL_243;
+          }
+
+          v120 = 0;
+          v121 = &v120;
+          v122 = 0x2020000000;
+          v123 = 0;
+          v69 = *dataSize;
+          if (v69 >= [(ASDAudioDevice *)self dataSizeForProperty:property withQualifierSize:*&size andQualifierData:data])
+          {
+            v70 = [(ASDAudioDevice *)self dataSizeForProperty:property withQualifierSize:v12 andQualifierData:data];
+          }
+
+          else
+          {
+            v70 = *dataSize;
+          }
+
+          v85 = 0;
+          v86 = v12 >> 2;
+          v87 = v70 >> 2;
+          if (v12 >> 2 <= 1)
+          {
+            v86 = 1;
+          }
+
+          v88 = 4 * v86;
+          do
+          {
+            if (*(data + v85) == 1634956402)
+            {
+              if (4 * v87 != v85)
+              {
+                v89 = property->mScope;
+                if (v89 == 1768845428 || v89 == 1735159650)
+                {
+                  inputStreamQueue = self->_inputStreamQueue;
+                  v112[0] = MEMORY[0x277D85DD0];
+                  v112[1] = 3221225472;
+                  v112[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_4;
+                  v112[3] = &unk_278CE3E50;
+                  v112[4] = self;
+                  v112[5] = &v120;
+                  v112[6] = v87;
+                  v112[7] = andData;
+                  dispatch_sync(inputStreamQueue, v112);
+                }
+              }
+
+              if (v121[3] != v87)
+              {
+                v92 = property->mScope;
+                if (v92 == 1869968496 || v92 == 1735159650)
+                {
+                  outputStreamQueue = self->_outputStreamQueue;
+                  v111[0] = MEMORY[0x277D85DD0];
+                  v111[1] = 3221225472;
+                  v111[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_5;
+                  v111[3] = &unk_278CE3E50;
+                  v111[4] = self;
+                  v111[5] = &v120;
+                  v111[6] = v87;
+                  v111[7] = andData;
+                  dispatch_sync(outputStreamQueue, v111);
+                }
+              }
+            }
+
+            v85 += 4;
+          }
+
+          while (v88 != v85);
+          if (v121[3] != v87)
+          {
+            controlQueue = self->_controlQueue;
+            v109[0] = MEMORY[0x277D85DD0];
+            v109[1] = 3221225472;
+            v109[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_6;
+            v109[3] = &unk_278CE40A8;
+            v110 = v12 >> 2;
+            v109[6] = data;
+            v109[7] = property;
+            v109[4] = self;
+            v109[5] = &v120;
+            v109[8] = v87;
+            v109[9] = andData;
+            dispatch_sync(controlQueue, v109);
+            LODWORD(v87) = *(v121 + 6);
+          }
+
+          v18 = 4 * v87;
+        }
+
+        else
+        {
+          v120 = 0;
+          v121 = &v120;
+          v122 = 0x2020000000;
+          v123 = 0;
+          v75 = *dataSize;
+          if (v75 >= [(ASDAudioDevice *)self dataSizeForProperty:property withQualifierSize:0 andQualifierData:data])
+          {
+            v76 = [(ASDAudioDevice *)self dataSizeForProperty:property withQualifierSize:0 andQualifierData:data];
+          }
+
+          else
+          {
+            v76 = *dataSize;
+          }
+
+          v78 = v76 >> 2;
+          v79 = v121[3];
+          if (v79 != v78)
+          {
+            v80 = property->mScope;
+            if (v80 == 1768845428 || v80 == 1735159650)
+            {
+              v81 = self->_inputStreamQueue;
+              v108[0] = MEMORY[0x277D85DD0];
+              v108[1] = 3221225472;
+              v108[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_7;
+              v108[3] = &unk_278CE3E50;
+              v108[4] = self;
+              v108[5] = &v120;
+              v108[6] = v78;
+              v108[7] = andData;
+              dispatch_sync(v81, v108);
+              v79 = v121[3];
+            }
+
+            if (v79 != v78)
+            {
+              v82 = property->mScope;
+              if (v82 == 1869968496 || v82 == 1735159650)
+              {
+                v83 = self->_outputStreamQueue;
+                v107[0] = MEMORY[0x277D85DD0];
+                v107[1] = 3221225472;
+                v107[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_8;
+                v107[3] = &unk_278CE3E50;
+                v107[4] = self;
+                v107[5] = &v120;
+                v107[6] = v78;
+                v107[7] = andData;
+                dispatch_sync(v83, v107);
+                v79 = v121[3];
+              }
+
+              if (v79 != v78)
+              {
+                v84 = self->_controlQueue;
+                v106[0] = MEMORY[0x277D85DD0];
+                v106[1] = 3221225472;
+                v106[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_9;
+                v106[3] = &unk_278CE4080;
+                v106[4] = self;
+                v106[5] = &v120;
+                v106[6] = property;
+                v106[7] = v78;
+                v106[8] = andData;
+                dispatch_sync(v84, v106);
+                LODWORD(v78) = *(v121 + 6);
+              }
+            }
+          }
+
+          v18 = 4 * v78;
+        }
+
+LABEL_233:
+        *dataSize = v18;
+        *(v127 + 24) = 1;
+        _Block_object_dispose(&v120, 8);
+        goto LABEL_243;
+      }
+
+      if (mSelector <= 1937009954)
+      {
+        if (mSelector != 1936879204)
+        {
+          if (mSelector == 1937007734)
+          {
+            if (*dataSize >= 4)
+            {
+              *dataSize = 4;
+              owner = [(ASDObject *)self owner];
+              objc_opt_class();
+              isKindOfClass = objc_opt_isKindOfClass();
+
+              if (isKindOfClass)
+              {
+                owner2 = [(ASDObject *)self owner];
+                v33Owner = [owner2 owner];
+                *andData = [v33Owner objectID];
+              }
+
+              else
+              {
+                owner2 = [(ASDObject *)self plugin];
+                *andData = [owner2 objectID];
+              }
+
+              goto LABEL_242;
+            }
+
+            goto LABEL_243;
+          }
+
+          goto LABEL_178;
+        }
+
+        if ([(ASDAudioDevice *)self channelLayoutTagForScope:property->mScope])
+        {
+          if (*dataSize < 0xC)
+          {
+            goto LABEL_243;
+          }
+
+          *andData = [(ASDAudioDevice *)self channelLayoutTagForScope:property->mScope];
+          *(andData + 4) = [(ASDAudioDevice *)self channelLayoutBitmapForScope:property->mScope];
+          v68 = 12;
+        }
+
+        else
+        {
+          v77 = [(ASDAudioDevice *)self numberOfChannelsInLayoutForScope:property->mScope];
+          if (20 * v77 + 12 > *dataSize)
+          {
+            goto LABEL_243;
+          }
+
+          *andData = 0;
+          *(andData + 2) = [(ASDAudioDevice *)self numberOfChannelsInLayoutForScope:property->mScope];
+          [(ASDAudioDevice *)self preferredChannelDescriptions:andData + 12 numberOfChannels:v77 forScope:property->mScope];
+          v68 = 20 * *(andData + 2) + 12;
+        }
+
+LABEL_241:
+        *dataSize = v68;
+LABEL_242:
+        *(v127 + 24) = 1;
+        goto LABEL_243;
+      }
+
+      if (mSelector == 1937009955)
+      {
+        v120 = 0;
+        v121 = &v120;
+        v122 = 0x2020000000;
+        v123 = 0;
+        v63 = *dataSize >> 2;
+        v64 = property->mScope;
+        if (v64 == 1768845428 || (v65 = 0, v64 == 1735159650))
+        {
+          v66 = self->_inputStreamQueue;
+          v119[0] = MEMORY[0x277D85DD0];
+          v119[1] = 3221225472;
+          v119[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke;
+          v119[3] = &unk_278CE3E50;
+          v119[4] = self;
+          v119[5] = &v120;
+          v119[6] = v63;
+          v119[7] = andData;
+          dispatch_sync(v66, v119);
+          v65 = v121[3];
+        }
+
+        if (v65 == v63)
+        {
+          LODWORD(v65) = v63;
+        }
+
+        else
+        {
+          v73 = property->mScope;
+          if (v73 == 1869968496 || v73 == 1735159650)
+          {
+            v74 = self->_outputStreamQueue;
+            v118[0] = MEMORY[0x277D85DD0];
+            v118[1] = 3221225472;
+            v118[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_2;
+            v118[3] = &unk_278CE3E50;
+            v118[4] = self;
+            v118[5] = &v120;
+            v118[6] = v63;
+            v118[7] = andData;
+            dispatch_sync(v74, v118);
+            v65 = v121[3];
+          }
+        }
+
+        v18 = 4 * v65;
+        goto LABEL_233;
+      }
+
+      if (mSelector == 1953653102)
+      {
+        if (*dataSize >= 4)
+        {
+          canBeDefaultSystemDevice = [(ASDAudioDevice *)self transportType];
+          goto LABEL_239;
+        }
+
+        goto LABEL_243;
+      }
+
+      if (mSelector != 1969841184)
+      {
+        goto LABEL_178;
+      }
+
+      if (*dataSize < 8)
+      {
+        goto LABEL_243;
+      }
+
+      deviceUID = [(ASDAudioDevice *)self deviceUID];
+      *andData = deviceUID;
+
+      v24 = *andData;
+      if (*andData)
+      {
+LABEL_163:
+        CFRetain(v24);
+        goto LABEL_164;
+      }
+
+      goto LABEL_164;
+    }
+
+    if (mSelector > 1819173228)
+    {
+      if (mSelector <= 1836411235)
+      {
+        if (mSelector != 1819173229)
+        {
+          if (mSelector != 1819569763)
+          {
+            goto LABEL_178;
+          }
+
+          if (*dataSize < 4)
+          {
+            goto LABEL_243;
+          }
+
+          v29 = property->mScope;
+          if (v29 != 1869968496)
+          {
+            if (v29 == 1768845428)
+            {
+              goto LABEL_84;
+            }
+
+            if (v29 != 1735159650)
+            {
+              goto LABEL_240;
+            }
+
+            inputLatency = [(ASDAudioDevice *)self inputLatency];
+            if (inputLatency > [(ASDAudioDevice *)self outputLatency])
+            {
+LABEL_84:
+              canBeDefaultSystemDevice = [(ASDAudioDevice *)self inputLatency];
+              goto LABEL_239;
+            }
+          }
+
+          canBeDefaultSystemDevice = [(ASDAudioDevice *)self outputLatency];
+          goto LABEL_239;
+        }
+
+        if (*dataSize < 8)
+        {
+          goto LABEL_243;
+        }
+
+        deviceName = [(ASDAudioDevice *)self deviceName];
+        *andData = deviceName;
+
+        v24 = *andData;
+        if (!*andData)
+        {
+          goto LABEL_164;
+        }
+
+        goto LABEL_163;
+      }
+
+      if (mSelector != 1836411236)
+      {
+        if (mSelector == 1853059619)
+        {
+          v36 = *dataSize;
+          [(ASDAudioDevice *)self samplingRateRanges];
+          v115 = 0u;
+          v116 = 0u;
+          v113 = 0u;
+          v37 = v114 = 0u;
+          v38 = [v37 countByEnumeratingWithState:&v113 objects:v130 count:16];
+          if (v38)
+          {
+            v39 = 0;
+            v40 = v36 >> 4;
+            v41 = *v114;
+            v42 = andData + 8;
+            v43 = -v40;
+            v98 = andData + 8;
+LABEL_112:
+            v44 = 0;
+            v45 = v39;
+            v46 = &v42[16 * v39];
+            v47 = v43 + v39;
+            while (1)
+            {
+              if (*v114 != v41)
+              {
+                objc_enumerationMutation(v37);
+              }
+
+              if (!(v47 + v44))
+              {
+                break;
+              }
+
+              v48 = *(*(&v113 + 1) + 8 * v44);
+              [v48 maximum];
+              *v46 = v49;
+              [v48 minimum];
+              *(v46 - 1) = v50;
+              ++v44;
+              v46 += 16;
+              if (v38 == v44)
+              {
+                v38 = [v37 countByEnumeratingWithState:&v113 objects:v130 count:16];
+                v39 = v45 + v44;
+                v43 = -v40;
+                v42 = v98;
+                if (v38)
+                {
+                  goto LABEL_112;
+                }
+
+                LODWORD(v40) = v45 + v44;
+                break;
+              }
+            }
+          }
+
+          else
+          {
+            LODWORD(v40) = 0;
+          }
+
+          *dataSize = 16 * v40;
+          *(v127 + 24) = 1;
+
+          goto LABEL_243;
+        }
+
+        if (mSelector != 1853059700)
+        {
+          goto LABEL_178;
+        }
+
+        if (*dataSize < 8)
+        {
+          goto LABEL_243;
+        }
+
+        [(ASDAudioDevice *)self samplingRate];
+        *andData = v19;
+        goto LABEL_164;
+      }
+
+      if (*dataSize < 8)
+      {
+        goto LABEL_243;
+      }
+
+      modelUID = [(ASDAudioDevice *)self modelUID];
+      *andData = modelUID;
+
+      v24 = *andData;
+      if (*andData)
+      {
+        goto LABEL_163;
+      }
+
+LABEL_164:
+      v68 = 8;
+      goto LABEL_241;
+    }
+
+    if (mSelector > 1818850925)
+    {
+      if (mSelector == 1818850926)
+      {
+        if (*dataSize >= 4)
+        {
+          *andData = self->_isAlive;
+          *dataSize = 4;
+          v129 = 1;
+        }
+
+        goto LABEL_243;
+      }
+
+      if (mSelector != 1819107691)
+      {
+        goto LABEL_178;
+      }
+
+      if (*dataSize < 8)
+      {
+        goto LABEL_243;
+      }
+
+      manufacturerName = [(ASDAudioDevice *)self manufacturerName];
+      *andData = manufacturerName;
+
+      v24 = *andData;
+      if (!*andData)
+      {
+        goto LABEL_164;
+      }
+
+      goto LABEL_163;
+    }
+
+    if (mSelector == 1818454126)
+    {
+      if (*dataSize < 8 || !property->mElement)
+      {
+        goto LABEL_243;
+      }
+
+      v35 = property->mScope;
+      if (v35 == 1869968496)
+      {
+        v21 = self->_outputStreamQueue;
+        v104[0] = MEMORY[0x277D85DD0];
+        v104[1] = 3221225472;
+        v104[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_11;
+        v104[3] = &unk_278CE4080;
+        v104[6] = property;
+        v104[7] = andData;
+        v104[8] = dataSize;
+        v104[4] = self;
+        v104[5] = &v126;
+        v22 = v104;
+      }
+
+      else
+      {
+        if (v35 != 1768845428)
+        {
+          goto LABEL_243;
+        }
+
+        v21 = self->_inputStreamQueue;
+        v105[0] = MEMORY[0x277D85DD0];
+        v105[1] = 3221225472;
+        v105[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_10;
+        v105[3] = &unk_278CE4080;
+        v105[6] = property;
+        v105[7] = andData;
+        v105[8] = dataSize;
+        v105[4] = self;
+        v105[5] = &v126;
+        v22 = v105;
+      }
+    }
+
+    else
+    {
+      if (mSelector != 1818455662)
+      {
+        goto LABEL_178;
+      }
+
+      if (*dataSize < 8 || !property->mElement)
+      {
+        goto LABEL_243;
+      }
+
+      v25 = property->mScope;
+      if (v25 == 1869968496)
+      {
+        v21 = self->_outputStreamQueue;
+        v100[0] = MEMORY[0x277D85DD0];
+        v100[1] = 3221225472;
+        v100[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_15;
+        v100[3] = &unk_278CE4080;
+        v100[6] = property;
+        v100[7] = andData;
+        v100[8] = dataSize;
+        v100[4] = self;
+        v100[5] = &v126;
+        v22 = v100;
+      }
+
+      else
+      {
+        if (v25 != 1768845428)
+        {
+          goto LABEL_243;
+        }
+
+        v21 = self->_inputStreamQueue;
+        v101[0] = MEMORY[0x277D85DD0];
+        v101[1] = 3221225472;
+        v101[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_14;
+        v101[3] = &unk_278CE4080;
+        v101[6] = property;
+        v101[7] = andData;
+        v101[8] = dataSize;
+        v101[4] = self;
+        v101[5] = &v126;
+        v22 = v101;
+      }
+    }
+
+LABEL_237:
+    dispatch_sync(v21, v22);
+    goto LABEL_243;
+  }
+
+  if (mSelector > 1684236337)
+  {
+    if (mSelector > 1685276754)
+    {
+      if (mSelector <= 1735354733)
+      {
+        if (mSelector == 1685276755)
+        {
+          if (*dataSize >= 4)
+          {
+            canBeDefaultSystemDevice = [(ASDAudioDevice *)self supportsHeySiri];
+            goto LABEL_239;
+          }
+
+          goto LABEL_243;
+        }
+
+        if (mSelector == 1702392685)
+        {
+          if (*dataSize >= 4 && [(ASDAudioDevice *)self supportsExternalSecureMute])
+          {
+            canBeDefaultSystemDevice = [(ASDAudioDevice *)self externalSecureMute];
+            goto LABEL_239;
+          }
+
+          goto LABEL_243;
+        }
+
+        goto LABEL_178;
+      }
+
+      if (mSelector == 1735354734)
+      {
+        if (*dataSize >= 4)
+        {
+          canBeDefaultSystemDevice = [(ASDAudioDevice *)self isRunning];
+          goto LABEL_239;
+        }
+
+        goto LABEL_243;
+      }
+
+      if (mSelector == 1751737454)
+      {
+        if (*dataSize >= 4)
+        {
+          canBeDefaultSystemDevice = [(ASDAudioDevice *)self isHidden];
+          goto LABEL_239;
+        }
+
+        goto LABEL_243;
+      }
+
+      if (mSelector != 1818452846)
+      {
+        goto LABEL_178;
+      }
+
+      if (*dataSize < 8 || !property->mElement)
+      {
+        goto LABEL_243;
+      }
+
+      v20 = property->mScope;
+      if (v20 == 1869968496)
+      {
+        v21 = self->_outputStreamQueue;
+        v102[0] = MEMORY[0x277D85DD0];
+        v102[1] = 3221225472;
+        v102[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_13;
+        v102[3] = &unk_278CE4080;
+        v102[6] = property;
+        v102[7] = andData;
+        v102[8] = dataSize;
+        v102[4] = self;
+        v102[5] = &v126;
+        v22 = v102;
+      }
+
+      else
+      {
+        if (v20 != 1768845428)
+        {
+          goto LABEL_243;
+        }
+
+        v21 = self->_inputStreamQueue;
+        v103[0] = MEMORY[0x277D85DD0];
+        v103[1] = 3221225472;
+        v103[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_12;
+        v103[3] = &unk_278CE4080;
+        v103[6] = property;
+        v103[7] = andData;
+        v103[8] = dataSize;
+        v103[4] = self;
+        v103[5] = &v126;
+        v22 = v103;
+      }
+
+      goto LABEL_237;
+    }
+
+    if (mSelector <= 1684434035)
+    {
+      if (mSelector == 1684236338)
+      {
+        if (*dataSize < 8)
+        {
+          goto LABEL_243;
+        }
+
+        [(ASDAudioDevice *)self preferredChannelsForLeft:andData andRight:andData + 4];
+        goto LABEL_164;
+      }
+
+      if (mSelector != 1684301171)
+      {
+        goto LABEL_178;
+      }
+
+      if (*dataSize < 8)
+      {
+        goto LABEL_243;
+      }
+
+      deviceDescription = [(ASDAudioDevice *)self deviceDescription];
+      *andData = deviceDescription;
+
+      v24 = *andData;
+      if (!*andData)
+      {
+        goto LABEL_164;
+      }
+
+      goto LABEL_163;
+    }
+
+    if (mSelector != 1684434036)
+    {
+      if (mSelector == 1685222501)
+      {
+        if (*dataSize >= 4)
+        {
+          canBeDefaultSystemDevice = [(ASDAudioDevice *)self wantsDisplayRouting];
+          goto LABEL_239;
+        }
+
+        goto LABEL_243;
+      }
+
+      goto LABEL_178;
+    }
+
+    if (*dataSize < 4)
+    {
+      goto LABEL_243;
+    }
+
+    v58 = property->mScope;
+    if (v58 != 1869968496)
+    {
+      if (v58 == 1768845428)
+      {
+        if (![(ASDAudioDevice *)self canBeDefaultDevice])
+        {
+          canBeDefaultSystemDevice = [(ASDAudioDevice *)self canBeDefaultInputDevice];
+          goto LABEL_239;
+        }
+      }
+
+      else
+      {
+        if (v58 != 1735159650)
+        {
+          goto LABEL_240;
+        }
+
+        if (![(ASDAudioDevice *)self canBeDefaultDevice])
+        {
+          canBeDefaultInputDevice = [(ASDAudioDevice *)self canBeDefaultInputDevice];
+          goto LABEL_208;
+        }
+      }
+
+LABEL_209:
+      canBeDefaultSystemDevice = 1;
+      goto LABEL_239;
+    }
+
+    canBeDefaultInputDevice = [(ASDAudioDevice *)self canBeDefaultDevice];
+LABEL_208:
+    if (!canBeDefaultInputDevice)
+    {
+      canBeDefaultSystemDevice = [(ASDAudioDevice *)self canBeDefaultOutputDevice];
+      goto LABEL_239;
+    }
+
+    goto LABEL_209;
+  }
+
+  if (mSelector > 1667658617)
+  {
+    if (mSelector <= 1668050794)
+    {
+      if (mSelector == 1667658618)
+      {
+        if (size >= 4 && *dataSize >= 4)
+        {
+          v125.receiver = self;
+          v125.super_class = ASDAudioDevice;
+          v71 = [(ASDObject *)&v125 getProperty:property withQualifierSize:*&size qualifierData:data dataSize:dataSize andData:andData forClient:*&client];
+          *(v127 + 24) = v71;
+          if ((v71 & 1) == 0)
+          {
+            canBeDefaultSystemDevice = [(ASDAudioDevice *)self calculateIOBufferFrameSize:*data];
+            goto LABEL_239;
+          }
+        }
+
+        goto LABEL_243;
+      }
+
+      if (mSelector == 1668049764)
+      {
+        if (*dataSize >= 4)
+        {
+          canBeDefaultSystemDevice = [(ASDAudioDevice *)self clockDomain];
+          goto LABEL_239;
+        }
+
+        goto LABEL_243;
+      }
+
+      goto LABEL_178;
+    }
+
+    if (mSelector == 1668050795)
+    {
+      if (*dataSize >= 4)
+      {
+        canBeDefaultSystemDevice = [(ASDAudioDevice *)self clockAlgorithm];
+        goto LABEL_239;
+      }
+
+      goto LABEL_243;
+    }
+
+    if (mSelector == 1668510818)
+    {
+      if (*dataSize >= 4)
+      {
+        canBeDefaultSystemDevice = [(ASDAudioDevice *)self clockIsStable];
+        goto LABEL_239;
+      }
+
+      goto LABEL_243;
+    }
+
+    if (mSelector != 1668575852)
+    {
+      goto LABEL_178;
+    }
+
+    v120 = 0;
+    v121 = &v120;
+    v122 = 0x2020000000;
+    v123 = 0;
+    v17 = self->_controlQueue;
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 3221225472;
+    block[2] = __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_3;
+    block[3] = &unk_278CE4080;
+    block[6] = dataSize;
+    block[7] = property;
+    block[4] = self;
+    block[5] = &v120;
+    block[8] = andData;
+    dispatch_sync(v17, block);
+    v18 = 4 * *(v121 + 6);
+    goto LABEL_233;
+  }
+
+  if (mSelector > 1667330159)
+  {
+    if (mSelector == 1667330160)
+    {
+      if (*dataSize < 8)
+      {
+        goto LABEL_243;
+      }
+
+      configurationBundleID = [(ASDAudioDevice *)self configurationBundleID];
+      v56 = configurationBundleID == 0;
+
+      if (v56)
+      {
+        goto LABEL_243;
+      }
+
+      configurationBundleID2 = [(ASDAudioDevice *)self configurationBundleID];
+      *andData = configurationBundleID2;
+
+      v24 = *andData;
+      if (!*andData)
+      {
+        goto LABEL_164;
+      }
+    }
+
+    else
+    {
+      if (mSelector != 1667523955)
+      {
+        goto LABEL_178;
+      }
+
+      if (*dataSize < 8)
+      {
+        goto LABEL_243;
+      }
+
+      clientDescription = [(ASDAudioDevice *)self clientDescription];
+      *andData = clientDescription;
+
+      v24 = *andData;
+      if (!*andData)
+      {
+        goto LABEL_164;
+      }
+    }
+
+    goto LABEL_163;
+  }
+
+  if (mSelector == 1634429294)
+  {
+    v124 = 1633969526;
+    v120 = *&property->mSelector;
+    LODWORD(v121) = property->mElement;
+    owner3 = [(ASDObject *)self owner];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v52 = 1650751011;
+    }
+
+    else
+    {
+      v52 = 1684370979;
+    }
+
+    LODWORD(v120) = v52;
+
+    owner4 = [(ASDObject *)self owner];
+    v54 = [owner4 getProperty:&v120 withQualifierSize:4 qualifierData:&v124 dataSize:dataSize andData:andData forClient:v10];
+    *(v127 + 24) = v54;
+
+    goto LABEL_243;
+  }
+
+  if (mSelector != 1635087471)
+  {
+    goto LABEL_178;
+  }
+
+  if (*dataSize >= 4)
+  {
+    canBeDefaultSystemDevice = [(ASDAudioDevice *)self allowAutoRoute];
+    goto LABEL_239;
+  }
+
+LABEL_243:
+  v96 = *(v127 + 24);
+  _Block_object_dispose(&v126, 8);
+  return v96;
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 64);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v10 != v6)
+      if (*v9 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -1134,10 +2636,10 @@ LABEL_3:
         break;
       }
 
-      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v9 + 1) + 8 * v7) objectID];
+      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v8 + 1) + 8 * v7) objectID];
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1149,28 +2651,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_2(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 80);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v10 != v6)
+      if (*v9 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -1180,10 +2681,10 @@ LABEL_3:
         break;
       }
 
-      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v9 + 1) + 8 * v7) objectID];
+      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v8 + 1) + 8 * v7) objectID];
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1195,12 +2696,11 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_3(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = **(a1 + 48);
   if ([*(*(a1 + 32) + 96) count] <= v3 >> 2)
@@ -1213,28 +2713,28 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
     v4 = **(a1 + 48) >> 2;
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(*(a1 + 32) + 96);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
-        if (*(*(a1 + 56) + 4) == 1735159650 || [*(*(&v12 + 1) + 8 * v9) controlScope] == *(*(a1 + 56) + 4))
+        v10 = *(*(&v11 + 1) + 8 * v9);
+        if (*(*(a1 + 56) + 4) == 1735159650 || [*(*(&v11 + 1) + 8 * v9) controlScope] == *(*(a1 + 56) + 4))
         {
           if (*(*(*(a1 + 40) + 8) + 24) == v4)
           {
@@ -1248,7 +2748,7 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -1257,28 +2757,27 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 LABEL_15:
 
   objc_autoreleasePoolPop(v2);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_4(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 64);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v10 != v6)
+      if (*v9 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -1288,10 +2787,10 @@ LABEL_3:
         break;
       }
 
-      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v9 + 1) + 8 * v7) objectID];
+      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v8 + 1) + 8 * v7) objectID];
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1303,28 +2802,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_5(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 80);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v10 != v6)
+      if (*v9 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -1334,10 +2832,10 @@ LABEL_3:
         break;
       }
 
-      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v9 + 1) + 8 * v7) objectID];
+      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v8 + 1) + 8 * v7) objectID];
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1349,29 +2847,28 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_6(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = *(*(a1 + 32) + 96);
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
@@ -1379,7 +2876,7 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
         if (*(a1 + 80))
         {
           v8 = 0;
-          v9 = *(*(&v11 + 1) + 8 * v7);
+          v9 = *(*(&v10 + 1) + 8 * v7);
           do
           {
             if ([v9 objectClass] == *(*(a1 + 48) + 4 * v8) && (*(*(a1 + 56) + 4) == 1735159650 || objc_msgSend(v9, "controlScope") == *(*(a1 + 56) + 4)))
@@ -1402,35 +2899,34 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
       }
 
       while (v7 != v5);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_7(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 64);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v10 != v6)
+      if (*v9 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -1440,10 +2936,10 @@ LABEL_3:
         break;
       }
 
-      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v9 + 1) + 8 * v7) objectID];
+      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v8 + 1) + 8 * v7) objectID];
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1455,28 +2951,27 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_8(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(a1[4] + 80);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v10 != v6)
+      if (*v9 != v6)
       {
         objc_enumerationMutation(v3);
       }
@@ -1486,10 +2981,10 @@ LABEL_3:
         break;
       }
 
-      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v9 + 1) + 8 * v7) objectID];
+      *(a1[7] + 4 * (*(*(a1[5] + 8) + 24))++) = [*(*(&v8 + 1) + 8 * v7) objectID];
       if (v5 == ++v7)
       {
-        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -1501,35 +2996,34 @@ LABEL_3:
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_9(void *a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(a1[4] + 96);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
-        if (*(a1[6] + 4) == 1735159650 || [*(*(&v10 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
+        v8 = *(*(&v9 + 1) + 8 * v7);
+        if (*(a1[6] + 4) == 1735159650 || [*(*(&v9 + 1) + 8 * v7) controlScope] == *(a1[6] + 4))
         {
           if (*(*(a1[5] + 8) + 24) == a1[7])
           {
@@ -1543,7 +3037,7 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -1552,37 +3046,36 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 LABEL_12:
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_10(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([*(*(a1 + 32) + 64) count])
   {
-    v16 = v2;
+    v15 = v2;
     v3 = *(*(a1 + 48) + 8);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v4 = *(*(a1 + 32) + 64);
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = [v9 startingChannel];
           v11 = [v9 physicalFormat];
           v12 = [v11 channelsPerFrame];
@@ -1602,7 +3095,7 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v6)
         {
           continue;
@@ -1614,41 +3107,40 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 
 LABEL_18:
 
-    v2 = v16;
+    v2 = v15;
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_11(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([*(*(a1 + 32) + 80) count])
   {
-    v16 = v2;
+    v15 = v2;
     v3 = *(*(a1 + 48) + 8);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v4 = *(*(a1 + 32) + 80);
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = [v9 startingChannel];
           v11 = [v9 physicalFormat];
           v12 = [v11 channelsPerFrame];
@@ -1668,7 +3160,7 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v6)
         {
           continue;
@@ -1680,41 +3172,40 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 
 LABEL_18:
 
-    v2 = v16;
+    v2 = v15;
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_12(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([*(*(a1 + 32) + 64) count])
   {
-    v16 = v2;
+    v15 = v2;
     v3 = *(*(a1 + 48) + 8);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v4 = *(*(a1 + 32) + 64);
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = [v9 startingChannel];
           v11 = [v9 physicalFormat];
           v12 = [v11 channelsPerFrame];
@@ -1734,7 +3225,7 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v6)
         {
           continue;
@@ -1746,41 +3237,40 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 
 LABEL_18:
 
-    v2 = v16;
+    v2 = v15;
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_13(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([*(*(a1 + 32) + 80) count])
   {
-    v16 = v2;
+    v15 = v2;
     v3 = *(*(a1 + 48) + 8);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v4 = *(*(a1 + 32) + 80);
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = [v9 startingChannel];
           v11 = [v9 physicalFormat];
           v12 = [v11 channelsPerFrame];
@@ -1800,7 +3290,7 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v6)
         {
           continue;
@@ -1812,41 +3302,40 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 
 LABEL_18:
 
-    v2 = v16;
+    v2 = v15;
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_14(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([*(*(a1 + 32) + 64) count])
   {
-    v16 = v2;
+    v15 = v2;
     v3 = *(*(a1 + 48) + 8);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v4 = *(*(a1 + 32) + 64);
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = [v9 startingChannel];
           v11 = [v9 physicalFormat];
           v12 = [v11 channelsPerFrame];
@@ -1866,7 +3355,7 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v6)
         {
           continue;
@@ -1878,41 +3367,40 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 
 LABEL_18:
 
-    v2 = v16;
+    v2 = v15;
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_andData_forClient___block_invoke_15(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if ([*(*(a1 + 32) + 80) count])
   {
-    v16 = v2;
+    v15 = v2;
     v3 = *(*(a1 + 48) + 8);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v4 = *(*(a1 + 32) + 80);
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v17 + 1) + 8 * i);
+          v9 = *(*(&v16 + 1) + 8 * i);
           v10 = [v9 startingChannel];
           v11 = [v9 physicalFormat];
           v12 = [v11 channelsPerFrame];
@@ -1932,7 +3420,7 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v6)
         {
           continue;
@@ -1944,11 +3432,10 @@ void __89__ASDAudioDevice_getProperty_withQualifierSize_qualifierData_dataSize_a
 
 LABEL_18:
 
-    v2 = v16;
+    v2 = v15;
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPropertySettable:(const AudioObjectPropertyAddress *)settable
@@ -1992,6 +3479,123 @@ LABEL_14:
   }
 
   return [(ASDAudioDevice *)self canChangeDeviceName];
+}
+
+- (BOOL)setProperty:(const AudioObjectPropertyAddress *)property withQualifierSize:(unsigned int)size qualifierData:(const void *)data dataSize:(unsigned int)dataSize andData:(const void *)andData forClient:(int)client
+{
+  if (!property)
+  {
+    goto LABEL_30;
+  }
+
+  v8 = *&client;
+  v10 = *&dataSize;
+  v12 = *&size;
+  supportsExternalSecureMute = [(ASDAudioDevice *)self hasProperty:?];
+  if (!supportsExternalSecureMute)
+  {
+    return supportsExternalSecureMute;
+  }
+
+  supportsExternalSecureMute = [(ASDAudioDevice *)self isPropertySettable:property];
+  if (!supportsExternalSecureMute)
+  {
+    return supportsExternalSecureMute;
+  }
+
+  mSelector = property->mSelector;
+  if (property->mSelector <= 1818850925)
+  {
+    if (mSelector == 1667523955)
+    {
+      if (v10 != 8)
+      {
+        goto LABEL_30;
+      }
+
+      v19 = *andData;
+
+      LOBYTE(supportsExternalSecureMute) = [(ASDAudioDevice *)self changeClientDescription:*&v19];
+      return supportsExternalSecureMute;
+    }
+
+    if (mSelector != 1702392685)
+    {
+      goto LABEL_32;
+    }
+
+    if (v10 != 4)
+    {
+      goto LABEL_30;
+    }
+
+    supportsExternalSecureMute = [(ASDAudioDevice *)self supportsExternalSecureMute];
+    if (!supportsExternalSecureMute)
+    {
+      return supportsExternalSecureMute;
+    }
+
+    supportsExternalSecureMute = [(ASDAudioDevice *)self canSetExternalSecureMute];
+    if (!supportsExternalSecureMute)
+    {
+      return supportsExternalSecureMute;
+    }
+
+    [(ASDAudioDevice *)self setExternalSecureMute:*andData != 0];
+LABEL_20:
+    LOBYTE(supportsExternalSecureMute) = 1;
+    return supportsExternalSecureMute;
+  }
+
+  if (mSelector == 1818850926)
+  {
+    if (v10 != 4)
+    {
+      goto LABEL_30;
+    }
+
+    self->_isAlive = *andData != 0;
+    goto LABEL_20;
+  }
+
+  if (mSelector != 1853059700)
+  {
+    if (mSelector == 1819173229)
+    {
+      if (v10 == 8)
+      {
+        v17 = *andData;
+
+        LOBYTE(supportsExternalSecureMute) = [(ASDAudioDevice *)self changeDeviceName:*&v17];
+        return supportsExternalSecureMute;
+      }
+
+LABEL_30:
+      LOBYTE(supportsExternalSecureMute) = 0;
+      return supportsExternalSecureMute;
+    }
+
+LABEL_32:
+    v21.receiver = self;
+    v21.super_class = ASDAudioDevice;
+    LOBYTE(supportsExternalSecureMute) = [(ASDObject *)&v21 setProperty:property withQualifierSize:v12 qualifierData:data dataSize:v10 andData:andData forClient:v8];
+    return supportsExternalSecureMute;
+  }
+
+  if (v10 != 8)
+  {
+    goto LABEL_30;
+  }
+
+  v18 = *andData;
+  supportsExternalSecureMute = [(ASDAudioDevice *)self supportsSamplingRate:*andData];
+  if (supportsExternalSecureMute)
+  {
+
+    LOBYTE(supportsExternalSecureMute) = [(ASDAudioDevice *)self changeSamplingRate:v18];
+  }
+
+  return supportsExternalSecureMute;
 }
 
 - (void)addInputStream:(id)stream
@@ -2112,10 +3716,7 @@ uint64_t __36__ASDAudioDevice_removeInputStream___block_invoke(uint64_t a1)
 
 uint64_t __30__ASDAudioDevice_inputStreams__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 64)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 64)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2238,10 +3839,7 @@ uint64_t __37__ASDAudioDevice_removeOutputStream___block_invoke(uint64_t a1)
 
 uint64_t __31__ASDAudioDevice_outputStreams__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 80)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 80)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2318,10 +3916,7 @@ uint64_t __31__ASDAudioDevice_outputStreams__block_invoke(uint64_t a1)
 
 uint64_t __26__ASDAudioDevice_controls__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 96)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 96)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2391,84 +3986,82 @@ LABEL_5:
 
 void __51__ASDAudioDevice_numberOfChannelsInLayoutForScope___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(*(a1 + 32) + 64);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) physicalFormat];
+        v8 = [*(*(&v9 + 1) + 8 * v7) physicalFormat];
         *(*(*(a1 + 40) + 8) + 24) += [v8 channelsPerFrame];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __51__ASDAudioDevice_numberOfChannelsInLayoutForScope___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = *(*(a1 + 32) + 80);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v10 + 1) + 8 * v7) physicalFormat];
+        v8 = [*(*(&v9 + 1) + 8 * v7) physicalFormat];
         *(*(*(a1 + 40) + 8) + 24) += [v8 channelsPerFrame];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preferredChannelDescriptions:(AudioChannelDescription *)descriptions numberOfChannels:(unsigned int)channels forScope:(unsigned int)scope
@@ -2509,29 +4102,29 @@ void __51__ASDAudioDevice_numberOfChannelsInLayoutForScope___block_invoke_2(uint
 
 void __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = *(*(a1 + 32) + 64);
-  v2 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v2 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v2)
   {
     v3 = v2;
-    v23 = *v25;
+    v22 = *v24;
     v4 = MEMORY[0x277D86220];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v25 != v23)
+        if (*v24 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v24 + 1) + 8 * i);
+        v6 = *(*(&v23 + 1) + 8 * i);
         v7 = [v6 startingChannel];
         if (!v7)
         {
@@ -2541,7 +4134,7 @@ void __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope
 
           if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
           {
-            __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke_cold_1(&v30, v10, &v31);
+            __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke_cold_1(&v29, v10, &v30);
           }
 
           v7 = 1;
@@ -2564,7 +4157,7 @@ void __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope
 
               if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
               {
-                __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke_cold_2(&v28, v17, &v29);
+                __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke_cold_2(&v27, v17, &v28);
               }
             }
 
@@ -2582,41 +4175,40 @@ void __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v3 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v3);
   }
 
   objc_autoreleasePoolPop(context);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke_48(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = *(*(a1 + 32) + 80);
-  v2 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v2 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v2)
   {
     v3 = v2;
-    v23 = *v25;
+    v22 = *v24;
     v4 = MEMORY[0x277D86220];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v25 != v23)
+        if (*v24 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v24 + 1) + 8 * i);
+        v6 = *(*(&v23 + 1) + 8 * i);
         v7 = [v6 startingChannel];
         if (!v7)
         {
@@ -2626,7 +4218,7 @@ void __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope
 
           if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
           {
-            __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke_cold_1(&v30, v10, &v31);
+            __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke_cold_1(&v29, v10, &v30);
           }
 
           v7 = 1;
@@ -2649,7 +4241,7 @@ void __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope
 
               if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
               {
-                __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke_cold_2(&v28, v17, &v29);
+                __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope___block_invoke_cold_2(&v27, v17, &v28);
               }
             }
 
@@ -2667,14 +4259,13 @@ void __73__ASDAudioDevice_preferredChannelDescriptions_numberOfChannels_forScope
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v3 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v3);
   }
 
   objc_autoreleasePoolPop(context);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (int)startIOForClient:(unsigned int)client
@@ -2807,113 +4398,111 @@ void __34__ASDAudioDevice_setSamplingRate___block_invoke(uint64_t a1)
 
 void __34__ASDAudioDevice_setSamplingRate___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(*(a1 + 32) + 64);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) deviceChangedToSamplingRate:{*(a1 + 40), v9}];
+        [*(*(&v8 + 1) + 8 * v7++) deviceChangedToSamplingRate:{*(a1 + 40), v8}];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __34__ASDAudioDevice_setSamplingRate___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = *(*(a1 + 32) + 80);
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) deviceChangedToSamplingRate:{*(a1 + 40), v9}];
+        [*(*(&v8 + 1) + 8 * v7++) deviceChangedToSamplingRate:{*(a1 + 40), v8}];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)supportsSamplingRate:(double)rate
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   samplingRateRanges = [(ASDAudioDevice *)self samplingRateRanges];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     deviceName = [(ASDAudioDevice *)self deviceName];
     *buf = 138412546;
-    v22 = deviceName;
-    v23 = 2048;
+    v21 = deviceName;
+    v22 = 2048;
     rateCopy = COERCE_DOUBLE([samplingRateRanges count]);
     _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: supportsSamplingRate: looking at %lu rate ranges", buf, 0x16u);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = samplingRateRanges;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         [v11 minimum];
         if (v12 + -0.001 <= rate)
         {
@@ -2926,7 +4515,7 @@ void __34__ASDAudioDevice_setSamplingRate___block_invoke_3(uint64_t a1)
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v27 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v26 count:16];
       if (v8)
       {
         continue;
@@ -2942,44 +4531,43 @@ LABEL_14:
   {
     deviceName2 = [(ASDAudioDevice *)self deviceName];
     *buf = 138412802;
-    v22 = deviceName2;
-    v23 = 2048;
+    v21 = deviceName2;
+    v22 = 2048;
     rateCopy = rate;
-    v25 = 1024;
-    v26 = v8;
+    v24 = 1024;
+    v25 = v8;
     _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: supportsSamplingRate (%f) returning (%d)", buf, 0x1Cu);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (void)setSamplingRates:(id)rates
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   ratesCopy = rates;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v6 = ratesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v25;
+    v9 = *v24;
     do
     {
       v10 = 0;
       do
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v24 + 1) + 8 * v10) doubleValue];
+        [*(*(&v23 + 1) + 8 * v10) doubleValue];
         v11 = [ASDSampleRateRange rangeWithSingleRate:?];
         [v5 addObject:v11];
 
@@ -2987,7 +4575,7 @@ LABEL_14:
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v8);
@@ -2995,18 +4583,16 @@ LABEL_14:
 
   sampleRateQueue = self->_sampleRateQueue;
   block = MEMORY[0x277D85DD0];
-  v19 = 3221225472;
-  v20 = __35__ASDAudioDevice_setSamplingRates___block_invoke;
-  v21 = &unk_278CE3E78;
+  v18 = 3221225472;
+  v19 = __35__ASDAudioDevice_setSamplingRates___block_invoke;
+  v20 = &unk_278CE3E78;
   selfCopy = self;
-  v23 = v5;
+  v22 = v5;
   v13 = v5;
   dispatch_sync(sampleRateQueue, &block);
-  LODWORD(v17) = 0;
+  LODWORD(v16) = 0;
   v14 = [(ASDObject *)self propertyChangedDelegate:0x676C6F626E737223];
-  [v14 changedProperty:&v16 forObject:self];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [v14 changedProperty:&v15 forObject:self];
 }
 
 void __35__ASDAudioDevice_setSamplingRates___block_invoke(uint64_t a1)
@@ -3047,41 +4633,41 @@ void __40__ASDAudioDevice_setSamplingRateRanges___block_invoke(uint64_t a1)
 
 - (NSArray)samplingRates
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__3;
-  v25 = __Block_byref_object_dispose__3;
-  v26 = 0;
+  v27 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__3;
+  v24 = __Block_byref_object_dispose__3;
+  v25 = 0;
   sampleRateQueue = self->_sampleRateQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __31__ASDAudioDevice_samplingRates__block_invoke;
   block[3] = &unk_278CE3E28;
   block[4] = self;
-  block[5] = &v21;
+  block[5] = &v20;
   dispatch_sync(sampleRateQueue, block);
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v4 = v22[5];
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v27 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v4 = v21[5];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v26 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * i);
+        v8 = *(*(&v15 + 1) + 8 * i);
         [v8 minimum];
         v10 = v9;
         [v8 maximum];
@@ -3094,46 +4680,42 @@ void __40__ASDAudioDevice_setSamplingRateRanges___block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v16 objects:v27 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v15 objects:v26 count:16];
     }
 
     while (v5);
   }
 
-  _Block_object_dispose(&v21, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 
   return v3;
 }
 
 uint64_t __31__ASDAudioDevice_samplingRates__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 120) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 120) copy];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (NSArray)samplingRateRanges
 {
-  v35 = *MEMORY[0x277D85DE8];
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__3;
-  v28 = __Block_byref_object_dispose__3;
-  v29 = 0;
+  v34 = *MEMORY[0x277D85DE8];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__3;
+  v27 = __Block_byref_object_dispose__3;
+  v28 = 0;
   sampleRateQueue = self->_sampleRateQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __36__ASDAudioDevice_samplingRateRanges__block_invoke;
   block[3] = &unk_278CE3E28;
   block[4] = self;
-  block[5] = &v24;
+  block[5] = &v23;
   dispatch_sync(sampleRateQueue, block);
-  if (![v25[5] count])
+  if (![v24[5] count])
   {
     samplingRates = [(ASDAudioDevice *)self samplingRates];
     if ([samplingRates count])
@@ -3145,61 +4727,56 @@ uint64_t __31__ASDAudioDevice_samplingRates__block_invoke(uint64_t a1)
         deviceName = [(ASDAudioDevice *)self deviceName];
         v8 = [samplingRates count];
         *buf = 138412546;
-        v32 = deviceName;
-        v33 = 2048;
-        v34 = v8;
+        v31 = deviceName;
+        v32 = 2048;
+        v33 = v8;
         _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: building samplingRateRanges from %lu discreet rates", buf, 0x16u);
       }
 
       v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v10 = samplingRates;
-      v11 = [v10 countByEnumeratingWithState:&v19 objects:v30 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v18 objects:v29 count:16];
       if (v11)
       {
-        v12 = *v20;
+        v12 = *v19;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v20 != v12)
+            if (*v19 != v12)
             {
               objc_enumerationMutation(v10);
             }
 
-            [*(*(&v19 + 1) + 8 * i) doubleValue];
+            [*(*(&v18 + 1) + 8 * i) doubleValue];
             v14 = [ASDSampleRateRange rangeWithSingleRate:?];
             [v9 addObject:v14];
           }
 
-          v11 = [v10 countByEnumeratingWithState:&v19 objects:v30 count:16];
+          v11 = [v10 countByEnumeratingWithState:&v18 objects:v29 count:16];
         }
 
         while (v11);
       }
 
-      v15 = v25[5];
-      v25[5] = v9;
+      v15 = v24[5];
+      v24[5] = v9;
     }
   }
 
-  v16 = v25[5];
-  _Block_object_dispose(&v24, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = v24[5];
+  _Block_object_dispose(&v23, 8);
 
   return v16;
 }
 
 uint64_t __36__ASDAudioDevice_samplingRateRanges__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 120) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 120) copy];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -3288,7 +4865,7 @@ void __39__ASDAudioDevice_updateTimestampPeriod__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __27__ASDAudioDevice_hasOutput__block_invoke(uint64_t a1)
+void *__27__ASDAudioDevice_hasOutput__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 80) count];
   if (result)
@@ -3575,7 +5152,7 @@ intptr_t __33__ASDAudioDevice_systemWillSleep__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   wakeSemaphore = self->_wakeSemaphore;
   if (wakeSemaphore)
   {
@@ -3584,27 +5161,27 @@ intptr_t __33__ASDAudioDevice_systemWillSleep__block_invoke(uint64_t a1)
     self->_wakeSemaphore = 0;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v5 = self->_inputStreams;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       v9 = 0;
       do
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * v9);
+        v10 = *(*(&v24 + 1) + 8 * v9);
         plugin = [(ASDObject *)self plugin];
         [plugin removeStreamRealTimeOperations:v10];
 
@@ -3612,33 +5189,33 @@ intptr_t __33__ASDAudioDevice_systemWillSleep__block_invoke(uint64_t a1)
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v7);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v12 = self->_outputStreams;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v22;
+    v15 = *v21;
     do
     {
       v16 = 0;
       do
       {
-        if (*v22 != v15)
+        if (*v21 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * v16);
+        v17 = *(*(&v20 + 1) + 8 * v16);
         plugin2 = [(ASDObject *)self plugin];
         [plugin2 removeStreamRealTimeOperations:v17];
 
@@ -3646,16 +5223,422 @@ intptr_t __33__ASDAudioDevice_systemWillSleep__block_invoke(uint64_t a1)
       }
 
       while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v14);
   }
 
-  v20.receiver = self;
-  v20.super_class = ASDAudioDevice;
-  [(ASDObject *)&v20 dealloc];
-  v19 = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = ASDAudioDevice;
+  [(ASDObject *)&v19 dealloc];
+}
+
+- (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
+{
+  treeCopy = tree;
+  v106 = *MEMORY[0x277D85DE8];
+  indentCopy = indent;
+  v101.receiver = self;
+  v101.super_class = ASDAudioDevice;
+  v7 = [(ASDObject *)&v101 diagnosticDescriptionWithIndent:indentCopy walkTree:treeCopy];
+  v8 = [indentCopy stringByAppendingString:@"|        "];
+  deviceName = [(ASDAudioDevice *)self deviceName];
+  [v7 appendFormat:@"%@|    Name: %s\n", indentCopy, objc_msgSend(deviceName, "UTF8String")];
+
+  manufacturerName = [(ASDAudioDevice *)self manufacturerName];
+  [v7 appendFormat:@"%@|    Manufacturer: %s\n", indentCopy, objc_msgSend(manufacturerName, "UTF8String")];
+
+  modelName = [(ASDAudioDevice *)self modelName];
+  [v7 appendFormat:@"%@|    Model Name: %s\n", indentCopy, objc_msgSend(modelName, "UTF8String")];
+
+  deviceUID = [(ASDAudioDevice *)self deviceUID];
+  [v7 appendFormat:@"%@|    Device UID: %s\n", indentCopy, objc_msgSend(deviceUID, "UTF8String")];
+
+  modelUID = [(ASDAudioDevice *)self modelUID];
+  [v7 appendFormat:@"%@|    Model UID: %s\n", indentCopy, objc_msgSend(modelUID, "UTF8String")];
+
+  transportType = [(ASDAudioDevice *)self transportType];
+  LODWORD(v15) = transportType >> 24;
+  if (((transportType >> 24) - 32) >= 0x5F)
+  {
+    v15 = 32;
+  }
+
+  else
+  {
+    v15 = v15;
+  }
+
+  LODWORD(v16) = transportType << 8 >> 24;
+  if ((v16 - 32) >= 0x5F)
+  {
+    v16 = 32;
+  }
+
+  else
+  {
+    v16 = v16;
+  }
+
+  LODWORD(v17) = transportType >> 8;
+  if ((v17 - 32) >= 0x5F)
+  {
+    v17 = 32;
+  }
+
+  else
+  {
+    v17 = v17;
+  }
+
+  if ((transportType - 32) >= 0x5F)
+  {
+    v18 = 32;
+  }
+
+  else
+  {
+    v18 = transportType;
+  }
+
+  [v7 appendFormat:@"%@|    Transport Type: %c%c%c%c\n", indentCopy, v15, v16, v17, v18];
+  v84 = indentCopy;
+  [v7 appendFormat:@"%@|    Clock Domain: 0x%08x\n", indentCopy, -[ASDAudioDevice clockDomain](self, "clockDomain")];
+  clockAlgorithm = [(ASDAudioDevice *)self clockAlgorithm];
+  switch(clockAlgorithm)
+  {
+    case 0x72617777u:
+      v20 = @"Raw";
+      break;
+    case 0x6D617667u:
+      v20 = @"12Pt Moving Window Average";
+      break;
+    case 0x69697266u:
+      v20 = @"Simple IIR";
+      break;
+    default:
+      v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown (%x)", -[ASDAudioDevice clockAlgorithm](self, "clockAlgorithm")];
+      break;
+  }
+
+  v82 = v20;
+  [v7 appendFormat:@"%@|    Clock Algorithm: %s\n", indentCopy, -[__CFString UTF8String](v82, "UTF8String")];
+  if ([(ASDAudioDevice *)self clockIsStable])
+  {
+    v21 = @"YES";
+  }
+
+  else
+  {
+    v21 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Clock Is Stable: %@\n", indentCopy, v21];
+  if (self->_isAlive)
+  {
+    v22 = @"YES";
+  }
+
+  else
+  {
+    v22 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Active: %@\n", indentCopy, v22];
+  if ([(ASDAudioDevice *)self isRunning])
+  {
+    v23 = @"YES";
+  }
+
+  else
+  {
+    v23 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Running: %@\n", indentCopy, v23];
+  if ([(ASDAudioDevice *)self canBeDefaultDevice])
+  {
+    v24 = @"YES";
+  }
+
+  else
+  {
+    v24 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Can Be Default Device: %@\n", indentCopy, v24];
+  if ([(ASDAudioDevice *)self canBeDefaultInputDevice])
+  {
+    v25 = @"YES";
+  }
+
+  else
+  {
+    v25 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Can Be Default Input Device: %@\n", indentCopy, v25];
+  if ([(ASDAudioDevice *)self canBeDefaultOutputDevice])
+  {
+    v26 = @"YES";
+  }
+
+  else
+  {
+    v26 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Can Be Default Output Device: %@\n", indentCopy, v26];
+  if ([(ASDAudioDevice *)self canBeDefaultSystemDevice])
+  {
+    v27 = @"YES";
+  }
+
+  else
+  {
+    v27 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Can Be Default System Device: %@\n", indentCopy, v27];
+  if ([(ASDAudioDevice *)self canChangeDeviceName])
+  {
+    v28 = @"YES";
+  }
+
+  else
+  {
+    v28 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Can Change Device Name: %@\n", indentCopy, v28];
+  [(ASDAudioDevice *)self samplingRate];
+  [v7 appendFormat:@"%@|    Nominal Sample Rate: %f\n", indentCopy, v29];
+  [v7 appendFormat:@"%@|    Available Nominal Sample Rates:\n", indentCopy];
+  v99 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  selfCopy = self;
+  samplingRateRanges = [(ASDAudioDevice *)self samplingRateRanges];
+  v31 = [samplingRateRanges countByEnumeratingWithState:&v97 objects:v105 count:16];
+  if (v31)
+  {
+    v32 = v31;
+    v33 = 0;
+    v34 = *v98;
+    do
+    {
+      for (i = 0; i != v32; ++i)
+      {
+        if (*v98 != v34)
+        {
+          objc_enumerationMutation(samplingRateRanges);
+        }
+
+        v36 = *(*(&v97 + 1) + 8 * i);
+        [v36 minimum];
+        v38 = v37;
+        [v36 maximum];
+        [v7 appendFormat:@"%@RateRange[%u]: [%f-%f]\n", v8, v33, v38, v39];
+        v33 = (v33 + 1);
+      }
+
+      v32 = [samplingRateRanges countByEnumeratingWithState:&v97 objects:v105 count:16];
+    }
+
+    while (v32);
+  }
+
+  v40 = selfCopy;
+  if ([(ASDAudioDevice *)selfCopy isHidden])
+  {
+    v41 = @"YES";
+  }
+
+  else
+  {
+    v41 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Is Hidden: %@\n", v84, v41];
+  if ([(ASDAudioDevice *)selfCopy supportsIsolatedIO])
+  {
+    v42 = @"YES";
+  }
+
+  else
+  {
+    v42 = @"NO";
+  }
+
+  [v7 appendFormat:@"%@|    Supports Isolated IO: %@\n", v84, v42];
+  [v7 appendFormat:@"%@|    Input Latency: %u\n", v84, -[ASDAudioDevice inputLatency](selfCopy, "inputLatency")];
+  [v7 appendFormat:@"%@|    Output Latency: %u\n", v84, -[ASDAudioDevice outputLatency](selfCopy, "outputLatency")];
+  [v7 appendFormat:@"%@|    Input Safety Offset: %u\n", v84, -[ASDAudioDevice inputSafetyOffset](selfCopy, "inputSafetyOffset")];
+  [v7 appendFormat:@"%@|    Output Safety Offset: %u\n", v84, -[ASDAudioDevice outputSafetyOffset](selfCopy, "outputSafetyOffset")];
+  [v7 appendFormat:@"%@|    Zero Timestamp Period: %u\n", v84, -[ASDAudioDevice timestampPeriod](selfCopy, "timestampPeriod")];
+  clientDescription = [(ASDAudioDevice *)selfCopy clientDescription];
+  v44 = [clientDescription description];
+  v45 = [v44 stringByReplacingOccurrencesOfString:@"\n" withString:&stru_2853456D8];
+
+  v81 = v45;
+  [v7 appendFormat:@"%@|    Client Description: %s\n", v84, objc_msgSend(v45, "UTF8String")];
+  deviceDescription = [(ASDAudioDevice *)selfCopy deviceDescription];
+  v47 = [deviceDescription description];
+  v48 = [v47 stringByReplacingOccurrencesOfString:@"\n" withString:&stru_2853456D8];
+
+  v80 = v48;
+  [v7 appendFormat:@"%@|    Device Description: %s\n", v84, objc_msgSend(v48, "UTF8String")];
+  [v7 appendFormat:@"%@|    Input Streams:\n", v84];
+  inputStreams = [(ASDAudioDevice *)selfCopy inputStreams];
+  v50 = [inputStreams count];
+
+  if (v50)
+  {
+    v95 = 0u;
+    v96 = 0u;
+    v93 = 0u;
+    v94 = 0u;
+    inputStreams2 = [(ASDAudioDevice *)selfCopy inputStreams];
+    v52 = [inputStreams2 countByEnumeratingWithState:&v93 objects:v104 count:16];
+    if (v52)
+    {
+      v53 = v52;
+      v54 = 0;
+      v55 = *v94;
+      do
+      {
+        for (j = 0; j != v53; ++j)
+        {
+          if (*v94 != v55)
+          {
+            objc_enumerationMutation(inputStreams2);
+          }
+
+          v57 = *(*(&v93 + 1) + 8 * j);
+          if (treeCopy)
+          {
+            v58 = [v57 diagnosticDescriptionWithIndent:v8 walkTree:1];
+            [v7 appendString:v58];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v84, v54, objc_msgSend(v57, "objectID")];
+          }
+
+          v54 = (v54 + 1);
+        }
+
+        v53 = [inputStreams2 countByEnumeratingWithState:&v93 objects:v104 count:16];
+      }
+
+      while (v53);
+    }
+
+    v40 = selfCopy;
+  }
+
+  [v7 appendFormat:@"%@|    Output Streams:\n", v84];
+  outputStreams = [(ASDAudioDevice *)v40 outputStreams];
+  v60 = [outputStreams count];
+
+  if (v60)
+  {
+    v91 = 0u;
+    v92 = 0u;
+    v89 = 0u;
+    v90 = 0u;
+    outputStreams2 = [(ASDAudioDevice *)v40 outputStreams];
+    v62 = [outputStreams2 countByEnumeratingWithState:&v89 objects:v103 count:16];
+    if (v62)
+    {
+      v63 = v62;
+      v64 = 0;
+      v65 = *v90;
+      do
+      {
+        for (k = 0; k != v63; ++k)
+        {
+          if (*v90 != v65)
+          {
+            objc_enumerationMutation(outputStreams2);
+          }
+
+          v67 = *(*(&v89 + 1) + 8 * k);
+          if (treeCopy)
+          {
+            v68 = [v67 diagnosticDescriptionWithIndent:v8 walkTree:1];
+            [v7 appendString:v68];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v84, v64, objc_msgSend(v67, "objectID")];
+          }
+
+          v64 = (v64 + 1);
+        }
+
+        v63 = [outputStreams2 countByEnumeratingWithState:&v89 objects:v103 count:16];
+      }
+
+      while (v63);
+    }
+
+    v40 = selfCopy;
+  }
+
+  [v7 appendFormat:@"%@|    Controls:\n", v84];
+  controls = [(ASDAudioDevice *)v40 controls];
+  v70 = [controls count];
+
+  if (v70)
+  {
+    v87 = 0u;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
+    controls2 = [(ASDAudioDevice *)v40 controls];
+    v72 = [controls2 countByEnumeratingWithState:&v85 objects:v102 count:16];
+    if (v72)
+    {
+      v73 = v72;
+      v74 = 0;
+      v75 = *v86;
+      do
+      {
+        for (m = 0; m != v73; ++m)
+        {
+          if (*v86 != v75)
+          {
+            objc_enumerationMutation(controls2);
+          }
+
+          v77 = *(*(&v85 + 1) + 8 * m);
+          if (treeCopy)
+          {
+            v78 = [v77 diagnosticDescriptionWithIndent:v8 walkTree:1];
+            [v7 appendString:v78];
+          }
+
+          else
+          {
+            [v7 appendFormat:@"%@|        %u: %u\n", v84, v74, objc_msgSend(v77, "objectID")];
+          }
+
+          v74 = (v74 + 1);
+        }
+
+        v73 = [controls2 countByEnumeratingWithState:&v85 objects:v102 count:16];
+      }
+
+      while (v73);
+    }
+  }
+
+  return v7;
 }
 
 - (void)setExternalSecureMute:(BOOL)mute
@@ -3673,7 +5656,7 @@ intptr_t __33__ASDAudioDevice_systemWillSleep__block_invoke(uint64_t a1)
 
 - (id)getProperty:(id)property
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   selector = [propertyCopy selector];
   if (selector <= 1819107690)
@@ -3853,14 +5836,14 @@ LABEL_52:
         canBeDefaultOutputDevice = [(ASDAudioDevice *)self canBeDefaultDevice];
         break;
       default:
-        v31 = 0;
+        v30 = 0;
         goto LABEL_110;
     }
 
-    v31 = canBeDefaultOutputDevice;
+    v30 = canBeDefaultOutputDevice;
 LABEL_110:
     v25 = objc_alloc(MEMORY[0x277CCABB0]);
-    v24 = v31;
+    v24 = v30;
     goto LABEL_88;
   }
 
@@ -4042,7 +6025,7 @@ LABEL_69:
 
 LABEL_90:
   audioObjectPropertyAddress = [propertyCopy audioObjectPropertyAddress];
-  v38 = v26;
+  v37 = v26;
   v27 = [(ASDObject *)self customPropertyWithAddress:&audioObjectPropertyAddress];
   value = [v27 value];
   if (!value && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -4059,22 +6042,22 @@ LABEL_90:
 
     if (([propertyCopy selector] << 8) < 0x20000000 || (objc_msgSend(propertyCopy, "selector") << 8) > 2130706431)
     {
+      v33 = 32;
+    }
+
+    else
+    {
+      v33 = ([propertyCopy selector] << 8) >> 24;
+    }
+
+    if ([propertyCopy selector] < 0x2000 || objc_msgSend(propertyCopy, "selector") > 32511)
+    {
       v34 = 32;
     }
 
     else
     {
-      v34 = ([propertyCopy selector] << 8) >> 24;
-    }
-
-    if ([propertyCopy selector] < 0x2000 || objc_msgSend(propertyCopy, "selector") > 32511)
-    {
-      v35 = 32;
-    }
-
-    else
-    {
-      v35 = [propertyCopy selector] >> 8;
+      v34 = [propertyCopy selector] >> 8;
     }
 
     if ([propertyCopy selector] < 32 || objc_msgSend(propertyCopy, "selector") == 127)
@@ -4088,29 +6071,27 @@ LABEL_90:
     }
 
     *buf = 67109888;
-    v40 = v28;
-    v41 = 1024;
-    v42 = v34;
-    v43 = 1024;
-    v44 = v35;
-    v45 = 1024;
-    v46 = selector3;
+    v39 = v28;
+    v40 = 1024;
+    v41 = v33;
+    v42 = 1024;
+    v43 = v34;
+    v44 = 1024;
+    v45 = selector3;
     _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Property %c%c%c%c not found", buf, 0x1Au);
   }
 
 LABEL_103:
-  v29 = *MEMORY[0x277D85DE8];
 
   return value;
 }
 
 - (void)addInputStream:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = a1;
-  _os_log_fault_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Stream %s: starting channel should not be zero!", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = a1;
+  _os_log_fault_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "Stream %s: starting channel should not be zero!", &v1, 0xCu);
 }
 
 void __33__ASDAudioDevice_addInputStream___block_invoke_cold_1()

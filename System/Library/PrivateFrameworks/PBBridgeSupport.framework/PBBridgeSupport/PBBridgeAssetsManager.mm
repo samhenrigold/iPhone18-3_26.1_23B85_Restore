@@ -45,26 +45,25 @@
 
 - (void)beginPullingAssetsForDeviceMaterial:(unint64_t)material size:(unint64_t)size completion:(id)completion
 {
-  v15[3] = *MEMORY[0x277D85DE8];
-  v14[0] = @"Material_Type";
+  v14[3] = *MEMORY[0x277D85DE8];
+  v13[0] = @"Material_Type";
   v8 = MEMORY[0x277CCABB0];
   completionCopy = completion;
   v10 = [v8 numberWithUnsignedInteger:material];
-  v15[0] = v10;
-  v14[1] = @"Size_Type";
+  v14[0] = v10;
+  v13[1] = @"Size_Type";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:SizeForInternalSize(size)];
-  v14[2] = @"HW_Class";
-  v15[1] = v11;
-  v15[2] = &unk_286FB4190;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v13[2] = @"HW_Class";
+  v14[1] = v11;
+  v14[2] = &unk_286FB4190;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
 
   [(PBBridgeAssetsManager *)self _beginPullingAssetsForDeviceAttributes:v12 completion:completionCopy];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginPullingAssetsForAdvertisingName:(id)name completion:(id)completion
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v18[3] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   completionCopy = completion;
   v8 = PBAdvertisingInfoFromPayload(nameCopy);
@@ -75,14 +74,14 @@
   v12 = v11;
   if (v11)
   {
-    v19[0] = v11;
-    v18[0] = @"Material_Type";
-    v18[1] = @"Size_Type";
+    v18[0] = v11;
+    v17[0] = @"Material_Type";
+    v17[1] = @"Size_Type";
     v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:SizeForInternalSize(integerValue)];
-    v18[2] = @"HW_Class";
-    v19[1] = v13;
-    v19[2] = &unk_286FB4190;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v17[2] = @"HW_Class";
+    v18[1] = v13;
+    v18[2] = &unk_286FB4190;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
     [(PBBridgeAssetsManager *)self _beginPullingAssetsForDeviceAttributes:v14 completion:completionCopy];
   }
@@ -92,18 +91,16 @@
     v14 = pbb_mobileasset_log();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = nameCopy;
-      _os_log_impl(&dword_25DE64000, v14, OS_LOG_TYPE_DEFAULT, "Ignored Pulling Assets for Malformed Advertising Name: %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = nameCopy;
+      _os_log_impl(&dword_25DE64000, v14, OS_LOG_TYPE_DEFAULT, "Ignored Pulling Assets for Malformed Advertising Name: %@", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginPullingAssetsForDevice:(id)device completion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = *MEMORY[0x277D2BBC0];
   completionCopy = completion;
   deviceCopy = device;
@@ -117,7 +114,7 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v25 = "[PBBridgeAssetsManager beginPullingAssetsForDevice:completion:]";
+      v24 = "[PBBridgeAssetsManager beginPullingAssetsForDevice:completion:]";
       _os_log_impl(&dword_25DE64000, v12, OS_LOG_TYPE_DEFAULT, "%s using NRDevicePropertyArtworkTraits to get PBBDeviceSize", buf, 0xCu);
     }
 
@@ -133,7 +130,7 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v25 = "[PBBridgeAssetsManager beginPullingAssetsForDevice:completion:]";
+      v24 = "[PBBridgeAssetsManager beginPullingAssetsForDevice:completion:]";
       _os_log_impl(&dword_25DE64000, v15, OS_LOG_TYPE_DEFAULT, "%s using NRDevicePropertyProductType to get PBBDeviceSize", buf, 0xCu);
     }
 
@@ -142,17 +139,16 @@
 
   v16 = v14;
   v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{v10, @"Material_Type"}];
-  v23[0] = v17;
-  v22[1] = @"Size_Type";
+  v22[0] = v17;
+  v21[1] = @"Size_Type";
   v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v16];
-  v23[1] = v18;
-  v22[2] = @"HW_Class";
+  v22[1] = v18;
+  v21[2] = @"HW_Class";
   v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PBBridgeAssetsManager hardwareGenerationForProductType:](self, "hardwareGenerationForProductType:", v9)}];
-  v23[2] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+  v22[2] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
 
   [(PBBridgeAssetsManager *)self _beginPullingAssetsForDeviceAttributes:v20 completion:completionCopy];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginPullingAssetsForDeviceAttributes:(id)attributes completion:(id)completion
@@ -181,26 +177,24 @@
 
 void __75__PBBridgeAssetsManager__beginPullingAssetsForDeviceAttributes_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = pbb_mobileasset_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v11 = a2;
+    v10 = a2;
     _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "Got the metadata download reply: %ld", buf, 0xCu);
   }
 
   v5 = [*(a1 + 32) serialQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __75__PBBridgeAssetsManager__beginPullingAssetsForDeviceAttributes_completion___block_invoke_296;
-  v8[3] = &unk_2799F45F8;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __75__PBBridgeAssetsManager__beginPullingAssetsForDeviceAttributes_completion___block_invoke_296;
+  v7[3] = &unk_2799F45F8;
   v6 = *(a1 + 40);
-  v8[4] = *(a1 + 32);
-  v9 = v6;
-  dispatch_async(v5, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[4] = *(a1 + 32);
+  v8 = v6;
+  dispatch_async(v5, v7);
 }
 
 void __75__PBBridgeAssetsManager__beginPullingAssetsForDeviceAttributes_completion___block_invoke_296(uint64_t a1)
@@ -225,7 +219,7 @@ void __75__PBBridgeAssetsManager__beginPullingAssetsForDeviceAttributes_completi
 
 void __75__PBBridgeAssetsManager__beginPullingAssetsForDeviceAttributes_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 count])
   {
@@ -233,9 +227,9 @@ void __75__PBBridgeAssetsManager__beginPullingAssetsForDeviceAttributes_completi
     v5 = pbb_mobileasset_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v4;
-      _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "Atlas Asset: %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "Atlas Asset: %@", &v7, 0xCu);
     }
 
     [*(a1 + 32) _downloadAtlasAsset:v4];
@@ -249,8 +243,6 @@ void __75__PBBridgeAssetsManager__beginPullingAssetsForDeviceAttributes_completi
       (*(v6 + 16))(v6, 0);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runAssetQuery:(id)query completion:(id)completion
@@ -299,7 +291,7 @@ void __51__PBBridgeAssetsManager__runAssetQuery_completion___block_invoke_2(id *
 
 void __51__PBBridgeAssetsManager__runAssetQuery_completion___block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v1 = (a1 + 48);
   if (*(a1 + 48))
   {
@@ -308,42 +300,39 @@ void __51__PBBridgeAssetsManager__runAssetQuery_completion___block_invoke_3(uint
     {
       __51__PBBridgeAssetsManager__runAssetQuery_completion___block_invoke_3_cold_1(v1, v2);
     }
-
-LABEL_8:
-
-    goto LABEL_9;
   }
 
-  if (*(a1 + 40))
+  else
   {
+    if (!*(a1 + 40))
+    {
+      return;
+    }
+
     v4 = pbb_mobileasset_log();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [*(a1 + 32) results];
-      v8 = 134217984;
-      v9 = [v5 count];
-      _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "Single Query returned %lu assets", &v8, 0xCu);
+      v7 = 134217984;
+      v8 = [v5 count];
+      _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "Single Query returned %lu assets", &v7, 0xCu);
     }
 
     v6 = *(a1 + 40);
     v2 = [*(a1 + 32) results];
     (*(v6 + 16))(v6, v2);
-    goto LABEL_8;
   }
-
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_downloadAtlasAsset:(id)asset
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   state = [assetCopy state];
   if (state == 1)
   {
-    *v17 = 0;
-    if ([assetCopy spaceCheck:v17])
+    *v16 = 0;
+    if ([assetCopy spaceCheck:v16])
     {
       [(PBBridgeAssetsManager *)self _startAtlasDownloadAndQueryOnSuccess:assetCopy];
       goto LABEL_13;
@@ -365,8 +354,8 @@ LABEL_12:
     v8 = pbb_mobileasset_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_25DE64000, v8, OS_LOG_TYPE_DEFAULT, "Asset Download in Progress...", v17, 2u);
+      *v16 = 0;
+      _os_log_impl(&dword_25DE64000, v8, OS_LOG_TYPE_DEFAULT, "Asset Download in Progress...", v16, 2u);
     }
 
     goto LABEL_12;
@@ -376,20 +365,18 @@ LABEL_12:
   v7 = pbb_mobileasset_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v17 = 138412290;
-    *&v17[4] = getLocalUrl;
-    _os_log_impl(&dword_25DE64000, v7, OS_LOG_TYPE_DEFAULT, "Asset already installed: %@", v17, 0xCu);
+    *v16 = 138412290;
+    *&v16[4] = getLocalUrl;
+    _os_log_impl(&dword_25DE64000, v7, OS_LOG_TYPE_DEFAULT, "Asset already installed: %@", v16, 0xCu);
   }
 
   [(PBBridgeAssetsManager *)self _queryForImageAssets:getLocalUrl];
 LABEL_13:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startAtlasDownloadAndQueryOnSuccess:(id)success
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   successCopy = success;
   v5 = objc_opt_new();
   [v5 setAllowsCellularAccess:1];
@@ -398,20 +385,18 @@ LABEL_13:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = successCopy;
+    v11 = successCopy;
     _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "Starting download on asset: %@", buf, 0xCu);
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __62__PBBridgeAssetsManager__startAtlasDownloadAndQueryOnSuccess___block_invoke;
-  v9[3] = &unk_2799F46E8;
-  v9[4] = self;
-  v10 = successCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __62__PBBridgeAssetsManager__startAtlasDownloadAndQueryOnSuccess___block_invoke;
+  v8[3] = &unk_2799F46E8;
+  v8[4] = self;
+  v9 = successCopy;
   v7 = successCopy;
-  [v7 startDownload:v5 then:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  [v7 startDownload:v5 then:v8];
 }
 
 void __62__PBBridgeAssetsManager__startAtlasDownloadAndQueryOnSuccess___block_invoke(uint64_t a1, uint64_t a2)
@@ -431,7 +416,7 @@ void __62__PBBridgeAssetsManager__startAtlasDownloadAndQueryOnSuccess___block_in
 
 void __62__PBBridgeAssetsManager__startAtlasDownloadAndQueryOnSuccess___block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (*(a1 + 48))
   {
     v1 = pbb_mobileasset_log();
@@ -447,20 +432,18 @@ void __62__PBBridgeAssetsManager__startAtlasDownloadAndQueryOnSuccess___block_in
     v10 = pbb_mobileasset_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 138412290;
-      v13 = v1;
-      _os_log_impl(&dword_25DE64000, v10, OS_LOG_TYPE_DEFAULT, "Local URL data from asset download %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v1;
+      _os_log_impl(&dword_25DE64000, v10, OS_LOG_TYPE_DEFAULT, "Local URL data from asset download %@", &v11, 0xCu);
     }
 
     [*(a1 + 40) _queryForImageAssets:v1];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queryForImageAssets:(id)assets
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEAC0];
   v5 = MEMORY[0x277CCACA8];
   path = [assets path];
@@ -471,21 +454,19 @@ void __62__PBBridgeAssetsManager__startAtlasDownloadAndQueryOnSuccess___block_in
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_25DE64000, v9, OS_LOG_TYPE_DEFAULT, "Atlas Pointers: %@", buf, 0xCu);
   }
 
   deviceAttributes = [(PBBridgeAssetsManager *)self deviceAttributes];
   v11 = [(PBBridgeAssetsManager *)self _assetQueries:deviceAttributes atlas:v8];
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __46__PBBridgeAssetsManager__queryForImageAssets___block_invoke;
-  v13[3] = &unk_2799F45D0;
-  v13[4] = self;
-  [(PBBridgeAssetsManager *)self _runQueries:v11 withCompletion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __46__PBBridgeAssetsManager__queryForImageAssets___block_invoke;
+  v12[3] = &unk_2799F45D0;
+  v12[4] = self;
+  [(PBBridgeAssetsManager *)self _runQueries:v11 withCompletion:v12];
 }
 
 void __46__PBBridgeAssetsManager__queryForImageAssets___block_invoke(uint64_t a1, uint64_t a2)
@@ -512,7 +493,7 @@ void __46__PBBridgeAssetsManager__queryForImageAssets___block_invoke(uint64_t a1
 
 - (id)_assetQueries:(id)queries atlas:(id)atlas
 {
-  v24[5] = *MEMORY[0x277D85DE8];
+  v23[5] = *MEMORY[0x277D85DE8];
   atlasCopy = atlas;
   queriesCopy = queries;
   v8 = [(PBBridgeAssetsManager *)self _assetQueryForDeviceAttributes:0 deviceAttributes:queriesCopy];
@@ -533,46 +514,44 @@ void __46__PBBridgeAssetsManager__queryForImageAssets___block_invoke(uint64_t a1
   _assetQueryForFamilySetupImage = [(PBBridgeAssetsManager *)self _assetQueryForFamilySetupImage];
   _assetQueryForZeroDayForcedUpdate = [(PBBridgeAssetsManager *)self _assetQueryForZeroDayForcedUpdate];
   v19 = MEMORY[0x277CBEB18];
-  v24[0] = v8;
-  v24[1] = v12;
-  v24[2] = _assetQueryForFamilySetupImage;
-  v24[3] = _assetQueryForBridgeLaunchSplash;
-  v24[4] = _assetQueryForZeroDayForcedUpdate;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:5];
+  v23[0] = v8;
+  v23[1] = v12;
+  v23[2] = _assetQueryForFamilySetupImage;
+  v23[3] = _assetQueryForBridgeLaunchSplash;
+  v23[4] = _assetQueryForZeroDayForcedUpdate;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
   v21 = [v19 arrayWithArray:v20];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
 
 - (void)_runQueries:(id)queries withCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   queriesCopy = queries;
   completionCopy = completion;
   v7 = dispatch_group_create();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = queriesCopy;
-  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     do
     {
       v11 = 0;
       do
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * v11);
+        v12 = *(*(&v23 + 1) + 8 * v11);
         concurrentQueue = [(PBBridgeAssetsManager *)self concurrentQueue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
@@ -586,58 +565,56 @@ void __46__PBBridgeAssetsManager__queryForImageAssets___block_invoke(uint64_t a1
       }
 
       while (v9 != v11);
-      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v9);
   }
 
   serialQueue = [(PBBridgeAssetsManager *)self serialQueue];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __52__PBBridgeAssetsManager__runQueries_withCompletion___block_invoke_2;
-  v20[3] = &unk_2799F45F8;
-  v21 = obj;
-  v22 = completionCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __52__PBBridgeAssetsManager__runQueries_withCompletion___block_invoke_2;
+  v19[3] = &unk_2799F45F8;
+  v20 = obj;
+  v21 = completionCopy;
   v15 = completionCopy;
   v16 = obj;
-  dispatch_group_notify(v7, serialQueue, v20);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(v7, serialQueue, v19);
 }
 
 void __52__PBBridgeAssetsManager__runQueries_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v12 + 1) + 8 * v7) results];
+        v8 = [*(*(&v11 + 1) + 8 * v7) results];
         [v2 addObjectsFromArray:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v5);
@@ -648,17 +625,16 @@ void __52__PBBridgeAssetsManager__runQueries_withCompletion___block_invoke_2(uin
   {
     v10 = [v2 count];
     *buf = 134217984;
-    v17 = v10;
+    v16 = v10;
     _os_log_impl(&dword_25DE64000, v9, OS_LOG_TYPE_DEFAULT, "Queries returned %lu assets", buf, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runNextQuery:(id)query
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   queryMetaDataSync = [queryCopy queryMetaDataSync];
   if (queryMetaDataSync)
@@ -667,43 +643,41 @@ void __52__PBBridgeAssetsManager__runQueries_withCompletion___block_invoke_2(uin
     v6 = pbb_mobileasset_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412546;
-      v9 = queryCopy;
-      v10 = 2048;
-      v11 = v5;
-      _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "Query: %@ failed with result: %ld", &v8, 0x16u);
+      v7 = 138412546;
+      v8 = queryCopy;
+      v9 = 2048;
+      v10 = v5;
+      _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "Query: %@ failed with result: %ld", &v7, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_beginAssetDownloads:(id)downloads
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   downloadsCopy = downloads;
   v5 = dispatch_group_create();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = downloadsCopy;
-  v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     do
     {
       v9 = 0;
       do
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * v9);
+        v10 = *(*(&v20 + 1) + 8 * v9);
         concurrentQueue = [(PBBridgeAssetsManager *)self concurrentQueue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
@@ -711,44 +685,42 @@ void __52__PBBridgeAssetsManager__runQueries_withCompletion___block_invoke_2(uin
         block[3] = &unk_2799F4738;
         block[4] = v10;
         block[5] = self;
-        v20 = v5;
-        dispatch_group_async(v20, concurrentQueue, block);
+        v19 = v5;
+        dispatch_group_async(v19, concurrentQueue, block);
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
 
   serialQueue = [(PBBridgeAssetsManager *)self serialQueue];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_309;
-  v16[3] = &unk_2799F4710;
-  v17 = obj;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_309;
+  v15[3] = &unk_2799F4710;
+  v16 = obj;
   selfCopy = self;
   v13 = obj;
-  dispatch_group_notify(v5, serialQueue, v16);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_group_notify(v5, serialQueue, v15);
 }
 
 void __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) state];
   if (v2 == 1)
   {
     v5 = *(a1 + 32);
-    *v15 = 0;
-    if ([v5 spaceCheck:v15])
+    *v14 = 0;
+    if ([v5 spaceCheck:v14])
     {
       [*(a1 + 40) _startAssetDownload:*(a1 + 32) downloadGroup:*(a1 + 48)];
-      goto LABEL_13;
+      return;
     }
 
     v6 = pbb_mobileasset_log();
@@ -757,9 +729,7 @@ void __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke(uint64_t a1
       [(PBBridgeAssetsManager *)v6 _downloadAtlasAsset:v7, v8, v9, v10, v11, v12, v13];
     }
 
-LABEL_12:
-
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   if (v2 != 2)
@@ -767,51 +737,51 @@ LABEL_12:
     v6 = pbb_mobileasset_log();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "Atlas Asset Download in Progress...", v15, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, "Atlas Asset Download in Progress...", v14, 2u);
     }
 
-    goto LABEL_12;
+LABEL_12:
+
+    return;
   }
 
   v3 = [*(a1 + 32) getLocalFileUrl];
   v4 = pbb_mobileasset_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v15 = 138412290;
-    *&v15[4] = v3;
-    _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "Asset Already Installed! %@", v15, 0xCu);
+    *v14 = 138412290;
+    *&v14[4] = v3;
+    _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "Asset Already Installed! %@", v14, 0xCu);
   }
 
   [*(a1 + 40) _linkDownloadedAsset:*(a1 + 32)];
-LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_309(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        if ([*(*(&v11 + 1) + 8 * v6) state] != 2)
+        if ([*(*(&v10 + 1) + 8 * v6) state] != 2)
         {
           v7 = 0;
           goto LABEL_11;
@@ -821,7 +791,7 @@ void __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_309(uint64_
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -834,14 +804,13 @@ void __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_309(uint64_
   v7 = 1;
 LABEL_11:
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_2;
-  v9[3] = &unk_2799F4760;
-  v9[4] = *(a1 + 40);
-  v10 = v7;
-  dispatch_async(MEMORY[0x277D85CD0], v9);
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_2;
+  v8[3] = &unk_2799F4760;
+  v8[4] = *(a1 + 40);
+  v9 = v7;
+  dispatch_async(MEMORY[0x277D85CD0], v8);
 }
 
 void __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_2(uint64_t a1)
@@ -858,7 +827,7 @@ void __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_2(uint64_t 
 
 - (void)_startAssetDownload:(id)download downloadGroup:(id)group
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   downloadCopy = download;
   groupCopy = group;
   v8 = objc_opt_new();
@@ -869,27 +838,25 @@ void __46__PBBridgeAssetsManager__beginAssetDownloads___block_invoke_2(uint64_t 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = downloadCopy;
+    v17 = downloadCopy;
     _os_log_impl(&dword_25DE64000, v9, OS_LOG_TYPE_DEFAULT, "Starting download on asset: %@", buf, 0xCu);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __59__PBBridgeAssetsManager__startAssetDownload_downloadGroup___block_invoke;
-  v13[3] = &unk_2799F4788;
-  v14 = downloadCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __59__PBBridgeAssetsManager__startAssetDownload_downloadGroup___block_invoke;
+  v12[3] = &unk_2799F4788;
+  v13 = downloadCopy;
   selfCopy = self;
-  v16 = groupCopy;
+  v15 = groupCopy;
   v10 = groupCopy;
   v11 = downloadCopy;
-  [v11 startDownload:v8 then:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [v11 startDownload:v8 then:v12];
 }
 
 void __59__PBBridgeAssetsManager__startAssetDownload_downloadGroup___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v4 = pbb_mobileasset_log();
@@ -897,9 +864,9 @@ void __59__PBBridgeAssetsManager__startAssetDownload_downloadGroup___block_invok
     {
       v5 = *(a1 + 32);
       *buf = 138412546;
-      v13 = v5;
-      v14 = 2048;
-      v15 = a2;
+      v12 = v5;
+      v13 = 2048;
+      v14 = a2;
       _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "Download for asset: %@ was not successful with result: %lu", buf, 0x16u);
     }
   }
@@ -908,13 +875,11 @@ void __59__PBBridgeAssetsManager__startAssetDownload_downloadGroup___block_invok
   block[1] = 3221225472;
   block[2] = __59__PBBridgeAssetsManager__startAssetDownload_downloadGroup___block_invoke_310;
   block[3] = &unk_2799F4738;
-  v8 = *(a1 + 32);
-  v6 = v8.i64[0];
-  v10 = vextq_s8(v8, v8, 8uLL);
-  v11 = *(a1 + 48);
+  v7 = *(a1 + 32);
+  v6 = v7.i64[0];
+  v9 = vextq_s8(v7, v7, 8uLL);
+  v10 = *(a1 + 48);
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __59__PBBridgeAssetsManager__startAssetDownload_downloadGroup___block_invoke_310(uint64_t a1)
@@ -927,38 +892,38 @@ void __59__PBBridgeAssetsManager__startAssetDownload_downloadGroup___block_invok
 
 - (void)_linkDownloadedAsset:(id)asset
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   [assetCopy refreshState];
   if ([assetCopy state] == 2)
   {
-    v21 = assetCopy;
+    v20 = assetCopy;
     getLocalFileUrl = [assetCopy getLocalFileUrl];
     path = [getLocalFileUrl path];
-    v33 = 0;
-    v6 = [defaultManager contentsOfDirectoryAtPath:path error:&v33];
-    v7 = v33;
+    v32 = 0;
+    v6 = [defaultManager contentsOfDirectoryAtPath:path error:&v32];
+    v7 = v32;
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     obj = v6;
-    v25 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
-    if (v25)
+    v24 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+    if (v24)
     {
-      v24 = *v30;
+      v23 = *v29;
       do
       {
-        for (i = 0; i != v25; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v30 != v24)
+          if (*v29 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v29 + 1) + 8 * i);
+          v9 = *(*(&v28 + 1) + 8 * i);
           v10 = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, 1uLL, 1);
           if ([v10 count])
           {
@@ -966,36 +931,34 @@ void __59__PBBridgeAssetsManager__startAssetDownload_downloadGroup___block_invok
             firstObject = [v10 firstObject];
             v13 = [v11 stringWithFormat:@"%@/%@/", firstObject, @"BridgeAssets"];
 
-            v28 = v7;
-            [defaultManager createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v28];
-            v14 = v28;
+            v27 = v7;
+            [defaultManager createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v27];
+            v14 = v27;
 
             v15 = MEMORY[0x277CCACA8];
             path2 = [getLocalFileUrl path];
             v17 = [v15 stringWithFormat:@"%@/%@", path2, v9];
 
             v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", v13, v9];
-            v27 = v14;
-            [defaultManager removeItemAtPath:v18 error:&v27];
-            v19 = v27;
+            v26 = v14;
+            [defaultManager removeItemAtPath:v18 error:&v26];
+            v19 = v26;
 
-            v26 = v19;
-            [defaultManager createSymbolicLinkAtPath:v18 withDestinationPath:v17 error:&v26];
-            v7 = v26;
+            v25 = v19;
+            [defaultManager createSymbolicLinkAtPath:v18 withDestinationPath:v17 error:&v25];
+            v7 = v25;
           }
         }
 
-        v25 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v24 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
-      while (v25);
+      while (v24);
     }
 
     dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_2);
-    assetCopy = v21;
+    assetCopy = v20;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __46__PBBridgeAssetsManager__linkDownloadedAsset___block_invoke()
@@ -1006,117 +969,110 @@ void __46__PBBridgeAssetsManager__linkDownloadedAsset___block_invoke()
 
 - (void)purgeAllAssetsLocalOnly:(BOOL)only
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [objc_alloc(MEMORY[0x277D289D8]) initWithType:@"com.apple.MobileAsset.BridgeAssets"];
   v5 = pbb_mobileasset_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = 341;
-    v8 = 2080;
-    v9 = "[PBBridgeAssetsManager purgeAllAssetsLocalOnly:]";
-    _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "%d %s", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = 341;
+    v7 = 2080;
+    v8 = "[PBBridgeAssetsManager purgeAllAssetsLocalOnly:]";
+    _os_log_impl(&dword_25DE64000, v5, OS_LOG_TYPE_DEFAULT, "%d %s", v6, 0x12u);
   }
 
   [(PBBridgeAssetsManager *)self _runAssetQuery:v4 completion:&__block_literal_global_318];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PBBridgeAssetsManager_purgeAllAssetsLocalOnly___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = a2;
   NSLog(&cfstr_DSAssets.isa, 344, "[PBBridgeAssetsManager purgeAllAssetsLocalOnly:]_block_invoke", v2);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = v2;
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 state] == 4)
         {
-          v11[0] = MEMORY[0x277D85DD0];
-          v11[1] = 3221225472;
-          v11[2] = __49__PBBridgeAssetsManager_purgeAllAssetsLocalOnly___block_invoke_2;
-          v11[3] = &unk_2799F47D0;
-          v11[4] = v8;
-          [v8 cancelDownload:v11];
+          v10[0] = MEMORY[0x277D85DD0];
+          v10[1] = 3221225472;
+          v10[2] = __49__PBBridgeAssetsManager_purgeAllAssetsLocalOnly___block_invoke_2;
+          v10[3] = &unk_2799F47D0;
+          v10[4] = v8;
+          [v8 cancelDownload:v10];
         }
 
         else
         {
-          v10[0] = MEMORY[0x277D85DD0];
-          v10[1] = 3221225472;
-          v10[2] = __49__PBBridgeAssetsManager_purgeAllAssetsLocalOnly___block_invoke_322;
-          v10[3] = &unk_2799F47D0;
-          v10[4] = v8;
-          [v8 purge:v10];
+          v9[0] = MEMORY[0x277D85DD0];
+          v9[1] = 3221225472;
+          v9[2] = __49__PBBridgeAssetsManager_purgeAllAssetsLocalOnly___block_invoke_322;
+          v9[3] = &unk_2799F47D0;
+          v9[4] = v8;
+          [v8 purge:v9];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PBBridgeAssetsManager_purgeAllAssetsLocalOnly___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = pbb_mobileasset_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7[0] = 67109890;
-    v7[1] = 350;
-    v8 = 2080;
-    v9 = "[PBBridgeAssetsManager purgeAllAssetsLocalOnly:]_block_invoke_2";
-    v10 = 2112;
-    v11 = v5;
-    v12 = 2048;
-    v13 = a2;
-    _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "%d %s CANCEL DOWNLOAD! %@ // %ld", v7, 0x26u);
+    v6[0] = 67109890;
+    v6[1] = 350;
+    v7 = 2080;
+    v8 = "[PBBridgeAssetsManager purgeAllAssetsLocalOnly:]_block_invoke_2";
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2048;
+    v12 = a2;
+    _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "%d %s CANCEL DOWNLOAD! %@ // %ld", v6, 0x26u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __49__PBBridgeAssetsManager_purgeAllAssetsLocalOnly___block_invoke_322(uint64_t a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = pbb_mobileasset_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7[0] = 67109890;
-    v7[1] = 354;
-    v8 = 2080;
-    v9 = "[PBBridgeAssetsManager purgeAllAssetsLocalOnly:]_block_invoke";
-    v10 = 2112;
-    v11 = v5;
-    v12 = 2048;
-    v13 = a2;
-    _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "%d %s PURGE ASSET! %@ // %ld", v7, 0x26u);
+    v6[0] = 67109890;
+    v6[1] = 354;
+    v7 = 2080;
+    v8 = "[PBBridgeAssetsManager purgeAllAssetsLocalOnly:]_block_invoke";
+    v9 = 2112;
+    v10 = v5;
+    v11 = 2048;
+    v12 = a2;
+    _os_log_impl(&dword_25DE64000, v4, OS_LOG_TYPE_DEFAULT, "%d %s PURGE ASSET! %@ // %ld", v6, 0x26u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_assetQueryForBridgeLaunchSplash
@@ -1201,12 +1157,11 @@ LABEL_7:
 
 void __51__PBBridgeAssetsManager__runAssetQuery_completion___block_invoke_3_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 134217984;
-  v5 = v2;
-  _os_log_error_impl(&dword_25DE64000, a2, OS_LOG_TYPE_ERROR, "Query error with MAQueryResult: %ld", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 134217984;
+  v4 = v2;
+  _os_log_error_impl(&dword_25DE64000, a2, OS_LOG_TYPE_ERROR, "Query error with MAQueryResult: %ld", &v3, 0xCu);
 }
 
 @end

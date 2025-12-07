@@ -108,32 +108,30 @@
   tritiumOnFraction = self->_tritiumOnFraction;
   if (tritiumOnFraction >= 1.0)
   {
-    v13.receiver = self;
-    v13.super_class = NTKShibaTimeView;
-    v10 = [(NTKShibaTimeView *)&v13 _secondTickInactiveColorForColorPalette:paletteCopy];
+    v11.receiver = self;
+    v11.super_class = NTKShibaTimeView;
+    v8 = [(NTKShibaTimeView *)&v11 _secondTickInactiveColorForColorPalette:paletteCopy];
   }
 
   else
   {
     if (tritiumOnFraction > 0.0)
     {
-      v12.receiver = self;
-      v12.super_class = NTKShibaTimeView;
-      v6 = [(NTKShibaTimeView *)&v12 _secondTickInactiveColorForColorPalette:paletteCopy];
-      activeColor = self->_activeColor;
-      v8 = self->_tritiumOnFraction;
-      v9 = NTKInterpolateBetweenColors();
+      v10.receiver = self;
+      v10.super_class = NTKShibaTimeView;
+      v6 = [(NTKShibaTimeView *)&v10 _secondTickInactiveColorForColorPalette:paletteCopy];
+      v7 = NTKInterpolateBetweenColors();
 
       goto LABEL_7;
     }
 
-    v10 = self->_activeColor;
+    v8 = self->_activeColor;
   }
 
-  v9 = v10;
+  v7 = v8;
 LABEL_7:
 
-  return v9;
+  return v7;
 }
 
 - (id)_secondTickInactiveColorForColorPalette:(id)palette
@@ -142,32 +140,30 @@ LABEL_7:
   tritiumOnFraction = self->_tritiumOnFraction;
   if (tritiumOnFraction >= 1.0)
   {
-    v13.receiver = self;
-    v13.super_class = NTKShibaTimeView;
-    v10 = [(NTKShibaTimeView *)&v13 _secondTickInactiveColorForColorPalette:paletteCopy];
+    v11.receiver = self;
+    v11.super_class = NTKShibaTimeView;
+    v8 = [(NTKShibaTimeView *)&v11 _secondTickInactiveColorForColorPalette:paletteCopy];
   }
 
   else
   {
     if (tritiumOnFraction > 0.0)
     {
-      v12.receiver = self;
-      v12.super_class = NTKShibaTimeView;
-      v6 = [(NTKShibaTimeView *)&v12 _secondTickInactiveColorForColorPalette:paletteCopy];
-      inactiveColor = self->_inactiveColor;
-      v8 = self->_tritiumOnFraction;
-      v9 = NTKInterpolateBetweenColors();
+      v10.receiver = self;
+      v10.super_class = NTKShibaTimeView;
+      v6 = [(NTKShibaTimeView *)&v10 _secondTickInactiveColorForColorPalette:paletteCopy];
+      v7 = NTKInterpolateBetweenColors();
 
       goto LABEL_7;
     }
 
-    v10 = self->_inactiveColor;
+    v8 = self->_inactiveColor;
   }
 
-  v9 = v10;
+  v7 = v8;
 LABEL_7:
 
-  return v9;
+  return v7;
 }
 
 @end

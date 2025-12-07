@@ -48,30 +48,29 @@
 
 - (PFPosterArchiveManifest)initWithExtensionIdentifier:(id)identifier configurationUUID:(id)d role:(id)role
 {
-  v19[6] = *MEMORY[0x1E69E9840];
-  v18[0] = @"archiveVersion";
+  v18[6] = *MEMORY[0x1E69E9840];
+  v17[0] = @"archiveVersion";
   v8 = MEMORY[0x1E696AD98];
   roleCopy = role;
   dCopy = d;
   identifierCopy = identifier;
   v12 = [v8 numberWithInteger:{objc_msgSend(objc_opt_class(), "manifestVersion")}];
-  v19[0] = v12;
-  v19[1] = identifierCopy;
-  v18[1] = @"extensionIdentifier";
-  v18[2] = @"configurationUUID";
+  v18[0] = v12;
+  v18[1] = identifierCopy;
+  v17[1] = @"extensionIdentifier";
+  v17[2] = @"configurationUUID";
   uUIDString = [dCopy UUIDString];
 
-  v19[2] = uUIDString;
-  v19[3] = &unk_1F42668D0;
-  v18[3] = @"latestConfigurationVersion";
-  v18[4] = @"latestConfigurationSupplement";
-  v18[5] = @"role";
-  v19[4] = &unk_1F42668D0;
-  v19[5] = roleCopy;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:6];
+  v18[2] = uUIDString;
+  v18[3] = &unk_1F42668D0;
+  v17[3] = @"latestConfigurationVersion";
+  v17[4] = @"latestConfigurationSupplement";
+  v17[5] = @"role";
+  v18[4] = &unk_1F42668D0;
+  v18[5] = roleCopy;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:6];
 
   v15 = [(PFPosterArchiveManifest *)self initWithDictionaryRepresentation:v14];
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

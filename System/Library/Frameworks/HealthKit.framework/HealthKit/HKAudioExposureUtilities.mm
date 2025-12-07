@@ -74,28 +74,28 @@
 
 + (id)computeLEQFromAudioExposureValues:(id)values
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v5 = [valuesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [valuesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
-    v6 = *v21;
+    v6 = *v20;
     v7 = 0.0;
     v8 = 0.0;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(valuesCopy);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         [v10 duration];
         v12 = v11;
         [v10 value];
@@ -104,7 +104,7 @@
         v7 = v7 + v14;
       }
 
-      v5 = [valuesCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [valuesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
@@ -116,8 +116,6 @@
       v5 = [HKQuantity quantityWithUnit:v17 doubleValue:v16];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

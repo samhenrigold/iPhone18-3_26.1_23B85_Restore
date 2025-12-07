@@ -23,7 +23,7 @@
 
 - (_UITableConstantsBackgroundProperties)defaultHeaderFooterBackgroundPropertiesForTableViewStyle:(SEL)style cellConfigurationState:(int64_t)state traitCollection:(id)collection floating:(id)floating
 {
-  result = [UIColor blackColor:state];
+  result = objc_msgSend_blackColor(UIColor, style, state, collection, floating, a7);
   *&retstr->var0 = 0u;
   *&retstr->var2 = 0u;
   *&retstr->var4 = 0u;

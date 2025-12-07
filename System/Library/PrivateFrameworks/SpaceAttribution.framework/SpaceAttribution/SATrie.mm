@@ -28,9 +28,7 @@
 
 - (void)clearPaths
 {
-  v3 = objc_opt_new();
-  root = self->_root;
-  self->_root = v3;
+  self->_root = objc_opt_new();
 
   _objc_release_x1();
 }

@@ -15,6 +15,7 @@
 - (void)applyVista:(unint64_t)vista transitionStyle:(unint64_t)style;
 - (void)astronomySceneAnimationFinished:(id)finished;
 - (void)dealloc;
+- (void)disableCloudDataFetch:(BOOL)fetch;
 - (void)discardContents;
 - (void)layoutSubviews;
 - (void)quadViewWillDisplay:(id)display forTime:(double)time;
@@ -22,6 +23,7 @@
 - (void)setAPLFilterAmount:(double)amount;
 - (void)setCacheDirectory:(id)directory;
 - (void)setFrameInterval:(int64_t)interval;
+- (void)setOpaque:(BOOL)opaque;
 - (void)setScene:(id)scene;
 - (void)setTritiumBrightness:(double)brightness;
 - (void)showSupplemental:(BOOL)supplemental animated:(BOOL)animated;
@@ -37,11 +39,11 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v45.receiver = self;
-  v45.super_class = NUNIAstronomyVistaView;
-  height = [(NUNIAstronomyVistaView *)&v45 initWithFrame:x, y, width, height];
+  v44.receiver = self;
+  v44.super_class = NUNIAstronomyVistaView;
+  height = [(NUNIAstronomyVistaView *)&v44 initWithFrame:x, y, width, height];
   v12 = height;
   if (height)
   {
@@ -85,10 +87,10 @@
       [(NSArray *)v28 setFrame:x, y, width, height];
       [(NSArray *)v28 setCompositingFilter:*MEMORY[0x277CDA310]];
       [(NSArray *)v28 setOpaque:0];
-      v48 = @"contents";
+      v47 = @"contents";
       null = [MEMORY[0x277CBEB68] null];
-      v49[0] = null;
-      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+      v48[0] = null;
+      v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
       [(NSArray *)v28 setActions:v30];
 
       [(NUNIRenderer *)v12->_renderer setContentMaskLayer:v28];
@@ -124,17 +126,17 @@
 
       [(UIView *)v33 setOpaque:0];
       [(NUNIAstronomyVistaView *)v12 insertSubview:v33 aboveSubview:v12->_quadView0];
-      v47[0] = v33;
-      v47[1] = v12->_quadView0;
-      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+      v46[0] = v33;
+      v46[1] = v12->_quadView0;
+      v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
       quadViews = v12->_quadViews;
       v12->_quadViews = v39;
     }
 
     else
     {
-      v46 = v12->_quadView0;
-      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+      v45 = v12->_quadView0;
+      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
       v28 = v12->_quadViews;
       v12->_quadViews = v36;
     }
@@ -152,7 +154,6 @@
     }
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -172,38 +173,36 @@
 
 - (void)setTritiumBrightness:(double)brightness
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_quadViews;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) setTritiumBrightness:{brightness, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) setTritiumBrightness:{brightness, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -227,13 +226,24 @@
 - (void)setCacheDirectory:(id)directory
 {
   directoryCopy = directory;
-  renderer = self->_renderer;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     resourceManager = [(NUNIRenderer *)self->_renderer resourceManager];
     cloudsService = [resourceManager cloudsService];
     [cloudsService setDirectory:directoryCopy];
+  }
+}
+
+- (void)disableCloudDataFetch:(BOOL)fetch
+{
+  fetchCopy = fetch;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    resourceManager = [(NUNIRenderer *)self->_renderer resourceManager];
+    cloudsService = [resourceManager cloudsService];
+    [cloudsService setDisableFetch:fetchCopy];
   }
 }
 
@@ -255,14 +265,13 @@
 - (float)computeDimming
 {
   device = [(NUNIAstronomyVistaView *)self device];
-  deviceCategory = [device deviceCategory];
+  [device deviceCategory];
 
-  v5 = dword_25B719CD0[(deviceCategory & 0xFFFFFFFFFFFFFFFDLL) == 4];
   _mtlQuadView = [(NUNIAstronomyVistaView *)self _mtlQuadView];
   CLKUIComputeDimmingRequiredToObtainQuadAPL();
-  v8 = v7;
+  v6 = v5;
 
-  return v8;
+  return v6;
 }
 
 - (void)setAPLFilterAmount:(double)amount
@@ -282,6 +291,32 @@
     [(NUNIScene *)v6 setObserver:self];
     [(NUNIQuad *)self->_quad setScene:v6];
     sceneCopy = v6;
+  }
+}
+
+- (void)setOpaque:(BOOL)opaque
+{
+  opaqueCopy = opaque;
+  v8.receiver = self;
+  v8.super_class = NUNIAstronomyVistaView;
+  if ([(NUNIAstronomyVistaView *)&v8 isOpaque]!= opaque)
+  {
+    v7.receiver = self;
+    v7.super_class = NUNIAstronomyVistaView;
+    [(NUNIAstronomyVistaView *)&v7 setOpaque:opaqueCopy];
+    if (opaqueCopy)
+    {
+      v5 = 2;
+    }
+
+    else
+    {
+      v5 = 1;
+    }
+
+    [(NUNIScene *)self->_scene setBackgroundType:v5];
+    lastObject = [(NSArray *)self->_quadViews lastObject];
+    [lastObject setOpaque:opaqueCopy];
   }
 }
 
@@ -406,10 +441,10 @@
 {
   animatedCopy = animated;
   supplementalCopy = supplemental;
-  v105 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   v7 = *(self + 488);
-  v89 = self->_scene;
-  if (v89 && ((v7 ^ supplementalCopy) & 1) != 0)
+  v88 = self->_scene;
+  if (v88 && ((v7 ^ supplementalCopy) & 1) != 0)
   {
     *(self + 488) = *(self + 488) & 0xFE | supplementalCopy;
     if (supplementalCopy)
@@ -418,38 +453,38 @@
       v9 = v8;
       [(CLKDevice *)self->_device screenBounds];
       v11 = v10;
+      v98 = 0u;
       v99 = 0u;
       v100 = 0u;
       v101 = 0u;
-      v102 = 0u;
-      obj = [(NUNIScene *)v89 spheroids];
-      v12 = [obj countByEnumeratingWithState:&v99 objects:v104 count:16];
+      obj = [(NUNIScene *)v88 spheroids];
+      v12 = [obj countByEnumeratingWithState:&v98 objects:v103 count:16];
       if (v12)
       {
         v13 = v12;
         v14 = 0;
         v15 = v9 / v11;
-        v86 = *v100;
-        v85 = v15;
-        v84 = v15 * 0.5;
+        v85 = *v99;
+        v84 = v15;
+        v83 = v15 * 0.5;
         while (1)
         {
           v16 = 0;
           do
           {
-            if (*v100 != v86)
+            if (*v99 != v85)
             {
               objc_enumerationMutation(obj);
             }
 
-            v17 = *(*(&v99 + 1) + 8 * v16);
+            v17 = *(*(&v98 + 1) + 8 * v16);
             type = [v17 type];
             v19 = 1 << type;
             LODWORD(v20) = 897988541;
             if (type != 4)
             {
-              v21 = v85;
-              if ((v19 & 0x3000) != 0 || (v21 = v84, ((1 << type) & 0xFBCBFE) != 0))
+              v21 = v84;
+              if ((v19 & 0x3000) != 0 || (v21 = v83, ((1 << type) & 0xFBCBFE) != 0))
               {
                 [v17 radius];
                 *&v20 = v21 / *&v20;
@@ -461,25 +496,25 @@
               }
             }
 
-            v90 = v20;
+            v89 = v20;
             [v17 radiusScale];
-            v23 = v22 == *&v90;
-            v24 = v90;
+            v23 = v22 == *&v89;
+            v24 = v89;
             if (!v23)
             {
               if (animatedCopy)
               {
-                v25 = [[NUNIAnimation alloc] initWithAnimatable:v17 value:7 key:*vdupq_lane_s32(*&v90, 0).i64];
+                v25 = [[NUNIAnimation alloc] initWithAnimatable:v17 value:7 key:*vdupq_lane_s32(*&v89, 0).i64];
 
                 LODWORD(v26) = 1062557008;
                 [(NUNIAnimation *)v25 setDuration:v26];
-                [(NUNIScene *)v89 addAnimation:v25];
+                [(NUNIScene *)v88 addAnimation:v25];
                 v14 = v25;
               }
 
               else
               {
-                [v17 setRadiusScale:v90];
+                [v17 setRadiusScale:v89];
               }
             }
 
@@ -554,18 +589,18 @@ LABEL_39:
             [(CLKDevice *)self->_device screenBounds];
             *&v49 = v49 / v50;
             [(CLKDevice *)self->_device screenBounds];
-            v91 = v34 / v51;
+            v90 = v34 / v51;
             [(CLKDevice *)self->_device screenBounds];
-            v53.f64[0] = v91;
+            v53.f64[0] = v90;
             v53.f64[1] = (v47 / v52 + -0.5) * -*&v49 + 0.5;
             v54 = vadd_f32(vcvt_f32_f64(v53), 0xBF000000BF000000);
             *&v53.f64[0] = vmul_f32(v54, v54);
             *v53.f64 = sqrtf(*(v53.f64 + 1) + (v54.f32[0] * v54.f32[0]));
-            v92 = v53.f64[0];
-            v88 = vdiv_f32(v54, vdup_lane_s32(*&v53.f64[0], 0));
+            v91 = v53.f64[0];
+            v87 = vdiv_f32(v54, vdup_lane_s32(*&v53.f64[0], 0));
             [v17 angle];
             LODWORD(v49) = v55;
-            *&v56 = atan2f(v88.f32[1], v88.f32[0]);
+            *&v56 = atan2f(v87.f32[1], v87.f32[0]);
             *&v56 = *&v56 + (floorf(*&v56 / 6.2832) * -6.2832);
             v57 = vabds_f32(*&v56, *&v49);
             if (*&v49 >= *&v56)
@@ -590,12 +625,12 @@ LABEL_39:
 
               LODWORD(v61) = 1062557008;
               [(NUNIAnimation *)v60 setDuration:v61];
-              [(NUNIScene *)v89 addAnimation:v60];
-              v14 = [[NUNIAnimation alloc] initWithAnimatable:v17 value:4 key:*vdupq_lane_s32(*&v92, 0).i64];
+              [(NUNIScene *)v88 addAnimation:v60];
+              v14 = [[NUNIAnimation alloc] initWithAnimatable:v17 value:4 key:*vdupq_lane_s32(*&v91, 0).i64];
 
               LODWORD(v62) = 1062557008;
               [(NUNIAnimation *)v14 setDuration:v62];
-              [(NUNIScene *)v89 addAnimation:v14];
+              [(NUNIScene *)v88 addAnimation:v14];
               [v17 opacity];
               v36.i32[0] = 1.0;
               if (v63 == 1.0)
@@ -608,13 +643,13 @@ LABEL_37:
 
               LODWORD(v65) = 1062557008;
               [(NUNIAnimation *)v64 setDuration:v65];
-              [(NUNIScene *)v89 addAnimation:v64];
+              [(NUNIScene *)v88 addAnimation:v64];
               v14 = v64;
               goto LABEL_40;
             }
 
             [v17 setAngle:v56];
-            [v17 setDistance:v92];
+            [v17 setDistance:v91];
             [v17 opacity];
             v36.i32[0] = 1.0;
             if (*&v35 != 1.0)
@@ -627,7 +662,7 @@ LABEL_40:
           }
 
           while (v13 != v16);
-          v66 = [obj countByEnumeratingWithState:&v99 objects:v104 count:16];
+          v66 = [obj countByEnumeratingWithState:&v98 objects:v103 count:16];
           v13 = v66;
           if (!v66)
           {
@@ -641,12 +676,12 @@ LABEL_67:
       goto LABEL_68;
     }
 
-    v97 = 0u;
-    v98 = 0u;
-    v95 = 0u;
     v96 = 0u;
-    obj = [(NUNIScene *)v89 spheroids];
-    v67 = [obj countByEnumeratingWithState:&v95 objects:v103 count:16];
+    v97 = 0u;
+    v94 = 0u;
+    v95 = 0u;
+    obj = [(NUNIScene *)v88 spheroids];
+    v67 = [obj countByEnumeratingWithState:&v94 objects:v102 count:16];
     if (!v67)
     {
       goto LABEL_67;
@@ -654,18 +689,18 @@ LABEL_67:
 
     v68 = v67;
     v14 = 0;
-    v69 = *v96;
+    v69 = *v95;
     v70 = 0x27995E000uLL;
     do
     {
       for (i = 0; i != v68; ++i)
       {
-        if (*v96 != v69)
+        if (*v95 != v69)
         {
           objc_enumerationMutation(obj);
         }
 
-        v72 = *(*(&v95 + 1) + 8 * i);
+        v72 = *(*(&v94 + 1) + 8 * i);
         type2 = [v72 type];
         v75 = type2;
         if (type2 == 4)
@@ -678,25 +713,25 @@ LABEL_67:
           *&v74 = 1.0;
         }
 
-        v93 = v74;
+        v92 = v74;
         [v72 radiusScale];
-        if (*&v76 != *&v93)
+        if (*&v76 != *&v92)
         {
           if (animatedCopy)
           {
             v77 = v70;
-            v78 = [objc_alloc(*(v70 + 3656)) initWithAnimatable:v72 value:7 key:{*vdupq_lane_s32(*&v93, 0).i64}];
+            v78 = [objc_alloc(*(v70 + 3656)) initWithAnimatable:v72 value:7 key:{*vdupq_lane_s32(*&v92, 0).i64}];
 
             LODWORD(v79) = 1054168400;
             [(NUNIAnimation *)v78 setDuration:v79];
-            [(NUNIScene *)v89 addAnimation:v78];
+            [(NUNIScene *)v88 addAnimation:v78];
             v14 = v78;
             v70 = v77;
           }
 
           else
           {
-            [v72 setRadiusScale:v93];
+            [v72 setRadiusScale:v92];
           }
         }
 
@@ -710,35 +745,33 @@ LABEL_67:
           *&v76 = 0.0;
         }
 
-        v94 = v76;
+        v93 = v76;
         [v72 opacity];
-        if (v80 != *&v94)
+        if (v80 != *&v93)
         {
           if (animatedCopy)
           {
-            v81 = [objc_alloc(*(v70 + 3656)) initWithAnimatable:v72 value:9 key:{*vdupq_lane_s32(*&v94, 0).i64}];
+            v81 = [objc_alloc(*(v70 + 3656)) initWithAnimatable:v72 value:9 key:{*vdupq_lane_s32(*&v93, 0).i64}];
 
             LODWORD(v82) = 1062557008;
             [(NUNIAnimation *)v81 setDuration:v82];
-            [(NUNIScene *)v89 addAnimation:v81];
+            [(NUNIScene *)v88 addAnimation:v81];
             v14 = v81;
           }
 
           else
           {
-            [v72 setOpacity:v94];
+            [v72 setOpacity:v93];
           }
         }
       }
 
-      v68 = [obj countByEnumeratingWithState:&v95 objects:v103 count:16];
+      v68 = [obj countByEnumeratingWithState:&v94 objects:v102 count:16];
     }
 
     while (v68);
 LABEL_68:
   }
-
-  v83 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateAnimationArrayFromVista:(unint64_t)vista toVista:(unint64_t)toVista transitionStyle:(unint64_t)style
@@ -873,7 +906,7 @@ LABEL_7:
 
 - (void)applyVista:(unint64_t)vista transitionStyle:(unint64_t)style
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   self->_vista = vista;
   self->_transitionStyle = style;
   if (vista <= 9)
@@ -884,7 +917,7 @@ LABEL_7:
     {
 LABEL_67:
 
-      goto LABEL_68;
+      return;
     }
 
     v9 = 131080;
@@ -906,32 +939,32 @@ LABEL_67:
 
           if (rendererStyle == 3)
           {
-            v70 = 0uLL;
-            v71 = 0uLL;
-            v68 = 0uLL;
             v69 = 0uLL;
+            v70 = 0uLL;
+            v67 = 0uLL;
+            v68 = 0uLL;
             spheroids = [(NUNIScene *)v8 spheroids];
-            v14 = [spheroids countByEnumeratingWithState:&v68 objects:v74 count:16];
+            v14 = [spheroids countByEnumeratingWithState:&v67 objects:v73 count:16];
             if (v14)
             {
               v16 = v14;
               v15.i64[0] = 0;
-              v59 = v15;
-              v17 = *v69;
+              v58 = v15;
+              v17 = *v68;
               do
               {
                 for (i = 0; i != v16; ++i)
                 {
-                  if (*v69 != v17)
+                  if (*v68 != v17)
                   {
                     objc_enumerationMutation(spheroids);
                   }
 
-                  v19 = *(*(&v68 + 1) + 8 * i);
-                  structure = [v19 structure];
-                  v22 = structure;
-                  v23 = *structure;
-                  if (*structure == 4)
+                  v19 = *(*(&v67 + 1) + 8 * i);
+                  v20 = objc_msgSend_structure(v19);
+                  v22 = v20;
+                  v23 = *v20;
+                  if (*v20 == 4)
                   {
                     v24 = 0.000001;
                   }
@@ -941,7 +974,7 @@ LABEL_67:
                     v24 = 1.0;
                   }
 
-                  if (*(structure + 88) != v24)
+                  if (*(v20 + 88) != v24)
                   {
                     [v19 setRadiusScale:?];
                   }
@@ -962,12 +995,12 @@ LABEL_67:
                   }
 
                   v21.i64[0] = (1 << v23) & 0x3FELL;
-                  [v19 setOrientation:{*vbslq_s8(vdupq_lane_s64(vceqq_s64(v21, v59).i64[0], 0), xmmword_25B719D40, xmmword_25B719D30).i64}];
+                  [v19 setOrientation:{*vbslq_s8(vdupq_lane_s64(vceqq_s64(v21, v58).i64[0], 0), xmmword_25B719D40, xmmword_25B719D30).i64}];
                   LODWORD(v26) = 1.0;
                   [v19 setDistanceScale:v26];
                 }
 
-                v16 = [spheroids countByEnumeratingWithState:&v68 objects:v74 count:16];
+                v16 = [spheroids countByEnumeratingWithState:&v67 objects:v73 count:16];
               }
 
               while (v16);
@@ -976,68 +1009,68 @@ LABEL_67:
 
           else
           {
-            v66 = 0uLL;
-            v67 = 0uLL;
-            v64 = 0uLL;
             v65 = 0uLL;
+            v66 = 0uLL;
+            v63 = 0uLL;
+            v64 = 0uLL;
             spheroids = [(NUNIScene *)v8 spheroids];
-            v47 = [spheroids countByEnumeratingWithState:&v64 objects:v73 count:16];
-            if (v47)
+            v46 = [spheroids countByEnumeratingWithState:&v63 objects:v72 count:16];
+            if (v46)
             {
-              v48 = v47;
-              v49 = *v65;
+              v47 = v46;
+              v48 = *v64;
               vistaCopy = 24;
               do
               {
-                for (j = 0; j != v48; ++j)
+                for (j = 0; j != v47; ++j)
                 {
-                  if (*v65 != v49)
+                  if (*v64 != v48)
                   {
                     objc_enumerationMutation(spheroids);
                   }
 
-                  v51 = *(*(&v64 + 1) + 8 * j);
-                  type = [v51 type];
-                  v53 = type;
+                  v50 = *(*(&v63 + 1) + 8 * j);
+                  type = [v50 type];
+                  v52 = type;
                   if (type == 4)
                   {
-                    v54 = 0.000001;
+                    v53 = 0.000001;
                   }
 
                   else
                   {
-                    v54 = 1.0;
+                    v53 = 1.0;
                   }
 
-                  [v51 radiusScale];
-                  if (*&v55 != v54)
+                  [v50 radiusScale];
+                  if (*&v54 != v53)
                   {
-                    *&v55 = v54;
-                    [v51 setRadiusScale:v55];
+                    *&v54 = v53;
+                    [v50 setRadiusScale:v54];
                   }
 
-                  if (((1 << v53) & 0xFFF400) != 0)
+                  if (((1 << v52) & 0xFFF400) != 0)
                   {
-                    v56 = 1.0;
+                    v55 = 1.0;
                   }
 
                   else
                   {
-                    v56 = 0.0;
+                    v55 = 0.0;
                   }
 
-                  [v51 opacity];
-                  if (*&v57 != v56)
+                  [v50 opacity];
+                  if (*&v56 != v55)
                   {
-                    *&v57 = v56;
-                    [v51 setOpacity:v57];
+                    *&v56 = v55;
+                    [v50 setOpacity:v56];
                   }
                 }
 
-                v48 = [spheroids countByEnumeratingWithState:&v64 objects:v73 count:16];
+                v47 = [spheroids countByEnumeratingWithState:&v63 objects:v72 count:16];
               }
 
-              while (v48);
+              while (v47);
               goto LABEL_66;
             }
           }
@@ -1050,17 +1083,17 @@ LABEL_66:
         }
 
 LABEL_46:
-        v62 = 0u;
-        v63 = 0u;
-        v60 = 0u;
         v61 = 0u;
+        v62 = 0u;
+        v59 = 0u;
+        v60 = 0u;
         spheroids = [(NUNIScene *)v7 spheroids];
-        v32 = [spheroids countByEnumeratingWithState:&v60 objects:v72 count:16];
+        v32 = [spheroids countByEnumeratingWithState:&v59 objects:v71 count:16];
         if (v32)
         {
           v33 = v32;
-          v58 = v8;
-          v34 = *v61;
+          v57 = v8;
+          v34 = *v60;
           v35 = v9 | 0x400;
           v36 = v9 & 0x3FE;
           if (style == 1)
@@ -1077,15 +1110,15 @@ LABEL_46:
           {
             for (k = 0; k != v33; ++k)
             {
-              if (*v61 != v34)
+              if (*v60 != v34)
               {
                 objc_enumerationMutation(spheroids);
               }
 
-              v39 = *(*(&v60 + 1) + 8 * k);
-              structure2 = [v39 structure];
-              v41 = structure2;
-              v42 = (1 << *structure2);
+              v39 = *(*(&v59 + 1) + 8 * k);
+              v40 = objc_msgSend_structure(v39);
+              v41 = v40;
+              v42 = (1 << *v40);
               if ((v35 & v42) != 0)
               {
                 v43 = 1.0;
@@ -1096,7 +1129,7 @@ LABEL_46:
                 v43 = 0.000001;
               }
 
-              if (*(structure2 + 88) != v43)
+              if (*(v40 + 88) != v43)
               {
                 [v39 setRadiusScale:?];
               }
@@ -1121,11 +1154,11 @@ LABEL_46:
               [v39 setDistanceScale:v45];
             }
 
-            v33 = [spheroids countByEnumeratingWithState:&v60 objects:v72 count:16];
+            v33 = [spheroids countByEnumeratingWithState:&v59 objects:v71 count:16];
           }
 
           while (v33);
-          v8 = v58;
+          v8 = v57;
         }
 
         goto LABEL_66;
@@ -1207,9 +1240,6 @@ LABEL_46:
 
     goto LABEL_46;
   }
-
-LABEL_68:
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)astronomySceneAnimationFinished:(id)finished

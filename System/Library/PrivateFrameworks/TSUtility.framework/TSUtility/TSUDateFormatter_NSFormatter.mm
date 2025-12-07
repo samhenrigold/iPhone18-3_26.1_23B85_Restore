@@ -43,13 +43,13 @@ LABEL_6:
 
 - (BOOL)getObjectValue:(id *)value forString:(id)string errorDescription:(id *)description
 {
-  v12 = 0;
+  v14 = 0;
   v9 = [+[TSUDateParserLibrary sharedDateParserLibrary](TSUDateParserLibrary "sharedDateParserLibrary")];
-  v10 = [v9 newDateFromString:string preferredFormatString:0 successfulFormatString:&v12 tryAggressiveFormats:0];
-  [+[TSUDateParserLibrary sharedDateParserLibrary](TSUDateParserLibrary "sharedDateParserLibrary")];
-  if (v12)
+  v10 = [v9 newDateFromString:string preferredFormatString:0 successfulFormatString:&v14 tryAggressiveFormats:0];
+  v11 = [+[TSUDateParserLibrary sharedDateParserLibrary](TSUDateParserLibrary "sharedDateParserLibrary")];
+  if (v14)
   {
-    [(TSUDateFormatter_NSFormatter *)self setPreferredFormat:?];
+    v11 = [(TSUDateFormatter_NSFormatter *)self setPreferredFormat:?];
   }
 
   if (v10)
@@ -62,7 +62,7 @@ LABEL_6:
     *value = 0;
     if (description)
     {
-      *description = [SFUBundle() localizedStringForKey:@"The date is invalid." value:&stru_287DDF830 table:@"TSUtility"];
+      *description = [SFUBundle(v11 v12)];
     }
   }
 

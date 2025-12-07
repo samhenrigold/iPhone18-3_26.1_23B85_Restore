@@ -3,7 +3,9 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axAddIfVisible:(id)visible toArray:(id)array;
 - (void)_axAnnotateCollectionViewCellIfNeeded;
+- (void)setSharedItemsAvailable:(BOOL)available;
 - (void)updateContentAreaAnimated:(BOOL)animated;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SFAirDropActivityViewControllerAccessibility
@@ -79,6 +81,16 @@
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(SFAirDropActivityViewControllerAccessibility *)self _axSetDidPostScreenChangeAfterAppearance:0];
+  v5.receiver = self;
+  v5.super_class = SFAirDropActivityViewControllerAccessibility;
+  [(SFAirDropActivityViewControllerAccessibility *)&v5 viewWillAppear:appearCopy];
+  [(SFAirDropActivityViewControllerAccessibility *)self _axAnnotateCollectionViewCellIfNeeded];
+}
+
 - (void)_accessibilityLoadAccessibilityInformation
 {
   v3.receiver = self;
@@ -103,6 +115,14 @@
     [(SFAirDropActivityViewControllerAccessibility *)self _axAnnotateCollectionViewCellIfNeeded];
   }
 
+  [(SFAirDropActivityViewControllerAccessibility *)self _axAnnotateCollectionViewCellIfNeeded];
+}
+
+- (void)setSharedItemsAvailable:(BOOL)available
+{
+  v4.receiver = self;
+  v4.super_class = SFAirDropActivityViewControllerAccessibility;
+  [(SFAirDropActivityViewControllerAccessibility *)&v4 setSharedItemsAvailable:available];
   [(SFAirDropActivityViewControllerAccessibility *)self _axAnnotateCollectionViewCellIfNeeded];
 }
 

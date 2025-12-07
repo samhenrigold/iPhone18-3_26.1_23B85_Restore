@@ -48,7 +48,7 @@
     v6[24] = 1;
     *(v6 + 7) = 1;
     sub_10000501C(&__p, "FakeXPlatfromD2DConnection");
-    [v6 getQueue];
+    objc_msgSend_getQueue(v6);
     ctu::RestModule::RestModule();
     v7 = v15;
     v15 = 0uLL;
@@ -89,7 +89,7 @@
   completionCopy = completion;
   v8 = objc_alloc_init(CellularPlanCrossPlatformTransferMessageCodec);
   v9 = [(CellularPlanCrossPlatformTransferMessageCodec *)v8 decodeMessage:sendCopy];
-  [(FakeXPlatformD2DConnection *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v10 = *&v12[4];
   ctu::OsLogContext::~OsLogContext(&v11);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -108,7 +108,7 @@
 - (void)tryConnectWithCode:(id)code
 {
   codeCopy = code;
-  [(FakeXPlatformD2DConnection *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v5 = *&v7[4];
   ctu::OsLogContext::~OsLogContext(&v6);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -124,7 +124,7 @@
 - (void)getDCTCodeWithCompletion:(id)completion
 {
   completionCopy = completion;
-  [(FakeXPlatformD2DConnection *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v5 = v7;
   ctu::OsLogContext::~OsLogContext(v6);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -188,7 +188,7 @@
 - (void)onConnectionStateChanged:(int)changed
 {
   v3 = *&changed;
-  [(FakeXPlatformD2DConnection *)self getLogContext];
+  objc_msgSend_getLogContext(self, a2);
   v5 = *&v11[4];
   ctu::OsLogContext::~OsLogContext(&v10);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -219,7 +219,7 @@
 - (void)onReceived:(id)received
 {
   receivedCopy = received;
-  [(FakeXPlatformD2DConnection *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v5 = *&v13[4];
   ctu::OsLogContext::~OsLogContext(&v12);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -814,7 +814,7 @@ LABEL_15:
 {
   eventCopy = event;
   payloadCopy = payload;
-  [(FakeXPlatformD2DConnection *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v8 = *&v30[4];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -907,7 +907,7 @@ LABEL_31:
 
     if (v11)
     {
-      [(FakeXPlatformD2DConnection *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v17 = *&v30[4];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
@@ -921,7 +921,7 @@ LABEL_31:
 
     if (v14)
     {
-      [(FakeXPlatformD2DConnection *)self getLogContext];
+      objc_msgSend_getLogContext(self);
       v19 = *&v30[4];
       ctu::OsLogContext::~OsLogContext(buf);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
@@ -955,7 +955,7 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  [(FakeXPlatformD2DConnection *)self getLogContext];
+  objc_msgSend_getLogContext(self);
   v12 = *&v30[4];
   ctu::OsLogContext::~OsLogContext(buf);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))

@@ -171,7 +171,7 @@ LABEL_29:
     v84 = v16;
     if (v10)
     {
-      [v10 naturalToEditablePathSpaceTransform];
+      objc_msgSend_naturalToEditablePathSpaceTransform(v10);
     }
 
     else
@@ -272,7 +272,7 @@ LABEL_28:
     v85 = v56;
     if (v10)
     {
-      [v10 naturalToEditablePathSpaceTransform];
+      objc_msgSend_naturalToEditablePathSpaceTransform(v10);
       v55 = v82;
       v56 = v85;
       v58 = *&v89.a;
@@ -348,7 +348,7 @@ LABEL_28:
       [(CRLCanvasShapeRenderable *)self->_handleLine setLineWidth:1.0];
     }
 
-    [(CRLPathKnob *)self p_underlayRenderableTransformForRep:repCopy, 0, 0, 0, 0, 0, 0];
+    objc_msgSend_p_underlayRenderableTransformForRep_(self, 0, 0, 0, 0, 0, 0);
     Mutable = CGPathCreateMutable();
     [(CRLBezierNode *)self->_node nodePoint];
     v10 = v9;
@@ -395,7 +395,7 @@ LABEL_28:
   v8 = layout;
   if (layout)
   {
-    [layout pureTransformInRoot];
+    objc_msgSend_pureTransformInRoot(layout);
   }
 
   else
@@ -418,7 +418,7 @@ LABEL_28:
     *&t2.a = *&retstr->a;
     *&t2.c = v20;
     *&t2.tx = *&retstr->tx;
-    [v18 pathKnobUnderlayRenderableTransform:&t2];
+    objc_msgSend_pathKnobUnderlayRenderableTransform_(v18);
     v21 = *&t1.c;
     *&retstr->a = *&t1.a;
     *&retstr->c = v21;

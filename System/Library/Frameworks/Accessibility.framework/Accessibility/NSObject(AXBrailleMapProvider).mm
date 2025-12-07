@@ -35,9 +35,6 @@
   else
   {
     v4 = *MEMORY[0x1E695F058];
-    v5 = *(MEMORY[0x1E695F058] + 8);
-    v6 = *(MEMORY[0x1E695F058] + 16);
-    v7 = *(MEMORY[0x1E695F058] + 24);
   }
 
   return v4;

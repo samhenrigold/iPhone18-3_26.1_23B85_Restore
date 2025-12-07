@@ -420,7 +420,7 @@ void __35__WBSMobileAssetController__update__block_invoke_3(uint64_t a1, void *a
     v14 = __getMAAssetClass_block_invoke;
     v15 = &unk_1E8283D08;
     v16 = &v17;
-    MobileAssetLibraryCore();
+    MobileAssetLibraryCore(0);
     v18[3] = objc_getClass("MAAsset");
     getMAAssetClass_softClass = *(v16[1] + 24);
     v6 = v18[3];

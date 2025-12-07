@@ -32,7 +32,7 @@
   }
 
   v7.receiver = selfCopy;
-  v7.super_class = type metadata accessor for DefaultCallingAppsModel();
+  v7.super_class = type metadata accessor for DefaultCallingAppsModel(0);
   [(DefaultCallingAppsModel *)&v7 dealloc];
 }
 

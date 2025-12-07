@@ -33,13 +33,13 @@
 
 - (BOOL)performWithError:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration cachedCloudState];
   containerIdentifier = [(CKContainer *)self->_container containerIdentifier];
-  v28 = 0;
-  v8 = [cachedCloudState contextSyncZoneForContainerID:containerIdentifier error:&v28];
-  v9 = v28;
+  v27 = 0;
+  v8 = [cachedCloudState contextSyncZoneForContainerID:containerIdentifier error:&v27];
+  v9 = v27;
 
   if (v8)
   {
@@ -65,10 +65,10 @@
           containerIdentifier3 = [(CKContainer *)self->_container containerIdentifier];
           *buf = 138543874;
           selfCopy2 = self;
-          v31 = 2114;
-          v32 = profile2;
-          v33 = 2114;
-          v34 = containerIdentifier3;
+          v30 = 2114;
+          v31 = profile2;
+          v32 = 2114;
+          v33 = containerIdentifier3;
           _os_log_impl(&dword_228986000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@: Journaled device contexts for profile: %{public}@, container identifier: %{public}@", buf, 0x20u);
         }
       }
@@ -79,7 +79,7 @@
   {
     if (error)
     {
-      v23 = v9;
+      v22 = v9;
       LOBYTE(v16) = 0;
       *error = v9;
     }
@@ -94,23 +94,22 @@
   else
   {
     _HKInitializeLogging();
-    v24 = *MEMORY[0x277CCC328];
+    v23 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
       container = self->_container;
-      v26 = v24;
+      v25 = v23;
       containerIdentifier4 = [(CKContainer *)container containerIdentifier];
       *buf = 138543618;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = containerIdentifier4;
-      _os_log_impl(&dword_228986000, v26, OS_LOG_TYPE_DEFAULT, "%{public}@: Context sync zone not present for container identifier: %{public}@", buf, 0x16u);
+      v30 = 2114;
+      v31 = containerIdentifier4;
+      _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@: Context sync zone not present for container identifier: %{public}@", buf, 0x16u);
     }
 
     LOBYTE(v16) = 1;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

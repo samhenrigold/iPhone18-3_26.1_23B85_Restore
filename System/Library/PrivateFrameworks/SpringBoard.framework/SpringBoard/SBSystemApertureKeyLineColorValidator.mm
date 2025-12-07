@@ -103,28 +103,28 @@ LABEL_12:
         v15 = CGColorCreate(self->_labColorSpace, components);
         v16 = CGColorTransformConvertColor();
         CGColorRelease(v15);
-        v17 = SBLogSystemApertureController();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v18 = SBLogSystemApertureController(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
-          [(SBSystemApertureKeyLineColorValidator *)v12 validateKeyLineColor:v17];
+          [(SBSystemApertureKeyLineColorValidator *)v12 validateKeyLineColor:v18];
         }
 
         if (v16)
         {
-          v18 = [MEMORY[0x277D75348] colorWithCGColor:v16];
+          v19 = [MEMORY[0x277D75348] colorWithCGColor:v16];
         }
 
         else
         {
 LABEL_17:
-          v18 = v10;
+          v19 = v10;
           v16 = 0;
         }
 
         CGColorRelease(v16);
         CGColorRelease(v11);
 
-        v5 = v18;
+        v5 = v19;
       }
     }
   }

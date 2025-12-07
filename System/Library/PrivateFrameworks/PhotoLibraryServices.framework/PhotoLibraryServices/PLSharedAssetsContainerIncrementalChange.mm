@@ -195,7 +195,7 @@ LABEL_13:
   }
 
   highlightContainerChanges = [(PLSharedAssetsContainerIncrementalChange *)self highlightContainerChanges];
-  v3 = [highlightContainerChanges count] != 0;
+  v3 = objc_msgSend_count(highlightContainerChanges) != 0;
 
   return v3;
 }
@@ -208,7 +208,7 @@ LABEL_13:
   }
 
   highlightContainerChanges = [(PLSharedAssetsContainerIncrementalChange *)self highlightContainerChanges];
-  if ([highlightContainerChanges count])
+  if (objc_msgSend_count(highlightContainerChanges))
   {
     v3 = 0;
   }
@@ -265,7 +265,7 @@ LABEL_13:
   mediaType = [(PLSharedAssetsContainerIncrementalChange *)self mediaType];
   hasNoOtherAssetChangesRequiringMomentGeneration = [(PLSharedAssetsContainerIncrementalChange *)self hasNoOtherAssetChangesRequiringMomentGeneration];
   highlightContainerChanges = [(PLSharedAssetsContainerIncrementalChange *)self highlightContainerChanges];
-  if ([highlightContainerChanges count])
+  if (objc_msgSend_count(highlightContainerChanges))
   {
     highlightContainerChanges2 = [(PLSharedAssetsContainerIncrementalChange *)self highlightContainerChanges];
     v12 = [highlightContainerChanges2 debugDescription];

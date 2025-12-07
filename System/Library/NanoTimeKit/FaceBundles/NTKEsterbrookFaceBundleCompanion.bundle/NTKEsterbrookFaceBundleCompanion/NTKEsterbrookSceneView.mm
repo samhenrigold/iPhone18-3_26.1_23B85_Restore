@@ -23,7 +23,7 @@
 {
   *(&self->super.super.super.isa + OBJC_IVAR___NTKEsterbrookSceneView_tritiumProgress) = progress;
   selfCopy = self;
-  sub_23BE05CF8();
+  sub_23BE05CF8(selfCopy);
 }
 
 - (void)setScenePalette:(id)palette
@@ -75,7 +75,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_23BE0764C();
+  sub_23BE0764C(selfCopy);
 }
 
 - (void)layoutForDateChange

@@ -49,23 +49,22 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   v0 = MEMORY[0x1E69E96A0];
   v1 = qos_class_main();
   v2 = [BSServiceDispatchQueue alloc];
-  v3 = *MEMORY[0x1E695E4D0];
   if (v1 == QOS_CLASS_USER_INTERACTIVE)
   {
-    v4 = *MEMORY[0x1E695E4D0];
+    v3 = *MEMORY[0x1E695E4D0];
   }
 
   else
   {
-    v4 = *MEMORY[0x1E695E4C0];
+    v3 = *MEMORY[0x1E695E4C0];
   }
 
-  v5 = [(BSServiceDispatchQueue *)v2 _initWithQueue:v4 asUserInteractive:1 shouldAssociate:?];
-  v6 = _MergedGlobals_1;
-  _MergedGlobals_1 = v5;
+  v4 = [(BSServiceDispatchQueue *)v2 _initWithQueue:v3 asUserInteractive:1 shouldAssociate:?];
+  v5 = _MergedGlobals_1;
+  _MergedGlobals_1 = v4;
 
   *(_MergedGlobals_1 + 24) = 1;
-  v7 = MEMORY[0x1E69E96A0];
+  v6 = MEMORY[0x1E69E96A0];
 }
 
 - (_BYTE)_initWithQueue:(uint64_t)queue asUserInteractive:(int)interactive shouldAssociate:
@@ -105,35 +104,35 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
 
 + (id)_queueWithDispatchQueue:(uint64_t)queue
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = objc_opt_self();
   if (!v2)
   {
-    v8 = v3;
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
+    v7 = v3;
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(sel__queueWithDispatchQueue_);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v9 = NSStringFromSelector(sel__queueWithDispatchQueue_);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138544642;
-      v15 = v10;
-      v16 = 2114;
-      v17 = v12;
-      v18 = 2048;
-      v19 = v8;
-      v20 = 2114;
-      v21 = @"BSServiceQueue.m";
-      v22 = 1024;
-      v23 = 60;
-      v24 = 2114;
-      v25 = v9;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v11;
+      v17 = 2048;
+      v18 = v7;
+      v19 = 2114;
+      v20 = @"BSServiceQueue.m";
+      v21 = 1024;
+      v22 = 60;
+      v23 = 2114;
+      v24 = v8;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v13 = v9;
-    [v9 UTF8String];
+    v12 = v8;
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8528F8);
@@ -151,44 +150,42 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
 
   v5 = v4;
 
-  v6 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (BSServiceDispatchQueue)queueWithName:(id)name
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v6 = MEMORY[0x1E696AEC0];
   if (!nameCopy)
   {
-    v13 = objc_opt_class();
-    v14 = NSStringFromClass(v13);
-    v15 = [v6 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"name", v14];
+    v12 = objc_opt_class();
+    v13 = NSStringFromClass(v12);
+    v14 = [v6 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"name", v13];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v16 = NSStringFromSelector(a2);
-      v17 = objc_opt_class();
-      v18 = NSStringFromClass(v17);
+      v15 = NSStringFromSelector(a2);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
       *buf = 138544642;
-      v31 = v16;
-      v32 = 2114;
-      v33 = v18;
-      v34 = 2048;
+      v30 = v15;
+      v31 = 2114;
+      v32 = v17;
+      v33 = 2048;
       selfCopy2 = self;
-      v36 = 2114;
-      v37 = @"BSServiceQueue.m";
-      v38 = 1024;
-      v39 = 83;
-      v40 = 2114;
-      v41 = v15;
+      v35 = 2114;
+      v36 = @"BSServiceQueue.m";
+      v37 = 1024;
+      v38 = 83;
+      v39 = 2114;
+      v40 = v14;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v19 = v15;
-    [v15 UTF8String];
+    v18 = v14;
+    [v14 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A852B58);
@@ -197,40 +194,40 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v20 = MEMORY[0x1E696AEC0];
+    v19 = MEMORY[0x1E696AEC0];
     classForCoder = [nameCopy classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v22 = NSStringFromClass(classForCoder);
-    v23 = objc_opt_class();
-    v24 = NSStringFromClass(v23);
-    v25 = [v20 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"name", v22, v24];
+    v21 = NSStringFromClass(classForCoder);
+    v22 = objc_opt_class();
+    v23 = NSStringFromClass(v22);
+    v24 = [v19 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"name", v21, v23];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v26 = NSStringFromSelector(a2);
-      v27 = objc_opt_class();
-      v28 = NSStringFromClass(v27);
+      v25 = NSStringFromSelector(a2);
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
       *buf = 138544642;
-      v31 = v26;
-      v32 = 2114;
-      v33 = v28;
-      v34 = 2048;
+      v30 = v25;
+      v31 = 2114;
+      v32 = v27;
+      v33 = 2048;
       selfCopy2 = self;
-      v36 = 2114;
-      v37 = @"BSServiceQueue.m";
-      v38 = 1024;
-      v39 = 83;
-      v40 = 2114;
-      v41 = v25;
+      v35 = 2114;
+      v36 = @"BSServiceQueue.m";
+      v37 = 1024;
+      v38 = 83;
+      v39 = 2114;
+      v40 = v24;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v29 = v25;
-    [v25 UTF8String];
+    v28 = v24;
+    [v24 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A852C9CLL);
@@ -241,46 +238,44 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   v9 = [BSServiceDispatchQueue alloc];
   v10 = [(BSServiceDispatchQueue *)v9 _initWithQueue:v8 asUserInteractive:*MEMORY[0x1E695E4C0] shouldAssociate:1];
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 + (BSServiceDispatchQueue)queueWithName:(id)name targetQueue:(id)queue
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   queueCopy = queue;
   v9 = nameCopy;
   v10 = MEMORY[0x1E696AEC0];
   if (!v9)
   {
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = [v10 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"name", v19];
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
+    v19 = [v10 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"name", v18];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromSelector(a2);
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v20 = NSStringFromSelector(a2);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138544642;
-      v41 = v21;
-      v42 = 2114;
-      v43 = v23;
-      v44 = 2048;
+      v40 = v20;
+      v41 = 2114;
+      v42 = v22;
+      v43 = 2048;
       selfCopy3 = self;
-      v46 = 2114;
-      v47 = @"BSServiceQueue.m";
-      v48 = 1024;
-      v49 = 90;
-      v50 = 2114;
-      v51 = v20;
+      v45 = 2114;
+      v46 = @"BSServiceQueue.m";
+      v47 = 1024;
+      v48 = 90;
+      v49 = 2114;
+      v50 = v19;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v24 = v20;
-    [v20 UTF8String];
+    v23 = v19;
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A852F90);
@@ -289,40 +284,40 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v25 = MEMORY[0x1E696AEC0];
+    v24 = MEMORY[0x1E696AEC0];
     classForCoder = [v9 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v27 = NSStringFromClass(classForCoder);
-    v28 = objc_opt_class();
-    v29 = NSStringFromClass(v28);
-    v30 = [v25 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"name", v27, v29];
+    v26 = NSStringFromClass(classForCoder);
+    v27 = objc_opt_class();
+    v28 = NSStringFromClass(v27);
+    v29 = [v24 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"name", v26, v28];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v31 = NSStringFromSelector(a2);
-      v32 = objc_opt_class();
-      v33 = NSStringFromClass(v32);
+      v30 = NSStringFromSelector(a2);
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
       *buf = 138544642;
-      v41 = v31;
-      v42 = 2114;
-      v43 = v33;
-      v44 = 2048;
+      v40 = v30;
+      v41 = 2114;
+      v42 = v32;
+      v43 = 2048;
       selfCopy3 = self;
-      v46 = 2114;
-      v47 = @"BSServiceQueue.m";
-      v48 = 1024;
-      v49 = 90;
-      v50 = 2114;
-      v51 = v30;
+      v45 = 2114;
+      v46 = @"BSServiceQueue.m";
+      v47 = 1024;
+      v48 = 90;
+      v49 = 2114;
+      v50 = v29;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v34 = v30;
-    [v30 UTF8String];
+    v33 = v29;
+    [v29 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8530D4);
@@ -330,29 +325,29 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
 
   if (!queueCopy)
   {
-    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetQueue"];
+    v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetQueue"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v36 = NSStringFromSelector(a2);
-      v37 = objc_opt_class();
-      v38 = NSStringFromClass(v37);
+      v35 = NSStringFromSelector(a2);
+      v36 = objc_opt_class();
+      v37 = NSStringFromClass(v36);
       *buf = 138544642;
-      v41 = v36;
-      v42 = 2114;
-      v43 = v38;
-      v44 = 2048;
+      v40 = v35;
+      v41 = 2114;
+      v42 = v37;
+      v43 = 2048;
       selfCopy3 = self;
-      v46 = 2114;
-      v47 = @"BSServiceQueue.m";
-      v48 = 1024;
-      v49 = 91;
-      v50 = 2114;
-      v51 = v35;
+      v45 = 2114;
+      v46 = @"BSServiceQueue.m";
+      v47 = 1024;
+      v48 = 91;
+      v49 = 2114;
+      v50 = v34;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v39 = v35;
-    [v35 UTF8String];
+    v38 = v34;
+    [v34 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8531D4);
@@ -365,46 +360,44 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   v14 = [BSServiceDispatchQueue alloc];
   v15 = [(BSServiceDispatchQueue *)v14 _initWithQueue:v13 asUserInteractive:*MEMORY[0x1E695E4C0] shouldAssociate:1];
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (BSServiceDispatchQueue)queueWithName:(id)name serviceQuality:(id)quality
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   qualityCopy = quality;
   v9 = nameCopy;
   v10 = MEMORY[0x1E696AEC0];
   if (!v9)
   {
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
-    v24 = [v10 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"name", v23];
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
+    v22 = [v10 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"name", v21];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v25 = NSStringFromSelector(a2);
-      v26 = objc_opt_class();
-      v27 = NSStringFromClass(v26);
+      v23 = NSStringFromSelector(a2);
+      v24 = objc_opt_class();
+      v25 = NSStringFromClass(v24);
       *buf = 138544642;
+      v56 = v23;
+      v57 = 2114;
       v58 = v25;
-      v59 = 2114;
-      v60 = v27;
-      v61 = 2048;
+      v59 = 2048;
       selfCopy4 = self;
-      v63 = 2114;
-      v64 = @"BSServiceQueue.m";
-      v65 = 1024;
-      v66 = 98;
-      v67 = 2114;
-      v68 = v24;
+      v61 = 2114;
+      v62 = @"BSServiceQueue.m";
+      v63 = 1024;
+      v64 = 98;
+      v65 = 2114;
+      v66 = v22;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v28 = v24;
-    [v24 UTF8String];
+    v26 = v22;
+    [v22 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A853560);
@@ -413,40 +406,40 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v29 = MEMORY[0x1E696AEC0];
+    v27 = MEMORY[0x1E696AEC0];
     classForCoder = [v9 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v31 = NSStringFromClass(classForCoder);
-    v32 = objc_opt_class();
-    v33 = NSStringFromClass(v32);
-    v34 = [v29 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"name", v31, v33];
+    v29 = NSStringFromClass(classForCoder);
+    v30 = objc_opt_class();
+    v31 = NSStringFromClass(v30);
+    v32 = [v27 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"name", v29, v31];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v35 = NSStringFromSelector(a2);
-      v36 = objc_opt_class();
-      v37 = NSStringFromClass(v36);
+      v33 = NSStringFromSelector(a2);
+      v34 = objc_opt_class();
+      v35 = NSStringFromClass(v34);
       *buf = 138544642;
+      v56 = v33;
+      v57 = 2114;
       v58 = v35;
-      v59 = 2114;
-      v60 = v37;
-      v61 = 2048;
+      v59 = 2048;
       selfCopy4 = self;
-      v63 = 2114;
-      v64 = @"BSServiceQueue.m";
-      v65 = 1024;
-      v66 = 98;
-      v67 = 2114;
-      v68 = v34;
+      v61 = 2114;
+      v62 = @"BSServiceQueue.m";
+      v63 = 1024;
+      v64 = 98;
+      v65 = 2114;
+      v66 = v32;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v38 = v34;
-    [v34 UTF8String];
+    v36 = v32;
+    [v32 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8536A4);
@@ -455,33 +448,33 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   v11 = qualityCopy;
   if (!v11)
   {
-    v39 = MEMORY[0x1E696AEC0];
-    v40 = objc_opt_class();
-    v41 = NSStringFromClass(v40);
-    v42 = [v39 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"serviceQuality", v41];
+    v37 = MEMORY[0x1E696AEC0];
+    v38 = objc_opt_class();
+    v39 = NSStringFromClass(v38);
+    v40 = [v37 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"serviceQuality", v39];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v43 = NSStringFromSelector(a2);
-      v44 = objc_opt_class();
-      v45 = NSStringFromClass(v44);
+      v41 = NSStringFromSelector(a2);
+      v42 = objc_opt_class();
+      v43 = NSStringFromClass(v42);
       *buf = 138544642;
+      v56 = v41;
+      v57 = 2114;
       v58 = v43;
-      v59 = 2114;
-      v60 = v45;
-      v61 = 2048;
+      v59 = 2048;
       selfCopy4 = self;
-      v63 = 2114;
-      v64 = @"BSServiceQueue.m";
-      v65 = 1024;
-      v66 = 99;
-      v67 = 2114;
-      v68 = v42;
+      v61 = 2114;
+      v62 = @"BSServiceQueue.m";
+      v63 = 1024;
+      v64 = 99;
+      v65 = 2114;
+      v66 = v40;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v46 = v42;
-    [v42 UTF8String];
+    v44 = v40;
+    [v40 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8537C4);
@@ -490,40 +483,40 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v47 = MEMORY[0x1E696AEC0];
+    v45 = MEMORY[0x1E696AEC0];
     classForCoder2 = [v11 classForCoder];
     if (!classForCoder2)
     {
       classForCoder2 = objc_opt_class();
     }
 
-    v49 = NSStringFromClass(classForCoder2);
-    v50 = objc_opt_class();
-    v51 = NSStringFromClass(v50);
-    v52 = [v47 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"serviceQuality", v49, v51];
+    v47 = NSStringFromClass(classForCoder2);
+    v48 = objc_opt_class();
+    v49 = NSStringFromClass(v48);
+    v50 = [v45 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"serviceQuality", v47, v49];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v53 = NSStringFromSelector(a2);
-      v54 = objc_opt_class();
-      v55 = NSStringFromClass(v54);
+      v51 = NSStringFromSelector(a2);
+      v52 = objc_opt_class();
+      v53 = NSStringFromClass(v52);
       *buf = 138544642;
+      v56 = v51;
+      v57 = 2114;
       v58 = v53;
-      v59 = 2114;
-      v60 = v55;
-      v61 = 2048;
+      v59 = 2048;
       selfCopy4 = self;
-      v63 = 2114;
-      v64 = @"BSServiceQueue.m";
-      v65 = 1024;
-      v66 = 99;
-      v67 = 2114;
-      v68 = v52;
+      v61 = 2114;
+      v62 = @"BSServiceQueue.m";
+      v63 = 1024;
+      v64 = 99;
+      v65 = 2114;
+      v66 = v50;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v56 = v52;
-    [v52 UTF8String];
+    v54 = v50;
+    [v50 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A853908);
@@ -535,27 +528,24 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   v14 = BSDispatchQueueCreate();
   serviceClass = [v11 serviceClass];
   v16 = [BSServiceDispatchQueue alloc];
-  v17 = *MEMORY[0x1E695E4D0];
   if (serviceClass == 33)
   {
-    v18 = *MEMORY[0x1E695E4D0];
+    v17 = *MEMORY[0x1E695E4D0];
   }
 
   else
   {
-    v18 = *MEMORY[0x1E695E4C0];
+    v17 = *MEMORY[0x1E695E4C0];
   }
 
-  v19 = [(BSServiceDispatchQueue *)v16 _initWithQueue:v14 asUserInteractive:v18 shouldAssociate:1];
+  v18 = [(BSServiceDispatchQueue *)v16 _initWithQueue:v14 asUserInteractive:v17 shouldAssociate:1];
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
 + (BSServiceDispatchQueue)queueWithName:(id)name serviceQuality:(id)quality targetQueue:(id)queue
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   qualityCopy = quality;
   queueCopy = queue;
@@ -563,32 +553,32 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   v13 = MEMORY[0x1E696AEC0];
   if (!v12)
   {
-    v26 = objc_opt_class();
-    v27 = NSStringFromClass(v26);
-    v28 = [v13 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"name", v27];
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
+    v26 = [v13 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"name", v25];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v29 = NSStringFromSelector(a2);
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
+      v27 = NSStringFromSelector(a2);
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
       *buf = 138544642;
+      v65 = v27;
+      v66 = 2114;
       v67 = v29;
-      v68 = 2114;
-      v69 = v31;
-      v70 = 2048;
+      v68 = 2048;
       selfCopy5 = self;
-      v72 = 2114;
-      v73 = @"BSServiceQueue.m";
-      v74 = 1024;
-      v75 = 108;
-      v76 = 2114;
-      v77 = v28;
+      v70 = 2114;
+      v71 = @"BSServiceQueue.m";
+      v72 = 1024;
+      v73 = 108;
+      v74 = 2114;
+      v75 = v26;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v32 = v28;
-    [v28 UTF8String];
+    v30 = v26;
+    [v26 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A853D10);
@@ -597,40 +587,40 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v33 = MEMORY[0x1E696AEC0];
+    v31 = MEMORY[0x1E696AEC0];
     classForCoder = [v12 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v35 = NSStringFromClass(classForCoder);
-    v36 = objc_opt_class();
-    v37 = NSStringFromClass(v36);
-    v38 = [v33 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"name", v35, v37];
+    v33 = NSStringFromClass(classForCoder);
+    v34 = objc_opt_class();
+    v35 = NSStringFromClass(v34);
+    v36 = [v31 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"name", v33, v35];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v39 = NSStringFromSelector(a2);
-      v40 = objc_opt_class();
-      v41 = NSStringFromClass(v40);
+      v37 = NSStringFromSelector(a2);
+      v38 = objc_opt_class();
+      v39 = NSStringFromClass(v38);
       *buf = 138544642;
+      v65 = v37;
+      v66 = 2114;
       v67 = v39;
-      v68 = 2114;
-      v69 = v41;
-      v70 = 2048;
+      v68 = 2048;
       selfCopy5 = self;
-      v72 = 2114;
-      v73 = @"BSServiceQueue.m";
-      v74 = 1024;
-      v75 = 108;
-      v76 = 2114;
-      v77 = v38;
+      v70 = 2114;
+      v71 = @"BSServiceQueue.m";
+      v72 = 1024;
+      v73 = 108;
+      v74 = 2114;
+      v75 = v36;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v42 = v38;
-    [v38 UTF8String];
+    v40 = v36;
+    [v36 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A853E54);
@@ -639,33 +629,33 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   v14 = qualityCopy;
   if (!v14)
   {
-    v43 = MEMORY[0x1E696AEC0];
-    v44 = objc_opt_class();
-    v45 = NSStringFromClass(v44);
-    v46 = [v43 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"serviceQuality", v45];
+    v41 = MEMORY[0x1E696AEC0];
+    v42 = objc_opt_class();
+    v43 = NSStringFromClass(v42);
+    v44 = [v41 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"serviceQuality", v43];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v47 = NSStringFromSelector(a2);
-      v48 = objc_opt_class();
-      v49 = NSStringFromClass(v48);
+      v45 = NSStringFromSelector(a2);
+      v46 = objc_opt_class();
+      v47 = NSStringFromClass(v46);
       *buf = 138544642;
+      v65 = v45;
+      v66 = 2114;
       v67 = v47;
-      v68 = 2114;
-      v69 = v49;
-      v70 = 2048;
+      v68 = 2048;
       selfCopy5 = self;
-      v72 = 2114;
-      v73 = @"BSServiceQueue.m";
-      v74 = 1024;
-      v75 = 109;
-      v76 = 2114;
-      v77 = v46;
+      v70 = 2114;
+      v71 = @"BSServiceQueue.m";
+      v72 = 1024;
+      v73 = 109;
+      v74 = 2114;
+      v75 = v44;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v50 = v46;
-    [v46 UTF8String];
+    v48 = v44;
+    [v44 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A853F74);
@@ -674,40 +664,40 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v51 = MEMORY[0x1E696AEC0];
+    v49 = MEMORY[0x1E696AEC0];
     classForCoder2 = [v14 classForCoder];
     if (!classForCoder2)
     {
       classForCoder2 = objc_opt_class();
     }
 
-    v53 = NSStringFromClass(classForCoder2);
-    v54 = objc_opt_class();
-    v55 = NSStringFromClass(v54);
-    v56 = [v51 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"serviceQuality", v53, v55];
+    v51 = NSStringFromClass(classForCoder2);
+    v52 = objc_opt_class();
+    v53 = NSStringFromClass(v52);
+    v54 = [v49 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"serviceQuality", v51, v53];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v57 = NSStringFromSelector(a2);
-      v58 = objc_opt_class();
-      v59 = NSStringFromClass(v58);
+      v55 = NSStringFromSelector(a2);
+      v56 = objc_opt_class();
+      v57 = NSStringFromClass(v56);
       *buf = 138544642;
+      v65 = v55;
+      v66 = 2114;
       v67 = v57;
-      v68 = 2114;
-      v69 = v59;
-      v70 = 2048;
+      v68 = 2048;
       selfCopy5 = self;
-      v72 = 2114;
-      v73 = @"BSServiceQueue.m";
-      v74 = 1024;
-      v75 = 109;
-      v76 = 2114;
-      v77 = v56;
+      v70 = 2114;
+      v71 = @"BSServiceQueue.m";
+      v72 = 1024;
+      v73 = 109;
+      v74 = 2114;
+      v75 = v54;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v60 = v56;
-    [v56 UTF8String];
+    v58 = v54;
+    [v54 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8540B8);
@@ -715,29 +705,29 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
 
   if (!queueCopy)
   {
-    v61 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetQueue"];
+    v59 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"targetQueue"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v62 = NSStringFromSelector(a2);
-      v63 = objc_opt_class();
-      v64 = NSStringFromClass(v63);
+      v60 = NSStringFromSelector(a2);
+      v61 = objc_opt_class();
+      v62 = NSStringFromClass(v61);
       *buf = 138544642;
+      v65 = v60;
+      v66 = 2114;
       v67 = v62;
-      v68 = 2114;
-      v69 = v64;
-      v70 = 2048;
+      v68 = 2048;
       selfCopy5 = self;
-      v72 = 2114;
-      v73 = @"BSServiceQueue.m";
-      v74 = 1024;
-      v75 = 110;
-      v76 = 2114;
-      v77 = v61;
+      v70 = 2114;
+      v71 = @"BSServiceQueue.m";
+      v72 = 1024;
+      v73 = 110;
+      v74 = 2114;
+      v75 = v59;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v65 = v61;
-    [v61 UTF8String];
+    v63 = v59;
+    [v59 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8541B8);
@@ -751,61 +741,57 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   v18 = BSDispatchQueueCreate();
   serviceClass = [v14 serviceClass];
   v20 = [BSServiceDispatchQueue alloc];
-  v21 = *MEMORY[0x1E695E4D0];
   if (serviceClass == 33)
   {
-    v22 = *MEMORY[0x1E695E4D0];
+    v21 = *MEMORY[0x1E695E4D0];
   }
 
   else
   {
-    v22 = *MEMORY[0x1E695E4C0];
+    v21 = *MEMORY[0x1E695E4C0];
   }
 
-  v23 = [(BSServiceDispatchQueue *)v20 _initWithQueue:v18 asUserInteractive:v22 shouldAssociate:1];
+  v22 = [(BSServiceDispatchQueue *)v20 _initWithQueue:v18 asUserInteractive:v21 shouldAssociate:1];
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 - (void)performAsyncAndWait:(id)wait
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   waitCopy = wait;
   if (!waitCopy)
   {
-    v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"block"];
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"block"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v8 = NSStringFromSelector(a2);
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
+      v7 = NSStringFromSelector(a2);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       *buf = 138544642;
-      v14 = v8;
-      v15 = 2114;
-      v16 = v10;
-      v17 = 2048;
+      v13 = v7;
+      v14 = 2114;
+      v15 = v9;
+      v16 = 2048;
       selfCopy = self;
-      v19 = 2114;
-      v20 = @"BSServiceQueue.m";
-      v21 = 1024;
-      v22 = 119;
-      v23 = 2114;
-      v24 = v7;
+      v18 = 2114;
+      v19 = @"BSServiceQueue.m";
+      v20 = 1024;
+      v21 = 119;
+      v22 = 2114;
+      v23 = v6;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v11 = v7;
-    [v7 UTF8String];
+    v10 = v6;
+    [v6 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8544A4);
   }
 
-  v12 = waitCopy;
+  v11 = waitCopy;
   dispatch_async_and_wait(self->_queue, waitCopy);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_performAsync:(id)async withHandoff:(id)handoff
@@ -814,7 +800,6 @@ void __35__BSServiceDispatchQueue_mainQueue__block_invoke()
   handoffCopy = handoff;
   if (block)
   {
-    queue = self->_queue;
     if (handoffCopy)
     {
       xpc_dictionary_handoff_reply();

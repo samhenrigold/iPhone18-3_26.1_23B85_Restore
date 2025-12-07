@@ -11,6 +11,7 @@
 - (void)dealloc;
 - (void)handleButtonActions:(id)actions;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation FARemoteAlertServiceViewController
@@ -27,6 +28,21 @@
     appearance = [MEMORY[0x277D75D18] appearance];
     [appearance setSemanticContentAttribute:4];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = FARemoteAlertServiceViewController;
+  [(FARemoteAlertServiceViewController *)&v7 viewWillAppear:appear];
+  view = [(FARemoteAlertServiceViewController *)self view];
+  window = [view window];
+  _rootSheetPresentationController = [window _rootSheetPresentationController];
+  [_rootSheetPresentationController _setShouldScaleDownBehindDescendantSheets:0];
+
+  [(FARemoteAlertServiceViewController *)self setNeedsStatusBarAppearanceUpdate];
+  [(FARemoteAlertServiceViewController *)self _setupRemoteProxy];
+  [(FARemoteAlertServiceViewController *)self _showFamilyFlow];
 }
 
 - (void)_setupRemoteProxy
@@ -160,7 +176,7 @@ uint64_t __53__FARemoteAlertServiceViewController__showFamilyFlow__block_invoke(
 {
   contextCopy = context;
   completionCopy = completion;
-  v8 = _FALogSystem();
+  v8 = _FALogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -215,7 +231,7 @@ uint64_t __53__FARemoteAlertServiceViewController__showFamilyFlow__block_invoke(
 void __70__FARemoteAlertServiceViewController_configureWithContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _FALogSystem();
+  v4 = _FALogSystem(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __70__FARemoteAlertServiceViewController_configureWithContext_completion___block_invoke_cold_1(v3, v4);
@@ -227,8 +243,8 @@ void __70__FARemoteAlertServiceViewController_configureWithContext_completion___
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _FALogSystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _FALogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -237,10 +253,9 @@ void __70__FARemoteAlertServiceViewController_configureWithContext_completion___
   }
 
   [(FARemoteAlertServiceViewController *)self _invalidateLookupConnection];
-  v5.receiver = self;
-  v5.super_class = FARemoteAlertServiceViewController;
-  [(SBUIRemoteAlertServiceViewController *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = FARemoteAlertServiceViewController;
+  [(SBUIRemoteAlertServiceViewController *)&v4 dealloc];
 }
 
 - (unint64_t)supportedInterfaceOrientations
@@ -286,28 +301,28 @@ void __70__FARemoteAlertServiceViewController_configureWithContext_completion___
 
 - (void)handleButtonActions:(id)actions
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   actionsCopy = actions;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v5 = [actionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [actionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(actionsCopy);
         }
 
-        if (([*(*(&v10 + 1) + 8 * v8) events] & 0x10) != 0)
+        if (([*(*(&v9 + 1) + 8 * v8) events] & 0x10) != 0)
         {
           [(FARemoteAlertServiceViewController *)self _dismissAndExit];
         }
@@ -316,22 +331,19 @@ void __70__FARemoteAlertServiceViewController_configureWithContext_completion___
       }
 
       while (v6 != v8);
-      v6 = [actionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [actionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __70__FARemoteAlertServiceViewController_configureWithContext_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "listener lookup connection error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21BB35000, a2, OS_LOG_TYPE_ERROR, "listener lookup connection error: %@", &v2, 0xCu);
 }
 
 @end

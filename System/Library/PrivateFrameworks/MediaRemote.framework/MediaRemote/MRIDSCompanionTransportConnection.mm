@@ -74,7 +74,7 @@ void __81__MRIDSCompanionTransportConnection_initWithConnection_type_destination
 
 - (unint64_t)sendTransportData:(id)data options:(id)options
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   dataCopy = data;
   v8 = -[MRIDSCompanionTransportConnection _idsPriorityFromPriority:](self, "_idsPriorityFromPriority:", [optionsCopy priority]);
@@ -87,15 +87,14 @@ void __81__MRIDSCompanionTransportConnection_initWithConnection_type_destination
 
   else
   {
-    v14 = *MEMORY[0x1E69A47C0];
-    v15[0] = MEMORY[0x1E695E118];
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E69A47C0];
+    v14[0] = MEMORY[0x1E695E118];
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   }
 
   [(MRIDSCompanionConnection *)self->_connection sendMessage:dataCopy type:self->_type destination:self->_destination session:self->_session options:v10 priority:v8];
   v11 = [dataCopy length];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

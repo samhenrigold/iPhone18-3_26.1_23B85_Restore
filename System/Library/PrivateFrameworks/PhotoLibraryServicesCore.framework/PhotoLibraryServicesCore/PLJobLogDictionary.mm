@@ -21,7 +21,7 @@ void ___PLJobLogDictionary_block_invoke(uint64_t a1, void *a2, void *a3)
       if (objc_opt_isKindOfClass())
       {
         NSLog(@"# %@ %@ -> {", *(a1 + 40), v7);
-        _PLJobLogDictionary(v5, (*(a1 + 48) + 1), 0);
+        _PLJobLogDictionary(v5, *(a1 + 48) + 1, 0);
         NSLog(@"# %@ }", *(a1 + 40), v6);
       }
 

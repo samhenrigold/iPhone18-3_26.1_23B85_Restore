@@ -49,7 +49,7 @@
   metadataCopy = metadata;
   selfCopy = self;
   v12 = sub_21AEB2E88(feature, metadataCopy, v8, v9, "Encountered error from bundle: %s while archiving feature donation: %@");
-  sub_21AE9678C(v8);
+  sub_21AE9678C(v8, v9);
   swift_unknownObjectRelease();
 
   return v12;
@@ -75,7 +75,7 @@
   metadataCopy = metadata;
   selfCopy = self;
   v12 = sub_21AEB20B8(v8, metadataCopy, v7, v9);
-  sub_21AE9678C(v7);
+  sub_21AE9678C(v7, v9);
 
   return v12;
 }
@@ -85,17 +85,23 @@
   v8 = _Block_copy(block);
   if (v8)
   {
-    *(swift_allocObject() + 16) = v8;
+    v9 = swift_allocObject();
+    *(v9 + 16) = v8;
     v8 = sub_21AEB37CC;
+  }
+
+  else
+  {
+    v9 = 0;
   }
 
   batchCopy = batch;
   metadataCopy = metadata;
   selfCopy = self;
-  v14 = sub_21AEB2E88(batchCopy, metadataCopy, v12, v13, "Encountered error from bundle: %s while archiving batch features donation: %@");
-  sub_21AE9678C(v8);
+  v15 = sub_21AEB2E88(batchCopy, metadataCopy, v13, v14, "Encountered error from bundle: %s while archiving batch features donation: %@");
+  sub_21AE9678C(v8, v9);
 
-  return v14;
+  return v15;
 }
 
 @end

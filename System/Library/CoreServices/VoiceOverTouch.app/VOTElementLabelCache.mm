@@ -241,27 +241,27 @@
 - (void)_syncLabelCache
 {
   v3 = [objc_allocWithZone(NSMutableDictionary) init];
+  v13 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
   v4 = self->_labelCache;
-  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v16 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_labelCache objectForKey:v9, v13, v14, v15];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)self->_labelCache objectForKey:v9];
         if (v10)
         {
           hashKey = [v9 hashKey];
@@ -270,13 +270,11 @@
 
         else
         {
-          v14 = @"***Label cache had a nil value in it. That is not good.";
-          LOBYTE(v13) = 1;
-          _AXLogWithFacility();
+          _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"***Label cache had a nil value in it. That is not good.");
         }
       }
 
-      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);

@@ -250,28 +250,28 @@ LABEL_8:
 
 - (id)uns_topicSettings
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = *(self + *MEMORY[0x277CF35C0]);
-  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * i);
+        v7 = *(*(&v17 + 1) + 8 * i);
         v8 = MEMORY[0x277CE1FE8];
         subsectionID = [v7 subsectionID];
         displayName = [v7 displayName];
@@ -283,13 +283,11 @@ LABEL_8:
         [v2 addObject:v14];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v4);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

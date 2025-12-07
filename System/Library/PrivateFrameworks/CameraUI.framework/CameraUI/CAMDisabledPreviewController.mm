@@ -190,11 +190,11 @@ void __55__CAMDisabledPreviewController__descriptionForReasons___block_invoke(ui
   [v4 addObject:v5];
 }
 
-uint64_t __55__CAMDisabledPreviewController__descriptionForReasons___block_invoke_3(uint64_t a1, uint64_t a2, unint64_t a3)
+char *__55__CAMDisabledPreviewController__descriptionForReasons___block_invoke_3(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   [*(a1 + 32) appendString:a2];
   result = [*(a1 + 40) count];
-  if (result - 1 > a3)
+  if ((result - 1) > a3)
   {
     v6 = *(a1 + 32);
 

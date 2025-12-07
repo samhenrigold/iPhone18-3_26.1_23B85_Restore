@@ -191,7 +191,7 @@ VFCancelationToken *__59__VFObservable_observableOnNotificationCenter_name_objec
 
 VFCancelationToken *__48__VFObservable_observableOnNotifyTokenWithName___block_invoke(uint64_t a1, void *a2)
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(VFCancelationToken);
   out_token = -1;
@@ -202,34 +202,32 @@ VFCancelationToken *__48__VFObservable_observableOnNotifyTokenWithName___block_i
   handler[2] = __48__VFObservable_observableOnNotifyTokenWithName___block_invoke_2;
   handler[3] = &unk_279E35DE0;
   v7 = v3;
-  v20 = v7;
+  v19 = v7;
   LODWORD(v5) = notify_register_dispatch(v5, &out_token, v6, handler);
 
   if (v5)
   {
     v8 = MEMORY[0x277CCA9B8];
     v9 = *__error();
-    v22 = *MEMORY[0x277CCA450];
+    v21 = *MEMORY[0x277CCA450];
     v10 = MEMORY[0x277CCACA8];
     v11 = __error();
     v12 = [v10 stringWithUTF8String:strerror(*v11)];
-    v23[0] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v22[0] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v14 = [v8 errorWithDomain:*MEMORY[0x277CCA5B8] code:v9 userInfo:v13];
     [v7 observerDidFailWithError:v14];
   }
 
   else
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __48__VFObservable_observableOnNotifyTokenWithName___block_invoke_3;
-    v17[3] = &__block_descriptor_36_e5_v8__0l;
-    v18 = out_token;
-    [(VFCancelationToken *)v4 addCancelationBlock:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __48__VFObservable_observableOnNotifyTokenWithName___block_invoke_3;
+    v16[3] = &__block_descriptor_36_e5_v8__0l;
+    v17 = out_token;
+    [(VFCancelationToken *)v4 addCancelationBlock:v16];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -401,7 +399,7 @@ void __35__VFObservable_observeOnQueue_qos___block_invoke_2(id *a1, void *a2)
   dispatch_async(v4, block);
 }
 
-uint64_t __35__VFObservable_observeOnQueue_qos___block_invoke_3(uint64_t a1)
+void *__35__VFObservable_observeOnQueue_qos___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)
@@ -427,7 +425,7 @@ void __35__VFObservable_observeOnQueue_qos___block_invoke_35(id *a1)
   dispatch_async(v2, v3);
 }
 
-uint64_t __35__VFObservable_observeOnQueue_qos___block_invoke_2_36(uint64_t a1)
+void *__35__VFObservable_observeOnQueue_qos___block_invoke_2_36(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)
@@ -455,7 +453,7 @@ void __35__VFObservable_observeOnQueue_qos___block_invoke_39(id *a1, void *a2)
   dispatch_async(v4, block);
 }
 
-uint64_t __35__VFObservable_observeOnQueue_qos___block_invoke_2_40(uint64_t a1)
+void *__35__VFObservable_observeOnQueue_qos___block_invoke_2_40(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)
@@ -1046,16 +1044,14 @@ void __20__VFObservable_map___block_invoke_2(uint64_t a1)
 
 - (id)startWith:(id)with
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   withCopy = with;
   v5 = objc_opt_class();
   v6 = [objc_opt_class() observableWithResults:withCopy];
-  v11[0] = v6;
-  v11[1] = self;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[0] = v6;
+  v10[1] = self;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v8 = [v5 concatenate:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

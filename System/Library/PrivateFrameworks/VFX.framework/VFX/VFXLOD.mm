@@ -42,7 +42,7 @@
   }
 
   self->_mode = mode;
-  v10 = objc_msgSend___CFObject(model, a2, model, mode);
+  v10 = objc_msgSend___CFObject(model, a2, model);
   self->_lod = sub_1AF1A0910(v10, mode, value);
 }
 
@@ -68,17 +68,17 @@
 
 - (VFXLOD)initWithModel:(id)model thresholdMode:(int64_t)mode thresholdValue:(id)value
 {
-  v15.receiver = self;
-  v15.super_class = VFXLOD;
-  v11 = [(VFXLOD *)&v15 init];
-  if (v11)
+  v14.receiver = self;
+  v14.super_class = VFXLOD;
+  v10 = [(VFXLOD *)&v14 init];
+  if (v10)
   {
-    objc_msgSend_doubleValue(value, v8, v9, v10);
-    *&v12 = v12;
-    objc_msgSend__setupWithModel_thresholdMode_value_(v11, v13, model, mode, v12);
+    objc_msgSend_doubleValue(value, v8, v9);
+    *&v11 = v11;
+    objc_msgSend__setupWithModel_thresholdMode_value_(v10, v12, model, mode, v11);
   }
 
-  return v11;
+  return v10;
 }
 
 + (id)levelOfDetailWithModel:(id)model screenSpaceRadius:(float)radius
@@ -101,27 +101,26 @@
 
 - (id)thresholdValue
 {
-  v5 = sub_1AF1A0A40(self->_lod);
-  v6 = MEMORY[0x1E696AD98];
-  v7 = v5;
+  v4 = sub_1AF1A0A40(self->_lod, a2);
+  v5 = MEMORY[0x1E696AD98];
+  v6 = v4;
 
-  return objc_msgSend_numberWithDouble_(v6, v2, v3, v4, v7);
+  return objc_msgSend_numberWithDouble_(v5, v2, v3, v6);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  mode = self->_mode;
   model = self->_model;
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithModel_thresholdMode_lod_, model, mode);
+  return MEMORY[0x1EEE66B58](v4, sel_initWithModel_thresholdMode_lod_, model);
 }
 
 - (float)screenSpaceRadius
 {
   if (self->_mode == 1)
   {
-    return sub_1AF1A0A40(self->_lod);
+    return sub_1AF1A0A40(self->_lod, a2);
   }
 
   else
@@ -139,68 +138,68 @@
 
   else
   {
-    return sub_1AF1A0A40(self->_lod);
+    return sub_1AF1A0A40(self->_lod, a2);
   }
 }
 
 - (id)description
 {
-  v5 = MEMORY[0x1E696AEC0];
-  v6 = objc_msgSend_model(self, a2, v2, v3);
-  v7 = sub_1AF1A0A40(self->_lod);
-  return objc_msgSend_stringWithFormat_(v5, v8, @"levelOfDetail <%p>: model:%@ threshold:%f useDistance:%d", v9, self, v6, *&v7, self->_mode == 0);
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_msgSend_model(self, a2, v2);
+  v7 = sub_1AF1A0A40(self->_lod, v6);
+  return objc_msgSend_stringWithFormat_(v4, v8, @"levelOfDetail <%p>: model:%@ threshold:%f useDistance:%d", self, v5, *&v7, self->_mode == 0);
 }
 
 - (void)_customEncodingOfVFXLOD:(id)d
 {
   v4 = MEMORY[0x1E696AD98];
-  v5 = sub_1AF1A0A40(self->_lod);
-  v10 = objc_msgSend_numberWithDouble_(v4, v6, v7, v8, v5);
+  v5 = sub_1AF1A0A40(self->_lod, a2);
+  v9 = objc_msgSend_numberWithDouble_(v4, v6, v7, v5);
 
-  objc_msgSend_encodeObject_forKey_(d, v9, v10, @"threshold");
+  objc_msgSend_encodeObject_forKey_(d, v8, v9, @"threshold");
 }
 
 - (void)_didDecodeVFXLOD:(id)d
 {
   v5 = objc_opt_class();
   v7 = objc_msgSend_decodeObjectOfClass_forKey_(d, v6, v5, @"threshold");
-  objc_msgSend_doubleValue(v7, v8, v9, v10);
-  *&v12 = v12;
+  objc_msgSend_doubleValue(v7, v8, v9);
+  *&v11 = v11;
   mode = self->_mode;
   model = self->_model;
 
-  objc_msgSend__setupWithModel_thresholdMode_value_(self, v11, model, mode, v12);
+  objc_msgSend__setupWithModel_thresholdMode_value_(self, v10, model, mode, v11);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  objc_msgSend__customEncodingOfVFXLOD_(self, a2, coder, v3);
-  objc_msgSend_encodeInteger_forKey_(coder, v6, self->_mode, @"mode");
+  objc_msgSend__customEncodingOfVFXLOD_(self, a2, coder);
+  objc_msgSend_encodeInteger_forKey_(coder, v5, self->_mode, @"mode");
   model = self->_model;
   if (model)
   {
 
-    objc_msgSend_encodeObject_forKey_(coder, v7, model, @"model");
+    objc_msgSend_encodeObject_forKey_(coder, v6, model, @"model");
   }
 }
 
 - (VFXLOD)initWithCoder:(id)coder
 {
-  v20.receiver = self;
-  v20.super_class = VFXLOD;
-  v7 = [(VFXLOD *)&v20 init];
-  if (v7)
+  v15.receiver = self;
+  v15.super_class = VFXLOD;
+  v6 = [(VFXLOD *)&v15 init];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    v7->_mode = objc_msgSend_decodeIntegerForKey_(coder, v11, @"mode", v12);
-    v13 = objc_opt_class();
-    v7->_model = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"model");
-    objc_msgSend__didDecodeVFXLOD_(v7, v15, coder, v16);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v17, v8, v18);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    v6->_mode = objc_msgSend_decodeIntegerForKey_(coder, v9, @"mode");
+    v10 = objc_opt_class();
+    v6->_model = objc_msgSend_decodeObjectOfClass_forKey_(coder, v11, v10, @"model");
+    objc_msgSend__didDecodeVFXLOD_(v6, v12, coder);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v13, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

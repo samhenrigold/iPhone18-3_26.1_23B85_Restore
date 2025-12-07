@@ -97,21 +97,20 @@
   block[3] = &unk_100083940;
   block[4] = self;
   v10 = newInfoCopy;
-  v24 = v10;
+  v23 = v10;
   dispatch_async(delegateQueue, block);
   notify_post(GEOCountryConfigurationCountryCodeChangedDarwinNotification);
-  v11 = GeoServicesConfig_CountryProviders[1];
-  v12 = GEOConfigGetDictionary();
+  v11 = GEOConfigGetDictionary();
   countryCode = [infoCopy countryCode];
 
-  v14 = [v12 objectForKeyedSubscript:countryCode];
+  v13 = [v11 objectForKeyedSubscript:countryCode];
 
   countryCode2 = [v10 countryCode];
-  v16 = [v12 objectForKeyedSubscript:countryCode2];
+  v15 = [v11 objectForKeyedSubscript:countryCode2];
 
-  if (v14 && v16)
+  if (v13 && v15)
   {
-    if ([v16 isEqualToDictionary:v14])
+    if ([v15 isEqualToDictionary:v13])
     {
       goto LABEL_17;
     }
@@ -119,140 +118,136 @@
 
   else
   {
-    v17 = v14 == 0;
-    if (v16)
+    v16 = v13 == 0;
+    if (v15)
     {
-      v18 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v17 = 0;
-      v18 = v14 == 0;
+      v16 = 0;
+      v17 = v13 == 0;
     }
 
-    if (v18 && !v17)
+    if (v17 && !v16)
     {
       goto LABEL_17;
     }
   }
 
-  v20 = GEOGetCountryConfigurationLog();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v19 = GEOGetCountryConfigurationLog();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Country-specific networkDefaults changed. Informing delegate", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Country-specific networkDefaults changed. Informing delegate", buf, 2u);
   }
 
-  v21 = self->_delegateQueue;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_1000339CC;
-  v22[3] = &unk_1000838C8;
-  v22[4] = self;
-  dispatch_async(v21, v22);
+  v20 = self->_delegateQueue;
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1000339CC;
+  v21[3] = &unk_1000838C8;
+  v21[4] = self;
+  dispatch_async(v20, v21);
   notify_post(kCountryProvidersChangedDarwinNotification);
 LABEL_17:
 }
 
 - (void)_pickNewCountryCode
 {
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_100033ED4;
-  v31 = sub_100033EE4;
-  v32 = 0;
-  v3 = GeoServicesConfig_ShouldOverrideCountryCode[1];
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_100033ED4;
+  v27 = sub_100033EE4;
+  v28 = 0;
   if (GEOConfigGetBOOL())
   {
-    v4 = GeoServicesConfig_OverrideCountryCode[1];
-    v5 = GEOConfigGetString();
+    v3 = GEOConfigGetString();
     if (_GEO_validateCountryCode())
     {
-      v6 = GEOGetCountryConfigurationLog();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v4 = GEOGetCountryConfigurationLog();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf) = 138477827;
-        *(&buf + 4) = v5;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Overriding country code to '%{private}@'", &buf, 0xCu);
+        *(&buf + 4) = v3;
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Overriding country code to '%{private}@'", &buf, 0xCu);
       }
 
-      v7 = [[_GEOCountryConfigurationInfo alloc] initWithCountryCode:v5 source:258];
-      v8 = v28[5];
-      v28[5] = v7;
+      v5 = [[_GEOCountryConfigurationInfo alloc] initWithCountryCode:v3 source:258];
+      v6 = v24[5];
+      v24[5] = v5;
     }
   }
 
-  if (!v28[5])
+  if (!v24[5])
   {
-    v26[0] = _NSConcreteStackBlock;
-    v26[1] = 3221225472;
-    v26[2] = sub_100033EEC;
-    v26[3] = &unk_100082AB0;
-    v26[4] = &v27;
-    [(_GEOCountryConfigurationLocalProxy *)self _withCache:v26];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100033EEC;
+    v22[3] = &unk_100082AB0;
+    v22[4] = &v23;
+    [(_GEOCountryConfigurationLocalProxy *)self _withCache:v22];
   }
 
-  v9 = +[_GEOCountryConfigurationInfo get];
-  v10 = v28[5];
-  if (!v10 || ([v10 countryCode], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "length") == 0, v11, v12))
+  v7 = +[_GEOCountryConfigurationInfo get];
+  v8 = v24[5];
+  if (!v8 || ([v8 countryCode], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "length") == 0, v9, v10))
   {
-    v18 = GEOGetCountryConfigurationLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v14 = GEOGetCountryConfigurationLog();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      countryCode = [v28[5] countryCode];
+      countryCode = [v24[5] countryCode];
       LODWORD(buf) = 138543362;
       *(&buf + 4) = countryCode;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Country code '%{public}@' is not a valid ISO 3166-1 alpha-2 country code. Ignoring...", &buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Country code '%{public}@' is not a valid ISO 3166-1 alpha-2 country code. Ignoring...", &buf, 0xCu);
     }
 
-    v20 = [NSMutableDictionary dictionaryWithObject:@"Received non-ISO 3166-1 alpha-2 country code" forKey:kCFErrorDescriptionKey];
-    countryCode2 = [v28[5] countryCode];
-    v22 = countryCode2 == 0;
+    v16 = [NSMutableDictionary dictionaryWithObject:@"Received non-ISO 3166-1 alpha-2 country code" forKey:kCFErrorDescriptionKey];
+    countryCode2 = [v24[5] countryCode];
+    v18 = countryCode2 == 0;
 
-    if (!v22)
+    if (!v18)
     {
-      countryCode3 = [v28[5] countryCode];
-      [v20 setObject:countryCode3 forKey:@"Country Code"];
+      countryCode3 = [v24[5] countryCode];
+      [v16 setObject:countryCode3 forKey:@"Country Code"];
     }
 
-    v24 = [NSError GEOErrorWithCode:-14 userInfo:v20];
-    [(_GEOCountryConfigurationLocalProxy *)self _callCompletionHandler:v24];
+    v20 = [NSError GEOErrorWithCode:-14 userInfo:v16];
+    [(_GEOCountryConfigurationLocalProxy *)self _callCompletionHandler:v20];
   }
 
   else
   {
-    if (([v28[5] isEqual:v9] & 1) == 0)
+    if (([v24[5] isEqual:v7] & 1) == 0)
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v34 = 0x3032000000;
-      v35 = sub_100033ED4;
-      v36 = sub_100033EE4;
-      v37 = 0;
-      queue = self->_queue;
-      v25 = v9;
-      v14 = GeoServicesConfig_DeviceCountryCodeSourced[1];
-      v15 = _GEOConfigAddBlockListenerForKey();
-      v16 = *(*(&buf + 1) + 40);
-      *(*(&buf + 1) + 40) = v15;
+      v30 = 0x3032000000;
+      v31 = sub_100033ED4;
+      v32 = sub_100033EE4;
+      v33 = 0;
+      v21 = v7;
+      v11 = _GEOConfigAddBlockListenerForKey();
+      v12 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = v11;
 
       _Block_object_dispose(&buf, 8);
     }
 
-    [v28[5] set];
-    v17 = GEOGetCountryConfigurationLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    [v24[5] set];
+    v13 = GEOGetCountryConfigurationLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Finished updating country configuration. Calling callback.", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Finished updating country configuration. Calling callback.", &buf, 2u);
     }
 
     [(_GEOCountryConfigurationLocalProxy *)self _callCompletionHandler:0];
   }
 
-  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v23, 8);
 }
 
 - (void)_updateCountryCode:(unsigned int)code
@@ -397,29 +392,29 @@ LABEL_6:
 - (void)_determineRegulatoryDomainSync:(id)sync
 {
   syncCopy = sync;
-  if (sub_100001910())
+  if (sub_100001910(0))
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2050000000;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2050000000;
     v5 = qword_1000960B0;
-    v21 = qword_1000960B0;
+    v22 = qword_1000960B0;
     if (!qword_1000960B0)
     {
       *&buf = _NSConcreteStackBlock;
       *(&buf + 1) = 3221225472;
-      v23 = sub_1000353F0;
-      v24 = &unk_1000830D0;
-      v25 = &v18;
-      sub_100001910();
+      v24 = sub_1000353F0;
+      v25 = &unk_1000830D0;
+      v26 = &v19;
+      sub_100001910(0);
       Class = objc_getClass("RDEstimate");
-      *(v25[1] + 24) = Class;
-      qword_1000960B0 = *(v25[1] + 24);
-      v5 = v19[3];
+      *(v26[1] + 24) = Class;
+      qword_1000960B0 = *(v26[1] + 24);
+      v5 = v20[3];
     }
 
     v7 = v5;
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v19, 8);
     currentEstimates = [v5 currentEstimates];
     if ([currentEstimates count] == 1)
     {
@@ -427,30 +422,30 @@ LABEL_6:
       countryCode = [firstObject countryCode];
       if (([countryCode isEqual:@"XZ"] & 1) == 0)
       {
-        v18 = 0;
-        v19 = &v18;
-        v20 = 0x2020000000;
+        v19 = 0;
+        v20 = &v19;
+        v21 = 0x2020000000;
         v11 = qword_1000960B8;
-        v21 = qword_1000960B8;
+        v22 = qword_1000960B8;
         if (!qword_1000960B8)
         {
           *&buf = _NSConcreteStackBlock;
           *(&buf + 1) = 3221225472;
-          v23 = sub_100035444;
-          v24 = &unk_1000830D0;
-          v25 = &v18;
+          v24 = sub_100035444;
+          v25 = &unk_1000830D0;
+          v26 = &v19;
           v12 = sub_100035494();
           v13 = dlsym(v12, "kRDPriorityWiFiAP");
-          *(v25[1] + 24) = v13;
-          qword_1000960B8 = *(v25[1] + 24);
-          v11 = v19[3];
+          *(v26[1] + 24) = v13;
+          qword_1000960B8 = *(v26[1] + 24);
+          v11 = v20[3];
         }
 
-        _Block_object_dispose(&v18, 8);
+        _Block_object_dispose(&v19, 8);
         if (!v11)
         {
-          dlerror();
-          abort_report_np();
+          v18 = dlerror();
+          abort_report_np("%s", v18);
           __break(1u);
         }
 
@@ -527,10 +522,9 @@ LABEL_21:
     self->_scheduledUpdateTimer = 0;
   }
 
-  queue = self->_queue;
-  v8 = geo_dispatch_timer_create_on_queue();
-  v9 = self->_scheduledUpdateTimer;
-  self->_scheduledUpdateTimer = v8;
+  v7 = geo_dispatch_timer_create_on_queue();
+  v8 = self->_scheduledUpdateTimer;
+  self->_scheduledUpdateTimer = v7;
 
   dispatch_activate(self->_scheduledUpdateTimer);
 }
@@ -542,11 +536,10 @@ LABEL_21:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138477827;
-    v10 = changedCopy;
+    v9 = changedCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Reachability changed: %{private}@", buf, 0xCu);
   }
 
-  v6 = GeoServicesConfig_CountryConfigurationRefreshOnReachability[1];
   if (GEOConfigGetBOOL())
   {
     queue = self->_queue;
@@ -657,9 +650,7 @@ LABEL_21:
 - (void)_withCache:(id)cache
 {
   cacheCopy = cache;
-  cacheIsolater = self->_cacheIsolater;
-  v7 = cacheCopy;
-  v6 = cacheCopy;
+  v3 = cacheCopy;
   geo_isolate_sync();
 }
 
@@ -678,7 +669,6 @@ LABEL_21:
 {
   signatureCopy = signature;
   dispatch_assert_queue_V2(self->_queue);
-  v4 = GeoServicesConfig_CountryConfigUseCheckNetworkSignature[1];
   if (GEOConfigGetBOOL())
   {
     _buildNetworkSignature = [(_GEOCountryConfigurationLocalProxy *)self _buildNetworkSignature];
@@ -693,7 +683,6 @@ LABEL_21:
 
 - (void)dealloc
 {
-  countryCodeOverrideChangeListener = self->_countryCodeOverrideChangeListener;
   GEOConfigRemoveBlockListener();
   scheduledUpdateTimer = self->_scheduledUpdateTimer;
   if (scheduledUpdateTimer)
@@ -708,21 +697,21 @@ LABEL_21:
     notify_cancel(regulatoryDomainListener);
   }
 
-  v6 = +[GEONetworkObserver sharedNetworkObserver];
-  [v6 removeNetworkReachableObserver:self];
+  v5 = +[GEONetworkObserver sharedNetworkObserver];
+  [v5 removeNetworkReachableObserver:self];
 
-  v7.receiver = self;
-  v7.super_class = _GEOCountryConfigurationLocalProxy;
-  [(_GEOCountryConfigurationLocalProxy *)&v7 dealloc];
+  v6.receiver = self;
+  v6.super_class = _GEOCountryConfigurationLocalProxy;
+  [(_GEOCountryConfigurationLocalProxy *)&v6 dealloc];
 }
 
 - (_GEOCountryConfigurationLocalProxy)initWithDelegate:(id)delegate delegateQueue:(id)queue
 {
   delegateCopy = delegate;
   queueCopy = queue;
-  v25.receiver = self;
-  v25.super_class = _GEOCountryConfigurationLocalProxy;
-  v8 = [(_GEOCountryConfigurationLocalProxy *)&v25 init];
+  v26.receiver = self;
+  v26.super_class = _GEOCountryConfigurationLocalProxy;
+  v8 = [(_GEOCountryConfigurationLocalProxy *)&v26 init];
   if (!v8)
   {
     goto LABEL_8;
@@ -740,12 +729,12 @@ LABEL_21:
 
   v8->_regulatoryDomainListener = -1;
   objc_initWeak(&location, v8);
-  if (!sub_100001910())
+  if (!sub_100001910(0))
   {
 LABEL_7:
-    v21 = v8;
+    v22 = v8;
     geo_dispatch_async_qos();
-    v19 = v21;
+    v19 = v22;
 
     objc_destroyWeak(&location);
 LABEL_8:
@@ -753,26 +742,26 @@ LABEL_8:
     return v8;
   }
 
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x2020000000;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
   v13 = qword_1000960A8;
-  v34 = qword_1000960A8;
+  v35 = qword_1000960A8;
   if (!qword_1000960A8)
   {
-    v26 = _NSConcreteStackBlock;
-    v27 = 3221225472;
-    v28 = sub_1000365B4;
-    v29 = &unk_1000830D0;
-    v30 = &v31;
+    v27 = _NSConcreteStackBlock;
+    v28 = 3221225472;
+    v29 = sub_1000365B4;
+    v30 = &unk_1000830D0;
+    v31 = &v32;
     v14 = sub_100035494();
     v15 = dlsym(v14, "kRegulatoryDomainUpdateNotification");
-    *(v30[1] + 24) = v15;
-    qword_1000960A8 = *(v30[1] + 24);
-    v13 = v32[3];
+    *(v31[1] + 24) = v15;
+    qword_1000960A8 = *(v31[1] + 24);
+    v13 = v33[3];
   }
 
-  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v32, 8);
   if (v13)
   {
     v16 = *v13;
@@ -782,15 +771,15 @@ LABEL_8:
     handler[1] = 3221225472;
     handler[2] = sub_100036604;
     handler[3] = &unk_100082928;
-    objc_copyWeak(&v23, &location);
+    objc_copyWeak(&v24, &location);
     notify_register_dispatch(uTF8String, &v8->_regulatoryDomainListener, v18, handler);
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v24);
     goto LABEL_7;
   }
 
-  dlerror();
-  result = abort_report_np();
+  v21 = dlerror();
+  result = abort_report_np("%s", v21);
   __break(1u);
   return result;
 }

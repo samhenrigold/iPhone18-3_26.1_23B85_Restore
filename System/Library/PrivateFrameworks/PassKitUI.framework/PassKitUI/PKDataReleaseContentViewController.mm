@@ -263,7 +263,7 @@ void __54__PKDataReleaseContentViewController_initWithRequest___block_invoke_4(u
   }
 }
 
-uint64_t __54__PKDataReleaseContentViewController_initWithRequest___block_invoke_5(uint64_t a1)
+void *__54__PKDataReleaseContentViewController_initWithRequest___block_invoke_5(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1120) isEqual:*(a1 + 40)];
   if (result)
@@ -685,7 +685,7 @@ LABEL_9:
     v12 = [*(*(a1 + 32) + 1032) externalizedAuthenticationContext];
   }
 
-  [*(*(a1 + 32) + 1032) setExternalizedAuthenticationContext:{0, *v13}];
+  [*(*(a1 + 32) + 1032) setExternalizedAuthenticationContext:{0, *v13, *&v13[8]}];
   [*(a1 + 32) _startEvaluationWithExternalizedContext:v12];
 }
 

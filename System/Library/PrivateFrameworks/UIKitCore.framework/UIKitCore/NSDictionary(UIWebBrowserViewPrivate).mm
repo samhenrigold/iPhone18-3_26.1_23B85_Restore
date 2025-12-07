@@ -15,17 +15,17 @@
 - (uint64_t)_web_messageType
 {
   v2 = [self objectForKey:@"MessageLevel"];
-  if ([v2 isEqualToString:@"TipMessageLevel"])
+  if (objc_msgSend_isEqualToString_(v2))
   {
     v3 = 2;
   }
 
-  else if ([v2 isEqualToString:@"LogMessageLevel"])
+  else if (objc_msgSend_isEqualToString_(v2))
   {
     v3 = 4;
   }
 
-  else if ([v2 isEqualToString:@"WarningMessageLevel"])
+  else if (objc_msgSend_isEqualToString_(v2))
   {
     v3 = 8;
   }
@@ -36,22 +36,22 @@
   }
 
   v4 = [self objectForKey:@"MessageSource"];
-  if ([v4 isEqualToString:@"HTMLMessageSource"])
+  if (objc_msgSend_isEqualToString_(v4))
   {
     v5 = 32;
   }
 
-  else if ([v4 isEqualToString:@"XMLMessageSource"])
+  else if (objc_msgSend_isEqualToString_(v4))
   {
     v5 = 64;
   }
 
-  else if ([v4 isEqualToString:@"JSMessageSource"])
+  else if (objc_msgSend_isEqualToString_(v4))
   {
     v5 = 128;
   }
 
-  else if ([v4 isEqualToString:@"CSSMessageSource"])
+  else if (objc_msgSend_isEqualToString_(v4))
   {
     v5 = 256;
   }

@@ -27,47 +27,10 @@ uint64_t __99___PSMapsSuggester_deleteMapsFeedbackEventsMatchingHandle_contactId
           v13 = [v4 contactId];
           v14 = v12 ^ (v13 == 0);
 
-          if (v14)
+          if ((v14 & 1) != 0 || (v15 = a1[4]) != 0 && ([v4 handle], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqualToString:", v16), v16, !v17) || (v18 = a1[5]) != 0 && (objc_msgSend(v4, "startLocationId"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v18, "isEqualToString:", v19), v19, !v20) || (v21 = a1[6]) != 0 && (objc_msgSend(v4, "endLocationId"), v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v21, "isEqualToString:", v22), v22, !v23))
           {
-            goto LABEL_21;
-          }
-
-          v15 = a1[4];
-          if (v15)
-          {
-            v16 = [v4 handle];
-            v17 = [v15 isEqualToString:v16];
-
-            if (!v17)
-            {
-              goto LABEL_21;
-            }
-          }
-
-          v18 = a1[5];
-          if (v18)
-          {
-            v19 = [v4 startLocationId];
-            v20 = [v18 isEqualToString:v19];
-
-            if (!v20)
-            {
-              goto LABEL_21;
-            }
-          }
-
-          v21 = a1[6];
-          if (v21)
-          {
-            v22 = [v4 endLocationId];
-            v23 = [v21 isEqualToString:v22];
-
-            if (!v23)
-            {
-LABEL_21:
-              v25 = 0;
-              goto LABEL_19;
-            }
+            v25 = 0;
+            goto LABEL_19;
           }
 
           v24 = a1[7];

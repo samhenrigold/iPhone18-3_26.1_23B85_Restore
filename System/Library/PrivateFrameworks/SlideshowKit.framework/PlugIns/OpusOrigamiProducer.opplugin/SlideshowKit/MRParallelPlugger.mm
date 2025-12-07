@@ -154,7 +154,7 @@
       v155 = v159;
       [v33 startTime];
       v161 = time - v160;
-      [v33 duration];
+      objc_msgSend_duration(v33);
       if (v161 >= v162)
       {
         [motions removeObjectForKey:@"positionX"];
@@ -286,7 +286,7 @@ LABEL_193:
   v171 = v173;
   [v164 startTime];
   v175 = time - v174;
-  [v164 duration];
+  objc_msgSend_duration(v164);
   if (v175 >= v176)
   {
     [motions removeObjectForKey:@"positionY"];
@@ -344,7 +344,7 @@ LABEL_22:
     v46 = v54;
     [v37 startTime];
     v56 = time - v55;
-    [v37 duration];
+    objc_msgSend_duration(v37);
     if (v56 >= v57)
     {
       [motions removeObjectForKey:@"zPosition"];
@@ -443,7 +443,7 @@ LABEL_54:
     v70 = v72;
     [v63 startTime];
     v74 = time - v73;
-    [v63 duration];
+    objc_msgSend_duration(v63);
     if (v74 >= v75)
     {
       [motions removeObjectForKey:@"scale"];
@@ -542,7 +542,7 @@ LABEL_79:
     v90 = v92;
     [v81 startTime];
     v94 = time - v93;
-    [v81 duration];
+    objc_msgSend_duration(v81);
     v83 = v39;
     if (v94 >= v95)
     {
@@ -645,7 +645,7 @@ LABEL_106:
     v108 = v110;
     [v101 startTime];
     v112 = time - v111;
-    [v101 duration];
+    objc_msgSend_duration(v101);
     if (v112 >= v113)
     {
       [motions removeObjectForKey:@"yRotationAngle"];
@@ -741,7 +741,7 @@ LABEL_131:
     v126 = v128;
     [v119 startTime];
     v130 = time - v129;
-    [v119 duration];
+    objc_msgSend_duration(v119);
     if (v130 >= v131)
     {
       [motions removeObjectForKey:@"rotationAngle"];
@@ -867,7 +867,7 @@ LABEL_173:
   v144 = v151;
   [v136 startTime];
   v153 = time - v152;
-  [v136 duration];
+  objc_msgSend_duration(v136);
   v145 = v181;
   if (v153 >= v154)
   {

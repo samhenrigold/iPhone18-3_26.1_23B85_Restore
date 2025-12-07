@@ -44,7 +44,7 @@ void __91___UIActivityUserDefaultsViewController__provideCellForTableView_indexP
 
 void __91___UIActivityUserDefaultsViewController__provideCellForTableView_indexPath_itemIdentifier___block_invoke_3(uint64_t a1)
 {
-  v19 = [MEMORY[0x1E6979320] objectForSlot:*(a1 + 48)];
+  v22 = [MEMORY[0x1E6979320] objectForSlot:*(a1 + 48)];
   v2 = *MEMORY[0x1E6979DE0];
   v3 = [*(a1 + 32) activityImageSlotView];
   v4 = [v3 layer];
@@ -52,27 +52,27 @@ void __91___UIActivityUserDefaultsViewController__provideCellForTableView_indexP
 
   v5 = [*(a1 + 32) activityImageSlotView];
   v6 = [v5 layer];
-  [v6 setContents:v19];
+  [v6 setContents:v22];
 
   v7 = [MEMORY[0x1E6979320] objectForSlot:*(a1 + 52)];
-  v8 = _ShareSheetDeviceScreenScale();
-  v9 = [*(a1 + 32) activityTitleView];
-  v10 = [v9 layer];
-  [v10 setContentsScale:v8];
+  v9 = _ShareSheetDeviceScreenScale(v7, v8);
+  v10 = [*(a1 + 32) activityTitleView];
+  v11 = [v10 layer];
+  [v11 setContentsScale:v9];
 
-  v11 = _ShareSheetDeviceScreenScale();
-  v12 = [*(a1 + 32) activityTitleView];
-  v13 = [v12 layer];
-  [v13 setRasterizationScale:v11];
-
-  v14 = *(a1 + 40);
+  v14 = _ShareSheetDeviceScreenScale(v12, v13);
   v15 = [*(a1 + 32) activityTitleView];
   v16 = [v15 layer];
-  [v16 setContentsGravity:v14];
+  [v16 setRasterizationScale:v14];
 
-  v17 = [*(a1 + 32) activityTitleView];
-  v18 = [v17 layer];
-  [v18 setContents:v7];
+  v17 = *(a1 + 40);
+  v18 = [*(a1 + 32) activityTitleView];
+  v19 = [v18 layer];
+  [v19 setContentsGravity:v17];
+
+  v20 = [*(a1 + 32) activityTitleView];
+  v21 = [v20 layer];
+  [v21 setContents:v7];
 }
 
 @end

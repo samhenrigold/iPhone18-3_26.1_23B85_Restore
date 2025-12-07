@@ -15,7 +15,7 @@
 
   v11 = swift_allocObject();
   *(v11 + 16) = v6;
-  sub_22BDA0EB8(v8, v10, sub_22BB3C488, v11);
+  sub_22BDA0EB8(v8, v10, sub_22BB3C488, v11, &unk_283F81C20, &unk_283F81C48, sub_22BB3CCDC, &unk_22BDD0EB8);
 
   sub_22BB3531C(v8, v10);
 }
@@ -30,7 +30,7 @@
 
   v11 = swift_allocObject();
   *(v11 + 16) = v6;
-  sub_22BDA0EB8(v8, v10, sub_22BB3C480, v11);
+  sub_22BDA0EB8(v8, v10, sub_22BB3C480, v11, &unk_283F81BA8, &unk_283F81BD0, sub_22BB3CCA8, &unk_22BDD0EA8);
 
   sub_22BB3531C(v8, v10);
 }

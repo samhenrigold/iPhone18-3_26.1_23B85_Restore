@@ -3,9 +3,9 @@
 
 @implementation NSIndexSet
 
-uint64_t __94__NSIndexSet_EDServerMessagePersistence__ed_nextRangesWithRangeCountLimit_reverseEnumeration___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, _BYTE *a4)
+id *__94__NSIndexSet_EDServerMessagePersistence__ed_nextRangesWithRangeCountLimit_reverseEnumeration___block_invoke(id *result, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  if (*(result + 48) <= *(*(*(result + 40) + 8) + 24))
+  if (result[6] <= *(*(result[5] + 1) + 24))
   {
     *a4 = 1;
   }
@@ -13,8 +13,8 @@ uint64_t __94__NSIndexSet_EDServerMessagePersistence__ed_nextRangesWithRangeCoun
   else
   {
     v4 = result;
-    result = [*(result + 32) addIndexesInRange:{a2, a3}];
-    ++*(*(*(v4 + 40) + 8) + 24);
+    result = [result[4] addIndexesInRange:{a2, a3}];
+    ++*(*(v4[5] + 1) + 24);
   }
 
   return result;

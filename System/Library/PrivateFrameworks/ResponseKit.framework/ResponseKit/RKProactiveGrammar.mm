@@ -62,34 +62,34 @@ uint64_t __35__RKProactiveGrammar_sharedManager__block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = _localeLangModel;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [_localeLangModel objectForKey:*(*(&v10 + 1) + 8 * v7)];
+        [_localeLangModel objectForKey:*(*(&v9 + 1) + 8 * v7)];
         LMLanguageModelRelease();
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -100,10 +100,9 @@ uint64_t __35__RKProactiveGrammar_sharedManager__block_invoke(uint64_t a1)
     ChineseTokenizerRelease();
   }
 
-  v9.receiver = self;
-  v9.super_class = RKProactiveGrammar;
-  [(RKProactiveGrammar *)&v9 dealloc];
-  v8 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = RKProactiveGrammar;
+  [(RKProactiveGrammar *)&v8 dealloc];
 }
 
 + (id)getOTAPathForRKBundle:(id)bundle
@@ -174,7 +173,7 @@ void __44__RKProactiveGrammar_getOTAPathForRKBundle___block_invoke_2(uint64_t a1
 
 - (void)getLanguageModel:(id)model
 {
-  v40[3] = *MEMORY[0x277D85DE8];
+  v39[3] = *MEMORY[0x277D85DE8];
   modelCopy = model;
   v4 = [_localeLangModel objectForKeyedSubscript:modelCopy];
 
@@ -213,19 +212,19 @@ void __44__RKProactiveGrammar_getOTAPathForRKBundle___block_invoke_2(uint64_t a1
 
     else
     {
-      v31 = v7;
-      v33 = v6;
-      v30 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:modelCopy];
-      v17 = [v30 objectForKey:*MEMORY[0x277CBE6C8]];
+      v30 = v7;
+      v32 = v6;
+      v29 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:modelCopy];
+      v17 = [v29 objectForKey:*MEMORY[0x277CBE6C8]];
       v18 = *v12;
-      v39[0] = *v11;
-      v39[1] = v18;
-      v40[0] = v17;
-      v40[1] = MEMORY[0x277CBEC28];
-      v39[2] = *v13;
+      v38[0] = *v11;
+      v38[1] = v18;
+      v39[0] = v17;
+      v39[1] = MEMORY[0x277CBEC28];
+      v38[2] = *v13;
       v19 = [_localeGrammarBundlePath objectForKeyedSubscript:modelCopy];
-      v40[2] = v19;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
+      v39[2] = v19;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:3];
       v20 = LMLanguageModelCreate();
 
       v16 = v12;
@@ -235,8 +234,8 @@ void __44__RKProactiveGrammar_getOTAPathForRKBundle___block_invoke_2(uint64_t a1
         [_localeLangModel setObject:v20 forKeyedSubscript:modelCopy];
       }
 
-      v7 = v31;
-      v6 = v33;
+      v7 = v30;
+      v6 = v32;
     }
 
     v21 = [RKProactiveGrammar getOTAPathForRKBundle:modelCopy];
@@ -244,20 +243,20 @@ void __44__RKProactiveGrammar_getOTAPathForRKBundle___block_invoke_2(uint64_t a1
 
     if (!v22 && v21)
     {
-      v32 = v7;
-      v34 = v6;
+      v31 = v7;
+      v33 = v6;
       [_localeGrammarBundlePath setObject:v21 forKeyedSubscript:modelCopy];
       v23 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:modelCopy];
       languageCode = [v23 languageCode];
       v25 = *v16;
-      v37[0] = *MEMORY[0x277D230E0];
-      v37[1] = v25;
-      v38[0] = languageCode;
-      v38[1] = MEMORY[0x277CBEC28];
-      v37[2] = *MEMORY[0x277D230A0];
+      v36[0] = *MEMORY[0x277D230E0];
+      v36[1] = v25;
+      v37[0] = languageCode;
+      v37[1] = MEMORY[0x277CBEC28];
+      v36[2] = *MEMORY[0x277D230A0];
       v26 = [_localeGrammarBundlePath objectForKeyedSubscript:modelCopy];
-      v38[2] = v26;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
+      v37[2] = v26;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
       v27 = LMLanguageModelCreate();
 
       if (v27)
@@ -272,15 +271,14 @@ void __44__RKProactiveGrammar_getOTAPathForRKBundle___block_invoke_2(uint64_t a1
         [_localeLangModel setObject:v27 forKeyedSubscript:modelCopy];
       }
 
-      v7 = v32;
-      v6 = v34;
+      v7 = v31;
+      v6 = v33;
     }
 
     CFRelease(cf);
     CFRelease(Mutable);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -361,35 +359,34 @@ LABEL_10:
 
 + (id)getEntities:(id)entities
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   entitiesCopy = entities;
   array = [v3 array];
   v6 = objc_alloc(MEMORY[0x277CCAAE8]);
   v8 = *MEMORY[0x277CCA3D8];
-  v22[0] = *MEMORY[0x277CCA3E8];
-  v7 = v22[0];
-  v22[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[0] = *MEMORY[0x277CCA3E8];
+  v7 = v21[0];
+  v21[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v10 = [v6 initWithTagSchemes:v9 options:4];
 
   [v10 setString:entitiesCopy];
   string = [v10 string];
   v12 = [string length];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __34__RKProactiveGrammar_getEntities___block_invoke;
-  v19[3] = &unk_279B102B0;
-  v20 = v10;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __34__RKProactiveGrammar_getEntities___block_invoke;
+  v18[3] = &unk_279B102B0;
+  v19 = v10;
   v13 = array;
-  v21 = v13;
+  v20 = v13;
   v14 = v10;
-  [v14 enumerateTagsInRange:0 scheme:v12 options:v7 usingBlock:{4, v19}];
+  [v14 enumerateTagsInRange:0 scheme:v12 options:v7 usingBlock:{4, v18}];
 
-  v15 = v21;
+  v15 = v20;
   v16 = v13;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -411,39 +408,39 @@ void __34__RKProactiveGrammar_getEntities___block_invoke(uint64_t a1, void *a2, 
 
 - (id)copyAttributedTokenForText:(id)text forLanguage:(id)language
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   textCopy = text;
   languageCopy = language;
   v8 = [(RKProactiveGrammar *)self getLanguageModel:languageCopy];
   selfCopy = self;
-  v49 = languageCopy;
+  v48 = languageCopy;
   v9 = [(RKProactiveGrammar *)self getEquivalenceClass:languageCopy];
   v10 = [RKProactiveGrammar getEntities:textCopy];
   v11 = objc_alloc_init(MEMORY[0x277CCAB68]);
   string = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   obj = v10;
   v12 = 0x277CCA000uLL;
-  v55 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
-  if (v55)
+  v54 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
+  if (v54)
   {
-    v53 = 0;
-    v54 = *v58;
-    v50 = v9;
-    v51 = v11;
+    v52 = 0;
+    v53 = *v57;
+    v49 = v9;
+    v50 = v11;
     do
     {
-      for (i = 0; i != v55; ++i)
+      for (i = 0; i != v54; ++i)
       {
-        if (*v58 != v54)
+        if (*v57 != v53)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v57 + 1) + 8 * i);
+        v14 = *(*(&v56 + 1) + 8 * i);
         partOfSpeech = [v14 partOfSpeech];
         if ([partOfSpeech isEqualToString:@"Punctuation"])
         {
@@ -472,8 +469,8 @@ void __34__RKProactiveGrammar_getEntities___block_invoke(uint64_t a1, void *a2, 
 
               v8 = v21;
               textCopy = v19;
-              v9 = v50;
-              v11 = v51;
+              v9 = v49;
+              v11 = v50;
             }
 
             else
@@ -492,7 +489,7 @@ void __34__RKProactiveGrammar_getEntities___block_invoke(uint64_t a1, void *a2, 
           v27 = [v9 objectForKeyedSubscript:string3];
           [(__CFString *)string appendString:v27];
 
-          v53 = 1;
+          v52 = 1;
         }
 
         if (!v16 || ([v14 string], v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "objectForKeyedSubscript:", v28), v29 = objc_claimAutoreleasedReturnValue(), v29, v28, v29))
@@ -520,22 +517,22 @@ void __34__RKProactiveGrammar_getEntities___block_invoke(uint64_t a1, void *a2, 
         v12 = 0x277CCA000;
       }
 
-      v55 = [obj countByEnumeratingWithState:&v57 objects:v61 count:16];
+      v54 = [obj countByEnumeratingWithState:&v56 objects:v60 count:16];
     }
 
-    while (v55);
+    while (v54);
   }
 
   else
   {
-    v53 = 0;
+    v52 = 0;
   }
 
   [(__CFString *)v11 replaceOccurrencesOfString:@"’" withString:@"'" options:1 range:0, [(__CFString *)v11 length]];
   [(__CFString *)string replaceOccurrencesOfString:@"’" withString:@"'" options:1 range:0, [(__CFString *)string length]];
   [(__CFString *)v11 replaceOccurrencesOfString:@" 's" withString:@"'s" options:1 range:0, [(__CFString *)v11 length]];
   [(__CFString *)string replaceOccurrencesOfString:@" 's" withString:@"'s" options:1 range:0, [(__CFString *)string length]];
-  if ([v49 isEqualToString:@"en"])
+  if ([v48 isEqualToString:@"en"])
   {
     [(__CFString *)v11 replaceOccurrencesOfString:@" 'll" withString:@"'ll" options:1 range:0, [(__CFString *)v11 length]];
     [(__CFString *)string replaceOccurrencesOfString:@" 'll" withString:@"'ll" options:1 range:0, [(__CFString *)string length]];
@@ -549,31 +546,31 @@ void __34__RKProactiveGrammar_getEntities___block_invoke(uint64_t a1, void *a2, 
     [(__CFString *)string replaceOccurrencesOfString:@"y' all" withString:@"you" options:1 range:0, [(__CFString *)string length]];
   }
 
-  if ([v49 isEqualToString:@"fr"])
+  if ([v48 isEqualToString:@"fr"])
   {
     [(__CFString *)v11 replaceOccurrencesOfString:@"c' est" withString:@"c'est" options:1 range:0, [(__CFString *)v11 length]];
     [(__CFString *)string replaceOccurrencesOfString:@"c' est" withString:@"c'est" options:1 range:0, [(__CFString *)string length]];
   }
 
-  if (([v49 isEqualToString:@"pt"] & 1) != 0 || (objc_msgSend(v49, "isEqualToString:", @"tr") & 1) != 0 || (objc_msgSend(v49, "isEqualToString:", @"it") & 1) != 0 || (objc_msgSend(v49, "isEqualToString:", @"de") & 1) != 0 || objc_msgSend(v49, "isEqualToString:", @"fr"))
+  if (([v48 isEqualToString:@"pt"] & 1) != 0 || (objc_msgSend(v48, "isEqualToString:", @"tr") & 1) != 0 || (objc_msgSend(v48, "isEqualToString:", @"it") & 1) != 0 || (objc_msgSend(v48, "isEqualToString:", @"de") & 1) != 0 || objc_msgSend(v48, "isEqualToString:", @"fr"))
   {
     [(__CFString *)v11 replaceOccurrencesOfString:@" - " withString:@"-" options:1 range:0, [(__CFString *)v11 length]];
     [(__CFString *)string replaceOccurrencesOfString:@" - " withString:@"-" options:1 range:0, [(__CFString *)string length]];
   }
 
-  if (([v49 isEqualToString:@"it"] & 1) != 0 || objc_msgSend(v49, "isEqualToString:", @"fr"))
+  if (([v48 isEqualToString:@"it"] & 1) != 0 || objc_msgSend(v48, "isEqualToString:", @"fr"))
   {
     [(__CFString *)v11 replaceOccurrencesOfString:@"' " withString:@"'" options:1 range:0, [(__CFString *)v11 length]];
     [(__CFString *)string replaceOccurrencesOfString:@"' " withString:@"'" options:1 range:0, [(__CFString *)string length]];
   }
 
-  if ([v49 isEqualToString:@"es"] && objc_msgSend(textCopy, "containsString:", @" c.p.") && -[__CFString containsString:](v11, "containsString:", @" c.p "))
+  if ([v48 isEqualToString:@"es"] && objc_msgSend(textCopy, "containsString:", @" c.p.") && -[__CFString containsString:](v11, "containsString:", @" c.p "))
   {
     [(__CFString *)v11 replaceOccurrencesOfString:@" c.p " withString:@" c.p. " options:1 range:0, [(__CFString *)v11 length]];
     [(__CFString *)string replaceOccurrencesOfString:@" c.p " withString:@" c.p. " options:1 range:0, [(__CFString *)string length]];
   }
 
-  if (([v49 isEqualToString:@"es"] & 1) != 0 || (objc_msgSend(v49, "isEqualToString:", @"it") & 1) != 0 || (objc_msgSend(v49, "isEqualToString:", @"pt") & 1) != 0 || objc_msgSend(v49, "isEqualToString:", @"fr"))
+  if (([v48 isEqualToString:@"es"] & 1) != 0 || (objc_msgSend(v48, "isEqualToString:", @"it") & 1) != 0 || (objc_msgSend(v48, "isEqualToString:", @"pt") & 1) != 0 || objc_msgSend(v48, "isEqualToString:", @"fr"))
   {
     v38 = *MEMORY[0x277CBF100];
     CFStringTransform(v11, 0, *MEMORY[0x277CBF100], 0);
@@ -585,22 +582,21 @@ void __34__RKProactiveGrammar_getEntities___block_invoke(uint64_t a1, void *a2, 
   whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
   v42 = [(__CFString *)v11 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
-  v43 = [(RKProactiveGrammar *)selfCopy copyAttributedTokenForText:v42 forLanguageModel:v8 withLanguageCode:v49];
-  if (((v43 == 0) & v53) == 1)
+  v43 = [(RKProactiveGrammar *)selfCopy copyAttributedTokenForText:v42 forLanguageModel:v8 withLanguageCode:v48];
+  if (((v43 == 0) & v52) == 1)
   {
     whitespaceCharacterSet2 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
     v45 = [(__CFString *)string stringByTrimmingCharactersInSet:whitespaceCharacterSet2];
 
-    v43 = [(RKProactiveGrammar *)selfCopy copyAttributedTokenForText:v45 forLanguageModel:v8 withLanguageCode:v49];
+    v43 = [(RKProactiveGrammar *)selfCopy copyAttributedTokenForText:v45 forLanguageModel:v8 withLanguageCode:v48];
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v43;
 }
 
 - (id)copyAttributedTokenForText:(id)text forLanguageModel:(void *)model withLanguageCode:(id)code
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   textCopy = text;
   codeCopy = code;
   LMVocabularyGetSharedVocabulary();
@@ -650,37 +646,37 @@ void __34__RKProactiveGrammar_getEntities___block_invoke(uint64_t a1, void *a2, 
     v12 = textCopy;
   }
 
-  v41 = 0;
+  v40 = 0;
   v18 = [v13 count];
   if (v18)
   {
-    v35 = codeCopy;
-    v33 = v18;
+    v34 = codeCopy;
+    v32 = v18;
     v19 = malloc_type_malloc(4 * v18, 0x100004052888210uLL);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v34 = v13;
+    v33 = v13;
     obj = v13;
-    v20 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+    v20 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     if (v20)
     {
       v21 = v20;
       LODWORD(v22) = 0;
-      v23 = *v38;
+      v23 = *v37;
       do
       {
         v24 = 0;
         v22 = v22;
         do
         {
-          if (*v38 != v23)
+          if (*v37 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v37 + 1) + 8 * v24);
+          v25 = *(*(&v36 + 1) + 8 * v24);
           lowercaseString = [v25 lowercaseString];
           if (!LMVocabularyContainsLemma() && [v25 hasSuffix:@"'s"])
           {
@@ -705,14 +701,14 @@ void __34__RKProactiveGrammar_getEntities___block_invoke(uint64_t a1, void *a2, 
         }
 
         while (v21 != v24);
-        v21 = [obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+        v21 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
       }
 
       while (v21);
     }
 
-    codeCopy = v35;
-    v13 = v34;
+    codeCopy = v34;
+    v13 = v33;
   }
 
   else
@@ -721,7 +717,7 @@ void __34__RKProactiveGrammar_getEntities___block_invoke(uint64_t a1, void *a2, 
   }
 
   PredictionEnumerator = LMLanguageModelCreatePredictionEnumerator();
-  if (!PredictionEnumerator || !LMPredictionEnumeratorAdvance() || (LMPredictionEnumeratorGetPrediction(), !v41))
+  if (!PredictionEnumerator || !LMPredictionEnumeratorAdvance() || (LMPredictionEnumeratorGetPrediction(), !v40))
   {
     v30 = 0;
     if (!v19)
@@ -745,7 +741,6 @@ LABEL_33:
     LMPredictionEnumeratorRelease();
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 

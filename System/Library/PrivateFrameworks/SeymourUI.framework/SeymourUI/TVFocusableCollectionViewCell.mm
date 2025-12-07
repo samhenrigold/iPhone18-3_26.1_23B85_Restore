@@ -20,7 +20,7 @@
 
 - (void)pressesBegan:(id)began withEvent:(id)event
 {
-  sub_20B51C88C(0, &qword_27C764588);
+  sub_20B51C88C(0, &qword_27C764588, 0x277D758B8);
   sub_20B9E0F28();
   v6 = sub_20C13CF74();
   eventCopy = event;

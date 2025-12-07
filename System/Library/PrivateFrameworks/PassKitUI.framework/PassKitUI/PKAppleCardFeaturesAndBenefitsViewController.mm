@@ -9,7 +9,7 @@
 
 - (PKAppleCardFeaturesAndBenefitsViewController)init
 {
-  *(&self->super.super.super.isa + OBJC_IVAR___PKAppleCardFeaturesAndBenefitsViewController_dataManager) = [objc_allocWithZone(type metadata accessor for AppleCardFeaturesAndBenefitsManager()) init];
+  *(&self->super.super.super.isa + OBJC_IVAR___PKAppleCardFeaturesAndBenefitsViewController_dataManager) = [objc_allocWithZone(type metadata accessor for AppleCardFeaturesAndBenefitsManager(0)) init];
   v4.receiver = self;
   v4.super_class = type metadata accessor for AppleCardFeaturesAndBenefitsViewController();
   return [(PKAppleCardFeaturesAndBenefitsViewController *)&v4 initWithNibName:0 bundle:0];

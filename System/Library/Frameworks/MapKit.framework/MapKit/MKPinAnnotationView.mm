@@ -254,7 +254,7 @@ void __59__MKPinAnnotationView__liftForDraggingAfterBounceAnimated___block_invok
   v9 = v8;
   if (v8)
   {
-    [v8 affineTransform];
+    objc_msgSend_affineTransform(v8);
   }
 
   else
@@ -524,7 +524,7 @@ uint64_t __68__MKPinAnnotationView__dropAfterDraggingAndRevertPosition_animated_
     v17 = _contentLayer;
     if (_contentLayer)
     {
-      [_contentLayer affineTransform];
+      objc_msgSend_affineTransform(_contentLayer);
     }
 
     else
@@ -797,7 +797,7 @@ uint64_t __68__MKPinAnnotationView__dropAfterDraggingAndRevertPosition_animated_
       v25 = _contentLayer;
       if (_contentLayer)
       {
-        [_contentLayer affineTransform];
+        objc_msgSend_affineTransform(_contentLayer);
       }
 
       else

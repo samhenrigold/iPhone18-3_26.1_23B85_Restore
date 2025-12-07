@@ -26,13 +26,15 @@
   configurationsCopy = configurations;
   if (configurations)
   {
-    sub_1BD0E5E8C(0, &qword_1EBD59BE8);
+    sub_1BD0E5E8C(0, &qword_1EBD59BE8, 0x1E6997E70);
     configurationsCopy = sub_1BE052744();
   }
 
   managerCopy = manager;
   selfCopy = self;
   sub_1BD966294(configurationsCopy);
+
+  configurationsCopy, v9, v10, v11, v12, v13, v14, v15;
 }
 
 @end

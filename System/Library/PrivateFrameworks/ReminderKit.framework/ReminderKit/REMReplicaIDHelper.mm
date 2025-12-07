@@ -65,16 +65,14 @@ uint64_t __43__REMReplicaIDHelper_nonEditingReplicaUUID__block_invoke()
 
 - (void)willEdit
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = +[REMLog crdt];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v4 = 138412290;
+    v3 = 138412290;
     selfCopy = self;
-    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!self.owner) -- Editting REMReplicaIDHelper without an owner {replicaIDHelper: %@}", &v4, 0xCu);
+    _os_log_fault_impl(&dword_19A0DB000, v2, OS_LOG_TYPE_FAULT, "rem_log_fault_if (!self.owner) -- Editting REMReplicaIDHelper without an owner {replicaIDHelper: %@}", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didSerialize

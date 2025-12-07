@@ -185,14 +185,14 @@ LABEL_6:
 
 + (id)DictionaryFromImageInfo:(id)info
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   if ([infoCopy planes] >= 3)
   {
     __assert_rtn("+[SIIOUtility_private DictionaryFromImageInfo:]", "SIIOUtility.mm", 1200, "info.planes < kSIRawImageInfoMaxPlanes");
   }
 
-  v26[0] = @"width";
+  v25[0] = @"width";
   width = [infoCopy width];
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
   for (i = 0; i < [infoCopy planes]; ++i)
@@ -201,8 +201,8 @@ LABEL_6:
     [v5 addObject:v7];
   }
 
-  v27[0] = v5;
-  v26[1] = @"height";
+  v26[0] = v5;
+  v25[1] = @"height";
   height = [infoCopy height];
   v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
   for (j = 0; j < [infoCopy planes]; ++j)
@@ -211,14 +211,14 @@ LABEL_6:
     [v9 addObject:v11];
   }
 
-  v27[1] = v9;
-  v26[2] = @"channels";
-  v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(infoCopy, "channels")}];
-  v26[3] = @"planes";
+  v26[1] = v9;
+  v25[2] = @"channels";
+  v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(infoCopy, "channels")}];
+  v25[3] = @"planes";
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(infoCopy, "planes")}];
-  v25 = v28;
-  v29 = v12;
-  v26[4] = @"bytesPerPixel";
+  v24 = v27;
+  v28 = v12;
+  v25[4] = @"bytesPerPixel";
   bytesPerPixel = [infoCopy bytesPerPixel];
   v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
   for (k = 0; k < [infoCopy planes]; ++k)
@@ -227,8 +227,8 @@ LABEL_6:
     [v14 addObject:v16];
   }
 
-  v30 = v14;
-  v26[5] = @"bytesPerRow";
+  v29 = v14;
+  v25[5] = @"bytesPerRow";
   bytesPerRow = [infoCopy bytesPerRow];
   v18 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
   for (m = 0; m < [infoCopy planes]; ++m)
@@ -237,20 +237,18 @@ LABEL_6:
     [v18 addObject:v20];
   }
 
-  v31 = v18;
-  v26[6] = @"pixelFormat";
+  v30 = v18;
+  v25[6] = @"pixelFormat";
   v21 = +[SIIOUtility_private StringFromOSType:](SIIOUtility_private, "StringFromOSType:", [infoCopy pixelFormat]);
-  v32 = v21;
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:7];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v31 = v21;
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:7];
 
   return v22;
 }
 
 + (id)ImageInfoFromDictionary:(id)dictionary
 {
-  v66[1] = *MEMORY[0x277D85DE8];
+  v69[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (!dictionaryCopy)
   {
@@ -275,11 +273,11 @@ LABEL_6:
 
   [v3 setPlanes:v7];
 
-  v57 = [dictionaryCopy objectForKeyedSubscript:@"bytesPerPixel"];
+  v60 = [dictionaryCopy objectForKeyedSubscript:@"bytesPerPixel"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = v57;
+    v8 = v60;
   }
 
   else
@@ -287,9 +285,9 @@ LABEL_6:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v57, "unsignedLongValue")}];
-      v66[0] = v9;
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
+      v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v60, "unsignedLongValue")}];
+      v69[0] = v9;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:1];
     }
 
     else
@@ -299,12 +297,13 @@ LABEL_6:
   }
 
   v10 = [dictionaryCopy objectForKeyedSubscript:@"pixelFormat"];
-  v54 = v10;
+  v57 = v10;
   if (!v10)
   {
     if ([v3 channels])
     {
-      if ([v3 planes] < 2)
+      planes = [v3 planes];
+      if (planes < 2)
       {
         if (!v8)
         {
@@ -314,58 +313,58 @@ LABEL_6:
           }
 
           channels = [v3 channels];
-          v49 = [0 objectAtIndexedSubscript:0];
-          [v3 setPixelFormat:+[SIIOUtility_private GetDefaultPixelFormatForRawImageWithChannels:bytesPerPixel:](SIIOUtility_private, "GetDefaultPixelFormatForRawImageWithChannels:bytesPerPixel:", channels, objc_msgSend(v49, "unsignedLongValue"))];
+          v52 = [0 objectAtIndexedSubscript:0];
+          [v3 setPixelFormat:+[SIIOUtility_private GetDefaultPixelFormatForRawImageWithChannels:bytesPerPixel:](SIIOUtility_private, "GetDefaultPixelFormatForRawImageWithChannels:bytesPerPixel:", channels, objc_msgSend(v52, "unsignedLongValue"))];
 
           goto LABEL_12;
         }
 
-        v12 = __SceneIntelligenceLogSharedInstance();
-        v56 = v12;
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = __SceneIntelligenceLogSharedInstance(planes);
+        v59 = v13;
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 136380931;
-          v63 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-          v64 = 1025;
-          v65 = 1249;
-          v13 = " %{private}s:%{private}d *** Must specify either byesPerPixel or pixelFormat ***";
+          v66 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+          v67 = 1025;
+          v68 = 1249;
+          v14 = " %{private}s:%{private}d *** Must specify either byesPerPixel or pixelFormat ***";
           goto LABEL_59;
         }
       }
 
       else
       {
-        v12 = __SceneIntelligenceLogSharedInstance();
-        v56 = v12;
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = __SceneIntelligenceLogSharedInstance(planes);
+        v59 = v13;
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 136380931;
-          v63 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-          v64 = 1025;
-          v65 = 1245;
-          v13 = " %{private}s:%{private}d *** Inferring PixelFormat from multiplanar images is not supported. ***";
+          v66 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+          v67 = 1025;
+          v68 = 1245;
+          v14 = " %{private}s:%{private}d *** Inferring PixelFormat from multiplanar images is not supported. ***";
 LABEL_59:
-          _os_log_impl(&dword_21DE0D000, v12, OS_LOG_TYPE_ERROR, v13, buf, 0x12u);
+          _os_log_impl(&dword_21DE0D000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0x12u);
         }
       }
     }
 
     else
     {
-      v12 = __SceneIntelligenceLogSharedInstance();
-      v56 = v12;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = __SceneIntelligenceLogSharedInstance(0);
+      v59 = v13;
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 136380931;
-        v63 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
-        v64 = 1025;
-        v65 = 1241;
-        v13 = " %{private}s:%{private}d *** Must specify either channels or pixelFormat ***";
+        v66 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+        v67 = 1025;
+        v68 = 1241;
+        v14 = " %{private}s:%{private}d *** Must specify either channels or pixelFormat ***";
         goto LABEL_59;
       }
     }
 
-    v36 = 0;
+    v40 = 0;
     goto LABEL_61;
   }
 
@@ -384,15 +383,15 @@ LABEL_12:
   channels2 = [v3 channels];
   if (channels2)
   {
-    v15 = channels2;
+    v16 = channels2;
   }
 
   else
   {
-    v15 = v11;
+    v16 = v11;
   }
 
-  [v3 setChannels:v15];
+  [v3 setChannels:v16];
   if ([v3 planes] >= 4)
   {
     __assert_rtn("+[SIIOUtility_private ImageInfoFromDictionary:]", "SIIOUtility.mm", 1261, "info.planes <= kSIRawImageInfoMaxPlanes");
@@ -405,152 +404,154 @@ LABEL_12:
     {
       if ([v3 planes] == 1)
       {
-        v38 = SIBytesPerElementForPixelFormat([v3 pixelFormat]);
+        v42 = SIBytesPerElementForPixelFormat([v3 pixelFormat]);
       }
 
       else
       {
-        v38 = SIBytesPerElementForPlanarPixelFormat([v3 pixelFormat], i);
+        v42 = SIBytesPerElementForPlanarPixelFormat([v3 pixelFormat], i);
       }
 
-      if (!v38)
+      if (!v42)
       {
         __assert_rtn("+[SIIOUtility_private ImageInfoFromDictionary:]", "SIIOUtility.mm", 1268, "bppInferred > 0");
       }
 
-      v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v38];
-      [v8 addObject:v39];
+      v43 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:v42];
+      [v8 addObject:v43];
     }
   }
 
   if ([v3 planes] <= 1)
   {
-    v16 = [v8 objectAtIndexedSubscript:0];
-    unsignedIntValue = [v16 unsignedIntValue];
+    v17 = [v8 objectAtIndexedSubscript:0];
+    unsignedIntValue = [v17 unsignedIntValue];
     if ([v3 channels] > unsignedIntValue)
     {
       __assert_rtn("+[SIIOUtility_private ImageInfoFromDictionary:]", "SIIOUtility.mm", 1274, "info.planes > 1 || [bytesPerPixel[0] unsignedIntValue] >= info.channels");
     }
   }
 
-  v56 = [dictionaryCopy objectForKeyedSubscript:@"width"];
+  v59 = [dictionaryCopy objectForKeyedSubscript:@"width"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v18 = v56;
+    v19 = v59;
   }
 
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v50 = __SceneIntelligenceLogSharedInstance();
-      [SIIOUtility_private ImageInfoFromDictionary:v50];
+      v53 = __SceneIntelligenceLogSharedInstance(isKindOfClass);
+      [SIIOUtility_private ImageInfoFromDictionary:v53];
     }
 
-    v61 = v56;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+    v64 = v59;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v64 count:1];
   }
 
-  v19 = v18;
-  v20 = [dictionaryCopy objectForKeyedSubscript:@"height"];
-  v53 = v20;
+  v21 = v19;
+  v22 = [dictionaryCopy objectForKeyedSubscript:@"height"];
+  v56 = v22;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v21 = v20;
+    v23 = v22;
   }
 
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v24 = objc_opt_isKindOfClass();
+    if ((v24 & 1) == 0)
     {
-      v51 = __SceneIntelligenceLogSharedInstance();
-      [SIIOUtility_private ImageInfoFromDictionary:v51];
+      v54 = __SceneIntelligenceLogSharedInstance(v24);
+      [SIIOUtility_private ImageInfoFromDictionary:v54];
     }
 
-    v60 = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+    v63 = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
   }
 
-  v22 = v21;
-  v55 = [dictionaryCopy objectForKeyedSubscript:@"bytesPerRow"];
+  v25 = v23;
+  v58 = [dictionaryCopy objectForKeyedSubscript:@"bytesPerRow"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v23 = v55;
+    v26 = v58;
   }
 
   else
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v27 = objc_opt_isKindOfClass();
+    if (v27)
     {
-      v24 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v55, "unsignedLongValue")}];
-      v59 = v24;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
+      v28 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{objc_msgSend(v58, "unsignedLongValue")}];
+      v62 = v28;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
     }
 
     else
     {
-      if (v55)
+      if (v58)
       {
-        v52 = __SceneIntelligenceLogSharedInstance();
-        [SIIOUtility_private ImageInfoFromDictionary:v52];
+        v55 = __SceneIntelligenceLogSharedInstance(v27);
+        [SIIOUtility_private ImageInfoFromDictionary:v55];
       }
 
-      v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "planes")}];
+      v26 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v3, "planes")}];
       for (j = 0; j < [v3 planes]; ++j)
       {
-        v41 = MEMORY[0x277CCABB0];
-        v42 = [v19 objectAtIndexedSubscript:j];
-        unsignedLongValue2 = [v42 unsignedLongValue];
-        v44 = [v8 objectAtIndexedSubscript:j];
-        v45 = [v41 numberWithUnsignedLong:{objc_msgSend(v44, "unsignedLongValue") * unsignedLongValue2}];
-        [v23 addObject:v45];
+        v45 = MEMORY[0x277CCABB0];
+        v46 = [v21 objectAtIndexedSubscript:j];
+        unsignedLongValue2 = [v46 unsignedLongValue];
+        v48 = [v8 objectAtIndexedSubscript:j];
+        v49 = [v45 numberWithUnsignedLong:{objc_msgSend(v48, "unsignedLongValue") * unsignedLongValue2}];
+        [v26 addObject:v49];
       }
     }
   }
 
   for (k = 0; k < [v3 planes]; ++k)
   {
-    v26 = [v19 objectAtIndexedSubscript:k];
-    unsignedLongValue3 = [v26 unsignedLongValue];
+    v30 = [v21 objectAtIndexedSubscript:k];
+    unsignedLongValue3 = [v30 unsignedLongValue];
     *([v3 width] + 8 * k) = unsignedLongValue3;
 
-    v28 = [v22 objectAtIndexedSubscript:k];
-    unsignedLongValue4 = [v28 unsignedLongValue];
+    v32 = [v25 objectAtIndexedSubscript:k];
+    unsignedLongValue4 = [v32 unsignedLongValue];
     *([v3 height] + 8 * k) = unsignedLongValue4;
 
-    v30 = [v23 objectAtIndexedSubscript:k];
-    unsignedLongValue5 = [v30 unsignedLongValue];
+    v34 = [v26 objectAtIndexedSubscript:k];
+    unsignedLongValue5 = [v34 unsignedLongValue];
     *([v3 bytesPerRow] + 8 * k) = unsignedLongValue5;
 
-    v32 = [v8 objectAtIndexedSubscript:k];
-    unsignedLongValue6 = [v32 unsignedLongValue];
+    v36 = [v8 objectAtIndexedSubscript:k];
+    unsignedLongValue6 = [v36 unsignedLongValue];
     *([v3 bytesPerPixel] + 8 * k) = unsignedLongValue6;
 
-    v34 = *([v3 height] + 8 * k);
-    v35 = *([v3 bytesPerRow] + 8 * k);
-    *([v3 size] + 8 * k) = v35 * v34;
+    v38 = *([v3 height] + 8 * k);
+    v39 = *([v3 bytesPerRow] + 8 * k);
+    *([v3 size] + 8 * k) = v39 * v38;
   }
 
-  v36 = v3;
+  v40 = v3;
 
 LABEL_61:
-  v46 = *MEMORY[0x277D85DE8];
 
-  return v36;
+  return v40;
 }
 
 + (id)ImageInfoFromCVPixelBuffer:(__CVBuffer *)buffer
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
   v5 = CVPixelFormatDescriptionCreateWithPixelFormatType(0, PixelFormatType);
-  v49 = v5;
+  v48 = v5;
   PlaneCount = CVPixelBufferGetPlaneCount(buffer);
   v7 = PlaneCount;
   if (PlaneCount <= 1)
@@ -563,13 +564,13 @@ LABEL_61:
     v8 = PlaneCount;
   }
 
-  v40 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277CC4F30]];
-  v46 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277CC4F38]];
-  v47 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277CC4F28]];
-  v48 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277CC4F48]];
+  v39 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277CC4F30]];
+  v45 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277CC4F38]];
+  v46 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277CC4F28]];
+  v47 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277CC4F48]];
   v9 = *MEMORY[0x277CC4ED8];
   v10 = [(__CFDictionary *)v5 objectForKeyedSubscript:*MEMORY[0x277CC4ED8]];
-  v45 = PixelFormatType;
+  v44 = PixelFormatType;
   unsignedIntValue = [v10 unsignedIntValue];
 
   v12 = *MEMORY[0x277CC4ED0];
@@ -577,50 +578,50 @@ LABEL_61:
   v14 = unsignedIntValue;
   unsignedIntValue2 = [v13 unsignedIntValue];
 
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __50__SIIOUtility_private_ImageInfoFromCVPixelBuffer___block_invoke;
-  v50[3] = &unk_27833C2A8;
-  v41 = v40;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __50__SIIOUtility_private_ImageInfoFromCVPixelBuffer___block_invoke;
+  v49[3] = &unk_27833C2A8;
+  v40 = v39;
+  v50 = v40;
+  v41 = v45;
   v51 = v41;
   v42 = v46;
   v52 = v42;
   v43 = v47;
   v53 = v43;
-  v44 = v48;
-  v54 = v44;
-  v55 = v8;
-  v56 = unsignedIntValue2;
-  v57 = v14;
-  v16 = __50__SIIOUtility_private_ImageInfoFromCVPixelBuffer___block_invoke(v50);
-  v17 = [(__CFDictionary *)v49 objectForKeyedSubscript:*MEMORY[0x277CC4F70]];
+  v54 = v8;
+  v55 = unsignedIntValue2;
+  v56 = v14;
+  v16 = __50__SIIOUtility_private_ImageInfoFromCVPixelBuffer___block_invoke(v49);
+  v17 = [(__CFDictionary *)v48 objectForKeyedSubscript:*MEMORY[0x277CC4F70]];
   v18 = v17;
   if (v17 && v8 != [v17 count])
   {
     __assert_rtn("+[SIIOUtility_private ImageInfoFromCVPixelBuffer:]", "SIIOUtility.mm", 1360, "!planesPixelDescr || planes == planesPixelDescr.count");
   }
 
-  memset(v58, 0, sizeof(v58));
+  memset(v57, 0, sizeof(v57));
   if (v7 >= 2)
   {
     for (i = 0; i != v7; ++i)
     {
       v21 = [v18 objectAtIndexedSubscript:i];
       v22 = [v21 objectForKeyedSubscript:v12];
-      *(v58 + i) = [v22 unsignedIntValue] >> 3;
+      *(v57 + i) = [v22 unsignedIntValue] >> 3;
     }
   }
 
   else
   {
-    v19 = [(__CFDictionary *)v49 objectForKeyedSubscript:v9];
-    *&v58[0] = ([v19 unsignedIntValue] * v16) >> 3;
+    v19 = [(__CFDictionary *)v48 objectForKeyedSubscript:v9];
+    *&v57[0] = ([v19 unsignedIntValue] * v16) >> 3;
   }
 
   v23 = objc_opt_new();
   [v23 setChannels:v16];
   [v23 setPlanes:v8];
-  [v23 setPixelFormat:v45];
+  [v23 setPixelFormat:v44];
   for (j = 0; j != 3; ++j)
   {
     if (v7 > 1)
@@ -694,24 +695,26 @@ LABEL_61:
     BytesPerRowOfPlane = 0;
 LABEL_29:
     *(bytesPerRow + 8 * j) = BytesPerRowOfPlane;
-    v35 = *(v58 + j);
+    v35 = *(v57 + j);
     *([v23 bytesPerPixel] + 8 * j) = v35;
     v36 = *([v23 height] + 8 * j);
     v37 = *([v23 bytesPerRow] + 8 * j);
     *([v23 size] + 8 * j) = v37 * v36;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 + (void)ImageInfoFromDictionary:(NSObject *)a1 .cold.1(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_21DE0D000, v2, v3, " %{private}s:%{private}d *** Unknown object type for width ***", v4, v5, v6, v7, 3u);
+    *v8 = 136380931;
+    *&v8[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+    *&v8[12] = 1025;
+    *&v8[14] = 1284;
+    OUTLINED_FUNCTION_0(&dword_21DE0D000, v2, v3, " %{private}s:%{private}d *** Unknown object type for width ***", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16], v9);
   }
 
   abort();
@@ -719,10 +722,14 @@ LABEL_29:
 
 + (void)ImageInfoFromDictionary:(NSObject *)a1 .cold.2(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_21DE0D000, v2, v3, " %{private}s:%{private}d *** Unknown object type for width ***", v4, v5, v6, v7, 3u);
+    *v8 = 136380931;
+    *&v8[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+    *&v8[12] = 1025;
+    *&v8[14] = 1295;
+    OUTLINED_FUNCTION_0(&dword_21DE0D000, v2, v3, " %{private}s:%{private}d *** Unknown object type for width ***", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16], v9);
   }
 
   abort();
@@ -730,10 +737,14 @@ LABEL_29:
 
 + (void)ImageInfoFromDictionary:(NSObject *)a1 .cold.3(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_21DE0D000, v2, v3, " %{private}s:%{private}d *** Unknown object type for bytesPerRow ***", v4, v5, v6, v7, 3u);
+    *v8 = 136380931;
+    *&v8[4] = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Common/SIIOUtility.mm";
+    *&v8[12] = 1025;
+    *&v8[14] = 1313;
+    OUTLINED_FUNCTION_0(&dword_21DE0D000, v2, v3, " %{private}s:%{private}d *** Unknown object type for bytesPerRow ***", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16], v9);
   }
 
   abort();

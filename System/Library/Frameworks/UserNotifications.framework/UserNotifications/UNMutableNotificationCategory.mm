@@ -36,54 +36,42 @@
 
 - (void)setActions:(id)actions
 {
-  v4 = [actions copy];
-  actions = self->super._actions;
-  self->super._actions = v4;
+  self->super._actions = [actions copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setMinimalActions:(id)actions
 {
-  v4 = [actions copy];
-  minimalActions = self->super._minimalActions;
-  self->super._minimalActions = v4;
+  self->super._minimalActions = [actions copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setIntentIdentifiers:(id)identifiers
 {
-  v4 = [identifiers copy];
-  intentIdentifiers = self->super._intentIdentifiers;
-  self->super._intentIdentifiers = v4;
+  self->super._intentIdentifiers = [identifiers copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setHiddenPreviewsBodyPlaceholder:(id)placeholder
 {
-  v4 = [placeholder copy];
-  hiddenPreviewsBodyPlaceholder = self->super._hiddenPreviewsBodyPlaceholder;
-  self->super._hiddenPreviewsBodyPlaceholder = v4;
+  self->super._hiddenPreviewsBodyPlaceholder = [placeholder copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCategorySummaryFormat:(id)format
 {
-  v4 = [format copy];
-  categorySummaryFormat = self->super._categorySummaryFormat;
-  self->super._categorySummaryFormat = v4;
+  self->super._categorySummaryFormat = [format copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setActionsMenuTitle:(id)title
 {
-  v4 = [title copy];
-  actionsMenuTitle = self->super._actionsMenuTitle;
-  self->super._actionsMenuTitle = v4;
+  self->super._actionsMenuTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

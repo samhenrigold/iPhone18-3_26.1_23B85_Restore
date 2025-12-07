@@ -41,33 +41,36 @@ LABEL_13:
     for (i = 0; i < outCount; ++i)
     {
       Attributes = property_getAttributes(v4[i]);
-      if (!Attributes)
+      if (Attributes)
       {
-        goto LABEL_8;
-      }
+        v7 = Attributes;
+        v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:Attributes];
+        v9 = [v8 hasPrefix:@"T@"];
 
-      v7 = Attributes;
-      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:Attributes];
-      v9 = [v8 hasPrefix:@"T@"];
+        if (v9)
+        {
+          continue;
+        }
 
-      if ((v9 & 1) == 0)
-      {
         v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
         v11 = [v10 hasPrefix:@"T#"];
 
-        if ((v11 & 1) == 0)
+        if (v11)
         {
-          v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
-          v13 = [v12 hasPrefix:@"T:"];
+          continue;
+        }
 
-          if ((v13 & 1) == 0)
-          {
-LABEL_8:
-            v14 = [MEMORY[0x277CCACA8] stringWithCString:property_getName(v4[i]) encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-            [v3 addObject:v14];
-          }
+        v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
+        v13 = [v12 hasPrefix:@"T:"];
+
+        if (v13)
+        {
+          continue;
         }
       }
+
+      v14 = [MEMORY[0x277CCACA8] stringWithCString:property_getName(v4[i]) encoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+      [v3 addObject:v14];
     }
 
     self = [self superclass];
@@ -112,41 +115,39 @@ LABEL_14:
 
 - (id)description
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allLQMProperties = [objc_opt_class() allLQMProperties];
-  v5 = [allLQMProperties countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [allLQMProperties countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(allLQMProperties);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         v10 = [(WiFiUsageLQMSample *)self numberForKeyPath:v9];
-        [v3 appendFormat:@"%@:%@, ", v9, v10, v14];
+        [v3 appendFormat:@"%@:%@, ", v9, v10, v13];
       }
 
-      v6 = [allLQMProperties countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [allLQMProperties countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   v11 = [MEMORY[0x277CCACA8] stringWithString:v3];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -164,36 +165,36 @@ LABEL_14:
 
 - (id)asDictionaryInto:(id)into
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   intoCopy = into;
   if (!intoCopy)
   {
     intoCopy = objc_opt_new();
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   obj = [objc_opt_class() allLQMProperties];
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     v8 = @"perCoreRssiInUse";
     do
     {
       v9 = 0;
-      v26 = v6;
+      v25 = v6;
       do
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v28 + 1) + 8 * v9);
+        v10 = *(*(&v27 + 1) + 8 * v9);
         v11 = [(WiFiUsageLQMSample *)self numberForKeyPath:v10];
         [intoCopy setObject:v11 forKeyedSubscript:v10];
 
@@ -212,7 +213,7 @@ LABEL_14:
 
           v8 = v13;
           v7 = v12;
-          v6 = v26;
+          v6 = v25;
         }
 
         if ([v10 isEqualToString:v8])
@@ -228,13 +229,11 @@ LABEL_14:
       }
 
       while (v6 != v9);
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v6);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return intoCopy;
 }

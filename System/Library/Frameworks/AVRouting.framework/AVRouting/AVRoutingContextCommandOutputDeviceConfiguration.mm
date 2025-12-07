@@ -47,19 +47,19 @@
 
 - (NSArray)peersInHomeGroup
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   Value = CFDictionaryGetValue(self->_response, *MEMORY[0x1E69617A8]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = Value;
-  v5 = [Value countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [Value countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     v8 = *MEMORY[0x1E6961780];
     v9 = *MEMORY[0x1E6961790];
     v10 = *MEMORY[0x1E6961788];
@@ -68,25 +68,24 @@
       v11 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = -[AVOutputDeviceAuthorizedPeer initWithID:publicKey:hasAdministratorPrivileges:]([AVOutputDeviceAuthorizedPeer alloc], "initWithID:publicKey:hasAdministratorPrivileges:", [*(*(&v16 + 1) + 8 * v11) objectForKeyedSubscript:v8], objc_msgSend(*(*(&v16 + 1) + 8 * v11), "objectForKeyedSubscript:", v9), objc_msgSend(objc_msgSend(*(*(&v16 + 1) + 8 * v11), "objectForKeyedSubscript:", v10), "unsignedIntegerValue") == 1);
+        v12 = -[AVOutputDeviceAuthorizedPeer initWithID:publicKey:hasAdministratorPrivileges:]([AVOutputDeviceAuthorizedPeer alloc], "initWithID:publicKey:hasAdministratorPrivileges:", [*(*(&v15 + 1) + 8 * v11) objectForKeyedSubscript:v8], objc_msgSend(*(*(&v15 + 1) + 8 * v11), "objectForKeyedSubscript:", v9), objc_msgSend(objc_msgSend(*(*(&v15 + 1) + 8 * v11), "objectForKeyedSubscript:", v10), "unsignedIntegerValue") == 1);
         [(NSArray *)array addObject:v12];
 
         ++v11;
       }
 
       while (v6 != v11);
-      v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return array;
 }
 

@@ -32,7 +32,7 @@
 
 - (void)loadUserBackgroundWithPath:(id)path
 {
-  v59[2] = *MEMORY[0x277D85DE8];
+  v61[2] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objc_storeStrong(&self->_userBackgroundDirectory, path);
   userBackgroundDirectory = self->_userBackgroundDirectory;
@@ -42,7 +42,7 @@
 
     if (path)
     {
-      v45 = pathCopy;
+      v47 = pathCopy;
       v8 = MEMORY[0x277CBEBC0];
       path2 = [(NSURL *)self->_userBackgroundDirectory path];
       v10 = [path2 stringByAppendingPathComponent:@"content.plist"];
@@ -65,66 +65,66 @@
       self->_userBackgroundDirectoryThumbnails = v21;
 
       v23 = self->_userBackgroundDirectoryThumbnails;
-      v59[0] = self->_userBackgroundDirectoryImages;
-      v59[1] = v23;
-      [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
-      v48 = 0u;
-      v49 = 0u;
+      v61[0] = self->_userBackgroundDirectoryImages;
+      v61[1] = v23;
+      [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
       v50 = 0u;
-      v24 = v51 = 0u;
-      v25 = [v24 countByEnumeratingWithState:&v48 objects:v58 count:16];
+      v51 = 0u;
+      v52 = 0u;
+      v24 = v53 = 0u;
+      v25 = [v24 countByEnumeratingWithState:&v50 objects:v60 count:16];
       if (!v25)
       {
         goto LABEL_24;
       }
 
       v26 = v25;
-      v27 = *v49;
+      v27 = *v51;
       while (1)
       {
         v28 = 0;
         do
         {
-          if (*v49 != v27)
+          if (*v51 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v48 + 1) + 8 * v28);
-          v47 = 0;
+          v29 = *(*(&v50 + 1) + 8 * v28);
+          v49 = 0;
           fileManager = self->_fileManager;
           path5 = [v29 path];
-          LOBYTE(fileManager) = [(NSFileManager *)fileManager fileExistsAtPath:path5 isDirectory:&v47];
+          LOBYTE(fileManager) = [(NSFileManager *)fileManager fileExistsAtPath:path5 isDirectory:&v49];
 
           if ((fileManager & 1) == 0)
           {
-            v36 = self->_fileManager;
+            v37 = self->_fileManager;
             path6 = [v29 path];
-            v46 = 0;
-            v38 = [(NSFileManager *)v36 createDirectoryAtPath:path6 withIntermediateDirectories:1 attributes:0 error:&v46];
-            v34 = v46;
+            v48 = 0;
+            v39 = [(NSFileManager *)v37 createDirectoryAtPath:path6 withIntermediateDirectories:1 attributes:0 error:&v48];
+            v35 = v48;
 
-            v39 = _PTLogSystem();
-            path8 = v39;
-            if (v38)
+            v41 = _PTLogSystem(v40);
+            path8 = v41;
+            if (v39)
             {
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+              if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
               {
                 path7 = [v29 path];
                 *buf = 138412290;
-                v55 = path7;
+                v57 = path7;
                 _os_log_impl(&dword_2243FB000, path8, OS_LOG_TYPE_INFO, "Created %@", buf, 0xCu);
                 goto LABEL_15;
               }
             }
 
-            else if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            else if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
             {
               path7 = [v29 path];
               *buf = 138412546;
-              v55 = path7;
-              v56 = 2112;
-              v57 = v34;
+              v57 = path7;
+              v58 = 2112;
+              v59 = v35;
               _os_log_error_impl(&dword_2243FB000, path8, OS_LOG_TYPE_ERROR, "Error creating directory %@ error %@", buf, 0x16u);
 LABEL_15:
             }
@@ -134,26 +134,26 @@ LABEL_19:
             goto LABEL_20;
           }
 
-          v32 = v47;
-          v33 = _PTLogSystem();
-          v34 = v33;
-          if (v32)
+          v33 = v49;
+          v34 = _PTLogSystem(v32);
+          v35 = v34;
+          if (v33)
           {
-            if (!os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+            if (!os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
               goto LABEL_20;
             }
 
             path8 = [v29 path];
             *buf = 138412290;
-            v55 = path8;
-            _os_log_impl(&dword_2243FB000, v34, OS_LOG_TYPE_INFO, "Found background replacement directory %@", buf, 0xCu);
+            v57 = path8;
+            _os_log_impl(&dword_2243FB000, v35, OS_LOG_TYPE_INFO, "Found background replacement directory %@", buf, 0xCu);
             goto LABEL_19;
           }
 
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
           {
-            [(PTEffectBackgroundURLManager *)v52 loadUserBackgroundWithPath:v29, &v53, v34];
+            [(PTEffectBackgroundURLManager *)v54 loadUserBackgroundWithPath:v29, &v55, v35];
           }
 
 LABEL_20:
@@ -162,25 +162,25 @@ LABEL_20:
         }
 
         while (v26 != v28);
-        v41 = [v24 countByEnumeratingWithState:&v48 objects:v58 count:16];
-        v26 = v41;
-        if (!v41)
+        v43 = [v24 countByEnumeratingWithState:&v50 objects:v60 count:16];
+        v26 = v43;
+        if (!v43)
         {
 LABEL_24:
 
-          v42 = objc_opt_new();
+          v44 = objc_opt_new();
           pixelBufferUtil = self->_pixelBufferUtil;
-          self->_pixelBufferUtil = v42;
+          self->_pixelBufferUtil = v44;
 
-          pathCopy = v45;
+          pathCopy = v47;
           goto LABEL_28;
         }
       }
     }
   }
 
-  v44 = _PTLogSystem();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+  v46 = _PTLogSystem(userBackgroundDirectory);
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
   {
     [PTEffectBackgroundURLManager loadUserBackgroundWithPath:];
   }
@@ -207,7 +207,7 @@ LABEL_28:
 - (id)createBuiltInBackgroundURLsWithFiles:(id)files extension:(id)extension subdirectory:(id)subdirectory
 {
   v5 = objc_opt_new();
-  v6 = _PTLogSystem();
+  v6 = _PTLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     [PTEffectBackgroundURLManager createBuiltInBackgroundURLsWithFiles:extension:subdirectory:];
@@ -220,7 +220,7 @@ LABEL_28:
 
 - (id)backgroundsWithType:(int64_t)type
 {
-  v3 = _PTLogSystem();
+  v3 = _PTLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [PTEffectBackgroundURLManager createBuiltInBackgroundURLsWithFiles:extension:subdirectory:];
@@ -241,7 +241,7 @@ LABEL_28:
 
 - (void)hasUserBackgroundWithPixelBuffer:(id)buffer ciImage:(id)image completion:(id)completion
 {
-  v5 = _PTLogSystem();
+  v5 = _PTLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [PTEffectBackgroundURLManager createBuiltInBackgroundURLsWithFiles:extension:subdirectory:];
@@ -250,7 +250,7 @@ LABEL_28:
 
 - (void)addUserBackground:(id)background ciImage:(id)image backgroundToReplace:(id)replace withOptions:(id)options completion:(id)completion
 {
-  v7 = _PTLogSystem();
+  v7 = _PTLogSystem(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [PTEffectBackgroundURLManager createBuiltInBackgroundURLsWithFiles:extension:subdirectory:];
@@ -259,7 +259,7 @@ LABEL_28:
 
 - (void)removeUserBackground:(id)background withOptions:(id)options completion:(id)completion
 {
-  v5 = _PTLogSystem();
+  v5 = _PTLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [PTEffectBackgroundURLManager createBuiltInBackgroundURLsWithFiles:extension:subdirectory:];
@@ -319,7 +319,7 @@ LABEL_28:
 
 - (BOOL)copyAsFullsizeAndThumbnailFromPixelBuffer:(__CVBuffer *)buffer outputPathFullsize:(id)fullsize outputPathThumbnail:(id)thumbnail
 {
-  v5 = _PTLogSystem();
+  v5 = _PTLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [PTEffectBackgroundURLManager createBuiltInBackgroundURLsWithFiles:extension:subdirectory:];
@@ -398,7 +398,7 @@ LABEL_28:
 
 - (id)plistToArray:(id)array
 {
-  v3 = _PTLogSystem();
+  v3 = _PTLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [PTEffectBackgroundURLManager createBuiltInBackgroundURLsWithFiles:extension:subdirectory:];

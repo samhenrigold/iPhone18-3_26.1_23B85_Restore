@@ -27,14 +27,14 @@
 
 - (void)prepareRemoteSceneWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __64__LACUISceneHostingController_prepareRemoteSceneWithCompletion___block_invoke;
   aBlock[3] = &unk_27981E770;
   v5 = completionCopy;
-  v18 = v5;
+  v17 = v5;
   v6 = _Block_copy(aBlock);
   if (self->_sceneHostingController)
   {
@@ -55,7 +55,7 @@
     block[1] = 3221225472;
     block[2] = __64__LACUISceneHostingController_prepareRemoteSceneWithCompletion___block_invoke_2;
     block[3] = &unk_27981E848;
-    objc_copyWeak(&v15, &location);
+    objc_copyWeak(&v14, &location);
     block[4] = self;
     dispatch_async(MEMORY[0x277D85CD0], block);
     v11 = LACLogUI();
@@ -64,16 +64,14 @@
       sceneIdentifier = [(LACAngelHostedSceneConfiguration *)self->_configuration sceneIdentifier];
       *buf = 138412546;
       selfCopy = self;
-      v21 = 2112;
-      v22 = sceneIdentifier;
+      v20 = 2112;
+      v21 = sceneIdentifier;
       _os_log_impl(&dword_256063000, v11, OS_LOG_TYPE_DEFAULT, "%@ preparing remote scene: %@", buf, 0x16u);
     }
 
-    objc_destroyWeak(&v15);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __64__LACUISceneHostingController_prepareRemoteSceneWithCompletion___block_invoke(uint64_t a1)
@@ -163,16 +161,16 @@ void __64__LACUISceneHostingController_prepareRemoteSceneWithCompletion___block_
 
 - (void)clientIsReady
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = LACLogUI();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     sceneIdentifier = [(LACAngelHostedSceneConfiguration *)self->_configuration sceneIdentifier];
-    v8 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v10 = 2112;
-    v11 = sceneIdentifier;
-    _os_log_impl(&dword_256063000, v3, OS_LOG_TYPE_DEFAULT, "%@ prepared remote scene: %@", &v8, 0x16u);
+    v9 = 2112;
+    v10 = sceneIdentifier;
+    _os_log_impl(&dword_256063000, v3, OS_LOG_TYPE_DEFAULT, "%@ prepared remote scene: %@", &v7, 0x16u);
   }
 
   preparationHandler = self->_preparationHandler;
@@ -182,24 +180,22 @@ void __64__LACUISceneHostingController_prepareRemoteSceneWithCompletion___block_
     v6 = self->_preparationHandler;
     self->_preparationHandler = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hostingControllerDidReconnect:(id)reconnect
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   reconnectCopy = reconnect;
   if (self->_didConnect)
   {
     v5 = LACLogUI();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412546;
+      v9 = 138412546;
       selfCopy = self;
-      v12 = 2112;
-      v13 = reconnectCopy;
-      _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "%@ hosting controller did reconnect: %@", &v10, 0x16u);
+      v11 = 2112;
+      v12 = reconnectCopy;
+      _os_log_impl(&dword_256063000, v5, OS_LOG_TYPE_DEFAULT, "%@ hosting controller did reconnect: %@", &v9, 0x16u);
     }
 
     sceneConnectionDelegate = [(LACUISceneHostingController *)self sceneConnectionDelegate];
@@ -216,8 +212,6 @@ void __64__LACUISceneHostingController_prepareRemoteSceneWithCompletion___block_
   {
     self->_didConnect = 1;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendConnectionEndpoint
@@ -247,7 +241,7 @@ void __64__LACUISceneHostingController_prepareRemoteSceneWithCompletion___block_
 
 void __54__LACUISceneHostingController__sendConnectionEndpoint__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -263,11 +257,9 @@ void __54__LACUISceneHostingController__sendConnectionEndpoint__block_invoke(uin
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_256063000, v4, OS_LOG_TYPE_DEFAULT, "Did send connection endpoint with %@", buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (LACUISceneHostingControllerDelegate)sceneConnectionDelegate

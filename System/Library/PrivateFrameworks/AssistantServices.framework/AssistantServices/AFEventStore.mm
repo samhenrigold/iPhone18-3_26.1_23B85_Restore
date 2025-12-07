@@ -20,7 +20,7 @@
 
 - (void)deleteAllSiriServiceEventsWithQueue:(id)queue withCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   handlerCopy = handler;
   v7 = SoftBiomeLibrary();
@@ -33,7 +33,7 @@
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "[AFEventStore(SiriService) deleteAllSiriServiceEventsWithQueue:withCompletionHandler:]";
+      v18 = "[AFEventStore(SiriService) deleteAllSiriServiceEventsWithQueue:withCompletionHandler:]";
       _os_log_error_impl(&dword_1912FE000, v10, OS_LOG_TYPE_ERROR, "%s Biome stream unavailable", buf, 0xCu);
     }
 
@@ -41,17 +41,15 @@
     handlerCopy[2](handlerCopy, v11);
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __87__AFEventStore_SiriService__deleteAllSiriServiceEventsWithQueue_withCompletionHandler___block_invoke;
-  v15[3] = &unk_1E7349838;
-  v16 = service;
-  v17 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __87__AFEventStore_SiriService__deleteAllSiriServiceEventsWithQueue_withCompletionHandler___block_invoke;
+  v14[3] = &unk_1E7349838;
+  v15 = service;
+  v16 = handlerCopy;
   v12 = handlerCopy;
   v13 = service;
-  dispatch_async(queueCopy, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  dispatch_async(queueCopy, v14);
 }
 
 uint64_t __87__AFEventStore_SiriService__deleteAllSiriServiceEventsWithQueue_withCompletionHandler___block_invoke(uint64_t a1)
@@ -66,7 +64,7 @@ uint64_t __87__AFEventStore_SiriService__deleteAllSiriServiceEventsWithQueue_wit
 
 - (void)fetchEventsBetweenStartDate:(id)date endDate:(id)endDate withQueue:(id)queue withCompletionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dateCopy = date;
   endDateCopy = endDate;
   queueCopy = queue;
@@ -75,11 +73,11 @@ uint64_t __87__AFEventStore_SiriService__deleteAllSiriServiceEventsWithQueue_wit
   if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v28 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]";
-    v29 = 2112;
-    v30 = dateCopy;
-    v31 = 2112;
-    v32 = endDateCopy;
+    v27 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]";
+    v28 = 2112;
+    v29 = dateCopy;
+    v30 = 2112;
+    v31 = endDateCopy;
     _os_log_debug_impl(&dword_1912FE000, v13, OS_LOG_TYPE_DEBUG, "%s Fetching SiriServices Biome events between startData: %@, endDate: %@", buf, 0x20u);
   }
 
@@ -94,14 +92,14 @@ uint64_t __87__AFEventStore_SiriService__deleteAllSiriServiceEventsWithQueue_wit
     block[1] = 3221225472;
     block[2] = __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQueue_withCompletionHandler___block_invoke;
     block[3] = &unk_1E7348AF8;
-    v22 = service;
-    v23 = dateCopy;
-    v24 = endDateCopy;
-    v25 = v17;
-    v26 = handlerCopy;
+    v21 = service;
+    v22 = dateCopy;
+    v23 = endDateCopy;
+    v24 = v17;
+    v25 = handlerCopy;
     dispatch_async(queueCopy, block);
 
-    v18 = v22;
+    v18 = v21;
   }
 
   else
@@ -110,15 +108,13 @@ uint64_t __87__AFEventStore_SiriService__deleteAllSiriServiceEventsWithQueue_wit
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v28 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]";
+      v27 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]";
       _os_log_error_impl(&dword_1912FE000, v19, OS_LOG_TYPE_ERROR, "%s Biome stream unavailable", buf, 0xCu);
     }
 
     v18 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10001 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, 0, v18);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQueue_withCompletionHandler___block_invoke(uint64_t a1)
@@ -143,7 +139,7 @@ void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQue
 
 BOOL __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQueue_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_alloc(MEMORY[0x1E695DF00]);
   [v3 timestamp];
@@ -152,12 +148,12 @@ BOOL __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQue
   v7 = AFSiriLogContextEvent;
   if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_DEBUG))
   {
-    v17 = 136315650;
-    v18 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]_block_invoke_2";
-    v19 = 2112;
-    v20 = v6;
-    v21 = 2112;
-    v22 = v5;
+    v16 = 136315650;
+    v17 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]_block_invoke_2";
+    v18 = 2112;
+    v19 = v6;
+    v20 = 2112;
+    v21 = v5;
   }
 
   [v3 timestamp];
@@ -176,26 +172,25 @@ BOOL __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQue
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQueue_withCompletionHandler___block_invoke_7(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextEvent;
   if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_DEBUG))
   {
-    v10 = v4;
-    v11 = [v3 eventBody];
-    v12 = 136315650;
-    v13 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]_block_invoke";
-    v14 = 2112;
-    v15 = v3;
-    v16 = 1024;
-    v17 = [v11 dismissalReason];
-    _os_log_debug_impl(&dword_1912FE000, v10, OS_LOG_TYPE_DEBUG, "%s Received event %@ {dismissal reason:%d}", &v12, 0x1Cu);
+    v9 = v4;
+    v10 = [v3 eventBody];
+    v11 = 136315650;
+    v12 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]_block_invoke";
+    v13 = 2112;
+    v14 = v3;
+    v15 = 1024;
+    v16 = [v10 dismissalReason];
+    _os_log_debug_impl(&dword_1912FE000, v9, OS_LOG_TYPE_DEBUG, "%s Received event %@ {dismissal reason:%d}", &v11, 0x1Cu);
   }
 
   v5 = *(a1 + 32);
@@ -203,35 +198,31 @@ void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQue
   v7 = [v3 eventBody];
   v8 = [(AFEvent *)v6 initWithBMEvent:v7];
   [v5 addObject:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQueue_withCompletionHandler___block_invoke_5(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if ([v2 state] == 1)
   {
-    v4 = AFSiriLogContextEvent;
+    v3 = AFSiriLogContextEvent;
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
-      v5 = v4;
-      v6 = [v2 error];
-      v7 = 136315394;
-      v8 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]_block_invoke";
-      v9 = 2112;
-      v10 = v6;
-      _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s Error fetching bluetooth event: %@", &v7, 0x16u);
+      v4 = v3;
+      v5 = [v2 error];
+      v6 = 136315394;
+      v7 = "[AFEventStore(SiriService) fetchEventsBetweenStartDate:endDate:withQueue:withCompletionHandler:]_block_invoke";
+      v8 = 2112;
+      v9 = v5;
+      _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Error fetching bluetooth event: %@", &v6, 0x16u);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeSiriServiceEvent:(id)event withQueue:(id)queue atTime:(id)time withCompletionHandler:(id)handler
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   queueCopy = queue;
   timeCopy = time;
@@ -241,27 +232,27 @@ void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQue
   if (bmEvent)
   {
     bmEvent2 = [eventCopy bmEvent];
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2050000000;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2050000000;
     v15 = getBMSiriServiceClass_softClass_27070;
-    v41 = getBMSiriServiceClass_softClass_27070;
+    v40 = getBMSiriServiceClass_softClass_27070;
     if (!getBMSiriServiceClass_softClass_27070)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getBMSiriServiceClass_block_invoke_27071;
-      v43 = &unk_1E7349228;
-      v44 = &v38;
-      BiomeLibraryLibraryCore();
+      v42 = &unk_1E7349228;
+      v43 = &v37;
+      BiomeLibraryLibraryCore(0);
       Class = objc_getClass("BMSiriService");
-      *(v44[1] + 24) = Class;
-      getBMSiriServiceClass_softClass_27070 = *(v44[1] + 24);
-      v15 = v39[3];
+      *(v43[1] + 24) = Class;
+      getBMSiriServiceClass_softClass_27070 = *(v43[1] + 24);
+      v15 = v38[3];
     }
 
     v17 = v15;
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
@@ -290,14 +281,14 @@ void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQue
           block[1] = 3221225472;
           block[2] = __90__AFEventStore_SiriService__storeSiriServiceEvent_withQueue_atTime_withCompletionHandler___block_invoke;
           block[3] = &unk_1E7348AF8;
-          v33 = eventCopy;
-          v34 = timeCopy;
-          v35 = source;
-          v36 = service;
-          v37 = handlerCopy;
+          v32 = eventCopy;
+          v33 = timeCopy;
+          v34 = source;
+          v35 = service;
+          v36 = handlerCopy;
           dispatch_async(queueCopy, block);
 
-          v24 = v33;
+          v24 = v32;
         }
 
         else
@@ -316,12 +307,12 @@ void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQue
 
       else
       {
-        v31 = AFSiriLogContextEvent;
+        v30 = AFSiriLogContextEvent;
         if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
           *&buf[4] = "[AFEventStore(SiriService) storeSiriServiceEvent:withQueue:atTime:withCompletionHandler:]";
-          _os_log_error_impl(&dword_1912FE000, v31, OS_LOG_TYPE_ERROR, "%s Biome event stream unavailable", buf, 0xCu);
+          _os_log_error_impl(&dword_1912FE000, v30, OS_LOG_TYPE_ERROR, "%s Biome event stream unavailable", buf, 0xCu);
         }
 
         source = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10001 userInfo:0];
@@ -334,13 +325,13 @@ void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQue
       v25 = AFSiriLogContextEvent;
       if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_DEBUG))
       {
-        v27 = v25;
-        v28 = objc_opt_class();
+        v26 = v25;
+        v27 = objc_opt_class();
         *buf = 136315394;
         *&buf[4] = "[AFEventStore(SiriService) storeSiriServiceEvent:withQueue:atTime:withCompletionHandler:]";
         *&buf[12] = 2112;
-        *&buf[14] = v28;
-        v29 = v28;
+        *&buf[14] = v27;
+        v28 = v27;
       }
 
       service = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10005 userInfo:0];
@@ -350,33 +341,31 @@ void __97__AFEventStore_SiriService__fetchEventsBetweenStartDate_endDate_withQue
 
   else
   {
-    v30 = AFSiriLogContextEvent;
+    v29 = AFSiriLogContextEvent;
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
       *&buf[4] = "[AFEventStore(SiriService) storeSiriServiceEvent:withQueue:atTime:withCompletionHandler:]";
-      _os_log_error_impl(&dword_1912FE000, v30, OS_LOG_TYPE_ERROR, "%s Biome base event unavailable for AFBTEvent", buf, 0xCu);
+      _os_log_error_impl(&dword_1912FE000, v29, OS_LOG_TYPE_ERROR, "%s Biome base event unavailable for AFBTEvent", buf, 0xCu);
     }
 
     service = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10002 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, service);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __90__AFEventStore_SiriService__storeSiriServiceEvent_withQueue_atTime_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) bmEvent];
   v3 = AFSiriLogContextEvent;
   if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 136315394;
-    v10 = "[AFEventStore(SiriService) storeSiriServiceEvent:withQueue:atTime:withCompletionHandler:]_block_invoke";
-    v11 = 2112;
-    v12 = v2;
-    _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s Sending event %@ to event source", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[AFEventStore(SiriService) storeSiriServiceEvent:withQueue:atTime:withCompletionHandler:]_block_invoke";
+    v10 = 2112;
+    v11 = v2;
+    _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s Sending event %@ to event source", &v8, 0x16u);
   }
 
   v4 = *(a1 + 40);
@@ -395,19 +384,17 @@ void __90__AFEventStore_SiriService__storeSiriServiceEvent_withQueue_atTime_with
   v6 = AFSiriLogContextEvent;
   if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_DEBUG))
   {
-    v8 = *(a1 + 56);
-    v9 = 136315650;
-    v10 = "[AFEventStore(SiriService) storeSiriServiceEvent:withQueue:atTime:withCompletionHandler:]_block_invoke";
-    v11 = 2112;
-    v12 = v2;
-    v13 = 2112;
-    v14 = v8;
-    _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s Sent event %@ to stream %@", &v9, 0x20u);
+    v7 = *(a1 + 56);
+    v8 = 136315650;
+    v9 = "[AFEventStore(SiriService) storeSiriServiceEvent:withQueue:atTime:withCompletionHandler:]_block_invoke";
+    v10 = 2112;
+    v11 = v2;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_debug_impl(&dword_1912FE000, v6, OS_LOG_TYPE_DEBUG, "%s Sent event %@ to stream %@", &v8, 0x20u);
   }
 
   (*(*(a1 + 64) + 16))();
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedInstance
@@ -431,7 +418,7 @@ void __30__AFEventStore_sharedInstance__block_invoke()
 
 - (void)fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFA8];
   handlerCopy = handler;
   v6 = objc_alloc_init(v4);
@@ -439,43 +426,41 @@ void __30__AFEventStore_sharedInstance__block_invoke()
   v8 = _getPublisher;
   if (_getPublisher)
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __97__AFEventStore_BluetoothEvent__fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler___block_invoke;
-    v17[3] = &unk_1E7348F88;
-    v17[4] = self;
-    v9 = [_getPublisher filterWithIsIncluded:v17];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __97__AFEventStore_BluetoothEvent__fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler___block_invoke_32;
-    v15[3] = &unk_1E7349020;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __97__AFEventStore_BluetoothEvent__fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler___block_invoke;
+    v16[3] = &unk_1E7348F88;
+    v16[4] = self;
+    v9 = [_getPublisher filterWithIsIncluded:v16];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __97__AFEventStore_BluetoothEvent__fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler___block_invoke_32;
+    v14[3] = &unk_1E7349020;
     v10 = v6;
-    v16 = v10;
-    v11 = [v9 sinkWithCompletion:&__block_literal_global_31 receiveInput:v15];
+    v15 = v10;
+    v11 = [v9 sinkWithCompletion:&__block_literal_global_31 receiveInput:v14];
 
     handlerCopy[2](handlerCopy, v10, 0);
   }
 
   else
   {
-    v13 = AFSiriLogContextEvent;
+    v12 = AFSiriLogContextEvent;
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "[AFEventStore(BluetoothEvent) fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler:]";
-      _os_log_error_impl(&dword_1912FE000, v13, OS_LOG_TYPE_ERROR, "%s Error creating Biome publisher", buf, 0xCu);
+      v18 = "[AFEventStore(BluetoothEvent) fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler:]";
+      _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s Error creating Biome publisher", buf, 0xCu);
     }
 
-    v14 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10001 userInfo:0];
-    (handlerCopy)[2](handlerCopy, 0, v14);
+    v13 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10001 userInfo:0];
+    (handlerCopy)[2](handlerCopy, 0, v13);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __97__AFEventStore_BluetoothEvent__fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler___block_invoke_32(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 eventBody];
   v5 = [v4 hasProductID];
@@ -495,43 +480,39 @@ void __97__AFEventStore_BluetoothEvent__fetchAppleAudioDeviceConnectedInLast24Ho
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v13 = "[AFEventStore(BluetoothEvent) fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler:]_block_invoke";
-      v14 = 2112;
-      v15 = v3;
+      v12 = "[AFEventStore(BluetoothEvent) fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler:]_block_invoke";
+      v13 = 2112;
+      v14 = v3;
       _os_log_impl(&dword_1912FE000, v10, OS_LOG_TYPE_INFO, "%s Received event '%@' with no product id", buf, 0x16u);
     }
 
     [*(a1 + 32) addObject:@"unknown_product_id"];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __97__AFEventStore_BluetoothEvent__fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if ([v2 state] == 1)
   {
-    v4 = AFSiriLogContextEvent;
+    v3 = AFSiriLogContextEvent;
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
-      v5 = v4;
-      v6 = [v2 error];
-      v7 = 136315394;
-      v8 = "[AFEventStore(BluetoothEvent) fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler:]_block_invoke_2";
-      v9 = 2112;
-      v10 = v6;
-      _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s Error fetching bluetooth event: %@", &v7, 0x16u);
+      v4 = v3;
+      v5 = [v2 error];
+      v6 = 136315394;
+      v7 = "[AFEventStore(BluetoothEvent) fetchAppleAudioDeviceConnectedInLast24HoursWithCompletionHandler:]_block_invoke_2";
+      v8 = 2112;
+      v9 = v5;
+      _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Error fetching bluetooth event: %@", &v6, 0x16u);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchHeadunitsConnectedInLast24HoursWithCompletionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFA8];
   handlerCopy = handler;
   v6 = objc_alloc_init(v4);
@@ -539,25 +520,25 @@ void __97__AFEventStore_BluetoothEvent__fetchAppleAudioDeviceConnectedInLast24Ho
   v8 = _getPublisher;
   if (_getPublisher)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWithCompletionHandler___block_invoke;
-    v20[3] = &unk_1E7348F88;
-    v20[4] = self;
-    v9 = [_getPublisher filterWithIsIncluded:v20];
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;
-    v19[2] = __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWithCompletionHandler___block_invoke_2;
-    v19[3] = &unk_1E7348FB0;
+    v19[2] = __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWithCompletionHandler___block_invoke;
+    v19[3] = &unk_1E7348F88;
     v19[4] = self;
-    v10 = [v9 mapWithTransform:v19];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWithCompletionHandler___block_invoke_28;
-    v17[3] = &unk_1E7348FF8;
+    v9 = [_getPublisher filterWithIsIncluded:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWithCompletionHandler___block_invoke_2;
+    v18[3] = &unk_1E7348FB0;
+    v18[4] = self;
+    v10 = [v9 mapWithTransform:v18];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWithCompletionHandler___block_invoke_28;
+    v16[3] = &unk_1E7348FF8;
     v11 = v6;
-    v18 = v11;
-    v12 = [v10 sinkWithCompletion:&__block_literal_global_27 receiveInput:v17];
+    v17 = v11;
+    v12 = [v10 sinkWithCompletion:&__block_literal_global_27 receiveInput:v16];
 
     allObjects = [v11 allObjects];
     handlerCopy[2](handlerCopy, allObjects, 0);
@@ -565,46 +546,42 @@ void __97__AFEventStore_BluetoothEvent__fetchAppleAudioDeviceConnectedInLast24Ho
 
   else
   {
-    v15 = AFSiriLogContextEvent;
+    v14 = AFSiriLogContextEvent;
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v22 = "[AFEventStore(BluetoothEvent) fetchHeadunitsConnectedInLast24HoursWithCompletionHandler:]";
-      _os_log_error_impl(&dword_1912FE000, v15, OS_LOG_TYPE_ERROR, "%s Error creating Biome publisher", buf, 0xCu);
+      v21 = "[AFEventStore(BluetoothEvent) fetchHeadunitsConnectedInLast24HoursWithCompletionHandler:]";
+      _os_log_error_impl(&dword_1912FE000, v14, OS_LOG_TYPE_ERROR, "%s Error creating Biome publisher", buf, 0xCu);
     }
 
-    v16 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10001 userInfo:0];
-    (handlerCopy)[2](handlerCopy, 0, v16);
+    v15 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10001 userInfo:0];
+    (handlerCopy)[2](handlerCopy, 0, v15);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = a2;
   if ([v2 state] == 1)
   {
-    v4 = AFSiriLogContextEvent;
+    v3 = AFSiriLogContextEvent;
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
-      v5 = v4;
-      v6 = [v2 error];
-      v7 = 136315394;
-      v8 = "[AFEventStore(BluetoothEvent) fetchHeadunitsConnectedInLast24HoursWithCompletionHandler:]_block_invoke_3";
-      v9 = 2112;
-      v10 = v6;
-      _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s Error fetching bluetooth event: %@", &v7, 0x16u);
+      v4 = v3;
+      v5 = [v2 error];
+      v6 = 136315394;
+      v7 = "[AFEventStore(BluetoothEvent) fetchHeadunitsConnectedInLast24HoursWithCompletionHandler:]_block_invoke_3";
+      v8 = 2112;
+      v9 = v5;
+      _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Error fetching bluetooth event: %@", &v6, 0x16u);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_getPublisher
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = SoftBiomeLibrary_45782();
   device = [v2 Device];
   wireless = [device Wireless];
@@ -617,18 +594,16 @@ void __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWith
 
   else
   {
-    v9 = AFSiriLogContextEvent;
+    v8 = AFSiriLogContextEvent;
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[AFEventStore(BluetoothEvent) _getPublisher]";
-      _os_log_error_impl(&dword_1912FE000, v9, OS_LOG_TYPE_ERROR, "%s Error creating Biome stream", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[AFEventStore(BluetoothEvent) _getPublisher]";
+      _os_log_error_impl(&dword_1912FE000, v8, OS_LOG_TYPE_ERROR, "%s Error creating Biome stream", &v9, 0xCu);
     }
 
     v6 = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -780,7 +755,7 @@ void __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWith
 
 - (void)deleteAllBTEventsWithQueue:(id)queue withCompletionHandler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   handlerCopy = handler;
   v7 = SoftBiomeLibrary_45782();
@@ -790,15 +765,15 @@ void __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWith
 
   if (bluetooth)
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __81__AFEventStore_BluetoothEvent__deleteAllBTEventsWithQueue_withCompletionHandler___block_invoke;
-    v14[3] = &unk_1E7349838;
-    v15 = bluetooth;
-    v16 = handlerCopy;
-    dispatch_async(queueCopy, v14);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __81__AFEventStore_BluetoothEvent__deleteAllBTEventsWithQueue_withCompletionHandler___block_invoke;
+    v13[3] = &unk_1E7349838;
+    v14 = bluetooth;
+    v15 = handlerCopy;
+    dispatch_async(queueCopy, v13);
 
-    v11 = v15;
+    v11 = v14;
   }
 
   else
@@ -807,15 +782,13 @@ void __90__AFEventStore_BluetoothEvent__fetchHeadunitsConnectedInLast24HoursWith
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v18 = "[AFEventStore(BluetoothEvent) deleteAllBTEventsWithQueue:withCompletionHandler:]";
+      v17 = "[AFEventStore(BluetoothEvent) deleteAllBTEventsWithQueue:withCompletionHandler:]";
       _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s Biome stream unavailable", buf, 0xCu);
     }
 
     v11 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10001 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, v11);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __81__AFEventStore_BluetoothEvent__deleteAllBTEventsWithQueue_withCompletionHandler___block_invoke(uint64_t a1)
@@ -830,7 +803,7 @@ uint64_t __81__AFEventStore_BluetoothEvent__deleteAllBTEventsWithQueue_withCompl
 
 - (void)storeBTEvent:(id)event withQueue:(id)queue withCompletionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   queueCopy = queue;
   handlerCopy = handler;
@@ -839,27 +812,27 @@ uint64_t __81__AFEventStore_BluetoothEvent__deleteAllBTEventsWithQueue_withCompl
   if (bmEvent)
   {
     bmEvent2 = [eventCopy bmEvent];
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2050000000;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2050000000;
     v12 = getBMDeviceBluetoothClass_softClass;
-    v37 = getBMDeviceBluetoothClass_softClass;
+    v36 = getBMDeviceBluetoothClass_softClass;
     if (!getBMDeviceBluetoothClass_softClass)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getBMDeviceBluetoothClass_block_invoke;
-      v39 = &unk_1E7349228;
-      v40 = &v34;
-      BiomeLibraryLibraryCore_45796();
+      v38 = &unk_1E7349228;
+      v39 = &v33;
+      BiomeLibraryLibraryCore_45796(0);
       Class = objc_getClass("BMDeviceBluetooth");
-      *(v40[1] + 24) = Class;
-      getBMDeviceBluetoothClass_softClass = *(v40[1] + 24);
-      v12 = v35[3];
+      *(v39[1] + 24) = Class;
+      getBMDeviceBluetoothClass_softClass = *(v39[1] + 24);
+      v12 = v34[3];
     }
 
     v14 = v12;
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v33, 8);
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
@@ -889,12 +862,12 @@ uint64_t __81__AFEventStore_BluetoothEvent__deleteAllBTEventsWithQueue_withCompl
           block[1] = 3221225472;
           block[2] = __77__AFEventStore_BluetoothEvent__storeBTEvent_withQueue_withCompletionHandler___block_invoke;
           block[3] = &unk_1E73496E8;
-          v31 = eventCopy;
-          v32 = source;
-          v33 = handlerCopy;
+          v30 = eventCopy;
+          v31 = source;
+          v32 = handlerCopy;
           dispatch_async(queueCopy, block);
 
-          v22 = v31;
+          v22 = v30;
         }
 
         else
@@ -913,12 +886,12 @@ uint64_t __81__AFEventStore_BluetoothEvent__deleteAllBTEventsWithQueue_withCompl
 
       else
       {
-        v26 = AFSiriLogContextEvent;
+        v25 = AFSiriLogContextEvent;
         if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
           *&buf[4] = "[AFEventStore(BluetoothEvent) storeBTEvent:withQueue:withCompletionHandler:]";
-          _os_log_error_impl(&dword_1912FE000, v26, OS_LOG_TYPE_ERROR, "%s Biome event stream unavailable for bluetooth device", buf, 0xCu);
+          _os_log_error_impl(&dword_1912FE000, v25, OS_LOG_TYPE_ERROR, "%s Biome event stream unavailable for bluetooth device", buf, 0xCu);
         }
 
         source = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10001 userInfo:0];
@@ -928,16 +901,16 @@ uint64_t __81__AFEventStore_BluetoothEvent__deleteAllBTEventsWithQueue_withCompl
 
     else
     {
-      v25 = AFSiriLogContextEvent;
+      v24 = AFSiriLogContextEvent;
       if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_DEBUG))
       {
-        v27 = v25;
-        v28 = objc_opt_class();
+        v26 = v24;
+        v27 = objc_opt_class();
         *buf = 136315394;
         *&buf[4] = "[AFEventStore(BluetoothEvent) storeBTEvent:withQueue:withCompletionHandler:]";
         *&buf[12] = 2112;
-        *&buf[14] = v28;
-        v29 = v28;
+        *&buf[14] = v27;
+        v28 = v27;
       }
 
       bluetooth = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10005 userInfo:0];
@@ -947,49 +920,45 @@ uint64_t __81__AFEventStore_BluetoothEvent__deleteAllBTEventsWithQueue_withCompl
 
   else
   {
-    v24 = AFSiriLogContextEvent;
+    v23 = AFSiriLogContextEvent;
     if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
       *&buf[4] = "[AFEventStore(BluetoothEvent) storeBTEvent:withQueue:withCompletionHandler:]";
-      _os_log_error_impl(&dword_1912FE000, v24, OS_LOG_TYPE_ERROR, "%s Biome base event unavailable for AFBTEvent", buf, 0xCu);
+      _os_log_error_impl(&dword_1912FE000, v23, OS_LOG_TYPE_ERROR, "%s Biome base event unavailable for AFBTEvent", buf, 0xCu);
     }
 
     bluetooth = [objc_alloc(MEMORY[0x1E696ABC0]) initWithDomain:@"kAFAssistantEventDomain" code:10002 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, bluetooth);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __77__AFEventStore_BluetoothEvent__storeBTEvent_withQueue_withCompletionHandler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) bmEvent];
   v3 = AFSiriLogContextEvent;
   if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "[AFEventStore(BluetoothEvent) storeBTEvent:withQueue:withCompletionHandler:]_block_invoke";
-    v8 = 2112;
-    v9 = v2;
-    _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s Sending event %@ to event source", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFEventStore(BluetoothEvent) storeBTEvent:withQueue:withCompletionHandler:]_block_invoke";
+    v7 = 2112;
+    v8 = v2;
+    _os_log_debug_impl(&dword_1912FE000, v3, OS_LOG_TYPE_DEBUG, "%s Sending event %@ to event source", &v5, 0x16u);
   }
 
   [*(a1 + 40) sendEvent:v2];
   v4 = AFSiriLogContextEvent;
   if (os_log_type_enabled(AFSiriLogContextEvent, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "[AFEventStore(BluetoothEvent) storeBTEvent:withQueue:withCompletionHandler:]_block_invoke";
-    v8 = 2112;
-    v9 = v2;
-    _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s Sent event %@ to stream Device.Wireless.Bluetooth", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "[AFEventStore(BluetoothEvent) storeBTEvent:withQueue:withCompletionHandler:]_block_invoke";
+    v7 = 2112;
+    v8 = v2;
+    _os_log_debug_impl(&dword_1912FE000, v4, OS_LOG_TYPE_DEBUG, "%s Sent event %@ to stream Device.Wireless.Bluetooth", &v5, 0x16u);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

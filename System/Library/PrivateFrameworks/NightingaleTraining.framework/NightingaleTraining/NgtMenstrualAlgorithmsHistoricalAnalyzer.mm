@@ -174,7 +174,7 @@ LABEL_3:
 
       self->_julianDayOfLastInput.var0.__val_ = [(NgtMenstrualAlgorithmsDayInput *)v7 julianDay];
       self->_julianDayOfLastInput.__engaged_ = 1;
-      convert_day_input(v7, v10, v12);
+      convert_day_input(v12, v7, v10);
       Nightingale::ngt_HistoricalAnalyzer::appendDay(self->_historicalAnalyzer.__ptr_, v12);
       if (v4 == ++v6)
       {

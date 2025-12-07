@@ -6,11 +6,11 @@
 
 + (id)suggestionsForFlightsWithHeuristicDevice:(id)device
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   date = [MEMORY[0x277CBEAA8] date];
   v4 = [date dateByAddingTimeInterval:-64800.0];
-  v5 = __atxlog_handle_context_heuristic();
+  v5 = __atxlog_handle_context_heuristic(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -22,37 +22,37 @@
   v8 = [(ATXCalendarEventsDataSource *)v6 sortEkEvents:v7];
   if ([v8 count])
   {
-    v64 = v7;
-    v65 = v4;
-    v74 = v6;
-    v69 = objc_opt_new();
-    v82 = objc_opt_new();
-    v85 = 0u;
+    v65 = v7;
+    v66 = v4;
+    v75 = v6;
+    v70 = objc_opt_new();
+    v83 = objc_opt_new();
     v86 = 0u;
     v87 = 0u;
     v88 = 0u;
-    v63 = v8;
+    v89 = 0u;
+    v64 = v8;
     obj = v8;
-    v84 = [obj countByEnumeratingWithState:&v85 objects:v91 count:16];
-    if (!v84)
+    v85 = [obj countByEnumeratingWithState:&v86 objects:v92 count:16];
+    if (!v85)
     {
       goto LABEL_44;
     }
 
     v9 = 0x278C3C000uLL;
-    v83 = *v86;
-    v73 = date;
+    v84 = *v87;
+    v74 = date;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v86 != v83)
+        if (*v87 != v84)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v85 + 1) + 8 * v10);
+        v11 = *(*(&v86 + 1) + 8 * v10);
         endDate = [v11 endDate];
         v13 = [endDate dateByAddingTimeInterval:14400.0];
 
@@ -62,184 +62,185 @@
 
         if (geoLocation)
         {
-          v17 = [*(v9 + 864) currentLocationIsWithinAirportForEvent:v11];
-          v18 = [ATXInformationHeuristicRefreshLocationTrigger alloc];
+          v18 = [*(v9 + 864) currentLocationIsWithinAirportForEvent:v11];
+          v19 = [ATXInformationHeuristicRefreshLocationTrigger alloc];
           [geoLocation coordinate];
-          if ((v17 & 1) == 0)
+          if ((v18 & 1) == 0)
           {
-            v52 = [ATXInformationHeuristicRefreshLocationTrigger initWithEnteringLocation:v18 radiusInMeters:"initWithEnteringLocation:radiusInMeters:"];
-            [v82 addObject:v52];
+            v53 = [ATXInformationHeuristicRefreshLocationTrigger initWithEnteringLocation:v19 radiusInMeters:"initWithEnteringLocation:radiusInMeters:"];
+            [v83 addObject:v53];
             goto LABEL_40;
           }
 
-          v79 = [ATXInformationHeuristicRefreshLocationTrigger initWithExitingLocation:v18 radiusInMeters:"initWithExitingLocation:radiusInMeters:"];
-          [v82 addObject:?];
-          v19 = [v14 objectForKeyedSubscript:@"reservationFor"];
-          v20 = [v19 objectForKeyedSubscript:@"arrivalAirport"];
-          v21 = [v20 objectForKeyedSubscript:@"address"];
-          [v21 objectForKeyedSubscript:@"addressLocality"];
-          v23 = v22 = date;
+          v80 = [ATXInformationHeuristicRefreshLocationTrigger initWithExitingLocation:v19 radiusInMeters:"initWithExitingLocation:radiusInMeters:"];
+          [v83 addObject:?];
+          v20 = [v14 objectForKeyedSubscript:@"reservationFor"];
+          v21 = [v20 objectForKeyedSubscript:@"arrivalAirport"];
+          v22 = [v21 objectForKeyedSubscript:@"address"];
+          [v22 objectForKeyedSubscript:@"addressLocality"];
+          v24 = v23 = date;
 
-          v81 = v23;
-          v24 = v23;
-          v25 = v22;
-          if (![v24 length])
+          v82 = v24;
+          v25 = v24;
+          v26 = v23;
+          if (![v25 length])
           {
-            v26 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v27 = __atxlog_handle_context_heuristic(0);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v90 = v81;
-              _os_log_impl(&dword_23E3EA000, v26, OS_LOG_TYPE_DEFAULT, "ATXHeuristicConcludedFlightEventUtilities: Airplane mode: Missing information: Arrival City %@.", buf, 0xCu);
+              v91 = v82;
+              _os_log_impl(&dword_23E3EA000, v27, OS_LOG_TYPE_DEFAULT, "ATXHeuristicConcludedFlightEventUtilities: Airplane mode: Missing information: Arrival City %@.", buf, 0xCu);
             }
           }
 
-          v27 = [ATXHeuristicFlightEventUtilities _dateIntervalWithEvent:v11];
-          v28 = [ATXContextFlightEventSuggestionProducer alloc];
+          v28 = [ATXHeuristicFlightEventUtilities _dateIntervalWithEvent:v11];
+          v29 = [ATXContextFlightEventSuggestionProducer alloc];
           title = [v11 title];
-          v76 = v27;
-          v80 = v14;
-          v30 = [(ATXContextFlightEventSuggestionProducer *)v28 initWithTitle:title flightInformationSchema:v14 urlString:0 teamIdentifier:0 validFromStartDate:0 validToEndDate:v13 alternateDestinationTitle:0 dateInterval:v27];
+          v77 = v28;
+          v81 = v14;
+          v31 = [(ATXContextFlightEventSuggestionProducer *)v29 initWithTitle:title flightInformationSchema:v14 urlString:0 teamIdentifier:0 validFromStartDate:0 validToEndDate:v13 alternateDestinationTitle:0 dateInterval:v28];
 
-          v31 = [(ATXContextFlightEventSuggestionProducer *)v30 suggestionForAirplaneModeWithPredictionReasons:0x200000000 score:80.0];
-          if (v31)
+          v32 = [(ATXContextFlightEventSuggestionProducer *)v31 suggestionForAirplaneModeWithPredictionReasons:0x200000000 score:80.0];
+          if (v32)
           {
-            [ATXHeuristicFlightEventUtilities logSuggestion:v31 description:@"ATXHeuristicConcludedFlightEventUtilities: Airplane Modesuggestion"];
-            [v69 addObject:v31];
+            [ATXHeuristicFlightEventUtilities logSuggestion:v32 description:@"ATXHeuristicConcludedFlightEventUtilities: Airplane Modesuggestion"];
+            [v70 addObject:v32];
           }
 
-          v78 = [v25 dateByAddingTimeInterval:-43200.0];
-          v32 = [ATXCalendarEventsDataSource hotelEventsFromStartDate:v74 endDate:"hotelEventsFromStartDate:endDate:reason:" reason:?];
-          if (![v32 count])
+          v79 = [v26 dateByAddingTimeInterval:-43200.0];
+          v33 = [ATXCalendarEventsDataSource hotelEventsFromStartDate:v75 endDate:"hotelEventsFromStartDate:endDate:reason:" reason:?];
+          if (![v33 count])
           {
-            [v25 dateByAddingTimeInterval:43200.0];
-            v34 = v33 = v30;
-            v35 = [(ATXCalendarEventsDataSource *)v74 hotelEventsFromStartDate:v25 endDate:v34 reason:@"lodging for concluded flights"];
+            [v26 dateByAddingTimeInterval:43200.0];
+            v35 = v34 = v31;
+            v36 = [(ATXCalendarEventsDataSource *)v75 hotelEventsFromStartDate:v26 endDate:v35 reason:@"lodging for concluded flights"];
 
-            v30 = v33;
-            v32 = v35;
+            v31 = v34;
+            v33 = v36;
           }
 
-          v77 = v32;
-          if ([v32 count])
+          v78 = v33;
+          if ([v33 count])
           {
-            v36 = [(ATXCalendarEventsDataSource *)v74 sortEkEvents:v32];
-            if ([v36 count])
+            v37 = [(ATXCalendarEventsDataSource *)v75 sortEkEvents:v33];
+            if ([v37 count])
             {
-              v72 = v36;
-              firstObject = [v36 firstObject];
+              v73 = v37;
+              firstObject = [v37 firstObject];
               endDate2 = [firstObject endDate];
-              v39 = [endDate2 dateByAddingTimeInterval:14400.0];
+              v40 = [endDate2 dateByAddingTimeInterval:14400.0];
 
               endDate3 = [v11 endDate];
-              [endDate3 timeIntervalSinceDate:v73];
-              v42 = v41;
+              [endDate3 timeIntervalSinceDate:v74];
+              v43 = v42;
 
-              v14 = v80;
+              v14 = v81;
               v9 = 0x278C3C000uLL;
-              if (v42 <= 14400.0)
+              if (v43 <= 14400.0)
               {
-                v43 = [ATXHeuristicFlightEventUtilities flightInformationSchemaForEvent:firstObject];
-                v67 = v39;
-                v68 = firstObject;
-                v44 = firstObject;
-                v45 = v43;
-                v46 = [ATXHeuristicNavigationUtilities navigationSuggestionActionForEvent:v44 schemaForEvent:v43 transportType:@"AUTOMOBILE" predictionReasons:0x200000000 heuristicDevice:deviceCopy score:0 validStartDate:65.0 validEndDate:v39];
-                if (v46)
+                v44 = [ATXHeuristicFlightEventUtilities flightInformationSchemaForEvent:firstObject];
+                v68 = v40;
+                v69 = firstObject;
+                v45 = firstObject;
+                v46 = v44;
+                v47 = [ATXHeuristicNavigationUtilities navigationSuggestionActionForEvent:v45 schemaForEvent:v44 transportType:@"AUTOMOBILE" predictionReasons:0x200000000 heuristicDevice:deviceCopy score:0 validStartDate:65.0 validEndDate:v40];
+                if (v47)
                 {
-                  v70 = v30;
-                  [ATXHeuristicFlightEventUtilities logSuggestion:v46 description:@"ATXHeuristicConcludedFlightEventUtilities: Navigation Suggestion"];
-                  [v69 addObject:v46];
-                  atxShortcutsActionExecutableObject = [v46 atxShortcutsActionExecutableObject];
+                  v71 = v31;
+                  [ATXHeuristicFlightEventUtilities logSuggestion:v47 description:@"ATXHeuristicConcludedFlightEventUtilities: Navigation Suggestion"];
+                  [v70 addObject:v47];
+                  atxShortcutsActionExecutableObject = [v47 atxShortcutsActionExecutableObject];
                   contextualActionGetDirections = [atxShortcutsActionExecutableObject contextualActionGetDirections];
                   destination = [contextualActionGetDirections destination];
 
                   if (destination)
                   {
-                    v50 = [ATXInformationHeuristicRefreshLocationTrigger alloc];
+                    v51 = [ATXInformationHeuristicRefreshLocationTrigger alloc];
                     [destination coordinate];
-                    v51 = [ATXInformationHeuristicRefreshLocationTrigger initWithEnteringLocation:v50 radiusInMeters:"initWithEnteringLocation:radiusInMeters:"];
-                    [v82 addObject:v51];
+                    v52 = [ATXInformationHeuristicRefreshLocationTrigger initWithEnteringLocation:v51 radiusInMeters:"initWithEnteringLocation:radiusInMeters:"];
+                    [v83 addObject:v52];
                   }
 
                   v9 = 0x278C3C000;
-                  v30 = v70;
+                  v31 = v71;
                 }
 
 LABEL_35:
-                v39 = v67;
-                firstObject = v68;
+                v40 = v68;
+                firstObject = v69;
               }
 
               goto LABEL_36;
             }
 
             v9 = 0x278C3C000;
-            v14 = v80;
+            v14 = v81;
           }
 
           else
           {
-            v71 = v30;
-            v36 = [ATXHeuristicNavigationUtilities fetchLocationForLOI:0];
-            v53 = [ATXHeuristicNavigationUtilities allowNavigationSuggestionForLocation:v36 maxDistance:250000];
-            v54 = __atxlog_handle_context_heuristic();
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+            v72 = v31;
+            v37 = [ATXHeuristicNavigationUtilities fetchLocationForLOI:0];
+            v54 = [ATXHeuristicNavigationUtilities allowNavigationSuggestionForLocation:v37 maxDistance:250000];
+            v55 = v54;
+            v56 = __atxlog_handle_context_heuristic(v54);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 67109120;
-              LODWORD(v90) = v53;
-              _os_log_impl(&dword_23E3EA000, v54, OS_LOG_TYPE_DEFAULT, "ATXHeursiticFlightEventUtilities: Can we navigate to home (%{BOOL}d)", buf, 8u);
+              LODWORD(v91) = v55;
+              _os_log_impl(&dword_23E3EA000, v56, OS_LOG_TYPE_DEFAULT, "ATXHeursiticFlightEventUtilities: Can we navigate to home (%{BOOL}d)", buf, 8u);
             }
 
-            v14 = v80;
-            if (v53)
+            v14 = v81;
+            if (v55)
             {
-              v72 = v36;
-              v55 = MEMORY[0x277CCACA8];
-              v56 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-              v57 = [v56 localizedStringForKey:@"HOME_NAVIGATION_TITLE" value:&stru_2850AD368 table:0];
-              firstObject = [v55 localizedStringWithFormat:v57];
+              v73 = v37;
+              v57 = MEMORY[0x277CCACA8];
+              v58 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+              v59 = [v58 localizedStringForKey:@"HOME_NAVIGATION_TITLE" value:&stru_2850AD368 table:0];
+              firstObject = [v57 localizedStringWithFormat:v59];
 
-              v39 = [ATXHeuristicNavigationUtilities navigationSuggestionActionForLOI:0 destinationName:firstObject schemaForEvent:v80 withScore:@"AUTOMOBILE" transportType:0x200000000 predictionReason:0 validStartDate:65.0 validEndDate:v13 heuristicDevice:deviceCopy];
-              if (v39)
+              v40 = [ATXHeuristicNavigationUtilities navigationSuggestionActionForLOI:0 destinationName:firstObject schemaForEvent:v81 withScore:@"AUTOMOBILE" transportType:0x200000000 predictionReason:0 validStartDate:65.0 validEndDate:v13 heuristicDevice:deviceCopy];
+              if (v40)
               {
-                v68 = firstObject;
+                v69 = firstObject;
                 v9 = 0x278C3C000uLL;
-                [ATXHeuristicFlightEventUtilities logSuggestion:v39 description:@"ATXHeuristicConcludedFlightEventUtilities: Navigation Suggestion"];
-                v67 = v39;
-                [v69 addObject:v39];
-                v58 = [ATXInformationHeuristicRefreshLocationTrigger alloc];
-                [v72 coordinate];
-                v45 = [ATXInformationHeuristicRefreshLocationTrigger initWithEnteringLocation:v58 radiusInMeters:"initWithEnteringLocation:radiusInMeters:"];
-                [v82 addObject:v45];
-                v30 = v71;
+                [ATXHeuristicFlightEventUtilities logSuggestion:v40 description:@"ATXHeuristicConcludedFlightEventUtilities: Navigation Suggestion"];
+                v68 = v40;
+                [v70 addObject:v40];
+                v60 = [ATXInformationHeuristicRefreshLocationTrigger alloc];
+                [v73 coordinate];
+                v46 = [ATXInformationHeuristicRefreshLocationTrigger initWithEnteringLocation:v60 radiusInMeters:"initWithEnteringLocation:radiusInMeters:"];
+                [v83 addObject:v46];
+                v31 = v72;
                 goto LABEL_35;
               }
 
               v9 = 0x278C3C000;
-              v30 = v71;
+              v31 = v72;
 LABEL_36:
 
-              v36 = v72;
+              v37 = v73;
             }
 
             else
             {
               v9 = 0x278C3C000;
-              v30 = v71;
+              v31 = v72;
             }
           }
 
-          date = v73;
-          v52 = v79;
+          date = v74;
+          v53 = v80;
           goto LABEL_40;
         }
 
-        v52 = __atxlog_handle_context_heuristic();
-        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        v53 = __atxlog_handle_context_heuristic(v17);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_23E3EA000, v52, OS_LOG_TYPE_DEFAULT, "ATXHeuristicConcludedFlightEventUtilities: No destination location, skipping Flight landed suggestions", buf, 2u);
+          _os_log_impl(&dword_23E3EA000, v53, OS_LOG_TYPE_DEFAULT, "ATXHeuristicConcludedFlightEventUtilities: No destination location, skipping Flight landed suggestions", buf, 2u);
         }
 
 LABEL_40:
@@ -247,29 +248,27 @@ LABEL_40:
         ++v10;
       }
 
-      while (v84 != v10);
-      v59 = [obj countByEnumeratingWithState:&v85 objects:v91 count:16];
-      v84 = v59;
-      if (!v59)
+      while (v85 != v10);
+      v61 = [obj countByEnumeratingWithState:&v86 objects:v92 count:16];
+      v85 = v61;
+      if (!v61)
       {
 LABEL_44:
 
-        v60 = [[ATXContextHeuristicResult alloc] initWithSuggestions:v69 additionalRefreshTriggers:v82];
-        v7 = v64;
-        v4 = v65;
-        v6 = v74;
-        v8 = v63;
+        v62 = [[ATXContextHeuristicResult alloc] initWithSuggestions:v70 additionalRefreshTriggers:v83];
+        v7 = v65;
+        v4 = v66;
+        v6 = v75;
+        v8 = v64;
         goto LABEL_46;
       }
     }
   }
 
-  v60 = objc_opt_new();
+  v62 = objc_opt_new();
 LABEL_46:
 
-  v61 = *MEMORY[0x277D85DE8];
-
-  return v60;
+  return v62;
 }
 
 @end

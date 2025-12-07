@@ -6,29 +6,29 @@
 
 - (unint64_t)longestKeyLength
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   objc_opt_class();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   selfCopy = self;
-  v3 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v16 + 1) + 8 * i);
         v9 = [v8 key];
         v10 = v9;
         if (v9 == kVMUAnalysisSummaryKey[0])
@@ -53,7 +53,7 @@
         }
       }
 
-      v4 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v4 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v4);
@@ -64,7 +64,6 @@
     v5 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

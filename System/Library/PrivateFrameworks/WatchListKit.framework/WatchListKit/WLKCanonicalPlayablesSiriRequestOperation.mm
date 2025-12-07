@@ -8,22 +8,22 @@
 
 - (WLKCanonicalPlayablesSiriRequestOperation)initWithStatsID:(id)d caller:(id)caller
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v21[0] = dCopy;
+  v20[0] = dCopy;
   v7 = MEMORY[0x277CBEA60];
   callerCopy = caller;
-  v9 = [v7 arrayWithObjects:v21 count:1];
+  v9 = [v7 arrayWithObjects:v20 count:1];
   v10 = [v9 componentsJoinedByString:{@", "}];
 
-  v19 = @"statsIds";
-  v20 = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  v18 = @"statsIds";
+  v19 = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
   v12 = [WLKURLRequestProperties requestPropertiesWithEndpoint:@"/siri/sports-tune-in" queryParameters:v11 httpMethod:@"GET" httpBody:0 headers:0 caller:callerCopy timeout:0 apiVersion:&unk_288222D10 options:0];
 
-  v18.receiver = self;
-  v18.super_class = WLKCanonicalPlayablesSiriRequestOperation;
-  v13 = [(WLKUTSNetworkRequestOperation *)&v18 initWithRequestProperties:v12];
+  v17.receiver = self;
+  v17.super_class = WLKCanonicalPlayablesSiriRequestOperation;
+  v13 = [(WLKUTSNetworkRequestOperation *)&v17 initWithRequestProperties:v12];
   if (v13)
   {
     v14 = [dCopy copy];
@@ -31,7 +31,6 @@
     v13->_statsID = v14;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

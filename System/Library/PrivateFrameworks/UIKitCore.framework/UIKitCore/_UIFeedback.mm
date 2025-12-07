@@ -196,7 +196,7 @@
 + (Class)classForType:(id)type
 {
   typeCopy = type;
-  if (([typeCopy isEqualToString:@"discrete"] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"continuous") & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"pattern") & 1) != 0 || objc_msgSend(typeCopy, "isEqualToString:", @"custom"))
+  if ((objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = objc_opt_class();
   }
@@ -269,7 +269,7 @@
   if (v5 == objc_opt_class())
   {
     v7 = equalCopy;
-    v6 = [(_UIFeedbackParameters *)self->_audioParameters isEqual:*(v7 + 2)]&& [(_UIFeedbackParameters *)self->_hapticParameters isEqual:*(v7 + 3)]&& self->_position == v7[3] && self->_delay == *(v7 + 12);
+    v6 = objc_msgSend_isEqual_(self->_audioParameters) && objc_msgSend_isEqual_(self->_hapticParameters) && self->_position == v7[3] && self->_delay == *(v7 + 12);
   }
 
   else

@@ -33,7 +33,7 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
 
 - (void)buildResultSectionsForTrackingNumberFromResult:(id)result completion:(id)completion queryId:(unint64_t)id
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   resultCopy = result;
   subResults = [resultCopy subResults];
@@ -47,36 +47,34 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
 
   v16 = [(SPUISDataDetectorResultGenerator *)self buildResultSectionForTrackingNumber:value carrier:type url:v14 queryId:id];
 
-  v19[0] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   completionCopy[2](completionCopy, v17);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildResultSectionForTrackingNumber:(id)number carrier:(id)carrier url:(id)url queryId:(unint64_t)id
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   v8 = MEMORY[0x277D4C598];
   urlCopy = url;
   carrierCopy = carrier;
-  v33 = [v8 textWithString:number];
+  v32 = [v8 textWithString:number];
   v11 = objc_opt_new();
   v12 = [MEMORY[0x277D4C550] punchoutWithURL:urlCopy];
 
-  v30 = v11;
+  v29 = v11;
   [v11 setPunchout:v12];
 
   v13 = objc_opt_new();
   [v13 setSymbolName:@"shippingbox.fill"];
-  v31 = v13;
+  v30 = v13;
   [v13 setIsTemplate:1];
   v14 = objc_opt_new();
-  [v14 setTitle:v33];
+  objc_msgSend_setTitle_(v14);
   v15 = [MEMORY[0x277D4C598] textWithString:carrierCopy];
 
-  v36[0] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+  v35[0] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
   [v14 setDescriptions:v16];
 
   [v14 setThumbnail:v13];
@@ -87,8 +85,8 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
   [v17 setBlueComponent:0.368627451];
   [v17 setColorTintStyle:1];
   [v14 setBackgroundColor:v17];
-  v35 = v14;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+  v34 = v14;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
   v19 = *MEMORY[0x277D65A58];
   v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v21 = [v20 localizedStringForKey:@"QUICK_ACTION_PACKAGE_TRACKING_SECTION_TITLE" value:&stru_287C50EE8 table:@"SpotlightServices"];
@@ -96,32 +94,30 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
   v23 = [v22 localizedStringForKey:@"QUICK_ACTION_PACKAGE_TRACKING_COMPLETION" value:&stru_287C50EE8 table:@"SpotlightServices"];
   v24 = [(SPUISDataDetectorResultGenerator *)self buildResultSectionWithCardSections:v18 queryId:id resultBundleId:v19 sectionTitle:v21 completion:v23];
 
-  punchout = [v30 punchout];
+  punchout = [v29 punchout];
   results = [v24 results];
   firstObject = [results firstObject];
   [firstObject setPunchout:punchout];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
 
 - (void)buildResultSectionsForPhoneNumberFromResult:(id)result completion:(id)completion queryId:(unint64_t)id
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v29 = 0;
-  v9 = [result getPhoneValue:&v29 label:0];
-  v10 = v29;
+  v28 = 0;
+  v9 = [result getPhoneValue:&v28 label:0];
+  v10 = v28;
   if (v9)
   {
     v11 = [objc_alloc(MEMORY[0x277CBDB70]) initWithStringValue:v10];
     v12 = [MEMORY[0x277CBDA58] predicateForContactsMatchingPhoneNumber:v11];
     v13 = objc_opt_new();
-    v32[0] = *MEMORY[0x277CBD098];
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+    v31[0] = *MEMORY[0x277CBD098];
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
     v15 = [v13 unifiedContactsMatchingPredicate:v12 keysToFetch:v14 error:0];
-    v16 = [v15 count];
+    v16 = objc_msgSend_count(v15);
 
     if (!v10 || v16)
     {
@@ -130,23 +126,23 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
 
     else
     {
-      v27 = [(SPUISDataDetectorResultGenerator *)self buildCardSectionForPhoneNumber:v10];
-      v31 = v27;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
-      v26 = *MEMORY[0x277D65A50];
+      v26 = [(SPUISDataDetectorResultGenerator *)self buildCardSectionForPhoneNumber:v10];
+      v30 = v26;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+      v25 = *MEMORY[0x277D65A50];
       v17 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       idCopy = id;
       [v17 localizedStringForKey:@"QUICK_ACTION_PHONE_NUMBER_SECTION_TITLE" value:&stru_287C50EE8 table:@"SpotlightServices"];
-      v19 = v28 = v11;
+      v19 = v27 = v11;
       v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v21 = [v20 localizedStringForKey:@"QUICK_ACTION_PHONE_NUMBER_COMPLETION" value:&stru_287C50EE8 table:@"SpotlightServices"];
-      v22 = [(SPUISDataDetectorResultGenerator *)self buildResultSectionWithCardSections:v25 queryId:idCopy resultBundleId:v26 sectionTitle:v19 completion:v21];
+      v22 = [(SPUISDataDetectorResultGenerator *)self buildResultSectionWithCardSections:v24 queryId:idCopy resultBundleId:v25 sectionTitle:v19 completion:v21];
 
-      v30 = v22;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+      v29 = v22;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
       (completionCopy)[2](completionCopy, v23);
 
-      v11 = v28;
+      v11 = v27;
     }
   }
 
@@ -154,13 +150,11 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
   {
     completionCopy[2](completionCopy, MEMORY[0x277CBEBF8]);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildCardSectionForPhoneNumber:(id)number
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   numberCopy = number;
   v5 = [(SPUISDataDetectorResultGenerator *)self personWithPhoneNumber:numberCopy email:0];
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -174,37 +168,36 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
 
   v12 = objc_opt_new();
   v13 = [MEMORY[0x277D4C598] textWithString:v11];
-  [v12 setTitle:v13];
+  objc_msgSend_setTitle_(v12);
 
   [v12 setSubtitleButtonItem:v8];
-  v18[0] = v9;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+  v17[0] = v9;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   [v12 setTrailingButtonItems:v14];
 
   v15 = objc_opt_new();
   [v15 setPhoneNumber:numberCopy];
 
   [v12 setCommand:v15];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)buildResultSectionsForEmailFromResult:(id)result completion:(id)completion queryId:(unint64_t)id
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v27 = 0;
-  v9 = [result getMailValue:&v27 label:0];
-  v10 = v27;
+  v26 = 0;
+  v9 = [result getMailValue:&v26 label:0];
+  v10 = v26;
   if (v9)
   {
     v11 = [MEMORY[0x277CBDA58] predicateForContactsMatchingEmailAddress:v10];
     v12 = objc_opt_new();
-    v30[0] = *MEMORY[0x277CBCFC0];
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+    v29[0] = *MEMORY[0x277CBCFC0];
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
     v14 = [v12 unifiedContactsMatchingPredicate:v11 keysToFetch:v13 error:0];
-    v15 = [v14 count];
+    v15 = objc_msgSend_count(v14);
 
     if (!v10 || v15)
     {
@@ -213,19 +206,19 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
 
     else
     {
-      v26 = [(SPUISDataDetectorResultGenerator *)self buildCardSectionForEmail:v10];
-      v29 = v26;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-      v25 = *MEMORY[0x277D65A48];
+      v25 = [(SPUISDataDetectorResultGenerator *)self buildCardSectionForEmail:v10];
+      v28 = v25;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+      v24 = *MEMORY[0x277D65A48];
       idCopy = id;
       v16 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v17 = [v16 localizedStringForKey:@"QUICK_ACTION_EMAIL_SECTION_TITLE" value:&stru_287C50EE8 table:@"SpotlightServices"];
       v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
       v19 = [v18 localizedStringForKey:@"QUICK_ACTION_EMAIL_COMPLETION" value:&stru_287C50EE8 table:@"SpotlightServices"];
-      v20 = [(SPUISDataDetectorResultGenerator *)self buildResultSectionWithCardSections:v24 queryId:idCopy resultBundleId:v25 sectionTitle:v17 completion:v19];
+      v20 = [(SPUISDataDetectorResultGenerator *)self buildResultSectionWithCardSections:v23 queryId:idCopy resultBundleId:v24 sectionTitle:v17 completion:v19];
 
-      v28 = v20;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+      v27 = v20;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
       (completionCopy)[2](completionCopy, v21);
     }
   }
@@ -234,13 +227,11 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
   {
     completionCopy[2](completionCopy, MEMORY[0x277CBEBF8]);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildCardSectionForEmail:(id)email
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   emailCopy = email;
   v5 = [(SPUISDataDetectorResultGenerator *)self personWithPhoneNumber:0 email:emailCopy];
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -251,25 +242,24 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
   [v9 setPerson:v5];
   v10 = objc_opt_new();
   v11 = [MEMORY[0x277D4C598] textWithString:emailCopy];
-  [v10 setTitle:v11];
+  objc_msgSend_setTitle_(v10);
 
   [v10 setSubtitleButtonItem:v8];
-  v16[0] = v9;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v9;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   [v10 setTrailingButtonItems:v12];
 
   v13 = objc_opt_new();
   [v13 setEmail:emailCopy];
 
   [v10 setCommand:v13];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)buildPersonBasedSubtitleButtonItemWithTitle:(id)title person:(id)person
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   personCopy = person;
   titleCopy = title;
   v8 = objc_opt_new();
@@ -289,62 +279,58 @@ void __73__SPUISDataDetectorResultGenerator_getResultSections_queryId_completion
 
   v16 = [(SPUISDataDetectorResultGenerator *)self buttonItemWithTitle:titleCopy symbol:0 command:0];
 
-  v20[0] = v11;
-  v20[1] = v15;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = v11;
+  v19[1] = v15;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   [v16 setPreviewButtonItems:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)personWithPhoneNumber:(id)number email:(id)email
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   numberCopy = number;
   emailCopy = email;
   v7 = objc_opt_new();
   if (numberCopy)
   {
-    v13[0] = numberCopy;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = numberCopy;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     [v7 setPhoneNumbers:v8];
   }
 
   if (emailCopy)
   {
-    v12 = emailCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
+    v11 = emailCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
     [v7 setEmailAddresses:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)buildResultSectionsForDateTimeFromResult:(id)result querString:(id)string completion:(id)completion queryId:(unint64_t)id searchString:(id)searchString
 {
-  v89[1] = *MEMORY[0x277D85DE8];
+  v88[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   stringCopy = string;
   completionCopy = completion;
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-  v85 = 0;
+  v84 = 0;
   systemTimeZone = [MEMORY[0x277CBEBB0] systemTimeZone];
   v15 = [MEMORY[0x277CBEAA8] now];
   type = [resultCopy type];
-  v77 = *MEMORY[0x277D04190];
+  v76 = *MEMORY[0x277D04190];
   if ([type isEqualToString:?])
   {
 
 LABEL_4:
+    v82 = 0;
     v83 = 0;
-    v84 = 0;
-    v19 = [resultCopy extractStartDate:&v84 startTimezone:0 endDate:&v83 endTimezone:0 allDayRef:&v85 referenceDate:v15 referenceTimezone:systemTimeZone];
-    v20 = v84;
-    v21 = v83;
+    v19 = [resultCopy extractStartDate:&v83 startTimezone:0 endDate:&v82 endTimezone:0 allDayRef:&v84 referenceDate:v15 referenceTimezone:systemTimeZone];
+    v20 = v83;
+    v21 = v82;
     v22 = v21;
     if ((v19 & 1) == 0)
     {
@@ -352,8 +338,8 @@ LABEL_4:
       goto LABEL_32;
     }
 
-    v79 = v15;
-    v80 = v21;
+    v78 = v15;
+    v79 = v21;
     v23 = resultCopy;
     v24 = v20;
     idCopy2 = id;
@@ -373,16 +359,16 @@ LABEL_4:
   idCopy2 = id;
   v36 = v15;
   v25 = completionCopy;
-  v79 = v36;
+  v78 = v36;
   v37 = [resultCopy dateFromReferenceDate:? referenceTimezone:? timezoneRef:? allDayRef:?];
-  v80 = 0;
+  v79 = 0;
   v23 = resultCopy;
   v26 = systemTimeZone;
   if (v37)
   {
     v27 = currentCalendar;
     v24 = v37;
-    v80 = [currentCalendar dateByAddingUnit:32 value:1 toDate:? options:?];
+    v79 = [currentCalendar dateByAddingUnit:32 value:1 toDate:? options:?];
     goto LABEL_7;
   }
 
@@ -409,33 +395,33 @@ LABEL_7:
     systemTimeZone = v26;
     completionCopy = v25;
     resultCopy = v33;
-    v15 = v79;
-    v22 = v80;
+    v15 = v78;
+    v22 = v79;
     goto LABEL_32;
   }
 
   v38 = v27;
   resultCopy = v33;
-  if (v80)
+  if (v79)
   {
     systemTimeZone = v26;
-    if ([v80 compare:v20] == -1)
+    if ([v79 compare:v20] == -1)
     {
-      v39 = v80;
+      v39 = v79;
 
-      v80 = v20;
+      v79 = v20;
       v20 = v39;
     }
   }
 
   else
   {
-    v80 = 0;
+    v79 = 0;
     systemTimeZone = v26;
   }
 
   completionCopy = v25;
-  if ([v20 compare:v79] == -1 && objc_msgSend(v38, "isDateInToday:", v20))
+  if ([v20 compare:v78] == -1 && objc_msgSend(v38, "isDateInToday:", v20))
   {
     type3 = [v33 type];
     if ([type3 isEqualToString:*MEMORY[0x277D04198]])
@@ -444,10 +430,10 @@ LABEL_7:
 LABEL_24:
       v46 = [v38 dateByAddingUnit:16 value:1 toDate:v20 options:0];
 
-      v47 = v80;
-      if (v80)
+      v47 = v79;
+      if (v79)
       {
-        v48 = [v38 dateByAddingUnit:16 value:1 toDate:v80 options:0];
+        v48 = [v38 dateByAddingUnit:16 value:1 toDate:v79 options:0];
 
         v47 = v48;
       }
@@ -460,7 +446,7 @@ LABEL_24:
     v41 = v20;
     selfCopy = self;
     v44 = v43 = v38;
-    v45 = [v44 isEqualToString:v77];
+    v45 = [v44 isEqualToString:v76];
 
     v38 = v43;
     self = selfCopy;
@@ -473,81 +459,79 @@ LABEL_24:
     }
   }
 
-  v47 = v80;
+  v47 = v79;
 LABEL_28:
   v49 = objc_opt_new();
-  v75 = v38;
+  v74 = v38;
   if ([v35 length])
   {
-    [v49 setTitle:v35];
+    objc_msgSend_setTitle_(v49);
   }
 
   else
   {
     v50 = [SPUISUtilities localizedStringForKey:@"NEW_EVENT"];
-    [v49 setTitle:v50];
+    objc_msgSend_setTitle_(v49);
   }
 
   [v49 setStartDate:v20];
   [v49 setEndDate:v47];
-  [v49 setIsAllDay:v85];
-  v81 = v47;
+  [v49 setIsAllDay:v84];
+  v80 = v47;
   v51 = objc_opt_new();
   [v51 setEvent:v49];
-  v78 = v20;
+  v77 = v20;
   v52 = objc_opt_new();
-  v74 = v49;
+  v73 = v49;
   v53 = MEMORY[0x277D4C598];
-  title = [v49 title];
-  v55 = [v53 textWithString:title];
-  [v52 setTitle:v55];
+  v54 = objc_msgSend_title(v49);
+  v55 = [v53 textWithString:v54];
+  objc_msgSend_setTitle_(v52);
 
-  v56 = [objc_alloc(MEMORY[0x277D4C220]) initWithDate:v78];
+  v56 = [objc_alloc(MEMORY[0x277D4C220]) initWithDate:v77];
   [v52 setThumbnail:v56];
 
   v57 = [SPUISUtilities localizedStringForKey:@"ADD"];
   v58 = v51;
-  v73 = v51;
+  v72 = v51;
   v59 = [(SPUISDataDetectorResultGenerator *)self buttonItemWithTitle:v57 symbol:0 command:v51];
-  v89[0] = v59;
-  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:1];
+  v88[0] = v59;
+  v60 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:1];
   [v52 setButtonItems:v60];
 
   [v52 setButtonItemsAreTrailing:1];
   [v52 setCommand:v58];
   v61 = MEMORY[0x277D4C598];
-  v62 = [SPUISDateFormatManager stringsFromDate:v78 toDate:v81 isAllDay:v85];
+  v62 = [SPUISDateFormatManager stringsFromDate:v77 toDate:v80 isAllDay:v84];
   v63 = [v62 componentsJoinedByString:@" · "];
-  v72 = [v61 textWithString:v63];
+  v71 = [v61 textWithString:v63];
 
-  v88 = v72;
-  v64 = [MEMORY[0x277CBEA60] arrayWithObjects:&v88 count:1];
+  v87 = v71;
+  v64 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
   [v52 setDescriptions:v64];
 
-  v87 = v52;
-  v65 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+  v86 = v52;
+  v65 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
   v66 = *MEMORY[0x277D65A40];
   v67 = [SPUISUtilities localizedStringForKey:@"QUICK_ACTION_CALENDAR_EVENT_SECTION_TITLE"];
   v68 = [SPUISUtilities localizedStringForKey:@"QUICK_ACTION_CALENDAR_EVENT_COMPLETION"];
   v69 = [(SPUISDataDetectorResultGenerator *)self buildResultSectionWithCardSections:v65 queryId:idCopy2 resultBundleId:v66 sectionTitle:v67 completion:v68];
 
-  v86 = v69;
-  v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
+  v85 = v69;
+  v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v85 count:1];
   (completionCopy)[2](completionCopy, v70);
 
-  v22 = v81;
-  v20 = v78;
+  v22 = v80;
+  v20 = v77;
 
-  currentCalendar = v75;
-  v15 = v79;
+  currentCalendar = v74;
+  v15 = v78;
 LABEL_32:
-
-  v71 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildResultSectionWithCardSections:(id)sections queryId:(unint64_t)id resultBundleId:(id)bundleId sectionTitle:(id)title completion:(id)completion
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   v11 = *MEMORY[0x277D65A38];
   completionCopy = completion;
   titleCopy = title;
@@ -571,15 +555,13 @@ LABEL_32:
   [v17 setApplicationBundleIdentifier:v11];
   [v17 setType:2];
   v19 = objc_alloc_init(MEMORY[0x277D65848]);
-  v23[0] = v17;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v22[0] = v17;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
   [v19 setResults:v20];
 
   [v19 setBundleIdentifier:v11];
   [v19 setDomain:10];
-  [v19 setTitle:titleCopy];
-
-  v21 = *MEMORY[0x277D85DE8];
+  objc_msgSend_setTitle_(v19);
 
   return v19;
 }
@@ -590,7 +572,7 @@ LABEL_32:
   commandCopy = command;
   titleCopy = title;
   v10 = objc_opt_new();
-  [v10 setTitle:titleCopy];
+  objc_msgSend_setTitle_(v10);
 
   if (symbolCopy)
   {

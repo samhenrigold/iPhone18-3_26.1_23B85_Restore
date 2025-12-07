@@ -158,31 +158,30 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_accountId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_mailboxId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_customName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    filterType = self->_filterType;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -201,9 +200,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  syncEnabled = self->_syncEnabled;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -217,22 +215,20 @@ LABEL_10:
   }
 
 LABEL_19:
-  type = self->_type;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_11:
-    syncRequested = self->_syncRequested;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_12:
   if (self->_url)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -418,7 +414,6 @@ LABEL_6:
     }
   }
 
-  v8 = *(equalCopy + 60);
   if (*&self->_has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_filterType != *(equalCopy + 6))
@@ -439,7 +434,6 @@ LABEL_6:
       goto LABEL_31;
     }
 
-    v9 = *(equalCopy + 56);
     if (self->_syncEnabled)
     {
       if ((*(equalCopy + 56) & 1) == 0)
@@ -480,7 +474,7 @@ LABEL_6:
     }
 
 LABEL_31:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_32;
   }
 
@@ -489,7 +483,6 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v13 = *(equalCopy + 57);
   if (self->_syncRequested)
   {
     if ((*(equalCopy + 57) & 1) == 0)
@@ -507,17 +500,17 @@ LABEL_26:
   url = self->_url;
   if (url | *(equalCopy + 6))
   {
-    v11 = [(NSString *)url isEqual:?];
+    v9 = [(NSString *)url isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_32:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

@@ -11,19 +11,19 @@
   {
     if (a9)
     {
-      [MEMORY[0x1E69DC728] bezierPathWithRoundedRect:self byRoundingCorners:a2 cornerRadii:{a3, a4, a5, a5}];
+      [MEMORY[0x1E69DC728] bezierPathWithRoundedRect:a8 byRoundingCorners:self cornerRadii:{a2, a3, a4, a5, a5}];
     }
 
     else
     {
-      [MEMORY[0x1E69DC728] sx_bezierPathWithNonContinuousRoundedRect:? byRoundingCorners:? cornerRadius:?];
+      [MEMORY[0x1E69DC728] sx_bezierPathWithNonContinuousRoundedRect:a8 byRoundingCorners:self cornerRadius:{a2, a3, a4}];
     }
     v9 = ;
   }
 
   else
   {
-    v9 = [MEMORY[0x1E69DC728] bezierPathWithRect:?];
+    v9 = [MEMORY[0x1E69DC728] bezierPathWithRect:{a8, a9, self, a2, a3, a4}];
   }
 
   return v9;

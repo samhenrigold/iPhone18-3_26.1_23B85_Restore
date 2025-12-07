@@ -85,24 +85,22 @@ LABEL_6:
 {
   v3 = sub_2D698();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   off_50840(v3);
-  v7 = &v16[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_2D6C8();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = off_50840(v8);
-  v13 = &v16[-1] - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  off_50840(v11);
+  v6 = &v14[-1] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_2D6C8();
+  v8 = *(v7 - 8);
+  v9 = off_50840(v7);
+  v11 = &v14[-1] - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  off_50840(v9);
   selfCopy = self;
   sub_2D6B8();
-  (*(v4 + 104))(v7, enum case for _Glass._GlassVariant.Size.small(_:), v3);
+  (*(v4 + 104))(v6, enum case for _Glass._GlassVariant.Size.small(_:), v3);
   sub_2D6A8();
-  (*(v4 + 8))(v7, v3);
-  (*(v9 + 8))(v13, v8);
-  v16[3] = sub_2D6E8();
-  v16[4] = &protocol witness table for _Glass;
-  __swift_allocate_boxed_opaque_existential_1(v16);
+  (*(v4 + 8))(v6, v3);
+  (*(v8 + 8))(v11, v7);
+  v14[3] = sub_2D6E8();
+  v14[4] = &protocol witness table for _Glass;
+  __swift_allocate_boxed_opaque_existential_1(v14);
   sub_2D6F8();
   sub_2D848();
 }

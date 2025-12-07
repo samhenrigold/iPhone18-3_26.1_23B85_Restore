@@ -1,11 +1,11 @@
 @interface HKSPSleepStore(MobileTimerUIAdditions)
 + (id)mt_getDetailedAlarmTitleForDate:()MobileTimerUIAdditions calendar:onlyAppliesOnce:;
-- (id)mt_sleepMetaDataForUpcomingAlarmInCalendar:()MobileTimerUIAdditions error:;
+- (MTUISleepMetadata)mt_sleepMetaDataForUpcomingAlarmInCalendar:()MobileTimerUIAdditions error:;
 @end
 
 @implementation HKSPSleepStore(MobileTimerUIAdditions)
 
-- (id)mt_sleepMetaDataForUpcomingAlarmInCalendar:()MobileTimerUIAdditions error:
+- (MTUISleepMetadata)mt_sleepMetaDataForUpcomingAlarmInCalendar:()MobileTimerUIAdditions error:
 {
   v31 = *MEMORY[0x277D85DE8];
   v6 = a3;

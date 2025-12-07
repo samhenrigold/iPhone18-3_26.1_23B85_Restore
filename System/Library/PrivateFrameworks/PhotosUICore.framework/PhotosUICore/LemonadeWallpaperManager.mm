@@ -8,7 +8,7 @@
 - (void)preferencesDidChange
 {
   selfCopy = self;
-  sub_1A3C5D148();
+  sub_1A3C5D148(selfCopy, v2);
 }
 
 - (void)profileConnectionDidReceiveEffectiveSettingsChangedNotification:(id)notification userInfo:(id)info
@@ -20,7 +20,7 @@
   v8 = sub_1A524C634();
   [standardUserDefaults setBool:isWallpaperModificationAllowed forKey:v8];
 
-  sub_1A3C5D148();
+  sub_1A3C5D148(v9, v10);
 }
 
 @end

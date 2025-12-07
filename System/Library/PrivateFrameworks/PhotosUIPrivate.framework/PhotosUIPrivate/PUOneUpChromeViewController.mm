@@ -148,8 +148,10 @@
 
 - (void)setAirplayInfoWithShouldShowAirPlayButton:(BOOL)button isDisplayingContentOnSecondScreen:(BOOL)screen
 {
+  screenCopy = screen;
+  buttonCopy = button;
   selfCopy = self;
-  sub_1B3741850();
+  sub_1B3741850(buttonCopy, screenCopy);
 }
 
 - (UIView)view
@@ -182,7 +184,7 @@
 
 - (PUOneUpChromeViewControllerDelegate)delegate
 {
-  v2 = OneUpChromeViewController.delegate.getter();
+  v2 = OneUpChromeViewController.delegate.getter(self);
 
   return v2;
 }
@@ -191,7 +193,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  OneUpChromeViewController.delegate.setter();
+  OneUpChromeViewController.delegate.setter(delegate);
 }
 
 - (UIEdgeInsets)contentGuideInsets
@@ -216,7 +218,7 @@
 
 - (UIColor)backgroundColorOverride
 {
-  v2 = OneUpChromeViewController.backgroundColorOverride.getter();
+  v2 = OneUpChromeViewController.backgroundColorOverride.getter(self);
 
   return v2;
 }
@@ -307,7 +309,7 @@
   selfCopy = self;
   sub_1B3746A58();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8525A0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB8525A0, &unk_1B3CFB9A0);
   v3 = sub_1B3C9C778();
 
   return v3;

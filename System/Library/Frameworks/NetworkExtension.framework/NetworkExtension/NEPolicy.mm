@@ -1,9 +1,21 @@
 @interface NEPolicy
 - (NEPolicy)init;
 - (NEPolicy)initWithOrder:(unsigned int)order result:(id)result conditions:(id)conditions;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 @end
 
 @implementation NEPolicy
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  [v7 appendPrettyInt:self->_order withName:@"order" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_result withName:@"result" andIndent:v5 options:options];
+  [v7 appendPrettyObject:self->_conditions withName:@"conditions" andIndent:v5 options:options];
+
+  return v7;
+}
 
 - (NEPolicy)initWithOrder:(unsigned int)order result:(id)result conditions:(id)conditions
 {

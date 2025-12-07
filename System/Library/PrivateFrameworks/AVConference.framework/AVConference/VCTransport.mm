@@ -50,7 +50,7 @@
 {
   v4 = *MEMORY[0x1E69E9840];
   TPSetDataPacketReceivedCallback(self->tpHandle, 0, 0);
-  TPCloseHandle();
+  TPCloseHandle(self->tpHandle);
 
   dispatch_release(self->delegateQueue);
   dispatch_release(self->dataReceivedHandlerQueue);
@@ -95,7 +95,7 @@
 void __112__VCTransport_registerICEBlockForCallID_connectedBlock_newCandidatesBlock_newNominationBlock_removeIPPortBlock___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(a1 + 72)];
-  if (*(a1 + 40) || *(a1 + 48) || *(a1 + 56) || *(a1 + 64))
+  if (*(a1 + 40) != 0 || *(a1 + 56) || *(a1 + 64))
   {
     v3 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:2];
     v4 = *(a1 + 40);
@@ -141,13 +141,12 @@ void __112__VCTransport_registerICEBlockForCallID_connectedBlock_newCandidatesBl
 - (int)updateInterfaceList:(unsigned int)list shouldFilterCellInterface:(BOOL)interface isUpdateNeeded:(int *)needed
 {
   interfaceCopy = interface;
-  v7 = *&list;
   v10[2] = *MEMORY[0x1E69E9840];
   v10[0] = 0xAAAAAAAAAAAAAAAALL;
   v10[1] = 0xAAAAAAAAAAAAAAAALL;
   [+[VideoConferenceManager defaultVideoConferenceManager](VideoConferenceManager "defaultVideoConferenceManager")];
   objc_sync_enter(self);
-  LODWORD(needed) = TPUpdateInterfaceList(self->tpHandle, v7, needed, interfaceCopy, v10);
+  LODWORD(needed) = TPUpdateInterfaceList(self->tpHandle, list, needed, interfaceCopy, v10);
   objc_sync_exit(self);
   return needed;
 }
@@ -210,12 +209,12 @@ void __90__VCTransport_iceConnectedForCallID_result_didReceivePacket_useRelay_se
   dispatch_async(delegateQueue, v11);
 }
 
-uint64_t __71__VCTransport_iceNewCandidatesForCallID_blob_size_newCandidateVersion___block_invoke(uint64_t a1)
+void *__71__VCTransport_iceNewCandidatesForCallID_blob_size_newCandidateVersion___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(*(a1 + 32) + 16) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", *(a1 + 48))), "objectForKeyedSubscript:", @"NewCandidates"}];
   if (result)
   {
-    v2 = *(result + 16);
+    v2 = result[2];
 
     return v2();
   }
@@ -373,12 +372,12 @@ void __53__VCTransport_registerDataReceivedHandler_forCallID___block_invoke(uint
   dispatch_async(dataReceivedHandlerQueue, block);
 }
 
-uint64_t __69__VCTransport_receivedDataPacket_length_forCallID_encrypted_OFTType___block_invoke(uint64_t a1)
+void *__69__VCTransport_receivedDataPacket_length_forCallID_encrypted_OFTType___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", *(a1 + 48))}];
   if (result)
   {
-    v2 = *(result + 16);
+    v2 = result[2];
 
     return v2();
   }
@@ -388,16 +387,17 @@ uint64_t __69__VCTransport_receivedDataPacket_length_forCallID_encrypted_OFTType
 
 - (id)getRemoteCIDForDstIPPort:(tagIPPORT *)port callID:(unsigned int)d
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = 0xAAAAAAAAAAAAAAAALL;
-  if ((TPGetRemoteCIDForDstIPPort() & 0x80000000) != 0)
+  v6[1] = *MEMORY[0x1E69E9840];
+  v6[0] = 0xAAAAAAAAAAAAAAAALL;
+  v5 = 8;
+  if ((TPGetRemoteCIDForDstIPPort(self->tpHandle, *&d, port, v6, &v5) & 0x80000000) != 0)
   {
     return 0;
   }
 
   else
   {
-    return [MEMORY[0x1E695DEF0] dataWithBytes:v5 length:8];
+    return [MEMORY[0x1E695DEF0] dataWithBytes:v6 length:v5];
   }
 }
 
@@ -405,19 +405,21 @@ uint64_t __69__VCTransport_receivedDataPacket_length_forCallID_encrypted_OFTType
 {
   dataCopy = data;
   versionCopy = version;
+  v16 = *&d;
   v19[2] = *MEMORY[0x1E69E9840];
   v19[0] = 0xAAAAAAAAAAAAAAAALL;
   v19[1] = 0xAAAAAAAAAAAAAAAALL;
   [+[VideoConferenceManager defaultVideoConferenceManager](VideoConferenceManager "defaultVideoConferenceManager")];
-  LODWORD(v18) = update;
-  return TPGetConnectionData(self->tpHandle, versionCopy, d, dataCopy, connectionData, bytes, 1, 0, "static", 0, dictionary, v18, v19);
+  return TPGetConnectionData(self->tpHandle, versionCopy, v16, dataCopy, connectionData, bytes, 1, 0, timeout, "static", 0, dictionary, update, v19);
 }
 
 - (int)detailedErrorCodeForConnectionWithCallID:(unsigned int)d
 {
-  if (TPGetConnErrorCode() >= 0)
+  v5 = *MEMORY[0x1E69E9840];
+  v4 = 0;
+  if (TPGetConnErrorCode(self->tpHandle, *&d, &v4) >= 0)
   {
-    return 400;
+    return v4 + 400;
   }
 
   else
@@ -428,12 +430,12 @@ uint64_t __69__VCTransport_receivedDataPacket_length_forCallID_encrypted_OFTType
 
 - (int)startConnectionCheckForCallID:(unsigned int)d remoteConnectionDataBlob:(id)blob relayDictionary:(id)dictionary iceTimeout:(double)timeout securityIdentity:(__SecIdentity *)identity skeState:(SKEStateOpaque *)state usedRelay:(int *)relay
 {
-  v14 = *&d;
-  v16 = [blob length];
-  v17 = malloc_type_malloc(v16, 0x100004077774924uLL);
-  [blob getBytes:v17 length:v16];
-  LODWORD(relay) = TPStartConnectionCheck(timeout, self->tpHandle, v14, v17, v16, 0, dictionary, relay, identity);
-  free(v17);
+  v15 = *&d;
+  v17 = [blob length];
+  v18 = malloc_type_malloc(v17, 0x100004077774924uLL);
+  [blob getBytes:v18 length:v17];
+  LODWORD(relay) = TPStartConnectionCheck(self->tpHandle, v15, v18, v17, 0, dictionary, relay, identity, timeout, state);
+  free(v18);
   return relay;
 }
 

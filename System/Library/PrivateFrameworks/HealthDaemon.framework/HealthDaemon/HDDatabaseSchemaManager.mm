@@ -3,7 +3,7 @@
 - (HDDatabaseSchemaManager)initWithTransaction:(id)transaction;
 - (__CFString)_schemaTableNameForDatabaseName:(__CFString *)name;
 - (int64_t)currentVersionForSchema:(id)schema protectionClass:(int64_t)class error:(id *)error;
-- (uint64_t)_createSchemaMigrationTableIfNeededForDatabaseName:(uint64_t)name error:(uint64_t)error;
+- (uint64_t)_createSchemaMigrationTableIfNeededForDatabaseName:(__CFString *)name error:(uint64_t)error;
 @end
 
 @implementation HDDatabaseSchemaManager
@@ -85,7 +85,7 @@
   return v14;
 }
 
-- (uint64_t)_createSchemaMigrationTableIfNeededForDatabaseName:(uint64_t)name error:(uint64_t)error
+- (uint64_t)_createSchemaMigrationTableIfNeededForDatabaseName:(__CFString *)name error:(uint64_t)error
 {
   if (!name)
   {
@@ -93,7 +93,7 @@
   }
 
   v4 = @"main";
-  if ([*(name + 8) containsObject:@"main"])
+  if ([name->info containsObject:@"main"])
   {
     v5 = 1;
   }
@@ -102,32 +102,32 @@
   {
     v6 = [HDDatabaseSchemaManager _schemaTableNameForDatabaseName:name];
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"CREATE TABLE IF NOT EXISTS %@ (schema TEXT NOT NULL PRIMARY KEY, version INTEGER NOT NULL, modification_date DOUBLE NOT NULL)", v6];
-    isProtectedMigration = [*(name + 16) isProtectedMigration];
-    v9 = *(name + 16);
+    isProtectedMigration = [name->data isProtectedMigration];
+    data = name->data;
     if (isProtectedMigration)
     {
-      [v9 protectedDatabase];
+      [data protectedDatabase];
     }
 
     else
     {
-      [v9 unprotectedDatabase];
+      [data unprotectedDatabase];
     }
     v10 = ;
     v5 = [v10 executeUncachedSQL:v7 error:error bindingHandler:0 enumerationHandler:0];
     if (v5)
     {
-      v11 = *(name + 8);
-      if (!v11)
+      info = name->info;
+      if (!info)
       {
         v12 = objc_alloc_init(MEMORY[0x277CBEB58]);
-        v13 = *(name + 8);
-        *(name + 8) = v12;
+        v13 = name->info;
+        name->info = v12;
 
-        v11 = *(name + 8);
+        info = name->info;
       }
 
-      [v11 addObject:@"main"];
+      [info addObject:@"main"];
     }
   }
 
@@ -199,7 +199,6 @@
 
 uint64_t __67__HDDatabaseSchemaManager_setVersion_schema_protectionClass_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindStringToStatement();
   sqlite3_bind_int64(a2, 2, *(a1 + 40));
   Current = CFAbsoluteTimeGetCurrent();

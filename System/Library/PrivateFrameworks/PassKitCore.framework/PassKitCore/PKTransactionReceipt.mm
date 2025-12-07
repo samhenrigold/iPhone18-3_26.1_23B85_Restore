@@ -87,15 +87,15 @@
       {
         if (v21)
         {
-          v23 = [(__CFString *)v21 isEqualToString:@"pending"];
+          isEqualToString = objc_msgSend_isEqualToString_(v21);
 
-          if (v23)
+          if (isEqualToString)
           {
             goto LABEL_7;
           }
 
           v25 = v22;
-          if (v25 == @"final" || (v26 = v25, v27 = [(__CFString *)v25 isEqualToString:@"final"], v26, v27))
+          if (v25 == @"final" || (v26 = v25, v27 = objc_msgSend_isEqualToString_(v25), v26, v27))
           {
             v24 = 2;
             goto LABEL_13;
@@ -256,9 +256,9 @@ PKTransactionReceiptSummaryItem *__41__PKTransactionReceipt_updateWithBundle___b
       goto LABEL_46;
     }
 
-    v10 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_47;
     }
@@ -279,7 +279,7 @@ PKTransactionReceiptSummaryItem *__41__PKTransactionReceipt_updateWithBundle___b
       goto LABEL_46;
     }
 
-    v13 = [(NSString *)v7 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v7);
 
     if (!v13)
     {
@@ -302,7 +302,7 @@ PKTransactionReceiptSummaryItem *__41__PKTransactionReceipt_updateWithBundle___b
       goto LABEL_46;
     }
 
-    v16 = [(NSString *)v7 isEqualToString:v15];
+    v16 = objc_msgSend_isEqualToString_(v7);
 
     if (!v16)
     {
@@ -392,7 +392,7 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  v27 = [(NSString *)v7 isEqualToString:v26];
+  v27 = objc_msgSend_isEqualToString_(v7);
 
   if (!v27)
   {

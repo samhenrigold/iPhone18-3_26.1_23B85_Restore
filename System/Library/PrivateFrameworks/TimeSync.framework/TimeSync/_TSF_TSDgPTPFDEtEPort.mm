@@ -1,9 +1,26 @@
 @interface _TSF_TSDgPTPFDEtEPort
+- (_TSF_TSDgPTPFDEtEPort)initWithService:(id)service pid:(int)pid;
 - (id)_statistics;
 - (void)updateProperties;
 @end
 
 @implementation _TSF_TSDgPTPFDEtEPort
+
+- (_TSF_TSDgPTPFDEtEPort)initWithService:(id)service pid:(int)pid
+{
+  v9.receiver = self;
+  v9.super_class = _TSF_TSDgPTPFDEtEPort;
+  v4 = [(_TSF_TSDgPTPNetworkPort *)&v9 initWithService:service pid:*&pid];
+  v5 = v4;
+  if (v4)
+  {
+    _statistics = [(_TSF_TSDgPTPFDEtEPort *)v4 _statistics];
+    statistics = v5->_statistics;
+    v5->_statistics = _statistics;
+  }
+
+  return v5;
+}
 
 - (void)updateProperties
 {
@@ -24,7 +41,7 @@
 
 - (id)_statistics
 {
-  v2 = [[_TSF_TSDgPTPPortStatistics alloc] initWithPort:self];
+  v2 = [[_TSF_TSDgPTPPortStatistics alloc] initWithPort:?];
 
   return v2;
 }

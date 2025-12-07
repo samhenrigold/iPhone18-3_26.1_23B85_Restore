@@ -1,26 +1,29 @@
-id psy_log()
+id psy_log(uint64_t a1)
 {
   if (psy_log_onceToken != -1)
   {
     psy_log_cold_1();
   }
 
-  v1 = psy_log___logger;
+  v2 = psy_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __psy_log_block_invoke()
 {
-  psy_log___logger = os_log_create("com.apple.pairedsync", "framework");
+  v0 = os_log_create("com.apple.pairedsync", "framework");
+  v1 = psy_log___logger;
+  psy_log___logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-void sub_25DF2658C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_25DF2658C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -118,17 +121,18 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25DF2D034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_25DF2D034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id PSYToolInterfaceXPCInterface()
@@ -144,14 +148,14 @@ id PSYToolInterfaceXPCInterface()
 
 id PSYErrorForCode(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = a1 - 1;
   if (a1 - 1) <= 5 && ((0x3Bu >> v2))
   {
     v3 = off_2799FB8E0[v2];
-    v8 = *MEMORY[0x277CCA450];
-    v9[0] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = *MEMORY[0x277CCA450];
+    v8[0] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
@@ -160,8 +164,6 @@ id PSYErrorForCode(uint64_t a1)
   }
 
   v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.pairedsync" code:a1 userInfo:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -236,16 +238,16 @@ id PSYProgressServerXPCInterface()
   return v0;
 }
 
-id psd_log()
+id psd_log(uint64_t a1)
 {
   if (psd_log_onceToken != -1)
   {
     psd_log_cold_1();
   }
 
-  v1 = psd_log___logger;
+  v2 = psd_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __psd_log_block_invoke()
@@ -257,16 +259,16 @@ uint64_t __psd_log_block_invoke()
   return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id psylink_log()
+id psylink_log(uint64_t a1)
 {
   if (psylink_log_onceToken != -1)
   {
     psylink_log_cold_1();
   }
 
-  v1 = psylink_log___logger;
+  v2 = psylink_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __psylink_log_block_invoke()

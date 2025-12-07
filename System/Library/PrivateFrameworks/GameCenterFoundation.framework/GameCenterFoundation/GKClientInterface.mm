@@ -6,9 +6,10 @@
 
 + (id)interface
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = [GKClientInterface interfaceWithProtocol:&unk_283B46A50];
   v3 = MEMORY[0x277CBEB98];
+  v16 = objc_opt_class();
   v17 = objc_opt_class();
   v18 = objc_opt_class();
   v19 = objc_opt_class();
@@ -41,15 +42,14 @@
   v46 = objc_opt_class();
   v47 = objc_opt_class();
   v48 = objc_opt_class();
-  v49 = objc_opt_class();
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:33];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:33];
   v5 = [v3 setWithArray:v4];
 
   [v2 setClasses:v5 forSelector:sel_refreshContentsForDataType_userInfo_ argumentIndex:1 ofReply:0];
   v6 = MEMORY[0x277CBEB98];
   v7 = objc_opt_class();
   objc_opt_class();
-  v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47, v48}];
+  v8 = [v6 setWithObjects:{v7, objc_opt_class(), 0, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v40, v41, v42, v43, v44, v45, v46, v47}];
   [v2 setClasses:v8 forSelector:sel_authenticatedPlayersDidChange_authenticatingBundleID_reply_ argumentIndex:0 ofReply:0];
 
   v9 = MEMORY[0x277CBEB98];
@@ -63,8 +63,6 @@
   objc_opt_class();
   v14 = [v12 setWithObjects:{v13, objc_opt_class(), 0}];
   [v2 setClasses:v14 forSelector:sel_presentBannerWithNotification_ argumentIndex:0 ofReply:0];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

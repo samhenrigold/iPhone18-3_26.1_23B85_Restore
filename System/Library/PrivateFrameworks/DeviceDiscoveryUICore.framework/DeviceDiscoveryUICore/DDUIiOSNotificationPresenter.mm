@@ -5,24 +5,22 @@
 
 void __47___DDUIiOSNotificationPresenter__setupIfNeeded__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = _DDUICoreLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "Notification authorization granted? %d with error: %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "Notification authorization granted? %d with error: %@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __97___DDUIiOSNotificationPresenter_showNotificationForApplication_deviceName_identifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _DDUICoreLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -30,29 +28,27 @@ void __97___DDUIiOSNotificationPresenter_showNotificationForApplication_deviceNa
   {
     if (v5)
     {
-      v9 = 138412290;
-      v10 = v3;
+      v8 = 138412290;
+      v9 = v3;
       v6 = "Could not post local notification with error %@";
 LABEL_6:
-      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, v6, &v9, 0xCu);
+      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, v6, &v8, 0xCu);
     }
   }
 
   else if (v5)
   {
     v7 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v7;
+    v8 = 138412290;
+    v9 = v7;
     v6 = "Local notification %@ posted successfully";
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __91___DDUIiOSNotificationPresenter__showContinuityConfirmation_identifier_micOnly_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _DDUICoreLog();
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -60,24 +56,22 @@ void __91___DDUIiOSNotificationPresenter__showContinuityConfirmation_identifier_
   {
     if (v5)
     {
-      v9 = 138412290;
-      v10 = v3;
+      v8 = 138412290;
+      v9 = v3;
       v6 = "Could not post local notification with error %@";
 LABEL_6:
-      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, v6, &v9, 0xCu);
+      _os_log_impl(&dword_230EF9000, v4, OS_LOG_TYPE_DEFAULT, v6, &v8, 0xCu);
     }
   }
 
   else if (v5)
   {
     v7 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v7;
+    v8 = 138412290;
+    v9 = v7;
     v6 = "Local notification %@ posted successfully";
     goto LABEL_6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __62___DDUIiOSNotificationPresenter__configureNotificationTimeout__block_invoke(uint64_t a1)
@@ -104,12 +98,12 @@ uint64_t __62___DDUIiOSNotificationPresenter__configureNotificationTimeout__bloc
 
 void __87___DDUIiOSNotificationPresenter__handleContinuityCameraDisabledAlertResponseWithState___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CC1E80] defaultWorkspace];
   v3 = *(a1 + 32);
-  v9 = 0;
-  v4 = [v2 openSensitiveURL:v3 withOptions:0 error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [v2 openSensitiveURL:v3 withOptions:0 error:&v8];
+  v5 = v8;
 
   if ((v4 & 1) == 0)
   {
@@ -118,19 +112,17 @@ void __87___DDUIiOSNotificationPresenter__handleContinuityCameraDisabledAlertRes
     {
       v7 = *(a1 + 32);
       *buf = 138412546;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v5;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v5;
       _os_log_impl(&dword_230EF9000, v6, OS_LOG_TYPE_DEFAULT, "### Launch URL failed: %@, %@\n", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __77___DDUIiOSNotificationPresenter__showContinuityCameraDisabledAlertWithState___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   DeviceClass = GestaltGetDeviceClass();
   error = 0;
   v3 = objc_opt_new();
@@ -233,20 +225,18 @@ LABEL_16:
 
     CFRelease(v22);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __109___DDUIiOSNotificationPresenter_userNotificationCenter_didReceiveNotificationResponse_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = _DDUICoreLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "Finished launching application with error %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_230EF9000, v5, OS_LOG_TYPE_DEFAULT, "Finished launching application with error %@", &v7, 0xCu);
   }
 
   v6 = *(a1 + 32);
@@ -254,8 +244,6 @@ void __109___DDUIiOSNotificationPresenter_userNotificationCenter_didReceiveNotif
   {
     (*(v6 + 16))(v6, 1);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

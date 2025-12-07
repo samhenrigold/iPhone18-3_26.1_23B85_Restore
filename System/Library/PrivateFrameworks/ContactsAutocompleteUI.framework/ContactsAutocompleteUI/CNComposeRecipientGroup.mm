@@ -152,47 +152,47 @@
 
 - (id)address
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DF70];
   children = [(CNComposeRecipientGroup *)self children];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(children, "count")}];
 
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
   children2 = [(CNComposeRecipientGroup *)self children];
-  v7 = [children2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [children2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(children2);
         }
 
-        address = [*(*(&v15 + 1) + 8 * i) address];
+        address = [*(*(&v16 + 1) + 8 * i) address];
         if (address)
         {
           [v5 addObject:address];
         }
       }
 
-      v8 = [children2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [children2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  v12 = CNAUILocalizedAddressSeparator();
-  v13 = [v5 componentsJoinedByString:v12];
+  v13 = CNAUILocalizedAddressSeparator(v12);
+  v14 = [v5 componentsJoinedByString:v13];
 
-  return v13;
+  return v14;
 }
 
 - (BOOL)isEqual:(id)equal

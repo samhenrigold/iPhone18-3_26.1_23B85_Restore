@@ -84,23 +84,23 @@ uint64_t __53__TUIDeviceSpecifierProvider_initWithAccountManager___block_invoke(
 
 - (id)_specifiersForDevicesWithError
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   _deviceList = [(TUIDeviceSpecifierProvider *)self _deviceList];
   loadError = [_deviceList loadError];
 
   if (loadError)
   {
     _specifierForError = [(TUIDeviceSpecifierProvider *)self _specifierForError];
-    v29[0] = _specifierForError;
+    v28[0] = _specifierForError;
     v6 = MEMORY[0x277CBEA60];
-    v7 = v29;
+    v7 = v28;
     goto LABEL_3;
   }
 
   devices = [_deviceList devices];
-  v13 = [devices count];
+  v12 = [devices count];
 
-  if (v13)
+  if (v12)
   {
     if ([(NSMutableArray *)self->_devicesWithErrors count])
     {
@@ -108,33 +108,33 @@ uint64_t __53__TUIDeviceSpecifierProvider_initWithAccountManager___block_invoke(
       _deviceErrorSpecifierGroup = [(TUIDeviceSpecifierProvider *)self _deviceErrorSpecifierGroup];
       [_specifierForError addObject:_deviceErrorSpecifierGroup];
 
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
-      v15 = self->_devicesWithErrors;
-      v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
-      if (v16)
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v14 = self->_devicesWithErrors;
+      v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      if (v15)
       {
-        v17 = v16;
-        v18 = *v23;
+        v16 = v15;
+        v17 = *v22;
         do
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            if (*v23 != v18)
+            if (*v22 != v17)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v14);
             }
 
-            v20 = [(TUIDeviceSpecifierProvider *)self _specifierForDevice:*(*(&v22 + 1) + 8 * i), v22];
-            [_specifierForError addObject:v20];
+            v19 = [(TUIDeviceSpecifierProvider *)self _specifierForDevice:*(*(&v21 + 1) + 8 * i), v21];
+            [_specifierForError addObject:v19];
           }
 
-          v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
-        while (v17);
+        while (v16);
       }
 
       v8 = [_specifierForError copy];
@@ -142,9 +142,9 @@ uint64_t __53__TUIDeviceSpecifierProvider_initWithAccountManager___block_invoke(
     }
 
     _specifierForError = [(TUIDeviceSpecifierProvider *)self _spinnerSpecifierGroup];
-    v27 = _specifierForError;
+    v26 = _specifierForError;
     v6 = MEMORY[0x277CBEA60];
-    v7 = &v27;
+    v7 = &v26;
 LABEL_3:
     v8 = [v6 arrayWithObjects:v7 count:1];
 LABEL_4:
@@ -153,13 +153,12 @@ LABEL_4:
   }
 
   _specifierForError = [(TUIDeviceSpecifierProvider *)self _spinnerSpecifierGroup];
-  v28[0] = _specifierForError;
+  v27[0] = _specifierForError;
   _specifierForSpinner = [(TUIDeviceSpecifierProvider *)self _specifierForSpinner];
-  v28[1] = _specifierForSpinner;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
+  v27[1] = _specifierForSpinner;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
 
 LABEL_5:
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -375,7 +374,7 @@ uint64_t __41__TUIDeviceSpecifierProvider__deviceList__block_invoke()
 
 - (void)deviceListModified:(id)modified
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   modifiedCopy = modified;
   if (TRANSPARENCYUI_DEFAULT_LOG_BLOCK_15 != -1)
   {
@@ -391,35 +390,35 @@ uint64_t __41__TUIDeviceSpecifierProvider__deviceList__block_invoke()
   [(NSMutableArray *)self->_devicesWithErrors removeAllObjects];
   array = [MEMORY[0x277CBEB18] array];
   v5 = dispatch_group_create();
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x3032000000;
-  v42[3] = __Block_byref_object_copy_;
-  v42[4] = __Block_byref_object_dispose_;
-  v43 = 0;
+  v41[0] = 0;
+  v41[1] = v41;
+  v41[2] = 0x3032000000;
+  v41[3] = __Block_byref_object_copy_;
+  v41[4] = __Block_byref_object_dispose_;
+  v42 = 0;
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = modifiedCopy;
-  v6 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
+  v6 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
   if (v6)
   {
-    v8 = *v39;
-    v25 = *MEMORY[0x277D735B0];
+    v8 = *v38;
+    v24 = *MEMORY[0x277D735B0];
     *&v7 = 138543618;
-    v24 = v7;
+    v23 = v7;
     do
     {
       v9 = 0;
       do
       {
-        if (*v39 != v8)
+        if (*v38 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v38 + 1) + 8 * v9);
+        v10 = *(*(&v37 + 1) + 8 * v9);
         pushToken = [v10 pushToken];
         if (pushToken && ([v10 pushToken], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "isEqualToString:", &stru_287F92480), v12, pushToken, !v13))
         {
@@ -445,18 +444,18 @@ uint64_t __41__TUIDeviceSpecifierProvider__deviceList__block_invoke()
           objc_initWeak(buf, self);
           dispatch_group_enter(v5);
           v21 = MEMORY[0x277D73550];
-          v33[0] = MEMORY[0x277D85DD0];
-          v33[1] = 3221225472;
-          v33[2] = __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_92;
-          v33[3] = &unk_279DDB2B0;
-          objc_copyWeak(&v37, buf);
-          v33[4] = v10;
-          v34 = array;
-          v36 = v42;
-          v35 = v5;
-          [v21 loggableDataForDeviceID:v14 application:v25 completionBlock:v33];
+          v32[0] = MEMORY[0x277D85DD0];
+          v32[1] = 3221225472;
+          v32[2] = __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_92;
+          v32[3] = &unk_279DDB2B0;
+          objc_copyWeak(&v36, buf);
+          v32[4] = v10;
+          v33 = array;
+          v35 = v41;
+          v34 = v5;
+          [v21 loggableDataForDeviceID:v14 application:v24 completionBlock:v32];
 
-          objc_destroyWeak(&v37);
+          objc_destroyWeak(&v36);
           objc_destroyWeak(buf);
         }
 
@@ -471,10 +470,10 @@ uint64_t __41__TUIDeviceSpecifierProvider__deviceList__block_invoke()
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             name = [v10 name];
-            *buf = v24;
+            *buf = v23;
             selfCopy = self;
-            v46 = 2114;
-            v47 = name;
+            v45 = 2114;
+            v46 = name;
             _os_log_debug_impl(&dword_26F50B000, v14, OS_LOG_TYPE_DEBUG, "%{public}@ device %{public}@ ignored", buf, 0x16u);
           }
         }
@@ -483,7 +482,7 @@ uint64_t __41__TUIDeviceSpecifierProvider__deviceList__block_invoke()
       }
 
       while (v6 != v9);
-      v6 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
+      v6 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
     }
 
     while (v6);
@@ -494,17 +493,15 @@ uint64_t __41__TUIDeviceSpecifierProvider__deviceList__block_invoke()
   block[1] = 3221225472;
   block[2] = __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_109;
   block[3] = &unk_279DDB2D8;
-  objc_copyWeak(&v32, buf);
-  v30 = array;
-  v31 = v42;
+  objc_copyWeak(&v31, buf);
+  v29 = array;
+  v30 = v41;
   v22 = array;
   dispatch_group_notify(v5, MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(buf);
-  _Block_object_dispose(v42, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v41, 8);
 }
 
 uint64_t __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke()
@@ -530,7 +527,7 @@ uint64_t __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_87()
 
 void __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_92(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -548,15 +545,15 @@ void __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_92(uint6
       v25 = v8;
       v26 = [v24 pushToken];
       *buf = 136316162;
-      v39 = "[TUIDeviceSpecifierProvider deviceListModified:]_block_invoke_2";
-      v40 = 2114;
-      v41 = v26;
-      v42 = 2114;
-      v43 = v5;
-      v44 = 2114;
-      v45 = v6;
-      v46 = 2114;
-      v47 = WeakRetained;
+      v38 = "[TUIDeviceSpecifierProvider deviceListModified:]_block_invoke_2";
+      v39 = 2114;
+      v40 = v26;
+      v41 = 2114;
+      v42 = v5;
+      v43 = 2114;
+      v44 = v6;
+      v45 = 2114;
+      v46 = WeakRetained;
       _os_log_debug_impl(&dword_26F50B000, v25, OS_LOG_TYPE_DEBUG, "%s device %{public}@: loggableData = %{public}@, error = %{public}@ on %{public}@", buf, 0x34u);
 
       if (!v5)
@@ -599,14 +596,14 @@ void __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_92(uint6
 
         else
         {
-          v28 = *(*(*(a1 + 56) + 8) + 40);
-          if (v28)
+          v27 = *(*(*(a1 + 56) + 8) + 40);
+          if (v27)
           {
-            v37 = [v5 markExpiryDate];
-            v29 = [v28 laterDate:v37];
-            v30 = [v5 markExpiryDate];
+            v36 = [v5 markExpiryDate];
+            v28 = [v27 laterDate:v36];
+            v29 = [v5 markExpiryDate];
 
-            if (v29 != v30)
+            if (v28 != v29)
             {
               goto LABEL_31;
             }
@@ -621,23 +618,23 @@ void __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_92(uint6
             __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_92_cold_4();
           }
 
-          v31 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_15;
+          v30 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_15;
           if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_DEBUG))
           {
-            v32 = v31;
-            v33 = [v5 markExpiryDate];
-            v34 = [*(a1 + 32) pushToken];
+            v31 = v30;
+            v32 = [v5 markExpiryDate];
+            v33 = [*(a1 + 32) pushToken];
             *buf = 138543618;
-            v39 = v33;
-            v40 = 2114;
-            v41 = v34;
-            _os_log_impl(&dword_26F50B000, v32, OS_LOG_TYPE_DEBUG, "found new max expiry date (%{public}@) on device %{public}@ ", buf, 0x16u);
+            v38 = v32;
+            v39 = 2114;
+            v40 = v33;
+            _os_log_impl(&dword_26F50B000, v31, OS_LOG_TYPE_DEBUG, "found new max expiry date (%{public}@) on device %{public}@ ", buf, 0x16u);
           }
 
-          v35 = [v5 markExpiryDate];
-          v36 = *(*(a1 + 56) + 8);
-          v21 = *(v36 + 40);
-          *(v36 + 40) = v35;
+          v34 = [v5 markExpiryDate];
+          v35 = *(*(a1 + 56) + 8);
+          v21 = *(v35 + 40);
+          *(v35 + 40) = v34;
         }
 
         goto LABEL_25;
@@ -658,9 +655,9 @@ void __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_92(uint6
       v15 = [v5 markExpiryDate];
       v16 = [*(a1 + 32) pushToken];
       *buf = 138543618;
-      v39 = v15;
-      v40 = 2114;
-      v41 = v16;
+      v38 = v15;
+      v39 = 2114;
+      v40 = v16;
       _os_log_impl(&dword_26F50B000, v14, OS_LOG_TYPE_DEBUG, "found deleted expired device (%{public}@) to display %{public}@", buf, 0x16u);
     }
 
@@ -693,7 +690,7 @@ LABEL_31:
       v14 = v18;
       v15 = [v19 pushToken];
       *buf = 138543362;
-      v39 = v15;
+      v38 = v15;
       _os_log_impl(&dword_26F50B000, v14, OS_LOG_TYPE_DEBUG, "found failed device to display %{public}@", buf, 0xCu);
     }
 
@@ -709,13 +706,11 @@ LABEL_31:
   if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v39 = "[TUIDeviceSpecifierProvider deviceListModified:]_block_invoke";
+    v38 = "[TUIDeviceSpecifierProvider deviceListModified:]_block_invoke";
     _os_log_impl(&dword_26F50B000, v17, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", buf, 0xCu);
   }
 
 LABEL_32:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_2()
@@ -755,7 +750,7 @@ uint64_t __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_105(
 
 void __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_109(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
@@ -792,13 +787,11 @@ void __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_109(uint
     v8 = TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_15;
     if (os_log_type_enabled(TRANSPARENCYUI_DEFAULT_LOG_INTERNAL_15, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[TUIDeviceSpecifierProvider deviceListModified:]_block_invoke";
-      _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[TUIDeviceSpecifierProvider deviceListModified:]_block_invoke";
+      _os_log_impl(&dword_26F50B000, v8, OS_LOG_TYPE_ERROR, "%s, block required strong self is nil", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_2_110()
@@ -824,46 +817,41 @@ uint64_t __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_113(
 
 - (void)initWithAccountManager:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[TUIDeviceSpecifierProvider initWithAccountManager:]";
-  v5 = 2114;
-  v6 = a1;
-  _os_log_error_impl(&dword_26F50B000, a2, OS_LOG_TYPE_ERROR, "%s not supported on %{public}@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[TUIDeviceSpecifierProvider initWithAccountManager:]";
+  v4 = 2114;
+  v5 = a1;
+  _os_log_error_impl(&dword_26F50B000, a2, OS_LOG_TYPE_ERROR, "%s not supported on %{public}@", &v2, 0x16u);
 }
 
 - (void)deviceListModified:(uint64_t)a3 .cold.2(void *a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v7 = 136315650;
-  v8 = "[TUIDeviceSpecifierProvider deviceListModified:]";
-  v9 = 1024;
-  v10 = [a2 count];
-  v11 = 2114;
-  v12 = a3;
-  _os_log_debug_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEBUG, "%s devices count = %d on %{public}@", &v7, 0x1Cu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
+  v7 = "[TUIDeviceSpecifierProvider deviceListModified:]";
+  v8 = 1024;
+  v9 = [a2 count];
+  v10 = 2114;
+  v11 = a3;
+  _os_log_debug_impl(&dword_26F50B000, v5, OS_LOG_TYPE_DEBUG, "%s devices count = %d on %{public}@", &v6, 0x1Cu);
 }
 
 void __49__TUIDeviceSpecifierProvider_deviceListModified___block_invoke_109_cold_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = *(a2 + 32);
   v6 = a3;
   v7 = [v5 count];
   v8 = *(*(*(a2 + 40) + 8) + 40);
-  v10 = 138543874;
-  v11 = a1;
-  v12 = 1024;
-  v13 = v7;
-  v14 = 2114;
-  v15 = v8;
-  _os_log_debug_impl(&dword_26F50B000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ devices with errors count = %d, deleted devices expire date = %{public}@", &v10, 0x1Cu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138543874;
+  v10 = a1;
+  v11 = 1024;
+  v12 = v7;
+  v13 = 2114;
+  v14 = v8;
+  _os_log_debug_impl(&dword_26F50B000, v6, OS_LOG_TYPE_DEBUG, "%{public}@ devices with errors count = %d, deleted devices expire date = %{public}@", &v9, 0x1Cu);
 }
 
 @end

@@ -19,62 +19,58 @@
 
 + (id)entryEventPointDefinitions
 {
-  v21[1] = *MEMORY[0x277D85DE8];
-  v20 = @"Cache";
-  v18[0] = *MEMORY[0x277D3F4E8];
-  v16 = *MEMORY[0x277D3F568];
-  v17 = &unk_2870FEF10;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19[0] = v2;
-  v18[1] = *MEMORY[0x277D3F540];
-  v14[0] = @"CacheId";
+  v20[1] = *MEMORY[0x277D85DE8];
+  v19 = @"Cache";
+  v17[0] = *MEMORY[0x277D3F4E8];
+  v15 = *MEMORY[0x277D3F568];
+  v16 = &unk_2870FEF10;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18[0] = v2;
+  v17[1] = *MEMORY[0x277D3F540];
+  v13[0] = @"CacheId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v15[0] = commonTypeDict_StringFormat;
-  v14[1] = @"CacheInterval";
+  v14[0] = commonTypeDict_StringFormat;
+  v13[1] = @"CacheInterval";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v15[1] = commonTypeDict_IntegerFormat;
-  v14[2] = @"CacheAge";
+  v14[1] = commonTypeDict_IntegerFormat;
+  v13[2] = @"CacheAge";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v15[2] = commonTypeDict_IntegerFormat2;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
-  v19[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-  v21[0] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[2] = commonTypeDict_IntegerFormat2;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v18[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v20[0] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
 
   return v11;
 }
 
 + (id)entryEventForwardDefinitions
 {
-  v19[1] = *MEMORY[0x277D85DE8];
-  v18 = @"Config";
-  v16[0] = *MEMORY[0x277D3F4E8];
-  v14 = *MEMORY[0x277D3F568];
-  v15 = &unk_2870FEF10;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
-  v17[0] = v2;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"Enabled";
+  v18[1] = *MEMORY[0x277D85DE8];
+  v17 = @"Config";
+  v15[0] = *MEMORY[0x277D3F4E8];
+  v13 = *MEMORY[0x277D3F568];
+  v14 = &unk_2870FEF10;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v16[0] = v2;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"Enabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v12[1] = @"PollingInterval";
-  v13[0] = commonTypeDict_BoolFormat;
+  v11[1] = @"PollingInterval";
+  v12[0] = commonTypeDict_BoolFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-  v19[0] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v18[0] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
 
   return v9;
 }
@@ -116,7 +112,7 @@
 
 uint64_t __35__PLPersistentConnectionAgent_init__block_invoke(uint64_t a1)
 {
-  v2 = PLLogPersistentConnection();
+  v2 = PLLogPersistentConnection(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __35__PLPersistentConnectionAgent_init__block_invoke_cold_1(v2);
@@ -127,7 +123,7 @@ uint64_t __35__PLPersistentConnectionAgent_init__block_invoke(uint64_t a1)
 
 uint64_t __35__PLPersistentConnectionAgent_init__block_invoke_37(uint64_t a1)
 {
-  v2 = PLLogPersistentConnection();
+  v2 = PLLogPersistentConnection(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __35__PLPersistentConnectionAgent_init__block_invoke_37_cold_1(v2);
@@ -145,11 +141,10 @@ uint64_t __35__PLPersistentConnectionAgent_init__block_invoke_37(uint64_t a1)
 
 - (void)logEventPointCache
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_25EE16000, a2, OS_LOG_TYPE_DEBUG, "Cache = %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25EE16000, a2, OS_LOG_TYPE_DEBUG, "Cache = %@", &v2, 0xCu);
 }
 
 - (void)logEventForwardConfig

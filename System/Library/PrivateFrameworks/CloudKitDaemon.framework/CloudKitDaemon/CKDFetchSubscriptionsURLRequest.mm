@@ -47,56 +47,53 @@
 
 - (id)zoneIDsToLock
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_defaultRecordZone(MEMORY[0x277CBC5E8], a2, v2);
   v6 = objc_msgSend_zoneID(v3, v4, v5);
-  v11[0] = v6;
-  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v11, 1);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = v6;
+  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v10, 1);
 
   return v8;
 }
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v6 = objc_msgSend_subscriptionIDs(self, v4, v5);
   v9 = objc_msgSend_count(v6, v7, v8);
 
   if (v9)
   {
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     obj = objc_msgSend_subscriptionIDs(self, v10, v11);
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v52, v56, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v51, v55, 16);
     if (v13)
     {
       v16 = v13;
-      v17 = *v53;
+      v17 = *v52;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v53 != v17)
+          if (*v52 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v52 + 1) + 8 * i);
+          v19 = *(*(&v51 + 1) + 8 * i);
           v20 = objc_msgSend_operationType(self, v14, v15);
           v22 = objc_msgSend_operationRequestWithType_(self, v21, v20);
           v23 = objc_opt_new();
@@ -113,7 +110,7 @@
           objc_msgSend_setObject_forKeyedSubscript_(v35, v42, v19, v41);
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v52, v56, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v51, v55, 16);
       }
 
       while (v16);
@@ -130,26 +127,24 @@
     objc_msgSend_addObject_(v3, v48, v45);
   }
 
-  v49 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objc_msgSend_hasSubscriptionRetrieveResponse(objectCopy, v5, v6))
   {
-    v88 = 0u;
-    v89 = 0u;
-    v86 = 0u;
     v87 = 0u;
-    v84 = objectCopy;
+    v88 = 0u;
+    v85 = 0u;
+    v86 = 0u;
+    v83 = objectCopy;
     v9 = objc_msgSend_subscriptionRetrieveResponse(objectCopy, v7, v8);
     v12 = objc_msgSend_subscriptions(v9, v10, v11);
 
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v86, v94, 16);
+    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v85, v93, 16);
     if (!v14)
     {
       v19 = 0;
@@ -158,25 +153,25 @@
 
     v18 = v14;
     v19 = 0;
-    v20 = *v87;
+    v20 = *v86;
     *&v17 = 138543618;
-    v83 = v17;
+    v82 = v17;
     while (1)
     {
       v21 = 0;
       do
       {
         v22 = v19;
-        if (*v87 != v20)
+        if (*v86 != v20)
         {
           objc_enumerationMutation(v12);
         }
 
-        v23 = *(*(&v86 + 1) + 8 * v21);
-        v24 = objc_msgSend_translator(self, v15, v16, v83);
-        v85 = v19;
-        v26 = objc_msgSend_subscriptionFromPSubscription_error_(v24, v25, v23, &v85);
-        v19 = v85;
+        v23 = *(*(&v85 + 1) + 8 * v21);
+        v24 = objc_msgSend_translator(self, v15, v16, v82);
+        v84 = v19;
+        v26 = objc_msgSend_subscriptionFromPSubscription_error_(v24, v25, v23, &v84);
+        v19 = v84;
 
         if (v26)
         {
@@ -190,7 +185,7 @@
 
           v33 = objc_msgSend_subscriptionFetchedBlock(self, v31, v32);
           v36 = objc_msgSend_subscriptionID(v26, v34, v35);
-          v39 = objc_msgSend_result(v84, v37, v38);
+          v39 = objc_msgSend_result(v83, v37, v38);
           v33[2](v33, v26, v36, v39);
 
           goto LABEL_10;
@@ -206,10 +201,10 @@
         {
           v33 = v40;
           v36 = objc_msgSend_localizedDescription(v19, v41, v42);
-          *buf = v83;
-          v91 = v36;
-          v92 = 2112;
-          v93 = v23;
+          *buf = v82;
+          v90 = v36;
+          v91 = 2112;
+          v92 = v23;
           _os_log_error_impl(&dword_22506F000, v33, OS_LOG_TYPE_ERROR, "Unable to read subscription object, discarding: %{public}@: %@", buf, 0x16u);
 LABEL_10:
         }
@@ -220,13 +215,13 @@ LABEL_14:
       }
 
       while (v18 != v21);
-      v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v86, v94, 16);
+      v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v85, v93, 16);
       v18 = v43;
       if (!v43)
       {
 LABEL_25:
 
-        objectCopy = v84;
+        objectCopy = v83;
         goto LABEL_29;
       }
     }
@@ -272,8 +267,6 @@ LABEL_25:
 
   v19 = 0;
 LABEL_29:
-
-  v81 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

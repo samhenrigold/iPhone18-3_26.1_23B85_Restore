@@ -49,9 +49,9 @@
 
   requestAppearanceForHiddenAppAuthenticator = self->_requestAppearanceForHiddenAppAuthenticator;
   processHandle = [clientCopy processHandle];
-  auditToken = [processHandle auditToken];
+  v17 = objc_msgSend_auditToken(processHandle);
   v30 = 0;
-  v18 = [(FBServiceClientAuthenticator *)requestAppearanceForHiddenAppAuthenticator authenticateAuditToken:auditToken error:&v30];
+  v18 = [(FBServiceClientAuthenticator *)requestAppearanceForHiddenAppAuthenticator authenticateAuditToken:v17 error:&v30];
   v19 = v30;
 
   if (v18)

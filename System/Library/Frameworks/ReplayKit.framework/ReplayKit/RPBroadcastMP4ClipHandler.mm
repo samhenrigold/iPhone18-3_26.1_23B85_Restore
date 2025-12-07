@@ -7,13 +7,13 @@
 
 - (void)finishedProcessingMP4ClipWithUpdatedBroadcastConfiguration:(RPBroadcastConfiguration *)broadcastConfiguration error:(NSError *)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = broadcastConfiguration;
   v7 = error;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v21 = v6;
+    v20 = v6;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "broadcast configuration = %p", buf, 0xCu);
   }
 
@@ -37,19 +37,17 @@
 
       v14 = objc_alloc(MEMORY[0x277CCAA88]);
       v15 = [v14 initWithItem:v9 typeIdentifier:*MEMORY[0x277CC2050]];
-      v19 = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
+      v18 = v15;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
       [v10 setAttachments:v16];
 
       [extensionContext addObject:v10];
     }
 
-    v18.receiver = self;
-    v18.super_class = RPBroadcastMP4ClipHandler;
-    [(RPBroadcastHandler *)&v18 _completeRequestWithReturnItems:extensionContext];
+    v17.receiver = self;
+    v17.super_class = RPBroadcastMP4ClipHandler;
+    [(RPBroadcastHandler *)&v17 _completeRequestWithReturnItems:extensionContext];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginRequestWithExtensionContext:(id)context
@@ -143,7 +141,7 @@ void __62__RPBroadcastMP4ClipHandler_beginRequestWithExtensionContext___block_in
 
 void __62__RPBroadcastMP4ClipHandler_beginRequestWithExtensionContext___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -164,8 +162,8 @@ void __62__RPBroadcastMP4ClipHandler_beginRequestWithExtensionContext___block_in
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received movie clip URL", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received movie clip URL", &v24, 2u);
     }
 
     v11 = *(a1 + 48);
@@ -182,40 +180,40 @@ LABEL_12:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received user info", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received user info", &v24, 2u);
     }
 
     v11 = *(a1 + 56);
     goto LABEL_12;
   }
 
-  v19 = [*(a1 + 32) attributedTitle];
-  v20 = [v19 string];
-  v21 = [v20 isEqualToString:@"RPBroadcastExtensionKeyRequestedFinish"];
+  v18 = [*(a1 + 32) attributedTitle];
+  v19 = [v18 string];
+  v20 = [v19 isEqualToString:@"RPBroadcastExtensionKeyRequestedFinish"];
 
-  if (v21)
+  if (v20)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received request finished", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received request finished", &v24, 2u);
     }
 
     *(*(*(a1 + 64) + 8) + 24) = [v6 BOOLValue];
     goto LABEL_13;
   }
 
-  v22 = [*(a1 + 32) attributedTitle];
-  v23 = [v22 string];
-  v24 = [v23 isEqualToString:@"RPBroadcastExtensionKeyExtensionSandboxToken"];
+  v21 = [*(a1 + 32) attributedTitle];
+  v22 = [v21 string];
+  v23 = [v22 isEqualToString:@"RPBroadcastExtensionKeyExtensionSandboxToken"];
 
-  if (v24)
+  if (v23)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received sandbox token", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received sandbox token", &v24, 2u);
     }
 
     v11 = *(a1 + 72);
@@ -229,15 +227,15 @@ LABEL_13:
     v15 = sandbox_extension_consume();
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 134217984;
-      v26 = v15;
-      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received all data, consumed sandbox token ret=%llu", &v25, 0xCu);
+      v24 = 134217984;
+      v25 = v15;
+      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "received all data, consumed sandbox token ret=%llu", &v24, 0xCu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v25) = 0;
-      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "calling subclass method", &v25, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "calling subclass method", &v24, 2u);
     }
 
     v16 = *(a1 + 40);
@@ -246,8 +244,6 @@ LABEL_13:
   }
 
 LABEL_19:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

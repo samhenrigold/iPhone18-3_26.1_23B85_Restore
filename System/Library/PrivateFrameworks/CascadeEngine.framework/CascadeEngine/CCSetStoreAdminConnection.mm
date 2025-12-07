@@ -132,14 +132,14 @@ LABEL_10:
 
 - (void)removeAllSets:(id)sets completion:(id)completion
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   setsCopy = sets;
   completionCopy = completion;
   writeAccess = self->_writeAccess;
   v9 = *MEMORY[0x1E698E940];
-  v24 = 0;
-  v10 = [(CCDataResourceWriteAccess *)writeAccess requestAccessToResource:setsCopy withMode:3 useCase:v9 error:&v24];
-  v11 = v24;
+  v23 = 0;
+  v10 = [(CCDataResourceWriteAccess *)writeAccess requestAccessToResource:setsCopy withMode:3 useCase:v9 error:&v23];
+  v11 = v23;
   if (v10)
   {
     v12 = MEMORY[0x1E698E9C8];
@@ -147,9 +147,9 @@ LABEL_10:
     v14 = [v12 pathForResource:setsCopy inContainer:container];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v23 = v11;
-    v16 = [defaultManager removeItemAtPath:v14 error:&v23];
-    v17 = v23;
+    v22 = v11;
+    v16 = [defaultManager removeItemAtPath:v14 error:&v22];
+    v17 = v22;
 
     v18 = __biome_log_for_category();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
@@ -161,9 +161,9 @@ LABEL_10:
       }
 
       *buf = 138412546;
-      v26 = v19;
-      v27 = 2112;
-      v28 = v14;
+      v25 = v19;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&dword_1DA444000, v18, OS_LOG_TYPE_DEFAULT, "%@ sets root directory: %@", buf, 0x16u);
     }
 
@@ -198,33 +198,14 @@ LABEL_10:
       completionCopy[2](completionCopy, 2);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __54__CCSetStoreAdminConnection__shouldDeferActivityBlock__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DA444000, a2, OS_LOG_TYPE_ERROR, "Failed to check admin client for activity deferral: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)performMaintenanceOnAllSets:completion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA444000, v0, v1, "Failed to obtain access for maintenance at resource: %@, error: %@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeAllSets:completion:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_0(&dword_1DA444000, v0, v1, "Failed to obtain access to remove sets root directory with resource: %@, error: %@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DA444000, a2, OS_LOG_TYPE_ERROR, "Failed to check admin client for activity deferral: %@", &v2, 0xCu);
 }
 
 @end

@@ -19,17 +19,14 @@
 
     bytesRead = self->bytesRead_;
     self->bytesRead_ = bytesRead + 1;
-    v6 = bytesRead;
     size = uncompressed->super.size_;
     if (bytesRead < 0 || bytesRead >= size)
     {
       IOSArray_throwOutOfBoundsWithMsg(size, bytesRead);
     }
-
-    v8 = *(&uncompressed->super.size_ + bytesRead + 4);
   }
 
-  while (*(&uncompressed->super.size_ + v6 + 4));
+  while (*(&uncompressed->super.size_ + bytesRead + 4));
   self->entryLength_ = self->bytesRead_ - self->startOffset_;
 }
 
@@ -48,19 +45,17 @@ LABEL_20:
 
       bytesRead = self->bytesRead_;
       self->bytesRead_ = bytesRead + 1;
-      v7 = bytesRead;
       size = uncompressed->super.size_;
       if (bytesRead < 0 || bytesRead >= size)
       {
         IOSArray_throwOutOfBoundsWithMsg(size, bytesRead);
       }
 
-      v9 = *(&uncompressed->super.size_ + bytesRead + 4);
-      if (!*(&uncompressed->super.size_ + v7 + 4))
+      if (!*(&uncompressed->super.size_ + bytesRead + 4))
       {
-        v10 = self->currentEntryId_ + 1;
-        self->currentEntryId_ = v10;
-        if (v10 >= int)
+        v8 = self->currentEntryId_ + 1;
+        self->currentEntryId_ = v8;
+        if (v8 >= int)
         {
           break;
         }
@@ -68,46 +63,46 @@ LABEL_20:
     }
   }
 
-  v11 = self->bytesRead_;
-  self->startOffset_ = v11;
-  if (v11 >= self->numBytesDecompressed_)
+  v9 = self->bytesRead_;
+  self->startOffset_ = v9;
+  if (v9 >= self->numBytesDecompressed_)
   {
     result = 0;
-    v15 = v11;
+    v13 = v9;
   }
 
   else
   {
     do
     {
-      v12 = self->uncompressed_;
-      if (!v12)
+      v10 = self->uncompressed_;
+      if (!v10)
       {
         goto LABEL_20;
       }
 
-      v13 = v12->super.size_;
-      if ((v11 & 0x80000000) != 0 || v11 >= v13)
+      v11 = v10->super.size_;
+      if ((v9 & 0x80000000) != 0 || v9 >= v11)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v13, v11);
+        IOSArray_throwOutOfBoundsWithMsg(v11, v9);
       }
 
-      result = *(&v12->super.size_ + v11 + 4) == 0;
-      if (!*(&v12->super.size_ + v11 + 4))
+      result = *(&v10->super.size_ + v9 + 4) == 0;
+      if (!*(&v10->super.size_ + v9 + 4))
       {
         break;
       }
 
-      v11 = (v11 + 1);
-      self->bytesRead_ = v11;
+      v9 = (v9 + 1);
+      self->bytesRead_ = v9;
     }
 
-    while (v11 < self->numBytesDecompressed_);
-    v15 = v11;
-    LODWORD(v11) = self->startOffset_;
+    while (v9 < self->numBytesDecompressed_);
+    v13 = v9;
+    LODWORD(v9) = self->startOffset_;
   }
 
-  self->entryLength_ = v15 - v11;
+  self->entryLength_ = v13 - v9;
   return result;
 }
 

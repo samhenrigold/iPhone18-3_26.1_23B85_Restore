@@ -5,6 +5,7 @@
 - (void)deRegisterFromSleepWake:(id)wake;
 - (void)dealloc;
 - (void)registerForSleepWake:(id)wake queue:(id)queue;
+- (void)systemPowerChanged:(unsigned int)changed notificationID:(void *)d;
 @end
 
 @implementation HAPPowerManager
@@ -47,7 +48,7 @@
     else
     {
       v9 = v2;
-      v10 = sub_10007FAA0();
+      v10 = sub_10007FAA0(v9);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = sub_10007FAFC(v9);
@@ -59,7 +60,7 @@
   }
 
   v12 = v2;
-  v13 = sub_10007FAA0();
+  v13 = sub_10007FAA0(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = sub_10007FAFC(v12);
@@ -81,7 +82,7 @@
     {
       v5 = v4;
       selfCopy = self;
-      v7 = sub_10007FAA0();
+      v7 = sub_10007FAA0(selfCopy);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         v8 = sub_10007FAFC(selfCopy);
@@ -111,7 +112,7 @@
     {
       v12 = v11;
       selfCopy2 = self;
-      v14 = sub_10007FAA0();
+      v14 = sub_10007FAA0(selfCopy2);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = sub_10007FAFC(selfCopy2);
@@ -127,7 +128,7 @@
   }
 
   selfCopy3 = self;
-  v17 = sub_10007FAA0();
+  v17 = sub_10007FAA0(selfCopy3);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     v18 = sub_10007FAFC(selfCopy3);
@@ -170,6 +171,94 @@
   v8 = wakeCopy;
   v6 = wakeCopy;
   dispatch_async(workQueue, v7);
+}
+
+- (void)systemPowerChanged:(unsigned int)changed notificationID:(void *)d
+{
+  v5 = *&changed;
+  selfCopy = self;
+  v7 = sub_10007FAA0(selfCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = sub_10007FAFC(selfCopy);
+    v9 = sub_10007CD10(v5);
+    *buf = 138543618;
+    v30 = v8;
+    v31 = 2112;
+    v32 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%{public}@System power changed: %@", buf, 0x16u);
+  }
+
+  switch(v5)
+  {
+    case 0xE0000270:
+      goto LABEL_14;
+    case 0xE0000280:
+      v10 = 1;
+      [(HAPPowerManager *)selfCopy delegatesMap:1];
+      break;
+    case 0xE0000320:
+      v10 = 2;
+      [(HAPPowerManager *)selfCopy delegatesMap:0];
+      break;
+    default:
+      return;
+  }
+  v11 = ;
+  keyEnumerator = [v11 keyEnumerator];
+
+  nextObject = [keyEnumerator nextObject];
+  if (nextObject)
+  {
+    v14 = nextObject;
+    do
+    {
+      delegatesMap = [(HAPPowerManager *)selfCopy delegatesMap];
+      v16 = [delegatesMap objectForKey:v14];
+
+      if (v16)
+      {
+        block[0] = _NSConcreteStackBlock;
+        block[1] = 3221225472;
+        block[2] = sub_10007CD9C;
+        block[3] = &unk_100274660;
+        v27 = v14;
+        v28 = v10;
+        dispatch_async(v16, block);
+      }
+
+      nextObject2 = [keyEnumerator nextObject];
+
+      v14 = nextObject2;
+    }
+
+    while (nextObject2);
+  }
+
+  d = v25;
+  if (v24)
+  {
+LABEL_14:
+    v18 = IOAllowPowerChange([(HAPPowerManager *)selfCopy systemPowerMgr], d);
+    if (v18)
+    {
+      v19 = v18;
+      v20 = selfCopy;
+      v21 = sub_10007FAA0(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      {
+        v22 = sub_10007FAFC(v20);
+        v23 = sub_10007CD10(v5);
+        *buf = 138543874;
+        v30 = v22;
+        v31 = 2112;
+        v32 = v23;
+        v33 = 1024;
+        v34 = v19;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "%{public}@Falied to allow for %@ with error: %d", buf, 0x1Cu);
+      }
+    }
+  }
 }
 
 + (id)logCategory

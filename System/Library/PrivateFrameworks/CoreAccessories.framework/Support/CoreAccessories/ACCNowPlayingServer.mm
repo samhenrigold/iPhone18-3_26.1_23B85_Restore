@@ -5,6 +5,7 @@
 - (BOOL)shouldAcceptXPCConnection:(id)connection;
 - (NSXPCConnection)activeConnection;
 - (void)cancelRequestPlaybackQueueListInfo:(id)info requestID:(id)d;
+- (void)requestPlaybackQueueListInfo:(id)info requestID:(id)d startIndex:(unsigned int)index upToCount:(unsigned int)count infoMask:(unsigned int)mask;
 - (void)sendUpdatedSubscriberList;
 - (void)setPlaybackElapsedTime:(id)time;
 - (void)setPlaybackQueueIndex:(id)index;
@@ -640,6 +641,28 @@ void __54__ACCNowPlayingServer_triggerPlaybackAttributesUpdate__block_invoke_90(
 
   v4 = platform_nowPlaying_copyDefaultPlaybackAttributes();
   platform_nowPlaying_playbackAttributesUpdate(v4);
+}
+
+- (void)requestPlaybackQueueListInfo:(id)info requestID:(id)d startIndex:(unsigned int)index upToCount:(unsigned int)count infoMask:(unsigned int)mask
+{
+  v7 = *&mask;
+  v8 = *&count;
+  v9 = *&index;
+  infoCopy = info;
+  dCopy = d;
+  remoteObject = [(ACCNowPlayingServer *)self remoteObject];
+
+  if (remoteObject)
+  {
+    remoteObject2 = [(ACCNowPlayingServer *)self remoteObject];
+    [remoteObject2 requestPlaybackQueueListInfo:infoCopy requestID:dCopy startIndex:v9 upToCount:v8 infoMask:v7];
+  }
+
+  else
+  {
+    remoteObject2 = dispatch_get_global_queue(0, 0);
+    dispatch_async(remoteObject2, &__block_literal_global_94);
+  }
 }
 
 void __92__ACCNowPlayingServer_requestPlaybackQueueListInfo_requestID_startIndex_upToCount_infoMask___block_invoke(id a1)

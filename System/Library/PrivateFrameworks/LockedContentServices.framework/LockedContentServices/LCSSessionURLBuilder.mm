@@ -25,7 +25,7 @@
   containerBundleIdentifier = [providerCopy containerBundleIdentifier];
   if (!containerBundleIdentifier)
   {
-    v5 = LCSLogCommon();
+    v5 = LCSLogCommon(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       +[LCSSessionURLBuilder _containerBundleIdentifierForBundleProvider:];
@@ -38,15 +38,16 @@
 + (id)_bundleRecordForBundleIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v8 = 0;
-  v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v8];
-  v5 = v8;
+  v9 = 0;
+  v4 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v9];
+  v5 = v9;
+  v6 = v5;
   if (!v4)
   {
-    v6 = LCSLogCommon();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = LCSLogCommon(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(LCSCaptureApplicationMonitor *)identifierCopy _bundleRecordForBundleIdentifier:v5, v6];
+      [(LCSCaptureApplicationMonitor *)identifierCopy _bundleRecordForBundleIdentifier:v6, v7];
     }
   }
 
@@ -60,7 +61,7 @@
   dataContainerURL = [v5 dataContainerURL];
   if (!dataContainerURL)
   {
-    v7 = LCSLogCommon();
+    v7 = LCSLogCommon(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[LCSSessionURLBuilder _containerURLForBundleIdentifier:];
@@ -72,28 +73,29 @@
 
 + (id)_libraryURLForCurrentApplication
 {
-  if (sandbox_get_container_expected())
+  container_expected = sandbox_get_container_expected();
+  if (container_expected)
   {
-    v2 = LCSLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = LCSLogCommon(container_expected);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       +[LCSSessionURLBuilder _libraryURLForCurrentApplication];
     }
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v4 = [defaultManager URLsForDirectory:5 inDomains:1];
-  firstObject = [v4 firstObject];
+  v5 = [defaultManager URLsForDirectory:5 inDomains:1];
+  firstObject = [v5 firstObject];
 
   if (firstObject)
   {
-    v6 = firstObject;
+    v8 = firstObject;
   }
 
   else
   {
-    v7 = LCSLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = LCSLogCommon(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       +[LCSSessionURLBuilder _libraryURLForCurrentApplication];
     }
@@ -129,15 +131,13 @@
   uUIDString = [uUID UUIDString];
   v9 = [v6 URLByAppendingPathComponent:uUIDString];
 
-  v10 = LCSLogCommon();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = LCSLogCommon(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v13 = 138412290;
     v14 = v9;
-    _os_log_impl(&dword_256175000, v10, OS_LOG_TYPE_INFO, "New session path: %@", &v13, 0xCu);
+    _os_log_impl(&dword_256175000, v11, OS_LOG_TYPE_INFO, "New session path: %@", &v13, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -162,7 +162,7 @@
   uUID = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:lastPathComponent];
   if (!uUID)
   {
-    v15 = LCSLogCommon();
+    v15 = LCSLogCommon(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [LCSSessionURLBuilder finalizationStagingSessionURLForBundleProvider:fromTemporaryURL:];
@@ -174,8 +174,8 @@
   uUIDString = [uUID UUIDString];
   v17 = [v12 URLByAppendingPathComponent:uUIDString];
 
-  v18 = LCSLogCommon();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+  v19 = LCSLogCommon(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     [LCSSessionURLBuilder finalizationStagingSessionURLForBundleProvider:fromTemporaryURL:];
   }
@@ -219,7 +219,7 @@
   uUID = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:lastPathComponent];
   if (!uUID)
   {
-    v9 = LCSLogCommon();
+    v9 = LCSLogCommon(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [LCSSessionURLBuilder finalizationStagingSessionURLForBundleProvider:fromTemporaryURL:];
@@ -242,8 +242,8 @@
   uUIDString = [uUID UUIDString];
   v16 = [v14 URLByAppendingPathComponent:uUIDString];
 
-  v17 = LCSLogCommon();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v18 = LCSLogCommon(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     [LCSSessionURLBuilder finalizedSessionURLForBundleProvider:fromSessionURL:];
   }
@@ -381,42 +381,42 @@
 
         if (v20)
         {
-          v21 = LCSLogCommon();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+          v22 = LCSLogCommon(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
             v46 = v20;
-            _os_log_error_impl(&dword_256175000, v21, OS_LOG_TYPE_ERROR, "Error fetching resource values: %@", buf, 0xCu);
+            _os_log_error_impl(&dword_256175000, v22, OS_LOG_TYPE_ERROR, "Error fetching resource values: %@", buf, 0xCu);
           }
         }
 
         else
         {
-          v22 = v9;
-          v23 = v8;
-          v24 = [v19 objectForKeyedSubscript:v8];
-          bOOLValue = [v24 BOOLValue];
+          v23 = v9;
+          v24 = v8;
+          v25 = [v19 objectForKeyedSubscript:v8];
+          bOOLValue = [v25 BOOLValue];
 
-          v21 = [v19 objectForKeyedSubscript:v15];
-          v26 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v21];
+          v22 = [v19 objectForKeyedSubscript:v15];
+          v27 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v22];
 
           if (bOOLValue)
           {
-            v27 = v26 == 0;
+            v28 = v27 == 0;
           }
 
           else
           {
-            v27 = 1;
+            v28 = 1;
           }
 
-          if (!v27)
+          if (!v28)
           {
             [array addObject:v17];
           }
 
-          v8 = v23;
-          v9 = v22;
+          v8 = v24;
+          v9 = v23;
           v14 = v34;
           v13 = v35;
         }
@@ -432,32 +432,29 @@
     while (v13);
   }
 
-  v28 = [array sortedArrayUsingComparator:&__block_literal_global_1];
+  v29 = [array sortedArrayUsingComparator:&__block_literal_global_1];
 
-  v29 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v29;
 }
 
 uint64_t __66__LCSSessionURLBuilder__finalizedSessionURLsInContainerDirectory___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = LCSLogCommon();
+  v7 = LCSLogCommon(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 32);
-    v11 = 138412802;
-    v12 = v10;
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_error_impl(&dword_256175000, v7, OS_LOG_TYPE_ERROR, "Error enumerating directory %@, on URL %@: %@", &v11, 0x20u);
+    v9 = *(a1 + 32);
+    v10 = 138412802;
+    v11 = v9;
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_error_impl(&dword_256175000, v7, OS_LOG_TYPE_ERROR, "Error enumerating directory %@, on URL %@: %@", &v10, 0x20u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -477,20 +474,16 @@ uint64_t __66__LCSSessionURLBuilder__finalizedSessionURLsInContainerDirectory___
 
 + (void)_containerBundleIdentifierForBundleProvider:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_containerURLForBundleIdentifier:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_libraryURLForCurrentApplication
@@ -509,18 +502,16 @@ uint64_t __66__LCSSessionURLBuilder__finalizedSessionURLsInContainerDirectory___
 
 - (void)finalizationStagingSessionURLForBundleProvider:fromTemporaryURL:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_256175000, v0, OS_LOG_TYPE_DEBUG, "Finalization staging path:%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_256175000, v0, OS_LOG_TYPE_DEBUG, "Finalization staging path:%@", v1, 0xCu);
 }
 
 - (void)finalizedSessionURLForBundleProvider:fromSessionURL:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_256175000, v0, OS_LOG_TYPE_DEBUG, "Finalization Library path:%@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_256175000, v0, OS_LOG_TYPE_DEBUG, "Finalization Library path:%@", v1, 0xCu);
 }
 
 @end

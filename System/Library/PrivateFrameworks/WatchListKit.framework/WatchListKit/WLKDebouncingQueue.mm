@@ -72,34 +72,32 @@ void __44__WLKDebouncingQueue_addOperationWithBlock___block_invoke(uint64_t a1)
     v4 = objc_loadWeakRetained((a1 + 48));
     v5 = [v4 isCancelled];
 
-    v6 = WLKSystemLogObject();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = WLKSystemLogObject(v6);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
     if (v5)
     {
-      if (v7)
+      if (v8)
       {
-        v8 = objc_loadWeakRetained((a1 + 48));
+        v9 = objc_loadWeakRetained((a1 + 48));
         v11 = 138412290;
-        v12 = v8;
-        _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKDebouncingQueue - Debouncing op. %@", &v11, 0xCu);
+        v12 = v9;
+        _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKDebouncingQueue - Debouncing op. %@", &v11, 0xCu);
       }
     }
 
     else
     {
-      if (v7)
+      if (v8)
       {
-        v9 = objc_loadWeakRetained((a1 + 48));
+        v10 = objc_loadWeakRetained((a1 + 48));
         v11 = 138412290;
-        v12 = v9;
-        _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKDebouncingQueue - Running op. %@", &v11, 0xCu);
+        v12 = v10;
+        _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKDebouncingQueue - Running op. %@", &v11, 0xCu);
       }
 
       (*(*(a1 + 32) + 16))();
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

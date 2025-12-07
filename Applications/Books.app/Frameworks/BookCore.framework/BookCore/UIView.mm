@@ -126,105 +126,105 @@
 
 - (id)im_snapshotInContext
 {
-  [(UIView *)self bounds];
-  if (v3 <= 0.0 || (v5 = v4, v4 <= 0.0))
+  bounds = [(UIView *)self bounds];
+  if (v4 <= 0.0 || (v6 = v5, v5 <= 0.0))
   {
-    v19 = BCIMLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v22 = BCIMLog(bounds);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
       selfCopy = "[UIView(IMAdditions) im_snapshotInContext]";
-      v24 = 2080;
-      v25 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Views/UIView+IMAdditions.m";
-      v26 = 1024;
-      v27 = 117;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
+      v28 = 2080;
+      v29 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Views/UIView+IMAdditions.m";
+      v30 = 1024;
+      v31 = 117;
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
     }
 
-    v7 = BCIMLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = BCIMLog(v23);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "@Snapshotting a CGSizeZero view: %@", buf, 0xCu);
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "@Snapshotting a CGSizeZero view: %@", buf, 0xCu);
     }
 
-    v18 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v6 = v3;
-    v7 = +[UIGraphicsImageRendererFormat preferredFormat];
-    [v7 scale];
-    v9 = v8;
-    v10 = +[UIScreen mainScreen];
-    [v10 bounds];
-    v12 = CGSizeScaleToScreen(v11);
-    v14 = v13;
+    v7 = v4;
+    v8 = +[UIGraphicsImageRendererFormat preferredFormat];
+    [v8 scale];
+    v10 = v9;
+    v11 = +[UIScreen mainScreen];
+    bounds2 = [v11 bounds];
+    v15 = CGSizeScaleToScreen(bounds2, v13, v14);
+    v17 = v16;
 
-    if (v12 < v6 || v14 < v5)
+    if (v15 < v7 || v17 < v6)
     {
       CGSizeScaleThatFitsInCGSize();
-      v9 = v16;
+      v10 = v19;
     }
 
-    [v7 setScale:v9];
-    v17 = [[UIGraphicsImageRenderer alloc] initWithSize:v7 format:{v6, v5}];
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_79228;
-    v21[3] = &unk_2CB040;
-    v21[4] = self;
-    v18 = [v17 imageWithActions:v21];
+    [v8 setScale:v10];
+    v20 = [[UIGraphicsImageRenderer alloc] initWithSize:v8 format:{v7, v6}];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_79228;
+    v25[3] = &unk_2CB040;
+    v25[4] = self;
+    v21 = [v20 imageWithActions:v25];
   }
 
-  return v18;
+  return v21;
 }
 
 - (id)im_snapshotAfterScreenUpdates:(BOOL)updates
 {
-  [(UIView *)self bounds];
-  if (v5 <= 0.0 || (v7 = v6, v6 <= 0.0))
+  bounds = [(UIView *)self bounds];
+  if (v6 <= 0.0 || (v8 = v7, v7 <= 0.0))
   {
-    v12 = BCIMLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = BCIMLog(bounds);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
       selfCopy = "[UIView(IMAdditions) im_snapshotAfterScreenUpdates:]";
-      v18 = 2080;
-      v19 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Views/UIView+IMAdditions.m";
-      v20 = 1024;
-      v21 = 143;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
+      v20 = 2080;
+      v21 = "/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/BookCore/BookCore/Views/UIView+IMAdditions.m";
+      v22 = 1024;
+      v23 = 143;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "%s %s:%d", buf, 0x1Cu);
     }
 
-    v9 = BCIMLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = BCIMLog(v14);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "@Snapshotting a CGSizeZero view: %@", buf, 0xCu);
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "@Snapshotting a CGSizeZero view: %@", buf, 0xCu);
     }
 
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v8 = v5;
-    v9 = +[UIGraphicsImageRendererFormat preferredFormat];
-    v10 = [[UIGraphicsImageRenderer alloc] initWithSize:v9 format:{v8, v7}];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_794A0;
-    v14[3] = &unk_2CB068;
-    v14[4] = self;
+    v9 = v6;
+    v10 = +[UIGraphicsImageRendererFormat preferredFormat];
+    v11 = [[UIGraphicsImageRenderer alloc] initWithSize:v10 format:{v9, v8}];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_794A0;
+    v16[3] = &unk_2CB068;
+    v16[4] = self;
     updatesCopy = updates;
-    v11 = [v10 imageWithActions:v14];
+    v12 = [v11 imageWithActions:v16];
   }
 
-  return v11;
+  return v12;
 }
 
 - (id)subviewOfClass:(Class)class
@@ -860,7 +860,7 @@ LABEL_18:
 
 - (void)bc_applyCornerRadius:(double)radius
 {
-  v5 = sub_18AFC0(&qword_3411E8);
+  v5 = sub_18AFC0(&qword_3411E8, &qword_2A6398);
   __chkstk_darwin(v5 - 8);
   v7 = &v10 - v6;
   selfCopy = self;
@@ -881,7 +881,7 @@ LABEL_18:
 
 - (void)bc_applyCornerRadiusFromView:(id)view
 {
-  v5 = sub_18AFC0(&qword_3411E8);
+  v5 = sub_18AFC0(&qword_3411E8, &qword_2A6398);
   __chkstk_darwin(v5 - 8);
   viewCopy = view;
   selfCopy = self;

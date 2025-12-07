@@ -15,7 +15,7 @@
 
 + (id)serializedChunksFromActionPredictionResults:(id)results lockscreenPredictionIndices:(id)indices
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   indicesCopy = indices;
   v5 = [MEMORY[0x277CEB2B8] abGroupForConsumerSubType:24];
@@ -32,7 +32,7 @@
 
   v8 = abGroupNilString;
 
-  v42 = v8;
+  v41 = v8;
   v9 = [MEMORY[0x277CEB2B8] abGroupForConsumerSubType:25];
   v10 = v9;
   if (v9)
@@ -47,7 +47,7 @@
 
   v12 = abGroupNilString2;
 
-  v43 = v12;
+  v42 = v12;
   v13 = [MEMORY[0x277CEB2B8] abGroupForConsumerSubType:27];
   v14 = v13;
   if (v13)
@@ -62,106 +62,104 @@
 
   v16 = abGroupNilString3;
 
-  v44 = v16;
-  v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:%@", v8, v12, v16];
+  v43 = v16;
+  v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@:%@", v8, v12, v16];
   version = [MEMORY[0x277CEB3C0] version];
-  v52 = objc_opt_new();
-  v51 = [objc_alloc(MEMORY[0x277CEB550]) initWithABGroup:v47 assetVersion:version];
-  v48 = [objc_alloc(MEMORY[0x277CEB550]) initWithABGroup:v47 assetVersion:version];
-  v60 = 0u;
+  v51 = objc_opt_new();
+  v50 = [objc_alloc(MEMORY[0x277CEB550]) initWithABGroup:v46 assetVersion:version];
+  v47 = [objc_alloc(MEMORY[0x277CEB550]) initWithABGroup:v46 assetVersion:version];
   v59 = 0u;
   v58 = 0u;
   v57 = 0u;
+  v56 = 0u;
   obj = resultsCopy;
-  v18 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+  v18 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
   if (v18)
   {
     v19 = 0;
-    v20 = *v58;
+    v20 = *v57;
     v21.i32[1] = -1059153344;
     *v21.i32 = -31337.0;
-    v50 = vdupq_lane_s32(v21, 0);
+    v49 = vdupq_lane_s32(v21, 0);
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v58 != v20)
+        if (*v57 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v57 + 1) + 8 * i);
+        v23 = *(*(&v56 + 1) + 8 * i);
         v24 = objc_autoreleasePoolPush();
         scoredAction = [v23 scoredAction];
         if (scoredAction)
         {
           location = 0;
-          *&v56[415] = -31337.0;
+          *&v55[415] = -31337.0;
           v26 = 2;
-          WORD2(v56[415]) = 0;
+          WORD2(v55[415]) = 0;
           do
           {
-            *&v56[v26 - 1] = v50;
+            *&v55[v26 - 1] = v49;
             v26 += 2;
           }
 
           while (v26 != 416);
-          if ([v23 predictionItem])
+          if (objc_msgSend_predictionItem(v23))
           {
-            predictionItem = [v23 predictionItem];
-            objc_storeStrong(&location, *predictionItem);
-            memcpy(v56, predictionItem + 1, 0xCFEuLL);
+            v27 = objc_msgSend_predictionItem(v23);
+            objc_storeStrong(&location, *v27);
+            memcpy(v55, v27 + 1, 0xCFEuLL);
           }
 
           predictedItem = [scoredAction predictedItem];
           [predictedItem setTitleForSerializationToCache];
           [predictedItem setSubtitleForSerializationToCache];
           [scoredAction score];
-          [v52 recordPrediction:predictedItem score:?];
+          [v51 recordPrediction:predictedItem score:?];
           v29 = [MEMORY[0x277CCABB0] numberWithInteger:v19];
-          LODWORD(v30) = v56[415];
-          [v51 recordPrediction:v29 actionHash:v56[0] totalScore:&v56[1] scoreInputs:BYTE4(v56[415]) isMediumConfidenceForBlendingLayer:BYTE5(v56[415]) isHighConfidenceForBlendingLayer:v30];
+          LODWORD(v30) = v55[415];
+          [v50 recordPrediction:v29 actionHash:v55[0] totalScore:&v55[1] scoreInputs:BYTE4(v55[415]) isMediumConfidenceForBlendingLayer:BYTE5(v55[415]) isHighConfidenceForBlendingLayer:v30];
 
           ++v19;
         }
 
-        else if ([v23 predictionItem])
+        else if (objc_msgSend_predictionItem(v23))
         {
-          predictionItem2 = [v23 predictionItem];
-          LODWORD(v32) = *(predictionItem2 + 3328);
-          [v48 recordPrediction:*predictionItem2 actionHash:*(predictionItem2 + 8) totalScore:predictionItem2 + 16 scoreInputs:*(predictionItem2 + 3332) isMediumConfidenceForBlendingLayer:*(predictionItem2 + 3333) isHighConfidenceForBlendingLayer:v32];
+          v31 = objc_msgSend_predictionItem(v23);
+          LODWORD(v32) = *(v31 + 3328);
+          [v47 recordPrediction:*v31 actionHash:*(v31 + 8) totalScore:v31 + 16 scoreInputs:*(v31 + 3332) isMediumConfidenceForBlendingLayer:*(v31 + 3333) isHighConfidenceForBlendingLayer:v32];
         }
 
         objc_autoreleasePoolPop(v24);
       }
 
-      v18 = [obj countByEnumeratingWithState:&v57 objects:v62 count:16];
+      v18 = [obj countByEnumeratingWithState:&v56 objects:v61 count:16];
     }
 
     while (v18);
   }
 
-  finish = [v52 finish];
+  finish = [v51 finish];
   v34 = objc_opt_new();
   [indicesCopy count];
   ATXCacheAppendInteger();
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __97__ATXActionCacheBuilder_serializedChunksFromActionPredictionResults_lockscreenPredictionIndices___block_invoke;
-  v53[3] = &unk_27859D418;
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __97__ATXActionCacheBuilder_serializedChunksFromActionPredictionResults_lockscreenPredictionIndices___block_invoke;
+  v52[3] = &unk_27859D418;
   v35 = v34;
-  v54 = v35;
-  [indicesCopy enumerateIndexesUsingBlock:v53];
-  finish2 = [v51 finish];
-  finish3 = [v48 finish];
-  v61[0] = finish;
+  v53 = v35;
+  [indicesCopy enumerateIndexesUsingBlock:v52];
+  finish2 = [v50 finish];
+  finish3 = [v47 finish];
+  v60[0] = finish;
   v38 = [v35 copy];
-  v61[1] = v38;
-  v61[2] = finish2;
-  v61[3] = finish3;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:4];
-
-  v40 = *MEMORY[0x277D85DE8];
+  v60[1] = v38;
+  v60[2] = finish2;
+  v60[3] = finish3;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:4];
 
   return v39;
 }

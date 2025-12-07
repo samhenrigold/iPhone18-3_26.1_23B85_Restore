@@ -6,9 +6,22 @@
 - (_TtC10CoreAuthUI22PINSheetViewController)initWithRequestID:(id)d endpoint:(id)endpoint remoteAlertPresentationMode:(int64_t)mode;
 - (void)dismissChildWithCompletionHandler:(id)handler;
 - (void)viewModel:(id)model didReceiveCustomPassword:(id)password handler:(id)handler;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PINSheetViewController
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  [(TransitionViewController *)&v7 viewWillAppear:appearCopy];
+  v5 = sub_10004AB30(v4);
+  v6 = *&v4[OBJC_IVAR____TtC10CoreAuthUI22PINSheetViewController_authorizationViewManager];
+  *&v4[OBJC_IVAR____TtC10CoreAuthUI22PINSheetViewController_authorizationViewManager] = v5;
+}
 
 - (void)dismissChildWithCompletionHandler:(id)handler
 {
@@ -29,7 +42,7 @@
 
   selfCopy = self;
   sub_10004B504(v7, v6);
-  sub_10002AA04(v7);
+  sub_10002AA04(v7, v6);
 }
 
 - (_TtC10CoreAuthUI22PINSheetViewController)initWithRequestID:(id)d endpoint:(id)endpoint

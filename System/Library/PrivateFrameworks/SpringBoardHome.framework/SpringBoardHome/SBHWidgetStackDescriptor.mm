@@ -128,7 +128,7 @@
 
 - (NSString)sbh_appName
 {
-  v2 = SBHBundle();
+  v2 = SBHBundle(self);
   v3 = [v2 localizedStringForKey:@"WIDGET_ADD_SHEET_SUGGESTED_STACK_DISPLAY_NAME" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
   return v3;
@@ -136,7 +136,7 @@
 
 - (NSString)sbh_widgetDescription
 {
-  v2 = SBHBundle();
+  v2 = SBHBundle(self);
   v3 = [v2 localizedStringForKey:@"WIDGET_ADD_SHEET_SUGGESTED_STACK_DESCRIPTION" value:&stru_1F3D472A8 table:@"SpringBoardHome"];
 
   return v3;

@@ -257,20 +257,20 @@ void __39__MIBUDeviceInfoResponse__deserialize___block_invoke_68()
 
 - (id)serialize
 {
-  v34[12] = *MEMORY[0x277D85DE8];
+  v33[12] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   if (![(MIBUNFCResponse *)self rejected])
   {
     serialNumber = [(MIBUDeviceInfoResponse *)self serialNumber];
-    v34[0] = serialNumber;
+    v33[0] = serialNumber;
     ecid = [(MIBUDeviceInfoResponse *)self ecid];
-    v34[1] = ecid;
+    v33[1] = ecid;
     boardID = [(MIBUDeviceInfoResponse *)self boardID];
-    v34[2] = boardID;
+    v33[2] = boardID;
     chipID = [(MIBUDeviceInfoResponse *)self chipID];
-    v34[3] = chipID;
+    v33[3] = chipID;
     securityDomain = [(MIBUDeviceInfoResponse *)self securityDomain];
-    v34[4] = securityDomain;
+    v33[4] = securityDomain;
     apNonce = [(MIBUDeviceInfoResponse *)self apNonce];
     if (apNonce)
     {
@@ -282,8 +282,8 @@ void __39__MIBUDeviceInfoResponse__deserialize___block_invoke_68()
       apNonce2 = objc_opt_new();
     }
 
-    v25 = apNonce2;
-    v34[5] = apNonce2;
+    v24 = apNonce2;
+    v33[5] = apNonce2;
     sepNonce = [(MIBUDeviceInfoResponse *)self sepNonce];
     if (sepNonce)
     {
@@ -296,18 +296,18 @@ void __39__MIBUDeviceInfoResponse__deserialize___block_invoke_68()
     }
 
     v6 = sepNonce2;
-    v34[6] = sepNonce2;
+    v33[6] = sepNonce2;
     v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[MIBUDeviceInfoResponse productionMode](self, "productionMode")}];
-    v34[7] = v7;
+    v33[7] = v7;
     v8 = [MEMORY[0x277CCABB0] numberWithBool:{-[MIBUDeviceInfoResponse securityMode](self, "securityMode")}];
-    v34[8] = v8;
+    v33[8] = v8;
     v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[MIBUDeviceInfoResponse uidMode](self, "uidMode")}];
-    v34[9] = v9;
+    v33[9] = v9;
     sikaFuse = [(MIBUDeviceInfoResponse *)self sikaFuse];
-    v34[10] = sikaFuse;
+    v33[10] = sikaFuse;
     v11 = [MEMORY[0x277CCABB0] numberWithBool:{-[MIBUDeviceInfoResponse sikaFuseExists](self, "sikaFuseExists")}];
-    v34[11] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:12];
+    v33[11] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:12];
     v13 = [v3 serialize:&unk_286AC83B8 withValue:v12];
 
     if (v13)
@@ -326,14 +326,14 @@ void __39__MIBUDeviceInfoResponse__deserialize___block_invoke_68()
         dispatch_once(&MIBUOnceToken, &__block_literal_global_31);
       }
 
-      v21 = MIBUConnObj;
+      v20 = MIBUConnObj;
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
       {
-        v22 = v21;
+        v21 = v20;
         error2 = [(MIBUNFCResponse *)self error];
         *buf = 138543362;
-        v33 = error2;
-        _os_log_error_impl(&dword_259ABF000, v22, OS_LOG_TYPE_ERROR, "Failed to serialize response error: %{public}@", buf, 0xCu);
+        v32 = error2;
+        _os_log_error_impl(&dword_259ABF000, v21, OS_LOG_TYPE_ERROR, "Failed to serialize response error: %{public}@", buf, 0xCu);
       }
     }
 
@@ -344,19 +344,17 @@ void __39__MIBUDeviceInfoResponse__deserialize___block_invoke_68()
         dispatch_once(&MIBUOnceToken, &__block_literal_global_4);
       }
 
-      v19 = MIBUConnObj;
+      v18 = MIBUConnObj;
       if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        OUTLINED_FUNCTION_4_0(&dword_259ABF000, v19, v20, "Failed to serialize serial number & nonce", buf);
+        OUTLINED_FUNCTION_4_0(&dword_259ABF000, v18, v19, "Failed to serialize serial number & nonce", buf);
       }
     }
   }
 
   serializedData = 0;
 LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return serializedData;
 }
@@ -400,7 +398,8 @@ LABEL_11:
     v11 = MIBUConnObj;
     if (OUTLINED_FUNCTION_5_0())
     {
-      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v37, v38, "Failed to deserialize response error", v39, v40, v41, v42, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v37, v38, "Failed to deserialize response error", v39, v40, v41, v42, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     OUTLINED_FUNCTION_0_0();
@@ -434,7 +433,7 @@ LABEL_11:
     *buf = 0;
     v36 = "Failed to deserialize serial number";
 LABEL_82:
-    OUTLINED_FUNCTION_1_1(&dword_259ABF000, v30, v31, v36, v32, v33, v34, v35, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100, buf[0]);
+    OUTLINED_FUNCTION_1_1(&dword_259ABF000, v30, v31, v36, v32, v33, v34, v35, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100);
 LABEL_37:
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_3_0();
@@ -459,7 +458,8 @@ LABEL_44:
     v11 = MIBUConnObj;
     if (OUTLINED_FUNCTION_5_0())
     {
-      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v43, v44, "Failed to deserialize ecid", v45, v46, v47, v48, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v43, v44, "Failed to deserialize ecid", v45, v46, v47, v48, v83, v84, v87, v90, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     OUTLINED_FUNCTION_0_0();
@@ -480,7 +480,8 @@ LABEL_44:
     v26 = v13;
     if (OUTLINED_FUNCTION_5_0())
     {
-      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v49, v50, "Failed to deserialize board ID", v51, v52, v53, v54, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v49, v50, "Failed to deserialize board ID", v51, v52, v53, v54, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     OUTLINED_FUNCTION_0_0();
@@ -503,7 +504,8 @@ LABEL_44:
     v26 = v13;
     if (OUTLINED_FUNCTION_5_0())
     {
-      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v55, v56, "Failed to deserialize chip ID", v57, v58, v59, v60, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v55, v56, "Failed to deserialize chip ID", v57, v58, v59, v60, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     OUTLINED_FUNCTION_0_0();
@@ -526,7 +528,8 @@ LABEL_44:
     v26 = v13;
     if (OUTLINED_FUNCTION_5_0())
     {
-      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v61, v62, "Failed to deserialize security domain", v63, v64, v65, v66, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v61, v62, "Failed to deserialize security domain", v63, v64, v65, v66, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     OUTLINED_FUNCTION_0_0();
@@ -548,7 +551,8 @@ LABEL_44:
     v26 = v13;
     if (OUTLINED_FUNCTION_5_0())
     {
-      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v67, v68, "Failed to deserialize ap nonce", v69, v70, v71, v72, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v67, v68, "Failed to deserialize ap nonce", v69, v70, v71, v72, v83, v84, v87, v91, v93, v9, v95, v96, v97, v98, v99, v100);
     }
 
     v95 = 0;
@@ -706,7 +710,8 @@ LABEL_22:
     v26 = v13;
     if (OUTLINED_FUNCTION_5_0())
     {
-      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v73, v74, "Failed to deserialize production mode", v75, v76, v77, v78, v83, v84, v5, v92, v6, v9, v95, v96, v97, v98, v99, v100, 0);
+      *buf = 0;
+      OUTLINED_FUNCTION_1_1(&dword_259ABF000, v73, v74, "Failed to deserialize production mode", v75, v76, v77, v78, v83, v84, v5, v92, v6, v9, v95, v96, v97, v98, v99, v100);
     }
 
     v95 = 0;

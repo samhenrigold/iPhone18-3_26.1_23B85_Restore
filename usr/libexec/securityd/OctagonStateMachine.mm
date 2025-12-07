@@ -1107,38 +1107,44 @@ LABEL_17:
 - (void)setCurrentState:(id)state
 {
   stateCopy = state;
+  v7 = stateCopy;
   if (stateCopy | self->_currentState)
   {
-    v14 = stateCopy;
-    if (([stateCopy isEqualToString:?] & 1) == 0)
+    v15 = stateCopy;
+    stateCopy = [stateCopy isEqualToString:?];
+    v7 = v15;
+    if ((stateCopy & 1) == 0)
     {
       if (self->_currentState)
       {
-        v7 = objc_alloc_init(CKKSCondition);
+        v8 = objc_alloc_init(CKKSCondition);
         mutableStateConditions = [(OctagonStateMachine *)self mutableStateConditions];
-        [mutableStateConditions setObject:v7 forKeyedSubscript:self->_currentState];
+        [mutableStateConditions setObject:v8 forKeyedSubscript:self->_currentState];
       }
 
       allowableStates = [(OctagonStateMachine *)self allowableStates];
-      v10 = [allowableStates containsObject:v14];
+      v11 = [allowableStates containsObject:v15];
 
-      if ((v10 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
-        v13 = +[NSAssertionHandler currentHandler];
-        [v13 handleFailureInMethod:a2 object:self file:@"OctagonStateMachine.m" lineNumber:182 description:{@"state machine tried to enter unknown state %@", v14}];
+        v14 = +[NSAssertionHandler currentHandler];
+        [v14 handleFailureInMethod:a2 object:self file:@"OctagonStateMachine.m" lineNumber:182 description:{@"state machine tried to enter unknown state %@", v15}];
       }
 
       objc_storeStrong(&self->_currentState, state);
-      if (v14)
+      v7 = v15;
+      if (v15)
       {
         mutableStateConditions2 = [(OctagonStateMachine *)self mutableStateConditions];
-        v12 = [mutableStateConditions2 objectForKeyedSubscript:v14];
-        [v12 fulfill];
+        v13 = [mutableStateConditions2 objectForKeyedSubscript:v15];
+        [v13 fulfill];
+
+        v7 = v15;
       }
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(stateCopy, v7);
 }
 
 - (id)description

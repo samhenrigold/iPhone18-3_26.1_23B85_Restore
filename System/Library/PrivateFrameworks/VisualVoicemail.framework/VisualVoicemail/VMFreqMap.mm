@@ -117,7 +117,7 @@
 
 + (id)getVMFreqMapFilePath
 {
-  v2 = sub_10008546C();
+  v2 = sub_10008546C(self);
   v3 = [v2 URLByAppendingPathComponent:@"vmLanguageFrequencyMap"];
   path = [v3 path];
 
@@ -130,34 +130,34 @@
   v3 = [NSSet setWithObjects:objc_opt_class(), 0];
   v4 = [VMUtilities readDataFromFile:v2 customClassSet:v3];
 
-  if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v4 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v5 = sub_100002740();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100002740(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v4;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Loaded VM Context Freq Map %@", buf, 0xCu);
+      v12 = v4;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Loaded VM Context Freq Map %@", buf, 0xCu);
     }
 
-    v6 = [VMFreqMap adjustVMFreqMapVersion:v4];
+    v7 = [VMFreqMap adjustVMFreqMapVersion:v4];
   }
 
   else
   {
-    v7 = sub_100002740();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002740(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Intializing VM Context Freq Map as does not exist.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Intializing VM Context Freq Map as does not exist.", buf, 2u);
     }
 
-    v6 = [[VMFreqMap alloc] initWithVersion:0];
+    v7 = [[VMFreqMap alloc] initWithVersion:0];
   }
 
-  v8 = v6;
+  v9 = v7;
 
-  return v8;
+  return v9;
 }
 
 @end

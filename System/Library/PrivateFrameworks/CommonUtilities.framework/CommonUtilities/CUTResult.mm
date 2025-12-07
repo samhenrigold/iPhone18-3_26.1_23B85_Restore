@@ -8,9 +8,9 @@
 
 - (id)value
 {
-  if ([(CUTResult *)self state])
+  if (objc_msgSend_state(self, a2, v2))
   {
-    sub_1B2331850(a2, self);
+    sub_1B2331850(a2, self, v5);
   }
 
   inValue = self->_inValue;
@@ -38,9 +38,9 @@
 
 - (NSError)error
 {
-  if ([(CUTResult *)self state]!= 1)
+  if (objc_msgSend_state(self, a2, v2) != 1)
   {
-    sub_1B23318C4(a2, self);
+    sub_1B23318C4(a2, self, v5);
   }
 
   inError = self->_inError;

@@ -1,9 +1,49 @@
 @interface EMMessageTransferAllAction
 - (EMMessageTransferAllAction)initWithCoder:(id)coder;
+- (EMMessageTransferAllAction)initWithMailboxes:(id)mailboxes messageListItemsToExclude:(id)exclude destinationMailbox:(id)mailbox copyMessages:(BOOL)messages origin:(int64_t)origin actor:(int64_t)actor;
+- (EMMessageTransferAllAction)initWithMailboxes:(id)mailboxes messageListItemsToExclude:(id)exclude specialDestinationMailboxType:(int64_t)type flagChange:(id)change copyMessages:(BOOL)messages origin:(int64_t)origin actor:(int64_t)actor;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation EMMessageTransferAllAction
+
+- (EMMessageTransferAllAction)initWithMailboxes:(id)mailboxes messageListItemsToExclude:(id)exclude destinationMailbox:(id)mailbox copyMessages:(BOOL)messages origin:(int64_t)origin actor:(int64_t)actor
+{
+  messagesCopy = messages;
+  mailboxesCopy = mailboxes;
+  excludeCopy = exclude;
+  mailboxCopy = mailbox;
+  v21.receiver = self;
+  v21.super_class = EMMessageTransferAllAction;
+  v17 = [(EMMessageTransferAction *)&v21 initWithMessageListItems:excludeCopy origin:origin actor:actor destinationMailbox:mailboxCopy copyMessages:messagesCopy];
+  if (v17)
+  {
+    v18 = [mailboxesCopy ef_mapSelector:sel_objectID];
+    mailboxObjectIDs = v17->_mailboxObjectIDs;
+    v17->_mailboxObjectIDs = v18;
+  }
+
+  return v17;
+}
+
+- (EMMessageTransferAllAction)initWithMailboxes:(id)mailboxes messageListItemsToExclude:(id)exclude specialDestinationMailboxType:(int64_t)type flagChange:(id)change copyMessages:(BOOL)messages origin:(int64_t)origin actor:(int64_t)actor
+{
+  messagesCopy = messages;
+  mailboxesCopy = mailboxes;
+  excludeCopy = exclude;
+  changeCopy = change;
+  v22.receiver = self;
+  v22.super_class = EMMessageTransferAllAction;
+  v18 = [(EMMessageTransferAction *)&v22 initWithMessageListItems:excludeCopy origin:origin actor:actor specialDestinationMailboxType:type flagChange:changeCopy copyMessages:messagesCopy];
+  if (v18)
+  {
+    v19 = [mailboxesCopy ef_map:&__block_literal_global_36];
+    mailboxObjectIDs = v18->_mailboxObjectIDs;
+    v18->_mailboxObjectIDs = v19;
+  }
+
+  return v18;
+}
 
 id __141__EMMessageTransferAllAction_initWithMailboxes_messageListItemsToExclude_specialDestinationMailboxType_flagChange_copyMessages_origin_actor___block_invoke(uint64_t a1, void *a2)
 {

@@ -97,7 +97,7 @@
 - (void)setOnUnhandledPromiseRejection:(id)rejection
 {
   rejectionCopy = rejection;
-  v5 = JSALog();
+  v5 = JSALog(rejectionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 136446210;
@@ -112,7 +112,7 @@
   if (*v14)
   {
     onUnhandledPromiseRejection = [JSValue valueWithJSValueRef:*v14 inContext:context];
-    v9 = JSALog();
+    v9 = JSALog(onUnhandledPromiseRejection);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_82EA0(onUnhandledPromiseRejection, v9);
@@ -136,7 +136,7 @@
     }
 
     onUnhandledPromiseRejection = [JSValue valueWithJSValueRef:*v14 inContext:context];
-    v9 = JSALog();
+    v9 = JSALog(onUnhandledPromiseRejection);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_82F18(onUnhandledPromiseRejection, v9);
@@ -149,7 +149,7 @@ LABEL_10:
 + (void)openExternalURL:(id)l
 {
   lCopy = l;
-  v4 = JSALog();
+  v4 = JSALog(lCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -204,7 +204,7 @@ LABEL_11:
 - (void)downloadAndCacheScript:(id)script
 {
   scriptCopy = script;
-  v4 = JSALog();
+  v4 = JSALog(scriptCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -225,7 +225,7 @@ LABEL_11:
 - (void)reloadWithNewCacheIfAvailable:(id)available
 {
   availableCopy = available;
-  v4 = JSALog();
+  v4 = JSALog(availableCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -245,7 +245,7 @@ LABEL_11:
 - (void)reloadWithNewCache:(id)cache
 {
   cacheCopy = cache;
-  v4 = JSALog();
+  v4 = JSALog(cacheCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -278,24 +278,24 @@ LABEL_11:
 
   if ((v4 & 1) != 0 || !metricsCopy || (+[JSAMetricsAppLaunchEvent markLaunchEndTime](JSAMetricsAppLaunchEvent, "markLaunchEndTime"), +[JSAMetricsAppLaunchEvent consumePendingLaunchEvent](JSAMetricsAppLaunchEvent, "consumePendingLaunchEvent"), v6 = objc_claimAutoreleasedReturnValue(), [v6 metricsDictionary], v5 = objc_claimAutoreleasedReturnValue(), v6, v5))
   {
-    v7 = +[JSABridge sharedInstance];
-    v9[0] = _NSConcreteStackBlock;
-    v9[1] = 3221225472;
-    v9[2] = sub_230D8;
-    v9[3] = &unk_B27E8;
-    v10 = v5;
-    v8 = v5;
-    [v7 enqueueBlockForInitialLaunch:v9 file:@"/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/JSApp/JSApp/API/Application/JSAApplication.m" line:194];
+    v8 = +[JSABridge sharedInstance];
+    v10[0] = _NSConcreteStackBlock;
+    v10[1] = 3221225472;
+    v10[2] = sub_230D8;
+    v10[3] = &unk_B27E8;
+    v11 = v5;
+    v9 = v5;
+    [v8 enqueueBlockForInitialLaunch:v10 file:@"/Library/Caches/com.apple.xbs/Sources/Alder/frameworks/JSApp/JSApp/API/Application/JSAApplication.m" line:194];
   }
 
   else
   {
-    v8 = JSALog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = JSALog(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v12 = "+[JSAApplication didFinishLaunchingWithMetrics:]";
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%{public}s iBooks probably just loaded a new version of javascript", buf, 0xCu);
+      v13 = "+[JSAApplication didFinishLaunchingWithMetrics:]";
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%{public}s iBooks probably just loaded a new version of javascript", buf, 0xCu);
     }
   }
 }
@@ -313,7 +313,7 @@ LABEL_11:
   idsCopy = ids;
   typesCopy = types;
   optionsCopy = options;
-  v13 = JSALog();
+  v13 = JSALog(optionsCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     v14 = [idsCopy componentsJoinedByString:{@", "}];
@@ -360,7 +360,7 @@ LABEL_11:
 {
   lCopy = l;
   optionsCopy = options;
-  v8 = JSALog();
+  v8 = JSALog(optionsCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -385,7 +385,7 @@ LABEL_11:
 
 + (void)openAccountSummaryPage
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -398,7 +398,7 @@ LABEL_11:
 
 + (void)openNotificationSettingsPage
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -416,38 +416,38 @@ LABEL_11:
   v5 = [sheetCopy objectForKeyedSubscript:@"achievementKind"];
   v6 = BUDynamicCast();
 
-  v7 = JSALog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = JSALog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = v6;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Opening achievement sheet for achievementKind %@", buf, 0xCu);
+    v14 = v6;
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Opening achievement sheet for achievementKind %@", buf, 0xCu);
   }
 
   if (v6)
   {
-    v10 = v6;
-    v8 = [NSArray arrayWithObjects:&v10 count:1];
-    v9 = sub_2395C(self, v8, sheetCopy);
+    v12 = v6;
+    v10 = [NSArray arrayWithObjects:&v12 count:1];
+    v11 = sub_2395C(self, v10, sheetCopy);
 
-    sub_23348(self, @"openAchievementSheet", v9, 0);
+    sub_23348(self, @"openAchievementSheet", v11, 0);
   }
 
   else
   {
-    v9 = JSALog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = JSALog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v12 = "+[JSAApplication openAchievementSheet:]";
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "%{public}s Ignoring achievement notification without achievementKind", buf, 0xCu);
+      v14 = "+[JSAApplication openAchievementSheet:]";
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "%{public}s Ignoring achievement notification without achievementKind", buf, 0xCu);
     }
   }
 }
 
 + (void)openYearInReview
 {
-  v2 = JSALog();
+  v2 = JSALog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446210;
@@ -472,7 +472,7 @@ LABEL_11:
   rLCopy = rL;
   nameCopy = name;
   optionsCopy = options;
-  v14 = JSALog();
+  v14 = JSALog(optionsCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     v19 = 136447234;
@@ -535,7 +535,7 @@ LABEL_7:
 + (void)searchForTerm:(id)term
 {
   termCopy = term;
-  v4 = JSALog();
+  v4 = JSALog(termCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;

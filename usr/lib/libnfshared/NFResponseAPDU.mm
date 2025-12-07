@@ -67,21 +67,21 @@
 
 - (unsigned)decodeUnderlyingAppletError:(id *)error
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   status = self->_status;
-  v41 = 0;
+  v40 = 0;
   if (objc_msgSend_length(self->_data, a2, error) >= 9 && (self->_status & 0xFFF0) == 0x69F0)
   {
-    v42 = 0;
+    v41 = 0;
     data = self->_data;
     v10 = objc_msgSend_length(data, v7, v8);
-    objc_msgSend_getBytes_range_(data, v11, &v42 + 1, v10 - 4, 1);
+    objc_msgSend_getBytes_range_(data, v11, &v41 + 1, v10 - 4, 1);
     v12 = self->_data;
     v15 = objc_msgSend_length(v12, v13, v14);
-    objc_msgSend_getBytes_range_(v12, v16, &v42, v15 - 3, 1);
-    status = v42 | (HIBYTE(v42) << 8);
-    objc_msgSend_getBytes_range_(self->_data, v17, &v41, 0, 1);
-    if (v41 - 4 > 0xC || (v20 = v41 + 5, objc_msgSend_length(self->_data, v18, v19) != v20))
+    objc_msgSend_getBytes_range_(v12, v16, &v41, v15 - 3, 1);
+    status = v41 | (HIBYTE(v41) << 8);
+    objc_msgSend_getBytes_range_(self->_data, v17, &v40, 0, 1);
+    if (v40 - 4 > 0xC || (v20 = v40 + 5, objc_msgSend_length(self->_data, v18, v19) != v20))
     {
       v25 = kNFLOG_DISPATCH_SPECIFIC_KEY;
       specific = dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -90,7 +90,7 @@
         __assert_rtn("NFLogGetLogger", "NFSharedLog.c", 230, "category < NFLogCategoryMax");
       }
 
-      v27 = *(&off_27DA9DE50 + specific);
+      v27 = off_27DA9DE50[specific];
       if (v27)
       {
         Class = object_getClass(self);
@@ -126,15 +126,15 @@
         v37 = sel_getName(a2);
         v38 = self->_data;
         *buf = 67110146;
-        v44 = v35;
-        v45 = 2082;
-        v46 = v36;
-        v47 = 2082;
-        v48 = v37;
-        v49 = 1024;
-        v50 = 73;
-        v51 = 2114;
-        v52 = v38;
+        v43 = v35;
+        v44 = 2082;
+        v45 = v36;
+        v46 = 2082;
+        v47 = v37;
+        v48 = 1024;
+        v49 = 73;
+        v50 = 2114;
+        v51 = v38;
         _os_log_impl(&dword_22EEC4000, v22, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid extended response length : %{public}@", buf, 0x2Cu);
       }
 
@@ -143,13 +143,12 @@
 
     if (error)
     {
-      v22 = objc_msgSend_subdataWithRange_(self->_data, v21, 1, v41);
+      v22 = objc_msgSend_subdataWithRange_(self->_data, v21, 1, v40);
       *error = objc_msgSend_NF_asHexString(v22, v23, v24);
 LABEL_17:
     }
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return status;
 }
 

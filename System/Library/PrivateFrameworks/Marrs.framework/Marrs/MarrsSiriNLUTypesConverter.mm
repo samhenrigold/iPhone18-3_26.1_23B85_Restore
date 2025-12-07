@@ -163,39 +163,39 @@ LABEL_14:
 
 + (QRRequest)toPluginRequestObj:(SEL)obj
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a4;
+  v28 = 0;
   v29 = 0;
   v30 = 0;
-  v31 = 0;
   originalInteractions = [v5 originalInteractions];
-  std::vector<marrs::qr::orchestration::QRInteraction>::reserve(&v29, [originalInteractions count]);
+  std::vector<marrs::qr::orchestration::QRInteraction>::reserve(&v28, [originalInteractions count]);
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   originalInteractions2 = [v5 originalInteractions];
-  v8 = [originalInteractions2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v8 = [originalInteractions2 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v8)
   {
-    v9 = *v26;
+    v9 = *v25;
     do
     {
       v10 = 0;
       do
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(originalInteractions2);
         }
 
-        [MarrsSiriNLUTypesConverter toPluginInteraction:*(*(&v25 + 1) + 8 * v10), v16];
-        v11 = v30;
-        if (v30 >= v31)
+        objc_msgSend_toPluginInteraction_(MarrsSiriNLUTypesConverter, v15);
+        v11 = v29;
+        if (v29 >= v30)
         {
-          v30 = std::vector<marrs::qr::orchestration::QRInteraction>::__emplace_back_slow_path<marrs::qr::orchestration::QRInteraction>(&v29, &v16);
-          if (SHIBYTE(v23) < 0)
+          v29 = std::vector<marrs::qr::orchestration::QRInteraction>::__emplace_back_slow_path<marrs::qr::orchestration::QRInteraction>(&v28, &v15);
+          if (SHIBYTE(v22) < 0)
           {
             operator delete(__p);
           }
@@ -203,47 +203,47 @@ LABEL_14:
 
         else
         {
-          *(v30 + 16) = 0;
+          *(v29 + 16) = 0;
           *(v11 + 24) = 0;
           *v11 = 0;
           *(v11 + 8) = 0;
-          *v11 = v16;
-          *(v11 + 16) = v17;
-          v16 = 0uLL;
-          v17 = 0;
+          *v11 = v15;
+          *(v11 + 16) = v16;
+          v15 = 0uLL;
+          v16 = 0;
           *(v11 + 32) = 0;
           *(v11 + 40) = 0;
-          *(v11 + 24) = v18;
-          v18 = 0uLL;
-          *(v11 + 40) = v19;
+          *(v11 + 24) = v17;
+          v17 = 0uLL;
+          *(v11 + 40) = v18;
           *(v11 + 48) = 0;
-          v19 = 0;
+          v18 = 0;
           *(v11 + 56) = 0;
           *(v11 + 64) = 0;
-          *(v11 + 48) = v20;
-          *(v11 + 64) = v21;
-          v20 = 0uLL;
-          v21 = 0;
+          *(v11 + 48) = v19;
+          *(v11 + 64) = v20;
+          v19 = 0uLL;
+          v20 = 0;
           v12 = __p;
-          *(v11 + 88) = v23;
+          *(v11 + 88) = v22;
           *(v11 + 72) = v12;
-          v23 = 0;
+          v22 = 0;
           __p = 0uLL;
-          *(v11 + 96) = v24;
-          v30 = v11 + 112;
+          *(v11 + 96) = v23;
+          v29 = v11 + 112;
         }
 
-        v32 = &v20;
-        std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](&v32);
-        v32 = &v18;
-        std::vector<marrs::qr::orchestration::QRUtterance>::__destroy_vector::operator()[abi:ne200100](&v32);
-        v32 = &v16;
-        std::vector<marrs::qr::orchestration::QRUtterance>::__destroy_vector::operator()[abi:ne200100](&v32);
+        v31 = &v19;
+        std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](&v31);
+        v31 = &v17;
+        std::vector<marrs::qr::orchestration::QRUtterance>::__destroy_vector::operator()[abi:ne200100](&v31);
+        v31 = &v15;
+        std::vector<marrs::qr::orchestration::QRUtterance>::__destroy_vector::operator()[abi:ne200100](&v31);
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [originalInteractions2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v8 = [originalInteractions2 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v8);
@@ -254,17 +254,16 @@ LABEL_14:
   retstr->var1.var0 = 0;
   retstr->var1.var1 = 0;
   retstr->var1.var2 = 0;
-  *&v16 = &retstr->var1;
-  BYTE8(v16) = 0;
-  if (v30 != v29)
+  *&v15 = &retstr->var1;
+  BYTE8(v15) = 0;
+  if (v29 != v28)
   {
-    std::vector<marrs::qr::orchestration::QRInteraction>::__vallocate[abi:ne200100](&retstr->var1, 0x6DB6DB6DB6DB6DB7 * ((v30 - v29) >> 4));
+    std::vector<marrs::qr::orchestration::QRInteraction>::__vallocate[abi:ne200100](&retstr->var1, 0x6DB6DB6DB6DB6DB7 * ((v29 - v28) >> 4));
   }
 
-  *&v16 = &v29;
-  std::vector<marrs::qr::orchestration::QRInteraction>::__destroy_vector::operator()[abi:ne200100](&v16);
+  *&v15 = &v28;
+  std::vector<marrs::qr::orchestration::QRInteraction>::__destroy_vector::operator()[abi:ne200100](&v15);
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -343,47 +342,43 @@ LABEL_14:
       }
 
       v7 = &p_var1[-1].var0.var0.var0[8];
-      v30 = 0;
-      v31[0] = 0;
-      v31[1] = 0;
+      memset(&v30, 0, sizeof(v30));
       std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&v30, p_var1[1].var0.var1.var0, p_var1[1].var0.var1.var1, 0xCCCCCCCCCCCCCCCDLL * ((p_var1[1].var0.var1.var1 - p_var1[1].var0.var1.var0) >> 5));
-      v32 = 0;
-      v33 = 0;
-      v34 = 0;
-      std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&v32, p_var1[2].var0.var1.var0, p_var1[2].var0.var1.var1, 0xCCCCCCCCCCCCCCCDLL * ((p_var1[2].var0.var1.var1 - p_var1[2].var0.var1.var0) >> 5));
+      memset(&v31, 0, sizeof(v31));
+      std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&v31, p_var1[2].var0.var1.var0, p_var1[2].var0.var1.var1, 0xCCCCCCCCCCCCCCCDLL * ((p_var1[2].var0.var1.var1 - p_var1[2].var0.var1.var0) >> 5));
       var0 = p_var1[3].var0.var1.var0;
-      v40 = v28;
+      v37 = v28;
       if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v41, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v38, v29.__r_.__value_.__l.__data_, v29.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v41 = v29;
+        v38 = v29;
       }
 
-      memset(v42, 0, sizeof(v42));
-      std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(v42, v30, v31[0], 0xCCCCCCCCCCCCCCCDLL * ((v31[0] - v30) >> 5));
-      memset(v43, 0, sizeof(v43));
-      std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(v43, v32, v33, 0xCCCCCCCCCCCCCCCDLL * ((v33 - v32) >> 5));
-      v44 = var0;
-      v8 = [MarrsSiriNLUTypesConverter fromPluginUtterance:&v40];
+      memset(&v39, 0, sizeof(v39));
+      std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&v39, v30.__r_.__value_.__l.__data_, v30.__r_.__value_.__l.__size_, 0xCCCCCCCCCCCCCCCDLL * ((v30.__r_.__value_.__l.__size_ - v30.__r_.__value_.__r.__words[0]) >> 5));
+      memset(&v40, 0, sizeof(v40));
+      std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&v40, v31.__r_.__value_.__l.__data_, v31.__r_.__value_.__l.__size_, 0xCCCCCCCCCCCCCCCDLL * ((v31.__r_.__value_.__l.__size_ - v31.__r_.__value_.__r.__words[0]) >> 5));
+      v41 = var0;
+      v8 = [MarrsSiriNLUTypesConverter fromPluginUtterance:&v37];
       [v18 addObject:v8];
 
-      v45[0] = v43;
-      std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v45);
-      v45[0] = v42;
-      std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v45);
-      if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
+      v42[0] = &v40;
+      std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v42);
+      v42[0] = &v39;
+      std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v42);
+      if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v41.__r_.__value_.__l.__data_);
+        operator delete(v38.__r_.__value_.__l.__data_);
       }
 
-      v45[0] = &v32;
-      std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v45);
-      v45[0] = &v30;
-      std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v45);
+      v42[0] = &v31;
+      std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v42);
+      v42[0] = &v30;
+      std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v42);
       if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v29.__r_.__value_.__l.__data_);
@@ -414,8 +409,8 @@ LABEL_14:
       operator delete(v24);
     }
 
-    v45[0] = &v23;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v45);
+    v42[0] = &v23;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v42);
     if (v22 < 0)
     {
       operator delete(v21);
@@ -426,19 +421,19 @@ LABEL_14:
       operator delete(v20.__r_.__value_.__l.__data_);
     }
 
-    if (v39 < 0)
+    if (v36 < 0)
     {
-      operator delete(v38);
+      operator delete(v35);
     }
 
-    if (v37 < 0)
+    if (v34 < 0)
     {
-      operator delete(v36);
+      operator delete(v33);
     }
 
-    v45[0] = v31;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v45);
-    if (SHIBYTE(v30) < 0)
+    v42[0] = &v30.__r_.__value_.__l.__size_;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v42);
+    if (v30.__r_.__value_.__s.__data_[7] < 0)
     {
       operator delete(v29.__r_.__value_.__l.__size_);
     }
@@ -478,60 +473,60 @@ LABEL_14:
 
 + (QRInteraction)toPluginInteraction:(QRInteraction *__return_ptr)retstr
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   v3 = v1;
-  v56 = 0;
-  v57 = 0uLL;
+  v55 = 0;
+  v56 = 0uLL;
   originalUtterances = [v3 originalUtterances];
-  v35 = v3;
+  v34 = v3;
   v5 = [originalUtterances count];
   if (v5)
   {
     if (v5 <= 0x2AAAAAAAAAAAAAALL)
     {
-      __p[2] = &v56;
+      __p[2] = &v55;
       std::__allocate_at_least[abi:ne200100]<std::allocator<marrs::qr::orchestration::QRUtterance>>(v5);
     }
 
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   [v3 originalUtterances];
-  obj = v34 = retstr;
-  v6 = [obj countByEnumeratingWithState:&v52 objects:v64 count:16];
+  obj = v33 = retstr;
+  v6 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
   if (v6)
   {
-    v7 = *v53;
+    v7 = *v52;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v53 != v7)
+        if (*v52 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        [MarrsSiriNLUTypesConverter toPluginUtterance:*(*(&v52 + 1) + 8 * i)];
-        v9 = v57;
-        if (v57 >= *(&v57 + 1))
+        objc_msgSend_toPluginUtterance_(MarrsSiriNLUTypesConverter);
+        v9 = v56;
+        if (v56 >= *(&v56 + 1))
         {
-          v12 = 0xAAAAAAAAAAAAAAABLL * ((v57 - v56) >> 5);
+          v12 = 0xAAAAAAAAAAAAAAABLL * ((v56 - v55) >> 5);
           v13 = v12 + 1;
           if (v12 + 1 > 0x2AAAAAAAAAAAAAALL)
           {
             std::vector<std::string>::__throw_length_error[abi:ne200100]();
           }
 
-          if (0x5555555555555556 * ((*(&v57 + 1) - v56) >> 5) > v13)
+          if (0x5555555555555556 * ((*(&v56 + 1) - v55) >> 5) > v13)
           {
-            v13 = 0x5555555555555556 * ((*(&v57 + 1) - v56) >> 5);
+            v13 = 0x5555555555555556 * ((*(&v56 + 1) - v55) >> 5);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((*(&v57 + 1) - v56) >> 5) >= 0x155555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * ((*(&v56 + 1) - v55) >> 5) >= 0x155555555555555)
           {
             v14 = 0x2AAAAAAAAAAAAAALL;
           }
@@ -541,17 +536,17 @@ LABEL_14:
             v14 = v13;
           }
 
-          v62 = &v56;
+          v61 = &v55;
           if (v14)
           {
             std::__allocate_at_least[abi:ne200100]<std::allocator<marrs::qr::orchestration::QRUtterance>>(v14);
           }
 
-          v15 = 32 * ((v57 - v56) >> 5);
-          v59 = 0;
-          v60 = v15;
-          *(&v61 + 1) = 0;
-          *v15 = *v38;
+          v15 = 32 * ((v56 - v55) >> 5);
+          v58 = 0;
+          v59 = v15;
+          *(&v60 + 1) = 0;
+          *v15 = *v37;
           v16 = *__p;
           *(v15 + 32) = __p[2];
           *(v15 + 16) = v16;
@@ -559,35 +554,35 @@ LABEL_14:
           *(v15 + 40) = 0;
           *(v15 + 48) = 0;
           *(v15 + 56) = 0;
-          *(v15 + 40) = *v40;
-          *(v15 + 56) = *&v40[16];
-          memset(v40, 0, sizeof(v40));
+          *(v15 + 40) = *v39;
+          *(v15 + 56) = *&v39[16];
+          memset(v39, 0, sizeof(v39));
           *(v15 + 64) = 0;
           *(v15 + 72) = 0;
           *(v15 + 80) = 0;
-          *(v15 + 64) = *v41;
-          *(v15 + 80) = *&v41[16];
-          memset(v41, 0, sizeof(v41));
-          *(v15 + 88) = v42;
-          *&v61 = 96 * v12 + 96;
-          v17 = &v56[12 * v12] - v57;
-          std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<marrs::qr::orchestration::QRUtterance>,marrs::qr::orchestration::QRUtterance*>(&v56, v56, v57, &v56[v15 / 8] - v57);
-          v18 = v56;
-          v19 = *(&v57 + 1);
-          v56 = v17;
-          v37 = v61;
-          v57 = v61;
-          *&v61 = v18;
-          *(&v61 + 1) = v19;
+          *(v15 + 64) = *v40;
+          *(v15 + 80) = *&v40[16];
+          memset(v40, 0, sizeof(v40));
+          *(v15 + 88) = v41;
+          *&v60 = 96 * v12 + 96;
+          v17 = &v55[12 * v12] - v56;
+          std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<marrs::qr::orchestration::QRUtterance>,marrs::qr::orchestration::QRUtterance*>(&v55, v55, v56, &v55[v15 / 8] - v56);
+          v18 = v55;
+          v19 = *(&v56 + 1);
+          v55 = v17;
+          v36 = v60;
+          v56 = v60;
+          *&v60 = v18;
+          *(&v60 + 1) = v19;
+          v58 = v18;
           v59 = v18;
-          v60 = v18;
-          std::__split_buffer<marrs::qr::orchestration::QRUtterance>::~__split_buffer(&v59);
-          v11 = v37;
+          std::__split_buffer<marrs::qr::orchestration::QRUtterance>::~__split_buffer(&v58);
+          v11 = v36;
         }
 
         else
         {
-          *v57 = *v38;
+          *v56 = *v37;
           v10 = *__p;
           *(v9 + 32) = __p[2];
           *(v9 + 40) = 0;
@@ -595,154 +590,153 @@ LABEL_14:
           memset(__p, 0, sizeof(__p));
           *(v9 + 48) = 0;
           *(v9 + 56) = 0;
-          *(v9 + 40) = *v40;
-          *v40 = 0uLL;
-          *(v9 + 56) = *&v40[16];
+          *(v9 + 40) = *v39;
+          *v39 = 0uLL;
+          *(v9 + 56) = *&v39[16];
           *(v9 + 64) = 0;
-          *&v40[16] = 0;
+          *&v39[16] = 0;
           *(v9 + 72) = 0;
           *(v9 + 80) = 0;
-          *(v9 + 64) = *v41;
-          *(v9 + 80) = *&v41[16];
-          memset(v41, 0, sizeof(v41));
-          *(v9 + 88) = v42;
+          *(v9 + 64) = *v40;
+          *(v9 + 80) = *&v40[16];
+          memset(v40, 0, sizeof(v40));
+          *(v9 + 88) = v41;
           v11 = v9 + 96;
         }
 
-        *&v57 = v11;
-        v59 = v41;
-        std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](&v59);
-        v59 = v40;
-        std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](&v59);
+        *&v56 = v11;
+        v58 = v40;
+        std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](&v58);
+        v58 = v39;
+        std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](&v58);
         if (SHIBYTE(__p[2]) < 0)
         {
           operator delete(__p[0]);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v52 objects:v64 count:16];
+      v6 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
     }
 
     while (v6);
   }
 
+  v58 = 0;
   v59 = 0;
-  v60 = 0;
-  *&v61 = 0;
-  siriResponses = [v35 siriResponses];
-  std::vector<marrs::qr::orchestration::QRToken>::reserve(&v59, [siriResponses count]);
+  *&v60 = 0;
+  siriResponses = [v34 siriResponses];
+  std::vector<marrs::qr::orchestration::QRToken>::reserve(&v58, [siriResponses count]);
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  siriResponses2 = [v35 siriResponses];
-  v22 = [siriResponses2 countByEnumeratingWithState:&v48 objects:v63 count:16];
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  siriResponses2 = [v34 siriResponses];
+  v22 = [siriResponses2 countByEnumeratingWithState:&v47 objects:v62 count:16];
   if (v22)
   {
-    v23 = *v49;
+    v23 = *v48;
     do
     {
       for (j = 0; j != v22; ++j)
       {
-        if (*v49 != v23)
+        if (*v48 != v23)
         {
           objc_enumerationMutation(siriResponses2);
         }
 
-        [MarrsSiriNLUTypesConverter internalTokentoPluginToken:*(*(&v48 + 1) + 8 * j)];
-        v25 = v60;
-        if (v60 >= v61)
+        objc_msgSend_internalTokentoPluginToken_(MarrsSiriNLUTypesConverter);
+        v25 = v59;
+        if (v59 >= v60)
         {
-          v60 = std::vector<marrs::qr::orchestration::QRToken>::__emplace_back_slow_path<marrs::qr::orchestration::QRToken>(&v59, v38);
-          if (SHIBYTE(v47) < 0)
+          v59 = std::vector<marrs::qr::orchestration::QRToken>::__emplace_back_slow_path<marrs::qr::orchestration::QRToken>(&v58, v37);
+          if (SHIBYTE(v46) < 0)
           {
-            operator delete(v46);
+            operator delete(v45);
           }
         }
 
         else
         {
-          v26 = *v38;
-          *(v60 + 16) = __p[0];
+          v26 = *v37;
+          v59[2] = __p[0];
           *v25 = v26;
-          v38[1] = 0;
+          v37[1] = 0;
           __p[0] = 0;
-          v38[0] = 0;
-          v27 = *v40;
-          *(v25 + 24) = *&__p[1];
-          *(v25 + 40) = v27;
-          *(v25 + 48) = 0;
+          v37[0] = 0;
+          v27 = *v39;
+          *(v25 + 3) = *&__p[1];
+          v25[5] = v27;
+          v25[6] = 0;
           __p[2] = 0;
-          *v40 = 0;
+          *v39 = 0;
           __p[1] = 0;
-          *(v25 + 56) = 0;
-          *(v25 + 64) = 0;
-          *(v25 + 48) = *&v40[8];
-          *(v25 + 64) = *v41;
-          *&v40[8] = 0;
-          *&v40[16] = 0;
-          *v41 = 0;
-          v28 = *&v41[8];
-          *(v25 + 88) = v42;
-          *(v25 + 72) = v28;
-          v29 = v43;
-          *(v25 + 120) = v44;
-          *(v25 + 104) = v29;
-          v44 = 0;
-          v43 = 0uLL;
-          *(v25 + 128) = v45;
-          v30 = v46;
-          *(v25 + 152) = v47;
-          *(v25 + 136) = v30;
-          v47 = 0;
-          v46 = 0uLL;
-          v60 = v25 + 160;
+          v25[7] = 0;
+          v25[8] = 0;
+          *(v25 + 3) = *&v39[8];
+          v25[8] = *v40;
+          *&v39[8] = 0;
+          *&v39[16] = 0;
+          *v40 = 0;
+          v28 = *&v40[8];
+          *(v25 + 11) = v41;
+          *(v25 + 9) = v28;
+          v29 = v42;
+          v25[15] = v43;
+          *(v25 + 13) = v29;
+          v43 = 0;
+          v42 = 0uLL;
+          *(v25 + 128) = v44;
+          v30 = v45;
+          v25[19] = v46;
+          *(v25 + 17) = v30;
+          v46 = 0;
+          v45 = 0uLL;
+          v59 = v25 + 20;
         }
 
-        if (SHIBYTE(v44) < 0)
+        if (SHIBYTE(v43) < 0)
         {
-          operator delete(v43);
+          operator delete(v42);
         }
 
-        v58 = &v40[8];
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v58);
-        if ((v40[7] & 0x80000000) != 0)
+        v57 = &v39[8];
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v57);
+        if ((v39[7] & 0x80000000) != 0)
         {
           operator delete(__p[1]);
         }
 
         if (SHIBYTE(__p[0]) < 0)
         {
-          operator delete(v38[0]);
+          operator delete(v37[0]);
         }
       }
 
-      v22 = [siriResponses2 countByEnumeratingWithState:&v48 objects:v63 count:16];
+      v22 = [siriResponses2 countByEnumeratingWithState:&v47 objects:v62 count:16];
     }
 
     while (v22);
   }
 
-  v34->var0.var0 = 0;
-  v34->var0.var1 = 0;
-  v34->var0.var2 = 0;
-  std::vector<marrs::qr::orchestration::QRUtterance>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRUtterance*,marrs::qr::orchestration::QRUtterance*>(v34, v56, v57, 0xAAAAAAAAAAAAAAABLL * ((v57 - v56) >> 5));
-  *&v34->var1.var0 = 0u;
-  *&v34->var1.var2 = 0u;
-  *&v34->var2.var1 = 0u;
-  std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&v34->var2, v59, v60, 0xCCCCCCCCCCCCCCCDLL * ((v60 - v59) >> 5));
-  locale = [v35 locale];
-  [MarrsSiriNLUTypesConverter NSString2StdString:locale];
-  LOBYTE(v34[1].var0.var0) = [v35 tap2edit];
-  v34[1].var0.var1 = [v35 startTimestamp];
+  v33->var0.var0 = 0;
+  v33->var0.var1 = 0;
+  v33->var0.var2 = 0;
+  std::vector<marrs::qr::orchestration::QRUtterance>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRUtterance*,marrs::qr::orchestration::QRUtterance*>(v33, v55, v56, 0xAAAAAAAAAAAAAAABLL * ((v56 - v55) >> 5));
+  *&v33->var1.var0 = 0u;
+  *&v33->var1.var2 = 0u;
+  *&v33->var2.var1 = 0u;
+  std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&v33->var2, v58, v59, 0xCCCCCCCCCCCCCCCDLL * ((v59 - v58) >> 5));
+  locale = [v34 locale];
+  objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
+  LOBYTE(v33[1].var0.var0) = [v34 tap2edit];
+  v33[1].var0.var1 = [v34 startTimestamp];
 
-  v38[0] = &v59;
-  std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v38);
-  v38[0] = &v56;
-  std::vector<marrs::qr::orchestration::QRUtterance>::__destroy_vector::operator()[abi:ne200100](v38);
+  v37[0] = &v58;
+  std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v37);
+  v37[0] = &v55;
+  std::vector<marrs::qr::orchestration::QRUtterance>::__destroy_vector::operator()[abi:ne200100](v37);
 
-  v33 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -887,38 +881,39 @@ LABEL_14:
 
 + (QRUtterance)toPluginUtterance:(QRUtterance *__return_ptr)retstr
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = v1;
+  v55 = 0;
   v56 = 0;
   v57 = 0;
-  v58 = 0;
   nluInternalTokens = [v3 nluInternalTokens];
-  std::vector<marrs::qr::orchestration::QRToken>::reserve(&v56, [nluInternalTokens count]);
+  std::vector<marrs::qr::orchestration::QRToken>::reserve(&v55, [nluInternalTokens count]);
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   nluInternalTokens2 = [v3 nluInternalTokens];
-  v6 = [nluInternalTokens2 countByEnumeratingWithState:&v52 objects:v61 count:16];
+  v6 = [nluInternalTokens2 countByEnumeratingWithState:&v51 objects:v60 count:16];
   if (v6)
   {
-    v7 = *v53;
+    v7 = *v52;
     do
     {
-      for (i = 0; i != v6; ++i)
+      v8 = 0;
+      do
       {
-        if (*v53 != v7)
+        if (*v52 != v7)
         {
           objc_enumerationMutation(nluInternalTokens2);
         }
 
-        [MarrsSiriNLUTypesConverter internalTokentoPluginToken:*(*(&v52 + 1) + 8 * i)];
-        v9 = v57;
-        if (v57 >= v58)
+        objc_msgSend_internalTokentoPluginToken_(MarrsSiriNLUTypesConverter);
+        v9 = v56;
+        if (v56 >= v57)
         {
-          v57 = std::vector<marrs::qr::orchestration::QRToken>::__emplace_back_slow_path<marrs::qr::orchestration::QRToken>(&v56, v39);
-          if (SHIBYTE(v51) < 0)
+          v56 = std::vector<marrs::qr::orchestration::QRToken>::__emplace_back_slow_path<marrs::qr::orchestration::QRToken>(&v55, v38);
+          if (SHIBYTE(v50) < 0)
           {
             operator delete(__p);
           }
@@ -926,95 +921,99 @@ LABEL_14:
 
         else
         {
-          v10 = *v39;
-          *(v57 + 16) = v40;
+          v10 = *v38;
+          *(v56 + 2) = v39;
           *v9 = v10;
-          v39[1] = 0;
-          v40 = 0;
-          v39[0] = 0;
-          v11 = v42;
-          *(v9 + 24) = v41;
-          *(v9 + 40) = v11;
-          *(v9 + 48) = 0;
-          v42 = 0;
-          v41 = 0uLL;
-          *(v9 + 56) = 0;
-          *(v9 + 64) = 0;
-          *(v9 + 48) = v43;
-          *(v9 + 64) = v44;
-          v43 = 0uLL;
-          v44 = 0;
-          v12 = v45;
-          *(v9 + 88) = v46;
+          v38[1] = 0;
+          v39 = 0;
+          v38[0] = 0;
+          v11 = v41;
+          *(v9 + 24) = v40;
+          *(v9 + 5) = v11;
+          *(v9 + 6) = 0;
+          v41 = 0;
+          v40 = 0uLL;
+          *(v9 + 7) = 0;
+          *(v9 + 8) = 0;
+          *(v9 + 3) = v42;
+          *(v9 + 8) = v43;
+          v42 = 0uLL;
+          v43 = 0;
+          v12 = v44;
+          *(v9 + 88) = v45;
           *(v9 + 72) = v12;
-          v13 = v47;
-          *(v9 + 120) = v48;
+          v13 = v46;
+          *(v9 + 15) = v47;
           *(v9 + 104) = v13;
-          v48 = 0;
-          v47 = 0uLL;
-          *(v9 + 128) = v49;
+          v47 = 0;
+          v46 = 0uLL;
+          *(v9 + 128) = v48;
           v14 = __p;
-          *(v9 + 152) = v51;
+          *(v9 + 19) = v50;
           *(v9 + 136) = v14;
-          v51 = 0;
+          v50 = 0;
           __p = 0uLL;
-          v57 = v9 + 160;
+          v56 = (v9 + 160);
         }
 
-        if (SHIBYTE(v48) < 0)
+        if (SHIBYTE(v47) < 0)
         {
-          operator delete(v47);
+          operator delete(v46);
         }
 
-        v36 = &v43;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v36);
-        if (SHIBYTE(v42) < 0)
+        v35 = &v42;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v35);
+        if (SHIBYTE(v41) < 0)
         {
-          operator delete(v41);
+          operator delete(v40);
         }
 
-        if (SHIBYTE(v40) < 0)
+        if (SHIBYTE(v39) < 0)
         {
-          operator delete(v39[0]);
+          operator delete(v38[0]);
         }
+
+        ++v8;
       }
 
-      v6 = [nluInternalTokens2 countByEnumeratingWithState:&v52 objects:v61 count:16];
+      while (v6 != v8);
+      v6 = [nluInternalTokens2 countByEnumeratingWithState:&v51 objects:v60 count:16];
     }
 
     while (v6);
   }
 
+  v35 = 0;
   v36 = 0;
   v37 = 0;
-  v38 = 0;
   asrUtteranceTokens = [v3 asrUtteranceTokens];
-  std::vector<marrs::qr::orchestration::QRToken>::reserve(&v36, [asrUtteranceTokens count]);
+  std::vector<marrs::qr::orchestration::QRToken>::reserve(&v35, [asrUtteranceTokens count]);
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   asrUtteranceTokens2 = [v3 asrUtteranceTokens];
-  v17 = [asrUtteranceTokens2 countByEnumeratingWithState:&v32 objects:v60 count:16];
+  v17 = [asrUtteranceTokens2 countByEnumeratingWithState:&v31 objects:v59 count:16];
   if (v17)
   {
-    v18 = *v33;
+    v18 = *v32;
     do
     {
-      for (j = 0; j != v17; ++j)
+      v19 = 0;
+      do
       {
-        if (*v33 != v18)
+        if (*v32 != v18)
         {
           objc_enumerationMutation(asrUtteranceTokens2);
         }
 
-        [MarrsSiriNLUTypesConverter toPluginToken:*(*(&v32 + 1) + 8 * j)];
-        v20 = v37;
-        if (v37 >= v38)
+        objc_msgSend_toPluginToken_(MarrsSiriNLUTypesConverter);
+        v20 = v36;
+        if (v36 >= v37)
         {
-          v37 = std::vector<marrs::qr::orchestration::QRToken>::__emplace_back_slow_path<marrs::qr::orchestration::QRToken>(&v36, v39);
-          if (SHIBYTE(v51) < 0)
+          v36 = std::vector<marrs::qr::orchestration::QRToken>::__emplace_back_slow_path<marrs::qr::orchestration::QRToken>(&v35, v38);
+          if (SHIBYTE(v50) < 0)
           {
             operator delete(__p);
           }
@@ -1022,60 +1021,63 @@ LABEL_14:
 
         else
         {
-          v21 = *v39;
-          *(v37 + 16) = v40;
+          v21 = *v38;
+          *(v36 + 2) = v39;
           *v20 = v21;
-          v39[1] = 0;
-          v40 = 0;
-          v39[0] = 0;
-          v22 = v42;
-          *(v20 + 24) = v41;
-          *(v20 + 40) = v22;
-          *(v20 + 48) = 0;
-          v42 = 0;
-          v41 = 0uLL;
-          *(v20 + 56) = 0;
-          *(v20 + 64) = 0;
-          *(v20 + 48) = v43;
-          *(v20 + 64) = v44;
-          v43 = 0uLL;
-          v44 = 0;
-          v23 = v45;
-          *(v20 + 88) = v46;
+          v38[1] = 0;
+          v39 = 0;
+          v38[0] = 0;
+          v22 = v41;
+          *(v20 + 24) = v40;
+          *(v20 + 5) = v22;
+          *(v20 + 6) = 0;
+          v41 = 0;
+          v40 = 0uLL;
+          *(v20 + 7) = 0;
+          *(v20 + 8) = 0;
+          *(v20 + 3) = v42;
+          *(v20 + 8) = v43;
+          v42 = 0uLL;
+          v43 = 0;
+          v23 = v44;
+          *(v20 + 88) = v45;
           *(v20 + 72) = v23;
-          v24 = v47;
-          *(v20 + 120) = v48;
+          v24 = v46;
+          *(v20 + 15) = v47;
           *(v20 + 104) = v24;
-          v48 = 0;
-          v47 = 0uLL;
-          *(v20 + 128) = v49;
+          v47 = 0;
+          v46 = 0uLL;
+          *(v20 + 128) = v48;
           v25 = __p;
-          *(v20 + 152) = v51;
+          *(v20 + 19) = v50;
           *(v20 + 136) = v25;
-          v51 = 0;
+          v50 = 0;
           __p = 0uLL;
-          v37 = v20 + 160;
+          v36 = (v20 + 160);
         }
 
-        if (SHIBYTE(v48) < 0)
+        if (SHIBYTE(v47) < 0)
         {
-          operator delete(v47);
+          operator delete(v46);
         }
 
-        v59 = &v43;
-        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v59);
-        if (SHIBYTE(v42) < 0)
+        v58 = &v42;
+        std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v58);
+        if (SHIBYTE(v41) < 0)
         {
-          operator delete(v41);
+          operator delete(v40);
         }
 
-        if (SHIBYTE(v40) < 0)
+        if (SHIBYTE(v39) < 0)
         {
-          operator delete(v39[0]);
+          operator delete(v38[0]);
         }
+
+        ++v19;
       }
 
-      v17 = [asrUtteranceTokens2 countByEnumeratingWithState:&v32 objects:v60 count:16];
+      while (v17 != v19);
+      v17 = [asrUtteranceTokens2 countByEnumeratingWithState:&v31 objects:v59 count:16];
     }
 
     while (v17);
@@ -1085,24 +1087,23 @@ LABEL_14:
   retstr->var0.var0 = [MarrsSiriNLUTypesConverter toPluginUuid:asrId];
   retstr->var0.var1 = v27;
   utterance = [v3 utterance];
-  [MarrsSiriNLUTypesConverter NSString2StdString:utterance];
+  objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
   retstr[1].var0.var0 = 0;
   retstr[1].var0.var1 = 0;
   retstr[1].var1.var0.var1.var0 = 0;
-  std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&retstr[1], v56, v57, 0xCCCCCCCCCCCCCCCDLL * ((v57 - v56) >> 5));
+  std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&retstr[1], v55, v56, 0xCCCCCCCCCCCCCCCDLL * ((v56 - v55) >> 5));
   retstr[1].var1.var0.var1.var1 = 0;
   *(&retstr[1].var1.var0.var1 + 2) = 0;
   retstr[2].var0.var0 = 0;
-  std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&retstr[1].var1.var0.var1.var1, v36, v37, 0xCCCCCCCCCCCCCCCDLL * ((v37 - v36) >> 5));
+  std::vector<marrs::qr::orchestration::QRToken>::__init_with_size[abi:ne200100]<marrs::qr::orchestration::QRToken*,marrs::qr::orchestration::QRToken*>(&retstr[1].var1.var0.var1.var1, v35, v36, 0xCCCCCCCCCCCCCCCDLL * ((v36 - v35) >> 5));
   [v3 confidence];
   retstr[2].var0.var1 = v29;
 
-  v39[0] = &v36;
-  std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v39);
-  v39[0] = &v56;
-  std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v39);
+  v38[0] = &v35;
+  std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v38);
+  v38[0] = &v55;
+  std::vector<marrs::qr::orchestration::QRToken>::__destroy_vector::operator()[abi:ne200100](v38);
 
-  v31 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1209,11 +1210,11 @@ LABEL_14:
 {
   v3 = v1;
   value = [v3 value];
-  [MarrsSiriNLUTypesConverter NSString2StdString:value];
+  objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
   cleanValue = [v3 cleanValue];
-  [MarrsSiriNLUTypesConverter NSString2StdString:cleanValue];
+  objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
   normalizedValues = [v3 normalizedValues];
-  [MarrsSiriNLUTypesConverter NSMutableArrayNSString2StdVectorStdString:normalizedValues];
+  objc_msgSend_NSMutableArrayNSString2StdVectorStdString_(MarrsSiriNLUTypesConverter);
   marrs::qr::orchestration::QRToken::QRToken(retstr, &v11, &__p, v8, [v3 isSignificant], objc_msgSend(v3, "isWhitespace"));
   v13 = v8;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v13);
@@ -1241,7 +1242,7 @@ LABEL_14:
 {
   v3 = v1;
   value = [v3 value];
-  [MarrsSiriNLUTypesConverter NSString2StdString:value];
+  objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
   marrs::qr::orchestration::QRToken::QRToken(retstr, __p);
   if (SHIBYTE(v9) < 0)
   {
@@ -1253,7 +1254,7 @@ LABEL_14:
   [v3 asrConfidence];
   retstr[4].var0.var0.var1.var0 = v5;
   phoneSequence = [v3 phoneSequence];
-  [MarrsSiriNLUTypesConverter NSString2StdString:phoneSequence];
+  objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
   if (retstr[5].var0.var0.var0.var0[7] < 0)
   {
     operator delete(retstr[4].var0.var0.var1.var1);
@@ -1374,7 +1375,7 @@ LABEL_13:
 
 + (vector<std::string,)NSMutableArrayNSString2StdVectorStdString:(id)string
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = v5;
   retstr->var1 = 0;
@@ -1383,26 +1384,26 @@ LABEL_13:
   if (v5)
   {
     std::vector<std::string>::reserve(retstr, [v5 count]);
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     obj = v6;
-    v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v7)
     {
-      v8 = *v29;
+      v8 = *v28;
       v9 = v6;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v29 != v8)
+          if (*v28 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          [MarrsSiriNLUTypesConverter NSString2StdString:*(*(&v28 + 1) + 8 * i)];
+          objc_msgSend_NSString2StdString_(MarrsSiriNLUTypesConverter);
           var1 = retstr->var1;
           var2 = retstr->var2;
           if (var1 >= var2)
@@ -1430,16 +1431,16 @@ LABEL_13:
               v16 = v14;
             }
 
-            v32.__end_cap_.__value_ = retstr;
+            v31.__end_cap_.__value_ = retstr;
             if (v16)
             {
               std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(v16);
             }
 
             v17 = 24 * v13;
-            *(v17 + 16) = v27;
+            *(v17 + 16) = v26;
             *v17 = *__p;
-            v27 = 0;
+            v26 = 0;
             *__p = 0uLL;
             v18 = (24 * v13 + 24);
             v19 = retstr->var1 - retstr->var0;
@@ -1450,31 +1451,30 @@ LABEL_13:
             retstr->var1 = v18;
             v22 = retstr->var2;
             retstr->var2 = 0;
-            v32.__end_ = var0;
-            v32.__end_cap_.__value_ = v22;
-            v32.__first_ = var0;
-            v32.__begin_ = var0;
-            std::__split_buffer<std::string>::~__split_buffer(&v32);
+            v31.__end_ = var0;
+            v31.__end_cap_.__value_ = v22;
+            v31.__first_ = var0;
+            v31.__begin_ = var0;
+            std::__split_buffer<std::string>::~__split_buffer(&v31);
             retstr->var1 = v18;
             v6 = v9;
           }
 
           else
           {
-            *(var1 + 2) = v27;
+            *(var1 + 2) = v26;
             *var1 = *__p;
             retstr->var1 = var1 + 24;
           }
         }
 
-        v7 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v7);
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return result;
 }
 

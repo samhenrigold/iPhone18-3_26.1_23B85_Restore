@@ -27,7 +27,7 @@
 
 + (id)localizedTitleForUseCase:(unint64_t)case actionManager:(id)manager
 {
-  sub_190B273D8();
+  sub_190B273D8(self);
   if (v4)
   {
     v5 = sub_190D56ED0();

@@ -190,11 +190,11 @@ LABEL_27:
 
 + (id)createCSUImageCaptioningDecoderConfigurationWithConfigPath:(id)path error:(id *)error
 {
-  v138 = *MEMORY[0x1E69E9840];
+  v137 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v132 = pathCopy;
-  v131 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v7, v8, v9, v10);
-  v14 = objc_msgSend_fileExistsAtPath_(v131, v11, pathCopy, v12, v13);
+  v131 = pathCopy;
+  v130 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v7, v8, v9, v10);
+  v14 = objc_msgSend_fileExistsAtPath_(v130, v11, pathCopy, v12, v13);
   v18 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v15, @"decoder config file does not exist at path %@", v16, v17, pathCopy);
   v20 = objc_msgSend_CSUAssert_logError_withMessage_(CSUError, v19, v14, error, v18);
 
@@ -211,26 +211,26 @@ LABEL_27:
     if (objc_msgSend_CSUAssert_logError_withMessage_(CSUError, v28, v27 != 0, error, @"decoder config path could not be read!"))
     {
       selfCopy = self;
-      v130 = v24;
+      v129 = v24;
       v33 = objc_msgSend_mutableCopy(MEMORY[0x1E695E0F0], v29, v30, v31, v32);
-      v135 = 0u;
-      v136 = 0u;
-      v133 = 0u;
       v134 = 0u;
-      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_1F20DF010, v34, &v133, v137, 16);
+      v135 = 0u;
+      v132 = 0u;
+      v133 = 0u;
+      v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_1F20DF010, v34, &v132, v136, 16);
       if (v39)
       {
-        v40 = *v134;
+        v40 = *v133;
         do
         {
           for (i = 0; i != v39; ++i)
           {
-            if (*v134 != v40)
+            if (*v133 != v40)
             {
               objc_enumerationMutation(&unk_1F20DF010);
             }
 
-            v42 = *(*(&v133 + 1) + 8 * i);
+            v42 = *(*(&v132 + 1) + 8 * i);
             v43 = objc_msgSend_valueForKey_(v27, v35, v42, v37, v38);
             v44 = v43 == 0;
 
@@ -240,7 +240,7 @@ LABEL_27:
             }
           }
 
-          v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_1F20DF010, v35, &v133, v137, 16);
+          v39 = objc_msgSend_countByEnumeratingWithState_objects_count_(&unk_1F20DF010, v35, &v132, v136, 16);
         }
 
         while (v39);
@@ -253,7 +253,7 @@ LABEL_27:
           v58 = 0;
 LABEL_38:
 
-          v24 = v130;
+          v24 = v129;
           goto LABEL_39;
         }
 
@@ -267,27 +267,27 @@ LABEL_38:
 
       else
       {
-        v54 = objc_msgSend_stringByDeletingLastPathComponent(v132, v45, v46, v47, v48);
+        v54 = objc_msgSend_stringByDeletingLastPathComponent(v131, v45, v46, v47, v48);
         v62 = objc_msgSend_objectForKeyedSubscript_(v27, v59, @"decoderNetworkPath", v60, v61);
         v66 = objc_msgSend_stringByAppendingPathComponent_(v54, v63, v62, v64, v65);
 
-        v127 = objc_msgSend_objectForKeyedSubscript_(v27, v67, @"decoderNetworkParams", v68, v69);
+        v126 = objc_msgSend_objectForKeyedSubscript_(v27, v67, @"decoderNetworkParams", v68, v69);
         v73 = objc_msgSend_objectForKeyedSubscript_(v27, v70, @"vocabularyPath", v71, v72);
-        v126 = objc_msgSend_stringByAppendingPathComponent_(v54, v74, v73, v75, v76);
+        v125 = objc_msgSend_stringByAppendingPathComponent_(v54, v74, v73, v75, v76);
 
         v80 = objc_msgSend_objectForKeyedSubscript_(v27, v77, @"bridgeNetworkPath", v78, v79);
         v81 = v80 == 0;
 
         if (v81)
         {
-          v129 = 0;
-          v125 = 0;
+          v128 = 0;
+          v124 = 0;
         }
 
         else
         {
           v85 = objc_msgSend_objectForKeyedSubscript_(v27, v82, @"bridgeNetworkPath", v83, v84);
-          v129 = objc_msgSend_stringByAppendingPathComponent_(v54, v86, v85, v87, v88);
+          v128 = objc_msgSend_stringByAppendingPathComponent_(v54, v86, v85, v87, v88);
 
           v92 = objc_msgSend_objectForKeyedSubscript_(v27, v89, @"bridgeNetworkParams", v90, v91);
           v93 = v92 == 0;
@@ -297,7 +297,7 @@ LABEL_38:
             *error = objc_msgSend_errorForInternalErrorWithLocalizedDescription_underlyingError_(CSUError, v94, @"bridge network params missing", 0, v96);
           }
 
-          v125 = objc_msgSend_objectForKeyedSubscript_(v27, v94, @"bridgeNetworkParams", v95, v96);
+          v124 = objc_msgSend_objectForKeyedSubscript_(v27, v94, @"bridgeNetworkParams", v95, v96);
         }
 
         v97 = objc_msgSend_objectForKeyedSubscript_(v27, v82, @"runtime", v83, v84);
@@ -354,7 +354,7 @@ LABEL_38:
           v121 = v122;
         }
 
-        v58 = objc_msgSend_createCSUImageCaptioningDecoderConfigurationWithDecoderEspressoPath_decoderNetworkParams_bridgeNetworkPath_bridgeNetworkParams_vocabularyPath_useRuntimeEngine_runtimeParamsPath_error_(selfCopy, v118, v66, v127, v129, v125, v126, v107, v121, error);
+        v58 = objc_msgSend_createCSUImageCaptioningDecoderConfigurationWithDecoderEspressoPath_decoderNetworkParams_bridgeNetworkPath_bridgeNetworkParams_vocabularyPath_useRuntimeEngine_runtimeParamsPath_error_(selfCopy, v118, v66, v126, v128, v124, v125, v107, v121, error);
       }
 
       goto LABEL_38;
@@ -370,7 +370,6 @@ LABEL_38:
 LABEL_39:
 
 LABEL_40:
-  v123 = *MEMORY[0x1E69E9840];
 
   return v58;
 }
@@ -511,9 +510,9 @@ LABEL_28:
   ofBridgeCopy = ofBridge;
   inputShapeCopy = inputShape;
   paramsPathCopy = paramsPath;
-  v122.receiver = self;
-  v122.super_class = CSUImageCaptioningDecoderConfiguration;
-  v28 = [(CSUImageCaptioningDecoderConfiguration *)&v122 init];
+  v123.receiver = self;
+  v123.super_class = CSUImageCaptioningDecoderConfiguration;
+  v28 = [(CSUImageCaptioningDecoderConfiguration *)&v123 init];
   v33 = v28;
   if (!v28)
   {
@@ -549,49 +548,49 @@ LABEL_28:
 
   if (seqShapeCopy)
   {
-    v70 = objc_msgSend_copy(seqShapeCopy, v66, v67, v68, v69);
+    v71 = objc_msgSend_copy(seqShapeCopy, v67, v68, v69, v70);
     decoderInputSeqShape = v33->_decoderInputSeqShape;
-    v33->_decoderInputSeqShape = v70;
+    v33->_decoderInputSeqShape = v71;
 
-    v76 = objc_msgSend_copy(networkPathCopy, v72, v73, v74, v75);
+    v77 = objc_msgSend_copy(networkPathCopy, v73, v74, v75, v76);
     bridgeNetworkPath = v33->_bridgeNetworkPath;
-    v33->_bridgeNetworkPath = v76;
+    v33->_bridgeNetworkPath = v77;
 
-    v82 = objc_msgSend_copy(bridgeCopy, v78, v79, v80, v81);
+    v83 = objc_msgSend_copy(bridgeCopy, v79, v80, v81, v82);
     inputEncodedFeaturesTensorNameOfBridge = v33->_inputEncodedFeaturesTensorNameOfBridge;
-    v33->_inputEncodedFeaturesTensorNameOfBridge = v82;
+    v33->_inputEncodedFeaturesTensorNameOfBridge = v83;
 
-    v88 = objc_msgSend_copy(ofBridgeCopy, v84, v85, v86, v87);
+    v89 = objc_msgSend_copy(ofBridgeCopy, v85, v86, v87, v88);
     outputTensorNameOfBridge = v33->_outputTensorNameOfBridge;
-    v33->_outputTensorNameOfBridge = v88;
+    v33->_outputTensorNameOfBridge = v89;
 
     v33->_saveDecoderFeatures = features;
-    v94 = objc_msgSend_copy(inputShapeCopy, v90, v91, v92, v93);
+    v95 = objc_msgSend_copy(inputShapeCopy, v91, v92, v93, v94);
     bridgeInputShape = v33->_bridgeInputShape;
-    v33->_bridgeInputShape = v94;
+    v33->_bridgeInputShape = v95;
 
-    v100 = objc_msgSend_count(seqShapeCopy, v96, v97, v98, v99);
-    v104 = objc_msgSend_objectAtIndex_(seqShapeCopy, v101, v100 - 1, v102, v103);
-    v33->_maxSeqLen = objc_msgSend_unsignedLongValue(v104, v105, v106, v107, v108);
+    v101 = objc_msgSend_count(seqShapeCopy, v97, v98, v99, v100);
+    v105 = objc_msgSend_objectAtIndex_(seqShapeCopy, v102, v101 - 1, v103, v104);
+    v33->_maxSeqLen = objc_msgSend_unsignedLongValue(v105, v106, v107, v108, v109);
 
     objc_storeStrong(&v33->_runTimeParamsPath, paramsPath);
     v33->_bridgeIsPrecompiled = isPrecompiled;
     v33->_decoderIsPrecompiled = precompiled;
 LABEL_4:
-    v109 = v33;
+    v110 = v33;
     goto LABEL_8;
   }
 
-  v110 = sub_1AC090E50();
-  if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+  v111 = sub_1AC090E50(v66);
+  if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
   {
-    sub_1AC1201E4(v110);
+    sub_1AC1201E4(v111);
   }
 
-  v109 = 0;
+  v110 = 0;
 LABEL_8:
 
-  return v109;
+  return v110;
 }
 
 + (id)availableRevisions

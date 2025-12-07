@@ -53,7 +53,7 @@
 
   sub_101307048(action, v16, v17);
 
-  sub_10000CAAC(v16, &unk_1019F4D00);
+  sub_10000CAAC(v16, &unk_1019F4D00, &unk_10146E7F0);
   v8 = v18;
   if (v18)
   {

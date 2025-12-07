@@ -24,7 +24,7 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   if ([coderCopy hmd_isForXPCTransport])
   {
@@ -46,15 +46,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Did not encode setting constraint as transport is not XPC.", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Did not encode setting constraint as transport is not XPC.", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)name
@@ -88,7 +86,7 @@
     numberValue = [(HMDSettingConstraint *)self numberValue];
 LABEL_5:
     v6 = numberValue;
-    v7 = [numberValue copy];
+    v7 = objc_msgSend_copy(numberValue);
 
     goto LABEL_6;
   }
@@ -117,23 +115,23 @@ LABEL_6:
   v17 = [(HMDSettingConstraint *)&v29 init];
   if (v17)
   {
-    v18 = [identifierCopy copy];
+    v18 = objc_msgSend_copy(identifierCopy);
     identifier = v17->_identifier;
     v17->_identifier = v18;
 
-    v20 = [parentIdentifierCopy copy];
+    v20 = objc_msgSend_copy(parentIdentifierCopy);
     parentIdentifier = v17->_parentIdentifier;
     v17->_parentIdentifier = v20;
 
-    v22 = [typeCopy copy];
+    v22 = objc_msgSend_copy(typeCopy);
     type = v17->_type;
     v17->_type = v22;
 
-    v24 = [valueCopy copy];
+    v24 = objc_msgSend_copy(valueCopy);
     numberValue = v17->_numberValue;
     v17->_numberValue = v24;
 
-    v26 = [dataValueCopy copy];
+    v26 = objc_msgSend_copy(dataValueCopy);
     dataValue = v17->_dataValue;
     v17->_dataValue = v26;
   }

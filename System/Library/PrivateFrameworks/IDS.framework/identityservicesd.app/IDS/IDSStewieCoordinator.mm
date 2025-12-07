@@ -486,7 +486,7 @@ LABEL_12:
 
           additionalInfo = [v12 additionalInfo];
           v15 = [additionalInfo objectForKeyedSubscript:@"retry-interval"];
-          [v15 doubleValue];
+          objc_msgSend_doubleValue(v15);
           v17 = v16;
 
           v18 = +[IDSFoundationLog stewieProvisioning];

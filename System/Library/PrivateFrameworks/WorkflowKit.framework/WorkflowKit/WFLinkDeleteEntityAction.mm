@@ -221,7 +221,7 @@ LABEL_23:
 
 - (id)overrideLabelsByParameter
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   entityParameterName = [(WFLinkDeleteEntityAction *)self entityParameterName];
   if (entityParameterName)
   {
@@ -237,10 +237,10 @@ LABEL_23:
       if (v9)
       {
         entityParameterName2 = [(WFLinkDeleteEntityAction *)self entityParameterName];
-        v15 = entityParameterName2;
+        v14 = entityParameterName2;
         entityName3 = [(WFLinkEntityAction *)self entityName];
-        v16[0] = entityName3;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+        v15[0] = entityName3;
+        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
 
         goto LABEL_7;
       }
@@ -253,7 +253,6 @@ LABEL_23:
 
   v12 = 0;
 LABEL_7:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -271,24 +270,21 @@ LABEL_7:
 
 - (id)entityParameterName
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v7[0] = @"entity";
-  v7[1] = @"entities";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
+  v6[2] = *MEMORY[0x1E69E9840];
+  v6[0] = @"entity";
+  v6[1] = @"entities";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
   v4 = [(WFLinkEntityAction *)self actualEntityParameterNameFromPossibleNames:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)overrideInputParameterNames
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = @"entity";
-  v5[1] = @"entities";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = @"entity";
+  v4[1] = @"entities";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
 }

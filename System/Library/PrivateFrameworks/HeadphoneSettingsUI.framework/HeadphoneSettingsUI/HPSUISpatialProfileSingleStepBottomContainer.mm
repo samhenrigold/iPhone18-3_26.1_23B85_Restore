@@ -129,8 +129,8 @@
 {
   MEMORY[0x1E69E5928](title);
   MEMORY[0x1E69E5928](self);
-  sub_1AC30A92C();
-  sub_1AC2B7890();
+  v4 = sub_1AC30A92C();
+  sub_1AC2B7890(v4, v5);
 
   MEMORY[0x1E69E5920](title);
   MEMORY[0x1E69E5920](self);

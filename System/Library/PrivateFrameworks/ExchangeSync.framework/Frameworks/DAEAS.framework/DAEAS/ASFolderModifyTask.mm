@@ -45,32 +45,26 @@
 
 - (int64_t)taskStatusForExchangeStatus:(int)status
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (status >= 0xC)
+  v13 = *MEMORY[0x277D85DE8];
+  if (status < 0xC)
   {
-    v5 = DALoggingwithCategory();
-    v6 = *(MEMORY[0x277D03988] + 3);
-    if (os_log_type_enabled(v5, v6))
-    {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
-      v10 = 138412546;
-      v11 = v8;
-      v12 = 1024;
-      statusCopy = status;
-      _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v10, 0x12u);
-    }
-
-    result = 10;
+    return qword_24A14DE68[status];
   }
 
-  else
+  v5 = DALoggingwithCategory();
+  v6 = *(MEMORY[0x277D03988] + 3);
+  if (os_log_type_enabled(v5, v6))
   {
-    result = qword_24A14DE68[status];
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = 138412546;
+    v10 = v8;
+    v11 = 1024;
+    statusCopy = status;
+    _os_log_impl(&dword_24A0AC000, v5, v6, "%@: Unknown status code (%d)", &v9, 0x12u);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return 10;
 }
 
 @end

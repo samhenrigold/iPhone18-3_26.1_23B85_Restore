@@ -26,52 +26,52 @@
 
 - (id)extractTokens
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v36 = *MEMORY[0x1E69E9840];
+  v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = self->_tokens;
-  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v3)
   {
-    v28 = *v33;
+    v27 = *v32;
     do
     {
       v4 = 0;
-      v29 = v3;
+      v28 = v3;
       do
       {
-        if (*v33 != v28)
+        if (*v32 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v32 + 1) + 8 * v4);
+        v5 = *(*(&v31 + 1) + 8 * v4);
         memset(&__p, 0, sizeof(__p));
         if (([v5 isWhiteSpace] & 1) == 0)
         {
           cleanValue = [v5 cleanValue];
           v7 = cleanValue;
-          memset(&v30, 0, sizeof(v30));
+          memset(&v29, 0, sizeof(v29));
           if (cleanValue)
           {
             Length = CFStringGetLength(cleanValue);
-            std::basic_string<char16_t>::resize(&v30, Length, v9);
-            if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+            std::basic_string<char16_t>::resize(&v29, Length, v9);
+            if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
             {
-              v10 = &v30;
+              v10 = &v29;
             }
 
             else
             {
-              v10 = v30.__r_.__value_.__r.__words[0];
+              v10 = v29.__r_.__value_.__r.__words[0];
             }
 
-            v39.location = 0;
-            v39.length = Length;
-            CFStringGetCharacters(v7, v39, v10);
+            v38.location = 0;
+            v38.length = Length;
+            CFStringGetCharacters(v7, v38, v10);
           }
 
           if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -79,9 +79,9 @@
             operator delete(__p.__r_.__value_.__l.__data_);
           }
 
-          __p = v30;
-          *(&v30.__r_.__value_.__s + 23) = 0;
-          v30.__r_.__value_.__s.__data_[0] = 0;
+          __p = v29;
+          *(&v29.__r_.__value_.__s + 23) = 0;
+          v29.__r_.__value_.__s.__data_[0] = 0;
         }
 
         size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
@@ -122,7 +122,7 @@
           v21 = [MEMORY[0x1E696AEC0] stringWithCharacters:p_p length:v20];
           v22 = -[CDMToken initWithValue:begin:end:significant:whitespace:cleanValue:tokenIndex:nonWhitespaceTokenIndex:](v13, "initWithValue:begin:end:significant:whitespace:cleanValue:tokenIndex:nonWhitespaceTokenIndex:", value, begin, v16, isSignificant, isWhiteSpace, v21, [v5 tokenIndex], objc_msgSend(v5, "nonWhitespaceTokenIndex"));
 
-          [v27 addObject:v22];
+          [v26 addObject:v22];
           v12 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
         }
 
@@ -134,97 +134,92 @@
         ++v4;
       }
 
-      while (v29 != v4);
-      v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      while (v28 != v4);
+      v3 = [(NSMutableArray *)obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v3);
   }
 
-  v23 = [v27 copy];
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = [v26 copy];
 
   return v23;
 }
 
 - (id)dropInsignificantTokens
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(objc_opt_class()) initWithString:self->_string locale:self->_locale];
   v4 = [(NSMutableArray *)self->_tokens copy];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if ([v9 isSignificant])
         {
           [v3 addToken:v9];
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)dropWhitespaceTokens
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(objc_opt_class()) initWithString:self->_string locale:self->_locale];
   v4 = [(NSMutableArray *)self->_tokens copy];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (([v9 isWhiteSpace] & 1) == 0)
         {
           [v3 addToken:v9];
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -239,38 +234,37 @@
 
 - (id)description
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"{ string:%@ locale:%@ tokens: [", self->_string, self->_locale];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v4 = self->_tokens;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = [*(*(&v11 + 1) + 8 * i) description];
+        v8 = [*(*(&v10 + 1) + 8 * i) description];
         [v3 appendString:v8];
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   [v3 appendString:@"]}"];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -304,7 +298,7 @@
 
 - (id)cleanStringFromToken:(int64_t)token toToken:(int64_t)toToken
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   if ([(NSMutableArray *)self->_tokens count]> token && token <= toToken)
   {
@@ -320,30 +314,30 @@
 
       if (getHasCleanValues)
       {
-        v22 = 0u;
-        v23 = 0u;
-        v20 = 0u;
         v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
         v11 = [(NSMutableArray *)self->_tokens objectAtIndexedSubscript:token, 0];
         cleanValues = [v11 cleanValues];
 
-        v13 = [cleanValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [cleanValues countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v13)
         {
-          v14 = *v21;
+          v14 = *v20;
           do
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v21 != v14)
+              if (*v20 != v14)
               {
                 objc_enumerationMutation(cleanValues);
               }
 
-              [string appendString:*(*(&v20 + 1) + 8 * i)];
+              [string appendString:*(*(&v19 + 1) + 8 * i)];
             }
 
-            v13 = [cleanValues countByEnumeratingWithState:&v20 objects:v24 count:16];
+            v13 = [cleanValues countByEnumeratingWithState:&v19 objects:v23 count:16];
           }
 
           while (v13);
@@ -360,8 +354,6 @@
 
     while (token++ != toToken);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return string;
 }
@@ -410,86 +402,84 @@
 
 - (CDMTokenChain)initWithProtoTokenChain:(id)chain
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   stringValue = [chainCopy stringValue];
   locale = [chainCopy locale];
   v7 = [(CDMTokenChain *)self initWithString:stringValue locale:locale];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   tokens = [chainCopy tokens];
-  v9 = [tokens countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [tokens countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(tokens);
         }
 
-        v12 = [[CDMToken alloc] initWithProtoToken:*(*(&v15 + 1) + 8 * v11)];
+        v12 = [[CDMToken alloc] initWithProtoToken:*(*(&v14 + 1) + 8 * v11)];
         [(CDMTokenChain *)v7 addToken:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [tokens countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [tokens countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (CDMTokenChain)initWithString:(id)string locale:(id)locale tokens:(id)tokens
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   tokensCopy = tokens;
   v9 = [(CDMTokenChain *)self initWithString:string locale:locale];
   if (v9)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v10 = tokensCopy;
-    v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v11)
     {
-      v12 = *v17;
+      v12 = *v16;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v16 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          [(CDMTokenChain *)v9 addToken:*(*(&v16 + 1) + 8 * v13++), v16];
+          [(CDMTokenChain *)v9 addToken:*(*(&v15 + 1) + 8 * v13++), v15];
         }
 
         while (v11 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v11);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -524,31 +514,31 @@
 
 + (id)convertCDMTokenChainToProtoTokenChain:(id)chain
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   v4 = objc_alloc_init(MEMORY[0x1E69D13D8]);
   if (chainCopy)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
-    v21 = chainCopy;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v20 = chainCopy;
     tokens = [chainCopy tokens];
-    v6 = [tokens countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v6 = [tokens countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v6)
     {
-      v7 = *v23;
+      v7 = *v22;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v23 != v7)
+          if (*v22 != v7)
           {
             objc_enumerationMutation(tokens);
           }
 
-          v9 = *(*(&v22 + 1) + 8 * i);
+          v9 = *(*(&v21 + 1) + 8 * i);
           v10 = objc_alloc_init(MEMORY[0x1E69D13D0]);
           [v10 setBegin:{objc_msgSend(v9, "begin")}];
           [v10 setEnd:{objc_msgSend(v9, "end")}];
@@ -573,22 +563,20 @@
           [v4 addTokens:v10];
         }
 
-        v6 = [tokens countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v6 = [tokens countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v6);
     }
 
-    locale = [v21 locale];
+    locale = [v20 locale];
     [v4 setLocale:locale];
 
-    string = [v21 string];
+    string = [v20 string];
     [v4 setStringValue:string];
 
-    chainCopy = v21;
+    chainCopy = v20;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

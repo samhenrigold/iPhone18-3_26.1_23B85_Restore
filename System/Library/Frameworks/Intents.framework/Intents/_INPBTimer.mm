@@ -3,6 +3,8 @@
 - (_INPBTimer)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)stateAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsState:(id)state;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
@@ -349,7 +351,6 @@ LABEL_17:
   toCopy = to;
   if ([(_INPBTimer *)self hasDuration])
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
   }
 
@@ -357,7 +358,6 @@ LABEL_17:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
@@ -371,19 +371,16 @@ LABEL_17:
 
   if ([(_INPBTimer *)self hasRemainingTime])
   {
-    remainingTime = self->_remainingTime;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_INPBTimer *)self hasState])
   {
-    state = self->_state;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBTimer *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -409,6 +406,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E72817E0 + string);
   }
 
   return v4;
@@ -465,6 +477,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)stateAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E72817C8 + string);
   }
 
   return v4;

@@ -7,7 +7,7 @@
 
 - (unint64_t)suggestedNavigationModeForLocation:(id)location
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   route = self->_route;
   if (route)
@@ -136,26 +136,26 @@ LABEL_59:
         transportType2 = [(GEOComposedRoute *)self->_route transportType];
         if (transportType2 >= 7)
         {
-          v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", transportType2];
+          v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", transportType2];
         }
 
         else
         {
-          v36 = *(&off_1E8430C98 + transportType2);
+          v39 = *(&off_1E8430C98 + transportType2);
         }
 
         *buf = 138412290;
-        *v45 = v36;
-        v41 = "Returning Stepping because transport type %@ does not support turn by turn for FastestRoute context.";
+        *v47 = v39;
+        v44 = "Returning Stepping because transport type %@ does not support turn by turn for FastestRoute context.";
         goto LABEL_70;
       }
 
       v7 = MNGetMNSuggestedNavigationModeLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v34 = self->_context;
+        v37 = self->_context;
         *buf = 67109120;
-        *v45 = v34;
+        *v47 = v37;
         v9 = "Returning None because unknown context (%d) was specified.";
         v10 = v7;
         v11 = 8;
@@ -181,12 +181,15 @@ LABEL_59:
     [locationCopy coordinate];
     v21 = v20;
     v23 = v22;
-    [origin coordinate];
-    GEOCalculateDistance();
-    v25 = v24;
+    coordinate = [origin coordinate];
+    v53.var2 = v25;
+    v54.var0 = v26;
+    v53.var0 = v21;
+    v53.var1 = v23;
+    v28 = GEOCalculateDistance(coordinate, v27, v53, v54);
     GEOConfigGetDouble();
-    v27 = v26;
-    if (v25 > v26)
+    v30 = v29;
+    if (v28 > v29)
     {
       if (!GEOConfigGetBOOL())
       {
@@ -195,9 +198,9 @@ LABEL_29:
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109376;
-          *v45 = v25;
-          *&v45[4] = 1024;
-          *&v45[6] = v27;
+          *v47 = v28;
+          *&v47[4] = 1024;
+          *&v47[6] = v30;
           _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, "Returning NavigateToRoute because location exceeds distance threshold (%dm / %dm) to route origin for CuratedOrCustomRoute context.", buf, 0xEu);
         }
 
@@ -205,29 +208,29 @@ LABEL_29:
         goto LABEL_72;
       }
 
-      v28 = [objc_alloc(MEMORY[0x1E69A2548]) initWithRoute:self->_route auditToken:0];
-      v29 = [objc_alloc(MEMORY[0x1E69A1E70]) initWithGEOCoordinate:{v21, v23}];
-      v30 = [v28 matchToRouteWithLocation:v29];
+      v31 = [objc_alloc(MEMORY[0x1E69A2548]) initWithRoute:self->_route auditToken:0];
+      v32 = [objc_alloc(MEMORY[0x1E69A1E70]) initWithGEOCoordinate:{v21, v23}];
+      v33 = [v31 matchToRouteWithLocation:v32];
       GEOConfigGetDouble();
-      if (!v30 || (v32 = v31, [v30 distanceFromRoute], v33 > v32))
+      if (!v33 || (v35 = v34, [v33 distanceFromRoute], v36 > v35))
       {
 
         goto LABEL_29;
       }
 
-      v37 = MNGetMNSuggestedNavigationModeLog();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v40 = MNGetMNSuggestedNavigationModeLog();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
-        [v30 distanceFromRoute];
+        [v33 distanceFromRoute];
         *buf = 67109888;
-        *v45 = v25;
-        *&v45[4] = 1024;
-        *&v45[6] = v27;
-        v46 = 1024;
-        v47 = v38;
+        *v47 = v28;
+        *&v47[4] = 1024;
+        *&v47[6] = v30;
         v48 = 1024;
-        v49 = v32;
-        _os_log_impl(&dword_1D311E000, v37, OS_LOG_TYPE_DEFAULT, "Location exceeds distance threshold (%dm / %dm) from route origin, but still within threshold of custom route (%dm / %dm) to allow mid-route start.", buf, 0x1Au);
+        v49 = v41;
+        v50 = 1024;
+        v51 = v35;
+        _os_log_impl(&dword_1D311E000, v40, OS_LOG_TYPE_DEFAULT, "Location exceeds distance threshold (%dm / %dm) from route origin, but still within threshold of custom route (%dm / %dm) to allow mid-route start.", buf, 0x1Au);
       }
     }
 
@@ -273,9 +276,9 @@ LABEL_52:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109376;
-        *v45 = v25;
-        *&v45[4] = 1024;
-        *&v45[6] = v27;
+        *v47 = v28;
+        *&v47[4] = 1024;
+        *&v47[6] = v30;
         v17 = "Returning TurnByTurn because location is within distance threshold (%dm / %dm) to route origin for CuratedOrCustomRoute context.";
         v18 = v7;
         v19 = 14;
@@ -296,19 +299,19 @@ LABEL_60:
     transportType4 = [(GEOComposedRoute *)self->_route transportType];
     if (transportType4 >= 7)
     {
-      v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", transportType4];
+      v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", transportType4];
     }
 
     else
     {
-      v36 = *(&off_1E8430C98 + transportType4);
+      v39 = *(&off_1E8430C98 + transportType4);
     }
 
     *buf = 138412290;
-    *v45 = v36;
-    v41 = "Returning Stepping because transport type %@ does not support turn by turn for CuratedOrCustomRoute context";
+    *v47 = v39;
+    v44 = "Returning Stepping because transport type %@ does not support turn by turn for CuratedOrCustomRoute context";
 LABEL_70:
-    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, v41, buf, 0xCu);
+    _os_log_impl(&dword_1D311E000, v7, OS_LOG_TYPE_DEFAULT, v44, buf, 0xCu);
 
     goto LABEL_71;
   }
@@ -322,7 +325,6 @@ LABEL_70:
   v12 = 0;
 LABEL_73:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v12;
 }
 

@@ -17,29 +17,27 @@
 - (id)_initWithMetadataFileURL:(id)l bundleURL:(id)rL effectiveBundleIdentifier:(id)identifier error:(id *)error
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EACB72C8, &qword_18F0AAE80);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v21[-v10];
-  v12 = sub_18F0932BC();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = &v21[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x1EEE9AC00](v15);
+  v10 = &v19[-v9];
+  v11 = sub_18F0932BC();
+  v12 = *(v11 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v11);
+  v15 = &v19[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x1EEE9AC00](v13);
   sub_18F09327C();
   if (rL)
   {
     sub_18F09327C();
-    (*(v13 + 32))(v11, v17, v12);
-    v18 = 0;
+    (*(v12 + 32))(v10, v15, v11);
+    v16 = 0;
   }
 
   else
   {
-    v18 = 1;
+    v16 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v11, v18, 1, v12);
+  __swift_storeEnumTagSinglePayload(v10, v16, 1, v11);
   identifierCopy = identifier;
   LNBundleMetadata.init(metadataFileURL:bundleURL:effectiveBundleIdentifier:)();
   return result;
@@ -774,31 +772,31 @@ LABEL_11:
 
 - (void)applyAttributionBundleIdentifier:(id)identifier icon:(id)icon
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   iconCopy = icon;
   obj = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   actions = [(LNBundleMetadata *)self actions];
-  v8 = [actions countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v8 = [actions countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     do
     {
       v11 = 0;
       do
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(actions);
         }
 
-        v12 = *(*(&v34 + 1) + 8 * v11);
+        v12 = *(*(&v33 + 1) + 8 * v11);
         actions2 = [(LNBundleMetadata *)self actions];
         v14 = [actions2 objectForKeyedSubscript:v12];
         v15 = [v14 actionMetadataWithAttributionBundleIdentifier:identifierCopy icon:iconCopy];
@@ -808,7 +806,7 @@ LABEL_11:
       }
 
       while (v9 != v11);
-      v9 = [actions countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v9 = [actions countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v9);
@@ -816,27 +814,27 @@ LABEL_11:
 
   objc_storeStrong(&self->_actions, obj);
   v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   entities = [(LNBundleMetadata *)self entities];
-  v17 = [entities countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v17 = [entities countByEnumeratingWithState:&v29 objects:v37 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       v20 = 0;
       do
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(entities);
         }
 
-        v21 = *(*(&v30 + 1) + 8 * v20);
+        v21 = *(*(&v29 + 1) + 8 * v20);
         entities2 = [(LNBundleMetadata *)self entities];
         v23 = [entities2 objectForKeyedSubscript:v21];
         v24 = [v23 entityMetadataWithAttributionBundleIdentifier:identifierCopy];
@@ -846,7 +844,7 @@ LABEL_11:
       }
 
       while (v18 != v20);
-      v18 = [entities countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v18 = [entities countByEnumeratingWithState:&v29 objects:v37 count:16];
     }
 
     while (v18);
@@ -854,45 +852,43 @@ LABEL_11:
 
   entities = self->_entities;
   self->_entities = v16;
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (LNBundleMetadata)initWithArray:(id)array
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   v4 = objc_opt_new();
-  v48 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v5 = objc_opt_new();
   v6 = objc_opt_new();
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v47 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v46 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v43 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   obj = arrayCopy;
-  v8 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+  v8 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v41 = *v50;
+    v40 = *v49;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v50 != v41)
+        if (*v49 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v49 + 1) + 8 * i);
+        v12 = *(*(&v48 + 1) + 8 * i);
         actions = [v12 actions];
         v14 = [actions ln_deduping:v4];
         [v4 addEntriesFromDictionary:v14];
@@ -910,22 +906,22 @@ LABEL_11:
         [v7 addEntriesFromDictionary:v20];
 
         autoShortcuts = [v12 autoShortcuts];
-        [v48 addObjectsFromArray:autoShortcuts];
+        [v47 addObjectsFromArray:autoShortcuts];
 
         negativePhrases = [v12 negativePhrases];
-        [v47 addObjectsFromArray:negativePhrases];
+        [v46 addObjectsFromArray:negativePhrases];
 
         examplePhrases = [v12 examplePhrases];
-        [v46 addObjectsFromArray:examplePhrases];
+        [v45 addObjectsFromArray:examplePhrases];
 
         assistantIntents = [v12 assistantIntents];
-        [v45 addObjectsFromArray:assistantIntents];
+        [v44 addObjectsFromArray:assistantIntents];
 
         assistantIntentNegativePhrases = [v12 assistantIntentNegativePhrases];
-        [v44 addObjectsFromArray:assistantIntentNegativePhrases];
+        [v43 addObjectsFromArray:assistantIntentNegativePhrases];
 
         assistantEntities = [v12 assistantEntities];
-        [v43 addObjectsFromArray:assistantEntities];
+        [v42 addObjectsFromArray:assistantEntities];
 
         if (!v10)
         {
@@ -945,7 +941,7 @@ LABEL_11:
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v9 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
     }
 
     while (v9);
@@ -963,15 +959,14 @@ LABEL_11:
   version = [firstObject2 version];
   firstObject3 = [obj firstObject];
   generator = [firstObject3 generator];
-  v39 = [(LNBundleMetadata *)self initWithActions:v4 entities:v5 queries:v6 enums:allValues autoShortcutProviderMangledName:v10 autoShortcuts:v48 shortcutTileColor:shortcutTileColor version:version generator:generator negativePhrases:v47 examplePhrases:v46 assistantIntents:v45 assistantIntentNegativePhrases:v44 assistantEntities:v43];
+  v38 = [(LNBundleMetadata *)self initWithActions:v4 entities:v5 queries:v6 enums:allValues autoShortcutProviderMangledName:v10 autoShortcuts:v47 shortcutTileColor:shortcutTileColor version:version generator:generator negativePhrases:v46 examplePhrases:v45 assistantIntents:v44 assistantIntentNegativePhrases:v43 assistantEntities:v42];
 
-  v33 = *MEMORY[0x1E69E9840];
-  return v39;
+  return v38;
 }
 
 - (LNBundleMetadata)initWithActions:(id)actions entities:(id)entities queries:(id)queries enums:(id)enums autoShortcutProviderMangledName:(id)name autoShortcuts:(id)shortcuts shortcutTileColor:(int64_t)color version:(int64_t)self0 generator:(id)self1 negativePhrases:(id)self2 examplePhrases:(id)self3 assistantIntents:(id)self4 assistantIntentNegativePhrases:(id)self5 assistantEntities:(id)self6
 {
-  v83 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   actionsCopy = actions;
   entitiesCopy = entities;
   queriesCopy = queries;
@@ -984,16 +979,16 @@ LABEL_11:
   intentsCopy = intents;
   negativePhrasesCopy = negativePhrases;
   assistantEntitiesCopy = assistantEntities;
-  v81.receiver = self;
-  v81.super_class = LNBundleMetadata;
-  v30 = [(LNBundleMetadata *)&v81 init];
+  v80.receiver = self;
+  v80.super_class = LNBundleMetadata;
+  v30 = [(LNBundleMetadata *)&v80 init];
   if (v30)
   {
-    v66 = assistantEntitiesCopy;
-    v67 = examplePhrasesCopy;
-    v68 = phrasesCopy;
-    v69 = generatorCopy;
-    v73 = actionsCopy;
+    v65 = assistantEntitiesCopy;
+    v66 = examplePhrasesCopy;
+    v67 = phrasesCopy;
+    v68 = generatorCopy;
+    v72 = actionsCopy;
     v31 = [actionsCopy copy];
     actions = v30->_actions;
     v30->_actions = v31;
@@ -1002,12 +997,12 @@ LABEL_11:
     autoShortcutProviderMangledName = v30->_autoShortcutProviderMangledName;
     v30->_autoShortcutProviderMangledName = v33;
 
-    v70 = shortcutsCopy;
+    v69 = shortcutsCopy;
     v35 = [shortcutsCopy copy];
     autoShortcuts = v30->_autoShortcuts;
     v30->_autoShortcuts = v35;
 
-    v71 = entitiesCopy;
+    v70 = entitiesCopy;
     v37 = [entitiesCopy copy];
     entities = v30->_entities;
     v30->_entities = v37;
@@ -1017,26 +1012,26 @@ LABEL_11:
     v30->_queries = v39;
 
     v41 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
     v42 = enumsCopy;
-    v43 = [v42 countByEnumeratingWithState:&v77 objects:v82 count:16];
+    v43 = [v42 countByEnumeratingWithState:&v76 objects:v81 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v78;
+      v45 = *v77;
       do
       {
         for (i = 0; i != v44; ++i)
         {
-          if (*v78 != v45)
+          if (*v77 != v45)
           {
             objc_enumerationMutation(v42);
           }
 
-          v47 = *(*(&v77 + 1) + 8 * i);
+          v47 = *(*(&v76 + 1) + 8 * i);
           identifier = [v47 identifier];
 
           if (identifier)
@@ -1046,7 +1041,7 @@ LABEL_11:
           }
         }
 
-        v44 = [v42 countByEnumeratingWithState:&v77 objects:v82 count:16];
+        v44 = [v42 countByEnumeratingWithState:&v76 objects:v81 count:16];
       }
 
       while (v44);
@@ -1057,18 +1052,18 @@ LABEL_11:
 
     v30->_shortcutTileColor = color;
     v30->_version = version;
-    generatorCopy = v69;
-    v51 = [v69 copy];
+    generatorCopy = v68;
+    v51 = [v68 copy];
     generator = v30->_generator;
     v30->_generator = v51;
 
-    phrasesCopy = v68;
-    v53 = [v68 copy];
+    phrasesCopy = v67;
+    v53 = [v67 copy];
     negativePhrases = v30->_negativePhrases;
     v30->_negativePhrases = v53;
 
-    examplePhrasesCopy = v67;
-    v55 = [v67 copy];
+    examplePhrasesCopy = v66;
+    v55 = [v66 copy];
     examplePhrases = v30->_examplePhrases;
     v30->_examplePhrases = v55;
 
@@ -1080,18 +1075,17 @@ LABEL_11:
     assistantIntentNegativePhrases = v30->_assistantIntentNegativePhrases;
     v30->_assistantIntentNegativePhrases = v59;
 
-    assistantEntitiesCopy = v66;
-    v61 = [v66 copy];
+    assistantEntitiesCopy = v65;
+    v61 = [v65 copy];
     assistantEntities = v30->_assistantEntities;
     v30->_assistantEntities = v61;
 
     v63 = v30;
-    entitiesCopy = v71;
-    actionsCopy = v73;
-    shortcutsCopy = v70;
+    entitiesCopy = v70;
+    actionsCopy = v72;
+    shortcutsCopy = v69;
   }
 
-  v64 = *MEMORY[0x1E69E9840];
   return v30;
 }
 

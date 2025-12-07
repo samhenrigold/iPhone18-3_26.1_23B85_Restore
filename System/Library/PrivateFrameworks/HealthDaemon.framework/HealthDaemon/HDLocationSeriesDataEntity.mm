@@ -39,24 +39,21 @@
 
 + (id)primaryKeyColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"series_identifier";
-  v5[1] = @"timestamp";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"series_identifier";
+  v4[1] = @"timestamp";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277D10B38]) initWithEntityClass:objc_opt_class() property:@"hfd_key" deletionAction:0 isDeferred:1];
-  v6 = @"series_identifier";
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = @"series_identifier";
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -204,7 +201,7 @@ id __76__HDLocationSeriesDataEntity_deleteSeriesDataWithIdentifier_database_erro
 
 + (BOOL)deleteSeriesDataWithIdentifier:(int64_t)identifier timestamps:(id)timestamps database:(id)database error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   timestampsCopy = timestamps;
   databaseCopy = database;
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -213,39 +210,39 @@ id __76__HDLocationSeriesDataEntity_deleteSeriesDataWithIdentifier_database_erro
   aBlock[3] = &__block_descriptor_40_e15___NSString_8__0l;
   aBlock[4] = self;
   v11 = _Block_copy(aBlock);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   obj = timestampsCopy;
-  v12 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v12 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v12)
   {
-    v13 = *v23;
+    v13 = *v22;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __87__HDLocationSeriesDataEntity_deleteSeriesDataWithIdentifier_timestamps_database_error___block_invoke_2;
-        v21[3] = &unk_278615A20;
-        v21[4] = v15;
-        v21[5] = identifier;
-        if (![databaseCopy executeCachedStatementForKey:&+[HDLocationSeriesDataEntity deleteSeriesDataWithIdentifier:timestamps:database:error:]::deleteSQLDatumKey error:error SQLGenerator:v11 bindingHandler:v21 enumerationHandler:0])
+        v15 = *(*(&v21 + 1) + 8 * i);
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __87__HDLocationSeriesDataEntity_deleteSeriesDataWithIdentifier_timestamps_database_error___block_invoke_2;
+        v20[3] = &unk_278615A20;
+        v20[4] = v15;
+        v20[5] = identifier;
+        if (![databaseCopy executeCachedStatementForKey:&+[HDLocationSeriesDataEntity deleteSeriesDataWithIdentifier:timestamps:database:error:]::deleteSQLDatumKey error:error SQLGenerator:v11 bindingHandler:v20 enumerationHandler:0])
         {
           v16 = 0;
           goto LABEL_11;
         }
       }
 
-      v12 = [obj countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v12 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v12)
       {
         continue;
@@ -258,7 +255,6 @@ id __76__HDLocationSeriesDataEntity_deleteSeriesDataWithIdentifier_database_erro
   v16 = 1;
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -302,7 +298,7 @@ uint64_t __87__HDLocationSeriesDataEntity_deleteSeriesDataWithIdentifier_timesta
 
 + (uint64_t)_enumerateWithDatabase:(void *)database predicate:(char)predicate forValidation:(uint64_t)validation error:(void *)error handler:
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   v10 = a2;
   databaseCopy = database;
   errorCopy = error;
@@ -311,32 +307,31 @@ uint64_t __87__HDLocationSeriesDataEntity_deleteSeriesDataWithIdentifier_timesta
   [v14 setEntityClass:v13];
   [v14 setLimitCount:0];
   v15 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"series_identifier" entityClass:v13 ascending:1];
-  v30[0] = v15;
+  v29[0] = v15;
   v16 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"timestamp" entityClass:v13 ascending:1];
-  v30[1] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v29[1] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
   [v14 setOrderingTerms:v17];
 
   [v14 setPredicate:databaseCopy];
   v18 = HDLocationSeriesDataEntityAllProperties();
   v19 = [v14 selectSQLForProperties:v18];
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __91__HDLocationSeriesDataEntity__enumerateWithDatabase_predicate_forValidation_error_handler___block_invoke;
-  v28[3] = &unk_278615580;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __91__HDLocationSeriesDataEntity__enumerateWithDatabase_predicate_forValidation_error_handler___block_invoke;
+  v27[3] = &unk_278615580;
   v20 = databaseCopy;
-  v29 = v20;
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __91__HDLocationSeriesDataEntity__enumerateWithDatabase_predicate_forValidation_error_handler___block_invoke_2;
-  v25[3] = &unk_27862A720;
+  v28 = v20;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __91__HDLocationSeriesDataEntity__enumerateWithDatabase_predicate_forValidation_error_handler___block_invoke_2;
+  v24[3] = &unk_27862A720;
   predicateCopy = predicate;
   v21 = errorCopy;
-  v26 = v21;
-  v22 = [v10 executeSQL:v19 error:validation bindingHandler:v28 enumerationHandler:v25];
+  v25 = v21;
+  v22 = [v10 executeSQL:v19 error:validation bindingHandler:v27 enumerationHandler:v24];
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -569,14 +564,14 @@ BOOL __89__HDLocationSeriesDataEntity_getRangeAndCountForSeriesIdentifier_databa
 
 uint64_t __93__HDLocationSeriesDataEntity_copySeriesDataWithIdentifier_toSeriesIdentifier_database_error___block_invoke(void *a1, double a2, uint64_t a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v8 = a1[4];
   v7 = a1[5];
   v9 = a1[6];
-  v15 = 0;
-  v10 = [v7 insertOrReplaceEntity:1 database:v8 identifier:v9 timestamp:v6 location:&v15 error:a2];
-  v11 = v15;
+  v14 = 0;
+  v10 = [v7 insertOrReplaceEntity:1 database:v8 identifier:v9 timestamp:v6 location:&v14 error:a2];
+  v11 = v14;
   if ((v10 & 1) == 0)
   {
     _HKInitializeLogging();
@@ -584,25 +579,23 @@ uint64_t __93__HDLocationSeriesDataEntity_copySeriesDataWithIdentifier_toSeriesI
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = v11;
+      v16 = v11;
       _os_log_error_impl(&dword_228986000, v12, OS_LOG_TYPE_ERROR, "Failed to insert location data with error: %{public}@", buf, 0xCu);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (BOOL)unitTesting_deleteSeriesDataWithIdentifier:(int64_t)identifier timestamp:(id)timestamp database:(id)database error:(id *)error
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   timestampCopy = timestamp;
   databaseCopy = database;
-  v15[0] = timestampCopy;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = timestampCopy;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   LOBYTE(error) = [self deleteSeriesDataWithIdentifier:identifier timestamps:v12 database:databaseCopy error:error];
 
-  v13 = *MEMORY[0x277D85DE8];
   return error;
 }
 

@@ -13,62 +13,62 @@
 
   if (v6)
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [OTInheritanceKey(CDP) initFromAccessKey:v7];
+      [OTInheritanceKey(CDP) initFromAccessKey:v8];
     }
 
-    v8 = objc_alloc(MEMORY[0x1E69B7CD8]);
+    v9 = objc_alloc(MEMORY[0x1E69B7CD8]);
     wrappedKeyData = [v4 wrappedKeyData];
     wrappingKeyData2 = [v4 wrappingKeyData];
     beneficiaryID = [v4 beneficiaryID];
-    v22 = 0;
-    v12 = &v22;
-    v13 = [v8 initWithWrappedKeyData:wrappedKeyData wrappingKeyData:wrappingKeyData2 uuid:beneficiaryID error:&v22];
+    v25 = 0;
+    v13 = &v25;
+    v14 = [v9 initWithWrappedKeyData:wrappedKeyData wrappingKeyData:wrappingKeyData2 uuid:beneficiaryID error:&v25];
   }
 
   else
   {
     wrappingKeyString = [v4 wrappingKeyString];
-    v15 = [wrappingKeyString length];
+    v16 = [wrappingKeyString length];
 
-    if (!v15)
+    if (!v16)
     {
-      v18 = 0;
+      v20 = 0;
       goto LABEL_14;
     }
 
-    v16 = _CDPLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = _CDPLogSystem(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      [OTInheritanceKey(CDP) initFromAccessKey:v16];
+      [OTInheritanceKey(CDP) initFromAccessKey:v18];
     }
 
-    v17 = objc_alloc(MEMORY[0x1E69B7CD8]);
+    v19 = objc_alloc(MEMORY[0x1E69B7CD8]);
     wrappedKeyData = [v4 wrappedKeyData];
     wrappingKeyData2 = [v4 wrappingKeyString];
     beneficiaryID = [v4 beneficiaryID];
-    v21 = 0;
-    v12 = &v21;
-    v13 = [v17 initWithWrappedKeyData:wrappedKeyData wrappingKeyString:wrappingKeyData2 uuid:beneficiaryID error:&v21];
+    v24 = 0;
+    v13 = &v24;
+    v14 = [v19 initWithWrappedKeyData:wrappedKeyData wrappingKeyString:wrappingKeyData2 uuid:beneficiaryID error:&v24];
   }
 
-  v15 = v13;
-  v18 = *v12;
+  v16 = v14;
+  v20 = *v13;
 
-  if (v18)
+  if (v20)
   {
-    v19 = _CDPLogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v22 = _CDPLogSystem(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(OTInheritanceKey(CDP) *)v18 initFromAccessKey:v19];
+      [(OTInheritanceKey(CDP) *)v20 initFromAccessKey:v22];
     }
   }
 
 LABEL_14:
 
-  return v15;
+  return v16;
 }
 
 - (id)accessCode
@@ -100,11 +100,10 @@ LABEL_14:
 
 - (void)initFromAccessKey:()CDP .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Error creating key from access key string. Error - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Error creating key from access key string. Error - %@", &v2, 0xCu);
 }
 
 @end

@@ -3,7 +3,7 @@
 
 @implementation NSStringFromUITouchSenstiveButtonPositionHint
 
-uint64_t ___NSStringFromUITouchSenstiveButtonPositionHint_block_invoke(uint64_t a1, uint64_t a2)
+void *___NSStringFromUITouchSenstiveButtonPositionHint_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2 <= 15)
   {

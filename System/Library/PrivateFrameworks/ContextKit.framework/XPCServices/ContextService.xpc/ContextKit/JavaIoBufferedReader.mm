@@ -3,10 +3,12 @@
 - (id)readChar;
 - (id)readLine;
 - (int)read;
+- (int)readWithCharArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (int64_t)skipWithLong:(int64_t)long;
 - (uint64_t)checkNotClosed;
 - (void)close;
 - (void)dealloc;
+- (void)markWithInt:(int)int;
 - (void)maybeSwallowLF;
 - (void)reset;
 @end
@@ -28,6 +30,25 @@
     [(JavaIoReader *)in close];
     JreStrongAssign(&self->buf_, 0);
   }
+
+  objc_sync_exit(lock);
+}
+
+- (void)markWithInt:(int)int
+{
+  if (int < 0)
+  {
+    v11 = JreStrcat("$I", a2, *&int, v3, v4, v5, v6, v7, @"markLimit < 0:");
+    v12 = new_JavaLangIllegalArgumentException_initWithNSString_(v11);
+    objc_exception_throw(v12);
+  }
+
+  lock = self->super.lock_;
+  objc_sync_enter(lock);
+  [JavaIoBufferedReader checkNotClosed]_0(self);
+  self->markLimit_ = int;
+  self->mark_ = self->pos_;
+  self->markedLastWasCR_ = self->lastWasCR_;
 
   objc_sync_exit(lock);
 }
@@ -84,6 +105,120 @@
   return result;
 }
 
+- (int)readWithCharArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  obj = self->super.lock_;
+  objc_sync_enter(obj);
+  [JavaIoBufferedReader checkNotClosed]_0(self);
+  if (!array)
+  {
+    JreThrowNullPointerException();
+  }
+
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, v5);
+  if (v5)
+  {
+    if (self->lastWasCR_)
+    {
+      sub_1001BEC24(self);
+      self->lastWasCR_ = 0;
+    }
+
+    v9 = v5;
+    do
+    {
+      if (v9 < 1)
+      {
+        break;
+      }
+
+      pos = self->pos_;
+      v11 = self->end_ - pos;
+      if (v11 >= 1)
+      {
+        if (v11 >= v9)
+        {
+          v12 = v9;
+        }
+
+        else
+        {
+          v12 = v11;
+        }
+
+        JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->buf_, pos, array, v6, v12);
+        self->pos_ += v12;
+        v9 = (v9 - v12);
+        if (!v9)
+        {
+          break;
+        }
+
+        v6 = (v12 + v6);
+      }
+
+      if (v9 < v5)
+      {
+        in = self->in_;
+        if (!in)
+        {
+          goto LABEL_29;
+        }
+
+        if (![(JavaIoReader *)in ready])
+        {
+          break;
+        }
+      }
+
+      mark = self->mark_;
+      if (mark == -1 || self->pos_ - mark >= self->markLimit_)
+      {
+        buf = self->buf_;
+        if (!buf)
+        {
+LABEL_29:
+          JreThrowNullPointerException();
+        }
+
+        if (v9 >= buf->super.size_)
+        {
+          v16 = self->in_;
+          if (!v16)
+          {
+            JreThrowNullPointerException();
+          }
+
+          v17 = [(JavaIoReader *)v16 readWithCharArray:array withInt:v6 withInt:v9];
+          if (v17 >= 1)
+          {
+            LODWORD(v9) = v9 - v17;
+            self->mark_ = -1;
+          }
+
+          break;
+        }
+      }
+    }
+
+    while (sub_1001BE54C(self) != -1);
+    if (v5 - v9 <= 0)
+    {
+      LODWORD(v5) = -1;
+    }
+
+    else
+    {
+      LODWORD(v5) = v5 - v9;
+    }
+  }
+
+  objc_sync_exit(obj);
+  return v5;
+}
+
 - (void)maybeSwallowLF
 {
   if (self->lastWasCR_)
@@ -110,7 +245,7 @@
   if (pos >= v5)
   {
 LABEL_21:
-    v12 = new_JavaLangStringBuilder_initWithInt_(v5 - pos + 80);
+    v12 = new_JavaLangStringBuilder_initWithInt_((v5 - pos + 80));
     [(JavaLangStringBuilder *)v12 appendWithCharArray:self->buf_ withInt:self->pos_ withInt:(self->end_ - self->pos_)];
     while (1)
     {

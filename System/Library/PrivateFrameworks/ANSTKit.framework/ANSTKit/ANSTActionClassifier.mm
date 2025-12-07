@@ -14,7 +14,7 @@
 - (ANSTActionClassifier)initWithConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(configurationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_22E65BFC0(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -26,45 +26,46 @@
 
 - (ANSTActionClassifier)initWithConfig:(id)config error:(id *)error
 {
-  v11 = 0;
-  v5 = objc_msgSend__initWithConfig_error_(self, a2, config, &v11);
-  v6 = v11;
+  v12 = 0;
+  v5 = objc_msgSend__initWithConfig_error_(self, a2, config, &v12);
+  v6 = v12;
+  v7 = v6;
   if (v6)
   {
-    v7 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _ANSTLoggingGetOSLogForCategoryANSTKit(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_22E65C038(v6, v7);
+      sub_22E65C038(v7, v8);
     }
 
     if (error)
     {
-      v8 = v6;
-      v9 = 0;
-      *error = v6;
+      v9 = v7;
+      v10 = 0;
+      *error = v7;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v9 = v5;
+    v10 = v5;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)_initWithConfig:(id)config error:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   configCopy = config;
-  v52.receiver = self;
-  v52.super_class = ANSTActionClassifier;
-  v8 = [(ANSTActionClassifier *)&v52 init];
+  v51.receiver = self;
+  v51.super_class = ANSTActionClassifier;
+  v8 = [(ANSTActionClassifier *)&v51 init];
   v9 = v8;
   if (!v8)
   {
@@ -94,7 +95,7 @@ LABEL_11:
   *(v9 + 32) = v23;
 
   v26 = *(v9 + 32);
-  if (v26 && (objc_msgSend_setDelegate_(v26, v25, v9), *(v9 + 56) = malloc_type_malloc(0xD4uLL, 0x100004052888210uLL), *(v9 + 64) = malloc_type_malloc(0xD4uLL, 0x100004052888210uLL), v53 = xmmword_22E6622B0, v27 = [ANSTTensorDescriptor alloc], (v29 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v27, v28, @"decodingMatrix", 102, 2, &v53, 1, error)) != 0))
+  if (v26 && (objc_msgSend_setDelegate_(v26, v25, v9), *(v9 + 56) = malloc_type_malloc(0xD4uLL, 0x100004052888210uLL), *(v9 + 64) = malloc_type_malloc(0xD4uLL, 0x100004052888210uLL), v52 = xmmword_22E6622B0, v27 = [ANSTTensorDescriptor alloc], (v29 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v27, v28, @"decodingMatrix", 102, 2, &v52, 1, error)) != 0))
   {
     v31 = v29;
     v32 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v30, @"/AppleInternal/Library/Application Support/com.apple.ANSTKit/vfm.mlmodelc/action_decoding_matrix.bin");
@@ -131,7 +132,6 @@ LABEL_11:
 
 LABEL_12:
 
-  v50 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

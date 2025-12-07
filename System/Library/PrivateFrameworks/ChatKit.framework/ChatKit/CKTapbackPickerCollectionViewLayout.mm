@@ -78,7 +78,7 @@
 
   if (v8)
   {
-    sub_1902188FC(0, &qword_1EAD44F20);
+    sub_1902188FC(0, &qword_1EAD44F20, 0x1E69DC858);
     v9 = sub_190D57160();
   }
 

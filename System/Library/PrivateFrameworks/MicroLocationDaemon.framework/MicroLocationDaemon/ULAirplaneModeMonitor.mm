@@ -10,7 +10,7 @@
 
 - (void)startMonitoring:(id)monitoring
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -40,19 +40,17 @@
       v13 = @"YES";
     }
 
-    v15 = 138412546;
-    v16 = monitoringCopy;
-    v17 = 2112;
-    v18 = v13;
-    _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, airplaneMode: %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = monitoringCopy;
+    v16 = 2112;
+    v17 = v13;
+    _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, airplaneMode: %@", &v14, 0x16u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopMonitoring:(id)monitoring
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -65,9 +63,9 @@
   v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = monitoringCopy;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = monitoringCopy;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
   }
 
   radiosPref = [(ULAirplaneModeMonitor *)self radiosPref];
@@ -75,8 +73,6 @@
 
   [(ULAirplaneModeMonitor *)self setRadiosPref:0];
   [(ULAirplaneModeMonitor *)self setAirplaneMode:0];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)latestEventAfterAddingObserverForEventName:(id)name

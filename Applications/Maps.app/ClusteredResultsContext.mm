@@ -40,7 +40,7 @@
 
 - (void)setRoutingContainees:(id)containees
 {
-  sub_1000CE6B8(&unk_10190B260);
+  sub_1000CE6B8(&unk_10190B260, &unk_1011EB2D0);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR____TtC4Maps23ClusteredResultsContext_routingContainees;
   swift_beginAccess();
@@ -138,7 +138,7 @@
 
   sub_10010D6D0();
 
-  sub_100024F64(v10, &unk_101908380);
+  sub_100024F64(v10, &unk_101908380, &unk_1011E6860);
 }
 
 - (void)shareItem:(id)item presentationOptions:(id)options completion:(id)completion

@@ -60,9 +60,11 @@
 
 uint64_t __32__ASDDispatchQueue_defaultQueue__block_invoke()
 {
-  qword_1ED90D590 = objc_alloc_init(ASDDispatchQueue);
+  v0 = objc_alloc_init(ASDDispatchQueue);
+  v1 = qword_1ED90D590;
+  qword_1ED90D590 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

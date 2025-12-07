@@ -2,6 +2,8 @@
 + (id)pathInfoWithBinaryURL:(id)l;
 + (id)pathInfoWithURL:(id)l;
 + (id)pathInfoWithURL:(id)l bundleID:(id)d;
++ (id)pathInfoWithURL:(id)l bundleID:(id)d exclusive:(BOOL)exclusive;
++ (id)pathInfoWithURL:(id)l exclusive:(BOOL)exclusive;
 - (SAPathInfo)initWithCoder:(id)coder;
 - (SAPathInfo)initWithURL:(id)l exclusive:(BOOL)exclusive bundleID:(id)d isDataURL:(BOOL)rL;
 - (void)encodeWithCoder:(id)coder;
@@ -28,6 +30,15 @@
   return v14;
 }
 
++ (id)pathInfoWithURL:(id)l exclusive:(BOOL)exclusive
+{
+  exclusiveCopy = exclusive;
+  lCopy = l;
+  v7 = [[self alloc] initWithURL:lCopy exclusive:exclusiveCopy bundleID:0 isDataURL:1];
+
+  return v7;
+}
+
 + (id)pathInfoWithURL:(id)l
 {
   lCopy = l;
@@ -43,6 +54,16 @@
   v8 = [[self alloc] initWithURL:lCopy exclusive:1 bundleID:dCopy isDataURL:1];
 
   return v8;
+}
+
++ (id)pathInfoWithURL:(id)l bundleID:(id)d exclusive:(BOOL)exclusive
+{
+  exclusiveCopy = exclusive;
+  dCopy = d;
+  lCopy = l;
+  v10 = [[self alloc] initWithURL:lCopy exclusive:exclusiveCopy bundleID:dCopy isDataURL:1];
+
+  return v10;
 }
 
 + (id)pathInfoWithBinaryURL:(id)l

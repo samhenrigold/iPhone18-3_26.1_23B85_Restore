@@ -19,10 +19,10 @@
   {
     v7 = *&self->genericView[OBJC_IVAR____TtCV27EventKitUIRemoteUIExtension24EKEventGenericDetailView33EventGenericDetailViewCoordinator_genericView + 64];
     selfCopy = self;
-    sub_10000BF70(v6);
+    sub_10000BF70(v6, v7);
     v6(v5);
 
-    sub_100002EB0(v6);
+    sub_100002EB0(v6, v7);
   }
 
   else
@@ -65,10 +65,10 @@ LABEL_4:
   {
     v9 = *&self->genericView[OBJC_IVAR____TtCV27EventKitUIRemoteUIExtension24EKEventGenericDetailView33EventGenericDetailViewCoordinator_genericView + 48];
     selfCopy = self;
-    sub_10000BF70(v8);
+    sub_10000BF70(v8, v9);
     v8(v7, barButtonsCopy);
 
-    sub_100002EB0(v8);
+    sub_100002EB0(v8, v9);
   }
 
   else
@@ -90,14 +90,20 @@ LABEL_4:
   v7 = _Block_copy(completion);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_10001CD08;
+  }
+
+  else
+  {
+    v8 = 0;
   }
 
   controllerCopy = controller;
   selfCopy = self;
   sub_10001C258(controllerCopy);
-  sub_100002EB0(v7);
+  sub_100002EB0(v7, v8);
 }
 
 - (void)pushViewController:(id)controller animated:(BOOL)animated
@@ -112,18 +118,21 @@ LABEL_4:
   v5 = _Block_copy(completion);
   if (v5)
   {
-    *(swift_allocObject() + 16) = v5;
-    v6 = sub_10001CA18;
+    v6 = v5;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    v8 = sub_10001CA18;
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
+    v7 = 0;
   }
 
   selfCopy = self;
-  sub_10001C8A0(v6);
-  sub_100002EB0(v6);
+  sub_10001C8A0(v8, v7);
+  sub_100002EB0(v8, v7);
 }
 
 - (void)popViewControllerAnimated:(BOOL)animated
@@ -133,10 +142,10 @@ LABEL_4:
   {
     v4 = *&self->genericView[OBJC_IVAR____TtCV27EventKitUIRemoteUIExtension24EKEventGenericDetailView33EventGenericDetailViewCoordinator_genericView + 32];
     selfCopy = self;
-    sub_10000BF70(v3);
+    sub_10000BF70(v3, v4);
     v3(0, 0, 0);
 
-    sub_100002EB0(v3);
+    sub_100002EB0(v3, v4);
   }
 
   else

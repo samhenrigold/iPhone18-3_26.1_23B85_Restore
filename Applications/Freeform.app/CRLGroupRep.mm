@@ -96,7 +96,7 @@
         v22 = geometry;
         if (geometry)
         {
-          [geometry transform];
+          objc_msgSend_transform(geometry);
         }
 
         else
@@ -168,7 +168,7 @@
   v9 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
   else
@@ -739,7 +739,7 @@ LABEL_11:
   v4 = layout;
   if (layout)
   {
-    [layout transformInRoot];
+    objc_msgSend_transformInRoot(layout);
   }
 
   else
@@ -767,7 +767,7 @@ LABEL_11:
   v8 = geometry;
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
     v9 = v36;
     v10 = v37;
     v11 = v38;
@@ -813,7 +813,7 @@ LABEL_11:
           v21 = geometry2;
           if (geometry2)
           {
-            [geometry2 inverseTransform];
+            objc_msgSend_inverseTransform(geometry2);
             v22 = v36;
             v23 = v37;
             v24 = v38;
@@ -890,7 +890,7 @@ LABEL_19:
         v14 = geometry;
         if (geometry)
         {
-          [geometry inverseTransform];
+          objc_msgSend_inverseTransform(geometry);
           v15 = v23;
           v16 = v24;
           v17 = v25;

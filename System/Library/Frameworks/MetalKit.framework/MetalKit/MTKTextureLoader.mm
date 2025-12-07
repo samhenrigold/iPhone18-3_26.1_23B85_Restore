@@ -83,25 +83,23 @@
 
 - (void)newTextureWithContentsOfURL:(NSURL *)URL options:(NSDictionary *)options completionHandler:(MTKTextureLoaderCallback)completionHandler
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   if (URL)
   {
-    v13[0] = URL;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __74__MTKTextureLoader_newTextureWithContentsOfURL_options_completionHandler___block_invoke;
-    v12[3] = &unk_1E8580AE8;
-    v12[4] = completionHandler;
-    [(MTKTextureLoader *)self newTexturesWithContentsOfURLs:v8 options:options completionHandler:v12];
-    v9 = *MEMORY[0x1E69E9840];
+    v11[0] = URL;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __74__MTKTextureLoader_newTextureWithContentsOfURL_options_completionHandler___block_invoke;
+    v10[3] = &unk_1E8580AE8;
+    v10[4] = completionHandler;
+    [(MTKTextureLoader *)self newTexturesWithContentsOfURLs:v8 options:options completionHandler:v10];
   }
 
   else
   {
-    v11 = _newMTKTextureErrorWithCodeAndErrorString(0, @"URL is nil");
+    v9 = _newMTKTextureErrorWithCodeAndErrorString(0, @"URL is nil");
     (*(completionHandler + 2))(completionHandler, 0);
-    v10 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -131,59 +129,59 @@ uint64_t __74__MTKTextureLoader_newTextureWithContentsOfURL_options_completionHa
 
 void __76__MTKTextureLoader_newTexturesWithContentsOfURLs_options_completionHandler___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v17 = [*(a1 + 32) newUploaderForOptions:*(a1 + 40)];
-  v42 = 0;
-  v43 = &v42;
-  v44 = 0x3052000000;
-  v45 = __Block_byref_object_copy_;
-  v46 = __Block_byref_object_dispose_;
+  v48 = *MEMORY[0x1E69E9840];
+  v16 = [*(a1 + 32) newUploaderForOptions:*(a1 + 40)];
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3052000000;
+  v44 = __Block_byref_object_copy_;
+  v45 = __Block_byref_object_dispose_;
   v2 = 0;
-  v47 = [MEMORY[0x1E695DF70] array];
+  v46 = [MEMORY[0x1E695DF70] array];
   while (v2 < [*(a1 + 48) count])
   {
-    [v43[5] addObject:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}];
+    [v42[5] addObject:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}];
     ++v2;
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3052000000;
-  v39 = __Block_byref_object_copy_;
-  v40 = __Block_byref_object_dispose_;
-  v41 = dispatch_semaphore_create(0);
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3052000000;
-  v33 = __Block_byref_object_copy_;
-  v34 = __Block_byref_object_dispose_;
   v35 = 0;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3052000000;
-  v27 = __Block_byref_object_copy_;
-  v28 = __Block_byref_object_dispose_;
-  v29 = objc_alloc_init(MEMORY[0x1E696AD10]);
+  v36 = &v35;
+  v37 = 0x3052000000;
+  v38 = __Block_byref_object_copy_;
+  v39 = __Block_byref_object_dispose_;
+  v40 = dispatch_semaphore_create(0);
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3052000000;
+  v32 = __Block_byref_object_copy_;
+  v33 = __Block_byref_object_dispose_;
+  v34 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3052000000;
+  v26 = __Block_byref_object_copy_;
+  v27 = __Block_byref_object_dispose_;
+  v28 = objc_alloc_init(MEMORY[0x1E696AD10]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v3 = *(a1 + 48);
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v48 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v19 objects:v47 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         if ([v8 checkResourceIsReachableAndReturnError:0])
         {
           v9 = *(a1 + 32);
@@ -194,33 +192,33 @@ void __76__MTKTextureLoader_newTexturesWithContentsOfURLs_options_completionHand
           block[3] = &unk_1E8580B38;
           block[4] = v9;
           block[5] = v8;
-          block[8] = &v24;
-          block[9] = &v30;
+          block[8] = &v23;
+          block[9] = &v29;
           block[6] = *(a1 + 40);
-          block[7] = v17;
-          block[10] = &v36;
-          block[11] = &v42;
+          block[7] = v16;
+          block[10] = &v35;
+          block[11] = &v41;
           block[12] = v5;
           dispatch_async(v10, block);
         }
 
         else
         {
-          [v25[5] lock];
-          if (!v31[5])
+          [v24[5] lock];
+          if (!v30[5])
           {
             v11 = _newMTKTextureErrorWithCodeAndErrorString(0, [MEMORY[0x1E696AEC0] stringWithFormat:@"Could not find resource %@ at specified location.", objc_msgSend(v8, "lastPathComponent")]);
-            v31[5] = v11;
+            v30[5] = v11;
           }
 
-          [v25[5] unlock];
-          dispatch_semaphore_signal(v37[5]);
+          [v24[5] unlock];
+          dispatch_semaphore_signal(v36[5]);
         }
 
         ++v5;
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v20 objects:v48 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v19 objects:v47 count:16];
     }
 
     while (v4);
@@ -229,7 +227,7 @@ void __76__MTKTextureLoader_newTexturesWithContentsOfURLs_options_completionHand
   for (j = 0; ; ++j)
   {
     v13 = [*(a1 + 48) count];
-    v14 = v37[5];
+    v14 = v36[5];
     if (j >= v13)
     {
       break;
@@ -240,21 +238,20 @@ void __76__MTKTextureLoader_newTexturesWithContentsOfURLs_options_completionHand
 
   dispatch_release(v14);
 
-  v15 = v43[5];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __76__MTKTextureLoader_newTexturesWithContentsOfURLs_options_completionHandler___block_invoke_3;
-  v18[3] = &unk_1E8580B60;
-  v18[4] = *(a1 + 56);
-  v18[5] = &v42;
-  v18[6] = &v30;
-  [v17 finishWithCompletionHandler:v18];
+  v15 = v42[5];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __76__MTKTextureLoader_newTexturesWithContentsOfURLs_options_completionHandler___block_invoke_3;
+  v17[3] = &unk_1E8580B60;
+  v17[4] = *(a1 + 56);
+  v17[5] = &v41;
+  v17[6] = &v29;
+  [v16 finishWithCompletionHandler:v17];
 
-  _Block_object_dispose(&v24, 8);
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v42, 8);
-  v16 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v41, 8);
 }
 
 intptr_t __76__MTKTextureLoader_newTexturesWithContentsOfURLs_options_completionHandler___block_invoke_66(uint64_t a1)
@@ -329,11 +326,9 @@ void __76__MTKTextureLoader_newTexturesWithContentsOfURLs_options_completionHand
 
 void __76__MTKTextureLoader_newTexturesWithContentsOfURLs_options_completionHandler___block_invoke_3(void *a1)
 {
-  v2 = *(*(a1[5] + 8) + 40);
-  v3 = *(*(a1[6] + 8) + 40);
   (*(a1[4] + 16))();
 
-  v4 = *(*(a1[6] + 8) + 40);
+  v2 = *(*(a1[6] + 8) + 40);
 }
 
 - (void)newTextureWithData:(NSData *)data options:(NSDictionary *)options completionHandler:(MTKTextureLoaderCallback)completionHandler
@@ -682,63 +677,58 @@ void __56__MTKTextureLoader__loadData_options_completionHandler___block_invoke(u
 
 void __56__MTKTextureLoader__loadData_options_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 
-  v4 = *(a1 + 32);
+  v2 = *(a1 + 32);
 }
 
 - (void)_loadData:(id)data options:(id)options uploader:(id)uploader label:(id)label completionHandler:(id)handler
 {
   v11 = 0;
-  v23 = 0;
+  v22 = 0;
   v12 = [(MTKTextureLoader *)self _determineFileType:?]- 1;
   if (v12 <= 3)
   {
-    v11 = [objc_alloc(*off_1E8580D58[v12]) initWithData:data options:options error:&v23];
+    v11 = [objc_alloc(*off_1E8580D58[v12]) initWithData:data options:options error:&v22];
   }
 
-  v22 = 0;
-  v20 = 0u;
-  v21 = 0u;
+  v21 = 0;
   v19 = 0u;
-  device = self->_device;
+  v20 = 0u;
+  v18 = 0u;
   [v11 pixelFormat];
   MTLPixelFormatGetInfoForDevice();
 
-  v14 = v23;
-  if (!v23)
+  v13 = v22;
+  if (!v22)
   {
-    v15 = MEMORY[0x1E696AEC0];
+    v14 = MEMORY[0x1E696AEC0];
     [0 pixelFormat];
-    v16 = [v15 stringWithFormat:@"Pixel format(%s) is not valid on this device", MTLPixelFormatGetName()];
-    v14 = _newMTKTextureErrorWithCodeAndErrorString(0, v16);
-    v23 = v14;
+    v15 = [v14 stringWithFormat:@"Pixel format(%s) is not valid on this device", MTLPixelFormatGetName()];
+    v13 = _newMTKTextureErrorWithCodeAndErrorString(0, v15);
+    v22 = v13;
   }
 
   notifyQueue = self->_notifyQueue;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __71__MTKTextureLoader__loadData_options_uploader_label_completionHandler___block_invoke;
-  v18[3] = &unk_1E8580C78;
-  v18[4] = v14;
-  v18[5] = handler;
-  dispatch_async(notifyQueue, v18);
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __71__MTKTextureLoader__loadData_options_uploader_label_completionHandler___block_invoke;
+  v17[3] = &unk_1E8580C78;
+  v17[4] = v13;
+  v17[5] = handler;
+  dispatch_async(notifyQueue, v17);
 }
 
 void __71__MTKTextureLoader__loadData_options_uploader_label_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 }
 
 void __71__MTKTextureLoader__loadData_options_uploader_label_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 }
 
 void __71__MTKTextureLoader__loadData_options_uploader_label_completionHandler___block_invoke_3(uint64_t a1)
@@ -770,11 +760,9 @@ void __71__MTKTextureLoader__loadData_options_uploader_label_completionHandler__
 
 void __71__MTKTextureLoader__loadData_options_uploader_label_completionHandler___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 
-  v4 = *(a1 + 40);
+  v2 = *(a1 + 40);
 }
 
 - (void)_loadCGImage:(CGImage *)image options:(id)options completionHandler:(id)handler
@@ -830,16 +818,14 @@ void __71__MTKTextureLoader__loadData_options_uploader_label_completionHandler__
 
 void __59__MTKTextureLoader__loadCGImage_options_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 }
 
 void __59__MTKTextureLoader__loadCGImage_options_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 }
 
 uint64_t __59__MTKTextureLoader__loadCGImage_options_completionHandler___block_invoke_3(uint64_t a1)
@@ -866,11 +852,9 @@ uint64_t __59__MTKTextureLoader__loadCGImage_options_completionHandler___block_i
 
 void __59__MTKTextureLoader__loadCGImage_options_completionHandler___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 
-  v4 = *(a1 + 40);
+  v2 = *(a1 + 40);
 }
 
 - (void)_loadMDLTexture:(id)texture options:(id)options completionHandler:(id)handler
@@ -926,16 +910,14 @@ void __59__MTKTextureLoader__loadCGImage_options_completionHandler___block_invok
 
 void __62__MTKTextureLoader__loadMDLTexture_options_completionHandler___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 }
 
 void __62__MTKTextureLoader__loadMDLTexture_options_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 }
 
 uint64_t __62__MTKTextureLoader__loadMDLTexture_options_completionHandler___block_invoke_3(uint64_t a1)
@@ -962,11 +944,9 @@ uint64_t __62__MTKTextureLoader__loadMDLTexture_options_completionHandler___bloc
 
 void __62__MTKTextureLoader__loadMDLTexture_options_completionHandler___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
   (*(*(a1 + 48) + 16))();
 
-  v4 = *(a1 + 40);
+  v2 = *(a1 + 40);
 }
 
 - (BOOL)validateGenerateMipmapsForPixelFormat:(unint64_t)format options:(id)options error:(id *)error
@@ -976,15 +956,14 @@ void __62__MTKTextureLoader__loadMDLTexture_options_completionHandler___block_in
     return 1;
   }
 
-  device = self->_device;
   MTLPixelFormatGetInfoForDevice();
-  v8 = 0;
+  v6 = 0;
   if (error)
   {
     *error = _newMTKTextureErrorWithCodeAndErrorString(0, @"MTKTextureLoaderOptionGenerateMipmaps is only supported for color renderable and filterable pixel formats");
   }
 
-  return v8;
+  return v6;
 }
 
 - (id)newUploaderForOptions:(id)options
@@ -1026,52 +1005,52 @@ LABEL_8:
 
 - (void)_newAsyncTextureWithNames:(id)names scaleFactor:(double)factor displayGamut:(int64_t)gamut bundle:(id)bundle options:(id)options completionHandler:(id)handler
 {
-  v64 = *MEMORY[0x1E69E9840];
-  v61 = 0;
+  v62 = *MEMORY[0x1E69E9840];
+  v59 = 0;
   v14 = [MEMORY[0x1E6999368] defaultUICatalogForBundle:bundle];
   if (!v14)
   {
-    v40 = _newMTKTextureErrorWithCodeAndErrorString(0, @"Could not get asset catalog from supplied bundle");
+    v39 = _newMTKTextureErrorWithCodeAndErrorString(0, @"Could not get asset catalog from supplied bundle");
     notifyQueue = self->_notifyQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_bundle_options_completionHandler___block_invoke;
     block[3] = &unk_1E8580C78;
-    block[4] = v40;
+    block[4] = v39;
     block[5] = handler;
-    v39 = block;
-    v38 = notifyQueue;
+    v38 = block;
+    v37 = notifyQueue;
     goto LABEL_32;
   }
 
   v15 = v14;
   handlerCopy = handler;
   v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(names, "count")}];
-  v44 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v42 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v54 = 0u;
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v59 = 0u;
   obj = names;
-  v17 = [names countByEnumeratingWithState:&v56 objects:v63 count:16];
+  v17 = [names countByEnumeratingWithState:&v54 objects:v61 count:16];
   if (!v17)
   {
     goto LABEL_21;
   }
 
   v18 = v17;
-  v19 = *v57;
-  v45 = gamut == 2;
+  v19 = *v55;
+  v43 = gamut == 2;
   do
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v57 != v19)
+      if (*v55 != v19)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v56 + 1) + 8 * i);
+      v21 = *(*(&v54 + 1) + 8 * i);
       v22 = [v15 namedTextureWithName:v21 scaleFactor:factor];
       if (v22)
       {
@@ -1080,141 +1059,134 @@ LABEL_8:
         v25 = [v23 textureWithBufferAllocator:self->_bufferAllocator];
         v26 = v25;
         objc_autoreleasePoolPop(v24);
-        v55 = 0;
-        v53 = 0u;
-        v54 = 0u;
+        v53 = 0;
+        v51 = 0u;
         v52 = 0u;
-        device = self->_device;
+        v50 = 0u;
         [v25 pixelFormat];
         MTLPixelFormatGetInfoForDevice();
         if ([MEMORY[0x1E69DA0D8] isGammaEncoded:{objc_msgSend(v25, "pixelFormat")}])
         {
-          v28 = 71;
+          v27 = 71;
         }
 
         else
         {
-          v28 = 70;
+          v27 = 70;
         }
 
-        [v25 reformat:v28 gammaDegamma:1 bufferAllocator:self->_bufferAllocator error:0];
-        v29 = v16;
+        [v25 reformat:v27 gammaDegamma:1 bufferAllocator:self->_bufferAllocator error:0];
+        v28 = v16;
         goto LABEL_14;
       }
 
       if ([v15 imageExistsWithName:v21 scaleFactor:factor])
       {
-        v25 = [v15 imageWithName:v21 scaleFactor:v45 displayGamut:5 layoutDirection:factor];
+        v25 = [v15 imageWithName:v21 scaleFactor:v43 displayGamut:5 layoutDirection:factor];
         if ([v25 image])
         {
-          v30 = v25;
-          v29 = v44;
+          v29 = v25;
+          v28 = v42;
 LABEL_14:
-          [v29 addObject:v25];
+          [v28 addObject:v25];
           continue;
         }
       }
 
       else
       {
-        v61 = _newMTKTextureErrorWithCodeAndErrorString(0, [MEMORY[0x1E696AEC0] stringWithFormat:@"Could not find texture or image named %@ in supplied bundle", v21]);
+        v59 = _newMTKTextureErrorWithCodeAndErrorString(0, [MEMORY[0x1E696AEC0] stringWithFormat:@"Could not find texture or image named %@ in supplied bundle", v21]);
       }
     }
 
-    v18 = [obj countByEnumeratingWithState:&v56 objects:v63 count:16];
+    v18 = [obj countByEnumeratingWithState:&v54 objects:v61 count:16];
   }
 
   while (v18);
 LABEL_21:
-  v31 = [(MTKTextureLoader *)self _newSyncTexturesFromTXRTextures:v16 labels:obj options:options error:&v61];
+  v30 = [(MTKTextureLoader *)self _newSyncTexturesFromTXRTextures:v16 labels:obj options:options error:&v59];
 
-  v50 = 0u;
-  v51 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v32 = [v44 countByEnumeratingWithState:&v48 objects:v62 count:16];
-  if (v32)
+  v46 = 0u;
+  v47 = 0u;
+  v31 = [v42 countByEnumeratingWithState:&v46 objects:v60 count:16];
+  if (v31)
   {
-    v33 = v32;
-    v34 = *v49;
+    v32 = v31;
+    v33 = *v47;
     do
     {
-      for (j = 0; j != v33; ++j)
+      for (j = 0; j != v32; ++j)
       {
-        if (*v49 != v34)
+        if (*v47 != v33)
         {
-          objc_enumerationMutation(v44);
+          objc_enumerationMutation(v42);
         }
 
-        v36 = *(*(&v48 + 1) + 8 * j);
-        v37 = -[MTKTextureLoader newTextureWithCGImage:options:error:](self, "newTextureWithCGImage:options:error:", [v36 image], options, &v61);
+        v35 = *(*(&v46 + 1) + 8 * j);
+        v36 = -[MTKTextureLoader newTextureWithCGImage:options:error:](self, "newTextureWithCGImage:options:error:", [v35 image], options, &v59);
 
-        if (v37)
+        if (v36)
         {
-          [v31 addObject:v37];
+          [v30 addObject:v36];
         }
       }
 
-      v33 = [v44 countByEnumeratingWithState:&v48 objects:v62 count:16];
+      v32 = [v42 countByEnumeratingWithState:&v46 objects:v60 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
-  v38 = self->_notifyQueue;
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_bundle_options_completionHandler___block_invoke_2;
-  v47[3] = &unk_1E8580CA0;
-  v47[4] = v31;
-  v47[5] = v61;
-  v47[6] = handlerCopy;
-  v39 = v47;
+  v37 = self->_notifyQueue;
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_bundle_options_completionHandler___block_invoke_2;
+  v45[3] = &unk_1E8580CA0;
+  v45[4] = v30;
+  v45[5] = v59;
+  v45[6] = handlerCopy;
+  v38 = v45;
 LABEL_32:
-  dispatch_async(v38, v39);
-  v42 = *MEMORY[0x1E69E9840];
+  dispatch_async(v37, v38);
 }
 
 void __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_bundle_options_completionHandler___block_invoke(uint64_t a1)
 {
-  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:0];
-  v2 = *(a1 + 32);
+  v2 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:0];
   (*(*(a1 + 40) + 16))();
 }
 
 void __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_bundle_options_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v12 = *MEMORY[0x1E69E9840];
   (*(*(a1 + 48) + 16))();
-  v12 = 0u;
-  v13 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v5)
+  v7 = 0u;
+  v8 = 0u;
+  v2 = *(a1 + 32);
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  if (v3)
   {
-    v6 = v5;
-    v7 = *v11;
+    v4 = v3;
+    v5 = *v8;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v7)
+        if (*v8 != v5)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v2);
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
-    while (v6);
+    while (v4);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)newTexturesFromTXRTextures:(id)textures options:(id)options error:(id *)error
@@ -1226,61 +1198,63 @@ void __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_
 
 - (id)newTextureFromTXRTexture:(id)texture options:(id)options error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   textureCopy = texture;
-  v15[0] = texture;
-  v10 = -[MTKTextureLoader _newSyncTexturesFromTXRTextures:labels:options:error:](self, "_newSyncTexturesFromTXRTextures:labels:options:error:", [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1], 0, options, error);
-  if (v10 && (v11 = v10, [v10 count]))
+  v14[0] = texture;
+  v10 = -[MTKTextureLoader _newSyncTexturesFromTXRTextures:labels:options:error:](self, "_newSyncTexturesFromTXRTextures:labels:options:error:", [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1], 0, options, error);
+  if (!v10)
   {
-    v12 = [v11 objectAtIndexedSubscript:0];
-    if (v12)
-    {
-    }
+    return 0;
   }
 
-  else
+  v11 = v10;
+  if (![v10 count])
   {
-    v12 = 0;
+    return 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = [v11 objectAtIndexedSubscript:0];
+  if (v12)
+  {
+  }
+
   return v12;
 }
 
 - (id)_newSyncTexturesFromTXRTextures:(id)textures labels:(id)labels options:(id)options error:(id *)error
 {
   texturesCopy = textures;
-  v132 = *MEMORY[0x1E69E9840];
-  v126 = 0uLL;
-  v127 = 0;
+  v133 = *MEMORY[0x1E69E9840];
+  v127 = 0uLL;
+  v128 = 0;
   v10 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(textures, "count")}];
   newCommandQueue = [(MTLDeviceSPI *)self->_device newCommandQueue];
   [newCommandQueue setLabel:@"com.apple.MTKTextureLoader"];
-  v81 = newCommandQueue;
+  v82 = newCommandQueue;
   commandBuffer = [newCommandQueue commandBuffer];
   blitCommandEncoder = [commandBuffer blitCommandEncoder];
-  v122 = 0u;
   v123 = 0u;
   v124 = 0u;
   v125 = 0u;
-  v12 = [texturesCopy countByEnumeratingWithState:&v122 objects:v131 count:16];
+  v126 = 0u;
+  v12 = [texturesCopy countByEnumeratingWithState:&v123 objects:v132 count:16];
   if (v12)
   {
     v13 = v12;
     v14 = 0;
-    v90 = *v123;
+    v91 = *v124;
     do
     {
       v15 = 0;
-      v86 = v13;
+      v87 = v13;
       do
       {
-        if (*v123 != v90)
+        if (*v124 != v91)
         {
           objc_enumerationMutation(texturesCopy);
         }
 
-        v16 = *(*(&v122 + 1) + 8 * v15);
+        v16 = *(*(&v123 + 1) + 8 * v15);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1289,7 +1263,7 @@ void __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_
 
         else
         {
-          v93 = v15;
+          v94 = v15;
           v17 = objc_alloc_init(MEMORY[0x1E69741C0]);
           [v16 dimensions];
           [v17 setWidth:v18];
@@ -1305,7 +1279,7 @@ void __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_
 
           [v17 setPixelFormat:objc_msgSend(v16, "pixelFormat")];
           arrayLength = [v17 arrayLength];
-          v105 = v16;
+          v106 = v16;
           if ([v16 cubemap])
           {
             v21 = texturesCopy;
@@ -1355,12 +1329,12 @@ void __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_
 
             [v16 dimensions];
             v32 = v31;
-            [v105 dimensions];
+            [v106 dimensions];
             labels = labelsCopy2;
             v14 = v23;
             v10 = v22;
             texturesCopy = v21;
-            v13 = v86;
+            v13 = v87;
             if (v32 != v33)
             {
               [MTKTextureLoader _newSyncTexturesFromTXRTextures:labels:options:error:];
@@ -1433,7 +1407,7 @@ void __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_
 
           else
           {
-            v40 = [objc_msgSend(v105 "mipmapLevels")];
+            v40 = [objc_msgSend(v106 "mipmapLevels")];
           }
 
           [v17 setMipmapLevelCount:v40];
@@ -1441,110 +1415,111 @@ void __104__MTKTextureLoader__newAsyncTextureWithNames_scaleFactor_displayGamut_
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) != 0 && [v41 BOOLValue])
           {
-            [v17 setTextureType:{arrayTextureTypeFromTextureType(objc_msgSend(v17, "textureType"))}];
+            textureType = [v17 textureType];
+            [v17 setTextureType:{arrayTextureTypeFromTextureType(textureType, v43)}];
           }
 
-          v42 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v17];
+          v44 = [(MTLDeviceSPI *)self->_device newTextureWithDescriptor:v17];
 
-          if (v42)
+          if (v44)
           {
-            v96 = v42;
-            [v10 addObject:v42];
-            [v105 dimensions];
-            v103 = v43;
-            [v105 dimensions];
-            v100 = v44;
-            [v105 dimensions];
-            v102 = v45;
-            v118 = 0u;
+            v97 = v44;
+            [v10 addObject:v44];
+            [v106 dimensions];
+            v104 = v45;
+            [v106 dimensions];
+            v101 = v46;
+            [v106 dimensions];
+            v103 = v47;
             v119 = 0u;
             v120 = 0u;
             v121 = 0u;
-            obj = [v105 mipmapLevels];
-            v15 = v93;
-            v83 = [obj countByEnumeratingWithState:&v118 objects:v130 count:16];
-            if (v83)
+            v122 = 0u;
+            obj = [v106 mipmapLevels];
+            v15 = v94;
+            v84 = [obj countByEnumeratingWithState:&v119 objects:v131 count:16];
+            if (v84)
             {
-              v98 = 0;
-              v101 = v102;
-              v46.i64[0] = v103;
-              v46.i64[1] = v100;
-              v99 = v46;
-              v47 = *v119;
+              v99 = 0;
+              v102 = v103;
+              v48.i64[0] = v104;
+              v48.i64[1] = v101;
+              v100 = v48;
+              v49 = *v120;
               labelsCopy3 = labels;
               optionsCopy = options;
-              v75 = texturesCopy;
-              v76 = v10;
-              v73 = v14;
+              v76 = texturesCopy;
+              v77 = v10;
+              v74 = v14;
               selfCopy = self;
-              v79 = *v119;
+              v80 = *v120;
               do
               {
-                v48 = 0;
+                v50 = 0;
                 do
                 {
-                  if (*v119 != v47)
+                  if (*v120 != v49)
                   {
-                    v49 = v48;
+                    v51 = v50;
                     objc_enumerationMutation(obj);
-                    v48 = v49;
+                    v50 = v51;
                   }
 
-                  v85 = v48;
-                  v50 = *(*(&v118 + 1) + 8 * v48);
-                  v114 = 0u;
+                  v86 = v50;
+                  v52 = *(*(&v119 + 1) + 8 * v50);
                   v115 = 0u;
                   v116 = 0u;
                   v117 = 0u;
-                  elements = [v50 elements];
-                  v51 = v105;
-                  v88 = [elements countByEnumeratingWithState:&v114 objects:v129 count:16];
-                  if (v88)
+                  v118 = 0u;
+                  elements = [v52 elements];
+                  v53 = v106;
+                  v89 = [elements countByEnumeratingWithState:&v115 objects:v130 count:16];
+                  if (v89)
                   {
-                    v104 = 0;
-                    v89 = *v115;
-                    v94 = COERCE_DOUBLE(vmovn_s64(v99));
+                    v105 = 0;
+                    v90 = *v116;
+                    v95 = COERCE_DOUBLE(vmovn_s64(v100));
 LABEL_54:
-                    v52 = 0;
+                    v54 = 0;
                     while (1)
                     {
-                      if (*v115 != v89)
+                      if (*v116 != v90)
                       {
                         objc_enumerationMutation(elements);
                       }
 
-                      v92 = v52;
-                      v53 = *(*(&v114 + 1) + 8 * v52);
-                      v110 = 0u;
+                      v93 = v54;
+                      v55 = *(*(&v115 + 1) + 8 * v54);
                       v111 = 0u;
                       v112 = 0u;
                       v113 = 0u;
-                      faces = [v53 faces];
-                      v54 = [faces countByEnumeratingWithState:&v110 objects:v128 count:16];
-                      if (v54)
+                      v114 = 0u;
+                      faces = [v55 faces];
+                      v56 = [faces countByEnumeratingWithState:&v111 objects:v129 count:16];
+                      if (v56)
                       {
-                        v55 = v54;
-                        v56 = 0;
-                        v57 = *v111;
+                        v57 = v56;
+                        v58 = 0;
+                        v59 = *v112;
                         do
                         {
-                          for (i = 0; i != v55; ++i)
+                          for (i = 0; i != v57; ++i)
                           {
-                            if (*v111 != v57)
+                            if (*v112 != v59)
                             {
                               objc_enumerationMutation(faces);
                             }
 
-                            v59 = *(*(&v110 + 1) + 8 * i);
-                            bytesPerRow = [v59 bytesPerRow];
-                            bytesPerImage = [v59 bytesPerImage];
+                            v61 = *(*(&v111 + 1) + 8 * i);
+                            bytesPerRow = [v61 bytesPerRow];
+                            bytesPerImage = [v61 bytesPerImage];
                             if (!bytesPerRow)
                             {
-                              bytesPerRow = [MEMORY[0x1E69DA0D8] packedMemoryLayoutForFormat:objc_msgSend(v51 dimensions:"pixelFormat"), v94];
+                              bytesPerRow = [MEMORY[0x1E69DA0D8] packedMemoryLayoutForFormat:objc_msgSend(v53 dimensions:"pixelFormat"), v95];
                             }
 
-                            cubemap = [v51 cubemap];
-                            [v59 buffer];
+                            cubemap = [v53 cubemap];
+                            [v61 buffer];
                             objc_opt_class();
                             if ((objc_opt_isKindOfClass() & 1) == 0)
                             {
@@ -1553,45 +1528,45 @@ LABEL_54:
 
                             if (!bytesPerImage)
                             {
-                              bytesPerImage = bytesPerRow * v99.i64[1];
+                              bytesPerImage = bytesPerRow * v100.i64[1];
                             }
 
-                            v63 = 6;
+                            v65 = 6;
                             if (!cubemap)
                             {
-                              v63 = 1;
+                              v65 = 1;
                             }
 
-                            v64 = v56 + v104 * v63;
-                            v65 = [objc_msgSend(v59 "buffer")];
-                            offset = [v59 offset];
-                            v108 = v99;
-                            v109 = v101;
-                            v106 = v126;
+                            v66 = v58 + v105 * v65;
+                            v67 = [objc_msgSend(v61 "buffer")];
+                            offset = [v61 offset];
+                            v109 = v100;
+                            v110 = v102;
                             v107 = v127;
-                            [blitCommandEncoder copyFromBuffer:v65 sourceOffset:offset sourceBytesPerRow:bytesPerRow sourceBytesPerImage:bytesPerImage sourceSize:&v108 toTexture:v96 destinationSlice:v64 destinationLevel:v98 destinationOrigin:&v106];
-                            ++v56;
-                            v51 = v105;
+                            v108 = v128;
+                            [blitCommandEncoder copyFromBuffer:v67 sourceOffset:offset sourceBytesPerRow:bytesPerRow sourceBytesPerImage:bytesPerImage sourceSize:&v109 toTexture:v97 destinationSlice:v66 destinationLevel:v99 destinationOrigin:&v107];
+                            ++v58;
+                            v53 = v106;
                           }
 
-                          v55 = [faces countByEnumeratingWithState:&v110 objects:v128 count:16];
+                          v57 = [faces countByEnumeratingWithState:&v111 objects:v129 count:16];
                         }
 
-                        while (v55);
+                        while (v57);
                       }
 
-                      v15 = v93;
+                      v15 = v94;
                       if (arrayLength == 1)
                       {
                         break;
                       }
 
-                      ++v104;
-                      v52 = v92 + 1;
-                      if (v92 + 1 == v88)
+                      ++v105;
+                      v54 = v93 + 1;
+                      if (v93 + 1 == v89)
                       {
-                        v88 = [elements countByEnumeratingWithState:&v114 objects:v129 count:16];
-                        if (v88)
+                        v89 = [elements countByEnumeratingWithState:&v115 objects:v130 count:16];
+                        if (v89)
                         {
                           goto LABEL_54;
                         }
@@ -1601,42 +1576,42 @@ LABEL_54:
                     }
                   }
 
-                  ++v98;
-                  v67 = vcgtq_u64(v99, vdupq_n_s64(1uLL));
-                  v99 = vsubq_s64(vandq_s8(vshrq_n_u64(v99, 1uLL), v67), vmvnq_s8(v67));
-                  v68 = v101 >> 1;
-                  if (v101 <= 1)
+                  ++v99;
+                  v69 = vcgtq_u64(v100, vdupq_n_s64(1uLL));
+                  v100 = vsubq_s64(vandq_s8(vshrq_n_u64(v100, 1uLL), v69), vmvnq_s8(v69));
+                  v70 = v102 >> 1;
+                  if (v102 <= 1)
                   {
-                    v68 = 1;
+                    v70 = 1;
                   }
 
-                  v101 = v68;
-                  v13 = v86;
-                  v48 = v85 + 1;
+                  v102 = v70;
+                  v13 = v87;
+                  v50 = v86 + 1;
                   labels = labelsCopy3;
                   options = optionsCopy;
-                  texturesCopy = v75;
-                  v10 = v76;
-                  v14 = v73;
+                  texturesCopy = v76;
+                  v10 = v77;
+                  v14 = v74;
                   self = selfCopy;
-                  v47 = v79;
+                  v49 = v80;
                 }
 
-                while (v85 + 1 != v83);
-                v69 = [obj countByEnumeratingWithState:&v118 objects:v130 count:16];
-                v47 = v79;
-                v83 = v69;
+                while (v86 + 1 != v84);
+                v71 = [obj countByEnumeratingWithState:&v119 objects:v131 count:16];
+                v49 = v80;
+                v84 = v71;
               }
 
-              while (v69);
+              while (v71);
             }
 
             if (labels)
             {
-              v70 = [labels objectAtIndexedSubscript:v14];
-              if (v70 != [MEMORY[0x1E695DFB0] null])
+              v72 = [labels objectAtIndexedSubscript:v14];
+              if (v72 != [MEMORY[0x1E695DFB0] null])
               {
-                [v96 setLabel:{objc_msgSend(labels, "objectAtIndexedSubscript:", v14)}];
+                [v97 setLabel:{objc_msgSend(labels, "objectAtIndexedSubscript:", v14)}];
               }
             }
 
@@ -1646,7 +1621,7 @@ LABEL_54:
           else
           {
             [v10 addObject:{objc_msgSend(MEMORY[0x1E695DFB0], "null")}];
-            v15 = v93;
+            v15 = v94;
           }
         }
 
@@ -1654,7 +1629,7 @@ LABEL_54:
       }
 
       while (v15 != v13);
-      v13 = [texturesCopy countByEnumeratingWithState:&v122 objects:v131 count:16];
+      v13 = [texturesCopy countByEnumeratingWithState:&v123 objects:v132 count:16];
     }
 
     while (v13);
@@ -1664,7 +1639,6 @@ LABEL_54:
   [commandBuffer commit];
   [commandBuffer waitUntilCompleted];
 
-  v71 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1703,16 +1677,15 @@ LABEL_54:
 
 - (void)newTextureWithName:(NSString *)name scaleFactor:(CGFloat)scaleFactor bundle:(NSBundle *)bundle options:(NSDictionary *)options completionHandler:(MTKTextureLoaderCallback)completionHandler
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  v15[0] = name;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __84__MTKTextureLoader_newTextureWithName_scaleFactor_bundle_options_completionHandler___block_invoke;
-  v14[3] = &unk_1E8580AE8;
-  v14[4] = completionHandler;
-  [(MTKTextureLoader *)self newTexturesWithNames:v12 scaleFactor:bundle bundle:options options:v14 completionHandler:scaleFactor];
-  v13 = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
+  v14[0] = name;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __84__MTKTextureLoader_newTextureWithName_scaleFactor_bundle_options_completionHandler___block_invoke;
+  v13[3] = &unk_1E8580AE8;
+  v13[4] = completionHandler;
+  [(MTKTextureLoader *)self newTexturesWithNames:v12 scaleFactor:bundle bundle:options options:v13 completionHandler:scaleFactor];
 }
 
 uint64_t __84__MTKTextureLoader_newTextureWithName_scaleFactor_bundle_options_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1731,16 +1704,15 @@ uint64_t __84__MTKTextureLoader_newTextureWithName_scaleFactor_bundle_options_co
 
 - (void)newTextureWithName:(NSString *)name scaleFactor:(CGFloat)scaleFactor displayGamut:(NSDisplayGamut)displayGamut bundle:(NSBundle *)bundle options:(NSDictionary *)options completionHandler:(MTKTextureLoaderCallback)completionHandler
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v17[0] = name;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __97__MTKTextureLoader_newTextureWithName_scaleFactor_displayGamut_bundle_options_completionHandler___block_invoke;
-  v16[3] = &unk_1E8580AE8;
-  v16[4] = completionHandler;
-  [(MTKTextureLoader *)self newTexturesWithNames:v14 scaleFactor:displayGamut displayGamut:bundle bundle:options options:v16 completionHandler:scaleFactor];
-  v15 = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
+  v16[0] = name;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __97__MTKTextureLoader_newTextureWithName_scaleFactor_displayGamut_bundle_options_completionHandler___block_invoke;
+  v15[3] = &unk_1E8580AE8;
+  v15[4] = completionHandler;
+  [(MTKTextureLoader *)self newTexturesWithNames:v14 scaleFactor:displayGamut displayGamut:bundle bundle:options options:v15 completionHandler:scaleFactor];
 }
 
 uint64_t __97__MTKTextureLoader_newTextureWithName_scaleFactor_displayGamut_bundle_options_completionHandler___block_invoke(uint64_t a1, void *a2)

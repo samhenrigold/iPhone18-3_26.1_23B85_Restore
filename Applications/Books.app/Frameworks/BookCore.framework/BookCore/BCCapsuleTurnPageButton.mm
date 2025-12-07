@@ -58,12 +58,24 @@
 - (NSString)accessibilityLabel
 {
   selfCopy = self;
-  [(BCCapsuleTurnPageButton *)selfCopy effectiveUserInterfaceLayoutDirection];
-  sub_1CEECC();
+  effectiveUserInterfaceLayoutDirection = [(BCCapsuleTurnPageButton *)selfCopy effectiveUserInterfaceLayoutDirection];
+  if ((effectiveUserInterfaceLayoutDirection != 0) == (*(selfCopy + OBJC_IVAR___BCCapsuleTurnPageButton_direction) == 0))
+  {
+    v4 = 0x676170207478654ELL;
+    v5 = 0xE900000000000065;
+  }
 
-  v3 = sub_1EEED4();
+  else
+  {
+    v4 = 0x73756F6976657250;
+    v5 = 0xED00006567617020;
+  }
 
-  return v3;
+  sub_1CEECC(v4, v5);
+
+  v6 = sub_1EEED4();
+
+  return v6;
 }
 
 - (void)accessibilityElementDidBecomeFocused

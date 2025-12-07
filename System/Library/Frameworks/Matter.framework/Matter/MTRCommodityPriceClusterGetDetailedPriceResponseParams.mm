@@ -55,11 +55,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:149 commandID:1 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v15)
   {
     sub_2393C5AAC(v14);
-    sub_2393C5ADC(v8, *(v15 + 1), *(v15 + 3));
+    sub_2393C5ADC(v8, *(v15 + 8), *(v15 + 24));
     v9 = sub_2393C6FD0(v14, 256);
     if (!v9)
     {
@@ -118,9 +118,9 @@ LABEL_6:
   {
     [(MTRCommodityPriceClusterGetDetailedPriceResponseParams *)self setCurrentPrice:0];
 LABEL_41:
-    v20 = 0;
-    v19 = 0;
-    v21 = 0;
+    v23 = 0;
+    v22 = 0;
+    v24 = 0;
     goto LABEL_42;
   }
 
@@ -161,7 +161,7 @@ LABEL_41:
 
   if (*(struct + 16) == 1)
   {
-    currentPrice5 = [MEMORY[0x277CCABB0] numberWithLongLong:*sub_238DE36B8(struct + 16)];
+    currentPrice5 = [MEMORY[0x277CCABB0] numberWithLongLong:{*sub_238DE36B8(struct + 16, v10)}];
     currentPrice4 = [(MTRCommodityPriceClusterGetDetailedPriceResponseParams *)self currentPrice];
     [currentPrice4 setPrice:currentPrice5];
   }
@@ -179,7 +179,7 @@ LABEL_41:
 
   if (*(struct + 32) == 1)
   {
-    currentPrice7 = [MEMORY[0x277CCABB0] numberWithShort:*sub_238E0A934(struct + 32)];
+    currentPrice7 = [MEMORY[0x277CCABB0] numberWithShort:{SLOWORD(sub_238E0A934(struct + 32, v13)->super.isa)}];
     currentPrice6 = [(MTRCommodityPriceClusterGetDetailedPriceResponseParams *)self currentPrice];
     [currentPrice6 setPriceLevel:currentPrice7];
   }
@@ -197,19 +197,19 @@ LABEL_41:
 
   if (*(struct + 40) == 1)
   {
-    v14 = sub_238DE36B8(struct + 40);
-    v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v14 length:v14[1] encoding:4];
+    v17 = sub_238DE36B8(struct + 40, v16);
+    v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v17 length:v17[1] encoding:4];
     currentPrice8 = [(MTRCommodityPriceClusterGetDetailedPriceResponseParams *)self currentPrice];
-    [currentPrice8 setDescriptionString:v15];
+    [currentPrice8 setDescriptionString:v18];
 
     currentPrice9 = [(MTRCommodityPriceClusterGetDetailedPriceResponseParams *)self currentPrice];
     descriptionString = [currentPrice9 descriptionString];
 
     if (!descriptionString)
     {
-      v19 = 0x401F00000000;
-      v20 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-      v21 = 47;
+      v22 = 0x401F00000000;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+      v24 = 47;
       goto LABEL_42;
     }
   }
@@ -241,62 +241,62 @@ LABEL_40:
     sub_238EA195C();
   }
 
-  v24 = sub_238DE36B8(struct + 64);
-  sub_2393C5AAC(v38);
-  v36 = 0;
-  v37 = 0;
-  sub_2393C5BDC(v38, v24);
-  v39 = 0;
-  v40 = 0;
-  v41[0] = 0;
-  v42[0] = 0;
-  while (sub_238EA1A80(&v36) && sub_238EA2704(&v36))
+  v28 = sub_238DE36B8(struct + 64, v26);
+  sub_2393C5AAC(v44);
+  v42 = 0;
+  v43 = 0;
+  sub_2393C5BDC(v44, v28);
+  v45 = 0;
+  v46 = 0;
+  v47[0] = 0;
+  v48[0] = 0;
+  while (sub_238EA1A80(&v42) && sub_238EA2704(&v42))
   {
-    v25 = objc_opt_new();
-    v26 = [MEMORY[0x277CCABB0] numberWithLongLong:v39];
-    [v25 setPrice:v26];
+    v29 = objc_opt_new();
+    v30 = [MEMORY[0x277CCABB0] numberWithLongLong:v45];
+    [v29 setPrice:v30];
 
-    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v40];
-    [v25 setSource:v27];
+    v31 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v46];
+    [v29 setSource:v31];
 
-    if (v41[0] == 1)
+    if (v47[0] == 1)
     {
-      v28 = sub_238DE36B8(v41);
-      v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v28 length:v28[1] encoding:4];
-      [v25 setDescriptionString:v29];
+      v33 = sub_238DE36B8(v47, v32);
+      v34 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v33 length:v33[1] encoding:4];
+      [v29 setDescriptionString:v34];
 
-      descriptionString2 = [v25 descriptionString];
+      descriptionString2 = [v29 descriptionString];
 
       if (!descriptionString2)
       {
 
-        v19 = 0x403200000000;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-        v35 = 47;
+        v22 = 0x403200000000;
+        v23 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+        v41 = 47;
         goto LABEL_43;
       }
     }
 
     else
     {
-      [v25 setDescriptionString:0];
+      [v29 setDescriptionString:0];
     }
 
-    if (v42[0] == 1)
+    if (v48[0] == 1)
     {
-      v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(v42)];
-      [v25 setTariffComponentID:v31];
+      v37 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(v48, v36)}];
+      [v29 setTariffComponentID:v37];
     }
 
     else
     {
-      [v25 setTariffComponentID:0];
+      [v29 setTariffComponentID:0];
     }
 
-    [currentPrice11 addObject:v25];
+    [currentPrice11 addObject:v29];
   }
 
-  if (v36 == 33 || (v35 = v36) == 0)
+  if (v42 == 33 || (v41 = v42) == 0)
   {
     currentPrice12 = [(MTRCommodityPriceClusterGetDetailedPriceResponseParams *)self currentPrice];
     [currentPrice12 setComponents:currentPrice11];
@@ -304,17 +304,17 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  v20 = v37;
-  v19 = v36 & 0xFFFFFFFF00000000;
+  v23 = v43;
+  v22 = v42 & 0xFFFFFFFF00000000;
 LABEL_43:
 
-  v21 = v35;
+  v24 = v41;
 LABEL_42:
-  v33 = v21 | v19;
-  v34 = v20;
-  result.mFile = v34;
-  result.mError = v33;
-  result.mLine = HIDWORD(v33);
+  v39 = v24 | v22;
+  v40 = v23;
+  result.mFile = v40;
+  result.mError = v39;
+  result.mLine = HIDWORD(v39);
   return result;
 }
 

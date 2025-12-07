@@ -4,6 +4,8 @@
 - (_TtC9VisionKit37ImageAnalysisInteractionDelegateProxy)init;
 - (id)contentViewForImageAnalysisInteraction:(id)interaction;
 - (id)presentingViewControllerForImageAnalysisInteraction:(id)interaction;
+- (void)imageAnalysisInteraction:(id)interaction highlightSelectedItemsValueDidChange:(BOOL)change;
+- (void)imageAnalysisInteraction:(id)interaction liveTextButtonDidChangeToVisible:(BOOL)visible;
 - (void)textSelectionDidChangeForImageAnalysisInteraction:(id)interaction;
 @end
 
@@ -80,6 +82,52 @@ LABEL_6:
   v6 = sub_23B2D8B4C();
 
   return v6;
+}
+
+- (void)imageAnalysisInteraction:(id)interaction liveTextButtonDidChangeToVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v7 = Strong;
+    v8 = Strong + OBJC_IVAR____TtC9VisionKit24ImageAnalysisInteraction_delegate;
+    swift_beginAccess();
+    if (swift_unknownObjectWeakLoadStrong())
+    {
+      v9 = *(v8 + 8);
+      ObjectType = swift_getObjectType();
+      v11 = *(v9 + 40);
+      selfCopy = self;
+      v11(v7, visibleCopy, ObjectType, v9);
+
+      swift_unknownObjectRelease();
+      v7 = selfCopy;
+    }
+  }
+}
+
+- (void)imageAnalysisInteraction:(id)interaction highlightSelectedItemsValueDidChange:(BOOL)change
+{
+  changeCopy = change;
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v7 = Strong;
+    v8 = Strong + OBJC_IVAR____TtC9VisionKit24ImageAnalysisInteraction_delegate;
+    swift_beginAccess();
+    if (swift_unknownObjectWeakLoadStrong())
+    {
+      v9 = *(v8 + 8);
+      ObjectType = swift_getObjectType();
+      v11 = *(v9 + 48);
+      selfCopy = self;
+      v11(v7, changeCopy, ObjectType, v9);
+
+      swift_unknownObjectRelease();
+      v7 = selfCopy;
+    }
+  }
 }
 
 - (void)textSelectionDidChangeForImageAnalysisInteraction:(id)interaction

@@ -176,7 +176,7 @@
 
 - ($2772B1D07D29A72E8557B2574C0AE5C1)hashStableWithFunction:(SEL)function
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   bzero(data, 0x10uLL);
   data[0] = [(NSString *)self->_private.name hash];
   data[1] = [(NSString *)self->_private.specializedName hash];
@@ -185,13 +185,13 @@
   constantValues = self->_private.constantValues;
   if (constantValues)
   {
-    *&v21[0] = 0;
-    v18 = 0;
-    v8 = [(MTLFunctionConstantValues *)constantValues serializedConstantDataForFunction:a4 dataSize:v21 errorMessage:&v18];
+    *&v20[0] = 0;
+    v17 = 0;
+    v8 = [(MTLFunctionConstantValues *)constantValues serializedConstantDataForFunction:a4 dataSize:v20 errorMessage:&v17];
     if (v8)
     {
       v9 = v8;
-      CC_SHA256_Update(&c, v8, v21[0]);
+      CC_SHA256_Update(&c, v8, v20[0]);
       free(v9);
     }
 
@@ -207,8 +207,8 @@
     CC_SHA256_Update(&c, "privateFunctions", 0x10u);
     v11 = [-[NSArray objectAtIndexedSubscript:](privateFunctions objectAtIndexedSubscript:{0), "bitCodeHash"}];
     v12 = v11[1];
-    v21[0] = *v11;
-    v21[1] = v12;
+    v20[0] = *v11;
+    v20[1] = v12;
     if ([(NSArray *)privateFunctions count]>= 2)
     {
       v13 = 1;
@@ -217,7 +217,7 @@
         v14 = [-[NSArray objectAtIndexedSubscript:](privateFunctions objectAtIndexedSubscript:{v13), "bitCodeHash"}];
         for (i = 0; i != 32; i += 8)
         {
-          *(v21 + i) ^= *(v14 + i);
+          *(v20 + i) ^= *(v14 + i);
         }
 
         v13 = (v13 + 1);
@@ -226,12 +226,10 @@
       while ([(NSArray *)privateFunctions count]> v13);
     }
 
-    CC_SHA256_Update(&c, v21, 0x20u);
+    CC_SHA256_Update(&c, v20, 0x20u);
   }
 
-  result = CC_SHA256_Final(retstr->var0, &c);
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return CC_SHA256_Final(retstr->var0, &c);
 }
 
 - (BOOL)isEqual:(id)equal
@@ -288,14 +286,14 @@ LABEL_3:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v16[18] = *MEMORY[0x1E69E9840];
+  v15[18] = *MEMORY[0x1E69E9840];
   v4 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v5 = MEMORY[0x1E696AEC0];
-  v15.receiver = self;
-  v15.super_class = MTLFunctionDescriptor;
-  v6 = [(MTLFunctionDescriptor *)&v15 description];
-  v16[0] = v4;
-  v16[1] = @"name =";
+  v14.receiver = self;
+  v14.super_class = MTLFunctionDescriptor;
+  v6 = [(MTLFunctionDescriptor *)&v14 description];
+  v15[0] = v4;
+  v15[1] = @"name =";
   name = self->_private.name;
   specializedName = self->_private.specializedName;
   if (!name)
@@ -303,8 +301,8 @@ LABEL_3:
     name = @"<none>";
   }
 
-  v16[2] = name;
-  v16[3] = v4;
+  v15[2] = name;
+  v15[3] = v4;
   if (specializedName)
   {
     v9 = specializedName;
@@ -315,41 +313,39 @@ LABEL_3:
     v9 = @"<none>";
   }
 
-  v16[4] = @"specializedName =";
-  v16[5] = v9;
-  v16[6] = v4;
-  v16[7] = @"constantValues =";
+  v15[4] = @"specializedName =";
+  v15[5] = v9;
+  v15[6] = v4;
+  v15[7] = @"constantValues =";
   constantValues = self->_private.constantValues;
   if (!constantValues)
   {
     constantValues = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[8] = constantValues;
-  v16[9] = v4;
-  v16[10] = @"options =";
-  v16[11] = [MEMORY[0x1E696AD98] numberWithInteger:self->_private.options];
-  v16[12] = v4;
-  v16[13] = @"binaryArchives =";
+  v15[8] = constantValues;
+  v15[9] = v4;
+  v15[10] = @"options =";
+  v15[11] = [MEMORY[0x1E696AD98] numberWithInteger:self->_private.options];
+  v15[12] = v4;
+  v15[13] = @"binaryArchives =";
   binaryArchives = self->_private.binaryArchives;
   if (!binaryArchives)
   {
     binaryArchives = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[14] = binaryArchives;
-  v16[15] = v4;
-  v16[16] = @"privateFunctions =";
+  v15[14] = binaryArchives;
+  v15[15] = v4;
+  v15[16] = @"privateFunctions =";
   privateFunctions = self->_private.privateFunctions;
   if (!privateFunctions)
   {
     privateFunctions = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[17] = privateFunctions;
-  result = [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v16, 18), "componentsJoinedByString:", @" "];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  v15[17] = privateFunctions;
+  return [v5 stringWithFormat:@"%@%@", v6, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 18), "componentsJoinedByString:", @" "];
 }
 
 - (void)setPluginData:(id)data

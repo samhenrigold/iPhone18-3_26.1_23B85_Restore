@@ -616,28 +616,24 @@ LABEL_33:
       else
       {
         *buf = 0;
-        pc_session = self->_pc_session;
         pc_session_get_value();
-        v9 = self->_pc_session;
         pc_session_get_value();
-        v10 = self->_pc_session;
         pc_session_get_value();
-        v18[0] = @"processMemoryPeakKiloBytesInitial";
-        v11 = [NSNumber numberWithDouble:self->_initialProcessMemoryPeak];
-        v19[0] = v11;
-        v18[1] = @"processMemoryPeakKiloBytesAfterRequest";
-        v12 = [NSNumber numberWithDouble:0.0];
-        v19[1] = v12;
-        v18[2] = @"cpuTimeMilliSeconds";
-        v13 = [NSNumber numberWithDouble:0.0 / 1000000.0];
-        v19[2] = v13;
-        v18[3] = @"cpuMillionInstructions";
-        v14 = [NSNumber numberWithDouble:0.0 / 1000000.0];
-        v19[3] = v14;
-        v4 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:4];
+        v14[0] = @"processMemoryPeakKiloBytesInitial";
+        v8 = [NSNumber numberWithDouble:self->_initialProcessMemoryPeak];
+        v15[0] = v8;
+        v14[1] = @"processMemoryPeakKiloBytesAfterRequest";
+        v9 = [NSNumber numberWithDouble:0.0];
+        v15[1] = v9;
+        v14[2] = @"cpuTimeMilliSeconds";
+        v10 = [NSNumber numberWithDouble:0.0 / 1000000.0];
+        v15[2] = v10;
+        v14[3] = @"cpuMillionInstructions";
+        v11 = [NSNumber numberWithDouble:0.0 / 1000000.0];
+        v15[3] = v11;
+        v4 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:4];
       }
 
-      v15 = self->_pc_session;
       pc_session_destroy();
       self->_pc_session = 0;
     }
@@ -1247,9 +1243,7 @@ LABEL_12:
   if ([(MediaConversionRequestTracker *)self shouldDump])
   {
     setenv("CI_PRINT_TREE", "4 pdf", 1);
-    graphDumpURLsForCurrentProcessIdentifier = [(MediaConversionRequestTracker *)self graphDumpURLsForCurrentProcessIdentifier];
-    coreImageGraphDumpURLsAtStart = self->_coreImageGraphDumpURLsAtStart;
-    self->_coreImageGraphDumpURLsAtStart = graphDumpURLsForCurrentProcessIdentifier;
+    self->_coreImageGraphDumpURLsAtStart = [(MediaConversionRequestTracker *)self graphDumpURLsForCurrentProcessIdentifier];
 
     _objc_release_x1();
   }
@@ -1263,27 +1257,23 @@ LABEL_12:
   {
     getpid();
     pc_session_set_procpid();
-    pc_session = self->_pc_session;
-    v5 = pc_session_begin();
-    if (v5)
+    v4 = pc_session_begin();
+    if (v4)
     {
-      v6 = v5;
+      v5 = v4;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        *&buf[4] = strerror(v6);
+        *&buf[4] = strerror(v5);
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Unable to begin performance check session: %s", buf, 0xCu);
       }
 
-      v7 = self->_pc_session;
       pc_session_destroy();
       self->_pc_session = 0;
     }
 
     else
     {
-      *buf = 0;
-      v8 = self->_pc_session;
       pc_session_get_value();
     }
   }

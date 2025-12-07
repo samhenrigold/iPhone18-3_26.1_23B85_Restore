@@ -216,7 +216,7 @@
   }
 
   memset(v146, 0, 48);
-  [(NUCopyKernel *)self sourceRegion];
+  objc_msgSend_sourceRegion(self);
   v13 = *v146;
   v12 = *&v146[8];
   v14 = *&v146[16];
@@ -275,7 +275,7 @@ LABEL_26:
   }
 
   memset(buf, 0, sizeof(buf));
-  [(NUCopyKernel *)self destinationOffset];
+  objc_msgSend_destinationOffset(self);
   *&buf[24] = *&v146[24];
   v18 = *&v146[40];
   *&buf[40] = *&v146[40];

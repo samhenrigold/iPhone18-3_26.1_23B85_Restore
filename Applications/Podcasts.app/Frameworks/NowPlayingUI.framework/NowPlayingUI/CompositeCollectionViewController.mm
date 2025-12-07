@@ -25,13 +25,13 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_AB60();
+  sub_AB60(selfCopy, v2);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_D53C();
+  sub_D53C(selfCopy, v2);
 }
 
 - (void)willTransitionToTraitCollection:(id)collection withTransitionCoordinator:(id)coordinator
@@ -67,15 +67,15 @@
   v6 = sub_140C2C();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_140BAC();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_105F4(v9);
+  v13 = sub_105F4(v9, v12);
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (id)collectionView:(id)view viewForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path
@@ -100,18 +100,18 @@
 {
   v7 = sub_140C2C();
   v8 = *(v7 - 8);
-  v9 = __chkstk_darwin(v7);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
   v13 = &v17 - v12;
   sub_140BAC();
   sub_140BAC();
   viewCopy = view;
   selfCopy = self;
-  sub_11888(v13, v11);
+  sub_11888(v13, v10);
 
   v16 = *(v8 + 8);
-  v16(v11, v7);
+  v16(v10, v7);
   v16(v13, v7);
 }
 
@@ -119,21 +119,21 @@
 {
   v7 = sub_140C2C();
   v8 = *(v7 - 8);
-  v9 = __chkstk_darwin(v7);
-  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __chkstk_darwin(v9);
-  v14 = &v22 - v13;
-  __chkstk_darwin(v12);
+  __chkstk_darwin(v7);
+  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v13 = &v22 - v12;
+  __chkstk_darwin(v14);
   v16 = &v22 - v15;
   sub_140BAC();
   sub_140BAC();
   viewCopy = view;
   selfCopy = self;
-  sub_EBAC(viewCopy, v14, v11, v16);
+  sub_EBAC(viewCopy, v13, v10, v16);
 
   v19 = *(v8 + 8);
-  v19(v11, v7);
-  v19(v14, v7);
+  v19(v10, v7);
+  v19(v13, v7);
   v20.super.isa = sub_140B9C().super.isa;
   v19(v16, v7);
 

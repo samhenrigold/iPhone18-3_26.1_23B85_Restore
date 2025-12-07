@@ -1,10 +1,21 @@
 @interface TickerCollectionView
+- (_TtC8StocksUI20TickerCollectionView)initWithFrame:(CGRect)frame collectionViewLayout:(id)layout;
 - (void)autoScrollWithDisplayWithDisplayLink:(id)link;
 - (void)handleAccessibilitySettingsChangedWithNotification:(id)notification;
 - (void)layoutSubviews;
 @end
 
 @implementation TickerCollectionView
+
+- (_TtC8StocksUI20TickerCollectionView)initWithFrame:(CGRect)frame collectionViewLayout:(id)layout
+{
+  height = frame.size.height;
+  width = frame.size.width;
+  y = frame.origin.y;
+  x = frame.origin.x;
+  layoutCopy = layout;
+  return sub_2204DEDE0(layoutCopy, v9, x, y, width, height);
+}
 
 - (void)layoutSubviews
 {

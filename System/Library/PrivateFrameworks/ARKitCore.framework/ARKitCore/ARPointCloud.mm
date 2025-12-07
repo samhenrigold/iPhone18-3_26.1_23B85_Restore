@@ -18,9 +18,9 @@
 - (id)description;
 - (id)filterPointCloudFrom:(ARPointCloud *)self ellipsoid:(SEL)ellipsoid;
 - (id)filterPointCloudWithIdentifiers:(set<unsigned long)long;
-- (id)initWithPointsVector:(__int128 *)vector identifiersVector:(uint64_t)identifiersVector;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
+- (void)initWithPointsVector:(__int128 *)vector identifiersVector:(uint64_t)identifiersVector;
 @end
 
 @implementation ARPointCloud
@@ -250,12 +250,11 @@
   return v25;
 }
 
-- (id)initWithPointsVector:(__int128 *)vector identifiersVector:(uint64_t)identifiersVector
+- (void)initWithPointsVector:(__int128 *)vector identifiersVector:(uint64_t)identifiersVector
 {
   v11 = *vector;
   v12 = *(vector + 2);
-  *(vector + 1) = 0;
-  *(vector + 2) = 0;
+  *(vector + 8) = 0uLL;
   *vector = 0;
   *v9 = *identifiersVector;
   v10 = *(identifiersVector + 16);
@@ -643,7 +642,7 @@
             HIDWORD(v13) = v14;
             v42[0] = *(identifiers + 8 * v10);
             v43 = v13;
-            _ZNSt3__16__treeINS_12__value_typeIyDv4_fEENS_19__map_value_compareIyS3_NS_4lessIyEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIyJNS_4pairIyS2_EEEEENSC_INS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(&v48, v42);
+            _ZNSt3__16__treeINS_12__value_typeIyDv4_fEENS_19__map_value_compareIyS3_NS_4lessIyEELb1EEENS_9allocatorIS3_EEE25__emplace_unique_key_argsIyJNS_4pairIyS2_EEEEENSC_INS_15__tree_iteratorIS3_PNS_11__tree_nodeIS3_PvEElEEbEERKT_DpOT0_(&v48, v42, v42);
             ++v10;
           }
         }
@@ -948,11 +947,11 @@ LABEL_14:
   v20 = 0;
   v21 = 0;
   v19 = 0;
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v19, self[4], self[5], (self[5] - self[4]) >> 3);
+  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(&v19, *(self + 32), *(self + 40), (*(self + 40) - *(self + 32)) >> 3);
   __p = 0;
   v17 = 0;
   v18 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, self[7], self[8], (self[8] - self[7]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *(self + 56), *(self + 64), (*(self + 64) - *(self + 56)) >> 2);
   v10 = [(ARPointCloud *)v9 initWithPointsVector:&v22 identifiersVector:&v19 vergenceAngleCosinesVector:&__p];
   if (__p)
   {

@@ -666,7 +666,6 @@ LABEL_21:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x200) == 0)
@@ -686,7 +685,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  phyCellId = self->_phyCellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -701,7 +699,6 @@ LABEL_4:
   }
 
 LABEL_32:
-  dlFreq = self->_dlFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -716,7 +713,6 @@ LABEL_5:
   }
 
 LABEL_33:
-  ulFreq = self->_ulFreq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -731,7 +727,6 @@ LABEL_6:
   }
 
 LABEL_34:
-  dlBw = self->_dlBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -746,7 +741,6 @@ LABEL_7:
   }
 
 LABEL_35:
-  ulBw = self->_ulBw;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -761,7 +755,6 @@ LABEL_8:
   }
 
 LABEL_36:
-  cellId = self->_cellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -776,7 +769,6 @@ LABEL_9:
   }
 
 LABEL_37:
-  freqBandInd = self->_freqBandInd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -791,7 +783,6 @@ LABEL_10:
   }
 
 LABEL_38:
-  trackingAreaCode = self->_trackingAreaCode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -806,7 +797,6 @@ LABEL_11:
   }
 
 LABEL_39:
-  numMncDigits = self->_numMncDigits;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -821,7 +811,6 @@ LABEL_12:
   }
 
 LABEL_40:
-  selPlmnMcc = self->_selPlmnMcc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -836,7 +825,6 @@ LABEL_13:
   }
 
 LABEL_41:
-  selPlmnMnc = self->_selPlmnMnc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -851,7 +839,6 @@ LABEL_14:
   }
 
 LABEL_42:
-  allowedAccess = self->_allowedAccess;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -866,7 +853,6 @@ LABEL_15:
   }
 
 LABEL_43:
-  tddSfAssignment = self->_tddSfAssignment;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -881,7 +867,6 @@ LABEL_16:
   }
 
 LABEL_44:
-  tddSsfPatterns = self->_tddSsfPatterns;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -896,7 +881,6 @@ LABEL_17:
   }
 
 LABEL_45:
-  cellIsApo = self->_cellIsApo;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -911,7 +895,6 @@ LABEL_18:
   }
 
 LABEL_46:
-  hstCellInfo = self->_hstCellInfo;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -926,12 +909,10 @@ LABEL_19:
   }
 
 LABEL_47:
-  prioOfCampedLteBand = self->_prioOfCampedLteBand;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_20:
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -941,17 +922,15 @@ LABEL_21:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 0x4000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((*&v6 & 0x800) != 0)
+  if ((*&v5 & 0x800) != 0)
   {
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -1764,7 +1743,6 @@ LABEL_21:
       goto LABEL_113;
     }
 
-    v7 = *(equalCopy + 104);
     if (self->_cellIsApo)
     {
       if ((*(equalCopy + 104) & 1) == 0)
@@ -1833,43 +1811,43 @@ LABEL_21:
     }
 
 LABEL_113:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_114;
   }
 
 LABEL_103:
-  v9 = *(equalCopy + 27);
+  v8 = *(equalCopy + 27);
   if ((*&has & 0x4000) != 0)
   {
-    if ((v9 & 0x4000) == 0 || self->_subsId != *(equalCopy + 20))
+    if ((v8 & 0x4000) == 0 || self->_subsId != *(equalCopy + 20))
     {
       goto LABEL_113;
     }
   }
 
-  else if ((v9 & 0x4000) != 0)
+  else if ((v8 & 0x4000) != 0)
   {
     goto LABEL_113;
   }
 
   if ((*&has & 0x800) != 0)
   {
-    if ((v9 & 0x800) == 0 || self->_psPref != *(equalCopy + 14))
+    if ((v8 & 0x800) == 0 || self->_psPref != *(equalCopy + 14))
     {
       goto LABEL_113;
     }
 
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v10 = (*(equalCopy + 27) & 0x800) == 0;
+    v9 = (*(equalCopy + 27) & 0x800) == 0;
   }
 
 LABEL_114:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

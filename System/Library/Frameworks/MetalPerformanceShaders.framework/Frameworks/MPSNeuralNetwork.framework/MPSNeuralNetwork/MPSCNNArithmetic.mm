@@ -25,11 +25,11 @@
   {
     v5 = MTLReportFailureTypeEnabled();
     xCopy2 = x;
-    v7 = v5;
+    v11 = v5;
     selfCopy2 = self;
-    if (v7)
+    if (v11)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0xB3, @"Error: The only valid values for primaryStrideInPixelsX (%lu) are 0 or 1.\n", v6, v7, v8, v9);
       selfCopy2 = self;
       xCopy2 = x;
     }
@@ -49,11 +49,11 @@
   {
     v5 = MTLReportFailureTypeEnabled();
     yCopy2 = y;
-    v7 = v5;
+    v11 = v5;
     selfCopy2 = self;
-    if (v7)
+    if (v11)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0xBA, @"Error: The only valid values for primaryStrideInPixelsY (%lu) are 0 or 1.\n", v6, v7, v8, v9);
       selfCopy2 = self;
       yCopy2 = y;
     }
@@ -72,17 +72,17 @@
   if (primaryStrideInFeatureChannels >= 2)
   {
     v5 = MTLReportFailureTypeEnabled();
-    v6 = primaryStrideInFeatureChannels;
-    v7 = v5;
+    v10 = primaryStrideInFeatureChannels;
+    v11 = v5;
     selfCopy2 = self;
-    if (v7)
+    if (v11)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0xC1, @"Error: The only valid values for primaryStrideInFeatureChannels (%lu) are 0 or 1.\n", v6, v7, v8, v9);
       selfCopy2 = self;
-      v6 = primaryStrideInFeatureChannels;
+      v10 = primaryStrideInFeatureChannels;
     }
 
-    selfCopy2->_primaryStrideInFeatureChannels = v6;
+    selfCopy2->_primaryStrideInFeatureChannels = v10;
   }
 
   else
@@ -97,11 +97,11 @@
   {
     v5 = MTLReportFailureTypeEnabled();
     xCopy2 = x;
-    v7 = v5;
+    v11 = v5;
     selfCopy2 = self;
-    if (v7)
+    if (v11)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0xC9, @"Error: The only valid values for secondaryStrideInPixelsX (%lu) are 0 or 1.\n", v6, v7, v8, v9);
       selfCopy2 = self;
       xCopy2 = x;
     }
@@ -121,11 +121,11 @@
   {
     v5 = MTLReportFailureTypeEnabled();
     yCopy2 = y;
-    v7 = v5;
+    v11 = v5;
     selfCopy2 = self;
-    if (v7)
+    if (v11)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0xD0, @"Error: The only valid values for secondaryStrideInPixelsY (%lu) are 0 or 1.\n", v6, v7, v8, v9);
       selfCopy2 = self;
       yCopy2 = y;
     }
@@ -144,17 +144,17 @@
   if (secondaryStrideInFeatureChannels >= 2)
   {
     v5 = MTLReportFailureTypeEnabled();
-    v6 = secondaryStrideInFeatureChannels;
-    v7 = v5;
+    v10 = secondaryStrideInFeatureChannels;
+    v11 = v5;
     selfCopy2 = self;
-    if (v7)
+    if (v11)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0xD7, @"Error: The only valid values for secondaryStrideInFeatureChannels (%lu) are 0 or 1.\n", v6, v7, v8, v9);
       selfCopy2 = self;
-      v6 = secondaryStrideInFeatureChannels;
+      v10 = secondaryStrideInFeatureChannels;
     }
 
-    selfCopy2->_secondaryStrideInFeatureChannels = v6;
+    selfCopy2->_secondaryStrideInFeatureChannels = v10;
   }
 
   else
@@ -167,7 +167,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0xE1, @"Cannot directly initialize MPSCNNArithmetic. Use one of the sub-classes of MPSCNNArithmetic.\n", v3, v4, v5, v6);
   }
 
   return 0;
@@ -175,9 +175,9 @@
 
 - (MPSCNNArithmetic)initWithDevice:(id)device arithmeticType:(int)type
 {
-  v7.receiver = self;
-  v7.super_class = MPSCNNArithmetic;
-  result = [(MPSCNNBinaryKernel *)&v7 initWithDevice:device];
+  v11.receiver = self;
+  v11.super_class = MPSCNNArithmetic;
+  result = [(MPSCNNBinaryKernel *)&v11 initWithDevice:device];
   if (result)
   {
     result->_primaryScale = 1.0;
@@ -192,7 +192,7 @@
       v6 = result;
       if (MTLReportFailureTypeEnabled())
       {
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0xF6, @"invalid arithmetic operator type (%u)", v7, v8, v9, v10);
       }
 
       return 0;
@@ -214,9 +214,9 @@
 
 - (MPSCNNArithmetic)initWithCoder:(id)coder device:(id)device
 {
-  v62.receiver = self;
-  v62.super_class = MPSCNNArithmetic;
-  v5 = [(MPSCNNBinaryKernel *)&v62 initWithCoder:coder device:device];
+  v66.receiver = self;
+  v66.super_class = MPSCNNArithmetic;
+  v5 = [(MPSCNNBinaryKernel *)&v66 initWithCoder:coder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -249,7 +249,7 @@
   {
     v61 = objc_opt_class();
     NSStringFromClass(v61);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x117, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v62, v63, v64, v65);
   }
 
   return 0;
@@ -314,11 +314,11 @@
   if (states && (*(&self->super.super.super.isa + *MEMORY[0x277CD7378]) & 1) == 0 && MTLReportFailureTypeEnabled())
   {
     v105 = objc_opt_class();
-    v106 = NSStringFromClass(v105);
-    MTLReportFailure();
+    v110 = NSStringFromClass(v105);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x180, @"[%@ resultStatesForSourceImage...] sourceStates must be nil for this filter]", v106, v107, v108, v109);
   }
 
-  v13 = objc_msgSend_width(destinationImage, a2, image, secondaryImage, states, destinationImage, buffer, temporary, v106);
+  v13 = objc_msgSend_width(destinationImage, a2, image, secondaryImage, states, destinationImage, buffer, temporary, v110);
   v21 = objc_msgSend_height(destinationImage, v14, v15, v16, v17, v18, v19, v20);
   v36 = objc_msgSend_featureChannels(destinationImage, v22, v23, v24, v25, v26, v27, v28) + 3;
   v37 = v36 >> 2;
@@ -378,9 +378,9 @@
   if (v90)
   {
 LABEL_18:
-    v109.receiver = self;
-    v109.super_class = MPSCNNArithmetic;
-    [(MPSCNNBinaryKernel *)&v109 copyToBinaryGradientState:v90 primaryImage:image secondaryImage:secondaryImage sourceStates:states destinationImage:destinationImage];
+    v113.receiver = self;
+    v113.super_class = MPSCNNArithmetic;
+    [(MPSCNNBinaryKernel *)&v113 copyToBinaryGradientState:v90 primaryImage:image secondaryImage:secondaryImage sourceStates:states destinationImage:destinationImage];
     v90[53] = objc_msgSend_pixelFormat(v40, v97, v98, v99, v100, v101, v102, v103);
     v90[54] = v13;
     v90[55] = v21;
@@ -398,11 +398,11 @@ LABEL_18:
   if ((*(&self->super.super.super.isa + *MEMORY[0x277CD7378]) & 1) == 0 && v12 <= 1 && MTLReportFailureTypeEnabled())
   {
     v86 = objc_opt_class();
-    v87 = NSStringFromClass(v86);
-    MTLReportFailure();
+    v91 = NSStringFromClass(v86);
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x1E9, @"Error: [%@ destinationImageDescriptorForSourceImages:sourceStates:updateOffset:] called with less than two source images.", v87, v88, v89, v90);
   }
 
-  v19 = objc_msgSend_objectAtIndexedSubscript_(images, v13, 0, v14, v15, v16, v17, v18, v87);
+  v19 = objc_msgSend_objectAtIndexedSubscript_(images, v13, 0, v14, v15, v16, v17, v18, v91);
   v26 = objc_msgSend_objectAtIndexedSubscript_(images, v20, 1, v21, v22, v23, v24, v25);
   v33 = objc_msgSend_objectAtIndexedSubscript_(images, v27, 0, v28, v29, v30, v31, v32);
   v41 = objc_msgSend_primarySourceFeatureChannelOffset(self, v34, v35, v36, v37, v38, v39, v40);
@@ -479,9 +479,9 @@ LABEL_18:
     self->super._secondaryStrideInPixelsY = 0;
   }
 
-  v91.receiver = self;
-  v91.super_class = MPSCNNArithmetic;
-  return [(MPSCNNBinaryKernel *)&v91 destinationImageDescriptorForSourceImages:images sourceStates:states paddingMethod:method primaryOffset:offset secondaryOffset:secondaryOffset kernelOffset:kernelOffset];
+  v95.receiver = self;
+  v95.super_class = MPSCNNArithmetic;
+  return [(MPSCNNBinaryKernel *)&v95 destinationImageDescriptorForSourceImages:images sourceStates:states paddingMethod:method primaryOffset:offset secondaryOffset:secondaryOffset kernelOffset:kernelOffset];
 }
 
 - (void)encodeToCommandBuffer:(id)commandBuffer primaryImage:(MPSImage *)primaryImage secondaryImage:(MPSImage *)secondaryImage destinationState:(MPSCNNArithmeticGradientState *)destinationState destinationImage:(MPSImage *)destinationImage
@@ -498,7 +498,7 @@ LABEL_18:
       v16 = objc_opt_class();
       NSStringFromClass(v16);
       NSStringFromSelector(a2);
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x21B, @"[%@ %@] Error: destination state may not be nil", v17, v18, v19, v20);
     }
 
     objc_opt_class();
@@ -512,19 +512,19 @@ LABEL_18:
     self = selfCopy;
     if ((isKindOfClass & 1) == 0)
     {
-      v17 = MTLReportFailureTypeEnabled();
+      v21 = MTLReportFailureTypeEnabled();
       commandBuffer = v11;
       primaryImage = v12;
       secondaryImage = v13;
       destinationImage = v14;
-      v18 = v17;
+      v22 = v21;
       self = selfCopy;
-      if (v18)
+      if (v22)
       {
-        v19 = objc_opt_class();
-        NSStringFromClass(v19);
+        v23 = objc_opt_class();
+        NSStringFromClass(v23);
         NSStringFromSelector(a2);
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x21F, @"[%@ %@] Error: destination state must be a MPSCNNArithmeticGradientState", v24, v25, v26, v27);
         self = selfCopy;
         commandBuffer = v11;
         primaryImage = v12;
@@ -549,12 +549,12 @@ LABEL_18:
     if (!destinationStates && MTLReportFailureTypeEnabled())
     {
       v22 = objc_opt_class();
-      v26 = NSStringFromClass(v22);
-      v27 = NSStringFromSelector(a2);
-      MTLReportFailure();
+      v34 = NSStringFromClass(v22);
+      v35 = NSStringFromSelector(a2);
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x233, @"[%@ %@] Error: destination state may not be nil", v23, v24, v25, v26);
     }
 
-    objc_msgSend_objectAtIndexedSubscript_(destinationStates, a2, 0, primaryImages, secondaryImages, destinationStates, destinationImages, v7, v26, v27);
+    objc_msgSend_objectAtIndexedSubscript_(destinationStates, a2, 0, primaryImages, secondaryImages, destinationStates, destinationImages, v7, v34, v35);
     objc_opt_class();
     objc_opt_isKindOfClass();
     objc_msgSend_objectAtIndexedSubscript_(destinationStates, v15, 0, v16, v17, v18, v19, v20);
@@ -567,19 +567,19 @@ LABEL_18:
     self = selfCopy;
     if ((isKindOfClass & 1) == 0)
     {
-      v23 = MTLReportFailureTypeEnabled();
+      v27 = MTLReportFailureTypeEnabled();
       commandBuffer = v11;
       primaryImages = v12;
       secondaryImages = v13;
       destinationImages = v14;
-      v24 = v23;
+      v28 = v27;
       self = selfCopy;
-      if (v24)
+      if (v28)
       {
-        v25 = objc_opt_class();
-        NSStringFromClass(v25);
+        v29 = objc_opt_class();
+        NSStringFromClass(v29);
         NSStringFromSelector(a2);
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNArithmetic.mm", 0x237, @"[%@ %@] Error: destination state must be a MPSCNNArithmeticGradientState", v30, v31, v32, v33);
         self = selfCopy;
         commandBuffer = v11;
         primaryImages = v12;

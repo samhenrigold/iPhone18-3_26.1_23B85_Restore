@@ -390,24 +390,24 @@ LABEL_32:
   layoutCopy = layout;
   height = size.height;
   width = size.width;
-  v27 = 0;
-  v28 = 0.0;
+  v28 = 0;
+  v29 = 0.0;
   v8 = computeMultipleImageLayoutForImages(self->_images);
   if ([(NSArray *)self->_images count])
   {
     v9 = 0;
     do
     {
-      v10 = [(NSArray *)self->_images objectAtIndexedSubscript:v9, *&v25, v26];
+      v10 = [(NSArray *)self->_images objectAtIndexedSubscript:v9, *&v26, v27];
       v11 = [(NSMutableArray *)self->_imageViews objectAtIndexedSubscript:v9];
       [(LPMultipleImageView *)self _availableSizeForImageNumber:v9 withLayout:v8 withinSize:layoutCopy applyingLayout:width, height];
       v14 = v12;
-      v25 = 0.0;
-      v26 = 0;
+      v26 = 0.0;
+      v27 = 0;
       if (layoutCopy)
       {
-        v25 = v12;
-        v26 = v13;
+        v26 = v12;
+        v27 = v13;
       }
 
       else
@@ -415,22 +415,22 @@ LABEL_32:
         if (v8 == 1)
         {
           platformImage = [v10 platformImage];
-          [platformImage _lp_pixelSize];
-          sizeFittingInsideSizeMaintainingAspectRatio(v16, v17, width, 1.79769313e308);
+          _lp_pixelSize = [platformImage _lp_pixelSize];
+          sizeFittingInsideSizeMaintainingAspectRatio(_lp_pixelSize, v17, v18, width, 1.79769313e308);
         }
 
         else
         {
           platformImage = [v10 platformImage];
           [platformImage _lp_pixelSize];
-          v18 = minimumSizeByComponent(v20, v21, v14);
+          v19 = minimumSizeByComponent(v21, v22, v14);
         }
 
-        v25 = v18;
         v26 = v19;
+        v27 = v20;
       }
 
-      [(LPMultipleImageView *)self _computeRectForImageAtIndex:v9 fittingSize:&v25 width:&v28 height:&v27 size:v8 multipleImageLayout:width, height];
+      [(LPMultipleImageView *)self _computeRectForImageAtIndex:v9 fittingSize:&v26 width:&v29 height:&v28 size:v8 multipleImageLayout:width, height];
       if (layoutCopy)
       {
         [v11 setFrame:?];
@@ -440,17 +440,17 @@ LABEL_32:
     }
 
     while (v9 < [(NSArray *)self->_images count]);
-    v22 = v28;
+    v23 = v29;
   }
 
   else
   {
-    v22 = 0.0;
+    v23 = 0.0;
   }
 
-  v23 = minimumSizeByComponent(width, height, v22);
-  result.height = v24;
-  result.width = v23;
+  v24 = minimumSizeByComponent(width, height, v23);
+  result.height = v25;
+  result.width = v24;
   return result;
 }
 

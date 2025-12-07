@@ -425,26 +425,22 @@ LABEL_7:
 {
   contextCopy = context;
   queueCopy = queue;
-  v30.receiver = self;
-  v30.super_class = CVAFilterGuided;
-  v19 = [(ImageSaverRegistrator *)&v30 init];
-  if (v19)
+  v24.receiver = self;
+  v24.super_class = CVAFilterGuided;
+  v17 = [(ImageSaverRegistrator *)&v24 init];
+  if (v17)
   {
-    v20 = objc_opt_class();
-    v21 = NSStringFromClass(v20);
-    label = v19->_label;
-    v19->_label = v21;
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    label = v17->_label;
+    v17->_label = v19;
 
-    objc_storeStrong(&v19->_figMetalContext, context);
+    objc_storeStrong(&v17->_figMetalContext, context);
     device = [contextCopy device];
-    device = v19->_device;
-    v19->_device = device;
+    device = v17->_device;
+    v17->_device = device;
 
-    v19->_smallGuidedFilterKernelSize = kernelSize;
-    var0 = size->var0;
-    var1 = size->var1;
-    v28 = alphaSize->var0;
-    v27 = alphaSize->var1;
+    v17->_smallGuidedFilterKernelSize = kernelSize;
     operator new();
   }
 

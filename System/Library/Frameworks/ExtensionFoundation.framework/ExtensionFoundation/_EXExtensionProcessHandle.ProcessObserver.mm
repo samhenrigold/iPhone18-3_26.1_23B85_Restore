@@ -20,7 +20,7 @@
   if (v8)
   {
     v8();
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v8);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v8, v7);
   }
 }
 

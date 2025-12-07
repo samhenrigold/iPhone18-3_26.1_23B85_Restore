@@ -3,6 +3,7 @@
 - (id)_axPhotoDescriptionFromContext:(id)context;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
+- (void)previewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -57,6 +58,14 @@ uint64_t __85__QLMarkupItemViewControllerAccessibility__accessibilityLoadAccessi
   [(QLMarkupItemViewControllerAccessibility *)&v4 viewDidLoad];
   v3 = [(QLMarkupItemViewControllerAccessibility *)self safeUIViewForKey:@"view"];
   [v3 setAccessibilityViewIsModal:1];
+}
+
+- (void)previewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = QLMarkupItemViewControllerAccessibility;
+  [(QLMarkupItemViewControllerAccessibility *)&v4 previewDidAppear:appear];
+  [(QLMarkupItemViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 - (id)_axPhotoDescriptionFromContext:(id)context

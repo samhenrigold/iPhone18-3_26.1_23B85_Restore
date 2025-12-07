@@ -43,7 +43,7 @@
   v6 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained auditToken];
+    objc_msgSend_auditToken(WeakRetained);
   }
 
   else
@@ -121,9 +121,9 @@ id __30__AUHostingService_closeHost___block_invoke(uint64_t a1, char a2)
 
 void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
-  CAFormatter::CAFormatter(&v16, (*(a1 + 32) + 24));
+  CAFormatter::CAFormatter(&v15, (*(a1 + 32) + 24));
   v3 = *v2;
   v4 = (*v2 + 48);
   if (*(v3 + 71) < 0)
@@ -132,20 +132,20 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
   }
 
   {
-    caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v14);
+    caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v13);
   }
 
   v5 = auhs_log_category(void)::category;
   if (os_log_type_enabled(auhs_log_category(void)::category, OS_LOG_TYPE_INFO))
   {
     *buf = 136315906;
-    v18 = "AUHostingService.mm";
-    v19 = 1024;
-    v20 = 186;
-    v21 = 2080;
-    v22 = v16;
-    v23 = 2080;
-    v24 = v4;
+    v17 = "AUHostingService.mm";
+    v18 = 1024;
+    v19 = 186;
+    v20 = 2080;
+    v21 = v15;
+    v22 = 2080;
+    v23 = v4;
     _os_log_impl(&dword_18F5DF000, v5, OS_LOG_TYPE_INFO, "%25s:%-5d Releasing Audio Unit %s and disconnecting from Hosting Service %s", buf, 0x26u);
   }
 
@@ -165,25 +165,25 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
 
   if (*(a1 + 48) == 1)
   {
-    atomic_load(&g_number_of_connections);
+    atomic_load(g_number_of_connections);
     (*(*(a1 + 40) + 16))();
   }
 
   if (*(a1 + 49) == 1)
   {
     {
-      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v15);
+      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v14);
     }
 
     v12 = auhs_log_category(void)::category;
     if (os_log_type_enabled(auhs_log_category(void)::category, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v18 = "AUHostingService.mm";
-      v19 = 1024;
-      v20 = 202;
-      v21 = 2080;
-      v22 = v4;
+      v17 = "AUHostingService.mm";
+      v18 = 1024;
+      v19 = 202;
+      v20 = 2080;
+      v21 = v4;
       _os_log_impl(&dword_18F5DF000, v12, OS_LOG_TYPE_INFO, "%25s:%-5d Shutting down Audio Unit Hosting Service %s", buf, 0x1Cu);
     }
 
@@ -203,17 +203,15 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
     os_unfair_lock_unlock(&AUHostingService_exit_handler(void)::handler);
   }
 
-  if (v16)
+  if (v15)
   {
-    free(v16);
+    free(v15);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadAudioUnitInRemoteHost:(AudioComponentDescription *)host config:(id)config reply:(id)reply
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   configCopy = config;
   replyCopy = reply;
   componentFlagsMask = host->componentFlagsMask;
@@ -226,18 +224,18 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
   if (v13)
   {
     {
-      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v35);
+      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v33);
     }
 
     v14 = auhs_log_category(void)::category;
     if (os_log_type_enabled(auhs_log_category(void)::category, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v41 = "AUHostingService.mm";
-      v42 = 1024;
-      v43 = 148;
-      v44 = 2112;
-      v45 = v13;
+      v39 = "AUHostingService.mm";
+      v40 = 1024;
+      v41 = 148;
+      v42 = 2112;
+      v43 = v13;
       _os_log_impl(&dword_18F5DF000, v14, OS_LOG_TYPE_INFO, "%25s:%-5d Attempting to retrieve %@", buf, 0x1Cu);
     }
 
@@ -247,7 +245,7 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
     self->_host = v16;
 
     {
-      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v36);
+      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v34);
     }
 
     v18 = auhs_log_category(void)::category;
@@ -257,13 +255,13 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
       uUIDString = [audioUnitUUID UUIDString];
       v21 = self->_host;
       *buf = 136315906;
-      v41 = "AUHostingService.mm";
-      v42 = 1024;
-      v43 = 150;
+      v39 = "AUHostingService.mm";
+      v40 = 1024;
+      v41 = 150;
+      v42 = 2112;
+      v43 = uUIDString;
       v44 = 2112;
-      v45 = uUIDString;
-      v46 = 2112;
-      v47 = v21;
+      v45 = v21;
       _os_log_impl(&dword_18F5DF000, v18, OS_LOG_TYPE_INFO, "%25s:%-5d Connected to Audio Unit with UUID: %@ host instance: %@", buf, 0x26u);
     }
   }
@@ -277,7 +275,7 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
     self->_host = v24;
 
     {
-      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v38);
+      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v36);
     }
 
     v26 = auhs_log_category(void)::category;
@@ -287,13 +285,13 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
       uUIDString2 = [audioUnitUUID2 UUIDString];
       v29 = self->_host;
       *buf = 136315906;
-      v41 = "AUHostingService.mm";
-      v42 = 1024;
-      v43 = 153;
+      v39 = "AUHostingService.mm";
+      v40 = 1024;
+      v41 = 153;
+      v42 = 2112;
+      v43 = uUIDString2;
       v44 = 2112;
-      v45 = uUIDString2;
-      v46 = 2112;
-      v47 = v29;
+      v45 = v29;
       _os_log_impl(&dword_18F5DF000, v26, OS_LOG_TYPE_INFO, "%25s:%-5d Hosting Audio Unit with UUID: %@ host instance: %@", buf, 0x26u);
     }
 
@@ -304,42 +302,35 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
 
   if (self->_host)
   {
-    CAFormatter::CAFormatter(&v39, &self->_componentDescription);
+    CAFormatter::CAFormatter(&v37, &self->_componentDescription);
     {
-      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v37);
+      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v35);
     }
 
     v31 = auhs_log_category(void)::category;
     if (os_log_type_enabled(auhs_log_category(void)::category, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v41 = "AUHostingService.mm";
-      v42 = 1024;
-      v43 = 164;
-      v44 = 2080;
-      v45 = v39;
+      v39 = "AUHostingService.mm";
+      v40 = 1024;
+      v41 = 164;
+      v42 = 2080;
+      v43 = v37;
       _os_log_impl(&dword_18F5DF000, v31, OS_LOG_TYPE_INFO, "%25s:%-5d Hosting Audio Unit: %s", buf, 0x1Cu);
     }
 
-    if (*(&self->_instanceUUID.__rep_.__l + 23) < 0)
-    {
-      data = self->_instanceUUID.__rep_.__l.__data_;
-    }
-
     replyCopy[2](replyCopy, 0);
-    if (v39)
+    if (v37)
     {
-      free(v39);
+      free(v37);
     }
   }
 
   else
   {
-    v33 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-10875 userInfo:0];
-    (replyCopy)[2](replyCopy, v33);
+    v32 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-10875 userInfo:0];
+    (replyCopy)[2](replyCopy, v32);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)retrieveAudioUnitInstanceID:(id)d
@@ -380,11 +371,11 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
 
 - (AUHostingService)initWithConnection:(id)connection
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v23.receiver = self;
-  v23.super_class = AUHostingService;
-  v5 = [(AUHostingService *)&v23 init];
+  v20.receiver = self;
+  v20.super_class = AUHostingService;
+  v5 = [(AUHostingService *)&v20 init];
   v6 = v5;
   if (v5)
   {
@@ -402,7 +393,7 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
     if (!add)
     {
       {
-        caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v22);
+        caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v19);
       }
 
       v12 = auhs_log_category(void)::category;
@@ -415,51 +406,40 @@ void __30__AUHostingService_closeHost___block_invoke_2(uint64_t a1)
         }
 
         *buf = 136315650;
-        v25 = "AUHostingService.mm";
-        v26 = 1024;
-        v27 = 96;
-        v28 = 2080;
-        v29 = p_instanceUUID;
+        v22 = "AUHostingService.mm";
+        v23 = 1024;
+        v24 = 96;
+        v25 = 2080;
+        v26 = p_instanceUUID;
         _os_log_impl(&dword_18F5DF000, v12, OS_LOG_TYPE_INFO, "%25s:%-5d Launched new Audio Unit Hosting Service %s", buf, 0x1Cu);
       }
-
-      if (*(&v6->_instanceUUID.__rep_.__l + 23) < 0)
-      {
-        data = v6->_instanceUUID.__rep_.__l.__data_;
-      }
     }
 
     {
-      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v21);
+      caulk::log_category::log_category("com.apple.coreaudio", "AUHostingService", v18);
     }
 
-    v15 = auhs_log_category(void)::category;
+    v14 = auhs_log_category(void)::category;
     if (os_log_type_enabled(auhs_log_category(void)::category, OS_LOG_TYPE_INFO))
     {
-      v16 = &v6->_instanceUUID;
+      v15 = &v6->_instanceUUID;
       if (*(&v6->_instanceUUID.__rep_.__l + 23) < 0)
       {
-        v16 = v16->__data_;
+        v15 = v15->__data_;
       }
 
       *buf = 136315650;
-      v25 = "AUHostingService.mm";
-      v26 = 1024;
-      v27 = 100;
-      v28 = 2080;
-      v29 = v16;
-      _os_log_impl(&dword_18F5DF000, v15, OS_LOG_TYPE_INFO, "%25s:%-5d New connection with Audio Unit Hosting Service %s", buf, 0x1Cu);
+      v22 = "AUHostingService.mm";
+      v23 = 1024;
+      v24 = 100;
+      v25 = 2080;
+      v26 = v15;
+      _os_log_impl(&dword_18F5DF000, v14, OS_LOG_TYPE_INFO, "%25s:%-5d New connection with Audio Unit Hosting Service %s", buf, 0x1Cu);
     }
 
-    if (*(&v6->_instanceUUID.__rep_.__l + 23) < 0)
-    {
-      v17 = v6->_instanceUUID.__rep_.__l.__data_;
-    }
-
-    v18 = v6;
+    v16 = v6;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

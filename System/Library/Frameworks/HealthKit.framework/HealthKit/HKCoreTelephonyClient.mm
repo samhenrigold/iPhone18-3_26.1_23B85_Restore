@@ -112,41 +112,43 @@ void __74__HKCoreTelephonyClient_fetchMobileCountryCodeFromCellularWithCompletio
 {
   numberCopy = number;
   client = self->_client;
-  v15 = 0;
-  v6 = [(CoreTelephonyClient *)client getCurrentDataSubscriptionContextSync:&v15];
-  v7 = v15;
+  v19 = 0;
+  v6 = [(CoreTelephonyClient *)client getCurrentDataSubscriptionContextSync:&v19];
+  v7 = v19;
+  v9 = v7;
   if (v7)
   {
-    _HKInitializeLogging();
-    v8 = HKLogMedicalID;
+    _HKInitializeLogging(v7, v8);
+    v10 = HKLogMedicalID;
     if (os_log_type_enabled(HKLogMedicalID, OS_LOG_TYPE_ERROR))
     {
-      [(HKCoreTelephonyClient *)v7 isEmergencyServicePhoneNumber:v8];
+      [(HKCoreTelephonyClient *)v9 isEmergencyServicePhoneNumber:v10];
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v10 = self->_client;
-    v14 = 0;
-    v9 = [(CoreTelephonyClient *)v10 isEmergencyNumberWithWhitelistIncluded:v6 number:numberCopy error:&v14];
-    v11 = v14;
-    if (v11)
+    v12 = self->_client;
+    v18 = 0;
+    v11 = [(CoreTelephonyClient *)v12 isEmergencyNumberWithWhitelistIncluded:v6 number:numberCopy error:&v18];
+    v13 = v18;
+    v15 = v13;
+    if (v13)
     {
-      _HKInitializeLogging();
-      v12 = HKLogMedicalID;
+      _HKInitializeLogging(v13, v14);
+      v16 = HKLogMedicalID;
       if (os_log_type_enabled(HKLogMedicalID, OS_LOG_TYPE_ERROR))
       {
-        [(HKCoreTelephonyClient *)v11 isEmergencyServicePhoneNumber:v12];
+        [(HKCoreTelephonyClient *)v15 isEmergencyServicePhoneNumber:v16];
       }
 
-      v9 = 0;
+      v11 = 0;
     }
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)invalidateCachedCountryCode
@@ -160,16 +162,16 @@ void __74__HKCoreTelephonyClient_fetchMobileCountryCodeFromCellularWithCompletio
 
 - (void)onForeground:(id)foreground
 {
-  v11 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v10 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v4 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2082;
-    v10 = "[HKCoreTelephonyClient onForeground:]";
-    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s] flushing caches", &v7, 0x16u);
+    v8 = 2082;
+    v9 = "[HKCoreTelephonyClient onForeground:]";
+    _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s] flushing caches", &v6, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -177,97 +179,90 @@ void __74__HKCoreTelephonyClient_fetchMobileCountryCodeFromCellularWithCompletio
   self->_cachedCountryCode = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)plmnChanged:(id)changed plmn:(id)plmn
 {
-  v11 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v10 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v5 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2082;
-    v10 = "[HKCoreTelephonyClient plmnChanged:plmn:]";
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s]", &v7, 0x16u);
+    v8 = 2082;
+    v9 = "[HKCoreTelephonyClient plmnChanged:plmn:]";
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s]", &v6, 0x16u);
   }
 
   [(HKCoreTelephonyClient *)self invalidateCachedCountryCode];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)subscriptionInfoDidChange
 {
-  v9 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v8 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543618;
+    v4 = 138543618;
     selfCopy = self;
-    v7 = 2082;
-    v8 = "[HKCoreTelephonyClient subscriptionInfoDidChange]";
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s]", &v5, 0x16u);
+    v6 = 2082;
+    v7 = "[HKCoreTelephonyClient subscriptionInfoDidChange]";
+    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s]", &v4, 0x16u);
   }
 
   [(HKCoreTelephonyClient *)self invalidateCachedCountryCode];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activeSubscriptionsDidChange
 {
-  v9 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v8 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543618;
+    v4 = 138543618;
     selfCopy = self;
-    v7 = 2082;
-    v8 = "[HKCoreTelephonyClient activeSubscriptionsDidChange]";
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s]", &v5, 0x16u);
+    v6 = 2082;
+    v7 = "[HKCoreTelephonyClient activeSubscriptionsDidChange]";
+    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s]", &v4, 0x16u);
   }
 
   [(HKCoreTelephonyClient *)self invalidateCachedCountryCode];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)simLessSubscriptionsDidChange
 {
-  v9 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v8 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v3 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_INFO))
   {
-    v5 = 138543618;
+    v4 = 138543618;
     selfCopy = self;
-    v7 = 2082;
-    v8 = "[HKCoreTelephonyClient simLessSubscriptionsDidChange]";
-    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s]", &v5, 0x16u);
+    v6 = 2082;
+    v7 = "[HKCoreTelephonyClient simLessSubscriptionsDidChange]";
+    _os_log_impl(&dword_19197B000, v3, OS_LOG_TYPE_INFO, "[%{public}@.%{public}s]", &v4, 0x16u);
   }
 
   [(HKCoreTelephonyClient *)self invalidateCachedCountryCode];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isEmergencyServicePhoneNumber:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to get CTXPCServiceSubscriptionInfo with error, %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Failed to get CTXPCServiceSubscriptionInfo with error, %{public}@", &v2, 0xCu);
 }
 
 - (void)isEmergencyServicePhoneNumber:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error validating if number is emergency number with error, %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Error validating if number is emergency number with error, %{public}@", &v2, 0xCu);
 }
 
 @end

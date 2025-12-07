@@ -13,26 +13,24 @@
 
 - (NSArray)attributeDescriptions
 {
-  v18[4] = *MEMORY[0x1E69E9840];
+  v17[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[HMAccessCodeConstraints allowedCharacterSets](self, "allowedCharacterSets")}];
   v5 = [v3 initWithName:@"allowedCharacterSets" value:v4];
-  v18[0] = v5;
+  v17[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMAccessCodeConstraints minimumLength](self, "minimumLength")}];
   v8 = [v6 initWithName:@"minimumLength" value:v7];
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   v10 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMAccessCodeConstraints maximumLength](self, "maximumLength")}];
   v11 = [v9 initWithName:@"maximumLength" value:v10];
-  v18[2] = v11;
+  v17[2] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   v13 = [MEMORY[0x1E696AD98] numberWithInteger:{-[HMAccessCodeConstraints maximumAllowedAccessCodes](self, "maximumAllowedAccessCodes")}];
   v14 = [v12 initWithName:@"maximumAllowedAccessCodes" value:v13];
-  v18[3] = v14;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:4];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v17[3] = v14;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:4];
 
   return v15;
 }
@@ -46,7 +44,7 @@
 
 - (HMAccessCodeConstraints)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"HMAccessCodeConstraintsCodingKeyAllowedCharacterSets"];
   v6 = [coderCopy decodeIntegerForKey:@"HMAccessCodeConstraintsCodingKeyMinimumLength"];
@@ -66,24 +64,23 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138544386;
-      v17 = v13;
-      v18 = 2048;
-      v19 = v5;
-      v20 = 2048;
-      v21 = v6;
-      v22 = 2048;
-      v23 = v7;
-      v24 = 2048;
-      v25 = v8;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding allowedCharacterSets: %ld, minimumLength:%ld, maximumLength:%ld maximumAllowedAccessCodes:%ld", &v16, 0x34u);
+      v15 = 138544386;
+      v16 = v13;
+      v17 = 2048;
+      v18 = v5;
+      v19 = 2048;
+      v20 = v6;
+      v21 = 2048;
+      v22 = v7;
+      v23 = 2048;
+      v24 = v8;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding allowedCharacterSets: %ld, minimumLength:%ld, maximumLength:%ld maximumAllowedAccessCodes:%ld", &v15, 0x34u);
     }
 
     objc_autoreleasePoolPop(v11);
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

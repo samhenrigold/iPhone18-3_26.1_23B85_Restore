@@ -13,7 +13,14 @@
 + (void)initialize;
 + (void)resolveWalrusStatus;
 + (void)setDefaultShortcutsVersion:(int64_t)version;
++ (void)setIgnoresUserDeletedZoneErrors:(BOOL)errors;
 + (void)setLastSyncedFlagsHash:(int64_t)hash;
++ (void)setSyncEnabled:(BOOL)enabled;
++ (void)setVoiceShortcutMigrationDidRun:(BOOL)run;
++ (void)setVoiceShortcutMigrationDidSync:(BOOL)sync;
++ (void)setWalrusEnabled:(BOOL)enabled;
++ (void)setWalrusForcedEnabled:(BOOL)enabled;
++ (void)setZoneWasPurged:(BOOL)purged;
 @end
 
 @implementation WFCloudKitSyncSession
@@ -36,14 +43,12 @@
 
 void __35__WFCloudKitSyncSession_initialize__block_invoke()
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695E000] workflowUserDefaults];
-  v3 = @"WFCloudKitSyncEnabled";
-  v4[0] = MEMORY[0x1E695E118];
-  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v2 = @"WFCloudKitSyncEnabled";
+  v3[0] = MEMORY[0x1E695E118];
+  v1 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   [v0 registerDefaults:v1];
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)initialize
@@ -64,7 +69,7 @@ void __35__WFCloudKitSyncSession_initialize__block_invoke()
 
 + (void)fetchCloudKitSyncFlagsIfNecessaryWithCompletionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   needsDefaultShortcutUpdate = [self needsDefaultShortcutUpdate];
   voiceShortcutMigrationDidSync = [self voiceShortcutMigrationDidSync];
@@ -75,11 +80,11 @@ void __35__WFCloudKitSyncSession_initialize__block_invoke()
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v25 = "+[WFCloudKitSyncSession fetchCloudKitSyncFlagsIfNecessaryWithCompletionHandler:]";
-      v26 = 1026;
-      v27 = needsDefaultShortcutUpdate;
-      v28 = 1026;
-      v29 = v8;
+      v24 = "+[WFCloudKitSyncSession fetchCloudKitSyncFlagsIfNecessaryWithCompletionHandler:]";
+      v25 = 1026;
+      v26 = needsDefaultShortcutUpdate;
+      v27 = 1026;
+      v28 = v8;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s Fetching sync flags record from CloudKit, needsDefaultShortcutUpdate = %{public}d, voiceShortcutMigrationDidSync = %{public}d", buf, 0x18u);
     }
 
@@ -98,40 +103,38 @@ void __35__WFCloudKitSyncSession_initialize__block_invoke()
 
     v16 = [WFCloudKitSyncFlags recordIDWithZoneID:v12];
     v17 = objc_opt_class();
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __80__WFCloudKitSyncSession_fetchCloudKitSyncFlagsIfNecessaryWithCompletionHandler___block_invoke;
-    v21[3] = &unk_1E83734F8;
-    v22 = handlerCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __80__WFCloudKitSyncSession_fetchCloudKitSyncFlagsIfNecessaryWithCompletionHandler___block_invoke;
+    v20[3] = &unk_1E83734F8;
+    v21 = handlerCopy;
     selfCopy = self;
-    v18 = [(WFCloudKitItemRequest *)v15 fetchItemWithID:v16 itemType:v17 groupName:@"InitialSetup" properties:0 completionHandler:v21];
+    v18 = [(WFCloudKitItemRequest *)v15 fetchItemWithID:v16 itemType:v17 groupName:@"InitialSetup" properties:0 completionHandler:v20];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __80__WFCloudKitSyncSession_fetchCloudKitSyncFlagsIfNecessaryWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = getWFCloudKitSyncLogObject();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315906;
-    v10 = "+[WFCloudKitSyncSession fetchCloudKitSyncFlagsIfNecessaryWithCompletionHandler:]_block_invoke";
-    v11 = 2050;
-    v12 = [v5 defaultShortcutsVersion];
-    v13 = 1026;
-    v14 = [v5 migratedVoiceShortcuts];
-    v15 = 2114;
-    v16 = v6;
-    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Finished fetching sync flags record from CloudKit, item.defaultShortcutsVersion = %{public}ld, item.migratedVoiceShortcuts = %{public}d, error = %{public}@", &v9, 0x26u);
+    v8 = 136315906;
+    v9 = "+[WFCloudKitSyncSession fetchCloudKitSyncFlagsIfNecessaryWithCompletionHandler:]_block_invoke";
+    v10 = 2050;
+    v11 = [v5 defaultShortcutsVersion];
+    v12 = 1026;
+    v13 = [v5 migratedVoiceShortcuts];
+    v14 = 2114;
+    v15 = v6;
+    _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_DEFAULT, "%s Finished fetching sync flags record from CloudKit, item.defaultShortcutsVersion = %{public}ld, item.migratedVoiceShortcuts = %{public}d, error = %{public}@", &v8, 0x26u);
   }
 
   if (v5)
@@ -149,8 +152,29 @@ void __80__WFCloudKitSyncSession_fetchCloudKitSyncFlagsIfNecessaryWithCompletion
   }
 
   (*(*(a1 + 32) + 16))();
+}
 
-  v8 = *MEMORY[0x1E69E9840];
++ (void)setWalrusForcedEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x1E69E9840];
+  if ([self isWalrusForcedEnabled] != enabled)
+  {
+    systemShortcutsUserDefaults = [MEMORY[0x1E695E000] systemShortcutsUserDefaults];
+    [systemShortcutsUserDefaults setBool:enabledCopy forKey:@"WFWalrusForcedEnabled"];
+
+    v6 = getWFWalrusLogObject();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = 136315394;
+      v8 = "+[WFCloudKitSyncSession setWalrusForcedEnabled:]";
+      v9 = 1024;
+      v10 = enabledCopy;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s Walrus status has been FORCED to %d", &v7, 0x12u);
+    }
+
+    [self resolveWalrusStatus];
+  }
 }
 
 + (BOOL)isWalrusForcedEnabled
@@ -161,9 +185,32 @@ void __80__WFCloudKitSyncSession_fetchCloudKitSyncFlagsIfNecessaryWithCompletion
   return v3;
 }
 
++ (void)setWalrusEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x1E69E9840];
+  if ([self isWalrusEnabled] != enabled)
+  {
+    systemShortcutsUserDefaults = [MEMORY[0x1E695E000] systemShortcutsUserDefaults];
+    [systemShortcutsUserDefaults setBool:enabledCopy forKey:@"WFWalrusGroundTruthEnabled"];
+
+    v6 = getWFWalrusLogObject();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = 136315394;
+      v8 = "+[WFCloudKitSyncSession setWalrusEnabled:]";
+      v9 = 1024;
+      v10 = enabledCopy;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s Walrus ground truth status has changed to %d", &v7, 0x12u);
+    }
+
+    [self resolveWalrusStatus];
+  }
+}
+
 + (void)resolveWalrusStatus
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   systemShortcutsUserDefaults = [MEMORY[0x1E695E000] systemShortcutsUserDefaults];
   v3 = [systemShortcutsUserDefaults BOOLForKey:@"WFWalrusGroundTruthEnabled"];
 
@@ -177,14 +224,12 @@ void __80__WFCloudKitSyncSession_fetchCloudKitSyncFlagsIfNecessaryWithCompletion
   v8 = getWFWalrusLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "+[WFCloudKitSyncSession resolveWalrusStatus]";
-    v12 = 1024;
-    v13 = v7;
-    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Walrus final status has changed to %d", &v10, 0x12u);
+    v9 = 136315394;
+    v10 = "+[WFCloudKitSyncSession resolveWalrusStatus]";
+    v11 = 1024;
+    v12 = v7;
+    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Walrus final status has changed to %d", &v9, 0x12u);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (int64_t)syncedFlagsHash
@@ -228,12 +273,26 @@ void __80__WFCloudKitSyncSession_fetchCloudKitSyncFlagsIfNecessaryWithCompletion
   return v3;
 }
 
++ (void)setVoiceShortcutMigrationDidSync:(BOOL)sync
+{
+  syncCopy = sync;
+  workflowUserDefaults = [MEMORY[0x1E695E000] workflowUserDefaults];
+  [workflowUserDefaults setBool:syncCopy forKey:@"VCVoiceShortcutMigrationDidSync"];
+}
+
 + (BOOL)voiceShortcutMigrationDidSync
 {
   workflowUserDefaults = [MEMORY[0x1E695E000] workflowUserDefaults];
   v3 = [workflowUserDefaults BOOLForKey:@"VCVoiceShortcutMigrationDidSync"];
 
   return v3;
+}
+
++ (void)setVoiceShortcutMigrationDidRun:(BOOL)run
+{
+  runCopy = run;
+  workflowUserDefaults = [MEMORY[0x1E695E000] workflowUserDefaults];
+  [workflowUserDefaults setBool:runCopy forKey:@"VCVoiceShortcutMigrationDidRun"];
 }
 
 + (BOOL)voiceShortcutMigrationDidRun
@@ -244,12 +303,33 @@ void __80__WFCloudKitSyncSession_fetchCloudKitSyncFlagsIfNecessaryWithCompletion
   return v3;
 }
 
++ (void)setIgnoresUserDeletedZoneErrors:(BOOL)errors
+{
+  errorsCopy = errors;
+  workflowUserDefaults = [MEMORY[0x1E695E000] workflowUserDefaults];
+  [workflowUserDefaults setBool:errorsCopy forKey:@"WFCloudKitSyncIgnoresUserDeletedZoneErrors"];
+}
+
 + (BOOL)ignoresUserDeletedZoneErrors
 {
   workflowUserDefaults = [MEMORY[0x1E695E000] workflowUserDefaults];
   v3 = [workflowUserDefaults BOOLForKey:@"WFCloudKitSyncIgnoresUserDeletedZoneErrors"];
 
   return v3;
+}
+
++ (void)setZoneWasPurged:(BOOL)purged
+{
+  purgedCopy = purged;
+  workflowUserDefaults = [MEMORY[0x1E695E000] workflowUserDefaults];
+  [workflowUserDefaults setBool:purgedCopy forKey:@"WFCloudKitSyncZoneWasPurged"];
+}
+
++ (void)setSyncEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  workflowUserDefaults = [MEMORY[0x1E695E000] workflowUserDefaults];
+  [workflowUserDefaults setBool:enabledCopy forKey:@"WFCloudKitSyncEnabled"];
 }
 
 @end

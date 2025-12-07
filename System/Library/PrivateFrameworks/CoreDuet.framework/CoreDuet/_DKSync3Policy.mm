@@ -34,9 +34,9 @@
     +[_DKSync3Policy policyCache];
   }
 
-  v0 = policyCache_policyCache_0;
+  v1 = policyCache_policyCache_0;
 
-  return v0;
+  return v1;
 }
 
 + (id)disabledPolicy
@@ -67,7 +67,7 @@
 
 + (id)computePolicyDictionaryWithDefaultSyncPolicyDict:(id)dict syncPolicyOverridesDict:(id)overridesDict topLevelDefaultsPolicy:(id)policy
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   overridesDictCopy = overridesDict;
   policyCopy = policy;
@@ -97,9 +97,9 @@
       if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         v19 = [objc_opt_class() description];
-        v27 = 138543362;
-        v28 = v19;
-        _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_INFO, "%{public}@: Sync policy is invalid and/or old, removing saved policies from default", &v27, 0xCu);
+        v26 = 138543362;
+        v27 = v19;
+        _os_log_impl(&dword_191750000, v18, OS_LOG_TYPE_INFO, "%{public}@: Sync policy is invalid and/or old, removing saved policies from default", &v26, 0xCu);
       }
 
       if (!+[_DKCloudUtilities isUnitTesting])
@@ -148,252 +148,236 @@
 
   v24 = [v12 copy];
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return v24;
 }
 
 + (void)overrideDictionary:(id)dictionary withOverrides:(id)overrides
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   overridesCopy = overrides;
-  v28 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v31 = 0u;
-  v7 = [overridesCopy countByEnumeratingWithState:&v28 objects:v42 count:16];
+  v22 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v7 = [overridesCopy countByEnumeratingWithState:&v22 objects:v36 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v29;
-    v11 = 0x1E695D000uLL;
+    v10 = *v23;
     *&v8 = 138544386;
-    v25 = v8;
+    v19 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v29 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(overridesCopy);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * i);
-        v14 = [dictionaryCopy objectForKeyedSubscript:{v13, v25}];
-        v15 = [overridesCopy objectForKeyedSubscript:v13];
-        if (v14 && ((v16 = *(v11 + 3872), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (v17 = *(v11 + 3872), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)))
+        v12 = *(*(&v22 + 1) + 8 * i);
+        v13 = [dictionaryCopy objectForKeyedSubscript:{v12, v19}];
+        v14 = [overridesCopy objectForKeyedSubscript:v12];
+        if (v13 && ((objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0)))
         {
-          v18 = *(v11 + 3872);
           objc_opt_class();
-          if (objc_opt_isKindOfClass() & 1) != 0 && (v19 = *(v11 + 3872), objc_opt_class(), (objc_opt_isKindOfClass()))
+          if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
-            v20 = v15;
-            v21 = [v14 mutableCopy];
-            [v21 addEntriesFromDictionary:v20];
+            v15 = v14;
+            v16 = [v13 mutableCopy];
+            [v16 addEntriesFromDictionary:v15];
 
-            [dictionaryCopy setObject:v21 forKeyedSubscript:v13];
-            v11 = 0x1E695D000;
+            [dictionaryCopy setObject:v16 forKeyedSubscript:v12];
           }
 
           else
           {
-            v22 = +[_CDLogging syncChannel];
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v17 = +[_CDLogging syncChannel];
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              v27 = [objc_opt_class() description];
-              v26 = objc_opt_class();
-              v23 = objc_opt_class();
-              *buf = v25;
-              v33 = v27;
-              v34 = 2114;
-              v35 = v13;
-              v36 = 2114;
-              v37 = v26;
-              v11 = 0x1E695D000;
-              v38 = 2114;
-              v39 = v23;
-              v40 = 2112;
-              v41 = dictionaryCopy;
-              _os_log_error_impl(&dword_191750000, v22, OS_LOG_TYPE_ERROR, "%{public}@: Ignoring override due to type mismatch for key %{public}@ (%{public}@ vs. %{public}@: %@", buf, 0x34u);
+              v21 = [objc_opt_class() description];
+              v20 = objc_opt_class();
+              v18 = objc_opt_class();
+              *buf = v19;
+              v27 = v21;
+              v28 = 2114;
+              v29 = v12;
+              v30 = 2114;
+              v31 = v20;
+              v32 = 2114;
+              v33 = v18;
+              v34 = 2112;
+              v35 = dictionaryCopy;
+              _os_log_error_impl(&dword_191750000, v17, OS_LOG_TYPE_ERROR, "%{public}@: Ignoring override due to type mismatch for key %{public}@ (%{public}@ vs. %{public}@: %@", buf, 0x34u);
             }
           }
         }
 
         else
         {
-          [dictionaryCopy setObject:v15 forKeyedSubscript:v13];
+          [dictionaryCopy setObject:v14 forKeyedSubscript:v12];
         }
       }
 
-      v9 = [overridesCopy countByEnumeratingWithState:&v28 objects:v42 count:16];
+      v9 = [overridesCopy countByEnumeratingWithState:&v22 objects:v36 count:16];
     }
 
     while (v9);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (void)addToDictionary:(id)dictionary streamNamesToAlwaysSync:(id)sync
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   syncCopy = sync;
-  v37 = objc_opt_new();
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
+  v32 = objc_opt_new();
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v6 = dictionaryCopy;
-  v7 = [v6 countByEnumeratingWithState:&v48 objects:v54 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v49;
-    v10 = 0x1E695D000uLL;
-    v11 = 0x1E695D000uLL;
-    v35 = *v49;
-    v36 = v6;
+    v9 = *v44;
+    v30 = *v44;
+    v31 = v6;
     do
     {
-      v12 = 0;
-      v39 = v8;
+      v10 = 0;
+      v34 = v8;
       do
       {
-        if (*v49 != v9)
+        if (*v44 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * v12);
-        v14 = [v6 objectForKeyedSubscript:v13];
-        v15 = *(v10 + 3872);
+        v11 = *(*(&v43 + 1) + 8 * v10);
+        v12 = [v6 objectForKeyedSubscript:v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = [v14 objectForKeyedSubscript:@"StreamNames"];
-          v17 = *(v11 + 3784);
+          v13 = [v12 objectForKeyedSubscript:@"StreamNames"];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v18 = [v16 mutableCopy];
-            v44 = 0u;
-            v45 = 0u;
-            v46 = 0u;
-            v47 = 0u;
-            v19 = syncCopy;
-            v20 = [v19 countByEnumeratingWithState:&v44 objects:v53 count:16];
-            if (v20)
+            v14 = [v13 mutableCopy];
+            v39 = 0u;
+            v40 = 0u;
+            v41 = 0u;
+            v42 = 0u;
+            v15 = syncCopy;
+            v16 = [v15 countByEnumeratingWithState:&v39 objects:v48 count:16];
+            if (v16)
             {
-              v21 = v20;
-              v22 = *v45;
+              v17 = v16;
+              v18 = *v40;
               do
               {
-                for (i = 0; i != v21; ++i)
+                for (i = 0; i != v17; ++i)
                 {
-                  if (*v45 != v22)
+                  if (*v40 != v18)
                   {
-                    objc_enumerationMutation(v19);
+                    objc_enumerationMutation(v15);
                   }
 
-                  v24 = *(*(&v44 + 1) + 8 * i);
-                  if (([v18 containsObject:v24] & 1) == 0)
+                  v20 = *(*(&v39 + 1) + 8 * i);
+                  if (([v14 containsObject:v20] & 1) == 0)
                   {
-                    [v18 addObject:v24];
+                    [v14 addObject:v20];
                   }
                 }
 
-                v21 = [v19 countByEnumeratingWithState:&v44 objects:v53 count:16];
+                v17 = [v15 countByEnumeratingWithState:&v39 objects:v48 count:16];
               }
 
-              while (v21);
+              while (v17);
             }
 
-            [v37 setObject:v18 forKeyedSubscript:v13];
-            v9 = v35;
-            v6 = v36;
-            v10 = 0x1E695D000;
-            v11 = 0x1E695D000;
-            v8 = v39;
+            [v32 setObject:v14 forKeyedSubscript:v11];
+            v9 = v30;
+            v6 = v31;
+            v8 = v34;
           }
         }
 
-        ++v12;
+        ++v10;
       }
 
-      while (v12 != v8);
-      v8 = [v6 countByEnumeratingWithState:&v48 objects:v54 count:16];
+      while (v10 != v8);
+      v8 = [v6 countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v8);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v25 = v37;
-  v26 = [v25 countByEnumeratingWithState:&v40 objects:v52 count:16];
-  if (v26)
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v21 = v32;
+  v22 = [v21 countByEnumeratingWithState:&v35 objects:v47 count:16];
+  if (v22)
   {
-    v27 = v26;
-    v28 = *v41;
+    v23 = v22;
+    v24 = *v36;
     do
     {
-      for (j = 0; j != v27; ++j)
+      for (j = 0; j != v23; ++j)
       {
-        if (*v41 != v28)
+        if (*v36 != v24)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v21);
         }
 
-        v30 = *(*(&v40 + 1) + 8 * j);
-        v31 = [v25 objectForKeyedSubscript:v30];
-        v32 = [v6 objectForKeyedSubscript:v30];
-        v33 = [v32 mutableCopy];
-        [v33 setObject:v31 forKeyedSubscript:@"StreamNames"];
-        [v6 setObject:v33 forKeyedSubscript:v30];
+        v26 = *(*(&v35 + 1) + 8 * j);
+        v27 = [v21 objectForKeyedSubscript:v26];
+        v28 = [v6 objectForKeyedSubscript:v26];
+        v29 = [v28 mutableCopy];
+        [v29 setObject:v27 forKeyedSubscript:@"StreamNames"];
+        [v6 setObject:v29 forKeyedSubscript:v26];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v40 objects:v52 count:16];
+      v23 = [v21 countByEnumeratingWithState:&v35 objects:v47 count:16];
     }
 
-    while (v27);
+    while (v23);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fillPolicyCache:(id)cache bySplittingPolicyDictionary:(id)dictionary
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   dictionaryCopy = dictionary;
-  v26 = objc_opt_new();
   v25 = objc_opt_new();
+  v24 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v6 = dictionaryCopy;
-  v7 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
-    v28 = v6;
+    v9 = *v29;
+    v27 = v6;
     do
     {
       v10 = 0;
       do
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * v10);
+        v11 = *(*(&v28 + 1) + 8 * v10);
         v12 = [v6 objectForKeyedSubscript:v11];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -405,7 +389,7 @@
           {
             v16 = [[_DKSync3FeaturePolicy alloc] initWithName:v11 properties:v14];
             [cacheCopy setObject:v16 forKey:v11];
-            [v26 addObject:v15];
+            [v25 addObject:v15];
             v17 = [cacheCopy objectForKey:v15];
             if (!v17)
             {
@@ -427,9 +411,9 @@
               {
                 v21 = [objc_opt_class() description];
                 *buf = 138543618;
-                v34 = v21;
-                v35 = 2112;
-                v36 = v14;
+                v33 = v21;
+                v34 = 2112;
+                v35 = v14;
                 _os_log_fault_impl(&dword_191750000, v17, OS_LOG_TYPE_FAULT, "%{public}@: Ignoring unrecognized policy dictionary: %@", buf, 0x16u);
               }
 
@@ -438,7 +422,7 @@
 
             v17 = [[_DKSync3TransportPolicy alloc] initWithName:v11 properties:v14];
             [cacheCopy setObject:v17 forKey:v11];
-            v18 = v25;
+            v18 = v24;
             v19 = v11;
           }
 
@@ -446,7 +430,7 @@
 LABEL_11:
 
           v8 = v13;
-          v6 = v28;
+          v6 = v27;
           goto LABEL_14;
         }
 
@@ -455,9 +439,9 @@ LABEL_11:
         {
           v20 = [objc_opt_class() description];
           *buf = 138543618;
-          v34 = v20;
-          v35 = 2112;
-          v36 = v12;
+          v33 = v20;
+          v34 = 2112;
+          v35 = v12;
           _os_log_debug_impl(&dword_191750000, v14, OS_LOG_TYPE_DEBUG, "%{public}@: Ignoring unrecognized policy object: %@", buf, 0x16u);
         }
 
@@ -467,19 +451,17 @@ LABEL_14:
       }
 
       while (v8 != v10);
-      v22 = [v6 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v22 = [v6 countByEnumeratingWithState:&v28 objects:v36 count:16];
       v8 = v22;
     }
 
     while (v22);
   }
 
-  [cacheCopy setObject:v26 forKey:@"_DKSync3PolicyAllFeatures"];
-  [cacheCopy setObject:v25 forKey:@"_DKSync3PolicyAllTransports"];
+  [cacheCopy setObject:v25 forKey:@"_DKSync3PolicyAllFeatures"];
+  [cacheCopy setObject:v24 forKey:@"_DKSync3PolicyAllTransports"];
   v23 = [cacheCopy debugDescription];
   NSLog(&cfstr_Policycache.isa, v23);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (id)productVersion
@@ -613,7 +595,7 @@ LABEL_19:
 
     if (([v12 isEqualToDictionary:v19] & 1) == 0)
     {
-      v21 = +[_DKSync3Policy policyCache];
+      v21 = +[(_DKSync3Policy *)self];
       [v21 removeAllObjects];
 
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
@@ -709,20 +691,20 @@ LABEL_9:
   arrayCopy = array;
   if ((transports & transport) != 0)
   {
-    v8 = [_DKSyncPeerStatusTracker stringForTransports:transport];
-    v9 = +[_DKSync3Policy policyCache];
-    v10 = [v9 objectForKey:v8];
-    v11 = v10;
-    if (v10)
+    v9 = [_DKSyncPeerStatusTracker stringForTransports:transport];
+    v10 = +[(_DKSync3Policy *)self];
+    v11 = [v10 objectForKey:v9];
+    v12 = v11;
+    if (v11)
     {
-      if ((*(v10 + 8) & 1) == 0)
+      if ((*(v11 + 8) & 1) == 0)
       {
-        [arrayCopy addObject:v10];
+        [arrayCopy addObject:v11];
         goto LABEL_10;
       }
 
-      v12 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = +[_CDLogging syncChannel];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         +[_DKSync3Policy _possiblyAddToArray:ifTransport:existsInTransports:];
       }
@@ -730,8 +712,8 @@ LABEL_9:
 
     else
     {
-      v12 = +[_CDLogging syncChannel];
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = +[_CDLogging syncChannel];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         +[_DKSync3Policy _possiblyAddToArray:ifTransport:existsInTransports:];
       }
@@ -743,32 +725,32 @@ LABEL_10:
 
 - (unint64_t)_minimumPropertyValueWithKey:(id)key policies:(id)policies skipZeroValues:(BOOL)values
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   policiesCopy = policies;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v8 = [policiesCopy countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v8 = [policiesCopy countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v8)
   {
     v10 = v8;
     v11 = 0;
-    v12 = *v26;
+    v12 = *v25;
     v13 = 1;
     *&v9 = 138543618;
-    v22 = v9;
+    v21 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(policiesCopy);
         }
 
-        properties = [*(*(&v25 + 1) + 8 * i) properties];
+        properties = [*(*(&v24 + 1) + 8 * i) properties];
         v16 = [properties objectForKeyedSubscript:keyCopy];
 
         objc_opt_class();
@@ -802,17 +784,17 @@ LABEL_10:
           v19 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v23 = [objc_opt_class() description];
-            *buf = v22;
-            v30 = v23;
-            v31 = 2114;
-            v32 = keyCopy;
+            v22 = [objc_opt_class() description];
+            *buf = v21;
+            v29 = v22;
+            v30 = 2114;
+            v31 = keyCopy;
             _os_log_error_impl(&dword_191750000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Invalid non-number type for key %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v10 = [policiesCopy countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v10 = [policiesCopy countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v10);
@@ -823,38 +805,37 @@ LABEL_10:
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (unint64_t)_maximumPropertyValueWithKey:(id)key policies:(id)policies skipZeroValues:(BOOL)values
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   policiesCopy = policies;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v8 = [policiesCopy countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v8 = [policiesCopy countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v8)
   {
     v10 = v8;
     v11 = 0;
-    v12 = *v26;
+    v12 = *v25;
     v13 = 1;
     *&v9 = 138543618;
-    v22 = v9;
+    v21 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(policiesCopy);
         }
 
-        properties = [*(*(&v25 + 1) + 8 * i) properties];
+        properties = [*(*(&v24 + 1) + 8 * i) properties];
         v16 = [properties objectForKeyedSubscript:keyCopy];
 
         objc_opt_class();
@@ -888,17 +869,17 @@ LABEL_10:
           v19 = +[_CDLogging syncChannel];
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v23 = [objc_opt_class() description];
-            *buf = v22;
-            v30 = v23;
-            v31 = 2114;
-            v32 = keyCopy;
+            v22 = [objc_opt_class() description];
+            *buf = v21;
+            v29 = v22;
+            v30 = 2114;
+            v31 = keyCopy;
             _os_log_error_impl(&dword_191750000, v19, OS_LOG_TYPE_ERROR, "%{public}@: Invalid non-number type for key %{public}@", buf, 0x16u);
           }
         }
       }
 
-      v10 = [policiesCopy countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v10 = [policiesCopy countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v10);
@@ -909,40 +890,39 @@ LABEL_10:
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)_anyFeaturePropertyValueWithKey:(id)key getterBlock:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   blockCopy = block;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = self->_featurePolicies;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        if (blockCopy[2](blockCopy, *(*(&v12 + 1) + 8 * i)))
+        if (blockCopy[2](blockCopy, *(*(&v11 + 1) + 8 * i)))
         {
           LOBYTE(v7) = 1;
           goto LABEL_11;
         }
       }
 
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v7)
       {
         continue;
@@ -954,7 +934,6 @@ LABEL_10:
 
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -999,9 +978,7 @@ LABEL_11:
     return 0;
   }
 
-  v2 = [*(selfCopy + 72) count];
-  v3 = *(selfCopy + 72);
-  if (v2 == 1)
+  if ([*(selfCopy + 72) count] == 1)
   {
     firstObject = [*(selfCopy + 72) firstObject];
     if (firstObject)
@@ -1017,9 +994,9 @@ LABEL_11:
     return selfCopy;
   }
 
-  v6 = OUTLINED_FUNCTION_17_2();
+  v4 = OUTLINED_FUNCTION_17_2();
 
-  return [v6 _minimumPropertyValueWithKey:? policies:? skipZeroValues:?];
+  return [v4 _minimumPropertyValueWithKey:? policies:? skipZeroValues:?];
 }
 
 - (id)description
@@ -1086,9 +1063,8 @@ LABEL_6:
 
   if ([(NSArray *)self->_sourceDevices count])
   {
-    sourceDevices = self->_sourceDevices;
     OUTLINED_FUNCTION_13();
-    _CDPrettyPrintCollection(v10, v11, v12, v13);
+    _CDPrettyPrintCollection(v9, v10, v11, v12);
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_4_0();
     [v2 appendFormat:@"                           sourceDevices: %@\n"];
@@ -1096,21 +1072,18 @@ LABEL_6:
 
   if ([(NSArray *)self->_destinationDevices count])
   {
-    destinationDevices = self->_destinationDevices;
     OUTLINED_FUNCTION_13();
-    _CDPrettyPrintCollection(v15, v16, v17, v18);
+    _CDPrettyPrintCollection(v13, v14, v15, v16);
     objc_claimAutoreleasedReturnValue();
     OUTLINED_FUNCTION_4_0();
     [v2 appendFormat:@"                      destinationDevices: %@\n"];
   }
 
-  isSingleDevice = self->_isSingleDevice;
   OUTLINED_FUNCTION_26_1();
   [v2 appendFormat:@"                          isSingleDevice: %@\n"];
-  isOnPower = self->_isOnPower;
   OUTLINED_FUNCTION_26_1();
   [v2 appendFormat:@"                               isOnPower: %@\n"];
-  v21 = MEMORY[0x1E696AD98];
+  v17 = MEMORY[0x1E696AD98];
   [MEMORY[0x1E696AD98] numberWithUnsignedInteger:-[_DKSync3Policy periodicSyncCadenceInMinutesMinimumValue](self)];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_4_0();
@@ -1126,31 +1099,24 @@ LABEL_6:
 + (void)computePolicyDictionaryWithDefaultSyncPolicyDict:syncPolicyOverridesDict:topLevelDefaultsPolicy:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_0_12();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)computePolicyDictionaryWithDefaultSyncPolicyDict:syncPolicyOverridesDict:topLevelDefaultsPolicy:.cold.2()
 {
   OUTLINED_FUNCTION_16();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_0_12();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleDownloadSyncPolicyResponse:data:error:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v9 = *MEMORY[0x1E69E9840];
   [objc_opt_class() description];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_16_0() domain];
@@ -1158,14 +1124,11 @@ LABEL_6:
   OUTLINED_FUNCTION_15_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)handleDownloadSyncPolicyResponse:data:error:.cold.2()
 {
   OUTLINED_FUNCTION_16();
-  v9 = *MEMORY[0x1E69E9840];
   [objc_opt_class() description];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_16_0() domain];
@@ -1173,56 +1136,42 @@ LABEL_6:
   OUTLINED_FUNCTION_15_1();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x2Au);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)configurationPlistForFilename:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v6 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)configurationPlistForFilename:.cold.2()
 {
   OUTLINED_FUNCTION_16();
-  v6 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_possiblyAddToArray:ifTransport:existsInTransports:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v7 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_0_12();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_possiblyAddToArray:ifTransport:existsInTransports:.cold.2()
 {
   OUTLINED_FUNCTION_16();
-  v6 = *MEMORY[0x1E69E9840];
   v0 = [objc_opt_class() description];
   OUTLINED_FUNCTION_0_12();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

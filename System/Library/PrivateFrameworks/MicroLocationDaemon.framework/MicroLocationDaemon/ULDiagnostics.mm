@@ -59,7 +59,7 @@
 
 void __29__ULDiagnostics_addProvider___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     __29__ULDiagnostics_addProvider___block_invoke_cold_1();
@@ -68,19 +68,16 @@ void __29__ULDiagnostics_addProvider___block_invoke(uint64_t a1)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "Adding provider: %@", &v9, 0xCu);
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Adding provider: %@", &v7, 0xCu);
   }
 
-  v7 = [*(a1 + 40) providers];
-  [v7 addObject:*(a1 + 32)];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = [*(a1 + 40) providers];
+  [v6 addObject:*(a1 + 32)];
 }
 
 - (void)removeProvider:(id)provider
@@ -98,7 +95,7 @@ void __29__ULDiagnostics_addProvider___block_invoke(uint64_t a1)
 
 void __32__ULDiagnostics_removeProvider___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (onceToken_MicroLocation_Default != -1)
   {
     __29__ULDiagnostics_addProvider___block_invoke_cold_1();
@@ -107,19 +104,16 @@ void __32__ULDiagnostics_removeProvider___block_invoke(uint64_t a1)
   v2 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = v2;
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_DEFAULT, "Removing provider: %@", &v9, 0xCu);
+    v3 = v2;
+    v4 = objc_opt_class();
+    v5 = NSStringFromClass(v4);
+    v7 = 138412290;
+    v8 = v5;
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Removing provider: %@", &v7, 0xCu);
   }
 
-  v7 = [*(a1 + 40) providers];
-  [v7 removeObject:*(a1 + 32)];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = [*(a1 + 40) providers];
+  [v6 removeObject:*(a1 + 32)];
 }
 
 - (void)_registerStateHandler
@@ -136,7 +130,7 @@ void __32__ULDiagnostics_removeProvider___block_invoke(uint64_t a1)
 
 uint64_t __38__ULDiagnostics__registerStateHandler__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = [WeakRetained queue];
   dispatch_assert_queue_V2(v4);
@@ -153,9 +147,9 @@ uint64_t __38__ULDiagnostics__registerStateHandler__block_invoke(uint64_t a1, ui
     {
       v6 = v5;
       v7 = [WeakRetained label];
-      v14 = 138412290;
-      v15 = v7;
-      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Processing os_state handler for label: %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v7;
+      _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Processing os_state handler for label: %@", &v13, 0xCu);
     }
 
     v8 = [WeakRetained _diagnosticsInfo];
@@ -169,55 +163,54 @@ uint64_t __38__ULDiagnostics__registerStateHandler__block_invoke(uint64_t a1, ui
     {
       v10 = v9;
       v11 = [WeakRetained label];
-      v14 = 138412546;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v8;
-      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "label: %@, os_state: %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_DEFAULT, "label: %@, os_state: %@", &v13, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)_diagnosticsInfo
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__32;
-  v25 = __Block_byref_object_dispose__32;
-  v26 = 0;
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __33__ULDiagnostics__diagnosticsInfo__block_invoke;
-  v20[3] = &unk_2798D4BB0;
-  v20[4] = self;
-  v20[5] = &v21;
-  [(ULDiagnostics *)self _withLock:v20];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__32;
+  v24 = __Block_byref_object_dispose__32;
+  v25 = 0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __33__ULDiagnostics__diagnosticsInfo__block_invoke;
+  v19[3] = &unk_2798D4BB0;
+  v19[4] = self;
+  v19[5] = &v20;
+  [(ULDiagnostics *)self _withLock:v19];
   v17 = 0u;
-  v4 = v22[5];
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v27 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v4 = v21[5];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v26 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
     v7 = MEMORY[0x277CBEC10];
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        diagnosticInfo = [*(*(&v16 + 1) + 8 * i) diagnosticInfo];
+        diagnosticInfo = [*(*(&v15 + 1) + 8 * i) diagnosticInfo];
         v10 = diagnosticInfo;
         if (diagnosticInfo)
         {
@@ -234,14 +227,13 @@ uint64_t __38__ULDiagnostics__registerStateHandler__block_invoke(uint64_t a1, ui
         [dictionary setObject:v11 forKeyedSubscript:v13];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v16 objects:v27 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v15 objects:v26 count:16];
     }
 
     while (v5);
   }
 
-  _Block_object_dispose(&v21, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 
   return dictionary;
 }
@@ -257,10 +249,10 @@ void __33__ULDiagnostics__diagnosticsInfo__block_invoke(uint64_t a1)
 
 - (os_state_data_s)_stateDataForInfo:(id)info
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14 = 0;
-  v4 = [MEMORY[0x277CCAC58] dataWithPropertyList:info format:200 options:0 error:&v14];
-  v5 = v14;
+  v16 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v4 = [MEMORY[0x277CCAC58] dataWithPropertyList:info format:200 options:0 error:&v13];
+  v5 = v13;
   v6 = [v4 length];
   if (v5)
   {
@@ -273,7 +265,7 @@ void __33__ULDiagnostics__diagnosticsInfo__block_invoke(uint64_t a1)
     if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v5;
+      v15 = v5;
       _os_log_impl(&dword_258FE9000, v7, OS_LOG_TYPE_ERROR, "Error in NSPropertyListSerialization: %@", buf, 0xCu);
     }
 
@@ -294,7 +286,6 @@ void __33__ULDiagnostics__diagnosticsInfo__block_invoke(uint64_t a1)
     memcpy(v8->var4, [v4 bytes], v10);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

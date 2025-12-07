@@ -240,39 +240,39 @@ uint64_t __53__ASCWorkspace__openURL_frontBoardOptions_sensitive___block_invoke(
 
 void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v33 = v6;
+    v32 = v6;
     v8 = +[ASCWorkspace log];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_1(v5, v8);
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v41 objects:v45 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v40 objects:v44 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v42;
+      v12 = *v41;
 LABEL_6:
       v13 = 0;
       while (1)
       {
-        if (*v42 != v12)
+        if (*v41 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v41 + 1) + 8 * v13);
+        v14 = *(*(&v40 + 1) + 8 * v13);
         v15 = [v14 targetApplicationRecord];
         v16 = [v15 bundleIdentifier];
         v17 = [v16 isEqualToString:*(a1 + 32)];
@@ -284,7 +284,7 @@ LABEL_6:
 
         if (v11 == ++v13)
         {
-          v11 = [v9 countByEnumeratingWithState:&v41 objects:v45 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v40 objects:v44 count:16];
           if (v11)
           {
             goto LABEL_6;
@@ -311,20 +311,20 @@ LABEL_6:
       v20 = objc_alloc_init(MEMORY[0x277CC1F00]);
       [v20 setFrontBoardOptions:*(a1 + 40)];
       [v20 setIgnoreAppLinkEnabledProperty:1];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_5;
-      v34[3] = &unk_2784B1920;
+      v33[0] = MEMORY[0x277D85DD0];
+      v33[1] = 3221225472;
+      v33[2] = __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_5;
+      v33[3] = &unk_2784B1920;
       v21 = *(a1 + 48);
       v22 = *(a1 + 56);
-      v35 = v21;
-      v36 = v22;
-      v37 = *(a1 + 32);
-      v38 = *(a1 + 64);
-      v39 = *(a1 + 40);
-      [v18 openWithConfiguration:v20 completionHandler:v34];
+      v34 = v21;
+      v35 = v22;
+      v36 = *(a1 + 32);
+      v37 = *(a1 + 64);
+      v38 = *(a1 + 40);
+      [v18 openWithConfiguration:v20 completionHandler:v33];
 
-      v7 = v33;
+      v7 = v32;
       goto LABEL_32;
     }
 
@@ -338,10 +338,10 @@ LABEL_17:
 
 LABEL_23:
       v31 = +[ASCWorkspace log];
-      v7 = v33;
+      v7 = v32;
       if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_3(a1);
+        __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_3();
       }
 
       v18 = objc_alloc_init(MEMORY[0x277CC1F00]);
@@ -360,10 +360,10 @@ LABEL_23:
     }
 
     v27 = +[ASCWorkspace log];
-    v7 = v33;
+    v7 = v32;
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_2(a1);
+      __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_2();
     }
 
 LABEL_31:
@@ -397,8 +397,6 @@ LABEL_32:
 
   [*(a1 + 56) openApplicationWithBundleIdentifier:*(a1 + 32) usingOpenResourceOperationWithPayloadURL:*(a1 + 64) options:*(a1 + 40) pendingResult:*(a1 + 48)];
 LABEL_33:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_5(uint64_t a1, int a2, void *a3)
@@ -576,59 +574,26 @@ void __113__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBun
 
 void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_222629000, a2, OS_LOG_TYPE_DEBUG, "Found %lu matching apps for payload URL", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_222629000, a2, OS_LOG_TYPE_DEBUG, "Found %lu matching apps for payload URL", v3, 0xCu);
 }
 
-void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_2(uint64_t a1)
+void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_2()
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = [0 targetApplicationRecord];
-  v3 = [v2 bundleIdentifier];
+  v0 = [0 targetApplicationRecord];
+  v1 = [v0 bundleIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_222629000, v4, v5, "Found valid universal link with no matching app, source %{public}@, target %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_222629000, v2, v3, "Found valid universal link with no matching app, source %{public}@, target %{public}@", v4, v5, v6, v7);
 }
 
-void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_3(uint64_t a1)
+void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_cold_3()
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = [0 targetApplicationRecord];
-  v3 = [v2 bundleIdentifier];
+  v0 = [0 targetApplicationRecord];
+  v1 = [v0 bundleIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_222629000, v4, v5, "Found valid universal link with no matching app, passing URL to app via UserActivity, source %{public}@, target %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-void __118__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_payloadURL_universalLinkRequired___block_invoke_5_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_222629000, v0, v1, "Failed to open universal link, reason %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __145__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_usingUserActivityWithPayloadURL_configuration_pendingResult___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_222629000, v0, v1, "Open application with URL user activity failed, reason %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __113__ASCWorkspace_ASCAppLaunchTrampolineWorkspace__openApplicationWithBundleIdentifier_configuration_pendingResult___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_222629000, v0, v1, "Open application with bundle ID failed, reason %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_222629000, v2, v3, "Found valid universal link with no matching app, passing URL to app via UserActivity, source %{public}@, target %{public}@", v4, v5, v6, v7);
 }
 
 @end

@@ -162,7 +162,7 @@
     v24 = view;
     if (view)
     {
-      [view transform];
+      objc_msgSend_transform(view);
       v25 = *(&v36 + 1);
     }
 

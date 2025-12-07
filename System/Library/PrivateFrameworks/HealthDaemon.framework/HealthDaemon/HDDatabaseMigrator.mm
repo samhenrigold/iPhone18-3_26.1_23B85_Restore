@@ -348,98 +348,80 @@ void *__67__HDDatabaseMigrator_Whitetail__whitetailUnprotectedMigrationSteps__bl
 
 uint64_t __65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"CREATE TABLE fitness_friend_activity_snapshots (active_hours REAL, active_hours_goal REAL, brisk_minutes_goal REAL, friend_uuid BLOB, workout_data BLOB, achievement_data BLOB, energy_burned REAL, walk_run_distance REAL, energy_burned_goal REAL, data_id INTEGER PRIMARY KEY, deep_breathing_session_count INTEGER, brisk_minutes REAL, uploaded_date REAL, steps INTEGER, snapshot_index INTEGER, source_uuid BLOB)";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"CREATE TABLE fitness_friend_activity_snapshots (active_hours REAL, active_hours_goal REAL, brisk_minutes_goal REAL, friend_uuid BLOB, workout_data BLOB, achievement_data BLOB, energy_burned REAL, walk_run_distance REAL, energy_burned_goal REAL, data_id INTEGER PRIMARY KEY, deep_breathing_session_count INTEGER, brisk_minutes REAL, uploaded_date REAL, steps INTEGER, snapshot_index INTEGER, source_uuid BLOB)";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 uint64_t __65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v13 = 0u;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v6 = [&unk_283CAE668 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v6)
+    return 0;
+  }
+
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v6 = [&unk_283CAE668 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v6)
+  {
+    v7 = *v13;
+    do
     {
-      v7 = *v14;
+      v8 = 0;
       do
       {
-        v8 = 0;
-        do
+        if (*v13 != v7)
         {
-          if (*v14 != v7)
-          {
-            objc_enumerationMutation(&unk_283CAE668);
-          }
-
-          v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"ALTER TABLE activity_caches ADD COLUMN %@ INTEGER", *(*(&v13 + 1) + 8 * v8)];;
-          [v5 addObject:v9];
-
-          ++v8;
+          objc_enumerationMutation(&unk_283CAE668);
         }
 
-        while (v6 != v8);
-        v6 = [&unk_283CAE668 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"ALTER TABLE activity_caches ADD COLUMN %@ INTEGER", *(*(&v12 + 1) + 8 * v8)];;
+        [v5 addObject:v9];
+
+        ++v8;
       }
 
-      while (v6);
+      while (v6 != v8);
+      v6 = [&unk_283CAE668 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    v10 = [v3 executeSQLStatements:v5 error:a3];
-
-    result = v10 ^ 1u;
+    while (v6);
   }
 
-  else
-  {
-    result = 0;
-  }
+  v10 = [v3 executeSQLStatements:v5 error:a3];
 
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v10 ^ 1u;
 }
 
 uint64_t __65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"CREATE TABLE ccdas (data_id INTEGER PRIMARY KEY REFERENCES samples (data_id) ON DELETE CASCADE, document_data BLOB, title TEXT NOT NULL, patient_name TEXT NOT NULL, author_name TEXT NOT NULL, custodian_name TEXT NOT NULL);";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"CREATE TABLE ccdas (data_id INTEGER PRIMARY KEY REFERENCES samples (data_id) ON DELETE CASCADE, document_data BLOB, title TEXT NOT NULL, patient_name TEXT NOT NULL, author_name TEXT NOT NULL, custodian_name TEXT NOT NULL);";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 void *__65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -455,25 +437,19 @@ void *__65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__bloc
 
 uint64_t __65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"ALTER TABLE metadata_values ADD COLUMN value_type INTEGER NOT NULL DEFAULT 0;";
-    v8[1] = @"UPDATE metadata_values SET value_type = (CASE WHEN metadata_values.string_value IS NOT NULL THEN 0 WHEN metadata_values.numerical_value IS NOT NULL THEN 1 WHEN metadata_values.date_value IS NOT NULL THEN 2 END);";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"ALTER TABLE metadata_values ADD COLUMN value_type INTEGER NOT NULL DEFAULT 0;";
+  v7[1] = @"UPDATE metadata_values SET value_type = (CASE WHEN metadata_values.string_value IS NOT NULL THEN 0 WHEN metadata_values.numerical_value IS NOT NULL THEN 1 WHEN metadata_values.date_value IS NOT NULL THEN 2 END);";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 uint64_t __65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -799,25 +775,19 @@ void *__65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__bloc
 
 uint64_t __65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__block_invoke_24(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"DELETE FROM key_value_secure WHERE domain = 'com.apple.healthd.workout' AND key = 'companionWorkoutCreditAnchorKey';";
-    v8[1] = @"INSERT OR REPLACE INTO key_value_secure (category, domain, key, value, provenance, mod_date) values (100, 'com.apple.healthd.workout', 'companionWorkoutCreditAnchorKey', COALESCE((select max(data_id) from objects), 0), 0, 0.0);";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"DELETE FROM key_value_secure WHERE domain = 'com.apple.healthd.workout' AND key = 'companionWorkoutCreditAnchorKey';";
+  v7[1] = @"INSERT OR REPLACE INTO key_value_secure (category, domain, key, value, provenance, mod_date) values (100, 'com.apple.healthd.workout', 'companionWorkoutCreditAnchorKey', COALESCE((select max(data_id) from objects), 0), 0, 0.0);";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 void *__65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__block_invoke_25(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -913,58 +883,52 @@ uint64_t __65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__b
 
 uint64_t __65__HDDatabaseMigrator_Whitetail__whitetailProtectedMigrationSteps__block_invoke_32(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v5 = objc_alloc(MEMORY[0x277CBEBD0]);
-    v6 = [v5 initWithSuiteName:*MEMORY[0x277CCE220]];
-    v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v7 = [v6 dictionaryRepresentation];
-    v8 = [v7 allKeys];
+    return 0;
+  }
 
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v9)
+  v5 = objc_alloc(MEMORY[0x277CBEBD0]);
+  v6 = [v5 initWithSuiteName:*MEMORY[0x277CCE220]];
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v7 = [v6 dictionaryRepresentation];
+  v8 = [v7 allKeys];
+
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v9)
+  {
+    v10 = *v17;
+    do
     {
-      v10 = *v18;
+      v11 = 0;
       do
       {
-        v11 = 0;
-        do
+        if (*v17 != v10)
         {
-          if (*v18 != v10)
-          {
-            objc_enumerationMutation(v8);
-          }
-
-          [v6 removeObjectForKey:*(*(&v17 + 1) + 8 * v11++)];
+          objc_enumerationMutation(v8);
         }
 
-        while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        [v6 removeObjectForKey:*(*(&v16 + 1) + 8 * v11++)];
       }
 
-      while (v9);
+      while (v9 != v11);
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    [v6 synchronize];
-    v12 = [v3 transaction];
-    v13 = [v12 unprotectedDatabase];
-    v14 = [v13 executeSQLStatements:&unk_283CAE698 error:a3];
-
-    result = v14 ^ 1u;
+    while (v9);
   }
 
-  else
-  {
-    result = 0;
-  }
+  [v6 synchronize];
+  v12 = [v3 transaction];
+  v13 = [v12 unprotectedDatabase];
+  v14 = [v13 executeSQLStatements:&unk_283CAE698 error:a3];
 
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  return v14 ^ 1u;
 }
 
 uint64_t __83__HDDatabaseMigrator_Whitetail___addMaxObjectPersistentIDToKeyValueStoreWithError___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -1148,30 +1112,30 @@ uint64_t __63__HDDatabaseMigrator_Monarch__monarchUnprotectedMigrationSteps__blo
 
 uint64_t __63__HDDatabaseMigrator_Monarch__monarchUnprotectedMigrationSteps__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v19[5] = *MEMORY[0x277D85DE8];
+  v18[5] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (v3)
   {
-    v19[0] = @"ALTER TABLE sources RENAME TO sources_old;";
-    v19[1] = @"CREATE TABLE IF NOT EXISTS sources (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, uuid BLOB UNIQUE NOT NULL, bundle_id TEXT, name TEXT, source_options INTEGER, local_device INTEGER, product_type TEXT, deleted INTEGER NOT NULL, mod_date REAL, provenance INTEGER NOT NULL)";
-    v19[2] = @"INSERT INTO sources(rowid, uuid, bundle_id, name, source_options, local_device, product_type, deleted, mod_date, provenance) SELECT rowid, hk_new_source_uuid(bundle_id, product_type), bundle_id, name, source_options, local_device, product_type, 0, NULL, 0 FROM sources_old;";
-    v19[3] = @"CREATE INDEX IF NOT EXISTS sources_index_0 ON sources(bundle_id)";
-    v19[4] = @"DROP TABLE sources_old;";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:5];
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 0;
+    v18[0] = @"ALTER TABLE sources RENAME TO sources_old;";
+    v18[1] = @"CREATE TABLE IF NOT EXISTS sources (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, uuid BLOB UNIQUE NOT NULL, bundle_id TEXT, name TEXT, source_options INTEGER, local_device INTEGER, product_type TEXT, deleted INTEGER NOT NULL, mod_date REAL, provenance INTEGER NOT NULL)";
+    v18[2] = @"INSERT INTO sources(rowid, uuid, bundle_id, name, source_options, local_device, product_type, deleted, mod_date, provenance) SELECT rowid, hk_new_source_uuid(bundle_id, product_type), bundle_id, name, source_options, local_device, product_type, 0, NULL, 0 FROM sources_old;";
+    v18[3] = @"CREATE INDEX IF NOT EXISTS sources_index_0 ON sources(bundle_id)";
+    v18[4] = @"DROP TABLE sources_old;";
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:5];
+    v14 = 0;
+    v15 = &v14;
+    v16 = 0x2020000000;
+    v17 = 0;
     v6 = [v3 transaction];
     v7 = [v6 unprotectedDatabase];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __59__HDDatabaseMigrator_Monarch___migrateSourcesTableForSync___block_invoke;
-    v14[3] = &unk_27861B780;
-    v14[4] = &v15;
-    [v7 accessDatabaseUsingBlock:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __59__HDDatabaseMigrator_Monarch___migrateSourcesTableForSync___block_invoke;
+    v13[3] = &unk_27861B780;
+    v13[4] = &v14;
+    [v7 accessDatabaseUsingBlock:v13];
 
-    if (*(v16 + 6))
+    if (*(v15 + 6))
     {
       v3 = 1;
     }
@@ -1181,20 +1145,19 @@ uint64_t __63__HDDatabaseMigrator_Monarch__monarchUnprotectedMigrationSteps__blo
       v8 = [v3 executeSQLStatements:v5 error:a3];
       v9 = [v3 transaction];
       v10 = [v9 unprotectedDatabase];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __59__HDDatabaseMigrator_Monarch___migrateSourcesTableForSync___block_invoke_2;
-      v13[3] = &unk_27861B780;
-      v13[4] = &v15;
-      [v10 accessDatabaseUsingBlock:v13];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __59__HDDatabaseMigrator_Monarch___migrateSourcesTableForSync___block_invoke_2;
+      v12[3] = &unk_27861B780;
+      v12[4] = &v14;
+      [v10 accessDatabaseUsingBlock:v12];
 
-      v3 = ((*(v16 + 6) != 0) | v8 ^ 1u) & 1;
+      v3 = ((*(v15 + 6) != 0) | v8 ^ 1u) & 1;
     }
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v14, 8);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -1437,138 +1400,121 @@ uint64_t __63__HDDatabaseMigrator_Monarch__monarchUnprotectedMigrationSteps__blo
 
 uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"CREATE TABLE IF NOT EXISTS unit_strings (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, unit_string TEXT UNIQUE);";
-    v9[1] = @"ALTER TABLE quantity_samples add column original_quantity REAL;";
-    v9[2] = @"ALTER TABLE quantity_samples add column original_unit INTEGER REFERENCES unit_strings(ROWID);";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"CREATE TABLE IF NOT EXISTS unit_strings (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, unit_string TEXT UNIQUE);";
+  v8[1] = @"ALTER TABLE quantity_samples add column original_quantity REAL;";
+  v8[2] = @"ALTER TABLE quantity_samples add column original_unit INTEGER REFERENCES unit_strings(ROWID);";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    [v5 addObject:{@"CREATE TABLE IF NOT EXISTS data_provenances (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, sync_provenance INTEGER NOT NULL, origin_device TEXT NOT NULL, origin_build TEXT NOT NULL, local_device TEXT NOT NULL, local_build TEXT NOT NULL, UNIQUE(sync_provenance, origin_device, origin_build, local_device, local_build));"}];
-    v12[0] = @"INSERT INTO data_provenances (ROWID, sync_provenance, origin_device, origin_build, local_device, local_build) values (1, 0, 'UnknownDevice', '[8.0, 8.2)', 'UnknownDevice', 'UnknownBuild'");
-    v12[1] = @"INSERT INTO data_provenances (ROWID, sync_provenance, origin_device, origin_build, local_device, local_build) values (2, 0, 'UnknownDevice', '[8.2, 9.0)', 'UnknownDevice', 'UnknownBuild'");
-    v12[2] = @"INSERT INTO data_provenances (ROWID, sync_provenance, origin_device, origin_build, local_device, local_build) values (3, 1, 'UnknownDevice', '[8.2, 9.0)', 'UnknownDevice', 'UnknownBuild'");
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
-    [v5 addObjectsFromArray:v6];
-
-    v11[0] = @"ALTER TABLE objects RENAME TO objects_old;";
-    v11[1] = @"CREATE TABLE objects (data_id INTEGER PRIMARY KEY AUTOINCREMENT, creation_date REAL, source INTEGER, provenance INTEGER REFERENCES data_provenances(ROWID), type INTEGER, uuid BLOB);";
-    v11[2] = @"INSERT INTO objects (data_id, creation_date, source, type, uuid, provenance) SELECT data_id, creation_date, source, type, uuid, (CASE WHEN data_id <= COALESCE(value, 0) THEN 1 ELSE (CASE objects_old.provenance WHEN 0 THEN 2 WHEN 1 THEN 3 END) END) FROM objects_old LEFT JOIN (SELECT value from key_value_secure WHERE category=100 AND key_value_secure.provenance=0 AND domain='OBJECT_ANCHOR' AND key='OBJECT_ANCHOR_8_2');";
-    v11[3] = @"CREATE UNIQUE INDEX objects_uuid ON objects(uuid);";
-    v11[4] = @"DROP TABLE objects_old;";
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:5];
-    [v5 addObjectsFromArray:v7];
-
-    [v5 addObject:@"DELETE FROM key_value_secure WHERE category=100 AND domain='OBJECT_ANCHOR';"];
-    v8 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v8 = 0;
-  }
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [v5 addObject:{@"CREATE TABLE IF NOT EXISTS data_provenances (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, sync_provenance INTEGER NOT NULL, origin_device TEXT NOT NULL, origin_build TEXT NOT NULL, local_device TEXT NOT NULL, local_build TEXT NOT NULL, UNIQUE(sync_provenance, origin_device, origin_build, local_device, local_build));"}];
+  v11[0] = @"INSERT INTO data_provenances (ROWID, sync_provenance, origin_device, origin_build, local_device, local_build) values (1, 0, 'UnknownDevice', '[8.0, 8.2)', 'UnknownDevice', 'UnknownBuild'");
+  v11[1] = @"INSERT INTO data_provenances (ROWID, sync_provenance, origin_device, origin_build, local_device, local_build) values (2, 0, 'UnknownDevice', '[8.2, 9.0)', 'UnknownDevice', 'UnknownBuild'");
+  v11[2] = @"INSERT INTO data_provenances (ROWID, sync_provenance, origin_device, origin_build, local_device, local_build) values (3, 1, 'UnknownDevice', '[8.2, 9.0)', 'UnknownDevice', 'UnknownBuild'");
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
+  [v5 addObjectsFromArray:v6];
 
-  v9 = *MEMORY[0x277D85DE8];
+  v10[0] = @"ALTER TABLE objects RENAME TO objects_old;";
+  v10[1] = @"CREATE TABLE objects (data_id INTEGER PRIMARY KEY AUTOINCREMENT, creation_date REAL, source INTEGER, provenance INTEGER REFERENCES data_provenances(ROWID), type INTEGER, uuid BLOB);";
+  v10[2] = @"INSERT INTO objects (data_id, creation_date, source, type, uuid, provenance) SELECT data_id, creation_date, source, type, uuid, (CASE WHEN data_id <= COALESCE(value, 0) THEN 1 ELSE (CASE objects_old.provenance WHEN 0 THEN 2 WHEN 1 THEN 3 END) END) FROM objects_old LEFT JOIN (SELECT value from key_value_secure WHERE category=100 AND key_value_secure.provenance=0 AND domain='OBJECT_ANCHOR' AND key='OBJECT_ANCHOR_8_2');";
+  v10[3] = @"CREATE UNIQUE INDEX objects_uuid ON objects(uuid);";
+  v10[4] = @"DROP TABLE objects_old;";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:5];
+  [v5 addObjectsFromArray:v7];
+
+  [v5 addObject:@"DELETE FROM key_value_secure WHERE category=100 AND domain='OBJECT_ANCHOR';"];
+  v8 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+
   return v8;
 }
 
 uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"INSERT INTO category_samples (data_id, value) SELECT data_id, CASE WHEN quantity < 0.5 THEN 0 ELSE 1 END FROM quantity_samples LEFT JOIN samples USING (data_id) WHERE data_type = 69";
-    v9[1] = @"DELETE FROM quantity_samples WHERE data_id IN (SELECT data_id FROM samples WHERE data_type = 69)";
-    v9[2] = @"UPDATE samples SET data_type = 70 WHERE data_type = 69";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"INSERT INTO category_samples (data_id, value) SELECT data_id, CASE WHEN quantity < 0.5 THEN 0 ELSE 1 END FROM quantity_samples LEFT JOIN samples USING (data_id) WHERE data_type = 69";
+  v8[1] = @"DELETE FROM quantity_samples WHERE data_id IN (SELECT data_id FROM samples WHERE data_type = 69)";
+  v8[2] = @"UPDATE samples SET data_type = 70 WHERE data_type = 69";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"CREATE TABLE menstruation_samples (data_id INTEGER PRIMARY KEY, start_cycle INTEGER, menstrual_flow INTEGER);";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"CREATE TABLE menstruation_samples (data_id INTEGER PRIMARY KEY, start_cycle INTEGER, menstrual_flow INTEGER);";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (!v3)
   {
-    v18 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v5 = [*(a1 + 32) transaction];
   v6 = [v5 unprotectedDatabase];
-  v41[0] = @"CREATE TEMPORARY TABLE source_device_map (source INTEGER PRIMARY KEY, device INTEGER, provenance INTEGER)";
-  v41[1] = @"INSERT INTO source_device_map(source, device, provenance)                                        SELECT sources.ROWID, source_devices.ROWID, sources.provenance                                        FROM sources JOIN logical_sources ON sources.logical_source_id = logical_sources.ROWID                                        JOIN source_devices ON logical_sources.bundle_id = source_devices.localIdentifier;";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+  v40[0] = @"CREATE TEMPORARY TABLE source_device_map (source INTEGER PRIMARY KEY, device INTEGER, provenance INTEGER)";
+  v40[1] = @"INSERT INTO source_device_map(source, device, provenance)                                        SELECT sources.ROWID, source_devices.ROWID, sources.provenance                                        FROM sources JOIN logical_sources ON sources.logical_source_id = logical_sources.ROWID                                        JOIN source_devices ON logical_sources.bundle_id = source_devices.localIdentifier;";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
   v8 = [v6 executeSQLStatements:v7 error:a3];
 
   if (v8 && [v3 executeSQLStatements:&unk_283CAEA28 error:a3])
   {
-    v37 = 0;
-    v38 = &v37;
-    v39 = 0x2020000000;
-    v40 = -1;
+    v36 = 0;
+    v37 = &v36;
+    v38 = 0x2020000000;
+    v39 = -1;
     v9 = [v3 transaction];
     v10 = [v9 unprotectedDatabase];
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke;
-    v36[3] = &unk_278614620;
-    v36[4] = &v37;
-    v11 = [v10 executeUncachedSQL:@"SELECT ROWID FROM source_devices WHERE source_devices.name = '__NONE__' AND source_devices.localIdentifier = '__NONE__'" error:a3 bindingHandler:0 enumerationHandler:v36];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke;
+    v35[3] = &unk_278614620;
+    v35[4] = &v36;
+    v11 = [v10 executeUncachedSQL:@"SELECT ROWID FROM source_devices WHERE source_devices.name = '__NONE__' AND source_devices.localIdentifier = '__NONE__'" error:a3 bindingHandler:0 enumerationHandler:v35];
 
     if (v11)
     {
-      if (v38[3] == -1)
+      if (v37[3] == -1)
       {
         v19 = objc_alloc_init(MEMORY[0x277CCAD78]);
         v20 = [v3 transaction];
@@ -1582,14 +1528,14 @@ uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block
 
         v22 = [v3 transaction];
         v23 = [v22 unprotectedDatabase];
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke_2;
-        v33[3] = &unk_278613B58;
+        v32[0] = MEMORY[0x277D85DD0];
+        v32[1] = 3221225472;
+        v32[2] = __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke_2;
+        v32[3] = &unk_278613B58;
         v24 = v19;
-        v34 = v24;
-        v35 = v21;
-        v25 = [v23 executeUncachedSQL:@"INSERT INTO source_devices(name error:manufacturer bindingHandler:model enumerationHandler:{hardware, firmware, software, localIdentifier, FDAUDI, creation_date, sync_provenance, uuid, sync_identity) VALUES ('__NONE__', '', '', '', '', '', '__NONE__', '', ?, 0, ?, ?)", a3, v33, 0}];
+        v33 = v24;
+        v34 = v21;
+        v25 = [v23 executeUncachedSQL:@"INSERT INTO source_devices(name error:manufacturer bindingHandler:model enumerationHandler:{hardware, firmware, software, localIdentifier, FDAUDI, creation_date, sync_provenance, uuid, sync_identity) VALUES ('__NONE__', '', '', '', '', '', '__NONE__', '', ?, 0, ?, ?)", a3, v32, 0}];
 
         if (!v25)
         {
@@ -1601,18 +1547,18 @@ uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block
         v27 = [v26 unprotectedDatabase];
         v28 = [v27 lastInsertRowID];
         v29 = [v28 longLongValue];
-        v38[3] = v29;
+        v37[3] = v29;
       }
 
       v12 = [v3 transaction];
       v13 = [v12 protectedDatabase];
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke_3;
-      v32[3] = &unk_27861B7D0;
-      v32[4] = v3;
-      v32[5] = &v37;
-      v14 = [v13 executeUncachedSQL:@"SELECT ROWID error:source_id FROM data_provenances" bindingHandler:a3 enumerationHandler:{0, v32}];
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke_3;
+      v31[3] = &unk_27861B7D0;
+      v31[4] = v3;
+      v31[5] = &v36;
+      v14 = [v13 executeUncachedSQL:@"SELECT ROWID error:source_id FROM data_provenances" bindingHandler:a3 enumerationHandler:{0, v31}];
 
       if (v14)
       {
@@ -1624,8 +1570,8 @@ uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block
         {
           v18 = [v3 executeSQLStatements:&unk_283CAEA40 error:a3] ^ 1;
 LABEL_16:
-          _Block_object_dispose(&v37, 8);
-          goto LABEL_17;
+          _Block_object_dispose(&v36, 8);
+          return v18;
         }
       }
     }
@@ -1635,56 +1581,45 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v18 = 1;
-LABEL_17:
-  v30 = *MEMORY[0x277D85DE8];
-  return v18;
+  return 1;
 }
 
 uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[5] = *MEMORY[0x277D85DE8];
+  v8[5] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"UPDATE devices SET device_enabled = 1 WHERE device_enabled = 'TRUE' OR device_enabled = 'true'";
-    v9[1] = @"ALTER TABLE devices RENAME TO devices_old";
-    v9[2] = @"CREATE TABLE IF NOT EXISTS devices (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, device_uuid BLOB, device_name TEXT, device_service INTEGER, device_last_connect REAL, device_enabled BOOLEAN default 1, UNIQUE(device_uuid, device_service))";
-    v9[3] = @"INSERT INTO devices(rowid, device_uuid, device_name, device_service, device_last_connect, device_enabled) SELECT rowid, device_uuid, device_name, device_service, device_last_connect, device_enabled FROM devices_old";
-    v9[4] = @"DROP TABLE devices_old";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:5];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"UPDATE devices SET device_enabled = 1 WHERE device_enabled = 'TRUE' OR device_enabled = 'true'";
+  v8[1] = @"ALTER TABLE devices RENAME TO devices_old";
+  v8[2] = @"CREATE TABLE IF NOT EXISTS devices (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, device_uuid BLOB, device_name TEXT, device_service INTEGER, device_last_connect REAL, device_enabled BOOLEAN default 1, UNIQUE(device_uuid, device_service))";
+  v8[3] = @"INSERT INTO devices(rowid, device_uuid, device_name, device_service, device_last_connect, device_enabled) SELECT rowid, device_uuid, device_name, device_service, device_last_connect, device_enabled FROM devices_old";
+  v8[4] = @"DROP TABLE devices_old";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:5];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"DELETE FROM samples WHERE data_id IN (SELECT data_id FROM menstruation_samples)";
-    v9[1] = @"DELETE FROM metadata_values WHERE object_id IN (SELECT data_id FROM menstruation_samples)";
-    v9[2] = @"DELETE FROM objects WHERE data_id IN (SELECT data_id FROM menstruation_samples)";
-    v9[3] = @"DROP TABLE menstruation_samples";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"DELETE FROM samples WHERE data_id IN (SELECT data_id FROM menstruation_samples)";
+  v8[1] = @"DELETE FROM metadata_values WHERE object_id IN (SELECT data_id FROM menstruation_samples)";
+  v8[2] = @"DELETE FROM objects WHERE data_id IN (SELECT data_id FROM menstruation_samples)";
+  v8[3] = @"DROP TABLE menstruation_samples";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1749,24 +1684,20 @@ LABEL_12:
 
 uint64_t __61__HDDatabaseMigrator_Monarch__monarchProtectedMigrationSteps__block_invoke_9(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"DELETE FROM category_samples WHERE data_id IN (SELECT data_id FROM samples WHERE data_type = 93 OR data_type = 95)";
-    v9[1] = @"DELETE FROM metadata_values WHERE object_id IN (SELECT data_id FROM samples WHERE data_type = 93 OR data_type = 95)";
-    v9[2] = @"DELETE FROM objects WHERE data_id IN (SELECT data_id FROM samples WHERE data_type = 93 OR data_type = 95)";
-    v9[3] = @"DELETE FROM samples WHERE data_type = 93 OR data_type = 95";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"DELETE FROM category_samples WHERE data_id IN (SELECT data_id FROM samples WHERE data_type = 93 OR data_type = 95)";
+  v8[1] = @"DELETE FROM metadata_values WHERE object_id IN (SELECT data_id FROM samples WHERE data_type = 93 OR data_type = 95)";
+  v8[2] = @"DELETE FROM objects WHERE data_id IN (SELECT data_id FROM samples WHERE data_type = 93 OR data_type = 95)";
+  v8[3] = @"DELETE FROM samples WHERE data_type = 93 OR data_type = 95";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -2222,11 +2153,10 @@ uint64_t __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError_
 {
   Current = CFAbsoluteTimeGetCurrent();
   sqlite3_bind_double(a2, 1, Current);
-  v5 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v6 = *(a1 + 40);
+  v5 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 3, v6);
+  return sqlite3_bind_int64(a2, 3, v5);
 }
 
 uint64_t __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2274,24 +2204,24 @@ uint64_t __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError_
   return v12;
 }
 
-void __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke_4(uint64_t a1)
+void __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v1 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 32)];
+  v2 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 32)];
   HDSQLiteBindFoundationValueToStatement();
 }
 
-void __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke_6(uint64_t a1)
+void __68__HDDatabaseMigrator_Monarch___migrateSourcesToProvenanceWithError___block_invoke_6(uint64_t a1, uint64_t a2)
+{
+  v3 = [MEMORY[0x277CCABB0] numberWithLongLong:*(*(*(a1 + 32) + 8) + 24)];
+  HDSQLiteBindFoundationValueToStatement();
+
+  v4 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 40)];
+  HDSQLiteBindFoundationValueToStatement();
+}
+
+void __64__HDDatabaseMigrator_Monarch___setAuthorizationAnchorWithError___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v2 = [MEMORY[0x277CCABB0] numberWithLongLong:*(*(*(a1 + 32) + 8) + 24)];
-  HDSQLiteBindFoundationValueToStatement();
-
-  v3 = [MEMORY[0x277CCABB0] numberWithLongLong:*(a1 + 40)];
-  HDSQLiteBindFoundationValueToStatement();
-}
-
-void __64__HDDatabaseMigrator_Monarch___setAuthorizationAnchorWithError___block_invoke_2(uint64_t a1)
-{
-  v1 = [MEMORY[0x277CCABB0] numberWithLongLong:*(*(*(a1 + 32) + 8) + 24)];
   HDSQLiteBindFoundationValueToStatement();
 }
 
@@ -2307,25 +2237,22 @@ uint64_t __78__HDDatabaseMigrator_Monarch___fixProvenancesWithZeroSourceOrDevice
 
 uint64_t __78__HDDatabaseMigrator_Monarch___fixProvenancesWithZeroSourceOrDeviceWithError___block_invoke_5(void *a1, sqlite3_stmt *a2)
 {
-  v4 = a1[4];
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 2, [*(*(a1[7] + 8) + 40) longLongValue]);
-  v5 = a1[5];
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int(a2, 4, 2);
   sqlite3_bind_int(a2, 5, 1);
-  v6 = a1[6];
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int(a2, 7, 0);
   sqlite3_bind_double(a2, 8, 0.0);
   sqlite3_bind_int(a2, 9, 0);
-  v7 = *(a1[8] + 8);
-  v8 = *(v7 + 24) + 1;
-  *(v7 + 24) = v8;
-  sqlite3_bind_int64(a2, 10, v8);
-  v9 = *(*(a1[9] + 8) + 24);
+  v4 = *(a1[8] + 8);
+  v5 = *(v4 + 24) + 1;
+  *(v4 + 24) = v5;
+  sqlite3_bind_int64(a2, 10, v5);
+  v6 = *(*(a1[9] + 8) + 24);
 
-  return sqlite3_bind_int64(a2, 11, v9);
+  return sqlite3_bind_int64(a2, 11, v6);
 }
 
 uint64_t __78__HDDatabaseMigrator_Monarch___fixProvenancesWithZeroSourceOrDeviceWithError___block_invoke_7(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2390,93 +2317,86 @@ LABEL_7:
 
 void __78__HDDatabaseMigrator_Monarch___fixProvenancesWithZeroSourceOrDeviceWithError___block_invoke_8(void *a1, sqlite3_stmt *a2)
 {
-  v4 = a1[6];
-  v5 = HDSQLiteColumnAsInt64();
-  sqlite3_bind_int64(a2, 1, v5);
-  v6 = MEMORY[0x22AAC6C90](a1[6], 2);
+  v4 = HDSQLiteColumnAsInt64();
+  sqlite3_bind_int64(a2, 1, v4);
+  v5 = MEMORY[0x22AAC6C90](a1[6], 2);
   HDSQLiteBindFoundationValueToStatement();
 
-  v7 = MEMORY[0x22AAC6C90](a1[6], 3);
+  v6 = MEMORY[0x22AAC6C90](a1[6], 3);
   HDSQLiteBindFoundationValueToStatement();
 
-  v8 = MEMORY[0x22AAC6C90](a1[6], 4);
+  v7 = MEMORY[0x22AAC6C90](a1[6], 4);
   HDSQLiteBindFoundationValueToStatement();
 
-  v9 = MEMORY[0x22AAC6C90](a1[6], 5);
+  v8 = MEMORY[0x22AAC6C90](a1[6], 5);
   HDSQLiteBindFoundationValueToStatement();
 
-  v10 = a1[6];
-  v11 = HDSQLiteColumnAsInt64();
-  if (!v11)
+  v9 = HDSQLiteColumnAsInt64();
+  if (!v9)
   {
-    v11 = *(*(a1[4] + 8) + 24);
+    v9 = *(*(a1[4] + 8) + 24);
   }
 
-  sqlite3_bind_int64(a2, 6, v11);
-  v12 = a1[6];
-  v13 = HDSQLiteColumnAsInt64();
-  if (!v13)
+  sqlite3_bind_int64(a2, 6, v9);
+  v10 = HDSQLiteColumnAsInt64();
+  if (!v10)
   {
-    v13 = *(*(a1[5] + 8) + 24);
+    v10 = *(*(a1[5] + 8) + 24);
   }
 
-  sqlite3_bind_int64(a2, 7, v13);
-  v14 = MEMORY[0x22AAC6C90](a1[6], 8);
+  sqlite3_bind_int64(a2, 7, v10);
+  v11 = MEMORY[0x22AAC6C90](a1[6], 8);
   HDSQLiteBindFoundationValueToStatement();
 }
 
 void __78__HDDatabaseMigrator_Monarch___fixProvenancesWithZeroSourceOrDeviceWithError___block_invoke_10(void *a1, sqlite3_stmt *a2)
 {
-  v4 = a1[6];
-  v5 = HDSQLiteColumnAsInt64();
-  sqlite3_bind_int64(a2, 1, v5);
-  v6 = MEMORY[0x22AAC6C90](a1[6], 2);
+  v4 = HDSQLiteColumnAsInt64();
+  sqlite3_bind_int64(a2, 1, v4);
+  v5 = MEMORY[0x22AAC6C90](a1[6], 2);
   HDSQLiteBindFoundationValueToStatement();
 
-  v7 = MEMORY[0x22AAC6C90](a1[6], 3);
+  v6 = MEMORY[0x22AAC6C90](a1[6], 3);
   HDSQLiteBindFoundationValueToStatement();
 
-  v8 = MEMORY[0x22AAC6C90](a1[6], 4);
+  v7 = MEMORY[0x22AAC6C90](a1[6], 4);
   HDSQLiteBindFoundationValueToStatement();
 
-  v9 = MEMORY[0x22AAC6C90](a1[6], 5);
+  v8 = MEMORY[0x22AAC6C90](a1[6], 5);
   HDSQLiteBindFoundationValueToStatement();
 
-  v10 = a1[6];
-  v11 = HDSQLiteColumnAsInt64();
-  if (!v11)
+  v9 = HDSQLiteColumnAsInt64();
+  if (!v9)
   {
-    v11 = *(*(a1[4] + 8) + 24);
+    v9 = *(*(a1[4] + 8) + 24);
   }
 
-  sqlite3_bind_int64(a2, 6, v11);
-  v12 = a1[6];
-  v13 = HDSQLiteColumnAsInt64();
-  if (!v13)
+  sqlite3_bind_int64(a2, 6, v9);
+  v10 = HDSQLiteColumnAsInt64();
+  if (!v10)
   {
-    v13 = *(*(a1[5] + 8) + 24);
+    v10 = *(*(a1[5] + 8) + 24);
   }
 
-  sqlite3_bind_int64(a2, 7, v13);
-  v14 = MEMORY[0x22AAC6C90](a1[6], 8);
+  sqlite3_bind_int64(a2, 7, v10);
+  v11 = MEMORY[0x22AAC6C90](a1[6], 8);
   HDSQLiteBindFoundationValueToStatement();
 }
 
 uint64_t __78__HDDatabaseMigrator_Monarch___fixProvenancesWithZeroSourceOrDeviceWithError___block_invoke_11(uint64_t a1, sqlite3_stmt *a2)
 {
   sqlite3_bind_int64(a2, 1, *(*(*(a1 + 32) + 8) + 24));
-  v4 = *(a1 + 40);
-  v5 = HDSQLiteColumnAsInt64();
+  v3 = HDSQLiteColumnAsInt64();
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v3);
 }
 
-uint64_t __74__HDDatabaseMigrator_Monarch___fixDanglingSourcesAndProvenancesWithError___block_invoke_2(uint64_t a1)
+uint64_t __74__HDDatabaseMigrator_Monarch___fixDanglingSourcesAndProvenancesWithError___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsInt64();
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCABB0] numberWithLongLong:v2];
-  [v3 addObject:v4];
+  v3 = HDSQLiteColumnAsInt64();
+  v4 = *(a1 + 32);
+  v5 = [MEMORY[0x277CCABB0] numberWithLongLong:v3];
+  [v4 addObject:v5];
 
   return 1;
 }
@@ -2564,10 +2484,9 @@ void __74__HDDatabaseMigrator_Monarch___fixDanglingSourcesAndProvenancesWithErro
   HDSQLiteBindFoundationValueToStatement();
 
   sqlite3_bind_int64(a2, 5, *(*(*(a1 + 32) + 8) + 24));
-  v8 = *(a1 + 40);
-  v9 = HDSQLiteColumnAsInt64();
-  sqlite3_bind_int64(a2, 6, v9);
-  v10 = MEMORY[0x22AAC6C90](*(a1 + 40), 6);
+  v8 = HDSQLiteColumnAsInt64();
+  sqlite3_bind_int64(a2, 6, v8);
+  v9 = MEMORY[0x22AAC6C90](*(a1 + 40), 6);
   HDSQLiteBindFoundationValueToStatement();
 }
 
@@ -2587,10 +2506,9 @@ void __74__HDDatabaseMigrator_Monarch___fixDanglingSourcesAndProvenancesWithErro
   HDSQLiteBindFoundationValueToStatement();
 
   sqlite3_bind_int64(a2, 6, *(*(*(a1 + 32) + 8) + 24));
-  v8 = *(a1 + 40);
-  v9 = HDSQLiteColumnAsInt64();
-  sqlite3_bind_int64(a2, 7, v9);
-  v10 = MEMORY[0x22AAC6C90](*(a1 + 40), 6);
+  v8 = HDSQLiteColumnAsInt64();
+  sqlite3_bind_int64(a2, 7, v8);
+  v9 = MEMORY[0x22AAC6C90](*(a1 + 40), 6);
   HDSQLiteBindFoundationValueToStatement();
 }
 
@@ -2730,12 +2648,12 @@ LABEL_21:
   return v25;
 }
 
-uint64_t __66__HDDatabaseMigrator_Boulder___fixSyncProvenanceForPostOkemoZurs___block_invoke(uint64_t a1)
+uint64_t __66__HDDatabaseMigrator_Boulder___fixSyncProvenanceForPostOkemoZurs___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsInt64();
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCABB0] numberWithLongLong:v2];
-  [v3 addObject:v4];
+  v3 = HDSQLiteColumnAsInt64();
+  v4 = *(a1 + 32);
+  v5 = [MEMORY[0x277CCABB0] numberWithLongLong:v3];
+  [v4 addObject:v5];
 
   return 1;
 }
@@ -2962,12 +2880,11 @@ void *__57__HDDatabaseMigrator_Emet__emetUnprotectedMigrationSteps__block_invoke
 
 uint64_t __55__HDDatabaseMigrator_Emet__emetProtectedMigrationSteps__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (!v3)
   {
-    result = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   v5 = [*(a1 + 32) transaction];
@@ -2982,105 +2899,96 @@ uint64_t __55__HDDatabaseMigrator_Emet__emetProtectedMigrationSteps__block_invok
   v11 = [v3 transaction];
   v12 = [v11 protectedDatabase];
 
-  if (![v12 deleteDataEntitySubclassTablesIfExist:&unk_283CAF058 intermediateTables:&unk_283CAF070 error:a3] || !objc_msgSend(v12, "deleteDataEntitySubclassTablesIfExist:intermediateTables:error:", &unk_283CAF088, &unk_283CAF0A0, a3))
+  if ([v12 deleteDataEntitySubclassTablesIfExist:&unk_283CAF058 intermediateTables:&unk_283CAF070 error:a3] && objc_msgSend(v12, "deleteDataEntitySubclassTablesIfExist:intermediateTables:error:", &unk_283CAF088, &unk_283CAF0A0, a3))
   {
-    goto LABEL_19;
-  }
+    v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v14 = [v3 transaction];
+    v15 = [v14 protectedDatabase];
+    v16 = [v15 dumpSchemaWithError:a3];
 
-  v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v14 = [v3 transaction];
-  v15 = [v14 protectedDatabase];
-  v16 = [v15 dumpSchemaWithError:a3];
-
-  if (!v16)
-  {
-
-LABEL_19:
-LABEL_20:
-    result = 1;
-    goto LABEL_21;
-  }
-
-  v30 = v12;
-  v31 = v3;
-  v32 = a3;
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v17 = [&unk_283CAF0B8 countByEnumeratingWithState:&v33 objects:v39 count:16];
-  if (v17)
-  {
-    v18 = v17;
-    v19 = *v34;
-    v20 = MEMORY[0x277CCC2A0];
-    do
+    if (v16)
     {
-      for (i = 0; i != v18; ++i)
+      v29 = v12;
+      v30 = v3;
+      v31 = a3;
+      v34 = 0u;
+      v35 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      v17 = [&unk_283CAF0B8 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      if (v17)
       {
-        if (*v34 != v19)
+        v18 = v17;
+        v19 = *v33;
+        v20 = MEMORY[0x277CCC2A0];
+        do
         {
-          objc_enumerationMutation(&unk_283CAF0B8);
-        }
-
-        v22 = *(*(&v33 + 1) + 8 * i);
-        if ([MEMORY[0x277D10B30] databaseSchemas:v16 containTable:v22])
-        {
-          v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE IF EXISTS %@", v22];
-          [v13 addObject:v23];
-        }
-
-        else
-        {
-          _HKInitializeLogging();
-          v24 = *v20;
-          if (os_log_type_enabled(*v20, OS_LOG_TYPE_INFO))
+          for (i = 0; i != v18; ++i)
           {
-            *buf = 138412290;
-            v38 = v22;
-            _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_INFO, "Skipping deletion from nonexistent table %@", buf, 0xCu);
+            if (*v33 != v19)
+            {
+              objc_enumerationMutation(&unk_283CAF0B8);
+            }
+
+            v22 = *(*(&v32 + 1) + 8 * i);
+            if ([MEMORY[0x277D10B30] databaseSchemas:v16 containTable:v22])
+            {
+              v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE IF EXISTS %@", v22];
+              [v13 addObject:v23];
+            }
+
+            else
+            {
+              _HKInitializeLogging();
+              v24 = *v20;
+              if (os_log_type_enabled(*v20, OS_LOG_TYPE_INFO))
+              {
+                *buf = 138412290;
+                v37 = v22;
+                _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_INFO, "Skipping deletion from nonexistent table %@", buf, 0xCu);
+              }
+            }
           }
+
+          v18 = [&unk_283CAF0B8 countByEnumeratingWithState:&v32 objects:v38 count:16];
         }
+
+        while (v18);
       }
 
-      v18 = [&unk_283CAF0B8 countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v25 = [v30 executeSQLStatements:v13 error:v31];
+
+      if (v25)
+      {
+        v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        [v26 addObject:{@"CREATE TABLE medical_records (data_id INTEGER PRIMARY KEY, note TEXT, entered_in_error INTEGER NON NULL, modified_date REAL, fhir_identifier BLOB, refinement_version BLOB, sort_date REAL NON NULL, sort_date_key_path TEXT NON NULL)"}];
+        [v26 addObject:{@"CREATE TABLE account_owner_samples (data_id INTEGER PRIMARY KEY, name TEXT NOT NULL, birth_date BLOB)"}];
+        [v26 addObject:{@"CREATE TABLE allergy_record_samples (data_id INTEGER PRIMARY KEY, allergy_codings BLOB NOT NULL, onset_date BLOB, asserter TEXT, reactions BLOB, criticality_coding BLOB, last_occurence_date BLOB, recorded_date BLOB)"}];
+        [v26 addObject:{@"CREATE TABLE condition_record_samples (data_id INTEGER PRIMARY KEY, condition_codings BLOB NOT NULL, category_codings BLOB NOT NULL, asserter TEXT, abatement BLOB, onset BLOB, recorded_date BLOB, clinical_status_coding BLOB, verification_status_coding BLOB, severity_codings BLOB, body_sites_codings BLOB)"}];
+        [v26 addObject:{@"CREATE TABLE diagnostic_test_report_samples (data_id INTEGER PRIMARY KEY, diagnostic_test_codings BLOB, panel_name TEXT NOT NULL, results BLOB, effective_start_date BLOB, status BLOB NOT NULL, effective_end_date BLOB, issue_date BLOB NOT NULL)"}];
+        [v26 addObject:{@"CREATE TABLE diagnostic_test_result_samples (data_id INTEGER PRIMARY KEY, diagnostic_test_codings BLOB NOT NULL, value BLOB, reference_ranges BLOB, effective_start_date BLOB, category TEXT NOT NULL, issue_date BLOB, effective_end_date BLOB)"}];
+        [v26 addObject:{@"CREATE TABLE medication_dispense_record_samples (data_id INTEGER PRIMARY KEY, medication_codings BLOB NOT NULL, quantity BLOB, preparation_date BLOB, hand_over_date BLOB, dosage_instructions BLOB, status_coding BLOB)"}];
+        [v26 addObject:{@"CREATE TABLE medication_order_samples (data_id INTEGER PRIMARY KEY, medication_codings BLOB NOT NULL, prescriber TEXT, number_of_fills INTEGER NOT NULL, signetur TEXT, written_date BLOB, ended_date BLOB)"}];
+        [v26 addObject:{@"CREATE TABLE medication_record_samples (data_id INTEGER PRIMARY KEY, medication_codings BLOB NOT NULL, assertion_type TEXT, asserter TEXT, assertion_date BLOB, dosage TEXT, not_taken INTEGER NOT NULL, effective_start_date BLOB, effective_end_date BLOB)"}];
+        [v26 addObject:{@"CREATE TABLE procedure_record_samples (data_id INTEGER PRIMARY KEY, procedure_codings BLOB NOT NULL, orderer TEXT, order_date BLOB, performer TEXT, organization TEXT, execution_start_date BLOB, outcome TEXT, complications BLOB NOT NULL, reasons BLOB NOT NULL, not_performed INTEGER NOT NULL, execution_end_date BLOB)"}];
+        [v26 addObject:{@"CREATE TABLE vaccination_record_samples (data_id INTEGER PRIMARY KEY, vaccination_codings BLOB NOT NULL, expiration_date BLOB, dose_number TEXT, dose_quantity TEXT, performer TEXT, body_site_coding BLOB, reaction TEXT, not_given INTEGER NOT NULL, administration_date BLOB NOT NULL, status_coding BLOB, patient_reported INTEGER NOT NULL, route_codings BLOB, reasons_codings BLOB, reasons_not_given_codings BLOB)"}];
+        [v26 addObject:{@"CREATE TABLE unknown_record_samples (data_id INTEGER PRIMARY KEY, display_name TEXT)"}];
+        [v26 addObject:{@"CREATE TABLE clinical_gateways (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, external_id TEXT NOT NULL, last_reported_status INTEGER NOT NULL, revision INTEGER NOT NULL, raw_content BLOB NOT NULL, sync_anchor INTEGER NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL, UNIQUE(external_id))"}];
+        [v26 addObject:{@"CREATE TABLE clinical_accounts (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, identifier BLOB NOT NULL UNIQUE, user_enabled_flag INTEGER NOT NULL, relogin_needed_flag INTEGER NOT NULL, creation_date REAL NOT NULL, last_fetch_date REAL, last_full_fetch_date REAL, last_submitted_rowid INTEGER, last_extracted_rowid INTEGER, last_extracted_rules_version INTEGER, credential_id INTEGER REFERENCES clinical_credentials (ROWID) ON DELETE SET NULL, gateway_id INTEGER NOT NULL UNIQUE REFERENCES clinical_gateways (ROWID) ON DELETE NO ACTION, sync_identifier BLOB NOT NULL UNIQUE, modification_date REAL NOT NULL, sync_anchor INTEGER NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL)"}];
+        [v26 addObject:{@"CREATE TABLE clinical_deleted_accounts (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, sync_identifier BLOB NOT NULL, deletion_date REAL NOT NULL, sync_provenance INTEGER NOT NULL, UNIQUE(sync_identifier))"}];
+        [v26 addObject:{@"CREATE TABLE fhir_resources (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT NOT NULL, account_id INTEGER NOT NULL REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, id TEXT NOT NULL, sync_provenance INTEGER NOT NULL, raw_content BLOB NOT NULL, fhir_version TEXT NOT NULL, received_date REAL NOT NULL, received_date_timezone TEXT NOT NULL, UNIQUE(type, account_id, id))"}];
+        [v26 addObject:{@"CREATE TABLE clinical_credentials (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, access_token BLOB NOT NULL, token_type TEXT NOT NULL, refresh_token BLOB, expiration_date REAL, scope TEXT, patient_id TEXT, creation_date REAL NOT NULL)"}];
+        [v26 addObject:{@"CREATE TABLE clinical_authorization_sessions (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, query TEXT NOT NULL, state BLOB NOT NULL UNIQUE, code TEXT, creation_date REAL NOT NULL, gateway_id INTEGER REFERENCES clinical_gateways (ROWID) ON DELETE CASCADE, account_id INTEGER REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, CHECK ((account_id IS NULL AND gateway_id IS NOT NULL) OR (account_id IS NOT NULL AND gateway_id IS NULL)))"}];
+        v27 = [v30 executeSQLStatements:v26 error:v31];
+
+        return v27 ^ 1u;
+      }
+
+      return 1;
     }
-
-    while (v18);
   }
 
-  v25 = [v31 executeSQLStatements:v13 error:v32];
-
-  if ((v25 & 1) == 0)
-  {
-    goto LABEL_20;
-  }
-
-  v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  [v26 addObject:{@"CREATE TABLE medical_records (data_id INTEGER PRIMARY KEY, note TEXT, entered_in_error INTEGER NON NULL, modified_date REAL, fhir_identifier BLOB, refinement_version BLOB, sort_date REAL NON NULL, sort_date_key_path TEXT NON NULL)"}];
-  [v26 addObject:{@"CREATE TABLE account_owner_samples (data_id INTEGER PRIMARY KEY, name TEXT NOT NULL, birth_date BLOB)"}];
-  [v26 addObject:{@"CREATE TABLE allergy_record_samples (data_id INTEGER PRIMARY KEY, allergy_codings BLOB NOT NULL, onset_date BLOB, asserter TEXT, reactions BLOB, criticality_coding BLOB, last_occurence_date BLOB, recorded_date BLOB)"}];
-  [v26 addObject:{@"CREATE TABLE condition_record_samples (data_id INTEGER PRIMARY KEY, condition_codings BLOB NOT NULL, category_codings BLOB NOT NULL, asserter TEXT, abatement BLOB, onset BLOB, recorded_date BLOB, clinical_status_coding BLOB, verification_status_coding BLOB, severity_codings BLOB, body_sites_codings BLOB)"}];
-  [v26 addObject:{@"CREATE TABLE diagnostic_test_report_samples (data_id INTEGER PRIMARY KEY, diagnostic_test_codings BLOB, panel_name TEXT NOT NULL, results BLOB, effective_start_date BLOB, status BLOB NOT NULL, effective_end_date BLOB, issue_date BLOB NOT NULL)"}];
-  [v26 addObject:{@"CREATE TABLE diagnostic_test_result_samples (data_id INTEGER PRIMARY KEY, diagnostic_test_codings BLOB NOT NULL, value BLOB, reference_ranges BLOB, effective_start_date BLOB, category TEXT NOT NULL, issue_date BLOB, effective_end_date BLOB)"}];
-  [v26 addObject:{@"CREATE TABLE medication_dispense_record_samples (data_id INTEGER PRIMARY KEY, medication_codings BLOB NOT NULL, quantity BLOB, preparation_date BLOB, hand_over_date BLOB, dosage_instructions BLOB, status_coding BLOB)"}];
-  [v26 addObject:{@"CREATE TABLE medication_order_samples (data_id INTEGER PRIMARY KEY, medication_codings BLOB NOT NULL, prescriber TEXT, number_of_fills INTEGER NOT NULL, signetur TEXT, written_date BLOB, ended_date BLOB)"}];
-  [v26 addObject:{@"CREATE TABLE medication_record_samples (data_id INTEGER PRIMARY KEY, medication_codings BLOB NOT NULL, assertion_type TEXT, asserter TEXT, assertion_date BLOB, dosage TEXT, not_taken INTEGER NOT NULL, effective_start_date BLOB, effective_end_date BLOB)"}];
-  [v26 addObject:{@"CREATE TABLE procedure_record_samples (data_id INTEGER PRIMARY KEY, procedure_codings BLOB NOT NULL, orderer TEXT, order_date BLOB, performer TEXT, organization TEXT, execution_start_date BLOB, outcome TEXT, complications BLOB NOT NULL, reasons BLOB NOT NULL, not_performed INTEGER NOT NULL, execution_end_date BLOB)"}];
-  [v26 addObject:{@"CREATE TABLE vaccination_record_samples (data_id INTEGER PRIMARY KEY, vaccination_codings BLOB NOT NULL, expiration_date BLOB, dose_number TEXT, dose_quantity TEXT, performer TEXT, body_site_coding BLOB, reaction TEXT, not_given INTEGER NOT NULL, administration_date BLOB NOT NULL, status_coding BLOB, patient_reported INTEGER NOT NULL, route_codings BLOB, reasons_codings BLOB, reasons_not_given_codings BLOB)"}];
-  [v26 addObject:{@"CREATE TABLE unknown_record_samples (data_id INTEGER PRIMARY KEY, display_name TEXT)"}];
-  [v26 addObject:{@"CREATE TABLE clinical_gateways (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, external_id TEXT NOT NULL, last_reported_status INTEGER NOT NULL, revision INTEGER NOT NULL, raw_content BLOB NOT NULL, sync_anchor INTEGER NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL, UNIQUE(external_id))"}];
-  [v26 addObject:{@"CREATE TABLE clinical_accounts (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, identifier BLOB NOT NULL UNIQUE, user_enabled_flag INTEGER NOT NULL, relogin_needed_flag INTEGER NOT NULL, creation_date REAL NOT NULL, last_fetch_date REAL, last_full_fetch_date REAL, last_submitted_rowid INTEGER, last_extracted_rowid INTEGER, last_extracted_rules_version INTEGER, credential_id INTEGER REFERENCES clinical_credentials (ROWID) ON DELETE SET NULL, gateway_id INTEGER NOT NULL UNIQUE REFERENCES clinical_gateways (ROWID) ON DELETE NO ACTION, sync_identifier BLOB NOT NULL UNIQUE, modification_date REAL NOT NULL, sync_anchor INTEGER NOT NULL UNIQUE, sync_provenance INTEGER NOT NULL)"}];
-  [v26 addObject:{@"CREATE TABLE clinical_deleted_accounts (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, sync_identifier BLOB NOT NULL, deletion_date REAL NOT NULL, sync_provenance INTEGER NOT NULL, UNIQUE(sync_identifier))"}];
-  [v26 addObject:{@"CREATE TABLE fhir_resources (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, type TEXT NOT NULL, account_id INTEGER NOT NULL REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, id TEXT NOT NULL, sync_provenance INTEGER NOT NULL, raw_content BLOB NOT NULL, fhir_version TEXT NOT NULL, received_date REAL NOT NULL, received_date_timezone TEXT NOT NULL, UNIQUE(type, account_id, id))"}];
-  [v26 addObject:{@"CREATE TABLE clinical_credentials (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, access_token BLOB NOT NULL, token_type TEXT NOT NULL, refresh_token BLOB, expiration_date REAL, scope TEXT, patient_id TEXT, creation_date REAL NOT NULL)"}];
-  [v26 addObject:{@"CREATE TABLE clinical_authorization_sessions (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, query TEXT NOT NULL, state BLOB NOT NULL UNIQUE, code TEXT, creation_date REAL NOT NULL, gateway_id INTEGER REFERENCES clinical_gateways (ROWID) ON DELETE CASCADE, account_id INTEGER REFERENCES clinical_accounts (ROWID) ON DELETE CASCADE, CHECK ((account_id IS NULL AND gateway_id IS NOT NULL) OR (account_id IS NOT NULL AND gateway_id IS NULL)))"}];
-  v27 = [v31 executeSQLStatements:v26 error:v32];
-
-  result = v27 ^ 1u;
-LABEL_21:
-  v29 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t __55__HDDatabaseMigrator_Emet__emetProtectedMigrationSteps__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3109,68 +3017,61 @@ uint64_t __55__HDDatabaseMigrator_Emet__emetProtectedMigrationSteps__block_invok
 
 uint64_t __55__HDDatabaseMigrator_Emet__emetProtectedMigrationSteps__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    if ([(HDDatabaseMigrator *)*(a1 + 32) _recreateMedicalRecordTable:&unk_283CAEFE0 intermediateTables:@"CREATE TABLE medical_records (data_id INTEGER PRIMARY KEY creationSQL:note TEXT error:entered_in_error INTEGER NON NULL, modified_date REAL, fhir_identifier TEXT NON NULL, extraction_version INTEGER NON NULL, sort_date REAL NON NULL, sort_date_key_path TEXT NON NULL)", a3])
+    return 0;
+  }
+
+  if (![(HDDatabaseMigrator *)*(a1 + 32) _recreateMedicalRecordTable:&unk_283CAEFE0 intermediateTables:@"CREATE TABLE medical_records (data_id INTEGER PRIMARY KEY creationSQL:note TEXT error:entered_in_error INTEGER NON NULL, modified_date REAL, fhir_identifier TEXT NON NULL, extraction_version INTEGER NON NULL, sort_date REAL NON NULL, sort_date_key_path TEXT NON NULL)", a3])
+  {
+    return 1;
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v5 = [&unk_283CB46A8 allKeys];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v15;
+    while (2)
     {
-      v17 = 0u;
-      v18 = 0u;
-      v15 = 0u;
-      v16 = 0u;
-      v5 = [&unk_283CB46A8 allKeys];
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      if (v6)
+      for (i = 0; i != v7; ++i)
       {
-        v7 = v6;
-        v8 = *v16;
-        while (2)
+        if (*v15 != v8)
         {
-          for (i = 0; i != v7; ++i)
-          {
-            if (*v16 != v8)
-            {
-              objc_enumerationMutation(v5);
-            }
+          objc_enumerationMutation(v5);
+        }
 
-            v10 = *(*(&v15 + 1) + 8 * i);
-            v11 = [&unk_283CB46A8 objectForKeyedSubscript:v10];
-            LODWORD(v10) = [(HDDatabaseMigrator *)v3 _recreateMedicalRecordTable:v10 intermediateTables:&unk_283CAEFF8 creationSQL:v11 error:a3];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [&unk_283CB46A8 objectForKeyedSubscript:v10];
+        LODWORD(v10) = [(HDDatabaseMigrator *)v3 _recreateMedicalRecordTable:v10 intermediateTables:&unk_283CAEFF8 creationSQL:v11 error:a3];
 
-            if (!v10)
-            {
-              v12 = 1;
-              goto LABEL_14;
-            }
-          }
-
-          v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-          if (v7)
-          {
-            continue;
-          }
-
-          break;
+        if (!v10)
+        {
+          v12 = 1;
+          goto LABEL_14;
         }
       }
 
-      v12 = 0;
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v12 = 0;
 LABEL_14:
-    }
 
-    else
-    {
-      v12 = 1;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -3242,12 +3143,12 @@ void *__55__HDDatabaseMigrator_Emet__emetProtectedMigrationSteps__block_invoke_8
 
 uint64_t __81__HDDatabaseMigrator_Emet___emet_migrateWorkoutEventMetadataToProtobufWithError___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v6 = HDSQLiteColumnAsInt64();
   v7 = MEMORY[0x22AAC6C30](a2, 1);
-  v28 = 0;
-  v8 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v7 error:&v28];
-  v9 = v28;
+  v27 = 0;
+  v8 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v7 error:&v27];
+  v9 = v27;
   v10 = *MEMORY[0x277CCA308];
   if ([v8 containsValueForKey:*MEMORY[0x277CCA308]])
   {
@@ -3275,7 +3176,7 @@ uint64_t __81__HDDatabaseMigrator_Emet___emet_migrateWorkoutEventMetadataToProto
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
           *buf = 134217984;
-          v30 = v6;
+          v29 = v6;
           _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "Failed to create codable workout event metadata for %lld", buf, 0xCu);
         }
 
@@ -3305,14 +3206,14 @@ uint64_t __81__HDDatabaseMigrator_Emet___emet_migrateWorkoutEventMetadataToProto
 
     v21 = [*(a1 + 40) transaction];
     v22 = [v21 protectedDatabase];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __81__HDDatabaseMigrator_Emet___emet_migrateWorkoutEventMetadataToProtobufWithError___block_invoke_321;
-    v25[3] = &unk_278613B58;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __81__HDDatabaseMigrator_Emet___emet_migrateWorkoutEventMetadataToProtobufWithError___block_invoke_321;
+    v24[3] = &unk_278613B58;
     v15 = v17;
-    v26 = v15;
-    v27 = v6;
-    v16 = [v22 executeSQL:@"UPDATE workout_events SET metadata = ? WHERE rowid = ?" error:a3 bindingHandler:v25 enumerationHandler:0];
+    v25 = v15;
+    v26 = v6;
+    v16 = [v22 executeSQL:@"UPDATE workout_events SET metadata = ? WHERE rowid = ?" error:a3 bindingHandler:v24 enumerationHandler:0];
 
     goto LABEL_22;
   }
@@ -3322,9 +3223,9 @@ uint64_t __81__HDDatabaseMigrator_Emet___emet_migrateWorkoutEventMetadataToProto
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
     *buf = 134218242;
-    v30 = v6;
-    v31 = 2114;
-    v32 = v9;
+    v29 = v6;
+    v30 = 2114;
+    v31 = v9;
     _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Failed to unarchive workout event metadata for %lld: %{public}@", buf, 0x16u);
   }
 
@@ -3343,7 +3244,6 @@ LABEL_21:
   *a3 = v9;
 LABEL_22:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -3493,9 +3393,7 @@ uint64_t __93__HDDatabaseMigrator_Emet___recreateMedicalRecordTable_intermediate
 
 uint64_t __119__HDDatabaseMigrator_Emet___insertDeletedSampleTombstoneWithUUID_provenanceIdentifier_dataTypeCode_deletionDate_error___block_invoke(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_null(a2, 3);
 
@@ -3504,12 +3402,9 @@ uint64_t __119__HDDatabaseMigrator_Emet___insertDeletedSampleTombstoneWithUUID_p
 
 uint64_t __120__HDDatabaseMigrator_Emet___insertDeletedObjectTombstoneWithUUID_provenanceIdentifier_deletionDate_insertedRowID_error___block_invoke_2(void *a1, sqlite3_stmt *a2)
 {
-  v4 = a1[4];
   HDSQLiteBindFoundationValueToStatement();
-  v5 = a1[5];
   HDSQLiteBindFoundationValueToStatement();
   sqlite3_bind_int64(a2, 3, 2);
-  v6 = a1[6];
 
   return HDSQLiteBindFoundationValueToStatement();
 }
@@ -3734,104 +3629,100 @@ uint64_t __120__HDDatabaseMigrator_Emet___insertDeletedObjectTombstoneWithUUID_p
 
 uint64_t __59__HDDatabaseMigrator_Cinar__cinarUnprotectedMigrationSteps__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    [v19 addObject:@"ALTER TABLE sources RENAME TO sources_old;"];
-    [v19 addObject:{@"CREATE TABLE IF NOT EXISTS sources (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, uuid BLOB UNIQUE NOT NULL, bundle_id TEXT NOT NULL, name TEXT NOT NULL, source_options INTEGER NOT NULL, local_device INTEGER NOT NULL, product_type TEXT NOT NULL, deleted INTEGER NOT NULL, mod_date REAL NOT NULL, provenance INTEGER NOT NULL, sync_anchor INTEGER NOT NULL UNIQUE, sync_primary INTEGER NOT NULL);"}];
-    [v19 addObject:{@"INSERT INTO sources SELECT ROWID, uuid, bundle_id, name, source_options, local_device, product_type, deleted, mod_date, provenance, sync_anchor, 0 FROM sources_old;"}];
-    [v19 addObject:@"DROP TABLE sources_old;"];
-    [v19 addObject:@"UPDATE sources SET sync_primary = 1 WHERE deleted = 1;"];
-    if ([v3 executeSQLStatements:v19 error:a3])
+    return 0;
+  }
+
+  v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  [v18 addObject:@"ALTER TABLE sources RENAME TO sources_old;"];
+  [v18 addObject:{@"CREATE TABLE IF NOT EXISTS sources (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, uuid BLOB UNIQUE NOT NULL, bundle_id TEXT NOT NULL, name TEXT NOT NULL, source_options INTEGER NOT NULL, local_device INTEGER NOT NULL, product_type TEXT NOT NULL, deleted INTEGER NOT NULL, mod_date REAL NOT NULL, provenance INTEGER NOT NULL, sync_anchor INTEGER NOT NULL UNIQUE, sync_primary INTEGER NOT NULL);"}];
+  [v18 addObject:{@"INSERT INTO sources SELECT ROWID, uuid, bundle_id, name, source_options, local_device, product_type, deleted, mod_date, provenance, sync_anchor, 0 FROM sources_old;"}];
+  [v18 addObject:@"DROP TABLE sources_old;"];
+  [v18 addObject:@"UPDATE sources SET sync_primary = 1 WHERE deleted = 1;"];
+  if ([v3 executeSQLStatements:v18 error:a3])
+  {
+    v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v6 = [v3 transaction];
+    v7 = [v6 unprotectedDatabase];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __75__HDDatabaseMigrator_Cinar___cinar_addSyncPrimaryColumnToSourcesWithError___block_invoke;
+    v25[3] = &unk_2786247F0;
+    v17 = v5;
+    v26 = v17;
+    v8 = [v7 executeSQL:@"SELECT ROWID error:bundle_id bindingHandler:(provenance <> 0) as is_remote FROM sources WHERE deleted = 0 ORDER BY bundle_id enumerationHandler:{is_remote, ROWID;", a3, 0, v25}];
+
+    if (v8)
     {
-      v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v6 = [v3 transaction];
-      v7 = [v6 unprotectedDatabase];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __75__HDDatabaseMigrator_Cinar___cinar_addSyncPrimaryColumnToSourcesWithError___block_invoke;
-      v26[3] = &unk_2786247F0;
-      v18 = v5;
-      v27 = v18;
-      v8 = [v7 executeSQL:@"SELECT ROWID error:bundle_id bindingHandler:(provenance <> 0) as is_remote FROM sources WHERE deleted = 0 ORDER BY bundle_id enumerationHandler:{is_remote, ROWID;", a3, 0, v26}];
-
-      if (v8)
+      v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
+      v9 = [v17 allValues];
+      v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      if (v10)
       {
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
-        v23 = 0u;
-        v9 = [v18 allValues];
-        v10 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
-        if (v10)
-        {
-          v11 = *v23;
-          v20 = 1;
+        v11 = *v22;
+        v19 = 1;
 LABEL_6:
-          v12 = 0;
-          while (1)
-          {
-            if (*v23 != v11)
-            {
-              objc_enumerationMutation(v9);
-            }
-
-            v13 = *(*(&v22 + 1) + 8 * v12);
-            v14 = [v3 transaction];
-            v15 = [v14 unprotectedDatabase];
-            v21[0] = MEMORY[0x277D85DD0];
-            v21[1] = 3221225472;
-            v21[2] = __75__HDDatabaseMigrator_Cinar___cinar_addSyncPrimaryColumnToSourcesWithError___block_invoke_2;
-            v21[3] = &unk_278615580;
-            v21[4] = v13;
-            LOBYTE(v13) = [v15 executeSQL:@"UPDATE sources SET sync_primary = 1 WHERE ROWID = ?;" error:a3 bindingHandler:v21 enumerationHandler:0];
-
-            if ((v13 & 1) == 0)
-            {
-              break;
-            }
-
-            if (v10 == ++v12)
-            {
-              v10 = [v9 countByEnumeratingWithState:&v22 objects:v28 count:16];
-              if (v10)
-              {
-                goto LABEL_6;
-              }
-
-              v20 = 0;
-              break;
-            }
-          }
-        }
-
-        else
+        v12 = 0;
+        while (1)
         {
-          v20 = 0;
+          if (*v22 != v11)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v13 = *(*(&v21 + 1) + 8 * v12);
+          v14 = [v3 transaction];
+          v15 = [v14 unprotectedDatabase];
+          v20[0] = MEMORY[0x277D85DD0];
+          v20[1] = 3221225472;
+          v20[2] = __75__HDDatabaseMigrator_Cinar___cinar_addSyncPrimaryColumnToSourcesWithError___block_invoke_2;
+          v20[3] = &unk_278615580;
+          v20[4] = v13;
+          LOBYTE(v13) = [v15 executeSQL:@"UPDATE sources SET sync_primary = 1 WHERE ROWID = ?;" error:a3 bindingHandler:v20 enumerationHandler:0];
+
+          if ((v13 & 1) == 0)
+          {
+            break;
+          }
+
+          if (v10 == ++v12)
+          {
+            v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
+            if (v10)
+            {
+              goto LABEL_6;
+            }
+
+            v19 = 0;
+            break;
+          }
         }
       }
 
       else
       {
-        v20 = 1;
+        v19 = 0;
       }
     }
 
     else
     {
-      v20 = 1;
+      v19 = 1;
     }
   }
 
   else
   {
-    v20 = 0;
+    v19 = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v19;
 }
 
 void *__59__HDDatabaseMigrator_Cinar__cinarUnprotectedMigrationSteps__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3869,92 +3760,88 @@ uint64_t __59__HDDatabaseMigrator_Cinar__cinarUnprotectedMigrationSteps__block_i
 
 uint64_t __59__HDDatabaseMigrator_Cinar__cinarUnprotectedMigrationSteps__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v5 = [v3 transaction];
-    v6 = [v5 unprotectedDatabase];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __82__HDDatabaseMigrator_Cinar___cinar_convertLocalDevicePlaceholderSourcesWithError___block_invoke;
-    v28[3] = &unk_2786247F0;
-    v20 = v18;
-    v29 = v20;
-    v7 = [v6 executeSQL:@"SELECT rowid FROM sources WHERE bundle_id LIKE 'com.apple.private.health.localdevice'" error:a3 bindingHandler:0 enumerationHandler:v28];
+    return 0;
+  }
 
-    if (v7)
+  v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v5 = [v3 transaction];
+  v6 = [v5 unprotectedDatabase];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __82__HDDatabaseMigrator_Cinar___cinar_convertLocalDevicePlaceholderSourcesWithError___block_invoke;
+  v27[3] = &unk_2786247F0;
+  v19 = v17;
+  v28 = v19;
+  v7 = [v6 executeSQL:@"SELECT rowid FROM sources WHERE bundle_id LIKE 'com.apple.private.health.localdevice'" error:a3 bindingHandler:0 enumerationHandler:v27];
+
+  if (v7)
+  {
+    v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"UPDATE sources SET bundle_id = 'com.apple.health.' || %@(uuid), sync_anchor = COALESCE((SELECT MAX(sync_anchor) + 1 FROM sources), 1) WHERE rowid = ?", *MEMORY[0x277D10A60]];
+    v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    obj = v19;
+    v8 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+    if (v8)
     {
-      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"UPDATE sources SET bundle_id = 'com.apple.health.' || %@(uuid), sync_anchor = COALESCE((SELECT MAX(sync_anchor) + 1 FROM sources), 1) WHERE rowid = ?", *MEMORY[0x277D10A60]];
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      obj = v20;
-      v8 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
-      if (v8)
-      {
-        v9 = *v25;
-        v19 = 1;
+      v9 = *v24;
+      v18 = 1;
 LABEL_5:
-        v10 = 0;
-        while (1)
-        {
-          if (*v25 != v9)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v11 = *(*(&v24 + 1) + 8 * v10);
-          aBlock[0] = MEMORY[0x277D85DD0];
-          aBlock[1] = 3221225472;
-          aBlock[2] = __82__HDDatabaseMigrator_Cinar___cinar_convertLocalDevicePlaceholderSourcesWithError___block_invoke_2;
-          aBlock[3] = &unk_278615580;
-          aBlock[4] = v11;
-          v12 = _Block_copy(aBlock);
-          v13 = [v3 transaction];
-          v14 = [v13 unprotectedDatabase];
-          v15 = [v14 executeSQL:v22 error:a3 bindingHandler:v12 enumerationHandler:0];
-
-          if ((v15 & 1) == 0)
-          {
-            break;
-          }
-
-          if (v8 == ++v10)
-          {
-            v8 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
-            if (v8)
-            {
-              goto LABEL_5;
-            }
-
-            goto LABEL_11;
-          }
-        }
-      }
-
-      else
+      v10 = 0;
+      while (1)
       {
-LABEL_11:
-        v19 = 0;
+        if (*v24 != v9)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v11 = *(*(&v23 + 1) + 8 * v10);
+        aBlock[0] = MEMORY[0x277D85DD0];
+        aBlock[1] = 3221225472;
+        aBlock[2] = __82__HDDatabaseMigrator_Cinar___cinar_convertLocalDevicePlaceholderSourcesWithError___block_invoke_2;
+        aBlock[3] = &unk_278615580;
+        aBlock[4] = v11;
+        v12 = _Block_copy(aBlock);
+        v13 = [v3 transaction];
+        v14 = [v13 unprotectedDatabase];
+        v15 = [v14 executeSQL:v21 error:a3 bindingHandler:v12 enumerationHandler:0];
+
+        if ((v15 & 1) == 0)
+        {
+          break;
+        }
+
+        if (v8 == ++v10)
+        {
+          v8 = [obj countByEnumeratingWithState:&v23 objects:v29 count:16];
+          if (v8)
+          {
+            goto LABEL_5;
+          }
+
+          goto LABEL_11;
+        }
       }
     }
 
     else
     {
-      v19 = 1;
+LABEL_11:
+      v18 = 0;
     }
   }
 
   else
   {
-    v19 = 0;
+    v18 = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v18;
 }
 
 uint64_t __75__HDDatabaseMigrator_Cinar___cinar_addSyncPrimaryColumnToSourcesWithError___block_invoke(uint64_t a1, uint64_t a2)
@@ -4309,14 +4196,12 @@ uint64_t __57__HDDatabaseMigrator_Cinar__cinarProtectedMigrationSteps__block_inv
 
 - (void)addMigrationTo:(int64_t)to foreignKeys:(int64_t)keys handler:(id)handler
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v9 = [[HDDatabaseMigrationStep alloc] initForSchema:0 toVersion:to requiringVersion:-1 foreignKeys:keys handler:handlerCopy];
-  v12[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   [(HDDatabaseMigrator *)self addMigrationSteps:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMigrationTo:(int64_t)to function:(void *)function
@@ -4341,20 +4226,18 @@ uint64_t __57__HDDatabaseMigrator_Cinar__cinarProtectedMigrationSteps__block_inv
 
 - (void)addMigrationForSchema:(id)schema toVersion:(int64_t)version foreignKeyStatus:(int64_t)status handler:(id)handler
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   schemaCopy = schema;
   handlerCopy = handler;
   v12 = [[HDDatabaseMigrationStep alloc] initForSchema:schemaCopy toVersion:version requiringVersion:-1 foreignKeys:status handler:handlerCopy];
-  v15[0] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+  v14[0] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
   [(HDDatabaseMigrator *)self addMigrationSteps:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addLockstepMigrationForSchema:(id)schema toVersion:(int64_t)version requiringVersion:(int64_t)requiringVersion foreignKeyStatus:(int64_t)status handler:(id)handler
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   schemaCopy = schema;
   handlerCopy = handler;
   if (version == -1)
@@ -4364,11 +4247,9 @@ uint64_t __57__HDDatabaseMigrator_Cinar__cinarProtectedMigrationSteps__block_inv
   }
 
   v15 = [[HDDatabaseMigrationStep alloc] initForSchema:schemaCopy toVersion:version requiringVersion:requiringVersion foreignKeys:status handler:handlerCopy];
-  v19[0] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   [(HDDatabaseMigrator *)self addMigrationSteps:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMigrationSteps:(id)steps
@@ -4416,27 +4297,27 @@ uint64_t __57__HDDatabaseMigrator_Cinar__cinarProtectedMigrationSteps__block_inv
 
 uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = *(a1 + 32);
   if (v5)
   {
     v6 = *(*(a1 + 40) + 32);
     v7 = *(a1 + 72);
-    v61 = 0;
-    v8 = [v6 currentVersionForSchema:v5 protectionClass:v7 error:&v61];
-    v9 = v61;
+    v60 = 0;
+    v8 = [v6 currentVersionForSchema:v5 protectionClass:v7 error:&v60];
+    v9 = v60;
     if (v8 == -1)
     {
       _HKInitializeLogging();
       v10 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v53 = *(a1 + 32);
+        v52 = *(a1 + 32);
         *buf = 138543618;
-        v63 = v53;
-        v64 = 2114;
-        v65 = v9;
+        v62 = v52;
+        v63 = 2114;
+        v64 = v9;
         _os_log_error_impl(&dword_228986000, v10, OS_LOG_TYPE_ERROR, "Failed to retrieve current version for schema '%{public}@': %{public}@.", buf, 0x16u);
       }
 
@@ -4456,9 +4337,9 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
   v13 = *(a1 + 40);
   v14 = [v13 transaction];
   v15 = **(a1 + 80);
-  v60 = v9;
-  v16 = (v12)[2](v12, v13, v14, v15, &v60);
-  v17 = v60;
+  v59 = v9;
+  v16 = (v12)[2](v12, v13, v14, v15, &v59);
+  v17 = v59;
 
   *(*(*(a1 + 56) + 8) + 24) = v16;
   if (*(*(*(a1 + 56) + 8) + 24))
@@ -4472,9 +4353,9 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
     v19 = *(*(a1 + 40) + 32);
     v20 = *(a1 + 88);
     v21 = *(a1 + 72);
-    v59 = v17;
-    v22 = [v19 setVersion:v20 schema:v18 protectionClass:v21 error:&v59];
-    v9 = v59;
+    v58 = v17;
+    v22 = [v19 setVersion:v20 schema:v18 protectionClass:v21 error:&v58];
+    v9 = v58;
 
     if (v22)
     {
@@ -4496,7 +4377,7 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
           v28 = *(a1 + 32);
           v29 = *(a1 + 88);
           *buf = 138543874;
-          v63 = v27;
+          v62 = v27;
           if (v28)
           {
             v30 = v28;
@@ -4507,10 +4388,10 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
             v30 = &stru_283BF39C8;
           }
 
-          v64 = 2114;
-          v65 = v30;
-          v66 = 2048;
-          v67 = v29;
+          v63 = 2114;
+          v64 = v30;
+          v65 = 2048;
+          v66 = v29;
           _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_INFO, "Successfully migrated %{public}@ schema '%{public}@' to %ld", buf, 0x20u);
         }
       }
@@ -4527,19 +4408,19 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
       v31 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
       {
-        v54 = *(a1 + 32);
-        if (!v54)
+        v53 = *(a1 + 32);
+        if (!v53)
         {
-          v54 = &stru_283BF39C8;
+          v53 = &stru_283BF39C8;
         }
 
-        v55 = *(a1 + 88);
+        v54 = *(a1 + 88);
         *buf = 138543874;
-        v63 = v54;
-        v64 = 2048;
-        v65 = v55;
-        v66 = 2114;
-        v67 = v9;
+        v62 = v53;
+        v63 = 2048;
+        v64 = v54;
+        v65 = 2114;
+        v66 = v9;
         _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "Data migration succeeded for '%{public}@' to %ld but setting schema version failed: %{public}@", buf, 0x20u);
       }
 
@@ -4549,9 +4430,9 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
 
   if (*(a1 + 96) == 1)
   {
-    v58 = v9;
-    v32 = [v4 validateForeignKeysForTable:0 databaseName:0 error:&v58];
-    v33 = v58;
+    v57 = v9;
+    v32 = [v4 validateForeignKeysForTable:0 databaseName:0 error:&v57];
+    v33 = v57;
 
     v9 = v33;
     if (v32 == 1)
@@ -4561,7 +4442,7 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v63 = v33;
+        v62 = v33;
         _os_log_fault_impl(&dword_228986000, v35, OS_LOG_TYPE_FAULT, "Foreign key constraint violation encountered after migration step: %{public}@", buf, 0xCu);
       }
 
@@ -4577,7 +4458,7 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
       {
         *buf = 138543362;
-        v63 = v33;
+        v62 = v33;
         _os_log_fault_impl(&dword_228986000, v34, OS_LOG_TYPE_FAULT, "Error encountered when validating foreign keys: %{public}@", buf, 0xCu);
       }
     }
@@ -4607,7 +4488,7 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
 
   if (!v39)
   {
-    v56 = v4;
+    v55 = v4;
     v40 = [MEMORY[0x277CCACA8] stringWithFormat:@"(main schema version %lu)", *(a1 + 64)];
     v41 = MEMORY[0x277CCACA8];
     v42 = [*(a1 + 40) transaction];
@@ -4638,7 +4519,7 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
 
     v49 = [v41 stringWithFormat:@"migration of %@ (schema: %@) from %ld to %ld %@", v47, v48, v8, v45, v46];
 
-    v4 = v56;
+    v4 = v55;
     if (v9)
     {
       v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error during %@", v49];
@@ -4653,14 +4534,13 @@ uint64_t __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_
 
 LABEL_52:
 
-  v51 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (int64_t)migrateFromVersion:(int64_t)version toVersion:(int64_t)toVersion error:(id *)error
 {
-  v128 = *MEMORY[0x277D85DE8];
-  v78 = self->_migrationSteps;
+  v127 = *MEMORY[0x277D85DE8];
+  v77 = self->_migrationSteps;
   versionCopy = version;
   if (!version)
   {
@@ -4685,46 +4565,46 @@ LABEL_125:
   }
 
 LABEL_3:
-  v83 = versionCopy;
-  v101 = 0;
-  v79 = v78;
+  v82 = versionCopy;
+  v100 = 0;
+  v78 = v77;
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
   v104 = 0u;
-  obj = v79;
-  v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v103 objects:v122 count:16];
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
+  obj = v78;
+  v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v102 objects:v121 count:16];
   errorCopy = error;
   if (v8)
   {
-    v98 = 0;
-    v9 = *v104;
+    v97 = 0;
+    v9 = *v103;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v104 != v9)
+        if (*v103 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v103 + 1) + 8 * i);
+        v11 = *(*(&v102 + 1) + 8 * i);
         schemaName = [v11 schemaName];
         if (schemaName)
         {
-          v13 = v98;
-          if (!v98)
+          v13 = v97;
+          if (!v97)
           {
             v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
           }
 
-          v98 = v13;
+          v97 = v13;
           v14 = [v13 objectForKeyedSubscript:schemaName];
           if (!v14)
           {
             v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
-            [v98 setObject:v14 forKeyedSubscript:schemaName];
+            [v97 setObject:v14 forKeyedSubscript:schemaName];
           }
 
           [v14 addObject:v11];
@@ -4736,7 +4616,7 @@ LABEL_3:
         }
       }
 
-      v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v103 objects:v122 count:16];
+      v8 = [(NSMutableArray *)obj countByEnumeratingWithState:&v102 objects:v121 count:16];
     }
 
     while (v8);
@@ -4744,31 +4624,31 @@ LABEL_3:
 
   else
   {
-    v98 = 0;
+    v97 = 0;
   }
 
   [v7 sortUsingComparator:&__block_literal_global_437];
-  allKeys = [v98 allKeys];
+  allKeys = [v97 allKeys];
   v16 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
+  v119 = 0u;
   v120 = 0u;
-  v121 = 0u;
-  memset(v119, 0, sizeof(v119));
-  v85 = v16;
-  v92 = [v85 countByEnumeratingWithState:v119 objects:v111 count:16];
-  if (v92)
+  memset(v118, 0, sizeof(v118));
+  v84 = v16;
+  v91 = [v84 countByEnumeratingWithState:v118 objects:v110 count:16];
+  if (v91)
   {
-    v90 = **&v119[16];
+    v89 = **&v118[16];
     do
     {
-      for (j = 0; j != v92; ++j)
+      for (j = 0; j != v91; ++j)
       {
-        if (**&v119[16] != v90)
+        if (**&v118[16] != v89)
         {
-          objc_enumerationMutation(v85);
+          objc_enumerationMutation(v84);
         }
 
-        v17 = [v98 objectForKeyedSubscript:*(*&v119[8] + 8 * j)];
+        v17 = [v97 objectForKeyedSubscript:*(*&v118[8] + 8 * j)];
         [v17 sortUsingComparator:&__block_literal_global_441];
         v18 = 0;
         while (v18 < [v17 count])
@@ -4785,15 +4665,15 @@ LABEL_3:
           {
             *&buf = MEMORY[0x277D85DD0];
             *(&buf + 1) = 3221225472;
-            v108 = ___ZL23_HDSortedMigrationStepsP7NSArrayIP23HDDatabaseMigrationStepE_block_invoke_3;
-            v109 = &__block_descriptor_40_e40_B32__0__HDDatabaseMigrationStep_8Q16_B24l;
-            v110 = requiredPrimarySchemaVersion;
+            v107 = ___ZL23_HDSortedMigrationStepsP7NSArrayIP23HDDatabaseMigrationStepE_block_invoke_3;
+            v108 = &__block_descriptor_40_e40_B32__0__HDDatabaseMigrationStep_8Q16_B24l;
+            v109 = requiredPrimarySchemaVersion;
             v22 = [v7 indexOfObjectPassingTest:&buf];
             if (v22 == 0x7FFFFFFFFFFFFFFFLL)
             {
               currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-              v81 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSArray<HDDatabaseMigrationStep *> * _Nonnull _HDSortedMigrationSteps(NSArray<HDDatabaseMigrationStep *> * _Nonnull __strong)"];
-              [currentHandler3 handleFailureInFunction:v81 file:@"HDDatabaseMigrator.mm" lineNumber:615 description:{@"Unable to find a primary migration step resulting in %ld, which is required for migration step %@", v21, v19}];
+              v80 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSArray<HDDatabaseMigrationStep *> * _Nonnull _HDSortedMigrationSteps(NSArray<HDDatabaseMigrationStep *> * _Nonnull __strong)"];
+              [currentHandler3 handleFailureInFunction:v80 file:@"HDDatabaseMigrator.mm" lineNumber:615 description:{@"Unable to find a primary migration step resulting in %ld, which is required for migration step %@", v21, v19}];
             }
 
             v23 = [MEMORY[0x277CCAA78] indexSetWithIndexesInRange:{v22 + 1, v18 + 1}];
@@ -4808,14 +4688,14 @@ LABEL_3:
         [v7 addObjectsFromArray:v17];
       }
 
-      v92 = [v85 countByEnumeratingWithState:v119 objects:v111 count:16];
+      v91 = [v84 countByEnumeratingWithState:v118 objects:v110 count:16];
     }
 
-    while (v92);
+    while (v91);
   }
 
-  v93 = v7;
-  v99 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v92 = v7;
+  v98 = objc_alloc_init(MEMORY[0x277CBEB18]);
   transaction = [(HDDatabaseMigrator *)self transaction];
   isProtectedMigration = [transaction isProtectedMigration];
   v27 = 1;
@@ -4824,27 +4704,27 @@ LABEL_3:
     v27 = 2;
   }
 
-  v96 = v27;
+  v95 = v27;
 
+  v111 = 0u;
   v112 = 0u;
-  v113 = 0u;
-  memset(v111, 0, sizeof(v111));
-  v28 = v93;
+  memset(v110, 0, sizeof(v110));
+  v28 = v92;
   v29 = 0;
-  v30 = [v28 countByEnumeratingWithState:v111 objects:v122 count:16];
+  v30 = [v28 countByEnumeratingWithState:v110 objects:v121 count:16];
   if (v30)
   {
-    v31 = **&v111[16];
+    v31 = **&v110[16];
     while (2)
     {
       for (k = 0; k != v30; ++k)
       {
-        if (**&v111[16] != v31)
+        if (**&v110[16] != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = *(*&v111[8] + 8 * k);
+        v33 = *(*&v110[8] + 8 * k);
         schemaName2 = [v33 schemaName];
         if (schemaName2)
         {
@@ -4857,12 +4737,12 @@ LABEL_3:
 
           else
           {
-            integerValue = [(HDDatabaseSchemaManager *)self->_schemaManager currentVersionForSchema:schemaName2 protectionClass:v96 error:&v101];
+            integerValue = [(HDDatabaseSchemaManager *)self->_schemaManager currentVersionForSchema:schemaName2 protectionClass:v95 error:&v100];
             if (integerValue == -1)
             {
 
-              v91 = 0;
-              v39 = v99;
+              v90 = 0;
+              v39 = v98;
               goto LABEL_56;
             }
 
@@ -4878,16 +4758,16 @@ LABEL_3:
 
         else
         {
-          integerValue = v83;
+          integerValue = v82;
         }
 
         if ([v33 finalSchemaVersion] > integerValue)
         {
-          [v99 addObject:v33];
+          [v98 addObject:v33];
         }
       }
 
-      v30 = [v28 countByEnumeratingWithState:v111 objects:v122 count:16];
+      v30 = [v28 countByEnumeratingWithState:v110 objects:v121 count:16];
       if (v30)
       {
         continue;
@@ -4897,33 +4777,33 @@ LABEL_3:
     }
   }
 
-  v39 = v99;
-  v91 = v99;
+  v39 = v98;
+  v90 = v98;
 LABEL_56:
 
-  v86 = v101;
-  if (!v91)
+  v85 = v100;
+  if (!v90)
   {
     _HKInitializeLogging();
     v62 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      *v122 = 134218498;
-      v123 = versionCopy;
-      v124 = 2048;
+      *v121 = 134218498;
+      v122 = versionCopy;
+      v123 = 2048;
       toVersionCopy = toVersion;
-      v126 = 2114;
-      v127 = v86;
-      _os_log_error_impl(&dword_228986000, v62, OS_LOG_TYPE_ERROR, "Unable to sort and prune migration steps from %ld to %ld: %{public}@.", v122, 0x20u);
+      v125 = 2114;
+      v126 = v85;
+      _os_log_error_impl(&dword_228986000, v62, OS_LOG_TYPE_ERROR, "Unable to sort and prune migration steps from %ld to %ld: %{public}@.", v121, 0x20u);
     }
 
-    v80 = v86;
-    if (v80)
+    v79 = v85;
+    if (v79)
     {
       if (errorCopy)
       {
-        v63 = v80;
-        *errorCopy = v80;
+        v63 = v79;
+        *errorCopy = v79;
       }
 
       else
@@ -4936,12 +4816,12 @@ LABEL_56:
     goto LABEL_115;
   }
 
-  v105 = 0u;
-  v106 = 0u;
-  v103 = 0u;
   v104 = 0u;
-  v80 = v91;
-  v40 = [v80 countByEnumeratingWithState:&v103 objects:v122 count:16];
+  v105 = 0u;
+  v102 = 0u;
+  v103 = 0u;
+  v79 = v90;
+  v40 = [v79 countByEnumeratingWithState:&v102 objects:v121 count:16];
   if (!v40)
   {
 LABEL_99:
@@ -4950,20 +4830,20 @@ LABEL_99:
   }
 
   v41 = &selRef__queue_enqueueConceptAuthorizationRequestWithIdentifier_bundleIdentifier_objectType_promptIfNeeded_authorizationNeededHandler_completionHandler_;
-  v97 = *v104;
+  v96 = *v103;
 LABEL_59:
   v42 = 0;
   obja = v41[64];
-  v94 = v40;
+  v93 = v40;
   while (1)
   {
-    if (*v104 != v97)
+    if (*v103 != v96)
     {
-      objc_enumerationMutation(v80);
+      objc_enumerationMutation(v79);
     }
 
-    v100 = v42;
-    v43 = *(*(&v103 + 1) + 8 * v42);
+    v99 = v42;
+    v43 = *(*(&v102 + 1) + 8 * v42);
     if (!errorCopy)
     {
       currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
@@ -4996,11 +4876,11 @@ LABEL_59:
           v61 = *MEMORY[0x277CCC2A0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
-            *v119 = 134218240;
-            *&v119[4] = finalSchemaVersion;
-            *&v119[12] = 2048;
-            *&v119[14] = toVersion;
-            _os_log_error_impl(&dword_228986000, v61, OS_LOG_TYPE_ERROR, "Skipping migration step to %ld because expected current schema version is %ld.", v119, 0x16u);
+            *v118 = 134218240;
+            *&v118[4] = finalSchemaVersion;
+            *&v118[12] = 2048;
+            *&v118[14] = toVersion;
+            _os_log_error_impl(&dword_228986000, v61, OS_LOG_TYPE_ERROR, "Skipping migration step to %ld because expected current schema version is %ld.", v118, 0x16u);
           }
         }
 
@@ -5016,11 +4896,11 @@ LABEL_96:
     }
 
     v47 = 0;
-    v48 = v119;
-    *v119 = 0;
-    *&v119[8] = v119;
-    *&v119[16] = 0x2020000000;
-    *&v119[24] = 1;
+    v48 = v118;
+    *v118 = 0;
+    *&v118[8] = v118;
+    *&v118[16] = 0x2020000000;
+    *&v118[24] = 1;
     while (1)
     {
       *(v48 + 3) = 1;
@@ -5055,26 +4935,26 @@ LABEL_74:
         v53 = 1;
       }
 
-      *v111 = MEMORY[0x277D85DD0];
-      *&v111[8] = 3221225472;
-      *&v111[16] = __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_error___block_invoke;
-      *&v111[24] = &unk_27862BC18;
-      v114 = v44;
-      *&v112 = schemaName3;
-      *(&v112 + 1) = self;
-      v115 = v53;
-      *(&v113 + 1) = v119;
-      *&v113 = v43;
-      v116 = &versionCopy;
-      v117 = finalSchemaVersion;
-      v118 = v47 & 1;
-      if (([v51 performTransactionWithType:1 error:errorCopy usingBlock:v111] & 1) == 0)
+      *v110 = MEMORY[0x277D85DD0];
+      *&v110[8] = 3221225472;
+      *&v110[16] = __74__HDDatabaseMigrator__runMigrationStep_currentVersion_finalVersion_error___block_invoke;
+      *&v110[24] = &unk_27862BC18;
+      v113 = v44;
+      *&v111 = schemaName3;
+      *(&v111 + 1) = self;
+      v114 = v53;
+      *(&v112 + 1) = v118;
+      *&v112 = v43;
+      v115 = &versionCopy;
+      v116 = finalSchemaVersion;
+      v117 = v47 & 1;
+      if (([v51 performTransactionWithType:1 error:errorCopy usingBlock:v110] & 1) == 0)
       {
-        *(*&v119[8] + 24) = 1;
+        *(*&v118[8] + 24) = 1;
       }
 
-      v48 = *&v119[8];
-      if (*(*&v119[8] + 24) != 3)
+      v48 = *&v118[8];
+      if (*(*&v118[8] + 24) != 3)
       {
         goto LABEL_85;
       }
@@ -5111,7 +4991,7 @@ LABEL_85:
 LABEL_86:
     if (![(HDDatabaseMigrator *)self executeSQL:@"PRAGMA foreign_keys = ON" error:errorCopy])
     {
-      *(*&v119[8] + 24) = 1;
+      *(*&v118[8] + 24) = 1;
       _HKInitializeLogging();
       v55 = *MEMORY[0x277CCC2A0];
       if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
@@ -5124,8 +5004,8 @@ LABEL_86:
     }
 
 LABEL_89:
-    v56 = *(*&v119[8] + 24);
-    _Block_object_dispose(v119, 8);
+    v56 = *(*&v118[8] + 24);
+    _Block_object_dispose(v118, 8);
 
     if (v56)
     {
@@ -5133,10 +5013,10 @@ LABEL_89:
     }
 
 LABEL_97:
-    v42 = v100 + 1;
-    if (v100 + 1 == v94)
+    v42 = v99 + 1;
+    if (v99 + 1 == v93)
     {
-      v40 = [v80 countByEnumeratingWithState:&v103 objects:v122 count:16];
+      v40 = [v79 countByEnumeratingWithState:&v102 objects:v121 count:16];
       v41 = &selRef__queue_enqueueConceptAuthorizationRequestWithIdentifier_bundleIdentifier_objectType_promptIfNeeded_authorizationNeededHandler_completionHandler_;
       if (!v40)
       {
@@ -5156,23 +5036,23 @@ LABEL_97:
       transaction5 = [(HDDatabaseMigrator *)self transaction];
       if ([transaction5 isProtectedMigration])
       {
-        v72 = @"protected";
+        v71 = @"protected";
       }
 
       else
       {
-        v72 = @"unprotected";
+        v71 = @"unprotected";
       }
 
       schemaName4 = [v43 schemaName];
       finalSchemaVersion2 = [v43 finalSchemaVersion];
-      *v111 = 138543874;
-      *&v111[4] = v72;
-      *&v111[12] = 2112;
-      *&v111[14] = schemaName4;
-      *&v111[22] = 2048;
-      *&v111[24] = finalSchemaVersion2;
-      _os_log_fault_impl(&dword_228986000, v64, OS_LOG_TYPE_FAULT, "Fatal error encountered attempting migration for %{public}@ (schema: %@) to %ld; migration will be aborted.", v111, 0x20u);
+      *v110 = 138543874;
+      *&v110[4] = v71;
+      *&v110[12] = 2112;
+      *&v110[14] = schemaName4;
+      *&v110[22] = 2048;
+      *&v110[24] = finalSchemaVersion2;
+      _os_log_fault_impl(&dword_228986000, v64, OS_LOG_TYPE_FAULT, "Fatal error encountered attempting migration for %{public}@ (schema: %@) to %ld; migration will be aborted.", v110, 0x20u);
     }
 
     v56 = 2;
@@ -5193,30 +5073,29 @@ LABEL_112:
       transaction6 = [(HDDatabaseMigrator *)self transaction];
       if ([transaction6 isProtectedMigration])
       {
-        v68 = @"protected";
+        v67 = @"protected";
       }
 
       else
       {
-        v68 = @"unprotected";
+        v67 = @"unprotected";
       }
 
       schemaName5 = [v43 schemaName];
       finalSchemaVersion3 = [v43 finalSchemaVersion];
-      *v111 = 138543874;
-      *&v111[4] = v68;
-      *&v111[12] = 2112;
-      *&v111[14] = schemaName5;
-      *&v111[22] = 2048;
-      *&v111[24] = finalSchemaVersion3;
-      _os_log_fault_impl(&dword_228986000, v64, OS_LOG_TYPE_FAULT, "Database migration interrupted attempting migration for %{public}@ (schema: %@) to %ld; migration will be retried.", v111, 0x20u);
+      *v110 = 138543874;
+      *&v110[4] = v67;
+      *&v110[12] = 2112;
+      *&v110[14] = schemaName5;
+      *&v110[22] = 2048;
+      *&v110[24] = finalSchemaVersion3;
+      _os_log_fault_impl(&dword_228986000, v64, OS_LOG_TYPE_FAULT, "Database migration interrupted attempting migration for %{public}@ (schema: %@) to %ld; migration will be retried.", v110, 0x20u);
     }
 
     v56 = 1;
   }
 
 LABEL_115:
-  v65 = *MEMORY[0x277D85DE8];
   return v56;
 }
 
@@ -5437,49 +5316,46 @@ void *__67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps__bl
 
 - (uint64_t)_renameKeyValueSyncStoreColumnInProtectedDabase:(uint64_t)dabase error:
 {
-  v20[4] = *MEMORY[0x277D85DE8];
-  if (self)
+  v19[4] = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    v4 = a2;
-    v6 = @"key_value";
-    if (a2)
-    {
-      v6 = @"key_value_secure";
-    }
+    return 0;
+  }
 
-    v7 = v6;
-    transaction = [self transaction];
-    v9 = transaction;
-    if (v4)
-    {
-      [transaction protectedDatabase];
-    }
+  v4 = a2;
+  v6 = @"key_value";
+  if (a2)
+  {
+    v6 = @"key_value_secure";
+  }
 
-    else
-    {
-      [transaction unprotectedDatabase];
-    }
-    v10 = ;
+  v7 = v6;
+  transaction = [self transaction];
+  v9 = transaction;
+  if (v4)
+  {
+    [transaction protectedDatabase];
+  }
 
-    if ([v10 table:v7 hasColumnWithName:@"sync_store" error:dabase])
-    {
-      v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"new_%@", v7];
-      v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"CREATE TABLE %@ (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, category INTEGER, provenance INTEGER, domain STRING, key STRING, value, mod_date REAL, UNIQUE(category, provenance, domain, key))", v11];;
-      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO %@ SELECT * FROM %@", v11, v7];;
-      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE %@", v7];;
-      v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"ALTER TABLE %@ RENAME TO %@", v11, v7];;
-      v20[0] = v12;
-      v20[1] = v13;
-      v20[2] = v14;
-      v20[3] = v15;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
-      v17 = [self executeSQLStatements:v16 error:dabase] ^ 1;
-    }
+  else
+  {
+    [transaction unprotectedDatabase];
+  }
+  v10 = ;
 
-    else
-    {
-      v17 = 0;
-    }
+  if ([v10 table:v7 hasColumnWithName:@"sync_store" error:dabase])
+  {
+    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"new_%@", v7];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"CREATE TABLE %@ (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, category INTEGER, provenance INTEGER, domain STRING, key STRING, value, mod_date REAL, UNIQUE(category, provenance, domain, key))", v11];;
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO %@ SELECT * FROM %@", v11, v7];;
+    v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE %@", v7];;
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"ALTER TABLE %@ RENAME TO %@", v11, v7];;
+    v19[0] = v12;
+    v19[1] = v13;
+    v19[2] = v14;
+    v19[3] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
+    v17 = [self executeSQLStatements:v16 error:dabase] ^ 1;
   }
 
   else
@@ -5487,18 +5363,16 @@ void *__67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps__bl
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 uint64_t __67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps__block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (!v3)
   {
-    v20 = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   v5 = [MEMORY[0x277CBEBD0] standardUserDefaults];
@@ -5514,40 +5388,40 @@ uint64_t __67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps_
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "Received last pedometer record ID of %ld", &buf, 0xCu);
   }
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__180;
-  v43 = __Block_byref_object_dispose__180;
-  v44 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__180;
+  v42 = __Block_byref_object_dispose__180;
+  v43 = 0;
   if (v6 >= 1 && [MEMORY[0x277CC1D18] isStepCountingAvailable])
   {
     v9 = objc_alloc_init(MEMORY[0x277CC1D18]);
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__180;
-    v37 = __Block_byref_object_dispose__180;
-    v38 = 0;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy__180;
+    v36 = __Block_byref_object_dispose__180;
+    v37 = 0;
     v10 = dispatch_semaphore_create(0);
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v46 = __61__HDDatabaseMigrator_OkemoZurs___lastReceivedPedometerDatum___block_invoke;
-    v47 = &unk_2786186B0;
-    v49 = &v39;
-    v50 = &v33;
+    v45 = __61__HDDatabaseMigrator_OkemoZurs___lastReceivedPedometerDatum___block_invoke;
+    v46 = &unk_2786186B0;
+    v48 = &v38;
+    v49 = &v32;
     v11 = v10;
-    v48 = v11;
+    v47 = v11;
     [v9 queryPedometerDataSinceRecord:v6 withHandler:&buf];
     dispatch_semaphore_wait(v11, 0xFFFFFFFFFFFFFFFFLL);
-    v12 = v34[5];
+    v12 = v33[5];
     v13 = v12;
     if (v12)
     {
       v14 = v12;
     }
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v32, 8);
   }
 
   else
@@ -5555,8 +5429,8 @@ uint64_t __67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps_
     v13 = 0;
   }
 
-  v15 = v40[5];
-  _Block_object_dispose(&v39, 8);
+  v15 = v39[5];
+  _Block_object_dispose(&v38, 8);
 
   v16 = v13;
   v17 = v16;
@@ -5577,65 +5451,63 @@ uint64_t __67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps_
     {
 LABEL_18:
 
-      goto LABEL_19;
+      return 1;
     }
 
     v19 = [(HDDatabaseMigrator *)v3 _updateDataCollectorKeyValueContextWithObject:v15 domain:@"FLIGHTS_INGESTION" error:a3];
 
     if (!v19)
     {
-LABEL_19:
-      v20 = 1;
-      goto LABEL_20;
+      return 1;
     }
   }
 
-  v23 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v24 = [v23 integerForKey:@"LastCaloriesRecordID"];
+  v22 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v23 = [v22 integerForKey:@"LastCaloriesRecordID"];
 
   _HKInitializeLogging();
-  v25 = *v7;
+  v24 = *v7;
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 134217984;
-    *(&buf + 4) = v24;
-    _os_log_impl(&dword_228986000, v25, OS_LOG_TYPE_DEFAULT, "Received last calorie record ID of %ld", &buf, 0xCu);
+    *(&buf + 4) = v23;
+    _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_DEFAULT, "Received last calorie record ID of %ld", &buf, 0xCu);
   }
 
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__180;
-  v43 = __Block_byref_object_dispose__180;
-  v44 = 0;
-  if (v24 >= 1 && [MEMORY[0x277CC1CE0] isNatalimeterAvailable])
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__180;
+  v42 = __Block_byref_object_dispose__180;
+  v43 = 0;
+  if (v23 >= 1 && [MEMORY[0x277CC1CE0] isNatalimeterAvailable])
   {
-    v26 = objc_alloc_init(MEMORY[0x277CC1CE0]);
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x3032000000;
-    v36 = __Block_byref_object_copy__180;
-    v37 = __Block_byref_object_dispose__180;
-    v38 = 0;
-    v27 = dispatch_semaphore_create(0);
+    v25 = objc_alloc_init(MEMORY[0x277CC1CE0]);
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x3032000000;
+    v35 = __Block_byref_object_copy__180;
+    v36 = __Block_byref_object_dispose__180;
+    v37 = 0;
+    v26 = dispatch_semaphore_create(0);
     *&buf = MEMORY[0x277D85DD0];
     *(&buf + 1) = 3221225472;
-    v46 = __59__HDDatabaseMigrator_OkemoZurs___lastReceivedNatalieDatum___block_invoke;
-    v47 = &unk_2786186B0;
-    v49 = &v39;
-    v50 = &v33;
-    v28 = v27;
-    v48 = v28;
-    [v26 queryAbsoluteNatalimetryDataSinceRecord:v24 withHandler:&buf];
-    dispatch_semaphore_wait(v28, 0xFFFFFFFFFFFFFFFFLL);
-    v29 = v34[5];
-    v30 = v29;
-    if (v29)
+    v45 = __59__HDDatabaseMigrator_OkemoZurs___lastReceivedNatalieDatum___block_invoke;
+    v46 = &unk_2786186B0;
+    v48 = &v38;
+    v49 = &v32;
+    v27 = v26;
+    v47 = v27;
+    [v25 queryAbsoluteNatalimetryDataSinceRecord:v23 withHandler:&buf];
+    dispatch_semaphore_wait(v27, 0xFFFFFFFFFFFFFFFFLL);
+    v28 = v33[5];
+    v29 = v28;
+    if (v28)
     {
       if (a3)
       {
-        v31 = v29;
-        *a3 = v30;
+        v30 = v28;
+        *a3 = v29;
       }
 
       else
@@ -5644,17 +5516,17 @@ LABEL_19:
       }
     }
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v32, 8);
   }
 
-  v32 = v40[5];
-  _Block_object_dispose(&v39, 8);
+  v31 = v39[5];
+  _Block_object_dispose(&v38, 8);
 
-  if (v32)
+  if (v31)
   {
-    if ([(HDDatabaseMigrator *)v3 _updateDataCollectorKeyValueContextWithObject:v32 domain:@"BRISK_MINUTE_INGESTION" error:a3])
+    if ([(HDDatabaseMigrator *)v3 _updateDataCollectorKeyValueContextWithObject:v31 domain:@"BRISK_MINUTE_INGESTION" error:a3])
     {
-      v20 = [(HDDatabaseMigrator *)v3 _updateDataCollectorKeyValueContextWithObject:v32 domain:@"ACTIVE_ENERGY_INGESTION" error:a3]^ 1;
+      v20 = [(HDDatabaseMigrator *)v3 _updateDataCollectorKeyValueContextWithObject:v31 domain:@"ACTIVE_ENERGY_INGESTION" error:a3]^ 1;
     }
 
     else
@@ -5668,88 +5540,74 @@ LABEL_19:
     v20 = 0;
   }
 
-LABEL_20:
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 uint64_t __67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"DROP TABLE IF EXISTS main.activity_caches;";
-    v9[1] = @"DROP TABLE IF EXISTS main.achievements;";
-    v9[2] = @"DELETE FROM key_value WHERE category = 1";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"DROP TABLE IF EXISTS main.activity_caches;";
+  v8[1] = @"DROP TABLE IF EXISTS main.achievements;";
+  v8[2] = @"DELETE FROM key_value WHERE category = 1";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps__block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"DROP TABLE IF EXISTS nano_pairing;";
-    v9[1] = @"DELETE FROM key_value WHERE category = 0 AND domain = 'NanoPairing';";
-    v9[2] = @"CREATE TABLE nano_pairing (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, persistent_uuid BLOB UNIQUE NOT NULL, health_uuid BLOB NOT NULL, creation_date REAL NOT NULL);";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"DROP TABLE IF EXISTS nano_pairing;";
+  v8[1] = @"DELETE FROM key_value WHERE category = 0 AND domain = 'NanoPairing';";
+  v8[2] = @"CREATE TABLE nano_pairing (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, persistent_uuid BLOB UNIQUE NOT NULL, health_uuid BLOB NOT NULL, creation_date REAL NOT NULL);";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (uint64_t)_migrateKeyValueColumnsFromStringToText:(uint64_t)text error:
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  if (self)
+  v16[4] = *MEMORY[0x277D85DE8];
+  if (!self)
   {
-    v5 = @"key_value";
-    if (a2)
-    {
-      v5 = @"key_value_secure";
-    }
-
-    v6 = MEMORY[0x277CCACA8];
-    v7 = v5;
-    v8 = [v6 stringWithFormat:@"tmp_%@", v7];
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"CREATE TABLE %@ (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, category INTEGER, provenance INTEGER, domain TEXT, key TEXT, value, mod_date REAL, UNIQUE(category, provenance, domain, key))", v8];;
-    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO %@ SELECT * FROM %@", v8, v7];;
-    v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE %@", v7];;
-    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"ALTER TABLE %@ RENAME TO %@", v8, v7];;
-
-    v17[0] = v9;
-    v17[1] = v10;
-    v17[2] = v11;
-    v17[3] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
-    v14 = [self executeSQLStatements:v13 error:text] ^ 1;
+    return 0;
   }
 
-  else
+  v5 = @"key_value";
+  if (a2)
   {
-    v14 = 0;
+    v5 = @"key_value_secure";
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  v6 = MEMORY[0x277CCACA8];
+  v7 = v5;
+  v8 = [v6 stringWithFormat:@"tmp_%@", v7];
+  v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"CREATE TABLE %@ (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, category INTEGER, provenance INTEGER, domain TEXT, key TEXT, value, mod_date REAL, UNIQUE(category, provenance, domain, key))", v8];;
+  v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"INSERT INTO %@ SELECT * FROM %@", v8, v7];;
+  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"DROP TABLE %@", v7];;
+  v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"ALTER TABLE %@ RENAME TO %@", v8, v7];;
+
+  v16[0] = v9;
+  v16[1] = v10;
+  v16[2] = v11;
+  v16[3] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:4];
+  v14 = [self executeSQLStatements:v13 error:text] ^ 1;
+
   return v14;
 }
 
@@ -5766,23 +5624,19 @@ void *__67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps__bl
 
 uint64_t __67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps__block_invoke_8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"DROP TABLE IF EXISTS sync_stores;";
-    v9[1] = @"DROP TABLE IF EXISTS sync_anchors;";
-    v9[2] = @"CREATE TABLE IF NOT EXISTS sync_anchors (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, next INTEGER, acked INTEGER, received INTEGER, type INTEGER, store INTEGER, UNIQUE(type, store));";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"DROP TABLE IF EXISTS sync_stores;";
+  v8[1] = @"DROP TABLE IF EXISTS sync_anchors;";
+  v8[2] = @"CREATE TABLE IF NOT EXISTS sync_anchors (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, next INTEGER, acked INTEGER, received INTEGER, type INTEGER, store INTEGER, UNIQUE(type, store));";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -5938,52 +5792,44 @@ uint64_t __67__HDDatabaseMigrator_OkemoZurs__okemoZursUnprotectedMigrationSteps_
 
 uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[7] = *MEMORY[0x277D85DE8];
+  v8[7] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"CREATE TABLE key_value_secure (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, category INTEGER, provenance INTEGER, domain STRING, key STRING, value, mod_date REAL, UNIQUE(category, provenance, domain, key));";
-    v9[1] = @"INSERT INTO key_value_secure (domain, key, value, mod_date, category, provenance) SELECT bundle_id, key, value, 0.0, 102, 0 FROM user_defaults;";
-    v9[2] = @"INSERT INTO key_value_secure (domain, key, value, mod_date, category, provenance) SELECT NULL, 'birthdate', birthdate, 0.0, 101, 0 FROM users;";
-    v9[3] = @"INSERT INTO key_value_secure (domain, key, value, mod_date, category, provenance) SELECT NULL, 'sex', sex, 0.0, 101, 0 FROM users;";
-    v9[4] = @"INSERT INTO key_value_secure (domain, key, value, mod_date, category, provenance) SELECT NULL, 'blood_type', blood_type, 0.0, 101, 0 FROM users;";
-    v9[5] = @"DROP TABLE user_defaults;";
-    v9[6] = @"DROP TABLE users";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:7];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"CREATE TABLE key_value_secure (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, category INTEGER, provenance INTEGER, domain STRING, key STRING, value, mod_date REAL, UNIQUE(category, provenance, domain, key));";
+  v8[1] = @"INSERT INTO key_value_secure (domain, key, value, mod_date, category, provenance) SELECT bundle_id, key, value, 0.0, 102, 0 FROM user_defaults;";
+  v8[2] = @"INSERT INTO key_value_secure (domain, key, value, mod_date, category, provenance) SELECT NULL, 'birthdate', birthdate, 0.0, 101, 0 FROM users;";
+  v8[3] = @"INSERT INTO key_value_secure (domain, key, value, mod_date, category, provenance) SELECT NULL, 'sex', sex, 0.0, 101, 0 FROM users;";
+  v8[4] = @"INSERT INTO key_value_secure (domain, key, value, mod_date, category, provenance) SELECT NULL, 'blood_type', blood_type, 0.0, 101, 0 FROM users;";
+  v8[5] = @"DROP TABLE user_defaults;";
+  v8[6] = @"DROP TABLE users";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:7];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v5 = 1;
-    if (![(HDDatabaseMigrator *)*(a1 + 32) _renameKeyValueSyncStoreColumnInProtectedDabase:a3 error:?])
-    {
-      v9[0] = @"UPDATE objects SET provenance = 0 WHERE provenance != 16;";
-      v9[1] = @"UPDATE objects SET provenance = 1 WHERE provenance = 16;";
-      v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
-      v5 = [v3 executeSQLStatements:v6 error:a3] ^ 1;
-    }
+    return 0;
   }
 
-  else
+  v5 = 1;
+  if (![(HDDatabaseMigrator *)*(a1 + 32) _renameKeyValueSyncStoreColumnInProtectedDabase:a3 error:?])
   {
-    v5 = 0;
+    v8[0] = @"UPDATE objects SET provenance = 0 WHERE provenance != 16;";
+    v8[1] = @"UPDATE objects SET provenance = 1 WHERE provenance = 16;";
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+    v5 = [v3 executeSQLStatements:v6 error:a3] ^ 1;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -6011,7 +5857,7 @@ void *__65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__bloc
 
 uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__block_invoke_5(uint64_t a1)
 {
-  v19[5] = *MEMORY[0x277D85DE8];
+  v18[5] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1)
   {
@@ -6020,43 +5866,42 @@ uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__b
     v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE data_id IN (SELECT data_id FROM %@ LEFT JOIN objects USING (data_id) WHERE objects.data_id IS NULL)", @"category_samples", @"category_samples"];;
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE data_id IN (SELECT data_id FROM %@ LEFT JOIN objects USING (data_id) WHERE objects.data_id IS NULL)", @"workouts", @"workouts"];;
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE data_id IN (SELECT data_id FROM %@ LEFT JOIN objects USING (data_id) WHERE objects.data_id IS NULL)", @"activity_caches", @"activity_caches"];;
-    v19[0] = v2;
-    v19[1] = v3;
-    v19[2] = v4;
-    v19[3] = v5;
-    v19[4] = v6;
-    [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:5];
+    v18[0] = v2;
+    v18[1] = v3;
+    v18[2] = v4;
+    v18[3] = v5;
+    v18[4] = v6;
+    [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:5];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
-    v7 = v17 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = v16 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [v1 executeSQL:*(*(&v14 + 1) + 8 * v11++) error:0];
+          [v1 executeSQL:*(*(&v13 + 1) + 8 * v11++) error:0];
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -6084,21 +5929,17 @@ uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__b
 
 uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__block_invoke_8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"CREATE TABLE IF NOT EXISTS activity_caches (data_id INTEGER PRIMARY KEY, energy_burned_goal REAL, energy_burned REAL, brisk_minutes REAL, active_hours REAL, cache_index INTEGER, active_hours_goal REAL, brisk_minutes_goal REAL, steps REAL, walk_distance REAL);";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"CREATE TABLE IF NOT EXISTS activity_caches (data_id INTEGER PRIMARY KEY, energy_burned_goal REAL, energy_burned REAL, brisk_minutes REAL, active_hours REAL, cache_index INTEGER, active_hours_goal REAL, brisk_minutes_goal REAL, steps REAL, walk_distance REAL);";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -6126,73 +5967,65 @@ void *__65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__bloc
 
 uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__block_invoke_12(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"ALTER TABLE correlations ADD COLUMN provenance INTEGER;";
-    v9[1] = @"UPDATE correlations SET provenance = 0;";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"ALTER TABLE correlations ADD COLUMN provenance INTEGER;";
+  v8[1] = @"UPDATE correlations SET provenance = 0;";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__block_invoke_13(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v6 = [&unk_283CB01F8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v6)
+    return 0;
+  }
+
+  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v6 = [&unk_283CB01F8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v14;
+    do
     {
-      v7 = v6;
-      v8 = *v15;
+      v9 = 0;
       do
       {
-        v9 = 0;
-        do
+        if (*v14 != v8)
         {
-          if (*v15 != v8)
-          {
-            objc_enumerationMutation(&unk_283CB01F8);
-          }
-
-          v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"ALTER TABLE activity_caches ADD COLUMN %@ INTEGER", *(*(&v14 + 1) + 8 * v9)];;
-          [v5 addObject:v10];
-
-          ++v9;
+          objc_enumerationMutation(&unk_283CB01F8);
         }
 
-        while (v7 != v9);
-        v7 = [&unk_283CB01F8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"ALTER TABLE activity_caches ADD COLUMN %@ INTEGER", *(*(&v13 + 1) + 8 * v9)];;
+        [v5 addObject:v10];
+
+        ++v9;
       }
 
-      while (v7);
+      while (v7 != v9);
+      v7 = [&unk_283CB01F8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    v11 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    while (v7);
   }
 
-  else
-  {
-    v11 = 0;
-  }
+  v11 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -6275,25 +6108,25 @@ void *__65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__bloc
 
 uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__block_invoke_16(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v37[10] = *MEMORY[0x277D85DE8];
+  v36[10] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (v3)
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v6 = [v3 transaction];
     v7 = [v6 unprotectedDatabase];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __70__HDDatabaseMigrator_OkemoZurs___clearSamplesWithoutSourcesWithError___block_invoke_2;
-    v34[3] = &unk_278614098;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __70__HDDatabaseMigrator_OkemoZurs___clearSamplesWithoutSourcesWithError___block_invoke_2;
+    v33[3] = &unk_278614098;
     v8 = v5;
-    v35 = v8;
-    v9 = [v7 executeUncachedSQL:@"SELECT rowid FROM sources" error:a3 bindingHandler:0 enumerationHandler:v34];
+    v34 = v8;
+    v9 = [v7 executeUncachedSQL:@"SELECT rowid FROM sources" error:a3 bindingHandler:0 enumerationHandler:v33];
 
     if (v9)
     {
-      v29 = a3;
-      v27 = v8;
+      v28 = a3;
+      v26 = v8;
       if ([v8 count])
       {
         v10 = MEMORY[0x277CCACA8];
@@ -6306,35 +6139,35 @@ uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__b
         v12 = &stru_283BF39C8;
       }
 
-      v30 = v12;
-      v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"CREATE TEMPORARY TABLE temp_unattached_objects AS SELECT data_id FROM objects %@", v12];
-      v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"samples", @"data_id"];;
+      v29 = v12;
+      v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"CREATE TEMPORARY TABLE temp_unattached_objects AS SELECT data_id FROM objects %@", v12];
+      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"samples", @"data_id"];;
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"quantity_samples", @"data_id"];;
-      v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"category_samples", @"data_id"];;
+      v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"category_samples", @"data_id"];;
       v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"workouts", @"data_id"];;
-      v26 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"workout_events", @"workout_id"];;
+      v25 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"workout_events", @"workout_id"];;
       v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"activity_caches", @"data_id"];;
       v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"correlations", @"object"];;
       v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"correlations", @"correlation"];;
       v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"metadata_values", @"object_id"];;
       v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM %@ WHERE %@ IN (SELECT * FROM temp_unattached_objects)", @"objects", @"data_id"];;
-      v37[0] = v32;
-      v37[1] = v13;
-      v28 = v14;
-      v37[2] = v31;
-      v37[3] = v14;
+      v36[0] = v31;
+      v36[1] = v13;
+      v27 = v14;
+      v36[2] = v30;
+      v36[3] = v14;
       v20 = v15;
-      v37[4] = v26;
-      v37[5] = v15;
-      v37[6] = v16;
-      v37[7] = v17;
-      v37[8] = v18;
-      v37[9] = v19;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:10];
-      v36[0] = v33;
-      v36[1] = @"CREATE UNIQUE INDEX IF NOT EXISTS temp_index_0 ON temp_unattached_objects (data_id);";
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
-      v23 = [v3 executeSQLStatements:v22 error:v29];
+      v36[4] = v25;
+      v36[5] = v15;
+      v36[6] = v16;
+      v36[7] = v17;
+      v36[8] = v18;
+      v36[9] = v19;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:10];
+      v35[0] = v32;
+      v35[1] = @"CREATE UNIQUE INDEX IF NOT EXISTS temp_index_0 ON temp_unattached_objects (data_id);";
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+      v23 = [v3 executeSQLStatements:v22 error:v28];
 
       if (v23)
       {
@@ -6345,7 +6178,7 @@ uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__b
       [v3 executeSQL:@"DROP TABLE IF EXISTS temp_unattached_objects;" error:0];
       v3 = v23 ^ 1u;
 
-      v8 = v27;
+      v8 = v26;
     }
 
     else
@@ -6354,27 +6187,22 @@ uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__b
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t __65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__block_invoke_17(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v9[0] = @"ALTER TABLE devices add column device_enabled BOOLEAN default 1;";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-    v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
+    return 0;
   }
 
-  else
-  {
-    v6 = 0;
-  }
+  v8[0] = @"ALTER TABLE devices add column device_enabled BOOLEAN default 1;";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v6 = [v3 executeSQLStatements:v5 error:a3] ^ 1;
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -6414,14 +6242,12 @@ void *__65__HDDatabaseMigrator_OkemoZurs__okemoZursProtectedMigrationSteps__bloc
   return v11;
 }
 
-uint64_t __92__HDDatabaseMigrator_OkemoZurs___updateDataCollectorKeyValueContextWithObject_domain_error___block_invoke(uint64_t a1)
+uint64_t __92__HDDatabaseMigrator_OkemoZurs___updateDataCollectorKeyValueContextWithObject_domain_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
   HDSQLiteBindFoundationValueToStatement();
-  v3 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v4 = [MEMORY[0x277CBEAA8] date];
+  v2 = [MEMORY[0x277CBEAA8] date];
   HDSQLiteBindFoundationValueToStatement();
 
   HDSQLiteBindFoundationValueToStatement();
@@ -6431,7 +6257,7 @@ uint64_t __92__HDDatabaseMigrator_OkemoZurs___updateDataCollectorKeyValueContext
 
 void __61__HDDatabaseMigrator_OkemoZurs___lastReceivedPedometerDatum___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 firstObject];
@@ -6444,24 +6270,21 @@ void __61__HDDatabaseMigrator_OkemoZurs___lastReceivedPedometerDatum___block_inv
   v10 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(*(*(a1 + 40) + 8) + 40);
-    v12 = v10;
-    v13 = HKLogSafeDescription();
-    v15 = 138412546;
-    v16 = v13;
-    v17 = 2048;
-    v18 = [v5 count];
-    _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Received last pedometer datum of %@ (out of %ld results)", &v15, 0x16u);
+    v11 = v10;
+    v12 = HKLogSafeDescription();
+    v13 = 138412546;
+    v14 = v12;
+    v15 = 2048;
+    v16 = [v5 count];
+    _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "Received last pedometer datum of %@ (out of %ld results)", &v13, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HDDatabaseMigrator_OkemoZurs___lastReceivedNatalieDatum___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v5 firstObject];
@@ -6474,36 +6297,32 @@ void __59__HDDatabaseMigrator_OkemoZurs___lastReceivedNatalieDatum___block_invok
   v10 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
   {
-    v11 = *(*(*(a1 + 40) + 8) + 40);
-    v12 = v10;
-    v13 = HKLogSafeDescription();
-    v15 = 138543618;
-    v16 = v13;
-    v17 = 2048;
-    v18 = [v5 count];
-    _os_log_impl(&dword_228986000, v12, OS_LOG_TYPE_DEFAULT, "Received last calorie datum of %{public}@ (out of %ld results)", &v15, 0x16u);
+    v11 = v10;
+    v12 = HKLogSafeDescription();
+    v13 = 138543618;
+    v14 = v12;
+    v15 = 2048;
+    v16 = [v5 count];
+    _os_log_impl(&dword_228986000, v11, OS_LOG_TYPE_DEFAULT, "Received last calorie datum of %{public}@ (out of %ld results)", &v13, 0x16u);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __73__HDDatabaseMigrator_OkemoZurs___initializeDatabaseIdentifiersWithError___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(*(*(a1 + 40) + 8) + 24);
+  v4 = *(*(*(a1 + 40) + 8) + 24);
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
-uint64_t __70__HDDatabaseMigrator_OkemoZurs___clearSamplesWithoutSourcesWithError___block_invoke_2(uint64_t a1)
+uint64_t __70__HDDatabaseMigrator_OkemoZurs___clearSamplesWithoutSourcesWithError___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnAsInt64();
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x277CCABB0] numberWithLongLong:v2];
-  [v3 addObject:v4];
+  v3 = HDSQLiteColumnAsInt64();
+  v4 = *(a1 + 32);
+  v5 = [MEMORY[0x277CCABB0] numberWithLongLong:v3];
+  [v4 addObject:v5];
 
   return 1;
 }
@@ -6909,25 +6728,19 @@ uint64_t __61__HDDatabaseMigrator_Tigris__tigrisUnprotectedMigrationSteps__block
 
 uint64_t __61__HDDatabaseMigrator_Tigris__tigrisUnprotectedMigrationSteps__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"DROP TABLE IF EXISTS cloud_sync_stores";
-    v8[1] = @"CREATE TABLE IF NOT EXISTS cloud_sync_stores (sync_store INTEGER PRIMARY KEY REFERENCES sync_stores (ROWID) ON DELETE CASCADE, server_change_token BLOB, baseline_epoch INTEGER NOT NULL)";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"DROP TABLE IF EXISTS cloud_sync_stores";
+  v7[1] = @"CREATE TABLE IF NOT EXISTS cloud_sync_stores (sync_store INTEGER PRIMARY KEY REFERENCES sync_stores (ROWID) ON DELETE CASCADE, server_change_token BLOB, baseline_epoch INTEGER NOT NULL)";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 uint64_t __61__HDDatabaseMigrator_Tigris__tigrisUnprotectedMigrationSteps__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7246,27 +7059,21 @@ uint64_t __61__HDDatabaseMigrator_Tigris__tigrisUnprotectedMigrationSteps__block
 
 uint64_t __59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"ALTER TABLE data_provenances RENAME TO data_provenances_old";
-    v8[1] = @"CREATE TABLE IF NOT EXISTS data_provenances (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, sync_provenance INTEGER NOT NULL, origin_product_type TEXT NOT NULL, origin_build TEXT NOT NULL, local_product_type TEXT NOT NULL, local_build TEXT NOT NULL, source_id INTEGER NOT NULL, device_id INTEGER NOT NULL, source_version TEXT NOT NULL, tz_name TEXT NOT NULL, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, UNIQUE(sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version))";
-    v8[2] = @"INSERT INTO data_provenances (rowid, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version) SELECT rowid, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, source_version, tz_name, -1, 0, 0 FROM data_provenances_old;";
-    v8[3] = @"DROP TABLE IF EXISTS data_provenances_old;";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"ALTER TABLE data_provenances RENAME TO data_provenances_old";
+  v7[1] = @"CREATE TABLE IF NOT EXISTS data_provenances (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, sync_provenance INTEGER NOT NULL, origin_product_type TEXT NOT NULL, origin_build TEXT NOT NULL, local_product_type TEXT NOT NULL, local_build TEXT NOT NULL, source_id INTEGER NOT NULL, device_id INTEGER NOT NULL, source_version TEXT NOT NULL, tz_name TEXT NOT NULL, origin_major_version INTEGER NOT NULL, origin_minor_version INTEGER NOT NULL, origin_patch_version INTEGER NOT NULL, UNIQUE(sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version))";
+  v7[2] = @"INSERT INTO data_provenances (rowid, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, source_version, tz_name, origin_major_version, origin_minor_version, origin_patch_version) SELECT rowid, sync_provenance, origin_product_type, origin_build, local_product_type, local_build, source_id, device_id, source_version, tz_name, -1, 0, 0 FROM data_provenances_old;";
+  v7[3] = @"DROP TABLE IF EXISTS data_provenances_old;";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 void *__59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7320,73 +7127,55 @@ uint64_t __59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_i
 
 uint64_t __59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"DROP TABLE IF EXISTS external_sync_ids";
-    v8[1] = @"CREATE TABLE IF NOT EXISTS external_sync_ids (object_id INTEGER PRIMARY KEY REFERENCES objects (data_id) ON DELETE CASCADE, source_id INTEGER NOT NULL, object_code INTEGER NOT NULL, sid TEXT NOT NULL, version REAL NOT NULL, deleted INTEGER NON NULL)";
-    v8[2] = @"CREATE INDEX IF NOT EXISTS external_sync_ids_source_object_code_sid_deleted ON external_sync_ids (source_id, object_code, sid, deleted)";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"DROP TABLE IF EXISTS external_sync_ids";
+  v7[1] = @"CREATE TABLE IF NOT EXISTS external_sync_ids (object_id INTEGER PRIMARY KEY REFERENCES objects (data_id) ON DELETE CASCADE, source_id INTEGER NOT NULL, object_code INTEGER NOT NULL, sid TEXT NOT NULL, version REAL NOT NULL, deleted INTEGER NON NULL)";
+  v7[2] = @"CREATE INDEX IF NOT EXISTS external_sync_ids_source_object_code_sid_deleted ON external_sync_ids (source_id, object_code, sid, deleted)";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 uint64_t __59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_invoke_8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"ALTER TABLE workout_events RENAME TO workout_events_old;";
-    v8[1] = @"CREATE TABLE IF NOT EXISTS workout_events (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, workout_id INTEGER, date REAL, type INTEGER, w_step_style INTEGER, duration REAL NOT NULL);";
-    v8[2] = @"INSERT INTO workout_events (workout_id, date, type, w_step_style, duration) SELECT workout_id, date, type, w_step_style, 0 FROM workout_events_old;";
-    v8[3] = @"DROP TABLE IF EXISTS workout_events_old;";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"ALTER TABLE workout_events RENAME TO workout_events_old;";
+  v7[1] = @"CREATE TABLE IF NOT EXISTS workout_events (ROWID INTEGER PRIMARY KEY AUTOINCREMENT, workout_id INTEGER, date REAL, type INTEGER, w_step_style INTEGER, duration REAL NOT NULL);";
+  v7[2] = @"INSERT INTO workout_events (workout_id, date, type, w_step_style, duration) SELECT workout_id, date, type, w_step_style, 0 FROM workout_events_old;";
+  v7[3] = @"DROP TABLE IF EXISTS workout_events_old;";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:4];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 uint64_t __59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_invoke_9(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"ALTER TABLE metadata_values ADD COLUMN data_value BLOB";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"ALTER TABLE metadata_values ADD COLUMN data_value BLOB";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 uint64_t __59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_invoke_11(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7407,24 +7196,18 @@ uint64_t __59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_i
 
 uint64_t __59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_invoke_12(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  if (v3)
+  if (!v3)
   {
-    v8[0] = @"ALTER TABLE workouts ADD COLUMN total_flights_climbed REAL;";
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
-    LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
-
-    result = a3 ^ 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
+  v7[0] = @"ALTER TABLE workouts ADD COLUMN total_flights_climbed REAL;";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  LODWORD(a3) = [v3 executeSQLStatements:v5 error:a3];
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return a3 ^ 1;
 }
 
 void *__59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_invoke_17(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7545,14 +7328,14 @@ uint64_t __59__HDDatabaseMigrator_Tigris__tigrisProtectedMigrationSteps__block_i
 
 uint64_t __61__HDDatabaseMigrator_Tigris___updateOriginVersionsWithError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x22AAC6C90](a2, 0);
   v7 = MEMORY[0x22AAC6C90](a2, 1);
-  v19 = 0uLL;
-  v20 = 0;
-  HDVersionFromBuildStringForProductType(v6, v7, &v19);
-  *buf = v19;
-  v22 = v20;
+  v18 = 0uLL;
+  v19 = 0;
+  HDVersionFromBuildStringForProductType(v6, v7, &v18);
+  *buf = v18;
+  v21 = v19;
   if (HKNSOperatingSystemVersionIsUnknown())
   {
     if (v6 != @"UnknownBuild" && (!@"UnknownBuild" || ([(__CFString *)v6 isEqualToString:?]& 1) == 0))
@@ -7574,18 +7357,17 @@ uint64_t __61__HDDatabaseMigrator_Tigris___updateOriginVersionsWithError___block
   {
     v10 = [*(a1 + 32) transaction];
     v11 = [v10 protectedDatabase];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __61__HDDatabaseMigrator_Tigris___updateOriginVersionsWithError___block_invoke_423;
-    v14[3] = &unk_27862EB70;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __61__HDDatabaseMigrator_Tigris___updateOriginVersionsWithError___block_invoke_423;
+    v13[3] = &unk_27862EB70;
+    v16 = v18;
     v17 = v19;
-    v18 = v20;
-    v15 = v6;
-    v16 = v7;
-    v9 = [v11 executeSQL:@"UPDATE OR IGNORE data_provenances SET origin_major_version=? error:origin_minor_version=? bindingHandler:origin_patch_version=? WHERE origin_build=? AND origin_product_type=?" enumerationHandler:{a3, v14, 0}];
+    v14 = v6;
+    v15 = v7;
+    v9 = [v11 executeSQL:@"UPDATE OR IGNORE data_provenances SET origin_major_version=? error:origin_minor_version=? bindingHandler:origin_patch_version=? WHERE origin_build=? AND origin_product_type=?" enumerationHandler:{a3, v13, 0}];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -7594,34 +7376,32 @@ uint64_t __61__HDDatabaseMigrator_Tigris___updateOriginVersionsWithError___block
   sqlite3_bind_int64(a2, 1, a1[6]);
   sqlite3_bind_int64(a2, 2, a1[7]);
   sqlite3_bind_int64(a2, 3, a1[8]);
-  v4 = a1[4];
   HDSQLiteBindFoundationValueToStatement();
-  v5 = a1[5];
 
   return HDSQLiteBindFoundationValueToStatement();
 }
 
 uint64_t __84__HDDatabaseMigrator_Tigris___addArbitraryMetadataSupportForWorkoutEventsWithError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = HDSQLiteColumnAsInt64();
-  v17 = @"HKSwimmingStrokeStyle";
+  v16 = @"HKSwimmingStrokeStyle";
   v6 = [MEMORY[0x277CCABB0] numberWithLongLong:HDSQLiteColumnWithNameAsInt64()];
-  v18[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v17[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
   v8 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v7 requiringSecureCoding:1 error:a3];
   if (v8)
   {
     v9 = [*(a1 + 32) transaction];
     v10 = [v9 protectedDatabase];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __84__HDDatabaseMigrator_Tigris___addArbitraryMetadataSupportForWorkoutEventsWithError___block_invoke_2;
-    v14[3] = &unk_278615A20;
-    v15 = v8;
-    v16 = v5;
-    v11 = [v10 executeSQL:@"UPDATE workout_events_old SET metadata = ? WHERE rowid = ?" error:a3 bindingHandler:v14 enumerationHandler:0];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __84__HDDatabaseMigrator_Tigris___addArbitraryMetadataSupportForWorkoutEventsWithError___block_invoke_2;
+    v13[3] = &unk_278615A20;
+    v14 = v8;
+    v15 = v5;
+    v11 = [v10 executeSQL:@"UPDATE workout_events_old SET metadata = ? WHERE rowid = ?" error:a3 bindingHandler:v13 enumerationHandler:0];
   }
 
   else
@@ -7629,17 +7409,15 @@ uint64_t __84__HDDatabaseMigrator_Tigris___addArbitraryMetadataSupportForWorkout
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t __84__HDDatabaseMigrator_Tigris___addArbitraryMetadataSupportForWorkoutEventsWithError___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 - (id)corryProtectedMigrationSteps

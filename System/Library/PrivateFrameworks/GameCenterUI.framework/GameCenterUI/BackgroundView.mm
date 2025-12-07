@@ -8,13 +8,13 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_24DFEC5E0();
+  sub_24DFEC5E0(selfCopy);
 }
 
 - (void)_dynamicUserInterfaceTraitDidChange
 {
   selfCopy = self;
-  sub_24DFEC70C();
+  sub_24DFEC70C(selfCopy);
 }
 
 @end

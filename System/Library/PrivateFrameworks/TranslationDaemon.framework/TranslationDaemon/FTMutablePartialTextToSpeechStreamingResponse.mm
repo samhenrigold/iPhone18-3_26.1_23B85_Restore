@@ -5,6 +5,8 @@
 - (int)error_code;
 - (void)audio:(id)audio;
 - (void)setAudio:(id)audio;
+- (void)setCurrent_pkt_number:(int)current_pkt_number;
+- (void)setError_code:(int)error_code;
 - (void)setError_str:(id)error_str;
 - (void)setFeature:(id)feature;
 - (void)setSession_id:(id)session_id;
@@ -60,6 +62,12 @@
   return intValue;
 }
 
+- (void)setError_code:(int)error_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&error_code];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (void)setError_str:(id)error_str
 {
   v4 = [error_str copy];
@@ -78,6 +86,12 @@
   intValue = [v2 intValue];
 
   return intValue;
+}
+
+- (void)setCurrent_pkt_number:(int)current_pkt_number
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&current_pkt_number];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (void)setAudio:(id)audio

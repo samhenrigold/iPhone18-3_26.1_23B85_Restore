@@ -24,40 +24,40 @@
 
 - (void)_accessibilityLoadAccessibilityInformation
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v19.receiver = self;
-  v19.super_class = AVTSimpleAvatarPickerAccessibility;
-  [(AVTSimpleAvatarPickerAccessibility *)&v19 _accessibilityLoadAccessibilityInformation];
-  v18 = 0;
+  v20 = *MEMORY[0x29EDCA608];
+  v18.receiver = self;
+  v18.super_class = AVTSimpleAvatarPickerAccessibility;
+  [(AVTSimpleAvatarPickerAccessibility *)&v18 _accessibilityLoadAccessibilityInformation];
+  v17 = 0;
   objc_opt_class();
   v3 = [(AVTSimpleAvatarPickerAccessibility *)self safeValueForKey:@"collectionView"];
   v4 = __UIAccessibilityCastAsClass();
 
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   visibleCells = [v4 visibleCells];
-  v6 = [visibleCells countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v6 = [visibleCells countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         _accessibilityIndexPath = [v10 _accessibilityIndexPath];
         [(AVTSimpleAvatarPickerAccessibility *)self _axMarkupCellWithAXInfo:v10 indexPath:_accessibilityIndexPath];
       }
 
-      v7 = [visibleCells countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v7 = [visibleCells countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v7);
@@ -65,8 +65,6 @@
 
   v12 = accessibilityLocalizedString(@"collection.avatars.label");
   [v4 setAccessibilityLabel:v12];
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 - (void)loadView
@@ -110,7 +108,7 @@
   }
 }
 
-uint64_t __72__AVTSimpleAvatarPickerAccessibility__axMarkupCellWithAXInfo_indexPath___block_invoke(uint64_t a1)
+void *__72__AVTSimpleAvatarPickerAccessibility__axMarkupCellWithAXInfo_indexPath___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isItemAtIndexAddItem:{objc_msgSend(*(a1 + 40), "item")}];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -130,37 +128,35 @@ void __72__AVTSimpleAvatarPickerAccessibility__axMarkupCellWithAXInfo_indexPath_
 
 void __72__AVTSimpleAvatarPickerAccessibility__axMarkupCellWithAXInfo_indexPath___block_invoke_3(uint64_t a1, void *a2)
 {
-  v17[1] = *MEMORY[0x29EDCA608];
+  v16[1] = *MEMORY[0x29EDCA608];
   v3 = a2;
   v4 = *(a1 + 32);
-  v15[0] = MEMORY[0x29EDCA5F8];
-  v15[1] = 3221225472;
-  v15[2] = __72__AVTSimpleAvatarPickerAccessibility__axMarkupCellWithAXInfo_indexPath___block_invoke_4;
-  v15[3] = &unk_29F2A3A68;
+  v14[0] = MEMORY[0x29EDCA5F8];
+  v14[1] = 3221225472;
+  v14[2] = __72__AVTSimpleAvatarPickerAccessibility__axMarkupCellWithAXInfo_indexPath___block_invoke_4;
+  v14[3] = &unk_29F2A3A68;
   v5 = v3;
-  v16 = v5;
-  [v4 _setAccessibilityLabelBlock:v15];
+  v15 = v5;
+  [v4 _setAccessibilityLabelBlock:v14];
   v6 = [v5 safeValueForKey:@"avatar"];
   v7 = [v6 safeBoolForKey:@"isEditable"];
 
   if (v7)
   {
     v8 = accessibilityLocalizedString(@"starfish.avatar");
-    v17[0] = v8;
-    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v17 count:1];
+    v16[0] = v8;
+    v9 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:1];
     [*(a1 + 32) setAccessibilityUserInputLabels:v9];
   }
 
   v10 = *(a1 + 32);
-  v13[0] = MEMORY[0x29EDCA5F8];
-  v13[1] = 3221225472;
-  v13[2] = __72__AVTSimpleAvatarPickerAccessibility__axMarkupCellWithAXInfo_indexPath___block_invoke_5;
-  v13[3] = &unk_29F2A3A90;
-  v14 = v5;
+  v12[0] = MEMORY[0x29EDCA5F8];
+  v12[1] = 3221225472;
+  v12[2] = __72__AVTSimpleAvatarPickerAccessibility__axMarkupCellWithAXInfo_indexPath___block_invoke_5;
+  v12[3] = &unk_29F2A3A90;
+  v13 = v5;
   v11 = v5;
-  [v10 _setAccessibilityCustomContentBlock:v13];
-
-  v12 = *MEMORY[0x29EDCA608];
+  [v10 _setAccessibilityCustomContentBlock:v12];
 }
 
 id __72__AVTSimpleAvatarPickerAccessibility__axMarkupCellWithAXInfo_indexPath___block_invoke_4(uint64_t a1)

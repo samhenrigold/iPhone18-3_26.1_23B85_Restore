@@ -34,22 +34,20 @@
 
 - (NSDictionary)dictionaryValue
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"MessageIdentifier";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"MessageIdentifier";
   messageIdentifier = [(CATIDSMessageMetadata *)self messageIdentifier];
   uUIDString = [messageIdentifier UUIDString];
-  v11[0] = uUIDString;
-  v10[1] = @"ContentType";
+  v10[0] = uUIDString;
+  v9[1] = @"ContentType";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[CATIDSMessageMetadata messageType](self, "messageType")}];
-  v11[1] = v5;
-  v10[2] = @"MessagingVersion";
+  v10[1] = v5;
+  v9[2] = @"MessagingVersion";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[CATIDSMessageMetadata messagingVersion](self, "messagingVersion")}];
-  v10[3] = @"MessageType";
-  v11[2] = v6;
-  v11[3] = &unk_28560C228;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[3] = @"MessageType";
+  v10[2] = v6;
+  v10[3] = &unk_28560C228;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }

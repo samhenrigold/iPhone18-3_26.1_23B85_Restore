@@ -217,7 +217,7 @@ LABEL_17:
         {
           v23 = UnsafePointer(v10 + 24, v22);
           sub_276A19D24(v43, v12, v16, v23, v19, 1);
-          sub_276A78D40(&self->_dataPropertiesMap.__table_.__bucket_list_.__ptr_, &v46, &v46);
+          sub_276A78D40(&self->_dataPropertiesMap.__table_.__bucket_list_.__ptr_, &v46, &v46, v43);
           v25 = v24;
 
           if ((v25 & 1) == 0)

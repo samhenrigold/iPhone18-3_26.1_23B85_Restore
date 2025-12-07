@@ -116,7 +116,7 @@
 
 + (void)setFormat:(id)format
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   formatCopy = format;
   v4 = [IPNumberFormat alloc];
   v5 = +[IPFormat localeFromDeviceLocale];
@@ -130,28 +130,26 @@
 
   else
   {
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 0];
-    v18[0] = v17;
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 0];
+    v17[0] = v16;
     decimalSeparator = [formatCopy decimalSeparator];
-    v19[0] = decimalSeparator;
+    v18[0] = decimalSeparator;
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 1];
-    v18[1] = v8;
+    v17[1] = v8;
     groupingSeparator = [formatCopy groupingSeparator];
-    v19[1] = groupingSeparator;
+    v18[1] = groupingSeparator;
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 10];
-    v18[2] = v10;
+    v17[2] = v10;
     decimalSeparator2 = [formatCopy decimalSeparator];
-    v19[2] = decimalSeparator2;
+    v18[2] = decimalSeparator2;
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", 17];
-    v18[3] = v12;
+    v17[3] = v12;
     groupingSeparator2 = [formatCopy groupingSeparator];
-    v19[3] = groupingSeparator2;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
+    v18[3] = groupingSeparator2;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
     [standardUserDefaults setObject:v14 forKey:@"AppleICUNumberSymbols" inDomain:*MEMORY[0x277CCA208]];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

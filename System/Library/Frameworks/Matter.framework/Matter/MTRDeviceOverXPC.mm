@@ -59,7 +59,7 @@
   v31 = queueCopy;
   if (sub_2393D5398(3u))
   {
-    sub_2393D5320(0, 3);
+    sub_2393D5320(0, 3, "Subscribing all attributes... Note that attributeReportHandler, eventReportHandler, and resubscriptionScheduled are not supported.", scheduledCopy, reportHandlerCopy, handlerCopy, queueCopy);
   }
 
   v32[0] = MEMORY[0x277D85DD0];
@@ -98,7 +98,7 @@
 
   if (sub_2393D5398(3u))
   {
-    sub_2393D5320(0, 3);
+    sub_2393D5320(0, 3, "Reading attribute ...");
   }
 
   v28[0] = MEMORY[0x277D85DD0];
@@ -124,13 +124,13 @@
 
 - (void)readAttributePaths:(id)paths eventPaths:(id)eventPaths params:(id)params includeDataVersion:(BOOL)version queue:(id)queue completion:(id)completion
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   eventPathsCopy = eventPaths;
   paramsCopy = params;
   queue = queue;
   completionCopy = completion;
-  v26 = eventPathsCopy;
+  v25 = eventPathsCopy;
   if (!pathsCopy || eventPathsCopy)
   {
     v24 = sub_2393D9044(0);
@@ -142,14 +142,14 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "MTRBaseDevice doesn't support reading event paths over XPC", eventPathsCopy);
     }
 
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = sub_2393877DC;
     block[3] = &unk_278A72B88;
-    v49 = completionCopy;
+    v48 = completionCopy;
     dispatch_async(queue, block);
   }
 
@@ -157,60 +157,58 @@
   {
     v15 = [pathsCopy count];
     *buf = 0;
-    v45 = buf;
-    v46 = 0x2020000000;
-    v47 = 0;
-    v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v42[0] = 0;
-    v42[1] = v42;
-    v42[2] = 0x2020000000;
-    v43 = 0;
+    v44 = buf;
+    v45 = 0x2020000000;
+    v46 = 0;
+    v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v41[0] = 0;
+    v41[1] = v41;
+    v41[2] = 0x2020000000;
+    v42 = 0;
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
     obj = pathsCopy;
-    v16 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
+    v16 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
     if (v16)
     {
-      v17 = *v39;
+      v17 = *v38;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v39 != v17)
+          if (*v38 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v38 + 1) + 8 * i);
-          v32[0] = MEMORY[0x277D85DD0];
-          v32[1] = 3221225472;
-          v32[2] = sub_23938786C;
-          v32[3] = &unk_278A75430;
-          v35 = v42;
-          v34 = completionCopy;
-          v33 = v28;
-          v36 = buf;
-          v37 = v15;
-          v20 = MEMORY[0x23EE78590](v32);
+          v19 = *(*(&v37 + 1) + 8 * i);
+          v31[0] = MEMORY[0x277D85DD0];
+          v31[1] = 3221225472;
+          v31[2] = sub_23938786C;
+          v31[3] = &unk_278A75430;
+          v34 = v41;
+          v33 = completionCopy;
+          v32 = v27;
+          v35 = buf;
+          v36 = v15;
+          v20 = MEMORY[0x23EE78590](v31);
           endpoint = [v19 endpoint];
           cluster = [v19 cluster];
           attribute = [v19 attribute];
           [(MTRDeviceOverXPC *)self readAttributesWithEndpointID:endpoint clusterID:cluster attributeID:attribute params:paramsCopy queue:queue completion:v20];
         }
 
-        v16 = [obj countByEnumeratingWithState:&v38 objects:v50 count:16];
+        v16 = [obj countByEnumeratingWithState:&v37 objects:v49 count:16];
       }
 
       while (v16);
     }
 
-    _Block_object_dispose(v42, 8);
+    _Block_object_dispose(v41, 8);
     _Block_object_dispose(buf, 8);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeAttributeWithEndpointID:(id)d clusterID:(id)iD attributeID:(id)attributeID value:(id)value timedWriteTimeout:(id)timeout queue:(id)queue completion:(id)completion
@@ -231,7 +229,7 @@
 
   if (sub_2393D5398(3u))
   {
-    sub_2393D5320(0, 3);
+    sub_2393D5320(0, 3, "Writing attribute ...");
   }
 
   v31[0] = MEMORY[0x277D85DD0];
@@ -275,7 +273,7 @@
 
   if (sub_2393D5398(3u))
   {
-    sub_2393D5320(0, 3);
+    sub_2393D5320(0, 3, "Invoking command ...");
   }
 
   v31[0] = MEMORY[0x277D85DD0];
@@ -323,7 +321,7 @@
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "MTRBaseDevice doesn't support invokes with a server-side processing timeout over XPC");
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -358,7 +356,7 @@
 
   if (sub_2393D5398(3u))
   {
-    sub_2393D5320(0, 3);
+    sub_2393D5320(0, 3, "Subscribing attribute ...");
   }
 
   v31[0] = MEMORY[0x277D85DD0];
@@ -397,7 +395,7 @@
 
   if (sub_2393D5398(3u))
   {
-    sub_2393D5320(0, 3);
+    sub_2393D5320(0, 3, "Deregistering report handlers");
   }
 
   v17[0] = MEMORY[0x277D85DD0];
@@ -447,7 +445,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRBaseDevice doesn't support openCommissioningWindowWithSetupPasscode over XPC");
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -474,7 +472,7 @@
 
   if (sub_2393D5398(1u))
   {
-    sub_2393D5320(0, 1);
+    sub_2393D5320(0, 1, "MTRBaseDevice doesn't support openCommissioningWindowWithDiscriminator over XPC");
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -499,7 +497,7 @@
 
   if (sub_2393D5398(3u))
   {
-    sub_2393D5320(0, 3);
+    sub_2393D5320(0, 3, "Downloading log ...");
   }
 
   v16[0] = MEMORY[0x277D85DD0];

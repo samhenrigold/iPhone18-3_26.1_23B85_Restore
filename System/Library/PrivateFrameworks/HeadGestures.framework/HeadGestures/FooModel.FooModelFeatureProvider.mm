@@ -8,18 +8,15 @@
 
 - (NSSet)featureNames
 {
-  v2 = *(self + 2);
 
-  v3 = sub_2511310F8();
+  v2 = sub_2511310F8();
 
-  return v3;
+  return v2;
 }
 
 - (void)setFeatureNames:(id)names
 {
-  v4 = sub_251131108();
-  v5 = *(self + 2);
-  *(self + 2) = v4;
+  *(self + 2) = sub_251131108();
 }
 
 - (id)featureValueForName:(id)name

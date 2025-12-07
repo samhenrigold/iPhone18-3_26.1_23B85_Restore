@@ -21,9 +21,9 @@
 
 - (MPSNNResizeBilinear)initWithDevice:(id)device resizeWidth:(NSUInteger)resizeWidth resizeHeight:(NSUInteger)resizeHeight alignCorners:(BOOL)alignCorners
 {
-  v11.receiver = self;
-  v11.super_class = MPSNNResizeBilinear;
-  result = [(MPSCNNKernel *)&v11 initWithDevice:device];
+  v17.receiver = self;
+  v17.super_class = MPSNNResizeBilinear;
+  result = [(MPSCNNKernel *)&v17 initWithDevice:device];
   if (result)
   {
     if (resizeWidth)
@@ -42,7 +42,9 @@
       v10 = result;
       if (MTLReportFailureTypeEnabled())
       {
-        goto LABEL_9;
+        v15 = @"resize height (%lu) must be > 0";
+        v16 = 186;
+        goto LABEL_10;
       }
     }
 
@@ -51,8 +53,10 @@
       v10 = result;
       if (MTLReportFailureTypeEnabled())
       {
-LABEL_9:
-        MTLReportFailure();
+        v15 = @"resize width (%lu) must be > 0";
+        v16 = 185;
+LABEL_10:
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNResize.mm", v16, v15, v11, v12, v13, v14);
       }
     }
 
@@ -64,9 +68,9 @@ LABEL_9:
 
 - (MPSNNResizeBilinear)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v27.receiver = self;
-  v27.super_class = MPSNNResizeBilinear;
-  v5 = [(MPSCNNKernel *)&v27 initWithCoder:aDecoder device:device];
+  v31.receiver = self;
+  v31.super_class = MPSNNResizeBilinear;
+  v5 = [(MPSCNNKernel *)&v31 initWithCoder:aDecoder device:device];
   v12 = v5;
   if (!v5)
   {
@@ -88,7 +92,7 @@ LABEL_9:
   {
     v26 = objc_opt_class();
     NSStringFromClass(v26);
-    MTLReportFailure();
+    MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSNNResize.mm", 0xD1, @"[%@ initWithCoder:device:] Failed: unsupported file version.", v27, v28, v29, v30);
   }
 
   return 0;

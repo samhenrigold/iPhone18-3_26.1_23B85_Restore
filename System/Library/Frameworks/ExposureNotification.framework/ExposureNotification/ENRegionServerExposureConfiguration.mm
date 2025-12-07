@@ -13,7 +13,7 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v44 = 0;
+    v43 = 0;
     goto LABEL_25;
   }
 
@@ -21,16 +21,16 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v53.receiver = self;
-    v53.super_class = ENRegionServerExposureConfiguration;
-    v6 = [(ENRegionServerExposureConfiguration *)&v53 init];
+    v52.receiver = self;
+    v52.super_class = ENRegionServerExposureConfiguration;
+    v6 = [(ENRegionServerExposureConfiguration *)&v52 init];
     if (v6)
     {
-      v48 = v6;
-      v52 = 0;
+      v47 = v6;
+      v51 = 0;
       CFStringGetTypeID();
-      v49 = dictionaryCopy;
-      v47 = CFDictionaryGetTypedValue();
+      v48 = dictionaryCopy;
+      v46 = CFDictionaryGetTypedValue();
       v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
       v8 = 12;
       v9 = &qword_278A4B480;
@@ -38,135 +38,134 @@
       {
         v10 = *(v9 - 2);
         v11 = *(v9 - 1);
-        v12 = *v9;
-        v13 = NSDictionaryGetNSNumber();
-        [v7 setObject:v13 forKeyedSubscript:v11];
+        v12 = NSDictionaryGetNSNumber();
+        [v7 setObject:v12 forKeyedSubscript:v11];
         v9 += 3;
 
         --v8;
       }
 
       while (v8);
-      v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
       Int64 = CFDictionaryGetInt64();
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __72__ENRegionServerExposureConfiguration_initWithServerResponseDictionary___block_invoke;
-      v51[3] = &unk_278A4B598;
-      v51[4] = v14;
-      v51[5] = Int64;
-      v16 = MEMORY[0x2383EE560](v51);
-      v17 = 0;
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __72__ENRegionServerExposureConfiguration_initWithServerResponseDictionary___block_invoke;
+      v50[3] = &unk_278A4B598;
+      v50[4] = v13;
+      v50[5] = Int64;
+      v15 = MEMORY[0x2383EE560](v50);
+      v16 = 0;
       for (i = -14; i != 15; ++i)
       {
-        v16[2](v16, i, v17);
-        v17 += 2;
+        v15[2](v15, i, v16);
+        v16 += 2;
       }
 
-      v16[2](v16, 0x7FFFFFFFFFFFFFFFLL, 58);
-      v46 = v14;
-      v19 = [v14 copy];
-      v20 = v7;
-      [v7 setObject:v19 forKeyedSubscript:@"infectiousnessForDaysSinceOnsetOfSymptoms"];
+      v15[2](v15, 0x7FFFFFFFFFFFFFFFLL, 58);
+      v45 = v13;
+      v18 = [v13 copy];
+      v19 = v7;
+      [v7 setObject:v18 forKeyedSubscript:@"infectiousnessForDaysSinceOnsetOfSymptoms"];
 
-      v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v22 = &byte_278A4B5C0;
-      v23 = 3;
+      v20 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v21 = &byte_278A4B5C0;
+      v22 = 3;
       do
       {
-        v24 = *(v22 - 1);
-        v25 = *v22;
+        v23 = *(v21 - 1);
+        v24 = *v21;
         Int64Ranged = CFDictionaryGetInt64Ranged();
-        if (v52)
+        if (v51)
         {
-          [MEMORY[0x277CCABB0] numberWithUnsignedChar:v25];
+          [MEMORY[0x277CCABB0] numberWithUnsignedChar:v24];
         }
 
         else
         {
           [MEMORY[0x277CCABB0] numberWithUnsignedChar:Int64Ranged];
         }
-        v27 = ;
-        [v21 addObject:v27];
-        v22 += 16;
+        v26 = ;
+        [v20 addObject:v26];
+        v21 += 16;
 
-        --v23;
+        --v22;
       }
 
-      while (v23);
-      v28 = [v21 copy];
-      [v7 setObject:v28 forKeyedSubscript:@"attenuationDurationThresholds"];
+      while (v22);
+      v27 = [v20 copy];
+      [v7 setObject:v27 forKeyedSubscript:@"attenuationDurationThresholds"];
 
-      v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v30 = 1;
+      v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v29 = 1;
       do
       {
-        v31 = objc_autoreleasePoolPush();
-        v50 = 0;
-        v32 = [ENRegionServerExposureClassificationCriteria getCriteria:&v50 fromDictionary:v5 index:v30];
-        v33 = v50;
-        objc_autoreleasePoolPop(v31);
-        if (!v32)
+        v30 = objc_autoreleasePoolPush();
+        v49 = 0;
+        v31 = [ENRegionServerExposureClassificationCriteria getCriteria:&v49 fromDictionary:v5 index:v29];
+        v32 = v49;
+        objc_autoreleasePoolPop(v30);
+        if (!v31)
         {
 
-          v44 = 0;
-          v35 = v47;
-          self = v48;
+          v43 = 0;
+          v34 = v46;
+          self = v47;
           goto LABEL_23;
         }
 
-        if (v33)
+        if (v32)
         {
-          [v29 addObject:v33];
+          [v28 addObject:v32];
         }
 
-        v34 = v30++;
+        v33 = v29++;
       }
 
-      while (v34 <= 3);
-      v35 = v47;
-      v36 = [v47 copy];
-      self = v48;
-      appBundleIdentifier = v48->_appBundleIdentifier;
-      v48->_appBundleIdentifier = v36;
+      while (v33 <= 3);
+      v34 = v46;
+      v35 = [v46 copy];
+      self = v47;
+      appBundleIdentifier = v47->_appBundleIdentifier;
+      v47->_appBundleIdentifier = v35;
 
-      v38 = [v29 copy];
-      classificationCriteria = v48->_classificationCriteria;
-      v48->_classificationCriteria = v38;
+      v37 = [v28 copy];
+      classificationCriteria = v47->_classificationCriteria;
+      v47->_classificationCriteria = v37;
 
-      v40 = [v20 copy];
-      exposureConfigurationValues = v48->_exposureConfigurationValues;
-      v48->_exposureConfigurationValues = v40;
+      v39 = [v19 copy];
+      exposureConfigurationValues = v47->_exposureConfigurationValues;
+      v47->_exposureConfigurationValues = v39;
 
-      v48->_enableRecursiveReportType = CFDictionaryGetInt64() != 0;
-      v42 = 86400 * CFDictionaryGetInt64Ranged();
-      if (v52)
+      v47->_enableRecursiveReportType = CFDictionaryGetInt64() != 0;
+      v41 = 86400 * CFDictionaryGetInt64Ranged();
+      if (v51)
       {
-        v43 = 604800;
+        v42 = 604800;
       }
 
       else
       {
-        v43 = v42;
+        v42 = v41;
       }
 
-      v48->_privacyParameterInputCandenceInterval = v43;
-      v48->_matchingRestrictedToRegion = CFDictionaryGetInt64() != 0;
-      v44 = v48;
+      v47->_privacyParameterInputCandenceInterval = v42;
+      v47->_matchingRestrictedToRegion = CFDictionaryGetInt64() != 0;
+      v43 = v47;
 LABEL_23:
 
-      dictionaryCopy = v49;
+      dictionaryCopy = v48;
       goto LABEL_24;
     }
 
     self = 0;
   }
 
-  v44 = 0;
+  v43 = 0;
 LABEL_24:
 
 LABEL_25:
-  return v44;
+  return v43;
 }
 
 void __72__ENRegionServerExposureConfiguration_initWithServerResponseDictionary___block_invoke(uint64_t a1, uint64_t a2, char a3)
@@ -182,27 +181,27 @@ void __72__ENRegionServerExposureConfiguration_initWithServerResponseDictionary_
 
 - (id)classificationCriteriaForName:(id)name
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   classificationCriteria = [(ENRegionServerExposureConfiguration *)self classificationCriteria];
-  v6 = [classificationCriteria countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [classificationCriteria countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(classificationCriteria);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         classificationName = [v9 classificationName];
         v11 = [classificationName isEqualToString:nameCopy];
 
@@ -213,7 +212,7 @@ void __72__ENRegionServerExposureConfiguration_initWithServerResponseDictionary_
         }
       }
 
-      v6 = [classificationCriteria countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [classificationCriteria countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -224,8 +223,6 @@ void __72__ENRegionServerExposureConfiguration_initWithServerResponseDictionary_
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

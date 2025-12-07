@@ -181,33 +181,34 @@
               [(ATXFocusModeSignalsMetricLogger *)self populateAppModeAffinitySignalsForMode:v22 bundleId:v27 metric:v28];
             }
 
-            if ([eventCopy modeConfigurationType] == 1)
+            modeConfigurationType = [eventCopy modeConfigurationType];
+            if (modeConfigurationType == 1)
             {
-              [(ATXFocusModeSignalsMetricLogger *)self populateAppModeDenyListSignalsForMode:v22 bundleId:v27 metric:v28];
+              modeConfigurationType = [(ATXFocusModeSignalsMetricLogger *)self populateAppModeDenyListSignalsForMode:v22 bundleId:v27 metric:v28];
             }
 
-            v32 = __atxlog_handle_modes();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+            v33 = __atxlog_handle_modes(modeConfigurationType);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
             {
-              v33 = objc_opt_class();
-              v47 = v33;
-              v34 = NSStringFromSelector(a2);
+              v34 = objc_opt_class();
+              v47 = v34;
+              v35 = NSStringFromSelector(a2);
               [v28 coreAnalyticsDictionary];
               selfCopy = self;
-              v36 = eventCopy;
-              v37 = v14;
-              v39 = v38 = activityCopy;
+              v37 = eventCopy;
+              v38 = v14;
+              v40 = v39 = activityCopy;
               *buf = 138412802;
-              v60 = v33;
+              v60 = v34;
               v61 = 2112;
-              v62 = v34;
+              v62 = v35;
               v63 = 2112;
-              v64 = v39;
-              _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_INFO, "[%@][%@] Logging: %@", buf, 0x20u);
+              v64 = v40;
+              _os_log_impl(&dword_2263AA000, v33, OS_LOG_TYPE_INFO, "[%@][%@] Logging: %@", buf, 0x20u);
 
-              activityCopy = v38;
-              v14 = v37;
-              eventCopy = v36;
+              activityCopy = v39;
+              v14 = v38;
+              eventCopy = v37;
               self = selfCopy;
 
               v22 = v44;
@@ -244,13 +245,11 @@
 LABEL_35:
     }
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateAppModeAffinitySignalsForMode:(unint64_t)mode bundleId:(id)id metric:(id)metric
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   idCopy = id;
   metricCopy = metric;
   v10 = [(ATXFocusModeSignalsMetricLogger *)self appScoresForMode:mode];
@@ -258,14 +257,97 @@ LABEL_35:
 
   if (v11)
   {
+    v33 = v10;
+    v34 = idCopy;
+    v12 = [v10 objectForKeyedSubscript:idCopy];
+    scoreMetadata = [v12 scoreMetadata];
+    featureVector = [scoreMetadata featureVector];
+
+    v31 = [[ATXModeEntityScoringFeatures alloc] initFromJSON:featureVector];
+    v32 = v12;
+    v15 = MEMORY[0x277CCABB0];
+    scoreMetadata2 = [v12 scoreMetadata];
+    [scoreMetadata2 score];
+    v17 = [v15 numberWithDouble:?];
+    [metricCopy setEntityModeEntityScore:v17];
+
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    metricFieldsToFeatureNames = [(ATXFocusModeSignalsMetricLogger *)self metricFieldsToFeatureNames];
+    v19 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v35 objects:v39 count:16];
+    if (v19)
+    {
+      v20 = v19;
+      v21 = *v36;
+      do
+      {
+        v22 = 0;
+        do
+        {
+          if (*v36 != v21)
+          {
+            objc_enumerationMutation(metricFieldsToFeatureNames);
+          }
+
+          v23 = *(*(&v35 + 1) + 8 * v22);
+          metricFieldsToFeatureNames2 = [(ATXFocusModeSignalsMetricLogger *)self metricFieldsToFeatureNames];
+          v25 = [metricFieldsToFeatureNames2 objectForKeyedSubscript:v23];
+
+          if (v25)
+          {
+            v26 = [featureVector objectForKeyedSubscript:v25];
+
+            if (v26)
+            {
+              v27 = [featureVector objectForKeyedSubscript:v25];
+              [metricCopy setValue:v27 forKey:v23];
+            }
+          }
+
+          ++v22;
+        }
+
+        while (v20 != v22);
+        v20 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v35 objects:v39 count:16];
+      }
+
+      while (v20);
+    }
+
+    [(ATXFocusModeSignalsMetricLogger *)self addAppEntitySpecificFeatures:v31 toMetric:metricCopy];
+    v28 = MEMORY[0x277CCABB0];
+    globalInterruptingAppModel = self->_globalInterruptingAppModel;
+    [(ATXModeAffinityModelsConstants *)self->_modeAffinityModelsConstants scalingFactorForModeGlobalPriors];
+    idCopy = v34;
+    [(ATXGlobalInterruptingAppModel *)globalInterruptingAppModel scoreForBundleId:v34 scalingFactor:?];
+    v30 = [v28 numberWithDouble:?];
+    [metricCopy setGlobalInterruptingPrior:v30];
+
+    v10 = v33;
+  }
+}
+
+- (void)populateAppModeDenyListSignalsForMode:(unint64_t)mode bundleId:(id)id metric:(id)metric
+{
+  v41 = *MEMORY[0x277D85DE8];
+  idCopy = id;
+  metricCopy = metric;
+  v10 = [(ATXFocusModeSignalsMetricLogger *)self appScoresForDenyListForMode:mode];
+  v11 = [v10 objectForKeyedSubscript:idCopy];
+
+  if (v11)
+  {
+    modeCopy = mode;
     v34 = v10;
     v35 = idCopy;
     v12 = [v10 objectForKeyedSubscript:idCopy];
     scoreMetadata = [v12 scoreMetadata];
     featureVector = [scoreMetadata featureVector];
 
-    v32 = [[ATXModeEntityScoringFeatures alloc] initFromJSON:featureVector];
-    v33 = v12;
+    v31 = [[ATXModeEntityScoringFeatures alloc] initFromJSON:featureVector];
+    v32 = v12;
     v15 = MEMORY[0x277CCABB0];
     scoreMetadata2 = [v12 scoreMetadata];
     [scoreMetadata2 score];
@@ -317,104 +399,17 @@ LABEL_35:
       while (v20);
     }
 
-    [(ATXFocusModeSignalsMetricLogger *)self addAppEntitySpecificFeatures:v32 toMetric:metricCopy];
-    v28 = MEMORY[0x277CCABB0];
-    globalInterruptingAppModel = self->_globalInterruptingAppModel;
-    [(ATXModeAffinityModelsConstants *)self->_modeAffinityModelsConstants scalingFactorForModeGlobalPriors];
-    idCopy = v35;
-    [(ATXGlobalInterruptingAppModel *)globalInterruptingAppModel scoreForBundleId:v35 scalingFactor:?];
-    v30 = [v28 numberWithDouble:?];
-    [metricCopy setGlobalInterruptingPrior:v30];
-
-    v10 = v34;
-  }
-
-  v31 = *MEMORY[0x277D85DE8];
-}
-
-- (void)populateAppModeDenyListSignalsForMode:(unint64_t)mode bundleId:(id)id metric:(id)metric
-{
-  v42 = *MEMORY[0x277D85DE8];
-  idCopy = id;
-  metricCopy = metric;
-  v10 = [(ATXFocusModeSignalsMetricLogger *)self appScoresForDenyListForMode:mode];
-  v11 = [v10 objectForKeyedSubscript:idCopy];
-
-  if (v11)
-  {
-    modeCopy = mode;
-    v35 = v10;
-    v36 = idCopy;
-    v12 = [v10 objectForKeyedSubscript:idCopy];
-    scoreMetadata = [v12 scoreMetadata];
-    featureVector = [scoreMetadata featureVector];
-
-    v32 = [[ATXModeEntityScoringFeatures alloc] initFromJSON:featureVector];
-    v33 = v12;
-    v15 = MEMORY[0x277CCABB0];
-    scoreMetadata2 = [v12 scoreMetadata];
-    [scoreMetadata2 score];
-    v17 = [v15 numberWithDouble:?];
-    [metricCopy setEntityModeEntityScore:v17];
-
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    metricFieldsToFeatureNames = [(ATXFocusModeSignalsMetricLogger *)self metricFieldsToFeatureNames];
-    v19 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v37 objects:v41 count:16];
-    if (v19)
-    {
-      v20 = v19;
-      v21 = *v38;
-      do
-      {
-        v22 = 0;
-        do
-        {
-          if (*v38 != v21)
-          {
-            objc_enumerationMutation(metricFieldsToFeatureNames);
-          }
-
-          v23 = *(*(&v37 + 1) + 8 * v22);
-          metricFieldsToFeatureNames2 = [(ATXFocusModeSignalsMetricLogger *)self metricFieldsToFeatureNames];
-          v25 = [metricFieldsToFeatureNames2 objectForKeyedSubscript:v23];
-
-          if (v25)
-          {
-            v26 = [featureVector objectForKeyedSubscript:v25];
-
-            if (v26)
-            {
-              v27 = [featureVector objectForKeyedSubscript:v25];
-              [metricCopy setValue:v27 forKey:v23];
-            }
-          }
-
-          ++v22;
-        }
-
-        while (v20 != v22);
-        v20 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v37 objects:v41 count:16];
-      }
-
-      while (v20);
-    }
-
-    [(ATXFocusModeSignalsMetricLogger *)self addAppEntitySpecificFeatures:v32 toMetric:metricCopy];
+    [(ATXFocusModeSignalsMetricLogger *)self addAppEntitySpecificFeatures:v31 toMetric:metricCopy];
     v28 = MEMORY[0x277CCABB0];
     globalAppModeAffinityModel = self->_globalAppModeAffinityModel;
     [(ATXModeAffinityModelsConstants *)self->_modeAffinityModelsConstants scalingFactorForModeGlobalPriors];
-    idCopy = v36;
-    [(ATXGlobalAppModeAffinityModel *)globalAppModeAffinityModel scoreForMode:modeCopy bundleId:v36 scalingFactor:?];
+    idCopy = v35;
+    [(ATXGlobalAppModeAffinityModel *)globalAppModeAffinityModel scoreForMode:modeCopy bundleId:v35 scalingFactor:?];
     v30 = [v28 numberWithDouble:?];
     [metricCopy setGlobalModeAffinityPrior:v30];
 
-    v10 = v35;
+    v10 = v34;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addAppEntitySpecificFeatures:(id)features toMetric:(id)metric
@@ -571,29 +566,29 @@ LABEL_35:
 
 - (void)logFocusModeWidgetSignalsWithXPCActivity:(id)activity
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = allModesForTraining();
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v20;
+    v7 = *v19;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = objc_autoreleasePoolPush();
         integerValue = [v9 integerValue];
         if (integerValue > 0xD || ((1 << integerValue) & 0x3010) == 0)
@@ -612,7 +607,7 @@ LABEL_35:
         objc_autoreleasePoolPop(v10);
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v5)
       {
         continue;
@@ -623,36 +618,34 @@ LABEL_35:
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)logWidgetSignalsForMode:(unint64_t)mode modeAffinitySignals:(id)signals entitiesLogged:(unint64_t)logged
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   signalsCopy = signals;
-  v7 = [signalsCopy countByEnumeratingWithState:&v46 objects:v56 count:16];
+  v7 = [signalsCopy countByEnumeratingWithState:&v45 objects:v55 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v47;
-    v41 = *v47;
+    v9 = *v46;
+    v40 = *v46;
     do
     {
       v10 = 0;
-      v42 = v8;
+      v41 = v8;
       do
       {
-        if (*v47 != v9)
+        if (*v46 != v9)
         {
           objc_enumerationMutation(signalsCopy);
         }
 
-        v11 = *(*(&v46 + 1) + 8 * v10);
+        v11 = *(*(&v45 + 1) + 8 * v10);
         v12 = [signalsCopy objectForKeyedSubscript:v11];
         scoreMetadata = [v12 scoreMetadata];
         if (scoreMetadata)
@@ -665,8 +658,8 @@ LABEL_18:
 
           if (v18 > 0.0)
           {
-            v45 = [signalsCopy objectForKeyedSubscript:v11];
-            widget = [v45 widget];
+            v44 = [signalsCopy objectForKeyedSubscript:v11];
+            widget = [v44 widget];
             v20 = objc_opt_new();
             [v20 setFocusMode:mode];
             extensionIdentity = [widget extensionIdentity];
@@ -693,21 +686,20 @@ LABEL_18:
               [v20 setIntentHash:v31];
             }
 
-            [(ATXFocusModeSignalsMetricLogger *)self populateWidgetModeAffinitySignalsForMode:mode metric:v20 modeEntity:v45];
-            v32 = __atxlog_handle_modes();
+            v32 = __atxlog_handle_modes([(ATXFocusModeSignalsMetricLogger *)self populateWidgetModeAffinitySignalsForMode:mode metric:v20 modeEntity:v44]);
             if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
             {
               v33 = objc_opt_class();
-              v40 = v33;
+              v39 = v33;
               NSStringFromSelector(a2);
               v35 = v34 = logged;
               coreAnalyticsDictionary = [v20 coreAnalyticsDictionary];
               *buf = 138412802;
-              v51 = v33;
-              v52 = 2112;
-              v53 = v35;
-              v54 = 2112;
-              v55 = coreAnalyticsDictionary;
+              v50 = v33;
+              v51 = 2112;
+              v52 = v35;
+              v53 = 2112;
+              v54 = coreAnalyticsDictionary;
               _os_log_impl(&dword_2263AA000, v32, OS_LOG_TYPE_INFO, "[%@][%@] Logging: %@", buf, 0x20u);
 
               logged = v34;
@@ -716,8 +708,8 @@ LABEL_18:
             [v20 logToCoreAnalytics];
             ++logged;
 
-            v9 = v41;
-            v8 = v42;
+            v9 = v40;
+            v8 = v41;
             if (logged > 0x13)
             {
               goto LABEL_17;
@@ -733,7 +725,7 @@ LABEL_18:
       }
 
       while (v8 != v10);
-      v8 = [signalsCopy countByEnumeratingWithState:&v46 objects:v56 count:16];
+      v8 = [signalsCopy countByEnumeratingWithState:&v45 objects:v55 count:16];
     }
 
     while (v8);
@@ -741,13 +733,12 @@ LABEL_18:
 
 LABEL_17:
 
-  v37 = *MEMORY[0x277D85DE8];
   return logged;
 }
 
 - (void)populateWidgetModeAffinitySignalsForMode:(unint64_t)mode metric:(id)metric modeEntity:(id)entity
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   entityCopy = entity;
   v9 = entityCopy;
@@ -759,31 +750,31 @@ LABEL_17:
     v12 = [v10 numberWithDouble:?];
     [metricCopy setEntityModeEntityScore:v12];
 
-    v26 = v9;
+    v25 = v9;
     scoreMetadata2 = [v9 scoreMetadata];
     featureVector = [scoreMetadata2 featureVector];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     metricFieldsToFeatureNames = [(ATXFocusModeSignalsMetricLogger *)self metricFieldsToFeatureNames];
-    v16 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v16 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v28;
+      v18 = *v27;
       do
       {
         v19 = 0;
         do
         {
-          if (*v28 != v18)
+          if (*v27 != v18)
           {
             objc_enumerationMutation(metricFieldsToFeatureNames);
           }
 
-          v20 = *(*(&v27 + 1) + 8 * v19);
+          v20 = *(*(&v26 + 1) + 8 * v19);
           metricFieldsToFeatureNames2 = [(ATXFocusModeSignalsMetricLogger *)self metricFieldsToFeatureNames];
           v22 = [metricFieldsToFeatureNames2 objectForKeyedSubscript:v20];
 
@@ -802,16 +793,14 @@ LABEL_17:
         }
 
         while (v17 != v19);
-        v17 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v17 = [metricFieldsToFeatureNames countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v17);
     }
 
-    v9 = v26;
+    v9 = v25;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)widgetScoresForMode:(unint64_t)mode

@@ -269,4 +269,34 @@ LABEL_5:
   return *&__StandardDeviation;
 }
 
+- (void)captureOutput:(uint64_t)a3 didFinishProcessingPhoto:(uint64_t)a4 error:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_249253000, a2, a3, "Error capturing photo: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)captureOutput:(void *)a1 didFinishProcessingPhoto:error:.cold.2(void *a1)
+{
+  [a1 constantColorCenterWeightedMeanConfidenceLevel];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "captureOutput:didFinishProcessingPhoto: ignoring constant color original capture since it didn't meet the minimum confidence level (got %f)", v4, v5, v6, v7, v8, DWORD2(v8));
+}
+
+- (void)captureOutput:(void *)a1 didFinishProcessingPhoto:error:.cold.3(void *a1)
+{
+  [a1 constantColorCenterWeightedMeanConfidenceLevel];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_1(&dword_249253000, v2, v3, "captureOutput:didFinishProcessingPhoto: using original capture since it met the minimum confidence level (got %f)", v4, v5, v6, v7, v8, DWORD2(v8));
+}
+
+- (void)captureOutput:(uint64_t)a3 didFinishProcessingLivePhotoToMovieFileAtURL:(uint64_t)a4 duration:(uint64_t)a5 photoDisplayTime:(uint64_t)a6 resolvedSettings:(uint64_t)a7 error:(uint64_t)a8 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_249253000, a2, a3, "Error processing live photo companion movie: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

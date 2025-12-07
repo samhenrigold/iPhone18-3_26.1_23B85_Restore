@@ -8,7 +8,7 @@
 
 - (id)_customizationGroupsForActivityViewController:(id)controller
 {
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UIActivityItemCustomizationGroup);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for _UIActivityItemCustomizationGroup, 0x1E69CDA50);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

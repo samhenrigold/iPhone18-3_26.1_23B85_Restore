@@ -63,16 +63,14 @@
 
   if (!iconResource)
   {
-    v4 = _ISDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _ISDefaultLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1A77B8000, v4, OS_LOG_TYPE_INFO, "Failed to resolve an icon resource for %@", &v6, 0xCu);
+      _os_log_impl(&dword_1A77B8000, v5, OS_LOG_TYPE_INFO, "Failed to resolve an icon resource for %@", &v6, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (ISResourceProvider)resourceProviderWithRecord:(id)record options:(unint64_t)options
@@ -117,17 +115,17 @@
 
 - (NSData)validationToken
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (self->_resourceToken)
   {
-    v9 = 0;
+    v8 = 0;
+    v6 = 0u;
     v7 = 0u;
-    v8 = 0u;
-    [(NSUUID *)self->_lsDatabaseUUID getUUIDBytes:&v7];
-    *&v8 = self->_lsDatabaseSequenceNumber;
+    [(NSUUID *)self->_lsDatabaseUUID getUUIDBytes:&v6];
+    *&v7 = self->_lsDatabaseSequenceNumber;
     v3 = [MEMORY[0x1E696AFB0] _IF_UUIDWithData:self->_resourceToken];
-    [v3 getUUIDBytes:&v8 + 8];
-    _is_validToken = [MEMORY[0x1E695DEF0] dataWithBytes:&v7 length:40];
+    [v3 getUUIDBytes:&v7 + 8];
+    _is_validToken = [MEMORY[0x1E695DEF0] dataWithBytes:&v6 length:40];
   }
 
   else
@@ -135,14 +133,12 @@
     _is_validToken = [MEMORY[0x1E695DEF0] _is_validToken];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return _is_validToken;
 }
 
 - (BOOL)_findBadgeResourceWithIconDictionary:(id)dictionary bundle:(id)bundle record:(id)record
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   bundleCopy = bundle;
   recordCopy = record;
@@ -164,7 +160,6 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v21 = 0x1E6963000uLL;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -188,17 +183,15 @@ LABEL_23:
           goto LABEL_24;
         }
 
-        v26 = [v15 conformsToTypeIdentifier:@"com.apple.icon-package-attribute.embossable"];
+        v24 = [v15 conformsToTypeIdentifier:@"com.apple.icon-package-attribute.embossable"];
 
-        if (v26)
+        if (v24)
         {
 LABEL_24:
-          v30 = objc_alloc(MEMORY[0x1E69A89B0]);
-          v31 = symbolName2;
+          v27 = objc_alloc(MEMORY[0x1E69A89B0]);
+          v28 = symbolName2;
           goto LABEL_25;
         }
-
-        v21 = 0x1E6963000;
       }
     }
 
@@ -209,22 +202,21 @@ LABEL_24:
     }
   }
 
-  v27 = *(v21 + 1712);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v28 = [dictionaryCopy _IF_dictionaryForKey:@"ISDocumentIconConfiguration"];
-    if (v28)
+    v25 = [dictionaryCopy _IF_dictionaryForKey:@"ISDocumentIconConfiguration"];
+    if (v25)
     {
-      symbolName2 = v28;
-      v29 = [v28 _IF_stringForKey:@"ISSymbolName"];
-      if (v29)
+      symbolName2 = v25;
+      v26 = [v25 _IF_stringForKey:@"ISSymbolName"];
+      if (v26)
       {
-        v15 = v29;
-        v30 = objc_alloc(MEMORY[0x1E69A89B0]);
-        v31 = v15;
+        v15 = v26;
+        v27 = objc_alloc(MEMORY[0x1E69A89B0]);
+        v28 = v15;
 LABEL_25:
-        resourcesByResourceKey = [v30 initWithSymbolName:v31 bundleURL:0];
+        resourcesByResourceKey = [v27 initWithSymbolName:v28 bundleURL:0];
         resourcesByResourceKey2 = [(ISResourceProvider *)self resourcesByResourceKey];
         [resourcesByResourceKey2 setObject:resourcesByResourceKey forKeyedSubscript:@"kISBadgeResourceKey"];
 
@@ -237,11 +229,10 @@ LABEL_25:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v32 = *(v21 + 1712);
     objc_opt_class();
-    v33 = objc_opt_isKindOfClass();
+    v29 = objc_opt_isKindOfClass();
 
-    if ((v33 & 1) == 0)
+    if ((v29 & 1) == 0)
     {
       goto LABEL_29;
     }
@@ -252,17 +243,15 @@ LABEL_25:
     v15 = recordCopy;
     if (symbolName2)
     {
-      v35 = v21;
       identifier = [*MEMORY[0x1E6982DC8] identifier];
       if ([v15 conformsToTypeIdentifier:identifier])
       {
         goto LABEL_23;
       }
 
-      v37 = [v15 conformsToTypeIdentifier:@"com.apple.icon-package-attribute.embossable"];
+      v32 = [v15 conformsToTypeIdentifier:@"com.apple.icon-package-attribute.embossable"];
 
-      v21 = v35;
-      if (v37)
+      if (v32)
       {
         goto LABEL_24;
       }
@@ -270,58 +259,55 @@ LABEL_25:
   }
 
 LABEL_29:
-  v38 = *(v21 + 1712);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v39 = recordCopy;
+    v33 = recordCopy;
     assetCatalogImageName = [(ISFolderIconConfiguration *)v11 assetCatalogImageName];
     if (assetCatalogImageName)
     {
       identifier2 = [*MEMORY[0x1E6982DC8] identifier];
-      v42 = [v39 conformsToTypeIdentifier:identifier2];
+      v36 = [v33 conformsToTypeIdentifier:identifier2];
 
-      if (v42)
+      if (v36)
       {
         assetCatalogURL = [bundleCopy assetCatalogURL];
-        v64 = 0;
-        v44 = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:error:", assetCatalogURL, assetCatalogImageName, [bundleCopy platform], &v64);
-        v61 = v64;
+        v59 = 0;
+        v38 = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:error:", assetCatalogURL, assetCatalogImageName, [bundleCopy platform], &v59);
+        v56 = v59;
 
-        LOBYTE(v42) = v44 != 0;
-        if (v44)
+        LOBYTE(v36) = v38 != 0;
+        if (v38)
         {
           resourcesByResourceKey3 = [(ISResourceProvider *)self resourcesByResourceKey];
-          [resourcesByResourceKey3 setObject:v44 forKeyedSubscript:@"kISBadgeResourceKey"];
+          [resourcesByResourceKey3 setObject:v38 forKeyedSubscript:@"kISBadgeResourceKey"];
         }
 
         else
         {
-          resourcesByResourceKey3 = _ISDefaultLog();
+          resourcesByResourceKey3 = _ISDefaultLog(v39);
           if (os_log_type_enabled(resourcesByResourceKey3, OS_LOG_TYPE_ERROR))
           {
-            identifier3 = [v39 identifier];
+            identifier3 = [v33 identifier];
             *buf = 138412802;
-            v67 = assetCatalogImageName;
-            v68 = 2112;
-            v69 = identifier3;
-            v70 = 2112;
-            v71 = v61;
+            v62 = assetCatalogImageName;
+            v63 = 2112;
+            v64 = identifier3;
+            v65 = 2112;
+            v66 = v56;
             _os_log_error_impl(&dword_1A77B8000, resourcesByResourceKey3, OS_LOG_TYPE_ERROR, "Couldn't find image resource %@ for %@: %@", buf, 0x20u);
           }
         }
       }
-
-      v21 = 0x1E6963000uLL;
     }
 
     else
     {
-      LOBYTE(v42) = 0;
+      LOBYTE(v36) = 0;
     }
 
     v17 = [dictionaryCopy _IF_arrayForKey:@"UTTypeIconFiles"];
-    if (v42)
+    if (v36)
     {
       goto LABEL_4;
     }
@@ -332,59 +318,58 @@ LABEL_29:
     v17 = [dictionaryCopy _IF_arrayForKey:@"UTTypeIconFiles"];
   }
 
-  v46 = *(v21 + 1712);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     if (v17)
     {
-      v47 = [v17 count];
+      v41 = [v17 count];
       if (bundleCopy)
       {
-        if (v47)
+        if (v41)
         {
-          v48 = [MEMORY[0x1E69A8990] imageBagWithResourcesNames:v17 fromBundle:bundleCopy];
-          if (v48)
+          v42 = [MEMORY[0x1E69A8990] imageBagWithResourcesNames:v17 fromBundle:bundleCopy];
+          if (v42)
           {
             resourcesByResourceKey4 = [(ISResourceProvider *)self resourcesByResourceKey];
-            [resourcesByResourceKey4 setObject:v48 forKeyedSubscript:@"kISBadgeResourceKey"];
+            [resourcesByResourceKey4 setObject:v42 forKeyedSubscript:@"kISBadgeResourceKey"];
           }
         }
       }
     }
   }
 
-  v65[0] = @"UTTypeIconBadgeName";
-  v65[1] = @"UTTypeGlyphName";
-  v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:{2, identifier3}];
-  v51 = [dictionaryCopy _IF_stringForKeys:v50];
+  v60[0] = @"UTTypeIconBadgeName";
+  v60[1] = @"UTTypeGlyphName";
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:{2, identifier3}];
+  v45 = [dictionaryCopy _IF_stringForKeys:v44];
 
-  if (v51)
+  if (v45)
   {
     assetCatalogURL2 = [bundleCopy assetCatalogURL];
-    v63 = 0;
-    v53 = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:error:", assetCatalogURL2, v51, [bundleCopy platform], &v63);
-    v62 = v63;
+    v58 = 0;
+    v47 = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:error:", assetCatalogURL2, v45, [bundleCopy platform], &v58);
+    v57 = v58;
 
-    LOBYTE(isEnterprisePersona) = v53 != 0;
-    if (v53)
+    LOBYTE(isEnterprisePersona) = v47 != 0;
+    if (v47)
     {
       resourcesByResourceKey5 = [(ISResourceProvider *)self resourcesByResourceKey];
-      [resourcesByResourceKey5 setObject:v53 forKeyedSubscript:@"kISBadgeResourceKey"];
+      [resourcesByResourceKey5 setObject:v47 forKeyedSubscript:@"kISBadgeResourceKey"];
     }
 
     else
     {
-      resourcesByResourceKey5 = _ISDefaultLog();
+      resourcesByResourceKey5 = _ISDefaultLog(v48);
       if (os_log_type_enabled(resourcesByResourceKey5, OS_LOG_TYPE_DEBUG))
       {
         bundleURL = [bundleCopy bundleURL];
         *buf = 138412802;
-        v67 = bundleURL;
-        v68 = 2112;
-        v69 = v51;
-        v70 = 2112;
-        v71 = v62;
+        v62 = bundleURL;
+        v63 = 2112;
+        v64 = v45;
+        v65 = 2112;
+        v66 = v57;
         _os_log_debug_impl(&dword_1A77B8000, resourcesByResourceKey5, OS_LOG_TYPE_DEBUG, "Failed to find badge resource: %@ : %@ with error: %@", buf, 0x20u);
       }
     }
@@ -400,16 +385,16 @@ LABEL_29:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v55 = [[ISPersona alloc] initWithRecord:recordCopy];
-      isEnterprisePersona = [(ISPersona *)v55 isEnterprisePersona];
+      v50 = [[ISPersona alloc] initWithRecord:recordCopy];
+      isEnterprisePersona = [(ISPersona *)v50 isEnterprisePersona];
       if (isEnterprisePersona)
       {
-        resourceBadge = [(ISPersona *)v55 resourceBadge];
+        resourceBadge = [(ISPersona *)v50 resourceBadge];
         resourcesByResourceKey6 = [(ISResourceProvider *)self resourcesByResourceKey];
         [resourcesByResourceKey6 setObject:resourceBadge forKeyedSubscript:@"kISBadgeResourceKey"];
 
-        v58 = objc_opt_new();
-        [(ISResourceProvider *)self setSuggestedRecipe:v58];
+        v53 = objc_opt_new();
+        [(ISResourceProvider *)self setSuggestedRecipe:v53];
       }
     }
 
@@ -421,7 +406,6 @@ LABEL_29:
 
 LABEL_5:
 
-  v19 = *MEMORY[0x1E69E9840];
   return isEnterprisePersona;
 }
 
@@ -468,7 +452,7 @@ LABEL_5:
 
     if (!v15)
     {
-      v15 = _ISDefaultLog();
+      v15 = _ISDefaultLog(v20);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         bundleURL = [bundleCopy bundleURL];
@@ -498,7 +482,6 @@ LABEL_12:
   v17 = 0;
 LABEL_13:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -515,12 +498,12 @@ LABEL_13:
 
 - (BOOL)_findTextResourceWithIconDictionary:(id)dictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"UTTypeIconText";
-  v12[1] = @"CFBundleIconText";
+  v11[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"UTTypeIconText";
+  v11[1] = @"CFBundleIconText";
   v4 = MEMORY[0x1E695DEC8];
   dictionaryCopy = dictionary;
-  v6 = [v4 arrayWithObjects:v12 count:2];
+  v6 = [v4 arrayWithObjects:v11 count:2];
   v7 = [dictionaryCopy _IF_stringForKeys:v6];
 
   if (v7)
@@ -530,7 +513,6 @@ LABEL_13:
     [resourcesByResourceKey setObject:uppercaseString forKeyedSubscript:@"kISTextResourceKey"];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7 != 0;
 }
 
@@ -669,7 +651,7 @@ LABEL_17:
 
 + (id)resourceWithBundleURL:(id)l iconDictionary:(id)dictionary options:(unint64_t)options
 {
-  v61[4] = *MEMORY[0x1E69E9840];
+  v63[4] = *MEMORY[0x1E69E9840];
   lCopy = l;
   dictionaryCopy = dictionary;
   v9 = [dictionaryCopy _IF_dictionaryForKey:0x1F1A4EC00];
@@ -684,19 +666,19 @@ LABEL_17:
     }
   }
 
-  v61[0] = @"CFBundleIconName";
-  v61[1] = @"UTTypeIconName";
-  v61[2] = @"UTTypeGlyphName";
-  v61[3] = @"CFBundleGlyphName";
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:4];
+  v63[0] = @"CFBundleIconName";
+  v63[1] = @"UTTypeIconName";
+  v63[2] = @"UTTypeGlyphName";
+  v63[3] = @"CFBundleGlyphName";
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:4];
   v14 = [dictionaryCopy _IF_stringForKeys:v13];
 
   if (v14)
   {
     v12 = [objc_alloc(MEMORY[0x1E69A8960]) initWithURL:lCopy];
     assetCatalogURL = [v12 assetCatalogURL];
-    v52 = 0;
-    firstPage = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:isAppLike:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:isAppLike:error:", assetCatalogURL, v14, [v12 platform], (options >> 2) & 1, &v52);
+    v54 = 0;
+    firstPage = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:isAppLike:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:isAppLike:error:", assetCatalogURL, v14, [v12 platform], (options >> 2) & 1, &v54);
 
     if (firstPage)
     {
@@ -712,9 +694,9 @@ LABEL_7:
     v12 = 0;
   }
 
-  v60[0] = @"CFBundleIconFile";
-  v60[1] = @"UTTypeIconFile";
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
+  v62[0] = @"CFBundleIconFile";
+  v62[1] = @"UTTypeIconFile";
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:2];
   v17 = [dictionaryCopy _IF_stringForKeys:v16];
 
   if (v17 && ([v17 pathExtension], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", @"icns"), v18, (v19 & 1) == 0))
@@ -725,9 +707,9 @@ LABEL_7:
     }
 
     assetCatalogURL2 = [v12 assetCatalogURL];
-    v51 = 0;
-    firstPage = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:isAppLike:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:isAppLike:error:", assetCatalogURL2, v17, [v12 platform], (options >> 2) & 1, &v51);
-    v28 = v51;
+    v53 = 0;
+    firstPage = +[ISAssetCatalogResource assetCatalogResourceWithURL:imageName:platform:isAppLike:error:](ISAssetCatalogResource, "assetCatalogResourceWithURL:imageName:platform:isAppLike:error:", assetCatalogURL2, v17, [v12 platform], (options >> 2) & 1, &v53);
+    v28 = v53;
 
     if (firstPage)
     {
@@ -736,16 +718,16 @@ LABEL_7:
 
     else
     {
-      v43 = _ISDefaultLog();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+      v45 = _ISDefaultLog(v29);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412802;
-        v55 = lCopy;
-        v56 = 2112;
-        v57 = v17;
+        v57 = lCopy;
         v58 = 2112;
+        v59 = v17;
+        v60 = 2112;
         optionsCopy = v28;
-        _os_log_debug_impl(&dword_1A77B8000, v43, OS_LOG_TYPE_DEBUG, "Failed to find resource: %@ : %@ with error: %@", buf, 0x20u);
+        _os_log_debug_impl(&dword_1A77B8000, v45, OS_LOG_TYPE_DEBUG, "Failed to find resource: %@ : %@ with error: %@", buf, 0x20u);
       }
     }
 
@@ -759,9 +741,9 @@ LABEL_7:
   {
   }
 
-  v53[0] = @"CFBundleIconFile";
-  v53[1] = @"UTTypeIconFile";
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
+  v55[0] = @"CFBundleIconFile";
+  v55[1] = @"UTTypeIconFile";
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
   v21 = [dictionaryCopy _IF_stringForKeys:v20];
 
   if (!v21)
@@ -782,12 +764,12 @@ LABEL_7:
     v12 = [objc_alloc(MEMORY[0x1E69A8960]) initWithURL:lCopy];
   }
 
-  v30 = [v12 URLForResource:v21 withExtension:@"pdf"];
-  if (v30)
+  v31 = [v12 URLForResource:v21 withExtension:@"pdf"];
+  if (v31)
   {
-    v31 = v30;
-    v32 = [objc_alloc(MEMORY[0x1E69A8998]) initWithURL:v30];
-    firstPage = [v32 firstPage];
+    v32 = v31;
+    v33 = [objc_alloc(MEMORY[0x1E69A8998]) initWithURL:v31];
+    firstPage = [v33 firstPage];
 
     if (firstPage)
     {
@@ -803,9 +785,9 @@ LABEL_15:
   v24 = [dictionaryCopy _IF_arrayForKey:@"CFBundleIconFiles"];
   if (![v24 count])
   {
-    v29 = [dictionaryCopy _IF_arrayForKey:@"UTTypeIconFiles"];
+    v30 = [dictionaryCopy _IF_arrayForKey:@"UTTypeIconFiles"];
 
-    v24 = v29;
+    v24 = v30;
     if (v12)
     {
       goto LABEL_18;
@@ -864,19 +846,19 @@ LABEL_18:
   }
 
 LABEL_39:
-  v34 = [dictionaryCopy _IF_stringForKey:@"CFBundleIconFile"];
+  v35 = [dictionaryCopy _IF_stringForKey:@"CFBundleIconFile"];
   if (!v12)
   {
     v12 = [objc_alloc(MEMORY[0x1E69A8960]) initWithURL:lCopy];
   }
 
-  stringByDeletingPathExtension2 = [v34 stringByDeletingPathExtension];
-  pathExtension2 = [v34 pathExtension];
-  v37 = pathExtension2;
-  if (stringByDeletingPathExtension2 && [pathExtension2 length] && (objc_msgSend(v12, "URLForResource:withExtension:", stringByDeletingPathExtension2, v37), (v38 = objc_claimAutoreleasedReturnValue()) != 0))
+  stringByDeletingPathExtension2 = [v35 stringByDeletingPathExtension];
+  pathExtension2 = [v35 pathExtension];
+  v38 = pathExtension2;
+  if (stringByDeletingPathExtension2 && [pathExtension2 length] && (objc_msgSend(v12, "URLForResource:withExtension:", stringByDeletingPathExtension2, v38), (v39 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v39 = v38;
-    firstPage = [MEMORY[0x1E69A8988] imageWithContentsOfURL:v38];
+    v40 = v39;
+    firstPage = [MEMORY[0x1E69A8988] imageWithContentsOfURL:v39];
   }
 
   else
@@ -888,16 +870,17 @@ LABEL_39:
   {
     if (!v12)
     {
-      v12 = [objc_alloc(MEMORY[0x1E69A8960]) initWithURL:lCopy];
+      v41 = [objc_alloc(MEMORY[0x1E69A8960]) initWithURL:lCopy];
+      v12 = v41;
     }
 
-    v40 = MEMORY[0x1E69A8990];
-    v41 = legacyResourceNames();
-    v14 = [v40 imageBagWithResourcesNames:v41 fromBundle:v12];
+    v42 = MEMORY[0x1E69A8990];
+    v43 = legacyResourceNames(v41);
+    v14 = [v42 imageBagWithResourcesNames:v43 fromBundle:v12];
 
     if (v14)
     {
-      v42 = v14;
+      v44 = v14;
     }
 
     firstPage = v14;
@@ -906,8 +889,8 @@ LABEL_39:
 
 LABEL_56:
 
-  v44 = +[ISDefaults sharedInstance];
-  safeBoot = [v44 safeBoot];
+  v46 = +[ISDefaults sharedInstance];
+  safeBoot = [v46 safeBoot];
   if ((options & 8) != 0 && (safeBoot & 1) == 0)
   {
     if (firstPage)
@@ -926,7 +909,7 @@ LABEL_56:
             goto LABEL_67;
           }
 
-          v44 = firstPage;
+          v46 = firstPage;
           firstPage = -[ISIconStackCompositeResource initWithResource:platform:]([ISIconStackCompositeResource alloc], "initWithResource:platform:", firstPage, [v12 platform]);
         }
       }
@@ -935,25 +918,23 @@ LABEL_56:
 
   if (!firstPage)
   {
-    v47 = _ISDefaultLog();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v50 = _ISDefaultLog(v49);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
       path = [lCopy path];
       *buf = 138412802;
-      v55 = path;
-      v56 = 2112;
-      v57 = dictionaryCopy;
-      v58 = 2048;
+      v57 = path;
+      v58 = 2112;
+      v59 = dictionaryCopy;
+      v60 = 2048;
       optionsCopy = options;
-      _os_log_error_impl(&dword_1A77B8000, v47, OS_LOG_TYPE_ERROR, "Failed to find resource for %@. IconDictionary: %@ - %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1A77B8000, v50, OS_LOG_TYPE_ERROR, "Failed to find resource for %@. IconDictionary: %@ - %lu", buf, 0x20u);
     }
 
     firstPage = 0;
   }
 
 LABEL_67:
-
-  v48 = *MEMORY[0x1E69E9840];
 
   return firstPage;
 }

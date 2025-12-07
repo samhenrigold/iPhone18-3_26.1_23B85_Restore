@@ -207,20 +207,8 @@ LABEL_25:
 
   v10 = [(SKEraseVolume *)self validateWithError:error];
 
-  if (!v10)
+  if (!v10 || (-[SKEraseVolume descriptor](self, "descriptor"), v11 = objc_claimAutoreleasedReturnValue(), [v11 filesystem], v12 = objc_claimAutoreleasedReturnValue(), -[SKEraseVolume descriptor](self, "descriptor"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "name"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v12, "isValidName:error:", v14, error), v14, v13, v12, v11, !v15))
   {
-    goto LABEL_12;
-  }
-
-  descriptor = [(SKEraseVolume *)self descriptor];
-  filesystem = [descriptor filesystem];
-  descriptor2 = [(SKEraseVolume *)self descriptor];
-  name = [descriptor2 name];
-  v15 = [filesystem isValidName:name error:error];
-
-  if (!v15)
-  {
-LABEL_12:
     v35 = 0;
     goto LABEL_35;
   }
@@ -269,9 +257,9 @@ LABEL_12:
   v86 = @"volumeCreatedEvent";
   v87 = v81;
   v80 = objc_retainBlock(v85);
-  descriptor3 = [(SKEraseVolume *)self descriptor];
-  filesystem2 = [descriptor3 filesystem];
-  majorType = [filesystem2 majorType];
+  descriptor = [(SKEraseVolume *)self descriptor];
+  filesystem = [descriptor filesystem];
+  majorType = [filesystem majorType];
   if ([majorType isEqualToString:@"apfs"])
   {
     requiresEraseDiskForAPFS = [(SKEraseVolume *)self requiresEraseDiskForAPFS];
@@ -282,8 +270,8 @@ LABEL_12:
       disk3 = [(SKEraseVolume *)self disk];
       v24 = [v22 wholeDiskForDisk:disk3];
 
-      descriptor4 = [(SKEraseVolume *)self descriptor];
-      v26 = [SKPartitionDescriptor descriptorWithVolume:descriptor4];
+      descriptor2 = [(SKEraseVolume *)self descriptor];
+      v26 = [SKPartitionDescriptor descriptorWithVolume:descriptor2];
       v101 = v26;
       v27 = [NSArray arrayWithObjects:&v101 count:1];
       v28 = [SKEraseDisk eraseDiskWithRootDisk:v24 descriptors:v27 error:error];
@@ -328,11 +316,11 @@ LABEL_12:
   }
 
   disk4 = [(SKEraseVolume *)self disk];
-  filesystem3 = [disk4 filesystem];
-  majorType2 = [filesystem3 majorType];
-  descriptor5 = [(SKEraseVolume *)self descriptor];
-  filesystem4 = [descriptor5 filesystem];
-  majorType3 = [filesystem4 majorType];
+  filesystem2 = [disk4 filesystem];
+  majorType2 = [filesystem2 majorType];
+  descriptor3 = [(SKEraseVolume *)self descriptor];
+  filesystem3 = [descriptor3 filesystem];
+  majorType3 = [filesystem3 majorType];
   v44 = [majorType2 isEqualToString:majorType3];
 
   if (v44)
@@ -340,9 +328,9 @@ LABEL_12:
     goto LABEL_16;
   }
 
-  descriptor6 = [(SKEraseVolume *)self descriptor];
-  filesystem5 = [descriptor6 filesystem];
-  majorType4 = [filesystem5 majorType];
+  descriptor4 = [(SKEraseVolume *)self descriptor];
+  filesystem4 = [descriptor4 filesystem];
+  majorType4 = [filesystem4 majorType];
   if ([majorType4 isEqualToString:@"apfs"])
   {
     disk5 = [(SKEraseVolume *)self disk];
@@ -361,9 +349,9 @@ LABEL_16:
   {
   }
 
-  descriptor7 = [(SKEraseVolume *)self descriptor];
-  filesystem6 = [descriptor7 filesystem];
-  majorType5 = [filesystem6 majorType];
+  descriptor5 = [(SKEraseVolume *)self descriptor];
+  filesystem5 = [descriptor5 filesystem];
+  majorType5 = [filesystem5 majorType];
   v54 = [majorType5 isEqualToString:@"apfs"];
 
   if (v54)

@@ -73,7 +73,7 @@ id __58__HFEnergyCategoryStatusItem__subclass_updateWithOptions___block_invoke(u
 
   v10 = v9;
 
-  v11 = [*(a1 + 32) home];
+  v11 = objc_msgSend_home(*(a1 + 32));
   [v10 addObject:v11];
 
   v12 = [v10 copy];
@@ -84,10 +84,10 @@ id __58__HFEnergyCategoryStatusItem__subclass_updateWithOptions___block_invoke(u
 
   if ((v14 & 1) == 0)
   {
-    v15 = [*(a1 + 32) home];
+    v15 = objc_msgSend_home(*(a1 + 32));
     v16 = [v15 hf_isHomeEnergyVisible];
 
-    if ((v16 & 1) != 0 && ([*(a1 + 32) home], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "hf_isHomeEnergyHomeEmpty"), v17, !v18))
+    if ((v16 & 1) != 0 && (objc_msgSend_home(*(a1 + 32)), v17 = objc_claimAutoreleasedReturnValue(), v18 = [v17 hf_isHomeEnergyHomeEmpty], v17, !v18))
     {
       v19 = _HFLocalizedStringWithDefaultValue(@"HFAccessoryTypeGroupNameEnergy", @"HFAccessoryTypeGroupNameEnergy", 1);
       [v3 setObject:v19 forKeyedSubscript:@"title"];

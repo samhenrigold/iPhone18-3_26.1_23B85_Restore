@@ -25,7 +25,7 @@
 
 - (int64_t)activeCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 40;
   }
@@ -38,7 +38,7 @@
 
 - (int64_t)inactiveCost
 {
-  if (DeviceHasANE())
+  if (DeviceHasANE(self, a2))
   {
     return 5;
   }
@@ -76,28 +76,28 @@ void __27__VCPMADVIResource_service__block_invoke(uint64_t a1)
   v2 = *(*(a1 + 32) + 16);
   if (!v2)
   {
-    v3 = VCPSignPostLog();
+    v3 = VCPSignPostLog(a1);
     v4 = os_signpost_id_generate(v3);
 
-    v5 = VCPSignPostLog();
-    v6 = v5;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+    v6 = VCPSignPostLog(v5);
+    v7 = v6;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VIService_init", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "VIService_init", "", buf, 2u);
     }
 
-    v7 = objc_alloc_init(MEMORY[0x1E69E04A0]);
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 16);
-    *(v8 + 16) = v7;
+    v8 = objc_alloc_init(MEMORY[0x1E69E04A0]);
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 16);
+    *(v9 + 16) = v8;
 
-    v10 = VCPSignPostLog();
-    v11 = v10;
-    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v12 = VCPSignPostLog(v11);
+    v13 = v12;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
-      *v12 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_END, v4, "VIService_init", "", v12, 2u);
+      *v14 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_END, v4, "VIService_init", "", v14, 2u);
     }
 
     v2 = *(*(a1 + 32) + 16);

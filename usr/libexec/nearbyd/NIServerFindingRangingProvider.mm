@@ -3,6 +3,7 @@
 - (BOOL)canRangeWithPeer:(id)peer technology:(int)technology;
 - (NIServerFindingRangingProvider)initWithIdentifier:(const void *)identifier isFinder:(BOOL)finder consumer:(id)consumer queue:(id)queue pbLogger:(shared_ptr<rose::protobuf::Logger>)logger;
 - (NSArray)rangingPeers;
+- (RoseStartRangingOptions)_prepareStartRangingOptionsWithPeerBTAdvAddress:(SEL)address nbUwbAcquisitionBandChannel:(const void *)channel useLowPriorityDutyCycle:(unsigned __int16)cycle;
 - (float)_adjustDutyCycleForInterfaceDelays:(float)delays schedulingInterval:(unsigned int)interval;
 - (float)_getDutyCycleForTriggeredDutyCycledAcquisitionRunningAtLowPriority:(BOOL)priority;
 - (id).cxx_construct;
@@ -12,6 +13,8 @@
 - (id)stopRangingWithPeer:(id)peer;
 - (int)rangingAcquisitionType;
 - (optional<SecondarySchedulingParameters>)_getFindingSecondarySchedulingParameters;
+- (optional<rose::RoseServiceRequest>)_prepareNbammsServiceRequestForDiscoveryToken:(SEL)token technology:(id)technology useCase:(int)case nbMask:(int)mask nbUwbAcquisitionBandChannel:(unsigned __int8)channel mmsNumFragments:(unsigned __int16)fragments mmsSlotSizeMsec:(unsigned __int8)msec;
+- (optional<rose::RoseServiceRequest>)_prepareServiceRequestForDiscoveryToken:(SEL)token technology:(id)technology useCase:(int)case nbMask:(int)mask nbUwbAcquisitionBandChannel:(unsigned __int8)channel mmsNumFragments:(unsigned __int16)fragments mmsSlotSizeMsec:(unsigned __int8)msec;
 - (optional<unsigned)_getDitherConst;
 - (unint64_t)_macAddressForIRK:(id)k;
 - (unsigned)_getSchedulingIntervalForTriggeredDutyCycledAcquisitionRunningAtLowPriority:(BOOL)priority;
@@ -381,8 +384,8 @@ LABEL_17:
     *&buf[14] = descriptionInternal;
     *&buf[22] = 2080;
     *&buf[24] = v14;
-    LOWORD(v68) = 2112;
-    *(&v68 + 2) = v15;
+    LOWORD(v65) = 2112;
+    *(&v65 + 2) = v15;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "#find-range,[%s] startRangingWithPeer: %{private}@. Technology: %s. OOBParams: %@", buf, 0x2Au);
   }
 
@@ -399,38 +402,37 @@ LABEL_17:
       sub_1004B6F10();
     }
 
-    v80 = NSLocalizedFailureReasonErrorKey;
-    v81 = @"Ranging not activated";
-    v20 = [NSDictionary dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-    v21 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v20];
+    v77 = NSLocalizedFailureReasonErrorKey;
+    v78 = @"Ranging not activated";
+    v19 = [NSDictionary dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+    v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v19];
     goto LABEL_14;
   }
 
   if (technology != 1)
   {
-    v78 = NSLocalizedFailureReasonErrorKey;
-    v79 = @"Specified technology not supported";
-    v20 = [NSDictionary dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-    v21 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v20];
+    v75 = NSLocalizedFailureReasonErrorKey;
+    v76 = @"Specified technology not supported";
+    v19 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v19];
 LABEL_14:
-    v22 = v21;
+    v21 = v20;
     goto LABEL_15;
   }
 
   v16 = sub_1000054A8();
   if (!sub_1000149D4(v16))
   {
-    v76 = NSLocalizedFailureReasonErrorKey;
-    v77 = @"Device does not support specified technology";
-    v20 = [NSDictionary dictionaryWithObjects:&v77 forKeys:&v76 count:1];
-    v21 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v20];
+    v73 = NSLocalizedFailureReasonErrorKey;
+    v74 = @"Device does not support specified technology";
+    v19 = [NSDictionary dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+    v20 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v19];
     goto LABEL_14;
   }
 
   if (self->_useTestNbammsMode)
   {
     mmsNumFragmentsOOB = sub_1004285B0(16);
-    nbMask = 0;
     nbAcqChIdx = 5;
   }
 
@@ -438,120 +440,117 @@ LABEL_14:
   {
     mmsNumFragmentsOOB = sub_1004285B0(16);
     nbAcqChIdx = 2;
-    nbMask = 1;
   }
 
   else
   {
     nbAcqChIdx = parameters->nbAcqChIdx;
-    nbMask = parameters->nbMask;
     mmsNumFragmentsOOB = parameters->mmsNumFragmentsOOB;
   }
 
   if (self->_useTestNbammsMode)
   {
-    v24 = 1;
+    v23 = 1;
   }
 
   else
   {
-    v24 = 6;
+    v23 = 6;
   }
 
-  buf[0] = v24;
+  buf[0] = v23;
   *&buf[1] = 0;
   *&buf[4] = nbAcqChIdx;
   buf[6] = 1;
-  v62 = sub_100428478(buf);
-  v25 = sub_100428594(mmsNumFragmentsOOB);
-  v26 = [(NSMutableDictionary *)self->_trackingPeers objectForKey:peerCopy];
-  v27 = v26 == 0;
+  v59 = sub_100428478(buf);
+  sub_100428594(mmsNumFragmentsOOB);
+  v24 = [(NSMutableDictionary *)self->_trackingPeers objectForKey:peerCopy];
+  v25 = v24 == 0;
 
-  if (!v27)
+  if (!v25)
   {
-    v28 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
-    getOOBRangingParameters = [v28 getOOBRangingParameters];
-    v30 = 1;
+    v26 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
+    getOOBRangingParameters = [v26 getOOBRangingParameters];
+    v28 = 1;
     if (__PAIR64__(parameters->nbMask, parameters->nbAcqChIdx) == __PAIR64__(BYTE1(getOOBRangingParameters), getOOBRangingParameters))
     {
-      v30 = parameters->useLowPriorityDutyCycle != HIBYTE(getOOBRangingParameters);
+      v28 = parameters->useLowPriorityDutyCycle != HIBYTE(getOOBRangingParameters);
     }
 
     uniqueIdentifier = [advertisementCopy uniqueIdentifier];
     if (uniqueIdentifier)
     {
       uniqueIdentifier2 = [advertisementCopy uniqueIdentifier];
-      v33 = [(NSMutableDictionary *)self->_trackingPeers objectForKey:peerCopy];
-      advertisement = [v33 advertisement];
+      v31 = [(NSMutableDictionary *)self->_trackingPeers objectForKey:peerCopy];
+      advertisement = [v31 advertisement];
       uniqueIdentifier3 = [advertisement uniqueIdentifier];
-      v36 = [uniqueIdentifier2 isEqualToData:uniqueIdentifier3];
+      v34 = [uniqueIdentifier2 isEqualToData:uniqueIdentifier3];
 
-      if (!v30)
+      if (!v28)
       {
-        if ((v36 & 1) == 0)
+        if ((v34 & 1) == 0)
         {
-          v37 = +[NIServerFindingNBAMMSSessionManager sharedInstance];
+          v35 = +[NIServerFindingNBAMMSSessionManager sharedInstance];
           buf[0] = 0;
-          v73 = 0;
-          [v37 refreshRangingForToken:peerCopy withNewStartOptions:buf];
+          v70 = 0;
+          [v35 refreshRangingForToken:peerCopy withNewStartOptions:buf];
         }
 
         goto LABEL_42;
       }
     }
 
-    else if (!v30)
+    else if (!v28)
     {
 LABEL_42:
-      v56 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
-      [v56 setAdvertisement:advertisementCopy];
+      v54 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
+      [v54 setAdvertisement:advertisementCopy];
 
-      v20 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
-      [(NIServerFindingRangingProviderPeerInfo *)v20 setOOBRangingParameters:parameters];
-      v22 = 0;
+      v19 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
+      [(NIServerFindingRangingProviderPeerInfo *)v19 setOOBRangingParameters:parameters];
+      v21 = 0;
       goto LABEL_15;
     }
 
-    v52 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
-    advertisement2 = [v52 advertisement];
+    v50 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
+    advertisement2 = [v50 advertisement];
     address = [advertisement2 address];
     *buf = address;
     *&buf[4] = WORD2(address);
-    [(NIServerFindingRangingProvider *)self _prepareStartRangingOptionsWithPeerBTAdvAddress:buf nbUwbAcquisitionBandChannel:v62 useLowPriorityDutyCycle:parameters->useLowPriorityDutyCycle];
+    objc_msgSend__prepareStartRangingOptionsWithPeerBTAdvAddress_nbUwbAcquisitionBandChannel_useLowPriorityDutyCycle_(self);
 
-    v55 = +[NIServerFindingNBAMMSSessionManager sharedInstance];
-    v70 = v75[4];
-    v71 = v75[5];
-    v72 = v75[6];
-    *buf = v75[0];
-    *&buf[16] = v75[1];
-    v68 = v75[2];
-    v69 = v75[3];
-    v73 = 1;
-    [v55 refreshRangingForToken:peerCopy withNewStartOptions:buf];
+    v53 = +[NIServerFindingNBAMMSSessionManager sharedInstance];
+    v67 = v72[4];
+    v68 = v72[5];
+    v69 = v72[6];
+    *buf = v72[0];
+    *&buf[16] = v72[1];
+    v65 = v72[2];
+    v66 = v72[3];
+    v70 = 1;
+    [v53 refreshRangingForToken:peerCopy withNewStartOptions:buf];
 
     goto LABEL_42;
   }
 
-  v20 = [[NIServerFindingRangingProviderPeerInfo alloc] initWithAdvertisement:advertisementCopy OOBRangingParameters:parameters];
-  [(NSMutableDictionary *)self->_trackingPeers setObject:v20 forKey:peerCopy];
+  v19 = [[NIServerFindingRangingProviderPeerInfo alloc] initWithAdvertisement:advertisementCopy OOBRangingParameters:parameters];
+  [(NSMutableDictionary *)self->_trackingPeers setObject:v19 forKey:peerCopy];
   protocolVersion = [advertisementCopy protocolVersion];
   if (protocolVersion >= 2)
   {
-    v39 = 2;
+    v37 = 2;
   }
 
   else
   {
-    v39 = protocolVersion;
+    v37 = protocolVersion;
   }
 
-  v61 = v39;
-  v40 = dword_1005690A8[v39];
-  v41 = qword_1009F9820;
-  if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+  v58 = v37;
+  v38 = dword_1005690A8[v37];
+  v39 = qword_1009F9820;
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    v60 = nbMask;
     isFinder = self->_isFinder;
     protocolVersion2 = [advertisementCopy protocolVersion];
     *buf = 67110400;
@@ -559,50 +558,50 @@ LABEL_42:
     *&buf[8] = 1024;
     *&buf[10] = nbAcqChIdx;
     *&buf[14] = 1024;
-    *&buf[16] = v62;
+    *&buf[16] = v59;
     *&buf[20] = 1024;
     *&buf[22] = 2;
     *&buf[26] = 1024;
     *&buf[28] = protocolVersion2;
-    LOWORD(v68) = 1024;
-    *(&v68 + 2) = v61;
-    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "#find-range,startRangingWithPeer: isFinder = %d, NapChIdx = %d, NapBch = %d, selfProtoVer: %d, peerProtoVer: %d, sharedProtoVer: %d", buf, 0x26u);
-    nbMask = v60;
+    LOWORD(v65) = 1024;
+    *(&v65 + 2) = v58;
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "#find-range,startRangingWithPeer: isFinder = %d, NapChIdx = %d, NapBch = %d, selfProtoVer: %d, peerProtoVer: %d, sharedProtoVer: %d", buf, 0x26u);
   }
 
-  LODWORD(v59) = v40;
-  -[NIServerFindingRangingProvider _prepareServiceRequestForDiscoveryToken:technology:useCase:nbMask:nbUwbAcquisitionBandChannel:mmsNumFragments:mmsSlotSizeMsec:](self, "_prepareServiceRequestForDiscoveryToken:technology:useCase:nbMask:nbUwbAcquisitionBandChannel:mmsNumFragments:mmsSlotSizeMsec:", peerCopy, 1, [advertisementCopy useCase], nbMask, v62, v25, v59);
-  if (v74)
+  [advertisementCopy useCase];
+  LODWORD(v57) = v38;
+  objc_msgSend__prepareServiceRequestForDiscoveryToken_technology_useCase_nbMask_nbUwbAcquisitionBandChannel_mmsNumFragments_mmsSlotSizeMsec_(self, v57);
+  if (v71)
   {
-    v44 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
-    advertisement3 = [v44 advertisement];
+    v42 = [(NSMutableDictionary *)self->_trackingPeers objectForKeyedSubscript:peerCopy];
+    advertisement3 = [v42 advertisement];
     address2 = [advertisement3 address];
     LODWORD(location) = address2;
     WORD2(location) = WORD2(address2);
-    [(NIServerFindingRangingProvider *)self _prepareStartRangingOptionsWithPeerBTAdvAddress:&location nbUwbAcquisitionBandChannel:v62 useLowPriorityDutyCycle:parameters->useLowPriorityDutyCycle];
+    objc_msgSend__prepareStartRangingOptionsWithPeerBTAdvAddress_nbUwbAcquisitionBandChannel_useLowPriorityDutyCycle_(self);
 
     objc_initWeak(&location, self);
-    v47 = +[NIServerFindingNBAMMSSessionManager sharedInstance];
-    v48 = self->_isFinder;
-    v49 = objc_loadWeakRetained(&location);
-    if ((v74 & 1) == 0)
+    v45 = +[NIServerFindingNBAMMSSessionManager sharedInstance];
+    v46 = self->_isFinder;
+    v47 = objc_loadWeakRetained(&location);
+    if ((v71 & 1) == 0)
     {
       sub_1000195BC();
     }
 
-    v22 = [v47 registerNBAMMSSessionWithToken:peerCopy isFinder:v48 client:v49 serviceRequest:buf startRangingOptions:v75 sharedProtocol:v61];
+    v21 = [v45 registerNBAMMSSessionWithToken:peerCopy isFinder:v46 client:v47 serviceRequest:buf startRangingOptions:v72 sharedProtocol:v58];
 
     trackingPeers = self->_trackingPeers;
-    if (v22)
+    if (v21)
     {
       [(NSMutableDictionary *)trackingPeers removeObjectForKey:peerCopy];
-      v51 = v22;
+      v49 = v21;
     }
 
     else
     {
-      v58 = [(NSMutableDictionary *)trackingPeers objectForKey:peerCopy];
-      [v58 setRangingActive:1];
+      v56 = [(NSMutableDictionary *)trackingPeers objectForKey:peerCopy];
+      [v56 setRangingActive:1];
     }
 
     objc_destroyWeak(&location);
@@ -615,15 +614,15 @@ LABEL_42:
       sub_1004B6F44();
     }
 
-    v65 = NSLocalizedFailureReasonErrorKey;
-    v66 = @"Could not build ranging service request";
-    v57 = [NSDictionary dictionaryWithObjects:&v66 forKeys:&v65 count:1];
-    v22 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v57];
+    v62 = NSLocalizedFailureReasonErrorKey;
+    v63 = @"Could not build ranging service request";
+    v55 = [NSDictionary dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+    v21 = [NSError errorWithDomain:@"com.apple.NearbyInteraction" code:-10020 userInfo:v55];
   }
 
 LABEL_15:
 
-  return v22;
+  return v21;
 }
 
 - (id)stopRangingWithPeer:(id)peer
@@ -1107,7 +1106,7 @@ LABEL_17:
         v38 = v37;
         if (v37)
         {
-          [v37 getAlgorithmAidingData];
+          objc_msgSend_getAlgorithmAidingData(v37);
         }
 
         else
@@ -1353,12 +1352,13 @@ LABEL_10:
 
 - (void)didInvalidateNbammsSessionWithReason:(int)reason token:(id)token
 {
+  v4 = *&reason;
   tokenCopy = token;
   v7 = qword_1009F9820;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     sub_100009210(self->_isFinder);
-    sub_100342FC8(reason, v9);
+    sub_100342FC8(v4, v9);
     sub_1004B71B4();
   }
 
@@ -1511,6 +1511,687 @@ LABEL_10:
   }
 
 LABEL_17:
+}
+
+- (optional<rose::RoseServiceRequest>)_prepareServiceRequestForDiscoveryToken:(SEL)token technology:(id)technology useCase:(int)case nbMask:(int)mask nbUwbAcquisitionBandChannel:(unsigned __int8)channel mmsNumFragments:(unsigned __int16)fragments mmsSlotSizeMsec:(unsigned __int8)msec
+{
+  msecCopy = msec;
+  fragmentsCopy = fragments;
+  channelCopy = channel;
+  v13 = *&mask;
+  technologyCopy = technology;
+  if (!technologyCopy)
+  {
+    __assert_rtn("[NIServerFindingRangingProvider _prepareServiceRequestForDiscoveryToken:technology:useCase:nbMask:nbUwbAcquisitionBandChannel:mmsNumFragments:mmsSlotSizeMsec:]", "NIServerFindingRanging.mm", 4222, "token");
+  }
+
+  v17 = sub_1000054A8();
+  v18 = !sub_1000149D4(v17);
+  if (case != 1)
+  {
+    LOBYTE(v18) = 1;
+  }
+
+  if (v18)
+  {
+    retstr->var0.__null_state_ = 0;
+    retstr->var0.__val_.range_enable_params.nbamms.mms_pkt_type.__engaged_ = 0;
+  }
+
+  else
+  {
+    LODWORD(v20) = a10;
+    [(NIServerFindingRangingProvider *)self _prepareNbammsServiceRequestForDiscoveryToken:technologyCopy technology:1 useCase:v13 nbMask:channelCopy nbUwbAcquisitionBandChannel:fragmentsCopy mmsNumFragments:msecCopy mmsSlotSizeMsec:v20];
+  }
+
+  return result;
+}
+
+- (optional<rose::RoseServiceRequest>)_prepareNbammsServiceRequestForDiscoveryToken:(SEL)token technology:(id)technology useCase:(int)case nbMask:(int)mask nbUwbAcquisitionBandChannel:(unsigned __int8)channel mmsNumFragments:(unsigned __int16)fragments mmsSlotSizeMsec:(unsigned __int8)msec
+{
+  msecCopy = msec;
+  channelCopy = channel;
+  __dst = retstr;
+  technologyCopy = technology;
+  if (!technologyCopy)
+  {
+    __assert_rtn("[NIServerFindingRangingProvider _prepareNbammsServiceRequestForDiscoveryToken:technology:useCase:nbMask:nbUwbAcquisitionBandChannel:mmsNumFragments:mmsSlotSizeMsec:]", "NIServerFindingRanging.mm", 4247, "token");
+  }
+
+  v98 = 0;
+  LOBYTE(intValue2) = 0;
+  v104 = 0;
+  v109 = 0;
+  v96 = 0;
+  LOBYTE(intValue) = 0;
+  LODWORD(v101) = 0;
+  *(&v101 + 3) = 0;
+  v106 = 0;
+  LOBYTE(intValue3) = 0;
+  memset(v110, 0, sizeof(v110));
+  bOOLValue = 1;
+  LOBYTE(v113) = 0;
+  v114 = 0;
+  memset(v112, 0, 7);
+  v115 = 0;
+  bOOLValue2 = 1;
+  LOBYTE(intValue7) = 0;
+  v119 = 0;
+  LOBYTE(v120) = 0;
+  v121 = 0;
+  LOBYTE(v122) = 0;
+  v123 = 0;
+  v124 = 0uLL;
+  v116 = channelCopy | 0x100;
+  HIWORD(v101) = 1796;
+  v102 = 1;
+  fragmentsCopy = fragments;
+  v100 = 1;
+  HIBYTE(v107) = 1;
+  LOBYTE(v107) = 4 * a10;
+  v105 = msecCopy | 0x100;
+  debugParameters = self->_debugParameters;
+  if (debugParameters)
+  {
+    v16 = [(NSDictionary *)debugParameters objectForKey:@"nbTxAntenna"];
+
+    if (v16)
+    {
+      v17 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbTxAntenna"];
+      LOWORD(v96) = [v17 intValue] | 0x100;
+    }
+
+    __dst = [(NSDictionary *)self->_debugParameters objectForKey:@"nbRxAntenna", __dst];
+
+    if (__dst)
+    {
+      v19 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbRxAntenna"];
+      HIWORD(v96) = [v19 intValue] | 0x100;
+    }
+
+    v20 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbPacketType"];
+
+    if (v20)
+    {
+      v21 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbPacketType"];
+      intValue = [v21 intValue];
+      v98 = 1;
+    }
+
+    v22 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbBandChannel"];
+
+    if (v22)
+    {
+      v23 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbBandChannel"];
+      fragmentsCopy = [v23 intValue];
+      v100 = 1;
+    }
+
+    v24 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsTxAntenna"];
+
+    if (v24)
+    {
+      v25 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsTxAntenna"];
+      LOWORD(v101) = [v25 intValue] | 0x100;
+    }
+
+    v26 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsRxAntenna"];
+
+    if (v26)
+    {
+      v27 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsRxAntenna"];
+      WORD1(v101) = [v27 intValue] | 0x100;
+    }
+
+    v28 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsRxSyncAntenna"];
+
+    if (v28)
+    {
+      v29 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsRxSyncAntenna"];
+      WORD2(v101) = [v29 intValue] | 0x100;
+    }
+
+    v30 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsPacketType"];
+
+    if (v30)
+    {
+      v31 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsPacketType"];
+      HIWORD(v101) = [v31 intValue];
+      v102 = 1;
+    }
+
+    v32 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsBandChannel"];
+
+    if (v32)
+    {
+      v33 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsBandChannel"];
+      intValue2 = [v33 intValue];
+      v104 = 1;
+    }
+
+    v34 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbSlotSize"];
+
+    if (v34)
+    {
+      v35 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbSlotSize"];
+      v106 = [v35 intValue] | 0x100;
+    }
+
+    v36 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsSlotSize"];
+
+    if (v36)
+    {
+      v37 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsSlotSize"];
+      v107 = [v37 intValue] | 0x100;
+    }
+
+    v38 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsNumFragments"];
+
+    if (v38)
+    {
+      v39 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsNumFragments"];
+      v105 = [v39 intValue] | 0x100;
+    }
+
+    v40 = [(NSDictionary *)self->_debugParameters objectForKey:@"interval"];
+
+    if (v40)
+    {
+      v41 = [(NSDictionary *)self->_debugParameters objectForKey:@"interval"];
+      intValue3 = [v41 intValue];
+      v109 = 1;
+    }
+
+    v42 = [(NSDictionary *)self->_debugParameters objectForKey:@"enableNonInterlacedMMS"];
+
+    if (v42)
+    {
+      v43 = [(NSDictionary *)self->_debugParameters objectForKey:@"enableNonInterlacedMMS"];
+      v110[6] = [v43 BOOLValue];
+    }
+
+    v44 = [(NSDictionary *)self->_debugParameters objectForKey:@"enableAntennaDiversity"];
+
+    if (v44)
+    {
+      v45 = [(NSDictionary *)self->_debugParameters objectForKey:@"enableAntennaDiversity"];
+      bOOLValue = [v45 BOOLValue];
+    }
+
+    v46 = [(NSDictionary *)self->_debugParameters objectForKey:@"useDedicatedAntennas"];
+
+    if (v46)
+    {
+      v47 = [(NSDictionary *)self->_debugParameters objectForKey:@"useDedicatedAntennas"];
+      BYTE1(v112[0]) = [v47 BOOLValue];
+    }
+
+    v48 = [(NSDictionary *)self->_debugParameters objectForKey:@"overrideDefaultAntenna"];
+
+    if (v48)
+    {
+      v49 = [(NSDictionary *)self->_debugParameters objectForKey:@"overrideDefaultAntenna"];
+      BYTE2(v112[0]) = [v49 BOOLValue];
+    }
+
+    v50 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbChannelSelectionMask"];
+
+    if (v50)
+    {
+      v51 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbChannelSelectionMask"];
+      intValue4 = [v51 intValue];
+      v114 = 1;
+      v113 = intValue4;
+    }
+
+    v53 = [(NSDictionary *)self->_debugParameters objectForKey:@"napSlotSize"];
+
+    if (v53)
+    {
+      v54 = [(NSDictionary *)self->_debugParameters objectForKey:@"napSlotSize"];
+      intValue5 = [v54 intValue];
+      BYTE1(v115) = 1;
+      LOBYTE(v115) = intValue5;
+    }
+
+    v56 = [(NSDictionary *)self->_debugParameters objectForKey:@"dataSlotSize"];
+
+    if (v56)
+    {
+      v57 = [(NSDictionary *)self->_debugParameters objectForKey:@"dataSlotSize"];
+      intValue6 = [v57 intValue];
+      HIBYTE(v115) = 1;
+      BYTE2(v115) = intValue6;
+    }
+
+    v59 = [(NSDictionary *)self->_debugParameters objectForKey:@"useType2Addr"];
+
+    if (v59)
+    {
+      v60 = [(NSDictionary *)self->_debugParameters objectForKey:@"useType2Addr"];
+      bOOLValue2 = [v60 BOOLValue];
+    }
+
+    v61 = [(NSDictionary *)self->_debugParameters objectForKey:@"antennaDiversityMask"];
+
+    if (v61)
+    {
+      v62 = [(NSDictionary *)self->_debugParameters objectForKey:@"antennaDiversityMask"];
+      BYTE1(v112[1]) = [v62 intValue];
+    }
+
+    v63 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsPSR"];
+
+    if (v63)
+    {
+      v64 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsPSR"];
+      *v110 = [v64 intValue] | 0x100;
+    }
+
+    v65 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsGap"];
+
+    if (v65)
+    {
+      v66 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsGap"];
+      *&v110[2] = [v66 intValue] | 0x100;
+    }
+
+    v67 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsSeqIdx"];
+
+    if (v67)
+    {
+      v68 = [(NSDictionary *)self->_debugParameters objectForKey:@"mmsSeqIdx"];
+      *&v110[4] = [v68 intValue] | 0x100;
+    }
+  }
+
+  v69 = sub_1000054A8();
+  LOBYTE(v112[0]) = sub_100460AC0(v69);
+  v70 = +[NSUserDefaults standardUserDefaults];
+  v71 = [v70 BOOLForKey:@"DisableDualRxChain"];
+
+  if (v71)
+  {
+    LOBYTE(v112[0]) = 0;
+  }
+
+  getIRK = [technologyCopy getIRK];
+  v73 = getIRK;
+  if (getIRK)
+  {
+    if ([getIRK length] != 16)
+    {
+      __assert_rtn("[NIServerFindingRangingProvider _prepareNbammsServiceRequestForDiscoveryToken:technology:useCase:nbMask:nbUwbAcquisitionBandChannel:mmsNumFragments:mmsSlotSizeMsec:]", "NIServerFindingRanging.mm", 4377, "[IRK length] == kNbammsIRKLengthBytes");
+    }
+
+    v124 = *[v73 bytes];
+    v122 = [(NIServerFindingRangingProvider *)self _macAddressForIRK:v73];
+    v123 = 1;
+    useTestNbammsMode = self->_useTestNbammsMode;
+    v75 = qword_1009F9820;
+    v76 = os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT);
+    if (useTestNbammsMode)
+    {
+      if (v76)
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "#find-range,UseTestNbammsMode enabled", buf, 2u);
+      }
+
+      BYTE2(v112[1]) = 1;
+      if ((v121 & 1) == 0)
+      {
+        v121 = 1;
+      }
+
+      v120 = 4864;
+      goto LABEL_95;
+    }
+
+    if (v76)
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "#find-range,UseTestNbammsMode NOT enabled", buf, 2u);
+    }
+
+    BYTE2(v112[1]) = 0;
+    rangingAcquisitionType = [(NIServerFindingRangingProvider *)self rangingAcquisitionType];
+    v79 = qword_1009F9820;
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
+    {
+      v80 = rangingAcquisitionType ? "BTAidedAcquisition" : "DirectAcquisition";
+      sub_100004A08(buf, v80);
+      v81 = v93 >= 0 ? buf : *buf;
+      *v94 = 136315138;
+      v95 = v81;
+      _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "#find-range,ranging acquisition type = %s", v94, 0xCu);
+      if (v93 < 0)
+      {
+        operator delete(*buf);
+      }
+    }
+
+    if (rangingAcquisitionType == 1)
+    {
+      v82 = sub_1000086B0(0);
+      if (v82 == 19)
+      {
+        v83 = 4865;
+        if (v121)
+        {
+          goto LABEL_90;
+        }
+
+        goto LABEL_89;
+      }
+
+      if (v82 != 26)
+      {
+LABEL_91:
+        v84 = qword_1009F9820;
+        if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+        {
+          if ((v121 & 1) == 0)
+          {
+            sub_1000195BC();
+          }
+
+          *buf = 67109120;
+          *&buf[4] = v120;
+          _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "#find-range,Host config usesBLEAdvToTriggerRanging %d", buf, 8u);
+        }
+
+LABEL_95:
+        v85 = +[NSUserDefaults standardUserDefaults];
+        v86 = [v85 objectForKey:@"FindingMMSPacketTypeConfigIndex"];
+
+        if (v86)
+        {
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            intValue7 = [v86 intValue];
+            v119 = 1;
+          }
+        }
+
+        if (mask)
+        {
+          v87 = 10;
+        }
+
+        else
+        {
+          v87 = 9;
+        }
+
+        v125 = v87;
+        sub_10019DD0C(&v96, !self->_isInitiator, buf);
+        operator new();
+      }
+    }
+
+    else if (rangingAcquisitionType)
+    {
+      goto LABEL_91;
+    }
+
+    v83 = 4864;
+    if (v121)
+    {
+LABEL_90:
+      v120 = v83;
+      goto LABEL_91;
+    }
+
+LABEL_89:
+    v121 = 1;
+    goto LABEL_90;
+  }
+
+  v77 = qword_1009F9820;
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "#find-range,Discovery token doesn't contain valid IRK", buf, 2u);
+  }
+
+  *__dsta = 0;
+  __dsta[576] = 0;
+
+  return result;
+}
+
+- (RoseStartRangingOptions)_prepareStartRangingOptionsWithPeerBTAdvAddress:(SEL)address nbUwbAcquisitionBandChannel:(const void *)channel useLowPriorityDutyCycle:(unsigned __int16)cycle
+{
+  v6 = a6;
+  v10 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbBandChannel"];
+
+  if (v10)
+  {
+    v11 = [(NSDictionary *)self->_debugParameters objectForKey:@"nbBandChannel"];
+    cycle = [v11 intValue];
+  }
+
+  intValue = 10000000;
+  debugParameters = self->_debugParameters;
+  if (debugParameters)
+  {
+    v13 = [(NSDictionary *)debugParameters objectForKey:@"startTimeUncertainty"];
+    v14 = v13;
+    if (v13)
+    {
+      intValue = [v13 intValue];
+    }
+  }
+
+  v15 = [(NIServerFindingRangingProvider *)self _getSchedulingIntervalForTriggeredDutyCycledAcquisitionRunningAtLowPriority:v6];
+  [(NIServerFindingRangingProvider *)self _getDutyCycleForTriggeredDutyCycledAcquisitionRunningAtLowPriority:v6];
+  v17 = v16;
+  _getFindingSecondarySchedulingParameters = [(NIServerFindingRangingProvider *)self _getFindingSecondarySchedulingParameters];
+  v21 = v20;
+  v22 = *&v20;
+  v44 = _getFindingSecondarySchedulingParameters;
+  v45 = HIDWORD(v20) & 1;
+  if (v15 && v17 <= 1.0)
+  {
+    *&v19 = v17;
+    [(NIServerFindingRangingProvider *)self _adjustDutyCycleForInterfaceDelays:v15 schedulingInterval:v19];
+    v17 = v23;
+    if ((v21 & 0x100000000) == 0)
+    {
+LABEL_15:
+      LODWORD(v45) = 0;
+      goto LABEL_17;
+    }
+
+    v24 = qword_1009F9820;
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "#find-range,Requested backoff acquisition policy, processing secondary scheduling parameters", buf, 2u);
+    }
+
+    if (v17 < v22)
+    {
+      if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
+      {
+        sub_1004B7360();
+      }
+
+      goto LABEL_15;
+    }
+
+    LODWORD(v45) = 1;
+  }
+
+LABEL_17:
+  if (self->_isInitiator)
+  {
+    _getDitherConst = [(NIServerFindingRangingProvider *)self _getDitherConst];
+    v26 = _getDitherConst;
+    v27 = HIBYTE(_getDitherConst);
+  }
+
+  else
+  {
+    v26 = 0;
+    v27 = 0;
+  }
+
+  v28 = qword_1009F9820;
+  if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+  {
+    v29 = v26;
+    *buf = 67109632;
+    if ((v27 & 1) == 0)
+    {
+      v29 = 0;
+    }
+
+    v70 = v15;
+    v71 = 2048;
+    *v72 = v17;
+    *&v72[8] = 1024;
+    *&v72[10] = v29;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "#find-range,Primary scheduling params: Interval(us)=%d, Duty Cycle=%f, Dither const=%d", buf, 0x18u);
+  }
+
+  if (v45)
+  {
+    v30 = qword_1009F9820;
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 67109632;
+      v70 = v44;
+      v71 = 1024;
+      *v72 = HIDWORD(v44);
+      *&v72[4] = 2048;
+      *&v72[6] = v22;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#find-range,Secondary scheduling params: Delay(us)=%d, Interval(us)=%d, Duty Cycle=%f", buf, 0x18u);
+    }
+  }
+
+  buf[0] = 0;
+  v73 = 0;
+  v31 = v26 | (v27 << 8);
+  v74 = 17000;
+  v75 = 1;
+  v76 = intValue;
+  v77 = v15;
+  v78 = v17;
+  v79 = 0;
+  v80 = v31;
+  v81 = 0;
+  memset(v83, 0, sizeof(v83));
+  v82 = 0;
+  v32 = cycle | 0x10000;
+  v56 = 0;
+  v55 = 0;
+  v51 = 2;
+  v52 = 0;
+  v53 = 0;
+  v54 = 0;
+  v57 = 1;
+  v58 = 1;
+  v59 = 17000;
+  v60 = 1;
+  v61 = intValue;
+  v62 = v15;
+  v63 = v17;
+  v64 = 0;
+  v65 = v31;
+  v66 = v32;
+  memset(v67, 0, sizeof(v67));
+  v68 = 0;
+  rangingAcquisitionType = [(NIServerFindingRangingProvider *)self rangingAcquisitionType];
+  v34 = qword_1009F9820;
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  {
+    v35 = rangingAcquisitionType ? "BTAidedAcquisition" : "DirectAcquisition";
+    sub_100004A08(__p, v35);
+    v36 = v48 >= 0 ? __p : __p[0];
+    *v49 = 136315138;
+    v50 = v36;
+    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#find-range,ranging acquisition type = %s", v49, 0xCu);
+    if (v48 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  if (rangingAcquisitionType == 1)
+  {
+    v55 = *channel;
+    v56 = *(channel + 2);
+    v51 = 2;
+    v52 = 0;
+    v53 = 0;
+    v54 = 0;
+    v57 = 1;
+    v58 = 1;
+    v59 = 17000;
+    v60 = 1;
+    v61 = intValue;
+    v62 = v15;
+    v63 = v17;
+    v64 = 0;
+    v65 = v31;
+    v66 = v32;
+    memset(v67, 0, sizeof(v67));
+    v68 = 0;
+  }
+
+  else if (!rangingAcquisitionType && v45)
+  {
+    v38 = qword_1009F9820;
+    result = os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT);
+    if (result)
+    {
+      LOWORD(__p[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "#find-range,Resetting NBAMMSStartOptions", __p, 2u);
+    }
+
+    v56 = 0;
+    v55 = 0;
+    v51 = 2;
+    v52 = 0;
+    v53 = 0;
+    v54 = 0;
+    v57 = 1;
+    v58 = 1;
+    v59 = 17000;
+    v60 = 1;
+    v61 = intValue;
+    v62 = v15;
+    v63 = v17;
+    v64 = 0;
+    v65 = v31;
+    v66 = v32;
+    v67[0] = 0;
+    *&v67[1] = &_mh_execute_header & 0xFFFFFFFF00000000 | v44;
+    *&v67[5] = &_mh_execute_header & 0xFFFFFFFF00000000 | HIDWORD(v44);
+    *&v67[9] = v21;
+    LOBYTE(v67[11]) = 1;
+  }
+
+  v39 = &v51;
+  if (self->_useTestNbammsMode)
+  {
+    v39 = buf;
+  }
+
+  v40 = *(v39 + 5);
+  *&retstr->scheduling_interval_usec = *(v39 + 4);
+  *&retstr->dither_constant_msec.var0.__null_state_ = v40;
+  *&retstr->secondary_scheduling_interval_usec.var0.__null_state_ = *(v39 + 6);
+  v41 = *(v39 + 1);
+  *&retstr->peer.var0.__null_state_ = *v39;
+  *(&retstr->peer.var0.__val_.uuid.var0 + 12) = v41;
+  v42 = *(v39 + 3);
+  *&retstr->peer.var0.__val_.bt_adv_address.var0.__val_.__elems_[2] = *(v39 + 2);
+  *&retstr->start_time_or_offset_usec = v42;
+  return result;
 }
 
 - (BOOL)_doesWantTriggeredDutyCycledAcquisition

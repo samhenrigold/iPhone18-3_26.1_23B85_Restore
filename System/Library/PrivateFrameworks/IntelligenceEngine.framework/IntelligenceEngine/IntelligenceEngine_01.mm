@@ -1,21 +1,3 @@
-void std::__tree_node_destructor<std::allocator<std::__tree_node<std::string,void *>>>::operator()[abi:ne200100](uint64_t a1, void **__p)
-{
-  if (*(a1 + 8) == 1)
-  {
-    if (*(__p + 55) < 0)
-    {
-      operator delete(__p[4]);
-    }
-  }
-
-  else if (!__p)
-  {
-    return;
-  }
-
-  operator delete(__p);
-}
-
 YAML::detail::iterator_value *YAML::detail::iterator_value::iterator_value(YAML::detail::iterator_value *this, const YAML::Node *a2)
 {
   *this = *a2;
@@ -73,11 +55,12 @@ YAML::detail::iterator_value *YAML::detail::iterator_value::iterator_value(YAML:
   return this;
 }
 
-void sub_254C9B638(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_254C9B638(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   YAML::Node::~Node(&a9);
-  YAML::Node::~Node(&a16);
-  YAML::Node::~Node(v16);
+  YAML::Node::~Node(va);
+  YAML::Node::~Node(v15);
   _Unwind_Resume(a1);
 }
 
@@ -322,7 +305,7 @@ uint64_t *YAML::Node::Scalar(YAML::Node *this)
   return YAML::detail::node_data::empty_scalar(this);
 }
 
-void *YAML::BadConversion::BadConversion(void *a1, _DWORD *a2)
+void *YAML::BadConversion::BadConversion(void *a1, uint64_t *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "bad conversion");
   YAML::Exception::Exception(a1, a2, __p);
@@ -633,7 +616,7 @@ void sub_254C9C0DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *YAML::BadSubscript::BadSubscript<std::string>(void *a1, uint64_t a2)
+void *YAML::BadSubscript::BadSubscript<std::string>(void *a1, uint64_t **a2)
 {
   v6 = -1;
   v7 = -1;
@@ -659,7 +642,7 @@ void sub_254C9C1AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t YAML::ErrorMsg::BAD_SUBSCRIPT_WITH_KEY(uint64_t a1)
+uint64_t YAML::ErrorMsg::BAD_SUBSCRIPT_WITH_KEY(uint64_t **a1)
 {
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v10);
   v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v11, "operator[] call on a scalar", 27);
@@ -682,7 +665,7 @@ uint64_t YAML::ErrorMsg::BAD_SUBSCRIPT_WITH_KEY(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 8);
+    v6 = a1[1];
   }
 
   v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, v5, v6);
@@ -704,9 +687,9 @@ uint64_t YAML::ErrorMsg::BAD_SUBSCRIPT_WITH_KEY(uint64_t a1)
   return MEMORY[0x259C29CE0](&v15);
 }
 
-void sub_254C9C39C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C9C39C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -745,9 +728,9 @@ uint64_t streamable_to_string<char [14],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254C9C5A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C9C5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -774,14 +757,14 @@ uint64_t streamable_to_string<char [6],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254C9C74C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254C9C74C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-void YAML::Node::operator[]<char [5]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [5]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -801,7 +784,7 @@ void YAML::Node::operator[]<char [5]>(YAML::Node *this@<X0>, char *a2@<X1>, uint
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -827,26 +810,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -858,16 +841,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [5],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [5],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -877,10 +860,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -894,7 +877,7 @@ void sub_254C9C918(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void YAML::Node::operator[]<char [12]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [12]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -914,7 +897,7 @@ void YAML::Node::operator[]<char [12]>(YAML::Node *this@<X0>, char *a2@<X1>, uin
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -940,26 +923,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -971,16 +954,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [12],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [12],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -990,10 +973,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -1007,7 +990,7 @@ void sub_254C9CB34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void YAML::Node::operator[]<char [8]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [8]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -1027,7 +1010,7 @@ void YAML::Node::operator[]<char [8]>(YAML::Node *this@<X0>, char *a2@<X1>, uint
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -1053,26 +1036,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -1084,16 +1067,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [8],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [8],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -1103,10 +1086,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -1120,23 +1103,23 @@ void sub_254C9CD50(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::intelligence::ValidateFlowTest_Step(siri::intelligence *this, const YAML::Node *a2, siri::intelligence::ValidationResults *a3)
+void siri::intelligence::ValidateFlowTest_Step(siri::intelligence *this, uint64_t **a2, siri::intelligence::ValidationResults *a3)
 {
   v3 = this;
-  v231 = *MEMORY[0x277D85DE8];
+  v230 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF4028, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF4028))
   {
-    std::string::basic_string[abi:ne200100]<0>(v217, "setVariables");
-    std::string::basic_string[abi:ne200100]<0>(&v217[24], "startFrom");
-    std::string::basic_string[abi:ne200100]<0>(&v219, "sendIntent");
-    std::string::basic_string[abi:ne200100]<0>(&v221[1], "assertResponse");
-    std::string::basic_string[abi:ne200100]<0>(v224, "assertCondition");
-    std::set<std::string>::set[abi:ne200100](&qword_280AF4088, v217, 5);
+    std::string::basic_string[abi:ne200100]<0>(v216, "setVariables");
+    std::string::basic_string[abi:ne200100]<0>(&v216[24], "startFrom");
+    std::string::basic_string[abi:ne200100]<0>(&v218, "sendIntent");
+    std::string::basic_string[abi:ne200100]<0>(&v220[1], "assertResponse");
+    std::string::basic_string[abi:ne200100]<0>(v223, "assertCondition");
+    std::set<std::string>::set[abi:ne200100](&qword_280AF4088, v216, 5);
     for (i = 0; i != -15; i -= 3)
     {
-      if (*(&v226 + i * 8) < 0)
+      if (*(&v225 + i * 8) < 0)
       {
-        operator delete(v224[i]);
+        operator delete(v223[i]);
       }
     }
 
@@ -1147,74 +1130,74 @@ void siri::intelligence::ValidateFlowTest_Step(siri::intelligence *this, const Y
 
   if ((*v3 & 1) != 0 && (v4 = *(v3 + 6)) != 0)
   {
-    YAML::detail::node_data::begin(**v4, v217);
+    YAML::detail::node_data::begin(v216, **v4);
     v6 = *(this + 4);
     v5 = *(this + 5);
     if (v5)
     {
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      *v212 = *v217;
-      *&v212[16] = *&v217[16];
-      *&v212[32] = v6;
-      v213 = v5;
+      *v211 = *v216;
+      *&v211[16] = *&v216[16];
+      *&v211[32] = v6;
+      v212 = v5;
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v5);
     }
 
     else
     {
-      *v212 = *v217;
-      *&v212[16] = *&v217[16];
-      *&v212[32] = v6;
-      v213 = 0;
+      *v211 = *v216;
+      *&v211[16] = *&v216[16];
+      *&v211[32] = v6;
+      v212 = 0;
     }
   }
 
   else
   {
-    *v212 = 0;
-    memset(&v212[8], 0, 32);
-    v213 = 0;
+    *v211 = 0;
+    memset(&v211[8], 0, 32);
+    v212 = 0;
   }
 
   if (*this == 1 && (v7 = *(this + 6)) != 0)
   {
-    YAML::detail::node_data::end(**v7, v217);
+    YAML::detail::node_data::end(v216, **v7);
     v8 = *(this + 5);
     if (v8)
     {
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      v9 = *v217;
-      v10 = *&v217[8];
-      v199 = *&v217[16];
+      v9 = *v216;
+      v10 = *&v216[8];
+      v198 = *&v216[16];
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      v195 = v8;
+      v194 = v8;
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
     else
     {
-      v195 = 0;
-      v9 = *v217;
-      v10 = *&v217[8];
-      v199 = *&v217[16];
+      v194 = 0;
+      v9 = *v216;
+      v10 = *&v216[8];
+      v198 = *&v216[16];
     }
   }
 
   else
   {
-    v195 = 0;
+    v194 = 0;
     v9 = 0;
-    v199 = 0;
+    v198 = 0;
     v10 = 0;
   }
 
   while (1)
   {
-    if (*v212 == v9)
+    if (*v211 == v9)
     {
       v11 = v10;
-      v12 = &v212[8];
+      v12 = &v211[8];
       if (v9 != 1)
       {
         if (v9 != 2)
@@ -1222,8 +1205,8 @@ void siri::intelligence::ValidateFlowTest_Step(siri::intelligence *this, const Y
           break;
         }
 
-        v11 = v199;
-        v12 = &v212[16];
+        v11 = v198;
+        v12 = &v211[16];
       }
 
       if (*v12 == v11)
@@ -1232,26 +1215,26 @@ void siri::intelligence::ValidateFlowTest_Step(siri::intelligence *this, const Y
       }
     }
 
-    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v212, v217);
-    if ((v220 & 1) == 0)
+    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v211, v216);
+    if ((v219 & 1) == 0)
     {
       exception = __cxa_allocate_exception(0x38uLL);
-      if (SHIBYTE(v222) < 0)
+      if (SHIBYTE(v221) < 0)
       {
-        std::string::__init_copy_ctor_external(v207, v221[0], v221[1]);
+        std::string::__init_copy_ctor_external(v206, v220[0], v220[1]);
       }
 
       else
       {
-        *v207 = *v221;
-        *&v207[16] = v222;
+        *v206 = *v220;
+        *&v206[16] = v221;
       }
 
-      YAML::InvalidNode::InvalidNode(exception, v207);
+      YAML::InvalidNode::InvalidNode(exception, v206);
     }
 
-    *v207 = &v220;
-    YAML::as_if<std::string,void>::operator()(v207, __p);
+    *v206 = &v219;
+    YAML::as_if<std::string,void>::operator()(v206, __p);
     v13 = std::__tree<std::string>::find<std::string>(&qword_280AF4088, __p);
     if ((__p[23] & 0x80000000) != 0)
     {
@@ -1260,50 +1243,50 @@ void siri::intelligence::ValidateFlowTest_Step(siri::intelligence *this, const Y
 
     if (v13 == &unk_280AF4090)
     {
-      if ((v220 & 1) == 0)
+      if ((v219 & 1) == 0)
       {
-        v145 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v222) < 0)
+        v144 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v221) < 0)
         {
-          std::string::__init_copy_ctor_external(v207, v221[0], v221[1]);
+          std::string::__init_copy_ctor_external(v206, v220[0], v220[1]);
         }
 
         else
         {
-          *v207 = *v221;
-          *&v207[16] = v222;
+          *v206 = *v220;
+          *&v206[16] = v221;
         }
 
-        YAML::InvalidNode::InvalidNode(v145, v207);
+        YAML::InvalidNode::InvalidNode(v144, v206);
       }
 
-      *v207 = &v220;
-      YAML::as_if<std::string,void>::operator()(v207, &v216);
-      v14 = std::string::insert(&v216, 0, "Unsupported field for Step found in flow file: ");
+      *v206 = &v219;
+      YAML::as_if<std::string,void>::operator()(v206, &v215);
+      v14 = std::string::insert(&v215, 0, "Unsupported field for Step found in flow file: ");
       *__p = *v14;
       v14->__r_.__value_.__l.__size_ = 0;
       v14->__r_.__value_.__r.__words[2] = 0;
       v14->__r_.__value_.__r.__words[0] = 0;
-      if ((v225 & 1) == 0)
+      if ((v224 & 1) == 0)
       {
-        v144 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v228) < 0)
+        v143 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v227) < 0)
         {
-          std::string::__init_copy_ctor_external(v207, v227, *(&v227 + 1));
+          std::string::__init_copy_ctor_external(v206, v226, *(&v226 + 1));
         }
 
         else
         {
-          *v207 = v227;
-          *&v207[16] = v228;
+          *v206 = v226;
+          *&v206[16] = v227;
         }
 
-        YAML::InvalidNode::InvalidNode(v144, v207);
+        YAML::InvalidNode::InvalidNode(v143, v206);
       }
 
-      if (v230)
+      if (v229)
       {
-        v15 = *(**v230 + 8);
+        v15 = *(**v229 + 8);
       }
 
       else
@@ -1311,71 +1294,71 @@ void siri::intelligence::ValidateFlowTest_Step(siri::intelligence *this, const Y
         v15 = -1;
       }
 
-      siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v15);
+      siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v15);
       if ((__p[23] & 0x80000000) != 0)
       {
         operator delete(*__p);
       }
 
-      if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v216.__r_.__value_.__l.__data_);
+        operator delete(v215.__r_.__value_.__l.__data_);
       }
     }
 
-    if (v229)
+    if (v228)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v229);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v228);
     }
 
-    if (SHIBYTE(v228) < 0)
+    if (SHIBYTE(v227) < 0)
     {
-      operator delete(v227);
+      operator delete(v226);
     }
 
-    if (v224[0])
+    if (v223[0])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v224[0]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v223[0]);
     }
 
-    if (SHIBYTE(v222) < 0)
+    if (SHIBYTE(v221) < 0)
     {
-      operator delete(v221[0]);
+      operator delete(v220[0]);
     }
 
-    if (v218)
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
-    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v212);
+    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v211);
   }
 
-  if (v195)
+  if (v194)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v195);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v194);
   }
 
-  if (v213)
+  if (v212)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v212);
   }
 
-  YAML::Node::operator[]<char [13]>(this, "setVariables", v217);
-  v16 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [13]>(v216, this, "setVariables");
+  v16 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v16)
     {
       goto LABEL_109;
@@ -1387,88 +1370,88 @@ void siri::intelligence::ValidateFlowTest_Step(siri::intelligence *this, const Y
     goto LABEL_109;
   }
 
-  YAML::Node::operator[]<char [13]>(this, "setVariables", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [13]>(v216, this, "setVariables");
+  if ((v216[0] & 1) == 0)
   {
-    v159 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v158 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v159, v212);
+    YAML::InvalidNode::InvalidNode(v158, v211);
   }
 
-  v18 = v219 && (v17 = **v219, *v17 == 1) && *(v17 + 16) == 3;
-  if (v218)
+  v18 = v218 && (v17 = **v218, *v17 == 1) && *(v17 + 16) == 3;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v18)
     {
 LABEL_67:
-      YAML::Node::operator[]<char [13]>(this, "setVariables", v212);
-      if ((v212[0] & 1) != 0 && v214)
+      YAML::Node::operator[]<char [13]>(v211, this, "setVariables");
+      if ((v211[0] & 1) != 0 && v213)
       {
-        YAML::detail::node_data::begin(**v214, v217);
-        v20 = *&v212[32];
-        v19 = v213;
-        if (v213)
+        YAML::detail::node_data::begin(v216, **v213);
+        v20 = *&v211[32];
+        v19 = v212;
+        if (v212)
         {
-          atomic_fetch_add_explicit(&v213->__shared_owners_, 1uLL, memory_order_relaxed);
-          *v207 = *v217;
-          *&v207[16] = *&v217[16];
-          *&v207[32] = v20;
-          v208 = v19;
+          atomic_fetch_add_explicit(&v212->__shared_owners_, 1uLL, memory_order_relaxed);
+          *v206 = *v216;
+          *&v206[16] = *&v216[16];
+          *&v206[32] = v20;
+          v207 = v19;
           atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v19);
         }
 
         else
         {
-          *v207 = *v217;
-          *&v207[16] = *&v217[16];
-          *&v207[32] = *&v212[32];
-          v208 = 0;
+          *v206 = *v216;
+          *&v206[16] = *&v216[16];
+          *&v206[32] = *&v211[32];
+          v207 = 0;
         }
       }
 
       else
       {
-        *v207 = 0;
-        memset(&v207[8], 0, 32);
-        v208 = 0;
+        *v206 = 0;
+        memset(&v206[8], 0, 32);
+        v207 = 0;
       }
 
-      if (v212[0] == 1 && v214)
+      if (v211[0] == 1 && v213)
       {
-        YAML::detail::node_data::end(**v214, v217);
-        v23 = v213;
-        if (v213)
+        YAML::detail::node_data::end(v216, **v213);
+        v23 = v212;
+        if (v212)
         {
-          atomic_fetch_add_explicit(&v213->__shared_owners_, 1uLL, memory_order_relaxed);
-          v24 = *v217;
-          v25 = *&v217[8];
-          v26 = *&v217[16];
+          atomic_fetch_add_explicit(&v212->__shared_owners_, 1uLL, memory_order_relaxed);
+          v24 = *v216;
+          v25 = *&v216[8];
+          v26 = *&v216[16];
           atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v23);
         }
 
         else
         {
-          v24 = *v217;
-          v25 = *&v217[8];
-          v26 = *&v217[16];
+          v24 = *v216;
+          v25 = *&v216[8];
+          v26 = *&v216[16];
         }
       }
 
@@ -1482,10 +1465,10 @@ LABEL_67:
 
       while (1)
       {
-        if (*v207 == v24)
+        if (*v206 == v24)
         {
           v27 = v25;
-          v28 = &v207[8];
+          v28 = &v206[8];
           if (v24 != 1)
           {
             if (v24 != 2)
@@ -1494,7 +1477,7 @@ LABEL_67:
             }
 
             v27 = v26;
-            v28 = &v207[16];
+            v28 = &v206[16];
           }
 
           if (*v28 == v27)
@@ -1503,39 +1486,39 @@ LABEL_67:
           }
         }
 
-        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v207, v217);
-        siri::intelligence::ValidateFlowTest_KeyValueParameter(v217, a2, v29);
-        if (v229)
+        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v206, v216);
+        siri::intelligence::ValidateFlowTest_KeyValueParameter(v216, a2, v29);
+        if (v228)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v229);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v228);
         }
 
-        if (SHIBYTE(v228) < 0)
+        if (SHIBYTE(v227) < 0)
         {
-          operator delete(v227);
+          operator delete(v226);
         }
 
-        if (v224[0])
+        if (v223[0])
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v224[0]);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v223[0]);
         }
 
-        if (SHIBYTE(v222) < 0)
+        if (SHIBYTE(v221) < 0)
         {
-          operator delete(v221[0]);
+          operator delete(v220[0]);
         }
 
-        if (v218)
+        if (v217)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v217);
         }
 
-        if ((v217[31] & 0x80000000) != 0)
+        if ((v216[31] & 0x80000000) != 0)
         {
-          operator delete(*&v217[8]);
+          operator delete(*&v216[8]);
         }
 
-        YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v207);
+        YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v206);
       }
 
       if (v23)
@@ -1543,19 +1526,19 @@ LABEL_67:
         std::__shared_weak_count::__release_shared[abi:ne200100](v23);
       }
 
-      if (v208)
+      if (v207)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v208);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v207);
       }
 
-      if (v213)
+      if (v212)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v212);
       }
 
-      if ((v212[31] & 0x80000000) != 0)
+      if ((v211[31] & 0x80000000) != 0)
       {
-        v22 = *&v212[8];
+        v22 = *&v211[8];
         goto LABEL_108;
       }
 
@@ -1568,31 +1551,31 @@ LABEL_67:
     goto LABEL_67;
   }
 
-  YAML::Node::operator[]<char [13]>(this, "setVariables", v217);
-  siri::intelligence::ValidateFlowTest_KeyValueParameter(v217, a2, v21);
-  if (v218)
+  YAML::Node::operator[]<char [13]>(v216, this, "setVariables");
+  siri::intelligence::ValidateFlowTest_KeyValueParameter(v216, a2, v21);
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    v22 = *&v217[8];
+    v22 = *&v216[8];
 LABEL_108:
     operator delete(v22);
   }
 
 LABEL_109:
-  YAML::Node::operator[]<char [10]>(this, "startFrom", v217);
-  v30 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [10]>(v216, this, "startFrom");
+  v30 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v30)
     {
       goto LABEL_259;
@@ -1604,61 +1587,61 @@ LABEL_109:
     goto LABEL_259;
   }
 
-  YAML::Node::operator[]<char [10]>(this, "startFrom", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [10]>(v216, this, "startFrom");
+  if ((v216[0] & 1) == 0)
   {
-    v160 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v159 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v160, v212);
+    YAML::InvalidNode::InvalidNode(v159, v211);
   }
 
-  v32 = v219 && (v31 = **v219, *v31 == 1) && *(v31 + 16) == 3;
-  if (v218)
+  v32 = v218 && (v31 = **v218, *v31 == 1) && *(v31 + 16) == 3;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (!v32)
     {
       goto LABEL_143;
     }
 
 LABEL_131:
-    std::string::basic_string[abi:ne200100]<0>(v207, "Invalid array value found for 'startFrom' on Step");
-    YAML::Node::operator[]<char [10]>(this, "startFrom", v217);
-    if ((v217[0] & 1) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v206, "Invalid array value found for 'startFrom' on Step");
+    YAML::Node::operator[]<char [10]>(v216, this, "startFrom");
+    if ((v216[0] & 1) == 0)
     {
-      v168 = __cxa_allocate_exception(0x38uLL);
-      if ((v217[31] & 0x80000000) != 0)
+      v167 = __cxa_allocate_exception(0x38uLL);
+      if ((v216[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+        std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
       }
 
       else
       {
-        *v212 = *&v217[8];
-        *&v212[16] = *&v217[24];
+        *v211 = *&v216[8];
+        *&v211[16] = *&v216[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v168, v212);
+      YAML::InvalidNode::InvalidNode(v167, v211);
     }
 
-    if (v219)
+    if (v218)
     {
-      v33 = *(**v219 + 8) + 1;
+      v33 = *(**v218 + 8) + 1;
     }
 
     else
@@ -1666,20 +1649,20 @@ LABEL_131:
       v33 = 0;
     }
 
-    siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v207, v33);
-    if (v218)
+    siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v206, v33);
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
-    if ((v207[23] & 0x80000000) != 0)
+    if ((v206[23] & 0x80000000) != 0)
     {
-      operator delete(*v207);
+      operator delete(*v206);
     }
 
     goto LABEL_143;
@@ -1691,17 +1674,17 @@ LABEL_131:
   }
 
 LABEL_143:
-  YAML::Node::operator[]<char [10]>(this, "startFrom", v212);
+  YAML::Node::operator[]<char [10]>(v211, this, "startFrom");
   if ((atomic_load_explicit(&qword_280AF4038, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF4038))
   {
-    std::string::basic_string[abi:ne200100]<0>(v217, "responseId");
-    std::string::basic_string[abi:ne200100]<0>(&v217[24], "activityId");
-    std::set<std::string>::set[abi:ne200100](&qword_280AF40B8, v217, 2);
+    std::string::basic_string[abi:ne200100]<0>(v216, "responseId");
+    std::string::basic_string[abi:ne200100]<0>(&v216[24], "activityId");
+    std::set<std::string>::set[abi:ne200100](&qword_280AF40B8, v216, 2);
     for (j = 0; j != -6; j -= 3)
     {
-      if (SHIBYTE((&v218)[j]) < 0)
+      if (SHIBYTE((&v217)[j]) < 0)
       {
-        operator delete(*&v217[j * 8 + 24]);
+        operator delete(*&v216[j * 8 + 24]);
       }
     }
 
@@ -1709,76 +1692,76 @@ LABEL_143:
     __cxa_guard_release(&qword_280AF4038);
   }
 
-  if ((v212[0] & 1) != 0 && v214)
+  if ((v211[0] & 1) != 0 && v213)
   {
-    YAML::detail::node_data::begin(**v214, v217);
-    v35 = *&v212[32];
-    v34 = v213;
-    if (v213)
+    YAML::detail::node_data::begin(v216, **v213);
+    v35 = *&v211[32];
+    v34 = v212;
+    if (v212)
     {
-      atomic_fetch_add_explicit(&v213->__shared_owners_, 1uLL, memory_order_relaxed);
-      *v207 = *v217;
-      *&v207[16] = *&v217[16];
-      *&v207[32] = v35;
-      v208 = v34;
+      atomic_fetch_add_explicit(&v212->__shared_owners_, 1uLL, memory_order_relaxed);
+      *v206 = *v216;
+      *&v206[16] = *&v216[16];
+      *&v206[32] = v35;
+      v207 = v34;
       atomic_fetch_add_explicit(&v34->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v34);
     }
 
     else
     {
-      *v207 = *v217;
-      *&v207[16] = *&v217[16];
-      *&v207[32] = *&v212[32];
-      v208 = 0;
+      *v206 = *v216;
+      *&v206[16] = *&v216[16];
+      *&v206[32] = *&v211[32];
+      v207 = 0;
     }
   }
 
   else
   {
-    *v207 = 0;
-    memset(&v207[8], 0, 32);
-    v208 = 0;
+    *v206 = 0;
+    memset(&v206[8], 0, 32);
+    v207 = 0;
   }
 
-  if (v212[0] == 1 && v214)
+  if (v211[0] == 1 && v213)
   {
-    YAML::detail::node_data::end(**v214, v217);
-    v36 = v213;
-    if (v213)
+    YAML::detail::node_data::end(v216, **v213);
+    v36 = v212;
+    if (v212)
     {
-      atomic_fetch_add_explicit(&v213->__shared_owners_, 1uLL, memory_order_relaxed);
-      v37 = *v217;
-      v38 = *&v217[8];
-      v197 = v36;
-      v200 = *&v217[16];
+      atomic_fetch_add_explicit(&v212->__shared_owners_, 1uLL, memory_order_relaxed);
+      v37 = *v216;
+      v38 = *&v216[8];
+      v196 = v36;
+      v199 = *&v216[16];
       atomic_fetch_add_explicit(&v36->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v36);
     }
 
     else
     {
-      v37 = *v217;
-      v38 = *&v217[8];
-      v197 = 0;
-      v200 = *&v217[16];
+      v37 = *v216;
+      v38 = *&v216[8];
+      v196 = 0;
+      v199 = *&v216[16];
     }
   }
 
   else
   {
-    v197 = 0;
-    v200 = 0;
+    v196 = 0;
+    v199 = 0;
     v37 = 0;
     v38 = 0;
   }
 
   while (1)
   {
-    if (*v207 == v37)
+    if (*v206 == v37)
     {
       v39 = v38;
-      v40 = &v207[8];
+      v40 = &v206[8];
       if (v37 != 1)
       {
         if (v37 != 2)
@@ -1786,8 +1769,8 @@ LABEL_143:
           break;
         }
 
-        v39 = v200;
-        v40 = &v207[16];
+        v39 = v199;
+        v40 = &v206[16];
       }
 
       if (*v40 == v39)
@@ -1796,78 +1779,78 @@ LABEL_143:
       }
     }
 
-    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v207, v217);
-    if ((v220 & 1) == 0)
+    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v206, v216);
+    if ((v219 & 1) == 0)
     {
-      v146 = __cxa_allocate_exception(0x38uLL);
-      if (SHIBYTE(v222) < 0)
+      v145 = __cxa_allocate_exception(0x38uLL);
+      if (SHIBYTE(v221) < 0)
       {
-        std::string::__init_copy_ctor_external(__p, v221[0], v221[1]);
+        std::string::__init_copy_ctor_external(__p, v220[0], v220[1]);
       }
 
       else
       {
-        *__p = *v221;
-        *&__p[16] = v222;
+        *__p = *v220;
+        *&__p[16] = v221;
       }
 
-      YAML::InvalidNode::InvalidNode(v146, __p);
+      YAML::InvalidNode::InvalidNode(v145, __p);
     }
 
-    *__p = &v220;
-    YAML::as_if<std::string,void>::operator()(__p, &v216);
-    v41 = std::__tree<std::string>::find<std::string>(&qword_280AF40B8, &v216.__r_.__value_.__l.__data_);
-    if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
+    *__p = &v219;
+    YAML::as_if<std::string,void>::operator()(__p, &v215);
+    v41 = std::__tree<std::string>::find<std::string>(&qword_280AF40B8, &v215.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v216.__r_.__value_.__l.__data_);
+      operator delete(v215.__r_.__value_.__l.__data_);
     }
 
     if (v41 == &unk_280AF40C0)
     {
-      if ((v220 & 1) == 0)
-      {
-        v151 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v222) < 0)
-        {
-          std::string::__init_copy_ctor_external(__p, v221[0], v221[1]);
-        }
-
-        else
-        {
-          *__p = *v221;
-          *&__p[16] = v222;
-        }
-
-        YAML::InvalidNode::InvalidNode(v151, __p);
-      }
-
-      *__p = &v220;
-      YAML::as_if<std::string,void>::operator()(__p, &v215);
-      v42 = std::string::insert(&v215, 0, "Unsupported field for StartFrom found in flow file: ");
-      v216 = *v42;
-      v42->__r_.__value_.__l.__size_ = 0;
-      v42->__r_.__value_.__r.__words[2] = 0;
-      v42->__r_.__value_.__r.__words[0] = 0;
-      if ((v225 & 1) == 0)
+      if ((v219 & 1) == 0)
       {
         v150 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v228) < 0)
+        if (SHIBYTE(v221) < 0)
         {
-          std::string::__init_copy_ctor_external(__p, v227, *(&v227 + 1));
+          std::string::__init_copy_ctor_external(__p, v220[0], v220[1]);
         }
 
         else
         {
-          *__p = v227;
-          *&__p[16] = v228;
+          *__p = *v220;
+          *&__p[16] = v221;
         }
 
         YAML::InvalidNode::InvalidNode(v150, __p);
       }
 
-      if (v230)
+      *__p = &v219;
+      YAML::as_if<std::string,void>::operator()(__p, &v214);
+      v42 = std::string::insert(&v214, 0, "Unsupported field for StartFrom found in flow file: ");
+      v215 = *v42;
+      v42->__r_.__value_.__l.__size_ = 0;
+      v42->__r_.__value_.__r.__words[2] = 0;
+      v42->__r_.__value_.__r.__words[0] = 0;
+      if ((v224 & 1) == 0)
       {
-        v43 = *(**v230 + 8);
+        v149 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v227) < 0)
+        {
+          std::string::__init_copy_ctor_external(__p, v226, *(&v226 + 1));
+        }
+
+        else
+        {
+          *__p = v226;
+          *&__p[16] = v227;
+        }
+
+        YAML::InvalidNode::InvalidNode(v149, __p);
+      }
+
+      if (v229)
+      {
+        v43 = *(**v229 + 8);
       }
 
       else
@@ -1875,71 +1858,71 @@ LABEL_143:
         v43 = -1;
       }
 
-      siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, &v216, v43);
-      if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v216.__r_.__value_.__l.__data_);
-      }
-
+      siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, &v215, v43);
       if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v215.__r_.__value_.__l.__data_);
       }
+
+      if (SHIBYTE(v214.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v214.__r_.__value_.__l.__data_);
+      }
     }
 
-    if (v229)
+    if (v228)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v229);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v228);
     }
 
-    if (SHIBYTE(v228) < 0)
+    if (SHIBYTE(v227) < 0)
     {
-      operator delete(v227);
+      operator delete(v226);
     }
 
-    if (v224[0])
+    if (v223[0])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v224[0]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v223[0]);
     }
 
-    if (SHIBYTE(v222) < 0)
+    if (SHIBYTE(v221) < 0)
     {
-      operator delete(v221[0]);
+      operator delete(v220[0]);
     }
 
-    if (v218)
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
-    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v207);
+    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v206);
   }
 
-  if (v197)
+  if (v196)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v197);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v196);
   }
 
-  if (v208)
+  if (v207)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v208);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v207);
   }
 
-  YAML::Node::operator[]<char [11]>(v212, "responseId", v217);
-  v44 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [11]>(v216, v211, "responseId");
+  v44 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v44)
     {
       goto LABEL_223;
@@ -1951,33 +1934,33 @@ LABEL_143:
     goto LABEL_223;
   }
 
-  YAML::Node::operator[]<char [11]>(v212, "responseId", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [11]>(v216, v211, "responseId");
+  if ((v216[0] & 1) == 0)
   {
-    v170 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v169 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v207, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v206, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v207 = *&v217[8];
-      *&v207[16] = *&v217[24];
+      *v206 = *&v216[8];
+      *&v206[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v170, v207);
+    YAML::InvalidNode::InvalidNode(v169, v206);
   }
 
-  v46 = v219 && (v45 = **v219, *v45 == 1) && *(v45 + 16) == 2;
-  if (v218)
+  v46 = v218 && (v45 = **v218, *v45 == 1) && *(v45 + 16) == 2;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v46)
     {
       goto LABEL_223;
@@ -1990,27 +1973,27 @@ LABEL_143:
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "Invalid string value found for 'responseId' on StartFrom");
-  YAML::Node::operator[]<char [11]>(v212, "responseId", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [11]>(v216, v211, "responseId");
+  if ((v216[0] & 1) == 0)
   {
-    v183 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v182 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v207, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v206, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v207 = *&v217[8];
-      *&v207[16] = *&v217[24];
+      *v206 = *&v216[8];
+      *&v206[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v183, v207);
+    YAML::InvalidNode::InvalidNode(v182, v206);
   }
 
-  if (v219)
+  if (v218)
   {
-    v47 = *(**v219 + 8) + 1;
+    v47 = *(**v218 + 8) + 1;
   }
 
   else
@@ -2018,15 +2001,15 @@ LABEL_143:
     v47 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v47);
-  if (v218)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v47);
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
   }
 
   if ((__p[23] & 0x80000000) != 0)
@@ -2035,16 +2018,16 @@ LABEL_143:
   }
 
 LABEL_223:
-  YAML::Node::operator[]<char [11]>(v212, "activityId", v217);
-  v48 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [11]>(v216, v211, "activityId");
+  v48 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v48)
     {
       goto LABEL_255;
@@ -2056,31 +2039,31 @@ LABEL_223:
     goto LABEL_255;
   }
 
-  YAML::Node::operator[]<char [11]>(v212, "activityId", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [11]>(v216, v211, "activityId");
+  if ((v216[0] & 1) == 0)
   {
-    v171 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v170 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v207, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v206, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v207 = *&v217[8];
-      *&v207[16] = *&v217[24];
+      *v206 = *&v216[8];
+      *&v206[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v171, v207);
+    YAML::InvalidNode::InvalidNode(v170, v206);
   }
 
-  v50 = v219 && (v49 = **v219, *v49 == 1) && *(v49 + 16) == 2;
-  if (v218)
+  v50 = v218 && (v49 = **v218, *v49 == 1) && *(v49 + 16) == 2;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) == 0)
+  if ((v216[31] & 0x80000000) == 0)
   {
     if (v50)
     {
@@ -2089,27 +2072,27 @@ LABEL_223:
 
 LABEL_245:
     std::string::basic_string[abi:ne200100]<0>(__p, "Invalid string value found for 'activityId' on StartFrom");
-    YAML::Node::operator[]<char [11]>(v212, "activityId", v217);
-    if ((v217[0] & 1) == 0)
+    YAML::Node::operator[]<char [11]>(v216, v211, "activityId");
+    if ((v216[0] & 1) == 0)
     {
-      v184 = __cxa_allocate_exception(0x38uLL);
-      if ((v217[31] & 0x80000000) != 0)
+      v183 = __cxa_allocate_exception(0x38uLL);
+      if ((v216[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v207, *&v217[8], *&v217[16]);
+        std::string::__init_copy_ctor_external(v206, *&v216[8], *&v216[16]);
       }
 
       else
       {
-        *v207 = *&v217[8];
-        *&v207[16] = *&v217[24];
+        *v206 = *&v216[8];
+        *&v206[16] = *&v216[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v184, v207);
+      YAML::InvalidNode::InvalidNode(v183, v206);
     }
 
-    if (v219)
+    if (v218)
     {
-      v51 = *(**v219 + 8) + 1;
+      v51 = *(**v218 + 8) + 1;
     }
 
     else
@@ -2117,15 +2100,15 @@ LABEL_245:
       v51 = 0;
     }
 
-    siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v51);
-    if (v218)
+    siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v51);
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
     if ((__p[23] & 0x80000000) != 0)
@@ -2136,34 +2119,34 @@ LABEL_245:
     goto LABEL_255;
   }
 
-  operator delete(*&v217[8]);
+  operator delete(*&v216[8]);
   if (!v50)
   {
     goto LABEL_245;
   }
 
 LABEL_255:
-  if (v213)
+  if (v212)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v212);
   }
 
-  if ((v212[31] & 0x80000000) != 0)
+  if ((v211[31] & 0x80000000) != 0)
   {
-    operator delete(*&v212[8]);
+    operator delete(*&v211[8]);
   }
 
 LABEL_259:
-  YAML::Node::operator[]<char [11]>(this, "sendIntent", v217);
-  v52 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [11]>(v216, this, "sendIntent");
+  v52 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v52)
     {
       goto LABEL_469;
@@ -2175,61 +2158,61 @@ LABEL_259:
     goto LABEL_469;
   }
 
-  YAML::Node::operator[]<char [11]>(this, "sendIntent", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [11]>(v216, this, "sendIntent");
+  if ((v216[0] & 1) == 0)
   {
-    v162 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v161 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v162, v212);
+    YAML::InvalidNode::InvalidNode(v161, v211);
   }
 
-  v54 = v219 && (v53 = **v219, *v53 == 1) && *(v53 + 16) == 3;
-  if (v218)
+  v54 = v218 && (v53 = **v218, *v53 == 1) && *(v53 + 16) == 3;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (!v54)
     {
       goto LABEL_291;
     }
 
 LABEL_281:
-    std::string::basic_string[abi:ne200100]<0>(v207, "Invalid array value found for 'sendIntent' on Step");
-    YAML::Node::operator[]<char [11]>(this, "sendIntent", v217);
-    if ((v217[0] & 1) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v206, "Invalid array value found for 'sendIntent' on Step");
+    YAML::Node::operator[]<char [11]>(v216, this, "sendIntent");
+    if ((v216[0] & 1) == 0)
     {
-      v169 = __cxa_allocate_exception(0x38uLL);
-      if ((v217[31] & 0x80000000) != 0)
+      v168 = __cxa_allocate_exception(0x38uLL);
+      if ((v216[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+        std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
       }
 
       else
       {
-        *v212 = *&v217[8];
-        *&v212[16] = *&v217[24];
+        *v211 = *&v216[8];
+        *&v211[16] = *&v216[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v169, v212);
+      YAML::InvalidNode::InvalidNode(v168, v211);
     }
 
-    if (v219)
+    if (v218)
     {
-      v55 = *(**v219 + 8) + 1;
+      v55 = *(**v218 + 8) + 1;
     }
 
     else
@@ -2237,20 +2220,20 @@ LABEL_281:
       v55 = 0;
     }
 
-    siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v207, v55);
-    if (v218)
+    siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v206, v55);
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
-    if ((v207[23] & 0x80000000) != 0)
+    if ((v206[23] & 0x80000000) != 0)
     {
-      operator delete(*v207);
+      operator delete(*v206);
     }
 
     goto LABEL_291;
@@ -2262,18 +2245,18 @@ LABEL_281:
   }
 
 LABEL_291:
-  YAML::Node::operator[]<char [11]>(this, "sendIntent", v207);
+  YAML::Node::operator[]<char [11]>(v206, this, "sendIntent");
   if ((atomic_load_explicit(&qword_280AF4040, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF4040))
   {
-    std::string::basic_string[abi:ne200100]<0>(v217, "id");
-    std::string::basic_string[abi:ne200100]<0>(&v217[24], "name");
-    std::string::basic_string[abi:ne200100]<0>(&v219, "slots");
-    std::set<std::string>::set[abi:ne200100](&qword_280AF40D0, v217, 3);
+    std::string::basic_string[abi:ne200100]<0>(v216, "id");
+    std::string::basic_string[abi:ne200100]<0>(&v216[24], "name");
+    std::string::basic_string[abi:ne200100]<0>(&v218, "slots");
+    std::set<std::string>::set[abi:ne200100](&qword_280AF40D0, v216, 3);
     for (k = 0; k != -9; k -= 3)
     {
-      if (SHIBYTE(v221[k]) < 0)
+      if (SHIBYTE(v220[k]) < 0)
       {
-        operator delete((&v219)[k]);
+        operator delete((&v218)[k]);
       }
     }
 
@@ -2281,76 +2264,76 @@ LABEL_291:
     __cxa_guard_release(&qword_280AF4040);
   }
 
-  if ((v207[0] & 1) != 0 && v209)
+  if ((v206[0] & 1) != 0 && v208)
   {
-    YAML::detail::node_data::begin(**v209, v217);
-    v57 = *&v207[32];
-    v56 = v208;
-    if (v208)
+    YAML::detail::node_data::begin(v216, **v208);
+    v57 = *&v206[32];
+    v56 = v207;
+    if (v207)
     {
-      atomic_fetch_add_explicit(&v208->__shared_owners_, 1uLL, memory_order_relaxed);
-      *v212 = *v217;
-      *&v212[16] = *&v217[16];
-      *&v212[32] = v57;
-      v213 = v56;
+      atomic_fetch_add_explicit(&v207->__shared_owners_, 1uLL, memory_order_relaxed);
+      *v211 = *v216;
+      *&v211[16] = *&v216[16];
+      *&v211[32] = v57;
+      v212 = v56;
       atomic_fetch_add_explicit(&v56->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v56);
     }
 
     else
     {
-      *v212 = *v217;
-      *&v212[16] = *&v217[16];
-      *&v212[32] = *&v207[32];
-      v213 = 0;
+      *v211 = *v216;
+      *&v211[16] = *&v216[16];
+      *&v211[32] = *&v206[32];
+      v212 = 0;
     }
   }
 
   else
   {
-    *v212 = 0;
-    memset(&v212[8], 0, 32);
-    v213 = 0;
+    *v211 = 0;
+    memset(&v211[8], 0, 32);
+    v212 = 0;
   }
 
-  if (v207[0] == 1 && v209)
+  if (v206[0] == 1 && v208)
   {
-    YAML::detail::node_data::end(**v209, v217);
-    v58 = v208;
-    if (v208)
+    YAML::detail::node_data::end(v216, **v208);
+    v58 = v207;
+    if (v207)
     {
-      atomic_fetch_add_explicit(&v208->__shared_owners_, 1uLL, memory_order_relaxed);
-      v59 = *v217;
-      v60 = *&v217[8];
-      v201 = *&v217[16];
+      atomic_fetch_add_explicit(&v207->__shared_owners_, 1uLL, memory_order_relaxed);
+      v59 = *v216;
+      v60 = *&v216[8];
+      v200 = *&v216[16];
       atomic_fetch_add_explicit(&v58->__shared_owners_, 1uLL, memory_order_relaxed);
-      v196 = v58;
+      v195 = v58;
       std::__shared_weak_count::__release_shared[abi:ne200100](v58);
     }
 
     else
     {
-      v196 = 0;
-      v59 = *v217;
-      v60 = *&v217[8];
-      v201 = *&v217[16];
+      v195 = 0;
+      v59 = *v216;
+      v60 = *&v216[8];
+      v200 = *&v216[16];
     }
   }
 
   else
   {
-    v196 = 0;
+    v195 = 0;
     v59 = 0;
-    v201 = 0;
+    v200 = 0;
     v60 = 0;
   }
 
   while (1)
   {
-    if (*v212 == v59)
+    if (*v211 == v59)
     {
       v61 = v60;
-      v62 = &v212[8];
+      v62 = &v211[8];
       if (v59 != 1)
       {
         if (v59 != 2)
@@ -2358,8 +2341,8 @@ LABEL_291:
           break;
         }
 
-        v61 = v201;
-        v62 = &v212[16];
+        v61 = v200;
+        v62 = &v211[16];
       }
 
       if (*v62 == v61)
@@ -2368,78 +2351,78 @@ LABEL_291:
       }
     }
 
-    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v212, v217);
-    if ((v220 & 1) == 0)
+    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v211, v216);
+    if ((v219 & 1) == 0)
     {
-      v147 = __cxa_allocate_exception(0x38uLL);
-      if (SHIBYTE(v222) < 0)
+      v146 = __cxa_allocate_exception(0x38uLL);
+      if (SHIBYTE(v221) < 0)
       {
-        std::string::__init_copy_ctor_external(__p, v221[0], v221[1]);
+        std::string::__init_copy_ctor_external(__p, v220[0], v220[1]);
       }
 
       else
       {
-        *__p = *v221;
-        *&__p[16] = v222;
+        *__p = *v220;
+        *&__p[16] = v221;
       }
 
-      YAML::InvalidNode::InvalidNode(v147, __p);
+      YAML::InvalidNode::InvalidNode(v146, __p);
     }
 
-    *__p = &v220;
-    YAML::as_if<std::string,void>::operator()(__p, &v216);
-    v63 = std::__tree<std::string>::find<std::string>(&qword_280AF40D0, &v216.__r_.__value_.__l.__data_);
-    if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
+    *__p = &v219;
+    YAML::as_if<std::string,void>::operator()(__p, &v215);
+    v63 = std::__tree<std::string>::find<std::string>(&qword_280AF40D0, &v215.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v216.__r_.__value_.__l.__data_);
+      operator delete(v215.__r_.__value_.__l.__data_);
     }
 
     if (v63 == &unk_280AF40D8)
     {
-      if ((v220 & 1) == 0)
-      {
-        v153 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v222) < 0)
-        {
-          std::string::__init_copy_ctor_external(__p, v221[0], v221[1]);
-        }
-
-        else
-        {
-          *__p = *v221;
-          *&__p[16] = v222;
-        }
-
-        YAML::InvalidNode::InvalidNode(v153, __p);
-      }
-
-      *__p = &v220;
-      YAML::as_if<std::string,void>::operator()(__p, &v215);
-      v64 = std::string::insert(&v215, 0, "Unsupported field for SendIntent found in flow file: ");
-      v216 = *v64;
-      v64->__r_.__value_.__l.__size_ = 0;
-      v64->__r_.__value_.__r.__words[2] = 0;
-      v64->__r_.__value_.__r.__words[0] = 0;
-      if ((v225 & 1) == 0)
+      if ((v219 & 1) == 0)
       {
         v152 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v228) < 0)
+        if (SHIBYTE(v221) < 0)
         {
-          std::string::__init_copy_ctor_external(__p, v227, *(&v227 + 1));
+          std::string::__init_copy_ctor_external(__p, v220[0], v220[1]);
         }
 
         else
         {
-          *__p = v227;
-          *&__p[16] = v228;
+          *__p = *v220;
+          *&__p[16] = v221;
         }
 
         YAML::InvalidNode::InvalidNode(v152, __p);
       }
 
-      if (v230)
+      *__p = &v219;
+      YAML::as_if<std::string,void>::operator()(__p, &v214);
+      v64 = std::string::insert(&v214, 0, "Unsupported field for SendIntent found in flow file: ");
+      v215 = *v64;
+      v64->__r_.__value_.__l.__size_ = 0;
+      v64->__r_.__value_.__r.__words[2] = 0;
+      v64->__r_.__value_.__r.__words[0] = 0;
+      if ((v224 & 1) == 0)
       {
-        v65 = *(**v230 + 8);
+        v151 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v227) < 0)
+        {
+          std::string::__init_copy_ctor_external(__p, v226, *(&v226 + 1));
+        }
+
+        else
+        {
+          *__p = v226;
+          *&__p[16] = v227;
+        }
+
+        YAML::InvalidNode::InvalidNode(v151, __p);
+      }
+
+      if (v229)
+      {
+        v65 = *(**v229 + 8);
       }
 
       else
@@ -2447,71 +2430,71 @@ LABEL_291:
         v65 = -1;
       }
 
-      siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, &v216, v65);
-      if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v216.__r_.__value_.__l.__data_);
-      }
-
+      siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, &v215, v65);
       if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v215.__r_.__value_.__l.__data_);
       }
+
+      if (SHIBYTE(v214.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v214.__r_.__value_.__l.__data_);
+      }
     }
 
-    if (v229)
+    if (v228)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v229);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v228);
     }
 
-    if (SHIBYTE(v228) < 0)
+    if (SHIBYTE(v227) < 0)
     {
-      operator delete(v227);
+      operator delete(v226);
     }
 
-    if (v224[0])
+    if (v223[0])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v224[0]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v223[0]);
     }
 
-    if (SHIBYTE(v222) < 0)
+    if (SHIBYTE(v221) < 0)
     {
-      operator delete(v221[0]);
+      operator delete(v220[0]);
     }
 
-    if (v218)
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
-    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v212);
+    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v211);
   }
 
-  if (v196)
+  if (v195)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v196);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v195);
   }
 
-  if (v213)
+  if (v212)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v212);
   }
 
-  YAML::Node::operator[]<char [3]>(v207, "id", v217);
-  v66 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [3]>(v216, v206, "id");
+  v66 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v66)
     {
       goto LABEL_371;
@@ -2523,33 +2506,33 @@ LABEL_291:
     goto LABEL_371;
   }
 
-  YAML::Node::operator[]<char [3]>(v207, "id", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [3]>(v216, v206, "id");
+  if ((v216[0] & 1) == 0)
   {
-    v173 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v172 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v173, v212);
+    YAML::InvalidNode::InvalidNode(v172, v211);
   }
 
-  v68 = v219 && (v67 = **v219, *v67 == 1) && *(v67 + 16) == 2;
-  if (v218)
+  v68 = v218 && (v67 = **v218, *v67 == 1) && *(v67 + 16) == 2;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v68)
     {
       goto LABEL_371;
@@ -2562,27 +2545,27 @@ LABEL_291:
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "Invalid string value found for 'id' on SendIntent");
-  YAML::Node::operator[]<char [3]>(v207, "id", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [3]>(v216, v206, "id");
+  if ((v216[0] & 1) == 0)
   {
-    v185 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v184 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v185, v212);
+    YAML::InvalidNode::InvalidNode(v184, v211);
   }
 
-  if (v219)
+  if (v218)
   {
-    v69 = *(**v219 + 8) + 1;
+    v69 = *(**v218 + 8) + 1;
   }
 
   else
@@ -2590,15 +2573,15 @@ LABEL_291:
     v69 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v69);
-  if (v218)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v69);
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
   }
 
   if ((__p[23] & 0x80000000) != 0)
@@ -2607,16 +2590,16 @@ LABEL_291:
   }
 
 LABEL_371:
-  YAML::Node::operator[]<char [5]>(v207, "name", v217);
-  v70 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [5]>(v216, v206, "name");
+  v70 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v70)
     {
       goto LABEL_403;
@@ -2628,33 +2611,33 @@ LABEL_371:
     goto LABEL_403;
   }
 
-  YAML::Node::operator[]<char [5]>(v207, "name", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [5]>(v216, v206, "name");
+  if ((v216[0] & 1) == 0)
   {
-    v174 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v173 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v174, v212);
+    YAML::InvalidNode::InvalidNode(v173, v211);
   }
 
-  v72 = v219 && (v71 = **v219, *v71 == 1) && *(v71 + 16) == 2;
-  if (v218)
+  v72 = v218 && (v71 = **v218, *v71 == 1) && *(v71 + 16) == 2;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v72)
     {
       goto LABEL_403;
@@ -2667,27 +2650,27 @@ LABEL_371:
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "Invalid string value found for 'name' on SendIntent");
-  YAML::Node::operator[]<char [5]>(v207, "name", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [5]>(v216, v206, "name");
+  if ((v216[0] & 1) == 0)
   {
-    v186 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v185 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v186, v212);
+    YAML::InvalidNode::InvalidNode(v185, v211);
   }
 
-  if (v219)
+  if (v218)
   {
-    v73 = *(**v219 + 8) + 1;
+    v73 = *(**v218 + 8) + 1;
   }
 
   else
@@ -2695,15 +2678,15 @@ LABEL_371:
     v73 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v73);
-  if (v218)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v73);
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
   }
 
   if ((__p[23] & 0x80000000) != 0)
@@ -2712,14 +2695,14 @@ LABEL_371:
   }
 
 LABEL_403:
-  YAML::Node::operator[]<char [6]>(v207, "slots", v217);
-  v74 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [6]>(v216, v206, "slots");
+  v74 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) == 0)
+  if ((v216[31] & 0x80000000) == 0)
   {
     if (v74)
     {
@@ -2727,33 +2710,33 @@ LABEL_403:
     }
 
 LABEL_414:
-    YAML::Node::operator[]<char [6]>(v207, "slots", v217);
-    if ((v217[0] & 1) == 0)
+    YAML::Node::operator[]<char [6]>(v216, v206, "slots");
+    if ((v216[0] & 1) == 0)
     {
-      v175 = __cxa_allocate_exception(0x38uLL);
-      if ((v217[31] & 0x80000000) != 0)
+      v174 = __cxa_allocate_exception(0x38uLL);
+      if ((v216[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+        std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
       }
 
       else
       {
-        *v212 = *&v217[8];
-        *&v212[16] = *&v217[24];
+        *v211 = *&v216[8];
+        *&v211[16] = *&v216[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v175, v212);
+      YAML::InvalidNode::InvalidNode(v174, v211);
     }
 
-    v76 = v219 && (v75 = **v219, *v75 == 1) && *(v75 + 16) == 3;
-    if (v218)
+    v76 = v218 && (v75 = **v218, *v75 == 1) && *(v75 + 16) == 3;
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
       if (v76)
       {
         goto LABEL_423;
@@ -2763,29 +2746,29 @@ LABEL_414:
     else if (v76)
     {
 LABEL_423:
-      YAML::Node::operator[]<char [6]>(v207, "slots", v212);
-      if ((v212[0] & 1) != 0 && v214)
+      YAML::Node::operator[]<char [6]>(v211, v206, "slots");
+      if ((v211[0] & 1) != 0 && v213)
       {
-        YAML::detail::node_data::begin(**v214, v217);
-        v78 = *&v212[32];
-        v77 = v213;
-        if (v213)
+        YAML::detail::node_data::begin(v216, **v213);
+        v78 = *&v211[32];
+        v77 = v212;
+        if (v212)
         {
-          atomic_fetch_add_explicit(&v213->__shared_owners_, 1uLL, memory_order_relaxed);
-          *__p = *v217;
-          *&__p[16] = *&v217[16];
+          atomic_fetch_add_explicit(&v212->__shared_owners_, 1uLL, memory_order_relaxed);
+          *__p = *v216;
+          *&__p[16] = *&v216[16];
           *&__p[32] = v78;
-          v211 = v77;
+          v210 = v77;
           atomic_fetch_add_explicit(&v77->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v77);
         }
 
         else
         {
-          *__p = *v217;
-          *&__p[16] = *&v217[16];
-          *&__p[32] = *&v212[32];
-          v211 = 0;
+          *__p = *v216;
+          *&__p[16] = *&v216[16];
+          *&__p[32] = *&v211[32];
+          v210 = 0;
         }
       }
 
@@ -2793,28 +2776,28 @@ LABEL_423:
       {
         *__p = 0;
         memset(&__p[8], 0, 32);
-        v211 = 0;
+        v210 = 0;
       }
 
-      if (v212[0] == 1 && v214)
+      if (v211[0] == 1 && v213)
       {
-        YAML::detail::node_data::end(**v214, v217);
-        v81 = v213;
-        if (v213)
+        YAML::detail::node_data::end(v216, **v213);
+        v81 = v212;
+        if (v212)
         {
-          atomic_fetch_add_explicit(&v213->__shared_owners_, 1uLL, memory_order_relaxed);
-          v82 = *v217;
-          v83 = *&v217[8];
-          v84 = *&v217[16];
+          atomic_fetch_add_explicit(&v212->__shared_owners_, 1uLL, memory_order_relaxed);
+          v82 = *v216;
+          v83 = *&v216[8];
+          v84 = *&v216[16];
           atomic_fetch_add_explicit(&v81->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v81);
         }
 
         else
         {
-          v82 = *v217;
-          v83 = *&v217[8];
-          v84 = *&v217[16];
+          v82 = *v216;
+          v83 = *&v216[8];
+          v84 = *&v216[16];
         }
       }
 
@@ -2849,36 +2832,36 @@ LABEL_423:
           }
         }
 
-        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(__p, v217);
-        siri::intelligence::ValidateFlowTest_KeyValueParameter(v217, a2, v87);
-        if (v229)
+        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(__p, v216);
+        siri::intelligence::ValidateFlowTest_KeyValueParameter(v216, a2, v87);
+        if (v228)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v229);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v228);
         }
 
-        if (SHIBYTE(v228) < 0)
+        if (SHIBYTE(v227) < 0)
         {
-          operator delete(v227);
+          operator delete(v226);
         }
 
-        if (v224[0])
+        if (v223[0])
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v224[0]);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v223[0]);
         }
 
-        if (SHIBYTE(v222) < 0)
+        if (SHIBYTE(v221) < 0)
         {
-          operator delete(v221[0]);
+          operator delete(v220[0]);
         }
 
-        if (v218)
+        if (v217)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v217);
         }
 
-        if ((v217[31] & 0x80000000) != 0)
+        if ((v216[31] & 0x80000000) != 0)
         {
-          operator delete(*&v217[8]);
+          operator delete(*&v216[8]);
         }
 
         YAML::detail::node_iterator_base<YAML::detail::node>::operator++(__p);
@@ -2889,71 +2872,71 @@ LABEL_423:
         std::__shared_weak_count::__release_shared[abi:ne200100](v81);
       }
 
-      if (v211)
+      if (v210)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v211);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v210);
       }
 
-      if (v213)
+      if (v212)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v212);
       }
 
-      if ((v212[31] & 0x80000000) == 0)
+      if ((v211[31] & 0x80000000) == 0)
       {
         goto LABEL_465;
       }
 
-      v80 = *&v212[8];
+      v80 = *&v211[8];
 LABEL_464:
       operator delete(v80);
       goto LABEL_465;
     }
 
-    YAML::Node::operator[]<char [6]>(v207, "slots", v217);
-    siri::intelligence::ValidateFlowTest_KeyValueParameter(v217, a2, v79);
-    if (v218)
+    YAML::Node::operator[]<char [6]>(v216, v206, "slots");
+    siri::intelligence::ValidateFlowTest_KeyValueParameter(v216, a2, v79);
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) == 0)
+    if ((v216[31] & 0x80000000) == 0)
     {
       goto LABEL_465;
     }
 
-    v80 = *&v217[8];
+    v80 = *&v216[8];
     goto LABEL_464;
   }
 
-  operator delete(*&v217[8]);
+  operator delete(*&v216[8]);
   if (!v74)
   {
     goto LABEL_414;
   }
 
 LABEL_465:
-  if (v208)
+  if (v207)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v208);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v207);
   }
 
-  if ((v207[31] & 0x80000000) != 0)
+  if ((v206[31] & 0x80000000) != 0)
   {
-    operator delete(*&v207[8]);
+    operator delete(*&v206[8]);
   }
 
 LABEL_469:
-  YAML::Node::operator[]<char [15]>(this, "assertResponse", v217);
-  v88 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [15]>(v216, this, "assertResponse");
+  v88 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v88)
     {
       goto LABEL_688;
@@ -2965,61 +2948,61 @@ LABEL_469:
     goto LABEL_688;
   }
 
-  YAML::Node::operator[]<char [15]>(this, "assertResponse", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [15]>(v216, this, "assertResponse");
+  if ((v216[0] & 1) == 0)
   {
-    v164 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v163 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v164, v212);
+    YAML::InvalidNode::InvalidNode(v163, v211);
   }
 
-  v90 = v219 && (v89 = **v219, *v89 == 1) && *(v89 + 16) == 3;
-  if (v218)
+  v90 = v218 && (v89 = **v218, *v89 == 1) && *(v89 + 16) == 3;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (!v90)
     {
       goto LABEL_501;
     }
 
 LABEL_491:
-    std::string::basic_string[abi:ne200100]<0>(v207, "Invalid array value found for 'assertResponse' on Step");
-    YAML::Node::operator[]<char [15]>(this, "assertResponse", v217);
-    if ((v217[0] & 1) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v206, "Invalid array value found for 'assertResponse' on Step");
+    YAML::Node::operator[]<char [15]>(v216, this, "assertResponse");
+    if ((v216[0] & 1) == 0)
     {
-      v172 = __cxa_allocate_exception(0x38uLL);
-      if ((v217[31] & 0x80000000) != 0)
+      v171 = __cxa_allocate_exception(0x38uLL);
+      if ((v216[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+        std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
       }
 
       else
       {
-        *v212 = *&v217[8];
-        *&v212[16] = *&v217[24];
+        *v211 = *&v216[8];
+        *&v211[16] = *&v216[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v172, v212);
+      YAML::InvalidNode::InvalidNode(v171, v211);
     }
 
-    if (v219)
+    if (v218)
     {
-      v91 = *(**v219 + 8) + 1;
+      v91 = *(**v218 + 8) + 1;
     }
 
     else
@@ -3027,20 +3010,20 @@ LABEL_491:
       v91 = 0;
     }
 
-    siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v207, v91);
-    if (v218)
+    siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v206, v91);
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
-    if ((v207[23] & 0x80000000) != 0)
+    if ((v206[23] & 0x80000000) != 0)
     {
-      operator delete(*v207);
+      operator delete(*v206);
     }
 
     goto LABEL_501;
@@ -3052,19 +3035,19 @@ LABEL_491:
   }
 
 LABEL_501:
-  YAML::Node::operator[]<char [15]>(this, "assertResponse", v207);
+  YAML::Node::operator[]<char [15]>(v206, this, "assertResponse");
   if ((atomic_load_explicit(&qword_280AF4048, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF4048))
   {
-    std::string::basic_string[abi:ne200100]<0>(v217, "id");
-    std::string::basic_string[abi:ne200100]<0>(&v217[24], "anyId");
-    std::string::basic_string[abi:ne200100]<0>(&v219, "allIds");
-    std::string::basic_string[abi:ne200100]<0>(&v221[1], "count");
-    std::set<std::string>::set[abi:ne200100](&qword_280AF40E8, v217, 4);
+    std::string::basic_string[abi:ne200100]<0>(v216, "id");
+    std::string::basic_string[abi:ne200100]<0>(&v216[24], "anyId");
+    std::string::basic_string[abi:ne200100]<0>(&v218, "allIds");
+    std::string::basic_string[abi:ne200100]<0>(&v220[1], "count");
+    std::set<std::string>::set[abi:ne200100](&qword_280AF40E8, v216, 4);
     for (m = 0; m != -12; m -= 3)
     {
-      if (*(&v223 + m * 8) < 0)
+      if (*(&v222 + m * 8) < 0)
       {
-        operator delete(v221[m + 1]);
+        operator delete(v220[m + 1]);
       }
     }
 
@@ -3072,76 +3055,76 @@ LABEL_501:
     __cxa_guard_release(&qword_280AF4048);
   }
 
-  if ((v207[0] & 1) != 0 && v209)
+  if ((v206[0] & 1) != 0 && v208)
   {
-    YAML::detail::node_data::begin(**v209, v217);
-    v93 = *&v207[32];
-    v92 = v208;
-    if (v208)
+    YAML::detail::node_data::begin(v216, **v208);
+    v93 = *&v206[32];
+    v92 = v207;
+    if (v207)
     {
-      atomic_fetch_add_explicit(&v208->__shared_owners_, 1uLL, memory_order_relaxed);
-      *v212 = *v217;
-      *&v212[16] = *&v217[16];
-      *&v212[32] = v93;
-      v213 = v92;
+      atomic_fetch_add_explicit(&v207->__shared_owners_, 1uLL, memory_order_relaxed);
+      *v211 = *v216;
+      *&v211[16] = *&v216[16];
+      *&v211[32] = v93;
+      v212 = v92;
       atomic_fetch_add_explicit(&v92->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v92);
     }
 
     else
     {
-      *v212 = *v217;
-      *&v212[16] = *&v217[16];
-      *&v212[32] = *&v207[32];
-      v213 = 0;
+      *v211 = *v216;
+      *&v211[16] = *&v216[16];
+      *&v211[32] = *&v206[32];
+      v212 = 0;
     }
   }
 
   else
   {
-    *v212 = 0;
-    memset(&v212[8], 0, 32);
-    v213 = 0;
+    *v211 = 0;
+    memset(&v211[8], 0, 32);
+    v212 = 0;
   }
 
-  if (v207[0] == 1 && v209)
+  if (v206[0] == 1 && v208)
   {
-    YAML::detail::node_data::end(**v209, v217);
-    v94 = v208;
-    if (v208)
+    YAML::detail::node_data::end(v216, **v208);
+    v94 = v207;
+    if (v207)
     {
-      atomic_fetch_add_explicit(&v208->__shared_owners_, 1uLL, memory_order_relaxed);
-      v95 = *v217;
-      v96 = *&v217[8];
-      v198 = v94;
-      v202 = *&v217[16];
+      atomic_fetch_add_explicit(&v207->__shared_owners_, 1uLL, memory_order_relaxed);
+      v95 = *v216;
+      v96 = *&v216[8];
+      v197 = v94;
+      v201 = *&v216[16];
       atomic_fetch_add_explicit(&v94->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v94);
     }
 
     else
     {
-      v95 = *v217;
-      v96 = *&v217[8];
-      v198 = 0;
-      v202 = *&v217[16];
+      v95 = *v216;
+      v96 = *&v216[8];
+      v197 = 0;
+      v201 = *&v216[16];
     }
   }
 
   else
   {
-    v198 = 0;
-    v202 = 0;
+    v197 = 0;
+    v201 = 0;
     v95 = 0;
     v96 = 0;
   }
 
   while (1)
   {
-    if (*v212 == v95)
+    if (*v211 == v95)
     {
       v97 = v96;
-      v98 = &v212[8];
+      v98 = &v211[8];
       if (v95 != 1)
       {
         if (v95 != 2)
@@ -3149,8 +3132,8 @@ LABEL_501:
           break;
         }
 
-        v97 = v202;
-        v98 = &v212[16];
+        v97 = v201;
+        v98 = &v211[16];
       }
 
       if (*v98 == v97)
@@ -3159,78 +3142,78 @@ LABEL_501:
       }
     }
 
-    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v212, v217);
-    if ((v220 & 1) == 0)
+    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v211, v216);
+    if ((v219 & 1) == 0)
     {
-      v148 = __cxa_allocate_exception(0x38uLL);
-      if (SHIBYTE(v222) < 0)
+      v147 = __cxa_allocate_exception(0x38uLL);
+      if (SHIBYTE(v221) < 0)
       {
-        std::string::__init_copy_ctor_external(__p, v221[0], v221[1]);
+        std::string::__init_copy_ctor_external(__p, v220[0], v220[1]);
       }
 
       else
       {
-        *__p = *v221;
-        *&__p[16] = v222;
+        *__p = *v220;
+        *&__p[16] = v221;
       }
 
-      YAML::InvalidNode::InvalidNode(v148, __p);
+      YAML::InvalidNode::InvalidNode(v147, __p);
     }
 
-    *__p = &v220;
-    YAML::as_if<std::string,void>::operator()(__p, &v216);
-    v99 = std::__tree<std::string>::find<std::string>(&qword_280AF40E8, &v216.__r_.__value_.__l.__data_);
-    if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
+    *__p = &v219;
+    YAML::as_if<std::string,void>::operator()(__p, &v215);
+    v99 = std::__tree<std::string>::find<std::string>(&qword_280AF40E8, &v215.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v216.__r_.__value_.__l.__data_);
+      operator delete(v215.__r_.__value_.__l.__data_);
     }
 
     if (v99 == &unk_280AF40F0)
     {
-      if ((v220 & 1) == 0)
-      {
-        v155 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v222) < 0)
-        {
-          std::string::__init_copy_ctor_external(__p, v221[0], v221[1]);
-        }
-
-        else
-        {
-          *__p = *v221;
-          *&__p[16] = v222;
-        }
-
-        YAML::InvalidNode::InvalidNode(v155, __p);
-      }
-
-      *__p = &v220;
-      YAML::as_if<std::string,void>::operator()(__p, &v215);
-      v100 = std::string::insert(&v215, 0, "Unsupported field for AssertResponse found in flow file: ");
-      v216 = *v100;
-      v100->__r_.__value_.__l.__size_ = 0;
-      v100->__r_.__value_.__r.__words[2] = 0;
-      v100->__r_.__value_.__r.__words[0] = 0;
-      if ((v225 & 1) == 0)
+      if ((v219 & 1) == 0)
       {
         v154 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v228) < 0)
+        if (SHIBYTE(v221) < 0)
         {
-          std::string::__init_copy_ctor_external(__p, v227, *(&v227 + 1));
+          std::string::__init_copy_ctor_external(__p, v220[0], v220[1]);
         }
 
         else
         {
-          *__p = v227;
-          *&__p[16] = v228;
+          *__p = *v220;
+          *&__p[16] = v221;
         }
 
         YAML::InvalidNode::InvalidNode(v154, __p);
       }
 
-      if (v230)
+      *__p = &v219;
+      YAML::as_if<std::string,void>::operator()(__p, &v214);
+      v100 = std::string::insert(&v214, 0, "Unsupported field for AssertResponse found in flow file: ");
+      v215 = *v100;
+      v100->__r_.__value_.__l.__size_ = 0;
+      v100->__r_.__value_.__r.__words[2] = 0;
+      v100->__r_.__value_.__r.__words[0] = 0;
+      if ((v224 & 1) == 0)
       {
-        v101 = *(**v230 + 8);
+        v153 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v227) < 0)
+        {
+          std::string::__init_copy_ctor_external(__p, v226, *(&v226 + 1));
+        }
+
+        else
+        {
+          *__p = v226;
+          *&__p[16] = v227;
+        }
+
+        YAML::InvalidNode::InvalidNode(v153, __p);
+      }
+
+      if (v229)
+      {
+        v101 = *(**v229 + 8);
       }
 
       else
@@ -3238,71 +3221,71 @@ LABEL_501:
         v101 = -1;
       }
 
-      siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, &v216, v101);
-      if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v216.__r_.__value_.__l.__data_);
-      }
-
+      siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, &v215, v101);
       if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v215.__r_.__value_.__l.__data_);
       }
+
+      if (SHIBYTE(v214.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v214.__r_.__value_.__l.__data_);
+      }
     }
 
-    if (v229)
+    if (v228)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v229);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v228);
     }
 
-    if (SHIBYTE(v228) < 0)
+    if (SHIBYTE(v227) < 0)
     {
-      operator delete(v227);
+      operator delete(v226);
     }
 
-    if (v224[0])
+    if (v223[0])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v224[0]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v223[0]);
     }
 
-    if (SHIBYTE(v222) < 0)
+    if (SHIBYTE(v221) < 0)
     {
-      operator delete(v221[0]);
+      operator delete(v220[0]);
     }
 
-    if (v218)
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
-    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v212);
+    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v211);
   }
 
-  if (v198)
+  if (v197)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v198);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v197);
   }
 
-  if (v213)
+  if (v212)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v212);
   }
 
-  YAML::Node::operator[]<char [3]>(v207, "id", v217);
-  v102 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [3]>(v216, v206, "id");
+  v102 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v102)
     {
       goto LABEL_581;
@@ -3314,33 +3297,33 @@ LABEL_501:
     goto LABEL_581;
   }
 
-  YAML::Node::operator[]<char [3]>(v207, "id", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [3]>(v216, v206, "id");
+  if ((v216[0] & 1) == 0)
   {
-    v177 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v176 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v177, v212);
+    YAML::InvalidNode::InvalidNode(v176, v211);
   }
 
-  v104 = v219 && (v103 = **v219, *v103 == 1) && *(v103 + 16) == 2;
-  if (v218)
+  v104 = v218 && (v103 = **v218, *v103 == 1) && *(v103 + 16) == 2;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v104)
     {
       goto LABEL_581;
@@ -3353,27 +3336,27 @@ LABEL_501:
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "Invalid string value found for 'id' on AssertResponse");
-  YAML::Node::operator[]<char [3]>(v207, "id", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [3]>(v216, v206, "id");
+  if ((v216[0] & 1) == 0)
   {
-    v187 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v186 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v187, v212);
+    YAML::InvalidNode::InvalidNode(v186, v211);
   }
 
-  if (v219)
+  if (v218)
   {
-    v105 = *(**v219 + 8) + 1;
+    v105 = *(**v218 + 8) + 1;
   }
 
   else
@@ -3381,15 +3364,15 @@ LABEL_501:
     v105 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v105);
-  if (v218)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v105);
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
   }
 
   if ((__p[23] & 0x80000000) != 0)
@@ -3398,16 +3381,16 @@ LABEL_501:
   }
 
 LABEL_581:
-  YAML::Node::operator[]<char [6]>(v207, "anyId", v217);
-  v106 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [6]>(v216, v206, "anyId");
+  v106 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v106)
     {
       goto LABEL_613;
@@ -3419,33 +3402,33 @@ LABEL_581:
     goto LABEL_613;
   }
 
-  YAML::Node::operator[]<char [6]>(v207, "anyId", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [6]>(v216, v206, "anyId");
+  if ((v216[0] & 1) == 0)
   {
-    v178 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v177 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v178, v212);
+    YAML::InvalidNode::InvalidNode(v177, v211);
   }
 
-  v108 = v219 && (v107 = **v219, *v107 == 1) && *(v107 + 16) == 4;
-  if (v218)
+  v108 = v218 && (v107 = **v218, *v107 == 1) && *(v107 + 16) == 4;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (!v108)
     {
       goto LABEL_613;
@@ -3458,27 +3441,27 @@ LABEL_581:
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "Found a map instead of an array value for 'anyId' on AssertResponse");
-  YAML::Node::operator[]<char [6]>(v207, "anyId", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [6]>(v216, v206, "anyId");
+  if ((v216[0] & 1) == 0)
   {
-    v188 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v187 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v188, v212);
+    YAML::InvalidNode::InvalidNode(v187, v211);
   }
 
-  if (v219)
+  if (v218)
   {
-    v109 = *(**v219 + 8) + 1;
+    v109 = *(**v218 + 8) + 1;
   }
 
   else
@@ -3486,15 +3469,15 @@ LABEL_581:
     v109 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v109);
-  if (v218)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v109);
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
   }
 
   if ((__p[23] & 0x80000000) != 0)
@@ -3503,16 +3486,16 @@ LABEL_581:
   }
 
 LABEL_613:
-  YAML::Node::operator[]<char [7]>(v207, "allIds", v217);
-  v110 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [7]>(v216, v206, "allIds");
+  v110 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v110)
     {
       goto LABEL_645;
@@ -3524,33 +3507,33 @@ LABEL_613:
     goto LABEL_645;
   }
 
-  YAML::Node::operator[]<char [7]>(v207, "allIds", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [7]>(v216, v206, "allIds");
+  if ((v216[0] & 1) == 0)
   {
-    v179 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v178 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v179, v212);
+    YAML::InvalidNode::InvalidNode(v178, v211);
   }
 
-  v112 = v219 && (v111 = **v219, *v111 == 1) && *(v111 + 16) == 4;
-  if (v218)
+  v112 = v218 && (v111 = **v218, *v111 == 1) && *(v111 + 16) == 4;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (!v112)
     {
       goto LABEL_645;
@@ -3563,27 +3546,27 @@ LABEL_613:
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "Found a map instead of an array value for 'allIds' on AssertResponse");
-  YAML::Node::operator[]<char [7]>(v207, "allIds", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [7]>(v216, v206, "allIds");
+  if ((v216[0] & 1) == 0)
   {
-    v189 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v188 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v189, v212);
+    YAML::InvalidNode::InvalidNode(v188, v211);
   }
 
-  if (v219)
+  if (v218)
   {
-    v113 = *(**v219 + 8) + 1;
+    v113 = *(**v218 + 8) + 1;
   }
 
   else
@@ -3591,15 +3574,15 @@ LABEL_613:
     v113 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v113);
-  if (v218)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v113);
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
   }
 
   if ((__p[23] & 0x80000000) != 0)
@@ -3608,16 +3591,16 @@ LABEL_613:
   }
 
 LABEL_645:
-  YAML::Node::operator[]<char [6]>(v207, "count", v217);
-  v114 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [6]>(v216, v206, "count");
+  v114 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v114)
     {
       goto LABEL_684;
@@ -3629,61 +3612,61 @@ LABEL_645:
     goto LABEL_684;
   }
 
-  YAML::Node::operator[]<char [6]>(v207, "count", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [6]>(v216, v206, "count");
+  if ((v216[0] & 1) == 0)
   {
-    v180 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v179 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v180, v212);
+    YAML::InvalidNode::InvalidNode(v179, v211);
   }
 
-  if (v219 && (v115 = **v219, (*v115 & 1) != 0) && *(v115 + 16) == 2)
+  if (v218 && (v115 = **v218, (*v115 & 1) != 0) && *(v115 + 16) == 2)
   {
-    YAML::Node::operator[]<char [6]>(v207, "count", v212);
-    if ((v212[0] & 1) == 0)
+    YAML::Node::operator[]<char [6]>(v211, v206, "count");
+    if ((v211[0] & 1) == 0)
     {
-      v193 = __cxa_allocate_exception(0x38uLL);
-      if ((v212[31] & 0x80000000) != 0)
+      v192 = __cxa_allocate_exception(0x38uLL);
+      if ((v211[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(__p, *&v212[8], *&v212[16]);
+        std::string::__init_copy_ctor_external(__p, *&v211[8], *&v211[16]);
       }
 
       else
       {
-        *__p = *&v212[8];
-        *&__p[16] = *&v212[24];
+        *__p = *&v211[8];
+        *&__p[16] = *&v211[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v193, __p);
+      YAML::InvalidNode::InvalidNode(v192, __p);
     }
 
-    *__p = v212;
-    YAML::as_if<std::string,void>::operator()(__p, &v216);
-    IsANumber = siri::intelligence::StringIsANumber(&v216);
-    if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
+    *__p = v211;
+    YAML::as_if<std::string,void>::operator()(__p, &v215);
+    IsANumber = siri::intelligence::StringIsANumber(&v215);
+    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v216.__r_.__value_.__l.__data_);
+      operator delete(v215.__r_.__value_.__l.__data_);
     }
 
-    if (v213)
+    if (v212)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v212);
     }
 
     v117 = IsANumber ^ 1;
-    if ((v212[31] & 0x80000000) != 0)
+    if ((v211[31] & 0x80000000) != 0)
     {
-      operator delete(*&v212[8]);
+      operator delete(*&v211[8]);
     }
   }
 
@@ -3692,12 +3675,12 @@ LABEL_645:
     v117 = 1;
   }
 
-  if (v218)
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) == 0)
+  if ((v216[31] & 0x80000000) == 0)
   {
     if (!v117)
     {
@@ -3706,27 +3689,27 @@ LABEL_645:
 
 LABEL_674:
     std::string::basic_string[abi:ne200100]<0>(__p, "Invalid int32 value found for 'count' on AssertResponse");
-    YAML::Node::operator[]<char [6]>(v207, "count", v217);
-    if ((v217[0] & 1) == 0)
+    YAML::Node::operator[]<char [6]>(v216, v206, "count");
+    if ((v216[0] & 1) == 0)
     {
-      v190 = __cxa_allocate_exception(0x38uLL);
-      if ((v217[31] & 0x80000000) != 0)
+      v189 = __cxa_allocate_exception(0x38uLL);
+      if ((v216[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+        std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
       }
 
       else
       {
-        *v212 = *&v217[8];
-        *&v212[16] = *&v217[24];
+        *v211 = *&v216[8];
+        *&v211[16] = *&v216[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v190, v212);
+      YAML::InvalidNode::InvalidNode(v189, v211);
     }
 
-    if (v219)
+    if (v218)
     {
-      v118 = *(**v219 + 8) + 1;
+      v118 = *(**v218 + 8) + 1;
     }
 
     else
@@ -3734,15 +3717,15 @@ LABEL_674:
       v118 = 0;
     }
 
-    siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v118);
-    if (v218)
+    siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v118);
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
     if ((__p[23] & 0x80000000) != 0)
@@ -3753,100 +3736,100 @@ LABEL_674:
     goto LABEL_684;
   }
 
-  operator delete(*&v217[8]);
+  operator delete(*&v216[8]);
   if (v117)
   {
     goto LABEL_674;
   }
 
 LABEL_684:
-  if (v208)
+  if (v207)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v208);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v207);
   }
 
-  if ((v207[31] & 0x80000000) != 0)
+  if ((v206[31] & 0x80000000) != 0)
   {
-    operator delete(*&v207[8]);
+    operator delete(*&v206[8]);
   }
 
 LABEL_688:
-  YAML::Node::operator[]<char [16]>(this, "assertCondition", v217);
-  v119 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [16]>(v216, this, "assertCondition");
+  v119 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v119)
     {
-      goto LABEL_843;
+      return;
     }
   }
 
   else if (v119)
   {
-    goto LABEL_843;
+    return;
   }
 
-  YAML::Node::operator[]<char [16]>(this, "assertCondition", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [16]>(v216, this, "assertCondition");
+  if ((v216[0] & 1) == 0)
   {
-    v166 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v165 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v166, v212);
+    YAML::InvalidNode::InvalidNode(v165, v211);
   }
 
-  v121 = v219 && (v120 = **v219, *v120 == 1) && *(v120 + 16) == 3;
-  if (v218)
+  v121 = v218 && (v120 = **v218, *v120 == 1) && *(v120 + 16) == 3;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (!v121)
     {
       goto LABEL_720;
     }
 
 LABEL_710:
-    std::string::basic_string[abi:ne200100]<0>(v207, "Invalid array value found for 'assertCondition' on Step");
-    YAML::Node::operator[]<char [16]>(this, "assertCondition", v217);
-    if ((v217[0] & 1) == 0)
+    std::string::basic_string[abi:ne200100]<0>(v206, "Invalid array value found for 'assertCondition' on Step");
+    YAML::Node::operator[]<char [16]>(v216, this, "assertCondition");
+    if ((v216[0] & 1) == 0)
     {
-      v176 = __cxa_allocate_exception(0x38uLL);
-      if ((v217[31] & 0x80000000) != 0)
+      v175 = __cxa_allocate_exception(0x38uLL);
+      if ((v216[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+        std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
       }
 
       else
       {
-        *v212 = *&v217[8];
-        *&v212[16] = *&v217[24];
+        *v211 = *&v216[8];
+        *&v211[16] = *&v216[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v176, v212);
+      YAML::InvalidNode::InvalidNode(v175, v211);
     }
 
-    if (v219)
+    if (v218)
     {
-      v122 = *(**v219 + 8) + 1;
+      v122 = *(**v218 + 8) + 1;
     }
 
     else
@@ -3854,20 +3837,20 @@ LABEL_710:
       v122 = 0;
     }
 
-    siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v207, v122);
-    if (v218)
+    siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v206, v122);
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
-    if ((v207[23] & 0x80000000) != 0)
+    if ((v206[23] & 0x80000000) != 0)
     {
-      operator delete(*v207);
+      operator delete(*v206);
     }
 
     goto LABEL_720;
@@ -3879,17 +3862,17 @@ LABEL_710:
   }
 
 LABEL_720:
-  YAML::Node::operator[]<char [16]>(this, "assertCondition", v207);
+  YAML::Node::operator[]<char [16]>(v206, this, "assertCondition");
   if ((atomic_load_explicit(&qword_280AF4050, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF4050))
   {
-    std::string::basic_string[abi:ne200100]<0>(v217, "id");
-    std::string::basic_string[abi:ne200100]<0>(&v217[24], "value");
-    std::set<std::string>::set[abi:ne200100](&qword_280AF4100, v217, 2);
+    std::string::basic_string[abi:ne200100]<0>(v216, "id");
+    std::string::basic_string[abi:ne200100]<0>(&v216[24], "value");
+    std::set<std::string>::set[abi:ne200100](&qword_280AF4100, v216, 2);
     for (n = 0; n != -6; n -= 3)
     {
-      if (SHIBYTE((&v218)[n]) < 0)
+      if (SHIBYTE((&v217)[n]) < 0)
       {
-        operator delete(*&v217[n * 8 + 24]);
+        operator delete(*&v216[n * 8 + 24]);
       }
     }
 
@@ -3897,76 +3880,76 @@ LABEL_720:
     __cxa_guard_release(&qword_280AF4050);
   }
 
-  if ((v207[0] & 1) != 0 && v209)
+  if ((v206[0] & 1) != 0 && v208)
   {
-    YAML::detail::node_data::begin(**v209, v217);
-    v124 = *&v207[32];
-    v123 = v208;
-    if (v208)
+    YAML::detail::node_data::begin(v216, **v208);
+    v124 = *&v206[32];
+    v123 = v207;
+    if (v207)
     {
-      atomic_fetch_add_explicit(&v208->__shared_owners_, 1uLL, memory_order_relaxed);
-      *v212 = *v217;
-      *&v212[16] = *&v217[16];
-      *&v212[32] = v124;
-      v213 = v123;
+      atomic_fetch_add_explicit(&v207->__shared_owners_, 1uLL, memory_order_relaxed);
+      *v211 = *v216;
+      *&v211[16] = *&v216[16];
+      *&v211[32] = v124;
+      v212 = v123;
       atomic_fetch_add_explicit(&v123->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v123);
     }
 
     else
     {
-      *v212 = *v217;
-      *&v212[16] = *&v217[16];
-      *&v212[32] = *&v207[32];
-      v213 = 0;
+      *v211 = *v216;
+      *&v211[16] = *&v216[16];
+      *&v211[32] = *&v206[32];
+      v212 = 0;
     }
   }
 
   else
   {
-    *v212 = 0;
-    memset(&v212[8], 0, 32);
-    v213 = 0;
+    *v211 = 0;
+    memset(&v211[8], 0, 32);
+    v212 = 0;
   }
 
-  if (v207[0] == 1 && v209)
+  if (v206[0] == 1 && v208)
   {
-    YAML::detail::node_data::end(**v209, v217);
-    v125 = v208;
-    if (v208)
+    YAML::detail::node_data::end(v216, **v208);
+    v125 = v207;
+    if (v207)
     {
-      atomic_fetch_add_explicit(&v208->__shared_owners_, 1uLL, memory_order_relaxed);
-      v126 = *v217;
-      v127 = *&v217[8];
-      v203 = v125;
-      v205 = *&v217[16];
+      atomic_fetch_add_explicit(&v207->__shared_owners_, 1uLL, memory_order_relaxed);
+      v126 = *v216;
+      v127 = *&v216[8];
+      v202 = v125;
+      v204 = *&v216[16];
       atomic_fetch_add_explicit(&v125->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v125);
     }
 
     else
     {
-      v126 = *v217;
-      v127 = *&v217[8];
-      v203 = 0;
-      v205 = *&v217[16];
+      v126 = *v216;
+      v127 = *&v216[8];
+      v202 = 0;
+      v204 = *&v216[16];
     }
   }
 
   else
   {
-    v203 = 0;
-    v205 = 0;
+    v202 = 0;
+    v204 = 0;
     v126 = 0;
     v127 = 0;
   }
 
   while (1)
   {
-    if (*v212 == v126)
+    if (*v211 == v126)
     {
       v128 = v127;
-      v129 = &v212[8];
+      v129 = &v211[8];
       if (v126 != 1)
       {
         if (v126 != 2)
@@ -3974,8 +3957,8 @@ LABEL_720:
           break;
         }
 
-        v128 = v205;
-        v129 = &v212[16];
+        v128 = v204;
+        v129 = &v211[16];
       }
 
       if (*v129 == v128)
@@ -3984,78 +3967,78 @@ LABEL_720:
       }
     }
 
-    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v212, v217);
-    if ((v220 & 1) == 0)
+    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v211, v216);
+    if ((v219 & 1) == 0)
     {
-      v149 = __cxa_allocate_exception(0x38uLL);
-      if (SHIBYTE(v222) < 0)
+      v148 = __cxa_allocate_exception(0x38uLL);
+      if (SHIBYTE(v221) < 0)
       {
-        std::string::__init_copy_ctor_external(__p, v221[0], v221[1]);
+        std::string::__init_copy_ctor_external(__p, v220[0], v220[1]);
       }
 
       else
       {
-        *__p = *v221;
-        *&__p[16] = v222;
+        *__p = *v220;
+        *&__p[16] = v221;
       }
 
-      YAML::InvalidNode::InvalidNode(v149, __p);
+      YAML::InvalidNode::InvalidNode(v148, __p);
     }
 
-    *__p = &v220;
-    YAML::as_if<std::string,void>::operator()(__p, &v216);
-    v130 = std::__tree<std::string>::find<std::string>(&qword_280AF4100, &v216.__r_.__value_.__l.__data_);
-    if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
+    *__p = &v219;
+    YAML::as_if<std::string,void>::operator()(__p, &v215);
+    v130 = std::__tree<std::string>::find<std::string>(&qword_280AF4100, &v215.__r_.__value_.__l.__data_);
+    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v216.__r_.__value_.__l.__data_);
+      operator delete(v215.__r_.__value_.__l.__data_);
     }
 
     if (v130 == &unk_280AF4108)
     {
-      if ((v220 & 1) == 0)
-      {
-        v157 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v222) < 0)
-        {
-          std::string::__init_copy_ctor_external(__p, v221[0], v221[1]);
-        }
-
-        else
-        {
-          *__p = *v221;
-          *&__p[16] = v222;
-        }
-
-        YAML::InvalidNode::InvalidNode(v157, __p);
-      }
-
-      *__p = &v220;
-      YAML::as_if<std::string,void>::operator()(__p, &v215);
-      v131 = std::string::insert(&v215, 0, "Unsupported field for AssertCondition found in flow file: ");
-      v216 = *v131;
-      v131->__r_.__value_.__l.__size_ = 0;
-      v131->__r_.__value_.__r.__words[2] = 0;
-      v131->__r_.__value_.__r.__words[0] = 0;
-      if ((v225 & 1) == 0)
+      if ((v219 & 1) == 0)
       {
         v156 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v228) < 0)
+        if (SHIBYTE(v221) < 0)
         {
-          std::string::__init_copy_ctor_external(__p, v227, *(&v227 + 1));
+          std::string::__init_copy_ctor_external(__p, v220[0], v220[1]);
         }
 
         else
         {
-          *__p = v227;
-          *&__p[16] = v228;
+          *__p = *v220;
+          *&__p[16] = v221;
         }
 
         YAML::InvalidNode::InvalidNode(v156, __p);
       }
 
-      if (v230)
+      *__p = &v219;
+      YAML::as_if<std::string,void>::operator()(__p, &v214);
+      v131 = std::string::insert(&v214, 0, "Unsupported field for AssertCondition found in flow file: ");
+      v215 = *v131;
+      v131->__r_.__value_.__l.__size_ = 0;
+      v131->__r_.__value_.__r.__words[2] = 0;
+      v131->__r_.__value_.__r.__words[0] = 0;
+      if ((v224 & 1) == 0)
       {
-        v132 = *(**v230 + 8);
+        v155 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v227) < 0)
+        {
+          std::string::__init_copy_ctor_external(__p, v226, *(&v226 + 1));
+        }
+
+        else
+        {
+          *__p = v226;
+          *&__p[16] = v227;
+        }
+
+        YAML::InvalidNode::InvalidNode(v155, __p);
+      }
+
+      if (v229)
+      {
+        v132 = *(**v229 + 8);
       }
 
       else
@@ -4063,71 +4046,71 @@ LABEL_720:
         v132 = -1;
       }
 
-      siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, &v216, v132);
-      if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v216.__r_.__value_.__l.__data_);
-      }
-
+      siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, &v215, v132);
       if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v215.__r_.__value_.__l.__data_);
       }
+
+      if (SHIBYTE(v214.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v214.__r_.__value_.__l.__data_);
+      }
     }
 
-    if (v229)
+    if (v228)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v229);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v228);
     }
 
-    if (SHIBYTE(v228) < 0)
+    if (SHIBYTE(v227) < 0)
     {
-      operator delete(v227);
+      operator delete(v226);
     }
 
-    if (v224[0])
+    if (v223[0])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v224[0]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v223[0]);
     }
 
-    if (SHIBYTE(v222) < 0)
+    if (SHIBYTE(v221) < 0)
     {
-      operator delete(v221[0]);
+      operator delete(v220[0]);
     }
 
-    if (v218)
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
-    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v212);
+    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v211);
   }
 
-  if (v203)
+  if (v202)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v203);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v202);
   }
 
-  if (v213)
+  if (v212)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v212);
   }
 
-  YAML::Node::operator[]<char [3]>(v207, "id", v217);
-  v133 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [3]>(v216, v206, "id");
+  v133 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v133)
     {
       goto LABEL_800;
@@ -4139,33 +4122,33 @@ LABEL_720:
     goto LABEL_800;
   }
 
-  YAML::Node::operator[]<char [3]>(v207, "id", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [3]>(v216, v206, "id");
+  if ((v216[0] & 1) == 0)
   {
-    v181 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v180 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v181, v212);
+    YAML::InvalidNode::InvalidNode(v180, v211);
   }
 
-  v135 = v219 && (v134 = **v219, *v134 == 1) && *(v134 + 16) == 2;
-  if (v218)
+  v135 = v218 && (v134 = **v218, *v134 == 1) && *(v134 + 16) == 2;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v135)
     {
       goto LABEL_800;
@@ -4178,27 +4161,27 @@ LABEL_720:
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "Invalid string value found for 'id' on AssertCondition");
-  YAML::Node::operator[]<char [3]>(v207, "id", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [3]>(v216, v206, "id");
+  if ((v216[0] & 1) == 0)
   {
-    v191 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v190 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v191, v212);
+    YAML::InvalidNode::InvalidNode(v190, v211);
   }
 
-  if (v219)
+  if (v218)
   {
-    v136 = *(**v219 + 8) + 1;
+    v136 = *(**v218 + 8) + 1;
   }
 
   else
@@ -4206,15 +4189,15 @@ LABEL_720:
     v136 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v136);
-  if (v218)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v136);
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
   }
 
   if ((__p[23] & 0x80000000) != 0)
@@ -4223,16 +4206,16 @@ LABEL_720:
   }
 
 LABEL_800:
-  YAML::Node::operator[]<char [6]>(v207, "value", v217);
-  v137 = v217[0] != 1 || v219 && (***v219 & 1) == 0;
-  if (v218)
+  YAML::Node::operator[]<char [6]>(v216, v206, "value");
+  v137 = v216[0] != 1 || v218 && (***v218 & 1) == 0;
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) != 0)
+  if ((v216[31] & 0x80000000) != 0)
   {
-    operator delete(*&v217[8]);
+    operator delete(*&v216[8]);
     if (v137)
     {
       goto LABEL_839;
@@ -4244,61 +4227,61 @@ LABEL_800:
     goto LABEL_839;
   }
 
-  YAML::Node::operator[]<char [6]>(v207, "value", v217);
-  if ((v217[0] & 1) == 0)
+  YAML::Node::operator[]<char [6]>(v216, v206, "value");
+  if ((v216[0] & 1) == 0)
   {
-    v182 = __cxa_allocate_exception(0x38uLL);
-    if ((v217[31] & 0x80000000) != 0)
+    v181 = __cxa_allocate_exception(0x38uLL);
+    if ((v216[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+      std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
     }
 
     else
     {
-      *v212 = *&v217[8];
-      *&v212[16] = *&v217[24];
+      *v211 = *&v216[8];
+      *&v211[16] = *&v216[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v182, v212);
+    YAML::InvalidNode::InvalidNode(v181, v211);
   }
 
-  if (v219 && (v138 = **v219, (*v138 & 1) != 0) && *(v138 + 16) == 2)
+  if (v218 && (v138 = **v218, (*v138 & 1) != 0) && *(v138 + 16) == 2)
   {
-    YAML::Node::operator[]<char [6]>(v207, "value", v212);
-    if ((v212[0] & 1) == 0)
+    YAML::Node::operator[]<char [6]>(v211, v206, "value");
+    if ((v211[0] & 1) == 0)
     {
-      v194 = __cxa_allocate_exception(0x38uLL);
-      if ((v212[31] & 0x80000000) != 0)
+      v193 = __cxa_allocate_exception(0x38uLL);
+      if ((v211[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(__p, *&v212[8], *&v212[16]);
+        std::string::__init_copy_ctor_external(__p, *&v211[8], *&v211[16]);
       }
 
       else
       {
-        *__p = *&v212[8];
-        *&__p[16] = *&v212[24];
+        *__p = *&v211[8];
+        *&__p[16] = *&v211[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v194, __p);
+      YAML::InvalidNode::InvalidNode(v193, __p);
     }
 
-    *__p = v212;
-    YAML::as_if<std::string,void>::operator()(__p, &v216);
-    IsBool = siri::intelligence::StringIsBool(&v216);
-    if (SHIBYTE(v216.__r_.__value_.__r.__words[2]) < 0)
+    *__p = v211;
+    YAML::as_if<std::string,void>::operator()(__p, &v215);
+    IsBool = siri::intelligence::StringIsBool(&v215);
+    if (SHIBYTE(v215.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v216.__r_.__value_.__l.__data_);
+      operator delete(v215.__r_.__value_.__l.__data_);
     }
 
-    if (v213)
+    if (v212)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v213);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v212);
     }
 
     v140 = !IsBool;
-    if ((v212[31] & 0x80000000) != 0)
+    if ((v211[31] & 0x80000000) != 0)
     {
-      operator delete(*&v212[8]);
+      operator delete(*&v211[8]);
     }
   }
 
@@ -4307,12 +4290,12 @@ LABEL_800:
     v140 = 1;
   }
 
-  if (v218)
+  if (v217)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v217);
   }
 
-  if ((v217[31] & 0x80000000) == 0)
+  if ((v216[31] & 0x80000000) == 0)
   {
     if (!v140)
     {
@@ -4321,27 +4304,27 @@ LABEL_800:
 
 LABEL_829:
     std::string::basic_string[abi:ne200100]<0>(__p, "Invalid BOOL value found for 'value' on AssertCondition");
-    YAML::Node::operator[]<char [6]>(v207, "value", v217);
-    if ((v217[0] & 1) == 0)
+    YAML::Node::operator[]<char [6]>(v216, v206, "value");
+    if ((v216[0] & 1) == 0)
     {
-      v192 = __cxa_allocate_exception(0x38uLL);
-      if ((v217[31] & 0x80000000) != 0)
+      v191 = __cxa_allocate_exception(0x38uLL);
+      if ((v216[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v212, *&v217[8], *&v217[16]);
+        std::string::__init_copy_ctor_external(v211, *&v216[8], *&v216[16]);
       }
 
       else
       {
-        *v212 = *&v217[8];
-        *&v212[16] = *&v217[24];
+        *v211 = *&v216[8];
+        *&v211[16] = *&v216[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v192, v212);
+      YAML::InvalidNode::InvalidNode(v191, v211);
     }
 
-    if (v219)
+    if (v218)
     {
-      v141 = *(**v219 + 8) + 1;
+      v141 = *(**v218 + 8) + 1;
     }
 
     else
@@ -4349,15 +4332,15 @@ LABEL_829:
       v141 = 0;
     }
 
-    siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, __p, v141);
-    if (v218)
+    siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, __p, v141);
+    if (v217)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v218);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v217);
     }
 
-    if ((v217[31] & 0x80000000) != 0)
+    if ((v216[31] & 0x80000000) != 0)
     {
-      operator delete(*&v217[8]);
+      operator delete(*&v216[8]);
     }
 
     if ((__p[23] & 0x80000000) != 0)
@@ -4368,25 +4351,22 @@ LABEL_829:
     goto LABEL_839;
   }
 
-  operator delete(*&v217[8]);
+  operator delete(*&v216[8]);
   if (v140)
   {
     goto LABEL_829;
   }
 
 LABEL_839:
-  if (v208)
+  if (v207)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v208);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v207);
   }
 
-  if ((v207[31] & 0x80000000) != 0)
+  if ((v206[31] & 0x80000000) != 0)
   {
-    operator delete(*&v207[8]);
+    operator delete(*&v206[8]);
   }
-
-LABEL_843:
-  v142 = *MEMORY[0x277D85DE8];
 }
 
 void sub_254CA1024(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56, void *__p, uint64_t a58, int a59, __int16 a60, char a61, char a62)
@@ -4424,7 +4404,7 @@ void sub_254CA1A78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   JUMPOUT(0x254CA1A8CLL);
 }
 
-void YAML::Node::operator[]<char [7]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [7]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -4444,7 +4424,7 @@ void YAML::Node::operator[]<char [7]>(YAML::Node *this@<X0>, char *a2@<X1>, uint
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -4470,26 +4450,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -4501,16 +4481,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [7],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [7],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -4520,10 +4500,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -4559,9 +4539,9 @@ uint64_t streamable_to_string<char [5],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA1E6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA1E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4588,9 +4568,9 @@ uint64_t streamable_to_string<char [12],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA2018(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA2018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -4617,14 +4597,14 @@ uint64_t streamable_to_string<char [8],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA21C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA21C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-void YAML::Node::operator[]<char [13]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [13]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -4644,7 +4624,7 @@ void YAML::Node::operator[]<char [13]>(YAML::Node *this@<X0>, char *a2@<X1>, uin
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -4670,26 +4650,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -4701,16 +4681,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [13],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [13],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -4720,10 +4700,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -4737,24 +4717,24 @@ void sub_254CA2390(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *this, const YAML::Node *a2, siri::intelligence::ValidationResults *a3)
+void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *this, uint64_t **a2, siri::intelligence::ValidationResults *a3)
 {
   v3 = this;
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&qword_280AF4030, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_280AF4030))
   {
-    std::string::basic_string[abi:ne200100]<0>(v90, "key");
-    std::string::basic_string[abi:ne200100]<0>(&v90[24], "valueNumber");
-    std::string::basic_string[abi:ne200100]<0>(&v92, "valueBoolean");
-    std::string::basic_string[abi:ne200100]<0>(&v94 + 8, "valueString");
-    std::string::basic_string[abi:ne200100]<0>(&v96, "valueArray");
-    std::string::basic_string[abi:ne200100]<0>(v98, "valueDictionary");
-    std::set<std::string>::set[abi:ne200100](&qword_280AF40A0, v90, 6);
+    std::string::basic_string[abi:ne200100]<0>(v89, "key");
+    std::string::basic_string[abi:ne200100]<0>(&v89[24], "valueNumber");
+    std::string::basic_string[abi:ne200100]<0>(&v91, "valueBoolean");
+    std::string::basic_string[abi:ne200100]<0>(&v93 + 1, "valueString");
+    std::string::basic_string[abi:ne200100]<0>(&v95, "valueArray");
+    std::string::basic_string[abi:ne200100]<0>(v97, "valueDictionary");
+    std::set<std::string>::set[abi:ne200100](&qword_280AF40A0, v89, 6);
     for (i = 0; i != -18; i -= 3)
     {
-      if (SHIBYTE(v99[i]) < 0)
+      if (SHIBYTE(v98[i]) < 0)
       {
-        operator delete(v98[i]);
+        operator delete(v97[i]);
       }
     }
 
@@ -4765,74 +4745,74 @@ void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *
 
   if ((*v3 & 1) != 0 && (v4 = *(v3 + 6)) != 0)
   {
-    YAML::detail::node_data::begin(**v4, v90);
+    YAML::detail::node_data::begin(v89, **v4);
     v6 = *(this + 4);
     v5 = *(this + 5);
     if (v5)
     {
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-      *v85 = *v90;
-      *&v85[16] = *&v90[16];
-      *&v85[32] = v6;
-      v86 = v5;
+      *v84 = *v89;
+      *&v84[16] = *&v89[16];
+      *&v84[32] = v6;
+      v85 = v5;
       atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
       std::__shared_weak_count::__release_shared[abi:ne200100](v5);
     }
 
     else
     {
-      *v85 = *v90;
-      *&v85[16] = *&v90[16];
-      *&v85[32] = v6;
-      v86 = 0;
+      *v84 = *v89;
+      *&v84[16] = *&v89[16];
+      *&v84[32] = v6;
+      v85 = 0;
     }
   }
 
   else
   {
-    *v85 = 0;
-    memset(&v85[8], 0, 32);
-    v86 = 0;
+    *v84 = 0;
+    memset(&v84[8], 0, 32);
+    v85 = 0;
   }
 
   if (*this == 1 && (v7 = *(this + 6)) != 0)
   {
-    YAML::detail::node_data::end(**v7, v90);
+    YAML::detail::node_data::end(v89, **v7);
     v8 = *(this + 5);
     if (v8)
     {
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      v9 = *v90;
-      v10 = *&v90[8];
-      v80 = *&v90[16];
+      v9 = *v89;
+      v10 = *&v89[8];
+      v79 = *&v89[16];
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
-      v79 = v8;
+      v78 = v8;
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
     else
     {
-      v79 = 0;
-      v9 = *v90;
-      v10 = *&v90[8];
-      v80 = *&v90[16];
+      v78 = 0;
+      v9 = *v89;
+      v10 = *&v89[8];
+      v79 = *&v89[16];
     }
   }
 
   else
   {
-    v79 = 0;
+    v78 = 0;
     v9 = 0;
-    v80 = 0;
+    v79 = 0;
     v10 = 0;
   }
 
   while (1)
   {
-    if (*v85 == v9)
+    if (*v84 == v9)
     {
       v11 = v10;
-      v12 = &v85[8];
+      v12 = &v84[8];
       if (v9 != 1)
       {
         if (v9 != 2)
@@ -4840,8 +4820,8 @@ void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *
           break;
         }
 
-        v11 = v80;
-        v12 = &v85[16];
+        v11 = v79;
+        v12 = &v84[16];
       }
 
       if (*v12 == v11)
@@ -4850,26 +4830,26 @@ void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *
       }
     }
 
-    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v85, v90);
-    if ((v93 & 1) == 0)
+    YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v84, v89);
+    if ((v92 & 1) == 0)
     {
       exception = __cxa_allocate_exception(0x38uLL);
-      if (SHIBYTE(v95) < 0)
+      if (SHIBYTE(v94) < 0)
       {
-        std::string::__init_copy_ctor_external(v83, v94, *(&v94 + 1));
+        std::string::__init_copy_ctor_external(v82, v93, *(&v93 + 1));
       }
 
       else
       {
-        *v83 = v94;
-        *&v83[16] = v95;
+        *v82 = v93;
+        *&v82[16] = v94;
       }
 
-      YAML::InvalidNode::InvalidNode(exception, v83);
+      YAML::InvalidNode::InvalidNode(exception, v82);
     }
 
-    *v83 = &v93;
-    YAML::as_if<std::string,void>::operator()(v83, &__p);
+    *v82 = &v92;
+    YAML::as_if<std::string,void>::operator()(v82, &__p);
     v13 = std::__tree<std::string>::find<std::string>(&qword_280AF40A0, &__p.__r_.__value_.__l.__data_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -4878,50 +4858,50 @@ void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *
 
     if (v13 == &unk_280AF40A8)
     {
-      if ((v93 & 1) == 0)
+      if ((v92 & 1) == 0)
       {
-        v65 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v95) < 0)
+        v64 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v94) < 0)
         {
-          std::string::__init_copy_ctor_external(v83, v94, *(&v94 + 1));
+          std::string::__init_copy_ctor_external(v82, v93, *(&v93 + 1));
         }
 
         else
         {
-          *v83 = v94;
-          *&v83[16] = v95;
+          *v82 = v93;
+          *&v82[16] = v94;
         }
 
-        YAML::InvalidNode::InvalidNode(v65, v83);
+        YAML::InvalidNode::InvalidNode(v64, v82);
       }
 
-      *v83 = &v93;
-      YAML::as_if<std::string,void>::operator()(v83, &v88);
-      v14 = std::string::insert(&v88, 0, "Unsupported field for KeyValueParameter found in flow file: ");
+      *v82 = &v92;
+      YAML::as_if<std::string,void>::operator()(v82, &v87);
+      v14 = std::string::insert(&v87, 0, "Unsupported field for KeyValueParameter found in flow file: ");
       __p = *v14;
       v14->__r_.__value_.__l.__size_ = 0;
       v14->__r_.__value_.__r.__words[2] = 0;
       v14->__r_.__value_.__r.__words[0] = 0;
-      if ((v97 & 1) == 0)
+      if ((v96 & 1) == 0)
       {
-        v64 = __cxa_allocate_exception(0x38uLL);
-        if (SHIBYTE(v99[0]) < 0)
+        v63 = __cxa_allocate_exception(0x38uLL);
+        if (SHIBYTE(v98[0]) < 0)
         {
-          std::string::__init_copy_ctor_external(v83, v98[0], v98[1]);
+          std::string::__init_copy_ctor_external(v82, v97[0], v97[1]);
         }
 
         else
         {
-          *v83 = *v98;
-          *&v83[16] = v99[0];
+          *v82 = *v97;
+          *&v82[16] = v98[0];
         }
 
-        YAML::InvalidNode::InvalidNode(v64, v83);
+        YAML::InvalidNode::InvalidNode(v63, v82);
       }
 
-      if (v101)
+      if (v100)
       {
-        v15 = *(**v101 + 8);
+        v15 = *(**v100 + 8);
       }
 
       else
@@ -4929,71 +4909,71 @@ void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *
         v15 = -1;
       }
 
-      siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, &__p, v15);
+      siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, &__p, v15);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v88.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v87.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v88.__r_.__value_.__l.__data_);
+        operator delete(v87.__r_.__value_.__l.__data_);
       }
     }
 
-    if (v100)
+    if (v99)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v100);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v99);
     }
 
-    if (SHIBYTE(v99[0]) < 0)
+    if (SHIBYTE(v98[0]) < 0)
     {
-      operator delete(v98[0]);
+      operator delete(v97[0]);
     }
 
-    if (v96)
+    if (v95)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v96);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v95);
     }
 
-    if (SHIBYTE(v95) < 0)
+    if (SHIBYTE(v94) < 0)
     {
-      operator delete(v94);
+      operator delete(v93);
     }
 
-    if (v91)
+    if (v90)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v90);
     }
 
-    if ((v90[31] & 0x80000000) != 0)
+    if ((v89[31] & 0x80000000) != 0)
     {
-      operator delete(*&v90[8]);
+      operator delete(*&v89[8]);
     }
 
-    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v85);
+    YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v84);
   }
 
-  if (v79)
+  if (v78)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v79);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v78);
   }
 
-  if (v86)
+  if (v85)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v85);
   }
 
-  YAML::Node::operator[]<char [4]>(this, "key", v90);
-  v16 = v90[0] != 1 || v92 && (***v92 & 1) == 0;
-  if (v91)
+  YAML::Node::operator[]<char [4]>(v89, this, "key");
+  v16 = v89[0] != 1 || v91 && (***v91 & 1) == 0;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v16)
     {
       goto LABEL_81;
@@ -5005,33 +4985,33 @@ void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *
     goto LABEL_81;
   }
 
-  YAML::Node::operator[]<char [4]>(this, "key", v90);
-  if ((v90[0] & 1) == 0)
+  YAML::Node::operator[]<char [4]>(v89, this, "key");
+  if ((v89[0] & 1) == 0)
   {
-    v67 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v66 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v67, v85);
+    YAML::InvalidNode::InvalidNode(v66, v84);
   }
 
-  v18 = v92 && (v17 = **v92, *v17 == 1) && *(v17 + 16) == 2;
-  if (v91)
+  v18 = v91 && (v17 = **v91, *v17 == 1) && *(v17 + 16) == 2;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v18)
     {
       goto LABEL_81;
@@ -5043,28 +5023,28 @@ void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *
     goto LABEL_81;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v83, "Invalid string value found for 'key' on KeyValueParameter");
-  YAML::Node::operator[]<char [4]>(this, "key", v90);
-  if ((v90[0] & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v82, "Invalid string value found for 'key' on KeyValueParameter");
+  YAML::Node::operator[]<char [4]>(v89, this, "key");
+  if ((v89[0] & 1) == 0)
   {
-    v73 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v72 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v73, v85);
+    YAML::InvalidNode::InvalidNode(v72, v84);
   }
 
-  if (v92)
+  if (v91)
   {
-    v19 = *(**v92 + 8) + 1;
+    v19 = *(**v91 + 8) + 1;
   }
 
   else
@@ -5072,33 +5052,33 @@ void siri::intelligence::ValidateFlowTest_KeyValueParameter(siri::intelligence *
     v19 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v83, v19);
-  if (v91)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v82, v19);
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
   }
 
-  if ((v83[23] & 0x80000000) != 0)
+  if ((v82[23] & 0x80000000) != 0)
   {
-    operator delete(*v83);
+    operator delete(*v82);
   }
 
 LABEL_81:
-  YAML::Node::operator[]<char [12]>(this, "valueNumber", v90);
-  v20 = v90[0] != 1 || v92 && (***v92 & 1) == 0;
-  if (v91)
+  YAML::Node::operator[]<char [12]>(v89, this, "valueNumber");
+  v20 = v89[0] != 1 || v91 && (***v91 & 1) == 0;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v20)
     {
       goto LABEL_120;
@@ -5110,61 +5090,61 @@ LABEL_81:
     goto LABEL_120;
   }
 
-  YAML::Node::operator[]<char [12]>(this, "valueNumber", v90);
-  if ((v90[0] & 1) == 0)
+  YAML::Node::operator[]<char [12]>(v89, this, "valueNumber");
+  if ((v89[0] & 1) == 0)
   {
-    v68 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v67 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v68, v85);
+    YAML::InvalidNode::InvalidNode(v67, v84);
   }
 
-  if (v92 && (v21 = **v92, (*v21 & 1) != 0) && *(v21 + 16) == 2)
+  if (v91 && (v21 = **v91, (*v21 & 1) != 0) && *(v21 + 16) == 2)
   {
-    YAML::Node::operator[]<char [12]>(this, "valueNumber", v85);
-    if ((v85[0] & 1) == 0)
+    YAML::Node::operator[]<char [12]>(v84, this, "valueNumber");
+    if ((v84[0] & 1) == 0)
     {
-      v77 = __cxa_allocate_exception(0x38uLL);
-      if ((v85[31] & 0x80000000) != 0)
+      v76 = __cxa_allocate_exception(0x38uLL);
+      if ((v84[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v83, *&v85[8], *&v85[16]);
+        std::string::__init_copy_ctor_external(v82, *&v84[8], *&v84[16]);
       }
 
       else
       {
-        *v83 = *&v85[8];
-        *&v83[16] = *&v85[24];
+        *v82 = *&v84[8];
+        *&v82[16] = *&v84[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v77, v83);
+      YAML::InvalidNode::InvalidNode(v76, v82);
     }
 
-    *v83 = v85;
-    YAML::as_if<std::string,void>::operator()(v83, &__p);
+    *v82 = v84;
+    YAML::as_if<std::string,void>::operator()(v82, &__p);
     IsANumber = siri::intelligence::StringIsANumber(&__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v86)
+    if (v85)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v85);
     }
 
     v23 = IsANumber ^ 1;
-    if ((v85[31] & 0x80000000) != 0)
+    if ((v84[31] & 0x80000000) != 0)
     {
-      operator delete(*&v85[8]);
+      operator delete(*&v84[8]);
     }
   }
 
@@ -5173,14 +5153,14 @@ LABEL_81:
     v23 = 1;
   }
 
-  if (v91)
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (!v23)
     {
       goto LABEL_120;
@@ -5192,28 +5172,28 @@ LABEL_81:
     goto LABEL_120;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v83, "Invalid double value found for 'valueNumber' on KeyValueParameter");
-  YAML::Node::operator[]<char [12]>(this, "valueNumber", v90);
-  if ((v90[0] & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v82, "Invalid double value found for 'valueNumber' on KeyValueParameter");
+  YAML::Node::operator[]<char [12]>(v89, this, "valueNumber");
+  if ((v89[0] & 1) == 0)
   {
-    v74 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v73 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v74, v85);
+    YAML::InvalidNode::InvalidNode(v73, v84);
   }
 
-  if (v92)
+  if (v91)
   {
-    v24 = *(**v92 + 8) + 1;
+    v24 = *(**v91 + 8) + 1;
   }
 
   else
@@ -5221,33 +5201,33 @@ LABEL_81:
     v24 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v83, v24);
-  if (v91)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v82, v24);
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
   }
 
-  if ((v83[23] & 0x80000000) != 0)
+  if ((v82[23] & 0x80000000) != 0)
   {
-    operator delete(*v83);
+    operator delete(*v82);
   }
 
 LABEL_120:
-  YAML::Node::operator[]<char [13]>(this, "valueBoolean", v90);
-  v25 = v90[0] != 1 || v92 && (***v92 & 1) == 0;
-  if (v91)
+  YAML::Node::operator[]<char [13]>(v89, this, "valueBoolean");
+  v25 = v89[0] != 1 || v91 && (***v91 & 1) == 0;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v25)
     {
       goto LABEL_159;
@@ -5259,61 +5239,61 @@ LABEL_120:
     goto LABEL_159;
   }
 
-  YAML::Node::operator[]<char [13]>(this, "valueBoolean", v90);
-  if ((v90[0] & 1) == 0)
+  YAML::Node::operator[]<char [13]>(v89, this, "valueBoolean");
+  if ((v89[0] & 1) == 0)
   {
-    v69 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v68 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v69, v85);
+    YAML::InvalidNode::InvalidNode(v68, v84);
   }
 
-  if (v92 && (v26 = **v92, (*v26 & 1) != 0) && *(v26 + 16) == 2)
+  if (v91 && (v26 = **v91, (*v26 & 1) != 0) && *(v26 + 16) == 2)
   {
-    YAML::Node::operator[]<char [13]>(this, "valueBoolean", v85);
-    if ((v85[0] & 1) == 0)
+    YAML::Node::operator[]<char [13]>(v84, this, "valueBoolean");
+    if ((v84[0] & 1) == 0)
     {
-      v78 = __cxa_allocate_exception(0x38uLL);
-      if ((v85[31] & 0x80000000) != 0)
+      v77 = __cxa_allocate_exception(0x38uLL);
+      if ((v84[31] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v83, *&v85[8], *&v85[16]);
+        std::string::__init_copy_ctor_external(v82, *&v84[8], *&v84[16]);
       }
 
       else
       {
-        *v83 = *&v85[8];
-        *&v83[16] = *&v85[24];
+        *v82 = *&v84[8];
+        *&v82[16] = *&v84[24];
       }
 
-      YAML::InvalidNode::InvalidNode(v78, v83);
+      YAML::InvalidNode::InvalidNode(v77, v82);
     }
 
-    *v83 = v85;
-    YAML::as_if<std::string,void>::operator()(v83, &__p);
+    *v82 = v84;
+    YAML::as_if<std::string,void>::operator()(v82, &__p);
     IsBool = siri::intelligence::StringIsBool(&__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (v86)
+    if (v85)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v85);
     }
 
     v28 = !IsBool;
-    if ((v85[31] & 0x80000000) != 0)
+    if ((v84[31] & 0x80000000) != 0)
     {
-      operator delete(*&v85[8]);
+      operator delete(*&v84[8]);
     }
   }
 
@@ -5322,14 +5302,14 @@ LABEL_120:
     v28 = 1;
   }
 
-  if (v91)
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (!v28)
     {
       goto LABEL_159;
@@ -5341,28 +5321,28 @@ LABEL_120:
     goto LABEL_159;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v83, "Invalid BOOL value found for 'valueBoolean' on KeyValueParameter");
-  YAML::Node::operator[]<char [13]>(this, "valueBoolean", v90);
-  if ((v90[0] & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v82, "Invalid BOOL value found for 'valueBoolean' on KeyValueParameter");
+  YAML::Node::operator[]<char [13]>(v89, this, "valueBoolean");
+  if ((v89[0] & 1) == 0)
   {
-    v75 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v74 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v75, v85);
+    YAML::InvalidNode::InvalidNode(v74, v84);
   }
 
-  if (v92)
+  if (v91)
   {
-    v29 = *(**v92 + 8) + 1;
+    v29 = *(**v91 + 8) + 1;
   }
 
   else
@@ -5370,33 +5350,33 @@ LABEL_120:
     v29 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v83, v29);
-  if (v91)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v82, v29);
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
   }
 
-  if ((v83[23] & 0x80000000) != 0)
+  if ((v82[23] & 0x80000000) != 0)
   {
-    operator delete(*v83);
+    operator delete(*v82);
   }
 
 LABEL_159:
-  YAML::Node::operator[]<char [12]>(this, "valueString", v90);
-  v30 = v90[0] != 1 || v92 && (***v92 & 1) == 0;
-  if (v91)
+  YAML::Node::operator[]<char [12]>(v89, this, "valueString");
+  v30 = v89[0] != 1 || v91 && (***v91 & 1) == 0;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v30)
     {
       goto LABEL_191;
@@ -5408,33 +5388,33 @@ LABEL_159:
     goto LABEL_191;
   }
 
-  YAML::Node::operator[]<char [12]>(this, "valueString", v90);
-  if ((v90[0] & 1) == 0)
+  YAML::Node::operator[]<char [12]>(v89, this, "valueString");
+  if ((v89[0] & 1) == 0)
   {
-    v70 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v69 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v70, v85);
+    YAML::InvalidNode::InvalidNode(v69, v84);
   }
 
-  v32 = v92 && (v31 = **v92, *v31 == 1) && *(v31 + 16) == 2;
-  if (v91)
+  v32 = v91 && (v31 = **v91, *v31 == 1) && *(v31 + 16) == 2;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v32)
     {
       goto LABEL_191;
@@ -5446,28 +5426,28 @@ LABEL_159:
     goto LABEL_191;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v83, "Invalid string value found for 'valueString' on KeyValueParameter");
-  YAML::Node::operator[]<char [12]>(this, "valueString", v90);
-  if ((v90[0] & 1) == 0)
+  std::string::basic_string[abi:ne200100]<0>(v82, "Invalid string value found for 'valueString' on KeyValueParameter");
+  YAML::Node::operator[]<char [12]>(v89, this, "valueString");
+  if ((v89[0] & 1) == 0)
   {
-    v76 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v75 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v76, v85);
+    YAML::InvalidNode::InvalidNode(v75, v84);
   }
 
-  if (v92)
+  if (v91)
   {
-    v33 = *(**v92 + 8) + 1;
+    v33 = *(**v91 + 8) + 1;
   }
 
   else
@@ -5475,33 +5455,33 @@ LABEL_159:
     v33 = 0;
   }
 
-  siri::intelligence::ValidationResults::AddError(a2, &siri::intelligence::CODE_YAML_PARSE, v83, v33);
-  if (v91)
+  siri::intelligence::ValidationResults::AddError(a2, siri::intelligence::CODE_YAML_PARSE, v82, v33);
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
   }
 
-  if ((v83[23] & 0x80000000) != 0)
+  if ((v82[23] & 0x80000000) != 0)
   {
-    operator delete(*v83);
+    operator delete(*v82);
   }
 
 LABEL_191:
-  YAML::Node::operator[]<char [11]>(this, "valueArray", v90);
-  v34 = v90[0] != 1 || v92 && (***v92 & 1) == 0;
-  if (v91)
+  YAML::Node::operator[]<char [11]>(v89, this, "valueArray");
+  v34 = v89[0] != 1 || v91 && (***v91 & 1) == 0;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v34)
     {
       goto LABEL_253;
@@ -5513,88 +5493,88 @@ LABEL_191:
     goto LABEL_253;
   }
 
-  YAML::Node::operator[]<char [11]>(this, "valueArray", v90);
-  if ((v90[0] & 1) == 0)
+  YAML::Node::operator[]<char [11]>(v89, this, "valueArray");
+  if ((v89[0] & 1) == 0)
   {
-    v71 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v70 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v71, v85);
+    YAML::InvalidNode::InvalidNode(v70, v84);
   }
 
-  v36 = v92 && (v35 = **v92, *v35 == 1) && *(v35 + 16) == 3;
-  if (v91)
+  v36 = v91 && (v35 = **v91, *v35 == 1) && *(v35 + 16) == 3;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v36)
     {
 LABEL_211:
-      YAML::Node::operator[]<char [11]>(this, "valueArray", v85);
-      if ((v85[0] & 1) != 0 && v87)
+      YAML::Node::operator[]<char [11]>(v84, this, "valueArray");
+      if ((v84[0] & 1) != 0 && v86)
       {
-        YAML::detail::node_data::begin(**v87, v90);
-        v38 = *&v85[32];
-        v37 = v86;
-        if (v86)
+        YAML::detail::node_data::begin(v89, **v86);
+        v38 = *&v84[32];
+        v37 = v85;
+        if (v85)
         {
-          atomic_fetch_add_explicit(&v86->__shared_owners_, 1uLL, memory_order_relaxed);
-          *v83 = *v90;
-          *&v83[16] = *&v90[16];
-          *&v83[32] = v38;
-          v84 = v37;
+          atomic_fetch_add_explicit(&v85->__shared_owners_, 1uLL, memory_order_relaxed);
+          *v82 = *v89;
+          *&v82[16] = *&v89[16];
+          *&v82[32] = v38;
+          v83 = v37;
           atomic_fetch_add_explicit(&v37->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v37);
         }
 
         else
         {
-          *v83 = *v90;
-          *&v83[16] = *&v90[16];
-          *&v83[32] = *&v85[32];
-          v84 = 0;
+          *v82 = *v89;
+          *&v82[16] = *&v89[16];
+          *&v82[32] = *&v84[32];
+          v83 = 0;
         }
       }
 
       else
       {
-        *v83 = 0;
-        memset(&v83[8], 0, 32);
-        v84 = 0;
+        *v82 = 0;
+        memset(&v82[8], 0, 32);
+        v83 = 0;
       }
 
-      if (v85[0] == 1 && v87)
+      if (v84[0] == 1 && v86)
       {
-        YAML::detail::node_data::end(**v87, v90);
-        v41 = v86;
-        if (v86)
+        YAML::detail::node_data::end(v89, **v86);
+        v41 = v85;
+        if (v85)
         {
-          atomic_fetch_add_explicit(&v86->__shared_owners_, 1uLL, memory_order_relaxed);
-          v42 = *v90;
-          v43 = *&v90[8];
-          v44 = *&v90[16];
+          atomic_fetch_add_explicit(&v85->__shared_owners_, 1uLL, memory_order_relaxed);
+          v42 = *v89;
+          v43 = *&v89[8];
+          v44 = *&v89[16];
           atomic_fetch_add_explicit(&v41->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v41);
         }
 
         else
         {
-          v42 = *v90;
-          v43 = *&v90[8];
-          v44 = *&v90[16];
+          v42 = *v89;
+          v43 = *&v89[8];
+          v44 = *&v89[16];
         }
       }
 
@@ -5608,10 +5588,10 @@ LABEL_211:
 
       while (1)
       {
-        if (*v83 == v42)
+        if (*v82 == v42)
         {
           v45 = v43;
-          v46 = &v83[8];
+          v46 = &v82[8];
           if (v42 != 1)
           {
             if (v42 != 2)
@@ -5620,7 +5600,7 @@ LABEL_211:
             }
 
             v45 = v44;
-            v46 = &v83[16];
+            v46 = &v82[16];
           }
 
           if (*v46 == v45)
@@ -5629,39 +5609,39 @@ LABEL_211:
           }
         }
 
-        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v83, v90);
-        siri::intelligence::ValidateFlowTest_KeyValueParameter(v90, a2, v47);
-        if (v100)
+        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v82, v89);
+        siri::intelligence::ValidateFlowTest_KeyValueParameter(v89, a2, v47);
+        if (v99)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v100);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v99);
         }
 
-        if (SHIBYTE(v99[0]) < 0)
+        if (SHIBYTE(v98[0]) < 0)
         {
-          operator delete(v98[0]);
+          operator delete(v97[0]);
         }
 
-        if (v96)
+        if (v95)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v96);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v95);
         }
 
-        if (SHIBYTE(v95) < 0)
+        if (SHIBYTE(v94) < 0)
         {
-          operator delete(v94);
+          operator delete(v93);
         }
 
-        if (v91)
+        if (v90)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v90);
         }
 
-        if ((v90[31] & 0x80000000) != 0)
+        if ((v89[31] & 0x80000000) != 0)
         {
-          operator delete(*&v90[8]);
+          operator delete(*&v89[8]);
         }
 
-        YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v83);
+        YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v82);
       }
 
       if (v41)
@@ -5669,19 +5649,19 @@ LABEL_211:
         std::__shared_weak_count::__release_shared[abi:ne200100](v41);
       }
 
-      if (v84)
+      if (v83)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v84);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v83);
       }
 
-      if (v86)
+      if (v85)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v85);
       }
 
-      if ((v85[31] & 0x80000000) != 0)
+      if ((v84[31] & 0x80000000) != 0)
       {
-        v40 = *&v85[8];
+        v40 = *&v84[8];
         goto LABEL_252;
       }
 
@@ -5694,124 +5674,124 @@ LABEL_211:
     goto LABEL_211;
   }
 
-  YAML::Node::operator[]<char [11]>(this, "valueArray", v90);
-  siri::intelligence::ValidateFlowTest_KeyValueParameter(v90, a2, v39);
-  if (v91)
+  YAML::Node::operator[]<char [11]>(v89, this, "valueArray");
+  siri::intelligence::ValidateFlowTest_KeyValueParameter(v89, a2, v39);
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    v40 = *&v90[8];
+    v40 = *&v89[8];
 LABEL_252:
     operator delete(v40);
   }
 
 LABEL_253:
-  YAML::Node::operator[]<char [16]>(this, "valueDictionary", v90);
-  v48 = v90[0] != 1 || v92 && (***v92 & 1) == 0;
-  if (v91)
+  YAML::Node::operator[]<char [16]>(v89, this, "valueDictionary");
+  v48 = v89[0] != 1 || v91 && (***v91 & 1) == 0;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v48)
     {
-      goto LABEL_315;
+      return;
     }
   }
 
   else if (v48)
   {
-    goto LABEL_315;
+    return;
   }
 
-  YAML::Node::operator[]<char [16]>(this, "valueDictionary", v90);
-  if ((v90[0] & 1) == 0)
+  YAML::Node::operator[]<char [16]>(v89, this, "valueDictionary");
+  if ((v89[0] & 1) == 0)
   {
-    v72 = __cxa_allocate_exception(0x38uLL);
-    if ((v90[31] & 0x80000000) != 0)
+    v71 = __cxa_allocate_exception(0x38uLL);
+    if ((v89[31] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v85, *&v90[8], *&v90[16]);
+      std::string::__init_copy_ctor_external(v84, *&v89[8], *&v89[16]);
     }
 
     else
     {
-      *v85 = *&v90[8];
-      *&v85[16] = *&v90[24];
+      *v84 = *&v89[8];
+      *&v84[16] = *&v89[24];
     }
 
-    YAML::InvalidNode::InvalidNode(v72, v85);
+    YAML::InvalidNode::InvalidNode(v71, v84);
   }
 
-  v50 = v92 && (v49 = **v92, *v49 == 1) && *(v49 + 16) == 3;
-  if (v91)
+  v50 = v91 && (v49 = **v91, *v49 == 1) && *(v49 + 16) == 3;
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    operator delete(*&v90[8]);
+    operator delete(*&v89[8]);
     if (v50)
     {
 LABEL_273:
-      YAML::Node::operator[]<char [16]>(this, "valueDictionary", v85);
-      if ((v85[0] & 1) != 0 && v87)
+      YAML::Node::operator[]<char [16]>(v84, this, "valueDictionary");
+      if ((v84[0] & 1) != 0 && v86)
       {
-        YAML::detail::node_data::begin(**v87, v90);
-        v52 = *&v85[32];
-        v51 = v86;
-        if (v86)
+        YAML::detail::node_data::begin(v89, **v86);
+        v52 = *&v84[32];
+        v51 = v85;
+        if (v85)
         {
-          atomic_fetch_add_explicit(&v86->__shared_owners_, 1uLL, memory_order_relaxed);
-          *v83 = *v90;
-          *&v83[16] = *&v90[16];
-          *&v83[32] = v52;
-          v84 = v51;
+          atomic_fetch_add_explicit(&v85->__shared_owners_, 1uLL, memory_order_relaxed);
+          *v82 = *v89;
+          *&v82[16] = *&v89[16];
+          *&v82[32] = v52;
+          v83 = v51;
           atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v51);
         }
 
         else
         {
-          *v83 = *v90;
-          *&v83[16] = *&v90[16];
-          *&v83[32] = *&v85[32];
-          v84 = 0;
+          *v82 = *v89;
+          *&v82[16] = *&v89[16];
+          *&v82[32] = *&v84[32];
+          v83 = 0;
         }
       }
 
       else
       {
-        *v83 = 0;
-        memset(&v83[8], 0, 32);
-        v84 = 0;
+        *v82 = 0;
+        memset(&v82[8], 0, 32);
+        v83 = 0;
       }
 
-      if (v85[0] == 1 && v87)
+      if (v84[0] == 1 && v86)
       {
-        YAML::detail::node_data::end(**v87, v90);
-        v55 = v86;
-        if (v86)
+        YAML::detail::node_data::end(v89, **v86);
+        v55 = v85;
+        if (v85)
         {
-          atomic_fetch_add_explicit(&v86->__shared_owners_, 1uLL, memory_order_relaxed);
-          v56 = *v90;
-          v57 = *&v90[8];
-          v58 = *&v90[16];
+          atomic_fetch_add_explicit(&v85->__shared_owners_, 1uLL, memory_order_relaxed);
+          v56 = *v89;
+          v57 = *&v89[8];
+          v58 = *&v89[16];
           atomic_fetch_add_explicit(&v55->__shared_owners_, 1uLL, memory_order_relaxed);
           std::__shared_weak_count::__release_shared[abi:ne200100](v55);
         }
 
         else
         {
-          v56 = *v90;
-          v57 = *&v90[8];
-          v58 = *&v90[16];
+          v56 = *v89;
+          v57 = *&v89[8];
+          v58 = *&v89[16];
         }
       }
 
@@ -5825,10 +5805,10 @@ LABEL_273:
 
       while (1)
       {
-        if (*v83 == v56)
+        if (*v82 == v56)
         {
           v59 = v57;
-          v60 = &v83[8];
+          v60 = &v82[8];
           if (v56 != 1)
           {
             if (v56 != 2)
@@ -5837,7 +5817,7 @@ LABEL_273:
             }
 
             v59 = v58;
-            v60 = &v83[16];
+            v60 = &v82[16];
           }
 
           if (*v60 == v59)
@@ -5846,39 +5826,39 @@ LABEL_273:
           }
         }
 
-        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v83, v90);
-        siri::intelligence::ValidateFlowTest_KeyValueParameter(v90, a2, v61);
-        if (v100)
+        YAML::detail::iterator_base<YAML::detail::iterator_value const>::operator*(v82, v89);
+        siri::intelligence::ValidateFlowTest_KeyValueParameter(v89, a2, v61);
+        if (v99)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v100);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v99);
         }
 
-        if (SHIBYTE(v99[0]) < 0)
+        if (SHIBYTE(v98[0]) < 0)
         {
-          operator delete(v98[0]);
+          operator delete(v97[0]);
         }
 
-        if (v96)
+        if (v95)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v96);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v95);
         }
 
-        if (SHIBYTE(v95) < 0)
+        if (SHIBYTE(v94) < 0)
         {
-          operator delete(v94);
+          operator delete(v93);
         }
 
-        if (v91)
+        if (v90)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v90);
         }
 
-        if ((v90[31] & 0x80000000) != 0)
+        if ((v89[31] & 0x80000000) != 0)
         {
-          operator delete(*&v90[8]);
+          operator delete(*&v89[8]);
         }
 
-        YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v83);
+        YAML::detail::node_iterator_base<YAML::detail::node>::operator++(v82);
       }
 
       if (v55)
@@ -5886,23 +5866,23 @@ LABEL_273:
         std::__shared_weak_count::__release_shared[abi:ne200100](v55);
       }
 
-      if (v84)
+      if (v83)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v84);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v83);
       }
 
-      if (v86)
+      if (v85)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v85);
       }
 
-      if ((v85[31] & 0x80000000) != 0)
+      if ((v84[31] & 0x80000000) != 0)
       {
-        v54 = *&v85[8];
+        v54 = *&v84[8];
         goto LABEL_314;
       }
 
-      goto LABEL_315;
+      return;
     }
   }
 
@@ -5911,22 +5891,19 @@ LABEL_273:
     goto LABEL_273;
   }
 
-  YAML::Node::operator[]<char [16]>(this, "valueDictionary", v90);
-  siri::intelligence::ValidateFlowTest_KeyValueParameter(v90, a2, v53);
-  if (v91)
+  YAML::Node::operator[]<char [16]>(v89, this, "valueDictionary");
+  siri::intelligence::ValidateFlowTest_KeyValueParameter(v89, a2, v53);
+  if (v90)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
   }
 
-  if ((v90[31] & 0x80000000) != 0)
+  if ((v89[31] & 0x80000000) != 0)
   {
-    v54 = *&v90[8];
+    v54 = *&v89[8];
 LABEL_314:
     operator delete(v54);
   }
-
-LABEL_315:
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 void sub_254CA3B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, int a36, __int16 a37, char a38, char a39, void *a40, uint64_t a41, int a42, __int16 a43, char a44, char a45, char a46)
@@ -5953,7 +5930,7 @@ void sub_254CA3B4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   }
 }
 
-void YAML::Node::operator[]<char [10]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [10]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -5973,7 +5950,7 @@ void YAML::Node::operator[]<char [10]>(YAML::Node *this@<X0>, char *a2@<X1>, uin
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -5999,26 +5976,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -6030,16 +6007,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [10],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [10],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -6049,10 +6026,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -6066,7 +6043,7 @@ void sub_254CA4054(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void YAML::Node::operator[]<char [11]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [11]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -6086,7 +6063,7 @@ void YAML::Node::operator[]<char [11]>(YAML::Node *this@<X0>, char *a2@<X1>, uin
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -6112,26 +6089,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -6143,16 +6120,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [11],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [11],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -6162,10 +6139,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -6179,7 +6156,7 @@ void sub_254CA4270(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void YAML::Node::operator[]<char [15]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [15]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -6199,7 +6176,7 @@ void YAML::Node::operator[]<char [15]>(YAML::Node *this@<X0>, char *a2@<X1>, uin
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -6225,26 +6202,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -6256,16 +6233,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [15],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [15],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -6275,10 +6252,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -6292,7 +6269,7 @@ void sub_254CA448C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void YAML::Node::operator[]<char [16]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [16]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -6312,7 +6289,7 @@ void YAML::Node::operator[]<char [16]>(YAML::Node *this@<X0>, char *a2@<X1>, uin
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -6338,26 +6315,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -6369,16 +6346,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [16],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [16],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -6388,10 +6365,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -6427,14 +6404,14 @@ uint64_t streamable_to_string<char [13],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA48A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA48A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-void YAML::Node::operator[]<char [4]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [4]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -6454,7 +6431,7 @@ void YAML::Node::operator[]<char [4]>(YAML::Node *this@<X0>, char *a2@<X1>, uint
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -6480,26 +6457,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -6511,16 +6488,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [4],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [4],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -6530,10 +6507,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -6569,9 +6546,9 @@ uint64_t streamable_to_string<char [4],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA4C6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA4C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6598,9 +6575,9 @@ uint64_t streamable_to_string<char [10],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA4E18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA4E18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6627,14 +6604,14 @@ uint64_t streamable_to_string<char [11],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA4FC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA4FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
 
-void YAML::Node::operator[]<char [3]>(YAML::Node *this@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
+void YAML::Node::operator[]<char [3]>(uint64_t *__return_ptr a1@<X8>, YAML::Node *this@<X0>, char *a3@<X1>)
 {
   if ((*this & 1) == 0)
   {
@@ -6654,7 +6631,7 @@ void YAML::Node::operator[]<char [3]>(YAML::Node *this@<X0>, char *a2@<X1>, uint
 
   YAML::Node::EnsureNodeExists(this);
   v6 = *(this + 6);
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::string::basic_string[abi:ne200100]<0>(__p, a3);
   v7 = *(this + 5);
   v14 = *(this + 4);
   v15 = v7;
@@ -6680,26 +6657,26 @@ LABEL_8:
       if (v9)
       {
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = v9;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = v9;
         atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
-        *(a3 + 48) = v8;
+        a1[6] = v8;
         std::__shared_weak_count::__release_shared[abi:ne200100](v9);
       }
 
       else
       {
-        *a3 = 1;
-        *(a3 + 8) = 0;
-        *(a3 + 16) = 0;
-        *(a3 + 24) = 0;
-        *(a3 + 32) = v10;
-        *(a3 + 40) = 0;
-        *(a3 + 48) = v8;
+        *a1 = 1;
+        a1[1] = 0;
+        a1[2] = 0;
+        a1[3] = 0;
+        a1[4] = v10;
+        a1[5] = 0;
+        a1[6] = v8;
       }
 
       return;
@@ -6711,16 +6688,16 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  streamable_to_string<char [3],true>::impl(a2);
-  *a3 = 0;
-  v11 = (a3 + 8);
+  streamable_to_string<char [3],true>::impl(a3);
+  *a1 = 0;
+  v11 = (a1 + 1);
   if (SHIBYTE(v17) < 0)
   {
     std::string::__init_copy_ctor_external(v11, __p[0], __p[1]);
     v12 = SHIBYTE(v17);
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
     if (v12 < 0)
     {
       operator delete(__p[0]);
@@ -6730,10 +6707,10 @@ LABEL_8:
   else
   {
     *&v11->__r_.__value_.__l.__data_ = *__p;
-    *(a3 + 24) = v17;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 32) = 0;
+    a1[3] = v17;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[4] = 0;
   }
 }
 
@@ -6769,9 +6746,9 @@ uint64_t streamable_to_string<char [3],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA538C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA538C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6798,9 +6775,9 @@ uint64_t streamable_to_string<char [15],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA5538(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA5538(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6827,9 +6804,9 @@ uint64_t streamable_to_string<char [16],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA56E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA56E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6856,9 +6833,9 @@ uint64_t streamable_to_string<char [7],true>::impl(const char *a1)
   return MEMORY[0x259C29CE0](&v10);
 }
 
-void sub_254CA5890(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CA5890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(va);
   _Unwind_Resume(a1);
 }
@@ -6866,7 +6843,7 @@ void sub_254CA5890(_Unwind_Exception *a1, uint64_t a2, ...)
 void siri::intelligence::ParseFlowTest_Test(siri::intelligence *this, protobuf::FlowTest_Test *a2, const YAML::Node *a3)
 {
   memset(v58, 0, sizeof(v58));
-  YAML::Node::operator[]<char [5]>(a2, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, a2, "name");
   v5 = __p[0] != 1 || v44 && (***v44 & 1) == 0;
   if (v43)
   {
@@ -6880,7 +6857,7 @@ void siri::intelligence::ParseFlowTest_Test(siri::intelligence *this, protobuf::
 
   if (!v5)
   {
-    YAML::Node::operator[]<char [5]>(a2, "name", __p);
+    YAML::Node::operator[]<char [5]>(__p, a2, "name");
     if ((__p[0] & 1) == 0)
     {
       exception = __cxa_allocate_exception(0x38uLL);
@@ -6917,7 +6894,7 @@ void siri::intelligence::ParseFlowTest_Test(siri::intelligence *this, protobuf::
     }
   }
 
-  YAML::Node::operator[]<char [12]>(a2, "description", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "description");
   v6 = __p[0] != 1 || v44 && (***v44 & 1) == 0;
   if (v43)
   {
@@ -6938,7 +6915,7 @@ void siri::intelligence::ParseFlowTest_Test(siri::intelligence *this, protobuf::
     goto LABEL_36;
   }
 
-  YAML::Node::operator[]<char [12]>(a2, "description", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "description");
   if ((__p[0] & 1) == 0)
   {
     v38 = __cxa_allocate_exception(0x38uLL);
@@ -6975,7 +6952,7 @@ void siri::intelligence::ParseFlowTest_Test(siri::intelligence *this, protobuf::
   }
 
 LABEL_36:
-  YAML::Node::operator[]<char [8]>(a2, "enabled", __p);
+  YAML::Node::operator[]<char [8]>(__p, a2, "enabled");
   v7 = __p[0] != 1 || v44 && (***v44 & 1) == 0;
   if (v43)
   {
@@ -6996,7 +6973,7 @@ LABEL_36:
     goto LABEL_54;
   }
 
-  YAML::Node::operator[]<char [8]>(a2, "enabled", __p);
+  YAML::Node::operator[]<char [8]>(__p, a2, "enabled");
   if ((__p[0] & 1) == 0)
   {
     v39 = __cxa_allocate_exception(0x38uLL);
@@ -7034,7 +7011,7 @@ LABEL_36:
   }
 
 LABEL_54:
-  YAML::Node::operator[]<char [6]>(a2, "steps", __p);
+  YAML::Node::operator[]<char [6]>(__p, a2, "steps");
   v9 = __p[0] != 1 || v44 && (***v44 & 1) == 0;
   if (v43)
   {
@@ -7055,7 +7032,7 @@ LABEL_54:
     goto LABEL_130;
   }
 
-  YAML::Node::operator[]<char [6]>(a2, "steps", __p);
+  YAML::Node::operator[]<char [6]>(__p, a2, "steps");
   if ((__p[0] & 1) == 0)
   {
     v40 = __cxa_allocate_exception(0x38uLL);
@@ -7084,10 +7061,10 @@ LABEL_54:
     if (v11)
     {
 LABEL_74:
-      YAML::Node::operator[]<char [6]>(a2, "steps", &v53);
+      YAML::Node::operator[]<char [6]>(&v53, a2, "steps");
       if ((v53.__r_.__value_.__s.__data_[0] & 1) != 0 && v57)
       {
-        YAML::detail::node_data::begin(**v57, __p);
+        YAML::detail::node_data::begin(__p, **v57);
         v13 = v55;
         v12 = v56;
         if (v56)
@@ -7119,7 +7096,7 @@ LABEL_74:
 
       if (v53.__r_.__value_.__s.__data_[0] == 1 && v57)
       {
-        YAML::detail::node_data::end(**v57, __p);
+        YAML::detail::node_data::end(__p, **v57);
         v18 = v56;
         if (v56)
         {
@@ -7257,7 +7234,7 @@ LABEL_100:
 
       v27 = *(this + 9);
 LABEL_98:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v27 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v27 + 1);
       v25 = *(this + 5);
       v27 = *v25;
       goto LABEL_99;
@@ -7274,7 +7251,7 @@ LABEL_98:
   {
     v16 = *(this + 9);
 LABEL_123:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v16 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v16 + 1);
     v14 = *(this + 5);
     v16 = *v14;
     goto LABEL_124;
@@ -7302,7 +7279,7 @@ LABEL_124:
   *(this + 8) = v32 + 1;
   *(v33 + 8) = v17;
 LABEL_125:
-  YAML::Node::operator[]<char [6]>(a2, "steps", __p);
+  YAML::Node::operator[]<char [6]>(__p, a2, "steps");
   siri::intelligence::ParseFlowTest_Step(v17, __p, v34);
   if (v43)
   {
@@ -7317,7 +7294,7 @@ LABEL_129:
   }
 
 LABEL_130:
-  YAML::Node::operator[]<char [7]>(a2, "repeat", __p);
+  YAML::Node::operator[]<char [7]>(__p, a2, "repeat");
   v35 = __p[0] != 1 || v44 && (***v44 & 1) == 0;
   if (v43)
   {
@@ -7338,7 +7315,7 @@ LABEL_130:
     goto LABEL_148;
   }
 
-  YAML::Node::operator[]<char [7]>(a2, "repeat", __p);
+  YAML::Node::operator[]<char [7]>(__p, a2, "repeat");
   if ((__p[0] & 1) == 0)
   {
     v41 = __cxa_allocate_exception(0x38uLL);
@@ -7417,7 +7394,7 @@ __n128 google::protobuf::internal::ArenaStringPtr::SetNoArena(uint64_t *a1, uint
 void siri::intelligence::ParseFlowTest_Step(siri::intelligence *this, protobuf::FlowTest_Step *a2, const YAML::Node *a3)
 {
   memset(v117, 0, sizeof(v117));
-  YAML::Node::operator[]<char [13]>(a2, "setVariables", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "setVariables");
   v5 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -7438,7 +7415,7 @@ void siri::intelligence::ParseFlowTest_Step(siri::intelligence *this, protobuf::
     goto LABEL_77;
   }
 
-  YAML::Node::operator[]<char [13]>(a2, "setVariables", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "setVariables");
   if ((__p[0] & 1) == 0)
   {
     exception = __cxa_allocate_exception(0x38uLL);
@@ -7467,10 +7444,10 @@ void siri::intelligence::ParseFlowTest_Step(siri::intelligence *this, protobuf::
     if (v7)
     {
 LABEL_21:
-      YAML::Node::operator[]<char [13]>(a2, "setVariables", &v130);
+      YAML::Node::operator[]<char [13]>(&v130, a2, "setVariables");
       if ((v130.__r_.__value_.__s.__data_[0] & 1) != 0 && v134)
       {
-        YAML::detail::node_data::begin(**v134, __p);
+        YAML::detail::node_data::begin(__p, **v134);
         v9 = v132;
         v8 = v133;
         if (v133)
@@ -7502,7 +7479,7 @@ LABEL_21:
 
       if (v130.__r_.__value_.__s.__data_[0] == 1 && v134)
       {
-        YAML::detail::node_data::end(**v134, __p);
+        YAML::detail::node_data::end(__p, **v134);
         v14 = v133;
         if (v133)
         {
@@ -7640,7 +7617,7 @@ LABEL_47:
 
       v23 = *(this + 9);
 LABEL_45:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v23 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v23 + 1);
       v21 = *(this + 5);
       v23 = *v21;
       goto LABEL_46;
@@ -7657,7 +7634,7 @@ LABEL_45:
   {
     v12 = *(this + 9);
 LABEL_70:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v12 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v12 + 1);
     v10 = *(this + 5);
     v12 = *v10;
     goto LABEL_71;
@@ -7685,7 +7662,7 @@ LABEL_71:
   *(this + 8) = v28 + 1;
   *(v29 + 8) = v13;
 LABEL_72:
-  YAML::Node::operator[]<char [13]>(a2, "setVariables", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "setVariables");
   siri::intelligence::ParseFlowTest_KeyValueParameter(v13, __p, v30);
   if (v120)
   {
@@ -7700,7 +7677,7 @@ LABEL_76:
   }
 
 LABEL_77:
-  YAML::Node::operator[]<char [10]>(a2, "startFrom", __p);
+  YAML::Node::operator[]<char [10]>(__p, a2, "startFrom");
   v31 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -7729,9 +7706,9 @@ LABEL_77:
     *(this + 6) = started;
   }
 
-  YAML::Node::operator[]<char [10]>(a2, "startFrom", &v130);
+  YAML::Node::operator[]<char [10]>(&v130, a2, "startFrom");
   memset(v128, 0, 24);
-  YAML::Node::operator[]<char [11]>(&v130, "responseId", __p);
+  YAML::Node::operator[]<char [11]>(__p, &v130, "responseId");
   v33 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -7752,7 +7729,7 @@ LABEL_77:
     goto LABEL_108;
   }
 
-  YAML::Node::operator[]<char [11]>(&v130, "responseId", __p);
+  YAML::Node::operator[]<char [11]>(__p, &v130, "responseId");
   if ((__p[0] & 1) == 0)
   {
     v102 = __cxa_allocate_exception(0x38uLL);
@@ -7790,7 +7767,7 @@ LABEL_77:
   }
 
 LABEL_108:
-  YAML::Node::operator[]<char [11]>(&v130, "activityId", __p);
+  YAML::Node::operator[]<char [11]>(__p, &v130, "activityId");
   v34 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -7805,7 +7782,7 @@ LABEL_108:
     }
 
 LABEL_119:
-    YAML::Node::operator[]<char [11]>(&v130, "activityId", __p);
+    YAML::Node::operator[]<char [11]>(__p, &v130, "activityId");
     if ((__p[0] & 1) == 0)
     {
       v103 = __cxa_allocate_exception(0x38uLL);
@@ -7865,7 +7842,7 @@ LABEL_126:
   }
 
 LABEL_130:
-  YAML::Node::operator[]<char [11]>(a2, "sendIntent", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "sendIntent");
   v35 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -7894,9 +7871,9 @@ LABEL_130:
     *(this + 7) = v36;
   }
 
-  YAML::Node::operator[]<char [11]>(a2, "sendIntent", v115);
+  YAML::Node::operator[]<char [11]>(v115, a2, "sendIntent");
   memset(&v136, 0, sizeof(v136));
-  YAML::Node::operator[]<char [3]>(v115, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, v115, "id");
   v37 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -7917,7 +7894,7 @@ LABEL_130:
     goto LABEL_161;
   }
 
-  YAML::Node::operator[]<char [3]>(v115, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, v115, "id");
   if ((__p[0] & 1) == 0)
   {
     v104 = __cxa_allocate_exception(0x38uLL);
@@ -7954,7 +7931,7 @@ LABEL_130:
   }
 
 LABEL_161:
-  YAML::Node::operator[]<char [5]>(v115, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, v115, "name");
   v38 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -7975,7 +7952,7 @@ LABEL_161:
     goto LABEL_179;
   }
 
-  YAML::Node::operator[]<char [5]>(v115, "name", __p);
+  YAML::Node::operator[]<char [5]>(__p, v115, "name");
   if ((__p[0] & 1) == 0)
   {
     v105 = __cxa_allocate_exception(0x38uLL);
@@ -8012,7 +7989,7 @@ LABEL_161:
   }
 
 LABEL_179:
-  YAML::Node::operator[]<char [6]>(v115, "slots", __p);
+  YAML::Node::operator[]<char [6]>(__p, v115, "slots");
   v39 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -8033,7 +8010,7 @@ LABEL_179:
     goto LABEL_255;
   }
 
-  YAML::Node::operator[]<char [6]>(v115, "slots", __p);
+  YAML::Node::operator[]<char [6]>(__p, v115, "slots");
   if ((__p[0] & 1) == 0)
   {
     v106 = __cxa_allocate_exception(0x38uLL);
@@ -8062,10 +8039,10 @@ LABEL_179:
     if (v41)
     {
 LABEL_199:
-      YAML::Node::operator[]<char [6]>(v115, "slots", &v130);
+      YAML::Node::operator[]<char [6]>(&v130, v115, "slots");
       if ((v130.__r_.__value_.__s.__data_[0] & 1) != 0 && v134)
       {
-        YAML::detail::node_data::begin(**v134, __p);
+        YAML::detail::node_data::begin(__p, **v134);
         v43 = v132;
         v42 = v133;
         if (v133)
@@ -8097,7 +8074,7 @@ LABEL_199:
 
       if (v130.__r_.__value_.__s.__data_[0] == 1 && v134)
       {
-        YAML::detail::node_data::end(**v134, __p);
+        YAML::detail::node_data::end(__p, **v134);
         v48 = v133;
         if (v133)
         {
@@ -8235,7 +8212,7 @@ LABEL_225:
 
       v57 = *(v36 + 9);
 LABEL_223:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v36 + 6, v57 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v36 + 24), v57 + 1);
       v55 = *(v36 + 5);
       v57 = *v55;
       goto LABEL_224;
@@ -8271,7 +8248,7 @@ LABEL_249:
     }
 
 LABEL_248:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v36 + 6, v46 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v36 + 24), v46 + 1);
     v44 = *(v36 + 5);
     v46 = *v44;
     goto LABEL_249;
@@ -8280,7 +8257,7 @@ LABEL_248:
   *(v36 + 8) = v45 + 1;
   v47 = *&v44[2 * v45 + 2];
 LABEL_250:
-  YAML::Node::operator[]<char [6]>(v115, "slots", __p);
+  YAML::Node::operator[]<char [6]>(__p, v115, "slots");
   siri::intelligence::ParseFlowTest_KeyValueParameter(v47, __p, v64);
   if (v120)
   {
@@ -8308,7 +8285,7 @@ LABEL_255:
   }
 
 LABEL_259:
-  YAML::Node::operator[]<char [15]>(a2, "assertResponse", __p);
+  YAML::Node::operator[]<char [15]>(__p, a2, "assertResponse");
   v65 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -8337,9 +8314,9 @@ LABEL_259:
     *(this + 8) = v66;
   }
 
-  YAML::Node::operator[]<char [15]>(a2, "assertResponse", v115);
+  YAML::Node::operator[]<char [15]>(v115, a2, "assertResponse");
   memset(v135, 0, sizeof(v135));
-  YAML::Node::operator[]<char [3]>(v115, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, v115, "id");
   v67 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -8360,7 +8337,7 @@ LABEL_259:
     goto LABEL_290;
   }
 
-  YAML::Node::operator[]<char [3]>(v115, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, v115, "id");
   if ((__p[0] & 1) == 0)
   {
     v107 = __cxa_allocate_exception(0x38uLL);
@@ -8397,7 +8374,7 @@ LABEL_259:
   }
 
 LABEL_290:
-  YAML::Node::operator[]<char [6]>(v115, "anyId", __p);
+  YAML::Node::operator[]<char [6]>(__p, v115, "anyId");
   v68 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -8414,7 +8391,7 @@ LABEL_290:
     goto LABEL_357;
   }
 
-  YAML::Node::operator[]<char [6]>(v115, "anyId", __p);
+  YAML::Node::operator[]<char [6]>(__p, v115, "anyId");
   if ((__p[0] & 1) == 0)
   {
     v108 = __cxa_allocate_exception(0x38uLL);
@@ -8443,10 +8420,10 @@ LABEL_290:
     if (v70)
     {
 LABEL_309:
-      YAML::Node::operator[]<char [6]>(v115, "anyId", &v130);
+      YAML::Node::operator[]<char [6]>(&v130, v115, "anyId");
       if ((v130.__r_.__value_.__s.__data_[0] & 1) != 0 && v134)
       {
-        YAML::detail::node_data::begin(**v134, __p);
+        YAML::detail::node_data::begin(__p, **v134);
         v72 = v132;
         v71 = v133;
         if (v133)
@@ -8478,7 +8455,7 @@ LABEL_309:
 
       if (v130.__r_.__value_.__s.__data_[0] == 1 && v134)
       {
-        YAML::detail::node_data::end(**v134, __p);
+        YAML::detail::node_data::end(__p, **v134);
         v74 = v133;
         if (v133)
         {
@@ -8617,7 +8594,7 @@ LABEL_309:
     goto LABEL_309;
   }
 
-  YAML::Node::operator[]<char [6]>(v115, "anyId", __p);
+  YAML::Node::operator[]<char [6]>(__p, v115, "anyId");
   if ((__p[0] & 1) == 0)
   {
     v113 = __cxa_allocate_exception(0x38uLL);
@@ -8655,7 +8632,7 @@ LABEL_356:
   }
 
 LABEL_357:
-  YAML::Node::operator[]<char [7]>(v115, "allIds", __p);
+  YAML::Node::operator[]<char [7]>(__p, v115, "allIds");
   v80 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -8676,7 +8653,7 @@ LABEL_357:
     goto LABEL_425;
   }
 
-  YAML::Node::operator[]<char [7]>(v115, "allIds", __p);
+  YAML::Node::operator[]<char [7]>(__p, v115, "allIds");
   if ((__p[0] & 1) == 0)
   {
     v109 = __cxa_allocate_exception(0x38uLL);
@@ -8705,10 +8682,10 @@ LABEL_357:
     if (v82)
     {
 LABEL_377:
-      YAML::Node::operator[]<char [7]>(v115, "allIds", &v130);
+      YAML::Node::operator[]<char [7]>(&v130, v115, "allIds");
       if ((v130.__r_.__value_.__s.__data_[0] & 1) != 0 && v134)
       {
-        YAML::detail::node_data::begin(**v134, __p);
+        YAML::detail::node_data::begin(__p, **v134);
         v84 = v132;
         v83 = v133;
         if (v133)
@@ -8740,7 +8717,7 @@ LABEL_377:
 
       if (v130.__r_.__value_.__s.__data_[0] == 1 && v134)
       {
-        YAML::detail::node_data::end(**v134, __p);
+        YAML::detail::node_data::end(__p, **v134);
         v86 = v133;
         if (v133)
         {
@@ -8879,7 +8856,7 @@ LABEL_377:
     goto LABEL_377;
   }
 
-  YAML::Node::operator[]<char [7]>(v115, "allIds", __p);
+  YAML::Node::operator[]<char [7]>(__p, v115, "allIds");
   if ((__p[0] & 1) == 0)
   {
     v114 = __cxa_allocate_exception(0x38uLL);
@@ -8917,7 +8894,7 @@ LABEL_424:
   }
 
 LABEL_425:
-  YAML::Node::operator[]<char [6]>(v115, "count", __p);
+  YAML::Node::operator[]<char [6]>(__p, v115, "count");
   v92 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -8932,7 +8909,7 @@ LABEL_425:
     }
 
 LABEL_436:
-    YAML::Node::operator[]<char [6]>(v115, "count", __p);
+    YAML::Node::operator[]<char [6]>(__p, v115, "count");
     if ((__p[0] & 1) == 0)
     {
       v112 = __cxa_allocate_exception(0x38uLL);
@@ -8992,7 +8969,7 @@ LABEL_443:
   }
 
 LABEL_447:
-  YAML::Node::operator[]<char [16]>(a2, "assertCondition", __p);
+  YAML::Node::operator[]<char [16]>(__p, a2, "assertCondition");
   v94 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -9021,9 +8998,9 @@ LABEL_447:
     *(this + 9) = v95;
   }
 
-  YAML::Node::operator[]<char [16]>(a2, "assertCondition", &v130);
+  YAML::Node::operator[]<char [16]>(&v130, a2, "assertCondition");
   memset(v128, 0, 24);
-  YAML::Node::operator[]<char [3]>(&v130, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, &v130, "id");
   v96 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -9044,7 +9021,7 @@ LABEL_447:
     goto LABEL_478;
   }
 
-  YAML::Node::operator[]<char [3]>(&v130, "id", __p);
+  YAML::Node::operator[]<char [3]>(__p, &v130, "id");
   if ((__p[0] & 1) == 0)
   {
     v110 = __cxa_allocate_exception(0x38uLL);
@@ -9082,7 +9059,7 @@ LABEL_447:
   }
 
 LABEL_478:
-  YAML::Node::operator[]<char [6]>(&v130, "value", __p);
+  YAML::Node::operator[]<char [6]>(__p, &v130, "value");
   v97 = __p[0] != 1 || v121 && (***v121 & 1) == 0;
   if (v120)
   {
@@ -9097,7 +9074,7 @@ LABEL_478:
     }
 
 LABEL_489:
-    YAML::Node::operator[]<char [6]>(&v130, "value", __p);
+    YAML::Node::operator[]<char [6]>(__p, &v130, "value");
     if ((__p[0] & 1) == 0)
     {
       v111 = __cxa_allocate_exception(0x38uLL);
@@ -9177,7 +9154,7 @@ void sub_254CA84F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void siri::intelligence::ParseFlowTest_KeyValueParameter(siri::intelligence *this, protobuf::FlowTest_KeyValueParameter *a2, const YAML::Node *a3)
 {
   memset(v85, 0, sizeof(v85));
-  YAML::Node::operator[]<char [4]>(a2, "key", __p);
+  YAML::Node::operator[]<char [4]>(__p, a2, "key");
   v5 = __p[0] != 1 || v71 && (***v71 & 1) == 0;
   if (v70)
   {
@@ -9191,7 +9168,7 @@ void siri::intelligence::ParseFlowTest_KeyValueParameter(siri::intelligence *thi
 
   if (!v5)
   {
-    YAML::Node::operator[]<char [4]>(a2, "key", __p);
+    YAML::Node::operator[]<char [4]>(__p, a2, "key");
     if ((__p[0] & 1) == 0)
     {
       exception = __cxa_allocate_exception(0x38uLL);
@@ -9228,7 +9205,7 @@ void siri::intelligence::ParseFlowTest_KeyValueParameter(siri::intelligence *thi
     }
   }
 
-  YAML::Node::operator[]<char [12]>(a2, "valueNumber", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "valueNumber");
   v6 = __p[0] != 1 || v71 && (***v71 & 1) == 0;
   if (v70)
   {
@@ -9249,7 +9226,7 @@ void siri::intelligence::ParseFlowTest_KeyValueParameter(siri::intelligence *thi
     goto LABEL_36;
   }
 
-  YAML::Node::operator[]<char [12]>(a2, "valueNumber", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "valueNumber");
   if ((__p[0] & 1) == 0)
   {
     v64 = __cxa_allocate_exception(0x38uLL);
@@ -9287,7 +9264,7 @@ void siri::intelligence::ParseFlowTest_KeyValueParameter(siri::intelligence *thi
   }
 
 LABEL_36:
-  YAML::Node::operator[]<char [13]>(a2, "valueBoolean", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "valueBoolean");
   v8 = __p[0] != 1 || v71 && (***v71 & 1) == 0;
   if (v70)
   {
@@ -9308,7 +9285,7 @@ LABEL_36:
     goto LABEL_54;
   }
 
-  YAML::Node::operator[]<char [13]>(a2, "valueBoolean", __p);
+  YAML::Node::operator[]<char [13]>(__p, a2, "valueBoolean");
   if ((__p[0] & 1) == 0)
   {
     v65 = __cxa_allocate_exception(0x38uLL);
@@ -9346,7 +9323,7 @@ LABEL_36:
   }
 
 LABEL_54:
-  YAML::Node::operator[]<char [12]>(a2, "valueString", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "valueString");
   v10 = __p[0] != 1 || v71 && (***v71 & 1) == 0;
   if (v70)
   {
@@ -9367,7 +9344,7 @@ LABEL_54:
     goto LABEL_72;
   }
 
-  YAML::Node::operator[]<char [12]>(a2, "valueString", __p);
+  YAML::Node::operator[]<char [12]>(__p, a2, "valueString");
   if ((__p[0] & 1) == 0)
   {
     v66 = __cxa_allocate_exception(0x38uLL);
@@ -9404,7 +9381,7 @@ LABEL_54:
   }
 
 LABEL_72:
-  YAML::Node::operator[]<char [11]>(a2, "valueArray", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "valueArray");
   v11 = __p[0] != 1 || v71 && (***v71 & 1) == 0;
   if (v70)
   {
@@ -9421,7 +9398,7 @@ LABEL_72:
     goto LABEL_147;
   }
 
-  YAML::Node::operator[]<char [11]>(a2, "valueArray", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "valueArray");
   if ((__p[0] & 1) == 0)
   {
     v67 = __cxa_allocate_exception(0x38uLL);
@@ -9450,10 +9427,10 @@ LABEL_72:
     if (v13)
     {
 LABEL_91:
-      YAML::Node::operator[]<char [11]>(a2, "valueArray", &v80);
+      YAML::Node::operator[]<char [11]>(&v80, a2, "valueArray");
       if ((v80.__r_.__value_.__s.__data_[0] & 1) != 0 && v84)
       {
-        YAML::detail::node_data::begin(**v84, __p);
+        YAML::detail::node_data::begin(__p, **v84);
         v15 = v82;
         v14 = v83;
         if (v83)
@@ -9485,7 +9462,7 @@ LABEL_91:
 
       if (v80.__r_.__value_.__s.__data_[0] == 1 && v84)
       {
-        YAML::detail::node_data::end(**v84, __p);
+        YAML::detail::node_data::end(__p, **v84);
         v20 = v83;
         if (v83)
         {
@@ -9623,7 +9600,7 @@ LABEL_117:
 
       v29 = *(this + 9);
 LABEL_115:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v29 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v29 + 1);
       v27 = *(this + 5);
       v29 = *v27;
       goto LABEL_116;
@@ -9640,7 +9617,7 @@ LABEL_115:
   {
     v18 = *(this + 9);
 LABEL_140:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 6, v18 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 24), v18 + 1);
     v16 = *(this + 5);
     v18 = *v16;
     goto LABEL_141;
@@ -9668,7 +9645,7 @@ LABEL_141:
   *(this + 8) = v34 + 1;
   *(v35 + 8) = v19;
 LABEL_142:
-  YAML::Node::operator[]<char [11]>(a2, "valueArray", __p);
+  YAML::Node::operator[]<char [11]>(__p, a2, "valueArray");
   siri::intelligence::ParseFlowTest_KeyValueParameter(v19, __p, v36);
   if (v70)
   {
@@ -9683,7 +9660,7 @@ LABEL_146:
   }
 
 LABEL_147:
-  YAML::Node::operator[]<char [16]>(a2, "valueDictionary", __p);
+  YAML::Node::operator[]<char [16]>(__p, a2, "valueDictionary");
   v37 = __p[0] != 1 || v71 && (***v71 & 1) == 0;
   if (v70)
   {
@@ -9704,7 +9681,7 @@ LABEL_147:
     goto LABEL_223;
   }
 
-  YAML::Node::operator[]<char [16]>(a2, "valueDictionary", __p);
+  YAML::Node::operator[]<char [16]>(__p, a2, "valueDictionary");
   if ((__p[0] & 1) == 0)
   {
     v68 = __cxa_allocate_exception(0x38uLL);
@@ -9733,10 +9710,10 @@ LABEL_147:
     if (v39)
     {
 LABEL_167:
-      YAML::Node::operator[]<char [16]>(a2, "valueDictionary", &v80);
+      YAML::Node::operator[]<char [16]>(&v80, a2, "valueDictionary");
       if ((v80.__r_.__value_.__s.__data_[0] & 1) != 0 && v84)
       {
-        YAML::detail::node_data::begin(**v84, __p);
+        YAML::detail::node_data::begin(__p, **v84);
         v41 = v82;
         v40 = v83;
         if (v83)
@@ -9768,7 +9745,7 @@ LABEL_167:
 
       if (v80.__r_.__value_.__s.__data_[0] == 1 && v84)
       {
-        YAML::detail::node_data::end(**v84, __p);
+        YAML::detail::node_data::end(__p, **v84);
         v46 = v83;
         if (v83)
         {
@@ -9906,7 +9883,7 @@ LABEL_193:
 
       v55 = *(this + 15);
 LABEL_191:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v55 + 1);
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v55 + 1);
       v53 = *(this + 8);
       v55 = *v53;
       goto LABEL_192;
@@ -9923,7 +9900,7 @@ LABEL_191:
   {
     v44 = *(this + 15);
 LABEL_216:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 12, v44 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 48), v44 + 1);
     v42 = *(this + 8);
     v44 = *v42;
     goto LABEL_217;
@@ -9951,7 +9928,7 @@ LABEL_217:
   *(this + 14) = v60 + 1;
   *(v61 + 8) = v45;
 LABEL_218:
-  YAML::Node::operator[]<char [16]>(a2, "valueDictionary", __p);
+  YAML::Node::operator[]<char [16]>(__p, a2, "valueDictionary");
   siri::intelligence::ParseFlowTest_KeyValueParameter(v45, __p, v62);
   if (v70)
   {

@@ -36,7 +36,6 @@
   [v2 invalidate];
   if (*&selfCopy->DKDiagnosticController_opaque[OBJC_IVAR___OnDemandAudioDiagnosticMonitorController_responder])
   {
-    v3 = *&selfCopy->DKDiagnosticController_opaque[OBJC_IVAR___OnDemandAudioDiagnosticMonitorController_responder];
     [swift_unknownObjectRetain() clearAllowSessionAccessoryDisconnect];
     swift_unknownObjectRelease();
   }

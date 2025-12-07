@@ -49,31 +49,31 @@
 
 - (void)updateLoggableDataForFailure
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   failure = [(KTVerifierResult *)self failure];
   [dictionary setObject:failure forKeyedSubscript:*MEMORY[0x1E696AA08]];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   loggableDatas = [(KTVerifierResult *)self loggableDatas];
-  v6 = [loggableDatas countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [loggableDatas countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(loggableDatas);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 result])
         {
           [v10 setResult:0];
@@ -82,18 +82,16 @@
         }
       }
 
-      v7 = [loggableDatas countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [loggableDatas countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateWithStaticKeyEnforcedPeerEnforcement:(unint64_t)enforcement
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [(KTVerifierResult *)self setStaticAccountKeyStatus:?];
   if (enforcement > 3)
   {
@@ -113,18 +111,18 @@ LABEL_9:
         [KTVerifierResult updateWithStaticKeyEnforcedPeerEnforcement:];
       }
 
-      v13 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
+      v11 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
       if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
       {
-        *v26 = 0;
-        _os_log_impl(&dword_1E10DB000, v13, OS_LOG_TYPE_DEFAULT, "Static key failed, setting UI to all devices failing", v26, 2u);
+        *v19 = 0;
+        _os_log_impl(&dword_1E10DB000, v11, OS_LOG_TYPE_DEFAULT, "Static key failed, setting UI to all devices failing", v19, 2u);
       }
 
       [(KTVerifierResult *)self setUiStatus:15];
     }
 
     [(KTVerifierResult *)self updateLoggableDataForFailure];
-    goto LABEL_35;
+    return;
   }
 
   if (enforcement)
@@ -134,7 +132,6 @@ LABEL_9:
       if (enforcement != 2)
       {
 LABEL_5:
-        v5 = *MEMORY[0x1E69E9840];
 
         [(KTVerifierResult *)self setStaticAccountKeyEnforced:0];
         return;
@@ -147,52 +144,7 @@ LABEL_5:
     uiStatus2 = [(KTVerifierResult *)self uiStatus];
     if (uiStatus2 > 0x11)
     {
-LABEL_39:
-      if (!uiStatus2)
-      {
-LABEL_19:
-        if (TRANSPARENCY_DEFAULT_LOG_BLOCK_8 != -1)
-        {
-          [KTVerifierResult updateWithStaticKeyEnforcedPeerEnforcement:];
-        }
-
-        v12 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
-        if (!os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_34;
-        }
-
-        goto LABEL_33;
-      }
-
-      if (uiStatus2 == 5)
-      {
-        v18 = *MEMORY[0x1E69E9840];
-        selfCopy5 = self;
-        v10 = 4;
-        goto LABEL_56;
-      }
-
-      if (TRANSPARENCY_DEFAULT_LOG_BLOCK_8 != -1)
-      {
-        [KTVerifierResult updateWithStaticKeyEnforcedPeerEnforcement:];
-      }
-
-      v24 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
-      if (!os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_35;
-      }
-
-      v21 = v24;
-      v22 = KTUIStatusGetString([(KTVerifierResult *)self uiStatus]);
-      *v26 = 138412290;
-      *&v26[4] = v22;
-      v23 = "Not changing UI status %@ for static key no config with enforcement";
-LABEL_54:
-      _os_log_impl(&dword_1E10DB000, v21, OS_LOG_TYPE_DEFAULT, v23, v26, 0xCu);
-
-      goto LABEL_35;
+      goto LABEL_39;
     }
 
     if (((1 << uiStatus2) & 0x33C0) != 0)
@@ -204,66 +156,75 @@ LABEL_54:
     {
       if (uiStatus2 == 17)
       {
-        v17 = *MEMORY[0x1E69E9840];
         selfCopy5 = self;
-        v10 = 16;
+        v8 = 16;
         goto LABEL_56;
       }
 
-      goto LABEL_39;
-    }
-
-LABEL_44:
-    v19 = *MEMORY[0x1E69E9840];
-    selfCopy5 = self;
-    v10 = 3;
-    goto LABEL_56;
-  }
-
-  [(KTVerifierResult *)self setStaticAccountKeyEnforced:1];
-  uiStatus3 = [(KTVerifierResult *)self uiStatus];
-  if (uiStatus3 > 11)
-  {
-    if (uiStatus3 > 14)
-    {
-      if (uiStatus3 == 16)
+LABEL_39:
+      if (!uiStatus2)
       {
-        v25 = *MEMORY[0x1E69E9840];
+LABEL_19:
+        if (TRANSPARENCY_DEFAULT_LOG_BLOCK_8 != -1)
+        {
+          [KTVerifierResult updateWithStaticKeyEnforcedPeerEnforcement:];
+        }
+
+        v10 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
+        if (!os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
+        {
+          goto LABEL_34;
+        }
+
+        goto LABEL_33;
+      }
+
+      if (uiStatus2 == 5)
+      {
         selfCopy5 = self;
-        v10 = 17;
+        v8 = 4;
         goto LABEL_56;
       }
 
-      if (uiStatus3 == 15)
-      {
-        goto LABEL_44;
-      }
-
-LABEL_46:
       if (TRANSPARENCY_DEFAULT_LOG_BLOCK_8 != -1)
       {
         [KTVerifierResult updateWithStaticKeyEnforcedPeerEnforcement:];
       }
 
-      v20 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
-      if (!os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
+      v18 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
+      if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_35;
+        v15 = v18;
+        v16 = KTUIStatusGetString([(KTVerifierResult *)self uiStatus]);
+        *v19 = 138412290;
+        *&v19[4] = v16;
+        v17 = "Not changing UI status %@ for static key no config with enforcement";
+        goto LABEL_54;
       }
 
-      v21 = v20;
-      v22 = KTUIStatusGetString([(KTVerifierResult *)self uiStatus]);
-      *v26 = 138412290;
-      *&v26[4] = v22;
-      v23 = "Not changing UI status %@ for static key success with enforcement";
-      goto LABEL_54;
+      return;
     }
 
-    if ((uiStatus3 - 12) >= 2)
+LABEL_44:
+    selfCopy5 = self;
+    v8 = 3;
+    goto LABEL_56;
+  }
+
+  [(KTVerifierResult *)self setStaticAccountKeyEnforced:1];
+  uiStatus3 = [(KTVerifierResult *)self uiStatus];
+  if (uiStatus3 <= 11)
+  {
+    if ((uiStatus3 - 6) >= 4 && uiStatus3)
     {
-      if (uiStatus3 == 14)
+      if (uiStatus3 == 4)
       {
-        goto LABEL_35;
+        selfCopy5 = self;
+        v8 = 5;
+LABEL_56:
+
+        [(KTVerifierResult *)selfCopy5 setUiStatus:v8];
+        return;
       }
 
       goto LABEL_46;
@@ -275,42 +236,68 @@ LABEL_30:
       [KTVerifierResult updateWithStaticKeyEnforcedPeerEnforcement:];
     }
 
-    v12 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
+    v10 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
     if (!os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_34;
     }
 
 LABEL_33:
-    v14 = v12;
-    v15 = KTUIStatusGetString([(KTVerifierResult *)self uiStatus]);
-    *v26 = 138412290;
-    *&v26[4] = v15;
-    _os_log_impl(&dword_1E10DB000, v14, OS_LOG_TYPE_DEFAULT, "Unexpected UI status %@ for static key no config with enforcement. Marking as a failure.", v26, 0xCu);
+    v12 = v10;
+    v13 = KTUIStatusGetString([(KTVerifierResult *)self uiStatus]);
+    *v19 = 138412290;
+    *&v19[4] = v13;
+    _os_log_impl(&dword_1E10DB000, v12, OS_LOG_TYPE_DEFAULT, "Unexpected UI status %@ for static key no config with enforcement. Marking as a failure.", v19, 0xCu);
 
 LABEL_34:
-    [(KTVerifierResult *)self setUiStatus:14, *v26];
-LABEL_35:
-    v16 = *MEMORY[0x1E69E9840];
+    [(KTVerifierResult *)self setUiStatus:14, *v19, *&v19[8]];
     return;
   }
 
-  if ((uiStatus3 - 6) < 4 || !uiStatus3)
+  if (uiStatus3 <= 14)
   {
+    if ((uiStatus3 - 12) >= 2)
+    {
+      if (uiStatus3 == 14)
+      {
+        return;
+      }
+
+      goto LABEL_46;
+    }
+
     goto LABEL_30;
   }
 
-  if (uiStatus3 != 4)
+  if (uiStatus3 == 16)
   {
-    goto LABEL_46;
+    selfCopy5 = self;
+    v8 = 17;
+    goto LABEL_56;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  selfCopy5 = self;
-  v10 = 5;
-LABEL_56:
+  if (uiStatus3 == 15)
+  {
+    goto LABEL_44;
+  }
 
-  [(KTVerifierResult *)selfCopy5 setUiStatus:v10];
+LABEL_46:
+  if (TRANSPARENCY_DEFAULT_LOG_BLOCK_8 != -1)
+  {
+    [KTVerifierResult updateWithStaticKeyEnforcedPeerEnforcement:];
+  }
+
+  v14 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
+  if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = v14;
+    v16 = KTUIStatusGetString([(KTVerifierResult *)self uiStatus]);
+    *v19 = 138412290;
+    *&v19[4] = v16;
+    v17 = "Not changing UI status %@ for static key success with enforcement";
+LABEL_54:
+    _os_log_impl(&dword_1E10DB000, v15, OS_LOG_TYPE_DEFAULT, v17, v19, 0xCu);
+  }
 }
 
 uint64_t __63__KTVerifierResult_updateWithStaticKeyEnforcedPeerEnforcement___block_invoke()
@@ -351,10 +338,9 @@ uint64_t __63__KTVerifierResult_updateWithStaticKeyEnforcedPeerEnforcement___blo
 - (void)updateWithStaticKeyEnforced:(unint64_t)enforced isFailureIgnoredForDate:(BOOL)date
 {
   dateCopy = date;
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl())
   {
-    v7 = *MEMORY[0x1E69E9840];
 
     [(KTVerifierResult *)self updateWithStaticKeyEnforcedPeerEnforcement:enforced];
     return;
@@ -378,7 +364,7 @@ uint64_t __63__KTVerifierResult_updateWithStaticKeyEnforcedPeerEnforcement___blo
         if (!dateCopy)
         {
           selfCopy8 = self;
-          v10 = 13;
+          v9 = 13;
           goto LABEL_39;
         }
       }
@@ -435,13 +421,13 @@ uint64_t __63__KTVerifierResult_updateWithStaticKeyEnforcedPeerEnforcement___blo
 
 LABEL_22:
         selfCopy8 = self;
-        v10 = 7;
+        v9 = 7;
         goto LABEL_39;
       }
 
 LABEL_32:
       selfCopy8 = self;
-      v10 = 5;
+      v9 = 5;
       goto LABEL_39;
     }
 
@@ -457,7 +443,7 @@ LABEL_32:
 
 LABEL_38:
     selfCopy8 = self;
-    v10 = 9;
+    v9 = 9;
     goto LABEL_39;
   }
 
@@ -475,14 +461,14 @@ LABEL_18:
     if (uiStatus4 == 9)
     {
       selfCopy8 = self;
-      v10 = 8;
+      v9 = 8;
       goto LABEL_39;
     }
 
     if (uiStatus4 == 13)
     {
       selfCopy8 = self;
-      v10 = 3;
+      v9 = 3;
       goto LABEL_39;
     }
   }
@@ -492,16 +478,16 @@ LABEL_18:
     if (uiStatus4 == 5)
     {
       selfCopy8 = self;
-      v10 = 4;
+      v9 = 4;
       goto LABEL_39;
     }
 
     if (uiStatus4 == 7)
     {
       selfCopy8 = self;
-      v10 = 6;
+      v9 = 6;
 LABEL_39:
-      [(KTVerifierResult *)selfCopy8 setUiStatus:v10];
+      [(KTVerifierResult *)selfCopy8 setUiStatus:v9];
     }
   }
 
@@ -511,30 +497,28 @@ LABEL_40:
     [KTVerifierResult updateWithStaticKeyEnforced:isFailureIgnoredForDate:];
   }
 
-  v14 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
+  v13 = TRANSPARENCY_DEFAULT_LOG_INTERNAL_8;
   if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = v14;
-    v16 = KTStaticKeyPeerValidateResultGetString(enforced);
+    v14 = v13;
+    v15 = KTStaticKeyPeerValidateResultGetString(enforced);
     staticAccountKeyEnforced = [(KTVerifierResult *)self staticAccountKeyEnforced];
-    v18 = KTUIStatusGetString([(KTVerifierResult *)self uiStatus]);
-    v19 = [(KTVerifierResult *)self uri];
-    v21 = 138413570;
-    v22 = v16;
-    v23 = 1024;
+    v17 = KTUIStatusGetString([(KTVerifierResult *)self uiStatus]);
+    v18 = [(KTVerifierResult *)self uri];
+    v19 = 138413570;
+    v20 = v15;
+    v21 = 1024;
     enforcedCopy = enforced;
-    v25 = 1024;
-    v26 = staticAccountKeyEnforced;
-    v27 = 2114;
-    v28 = v18;
-    v29 = 2160;
-    v30 = 1752392040;
-    v31 = 2112;
-    v32 = v19;
-    _os_log_impl(&dword_1E10DB000, v15, OS_LOG_TYPE_DEFAULT, "updateWithStaticKeyEnforced (%@[%d], %{BOOL}d) updating UIStatus to %{public}@ for uri %{mask.hash}@", &v21, 0x36u);
+    v23 = 1024;
+    v24 = staticAccountKeyEnforced;
+    v25 = 2114;
+    v26 = v17;
+    v27 = 2160;
+    v28 = 1752392040;
+    v29 = 2112;
+    v30 = v18;
+    _os_log_impl(&dword_1E10DB000, v14, OS_LOG_TYPE_DEFAULT, "updateWithStaticKeyEnforced (%@[%d], %{BOOL}d) updating UIStatus to %{public}@ for uri %{mask.hash}@", &v19, 0x36u);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__KTVerifierResult_updateWithStaticKeyEnforced_isFailureIgnoredForDate___block_invoke()
@@ -890,7 +874,7 @@ LABEL_41:
 
 - (NSDictionary)diagnosticsJsonDictionary
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v4 = [(KTVerifierResult *)self uri];
 
@@ -946,30 +930,30 @@ LABEL_41:
     loggableDatas2 = [(KTVerifierResult *)self loggableDatas];
     v22 = [v20 arrayWithCapacity:{objc_msgSend(loggableDatas2, "count")}];
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     loggableDatas3 = [(KTVerifierResult *)self loggableDatas];
-    v24 = [loggableDatas3 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    v24 = [loggableDatas3 countByEnumeratingWithState:&v36 objects:v40 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v38;
+      v26 = *v37;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v38 != v26)
+          if (*v37 != v26)
           {
             objc_enumerationMutation(loggableDatas3);
           }
 
-          diagnosticsJsonDictionary = [*(*(&v37 + 1) + 8 * i) diagnosticsJsonDictionary];
+          diagnosticsJsonDictionary = [*(*(&v36 + 1) + 8 * i) diagnosticsJsonDictionary];
           [v22 addObject:diagnosticsJsonDictionary];
         }
 
-        v25 = [loggableDatas3 countByEnumeratingWithState:&v37 objects:v41 count:16];
+        v25 = [loggableDatas3 countByEnumeratingWithState:&v36 objects:v40 count:16];
       }
 
       while (v25);
@@ -995,8 +979,6 @@ LABEL_41:
     v34 = [failure2 description];
     [dictionary setObject:v34 forKeyedSubscript:@"failure"];
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

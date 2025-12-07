@@ -19,7 +19,7 @@
 {
   v3 = sub_1B1756EE8();
   v4 = *(v3 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v3);
   v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   _targetDirectoryURL = [(MILocationUserDefinedDirectory *)selfCopy _targetDirectoryURL];
@@ -35,7 +35,7 @@
 {
   v5 = sub_1B1756EE8();
   v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v5);
   v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B1756EB8();
   *(&self->super.isa + OBJC_IVAR___MILocationUserDefinedDirectory__targetDirectoryURL) = sub_1B1756EA8();
@@ -50,7 +50,7 @@
 {
   v4 = sub_1B1756EE8();
   v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00]();
+  MEMORY[0x1EEE9AC00](v4);
   v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1B1756EB8();
   *(&self->super.isa + OBJC_IVAR___MILocationUserDefinedDirectory__targetDirectoryURL) = sub_1B1756EA8();
@@ -117,7 +117,7 @@
 
   v6 = MILocationUserDefinedDirectory.isEqual(_:)(v8);
 
-  sub_1B1750E60(v8, &unk_1EB759C90);
+  sub_1B1750E60(v8, &unk_1EB759C90, &qword_1B175DC40);
   return v6 & 1;
 }
 
@@ -165,7 +165,7 @@
   v4 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v15[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB759F10);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB759F10, &qword_1B175DC78);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1B175DC60;
   *(inited + 32) = 0xD000000000000012;
@@ -182,7 +182,7 @@
   *(inited + 56) = v12;
   sub_1B174EB18(inited);
   swift_setDeallocating();
-  sub_1B1750E60(inited + 32, &unk_1EB759EC0);
+  sub_1B1750E60(inited + 32, &unk_1EB759EC0, &qword_1B175DC58);
 
   v13 = sub_1B1756F28();
 

@@ -1,10 +1,10 @@
 @interface NSError
-- (BOOL)rbs_isServiceDenied;
+- (unint64_t)rbs_isServiceDenied;
 @end
 
 @implementation NSError
 
-- (BOOL)rbs_isServiceDenied
+- (unint64_t)rbs_isServiceDenied
 {
   selfCopy = self;
   if (self)

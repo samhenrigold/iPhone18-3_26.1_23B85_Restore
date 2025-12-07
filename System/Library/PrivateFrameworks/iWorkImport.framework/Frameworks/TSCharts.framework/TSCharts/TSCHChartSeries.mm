@@ -966,20 +966,20 @@ LABEL_22:
   {
     v10 = objc_msgSend_intValueForProperty_defaultValue_(self, v6, v7, v8, v9, 1161, 0);
     v15 = objc_msgSend_objectValueForProperty_(self, v11, v12, v13, v14, 1184);
-    v20 = v15;
+    v19 = v15;
     if (v15 && v10)
     {
-      v21 = objc_msgSend_color(v15, v16, v17, v18, v19);
-      LODWORD(v22) = 1041865114;
-      objc_msgSend_floatValueForProperty_defaultValue_(self, v23, v22, v24, v25, 1162);
-      v27 = *&v26;
-      objc_msgSend_alphaComponent(v21, v28, v26, v29, v30);
-      *&v31 = v31 * v27;
-      v32 = MEMORY[0x277D801F8];
-      v35 = objc_msgSend_colorWithAlphaComponent_(v21, v33, *&v31, v27, v34);
-      v40 = objc_msgSend_colorWithColor_(v32, v36, v37, v38, v39, v35);
+      v20 = objc_msgSend_color(v15, v16, v17, v18);
+      LODWORD(v21) = 1041865114;
+      objc_msgSend_floatValueForProperty_defaultValue_(self, v22, v21, v23, v24, 1162);
+      v26 = *&v25;
+      objc_msgSend_alphaComponent(v20, v27, v25, v28, v29);
+      *&v30 = v30 * v26;
+      v31 = MEMORY[0x277D801F8];
+      v34 = objc_msgSend_colorWithAlphaComponent_(v20, v32, *&v30, v26, v33);
+      v39 = objc_msgSend_colorWithColor_(v31, v35, v36, v37, v38, v34);
 
-      if (v40)
+      if (v39)
       {
         goto LABEL_13;
       }
@@ -992,22 +992,22 @@ LABEL_22:
 
   if (objc_msgSend_supportsSeriesFill(self->_seriesType, v6, v7, v8, v9))
   {
-    objc_msgSend_objectValueForProperty_(self, v41, v42, v43, v44, 1160);
-    v40 = LABEL_11:;
+    objc_msgSend_objectValueForProperty_(self, v40, v41, v42, v43, 1160);
+    v39 = LABEL_11:;
     goto LABEL_13;
   }
 
-  if (objc_msgSend_supportsFillSetFill(self->_seriesType, v41, v42, v43, v44))
+  if (objc_msgSend_supportsFillSetFill(self->_seriesType, v40, v41, v42, v43))
   {
-    v49 = objc_msgSend_fillSetFillProperty(self->_seriesType, v45, v46, v47, v48);
-    objc_msgSend_objectValueForProperty_(self, v50, v51, v52, v53, v49);
+    v48 = objc_msgSend_fillSetFillProperty(self->_seriesType, v44, v45, v46, v47);
+    objc_msgSend_objectValueForProperty_(self, v49, v50, v51, v52, v48);
     goto LABEL_11;
   }
 
-  v40 = 0;
+  v39 = 0;
 LABEL_13:
 
-  return v40;
+  return v39;
 }
 
 + (id)computableProperties

@@ -53,15 +53,15 @@ LABEL_4:
   selfCopy = self;
   if (removeTagsCopy)
   {
-    v17 = sub_219BF5D44();
+    v18 = sub_219BF5D44();
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
-  sub_2195FBF18(v13, v17);
+  sub_2195FBF18(v13, v18, v17);
 }
 
 - (void)offlineIssueList:(id)list didAddIssues:(id)issues removeIssues:(id)removeIssues

@@ -65,21 +65,11 @@
   standardUserDefaults2 = [MEMORY[0x1E695E000] standardUserDefaults];
   v7 = [standardUserDefaults2 BOOLForKey:@"BCSyncCloudKit"];
 
-  v8 = BDSUbiquityLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = BDSUbiquityLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v9 = @"NO";
+    v10 = @"NO";
     if (isPrimaryAccountManagedAppleID)
-    {
-      v10 = @"YES";
-    }
-
-    else
-    {
-      v10 = @"NO";
-    }
-
-    if (v5)
     {
       v11 = @"YES";
     }
@@ -89,21 +79,30 @@
       v11 = @"NO";
     }
 
+    if (v5)
+    {
+      v12 = @"YES";
+    }
+
+    else
+    {
+      v12 = @"NO";
+    }
+
     v14 = 138412802;
-    v15 = v10;
+    v15 = v11;
     v16 = 2112;
-    v17 = v11;
+    v17 = v12;
     if (v7)
     {
-      v9 = @"YES";
+      v10 = @"YES";
     }
 
     v18 = 2112;
-    v19 = v9;
-    _os_log_impl(&dword_1E45E0000, v8, OS_LOG_TYPE_INFO, "BDSSyncUserDefaults: isICloudDriveSyncOptedIn isPrimaryAccountManagedAppleID = %@ isBCSyncICloudDriveUserDefaults = %@ isBCSyncCloudKitUserDefaults = %@", &v14, 0x20u);
+    v19 = v10;
+    _os_log_impl(&dword_1E45E0000, v9, OS_LOG_TYPE_INFO, "BDSSyncUserDefaults: isICloudDriveSyncOptedIn isPrimaryAccountManagedAppleID = %@ isBCSyncICloudDriveUserDefaults = %@ isBCSyncCloudKitUserDefaults = %@", &v14, 0x20u);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return (isPrimaryAccountManagedAppleID | v5 & v7) & 1;
 }
 
@@ -152,7 +151,7 @@
 
   else
   {
-    v8 = BDSCloudKitLog();
+    v8 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1E470496C(alternative, v8);
@@ -175,7 +174,7 @@
 
   else
   {
-    v8 = BDSCloudKitLog();
+    v8 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1E47049E4(alternative, v8);
@@ -191,57 +190,54 @@
   v16 = *MEMORY[0x1E69E9840];
   _booksAppBundleIdentifier = [self _booksAppBundleIdentifier];
   v7 = TCCAccessSetForBundleId();
-  v8 = BDSCloudKitLog();
-  v9 = v8;
-  if (v7)
+  v8 = v7;
+  v9 = BDSCloudKitLog(v7);
+  v10 = v9;
+  if (v8)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v10 = @"NO";
+      v11 = @"NO";
       if (enabledCopy)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
       v12 = 138543618;
       serviceCopy = service;
       v14 = 2114;
-      v15 = v10;
-      _os_log_impl(&dword_1E45E0000, v9, OS_LOG_TYPE_INFO, "Successfully set %{public}@ to %{public}@.", &v12, 0x16u);
+      v15 = v11;
+      _os_log_impl(&dword_1E45E0000, v10, OS_LOG_TYPE_INFO, "Successfully set %{public}@ to %{public}@.", &v12, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_1E4704A5C(service, enabledCopy, v9);
+    sub_1E4704A5C(service, enabledCopy, v10);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_stateForLog
 {
-  v14[5] = *MEMORY[0x1E69E9840];
-  v13[0] = @"isSignedIntoICloud";
+  v13[5] = *MEMORY[0x1E69E9840];
+  v12[0] = @"isSignedIntoICloud";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(self, "isSignedIntoICloud")}];
-  v14[0] = v3;
-  v13[1] = @"isCloudKitSyncOptedIn";
+  v13[0] = v3;
+  v12[1] = @"isCloudKitSyncOptedIn";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(self, "isCloudKitSyncOptedIn")}];
-  v14[1] = v4;
-  v13[2] = @"isICloudDriveSyncOptedIn";
+  v13[1] = v4;
+  v12[2] = @"isICloudDriveSyncOptedIn";
   v5 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(self, "isICloudDriveSyncOptedIn")}];
-  v14[2] = v5;
-  v13[3] = @"isGlobalICloudDriveSyncOptedIn";
+  v13[2] = v5;
+  v12[3] = @"isGlobalICloudDriveSyncOptedIn";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(self, "isGlobalICloudDriveSyncOptedIn")}];
-  v14[3] = v6;
-  v13[4] = @"iCloudIdentityExists";
+  v13[3] = v6;
+  v12[4] = @"iCloudIdentityExists";
   v7 = MEMORY[0x1E696AD98];
   iCloudIdentity = [self iCloudIdentity];
   v9 = [v7 numberWithInt:iCloudIdentity != 0];
-  v14[4] = v9;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:5];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v13[4] = v9;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:5];
 
   return v10;
 }

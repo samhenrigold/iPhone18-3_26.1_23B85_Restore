@@ -288,7 +288,7 @@ void __22__UIScreen_mainScreen__block_invoke(uint64_t a1)
 
 - (CGFloat)scale
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B1EC && self->_isFakeScreen)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) && byte_1ED48B1EC && self->_isFakeScreen)
   {
     v3 = _UIInternalPreferenceUsesDefault(&unk_1ED48B228, @"FakeMainScreenScale", _UIInternalPreferenceUpdateInteger);
     result = qword_1ED48B230;
@@ -452,7 +452,7 @@ LABEL_7:
 
 - (BOOL)_isEmbeddedScreen
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B1EC && self->_isFakeScreen || !self->_mainScreen)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) && byte_1ED48B1EC && self->_isFakeScreen || !self->_mainScreen)
   {
     return 0;
   }
@@ -510,7 +510,7 @@ LABEL_7:
     if (UIApplicationSceneClassicModeWantsSafeAreaInsets(+[UIApplication _classicMode]))
     {
       [UIApp isFrontBoard];
-      if (![(UIScreen *)self _UIIBAlwaysProvidePeripheryInsets]&& ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceIOSDeviceInsets, @"ForceIOSDeviceInsets", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1ED48A8BC))
+      if (![(UIScreen *)self _UIIBAlwaysProvidePeripheryInsets]&& (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_ForceIOSDeviceInsets, @"ForceIOSDeviceInsets", _UIInternalPreferenceUpdateBool) || !byte_1ED48A8BC))
       {
         v8 = +[_UIScreenInitialDisplayConfigurationLoader sharedLoader];
         initialDisplayContext = [v8 initialDisplayContext];
@@ -798,17 +798,17 @@ LABEL_30:
 
 + (id)_screens
 {
-  v0 = objc_opt_self();
-  v1 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __20__UIScreen__screens__block_invoke;
-  v4[3] = &unk_1E710CD40;
-  v2 = v1;
-  v5 = v2;
-  [v0 _enumerateScreensWithBlock:v4];
+  v1 = objc_opt_self();
+  v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __20__UIScreen__screens__block_invoke;
+  v5[3] = &unk_1E710CD40;
+  v3 = v2;
+  v6 = v3;
+  [v1 _enumerateScreensWithBlock:v5];
 
-  return v2;
+  return v3;
 }
 
 - (UITraitCollection)traitCollection
@@ -840,7 +840,7 @@ LABEL_30:
 
 - (CGFloat)nativeScale
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B1EC && self->_isFakeScreen)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) && byte_1ED48B1EC && self->_isFakeScreen)
   {
     v3 = _UIInternalPreferenceUsesDefault(&unk_1ED48B228, @"FakeMainScreenScale", _UIInternalPreferenceUpdateInteger);
     result = qword_1ED48B230;
@@ -1026,7 +1026,7 @@ void __32__UIScreen__displayCornerRadius__block_invoke()
   {
     if ([(UIScreen *)self _isCarScreen])
     {
-      if ((_UIInternalPreferenceUsesDefault(&dword_1ED48B200, @"ApplySceneUserInterfaceStyleToCarScreen", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1ED48B204)
+      if (_UIInternalPreferenceUsesDefault(&dword_1ED48B200, @"ApplySceneUserInterfaceStyleToCarScreen", _UIInternalPreferenceUpdateBool) || !byte_1ED48B204)
       {
         if (!dyld_program_sdk_at_least())
         {
@@ -1068,7 +1068,7 @@ LABEL_16:
 
       v6 = _UIInternalPreferenceUsesDefault(&dword_1ED48B200, @"ApplySceneUserInterfaceStyleToCarScreen", _UIInternalPreferenceUpdateBool);
       result = 2;
-      if ((v6 & 1) != 0 || !byte_1ED48B204)
+      if (v6 || !byte_1ED48B204)
       {
         return result;
       }
@@ -1086,12 +1086,12 @@ LABEL_16:
   }
 
   result = [UIApp _effectiveUserInterfaceStyle];
-  if (!result && ((_UIInternalPreferenceUsesDefault(&dword_1ED48B1F8, @"ApplySceneUserInterfaceStyleToScreen", _UIInternalPreferenceUpdateBool) & 1) == 0 && !byte_1ED48B1FC || (result = self->_lastUpdatedSceneUserInterfaceStyle) == 0))
+  if (!result && (!_UIInternalPreferenceUsesDefault(&dword_1ED48B1F8, @"ApplySceneUserInterfaceStyleToScreen", _UIInternalPreferenceUpdateBool) && !byte_1ED48B1FC || (result = self->_lastUpdatedSceneUserInterfaceStyle) == 0))
   {
     result = [(UISDisplayContext *)self->_initialDisplayContext userInterfaceStyle];
     if (!result)
     {
-      if ((_UIInternalPreferenceUsesDefault(&dword_1ED48B1F8, @"ApplySceneUserInterfaceStyleToScreen", _UIInternalPreferenceUpdateBool) & 1) == 0 && !byte_1ED48B1FC)
+      if (!_UIInternalPreferenceUsesDefault(&dword_1ED48B1F8, @"ApplySceneUserInterfaceStyleToScreen", _UIInternalPreferenceUpdateBool) && !byte_1ED48B1FC)
       {
         return 0;
       }
@@ -1180,9 +1180,9 @@ LABEL_23:
           v10 = *(*(&v40 + 1) + 8 * i);
           identifier = [v10 identifier];
           _displayID = [(UIScreen *)self _displayID];
-          v13 = [identifier isEqualToString:_displayID];
+          isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-          if (v13)
+          if (isEqualToString)
           {
             availableInteractionModels = [v10 availableInteractionModels];
             v18 = (availableInteractionModels >> 1) & 2 | availableInteractionModels & 8;
@@ -1381,7 +1381,7 @@ LABEL_43:
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_188AC50F4();
+  sub_188AC50F4(traits);
   swift_unknownObjectRelease();
 }
 
@@ -1410,7 +1410,7 @@ LABEL_43:
   v3 = self->_lastNotifiedTraitCollection;
   traitCollection = [(UIScreen *)self traitCollection];
   v5 = traitCollection;
-  if (v3 != traitCollection && ![(UITraitCollection *)traitCollection isEqual:v3])
+  if (v3 != traitCollection && (objc_msgSend_isEqual_(traitCollection) & 1) == 0)
   {
     if ([(UIScreen *)self _isMainScreen])
     {
@@ -2149,9 +2149,9 @@ LABEL_9:
 
 + (uint64_t)_mainScreen
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
 
-  return [v0 mainScreen];
+  return [v1 mainScreen];
 }
 
 + (CGAffineTransform)transformForScreenOriginRotation:(SEL)rotation
@@ -2288,7 +2288,7 @@ LABEL_3:
 
         v9 = *(*(&v15 + 1) + 8 * i);
         displayIdentity = [v9 displayIdentity];
-        if ([displayIdentity isEqual:identityCopy])
+        if (objc_msgSend_isEqual_(displayIdentity))
         {
 
 LABEL_15:
@@ -2376,7 +2376,7 @@ LABEL_16:
         os_unfair_lock_unlock(&unk_1ED49AAE8);
         name = [v10 name];
 
-        LOBYTE(v10) = [name isEqualToString:nameCopy];
+        LOBYTE(v10) = objc_msgSend_isEqualToString_(name);
         if (v10)
         {
           v12 = v9;
@@ -2445,7 +2445,7 @@ LABEL_11:
           v9 = *(*(&v14 + 1) + 8 * i);
           _eventDisplay = [v9 _eventDisplay];
           v11 = _eventDisplay;
-          if (_eventDisplay == displayCopy || ([_eventDisplay isEqual:displayCopy] & 1) != 0)
+          if (_eventDisplay == displayCopy || (objc_msgSend_isEqual_(_eventDisplay) & 1) != 0)
           {
             mainScreen = v9;
 
@@ -2611,7 +2611,7 @@ LABEL_11:
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v2 = +[UIScreen _screens];
+  v2 = +[(UIScreen *)self];
   v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
@@ -2682,14 +2682,14 @@ LABEL_11:
 
     _UIScreenAddScreen(v13, contextCopy != 0);
     [v13 _connectScreen];
-    if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B1EC)
+    if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) && byte_1ED48B1EC)
     {
       if (qword_1ED49AB90 != -1)
       {
         dispatch_once(&qword_1ED49AB90, &__block_literal_global_928);
       }
 
-      if ((byte_1ED49AAE2 & 1) == 0 && (_UIApplicationIsExtension() & 1) == 0 && [v13 _isEmbeddedScreen] && (!_UIApplicationMayVendViews() || (_UIInternalPreferenceUsesDefault(&_MergedGlobals_941, @"FakeMainScreenIncludeViewServices", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B1F4))
+      if ((byte_1ED49AAE2 & 1) == 0 && (_UIApplicationIsExtension() & 1) == 0 && [v13 _isEmbeddedScreen] && (!_UIApplicationMayVendViews() || !_UIInternalPreferenceUsesDefault(&_MergedGlobals_941, @"FakeMainScreenIncludeViewServices", _UIInternalPreferenceUpdateBool) && byte_1ED48B1F4))
       {
         if (_UIInternalPreferenceUsesDefault(&unk_1ED48B208, @"FakeMainScreenWidth", _UIInternalPreferenceUpdateInteger))
         {
@@ -3387,7 +3387,7 @@ uint64_t __40__UIScreen__updateAvailableDisplayModes__block_invoke_2(uint64_t a1
   os_unfair_lock_lock(&unk_1ED49AAE8);
   v5 = self->__displayConfiguration;
   os_unfair_lock_unlock(&unk_1ED49AAE8);
-  if (([(FBSDisplayConfiguration *)v5 isEqual:configurationCopy]& 1) != 0)
+  if (objc_msgSend_isEqual_(v5))
   {
     goto LABEL_33;
   }
@@ -3398,7 +3398,7 @@ uint64_t __40__UIScreen__updateAvailableDisplayModes__block_invoke_2(uint64_t a1
   v49 = hardwareIdentifier;
   v50 = defaultCenter;
   v48 = hardwareIdentifier2;
-  if (hardwareIdentifier == hardwareIdentifier2 || (v9 = hardwareIdentifier2, ([hardwareIdentifier isEqualToString:hardwareIdentifier2] & 1) != 0))
+  if (hardwareIdentifier == hardwareIdentifier2 || (v9 = hardwareIdentifier2, (objc_msgSend_isEqualToString_(hardwareIdentifier) & 1) != 0))
   {
     v46 = 0;
     v47 = 0;
@@ -3431,7 +3431,7 @@ uint64_t __40__UIScreen__updateAvailableDisplayModes__block_invoke_2(uint64_t a1
 
   currentMode = [(FBSDisplayConfiguration *)v5 currentMode];
   currentMode2 = [configurationCopy currentMode];
-  v45 = [currentMode isEqual:currentMode2];
+  isEqual = objc_msgSend_isEqual_(currentMode);
 
   LODWORD(currentMode) = [(FBSDisplayConfiguration *)v5 isOverscanned];
   v17 = currentMode ^ [configurationCopy isOverscanned];
@@ -3502,7 +3502,7 @@ uint64_t __40__UIScreen__updateAvailableDisplayModes__block_invoke_2(uint64_t a1
 
   [(UIScreen *)self _updateTraits];
 LABEL_24:
-  if (v17 & 1 | ((v45 & 1) == 0) || overscanCompensation != overscanCompensation2)
+  if (v17 & 1 | ((isEqual & 1) == 0) || overscanCompensation != overscanCompensation2)
   {
     [v50 postNotificationName:@"UIScreenModeDidChangeNotification" object:self userInfo:0];
   }
@@ -4993,7 +4993,7 @@ LABEL_6:
   onlyCopy = only;
   if (![(UIScreen *)self _isMainLikeScreen]|| ((v7 = _UIInternalPreferenceUsesDefault(&dword_1ED48B1F8, @"ApplySceneUserInterfaceStyleToScreen", _UIInternalPreferenceUpdateBool), byte_1ED48B1FC) ? (v8 = 1) : (v8 = v7), !necessary || !v8))
   {
-    if ((_UIInternalPreferenceUsesDefault(&dword_1ED48B200, @"ApplySceneUserInterfaceStyleToCarScreen", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1ED48B204)
+    if (_UIInternalPreferenceUsesDefault(&dword_1ED48B200, @"ApplySceneUserInterfaceStyleToCarScreen", _UIInternalPreferenceUpdateBool) || !byte_1ED48B204)
     {
       return;
     }
@@ -5031,9 +5031,9 @@ LABEL_6:
   if (defaultTraitCollection != collectionCopy)
   {
     v11 = collectionCopy;
-    v7 = [(UITraitCollection *)defaultTraitCollection isEqual:collectionCopy];
+    isEqual = objc_msgSend_isEqual_(defaultTraitCollection, collectionCopy, collectionCopy);
     collectionCopy = v11;
-    if (!v7)
+    if ((isEqual & 1) == 0)
     {
       overrideTraitCollection = self->_overrideTraitCollection;
       if (!overrideTraitCollection)
@@ -5070,9 +5070,9 @@ LABEL_6:
   if (overrideTraitCollection != collectionCopy)
   {
     v10 = collectionCopy;
-    v7 = [(UITraitCollection *)overrideTraitCollection isEqual:collectionCopy];
+    isEqual = objc_msgSend_isEqual_(overrideTraitCollection, collectionCopy, collectionCopy);
     collectionCopy = v10;
-    if (!v7)
+    if ((isEqual & 1) == 0)
     {
       defaultTraitCollection = v10;
       if (!v10)
@@ -5192,44 +5192,44 @@ LABEL_6:
 
 + (id)__displayConfigurationsForViewService
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
-  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v3 = +[UIScreen _screens];
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v4)
+  v16 = 0u;
+  v4 = +[(UIScreen *)self];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v5)
   {
-    v5 = v4;
-    v6 = *v13;
+    v6 = v5;
+    v7 = *v14;
     do
     {
-      for (i = 0; i != v5; ++i)
+      for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v6)
+        if (*v14 != v7)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
-        if (([v8 _isMainScreen] & 1) == 0 && (!objc_msgSend(UIApp, "_isSpringBoard") || (objc_msgSend(v8, "_isCarScreen") & 1) == 0))
+        v9 = *(*(&v13 + 1) + 8 * i);
+        if (([v9 _isMainScreen] & 1) == 0 && (!objc_msgSend(UIApp, "_isSpringBoard") || (objc_msgSend(v9, "_isCarScreen") & 1) == 0))
         {
-          displayConfiguration = [v8 displayConfiguration];
+          displayConfiguration = [v9 displayConfiguration];
           [array addObject:displayConfiguration];
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v5);
+    while (v6);
   }
 
-  v10 = [array copy];
+  v11 = [array copy];
 
-  return v10;
+  return v11;
 }
 
 - (id)fbsDisplay
@@ -5559,7 +5559,7 @@ LABEL_17:
     v6 = [v3 appendObject:currentMode withName:@"mode"];
   }
 
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B1EC)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) && byte_1ED48B1EC)
   {
     v7 = [v3 appendBool:-[UIScreen _isMainScreen](self withName:{"_isMainScreen"), @"isMainScreen"}];
     v8 = [v3 appendBool:self->_isFakeScreen withName:@"isFakeScreen"];
@@ -5638,7 +5638,7 @@ id __50__UIScreen_descriptionBuilderWithMultilinePrefix___block_invoke_2(uint64_
   v6 = [*(a1 + 32) appendBool:objc_msgSend(*(a1 + 40) withName:{"_isExternal"), @"isExternal"}];
   v7 = [*(a1 + 32) appendBool:(*(*(a1 + 40) + 200) >> 5) & 1 withName:@"connected"];
   v8 = [*(a1 + 32) appendBool:(*(*(a1 + 40) + 200) >> 6) & 1 withName:@"needsDisconnection"];
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48B1EC)
+  if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_FakeMainScreen, @"FakeMainScreen", _UIInternalPreferenceUpdateBool) && byte_1ED48B1EC)
   {
     v9 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 208) withName:@"isFakeScreen"];
   }

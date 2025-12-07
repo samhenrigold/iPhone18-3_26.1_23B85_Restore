@@ -538,9 +538,9 @@ LABEL_36:
     [AXElement(CACElement) englishFunctionWords];
   }
 
-  v1 = englishFunctionWords___wordSet;
+  v2 = englishFunctionWords___wordSet;
 
-  return v1;
+  return v2;
 }
 
 - (uint64_t)isVisuallyEqual:()CACElement
@@ -558,37 +558,38 @@ LABEL_36:
       v12 = v11;
       v14 = v13;
       [v4 visibleFrame];
-      v23.origin.x = v15;
-      v23.origin.y = v16;
-      v23.size.width = v17;
-      v23.size.height = v18;
-      v22.origin.x = v8;
-      v22.origin.y = v10;
-      v22.size.width = v12;
-      v22.size.height = v14;
-      if (CGRectEqualToRect(v22, v23))
+      v24.origin.x = v15;
+      v24.origin.y = v16;
+      v24.size.width = v17;
+      v24.size.height = v18;
+      v23.origin.x = v8;
+      v23.origin.y = v10;
+      v23.size.width = v12;
+      v23.size.height = v14;
+      v19 = CGRectEqualToRect(v23, v24);
+      if (v19)
       {
-        v19 = 1;
+        v20 = 1;
 LABEL_14:
 
         goto LABEL_15;
       }
 
-      v20 = CACLogElementEvaluation();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = CACLogElementEvaluation(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        [AXElement(CACElement) isVisuallyEqual:v20];
+        [AXElement(CACElement) isVisuallyEqual:v21];
       }
     }
 
-    v19 = 0;
+    v20 = 0;
     goto LABEL_14;
   }
 
-  v19 = 0;
+  v20 = 0;
 LABEL_15:
 
-  return v19;
+  return v20;
 }
 
 - (id)elementForVoiceControlTextEditing

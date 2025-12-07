@@ -34,14 +34,14 @@
 
 - (BOOL)cancelWithReason:(id)reason
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = reasonCopy;
   if (reasonCopy)
   {
-    v11 = *MEMORY[0x277CCA470];
-    v12[0] = reasonCopy;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA470];
+    v11[0] = reasonCopy;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   }
 
   else
@@ -53,7 +53,6 @@
   v8 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:3072 userInfo:v6];
   LOBYTE(future) = [(PFTFuture *)future finishWithError:v8];
 
-  v9 = *MEMORY[0x277D85DE8];
   return future;
 }
 

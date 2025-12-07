@@ -15,7 +15,7 @@
 
 - (id)_extensionContextHost
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   extension = self->_extension;
   if (extension && self->_requestIdentifier)
   {
@@ -29,20 +29,19 @@
     v5 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v8 = v5;
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = 136315394;
-      v12 = "[INCExtensionRequest _extensionContextHost]";
-      v13 = 2112;
-      v14 = v10;
-      _os_log_error_impl(&dword_255503000, v8, OS_LOG_TYPE_ERROR, "%s Unexpected extension context class %@", &v11, 0x16u);
+      v7 = v5;
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = 136315394;
+      v11 = "[INCExtensionRequest _extensionContextHost]";
+      v12 = 2112;
+      v13 = v9;
+      _os_log_error_impl(&dword_255503000, v7, OS_LOG_TYPE_ERROR, "%s Unexpected extension context class %@", &v10, 0x16u);
     }
   }
 
   v4 = 0;
 LABEL_8:
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -103,18 +102,16 @@ LABEL_8:
 
 uint64_t __28__INCExtensionRequest_reset__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[INCExtensionRequest reset]_block_invoke";
-    _os_log_impl(&dword_255503000, v2, OS_LOG_TYPE_INFO, "%s Reset extension request", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[INCExtensionRequest reset]_block_invoke";
+    _os_log_impl(&dword_255503000, v2, OS_LOG_TYPE_INFO, "%s Reset extension request", &v4, 0xCu);
   }
 
-  result = [*(a1 + 32) _resetExtensionContextHostWithCompletion:0];
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _resetExtensionContextHostWithCompletion:0];
 }
 
 void __44__INCExtensionRequest__scheduleContextTimer__block_invoke(uint64_t a1)

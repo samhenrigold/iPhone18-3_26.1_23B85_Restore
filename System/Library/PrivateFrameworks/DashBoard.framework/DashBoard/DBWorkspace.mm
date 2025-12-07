@@ -171,23 +171,25 @@ LABEL_11:
 - (void)addObserver:(id)observer
 {
   observerCopy = observer;
+  v5 = observerCopy;
   if (observerCopy && !self->_invalidated)
   {
     observers = self->_observers;
-    v8 = observerCopy;
+    v9 = v5;
     if (!observers)
     {
       hashTableWithWeakObjects = [MEMORY[0x277CCAA50] hashTableWithWeakObjects];
-      v7 = self->_observers;
+      v8 = self->_observers;
       self->_observers = hashTableWithWeakObjects;
 
       observers = self->_observers;
     }
 
-    [(NSHashTable *)observers addObject:v8];
+    observerCopy = [(NSHashTable *)observers addObject:v9];
+    v5 = v9;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](observerCopy, v5);
 }
 
 - (void)removeObserver:(id)observer

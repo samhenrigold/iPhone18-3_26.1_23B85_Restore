@@ -498,134 +498,143 @@ LABEL_11:
   }
 
   qword_10001CC78 = 0;
-  v13 = sub_100006D90(0xC8uLL);
-  if (!v13)
+  v14 = sub_100006D90(0xC8uLL);
+  if (!v14)
   {
-LABEL_22:
+LABEL_25:
     byte_10001CC70 = 0;
     goto LABEL_6;
   }
 
-  *v13 = 0u;
-  *(v13 + 16) = 0u;
-  *(v13 + 192) = 0;
-  *(v13 + 160) = 0u;
-  *(v13 + 176) = 0u;
-  *(v13 + 128) = 0u;
-  *(v13 + 144) = 0u;
-  *(v13 + 96) = 0u;
-  *(v13 + 112) = 0u;
-  *(v13 + 64) = 0u;
-  *(v13 + 80) = 0u;
-  *(v13 + 32) = 0u;
-  *(v13 + 48) = 0u;
-  qword_10001CC78 = v13;
-  *(v13 + 8) = vdupq_n_s64(0x8000uLL);
-  if (sub_100007330(&qword_10001CC80, v13))
+  *v14 = 0u;
+  *(v14 + 16) = 0u;
+  *(v14 + 192) = 0;
+  *(v14 + 160) = 0u;
+  *(v14 + 176) = 0u;
+  *(v14 + 128) = 0u;
+  *(v14 + 144) = 0u;
+  *(v14 + 96) = 0u;
+  *(v14 + 112) = 0u;
+  *(v14 + 64) = 0u;
+  *(v14 + 80) = 0u;
+  *(v14 + 32) = 0u;
+  *(v14 + 48) = 0u;
+  qword_10001CC78 = v14;
+  *(v14 + 8) = vdupq_n_s64(0x8000uLL);
+  if (sub_100007330(&qword_10001CC80, v14))
   {
-    v14 = 0;
-    v15 = qword_10001CC78;
-    v16 = qword_10001CC78 + 40;
+    v15 = 0;
+    v16 = qword_10001CC78;
+    v17 = qword_10001CC78 + 40;
     do
     {
       while (1)
       {
-        v17 = *(v16 + 8 * v14);
-        if (!v17)
+        v18 = *(v17 + 8 * v15);
+        if (!v18)
         {
           break;
         }
 
-        *(v16 + 8 * v14) = *v17;
-        vm_deallocate(mach_task_self_, v17, ((*(v17 + 16) << 12) + 4096));
+        *(v17 + 8 * v15) = *v18;
+        vm_deallocate(mach_task_self_, v18, ((*(v18 + 16) << 12) + 4096));
       }
 
-      ++v14;
+      ++v15;
     }
 
-    while (v14 != 20);
-    vm_deallocate(mach_task_self_, v15, 0xC8uLL);
+    while (v15 != 20);
+    vm_deallocate(mach_task_self_, v16, 0xC8uLL);
     qword_10001CC78 = 0;
-    goto LABEL_22;
+    goto LABEL_25;
   }
 
-  v34 = qword_10001CC80;
+  v35 = qword_10001CC80;
   *(qword_10001CC80 + 80) = "apr_global_pool";
   if (qword_10001CC68)
   {
-LABEL_106:
+LABEL_111:
     *&buf = 0;
-    if (sub_1000075CC(&buf, v34))
+    if (sub_1000075CC(&buf, v35))
     {
       goto LABEL_6;
     }
 
-    v38 = qword_10001CC78;
-    v39 = qword_10001CC80;
+    v39 = qword_10001CC78;
+    v40 = qword_10001CC80;
     *(qword_10001CC78 + 24) = buf;
-    *(v38 + 32) = v39;
+    *(v39 + 32) = v40;
     goto LABEL_11;
   }
 
-  v35 = sub_100007430(v34, 0x38uLL);
-  qword_10001CC68 = v35;
-  v36 = *(v34 + 40);
-  if (v36)
+  v36 = sub_100007430(v35, 0x38uLL);
+  qword_10001CC68 = v36;
+  v37 = *(v35 + 40);
+  if (v37)
   {
-    *(v34 + 40) = *v36;
+    *(v35 + 40) = *v37;
   }
 
   else
   {
-    v36 = sub_100007430(v34, 0x20uLL);
+    v37 = sub_100007430(v35, 0x20uLL);
   }
 
-  v37 = 0;
-  v36[1] = v35;
-  v36[2] = sub_100007160;
-  v36[3] = sub_1000075C4;
-  *v36 = *(v34 + 32);
-  *(v34 + 32) = v36;
-  while (!sub_1000075CC((qword_10001CC68 + v37), v34))
+  v38 = 0;
+  v37[1] = v36;
+  v37[2] = sub_100007160;
+  v37[3] = sub_1000075C4;
+  *v37 = *(v35 + 32);
+  *(v35 + 32) = v37;
+  while (!sub_1000075CC((qword_10001CC68 + v38), v35))
   {
-    v37 += 8;
-    if (v37 == 56)
+    v38 += 8;
+    if (v38 == 56)
     {
-      v34 = qword_10001CC80;
-      goto LABEL_106;
+      v35 = qword_10001CC80;
+      goto LABEL_111;
     }
   }
 
 LABEL_6:
-  v40 = 0;
-  sub_100007330(&v40, 0);
+  v41 = 0;
+  sub_100007330(&v41, 0);
   GTMTLReplayController_init();
   if (a1 >= 2 && (v7 = a2 + 8, !strcmp("-CLI", *(a2 + 8))))
   {
     *(a2 + 8) = *a2;
     if (a1 == 2)
     {
+      if (g_runningInCI)
+      {
+        v13 = "#CI_ERROR# ";
+      }
+
+      else
+      {
+        v13 = "";
+      }
+
       v10 = 1;
-      GTMTLReplay_handleError();
+      GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/GTMTLReplay_mainCLI.m", "GTMTLReplayCLI_main", 453, 1, "%s%s %u: Invalid command-line arguments (usage: MTLReplayer archivePath [options])\n", v13, "int GTMTLReplayCLI_main(int, const char **)", 453);
     }
 
     else
     {
-      v19 = *(a2 + 16);
-      v18 = a2 + 16;
+      v19 = a2 + 16;
       v20 = a1 - 1;
-      v61 = xmmword_1000145F0;
-      v62 = unk_100014600;
-      v63 = xmmword_100014610;
-      v64 = unk_100014620;
-      v57 = xmmword_1000145B0;
-      v58 = unk_1000145C0;
-      v59 = xmmword_1000145D0;
-      v60 = unk_1000145E0;
+      v62 = xmmword_1000145F0;
+      v63 = unk_100014600;
+      v64 = xmmword_100014610;
+      v65 = unk_100014620;
+      v58 = xmmword_1000145B0;
+      v59 = unk_1000145C0;
+      v60 = xmmword_1000145D0;
+      v61 = unk_1000145E0;
       buf = xmmword_100014570;
-      v54 = unk_100014580;
-      v55 = xmmword_100014590;
-      v56 = *&off_1000145A0;
+      v55 = unk_100014580;
+      v56 = xmmword_100014590;
+      v57 = *&off_1000145A0;
       if (a1 != 3)
       {
         v21 = 2;
@@ -640,267 +649,273 @@ LABEL_6:
             v24 += 2;
             if (!--v25)
             {
-LABEL_29:
-              GTMTLReplay_handleError();
-              goto LABEL_87;
+LABEL_32:
+              v26 = "";
+              if (g_runningInCI)
+              {
+                v26 = "#CI_ERROR# ";
+              }
+
+              GTMTLReplay_handleError(101, "/Library/Caches/com.apple.xbs/Sources/GPUToolsDevice/GPUTools/GTMTLCapture/replayer/GTMTLReplay_mainCLI.m", "ParseArguments", 442, 1, "%s%s %u: Unknown token: %s\n", v26, "void ParseArguments(GTMTLReplayCLIOptions *, int, const char **)", 442, v23);
+              goto LABEL_92;
             }
           }
 
           switch(*(v24 + 2))
           {
             case 1:
-              v26 = DWORD2(v64) | 0x8000;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x8000;
+              goto LABEL_87;
             case 2:
             case 0x17:
-              goto LABEL_87;
+              goto LABEL_92;
             case 3:
             case 0x1F:
-              v26 = DWORD2(v64) | 0x200;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x200;
+              goto LABEL_87;
             case 4:
               ++v21;
               *(&buf + 1) = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
+              goto LABEL_92;
             case 5:
               ++v21;
               *&buf = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
+              goto LABEL_92;
             case 6:
               ++v21;
-              v28 = atoi(*(v7 + 8 * (v22 + 1)));
-              if (v28 <= 1)
+              v29 = atoi(*(v7 + 8 * (v22 + 1)));
+              if (v29 <= 1)
               {
-                v29 = 1;
+                v30 = 1;
               }
 
               else
               {
-                v29 = v28;
+                v30 = v29;
               }
 
-              DWORD2(v54) = v29;
-              goto LABEL_87;
+              DWORD2(v55) = v30;
+              goto LABEL_92;
             case 7:
-              BYTE4(v55) = 1;
-              goto LABEL_87;
+              BYTE4(v56) = 1;
+              goto LABEL_92;
             case 8:
-              v26 = DWORD2(v64) | 0x100;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x100;
+              goto LABEL_87;
             case 9:
               ++v21;
-              *&v54 = atoi(*(v7 + 8 * (v22 + 1)));
-              goto LABEL_87;
+              *&v55 = atoi(*(v7 + 8 * (v22 + 1)));
+              goto LABEL_92;
             case 0xA:
               ++v21;
-              HIDWORD(v54) = atoi(*(v7 + 8 * (v22 + 1)));
-              goto LABEL_87;
+              HIDWORD(v55) = atoi(*(v7 + 8 * (v22 + 1)));
+              goto LABEL_92;
             case 0xB:
               ++v21;
-              LODWORD(v55) = atoi(*(v7 + 8 * (v22 + 1)));
-              goto LABEL_87;
+              LODWORD(v56) = atoi(*(v7 + 8 * (v22 + 1)));
+              goto LABEL_92;
             case 0xC:
-              BYTE5(v55) = 1;
-              goto LABEL_87;
+              BYTE5(v56) = 1;
+              goto LABEL_92;
             case 0xD:
               ++v21;
-              *(&v55 + 1) = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
+              *(&v56 + 1) = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
             case 0xE:
               ++v21;
-              *&v56 = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
+              *&v57 = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
             case 0xF:
               ++v21;
-              sscanf(*(v7 + 8 * (v22 + 1)), "%llu:%llu", &v63 + 8, &v64);
-              goto LABEL_87;
+              sscanf(*(v7 + 8 * (v22 + 1)), "%llu:%llu", &v64 + 8, &v65);
+              goto LABEL_92;
             case 0x10:
-              v26 = DWORD2(v64) | 1;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 1;
+              goto LABEL_87;
             case 0x11:
-              v26 = DWORD2(v64) | 2;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 2;
+              goto LABEL_87;
             case 0x12:
-              v26 = DWORD2(v64) | 4;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 4;
+              goto LABEL_87;
             case 0x13:
               ++v21;
-              HIDWORD(v62) = atoi(*(v7 + 8 * (v22 + 1)));
-              goto LABEL_87;
+              HIDWORD(v63) = atoi(*(v7 + 8 * (v22 + 1)));
+              goto LABEL_92;
             case 0x14:
               ++v21;
-              LODWORD(v63) = atoi(*(v7 + 8 * (v22 + 1)));
-              goto LABEL_87;
+              LODWORD(v64) = atoi(*(v7 + 8 * (v22 + 1)));
+              goto LABEL_92;
             case 0x15:
-              v26 = DWORD2(v64) | 8;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 8;
+              goto LABEL_87;
             case 0x16:
-              v26 = DWORD2(v64) | 0x40;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x40;
+              goto LABEL_87;
             case 0x18:
               ++v21;
-              *(&v57 + 1) = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
+              *(&v58 + 1) = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
             case 0x19:
-              v27 = DWORD2(v64) | 0x800;
-              goto LABEL_80;
+              v28 = DWORD2(v65) | 0x800;
+              goto LABEL_85;
             case 0x1A:
-              v26 = DWORD2(v64) | 0x80;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x80;
+              goto LABEL_87;
             case 0x1B:
-              v27 = DWORD2(v64) | 0x100;
-LABEL_80:
-              DWORD2(v64) = v27;
-              ++v21;
-              *&v59 = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
-            case 0x1C:
-              DWORD2(v64) |= 0x2000u;
-              ++v21;
-              *(&v59 + 1) = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
-            case 0x1D:
+              v28 = DWORD2(v65) | 0x100;
+LABEL_85:
+              DWORD2(v65) = v28;
               ++v21;
               *&v60 = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
-            case 0x1E:
+              goto LABEL_92;
+            case 0x1C:
+              DWORD2(v65) |= 0x2000u;
               ++v21;
               *(&v60 + 1) = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
-            case 0x20:
-              ++v21;
-              *(&v56 + 1) = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
-            case 0x21:
-              ++v21;
-              *&v57 = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
-            case 0x22:
-              v26 = DWORD2(v64) | 0x1000;
-              goto LABEL_82;
-            case 0x23:
-              DWORD2(v64) |= 0x80u;
-              ++v21;
-              *&v58 = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
-            case 0x24:
-              DWORD2(v64) |= 0x4000u;
+              goto LABEL_92;
+            case 0x1D:
               ++v21;
               *&v61 = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
+            case 0x1E:
+              ++v21;
+              *(&v61 + 1) = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
+            case 0x20:
+              ++v21;
+              *(&v57 + 1) = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
+            case 0x21:
+              ++v21;
+              *&v58 = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
+            case 0x22:
+              v27 = DWORD2(v65) | 0x1000;
               goto LABEL_87;
+            case 0x23:
+              DWORD2(v65) |= 0x80u;
+              ++v21;
+              *&v59 = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
+            case 0x24:
+              DWORD2(v65) |= 0x4000u;
+              ++v21;
+              *&v62 = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
             case 0x25:
-              v26 = DWORD2(v64) | 0x10000;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x10000;
+              goto LABEL_87;
             case 0x27:
               g_runningInCI = 1;
-              goto LABEL_87;
+              goto LABEL_92;
             case 0x28:
               g_runningValidationCI = 1;
-              goto LABEL_87;
+              goto LABEL_92;
             case 0x29:
               ++v21;
-              goto LABEL_87;
+              goto LABEL_92;
             case 0x2A:
-              v26 = DWORD2(v64) | 0x20000;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x20000;
+              goto LABEL_87;
             case 0x2B:
-              v26 = DWORD2(v64) | 0x10;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x10;
+              goto LABEL_87;
             case 0x2C:
-              v26 = DWORD2(v64) | 0x40000;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x40000;
+              goto LABEL_87;
             case 0x2D:
-              v26 = DWORD2(v64) | 0x80000;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x80000;
+              goto LABEL_87;
             case 0x2E:
-              v26 = DWORD2(v64) | 0x100000;
-              goto LABEL_82;
+              v27 = DWORD2(v65) | 0x100000;
+              goto LABEL_87;
             case 0x30:
-              DWORD2(v64) |= 0x200000u;
-              v30 = v21 + 1;
-              v31 = *(v7 + 8 * v30);
-              if (!v31 || *v31 == 45)
+              DWORD2(v65) |= 0x200000u;
+              v31 = v21 + 1;
+              v32 = *(v7 + 8 * v31);
+              if (!v32 || *v32 == 45)
               {
-                DWORD1(v63) = -1;
-                goto LABEL_87;
+                DWORD1(v64) = -1;
+                goto LABEL_92;
               }
 
-              if (!strcmp(*(v7 + 8 * v30), "max"))
+              if (!strcmp(*(v7 + 8 * v31), "max"))
               {
-                v33 = 2;
-LABEL_95:
-                DWORD1(v63) = v33;
-                goto LABEL_96;
+                v34 = 2;
+LABEL_100:
+                DWORD1(v64) = v34;
+                goto LABEL_101;
               }
 
-              if (!strcmp(v31, "med"))
+              if (!strcmp(v32, "med"))
               {
-                v33 = 1;
-                goto LABEL_95;
+                v34 = 1;
+                goto LABEL_100;
               }
 
-              if (!strcmp(v31, "min"))
+              if (!strcmp(v32, "min"))
               {
-                DWORD1(v63) = 0;
+                DWORD1(v64) = 0;
               }
 
               else
               {
-                DWORD1(v63) = atoi(v31);
+                DWORD1(v64) = atoi(v32);
               }
 
-LABEL_96:
+LABEL_101:
               ++v21;
-LABEL_87:
+LABEL_92:
               if (++v21 >= v20)
               {
-                goto LABEL_24;
+                goto LABEL_27;
               }
 
               break;
             case 0x31:
-              DWORD2(v64) |= 0x800000u;
+              DWORD2(v65) |= 0x800000u;
               ++v21;
-              *(&v61 + 1) = *(v7 + 8 * (v22 + 1));
-              goto LABEL_87;
+              *(&v62 + 1) = *(v7 + 8 * (v22 + 1));
+              goto LABEL_92;
             case 0x32:
-              v32 = DWORD2(v64) | 0x1000000;
-              goto LABEL_86;
+              v33 = DWORD2(v65) | 0x1000000;
+              goto LABEL_91;
             case 0x33:
-              v32 = DWORD2(v64) | 0x2000000;
-LABEL_86:
-              DWORD2(v64) = v32;
-              DWORD2(v62) = atoi(*(v18 + 8 * v21));
+              v33 = DWORD2(v65) | 0x2000000;
+LABEL_91:
+              DWORD2(v65) = v33;
+              DWORD2(v63) = atoi(*(v19 + 8 * v21));
               v21 += 2;
-              *&v62 = *(v7 + 8 * (v22 + 2));
-              goto LABEL_87;
+              *&v63 = *(v7 + 8 * (v22 + 2));
+              goto LABEL_92;
             case 0x34:
-              v26 = DWORD2(v64) | 0x400000;
-              goto LABEL_82;
-            case 0x35:
-              v26 = DWORD2(v64) | 0x20;
-LABEL_82:
-              DWORD2(v64) = v26;
+              v27 = DWORD2(v65) | 0x400000;
               goto LABEL_87;
+            case 0x35:
+              v27 = DWORD2(v65) | 0x20;
+LABEL_87:
+              DWORD2(v65) = v27;
+              goto LABEL_92;
             default:
-              goto LABEL_29;
+              goto LABEL_32;
           }
         }
       }
 
-LABEL_24:
-      v49 = v61;
+LABEL_27:
       v50 = v62;
       v51 = v63;
       v52 = v64;
-      v45 = v57;
+      v53 = v65;
       v46 = v58;
       v47 = v59;
       v48 = v60;
-      v41 = buf;
-      v42 = v54;
+      v49 = v61;
+      v42 = buf;
       v43 = v55;
       v44 = v56;
+      v45 = v57;
       v10 = GTMTLReplay_CLI();
     }
   }
@@ -1009,7 +1024,7 @@ void sub_100004EF0(uint64_t a1, void *a2)
     v5 = +[GTReplayUnarchiver rootResponseClassSet];
     objc_opt_class();
     v6 = [v3 data];
-    v31 = 0;
+    v29 = 0;
     v7 = GTUnarchivedObjectOfClassesExpectingClass();
     v8 = 0;
 
@@ -1020,39 +1035,38 @@ void sub_100004EF0(uint64_t a1, void *a2)
       block[1] = 3221225472;
       block[2] = sub_10000528C;
       block[3] = &unk_100014A78;
-      v26 = v7;
-      v24 = *(a1 + 40);
-      v10 = *(&v24 + 1);
+      v24 = v7;
+      v22 = *(a1 + 40);
+      v10 = *(&v22 + 1);
       v11 = *(a1 + 56);
       v12 = *(a1 + 64);
       *&v13 = v11;
       *(&v13 + 1) = v12;
-      v27 = v24;
-      v28 = v13;
-      v30 = *(a1 + 72);
-      v29 = *(a1 + 32);
+      v25 = v22;
+      v26 = v13;
+      v28 = *(a1 + 72);
+      v27 = *(a1 + 32);
       dispatch_async(v9, block);
     }
 
     else
     {
-      v17 = sub_100006F30(0x10u);
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v16 = sub_100006F30(0x10u);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v35 = v8;
-        _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Display service failed to deserialize replayer fetch response (%@)", buf, 0xCu);
+        v33 = v8;
+        _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Display service failed to deserialize replayer fetch response (%@)", buf, 0xCu);
       }
 
-      v18 = GTTransportErrorDomain;
-      v32 = NSLocalizedDescriptionKey;
-      v19 = [NSString stringWithFormat:@"Deserialization failed for %@", @"replayer fetchInto response"];
-      v33 = v19;
-      v20 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-      v21 = [NSError errorWithDomain:v18 code:10 userInfo:v20];
-      [*(a1 + 32) setError:v21];
+      v17 = GTTransportErrorDomain;
+      v30 = NSLocalizedDescriptionKey;
+      v18 = [NSString stringWithFormat:@"Deserialization failed for %@", @"replayer fetchInto response"];
+      v31 = v18;
+      v19 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v20 = [NSError errorWithDomain:v17 code:10 userInfo:v19];
+      [*(a1 + 32) setError:v20];
 
-      v22 = *(a1 + 32);
       (*(*(a1 + 72) + 16))();
     }
   }
@@ -1062,29 +1076,27 @@ void sub_100004EF0(uint64_t a1, void *a2)
     v14 = sub_100006F30(0x10u);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v23 = [v3 error];
+      v21 = [v3 error];
       *buf = 138412290;
-      v35 = v23;
+      v33 = v21;
       _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to fetch resources for displaying (%@)", buf, 0xCu);
     }
 
     v15 = [v3 error];
     [*(a1 + 32) setError:v15];
 
-    v16 = *(a1 + 32);
     (*(*(a1 + 72) + 16))();
   }
 }
 
 void sub_10000528C(uint64_t a1)
 {
-  v4 = [*(a1 + 32) objectForKeyedSubscript:@"info"];
+  v3 = [*(a1 + 32) objectForKeyedSubscript:@"info"];
   v2 = [*(a1 + 32) objectForKeyedSubscript:@"data"];
-  [*(a1 + 40) processFetchTextureResponse:v4 data:v2 forRequest:*(a1 + 48)];
-  [*(a1 + 40) processFetchWireframeResponse:v4 data:v2 forRequest:*(a1 + 56)];
-  [*(a1 + 40) processFetchRenderMaskResponse:v4 data:v2 forRequest:*(a1 + 64)];
+  [*(a1 + 40) processFetchTextureResponse:v3 data:v2 forRequest:*(a1 + 48)];
+  [*(a1 + 40) processFetchWireframeResponse:v3 data:v2 forRequest:*(a1 + 56)];
+  [*(a1 + 40) processFetchRenderMaskResponse:v3 data:v2 forRequest:*(a1 + 64)];
   [*(a1 + 40) encodeRenderPass];
-  v3 = *(a1 + 72);
   (*(*(a1 + 80) + 16))();
 }
 
@@ -1098,7 +1110,7 @@ void sub_100005784(uint64_t a1, void *a2)
     v5 = +[GTReplayUnarchiver rootResponseClassSet];
     objc_opt_class();
     v6 = [v3 data];
-    v31 = 0;
+    v29 = 0;
     v7 = GTUnarchivedObjectOfClassesExpectingClass();
     v8 = 0;
 
@@ -1112,62 +1124,61 @@ void sub_100005784(uint64_t a1, void *a2)
         block[2] = sub_100005BB8;
         block[3] = &unk_100014A78;
         block[4] = *(a1 + 40);
-        v25 = v7;
-        v26 = *(a1 + 48);
-        v27 = *(a1 + 56);
-        v28 = *(a1 + 64);
-        v30 = *(a1 + 72);
-        v29 = *(a1 + 32);
+        v23 = v7;
+        v24 = *(a1 + 48);
+        v25 = *(a1 + 56);
+        v26 = *(a1 + 64);
+        v28 = *(a1 + 72);
+        v27 = *(a1 + 32);
         dispatch_async(v9, block);
 
 LABEL_13:
         goto LABEL_14;
       }
 
-      v18 = sub_100006F30(0x10u);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = sub_100006F30(0x10u);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v22 = [v7 count];
-        v23 = *(a1 + 80);
+        v20 = [v7 count];
+        v21 = *(a1 + 80);
         *buf = 134218240;
-        v35 = v22;
-        v36 = 2048;
-        v37 = v23;
-        _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Replayer fetchInto request returned %lu responses, expected %lu", buf, 0x16u);
+        v33 = v20;
+        v34 = 2048;
+        v35 = v21;
+        _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Replayer fetchInto request returned %lu responses, expected %lu", buf, 0x16u);
       }
 
-      v19 = GTTransportErrorDomain;
-      v32 = NSLocalizedDescriptionKey;
-      v14 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Unexpected number of responses. Expected %lu Received %lu", *(a1 + 80), [v7 count]);
-      v33 = v14;
-      v15 = [NSDictionary dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-      v16 = v19;
-      v17 = 11;
+      v18 = GTTransportErrorDomain;
+      v30 = NSLocalizedDescriptionKey;
+      v13 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"Unexpected number of responses. Expected %lu Received %lu", *(a1 + 80), [v7 count]);
+      v31 = v13;
+      v14 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v15 = v18;
+      v16 = 11;
     }
 
     else
     {
-      v12 = sub_100006F30(0x10u);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = sub_100006F30(0x10u);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v35 = v8;
-        _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Display service failed to deserialize replayer fetchInto response (%@)", buf, 0xCu);
+        v33 = v8;
+        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Display service failed to deserialize replayer fetchInto response (%@)", buf, 0xCu);
       }
 
-      v13 = GTTransportErrorDomain;
-      v38 = NSLocalizedDescriptionKey;
-      v14 = [NSString stringWithFormat:@"Deserialization failed for %@", @"replayer fetchInto response"];
-      v39 = v14;
-      v15 = [NSDictionary dictionaryWithObjects:&v39 forKeys:&v38 count:1];
-      v16 = v13;
-      v17 = 10;
+      v12 = GTTransportErrorDomain;
+      v36 = NSLocalizedDescriptionKey;
+      v13 = [NSString stringWithFormat:@"Deserialization failed for %@", @"replayer fetchInto response"];
+      v37 = v13;
+      v14 = [NSDictionary dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v15 = v12;
+      v16 = 10;
     }
 
-    v20 = [NSError errorWithDomain:v16 code:v17 userInfo:v15];
-    [*(a1 + 32) setError:v20];
+    v19 = [NSError errorWithDomain:v15 code:v16 userInfo:v14];
+    [*(a1 + 32) setError:v19];
 
-    v21 = *(a1 + 32);
     (*(*(a1 + 72) + 16))();
     goto LABEL_13;
   }
@@ -1175,7 +1186,6 @@ LABEL_13:
   v10 = [v3 error];
   [*(a1 + 32) setError:v10];
 
-  v11 = *(a1 + 32);
   (*(*(a1 + 72) + 16))();
 LABEL_14:
 }
@@ -1195,10 +1205,9 @@ uint64_t sub_100005BB8(uint64_t a1)
   [v6 processFetchIntoRenderMaskResponse:v7 forRequest:*(a1 + 64)];
 
   [*(a1 + 32) encodeRenderPass];
-  v8 = *(a1 + 72);
-  v9 = *(*(a1 + 80) + 16);
+  v8 = *(*(a1 + 80) + 16);
 
-  return v9();
+  return v8();
 }
 
 void sub_1000062EC(uint64_t a1, void *a2)
@@ -1416,10 +1425,7 @@ uint64_t sub_100007024(uint64_t a1)
   {
   }
 
-  v5 = os_log_create(*v2, v2[1]);
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 16);
-  *(v6 + 16) = v5;
+  *(*(a1 + 32) + 16) = os_log_create(*v2, v2[1]);
 
   return _objc_release_x1();
 }
@@ -1477,7 +1483,7 @@ uint64_t **sub_10000717C(unint64_t *a1, unint64_t a2)
     pthread_mutex_lock((v8 + 8));
   }
 
-  v10 = (a1 + 5);
+  v10 = a1 + 5;
   v9 = *a1;
   if (v5 <= *a1)
   {
@@ -1549,7 +1555,7 @@ uint64_t **sub_10000717C(unint64_t *a1, unint64_t a2)
       *a1 = v9;
     }
 
-    v12 = (*(v6 + 4) + 1);
+    v12 = (*(v6 + 16) + 1);
 LABEL_41:
     v25 = a1[2] + v12;
     if (v25 >= a1[1])
@@ -1573,7 +1579,7 @@ LABEL_41:
     goto LABEL_28;
   }
 
-  v11 = *(v6 + 4);
+  v11 = *(v6 + 16);
   if (v5 <= v11)
   {
 LABEL_17:
@@ -1591,7 +1597,7 @@ LABEL_17:
       break;
     }
 
-    v11 = *(v6 + 4);
+    v11 = *(v6 + 16);
     if (v5 <= v11)
     {
       goto LABEL_17;
@@ -1613,7 +1619,7 @@ LABEL_28:
     *(v20 + 32) = v20 + v2;
 LABEL_45:
     *v6 = 0;
-    v6[3] = (v6 + 5);
+    *(v6 + 24) = v6 + 40;
   }
 
   return v6;
@@ -1790,7 +1796,7 @@ uint64_t *sub_100007558(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
     result = result[5];
     if (result)
     {
-      *(v7 + 40) = *result;
+      v7[5] = *result;
     }
 
     else
@@ -1800,9 +1806,9 @@ uint64_t *sub_100007558(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
 
     result[2] = a3;
     result[3] = a4;
-    *result = *(v7 + 32);
+    *result = v7[4];
     result[1] = a2;
-    *(v7 + 32) = result;
+    v7[4] = result;
   }
 
   return result;
@@ -2307,39 +2313,8 @@ LABEL_50:
                         v135 = [v130 computeFunction];
                         [v135 setLabel:v134];
 
-                        if (v16)
+                        if (v16 || (v156 = 0, v139 = [v6 newComputePipelineStateWithDescriptor:v130 options:0 reflection:0 error:&v156], v16 = v156, v140 = qword_10001CD40, qword_10001CD40 = v139, v140, v16) || (v130, v130 = objc_opt_new(), objc_msgSend(@"com.apple.gputools.TextureProcssorCore.PipelineState - ", "stringByAppendingString:", @"Histogram_alpha"), v141 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v130, "setLabel:", v141), v141, v142 = objc_opt_new(), v155 = 0, v143 = objc_msgSend(v11, "newFunctionWithName:constantValues:error:", @"Histogram_alpha", v142, &v155), v16 = v155, objc_msgSend(v130, "setComputeFunction:", v143), v143, v142, objc_msgSend(@"com.apple.gputools.TextureProcessorCore.function - ", "stringByAppendingString:", @"Histogram_alpha"), v144 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v130, "computeFunction"), v145 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v145, "setLabel:", v144), v145, v144, v16) || (v154 = 0, v146 = objc_msgSend(v6, "newComputePipelineStateWithDescriptor:options:reflection:error:", v130, 0, 0, &v154), v16 = v154, v147 = qword_10001CE08, qword_10001CE08 = v146, v147, v16))
                         {
-                          goto LABEL_42;
-                        }
-
-                        v156 = 0;
-                        v139 = [v6 newComputePipelineStateWithDescriptor:v130 options:0 reflection:0 error:&v156];
-                        v16 = v156;
-                        v140 = qword_10001CD40;
-                        qword_10001CD40 = v139;
-
-                        if (v16)
-                        {
-                          goto LABEL_42;
-                        }
-
-                        v130 = objc_opt_new();
-                        v141 = [@"com.apple.gputools.TextureProcssorCore.PipelineState - " stringByAppendingString:@"Histogram_alpha"];
-                        [v130 setLabel:v141];
-
-                        v142 = objc_opt_new();
-                        v155 = 0;
-                        v143 = [v11 newFunctionWithName:@"Histogram_alpha" constantValues:v142 error:&v155];
-                        v16 = v155;
-                        [v130 setComputeFunction:v143];
-
-                        v144 = [@"com.apple.gputools.TextureProcessorCore.function - " stringByAppendingString:@"Histogram_alpha"];
-                        v145 = [v130 computeFunction];
-                        [v145 setLabel:v144];
-
-                        if (v16 || (v154 = 0, v146 = [v6 newComputePipelineStateWithDescriptor:v130 options:0 reflection:0 error:&v154], v16 = v154, v147 = qword_10001CE08, qword_10001CE08 = v146, v147, v16))
-                        {
-LABEL_42:
                           if (a3)
                           {
                             *a3 = sub_100007670(@"com.apple.gputools.TextureProcessorCore", 256, @"Error during the execution of the Metal methods", v16, 0, v136, v137, v138, v152);

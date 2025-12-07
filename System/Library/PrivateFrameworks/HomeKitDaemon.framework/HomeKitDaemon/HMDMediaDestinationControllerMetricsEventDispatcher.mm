@@ -35,7 +35,7 @@
 
 - (id)dataSourceIsTriggeredOnControllerDevice
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDMediaDestinationControllerMetricsEventDispatcher *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -52,23 +52,21 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get is triggered on controller device due to no data source", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get is triggered on controller device due to no data source", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = @"NotSet";
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)dataSourceDestinationTypeWithIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -87,9 +85,9 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = HMFGetLogIdentifier();
-        v14 = 138543362;
-        v15 = v11;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get destination type due to no data source", &v14, 0xCu);
+        v13 = 138543362;
+        v14 = v11;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get destination type due to no data source", &v13, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -103,14 +101,12 @@
     v7 = @"NotSet";
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)dataSourceCurrentDestinationType
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDMediaDestinationControllerMetricsEventDispatcher *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -137,23 +133,21 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get current destination type due to no data source", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get current destination type due to no data source", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = HMMediaDestinationTypeAsString();
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)dataSourceCurrentUser
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDMediaDestinationControllerMetricsEventDispatcher *)self dataSource];
   v4 = [dataSource currentUserForMediaDestinationControllerMetricsEventDispatcher:self];
   if (!v4)
@@ -164,17 +158,15 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2112;
-      v14 = dataSource;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to get current user from data source: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2112;
+      v13 = dataSource;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to get current user from data source: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -209,16 +201,16 @@
 
 - (void)submitDailySetDestinationEvent
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v21 = 138543362;
-    v22 = v6;
-    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Submitting daily set destination event", &v21, 0xCu);
+    v20 = 138543362;
+    v21 = v6;
+    _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Submitting daily set destination event", &v20, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -232,14 +224,14 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v15;
+      v20 = 138543362;
+      v21 = v15;
       v16 = "%{public}@Failed to submit daily set destination event due to no data source";
       v17 = v14;
       v18 = OS_LOG_TYPE_ERROR;
       v19 = 12;
 LABEL_10:
-      _os_log_impl(&dword_229538000, v17, v18, v16, &v21, v19);
+      _os_log_impl(&dword_229538000, v17, v18, v16, &v20, v19);
     }
 
 LABEL_11:
@@ -256,10 +248,10 @@ LABEL_11:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v8;
+      v20 = 138543618;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v8;
       v16 = "%{public}@Skipping daily set destination event due to event not triggered on the controller provided by data source: %@";
       v17 = v14;
       v18 = OS_LOG_TYPE_INFO;
@@ -276,12 +268,11 @@ LABEL_11:
   [logEventSubmitter submitLogEvent:v10];
 
 LABEL_12:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitStagedDestinationIdentifierCommittedEventWithCommittedDestinationIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   os_unfair_lock_lock_with_options();
   v5 = self->_trackedStagedDestinationIdentifierEvent;
@@ -298,11 +289,11 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v13;
-      v22 = 2112;
-      v23 = identifierCopy;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@submitting staged destination identifier committed event with committed destination identifier: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v13;
+      v21 = 2112;
+      v22 = identifierCopy;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@submitting staged destination identifier committed event with committed destination identifier: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -320,20 +311,18 @@ LABEL_12:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping staged destination identifier committed event due to out-dated information", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping staged destination identifier committed event due to out-dated information", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startStagedDestinationIdentifierCommittedEventWithStagedDestinationIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -341,11 +330,11 @@ LABEL_12:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v8;
-    v16 = 2112;
-    v17 = identifierCopy;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Tracking staged destination identifier: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v8;
+    v15 = 2112;
+    v16 = identifierCopy;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Tracking staged destination identifier: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -357,7 +346,6 @@ LABEL_12:
   selfCopy->_trackedStagedDestinationIdentifierEvent = v11;
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitFailureEventWithEventErrorCode:(unint64_t)code error:(id)error
@@ -446,10 +434,9 @@ LABEL_12:
 
 void __66__HMDMediaDestinationControllerMetricsEventDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13_65338;
-  logCategory__hmf_once_v13_65338 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13_65338;
+  logCategory__hmf_once_v13_65338 = v0;
 }
 
 @end

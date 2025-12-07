@@ -1,9 +1,18 @@
 @interface DedicatedCameraViewController
 - (void)proxCardFlowDidDismiss;
 - (void)proxCardFlowWillPresent;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation DedicatedCameraViewController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DedicatedCameraViewController;
+  [(DedicatedCameraViewController *)&v4 viewDidAppear:appear];
+  sub_100001B5C(self);
+}
 
 - (void)proxCardFlowWillPresent
 {

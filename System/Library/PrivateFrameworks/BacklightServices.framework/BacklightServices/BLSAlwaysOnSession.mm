@@ -57,28 +57,29 @@
   timelinesCopy = timelines;
   completionCopy = completion;
   environment = [(BLSAlwaysOnSession *)self environment];
+  v12 = environment;
   if (timelinesCopy)
   {
-    v12 = [BLSAlwaysOnTimeline requestedFidelityForTimelines:timelinesCopy inDateInterval:intervalCopy];
-    v13 = bls_scenes_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v13 = [BLSAlwaysOnTimeline requestedFidelityForTimelines:timelinesCopy inDateInterval:intervalCopy];
+    v14 = bls_scenes_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      [BLSAlwaysOnSession desiredFidelityForDateInterval:v12 timelines:? withCompletion:?];
+      [BLSAlwaysOnSession desiredFidelityForDateInterval:v13 timelines:? withCompletion:?];
     }
   }
 
   else
   {
-    v13 = bls_environment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = bls_environment_log(environment);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [BLSAlwaysOnSession desiredFidelityForDateInterval:environment timelines:? withCompletion:?];
+      [BLSAlwaysOnSession desiredFidelityForDateInterval:v12 timelines:? withCompletion:?];
     }
 
-    v12 = 1;
+    v13 = 1;
   }
 
-  completionCopy[2](completionCopy, v12);
+  completionCopy[2](completionCopy, v13);
 }
 
 - (void)performFrameSpecifiersRequest:(id)request timelines:(id)timelines
@@ -112,7 +113,7 @@
 
     if (v19)
     {
-      model2 = bls_environment_log();
+      model2 = bls_environment_log(v20);
       if (os_log_type_enabled(model2, OS_LOG_TYPE_ERROR))
       {
         [BLSAlwaysOnSession performFrameSpecifiersRequest:dateInterval timelines:?];
@@ -125,46 +126,46 @@
       [model2 purgeAllButOneSpecifiersBeforeDate:v17];
     }
 
-    v23 = [v15 bs_map:&__block_literal_global_7];
-    v24 = [v23 count];
-    if (v24 < 0xB)
+    v24 = [v15 bs_map:&__block_literal_global_7];
+    duration = [v24 count];
+    if (duration < 0xB)
     {
-      v27 = OS_LOG_TYPE_INFO;
+      v28 = OS_LOG_TYPE_INFO;
     }
 
     else
     {
-      v25 = v24;
-      [dateInterval duration];
-      if (v25 / v26 <= 4.0)
+      v26 = duration;
+      duration = [dateInterval duration];
+      if (v26 / v27 <= 4.0)
       {
-        v27 = OS_LOG_TYPE_INFO;
+        v28 = OS_LOG_TYPE_INFO;
       }
 
       else
       {
-        v27 = OS_LOG_TYPE_FAULT;
+        v28 = OS_LOG_TYPE_FAULT;
       }
     }
 
-    v28 = bls_scenes_log();
-    if (os_log_type_enabled(v28, v27))
+    v29 = bls_scenes_log(duration);
+    if (os_log_type_enabled(v29, v28))
     {
       model3 = [(BLSAlwaysOnSession *)self model];
-      v29 = dateInterval;
+      v30 = dateInterval;
       specifierCount = [model3 specifierCount];
-      [v23 bls_boundedDescriptionWithMax:8 transformer:&__block_literal_global_16];
-      v31 = v36 = timelinesCopy;
+      [v24 bls_boundedDescriptionWithMax:8 transformer:&__block_literal_global_16];
+      v32 = v36 = timelinesCopy;
       [v15 bls_boundedDescriptionWithMax:1];
-      v32 = v35 = environment;
+      v33 = v35 = environment;
       *buf = 134218498;
       v40 = specifierCount;
-      dateInterval = v29;
+      dateInterval = v30;
       v41 = 2114;
-      v42 = v31;
+      v42 = v32;
       v43 = 2114;
-      v44 = v32;
-      _os_log_impl(&dword_21FE25000, v28, v27, "performFrameSpecifiersRequest model.specifierCount:%lu dateSpecifers:%{public}@ for frameSpecifiers:%{public}@", buf, 0x20u);
+      v44 = v33;
+      _os_log_impl(&dword_21FE25000, v29, v28, "performFrameSpecifiersRequest model.specifierCount:%lu dateSpecifers:%{public}@ for frameSpecifiers:%{public}@", buf, 0x20u);
 
       environment = v35;
       timelinesCopy = v36;
@@ -175,22 +176,20 @@
 
   else
   {
-    v21 = bls_environment_log();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v22 = bls_environment_log(v11);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       [BLSAlwaysOnSession performFrameSpecifiersRequest:environment timelines:?];
     }
 
-    v22 = [BLSAlwaysOnDateSpecifier alloc];
+    v23 = [BLSAlwaysOnDateSpecifier alloc];
     v15 = [MEMORY[0x277CBEAA8] now];
-    v17 = [(BLSAlwaysOnDateSpecifier *)v22 initWithDate:v15 fidelity:0];
+    v17 = [(BLSAlwaysOnDateSpecifier *)v23 initWithDate:v15 fidelity:0];
     v45[0] = v17;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:1];
   }
 
-  [requestCopy completeWithDateSpecifiers:v23];
-
-  v33 = *MEMORY[0x277D85DE8];
+  [requestCopy completeWithDateSpecifiers:v24];
 }
 
 BLSAlwaysOnDateSpecifier *__62__BLSAlwaysOnSession_performFrameSpecifiersRequest_timelines___block_invoke(uint64_t a1, void *a2)
@@ -229,46 +228,34 @@ id __62__BLSAlwaysOnSession_performFrameSpecifiersRequest_timelines___block_invo
 
 - (void)desiredFidelityForDateInterval:(uint64_t)a1 timelines:withCompletion:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromBLSUpdateFidelity(a1);
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_4();
   _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)desiredFidelityForDateInterval:(void *)a1 timelines:withCompletion:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 delegate];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_4();
   _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performFrameSpecifiersRequest:(void *)a1 timelines:.cold.1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 bls_shortLoggingString];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_4();
   _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performFrameSpecifiersRequest:(void *)a1 timelines:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   v1 = [a1 delegate];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0_4();
   _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

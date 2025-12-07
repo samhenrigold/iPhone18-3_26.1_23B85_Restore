@@ -339,7 +339,7 @@ void __39__WFDatabaseResult_setSearchPredicate___block_invoke(uint64_t a1)
 
 void __53__WFDatabaseResult_updateDescriptorsAndNotify_state___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) searchPredicate];
 
@@ -385,9 +385,9 @@ void __53__WFDatabaseResult_updateDescriptorsAndNotify_state___block_invoke(uint
     {
       v12 = *(a1 + 40);
       *buf = 136315394;
-      v16 = "[WFDatabaseResult updateDescriptorsAndNotify:state:]_block_invoke";
-      v17 = 2112;
-      v18 = v12;
+      v15 = "[WFDatabaseResult updateDescriptorsAndNotify:state:]_block_invoke";
+      v16 = 2112;
+      v17 = v12;
       _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_DEBUG, "%s Database result changed: %@", buf, 0x16u);
     }
 
@@ -401,43 +401,40 @@ void __53__WFDatabaseResult_updateDescriptorsAndNotify_state___block_invoke(uint
   }
 
 LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __53__WFDatabaseResult_updateDescriptorsAndNotify_state___block_invoke_186(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) observers];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) databaseResultDidChange:*(a1 + 32)];
+        [*(*(&v7 + 1) + 8 * v6++) databaseResultDidChange:*(a1 + 32)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description

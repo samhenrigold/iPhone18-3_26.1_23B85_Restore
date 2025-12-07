@@ -76,7 +76,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   workoutUUID = self->_workoutUUID;
@@ -88,8 +88,8 @@
   has = self->_has;
   if ((has & 4) != 0)
   {
-    v17 = [MEMORY[0x277CCABB0] numberWithDouble:self->_startDate];
-    [v4 setObject:v17 forKey:@"startDate"];
+    v16 = [MEMORY[0x277CCABB0] numberWithDouble:self->_startDate];
+    [v4 setObject:v16 forKey:@"startDate"];
 
     has = self->_has;
     if ((has & 2) == 0)
@@ -109,8 +109,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v18 = [MEMORY[0x277CCABB0] numberWithDouble:self->_duration];
-  [v4 setObject:v18 forKey:@"duration"];
+  v17 = [MEMORY[0x277CCABB0] numberWithDouble:self->_duration];
+  [v4 setObject:v17 forKey:@"duration"];
 
   if (*&self->_has)
   {
@@ -123,30 +123,30 @@ LABEL_7:
   if ([(NSMutableArray *)self->_routePoints count])
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_routePoints, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v9 = self->_routePoints;
-    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v20;
+      v12 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v12)
+          if (*v19 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [v8 addObject:dictionaryRepresentation];
         }
 
-        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -155,14 +155,12 @@ LABEL_7:
     [v4 setObject:v8 forKey:@"routePoints"];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_workoutUUID)
   {
@@ -172,7 +170,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    startDate = self->_startDate;
     PBDataWriterWriteDoubleField();
     has = self->_has;
     if ((has & 2) == 0)
@@ -192,46 +189,41 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  duration = self->_duration;
   PBDataWriterWriteDoubleField();
   if (*&self->_has)
   {
 LABEL_6:
-    distance = self->_distance;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_7:
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v7 = self->_routePoints;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v8)
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_routePoints;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v17;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -298,7 +290,7 @@ LABEL_7:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSData *)self->_workoutUUID copyWithZone:zone];
   v7 = *(v5 + 40);
@@ -337,36 +329,35 @@ LABEL_4:
   }
 
 LABEL_5:
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = self->_routePoints;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v17 + 1) + 8 * i) copyWithZone:{zone, v17}];
+        v14 = [*(*(&v16 + 1) + 8 * i) copyWithZone:{zone, v16}];
         [v5 addRoutePoints:v14];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -387,7 +378,6 @@ LABEL_5:
     }
   }
 
-  v6 = *(equalCopy + 48);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 48) & 4) == 0 || self->_startDate != *(equalCopy + 3))
@@ -399,7 +389,7 @@ LABEL_5:
   else if ((*(equalCopy + 48) & 4) != 0)
   {
 LABEL_21:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_22;
   }
 
@@ -432,17 +422,17 @@ LABEL_21:
   routePoints = self->_routePoints;
   if (routePoints | *(equalCopy + 4))
   {
-    v8 = [(NSMutableArray *)routePoints isEqual:?];
+    v7 = [(NSMutableArray *)routePoints isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_22:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash
@@ -554,7 +544,7 @@ LABEL_22:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 5))
   {
@@ -594,35 +584,33 @@ LABEL_6:
   }
 
 LABEL_7:
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = *(fromCopy + 4);
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(HDCodableRacingMetrics *)self addRoutePoints:*(*(&v12 + 1) + 8 * i), v12];
+        [(HDCodableRacingMetrics *)self addRoutePoints:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

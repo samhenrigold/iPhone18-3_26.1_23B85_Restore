@@ -24,7 +24,7 @@
 
   v6 = KeyPathWrapper.isEqual(_:)(v8);
 
-  outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_sypSgMd);
+  outlined destroy of StocksKitCurrencyCache.Provider?(v8, &_sypSgMd, &_sypSgMR);
   return v6 & 1;
 }
 
@@ -32,7 +32,7 @@
 {
   Hasher.init()();
   type metadata accessor for CRKeyPath();
-  lazy protocol witness table accessor for type CRKeyPath and conformance CRKeyPath(&lazy protocol witness table cache variable for type CRKeyPath and conformance CRKeyPath);
+  lazy protocol witness table accessor for type CRKeyPath and conformance CRKeyPath(&lazy protocol witness table cache variable for type CRKeyPath and conformance CRKeyPath, MEMORY[0x1E69954C8]);
   selfCopy = self;
   dispatch thunk of Hashable.hash(into:)();
   v4 = Hasher.finalize()();

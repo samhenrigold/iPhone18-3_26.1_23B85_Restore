@@ -1,3 +1,47 @@
+void sub_260245A94(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, __int128 a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31)
+{
+  *(v32 - 64) = 4;
+  std::string::basic_string[abi:ne200100]<0>((v32 - 56), "FragmentOut");
+  *(v32 - 32) = xmmword_260343E00;
+  HGProgramDescriptor::SetReturnBinding(v31, v32 - 64);
+  if (*(v32 - 33) < 0)
+  {
+    operator delete(*(v32 - 56));
+  }
+
+  memset(v37, 0, 24);
+  LODWORD(v33) = 2;
+  std::string::basic_string[abi:ne200100]<0>(v34, "float4");
+  v36 = xmmword_260344940;
+  std::vector<HGBinding>::push_back[abi:ne200100](v37, &v33);
+  if (v35 < 0)
+  {
+    operator delete(v34[0]);
+  }
+
+  LODWORD(v33) = 10;
+  std::string::basic_string[abi:ne200100]<0>(v34, "float4");
+  v36 = xmmword_260343E00;
+  std::vector<HGBinding>::push_back[abi:ne200100](v37, &v33);
+  if (v35 < 0)
+  {
+    operator delete(v34[0]);
+  }
+
+  LODWORD(v33) = 10;
+  std::string::basic_string[abi:ne200100]<0>(v34, "float4");
+  v36 = xmmword_260343E00;
+  std::vector<HGBinding>::push_back[abi:ne200100](v37, &v33);
+  if (v35 < 0)
+  {
+    operator delete(v34[0]);
+  }
+
+  HGProgramDescriptor::SetArgumentBindings(v31, v37);
+  v33 = v37;
+  std::vector<HGBinding>::__destroy_vector::operator()[abi:ne200100](&v33);
+}
+
 void sub_260245BD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, char a21)
 {
   a12 = &a21;
@@ -1746,7 +1790,7 @@ uint64_t HgcWrapMirror::GetDOD(HgcWrapMirror *this, HGRenderer *a2, int a3, HGRe
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -1768,7 +1812,7 @@ uint64_t HgcWrapMirror::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -2866,7 +2910,7 @@ uint64_t HgcWrapRepeat::GetDOD(HgcWrapRepeat *this, HGRenderer *a2, int a3, HGRe
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -2888,7 +2932,7 @@ uint64_t HgcWrapRepeat::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -3642,8 +3686,8 @@ uint64_t HgcPMStripEvenField::RenderTile(HgcPMStripEvenField *this, int8x8_t *a2
     v10 = a2[10];
     v11 = -v6;
     v12 = 16 * v6;
-    v13 = (*&v10 + 16 * v6);
-    v14 = v13 + 2;
+    v13 = *&v10 + 16 * v6;
+    v14 = (v13 + 32);
     v15 = 16 * a2[3].i32[0];
     do
     {
@@ -3695,7 +3739,7 @@ uint64_t HgcPMStripEvenField::RenderTile(HgcPMStripEvenField *this, int8x8_t *a2
         do
         {
           v36 = *(*&v10 + 16 * (v11 + v17));
-          *(*&v8 + 16 * v17) = vbslq_s8(vcgtq_f32(v16, *(*(this + 51) + 16)), vaddq_f32(v36, vmulq_f32(vsubq_f32(v13[v17], v36), **(this + 51))), *(*&v10 + 16 * v17));
+          *(*&v8 + 16 * v17) = vbslq_s8(vcgtq_f32(v16, *(*(this + 51) + 16)), vaddq_f32(v36, vmulq_f32(vsubq_f32(*(v13 + 16 * v17), v36), **(this + 51))), *(*&v10 + 16 * v17));
           ++v17;
         }
 
@@ -3707,7 +3751,7 @@ uint64_t HgcPMStripEvenField::RenderTile(HgcPMStripEvenField *this, int8x8_t *a2
       v7 = veorq_s8(v7, v9);
       v14 = (v14 + v12);
       *&v8 += v15;
-      v13 = (v13 + v12);
+      v13 += v12;
     }
 
     while (v4 != v3);
@@ -3725,7 +3769,7 @@ uint64_t HgcPMStripEvenField::GetDOD(HgcPMStripEvenField *this, HGRenderer *a2, 
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0, 0xFFFFFFFF, a3, 1u);
+  v7 = HGRectMake4i(0, -1, a3, 1);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -3738,7 +3782,7 @@ uint64_t HgcPMStripEvenField::GetROI(HgcPMStripEvenField *this, HGRenderer *a2, 
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0, 0xFFFFFFFF, a3, 1u);
+  v7 = HGRectMake4i(0, -1, a3, 1);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -4272,8 +4316,8 @@ uint64_t HgcPMStripOddField::RenderTile(HgcPMStripOddField *this, int8x8_t *a2)
     v10 = a2[10];
     v11 = -v6;
     v12 = 16 * v6;
-    v13 = (*&v10 + 16 * v6);
-    v14 = v13 + 2;
+    v13 = *&v10 + 16 * v6;
+    v14 = (v13 + 32);
     v15 = 16 * a2[3].i32[0];
     do
     {
@@ -4325,7 +4369,7 @@ uint64_t HgcPMStripOddField::RenderTile(HgcPMStripOddField *this, int8x8_t *a2)
         do
         {
           v36 = *(*&v10 + 16 * (v11 + v17));
-          *(*&v8 + 16 * v17) = vbslq_s8(vcgtq_f32(v16, *(*(this + 51) + 16)), *(*&v10 + 16 * v17), vaddq_f32(v36, vmulq_f32(vsubq_f32(v13[v17], v36), **(this + 51))));
+          *(*&v8 + 16 * v17) = vbslq_s8(vcgtq_f32(v16, *(*(this + 51) + 16)), *(*&v10 + 16 * v17), vaddq_f32(v36, vmulq_f32(vsubq_f32(*(v13 + 16 * v17), v36), **(this + 51))));
           ++v17;
         }
 
@@ -4337,7 +4381,7 @@ uint64_t HgcPMStripOddField::RenderTile(HgcPMStripOddField *this, int8x8_t *a2)
       v7 = veorq_s8(v7, v9);
       v14 = (v14 + v12);
       *&v8 += v15;
-      v13 = (v13 + v12);
+      v13 += v12;
     }
 
     while (v4 != v3);
@@ -4355,7 +4399,7 @@ uint64_t HgcPMStripOddField::GetDOD(HgcPMStripOddField *this, HGRenderer *a2, in
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0, 0xFFFFFFFF, a3, 1u);
+  v7 = HGRectMake4i(0, -1, a3, 1);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -4368,7 +4412,7 @@ uint64_t HgcPMStripOddField::GetROI(HgcPMStripOddField *this, HGRenderer *a2, in
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  v7 = HGRectMake4i(0, 0xFFFFFFFF, a3, 1u);
+  v7 = HGRectMake4i(0, -1, a3, 1);
   return HGRectGrow(v6, v5, v7);
 }
 
@@ -4773,7 +4817,7 @@ void OZAttractedToBehavior::~OZAttractedToBehavior(OZAttractedToBehavior *this)
   OZChannel::~OZChannel((this + 1376));
   OZChannel::~OZChannel((this + 1224));
   OZChannel::~OZChannel((this + 1072));
-  OZChannelEnum::~OZChannelEnum((this + 816));
+  OZChannelEnum::~OZChannelEnum(this + 102);
   OZChannel::~OZChannel((this + 664));
   OZChanTransformNodeRef::~OZChanTransformNodeRef((this + 504));
 
@@ -5051,7 +5095,7 @@ void sub_260250014(_Unwind_Exception *a1)
   OZChannel::~OZChannel(v5);
   OZChannel::~OZChannel(v4);
   OZChannel::~OZChannel(v3);
-  OZChannelEnum::~OZChannelEnum((v1 + 944));
+  OZChannelEnum::~OZChannelEnum(v1 + 118);
   OZChannel::~OZChannel(v2);
   OZTransitiveBehavior::~OZTransitiveBehavior(v1);
   _Unwind_Resume(a1);
@@ -5067,7 +5111,7 @@ void OZAttractorBehavior::~OZAttractorBehavior(OZAttractorBehavior *this)
   OZChannel::~OZChannel((this + 1504));
   OZChannel::~OZChannel((this + 1352));
   OZChannel::~OZChannel((this + 1200));
-  OZChannelEnum::~OZChannelEnum((this + 944));
+  OZChannelEnum::~OZChannelEnum(this + 118);
   OZChannel::~OZChannel((this + 792));
 
   OZTransitiveBehavior::~OZTransitiveBehavior(this);
@@ -5374,7 +5418,7 @@ void OZAverageBehavior::solveNode(OZAverageBehavior *this, unsigned int a2, OZCu
     v31 = *(a3 + 3);
     v32 = *(a3 + 8);
     memset(&v30, 0, sizeof(v30));
-    FrameDuration = OZBehavior::getFrameDuration(this, &v30);
+    FrameDuration = OZBehavior::getFrameDuration(&v30, this);
     v9 = (*(*(this + 2) + 24))(v7, 1, 1, FrameDuration);
     v10 = 0.0;
     if (v9)
@@ -5511,7 +5555,7 @@ OZCurveNodeParam *OZAverageBehavior::getNeededRange(OZAverageBehavior *this, uns
   if ((*(*(this + 2) + 24))(this + 16, 1, 1))
   {
     memset(&v15, 0, sizeof(v15));
-    FrameDuration = OZBehavior::getFrameDuration(this, &v15);
+    FrameDuration = OZBehavior::getFrameDuration(&v15, this);
     memset(&v14, 0, sizeof(v14));
     v7 = (*(*(this + 2) + 24))(v5, 1, 1, FrameDuration);
     v8 = 0.0;
@@ -5523,8 +5567,8 @@ OZCurveNodeParam *OZAverageBehavior::getNeededRange(OZAverageBehavior *this, uns
     operator*(&v15, &v14, v8);
     v12 = 0uLL;
     v13 = 0;
-    operator*(2, &v14, &v11);
-    operator*(*(a3 + 36) - 1, a3 + 5, &v10);
+    operator*(&v11, 2, &v14);
+    operator*(&v10, *(a3 + 36) - 1, a3 + 5);
     time = v11;
     v16 = v10;
     PC_CMTimeSaferAdd(&time, &v16, &v12);
@@ -5760,15 +5804,15 @@ uint64_t OZBoundsCollisionBehavior::operator=(uint64_t a1, const void *a2)
   return OZChannelBase::operator=(a1 + 2152, v5 + 2152);
 }
 
-void OZBoundsCollisionBehavior::copySceneDimensionsToChans(OZBoundsCollisionBehavior *this, OZScene *a2)
+void OZBoundsCollisionBehavior::copySceneDimensionsToChans(OZChannelBase *this, OZScene *a2)
 {
-  if ((*(this + 2304) & 1) == 0)
+  if ((this[20].var8 & 1) == 0)
   {
-    OZChannel::setDefaultValue((this + 1848), *(a2 + 86));
+    OZChannel::setDefaultValue(&this[16].var7, *(a2 + 86));
     OZChannelBase::reset((this + 1848), 0);
-    OZChannel::setDefaultValue((this + 2000), *(a2 + 87));
+    OZChannel::setDefaultValue(&this[17].var12, *(a2 + 87));
     OZChannelBase::reset((this + 2000), 0);
-    *(this + 2304) = 1;
+    LOBYTE(this[20].var8) = 1;
   }
 }
 
@@ -6020,9 +6064,9 @@ LABEL_70:
   *a6 = 0;
 }
 
-void sub_260252840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_260252840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::__list_imp<unsigned int>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -6192,7 +6236,7 @@ uint64_t OZBrownianBehavior::accumForces(OZBrownianBehavior *this, OZSimulationS
   if (result)
   {
     memset(&v82, 0, sizeof(v82));
-    OZChannelObjectRootBase::getTimeOffset((this + 56), &v80);
+    OZChannelObjectRootBase::getTimeOffset(&v80, (this + 56));
     time = v83;
     *&v84.value = v80;
     v84.epoch = v81;
@@ -6376,7 +6420,7 @@ void OZBrownianBehavior::accumForces(OZBrownianBehavior *this, OZSimStateArray *
   if ((*(*this + 296))(this, &time, 1, 1, 1))
   {
     memset(&v79, 0, sizeof(v79));
-    OZChannelObjectRootBase::getTimeOffset((this + 56), &v77);
+    OZChannelObjectRootBase::getTimeOffset(&v77, (this + 56));
     time = v80;
     *&v81.value = v77;
     v81.epoch = v78;
@@ -6754,7 +6798,7 @@ OZBrownianBehavior::OZBrownianBehavior_dragChanInfo *OZBrownianBehavior::OZBrown
 
 void OZChannelSeed::OZChannelSeed(OZChannelSeed *this, unsigned int a2, const PCString *a3, OZChannelFolder *a4, unsigned int a5, int a6, OZChannelImpl *a7, OZChannelInfo *a8)
 {
-  OZChannelSeed_FactoryBase = getOZChannelSeed_FactoryBase();
+  OZChannelSeed_FactoryBase = getOZChannelSeed_FactoryBase(this);
   OZChannel::OZChannel(this, OZChannelSeed_FactoryBase, a3, a4, a5, a6, a7, a8);
   this->var0 = &unk_287247AE0;
   this->var2 = &unk_287247E40;
@@ -6952,9 +6996,9 @@ void non-virtual thunk toOZCameraBehavior::~OZCameraBehavior(OZCameraBehavior *t
   JUMPOUT(0x2666E9F00);
 }
 
-double OZCameraBehavior::operator=(uint64_t a1)
+double OZCameraBehavior::operator=(uint64_t a1, uint64_t a2)
 {
-  OZChannelBehavior::operator=();
+  OZChannelBehavior::operator=(a1, a2);
   std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(a1 + 832, *(a1 + 840));
   *(a1 + 832) = a1 + 840;
   result = 0.0;
@@ -7118,12 +7162,12 @@ void OZCameraBehavior::flushCache(OZCameraBehavior *this)
   PCSharedMutex::unlock((this + 728));
 }
 
-void OZCameraBehavior::getCurrentValuesOfAffectedChannels(uint64_t a1, CMTime *a2, uint64_t a3)
+void OZCameraBehavior::getCurrentValuesOfAffectedChannels(uint64_t a1, CMTime *a2, char **a3)
 {
   PCSharedMutex::lock_shared((a1 + 600));
   v6 = std::__tree<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::__map_value_compare<CMTime,std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>>>::find<CMTime>(a1 + 704, a2);
   v7 = v6;
-  if (a1 + 712 != v6 && v6 + 56 != a3)
+  if (a1 + 712 != v6 && (v6 + 56) != a3)
   {
     std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(a3, *(v6 + 56), *(v6 + 64), (*(v6 + 64) - *(v6 + 56)) >> 3);
   }
@@ -7131,7 +7175,7 @@ void OZCameraBehavior::getCurrentValuesOfAffectedChannels(uint64_t a1, CMTime *a
   PCSharedMutex::unlock_shared((a1 + 600));
   if (a1 + 712 == v7)
   {
-    v8 = *(a3 + 8) - *a3;
+    v8 = a3[1] - *a3;
     if (v8)
     {
       v9 = 0;
@@ -7149,7 +7193,7 @@ void OZCameraBehavior::getCurrentValuesOfAffectedChannels(uint64_t a1, CMTime *a
       do
       {
         PreviousProcessingNode = OZChannel::getPreviousProcessingNode(*(*(a1 + 552) + 8 * v9), *(*(a1 + 576) + 8 * v9));
-        *(*a3 + 8 * v9) = OZChannel::getCurveValueForNode(*(*(a1 + 552) + 8 * v9), a2, PreviousProcessingNode, 0.0);
+        *&(*a3)[8 * v9] = OZChannel::getCurveValueForNode(*(*(a1 + 552) + 8 * v9), a2, PreviousProcessingNode, 0.0);
         ++v9;
       }
 
@@ -7157,10 +7201,11 @@ void OZCameraBehavior::getCurrentValuesOfAffectedChannels(uint64_t a1, CMTime *a
     }
 
     PCSharedMutex::lock((a1 + 600));
-    v13 = (std::__tree<std::__value_type<CMTime,std::vector<double>>,std::__map_value_compare<CMTime,std::__value_type<CMTime,std::vector<double>>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,std::vector<double>>>>::__emplace_unique_key_args<CMTime,std::piecewise_construct_t const&,std::tuple<CMTime const&>,std::tuple<>>(a1 + 704, a2) + 56);
+    v14 = a2;
+    v13 = (std::__tree<std::__value_type<CMTime,std::vector<double>>,std::__map_value_compare<CMTime,std::__value_type<CMTime,std::vector<double>>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,std::vector<double>>>>::__emplace_unique_key_args<CMTime,std::piecewise_construct_t const&,std::tuple<CMTime const&>,std::tuple<>>((a1 + 704), a2, &std::piecewise_construct, &v14) + 56);
     if (v13 != a3)
     {
-      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v13, *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
+      std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v13, *a3, a3[1], (a3[1] - *a3) >> 3);
     }
 
     PCSharedMutex::unlock((a1 + 600));
@@ -7212,7 +7257,7 @@ double OZCameraBehavior::getInputDelta(OZCameraBehavior *this, uint64_t a2, cons
       v10 = (*(*this + 752))(this, v12, a2);
       PCSharedMutex::lock((this + 728));
       v15 = &v13;
-      *(std::__tree<std::__value_type<OZCameraBehavior::DeltaKey,double>,std::__map_value_compare<OZCameraBehavior::DeltaKey,std::__value_type<OZCameraBehavior::DeltaKey,double>,OZCameraBehavior::CompareDeltaKeys,true>,std::allocator<std::__value_type<OZCameraBehavior::DeltaKey,double>>>::__emplace_unique_key_args<OZCameraBehavior::DeltaKey,std::piecewise_construct_t const&,std::tuple<OZCameraBehavior::DeltaKey const&>,std::tuple<>>(this + 832, &v13) + 64) = v10;
+      *(std::__tree<std::__value_type<OZCameraBehavior::DeltaKey,double>,std::__map_value_compare<OZCameraBehavior::DeltaKey,std::__value_type<OZCameraBehavior::DeltaKey,double>,OZCameraBehavior::CompareDeltaKeys,true>,std::allocator<std::__value_type<OZCameraBehavior::DeltaKey,double>>>::__emplace_unique_key_args<OZCameraBehavior::DeltaKey,std::piecewise_construct_t const&,std::tuple<OZCameraBehavior::DeltaKey const&>,std::tuple<>>(this + 104, &v13, &std::piecewise_construct, &v15) + 64) = v10;
       PCSharedMutex::unlock((this + 728));
       return a4 - v10;
     }
@@ -7243,8 +7288,7 @@ double OZCameraBehavior::getFocalDistance(OZCameraBehavior *this, OZChannelBehav
   OZChannelBehavior::getChannelValueBeforeThis(this, (a2 + 4880), a3);
   if (fabs(ChannelValueBeforeThis) >= 0.0000001)
   {
-    v9 = *a3;
-    OZCamera::cameraAtTime(a2, &v9);
+    OZCamera::cameraAtTime();
   }
 
   return 0.0;
@@ -7426,15 +7470,15 @@ void std::__tree<std::__value_type<CMTime,std::vector<double>>,std::__map_value_
   }
 }
 
-uint64_t std::__tree<std::__value_type<CMTime,std::vector<double>>,std::__map_value_compare<CMTime,std::__value_type<CMTime,std::vector<double>>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,std::vector<double>>>>::__emplace_unique_key_args<CMTime,std::piecewise_construct_t const&,std::tuple<CMTime const&>,std::tuple<>>(uint64_t a1, CMTime *a2)
+uint64_t std::__tree<std::__value_type<CMTime,std::vector<double>>,std::__map_value_compare<CMTime,std::__value_type<CMTime,std::vector<double>>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,std::vector<double>>>>::__emplace_unique_key_args<CMTime,std::piecewise_construct_t const&,std::tuple<CMTime const&>,std::tuple<>>(uint64_t **a1, CMTime *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::__map_value_compare<CMTime,std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>>>::__find_equal<CMTime>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::__map_value_compare<CMTime,std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>,std::less<CMTime>,true>,std::allocator<std::__value_type<CMTime,std::map<unsigned int,GlyphProperties>>>>::__find_equal<CMTime>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::__tree<std::__value_type<OZCameraBehavior::DeltaKey,double>,std::__map_value_compare<OZCameraBehavior::DeltaKey,std::__value_type<OZCameraBehavior::DeltaKey,double>,OZCameraBehavior::CompareDeltaKeys,true>,std::allocator<std::__value_type<OZCameraBehavior::DeltaKey,double>>>::find<OZCameraBehavior::DeltaKey>(uint64_t a1, uint64_t a2)
@@ -7477,15 +7521,15 @@ uint64_t std::__tree<std::__value_type<OZCameraBehavior::DeltaKey,double>,std::_
   return v5;
 }
 
-uint64_t std::__tree<std::__value_type<OZCameraBehavior::DeltaKey,double>,std::__map_value_compare<OZCameraBehavior::DeltaKey,std::__value_type<OZCameraBehavior::DeltaKey,double>,OZCameraBehavior::CompareDeltaKeys,true>,std::allocator<std::__value_type<OZCameraBehavior::DeltaKey,double>>>::__emplace_unique_key_args<OZCameraBehavior::DeltaKey,std::piecewise_construct_t const&,std::tuple<OZCameraBehavior::DeltaKey const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<std::__value_type<OZCameraBehavior::DeltaKey,double>,std::__map_value_compare<OZCameraBehavior::DeltaKey,std::__value_type<OZCameraBehavior::DeltaKey,double>,OZCameraBehavior::CompareDeltaKeys,true>,std::allocator<std::__value_type<OZCameraBehavior::DeltaKey,double>>>::__emplace_unique_key_args<OZCameraBehavior::DeltaKey,std::piecewise_construct_t const&,std::tuple<OZCameraBehavior::DeltaKey const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<OZCameraBehavior::DeltaKey,double>,std::__map_value_compare<OZCameraBehavior::DeltaKey,std::__value_type<OZCameraBehavior::DeltaKey,double>,OZCameraBehavior::CompareDeltaKeys,true>,std::allocator<std::__value_type<OZCameraBehavior::DeltaKey,double>>>::__find_equal<OZCameraBehavior::DeltaKey>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<OZCameraBehavior::DeltaKey,double>,std::__map_value_compare<OZCameraBehavior::DeltaKey,std::__value_type<OZCameraBehavior::DeltaKey,double>,OZCameraBehavior::CompareDeltaKeys,true>,std::allocator<std::__value_type<OZCameraBehavior::DeltaKey,double>>>::__find_equal<OZCameraBehavior::DeltaKey>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void *std::__tree<std::__value_type<OZCameraBehavior::DeltaKey,double>,std::__map_value_compare<OZCameraBehavior::DeltaKey,std::__value_type<OZCameraBehavior::DeltaKey,double>,OZCameraBehavior::CompareDeltaKeys,true>,std::allocator<std::__value_type<OZCameraBehavior::DeltaKey,double>>>::__find_equal<OZCameraBehavior::DeltaKey>(uint64_t a1, void *a2, uint64_t a3)
@@ -7586,7 +7630,7 @@ void OZClampBehavior::OZClampBehavior(OZClampBehavior *this, const OZClampBehavi
 void sub_2602569D0(_Unwind_Exception *a1)
 {
   OZChannel::~OZChannel(v2);
-  OZChannelEnum::~OZChannelEnum((v1 + 864));
+  OZChannelEnum::~OZChannelEnum(v1 + 108);
   OZSingleChannelBehavior::~OZSingleChannelBehavior(v1);
   _Unwind_Resume(a1);
 }
@@ -7600,7 +7644,7 @@ void OZClampBehavior::~OZClampBehavior(OZClampBehavior *this)
   *(this + 67) = &unk_2872BB8A8;
   OZChannel::~OZChannel((this + 1272));
   OZChannel::~OZChannel((this + 1120));
-  OZChannelEnum::~OZChannelEnum((this + 864));
+  OZChannelEnum::~OZChannelEnum(this + 108);
 
   OZSingleChannelBehavior::~OZSingleChannelBehavior(this);
 }
@@ -7932,7 +7976,7 @@ uint64_t OZDiscreteBehavior::operator=(uint64_t a1, const void *a2)
   return OZChannelBase::operator=(a1 + 1016, v5 + 1016);
 }
 
-long double OZDiscreteBehavior::solveNode(OZDiscreteBehavior *this, unsigned int a2, const CMTime *a3, __n128 a4, double a5)
+double OZDiscreteBehavior::solveNode(OZDiscreteBehavior *this, unsigned int a2, const CMTime *a3, __n128 a4, double a5)
 {
   memset(&v13, 0, sizeof(v13));
   (*(**(*(this + 47) + 32) + 336))(&v13, a4);
@@ -7976,7 +8020,7 @@ void OZDollyInOutBehavior::OZDollyInOutBehavior(OZDollyInOutBehavior *this, OZFa
   OZChannel::setSliderMax((this + 864), 10000.0);
   v8 = 0x500000004;
   *&v7[0].var0 = xmmword_260854DF0;
-  OZChannelEnum::setTags((this + 1016), v7, 6);
+  OZChannelEnum::setTags(this + 127, v7, 6);
 }
 
 void sub_2602579EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, PCString a11)
@@ -8016,7 +8060,7 @@ void OZDollyInOutBehavior::~OZDollyInOutBehavior(OZDollyInOutBehavior *this)
   *(this + 6) = &unk_2872BC528;
   *(this + 42) = &unk_2872BC580;
   *(this + 67) = &unk_2872BC5A8;
-  OZChannelEnum::~OZChannelEnum((this + 1016));
+  OZChannelEnum::~OZChannelEnum(this + 127);
   OZChannel::~OZChannel((this + 864));
 
   OZCameraBehavior::~OZCameraBehavior(this);
@@ -8071,7 +8115,7 @@ void non-virtual thunk toOZDollyInOutBehavior::~OZDollyInOutBehavior(OZDollyInOu
 
 uint64_t OZDollyInOutBehavior::operator=(uint64_t a1, const void *a2)
 {
-  OZCameraBehavior::operator=(a1);
+  OZCameraBehavior::operator=(a1, a2);
   if (!v4)
   {
     __cxa_bad_cast();
@@ -8109,7 +8153,7 @@ double OZDollyInOutBehavior::solveNode(OZDollyInOutBehavior *this, unsigned int 
     v31 = 0uLL;
     v32 = 0;
     v10 = (*(*this + 336))(this);
-    FrameDuration = OZSceneSettings::getFrameDuration((v10 + 336), &v31);
+    FrameDuration = OZSceneSettings::getFrameDuration(&v31, (v10 + 336));
     (*(*this + 608))(v30, this, FrameDuration);
     v29 = v30[0];
     memset(&v28, 0, sizeof(v28));
@@ -8196,17 +8240,17 @@ void sub_260258290(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<double>::__vallocate[abi:ne200100](result, a2);
+    std::vector<double>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_260258314(_Unwind_Exception *exception_object)
@@ -8474,9 +8518,9 @@ void OZExponentialCurveNode::OZExponentialCurveNode(OZExponentialCurveNode *this
   *(this + 4) = v6;
 }
 
-void OZExponentialCurveNode::~OZExponentialCurveNode(OZExponentialCurveNode *this)
+void OZExponentialCurveNode::~OZExponentialCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -8491,12 +8535,12 @@ double OZExponentialCurveNode::solveNode(OZExponentialCurveNode *this, const CMT
   {
     v30 = 0uLL;
     v31 = 0;
-    FrameDuration = OZBehavior::getFrameDuration(*(this + 4), &v30);
+    FrameDuration = OZBehavior::getFrameDuration(&v30, *(this + 4));
     (*(**(this + 4) + 608))(v29, FrameDuration);
     memset(&v28, 0, sizeof(v28));
     time = v29[0];
     v8 = *(this + 4);
-    OZBehavior::getFrameDuration(v8, &time1);
+    OZBehavior::getFrameDuration(&time1, v8);
     v9 = MEMORY[0x277CC08F0];
     OZChannel::getValueAsDouble((v8 + 1320), MEMORY[0x277CC08F0], 0.0);
     operator*(&time1, &v27, v10);
@@ -8512,7 +8556,7 @@ double OZExponentialCurveNode::solveNode(OZExponentialCurveNode *this, const CMT
     time2.epoch = v31;
     PC_CMTimeSaferSubtract(&time1, &time2, &v26);
     v11 = *(this + 4);
-    OZBehavior::getFrameDuration(v11, &time1);
+    OZBehavior::getFrameDuration(&time1, v11);
     OZChannel::getValueAsDouble((v11 + 1472), v9, 0.0);
     operator*(&time1, &time, v12);
     time1 = v26;
@@ -8718,7 +8762,7 @@ void non-virtual thunk toOZFadeInOutBehavior::~OZFadeInOutBehavior(OZFadeInOutBe
 
 double OZFadeInOutBehavior::operator=(uint64_t a1, const void *a2)
 {
-  OZChannelBehavior::operator=();
+  OZChannelBehavior::operator=(a1, a2);
   if (!v4)
   {
     __cxa_bad_cast();
@@ -8734,19 +8778,15 @@ double OZFadeInOutBehavior::operator=(uint64_t a1, const void *a2)
   return result;
 }
 
-OZChannelBehavior *OZFadeInOutBehavior::didAddToNode(OZChannelBehavior *this, OZSceneNode *lpsrc)
+void OZFadeInOutBehavior::didAddToNode(OZFadeInOutBehavior *this, OZSceneNode *lpsrc)
 {
   if (lpsrc)
   {
-    v3 = this;
-    if (this)
     {
-      OZChannelBehavior::didAddToNode(v3, lpsrc);
+      OZChannelBehavior::didAddToNode(this, lpsrc);
       operator new();
     }
   }
-
-  return this;
 }
 
 double OZFadeInOutBehavior::getMultiplier(OZFadeInOutBehavior *this, CMTime *a2)
@@ -8763,7 +8803,7 @@ double OZFadeInOutBehavior::getMultiplier(OZFadeInOutBehavior *this, CMTime *a2)
     v6 = *(*(*this + 312))(this);
     (*(v6 + 712))(v22);
     memset(&v21, 0, sizeof(v21));
-    OZBehavior::getFrameDuration(this, &v21);
+    OZBehavior::getFrameDuration(&v21, this);
     memset(&v20, 0, sizeof(v20));
     v23 = v22[0];
     v7 = MEMORY[0x277CC08F0];
@@ -8979,9 +9019,9 @@ void OZFadeInOutCurveNode::OZFadeInOutCurveNode(OZFadeInOutCurveNode *this, OZBe
   *(this + 4) = v6;
 }
 
-void OZFadeInOutCurveNode::~OZFadeInOutCurveNode(OZFadeInOutCurveNode *this)
+void OZFadeInOutCurveNode::~OZFadeInOutCurveNode(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -9072,7 +9112,7 @@ void OZFocusBehavior::OZFocusBehavior(OZFocusBehavior *this, OZFactory *a2, cons
   *(this + 1160) = 0u;
   *&v7[0].var0 = xmmword_260854FC0;
   v8 = 0x500000004;
-  OZChannelEnum::setTags((this + 856), v7, 6);
+  OZChannelEnum::setTags(this + 107, v7, 6);
   OZChanSceneNodeRef::setAllowsCyclicDependencies(this + 544, 1);
 }
 
@@ -9133,7 +9173,7 @@ void OZFocusBehavior::~OZFocusBehavior(OZFocusBehavior *this)
     operator delete(v3);
   }
 
-  OZChannelEnum::~OZChannelEnum((this + 856));
+  OZChannelEnum::~OZChannelEnum(this + 107);
   OZChannelPercent::~OZChannelPercent((this + 704));
   OZChanTransformNodeRef::~OZChanTransformNodeRef((this + 544));
 
@@ -9189,7 +9229,7 @@ void non-virtual thunk toOZFocusBehavior::~OZFocusBehavior(OZFocusBehavior *this
 
 uint64_t OZFocusBehavior::operator=(uint64_t a1, const void *a2)
 {
-  OZChannelBehavior::operator=();
+  OZChannelBehavior::operator=(a1, a2);
   if (!v4)
   {
     __cxa_bad_cast();
@@ -9274,7 +9314,7 @@ uint64_t OZFocusBehavior::isActive(OZFocusBehavior *this)
   return result;
 }
 
-void OZFocusBehavior::getEvalDepChansForRef(int a1, int a2, void *lpsrc)
+void OZFocusBehavior::getEvalDepChansForRef(int a1, int a2, void *lpsrc, uint64_t *a4)
 {
   if (lpsrc)
   {
@@ -9288,29 +9328,29 @@ double OZFocusBehavior::solveNode(OZFocusBehavior *this, int a2, const CMTime *a
 {
   if ((*(*this + 744))(this, a4) && OZChanTransformNodeRef::getTransformNode((this + 544)) && *(this + 139))
   {
-    memset(&v30, 0, sizeof(v30));
-    (*(**(*(this + 47) + 32) + 336))(&v30);
-    v28 = 0uLL;
-    v29 = 0;
+    memset(&v29, 0, sizeof(v29));
+    (*(**(*(this + 47) + 32) + 336))(&v29);
+    v27 = 0uLL;
+    v28 = 0;
     v8 = (*(*this + 336))(this);
-    FrameDuration = OZSceneSettings::getFrameDuration((v8 + 336), &v28);
-    (*(*this + 608))(&v25, this, FrameDuration);
-    v24 = v25;
-    memset(&v23, 0, sizeof(v23));
-    *&time1.var0.var0 = v26;
-    time1.var0.var3 = v27;
-    *&v20[0].value = v28;
-    v20[0].epoch = v29;
-    PC_CMTimeSaferSubtract(&time1, v20, &v23);
-    time1.var0 = v30;
-    v20[0] = v24;
-    PC_CMTimeSaferSubtract(&time1, v20, &v22);
-    *&time1.var0.var0 = v28;
-    time1.var0.var3 = v29;
-    v20[0] = v23;
-    v10 = CMTimeCompare(&time1, v20) >= 0 ? &v28 : &v23;
-    v20[0] = *v10;
-    operator/(&v22, v20, &time1);
+    FrameDuration = OZSceneSettings::getFrameDuration(&v27, (v8 + 336));
+    (*(*this + 608))(&v24, this, FrameDuration);
+    v23 = v24;
+    memset(&v22, 0, sizeof(v22));
+    *&time1.var0.var0 = v25;
+    time1.var0.var3 = v26;
+    *&v19[0].value = v27;
+    v19[0].epoch = v28;
+    PC_CMTimeSaferSubtract(&time1, v19, &v22);
+    time1.var0 = v29;
+    v19[0] = v23;
+    PC_CMTimeSaferSubtract(&time1, v19, &v21);
+    *&time1.var0.var0 = v27;
+    time1.var0.var3 = v28;
+    v19[0] = v22;
+    v10 = CMTimeCompare(&time1, v19) >= 0 ? &v27 : &v22;
+    v19[0] = *v10;
+    operator/(&v21, v19, &time1);
     Seconds = CMTimeGetSeconds(&time1);
     if (Seconds >= 0.0)
     {
@@ -9318,7 +9358,7 @@ double OZFocusBehavior::solveNode(OZFocusBehavior *this, int a2, const CMTime *a
       v13 = Seconds <= 1.0 ? Seconds : 1.0;
       if (!a2)
       {
-        OZChannel::getValueAsDouble((this + 704), &v30, 0.0);
+        OZChannel::getValueAsDouble((this + 704), &v29, 0.0);
         if (fabs(v14) >= 0.0000001)
         {
           v15 = v13 / v14;
@@ -9342,10 +9382,9 @@ double OZFocusBehavior::solveNode(OZFocusBehavior *this, int a2, const CMTime *a
         ValueAsInt = OZChannel::getValueAsInt((this + 856), MEMORY[0x277CC08F0], 0.0);
         OZCameraBehavior::calcEaseInEaseOut(ValueAsInt, v12);
         OZRenderState::OZRenderState(&time1);
-        time1.var0 = v30;
-        v18 = *(this + 139);
-        v20[0] = v30;
-        OZCamera::cameraAtTime(v18, v20);
+        time1.var0 = v29;
+        v19[0] = v29;
+        OZCamera::cameraAtTime();
       }
     }
   }
@@ -9476,20 +9515,20 @@ void OZFramingBehavior::OZFramingBehavior(OZFramingBehavior *this, OZFactory *a2
   *(this + 319) = xmmword_260342EE0;
   *&v15[0].var0 = xmmword_260855040;
   v16 = 0x500000004;
-  OZChannelEnum::setTags((this + 1024), v15, 6);
+  OZChannelEnum::setTags(this + 128, v15, 6);
   v14 = 12;
   *&v11[0].var0 = xmmword_260854FF8;
   v12 = unk_260855008;
   v13 = xmmword_260855018;
-  OZChannelEnum::setTags((this + 1280), v11, 13);
+  OZChannelEnum::setTags(this + 160, v11, 13);
   v10 = 4;
   *v9 = xmmword_26085502C;
-  OZChannelEnum::setTags((this + 1536), v9, 5);
+  OZChannelEnum::setTags(this + 192, v9, 5);
   *v8 = 0x100000000;
-  OZChannelEnum::setTags((this + 3720), v8, 2);
+  OZChannelEnum::setTags(this + 465, v8, 2);
   v7 = 0x500000004;
   *v6 = xmmword_260855040;
-  OZChannelEnum::setTags((this + 4280), v6, 6);
+  OZChannelEnum::setTags(this + 535, v6, 6);
   OZChannelBase::resetFlag(this + 16, 16, 0);
   OZChannelFolder::saveStateAsDefault((this + 1792));
   OZChannelBase::resetFlag((this + 2832), 16, 0);
@@ -9606,16 +9645,16 @@ void OZFramingBehavior::~OZFramingBehavior(OZFramingBehavior *this)
   OZValueCache<OZFramingCacheItem>::~OZValueCache(this + 4856);
   OZChannel::~OZChannel((this + 4688));
   OZChannelPercent::~OZChannelPercent((this + 4536));
-  OZChannelEnum::~OZChannelEnum((this + 4280));
+  OZChannelEnum::~OZChannelEnum(this + 535);
   OZChannelPercent::~OZChannelPercent((this + 4128));
   OZChannelPercent::~OZChannelPercent((this + 3976));
-  OZChannelEnum::~OZChannelEnum((this + 3720));
+  OZChannelEnum::~OZChannelEnum(this + 465);
   OZChannelPosition3D::~OZChannelPosition3D((this + 2832));
   OZChannel::~OZChannel((this + 2680));
   OZChannelPosition3D::~OZChannelPosition3D((this + 1792));
-  OZChannelEnum::~OZChannelEnum((this + 1536));
-  OZChannelEnum::~OZChannelEnum((this + 1280));
-  OZChannelEnum::~OZChannelEnum((this + 1024));
+  OZChannelEnum::~OZChannelEnum(this + 192);
+  OZChannelEnum::~OZChannelEnum(this + 160);
+  OZChannelEnum::~OZChannelEnum(this + 128);
   OZChanTransformNodeRef::~OZChanTransformNodeRef((this + 864));
 
   OZCameraBehavior::~OZCameraBehavior(this);
@@ -9677,7 +9716,7 @@ void OZFramingBehavior::flushCache(OZFramingBehavior *this)
 
 uint64_t OZFramingBehavior::operator=(uint64_t a1, const void *a2)
 {
-  OZCameraBehavior::operator=(a1);
+  OZCameraBehavior::operator=(a1, a2);
   if (!v4)
   {
     __cxa_bad_cast();
@@ -9856,168 +9895,6 @@ double calcRotation@<D0>(double *a1@<X0>, double *a2@<X1>, uint64_t a3@<X2>, dou
     result = v24 + v26;
     *a5 = v23;
     a5[1] = v24 + v26;
-  }
-
-  return result;
-}
-
-void *OZFramingBehavior::calcTargetSize@<X0>(OZFramingBehavior *this@<X0>, uint64_t a2@<X8>)
-{
-  result = OZChanTransformNodeRef::getTransformNode((this + 864));
-  if (result)
-  {
-    v5 = result;
-    (*(*this + 608))(v44, this);
-    v43 = v44[0];
-    v41 = 0uLL;
-    v42 = 0;
-    OZBehavior::getFrameDuration(this, &v39);
-    v37.var0 = v44[0];
-    v28 = v44[1];
-    PC_CMTimeSaferAdd(&v37, &v28, &v45);
-    v37.var0 = v45;
-    *&v28.value = v39;
-    v28.epoch = v40;
-    PC_CMTimeSaferSubtract(&v37, &v28, &v41);
-    v6 = MEMORY[0x277CC08F0];
-    OZChannel::getValueAsDouble((this + 3976), MEMORY[0x277CC08F0], 0.0);
-    v8 = v7;
-    OZChannel::getValueAsDouble((this + 4128), v6, 0.0);
-    if (v8 <= v9)
-    {
-      v8 = v9;
-    }
-
-    v39 = 0uLL;
-    v40 = 0;
-    *&v37.var0.var0 = v41;
-    v37.var0.var3 = v42;
-    v28 = v43;
-    PC_CMTimeSaferSubtract(&v37, &v28, &v38);
-    operator*(&v38, &v45, v8);
-    v37.var0 = v43;
-    v28 = v45;
-    PC_CMTimeSaferAdd(&v37, &v28, &v39);
-    *(a2 + 16) = xmmword_2603429E0;
-    *(a2 + 32) = xmmword_2603429E0;
-    *a2 = xmmword_2603429E0;
-    OZRenderState::OZRenderState(&v37);
-    *&v37.var0.var0 = v39;
-    v37.var0.var3 = v40;
-    (*(*v5 + 1360))(v5, a2, &v37);
-    __asm { FMOV            V0.2D, #1.0 }
-
-    *&v38.value = _Q0;
-    v38.epoch = 0x3FF0000000000000;
-    (*(*v5 + 1320))(v5, &v38, &v37, 0);
-    v15 = 0;
-    v16 = 0;
-    v28.value = v38.value;
-    *&v28.timescale = 0u;
-    v29 = 0u;
-    v30 = *&v38.timescale;
-    v31 = 0u;
-    v32 = 0u;
-    v36 = 0x3FF0000000000000;
-    v17 = -1.0;
-    v18 = 1.0;
-    epoch = v38.epoch;
-    v19 = 1.0;
-    v20 = -1.0;
-    v34 = 0u;
-    v21 = 1.0;
-    v35 = 0u;
-    v22 = -1.0;
-    do
-    {
-      if ((v16 & 2) != 0)
-      {
-        v23 = 16;
-      }
-
-      else
-      {
-        v23 = 24;
-      }
-
-      v24 = *(a2 + v23);
-      if (v16 >= 4)
-      {
-        v25 = 32;
-      }
-
-      else
-      {
-        v25 = 40;
-      }
-
-      v26 = *(a2 + v25);
-      v45.var0 = *(a2 + (v15 & 8 ^ 8));
-      *&v45.var1 = v24;
-      v45.var3 = v26;
-      result = PCMatrix44Tmpl<double>::transform<double>(&v28.value, &v45.var0, &v45.var0);
-      if (v15)
-      {
-        if (v18 >= *&v45.var0)
-        {
-          v18 = *&v45.var0;
-        }
-
-        if (v17 <= *&v45.var0)
-        {
-          v17 = *&v45.var0;
-        }
-
-        if (v19 >= *&v45.var1)
-        {
-          v19 = *&v45.var1;
-        }
-
-        if (v20 <= *&v45.var1)
-        {
-          v20 = *&v45.var1;
-        }
-
-        if (v21 >= *&v45.var3)
-        {
-          v21 = *&v45.var3;
-        }
-
-        if (v22 <= *&v45.var3)
-        {
-          v22 = *&v45.var3;
-        }
-      }
-
-      else
-      {
-        v20 = *&v45.var1;
-        v22 = *&v45.var3;
-        v21 = *&v45.var3;
-        v19 = *&v45.var1;
-        v17 = *&v45.var0;
-        v18 = *&v45.var0;
-      }
-
-      ++v16;
-      v15 += 8;
-    }
-
-    while (v15 != 64);
-    *a2 = v18;
-    *(a2 + 8) = v17;
-    *(a2 + 16) = v19;
-    *(a2 + 24) = v20;
-    *(a2 + 32) = v21;
-    *(a2 + 40) = v22;
-  }
-
-  else
-  {
-    v27 = *(this + 5112);
-    *a2 = *(this + 5096);
-    *(a2 + 16) = v27;
-    *(a2 + 32) = *(this + 5128);
   }
 
   return result;

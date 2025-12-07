@@ -40,7 +40,7 @@
 
 - (id)loadTestCaseWithError:(id *)error
 {
-  v99 = *MEMORY[0x1E69E9840];
+  v98 = *MEMORY[0x1E69E9840];
   testCase = [(WFHarnessTestRunDescriptor *)self testCase];
 
   if (testCase)
@@ -61,7 +61,7 @@
       testBundleURL2 = [(WFHarnessTestRunDescriptor *)self testBundleURL];
       *buf = 136315394;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = testBundleURL2;
       _os_log_impl(&dword_1CA256000, v33, OS_LOG_TYPE_FAULT, "%s Could not load test bundle at URL %@", buf, 0x16u);
     }
@@ -93,7 +93,7 @@
       testBundleURL3 = [(WFHarnessTestRunDescriptor *)self testBundleURL];
       *buf = 136315394;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = testBundleURL3;
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_FAULT, "%s Could not find action harness test dylib in bundle %@", buf, 0x16u);
     }
@@ -110,7 +110,7 @@
   {
     *buf = 136315394;
     *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-    v93 = 2112;
+    v92 = 2112;
     selfCopy9 = v11;
     _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, "%s Loading test dylib at path %@", buf, 0x16u);
   }
@@ -123,7 +123,7 @@
     {
       *buf = 136315394;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = v11;
       _os_log_impl(&dword_1CA256000, v36, OS_LOG_TYPE_FAULT, "%s Could not dlopen test dylib at path %@", buf, 0x16u);
     }
@@ -147,10 +147,10 @@
       xcTestClass2 = [(WFHarnessTestRunDescriptor *)self xcTestClass];
       *buf = 136315650;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = xcTestClass2;
-      v95 = 2112;
-      v96 = v11;
+      v94 = 2112;
+      v95 = v11;
       _os_log_impl(&dword_1CA256000, v40, OS_LOG_TYPE_FAULT, "%s Could not find test class %@ inside dylib at path %@", buf, 0x20u);
     }
 
@@ -165,9 +165,9 @@ LABEL_47:
   }
 
   v17 = objc_alloc_init(cls);
-  v74 = v17;
+  v73 = v17;
   v18 = v17;
-  if (!v17 || (v19 = [v17 conformsToProtocol:&unk_1F4B24FA0], v18 = v74, (v19 & 1) == 0))
+  if (!v17 || (v19 = [v17 conformsToProtocol:&unk_1F4B24FA0], v18 = v73, (v19 & 1) == 0))
   {
 
     v37 = getWFTestHarnessLogObject();
@@ -176,7 +176,7 @@ LABEL_47:
       xcTestClass3 = [(WFHarnessTestRunDescriptor *)self xcTestClass];
       *buf = 136315394;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = xcTestClass3;
       _os_log_impl(&dword_1CA256000, v37, OS_LOG_TYPE_FAULT, "%s Test class %@ does not conform to WFHarnessTestCaseVendor", buf, 0x16u);
     }
@@ -195,21 +195,21 @@ LABEL_49:
     goto LABEL_50;
   }
 
-  [v74 setTestBundle:v9];
+  [v73 setTestBundle:v9];
   outCount = 0;
   v20 = class_copyMethodList(cls, &outCount);
   v21 = v20;
   if (!v20)
   {
-    v47 = getWFTestHarnessLogObject();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_FAULT))
+    v46 = getWFTestHarnessLogObject();
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_FAULT))
     {
       xcTestClass4 = [(WFHarnessTestRunDescriptor *)self xcTestClass];
       *buf = 136315394;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = xcTestClass4;
-      _os_log_impl(&dword_1CA256000, v47, OS_LOG_TYPE_FAULT, "%s Unable to get method list from test class: %@", buf, 0x16u);
+      _os_log_impl(&dword_1CA256000, v46, OS_LOG_TYPE_FAULT, "%s Unable to get method list from test class: %@", buf, 0x16u);
     }
 
     if (error)
@@ -231,7 +231,7 @@ LABEL_49:
   aBlock[2] = __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke;
   aBlock[3] = &__block_descriptor_40_e5_v8__0l;
   aBlock[4] = v20;
-  v72 = _Block_copy(aBlock);
+  v71 = _Block_copy(aBlock);
   v22 = getWFTestHarnessLogObject();
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
@@ -239,17 +239,17 @@ LABEL_49:
     xcTestMethodName = [(WFHarnessTestRunDescriptor *)self xcTestMethodName];
     *buf = 136315906;
     *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-    v93 = 2112;
+    v92 = 2112;
     selfCopy9 = self;
-    v95 = 2112;
-    v96 = xcTestClass5;
-    v97 = 2112;
-    *v98 = xcTestMethodName;
+    v94 = 2112;
+    v95 = xcTestClass5;
+    v96 = 2112;
+    *v97 = xcTestMethodName;
     _os_log_impl(&dword_1CA256000, v22, OS_LOG_TYPE_DEFAULT, "%s %@: Looking for test method %@ %@", buf, 0x2Au);
   }
 
   xcTestMethodName2 = [(WFHarnessTestRunDescriptor *)self xcTestMethodName];
-  v73 = [(WFHarnessTestRunDescriptor *)self testMethodNamebyRemovingSuffixes:xcTestMethodName2];
+  v72 = [(WFHarnessTestRunDescriptor *)self testMethodNamebyRemovingSuffixes:xcTestMethodName2];
 
   if (!outCount)
   {
@@ -261,10 +261,10 @@ LABEL_57:
       xcTestMethodName3 = [(WFHarnessTestRunDescriptor *)self xcTestMethodName];
       *buf = 136315650;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = xcTestClass6;
-      v95 = 2112;
-      v96 = xcTestMethodName3;
+      v94 = 2112;
+      v95 = xcTestMethodName3;
       _os_log_impl(&dword_1CA256000, v29, OS_LOG_TYPE_FAULT, "%s Failed to find a test method name matching %@ %@ - check if XCTest calling convention has changed", buf, 0x20u);
     }
 
@@ -272,7 +272,7 @@ LABEL_57:
   }
 
   v26 = 0;
-  v70 = 0;
+  v69 = 0;
   while (1)
   {
     while (1)
@@ -289,7 +289,7 @@ LABEL_19:
 
       if (++v26 >= outCount)
       {
-        if ((v70 & 1) == 0)
+        if ((v69 & 1) == 0)
         {
           goto LABEL_57;
         }
@@ -299,16 +299,16 @@ LABEL_19:
     }
 
     v30 = [(WFHarnessTestRunDescriptor *)self testMethodNamebyRemovingSuffixes:v29];
-    if (([v30 isEqualToString:v73] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(v30) & 1) == 0)
     {
 
       goto LABEL_19;
     }
 
-    v71 = [MEMORY[0x1E696AEC0] stringWithCString:method_getTypeEncoding(v27) encoding:4];
-    if (v71)
+    v70 = [MEMORY[0x1E696AEC0] stringWithCString:method_getTypeEncoding(v27) encoding:4];
+    if (v70)
     {
-      if ([(WFHarnessTestRunDescriptor *)v71 length])
+      if ([(WFHarnessTestRunDescriptor *)v70 length])
       {
         break;
       }
@@ -320,64 +320,64 @@ LABEL_19:
       xcTestClass7 = [(WFHarnessTestRunDescriptor *)self xcTestClass];
       *buf = 136315906;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = self;
-      v95 = 2112;
-      v96 = xcTestClass7;
-      v97 = 2112;
-      *v98 = v29;
+      v94 = 2112;
+      v95 = xcTestClass7;
+      v96 = 2112;
+      *v97 = v29;
       _os_log_impl(&dword_1CA256000, v31, OS_LOG_TYPE_DEFAULT, "%s %@: Skipping considering %@ %@ - method has empty type encoding", buf, 0x2Au);
     }
 
     ++v26;
-    v70 = 1;
+    v69 = 1;
     if (v26 >= outCount)
     {
       goto LABEL_56;
     }
   }
 
-  v49 = getWFTestHarnessLogObject();
-  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+  v48 = getWFTestHarnessLogObject();
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
     *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-    v93 = 2112;
+    v92 = 2112;
     selfCopy9 = self;
-    v95 = 2112;
-    v96 = v71;
-    _os_log_impl(&dword_1CA256000, v49, OS_LOG_TYPE_DEFAULT, "%s %@: types=%@", buf, 0x20u);
+    v94 = 2112;
+    v95 = v70;
+    _os_log_impl(&dword_1CA256000, v48, OS_LOG_TYPE_DEFAULT, "%s %@: types=%@", buf, 0x20u);
   }
 
   clsa = [(objc_class *)cls instanceMethodSignatureForSelector:Name];
   numberOfArguments = [(objc_class *)clsa numberOfArguments];
-  v51 = getWFTestHarnessLogObject();
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+  v50 = getWFTestHarnessLogObject();
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
     *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-    v93 = 2112;
+    v92 = 2112;
     selfCopy9 = self;
-    v95 = 2048;
-    v96 = numberOfArguments;
-    _os_log_impl(&dword_1CA256000, v51, OS_LOG_TYPE_DEFAULT, "%s %@: methodSignature.numberOfArguments=%lu", buf, 0x20u);
+    v94 = 2048;
+    v95 = numberOfArguments;
+    _os_log_impl(&dword_1CA256000, v50, OS_LOG_TYPE_DEFAULT, "%s %@: methodSignature.numberOfArguments=%lu", buf, 0x20u);
   }
 
-  v52 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:clsa];
-  [v52 setSelector:Name];
-  [v52 setTarget:v74];
-  v69 = v52;
-  v53 = [v29 containsString:@"WithCompletionHandler:"];
-  if (v53)
+  v51 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:clsa];
+  [v51 setSelector:Name];
+  [v51 setTarget:v73];
+  v68 = v51;
+  v52 = [v29 containsString:@"WithCompletionHandler:"];
+  if (v52)
   {
     if (numberOfArguments == 3)
     {
-      v54 = [(WFHarnessTestRunDescriptor *)v71 containsString:@"NSError"];
+      v53 = [(WFHarnessTestRunDescriptor *)v70 containsString:@"NSError"];
       goto LABEL_82;
     }
 
 LABEL_77:
-    v54 = 0;
+    v53 = 0;
   }
 
   else
@@ -387,78 +387,78 @@ LABEL_77:
       goto LABEL_77;
     }
 
-    v55 = clsa;
-    v56 = [(objc_class *)clsa getArgumentTypeAtIndex:2];
-    v57 = v56;
-    v54 = *v56 == 94 && v56[1] == 64;
-    v58 = getWFTestHarnessLogObject();
-    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+    v54 = clsa;
+    v55 = [(objc_class *)clsa getArgumentTypeAtIndex:2];
+    v56 = v55;
+    v53 = *v55 == 94 && v55[1] == 64;
+    v57 = getWFTestHarnessLogObject();
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316418;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = self;
-      v95 = 2112;
-      v96 = v29;
-      v97 = 1024;
-      *v98 = v54;
-      *&v98[4] = 2080;
-      *&v98[6] = v57;
-      *&v98[14] = 2080;
-      *&v98[16] = "^@";
-      _os_log_impl(&dword_1CA256000, v58, OS_LOG_TYPE_DEFAULT, "%s %@: %@ isThrowingTest %d type=%s errorTestArgumentType=%s", buf, 0x3Au);
+      v94 = 2112;
+      v95 = v29;
+      v96 = 1024;
+      *v97 = v53;
+      *&v97[4] = 2080;
+      *&v97[6] = v56;
+      *&v97[14] = 2080;
+      *&v97[16] = "^@";
+      _os_log_impl(&dword_1CA256000, v57, OS_LOG_TYPE_DEFAULT, "%s %@: %@ isThrowingTest %d type=%s errorTestArgumentType=%s", buf, 0x3Au);
     }
   }
 
 LABEL_82:
-  v59 = getWFTestHarnessLogObject();
-  if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+  v58 = getWFTestHarnessLogObject();
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
   {
     xcTestClass8 = [(WFHarnessTestRunDescriptor *)self xcTestClass];
     *buf = 136316418;
     *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-    v93 = 2112;
+    v92 = 2112;
     selfCopy9 = self;
-    v95 = 2112;
-    v96 = xcTestClass8;
-    v97 = 2112;
-    *v98 = v29;
-    *&v98[8] = 1024;
-    *&v98[10] = v53;
-    *&v98[14] = 1024;
-    *&v98[16] = v54;
-    _os_log_impl(&dword_1CA256000, v59, OS_LOG_TYPE_DEFAULT, "%s %@: Invoking test method %@ %@, isAsyncTest: %d, isThrowingTest: %d", buf, 0x36u);
+    v94 = 2112;
+    v95 = xcTestClass8;
+    v96 = 2112;
+    *v97 = v29;
+    *&v97[8] = 1024;
+    *&v97[10] = v52;
+    *&v97[14] = 1024;
+    *&v97[16] = v53;
+    _os_log_impl(&dword_1CA256000, v58, OS_LOG_TYPE_DEFAULT, "%s %@: Invoking test method %@ %@, isAsyncTest: %d, isThrowingTest: %d", buf, 0x36u);
   }
 
-  if (!v53)
+  if (!v52)
   {
-    [v69 invoke];
-    if (v54)
+    [v68 invoke];
+    if (v53)
     {
-      v84 = 0;
-      [v69 getArgument:&v84 atIndex:2];
+      v83 = 0;
+      [v68 getArgument:&v83 atIndex:2];
       if (error)
       {
-        *error = v84;
+        *error = v83;
       }
 
-      if (v84)
+      if (v83)
       {
-        v62 = getWFTestHarnessLogObject();
-        if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+        v61 = getWFTestHarnessLogObject();
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
           xcTestClass9 = [(WFHarnessTestRunDescriptor *)self xcTestClass];
           *buf = 136316162;
           *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-          v93 = 2112;
+          v92 = 2112;
           selfCopy9 = self;
-          v95 = 2112;
-          v96 = xcTestClass9;
-          v97 = 2112;
-          *v98 = v29;
-          *&v98[8] = 2112;
-          *&v98[10] = v84;
-          _os_log_impl(&dword_1CA256000, v62, OS_LOG_TYPE_ERROR, "%s %@: Got error running test method %@ %@ - %@", buf, 0x34u);
+          v94 = 2112;
+          v95 = xcTestClass9;
+          v96 = 2112;
+          *v97 = v29;
+          *&v97[8] = 2112;
+          *&v97[10] = v83;
+          _os_log_impl(&dword_1CA256000, v61, OS_LOG_TYPE_ERROR, "%s %@: Got error running test method %@ %@ - %@", buf, 0x34u);
         }
 
         goto LABEL_104;
@@ -468,58 +468,58 @@ LABEL_82:
     goto LABEL_106;
   }
 
-  v84 = 0;
-  v85 = &v84;
-  v86 = 0x3032000000;
-  v87 = __Block_byref_object_copy__20765;
-  v88 = __Block_byref_object_dispose__20766;
-  v89 = 0;
-  v61 = dispatch_semaphore_create(0);
-  if (v54)
+  v83 = 0;
+  v84 = &v83;
+  v85 = 0x3032000000;
+  v86 = __Block_byref_object_copy__20765;
+  v87 = __Block_byref_object_dispose__20766;
+  v88 = 0;
+  v60 = dispatch_semaphore_create(0);
+  if (v53)
   {
-    v80[0] = MEMORY[0x1E69E9820];
-    v80[1] = 3221225472;
-    v80[2] = __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke_224;
-    v80[3] = &unk_1E8376650;
-    v80[4] = self;
-    v81 = v29;
-    v83 = &v84;
-    v82 = v61;
-    *buf = _Block_copy(v80);
-    [v69 setArgument:buf atIndex:2];
-    [v69 invoke];
+    v79[0] = MEMORY[0x1E69E9820];
+    v79[1] = 3221225472;
+    v79[2] = __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke_224;
+    v79[3] = &unk_1E8376650;
+    v79[4] = self;
+    v80 = v29;
+    v82 = &v83;
+    v81 = v60;
+    *buf = _Block_copy(v79);
+    [v68 setArgument:buf atIndex:2];
+    [v68 invoke];
   }
 
   else
   {
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v77[2] = __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke_226;
-    v77[3] = &unk_1E837C1E8;
-    v77[4] = self;
-    v78 = v29;
-    v79 = v61;
-    *buf = _Block_copy(v77);
-    [v69 setArgument:buf atIndex:2];
-    [v69 invoke];
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 3221225472;
+    v76[2] = __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke_226;
+    v76[3] = &unk_1E837C1E8;
+    v76[4] = self;
+    v77 = v29;
+    v78 = v60;
+    *buf = _Block_copy(v76);
+    [v68 setArgument:buf atIndex:2];
+    [v68 invoke];
   }
 
-  v64 = dispatch_time(0, 60000000000);
-  if (dispatch_semaphore_wait(v61, v64))
+  v63 = dispatch_time(0, 60000000000);
+  if (dispatch_semaphore_wait(v60, v63))
   {
-    v65 = getWFTestHarnessLogObject();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+    v64 = getWFTestHarnessLogObject();
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
     {
       xcTestClass10 = [(WFHarnessTestRunDescriptor *)self xcTestClass];
       *buf = 136315906;
       *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-      v93 = 2112;
+      v92 = 2112;
       selfCopy9 = self;
-      v95 = 2112;
-      v96 = xcTestClass10;
-      v97 = 2112;
-      *v98 = v29;
-      _os_log_impl(&dword_1CA256000, v65, OS_LOG_TYPE_DEFAULT, "%s %@: Timeout - giving up waiting on async test method %@ %@", buf, 0x2Au);
+      v94 = 2112;
+      v95 = xcTestClass10;
+      v96 = 2112;
+      *v97 = v29;
+      _os_log_impl(&dword_1CA256000, v64, OS_LOG_TYPE_DEFAULT, "%s %@: Timeout - giving up waiting on async test method %@ %@", buf, 0x2Au);
     }
 
     goto LABEL_103;
@@ -527,65 +527,64 @@ LABEL_82:
 
   if (error)
   {
-    *error = v85[5];
+    *error = v84[5];
   }
 
-  if (!v85[5])
+  if (!v84[5])
   {
 
-    _Block_object_dispose(&v84, 8);
+    _Block_object_dispose(&v83, 8);
 LABEL_106:
 
 LABEL_56:
     testIdentifier = [(WFHarnessTestRunDescriptor *)self testIdentifier];
-    testCase2 = [v74 testCaseWithIdentifier:testIdentifier];
+    testCase2 = [v73 testCaseWithIdentifier:testIdentifier];
 
     [(WFHarnessTestRunDescriptor *)self setTestCase:testCase2];
     goto LABEL_60;
   }
 
-  v65 = getWFTestHarnessLogObject();
-  if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+  v64 = getWFTestHarnessLogObject();
+  if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
   {
     xcTestClass11 = [(WFHarnessTestRunDescriptor *)self xcTestClass];
-    v68 = v85[5];
+    v67 = v84[5];
     *buf = 136316162;
     *&buf[4] = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]";
-    v93 = 2112;
+    v92 = 2112;
     selfCopy9 = self;
-    v95 = 2112;
-    v96 = xcTestClass11;
-    v97 = 2112;
-    *v98 = v29;
-    *&v98[8] = 2112;
-    *&v98[10] = v68;
-    _os_log_impl(&dword_1CA256000, v65, OS_LOG_TYPE_ERROR, "%s %@: Got error running async test method %@ %@ - %@", buf, 0x34u);
+    v94 = 2112;
+    v95 = xcTestClass11;
+    v96 = 2112;
+    *v97 = v29;
+    *&v97[8] = 2112;
+    *&v97[10] = v67;
+    _os_log_impl(&dword_1CA256000, v64, OS_LOG_TYPE_ERROR, "%s %@: Got error running async test method %@ %@ - %@", buf, 0x34u);
   }
 
 LABEL_103:
 
-  _Block_object_dispose(&v84, 8);
+  _Block_object_dispose(&v83, 8);
 LABEL_104:
 
 LABEL_59:
   testCase2 = 0;
 LABEL_60:
 
-  v72[2]();
+  v71[2]();
 LABEL_66:
 
 LABEL_50:
 LABEL_51:
 
 LABEL_52:
-  v42 = *MEMORY[0x1E69E9840];
 
   return testCase2;
 }
 
 void __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke_224(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = getWFTestHarnessLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -593,17 +592,17 @@ void __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke_224(u
     v6 = *(a1 + 32);
     v7 = [v6 xcTestClass];
     v8 = *(a1 + 40);
-    v10 = 136316162;
-    v11 = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]_block_invoke";
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v4;
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s %@: Async test method completed %@ %@ ; error %@", &v10, 0x34u);
+    v9 = 136316162;
+    v10 = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]_block_invoke";
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v4;
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s %@: Async test method completed %@ %@ ; error %@", &v9, 0x34u);
   }
 
   if (v4)
@@ -612,33 +611,29 @@ void __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke_224(u
   }
 
   dispatch_semaphore_signal(*(a1 + 48));
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 intptr_t __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke_226(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = getWFTestHarnessLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [v3 xcTestClass];
     v5 = *(a1 + 40);
-    v8 = 136315906;
-    v9 = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]_block_invoke";
-    v10 = 2112;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v4;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEFAULT, "%s %@: Test method completed %@ %@", &v8, 0x2Au);
+    v7 = 136315906;
+    v8 = "[WFHarnessTestRunDescriptor loadTestCaseWithError:]_block_invoke";
+    v9 = 2112;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v4;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEFAULT, "%s %@: Test method completed %@ %@", &v7, 0x2Au);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 48));
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 48));
 }
 
 - (id)testMethodNamebyRemovingSuffixes:(id)suffixes
@@ -736,7 +731,7 @@ intptr_t __52__WFHarnessTestRunDescriptor_loadTestCaseWithError___block_invoke_2
 
 - (WFHarnessTestRunDescriptor)initWithTestBundleURL:(id)l xcTestClass:(id)class xcTestMethodName:(id)name testIdentifier:(id)identifier
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   lCopy = l;
   classCopy = class;
   nameCopy = name;
@@ -794,9 +789,9 @@ LABEL_15:
   [currentHandler4 handleFailureInMethod:a2 object:self file:@"WFHarnessTestRunDescriptor.m" lineNumber:38 description:{@"Invalid parameter not satisfying: %@", @"testIdentifier"}];
 
 LABEL_5:
-  v33.receiver = self;
-  v33.super_class = WFHarnessTestRunDescriptor;
-  v16 = [(WFHarnessTestRunDescriptor *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = WFHarnessTestRunDescriptor;
+  v16 = [(WFHarnessTestRunDescriptor *)&v32 init];
   v17 = v16;
   if (v16)
   {
@@ -821,9 +816,9 @@ LABEL_5:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315394;
-        v35 = "[WFHarnessTestRunDescriptor initWithTestBundleURL:xcTestClass:xcTestMethodName:testIdentifier:]";
-        v36 = 2112;
-        v37 = lCopy;
+        v34 = "[WFHarnessTestRunDescriptor initWithTestBundleURL:xcTestClass:xcTestMethodName:testIdentifier:]";
+        v35 = 2112;
+        v36 = lCopy;
         _os_log_impl(&dword_1CA256000, v25, OS_LOG_TYPE_DEFAULT, "%s Taken sandbox extension to %@", buf, 0x16u);
       }
     }
@@ -831,28 +826,27 @@ LABEL_5:
     v26 = v17;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (void)createWorkflowWithEnvironment:(int64_t)environment database:(id)database completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   handlerCopy = handler;
   v10 = getWFTestHarnessLogObject();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v22 = "[WFHarnessTestRunDescriptor(Conversion) createWorkflowWithEnvironment:database:completionHandler:]";
-    v23 = 2112;
+    v21 = "[WFHarnessTestRunDescriptor(Conversion) createWorkflowWithEnvironment:database:completionHandler:]";
+    v22 = 2112;
     selfCopy2 = self;
     _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s %@ - Loading testCase", buf, 0x16u);
   }
 
-  v20 = 0;
-  v11 = [(WFHarnessTestRunDescriptor *)self loadTestCaseWithError:&v20];
-  v12 = v20;
+  v19 = 0;
+  v11 = [(WFHarnessTestRunDescriptor *)self loadTestCaseWithError:&v19];
+  v12 = v19;
   if (v11)
   {
     runDescriptor = [v11 runDescriptor];
@@ -861,31 +855,29 @@ LABEL_5:
     {
       name = [v11 name];
       *buf = 136315906;
-      v22 = "[WFHarnessTestRunDescriptor(Conversion) createWorkflowWithEnvironment:database:completionHandler:]";
-      v23 = 2112;
+      v21 = "[WFHarnessTestRunDescriptor(Conversion) createWorkflowWithEnvironment:database:completionHandler:]";
+      v22 = 2112;
       selfCopy2 = self;
-      v25 = 2112;
-      v26 = runDescriptor;
-      v27 = 2112;
-      v28 = name;
+      v24 = 2112;
+      v25 = runDescriptor;
+      v26 = 2112;
+      v27 = name;
       _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_DEFAULT, "%s %@ - Running workflow %@ %@", buf, 0x2Au);
     }
 
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __99__WFHarnessTestRunDescriptor_Conversion__createWorkflowWithEnvironment_database_completionHandler___block_invoke;
-    v17[3] = &unk_1E8376698;
-    v18 = v11;
-    v19 = handlerCopy;
-    [runDescriptor createWorkflowWithEnvironment:environment database:databaseCopy completionHandler:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __99__WFHarnessTestRunDescriptor_Conversion__createWorkflowWithEnvironment_database_completionHandler___block_invoke;
+    v16[3] = &unk_1E8376698;
+    v17 = v11;
+    v18 = handlerCopy;
+    [runDescriptor createWorkflowWithEnvironment:environment database:databaseCopy completionHandler:v16];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0, v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __99__WFHarnessTestRunDescriptor_Conversion__createWorkflowWithEnvironment_database_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)

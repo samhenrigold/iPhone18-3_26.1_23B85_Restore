@@ -71,7 +71,7 @@ LABEL_33:
 
     ValueAtIndex = CFArrayGetValueAtIndex(values, 0);
     v7 = CFGetTypeID(ValueAtIndex);
-    v30 = v3;
+    v29 = v3;
     if (v7 == CFDataGetTypeID())
     {
       v8 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:0x7FFFFFFFLL];
@@ -112,7 +112,7 @@ LABEL_30:
           CFRelease(result);
         }
 
-        v3 = v30;
+        v3 = v29;
         goto LABEL_33;
       }
     }
@@ -153,9 +153,9 @@ LABEL_30:
     v18 = 0;
     v15 = 0;
     v16 = 0;
-    v32 = *MEMORY[0x277D3FE58];
+    v31 = *MEMORY[0x277D3FE58];
     v19 = Count & 0x7FFFFFFF;
-    v31 = *MEMORY[0x277D40140];
+    v30 = *MEMORY[0x277D40140];
     while (1)
     {
       keys[0] = 0;
@@ -191,8 +191,8 @@ LABEL_22:
       {
 LABEL_24:
         v21 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:0 set:0 get:0 detail:objc_opt_class() cell:3 edit:0];
-        [v21 setProperty:objc_opt_class() forKey:v32];
-        [v21 setProperty:v16 forKey:v31];
+        [v21 setProperty:objc_opt_class() forKey:v31];
+        [v21 setProperty:v16 forKey:v30];
         [(MCCertificatePickerController *)self _setCellPropertiesOnSpecifier:v21 forCertificate:keys[0]];
         v22 = MEMORY[0x277CBEA60];
         v23 = [values objectAtIndex:v18];
@@ -222,14 +222,13 @@ LABEL_24:
   }
 
 LABEL_34:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)setRowToSelect
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D3FC68];
   *(&self->super.super.super.super.super.super.isa + v2) = 0x7FFFFFFFFFFFFFFFLL;
   v3 = *MEMORY[0x277D3FD20];
@@ -239,55 +238,54 @@ LABEL_34:
   {
     v7 = MEMORY[0x277D3FCB8];
     WeakRetained = objc_loadWeakRetained((v4 + *MEMORY[0x277D3FCB8]));
-    v9 = *(*(&self->super.super.super.super.super.super.isa + v3) + *v5);
-    v10 = objc_opt_respondsToSelector();
+    v9 = objc_opt_respondsToSelector();
 
-    if (v10)
+    if (v9)
     {
-      v11 = objc_loadWeakRetained((*(&self->super.super.super.super.super.super.isa + v3) + *v7));
-      v12 = [v11 *(*(&self->super.super.super.super.super.super.isa + v3) + *v5)];
+      v10 = objc_loadWeakRetained((*(&self->super.super.super.super.super.super.isa + v3) + *v7));
+      v11 = [v10 *(*(&self->super.super.super.super.super.super.isa + v3) + *v5)];
 
-      if (v12)
+      if (v11)
       {
-        v25 = 0u;
-        v26 = 0u;
         v23 = 0u;
         v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         specifiers = [(MCCertificatePickerController *)self specifiers];
-        v14 = [specifiers countByEnumeratingWithState:&v23 objects:v27 count:16];
-        if (v14)
+        v13 = [specifiers countByEnumeratingWithState:&v21 objects:v25 count:16];
+        if (v13)
         {
-          v15 = v14;
-          v16 = 0;
-          v17 = *v24;
+          v14 = v13;
+          v15 = 0;
+          v16 = *v22;
           while (2)
           {
-            v18 = 0;
-            v22 = (v16 + v15);
+            v17 = 0;
+            v20 = (v15 + v14);
             do
             {
-              if (*v24 != v17)
+              if (*v22 != v16)
               {
                 objc_enumerationMutation(specifiers);
               }
 
-              values = [*(*(&v23 + 1) + 8 * v18) values];
+              values = [*(*(&v21 + 1) + 8 * v17) values];
               lastObject = [values lastObject];
 
-              if (v12 == lastObject)
+              if (v11 == lastObject)
               {
-                *(&self->super.super.super.super.super.super.isa + v2) = v16;
+                *(&self->super.super.super.super.super.super.isa + v2) = v15;
                 goto LABEL_14;
               }
 
-              v16 = (v16 + 1);
-              ++v18;
+              v15 = (v15 + 1);
+              ++v17;
             }
 
-            while (v15 != v18);
-            v15 = [specifiers countByEnumeratingWithState:&v23 objects:v27 count:16];
-            v16 = v22;
-            if (v15)
+            while (v14 != v17);
+            v14 = [specifiers countByEnumeratingWithState:&v21 objects:v25 count:16];
+            v15 = v20;
+            if (v14)
             {
               continue;
             }
@@ -300,8 +298,6 @@ LABEL_14:
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

@@ -344,52 +344,51 @@ id __62__ATXCandidateRelevanceModelConfig_featurizersFromConfigPlist__block_invo
   v3 = a2;
   if (!NSClassFromString(v3))
   {
-    v4 = __atxlog_handle_relevance_model();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = __atxlog_handle_relevance_model(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      __62__ATXCandidateRelevanceModelConfig_featurizersFromConfigPlist__block_invoke_cold_2(v3, v4);
+      __62__ATXCandidateRelevanceModelConfig_featurizersFromConfigPlist__block_invoke_cold_2(v3, v5);
     }
 
     goto LABEL_7;
   }
 
-  if ([*(a1 + 32) containsObject:v3])
+  v4 = [*(a1 + 32) containsObject:v3];
+  if (v4)
   {
-    v4 = __atxlog_handle_relevance_model();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = __atxlog_handle_relevance_model(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      __62__ATXCandidateRelevanceModelConfig_featurizersFromConfigPlist__block_invoke_cold_1(v3, v4);
+      __62__ATXCandidateRelevanceModelConfig_featurizersFromConfigPlist__block_invoke_cold_1(v3, v5);
     }
 
 LABEL_7:
 
-    v5 = 0;
+    v6 = 0;
     goto LABEL_9;
   }
 
   [*(a1 + 32) addObject:v3];
-  v5 = objc_opt_new();
+  v6 = objc_opt_new();
 LABEL_9:
 
-  return v5;
+  return v6;
 }
 
 void __62__ATXCandidateRelevanceModelConfig_featurizersFromConfigPlist__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Duplicate featurizer defined: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Duplicate featurizer defined: %@", &v2, 0xCu);
 }
 
 void __62__ATXCandidateRelevanceModelConfig_featurizersFromConfigPlist__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Error converting %@ to a class.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Error converting %@ to a class.", &v2, 0xCu);
 }
 
 @end

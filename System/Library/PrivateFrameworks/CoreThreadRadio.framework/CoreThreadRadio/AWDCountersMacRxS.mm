@@ -404,12 +404,11 @@ LABEL_13:
 {
   toCopy = to;
   has = self->_has;
-  v21 = toCopy;
+  v8 = toCopy;
   if ((has & 0x400) != 0)
   {
-    rxTotal = self->_rxTotal;
     PBDataWriterWriteUint32Field();
-    toCopy = v21;
+    toCopy = v8;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -428,9 +427,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rxData = self->_rxData;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x800) == 0)
   {
@@ -444,9 +442,8 @@ LABEL_4:
   }
 
 LABEL_16:
-  rxUnicast = self->_rxUnicast;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -460,9 +457,8 @@ LABEL_5:
   }
 
 LABEL_17:
-  rxBroadcast = self->_rxBroadcast;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -476,9 +472,8 @@ LABEL_6:
   }
 
 LABEL_18:
-  rxErrFcs = self->_rxErrFcs;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x200) == 0)
   {
@@ -492,9 +487,8 @@ LABEL_7:
   }
 
 LABEL_19:
-  rxErrUnknownNeighbor = self->_rxErrUnknownNeighbor;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x10) == 0)
   {
@@ -508,9 +502,8 @@ LABEL_8:
   }
 
 LABEL_20:
-  rxErrInvalidSrcAddr = self->_rxErrInvalidSrcAddr;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x100) == 0)
   {
@@ -524,9 +517,8 @@ LABEL_9:
   }
 
 LABEL_21:
-  rxErrSecurity = self->_rxErrSecurity;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -540,9 +532,8 @@ LABEL_10:
   }
 
 LABEL_22:
-  rxErrNoframe = self->_rxErrNoframe;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -556,9 +547,8 @@ LABEL_11:
   }
 
 LABEL_23:
-  rxErrDuplicated = self->_rxErrDuplicated;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   if ((*&self->_has & 0x40) == 0)
   {
 LABEL_12:
@@ -572,9 +562,8 @@ LABEL_12:
   }
 
 LABEL_24:
-  rxErrOther = self->_rxErrOther;
   PBDataWriterWriteUint32Field();
-  toCopy = v21;
+  toCopy = v8;
   p_rxPacketCountHistograms = &self->_rxPacketCountHistograms;
   if (!self->_rxPacketCountHistograms.count)
   {
@@ -582,22 +571,20 @@ LABEL_24:
   }
 
 LABEL_25:
-  v18 = 0;
+  v7 = 0;
   do
   {
-    v19 = p_rxPacketCountHistograms->list[v18];
     PBDataWriterWriteUint32Field();
-    toCopy = v21;
-    ++v18;
+    toCopy = v8;
+    ++v7;
   }
 
-  while (v18 < p_rxPacketCountHistograms->count);
+  while (v7 < p_rxPacketCountHistograms->count);
 LABEL_27:
   if ((*&self->_has & 0x80) != 0)
   {
-    rxErrPercentage = self->_rxErrPercentage;
     PBDataWriterWriteUint32Field();
-    toCopy = v21;
+    toCopy = v8;
   }
 }
 

@@ -97,7 +97,7 @@
   return v18;
 }
 
-uint64_t __79__SKUIHorizontalListScrollView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__79__SKUIHorizontalListScrollView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -529,9 +529,9 @@ LABEL_16:
         v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [(NSMapTable *)self->_viewElementViews objectForKey:v9];
         itmlID = [v10 itmlID];
-        v12 = [itmlID isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = v9;
 
@@ -727,23 +727,23 @@ LABEL_11:
   textCopy = text;
   styleCopy = style;
   contextCopy = context;
-  v10 = SKUIViewElementFontWithStyle(styleCopy);
-  if (!v10)
+  v11 = SKUIViewElementFontWithStyle(styleCopy);
+  if (!v11)
   {
-    v10 = SKUIFontForTextStyle(5);
+    v11 = SKUIFontForTextStyle(5, v10);
   }
 
   tintColor = [contextCopy tintColor];
-  v12 = SKUIViewElementPlainColorWithStyle(styleCopy, tintColor);
+  v13 = SKUIViewElementPlainColorWithStyle(styleCopy, tintColor);
 
-  if (!v12)
+  if (!v13)
   {
-    v12 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
+    v13 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
   }
 
-  v13 = [textCopy attributedStringWithDefaultFont:v10 foregroundColor:v12 style:styleCopy];
+  v14 = [textCopy attributedStringWithDefaultFont:v11 foregroundColor:v13 style:styleCopy];
 
-  return v13;
+  return v14;
 }
 
 + (CGSize)_sizeForViewElement:(id)element width:(double)width context:(id)context
@@ -770,6 +770,36 @@ LABEL_11:
   result.height = v16;
   result.width = v15;
   return result;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIHorizontalListScrollView initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalListScrollView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalListScrollView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalListScrollView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIHorizontalListScrollView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

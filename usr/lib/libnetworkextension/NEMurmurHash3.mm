@@ -1,5 +1,5 @@
 @interface NEMurmurHash3
-+ (uint64_t)digest32BitX86:(unsigned int)x86 length:(int)length seed:;
++ (uint64_t)digest32BitX86:(unsigned int)x86 length:(unsigned int)length seed:;
 + (unsigned)hash:(id)hash seed:(unsigned int)seed;
 + (unsigned)hashWithString:(const char *)string seed:(unsigned int)seed;
 @end
@@ -13,7 +13,7 @@
   return [(NEMurmurHash3 *)self digest32BitX86:string length:v7 seed:seed];
 }
 
-+ (uint64_t)digest32BitX86:(unsigned int)x86 length:(int)length seed:
++ (uint64_t)digest32BitX86:(unsigned int)x86 length:(unsigned int)length seed:
 {
   objc_opt_self();
   x86Copy = x86;

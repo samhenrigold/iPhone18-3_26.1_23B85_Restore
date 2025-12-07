@@ -93,7 +93,7 @@
     v30 = +[UIColor clearColor];
     [(UIView *)v4->_title setBackgroundColor:v30];
 
-    v31 = +[UIColor blackColor];
+    v31 = objc_msgSend_blackColor(UIColor);
     [(UILabel *)v4->_title setTextColor:v31];
 
     [(UILabel *)v4->_title setTextAlignment:0];
@@ -148,7 +148,7 @@
     layer = [(UIView *)self->_selectedCircle layer];
     [layer setCompositingFilter:v4];
 
-    v7 = +[UIColor blackColor];
+    v7 = objc_msgSend_blackColor(UIColor);
     v8 = 1045220557;
   }
 

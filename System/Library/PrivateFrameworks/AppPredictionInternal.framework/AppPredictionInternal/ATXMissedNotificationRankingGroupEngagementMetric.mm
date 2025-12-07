@@ -46,8 +46,8 @@
 
 - (id)coreAnalyticsDictionary
 {
-  v28[11] = *MEMORY[0x277D85DE8];
-  v27[0] = @"bundleId";
+  v27[11] = *MEMORY[0x277D85DE8];
+  v26[0] = @"bundleId";
   bundleId = [(ATXMissedNotificationRankingGroupEngagementMetric *)self bundleId];
   v4 = bundleId;
   if (!bundleId)
@@ -55,11 +55,11 @@
     bundleId = [MEMORY[0x277CBEB68] null];
   }
 
-  v21 = bundleId;
-  v28[0] = bundleId;
-  v27[1] = @"secureBundleId";
+  v20 = bundleId;
+  v27[0] = bundleId;
+  v26[1] = @"secureBundleId";
   bundleId2 = [(ATXMissedNotificationRankingGroupEngagementMetric *)self bundleId];
-  v26 = v4;
+  v25 = v4;
   if (bundleId2)
   {
     bundleId3 = [(ATXMissedNotificationRankingGroupEngagementMetric *)self bundleId];
@@ -72,14 +72,14 @@
     bundleId3 = null;
   }
 
-  v22 = null;
-  v28[1] = null;
-  v27[2] = @"groupScore";
+  v21 = null;
+  v27[1] = null;
+  v26[2] = @"groupScore";
   v6 = MEMORY[0x277CCABB0];
   [(ATXMissedNotificationRankingGroupEngagementMetric *)self groupScore];
-  v23 = [v6 numberWithDouble:?];
-  v28[2] = v23;
-  v27[3] = @"mnbUUID";
+  v22 = [v6 numberWithDouble:?];
+  v27[2] = v22;
+  v26[3] = @"mnbUUID";
   mnbUUID = [(ATXMissedNotificationRankingGroupEngagementMetric *)self mnbUUID];
   v8 = mnbUUID;
   if (!mnbUUID)
@@ -87,21 +87,21 @@
     mnbUUID = [MEMORY[0x277CBEB68] null];
   }
 
-  v20 = mnbUUID;
-  v28[3] = mnbUUID;
-  v27[4] = @"numEngagementsAfterExpiration";
+  v19 = mnbUUID;
+  v27[3] = mnbUUID;
+  v26[4] = @"numEngagementsAfterExpiration";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXMissedNotificationRankingGroupEngagementMetric numEngagementsAfterExpiration](self, "numEngagementsAfterExpiration")}];
-  v28[4] = v9;
-  v27[5] = @"numEngagementsAfterShow";
+  v27[4] = v9;
+  v26[5] = @"numEngagementsAfterShow";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXMissedNotificationRankingGroupEngagementMetric numEngagementsAfterShow](self, "numEngagementsAfterShow")}];
-  v28[5] = v10;
-  v27[6] = @"numEngagementsInUpcoming";
+  v27[5] = v10;
+  v26[6] = @"numEngagementsInUpcoming";
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXMissedNotificationRankingGroupEngagementMetric numEngagementsInUpcoming](self, "numEngagementsInUpcoming")}];
-  v28[6] = v11;
-  v27[7] = @"numExpansions";
+  v27[6] = v11;
+  v26[7] = @"numExpansions";
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXMissedNotificationRankingGroupEngagementMetric numExpansions](self, "numExpansions")}];
-  v28[7] = v12;
-  v27[8] = @"section";
+  v27[7] = v12;
+  v26[8] = @"section";
   section = [(ATXMissedNotificationRankingGroupEngagementMetric *)self section];
   null2 = section;
   if (!section)
@@ -109,14 +109,14 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v28[8] = null2;
-  v27[9] = @"sectionPosition";
+  v27[8] = null2;
+  v26[9] = @"sectionPosition";
   v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXMissedNotificationRankingGroupEngagementMetric sectionPosition](self, "sectionPosition")}];
-  v28[9] = v15;
-  v27[10] = @"sectionSize";
+  v27[9] = v15;
+  v26[10] = @"sectionSize";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[ATXMissedNotificationRankingGroupEngagementMetric sectionSize](self, "sectionSize")}];
-  v28[10] = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:11];
+  v27[10] = v16;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:11];
 
   if (!section)
   {
@@ -130,11 +130,9 @@
   {
   }
 
-  if (!v26)
+  if (!v25)
   {
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

@@ -38,7 +38,7 @@
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    [BPSScan subscribe:];
+    [BPSScan subscribe:?];
   }
 
   v6 = [_BPSScanInner alloc];
@@ -52,12 +52,10 @@
 
 - (id)upstreamPublishers
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSScan *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -121,23 +119,20 @@
 
 - (id)bookmarkableUpstreams
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   upstream = [(BPSScan *)self upstream];
-  v6[0] = upstream;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = upstream;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
-- (void)subscribe:.cold.1()
+- (void)subscribe:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_6(&dword_1C871B000, v1, v2, "%@ - subscribe", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0_6(&dword_1C871B000, v2, v3, "%@ - subscribe", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

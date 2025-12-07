@@ -8,7 +8,7 @@
 {
   keyCopy = key;
   animatedLayerProperties = [(SBPropertyAnimatingView *)self animatedLayerProperties];
-  v6 = [animatedLayerProperties containsObject:keyCopy];
+  v6 = objc_msgSend_containsObject_(animatedLayerProperties);
 
   if (v6)
   {

@@ -42,24 +42,24 @@
   return v3;
 }
 
-void __34__WLKAppLibrary_defaultAppLibrary__block_invoke()
+void __34__WLKAppLibrary_defaultAppLibrary__block_invoke(uint64_t a1)
 {
-  v0 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v0))
+  v1 = WLKStartupSignpostLogObject(a1);
+  if (os_signpost_enabled(v1))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Library.Init", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Library.Init", &unk_272A8884E, buf, 2u);
   }
 
-  v1 = objc_alloc_init(WLKAppLibrary);
-  v2 = defaultAppLibrary___defaultAppLibrary;
-  defaultAppLibrary___defaultAppLibrary = v1;
+  v2 = objc_alloc_init(WLKAppLibrary);
+  v3 = defaultAppLibrary___defaultAppLibrary;
+  defaultAppLibrary___defaultAppLibrary = v2;
 
-  v3 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v3))
+  v5 = WLKStartupSignpostLogObject(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Library.Init", &unk_272A8884E, v4, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Library.Init", &unk_272A8884E, v6, 2u);
   }
 }
 
@@ -106,14 +106,14 @@ void __34__WLKAppLibrary_defaultAppLibrary__block_invoke()
 
 - (id)_refreshAppLibrary
 {
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__6;
-  v43 = __Block_byref_object_dispose__6;
-  v44 = 0;
+  v41 = 0;
+  v42 = &v41;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__6;
+  v45 = __Block_byref_object_dispose__6;
+  v46 = 0;
   v3 = objc_autoreleasePoolPush();
-  v4 = WLKStartupSignpostLogObject();
+  v4 = WLKStartupSignpostLogObject(v3);
   if (os_signpost_enabled(v4))
   {
     *buf = 0;
@@ -122,38 +122,44 @@ void __34__WLKAppLibrary_defaultAppLibrary__block_invoke()
 
   v5 = dispatch_semaphore_create(0);
   *buf = 0;
-  v34 = buf;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__6;
-  v37 = __Block_byref_object_dispose__6;
-  v38 = 0;
+  v36 = buf;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__6;
+  v39 = __Block_byref_object_dispose__6;
+  v40 = 0;
   v6 = +[WLKAppLibraryCore sharedInstance];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __35__WLKAppLibrary__refreshAppLibrary__block_invoke;
-  v30[3] = &unk_279E5FE68;
-  v32 = buf;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __35__WLKAppLibrary__refreshAppLibrary__block_invoke;
+  v32[3] = &unk_279E5FE68;
+  v34 = buf;
   v7 = v5;
-  v31 = v7;
-  [v6 fetchApplications:v30];
+  v33 = v7;
+  [v6 fetchApplications:v32];
 
   if (WLKIsDaemon())
   {
-    dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
-    v8 = WLKStartupSignpostLogObject();
-    if (os_signpost_enabled(v8))
+    v8 = dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
+    v9 = WLKStartupSignpostLogObject(v8);
+    if (os_signpost_enabled(v9))
     {
-      *v24 = 0;
-      _os_signpost_emit_with_name_impl(&dword_272A0F000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Library.Refresh", &unk_272A8884E, v24, 2u);
+      *v26 = 0;
+      _os_signpost_emit_with_name_impl(&dword_272A0F000, v9, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Library.Refresh", &unk_272A8884E, v26, 2u);
     }
 
 LABEL_13:
-    *v24 = 0;
-    v25 = v24;
-    v26 = 0x3032000000;
-    v27 = __Block_byref_object_copy__6;
-    v28 = __Block_byref_object_dispose__6;
-    v29 = 0;
+    *v26 = 0;
+    v27 = v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__6;
+    v30 = __Block_byref_object_dispose__6;
+    v31 = 0;
+    v24[0] = 0;
+    v24[1] = v24;
+    v24[2] = 0x3032000000;
+    v24[3] = __Block_byref_object_copy__6;
+    v24[4] = __Block_byref_object_dispose__6;
+    v25 = 0;
     v22[0] = 0;
     v22[1] = v22;
     v22[2] = 0x3032000000;
@@ -166,74 +172,68 @@ LABEL_13:
     v20[3] = __Block_byref_object_copy__6;
     v20[4] = __Block_byref_object_dispose__6;
     v21 = 0;
-    v18[0] = 0;
-    v18[1] = v18;
-    v18[2] = 0x3032000000;
-    v18[3] = __Block_byref_object_copy__6;
-    v18[4] = __Block_byref_object_dispose__6;
-    v19 = 0;
     accessQueue = self->_accessQueue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __35__WLKAppLibrary__refreshAppLibrary__block_invoke_29;
     block[3] = &unk_279E5FE90;
     block[4] = self;
-    block[5] = v24;
-    block[6] = v22;
-    block[7] = v20;
-    block[8] = v18;
+    block[5] = v26;
+    block[6] = v24;
+    block[7] = v22;
+    block[8] = v20;
     block[9] = buf;
-    block[10] = &v39;
+    block[10] = &v41;
     dispatch_sync(accessQueue, block);
-    _Block_object_dispose(v18, 8);
-
     _Block_object_dispose(v20, 8);
-    _Block_object_dispose(v22, 8);
 
+    _Block_object_dispose(v22, 8);
     _Block_object_dispose(v24, 8);
-    v13 = 1;
+
+    _Block_object_dispose(v26, 8);
+    v15 = 1;
     goto LABEL_14;
   }
 
-  v9 = dispatch_time(0, 5000000000);
-  v10 = dispatch_semaphore_wait(v7, v9);
-  v11 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v11))
+  v10 = dispatch_time(0, 5000000000);
+  v11 = dispatch_semaphore_wait(v7, v10);
+  v12 = WLKStartupSignpostLogObject(v11);
+  if (os_signpost_enabled(v12))
   {
-    *v24 = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Library.Refresh", &unk_272A8884E, v24, 2u);
+    *v26 = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v12, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Library.Refresh", &unk_272A8884E, v26, 2u);
   }
 
-  if (!v10)
+  if (!v11)
   {
     goto LABEL_13;
   }
 
-  v12 = WLKSystemLogObject();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = WLKSystemLogObject(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    *v24 = 0;
-    _os_log_impl(&dword_272A0F000, v12, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - Timeout while waiting for list of apps.", v24, 2u);
+    *v26 = 0;
+    _os_log_impl(&dword_272A0F000, v14, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - Timeout while waiting for list of apps.", v26, 2u);
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_14:
 
   _Block_object_dispose(buf, 8);
   objc_autoreleasePoolPop(v3);
-  if (v13)
+  if (v15)
   {
-    v15 = v40[5];
+    v17 = v42[5];
   }
 
   else
   {
-    v15 = 0;
+    v17 = 0;
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v41, 8);
 
-  return v15;
+  return v17;
 }
 
 - (id)allAppProxiesPerCategory
@@ -265,7 +265,7 @@ uint64_t __41__WLKAppLibrary_allAppProxiesPerCategory__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 void __35__WLKAppLibrary__refreshAppLibrary__block_invoke(uint64_t a1, void *a2)
@@ -277,7 +277,7 @@ void __35__WLKAppLibrary__refreshAppLibrary__block_invoke(uint64_t a1, void *a2)
 
 void __35__WLKAppLibrary__refreshAppLibrary__block_invoke_29(void *a1)
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = *(v2 + 40);
   if (v3)
@@ -521,48 +521,47 @@ LABEL_43:
     {
       v58 = [*(*(a1[8] + 8) + 40) wlk_dictionaryDifference:v50];
 
-      if ([v58 count])
+      v72 = [v58 count];
+      if (v72)
       {
-        v72 = WLKSystemLogObject();
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+        v73 = WLKSystemLogObject(v72);
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v83 = v58;
-          _os_log_impl(&dword_272A0F000, v72, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - Subscription info did change: %@", buf, 0xCu);
+          v84 = v58;
+          _os_log_impl(&dword_272A0F000, v73, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - Subscription info did change: %@", buf, 0xCu);
         }
 
-        v80 = @"SubscriptionInfoChanges";
-        v81 = v58;
-        v73 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-        [v56 setObject:v73 forKeyedSubscript:@"SubscribedChanges"];
+        v81 = @"SubscriptionInfoChanges";
+        v82 = v58;
+        v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+        [v56 setObject:v74 forKeyedSubscript:@"SubscribedChanges"];
       }
     }
 
-    v74 = [v56 copy];
-    v75 = *(a1[10] + 8);
-    v76 = *(v75 + 40);
-    *(v75 + 40) = v74;
+    v75 = [v56 copy];
+    v76 = *(a1[10] + 8);
+    v77 = *(v76 + 40);
+    *(v76 + 40) = v75;
 
-    v77 = WLKSystemLogObject();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+    v79 = WLKSystemLogObject(v78);
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
     {
-      v78 = *(*(a1[10] + 8) + 40);
+      v80 = *(*(a1[10] + 8) + 40);
       *buf = 138412290;
-      v83 = v78;
-      _os_log_impl(&dword_272A0F000, v77, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - Library did change: %@", buf, 0xCu);
+      v84 = v80;
+      _os_log_impl(&dword_272A0F000, v79, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - Library did change: %@", buf, 0xCu);
     }
 
     goto LABEL_56;
   }
 
 LABEL_57:
-
-  v79 = *MEMORY[0x277D85DE8];
 }
 
 void __41__WLKAppLibrary_dictionaryRepresentation__block_invoke(uint64_t a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v3 = v2;
   v4 = *(a1 + 32);
@@ -578,32 +577,32 @@ void __41__WLKAppLibrary_dictionaryRepresentation__block_invoke(uint64_t a1)
   {
     [v3 setObject:v6 forKeyedSubscript:@"Subscribed"];
     v7 = [MEMORY[0x277CBEB38] dictionary];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v8 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:{@"Subscribed", 0}];
-    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * i);
+          v13 = *(*(&v22 + 1) + 8 * i);
           v14 = [v13 subscriptionInfo];
           v15 = [v13 bundleIdentifier];
           [v7 setObject:v14 forKey:v15];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v10);
@@ -632,8 +631,6 @@ void __41__WLKAppLibrary_dictionaryRepresentation__block_invoke(uint64_t a1)
   v20 = *(*(a1 + 40) + 8);
   v21 = *(v20 + 40);
   *(v20 + 40) = v19;
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
@@ -807,7 +804,7 @@ uint64_t __36__WLKAppLibrary_installedAppProxies__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)subscribedAppProxies
@@ -839,7 +836,7 @@ uint64_t __37__WLKAppLibrary_subscribedAppProxies__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)testAppProxies
@@ -871,7 +868,7 @@ uint64_t __31__WLKAppLibrary_testAppProxies__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (id)allAppProxies
@@ -940,27 +937,27 @@ void __30__WLKAppLibrary_allAppProxies__block_invoke(uint64_t a1)
 
 void __43__WLKAppLibrary_subscriptionInfoForBundle___block_invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = [*(a1[4] + 8) objectForKeyedSubscript:{@"Subscribed", 0}];
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * i);
+        v7 = *(*(&v13 + 1) + 8 * i);
         v8 = [v7 bundleIdentifier];
         v9 = [v8 isEqualToString:a1[5]];
 
@@ -975,7 +972,7 @@ void __43__WLKAppLibrary_subscriptionInfoForBundle___block_invoke(void *a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v4)
       {
         continue;
@@ -986,8 +983,6 @@ void __43__WLKAppLibrary_subscriptionInfoForBundle___block_invoke(void *a1)
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)localizedNameForBundle:(id)bundle
@@ -1029,18 +1024,19 @@ LABEL_11:
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter postNotificationName:@"WLKAppLibraryDidChangeNotification" object:_refreshAppLibrary];
 
-    if (WLKShouldRunInProcess())
+    v6 = WLKShouldRunInProcess();
+    if (v6)
     {
-      v6 = WLKSystemLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = WLKSystemLogObject(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - posting cross process note", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - posting cross process note", v11, 2u);
       }
 
       didChangeNotificationToken = self->_didChangeNotificationToken;
-      v8 = getpid();
-      notify_set_state(didChangeNotificationToken, v8);
+      v9 = getpid();
+      notify_set_state(didChangeNotificationToken, v9);
       notify_post("com.apple.WatchListKit.WLKAppLibraryDidChangeNotification");
     }
   }
@@ -1129,7 +1125,7 @@ uint64_t __41__WLKAppLibrary__nonConformingAppProxies__block_invoke(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)beginIgnoringAppLibraryChanges
@@ -1145,40 +1141,40 @@ uint64_t __41__WLKAppLibrary__nonConformingAppProxies__block_invoke(uint64_t a1)
 
 - (void)endIgnoringAppLibraryChanges
 {
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
   accessQueue = self->_accessQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __45__WLKAppLibrary_endIgnoringAppLibraryChanges__block_invoke;
   block[3] = &unk_279E5F9D0;
   block[4] = self;
-  block[5] = &v10;
+  block[5] = &v11;
   dispatch_sync(accessQueue, block);
-  if (*(v11 + 24) == 1)
+  if (*(v12 + 24) == 1)
   {
-    v4 = WLKSystemLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = WLKSystemLogObject(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - No longer ignoring app library. Refreshing...", buf, 2u);
+      _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - No longer ignoring app library. Refreshing...", buf, 2u);
     }
 
     objc_initWeak(buf, self);
     refreshQueue = self->_refreshQueue;
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __45__WLKAppLibrary_endIgnoringAppLibraryChanges__block_invoke_26;
-    v6[3] = &unk_279E5EC50;
-    objc_copyWeak(&v7, buf);
-    dispatch_async(refreshQueue, v6);
-    objc_destroyWeak(&v7);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __45__WLKAppLibrary_endIgnoringAppLibraryChanges__block_invoke_26;
+    v7[3] = &unk_279E5EC50;
+    objc_copyWeak(&v8, buf);
+    dispatch_async(refreshQueue, v7);
+    objc_destroyWeak(&v8);
     objc_destroyWeak(buf);
   }
 
-  _Block_object_dispose(&v10, 8);
+  _Block_object_dispose(&v11, 8);
 }
 
 uint64_t __45__WLKAppLibrary_endIgnoringAppLibraryChanges__block_invoke(uint64_t result)
@@ -1209,40 +1205,39 @@ void __45__WLKAppLibrary_endIgnoringAppLibraryChanges__block_invoke_26(uint64_t 
 
 - (id)_bundleIdentifiersfromProxies:(id)proxies
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   proxiesCopy = proxies;
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = proxiesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        bundleIdentifier = [*(*(&v14 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v13 + 1) + 8 * i) bundleIdentifier];
         [array addObject:bundleIdentifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [array copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1267,12 +1262,12 @@ void __45__WLKAppLibrary_endIgnoringAppLibraryChanges__block_invoke_26(uint64_t 
   dispatch_sync(accessQueue, block);
   if (*(v16 + 24) == 1)
   {
-    v7 = WLKSystemLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = WLKSystemLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v20 = v6;
-      _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - Invalidating: %@", buf, 0xCu);
+      _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - Invalidating: %@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
@@ -1288,31 +1283,28 @@ void __45__WLKAppLibrary_endIgnoringAppLibraryChanges__block_invoke_26(uint64_t 
   }
 
   _Block_object_dispose(&v15, 8);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WLKAppLibrary__handleInvalidationWithReason___block_invoke(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(a1[4] + 80) >= 1)
   {
-    v2 = WLKSystemLogObject();
+    v2 = WLKSystemLogObject(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = a1[5];
       v4 = *(a1[4] + 80);
-      v6 = 138412546;
-      v7 = v3;
-      v8 = 2048;
-      v9 = v4;
-      _os_log_impl(&dword_272A0F000, v2, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - %@, but currently ignoring app library changes (%ld).", &v6, 0x16u);
+      v5 = 138412546;
+      v6 = v3;
+      v7 = 2048;
+      v8 = v4;
+      _os_log_impl(&dword_272A0F000, v2, OS_LOG_TYPE_DEFAULT, "WLKAppLibrary - %@, but currently ignoring app library changes (%ld).", &v5, 0x16u);
     }
 
     *(a1[4] + 72) = 1;
     *(*(a1[6] + 8) + 24) = 0;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__WLKAppLibrary__handleInvalidationWithReason___block_invoke_34(uint64_t a1)
@@ -1323,28 +1315,28 @@ void __47__WLKAppLibrary__handleInvalidationWithReason___block_invoke_34(uint64_
 
 - (void)applicationsDidInstall:(id)install
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   installCopy = install;
-  v5 = [installCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [installCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   defaultCenter = installCopy;
   if (v5)
   {
     v7 = v5;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(installCopy);
         }
 
-        bundleIdentifier = [*(*(&v16 + 1) + 8 * i) bundleIdentifier];
+        bundleIdentifier = [*(*(&v15 + 1) + 8 * i) bundleIdentifier];
         v11 = WLKTVAppBundleID();
         v12 = [bundleIdentifier isEqualToString:v11];
 
@@ -1357,7 +1349,7 @@ void __47__WLKAppLibrary__handleInvalidationWithReason___block_invoke_34(uint64_
         }
       }
 
-      v7 = [installCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [installCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -1378,8 +1370,6 @@ LABEL_11:
   {
     [(WLKAppLibrary *)self _handleInvalidationWithReason:@"App installed"];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsDidUninstall:(id)uninstall

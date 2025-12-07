@@ -3,6 +3,7 @@
 - (PSListController)listController;
 - (PSUIAddOnPlanGroup)initWithListController:(id)controller groupSpecifier:(id)specifier;
 - (PSUIAddOnPlanGroup)initWithListController:(id)controller groupSpecifier:(id)specifier planManager:(id)manager ctPlanManager:(id)planManager showAddOnPlans:(BOOL)plans;
+- (PSUIAddOnPlanGroup)initWithListController:(id)controller groupSpecifier:(id)specifier showAddOnPlans:(BOOL)plans;
 - (id)specifiers;
 - (id)specifiersForRemotePlans:(BOOL)plans;
 - (void)_addOnPlanOptionPressed:(id)pressed;
@@ -24,6 +25,18 @@
   v10 = [(PSUIAddOnPlanGroup *)self initWithListController:controllerCopy groupSpecifier:specifierCopy planManager:v8 ctPlanManager:mEMORY[0x277CF96D8] showAddOnPlans:1];
 
   return v10;
+}
+
+- (PSUIAddOnPlanGroup)initWithListController:(id)controller groupSpecifier:(id)specifier showAddOnPlans:(BOOL)plans
+{
+  plansCopy = plans;
+  specifierCopy = specifier;
+  controllerCopy = controller;
+  v10 = +[PSUICellularPlanManagerCache sharedInstance];
+  mEMORY[0x277CF96D8] = [MEMORY[0x277CF96D8] sharedManager];
+  v12 = [(PSUIAddOnPlanGroup *)self initWithListController:controllerCopy groupSpecifier:specifierCopy planManager:v10 ctPlanManager:mEMORY[0x277CF96D8] showAddOnPlans:plansCopy];
+
+  return v12;
 }
 
 - (PSUIAddOnPlanGroup)initWithListController:(id)controller groupSpecifier:(id)specifier planManager:(id)manager ctPlanManager:(id)planManager showAddOnPlans:(BOOL)plans
@@ -145,7 +158,7 @@
 - (id)specifiersForRemotePlans:(BOOL)plans
 {
   plansCopy = plans;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   sf_isiPad = [currentDevice sf_isiPad];
 
@@ -186,7 +199,7 @@ LABEL_21:
       if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v26 = v14;
+        v25 = v14;
         _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "remote plan: %@", buf, 0xCu);
       }
 
@@ -223,13 +236,12 @@ LABEL_21:
   {
     v20 = self->_remotePlansSpecifiers;
     *buf = 138412290;
-    v26 = v20;
+    v25 = v20;
     _os_log_impl(&dword_2658DE000, getLogger3, OS_LOG_TYPE_DEFAULT, "specifiers:  %@", buf, 0xCu);
   }
 
   v21 = self->_remotePlansSpecifiers;
 LABEL_22:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -292,7 +304,7 @@ LABEL_22:
 
 - (void)_handleAddRemotePlan:(id)plan
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   planCopy = plan;
   WeakRetained = objc_loadWeakRetained(&self->_listController);
   view = [WeakRetained view];
@@ -300,29 +312,29 @@ LABEL_22:
 
   v7 = [objc_alloc(MEMORY[0x277D750E8]) initWithActivityIndicatorStyle:100];
   v8 = [planCopy propertyForKey:*MEMORY[0x277D40148]];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   contentView = [v8 contentView];
   subviews = [contentView subviews];
 
-  v11 = [subviews countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v11 = [subviews countByEnumeratingWithState:&v32 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       v14 = 0;
       do
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * v14);
+        v15 = *(*(&v32 + 1) + 8 * v14);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -333,7 +345,7 @@ LABEL_22:
       }
 
       while (v12 != v14);
-      v12 = [subviews countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v12 = [subviews countByEnumeratingWithState:&v32 objects:v38 count:16];
     }
 
     while (v12);
@@ -342,14 +354,14 @@ LABEL_22:
   accessoryView = [v8 accessoryView];
   [v8 setAccessoryView:v7];
   [v7 startAnimating];
-  v37[0] = *MEMORY[0x277D49548];
+  v36[0] = *MEMORY[0x277D49548];
   v17 = [MEMORY[0x277CCABB0] numberWithInteger:17];
-  v38[0] = v17;
-  v37[1] = *MEMORY[0x277D49580];
+  v37[0] = v17;
+  v36[1] = *MEMORY[0x277D49580];
   userInfo = [planCopy userInfo];
   plan = [userInfo plan];
-  v38[1] = plan;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+  v37[1] = plan;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
 
   v21 = [MEMORY[0x277D49530] flowWithOptions:v20];
   flow = self->_flow;
@@ -358,20 +370,18 @@ LABEL_22:
   [(TSSIMSetupFlow *)self->_flow setDelegate:self];
   v23 = self->_flow;
   v24 = objc_loadWeakRetained(&self->_listController);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __43__PSUIAddOnPlanGroup__handleAddRemotePlan___block_invoke;
-  v29[3] = &unk_279BAA9F0;
-  v29[4] = self;
-  v30 = v7;
-  v31 = v8;
-  v32 = accessoryView;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __43__PSUIAddOnPlanGroup__handleAddRemotePlan___block_invoke;
+  v28[3] = &unk_279BAA9F0;
+  v28[4] = self;
+  v29 = v7;
+  v30 = v8;
+  v31 = accessoryView;
   v25 = accessoryView;
   v26 = v8;
   v27 = v7;
-  [(TSSIMSetupFlow *)v23 showFirstViewControllerWithHostController:v24 completion:v29];
-
-  v28 = *MEMORY[0x277D85DE8];
+  [(TSSIMSetupFlow *)v23 showFirstViewControllerWithHostController:v24 completion:v28];
 }
 
 void __43__PSUIAddOnPlanGroup__handleAddRemotePlan___block_invoke(id *a1)

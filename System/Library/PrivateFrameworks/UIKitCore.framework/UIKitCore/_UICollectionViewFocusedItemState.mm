@@ -249,7 +249,7 @@ LABEL_9:
       [currentHandler handleFailureInMethod:sel_copyWithIndexPath_preservingReusableView_ object:self file:@"_UICollectionViewFocusedItemState.m" lineNumber:76 description:{@"Invalid parameter not satisfying: %@", @"indexPath"}];
     }
 
-    if (self[1] || ![v6 isEqual:self[2]])
+    if (self[1] || !objc_msgSend_isEqual_(v6))
     {
       v8 = objc_alloc(objc_opt_class());
       if (path)

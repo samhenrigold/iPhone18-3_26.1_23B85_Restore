@@ -31,7 +31,7 @@
   result = self->_preferences;
   if (result)
   {
-    return [(SBSystemApertureContainerRenderingConfiguration *)result curtainRenderingConfiguration];
+    return objc_msgSend_curtainRenderingConfiguration(result, a3);
   }
 
   retstr->renderingStyle = 0;
@@ -52,7 +52,7 @@
   result = self->_preferences;
   if (result)
   {
-    return [(SBSystemApertureContainerRenderingConfiguration *)result highLevelCurtainRenderingConfiguration];
+    return objc_msgSend_highLevelCurtainRenderingConfiguration(result, a3);
   }
 
   retstr->renderingStyle = 0;

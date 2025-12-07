@@ -184,12 +184,12 @@ LABEL_13:
 
 - (int)_performAnalysis:(id *)analysis withRequestHandler:(id)handler quickMode:(BOOL)mode sourceWidth:(unint64_t)width sourceHeight:(unint64_t)height
 {
-  v197 = *MEMORY[0x1E69E9840];
+  v206 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   array = [MEMORY[0x1E695DF70] array];
-  v188 = 0;
-  v9 = [VCPFaceUtils configureVNRequest:&v188 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-  v162 = v188;
+  v197 = 0;
+  v9 = [VCPFaceUtils configureVNRequest:&v197 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+  v171 = v197;
   if (!v9)
   {
     if (self->_processingVersion == 11)
@@ -209,91 +209,91 @@ LABEL_13:
       }
 
       LODWORD(v10) = 1064682127;
-      [v162 setPrecisionRecallThreshold:v10];
+      [v171 setPrecisionRecallThreshold:v10];
     }
 
-    [array addObject:v162];
+    v14 = [array addObject:v171];
     if (mode)
     {
-      v14 = 0;
       v15 = 0;
       v16 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v187 = 0;
-      v9 = [VCPFaceUtils configureVNRequest:&v187 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-      v29 = v187;
-      v159 = v29;
+      v196 = 0;
+      v9 = [VCPFaceUtils configureVNRequest:&v196 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+      v32 = v196;
+      v168 = v32;
       if (v9)
       {
-        v157 = 0;
-        v158 = 0;
+        v166 = 0;
+        v167 = 0;
         goto LABEL_159;
       }
 
-      [array addObject:v29];
-      v186 = 0;
-      v9 = [VCPFaceUtils configureVNRequest:&v186 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-      v31 = v186;
-      v158 = v31;
-      if (v9)
-      {
-        v157 = 0;
-        goto LABEL_159;
-      }
-
-      [array addObject:v31];
-      v185 = 0;
-      v9 = [VCPFaceUtils configureVNRequest:&v185 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-      v32 = v185;
-      v14 = v32;
-      if (v9)
-      {
-        v157 = v32;
-        goto LABEL_159;
-      }
-
-      v15 = v158;
-      v16 = v159;
       [array addObject:v32];
+      v195 = 0;
+      v9 = [VCPFaceUtils configureVNRequest:&v195 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+      v34 = v195;
+      v167 = v34;
+      if (v9)
+      {
+        v166 = 0;
+        goto LABEL_159;
+      }
+
+      [array addObject:v34];
+      v194 = 0;
+      v9 = [VCPFaceUtils configureVNRequest:&v194 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+      v35 = v194;
+      v15 = v35;
+      if (v9)
+      {
+        v166 = v35;
+        goto LABEL_159;
+      }
+
+      v16 = v167;
+      v17 = v168;
+      v14 = [array addObject:v35];
     }
 
-    v157 = v14;
-    v158 = v15;
-    v159 = v16;
-    v152 = array;
-    v17 = VCPSignPostLog();
-    v18 = os_signpost_id_generate(v17);
+    v166 = v15;
+    v167 = v16;
+    v168 = v17;
+    v161 = array;
+    v18 = VCPSignPostLog(v14);
+    v19 = os_signpost_id_generate(v18);
 
-    v19 = VCPSignPostLog();
-    v20 = v19;
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+    v21 = VCPSignPostLog(v20);
+    v22 = v21;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "VCPFaceAnalyzerImageRequestHandlerPerformDetectionRequests", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "VCPFaceAnalyzerImageRequestHandlerPerformDetectionRequests", "", buf, 2u);
     }
 
-    v184 = 0;
-    v21 = [handlerCopy performRequests:v152 error:&v184];
-    type = COERCE_DOUBLE(v184);
-    v22 = VCPSignPostLog();
-    v23 = v22;
-    if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    v193 = 0;
+    v23 = [handlerCopy performRequests:v161 error:&v193];
+    type = COERCE_DOUBLE(v193);
+    v24 = VCPSignPostLog(*&type);
+    v25 = v24;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, v18, "VCPFaceAnalyzerImageRequestHandlerPerformDetectionRequests", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v19, "VCPFaceAnalyzerImageRequestHandlerPerformDetectionRequests", "", buf, 2u);
     }
 
-    if ((v21 & 1) == 0)
+    if ((v23 & 1) == 0)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         [*&type description];
-        v30 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        v33 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
         *buf = 138412290;
-        v191 = v30;
+        v200 = v33;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Failed to perform detector requests - %@", buf, 0xCu);
       }
 
@@ -302,54 +302,54 @@ LABEL_13:
     }
 
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    results = [v162 results];
+    results = [v171 results];
     if (![results count])
     {
-      results2 = [v159 results];
+      results2 = [v168 results];
       if (![results2 count])
       {
-        results3 = [v158 results];
+        results3 = [v167 results];
         if (![results3 count])
         {
-          results4 = [v14 results];
-          v59 = [results4 count] == 0;
+          results4 = [v15 results];
+          v66 = [results4 count] == 0;
 
-          if (v59)
+          if (v66)
           {
-            v60 = dictionary;
+            v67 = dictionary;
             v9 = 0;
             *analysis = dictionary;
 LABEL_157:
 
 LABEL_158:
-            array = v152;
+            array = v161;
             goto LABEL_159;
           }
 
 LABEL_24:
           array2 = [MEMORY[0x1E695DF70] array];
-          results5 = [v162 results];
-          v28 = [results5 count] == 0;
+          results5 = [v171 results];
+          v30 = [results5 count] == 0;
 
-          if (v28)
+          if (v30)
           {
-            v151 = 0;
+            v160 = 0;
           }
 
           else
           {
-            v183 = 0;
-            v9 = [VCPFaceUtils configureVNRequest:&v183 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-            v151 = v183;
+            v192 = 0;
+            v9 = [VCPFaceUtils configureVNRequest:&v192 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+            v160 = v192;
             if (v9)
             {
-              v148 = 0;
+              v157 = 0;
 LABEL_54:
-              v144 = 0;
-              v145 = 0;
-              v143 = 0;
-              v146 = 0;
-              v147 = 0;
+              v153 = 0;
+              v154 = 0;
+              v152 = 0;
+              v155 = 0;
+              v156 = 0;
 LABEL_156:
 
               goto LABEL_157;
@@ -357,207 +357,207 @@ LABEL_156:
 
             if ([objc_opt_class() _faceprintFastMode])
             {
-              [v151 setDetectionLevel:2];
+              [v160 setDetectionLevel:2];
             }
 
-            results6 = [v162 results];
-            [v151 setInputFaceObservations:results6];
+            results6 = [v171 results];
+            [v160 setInputFaceObservations:results6];
 
-            [array2 addObject:v151];
+            v31 = [array2 addObject:v160];
           }
 
           if (mode)
           {
-            v147 = 0;
-            v148 = 0;
-            v144 = 0;
-            v145 = 0;
-            v143 = 0;
-            v146 = 0;
+            v156 = 0;
+            v157 = 0;
+            v153 = 0;
+            v154 = 0;
+            v152 = 0;
+            v155 = 0;
             goto LABEL_43;
           }
 
-          results7 = [v162 results];
-          v43 = [results7 count] == 0;
+          results7 = [v171 results];
+          v49 = [results7 count] == 0;
 
-          if (v43)
+          if (v49)
           {
-            v45 = 0;
-            v46 = 0;
-            v47 = 0;
-            v48 = 0;
+            v51 = 0;
+            v52 = 0;
+            v53 = 0;
+            v54 = 0;
           }
 
           else
           {
-            v182 = 0;
-            v9 = [VCPFaceUtils configureVNRequest:&v182 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-            v148 = v182;
+            v191 = 0;
+            v9 = [VCPFaceUtils configureVNRequest:&v191 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+            v157 = v191;
             if (v9)
             {
               goto LABEL_54;
             }
 
-            results8 = [v162 results];
-            [v148 setInputFaceObservations:results8];
+            results8 = [v171 results];
+            [v157 setInputFaceObservations:results8];
 
-            [array2 addObject:v148];
-            v181 = 0;
-            v9 = [VCPFaceUtils configureVNRequest:&v181 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-            v147 = v181;
+            [array2 addObject:v157];
+            v190 = 0;
+            v9 = [VCPFaceUtils configureVNRequest:&v190 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+            v156 = v190;
             if (v9)
             {
-              v144 = 0;
-              v145 = 0;
-              v143 = 0;
-              v146 = 0;
+              v153 = 0;
+              v154 = 0;
+              v152 = 0;
+              v155 = 0;
               goto LABEL_156;
             }
 
-            results9 = [v162 results];
-            [v147 setInputFaceObservations:results9];
+            results9 = [v171 results];
+            [v156 setInputFaceObservations:results9];
 
-            [array2 addObject:v147];
-            v180 = 0;
-            v9 = [VCPFaceUtils configureVNRequest:&v180 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-            v146 = v180;
+            [array2 addObject:v156];
+            v189 = 0;
+            v9 = [VCPFaceUtils configureVNRequest:&v189 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+            v155 = v189;
             if (v9)
             {
-              v144 = 0;
-              v145 = 0;
+              v153 = 0;
+              v154 = 0;
               goto LABEL_162;
             }
 
-            results10 = [v162 results];
-            [v146 setInputFaceObservations:results10];
+            results10 = [v171 results];
+            [v155 setInputFaceObservations:results10];
 
-            [array2 addObject:v146];
-            v179 = 0;
-            v9 = [VCPFaceUtils configureVNRequest:&v179 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-            v144 = v179;
+            [array2 addObject:v155];
+            v188 = 0;
+            v9 = [VCPFaceUtils configureVNRequest:&v188 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+            v153 = v188;
             if (v9)
             {
-              v145 = 0;
+              v154 = 0;
               goto LABEL_162;
             }
 
-            results11 = [v162 results];
-            [v144 setInputFaceObservations:results11];
+            results11 = [v171 results];
+            [v153 setInputFaceObservations:results11];
 
-            v46 = v144;
-            v47 = v146;
-            v48 = v147;
-            v45 = v148;
-            [array2 addObject:v144];
+            v52 = v153;
+            v53 = v155;
+            v54 = v156;
+            v51 = v157;
+            [array2 addObject:v153];
           }
 
-          results12 = [v159 results];
-          v147 = v48;
-          v148 = v45;
-          v144 = v46;
-          v146 = v47;
-          v50 = [results12 count] == 0;
+          results12 = [v168 results];
+          v156 = v54;
+          v157 = v51;
+          v153 = v52;
+          v155 = v53;
+          v56 = [results12 count] == 0;
 
-          if (v50)
+          if (v56)
           {
-            v52 = 0;
+            v58 = 0;
           }
 
           else
           {
-            v178 = 0;
-            v9 = [VCPFaceUtils configureVNRequest:&v178 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-            v145 = v178;
+            v187 = 0;
+            v9 = [VCPFaceUtils configureVNRequest:&v187 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+            v154 = v187;
             if (v9)
             {
 LABEL_162:
-              v143 = 0;
+              v152 = 0;
               goto LABEL_156;
             }
 
-            results13 = [v159 results];
-            [v145 setInputDetectedObjectObservations:results13];
+            results13 = [v168 results];
+            [v154 setInputDetectedObjectObservations:results13];
 
-            v52 = v145;
-            [array2 addObject:v145];
+            v58 = v154;
+            [array2 addObject:v154];
           }
 
-          v145 = v52;
+          v154 = v58;
           array3 = [MEMORY[0x1E695DF70] array];
-          results14 = [v157 results];
-          v63 = [results14 count] == 0;
+          results14 = [v166 results];
+          v70 = [results14 count] == 0;
 
-          if (!v63)
+          if (!v70)
           {
-            results15 = [v157 results];
+            results15 = [v166 results];
             [array3 addObjectsFromArray:results15];
           }
 
-          results16 = [v158 results];
-          v66 = [results16 count] == 0;
+          results16 = [v167 results];
+          v73 = [results16 count] == 0;
 
-          if (!v66)
+          if (!v73)
           {
-            results17 = [v158 results];
+            results17 = [v167 results];
             [array3 addObjectsFromArray:results17];
           }
 
           if ([array3 count])
           {
-            v177 = 0;
-            v9 = [VCPFaceUtils configureVNRequest:&v177 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
-            v68 = v177;
+            v186 = 0;
+            v9 = [VCPFaceUtils configureVNRequest:&v186 withClass:objc_opt_class() andProcessingVersion:self->_processingVersion];
+            v75 = v186;
             if (v9)
             {
-              v143 = v68;
+              v152 = v75;
 
               goto LABEL_156;
             }
 
-            v91 = v68;
-            [v68 setInputDetectedObjectObservations:array3];
-            [array2 addObject:v91];
+            v98 = v75;
+            [v75 setInputDetectedObjectObservations:array3];
+            [array2 addObject:v98];
           }
 
           else
           {
-            v91 = 0;
+            v98 = 0;
           }
 
-          v143 = v91;
+          v152 = v98;
 
 LABEL_43:
-          v34 = VCPSignPostLog();
-          v35 = os_signpost_id_generate(v34);
+          v37 = VCPSignPostLog(v31);
+          v38 = os_signpost_id_generate(v37);
 
-          v36 = VCPSignPostLog();
-          v37 = v36;
-          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v36))
+          v40 = VCPSignPostLog(v39);
+          v41 = v40;
+          if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v37, OS_SIGNPOST_INTERVAL_BEGIN, v35, "VCPFaceAnalyzerImageRequestHandlerPerformAdditionalRequests", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v41, OS_SIGNPOST_INTERVAL_BEGIN, v38, "VCPFaceAnalyzerImageRequestHandlerPerformAdditionalRequests", "", buf, 2u);
           }
 
-          v176 = type;
-          v38 = [handlerCopy performRequests:array2 error:&v176];
-          v141 = COERCE_DOUBLE(*&v176);
+          v185 = type;
+          v42 = [handlerCopy performRequests:array2 error:&v185];
+          v150 = COERCE_DOUBLE(*&v185);
 
-          v39 = VCPSignPostLog();
-          v40 = v39;
-          if (v35 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+          v44 = VCPSignPostLog(v43);
+          v45 = v44;
+          if (v38 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v40, OS_SIGNPOST_INTERVAL_END, v35, "VCPFaceAnalyzerImageRequestHandlerPerformAdditionalRequests", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v45, OS_SIGNPOST_INTERVAL_END, v38, "VCPFaceAnalyzerImageRequestHandlerPerformAdditionalRequests", "", buf, 2u);
           }
 
-          if ((v38 & 1) == 0)
+          if ((v42 & 1) == 0)
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              [*&v141 description];
-              v44 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+              [*&v150 description];
+              v50 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
               *buf = 138412290;
-              v191 = v44;
+              v200 = v50;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Failed to perform additional requests - %@", buf, 0xCu);
             }
 
@@ -566,35 +566,35 @@ LABEL_43:
           }
 
           array4 = [MEMORY[0x1E695DF70] array];
-          [array4 addObjectsFromArray:v152];
+          [array4 addObjectsFromArray:v161];
           [array4 addObjectsFromArray:array2];
-          v138 = [MEMORY[0x1E695DFA8] set];
-          [VCPFaceAnalyzer _checkAnalysisRequests:"_checkAnalysisRequests:forTooSmallFaceObservations:withAnalysisResults:" forTooSmallFaceObservations:array4 withAnalysisResults:?];
+          v147 = [MEMORY[0x1E695DFA8] set];
+          v46 = [VCPFaceAnalyzer _checkAnalysisRequests:"_checkAnalysisRequests:forTooSmallFaceObservations:withAnalysisResults:" forTooSmallFaceObservations:array4 withAnalysisResults:?];
           if (mode)
           {
-            v41 = 0;
-            v140 = 0;
+            v47 = 0;
+            v149 = 0;
           }
 
           else
           {
-            v53 = VCPSignPostLog();
-            spid = os_signpost_id_generate(v53);
+            v59 = VCPSignPostLog(v46);
+            spid = os_signpost_id_generate(v59);
 
-            v54 = VCPSignPostLog();
-            v55 = v54;
-            if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v54))
+            v61 = VCPSignPostLog(v60);
+            v62 = v61;
+            if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v61))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v55, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPFaceAnalyzerBlurExposureAnalysis", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v62, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPFaceAnalyzerBlurExposureAnalysis", "", buf, 2u);
             }
 
-            v174 = 0;
-            v175 = 0;
-            results18 = [v162 results];
-            v9 = [(VCPFaceAnalyzer *)self _createBlurRequests:&v175 andExposureRequests:&v174 forFaceObservations:results18];
-            v139 = v175;
-            v136 = v174;
+            v183 = 0;
+            v184 = 0;
+            results18 = [v171 results];
+            v9 = [(VCPFaceAnalyzer *)self _createBlurRequests:&v184 andExposureRequests:&v183 forFaceObservations:results18];
+            v148 = v184;
+            v145 = v183;
 
             if (v9)
             {
@@ -604,104 +604,104 @@ LABEL_43:
                 _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Failed to create blur/exposure request", buf, 2u);
               }
 
-              v41 = v136;
+              v47 = v145;
               goto LABEL_154;
             }
 
-            v173 = v141;
-            v69 = [handlerCopy performRequests:v139 error:&v173];
-            v70 = COERCE_DOUBLE(*&v173);
+            v182 = v150;
+            v76 = [handlerCopy performRequests:v148 error:&v182];
+            v77 = COERCE_DOUBLE(*&v182);
 
-            v142 = v70;
-            if (v69)
+            v151 = v77;
+            if (v76)
             {
-              [(VCPFaceAnalyzer *)self _checkAnalysisRequests:v139 forTooSmallFaceObservations:v138 withAnalysisResults:dictionary];
-              v71 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v139, "count")}];
-              v171 = 0u;
-              v172 = 0u;
-              v169 = 0u;
-              v170 = 0u;
-              v72 = v139;
-              v73 = [v72 countByEnumeratingWithState:&v169 objects:v196 count:16];
-              if (v73)
+              [(VCPFaceAnalyzer *)self _checkAnalysisRequests:v148 forTooSmallFaceObservations:v147 withAnalysisResults:dictionary];
+              v78 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v148, "count")}];
+              v180 = 0u;
+              v181 = 0u;
+              v178 = 0u;
+              v179 = 0u;
+              v79 = v148;
+              v80 = [v79 countByEnumeratingWithState:&v178 objects:v205 count:16];
+              if (v80)
               {
-                v74 = *v170;
-                v75 = MEMORY[0x1E69E9C10];
+                v81 = *v179;
+                v82 = MEMORY[0x1E69E9C10];
                 do
                 {
-                  for (i = 0; i != v73; ++i)
+                  for (i = 0; i != v80; ++i)
                   {
-                    if (*v170 != v74)
+                    if (*v179 != v81)
                     {
-                      objc_enumerationMutation(v72);
+                      objc_enumerationMutation(v79);
                     }
 
-                    results19 = [*(*(&v169 + 1) + 8 * i) results];
+                    results19 = [*(*(&v178 + 1) + 8 * i) results];
                     firstObject = [results19 firstObject];
 
                     if (firstObject)
                     {
                       blurScore = [firstObject blurScore];
                       [blurScore floatValue];
-                      if (v80 < 1.0)
+                      if (v87 < 1.0)
                       {
-                        v81 = v80;
+                        v88 = v87;
                       }
 
                       else
                       {
-                        v81 = 1.0;
+                        v88 = 1.0;
                       }
 
-                      if (v80 <= 0.0)
+                      if (v87 <= 0.0)
                       {
-                        v82 = 0.0;
+                        v89 = 0.0;
                       }
 
                       else
                       {
-                        v82 = v81;
+                        v89 = v88;
                       }
 
                       blurScore2 = [firstObject blurScore];
                       [blurScore2 floatValue];
-                      v85 = v82 != v84;
+                      v92 = v89 != v91;
 
-                      if (v85 && MediaAnalysisLogLevel() >= 4)
+                      if (v92 && MediaAnalysisLogLevel() >= 4)
                       {
-                        v87 = v75;
-                        if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+                        v94 = v82;
+                        if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
                         {
                           blurScore3 = [firstObject blurScore];
                           [blurScore3 floatValue];
                           *buf = 134218496;
-                          v191 = v89;
-                          v192 = 2048;
-                          v193 = 0;
-                          v194 = 2048;
-                          v195 = 0x3FF0000000000000;
-                          _os_log_impl(&dword_1C9B70000, v75, OS_LOG_TYPE_DEFAULT, "[FaceAnalyzer] Blur score %f out of bound [%f, %f]", buf, 0x20u);
+                          v200 = v96;
+                          v201 = 2048;
+                          v202 = 0;
+                          v203 = 2048;
+                          v204 = 0x3FF0000000000000;
+                          _os_log_impl(&dword_1C9B70000, v82, OS_LOG_TYPE_DEFAULT, "[FaceAnalyzer] Blur score %f out of bound [%f, %f]", buf, 0x20u);
                         }
                       }
 
-                      *&v86 = v82;
-                      v90 = [MEMORY[0x1E696AD98] numberWithFloat:v86];
-                      [v71 addObject:v90];
+                      *&v93 = v89;
+                      v97 = [MEMORY[0x1E696AD98] numberWithFloat:v93];
+                      [v78 addObject:v97];
                     }
 
                     else
                     {
-                      [v71 addObject:&unk_1F49BB158];
+                      [v78 addObject:&unk_1F49BB158];
                     }
                   }
 
-                  v73 = [v72 countByEnumeratingWithState:&v169 objects:v196 count:16];
+                  v80 = [v79 countByEnumeratingWithState:&v178 objects:v205 count:16];
                 }
 
-                while (v73);
+                while (v80);
               }
 
-              v140 = v71;
+              v149 = v78;
             }
 
             else
@@ -709,170 +709,174 @@ LABEL_43:
               if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v191 = v70;
+                v200 = v77;
                 _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Failed to perform blur requests - %@", buf, 0xCu);
               }
 
-              v140 = 0;
+              v149 = 0;
             }
 
-            v168 = v142;
-            v93 = [handlerCopy performRequests:v136 error:&v168];
-            v134 = COERCE_DOUBLE(*&v168);
+            v177 = v151;
+            v100 = [handlerCopy performRequests:v145 error:&v177];
+            v143 = COERCE_DOUBLE(*&v177);
 
-            if (v93)
+            if (v100)
             {
-              [(VCPFaceAnalyzer *)self _checkAnalysisRequests:v136 forTooSmallFaceObservations:v138 withAnalysisResults:dictionary];
-              v94 = [v136 count];
-              v41 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v94];
-              v166 = 0u;
-              v167 = 0u;
-              v164 = 0u;
-              v165 = 0u;
-              v95 = v136;
-              v96 = [v95 countByEnumeratingWithState:&v164 objects:v189 count:16];
-              if (v96)
+              [(VCPFaceAnalyzer *)self _checkAnalysisRequests:v145 forTooSmallFaceObservations:v147 withAnalysisResults:dictionary];
+              v101 = [v145 count];
+              v47 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v101];
+              v175 = 0u;
+              v176 = 0u;
+              v173 = 0u;
+              v174 = 0u;
+              v102 = v145;
+              v103 = [v102 countByEnumeratingWithState:&v173 objects:v198 count:16];
+              if (v103)
               {
-                v97 = *v165;
-                v98 = MEMORY[0x1E69E9C10];
+                v104 = *v174;
+                v105 = MEMORY[0x1E69E9C10];
                 do
                 {
-                  for (j = 0; j != v96; ++j)
+                  for (j = 0; j != v103; ++j)
                   {
-                    if (*v165 != v97)
+                    if (*v174 != v104)
                     {
-                      objc_enumerationMutation(v95);
+                      objc_enumerationMutation(v102);
                     }
 
-                    results20 = [*(*(&v164 + 1) + 8 * j) results];
+                    results20 = [*(*(&v173 + 1) + 8 * j) results];
                     firstObject2 = [results20 firstObject];
 
                     if (firstObject2)
                     {
                       exposureScore = [firstObject2 exposureScore];
                       [exposureScore floatValue];
-                      if (v103 < 1.0)
+                      if (v110 < 1.0)
                       {
-                        v104 = v103;
+                        v111 = v110;
                       }
 
                       else
                       {
-                        v104 = 1.0;
+                        v111 = 1.0;
                       }
 
-                      if (v103 <= 0.0)
+                      if (v110 <= 0.0)
                       {
-                        v105 = 0.0;
+                        v112 = 0.0;
                       }
 
                       else
                       {
-                        v105 = v104;
+                        v112 = v111;
                       }
 
                       exposureScore2 = [firstObject2 exposureScore];
                       [exposureScore2 floatValue];
-                      v108 = v105 != v107;
+                      v115 = v112 != v114;
 
-                      if (v108 && MediaAnalysisLogLevel() >= 4)
+                      if (v115 && MediaAnalysisLogLevel() >= 4)
                       {
-                        v110 = v98;
-                        if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+                        v117 = v105;
+                        if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
                         {
                           exposureScore3 = [firstObject2 exposureScore];
                           [exposureScore3 floatValue];
                           *buf = 134218496;
-                          v191 = v112;
-                          v192 = 2048;
-                          v193 = 0;
-                          v194 = 2048;
-                          v195 = 0x3FF0000000000000;
-                          _os_log_impl(&dword_1C9B70000, v98, OS_LOG_TYPE_DEFAULT, "[FaceAnalyzer] Exposure score %f out of bound [%f, %f]", buf, 0x20u);
+                          v200 = v119;
+                          v201 = 2048;
+                          v202 = 0;
+                          v203 = 2048;
+                          v204 = 0x3FF0000000000000;
+                          _os_log_impl(&dword_1C9B70000, v105, OS_LOG_TYPE_DEFAULT, "[FaceAnalyzer] Exposure score %f out of bound [%f, %f]", buf, 0x20u);
                         }
                       }
 
-                      *&v109 = v105;
-                      v113 = [MEMORY[0x1E696AD98] numberWithFloat:v109];
-                      [v41 addObject:v113];
+                      *&v116 = v112;
+                      v120 = [MEMORY[0x1E696AD98] numberWithFloat:v116];
+                      [v47 addObject:v120];
                     }
 
                     else
                     {
-                      [v41 addObject:&unk_1F49BB168];
+                      [v47 addObject:&unk_1F49BB168];
                     }
                   }
 
-                  v96 = [v95 countByEnumeratingWithState:&v164 objects:v189 count:16];
+                  v103 = [v102 countByEnumeratingWithState:&v173 objects:v198 count:16];
                 }
 
-                while (v96);
+                while (v103);
               }
             }
 
             else
             {
-              if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+              v121 = MediaAnalysisLogLevel();
+              if (v121 >= 3)
               {
-                *buf = 138412290;
-                v191 = v134;
-                _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Failed to perform exposure requests - %@", buf, 0xCu);
+                v121 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                if (v121)
+                {
+                  *buf = 138412290;
+                  v200 = v143;
+                  _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Failed to perform exposure requests - %@", buf, 0xCu);
+                }
               }
 
-              v41 = 0;
+              v47 = 0;
             }
 
-            v114 = VCPSignPostLog();
-            v115 = v114;
-            if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v114))
+            v122 = VCPSignPostLog(v121);
+            v123 = v122;
+            if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v122))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v115, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerBlurExposureAnalysis", "", buf, 2u);
+              _os_signpost_emit_with_name_impl(&dword_1C9B70000, v123, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerBlurExposureAnalysis", "", buf, 2u);
             }
 
-            v141 = v134;
+            v150 = v143;
           }
 
-          v116 = VCPSignPostLog();
-          v117 = os_signpost_id_generate(v116);
+          v124 = VCPSignPostLog(v46);
+          v125 = os_signpost_id_generate(v124);
 
-          v118 = VCPSignPostLog();
-          v119 = v118;
-          if (v117 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v118))
-          {
-            *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v119, OS_SIGNPOST_INTERVAL_BEGIN, v117, "VCPFaceAnalyzerVCPFaceCreation", "", buf, 2u);
-          }
-
-          results21 = [v162 results];
-          results22 = [v159 results];
-          results23 = [v158 results];
-          results24 = [v157 results];
-          processingVersion = self->_processingVersion;
-          v163 = 0;
-          LODWORD(v133) = processingVersion;
-          v125 = [VCPPhotosFace facesFromFaceObservations:results21 humanObservations:results22 animalHeadObservations:results23 animalBodyObservations:results24 sourceWidth:width sourceHeight:height visionRequests:array4 blurScorePerFace:v140 exposureScorePerFace:v41 tooSmallFaceObservations:v138 processingVersion:v133 animalResults:&v163];
-          v126 = v163;
-          [dictionary setObject:v125 forKeyedSubscript:@"FaceResults"];
-
-          [dictionary setObject:v126 forKeyedSubscript:@"VNAnimalObservationResults"];
-          v127 = VCPSignPostLog();
+          v127 = VCPSignPostLog(v126);
           v128 = v127;
-          if (v117 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v127))
+          if (v125 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v127))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v128, OS_SIGNPOST_INTERVAL_END, v117, "VCPFaceAnalyzerVCPFaceCreation", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v128, OS_SIGNPOST_INTERVAL_BEGIN, v125, "VCPFaceAnalyzerVCPFaceCreation", "", buf, 2u);
           }
 
-          v129 = dictionary;
+          results21 = [v171 results];
+          results22 = [v168 results];
+          results23 = [v167 results];
+          results24 = [v166 results];
+          processingVersion = self->_processingVersion;
+          v172 = 0;
+          LODWORD(v142) = processingVersion;
+          v134 = [VCPPhotosFace facesFromFaceObservations:results21 humanObservations:results22 animalHeadObservations:results23 animalBodyObservations:results24 sourceWidth:width sourceHeight:height visionRequests:array4 blurScorePerFace:v149 exposureScorePerFace:v47 tooSmallFaceObservations:v147 processingVersion:v142 animalResults:&v172];
+          v135 = v172;
+          [dictionary setObject:v134 forKeyedSubscript:@"FaceResults"];
+
+          v136 = VCPSignPostLog([dictionary setObject:v135 forKeyedSubscript:@"VNAnimalObservationResults"]);
+          v137 = v136;
+          if (v125 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v136))
+          {
+            *buf = 0;
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v137, OS_SIGNPOST_INTERVAL_END, v125, "VCPFaceAnalyzerVCPFaceCreation", "", buf, 2u);
+          }
+
+          v138 = dictionary;
           *analysis = dictionary;
 
           v9 = 0;
-          v139 = v140;
+          v148 = v149;
 LABEL_154:
 
 LABEL_155:
-          type = v141;
+          type = v150;
           goto LABEL_156;
         }
       }
@@ -881,9 +885,9 @@ LABEL_155:
     goto LABEL_24;
   }
 
-  v157 = 0;
-  v158 = 0;
-  v159 = 0;
+  v166 = 0;
+  v167 = 0;
+  v168 = 0;
 LABEL_159:
 
   return v9;
@@ -1053,36 +1057,36 @@ uint64_t __43__VCPFaceAnalyzer__existingFacesFromAsset___block_invoke(uint64_t a
 
 - (id)_processForwardCompatibleFaces:(id)faces withExistingFaces:(id)existingFaces orientedWidth:(unint64_t)width orientedHeight:(unint64_t)height session:(id)session
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v118 = *MEMORY[0x1E69E9840];
   facesCopy = faces;
   existingFacesCopy = existingFaces;
   sessionCopy = session;
   if (_os_feature_enabled_impl())
   {
     [facesCopy objectForKeyedSubscript:@"FacesToPersist"];
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
-    obj = v98 = 0u;
-    v9 = [obj countByEnumeratingWithState:&v97 objects:v111 count:16];
+    v105 = 0u;
+    v106 = 0u;
+    v103 = 0u;
+    obj = v104 = 0u;
+    v9 = [obj countByEnumeratingWithState:&v103 objects:v117 count:16];
     if (!v9)
     {
       goto LABEL_77;
     }
 
-    v86 = *v98;
+    v92 = *v104;
     while (1)
     {
       v10 = 0;
-      v87 = v9;
+      v93 = v9;
       do
       {
-        if (*v98 != v86)
+        if (*v104 != v92)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v97 + 1) + 8 * v10);
+        v11 = *(*(&v103 + 1) + 8 * v10);
         v12 = objc_autoreleasePoolPush();
         v13 = MEMORY[0x1E696AEC0];
         localIdentifier = [v11 localIdentifier];
@@ -1096,11 +1100,11 @@ uint64_t __43__VCPFaceAnalyzer__existingFacesFromAsset___block_invoke(uint64_t a
           if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
           {
             [v11 gist];
-            v44 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+            v47 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
             *buf = 138412546;
-            v102 = v15;
-            v103 = 2112;
-            v104 = v44;
+            v108 = v15;
+            v109 = 2112;
+            v110 = v47;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ Skipping new face %@", buf, 0x16u);
           }
         }
@@ -1110,15 +1114,15 @@ uint64_t __43__VCPFaceAnalyzer__existingFacesFromAsset___block_invoke(uint64_t a
           if ([v11 detectionType] == 1)
           {
             localIdentifier3 = [v11 localIdentifier];
-            v88 = [existingFacesCopy objectForKeyedSubscript:localIdentifier3];
+            v94 = [existingFacesCopy objectForKeyedSubscript:localIdentifier3];
 
-            imageprintWrapper = [v88 imageprintWrapper];
+            imageprintWrapper = [v94 imageprintWrapper];
             if (![imageprintWrapper type])
             {
-              imageprintWrapper2 = [v88 imageprintWrapper];
+              imageprintWrapper2 = [v94 imageprintWrapper];
               if ([imageprintWrapper2 version] == 11)
               {
-                imageprintWrapper3 = [v88 imageprintWrapper];
+                imageprintWrapper3 = [v94 imageprintWrapper];
                 data = [imageprintWrapper3 data];
                 v22 = data == 0;
 
@@ -1129,150 +1133,160 @@ uint64_t __43__VCPFaceAnalyzer__existingFacesFromAsset___block_invoke(uint64_t a
                     [v11 gist];
                     v23 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
                     *buf = 138412546;
-                    v102 = v15;
-                    v103 = 2112;
-                    v104 = v23;
+                    v108 = v15;
+                    v109 = 2112;
+                    v110 = v23;
                     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ Processing forward-compabitle face %@", buf, 0x16u);
                   }
 
-                  imageprintWrapper4 = [v88 imageprintWrapper];
+                  imageprintWrapper4 = [v94 imageprintWrapper];
                   data2 = [imageprintWrapper4 data];
-                  v96 = 0;
-                  v81 = [VCPVNImageprintWrapper generateVNImageprintWithType:0 archiveData:data2 andError:&v96];
-                  v26 = v96;
+                  v102 = 0;
+                  v87 = [VCPVNImageprintWrapper generateVNImageprintWithType:0 archiveData:data2 andError:&v102];
+                  v26 = v102;
 
                   imageprintWrapper5 = [v11 imageprintWrapper];
                   data3 = [imageprintWrapper5 data];
-                  v95 = v26;
-                  v83 = [VCPVNImageprintWrapper generateVNImageprintWithType:0 archiveData:data3 andError:&v95];
-                  v29 = COERCE_DOUBLE(v95);
+                  v101 = v26;
+                  v89 = [VCPVNImageprintWrapper generateVNImageprintWithType:0 archiveData:data3 andError:&v101];
+                  v29 = COERCE_DOUBLE(v101);
 
-                  faceprint = [v83 faceprint];
-                  faceprint2 = [v81 faceprint];
-                  if (!faceprint2 || ([v83 faceprint], v32 = objc_claimAutoreleasedReturnValue(), v33 = v32 == 0, v32, faceprint2, v33))
+                  faceprint = [v89 faceprint];
+                  faceprint2 = [v87 faceprint];
+                  if (!faceprint2 || ([v89 faceprint], v32 = objc_claimAutoreleasedReturnValue(), v33 = v32 == 0, v32, faceprint2, v33))
                   {
-                    v80 = faceprint;
-                    v82 = v29;
+                    v86 = faceprint;
+                    v88 = v29;
                     goto LABEL_42;
                   }
 
-                  v34 = VCPSignPostLog();
-                  spid = os_signpost_id_generate(v34);
+                  v35 = VCPSignPostLog(v34);
+                  spid = os_signpost_id_generate(v35);
 
-                  v35 = VCPSignPostLog();
-                  v36 = v35;
-                  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+                  v37 = VCPSignPostLog(v36);
+                  v38 = v37;
+                  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
                   {
                     *buf = 0;
-                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_BEGIN, spid, "MADUpgradeFaceprint", "", buf, 2u);
+                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v38, OS_SIGNPOST_INTERVAL_BEGIN, spid, "MADUpgradeFaceprint", "", buf, 2u);
                   }
 
-                  v94 = 0.0;
-                  faceprint3 = [v81 faceprint];
-                  faceprint4 = [v83 faceprint];
-                  v92 = v29;
-                  v93 = faceprint;
-                  v39 = VNUpgradeFaceprint();
-                  v80 = v93;
+                  v100 = 0.0;
+                  faceprint3 = [v87 faceprint];
+                  faceprint4 = [v89 faceprint];
+                  v98 = v29;
+                  v99 = faceprint;
+                  v41 = VNUpgradeFaceprint();
+                  v86 = v99;
 
-                  v82 = COERCE_DOUBLE(*&v92);
-                  if (v39)
+                  v88 = COERCE_DOUBLE(*&v98);
+                  if (v41)
                   {
-                    if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+                    v42 = MediaAnalysisLogLevel();
+                    if (v42 >= 7)
                     {
-                      v40 = v94;
-                      [v80 confidence];
-                      *buf = 138412802;
-                      v102 = v15;
-                      v103 = 2048;
-                      v104 = v40;
-                      v105 = 2048;
-                      v106 = v41;
-                      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ FC faceprint sigma %.3f and confidence: %.3f", buf, 0x20u);
+                      v42 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG);
+                      if (v42)
+                      {
+                        v43 = v100;
+                        [v86 confidence];
+                        *buf = 138412802;
+                        v108 = v15;
+                        v109 = 2048;
+                        v110 = v43;
+                        v111 = 2048;
+                        v112 = v44;
+                        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ FC faceprint sigma %.3f and confidence: %.3f", buf, 0x20u);
+                      }
                     }
 
-                    v42 = VCPSignPostLog();
-                    v43 = v42;
-                    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+                    v45 = VCPSignPostLog(v42);
+                    v46 = v45;
+                    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
                     {
                       *buf = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v43, OS_SIGNPOST_INTERVAL_END, spid, "MADUpgradeFaceprint", "", buf, 2u);
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v46, OS_SIGNPOST_INTERVAL_END, spid, "MADUpgradeFaceprint", "", buf, 2u);
                     }
 
 LABEL_42:
-                    torsoprint = [v83 torsoprint];
-                    torsoprint2 = [v81 torsoprint];
-                    if (!torsoprint2 || ([v83 torsoprint], v56 = objc_claimAutoreleasedReturnValue(), v57 = v56 == 0, v56, torsoprint2, v57))
+                    torsoprint = [v89 torsoprint];
+                    torsoprint2 = [v87 torsoprint];
+                    if (!torsoprint2 || ([v89 torsoprint], v59 = objc_claimAutoreleasedReturnValue(), v60 = v59 == 0, v59, torsoprint2, v60))
                     {
-                      v64 = torsoprint;
-                      v65 = v82;
+                      v69 = torsoprint;
+                      v70 = v88;
                       goto LABEL_56;
                     }
 
-                    v58 = VCPSignPostLog();
-                    spida = os_signpost_id_generate(v58);
+                    v62 = VCPSignPostLog(v61);
+                    spida = os_signpost_id_generate(v62);
 
-                    v59 = VCPSignPostLog();
-                    v60 = v59;
-                    if (spida - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v59))
+                    v64 = VCPSignPostLog(v63);
+                    v65 = v64;
+                    if (spida - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
                     {
                       *buf = 0;
-                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v60, OS_SIGNPOST_INTERVAL_BEGIN, spida, "MADUpgradeTorsoprint", "", buf, 2u);
+                      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v65, OS_SIGNPOST_INTERVAL_BEGIN, spida, "MADUpgradeTorsoprint", "", buf, 2u);
                     }
 
-                    v94 = 0.0;
-                    torsoprint3 = [v81 torsoprint];
-                    torsoprint4 = [v83 torsoprint];
-                    v90 = v82;
-                    v91 = torsoprint;
-                    v63 = VNUpgradeTorsoprint();
-                    v64 = v91;
+                    v100 = 0.0;
+                    torsoprint3 = [v87 torsoprint];
+                    torsoprint4 = [v89 torsoprint];
+                    v96 = v88;
+                    v97 = torsoprint;
+                    v68 = VNUpgradeTorsoprint();
+                    v69 = v97;
 
-                    v65 = COERCE_DOUBLE(*&v90);
-                    if (v63)
+                    v70 = COERCE_DOUBLE(*&v96);
+                    if (v68)
                     {
-                      if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+                      v71 = MediaAnalysisLogLevel();
+                      if (v71 >= 7)
                       {
-                        v66 = v94;
-                        [v64 confidence];
-                        *buf = 138412802;
-                        v102 = v15;
-                        v103 = 2048;
-                        v104 = v66;
-                        v105 = 2048;
-                        v106 = v67;
-                        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ FC torsoprint sigma %.3f and confidence: %.3f", buf, 0x20u);
+                        v71 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG);
+                        if (v71)
+                        {
+                          v72 = v100;
+                          [v69 confidence];
+                          *buf = 138412802;
+                          v108 = v15;
+                          v109 = 2048;
+                          v110 = v72;
+                          v111 = 2048;
+                          v112 = v73;
+                          _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ FC torsoprint sigma %.3f and confidence: %.3f", buf, 0x20u);
+                        }
                       }
 
-                      v68 = VCPSignPostLog();
-                      v69 = v68;
-                      if (spida - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v68))
+                      v74 = VCPSignPostLog(v71);
+                      v75 = v74;
+                      if (spida - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v74))
                       {
                         *buf = 0;
-                        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v69, OS_SIGNPOST_INTERVAL_END, spida, "MADUpgradeTorsoprint", "", buf, 2u);
+                        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v75, OS_SIGNPOST_INTERVAL_END, spida, "MADUpgradeTorsoprint", "", buf, 2u);
                       }
 
 LABEL_56:
-                      v70 = [objc_alloc(MEMORY[0x1E6984520]) initWithFaceprint:v80 torsoprint:v64];
-                      v89 = v65;
-                      v71 = [v70 serializeStateAndReturnError:&v89];
-                      v72 = COERCE_DOUBLE(*&v89);
+                      v76 = [objc_alloc(MEMORY[0x1E6984520]) initWithFaceprint:v86 torsoprint:v69];
+                      v95 = v70;
+                      v77 = [v76 serializeStateAndReturnError:&v95];
+                      v78 = COERCE_DOUBLE(*&v95);
 
-                      if (v71)
+                      if (v77)
                       {
                         if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                         {
                           [v11 gist];
-                          v73 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                          v79 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
                           *buf = 138412546;
-                          v102 = v15;
-                          v103 = 2112;
-                          v104 = v73;
+                          v108 = v15;
+                          v109 = 2112;
+                          v110 = v79;
                           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ Wrapping forward-compatible faceprint for face %@", buf, 0x16u);
                         }
 
-                        v74 = [VCPVNImageprintWrapper wrapperWithImageprintType:0 version:14 andData:v71];
-                        [v11 setImageprintWrapper:v74];
+                        v80 = [VCPVNImageprintWrapper wrapperWithImageprintType:0 version:14 andData:v77];
+                        [v11 setImageprintWrapper:v80];
 
                         [v11 setVuObservationID:0];
                         [v11 setAlgorithmVersion:14];
@@ -1281,33 +1295,33 @@ LABEL_56:
                       else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412546;
-                        v102 = v15;
-                        v103 = 2112;
-                        v104 = v72;
+                        v108 = v15;
+                        v109 = 2112;
+                        v110 = v78;
                         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Unable to serialize forward-compatible faceTorsoprint - %@; ignore", buf, 0x16u);
                       }
 
-                      v65 = v72;
+                      v70 = v78;
                     }
 
                     else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 138412546;
-                      v102 = v15;
-                      v103 = 2112;
-                      v104 = v65;
+                      v108 = v15;
+                      v109 = 2112;
+                      v110 = v70;
                       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Failed to upgrade torsoprint - %@; skipping", buf, 0x16u);
                     }
 
-                    v82 = v65;
+                    v88 = v70;
                   }
 
                   else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412546;
-                    v102 = v15;
-                    v103 = 2112;
-                    v104 = v82;
+                    v108 = v15;
+                    v109 = 2112;
+                    v110 = v88;
                     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%@ Failed to upgrade faceprint - %@; skipping", buf, 0x16u);
                   }
 
@@ -1319,29 +1333,29 @@ LABEL_36:
                 if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
                 {
                   [v11 gist];
-                  v46 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                  imageprintWrapper6 = [v88 imageprintWrapper];
-                  *&v48 = COERCE_DOUBLE([imageprintWrapper6 type]);
-                  imageprintWrapper7 = [v88 imageprintWrapper];
+                  v49 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                  imageprintWrapper6 = [v94 imageprintWrapper];
+                  *&v51 = COERCE_DOUBLE([imageprintWrapper6 type]);
+                  imageprintWrapper7 = [v94 imageprintWrapper];
                   version = [imageprintWrapper7 version];
-                  imageprintWrapper8 = [v88 imageprintWrapper];
+                  imageprintWrapper8 = [v94 imageprintWrapper];
                   data4 = [imageprintWrapper8 data];
                   *buf = 138413314;
-                  v53 = &stru_1F496CB30;
+                  v56 = &stru_1F496CB30;
                   if (!data4)
                   {
-                    v53 = @"missing faceprint";
+                    v56 = @"missing faceprint";
                   }
 
-                  v102 = v15;
-                  v103 = 2112;
-                  v104 = v46;
-                  v105 = 2048;
-                  v106 = *&v48;
-                  v107 = 1024;
-                  v108 = version;
+                  v108 = v15;
                   v109 = 2112;
-                  v110 = v53;
+                  v110 = v49;
+                  v111 = 2048;
+                  v112 = *&v51;
+                  v113 = 1024;
+                  v114 = version;
+                  v115 = 2112;
+                  v116 = v56;
                   _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%@ Skipping data incomplete face %@ %lu %d %@", buf, 0x30u);
                 }
 
@@ -1355,11 +1369,11 @@ LABEL_36:
           if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
           {
             [v11 gist];
-            v45 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+            v48 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
             *buf = 138412546;
-            v102 = v15;
-            v103 = 2112;
-            v104 = v45;
+            v108 = v15;
+            v109 = 2112;
+            v110 = v48;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "%@ Skipping non-human face %@", buf, 0x16u);
           }
         }
@@ -1370,8 +1384,8 @@ LABEL_68:
         ++v10;
       }
 
-      while (v87 != v10);
-      v9 = [obj countByEnumeratingWithState:&v97 objects:v111 count:16];
+      while (v93 != v10);
+      v9 = [obj countByEnumeratingWithState:&v103 objects:v117 count:16];
       if (!v9)
       {
 LABEL_77:
@@ -1395,33 +1409,34 @@ LABEL_81:
 - (int)_refineAnalysis:(id *)analysis requestHandler:(id)handler forAsset:(id)asset resource:(id)resource isBestResource:(BOOL)bestResource orientedWidth:(unint64_t)width orientedHeight:(unint64_t)height
 {
   bestResourceCopy = bestResource;
-  v104 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   assetCopy = asset;
   resourceCopy = resource;
-  v12 = VCPSignPostLog();
+  v12 = VCPSignPostLog(resourceCopy);
   v13 = os_signpost_id_generate(v12);
 
-  v14 = VCPSignPostLog();
-  v15 = v14;
+  v15 = VCPSignPostLog(v14);
+  v16 = v15;
   spid = v13;
-  v70 = v13 - 1;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v72 = v13 - 1;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPFaceAnalyzerVerifyAndMergeFaces", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPFaceAnalyzerVerifyAndMergeFaces", "", buf, 2u);
   }
 
-  v79 = [*analysis mutableCopy];
-  [v79 removeObjectForKey:@"FaceResults"];
-  v75 = [*analysis objectForKeyedSubscript:@"FaceResults"];
-  v73 = [(VCPFaceAnalyzer *)self _existingFacesFromAsset:assetCopy];
-  if ([v73 count])
+  v81 = [*analysis mutableCopy];
+  [v81 removeObjectForKey:@"FaceResults"];
+  v77 = [*analysis objectForKeyedSubscript:@"FaceResults"];
+  v75 = [(VCPFaceAnalyzer *)self _existingFacesFromAsset:assetCopy];
+  v17 = [v75 count];
+  if (v17)
   {
-    v68 = [(VCPFaceAnalyzer *)self _existingFacesFromAsset:assetCopy];
+    v70 = [(VCPFaceAnalyzer *)self _existingFacesFromAsset:assetCopy];
     faceMerger = self->_faceMerger;
-    allValues = [v73 allValues];
-    v18 = -[VCPFaceMerger mergeExistingFaces:andDetectedFaces:withRequestHandler:orientedWidth:orientedHeight:assetWidth:assetHeight:](faceMerger, "mergeExistingFaces:andDetectedFaces:withRequestHandler:orientedWidth:orientedHeight:assetWidth:assetHeight:", allValues, v75, handlerCopy, width, height, [assetCopy pixelWidth], objc_msgSend(assetCopy, "pixelHeight"));
+    allValues = [v75 allValues];
+    v20 = -[VCPFaceMerger mergeExistingFaces:andDetectedFaces:withRequestHandler:orientedWidth:orientedHeight:assetWidth:assetHeight:](faceMerger, "mergeExistingFaces:andDetectedFaces:withRequestHandler:orientedWidth:orientedHeight:assetWidth:assetHeight:", allValues, v77, handlerCopy, width, height, [assetCopy pixelWidth], objc_msgSend(assetCopy, "pixelHeight"));
 
     if ((_os_feature_enabled_impl() & 1) == 0 && [resourceCopy type] == 102 && !bestResourceCopy)
     {
@@ -1429,44 +1444,44 @@ LABEL_81:
       {
         *buf = 134218240;
         widthCopy = width;
-        v89 = 2048;
+        v91 = 2048;
         heightCopy = height;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer][FC] Start processing resource %lu x %lu", buf, 0x16u);
       }
 
       session = [handlerCopy session];
-      v66 = [(VCPFaceAnalyzer *)self _processForwardCompatibleFaces:v18 withExistingFaces:v68 orientedWidth:width orientedHeight:height session:session];
+      v68 = [(VCPFaceAnalyzer *)self _processForwardCompatibleFaces:v20 withExistingFaces:v70 orientedWidth:width orientedHeight:height session:session];
 
-      v20 = [v79 objectForKeyedSubscript:?];
-      bOOLValue = [v20 BOOLValue];
+      v22 = [v81 objectForKeyedSubscript:?];
+      bOOLValue = [v22 BOOLValue];
 
-      [v79 setObject:MEMORY[0x1E695E110] forKeyedSubscript:@"ImageTooSmall"];
+      [v81 setObject:MEMORY[0x1E695E110] forKeyedSubscript:@"ImageTooSmall"];
       if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
         localIdentifier = [assetCopy localIdentifier];
-        v22 = localIdentifier;
-        v23 = @"NO";
+        v24 = localIdentifier;
+        v25 = @"NO";
         if (bOOLValue)
         {
-          v23 = @"YES";
+          v25 = @"YES";
         }
 
         *buf = 138412546;
         widthCopy = localIdentifier;
-        v89 = 2112;
-        heightCopy = v23;
+        v91 = 2112;
+        heightCopy = v25;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer][FC][SmallFace][asset-%@] Vision image-too-small decision: %@", buf, 0x16u);
       }
 
+      v85 = 0u;
+      v86 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v81 = 0u;
-      v82 = 0u;
-      obj = [v66 objectForKeyedSubscript:@"FacesToPersist"];
-      v24 = [obj countByEnumeratingWithState:&v81 objects:v103 count:16];
-      if (v24)
+      obj = [v68 objectForKeyedSubscript:@"FacesToPersist"];
+      v26 = [obj countByEnumeratingWithState:&v83 objects:v105 count:16];
+      if (v26)
       {
-        v25 = *v82;
+        v27 = *v84;
         if (width >= height)
         {
           widthCopy2 = height;
@@ -1477,96 +1492,96 @@ LABEL_81:
           widthCopy2 = width;
         }
 
-        v27 = widthCopy2;
-        v28 = MEMORY[0x1E69E9C10];
+        v29 = widthCopy2;
+        v30 = MEMORY[0x1E69E9C10];
         do
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v26; ++i)
           {
-            if (*v82 != v25)
+            if (*v84 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v30 = *(*(&v81 + 1) + 8 * i);
-            v31 = MEMORY[0x1E696AEC0];
-            localIdentifier2 = [v30 localIdentifier];
-            detectionType = [v30 detectionType];
-            v34 = @"Pet";
+            v32 = *(*(&v83 + 1) + 8 * i);
+            v33 = MEMORY[0x1E696AEC0];
+            localIdentifier2 = [v32 localIdentifier];
+            detectionType = [v32 detectionType];
+            v36 = @"Pet";
             if (detectionType == 1)
             {
-              v34 = @"Human";
+              v36 = @"Human";
             }
 
-            v35 = [v31 stringWithFormat:@"[FaceAnalyzer][FC][SmallFace][%@][%@]", localIdentifier2, v34];
+            v37 = [v33 stringWithFormat:@"[FaceAnalyzer][FC][SmallFace][%@][%@]", localIdentifier2, v36];
 
-            if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+            if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
-              imageprintWrapper = [v30 imageprintWrapper];
+              imageprintWrapper = [v32 imageprintWrapper];
               version = [imageprintWrapper version];
               *buf = 138412546;
-              widthCopy = v35;
-              v89 = 1024;
+              widthCopy = v37;
+              v91 = 1024;
               LODWORD(heightCopy) = version;
-              _os_log_impl(&dword_1C9B70000, v28, OS_LOG_TYPE_DEBUG, "%@ Face faceprint version %d", buf, 0x12u);
+              _os_log_impl(&dword_1C9B70000, v30, OS_LOG_TYPE_DEBUG, "%@ Face faceprint version %d", buf, 0x12u);
             }
 
-            [v30 size];
-            v39 = v38;
-            [v30 bodyWidth];
+            [v32 size];
             v41 = v40;
-            [v30 bodyHeight];
-            if (v41 >= v42)
+            [v32 bodyWidth];
+            v43 = v42;
+            [v32 bodyHeight];
+            if (v43 >= v44)
             {
-              v41 = v42;
+              v43 = v44;
             }
 
             _smallFaceWarningThreshold = [objc_opt_class() _smallFaceWarningThreshold];
-            v44 = v39 * v27;
-            v45 = v41 * v27;
-            if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+            v46 = v41 * v29;
+            v47 = v43 * v29;
+            if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
-              [v30 size];
-              v47 = v46;
-              [v30 bodyWidth];
+              [v32 size];
               v49 = v48;
-              [v30 bodyHeight];
+              [v32 bodyWidth];
+              v51 = v50;
+              [v32 bodyHeight];
               *buf = 138414082;
-              widthCopy = v35;
-              v89 = 2048;
-              heightCopy = v47;
-              v91 = 1024;
-              v92 = v44;
+              widthCopy = v37;
+              v91 = 2048;
+              heightCopy = v49;
               v93 = 1024;
-              v94 = _smallFaceWarningThreshold;
-              v95 = 2048;
-              v96 = v49;
+              v94 = v46;
+              v95 = 1024;
+              v96 = _smallFaceWarningThreshold;
               v97 = 2048;
-              v98 = v50;
-              v99 = 1024;
-              v100 = v45;
+              v98 = v51;
+              v99 = 2048;
+              v100 = v52;
               v101 = 1024;
-              v102 = _smallFaceWarningThreshold;
-              _os_log_impl(&dword_1C9B70000, v28, OS_LOG_TYPE_DEBUG, "%@ face-%.3f|%dpx(%dpx), torso-%.3fx%.3f|%dpx(%dpx)", buf, 0x42u);
+              v102 = v47;
+              v103 = 1024;
+              v104 = _smallFaceWarningThreshold;
+              _os_log_impl(&dword_1C9B70000, v30, OS_LOG_TYPE_DEBUG, "%@ face-%.3f|%dpx(%dpx), torso-%.3fx%.3f|%dpx(%dpx)", buf, 0x42u);
             }
 
-            v51 = _smallFaceWarningThreshold;
-            v52 = v44 != 0.0 && v44 < v51;
-            if (v52 || (v45 != 0.0 ? (v53 = v45 < v51) : (v53 = 0), v53))
+            v53 = _smallFaceWarningThreshold;
+            v54 = v46 != 0.0 && v46 < v53;
+            if (v54 || (v47 != 0.0 ? (v55 = v47 < v53) : (v55 = 0), v55))
             {
-              [v79 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"ImageTooSmall"];
-              [v30 setAlgorithmVersion:14];
+              [v81 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"ImageTooSmall"];
+              [v32 setAlgorithmVersion:14];
             }
           }
 
-          v24 = [obj countByEnumeratingWithState:&v81 objects:v103 count:16];
+          v26 = [obj countByEnumeratingWithState:&v83 objects:v105 count:16];
         }
 
-        while (v24);
+        while (v26);
       }
 
-      v54 = [v79 objectForKeyedSubscript:@"ImageTooSmall"];
-      bOOLValue2 = [v54 BOOLValue];
+      v56 = [v81 objectForKeyedSubscript:@"ImageTooSmall"];
+      bOOLValue2 = [v56 BOOLValue];
 
       if (bOOLValue2)
       {
@@ -1587,8 +1602,8 @@ LABEL_81:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer][FC][SmallFace][asset-%@] Resource size is good", buf, 0xCu);
       }
 
-      v58 = [v79 objectForKeyedSubscript:@"ImageTooSmall"];
-      bOOLValue3 = [v58 BOOLValue];
+      v60 = [v81 objectForKeyedSubscript:@"ImageTooSmall"];
+      bOOLValue3 = [v60 BOOLValue];
 
       if (bOOLValue != bOOLValue3 && MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
       {
@@ -1598,48 +1613,49 @@ LABEL_81:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer][FC][SmallFace][asset-%@] Invert decision", buf, 0xCu);
       }
 
-      v18 = v66;
+      v20 = v68;
     }
 
-    if (v18)
+    if (v20)
     {
-      [v79 setObject:v18 forKeyedSubscript:@"FaceResults"];
+      [v81 setObject:v20 forKeyedSubscript:@"FaceResults"];
     }
   }
 
-  else if (v75)
+  else if (v77)
   {
-    v85 = @"FacesToPersist";
-    v86 = v75;
-    v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
-    [v79 setObject:? forKeyedSubscript:?];
+    v87 = @"FacesToPersist";
+    v88 = v77;
+    v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+    [v81 setObject:? forKeyedSubscript:?];
   }
 
-  v61 = VCPSignPostLog();
-  v62 = v61;
-  if (v70 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v61))
+  v63 = VCPSignPostLog(v17);
+  v64 = v63;
+  if (v72 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v63))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v62, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerVerifyAndMergeFaces", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v64, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerVerifyAndMergeFaces", "", buf, 2u);
   }
 
   if (bestResourceCopy)
   {
-    [v79 removeObjectForKey:@"ImageTooSmall"];
+    [v81 removeObjectForKey:@"ImageTooSmall"];
   }
 
-  v63 = v79;
-  *analysis = v79;
+  v65 = v81;
+  *analysis = v81;
 
   return 0;
 }
 
 - (int)_loadImageRequestHandler:(id *)handler orientation:(unsigned int *)orientation bufferWidth:(int *)width bufferHeight:(int *)height withResource:(id)resource resourceURL:(id)l andAsset:(id)asset
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   lCopy = l;
   assetCopy = asset;
+  v56 = assetCopy;
   *handler = 0;
   if (orientation)
   {
@@ -1656,26 +1672,26 @@ LABEL_81:
     *height = 0;
   }
 
-  v15 = VCPSignPostLog();
-  v16 = os_signpost_id_generate(v15);
+  v16 = VCPSignPostLog(assetCopy);
+  v17 = os_signpost_id_generate(v16);
 
-  v17 = VCPSignPostLog();
-  v18 = v17;
-  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+  v19 = VCPSignPostLog(v18);
+  v20 = v19;
+  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v16, "VCPFaceProcessingFastPathDecodeAsset", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VCPFaceProcessingFastPathDecodeAsset", "", buf, 2u);
   }
 
-  if (![objc_opt_class() _downsampleBeforeFaceProcessing] || (objc_msgSend(assetCopy, "vcp_isPano") & 1) != 0)
+  if (![objc_opt_class() _downsampleBeforeFaceProcessing] || (objc_msgSend(v56, "vcp_isPano") & 1) != 0)
   {
-    v19 = 0;
+    v21 = 0;
     goto LABEL_13;
   }
 
   pixelWidth = [resourceCopy pixelWidth];
   pixelHeight = [resourceCopy pixelHeight];
-  v40 = pixelHeight;
+  v46 = pixelHeight;
   if (pixelWidth && pixelHeight)
   {
     goto LABEL_49;
@@ -1683,68 +1699,68 @@ LABEL_81:
 
   if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    spida = [assetCopy localIdentifier];
+    spida = [v56 localIdentifier];
     type = [resourceCopy type];
     *buf = 138413058;
-    v54 = spida;
-    v55 = 1024;
-    v56 = type;
-    v57 = 1024;
-    v58 = pixelWidth;
-    v59 = 1024;
-    v60 = v40;
+    v60 = spida;
+    v61 = 1024;
+    v62 = type;
+    v63 = 1024;
+    v64 = pixelWidth;
+    v65 = 1024;
+    v66 = v46;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[FaceAnalyzer][%@] Resource (%d) has invalid dimensions (%dx%d); falling back to asset", buf, 0x1Eu);
   }
 
-  pixelWidth = [assetCopy pixelWidth];
-  pixelHeight2 = [assetCopy pixelHeight];
-  v40 = pixelHeight2;
+  pixelWidth = [v56 pixelWidth];
+  pixelHeight2 = [v56 pixelHeight];
+  v46 = pixelHeight2;
   if (pixelWidth)
   {
     if (pixelHeight2)
     {
 LABEL_49:
-      v19 = [assetCopy vcp_targetMajorDimensionForImageWithWidth:pixelWidth height:v40 andMinPreferredMinorDimension:1210];
+      v21 = [v56 vcp_targetMajorDimensionForImageWithWidth:pixelWidth height:v46 andMinPreferredMinorDimension:1210];
 LABEL_13:
-      v52 = 0;
-      v20 = +[VCPImageManager sharedImageManager];
-      pixelBuffer = [v20 pixelBufferWithFormat:875704422 andMaxDimension:v19 fromImageURL:lCopy flushCache:0 orientation:&v52];
+      v58 = 0;
+      v22 = +[VCPImageManager sharedImageManager];
+      pixelBuffer = [v22 pixelBufferWithFormat:875704422 andMaxDimension:v21 fromImageURL:lCopy flushCache:0 orientation:&v58];
 
-      v21 = VCPSignPostLog();
-      v22 = v21;
-      if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+      v24 = VCPSignPostLog(v23);
+      v25 = v24;
+      if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_END, v16, "VCPFaceProcessingFastPathDecodeAsset", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v17, "VCPFaceProcessingFastPathDecodeAsset", "", buf, 2u);
       }
 
       if (pixelBuffer)
       {
-        if (v52 - 9 > 0xFFFFFFF7)
+        if (v58 - 9 > 0xFFFFFFF7)
         {
-          v26 = VCPSignPostLog();
-          spid = os_signpost_id_generate(v26);
+          v30 = VCPSignPostLog(v26);
+          spid = os_signpost_id_generate(v30);
 
-          v27 = VCPSignPostLog();
-          v28 = v27;
-          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+          v32 = VCPSignPostLog(v31);
+          v33 = v32;
+          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPFaceAnalyzerLoadImageRequestHandler", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v33, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPFaceAnalyzerLoadImageRequestHandler", "", buf, 2u);
           }
 
-          v29 = objc_alloc(MEMORY[0x1E69845B8]);
-          v30 = v52;
+          v34 = objc_alloc(MEMORY[0x1E69845B8]);
+          v35 = v58;
           getObject = [(VCPObjectPool *)self->_sessionPool getObject];
           object = [getObject object];
-          *handler = [v29 initWithCVPixelBuffer:pixelBuffer orientation:v30 options:MEMORY[0x1E695E0F8] session:object];
+          *handler = [v34 initWithCVPixelBuffer:pixelBuffer orientation:v35 options:MEMORY[0x1E695E0F8] session:object];
 
-          v33 = VCPSignPostLog();
-          v34 = v33;
-          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+          v39 = VCPSignPostLog(v38);
+          v40 = v39;
+          if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerLoadImageRequestHandler", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v40, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerLoadImageRequestHandler", "", buf, 2u);
           }
 
           if (*handler)
@@ -1753,21 +1769,21 @@ LABEL_13:
             Height = CVPixelBufferGetHeight(pixelBuffer);
             if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
             {
-              localIdentifier = [assetCopy localIdentifier];
+              localIdentifier = [v56 localIdentifier];
               *buf = 138413058;
-              v54 = localIdentifier;
-              v55 = 1024;
-              v56 = Width;
-              v57 = 1024;
-              v58 = Height;
-              v59 = 1024;
-              v60 = v52;
+              v60 = localIdentifier;
+              v61 = 1024;
+              v62 = Width;
+              v63 = 1024;
+              v64 = Height;
+              v65 = 1024;
+              v66 = v58;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer][%@] Loaded local resource (%dx%d orientation:%d)", buf, 0x1Eu);
             }
 
             if (orientation)
             {
-              *orientation = v52;
+              *orientation = v58;
             }
 
             if (width)
@@ -1775,7 +1791,7 @@ LABEL_13:
               *width = Width;
             }
 
-            v24 = 0;
+            v28 = 0;
             if (height)
             {
               *height = Height;
@@ -1786,13 +1802,13 @@ LABEL_13:
           {
             if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
             {
-              localIdentifier2 = [assetCopy localIdentifier];
+              localIdentifier2 = [v56 localIdentifier];
               *buf = 138412290;
-              v54 = localIdentifier2;
+              v60 = localIdentifier2;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][%@] Failed to create VNImageRequestHandler", buf, 0xCu);
             }
 
-            v24 = -18;
+            v28 = -18;
           }
         }
 
@@ -1800,15 +1816,15 @@ LABEL_13:
         {
           if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            localIdentifier3 = [assetCopy localIdentifier];
+            localIdentifier3 = [v56 localIdentifier];
             *buf = 138412546;
-            v54 = localIdentifier3;
-            v55 = 1024;
-            v56 = v52;
+            v60 = localIdentifier3;
+            v61 = 1024;
+            v62 = v58;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][%@] Failed to decode orientation (%d)", buf, 0x12u);
           }
 
-          v24 = -50;
+          v28 = -50;
         }
       }
 
@@ -1816,13 +1832,13 @@ LABEL_13:
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          localIdentifier4 = [assetCopy localIdentifier];
+          localIdentifier4 = [v56 localIdentifier];
           *buf = 138412290;
-          v54 = localIdentifier4;
+          v60 = localIdentifier4;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][%@] Failed to decode image", buf, 0xCu);
         }
 
-        v24 = -23802;
+        v28 = -23802;
       }
 
       CF<__CVBuffer *>::~CF(&pixelBuffer);
@@ -1832,161 +1848,164 @@ LABEL_13:
 
   if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    localIdentifier5 = [assetCopy localIdentifier];
+    localIdentifier5 = [v56 localIdentifier];
     *buf = 138412802;
-    v54 = localIdentifier5;
-    v55 = 1024;
-    v56 = pixelWidth;
-    v57 = 1024;
-    v58 = v40;
+    v60 = localIdentifier5;
+    v61 = 1024;
+    v62 = pixelWidth;
+    v63 = 1024;
+    v64 = v46;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][%@] Invalid dimensions (%dx%d)", buf, 0x18u);
   }
 
-  v24 = -23802;
+  v28 = -23802;
 LABEL_55:
 
-  return v24;
+  return v28;
 }
 
 - (int)analyzeAsset:(id)asset withResource:(id)resource resourceURL:(id)l isBestResource:(BOOL)bestResource quickMode:(BOOL)mode results:(id *)results
 {
   modeCopy = mode;
   bestResourceCopy = bestResource;
-  v56 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   resourceCopy = resource;
   *results = 0;
-  v47 = 0;
-  v46 = 0;
-  v45 = 0;
-  v16 = [(VCPFaceAnalyzer *)self _loadImageRequestHandler:&v45 orientation:&v47 + 4 bufferWidth:&v47 bufferHeight:&v46 withResource:resourceCopy resourceURL:l andAsset:assetCopy];
-  v17 = v45;
+  v53 = 0;
+  v52 = 0;
+  v51 = 0;
+  v16 = [(VCPFaceAnalyzer *)self _loadImageRequestHandler:&v51 orientation:&v53 + 4 bufferWidth:&v53 bufferHeight:&v52 withResource:resourceCopy resourceURL:l andAsset:assetCopy];
+  v17 = v51;
+  v18 = v17;
   if (v16)
   {
     if (!self->_errorCode)
     {
-      v18 = xmmword_1C9F62C20;
+      v19 = xmmword_1C9F62C20;
 LABEL_30:
-      *&self->_errorCode = v18;
+      *&self->_errorCode = v19;
     }
   }
 
   else
   {
-    v19 = VCPSignPostLog();
-    v20 = os_signpost_id_generate(v19);
+    v20 = VCPSignPostLog(v17);
+    v21 = os_signpost_id_generate(v20);
 
-    v21 = VCPSignPostLog();
-    v22 = v21;
-    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+    v23 = VCPSignPostLog(v22);
+    v24 = v23;
+    if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "VCPFaceAnalyzerPerformAnalysis", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v21, "VCPFaceAnalyzerPerformAnalysis", "", buf, 2u);
     }
 
-    v16 = -[VCPFaceAnalyzer _performAnalysis:withRequestHandler:quickMode:sourceWidth:sourceHeight:](self, "_performAnalysis:withRequestHandler:quickMode:sourceWidth:sourceHeight:", results, v17, modeCopy, [assetCopy pixelWidth], objc_msgSend(assetCopy, "pixelHeight"));
-    if (v16)
+    v25 = -[VCPFaceAnalyzer _performAnalysis:withRequestHandler:quickMode:sourceWidth:sourceHeight:](self, "_performAnalysis:withRequestHandler:quickMode:sourceWidth:sourceHeight:", results, v18, modeCopy, [assetCopy pixelWidth], objc_msgSend(assetCopy, "pixelHeight"));
+    v16 = v25;
+    if (v25)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         localIdentifier = [assetCopy localIdentifier];
         *buf = 138412290;
-        v49 = localIdentifier;
+        v55 = localIdentifier;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][%@] Failed to analyze resource", buf, 0xCu);
       }
 
       if (!self->_errorCode)
       {
-        v18 = xmmword_1C9F62C30;
+        v19 = xmmword_1C9F62C30;
         goto LABEL_30;
       }
     }
 
     else
     {
-      v24 = VCPSignPostLog();
-      v25 = v24;
-      if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+      v27 = VCPSignPostLog(v25);
+      v28 = v27;
+      if (v21 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v20, "VCPFaceAnalyzerPerformAnalysis", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v28, OS_SIGNPOST_INTERVAL_END, v21, "VCPFaceAnalyzerPerformAnalysis", "", buf, 2u);
       }
 
-      v26 = VCPSignPostLog();
-      v27 = os_signpost_id_generate(v26);
+      v30 = VCPSignPostLog(v29);
+      v31 = os_signpost_id_generate(v30);
 
-      v28 = VCPSignPostLog();
-      v29 = v28;
-      if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
+      v33 = VCPSignPostLog(v32);
+      v34 = v33;
+      if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v29, OS_SIGNPOST_INTERVAL_BEGIN, v27, "VCPFaceAnalyzerRefineAnalysis", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_BEGIN, v31, "VCPFaceAnalyzerRefineAnalysis", "", buf, 2u);
       }
 
-      v30 = [*results objectForKeyedSubscript:@"FaceResults"];
-      v44 = [v30 count];
+      v35 = [*results objectForKeyedSubscript:@"FaceResults"];
+      v50 = [v35 count];
 
-      v31 = v46;
-      if (HIDWORD(v47) <= 4)
+      v36 = v52;
+      if (HIDWORD(v53) <= 4)
       {
-        v32 = v47;
+        v37 = v53;
       }
 
       else
       {
-        v32 = v46;
+        v37 = v52;
       }
 
-      if (HIDWORD(v47) > 4)
+      if (HIDWORD(v53) > 4)
       {
-        v31 = v47;
+        v36 = v53;
       }
 
-      v16 = [(VCPFaceAnalyzer *)self _refineAnalysis:results requestHandler:v17 forAsset:assetCopy resource:resourceCopy isBestResource:bestResourceCopy orientedWidth:v32 orientedHeight:v31];
-      if (v16)
+      v38 = [(VCPFaceAnalyzer *)self _refineAnalysis:results requestHandler:v18 forAsset:assetCopy resource:resourceCopy isBestResource:bestResourceCopy orientedWidth:v37 orientedHeight:v36];
+      v16 = v38;
+      if (v38)
       {
         if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
           localIdentifier2 = [assetCopy localIdentifier];
           *buf = 138412290;
-          v49 = localIdentifier2;
+          v55 = localIdentifier2;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][%@] Failed to refine analysis", buf, 0xCu);
         }
 
         if (!self->_errorCode)
         {
-          v18 = xmmword_1C9F62C40;
+          v19 = xmmword_1C9F62C40;
           goto LABEL_30;
         }
       }
 
       else
       {
-        v35 = VCPSignPostLog();
-        v36 = v35;
-        if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+        v41 = VCPSignPostLog(v38);
+        v42 = v41;
+        if (v31 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_END, v27, "VCPFaceAnalyzerRefineAnalysis", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v42, OS_SIGNPOST_INTERVAL_END, v31, "VCPFaceAnalyzerRefineAnalysis", "", buf, 2u);
         }
 
         if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
         {
           localIdentifier3 = [assetCopy localIdentifier];
-          v38 = [*results objectForKeyedSubscript:@"FaceResults"];
-          v39 = [v38 objectForKeyedSubscript:@"FacesToPersist"];
-          v40 = [v39 count];
-          v41 = [*results objectForKeyedSubscript:@"FaceResults"];
-          v42 = [v41 objectForKeyedSubscript:@"FacesToDelete"];
-          v43 = [v42 count];
+          v44 = [*results objectForKeyedSubscript:@"FaceResults"];
+          v45 = [v44 objectForKeyedSubscript:@"FacesToPersist"];
+          v46 = [v45 count];
+          v47 = [*results objectForKeyedSubscript:@"FaceResults"];
+          v48 = [v47 objectForKeyedSubscript:@"FacesToDelete"];
+          v49 = [v48 count];
           *buf = 138413058;
-          v49 = localIdentifier3;
-          v50 = 2048;
-          v51 = v44;
-          v52 = 2048;
-          v53 = v40;
-          v54 = 2048;
-          v55 = v43;
+          v55 = localIdentifier3;
+          v56 = 2048;
+          v57 = v50;
+          v58 = 2048;
+          v59 = v46;
+          v60 = 2048;
+          v61 = v49;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer][%@] Face refine completed: detected %lu | persist: %lu | delete: %lu", buf, 0x2Au);
         }
 
@@ -2030,76 +2049,82 @@ LABEL_30:
 
 - (int)quickAnalyzeCVPixelBuffer:(__CVBuffer *)buffer results:(id *)results
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v7 = VCPSignPostLog();
+  v35 = *MEMORY[0x1E69E9840];
+  v7 = VCPSignPostLog(self);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    LOWORD(v27[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPFaceAnalyzerLoadImageRequestHandlerPixelBuffer", "", v27, 2u);
+    LOWORD(v32[0]) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPFaceAnalyzerLoadImageRequestHandlerPixelBuffer", "", v32, 2u);
   }
 
-  v11 = objc_alloc(MEMORY[0x1E69845B8]);
+  v12 = objc_alloc(MEMORY[0x1E69845B8]);
   getObject = [(VCPObjectPool *)self->_sessionPool getObject];
   object = [getObject object];
-  v14 = [v11 initWithCVPixelBuffer:buffer options:MEMORY[0x1E695E0F8] session:object];
+  v15 = [v12 initWithCVPixelBuffer:buffer options:MEMORY[0x1E695E0F8] session:object];
 
-  v15 = VCPSignPostLog();
-  v16 = v15;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+  v17 = VCPSignPostLog(v16);
+  v18 = v17;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    LOWORD(v27[0]) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_END, v8, "VCPFaceAnalyzerLoadImageRequestHandlerPixelBuffer", "", v27, 2u);
+    LOWORD(v32[0]) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_END, v8, "VCPFaceAnalyzerLoadImageRequestHandlerPixelBuffer", "", v32, 2u);
   }
 
-  if (v14)
+  if (v15)
   {
     Width = CVPixelBufferGetWidth(buffer);
     Height = CVPixelBufferGetHeight(buffer);
-    if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
+    v21 = MediaAnalysisLogLevel();
+    if (v21 >= 7)
     {
-      v27[0] = 67109376;
-      v27[1] = Width;
-      v28 = 1024;
-      v29 = Height;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer][PixelBuffer] Loaded pixelBuffer(%d x %d)", v27, 0xEu);
+      v21 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG);
+      if (v21)
+      {
+        v32[0] = 67109376;
+        v32[1] = Width;
+        v33 = 1024;
+        v34 = Height;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer][PixelBuffer] Loaded pixelBuffer(%d x %d)", v32, 0xEu);
+      }
     }
 
-    v19 = VCPSignPostLog();
-    v20 = os_signpost_id_generate(v19);
+    v22 = VCPSignPostLog(v21);
+    v23 = os_signpost_id_generate(v22);
 
-    v21 = VCPSignPostLog();
-    v22 = v21;
-    if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+    v25 = VCPSignPostLog(v24);
+    v26 = v25;
+    if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
-      LOWORD(v27[0]) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "VCPFaceAnalyzerPerformAnalysisPixelBuffer", "", v27, 2u);
+      LOWORD(v32[0]) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v23, "VCPFaceAnalyzerPerformAnalysisPixelBuffer", "", v32, 2u);
     }
 
-    v23 = [(VCPFaceAnalyzer *)self _performAnalysis:results withRequestHandler:v14 quickMode:1 sourceWidth:Width sourceHeight:Height];
-    if (v23)
+    v27 = [(VCPFaceAnalyzer *)self _performAnalysis:results withRequestHandler:v15 quickMode:1 sourceWidth:Width sourceHeight:Height];
+    v28 = v27;
+    if (v27)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v27[0]) = 0;
-        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][PixelBuffer] Failed to analyze resource", v27, 2u);
+        LOWORD(v32[0]) = 0;
+        _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][PixelBuffer] Failed to analyze resource", v32, 2u);
       }
     }
 
     else
     {
-      v24 = VCPSignPostLog();
-      v25 = v24;
-      if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+      v29 = VCPSignPostLog(v27);
+      v30 = v29;
+      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
       {
-        LOWORD(v27[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v20, "VCPFaceAnalyzerPerformAnalysisPixelBuffer", "", v27, 2u);
+        LOWORD(v32[0]) = 0;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v30, OS_SIGNPOST_INTERVAL_END, v23, "VCPFaceAnalyzerPerformAnalysisPixelBuffer", "", v32, 2u);
       }
 
-      v23 = 0;
+      v28 = 0;
     }
   }
 
@@ -2107,47 +2132,47 @@ LABEL_30:
   {
     if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v27[0]) = 0;
-      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][PixelBuffer] Failed to create VNImageRequestHandler", v27, 2u);
+      LOWORD(v32[0]) = 0;
+      _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][PixelBuffer] Failed to create VNImageRequestHandler", v32, 2u);
     }
 
-    v23 = -18;
+    v28 = -18;
   }
 
-  return v23;
+  return v28;
 }
 
 - (int)updateMissingFaceprintForFaces:(id)faces withAsset:(id)asset
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v138 = *MEMORY[0x1E69E9840];
   facesCopy = faces;
   assetCopy = asset;
-  v93 = facesCopy;
+  v96 = facesCopy;
   if ([facesCopy count])
   {
     v7 = objc_opt_class();
     v8 = VCPMAGetRevisionForVisionModel(v7, self->_processingVersion);
     selfCopy = self;
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v115 = 0u;
+    v118 = 0u;
+    v119 = 0u;
     v116 = 0u;
-    v113 = 0u;
-    v114 = 0u;
+    v117 = 0u;
     v9 = facesCopy;
-    v10 = [v9 countByEnumeratingWithState:&v113 objects:v134 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v116 objects:v137 count:16];
     if (v10)
     {
-      v11 = *v114;
+      v11 = *v117;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v114 != v11)
+          if (*v117 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v113 + 1) + 8 * i);
+          v13 = *(*(&v116 + 1) + 8 * i);
           imageprintWrapper = [v13 imageprintWrapper];
           v15 = imageprintWrapper == 0;
 
@@ -2171,19 +2196,19 @@ LABEL_30:
               v32 = v31;
               [v13 size];
               *buf = 134219520;
-              v121 = v30;
-              v122 = 2048;
-              v123 = v32;
-              v124 = 2048;
-              v125 = v33;
-              v126 = 2048;
-              v127 = v22;
-              v128 = 2048;
-              v129 = v24;
-              v130 = 2048;
-              v131 = v26;
-              v132 = 2048;
-              v133 = v28;
+              v124 = v30;
+              v125 = 2048;
+              v126 = v32;
+              v127 = 2048;
+              v128 = v33;
+              v129 = 2048;
+              v130 = v22;
+              v131 = 2048;
+              v132 = v24;
+              v133 = 2048;
+              v134 = v26;
+              v135 = 2048;
+              v136 = v28;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer] face (center-x:%.2f, center-y:%.2f, size:%.2f) -> boundingBox (x:%.2f, y:%.2f, width:%.2f, height:%.2f)", buf, 0x48u);
             }
 
@@ -2199,13 +2224,13 @@ LABEL_30:
               [v13 gist];
               v36 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
               *buf = 138412290;
-              v121 = v36;
+              v124 = v36;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[FaceAnalyzer] Failed to generate VNFaceObservation from face %@", buf, 0xCu);
             }
           }
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v113 objects:v134 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v116 objects:v137 count:16];
       }
 
       while (v10);
@@ -2227,22 +2252,22 @@ LABEL_30:
     {
       v37 = COERCE_DOUBLE([dictionary count]);
       *buf = 134217984;
-      v121 = v37;
+      v124 = v37;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[FaceAnalyzer] Updating %lu faces with missing faceprint", buf, 0xCu);
     }
 
-    v89 = [VCPFaceUtils resourceForFaceProcessingWithAsset:assetCopy allowStreaming:0];
-    privateFileURL = [v89 privateFileURL];
-    if (!v89 || ([MEMORY[0x1E696AC08] defaultManager], v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(privateFileURL, "path"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v38, "fileExistsAtPath:", v39), v39, v38, (v40 & 1) == 0))
+    v92 = [VCPFaceUtils resourceForFaceProcessingWithAsset:assetCopy allowStreaming:0];
+    privateFileURL = [v92 privateFileURL];
+    if (!v92 || ([MEMORY[0x1E696AC08] defaultManager], v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(privateFileURL, "path"), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v38, "fileExistsAtPath:", v39), v39, v38, (v40 & 1) == 0))
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         [assetCopy localIdentifier];
         v42 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
         *buf = 138412546;
-        v121 = v42;
-        v122 = 2112;
-        v123 = v89;
+        v124 = v42;
+        v125 = 2112;
+        v126 = v92;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][%@] Missing local resource %@", buf, 0x16u);
       }
 
@@ -2250,9 +2275,9 @@ LABEL_30:
       goto LABEL_97;
     }
 
-    v112 = 0;
-    v41 = [(VCPFaceAnalyzer *)selfCopy _loadImageRequestHandler:&v112 orientation:0 bufferWidth:0 bufferHeight:0 withResource:v89 resourceURL:privateFileURL andAsset:assetCopy];
-    v88 = v112;
+    v115 = 0;
+    v41 = [(VCPFaceAnalyzer *)selfCopy _loadImageRequestHandler:&v115 orientation:0 bufferWidth:0 bufferHeight:0 withResource:v92 resourceURL:privateFileURL andAsset:assetCopy];
+    v91 = v115;
     if (v41)
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2264,22 +2289,22 @@ LABEL_30:
       goto LABEL_96;
     }
 
-    v85 = mach_absolute_time();
-    v43 = VCPSignPostLog();
+    v88 = mach_absolute_time();
+    v43 = VCPSignPostLog(v88);
     spid = os_signpost_id_generate(v43);
 
-    v44 = VCPSignPostLog();
-    v45 = v44;
-    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+    v45 = VCPSignPostLog(v44);
+    v46 = v45;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v45, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPFaceAnalyzerFillMissingFaceprint", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v46, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPFaceAnalyzerFillMissingFaceprint", "", buf, 2u);
     }
 
-    v46 = objc_alloc_init(MEMORY[0x1E6984478]);
-    v111 = v46;
-    v41 = [VCPFaceUtils configureVNRequest:&v111 withClass:objc_opt_class() andProcessingVersion:selfCopy->_processingVersion];
-    v87 = v111;
+    v47 = objc_alloc_init(MEMORY[0x1E6984478]);
+    v114 = v47;
+    v41 = [VCPFaceUtils configureVNRequest:&v114 withClass:objc_opt_class() andProcessingVersion:selfCopy->_processingVersion];
+    v90 = v114;
 
     if (v41)
     {
@@ -2293,107 +2318,107 @@ LABEL_98:
     }
 
     allValues = [dictionary allValues];
-    [v87 setInputFaceObservations:allValues];
+    [v90 setInputFaceObservations:allValues];
 
-    v119 = v87;
-    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v119 count:1];
-    v110 = 0;
-    v49 = [v88 performRequests:v48 error:&v110];
-    v84 = v110;
+    v122 = v90;
+    v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v122 count:1];
+    v113 = 0;
+    v50 = [v91 performRequests:v49 error:&v113];
+    v87 = v113;
 
-    if (v49)
+    if (v50)
     {
-      results = [v87 results];
-      v108 = 0u;
+      results = [v90 results];
+      v111 = 0u;
+      v112 = 0u;
       v109 = 0u;
-      v106 = 0u;
-      v107 = 0u;
+      v110 = 0u;
       obj = v9;
-      v50 = [obj countByEnumeratingWithState:&v106 objects:v118 count:16];
-      if (v50)
+      v51 = [obj countByEnumeratingWithState:&v109 objects:v121 count:16];
+      if (v51)
       {
-        v96 = *v107;
+        v99 = *v110;
         do
         {
-          v97 = v50;
-          for (j = 0; j != v97; ++j)
+          v100 = v51;
+          for (j = 0; j != v100; ++j)
           {
-            if (*v107 != v96)
+            if (*v110 != v99)
             {
               objc_enumerationMutation(obj);
             }
 
-            type = *(*(&v106 + 1) + 8 * j);
+            type = *(*(&v109 + 1) + 8 * j);
             context = objc_autoreleasePoolPush();
             localIdentifier2 = [type localIdentifier];
-            v53 = [dictionary objectForKeyedSubscript:localIdentifier2];
+            v54 = [dictionary objectForKeyedSubscript:localIdentifier2];
 
-            if (v53)
+            if (v54)
             {
-              v104 = 0u;
+              v107 = 0u;
+              v108 = 0u;
               v105 = 0u;
-              v102 = 0u;
-              v103 = 0u;
-              v54 = results;
-              v55 = [v54 countByEnumeratingWithState:&v102 objects:v117 count:16];
-              if (v55)
+              v106 = 0u;
+              v55 = results;
+              v56 = [v55 countByEnumeratingWithState:&v105 objects:v120 count:16];
+              if (v56)
               {
-                v56 = *v103;
+                v57 = *v106;
                 while (2)
                 {
-                  for (k = 0; k != v55; ++k)
+                  for (k = 0; k != v56; ++k)
                   {
-                    if (*v103 != v56)
+                    if (*v106 != v57)
                     {
-                      objc_enumerationMutation(v54);
+                      objc_enumerationMutation(v55);
                     }
 
-                    v58 = *(*(&v102 + 1) + 8 * k);
-                    uuid = [v53 uuid];
-                    uuid2 = [v58 uuid];
-                    v61 = [uuid isEqual:uuid2];
+                    v59 = *(*(&v105 + 1) + 8 * k);
+                    uuid = [v54 uuid];
+                    uuid2 = [v59 uuid];
+                    v62 = [uuid isEqual:uuid2];
 
-                    if (v61)
+                    if (v62)
                     {
-                      faceprint = [v58 faceprint];
-                      v64 = faceprint;
+                      faceprint = [v59 faceprint];
+                      v65 = faceprint;
                       if (faceprint)
                       {
                         [faceprint confidence];
-                        if (v65 >= 0.2)
+                        if (v66 >= 0.2)
                         {
                           if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                           {
-                            [v64 confidence];
-                            v71 = v70;
-                            v72 = [v58 description];
-                            [v58 faceJunkinessIndex];
+                            [v65 confidence];
+                            v72 = v71;
+                            v73 = [v59 description];
+                            [v59 faceJunkinessIndex];
                             *buf = 134218498;
-                            v121 = v71;
-                            v122 = 2112;
-                            v123 = v72;
-                            v124 = 2048;
-                            v125 = v73;
+                            v124 = v72;
+                            v125 = 2112;
+                            v126 = v73;
+                            v127 = 2048;
+                            v128 = v74;
                             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[FaceAnalyzer] Accepting faceprint with confidence: %.3f %@ - junkinessIndex: %.3f", buf, 0x20u);
                           }
 
-                          v74 = [objc_alloc(MEMORY[0x1E6984520]) initWithFaceprint:v64 torsoprint:0];
-                          v101 = 0;
-                          v75 = [v74 serializeStateAndReturnError:&v101];
-                          v76 = COERCE_DOUBLE(v101);
-                          if (v75)
+                          v75 = [objc_alloc(MEMORY[0x1E6984520]) initWithFaceprint:v65 torsoprint:0];
+                          v104 = 0;
+                          v76 = [v75 serializeStateAndReturnError:&v104];
+                          v77 = COERCE_DOUBLE(v104);
+                          if (v76)
                           {
                             if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
                             {
                               [type gist];
-                              v77 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                              v78 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
                               *buf = 138412290;
-                              v121 = v77;
+                              v124 = v78;
                               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[FaceAnalyzer] Update faceprint for face %@", buf, 0xCu);
                             }
 
-                            v78 = [VCPVNImageprintWrapper wrapperWithImageprintType:0 version:selfCopy->_processingVersion andData:v75];
-                            [type setImageprintWrapper:v78];
+                            v79 = [VCPVNImageprintWrapper wrapperWithImageprintType:0 version:selfCopy->_processingVersion andData:v76];
+                            [type setImageprintWrapper:v79];
 
                             [type setVuObservationID:0];
                           }
@@ -2401,26 +2426,26 @@ LABEL_98:
                           else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                           {
                             *buf = 138412290;
-                            v121 = v76;
+                            v124 = v77;
                             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Unable to serialize faceTorsoprint - %@", buf, 0xCu);
                           }
                         }
 
                         else if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
                         {
-                          [v64 confidence];
-                          v67 = v66;
-                          [v58 description];
-                          v68 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-                          [v58 faceJunkinessIndex];
+                          [v65 confidence];
+                          v68 = v67;
+                          [v59 description];
+                          v69 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                          [v59 faceJunkinessIndex];
                           *buf = 134218754;
-                          v121 = v67;
-                          v122 = 2048;
-                          v123 = 0x3FC99999A0000000;
-                          v124 = 2112;
-                          v125 = v68;
-                          v126 = 2048;
-                          v127 = v69;
+                          v124 = v68;
+                          v125 = 2048;
+                          v126 = 0x3FC99999A0000000;
+                          v127 = 2112;
+                          v128 = v69;
+                          v129 = 2048;
+                          v130 = v70;
                           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[FaceAnalyzer] faceprint.confidence is too low (%.3f < %.3f) %@ - junkinessIndex: %.3f", buf, 0x2Au);
                         }
                       }
@@ -2428,7 +2453,7 @@ LABEL_98:
                       else if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                       {
                         *buf = 138412290;
-                        v121 = *&v58;
+                        v124 = *&v59;
                         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] No valid faceprint from observation %@", buf, 0xCu);
                       }
 
@@ -2436,8 +2461,8 @@ LABEL_98:
                     }
                   }
 
-                  v55 = [v54 countByEnumeratingWithState:&v102 objects:v117 count:16];
-                  if (v55)
+                  v56 = [v55 countByEnumeratingWithState:&v105 objects:v120 count:16];
+                  if (v56)
                   {
                     continue;
                   }
@@ -2449,9 +2474,9 @@ LABEL_98:
               if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
               {
                 [type gist];
-                v62 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+                v63 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
                 *buf = 138412290;
-                v121 = v62;
+                v124 = v63;
                 _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[FaceAnalyzer] Failed to get faceprint for face %@", buf, 0xCu);
               }
             }
@@ -2461,24 +2486,24 @@ LABEL_81:
             objc_autoreleasePoolPop(context);
           }
 
-          v50 = [obj countByEnumeratingWithState:&v106 objects:v118 count:16];
+          v51 = [obj countByEnumeratingWithState:&v109 objects:v121 count:16];
         }
 
-        while (v50);
+        while (v51);
       }
 
-      v79 = VCPSignPostLog();
-      v80 = v79;
-      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v79))
+      v81 = VCPSignPostLog(v80);
+      v82 = v81;
+      if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v81))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v80, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerFillMissingFaceprint", "", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v82, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerFillMissingFaceprint", "", buf, 2u);
       }
 
-      if (v85)
+      if (v88)
       {
-        mach_absolute_time();
-        VCPPerformance_LogMeasurement();
+        v83 = mach_absolute_time();
+        VCPPerformance_LogMeasurement("VCPFaceAnalyzerFillMissingFaceprint", v83 - v88);
       }
 
       v41 = 0;
@@ -2486,23 +2511,23 @@ LABEL_81:
 
     else
     {
-      v81 = v84;
+      v84 = v87;
       if (MediaAnalysisLogLevel() < 3 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
         v41 = -18;
         goto LABEL_94;
       }
 
-      [v84 description];
-      v82 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      [v87 description];
+      v85 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 138412290;
-      v121 = v82;
+      v124 = v85;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Faceprint VNImageRequestHandler::performRequests: %@", buf, 0xCu);
 
       v41 = -18;
     }
 
-    v81 = v84;
+    v84 = v87;
 LABEL_94:
 
     goto LABEL_95;
@@ -2516,13 +2541,13 @@ LABEL_99:
 
 - (int)analyzeFaceQuality:(id *)quality withAsset:(id)asset andCancelBlock:(id)block
 {
-  v127[2] = *MEMORY[0x1E69E9840];
+  v132[2] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   blockCopy = block;
   v6 = objc_opt_class();
   v7 = VCPMAGetRevisionForVisionModel(v6, self->_processingVersion);
   v8 = objc_opt_class();
-  if (VCPMAVNRequestSupportRevision(v8, v7) & 1) != 0 && (v88 = VCPMAGetRevisionForMediaAnalysisType(0x1000000000), v9 = objc_opt_class(), (VCPMAVNRequestSupportRevision(v9, v88)))
+  if (VCPMAVNRequestSupportRevision(v8, v7) & 1) != 0 && (v93 = VCPMAGetRevisionForMediaAnalysisType(0x1000000000), v9 = objc_opt_class(), (VCPMAVNRequestSupportRevision(v9, v93)))
   {
     if ([assetCopy vcp_quickFaceClassificationDone])
     {
@@ -2530,20 +2555,20 @@ LABEL_99:
       librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
       v11 = *MEMORY[0x1E6978D70];
-      v127[0] = *MEMORY[0x1E6978D80];
-      v127[1] = v11;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v127 count:2];
+      v132[0] = *MEMORY[0x1E6978D80];
+      v132[1] = v11;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v132 count:2];
       [librarySpecificFetchOptions setFetchPropertySets:v12];
 
-      v96 = [MEMORY[0x1E69787D0] fetchFacesInAsset:assetCopy options:librarySpecificFetchOptions];
-      if ([v96 count])
+      v101 = [MEMORY[0x1E69787D0] fetchFacesInAsset:assetCopy options:librarySpecificFetchOptions];
+      if ([v101 count])
       {
         dictionary = [MEMORY[0x1E695DF90] dictionary];
         v13 = 0;
         v14 = MEMORY[0x1E69E9C10];
-        while (v13 < [v96 count])
+        while (v13 < [v101 count])
         {
-          v15 = [v96 objectAtIndexedSubscript:v13];
+          v15 = [v101 objectAtIndexedSubscript:v13];
           [v15 centerX];
           v17 = v16;
           [v15 centerY];
@@ -2562,19 +2587,19 @@ LABEL_99:
             v32 = v31;
             [v15 size];
             *buf = 134219520;
-            v112 = v30;
-            v113 = 2048;
-            v114 = v32;
-            v115 = 2048;
-            v116 = v33;
-            v117 = 2048;
-            v118 = v22;
-            v119 = 2048;
-            v120 = v24;
-            v121 = 2048;
-            v122 = v26;
-            v123 = 2048;
-            v124 = v28;
+            v117 = v30;
+            v118 = 2048;
+            v119 = v32;
+            v120 = 2048;
+            v121 = v33;
+            v122 = 2048;
+            v123 = v22;
+            v124 = 2048;
+            v125 = v24;
+            v126 = 2048;
+            v127 = v26;
+            v128 = 2048;
+            v129 = v28;
             _os_log_impl(&dword_1C9B70000, v14, OS_LOG_TYPE_DEBUG, "[FaceAnalyzer] face (center-x:%.2f, center-y:%.2f, size:%.2f) -> boundingBox (x:%.2f, y:%.2f, width:%.2f, height:%.2f)", buf, 0x48u);
           }
 
@@ -2594,17 +2619,17 @@ LABEL_99:
           {
             v39 = [dictionary count];
             *buf = 134217984;
-            v112 = v39;
+            v117 = v39;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[FaceAnalyzer] Analyzing %lu face observations for face quality", buf, 0xCu);
           }
 
-          v85 = [VCPFaceUtils resourceForFaceProcessingWithAsset:assetCopy allowStreaming:0];
-          privateFileURL = [v85 privateFileURL];
-          if (v85 && ([MEMORY[0x1E696AC08] defaultManager], v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(privateFileURL, "path"), v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v40, "fileExistsAtPath:", v41), v41, v40, (v42 & 1) != 0))
+          v90 = [VCPFaceUtils resourceForFaceProcessingWithAsset:assetCopy allowStreaming:0];
+          privateFileURL = [v90 privateFileURL];
+          if (v90 && ([MEMORY[0x1E696AC08] defaultManager], v40 = objc_claimAutoreleasedReturnValue(), objc_msgSend(privateFileURL, "path"), v41 = objc_claimAutoreleasedReturnValue(), v42 = objc_msgSend(v40, "fileExistsAtPath:", v41), v41, v40, (v42 & 1) != 0))
           {
-            v103 = 0;
-            v36 = [(VCPFaceAnalyzer *)self _loadImageRequestHandler:&v103 orientation:0 bufferWidth:0 bufferHeight:0 withResource:v85 resourceURL:privateFileURL andAsset:assetCopy];
-            v43 = v103;
+            v108 = 0;
+            v36 = [(VCPFaceAnalyzer *)self _loadImageRequestHandler:&v108 orientation:0 bufferWidth:0 bufferHeight:0 withResource:v90 resourceURL:privateFileURL andAsset:assetCopy];
+            v43 = v108;
             if (v36)
             {
               if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
@@ -2621,102 +2646,108 @@ LABEL_99:
 
             else
             {
-              v82 = v43;
-              v79 = mach_absolute_time();
-              v48 = VCPSignPostLog();
+              v87 = v43;
+              v84 = mach_absolute_time();
+              v48 = VCPSignPostLog(v84);
               spid = os_signpost_id_generate(v48);
 
-              v49 = VCPSignPostLog();
-              v50 = v49;
-              if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
+              v50 = VCPSignPostLog(v49);
+              v51 = v50;
+              if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
               {
                 *buf = 0;
-                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v50, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPFaceAnalyzerFaceQuality", "", buf, 2u);
+                _os_signpost_emit_with_name_impl(&dword_1C9B70000, v51, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPFaceAnalyzerFaceQuality", "", buf, 2u);
               }
 
-              v51 = objc_alloc_init(MEMORY[0x1E69844B0]);
-              v102 = 0;
-              v81 = v51;
-              v52 = [v51 setRevision:v88 error:&v102];
-              v53 = v102;
-              if (v52)
+              v52 = objc_alloc_init(MEMORY[0x1E69844B0]);
+              v107 = 0;
+              v86 = v52;
+              v53 = [v52 setRevision:v93 error:&v107];
+              v54 = v107;
+              if (v53)
               {
-                [v51 setMetalContextPriority:1];
-                [v51 setPreferBackgroundProcessing:1];
-                if (DeviceHasANE())
+                [v52 setMetalContextPriority:1];
+                v55 = [v52 setPreferBackgroundProcessing:1];
+                if (DeviceHasANE(v55, v56))
                 {
                   defaultANEDevice = [MEMORY[0x1E6984608] defaultANEDevice];
-                  [v51 setProcessingDevice:defaultANEDevice];
+                  [v52 setProcessingDevice:defaultANEDevice];
                 }
 
                 allValues = [dictionary allValues];
-                [v51 setInputFaceObservations:allValues];
+                [v52 setInputFaceObservations:allValues];
 
-                v108 = v51;
-                v56 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v108 count:1];
-                v101 = v53;
-                v57 = [v82 performRequests:v56 error:&v101];
-                v78 = v101;
+                v113 = v52;
+                v59 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v113 count:1];
+                v106 = v54;
+                v60 = [v87 performRequests:v59 error:&v106];
+                v83 = v106;
 
-                if (v57)
+                if (v60)
                 {
                   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-                  results = [v81 results];
-                  for (i = 0; i < [v96 count]; ++i)
+                  results = [v86 results];
+                  for (i = 0; ; ++i)
                   {
-                    v58 = objc_autoreleasePoolPush();
-                    v89 = [v96 objectAtIndexedSubscript:i];
-                    localIdentifier2 = [v89 localIdentifier];
-                    v60 = [dictionary objectForKeyedSubscript:localIdentifier2];
-
-                    if (v60)
+                    v61 = [v101 count];
+                    if (i >= v61)
                     {
-                      v99 = 0u;
-                      v100 = 0u;
-                      v97 = 0u;
-                      v98 = 0u;
-                      v61 = results;
-                      v62 = [v61 countByEnumeratingWithState:&v97 objects:v107 count:16];
-                      if (v62)
+                      break;
+                    }
+
+                    v62 = objc_autoreleasePoolPush();
+                    v94 = [v101 objectAtIndexedSubscript:i];
+                    localIdentifier2 = [v94 localIdentifier];
+                    v64 = [dictionary objectForKeyedSubscript:localIdentifier2];
+
+                    if (v64)
+                    {
+                      v104 = 0u;
+                      v105 = 0u;
+                      v102 = 0u;
+                      v103 = 0u;
+                      v65 = results;
+                      v66 = [v65 countByEnumeratingWithState:&v102 objects:v112 count:16];
+                      if (v66)
                       {
-                        v63 = *v98;
+                        v67 = *v103;
                         while (2)
                         {
-                          for (j = 0; j != v62; ++j)
+                          for (j = 0; j != v66; ++j)
                           {
-                            if (*v98 != v63)
+                            if (*v103 != v67)
                             {
-                              objc_enumerationMutation(v61);
+                              objc_enumerationMutation(v65);
                             }
 
-                            v65 = *(*(&v97 + 1) + 8 * j);
-                            uuid = [v60 uuid];
-                            uuid2 = [v65 uuid];
-                            v68 = [uuid isEqual:uuid2];
+                            v69 = *(*(&v102 + 1) + 8 * j);
+                            uuid = [v64 uuid];
+                            uuid2 = [v69 uuid];
+                            v72 = [uuid isEqual:uuid2];
 
-                            if (v68)
+                            if (v72)
                             {
-                              faceCaptureQuality = [v65 faceCaptureQuality];
-                              v70 = faceCaptureQuality == 0;
+                              faceCaptureQuality = [v69 faceCaptureQuality];
+                              v74 = faceCaptureQuality == 0;
 
-                              if (v70)
+                              if (v74)
                               {
                                 if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                                 {
                                   localIdentifier3 = [assetCopy localIdentifier];
-                                  localIdentifier4 = [v89 localIdentifier];
+                                  localIdentifier4 = [v94 localIdentifier];
                                   *buf = 138412546;
-                                  v112 = localIdentifier3;
-                                  v113 = 2112;
-                                  v114 = localIdentifier4;
+                                  v117 = localIdentifier3;
+                                  v118 = 2112;
+                                  v119 = localIdentifier4;
                                   _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][%@][%@] No valid Face Quality score; skipping", buf, 0x16u);
                                 }
                               }
 
                               else
                               {
-                                faceCaptureQuality2 = [v65 faceCaptureQuality];
-                                localIdentifier5 = [v89 localIdentifier];
+                                faceCaptureQuality2 = [v69 faceCaptureQuality];
+                                localIdentifier5 = [v94 localIdentifier];
                                 [dictionary2 setObject:faceCaptureQuality2 forKeyedSubscript:localIdentifier5];
                               }
 
@@ -2724,8 +2755,8 @@ LABEL_99:
                             }
                           }
 
-                          v62 = [v61 countByEnumeratingWithState:&v97 objects:v107 count:16];
-                          if (v62)
+                          v66 = [v65 countByEnumeratingWithState:&v102 objects:v112 count:16];
+                          if (v66)
                           {
                             continue;
                           }
@@ -2737,46 +2768,46 @@ LABEL_99:
 LABEL_68:
                     }
 
-                    objc_autoreleasePoolPop(v58);
+                    objc_autoreleasePoolPop(v62);
                   }
 
-                  v75 = VCPSignPostLog();
-                  v76 = v75;
-                  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v75))
+                  v79 = VCPSignPostLog(v61);
+                  v80 = v79;
+                  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v79))
                   {
                     *buf = 0;
-                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v76, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerFaceQuality", "", buf, 2u);
+                    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v80, OS_SIGNPOST_INTERVAL_END, spid, "VCPFaceAnalyzerFaceQuality", "", buf, 2u);
                   }
 
-                  if (v79)
+                  if (v84)
                   {
-                    mach_absolute_time();
-                    VCPPerformance_LogMeasurement();
+                    v81 = mach_absolute_time();
+                    VCPPerformance_LogMeasurement("VCPFaceAnalyzerFaceQuality", v81 - v84);
                   }
 
-                  v104 = dictionary2;
-                  v105 = @"FaceQualityResults";
-                  v77 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v104 count:1];
-                  v106 = v77;
-                  *quality = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+                  v109 = dictionary2;
+                  v110 = @"FaceQualityResults";
+                  v82 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v109 count:1];
+                  v111 = v82;
+                  *quality = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
 
                   v36 = 0;
-                  v53 = v78;
-                  v51 = v81;
+                  v54 = v83;
+                  v52 = v86;
                 }
 
                 else
                 {
-                  v51 = v81;
+                  v52 = v86;
                   if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v112 = v78;
+                    v117 = v83;
                     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Failed to perform Face Quality request - %@", buf, 0xCu);
                   }
 
                   v36 = -18;
-                  v53 = v78;
+                  v54 = v83;
                 }
               }
 
@@ -2785,16 +2816,16 @@ LABEL_68:
                 if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 134218242;
-                  v112 = v88;
-                  v113 = 2112;
-                  v114 = v53;
+                  v117 = v93;
+                  v118 = 2112;
+                  v119 = v54;
                   _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer] Failed to set Face Quality revision (%lu) - %@", buf, 0x16u);
                 }
 
                 v36 = -18;
               }
 
-              v43 = v82;
+              v43 = v87;
             }
           }
 
@@ -2804,9 +2835,9 @@ LABEL_68:
             {
               localIdentifier6 = [assetCopy localIdentifier];
               *buf = 138412546;
-              v112 = localIdentifier6;
-              v113 = 2112;
-              v114 = v85;
+              v117 = localIdentifier6;
+              v118 = 2112;
+              v119 = v90;
               _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[FaceAnalyzer][%@] Missing local resource %@", buf, 0x16u);
             }
 
@@ -2819,17 +2850,17 @@ LABEL_68:
           if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
           {
             localIdentifier7 = [assetCopy localIdentifier];
-            v47 = [v96 count];
+            v47 = [v101 count];
             *buf = 138412546;
-            v112 = localIdentifier7;
-            v113 = 2048;
-            v114 = v47;
+            v117 = localIdentifier7;
+            v118 = 2048;
+            v119 = v47;
             _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[FaceAnalyzer][%@] No valid face observations from %lu faces; skip face quality analysis", buf, 0x16u);
           }
 
-          v109 = @"FaceQualityResults";
-          v110 = MEMORY[0x1E695E0F0];
-          [MEMORY[0x1E695DF20] dictionaryWithObjects:&v110 forKeys:&v109 count:1];
+          v114 = @"FaceQualityResults";
+          v115 = MEMORY[0x1E695E0F0];
+          [MEMORY[0x1E695DF20] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
           *quality = v36 = 0;
         }
       }
@@ -2840,13 +2871,13 @@ LABEL_68:
         {
           localIdentifier8 = [assetCopy localIdentifier];
           *buf = 138412290;
-          v112 = localIdentifier8;
+          v117 = localIdentifier8;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[FaceAnalyzer][%@] No face detected; skip face quality analysis", buf, 0xCu);
         }
 
-        v125 = @"FaceQualityResults";
-        v126 = MEMORY[0x1E695E0F0];
-        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v126 forKeys:&v125 count:1];
+        v130 = @"FaceQualityResults";
+        v131 = MEMORY[0x1E695E0F0];
+        [MEMORY[0x1E695DF20] dictionaryWithObjects:&v131 forKeys:&v130 count:1];
         *quality = v36 = 0;
       }
     }
@@ -2857,7 +2888,7 @@ LABEL_68:
       {
         localIdentifier9 = [assetCopy localIdentifier];
         *buf = 138412290;
-        v112 = localIdentifier9;
+        v117 = localIdentifier9;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[FaceAnalyzer][%@] No face detected; skip face quality analysis", buf, 0xCu);
       }
 

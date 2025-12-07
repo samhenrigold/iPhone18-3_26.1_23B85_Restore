@@ -1,7 +1,9 @@
 @interface CRSearchMatcher
 - (BOOL)matches:(id)matches;
+- (BOOL)matches:(id)matches matchType:(int)type;
 - (BOOL)matchesASCIIString:(const char *)string matchType:(int)type;
 - (BOOL)matchesUTF8String:(const char *)string matchType:(int)type;
+- (CRSearchMatcher)initWithSearchString:(id)string andLocale:(id)locale andOptions:(int)options;
 - (void)dealloc;
 @end
 
@@ -202,14 +204,102 @@ LABEL_19:
   return [(CRSearchMatcher *)self matchesUTF8String:uTF8String];
 }
 
+- (BOOL)matches:(id)matches matchType:(int)type
+{
+  v4 = *&type;
+  uTF8String = [matches UTF8String];
+
+  return [(CRSearchMatcher *)self matchesUTF8String:uTF8String matchType:v4];
+}
+
+- (CRSearchMatcher)initWithSearchString:(id)string andLocale:(id)locale andOptions:(int)options
+{
+  v27.receiver = self;
+  v27.super_class = CRSearchMatcher;
+  v8 = [(CRSearchMatcher *)&v27 init];
+  v9 = v8;
+  if (v8)
+  {
+    v8->_options = options;
+    v8->_components = objc_alloc_init(NSMutableArray);
+    uTF8String = [string UTF8String];
+    if ((options & 4) == 0)
+    {
+      v11 = uTF8String;
+      if (uTF8String)
+      {
+        v12 = uTF8String;
+        while (1)
+        {
+          v13 = *v12;
+          if (v13 < 0)
+          {
+            break;
+          }
+
+          ++v12;
+          if (!v13)
+          {
+            v9->_asciiComponents = objc_alloc_init(NSMutableArray);
+            v26[0] = _NSConcreteStackBlock;
+            v26[1] = 3221225472;
+            v26[2] = sub_100017388;
+            v26[3] = &unk_10002D588;
+            v26[4] = v9;
+            sub_100016C48(v11, v26);
+            break;
+          }
+        }
+      }
+    }
+
+    v9->_wholeSearchStringData = [string dataUsingEncoding:4];
+    v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v14 = [string componentsSeparatedByCharactersInSet:{+[NSCharacterSet whitespaceCharacterSet](NSCharacterSet, "whitespaceCharacterSet", 0)}];
+    v15 = [v14 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    if (v15)
+    {
+      v16 = v15;
+      v17 = *v23;
+      do
+      {
+        for (i = 0; i != v16; i = i + 1)
+        {
+          if (*v23 != v17)
+          {
+            objc_enumerationMutation(v14);
+          }
+
+          v19 = *(*(&v22 + 1) + 8 * i);
+          if ([v19 length])
+          {
+            -[NSArray addObject:](v9->_components, "addObject:", [v19 dataUsingEncoding:4]);
+          }
+        }
+
+        v16 = [v14 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      }
+
+      while (v16);
+    }
+
+    v20 = sub_100018070([locale UTF8String], options);
+    v9->_context = [[NSData alloc] initWithBytesNoCopy:v20 length:malloc_size(v20) freeWhenDone:0];
+  }
+
+  return v9;
+}
+
 - (void)dealloc
 {
-  bytes = [(NSData *)self->_context bytes];
-  sub_100018074(bytes, v4);
+  sub_100018074([(NSData *)self->_context bytes]);
 
-  v5.receiver = self;
-  v5.super_class = CRSearchMatcher;
-  [(CRSearchMatcher *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = CRSearchMatcher;
+  [(CRSearchMatcher *)&v3 dealloc];
 }
 
 @end

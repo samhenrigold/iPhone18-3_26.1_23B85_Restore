@@ -1,86 +1,3 @@
-void sub_1000DCED0(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = a2;
-  v6 = [v3 createMigrationReporterWithPairingID:v4];
-  [v6 migrationWillBeginOnCompanionForPairingID:*(a1 + 40) withDeviceHistory:v5];
-}
-
-void sub_1000DD0D4(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 32);
-  v4 = a2;
-  [NRCoreAnalyticsReporter reportMigrationWithDeviceHistory:v4 andError:v3];
-  [*(a1 + 40) finishMigrationMetricWithDeviceHistory:v4 success:objc_msgSend(*(a1 + 48) error:{"didFail") ^ 1, *(a1 + 32)}];
-}
-
-void sub_1000DD458(uint64_t a1, void *a2)
-{
-  v2 = *(a1 + 32);
-  v3 = [a2 activeDeviceID];
-  (*(v2 + 16))(v2, v3);
-}
-
-void sub_1000DD61C(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = 0;
-    v10 = *v21;
-    do
-    {
-      for (i = 0; i != v8; i = i + 1)
-      {
-        if (*v21 != v10)
-        {
-          objc_enumerationMutation(v5);
-        }
-
-        v12 = *(*(&v20 + 1) + 8 * i);
-        v13 = [v5 objectForKeyedSubscript:v12];
-        if ([v13 migratable] && (objc_msgSend(v13, "isAltAccount") & 1) == 0)
-        {
-          if (!v9)
-          {
-            v9 = +[NSMutableArray array];
-          }
-
-          [v9 addObject:v12];
-        }
-      }
-
-      v8 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    }
-
-    while (v8);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v14 = [*(a1 + 32) queue];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1000DD810;
-  v17[3] = &unk_100175688;
-  v15 = *(a1 + 40);
-  v18 = v9;
-  v19 = v15;
-  v16 = v9;
-  dispatch_async(v14, v17);
-}
-
 void sub_1000DDBB0(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
@@ -795,8 +712,9 @@ uint64_t sub_1000DF61C(uint64_t a1)
   return v9;
 }
 
-void sub_1000DF814(IOPMAssertionID a1)
+void sub_1000DF814(uint64_t a1)
 {
+  v1 = a1;
   v2 = nr_daemon_log();
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
@@ -806,14 +724,14 @@ void sub_1000DF814(IOPMAssertionID a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5[0] = 67109120;
-      v5[1] = a1;
+      v5[1] = v1;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Releasing power assertion: (%u)", v5, 8u);
     }
   }
 
-  if (a1)
+  if (v1)
   {
-    IOPMAssertionRelease(a1);
+    IOPMAssertionRelease(v1);
   }
 }
 
@@ -848,42 +766,41 @@ uint64_t sub_1000E01E4(__CFReadStream *a1, __CFWriteStream *a2, uint64_t a3)
 {
   v6 = malloc_type_malloc(0x4000uLL, 0x9FB12F54uLL);
   v7 = ccaes_ctr_crypt_mode();
-  v8 = (*v7 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v9 = __chkstk_darwin();
-  v11 = &v19 - v10;
-  (*(v9 + 24))(v9, &v19 - v10, 32, a3, &unk_1001268D8);
-  v12 = CFReadStreamRead(a1, v6, 0x4000);
-  if (v12 < 1)
+  v8 = __chkstk_darwin();
+  v10 = &v18 - v9;
+  (*(v8 + 24))(v8, &v18 - v9, 32, a3, &unk_1001268D8);
+  v11 = CFReadStreamRead(a1, v6, 0x4000);
+  if (v11 < 1)
   {
 LABEL_8:
-    v17 = 0;
+    v16 = 0;
     if (!v6)
     {
-      return v17;
+      return v16;
     }
   }
 
   else
   {
-    v13 = v12;
+    v12 = v11;
 LABEL_3:
-    (*(v7 + 40))(v11, v13, v6, v6);
-    v14 = v6;
+    (*(v7 + 40))(v10, v12, v6, v6);
+    v13 = v6;
     while (1)
     {
-      v15 = CFWriteStreamWrite(a2, v14, v13);
-      if (!v15)
+      v14 = CFWriteStreamWrite(a2, v13, v12);
+      if (!v14)
       {
         break;
       }
 
-      v14 += v15;
-      v16 = v13 <= v15;
-      v13 -= v15;
-      if (v16)
+      v13 += v14;
+      v15 = v12 <= v14;
+      v12 -= v14;
+      if (v15)
       {
-        v13 = CFReadStreamRead(a1, v6, 0x4000);
-        if (v13 > 0)
+        v12 = CFReadStreamRead(a1, v6, 0x4000);
+        if (v12 > 0)
         {
           goto LABEL_3;
         }
@@ -892,15 +809,15 @@ LABEL_3:
       }
     }
 
-    v17 = 4294967260;
+    v16 = 4294967260;
     if (!v6)
     {
-      return v17;
+      return v16;
     }
   }
 
   free(v6);
-  return v17;
+  return v16;
 }
 
 id sub_1000E0708(uint64_t a1)
@@ -1159,9 +1076,9 @@ id sub_1000E5280()
   return v1;
 }
 
-void sub_1000E5348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000E5348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1278,7 +1195,7 @@ Class sub_1000E57DC(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1298,7 +1215,6 @@ LABEL_4:
 
 uint64_t sub_1000E5920(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1001B3B50 = result;
   return result;
@@ -1692,16 +1608,16 @@ void sub_1000E8220(uint64_t a1)
   [v2 transactionDidComplete:*(a1 + 32)];
 }
 
-id sub_1000E82B4()
+id sub_1000E82B4(uint64_t a1)
 {
   if (qword_1001B3B60 != -1)
   {
     sub_100105CE4();
   }
 
-  v1 = qword_1001B3B58;
+  v2 = qword_1001B3B58;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000E82F8(id a1)
@@ -1731,14 +1647,13 @@ void sub_1000E9264(uint64_t a1)
     {
       v5 = [*(a1 + 32) UUIDString];
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Calling IDSLocalPairingForgetPairedDevice %@", buf, 0xCu);
     }
   }
 
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v9 = *(a1 + 48);
   v6 = [*(a1 + 40) queue];
   IDSLocalPairingForgetPairedDevice();
 }
@@ -1963,9 +1878,9 @@ id sub_1000EBB64(uint64_t a1)
   return [v4 setState:0];
 }
 
-void sub_1000EC2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000EC2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1976,9 +1891,9 @@ void sub_1000EC2F8(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = v2 != 0;
 }
 
-void sub_1000EC7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000EC7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2011,43 +1926,44 @@ void sub_1000ED02C(uint64_t a1, void *a2)
   if ([*(a1 + 32) state] == 1)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 56));
+    v5 = WeakRetained;
     if (v3)
     {
-      v5 = sub_1000034AC();
-      v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+      v6 = sub_1000034AC(WeakRetained);
+      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
 
-      if (v6)
+      if (v7)
       {
-        v7 = sub_1000034AC();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v9 = sub_1000034AC(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           sub_100105F24();
         }
       }
 
-      [WeakRetained failWithError:v3];
+      [v5 failWithError:v3];
     }
 
     else
     {
-      v8 = sub_100105958(*(a1 + 48));
-      [*(a1 + 40) setOobKey:v8];
+      v10 = sub_100105958(*(a1 + 48));
+      [*(a1 + 40) setOobKey:v10];
 
-      v9 = [*(a1 + 40) device];
-      [v9 setEnableOOBPairing:1];
+      v11 = [*(a1 + 40) device];
+      [v11 setEnableOOBPairing:1];
 
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000ED1CC;
       block[3] = &unk_100175660;
-      v10 = WeakRetained;
-      v14 = v10;
+      v12 = v5;
+      v16 = v12;
       dispatch_sync(&_dispatch_main_q, block);
-      [v10 update];
-      v11 = [*(a1 + 40) device];
-      v12 = [v11 newPairerWithDelegate:*(a1 + 32)];
+      [v12 update];
+      v13 = [*(a1 + 40) device];
+      v14 = [v13 newPairerWithDelegate:*(a1 + 32)];
 
-      [*(a1 + 40) setPairer:v12];
+      [*(a1 + 40) setPairer:v14];
     }
   }
 }
@@ -2061,9 +1977,9 @@ void sub_1000ED1CC(uint64_t a1)
   [*(a1 + 32) setPairingTimer:v3];
 }
 
-void sub_1000ED9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1000ED9C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2102,6 +2018,13 @@ uint64_t sub_1000EEA68(uint64_t result, uint64_t a2)
   return result;
 }
 
+void sub_1000F001C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_1000F0060(void *a1, void *a2)
 {
   v5 = a2;
@@ -2116,16 +2039,16 @@ void sub_1000F0060(void *a1, void *a2)
 
 void sub_1000F00F0(uint64_t a1)
 {
-  v2 = sub_1000A98C0();
+  v2 = sub_1000A98C0(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = sub_1000A98C0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_1000A98C0(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Missed BT timer fired, resetting stashed variables", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Missed BT timer fired, resetting stashed variables", v7, 2u);
     }
   }
 
@@ -2524,11 +2447,12 @@ void sub_1000F33D8(uint64_t a1)
   [v2 remoteObject:v3 receivedCheckTermsEvent:v5 fromIDSBTUUID:v6 responseBlock:v7];
 }
 
-void sub_1000F34D4(uint64_t a1, char a2, void *a3)
+void sub_1000F34D4(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v12 = a3;
   v5 = objc_opt_new();
-  sub_100101924(v5, a2);
+  sub_100101924(v5, v3);
   if (v12)
   {
     v6 = objc_opt_new();
@@ -2826,9 +2750,9 @@ void sub_1000F47E4(uint64_t a1)
   dispatch_sync(v3, block);
 }
 
-void sub_1000F4A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000F4A3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2849,23 +2773,21 @@ void sub_1000F4A58(uint64_t a1)
   }
 }
 
-uint64_t sub_1000F4B98(uint64_t result)
+void sub_1000F4B98(uint64_t result)
 {
   *(*(result + 32) + 56) = 0;
   v1 = *(result + 32);
   if (*(v1 + 57) == 1)
   {
     *(v1 + 57) = 0;
-    return sub_1001063DC(*(result + 32));
+    sub_1001063DC(*(result + 32));
   }
-
-  return result;
 }
 
 void sub_1000F4BC0(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (*(v2 + 59) != 1 || *(v2 + 58) != *(a1 + 40))
+  if (__PAIR64__(*(v2 + 59), *(v2 + 58)) != (*(a1 + 40) | 0x100000000))
   {
     *(v2 + 59) = 1;
     v3 = *(a1 + 40);
@@ -3733,18 +3655,18 @@ void sub_1000FBB8C(uint64_t a1)
   v5 = [v4 errors];
   v6 = [v5 count];
 
-  v7 = sub_1000034AC();
-  v8 = v7;
+  v8 = sub_1000034AC(v7);
+  v9 = v8;
   if (v6)
   {
-    v9 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    v10 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
-    if (v9)
+    if (v10)
     {
-      v10 = sub_1000034AC();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = sub_1000034AC(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_100106958(v2, v10);
+        sub_100106958(v2, v12);
       }
     }
 
@@ -3753,64 +3675,65 @@ void sub_1000FBB8C(uint64_t a1)
 
   else
   {
-    v11 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v13 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v13)
     {
-      v12 = sub_1000034AC();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_1000034AC(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *(*v2 + 3);
-        v14 = [*v2 currentEntry];
-        v15 = [v14 shortDescription];
-        v23 = 138543618;
-        v24 = v13;
-        v25 = 2114;
-        v26 = v15;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Transaction %{public}@ finished", &v23, 0x16u);
+        v16 = *(*v2 + 3);
+        v17 = [*v2 currentEntry];
+        v18 = [v17 shortDescription];
+        v28 = 138543618;
+        v29 = v16;
+        v30 = 2114;
+        v31 = v18;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Transaction %{public}@ finished", &v28, 0x16u);
       }
     }
   }
 
-  v16 = [*v2 currentEntry];
+  v19 = [*v2 currentEntry];
   if ([*v2 didFail] && (objc_msgSend(*v2, "notUnrollable") & 1) == 0)
   {
     WeakRetained = objc_loadWeakRetained(*v2 + 4);
-    [WeakRetained routingSlip:*v2 entryDidCompleteRollback:v16];
+    [WeakRetained routingSlip:*v2 entryDidCompleteRollback:v19];
   }
 
   else
   {
     WeakRetained = objc_loadWeakRetained(*v2 + 4);
-    [WeakRetained routingSlip:*v2 entryDidCompleteTransaction:v16];
+    [WeakRetained routingSlip:*v2 entryDidCompleteTransaction:v19];
   }
 
-  if ([*v2 updateCurrentTransactionIndex])
+  v21 = [*v2 updateCurrentTransactionIndex];
+  if (v21)
   {
     [*v2 resume];
   }
 
   else
   {
-    v18 = sub_1000034AC();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v22 = sub_1000034AC(v21);
+    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
 
-    if (v19)
+    if (v23)
     {
-      v20 = sub_1000034AC();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_1000034AC(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = *(*v2 + 3);
-        v23 = 138543362;
-        v24 = v21;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Saga completed", &v23, 0xCu);
+        v26 = *(*v2 + 3);
+        v28 = 138543362;
+        v29 = v26;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "EPRoutingSlip[%{public}@]: Saga completed", &v28, 0xCu);
       }
     }
 
     [*v2 printDescription];
     [*v2 setState:2];
     [*v2 persist];
-    v22 = *(*v2 + 13);
+    v27 = *(*v2 + 13);
     *(*v2 + 13) = 0;
   }
 }
@@ -3818,30 +3741,30 @@ void sub_1000FBB8C(uint64_t a1)
 void sub_1000FC00C(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = a2;
-  v6 = sub_1000034AC();
+  v6 = sub_1000034AC(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = sub_1000034AC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_1000034AC(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
-      v10 = " ";
-      if (v9[5] == a3 && v9[6] == 1)
+      v10 = *(a1 + 32);
+      v11 = " ";
+      if (v10[5] == a3 && v10[6] == 1)
       {
-        v10 = "*";
+        v11 = "*";
       }
 
-      v11 = v9[3];
-      v12 = [v5 shortDescription];
-      v13 = 136315650;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v12;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "(entries) [%s] EPRoutingSlip[%{public}@] %{public}@", &v13, 0x20u);
+      v12 = v10[3];
+      v13 = [v5 shortDescription];
+      v14 = 136315650;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v13;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "(entries) [%s] EPRoutingSlip[%{public}@] %{public}@", &v14, 0x20u);
     }
   }
 }
@@ -4014,6 +3937,13 @@ void sub_1000FD710(char a1, void *a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "EPMigrationKeyPusher: Can't send the key- hasKey=%s hasChannel=%s channelConnected=%s", &v11, 0x20u);
 }
 
+void sub_1000FD870(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000770C(&_mh_execute_header, a2, a3, "Error %@ forcing secure backup", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_1000FD8DC(uint64_t a1, void *a2)
 {
   if (a1)
@@ -4034,20 +3964,6 @@ void sub_1000FD9B0(uint64_t a1, NSObject *a2)
   v2 = 138412290;
   v3 = a1;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "HKHealthStore waitForLastChanceSyncWithDevicePairingID failed with %@", &v2, 0xCu);
-}
-
-void sub_1000FDA78(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_10001BA88();
-  sub_10001BAA0(&_mh_execute_header, v2, v3, "IDSLocalPairingAddPairedDeviceWithInfo %@ failed with error %@");
-}
-
-void sub_1000FDAE4(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_10001BA88();
-  sub_10001BAA0(&_mh_execute_header, v2, v3, "IDSLocalPairingConnectPairedDevice %@ failed with %@");
 }
 
 void sub_1000FDB50(uint64_t a1)
@@ -4220,7 +4136,7 @@ id sub_1000FE040(id result)
   return result;
 }
 
-uint64_t sub_1000FE09C(int *a1)
+id sub_1000FE09C(int *a1)
 {
   v2 = sub_1000FDFA0(a1);
   if (!sub_10002019C(a1) || (result = sub_100020298(a1), result != v2))
@@ -4342,7 +4258,7 @@ void sub_1000FE64C(void *a1)
   v6 = [a1 chipIDOfActiveDevice];
   [v5 minQuickSwitchPairingCompatibilityVersionForChipID:v6];
   sub_10004EADC();
-  sub_10004EB7C(&_mh_execute_header, v7, v8, "Revlock feature flag is not enabled; compatibility versions have been changed. min: %lld->%lld  max: %lld->%lld  qsMin: %lld->%lld", v9, v10, v11, v12, v13);
+  sub_10004EB7C(&_mh_execute_header, v7, v8, "Revlock feature flag is not enabled; compatibility versions have been changed. min: %lld->%lld  max: %lld->%lld  qsMin: %lld->%lld", v9, v10, v11, v12);
 }
 
 void sub_1000FE768(void *a1)
@@ -4356,7 +4272,7 @@ void sub_1000FE768(void *a1)
   v6 = [a1 chipIDOfActiveDevice];
   [v5 minQuickSwitchPairingCompatibilityVersionForChipID:v6];
   sub_10004EADC();
-  sub_10004EB7C(&_mh_execute_header, v7, v8, "Local compatibility versions have been overridden via defaults at com.apple.NanoRegistry. min: %lld->%lld  max: %lld->%lld  qsMin: %lld->%lld", v9, v10, v11, v12, v13);
+  sub_10004EB7C(&_mh_execute_header, v7, v8, "Local compatibility versions have been overridden via defaults at com.apple.NanoRegistry. min: %lld->%lld  max: %lld->%lld  qsMin: %lld->%lld", v9, v10, v11, v12);
 }
 
 void sub_1000FE93C()
@@ -4444,11 +4360,10 @@ void sub_1000FEF28(void *a1)
 
 void sub_1000FEFD0(uint64_t a1)
 {
-  v2 = [*(a1 + 32) UUIDString];
-  v3 = *(a1 + 40);
+  v1 = [*(a1 + 32) UUIDString];
   sub_100007728();
   sub_10000D380();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_1000FF07C()
@@ -4465,25 +4380,11 @@ void sub_1000FF0B8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000FF128(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_10004EAD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_1000FF1A0()
 {
   sub_100007728();
   sub_10004EAD0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-void sub_1000FF210(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_10004EAD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_1000FF288()
@@ -4510,13 +4411,12 @@ void sub_1000FF380(id *a1)
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void sub_1000FF410(uint64_t a1, uint64_t a2)
+void sub_1000FF410(uint64_t a1)
 {
-  v3 = nrGetReportStringForErrorCode();
-  v4 = *(a2 + 64);
+  v1 = nrGetReportStringForErrorCode();
   sub_100007728();
   sub_10000D380();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void sub_1000FF4B8()
@@ -4532,13 +4432,6 @@ void sub_1000FF4F4(id *a1)
   sub_100007728();
   sub_10000D380();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-}
-
-void sub_1000FF654(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10004EAD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 void sub_1000FF6CC(void *a1, uint64_t a2, NSObject *a3)
@@ -4562,13 +4455,6 @@ void sub_1000FFB00(void *a1, NSObject *a2)
   v5 = 138543362;
   v6 = v3;
   sub_10005157C(&_mh_execute_header, a2, v4, "Authentication method is not server trust, it is %{public}@", &v5);
-}
-
-void sub_1000FFBF8(uint64_t a1)
-{
-  v6 = *(a1 + 32);
-  sub_10004EAD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
 uint64_t sub_1000FFDC0(uint64_t a1, void *a2)
@@ -4691,20 +4577,18 @@ void sub_100100080(uint64_t a1, NSObject *a2)
 
 void sub_100100188(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [a2 nr_safeDescription];
+  v2 = [a2 nr_safeDescription];
   sub_100059F08();
   sub_10000D380();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void sub_100100224(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [a2 nr_safeDescription];
+  v2 = [a2 nr_safeDescription];
   sub_100059F08();
   sub_10000D380();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void sub_1001002F4(void *a1)
@@ -4790,19 +4674,18 @@ void sub_1001007F8(uint64_t a1, NSObject *a2)
 
 void sub_100100870(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v6 = *(a1 + 64);
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v9 = *(a1 + 64);
-  v10 = 138413058;
-  v11 = a1;
-  v12 = 2112;
-  v13 = v8;
-  v14 = 2048;
-  v15 = v9;
-  v16 = 2112;
-  v17 = a2;
-  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "Calling pairer:completedWithError: with pairer %@ on %@[%p] with error %@", &v10, 0x2Au);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v8 = *(a1 + 64);
+  v9 = 138413058;
+  v10 = a1;
+  v11 = 2112;
+  v12 = v7;
+  v13 = 2048;
+  v14 = v8;
+  v15 = 2112;
+  v16 = a2;
+  _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "Calling pairer:completedWithError: with pairer %@ on %@[%p] with error %@", &v9, 0x2Au);
 }
 
 uint64_t sub_100100944(uint64_t result, char a2)
@@ -5335,13 +5218,17 @@ uint64_t sub_100101984(uint64_t result)
 void sub_100101998(void *a1)
 {
   v1 = [a1 detailedError];
-  sub_100094298(&_mh_execute_header, v2, v3, "Pairing error set: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100094298(&_mh_execute_header, v2, v3, "Pairing error set: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_100101A20(void *a1)
 {
   v1 = [a1 nr_safeDescription];
-  sub_100094298(&_mh_execute_header, v2, v3, "Setting pairing error: %{public}@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  sub_100094298(&_mh_execute_header, v2, v3, "Setting pairing error: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 uint64_t sub_100101AE4(uint64_t result, int a2)
@@ -5672,6 +5559,34 @@ uint64_t sub_100102080(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   return result;
 }
 
+void sub_100102134()
+{
+  v6 = 136446466;
+  sub_1000A59E0();
+  sub_1000A59F4(&_mh_execute_header, v0, v1, "%{public}s: Error creating directories (%@)", v2, v3, v4, v5, v6);
+}
+
+void sub_1001021A8()
+{
+  v6 = 136446466;
+  sub_1000A59E0();
+  sub_1000A59F4(&_mh_execute_header, v0, v1, "%{public}s: Error writing (%@)", v2, v3, v4, v5, v6);
+}
+
+void sub_10010221C()
+{
+  v6 = 136446466;
+  sub_1000A59E0();
+  sub_1000A59F4(&_mh_execute_header, v0, v1, "%{public}s: Error setting attributes (%@)", v2, v3, v4, v5, v6);
+}
+
+void sub_100102290()
+{
+  v6 = 136446466;
+  sub_1000A59E0();
+  sub_1000A59F4(&_mh_execute_header, v0, v1, "%{public}s: Error marking do not backup (%@)", v2, v3, v4, v5, v6);
+}
+
 void sub_100102304(os_log_t log)
 {
   v1 = 136446210;
@@ -5688,6 +5603,13 @@ void sub_100102388(void *a1, NSObject *a2)
   v8 = 2114;
   v9 = v5;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Deleting unpair trigger directory at %{public}@ error %{public}@", &v6, 0x16u);
+}
+
+void sub_100102454()
+{
+  v6 = 136446466;
+  sub_1000A59E0();
+  sub_1000A59F4(&_mh_execute_header, v0, v1, "%{public}s: %@", v2, v3, v4, v5, v6);
 }
 
 BOOL sub_1001024C8(_BOOL8 result)
@@ -5940,6 +5862,20 @@ void sub_100102B70(uint64_t a1, uint64_t a2, NSObject *a3)
   sub_10001BAA0(&_mh_execute_header, a2, a3, "Getter %@ threw %@. This is *SUPER-BAD*", *v3, *&v3[8], *&v3[16]);
 }
 
+void sub_100102BEC(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000770C(&_mh_execute_header, a2, a3, "EPSagaTransactionRequestMigration error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100102C58(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  sub_10000770C(&_mh_execute_header, a2, a3, "EPSagaTransactionRequestMigration error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100102D98(uint64_t a1, NSObject *a2)
 {
   v2 = 138412290;
@@ -5983,17 +5919,46 @@ void sub_100102F0C(uint64_t a1, uint64_t a2, NSObject *a3)
   _os_log_error_impl(&_mh_execute_header, a3, OS_LOG_TYPE_ERROR, "BT Characteristic write failed to %@ with error %@", &v7, 0x16u);
 }
 
+void sub_1001030E8(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000770C(&_mh_execute_header, a2, a3, "Error while assembling and submitting RTC pairing metric: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100103154(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  sub_10000770C(&_mh_execute_header, a2, a3, "Error while writing nr plist with error %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1001031C0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NRRTCPairingReporter assembleAndSubmitPairingMetricWithMetricID:withCompletion:]";
+  sub_10000770C(&_mh_execute_header, a1, a3, "%s Assembling rtc pairing metric", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100103238(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
-  v9 = [a2 context];
-  sub_1000CA1CC(&_mh_execute_header, v3, v4, "(%@): Message %@ dropped because it has an invalid sender", v5, v6, v7, v8, 2u);
+  v3 = [a2 context];
+  *v10 = 138412546;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  sub_1000CA1CC(&_mh_execute_header, v4, v5, "(%@): Message %@ dropped because it has an invalid sender", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
-void sub_100103320(void *a1)
+void sub_100103320(void *a1, uint64_t a2)
 {
-  v1 = [a1 nr_safeDescription];
-  sub_1000CA1CC(&_mh_execute_header, v2, v3, "IDS error sending request: %{public}@ %{public}@", v4, v5, v6, v7, 2u);
+  v3 = [a1 nr_safeDescription];
+  *v10 = 138543618;
+  *&v10[4] = v3;
+  *&v10[12] = 2114;
+  *&v10[14] = a2;
+  sub_1000CA1CC(&_mh_execute_header, v4, v5, "IDS error sending request: %{public}@ %{public}@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 void sub_1001033D4()
@@ -6606,25 +6571,18 @@ void sub_100104F84()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100105028(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10004EAD0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_1001052DC(uint64_t a1)
 {
   v1 = [NSNumber numberWithInt:a1];
   sub_100007728();
-  sub_100094298(&_mh_execute_header, v2, v3, "EPKey: encryptPayloadRaw:withSalt:key: Could not encrypt payload (%{public}@)", v4, v5, v6, v7, v8);
+  sub_100094298(&_mh_execute_header, v2, v3, "EPKey: encryptPayloadRaw:withSalt:key: Could not encrypt payload (%{public}@)", v4, v5, v6, v7);
 }
 
 void sub_10010543C(uint64_t a1)
 {
   v1 = [NSNumber numberWithInt:a1];
   sub_100007728();
-  sub_100094298(&_mh_execute_header, v2, v3, "EPKey: derivedKeyFrom Failed to create key (%{public}@)", v4, v5, v6, v7, v8);
+  sub_100094298(&_mh_execute_header, v2, v3, "EPKey: derivedKeyFrom Failed to create key (%{public}@)", v4, v5, v6, v7);
 }
 
 void sub_100105568()
@@ -6723,42 +6681,40 @@ uint64_t sub_100105994(uint64_t a1)
   return v1 & 1;
 }
 
-void sub_1001059B4()
+void sub_1001059B4(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   sub_10000D380();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
-void sub_100105A48()
+void sub_100105A48(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   sub_10000D380();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 void sub_100105ADC(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = [a2 nr_safeDescription];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [a2 nr_safeDescription];
   sub_100059F08();
   sub_10000D380();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x16u);
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void sub_100105B90(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = NSStringFromClass(v4);
-  v6 = [a2 nr_safeDescription];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [a2 nr_safeDescription];
   sub_100059F08();
   sub_10000D380();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x16u);
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void sub_100105C6C(uint64_t a1, NSObject *a2)
@@ -7002,15 +6958,14 @@ void sub_1001063DC(uint64_t a1)
     else
     {
       [*(a1 + 48) invalidate];
-      v2 = *(a1 + 32);
       sub_1000F4E00();
-      v6 = 3221225472;
-      v7 = sub_1001066FC;
-      v8 = &unk_100175660;
-      v9 = a1;
-      v4 = [v3 timerWithIdentifier:@"NRKeychainSyncStatusManager" delay:1 gracePeriod:10.0 waking:0.0 handlerQueue:? handlerBlock:?];
-      v5 = *(a1 + 48);
-      *(a1 + 48) = v4;
+      v5 = 3221225472;
+      v6 = sub_1001066FC;
+      v7 = &unk_100175660;
+      v8 = a1;
+      v3 = [v2 timerWithIdentifier:@"NRKeychainSyncStatusManager" delay:1 gracePeriod:10.0 waking:0.0 handlerQueue:? handlerBlock:?];
+      v4 = *(a1 + 48);
+      *(a1 + 48) = v3;
     }
   }
 }
@@ -7069,13 +7024,12 @@ void sub_1001065F4(uint64_t a1)
     *(a1 + 48) = 0;
 
     *(a1 + 56) = 1;
-    v3 = *(a1 + 24);
     sub_1000F4E00();
-    v6 = 3221225472;
-    v7 = sub_100106674;
-    v8 = &unk_100175660;
-    v9 = a1;
-    dispatch_async(v4, block);
+    v5 = 3221225472;
+    v6 = sub_100106674;
+    v7 = &unk_100175660;
+    v8 = a1;
+    dispatch_async(v3, block);
   }
 }
 

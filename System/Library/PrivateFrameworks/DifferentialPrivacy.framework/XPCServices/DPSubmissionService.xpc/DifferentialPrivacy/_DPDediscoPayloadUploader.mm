@@ -1,6 +1,7 @@
 @interface _DPDediscoPayloadUploader
 - (_DPDediscoPayloadUploader)initWithBaseURL:(id)l useOHTTP:(BOOL)p;
 - (id)buildHTTPHeadersWithPayload:(id)payload withEncoder:(id)encoder withError:(id *)error;
+- (id)createUploadClientWithURL:(id)l withHeaders:(id)headers uploadWithOHTTP:(BOOL)p;
 - (id)uploadPayload:(id)payload withEncoder:(id)encoder;
 - (id)uploadWithHTTPBody:(id)body withHTTPHeaders:(id)headers withFullURL:(id)l;
 @end
@@ -44,6 +45,16 @@ LABEL_6:
 LABEL_10:
 
   return v11;
+}
+
+- (id)createUploadClientWithURL:(id)l withHeaders:(id)headers uploadWithOHTTP:(BOOL)p
+{
+  pCopy = p;
+  headersCopy = headers;
+  lCopy = l;
+  v9 = [[_DPSubmissionServiceHTTPClient alloc] initWithDomain:lCopy retries:0 method:@"PUT" tlsTrustPinningPolicyName:0 defaultHeaders:headersCopy uploadWithOHTTP:pCopy];
+
+  return v9;
 }
 
 - (id)uploadWithHTTPBody:(id)body withHTTPHeaders:(id)headers withFullURL:(id)l
@@ -105,7 +116,7 @@ LABEL_10:
           v18 = +[_DPLog service];
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            sub_10004FDB0(lCopy, &buf[8]);
+            sub_10004FDB0();
           }
         }
 

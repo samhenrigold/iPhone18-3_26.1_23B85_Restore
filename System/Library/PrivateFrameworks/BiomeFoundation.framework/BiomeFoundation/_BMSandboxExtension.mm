@@ -7,26 +7,23 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = BMAccessModePrintableDescription([*(self + 16) mode]);
   resource = [*(self + 16) resource];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (_BMSandboxExtension)initWithDescriptor:(id)descriptor extensionToken:(id)token container:(id)container path:(id)path
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   tokenCopy = token;
   containerCopy = container;
   pathCopy = path;
-  v28.receiver = self;
-  v28.super_class = _BMSandboxExtension;
-  v15 = [(_BMSandboxExtension *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = _BMSandboxExtension;
+  v15 = [(_BMSandboxExtension *)&v27 init];
   if (!v15)
   {
     goto LABEL_8;
@@ -38,9 +35,9 @@
     v17 = BMAccessModePrintableDescription([descriptorCopy mode]);
     resource = [descriptorCopy resource];
     *buf = 138543618;
-    v30 = v17;
-    v31 = 2114;
-    v32 = resource;
+    v29 = v17;
+    v30 = 2114;
+    v31 = resource;
     _os_log_impl(&dword_1AC15D000, v16, OS_LOG_TYPE_INFO, "Consuming sandbox extension token for %{public}@ access to %{public}@", buf, 0x16u);
   }
 
@@ -76,13 +73,11 @@ LABEL_8:
   v24 = 0;
 LABEL_12:
 
-  v26 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (void)initWithDescriptor:(void *)a1 extensionToken:(uint64_t)a2 container:path:.cold.1(void *a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 bytes];
   if (a2 == -1)
   {
@@ -92,19 +87,15 @@ LABEL_12:
 
   OUTLINED_FUNCTION_2_0();
   _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithDescriptor:(void *)a1 extensionToken:container:path:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = BMAccessModePrintableDescription([a1 mode]);
   v3 = [a1 resource];
   OUTLINED_FUNCTION_0_5();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -9,41 +9,40 @@
 - (void)startTurnWithTurnData:(id)data bridge:(id)bridge reply:(id)reply
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = &v22 - v11;
-  v13 = _Block_copy(reply);
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
-  v15 = one-time initialization token for executor;
+  v11 = &v21 - v10;
+  v12 = _Block_copy(reply);
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
+  v14 = one-time initialization token for executor;
   dataCopy = data;
   swift_unknownObjectRetain();
 
-  if (v15 != -1)
+  if (v14 != -1)
   {
     swift_once();
   }
 
-  v17 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v17, static Logger.executor);
-  Logger.debugF(file:function:)();
-  v18 = swift_allocObject();
-  v18[2] = self;
-  v18[3] = dataCopy;
-  v18[4] = bridge;
-  v19 = type metadata accessor for TaskPriority();
-  (*(*(v19 - 8) + 56))(v12, 1, 1, v19);
-  v20 = swift_allocObject();
-  v20[2] = 0;
-  v20[3] = 0;
-  v20[4] = &closure #1 in SharedFlowPluginService.startTurn(turnData:bridge:reply:)partial apply;
-  v20[5] = v18;
-  v20[6] = partial apply for thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSError?) -> ();
-  v20[7] = v14;
-  v21 = dataCopy;
+  v16 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v16, static Logger.executor);
+  Logger.debugF(file:function:)("SiriKitRuntime/SharedFlowPluginService.swift", 44, 2, "startTurn(turnData:bridge:reply:)", 33, 2);
+  v17 = swift_allocObject();
+  v17[2] = self;
+  v17[3] = dataCopy;
+  v17[4] = bridge;
+  v18 = type metadata accessor for TaskPriority();
+  (*(*(v18 - 8) + 56))(v11, 1, 1, v18);
+  v19 = swift_allocObject();
+  v19[2] = 0;
+  v19[3] = 0;
+  v19[4] = &closure #1 in SharedFlowPluginService.startTurn(turnData:bridge:reply:)partial apply;
+  v19[5] = v17;
+  v19[6] = partial apply for thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSError?) -> ();
+  v19[7] = v13;
+  v20 = dataCopy;
   swift_unknownObjectRetain();
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v12, &closure #1 in static AsyncTaskUtils.taskWithCatchingCompletion(completion:do:)partial apply, v20);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v11, &closure #1 in static AsyncTaskUtils.taskWithCatchingCompletion(completion:do:)partial apply, v19);
 
   swift_unknownObjectRelease();
 }
@@ -51,30 +50,29 @@
 - (void)loadFlowPluginWithBundleId:(id)id bundlePath:(id)path rcId:(id)rcId hypothesisId:(id)hypothesisId reply:(id)reply
 {
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v11 = *(*(v10 - 8) + 64);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v26 - v12;
-  v14 = _Block_copy(reply);
-  v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v17 = v16;
-  v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v20 = v19;
+  v12 = &v25 - v11;
+  v13 = _Block_copy(reply);
+  v14 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v16 = v15;
+  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v19 = v18;
   if (!rcId)
   {
-    v21 = 0;
+    v20 = 0;
     if (hypothesisId)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v24 = type metadata accessor for UUID();
-    (*(*(v24 - 8) + 56))(v13, 1, 1, v24);
+    v23 = type metadata accessor for UUID();
+    (*(*(v23 - 8) + 56))(v12, 1, 1, v23);
     goto LABEL_6;
   }
 
-  v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  rcId = v22;
+  v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  rcId = v21;
   if (!hypothesisId)
   {
     goto LABEL_5;
@@ -82,55 +80,54 @@ LABEL_5:
 
 LABEL_3:
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v23 = type metadata accessor for UUID();
-  (*(*(v23 - 8) + 56))(v13, 0, 1, v23);
+  v22 = type metadata accessor for UUID();
+  (*(*(v22 - 8) + 56))(v12, 0, 1, v22);
 LABEL_6:
-  v25 = swift_allocObject();
-  *(v25 + 16) = v14;
+  v24 = swift_allocObject();
+  *(v24 + 16) = v13;
 
-  SharedFlowPluginService.loadFlowPlugin(bundleId:bundlePath:rcId:hypothesisId:reply:)(v15, v17, v18, v20, v21, rcId, v13, partial apply for thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned ConversationCanHandleResult) -> (), v25);
+  SharedFlowPluginService.loadFlowPlugin(bundleId:bundlePath:rcId:hypothesisId:reply:)(v14, v16, v17, v19, v20, rcId, v12, partial apply for thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned ConversationCanHandleResult) -> (), v24);
 
-  outlined destroy of ReferenceResolutionClientProtocol?(v13, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined destroy of ReferenceResolutionClientProtocol?(v12, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 }
 
 - (void)endTurnWithReply:(id)reply
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v18 - v7;
-  v9 = _Block_copy(reply);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  v11 = one-time initialization token for executor;
+  v7 = &v17 - v6;
+  v8 = _Block_copy(reply);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  v10 = one-time initialization token for executor;
 
-  if (v11 != -1)
+  if (v10 != -1)
   {
     swift_once();
   }
 
-  v12 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v12, static Logger.executor);
-  Logger.debugF(file:function:)();
-  v13 = type metadata accessor for TaskPriority();
-  (*(*(v13 - 8) + 56))(v8, 1, 1, v13);
-  v14 = one-time initialization token for shared;
+  v11 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v11, static Logger.executor);
+  Logger.debugF(file:function:)("SiriKitRuntime/SharedFlowPluginService.swift", 44, 2, "endTurn(reply:)", 15, 2);
+  v12 = type metadata accessor for TaskPriority();
+  (*(*(v12 - 8) + 56))(v7, 1, 1, v12);
+  v13 = one-time initialization token for shared;
 
-  if (v14 != -1)
+  if (v13 != -1)
   {
     swift_once();
   }
 
-  v15 = static ConversationActor.shared;
-  v16 = _s14SiriKitRuntime17ConversationActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type ConversationActor and conformance ConversationActor, type metadata accessor for ConversationActor);
-  v17 = swift_allocObject();
-  v17[2] = v15;
-  v17[3] = v16;
-  v17[4] = self;
-  v17[5] = _sIeyBh_Iegh_TRTA_0;
-  v17[6] = v10;
+  v14 = static ConversationActor.shared;
+  v15 = _s14SiriKitRuntime17ConversationActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type ConversationActor and conformance ConversationActor, type metadata accessor for ConversationActor, &protocol conformance descriptor for ConversationActor);
+  v16 = swift_allocObject();
+  v16[2] = v14;
+  v16[3] = v15;
+  v16[4] = self;
+  v16[5] = _sIeyBh_Iegh_TRTA_0;
+  v16[6] = v9;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v8, &closure #1 in SharedFlowPluginService.endTurn(reply:)partial apply, v17);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v7, &closure #1 in SharedFlowPluginService.endTurn(reply:)partial apply, v16);
 }
 
 @end

@@ -135,7 +135,7 @@
   v3 = [a1 name];
   v4 = [a2 description];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1BEA11000, v5, v6, "Motion alarm registered: %@, error: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1(&dword_1BEA11000, v5, v6, "Motion alarm registered: %@, error: %@", v7, v8, v9, v10);
 }
 
 - (void)alarmDidUnregister:(void *)a1 error:(void *)a2 .cold.1(void *a1, void *a2)
@@ -143,7 +143,7 @@
   v3 = [a1 name];
   v4 = [a2 description];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_1BEA11000, v5, v6, "Motion alarm unregistered: %@, error: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1(&dword_1BEA11000, v5, v6, "Motion alarm unregistered: %@, error: %@", v7, v8, v9, v10);
 }
 
 @end

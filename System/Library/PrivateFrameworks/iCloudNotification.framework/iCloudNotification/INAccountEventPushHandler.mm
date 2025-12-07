@@ -66,7 +66,7 @@
         v10 = _INLogSystem();
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          sub_100039180();
+          sub_100039180(v6, v10);
         }
 
         v9 = 0;

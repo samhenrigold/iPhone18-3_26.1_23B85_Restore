@@ -68,8 +68,8 @@
 
 - (void)publishHIDEvent:(__IOHIDEvent *)event
 {
-  v31 = *MEMORY[0x1E69E9840];
-  [_GCHIDEventSubjectAuditor noteHIDEventReceived:?];
+  v30 = *MEMORY[0x1E69E9840];
+  [(_GCHIDEventSubjectAuditor *)self->_auditor noteHIDEventReceived:event];
   os_unfair_lock_lock(&self->_lock);
   v5 = self->_handlersByService;
   v6 = [(NSSet *)self->_pausedForReasons count];
@@ -79,82 +79,80 @@
     SenderID = IOHIDEventGetSenderID();
     if ((SenderID - 1) > 0xFFFFFFFFFFFFFFFDLL)
     {
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __38___GCHIDEventSubject_publishHIDEvent___block_invoke;
-      v20[3] = &__block_descriptor_40_e34_v32__0__NSNumber_8__NSArray_16_B24l;
-      v20[4] = event;
-      [(NSDictionary *)v5 enumerateKeysAndObjectsUsingBlock:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __38___GCHIDEventSubject_publishHIDEvent___block_invoke;
+      v19[3] = &__block_descriptor_40_e34_v32__0__NSNumber_8__NSArray_16_B24l;
+      v19[4] = event;
+      [(NSDictionary *)v5 enumerateKeysAndObjectsUsingBlock:v19];
     }
 
     else
     {
       v8 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:SenderID];
       v9 = [(NSDictionary *)v5 objectForKeyedSubscript:v8];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v26;
+        v12 = *v25;
         do
         {
           v13 = 0;
           do
           {
-            if (*v26 != v12)
+            if (*v25 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            (*(*(*(&v25 + 1) + 8 * v13++) + 16))();
+            (*(*(*(&v24 + 1) + 8 * v13++) + 16))();
           }
 
           while (v11 != v13);
-          v11 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
         }
 
         while (v11);
       }
 
       v14 = [(NSDictionary *)v5 objectForKeyedSubscript:&unk_1F4E8E018];
+      v20 = 0u;
       v21 = 0u;
       v22 = 0u;
       v23 = 0u;
-      v24 = 0u;
-      v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v22;
+        v17 = *v21;
         do
         {
           v18 = 0;
           do
           {
-            if (*v22 != v17)
+            if (*v21 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            (*(*(*(&v21 + 1) + 8 * v18++) + 16))();
+            (*(*(*(&v20 + 1) + 8 * v18++) + 16))();
           }
 
           while (v16 != v18);
-          v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v20 objects:v28 count:16];
         }
 
         while (v16);
       }
     }
 
-    [_GCHIDEventSubjectAuditor noteHIDEventPublished:?];
+    [(_GCHIDEventSubjectAuditor *)self->_auditor noteHIDEventPublished:event];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)observeHIDEvents:(id)events forService:(id)service

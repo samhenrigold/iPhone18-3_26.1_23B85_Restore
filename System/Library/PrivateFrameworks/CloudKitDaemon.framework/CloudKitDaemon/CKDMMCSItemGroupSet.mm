@@ -82,43 +82,42 @@
 
 - (CKDMMCSItemGroupSet)initWithItems:(id)items
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   v7 = objc_msgSend_init(self, v5, v6);
   if (v7)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v8 = itemsCopy;
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v17, v21, 16);
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v16, v20, 16);
     if (v10)
     {
       v12 = v10;
-      v13 = *v18;
+      v13 = *v17;
       do
       {
         v14 = 0;
         do
         {
-          if (*v18 != v13)
+          if (*v17 != v13)
           {
             objc_enumerationMutation(v8);
           }
 
-          objc_msgSend_addItem_(v7, v11, *(*(&v17 + 1) + 8 * v14++), v17);
+          objc_msgSend_addItem_(v7, v11, *(*(&v16 + 1) + 8 * v14++), v16);
         }
 
         while (v12 != v14);
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v17, v21, 16);
+        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v16, v20, 16);
       }
 
       while (v12);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -133,28 +132,28 @@
 
 - (NSError)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v6 = objc_msgSend_allItemGroups(self, v4, v5, 0);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v25, v29, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v24, v28, 16);
   if (v8)
   {
     v11 = v8;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(v6);
         }
 
-        v14 = *(*(&v25 + 1) + 8 * i);
+        v14 = *(*(&v24 + 1) + 8 * i);
         v15 = objc_msgSend_error(v14, v9, v10);
 
         if (v15)
@@ -164,7 +163,7 @@
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v25, v29, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v24, v28, 16);
     }
 
     while (v11);
@@ -179,8 +178,6 @@
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

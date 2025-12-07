@@ -7,6 +7,7 @@
 - (ASRelationshipStorage)storageWithSynchronizedRelationshipIdentifiers;
 - (BOOL)isEqualToRelationshipStorage:(id)storage;
 - (id)_chosePrimaryRelationshipWithSecureCloudRelationship:(id)relationship legacyRelationship:(id)legacyRelationship;
+- (id)codableRelationshipStorageIncludingCloudKitFields:(BOOL)fields;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)fullDescription;
@@ -41,6 +42,29 @@
   secureCloudRemoteRelationship = [(ASRelationshipStorage *)self secureCloudRemoteRelationship];
   legacyRemoteRelationship = [(ASRelationshipStorage *)self legacyRemoteRelationship];
   v5 = [(ASRelationshipStorage *)self _chosePrimaryRelationshipWithSecureCloudRelationship:secureCloudRemoteRelationship legacyRelationship:legacyRemoteRelationship];
+
+  return v5;
+}
+
+- (id)codableRelationshipStorageIncludingCloudKitFields:(BOOL)fields
+{
+  fieldsCopy = fields;
+  v5 = objc_alloc_init(ASCodableRelationshipStorage);
+  legacyRelationship = [(ASRelationshipStorage *)self legacyRelationship];
+  v7 = [legacyRelationship codableRelationshipContainerIncludingCloudKitFields:fieldsCopy];
+  [(ASCodableRelationshipStorage *)v5 setLegacyRelationshipContainer:v7];
+
+  legacyRemoteRelationship = [(ASRelationshipStorage *)self legacyRemoteRelationship];
+  v9 = [legacyRemoteRelationship codableRelationshipContainerIncludingCloudKitFields:fieldsCopy];
+  [(ASCodableRelationshipStorage *)v5 setLegacyRemoteRelationshipContainer:v9];
+
+  secureCloudRelationship = [(ASRelationshipStorage *)self secureCloudRelationship];
+  v11 = [secureCloudRelationship codableRelationshipContainerIncludingCloudKitFields:fieldsCopy];
+  [(ASCodableRelationshipStorage *)v5 setSecureCloudRelationshipContainer:v11];
+
+  secureCloudRemoteRelationship = [(ASRelationshipStorage *)self secureCloudRemoteRelationship];
+  v13 = [secureCloudRemoteRelationship codableRelationshipContainerIncludingCloudKitFields:fieldsCopy];
+  [(ASCodableRelationshipStorage *)v5 setSecureCloudRemoteRelationshipContainer:v13];
 
   return v5;
 }
@@ -442,7 +466,7 @@ LABEL_37:
 
 - (ASRelationshipStorage)storageWithSynchronizedRelationshipIdentifiers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [(ASRelationshipStorage *)self copy];
   primaryRelationship = [v2 primaryRelationship];
   if ([primaryRelationship cloudType])
@@ -456,23 +480,23 @@ LABEL_2:
   uUID = [legacyRelationship UUID];
   secureCloudRelationship = [v2 secureCloudRelationship];
   uUID2 = [secureCloudRelationship UUID];
-  v11 = [uUID isEqual:uUID2];
+  v10 = [uUID isEqual:uUID2];
 
-  if ((v11 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
     primaryRelationship = [v2 secureCloudRelationship];
     legacyRelationship2 = [v2 legacyRelationship];
     uUID3 = [legacyRelationship2 UUID];
     [primaryRelationship setUUID:uUID3];
 
-    [v2 setSecureCloudRelationship:primaryRelationship];
-    ASLoggingInitialize();
-    v14 = ASLogRelationships;
+    v13 = [v2 setSecureCloudRelationship:primaryRelationship];
+    ASLoggingInitialize(v13, v14);
+    v15 = ASLogRelationships;
     if (os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138412290;
-      v24 = v2;
-      _os_log_impl(&dword_23E4FA000, v14, OS_LOG_TYPE_DEFAULT, "Synchronized relationship identifiers: %@", &v23, 0xCu);
+      v26 = 138412290;
+      v27 = v2;
+      _os_log_impl(&dword_23E4FA000, v15, OS_LOG_TYPE_DEFAULT, "Synchronized relationship identifiers: %@", &v26, 0xCu);
     }
 
     goto LABEL_2;
@@ -491,30 +515,29 @@ LABEL_4:
   uUID4 = [legacyRemoteRelationship UUID];
   secureCloudRemoteRelationship = [v2 secureCloudRemoteRelationship];
   uUID5 = [secureCloudRemoteRelationship UUID];
-  v19 = [uUID4 isEqual:uUID5];
+  v20 = [uUID4 isEqual:uUID5];
 
-  if ((v19 & 1) == 0)
+  if ((v20 & 1) == 0)
   {
     primaryRemoteRelationship = [v2 secureCloudRemoteRelationship];
     legacyRemoteRelationship2 = [v2 legacyRemoteRelationship];
     uUID6 = [legacyRemoteRelationship2 UUID];
     [primaryRemoteRelationship setUUID:uUID6];
 
-    [v2 setSecureCloudRemoteRelationship:primaryRemoteRelationship];
-    ASLoggingInitialize();
-    v22 = ASLogRelationships;
+    v23 = [v2 setSecureCloudRemoteRelationship:primaryRemoteRelationship];
+    ASLoggingInitialize(v23, v24);
+    v25 = ASLogRelationships;
     if (os_log_type_enabled(ASLogRelationships, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138412290;
-      v24 = v2;
-      _os_log_impl(&dword_23E4FA000, v22, OS_LOG_TYPE_DEFAULT, "Synchronized remote relationship identifiers: %@", &v23, 0xCu);
+      v26 = 138412290;
+      v27 = v2;
+      _os_log_impl(&dword_23E4FA000, v25, OS_LOG_TYPE_DEFAULT, "Synchronized remote relationship identifiers: %@", &v26, 0xCu);
     }
 
     goto LABEL_4;
   }
 
 LABEL_5:
-  v5 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

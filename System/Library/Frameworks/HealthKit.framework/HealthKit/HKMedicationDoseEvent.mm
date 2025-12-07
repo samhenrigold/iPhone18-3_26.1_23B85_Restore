@@ -493,7 +493,6 @@ LABEL_37:
 
 - (HKUnit)unit
 {
-  v7 = *MEMORY[0x1E69E9840];
   if (self->_doseUnitString)
   {
     v2 = [HKUnit unitFromString:?];
@@ -514,8 +513,6 @@ LABEL_37:
   {
     v4 = +[HKUnit countUnit];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -602,35 +599,33 @@ LABEL_6:
 
 + (id)_metadataWithSyncIdentifier:(id)identifier syncVersion:(id)version isLastScheduledDose:(BOOL)dose
 {
-  v17[3] = *MEMORY[0x1E69E9840];
+  v16[3] = *MEMORY[0x1E69E9840];
   if (dose)
   {
-    v16[0] = @"HKMetadataKeySyncIdentifier";
-    v16[1] = @"HKMetadataKeySyncVersion";
-    v17[0] = identifier;
-    v17[1] = version;
-    v16[2] = @"_HKPrivateMetadataKeyIsLastScheduledDose";
+    v15[0] = @"HKMetadataKeySyncIdentifier";
+    v15[1] = @"HKMetadataKeySyncVersion";
+    v16[0] = identifier;
+    v16[1] = version;
+    v15[2] = @"_HKPrivateMetadataKeyIsLastScheduledDose";
     v6 = MEMORY[0x1E696AD98];
     versionCopy = version;
     versionCopy2 = identifier;
     identifierCopy2 = [v6 numberWithBool:1];
-    v17[2] = identifierCopy2;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v16[2] = identifierCopy2;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
   }
 
   else
   {
-    v14[0] = @"HKMetadataKeySyncIdentifier";
-    v14[1] = @"HKMetadataKeySyncVersion";
-    v15[0] = identifier;
-    v15[1] = version;
+    v13[0] = @"HKMetadataKeySyncIdentifier";
+    v13[1] = @"HKMetadataKeySyncVersion";
+    v14[0] = identifier;
+    v14[1] = version;
     v11 = MEMORY[0x1E695DF20];
     versionCopy2 = version;
     identifierCopy2 = identifier;
-    v10 = [v11 dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v10 = [v11 dictionaryWithObjects:v14 forKeys:v13 count:2];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

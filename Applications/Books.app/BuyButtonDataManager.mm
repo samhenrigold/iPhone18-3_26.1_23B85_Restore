@@ -10,7 +10,7 @@
   if (swift_unknownObjectWeakLoadStrong())
   {
 
-    sub_1005353C0();
+    sub_1005353C0(v3, v4);
     sub_100535160();
     swift_unknownObjectRelease();
   }
@@ -21,7 +21,7 @@
   if (swift_unknownObjectWeakLoadStrong())
   {
 
-    sub_1005353C0();
+    sub_1005353C0(v2, v3);
     sub_100535160();
     swift_unknownObjectRelease();
   }

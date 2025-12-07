@@ -64,7 +64,7 @@ double __58__PXStoryConcreteAutoEditDecisionList_overallDurationInfo__block_invo
   memset(v10, 0, 56);
   if (a2)
   {
-    [a2 durationInfo];
+    objc_msgSend_durationInfo(a2);
   }
 
   lhs = *(*(*(a1 + 32) + 8) + 32);
@@ -141,19 +141,19 @@ void __60__PXStoryConcreteAutoEditDecisionList_diagnosticDescription__block_invo
   v32 = [v38 count];
   if (v4)
   {
-    [v4 durationInfo];
+    objc_msgSend_durationInfo(v4);
     *time = v81;
     *&time[16] = v82;
     Seconds = CMTimeGetSeconds(time);
-    [v4 durationInfo];
+    objc_msgSend_durationInfo(v4);
     *time = *(v79 + 8);
     *&time[16] = *(&v79[1] + 1);
     v5 = CMTimeGetSeconds(time);
-    [v4 durationInfo];
+    objc_msgSend_durationInfo(v4);
     *time = v76;
     *&time[16] = v77;
     v6 = CMTimeGetSeconds(time);
-    [v4 audioInfo];
+    objc_msgSend_audioInfo(v4);
     v7 = v69;
     if (v69 > 3)
     {
@@ -197,17 +197,17 @@ LABEL_6:
   v9 = [(__CFString *)v34 stringByPaddingToLength:5 withString:@" " startingAtIndex:0];
   if (v4)
   {
-    [v4 audioInfo];
+    objc_msgSend_audioInfo(v4);
     v10 = *&v66;
-    [v4 audioInfo];
+    objc_msgSend_audioInfo(v4);
     v11 = *(&v62 + 1);
-    [v4 audioInfo];
+    objc_msgSend_audioInfo(v4);
     v12 = v59;
-    [v4 audioInfo];
+    objc_msgSend_audioInfo(v4);
     v13 = *(&v55 + 1);
-    [v4 audioInfo];
+    objc_msgSend_audioInfo(v4);
     v14 = v52;
-    [v4 motionInfo];
+    objc_msgSend_motionInfo(v4);
     v15 = v10;
   }
 
@@ -247,7 +247,7 @@ LABEL_6:
   v16 = [v33 stringByPaddingToLength:6 withString:@" " startingAtIndex:0];
   if (v4)
   {
-    [v4 motionInfo];
+    objc_msgSend_motionInfo(v4);
   }
 
   else
@@ -259,7 +259,7 @@ LABEL_6:
   v17 = [v31 stringByPaddingToLength:10 withString:@" " startingAtIndex:0];
   if (v4)
   {
-    [v4 transitionInfo];
+    objc_msgSend_transitionInfo(v4);
   }
 
   else
@@ -272,9 +272,9 @@ LABEL_6:
   v18 = [v30 stringByPaddingToLength:10 withString:@" " startingAtIndex:0];
   if (v4)
   {
-    [v4 transitionInfo];
+    objc_msgSend_transitionInfo(v4);
     v19 = *(&v42 + 1);
-    [v4 transitionInfo];
+    objc_msgSend_transitionInfo(v4);
   }
 
   else
@@ -330,7 +330,7 @@ LABEL_6:
   v4 = objc_opt_class();
   colorGradeCategory = [(PXStoryConcreteAutoEditDecisionList *)self colorGradeCategory];
   song = [(PXStoryConcreteAutoEditDecisionList *)self song];
-  [(PXStoryConcreteAutoEditDecisionList *)self defaultDisplayAssetPresentationDuration];
+  objc_msgSend_defaultDisplayAssetPresentationDuration(self);
   Seconds = CMTimeGetSeconds(&time);
   if ([(PXStoryConcreteAutoEditDecisionList *)self allowsNUp])
   {
@@ -355,7 +355,7 @@ LABEL_6:
   v4 = objc_opt_class();
   colorGradeCategory = [(PXStoryConcreteAutoEditDecisionList *)self colorGradeCategory];
   song = [(PXStoryConcreteAutoEditDecisionList *)self song];
-  [(PXStoryConcreteAutoEditDecisionList *)self defaultDisplayAssetPresentationDuration];
+  objc_msgSend_defaultDisplayAssetPresentationDuration(self);
   Seconds = CMTimeGetSeconds(&time);
   if ([(PXStoryConcreteAutoEditDecisionList *)self allowsNUp])
   {

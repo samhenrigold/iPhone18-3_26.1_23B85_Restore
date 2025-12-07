@@ -101,19 +101,18 @@
 
 - (BOOL)isStandardServiceName:(id)name
 {
-  v8[6] = *MEMORY[0x277D85DE8];
-  v8[0] = @"Twitter";
-  v8[1] = @"Facebook";
-  v8[2] = @"LinkedIn";
-  v8[3] = @"Flickr";
-  v8[4] = @"MySpace";
-  v8[5] = @"SinaWeibo";
+  v7[6] = *MEMORY[0x277D85DE8];
+  v7[0] = @"Twitter";
+  v7[1] = @"Facebook";
+  v7[2] = @"LinkedIn";
+  v7[3] = @"Flickr";
+  v7[4] = @"MySpace";
+  v7[5] = @"SinaWeibo";
   v3 = MEMORY[0x277CBEA60];
   nameCopy = name;
-  v5 = [v3 arrayWithObjects:v8 count:6];
+  v5 = [v3 arrayWithObjects:v7 count:6];
   LOBYTE(v3) = [v5 containsObject:nameCopy];
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

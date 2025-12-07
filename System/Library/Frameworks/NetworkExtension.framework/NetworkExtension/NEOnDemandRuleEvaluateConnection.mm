@@ -5,6 +5,7 @@
 - (NEOnDemandRuleEvaluateConnection)initWithCoder:(id)coder;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -13,38 +14,38 @@
 
 - (id)initFromLegacyDictionary:(id)dictionary
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v24.receiver = self;
-  v24.super_class = NEOnDemandRuleEvaluateConnection;
-  v5 = [(NEOnDemandRule *)&v24 initFromLegacyDictionary:dictionaryCopy];
+  v23.receiver = self;
+  v23.super_class = NEOnDemandRuleEvaluateConnection;
+  v5 = [(NEOnDemandRule *)&v23 initFromLegacyDictionary:dictionaryCopy];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E69827E8]];
     if (isa_nsarray(v6))
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v7 = v6;
-      v8 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v8)
       {
         v9 = v8;
-        v19 = v6;
+        v18 = v6;
         v10 = 0;
-        v11 = *v21;
+        v11 = *v20;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v21 != v11)
+            if (*v20 != v11)
             {
               objc_enumerationMutation(v7);
             }
 
-            v13 = *(*(&v20 + 1) + 8 * i);
+            v13 = *(*(&v19 + 1) + 8 * i);
             if (isa_nsdictionary(v13))
             {
               v14 = [[NEEvaluateConnectionRule alloc] initFromLegacyDictionary:v13];
@@ -57,12 +58,12 @@
             }
           }
 
-          v9 = [v7 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v9 = [v7 countByEnumeratingWithState:&v19 objects:v24 count:16];
         }
 
         while (v9);
 
-        v6 = v19;
+        v6 = v18;
         if (!v10)
         {
           goto LABEL_17;
@@ -78,49 +79,48 @@ LABEL_17:
     v16 = v5;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)copyLegacyDictionary
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = NEOnDemandRuleEvaluateConnection;
-  copyLegacyDictionary = [(NEOnDemandRule *)&v18 copyLegacyDictionary];
+  v19 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = NEOnDemandRuleEvaluateConnection;
+  copyLegacyDictionary = [(NEOnDemandRule *)&v17 copyLegacyDictionary];
   connectionRules = [(NEOnDemandRuleEvaluateConnection *)self connectionRules];
 
   if (connectionRules)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     connectionRules2 = [(NEOnDemandRuleEvaluateConnection *)self connectionRules];
-    v7 = [connectionRules2 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    v7 = [connectionRules2 countByEnumeratingWithState:&v13 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         v10 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(connectionRules2);
           }
 
-          copyLegacyDictionary2 = [*(*(&v14 + 1) + 8 * v10) copyLegacyDictionary];
+          copyLegacyDictionary2 = [*(*(&v13 + 1) + 8 * v10) copyLegacyDictionary];
           [v5 addObject:copyLegacyDictionary2];
 
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [connectionRules2 countByEnumeratingWithState:&v14 objects:v19 count:16];
+        v8 = [connectionRules2 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
       while (v8);
@@ -129,41 +129,55 @@ LABEL_17:
     [copyLegacyDictionary setObject:v5 forKeyedSubscript:*MEMORY[0x1E69827E8]];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return copyLegacyDictionary;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v12.receiver = self;
+  v12.super_class = NEOnDemandRuleEvaluateConnection;
+  v8 = [(NEOnDemandRule *)&v12 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  connectionRules = [(NEOnDemandRuleEvaluateConnection *)self connectionRules];
+  [v9 appendPrettyObject:connectionRules withName:@"connectionRules" andIndent:v5 options:options];
+
+  return v9;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
-  v19.receiver = self;
-  v19.super_class = NEOnDemandRuleEvaluateConnection;
-  v5 = [(NEOnDemandRule *)&v19 checkValidityAndCollectErrors:errorsCopy];
+  v18.receiver = self;
+  v18.super_class = NEOnDemandRuleEvaluateConnection;
+  v5 = [(NEOnDemandRule *)&v18 checkValidityAndCollectErrors:errorsCopy];
   connectionRules = [(NEOnDemandRuleEvaluateConnection *)self connectionRules];
 
   if (connectionRules)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     connectionRules2 = [(NEOnDemandRuleEvaluateConnection *)self connectionRules];
-    v8 = [connectionRules2 countByEnumeratingWithState:&v15 objects:v20 count:16];
+    v8 = [connectionRules2 countByEnumeratingWithState:&v14 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(connectionRules2);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -177,7 +191,7 @@ LABEL_17:
           }
         }
 
-        v9 = [connectionRules2 countByEnumeratingWithState:&v15 objects:v20 count:16];
+        v9 = [connectionRules2 countByEnumeratingWithState:&v14 objects:v19 count:16];
       }
 
       while (v9);
@@ -190,7 +204,6 @@ LABEL_17:
     v5 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

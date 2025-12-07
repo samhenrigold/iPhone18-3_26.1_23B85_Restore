@@ -16,80 +16,78 @@
 
 - (void)_intents_updateContainerWithCache:(id)cache
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
   caller = [(INCallGroupConversation *)self caller];
   [caller _intents_updateContainerWithCache:cacheCopy];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   otherParticipants = [(INCallGroupConversation *)self otherParticipants];
-  v7 = [otherParticipants countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [otherParticipants countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(otherParticipants);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) _intents_updateContainerWithCache:cacheCopy];
+        [*(*(&v11 + 1) + 8 * v10++) _intents_updateContainerWithCache:cacheCopy];
       }
 
       while (v8 != v10);
-      v8 = [otherParticipants countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [otherParticipants countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intents_cacheableObjects
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   caller = [(INCallGroupConversation *)self caller];
   _intents_cacheableObjects = [caller _intents_cacheableObjects];
   [v3 unionSet:_intents_cacheableObjects];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   otherParticipants = [(INCallGroupConversation *)self otherParticipants];
-  v7 = [otherParticipants countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [otherParticipants countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(otherParticipants);
         }
 
-        _intents_cacheableObjects2 = [*(*(&v16 + 1) + 8 * v10) _intents_cacheableObjects];
+        _intents_cacheableObjects2 = [*(*(&v15 + 1) + 8 * v10) _intents_cacheableObjects];
         [v3 unionSet:_intents_cacheableObjects2];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [otherParticipants countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [otherParticipants countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -107,14 +105,13 @@
 
   v13 = v12;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (id)_dictionaryRepresentation
 {
-  v15[4] = *MEMORY[0x1E69E9840];
-  v14[0] = @"conversationId";
+  v14[4] = *MEMORY[0x1E69E9840];
+  v13[0] = @"conversationId";
   conversationId = self->_conversationId;
   null = conversationId;
   if (!conversationId)
@@ -122,8 +119,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"caller";
+  v14[0] = null;
+  v13[1] = @"caller";
   caller = self->_caller;
   null2 = caller;
   if (!caller)
@@ -131,8 +128,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"otherParticipants";
+  v14[1] = null2;
+  v13[2] = @"otherParticipants";
   otherParticipants = self->_otherParticipants;
   null3 = otherParticipants;
   if (!otherParticipants)
@@ -140,8 +137,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v14[3] = @"callGroup";
+  v14[2] = null3;
+  v13[3] = @"callGroup";
   callGroup = self->_callGroup;
   null4 = callGroup;
   if (!callGroup)
@@ -149,8 +146,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null4;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = null4;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   if (callGroup)
   {
     if (otherParticipants)
@@ -195,7 +192,6 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -246,7 +242,7 @@ LABEL_13:
 
 - (INCallGroupConversation)initWithCoder:(id)coder
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
   v6 = objc_opt_class();
@@ -255,16 +251,15 @@ LABEL_13:
 
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"caller"];
   v10 = MEMORY[0x1E695DFD8];
-  v18[0] = objc_opt_class();
-  v18[1] = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[0] = objc_opt_class();
+  v17[1] = objc_opt_class();
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"otherParticipants"];
 
   v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"callGroup"];
 
   v15 = [(INCallGroupConversation *)self initWithConversationId:v8 caller:v9 otherParticipants:v13 callGroup:v14];
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

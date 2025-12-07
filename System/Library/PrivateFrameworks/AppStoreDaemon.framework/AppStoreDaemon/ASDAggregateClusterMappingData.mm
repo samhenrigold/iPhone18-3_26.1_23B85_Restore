@@ -148,22 +148,20 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  encodingVersion = self->_encodingVersion;
   PBDataWriterWriteInt32Field();
   if (self->_clusterIDs.count)
   {
     PBDataWriterPlaceMark();
     if (self->_clusterIDs.count)
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        v7 = self->_clusterIDs.list[v6];
         PBDataWriterWriteInt32Field();
-        ++v6;
+        ++v5;
       }
 
-      while (v6 < self->_clusterIDs.count);
+      while (v5 < self->_clusterIDs.count);
     }
 
     PBDataWriterRecallMark();
@@ -174,15 +172,14 @@
     PBDataWriterPlaceMark();
     if (self->_clusterVersions.count)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = self->_clusterVersions.list[v8];
         PBDataWriterWriteInt32Field();
-        ++v8;
+        ++v6;
       }
 
-      while (v8 < self->_clusterVersions.count);
+      while (v6 < self->_clusterVersions.count);
     }
 
     PBDataWriterRecallMark();
@@ -193,15 +190,14 @@
     PBDataWriterPlaceMark();
     if (self->_clusterAppCounts.count)
     {
-      v10 = 0;
+      v7 = 0;
       do
       {
-        v11 = self->_clusterAppCounts.list[v10];
         PBDataWriterWriteInt32Field();
-        ++v10;
+        ++v7;
       }
 
-      while (v10 < self->_clusterAppCounts.count);
+      while (v7 < self->_clusterAppCounts.count);
     }
 
     PBDataWriterRecallMark();
@@ -212,15 +208,14 @@
     PBDataWriterPlaceMark();
     if (self->_weightedAppLaunches.count)
     {
-      v12 = 0;
+      v8 = 0;
       do
       {
-        v13 = self->_weightedAppLaunches.list[v12];
         PBDataWriterWriteInt32Field();
-        ++v12;
+        ++v8;
       }
 
-      while (v12 < self->_weightedAppLaunches.count);
+      while (v8 < self->_weightedAppLaunches.count);
     }
 
     PBDataWriterRecallMark();
@@ -232,15 +227,14 @@
     PBDataWriterPlaceMark();
     if (p_weightedAppForgroundUsages->count)
     {
-      v15 = 0;
+      v10 = 0;
       do
       {
-        v16 = p_weightedAppForgroundUsages->list[v15];
         PBDataWriterWriteInt32Field();
-        ++v15;
+        ++v10;
       }
 
-      while (v15 < p_weightedAppForgroundUsages->count);
+      while (v10 < p_weightedAppForgroundUsages->count);
     }
 
     PBDataWriterRecallMark();

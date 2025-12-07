@@ -23,7 +23,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for AudioAppContentViewController();
+  v7.super_class = type metadata accessor for AudioAppContentViewController(0);
   v4 = v7.receiver;
   [(AudioAppContentViewController *)&v7 viewDidAppear:appearCopy];
   v5 = *&v4[OBJC_IVAR____TtC22AudioMessagesExtension29AudioAppContentViewController_displayLink];
@@ -53,7 +53,7 @@
 - (void)viewWillLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for AudioAppContentViewController();
+  v3.super_class = type metadata accessor for AudioAppContentViewController(0);
   v2 = v3.receiver;
   [(AudioAppContentViewController *)&v3 viewWillLayoutSubviews];
   sub_350BC();
@@ -87,7 +87,7 @@
 
   sub_361C4();
 
-  sub_2E3A0(v6, &unk_82040);
+  sub_2E3A0(v6, &unk_82040, &unk_5F790);
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin

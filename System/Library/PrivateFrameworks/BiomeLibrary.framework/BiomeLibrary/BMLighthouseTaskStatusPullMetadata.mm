@@ -64,7 +64,7 @@
 
 - (id)jsonDictionary
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   creationDate = [(BMLighthouseTaskStatusPullMetadata *)self creationDate];
   if (creationDate)
   {
@@ -74,7 +74,7 @@
     [creationDate2 timeIntervalSince1970];
     v7 = [v5 numberWithDouble:?];
 
-    v13 = @"creationDate";
+    v12 = @"creationDate";
     if (v7)
     {
       v8 = 0;
@@ -85,27 +85,25 @@
 
   else
   {
-    v13 = @"creationDate";
+    v12 = @"creationDate";
   }
 
   null = [MEMORY[0x1E695DFB0] null];
   v7 = 0;
   v8 = 1;
 LABEL_6:
-  v14[0] = null;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v13[0] = null;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   if (v8)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (BMLighthouseTaskStatusPullMetadata)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v6 = [dictionary objectForKeyedSubscript:@"creationDate"];
   if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -149,13 +147,13 @@ LABEL_6:
 
   if (error)
   {
-    v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v18 = *MEMORY[0x1E698F240];
-    v21 = *MEMORY[0x1E696A578];
-    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"creationDate"];
-    v22[0] = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
-    *error = [v17 initWithDomain:v18 code:2 userInfo:v20];
+    v16 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v17 = *MEMORY[0x1E698F240];
+    v20 = *MEMORY[0x1E696A578];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"creationDate"];
+    v21[0] = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    *error = [v16 initWithDomain:v17 code:2 userInfo:v19];
 
     error = 0;
   }
@@ -163,7 +161,6 @@ LABEL_6:
   selfCopy = 0;
 LABEL_10:
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -180,7 +177,6 @@ LABEL_10:
 {
   if (self->_hasRaw_creationDate)
   {
-    raw_creationDate = self->_raw_creationDate;
     PBDataWriterWriteDoubleField();
   }
 }
@@ -332,24 +328,20 @@ LABEL_29:
 
 + (id)protoFields
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"creationDate" number:1 type:0 subMessageClass:0];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
 
 + (id)columns
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"creationDate" dataType:3 requestOnly:0 fieldNumber:1 protoDataType:0 convertedType:2];
-  v6[0] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }

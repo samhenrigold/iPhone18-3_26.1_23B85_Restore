@@ -913,19 +913,17 @@ LABEL_22:
   if (self->_builtInDevice)
   {
     MTUnregisterPathCallbackWithRefcon();
-    builtInDevice = self->_builtInDevice;
     if (MTDeviceIsRunning())
     {
-      v4 = self->_builtInDevice;
       MTDeviceStop();
     }
 
     CFRelease(self->_builtInDevice);
   }
 
-  v5.receiver = self;
-  v5.super_class = ForceTouchViewController;
-  [(ForceTouchViewController *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = ForceTouchViewController;
+  [(ForceTouchViewController *)&v3 dealloc];
 }
 
 - (void)shuffleCoordinates

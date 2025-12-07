@@ -127,16 +127,16 @@
 {
   profilerCopy = profiler;
   v4 = objc_opt_class();
-  v8 = objc_msgSend_timingProfileKey(v4, v5, v6);
-  objc_msgSend_startTimingForKey_(profilerCopy, v7, v8);
+  v10 = objc_msgSend_timingProfileKey(v4, v5, v6, v7);
+  objc_msgSend_startTimingForKey_(profilerCopy, v8, v10, v9);
 }
 
 + (void)stopTimingWithProfiler:(id)profiler
 {
   profilerCopy = profiler;
   v4 = objc_opt_class();
-  v8 = objc_msgSend_timingProfileKey(v4, v5, v6);
-  objc_msgSend_stopTimingForKey_(profilerCopy, v7, v8);
+  v10 = objc_msgSend_timingProfileKey(v4, v5, v6, v7);
+  objc_msgSend_stopTimingForKey_(profilerCopy, v8, v10, v9);
 }
 
 @end

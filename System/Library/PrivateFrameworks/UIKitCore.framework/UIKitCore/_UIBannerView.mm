@@ -22,7 +22,7 @@
     v6 = *MEMORY[0x1E69796E8];
     [(CALayer *)v3->_backgroundLayer setCornerCurve:*MEMORY[0x1E69796E8]];
     [(CALayer *)v3->_backgroundLayer setCornerRadius:13.0];
-    v7 = +[UIColor blackColor];
+    v7 = objc_msgSend_blackColor(UIColor);
     -[CALayer setShadowColor:](v3->_backgroundLayer, "setShadowColor:", [v7 CGColor]);
 
     [(CALayer *)v3->_backgroundLayer setShadowRadius:10.0];
@@ -76,7 +76,7 @@
     highlightView = v3->_highlightView;
     v3->_highlightView = v28;
 
-    v30 = +[UIColor blackColor];
+    v30 = objc_msgSend_blackColor(UIColor);
     [(UIView *)v3->_highlightView setBackgroundColor:v30];
 
     [(UIView *)v3->_highlightView setAlpha:0.0];

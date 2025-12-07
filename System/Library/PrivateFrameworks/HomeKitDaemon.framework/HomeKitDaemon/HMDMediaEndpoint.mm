@@ -22,6 +22,7 @@
 - (void)disconnectFromEndpoint:(id)endpoint;
 - (void)disconnectWithCompletionHandler:(id)handler;
 - (void)getPlaybackStateWithCompletionHandler:(id)handler;
+- (void)registerForNowPlayingUpdates:(BOOL)updates;
 - (void)setConnectionState:(unsigned int)state;
 - (void)setOutputDeviceIdentifiers:(id)identifiers;
 - (void)setPlaybackState:(unsigned int)state completionHandler:(id)handler;
@@ -71,7 +72,7 @@
 
 void __56__HMDMediaEndpoint__setPlaybackState_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -88,17 +89,16 @@ void __56__HMDMediaEndpoint__setPlaybackState_completionHandler___block_invoke(u
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v15;
+        v30 = v15;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Attempting to locally set the playback state command with mediaRemote", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
-      v16 = *(a1 + 48);
-      v17 = [v12 workQueue];
-      v29 = *(a1 + 32);
-      LODWORD(v16) = MRMediaRemoteSendCommandForOriginWithReply();
+      v16 = [v12 workQueue];
+      v28 = *(a1 + 32);
+      v17 = MRMediaRemoteSendCommandForOriginWithReply();
 
-      if (!v16)
+      if (!v17)
       {
         v18 = [v12 retainedEndpoint];
         v19 = objc_autoreleasePoolPush();
@@ -108,9 +108,9 @@ void __56__HMDMediaEndpoint__setPlaybackState_completionHandler___block_invoke(u
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v31 = v22;
-          v32 = 2112;
-          v33 = v18;
+          v30 = v22;
+          v31 = 2112;
+          v32 = v18;
           _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@Sending the command to mediaremote failed for media endpoint %@", buf, 0x16u);
         }
 
@@ -120,7 +120,7 @@ void __56__HMDMediaEndpoint__setPlaybackState_completionHandler___block_invoke(u
         (*(*(a1 + 32) + 16))();
       }
 
-      v25 = v29;
+      v25 = v28;
     }
 
     else
@@ -129,7 +129,7 @@ void __56__HMDMediaEndpoint__setPlaybackState_completionHandler___block_invoke(u
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v26;
+        v30 = v26;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot look up origin for mediaSession to set playback state after connection", buf, 0xCu);
       }
 
@@ -155,17 +155,15 @@ LABEL_18:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v31 = v9;
-    v32 = 2112;
-    v33 = v3;
+    v30 = v9;
+    v31 = 2112;
+    v32 = v3;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Attempt to connect to the endpoint to set the playback state failed with error %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   (*(*(a1 + 32) + 16))();
 LABEL_19:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPlaybackState:(unsigned int)state completionHandler:(id)handler
@@ -202,7 +200,7 @@ LABEL_19:
 
 void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -215,9 +213,9 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v9;
-      v25 = 2112;
-      v26 = v3;
+      v23 = v9;
+      v24 = 2112;
+      v25 = v3;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Attempt to connect to the endpoint to get the playback state failed with error %@", buf, 0x16u);
     }
 
@@ -238,17 +236,17 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v24 = v15;
+        v23 = v15;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Endpoint Attempting to locally read the playback state from media remote", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v11);
       v16 = [v12 workQueue];
-      objc_copyWeak(&v22, (a1 + 40));
-      v21 = *(a1 + 32);
+      objc_copyWeak(&v21, (a1 + 40));
+      v20 = *(a1 + 32);
       MRMediaRemoteGetNowPlayingApplicationPlaybackStateForOrigin();
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v21);
     }
 
     else
@@ -257,7 +255,7 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v24 = v17;
+        v23 = v17;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot look up origin for mediaSession to get playback state after connection", buf, 0xCu);
       }
 
@@ -270,13 +268,11 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invoke_24(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = objc_autoreleasePoolPush();
   v6 = WeakRetained;
@@ -294,11 +290,11 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
     }
 
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2048;
-    v15 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Locally read the playback state as: %tu", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2048;
+    v14 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Locally read the playback state as: %tu", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -307,8 +303,6 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
   {
     (*(v10 + 16))(v10, 0, a2);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPlaybackStateWithCompletionHandler:(id)handler
@@ -327,33 +321,33 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
 
 - (void)_notifyPendingBlocksOfError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   pendingBlocks = [(HMDMediaEndpoint *)self pendingBlocks];
-  v6 = [pendingBlocks countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [pendingBlocks countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(pendingBlocks);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v9++) + 16))();
+        (*(*(*(&v11 + 1) + 8 * v9++) + 16))();
       }
 
       while (v7 != v9);
-      v7 = [pendingBlocks countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [pendingBlocks countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -361,8 +355,6 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
 
   pendingBlocks2 = [(HMDMediaEndpoint *)self pendingBlocks];
   [pendingBlocks2 removeAllObjects];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)doesContainAnyAccessory:(id)accessory
@@ -407,9 +399,55 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
   return v7;
 }
 
+- (void)registerForNowPlayingUpdates:(BOOL)updates
+{
+  updatesCopy = updates;
+  v18 = *MEMORY[0x277D85DE8];
+  externalDevice = [(HMDMediaEndpoint *)self externalDevice];
+  v6 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v8 = HMFGetOSLogHandle();
+  v9 = v8;
+  if (externalDevice)
+  {
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v10 = HMFGetLogIdentifier();
+      v11 = v10;
+      v12 = @"De-registering";
+      if (updatesCopy)
+      {
+        v12 = @"Registering";
+      }
+
+      v14 = 138543618;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v12;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@%@ for playback state changes", &v14, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v6);
+    [externalDevice setWantsNowPlayingNotifications:updatesCopy];
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = HMFGetLogIdentifier();
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot look up external device for endpoint to register for playback state updates", &v14, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v6);
+  }
+}
+
 - (void)_connectWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (handlerCopy)
   {
@@ -433,7 +471,7 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v27 = v14;
+        v26 = v14;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Already in the process of connecting to the external device...", buf, 0xCu);
       }
 
@@ -454,7 +492,7 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v27 = v18;
+        v26 = v18;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@No connection to external device - setting up connection state callback and attempting to connect...", buf, 0xCu);
       }
 
@@ -462,15 +500,15 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
       [(HMDMediaEndpoint *)selfCopy2 setConnectionState:1];
       sessionIdentifier = [(HMDMediaEndpoint *)selfCopy2 sessionIdentifier];
       objc_initWeak(buf, selfCopy2);
-      v23 = MEMORY[0x277D85DD0];
-      objc_copyWeak(&v25, buf);
+      v22 = MEMORY[0x277D85DD0];
+      objc_copyWeak(&v24, buf);
       v20 = sessionIdentifier;
-      v24 = v20;
-      v21 = [(HMDMediaEndpoint *)selfCopy2 workQueue:v23];
-      [v8 setConnectionStateCallback:&v23 withQueue:v21];
+      v23 = v20;
+      v21 = [(HMDMediaEndpoint *)selfCopy2 workQueue:v22];
+      [v8 setConnectionStateCallback:&v22 withQueue:v21];
 
       [v8 connectWithOptions:0];
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
       objc_destroyWeak(buf);
     }
   }
@@ -480,13 +518,11 @@ void __59__HMDMediaEndpoint__getPlaybackStateWithCompletionHandler___block_invok
     v10 = [MEMORY[0x277CCA9B8] hmErrorWithCode:54];
     [(HMDMediaEndpoint *)self _notifyPendingBlocksOfError:v10];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDMediaEndpoint__connectWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = WeakRetained;
   if (WeakRetained)
@@ -502,17 +538,17 @@ void __50__HMDMediaEndpoint__connectWithCompletionHandler___block_invoke(uint64_
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v13 = HMFGetLogIdentifier();
-        v24 = 138544386;
-        v25 = v13;
-        v26 = 1024;
-        *v27 = a2;
-        *&v27[4] = 1024;
-        *&v27[6] = v8;
-        v28 = 2112;
-        v29 = v9;
-        v30 = 2112;
-        v31 = a3;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Connection state changed to %u (from %u) for endpoint %@ with error %@", &v24, 0x2Cu);
+        v23 = 138544386;
+        v24 = v13;
+        v25 = 1024;
+        *v26 = a2;
+        *&v26[4] = 1024;
+        *&v26[6] = v8;
+        v27 = 2112;
+        v28 = v9;
+        v29 = 2112;
+        v30 = a3;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Connection state changed to %u (from %u) for endpoint %@ with error %@", &v23, 0x2Cu);
       }
 
       objc_autoreleasePoolPop(v10);
@@ -526,11 +562,11 @@ void __50__HMDMediaEndpoint__connectWithCompletionHandler___block_invoke(uint64_
         {
           v18 = HMFGetLogIdentifier();
           v19 = *(a1 + 32);
-          v24 = 138543618;
-          v25 = v18;
-          v26 = 2112;
-          *v27 = v19;
-          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Attempting to refresh the session for the accessories on endpoint (%@) disconnect", &v24, 0x16u);
+          v23 = 138543618;
+          v24 = v18;
+          v25 = 2112;
+          *v26 = v19;
+          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Attempting to refresh the session for the accessories on endpoint (%@) disconnect", &v23, 0x16u);
         }
 
         objc_autoreleasePoolPop(v15);
@@ -548,8 +584,6 @@ void __50__HMDMediaEndpoint__connectWithCompletionHandler___block_invoke(uint64_
       [v11 _notifyPendingBlocksOfError:v14];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateOutputDevicesAndConnectWithCompletionHandler:(id)handler
@@ -622,7 +656,7 @@ void __52__HMDMediaEndpoint_disconnectWithCompletionHandler___block_invoke(uint6
 
 - (id)copyOrigin
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   externalDevice = [(HMDMediaEndpoint *)self externalDevice];
   v4 = externalDevice;
   if (!externalDevice)
@@ -641,9 +675,9 @@ LABEL_6:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Cannot look up origin from external device", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Cannot look up origin from external device", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -652,13 +686,12 @@ LABEL_6:
 
 LABEL_7:
 
-  v10 = *MEMORY[0x277D85DE8];
   return customOrigin;
 }
 
 - (MRExternalDevice)externalDevice
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   retainedEndpoint = [(HMDMediaEndpoint *)self retainedEndpoint];
   v4 = retainedEndpoint;
   if (retainedEndpoint)
@@ -675,15 +708,15 @@ LABEL_7:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v4;
+      v15 = 138543618;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v4;
       v10 = "%{public}@Cannot look up the external device for endpoint %@";
       v11 = v8;
       v12 = 22;
 LABEL_7:
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, v10, &v16, v12);
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, v10, &v15, v12);
     }
   }
 
@@ -695,8 +728,8 @@ LABEL_7:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v9;
+      v15 = 138543362;
+      v16 = v9;
       v10 = "%{public}@No endpoint to look up origin";
       v11 = v8;
       v12 = 12;
@@ -707,8 +740,6 @@ LABEL_7:
   objc_autoreleasePoolPop(v6);
   externalDevice = 0;
 LABEL_9:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return externalDevice;
 }
@@ -795,7 +826,7 @@ void __39__HMDMediaEndpoint_updateWithEndpoint___block_invoke(uint64_t a1)
 
 void __39__HMDMediaEndpoint_updateWithEndpoint___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = objc_autoreleasePoolPush();
@@ -808,17 +839,17 @@ void __39__HMDMediaEndpoint_updateWithEndpoint___block_invoke_2(uint64_t a1, voi
     {
       v9 = HMFGetLogIdentifier();
       v10 = *(a1 + 32);
-      v16 = 138543874;
-      v17 = v9;
-      v18 = 2112;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v3;
+      v15 = 138543874;
+      v16 = v9;
+      v17 = 2112;
+      v18 = v10;
+      v19 = 2112;
+      v20 = v3;
       v11 = "%{public}@Updating connection to endpoint %@ failed with error %@";
       v12 = v7;
       v13 = 32;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, v11, &v16, v13);
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, v11, &v15, v13);
     }
   }
 
@@ -826,10 +857,10 @@ LABEL_6:
   {
     v9 = HMFGetLogIdentifier();
     v14 = *(a1 + 32);
-    v16 = 138543618;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v14;
+    v15 = 138543618;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v14;
     v11 = "%{public}@Updated connection to endpoint %@";
     v12 = v7;
     v13 = 22;
@@ -837,39 +868,38 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v5);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateOutputDeviceIdentifiers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   retainedEndpoint = [(HMDMediaEndpoint *)self retainedEndpoint];
   v4 = retainedEndpoint;
   if (retainedEndpoint)
   {
     outputDevices = [retainedEndpoint outputDevices];
     v6 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(outputDevices, "count")}];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v7 = outputDevices;
-    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [*(*(&v15 + 1) + 8 * v11) uid];
+          v12 = [*(*(&v14 + 1) + 8 * v11) uid];
           if (v12)
           {
             [v6 addObject:v12];
@@ -879,17 +909,15 @@ LABEL_6:
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
     }
 
-    v13 = [v6 copy];
+    v13 = objc_msgSend_copy(v6);
     [(HMDMediaEndpoint *)self setOutputDeviceIdentifiers:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRetainedEndpoint:(id)endpoint
@@ -997,12 +1025,12 @@ LABEL_6:
     v7->_workQueue = v11;
 
     uniqueIdentifier = [endpointCopy uniqueIdentifier];
-    v14 = [uniqueIdentifier copy];
+    v14 = objc_msgSend_copy(uniqueIdentifier);
     sessionIdentifier = v7->_sessionIdentifier;
     v7->_sessionIdentifier = v14;
 
     localizedName = [endpointCopy localizedName];
-    v17 = [localizedName copy];
+    v17 = objc_msgSend_copy(localizedName);
     localizedName = v7->_localizedName;
     v7->_localizedName = v17;
 
@@ -1041,10 +1069,9 @@ LABEL_6:
 
 void __31__HMDMediaEndpoint_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v29_128739;
-  logCategory__hmf_once_v29_128739 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v29_128739;
+  logCategory__hmf_once_v29_128739 = v0;
 }
 
 @end

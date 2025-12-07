@@ -86,7 +86,7 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
 
 - (void)addListenType:(id)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = AXLogUltron();
   v6 = os_signpost_id_generate(v5);
@@ -98,9 +98,9 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
     v9 = MEMORY[0x277CCABB0];
     currentDetectionTypes = [(AXSDSoundDetectionController *)self currentDetectionTypes];
     v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(currentDetectionTypes, "count")}];
-    v18 = 138412290;
-    v19 = v11;
-    _os_signpost_emit_with_name_impl(&dword_23D62D000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "Add Sound Detection Type", "Begin - Number enabled: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v11;
+    _os_signpost_emit_with_name_impl(&dword_23D62D000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "Add Sound Detection Type", "Begin - Number enabled: %@", &v17, 0xCu);
   }
 
   [(AXSDControllerImplementation *)self->_controller addWithListenType:typeCopy];
@@ -111,17 +111,15 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
     v14 = MEMORY[0x277CCABB0];
     currentDetectionTypes2 = [(AXSDSoundDetectionController *)self currentDetectionTypes];
     v16 = [v14 numberWithUnsignedInteger:{objc_msgSend(currentDetectionTypes2, "count")}];
-    v18 = 138412290;
-    v19 = v16;
-    _os_signpost_emit_with_name_impl(&dword_23D62D000, v13, OS_SIGNPOST_INTERVAL_END, v6, "Add Sound Detection Type", "End - Number enabled: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v16;
+    _os_signpost_emit_with_name_impl(&dword_23D62D000, v13, OS_SIGNPOST_INTERVAL_END, v6, "Add Sound Detection Type", "End - Number enabled: %@", &v17, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeListenType:(id)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v5 = AXLogUltron();
   v6 = os_signpost_id_generate(v5);
@@ -133,9 +131,9 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
     v9 = MEMORY[0x277CCABB0];
     currentDetectionTypes = [(AXSDSoundDetectionController *)self currentDetectionTypes];
     v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(currentDetectionTypes, "count")}];
-    v18 = 138412290;
-    v19 = v11;
-    _os_signpost_emit_with_name_impl(&dword_23D62D000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "Remove Sound Detection Type", "Begin - Number enabled: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v11;
+    _os_signpost_emit_with_name_impl(&dword_23D62D000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "Remove Sound Detection Type", "Begin - Number enabled: %@", &v17, 0xCu);
   }
 
   [(AXSDControllerImplementation *)self->_controller removeWithListenType:typeCopy];
@@ -146,12 +144,10 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
     v14 = MEMORY[0x277CCABB0];
     currentDetectionTypes2 = [(AXSDSoundDetectionController *)self currentDetectionTypes];
     v16 = [v14 numberWithUnsignedInteger:{objc_msgSend(currentDetectionTypes2, "count")}];
-    v18 = 138412290;
-    v19 = v16;
-    _os_signpost_emit_with_name_impl(&dword_23D62D000, v13, OS_SIGNPOST_INTERVAL_END, v6, "Remove Sound Detection Type", "End - Number enabled: %@", &v18, 0xCu);
+    v17 = 138412290;
+    v18 = v16;
+    _os_signpost_emit_with_name_impl(&dword_23D62D000, v13, OS_SIGNPOST_INTERVAL_END, v6, "Remove Sound Detection Type", "End - Number enabled: %@", &v17, 0xCu);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)containsListenType:(id)type
@@ -165,7 +161,7 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
 
 - (void)startListening
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = AXLogUltron();
   v4 = os_signpost_id_generate(v3);
 
@@ -177,11 +173,11 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
     v8 = MEMORY[0x277CCABB0];
     v9 = v7;
     v10 = [v8 numberWithBool:{-[AXSDSoundDetectionController _hasMedinaSupport](self, "_hasMedinaSupport")}];
-    v24 = 138412546;
-    v25 = v7;
-    v26 = 2112;
-    v27 = v10;
-    _os_log_impl(&dword_23D62D000, v6, OS_LOG_TYPE_DEFAULT, "[%@]: Will start listening. Has Medina Support Enabled: %@", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = v7;
+    v25 = 2112;
+    v26 = v10;
+    _os_log_impl(&dword_23D62D000, v6, OS_LOG_TYPE_DEFAULT, "[%@]: Will start listening. Has Medina Support Enabled: %@", &v23, 0x16u);
   }
 
   v11 = AXLogUltron();
@@ -192,11 +188,11 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
     currentDetectionTypes = [(AXSDSoundDetectionController *)self currentDetectionTypes];
     v15 = [v13 numberWithUnsignedInteger:{objc_msgSend(currentDetectionTypes, "count")}];
     v16 = [MEMORY[0x277CCABB0] numberWithBool:_hasMedinaSupport];
-    v24 = 138412546;
-    v25 = v15;
-    v26 = 2112;
-    v27 = v16;
-    _os_signpost_emit_with_name_impl(&dword_23D62D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v4, "Start Listening", "Begin - Number of sounds enabled: %@ - Medina Support Enabled: %@", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = v15;
+    v25 = 2112;
+    v26 = v16;
+    _os_signpost_emit_with_name_impl(&dword_23D62D000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v4, "Start Listening", "Begin - Number of sounds enabled: %@ - Medina Support Enabled: %@", &v23, 0x16u);
   }
 
   [(AXSDControllerImplementation *)self->_controller startListening];
@@ -208,14 +204,12 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
     currentDetectionTypes2 = [(AXSDSoundDetectionController *)self currentDetectionTypes];
     v21 = [v19 numberWithUnsignedInteger:{objc_msgSend(currentDetectionTypes2, "count")}];
     v22 = [MEMORY[0x277CCABB0] numberWithBool:_hasMedinaSupport];
-    v24 = 138412546;
-    v25 = v21;
-    v26 = 2112;
-    v27 = v22;
-    _os_signpost_emit_with_name_impl(&dword_23D62D000, v18, OS_SIGNPOST_INTERVAL_END, v4, "Start Listening", "End - Number of sounds enabled: %@ - Medina Support Enabled: %@", &v24, 0x16u);
+    v23 = 138412546;
+    v24 = v21;
+    v25 = 2112;
+    v26 = v22;
+    _os_signpost_emit_with_name_impl(&dword_23D62D000, v18, OS_SIGNPOST_INTERVAL_END, v4, "Start Listening", "End - Number of sounds enabled: %@ - Medina Support Enabled: %@", &v23, 0x16u);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopListening
@@ -284,11 +278,10 @@ void __36__AXSDSoundDetectionController_init__block_invoke(uint64_t a1)
 
 - (void)pipeInFile:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23D62D000, a2, OS_LOG_TYPE_ERROR, "Error while piping file. Error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23D62D000, a2, OS_LOG_TYPE_ERROR, "Error while piping file. Error: %@", &v2, 0xCu);
 }
 
 @end

@@ -7,40 +7,38 @@
 
 - (id)appConfigurationActionsForModeIdentifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{-[NSDictionary count](self->_appActionsForModeIdentifier, "count")}];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_appActionsForModeIdentifier;
-  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [(NSDictionary *)self->_appActionsForModeIdentifier objectForKeyedSubscript:v9, v14];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [(NSDictionary *)self->_appActionsForModeIdentifier objectForKeyedSubscript:v9, v13];
         v11 = [v10 bs_compactMap:&__block_literal_global_16];
         [v3 setObject:v11 forKeyedSubscript:v9];
       }
 
-      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSDictionary *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

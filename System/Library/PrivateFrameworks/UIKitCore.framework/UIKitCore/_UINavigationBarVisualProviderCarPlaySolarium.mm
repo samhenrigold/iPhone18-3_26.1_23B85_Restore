@@ -543,7 +543,7 @@
   else
   {
     title = [itemCopy title];
-    if (title && (v23 = title, [itemCopy title], v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "isEqualToString:", &stru_1EFB14550), v24, v23, (v25 & 1) == 0))
+    if (title && (v23 = title, [itemCopy title], v24 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v24), v24, v23, (isEqualToString & 1) == 0))
     {
       titleView5 = [(_UINavigationBarVisualProviderCarPlaySolarium *)self titleView];
       [titleView5 setHidden:0];
@@ -1414,7 +1414,7 @@ LABEL_85:
   v7 = +[UIColor clearColor];
   cGColor = [v7 CGColor];
 
-  v9 = +[UIColor blackColor];
+  v9 = objc_msgSend_blackColor(UIColor);
   cGColor2 = [v9 CGColor];
 
   v20[0] = cGColor;

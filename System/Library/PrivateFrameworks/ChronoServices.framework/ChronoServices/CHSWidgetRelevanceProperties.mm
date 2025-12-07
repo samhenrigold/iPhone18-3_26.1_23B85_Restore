@@ -5,11 +5,46 @@
 - (CHSWidgetRelevanceProperties)initWithCoder:(id)coder;
 - (CHSWidgetRelevanceProperties)initWithSupportsBackgroundRefresh:(BOOL)refresh lastRelevanceUpdate:(double)update relevances:(id)relevances;
 - (CHSWidgetRelevanceProperties)initWithWidgetExtensionIdentity:(id)identity kind:(id)kind supportsBackgroundRefresh:(BOOL)refresh lastRelevanceUpdate:(double)update relevanceFunction:(id)function;
+- (CHSWidgetRelevanceProperties)initWithWidgetExtensionIdentity:(id)identity kind:(id)kind supportsBackgroundRefresh:(BOOL)refresh lastRelevanceUpdate:(double)update relevances:(id)relevances;
+- (CHSWidgetRelevanceProperties)initWithWidgetRelevanceKey:(id)key supportsBackgroundRefresh:(BOOL)refresh lastRelevanceUpdate:(double)update relevances:(id)relevances;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation CHSWidgetRelevanceProperties
+
+- (CHSWidgetRelevanceProperties)initWithWidgetRelevanceKey:(id)key supportsBackgroundRefresh:(BOOL)refresh lastRelevanceUpdate:(double)update relevances:(id)relevances
+{
+  refreshCopy = refresh;
+  keyCopy = key;
+  relevancesCopy = relevances;
+  extensionIdentity = [keyCopy extensionIdentity];
+  kind = [keyCopy kind];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __116__CHSWidgetRelevanceProperties_initWithWidgetRelevanceKey_supportsBackgroundRefresh_lastRelevanceUpdate_relevances___block_invoke;
+  v17[3] = &unk_1E7453028;
+  v14 = relevancesCopy;
+  v18 = v14;
+  v15 = [(CHSWidgetRelevanceProperties *)self initWithWidgetExtensionIdentity:extensionIdentity kind:kind supportsBackgroundRefresh:refreshCopy lastRelevanceUpdate:v17 relevanceFunction:update];
+
+  return v15;
+}
+
+- (CHSWidgetRelevanceProperties)initWithWidgetExtensionIdentity:(id)identity kind:(id)kind supportsBackgroundRefresh:(BOOL)refresh lastRelevanceUpdate:(double)update relevances:(id)relevances
+{
+  refreshCopy = refresh;
+  relevancesCopy = relevances;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __126__CHSWidgetRelevanceProperties_initWithWidgetExtensionIdentity_kind_supportsBackgroundRefresh_lastRelevanceUpdate_relevances___block_invoke;
+  v16[3] = &unk_1E7453028;
+  v17 = relevancesCopy;
+  v13 = relevancesCopy;
+  v14 = [(CHSWidgetRelevanceProperties *)self initWithWidgetExtensionIdentity:identity kind:kind supportsBackgroundRefresh:refreshCopy lastRelevanceUpdate:v16 relevanceFunction:update];
+
+  return v14;
+}
 
 - (CHSWidgetRelevanceProperties)initWithSupportsBackgroundRefresh:(BOOL)refresh lastRelevanceUpdate:(double)update relevances:(id)relevances
 {
@@ -89,34 +124,19 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_7;
-  }
-
-  extensionIdentity = self->_extensionIdentity;
-  v6 = equalCopy[3];
-  if (!BSEqualObjects())
-  {
-    goto LABEL_7;
-  }
-
-  kind = self->_kind;
-  v8 = equalCopy[4];
-  if (BSEqualObjects() && (supportsBackgroundRefresh = self->_supportsBackgroundRefresh, v10 = *(equalCopy + 16), BSEqualBools()) && (lastRelevanceUpdate = self->_lastRelevanceUpdate, v12 = equalCopy[5], BSEqualDoubles()))
+  if ((objc_opt_isKindOfClass() & 1) != 0 && BSEqualObjects() && BSEqualObjects() && BSEqualBools() && BSEqualDoubles())
   {
     relevances = [(CHSWidgetRelevanceProperties *)self relevances];
     relevances2 = [equalCopy relevances];
-    v15 = BSEqualObjects();
+    v7 = BSEqualObjects();
   }
 
   else
   {
-LABEL_7:
-    v15 = 0;
+    v7 = 0;
   }
 
-  return v15;
+  return v7;
 }
 
 - (BOOL)matches:(id)matches

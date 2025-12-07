@@ -5051,23 +5051,23 @@ LABEL_18:
 
 - (void)separateRecordingLayers:(id)layers
 {
-  v4 = sub_1000C773C(&unk_1002D1D90);
-  __chkstk_darwin(v4 - 8, v5);
-  v7 = &v15 - v6;
-  v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v10 = v9;
-  v11 = type metadata accessor for TaskPriority();
-  (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
+  v4 = sub_1000C773C(&unk_1002D1D90, &qword_1002422E0);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v14 - v5;
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
+  v10 = type metadata accessor for TaskPriority();
+  (*(*(v10 - 8) + 56))(v6, 1, 1, v10);
   type metadata accessor for MainActor();
   selfCopy = self;
-  v13 = static MainActor.shared.getter();
-  v14 = swift_allocObject();
-  v14[2] = v13;
-  v14[3] = &protocol witness table for MainActor;
-  v14[4] = v8;
-  v14[5] = v10;
-  v14[6] = selfCopy;
-  sub_100194190(0, 0, v7, &unk_10024F220, v14);
+  v12 = static MainActor.shared.getter();
+  v13 = swift_allocObject();
+  v13[2] = v12;
+  v13[3] = &protocol witness table for MainActor;
+  v13[4] = v7;
+  v13[5] = v9;
+  v13[6] = selfCopy;
+  sub_100194190(0, 0, v6, &unk_10024F220, v13);
 }
 
 @end

@@ -23,9 +23,10 @@
 
 uint64_t __41__SBSCaptureIntentService_sharedInstance__block_invoke()
 {
-  sharedInstance_service_1 = objc_alloc_init(SBSCaptureIntentService);
+  v0 = objc_alloc_init(SBSCaptureIntentService);
+  sharedInstance_service_1 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 - (SBSCaptureIntentService)init
@@ -84,20 +85,20 @@ void __31__SBSCaptureIntentService_init__block_invoke(uint64_t a1, void *a2)
   objc_destroyWeak(&location);
 }
 
-void __31__SBSCaptureIntentService_init__block_invoke_2()
+void __31__SBSCaptureIntentService_init__block_invoke_2(uint64_t a1)
 {
-  v0 = SBLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = SBLogCommon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_19169D000, v0, OS_LOG_TYPE_DEFAULT, "SBSCaptureIntentService: interrupted", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_19169D000, v1, OS_LOG_TYPE_DEFAULT, "SBSCaptureIntentService: interrupted", v2, 2u);
   }
 }
 
 void __31__SBSCaptureIntentService_init__block_invoke_8(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = SBLogCommon();
+  v2 = SBLogCommon(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -154,11 +155,11 @@ void __31__SBSCaptureIntentService_init__block_invoke_8(uint64_t a1)
 {
   contextCopy = context;
   os_unfair_lock_lock(&self->_lock);
-  v5 = SBLogCommon();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = SBLogCommon(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_19169D000, v5, OS_LOG_TYPE_DEFAULT, "SBSCaptureIntentService: Setting capture intent context for bundle identifier", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_19169D000, v6, OS_LOG_TYPE_DEFAULT, "SBSCaptureIntentService: Setting capture intent context for bundle identifier", v8, 2u);
   }
 
   remoteTarget = [(BSServiceConnection *)self->_lock_connection remoteTarget];
@@ -170,11 +171,11 @@ void __31__SBSCaptureIntentService_init__block_invoke_8(uint64_t a1)
 - (id)context
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = SBLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogCommon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_19169D000, v3, OS_LOG_TYPE_DEFAULT, "SBSCaptureIntentService: Retrieving capture intent context for bundle identifier", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_19169D000, v4, OS_LOG_TYPE_DEFAULT, "SBSCaptureIntentService: Retrieving capture intent context for bundle identifier", v8, 2u);
   }
 
   remoteTarget = [(BSServiceConnection *)self->_lock_connection remoteTarget];

@@ -7,35 +7,35 @@
 
 - (NSDictionary)eventPayload
 {
-  v27[16] = *MEMORY[0x1E69E9840];
-  v26[0] = @"succeeded";
-  v25 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent succeeded](self, "succeeded")}];
-  v27[0] = v25;
-  v26[1] = @"failureReason";
-  v24 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{-[SFPairedUnlockEvent failureReason](self, "failureReason")}];
-  v27[1] = v24;
-  v26[2] = @"attemptHourLocal";
-  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{-[SFPairedUnlockEvent attemptHourLocal](self, "attemptHourLocal")}];
-  v27[2] = v23;
-  v26[3] = @"phoneAutoUnlockEnabled";
-  v22 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent phoneAutoUnlockEnabled](self, "phoneAutoUnlockEnabled")}];
-  v27[3] = v22;
-  v26[4] = @"canRelock";
-  v21 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent canRelock](self, "canRelock")}];
-  v27[4] = v21;
-  v26[5] = @"relockedWatch";
-  v20 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent relockedWatch](self, "relockedWatch")}];
-  v27[5] = v20;
-  v26[6] = @"phoneState";
-  v19 = [MEMORY[0x1E696AD98] numberWithInteger:{-[SFPairedUnlockEvent phoneState](self, "phoneState")}];
-  v27[6] = v19;
-  v26[7] = @"usingEscrowRecord";
+  v26[16] = *MEMORY[0x1E69E9840];
+  v25[0] = @"succeeded";
+  v24 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent succeeded](self, "succeeded")}];
+  v26[0] = v24;
+  v25[1] = @"failureReason";
+  v23 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{-[SFPairedUnlockEvent failureReason](self, "failureReason")}];
+  v26[1] = v23;
+  v25[2] = @"attemptHourLocal";
+  v22 = [MEMORY[0x1E696AD98] numberWithUnsignedShort:{-[SFPairedUnlockEvent attemptHourLocal](self, "attemptHourLocal")}];
+  v26[2] = v22;
+  v25[3] = @"phoneAutoUnlockEnabled";
+  v21 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent phoneAutoUnlockEnabled](self, "phoneAutoUnlockEnabled")}];
+  v26[3] = v21;
+  v25[4] = @"canRelock";
+  v20 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent canRelock](self, "canRelock")}];
+  v26[4] = v20;
+  v25[5] = @"relockedWatch";
+  v19 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent relockedWatch](self, "relockedWatch")}];
+  v26[5] = v19;
+  v25[6] = @"phoneState";
+  v18 = [MEMORY[0x1E696AD98] numberWithInteger:{-[SFPairedUnlockEvent phoneState](self, "phoneState")}];
+  v26[6] = v18;
+  v25[7] = @"usingEscrowRecord";
   v3 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent usingEscrowRecord](self, "usingEscrowRecord")}];
-  v27[7] = v3;
-  v26[8] = @"retriedWithEscrowRecord";
+  v26[7] = v3;
+  v25[8] = @"retriedWithEscrowRecord";
   v4 = [MEMORY[0x1E696AD98] numberWithBool:{-[SFPairedUnlockEvent retriedWithEscrowRecord](self, "retriedWithEscrowRecord")}];
-  v27[8] = v4;
-  v26[9] = @"watchSoftwareVersion";
+  v26[8] = v4;
+  v25[9] = @"watchSoftwareVersion";
   watchSoftwareVersion = [(SFPairedUnlockEvent *)self watchSoftwareVersion];
   v6 = watchSoftwareVersion;
   if (watchSoftwareVersion)
@@ -48,8 +48,8 @@
     v7 = &stru_1F1D30528;
   }
 
-  v27[9] = v7;
-  v26[10] = @"watchHardwareModel";
+  v26[9] = v7;
+  v25[10] = @"watchHardwareModel";
   watchHardwareModel = [(SFPairedUnlockEvent *)self watchHardwareModel];
   v9 = watchHardwareModel;
   if (watchHardwareModel)
@@ -62,25 +62,23 @@
     v10 = &stru_1F1D30528;
   }
 
-  v27[10] = v10;
-  v26[11] = @"keyExchangeDurationMs";
+  v26[10] = v10;
+  v25[11] = @"keyExchangeDurationMs";
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[SFPairedUnlockEvent keyExchangeDuration](self, "keyExchangeDuration")}];
-  v27[11] = v11;
-  v26[12] = @"pillDelayMs";
+  v26[11] = v11;
+  v25[12] = @"pillDelayMs";
   v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[SFPairedUnlockEvent pillDelay](self, "pillDelay")}];
-  v27[12] = v12;
-  v26[13] = @"confirmationDurationMs";
+  v26[12] = v12;
+  v25[13] = @"confirmationDurationMs";
   v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[SFPairedUnlockEvent confirmationDuration](self, "confirmationDuration")}];
-  v27[13] = v13;
-  v26[14] = @"totalUnlockProcessDurationMs";
+  v26[13] = v13;
+  v25[14] = @"totalUnlockProcessDurationMs";
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[SFPairedUnlockEvent totalUnlockProcessDuration](self, "totalUnlockProcessDuration")}];
-  v27[14] = v14;
-  v26[15] = @"totalUnlockDurationMs";
+  v26[14] = v14;
+  v25[15] = @"totalUnlockDurationMs";
   v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[SFPairedUnlockEvent totalUnlockDuration](self, "totalUnlockDuration")}];
-  v27[15] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:16];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v26[15] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:16];
 
   return v16;
 }

@@ -1,4 +1,4 @@
-uint64_t Registry_Impl.getActivePairedDeviceIncludingAltAccount()(uint64_t a1)
+id Registry_Impl.getActivePairedDeviceIncludingAltAccount()(uint64_t a1)
 {
   v2 = [v1 getDevicesExcluding_];
   type metadata accessor for PDRDevice();
@@ -53,12 +53,11 @@ LABEL_6:
   return result;
 }
 
-uint64_t specialized Registry_Impl.getDevicesExcluding(_:)(char a1)
+uint64_t specialized Registry_Impl.getDevicesExcluding(_:)(char a1, uint64_t a2)
 {
-  v2 = type metadata accessor for UUID();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
+  v3 = type metadata accessor for UUID();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
   v6 = &v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for instance != -1)
   {
@@ -90,9 +89,9 @@ uint64_t specialized Registry_Impl.getDevicesExcluding(_:)(char a1)
   if (v17)
   {
     v42 = v14;
-    v18 = v3 + 16;
-    v38 = *(v3 + 16);
-    v19 = (*(v3 + 80) + 32) & ~*(v3 + 80);
+    v18 = v4 + 16;
+    v38 = *(v4 + 16);
+    v19 = (*(v4 + 80) + 32) & ~*(v4 + 80);
     v35 = v16;
     v20 = v16 + v19;
     v21 = (v18 - 8);
@@ -103,10 +102,10 @@ uint64_t specialized Registry_Impl.getDevicesExcluding(_:)(char a1)
     do
     {
       v23 = v38;
-      v38(v6, v20, v2);
-      v24 = type metadata accessor for Device_Impl();
+      v38(v6, v20, v3);
+      v24 = type metadata accessor for Device_Impl(0);
       v25 = objc_allocWithZone(v24);
-      v23(&v25[OBJC_IVAR___PDRDevice_Impl_uuid_], v6, v2);
+      v23(&v25[OBJC_IVAR___PDRDevice_Impl_uuid_], v6, v3);
       v26 = &v25[OBJC_IVAR___PDRDevice_Impl_registryState];
       v27 = v41;
       v28 = v42;
@@ -118,7 +117,7 @@ uint64_t specialized Registry_Impl.getDevicesExcluding(_:)(char a1)
       v29 = v28;
       v30 = v43;
       v31 = objc_msgSendSuper2(&v44, sel_init, v35);
-      (*v21)(v6, v2);
+      (*v21)(v6, v3);
       if ((a1 & 1) != 0 && ([v31 isPaired] & 1) == 0 || (a1 & 2) != 0 && objc_msgSend(v31, sel_isArchived) || (a1 & 4) != 0 && (objc_msgSend(v31, sel_isActive) & 1) == 0 || (a1 & 8) != 0 && objc_msgSend(v31, sel_isActive) || (a1 & 0x10) != 0 && (objc_msgSend(v31, sel_isSetup) & 1) == 0 || (a1 & 0x20) != 0 && objc_msgSend(v31, sel_isAltAccount))
       {
       }
@@ -169,28 +168,21 @@ unint64_t type metadata accessor for PDRDevice()
   return result;
 }
 
-id implementationClass()
+id implementationClass(uint64_t a1)
 {
   if (implementationClass_onceToken != -1)
   {
     implementationClass_cold_1();
   }
 
-  v1 = implementationClass_result;
+  v2 = implementationClass_result;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __implementationClass_block_invoke()
 {
-  v0 = +[PDRRegistry_Impl supportsWatch];
-  v1 = &off_2787A78D8;
-  if (v0)
-  {
-    v1 = off_2787A78D0;
-  }
-
-  v2 = *v1;
+  +[PDRRegistry_Impl supportsWatch];
   result = objc_opt_class();
   implementationClass_result = result;
   return result;
@@ -252,7 +244,7 @@ BOOL one-time initialization function for demoModeEnabled()
 
 BOOL closure #1 in variable initialization expression of static RegistryCrux.demoModeEnabled()
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x2318DF040](0xD000000000000033, 0x800000022DFB0230);
   v1 = [v0 UTF8String];
   v2 = v0;
@@ -263,13 +255,13 @@ BOOL closure #1 in variable initialization expression of static RegistryCrux.dem
   }
 
   v4 = v3;
-  LODWORD(v14[0]) = -1;
-  v5 = notify_register_check(v3, v14);
-  v6 = v14[0];
-  v7 = v14[0] & ~(SLODWORD(v14[0]) >> 31);
+  LODWORD(v13[0]) = -1;
+  v5 = notify_register_check(v3, v13);
+  v6 = v13[0];
+  v7 = v13[0] & ~(SLODWORD(v13[0]) >> 31);
   if (!v5)
   {
-    v14[0] = 0;
+    v13[0] = 0;
     if (v6 < 0)
     {
       v11 = 0;
@@ -278,8 +270,8 @@ BOOL closure #1 in variable initialization expression of static RegistryCrux.dem
 
     if (notify_is_valid_token(v7))
     {
-      notify_get_state(v7, v14);
-      v11 = v14[0] != 0;
+      notify_get_state(v7, v13);
+      v11 = v13[0] != 0;
     }
 
     else
@@ -320,7 +312,6 @@ LABEL_11:
 
 LABEL_19:
   free(v4);
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -365,12 +356,12 @@ id Registry_Impl.init()()
   return objc_msgSendSuper2(&v7, sel_init);
 }
 
-void type metadata accessor for PDRRegistryStatus(uint64_t a1, unint64_t *a2)
+void type metadata accessor for PDRRegistryStatus(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -400,49 +391,45 @@ Swift::Void __swiftcall Registry_Impl.start()()
 
     os_unfair_lock_lock(v5 + 4);
 
-    v6 = *(v3 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registries_);
+    specialized WeakCollection.append(_:)(v2);
 
-    specialized WeakCollection.append(_:)();
+    v6 = *(v3 + v4);
 
-    v7 = *(v3 + v4);
-
-    os_unfair_lock_unlock(v7 + 4);
+    os_unfair_lock_unlock(v6 + 4);
 
     *(v2 + v1) = 1;
     if ((*(v2 + OBJC_IVAR___PDRRegistry_Impl_amSingleton) & 1) == 0)
     {
-      v8 = static RegistryCrux.instance;
-      v9 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
-      v10 = *(static RegistryCrux.instance + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock);
+      v7 = static RegistryCrux.instance;
+      v8 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
+      v9 = *(static RegistryCrux.instance + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock);
 
-      os_unfair_lock_lock(v10 + 4);
+      os_unfair_lock_lock(v9 + 4);
 
-      v12 = *(v8 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_);
-      v11 = *(v8 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 8);
-      v13 = *(v8 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 16);
-      v14 = *(v8 + v9);
+      v11 = *(v7 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_);
+      v10 = *(v7 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 8);
+      v12 = *(v7 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 16);
+      v13 = *(v7 + v8);
+      v14 = v10;
+
       v15 = v11;
+      os_unfair_lock_unlock(v13 + 4);
 
-      v16 = v12;
-      os_unfair_lock_unlock(v14 + 4);
-
-      Registry_Impl.bootstrapNotify(_:)(v16, v11, v13);
+      Registry_Impl.bootstrapNotify(_:)(v15, v10, v12);
     }
   }
 }
 
 char *one-time initialization function for instance()
 {
-  v0 = type metadata accessor for RegistryCrux(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  type metadata accessor for RegistryCrux(0);
   swift_allocObject();
   result = RegistryCrux.().init()();
   static RegistryCrux.instance = result;
   return result;
 }
 
-uint64_t type metadata accessor for RegistryCrux(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for RegistryCrux(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -453,25 +440,23 @@ uint64_t type metadata accessor for RegistryCrux(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-void type metadata completion function for RegistryCrux()
+void type metadata completion function for RegistryCrux(uint64_t a1)
 {
-  refreshed = type metadata accessor for RegistryCrux.RefreshTimings(319);
+  type metadata accessor for RegistryCrux.RefreshTimings(319);
   if (v1 <= 0x3F)
   {
-    v4 = *(refreshed - 8) + 64;
-    type metadata accessor for RegistryState.LoggingInfo?();
-    if (v3 <= 0x3F)
+    type metadata accessor for RegistryState.LoggingInfo?(319);
+    if (v2 <= 0x3F)
     {
-      v5 = *(v2 - 8) + 64;
       swift_updateClassMetadata2();
     }
   }
 }
 
-uint64_t type metadata completion function for RegistryCrux.RefreshTimings()
+uint64_t type metadata completion function for RegistryCrux.RefreshTimings(uint64_t a1)
 {
   result = type metadata accessor for ContinuousClock.Instant();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -480,20 +465,20 @@ uint64_t type metadata completion function for RegistryCrux.RefreshTimings()
   return result;
 }
 
-void type metadata accessor for RegistryState.LoggingInfo?()
+void type metadata accessor for RegistryState.LoggingInfo?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for RegistryState.LoggingInfo?)
   {
-    type metadata accessor for RegistryState.LoggingInfo();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    type metadata accessor for RegistryState.LoggingInfo(255);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for RegistryState.LoggingInfo?);
+      atomic_store(v1, &lazy cache variable for type metadata for RegistryState.LoggingInfo?);
     }
   }
 }
 
-uint64_t type metadata accessor for RegistryState.LoggingInfo()
+uint64_t type metadata accessor for RegistryState.LoggingInfo(uint64_t a1)
 {
   result = type metadata singleton initialization cache for RegistryState.LoggingInfo;
   if (!type metadata singleton initialization cache for RegistryState.LoggingInfo)
@@ -504,10 +489,10 @@ uint64_t type metadata accessor for RegistryState.LoggingInfo()
   return result;
 }
 
-uint64_t type metadata completion function for RegistryState.LoggingInfo()
+uint64_t type metadata completion function for RegistryState.LoggingInfo(uint64_t a1)
 {
   result = type metadata accessor for ContinuousClock.Instant();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -520,92 +505,89 @@ char *RegistryCrux.().init()()
 {
   v1 = v0;
   v2 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2);
-  v4 = type metadata accessor for DispatchQoS();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v6 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v43[1] = type metadata accessor for NRMutableDeviceCollection(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
-  (*(v7 + 104))(v10, *MEMORY[0x277D85268], v6);
+  v3 = type metadata accessor for DispatchQoS();
+  MEMORY[0x28223BE20](v3 - 8);
+  v4 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = v39 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39[1] = type metadata accessor for NRMutableDeviceCollection(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+  (*(v5 + 104))(v7, *MEMORY[0x277D85268], v4);
   static DispatchQoS.unspecified.getter();
   aBlock[0] = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230]);
+  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230], MEMORY[0x277D85238]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   *(v0 + 24) = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v11 = v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
+  v8 = v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
   static ContinuousClock.now.getter();
-  v12 = *(type metadata accessor for RegistryCrux.RefreshTimings(0) + 20);
-  *(v11 + v12) = specialized RandomNumberGenerator.next<A>(upperBound:)(61440) + 4096;
-  v13 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_lastLoggedInfo;
-  v14 = type metadata accessor for RegistryState.LoggingInfo();
-  (*(*(v14 - 8) + 56))(v1 + v13, 1, 1, v14);
-  v15 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
+  v9 = *(type metadata accessor for RegistryCrux.RefreshTimings(0) + 20);
+  *(v8 + v9) = specialized RandomNumberGenerator.next<A>(upperBound:)(61440) + 4096;
+  v10 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_lastLoggedInfo;
+  v11 = type metadata accessor for RegistryState.LoggingInfo(0);
+  (*(*(v11 - 8) + 56))(v1 + v10, 1, 1, v11);
+  v12 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13ManagedBufferCyytSo16os_unfair_lock_sVGMd, &_ss13ManagedBufferCyytSo16os_unfair_lock_sVGMR);
+  v13 = swift_allocObject();
+  *(v13 + 16) = 0;
+  *(v1 + v12) = v13;
+  v14 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registries_;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s20PairedDeviceRegistry14WeakCollectionCySo11PDRRegistryCGMd, &_s20PairedDeviceRegistry14WeakCollectionCySo11PDRRegistryCGMR);
+  v15 = swift_allocObject();
+  *(v15 + 16) = MEMORY[0x277D84F90];
   v16 = swift_allocObject();
   *(v16 + 16) = 0;
-  *(v1 + v15) = v16;
-  v17 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registries_;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s20PairedDeviceRegistry14WeakCollectionCySo11PDRRegistryCGMd, &_s20PairedDeviceRegistry14WeakCollectionCySo11PDRRegistryCGMR);
-  v18 = swift_allocObject();
-  *(v18 + 16) = MEMORY[0x277D84F90];
-  v19 = swift_allocObject();
-  *(v19 + 16) = 0;
-  *(v1 + v17) = v18;
-  *(v18 + 24) = v19;
+  *(v1 + v14) = v15;
+  *(v15 + 24) = v16;
   *(v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_warnedAboutEntitlement_) = 0;
   *(v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_connectionShadow_) = 0;
-  v20 = v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_connectionSleeper_;
-  *v20 = 0u;
-  *(v20 + 16) = 0u;
-  *(v20 + 32) = 1;
-  v21 = (v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_serviceShadow_);
-  *v21 = 0u;
-  v21[1] = 0u;
+  v17 = v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_connectionSleeper_;
+  *v17 = 0u;
+  *(v17 + 16) = 0u;
+  *(v17 + 32) = 1;
+  v18 = (v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_serviceShadow_);
+  *v18 = 0u;
+  v18[1] = 0u;
   *(v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux____lazy_storage___hasInternalDiagnostics) = 2;
-  v22 = v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux____lazy_storage___minElapsedToFireMs;
-  *v22 = 0;
-  *(v22 + 8) = 1;
-  v23 = v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux____lazy_storage___maxElapsedToFireMs;
-  *v23 = 0;
-  *(v23 + 8) = 1;
+  v19 = v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux____lazy_storage___minElapsedToFireMs;
+  *v19 = 0;
+  *(v19 + 8) = 1;
+  v20 = v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux____lazy_storage___maxElapsedToFireMs;
+  *v20 = 0;
+  *(v20 + 8) = 1;
   *(v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux____lazy_storage___tailspinsEnabled) = 2;
-  v24 = [objc_allocWithZone(MEMORY[0x277D2BCE8]) init];
-  v25 = v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_;
-  *v25 = v24;
-  *(v25 + 8) = xmmword_22DFAE870;
+  v21 = [objc_allocWithZone(MEMORY[0x277D2BCE8]) init];
+  v22 = v1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_;
+  *v22 = v21;
+  *(v22 + 8) = xmmword_22DFAE870;
   type metadata accessor for NotifyState();
-  v26 = swift_allocObject();
-  *(v26 + 40) = 0;
-  *(v26 + 44) = 1;
-  *(v26 + 24) = closure #1 in default argument 1 of NotifyState.init(name:_:);
-  *(v26 + 32) = 0;
-  v27 = MEMORY[0x2318DF040](0, 0xE000000000000000);
-  v28 = [v27 UTF8String];
-  v29 = v27;
-  result = strdup(v28);
+  v23 = swift_allocObject();
+  *(v23 + 40) = 0;
+  *(v23 + 44) = 1;
+  *(v23 + 24) = closure #1 in default argument 1 of NotifyState.init(name:_:);
+  *(v23 + 32) = 0;
+  v24 = MEMORY[0x2318DF040](0, 0xE000000000000000);
+  v25 = [v24 UTF8String];
+  v26 = v24;
+  result = strdup(v25);
   if (!result)
   {
     __break(1u);
     goto LABEL_11;
   }
 
-  *(v26 + 16) = result;
-  *(v1 + 16) = v26;
-  v31 = swift_allocObject();
-  *(v31 + 40) = 0;
-  *(v31 + 44) = 1;
+  *(v23 + 16) = result;
+  *(v1 + 16) = v23;
+  v28 = swift_allocObject();
+  *(v28 + 40) = 0;
+  *(v28 + 44) = 1;
 
-  v32 = MEMORY[0x2318DF040](0xD00000000000003FLL, 0x800000022DFB01F0);
-  v33 = [v32 UTF8String];
-  v34 = v32;
-  result = strdup(v33);
+  v29 = MEMORY[0x2318DF040](0xD00000000000003FLL, 0x800000022DFB01F0);
+  v30 = [v29 UTF8String];
+  v31 = v29;
+  result = strdup(v30);
   if (!result)
   {
 LABEL_11:
@@ -613,31 +595,30 @@ LABEL_11:
     return result;
   }
 
-  *(v31 + 16) = result;
-  *(v31 + 24) = partial apply for closure #1 in RegistryCrux.().init();
-  *(v31 + 32) = v1;
-  v35 = *(v1 + 16);
-  *(v1 + 16) = v31;
+  *(v28 + 16) = result;
+  *(v28 + 24) = partial apply for closure #1 in RegistryCrux.().init();
+  *(v28 + 32) = v1;
+  *(v1 + 16) = v28;
 
   NotifyState.registerDispatch(bootstrap:)(0);
 
-  v36 = *(v1 + 24);
-  v37 = swift_allocObject();
-  *(v37 + 16) = partial apply for closure #2 in RegistryCrux.().init();
-  *(v37 + 24) = v1;
+  v32 = *(v1 + 24);
+  v33 = swift_allocObject();
+  *(v33 + 16) = partial apply for closure #2 in RegistryCrux.().init();
+  *(v33 + 24) = v1;
   aBlock[4] = thunk for @callee_guaranteed () -> ()partial apply;
-  aBlock[5] = v37;
+  aBlock[5] = v33;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
   aBlock[3] = &block_descriptor_166;
-  v38 = _Block_copy(aBlock);
+  v34 = _Block_copy(aBlock);
 
-  dispatch_sync(v36, v38);
-  _Block_release(v38);
-  LOBYTE(v36) = swift_isEscapingClosureAtFileLocation();
+  dispatch_sync(v32, v34);
+  _Block_release(v34);
+  LOBYTE(v32) = swift_isEscapingClosureAtFileLocation();
 
-  if (v36)
+  if (v32)
   {
     __break(1u);
     goto LABEL_9;
@@ -649,16 +630,16 @@ LABEL_9:
     swift_once();
   }
 
-  v39 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v39, static Logs.framework);
-  v40 = Logger.logObject.getter();
-  v41 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v40, v41))
+  v35 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v35, static Logs.framework);
+  v36 = Logger.logObject.getter();
+  v37 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v36, v37))
   {
-    v42 = swift_slowAlloc();
-    *v42 = 0;
-    _os_log_impl(&dword_22DF91000, v40, v41, "RegistryCrux fully initialized and synced", v42, 2u);
-    MEMORY[0x2318DFC30](v42, -1, -1);
+    v38 = swift_slowAlloc();
+    *v38 = 0;
+    _os_log_impl(&dword_22DF91000, v36, v37, "RegistryCrux fully initialized and synced", v38, 2u);
+    MEMORY[0x2318DFC30](v38, -1, -1);
   }
 
   return v1;
@@ -667,17 +648,15 @@ LABEL_9:
 uint64_t NotifyState.__deallocating_deinit()
 {
   free(*(v0 + 16));
-  v1 = *(v0 + 32);
 
   return MEMORY[0x2821FE8D8](v0, 45, 7);
 }
 
-uint64_t type metadata accessor for NRMutableDeviceCollection(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for NRMutableDeviceCollection(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -689,28 +668,27 @@ uint64_t type metadata accessor for NRMutableDeviceCollection(uint64_t a1, unint
 BOOL NotifyState.registerDispatch(bootstrap:)(char a1)
 {
   v2 = v1;
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = type metadata accessor for DispatchQoS.QoSClass();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = aBlock - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   out_token = -1;
-  v9 = *(v1 + 16);
+  v8 = *(v1 + 16);
   type metadata accessor for OS_dispatch_queue();
-  (*(v5 + 104))(v8, *MEMORY[0x277D851C8], v4);
-  v10 = static OS_dispatch_queue.global(qos:)();
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 104))(v7, *MEMORY[0x277D851C8], v4);
+  v9 = static OS_dispatch_queue.global(qos:)();
+  (*(v5 + 8))(v7, v4);
   aBlock[4] = partial apply for closure #1 in NotifyState.registerDispatch(bootstrap:);
   aBlock[5] = v2;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@unowned Int32) -> ();
   aBlock[3] = &block_descriptor;
-  v11 = _Block_copy(aBlock);
+  v10 = _Block_copy(aBlock);
 
-  v12 = notify_register_dispatch(v9, &out_token, v10, v11);
-  _Block_release(v11);
+  v11 = notify_register_dispatch(v8, &out_token, v9, v10);
+  _Block_release(v10);
 
   if ((out_token & 0x80000000) == 0)
   {
@@ -718,19 +696,17 @@ BOOL NotifyState.registerDispatch(bootstrap:)(char a1)
     *(v2 + 44) = 0;
   }
 
-  result = v12 != 0;
-  if (!v12 && (a1 & 1) != 0)
+  result = v11 != 0;
+  if (!v11 && (a1 & 1) != 0)
   {
-    v14 = *(v2 + 32);
     (*(v2 + 24))(v2);
-    result = 0;
+    return 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -807,24 +783,15 @@ uint64_t one-time initialization function for framework()
   return Logger.init(subsystem:category:)();
 }
 
-uint64_t partial apply for thunk for @callee_guaranteed () -> ()()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
 uint64_t thunk for @escaping @callee_guaranteed () -> ()(uint64_t a1)
 {
-  v1 = *(a1 + 40);
   return (*(a1 + 32))();
 }
 
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
@@ -839,14 +806,11 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -875,16 +839,15 @@ void specialized WeakCollection.sweep(action:)(uint64_t a1, void *a2)
     v5 = 0;
     do
     {
-      outlined init with copy of RegistryState.LoggingInfo?(v4 + 8 * v5 + 32, v13, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMR);
+      outlined init with copy of RegistryState.LoggingInfo?(v4 + 8 * v5 + 32, v12, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMR);
       Strong = swift_unknownObjectWeakLoadStrong();
-      outlined destroy of UUID?(v13, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMR);
+      outlined destroy of UUID?(v12, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMR);
       if (Strong)
       {
         v11 = Strong;
         MEMORY[0x2318DF0D0]();
         if (*((*a2 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*a2 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
-          v12 = *((*a2 & 0xFFFFFFFFFFFFFF8) + 0x10);
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
@@ -928,71 +891,71 @@ void specialized WeakCollection.sweep(action:)(uint64_t a1, void *a2)
   }
 }
 
-uint64_t specialized WeakCollection.append(_:)()
+uint64_t specialized WeakCollection.append(_:)(uint64_t a1)
 {
-  v1 = *(v0 + 24);
+  v2 = *(v1 + 24);
 
-  os_unfair_lock_lock(v1 + 4);
+  os_unfair_lock_lock(v2 + 4);
 
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakAssign();
   swift_beginAccess();
-  v2 = *(v0 + 16);
+  v3 = *(v1 + 16);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v0 + 16) = v2;
+  *(v1 + 16) = v3;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2[2] + 1, 1, v2);
-    *(v0 + 16) = v2;
+    v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3[2] + 1, 1, v3);
+    *(v1 + 16) = v3;
   }
 
-  v5 = v2[2];
-  v4 = v2[3];
-  if (v5 >= v4 >> 1)
+  v6 = v3[2];
+  v5 = v3[3];
+  if (v6 >= v5 >> 1)
   {
-    v2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v4 > 1), v5 + 1, 1, v2);
+    v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v5 > 1), v6 + 1, 1, v3);
   }
 
-  v2[2] = v5 + 1;
-  outlined init with take of WeakCollection<PDRRegistry>.Weak(v8, &v2[v5 + 4], &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMR);
-  *(v0 + 16) = v2;
+  v3[2] = v6 + 1;
+  outlined init with take of WeakCollection<PDRRegistry>.Weak(v9, &v3[v6 + 4], &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo11PDRRegistryC_GMR);
+  *(v1 + 16) = v3;
   swift_endAccess();
-  v6 = *(v0 + 24);
+  v7 = *(v1 + 24);
 
-  os_unfair_lock_unlock(v6 + 4);
+  os_unfair_lock_unlock(v7 + 4);
 }
 
 {
-  v1 = *(v0 + 24);
+  v2 = *(v1 + 24);
 
-  os_unfair_lock_lock(v1 + 4);
+  os_unfair_lock_lock(v2 + 4);
 
   swift_unknownObjectWeakInit();
   swift_unknownObjectWeakAssign();
   swift_beginAccess();
-  v2 = *(v0 + 16);
+  v3 = *(v1 + 16);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v0 + 16) = v2;
+  *(v1 + 16) = v3;
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v2[2] + 1, 1, v2);
-    *(v0 + 16) = v2;
+    v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3[2] + 1, 1, v3);
+    *(v1 + 16) = v3;
   }
 
-  v5 = v2[2];
-  v4 = v2[3];
-  if (v5 >= v4 >> 1)
+  v6 = v3[2];
+  v5 = v3[3];
+  if (v6 >= v5 >> 1)
   {
-    v2 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v4 > 1), v5 + 1, 1, v2);
+    v3 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v5 > 1), v6 + 1, 1, v3);
   }
 
-  v2[2] = v5 + 1;
-  outlined init with take of WeakCollection<PDRRegistry>.Weak(v8, &v2[v5 + 4], &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
-  *(v0 + 16) = v2;
+  v3[2] = v6 + 1;
+  outlined init with take of WeakCollection<PDRRegistry>.Weak(v9, &v3[v6 + 4], &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
+  *(v1 + 16) = v3;
   swift_endAccess();
-  v6 = *(v0 + 24);
+  v7 = *(v1 + 24);
 
-  os_unfair_lock_unlock(v6 + 4);
+  os_unfair_lock_unlock(v7 + 4);
 }
 
 void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
@@ -1164,7 +1127,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-uint64_t type metadata instantiation function for WeakCollection.Weak()
+uint64_t type metadata instantiation function for WeakCollection.Weak(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -1181,75 +1144,72 @@ uint64_t outlined init with take of WeakCollection<PDRRegistry>.Weak(uint64_t a1
 uint64_t Registry_Impl.bootstrapNotify(_:)(void *a1, void *a2, uint64_t a3)
 {
   v4 = v3;
-  v32 = a2;
-  v33 = a3;
-  v31 = a1;
+  v30 = a2;
+  v31 = a3;
+  v29 = a1;
   v5 = type metadata accessor for DispatchWorkItemFlags();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v30 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = type metadata accessor for DispatchQoS();
-  v10 = *(v34 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v34);
-  v13 = &v30 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR___PDRRegistry_Impl_unfairLock;
-  v15 = *&v3[OBJC_IVAR___PDRRegistry_Impl_unfairLock];
+  v8 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v32 = type metadata accessor for DispatchQoS();
+  v9 = *(v32 - 8);
+  MEMORY[0x28223BE20](v32);
+  v11 = &v28 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR___PDRRegistry_Impl_unfairLock;
+  v13 = *&v3[OBJC_IVAR___PDRRegistry_Impl_unfairLock];
+
+  os_unfair_lock_lock(v13 + 4);
+
+  v14 = *&v3[OBJC_IVAR___PDRRegistry_Impl_delegates];
+  v15 = *(v14 + 24);
 
   os_unfair_lock_lock(v15 + 4);
 
-  v16 = *&v3[OBJC_IVAR___PDRRegistry_Impl_delegates];
-  v17 = *(v16 + 24);
-
-  os_unfair_lock_lock(v17 + 4);
-
   aBlock[0] = MEMORY[0x277D84F90];
-  specialized WeakCollection.sweep(action:)(v16, aBlock);
-  v18 = aBlock[0];
-  v19 = *(v16 + 24);
+  specialized WeakCollection.sweep(action:)(v14, aBlock);
+  v16 = aBlock[0];
+  v17 = *(v14 + 24);
 
-  os_unfair_lock_unlock(v19 + 4);
+  os_unfair_lock_unlock(v17 + 4);
 
-  v20 = *&v4[v14];
+  v18 = *&v4[v12];
 
-  os_unfair_lock_unlock(v20 + 4);
+  os_unfair_lock_unlock(v18 + 4);
 
-  v21 = [v4 callbackQueue];
-  v22 = swift_allocObject();
-  v22[2] = v18;
-  v22[3] = v4;
-  v23 = v31;
-  v24 = v32;
-  v22[4] = v31;
-  v22[5] = v24;
-  v22[6] = v33;
+  v19 = [v4 callbackQueue];
+  v20 = swift_allocObject();
+  v20[2] = v16;
+  v20[3] = v4;
+  v21 = v29;
+  v22 = v30;
+  v20[4] = v29;
+  v20[5] = v22;
+  v20[6] = v31;
   aBlock[4] = partial apply for closure #1 in Registry_Impl.bootstrapNotify(_:);
-  aBlock[5] = v22;
+  aBlock[5] = v20;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
   aBlock[3] = &block_descriptor_40;
-  v25 = _Block_copy(aBlock);
-  v26 = v24;
-  v27 = v4;
-  v28 = v23;
+  v23 = _Block_copy(aBlock);
+  v24 = v22;
+  v25 = v4;
+  v26 = v21;
   static DispatchQoS.unspecified.getter();
-  v35 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v33 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x2318DF1C0](0, v13, v9, v25);
-  _Block_release(v25);
+  MEMORY[0x2318DF1C0](0, v11, v8, v23);
+  _Block_release(v23);
 
-  (*(v6 + 8))(v9, v5);
-  (*(v10 + 8))(v13, v34);
+  (*(v6 + 8))(v8, v5);
+  (*(v9 + 8))(v11, v32);
 }
 
 uint64_t sub_22DF95770()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
@@ -1263,16 +1223,15 @@ uint64_t specialized WeakCollection.sweep(action:)(uint64_t a1, void *a2)
     v6 = 0;
     do
     {
-      outlined init with copy of RegistryState.LoggingInfo?(v5 + 8 * v6 + 32, v13, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
+      outlined init with copy of RegistryState.LoggingInfo?(v5 + 8 * v6 + 32, v12, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
       Strong = swift_unknownObjectWeakLoadStrong();
-      outlined destroy of UUID?(v13, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
+      outlined destroy of UUID?(v12, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
       if (Strong)
       {
         v11 = swift_unknownObjectRetain();
         MEMORY[0x2318DF0D0](v11);
         if (*((*a2 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*a2 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
-          v12 = *((*a2 & 0xFFFFFFFFFFFFFF8) + 0x10);
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
@@ -1333,7 +1292,7 @@ uint64_t outlined destroy of UUID?(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1359,57 +1318,56 @@ unint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] 
   return result;
 }
 
-uint64_t closure #1 in Registry_Impl.bootstrapNotify(_:)(uint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
+uint64_t closure #1 in Registry_Impl.bootstrapNotify(_:)(unint64_t a1, uint64_t a2, void *a3, void *a4, uint64_t a5)
 {
-  v50 = a4;
-  v51 = a5;
-  v54 = a2;
-  v55 = a3;
+  v49 = a4;
+  v50 = a5;
+  v53 = a2;
+  v54 = a3;
   v6 = type metadata accessor for UUID();
-  v44 = *(v6 - 8);
-  v7 = *(v44 + 64);
-  v8 = MEMORY[0x28223BE20](v6);
-  v49 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v8);
-  v53 = &v41 - v11;
+  v43 = *(v6 - 8);
+  v7 = MEMORY[0x28223BE20](v6);
+  v48 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = MEMORY[0x28223BE20](v7);
+  v52 = &v40 - v10;
   if (a1 >> 62)
   {
     goto LABEL_25;
   }
 
-  v12 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-  if (v12)
+  v11 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+  if (v11)
   {
     do
     {
-      v13 = 0;
-      v14 = a1 & 0xC000000000000001;
-      v45 = a1 + 32;
-      v46 = a1 & 0xFFFFFFFFFFFFFF8;
-      v52 = v44 + 16;
+      v12 = 0;
+      v13 = a1 & 0xC000000000000001;
+      v44 = a1 + 32;
+      v45 = a1 & 0xFFFFFFFFFFFFFF8;
+      v51 = v43 + 16;
+      v14 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
       v15 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
       v16 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
-      v17 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
-      v57 = (v44 + 8);
-      v56 = (v44 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-      v42 = v12;
-      v43 = a1;
-      v41 = a1 & 0xC000000000000001;
-      while (v14)
+      v56 = (v43 + 8);
+      v55 = (v43 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+      v41 = v11;
+      v42 = a1;
+      v40 = a1 & 0xC000000000000001;
+      while (v13)
       {
-        v18 = MEMORY[0x2318DF260](v13, a1);
-        v19 = __OFADD__(v13++, 1);
-        if (v19)
+        v17 = MEMORY[0x2318DF260](v12, a1);
+        v18 = __OFADD__(v12++, 1);
+        if (v18)
         {
           goto LABEL_23;
         }
 
 LABEL_11:
-        if ([v18 v16[47]])
+        if ([v17 v15[47]])
         {
-          [v18 v15[46]];
+          [v17 v14[46]];
           result = swift_unknownObjectRelease();
-          if (v13 == v12)
+          if (v12 == v11)
           {
             return result;
           }
@@ -1417,74 +1375,74 @@ LABEL_11:
 
         else
         {
-          v59 = v18;
-          v20 = [v55 allPairingIDs];
-          v21 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+          v58 = v17;
+          v19 = [v54 allPairingIDs];
+          v20 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-          v22 = *(v21 + 16);
-          if (v22)
+          v21 = *(v20 + 16);
+          if (v21)
           {
-            v47 = v21;
-            v48 = v13;
-            v23 = v21 + ((*(v44 + 80) + 32) & ~*(v44 + 80));
-            v58 = *(v44 + 72);
-            v24 = *(v44 + 16);
-            v25 = v53;
-            v24(v53, v23, v6);
+            v46 = v20;
+            v47 = v12;
+            v22 = v20 + ((*(v43 + 80) + 32) & ~*(v43 + 80));
+            v57 = *(v43 + 72);
+            v23 = *(v43 + 16);
+            v24 = v52;
+            v23(v52, v22, v6);
             while (1)
             {
-              v39 = v59;
-              if ([v59 v16[47]])
+              v38 = v58;
+              if ([v58 v15[47]])
               {
-                v26 = v16;
-                v27 = v49;
-                v24(v49, v25, v6);
-                v28 = type metadata accessor for Device_Impl();
-                v29 = objc_allocWithZone(v28);
-                v24(&v29[OBJC_IVAR___PDRDevice_Impl_uuid_], v27, v6);
-                v30 = &v29[OBJC_IVAR___PDRDevice_Impl_registryState];
-                v31 = v55;
-                v33 = v50;
-                v32 = v51;
-                *v30 = v55;
-                *(v30 + 1) = v33;
-                *(v30 + 2) = v32;
-                v60.receiver = v29;
-                v60.super_class = v28;
-                v34 = v31;
-                v35 = v33;
-                v36 = objc_msgSendSuper2(&v60, sel_init);
-                v37 = *v57;
-                v38 = v27;
-                v16 = v26;
-                v17 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
-                (*v57)(v38, v6);
-                [v39 registry:v54 added:v36];
+                v25 = v15;
+                v26 = v48;
+                v23(v48, v24, v6);
+                v27 = type metadata accessor for Device_Impl(0);
+                v28 = objc_allocWithZone(v27);
+                v23(&v28[OBJC_IVAR___PDRDevice_Impl_uuid_], v26, v6);
+                v29 = &v28[OBJC_IVAR___PDRDevice_Impl_registryState];
+                v30 = v54;
+                v32 = v49;
+                v31 = v50;
+                *v29 = v54;
+                *(v29 + 1) = v32;
+                *(v29 + 2) = v31;
+                v59.receiver = v28;
+                v59.super_class = v27;
+                v33 = v30;
+                v34 = v32;
+                v35 = objc_msgSendSuper2(&v59, sel_init);
+                v36 = *v56;
+                v37 = v26;
+                v15 = v25;
+                v16 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
+                (*v56)(v37, v6);
+                [v38 registry:v53 added:v35];
 
-                v25 = v53;
-                v37(v53, v6);
+                v24 = v52;
+                v36(v52, v6);
               }
 
               else
               {
-                (*v57)(v25, v6);
+                (*v56)(v24, v6);
               }
 
-              v23 += v58;
-              if (!--v22)
+              v22 += v57;
+              if (!--v21)
               {
                 break;
               }
 
-              v24(v25, v23, v6);
+              v23(v24, v22, v6);
             }
 
             swift_unknownObjectRelease();
 
-            v12 = v42;
-            a1 = v43;
-            v13 = v48;
-            v14 = v41;
+            v11 = v41;
+            a1 = v42;
+            v12 = v47;
+            v13 = v40;
           }
 
           else
@@ -1492,23 +1450,23 @@ LABEL_11:
             swift_unknownObjectRelease();
           }
 
-          v15 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
-          if (v13 == v12)
+          v14 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
+          if (v12 == v11)
           {
             return result;
           }
         }
       }
 
-      if (v13 >= *(v46 + 16))
+      if (v12 >= *(v45 + 16))
       {
         goto LABEL_24;
       }
 
-      v18 = *(v45 + 8 * v13);
+      v17 = *(v44 + 8 * v12);
       swift_unknownObjectRetain();
-      v19 = __OFADD__(v13++, 1);
-      if (!v19)
+      v18 = __OFADD__(v12++, 1);
+      if (!v18)
       {
         goto LABEL_11;
       }
@@ -1518,18 +1476,18 @@ LABEL_23:
 LABEL_24:
       __break(1u);
 LABEL_25:
-      if (a1 < 0)
+      if ((a1 & 0x8000000000000000) != 0)
       {
-        v40 = a1;
+        v39 = a1;
       }
 
       else
       {
-        v40 = a1 & 0xFFFFFFFFFFFFFF8;
+        v39 = a1 & 0xFFFFFFFFFFFFFF8;
       }
 
-      result = MEMORY[0x2318DF310](v40);
-      v12 = result;
+      result = MEMORY[0x2318DF310](v39);
+      v11 = result;
     }
 
     while (result);
@@ -1651,7 +1609,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t type metadata accessor for Device_Impl()
+uint64_t type metadata accessor for Device_Impl(uint64_t a1)
 {
   result = type metadata singleton initialization cache for Device_Impl;
   if (!type metadata singleton initialization cache for Device_Impl)
@@ -1672,15 +1630,17 @@ void *__swift_project_boxed_opaque_existential_0(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t PDRDevice.localPairingDataStorePath.getter(void *a1)
@@ -1857,18 +1817,12 @@ uint64_t sub_22DF96D8C()
 
 uint64_t sub_22DF96DCC()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_22DF96E14()
 {
-  v1 = v0[2];
-
-  v2 = v0[3];
-
-  v3 = v0[5];
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -1881,7 +1835,6 @@ uint64_t sub_22DF96E5C()
   v4 = (*(v1 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
   v5 = type metadata accessor for ContinuousClock.Instant();
   (*(*(v5 - 8) + 8))(v0 + v3, v5);
-  v6 = *(v0 + v4);
 
   return MEMORY[0x2821FE8E8](v0, v4 + 8, v2 | 7);
 }
@@ -1897,21 +1850,19 @@ uint64_t sub_22DF96F64(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_22DF9701C()
 {
-  v1 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 65, 7);
 }
 
 uint64_t sub_22DF97074()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-void sub_22DF9743C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DF9743C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1923,21 +1874,21 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22DF976C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DF976C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22DF97928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22DF97928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_0()
+uint64_t OUTLINED_FUNCTION_0(uint64_t a1)
 {
 
   return NSRequestConcreteImplementation();
@@ -2028,16 +1979,16 @@ uint64_t PDRWatchOSVersionForRemoteDevice(void *a1)
   return v4;
 }
 
-id frameworkLog()
+id frameworkLog(uint64_t a1)
 {
   if (frameworkLog_onceToken != -1)
   {
     frameworkLog_cold_1();
   }
 
-  v1 = frameworkLog_logHandle;
+  v2 = frameworkLog_logHandle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __frameworkLog_block_invoke()
@@ -2052,23 +2003,23 @@ uint64_t PDRDeviceSizeForProductType(void *a1)
   v1 = a1;
   v2 = [&unk_28419EAE0 objectForKeyedSubscript:v1];
   v3 = v2;
-  if (v2 && (v4 = [v2 intValue]) != 0)
+  if (v2 && (v2 = [v2 intValue], v2))
   {
-    v5 = v4;
+    v4 = v2;
   }
 
   else
   {
-    v6 = frameworkLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = frameworkLog(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      PDRDeviceSizeForProductType_cold_1(v1, v6);
+      PDRDeviceSizeForProductType_cold_1(v1, v5);
     }
 
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 uint64_t PDRDeviceSizeForArtworkDeviceSubType(uint64_t a1)
@@ -2128,7 +2079,7 @@ uint64_t PDRDeviceSizeForArtworkDeviceSubType(uint64_t a1)
     }
   }
 
-  v3 = frameworkLog();
+  v3 = frameworkLog(a1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     PDRDeviceSizeForArtworkDeviceSubType_cold_1(a1, v3);
@@ -2179,29 +2130,26 @@ uint64_t storeEnumTagSinglePayload for os_unfair_lock_s(uint64_t result, int a2,
 
 uint64_t protocol witness for Hashable.hashValue.getter in conformance PDRDevicePropertyKey()
 {
-  v1 = *v0;
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x2318DF0C0](v2);
+  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v1 = MEMORY[0x2318DF0C0](v0);
 
-  return v3;
+  return v1;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance PDRDevicePropertyKey()
+uint64_t protocol witness for Hashable.hash(into:) in conformance PDRDevicePropertyKey(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PDRDevicePropertyKey()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance PDRDevicePropertyKey(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v2 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v2;
+  return v1;
 }
 
 uint64_t protocol witness for static _ObjectiveCBridgeable._forceBridgeFromObjectiveC(_:result:) in conformance PDRDevicePropertyKey(uint64_t a1, id *a2)
@@ -2218,32 +2166,30 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v3 & 1;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance PDRDevicePropertyKey@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance PDRDevicePropertyKey@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x2318DF040](v2);
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = MEMORY[0x2318DF040](v3);
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PDRDevicePropertyKey(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance PDRDevicePropertyKey(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance PDRDevicePropertyKey@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
@@ -2256,10 +2202,9 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance PD
 
 uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance PDRDevicePropertyKey@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
@@ -2272,14 +2217,14 @@ void *protocol witness for RawRepresentable.init(rawValue:) in conformance PDRCo
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance PDRDevicePropertyKey(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey);
-  v3 = lazy protocol witness table accessor for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey);
+  v2 = lazy protocol witness table accessor for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey, &protocol conformance descriptor for PDRDevicePropertyKey);
+  v3 = lazy protocol witness table accessor for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey, &protocol conformance descriptor for PDRDevicePropertyKey);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-uint64_t lazy protocol witness table accessor for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -2294,16 +2239,16 @@ uint64_t lazy protocol witness table accessor for type PDRDevicePropertyKey and 
 
 uint64_t base witness table accessor for Equatable in PDRDevicePropertyKey()
 {
-  return lazy protocol witness table accessor for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey);
+  return lazy protocol witness table accessor for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey, &protocol conformance descriptor for PDRDevicePropertyKey);
 }
 
 {
-  return lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey, type metadata accessor for PDRDevicePropertyKey);
+  return lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey, type metadata accessor for PDRDevicePropertyKey, &protocol conformance descriptor for PDRDevicePropertyKey);
 }
 
 uint64_t specialized static InternalPreferences.double(key:domain:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = MEMORY[0x2318DF040]();
+  v6 = MEMORY[0x2318DF040](a1, a2);
   v7 = MEMORY[0x2318DF040](a3, a4);
   v8 = CFPreferencesCopyAppValue(v6, v7);
 
@@ -2330,7 +2275,7 @@ uint64_t specialized static InternalPreferences.double(key:domain:)(uint64_t a1,
 
 uint64_t specialized static InternalPreferences.BOOLean(key:domain:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = MEMORY[0x2318DF040]();
+  v6 = MEMORY[0x2318DF040](a1, a2);
   v7 = MEMORY[0x2318DF040](a3, a4);
   v8 = CFPreferencesCopyAppValue(v6, v7);
 
@@ -2356,7 +2301,7 @@ uint64_t specialized static InternalPreferences.BOOLean(key:domain:)(uint64_t a1
 
 id specialized static InternalPreferences.integer(key:domain:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = MEMORY[0x2318DF040]();
+  v6 = MEMORY[0x2318DF040](a1, a2);
   v7 = MEMORY[0x2318DF040](a3, a4);
   v8 = CFPreferencesCopyAppValue(v6, v7);
 
@@ -2382,17 +2327,15 @@ id specialized static InternalPreferences.integer(key:domain:)(uint64_t a1, uint
 
 uint64_t thunk for @escaping @callee_guaranteed (@unowned Int32) -> ()(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v4(a2);
+  v3(a2);
 }
 
 uint64_t partial apply for closure #1 in NotifyState.registerDispatch(bootstrap:)(uint64_t result)
 {
   if ((*(v1 + 44) & 1) == 0 && *(v1 + 40) == result)
   {
-    v2 = *(v1 + 32);
     return (*(v1 + 24))(v1);
   }
 
@@ -2467,33 +2410,31 @@ uint64_t closure #1 in RegistryCrux.().init()(uint64_t a1, uint64_t a2)
 {
   v3 = type metadata accessor for DispatchWorkItemFlags();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = type metadata accessor for DispatchQoS();
-  v8 = *(v15 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v15);
-  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14[1] = *(a2 + 24);
+  v6 = v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for DispatchQoS();
+  v7 = *(v13 - 8);
+  MEMORY[0x28223BE20](v13);
+  v9 = v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12[1] = *(a2 + 24);
   aBlock[4] = partial apply for closure #1 in closure #1 in RegistryCrux.().init();
   aBlock[5] = a2;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
   aBlock[3] = &block_descriptor_169;
-  v12 = _Block_copy(aBlock);
+  v10 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v16 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v14 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x2318DF1C0](0, v11, v7, v12);
-  _Block_release(v12);
-  (*(v4 + 8))(v7, v3);
-  (*(v8 + 8))(v11, v15);
+  MEMORY[0x2318DF1C0](0, v9, v6, v10);
+  _Block_release(v10);
+  (*(v4 + 8))(v6, v3);
+  (*(v7 + 8))(v9, v13);
 }
 
 uint64_t closure #1 in closure #1 in RegistryCrux.().init()(uint64_t a1)
@@ -2542,33 +2483,32 @@ uint64_t closure #1 in closure #1 in RegistryCrux.().init()(uint64_t a1)
 void closure #1 in closure #1 in closure #1 in RegistryCrux.().init()(uint64_t a1)
 {
   refreshed = type metadata accessor for RegistryCrux.RefreshTimings(0);
-  v3 = *(*(refreshed - 8) + 64);
   MEMORY[0x28223BE20](refreshed);
-  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = &v10 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for framework != -1)
   {
     swift_once();
   }
 
-  v6 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v6, static Logs.framework);
-  outlined init with copy of RegistryCrux.RefreshTimings(a1, v5, type metadata accessor for RegistryCrux.RefreshTimings);
-  v7 = Logger.logObject.getter();
-  v8 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v7, v8))
+  v5 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v5, static Logs.framework);
+  outlined init with copy of RegistryCrux.RefreshTimings(a1, v4, type metadata accessor for RegistryCrux.RefreshTimings);
+  v6 = Logger.logObject.getter();
+  v7 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v6, v7))
   {
-    v9 = swift_slowAlloc();
-    *v9 = 33554688;
-    v10 = *&v5[*(refreshed + 20)];
-    outlined destroy of RegistryCrux.RefreshTimings(v5, type metadata accessor for RegistryCrux.RefreshTimings);
-    *(v9 + 4) = v10;
-    _os_log_impl(&dword_22DF91000, v7, v8, "#refresh_%hx Starting async refresh", v9, 6u);
-    MEMORY[0x2318DFC30](v9, -1, -1);
+    v8 = swift_slowAlloc();
+    *v8 = 33554688;
+    v9 = *&v4[*(refreshed + 20)];
+    outlined destroy of RegistryCrux.RefreshTimings(v4, type metadata accessor for RegistryCrux.RefreshTimings);
+    *(v8 + 4) = v9;
+    _os_log_impl(&dword_22DF91000, v6, v7, "#refresh_%hx Starting async refresh", v8, 6u);
+    MEMORY[0x2318DFC30](v8, -1, -1);
   }
 
   else
   {
-    outlined destroy of RegistryCrux.RefreshTimings(v5, type metadata accessor for RegistryCrux.RefreshTimings);
+    outlined destroy of RegistryCrux.RefreshTimings(v4, type metadata accessor for RegistryCrux.RefreshTimings);
   }
 
   RegistryCrux.refresh(timings:)(a1);
@@ -2577,130 +2517,124 @@ void closure #1 in closure #1 in closure #1 in RegistryCrux.().init()(uint64_t a
 uint64_t closure #2 in RegistryCrux.().init()()
 {
   refreshed = type metadata accessor for RegistryCrux.RefreshTimings(0);
-  v1 = *(*(refreshed - 8) + 64);
-  v2 = MEMORY[0x28223BE20](refreshed);
-  v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v2);
-  v6 = &v14 - v5;
+  v1 = MEMORY[0x28223BE20](refreshed);
+  v3 = &v13 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v1);
+  v5 = &v13 - v4;
   static ContinuousClock.now.getter();
-  v7 = *(refreshed + 20);
-  *&v6[v7] = specialized RandomNumberGenerator.next<A>(upperBound:)(61440) + 4096;
+  v6 = *(refreshed + 20);
+  *&v5[v6] = specialized RandomNumberGenerator.next<A>(upperBound:)(61440) + 4096;
   if (one-time initialization token for framework != -1)
   {
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, static Logs.framework);
-  outlined init with copy of RegistryCrux.RefreshTimings(v6, v4, type metadata accessor for RegistryCrux.RefreshTimings);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v9, v10))
+  v7 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v7, static Logs.framework);
+  outlined init with copy of RegistryCrux.RefreshTimings(v5, v3, type metadata accessor for RegistryCrux.RefreshTimings);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v11 = swift_slowAlloc();
-    *v11 = 33554688;
-    v12 = *&v4[*(refreshed + 20)];
-    outlined destroy of RegistryCrux.RefreshTimings(v4, type metadata accessor for RegistryCrux.RefreshTimings);
-    *(v11 + 4) = v12;
-    _os_log_impl(&dword_22DF91000, v9, v10, "#refresh_%hx Starting bootstrap sync refresh", v11, 6u);
-    MEMORY[0x2318DFC30](v11, -1, -1);
+    v10 = swift_slowAlloc();
+    *v10 = 33554688;
+    v11 = *&v3[*(refreshed + 20)];
+    outlined destroy of RegistryCrux.RefreshTimings(v3, type metadata accessor for RegistryCrux.RefreshTimings);
+    *(v10 + 4) = v11;
+    _os_log_impl(&dword_22DF91000, v8, v9, "#refresh_%hx Starting bootstrap sync refresh", v10, 6u);
+    MEMORY[0x2318DFC30](v10, -1, -1);
   }
 
   else
   {
-    outlined destroy of RegistryCrux.RefreshTimings(v4, type metadata accessor for RegistryCrux.RefreshTimings);
+    outlined destroy of RegistryCrux.RefreshTimings(v3, type metadata accessor for RegistryCrux.RefreshTimings);
   }
 
-  RegistryCrux.refresh(timings:)(v6);
-  return outlined destroy of RegistryCrux.RefreshTimings(v6, type metadata accessor for RegistryCrux.RefreshTimings);
+  RegistryCrux.refresh(timings:)(v5);
+  return outlined destroy of RegistryCrux.RefreshTimings(v5, type metadata accessor for RegistryCrux.RefreshTimings);
 }
 
 void RegistryCrux.refresh(timings:)(uint64_t a1)
 {
   v4 = v1;
-  v140 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v6 - 8);
-  v122 = &v115 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v8);
-  v121 = &v115 - v11;
-  MEMORY[0x28223BE20](v10);
-  v126 = &v115 - v12;
-  v127 = type metadata accessor for RegistryState.LoggingInfo();
-  v130 = *(v127 - 8);
-  v13 = *(v130 + 64);
-  v14 = MEMORY[0x28223BE20](v127);
-  v125 = &v115 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = MEMORY[0x28223BE20](v6 - 8);
+  v116 = &v109 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v7);
+  v115 = &v109 - v10;
+  MEMORY[0x28223BE20](v9);
+  v120 = &v109 - v11;
+  v121 = type metadata accessor for RegistryState.LoggingInfo(0);
+  v124 = *(v121 - 8);
+  v12 = MEMORY[0x28223BE20](v121);
+  v119 = &v109 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v12);
+  v118 = (&v109 - v15);
   v16 = MEMORY[0x28223BE20](v14);
-  v124 = (&v115 - v17);
-  v18 = MEMORY[0x28223BE20](v16);
-  v123 = &v115 - v19;
-  MEMORY[0x28223BE20](v18);
-  v132 = (&v115 - v20);
-  v21 = type metadata accessor for ContinuousClock.Instant();
-  v22 = *(v21 - 8);
-  v23 = *(v22 + 8);
-  MEMORY[0x28223BE20](v21);
-  v25 = &v115 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v117 = &v109 - v17;
+  MEMORY[0x28223BE20](v16);
+  v126 = (&v109 - v18);
+  v19 = type metadata accessor for ContinuousClock.Instant();
+  v20 = *(v19 - 8);
+  MEMORY[0x28223BE20](v19);
+  v22 = &v109 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   refreshed = type metadata accessor for RegistryCrux.RefreshTimings(0);
-  v26 = *(*(refreshed - 8) + 64);
   MEMORY[0x28223BE20](refreshed);
-  v28 = &v115 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v29 = type metadata accessor for DispatchPredicate();
-  v30 = *(v29 - 8);
-  v31 = *(v30 + 64);
-  MEMORY[0x28223BE20](v29);
-  v33 = (&v115 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v34 = v4[3];
-  *v33 = v34;
-  (*(v30 + 104))(v33, *MEMORY[0x277D85200], v29);
-  v35 = v34;
-  LOBYTE(v34) = _dispatchPreconditionTest(_:)();
-  (*(v30 + 8))(v33, v29);
-  if ((v34 & 1) == 0)
+  isEscapingClosureAtFileLocation = &v109 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = type metadata accessor for DispatchPredicate();
+  v26 = *(v25 - 8);
+  MEMORY[0x28223BE20](v25);
+  v28 = (&v109 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v29 = v4[3];
+  *v28 = v29;
+  (*(v26 + 104))(v28, *MEMORY[0x277D85200], v25);
+  v30 = v29;
+  LOBYTE(v29) = _dispatchPreconditionTest(_:)();
+  (*(v26 + 8))(v28, v25);
+  if ((v29 & 1) == 0)
   {
     __break(1u);
     goto LABEL_52;
   }
 
-  v36 = v4 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
+  v31 = v4 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
   swift_beginAccess();
-  v133 = v36;
-  outlined assign with copy of RegistryCrux.RefreshTimings(a1, v36);
+  v127 = v31;
+  outlined assign with copy of RegistryCrux.RefreshTimings(a1, v31);
   swift_endAccess();
-  v37 = mach_absolute_time();
-  v38 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
-  v39 = *(v4 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock);
+  v32 = mach_absolute_time();
+  v33 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
+  v34 = *(v4 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock);
 
-  os_unfair_lock_lock(v39 + 4);
+  os_unfair_lock_lock(v34 + 4);
 
-  v40 = 0;
-  v41 = v4[2];
+  v35 = 0;
+  v36 = v4[2];
   *&state64 = 0;
-  if ((*(v41 + 44) & 1) == 0)
+  if ((*(v36 + 44) & 1) == 0)
   {
-    v42 = *(v41 + 40);
+    v37 = *(v36 + 40);
 
-    if (notify_is_valid_token(v42))
+    if (notify_is_valid_token(v37))
     {
-      if (*(v41 + 44))
+      if (*(v36 + 44))
       {
         __break(1u);
         goto LABEL_57;
       }
 
-      notify_get_state(*(v41 + 40), &state64);
+      notify_get_state(*(v36 + 40), &state64);
     }
 
-    v40 = state64;
+    v35 = state64;
   }
 
-  v43 = *(v4 + v38);
+  v38 = *(v4 + v33);
 
-  os_unfair_lock_unlock(v43 + 4);
+  os_unfair_lock_unlock(v38 + 4);
 
-  if (((*(v4 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 16) ^ v40) & 0x3FFFFFFFFFFFFFFFLL) == 0)
+  if (((*(v4 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 16) ^ v35) & 0x3FFFFFFFFFFFFFFFLL) == 0)
   {
     if (one-time initialization token for framework == -1)
     {
@@ -2710,402 +2644,396 @@ void RegistryCrux.refresh(timings:)(uint64_t a1)
     goto LABEL_55;
   }
 
-  if (v40 <= 0)
+  if (v35 > 0)
   {
-    v129 = v22;
-    v66 = [objc_allocWithZone(MEMORY[0x277D2BCE8]) init];
-    if (one-time initialization token for framework != -1)
+    v110 = v32;
+    outlined init with copy of RegistryCrux.RefreshTimings(v127, isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+    static ContinuousClock.now.getter();
+    ContinuousClock.Instant.duration(to:)();
+    v39 = *(v20 + 1);
+    v122 = v19;
+    v123 = (v20 + 8);
+    v114 = v39;
+    v39(v22, v19);
+    v19 = Duration.components.getter();
+    v20 = v40;
+    outlined destroy of RegistryCrux.RefreshTimings(isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+    if (RegistryCrux.hasInternalDiagnostics.getter() & 1) != 0 && (RegistryCrux.tailspinsEnabled.getter())
     {
-      swift_once();
+      v41 = [objc_opt_self() instance];
+      [v41 beginFetchIntervalTrace];
     }
 
-    v67 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v67, static Logs.framework);
-
-    v68 = Logger.logObject.getter();
-    v69 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v68, v69))
+    v113 = RegistryCrux.definitelyFetchRegistryState(oldToken:)(v35);
+    v112 = v42;
+    v111 = v43;
+    outlined init with copy of RegistryCrux.RefreshTimings(v127, isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+    static ContinuousClock.now.getter();
+    ContinuousClock.Instant.duration(to:)();
+    v114(v22, v122);
+    v44 = Duration.components.getter();
+    v46 = v45;
+    outlined destroy of RegistryCrux.RefreshTimings(isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+    v47 = RegistryCrux.minElapsedToFireMs.getter();
+    v48 = RegistryCrux.maxElapsedToFireMs.getter();
+    if (v47 <= v48)
     {
-      v70 = swift_slowAlloc();
-      v128 = v21;
-      v71 = v70;
-      *v70 = 33554944;
-      v72 = v133;
-      *(v70 + 4) = *(v133 + *(refreshed + 20));
+      v49 = v48;
+      v2 = 1.0e-15;
+      v3 = v44 * 1000.0 + v46 * 1.0e-15 - (v19 * 1000.0 + v20 * 1.0e-15);
+      v50 = [objc_opt_self() instance];
+      v51 = v50;
+      if (v47 > v3 || v3 > v49)
+      {
+        [v50 cancelFetchIntervalTrace];
+      }
 
-      *(v71 + 6) = 2048;
-      outlined init with copy of RegistryCrux.RefreshTimings(v72, v28, type metadata accessor for RegistryCrux.RefreshTimings);
-      static ContinuousClock.now.getter();
-      ContinuousClock.Instant.duration(to:)();
-      (*(v129 + 1))(v25, v128);
-      v73 = Duration.components.getter();
-      v75 = v74;
-      outlined destroy of RegistryCrux.RefreshTimings(v28, type metadata accessor for RegistryCrux.RefreshTimings);
-      *(v71 + 8) = v73 * 1000.0 + v75 * 1.0e-15;
-      _os_log_impl(&dword_22DF91000, v68, v69, "#refresh_%hx %fms Daemon is idle, creating empty collection", v71, 0x10u);
-      MEMORY[0x2318DFC30](v71, -1, -1);
+      else
+      {
+        [v50 endFetchIntervalTrace];
+
+        RegistryCrux.synchronousUntypedService(tag:)(0xD000000000000016, 0x800000022DFAFE70, &state64);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20NRXPCPairingDelegate_pMd, &_sSo20NRXPCPairingDelegate_pMR);
+        swift_dynamicCast();
+        [v128 xpcTriggerTailspinFrom:v110 forApp:0];
+        swift_unknownObjectRelease();
+      }
+
+      v71 = v126;
+      if ((*(v4 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux____lazy_storage___hasInternalDiagnostics) & 1) == 0)
+      {
+LABEL_45:
+        if (one-time initialization token for framework == -1)
+        {
+LABEL_46:
+          v93 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v93, static Logs.framework);
+
+          v94 = Logger.logObject.getter();
+          v95 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v94, v95))
+          {
+            v96 = swift_slowAlloc();
+            *v96 = 33555200;
+            v97 = v127;
+            *(v96 + 4) = *(v127 + *(refreshed + 20));
+
+            v19 = 2048;
+            *(v96 + 6) = 2048;
+            v20 = type metadata accessor for RegistryCrux.RefreshTimings;
+            outlined init with copy of RegistryCrux.RefreshTimings(v97, isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+            static ContinuousClock.now.getter();
+            ContinuousClock.Instant.duration(to:)();
+            v114(v22, v122);
+            v98 = Duration.components.getter();
+            v100 = v99;
+            outlined destroy of RegistryCrux.RefreshTimings(isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+            *(v96 + 8) = v98 * 1000.0 + v100 * v2;
+            *(v96 + 16) = 2048;
+            *(v96 + 18) = v3;
+            _os_log_impl(&dword_22DF91000, v94, v95, "#refresh_%hx %fms definitelyFetchRegistryState complete. %fms", v96, 0x1Au);
+            MEMORY[0x2318DFC30](v96, -1, -1);
+          }
+
+          else
+          {
+          }
+
+          v101 = objc_opt_self();
+          v102 = swift_allocObject();
+          v103 = v113;
+          v102[2] = v4;
+          v102[3] = v103;
+          v104 = v112;
+          v105 = v111;
+          v102[4] = v112;
+          v102[5] = v105;
+          v106 = swift_allocObject();
+          *(v106 + 16) = closure #1 in RegistryCrux.assignNewState(_:)partial apply;
+          *(v106 + 24) = v102;
+          v132 = thunk for @callee_guaranteed () -> ()partial apply;
+          v133 = v106;
+          *&state64 = MEMORY[0x277D85DD0];
+          *(&state64 + 1) = 1107296256;
+          v130 = thunk for @escaping @callee_guaranteed () -> ();
+          v131 = &block_descriptor_68;
+          v22 = _Block_copy(&state64);
+          v107 = v104;
+
+          v108 = v103;
+
+          [v101 initiateAssignment_];
+          _Block_release(v22);
+          isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
+
+          if ((isEscapingClosureAtFileLocation & 1) == 0)
+          {
+            return;
+          }
+
+          __break(1u);
+LABEL_55:
+          swift_once();
+LABEL_20:
+          v53 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v53, static Logs.framework);
+
+          v54 = Logger.logObject.getter();
+          v55 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v54, v55))
+          {
+            v56 = swift_slowAlloc();
+            *v56 = 33554944;
+            v57 = v127;
+            *(v56 + 4) = *(v127 + *(refreshed + 20));
+
+            *(v56 + 6) = 2048;
+            outlined init with copy of RegistryCrux.RefreshTimings(v57, isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+            static ContinuousClock.now.getter();
+            ContinuousClock.Instant.duration(to:)();
+            (*(v20 + 1))(v22, v19);
+            v58 = Duration.components.getter();
+            v60 = v59;
+            outlined destroy of RegistryCrux.RefreshTimings(isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+            *(v56 + 8) = v58 * 1000.0 + v60 * 1.0e-15;
+            _os_log_impl(&dword_22DF91000, v54, v55, "#refresh_%hx %fms Refresh appears unnecessary", v56, 0x10u);
+            MEMORY[0x2318DFC30](v56, -1, -1);
+          }
+
+          else
+          {
+          }
+
+          return;
+        }
+
+LABEL_53:
+        swift_once();
+        goto LABEL_46;
+      }
+
+      v110 = isEscapingClosureAtFileLocation;
+      v72 = v112;
+      v73 = v112;
+      v74 = v113;
+      RegistryState.LoggingInfo.init(_:)(v74, v72, v111, v71);
+      v63 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_lastLoggedInfo;
+      swift_beginAccess();
+      v75 = v120;
+      outlined init with copy of RegistryState.LoggingInfo?(v63 + v4, v120, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
+      v20 = (v124 + 48);
+      v19 = *(v124 + 48);
+      v76 = v121;
+      v77 = (v19)(v75, 1, v121);
+      outlined destroy of UUID?(v75, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
+      v78 = v77 == 1;
+      v79 = v126;
+      if (v78)
+      {
+        goto LABEL_39;
+      }
+
+      v80 = v115;
+      outlined init with copy of RegistryState.LoggingInfo?(v63 + v4, v115, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
+      if ((v19)(v80, 1, v76) != 1)
+      {
+        if (*v79 == *v80 && v79[1] == *(v80 + 8) && v79[2] == *(v80 + 16))
+        {
+          ContinuousClock.Instant.duration(to:)();
+          v81 = static Duration.< infix(_:_:)();
+          outlined destroy of RegistryCrux.RefreshTimings(v80, type metadata accessor for RegistryState.LoggingInfo);
+          if ((v81 & 1) == 0)
+          {
+LABEL_44:
+            outlined destroy of RegistryCrux.RefreshTimings(v79, type metadata accessor for RegistryState.LoggingInfo);
+            isEscapingClosureAtFileLocation = v110;
+            goto LABEL_45;
+          }
+
+LABEL_39:
+          v84 = v116;
+          outlined init with copy of RegistryCrux.RefreshTimings(v79, v116, type metadata accessor for RegistryState.LoggingInfo);
+          (*(v124 + 56))(v84, 0, 1, v76);
+          swift_beginAccess();
+          outlined assign with take of RegistryState.LoggingInfo?(v84, v63 + v4, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
+          swift_endAccess();
+          if (one-time initialization token for framework != -1)
+          {
+            swift_once();
+          }
+
+          v85 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v85, static Logs.framework);
+          v19 = v117;
+          outlined init with copy of RegistryCrux.RefreshTimings(v79, v117, type metadata accessor for RegistryState.LoggingInfo);
+          v20 = v118;
+          outlined init with copy of RegistryCrux.RefreshTimings(v79, v118, type metadata accessor for RegistryState.LoggingInfo);
+          v86 = v119;
+          outlined init with copy of RegistryCrux.RefreshTimings(v79, v119, type metadata accessor for RegistryState.LoggingInfo);
+
+          v87 = Logger.logObject.getter();
+          v88 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v87, v88))
+          {
+            v89 = swift_slowAlloc();
+            *v89 = 33555456;
+            *(v89 + 4) = *(v127 + *(refreshed + 20));
+
+            *(v89 + 6) = 2048;
+            v90 = v19;
+            v91 = *v19;
+            outlined destroy of RegistryCrux.RefreshTimings(v90, type metadata accessor for RegistryState.LoggingInfo);
+            *(v89 + 8) = v91;
+            *(v89 + 16) = 2048;
+            v19 = *(v20 + 1);
+            outlined destroy of RegistryCrux.RefreshTimings(v20, type metadata accessor for RegistryState.LoggingInfo);
+            *(v89 + 18) = v19;
+            *(v89 + 26) = 2048;
+            v20 = *(v86 + 16);
+            outlined destroy of RegistryCrux.RefreshTimings(v86, type metadata accessor for RegistryState.LoggingInfo);
+            *(v89 + 28) = v20;
+            _os_log_impl(&dword_22DF91000, v87, v88, "#refresh_%hx Device collection info after definitelyFetchRegistryState: %ld total %ld paired %ld active", v89, 0x24u);
+            v92 = v89;
+            v79 = v126;
+            MEMORY[0x2318DFC30](v92, -1, -1);
+          }
+
+          else
+          {
+            outlined destroy of RegistryCrux.RefreshTimings(v86, type metadata accessor for RegistryState.LoggingInfo);
+            outlined destroy of RegistryCrux.RefreshTimings(v20, type metadata accessor for RegistryState.LoggingInfo);
+            outlined destroy of RegistryCrux.RefreshTimings(v19, type metadata accessor for RegistryState.LoggingInfo);
+          }
+
+          goto LABEL_44;
+        }
+
+LABEL_38:
+        outlined destroy of RegistryCrux.RefreshTimings(v80, type metadata accessor for RegistryState.LoggingInfo);
+        goto LABEL_39;
+      }
+
+LABEL_57:
+      __break(1u);
+      return;
     }
 
-    else
-    {
-    }
-
-    v87 = objc_opt_self();
-    v88 = swift_allocObject();
-    v88[2] = v4;
-    v88[3] = v66;
-    v88[4] = 0;
-    v88[5] = v40;
-    v81 = swift_allocObject();
-    *(v81 + 16) = partial apply for closure #1 in RegistryCrux.assignNewState(_:);
-    *(v81 + 24) = v88;
-    v138 = partial apply for thunk for @callee_guaranteed () -> ();
-    v139 = v81;
-    *&state64 = MEMORY[0x277D85DD0];
-    *(&state64 + 1) = 1107296256;
-    v136 = thunk for @escaping @callee_guaranteed () -> ();
-    v137 = &block_descriptor_57;
-    v25 = _Block_copy(&state64);
-    v84 = v139;
-
-    v4 = v66;
-
-    [v87 initiateAssignment_];
-    _Block_release(v25);
-    isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
-
-    if ((isEscapingClosureAtFileLocation & 1) == 0)
-    {
-      goto LABEL_50;
-    }
-
-    __break(1u);
-    goto LABEL_38;
-  }
-
-  v116 = v37;
-  outlined init with copy of RegistryCrux.RefreshTimings(v133, v28, type metadata accessor for RegistryCrux.RefreshTimings);
-  static ContinuousClock.now.getter();
-  ContinuousClock.Instant.duration(to:)();
-  v44 = *(v22 + 1);
-  v128 = v21;
-  v129 = (v22 + 8);
-  v120 = v44;
-  v44(v25, v21);
-  v21 = Duration.components.getter();
-  v22 = v45;
-  outlined destroy of RegistryCrux.RefreshTimings(v28, type metadata accessor for RegistryCrux.RefreshTimings);
-  if (RegistryCrux.hasInternalDiagnostics.getter() & 1) != 0 && (RegistryCrux.tailspinsEnabled.getter())
-  {
-    v46 = [objc_opt_self() instance];
-    [v46 beginFetchIntervalTrace];
-  }
-
-  v119 = RegistryCrux.definitelyFetchRegistryState(oldToken:)(v40);
-  v118 = v47;
-  v117 = v48;
-  outlined init with copy of RegistryCrux.RefreshTimings(v133, v28, type metadata accessor for RegistryCrux.RefreshTimings);
-  static ContinuousClock.now.getter();
-  ContinuousClock.Instant.duration(to:)();
-  v120(v25, v128);
-  v49 = Duration.components.getter();
-  v51 = v50;
-  outlined destroy of RegistryCrux.RefreshTimings(v28, type metadata accessor for RegistryCrux.RefreshTimings);
-  v52 = RegistryCrux.minElapsedToFireMs.getter();
-  v53 = RegistryCrux.maxElapsedToFireMs.getter();
-  if (v52 > v53)
-  {
 LABEL_52:
     __break(1u);
     goto LABEL_53;
   }
 
-  v54 = v53;
-  v2 = 1.0e-15;
-  v3 = v49 * 1000.0 + v51 * 1.0e-15 - (v21 * 1000.0 + v22 * 1.0e-15);
-  v55 = [objc_opt_self() instance];
-  v56 = v55;
-  if (v52 > v3 || v3 > v54)
+  v123 = v20;
+  v61 = [objc_allocWithZone(MEMORY[0x277D2BCE8]) init];
+  if (one-time initialization token for framework != -1)
   {
-    [v55 cancelFetchIntervalTrace];
+    swift_once();
+  }
+
+  v62 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v62, static Logs.framework);
+
+  v63 = Logger.logObject.getter();
+  v64 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v63, v64))
+  {
+    v65 = swift_slowAlloc();
+    v122 = v19;
+    v66 = v65;
+    *v65 = 33554944;
+    v67 = v127;
+    *(v65 + 4) = *(v127 + *(refreshed + 20));
+
+    *(v66 + 6) = 2048;
+    outlined init with copy of RegistryCrux.RefreshTimings(v67, isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+    static ContinuousClock.now.getter();
+    ContinuousClock.Instant.duration(to:)();
+    (*(v123 + 1))(v22, v122);
+    v68 = Duration.components.getter();
+    v70 = v69;
+    outlined destroy of RegistryCrux.RefreshTimings(isEscapingClosureAtFileLocation, type metadata accessor for RegistryCrux.RefreshTimings);
+    *(v66 + 8) = v68 * 1000.0 + v70 * 1.0e-15;
+    _os_log_impl(&dword_22DF91000, v63, v64, "#refresh_%hx %fms Daemon is idle, creating empty collection", v66, 0x10u);
+    MEMORY[0x2318DFC30](v66, -1, -1);
   }
 
   else
   {
-    [v55 endFetchIntervalTrace];
-
-    RegistryCrux.synchronousUntypedService(tag:)(0xD000000000000016, 0x800000022DFAFE70, &state64);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20NRXPCPairingDelegate_pMd, &_sSo20NRXPCPairingDelegate_pMR);
-    swift_dynamicCast();
-    [v134 xpcTriggerTailspinFrom:v116 forApp:0];
-    swift_unknownObjectRelease();
   }
 
-  v76 = v132;
-  if ((*(v4 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux____lazy_storage___hasInternalDiagnostics) & 1) == 0)
+  v82 = objc_opt_self();
+  v83 = swift_allocObject();
+  v83[2] = v4;
+  v83[3] = v61;
+  v83[4] = 0;
+  v83[5] = v35;
+  v76 = swift_allocObject();
+  *(v76 + 16) = partial apply for closure #1 in RegistryCrux.assignNewState(_:);
+  *(v76 + 24) = v83;
+  v132 = partial apply for thunk for @callee_guaranteed () -> ();
+  v133 = v76;
+  *&state64 = MEMORY[0x277D85DD0];
+  *(&state64 + 1) = 1107296256;
+  v130 = thunk for @escaping @callee_guaranteed () -> ();
+  v131 = &block_descriptor_57;
+  v22 = _Block_copy(&state64);
+  v79 = v133;
+
+  v4 = v61;
+
+  [v82 initiateAssignment_];
+  _Block_release(v22);
+  v80 = swift_isEscapingClosureAtFileLocation();
+
+  if (v80)
   {
-LABEL_45:
-    if (one-time initialization token for framework == -1)
-    {
-LABEL_46:
-      v98 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v98, static Logs.framework);
-
-      v99 = Logger.logObject.getter();
-      v100 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v99, v100))
-      {
-        v101 = swift_slowAlloc();
-        *v101 = 33555200;
-        v102 = v133;
-        *(v101 + 4) = *(v133 + *(refreshed + 20));
-
-        v21 = 2048;
-        *(v101 + 6) = 2048;
-        v22 = type metadata accessor for RegistryCrux.RefreshTimings;
-        outlined init with copy of RegistryCrux.RefreshTimings(v102, v28, type metadata accessor for RegistryCrux.RefreshTimings);
-        static ContinuousClock.now.getter();
-        ContinuousClock.Instant.duration(to:)();
-        v120(v25, v128);
-        v103 = Duration.components.getter();
-        v105 = v104;
-        outlined destroy of RegistryCrux.RefreshTimings(v28, type metadata accessor for RegistryCrux.RefreshTimings);
-        *(v101 + 8) = v103 * 1000.0 + v105 * v2;
-        *(v101 + 16) = 2048;
-        *(v101 + 18) = v3;
-        _os_log_impl(&dword_22DF91000, v99, v100, "#refresh_%hx %fms definitelyFetchRegistryState complete. %fms", v101, 0x1Au);
-        MEMORY[0x2318DFC30](v101, -1, -1);
-      }
-
-      else
-      {
-      }
-
-      v106 = objc_opt_self();
-      v107 = swift_allocObject();
-      v108 = v119;
-      v107[2] = v4;
-      v107[3] = v108;
-      v109 = v118;
-      v110 = v117;
-      v107[4] = v118;
-      v107[5] = v110;
-      v111 = swift_allocObject();
-      *(v111 + 16) = closure #1 in RegistryCrux.assignNewState(_:)partial apply;
-      *(v111 + 24) = v107;
-      v138 = thunk for @callee_guaranteed () -> ()partial apply;
-      v139 = v111;
-      *&state64 = MEMORY[0x277D85DD0];
-      *(&state64 + 1) = 1107296256;
-      v136 = thunk for @escaping @callee_guaranteed () -> ();
-      v137 = &block_descriptor_68;
-      v25 = _Block_copy(&state64);
-      v112 = v109;
-
-      v113 = v108;
-
-      [v106 initiateAssignment_];
-      _Block_release(v25);
-      v28 = swift_isEscapingClosureAtFileLocation();
-
-      if ((v28 & 1) == 0)
-      {
-        goto LABEL_50;
-      }
-
-      __break(1u);
-LABEL_55:
-      swift_once();
-LABEL_20:
-      v58 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v58, static Logs.framework);
-
-      v59 = Logger.logObject.getter();
-      v60 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v59, v60))
-      {
-        v61 = swift_slowAlloc();
-        *v61 = 33554944;
-        v62 = v133;
-        *(v61 + 4) = *(v133 + *(refreshed + 20));
-
-        *(v61 + 6) = 2048;
-        outlined init with copy of RegistryCrux.RefreshTimings(v62, v28, type metadata accessor for RegistryCrux.RefreshTimings);
-        static ContinuousClock.now.getter();
-        ContinuousClock.Instant.duration(to:)();
-        (*(v22 + 1))(v25, v21);
-        v63 = Duration.components.getter();
-        v65 = v64;
-        outlined destroy of RegistryCrux.RefreshTimings(v28, type metadata accessor for RegistryCrux.RefreshTimings);
-        *(v61 + 8) = v63 * 1000.0 + v65 * 1.0e-15;
-        _os_log_impl(&dword_22DF91000, v59, v60, "#refresh_%hx %fms Refresh appears unnecessary", v61, 0x10u);
-        MEMORY[0x2318DFC30](v61, -1, -1);
-      }
-
-      else
-      {
-      }
-
-LABEL_50:
-      v114 = *MEMORY[0x277D85DE8];
-      return;
-    }
-
-LABEL_53:
-    swift_once();
-    goto LABEL_46;
+    __break(1u);
+    goto LABEL_38;
   }
-
-  v116 = v28;
-  v77 = v118;
-  v78 = v118;
-  v79 = v119;
-  RegistryState.LoggingInfo.init(_:)(v79, v77, v117, v76);
-  v68 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_lastLoggedInfo;
-  swift_beginAccess();
-  v80 = v126;
-  outlined init with copy of RegistryState.LoggingInfo?(v68 + v4, v126, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
-  v22 = (v130 + 48);
-  v21 = *(v130 + 48);
-  v81 = v127;
-  v82 = (v21)(v80, 1, v127);
-  outlined destroy of UUID?(v80, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
-  v83 = v82 == 1;
-  v84 = v132;
-  if (v83)
-  {
-    goto LABEL_39;
-  }
-
-  isEscapingClosureAtFileLocation = v121;
-  outlined init with copy of RegistryState.LoggingInfo?(v68 + v4, v121, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
-  if ((v21)(isEscapingClosureAtFileLocation, 1, v81) != 1)
-  {
-    if (*v84 == *isEscapingClosureAtFileLocation && v84[1] == *(isEscapingClosureAtFileLocation + 8) && v84[2] == *(isEscapingClosureAtFileLocation + 16))
-    {
-      v86 = isEscapingClosureAtFileLocation + *(v81 + 28);
-      ContinuousClock.Instant.duration(to:)();
-      LOBYTE(v86) = static Duration.< infix(_:_:)();
-      outlined destroy of RegistryCrux.RefreshTimings(isEscapingClosureAtFileLocation, type metadata accessor for RegistryState.LoggingInfo);
-      if ((v86 & 1) == 0)
-      {
-LABEL_44:
-        outlined destroy of RegistryCrux.RefreshTimings(v84, type metadata accessor for RegistryState.LoggingInfo);
-        v28 = v116;
-        goto LABEL_45;
-      }
-
-LABEL_39:
-      v89 = v122;
-      outlined init with copy of RegistryCrux.RefreshTimings(v84, v122, type metadata accessor for RegistryState.LoggingInfo);
-      (*(v130 + 56))(v89, 0, 1, v81);
-      swift_beginAccess();
-      outlined assign with take of RegistryState.LoggingInfo?(v89, v68 + v4, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
-      swift_endAccess();
-      if (one-time initialization token for framework != -1)
-      {
-        swift_once();
-      }
-
-      v90 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v90, static Logs.framework);
-      v21 = v123;
-      outlined init with copy of RegistryCrux.RefreshTimings(v84, v123, type metadata accessor for RegistryState.LoggingInfo);
-      v22 = v124;
-      outlined init with copy of RegistryCrux.RefreshTimings(v84, v124, type metadata accessor for RegistryState.LoggingInfo);
-      v91 = v125;
-      outlined init with copy of RegistryCrux.RefreshTimings(v84, v125, type metadata accessor for RegistryState.LoggingInfo);
-
-      v92 = Logger.logObject.getter();
-      v93 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v92, v93))
-      {
-        v94 = swift_slowAlloc();
-        *v94 = 33555456;
-        *(v94 + 4) = *(v133 + *(refreshed + 20));
-
-        *(v94 + 6) = 2048;
-        v95 = v21;
-        v96 = *v21;
-        outlined destroy of RegistryCrux.RefreshTimings(v95, type metadata accessor for RegistryState.LoggingInfo);
-        *(v94 + 8) = v96;
-        *(v94 + 16) = 2048;
-        v21 = *(v22 + 1);
-        outlined destroy of RegistryCrux.RefreshTimings(v22, type metadata accessor for RegistryState.LoggingInfo);
-        *(v94 + 18) = v21;
-        *(v94 + 26) = 2048;
-        v22 = *(v91 + 16);
-        outlined destroy of RegistryCrux.RefreshTimings(v91, type metadata accessor for RegistryState.LoggingInfo);
-        *(v94 + 28) = v22;
-        _os_log_impl(&dword_22DF91000, v92, v93, "#refresh_%hx Device collection info after definitelyFetchRegistryState: %ld total %ld paired %ld active", v94, 0x24u);
-        v97 = v94;
-        v84 = v132;
-        MEMORY[0x2318DFC30](v97, -1, -1);
-      }
-
-      else
-      {
-        outlined destroy of RegistryCrux.RefreshTimings(v91, type metadata accessor for RegistryState.LoggingInfo);
-        outlined destroy of RegistryCrux.RefreshTimings(v22, type metadata accessor for RegistryState.LoggingInfo);
-        outlined destroy of RegistryCrux.RefreshTimings(v21, type metadata accessor for RegistryState.LoggingInfo);
-      }
-
-      goto LABEL_44;
-    }
-
-LABEL_38:
-    outlined destroy of RegistryCrux.RefreshTimings(isEscapingClosureAtFileLocation, type metadata accessor for RegistryState.LoggingInfo);
-    goto LABEL_39;
-  }
-
-LABEL_57:
-  __break(1u);
 }
 
 void closure #1 in RegistryCrux.assignNewState(_:)(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v92 = type metadata accessor for ContinuousClock.Instant();
-  v91 = *(v92 - 8);
-  v8 = *(v91 + 64);
-  MEMORY[0x28223BE20](v92);
-  v90 = &v86 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v90 = type metadata accessor for ContinuousClock.Instant();
+  v89 = *(v90 - 8);
+  MEMORY[0x28223BE20](v90);
+  v88 = &v84 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   refreshed = type metadata accessor for RegistryCrux.RefreshTimings(0);
-  v11 = *(*(refreshed - 1) + 64);
   MEMORY[0x28223BE20](refreshed);
-  v89 = &v86 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
-  v14 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock);
+  v87 = &v84 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
+  v12 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock);
+
+  os_unfair_lock_lock(v12 + 4);
+
+  v13 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registries_);
+  v14 = *(v13 + 24);
 
   os_unfair_lock_lock(v14 + 4);
 
-  v15 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registries_);
-  v16 = *(v15 + 24);
-
-  os_unfair_lock_lock(v16 + 4);
-
   aBlock[0] = MEMORY[0x277D84F90];
-  specialized WeakCollection.sweep(action:)(v15, aBlock);
-  v17 = aBlock[0];
-  v18 = *(v15 + 24);
+  specialized WeakCollection.sweep(action:)(v13, aBlock);
+  v15 = aBlock[0];
+  v16 = *(v13 + 24);
 
-  os_unfair_lock_unlock(v18 + 4);
+  os_unfair_lock_unlock(v16 + 4);
 
-  v19 = (a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_);
-  v20 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_);
-  v21 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 8);
-  v98 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 16);
-  *v19 = a2;
-  v19[1] = a3;
-  v102 = a4;
-  v19[2] = a4;
-  v22 = *(a1 + v13);
-  v100 = a3;
-  v23 = a3;
+  v17 = (a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_);
+  v18 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_);
+  v19 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 8);
+  v96 = *(a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 16);
+  *v17 = a2;
+  v17[1] = a3;
+  v100 = a4;
+  v17[2] = a4;
+  v20 = *(a1 + v11);
+  v98 = a3;
+  v21 = a3;
 
-  v24 = v20;
-  v25 = v21;
-  v26 = a2;
-  os_unfair_lock_unlock(v22 + 4);
+  v22 = v18;
+  v23 = v19;
+  v24 = a2;
+  os_unfair_lock_unlock(v20 + 4);
 
   if (one-time initialization token for framework != -1)
   {
@@ -3114,196 +3042,196 @@ void closure #1 in RegistryCrux.assignNewState(_:)(uint64_t a1, void *a2, void *
 
   while (1)
   {
-    v27 = type metadata accessor for Logger();
-    v28 = __swift_project_value_buffer(v27, static Logs.framework);
+    v25 = type metadata accessor for Logger();
+    v26 = __swift_project_value_buffer(v25, static Logs.framework);
 
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.default.getter();
-    v31 = os_log_type_enabled(v29, v30);
-    v101 = v17;
-    v95 = v28;
-    v88 = refreshed;
-    if (v31)
+    v27 = Logger.logObject.getter();
+    v28 = static os_log_type_t.default.getter();
+    v29 = os_log_type_enabled(v27, v28);
+    v99 = v15;
+    v93 = v26;
+    v86 = refreshed;
+    if (v29)
     {
-      v32 = swift_slowAlloc();
-      *v32 = 33554944;
-      v33 = a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
+      v30 = swift_slowAlloc();
+      *v30 = 33554944;
+      v31 = a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
       swift_beginAccess();
-      *(v32 + 4) = *(v33 + refreshed[5]);
+      *(v30 + 4) = *(v31 + refreshed[5]);
 
-      *(v32 + 6) = 2048;
-      v93 = a1;
-      v97 = v24;
-      v34 = v89;
-      outlined init with copy of RegistryCrux.RefreshTimings(v33, v89, type metadata accessor for RegistryCrux.RefreshTimings);
-      v99 = v25;
-      v35 = v90;
+      *(v30 + 6) = 2048;
+      v91 = a1;
+      v95 = v22;
+      v32 = v87;
+      outlined init with copy of RegistryCrux.RefreshTimings(v31, v87, type metadata accessor for RegistryCrux.RefreshTimings);
+      v97 = v23;
+      v33 = v88;
       static ContinuousClock.now.getter();
       ContinuousClock.Instant.duration(to:)();
-      v36 = v26;
-      (*(v91 + 8))(v35, v92);
-      v37 = Duration.components.getter();
-      v39 = v38;
-      v40 = v34;
-      v24 = v97;
-      a1 = v93;
-      outlined destroy of RegistryCrux.RefreshTimings(v40, type metadata accessor for RegistryCrux.RefreshTimings);
-      v41 = v37;
-      v25 = v99;
-      v42 = v39;
-      v26 = v36;
-      *(v32 + 8) = v41 * 1000.0 + v42 * 1.0e-15;
-      _os_log_impl(&dword_22DF91000, v29, v30, "#refresh_%hx %fms New collection swapped in", v32, 0x10u);
-      v43 = v32;
-      v17 = v101;
-      MEMORY[0x2318DFC30](v43, -1, -1);
+      v34 = v24;
+      (*(v89 + 8))(v33, v90);
+      v35 = Duration.components.getter();
+      v37 = v36;
+      v38 = v32;
+      v22 = v95;
+      a1 = v91;
+      outlined destroy of RegistryCrux.RefreshTimings(v38, type metadata accessor for RegistryCrux.RefreshTimings);
+      v39 = v35;
+      v23 = v97;
+      v40 = v37;
+      v24 = v34;
+      *(v30 + 8) = v39 * 1000.0 + v40 * 1.0e-15;
+      _os_log_impl(&dword_22DF91000, v27, v28, "#refresh_%hx %fms New collection swapped in", v30, 0x10u);
+      v41 = v30;
+      v15 = v99;
+      MEMORY[0x2318DFC30](v41, -1, -1);
     }
 
     else
     {
     }
 
-    v44 = v24;
+    v42 = v22;
     swift_retain_n();
-    v45 = v44;
-    v46 = v25;
+    v43 = v42;
+    v44 = v23;
     default argument 0 of static OSLogIntegerFormatting.hex(explicitPositiveSign:includePrefix:uppercase:minDigits:)();
     default argument 0 of static OSLogIntegerFormatting.hex(explicitPositiveSign:includePrefix:uppercase:minDigits:)();
     default argument 0 of static OSLogIntegerFormatting.hex(explicitPositiveSign:includePrefix:uppercase:minDigits:)();
-    v47 = v26;
-    v48 = v23;
-    refreshed = v47;
-    v49 = v48;
+    v45 = v24;
+    v46 = v21;
+    refreshed = v45;
+    v47 = v46;
     default argument 0 of static OSLogIntegerFormatting.hex(explicitPositiveSign:includePrefix:uppercase:minDigits:)();
     default argument 0 of static OSLogIntegerFormatting.hex(explicitPositiveSign:includePrefix:uppercase:minDigits:)();
     default argument 0 of static OSLogIntegerFormatting.hex(explicitPositiveSign:includePrefix:uppercase:minDigits:)();
-    v50 = Logger.logObject.getter();
-    v51 = static os_log_type_t.default.getter();
-    v52 = os_log_type_enabled(v50, v51);
-    v94 = v46;
-    v99 = v49;
-    if (v52)
+    v48 = Logger.logObject.getter();
+    v49 = static os_log_type_t.default.getter();
+    v50 = os_log_type_enabled(v48, v49);
+    v92 = v44;
+    v97 = v47;
+    if (v50)
     {
-      v53 = swift_slowAlloc();
-      *v53 = 33555712;
-      v54 = v45;
-      v55 = a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
+      v51 = swift_slowAlloc();
+      *v51 = 33555712;
+      v52 = v43;
+      v53 = a1 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
       swift_beginAccess();
-      LOWORD(v55) = *(v55 + v88[5]);
+      LOWORD(v53) = *(v53 + v86[5]);
 
-      *(v53 + 4) = v55;
+      *(v51 + 4) = v53;
 
-      *(v53 + 6) = 1040;
-      *(v53 + 8) = 16;
-      *(v53 + 12) = 2048;
+      *(v51 + 6) = 1040;
+      *(v51 + 8) = 16;
+      *(v51 + 12) = 2048;
 
-      *(v53 + 14) = v98 & 0x3FFFFFFFFFFFFFFFLL;
-      *(v53 + 22) = 1040;
-      *(v53 + 24) = 16;
-      *(v53 + 28) = 2048;
-      v45 = v54;
+      *(v51 + 14) = v96 & 0x3FFFFFFFFFFFFFFFLL;
+      *(v51 + 22) = 1040;
+      *(v51 + 24) = 16;
+      *(v51 + 28) = 2048;
+      v43 = v52;
 
-      *(v53 + 30) = v102 & 0x3FFFFFFFFFFFFFFFLL;
-      _os_log_impl(&dword_22DF91000, v50, v51, "#refresh_%hx history %.*llx -> %.*llx", v53, 0x26u);
-      MEMORY[0x2318DFC30](v53, -1, -1);
+      *(v51 + 30) = v100 & 0x3FFFFFFFFFFFFFFFLL;
+      _os_log_impl(&dword_22DF91000, v48, v49, "#refresh_%hx history %.*llx -> %.*llx", v51, 0x26u);
+      MEMORY[0x2318DFC30](v51, -1, -1);
     }
 
     else
     {
 
-      v50 = refreshed;
+      v48 = refreshed;
     }
 
     type metadata accessor for NRMutableDeviceCollection(0, &lazy cache variable for type metadata for NRMutableDeviceCollection, 0x277D2BCE8);
-    v56 = [swift_getObjCClassFromMetadata() diffFrom:v45 to:refreshed];
+    v54 = [swift_getObjCClassFromMetadata() diffFrom:v43 to:refreshed];
 
-    if (!v56)
+    if (!v54)
     {
 
 LABEL_25:
-      v79 = v94;
+      v77 = v92;
       goto LABEL_26;
     }
 
     objc_opt_self();
-    v97 = swift_dynamicCastObjCClass();
-    if (!v97)
+    v95 = swift_dynamicCastObjCClass();
+    if (!v95)
     {
 
       swift_unknownObjectRelease();
       goto LABEL_25;
     }
 
-    v98 = v56;
-    v87 = v45;
-    v93 = a1;
-    v86 = v17 >> 62;
-    if (v17 >> 62)
+    v96 = v54;
+    v85 = v43;
+    v91 = a1;
+    v84 = v15 >> 62;
+    if (v15 >> 62)
     {
       break;
     }
 
-    v23 = *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!v23)
+    v21 = *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (!v21)
     {
       goto LABEL_19;
     }
 
 LABEL_12:
-    v96 = objc_opt_self();
-    if (v23 < 1)
+    v94 = objc_opt_self();
+    if (v21 < 1)
     {
       __break(1u);
       return;
     }
 
     a1 = 0;
-    v57 = v17 & 0xC000000000000001;
-    v24 = v104;
+    v55 = v15 & 0xC000000000000001;
+    v22 = v102;
     while (1)
     {
-      v58 = v57 ? MEMORY[0x2318DF260](a1, v17) : *(v17 + 8 * a1 + 32);
-      v59 = v58;
+      v56 = v55 ? MEMORY[0x2318DF260](a1, v15) : *(v15 + 8 * a1 + 32);
+      v57 = v56;
       type metadata accessor for Registry_Impl();
-      v60 = swift_dynamicCastClassUnconditional();
-      v61 = swift_allocObject();
-      v62 = v97;
-      v61[2] = v60;
-      v61[3] = v62;
-      v63 = v100;
-      v61[4] = refreshed;
-      v61[5] = v63;
-      v61[6] = v102;
-      v26 = swift_allocObject();
-      v26[2] = partial apply for closure #1 in Registry_Impl.notify(deviceColletionDiff:state:);
-      v26[3] = v61;
-      v104[2] = thunk for @callee_guaranteed () -> ()partial apply;
-      v105 = v26;
+      v58 = swift_dynamicCastClassUnconditional();
+      v59 = swift_allocObject();
+      v60 = v95;
+      v59[2] = v58;
+      v59[3] = v60;
+      v61 = v98;
+      v59[4] = refreshed;
+      v59[5] = v61;
+      v59[6] = v100;
+      v24 = swift_allocObject();
+      v24[2] = partial apply for closure #1 in Registry_Impl.notify(deviceColletionDiff:state:);
+      v24[3] = v59;
+      v102[2] = thunk for @callee_guaranteed () -> ()partial apply;
+      v103 = v24;
       aBlock[0] = MEMORY[0x277D85DD0];
       aBlock[1] = 1107296256;
-      v104[0] = thunk for @escaping @callee_guaranteed () -> ();
-      v104[1] = &block_descriptor_78;
-      v25 = _Block_copy(aBlock);
-      v17 = v105;
-      v64 = v59;
-      v65 = refreshed;
-      v66 = v99;
-      v67 = v64;
+      v102[0] = thunk for @escaping @callee_guaranteed () -> ();
+      v102[1] = &block_descriptor_78;
+      v23 = _Block_copy(aBlock);
+      v15 = v103;
+      v62 = v57;
+      v63 = refreshed;
+      v64 = v97;
+      v65 = v62;
       swift_unknownObjectRetain();
 
-      [v96 initiateNotifications_];
+      [v94 initiateNotifications_];
 
-      _Block_release(v25);
-      LOBYTE(v67) = swift_isEscapingClosureAtFileLocation();
+      _Block_release(v23);
+      LOBYTE(v65) = swift_isEscapingClosureAtFileLocation();
 
-      if (v67)
+      if (v65)
       {
         break;
       }
 
       ++a1;
-      v17 = v101;
-      if (v23 == a1)
+      v15 = v99;
+      if (v21 == a1)
       {
         goto LABEL_19;
       }
@@ -3314,187 +3242,185 @@ LABEL_35:
     swift_once();
   }
 
-  if (v17 < 0)
+  if (v15 < 0)
   {
-    v85 = v17;
+    v83 = v15;
   }
 
   else
   {
-    v85 = v17 & 0xFFFFFFFFFFFFFF8;
+    v83 = v15 & 0xFFFFFFFFFFFFFF8;
   }
 
-  v23 = MEMORY[0x2318DF310](v85);
-  if (v23)
+  v21 = MEMORY[0x2318DF310](v83);
+  if (v21)
   {
     goto LABEL_12;
   }
 
 LABEL_19:
-  v68 = v93;
+  v66 = v91;
 
-  v69 = Logger.logObject.getter();
-  v70 = static os_log_type_t.default.getter();
-  if (!os_log_type_enabled(v69, v70))
+  v67 = Logger.logObject.getter();
+  v68 = static os_log_type_t.default.getter();
+  if (!os_log_type_enabled(v67, v68))
   {
 
     swift_unknownObjectRelease();
 
     swift_bridgeObjectRelease_n();
-    v45 = v87;
+    v43 = v85;
     goto LABEL_25;
   }
 
-  v71 = swift_slowAlloc();
-  *v71 = 33555200;
-  v72 = v68 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
+  v69 = swift_slowAlloc();
+  *v69 = 33555200;
+  v70 = v66 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
   swift_beginAccess();
-  *(v71 + 4) = *(v72 + v88[5]);
+  *(v69 + 4) = *(v70 + v86[5]);
 
-  *(v71 + 6) = 2048;
-  v73 = v89;
-  outlined init with copy of RegistryCrux.RefreshTimings(v72, v89, type metadata accessor for RegistryCrux.RefreshTimings);
-  v74 = v90;
+  *(v69 + 6) = 2048;
+  v71 = v87;
+  outlined init with copy of RegistryCrux.RefreshTimings(v70, v87, type metadata accessor for RegistryCrux.RefreshTimings);
+  v72 = v88;
   static ContinuousClock.now.getter();
   ContinuousClock.Instant.duration(to:)();
-  (*(v91 + 8))(v74, v92);
-  v75 = Duration.components.getter();
-  v77 = v76;
-  outlined destroy of RegistryCrux.RefreshTimings(v73, type metadata accessor for RegistryCrux.RefreshTimings);
-  *(v71 + 8) = v75 * 1000.0 + v77 * 1.0e-15;
-  *(v71 + 16) = 2048;
-  if (v86)
+  (*(v89 + 8))(v72, v90);
+  v73 = Duration.components.getter();
+  v75 = v74;
+  outlined destroy of RegistryCrux.RefreshTimings(v71, type metadata accessor for RegistryCrux.RefreshTimings);
+  *(v69 + 8) = v73 * 1000.0 + v75 * 1.0e-15;
+  *(v69 + 16) = 2048;
+  if (v84)
   {
-    if (v17 < 0)
+    if (v15 < 0)
     {
-      v83 = v17;
+      v81 = v15;
     }
 
     else
     {
-      v83 = v17 & 0xFFFFFFFFFFFFFF8;
+      v81 = v15 & 0xFFFFFFFFFFFFFF8;
     }
 
-    v78 = MEMORY[0x2318DF310](v83);
+    v76 = MEMORY[0x2318DF310](v81);
   }
 
   else
   {
-    v78 = *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v76 = *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v84 = v87;
-  v79 = v94;
+  v82 = v85;
+  v77 = v92;
 
-  *(v71 + 18) = v78;
+  *(v69 + 18) = v76;
 
-  _os_log_impl(&dword_22DF91000, v69, v70, "#refresh_%hx %fms %ld Registries informed", v71, 0x1Au);
-  MEMORY[0x2318DFC30](v71, -1, -1);
+  _os_log_impl(&dword_22DF91000, v67, v68, "#refresh_%hx %fms %ld Registries informed", v69, 0x1Au);
+  MEMORY[0x2318DFC30](v69, -1, -1);
 
   swift_unknownObjectRelease();
-  v45 = v84;
+  v43 = v82;
 LABEL_26:
-  v80 = Logger.logObject.getter();
-  v81 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v80, v81))
+  v78 = Logger.logObject.getter();
+  v79 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v78, v79))
   {
-    v82 = swift_slowAlloc();
-    *v82 = 0;
-    _os_log_impl(&dword_22DF91000, v80, v81, "assignNewState complete", v82, 2u);
-    MEMORY[0x2318DFC30](v82, -1, -1);
+    v80 = swift_slowAlloc();
+    *v80 = 0;
+    _os_log_impl(&dword_22DF91000, v78, v79, "assignNewState complete", v80, 2u);
+    MEMORY[0x2318DFC30](v80, -1, -1);
   }
 }
 
 id RegistryCrux.definitelyFetchRegistryState(oldToken:)(uint64_t a1)
 {
   v2 = v1;
-  v52 = type metadata accessor for ContinuousClock.Instant();
-  v4 = *(v52 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20]();
-  v51 = &v45 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v49 = type metadata accessor for ContinuousClock.Instant();
+  v4 = *(v49 - 8);
+  MEMORY[0x28223BE20](v49);
+  v48 = &v42 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   refreshed = type metadata accessor for RegistryCrux.RefreshTimings(0);
-  v7 = *(*(refreshed - 8) + 64);
-  MEMORY[0x28223BE20]();
-  v49 = &v45 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 1;
-  v9 = swift_allocObject();
-  *(v9 + 16) = 0;
-  v10 = (v9 + 16);
-  *(v9 + 24) = 0;
-  *(v9 + 32) = 0;
-  v11 = v2 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
-  v12 = "ed";
+  MEMORY[0x28223BE20](refreshed);
+  v46 = &v42 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 1;
+  v7 = swift_allocObject();
+  *(v7 + 16) = 0;
+  v8 = (v7 + 16);
+  *(v7 + 24) = 0;
+  *(v7 + 32) = 0;
+  v9 = v2 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings;
+  v10 = "ed";
   swift_beginAccess();
   swift_beginAccess();
-  v48 = v11;
+  v45 = v9;
   swift_beginAccess();
-  v57 = v59;
-  v46 = (v4 + 8);
-  *&v13 = 33555200;
-  v45 = v13;
-  v53 = a1;
-  v47 = "ed";
+  v54 = v56;
+  v43 = (v4 + 8);
+  *&v11 = 33555200;
+  v42 = v11;
+  v50 = a1;
+  v44 = "ed";
   while (1)
   {
     while (1)
     {
-      RegistryCrux.synchronousUntypedService(tag:)(0xD000000000000027, v12 | 0x8000000000000000, &aBlock);
+      RegistryCrux.synchronousUntypedService(tag:)(0xD000000000000027, v10 | 0x8000000000000000, &aBlock);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NRXPCRegistryDelegate_pMd, &_sSo21NRXPCRegistryDelegate_pMR);
       swift_dynamicCast();
-      v15 = v59[4];
-      v16 = swift_allocObject();
-      v16[2] = v9;
-      v16[3] = v2;
-      v16[4] = a1;
-      v59[2] = partial apply for closure #1 in RegistryCrux.definitelyFetchRegistryState(oldToken:);
-      v59[3] = v16;
+      v13 = v56[4];
+      v14 = swift_allocObject();
+      v14[2] = v7;
+      v14[3] = v2;
+      v14[4] = a1;
+      v56[2] = partial apply for closure #1 in RegistryCrux.definitelyFetchRegistryState(oldToken:);
+      v56[3] = v14;
       *&aBlock = MEMORY[0x277D85DD0];
       *(&aBlock + 1) = 1107296256;
-      v59[0] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed NRMutableDeviceCollection?, @guaranteed NRSecureDevicePropertyStore?, @unowned UInt64, @unowned Bool) -> ();
-      v59[1] = &block_descriptor_0;
-      v17 = _Block_copy(&aBlock);
+      v56[0] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed NRMutableDeviceCollection?, @guaranteed NRSecureDevicePropertyStore?, @unowned UInt64, @unowned Bool) -> ();
+      v56[1] = &block_descriptor_0;
+      v15 = _Block_copy(&aBlock);
 
-      [v15 xpcGetDeviceCollectionWithBlock_];
-      _Block_release(v17);
-      if (!*(v9 + 16))
+      [v13 xpcGetDeviceCollectionWithBlock_];
+      _Block_release(v15);
+      if (!*(v7 + 16))
       {
         break;
       }
 
       swift_unknownObjectRelease();
-      v14 = *v10;
-      if (*v10)
+      v12 = *v8;
+      if (*v8)
       {
         goto LABEL_15;
       }
     }
 
-    v18 = specialized getter of sleeper #1 in RegistryCrux.definitelyFetchRegistryState(oldToken:)(&v60);
+    v16 = specialized getter of sleeper #1 in RegistryCrux.definitelyFetchRegistryState(oldToken:)(&v57);
+    v18 = v17;
     v20 = v19;
     v22 = v21;
-    v24 = v23;
     result = [objc_opt_self() sleepForTimeInterval_];
-    v26 = v18 + 1;
-    if (__OFADD__(v18, 1))
+    v24 = v16 + 1;
+    if (__OFADD__(v16, 1))
     {
       break;
     }
 
-    v27 = v24 * 2.37137;
-    if (v24 * 2.37137 > 0.01)
+    v25 = v22 * 2.37137;
+    if (v22 * 2.37137 > 0.01)
     {
-      v27 = 0.01;
+      v25 = 0.01;
     }
 
-    *&v61 = v22 + v24;
-    *(&v61 + 1) = v27;
-    v62 = 0;
-    *&v60 = v18 + 1;
-    *(&v60 + 1) = v20 << (v26 >= v20);
-    if (v26 < v20)
+    *&v58 = v20 + v22;
+    *(&v58 + 1) = v25;
+    v59 = 0;
+    *&v57 = v16 + 1;
+    *(&v57 + 1) = v18 << (v24 >= v18);
+    if (v24 < v18)
     {
       swift_unknownObjectRelease();
     }
@@ -3506,42 +3432,42 @@ id RegistryCrux.definitelyFetchRegistryState(oldToken:)(uint64_t a1)
         swift_once();
       }
 
-      v28 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v28, static Logs.framework);
+      v26 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v26, static Logs.framework);
 
-      v29 = Logger.logObject.getter();
-      v30 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v29, v30))
+      v27 = Logger.logObject.getter();
+      v28 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v27, v28))
       {
-        v31 = swift_slowAlloc();
-        *v31 = v45;
-        v32 = *(refreshed + 20);
-        v56 = v29;
-        v33 = v48;
-        *(v31 + 4) = *(v48 + v32);
+        v29 = swift_slowAlloc();
+        *v29 = v42;
+        v30 = *(refreshed + 20);
+        v53 = v27;
+        v31 = v45;
+        *(v29 + 4) = *(v45 + v30);
 
-        *(v31 + 6) = 2048;
-        v54 = type metadata accessor for RegistryCrux.RefreshTimings;
-        v34 = v33;
-        v35 = v49;
-        outlined init with copy of RegistryCrux.RefreshTimings(v34, v49, type metadata accessor for RegistryCrux.RefreshTimings);
-        v36 = v51;
+        *(v29 + 6) = 2048;
+        v51 = type metadata accessor for RegistryCrux.RefreshTimings;
+        v32 = v31;
+        v33 = v46;
+        outlined init with copy of RegistryCrux.RefreshTimings(v32, v46, type metadata accessor for RegistryCrux.RefreshTimings);
+        v34 = v48;
         static ContinuousClock.now.getter();
         ContinuousClock.Instant.duration(to:)();
-        v55 = v30;
-        (*v46)(v36, v52);
-        v12 = v47;
-        v37 = Duration.components.getter();
-        v39 = v38;
-        outlined destroy of RegistryCrux.RefreshTimings(v35, v54);
-        *(v31 + 8) = v37 * 1000.0 + v39 * 1.0e-15;
-        *(v31 + 16) = 2048;
-        *(v31 + 18) = v26;
-        v40 = v56;
-        _os_log_impl(&dword_22DF91000, v56, v55, "#refresh_%hx %fms definitelyFetchRegistryState at %ld retries", v31, 0x1Au);
-        v41 = v31;
-        a1 = v53;
-        MEMORY[0x2318DFC30](v41, -1, -1);
+        v52 = v28;
+        (*v43)(v34, v49);
+        v10 = v44;
+        v35 = Duration.components.getter();
+        v37 = v36;
+        outlined destroy of RegistryCrux.RefreshTimings(v33, v51);
+        *(v29 + 8) = v35 * 1000.0 + v37 * 1.0e-15;
+        *(v29 + 16) = 2048;
+        *(v29 + 18) = v24;
+        v38 = v53;
+        _os_log_impl(&dword_22DF91000, v53, v52, "#refresh_%hx %fms definitelyFetchRegistryState at %ld retries", v29, 0x1Au);
+        v39 = v29;
+        a1 = v50;
+        MEMORY[0x2318DFC30](v39, -1, -1);
         swift_unknownObjectRelease();
       }
 
@@ -3551,15 +3477,14 @@ id RegistryCrux.definitelyFetchRegistryState(oldToken:)(uint64_t a1)
       }
     }
 
-    v14 = *v10;
-    if (*v10)
+    v12 = *v8;
+    if (*v8)
     {
 LABEL_15:
-      v42 = *(v9 + 32);
-      v43 = *(v9 + 24);
-      v44 = v14;
+      v40 = *(v7 + 24);
+      v41 = v12;
 
-      return v44;
+      return v41;
     }
   }
 
@@ -3567,59 +3492,50 @@ LABEL_15:
   return result;
 }
 
-uint64_t specialized getter of sleeper #1 in RegistryCrux.definitelyFetchRegistryState(oldToken:)(uint64_t *a1)
+uint64_t specialized getter of sleeper #1 in RegistryCrux.definitelyFetchRegistryState(oldToken:)(uint64_t a1)
 {
-  if (a1[4])
+  if ((*(a1 + 32) & 1) == 0)
   {
-    swift_beginAccess();
-    result = 0;
-    *a1 = xmmword_22DFAE880;
-    *(a1 + 1) = xmmword_22DFAE890;
-    *(a1 + 32) = 0;
+    return *a1;
   }
 
-  else
-  {
-    v3 = a1[2];
-    v4 = a1[3];
-    result = *a1;
-    v5 = a1[1];
-  }
-
+  swift_beginAccess();
+  result = 0;
+  *a1 = xmmword_22DFAE880;
+  *(a1 + 16) = xmmword_22DFAE890;
+  *(a1 + 32) = 0;
   return result;
 }
 
-void closure #1 in RegistryCrux.definitelyFetchRegistryState(oldToken:)(void *a1, void *a2, uint64_t a3, char a4, void *a5, uint64_t a6, uint64_t a7)
+void closure #1 in RegistryCrux.definitelyFetchRegistryState(oldToken:)(void *result, void *a2, uint64_t a3, char a4, void *a5, uint64_t a6, uint64_t a7)
 {
   if ((a4 & 1) == 0)
   {
     RegistryCrux.warnAboutMissingEntitlement()();
-    v19 = [objc_allocWithZone(MEMORY[0x277D2BCE8]) init];
+    v18 = [objc_allocWithZone(MEMORY[0x277D2BCE8]) init];
     swift_beginAccess();
-    v16 = a5[2];
-    v17 = a5[3];
-    v20 = a5[4];
-    a5[2] = v19;
+    v15 = a5[2];
+    v16 = a5[3];
+    a5[2] = v18;
     a5[3] = 0;
     a5[4] = a7;
     goto LABEL_5;
   }
 
-  if (a1)
+  if (result)
   {
     swift_beginAccess();
     v11 = a5[2];
     v12 = a5[3];
-    v13 = a5[4];
-    a5[2] = a1;
+    a5[2] = result;
     a5[3] = a2;
     a5[4] = a3;
-    v14 = a2;
-    v15 = a1;
-    v16 = v11;
-    v17 = v12;
+    v13 = a2;
+    v14 = result;
+    v15 = v11;
+    v16 = v12;
 LABEL_5:
-    outlined consume of RegistryState?(v16, v17);
+    outlined consume of RegistryState?(v15, v16);
     return;
   }
 
@@ -3651,25 +3567,20 @@ Swift::Void __swiftcall RegistryCrux.warnAboutMissingEntitlement()()
 
 void thunk for @escaping @callee_guaranteed @Sendable (@guaranteed NRMutableDeviceCollection?, @guaranteed NRSecureDevicePropertyStore?, @unowned UInt64, @unowned Bool) -> ()(uint64_t a1, void *a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v10 = *(a1 + 32);
-  v9 = *(a1 + 40);
+  v9 = *(a1 + 32);
 
-  v12 = a2;
-  v11 = a3;
-  v10(a2, a3, a4, a5);
+  v11 = a2;
+  v10 = a3;
+  v9(a2, a3, a4, a5);
 }
 
 uint64_t RegistryCrux.deinit()
 {
-  v1 = *(v0 + 16);
 
   outlined destroy of RegistryCrux.RefreshTimings(v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_refreshTimings, type metadata accessor for RegistryCrux.RefreshTimings);
   outlined destroy of UUID?(v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_lastLoggedInfo, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMd, &_s20PairedDeviceRegistry0C5StateV11LoggingInfoVSgMR);
-  v2 = *(v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock);
 
-  v3 = *(v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 8);
-
-  v4 = *(v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registries_);
+  v1 = *(v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_ + 8);
 
   outlined destroy of UUID?(v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_serviceShadow_, &_sypSgMd, &_sypSgMR);
   return v0;
@@ -3709,7 +3620,7 @@ id closure #1 in variable initialization expression of static RegistryCrux.unifi
   {
     v4 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs11AnyHashableV_Tt1g5(*(v2 + 16), 0);
     v5 = specialized Sequence._copySequenceContents(initializing:)(&v10, (v4 + 4), v3, v2);
-    outlined consume of Set<AnyHashable>.Iterator._Variant();
+    outlined consume of Set<AnyHashable>.Iterator._Variant(v10);
     if (v5 == v3)
     {
       goto LABEL_6;
@@ -3762,27 +3673,26 @@ LABEL_16:
   }
 
   v7 = result;
-  v8 = *v1;
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  if (!isUniquelyReferenced_nonNull_native || (v10 = *(v4 + 3) >> 1, v10 < v6))
+  if (!isUniquelyReferenced_nonNull_native || (v9 = *(v4 + 3) >> 1, v9 < v6))
   {
     if (v5 <= v6)
     {
-      v11 = v5 + v3;
+      v10 = v5 + v3;
     }
 
     else
     {
-      v11 = v5;
+      v10 = v5;
     }
 
-    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v11, 1, v4);
-    v10 = *(v4 + 3) >> 1;
+    v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v10, 1, v4);
+    v9 = *(v4 + 3) >> 1;
   }
 
-  v12 = *(v4 + 2);
-  v13 = v10 - v12;
-  result = specialized Sequence._copySequenceContents(initializing:)(&v48, &v4[40 * v12 + 32], v10 - v12, v7);
+  v11 = *(v4 + 2);
+  v12 = v9 - v11;
+  result = specialized Sequence._copySequenceContents(initializing:)(&v47, &v4[40 * v11 + 32], v9 - v11, v7);
   if (result < v3)
   {
     goto LABEL_16;
@@ -3790,21 +3700,21 @@ LABEL_16:
 
   if (result)
   {
-    v15 = *(v4 + 2);
-    v16 = __OFADD__(v15, result);
-    v17 = v15 + result;
-    if (v16)
+    v14 = *(v4 + 2);
+    v15 = __OFADD__(v14, result);
+    v16 = v14 + result;
+    if (v15)
     {
       __break(1u);
       goto LABEL_20;
     }
 
-    *(v4 + 2) = v17;
+    *(v4 + 2) = v16;
   }
 
-  if (result != v13)
+  if (result != v12)
   {
-    result = outlined consume of Set<AnyHashable>.Iterator._Variant();
+    result = outlined consume of Set<AnyHashable>.Iterator._Variant(v47);
 LABEL_14:
     *v1 = v4;
     return result;
@@ -3812,145 +3722,145 @@ LABEL_14:
 
 LABEL_17:
   v2 = *(v4 + 2);
-  v14 = v49;
-  v37 = v49;
-  v38 = v48;
-  v3 = v50;
+  v13 = v48;
+  v36 = v48;
+  v37 = v47;
+  v3 = v49;
+  v16 = v50;
   v17 = v51;
-  v18 = v52;
-  if (v52)
+  if (v51)
   {
-    v19 = v51;
+    v18 = v50;
 LABEL_27:
-    v23 = (v18 - 1) & v18;
-    outlined init with copy of AnyHashable(*(v38 + 48) + 40 * (__clz(__rbit64(v18)) | (v19 << 6)), &v45);
-    v22 = v19;
+    v22 = (v17 - 1) & v17;
+    outlined init with copy of AnyHashable(*(v37 + 48) + 40 * (__clz(__rbit64(v17)) | (v18 << 6)), &v44);
+    v21 = v18;
     while (1)
     {
-      outlined init with copy of RegistryState.LoggingInfo?(&v45, &v42, &_ss11AnyHashableVSgMd, &_ss11AnyHashableVSgMR);
-      if (!*(&v43 + 1))
+      outlined init with copy of RegistryState.LoggingInfo?(&v44, &v41, &_ss11AnyHashableVSgMd, &_ss11AnyHashableVSgMR);
+      if (!*(&v42 + 1))
       {
         break;
       }
 
       v3 = (v3 + 64) >> 6;
-      v24 = &_ss11AnyHashableVSgMd;
+      v23 = &_ss11AnyHashableVSgMd;
       while (1)
       {
-        outlined destroy of UUID?(&v42, v24, &_ss11AnyHashableVSgMR);
-        v25 = *(v4 + 3);
-        v26 = v25 >> 1;
-        if ((v25 >> 1) < v2 + 1)
+        outlined destroy of UUID?(&v41, v23, &_ss11AnyHashableVSgMR);
+        v24 = *(v4 + 3);
+        v25 = v24 >> 1;
+        if ((v24 >> 1) < v2 + 1)
         {
-          v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v25 > 1), v2 + 1, 1, v4);
-          v26 = *(v4 + 3) >> 1;
+          v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v24 > 1), v2 + 1, 1, v4);
+          v25 = *(v4 + 3) >> 1;
         }
 
-        outlined init with copy of RegistryState.LoggingInfo?(&v45, &v39, v24, &_ss11AnyHashableVSgMR);
-        if (*(&v40 + 1))
+        outlined init with copy of RegistryState.LoggingInfo?(&v44, &v38, v23, &_ss11AnyHashableVSgMR);
+        if (*(&v39 + 1))
         {
           break;
         }
 
-        v35 = v22;
+        v34 = v21;
 LABEL_52:
-        outlined destroy of UUID?(&v39, v24, &_ss11AnyHashableVSgMR);
-        v28 = v2;
-        v22 = v35;
+        outlined destroy of UUID?(&v38, v23, &_ss11AnyHashableVSgMR);
+        v27 = v2;
+        v21 = v34;
 LABEL_31:
-        *(v4 + 2) = v28;
-        outlined init with copy of RegistryState.LoggingInfo?(&v45, &v42, v24, &_ss11AnyHashableVSgMR);
-        if (!*(&v43 + 1))
+        *(v4 + 2) = v27;
+        outlined init with copy of RegistryState.LoggingInfo?(&v44, &v41, v23, &_ss11AnyHashableVSgMR);
+        if (!*(&v42 + 1))
         {
           goto LABEL_53;
         }
       }
 
-      if (v2 <= v26)
+      if (v2 <= v25)
       {
-        v27 = v26;
+        v26 = v25;
       }
 
       else
       {
-        v27 = v2;
+        v26 = v2;
       }
 
       while (1)
       {
+        v41 = v38;
         v42 = v39;
         v43 = v40;
-        v44 = v41;
-        v28 = v27;
-        if (v2 == v27)
+        v27 = v26;
+        if (v2 == v26)
         {
-          outlined destroy of AnyHashable(&v42);
-          v2 = v28;
+          outlined destroy of AnyHashable(&v41);
+          v2 = v27;
           goto LABEL_31;
         }
 
-        v29 = v24;
-        outlined destroy of UUID?(&v45, v24, &_ss11AnyHashableVSgMR);
-        v30 = &v4[40 * v2 + 32];
-        v31 = v44;
-        v32 = v43;
-        *v30 = v42;
-        *(v30 + 16) = v32;
-        *(v30 + 32) = v31;
-        if (!v23)
+        v28 = v23;
+        outlined destroy of UUID?(&v44, v23, &_ss11AnyHashableVSgMR);
+        v29 = &v4[40 * v2 + 32];
+        v30 = v43;
+        v31 = v42;
+        *v29 = v41;
+        *(v29 + 16) = v31;
+        *(v29 + 32) = v30;
+        if (!v22)
         {
           break;
         }
 
-        v33 = v22;
+        v32 = v21;
 LABEL_50:
-        v36 = __clz(__rbit64(v23));
-        v23 &= v23 - 1;
-        outlined init with copy of AnyHashable(*(v38 + 48) + 40 * (v36 | (v33 << 6)), &v45);
-        v35 = v33;
+        v35 = __clz(__rbit64(v22));
+        v22 &= v22 - 1;
+        outlined init with copy of AnyHashable(*(v37 + 48) + 40 * (v35 | (v32 << 6)), &v44);
+        v34 = v32;
 LABEL_39:
         ++v2;
-        v24 = v29;
-        outlined init with copy of RegistryState.LoggingInfo?(&v45, &v39, v29, &_ss11AnyHashableVSgMR);
-        v22 = v35;
-        v27 = v28;
-        if (!*(&v40 + 1))
+        v23 = v28;
+        outlined init with copy of RegistryState.LoggingInfo?(&v44, &v38, v28, &_ss11AnyHashableVSgMR);
+        v21 = v34;
+        v26 = v27;
+        if (!*(&v39 + 1))
         {
           goto LABEL_52;
         }
       }
 
-      if (v3 <= (v22 + 1))
+      if (v3 <= (v21 + 1))
       {
-        v34 = v22 + 1;
+        v33 = v21 + 1;
       }
 
       else
       {
-        v34 = v3;
+        v33 = v3;
       }
 
-      v35 = v34 - 1;
+      v34 = v33 - 1;
       while (1)
       {
-        v33 = v22 + 1;
-        if (__OFADD__(v22, 1))
+        v32 = v21 + 1;
+        if (__OFADD__(v21, 1))
         {
           break;
         }
 
-        if (v33 >= v3)
+        if (v32 >= v3)
         {
-          v23 = 0;
-          v47 = 0;
+          v22 = 0;
+          v46 = 0;
+          v44 = 0u;
           v45 = 0u;
-          v46 = 0u;
           goto LABEL_39;
         }
 
-        v23 = *(v37 + 8 * v33);
-        ++v22;
-        if (v23)
+        v22 = *(v36 + 8 * v32);
+        ++v21;
+        if (v22)
         {
           goto LABEL_50;
         }
@@ -3958,48 +3868,48 @@ LABEL_39:
 
       __break(1u);
 LABEL_55:
-      v23 = 0;
-      v47 = 0;
+      v22 = 0;
+      v46 = 0;
+      v44 = 0u;
       v45 = 0u;
-      v46 = 0u;
     }
 
 LABEL_53:
-    outlined destroy of UUID?(&v45, &_ss11AnyHashableVSgMd, &_ss11AnyHashableVSgMR);
-    outlined consume of Set<AnyHashable>.Iterator._Variant();
-    result = outlined destroy of UUID?(&v42, &_ss11AnyHashableVSgMd, &_ss11AnyHashableVSgMR);
+    outlined destroy of UUID?(&v44, &_ss11AnyHashableVSgMd, &_ss11AnyHashableVSgMR);
+    outlined consume of Set<AnyHashable>.Iterator._Variant(v37);
+    result = outlined destroy of UUID?(&v41, &_ss11AnyHashableVSgMd, &_ss11AnyHashableVSgMR);
     goto LABEL_14;
   }
 
 LABEL_20:
-  v20 = (v3 + 64) >> 6;
-  if (v20 <= v17 + 1)
+  v19 = (v3 + 64) >> 6;
+  if (v19 <= v16 + 1)
   {
-    v21 = v17 + 1;
+    v20 = v16 + 1;
   }
 
   else
   {
-    v21 = (v3 + 64) >> 6;
+    v20 = (v3 + 64) >> 6;
   }
 
-  v22 = v21 - 1;
+  v21 = v20 - 1;
   while (1)
   {
-    v19 = v17 + 1;
-    if (__OFADD__(v17, 1))
+    v18 = v16 + 1;
+    if (__OFADD__(v16, 1))
     {
       break;
     }
 
-    if (v19 >= v20)
+    if (v18 >= v19)
     {
       goto LABEL_55;
     }
 
-    v18 = *(v14 + 8 * v19);
-    ++v17;
-    if (v18)
+    v17 = *(v13 + 8 * v18);
+    ++v16;
+    if (v17)
     {
       goto LABEL_27;
     }
@@ -4023,7 +3933,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -4037,15 +3946,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -4060,15 +3969,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -4077,12 +3986,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -4126,7 +4035,7 @@ uint64_t specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   return v2;
 }
 
-uint64_t RegistryCrux.connectionLocked()()
+id RegistryCrux.connectionLocked()()
 {
   v1 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_connectionShadow_;
   v2 = *(v0 + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_connectionShadow_);
@@ -4145,7 +4054,7 @@ LABEL_15:
   swift_beginAccess();
   outlined assign with take of RegistryState.LoggingInfo?(&v24, v4 + v5, &_sypSgMd, &_sypSgMR);
   swift_endAccess();
-  v6 = RegistryCrux.connectionSleeper_.modify();
+  v6 = RegistryCrux.connectionSleeper_.modify(&v24);
   if (*(v7 + 32))
   {
     (v6)(&v24, 0);
@@ -4373,77 +4282,68 @@ LABEL_7:
 
 uint64_t getter of sleeper #1 in RegistryCrux.synchronousUntypedService(tag:)(uint64_t a1)
 {
-  if (*(a1 + 48))
+  if ((*(a1 + 48) & 1) == 0)
   {
-    swift_beginAccess();
-    result = 0;
-    *(a1 + 16) = xmmword_22DFAE880;
-    *(a1 + 32) = xmmword_22DFAE890;
-    *(a1 + 48) = 0;
+    return *(a1 + 16);
   }
 
-  else
-  {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = a1 + 16;
-    result = *(a1 + 16);
-    v5 = *(v6 + 8);
-  }
-
+  swift_beginAccess();
+  result = 0;
+  *(a1 + 16) = xmmword_22DFAE880;
+  *(a1 + 32) = xmmword_22DFAE890;
+  *(a1 + 48) = 0;
   return result;
 }
 
 void closure #1 in RegistryCrux.synchronousUntypedService(tag:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
 {
-  v41 = _convertErrorToNSError(_:)();
-  if ([v41 code] != 4097)
+  v40 = _convertErrorToNSError(_:)();
+  if ([v40 code] != 4097)
   {
     goto LABEL_7;
   }
 
-  v10 = [v41 domain];
+  v10 = [v40 domain];
   v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v13 = v12;
 
-  v14 = *MEMORY[0x277CCA050];
-  if (v11 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v13 == v15)
+  if (v11 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v13 == v14)
   {
 
 LABEL_15:
     swift_beginAccess();
     *(a2 + 16) = 1;
-    v26 = getter of sleeper #1 in RegistryCrux.synchronousUntypedService(tag:)(a3);
-    v28 = v27;
-    v30 = v29;
-    v32 = v31;
+    v25 = getter of sleeper #1 in RegistryCrux.synchronousUntypedService(tag:)(a3);
+    v27 = v26;
+    v29 = v28;
+    v31 = v30;
     [objc_opt_self() sleepForTimeInterval_];
-    v33 = __OFADD__(v26, 1);
-    v34 = v26 + 1;
-    if (v33)
+    v32 = __OFADD__(v25, 1);
+    v33 = v25 + 1;
+    if (v32)
     {
       __break(1u);
     }
 
     else
     {
-      if (v32 * 2.37137 <= 0.01)
+      if (v31 * 2.37137 <= 0.01)
       {
-        v35 = v32 * 2.37137;
+        v34 = v31 * 2.37137;
       }
 
       else
       {
-        v35 = 0.01;
+        v34 = 0.01;
       }
 
       swift_beginAccess();
-      *(a3 + 32) = v30 + v32;
-      *(a3 + 40) = v35;
+      *(a3 + 32) = v29 + v31;
+      *(a3 + 40) = v34;
       *(a3 + 48) = 0;
-      *(a3 + 16) = v34;
-      *(a3 + 24) = v28 << (v34 >= v28);
-      if (v34 < v28)
+      *(a3 + 16) = v33;
+      *(a3 + 24) = v27 << (v33 >= v27);
+      if (v33 < v27)
       {
         goto LABEL_23;
       }
@@ -4451,32 +4351,32 @@ LABEL_15:
       if (one-time initialization token for framework == -1)
       {
 LABEL_21:
-        v36 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v36, static Logs.framework);
+        v35 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v35, static Logs.framework);
 
-        v37 = Logger.logObject.getter();
-        v38 = static os_log_type_t.error.getter();
+        v36 = Logger.logObject.getter();
+        v37 = static os_log_type_t.error.getter();
 
-        if (!os_log_type_enabled(v37, v38))
+        if (!os_log_type_enabled(v36, v37))
         {
 
           return;
         }
 
+        v38 = swift_slowAlloc();
         v39 = swift_slowAlloc();
-        v40 = swift_slowAlloc();
-        v42 = v40;
-        *v39 = 136315650;
-        *(v39 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a4, a5, &v42);
-        *(v39 + 12) = 2048;
-        *(v39 + 14) = *(a3 + 16);
+        v41 = v39;
+        *v38 = 136315650;
+        *(v38 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a4, a5, &v41);
+        *(v38 + 12) = 2048;
+        *(v38 + 14) = *(a3 + 16);
 
-        *(v39 + 22) = 2048;
-        *(v39 + 24) = *(a3 + 32);
-        _os_log_impl(&dword_22DF91000, v37, v38, "Service fetch for %s retried %ld times, %f seconds", v39, 0x20u);
-        __swift_destroy_boxed_opaque_existential_0(v40);
-        MEMORY[0x2318DFC30](v40, -1, -1);
+        *(v38 + 22) = 2048;
+        *(v38 + 24) = *(a3 + 32);
+        _os_log_impl(&dword_22DF91000, v36, v37, "Service fetch for %s retried %ld times, %f seconds", v38, 0x20u);
+        __swift_destroy_boxed_opaque_existential_0(v39);
         MEMORY[0x2318DFC30](v39, -1, -1);
+        MEMORY[0x2318DFC30](v38, -1, -1);
 
 LABEL_23:
         return;
@@ -4487,9 +4387,9 @@ LABEL_23:
     goto LABEL_21;
   }
 
-  v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-  if (v17)
+  if (v16)
   {
     goto LABEL_15;
   }
@@ -4500,35 +4400,34 @@ LABEL_7:
     swift_once();
   }
 
-  v18 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v18, static Logs.framework);
-  v19 = a1;
-  v20 = Logger.logObject.getter();
-  v21 = static os_log_type_t.error.getter();
+  v17 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v17, static Logs.framework);
+  v18 = a1;
+  v19 = Logger.logObject.getter();
+  v20 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v20, v21))
+  if (os_log_type_enabled(v19, v20))
   {
+    v21 = swift_slowAlloc();
     v22 = swift_slowAlloc();
-    v23 = swift_slowAlloc();
-    *v22 = 138412290;
-    v24 = a1;
-    v25 = _swift_stdlib_bridgeErrorToNSError();
-    *(v22 + 4) = v25;
-    *v23 = v25;
-    _os_log_impl(&dword_22DF91000, v20, v21, "Failed to get service: %@", v22, 0xCu);
-    outlined destroy of UUID?(v23, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x2318DFC30](v23, -1, -1);
+    *v21 = 138412290;
+    v23 = a1;
+    v24 = _swift_stdlib_bridgeErrorToNSError();
+    *(v21 + 4) = v24;
+    *v22 = v24;
+    _os_log_impl(&dword_22DF91000, v19, v20, "Failed to get service: %@", v21, 0xCu);
+    outlined destroy of UUID?(v22, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
     MEMORY[0x2318DFC30](v22, -1, -1);
+    MEMORY[0x2318DFC30](v21, -1, -1);
   }
 }
 
 void thunk for @escaping @callee_guaranteed (@guaranteed Error) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 Swift::Int __swiftcall RegistryCrux.switchIndex()()
@@ -4611,20 +4510,19 @@ void closure #1 in RegistryCrux.switchIndex()(unsigned int a1, uint64_t a2)
 
 uint64_t thunk for @escaping @callee_guaranteed (@unowned UInt32) -> ()(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v4(a2);
+  v3(a2);
 }
 
-uint64_t closure #1 in RegistryCrux.deviceIDAtSwitchIndex(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t closure #1 in RegistryCrux.deviceIDAtSwitchIndex(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = swift_projectBox();
-  v5 = swift_projectBox();
+  v6 = swift_projectBox();
+  v7 = swift_projectBox();
   swift_beginAccess();
-  outlined assign with copy of UUID?(a1, v4, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined assign with copy of UUID?(a1, v6, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   swift_beginAccess();
-  return outlined assign with copy of UUID?(a2, v5, &_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
+  return outlined assign with copy of UUID?(a2, v7, &_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
 }
 
 void *RegistryCrux.unpair(pairingID:options:)()
@@ -4684,17 +4582,16 @@ void *RegistryCrux.failsafeUnpair(options:)()
   return v4;
 }
 
-uint64_t RegistryCrux.setActive(device:)(void *a1)
+uint64_t RegistryCrux.setActive(device:)(void *a1, uint64_t a2)
 {
-  v2 = type metadata accessor for UUID();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for UUID();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   RegistryCrux.synchronousUntypedService(tag:)(0xD000000000000012, 0x800000022DFB0110, &aBlock);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20NRXPCPairingDelegate_pMd, &_sSo20NRXPCPairingDelegate_pMR);
   swift_dynamicCast();
-  v7 = v19[1];
+  v7 = v18[1];
   v8 = swift_allocObject();
   *(v8 + 16) = 0;
   *(v8 + 24) = 0xE000000000000000;
@@ -4704,16 +4601,16 @@ uint64_t RegistryCrux.setActive(device:)(void *a1)
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
   isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v3 + 8))(v6, v2);
+  (*(v4 + 8))(v6, v3);
   v12 = swift_allocObject();
   *(v12 + 16) = v9;
   *(v12 + 24) = v8;
-  v23 = partial apply for closure #1 in RegistryCrux.setActive(device:);
-  v24 = v12;
+  v22 = partial apply for closure #1 in RegistryCrux.setActive(device:);
+  v23 = v12;
   *&aBlock = MEMORY[0x277D85DD0];
   *(&aBlock + 1) = 1107296256;
-  v21 = thunk for @escaping @callee_guaranteed (@guaranteed Error?, @guaranteed String?) -> ();
-  v22 = &block_descriptor_131;
+  v20 = thunk for @escaping @callee_guaranteed (@guaranteed Error?, @guaranteed String?) -> ();
+  v21 = &block_descriptor_131;
   v13 = _Block_copy(&aBlock);
 
   [v7 xpcSwitchActiveDeviceWithDeviceID:isa withAssertionHandler:v13];
@@ -4722,11 +4619,10 @@ uint64_t RegistryCrux.setActive(device:)(void *a1)
 
   swift_beginAccess();
   v14 = *(v8 + 16);
-  v15 = *(v8 + 24);
   swift_beginAccess();
-  v16 = *(v9 + 16);
+  v15 = *(v9 + 16);
 
-  v17 = v16;
+  v16 = v15;
 
   return v14;
 }
@@ -4764,7 +4660,6 @@ void closure #1 in RegistryCrux.setActive(device:)(void *a1, uint64_t a2, unint6
     }
 
     swift_beginAccess();
-    v12 = *(a5 + 24);
     *(a5 + 16) = v9;
     *(a5 + 24) = v10;
   }
@@ -4772,22 +4667,21 @@ void closure #1 in RegistryCrux.setActive(device:)(void *a1, uint64_t a2, unint6
 
 uint64_t thunk for @escaping @callee_guaranteed (@guaranteed Error?, @guaranteed String?) -> ()(uint64_t a1, void *a2, uint64_t a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
   if (a3)
   {
-    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v8 = v7;
+    v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
-    v8 = 0;
+    v5 = 0;
+    v7 = 0;
   }
 
-  v9 = a2;
-  v5(a2, v6, v8);
+  v8 = a2;
+  v4(a2, v5, v7);
 }
 
 Swift::Bool __swiftcall RegistryCrux.isAssertionActive(identifier:)(Swift::String identifier)
@@ -4825,11 +4719,10 @@ void thunk for @escaping @callee_guaranteed @Sendable (@unowned Bool, @guarantee
 }
 
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v7 = a3;
-  v6(a2, a3);
+  v6 = a3;
+  v5(a2, a3);
 }
 
 Swift::Void __swiftcall RegistryCrux.invalidateSwitchAssertion(identifier:)(Swift::String identifier)
@@ -5042,11 +4935,10 @@ void closure #1 in RegistryCrux.lastSyncSwitchIndex()(uint64_t a1, void *a2, uin
 
 void thunk for @escaping @callee_guaranteed @Sendable (@unowned Int, @guaranteed Error?) -> ()(uint64_t a1, uint64_t a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v7 = a3;
-  v6(a2, a3);
+  v6 = a3;
+  v5(a2, a3);
 }
 
 uint64_t RegistryCrux.migrationCount(pairingID:)()
@@ -5154,43 +5046,42 @@ void closure #1 in RegistryCrux.completeRTCPairingMetric(metricID:)(char a1, voi
 
 void *RegistryCrux.pairingClientSetAltAccount(name:altDSID:device:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v24 = a4;
-  v25 = a5;
+  v23 = a4;
+  v24 = a5;
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = swift_allocObject();
-  *(v13 + 16) = 0;
+  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = swift_allocObject();
+  *(v12 + 16) = 0;
   RegistryCrux.synchronousUntypedService(tag:)(0xD000000000000030, 0x800000022DFAFFD0, &aBlock);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20NRXPCPairingDelegate_pMd, &_sSo20NRXPCPairingDelegate_pMR);
   swift_dynamicCast();
-  v14 = v31;
-  v15 = MEMORY[0x2318DF040](a1, a2);
-  v16 = MEMORY[0x2318DF040](a3, v24);
-  v17 = [v25 pairingID];
+  v13 = v30;
+  v14 = MEMORY[0x2318DF040](a1, a2);
+  v15 = MEMORY[0x2318DF040](a3, v23);
+  v16 = [v24 pairingID];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
   isa = UUID._bridgeToObjectiveC()().super.isa;
-  (*(v9 + 8))(v12, v8);
-  v29 = partial apply for closure #1 in RegistryCrux.pairingClientSetAltAccount(name:altDSID:device:);
-  v30 = v13;
+  (*(v9 + 8))(v11, v8);
+  v28 = partial apply for closure #1 in RegistryCrux.pairingClientSetAltAccount(name:altDSID:device:);
+  v29 = v12;
   *&aBlock = MEMORY[0x277D85DD0];
   *(&aBlock + 1) = 1107296256;
-  v27 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Error?) -> ();
-  v28 = &block_descriptor_93;
-  v19 = _Block_copy(&aBlock);
+  v26 = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed Error?) -> ();
+  v27 = &block_descriptor_93;
+  v18 = _Block_copy(&aBlock);
 
-  [v14 xpcPairingClientSetAltAccountName:v15 altDSID:v16 forPairingID:isa completion:v19];
+  [v13 xpcPairingClientSetAltAccountName:v14 altDSID:v15 forPairingID:isa completion:v18];
   swift_unknownObjectRelease();
-  _Block_release(v19);
+  _Block_release(v18);
 
   swift_beginAccess();
-  v20 = *(v13 + 16);
-  v21 = v20;
+  v19 = *(v12 + 16);
+  v20 = v19;
 
-  return v20;
+  return v19;
 }
 
 void closure #1 in RegistryCrux.unpair(pairingID:options:)(void *a1, uint64_t a2)
@@ -5203,11 +5094,10 @@ void closure #1 in RegistryCrux.unpair(pairingID:options:)(void *a1, uint64_t a2
 
 void thunk for @escaping @callee_guaranteed (@guaranteed Error?) -> ()(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 Swift::Void __swiftcall RegistryCrux.remove(registry:)(PDRRegistry *registry)
@@ -5266,7 +5156,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -5364,16 +5254,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -5903,13 +5791,13 @@ uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
   return a1;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -5919,7 +5807,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -5943,31 +5830,19 @@ uint64_t outlined assign with copy of RegistryCrux.RefreshTimings(uint64_t a1, u
 
 uint64_t objectdestroy_50Tm()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
-uint64_t partial apply for closure #1 in RegistryCrux.isAssertionActive(identifier:)(char a1, uint64_t a2)
+void partial apply for closure #1 in RegistryCrux.isAssertionActive(identifier:)(char a1, uint64_t a2)
 {
   v3 = (a2 != 0) & a1;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v2 + 16) = v3;
-  return result;
-}
-
-uint64_t partial apply for closure #1 in RegistryCrux.migrationCount(pairingID:)(uint64_t a1)
-{
-  result = swift_beginAccess();
-  *(v1 + 16) = a1;
-  return result;
 }
 
 uint64_t objectdestroy_47Tm(uint64_t a1)
 {
-  v3 = *(v1 + 16);
-
-  v4 = *(v1 + 24);
 
   return MEMORY[0x2821FE8E8](v1, a1, 7);
 }
@@ -6007,7 +5882,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -6025,10 +5899,9 @@ uint64_t outlined init with take of RegistryCrux.RefreshTimings(uint64_t a1, uin
 void partial apply for closure #1 in closure #1 in closure #1 in RegistryCrux.().init()()
 {
   v1 = *(type metadata accessor for RegistryCrux.RefreshTimings(0) - 8);
-  v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
-  v3 = *(v0 + ((*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8));
+  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
 
-  closure #1 in closure #1 in closure #1 in RegistryCrux.().init()(v0 + v2);
+  closure #1 in closure #1 in closure #1 in RegistryCrux.().init()(v2);
 }
 
 id Registry_Stub.__allocating_init()()
@@ -6076,23 +5949,22 @@ Swift::Void __swiftcall Registry_Stub.stop()()
   }
 }
 
-uint64_t Registry_Stub.add(delegate:)()
+uint64_t Registry_Stub.add(delegate:)(uint64_t a1)
 {
-  v1 = OBJC_IVAR___PDRRegistry_Stub_unfairLock;
-  v2 = *(v0 + OBJC_IVAR___PDRRegistry_Stub_unfairLock);
+  v2 = v1;
+  v4 = OBJC_IVAR___PDRRegistry_Stub_unfairLock;
+  v5 = *(v2 + OBJC_IVAR___PDRRegistry_Stub_unfairLock);
 
-  os_unfair_lock_lock(v2 + 4);
+  os_unfair_lock_lock(v5 + 4);
 
-  v3 = *(v0 + OBJC_IVAR___PDRRegistry_Stub_delegates);
+  specialized WeakCollection.append(_:)(a1);
 
-  specialized WeakCollection.append(_:)();
+  v6 = *(v2 + v4);
 
-  v4 = *(v0 + v1);
-
-  os_unfair_lock_unlock(v4 + 4);
+  os_unfair_lock_unlock(v6 + 4);
 }
 
-uint64_t Registry_Stub.remove(delegate:)(uint64_t a1)
+uint64_t Registry_Stub.remove(delegate:)(void *a1)
 {
   v3 = OBJC_IVAR___PDRRegistry_Stub_unfairLock;
   v4 = *(v1 + OBJC_IVAR___PDRRegistry_Stub_unfairLock);
@@ -6130,23 +6002,22 @@ uint64_t Registry_Stub.remove(delegate:)(uint64_t a1)
 id @objc Registry_Stub.device(forBluetoothID:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v11 - v6;
+  v6 = &v10 - v5;
   if (a3)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v8 = type metadata accessor for UUID();
-    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
+    v7 = type metadata accessor for UUID();
+    (*(*(v7 - 8) + 56))(v6, 0, 1, v7);
   }
 
   else
   {
-    v9 = type metadata accessor for UUID();
-    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
+    v8 = type metadata accessor for UUID();
+    (*(*(v8 - 8) + 56))(v6, 1, 1, v8);
   }
 
-  outlined destroy of UUID?(v7);
+  outlined destroy of UUID?(v6);
 
   return 0;
 }
@@ -6300,16 +6171,16 @@ id ConnectivityStatus_Impl.init()()
   return objc_msgSendSuper2(&v2, sel_init);
 }
 
-id ConnectivityStatus_Impl.__deallocating_deinit()
+id ConnectivityStatus_Impl.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ConnectivityStatus_Impl();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for ConnectivityStatus_Impl();
+  return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
 uint64_t specialized static ConnectivityStatus_Impl.currentConnectivity()()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
+  v3[1] = *MEMORY[0x277D85DE8];
   if (one-time initialization token for notify != -1)
   {
     swift_once();
@@ -6317,33 +6188,34 @@ uint64_t specialized static ConnectivityStatus_Impl.currentConnectivity()()
 
   result = 0;
   v1 = static ConnectivityStatus_Impl.notify;
-  v4[0] = 0;
-  if (*(static ConnectivityStatus_Impl.notify + 44))
+  v3[0] = 0;
+  if ((*(static ConnectivityStatus_Impl.notify + 44) & 1) == 0)
   {
-    goto LABEL_8;
+    v2 = *(static ConnectivityStatus_Impl.notify + 10);
+
+    result = notify_is_valid_token(v2);
+    if (result)
+    {
+      if (v1[11])
+      {
+        __break(1u);
+      }
+
+      else
+      {
+        notify_get_state(v1[10], v3);
+
+        return v3[0];
+      }
+    }
+
+    else
+    {
+
+      return 0;
+    }
   }
 
-  v2 = *(static ConnectivityStatus_Impl.notify + 10);
-
-  result = notify_is_valid_token(v2);
-  if (!result)
-  {
-
-    result = 0;
-    goto LABEL_8;
-  }
-
-  if ((v1[11] & 1) == 0)
-  {
-    notify_get_state(v1[10], v4);
-
-    result = v4[0];
-LABEL_8:
-    v3 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  __break(1u);
   return result;
 }
 
@@ -6415,112 +6287,110 @@ LABEL_8:
 
 void RegistryState.LoggingInfo.init(_:)(void *a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v66 = a2;
-  v58 = a4;
+  v62 = a2;
+  v54 = a4;
   v6 = type metadata accessor for UUID();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  v9 = MEMORY[0x28223BE20](v6);
-  v11 = v57 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v13 = v57 - v12;
-  v65 = a1;
-  v14 = [v65 allPairingIDs];
-  v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = MEMORY[0x28223BE20](v6);
+  v10 = v53 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = v53 - v11;
+  v61 = a1;
+  v13 = [v61 allPairingIDs];
+  v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v16 = *(v15 + 16);
-  if (v16)
+  v15 = *(v14 + 16);
+  if (v15)
   {
-    v68 = MEMORY[0x277D84F90];
+    v64 = MEMORY[0x277D84F90];
     specialized ContiguousArray.reserveCapacity(_:)();
-    v61 = v13;
-    v62 = v11;
-    v17 = v7 + 16;
-    v63 = *(v7 + 16);
-    v64 = v7 + 16;
-    v18 = (*(v7 + 80) + 32) & ~*(v7 + 80);
-    v57[1] = v15;
-    v19 = v15 + v18;
-    v20 = *(v17 + 56);
-    v59 = (v17 - 8);
-    v60 = v20;
-    v21 = v63;
+    v57 = v12;
+    v58 = v10;
+    v16 = v7 + 16;
+    v59 = *(v7 + 16);
+    v60 = v7 + 16;
+    v17 = (*(v7 + 80) + 32) & ~*(v7 + 80);
+    v53[1] = v14;
+    v18 = v14 + v17;
+    v19 = *(v16 + 56);
+    v55 = (v16 - 8);
+    v56 = v19;
+    v20 = v59;
     do
     {
-      v22 = v61;
-      v21(v61, v19, v6);
-      v23 = v62;
-      v21(v62, v22, v6);
-      v24 = type metadata accessor for Device_Impl();
-      v25 = objc_allocWithZone(v24);
-      v21(&v25[OBJC_IVAR___PDRDevice_Impl_uuid_], v23, v6);
-      v26 = &v25[OBJC_IVAR___PDRDevice_Impl_registryState];
-      v27 = v65;
-      v28 = v66;
-      *v26 = v65;
-      *(v26 + 1) = v28;
-      *(v26 + 2) = a3;
-      v67.receiver = v25;
-      v67.super_class = v24;
+      v21 = v57;
+      v20(v57, v18, v6);
+      v22 = v58;
+      v20(v58, v21, v6);
+      v23 = type metadata accessor for Device_Impl(0);
+      v24 = objc_allocWithZone(v23);
+      v20(&v24[OBJC_IVAR___PDRDevice_Impl_uuid_], v22, v6);
+      v25 = &v24[OBJC_IVAR___PDRDevice_Impl_registryState];
+      v26 = v61;
+      v27 = v62;
+      *v25 = v61;
+      *(v25 + 1) = v27;
+      *(v25 + 2) = a3;
+      v63.receiver = v24;
+      v63.super_class = v23;
+      v28 = v26;
       v29 = v27;
-      v30 = v28;
-      objc_msgSendSuper2(&v67, sel_init);
-      v31 = a3;
-      v32 = *v59;
-      (*v59)(v23, v6);
-      v32(v22, v6);
+      objc_msgSendSuper2(&v63, sel_init);
+      v30 = a3;
+      v31 = *v55;
+      (*v55)(v22, v6);
+      v31(v21, v6);
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v33 = *(v68 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
-      a3 = v31;
+      a3 = v30;
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
-      v19 += v60;
-      --v16;
+      v18 += v56;
+      --v15;
     }
 
-    while (v16);
+    while (v15);
 
-    v34 = v68;
+    v32 = v64;
   }
 
   else
   {
 
-    v34 = MEMORY[0x277D84F90];
+    v32 = MEMORY[0x277D84F90];
   }
 
-  v64 = v34 >> 62;
-  if (v34 >> 62)
+  v60 = v32 >> 62;
+  if (v32 >> 62)
   {
     goto LABEL_36;
   }
 
-  for (i = *((v34 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x2318DF310](v50))
+  for (i = *((v32 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x2318DF310](v48))
   {
-    v36 = 0;
-    v37 = 0;
-    v38 = v34 & 0xC000000000000001;
+    v34 = 0;
+    v35 = 0;
+    v36 = v32 & 0xC000000000000001;
     do
     {
-      if (v38)
+      if (v36)
       {
-        v39 = MEMORY[0x2318DF260](v36, v34);
+        v37 = MEMORY[0x2318DF260](v34, v32);
       }
 
       else
       {
-        if (v36 >= *((v34 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v34 >= *((v32 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_31;
         }
 
-        v39 = *(v34 + 8 * v36 + 32);
+        v37 = *(v32 + 8 * v34 + 32);
       }
 
-      v40 = v39;
-      v41 = v36 + 1;
-      if (__OFADD__(v36, 1))
+      v38 = v37;
+      v39 = v34 + 1;
+      if (__OFADD__(v34, 1))
       {
         __break(1u);
 LABEL_31:
@@ -6528,61 +6398,61 @@ LABEL_31:
         goto LABEL_32;
       }
 
-      v42 = [v39 isPaired];
+      v40 = [v37 isPaired];
 
-      if (v42)
+      if (v40)
       {
-        v43 = __OFADD__(v37++, 1);
-        if (v43)
+        v41 = __OFADD__(v35++, 1);
+        if (v41)
         {
           goto LABEL_34;
         }
       }
 
-      ++v36;
+      ++v34;
     }
 
-    while (v41 != i);
-    v44 = 0;
-    v45 = 0;
-    v58[1] = v37;
+    while (v39 != i);
+    v42 = 0;
+    v43 = 0;
+    v54[1] = v35;
     while (1)
     {
-      if (v38)
+      if (v36)
       {
-        v46 = MEMORY[0x2318DF260](v44, v34);
+        v44 = MEMORY[0x2318DF260](v42, v32);
       }
 
       else
       {
-        if (v44 >= *((v34 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v42 >= *((v32 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_33;
         }
 
-        v46 = *(v34 + 8 * v44 + 32);
+        v44 = *(v32 + 8 * v42 + 32);
       }
 
-      v47 = v46;
-      v48 = v44 + 1;
-      if (__OFADD__(v44, 1))
+      v45 = v44;
+      v46 = v42 + 1;
+      if (__OFADD__(v42, 1))
       {
         break;
       }
 
-      v49 = [v46 isActive];
+      v47 = [v44 isActive];
 
-      if (v49)
+      if (v47)
       {
-        v43 = __OFADD__(v45++, 1);
-        if (v43)
+        v41 = __OFADD__(v43++, 1);
+        if (v41)
         {
           goto LABEL_35;
         }
       }
 
-      ++v44;
-      if (v48 == i)
+      ++v42;
+      if (v46 == i)
       {
         goto LABEL_41;
       }
@@ -6597,51 +6467,50 @@ LABEL_34:
 LABEL_35:
     __break(1u);
 LABEL_36:
-    if (v34 < 0)
+    if (v32 < 0)
     {
-      v50 = v34;
+      v48 = v32;
     }
 
     else
     {
-      v50 = v34 & 0xFFFFFFFFFFFFFF8;
+      v48 = v32 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
-  v45 = 0;
-  v58[1] = 0;
+  v43 = 0;
+  v54[1] = 0;
 LABEL_41:
-  v58[2] = v45;
-  if (v64)
+  v54[2] = v43;
+  if (v60)
   {
-    if (v34 < 0)
+    if (v32 < 0)
     {
-      v52 = v34;
+      v50 = v32;
     }
 
     else
     {
-      v52 = v34 & 0xFFFFFFFFFFFFFF8;
+      v50 = v32 & 0xFFFFFFFFFFFFFF8;
     }
 
-    v51 = MEMORY[0x2318DF310](v52);
+    v49 = MEMORY[0x2318DF310](v50);
   }
 
   else
   {
-    v51 = *((v34 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v49 = *((v32 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v54 = v65;
-  v53 = v66;
+  v52 = v61;
+  v51 = v62;
 
-  v55 = v58;
-  *v58 = v51;
-  v56 = v55 + *(type metadata accessor for RegistryState.LoggingInfo() + 28);
+  *v54 = v49;
+  type metadata accessor for RegistryState.LoggingInfo(0);
   static ContinuousClock.now.getter();
 }
 
-id specialized DeviceCollectionFilter_Impl.filterByClosure(_:)(char *a1, SEL *a2)
+char *specialized DeviceCollectionFilter_Impl.filterByClosure(_:)(char *a1, SEL *a2)
 {
   v3 = a1;
   v4 = OBJC_IVAR___PDRDeviceCollectionFilter_Impl_unfairLock;
@@ -6651,13 +6520,13 @@ id specialized DeviceCollectionFilter_Impl.filterByClosure(_:)(char *a1, SEL *a2
 
   v6 = OBJC_IVAR___PDRDeviceCollectionFilter_Impl_currentCollection;
   v7 = *(v3 + OBJC_IVAR___PDRDeviceCollectionFilter_Impl_currentCollection);
-  v21 = MEMORY[0x277D84F90];
+  v19 = MEMORY[0x277D84F90];
   if (v7 >> 62)
   {
     goto LABEL_19;
   }
 
-  for (i = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x2318DF310](v17))
+  for (i = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x2318DF310](v15))
   {
 
     if (!i)
@@ -6665,9 +6534,9 @@ id specialized DeviceCollectionFilter_Impl.filterByClosure(_:)(char *a1, SEL *a2
       break;
     }
 
-    v18 = v6;
-    v19 = v4;
-    v20 = v3;
+    v16 = v6;
+    v17 = v4;
+    v18 = v3;
     v3 = 0;
     while (1)
     {
@@ -6696,10 +6565,9 @@ id specialized DeviceCollectionFilter_Impl.filterByClosure(_:)(char *a1, SEL *a2
       if ([v9 *a2])
       {
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v11 = *(v21 + 16);
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        v6 = &v21;
+        v6 = &v19;
         specialized ContiguousArray._endMutation()();
       }
 
@@ -6710,10 +6578,10 @@ id specialized DeviceCollectionFilter_Impl.filterByClosure(_:)(char *a1, SEL *a2
       ++v3;
       if (v10 == i)
       {
-        v3 = v20;
-        v12 = v21;
-        v6 = v18;
-        v4 = v19;
+        v3 = v18;
+        v11 = v19;
+        v6 = v16;
+        v4 = v17;
         goto LABEL_16;
       }
     }
@@ -6724,27 +6592,26 @@ LABEL_18:
 LABEL_19:
     if (v7 < 0)
     {
-      v17 = v7;
+      v15 = v7;
     }
 
     else
     {
-      v17 = v7 & 0xFFFFFFFFFFFFFF8;
+      v15 = v7 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
-  v12 = MEMORY[0x277D84F90];
+  v11 = MEMORY[0x277D84F90];
 LABEL_16:
 
-  v13 = *(v6 + v3);
-  *(v6 + v3) = v12;
+  *(v6 + v3) = v11;
 
-  v14 = *&v4[v3];
-  v15 = v3;
+  v12 = *&v4[v3];
+  v13 = v3;
 
-  os_unfair_lock_unlock(v14 + 4);
+  os_unfair_lock_unlock(v12 + 4);
 
-  return v15;
+  return v13;
 }
 
 {
@@ -6756,13 +6623,13 @@ LABEL_16:
 
   v6 = OBJC_IVAR___PDRDeviceCollectionFilter_Impl_currentCollection;
   v7 = *(v3 + OBJC_IVAR___PDRDeviceCollectionFilter_Impl_currentCollection);
-  v21 = MEMORY[0x277D84F90];
+  v19 = MEMORY[0x277D84F90];
   if (v7 >> 62)
   {
     goto LABEL_19;
   }
 
-  for (i = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x2318DF310](v17))
+  for (i = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x2318DF310](v15))
   {
 
     if (!i)
@@ -6770,15 +6637,15 @@ LABEL_16:
       break;
     }
 
-    v18 = v6;
-    v19 = v4;
-    v20 = v3;
+    v16 = v6;
+    v17 = v4;
+    v18 = v3;
     v3 = 0;
     while (1)
     {
       if ((v7 & 0xC000000000000001) != 0)
       {
-        v10 = MEMORY[0x2318DF260](v3, v7);
+        v9 = MEMORY[0x2318DF260](v3, v7);
       }
 
       else
@@ -6788,37 +6655,36 @@ LABEL_16:
           goto LABEL_18;
         }
 
-        v10 = *(v7 + 8 * v3 + 32);
+        v9 = *(v7 + 8 * v3 + 32);
       }
 
-      v4 = v10;
-      v11 = (v3 + 1);
+      v4 = v9;
+      v10 = (v3 + 1);
       if (__OFADD__(v3, 1))
       {
         break;
       }
 
-      if ([v10 *a2])
+      if ([v9 *a2])
       {
       }
 
       else
       {
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v9 = *(v21 + 16);
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        v6 = &v21;
+        v6 = &v19;
         specialized ContiguousArray._endMutation()();
       }
 
       ++v3;
-      if (v11 == i)
+      if (v10 == i)
       {
-        v3 = v20;
-        v12 = v21;
-        v6 = v18;
-        v4 = v19;
+        v3 = v18;
+        v11 = v19;
+        v6 = v16;
+        v4 = v17;
         goto LABEL_16;
       }
     }
@@ -6829,27 +6695,26 @@ LABEL_18:
 LABEL_19:
     if (v7 < 0)
     {
-      v17 = v7;
+      v15 = v7;
     }
 
     else
     {
-      v17 = v7 & 0xFFFFFFFFFFFFFF8;
+      v15 = v7 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
-  v12 = MEMORY[0x277D84F90];
+  v11 = MEMORY[0x277D84F90];
 LABEL_16:
 
-  v13 = *(v6 + v3);
-  *(v6 + v3) = v12;
+  *(v6 + v3) = v11;
 
-  v14 = *&v4[v3];
-  v15 = v3;
+  v12 = *&v4[v3];
+  v13 = v3;
 
-  os_unfair_lock_unlock(v14 + 4);
+  os_unfair_lock_unlock(v12 + 4);
 
-  return v15;
+  return v13;
 }
 
 id DeviceCollectionFilter_Impl.__allocating_init()()
@@ -6875,13 +6740,13 @@ uint64_t *DeviceCollectionFilter_Impl.active.getter(SEL *a1)
 
   v5 = OBJC_IVAR___PDRDeviceCollectionFilter_Impl_currentCollection;
   v6 = *(v1 + OBJC_IVAR___PDRDeviceCollectionFilter_Impl_currentCollection);
-  v20 = MEMORY[0x277D84F90];
+  v18 = MEMORY[0x277D84F90];
   if (v6 >> 62)
   {
     goto LABEL_19;
   }
 
-  for (i = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x2318DF310](v16))
+  for (i = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x2318DF310](v14))
   {
 
     if (!i)
@@ -6889,9 +6754,9 @@ uint64_t *DeviceCollectionFilter_Impl.active.getter(SEL *a1)
       break;
     }
 
-    v17 = v5;
-    v18 = v3;
-    v19 = v1;
+    v15 = v5;
+    v16 = v3;
+    v17 = v1;
     v3 = 0;
     while (1)
     {
@@ -6920,10 +6785,9 @@ uint64_t *DeviceCollectionFilter_Impl.active.getter(SEL *a1)
       if ([v8 *a1])
       {
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v10 = *(v20 + 16);
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        v1 = &v20;
+        v1 = &v18;
         specialized ContiguousArray._endMutation()();
       }
 
@@ -6934,10 +6798,10 @@ uint64_t *DeviceCollectionFilter_Impl.active.getter(SEL *a1)
       ++v3;
       if (v9 == i)
       {
-        v1 = v19;
-        v11 = v20;
-        v5 = v17;
-        v3 = v18;
+        v1 = v17;
+        v10 = v18;
+        v5 = v15;
+        v3 = v16;
         goto LABEL_16;
       }
     }
@@ -6948,27 +6812,26 @@ LABEL_18:
 LABEL_19:
     if (v6 < 0)
     {
-      v16 = v6;
+      v14 = v6;
     }
 
     else
     {
-      v16 = v6 & 0xFFFFFFFFFFFFFF8;
+      v14 = v6 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
-  v11 = MEMORY[0x277D84F90];
+  v10 = MEMORY[0x277D84F90];
 LABEL_16:
 
-  v12 = *&v5[v1];
-  *&v5[v1] = v11;
+  *&v5[v1] = v10;
 
-  v13 = *(v1 + v3);
-  v14 = v1;
+  v11 = *(v1 + v3);
+  v12 = v1;
 
-  os_unfair_lock_unlock(v13 + 4);
+  os_unfair_lock_unlock(v11 + 4);
 
-  return v14;
+  return v12;
 }
 
 uint64_t *DeviceCollectionFilter_Impl.notActive.getter(SEL *a1)
@@ -6980,13 +6843,13 @@ uint64_t *DeviceCollectionFilter_Impl.notActive.getter(SEL *a1)
 
   v5 = OBJC_IVAR___PDRDeviceCollectionFilter_Impl_currentCollection;
   v6 = *(v1 + OBJC_IVAR___PDRDeviceCollectionFilter_Impl_currentCollection);
-  v20 = MEMORY[0x277D84F90];
+  v18 = MEMORY[0x277D84F90];
   if (v6 >> 62)
   {
     goto LABEL_19;
   }
 
-  for (i = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x2318DF310](v16))
+  for (i = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x2318DF310](v14))
   {
 
     if (!i)
@@ -6994,15 +6857,15 @@ uint64_t *DeviceCollectionFilter_Impl.notActive.getter(SEL *a1)
       break;
     }
 
-    v17 = v5;
-    v18 = v3;
-    v19 = v1;
+    v15 = v5;
+    v16 = v3;
+    v17 = v1;
     v3 = 0;
     while (1)
     {
       if ((v6 & 0xC000000000000001) != 0)
       {
-        v9 = MEMORY[0x2318DF260](v3, v6);
+        v8 = MEMORY[0x2318DF260](v3, v6);
       }
 
       else
@@ -7012,37 +6875,36 @@ uint64_t *DeviceCollectionFilter_Impl.notActive.getter(SEL *a1)
           goto LABEL_18;
         }
 
-        v9 = *(v6 + 8 * v3 + 32);
+        v8 = *(v6 + 8 * v3 + 32);
       }
 
-      v5 = v9;
-      v10 = v3 + 1;
+      v5 = v8;
+      v9 = v3 + 1;
       if (__OFADD__(v3, 1))
       {
         break;
       }
 
-      if ([v9 *a1])
+      if ([v8 *a1])
       {
       }
 
       else
       {
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v8 = *(v20 + 16);
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        v1 = &v20;
+        v1 = &v18;
         specialized ContiguousArray._endMutation()();
       }
 
       ++v3;
-      if (v10 == i)
+      if (v9 == i)
       {
-        v1 = v19;
-        v11 = v20;
-        v5 = v17;
-        v3 = v18;
+        v1 = v17;
+        v10 = v18;
+        v5 = v15;
+        v3 = v16;
         goto LABEL_16;
       }
     }
@@ -7053,30 +6915,29 @@ LABEL_18:
 LABEL_19:
     if (v6 < 0)
     {
-      v16 = v6;
+      v14 = v6;
     }
 
     else
     {
-      v16 = v6 & 0xFFFFFFFFFFFFFF8;
+      v14 = v6 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
-  v11 = MEMORY[0x277D84F90];
+  v10 = MEMORY[0x277D84F90];
 LABEL_16:
 
-  v12 = *&v5[v1];
-  *&v5[v1] = v11;
+  *&v5[v1] = v10;
 
-  v13 = *(v1 + v3);
-  v14 = v1;
+  v11 = *(v1 + v3);
+  v12 = v1;
 
-  os_unfair_lock_unlock(v13 + 4);
+  os_unfair_lock_unlock(v11 + 4);
 
-  return v14;
+  return v12;
 }
 
-uint64_t DeviceCollectionFilter_Impl.final.getter()
+id DeviceCollectionFilter_Impl.final.getter()
 {
   v1 = OBJC_IVAR___PDRDeviceCollectionFilter_Impl_unfairLock;
   v2 = *(v0 + OBJC_IVAR___PDRDeviceCollectionFilter_Impl_unfairLock);
@@ -7201,46 +7062,43 @@ id Migrator_Impl.__deallocating_deinit()
 uint64_t thunk for @escaping @callee_guaranteed (@in_guaranteed UUID?, @in_guaranteed Date?) -> ()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v21 - v8;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v21 - v12;
-  v15 = *(a1 + 32);
-  v14 = *(a1 + 40);
+  v8 = &v18 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x28223BE20](v9 - 8);
+  v11 = &v18 - v10;
+  v12 = *(a1 + 32);
   if (a2)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v16 = type metadata accessor for UUID();
-    (*(*(v16 - 8) + 56))(v13, 0, 1, v16);
+    v13 = type metadata accessor for UUID();
+    (*(*(v13 - 8) + 56))(v11, 0, 1, v13);
   }
 
   else
   {
-    v17 = type metadata accessor for UUID();
-    (*(*(v17 - 8) + 56))(v13, 1, 1, v17);
+    v14 = type metadata accessor for UUID();
+    (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
   }
 
   if (a3)
   {
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
-    v18 = 0;
+    v15 = 0;
   }
 
   else
   {
-    v18 = 1;
+    v15 = 1;
   }
 
-  v19 = type metadata accessor for Date();
-  (*(*(v19 - 8) + 56))(v9, v18, 1, v19);
+  v16 = type metadata accessor for Date();
+  (*(*(v16 - 8) + 56))(v8, v15, 1, v16);
 
-  v15(v13, v9);
+  v12(v11, v8);
 
-  outlined destroy of UUID?(v9, &_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
-  return outlined destroy of UUID?(v13, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined destroy of UUID?(v8, &_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
+  return outlined destroy of UUID?(v11, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 }
 
 id Registry_Impl.__allocating_init()()
@@ -7365,7 +7223,7 @@ Swift::Void __swiftcall Registry_Impl.stop()()
   }
 }
 
-uint64_t Registry_Impl.remove(delegate:)(uint64_t a1)
+uint64_t Registry_Impl.remove(delegate:)(void *a1)
 {
   v3 = *(v1 + OBJC_IVAR___PDRRegistry_Impl_delegates);
   v8 = 0;
@@ -7390,12 +7248,11 @@ uint64_t Registry_Impl.remove(delegate:)(uint64_t a1)
   return v8;
 }
 
-uint64_t closure #1 in Registry_Impl.device(forBluetoothID:)(void **a1)
+uint64_t closure #1 in Registry_Impl.device(forBluetoothID:)(void **a1, uint64_t a2)
 {
-  v2 = type metadata accessor for UUID();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
+  v3 = type metadata accessor for UUID();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
   v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *a1;
   if (([v7 isActive] & 1) != 0 || objc_msgSend(v7, sel_isPaired))
@@ -7404,7 +7261,7 @@ uint64_t closure #1 in Registry_Impl.device(forBluetoothID:)(void **a1)
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
     v9 = static UUID.== infix(_:_:)();
-    (*(v3 + 8))(v6, v2);
+    (*(v4 + 8))(v6, v3);
   }
 
   else
@@ -7415,14 +7272,14 @@ uint64_t closure #1 in Registry_Impl.device(forBluetoothID:)(void **a1)
   return v9 & 1;
 }
 
-void *specialized Sequence.first(where:)(uint64_t (*a1)(id *), uint64_t a2, uint64_t a3)
+void *specialized Sequence.first(where:)(uint64_t (*a1)(id *), uint64_t a2, unint64_t a3)
 {
   if (a3 >> 62)
   {
     goto LABEL_16;
   }
 
-  for (i = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x2318DF310](v11))
+  for (i = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x2318DF310](v11, a2))
   {
     for (j = 0; ; ++j)
     {
@@ -7471,7 +7328,7 @@ void *specialized Sequence.first(where:)(uint64_t (*a1)(id *), uint64_t a2, uint
 LABEL_15:
     __break(1u);
 LABEL_16:
-    if (a3 < 0)
+    if ((a3 & 0x8000000000000000) != 0)
     {
       v11 = a3;
     }
@@ -7488,33 +7345,31 @@ LABEL_16:
 void *Registry_Impl.device(forBluetoothID:)(uint64_t a1, uint64_t (*a2)(id *), const char *a3)
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v25[-v9];
-  v11 = type metadata accessor for UUID();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v25[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  outlined init with copy of RegistryState.LoggingInfo?(a1, v10, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  if ((*(v12 + 48))(v10, 1, v11) == 1)
+  v9 = &v23[-v8];
+  v10 = type metadata accessor for UUID();
+  v11 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v23[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  outlined init with copy of RegistryState.LoggingInfo?(a1, v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    outlined destroy of UUID?(v10, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    outlined destroy of UUID?(v9, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     if (one-time initialization token for framework != -1)
     {
       swift_once();
     }
 
-    v16 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v16, static Logs.framework);
-    v17 = Logger.logObject.getter();
-    v18 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v17, v18))
+    v14 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v14, static Logs.framework);
+    v15 = Logger.logObject.getter();
+    v16 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v15, v16))
     {
-      v19 = swift_slowAlloc();
-      *v19 = 0;
-      _os_log_impl(&dword_22DF91000, v17, v18, a3, v19, 2u);
-      MEMORY[0x2318DFC30](v19, -1, -1);
+      v17 = swift_slowAlloc();
+      *v17 = 0;
+      _os_log_impl(&dword_22DF91000, v15, v16, a3, v17, 2u);
+      MEMORY[0x2318DFC30](v17, -1, -1);
     }
 
     return 0;
@@ -7522,60 +7377,58 @@ void *Registry_Impl.device(forBluetoothID:)(uint64_t a1, uint64_t (*a2)(id *), c
 
   else
   {
-    (*(v12 + 32))(v15, v10, v11);
-    v21 = [v3 getDevicesExcluding_];
+    (*(v11 + 32))(v13, v9, v10);
+    v19 = [v3 getDevicesExcluding_];
     type metadata accessor for PDRDevice();
-    v22 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v20 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-    MEMORY[0x28223BE20](v23);
-    *&v25[-16] = v15;
-    v24 = specialized Sequence.first(where:)(a2, &v25[-32], v22);
+    MEMORY[0x28223BE20](v21);
+    *&v23[-16] = v13;
+    v22 = specialized Sequence.first(where:)(a2, &v23[-32], v20);
 
-    (*(v12 + 8))(v15, v11);
-    return v24;
+    (*(v11 + 8))(v13, v10);
+    return v22;
   }
 }
 
-uint64_t closure #1 in Registry_Impl.device(forPairingID:)(id *a1)
+uint64_t closure #1 in Registry_Impl.device(forPairingID:)(id *a1, uint64_t a2)
 {
-  v2 = type metadata accessor for UUID();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
+  v3 = type metadata accessor for UUID();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = [*a1 pairingID];
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
   v8 = static UUID.== infix(_:_:)();
-  (*(v3 + 8))(v6, v2);
+  (*(v4 + 8))(v6, v3);
   return v8 & 1;
 }
 
 id @objc Registry_Impl.device(forBluetoothID:)(void *a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(id *), const char *a5)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v18 - v11;
+  v11 = &v17 - v10;
   if (a3)
   {
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-    v13 = type metadata accessor for UUID();
-    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
+    v12 = type metadata accessor for UUID();
+    (*(*(v12 - 8) + 56))(v11, 0, 1, v12);
   }
 
   else
   {
-    v14 = type metadata accessor for UUID();
-    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
+    v13 = type metadata accessor for UUID();
+    (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   }
 
-  v15 = a1;
-  v16 = Registry_Impl.device(forBluetoothID:)(v12, a4, a5);
+  v14 = a1;
+  v15 = Registry_Impl.device(forBluetoothID:)(v11, a4, a5);
 
-  outlined destroy of UUID?(v12, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined destroy of UUID?(v11, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 
-  return v16;
+  return v15;
 }
 
 id Registry_Impl.__deallocating_deinit()
@@ -7587,190 +7440,187 @@ id Registry_Impl.__deallocating_deinit()
 
 uint64_t closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(char *a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
-  v35 = a5;
-  v37 = a4;
-  v38 = a2;
-  v39 = a3;
+  v33 = a5;
+  v35 = a4;
+  v36 = a2;
+  v37 = a3;
   v6 = type metadata accessor for DispatchWorkItemFlags();
-  v41 = *(v6 - 8);
-  v7 = *(v41 + 64);
+  v39 = *(v6 - 8);
   MEMORY[0x28223BE20](v6);
-  v9 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v40 = type metadata accessor for DispatchQoS();
-  v36 = *(v40 - 8);
-  v10 = *(v36 + 64);
-  MEMORY[0x28223BE20](v40);
-  v12 = &v35 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = [a1 compatibilityState];
-  v14 = OBJC_IVAR___PDRRegistry_Impl_unfairLock;
-  v15 = *&a1[OBJC_IVAR___PDRRegistry_Impl_unfairLock];
+  v8 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = type metadata accessor for DispatchQoS();
+  v34 = *(v38 - 8);
+  MEMORY[0x28223BE20](v38);
+  v10 = &v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = [a1 compatibilityState];
+  v12 = OBJC_IVAR___PDRRegistry_Impl_unfairLock;
+  v13 = *&a1[OBJC_IVAR___PDRRegistry_Impl_unfairLock];
+
+  os_unfair_lock_lock(v13 + 4);
+
+  v14 = *&a1[OBJC_IVAR___PDRRegistry_Impl_delegates];
+  v15 = *(v14 + 24);
 
   os_unfair_lock_lock(v15 + 4);
 
-  v16 = *&a1[OBJC_IVAR___PDRRegistry_Impl_delegates];
-  v17 = *(v16 + 24);
-
-  os_unfair_lock_lock(v17 + 4);
-
   aBlock[0] = MEMORY[0x277D84F90];
-  specialized WeakCollection.sweep(action:)(v16, aBlock);
-  v18 = aBlock[0];
-  v19 = *(v16 + 24);
+  specialized WeakCollection.sweep(action:)(v14, aBlock);
+  v16 = aBlock[0];
+  v17 = *(v14 + 24);
 
-  os_unfair_lock_unlock(v19 + 4);
+  os_unfair_lock_unlock(v17 + 4);
 
-  v20 = *&a1[OBJC_IVAR___PDRRegistry_Impl_lastCompatibilityState];
-  if (v13 != v20)
+  v18 = *&a1[OBJC_IVAR___PDRRegistry_Impl_lastCompatibilityState];
+  if (v11 != v18)
   {
-    *&a1[OBJC_IVAR___PDRRegistry_Impl_lastCompatibilityState] = v13;
+    *&a1[OBJC_IVAR___PDRRegistry_Impl_lastCompatibilityState] = v11;
   }
 
-  v21 = v13 != v20;
-  v22 = *&a1[v14];
+  v19 = v11 != v18;
+  v20 = *&a1[v12];
 
-  os_unfair_lock_unlock(v22 + 4);
+  os_unfair_lock_unlock(v20 + 4);
 
-  v23 = [a1 callbackQueue];
-  v24 = swift_allocObject();
-  v26 = v38;
-  v25 = v39;
-  *(v24 + 16) = v38;
-  *(v24 + 24) = v25;
-  v27 = v37;
-  v28 = v35;
-  *(v24 + 32) = v37;
-  *(v24 + 40) = v28;
-  *(v24 + 48) = v18;
-  *(v24 + 56) = a1;
-  *(v24 + 64) = v21;
+  v21 = [a1 callbackQueue];
+  v22 = swift_allocObject();
+  v24 = v36;
+  v23 = v37;
+  *(v22 + 16) = v36;
+  *(v22 + 24) = v23;
+  v25 = v35;
+  v26 = v33;
+  *(v22 + 32) = v35;
+  *(v22 + 40) = v26;
+  *(v22 + 48) = v16;
+  *(v22 + 56) = a1;
+  *(v22 + 64) = v19;
   aBlock[4] = partial apply for specialized closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:);
-  aBlock[5] = v24;
+  aBlock[5] = v22;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
   aBlock[3] = &block_descriptor_31;
-  v29 = _Block_copy(aBlock);
-  v30 = v27;
-  v31 = a1;
-  v32 = v26;
-  v33 = v25;
+  v27 = _Block_copy(aBlock);
+  v28 = v25;
+  v29 = a1;
+  v30 = v24;
+  v31 = v23;
   static DispatchQoS.unspecified.getter();
-  v42 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v40 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x2318DF1C0](0, v12, v9, v29);
-  _Block_release(v29);
+  MEMORY[0x2318DF1C0](0, v10, v8, v27);
+  _Block_release(v27);
 
-  (*(v41 + 8))(v9, v6);
-  (*(v36 + 8))(v12, v40);
+  (*(v39 + 8))(v8, v6);
+  (*(v34 + 8))(v10, v38);
 }
 
 uint64_t specialized closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, int a7)
 {
-  v100 = a7;
-  v104 = a5;
-  v90 = a3;
-  v91 = a4;
-  v89 = a2;
+  v99 = a7;
+  v103 = a5;
+  v89 = a3;
+  v90 = a4;
+  v88 = a2;
   v9 = type metadata accessor for UUID();
-  v93 = *(v9 - 8);
-  v10 = *(v93 + 64);
-  v11 = (MEMORY[0x28223BE20])();
-  v88 = &v78 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v14 = &v78 - v13;
-  v92 = a1;
-  v15 = [a1 allPairingIDs];
-  v16 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v92 = *(v9 - 8);
+  v10 = MEMORY[0x28223BE20](v9);
+  v87 = &v77 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v77 - v12;
+  v91 = a1;
+  v14 = [a1 allPairingIDs];
+  v15 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v17 = v16;
-  v87 = *(v16 + 16);
-  if (!v87)
+  v16 = v15;
+  v86 = *(v15 + 16);
+  if (!v86)
   {
   }
 
-  v18 = 0;
-  v96 = (v93 + 8);
-  v19 = v104 & 0xFFFFFFFFFFFFFF8;
-  v99 = v104 & 0xFFFFFFFFFFFFFF8;
-  if (v104 < 0)
+  v17 = 0;
+  v95 = (v92 + 8);
+  v18 = v103 & 0xFFFFFFFFFFFFFF8;
+  v98 = v103 & 0xFFFFFFFFFFFFFF8;
+  if (v103 < 0)
   {
-    v19 = v104;
+    v18 = v103;
   }
 
-  v78 = v19;
-  v103 = v104 & 0xC000000000000001;
-  v83 = @"com.apple.watch.paireddeviceregistry.didsetup";
-  v82 = @"com.apple.watch.paireddeviceregistry.didunpair";
-  v81 = @"com.apple.watch.paireddeviceregistry.didpair";
-  v80 = @"com.apple.watch.paireddeviceregistry.didactivate";
-  v79 = @"com.apple.watch.paireddeviceregistry.diddeactivate";
-  v86 = v9;
-  v97 = v14;
-  v85 = v16;
-  v84 = v93 + 16;
+  v77 = v18;
+  v102 = v103 & 0xC000000000000001;
+  v82 = @"com.apple.watch.paireddeviceregistry.didsetup";
+  v81 = @"com.apple.watch.paireddeviceregistry.didunpair";
+  v80 = @"com.apple.watch.paireddeviceregistry.didpair";
+  v79 = @"com.apple.watch.paireddeviceregistry.didactivate";
+  v78 = @"com.apple.watch.paireddeviceregistry.diddeactivate";
+  v85 = v9;
+  v96 = v13;
+  v84 = v15;
+  v83 = v92 + 16;
   while (1)
   {
-    if (v18 >= *(v17 + 16))
+    if (v17 >= *(v16 + 16))
     {
       goto LABEL_79;
     }
 
-    v20 = v17 + ((*(v93 + 80) + 32) & ~*(v93 + 80));
-    v21 = *(v93 + 72);
-    v95 = v18;
-    v22 = *(v93 + 16);
-    v22(v14, v20 + v21 * v18, v9);
+    v19 = v16 + ((*(v92 + 80) + 32) & ~*(v92 + 80));
+    v20 = *(v92 + 72);
+    v94 = v17;
+    v21 = *(v92 + 16);
+    v21(v13, v19 + v20 * v17, v9);
     isa = UUID._bridgeToObjectiveC()().super.isa;
-    v24 = [v92 objectForKeyedSubscript_];
+    v23 = [v91 objectForKeyedSubscript_];
 
-    if (!v24)
+    if (!v23)
     {
       break;
     }
 
-    v25 = v88;
-    v22(v88, v14, v9);
-    v26 = type metadata accessor for Device_Impl();
-    v27 = objc_allocWithZone(v26);
-    v22(&v27[OBJC_IVAR___PDRDevice_Impl_uuid_], v25, v9);
-    v28 = &v27[OBJC_IVAR___PDRDevice_Impl_registryState];
+    v24 = v87;
+    v21(v87, v13, v9);
+    v25 = type metadata accessor for Device_Impl(0);
+    v26 = objc_allocWithZone(v25);
+    v21(&v26[OBJC_IVAR___PDRDevice_Impl_uuid_], v24, v9);
+    v27 = &v26[OBJC_IVAR___PDRDevice_Impl_registryState];
+    v28 = v88;
     v29 = v89;
-    v30 = v90;
-    *v28 = v89;
-    *(v28 + 1) = v30;
-    *(v28 + 2) = v91;
-    v105.receiver = v27;
-    v105.super_class = v26;
+    *v27 = v88;
+    *(v27 + 1) = v29;
+    *(v27 + 2) = v90;
+    v104.receiver = v26;
+    v104.super_class = v25;
+    v30 = v28;
     v31 = v29;
-    v32 = v30;
-    v33 = objc_msgSendSuper2(&v105, sel_init);
-    v94 = *v96;
-    v94(v25, v9);
-    v101 = v24;
-    closure #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v24, v33);
-    v98 = v34;
-    v36 = v35;
-    if (v104 >> 62)
+    v32 = objc_msgSendSuper2(&v104, sel_init);
+    v93 = *v95;
+    v93(v24, v9);
+    v100 = v23;
+    closure #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v23, v32);
+    v97 = v33;
+    v35 = v34;
+    if (v103 >> 62)
     {
-      v37 = MEMORY[0x2318DF310](v78);
-      v38 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
-      if (!v37)
+      v36 = MEMORY[0x2318DF310](v77);
+      v37 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
+      if (!v36)
       {
         goto LABEL_65;
       }
 
 LABEL_11:
-      v39 = 0;
-      v102 = v33;
+      v38 = 0;
+      v101 = v32;
 LABEL_14:
-      if (v103)
+      if (v102)
       {
-        v40 = MEMORY[0x2318DF260](v39, v104);
-        v41 = v39 + 1;
-        if (__OFADD__(v39, 1))
+        v39 = MEMORY[0x2318DF260](v38, v103);
+        v40 = v38 + 1;
+        if (__OFADD__(v38, 1))
         {
           goto LABEL_77;
         }
@@ -7778,15 +7628,15 @@ LABEL_14:
 
       else
       {
-        if (v39 >= *(v99 + 16))
+        if (v38 >= *(v98 + 16))
         {
           goto LABEL_78;
         }
 
-        v40 = *(v104 + 8 * v39 + 32);
+        v39 = *(v103 + 8 * v38 + 32);
         swift_unknownObjectRetain();
-        v41 = v39 + 1;
-        if (__OFADD__(v39, 1))
+        v40 = v38 + 1;
+        if (__OFADD__(v38, 1))
         {
 LABEL_77:
           __break(1u);
@@ -7798,98 +7648,98 @@ LABEL_79:
         }
       }
 
-      if ([v40 respondsToSelector_])
+      if ([v39 respondsToSelector_])
       {
-        [v40 v38[46]];
+        [v39 v37[46]];
       }
 
       else
       {
-        if (v100)
+        if (v99)
         {
           if (one-time initialization token for framework != -1)
           {
             swift_once();
           }
 
-          v42 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v42, static Logs.framework);
-          v43 = Logger.logObject.getter();
-          v44 = static os_log_type_t.default.getter();
-          if (os_log_type_enabled(v43, v44))
+          v41 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v41, static Logs.framework);
+          v42 = Logger.logObject.getter();
+          v43 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v42, v43))
           {
-            v45 = swift_slowAlloc();
-            *v45 = 0;
-            _os_log_impl(&dword_22DF91000, v43, v44, "Informing delegate about compatibility state change (N/A)", v45, 2u);
-            MEMORY[0x2318DFC30](v45, -1, -1);
+            v44 = swift_slowAlloc();
+            *v44 = 0;
+            _os_log_impl(&dword_22DF91000, v42, v43, "Informing delegate about compatibility state change (N/A)", v44, 2u);
+            MEMORY[0x2318DFC30](v44, -1, -1);
           }
         }
 
-        v46 = [v101 changeType];
-        if (v46 == 2)
+        v45 = [v100 changeType];
+        if (v45 == 2)
         {
           if (one-time initialization token for framework != -1)
           {
             swift_once();
           }
 
-          v52 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v52, static Logs.framework);
-          v53 = Logger.logObject.getter();
-          v54 = static os_log_type_t.default.getter();
-          if (os_log_type_enabled(v53, v54))
+          v51 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v51, static Logs.framework);
+          v52 = Logger.logObject.getter();
+          v53 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v52, v53))
           {
-            v55 = swift_slowAlloc();
-            *v55 = 0;
-            _os_log_impl(&dword_22DF91000, v53, v54, "Informing delegate about device removal", v55, 2u);
-            MEMORY[0x2318DFC30](v55, -1, -1);
+            v54 = swift_slowAlloc();
+            *v54 = 0;
+            _os_log_impl(&dword_22DF91000, v52, v53, "Informing delegate about device removal", v54, 2u);
+            MEMORY[0x2318DFC30](v54, -1, -1);
           }
 
-          if ([v40 respondsToSelector_])
+          if ([v39 respondsToSelector_])
           {
             swift_unknownObjectRetain();
-            v51.super.isa = UUID._bridgeToObjectiveC()().super.isa;
-            [v40 registry:a6 removed:v51.super.isa];
+            v50.super.isa = UUID._bridgeToObjectiveC()().super.isa;
+            [v39 registry:a6 removed:v50.super.isa];
 LABEL_41:
             swift_unknownObjectRelease();
           }
         }
 
-        else if (v46 == 1)
+        else if (v45 == 1)
         {
           if (one-time initialization token for framework != -1)
           {
             swift_once();
           }
 
-          v47 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v47, static Logs.framework);
-          v48 = Logger.logObject.getter();
-          v49 = static os_log_type_t.default.getter();
-          if (os_log_type_enabled(v48, v49))
+          v46 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v46, static Logs.framework);
+          v47 = Logger.logObject.getter();
+          v48 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v47, v48))
           {
-            v50 = swift_slowAlloc();
-            *v50 = 0;
-            _os_log_impl(&dword_22DF91000, v48, v49, "Informing delegate about property changes", v50, 2u);
-            MEMORY[0x2318DFC30](v50, -1, -1);
+            v49 = swift_slowAlloc();
+            *v49 = 0;
+            _os_log_impl(&dword_22DF91000, v47, v48, "Informing delegate about property changes", v49, 2u);
+            MEMORY[0x2318DFC30](v49, -1, -1);
           }
 
-          if ([v40 respondsToSelector_])
+          if ([v39 respondsToSelector_])
           {
             type metadata accessor for PDRDevicePropertyKey(0);
-            lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey, type metadata accessor for PDRDevicePropertyKey);
+            lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey, type metadata accessor for PDRDevicePropertyKey, &protocol conformance descriptor for PDRDevicePropertyKey);
             swift_unknownObjectRetain();
 
-            v51.super.isa = Set._bridgeToObjectiveC()().super.isa;
+            v50.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-            [v40 registry:a6 changed:v102 properties:v51.super.isa];
+            [v39 registry:a6 changed:v101 properties:v50.super.isa];
             goto LABEL_41;
           }
         }
 
         else
         {
-          if (v46)
+          if (v45)
           {
             goto LABEL_81;
           }
@@ -7899,55 +7749,55 @@ LABEL_41:
             swift_once();
           }
 
-          v56 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v56, static Logs.framework);
-          v57 = Logger.logObject.getter();
-          v58 = static os_log_type_t.default.getter();
-          if (os_log_type_enabled(v57, v58))
+          v55 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v55, static Logs.framework);
+          v56 = Logger.logObject.getter();
+          v57 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v56, v57))
           {
-            v59 = swift_slowAlloc();
-            *v59 = 0;
-            _os_log_impl(&dword_22DF91000, v57, v58, "Informing delegate about device creation", v59, 2u);
-            MEMORY[0x2318DFC30](v59, -1, -1);
+            v58 = swift_slowAlloc();
+            *v58 = 0;
+            _os_log_impl(&dword_22DF91000, v56, v57, "Informing delegate about device creation", v58, 2u);
+            MEMORY[0x2318DFC30](v58, -1, -1);
           }
 
-          if ([v40 respondsToSelector_])
+          if ([v39 respondsToSelector_])
           {
-            [v40 registry:a6 added:v102];
+            [v39 registry:a6 added:v101];
           }
         }
 
-        v33 = v102;
-        if (v36 & 1) != 0 && ([v40 respondsToSelector_])
+        v32 = v101;
+        if (v35 & 1) != 0 && ([v39 respondsToSelector_])
         {
-          [v40 registry:a6 didSetup:v33];
+          [v39 registry:a6 didSetup:v32];
         }
 
-        v38 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
-        if (v36 & 0x100) != 0 && ([v40 respondsToSelector_])
+        v37 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
+        if (v35 & 0x100) != 0 && ([v39 respondsToSelector_])
         {
-          [v40 registry:a6 didPair:v33];
+          [v39 registry:a6 didPair:v32];
         }
 
-        if (v36 & 0x10000) != 0 && ([v40 respondsToSelector_])
+        if (v35 & 0x10000) != 0 && ([v39 respondsToSelector_])
         {
-          [v40 registry:a6 didUnpair:v33];
+          [v39 registry:a6 didUnpair:v32];
         }
 
-        if (v36 & 0x1000000) != 0 && ([v40 respondsToSelector_])
+        if (v35 & 0x1000000) != 0 && ([v39 respondsToSelector_])
         {
-          [v40 registry:a6 didActivate:v33];
+          [v39 registry:a6 didActivate:v32];
         }
 
-        if (v36 & 0x100000000) != 0 && ([v40 respondsToSelector_])
+        if (v35 & 0x100000000) != 0 && ([v39 respondsToSelector_])
         {
-          [v40 registry:a6 didDeactivate:v33];
+          [v39 registry:a6 didDeactivate:v32];
         }
       }
 
       swift_unknownObjectRelease();
-      ++v39;
-      if (v41 == v37)
+      ++v38;
+      if (v40 == v36)
       {
         goto LABEL_65;
       }
@@ -7955,30 +7805,30 @@ LABEL_41:
       goto LABEL_14;
     }
 
-    v37 = *(v99 + 16);
-    v38 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
-    if (v37)
+    v36 = *(v98 + 16);
+    v37 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
+    if (v36)
     {
       goto LABEL_11;
     }
 
 LABEL_65:
-    v60 = swift_allocObject();
-    *(v60 + 16) = 0;
-    if (v36)
+    v59 = swift_allocObject();
+    *(v59 + 16) = 0;
+    if (v35)
     {
-      v61 = [objc_opt_self() defaultCenter];
-      v62 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v60, v33);
-      specialized _dictionaryUpCast<A, B, C, D>(_:)(v62);
+      v60 = [objc_opt_self() defaultCenter];
+      v61 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v59, v32);
+      specialized _dictionaryUpCast<A, B, C, D>(_:)(v61);
 
-      v63 = Dictionary._bridgeToObjectiveC()().super.isa;
+      v62 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-      [v61 postNotificationName:v83 object:a6 userInfo:v63];
+      [v60 postNotificationName:v82 object:a6 userInfo:v62];
 
-      if ((v36 & 0x10000) == 0)
+      if ((v35 & 0x10000) == 0)
       {
 LABEL_67:
-        if ((v36 & 0x100) == 0)
+        if ((v35 & 0x100) == 0)
         {
           goto LABEL_68;
         }
@@ -7987,23 +7837,23 @@ LABEL_67:
       }
     }
 
-    else if ((v36 & 0x10000) == 0)
+    else if ((v35 & 0x10000) == 0)
     {
       goto LABEL_67;
     }
 
-    v64 = [objc_opt_self() defaultCenter];
-    v65 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v60, v33);
-    specialized _dictionaryUpCast<A, B, C, D>(_:)(v65);
+    v63 = [objc_opt_self() defaultCenter];
+    v64 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v59, v32);
+    specialized _dictionaryUpCast<A, B, C, D>(_:)(v64);
 
-    v66 = Dictionary._bridgeToObjectiveC()().super.isa;
+    v65 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-    [v64 postNotificationName:v82 object:a6 userInfo:v66];
+    [v63 postNotificationName:v81 object:a6 userInfo:v65];
 
-    if ((v36 & 0x100) == 0)
+    if ((v35 & 0x100) == 0)
     {
 LABEL_68:
-      if ((v36 & 0x1000000) != 0)
+      if ((v35 & 0x1000000) != 0)
       {
         goto LABEL_73;
       }
@@ -8012,24 +7862,24 @@ LABEL_68:
     }
 
 LABEL_72:
-    v67 = [objc_opt_self() defaultCenter];
-    v68 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v60, v33);
-    specialized _dictionaryUpCast<A, B, C, D>(_:)(v68);
+    v66 = [objc_opt_self() defaultCenter];
+    v67 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v59, v32);
+    specialized _dictionaryUpCast<A, B, C, D>(_:)(v67);
 
-    v69 = Dictionary._bridgeToObjectiveC()().super.isa;
+    v68 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-    [v67 postNotificationName:v81 object:a6 userInfo:v69];
+    [v66 postNotificationName:v80 object:a6 userInfo:v68];
 
-    if ((v36 & 0x1000000) != 0)
+    if ((v35 & 0x1000000) != 0)
     {
 LABEL_73:
-      v70 = [objc_opt_self() defaultCenter];
-      v71 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v60, v33);
-      specialized _dictionaryUpCast<A, B, C, D>(_:)(v71);
+      v69 = [objc_opt_self() defaultCenter];
+      v70 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v59, v32);
+      specialized _dictionaryUpCast<A, B, C, D>(_:)(v70);
 
-      v72 = Dictionary._bridgeToObjectiveC()().super.isa;
+      v71 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-      [v70 postNotificationName:v80 object:a6 userInfo:v72];
+      [v69 postNotificationName:v79 object:a6 userInfo:v71];
 
       goto LABEL_74;
     }
@@ -8037,31 +7887,31 @@ LABEL_73:
 LABEL_69:
 
 LABEL_74:
-    v73 = v33;
-    v14 = v97;
-    if ((v36 & 0x100000000) != 0)
+    v72 = v32;
+    v13 = v96;
+    if ((v35 & 0x100000000) != 0)
     {
-      v74 = [objc_opt_self() defaultCenter];
-      v75 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v60, v73);
-      specialized _dictionaryUpCast<A, B, C, D>(_:)(v75);
+      v73 = [objc_opt_self() defaultCenter];
+      v74 = getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.notify(deviceColletionDiff:state:)(v59, v72);
+      specialized _dictionaryUpCast<A, B, C, D>(_:)(v74);
 
-      v76 = Dictionary._bridgeToObjectiveC()().super.isa;
+      v75 = Dictionary._bridgeToObjectiveC()().super.isa;
 
-      [v74 postNotificationName:v79 object:a6 userInfo:v76];
+      [v73 postNotificationName:v78 object:a6 userInfo:v75];
 
-      v9 = v86;
-      v94(v14, v86);
+      v9 = v85;
+      v93(v13, v85);
     }
 
     else
     {
-      v9 = v86;
-      v94(v97, v86);
+      v9 = v85;
+      v93(v96, v85);
     }
 
-    v17 = v85;
-    v18 = v95 + 1;
-    if (v95 + 1 == v87)
+    v16 = v84;
+    v17 = v94 + 1;
+    if (v94 + 1 == v86)
     {
     }
   }
@@ -8163,14 +8013,13 @@ unint64_t getter of userInfo #1 in closure #1 in closure #1 in Registry_Impl.not
     *(inited + 16) = xmmword_22DFAEC40;
     *(inited + 32) = static String._unconditionallyBridgeFromObjectiveC(_:)();
     *(inited + 40) = v7;
-    *(inited + 72) = type metadata accessor for Device_Impl();
+    *(inited + 72) = type metadata accessor for Device_Impl(0);
     *(inited + 48) = a2;
     v8 = a2;
     v4 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(inited);
     swift_setDeallocating();
     outlined destroy of UUID?(inited + 32, &_sSS_yptMd, &_sSS_yptMR);
     swift_beginAccess();
-    v9 = *v3;
     *v3 = v4;
   }
 
@@ -8300,12 +8149,11 @@ LABEL_26:
   return result;
 }
 
-void *Registry_Impl.unpair(device:options:)(void *a1)
+void *Registry_Impl.unpair(device:options:)(void *a1, uint64_t a2)
 {
-  v2 = type metadata accessor for UUID();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
+  v3 = type metadata accessor for UUID();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
   v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for instance != -1)
   {
@@ -8317,7 +8165,7 @@ void *Registry_Impl.unpair(device:options:)(void *a1)
 
   v8 = RegistryCrux.unpair(pairingID:options:)();
 
-  (*(v3 + 8))(v6, v2);
+  (*(v4 + 8))(v6, v3);
   return v8;
 }
 
@@ -8340,32 +8188,32 @@ void Registry_Impl.setActive(device:results:)(void *a1, void (*a2)(void *, id))
     swift_once();
   }
 
-  v4 = RegistryCrux.setActive(device:)(a1);
-  v6 = v5;
-  v8 = v7;
+  v5 = RegistryCrux.setActive(device:)(a1, v4);
+  v7 = v6;
+  v9 = v8;
 
-  if (v8)
+  if (v9)
   {
-    v9 = v8;
-    v10 = v8;
-    a2(v8, 0);
+    v10 = v9;
+    v11 = v9;
+    a2(v9, 0);
   }
 
   else
   {
     active = type metadata accessor for ActiveDeviceAssertion_Impl();
-    v12 = objc_allocWithZone(active);
-    v12[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_valid] = 1;
-    *&v12[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_device_] = a1;
-    v13 = &v12[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_identifier_];
-    *v13 = v4;
-    v13[1] = v6;
-    v16.receiver = v12;
-    v16.super_class = active;
+    v13 = objc_allocWithZone(active);
+    v13[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_valid] = 1;
+    *&v13[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_device_] = a1;
+    v14 = &v13[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_identifier_];
+    *v14 = v5;
+    v14[1] = v7;
+    v17.receiver = v13;
+    v17.super_class = active;
 
-    v14 = a1;
-    v15 = objc_msgSendSuper2(&v16, sel_init);
-    a2(0, v15);
+    v15 = a1;
+    v16 = objc_msgSendSuper2(&v17, sel_init);
+    a2(0, v16);
   }
 }
 
@@ -8453,12 +8301,11 @@ void Registry_Impl.pairingClientSetAltAccount(name:altDSID:device:completion:)(u
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v6);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v4);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -8494,59 +8341,56 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
 {
   v3 = v2;
   v6 = *v2;
-  v7 = *(*v2 + 40);
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v8 = Hasher._finalize()();
+  v7 = Hasher._finalize()();
 
-  v9 = -1 << *(v6 + 32);
-  v10 = v8 & ~v9;
-  if ((*(v6 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
+  v8 = -1 << *(v6 + 32);
+  v9 = v7 & ~v8;
+  if ((*(v6 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9))
   {
-    v11 = ~v9;
+    v10 = ~v8;
     while (1)
     {
-      v12 = *(*(v6 + 48) + 8 * v10);
-      v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v15 = v14;
-      if (v13 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v15 == v16)
+      v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v13 = v12;
+      if (v11 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v13 == v14)
       {
 
         goto LABEL_12;
       }
 
-      v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v18)
+      if (v16)
       {
         break;
       }
 
-      v10 = (v10 + 1) & v11;
-      if (((*(v6 + 56 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) == 0)
+      v9 = (v9 + 1) & v10;
+      if (((*(v6 + 56 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) == 0)
       {
         goto LABEL_9;
       }
     }
 
 LABEL_12:
-    v23 = *(*(v6 + 48) + 8 * v10);
-    *a1 = v23;
-    v24 = v23;
+    v20 = *(*(v6 + 48) + 8 * v9);
+    *a1 = v20;
+    v21 = v20;
     return 0;
   }
 
   else
   {
 LABEL_9:
-    v19 = *v3;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v25 = *v3;
-    v21 = a2;
-    specialized _NativeSet.insertNew(_:at:isUnique:)(v21, v10, isUniquelyReferenced_nonNull_native);
-    *v3 = v25;
-    *a1 = v21;
+    v22 = *v3;
+    v18 = a2;
+    specialized _NativeSet.insertNew(_:at:isUnique:)(v18, v9, isUniquelyReferenced_nonNull_native);
+    *v3 = v22;
+    *a1 = v18;
     return 1;
   }
 }
@@ -8555,124 +8399,118 @@ uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo20PDRDevicePropertyKeyaGMd, &_ss11_SetStorageCySo20PDRDevicePropertyKeyaGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v29 = v2;
-    v30 = v3;
-    v7 = 0;
-    v8 = (v3 + 56);
-    v9 = 1 << *(v3 + 32);
-    if (v9 < 64)
+    v27 = v1;
+    v28 = v3;
+    v6 = 0;
+    v7 = (v3 + 56);
+    v8 = 1 << *(v3 + 32);
+    if (v8 < 64)
     {
-      v10 = ~(-1 << v9);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v10 = -1;
+      v9 = -1;
     }
 
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
     {
-      v15 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v18 = *(*(v3 + 48) + 8 * (v15 | (v7 << 6)));
-      v19 = *(v6 + 40);
+      v14 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
+LABEL_15:
+      v17 = *(*(v3 + 48) + 8 * (v14 | (v6 << 6)));
       static String._unconditionallyBridgeFromObjectiveC(_:)();
       Hasher.init(_seed:)();
       String.hash(into:)();
-      v20 = Hasher._finalize()();
+      v18 = Hasher._finalize()();
 
-      v21 = -1 << *(v6 + 32);
-      v22 = v20 & ~v21;
-      v23 = v22 >> 6;
-      if (((-1 << v22) & ~*(v13 + 8 * (v22 >> 6))) == 0)
+      v19 = -1 << *(v5 + 32);
+      v20 = v18 & ~v19;
+      v21 = v20 >> 6;
+      if (((-1 << v20) & ~*(v12 + 8 * (v20 >> 6))) == 0)
       {
-        v24 = 0;
-        v25 = (63 - v21) >> 6;
-        while (++v23 != v25 || (v24 & 1) == 0)
+        v22 = 0;
+        v23 = (63 - v19) >> 6;
+        while (++v21 != v23 || (v22 & 1) == 0)
         {
-          v26 = v23 == v25;
-          if (v23 == v25)
+          v24 = v21 == v23;
+          if (v21 == v23)
           {
-            v23 = 0;
+            v21 = 0;
           }
 
-          v24 |= v26;
-          v27 = *(v13 + 8 * v23);
-          if (v27 != -1)
+          v22 |= v24;
+          v25 = *(v12 + 8 * v21);
+          if (v25 != -1)
           {
-            v14 = __clz(__rbit64(~v27)) + (v23 << 6);
-            goto LABEL_9;
+            v13 = __clz(__rbit64(~v25)) + (v21 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_32:
+LABEL_30:
         __break(1u);
         return result;
       }
 
-      v14 = __clz(__rbit64((-1 << v22) & ~*(v13 + 8 * (v22 >> 6)))) | v22 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      *(*(v6 + 48) + 8 * v14) = v18;
-      ++*(v6 + 16);
-      v3 = v30;
+      v13 = __clz(__rbit64((-1 << v20) & ~*(v12 + 8 * (v20 >> 6)))) | v20 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      *(*(v5 + 48) + 8 * v13) = v17;
+      ++*(v5 + 16);
+      v3 = v28;
     }
 
-    v16 = v7;
+    v15 = v6;
     while (1)
     {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
       {
         __break(1u);
-        goto LABEL_32;
+        goto LABEL_30;
       }
 
-      if (v7 >= v12)
+      if (v6 >= v11)
       {
         break;
       }
 
-      v17 = v8[v7];
-      ++v16;
-      if (v17)
+      v16 = v7[v6];
+      ++v15;
+      if (v16)
       {
-        v15 = __clz(__rbit64(v17));
-        v11 = (v17 - 1) & v17;
-        goto LABEL_17;
+        v14 = __clz(__rbit64(v16));
+        v10 = (v16 - 1) & v16;
+        goto LABEL_15;
       }
     }
 
-    v28 = 1 << *(v3 + 32);
-    if (v28 >= 64)
+    v26 = 1 << *(v3 + 32);
+    if (v26 >= 64)
     {
-      bzero(v8, ((v28 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v7, ((v26 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v8 = -1 << v28;
+      *v7 = -1 << v26;
     }
 
-    v2 = v29;
+    v2 = v27;
     *(v3 + 16) = 0;
   }
 
-  *v2 = v6;
+  *v2 = v5;
   return result;
 }
 
@@ -8704,51 +8542,49 @@ uint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(uint64_t result, unint
   }
 
   v9 = *v3;
-  v10 = *(*v3 + 40);
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v11 = Hasher._finalize()();
+  v10 = Hasher._finalize()();
 
-  v12 = -1 << *(v9 + 32);
-  a2 = v11 & ~v12;
+  v11 = -1 << *(v9 + 32);
+  a2 = v10 & ~v11;
   if ((*(v9 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2))
   {
-    v13 = ~v12;
+    v12 = ~v11;
     type metadata accessor for PDRDevicePropertyKey(0);
     do
     {
-      v14 = *(*(v9 + 48) + 8 * a2);
-      v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v17 = v16;
-      if (v15 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v17 == v18)
+      v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v15 = v14;
+      if (v13 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v15 == v16)
       {
         goto LABEL_19;
       }
 
-      v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v18 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if (v20)
+      if (v18)
       {
         goto LABEL_20;
       }
 
-      a2 = (a2 + 1) & v13;
+      a2 = (a2 + 1) & v12;
     }
 
     while (((*(v9 + 56 + ((a2 >> 3) & 0xFFFFFFFFFFFFFF8)) >> a2) & 1) != 0);
   }
 
 LABEL_16:
-  v21 = *v4;
+  v19 = *v4;
   *(*v4 + 8 * (a2 >> 6) + 56) |= 1 << a2;
-  *(*(v21 + 48) + 8 * a2) = v6;
-  v22 = *(v21 + 16);
-  v23 = __OFADD__(v22, 1);
-  v24 = v22 + 1;
-  if (!v23)
+  *(*(v19 + 48) + 8 * a2) = v6;
+  v20 = *(v19 + 16);
+  v21 = __OFADD__(v20, 1);
+  v22 = v20 + 1;
+  if (!v21)
   {
-    *(v21 + 16) = v24;
+    *(v19 + 16) = v22;
     return result;
   }
 
@@ -8846,118 +8682,112 @@ uint64_t specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo20PDRDevicePropertyKeyaGMd, &_ss11_SetStorageCySo20PDRDevicePropertyKeyaGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v29 = v2;
-    v30 = v3;
-    v7 = 0;
-    v8 = v3 + 56;
-    v9 = 1 << *(v3 + 32);
-    if (v9 < 64)
+    v27 = v1;
+    v28 = v3;
+    v6 = 0;
+    v7 = v3 + 56;
+    v8 = 1 << *(v3 + 32);
+    if (v8 < 64)
     {
-      v10 = ~(-1 << v9);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      v10 = -1;
+      v9 = -1;
     }
 
-    v11 = v10 & *(v3 + 56);
-    v12 = (v9 + 63) >> 6;
-    v13 = result + 56;
-    while (v11)
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
     {
-      v15 = __clz(__rbit64(v11));
-      v11 &= v11 - 1;
-LABEL_17:
-      v18 = *(*(v3 + 48) + 8 * (v15 | (v7 << 6)));
-      v19 = *(v6 + 40);
+      v14 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
+LABEL_15:
+      v17 = *(*(v3 + 48) + 8 * (v14 | (v6 << 6)));
       static String._unconditionallyBridgeFromObjectiveC(_:)();
       Hasher.init(_seed:)();
-      v20 = v18;
+      v18 = v17;
       String.hash(into:)();
-      v21 = Hasher._finalize()();
+      v19 = Hasher._finalize()();
 
-      v22 = -1 << *(v6 + 32);
-      v23 = v21 & ~v22;
-      v24 = v23 >> 6;
-      if (((-1 << v23) & ~*(v13 + 8 * (v23 >> 6))) == 0)
+      v20 = -1 << *(v5 + 32);
+      v21 = v19 & ~v20;
+      v22 = v21 >> 6;
+      if (((-1 << v21) & ~*(v12 + 8 * (v21 >> 6))) == 0)
       {
-        v25 = 0;
-        v26 = (63 - v22) >> 6;
-        while (++v24 != v26 || (v25 & 1) == 0)
+        v23 = 0;
+        v24 = (63 - v20) >> 6;
+        while (++v22 != v24 || (v23 & 1) == 0)
         {
-          v27 = v24 == v26;
-          if (v24 == v26)
+          v25 = v22 == v24;
+          if (v22 == v24)
           {
-            v24 = 0;
+            v22 = 0;
           }
 
-          v25 |= v27;
-          v28 = *(v13 + 8 * v24);
-          if (v28 != -1)
+          v23 |= v25;
+          v26 = *(v12 + 8 * v22);
+          if (v26 != -1)
           {
-            v14 = __clz(__rbit64(~v28)) + (v24 << 6);
-            goto LABEL_9;
+            v13 = __clz(__rbit64(~v26)) + (v22 << 6);
+            goto LABEL_7;
           }
         }
 
-        goto LABEL_30;
+        goto LABEL_28;
       }
 
-      v14 = __clz(__rbit64((-1 << v23) & ~*(v13 + 8 * (v23 >> 6)))) | v23 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v13 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
-      *(*(v6 + 48) + 8 * v14) = v20;
-      ++*(v6 + 16);
-      v3 = v30;
+      v13 = __clz(__rbit64((-1 << v21) & ~*(v12 + 8 * (v21 >> 6)))) | v21 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      *(*(v5 + 48) + 8 * v13) = v18;
+      ++*(v5 + 16);
+      v3 = v28;
     }
 
-    v16 = v7;
+    v15 = v6;
     while (1)
     {
-      v7 = v16 + 1;
-      if (__OFADD__(v16, 1))
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
       {
         break;
       }
 
-      if (v7 >= v12)
+      if (v6 >= v11)
       {
 
-        v2 = v29;
-        goto LABEL_28;
+        v2 = v27;
+        goto LABEL_26;
       }
 
-      v17 = *(v8 + 8 * v7);
-      ++v16;
-      if (v17)
+      v16 = *(v7 + 8 * v6);
+      ++v15;
+      if (v16)
       {
-        v15 = __clz(__rbit64(v17));
-        v11 = (v17 - 1) & v17;
-        goto LABEL_17;
+        v14 = __clz(__rbit64(v16));
+        v10 = (v16 - 1) & v16;
+        goto LABEL_15;
       }
     }
 
     __break(1u);
-LABEL_30:
+LABEL_28:
     __break(1u);
   }
 
   else
   {
 
-LABEL_28:
-    *v2 = v6;
+LABEL_26:
+    *v2 = v5;
   }
 
   return result;
@@ -9018,33 +8848,24 @@ LABEL_10:
   return result;
 }
 
-uint64_t partial apply for closure #1 in RegistryCrux.deviceIDAtSwitchIndex(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  return closure #1 in RegistryCrux.deviceIDAtSwitchIndex(_:_:)(a1, a2);
-}
-
 unint64_t specialized Registry_Impl.getSwitchEvents(after:process:)(int a1, Class a2, uint64_t a3)
 {
-  v65 = a3;
-  v71 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v7 = *(*(v71 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v71);
-  v10 = &v62 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v86 = &v62 - v11;
-  v70 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
-  v12 = *(*(v70 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v70);
-  v67 = &v62 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x28223BE20](v13);
-  v85 = (&v62 - v16);
-  MEMORY[0x28223BE20](v15);
-  v87 = &v62 - v17;
-  v18 = __CFADD__(a1, 1);
-  LODWORD(v19) = a1 + 1;
-  if (v18)
+  v63 = a3;
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v7 = MEMORY[0x28223BE20](v69);
+  v9 = &v60 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v84 = &v60 - v10;
+  v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
+  v11 = MEMORY[0x28223BE20](v68);
+  v65 = &v60 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = MEMORY[0x28223BE20](v11);
+  v83 = (&v60 - v14);
+  MEMORY[0x28223BE20](v13);
+  v85 = &v60 - v15;
+  v16 = __CFADD__(a1, 1);
+  LODWORD(v17) = a1 + 1;
+  if (v16)
   {
 LABEL_29:
     __break(1u);
@@ -9052,16 +8873,16 @@ LABEL_29:
   }
 
   v3 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
-  v20 = [(objc_class *)a2 switchIndex];
-  if ((v20 & 0x8000000000000000) != 0)
+  v18 = [(objc_class *)a2 switchIndex];
+  if ((v18 & 0x8000000000000000) != 0)
   {
 LABEL_30:
     __break(1u);
     goto LABEL_31;
   }
 
-  v4 = v20;
-  if (!HIDWORD(v20))
+  v4 = v18;
+  if (!HIDWORD(v18))
   {
     if (one-time initialization token for instance == -1)
     {
@@ -9076,13 +8897,13 @@ LABEL_31:
 LABEL_32:
   swift_once();
 LABEL_5:
-  v69 = "stry/Registry.swift";
-  v68 = v89;
-  v63 = v65 + 16;
-  v21 = &_s10Foundation4DateVSgMd;
-  v62 = a2;
-  v64 = v10;
-  while (v4 < v19)
+  v67 = "stry/Registry.swift";
+  v66 = v87;
+  v61 = v63 + 16;
+  v19 = &_s10Foundation4DateVSgMd;
+  v60 = a2;
+  v62 = v9;
+  while (v4 < v17)
   {
 LABEL_21:
     result = [a2 v3[31]];
@@ -9100,176 +8921,176 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    LODWORD(v19) = v4 + 1;
-    v18 = v4 >= result;
+    LODWORD(v17) = v4 + 1;
+    v16 = v4 >= result;
     v4 = result;
-    if (v18)
+    if (v16)
     {
       return result;
     }
   }
 
-  v22 = static RegistryCrux.instance;
-  v75 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
-  v74 = static RegistryCrux.instance + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_;
-  v10 = type metadata accessor for Date();
-  v23 = *(v10 - 1);
-  v24 = *(v23 + 56);
-  v25 = v23 + 56;
-  v79 = (v23 + 48);
-  v66 = (v23 + 8);
-  v26 = v19;
-  v77 = v22;
+  v20 = static RegistryCrux.instance;
+  v73 = OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_unfairLock;
+  v72 = static RegistryCrux.instance + OBJC_IVAR____TtC20PairedDeviceRegistry12RegistryCrux_registryState_;
+  v9 = type metadata accessor for Date();
+  v21 = *(v9 - 1);
+  v22 = *(v21 + 56);
+  v23 = v21 + 56;
+  v77 = (v21 + 48);
+  v64 = (v21 + 8);
+  v24 = v17;
+  v75 = v20;
 
   v3 = _s10Foundation4DateVSgMR;
-  v73 = v24;
-  v72 = v25;
-  v76 = v4;
-  v80 = v10;
+  v71 = v22;
+  v70 = v23;
+  v74 = v4;
+  v78 = v9;
   while (1)
   {
-    v27 = v87;
-    v24(v87, 1, 1, v10);
-    outlined destroy of UUID?(v27, v21, v3);
-    v24(v27, 1, 1, v10);
-    v83 = swift_allocBox();
-    v28 = v21;
-    v30 = v29;
-    v31 = type metadata accessor for UUID();
-    v81 = *(v31 - 8);
-    v32 = *(v81 + 56);
-    v84 = v30;
-    v82 = v31;
-    v32(v30, 1, 1);
-    v33 = v77;
-    v34 = v75;
-    v35 = *(v77 + v75);
+    v25 = v85;
+    v22(v85, 1, 1, v9);
+    outlined destroy of UUID?(v25, v19, v3);
+    v22(v25, 1, 1, v9);
+    v81 = swift_allocBox();
+    v26 = v19;
+    v28 = v27;
+    v29 = type metadata accessor for UUID();
+    v79 = *(v29 - 8);
+    v30 = *(v79 + 56);
+    v82 = v28;
+    v80 = v29;
+    v30(v28, 1, 1);
+    v31 = v75;
+    v32 = v73;
+    v33 = *(v75 + v73);
 
-    os_unfair_lock_lock(v35 + 4);
+    os_unfair_lock_lock(v33 + 4);
 
-    v36 = *v74;
-    v37 = v3;
-    v38 = *(v74 + 16);
-    v39 = *(v33 + v34);
-    v40 = *(v74 + 8);
+    v34 = *v72;
+    v35 = v3;
+    v36 = *(v72 + 16);
+    v37 = *(v31 + v32);
+    v38 = *(v72 + 8);
 
-    v41 = v36;
-    os_unfair_lock_unlock(v39 + 4);
+    v39 = v34;
+    os_unfair_lock_unlock(v37 + 4);
 
-    if (v38 < 0)
+    if (v36 < 0)
     {
 
-      v3 = v37;
-      v21 = v28;
+      v3 = v35;
+      v19 = v26;
     }
 
     else
     {
-      v42 = v87;
-      outlined destroy of UUID?(v87, v28, v37);
-      RegistryCrux.synchronousUntypedService(tag:)(0xD00000000000001BLL, v69 | 0x8000000000000000, &aBlock);
+      v40 = v85;
+      outlined destroy of UUID?(v85, v26, v35);
+      RegistryCrux.synchronousUntypedService(tag:)(0xD00000000000001BLL, v67 | 0x8000000000000000, &aBlock);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo21NRXPCRegistryDelegate_pMd, &_sSo21NRXPCRegistryDelegate_pMR);
       swift_dynamicCast();
-      v43 = v89[4];
-      v44 = swift_allocBox();
-      v78 = v40;
-      v46 = v45;
-      v24(v45, 1, 1, v80);
-      v47 = swift_allocObject();
-      *(v47 + 16) = v83;
-      *(v47 + 24) = v44;
-      v89[2] = closure #1 in RegistryCrux.deviceIDAtSwitchIndex(_:_:)partial apply;
-      v89[3] = v47;
+      v41 = v87[4];
+      v42 = swift_allocBox();
+      v76 = v38;
+      v44 = v43;
+      v22(v43, 1, 1, v78);
+      v45 = swift_allocObject();
+      *(v45 + 16) = v81;
+      *(v45 + 24) = v42;
+      v87[2] = closure #1 in RegistryCrux.deviceIDAtSwitchIndex(_:_:)partial apply;
+      v87[3] = v45;
       *&aBlock = MEMORY[0x277D85DD0];
       *(&aBlock + 1) = 1107296256;
-      v89[0] = thunk for @escaping @callee_guaranteed (@in_guaranteed UUID?, @in_guaranteed Date?) -> ();
-      v89[1] = &block_descriptor_25;
-      v48 = _Block_copy(&aBlock);
+      v87[0] = thunk for @escaping @callee_guaranteed (@in_guaranteed UUID?, @in_guaranteed Date?) -> ();
+      v87[1] = &block_descriptor_25;
+      v46 = _Block_copy(&aBlock);
 
-      [v43 xpcDeviceIDAtSwitchIndex:v26 withBlock:v48];
+      [v41 xpcDeviceIDAtSwitchIndex:v24 withBlock:v46];
 
       swift_unknownObjectRelease();
-      _Block_release(v48);
+      _Block_release(v46);
       swift_beginAccess();
-      outlined init with copy of RegistryState.LoggingInfo?(v46, v42, &_s10Foundation4DateVSgMd, v37);
+      outlined init with copy of RegistryState.LoggingInfo?(v44, v40, &_s10Foundation4DateVSgMd, v35);
 
-      v3 = v37;
-      v21 = &_s10Foundation4DateVSgMd;
+      v3 = v35;
+      v19 = &_s10Foundation4DateVSgMd;
     }
 
-    v49 = v84;
+    v47 = v82;
     swift_beginAccess();
-    outlined init with copy of RegistryState.LoggingInfo?(v49, v86, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    outlined init with copy of RegistryState.LoggingInfo?(v47, v84, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
 
-    a2 = v85;
-    outlined init with copy of RegistryState.LoggingInfo?(v87, v85, v21, v3);
-    v19 = *v79;
-    v10 = v80;
-    v50 = (*v79)(a2, 1, v80);
-    v4 = v76;
-    if (v50 == 1)
+    a2 = v83;
+    outlined init with copy of RegistryState.LoggingInfo?(v85, v83, v19, v3);
+    v17 = *v77;
+    v9 = v78;
+    v48 = (*v77)(a2, 1, v78);
+    v4 = v74;
+    if (v48 == 1)
     {
-      outlined destroy of UUID?(v87, v21, v3);
-      outlined destroy of UUID?(v85, v21, v3);
+      outlined destroy of UUID?(v85, v19, v3);
+      outlined destroy of UUID?(v83, v19, v3);
       goto LABEL_18;
     }
 
-    v51 = v10;
-    outlined destroy of UUID?(v85, v21, v3);
-    a2 = (v81 + 48);
-    v52 = *(v81 + 48);
-    if (v52(v86, 1, v82) == 1)
+    v49 = v9;
+    outlined destroy of UUID?(v83, v19, v3);
+    a2 = (v79 + 48);
+    v50 = *(v79 + 48);
+    if (v50(v84, 1, v80) == 1)
     {
-      outlined destroy of UUID?(v87, v21, v3);
-      v10 = v51;
+      outlined destroy of UUID?(v85, v19, v3);
+      v9 = v49;
       goto LABEL_18;
     }
 
-    v53 = v3;
-    v54 = v67;
-    outlined init with copy of RegistryState.LoggingInfo?(v87, v67, v21, v53);
-    result = (v19)(v54, 1, v51);
+    v51 = v3;
+    v52 = v65;
+    outlined init with copy of RegistryState.LoggingInfo?(v85, v65, v19, v51);
+    result = (v17)(v52, 1, v49);
     if (result == 1)
     {
       goto LABEL_34;
     }
 
-    v56 = v64;
-    outlined init with copy of RegistryState.LoggingInfo?(v86, v64, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    v57 = v82;
-    result = (v52)(v56, 1, v82);
+    v54 = v62;
+    outlined init with copy of RegistryState.LoggingInfo?(v84, v62, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    v55 = v80;
+    result = (v50)(v54, 1, v80);
     if (result == 1)
     {
       break;
     }
 
-    v58 = v67;
+    v56 = v65;
     isa = Date._bridgeToObjectiveC()().super.isa;
     a2 = UUID._bridgeToObjectiveC()().super.isa;
-    (*(v65 + 16))(v65, v26, isa, a2);
+    (*(v63 + 16))(v63, v24, isa, a2);
 
-    v19 = _s10Foundation4DateVSgMR;
-    outlined destroy of UUID?(v87, v21, _s10Foundation4DateVSgMR);
-    v60 = v56;
+    v17 = _s10Foundation4DateVSgMR;
+    outlined destroy of UUID?(v85, v19, _s10Foundation4DateVSgMR);
+    v58 = v54;
     v3 = _s10Foundation4DateVSgMR;
-    (*(v81 + 8))(v60, v57);
-    v61 = v58;
-    v10 = v51;
-    (*v66)(v61, v51);
+    (*(v79 + 8))(v58, v55);
+    v59 = v56;
+    v9 = v49;
+    (*v64)(v59, v49);
 LABEL_18:
-    v24 = v73;
-    if (v26 == 0xFFFFFFFFLL)
+    v22 = v71;
+    if (v24 == 0xFFFFFFFFLL)
     {
       __break(1u);
       goto LABEL_27;
     }
 
-    ++v26;
-    outlined destroy of UUID?(v86, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    if (v4 < v26)
+    ++v24;
+    outlined destroy of UUID?(v84, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    if (v4 < v24)
     {
 
-      a2 = v62;
+      a2 = v60;
       v3 = &selRef_xpcUnpairWithDeviceID_withOptions_operationHasBegun_;
       goto LABEL_21;
     }
@@ -9399,7 +9220,7 @@ uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSo20PDRDevicePropertyKeya_Say
   v2 = *(a1 + 16);
   type metadata accessor for PDRDevicePropertyKey(0);
   v4 = v3;
-  v5 = lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey, type metadata accessor for PDRDevicePropertyKey);
+  v5 = lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type PDRDevicePropertyKey and conformance PDRDevicePropertyKey, type metadata accessor for PDRDevicePropertyKey, &protocol conformance descriptor for PDRDevicePropertyKey);
   result = MEMORY[0x2318DF160](v2, v4, v5);
   v10 = result;
   if (v2)
@@ -9427,33 +9248,33 @@ void specialized Registry_Impl.setActive(device:results:)(void *a1, uint64_t a2)
     swift_once();
   }
 
-  v4 = RegistryCrux.setActive(device:)(a1);
-  v6 = v5;
-  v8 = v7;
+  v5 = RegistryCrux.setActive(device:)(a1, v4);
+  v7 = v6;
+  v9 = v8;
 
-  if (v8)
+  if (v9)
   {
-    v9 = v8;
-    v10 = v8;
-    v11 = _convertErrorToNSError(_:)();
-    (*(a2 + 16))(a2, v11, 0);
+    v10 = v9;
+    v11 = v9;
+    v12 = _convertErrorToNSError(_:)();
+    (*(a2 + 16))(a2, v12, 0);
   }
 
   else
   {
     active = type metadata accessor for ActiveDeviceAssertion_Impl();
-    v13 = objc_allocWithZone(active);
-    v13[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_valid] = 1;
-    *&v13[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_device_] = a1;
-    v14 = &v13[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_identifier_];
-    *v14 = v4;
-    v14[1] = v6;
-    v17.receiver = v13;
-    v17.super_class = active;
+    v14 = objc_allocWithZone(active);
+    v14[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_valid] = 1;
+    *&v14[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_device_] = a1;
+    v15 = &v14[OBJC_IVAR___PDRActiveDeviceAssertion_Impl_identifier_];
+    *v15 = v5;
+    v15[1] = v7;
+    v18.receiver = v14;
+    v18.super_class = active;
 
-    v15 = a1;
-    v16 = objc_msgSendSuper2(&v17, sel_init);
-    (*(a2 + 16))(a2, 0, v16);
+    v16 = a1;
+    v17 = objc_msgSendSuper2(&v18, sel_init);
+    (*(a2 + 16))(a2, 0, v17);
   }
 }
 
@@ -9495,29 +9316,26 @@ void specialized Registry_Impl.waitForPairingExtendedMetadata(advertisedName:res
 
 uint64_t objectdestroyTm()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-BOOL static WeakCollection.Weak.== infix(_:_:)()
+BOOL static WeakCollection.Weak.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   Strong = swift_unknownObjectWeakLoadStrong();
-  v1 = swift_unknownObjectWeakLoadStrong();
+  v3 = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    if (v1)
+    if (v3)
     {
-      v2 = v1;
+      v4 = v3;
       swift_unknownObjectRelease();
       swift_unknownObjectRelease();
-      return Strong == v2;
+      return Strong == v4;
     }
   }
 
-  else if (!v1)
+  else if (!v3)
   {
     return 1;
   }
@@ -9528,9 +9346,6 @@ BOOL static WeakCollection.Weak.== infix(_:_:)()
 
 uint64_t WeakCollection.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return MEMORY[0x2821FE8D8](v0, 32, 7);
 }
@@ -9676,101 +9491,96 @@ LABEL_13:
   }
 }
 
-uint64_t specialized WeakCollection.sweep(action:)(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, _BYTE *a5)
+void specialized WeakCollection.sweep(action:)(uint64_t a1, void *a2, uint64_t *a3, uint64_t a4, _BYTE *a5)
 {
-  result = swift_beginAccess();
-  v9 = *(a1 + 16);
-  if (!*(v9 + 16))
+  swift_beginAccess();
+  v8 = *(a1 + 16);
+  if (!*(v8 + 16))
   {
-    return result;
+    return;
   }
 
-  v10 = 0;
+  v9 = 0;
   while (1)
   {
-    outlined init with copy of RegistryState.LoggingInfo?(v9 + 8 * v10 + 32, v21, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
+    outlined init with copy of RegistryState.LoggingInfo?(v8 + 8 * v9 + 32, v19, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
     Strong = swift_unknownObjectWeakLoadStrong();
-    outlined destroy of UUID?(v21, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
+    outlined destroy of UUID?(v19, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
     if (Strong)
     {
       break;
     }
 
     swift_beginAccess();
-    v12 = *(a1 + 16);
+    v11 = *(a1 + 16);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    *(a1 + 16) = v12;
+    *(a1 + 16) = v11;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v12 = specialized _ArrayBuffer._consumeAndCreateNew()(v12);
-      *(a1 + 16) = v12;
+      v11 = specialized _ArrayBuffer._consumeAndCreateNew()(v11);
+      *(a1 + 16) = v11;
     }
 
-    v14 = v12[2];
-    if (v10 >= v14)
+    v13 = v11[2];
+    if (v9 >= v13)
     {
       __break(1u);
       goto LABEL_17;
     }
 
-    v15 = v14 - 1;
-    outlined destroy of UUID?(&v12[v10 + 4], &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
+    v14 = v13 - 1;
+    outlined destroy of UUID?(&v11[v9 + 4], &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
     swift_arrayInitWithTakeFrontToBack();
-    v12[2] = v15;
-    *(a1 + 16) = v12;
-    result = swift_endAccess();
+    v11[2] = v14;
+    *(a1 + 16) = v11;
+    swift_endAccess();
 LABEL_8:
-    v9 = *(a1 + 16);
-    if (v10 >= *(v9 + 16))
+    v8 = *(a1 + 16);
+    if (v9 >= *(v8 + 16))
     {
-      return result;
+      return;
     }
   }
 
   if (Strong != a2)
   {
-    result = swift_unknownObjectRelease();
-    ++v10;
+    swift_unknownObjectRelease();
+    ++v9;
     goto LABEL_8;
   }
 
-  v16 = *a3;
   *a3 = a2;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
   swift_beginAccess();
   a3 = *(a4 + 16);
-  result = swift_isUniquelyReferenced_nonNull_native();
-  if (result)
+  if (swift_isUniquelyReferenced_nonNull_native())
   {
     goto LABEL_13;
   }
 
 LABEL_17:
-  result = specialized _ArrayBuffer._consumeAndCreateNew()(a3);
-  a3 = result;
+  a3 = specialized _ArrayBuffer._consumeAndCreateNew()(a3);
 LABEL_13:
-  v17 = a3[2];
-  if (v10 >= v17)
+  v15 = a3[2];
+  if (v9 >= v15)
   {
     __break(1u);
   }
 
   else
   {
-    v18 = v17 - 1;
-    outlined destroy of UUID?(&a3[v10 + 4], &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
+    v16 = v15 - 1;
+    outlined destroy of UUID?(&a3[v9 + 4], &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMd, &_s20PairedDeviceRegistry14WeakCollectionC0D0VySo19PDRRegistryDelegate_p_GMR);
     swift_arrayInitWithTakeFrontToBack();
-    a3[2] = v18;
+    a3[2] = v16;
     *(a4 + 16) = a3;
     swift_endAccess();
     *a5 = 1;
-    return swift_unknownObjectRelease();
+    swift_unknownObjectRelease();
   }
-
-  return result;
 }
 
 id ActiveDeviceAssertion_Impl.__deallocating_deinit()
@@ -9779,4 +9589,192 @@ id ActiveDeviceAssertion_Impl.__deallocating_deinit()
   v2.receiver = v0;
   v2.super_class = type metadata accessor for ActiveDeviceAssertion_Impl();
   return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+id ActiveDeviceAssertion_Impl.__allocating_init()()
+{
+  v1 = objc_allocWithZone(v0);
+
+  return [v1 init];
+}
+
+uint64_t PDRDevice.compatibilityState.getter()
+{
+  if ([v0 valueForProperty_])
+  {
+    _bridgeAnyObjectToAny(_:)();
+    swift_unknownObjectRelease();
+  }
+
+  else
+  {
+    v3 = 0u;
+    v4 = 0u;
+  }
+
+  v5[0] = v3;
+  v5[1] = v4;
+  if (*(&v4 + 1))
+  {
+    if (swift_dynamicCast())
+    {
+      return v2;
+    }
+  }
+
+  else
+  {
+    outlined destroy of UUID?(v5, &_sypSgMd, &_sypSgMR);
+  }
+
+  return 0;
+}
+
+uint64_t Device_Impl.propertyNames()()
+{
+  v1 = *(v0 + OBJC_IVAR___PDRDevice_Impl_registryState);
+  isa = UUID._bridgeToObjectiveC()().super.isa;
+  v3 = [v1 deviceForPairingID_];
+
+  v4 = MEMORY[0x277D84F90];
+  if (v3)
+  {
+    v5 = [v3 allPropertyNames];
+
+    v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = *(v6 + 16);
+    if (v7)
+    {
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7, 0);
+      v8 = (v6 + 40);
+      do
+      {
+        v9 = *(v8 - 1);
+        v10 = *v8;
+
+        v11 = MEMORY[0x2318DF040](v9, v10);
+
+        v13 = *(v4 + 16);
+        v12 = *(v4 + 24);
+        if (v13 >= v12 >> 1)
+        {
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
+        }
+
+        *(v4 + 16) = v13 + 1;
+        *(v4 + 8 * v13 + 32) = v11;
+        v8 += 2;
+        --v7;
+      }
+
+      while (v7);
+    }
+  }
+
+  return v4;
+}
+
+uint64_t Device_Impl.description.getter(uint64_t a1, uint64_t a2)
+{
+  v3 = v2;
+  v4 = type metadata accessor for UUID();
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = 0x6369766544524450;
+  v25 = 0xEB00000000203A65;
+  v8 = [v2 pairingID];
+  static UUID._unconditionallyBridgeFromObjectiveC(_:)();
+
+  lazy protocol witness table accessor for type UUID and conformance UUID(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x277CC95F0], MEMORY[0x277CC9628]);
+  v9 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x2318DF0A0](v9);
+
+  (*(v5 + 8))(v7, v4);
+  MEMORY[0x2318DF0A0](10, 0xE100000000000000);
+  v10 = [v3 propertyNames];
+  type metadata accessor for PDRDevicePropertyKey(0);
+  v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+  v22 = v11;
+
+  specialized MutableCollection<>.sort(by:)(&v22);
+
+  v21 = v22;
+  v12 = *(v22 + 16);
+  if (v12)
+  {
+    v13 = (v21 + 32);
+    do
+    {
+      v14 = *v13++;
+      v15 = v14;
+      v16 = Device_Impl.valueDescriptionFor(property:)(v15);
+      v18 = v17;
+      v22 = 538976288;
+      v23 = 0xE400000000000000;
+      v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      MEMORY[0x2318DF0A0](v19);
+
+      MEMORY[0x2318DF0A0](8250, 0xE200000000000000);
+      MEMORY[0x2318DF0A0](v16, v18);
+
+      MEMORY[0x2318DF0A0](10, 0xE100000000000000);
+      MEMORY[0x2318DF0A0](v22, v23);
+
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  return v24;
+}
+
+uint64_t Device_Impl.valueDescriptionFor(property:)(uint64_t a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = v19 - v5;
+  v7 = type metadata accessor for Date();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (![v2 valueForProperty_])
+  {
+    return 0x3E6C696E3CLL;
+  }
+
+  _bridgeAnyObjectToAny(_:)();
+  swift_unknownObjectRelease();
+  outlined init with take of Any(v19, v20);
+  outlined init with copy of Any(v20, v19);
+  v11 = swift_dynamicCast();
+  v12 = *(v8 + 56);
+  if (v11)
+  {
+    v12(v6, 0, 1, v7);
+    (*(v8 + 32))(v10, v6, v7);
+    v13 = [objc_allocWithZone(MEMORY[0x277CCA968]) init];
+    v14 = MEMORY[0x2318DF040](0xD000000000000017, 0x800000022DFB09C0);
+    [v13 setDateFormat_];
+
+    isa = Date._bridgeToObjectiveC()().super.isa;
+    v16 = [v13 stringFromDate_];
+
+    v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    (*(v8 + 8))(v10, v7);
+  }
+
+  else
+  {
+    v12(v6, 1, 1, v7);
+    outlined destroy of UUID?(v6, &_s10Foundation4DateVSgMd, _s10Foundation4DateVSgMR);
+    outlined init with copy of Any(v20, v19);
+    v17 = String.init<A>(describing:)();
+  }
+
+  __swift_destroy_boxed_opaque_existential_0(v20);
+  return v17;
 }

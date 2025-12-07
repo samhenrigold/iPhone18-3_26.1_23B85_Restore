@@ -256,8 +256,8 @@ void __68__WBSFaviconProvider__updateOutstandingRequestsAfterSuccessfulSetup__bl
 void __49__WBSFaviconProvider_setUpWithCompletionHandler___block_invoke(uint64_t a1)
 {
   v2 = (*(*(*(a1 + 32) + 104) + 16))();
-  v3 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v4 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __49__WBSFaviconProvider_setUpWithCompletionHandler___block_invoke_cold_1();
   }
@@ -267,42 +267,43 @@ void __49__WBSFaviconProvider_setUpWithCompletionHandler___block_invoke(uint64_t
   aBlock[1] = 3221225472;
   aBlock[2] = __49__WBSFaviconProvider_setUpWithCompletionHandler___block_invoke_10;
   aBlock[3] = &unk_1E8284020;
-  objc_copyWeak(&v13, (a1 + 48));
-  v12 = *(a1 + 40);
-  v4 = _Block_copy(aBlock);
-  v5 = *(*(a1 + 32) + 48);
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __49__WBSFaviconProvider_setUpWithCompletionHandler___block_invoke_11;
-  v7[3] = &unk_1E8284098;
-  objc_copyWeak(&v9, (a1 + 48));
-  v8 = v4;
-  v10 = v2;
-  v6 = v4;
-  [v5 openAndCheckIntegrity:v2 createIfNeeded:0 fallBackToMemoryStoreIfError:0 completionHandler:v7];
+  objc_copyWeak(&v14, (a1 + 48));
+  v13 = *(a1 + 40);
+  v5 = _Block_copy(aBlock);
+  v6 = *(*(a1 + 32) + 48);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __49__WBSFaviconProvider_setUpWithCompletionHandler___block_invoke_11;
+  v8[3] = &unk_1E8284098;
+  objc_copyWeak(&v10, (a1 + 48));
+  v9 = v5;
+  v11 = v2;
+  v7 = v5;
+  [v6 openAndCheckIntegrity:v2 createIfNeeded:0 fallBackToMemoryStoreIfError:0 completionHandler:v8];
 
-  objc_destroyWeak(&v9);
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v14);
 }
 
 void __49__WBSFaviconProvider_setUpWithCompletionHandler___block_invoke_10(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v5 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __49__WBSFaviconProvider_setUpWithCompletionHandler___block_invoke_10_cold_1();
     }
 
-    dispatch_resume(WeakRetained[4]);
+    dispatch_resume(v4[4]);
   }
 
-  v4 = *(a1 + 32);
-  if (v4)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    (*(v4 + 16))();
+    (*(v6 + 16))();
   }
 }
 
@@ -457,34 +458,36 @@ void __49__WBSFaviconProvider_setUpWithCompletionHandler___block_invoke_5(uint64
   dispatch_async(internalQueue, v24);
 }
 
-void __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke(uint64_t a1)
+void __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = *(*(a1 + 32) + 72);
-  if (v2 == 1)
+  v2 = a1;
+  v3 = *(a1[4] + 72);
+  if (v3 == 1)
   {
-    v3 = *(*(a1 + 64) + 16);
+    v4 = *(a1[8] + 16);
     goto LABEL_5;
   }
 
-  if (!v2)
+  if (!v3)
   {
-    v3 = *(*(a1 + 64) + 16);
+    v4 = *(a1[8] + 16);
 LABEL_5:
 
-    v3();
+    v4();
     return;
   }
 
-  if (!*(a1 + 40) || (v4 = *(a1 + 48)) == 0)
+  if (!a1[5] || (a1 = a1[6]) == 0)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(a1, a2);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
+    if (v14)
     {
       __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke_cold_3();
     }
 
-    v14 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke_cold_4();
     }
@@ -492,50 +495,51 @@ LABEL_5:
     goto LABEL_18;
   }
 
-  if (!*(a1 + 56))
+  if (!v2[7])
   {
-    v15 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(a1, a2);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+    if (v18)
     {
       __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke_cold_1();
     }
 
-    v16 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v20 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke_cold_2((a1 + 56), v16);
+      __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke_cold_2(v2 + 7, v20);
     }
 
 LABEL_18:
-    (*(*(a1 + 64) + 16))();
+    (*(v2[8] + 16))();
     return;
   }
 
-  v5 = [v4 safari_shouldBeAssociatedWithFaviconFromRedirectedURL:?];
-  v6 = 40;
+  v5 = [a1 safari_shouldBeAssociatedWithFaviconFromRedirectedURL:?];
+  v6 = 5;
   if (v5)
   {
-    v6 = 48;
+    v6 = 6;
   }
 
-  v7 = *(a1 + v6);
-  v8 = *(*(a1 + 32) + 48);
-  v9 = [*(a1 + 40) absoluteString];
-  v10 = [*(a1 + 56) absoluteString];
-  v11 = *(a1 + 88);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke_13;
-  v17[3] = &unk_1E8284138;
-  v17[4] = *(a1 + 32);
-  v21 = *(a1 + 64);
-  v18 = *(a1 + 40);
-  v23 = *(a1 + 88);
-  v19 = *(a1 + 56);
-  v22 = *(a1 + 72);
+  v7 = v2[v6];
+  v8 = *(v2[4] + 48);
+  v9 = [v2[5] absoluteString];
+  v10 = [v2[7] absoluteString];
+  v11 = *(v2 + 88);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke_13;
+  v21[3] = &unk_1E8284138;
+  v21[4] = v2[4];
+  v25 = v2[8];
+  v22 = v2[5];
+  v27 = *(v2 + 88);
+  v23 = v2[7];
+  v26 = *(v2 + 9);
   v12 = v7;
-  v20 = v12;
-  [v8 rejectedResourceInfosForPageURLString:v9 iconURLString:v10 includingPrivateData:v11 completionHandler:v17];
+  v24 = v12;
+  [v8 rejectedResourceInfosForPageURLString:v9 iconURLString:v10 includingPrivateData:v11 completionHandler:v21];
 }
 
 void __119__WBSFaviconProvider_shouldIconDataBeSavedForIconWithPageURL_originalPageURL_iconURL_size_isPrivate_completionHandler___block_invoke_13(uint64_t a1, void *a2)
@@ -746,60 +750,61 @@ LABEL_32:
   dispatch_async(internalQueue, block);
 }
 
-void __87__WBSFaviconProvider_linkIconFromPageURL_toCurrentPageURL_isPrivate_completionHandler___block_invoke(uint64_t a1)
+void __87__WBSFaviconProvider_linkIconFromPageURL_toCurrentPageURL_isPrivate_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 72) > 1uLL)
+  v3 = *(a1 + 32);
+  if (*(v3 + 72) > 1uLL)
   {
-    v5 = *(a1 + 40);
-    if (v5 && *(a1 + 48))
+    v6 = *(a1 + 40);
+    if (v6 && *(a1 + 48))
     {
-      v6 = *(v2 + 48);
-      v7 = [v5 absoluteString];
-      v8 = *(a1 + 64);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __87__WBSFaviconProvider_linkIconFromPageURL_toCurrentPageURL_isPrivate_completionHandler___block_invoke_18;
-      v14[3] = &unk_1E8284188;
-      v9 = *(a1 + 56);
-      v10 = *(a1 + 32);
-      v16 = v9;
-      v14[4] = v10;
-      v15 = *(a1 + 48);
-      v17 = *(a1 + 64);
-      [v6 iconInfoForPageURLString:v7 includingPrivateData:v8 completionHandler:v14];
+      v7 = *(v3 + 48);
+      v8 = [v6 absoluteString];
+      v9 = *(a1 + 64);
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __87__WBSFaviconProvider_linkIconFromPageURL_toCurrentPageURL_isPrivate_completionHandler___block_invoke_18;
+      v17[3] = &unk_1E8284188;
+      v10 = *(a1 + 56);
+      v11 = *(a1 + 32);
+      v19 = v10;
+      v17[4] = v11;
+      v18 = *(a1 + 48);
+      v20 = *(a1 + 64);
+      [v7 iconInfoForPageURLString:v8 includingPrivateData:v9 completionHandler:v17];
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v6, a2);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+      if (v13)
       {
         __87__WBSFaviconProvider_linkIconFromPageURL_toCurrentPageURL_isPrivate_completionHandler___block_invoke_cold_1();
       }
 
-      v12 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v15 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v13, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         __87__WBSFaviconProvider_linkIconFromPageURL_toCurrentPageURL_isPrivate_completionHandler___block_invoke_cold_2();
       }
 
-      v13 = *(a1 + 56);
-      if (v13)
+      v16 = *(a1 + 56);
+      if (v16)
       {
-        (*(v13 + 16))(v13, 0);
+        (*(v16 + 16))(v16, 0);
       }
     }
   }
 
   else
   {
-    v3 = *(a1 + 56);
-    if (v3)
+    v4 = *(a1 + 56);
+    if (v4)
     {
-      v4 = *(v3 + 16);
+      v5 = *(v4 + 16);
 
-      v4();
+      v5();
     }
   }
 }
@@ -838,71 +843,73 @@ void __87__WBSFaviconProvider_linkIconFromPageURL_toCurrentPageURL_isPrivate_com
 {
   height = size.height;
   width = size.width;
-  v43 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   lCopy = l;
   rLCopy = rL;
   uRLCopy = uRL;
   handlerCopy = handler;
+  v23 = handlerCopy;
   if (!lCopy || !rLCopy || !uRLCopy)
   {
-    v26 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v28 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(handlerCopy, v22);
+    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
+    if (v29)
     {
       [WBSFaviconProvider saveFaviconImageData:iconURL:pageURL:originalPageURL:size:isPrivate:completionHandler:];
     }
 
-    v27 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+    v31 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v29, v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138478339;
-      v38 = rLCopy;
-      v39 = 2113;
-      v40 = uRLCopy;
-      v41 = 2113;
-      v42 = lCopy;
-      _os_log_debug_impl(&dword_1C6968000, v27, OS_LOG_TYPE_DEBUG, "Cannot save icon, invalid page URL %{private}@, original page URL %{private}@, or icon URL %{private}@", buf, 0x20u);
-      if (!handlerCopy)
+      v42 = rLCopy;
+      v43 = 2113;
+      v44 = uRLCopy;
+      v45 = 2113;
+      v46 = lCopy;
+      _os_log_debug_impl(&dword_1C6968000, v31, OS_LOG_TYPE_DEBUG, "Cannot save icon, invalid page URL %{private}@, original page URL %{private}@, or icon URL %{private}@", buf, 0x20u);
+      if (!v23)
       {
         goto LABEL_13;
       }
     }
 
-    else if (!handlerCopy)
+    else if (!v23)
     {
       goto LABEL_13;
     }
 
-    handlerCopy[2](handlerCopy);
+    v23[2](v23);
     goto LABEL_13;
   }
 
   if ([uRLCopy safari_shouldBeAssociatedWithFaviconFromRedirectedURL:rLCopy])
   {
-    v22 = uRLCopy;
+    v24 = uRLCopy;
   }
 
   else
   {
-    v22 = rLCopy;
+    v24 = rLCopy;
   }
 
-  v23 = v22;
+  v25 = v24;
   internalQueue = self->_internalQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __108__WBSFaviconProvider_saveFaviconImageData_iconURL_pageURL_originalPageURL_size_isPrivate_completionHandler___block_invoke;
   block[3] = &unk_1E82841D8;
   block[4] = self;
-  v33 = handlerCopy;
-  v29 = rLCopy;
-  v30 = v23;
-  v31 = dataCopy;
-  v32 = lCopy;
-  v34 = width;
-  v35 = height;
+  v37 = v23;
+  v33 = rLCopy;
+  v34 = v25;
+  v35 = dataCopy;
+  v36 = lCopy;
+  v38 = width;
+  v39 = height;
   privateCopy = private;
-  v25 = v23;
+  v27 = v25;
   dispatch_async(internalQueue, block);
 
 LABEL_13:
@@ -1357,7 +1364,7 @@ void __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconU
 
 void __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_2(uint64_t a1, int a2, double a3, double a4)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 72));
   v9 = WeakRetained;
   v10 = MEMORY[0x1E695F060];
@@ -1368,37 +1375,38 @@ void __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconU
 
   if (a3 == *MEMORY[0x1E695F060] && a4 == *(MEMORY[0x1E695F060] + 8))
   {
-    if ([WeakRetained _shouldRejectIconWithBadData])
+    v14 = [WeakRetained _shouldRejectIconWithBadData];
+    if (v14)
     {
-      v14 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v16 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_2_cold_1(*(a1 + 32), buf, [*(a1 + 40) length]);
       }
 
-      v15 = *(v9 + 6);
-      v16 = [*(a1 + 32) absoluteString];
-      v17 = [*(a1 + 48) absoluteString];
-      v18 = *(a1 + 96);
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_25;
-      v45[3] = &unk_1E8283428;
-      v46 = *(a1 + 64);
-      [v15 setIconIsRejectedResource:1 forPageURLString:v16 iconURLString:v17 isPrivate:v18 completionHandler:v45];
+      v17 = *(v9 + 6);
+      v18 = [*(a1 + 32) absoluteString];
+      v19 = [*(a1 + 48) absoluteString];
+      v20 = *(a1 + 96);
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_25;
+      v47[3] = &unk_1E8283428;
+      v48 = *(a1 + 64);
+      [v17 setIconIsRejectedResource:1 forPageURLString:v18 iconURLString:v19 isPrivate:v20 completionHandler:v47];
 
       goto LABEL_32;
     }
 
-    v19 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v14, v15);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(a1 + 32);
+      v22 = *(a1 + 32);
       *buf = 141558275;
-      v48 = 1752392040;
-      v49 = 2117;
-      v50 = v20;
-      _os_log_impl(&dword_1C6968000, v19, OS_LOG_TYPE_DEFAULT, "Not saving image for %{sensitive, mask.hash}@ because we're about to terminate.", buf, 0x16u);
+      v50 = 1752392040;
+      v51 = 2117;
+      v52 = v22;
+      _os_log_impl(&dword_1C6968000, v21, OS_LOG_TYPE_DEFAULT, "Not saving image for %{sensitive, mask.hash}@ because we're about to terminate.", buf, 0x16u);
     }
 
 LABEL_19:
@@ -1412,7 +1420,7 @@ LABEL_19:
     if (v12 || ([*(a1 + 56) hasGeneratedResolutions] & 1) == 0)
     {
       [*(a1 + 56) size];
-      v13 = [WBSFaviconProviderUtilities isFaviconSize:a3 morePreferrableThanFaviconSize:a4 givenDesiredSize:v21, v22, v9[11], v9[12]];
+      v13 = [WBSFaviconProviderUtilities isFaviconSize:a3 morePreferrableThanFaviconSize:a4 givenDesiredSize:v23, v24, v9[11], v9[12]];
     }
 
     else
@@ -1422,57 +1430,57 @@ LABEL_19:
 
     if (!(v13 | (([*(a1 + 56) hasGeneratedResolutions] & 1) == 0)))
     {
-      if ((a2 & 1) != 0 || (*(a1 + 80) == *v10 ? (v28 = *(a1 + 88) == v10[1]) : (v28 = 0), v28))
+      if ((a2 & 1) != 0 || (*(a1 + 80) == *v10 ? (v30 = *(a1 + 88) == v10[1]) : (v30 = 0), v30))
       {
-        v29 = *(v9 + 6);
-        v30 = [*(a1 + 32) absoluteString];
-        v31 = [*(a1 + 48) absoluteString];
-        v32 = *(a1 + 96);
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_26;
-        v43[3] = &unk_1E8283428;
-        v44 = *(a1 + 64);
-        [v29 setIconIsRejectedResource:1 forPageURLString:v30 iconURLString:v31 isPrivate:v32 completionHandler:v43];
+        v31 = *(v9 + 6);
+        v32 = [*(a1 + 32) absoluteString];
+        v33 = [*(a1 + 48) absoluteString];
+        v34 = *(a1 + 96);
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_26;
+        v45[3] = &unk_1E8283428;
+        v46 = *(a1 + 64);
+        [v31 setIconIsRejectedResource:1 forPageURLString:v32 iconURLString:v33 isPrivate:v34 completionHandler:v45];
 
         goto LABEL_32;
       }
     }
 
-    v23 = [*(a1 + 56) dateAdded];
-    v24 = [v9 _isIconDateExpired:v23];
+    v25 = [*(a1 + 56) dateAdded];
+    v26 = [v9 _isIconDateExpired:v25];
 
-    if (((v24 | v13) & 1) == 0)
+    if (((v26 | v13) & 1) == 0)
     {
       (*(*(a1 + 64) + 16))(*v10, v10[1]);
       goto LABEL_32;
     }
   }
 
-  v33 = MEMORY[0x1E69E9820];
-  v34 = 3221225472;
-  v35 = __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_2_27;
-  v36 = &unk_1E8284278;
-  objc_copyWeak(v41, (a1 + 72));
-  v40 = *(a1 + 64);
-  v37 = *(a1 + 32);
-  v26 = *(a1 + 40);
-  v25 = a1 + 40;
-  v38 = v26;
-  v39 = *(v25 + 8);
-  v42 = *(v25 + 56);
-  v41[1] = *&a3;
-  v41[2] = *&a4;
-  v27 = _Block_copy(&v33);
-  [v9 _multiResolutionImageFromImageData:*v25 withPreferredSize:*(v9 + 20) atScales:v27 completionHandler:{v9[21], v9[22], v33, v34, v35, v36}];
+  v35 = MEMORY[0x1E69E9820];
+  v36 = 3221225472;
+  v37 = __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_2_27;
+  v38 = &unk_1E8284278;
+  objc_copyWeak(v43, (a1 + 72));
+  v42 = *(a1 + 64);
+  v39 = *(a1 + 32);
+  v28 = *(a1 + 40);
+  v27 = a1 + 40;
+  v40 = v28;
+  v41 = *(v27 + 8);
+  v44 = *(v27 + 56);
+  v43[1] = *&a3;
+  v43[2] = *&a4;
+  v29 = _Block_copy(&v35);
+  [v9 _multiResolutionImageFromImageData:*v27 withPreferredSize:*(v9 + 20) atScales:v29 completionHandler:{v9[21], v9[22], v35, v36, v37, v38}];
 
-  objc_destroyWeak(v41);
+  objc_destroyWeak(v43);
 LABEL_32:
 }
 
 void __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_2_27(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v5 = WeakRetained;
@@ -1489,38 +1497,39 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  if (![WeakRetained _shouldRejectIconWithBadData])
+  v6 = [WeakRetained _shouldRejectIconWithBadData];
+  if (!v6)
   {
-    v11 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v6, v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 32);
+      v14 = *(a1 + 32);
       *buf = 141558275;
-      v16 = 1752392040;
-      v17 = 2117;
-      v18 = v12;
-      _os_log_impl(&dword_1C6968000, v11, OS_LOG_TYPE_DEFAULT, "Not saving image for %{sensitive, mask.hash}@ because we're about to terminate.", buf, 0x16u);
+      v18 = 1752392040;
+      v19 = 2117;
+      v20 = v14;
+      _os_log_impl(&dword_1C6968000, v13, OS_LOG_TYPE_DEFAULT, "Not saving image for %{sensitive, mask.hash}@ because we're about to terminate.", buf, 0x16u);
     }
 
     goto LABEL_10;
   }
 
-  v6 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v8 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_2_27_cold_1(*(a1 + 32), buf, [*(a1 + 40) length]);
   }
 
-  v7 = v5[6];
-  v8 = [*(a1 + 32) absoluteString];
-  v9 = [*(a1 + 48) absoluteString];
-  v10 = *(a1 + 88);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_28;
-  v13[3] = &unk_1E8283428;
-  v14 = *(a1 + 56);
-  [v7 setIconIsRejectedResource:1 forPageURLString:v8 iconURLString:v9 isPrivate:v10 completionHandler:v13];
+  v9 = v5[6];
+  v10 = [*(a1 + 32) absoluteString];
+  v11 = [*(a1 + 48) absoluteString];
+  v12 = *(a1 + 88);
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __113__WBSFaviconProvider__confirmImageDataShouldBeSaved_size_pageURL_iconURL_includingPrivateData_completionHandler___block_invoke_28;
+  v15[3] = &unk_1E8283428;
+  v16 = *(a1 + 56);
+  [v9 setIconIsRejectedResource:1 forPageURLString:v10 iconURLString:v11 isPrivate:v12 completionHandler:v15];
 
 LABEL_11:
 }
@@ -2686,36 +2695,38 @@ void __78__WBSFaviconProvider__linkPageURL_toIconWithInfo_isPrivate_completionHa
 
 void __78__WBSFaviconProvider__linkPageURL_toIconWithInfo_isPrivate_completionHandler___block_invoke_2(uint64_t a1, char a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     if ((a2 & 1) == 0)
     {
-      v5 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(WeakRetained, v5);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+      if (v8)
       {
         __78__WBSFaviconProvider__linkPageURL_toIconWithInfo_isPrivate_completionHandler___block_invoke_2_cold_1();
       }
 
-      v6 = WBS_LOG_CHANNEL_PREFIXFaviconProvider();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v10 = WBS_LOG_CHANNEL_PREFIXFaviconProvider(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v7 = *(a1 + 32);
-        v8 = [*(a1 + 40) iconURLString];
-        __78__WBSFaviconProvider__linkPageURL_toIconWithInfo_isPrivate_completionHandler___block_invoke_2_cold_2(v7, v8, buf, v6);
+        v11 = *(a1 + 32);
+        v12 = [*(a1 + 40) iconURLString];
+        __78__WBSFaviconProvider__linkPageURL_toIconWithInfo_isPrivate_completionHandler___block_invoke_2_cold_2(v11, v12, buf, v10);
       }
     }
 
-    v9 = WeakRetained[4];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __78__WBSFaviconProvider__linkPageURL_toIconWithInfo_isPrivate_completionHandler___block_invoke_56;
-    v14[3] = &unk_1E8282EA0;
-    v14[4] = WeakRetained;
-    v15 = *(a1 + 32);
-    dispatch_async(v9, v14);
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v10, v11, v12, v13);
+    v13 = v6[4];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __78__WBSFaviconProvider__linkPageURL_toIconWithInfo_isPrivate_completionHandler___block_invoke_56;
+    v18[3] = &unk_1E8282EA0;
+    v18[4] = v6;
+    v19 = *(a1 + 32);
+    dispatch_async(v13, v18);
+    (*(*(a1 + 48) + 16))(*(a1 + 48), v14, v15, v16, v17);
   }
 
   else

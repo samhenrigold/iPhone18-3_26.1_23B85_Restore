@@ -13,9 +13,9 @@
     dispatch_once(&qword_1ED44FDE0, &__block_literal_global_13);
   }
 
-  v0 = _MergedGlobals_13;
+  v1 = _MergedGlobals_13;
 
-  return v0;
+  return v1;
 }
 
 void __50__NSString_BSObjCInterface__bsobjc_typeQualifiers__block_invoke()

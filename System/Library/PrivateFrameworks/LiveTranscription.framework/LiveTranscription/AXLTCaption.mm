@@ -18,14 +18,12 @@
 
 - (NSArray)segments
 {
-  v3 = OBJC_IVAR____TtC17LiveTranscription11AXLTCaption_segments;
   swift_beginAccess();
-  v4 = *(self + v3);
   sub_25603AB14(0, &qword_27F825818, 0x277CDCF18);
 
-  v5 = sub_25605374C();
+  v2 = sub_25605374C();
 
-  return v5;
+  return v2;
 }
 
 - (void)setSegments:(id)segments
@@ -34,7 +32,6 @@
   v4 = sub_25605375C();
   v5 = OBJC_IVAR____TtC17LiveTranscription11AXLTCaption_segments;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 
@@ -42,16 +39,15 @@
 {
   v3 = sub_25605335C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_25603AB14(0, &qword_27F8256D0, 0x277CCA898);
-  v8 = OBJC_IVAR____TtC17LiveTranscription11AXLTCaption_attributedText;
+  v7 = OBJC_IVAR____TtC17LiveTranscription11AXLTCaption_attributedText;
   swift_beginAccess();
-  (*(v4 + 16))(v7, self + v8, v3);
-  v9 = sub_25605383C();
+  (*(v4 + 16))(v6, self + v7, v3);
+  v8 = sub_25605383C();
 
-  return v9;
+  return v8;
 }
 
 - (int64_t)actionType

@@ -1,5 +1,6 @@
 @interface CAFASCTreeNode
 + (id)nodeType:(unsigned __int8)type withName:(id)name;
++ (id)nodeType:(unsigned __int8)type withString:(id)string;
 + (id)nodeType:(unsigned __int8)type withType:(id)withType;
 - (id)_childNodeMatchingType:(id)type;
 - (id)description;
@@ -128,6 +129,19 @@ LABEL_10:
   return type;
 }
 
++ (id)nodeType:(unsigned __int8)type withString:(id)string
+{
+  typeCopy = type;
+  stringCopy = string;
+  v7 = [self nodeType:typeCopy withType:stringCopy];
+  if (!v7)
+  {
+    v7 = [self nodeType:typeCopy withName:stringCopy];
+  }
+
+  return v7;
+}
+
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
@@ -142,7 +156,7 @@ LABEL_10:
 
 - (id)treeLogLinesIndent:(unint64_t)indent
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
   if (indent)
   {
@@ -160,42 +174,40 @@ LABEL_10:
   name = [(CAFASCTreeNode *)self name];
   type = [(CAFASCTreeNode *)self type];
   v10 = [v7 stringWithFormat:@"%@ %@ %@", v5, name, type];
-  v27[0] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   v12 = [v11 mutableCopy];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   children = [(CAFASCTreeNode *)self children];
   allValues = [children allValues];
 
-  v15 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v15 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v19 = [*(*(&v22 + 1) + 8 * i) treeLogLinesIndent:indent + 1];
+        v19 = [*(*(&v21 + 1) + 8 * i) treeLogLinesIndent:indent + 1];
         [v12 addObjectsFromArray:v19];
       }
 
-      v16 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v16);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

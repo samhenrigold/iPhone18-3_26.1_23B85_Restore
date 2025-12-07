@@ -999,7 +999,7 @@ BOOL OZCurve::getKeypointInterpolation(OZCurve *this, char *a2, unsigned int *a3
   return OZSpline::getVertexInterpolation(v9, a2, a3, a4);
 }
 
-uint64_t OZCurve::generateKeypoints(OZCurve *this, unsigned int a2, unsigned int a3, int a4)
+uint64_t OZCurve::generateKeypoints(OZCurve *this, int a2, unsigned int a3, int a4)
 {
   if (*(this + 138) == 1 && (OZCurve::isAnimated(this) || a4) && PVInstructionGraphContext::HGNodeCache((this + 40)))
   {
@@ -1053,7 +1053,7 @@ uint64_t OZCurve::forceRetimeCurve(OZCurve *this, const CMTime *a2, const CMTime
   return result;
 }
 
-uint64_t OZCurve::reverseKeypoints(OZCurve *this, void *a2, _OWORD *a3, int a4)
+uint64_t OZCurve::reverseKeypoints(OZCurve *this, _BYTE **a2, _BYTE **a3, int a4)
 {
   if (*(this + 138) != 1)
   {
@@ -1643,19 +1643,17 @@ void sub_25FE826E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<void *>::reserve(void *result, unint64_t a2)
+void std::vector<void *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<objc_class * {__strong}>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 uint64_t OZCurve::parseEnd(OZCurve *this, PCSerializerReadStream *a2)
@@ -1992,7 +1990,7 @@ void sub_25FE833A4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::vector<OZCurveNode *>::__assign_with_size[abi:ne200100]<OZCurveNode **,OZCurveNode **>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<OZCurveNode *>::__assign_with_size[abi:ne200100]<OZCurveNode **,OZCurveNode **>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -2125,7 +2123,7 @@ uint64_t OZDynamicCurve::getCurveSamples(OZDynamicCurve *this, const CMTime *a2,
   }
 }
 
-uint64_t OZDynamicCurve::getCurveSamples(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, Float64 a6, Float64 a7)
+uint64_t OZDynamicCurve::getCurveSamples(uint64_t a1, uint64_t a2, _DWORD *a3, const void **a4, uint64_t a5, Float64 a6, Float64 a7)
 {
   if (((*(a1 + 32) - *(a1 + 24)) & 0x7FFFFFFF8) != 0)
   {
@@ -2224,7 +2222,7 @@ uint64_t OZDynamicCurve::getCurrentMinValueV(OZDynamicCurve *this, const CMTime 
 uint64_t OZDynamicCurve::getCurrentMaxValueU(OZDynamicCurve *this, const CMTime *a2, double *a3)
 {
   v6 = **&MEMORY[0x277CC08F0];
-  OZSpline::getMaxValueU((this + 8), a2, 1, &v6);
+  OZSpline::getMaxValueU(&v6.value, (this + 8), a2, 1);
   if (a3)
   {
     v5 = v6;
@@ -2237,7 +2235,7 @@ uint64_t OZDynamicCurve::getCurrentMaxValueU(OZDynamicCurve *this, const CMTime 
 uint64_t OZDynamicCurve::getCurrentMinValueU(OZDynamicCurve *this, const CMTime *a2, double *a3)
 {
   v6 = **&MEMORY[0x277CC08F0];
-  OZSpline::getMinValueU((this + 8), a2, 1, &v6);
+  OZSpline::getMinValueU(&v6.value, (this + 8), a2, 1);
   if (a3)
   {
     v5 = v6;
@@ -2251,7 +2249,7 @@ uint64_t OZDynamicCurve::getCurrentRangeU(OZDynamicCurve *this, const CMTime *a2
 {
   if (a3)
   {
-    OZSpline::getRangeU((this + 8), a2, &time);
+    OZSpline::getRangeU(&time.value, (this + 8), a2);
     *a3 = CMTimeGetSeconds(&time);
   }
 
@@ -2417,7 +2415,7 @@ BOOL OZDynamicCurve::getKeypoint(OZDynamicCurve *this, char *a2, const CMTime *a
   return Vertex;
 }
 
-uint64_t OZDynamicCurve::delKeypoint(char **this, char *a2, const CMTime *a3)
+uint64_t OZDynamicCurve::delKeypoint(void ***this, char *a2, const CMTime *a3)
 {
   if (!OZSpline::isValidHandle((this + 1), a2))
   {
@@ -2427,7 +2425,7 @@ uint64_t OZDynamicCurve::delKeypoint(char **this, char *a2, const CMTime *a3)
   v6 = OZDynamicSpline::deleteVertex(this + 1, a2, 1, a3);
   if (((this[4] - this[3]) & 0x7FFFFFFF8) == 0)
   {
-    (*(*this + 7))(this);
+    ((*this)[7])(this);
   }
 
   OZSpline::reparametrize((this + 1));
@@ -2775,7 +2773,7 @@ uint64_t OZDynamicCurve::setCurveInterpolation(OZDynamicCurve *this, uint64_t a2
   return 1;
 }
 
-uint64_t OZDynamicCurve::getKeypointInterpolation(OZInterpolators **this, char *a2, unsigned int *a3, BOOL *a4)
+uint64_t OZDynamicCurve::getKeypointInterpolation(atomic_ullong **this, char *a2, unsigned int *a3, BOOL *a4)
 {
   result = OZSpline::isValidHandle((this + 1), a2);
   if (result)
@@ -2954,10 +2952,10 @@ uint64_t OZDynamicCurve::setDefaultAtCurrentTime(os_unfair_lock_s *this, char *a
   return isValidHandle;
 }
 
-uint64_t OZDynamicCurve::getVertexToInsert(OZDynamicCurve *this, const CMTime *a2, Float64 a3, double *a4, double *a5, double *a6, double *a7, double *a8)
+uint64_t OZDynamicCurve::getVertexToInsert(atomic_ullong **this, const CMTime *a2, Float64 a3, double *a4, double *a5, double *a6, double *a7, double *a8)
 {
   OZFigTimeForChannelSeconds(&v16, a3, 0x40000);
-  OZDynamicSpline::getVertexToInsert((this + 8), a2, &v16, a4, a5, a6, a7, a8);
+  OZDynamicSpline::getVertexToInsert(this + 1, a2, &v16, a4, a5, a6, a7, a8);
   return 1;
 }
 
@@ -3091,9 +3089,9 @@ void OZAccelerateInterpolator::easeTime(CMTime *a1@<X2>, _BYTE **a2@<X3>, uint64
   PC_CMTimeSaferAdd(&v16, &v15, a4);
 }
 
-void OZAccelerateInterpolator::~OZAccelerateInterpolator(OZAccelerateInterpolator *this)
+void OZAccelerateInterpolator::~OZAccelerateInterpolator(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -3107,7 +3105,7 @@ void sub_25FE87010(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void OZChannelDecibel::OZChannelDecibel(OZChannelDecibel *this, const PCString *a2, OZChannelFolder *a3, unsigned int a4, int a5, OZChannelImpl *a6, OZChannelInfo *a7)
 {
-  OZChannelDecibel_FactoryBase = getOZChannelDecibel_FactoryBase();
+  OZChannelDecibel_FactoryBase = getOZChannelDecibel_FactoryBase(this);
   OZChannel::OZChannel(this, OZChannelDecibel_FactoryBase, a2, a3, a4, a5, a6, a7);
   this->var0 = &unk_287247EB0;
   this->var2 = &unk_287248210;
@@ -3362,31 +3360,31 @@ uint64_t OZChannelImpl::beginRecording(OZChannelImpl *this, const CMTime *a2)
   return v4();
 }
 
-OZChannelImpl *OZChannelImpl::didRecordValue(OZChannelImpl *this, OZChannelBase *a2, const CMTime *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+OZChannelImpl *OZChannelImpl::didRecordValue(OZChannelImpl *this, OZChannelBase *a2, const CMTime *a3)
 {
-  v8 = atomic_load(this + 3);
-  if (v8[1] != *v8)
+  v3 = atomic_load(this + 3);
+  if (v3[1] != *v3)
   {
-    v11 = this;
-    v12 = 0;
-    v13 = 1;
+    v6 = this;
+    v7 = 0;
+    v8 = 1;
     do
     {
-      v14 = atomic_load(v11 + 3);
-      v15 = *v14 + 24 * v12;
-      v18 = *&a3->value;
+      v9 = atomic_load(v6 + 3);
+      v10 = *v9 + 24 * v7;
+      v13 = *&a3->value;
       epoch = a3->epoch;
-      if (*(v15 + 16) == 1)
+      if (*(v10 + 16) == 1)
       {
-        OZChannelBase::ensureObjCWrapperExists(a2, a2, a3, a4, a5, a6, a7, a8);
+        OZChannelBase::ensureObjCWrapperExists(a2);
       }
 
-      this = (*v15)(a2, &v18, *(v15 + 8));
-      v12 = v13;
-      v16 = atomic_load(v11 + 3);
+      this = (*v10)(a2, &v13, *(v10 + 8));
+      v7 = v8;
+      v11 = atomic_load(v6 + 3);
     }
 
-    while (0xAAAAAAAAAAAAAAABLL * ((v16[1] - *v16) >> 3) > v13++);
+    while (0xAAAAAAAAAAAAAAABLL * ((v11[1] - *v11) >> 3) > v8++);
   }
 
   return this;
@@ -3535,9 +3533,9 @@ void OZBezierInterpolator::OZBezierInterpolator(OZBezierInterpolator *this)
   v1[1] = 0x3FF0000000000000;
 }
 
-void OZBezierInterpolator::~OZBezierInterpolator(OZBezierInterpolator *this)
+void OZBezierInterpolator::~OZBezierInterpolator(OZChannelBase *this, const PCString *a2)
 {
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
@@ -3557,7 +3555,7 @@ uint64_t OZBezierInterpolator::computeTangents(uint64_t a1, uint64_t a2, uint64_
   return result;
 }
 
-double OZBezierInterpolator::getControlPoints(OZBezierInterpolator *this, OZSpline *a2, void *a3, void *a4, const CMTime *a5, CMTime *a6, CMTime *a7, double *a8, double *a9)
+void OZBezierInterpolator::getControlPoints(OZBezierInterpolator *this, OZSpline *a2, void *a3, void *a4, const CMTime *a5, CMTime *a6, CMTime *a7, double *a8, double *a9)
 {
   v17 = *(a3 + 1);
   a6->epoch = *(a3 + 4);
@@ -3569,7 +3567,7 @@ double OZBezierInterpolator::getControlPoints(OZBezierInterpolator *this, OZSpli
   time2 = *a7;
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    OZSpline::getSmallDeltaU(a2, &v28);
+    OZSpline::getSmallDeltaU(&v28, a2);
     time1 = *a6;
     time2 = v28;
     PC_CMTimeSaferAdd(&time1, &time2, &time);
@@ -3600,15 +3598,13 @@ double OZBezierInterpolator::getControlPoints(OZBezierInterpolator *this, OZSpli
   a9[1] = *a9 + a9[1] * *(this + 1);
   v25 = *(this + 1);
   *v22.i64 = a9[2] * v25;
-  result = a9[3] + *v22.i64;
-  a9[2] = result;
+  v26 = a9[3] + *v22.i64;
+  a9[2] = v26;
   v27 = *(a2 + 21);
   if ((*v27 & 1) == 0 && v27[3] == 1)
   {
-    *&result = *&OZBezierSanitizeControlPolygon(a8, a9, v19, result, v22, v25, v21);
+    OZBezierSanitizeControlPolygon(a8, a9, v19, v26, v22, v25, v21);
   }
-
-  return result;
 }
 
 void OZBezierInterpolator::interpolate(OZBezierInterpolator *this, OZSpline *a2, const CMTime *a3, void *a4, void *a5, const CMTime *a6, char a7, char a8)
@@ -3651,10 +3647,10 @@ void OZBezierInterpolator::interpolate(OZBezierInterpolator *this, OZSpline *a2,
     v22 = MEMORY[0x277CC08F0];
     (*(*a2 + 240))(a2, &time, MEMORY[0x277CC08F0], 0, v21);
     (*(*a2 + 240))(a2, &v24, v22, 0);
-    OZSpline::getMinValueU(a2, v22, 0, &v23);
+    OZSpline::getMinValueU(&v23.value, a2, v22, 0);
     time1 = time;
     time2 = v23;
-    if (CMTimeCompare(&time1, &time2) < 0 || (OZSpline::getMaxValueU(a2, MEMORY[0x277CC08F0], 0, &v23), time1 = v24, time2 = v23, CMTimeCompare(&time1, &time2) >= 1))
+    if (CMTimeCompare(&time1, &time2) < 0 || (OZSpline::getMaxValueU(&v23.value, a2, MEMORY[0x277CC08F0], 0), time1 = v24, time2 = v23, CMTimeCompare(&time1, &time2) >= 1))
     {
       (*(*a2 + 240))(a2, a6, MEMORY[0x277CC08F0], 0);
     }
@@ -3714,7 +3710,7 @@ uint64_t OZBezierInterpolator::subDivide(OZBezierInterpolator *this, OZSpline *a
   time2 = *(a5 + 16);
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    OZSpline::getSmallDeltaU(a2, &v29);
+    OZSpline::getSmallDeltaU(&v29, a2);
     time1 = v26;
     time2 = v29;
     v12.n128_f64[0] = PC_CMTimeSaferAdd(&time1, &time2, &v25);
@@ -4490,7 +4486,7 @@ void OZBSplineInterpolator::generateOpenKnotVector(OZBSplineInterpolator *this, 
       v9 = v8 + 1;
       if (v8 < *(this + 28) || v9 >= v7)
       {
-        std::vector<double>::push_back[abi:ne200100](v3, *v3 + v6);
+        std::vector<double>::push_back[abi:ne200100](v3, (*v3 + v6));
       }
 
       else
@@ -4737,7 +4733,7 @@ void OZBSplineInterpolator::interpolate(OZBSplineInterpolator *this, OZSpline *a
     {
       v14 = *a6;
       v13 = CMTimeGetSeconds(&v14);
-      OZSpline::getMaxValueU(a2, MEMORY[0x277CC08F0], 0, &v14);
+      OZSpline::getMaxValueU(&v14.value, a2, MEMORY[0x277CC08F0], 0);
       Seconds = v13 / CMTimeGetSeconds(&v14) * *(*(this + 8) + 8 * (*(this + 28) + *(this + 8) - 1));
     }
 
@@ -4851,7 +4847,7 @@ LABEL_5:
   if (*(a2 + 144) == 1)
   {
     v28 = *(a3 + 16);
-    OZSpline::getSmallDeltaU(a2, &v27);
+    OZSpline::getSmallDeltaU(&v27, a2);
     v36 = v28;
     v35 = v27;
     PC_CMTimeSaferSubtract(&v36, &v35, &time);
@@ -4867,7 +4863,7 @@ LABEL_5:
   }
 
   v27 = *(a3 + 16);
-  operator*(2, &v27, &v28);
+  operator*(&v28, 2, &v27);
   v35 = *(a4 + 2);
   v36 = v28;
   PC_CMTimeSaferSubtract(&v36, &v35, &time);
@@ -4892,7 +4888,7 @@ LABEL_7:
   if (*(a2 + 144) == 1)
   {
     v27 = *(a4 + 2);
-    OZSpline::getSmallDeltaU(a2, &v26);
+    OZSpline::getSmallDeltaU(&v26, a2);
     v36 = v27;
     v35 = v26;
     PC_CMTimeSaferAdd(&v36, &v35, &v28);
@@ -4916,7 +4912,7 @@ LABEL_11:
   }
 
   v26 = *(a4 + 2);
-  operator*(2, &v26, &v27);
+  operator*(&v27, 2, &v26);
   v35 = *(a3 + 16);
   v36 = v27;
   PC_CMTimeSaferSubtract(&v36, &v35, &v28);
@@ -4982,7 +4978,7 @@ uint64_t OZConstantInterpolator::subDivide(OZConstantInterpolator *this, OZSplin
   time2 = *(a5 + 16);
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    OZSpline::getSmallDeltaU(a2, &v15);
+    OZSpline::getSmallDeltaU(&v15, a2);
     time1 = v14;
     time2 = v15;
     PC_CMTimeSaferAdd(&time1, &time2, &v13);
@@ -5122,7 +5118,7 @@ long double OZEaseInInterpolator::interpolate(OZEaseInInterpolator *this, OZSpli
   time2 = v17;
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    OZSpline::getSmallDeltaU(a2, &v16);
+    OZSpline::getSmallDeltaU(&v16, a2);
     time1 = v18;
     time2 = v16;
     PC_CMTimeSaferAdd(&time1, &time2, &v17);
@@ -5213,7 +5209,7 @@ BOOL OZEaseInInterpolator::uForCurveValue(double a1, uint64_t a2, uint64_t a3, _
     v44 = *(a4 + 2);
     PC_CMTimeSaferSubtract(&v45, &v44, &v37);
     operator*(&v37, &v38, 2.0);
-    operator/(&v38.value, &v39, 3.14159265);
+    operator/(&v38.value, 3.14159265, &v39);
     v22 = acos((v20 - a1) / (v21 - v20) + 1.0);
     operator*(&v39, &v40, v22);
     v45 = v40;
@@ -5300,7 +5296,7 @@ long double OZEaseOutInterpolator::interpolate(OZEaseOutInterpolator *this, OZSp
   time2 = v17;
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    OZSpline::getSmallDeltaU(a2, &v16);
+    OZSpline::getSmallDeltaU(&v16, a2);
     time1 = v18;
     time2 = v16;
     PC_CMTimeSaferAdd(&time1, &time2, &v17);
@@ -5359,7 +5355,7 @@ BOOL OZEaseOutInterpolator::uForCurveValue(double a1, uint64_t a2, uint64_t a3, 
     v44 = *(a4 + 2);
     PC_CMTimeSaferSubtract(&v45, &v44, &v37);
     operator*(&v37, &v38, 2.0);
-    operator/(&v38.value, &v39, 3.14159265);
+    operator/(&v38.value, 3.14159265, &v39);
     v22 = asin((a1 - v20) / (v21 - v20));
     operator*(&v39, &v40, v22);
     v45 = v40;
@@ -5439,7 +5435,7 @@ double OZExponentialInterpolator::interpolate(OZExponentialInterpolator *this, O
   time2 = v21;
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    OZSpline::getSmallDeltaU(a2, &v20);
+    OZSpline::getSmallDeltaU(&v20, a2);
     time1 = v22;
     time2 = v20;
     PC_CMTimeSaferAdd(&time1, &time2, &v21);
@@ -5514,7 +5510,7 @@ BOOL OZExponentialInterpolator::uForCurveValue(double a1, uint64_t a2, OZSpline 
     time2 = *(a5 + 16);
     if (CMTimeCompare(&time1, &time2) >= 1)
     {
-      OZSpline::getSmallDeltaU(a3, &v43);
+      OZSpline::getSmallDeltaU(&v43, a3);
       time1 = v45;
       time2 = v43;
       PC_CMTimeSaferAdd(&time1, &time2, &v44);
@@ -5693,7 +5689,7 @@ void OZInterpolators::~OZInterpolators(OZInterpolators *this)
   }
 }
 
-uint64_t OZInterpolators::getInterpolator(OZInterpolators *this, unsigned int a2)
+uint64_t OZInterpolators::getInterpolator(atomic_ullong *this, unsigned int a2)
 {
   if (a2 == 10)
   {
@@ -5717,7 +5713,7 @@ uint64_t OZInterpolators::getInterpolator(OZInterpolators *this, unsigned int a2
 
   else
   {
-    v5 = *(this + 2);
+    v5 = this[2];
 
     return OZInterpolatorStrategies::getInterpolator(v5, a2);
   }
@@ -5933,7 +5929,7 @@ void OZLinearInterpolator::interpolate(OZLinearInterpolator *this, OZSpline *a2,
   time2 = *(a5 + 16);
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    OZSpline::getSmallDeltaU(a2, &v14);
+    OZSpline::getSmallDeltaU(&v14, a2);
     time1 = v16;
     time2 = v14;
     v12.n128_f64[0] = PC_CMTimeSaferAdd(&time1, &time2, &v15);
@@ -6145,7 +6141,7 @@ double OZLogarithmicInterpolator::interpolate(OZLogarithmicInterpolator *this, O
   time2 = v16;
   if (CMTimeCompare(&time1, &time2) >= 1)
   {
-    OZSpline::getSmallDeltaU(a2, &v15);
+    OZSpline::getSmallDeltaU(&v15, a2);
     time1 = v17;
     time2 = v15;
     PC_CMTimeSaferAdd(&time1, &time2, &v16);
@@ -6209,7 +6205,7 @@ uint64_t OZLogarithmicInterpolator::uForCurveValue(double a1, uint64_t a2, OZSpl
     time2 = *(a5 + 16);
     if (CMTimeCompare(&time1, &time2) >= 1)
     {
-      OZSpline::getSmallDeltaU(a3, &v40);
+      OZSpline::getSmallDeltaU(&v40, a3);
       time1 = v42;
       time2 = v40;
       PC_CMTimeSaferAdd(&time1, &time2, &v41);
@@ -7815,11 +7811,12 @@ LABEL_9:
   PCSpinLock::unlock(this + 36);
 }
 
-BOOL OZRecordingNode::getUForValue(uint64_t a1, CMTime *a2, CMTime *a3, CMTime *a4, int a5, double a6)
+BOOL OZRecordingNode::getUForValue(uint64_t a1, CMTime *a2, CMTime *a3, CMTime *a4, uint64_t a5, double a6)
 {
+  v6 = a5;
   v11 = PVInstructionGraphContext::HGNodeCache(*(a1 + 112));
 
-  return OZSpline::getUForValue(v11, a2, a3, a4, a5, a6);
+  return OZSpline::getUForValue(v11, a2, a3, a4, v6, a6);
 }
 
 uint64_t *std::list<std::pair<CMTime,double>>::__assign_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::pair<CMTime,double>,void *>,std::__list_const_iterator<std::pair<CMTime,double>,void *>>(uint64_t *a1, uint64_t a2, uint64_t a3)
@@ -7844,7 +7841,7 @@ uint64_t *std::list<std::pair<CMTime,double>>::__assign_with_sentinel[abi:ne2001
   }
 }
 
-uint64_t std::list<std::pair<CMTime,double>>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::pair<CMTime,double>,void *>,std::__list_const_iterator<std::pair<CMTime,double>,void *>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *std::list<std::pair<CMTime,double>>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<std::pair<CMTime,double>,void *>,std::__list_const_iterator<std::pair<CMTime,double>,void *>>(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 != a4)
   {
@@ -7901,88 +7898,81 @@ void OZSplineNode::OZSplineNode(OZSplineNode *this, OZCurve *a2)
   *(v3 + 56) = 0;
 }
 
-void OZSplineNode::~OZSplineNode(OZSplineNode *this)
+void OZSplineNode::~OZSplineNode(OZChannelBase *this, const PCString *a2)
 {
-  *this = &unk_28724A440;
-  v2 = *(this + 3);
-  if (v2)
+  this->var0 = &unk_28724A440;
+  v3 = *&this->var3;
+  if (v3)
   {
-    OZSpline::deleteAllVertices(v2);
-    v3 = *(this + 3);
-    if (v3)
+    OZSpline::deleteAllVertices(v3);
+    v4 = *&this->var3;
+    if (v4)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v4 + 8))(v4);
     }
 
-    *(this + 3) = 0;
+    *&this->var3 = 0;
   }
 
-  OZEaseInInterpolator::~OZEaseInInterpolator(this);
+  OZEaseInInterpolator::~OZEaseInInterpolator(this, a2);
 }
 
 {
-  OZSplineNode::~OZSplineNode(this);
+  OZSplineNode::~OZSplineNode(this, a2);
 
   JUMPOUT(0x2666E9F00);
 }
 
-double OZSplineNode::getMinValue(OZSplineNode *this, char a2)
+void OZSplineNode::getMinValue(OZSplineNode *this, char a2)
 {
   v3 = *(this + 3);
-  if (!v3)
+  if (v3)
   {
-    return OZConstantNode::getMinValue(this);
-  }
+    if (a2)
+    {
+      OZSpline::getMinValueVWithTangents(v3, MEMORY[0x277CC08F0], 0);
+    }
 
-  if (a2)
-  {
-    return OZSpline::getMinValueVWithTangents(v3, MEMORY[0x277CC08F0], 0);
-  }
-
-  return OZSpline::getMinValueV(v3, MEMORY[0x277CC08F0], 0);
-}
-
-double OZSplineNode::getMaxValue(OZSplineNode *this, char a2)
-{
-  v3 = *(this + 3);
-  if (!v3)
-  {
-    return OZConstantNode::getMaxValue(this);
-  }
-
-  if (a2)
-  {
-    return OZSpline::getMaxValueVWithTangents(v3, MEMORY[0x277CC08F0], 0);
-  }
-
-  return OZSpline::getMaxValueV(v3, MEMORY[0x277CC08F0], 0);
-}
-
-__n128 OZSplineNode::getCurrentRange@<Q0>(OZSplineNode *this@<X0>, CMTime *a2@<X8>)
-{
-  v2 = *(this + 3);
-  if (v2)
-  {
-    OZSpline::getRangeU(v2, MEMORY[0x277CC08F0], a2);
+    else
+    {
+      OZSpline::getMinValueV(v3, MEMORY[0x277CC08F0], 0);
+    }
   }
 
   else
   {
-    v4 = MEMORY[0x277CC08F0];
-    result = *MEMORY[0x277CC08F0];
-    *&a2->value = *MEMORY[0x277CC08F0];
-    a2->epoch = *(v4 + 16);
+    OZConstantNode::getMinValue(this);
   }
-
-  return result;
 }
 
-__n128 OZSplineNode::getMaxValueU@<Q0>(OZSplineNode *this@<X0>, uint64_t a2@<X8>)
+void OZSplineNode::getMaxValue(OZSplineNode *this, char a2)
+{
+  v3 = *(this + 3);
+  if (v3)
+  {
+    if (a2)
+    {
+      OZSpline::getMaxValueVWithTangents(v3, MEMORY[0x277CC08F0], 0);
+    }
+
+    else
+    {
+      OZSpline::getMaxValueV(v3, MEMORY[0x277CC08F0], 0);
+    }
+  }
+
+  else
+  {
+    OZConstantNode::getMaxValue(this);
+  }
+}
+
+__n128 OZSplineNode::getCurrentRange@<Q0>(OZSplineNode *this@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *(this + 3);
   if (v2)
   {
-    result.n128_u64[0] = OZSpline::getMaxValueU(v2, MEMORY[0x277CC08F0], 1, a2).n128_u64[0];
+    OZSpline::getRangeU(a2, v2, MEMORY[0x277CC08F0]);
   }
 
   else
@@ -7990,18 +7980,18 @@ __n128 OZSplineNode::getMaxValueU@<Q0>(OZSplineNode *this@<X0>, uint64_t a2@<X8>
     v4 = MEMORY[0x277CC08F0];
     result = *MEMORY[0x277CC08F0];
     *a2 = *MEMORY[0x277CC08F0];
-    *(a2 + 16) = *(v4 + 16);
+    a2[2] = *(v4 + 16);
   }
 
   return result;
 }
 
-__n128 OZSplineNode::getMinValueU@<Q0>(OZSplineNode *this@<X0>, uint64_t a2@<X8>)
+__n128 OZSplineNode::getMaxValueU@<Q0>(OZSplineNode *this@<X0>, uint64_t *a2@<X8>)
 {
   v2 = *(this + 3);
   if (v2)
   {
-    OZSpline::getMinValueU(v2, MEMORY[0x277CC08F0], 1, a2);
+    result.n128_u64[0] = OZSpline::getMaxValueU(a2, v2, MEMORY[0x277CC08F0], 1).n128_u64[0];
   }
 
   else
@@ -8009,7 +7999,26 @@ __n128 OZSplineNode::getMinValueU@<Q0>(OZSplineNode *this@<X0>, uint64_t a2@<X8>
     v4 = MEMORY[0x277CC08F0];
     result = *MEMORY[0x277CC08F0];
     *a2 = *MEMORY[0x277CC08F0];
-    *(a2 + 16) = *(v4 + 16);
+    a2[2] = *(v4 + 16);
+  }
+
+  return result;
+}
+
+__n128 OZSplineNode::getMinValueU@<Q0>(OZSplineNode *this@<X0>, uint64_t *a2@<X8>)
+{
+  v2 = *(this + 3);
+  if (v2)
+  {
+    OZSpline::getMinValueU(a2, v2, MEMORY[0x277CC08F0], 1);
+  }
+
+  else
+  {
+    v4 = MEMORY[0x277CC08F0];
+    result = *MEMORY[0x277CC08F0];
+    *a2 = *MEMORY[0x277CC08F0];
+    a2[2] = *(v4 + 16);
   }
 
   return result;
@@ -8061,17 +8070,17 @@ uint64_t OZSplineNode::solveNode(OZSplineNode *this, OZCurveNodeParam *a2)
   }
 }
 
-BOOL OZSplineNode::getUForValue(uint64_t a1, CMTime *a2, CMTime *a3, CMTime *a4, int a5, double a6)
+BOOL OZSplineNode::getUForValue(uint64_t a1, CMTime *a2, CMTime *a3, CMTime *a4, uint64_t a5, __n128 a6)
 {
   v6 = *(a1 + 24);
   if (v6 && ((*(v6 + 24) - *(v6 + 16)) & 0x7FFFFFFF8) != 0)
   {
-    return OZSpline::getUForValue(*(a1 + 24), a2, a3, a4, a5, a6);
+    return OZSpline::getUForValue(*(a1 + 24), a2, a3, a4, a5, a6.n128_f64[0]);
   }
 
   else
   {
-    return OZConstantNode::getUForValue(a1, a2, &a3->value, a6);
+    return OZConstantNode::getUForValue(a1, a2, &a3->value, a6.n128_f64[0]);
   }
 }
 
@@ -8087,7 +8096,7 @@ uint64_t OZSplineNode::setValue(OZSpline **this, const CMTime *a2, __n128 a3, in
   {
     v7 = MEMORY[0x277CC08F0];
 
-    OZSpline::addVertexNoTangents(v4, a2, a3.n128_f64[0], v7);
+    OZSpline::addVertexNoTangents(v4, a2, a3.n128_f64[0], v7, 1);
   }
 
   v5 = *(*v4 + 192);
@@ -8133,7 +8142,7 @@ BOOL OZSplineNode::compare(OZSplineNode *this, const OZCurveNode *lpsrc)
   return result;
 }
 
-uint64_t OZSplineNode::operator=(OZSplineNode *a1, uint64_t a2)
+OZSpline *OZSplineNode::operator=(OZSplineNode *a1, uint64_t a2)
 {
   v4 = OZConstantNode::operator=(a1, a2);
   result = *(a1 + 3);
@@ -8188,7 +8197,7 @@ char *std::vector<OZVertex *>::insert(void *a1, char *__src, void *a3)
       std::vector<double>::__throw_length_error[abi:ne200100]();
     }
 
-    v12 = __src - v10;
+    v12 = &__src[-v10];
     v13 = v7 - v10;
     if (v13 >> 2 > v11)
     {
@@ -8283,7 +8292,7 @@ void sub_25FE941DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t OZDynamicSpline::subdivideWithAnimation(OZInterpolators **this, const CMTime *a2, OZDynamicVertex *a3, OZDynamicVertex *a4, OZDynamicVertex *a5)
+uint64_t OZDynamicSpline::subdivideWithAnimation(atomic_ullong **this, const CMTime *a2, OZDynamicVertex *a3, OZDynamicVertex *a4, OZDynamicVertex *a5)
 {
   v10 = (*(*a5 + 208))(a5);
   Interpolator = OZInterpolators::getInterpolator(this[19], v10);
@@ -8441,10 +8450,10 @@ uint64_t OZDynamicSpline::sampleSpline(OZDynamicSpline *this, Float64 a2, Float6
   return 1;
 }
 
-uint64_t OZDynamicSpline::sampleSpline(OZInterpolators **this, const CMTime *a2, CMTime *a3, int32_t *a4, CMTime *a5, double *a6, const CMTime *a7, char a8)
+uint64_t OZDynamicSpline::sampleSpline(atomic_ullong **this, const CMTime *a2, CMTime *a3, int32_t *a4, CMTime *a5, double *a6, const CMTime *a7, char a8)
 {
   v37 = 0;
-  (*(*this + 2))(this, &v37, 0, 0);
+  ((*this)[2])(this, &v37, 0, 0);
   Interpolator = OZInterpolators::getInterpolator(this[19], v37);
   if ((*(*Interpolator + 64))(Interpolator))
   {
@@ -8540,7 +8549,7 @@ LABEL_7:
   return 1;
 }
 
-uint64_t OZDynamicSpline::sampleSpline(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, Float64 a6, Float64 a7)
+uint64_t OZDynamicSpline::sampleSpline(uint64_t a1, _DWORD *a2, const void **a3, uint64_t a4, uint64_t a5, Float64 a6, Float64 a7)
 {
   if (a3)
   {
@@ -8553,8 +8562,9 @@ uint64_t OZDynamicSpline::sampleSpline(uint64_t a1, uint64_t a2, uint64_t a3, ui
   return 1;
 }
 
-uint64_t OZDynamicSpline::sampleSpline(os_unfair_lock_s *a1, CMTime *a2, CMTime *a3, int32_t *a4, const void **a5, const void **a6, const CMTime *a7, char a8)
+uint64_t OZDynamicSpline::sampleSpline(os_unfair_lock_s *a1, CMTime *a2, CMTime *a3, int32_t *a4, const void **a5, const void **a6, const CMTime *a7, uint64_t a8)
 {
+  v8 = a8;
   v61 = 0;
   if (a5)
   {
@@ -8570,7 +8580,7 @@ uint64_t OZDynamicSpline::sampleSpline(os_unfair_lock_s *a1, CMTime *a2, CMTime 
   Interpolator = OZInterpolators::getInterpolator(*&a1[38]._os_unfair_lock_opaque, v61);
   if ((*(*Interpolator + 64))(Interpolator))
   {
-    OZSpline::sampleSpline(a1, a2, a3, a4, a5, a6, a7, a8);
+    OZSpline::sampleSpline(a1, a2, a3, a4, a5, a6, a7, v8);
     return 1;
   }
 
@@ -8667,7 +8677,7 @@ LABEL_11:
           }
 
           *(8 * v30) = v53;
-          v27 = 8 * v30 + 8;
+          v27 = (8 * v30 + 8);
           memcpy(0, v28, v29);
           v35 = *a6;
           *a6 = 0;
@@ -8682,7 +8692,7 @@ LABEL_11:
         else
         {
           *v26 = v53;
-          v27 = (v26 + 8);
+          v27 = v26 + 8;
         }
 
         a6[1] = v27;
@@ -8926,7 +8936,7 @@ void OZDynamicSpline::deriveCurve(OZDynamicSpline *this, OZVertex *lpsrc, const 
     {
       OZDynamicVertex::OZDynamicVertex(v23, v15);
       v21 = *(lpsrc + 16);
-      OZSpline::getStep(this, &v20);
+      OZSpline::getStep(&v20, this);
       v31 = v21;
       v30 = v20;
       PC_CMTimeSaferAdd(&v31, &v30, &v22);
@@ -8947,7 +8957,7 @@ void OZDynamicSpline::deriveCurve(OZDynamicSpline *this, OZVertex *lpsrc, const 
   {
     OZDynamicVertex::OZDynamicVertex(v23, v10);
     v21 = *(lpsrc + 16);
-    OZSpline::getStep(this, &v20);
+    OZSpline::getStep(&v20, this);
     v31 = v21;
     v30 = v20;
     PC_CMTimeSaferSubtract(&v31, &v30, &v22);
@@ -9058,10 +9068,10 @@ BOOL OZDynamicSpline::updateVertexBias(OZDynamicSpline *this, void *a2)
   return a2 != 0;
 }
 
-uint64_t OZDynamicSpline::getVertexToInsert(OZDynamicSpline *this, const CMTime *a2, const CMTime *a3, double *a4, double *a5, double *a6, double *a7, double *a8)
+uint64_t OZDynamicSpline::getVertexToInsert(atomic_ullong **this, const CMTime *a2, const CMTime *a3, double *a4, double *a5, double *a6, double *a7, double *a8)
 {
   v14 = 0;
-  (*(*this + 16))(this, &v14, 0, 0);
+  ((*this)[2])(this, &v14, 0, 0);
   v12 = 0;
   v13 = 0;
   result = OZSpline::getPreviousValidVertex(this, a3, &v13, a2, 0);
@@ -9077,11 +9087,11 @@ uint64_t OZDynamicSpline::getVertexToInsert(OZDynamicSpline *this, const CMTime 
   return result;
 }
 
-uint64_t OZDynamicSpline::getAllVerticesHandles(OZSpline *a1, uint64_t a2)
+uint64_t OZDynamicSpline::getAllVerticesHandles(uint64_t **a1, uint64_t a2)
 {
   OZSpline::preSplineAccess(a1, 1);
-  v4 = *(a1 + 2);
-  v5 = *(a1 + 3);
+  v4 = a1[2];
+  v5 = a1[3];
   if (v4 != v5)
   {
     v6 = *(a2 + 8);
@@ -9151,7 +9161,7 @@ uint64_t OZDynamicSpline::getAllVerticesHandles(OZSpline *a1, uint64_t a2)
   return 1;
 }
 
-uint64_t OZDynamicSpline::deleteVertex(char **this, void *a2, int a3, const CMTime *a4)
+uint64_t OZDynamicSpline::deleteVertex(void ***this, void *a2, int a3, const CMTime *a4)
 {
   OZSpline::preSplineAccess(this, 1);
   if (!a2)
@@ -9200,12 +9210,12 @@ LABEL_4:
 
     v13 = this[3];
     v14 = v13 - (v11 + 1);
-    if (v13 != (v11 + 1))
+    if (v13 != v11 + 1)
     {
       memmove(v11, v11 + 1, v13 - (v11 + 1));
     }
 
-    this[3] = v11 + v14;
+    this[3] = (v11 + v14);
     (*(*v9 + 8))(v9);
     if (this[2] == this[3])
     {
@@ -9301,9 +9311,9 @@ uint64_t std::vector<OZDynamicVertex>::__emplace_back_slow_path<OZDynamicVertex 
   return v12;
 }
 
-void sub_25FE972AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25FE972AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<OZDynamicVertex>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9318,7 +9328,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<OZDynamicVertex>>(uin
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-OZDynamicVertex *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<OZDynamicVertex>,OZDynamicVertex*>(int a1, OZDynamicVertex *a2, OZDynamicVertex *a3, uint64_t a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<OZDynamicVertex>,OZDynamicVertex*>(int a1, OZDynamicVertex *a2, OZDynamicVertex *a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -9327,7 +9337,7 @@ OZDynamicVertex *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allo
     v8 = a2;
     do
     {
-      result = OZDynamicVertex::OZDynamicVertex((a4 + v7), v8);
+      OZDynamicVertex::OZDynamicVertex((a4 + v7), v8);
       v8 = (v8 + 944);
       v7 += 944;
     }
@@ -9335,19 +9345,17 @@ OZDynamicVertex *std::__uninitialized_allocator_relocate[abi:ne200100]<std::allo
     while (v8 != a3);
     if (v6 != a3)
     {
-      v10 = v6;
+      v9 = v6;
       do
       {
-        result = (**v6)(v6);
+        (**v6)(v6);
         v6 = (v6 + 944);
-        v10 = (v10 + 944);
+        v9 = (v9 + 944);
       }
 
       while (v6 != a3);
     }
   }
-
-  return result;
 }
 
 void sub_25FE973C4(_Unwind_Exception *exception_object)
@@ -9540,19 +9548,17 @@ void OZSpline::preSplineAccess(OZSpline *this, int a2)
   }
 }
 
-void *std::vector<OZVertex *>::reserve(void *result, unint64_t a2)
+void std::vector<OZVertex *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HGRef<HGBitmap>>>(a1, a2);
     }
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void OZSpline::refreshValidVerticesList(OZSpline *this)

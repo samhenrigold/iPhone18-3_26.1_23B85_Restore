@@ -3,6 +3,7 @@
 - (_INPBSupportedTrafficIncidentType)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -158,7 +159,6 @@ LABEL_10:
 
   if ([(_INPBSupportedTrafficIncidentType *)self hasType])
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -194,6 +194,21 @@ LABEL_10:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72887C8[string];
   }
 
   return v4;

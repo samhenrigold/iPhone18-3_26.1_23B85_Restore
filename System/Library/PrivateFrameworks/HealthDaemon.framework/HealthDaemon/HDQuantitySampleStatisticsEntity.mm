@@ -7,42 +7,39 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"owner_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"owner_id";
   v2 = +[(HDDataEntity *)HDQuantitySampleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (BOOL)setDiscreteQuantitySampleStatistics:(id)statistics persistentID:(id)d database:(id)database error:(id *)error
 {
-  v23[6] = *MEMORY[0x277D85DE8];
+  v22[6] = *MEMORY[0x277D85DE8];
   statisticsCopy = statistics;
   dCopy = d;
-  v23[0] = @"owner_id";
-  v23[1] = @"min";
-  v23[2] = @"max";
-  v23[3] = @"most_recent";
-  v23[4] = @"most_recent_date";
-  v23[5] = @"most_recent_duration";
+  v22[0] = @"owner_id";
+  v22[1] = @"min";
+  v22[2] = @"max";
+  v22[3] = @"most_recent";
+  v22[4] = @"most_recent_date";
+  v22[5] = @"most_recent_duration";
   v12 = MEMORY[0x277CBEA60];
   databaseCopy = database;
-  v14 = [v12 arrayWithObjects:v23 count:6];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __100__HDQuantitySampleStatisticsEntity_setDiscreteQuantitySampleStatistics_persistentID_database_error___block_invoke;
-  v20[3] = &unk_278613DE8;
-  v21 = dCopy;
-  v22 = statisticsCopy;
+  v14 = [v12 arrayWithObjects:v22 count:6];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __100__HDQuantitySampleStatisticsEntity_setDiscreteQuantitySampleStatistics_persistentID_database_error___block_invoke;
+  v19[3] = &unk_278613DE8;
+  v20 = dCopy;
+  v21 = statisticsCopy;
   v15 = statisticsCopy;
   v16 = dCopy;
-  v17 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v14 error:error bindingHandler:v20];
+  v17 = [self insertOrReplaceEntity:1 database:databaseCopy properties:v14 error:error bindingHandler:v19];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17 != 0;
 }
 

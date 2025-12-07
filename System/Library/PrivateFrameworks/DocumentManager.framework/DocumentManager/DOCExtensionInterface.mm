@@ -19,9 +19,11 @@
 
 uint64_t __37__DOCExtensionInterface_hostProtocol__block_invoke()
 {
-  hostProtocol___interface = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5F54538];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5F54538];
+  v1 = hostProtocol___interface;
+  hostProtocol___interface = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)vendorProtocol

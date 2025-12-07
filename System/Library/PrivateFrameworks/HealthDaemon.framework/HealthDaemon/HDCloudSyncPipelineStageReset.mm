@@ -7,7 +7,7 @@
 
 - (void)main
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [HDCloudSyncCompoundOperation alloc];
   configuration = [(HDCloudSyncOperation *)self configuration];
   cloudState = [(HDCloudSyncOperation *)self cloudState];
@@ -19,25 +19,25 @@
   v10 = [(HDCloudSyncPipelineStageReset *)self _resetOperationForContainer:primaryCKContainer primary:1];
 
   [(HDCloudSyncCompoundOperation *)v6 addOperation:v10 transitionHandler:0];
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   configuration3 = [(HDCloudSyncOperation *)self configuration];
   repository2 = [configuration3 repository];
   secondaryCKContainers = [repository2 secondaryCKContainers];
 
-  v14 = [secondaryCKContainers countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v14 = [secondaryCKContainers countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v21;
+    v16 = *v20;
     do
     {
       v17 = 0;
       do
       {
-        if (*v21 != v16)
+        if (*v20 != v16)
         {
           objc_enumerationMutation(secondaryCKContainers);
         }
@@ -49,14 +49,13 @@
       }
 
       while (v15 != v17);
-      v15 = [secondaryCKContainers countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v15 = [secondaryCKContainers countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v15);
   }
 
   [(HDCloudSyncOperation *)self delegateToOperation:v6];
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (HDCloudSyncResetOperation)_resetOperationForContainer:(int)container primary:

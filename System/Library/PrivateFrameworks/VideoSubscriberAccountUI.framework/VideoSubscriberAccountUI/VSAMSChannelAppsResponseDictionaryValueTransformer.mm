@@ -7,13 +7,13 @@
 
 - (id)transformedValue:(id)value
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   v5 = VSDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v42 = valueCopy;
+    v41 = valueCopy;
     _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "Handling response %@", buf, 0xCu);
   }
 
@@ -35,13 +35,13 @@
   v14 = [v12 vs_dictionaryForKey:@"channel-apps"];
   v15 = [v12 vs_dictionaryForKey:@"apps"];
   v16 = !v12 || v13 == 0;
-  v39 = v15;
-  v40 = v14;
+  v38 = v15;
+  v39 = v14;
   v17 = v16 || v14 == 0;
   v18 = v17 || v15 == 0;
   v19 = !v18;
-  v37 = v19;
-  v38 = v13;
+  v36 = v19;
+  v37 = v13;
   if (v18)
   {
     v9 = 0x277CE2000uLL;
@@ -66,9 +66,9 @@
       [v20 addObjectsFromArray:v22];
     }
 
-    v33 = v22;
-    v36 = v21;
-    v23 = [v39 vs_arrayForKey:@"data"];
+    v32 = v22;
+    v35 = v21;
+    v23 = [v38 vs_arrayForKey:@"data"];
     if (v23)
     {
       [v20 addObjectsFromArray:v23];
@@ -81,16 +81,16 @@
     [v7 addObjectsFromArray:allApps];
 
     appsByChannelID = [v25 appsByChannelID];
-    v35 = v7;
+    v34 = v7;
     v28 = v23;
     v29 = [appsByChannelID mutableCopy];
     [v8 addEntriesFromDictionary:v29];
 
-    v7 = v35;
+    v7 = v34;
     v9 = 0x277CE2000;
   }
 
-  if (v37)
+  if (v36)
   {
 LABEL_26:
     [(VSIdentityProviderChannelAppsResponse *)v6 setAllApps:v7];
@@ -98,49 +98,47 @@ LABEL_26:
     v29 = [*(v9 + 592) failableWithObject:v6];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 - (id)parseAppData:(id)data
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v28 = objc_alloc_init(VSIdentityProviderChannelAppsResponse);
-  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = objc_alloc_init(VSIdentityProviderChannelAppsResponse);
+  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v32 = [MEMORY[0x277CCAE68] valueTransformerForName:@"VSAMSAppsValueTransformer"];
+  v31 = [MEMORY[0x277CCAE68] valueTransformerForName:@"VSAMSAppsValueTransformer"];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v27 = dataCopy;
+  v26 = dataCopy;
   obj = [dataCopy vs_arrayOfDictionariesForKey:@"data"];
-  v33 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-  if (v33)
+  v32 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+  if (v32)
   {
-    v31 = *v43;
+    v30 = *v42;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v43 != v31)
+        if (*v42 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v42 + 1) + 8 * i);
-        v7 = [v32 transformedValue:v6];
+        v6 = *(*(&v41 + 1) + 8 * i);
+        v7 = [v31 transformedValue:v6];
         if (v7)
         {
-          v37 = i;
+          v36 = i;
           v8 = [v6 vs_dictionaryForKey:@"meta"];
           v9 = [v8 vs_arrayOfStringsForKey:@"channels"];
-          v36 = v8;
+          v35 = v8;
           v10 = [v8 vs_arrayOfStringsForKey:@"subscriptions"];
-          v34 = v10;
-          v35 = v9;
+          v33 = v10;
+          v34 = v9;
           if (v9)
           {
             v11 = v9;
@@ -155,25 +153,25 @@ LABEL_26:
           v13 = v12;
           if (v12)
           {
-            v40 = 0u;
-            v41 = 0u;
-            v38 = 0u;
             v39 = 0u;
-            v14 = [v12 countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v40 = 0u;
+            v37 = 0u;
+            v38 = 0u;
+            v14 = [v12 countByEnumeratingWithState:&v37 objects:v45 count:16];
             if (v14)
             {
               v15 = v14;
-              v16 = *v39;
+              v16 = *v38;
               do
               {
                 for (j = 0; j != v15; ++j)
                 {
-                  if (*v39 != v16)
+                  if (*v38 != v16)
                   {
                     objc_enumerationMutation(v13);
                   }
 
-                  v18 = *(*(&v38 + 1) + 8 * j);
+                  v18 = *(*(&v37 + 1) + 8 * j);
                   v19 = [v4 objectForKey:v18];
                   v20 = v19;
                   if (v19)
@@ -192,7 +190,7 @@ LABEL_26:
                   [v4 setObject:v22 forKey:v18];
                 }
 
-                v15 = [v13 countByEnumeratingWithState:&v38 objects:v46 count:16];
+                v15 = [v13 countByEnumeratingWithState:&v37 objects:v45 count:16];
               }
 
               while (v15);
@@ -200,12 +198,12 @@ LABEL_26:
           }
 
           v23 = 1;
-          if (v34)
+          if (v33)
           {
             v23 = 2;
           }
 
-          if (v35)
+          if (v34)
           {
             v24 = 0;
           }
@@ -216,24 +214,22 @@ LABEL_26:
           }
 
           [v7 setAppType:v24];
-          [v30 addObject:v7];
+          [v29 addObject:v7];
 
-          i = v37;
+          i = v36;
         }
       }
 
-      v33 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v32 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
-  [(VSIdentityProviderChannelAppsResponse *)v28 setAllApps:v30];
-  [(VSIdentityProviderChannelAppsResponse *)v28 setAppsByChannelID:v4];
+  [(VSIdentityProviderChannelAppsResponse *)v27 setAllApps:v29];
+  [(VSIdentityProviderChannelAppsResponse *)v27 setAppsByChannelID:v4];
 
-  v25 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 @end

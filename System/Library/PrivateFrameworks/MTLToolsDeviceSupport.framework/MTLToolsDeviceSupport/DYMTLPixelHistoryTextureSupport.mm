@@ -84,19 +84,14 @@ void __140__DYMTLPixelHistoryTextureSupport_pixelValueFromTexture_level_slice_de
   {
     device = [commandBufferCopy device];
     [textureCopy pixelFormat];
-    v33 = 0;
-    v31 = 0u;
-    v32 = 0u;
-    v30 = 0u;
+    v28 = 0;
+    v26 = 0u;
+    v27 = 0u;
+    v25 = 0u;
     MTLPixelFormatGetInfoForDevice();
     blitCommandEncoder = [commandBufferCopy blitCommandEncoder];
-    v29 = 0;
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
-    v24 = 0u;
+    v24 = 0;
+    memset(v23, 0, sizeof(v23));
     MTLGetTextureLevelInfoForDeviceWithOptions();
     v21 = vdupq_n_s64(1uLL);
     *&v22 = 1;

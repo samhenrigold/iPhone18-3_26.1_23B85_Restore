@@ -8,6 +8,7 @@
 - (id)mostRecentBootTime;
 - (id)recentlyInstalledAppsLimitedTo:(int)to;
 - (void)buildClosuresForApps:(id)apps withTask:(id)task onBoot:(BOOL)boot;
+- (void)buildClosuresForMaximum:(int)maximum withMinimumLikelihood:(double)likelihood recentInstallCount:(int)count task:(id)task onBoot:(BOOL)boot;
 - (void)collectClosureTelemetryWithTask:(id)task;
 - (void)collectLaunchDataWithBootBatchTimestamp:(double)timestamp opportunisticBatchTimestamp:(double)batchTimestamp completion:(id)completion;
 - (void)collectPrewarmingDataWithCompletion:(id)completion;
@@ -407,6 +408,162 @@ LABEL_6:
   allKeys = [countsDictionary allKeys];
 
   return allKeys;
+}
+
+- (void)buildClosuresForMaximum:(int)maximum withMinimumLikelihood:(double)likelihood recentInstallCount:(int)count task:(id)task onBoot:(BOOL)boot
+{
+  bootCopy = boot;
+  v8 = *&count;
+  taskCopy = task;
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x2020000000;
+  v63 = 0;
+  v59[0] = _NSConcreteStackBlock;
+  v59[1] = 3221225472;
+  v59[2] = sub_10008CDAC;
+  v59[3] = &unk_1001B5798;
+  v59[4] = &v60;
+  [taskCopy setExpirationHandler:v59];
+  if (DMIsMigrationNeeded())
+  {
+    v13 = qword_10020B5C0;
+    v14 = os_signpost_id_generate(qword_10020B5C0);
+    if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v15 = v14;
+      if (os_signpost_enabled(v13))
+      {
+        *buf = 67109120;
+        LODWORD(v65) = bootCopy;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_EVENT, v15, "DuetClosuresPrewarm", "onBoot:%d, bundleIDs:", buf, 8u);
+      }
+    }
+
+    [taskCopy setTaskCompleted];
+  }
+
+  else
+  {
+    v46 = bootCopy;
+    appsLaunchedSinceBoot = [(_DASClosureManager *)self appsLaunchedSinceBoot];
+    appsToExclude = [(_DASClosureManager *)self appsToExclude];
+    v18 = [appsLaunchedSinceBoot arrayByAddingObjectsFromArray:appsToExclude];
+
+    v19 = [NSDate dateWithTimeIntervalSinceNow:-1209600.0];
+    v50 = [BMPublisherOptions optionsWithStartDate:v19];
+
+    v20 = +[_DASBMUtilityProvider sharedUtilityProvider];
+    getConsoleUserUid = [v20 getConsoleUserUid];
+
+    v22 = BiomeLibrary();
+    v23 = [v22 App];
+    inFocus = [v23 InFocus];
+    v25 = [inFocus publisherWithUser:getConsoleUserUid useCase:@"DASBiomeUtilityUseCase" options:v50];
+
+    v57[0] = _NSConcreteStackBlock;
+    v57[1] = 3221225472;
+    v57[2] = sub_10008CDC0;
+    v57[3] = &unk_1001B7298;
+    v48 = v18;
+    v58 = v48;
+    v26 = [v25 filterWithIsIncluded:v57];
+    maximumCopy = maximum;
+    v28 = [(_DASTimelinePredictor *)self->_timelinePredictor launchLikelihoodForTop:maximum withMinimumLikelihood:86400 withTemporalResolution:v25 onPublisher:likelihood];
+    if (v28)
+    {
+      v29 = +[NSDate date];
+      v49 = [v28 valueAtDate:v29];
+
+      v30 = qword_10020B5C8;
+      if (os_log_type_enabled(qword_10020B5C8, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v65 = v49;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Elements are: %@", buf, 0xCu);
+      }
+
+      if (*(v61 + 24) == 1)
+      {
+        v56 = 0;
+        v31 = [taskCopy setTaskExpiredWithRetryAfter:&v56 error:0.0];
+        v47 = v56;
+        if ((v31 & 1) == 0)
+        {
+          v32 = qword_10020B5C0;
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_FAULT))
+          {
+            identifier = [taskCopy identifier];
+            sub_100123E24(identifier, v47, buf);
+          }
+
+          [taskCopy setTaskCompleted];
+        }
+      }
+
+      else
+      {
+        allKeys = [v49 allKeys];
+        v47 = [allKeys mutableCopy];
+
+        v54[0] = _NSConcreteStackBlock;
+        v54[1] = 3221225472;
+        v54[2] = sub_10008CE88;
+        v54[3] = &unk_1001B6390;
+        v55 = v49;
+        [v47 sortUsingComparator:v54];
+        v53[0] = _NSConcreteStackBlock;
+        v53[1] = 3221225472;
+        v53[2] = sub_10008CF1C;
+        v53[3] = &unk_1001B72C0;
+        v53[4] = self;
+        v36 = [NSPredicate predicateWithBlock:v53];
+        v37 = [v47 filteredArrayUsingPredicate:v36];
+
+        if (objc_msgSend_count(v37) > maximumCopy)
+        {
+          v38 = [v37 subarrayWithRange:{0, maximumCopy}];
+
+          v37 = v38;
+        }
+
+        v39 = [v37 arrayByAddingObject:@"com.apple.InputUI"];
+
+        v40 = [(_DASClosureManager *)self recentlyInstalledAppsLimitedTo:v8];
+        v52[0] = _NSConcreteStackBlock;
+        v52[1] = 3221225472;
+        v52[2] = sub_10008CF28;
+        v52[3] = &unk_1001B72E8;
+        v52[4] = self;
+        v41 = [NSPredicate predicateWithBlock:v52];
+        v42 = [v40 filteredSetUsingPredicate:v41];
+
+        v43 = [v42 setByAddingObjectsFromArray:v39];
+        v51[0] = _NSConcreteStackBlock;
+        v51[1] = 3221225472;
+        v51[2] = sub_10008CF34;
+        v51[3] = &unk_1001B72C0;
+        v51[4] = self;
+        v44 = [NSPredicate predicateWithBlock:v51];
+        v45 = [v43 filteredSetUsingPredicate:v44];
+
+        [(_DASClosureManager *)self buildClosuresForApps:v45 withTask:taskCopy onBoot:v46];
+      }
+    }
+
+    else
+    {
+      v34 = qword_10020B5C8;
+      if (os_log_type_enabled(qword_10020B5C8, OS_LOG_TYPE_ERROR))
+      {
+        sub_10011C1E0(v34);
+      }
+
+      [taskCopy setTaskCompleted];
+    }
+  }
+
+  _Block_object_dispose(&v60, 8);
 }
 
 - (id)mostRecentBootTime

@@ -25,9 +25,9 @@
 - (CGSize)sizeThatFits:(CGSize)fits
 {
   height = fits.height;
-  width = fits.width;
   selfCopy = self;
-  v6 = sub_100270A74(width, height);
+  sub_100270A74();
+  v6 = v5;
   sub_1002AED00(v12);
   v7 = sub_10067A3C8(v12, v6, height);
   v9 = v8;
@@ -55,11 +55,12 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC8AppStore31CarouselItemSingleModuleOverlay_selectionHandler);
   if (v3)
   {
+    v4 = *&self->headerView[OBJC_IVAR____TtC8AppStore31CarouselItemSingleModuleOverlay_selectionHandler];
     selfCopy = self;
-    v5 = sub_10000827C(v3);
-    v3(v5);
+    v6 = sub_10000827C(v3, v4);
+    v3(v6);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v4);
   }
 }
 

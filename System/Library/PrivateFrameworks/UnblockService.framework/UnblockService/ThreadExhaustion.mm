@@ -5,7 +5,7 @@
 
 void __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLimit_threadIDToThreadExhaustionDict___block_invoke(void *a1, void *a2, void *a3)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 lastObject];
@@ -14,23 +14,23 @@ void __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLi
 
   if (([v9 wqExceededTotalThreadLimit] & 1) != 0 || objc_msgSend(v9, "wqExceededConstrainedThreadLimit"))
   {
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
     v47 = 0;
-    v40 = 0;
-    v41 = &v40;
-    v42 = 0x2020000000;
+    v48 = &v47;
+    v49 = 0x2020000000;
+    v50 = 0;
     v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
+    v46 = 0;
     v10 = [v7 threads];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLimit_threadIDToThreadExhaustionDict___block_invoke_2;
-    v39[3] = &unk_279E02C30;
-    v39[6] = a1[6];
-    v39[4] = &v40;
-    v39[5] = &v44;
-    [v10 enumerateKeysAndObjectsUsingBlock:v39];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLimit_threadIDToThreadExhaustionDict___block_invoke_2;
+    v42[3] = &unk_279E02C30;
+    v42[6] = a1[6];
+    v42[4] = &v43;
+    v42[5] = &v47;
+    [v10 enumerateKeysAndObjectsUsingBlock:v42];
 
     if ([v9 wqExceededTotalThreadLimit])
     {
@@ -45,51 +45,53 @@ void __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLi
         v11 = _gUBWorkQueueTotalThreadLimit;
       }
 
-      if (v45[3] >= v11)
+      if (v48[3] >= v11)
       {
-        v12 = *__error();
-        v13 = _ublogt();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v27 = __error();
+        v13 = *v27;
+        v14 = _ublogt(v27);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = [v7 name];
-          v26 = [v7 pid];
-          v27 = v45[3];
-          v28 = a1[6];
+          v28 = [v7 name];
+          v29 = [v7 pid];
+          v30 = v48[3];
+          v31 = a1[6];
           *buf = 138544386;
-          v49 = v25;
-          v50 = 1024;
-          v51 = v26;
-          v52 = 1024;
-          v53 = v11;
-          v54 = 2048;
-          v55 = v27;
-          v56 = 2048;
-          v57 = v28;
-          _os_log_impl(&dword_270397000, v13, OS_LOG_TYPE_DEFAULT, "Task %{public}@ [%d] has hit the total thread limit (%u) and %llu threads are blocked for at least %fs.", buf, 0x2Cu);
+          v52 = v28;
+          v53 = 1024;
+          v54 = v29;
+          v55 = 1024;
+          v56 = v11;
+          v57 = 2048;
+          v58 = v30;
+          v59 = 2048;
+          v60 = v31;
+          _os_log_impl(&dword_270397000, v14, OS_LOG_TYPE_DEFAULT, "Task %{public}@ [%d] has hit the total thread limit (%u) and %llu threads are blocked for at least %fs.", buf, 0x2Cu);
         }
       }
 
       else
       {
-        v12 = *__error();
-        v13 = _ublogt();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v12 = __error();
+        v13 = *v12;
+        v14 = _ublogt(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
-          v14 = [v7 name];
-          v15 = [v7 pid];
-          v16 = v45[3];
-          v17 = a1[6];
+          v15 = [v7 name];
+          v16 = [v7 pid];
+          v17 = v48[3];
+          v18 = a1[6];
           *buf = 138544386;
-          v49 = v14;
-          v50 = 1024;
-          v51 = v15;
-          v52 = 1024;
-          v53 = v11;
-          v54 = 2048;
-          v55 = v16;
-          v56 = 2048;
-          v57 = v17;
-          _os_log_impl(&dword_270397000, v13, OS_LOG_TYPE_INFO, "Task %{public}@ [%d] has hit the total thread limit (%u). Only %llu threads are blocked for at least %fs, still reporting.", buf, 0x2Cu);
+          v52 = v15;
+          v53 = 1024;
+          v54 = v16;
+          v55 = 1024;
+          v56 = v11;
+          v57 = 2048;
+          v58 = v17;
+          v59 = 2048;
+          v60 = v18;
+          _os_log_impl(&dword_270397000, v14, OS_LOG_TYPE_INFO, "Task %{public}@ [%d] has hit the total thread limit (%u). Only %llu threads are blocked for at least %fs, still reporting.", buf, 0x2Cu);
         }
       }
     }
@@ -99,88 +101,88 @@ void __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLi
       if (![v9 wqExceededConstrainedThreadLimit])
       {
 LABEL_27:
-        v33 = [UBThreadExhaustionInfo alloc];
-        v34 = [(UBThreadExhaustionInfo *)v33 initWithTask:v7 timeSpentBlocked:v45[3] numThreadsInvolved:v41[3]];
-        v35 = [(UBThreadExhaustionInfo *)v34 tasksBlocked];
-        [v35 addObject:v7];
+        v37 = [UBThreadExhaustionInfo alloc];
+        v38 = [(UBThreadExhaustionInfo *)v37 initWithTask:v7 timeSpentBlocked:v48[3] numThreadsInvolved:v44[3]];
+        v39 = [(UBThreadExhaustionInfo *)v38 tasksBlocked];
+        [v39 addObject:v7];
 
-        v36 = a1[5];
-        v37 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v7, "pid")}];
-        [v36 setObject:v34 forKeyedSubscript:v37];
+        v40 = a1[5];
+        v41 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v7, "pid")}];
+        [v40 setObject:v38 forKeyedSubscript:v41];
 
 LABEL_28:
-        _Block_object_dispose(&v40, 8);
-        _Block_object_dispose(&v44, 8);
+        _Block_object_dispose(&v43, 8);
+        _Block_object_dispose(&v47, 8);
         goto LABEL_29;
       }
 
-      v18 = [*(a1[4] + 32) workQueueSoftThreadLimit];
-      if (!v18)
+      v19 = [*(a1[4] + 32) workQueueSoftThreadLimit];
+      if (!v19)
       {
         if (UBWQConstrainedThreadLimit_onceToken != -1)
         {
           __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLimit_threadIDToThreadExhaustionDict___block_invoke_cold_1();
         }
 
-        v18 = _gUBWorkQueueConstrainedThreadLimit;
+        v19 = _gUBWorkQueueConstrainedThreadLimit;
       }
 
-      if (v45[3] < v18)
+      if (v48[3] < v19)
       {
-        v19 = *__error();
-        v20 = _ublogt();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+        v20 = __error();
+        v21 = *v20;
+        v22 = _ublogt(v20);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v21 = [v7 name];
-          v22 = [v7 pid];
-          v23 = v45[3];
-          v24 = a1[6];
+          v23 = [v7 name];
+          v24 = [v7 pid];
+          v25 = v48[3];
+          v26 = a1[6];
           *buf = 138544386;
-          v49 = v21;
-          v50 = 1024;
-          v51 = v22;
-          v52 = 1024;
-          v53 = v18;
-          v54 = 2048;
-          v55 = v23;
-          v56 = 2048;
-          v57 = v24;
-          _os_log_impl(&dword_270397000, v20, OS_LOG_TYPE_INFO, "Task %{public}@ [%d] has hit the constrained thread limit (%u) but only %llu threads are blocked for at least %fs, ignoring.", buf, 0x2Cu);
+          v52 = v23;
+          v53 = 1024;
+          v54 = v24;
+          v55 = 1024;
+          v56 = v19;
+          v57 = 2048;
+          v58 = v25;
+          v59 = 2048;
+          v60 = v26;
+          _os_log_impl(&dword_270397000, v22, OS_LOG_TYPE_INFO, "Task %{public}@ [%d] has hit the constrained thread limit (%u) but only %llu threads are blocked for at least %fs, ignoring.", buf, 0x2Cu);
         }
 
-        *__error() = v19;
+        *__error() = v21;
         goto LABEL_28;
       }
 
-      v12 = *__error();
-      v13 = _ublogt();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v32 = __error();
+      v13 = *v32;
+      v14 = _ublogt(v32);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = [v7 name];
-        v30 = [v7 pid];
-        v31 = v45[3];
-        v32 = a1[6];
+        v33 = [v7 name];
+        v34 = [v7 pid];
+        v35 = v48[3];
+        v36 = a1[6];
         *buf = 138544386;
-        v49 = v29;
-        v50 = 1024;
-        v51 = v30;
-        v52 = 1024;
-        v53 = v18;
-        v54 = 2048;
-        v55 = v31;
-        v56 = 2048;
-        v57 = v32;
-        _os_log_impl(&dword_270397000, v13, OS_LOG_TYPE_DEFAULT, "Task %{public}@ [%d] has hit the constrained thread limit (%u) and %llu threads are blocked for at least %fs.", buf, 0x2Cu);
+        v52 = v33;
+        v53 = 1024;
+        v54 = v34;
+        v55 = 1024;
+        v56 = v19;
+        v57 = 2048;
+        v58 = v35;
+        v59 = 2048;
+        v60 = v36;
+        _os_log_impl(&dword_270397000, v14, OS_LOG_TYPE_DEFAULT, "Task %{public}@ [%d] has hit the constrained thread limit (%u) and %llu threads are blocked for at least %fs.", buf, 0x2Cu);
       }
     }
 
-    *__error() = v12;
+    *__error() = v13;
     goto LABEL_27;
   }
 
 LABEL_29:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLimit_threadIDToThreadExhaustionDict___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -204,7 +206,7 @@ void __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLi
 
 void __106__UBUnblockReactiveRecovery_ThreadExhaustion__threadExhaustionsAboveLimit_threadIDToThreadExhaustionDict___block_invoke_148(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (([v6 isBlockedByADeadlock] & 1) == 0)
@@ -217,7 +219,7 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v33 = v5;
+    v32 = v5;
     v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v10 = v6;
@@ -309,43 +311,41 @@ LABEL_17:
     v26 = [v7 tasksBlocked];
     [v26 unionSet:v8];
 
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v27 = v9;
-    v28 = [v27 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v33 objects:v37 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v35;
+      v30 = *v34;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v35 != v30)
+          if (*v34 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          [*(a1 + 32) setObject:v7 forKeyedSubscript:*(*(&v34 + 1) + 8 * i)];
+          [*(a1 + 32) setObject:v7 forKeyedSubscript:*(*(&v33 + 1) + 8 * i)];
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
       while (v29);
     }
 
 LABEL_28:
-    v5 = v33;
+    v5 = v32;
 
     goto LABEL_29;
   }
 
 LABEL_30:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 @end

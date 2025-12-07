@@ -11,6 +11,7 @@
 - (id)description;
 - (id)locale;
 - (id)localizedNameForFormat:(unint64_t)format;
+- (id)localizedNameForValue:(double)value locale:(id)locale retainingFormat:(BOOL)format unitFormat:(unint64_t)unitFormat;
 - (int64_t)compare:(id)compare;
 @end
 
@@ -124,6 +125,15 @@
   }
 
   return v7;
+}
+
+- (id)localizedNameForValue:(double)value locale:(id)locale retainingFormat:(BOOL)format unitFormat:(unint64_t)unitFormat
+{
+  formatCopy = format;
+  localeCopy = locale;
+  v11 = [objc_opt_class() localizedNameForValue:localeCopy locale:formatCopy retainingFormat:unitFormat unitFormat:self->_unitType unitType:self->_name name:value];
+
+  return v11;
 }
 
 - (CalculateUnit)nextSmallest
@@ -313,49 +323,49 @@ LABEL_12:
     u_uastrncpy(dst, [nameCopy UTF8String], 3);
     memset(src, 0, sizeof(src));
     unum_formatDoubleCurrency();
-    v37 = formatCopy;
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
+    v36 = formatCopy;
     v51 = 0u;
-    v48 = 0u;
+    v52 = 0u;
     v49 = 0u;
-    v46 = 0u;
+    v50 = 0u;
     v47 = 0u;
+    v48 = 0u;
     v45 = 0u;
-    v43 = 0u;
+    v46 = 0u;
     v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
-    v39 = 0u;
+    v43 = 0u;
     v40 = 0u;
-    *v38 = 0u;
-    u_austrcpy(v38, src);
-    v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v38];
-    v36 = [v31 substringWithRange:{0, 0}];
-    v32 = [v31 stringByReplacingOccurrencesOfString:v36 withString:&stru_1F418FCD8];
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    *v37 = 0u;
+    u_austrcpy(v37, src);
+    v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v37];
+    v35 = [v30 substringWithRange:{0, 0}];
+    v31 = [v30 stringByReplacingOccurrencesOfString:v35 withString:&stru_1F418FCD8];
     whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-    v34 = [v32 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+    v33 = [v31 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
 
     unum_close();
-    if (v36)
+    if (v35)
     {
-      if (v37)
+      if (v36)
       {
-        v35 = [v31 stringByReplacingOccurrencesOfString:v34 withString:@"%g"];
+        v34 = [v30 stringByReplacingOccurrencesOfString:v33 withString:@"%g"];
       }
 
       else
       {
-        v35 = v36;
+        v34 = v35;
       }
 
-      v26 = v35;
+      v26 = v34;
 
       goto LABEL_16;
     }
 
-    formatCopy = v37;
+    formatCopy = v36;
   }
 
   v17 = @" (Long)";
@@ -395,7 +405,6 @@ LABEL_7:
 LABEL_15:
 
 LABEL_16:
-  v29 = *MEMORY[0x1E69E9840];
 
   return v26;
 }

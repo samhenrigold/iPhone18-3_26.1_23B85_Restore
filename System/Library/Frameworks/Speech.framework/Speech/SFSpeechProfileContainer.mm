@@ -47,14 +47,14 @@
 
 - (SFSpeechProfileContainer)initWithURL:(id)l personaId:(id)id userId:(id)userId loggableUserId:(id)loggableUserId
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   lCopy = l;
   idCopy = id;
   userIdCopy = userId;
   loggableUserIdCopy = loggableUserId;
-  v26.receiver = self;
-  v26.super_class = SFSpeechProfileContainer;
-  v15 = [(SFSpeechProfileContainer *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = SFSpeechProfileContainer;
+  v15 = [(SFSpeechProfileContainer *)&v25 init];
   v16 = v15;
   if (!v15)
   {
@@ -77,14 +77,14 @@ LABEL_5:
       userId = v16->_userId;
       loggableUserId = v16->_loggableUserId;
       *buf = 136316162;
-      v28 = "[SFSpeechProfileContainer initWithURL:personaId:userId:loggableUserId:]";
-      v29 = 2112;
-      v30 = url;
-      v31 = 2112;
-      v32 = personaId;
-      v33 = 2112;
+      v27 = "[SFSpeechProfileContainer initWithURL:personaId:userId:loggableUserId:]";
+      v28 = 2112;
+      v29 = url;
+      v30 = 2112;
+      v31 = personaId;
+      v32 = 2112;
       userIdCopy2 = userId;
-      v35 = 2112;
+      v34 = 2112;
       loggableUserIdCopy2 = loggableUserId;
       _os_log_debug_impl(&dword_1AC5BC000, v17, OS_LOG_TYPE_DEBUG, "%s MUX: Created container with url: %@, personaId: %@, userId: %@, loggableUserId: %@", buf, 0x34u);
     }
@@ -96,14 +96,13 @@ LABEL_5:
   if (os_log_type_enabled(SFLogFramework, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v28 = "[SFSpeechProfileContainer initWithURL:personaId:userId:loggableUserId:]";
+    v27 = "[SFSpeechProfileContainer initWithURL:personaId:userId:loggableUserId:]";
     _os_log_error_impl(&dword_1AC5BC000, v19, OS_LOG_TYPE_ERROR, "%s MUX: Failed to resolve container, url cannot be nil.", buf, 0xCu);
   }
 
   v18 = 0;
 LABEL_9:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

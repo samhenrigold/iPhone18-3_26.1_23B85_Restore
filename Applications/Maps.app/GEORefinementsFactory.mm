@@ -11,11 +11,11 @@
 + (id)barResultRefinementsWith:(id)with
 {
   withCopy = with;
-  v4 = sub_10048148C();
+  v4 = sub_10048148C(withCopy);
 
   if (v4)
   {
-    sub_100014C84(0, &qword_10190A8D8);
+    sub_100014C84(0, &qword_10190A8D8, GEOResultRefinement_ptr);
     v5.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -35,7 +35,7 @@
 
   if (v5)
   {
-    sub_100014C84(0, &qword_10190A8E0);
+    sub_100014C84(0, &qword_10190A8E0, GEOResultRefinementSection_ptr);
     v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 

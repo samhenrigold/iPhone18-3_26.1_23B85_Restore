@@ -1,5 +1,6 @@
 @interface TonePicker.Delegate
 - (_TtCV16_ToneKit_SwiftUI10TonePicker8Delegate)init;
+- (void)tonePickerController:(id)controller didUpdateCheckedStatus:(BOOL)status ofTonePickerItem:(id)item;
 - (void)tonePickerController:(id)controller selectedToneWithIdentifier:(id)identifier;
 - (void)tonePickerControllerDidReloadTones:(id)tones;
 @end
@@ -13,10 +14,26 @@
   {
     v4 = *&self->onTonesReload[OBJC_IVAR____TtCV16_ToneKit_SwiftUI10TonePicker8Delegate_onTonesReload];
     selfCopy = self;
-    v6 = sub_275497154(v3);
+    v6 = sub_275497154(v3, v4);
     v3(v6);
 
-    sub_275496B70(v3);
+    sub_275496B70(v3, v4);
+  }
+}
+
+- (void)tonePickerController:(id)controller didUpdateCheckedStatus:(BOOL)status ofTonePickerItem:(id)item
+{
+  v5 = *(&self->super.isa + OBJC_IVAR____TtCV16_ToneKit_SwiftUI10TonePicker8Delegate_onToneUpdatedCheckedStatus);
+  if (v5)
+  {
+    statusCopy = status;
+    v8 = *&self->onTonesReload[OBJC_IVAR____TtCV16_ToneKit_SwiftUI10TonePicker8Delegate_onToneUpdatedCheckedStatus];
+    itemCopy = item;
+    selfCopy = self;
+    sub_275497154(v5, v8);
+    v5(itemCopy, statusCopy);
+
+    sub_275496B70(v5, v8);
   }
 }
 
@@ -39,10 +56,10 @@
   {
     v9 = *&self->onTonesReload[OBJC_IVAR____TtCV16_ToneKit_SwiftUI10TonePicker8Delegate_onToneSelected];
     selfCopy = self;
-    sub_275497154(v8);
+    sub_275497154(v8, v9);
     v8(v5, v7);
 
-    sub_275496B70(v8);
+    sub_275496B70(v8, v9);
   }
 
   else

@@ -8,33 +8,33 @@
 - (ITKQuad)itkQuad
 {
   objc_opt_class();
-  v0 = ITKDynamicCast();
-  v1 = v0;
-  if (v0)
+  v1 = ITKDynamicCast();
+  v2 = v1;
+  if (v1)
   {
-    [v0 topLeft];
+    [v1 topLeft];
     ITKFlipPoint();
-    v16 = v3;
-    v17 = v2;
-    [v1 topRight];
+    v17 = v4;
+    v18 = v3;
+    [v2 topRight];
     ITKFlipPoint();
-    v5 = v4;
-    v7 = v6;
-    [v1 bottomLeft];
+    v6 = v5;
+    v8 = v7;
+    [v2 bottomLeft];
     ITKFlipPoint();
-    v9 = v8;
-    v11 = v10;
-    [v1 bottomRight];
+    v10 = v9;
+    v12 = v11;
+    [v2 bottomRight];
     ITKFlipPoint();
-    v14 = [[ITKQuad alloc] initWithBottomLeft:v9 bottomRight:v11 topLeft:v12 topRight:v13, v17, v16, v5, v7];
+    v15 = [[ITKQuad alloc] initWithBottomLeft:v10 bottomRight:v12 topLeft:v13 topRight:v14, v18, v17, v6, v8];
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)itk_quadConvertedToView:()ITKUtilities withContentsRect:

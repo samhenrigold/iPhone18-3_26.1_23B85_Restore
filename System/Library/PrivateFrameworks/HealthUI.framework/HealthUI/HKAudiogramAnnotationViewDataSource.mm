@@ -40,7 +40,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1C3C27CB4(0, &unk_1EC0866A0);
+  sub_1C3C27CB4(0, &unk_1EC0866A0, off_1E81B2740);
   v11 = sub_1C3D202B4();
   sub_1C3D1E1A4();
   v12 = *(&self->super.isa + OBJC_IVAR___HKAudiogramAnnotationViewDataSource_applicationItems);

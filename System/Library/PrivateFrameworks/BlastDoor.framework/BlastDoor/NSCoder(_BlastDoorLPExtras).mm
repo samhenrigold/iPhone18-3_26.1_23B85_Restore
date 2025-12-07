@@ -1,5 +1,7 @@
 @interface NSCoder(_BlastDoorLPExtras)
 - (_BlastDoorLPPlatformColor)_bd_lp_strictlyDecodeColorForKey:()_BlastDoorLPExtras;
+- (char)_bd_lp_strictlyDecodeObjectOfClasses:()_BlastDoorLPExtras forKey:;
+- (char)_bd_lp_strictlyDecodeTopLevelObjectOfClasses:()_BlastDoorLPExtras forKey:error:;
 - (id)_bd_lp_strictlyDecodeArrayOfLPARAssetsForKey:()_BlastDoorLPExtras;
 - (id)_bd_lp_strictlyDecodeArrayOfLPImagesForKey:()_BlastDoorLPExtras;
 - (id)_bd_lp_strictlyDecodeArrayOfObjectsOfClass:()_BlastDoorLPExtras forKey:;
@@ -12,9 +14,7 @@
 - (id)_bd_lp_strictlyDecodeNSDataForKey:()_BlastDoorLPExtras;
 - (id)_bd_lp_strictlyDecodeNSStringForKey:()_BlastDoorLPExtras;
 - (id)_bd_lp_strictlyDecodeObjectOfClass:()_BlastDoorLPExtras forKey:;
-- (id)_bd_lp_strictlyDecodeObjectOfClasses:()_BlastDoorLPExtras forKey:;
 - (id)_bd_lp_strictlyDecodeTopLevelObjectOfClass:()_BlastDoorLPExtras forKey:error:;
-- (id)_bd_lp_strictlyDecodeTopLevelObjectOfClasses:()_BlastDoorLPExtras forKey:error:;
 - (void)_bd_lp_encodeArrayIfNotEmpty:()_BlastDoorLPExtras forKey:;
 - (void)_bd_lp_encodeColorIfNotNil:()_BlastDoorLPExtras forKey:;
 - (void)_bd_lp_encodeObjectIfNotNil:()_BlastDoorLPExtras forKey:;
@@ -127,33 +127,32 @@
   return v10;
 }
 
-- (id)_bd_lp_strictlyDecodeObjectOfClasses:()_BlastDoorLPExtras forKey:
+- (char)_bd_lp_strictlyDecodeObjectOfClasses:()_BlastDoorLPExtras forKey:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [v6 setByAddingObject:objc_opt_class()];
   v9 = [self decodeObjectOfClasses:v8 forKey:v7];
 
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = v6;
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v17 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v16 objects:v15 count:16];
   if (v11)
   {
-    v12 = *v19;
+    v12 = *v17;
     while (2)
     {
-      for (i = 0; i != v11; i = i + 1)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           v11 = v9;
@@ -161,7 +160,7 @@
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v18 objects:v17 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v16 objects:v15 count:16];
       if (v11)
       {
         continue;
@@ -172,8 +171,6 @@
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -194,33 +191,32 @@ LABEL_11:
   return v12;
 }
 
-- (id)_bd_lp_strictlyDecodeTopLevelObjectOfClasses:()_BlastDoorLPExtras forKey:error:
+- (char)_bd_lp_strictlyDecodeTopLevelObjectOfClasses:()_BlastDoorLPExtras forKey:error:
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   v10 = [v8 setByAddingObject:objc_opt_class()];
   v11 = [self decodeTopLevelObjectOfClasses:v10 forKey:v9 error:a5];
 
-  v22 = 0u;
-  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = v8;
-  v13 = [v12 countByEnumeratingWithState:&v20 objects:v19 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v17 count:16];
   if (v13)
   {
-    v14 = *v21;
+    v14 = *v19;
     while (2)
     {
-      for (i = 0; i != v13; i = i + 1)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           v13 = v11;
@@ -228,7 +224,7 @@ LABEL_11:
         }
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v20 objects:v19 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v18 objects:v17 count:16];
       if (v13)
       {
         continue;
@@ -240,14 +236,12 @@ LABEL_11:
 
 LABEL_11:
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)_bd_lp_strictlyDecodeArrayOfObjectsOfClass:()_BlastDoorLPExtras forKey:
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = a4;
   v7 = MEMORY[0x277CBEB98];
   v8 = objc_opt_class();
@@ -258,26 +252,25 @@ LABEL_11:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v11 count])
   {
-    v24 = 0u;
-    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v22 objects:v21 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v19 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v21;
       while (2)
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v23 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v22 + 1) + 8 * i);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
@@ -285,7 +278,7 @@ LABEL_11:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v22 objects:v21 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v19 count:16];
         if (v14)
         {
           continue;
@@ -295,23 +288,21 @@ LABEL_11:
       }
     }
 
-    v18 = v12;
+    v17 = v12;
   }
 
   else
   {
 LABEL_13:
-    v18 = 0;
+    v17 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 - (id)_bd_lp_strictlyDecodeArrayOfObjectsOfClasses:()_BlastDoorLPExtras forKey:
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = MEMORY[0x277CBEB98];
@@ -324,59 +315,57 @@ LABEL_13:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 count])
   {
-    v38 = 0u;
-    v39 = 0u;
+    v35 = 0u;
     v36 = 0u;
-    v37 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     obj = v13;
-    v14 = [obj countByEnumeratingWithState:&v36 objects:v35 count:16];
+    v14 = [obj countByEnumeratingWithState:&v33 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v37;
-      v28 = v7;
+      v16 = *v34;
+      v25 = v7;
       while (1)
       {
         v17 = 0;
 LABEL_6:
-        if (*v37 != v16)
+        if (*v34 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v36 + 1) + 8 * v17);
+        v28 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
-        v33 = 0u;
-        v34 = 0u;
-        v19 = v6;
-        v20 = [v19 countByEnumeratingWithState:&v31 objects:v30 count:16];
-        if (!v20)
+        v18 = v6;
+        v19 = [v18 countByEnumeratingWithState:&v28 objects:v27 count:16];
+        if (!v19)
         {
           break;
         }
 
-        v21 = v20;
-        v22 = *v32;
+        v20 = v19;
+        v21 = *v29;
 LABEL_10:
-        v23 = 0;
+        v22 = 0;
         while (1)
         {
-          if (*v32 != v22)
+          if (*v29 != v21)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v18);
           }
 
-          v24 = *(*(&v31 + 1) + 8 * v23);
           if (objc_opt_isKindOfClass())
           {
             break;
           }
 
-          if (v21 == ++v23)
+          if (v20 == ++v22)
           {
-            v21 = [v19 countByEnumeratingWithState:&v31 objects:v30 count:16];
-            if (v21)
+            v20 = [v18 countByEnumeratingWithState:&v28 objects:v27 count:16];
+            if (v20)
             {
               goto LABEL_10;
             }
@@ -390,8 +379,8 @@ LABEL_10:
           goto LABEL_6;
         }
 
-        v15 = [obj countByEnumeratingWithState:&v36 objects:v35 count:16];
-        v7 = v28;
+        v15 = [obj countByEnumeratingWithState:&v33 objects:v32 count:16];
+        v7 = v25;
         if (!v15)
         {
           goto LABEL_19;
@@ -400,31 +389,29 @@ LABEL_10:
 
 LABEL_21:
 
-      v25 = 0;
-      v7 = v28;
+      v23 = 0;
+      v7 = v25;
     }
 
     else
     {
 LABEL_19:
 
-      v25 = obj;
+      v23 = obj;
     }
   }
 
   else
   {
-    v25 = 0;
+    v23 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v25;
+  return v23;
 }
 
 - (id)_bd_lp_strictlyDecodeDictionaryOfObjectsWithKeysOfClass:()_BlastDoorLPExtras andObjectsOfClass:forKey:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v8 = a5;
   v9 = MEMORY[0x277CBEB98];
   v10 = objc_opt_class();
@@ -435,19 +422,19 @@ LABEL_19:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2020000000;
-    v21 = 0;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __112__NSCoder__BlastDoorLPExtras___bd_lp_strictlyDecodeDictionaryOfObjectsWithKeysOfClass_andObjectsOfClass_forKey___block_invoke;
-    v17[3] = &unk_278176640;
-    v17[5] = a3;
-    v17[6] = a4;
-    v17[4] = &v18;
-    [v13 enumerateKeysAndObjectsUsingBlock:v17];
-    if (v19[3])
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __112__NSCoder__BlastDoorLPExtras___bd_lp_strictlyDecodeDictionaryOfObjectsWithKeysOfClass_andObjectsOfClass_forKey___block_invoke;
+    v16[3] = &unk_278176640;
+    v16[5] = a3;
+    v16[6] = a4;
+    v16[4] = &v17;
+    [v13 enumerateKeysAndObjectsUsingBlock:v16];
+    if (v18[3])
     {
       v14 = 0;
     }
@@ -457,15 +444,13 @@ LABEL_19:
       v14 = v13;
     }
 
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

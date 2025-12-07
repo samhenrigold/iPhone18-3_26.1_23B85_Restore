@@ -690,7 +690,7 @@ LABEL_53:
 
 - (void)service:(id)service nearbyDevicesChanged:(id)changed
 {
-  v4 = &byte_BA20A[32246];
+  v4 = &unk_C2000;
   v5 = qword_C2330;
   if (os_log_type_enabled(qword_C2330, OS_LOG_TYPE_DEFAULT))
   {
@@ -793,7 +793,7 @@ LABEL_53:
 
 - (void)service:(id)service connectedDevicesChanged:(id)changed
 {
-  v4 = &byte_BA20A[32246];
+  v4 = &unk_C2000;
   v5 = qword_C2330;
   if (os_log_type_enabled(qword_C2330, OS_LOG_TYPE_DEFAULT))
   {

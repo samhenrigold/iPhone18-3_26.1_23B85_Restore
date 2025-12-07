@@ -186,7 +186,6 @@
   objc_storeStrong(&v18, 0);
   objc_storeStrong(&v21, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_onmainqueue_presentAuthorizationWithContext:(id)context usingHost:(id)host completionHandler:(id)handler
@@ -233,7 +232,6 @@
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_onmainqueue_presentPrivateEmailWithContext:(id)context usingHost:(id)host completionHandler:(id)handler
@@ -280,7 +278,6 @@
   objc_storeStrong(&v17, 0);
   objc_storeStrong(&v18, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_onmainqueue_presentShieldWithContext:(id)context completionHandler:(id)handler
@@ -324,7 +321,6 @@
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

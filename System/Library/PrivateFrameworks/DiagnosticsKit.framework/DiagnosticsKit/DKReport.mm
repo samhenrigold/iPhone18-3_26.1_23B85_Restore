@@ -72,41 +72,39 @@
 
 - (id)arrayForJSON
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   components = [(DKReport *)self components];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(components, "count")}];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   components2 = [(DKReport *)self components];
-  v7 = [components2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [components2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(components2);
         }
 
-        dictionaryForJSON = [*(*(&v14 + 1) + 8 * i) dictionaryForJSON];
+        dictionaryForJSON = [*(*(&v13 + 1) + 8 * i) dictionaryForJSON];
         [v5 addObject:dictionaryForJSON];
       }
 
-      v8 = [components2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [components2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

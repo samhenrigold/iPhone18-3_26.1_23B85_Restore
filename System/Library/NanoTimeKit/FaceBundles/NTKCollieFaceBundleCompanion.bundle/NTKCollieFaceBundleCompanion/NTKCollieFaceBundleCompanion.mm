@@ -1,8 +1,10 @@
 uint64_t sub_1E7C(uint64_t a1)
 {
-  qword_331D0 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = qword_331D0;
+  qword_331D0 = v1;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v1, v2);
 }
 
 void sub_226C(uint64_t a1, uint64_t a2)
@@ -57,21 +59,23 @@ void sub_2600(uint64_t a1, void *a2)
 
 void sub_280C(id a1)
 {
-  qword_331E8 = +[AVTAnimoji animojiNames];
+  v1 = +[AVTAnimoji animojiNames];
+  v2 = qword_331E8;
+  qword_331E8 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-id sub_2964()
+id sub_2964(uint64_t a1)
 {
   if (qword_33200 != -1)
   {
     sub_17EAC();
   }
 
-  v1 = qword_331F8;
+  v2 = qword_331F8;
 
-  return v1;
+  return v2;
 }
 
 id sub_2C9C(id a1, AVTAvatarRecord *a2)
@@ -101,9 +105,9 @@ id sub_2C9C(id a1, AVTAvatarRecord *a2)
   return v8;
 }
 
-void sub_34C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_34C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -285,9 +289,9 @@ id sub_697C(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_6C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_6C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -313,9 +317,9 @@ void sub_6C54(uint64_t a1, void *a2, void *a3, uint64_t a4)
   objc_autoreleasePoolPop(v8);
 }
 
-void sub_7008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_7008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -465,10 +469,11 @@ void sub_8DFC(id a1)
   [v5 setAttributes:v6 ofItemAtPath:qword_331F8 error:0];
 }
 
-void sub_8F4C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_8F4C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 id NTKCollieFaceNSBundle()
@@ -478,9 +483,9 @@ id NTKCollieFaceNSBundle()
   return [NSBundle bundleForClass:v0];
 }
 
-void sub_92CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_92CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1513,16 +1518,18 @@ void sub_115E4(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 16) = v20;
 }
 
-void sub_118E4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_118E4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void sub_1190C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1190C(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
 id NTKCollieColorAtIndex(unint64_t a1, uint64_t a2)
@@ -1881,6 +1888,48 @@ void sub_18598()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
+void sub_18618(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NTKCollieStyleEditOptionAvatarRecordCache _makeAnimojiToyBoxSnapshotImageWithSize:]";
+  sub_8F4C(&dword_0, a1, a3, "%s starting", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_18690(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NTKCollieStyleEditOptionAvatarRecordCache _makeMemojiToyBoxSnapshotImageWithSize:]";
+  sub_8F4C(&dword_0, a1, a3, "%s starting", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_18808(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NTKCollieStyleEditOptionAvatarRecordCache _ensureAnimojiImagesIncludeTritium:]";
+  sub_8F4C(&dword_0, a1, a3, "%s starting", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_18910(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[NTKCollieStyleEditOptionAvatarRecordCache _ensureSharedMemojiImagesForResourceDirectory:includeTritium:]";
+  sub_8F4C(&dword_0, a1, a3, "%s starting", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_18988()
+{
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
+}
+
+void sub_189FC()
+{
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
+}
+
 void sub_18B70()
 {
   v2[0] = 136315650;
@@ -1918,28 +1967,87 @@ void sub_18D28()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
+void sub_18E24()
+{
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
+}
+
+void sub_18E98()
+{
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
+}
+
 void sub_18F0C(uint64_t a1, void *a2)
 {
   v2 = [a2 localizedName];
+  v9 = 136315650;
   sub_118D4();
   sub_1192C();
-  sub_1190C(&dword_0, v3, v4, "%s(%p): avatar (characterStyle = %@) is good to go, skipping load", v5, v6, v7, v8, 2u);
+  sub_1190C(&dword_0, v3, v4, "%s(%p): avatar (characterStyle = %@) is good to go, skipping load", v5, v6, v7, v8, v9);
 }
 
 void sub_18FB8(uint64_t a1, void *a2)
 {
   v2 = [a2 localizedName];
+  v9 = 136315650;
   sub_118D4();
   sub_1192C();
-  sub_1190C(&dword_0, v3, v4, "%s(%p): loading avatar (characterStyle = %@)", v5, v6, v7, v8, 2u);
+  sub_1190C(&dword_0, v3, v4, "%s(%p): loading avatar (characterStyle = %@)", v5, v6, v7, v8, v9);
 }
 
-void sub_190D8()
+void sub_19064()
 {
-  v0 = LogBool();
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
+}
+
+void sub_190D8(uint64_t a1, char a2)
+{
+  v2 = LogBool();
+  v9 = 136315650;
   sub_118D4();
   sub_1192C();
-  sub_1190C(&dword_0, v1, v2, "%s(%p): start immediate=%@", v3, v4, v5, v6, 2u);
+  sub_1190C(&dword_0, v3, v4, "%s(%p): start immediate=%@", v5, v6, v7, v8, v9);
+}
+
+void sub_19180()
+{
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
+}
+
+void sub_191F4()
+{
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
+}
+
+void sub_19268()
+{
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
+}
+
+void sub_192DC()
+{
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
+}
+
+void sub_19350()
+{
+  v6 = 136315394;
+  sub_118C0();
+  sub_118E4(&dword_0, v0, v1, "%s(%p): start", v2, v3, v4, v5, v6);
 }
 
 void sub_193C4(uint64_t a1, NSObject *a2)

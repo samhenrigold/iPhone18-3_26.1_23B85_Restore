@@ -1,7 +1,9 @@
 @interface OrgApacheLuceneUtilAutomatonRunAutomaton
+- (BOOL)isAcceptWithInt:(int)int;
 - (BOOL)isEqual:(id)equal;
 - (id)description;
 - (id)getCharIntervals;
+- (int)stepWithInt:(int)int withInt:(int)withInt;
 - (unint64_t)hash;
 - (void)dealloc;
 @end
@@ -146,6 +148,23 @@ LABEL_35:
   return [(JavaLangStringBuilder *)v3 description];
 }
 
+- (BOOL)isAcceptWithInt:(int)int
+{
+  accept = self->accept_;
+  if (!accept)
+  {
+    JreThrowNullPointerException();
+  }
+
+  size = accept->super.size_;
+  if (int < 0 || size <= int)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, *&int);
+  }
+
+  return *(&accept->super.size_ + int + 4);
+}
+
 - (id)getCharIntervals
 {
   points = self->points_;
@@ -155,6 +174,63 @@ LABEL_35:
   }
 
   return [(IOSArray *)points clone];
+}
+
+- (int)stepWithInt:(int)int withInt:(int)withInt
+{
+  classmap = self->classmap_;
+  transitions = self->transitions_;
+  if (!classmap)
+  {
+    if (transitions)
+    {
+      points = self->points_;
+      if (points)
+      {
+        size = points->super.size_;
+        v13 = OrgApacheLuceneUtilAutomatonOperations_findIndexWithInt_withIntArray_(*&withInt, points) + size * int;
+        v10 = v13;
+        v8 = transitions->super.size_;
+        if (v13 < 0 || v13 >= v8)
+        {
+          goto LABEL_15;
+        }
+
+        return *(&transitions->super.size_ + v10 + 1);
+      }
+    }
+
+LABEL_14:
+    JreThrowNullPointerException();
+  }
+
+  if (!transitions)
+  {
+    goto LABEL_14;
+  }
+
+  v6 = self->points_;
+  if (!v6)
+  {
+    goto LABEL_14;
+  }
+
+  v7 = classmap->super.size_;
+  if (withInt < 0 || v7 <= withInt)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(v7, *&withInt);
+  }
+
+  v8 = transitions->super.size_;
+  v9 = *(&classmap->super.size_ + withInt + 1) + v6->super.size_ * int;
+  v10 = v9;
+  if (v9 < 0 || v9 >= v8)
+  {
+LABEL_15:
+    IOSArray_throwOutOfBoundsWithMsg(v8, v10);
+  }
+
+  return *(&transitions->super.size_ + v10 + 1);
 }
 
 - (unint64_t)hash

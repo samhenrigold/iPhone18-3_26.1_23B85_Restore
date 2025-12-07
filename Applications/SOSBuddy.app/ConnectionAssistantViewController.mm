@@ -24,7 +24,7 @@
 {
   disappearCopy = disappear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ConnectionAssistantViewController();
+  v5.super_class = type metadata accessor for ConnectionAssistantViewController(0);
   v4 = v5.receiver;
   [(ConnectionAssistantViewController *)&v5 viewWillDisappear:disappearCopy];
   *&v4[OBJC_IVAR____TtC8SOSBuddy33ConnectionAssistantViewController__locationAssertion] = 0;

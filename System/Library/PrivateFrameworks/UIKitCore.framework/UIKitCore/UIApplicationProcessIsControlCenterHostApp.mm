@@ -6,7 +6,7 @@
 void ___UIApplicationProcessIsControlCenterHostApp_block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  byte_1EA992DBF = [v0 isEqualToString:@"com.apple.ControlCenterHostApp"];
+  byte_1EA992DBF = objc_msgSend_isEqualToString_(v0);
 }
 
 @end

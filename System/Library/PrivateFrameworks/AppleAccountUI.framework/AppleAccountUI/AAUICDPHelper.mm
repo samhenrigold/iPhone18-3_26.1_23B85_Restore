@@ -29,7 +29,7 @@
 
   else
   {
-    v6 = _AAUILogSystem();
+    v6 = _AAUILogSystem(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -71,26 +71,27 @@
 + (BOOL)isWalrusEnabled
 {
   v3 = objc_alloc_init(MEMORY[0x1E6997808]);
-  v9 = 0;
-  v4 = [v3 walrusStatus:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [v3 walrusStatus:&v10];
+  v5 = v10;
+  v6 = v5;
   if (v5)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       +[(AAUICDPHelper *)self];
     }
 
-    v7 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v7 = v4 == 1;
+    v8 = v4 == 1;
   }
 
-  return v7;
+  return v8;
 }
 
 - (UIViewController)presentingViewController

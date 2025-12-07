@@ -141,7 +141,7 @@
   v15 = v14;
   v17 = v16;
   memset(&v23[1], 0, sizeof(CGAffineTransform));
-  [(UIPDFPageContentDelegate *)self transform];
+  objc_msgSend_transform(self);
   CGContextSaveGState(context);
   if (isCancelled)
   {

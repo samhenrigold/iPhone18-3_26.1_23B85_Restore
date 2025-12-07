@@ -108,7 +108,7 @@ uint64_t __38__CHSIntentRecommendation_description__block_invoke(uint64_t a1)
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v8 = 1;
+    v6 = 1;
   }
 
   else
@@ -117,26 +117,24 @@ uint64_t __38__CHSIntentRecommendation_description__block_invoke(uint64_t a1)
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      localizedDescription = self->_localizedDescription;
-      v7 = v5->_localizedDescription;
       if (BSEqualObjects())
       {
-        v8 = [(CHSIntentReference *)self->_intentReference isEqual:v5->_intentReference];
+        v6 = [(CHSIntentReference *)self->_intentReference isEqual:v5->_intentReference];
       }
 
       else
       {
-        v8 = 0;
+        v6 = 0;
       }
     }
 
     else
     {
-      v8 = 0;
+      v6 = 0;
     }
   }
 
-  return v8;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

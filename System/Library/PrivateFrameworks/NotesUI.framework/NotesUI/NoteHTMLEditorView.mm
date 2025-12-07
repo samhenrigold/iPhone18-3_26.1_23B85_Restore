@@ -804,7 +804,7 @@ void __48__NoteHTMLEditorView_setHtmlString_attachments___block_invoke_2()
 {
   ic_htmlStringEscapingQuotesAndLineBreaks = [string ic_htmlStringEscapingQuotesAndLineBreaks];
   webView = [(NoteHTMLEditorView *)self webView];
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"notewkwebview.insertHTML(\"%@\"", ic_htmlStringEscapingQuotesAndLineBreaks];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"notewkwebview.insertHTML(%@", ic_htmlStringEscapingQuotesAndLineBreaks];
   [webView ic_evaluateJavaScript:v5];
 }
 
@@ -1519,11 +1519,11 @@ void __35__NoteHTMLEditorView_updateContent__block_invoke(uint64_t a1, void *a2)
     objc_opt_class();
     v5 = ICDynamicCast();
     objc_opt_class();
-    v6 = [v5 objectForKeyedSubscript:@"htmlContent"];
+    v6 = objc_msgSend_objectForKeyedSubscript_(v5);
     v7 = ICDynamicCast();
 
     objc_opt_class();
-    v8 = [v5 objectForKeyedSubscript:@"attachmentContentIDURLs"];
+    v8 = objc_msgSend_objectForKeyedSubscript_(v5);
     v9 = ICDynamicCast();
 
     if (v9)
@@ -2415,12 +2415,12 @@ LABEL_9:
       v11 = ICDynamicCast();
 
       objc_opt_class();
-      v33 = [v11 objectForKeyedSubscript:@"selectionLength"];
+      v33 = objc_msgSend_objectForKeyedSubscript_(v11);
       v13 = ICDynamicCast();
 
       integerValue = [v13 integerValue];
       objc_opt_class();
-      v35 = [v11 objectForKeyedSubscript:@"listStyle"];
+      v35 = objc_msgSend_objectForKeyedSubscript_(v11);
       v36 = ICDynamicCast();
 
       [(NoteHTMLEditorView *)self setSelectionLength:integerValue];

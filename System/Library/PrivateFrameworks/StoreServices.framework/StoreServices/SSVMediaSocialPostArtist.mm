@@ -20,20 +20,20 @@
   v5 = encodingCopy;
   if (encodingCopy && MEMORY[0x1DA6E0380](encodingCopy) == MEMORY[0x1E69E9E80])
   {
-    v12.receiver = self;
-    v12.super_class = SSVMediaSocialPostArtist;
-    v6 = [(SSVMediaSocialPostArtist *)&v12 init];
+    v14.receiver = self;
+    v14.super_class = SSVMediaSocialPostArtist;
+    v6 = [(SSVMediaSocialPostArtist *)&v14 init];
     if (v6)
     {
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0");
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(v5, "0", v8);
       identifier = v6->_identifier;
-      v6->_identifier = v8;
+      v6->_identifier = v9;
 
-      objc_opt_class();
-      v10 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1");
+      v11 = objc_opt_class();
+      v12 = SSXPCDictionaryCopyCFObjectWithClass(v5, "1", v11);
       name = v6->_name;
-      v6->_name = v10;
+      v6->_name = v12;
     }
   }
 

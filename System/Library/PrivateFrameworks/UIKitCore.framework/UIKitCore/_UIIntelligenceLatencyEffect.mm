@@ -29,9 +29,10 @@
   {
     if (descriptor)
     {
-      v6 = objc_allocWithZone(type metadata accessor for _UILatencyEmitterViewEntry());
+      type metadata accessor for _UILatencyEmitterViewEntry();
+      v7 = objc_allocWithZone(v6);
       descriptorCopy = descriptor;
-      v7 = [v6 init];
+      v8 = [v7 init];
       [descriptorCopy addOverlay_];
     }
 

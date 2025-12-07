@@ -115,7 +115,7 @@ void __70__AMSPaymentSetupFeatureVerification_performPaymentSetupFeatureLookup__
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = objc_alloc_init(_MergedGlobals_76[0]());
+  v5 = objc_alloc_init(_MergedGlobals_76());
   v6 = [WeakRetained identifier];
   [v5 setReferrerIdentifier:v6];
 
@@ -125,7 +125,7 @@ void __70__AMSPaymentSetupFeatureVerification_performPaymentSetupFeatureLookup__
   v13[3] = __Block_byref_object_copy__52;
   v13[4] = __Block_byref_object_dispose__52;
   v14 = 0;
-  v7 = off_1ED6DF218[0]();
+  v7 = off_1ED6DF218();
   v9[0] = MEMORY[0x1E69E9820];
   v9[1] = 3221225472;
   v9[2] = __70__AMSPaymentSetupFeatureVerification_performPaymentSetupFeatureLookup__block_invoke_3;
@@ -210,7 +210,7 @@ void __70__AMSPaymentSetupFeatureVerification_performPaymentSetupFeatureLookup__
   }
 }
 
-void __70__AMSPaymentSetupFeatureVerification_performPaymentSetupFeatureLookup__block_invoke_4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void __70__AMSPaymentSetupFeatureVerification_performPaymentSetupFeatureLookup__block_invoke_4(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v5 = a2;
   v30 = *MEMORY[0x1E69E9840];
@@ -227,7 +227,7 @@ void __70__AMSPaymentSetupFeatureVerification_performPaymentSetupFeatureLookup__
     v10 = objc_opt_class();
     v11 = v5;
     v12 = a4;
-    v13 = *(a1 + 40);
+    v13 = a1[5];
     v14 = a1;
     v15 = MEMORY[0x1E696AD98];
     v23 = v10;
@@ -258,7 +258,7 @@ void __70__AMSPaymentSetupFeatureVerification_performPaymentSetupFeatureLookup__
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = objc_opt_class();
-      v21 = *(a1 + 40);
+      v21 = a1[5];
       *buf = 138543618;
       v25 = v20;
       v26 = 2114;
@@ -267,7 +267,7 @@ void __70__AMSPaymentSetupFeatureVerification_performPaymentSetupFeatureLookup__
       _os_log_impl(&dword_192869000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Found candidate payment setup feature", buf, 0x16u);
     }
 
-    objc_storeStrong((*(*(a1 + 48) + 8) + 40), v5);
+    objc_storeStrong((*(a1[6] + 8) + 40), v5);
     *a4 = 1;
   }
 }

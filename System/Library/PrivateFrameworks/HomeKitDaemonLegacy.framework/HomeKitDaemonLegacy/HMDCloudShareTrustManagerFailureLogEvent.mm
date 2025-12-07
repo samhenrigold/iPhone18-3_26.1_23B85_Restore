@@ -7,22 +7,20 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"trustManagerErrorCode";
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"trustManagerErrorCode";
   trustManagerErrorCode = [(HMDCloudShareTrustManagerFailureLogEvent *)self trustManagerErrorCode];
-  v13[0] = trustManagerErrorCode;
-  v12[1] = @"errorCode";
+  v12[0] = trustManagerErrorCode;
+  v11[1] = @"errorCode";
   v4 = MEMORY[0x277CCABB0];
   error = [(HMMLogEvent *)self error];
   v6 = [v4 numberWithInteger:{objc_msgSend(error, "code")}];
-  v13[1] = v6;
-  v12[2] = @"errorDomain";
+  v12[1] = v6;
+  v11[2] = @"errorDomain";
   error2 = [(HMMLogEvent *)self error];
   domain = [error2 domain];
-  v13[2] = domain;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[2] = domain;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   return v9;
 }

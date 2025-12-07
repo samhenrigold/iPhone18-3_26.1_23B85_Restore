@@ -131,7 +131,6 @@ void __60__AKFidoUIController_registerFidoKeyWithContext_completion___block_invo
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyFidoKeyWithFidoContext:(id)context completion:(id)completion
@@ -213,7 +212,6 @@ void __62__AKFidoUIController_verifyFidoKeyWithFidoContext_completion___block_in
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyFidoKeyWithContext:(id)context completion:(id)completion
@@ -298,7 +296,6 @@ void __58__AKFidoUIController_verifyFidoKeyWithContext_completion___block_invoke
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)verifyFidoRecoveryWithContext:(id)context recoveryToken:(id)token completion:(id)completion
@@ -386,7 +383,6 @@ void __77__AKFidoUIController_verifyFidoRecoveryWithContext_recoveryToken_comple
   objc_storeStrong(oslog, 0);
   (*(a1[4].isa + 2))();
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

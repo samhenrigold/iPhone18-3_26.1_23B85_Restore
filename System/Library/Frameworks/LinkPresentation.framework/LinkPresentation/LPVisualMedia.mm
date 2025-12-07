@@ -184,16 +184,16 @@
     fileURL = selfCopy->_fileURL;
     if (fileURL)
     {
-      v11 = 0;
-      v5 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:fileURL options:1 error:&v11];
-      v6 = v11;
+      v13 = 0;
+      v5 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:fileURL options:1 error:&v13];
+      v6 = v13;
       v7 = selfCopy->_data;
       selfCopy->_data = v5;
 
       if (v6)
       {
-        v8 = LPLogChannelUI();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v10 = LPLogChannelUI(v8, v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           [(LPVisualMedia *)v6 data];
         }
@@ -208,10 +208,10 @@
     }
   }
 
-  v9 = data;
+  v11 = data;
   objc_sync_exit(selfCopy);
 
-  return v9;
+  return v11;
 }
 
 - (NSData)_cachedData

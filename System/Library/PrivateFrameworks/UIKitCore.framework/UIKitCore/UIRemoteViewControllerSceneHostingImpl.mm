@@ -373,9 +373,9 @@ LABEL_15:
 
   v51 = objc_loadWeakRetained(obj + 9);
   v52 = [v51 serviceBundleIdentifier];
-  v53 = [v52 isEqualToString:@"com.apple.sidecar.extension.display"];
+  isEqualToString = objc_msgSend_isEqualToString_(v52);
 
-  if (v53)
+  if (isEqualToString)
   {
     v54 = obj[1];
     if (v54)

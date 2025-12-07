@@ -2153,8 +2153,8 @@ LABEL_32:
     [v13 nodePoint];
     v49 = v39;
     v50 = v40;
-    sub_100404958(&v44, v51, 0.0, at);
-    sub_100404958(&v44, v56, at, 1.0);
+    sub_100404958(0.0, at, &v44, v51);
+    sub_100404958(at, 1.0, &v44, v56);
     [lastObject setOutControlPoint:{v52, v53}];
     [v13 setInControlPoint:{v56[4], v56[5]}];
     v32 = [CRLBezierNode bezierNodeWithPoint:v56[0] inControlPoint:v56[1] outControlPoint:v54, v55, v56[2], v56[3]];

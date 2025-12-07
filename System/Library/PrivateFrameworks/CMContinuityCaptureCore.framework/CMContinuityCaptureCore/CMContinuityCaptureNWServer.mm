@@ -14,18 +14,18 @@
   v6 = objc_opt_new();
   v7 = [CMContinuityCaptureTransportNWDevice alloc];
   v8 = +[CMContinuityCaptureCapabilities capabilitiesForCurrentDevice];
-  v9 = [(CMContinuityCaptureTransportNWDevice *)v7 initWithCapabilities:v8 identifier:self->_identifier remote:0];
+  v9 = [CMContinuityCaptureTransportNWDevice initWithCapabilities:v7 identifier:"initWithCapabilities:identifier:remote:" remote:?];
 
-  v23.receiver = self;
-  v23.super_class = CMContinuityCaptureNWServer;
-  v10 = [(CMContinuityCaptureNWTransportBase *)&v23 initWithDevice:v9];
+  v22.receiver = self;
+  v22.super_class = CMContinuityCaptureNWServer;
+  v10 = [(CMContinuityCaptureNWTransportBase *)&v22 initWithDevice:v9];
   v11 = v10;
   if (v10)
   {
     objc_storeStrong(&v10->_identifier, v6);
     objc_storeStrong(&v11->_device, v9);
     objc_storeStrong(&v11->_queue, queue);
-    v12 = [[CMContinuityCaptureRemoteCompositeDevice alloc] initWithTransportServer:v11 videoPreviewLayer:0];
+    v12 = [CMContinuityCaptureRemoteCompositeDevice initWithTransportServer:"initWithTransportServer:videoPreviewLayer:" videoPreviewLayer:?];
     compositeDevice = v11->_compositeDevice;
     v11->_compositeDevice = v12;
 
@@ -34,23 +34,19 @@
     {
       v15 = v11->_compositeDevice;
       *buf = 138543618;
-      v20 = v11;
-      v21 = 2114;
-      v22 = v15;
+      v19 = v11;
+      v20 = 2114;
+      v21 = v15;
       _os_log_impl(&dword_242545000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ composite device %{public}@", buf, 0x16u);
     }
 
     objc_initWeak(buf, v11);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __45__CMContinuityCaptureNWServer_initWithQueue___block_invoke;
-    v17[3] = &unk_278D5CD58;
-    objc_copyWeak(&v18, buf);
-    [(CMContinuityCaptureNWTransportBase *)v11 createTimeSyncClock:v17];
-    objc_destroyWeak(&v18);
+    objc_copyWeak(&v17, buf);
+    [(CMContinuityCaptureNWTransportBase *)v11 createTimeSyncClock:?];
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
     [(CMContinuityCaptureNWServer *)v11 setupTCPConnection];
-    [(CMContinuityCaptureTransportNWDevice *)v11->_device activate:1];
+    [(CMContinuityCaptureTransportNWDevice *)v11->_device activate:?];
   }
 
   return v11;
@@ -63,9 +59,9 @@ void __45__CMContinuityCaptureNWServer_initWithQueue___block_invoke(uint64_t a1,
   v5 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained willChangeValueForKey:@"timeSyncClock"];
+    [WeakRetained willChangeValueForKey:?];
     objc_storeStrong(v5 + 8, a2);
-    [v5 didChangeValueForKey:@"timeSyncClock"];
+    [v5 didChangeValueForKey:?];
   }
 }
 
@@ -82,7 +78,7 @@ void __45__CMContinuityCaptureNWServer_initWithQueue___block_invoke(uint64_t a1,
 - (void)setupTCPConnection
 {
   objc_initWeak(&location, self);
-  unk_285500938(localIPAddress, "UTF8String");
+  unk_285500CB8(localIPAddress, "UTF8String");
   host_with_numeric_port = nw_endpoint_create_host_with_numeric_port();
   if (!host_with_numeric_port)
   {
@@ -156,15 +152,15 @@ void __49__CMContinuityCaptureNWServer_setupTCPConnection__block_invoke(uint64_t
   v9 = v8;
   if (a2 == 3 && v8)
   {
-    [*(v8 + 3) setActiveConnection:*(v8 + 7)];
-    [v9 scheduleReadForConnection:v9[7] dataTillNow:0];
+    [v8[3] setActiveConnection:?];
+    [v9 scheduleReadForConnection:? dataTillNow:?];
   }
 }
 
 - (void)setDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  [(CMContinuityCaptureNWTransportBase *)self setTaskDelegate:delegateCopy];
+  [(CMContinuityCaptureNWTransportBase *)self setTaskDelegate:?];
   delegate = self->_delegate;
   self->_delegate = delegateCopy;
 }
@@ -175,7 +171,7 @@ void __49__CMContinuityCaptureNWServer_setupTCPConnection__block_invoke(uint64_t
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   localDevice = [(CMContinuityCaptureNWServer *)self localDevice];
-  v7 = [v3 stringWithFormat:@"%@: %@ [%p]", v5, localDevice, self];
+  v7 = [v3 stringWithFormat:v5, localDevice, self];
 
   return v7;
 }

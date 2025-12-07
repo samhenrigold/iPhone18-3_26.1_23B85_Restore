@@ -10,14 +10,14 @@
 - (_TtC11MusicCoreUI26ImageEditingViewController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ImageEditingViewController();
+  v7.super_class = type metadata accessor for ImageEditingViewController(self, a2);
   return [(ImageEditingViewController *)&v7 initWithNavigationBarClass:class toolbarClass:toolbarClass];
 }
 
 - (_TtC11MusicCoreUI26ImageEditingViewController)initWithRootViewController:(id)controller
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ImageEditingViewController();
+  v5.super_class = type metadata accessor for ImageEditingViewController(self, a2);
   return [(ImageEditingViewController *)&v5 initWithRootViewController:controller];
 }
 
@@ -36,17 +36,17 @@
     v7 = 0;
   }
 
-  v11.receiver = self;
-  v11.super_class = type metadata accessor for ImageEditingViewController();
-  v9 = [(ImageEditingViewController *)&v11 initWithNibName:v7 bundle:bundle];
+  v12.receiver = self;
+  v12.super_class = type metadata accessor for ImageEditingViewController(bundleCopy2, v9);
+  v10 = [(ImageEditingViewController *)&v12 initWithNibName:v7 bundle:bundle];
 
-  return v9;
+  return v10;
 }
 
 - (_TtC11MusicCoreUI26ImageEditingViewController)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ImageEditingViewController();
+  v7.super_class = type metadata accessor for ImageEditingViewController(self, a2);
   coderCopy = coder;
   v5 = [(ImageEditingViewController *)&v7 initWithCoder:coderCopy];
 

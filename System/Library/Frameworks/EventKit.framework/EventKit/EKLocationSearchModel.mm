@@ -62,9 +62,11 @@
 
 uint64_t __35__EKLocationSearchModel_initialize__block_invoke()
 {
-  _mapItemCache = objc_alloc_init(MEMORY[0x1E695DEE0]);
+  v0 = objc_alloc_init(MEMORY[0x1E695DEE0]);
+  v1 = _mapItemCache;
+  _mapItemCache = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (EKLocationSearchModel)initWithEventStore:(id)store
@@ -251,18 +253,17 @@ uint64_t __35__EKLocationSearchModel_initialize__block_invoke()
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v6 = +[EKLogSubsystem locationSearch];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = 138412290;
-    v9 = errorCopy;
-    _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_ERROR, "Updating current location failed with error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = errorCopy;
+    _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_ERROR, "Updating current location failed with error: %@", &v7, 0xCu);
   }
 
   [(EKLocationSearchModel *)self stopUpdatingLocation];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
@@ -454,7 +455,7 @@ void __60__EKLocationSearchModel_locationManager_didUpdateLocations___block_invo
 
 - (void)beginSearchForTerm:(id)term
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   termCopy = term;
   [(EKLocationSearchModel *)self _incrementPendingOperationsCountForDomain:@"OperationDomainSearch"];
   v5 = ICSRedactString();
@@ -462,7 +463,7 @@ void __60__EKLocationSearchModel_locationManager_didUpdateLocations___block_invo
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v25 = v5;
+    v24 = v5;
     _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_INFO, "[%{public}@] >>>> Location search begins!!", buf, 0xCu);
   }
 
@@ -496,7 +497,7 @@ void __60__EKLocationSearchModel_locationManager_didUpdateLocations___block_invo
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1A805E000, v12, OS_LOG_TYPE_INFO, "[%{public}@] >>>> MapKit", buf, 0xCu);
     }
 
@@ -531,7 +532,7 @@ LABEL_5:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v25 = v5;
+    v24 = v5;
     _os_log_impl(&dword_1A805E000, v14, OS_LOG_TYPE_INFO, "[%{public}@] >>>> MapKit from URL", buf, 0xCu);
   }
 
@@ -553,7 +554,7 @@ LABEL_21:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v25 = v5;
+    v24 = v5;
     _os_log_impl(&dword_1A805E000, v15, OS_LOG_TYPE_INFO, "[%{public}@] >>>> Contacts", buf, 0xCu);
   }
 
@@ -575,7 +576,7 @@ LABEL_24:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v25 = v5;
+    v24 = v5;
     _os_log_impl(&dword_1A805E000, v16, OS_LOG_TYPE_INFO, "[%{public}@] >>>> Recents", buf, 0xCu);
   }
 
@@ -597,7 +598,7 @@ LABEL_27:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v25 = v5;
+    v24 = v5;
     _os_log_impl(&dword_1A805E000, v17, OS_LOG_TYPE_INFO, "[%{public}@] >>>> Frequents", buf, 0xCu);
   }
 
@@ -610,7 +611,7 @@ LABEL_30:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1A805E000, v18, OS_LOG_TYPE_INFO, "[%{public}@] >>>> ConferenceRooms", buf, 0xCu);
     }
 
@@ -625,7 +626,7 @@ LABEL_33:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1A805E000, v19, OS_LOG_TYPE_INFO, "[%{public}@] >>>> Events", buf, 0xCu);
     }
 
@@ -639,7 +640,7 @@ LABEL_33:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1A805E000, v20, OS_LOG_TYPE_INFO, "[%{public}@] >>>> Virtual Conference Rooms", buf, 0xCu);
     }
 
@@ -653,7 +654,7 @@ LABEL_33:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v25 = v5;
+      v24 = v5;
       _os_log_impl(&dword_1A805E000, v21, OS_LOG_TYPE_INFO, "[%{public}@] >>>> Virtual Conference Custom", buf, 0xCu);
     }
 
@@ -661,8 +662,6 @@ LABEL_33:
   }
 
   [(EKLocationSearchModel *)self _decrementPendingOperationsCountForDomain:@"OperationDomainSearch"];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __44__EKLocationSearchModel_beginSearchForTerm___block_invoke(uint64_t a1)
@@ -673,40 +672,40 @@ void __44__EKLocationSearchModel_beginSearchForTerm___block_invoke(uint64_t a1)
 
 - (unint64_t)dedupeResults
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   v3 = self->_recentsSearchResults;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v43 objects:v54 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v42 objects:v53 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v44;
+    v7 = *v43;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v44 != v7)
+        if (*v43 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        recent = [*(*(&v43 + 1) + 8 * i) recent];
+        recent = [*(*(&v42 + 1) + 8 * i) recent];
         v10 = [EKRecents locationForRecent:recent];
 
         frequentsSearchResults = self->_frequentsSearchResults;
         if (frequentsSearchResults && [(NSMutableArray *)frequentsSearchResults count])
         {
           v12 = self->_frequentsSearchResults;
-          v41[0] = MEMORY[0x1E69E9820];
-          v41[1] = 3221225472;
-          v41[2] = __38__EKLocationSearchModel_dedupeResults__block_invoke;
-          v41[3] = &unk_1E77FF7E8;
-          v42 = v10;
-          v13 = [(NSMutableArray *)v12 indexesOfObjectsPassingTest:v41];
+          v40[0] = MEMORY[0x1E69E9820];
+          v40[1] = 3221225472;
+          v40[2] = __38__EKLocationSearchModel_dedupeResults__block_invoke;
+          v40[3] = &unk_1E77FF7E8;
+          v41 = v10;
+          v13 = [(NSMutableArray *)v12 indexesOfObjectsPassingTest:v40];
           v14 = v13;
           if (v13 && [v13 count])
           {
@@ -724,12 +723,12 @@ void __44__EKLocationSearchModel_beginSearchForTerm___block_invoke(uint64_t a1)
         if (eventsSearchResults && [(NSMutableArray *)eventsSearchResults count])
         {
           v16 = self->_eventsSearchResults;
-          v39[0] = MEMORY[0x1E69E9820];
-          v39[1] = 3221225472;
-          v39[2] = __38__EKLocationSearchModel_dedupeResults__block_invoke_2;
-          v39[3] = &unk_1E77FF810;
-          v40 = v10;
-          v17 = [(NSMutableArray *)v16 indexesOfObjectsPassingTest:v39];
+          v38[0] = MEMORY[0x1E69E9820];
+          v38[1] = 3221225472;
+          v38[2] = __38__EKLocationSearchModel_dedupeResults__block_invoke_2;
+          v38[3] = &unk_1E77FF810;
+          v39 = v10;
+          v17 = [(NSMutableArray *)v16 indexesOfObjectsPassingTest:v38];
 
           if (v17 && [v17 count])
           {
@@ -744,7 +743,7 @@ void __44__EKLocationSearchModel_beginSearchForTerm___block_invoke(uint64_t a1)
         }
       }
 
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v43 objects:v54 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v42 objects:v53 count:16];
     }
 
     while (v5);
@@ -755,21 +754,21 @@ void __44__EKLocationSearchModel_beginSearchForTerm___block_invoke(uint64_t a1)
     v6 = 0;
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v18 = self->_frequentsSearchResults;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v35 objects:v53 count:16];
+  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v34 objects:v52 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v36;
+    v21 = *v35;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v36 != v21)
+        if (*v35 != v21)
         {
           objc_enumerationMutation(v18);
         }
@@ -777,16 +776,16 @@ void __44__EKLocationSearchModel_beginSearchForTerm___block_invoke(uint64_t a1)
         v23 = self->_eventsSearchResults;
         if (v23)
         {
-          v24 = *(*(&v35 + 1) + 8 * j);
+          v24 = *(*(&v34 + 1) + 8 * j);
           if ([(NSMutableArray *)v23 count])
           {
             v25 = self->_eventsSearchResults;
-            v34[0] = MEMORY[0x1E69E9820];
-            v34[1] = 3221225472;
-            v34[2] = __38__EKLocationSearchModel_dedupeResults__block_invoke_3;
-            v34[3] = &unk_1E77FF810;
-            v34[4] = v24;
-            v26 = [(NSMutableArray *)v25 indexesOfObjectsPassingTest:v34];
+            v33[0] = MEMORY[0x1E69E9820];
+            v33[1] = 3221225472;
+            v33[2] = __38__EKLocationSearchModel_dedupeResults__block_invoke_3;
+            v33[3] = &unk_1E77FF810;
+            v33[4] = v24;
+            v26 = [(NSMutableArray *)v25 indexesOfObjectsPassingTest:v33];
             v27 = v26;
             if (v26 && [v26 count])
             {
@@ -797,7 +796,7 @@ void __44__EKLocationSearchModel_beginSearchForTerm___block_invoke(uint64_t a1)
         }
       }
 
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v35 objects:v53 count:16];
+      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v34 objects:v52 count:16];
     }
 
     while (v20);
@@ -810,15 +809,14 @@ void __44__EKLocationSearchModel_beginSearchForTerm___block_invoke(uint64_t a1)
     v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableArray count](self->_eventsSearchResults, "count")}];
     v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableArray count](self->_frequentsSearchResults, "count")}];
     *buf = 138543874;
-    v48 = v29;
-    v49 = 2114;
-    v50 = v30;
-    v51 = 2114;
-    v52 = v31;
+    v47 = v29;
+    v48 = 2114;
+    v49 = v30;
+    v50 = 2114;
+    v51 = v31;
     _os_log_impl(&dword_1A805E000, v28, OS_LOG_TYPE_INFO, "After de-duping search results, Recents: %{public}@, Events: %{public}@, Frequents: %{public}@", buf, 0x20u);
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -842,7 +840,7 @@ uint64_t __38__EKLocationSearchModel_dedupeResults__block_invoke_3(uint64_t a1, 
 
 - (void)completerDidUpdateResults:(id)results finished:(BOOL)finished
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
   [(EKLocationSearchModel *)self _decrementPendingOperationsCountForDomain:@"OperationDomainMapCompletions"];
   queryFragment = [resultsCopy queryFragment];
@@ -859,9 +857,9 @@ uint64_t __38__EKLocationSearchModel_dedupeResults__block_invoke_3(uint64_t a1, 
       results = [resultsCopy results];
       v13 = [v11 numberWithUnsignedInteger:{objc_msgSend(results, "count")}];
       *buf = 138543618;
-      v32 = v7;
-      v33 = 2114;
-      v34 = v13;
+      v31 = v7;
+      v32 = 2114;
+      v33 = v13;
       _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_INFO, "[%{public}@] <<<< MapKit %{public}@ results", buf, 0x16u);
     }
 
@@ -869,38 +867,38 @@ uint64_t __38__EKLocationSearchModel_dedupeResults__block_invoke_3(uint64_t a1, 
     v9 = results2;
     if (results2)
     {
-      v25 = v7;
+      v24 = v7;
       v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSObject count](results2, "count")}];
+      v25 = 0u;
       v26 = 0u;
       v27 = 0u;
       v28 = 0u;
-      v29 = 0u;
       v16 = v9;
-      v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v27;
+        v19 = *v26;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v27 != v19)
+            if (*v26 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = [[EKMapSearchCompletion alloc] initWithMapSearchCompletion:*(*(&v26 + 1) + 8 * i)];
+            v21 = [[EKMapSearchCompletion alloc] initWithMapSearchCompletion:*(*(&v25 + 1) + 8 * i)];
             [(NSArray *)v15 addObject:v21];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v18);
       }
 
-      v7 = v25;
+      v7 = v24;
     }
 
     else
@@ -918,16 +916,14 @@ uint64_t __38__EKLocationSearchModel_dedupeResults__block_invoke_3(uint64_t a1, 
   else if (v10)
   {
     *buf = 138543362;
-    v32 = v7;
+    v31 = v7;
     _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_INFO, "[%{public}@] <<<< MapKit but results are not current", buf, 0xCu);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)completerDidFail:(id)fail error:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   failCopy = fail;
   [(EKLocationSearchModel *)self _decrementPendingOperationsCountForDomain:@"OperationDomainMapCompletions"];
@@ -941,21 +937,19 @@ uint64_t __38__EKLocationSearchModel_dedupeResults__block_invoke_3(uint64_t a1, 
   v11 = +[EKLogSubsystem locationSearch];
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2112;
-    v16 = errorCopy;
-    _os_log_impl(&dword_1A805E000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] MapKit failed with error: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = errorCopy;
+    _os_log_impl(&dword_1A805E000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] MapKit failed with error: %@", &v12, 0x16u);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateContacts:(id)contacts
 {
   contactsCopy = contacts;
   [(EKLocationSearchModel *)self _incrementPendingOperationsCountForDomain:@"OperationDomainContacts"];
-  v18 = ICSRedactString();
+  v22 = ICSRedactString();
   [(EKLocationSearchModel *)self resetContactsSearchResults];
   v5 = objc_opt_new();
   contactsSearchResults = self->_contactsSearchResults;
@@ -964,117 +958,117 @@ uint64_t __38__EKLocationSearchModel_dedupeResults__block_invoke_3(uint64_t a1, 
   delegate = [(EKLocationSearchModel *)self delegate];
   [delegate locationSearchModel:self updatedSearchTypes:8];
 
-  v8 = EKDescriptorForRequiredKeysForLabeledDisplayString();
-  v9 = [v8 arrayByAddingObject:*MEMORY[0x1E695C360]];
+  v12 = EKDescriptorForRequiredKeysForLabeledDisplayString(v8, v9, v10, v11);
+  v13 = [v12 arrayByAddingObject:*MEMORY[0x1E695C360]];
 
-  v10 = [objc_alloc(EKWeakLinkClass()) initWithKeysToFetch:v9];
-  v11 = [MEMORY[0x1E695CD58] predicateForContactsMatchingFullTextSearch:contactsCopy containerIdentifiers:0 groupIdentifiers:0];
-  [v10 setPredicate:v11];
+  v14 = [objc_alloc(EKWeakLinkClass()) initWithKeysToFetch:v13];
+  v15 = [MEMORY[0x1E695CD58] predicateForContactsMatchingFullTextSearch:contactsCopy containerIdentifiers:0 groupIdentifiers:0];
+  [v14 setPredicate:v15];
 
-  v42[0] = 0;
-  v42[1] = v42;
-  v42[2] = 0x3032000000;
-  v42[3] = __Block_byref_object_copy__19;
-  v42[4] = __Block_byref_object_dispose__19;
-  v43 = objc_opt_new();
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__19;
-  v40 = __Block_byref_object_dispose__19;
-  v41 = 0;
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x2020000000;
-  v35 = 0;
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x2020000000;
-  v33 = 0;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __40__EKLocationSearchModel_updateContacts___block_invoke;
-  v31[3] = &unk_1E77FF838;
-  v31[4] = v34;
-  v12 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:1 repeats:v31 block:0.33];
+  v46[0] = 0;
+  v46[1] = v46;
+  v46[2] = 0x3032000000;
+  v46[3] = __Block_byref_object_copy__19;
+  v46[4] = __Block_byref_object_dispose__19;
+  v47 = objc_opt_new();
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__19;
+  v44 = __Block_byref_object_dispose__19;
+  v45 = 0;
+  v38[0] = 0;
+  v38[1] = v38;
+  v38[2] = 0x2020000000;
+  v39 = 0;
+  v36[0] = 0;
+  v36[1] = v36;
+  v36[2] = 0x2020000000;
+  v37 = 0;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __40__EKLocationSearchModel_updateContacts___block_invoke;
+  v35[3] = &unk_1E77FF838;
+  v35[4] = v38;
+  v16 = [MEMORY[0x1E695DFF0] scheduledTimerWithTimeInterval:1 repeats:v35 block:0.33];
   contactStore = self->_contactStore;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __40__EKLocationSearchModel_updateContacts___block_invoke_2;
-  v25[3] = &unk_1E77FF888;
-  v28 = v32;
-  v29 = v34;
-  v27 = v42;
-  v25[4] = self;
-  v26 = v18;
-  v30 = &v36;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __40__EKLocationSearchModel_updateContacts___block_invoke_138;
-  v19[3] = &unk_1E77FF8D8;
-  v14 = v26;
-  v20 = v14;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __40__EKLocationSearchModel_updateContacts___block_invoke_2;
+  v29[3] = &unk_1E77FF888;
+  v32 = v36;
+  v33 = v38;
+  v31 = v46;
+  v29[4] = self;
+  v30 = v22;
+  v34 = &v40;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __40__EKLocationSearchModel_updateContacts___block_invoke_138;
+  v23[3] = &unk_1E77FF8D8;
+  v18 = v30;
+  v24 = v18;
   selfCopy = self;
-  v23 = v42;
-  v24 = &v36;
-  v15 = v12;
-  v22 = v15;
-  v16 = [(CNContactStore *)contactStore executeFetchRequest:v10 progressiveResults:v25 completion:v19];
+  v27 = v46;
+  v28 = &v40;
+  v19 = v16;
+  v26 = v19;
+  v20 = [(CNContactStore *)contactStore executeFetchRequest:v14 progressiveResults:v29 completion:v23];
   contactsSearchToken = self->_contactsSearchToken;
-  self->_contactsSearchToken = v16;
+  self->_contactsSearchToken = v20;
 
-  objc_storeStrong(v37 + 5, v16);
-  _Block_object_dispose(v32, 8);
-  _Block_object_dispose(v34, 8);
-  _Block_object_dispose(&v36, 8);
+  objc_storeStrong(v41 + 5, v20);
+  _Block_object_dispose(v36, 8);
+  _Block_object_dispose(v38, 8);
+  _Block_object_dispose(&v40, 8);
 
-  _Block_object_dispose(v42, 8);
+  _Block_object_dispose(v46, 8);
 }
 
 void __40__EKLocationSearchModel_updateContacts___block_invoke_2(uint64_t a1, void *a2)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   obj = a2;
-  v26 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-  if (v26)
+  v25 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
+  if (v25)
   {
-    v25 = *v37;
+    v24 = *v36;
     do
     {
       v3 = 0;
       do
       {
-        if (*v37 != v25)
+        if (*v36 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = v3;
-        v4 = *(*(&v36 + 1) + 8 * v3);
+        v26 = v3;
+        v4 = *(*(&v35 + 1) + 8 * v3);
+        v31 = 0u;
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
-        v35 = 0u;
         v5 = [v4 postalAddresses];
-        v6 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v6 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v6)
         {
           v7 = v6;
-          v8 = *v33;
+          v8 = *v32;
           do
           {
             for (i = 0; i != v7; ++i)
             {
-              if (*v33 != v8)
+              if (*v32 != v8)
               {
                 objc_enumerationMutation(v5);
               }
 
-              v10 = *(*(&v32 + 1) + 8 * i);
+              v10 = *(*(&v31 + 1) + 8 * i);
               v11 = MEMORY[0x1E695CF68];
               v12 = [v10 value];
               v13 = [v11 stringFromPostalAddress:v12 style:0];
@@ -1088,20 +1082,20 @@ void __40__EKLocationSearchModel_updateContacts___block_invoke_2(uint64_t a1, vo
               [*(*(*(a1 + 48) + 8) + 40) addObject:v14];
             }
 
-            v7 = [v5 countByEnumeratingWithState:&v32 objects:v40 count:16];
+            v7 = [v5 countByEnumeratingWithState:&v31 objects:v39 count:16];
           }
 
           while (v7);
         }
 
-        v3 = v27 + 1;
+        v3 = v26 + 1;
       }
 
-      while (v27 + 1 != v26);
-      v26 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+      while (v26 + 1 != v25);
+      v25 = [obj countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
-    while (v26);
+    while (v25);
   }
 
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0 && [*(*(*(a1 + 48) + 8) + 40) count] >= 0xA)
@@ -1126,35 +1120,31 @@ void __40__EKLocationSearchModel_updateContacts___block_invoke_2(uint64_t a1, vo
     block[3] = &unk_1E77FF860;
     v21 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v29 = v21;
-    v30 = v17;
-    v31 = *(a1 + 72);
+    v28 = v21;
+    v29 = v17;
+    v30 = *(a1 + 72);
     v22 = v17;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __40__EKLocationSearchModel_updateContacts___block_invoke_3(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _decrementPendingOperationsCountForDomain:@"OperationDomainContacts"];
   v2 = +[EKLogSubsystem locationSearch];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
     v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 48), "count")}];
-    v7 = 138543618;
-    v8 = v3;
-    v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_1A805E000, v2, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Contacts %{public}@ progressive results", &v7, 0x16u);
+    v6 = 138543618;
+    v7 = v3;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1A805E000, v2, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Contacts %{public}@ progressive results", &v6, 0x16u);
   }
 
-  result = [*(a1 + 32) _updateContactsSearchWithResults:*(a1 + 48) forToken:*(*(*(a1 + 56) + 8) + 40)];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) _updateContactsSearchWithResults:*(a1 + 48) forToken:*(*(*(a1 + 56) + 8) + 40)];
 }
 
 void __40__EKLocationSearchModel_updateContacts___block_invoke_138(uint64_t a1)
@@ -1176,17 +1166,17 @@ void __40__EKLocationSearchModel_updateContacts___block_invoke_138(uint64_t a1)
 
 void __40__EKLocationSearchModel_updateContacts___block_invoke_2_139(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = +[EKLogSubsystem locationSearch];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
     v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(*(a1 + 56) + 8) + 40), "count")}];
-    v8 = 138543618;
-    v9 = v3;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_impl(&dword_1A805E000, v2, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Contacts %{public}@ results", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v3;
+    v9 = 2114;
+    v10 = v4;
+    _os_log_impl(&dword_1A805E000, v2, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Contacts %{public}@ results", &v7, 0x16u);
   }
 
   [*(a1 + 40) _decrementPendingOperationsCountForDomain:@"OperationDomainContacts"];
@@ -1198,8 +1188,6 @@ void __40__EKLocationSearchModel_updateContacts___block_invoke_2_139(uint64_t a1
   {
     *(v5 + 80) = 0;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateContactsSearchWithResults:(id)results forToken:(id)token
@@ -1214,33 +1202,33 @@ void __40__EKLocationSearchModel_updateContacts___block_invoke_2_139(uint64_t a1
 
 - (void)updateRecents:(id)recents
 {
-  v37[2] = *MEMORY[0x1E69E9840];
+  v36[2] = *MEMORY[0x1E69E9840];
   recentsCopy = recents;
   if ((self->_supportedSearchTypes & 0x10) != 0)
   {
     [(EKLocationSearchModel *)self _incrementPendingOperationsCountForDomain:@"OperationDomainRecents"];
     if (recentsCopy)
     {
-      v28 = EKWeakLinkStringConstant();
       v27 = EKWeakLinkStringConstant();
       v26 = EKWeakLinkStringConstant();
       v25 = EKWeakLinkStringConstant();
+      v24 = EKWeakLinkStringConstant();
       v5 = EKWeakLinkClass();
-      v36 = v28;
-      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
-      v7 = [v5 predicateForKey:v27 inCollection:v6];
-      v37[0] = v7;
-      v8 = [v5 predicateForKey:v26 matchingText:recentsCopy comparison:1];
-      v35[0] = v8;
-      v9 = [v5 predicateForKey:v25 matchingText:recentsCopy comparison:1];
-      v35[1] = v9;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+      v35 = v27;
+      v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+      v7 = [v5 predicateForKey:v26 inCollection:v6];
+      v36[0] = v7;
+      v8 = [v5 predicateForKey:v25 matchingText:recentsCopy comparison:1];
+      v34[0] = v8;
+      v9 = [v5 predicateForKey:v24 matchingText:recentsCopy comparison:1];
+      v34[1] = v9;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
       v11 = [v5 predicateSatisfyingAnySubpredicate:v10];
-      v37[1] = v11;
-      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
+      v36[1] = v11;
+      v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:2];
       v13 = [v5 predicateSatisfyingAllSubpredicates:v12];
 
-      v14 = v28;
+      v14 = v27;
     }
 
     else
@@ -1274,23 +1262,21 @@ void __40__EKLocationSearchModel_updateContacts___block_invoke_2_139(uint64_t a1
     objc_storeStrong(&self->_currentRecentsSearch, v19);
     defaultInstance = [v17 defaultInstance];
     v22 = self->_recentsQueue;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __39__EKLocationSearchModel_updateRecents___block_invoke;
-    v29[3] = &unk_1E77FF9A0;
-    objc_copyWeak(v33, &buf);
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __39__EKLocationSearchModel_updateRecents___block_invoke;
+    v28[3] = &unk_1E77FF9A0;
+    objc_copyWeak(v32, &buf);
     v23 = v19;
-    v30 = v23;
+    v29 = v23;
     selfCopy = self;
-    v33[1] = v17;
-    v32 = recentsCopy;
-    [defaultInstance performRecentsSearch:v23 queue:v22 completion:v29];
+    v32[1] = v17;
+    v31 = recentsCopy;
+    [defaultInstance performRecentsSearch:v23 queue:v22 completion:v28];
 
-    objc_destroyWeak(v33);
+    objc_destroyWeak(v32);
     objc_destroyWeak(&buf);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __39__EKLocationSearchModel_updateRecents___block_invoke(uint64_t a1, void *a2)
@@ -1316,92 +1302,88 @@ void __39__EKLocationSearchModel_updateRecents___block_invoke(uint64_t a1, void 
 
 void __39__EKLocationSearchModel_updateRecents___block_invoke_2(uint64_t a1)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
-  v27 = [v2 sourceForSearchModel:*(a1 + 32)];
+  v26 = [v2 sourceForSearchModel:*(a1 + 32)];
 
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
-  v29 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+  v28 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
   group = dispatch_group_create();
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = *(a1 + 40);
-  v4 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+  v4 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v45;
-    v25 = v38;
+    v6 = *v44;
+    v24 = v37;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v45 != v6)
+        if (*v44 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v44 + 1) + 8 * i);
-        if (![EKRecents recentIsDirectoryLocation:v8, v25])
+        v8 = *(*(&v43 + 1) + 8 * i);
+        if ([EKRecents recentIsDirectoryLocation:v8, v24])
         {
-          goto LABEL_19;
-        }
+          v9 = objc_alloc_init(EKConferenceRoom);
+          v10 = objc_alloc_init(EKDirectoryLocation);
+          [(EKConferenceRoom *)v9 setLocation:v10];
 
-        v9 = objc_alloc_init(EKConferenceRoom);
-        v10 = objc_alloc_init(EKDirectoryLocation);
-        [(EKConferenceRoom *)v9 setLocation:v10];
+          v11 = [v8 displayName];
+          v12 = [(EKConferenceRoom *)v9 location];
+          [v12 setDisplayName:v11];
 
-        v11 = [v8 displayName];
-        v12 = [(EKConferenceRoom *)v9 location];
-        [v12 setDisplayName:v11];
+          v13 = [*(a1 + 32) delegate];
+          v14 = [v13 shouldIncludeConferenceRoom:v9];
 
-        v13 = [*(a1 + 32) delegate];
-        v14 = [v13 shouldIncludeConferenceRoom:v9];
-
-        if ([EKRecents recentDirectoryLocation:v8 matchesSource:v27])
-        {
-          if (v14)
+          if (![EKRecents recentDirectoryLocation:v8 matchesSource:v26]|| !v14)
           {
-LABEL_19:
-            if ([EKRecents recentMissingStyleAttributes:v8])
-            {
-              v15 = [EKRecents mapKitHandleForRecent:v8];
-              if (v15)
-              {
-                dispatch_group_enter(group);
-                MKMapItemClass = getMKMapItemClass();
-                v37[0] = MEMORY[0x1E69E9820];
-                v37[1] = 3221225472;
-                v38[0] = __39__EKLocationSearchModel_updateRecents___block_invoke_3;
-                v38[1] = &unk_1E77FF900;
-                v39 = v29;
-                v40 = v8;
-                v43 = *(a1 + 72);
-                v15 = v15;
-                v41 = v15;
-                v42 = group;
-                [MKMapItemClass _mapItemFromHandle:v15 completionHandler:v37];
-              }
-            }
-
-            else
-            {
-              v15 = [EKRecents mapKitStyleAttributesForRecent:v8];
-              os_unfair_lock_lock(&OperationDomainVirtualConferencesCustom_block_invoke_dictionaryLock);
-              v17 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v8, "contactID")}];
-              [v29 setObject:v15 forKeyedSubscript:v17];
-
-              os_unfair_lock_unlock(&OperationDomainVirtualConferencesCustom_block_invoke_dictionaryLock);
-            }
-
-            [v3 addObject:v8];
+            continue;
           }
         }
+
+        if ([EKRecents recentMissingStyleAttributes:v8])
+        {
+          v15 = [EKRecents mapKitHandleForRecent:v8];
+          if (v15)
+          {
+            dispatch_group_enter(group);
+            MKMapItemClass = getMKMapItemClass();
+            v36[0] = MEMORY[0x1E69E9820];
+            v36[1] = 3221225472;
+            v37[0] = __39__EKLocationSearchModel_updateRecents___block_invoke_3;
+            v37[1] = &unk_1E77FF900;
+            v38 = v28;
+            v39 = v8;
+            v42 = *(a1 + 72);
+            v15 = v15;
+            v40 = v15;
+            v41 = group;
+            [MKMapItemClass _mapItemFromHandle:v15 completionHandler:v36];
+          }
+        }
+
+        else
+        {
+          v15 = [EKRecents mapKitStyleAttributesForRecent:v8];
+          os_unfair_lock_lock(&OperationDomainVirtualConferencesCustom_block_invoke_dictionaryLock);
+          v17 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v8, "contactID")}];
+          [v28 setObject:v15 forKeyedSubscript:v17];
+
+          os_unfair_lock_unlock(&OperationDomainVirtualConferencesCustom_block_invoke_dictionaryLock);
+        }
+
+        [v3 addObject:v8];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v44 objects:v48 count:16];
+      v5 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
     while (v5);
@@ -1412,25 +1394,23 @@ LABEL_19:
   block[1] = 3221225472;
   block[2] = __39__EKLocationSearchModel_updateRecents___block_invoke_163;
   block[3] = &unk_1E77FF950;
-  v31 = group;
-  v32 = v3;
-  v33 = v29;
+  v30 = group;
+  v31 = v3;
+  v32 = v28;
   v19 = *(a1 + 56);
   v20 = *(a1 + 48);
-  v34 = v19;
-  v35 = v20;
-  v36 = *(a1 + 64);
-  v21 = v29;
+  v33 = v19;
+  v34 = v20;
+  v35 = *(a1 + 64);
+  v21 = v28;
   v22 = v3;
   v23 = group;
   dispatch_async(v18, block);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __39__EKLocationSearchModel_updateRecents___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -1447,8 +1427,8 @@ void __39__EKLocationSearchModel_updateRecents___block_invoke_3(uint64_t a1, voi
     v12 = [EKRecents recentEventWithRecentContact:v10 styleAttributes:v11];
 
     v13 = [*(a1 + 64) defaultInstance];
-    v21[0] = v12;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v12;
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     [v13 recordContactEvents:v14 recentsDomain:@"com.apple.eventkit.ios" sendingAddress:0 completion:0];
   }
 
@@ -1458,21 +1438,20 @@ void __39__EKLocationSearchModel_updateRecents___block_invoke_3(uint64_t a1, voi
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v15 = *(a1 + 48);
-      v17 = 138412546;
-      v18 = v15;
-      v19 = 2112;
-      v20 = v6;
-      _os_log_impl(&dword_1A805E000, v12, OS_LOG_TYPE_ERROR, "Failed to get map item from handle when updating recents: %@, %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = v15;
+      v18 = 2112;
+      v19 = v6;
+      _os_log_impl(&dword_1A805E000, v12, OS_LOG_TYPE_ERROR, "Failed to get map item from handle when updating recents: %@, %@", &v16, 0x16u);
     }
   }
 
   dispatch_group_leave(*(a1 + 56));
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __39__EKLocationSearchModel_updateRecents___block_invoke_163(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = dispatch_time(0, 5000000000);
   if (dispatch_group_wait(v2, v3))
@@ -1486,27 +1465,27 @@ void __39__EKLocationSearchModel_updateRecents___block_invoke_163(uint64_t a1)
   }
 
   v5 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = *(a1 + 40);
-  v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       v9 = 0;
       do
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * v9);
+        v10 = *(*(&v25 + 1) + 8 * v9);
         v11 = objc_alloc_init(EKRecentContactSearchResult);
         [(EKRecentContactSearchResult *)v11 setRecent:v10];
         os_unfair_lock_lock(&OperationDomainVirtualConferencesCustom_block_invoke_dictionaryLock);
@@ -1522,7 +1501,7 @@ void __39__EKLocationSearchModel_updateRecents___block_invoke_163(uint64_t a1)
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v7);
@@ -1535,19 +1514,17 @@ void __39__EKLocationSearchModel_updateRecents___block_invoke_163(uint64_t a1)
   v15 = *(a1 + 56);
   v16 = *(a1 + 64);
   v17 = *(a1 + 72);
-  v22 = v15;
-  v23 = v16;
-  v24 = v5;
-  v25 = v17;
+  v21 = v15;
+  v22 = v16;
+  v23 = v5;
+  v24 = v17;
   v18 = v5;
   dispatch_async(MEMORY[0x1E69E96A0], block);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __39__EKLocationSearchModel_updateRecents___block_invoke_165(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) isEqual:*(*(a1 + 40) + 128)];
   v3 = *(a1 + 40);
   if (v2)
@@ -1561,11 +1538,11 @@ void __39__EKLocationSearchModel_updateRecents___block_invoke_165(uint64_t a1)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
       {
         v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 40) + 176), "count")}];
-        v11 = 138543618;
-        v12 = v4;
-        v13 = 2114;
-        v14 = v6;
-        _os_log_impl(&dword_1A805E000, v5, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Recents %{public}@ results", &v11, 0x16u);
+        v9 = 138543618;
+        v10 = v4;
+        v11 = 2114;
+        v12 = v6;
+        _os_log_impl(&dword_1A805E000, v5, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Recents %{public}@ results", &v9, 0x16u);
       }
     }
 
@@ -1576,25 +1553,22 @@ void __39__EKLocationSearchModel_updateRecents___block_invoke_165(uint64_t a1)
       {
 LABEL_11:
 
-        v8 = [*(a1 + 40) dedupeResults];
+        v7 = [*(a1 + 40) dedupeResults];
         [*(a1 + 40) _decrementPendingOperationsCountForDomain:@"OperationDomainRecents"];
-        v9 = [*(a1 + 40) delegate];
-        [v9 locationSearchModel:*(a1 + 40) updatedSearchTypes:v8 | 0x10];
+        v8 = [*(a1 + 40) delegate];
+        [v8 locationSearchModel:*(a1 + 40) updatedSearchTypes:v7 | 0x10];
 
-        v10 = *MEMORY[0x1E69E9840];
         return;
       }
 
       v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 40) + 176), "count")}];
-      v11 = 138543362;
-      v12 = v5;
-      _os_log_impl(&dword_1A805E000, v4, OS_LOG_TYPE_INFO, "Returning all Recents %{public}@ results", &v11, 0xCu);
+      v9 = 138543362;
+      v10 = v5;
+      _os_log_impl(&dword_1A805E000, v4, OS_LOG_TYPE_INFO, "Returning all Recents %{public}@ results", &v9, 0xCu);
     }
 
     goto LABEL_11;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   [v3 _decrementPendingOperationsCountForDomain:@"OperationDomainRecents"];
 }
@@ -1654,7 +1628,7 @@ void __49__EKLocationSearchModel_searchFrequentLocations___block_invoke(uint64_t
 
 void __49__EKLocationSearchModel_searchFrequentLocations___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 184);
   if (v2)
   {
@@ -1677,32 +1651,29 @@ void __49__EKLocationSearchModel_searchFrequentLocations___block_invoke_2(uint64
     [*(*(a1 + 32) + 184) addObject:v6];
   }
 
-  v7 = *(a1 + 56);
-  v8 = ICSRedactString();
-  v9 = +[EKLogSubsystem locationSearch];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v7 = ICSRedactString();
+  v8 = +[EKLogSubsystem locationSearch];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v10 = MEMORY[0x1E696AD98];
-    v11 = [*(a1 + 32) frequentsSearchResults];
-    v12 = [v10 numberWithUnsignedInteger:{objc_msgSend(v11, "count")}];
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2114;
-    v19 = v12;
-    _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Frequents %{public}@ results", &v16, 0x16u);
+    v9 = MEMORY[0x1E696AD98];
+    v10 = [*(a1 + 32) frequentsSearchResults];
+    v11 = [v9 numberWithUnsignedInteger:{objc_msgSend(v10, "count")}];
+    v14 = 138543618;
+    v15 = v7;
+    v16 = 2114;
+    v17 = v11;
+    _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Frequents %{public}@ results", &v14, 0x16u);
   }
 
-  v13 = [*(a1 + 32) dedupeResults];
+  v12 = [*(a1 + 32) dedupeResults];
   [*(a1 + 32) _decrementPendingOperationsCountForDomain:@"OperationDomainFrequents"];
-  v14 = [*(a1 + 32) delegate];
-  [v14 locationSearchModel:*(a1 + 32) updatedSearchTypes:v13 | 0x20];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v13 = [*(a1 + 32) delegate];
+  [v13 locationSearchModel:*(a1 + 32) updatedSearchTypes:v12 | 0x20];
 }
 
 - (id)splitEventLocations:(id)locations
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   locationsCopy = locations;
   structuredLocationWithoutPrediction = [locationsCopy structuredLocationWithoutPrediction];
   preferredLocationWithoutPrediction = [locationsCopy preferredLocationWithoutPrediction];
@@ -1710,48 +1681,48 @@ void __49__EKLocationSearchModel_searchFrequentLocations___block_invoke_2(uint64
   v6 = [title componentsSeparatedByString:@" "];;
 
   [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v6, "count")}];
-  v22 = v21 = locationsCopy;
+  v21 = v20 = locationsCopy;
   attendees = [locationsCopy attendees];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v7 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
+        v25 = 0u;
         v26 = 0u;
         v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
         v12 = attendees;
-        v13 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v27;
+          v15 = *v26;
 LABEL_8:
           v16 = 0;
           while (1)
           {
-            if (*v27 != v15)
+            if (*v26 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            name = [*(*(&v26 + 1) + 8 * v16) name];
+            name = [*(*(&v25 + 1) + 8 * v16) name];
             v18 = [name isEqualToString:v11];
 
             if (v18)
@@ -1761,7 +1732,7 @@ LABEL_8:
 
             if (v14 == ++v16)
             {
-              v14 = [v12 countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v25 objects:v33 count:16];
               if (v14)
               {
                 goto LABEL_8;
@@ -1787,19 +1758,17 @@ LABEL_14:
           }
           v12 = ;
           [v12 setTitle:v11];
-          [v22 addObject:v12];
+          [v21 addObject:v12];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v8);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v22;
+  return v21;
 }
 
 - (void)updateEventLocations:(id)locations
@@ -1847,45 +1816,42 @@ LABEL_14:
 
 void __46__EKLocationSearchModel_updateEventLocations___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = ICSRedactString();
-  v6 = +[EKLogSubsystem locationSearch];
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v4 = ICSRedactString();
+  v5 = +[EKLogSubsystem locationSearch];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
+    v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v3, "count")}];
     *buf = 138543618;
-    v20 = v5;
-    v21 = 2114;
-    v22 = v7;
-    _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events %{public}@ match results", buf, 0x16u);
+    v18 = v4;
+    v19 = 2114;
+    v20 = v6;
+    _os_log_impl(&dword_1A805E000, v5, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events %{public}@ match results", buf, 0x16u);
   }
 
-  v8 = v3;
-  v9 = *(a1 + 40);
-  v10 = *(v9 + 96);
+  v7 = v3;
+  v8 = *(a1 + 40);
+  v9 = *(v8 + 96);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_179;
   block[3] = &unk_1E77FDF98;
-  block[4] = v9;
-  v15 = v5;
-  v11 = v8;
-  v16 = v11;
-  v17 = *(a1 + 32);
-  v18 = v11;
-  v12 = v5;
-  dispatch_async(v10, block);
-
-  v13 = *MEMORY[0x1E69E9840];
+  block[4] = v8;
+  v13 = v4;
+  v10 = v7;
+  v14 = v10;
+  v15 = *(a1 + 32);
+  v16 = v10;
+  v11 = v4;
+  dispatch_async(v9, block);
 }
 
 void __46__EKLocationSearchModel_updateEventLocations___block_invoke_179(uint64_t a1)
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   v1 = [*(*(a1 + 32) + 120) searchTerm];
-  v28 = ICSRedactString();
+  v27 = ICSRedactString();
 
   v2 = +[EKLogSubsystem locationSearch];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
@@ -1897,38 +1863,38 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_179(uint64_
     *&buf[12] = 2114;
     *&buf[14] = v4;
     *&buf[22] = 2114;
-    v83 = v28;
+    v82 = v27;
     _os_log_impl(&dword_1A805E000, v2, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events Processing %{public}@ match results, events search text = %{public}@", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v83 = __Block_byref_object_copy__19;
-  v84 = __Block_byref_object_dispose__19;
-  v85 = 0;
-  v74 = 0;
-  v75 = &v74;
-  v76 = 0x3032000000;
-  v77 = __Block_byref_object_copy__19;
-  v78 = __Block_byref_object_dispose__19;
-  v79 = 0;
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x2020000000;
+  v82 = __Block_byref_object_copy__19;
+  v83 = __Block_byref_object_dispose__19;
+  v84 = 0;
   v73 = 0;
+  v74 = &v73;
+  v75 = 0x3032000000;
+  v76 = __Block_byref_object_copy__19;
+  v77 = __Block_byref_object_dispose__19;
+  v78 = 0;
+  v69 = 0;
+  v70 = &v69;
+  v71 = 0x2020000000;
+  v72 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_180;
   block[3] = &unk_1E77FF9F0;
   v5 = a1;
   block[4] = *(a1 + 32);
-  v66 = *(a1 + 56);
-  v67 = &v70;
-  v68 = buf;
-  v69 = &v74;
+  v65 = *(a1 + 56);
+  v66 = &v69;
+  v67 = buf;
+  v68 = &v73;
   dispatch_sync(MEMORY[0x1E69E96A0], block);
-  if (*(v71 + 24) == 1)
+  if (*(v70 + 24) == 1)
   {
     [*(a1 + 32) _decrementPendingOperationsCountForDomain:@"OperationDomainEvents"];
   }
@@ -1936,67 +1902,67 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_179(uint64_
   else
   {
     group = dispatch_group_create();
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     obj = *(a1 + 64);
-    v6 = [obj countByEnumeratingWithState:&v61 objects:v81 count:16];
+    v6 = [obj countByEnumeratingWithState:&v60 objects:v80 count:16];
     if (v6)
     {
-      v30 = *v62;
+      v29 = *v61;
       do
       {
-        v36 = 0;
-        v31 = v6;
+        v35 = 0;
+        v30 = v6;
         do
         {
-          if (*v62 != v30)
+          if (*v61 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v61 + 1) + 8 * v36);
-          v35 = [v7 objectForKey:{@"objectID", v28}];
-          v34 = [v7 objectForKey:@"occurrenceDate"];
-          v33 = [*(*(v5 + 32) + 112) eventForObjectID:v35 occurrenceDate:? checkValid:?];
+          v7 = *(*(&v60 + 1) + 8 * v35);
+          v34 = [v7 objectForKey:{@"objectID", v27}];
+          v33 = [v7 objectForKey:@"occurrenceDate"];
+          v32 = [*(*(v5 + 32) + 112) eventForObjectID:v34 occurrenceDate:? checkValid:?];
           v8 = [*(v5 + 32) splitEventLocations:?];
-          v59 = 0u;
-          v60 = 0u;
-          v57 = 0u;
           v58 = 0u;
+          v59 = 0u;
+          v56 = 0u;
+          v57 = 0u;
           v9 = v8;
-          v10 = [v9 countByEnumeratingWithState:&v57 objects:v80 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v56 objects:v79 count:16];
           if (v10)
           {
-            v11 = *v58;
+            v11 = *v57;
             do
             {
               for (i = 0; i != v10; ++i)
               {
-                if (*v58 != v11)
+                if (*v57 != v11)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v13 = *(*(&v57 + 1) + 8 * i);
+                v13 = *(*(&v56 + 1) + 8 * i);
                 v14 = [v13 geoLocation];
 
                 if (v14)
                 {
-                  *v53 = 0;
-                  v54 = v53;
-                  v55 = 0x2020000000;
-                  v56 = 1;
+                  *v52 = 0;
+                  v53 = v52;
+                  v54 = 0x2020000000;
+                  v55 = 1;
                   v15 = *(*&buf[8] + 40);
-                  v52[0] = MEMORY[0x1E69E9820];
-                  v52[1] = 3221225472;
-                  v52[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_181;
-                  v52[3] = &unk_1E77FFA18;
-                  v52[4] = v13;
-                  v52[5] = v53;
-                  [v15 enumerateObjectsUsingBlock:v52];
-                  if (v13 && (v54[24] & 1) != 0)
+                  v51[0] = MEMORY[0x1E69E9820];
+                  v51[1] = 3221225472;
+                  v51[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_181;
+                  v51[3] = &unk_1E77FFA18;
+                  v51[4] = v13;
+                  v51[5] = v52;
+                  [v15 enumerateObjectsUsingBlock:v51];
+                  if (v13 && (v53[24] & 1) != 0)
                   {
                     v16 = [v13 mapKitHandle];
                     if (v16)
@@ -2008,15 +1974,15 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_179(uint64_
                       {
                         dispatch_group_enter(group);
                         MKMapItemClass = getMKMapItemClass();
-                        v48[0] = MEMORY[0x1E69E9820];
-                        v48[1] = 3221225472;
-                        v48[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_2;
-                        v48[3] = &unk_1E77FFA40;
+                        v47[0] = MEMORY[0x1E69E9820];
+                        v47[1] = 3221225472;
+                        v47[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_2;
+                        v47[3] = &unk_1E77FFA40;
                         v20 = v16;
-                        v49 = v20;
-                        v50 = v13;
-                        v51 = group;
-                        [MKMapItemClass _mapItemFromHandle:v20 completionHandler:v48];
+                        v48 = v20;
+                        v49 = v13;
+                        v50 = group;
+                        [MKMapItemClass _mapItemFromHandle:v20 completionHandler:v47];
                       }
                     }
 
@@ -2028,39 +1994,39 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_179(uint64_
 
                 else
                 {
-                  *v53 = 0;
-                  v54 = v53;
-                  v55 = 0x2020000000;
-                  v56 = 1;
-                  v22 = v75[5];
-                  v47[0] = MEMORY[0x1E69E9820];
-                  v47[1] = 3221225472;
-                  v47[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_184;
-                  v47[3] = &unk_1E77FFA68;
-                  v47[4] = v13;
-                  v47[5] = v53;
-                  [v22 enumerateObjectsUsingBlock:v47];
-                  if (v13 && (v54[24] & 1) != 0)
+                  *v52 = 0;
+                  v53 = v52;
+                  v54 = 0x2020000000;
+                  v55 = 1;
+                  v22 = v74[5];
+                  v46[0] = MEMORY[0x1E69E9820];
+                  v46[1] = 3221225472;
+                  v46[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_184;
+                  v46[3] = &unk_1E77FFA68;
+                  v46[4] = v13;
+                  v46[5] = v52;
+                  [v22 enumerateObjectsUsingBlock:v46];
+                  if (v13 && (v53[24] & 1) != 0)
                   {
-                    [v75[5] addObject:v13];
+                    [v74[5] addObject:v13];
                   }
                 }
 
-                _Block_object_dispose(v53, 8);
+                _Block_object_dispose(v52, 8);
               }
 
-              v10 = [v9 countByEnumeratingWithState:&v57 objects:v80 count:16];
+              v10 = [v9 countByEnumeratingWithState:&v56 objects:v79 count:16];
             }
 
             while (v10);
           }
 
           v5 = a1;
-          ++v36;
+          ++v35;
         }
 
-        while (v36 != v31);
-        v6 = [obj countByEnumeratingWithState:&v61 objects:v81 count:16];
+        while (v35 != v30);
+        v6 = [obj countByEnumeratingWithState:&v60 objects:v80 count:16];
       }
 
       while (v6);
@@ -2072,45 +2038,44 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_179(uint64_
       v24 = +[EKLogSubsystem locationSearch];
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        *v53 = 0;
-        _os_log_impl(&dword_1A805E000, v24, OS_LOG_TYPE_ERROR, "Timed out waiting for all mapItemHandles to resolve to mapItems", v53, 2u);
+        *v52 = 0;
+        _os_log_impl(&dword_1A805E000, v24, OS_LOG_TYPE_ERROR, "Timed out waiting for all mapItemHandles to resolve to mapItems", v52, 2u);
       }
     }
 
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_186;
-    v42[3] = &unk_1E77FF9F0;
-    v42[4] = *(a1 + 32);
-    v43 = *(a1 + 56);
-    v44 = &v70;
-    v45 = buf;
-    v46 = &v74;
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_186;
+    v41[3] = &unk_1E77FF9F0;
+    v41[4] = *(a1 + 32);
+    v42 = *(a1 + 56);
+    v43 = &v69;
+    v44 = buf;
+    v45 = &v73;
     v25 = MEMORY[0x1E69E96A0];
-    dispatch_sync(MEMORY[0x1E69E96A0], v42);
+    dispatch_sync(MEMORY[0x1E69E96A0], v41);
 
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_187;
-    v38[3] = &unk_1E77FFA90;
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __46__EKLocationSearchModel_updateEventLocations___block_invoke_187;
+    v37[3] = &unk_1E77FFA90;
     v26 = *(a1 + 32);
-    v41 = &v70;
-    v38[4] = v26;
-    v39 = *(a1 + 56);
-    v40 = *(a1 + 48);
-    dispatch_async(v25, v38);
+    v40 = &v69;
+    v37[4] = v26;
+    v38 = *(a1 + 56);
+    v39 = *(a1 + 48);
+    dispatch_async(v25, v37);
   }
 
-  _Block_object_dispose(&v70, 8);
-  _Block_object_dispose(&v74, 8);
+  _Block_object_dispose(&v69, 8);
+  _Block_object_dispose(&v73, 8);
 
   _Block_object_dispose(buf, 8);
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __46__EKLocationSearchModel_updateEventLocations___block_invoke_180(void *a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 120) searchTerm];
   v3 = [v2 isEqualToString:a1[5]];
 
@@ -2147,30 +2112,27 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_180(void *a
     v16 = *(a1[8] + 8);
     v17 = *(v16 + 40);
     *(v16 + 40) = v15;
-    v18 = *MEMORY[0x1E69E9840];
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v15, v17);
   }
 
   else
   {
-    v19 = a1[5];
+    v18 = ICSRedactString();
+    v19 = [*(a1[4] + 120) searchTerm];
     v20 = ICSRedactString();
-    v21 = [*(a1[4] + 120) searchTerm];
-    v22 = ICSRedactString();
 
-    v23 = +[EKLogSubsystem locationSearch];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v21 = +[EKLogSubsystem locationSearch];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v25 = 138543618;
-      v26 = v20;
-      v27 = 2114;
-      v28 = v22;
-      _os_log_impl(&dword_1A805E000, v23, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events Bailing before processing matches because query changed, events search text = %{public}@", &v25, 0x16u);
+      v22 = 138543618;
+      v23 = v18;
+      v24 = 2114;
+      v25 = v20;
+      _os_log_impl(&dword_1A805E000, v21, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events Bailing before processing matches because query changed, events search text = %{public}@", &v22, 0x16u);
     }
 
     *(*(a1[6] + 8) + 24) = 1;
-    v24 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -2189,7 +2151,7 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_181(uint64_
 
 void __46__EKLocationSearchModel_updateEventLocations___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -2202,20 +2164,18 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_2(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = [*(a1 + 40) mapKitHandle];
-      v9 = 138412546;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_ERROR, "Failed to get map item from handle when fetching event locations: %@, %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_1A805E000, v6, OS_LOG_TYPE_ERROR, "Failed to get map item from handle when fetching event locations: %@, %@", &v8, 0x16u);
     }
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __46__EKLocationSearchModel_updateEventLocations___block_invoke_184(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__46__EKLocationSearchModel_updateEventLocations___block_invoke_184(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isEqualToLocation:a2];
   if (result)
@@ -2229,7 +2189,7 @@ uint64_t __46__EKLocationSearchModel_updateEventLocations___block_invoke_184(uin
 
 void __46__EKLocationSearchModel_updateEventLocations___block_invoke_186(void *a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 120) searchTerm];
   v3 = [v2 isEqualToString:a1[5]];
 
@@ -2244,36 +2204,33 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_186(void *a
     v8 = a1[4];
     v9 = *(v8 + 256);
     *(v8 + 256) = v7;
-    v10 = *MEMORY[0x1E69E9840];
 
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](v7, v9);
   }
 
   else
   {
-    v11 = a1[5];
+    v10 = ICSRedactString();
+    v11 = [*(a1[4] + 120) searchTerm];
     v12 = ICSRedactString();
-    v13 = [*(a1[4] + 120) searchTerm];
-    v14 = ICSRedactString();
 
-    v15 = +[EKLogSubsystem locationSearch];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v13 = +[EKLogSubsystem locationSearch];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v17 = 138543618;
-      v18 = v12;
-      v19 = 2114;
-      v20 = v14;
-      _os_log_impl(&dword_1A805E000, v15, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events Bailing before setting results because query changed, events search text = %{public}@", &v17, 0x16u);
+      v14 = 138543618;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v12;
+      _os_log_impl(&dword_1A805E000, v13, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events Bailing before setting results because query changed, events search text = %{public}@", &v14, 0x16u);
     }
 
     *(*(a1[6] + 8) + 24) = 1;
-    v16 = *MEMORY[0x1E69E9840];
   }
 }
 
 void __46__EKLocationSearchModel_updateEventLocations___block_invoke_187(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 56) + 8) + 24))
   {
     goto LABEL_4;
@@ -2286,17 +2243,16 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_187(uint64_
   {
     if (![*(a1 + 48) count])
     {
-      v15 = *(a1 + 40);
-      v16 = ICSRedactString();
-      v17 = +[EKLogSubsystem locationSearch];
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v13 = ICSRedactString();
+      v14 = +[EKLogSubsystem locationSearch];
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 32) + 192), "count")}];
-        v19 = 138543618;
-        v20 = v16;
-        v21 = 2114;
-        v22 = v18;
-        _os_log_impl(&dword_1A805E000, v17, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events %{public}@ results", &v19, 0x16u);
+        v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 32) + 192), "count")}];
+        v16 = 138543618;
+        v17 = v13;
+        v18 = 2114;
+        v19 = v15;
+        _os_log_impl(&dword_1A805E000, v14, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events %{public}@ results", &v16, 0x16u);
       }
 
       v4 = [*(a1 + 32) dedupeResults] | 0xC0;
@@ -2316,33 +2272,30 @@ LABEL_5:
     goto LABEL_11;
   }
 
-  v6 = *(a1 + 40);
   v5 = ICSRedactString();
-  v7 = [*(*(a1 + 32) + 120) searchTerm];
-  v8 = ICSRedactString();
+  v6 = [*(*(a1 + 32) + 120) searchTerm];
+  v7 = ICSRedactString();
 
-  v9 = +[EKLogSubsystem locationSearch];
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v8 = +[EKLogSubsystem locationSearch];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v19 = 138543618;
-    v20 = v5;
-    v21 = 2114;
-    v22 = v8;
-    _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events Bailing before updating results because query changed, events search text = %{public}@", &v19, 0x16u);
+    v16 = 138543618;
+    v17 = v5;
+    v18 = 2114;
+    v19 = v7;
+    _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Events Bailing before updating results because query changed, events search text = %{public}@", &v16, 0x16u);
   }
 
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 192);
-  *(v10 + 192) = 0;
+  v9 = *(a1 + 32);
+  v10 = *(v9 + 192);
+  *(v9 + 192) = 0;
 
-  v12 = *(a1 + 32);
-  v13 = *(v12 + 256);
-  *(v12 + 256) = 0;
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 256);
+  *(v11 + 256) = 0;
 
   [*(a1 + 32) _decrementPendingOperationsCountForDomain:@"OperationDomainEvents"];
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __46__EKLocationSearchModel_updateEventLocations___block_invoke_190(uint64_t a1)
@@ -2388,7 +2341,7 @@ void __46__EKLocationSearchModel_updateEventLocations___block_invoke_2_191(uint6
 
 void __47__EKLocationSearchModel_searchConferenceRooms___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) delegate];
   v4 = [v3 sourceForSearchModel:*v2];
@@ -2409,47 +2362,46 @@ void __47__EKLocationSearchModel_searchConferenceRooms___block_invoke(uint64_t a
     aBlock[1] = 3221225472;
     aBlock[2] = __47__EKLocationSearchModel_searchConferenceRooms___block_invoke_193;
     aBlock[3] = &unk_1E77FFB08;
-    objc_copyWeak(&v26, &location);
-    v25 = 0;
+    objc_copyWeak(&v24, &location);
+    v23 = 0;
     v10 = _Block_copy(aBlock);
     v11 = [[EKDirectorySearchOperation alloc] initWithSource:v4 query:v9 resultsBlock:v10];
     objc_initWeak(&from, v11);
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __47__EKLocationSearchModel_searchConferenceRooms___block_invoke_2;
-    v20[3] = &unk_1E77FFB30;
-    objc_copyWeak(&v22, &from);
-    v20[4] = *(a1 + 32);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __47__EKLocationSearchModel_searchConferenceRooms___block_invoke_2;
+    v18[3] = &unk_1E77FFB30;
+    objc_copyWeak(&v20, &from);
+    v18[4] = *(a1 + 32);
     v12 = v9;
-    v21 = v12;
-    [(EKDirectorySearchOperation *)v11 setCompletionBlock:v20];
+    v19 = v12;
+    [(EKDirectorySearchOperation *)v11 setCompletionBlock:v18];
     [*(*(a1 + 32) + 152) cancelAllOperations];
     [*(*(a1 + 32) + 160) removeAllObjects];
     [*(*(a1 + 32) + 168) removeAllObjects];
-    v13 = *(a1 + 40);
-    v14 = ICSRedactString();
-    v15 = +[EKLogSubsystem locationSearch];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v13 = ICSRedactString();
+    v14 = +[EKLogSubsystem locationSearch];
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = v8;
-      v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 32) + 160), "count")}];
+      v15 = v8;
+      v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 32) + 160), "count")}];
       *buf = 138543618;
-      v29 = v14;
-      v30 = 2114;
-      v31 = v17;
-      _os_log_impl(&dword_1A805E000, v15, OS_LOG_TYPE_INFO, "[%{public}@] <<<< ConferenceRooms %{public}@ results", buf, 0x16u);
+      v27 = v13;
+      v28 = 2114;
+      v29 = v16;
+      _os_log_impl(&dword_1A805E000, v14, OS_LOG_TYPE_INFO, "[%{public}@] <<<< ConferenceRooms %{public}@ results", buf, 0x16u);
 
-      v8 = v16;
+      v8 = v15;
     }
 
-    v18 = [*(a1 + 32) delegate];
-    [v18 locationSearchModel:*(a1 + 32) updatedSearchTypes:256];
+    v17 = [*(a1 + 32) delegate];
+    [v17 locationSearchModel:*(a1 + 32) updatedSearchTypes:256];
 
     [*(*(a1 + 32) + 152) addOperation:v11];
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&from);
 
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
 
@@ -2463,8 +2415,6 @@ void __47__EKLocationSearchModel_searchConferenceRooms___block_invoke(uint64_t a
       _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_DEBUG, "The source for the search model's event does not support location directory searches.  Will not search for conference rooms.", buf, 2u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __47__EKLocationSearchModel_searchConferenceRooms___block_invoke_193(uint64_t a1, void *a2)
@@ -2508,7 +2458,7 @@ void __47__EKLocationSearchModel_searchConferenceRooms___block_invoke_2(uint64_t
 
 void __47__EKLocationSearchModel_searchConferenceRooms___block_invoke_196(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) isCancelled] & 1) == 0)
   {
     v2 = [*(a1 + 32) error];
@@ -2518,7 +2468,7 @@ void __47__EKLocationSearchModel_searchConferenceRooms___block_invoke_196(uint64
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = v2;
+        v10 = v2;
         v4 = "Directory search operation completed with error: [%@]";
         v5 = v3;
         v6 = OS_LOG_TYPE_ERROR;
@@ -2541,7 +2491,7 @@ LABEL_10:
       {
         v7 = [*(a1 + 40) resultLimit];
         *buf = 134217984;
-        v11 = v7;
+        v10 = v7;
         v4 = "Directory search operation completed.  The number of matches exceeded the original result limit of [%tu]";
         v5 = v3;
         v6 = OS_LOG_TYPE_DEBUG;
@@ -2559,7 +2509,6 @@ LABEL_11:
   block[3] = &unk_1E77FD418;
   block[4] = *(a1 + 48);
   dispatch_async(MEMORY[0x1E69E96A0], block);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __47__EKLocationSearchModel_searchConferenceRooms___block_invoke_197(uint64_t a1)
@@ -2639,14 +2588,14 @@ void __71__EKLocationSearchModel__processDirectorySearchResultSet_forOperation__
 
 - (void)_addDiscoveredConferenceRooms:(id)rooms
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   roomsCopy = rooms;
   v5 = +[EKLogSubsystem locationSearch];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(roomsCopy, "count")}];
     *buf = 138543362;
-    v39 = v6;
+    v38 = v6;
     _os_log_impl(&dword_1A805E000, v5, OS_LOG_TYPE_INFO, "<<<< ConferenceRooms %{public}@ results", buf, 0xCu);
   }
 
@@ -2699,7 +2648,7 @@ LABEL_11:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v39 = v11;
+      v38 = v11;
       v23 = "Not issuing availability request because the source does not support it: [%@]";
       v24 = v22;
       v25 = 12;
@@ -2710,14 +2659,14 @@ LABEL_11:
   }
 
   v18 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_201;
-  v34[3] = &unk_1E77FFBA0;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_201;
+  v33[3] = &unk_1E77FFBA0;
   v19 = v18;
-  v35 = v19;
+  v34 = v19;
   selfCopy = self;
-  [roomsCopy enumerateObjectsUsingBlock:v34];
+  [roomsCopy enumerateObjectsUsingBlock:v33];
   conferenceRoomProcessingQueue = self->_conferenceRoomProcessingQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -2725,18 +2674,16 @@ LABEL_11:
   block[3] = &unk_1E77FF950;
   block[4] = self;
   v21 = v19;
-  v29 = v21;
-  v30 = v9;
-  v31 = v11;
-  v32 = v13;
-  v33 = roomsCopy;
+  v28 = v21;
+  v29 = v9;
+  v30 = v11;
+  v31 = v13;
+  v32 = roomsCopy;
   dispatch_async(conferenceRoomProcessingQueue, block);
 
 LABEL_12:
   delegate5 = [(EKLocationSearchModel *)self delegate];
   [delegate5 locationSearchModel:self updatedSearchTypes:256];
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2866,7 +2813,7 @@ LABEL_9:
 
 void __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_204(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) isCancelled] & 1) == 0)
   {
     v2 = [*(a1 + 32) error];
@@ -2876,23 +2823,21 @@ void __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_20
       if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v11 = v2;
+        v10 = v2;
         _os_log_impl(&dword_1A805E000, v3, OS_LOG_TYPE_ERROR, "Availability operation completed with error: [%@]", buf, 0xCu);
       }
     }
   }
 
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_205;
-  v7[3] = &unk_1E77FD580;
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_205;
+  v6[3] = &unk_1E77FD580;
   v4 = *(a1 + 40);
   v5 = *(a1 + 48);
-  v8 = v4;
-  v9 = v5;
-  dispatch_async(MEMORY[0x1E69E96A0], v7);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7 = v4;
+  v8 = v5;
+  dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
 void __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_205(uint64_t a1)
@@ -2932,7 +2877,7 @@ void __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_2_
 
 - (void)updateConferenceRoomAvailability:(id)availability duringEvent:(id)event completionBlock:(id)block
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   availabilityCopy = availability;
   eventCopy = event;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -2940,14 +2885,14 @@ void __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_2_
   aBlock[2] = __86__EKLocationSearchModel_updateConferenceRoomAvailability_duringEvent_completionBlock___block_invoke;
   aBlock[3] = &unk_1E77FE278;
   v9 = availabilityCopy;
-  v33 = v9;
+  v32 = v9;
   blockCopy = block;
-  v28 = _Block_copy(aBlock);
-  v26 = v9;
+  v27 = _Block_copy(aBlock);
+  v25 = v9;
   location = [v9 location];
   preferredAddress = [location preferredAddress];
-  v34[0] = preferredAddress;
-  v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+  v33[0] = preferredAddress;
+  v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
   isDetached = [eventCopy isDetached];
   if (isDetached)
   {
@@ -2966,7 +2911,7 @@ void __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_2_
   startDate = [eventCopy startDate];
   endDateUnadjustedForLegacyClients = [eventCopy endDateUnadjustedForLegacyClients];
   v18 = [v15 initWithStartDate:startDate endDate:endDateUnadjustedForLegacyClients];
-  v19 = [(EKLocationSearchModel *)self _availabilityRequestForConferenceRooms:v27 eventID:v12 source:source dateRange:v18 resultsBlock:v28 completionBlock:blockCopy];
+  v19 = [(EKLocationSearchModel *)self _availabilityRequestForConferenceRooms:v26 eventID:v12 source:source dateRange:v18 resultsBlock:v27 completionBlock:blockCopy];
 
   if (isDetached)
   {
@@ -2974,18 +2919,16 @@ void __55__EKLocationSearchModel__addDiscoveredConferenceRooms___block_invoke_2_
     v12 = originalItem;
   }
 
-  [v26 setAvailabilityRequestInProgress:1];
+  [v25 setAvailabilityRequestInProgress:1];
   conferenceRoomProcessingQueue = self->_conferenceRoomProcessingQueue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __86__EKLocationSearchModel_updateConferenceRoomAvailability_duringEvent_completionBlock___block_invoke_2;
   block[3] = &unk_1E77FD580;
   block[4] = self;
-  v31 = v19;
+  v30 = v19;
   v21 = v19;
   dispatch_async(conferenceRoomProcessingQueue, block);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __86__EKLocationSearchModel_updateConferenceRoomAvailability_duringEvent_completionBlock___block_invoke(uint64_t a1, void *a2)
@@ -3040,7 +2983,7 @@ void __65__EKLocationSearchModel__handleAvailabilityResults_forOperation___block
 
 - (void)_addLocationToRecents:(id)recents addressString:(id)string mapItem:(id)item
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   recentsCopy = recents;
   stringCopy = string;
   itemCopy = item;
@@ -3063,8 +3006,8 @@ void __65__EKLocationSearchModel__handleAvailabilityResults_forOperation___block
     v14 = EKWeakLinkClass();
     v15 = [EKRecents recentForLocation:recentsCopy withAddressString:stringCopy andTitle:v13 mapItem:itemCopy];
     defaultInstance = [v14 defaultInstance];
-    v23[0] = v15;
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = v15;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     [defaultInstance recordContactEvents:v17 recentsDomain:@"com.apple.eventkit.ios" sendingAddress:0 completion:0];
 
 LABEL_9:
@@ -3075,22 +3018,20 @@ LABEL_9:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     defaultInstance = [recentsCopy title];
-    v19 = 138412546;
-    v20 = stringCopy;
-    v21 = 2112;
-    v22 = defaultInstance;
-    _os_log_impl(&dword_1A805E000, v15, OS_LOG_TYPE_ERROR, "can't add to recents, missing info: %@ %@", &v19, 0x16u);
+    v18 = 138412546;
+    v19 = stringCopy;
+    v20 = 2112;
+    v21 = defaultInstance;
+    _os_log_impl(&dword_1A805E000, v15, OS_LOG_TYPE_ERROR, "can't add to recents, missing info: %@ %@", &v18, 0x16u);
     goto LABEL_9;
   }
 
 LABEL_10:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addConferenceRoomToRecents:(id)recents fromSource:(id)source
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   recentsCopy = recents;
   v7 = EKWeakLinkClass();
@@ -3099,36 +3040,33 @@ LABEL_10:
   v9 = [EKRecents recentForDirectoryLocation:location onSource:sourceCopy];
 
   defaultInstance = [v7 defaultInstance];
-  v13[0] = v9;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v9;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   [defaultInstance recordContactEvents:v11 recentsDomain:@"com.apple.eventkit.ios" sendingAddress:0 completion:0];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)removeRecentLocation:(id)location
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   locationCopy = location;
   defaultInstance = [EKWeakLinkClass() defaultInstance];
-  v14[0] = locationCopy;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = locationCopy;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   v7 = [defaultInstance removeRecentContacts:v6 error:0];
 
   if (v7)
   {
     recentsSearchResults = self->_recentsSearchResults;
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __46__EKLocationSearchModel_removeRecentLocation___block_invoke;
-    v12[3] = &unk_1E77FFC10;
-    v13 = locationCopy;
-    [(NSMutableArray *)self->_recentsSearchResults removeObjectAtIndex:[(NSMutableArray *)recentsSearchResults indexOfObjectPassingTest:v12]];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __46__EKLocationSearchModel_removeRecentLocation___block_invoke;
+    v11[3] = &unk_1E77FFC10;
+    v12 = locationCopy;
+    [(NSMutableArray *)self->_recentsSearchResults removeObjectAtIndex:[(NSMutableArray *)recentsSearchResults indexOfObjectPassingTest:v11]];
     delegate = [(EKLocationSearchModel *)self delegate];
     [delegate locationSearchModel:self updatedSearchTypes:16];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -3239,7 +3177,7 @@ void __51__EKLocationSearchModel_selectMapSearchCompletion___block_invoke(uint64
 
 void __40__EKLocationSearchModel_selectLocation___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -3255,18 +3193,16 @@ void __40__EKLocationSearchModel_selectLocation___block_invoke(uint64_t a1, void
     v10 = +[EKLogSubsystem locationSearch];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_ERROR, "Failed to convert mapKitHandle to mapItem in selectLocation: %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_ERROR, "Failed to convert mapKitHandle to mapItem in selectLocation: %@", &v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __40__EKLocationSearchModel_selectLocation___block_invoke_218(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -3274,9 +3210,9 @@ void __40__EKLocationSearchModel_selectLocation___block_invoke_218(uint64_t a1, 
     v7 = +[EKLogSubsystem locationSearch];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = v6;
-      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_ERROR, "Location search failed with error: %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = v6;
+      _os_log_impl(&dword_1A805E000, v7, OS_LOG_TYPE_ERROR, "Location search failed with error: %@", &v12, 0xCu);
     }
   }
 
@@ -3291,8 +3227,6 @@ void __40__EKLocationSearchModel_selectLocation___block_invoke_218(uint64_t a1, 
 
   v11 = [*(a1 + 40) delegate];
   [v11 locationSearchModel:*(a1 + 40) selectedLocation:*(a1 + 32) withError:v6];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)selectCurrentLocation
@@ -3328,7 +3262,7 @@ void __40__EKLocationSearchModel_selectLocation___block_invoke_218(uint64_t a1, 
 
 void __46__EKLocationSearchModel_selectCurrentLocation__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -3339,9 +3273,9 @@ void __46__EKLocationSearchModel_selectCurrentLocation__block_invoke(uint64_t a1
       v8 = +[EKLogSubsystem locationSearch];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v19 = 138412290;
-        v20 = v6;
-        _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_ERROR, "Current Location search failed with error: %@", &v19, 0xCu);
+        v18 = 138412290;
+        v19 = v6;
+        _os_log_impl(&dword_1A805E000, v8, OS_LOG_TYPE_ERROR, "Current Location search failed with error: %@", &v18, 0xCu);
       }
     }
 
@@ -3380,8 +3314,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_dataDetector
@@ -3436,29 +3368,29 @@ void __38__EKLocationSearchModel__dataDetector__block_invoke()
 
 + (id)URLsFromSource:(id)source
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   array = [MEMORY[0x1E695DF70] array];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = [self _linksInSource:{sourceCopy, 0}];
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if ([v11 resultType] == 32)
         {
           phoneURL = [v11 URL];
@@ -3494,20 +3426,18 @@ void __38__EKLocationSearchModel__dataDetector__block_invoke()
 LABEL_14:
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (void)_updateVirtualConferenceCustomOptions:(id)options
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = optionsCopy;
   if ((self->_supportedSearchTypes & 0x400) != 0)
@@ -3525,13 +3455,13 @@ LABEL_14:
         customConferenceQueue = self->_customConferenceQueue;
       }
 
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __63__EKLocationSearchModel__updateVirtualConferenceCustomOptions___block_invoke;
-      v15[3] = &unk_1E77FD580;
-      v15[4] = self;
-      v16 = v5;
-      dispatch_async(customConferenceQueue, v15);
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __63__EKLocationSearchModel__updateVirtualConferenceCustomOptions___block_invoke;
+      v14[3] = &unk_1E77FD580;
+      v14[4] = self;
+      v15 = v5;
+      dispatch_async(customConferenceQueue, v14);
     }
 
     else
@@ -3545,9 +3475,9 @@ LABEL_14:
       {
         v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](self->_virtualConferenceCustomSearchResults, "count")}];
         *buf = 138543618;
-        v18 = v10;
-        v19 = 2114;
-        v20 = v12;
+        v17 = v10;
+        v18 = 2114;
+        v19 = v12;
         _os_log_impl(&dword_1A805E000, v11, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Virtual Conference Custom %{public}@ results", buf, 0x16u);
       }
 
@@ -3555,13 +3485,10 @@ LABEL_14:
       [delegate locationSearchModel:self updatedSearchTypes:1024];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __63__EKLocationSearchModel__updateVirtualConferenceCustomOptions___block_invoke(uint64_t a1)
+void __63__EKLocationSearchModel__updateVirtualConferenceCustomOptions___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = [objc_opt_class() URLsFromSource:*(a1 + 40)];
   v4 = [v3 CalMap:&__block_literal_global_228];
   block[0] = MEMORY[0x1E69E9820];
@@ -3578,42 +3505,37 @@ void __63__EKLocationSearchModel__updateVirtualConferenceCustomOptions___block_i
 
 EKVirtualConference *__63__EKLocationSearchModel__updateVirtualConferenceCustomOptions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [[EKVirtualConferenceJoinMethod alloc] initWithTitle:0 url:v2];
 
   v4 = [EKVirtualConference alloc];
-  v9[0] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [(EKVirtualConference *)v4 initWithTitle:0 joinMethods:v5 conferenceDetails:0];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 void __63__EKLocationSearchModel__updateVirtualConferenceCustomOptions___block_invoke_3(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   objc_storeStrong((*(a1 + 32) + 264), *(a1 + 40));
-  v2 = *(a1 + 48);
-  v3 = ICSRedactString();
-  v4 = +[EKLogSubsystem locationSearch];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v2 = ICSRedactString();
+  v3 = +[EKLogSubsystem locationSearch];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 32) + 264), "count")}];
-    v8 = 138543618;
-    v9 = v3;
-    v10 = 2114;
-    v11 = v5;
-    _os_log_impl(&dword_1A805E000, v4, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Virtual Conference Custom %{public}@ results", &v8, 0x16u);
+    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(*(*(a1 + 32) + 264), "count")}];
+    v6 = 138543618;
+    v7 = v2;
+    v8 = 2114;
+    v9 = v4;
+    _os_log_impl(&dword_1A805E000, v3, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Virtual Conference Custom %{public}@ results", &v6, 0x16u);
   }
 
   [*(a1 + 32) _decrementPendingOperationsCountForDomain:@"OperationDomainVirtualConferencesCustom"];
-  v6 = [*(a1 + 32) delegate];
-  [v6 locationSearchModel:*(a1 + 32) updatedSearchTypes:1024];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = [*(a1 + 32) delegate];
+  [v5 locationSearchModel:*(a1 + 32) updatedSearchTypes:1024];
 }
 
 - (void)selectVirtualConferenceRoomType:(id)type
@@ -3688,7 +3610,7 @@ uint64_t __60__EKLocationSearchModel_updateVirtualConferenceRoomOptions___block_
 
 - (void)_updateVirtualConferenceOptions:(id)options
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   virtualConferenceRoomSearchResults = self->_virtualConferenceRoomSearchResults;
   if (!virtualConferenceRoomSearchResults)
@@ -3703,26 +3625,26 @@ uint64_t __60__EKLocationSearchModel_updateVirtualConferenceRoomOptions___block_
   [(NSMutableArray *)virtualConferenceRoomSearchResults removeAllObjects];
   if (optionsCopy)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v8 = self->_allPossibleVirtualConferenceRooms;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
+          v13 = *(*(&v20 + 1) + 8 * i);
           title = [v13 title];
           v15 = [title rangeOfString:optionsCopy options:1];
 
@@ -3732,7 +3654,7 @@ uint64_t __60__EKLocationSearchModel_updateVirtualConferenceRoomOptions___block_
           }
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v10);
@@ -3750,22 +3672,20 @@ uint64_t __60__EKLocationSearchModel_updateVirtualConferenceRoomOptions___block_
   {
     v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMutableArray count](self->_virtualConferenceRoomSearchResults, "count")}];
     *buf = 138543618;
-    v26 = v16;
-    v27 = 2114;
-    v28 = v18;
+    v25 = v16;
+    v26 = 2114;
+    v27 = v18;
     _os_log_impl(&dword_1A805E000, v17, OS_LOG_TYPE_INFO, "[%{public}@] <<<< Virtual Conference Rooms %{public}@ results", buf, 0x16u);
   }
 
   [(EKLocationSearchModel *)self _decrementPendingOperationsCountForDomain:@"OperationDomainVirtualConferences"];
   delegate = [(EKLocationSearchModel *)self delegate];
   [delegate locationSearchModel:self updatedSearchTypes:512];
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateMapURL:(id)l
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = ICSRedactString();
   v6 = [MEMORY[0x1E695DFF8] URLWithString:lCopy];
@@ -3778,17 +3698,17 @@ uint64_t __60__EKLocationSearchModel_updateVirtualConferenceRoomOptions___block_
   delegate2 = v7;
   if (v7 && ([v7 isCurrentLocation] & 1) == 0)
   {
-    v13 = objc_alloc_init(EKStructuredLocationSearchResult);
+    v12 = objc_alloc_init(EKStructuredLocationSearchResult);
     locationFromMapsURL = self->_locationFromMapsURL;
-    self->_locationFromMapsURL = v13;
+    self->_locationFromMapsURL = v12;
 
-    v15 = [EKStructuredLocation locationWithMapItem:delegate2];
+    v14 = [EKStructuredLocation locationWithMapItem:delegate2];
     _geoAddress = [delegate2 _geoAddress];
     formattedAddressLines = [_geoAddress formattedAddressLines];
     lastObject = [formattedAddressLines lastObject];
 
-    [v15 setAddress:lastObject];
-    [(EKStructuredLocationSearchResult *)self->_locationFromMapsURL setLocation:v15];
+    [v14 setAddress:lastObject];
+    [(EKStructuredLocationSearchResult *)self->_locationFromMapsURL setLocation:v14];
     if (([delegate2 isPlaceHolder] & 1) == 0)
     {
       location = [(EKStructuredLocationSearchResult *)self->_locationFromMapsURL location];
@@ -3804,15 +3724,15 @@ uint64_t __60__EKLocationSearchModel_updateVirtualConferenceRoomOptions___block_
 
       if (title)
       {
-        v23 = +[EKLogSubsystem locationSearch];
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+        v22 = +[EKLogSubsystem locationSearch];
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v24 = [MEMORY[0x1E696AD98] numberWithInt:self->_locationFromMapsURL != 0];
+          v23 = [MEMORY[0x1E696AD98] numberWithInt:self->_locationFromMapsURL != 0];
           *buf = 138543618;
-          v36 = v5;
-          v37 = 2114;
-          v38 = v24;
-          _os_log_impl(&dword_1A805E000, v23, OS_LOG_TYPE_INFO, "[%{public}@] <<<< MapKit from URL %{public}@ results", buf, 0x16u);
+          v35 = v5;
+          v36 = 2114;
+          v37 = v23;
+          _os_log_impl(&dword_1A805E000, v22, OS_LOG_TYPE_INFO, "[%{public}@] <<<< MapKit from URL %{public}@ results", buf, 0x16u);
         }
 
         delegate = [(EKLocationSearchModel *)self delegate];
@@ -3830,9 +3750,9 @@ LABEL_22:
     geocoder = self->_geocoder;
     if (!geocoder)
     {
-      v27 = objc_alloc_init(EKWeakLinkClass());
-      v28 = self->_geocoder;
-      self->_geocoder = v27;
+      v26 = objc_alloc_init(EKWeakLinkClass());
+      v27 = self->_geocoder;
+      self->_geocoder = v26;
 
       geocoder = self->_geocoder;
     }
@@ -3844,17 +3764,17 @@ LABEL_22:
 
     [(EKLocationSearchModel *)self _incrementPendingOperationsCountForDomain:@"OperationDomainLocationFromMapsURL"];
     objc_initWeak(buf, self);
-    v29 = self->_geocoder;
-    geoLocation = [v15 geoLocation];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __39__EKLocationSearchModel__updateMapURL___block_invoke;
-    v32[3] = &unk_1E77FFCD0;
-    objc_copyWeak(&v34, buf);
-    v33 = v5;
-    [(CLGeocoder *)v29 reverseGeocodeLocation:geoLocation completionHandler:v32];
+    v28 = self->_geocoder;
+    geoLocation = [v14 geoLocation];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __39__EKLocationSearchModel__updateMapURL___block_invoke;
+    v31[3] = &unk_1E77FFCD0;
+    objc_copyWeak(&v33, buf);
+    v32 = v5;
+    [(CLGeocoder *)v28 reverseGeocodeLocation:geoLocation completionHandler:v31];
 
-    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(buf);
     goto LABEL_22;
   }
@@ -3868,22 +3788,20 @@ LABEL_5:
   {
     v11 = [MEMORY[0x1E696AD98] numberWithInt:self->_locationFromMapsURL != 0];
     *buf = 138543618;
-    v36 = v5;
-    v37 = 2114;
-    v38 = v11;
+    v35 = v5;
+    v36 = 2114;
+    v37 = v11;
     _os_log_impl(&dword_1A805E000, v10, OS_LOG_TYPE_INFO, "[%{public}@] <<<< MapKit from URL %{public}@ results", buf, 0x16u);
   }
 
   delegate2 = [(EKLocationSearchModel *)self delegate];
   [delegate2 locationSearchModel:self updatedSearchTypes:2];
 LABEL_8:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __39__EKLocationSearchModel__updateMapURL___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -3899,7 +3817,7 @@ void __39__EKLocationSearchModel__updateMapURL___block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v37 = v6;
+      v36 = v6;
       _os_log_impl(&dword_1A805E000, v9, OS_LOG_TYPE_ERROR, "Map URL address geocoding failed failed with error: %@", buf, 0xCu);
     }
 
@@ -3937,12 +3855,12 @@ void __39__EKLocationSearchModel__updateMapURL___block_invoke(uint64_t a1, void 
         v24 = [WeakRetained[6] location];
         [v24 title];
         v26 = v25 = v12;
-        v35 = [v26 isEqualToString:&stru_1F1B49D68];
+        v34 = [v26 isEqualToString:&stru_1F1B49D68];
 
         v12 = v25;
         v8 = 0x1ED7F7000;
 
-        if (!v35)
+        if (!v34)
         {
           goto LABEL_13;
         }
@@ -3969,9 +3887,9 @@ LABEL_14:
     v31 = *(a1 + 32);
     v32 = [MEMORY[0x1E696AD98] numberWithInt:WeakRetained[6] != 0];
     *buf = 138543618;
-    v37 = v31;
-    v38 = 2114;
-    v39 = v32;
+    v36 = v31;
+    v37 = 2114;
+    v38 = v32;
     _os_log_impl(&dword_1A805E000, v30, OS_LOG_TYPE_INFO, "[%{public}@] <<<< MapKit from URL %{public}@ results", buf, 0x16u);
   }
 
@@ -3979,7 +3897,6 @@ LABEL_14:
   [v33 locationSearchModel:WeakRetained updatedSearchTypes:2];
 
 LABEL_17:
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (EKLocationSearchModelDelegate)delegate

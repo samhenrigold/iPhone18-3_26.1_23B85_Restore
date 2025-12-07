@@ -8,7 +8,7 @@
 
 - (void)invalidateAssertion
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     assertion = [(ICSCarPlayServicesController *)self assertion];
@@ -41,24 +41,24 @@
 
   if (!assertion2)
   {
-    v8 = sub_100004F84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100004F84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Acquiring and activating CarPlay assertion", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Acquiring and activating CarPlay assertion", &v14, 2u);
     }
 
-    v9 = [[CRSInCallAssertion alloc] initWithReason:@"incoming call"];
-    [(ICSCarPlayServicesController *)self setAssertion:v9];
+    v10 = [[CRSInCallAssertion alloc] initWithReason:@"incoming call"];
+    [(ICSCarPlayServicesController *)self setAssertion:v10];
   }
 
-  v10 = sub_100004F84();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004F84(v8);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     assertion3 = [(ICSCarPlayServicesController *)self assertion];
-    v13 = 138412290;
-    v14 = assertion3;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@", &v13, 0xCu);
+    v14 = 138412290;
+    v15 = assertion3;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@", &v14, 0xCu);
   }
 
   if (v6)
@@ -71,7 +71,7 @@
 - (void)setAllowsBanners:(BOOL)banners
 {
   bannersCopy = banners;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;

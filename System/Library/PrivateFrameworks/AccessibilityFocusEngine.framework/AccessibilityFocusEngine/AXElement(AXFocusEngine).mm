@@ -1,5 +1,4 @@
 @interface AXElement(AXFocusEngine)
-- (double)elementLabelContainerSize;
 - (id)applicationForHostFocusSystem;
 - (id)elementForRemoteFocusSystem;
 - (id)elementName;
@@ -17,32 +16,32 @@
 
 - (id)elementName
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   typeaheadQueryString = [self typeaheadQueryString];
   v3 = [typeaheadQueryString length];
 
   if (v3)
   {
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     userInputLabels = [self userInputLabels];
-    v5 = [userInputLabels countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v5 = [userInputLabels countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v19;
+      v7 = *v18;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v19 != v7)
+          if (*v18 != v7)
           {
             objc_enumerationMutation(userInputLabels);
           }
 
-          v9 = *(*(&v18 + 1) + 8 * i);
+          v9 = *(*(&v17 + 1) + 8 * i);
           lowercaseString = [v9 lowercaseString];
           typeaheadQueryString2 = [self typeaheadQueryString];
           lowercaseString2 = [typeaheadQueryString2 lowercaseString];
@@ -55,7 +54,7 @@
           }
         }
 
-        v6 = [userInputLabels countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v6 = [userInputLabels countByEnumeratingWithState:&v17 objects:v21 count:16];
         if (v6)
         {
           continue;
@@ -71,16 +70,7 @@
 LABEL_13:
   v15 = firstObject;
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
-}
-
-- (double)elementLabelContainerSize
-{
-  result = *MEMORY[0x277CBF3A8];
-  v1 = *(MEMORY[0x277CBF3A8] + 8);
-  return result;
 }
 
 - (uint64_t)hasRemoteFocusSystem
@@ -215,30 +205,28 @@ LABEL_13:
 
 - (uint64_t)moveFocusWithHeading:()AXFocusEngine byGroup:
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
-  v12[0] = v6;
+  v11[2] = *MEMORY[0x277D85DE8];
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a3];
+  v11[0] = v6;
   v7 = [MEMORY[0x277CCABB0] numberWithBool:a4];
-  v12[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v9 = [self performAction:5300 withValue:v8];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (uint64_t)moveFocusWithHeading:()AXFocusEngine withQueryString:
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCABB0];
   v7 = a4;
   v8 = [v6 numberWithUnsignedInteger:a3];
-  v13[0] = v8;
-  v13[1] = v7;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = v8;
+  v12[1] = v7;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   v10 = [self performAction:5304 withValue:v9];
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

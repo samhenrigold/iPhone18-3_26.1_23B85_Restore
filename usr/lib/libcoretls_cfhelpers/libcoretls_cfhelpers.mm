@@ -1,4 +1,4 @@
-uint64_t tls_helper_set_identity_from_array(int a1, CFArrayRef theArray)
+uint64_t tls_helper_set_identity_from_array(uint64_t a1, CFArrayRef theArray)
 {
   privateKeyRef = 0;
   certificateRef = 0;
@@ -251,7 +251,7 @@ LABEL_8:
   }
 }
 
-uint64_t tls_helper_set_peer_pubkey()
+uint64_t tls_helper_set_peer_pubkey(uint64_t a1)
 {
   trust = 0;
   peer_certificates = tls_handshake_get_peer_certificates();
@@ -261,42 +261,42 @@ uint64_t tls_helper_set_peer_pubkey()
     return 0;
   }
 
-  v2 = cfarray_from_certificates;
-  v3 = SecTrustCreateWithCertificates(cfarray_from_certificates, 0, &trust);
-  if (v3)
+  v3 = cfarray_from_certificates;
+  v4 = SecTrustCreateWithCertificates(cfarray_from_certificates, 0, &trust);
+  if (v4)
   {
-    v10 = v3;
+    v11 = v4;
     goto LABEL_16;
   }
 
-  v4 = MEMORY[0x29C28E120](trust);
-  if (!v4)
+  v5 = MEMORY[0x29C28E120](trust);
+  if (!v5)
   {
-    v10 = 4294957488;
+    v11 = 4294957488;
     goto LABEL_16;
   }
 
-  v5 = v4;
+  v6 = v5;
   AlgorithmId = SecKeyGetAlgorithmId();
   if (AlgorithmId == 3)
   {
     SecECKeyGetNamedCurve();
-    v11 = SecECKeyCopyPublicBits();
-    if (v11)
+    v12 = SecECKeyCopyPublicBits();
+    if (v12)
     {
-      v9 = v11;
-      CFDataGetBytePtr(v11);
-      CFDataGetLength(v9);
-      v10 = tls_handshake_set_peer_ec_public_key();
-      CFRelease(v5);
+      v10 = v12;
+      CFDataGetBytePtr(v12);
+      CFDataGetLength(v10);
+      v11 = tls_handshake_set_peer_ec_public_key();
+      CFRelease(v6);
 LABEL_15:
-      CFRelease(v9);
+      CFRelease(v10);
       goto LABEL_16;
     }
 
 LABEL_14:
-    v10 = 4294957487;
-    v9 = v5;
+    v11 = 4294957487;
+    v10 = v6;
     goto LABEL_15;
   }
 
@@ -305,31 +305,31 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v7 = SecKeyCopyModulus();
-  if (!v7)
+  v8 = SecKeyCopyModulus();
+  if (!v8)
   {
     goto LABEL_14;
   }
 
-  v8 = v7;
-  v9 = SecKeyCopyExponent();
-  if (v9)
+  v9 = v8;
+  v10 = SecKeyCopyExponent();
+  if (v10)
   {
-    CFDataGetBytePtr(v8);
-    CFDataGetLength(v8);
     CFDataGetBytePtr(v9);
     CFDataGetLength(v9);
-    v10 = tls_handshake_set_peer_rsa_public_key();
+    CFDataGetBytePtr(v10);
+    CFDataGetLength(v10);
+    v11 = tls_handshake_set_peer_rsa_public_key();
   }
 
   else
   {
-    v10 = 4294957487;
+    v11 = 4294957487;
   }
 
-  CFRelease(v5);
-  CFRelease(v8);
-  if (v9)
+  CFRelease(v6);
+  CFRelease(v9);
+  if (v10)
   {
     goto LABEL_15;
   }
@@ -340,8 +340,8 @@ LABEL_16:
     CFRelease(trust);
   }
 
-  CFRelease(v2);
-  return v10;
+  CFRelease(v3);
+  return v11;
 }
 
 __CFArray *tls_helper_create_cfarray_from_certificates(uint64_t **a1)
@@ -771,7 +771,7 @@ uint64_t tls_helper_SSLProtocol_from_version(int a1)
   }
 }
 
-__CFArray *tls_helper_create_cfarray_from_buffer_list(uint64_t **a1)
+__CFArray *tls_helper_create_cfarray_from_buffer_list(uint64_t ***a1)
 {
   v2 = *MEMORY[0x29EDB8ED8];
   Mutable = CFArrayCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9000]);

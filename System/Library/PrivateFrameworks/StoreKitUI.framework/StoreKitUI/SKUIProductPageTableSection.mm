@@ -89,4 +89,22 @@ LABEL_12:
   return v13;
 }
 
+- (void)heightForTextLayout:(uint64_t)a3 isExpanded:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageTableSection heightForTextLayout:isExpanded:]";
+}
+
+- (void)selectionActionForTableView:(uint64_t)a3 indexPath:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageTableSection selectionActionForTableView:indexPath:]";
+}
+
+- (void)textBoxTableViewCellForTableView:(uint64_t)a3 indexPath:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIProductPageTableSection textBoxTableViewCellForTableView:indexPath:]";
+}
+
 @end

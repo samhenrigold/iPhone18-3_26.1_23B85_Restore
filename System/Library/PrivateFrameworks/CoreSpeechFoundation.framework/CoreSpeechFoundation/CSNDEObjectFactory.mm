@@ -89,9 +89,11 @@ uint64_t __38__CSNDEObjectFactory_createNDEObject___block_invoke(uint64_t a1)
 
 uint64_t __36__CSNDEObjectFactory_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(CSNDEObjectFactory);
+  v0 = objc_alloc_init(CSNDEObjectFactory);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

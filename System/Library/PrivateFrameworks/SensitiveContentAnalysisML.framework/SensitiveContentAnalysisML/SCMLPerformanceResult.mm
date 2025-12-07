@@ -25,33 +25,30 @@
 {
   v3 = MEMORY[0x1E696AEC0];
   name = [(SCMLPerformanceResult *)self name];
-  cpuTime = self->cpuTime;
-  v6 = [v3 stringWithFormat:@"[%@: Peak-Delta: %lf, CPU-Time: %lf, Interval: %lf]", name, *&self->peakdelta, *&cpuTime, *&self->timeInterval];
+  v5 = [v3 stringWithFormat:@"[%@: Peak-Delta: %lf, CPU-Time: %lf, Interval: %lf]", name, *&self->peakdelta, *&self->cpuTime, *&self->timeInterval];
 
-  return v6;
+  return v5;
 }
 
 - (id)dict
 {
-  v12[5] = *MEMORY[0x1E69E9840];
-  v11[0] = @"maxpeak";
+  v11[5] = *MEMORY[0x1E69E9840];
+  v10[0] = @"maxpeak";
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->maxpeak];
-  v12[0] = v3;
-  v11[1] = @"peakdelta";
+  v11[0] = v3;
+  v10[1] = @"peakdelta";
   v4 = [MEMORY[0x1E696AD98] numberWithDouble:self->peakdelta];
-  v12[1] = v4;
-  v11[2] = @"recentpeak";
+  v11[1] = v4;
+  v10[2] = @"recentpeak";
   v5 = [MEMORY[0x1E696AD98] numberWithDouble:self->recentpeak];
-  v12[2] = v5;
-  v11[3] = @"current";
+  v11[2] = v5;
+  v10[3] = @"current";
   v6 = [MEMORY[0x1E696AD98] numberWithDouble:self->current];
-  v12[3] = v6;
-  v11[4] = @"timeInterval";
+  v11[3] = v6;
+  v10[4] = @"timeInterval";
   v7 = [MEMORY[0x1E696AD98] numberWithDouble:self->timeInterval];
-  v12[4] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v11[4] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:5];
 
   return v8;
 }

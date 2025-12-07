@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sessionTypeAsString:(int)string;
 - (int)StringAsSessionType:(id)type;
 - (int)sessionType;
 - (unint64_t)hash;
@@ -56,6 +57,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)sessionTypeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E6E52A98[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSessionType:(id)type
@@ -154,39 +170,36 @@
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    duration = self->_duration;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    sessionType = self->_sessionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_sessionID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -271,7 +284,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 44);
   if (has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_duration != *(equalCopy + 1))
@@ -304,14 +316,13 @@
     if (![(NSString *)bundleID isEqual:?])
     {
 LABEL_22:
-      v10 = 0;
+      v8 = 0;
       goto LABEL_23;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 44);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 44) & 4) == 0 || self->_sessionType != *(equalCopy + 10))
@@ -328,17 +339,17 @@ LABEL_22:
   sessionID = self->_sessionID;
   if (sessionID | *(equalCopy + 4))
   {
-    v10 = [(NSString *)sessionID isEqual:?];
+    v8 = [(NSString *)sessionID isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_23:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

@@ -14,6 +14,7 @@
 - (void)setupWelcomeController;
 - (void)updateInEarState;
 - (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewWillLayoutSubviews;
 @end
@@ -82,6 +83,42 @@
   }
 
   [(BTSpatialTutorialViewController *)self checkStatusAndPlay];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  [(BTSpatialTutorialViewController *)self stopPlayingContent];
+  [(RMMediaSession *)self->_mediaSession _stop];
+  self->_mediaSessionStarted = 0;
+  defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter removeObserver:self name:*MEMORY[0x277CF3150] object:0];
+
+  defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter2 removeObserver:self name:*MEMORY[0x277CF31A0] object:0];
+
+  defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter3 removeObserver:self name:*MEMORY[0x277D76648] object:0];
+
+  defaultCenter4 = [MEMORY[0x277CCAB98] defaultCenter];
+  [defaultCenter4 removeObserver:self name:*MEMORY[0x277D76660] object:0];
+
+  defaultCenter5 = [MEMORY[0x277CCAB98] defaultCenter];
+  v9 = *MEMORY[0x277CB8068];
+  mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
+  [defaultCenter5 removeObserver:self name:v9 object:mEMORY[0x277CB83F8]];
+
+  defaultCenter6 = [MEMORY[0x277CCAB98] defaultCenter];
+  v12 = *MEMORY[0x277D26D40];
+  mEMORY[0x277CB83F8]2 = [MEMORY[0x277CB83F8] sharedInstance];
+  [defaultCenter6 removeObserver:self name:v12 object:mEMORY[0x277CB83F8]2];
+
+  mEMORY[0x277CD6028] = [MEMORY[0x277CD6028] sharedCommandCenter];
+  playCommand = [mEMORY[0x277CD6028] playCommand];
+  [playCommand removeTarget:0];
+
+  mEMORY[0x277CD6028]2 = [MEMORY[0x277CD6028] sharedCommandCenter];
+  pauseCommand = [mEMORY[0x277CD6028]2 pauseCommand];
+  [pauseCommand removeTarget:0];
 }
 
 - (void)viewWillLayoutSubviews
@@ -437,26 +474,25 @@
   mEMORY[0x277CF3248] = [MEMORY[0x277CF3248] sharedInstance];
   enabled = [mEMORY[0x277CF3248] enabled];
 
-  v7 = sharedBluetoothSettingsLogComponent();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sharedBluetoothSettingsLogComponent(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     name = [handlerCopy name];
-    v9 = name;
-    v10 = "off";
+    v10 = name;
+    v11 = "off";
     if (enabled)
     {
-      v10 = "on";
+      v11 = "on";
     }
 
     v12 = 138412546;
     v13 = name;
     v14 = 2080;
-    v15 = v10;
-    _os_log_impl(&dword_251143000, v7, OS_LOG_TYPE_DEFAULT, "Received %@ with power state %s", &v12, 0x16u);
+    v15 = v11;
+    _os_log_impl(&dword_251143000, v8, OS_LOG_TYPE_DEFAULT, "Received %@ with power state %s", &v12, 0x16u);
   }
 
   [(BTSpatialTutorialViewController *)self dismissWelcomeController];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAudioSessionInterruption:(id)interruption
@@ -473,7 +509,7 @@
 
 - (void)handleMediaServerConnectionDied:(id)died
 {
-  v4 = sharedBluetoothSettingsLogComponent();
+  v4 = sharedBluetoothSettingsLogComponent(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -485,7 +521,7 @@
 
 - (void)inEarStatusChangedHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   object = [handler object];
   v5 = [object objectForKeyedSubscript:@"device"];
   address = [v5 address];
@@ -494,25 +530,26 @@
 
   if (address == identifier)
   {
-    v9 = [object objectForKeyedSubscript:@"primaryInEarStatus"];
-    v10 = [object objectForKeyedSubscript:@"secondaryInEarStatus"];
-    bOOLValue = [v9 BOOLValue];
-    v12 = bOOLValue | [v10 BOOLValue];
-    v13 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v10 = [object objectForKeyedSubscript:@"primaryInEarStatus"];
+    v11 = [object objectForKeyedSubscript:@"secondaryInEarStatus"];
+    bOOLValue = [v10 BOOLValue];
+    bOOLValue2 = [v11 BOOLValue];
+    v14 = bOOLValue | bOOLValue2;
+    v15 = sharedBluetoothSettingsLogComponent(bOOLValue2);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v10;
-      v21 = 1024;
-      v22 = (v12 & 1) == 0;
-      _os_log_impl(&dword_251143000, v13, OS_LOG_TYPE_DEFAULT, "PrimaryInEar: %@, secondaryInEar : %@. newBudsInEar: %d", buf, 0x1Cu);
+      v19 = v10;
+      v20 = 2112;
+      v21 = v11;
+      v22 = 1024;
+      v23 = (v14 & 1) == 0;
+      _os_log_impl(&dword_251143000, v15, OS_LOG_TYPE_DEFAULT, "PrimaryInEar: %@, secondaryInEar : %@. newBudsInEar: %d", buf, 0x1Cu);
     }
 
-    if (v12 & 1 | !self->_alertShowing)
+    if (v14 & 1 | !self->_alertShowing)
     {
-      if (!self->_alertShowing && ((v12 ^ 1) & 1) == 0)
+      if (!self->_alertShowing && ((v14 ^ 1) & 1) == 0)
       {
         [(BTSpatialTutorialViewController *)self stopPlayingContent];
         [(BTSpatialTutorialViewController *)self showAlert];
@@ -522,26 +559,24 @@
     else
     {
       alert = self->_alert;
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __61__BTSpatialTutorialViewController_inEarStatusChangedHandler___block_invoke;
-      v16[3] = &unk_2796AD618;
-      v16[4] = self;
-      [(UIAlertController *)alert dismissViewControllerAnimated:1 completion:v16];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __61__BTSpatialTutorialViewController_inEarStatusChangedHandler___block_invoke;
+      v17[3] = &unk_2796AD618;
+      v17[4] = self;
+      [(UIAlertController *)alert dismissViewControllerAnimated:1 completion:v17];
     }
   }
 
   else
   {
-    v9 = sharedBluetoothSettingsLogComponent();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sharedBluetoothSettingsLogComponent(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_251143000, v9, OS_LOG_TYPE_DEFAULT, "Device does not match, cannot handle In Ear Status change", buf, 2u);
+      _os_log_impl(&dword_251143000, v10, OS_LOG_TYPE_DEFAULT, "Device does not match, cannot handle In Ear Status change", buf, 2u);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

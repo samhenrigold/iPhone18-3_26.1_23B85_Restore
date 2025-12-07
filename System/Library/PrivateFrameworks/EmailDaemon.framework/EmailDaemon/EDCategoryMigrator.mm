@@ -126,7 +126,7 @@ void __115__EDCategoryMigrator_initializeIfNeededWithCategoryPersistence_categor
 
 - (void)_migrateCategoryForQuery:(id)query cancelationToken:(id)token reason:(int64_t)reason progressHandler:(id)handler completion:(id)completion
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   tokenCopy = token;
   handlerCopy = handler;
@@ -134,9 +134,9 @@ void __115__EDCategoryMigrator_initializeIfNeededWithCategoryPersistence_categor
   if (!self->_haveAccessToDb)
   {
     categoryPersistence = self->_categoryPersistence;
-    v36 = 0;
-    v17 = [(EDCategoryPersistence *)categoryPersistence requestProtectedDatabaseBackgroundProcessingForDuration:&v36 error:14400.0];
-    v18 = v36;
+    v35 = 0;
+    v17 = [(EDCategoryPersistence *)categoryPersistence requestProtectedDatabaseBackgroundProcessingForDuration:&v35 error:14400.0];
+    v18 = v35;
     haveAccessToDb = self->_haveAccessToDb;
     self->_haveAccessToDb = v17;
 
@@ -147,7 +147,7 @@ void __115__EDCategoryMigrator_initializeIfNeededWithCategoryPersistence_categor
       {
         v21 = [v18 description];
         *buf = 138412290;
-        v38 = v21;
+        v37 = v21;
         _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEFAULT, "Category migrator failed to obtain background processing permission : %@", buf, 0xCu);
       }
     }
@@ -155,34 +155,33 @@ void __115__EDCategoryMigrator_initializeIfNeededWithCategoryPersistence_categor
 
   self->_reason = reason;
   objc_initWeak(buf, self);
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_progressHandler_completion___block_invoke;
-  v34[3] = &unk_1E8251748;
-  v34[4] = self;
-  objc_copyWeak(&v35, buf);
-  [tokenCopy addCancelationBlock:v34];
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_progressHandler_completion___block_invoke;
+  v33[3] = &unk_1E8251748;
+  v33[4] = self;
+  objc_copyWeak(&v34, buf);
+  [tokenCopy addCancelationBlock:v33];
   categorizationQueue = self->_categorizationQueue;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_progressHandler_completion___block_invoke_3;
-  v28[3] = &unk_1E8251770;
-  objc_copyWeak(&v33, buf);
-  v29 = tokenCopy;
-  v30 = queryCopy;
-  v31 = completionCopy;
-  v32 = handlerCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_progressHandler_completion___block_invoke_3;
+  v27[3] = &unk_1E8251770;
+  objc_copyWeak(&v32, buf);
+  v28 = tokenCopy;
+  v29 = queryCopy;
+  v30 = completionCopy;
+  v31 = handlerCopy;
   v23 = handlerCopy;
   v24 = queryCopy;
   v25 = completionCopy;
   v26 = tokenCopy;
-  dispatch_async(categorizationQueue, v28);
+  dispatch_async(categorizationQueue, v27);
 
-  objc_destroyWeak(&v33);
-  objc_destroyWeak(&v35);
+  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v34);
 
   objc_destroyWeak(buf);
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_progressHandler_completion___block_invoke(uint64_t a1)
@@ -210,7 +209,7 @@ void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_p
 
 void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_progressHandler_completion___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
   {
@@ -220,9 +219,9 @@ void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_p
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
         v4 = *(a1 + 32);
-        v10 = 134217984;
-        v11 = v4;
-        _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Migration was canceled using token:%p. Returning early", &v10, 0xCu);
+        v9 = 134217984;
+        v10 = v4;
+        _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Migration was canceled using token:%p. Returning early", &v9, 0xCu);
       }
 
       v5 = *(a1 + 48);
@@ -239,18 +238,16 @@ void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_p
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = *(a1 + 40);
-        v10 = 134218242;
-        v11 = WeakRetained;
-        v12 = 2112;
-        v13 = v8;
-        _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Starting EDCategoryMigrator:<%p> with Query: %@", &v10, 0x16u);
+        v9 = 134218242;
+        v10 = WeakRetained;
+        v11 = 2112;
+        v12 = v8;
+        _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "Starting EDCategoryMigrator:<%p> with Query: %@", &v9, 0x16u);
       }
 
       [WeakRetained _categorizeMessagesForQuery:*(a1 + 40) cancelationToken:*(a1 + 32) progressHandler:*(a1 + 56) completion:*(a1 + 48)];
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_endCategorization
@@ -269,7 +266,7 @@ void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_p
 
 - (void)_categorizeMessagesForQuery:(id)query cancelationToken:(id)token progressHandler:(id)handler completion:(id)completion
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   queryCopy = query;
   tokenCopy = token;
   handlerCopy = handler;
@@ -281,18 +278,18 @@ void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_p
   }
 
   v13 = [MEMORY[0x1E699B860] transactionWithDescription:@"com.apple.email.categoryMigrator.categorizeMessages"];
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
   messagePersistence = [(EDCategoryMigrator *)self messagePersistence];
   v15 = [messagePersistence countOfMessagesMatchingQuery:queryCopy];
 
-  v54 = v15;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 0;
-  v30 = objc_opt_new();
+  v53 = v15;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2020000000;
+  v49 = 0;
+  v29 = objc_opt_new();
   v16 = +[EDCategoryMigrator log];
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
@@ -301,34 +298,34 @@ void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_p
     _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Category migrator querying for messages to recategorize with query:%@", &buf, 0xCu);
   }
 
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x2020000000;
-  v46[3] = 0;
+  v45[0] = 0;
+  v45[1] = v45;
+  v45[2] = 0x2020000000;
+  v45[3] = 0;
   [(EDCategoryMigrator *)self setNumBatchesQueued:0];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v56 = 0x3032000000;
-  v57 = __Block_byref_object_copy__4;
-  v58 = __Block_byref_object_dispose__4;
-  v59 = 0;
+  v55 = 0x3032000000;
+  v56 = __Block_byref_object_copy__4;
+  v57 = __Block_byref_object_dispose__4;
+  v58 = 0;
   messagePersistence2 = [(EDCategoryMigrator *)self messagePersistence];
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __94__EDCategoryMigrator__categorizeMessagesForQuery_cancelationToken_progressHandler_completion___block_invoke;
-  v37[3] = &unk_1E8251798;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __94__EDCategoryMigrator__categorizeMessagesForQuery_cancelationToken_progressHandler_completion___block_invoke;
+  v36[3] = &unk_1E8251798;
   p_buf = &buf;
-  v18 = v30;
-  v43 = v46;
-  v38 = v18;
+  v18 = v29;
+  v42 = v45;
+  v37 = v18;
   selfCopy = self;
   v19 = tokenCopy;
-  v40 = v19;
-  v44 = &v47;
+  v39 = v19;
+  v43 = &v46;
   v20 = handlerCopy;
-  v41 = v20;
-  v45 = &v51;
-  [messagePersistence2 iteratePersistedMessagesMatchingQuery:queryCopy limit:0x7FFFFFFFFFFFFFFFLL cancelationToken:v19 requireProtectedData:1 handler:v37];
+  v40 = v20;
+  v44 = &v50;
+  [messagePersistence2 iteratePersistedMessagesMatchingQuery:queryCopy limit:0x7FFFFFFFFFFFFFFFLL cancelationToken:v19 requireProtectedData:1 handler:v36];
 
   if (![v19 isCanceled])
   {
@@ -337,11 +334,11 @@ void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_p
       v23 = [v18 copy];
       [(EDCategoryMigrator *)self _categorizeMessageBatch:v23 cancelationToken:v19 reason:self->_reason];
       v24 = [v23 count];
-      v48[3] += v24;
+      v47[3] += v24;
       if (v20)
       {
         v25 = [EDCategorizationProgress alloc];
-        v26 = [(EDCategorizationProgress *)v25 initWithTotalMessagesToCategorize:v52[3] categorizedMessages:v48[3]];
+        v26 = [(EDCategorizationProgress *)v25 initWithTotalMessagesToCategorize:v51[3] categorizedMessages:v47[3]];
         (*(v20 + 2))(v20, v26);
       }
     }
@@ -350,20 +347,20 @@ void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_p
     if (completionCopy)
     {
       categorizationWriterScheduler = [(EDCategoryMigrator *)self categorizationWriterScheduler];
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __94__EDCategoryMigrator__categorizeMessagesForQuery_cancelationToken_progressHandler_completion___block_invoke_28;
-      v33[3] = &unk_1E82517C0;
-      v34 = completionCopy;
-      v35 = &buf;
-      [categorizationWriterScheduler performBlock:v33];
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __94__EDCategoryMigrator__categorizeMessagesForQuery_cancelationToken_progressHandler_completion___block_invoke_28;
+      v32[3] = &unk_1E82517C0;
+      v33 = completionCopy;
+      v34 = &buf;
+      [categorizationWriterScheduler performBlock:v32];
     }
 
     ef_cancelledError = +[EDCategoryMigrator log];
     if (os_log_type_enabled(ef_cancelledError, OS_LOG_TYPE_DEFAULT))
     {
-      *v36 = 0;
-      _os_log_impl(&dword_1C61EF000, ef_cancelledError, OS_LOG_TYPE_DEFAULT, "Category migrator finished categorizing all messages for query", v36, 2u);
+      *v35 = 0;
+      _os_log_impl(&dword_1C61EF000, ef_cancelledError, OS_LOG_TYPE_DEFAULT, "Category migrator finished categorizing all messages for query", v35, 2u);
     }
 
     goto LABEL_18;
@@ -372,8 +369,8 @@ void __98__EDCategoryMigrator__migrateCategoryForQuery_cancelationToken_reason_p
   v21 = +[EDCategoryMigrator log];
   if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
-    *v36 = 0;
-    _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Migration was canceled. Returning early", v36, 2u);
+    *v35 = 0;
+    _os_log_impl(&dword_1C61EF000, v21, OS_LOG_TYPE_DEFAULT, "Migration was canceled. Returning early", v35, 2u);
   }
 
   [v13 invalidate];
@@ -385,17 +382,15 @@ LABEL_18:
   }
 
   _Block_object_dispose(&buf, 8);
-  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(v45, 8);
 
-  _Block_object_dispose(&v47, 8);
-  _Block_object_dispose(&v51, 8);
-
-  v28 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v50, 8);
 }
 
 void __94__EDCategoryMigrator__categorizeMessagesForQuery_cancelationToken_progressHandler_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -405,7 +400,7 @@ void __94__EDCategoryMigrator__categorizeMessagesForQuery_cancelationToken_progr
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = [v6 ef_publicDescription];
-      __94__EDCategoryMigrator__categorizeMessagesForQuery_cancelationToken_progressHandler_completion___block_invoke_cold_1(v8, &v15, v7);
+      __94__EDCategoryMigrator__categorizeMessagesForQuery_cancelationToken_progressHandler_completion___block_invoke_cold_1(v8, &v14, v7);
     }
 
 LABEL_9:
@@ -422,9 +417,9 @@ LABEL_9:
       v10 = *(*(a1 + 72) + 8);
       v11 = *(v10 + 24) + 1;
       *(v10 + 24) = v11;
-      v15 = 134217984;
-      v16 = v11;
-      _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Category migrator reached maximum batch size batchCount:%ld", &v15, 0xCu);
+      v14 = 134217984;
+      v15 = v11;
+      _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "Category migrator reached maximum batch size batchCount:%ld", &v14, 0xCu);
     }
 
     v7 = [*(a1 + 32) copy];
@@ -442,13 +437,11 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_categorizeMessageBatch:(id)batch cancelationToken:(id)token reason:(int64_t)reason
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   batchCopy = batch;
   tokenCopy = token;
   [(EDCategoryMigrator *)self _updateCategorizationActivityForMessageBatch:batchCopy isFinished:0 cancelationToken:tokenCopy];
@@ -456,7 +449,7 @@ LABEL_10:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v27 = [batchCopy count];
+    v26 = [batchCopy count];
     _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "Category migrator recategorizing %lu messages to match current categorization version.", buf, 0xCu);
   }
 
@@ -482,19 +475,19 @@ LABEL_10:
     }
 
     categorizationWriterScheduler = [(EDCategoryMigrator *)self categorizationWriterScheduler];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __70__EDCategoryMigrator__categorizeMessageBatch_cancelationToken_reason___block_invoke;
-    v19[3] = &unk_1E82517E8;
-    v24 = a2;
-    v20 = tokenCopy;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __70__EDCategoryMigrator__categorizeMessageBatch_cancelationToken_reason___block_invoke;
+    v18[3] = &unk_1E82517E8;
+    v23 = a2;
+    v19 = tokenCopy;
     selfCopy = self;
-    v22 = v13;
+    v21 = v13;
     reasonCopy = reason;
-    v23 = batchCopy;
-    [categorizationWriterScheduler performBlock:v19];
+    v22 = batchCopy;
+    [categorizationWriterScheduler performBlock:v18];
 
-    v16 = v20;
+    v16 = v19;
   }
 
   else
@@ -506,22 +499,20 @@ LABEL_10:
       _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Category migrator failed to successfully categorize message batch", buf, 2u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __70__EDCategoryMigrator__categorizeMessageBatch_cancelationToken_reason___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCanceled])
   {
     v2 = +[EDCategoryMigrator log];
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = NSStringFromSelector(*(a1 + 64));
-      v15 = 138543362;
-      v16 = v3;
-      _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ - token canceled", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v3;
+      _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ - token canceled", &v14, 0xCu);
     }
   }
 
@@ -537,8 +528,8 @@ void __70__EDCategoryMigrator__categorizeMessageBatch_cancelationToken_reason___
     {
       if (v7)
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Category migrator successfully categorized a batch of messages", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Category migrator successfully categorized a batch of messages", &v14, 2u);
       }
     }
 
@@ -546,8 +537,8 @@ void __70__EDCategoryMigrator__categorizeMessageBatch_cancelationToken_reason___
     {
       if (v7)
       {
-        LOWORD(v15) = 0;
-        _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Category migrator failed to successfully recategorize messages", &v15, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_1C61EF000, v6, OS_LOG_TYPE_DEFAULT, "Category migrator failed to successfully recategorize messages", &v14, 2u);
       }
 
       v8 = *(a1 + 32);
@@ -576,8 +567,6 @@ void __70__EDCategoryMigrator__categorizeMessageBatch_cancelationToken_reason___
       [v13 unlock];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateCategorizationActivityForMessageBatch:(id)batch isFinished:(BOOL)finished cancelationToken:(id)token
@@ -629,28 +618,28 @@ void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFin
 
 void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_2(uint64_t a1, void *a2, int a3)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__4;
-  v24 = __Block_byref_object_dispose__4;
-  v25 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__4;
+  v23 = __Block_byref_object_dispose__4;
+  v24 = 0;
   v6 = [*(a1 + 32) activityForMailboxID];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_3;
-  v17[3] = &unk_1E8251838;
-  v19 = &v20;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_3;
+  v16[3] = &unk_1E8251838;
+  v18 = &v19;
   v7 = v5;
-  v18 = v7;
-  [v6 performWhileLocked:v17];
+  v17 = v7;
+  [v6 performWhileLocked:v16];
 
-  if (v21[5])
+  if (v20[5])
   {
     v8 = [*(a1 + 32) activityPersistence];
-    v9 = [v21[5] objectID];
+    v9 = [v20[5] objectID];
     [v8 activityWithID:v9 finishedWithError:0];
 
     v10 = +[EDCategoryMigrator log];
@@ -663,21 +652,21 @@ void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFin
       }
 
       *buf = 138412546;
-      v27 = v7;
-      v28 = 2112;
-      v29 = v11;
+      v26 = v7;
+      v27 = 2112;
+      v28 = v11;
       _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Categorization progress for mailbox %@ %@", buf, 0x16u);
     }
 
     v12 = [*(a1 + 32) activityForMailboxID];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_39;
-    v15[3] = &unk_1E8250D20;
-    v16 = v7;
-    [v12 performWhileLocked:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_39;
+    v14[3] = &unk_1E8250D20;
+    v15 = v7;
+    [v12 performWhileLocked:v14];
 
-    v13 = v16;
+    v13 = v15;
   }
 
   else
@@ -689,8 +678,7 @@ void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFin
     }
   }
 
-  _Block_object_dispose(&v20, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
 }
 
 void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_3(uint64_t a1, void *a2)
@@ -704,25 +692,25 @@ void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFin
 
 void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_2_41(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__4;
-  v28 = __Block_byref_object_dispose__4;
-  v29 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__4;
+  v27 = __Block_byref_object_dispose__4;
+  v28 = 0;
   v4 = [*(a1 + 32) activityForMailboxID];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_3_42;
-  v21[3] = &unk_1E8251838;
-  v23 = &v24;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_3_42;
+  v20[3] = &unk_1E8251838;
+  v22 = &v23;
   v5 = v3;
-  v22 = v5;
-  [v4 performWhileLocked:v21];
+  v21 = v5;
+  [v4 performWhileLocked:v20];
 
-  if (v25[5])
+  if (v24[5])
   {
     if (*(a1 + 56))
     {
@@ -736,39 +724,38 @@ void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFin
     [v6 setObject:v5 forKeyedSubscript:*MEMORY[0x1E699A6B8]];
     v7 = [*(a1 + 32) activityPersistence];
     v8 = [v7 startActivityOfType:3 userInfo:v6];
-    v9 = v25[5];
-    v25[5] = v8;
+    v9 = v24[5];
+    v24[5] = v8;
 
     v10 = +[EDCategoryMigrator log];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v31 = v5;
+      v30 = v5;
       _os_log_impl(&dword_1C61EF000, v10, OS_LOG_TYPE_DEFAULT, "Starting categorization progress for mailbox %@", buf, 0xCu);
     }
 
     v11 = [*(a1 + 32) activityForMailboxID];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_43;
-    v18[3] = &unk_1E8251888;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_43;
+    v17[3] = &unk_1E8251888;
     v12 = v5;
-    v19 = v12;
-    v20 = &v24;
-    [v11 performWhileLocked:v18];
+    v18 = v12;
+    v19 = &v23;
+    [v11 performWhileLocked:v17];
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_2_44;
-    v15[3] = &unk_1E82518B0;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_2_44;
+    v14[3] = &unk_1E82518B0;
     v13 = *(a1 + 40);
-    v17 = *(a1 + 48);
-    v16 = v12;
-    [v13 addCancelationBlock:v15];
+    v16 = *(a1 + 48);
+    v15 = v12;
+    [v13 addCancelationBlock:v14];
   }
 
-  _Block_object_dispose(&v24, 8);
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
 }
 
 void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_3_42(uint64_t a1, void *a2)
@@ -789,11 +776,10 @@ void __94__EDCategoryMigrator__categorizeMessagesForQuery_cancelationToken_progr
 
 void __95__EDCategoryMigrator__updateCategorizationActivityForMessageBatch_isFinished_cancelationToken___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Could not find a categorization progress activity for mailbox %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Could not find a categorization progress activity for mailbox %@", &v2, 0xCu);
 }
 
 @end

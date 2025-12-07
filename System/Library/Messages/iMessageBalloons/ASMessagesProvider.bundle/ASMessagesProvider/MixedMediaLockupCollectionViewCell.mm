@@ -21,12 +21,12 @@
 
 - (void)prepareForReuse
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for MixedMediaLockupCollectionViewCell();
-  v2 = v4.receiver;
-  [(MixedMediaLockupCollectionViewCell *)&v4 prepareForReuse];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for MixedMediaLockupCollectionViewCell(0);
+  v2 = v5.receiver;
+  [(MixedMediaLockupCollectionViewCell *)&v5 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC18ASMessagesProvider34MixedMediaLockupCollectionViewCell_mediaView];
-  sub_55AFC4();
+  sub_55AFC4(v4);
 }
 
 @end

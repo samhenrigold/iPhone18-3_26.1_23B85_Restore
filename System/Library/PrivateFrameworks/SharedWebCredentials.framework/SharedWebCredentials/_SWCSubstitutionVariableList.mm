@@ -139,7 +139,7 @@
 {
   redactedCopy = redacted;
   debugCopy = debug;
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   selfCopy = self;
   v8 = self->_variables[0];
@@ -167,10 +167,10 @@
       {
         v10 = objc_autoreleasePoolPush();
         v11 = SWCSubstitutionVariable::getNameNoCopy(variables);
-        v24 = v11;
+        v23 = v11;
         v12 = SWCSubstitutionVariable::getValuesNoCopy(variables);
-        v25[0] = v12;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+        v24[0] = v12;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
 
         v14 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v13 options:v9 error:0];
         if (v14)
@@ -205,8 +205,6 @@
   {
     v19 = [v6 componentsJoinedByString:{@", "}];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -316,21 +314,21 @@
 
 - (_SWCSubstitutionVariableList)initWithCoder:(id)coder
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v4 = [coder swc_decodeObjectOfClass:objc_opt_class() forKey:@"substitutionVariableData"];
-  v33 = v4;
+  v32 = v4;
   if (!v4)
   {
 
     v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v39[0] = @"Line";
-    v39[1] = @"Function";
-    v40[0] = &unk_2877A7300;
-    v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"-[_SWCSubstitutionVariableList initWithCoder:]", context}];
-    v40[1] = v29;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
-    v32 = [v23 initWithDomain:*MEMORY[0x277CCA050] code:4865 userInfo:?];
+    v38[0] = @"Line";
+    v38[1] = @"Function";
+    v39[0] = &unk_2877A7300;
+    v28 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"-[_SWCSubstitutionVariableList initWithCoder:]", context}];
+    v39[1] = v28;
+    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+    v31 = [v23 initWithDomain:*MEMORY[0x277CCA050] code:4865 userInfo:?];
     [coder failWithError:?];
     v22 = 0;
 LABEL_27:
@@ -338,37 +336,37 @@ LABEL_27:
     goto LABEL_28;
   }
 
-  v38 = 0;
-  v5 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:{&v38, context}];
-  v29 = v38;
-  v30 = v5;
+  v37 = 0;
+  v5 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:{&v37, context}];
+  v28 = v37;
+  v29 = v5;
   if (v5)
   {
     if (_NSIsNSArray())
     {
-      v32 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v5, "count")}];
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
+      v31 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v5, "count")}];
       v35 = 0u;
+      v36 = 0u;
+      v33 = 0u;
+      v34 = 0u;
       v6 = v5;
-      v7 = [v6 countByEnumeratingWithState:&v34 objects:v45 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v33 objects:v44 count:16];
       if (!v7)
       {
         goto LABEL_22;
       }
 
-      v8 = *v35;
+      v8 = *v34;
       while (1)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v35 != v8)
+          if (*v34 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
-          v10 = *(*(&v34 + 1) + 8 * i);
+          v10 = *(*(&v33 + 1) + 8 * i);
           if (_NSIsNSData())
           {
             v11 = [v10 length];
@@ -379,7 +377,7 @@ LABEL_27:
               v14 = bytes;
               if (v11 + 2 < 0x401)
               {
-                v15 = v46;
+                v15 = v45;
               }
 
               else
@@ -394,32 +392,32 @@ LABEL_27:
               memcpy(v15, v14, v11);
               *(v15 + v11) = 0;
               Size = SWCSubstitutionVariable::getSize(v15);
-              if (v15 != v46)
+              if (v15 != v45)
               {
                 free(v15);
               }
 
               v17 = Size == v11;
-              v4 = v33;
+              v4 = v32;
               if (v17)
               {
                 v18 = SWCSubstitutionVariable::getValuesNoCopy(v14);
                 v19 = SWCSubstitutionVariable::getNameNoCopy(v14);
-                [v32 setObject:v18 forKeyedSubscript:v19];
+                [v31 setObject:v18 forKeyedSubscript:v19];
               }
             }
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v34 objects:v45 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v33 objects:v44 count:16];
         if (!v7)
         {
 LABEL_22:
 
           v20 = objc_opt_class();
-          v43 = @"substitutionVariables";
-          v44 = v32;
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+          v42 = @"substitutionVariables";
+          v43 = v31;
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
           v22 = [v20 substitutionVariableListWithDictionary:v21];
           goto LABEL_26;
         }
@@ -427,12 +425,12 @@ LABEL_22:
     }
 
     v24 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v41[0] = @"Line";
-    v41[1] = @"Function";
-    v42[0] = &unk_2877A72E8;
-    v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_SWCSubstitutionVariableList initWithCoder:]"];
-    v42[1] = v32;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
+    v40[0] = @"Line";
+    v40[1] = @"Function";
+    v41[0] = &unk_2877A72E8;
+    v31 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[_SWCSubstitutionVariableList initWithCoder:]"];
+    v41[1] = v31;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
     self = [v24 initWithDomain:*MEMORY[0x277CCA050] code:4864 userInfo:v21];
     [coder failWithError:?];
     v22 = 0;
@@ -441,12 +439,11 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  [coder failWithError:v29];
+  [coder failWithError:v28];
   v22 = 0;
 
 LABEL_28:
   objc_autoreleasePoolPop(contexta);
-  v25 = *MEMORY[0x277D85DE8];
   return v22;
 }
 

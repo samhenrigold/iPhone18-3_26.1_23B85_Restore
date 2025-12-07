@@ -68,21 +68,19 @@ LABEL_6:
 
 - (id)actionPickerItems
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = [BCSContinuityCameraActionPickerItem alloc];
   localizedActionDescription = [(BCSAction *)self localizedActionDescription];
   v5 = [(BCSActionPickerItem *)v3 initWithLabel:localizedActionDescription action:self];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 - (void)performDefaultActionWithCompletionHandler:(id)handler
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   [(BCSContinuityCameraAction *)self setConnecting:1];
   v5 = MEMORY[0x277CCACE0];
@@ -93,39 +91,39 @@ LABEL_6:
   if (v8)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v38 = 0u;
-    v39 = 0u;
     v36 = 0u;
     v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     queryItems = [v8 queryItems];
-    v11 = [queryItems countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v11 = [queryItems countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v11)
     {
-      v12 = *v37;
+      v12 = *v35;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v37 != v12)
+          if (*v35 != v12)
           {
             objc_enumerationMutation(queryItems);
           }
 
-          v14 = *(*(&v36 + 1) + 8 * i);
+          v14 = *(*(&v34 + 1) + 8 * i);
           value = [v14 value];
           name = [v14 name];
           [dictionary setObject:value forKeyedSubscript:name];
         }
 
-        v11 = [queryItems countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v11 = [queryItems countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v11);
     }
 
-    v35 = 0;
-    v17 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictionary options:0 error:&v35];
-    v18 = v35;
+    v33 = 0;
+    v17 = [MEMORY[0x277CCAAA0] dataWithJSONObject:dictionary options:0 error:&v33];
+    v18 = v33;
     if (v18)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -142,47 +140,47 @@ LABEL_6:
 
     else
     {
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x2050000000;
+      v38 = 0;
+      v39 = &v38;
+      v40 = 0x2050000000;
       v21 = getRPRemoteDisplayDeviceClass_softClass;
-      v43 = getRPRemoteDisplayDeviceClass_softClass;
+      v41 = getRPRemoteDisplayDeviceClass_softClass;
       if (!getRPRemoteDisplayDeviceClass_softClass)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v46 = __getRPRemoteDisplayDeviceClass_block_invoke;
-        v47 = &unk_278CFE620;
-        v48 = &v40;
+        v44 = __getRPRemoteDisplayDeviceClass_block_invoke;
+        v45 = &unk_278CFE620;
+        v46 = &v38;
         __getRPRemoteDisplayDeviceClass_block_invoke(&buf);
-        v21 = v41[3];
+        v21 = v39[3];
       }
 
       v22 = v21;
-      _Block_object_dispose(&v40, 8);
+      _Block_object_dispose(&v38, 8);
       v20 = objc_alloc_init(v21);
       uUID = [MEMORY[0x277CCAD78] UUID];
       uUIDString = [uUID UUIDString];
       [v20 setIdentifier:uUIDString];
 
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x2050000000;
+      v38 = 0;
+      v39 = &v38;
+      v40 = 0x2050000000;
       v25 = getRPRemoteDisplaySessionClass_softClass;
-      v43 = getRPRemoteDisplaySessionClass_softClass;
+      v41 = getRPRemoteDisplaySessionClass_softClass;
       if (!getRPRemoteDisplaySessionClass_softClass)
       {
         *&buf = MEMORY[0x277D85DD0];
         *(&buf + 1) = 3221225472;
-        v46 = __getRPRemoteDisplaySessionClass_block_invoke;
-        v47 = &unk_278CFE620;
-        v48 = &v40;
+        v44 = __getRPRemoteDisplaySessionClass_block_invoke;
+        v45 = &unk_278CFE620;
+        v46 = &v38;
         __getRPRemoteDisplaySessionClass_block_invoke(&buf);
-        v25 = v41[3];
+        v25 = v39[3];
       }
 
       v26 = v25;
-      _Block_object_dispose(&v40, 8);
+      _Block_object_dispose(&v38, 8);
       v27 = objc_alloc_init(v25);
       remoteDisplaySession = self->_remoteDisplaySession;
       self->_remoteDisplaySession = v27;
@@ -194,7 +192,6 @@ LABEL_6:
       }
 
       [(RPRemoteDisplaySession *)self->_remoteDisplaySession setDispatchQueue:remoteDisplaySessionQueue_queue];
-      v29 = self->_remoteDisplaySession;
       if (objc_opt_respondsToSelector())
       {
         [(RPRemoteDisplaySession *)self->_remoteDisplaySession setPairingInfo:v17];
@@ -209,15 +206,15 @@ LABEL_6:
       }
 
       objc_initWeak(&buf, self);
-      v30 = self->_remoteDisplaySession;
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __71__BCSContinuityCameraAction_performDefaultActionWithCompletionHandler___block_invoke;
-      v32[3] = &unk_278CFF5E8;
-      v33 = handlerCopy;
-      objc_copyWeak(&v34, &buf);
-      [(RPRemoteDisplaySession *)v30 activateWithCompletion:v32];
-      objc_destroyWeak(&v34);
+      v29 = self->_remoteDisplaySession;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __71__BCSContinuityCameraAction_performDefaultActionWithCompletionHandler___block_invoke;
+      v30[3] = &unk_278CFF5E8;
+      v31 = handlerCopy;
+      objc_copyWeak(&v32, &buf);
+      [(RPRemoteDisplaySession *)v29 activateWithCompletion:v30];
+      objc_destroyWeak(&v32);
 
       objc_destroyWeak(&buf);
     }
@@ -234,8 +231,6 @@ LABEL_6:
     dictionary = BCSActionError(3);
     handlerCopy[2](handlerCopy, dictionary);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __71__BCSContinuityCameraAction_performDefaultActionWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -313,13 +308,11 @@ void __71__BCSContinuityCameraAction_performDefaultActionWithCompletionHandler__
 
 void __71__BCSContinuityCameraAction_performDefaultActionWithCompletionHandler___block_invoke_2_cold_1(id *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [*a1 _bcs_privacyPreservingDescription];
-  v3 = 138543362;
-  v4 = v1;
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSContinuityCameraAction: Failed to connect: %{public}@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = v1;
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSContinuityCameraAction: Failed to connect: %{public}@", &v2, 0xCu);
 }
 
 @end

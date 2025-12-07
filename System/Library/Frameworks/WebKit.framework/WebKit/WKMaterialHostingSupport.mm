@@ -58,7 +58,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB017908);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB017908, &qword_19E7022A0);
   if (swift_dynamicCastClass())
   {
     layerCopy = layer;
@@ -105,7 +105,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB017910));
+  v4 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB017910, &qword_19E7022A8));
   viewCopy = view;
   v6 = sub_19E6CD218();
 
@@ -122,7 +122,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB017910);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB017910, &qword_19E7022A8);
   if (swift_dynamicCastClass())
   {
     contentViewCopy = contentView;

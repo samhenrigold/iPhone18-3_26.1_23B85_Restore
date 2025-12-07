@@ -196,9 +196,11 @@ uint64_t __61__TIAssistantSettings_connectForOperations_withErrorHandler___block
 
 + (void)setTestBlock:(id)block
 {
-  _assistantTestBlock = [block copy];
+  v3 = [block copy];
+  v4 = _assistantTestBlock;
+  _assistantTestBlock = v3;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 @end

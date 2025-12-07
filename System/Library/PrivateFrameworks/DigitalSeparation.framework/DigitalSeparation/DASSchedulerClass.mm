@@ -5,28 +5,28 @@
 
 Class __get_DASSchedulerClass_block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!DuetActivitySchedulerLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __DuetActivitySchedulerLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_278F72A10;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __DuetActivitySchedulerLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_278F72A10;
+    v5 = 0;
     DuetActivitySchedulerLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!DuetActivitySchedulerLibraryCore_frameworkLibrary)
   {
-    __get_DASSchedulerClass_block_invoke_cold_2(v4);
+    __get_DASSchedulerClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("_DASScheduler");
@@ -37,7 +37,6 @@ Class __get_DASSchedulerClass_block_invoke(uint64_t a1)
   }
 
   get_DASSchedulerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 

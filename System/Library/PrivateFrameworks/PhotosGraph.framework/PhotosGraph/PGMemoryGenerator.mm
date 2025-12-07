@@ -13,6 +13,7 @@
 - (id)generatePotentialMemoriesForProcessingWindow:(id)window graph:(id)graph progressBlock:(id)block;
 - (id)keyAssetCurationOptionsWithTriggeredMemory:(id)memory inGraph:(id)graph;
 - (id)localIdentifiersFromAssets:(id)assets;
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter;
 - (id)titleGeneratorForTriggeredMemory:(id)memory withKeyAsset:(id)asset curatedAssets:(id)assets extendedCuratedAssets:(id)curatedAssets titleGenerationContext:(id)context inGraph:(id)graph;
 - (id)uuidsOfRequiredAssetsWithKeyAsset:(id)asset triggeredMemory:(id)memory inGraph:(id)graph progressReporter:(id)reporter;
 - (void)_enumeratePotentialMemoriesForProcessingWindow:(id)window graph:(id)graph progressBlock:(id)block usingBlock:(id)usingBlock;
@@ -130,6 +131,34 @@
   return v8;
 }
 
+- (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter
+{
+  assetCopy = asset;
+  graphCopy = graph;
+  memoryCopy = memory;
+  memoryCurationSession = [(PGMemoryGenerator *)self memoryCurationSession];
+  photoLibrary = [memoryCurationSession photoLibrary];
+
+  librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
+  v14 = MEMORY[0x277CD97B8];
+  memoryMomentNodes = [memoryCopy memoryMomentNodes];
+
+  localIdentifiers = [memoryMomentNodes localIdentifiers];
+  allObjects = [localIdentifiers allObjects];
+  v18 = [v14 fetchAssetCollectionsWithLocalIdentifiers:allObjects options:librarySpecificFetchOptions];
+
+  memoryCurationSession2 = [(PGMemoryGenerator *)self memoryCurationSession];
+  curationManager = [memoryCurationSession2 curationManager];
+  defaultAssetFetchOptionsForMemories = [curationManager defaultAssetFetchOptionsForMemories];
+
+  [defaultAssetFetchOptionsForMemories setIncludeGuestAssets:assetCopy];
+  v22 = [MEMORY[0x277CD97A8] fetchAssetsInAssetCollections:v18 options:defaultAssetFetchOptionsForMemories];
+  memoryCurationSession3 = [(PGMemoryGenerator *)self memoryCurationSession];
+  v24 = [PGMemoryGenerationHelper feederForMemoriesWithAssetFetchResult:v22 memoryCurationSession:memoryCurationSession3 graph:graphCopy];
+
+  return v24;
+}
+
 - (id)generatePotentialMemoriesForProcessingWindow:(id)window graph:(id)graph progressBlock:(id)block
 {
   v8 = MEMORY[0x277CBEB18];
@@ -178,79 +207,75 @@
 
 - (void)addLocalIdentifiersFromAssets:(id)assets to:(id)to
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   toCopy = to;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [assetsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [assetsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(assetsCopy);
         }
 
-        localIdentifier = [*(*(&v13 + 1) + 8 * v10) localIdentifier];
+        localIdentifier = [*(*(&v12 + 1) + 8 * v10) localIdentifier];
         [toCopy addObject:localIdentifier];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [assetsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [assetsCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)localIdentifiersFromAssets:(id)assets
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = assetsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        localIdentifier = [*(*(&v13 + 1) + 8 * i) localIdentifier];
+        localIdentifier = [*(*(&v12 + 1) + 8 * i) localIdentifier];
         [v4 addObject:localIdentifier];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

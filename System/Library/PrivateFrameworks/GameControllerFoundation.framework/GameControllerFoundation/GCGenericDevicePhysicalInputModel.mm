@@ -81,7 +81,7 @@ LABEL_8:
 
 - (id)redactedDescription
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   [v3 appendString:@"{\n"];
   [v3 appendString:@"\t elements = ["];
@@ -89,31 +89,31 @@ LABEL_8:
   allObjects = [elements allObjects];
   v6 = [allObjects sortedArrayUsingComparator:&__block_literal_global_16];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v16 + 1) + 8 * i) description];
+        v12 = [*(*(&v15 + 1) + 8 * i) description];
         v13 = [v12 stringByReplacingOccurrencesOfString:@"\n" withString:@"\n\t"];
         [v3 appendFormat:@"\n\t %@, ", v13];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -121,8 +121,6 @@ LABEL_8:
 
   [v3 appendString:@"\t]\n"];
   [v3 appendString:@"}"];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -139,28 +137,28 @@ uint64_t __56__GCGenericDevicePhysicalInputModel_redactedDescription__block_invo
 
 + (GCGenericDevicePhysicalInputModel)modelWithDictionaryRepresentation:(id)representation error:(id *)error
 {
-  v53[2] = *MEMORY[0x1E69E9840];
-  v38 = objc_opt_new();
-  v49[0] = 0;
-  v5 = [representation gc_requiredObjectForKey:@"Elements" ofClass:objc_opt_class() error:v49];
-  v6 = v49[0];
+  v52[2] = *MEMORY[0x1E69E9840];
+  v37 = objc_opt_new();
+  v48[0] = 0;
+  v5 = [representation gc_requiredObjectForKey:@"Elements" ofClass:objc_opt_class() error:v48];
+  v6 = v48[0];
   if (!v5)
   {
     if (error)
     {
-      v26 = v6;
-      v27 = MEMORY[0x1E696ABC0];
-      v52[0] = *MEMORY[0x1E696A578];
-      v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
-      v53[0] = v28;
-      v52[1] = *MEMORY[0x1E696A588];
-      localizedFailureReason = [v26 localizedFailureReason];
-      v53[1] = localizedFailureReason;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v53 forKeys:v52 count:2];
-      *error = [(NSError *)v27 gc_modelError:v30 userInfo:?];
+      v25 = v6;
+      v26 = MEMORY[0x1E696ABC0];
+      v51[0] = *MEMORY[0x1E696A578];
+      v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
+      v52[0] = v27;
+      v51[1] = *MEMORY[0x1E696A588];
+      localizedFailureReason = [v25 localizedFailureReason];
+      v52[1] = localizedFailureReason;
+      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:v51 count:2];
+      *error = [(NSError *)v26 gc_modelError:v29 userInfo:?];
 
       build = 0;
-      v6 = v26;
+      v6 = v25;
     }
 
     else
@@ -171,50 +169,50 @@ uint64_t __56__GCGenericDevicePhysicalInputModel_redactedDescription__block_invo
     goto LABEL_20;
   }
 
-  v37 = v6;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__15;
-  v47 = __Block_byref_object_dispose__15;
-  v48 = 0;
+  v36 = v6;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__15;
+  v46 = __Block_byref_object_dispose__15;
+  v47 = 0;
   v7 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v5, "count")}];
   v8 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v5, "count")}];
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __92__GCGenericDevicePhysicalInputModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke;
-  v39[3] = &unk_1E8413C58;
-  v42 = &v43;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __92__GCGenericDevicePhysicalInputModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke;
+  v38[3] = &unk_1E8413C58;
+  v41 = &v42;
   v9 = v7;
-  v40 = v9;
+  v39 = v9;
   v10 = v8;
-  v41 = v10;
-  [v5 gc_enumerateObjectsUsingBlock:v39];
+  v40 = v10;
+  [v5 gc_enumerateObjectsUsingBlock:v38];
   v11 = [v10 count];
   v12 = [v5 count];
   if (v11 == v12)
   {
-    [v38 setElements:v10];
+    [v37 setElements:v10];
   }
 
   else if (error)
   {
-    v32 = MEMORY[0x1E696ABC0];
-    v50[0] = *MEMORY[0x1E696A578];
-    localizedDescription = [v44[5] localizedDescription];
+    v31 = MEMORY[0x1E696ABC0];
+    v49[0] = *MEMORY[0x1E696A578];
+    localizedDescription = [v43[5] localizedDescription];
     if ([localizedDescription length])
     {
-      [v44[5] localizedDescription];
+      [v43[5] localizedDescription];
     }
 
     else
     {
       [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid '%@' definition.", self];
     }
-    v33 = ;
-    v51[0] = v33;
-    v50[1] = *MEMORY[0x1E696A588];
-    localizedFailureReason2 = [v44[5] localizedFailureReason];
+    v32 = ;
+    v50[0] = v32;
+    v49[1] = *MEMORY[0x1E696A588];
+    localizedFailureReason2 = [v43[5] localizedFailureReason];
     v14 = localizedFailureReason2;
     v15 = &stru_1F4E1BE30;
     if (localizedFailureReason2)
@@ -222,24 +220,24 @@ uint64_t __56__GCGenericDevicePhysicalInputModel_redactedDescription__block_invo
       v15 = localizedFailureReason2;
     }
 
-    v51[1] = v15;
-    v50[2] = *MEMORY[0x1E696AA08];
-    v16 = v44[5];
+    v50[1] = v15;
+    v49[2] = *MEMORY[0x1E696AA08];
+    v16 = v43[5];
     if (v16)
     {
-      v17 = v44[5];
+      v17 = v43[5];
       null = v17;
     }
 
     else
     {
       null = [MEMORY[0x1E695DFB0] null];
-      v17 = v44[5];
+      v17 = v43[5];
     }
 
-    v31 = null;
-    v51[2] = null;
-    v50[3] = @"GCFailingKeyPathErrorKey";
+    v30 = null;
+    v50[2] = null;
+    v49[3] = @"GCFailingKeyPathErrorKey";
     gc_failingKeyPath = [v17 gc_failingKeyPath];
     v20 = gc_failingKeyPath;
     if (!gc_failingKeyPath)
@@ -248,21 +246,21 @@ uint64_t __56__GCGenericDevicePhysicalInputModel_redactedDescription__block_invo
     }
 
     v21 = [gc_failingKeyPath arrayByAddingObject:@"Elements"];
-    v51[3] = v21;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:4];
-    *error = [(NSError *)v32 gc_modelError:v22 userInfo:?];
+    v50[3] = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:4];
+    *error = [(NSError *)v31 gc_modelError:v22 userInfo:?];
 
     if (!v16)
     {
     }
   }
 
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v42, 8);
   if (v11 == v12)
   {
-    build = [v38 build];
-    v6 = v38;
-    v38 = 0;
+    build = [v37 build];
+    v6 = v37;
+    v37 = 0;
 LABEL_20:
 
     goto LABEL_22;
@@ -271,76 +269,74 @@ LABEL_20:
   build = 0;
 LABEL_22:
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return build;
 }
 
 void __92__GCGenericDevicePhysicalInputModel_Serialization__modelWithDictionaryRepresentation_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v75[2] = *MEMORY[0x1E69E9840];
+  v74[2] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = objc_opt_class();
   v9 = *(*(a1 + 48) + 8);
   obj = *(v9 + 40);
-  v60 = v7;
+  v59 = v7;
   v10 = (*(v7 + 2))(v7, v8, &obj);
   objc_storeStrong((v9 + 40), obj);
   if (v10)
   {
     v11 = *(*(a1 + 48) + 8);
-    v65 = 0;
-    v12 = [GCGenericDevicePhysicalInputElementModel modelWithDictionaryRepresentation:v10 error:&v65];
-    objc_storeStrong((v11 + 40), v65);
+    v64 = 0;
+    v12 = [GCGenericDevicePhysicalInputElementModel modelWithDictionaryRepresentation:v10 error:&v64];
+    objc_storeStrong((v11 + 40), v64);
     if (v12)
     {
       v13 = a3;
-      v58 = a4;
+      v57 = a4;
       [v12 names];
+      v60 = 0u;
       v61 = 0u;
       v62 = 0u;
-      v63 = 0u;
-      v14 = v64 = 0u;
-      v15 = [v14 countByEnumeratingWithState:&v61 objects:v70 count:16];
+      v14 = v63 = 0u;
+      v15 = [v14 countByEnumeratingWithState:&v60 objects:v69 count:16];
       if (v15)
       {
         v16 = v15;
-        v17 = *v62;
+        v17 = *v61;
         while (2)
         {
           for (i = 0; i != v16; ++i)
           {
-            if (*v62 != v17)
+            if (*v61 != v17)
             {
               objc_enumerationMutation(v14);
             }
 
-            v19 = *(*(&v61 + 1) + 8 * i);
+            v19 = *(*(&v60 + 1) + 8 * i);
             v20 = [*(a1 + 32) member:v19];
 
             if (v20)
             {
               v21 = MEMORY[0x1E696ABC0];
-              v68[0] = *MEMORY[0x1E696A588];
+              v67[0] = *MEMORY[0x1E696A588];
               v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Duplicate definition of '%@' with name '%@'.", objc_opt_class(), v19];
-              v69[0] = v22;
-              v68[1] = @"GCFailingKeyPathErrorKey";
+              v68[0] = v22;
+              v67[1] = @"GCFailingKeyPathErrorKey";
               v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", v13];
-              v67 = v23;
-              v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
-              v69[1] = v24;
-              v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v69 forKeys:v68 count:2];
+              v66 = v23;
+              v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v66 count:1];
+              v68[1] = v24;
+              v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:v67 count:2];
               v26 = [(NSError *)v21 gc_modelError:v25 userInfo:?];
               v27 = *(*(a1 + 48) + 8);
               v28 = *(v27 + 40);
               *(v27 + 40) = v26;
 
-              *v58 = 1;
+              *v57 = 1;
               goto LABEL_13;
             }
           }
 
-          v16 = [v14 countByEnumeratingWithState:&v61 objects:v70 count:16];
+          v16 = [v14 countByEnumeratingWithState:&v60 objects:v69 count:16];
           if (v16)
           {
             continue;
@@ -357,95 +353,93 @@ LABEL_13:
 
     else
     {
-      v57 = MEMORY[0x1E696ABC0];
-      v71[0] = *MEMORY[0x1E696A578];
-      v38 = [*(*(*(a1 + 48) + 8) + 40) localizedDescription];
-      v39 = v38;
-      v40 = &stru_1F4E1BE30;
-      if (v38)
+      v56 = MEMORY[0x1E696ABC0];
+      v70[0] = *MEMORY[0x1E696A578];
+      v37 = [*(*(*(a1 + 48) + 8) + 40) localizedDescription];
+      v38 = v37;
+      v39 = &stru_1F4E1BE30;
+      if (v37)
       {
-        v40 = v38;
+        v39 = v37;
       }
 
-      v72[0] = v40;
-      v71[1] = *MEMORY[0x1E696A588];
-      v41 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
-      v59 = v41;
-      if (!v41)
+      v71[0] = v39;
+      v70[1] = *MEMORY[0x1E696A588];
+      v40 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
+      v58 = v40;
+      if (!v40)
       {
-        v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating '%@' model.", objc_opt_class()];
+        v40 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error instantiating '%@' model.", objc_opt_class()];
       }
 
-      v42 = a4;
-      v56 = v41;
-      v72[1] = v41;
-      v71[2] = *MEMORY[0x1E696AA08];
-      v43 = *(*(*(a1 + 48) + 8) + 40);
-      v44 = v43;
-      v45 = v43;
-      if (!v43)
+      v41 = a4;
+      v55 = v40;
+      v71[1] = v40;
+      v70[2] = *MEMORY[0x1E696AA08];
+      v42 = *(*(*(a1 + 48) + 8) + 40);
+      v43 = v42;
+      v44 = v42;
+      if (!v42)
       {
-        v45 = [MEMORY[0x1E695DFB0] null];
-        v44 = *(*(*(a1 + 48) + 8) + 40);
+        v44 = [MEMORY[0x1E695DFB0] null];
+        v43 = *(*(*(a1 + 48) + 8) + 40);
       }
 
-      v55 = v45;
-      v72[2] = v45;
-      v71[3] = @"GCFailingKeyPathErrorKey";
-      v46 = [v44 gc_failingKeyPath];
-      v47 = v46;
-      if (v46)
+      v54 = v44;
+      v71[2] = v44;
+      v70[3] = @"GCFailingKeyPathErrorKey";
+      v45 = [v43 gc_failingKeyPath];
+      v46 = v45;
+      if (v45)
       {
-        v48 = v46;
+        v47 = v45;
       }
 
       else
       {
-        v48 = MEMORY[0x1E695E0F0];
+        v47 = MEMORY[0x1E695E0F0];
       }
 
-      v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
-      v50 = [v48 arrayByAddingObject:v49];
-      v72[3] = v50;
-      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v72 forKeys:v71 count:4];
-      v52 = [(NSError *)v57 gc_modelError:v51 userInfo:?];
-      v53 = *(*(a1 + 48) + 8);
-      v54 = *(v53 + 40);
-      *(v53 + 40) = v52;
+      v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
+      v49 = [v47 arrayByAddingObject:v48];
+      v71[3] = v49;
+      v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:4];
+      v51 = [(NSError *)v56 gc_modelError:v50 userInfo:?];
+      v52 = *(*(a1 + 48) + 8);
+      v53 = *(v52 + 40);
+      *(v52 + 40) = v51;
 
-      if (!v43)
+      if (!v42)
       {
       }
 
-      if (!v59)
+      if (!v58)
       {
       }
 
-      *v42 = 1;
+      *v41 = 1;
     }
   }
 
   else
   {
-    v30 = MEMORY[0x1E696ABC0];
-    v74[0] = *MEMORY[0x1E696A588];
-    v31 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
-    v75[0] = v31;
-    v74[1] = @"GCFailingKeyPathErrorKey";
-    v32 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
-    v73 = v32;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v73 count:1];
-    v75[1] = v33;
-    v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:2];
-    v35 = [(NSError *)v30 gc_modelError:v34 userInfo:?];
-    v36 = *(*(a1 + 48) + 8);
-    v37 = *(v36 + 40);
-    *(v36 + 40) = v35;
+    v29 = MEMORY[0x1E696ABC0];
+    v73[0] = *MEMORY[0x1E696A588];
+    v30 = [*(*(*(a1 + 48) + 8) + 40) localizedFailureReason];
+    v74[0] = v30;
+    v73[1] = @"GCFailingKeyPathErrorKey";
+    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%zd]", a3];
+    v72 = v31;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v72 count:1];
+    v74[1] = v32;
+    v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:v73 count:2];
+    v34 = [(NSError *)v29 gc_modelError:v33 userInfo:?];
+    v35 = *(*(a1 + 48) + 8);
+    v36 = *(v35 + 40);
+    *(v35 + 40) = v34;
 
     *a4 = 1;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 @end

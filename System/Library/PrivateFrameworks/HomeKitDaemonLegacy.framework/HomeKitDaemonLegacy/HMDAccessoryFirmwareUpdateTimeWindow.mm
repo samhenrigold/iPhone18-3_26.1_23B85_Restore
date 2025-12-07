@@ -29,24 +29,8 @@
       v13 = 1;
     }
 
-    if (v13)
+    if (v13 || ([MEMORY[0x277CBEA80] currentCalendar], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v14, "components:fromDate:", 224, v10), v15 = objc_claimAutoreleasedReturnValue(), startTimeComponents = v8->_startTimeComponents, v8->_startTimeComponents = v15, startTimeComponents, v14, objc_msgSend(MEMORY[0x277CBEA80], "currentCalendar"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v17, "components:fromDate:", 224, v12), v18 = objc_claimAutoreleasedReturnValue(), endTimeComponents = v8->_endTimeComponents, v8->_endTimeComponents = v18, endTimeComponents, v17, !v8->_startTimeComponents) || !v8->_endTimeComponents)
     {
-      goto LABEL_10;
-    }
-
-    currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
-    v15 = [currentCalendar components:224 fromDate:v10];
-    startTimeComponents = v8->_startTimeComponents;
-    v8->_startTimeComponents = v15;
-
-    currentCalendar2 = [MEMORY[0x277CBEA80] currentCalendar];
-    v18 = [currentCalendar2 components:224 fromDate:v12];
-    endTimeComponents = v8->_endTimeComponents;
-    v8->_endTimeComponents = v18;
-
-    if (!v8->_startTimeComponents || !v8->_endTimeComponents)
-    {
-LABEL_10:
 
       v20 = 0;
       goto LABEL_11;
@@ -73,12 +57,11 @@ LABEL_11:
 
 uint64_t __51__HMDAccessoryFirmwareUpdateTimeWindow_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_121481;
-  logCategory__hmf_once_v1_121481 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_121481;
+  logCategory__hmf_once_v1_121481 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -12,76 +12,78 @@
 {
   dictionaryCopy = dictionary;
   domainCopy = domain;
-  v31.receiver = self;
-  v31.super_class = WBSPasswordManagerWebsiteMetadataEntry;
-  v8 = [(WBSPasswordManagerWebsiteMetadataEntry *)&v31 init];
+  v35.receiver = self;
+  v35.super_class = WBSPasswordManagerWebsiteMetadataEntry;
+  v8 = [(WBSPasswordManagerWebsiteMetadataEntry *)&v35 init];
+  v10 = v8;
   if (!v8)
   {
 LABEL_9:
-    v27 = 0;
+    v31 = 0;
     goto LABEL_10;
   }
 
   if (!dictionaryCopy)
   {
-    v28 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v32 = WBS_LOG_CHANNEL_PREFIXKeychain(v8, v9);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      [WBSPasswordManagerWebsiteMetadataEntry initWithKeychainDictionary:domainCopy forDomain:v28];
+      [WBSPasswordManagerWebsiteMetadataEntry initWithKeychainDictionary:domainCopy forDomain:v32];
     }
 
     goto LABEL_9;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v29 = WBS_LOG_CHANNEL_PREFIXKeychain();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+    v33 = WBS_LOG_CHANNEL_PREFIXKeychain(isKindOfClass, v12);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_FAULT))
     {
-      [WBSPasswordManagerWebsiteMetadataEntry initWithKeychainDictionary:domainCopy forDomain:v29];
+      [(WBSPasswordManagerWebsiteMetadataEntry *)domainCopy initWithKeychainDictionary:v33 forDomain:dictionaryCopy];
     }
 
     goto LABEL_9;
   }
 
-  v9 = [dictionaryCopy copy];
-  originalBackingDictionary = v8->_originalBackingDictionary;
-  v8->_originalBackingDictionary = v9;
+  v13 = [dictionaryCopy copy];
+  originalBackingDictionary = v10->_originalBackingDictionary;
+  v10->_originalBackingDictionary = v13;
 
-  v11 = [(NSDictionary *)v8->_originalBackingDictionary safari_stringForKey:@"wn"];
-  websiteName = v8->_websiteName;
-  v8->_websiteName = v11;
+  v15 = [(NSDictionary *)v10->_originalBackingDictionary safari_stringForKey:@"wn"];
+  websiteName = v10->_websiteName;
+  v10->_websiteName = v15;
 
-  v13 = [(NSDictionary *)v8->_originalBackingDictionary safari_dateForKey:@"wn_dm"];
-  websiteNameDateLastModified = v8->_websiteNameDateLastModified;
-  v8->_websiteNameDateLastModified = v13;
+  v17 = [(NSDictionary *)v10->_originalBackingDictionary safari_dateForKey:@"wn_dm"];
+  websiteNameDateLastModified = v10->_websiteNameDateLastModified;
+  v10->_websiteNameDateLastModified = v17;
 
-  v15 = [(NSDictionary *)v8->_originalBackingDictionary safari_dateForKey:@"wn_dr"];
-  websiteNameDateLastRefreshed = v8->_websiteNameDateLastRefreshed;
-  v8->_websiteNameDateLastRefreshed = v15;
+  v19 = [(NSDictionary *)v10->_originalBackingDictionary safari_dateForKey:@"wn_dr"];
+  websiteNameDateLastRefreshed = v10->_websiteNameDateLastRefreshed;
+  v10->_websiteNameDateLastRefreshed = v19;
 
-  v8->_supportsPasskeys = [(NSDictionary *)v8->_originalBackingDictionary safari_BOOLForKey:@"supportsPasskey"];
-  v17 = MEMORY[0x1E695DFF8];
-  v18 = [(NSDictionary *)v8->_originalBackingDictionary safari_stringForKey:@"enrollPasskeyURL"];
-  v19 = [v17 URLWithString:v18];
-  enrollPasskeyURL = v8->_enrollPasskeyURL;
-  v8->_enrollPasskeyURL = v19;
-
+  v10->_supportsPasskeys = [(NSDictionary *)v10->_originalBackingDictionary safari_BOOLForKey:@"supportsPasskey"];
   v21 = MEMORY[0x1E695DFF8];
-  v22 = [(NSDictionary *)v8->_originalBackingDictionary safari_stringForKey:@"managePasskeyURL"];
+  v22 = [(NSDictionary *)v10->_originalBackingDictionary safari_stringForKey:@"enrollPasskeyURL"];
   v23 = [v21 URLWithString:v22];
-  managePasskeyURL = v8->_managePasskeyURL;
-  v8->_managePasskeyURL = v23;
+  enrollPasskeyURL = v10->_enrollPasskeyURL;
+  v10->_enrollPasskeyURL = v23;
 
-  v25 = [(NSDictionary *)v8->_originalBackingDictionary safari_dateForKey:@"passkeyEndpointsDateLastRefreshed"];
-  passkeyEndpointsDateLastRefreshed = v8->_passkeyEndpointsDateLastRefreshed;
-  v8->_passkeyEndpointsDateLastRefreshed = v25;
+  v25 = MEMORY[0x1E695DFF8];
+  v26 = [(NSDictionary *)v10->_originalBackingDictionary safari_stringForKey:@"managePasskeyURL"];
+  v27 = [v25 URLWithString:v26];
+  managePasskeyURL = v10->_managePasskeyURL;
+  v10->_managePasskeyURL = v27;
 
-  v27 = v8;
+  v29 = [(NSDictionary *)v10->_originalBackingDictionary safari_dateForKey:@"passkeyEndpointsDateLastRefreshed"];
+  passkeyEndpointsDateLastRefreshed = v10->_passkeyEndpointsDateLastRefreshed;
+  v10->_passkeyEndpointsDateLastRefreshed = v29;
+
+  v31 = v10;
 LABEL_10:
 
-  return v27;
+  return v31;
 }
 
 - (id)description
@@ -194,26 +196,23 @@ LABEL_10:
   return domainCopy;
 }
 
-- (void)initWithKeychainDictionary:(uint64_t)a1 forDomain:(void *)a2 .cold.1(uint64_t a1, void *a2)
+- (void)initWithKeychainDictionary:(uint64_t)a3 forDomain:.cold.1(uint64_t a1, void *a2, uint64_t a3)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = a2;
+  v4 = a2;
   v5 = 138478083;
   v6 = a1;
   v7 = 2112;
   v8 = objc_opt_class();
-  _os_log_fault_impl(&dword_1B8447000, v3, OS_LOG_TYPE_FAULT, "Error initializing WBSPasswordManagerWebsiteMetadataEntry: received non-Dictionary keychain dictionary for %{private}@; type was %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B8447000, v4, OS_LOG_TYPE_FAULT, "Error initializing WBSPasswordManagerWebsiteMetadataEntry: received non-Dictionary keychain dictionary for %{private}@; type was %@", &v5, 0x16u);
 }
 
 - (void)initWithKeychainDictionary:(uint64_t)a1 forDomain:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138477827;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Error initializing WBSPasswordManagerWebsiteMetadataEntry: received nil keychain dictionary for %{private}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138477827;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B8447000, a2, OS_LOG_TYPE_ERROR, "Error initializing WBSPasswordManagerWebsiteMetadataEntry: received nil keychain dictionary for %{private}@", &v2, 0xCu);
 }
 
 @end

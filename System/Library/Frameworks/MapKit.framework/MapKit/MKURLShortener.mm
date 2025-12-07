@@ -14,7 +14,7 @@
   serviceProvider = self->_serviceProvider;
   lCopy = l;
   [(GEOMapsURLShortener *)serviceProvider setRequestTimeout:timeout];
-  [(GEOMapsURLShortener *)self->_serviceProvider setOptions:[(MKURLShortener *)self options]& 3];
+  [(GEOMapsURLShortener *)self->_serviceProvider setOptions:objc_msgSend_options(self) & 3];
   v14 = self->_serviceProvider;
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
@@ -70,7 +70,7 @@ void __55__MKURLShortener_lengthenURL_timeout_queue_completion___block_invoke(ui
   if (MapsFeature_IsEnabled_Maps66())
   {
     [(GEOMapsURLShortener *)self->_serviceProvider setRequestTimeout:timeout];
-    [(GEOMapsURLShortener *)self->_serviceProvider setOptions:[(MKURLShortener *)self options]& 3];
+    [(GEOMapsURLShortener *)self->_serviceProvider setOptions:objc_msgSend_options(self) & 3];
     serviceProvider = self->_serviceProvider;
     v19[0] = MEMORY[0x1E69E9820];
     v19[1] = 3221225472;

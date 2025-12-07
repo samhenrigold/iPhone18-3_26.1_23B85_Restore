@@ -184,26 +184,30 @@
       executableSpecification = [v26 executableSpecification];
       executableIdentifier = [executableSpecification executableIdentifier];
 
-      if (([v23 containsObject:executableIdentifier] & 1) == 0 && -[ATXCandidateRelevanceModelConfigApp bundleIdIsEnabledForPrediction:](self, "bundleIdIsEnabledForPrediction:", executableIdentifier))
+      if (([v23 containsObject:executableIdentifier] & 1) == 0)
       {
-        v29 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v29 = [(ATXCandidateRelevanceModelConfigApp *)self bundleIdIsEnabledForPrediction:executableIdentifier];
+        if (v29)
         {
-          v30 = objc_opt_class();
-          v31 = NSStringFromClass(v30);
-          scoreSpecification = [v26 scoreSpecification];
-          [scoreSpecification rawScore];
-          *buf = v36;
-          v43 = v31;
-          v44 = 2112;
-          v45 = executableIdentifier;
-          v46 = 2048;
-          v47 = v33;
-          _os_log_impl(&dword_2263AA000, v29, OS_LOG_TYPE_DEFAULT, "%@ - Scored heuristic with identifier %@ and score: %f.", buf, 0x20u);
-        }
+          v30 = __atxlog_handle_relevance_model(v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          {
+            v31 = objc_opt_class();
+            v32 = NSStringFromClass(v31);
+            scoreSpecification = [v26 scoreSpecification];
+            [scoreSpecification rawScore];
+            *buf = v36;
+            v43 = v32;
+            v44 = 2112;
+            v45 = executableIdentifier;
+            v46 = 2048;
+            v47 = v34;
+            _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_DEFAULT, "%@ - Scored heuristic with identifier %@ and score: %f.", buf, 0x20u);
+          }
 
-        [v22 addObject:v26];
-        [v23 addObject:executableIdentifier];
+          [v22 addObject:v26];
+          [v23 addObject:executableIdentifier];
+        }
       }
 
       ++v25;
@@ -211,8 +215,6 @@
 
     while ([v21 count] > v25);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -260,39 +262,39 @@ LABEL_3:
         break;
       }
 
-      v23 = __atxlog_handle_relevance_model();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v24 = __atxlog_handle_relevance_model(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = objc_opt_class();
-        v25 = NSStringFromClass(v24);
+        v25 = objc_opt_class();
+        v26 = NSStringFromClass(v25);
         *buf = 138412802;
-        v42 = v25;
+        v42 = v26;
         v43 = 2112;
         v44 = v19;
         v45 = 2048;
         v46 = -v22;
-        _os_log_impl(&dword_2263AA000, v23, OS_LOG_TYPE_DEFAULT, "%@ - Found recently installed app with identifier %@ and install age %f.", buf, 0x20u);
+        _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "%@ - Found recently installed app with identifier %@ and install age %f.", buf, 0x20u);
       }
 
-      LODWORD(v26) = 1.0;
-      v27 = [(ATXCandidateRelevanceModelConfigApp *)self proactiveSuggestionForBundleId:v19 prediction:v26];
-      if (v27)
+      LODWORD(v27) = 1.0;
+      v28 = [(ATXCandidateRelevanceModelConfigApp *)self proactiveSuggestionForBundleId:v19 prediction:v27];
+      if (v28)
       {
-        [v11 addObject:v27];
+        [v11 addObject:v28];
       }
 
       else
       {
-        v28 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = __atxlog_handle_relevance_model(0);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          v29 = objc_opt_class();
-          v32 = NSStringFromClass(v29);
+          v30 = objc_opt_class();
+          v32 = NSStringFromClass(v30);
           *buf = 138412546;
           v42 = v32;
           v43 = 2112;
           v44 = v19;
-          _os_log_error_impl(&dword_2263AA000, v28, OS_LOG_TYPE_ERROR, "%@ - Could not create suggestion for recently installed app with identifier %@.", buf, 0x16u);
+          _os_log_error_impl(&dword_2263AA000, v29, OS_LOG_TYPE_ERROR, "%@ - Could not create suggestion for recently installed app with identifier %@.", buf, 0x16u);
         }
       }
 
@@ -309,14 +311,12 @@ LABEL_3:
     }
   }
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)appInstallAgesForAppsWithExcludedApps:(id)apps appInfoManager:(id)manager
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   appsCopy = apps;
   managerCopy = manager;
   installedAppsKnownToSpringBoard = [(ATXCandidateRelevanceModelConfig *)self installedAppsKnownToSpringBoard];
@@ -328,27 +328,27 @@ LABEL_3:
 
   [v9 minusSet:appsCopy];
   v12 = objc_opt_new();
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v13 = v9;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * i);
-        v19 = [managerCopy appInfoForBundleId:{v18, v24}];
+        v18 = *(*(&v23 + 1) + 8 * i);
+        v19 = [managerCopy appInfoForBundleId:{v18, v23}];
         installDate = [v19 installDate];
 
         if (installDate)
@@ -358,13 +358,11 @@ LABEL_3:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v15);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -405,40 +403,40 @@ LABEL_4:
           break;
         }
 
-        v15 = __atxlog_handle_relevance_model();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = __atxlog_handle_relevance_model(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v16 = objc_opt_class();
-          v17 = NSStringFromClass(v16);
+          v17 = objc_opt_class();
+          v18 = NSStringFromClass(v17);
           *buf = 138412802;
-          v32 = v17;
+          v32 = v18;
           v33 = 2112;
           v34 = v11;
           v35 = 2048;
           v36 = -v14;
-          _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "%@ - Found recently launched app with identifier %@ and launch age %f.", buf, 0x20u);
+          _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "%@ - Found recently launched app with identifier %@ and launch age %f.", buf, 0x20u);
         }
 
-        v18 = v14 * 0.009 / 1800.0 + 0.999;
-        *&v18 = v18;
-        v19 = [(ATXCandidateRelevanceModelConfigApp *)self proactiveSuggestionForBundleId:v11 prediction:v18];
-        if (v19)
+        v19 = v14 * 0.009 / 1800.0 + 0.999;
+        *&v19 = v19;
+        v20 = [(ATXCandidateRelevanceModelConfigApp *)self proactiveSuggestionForBundleId:v11 prediction:v19];
+        if (v20)
         {
-          [v5 addObject:v19];
+          [v5 addObject:v20];
         }
 
         else
         {
-          v20 = __atxlog_handle_relevance_model();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v21 = __atxlog_handle_relevance_model(0);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            v21 = objc_opt_class();
-            v26 = NSStringFromClass(v21);
+            v22 = objc_opt_class();
+            v26 = NSStringFromClass(v22);
             *buf = 138412546;
             v32 = v26;
             v33 = 2112;
             v34 = v11;
-            _os_log_error_impl(&dword_2263AA000, v20, OS_LOG_TYPE_ERROR, "%@ - Could not create suggestion for recently launched app with identifier %@.", buf, 0x16u);
+            _os_log_error_impl(&dword_2263AA000, v21, OS_LOG_TYPE_ERROR, "%@ - Could not create suggestion for recently launched app with identifier %@.", buf, 0x16u);
           }
         }
 
@@ -458,20 +456,18 @@ LABEL_4:
 
   else
   {
-    v6 = __atxlog_handle_relevance_model();
+    v6 = __atxlog_handle_relevance_model(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       *buf = 138412290;
-      v32 = v23;
+      v32 = v24;
       _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "%@ - appLaunchAges is nil, so returning an empty list.", buf, 0xCu);
     }
 
     v5 = MEMORY[0x277CBEBF8];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

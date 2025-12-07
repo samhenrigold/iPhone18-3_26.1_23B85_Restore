@@ -36,13 +36,13 @@
   aBlock[3] = &block_descriptor_15;
   v12 = _Block_copy(aBlock);
   selfCopy = self;
-  sub_1D776AC18(v8);
+  sub_1D776AC18(v8, v9);
 
   v14.receiver = selfCopy;
   v14.super_class = ObjectType;
   [(PostPurchaseOnboardingContainerViewController *)&v14 dismissViewControllerAnimated:animatedCopy completion:v12];
   _Block_release(v12);
-  sub_1D7744A7C(v8);
+  sub_1D7744A7C(v8, v9);
 }
 
 - (_TtC16NewsSubscription45PostPurchaseOnboardingContainerViewController)initWithNibName:(id)name bundle:(id)bundle

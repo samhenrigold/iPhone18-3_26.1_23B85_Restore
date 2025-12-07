@@ -23,9 +23,11 @@
 
 uint64_t __37__WLKUpNextDeltaStore_sharedInstance__block_invoke()
 {
-  sharedInstance__singleton = objc_alloc_init(WLKUpNextDeltaStore);
+  v0 = objc_alloc_init(WLKUpNextDeltaStore);
+  v1 = sharedInstance__singleton;
+  sharedInstance__singleton = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (WLKUpNextDeltaStore)init

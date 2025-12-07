@@ -24,7 +24,7 @@
   v5 = *MEMORY[0x1E69E9840];
   if ((self->_flags & 1) == 0)
   {
-    [(NSXPCConnection *)self->_connection _removeImportedProxy:?];
+    [(NSXPCConnection *)&self->_connection->super.isa _removeImportedProxy:?];
   }
 
   errorBlock = self->_errorBlock;
@@ -137,7 +137,7 @@
   connection2 = [coder connection];
   if (connection2)
   {
-    connection2 = connection2[7];
+    connection2 = *(connection2 + 56);
   }
 
   v9 = [(_NSXPCConnectionExportedObjectTable *)connection2 exportedObjectForProxyNumber:?];

@@ -66,7 +66,7 @@
 
 - (void)_appendToMappedMemory:(id)memory
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   v5 = [memoryCopy length];
   totalLength = self->_totalLength;
@@ -83,22 +83,22 @@
         goto LABEL_6;
       }
 
-      v19 = *__error();
-      v20 = __error();
-      v21 = strerror(*v20);
-      v22 = 67109378;
-      v23 = v19;
-      v24 = 2080;
-      v25 = v21;
-      v18 = "Unable to resize mapped file, errno: %d, error: %s";
+      v18 = *__error();
+      v19 = __error();
+      v20 = strerror(*v19);
+      v21 = 67109378;
+      v22 = v18;
+      v23 = 2080;
+      v24 = v20;
+      v17 = "Unable to resize mapped file, errno: %d, error: %s";
     }
 
     else
     {
-      v13 = mmap(0, v10, 3, 1, [v8 fileDescriptor], 0);
-      if (v13 != -1)
+      v12 = mmap(0, v10, 3, 1, [v8 fileDescriptor], 0);
+      if (v12 != -1)
       {
-        v9 = v13;
+        v9 = v12;
         mmappedData = self->_mmappedData;
         if (mmappedData)
         {
@@ -121,17 +121,17 @@ LABEL_6:
         goto LABEL_7;
       }
 
-      v15 = *__error();
-      v16 = __error();
-      v17 = strerror(*v16);
-      v22 = 67109378;
-      v23 = v15;
-      v24 = 2080;
-      v25 = v17;
-      v18 = "Unable to mmap file, errno: %d, error: %s";
+      v14 = *__error();
+      v15 = __error();
+      v16 = strerror(*v15);
+      v21 = 67109378;
+      v22 = v14;
+      v23 = 2080;
+      v24 = v16;
+      v17 = "Unable to mmap file, errno: %d, error: %s";
     }
 
-    _os_log_error_impl(&dword_272850000, v11, OS_LOG_TYPE_ERROR, v18, &v22, 0x12u);
+    _os_log_error_impl(&dword_272850000, v11, OS_LOG_TYPE_ERROR, v17, &v21, 0x12u);
     goto LABEL_6;
   }
 
@@ -140,8 +140,6 @@ LABEL_6:
 LABEL_3:
   memcpy(&v9[totalLength], [memoryCopy bytes], objc_msgSend(memoryCopy, "length"));
 LABEL_7:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_convertToFallbackMemory
@@ -181,16 +179,15 @@ LABEL_7:
 
 - (VSMappedData)init
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   v4 = NSTemporaryDirectory();
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"VSMappedData%p", self, v4];
-  v11[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   v7 = [v3 pathWithComponents:v6];
 
   v8 = [(VSMappedData *)self initWithFilePath:v7 initialSize:512000];
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 

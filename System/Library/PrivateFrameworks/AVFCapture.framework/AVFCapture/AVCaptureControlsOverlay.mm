@@ -71,7 +71,7 @@
           objc_enumerationMutation(itemsByIdentifier);
         }
 
-        [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](self->_itemsByIdentifier objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * i)), "control"), "removeObservers"}];
+        [objc_msgSend(objc_msgSend_objectForKeyedSubscript_(self->_itemsByIdentifier) "control")];
       }
 
       v7 = [(NSDictionary *)itemsByIdentifier countByEnumeratingWithState:&v12 objects:v11 count:16];
@@ -135,7 +135,7 @@
           objc_enumerationMutation(v6);
         }
 
-        v11 = [v6 objectForKeyedSubscript:*(*(&v46 + 1) + 8 * i)];
+        v11 = objc_msgSend_objectForKeyedSubscript_(v6);
         if (([controls containsObject:{objc_msgSend(v11, "control")}] & 1) == 0)
         {
           [objc_msgSend(v11 "control")];
@@ -201,7 +201,7 @@
           objc_enumerationMutation(itemsByIdentifier);
         }
 
-        [objc_msgSend(-[NSDictionary objectForKeyedSubscript:](self->_itemsByIdentifier objectForKeyedSubscript:{*(*(&v36 + 1) + 8 * k), v28), "control"), "removeObservers"}];
+        [objc_msgSend(objc_msgSend_objectForKeyedSubscript_(self->_itemsByIdentifier v28)];
       }
 
       v20 = [(NSDictionary *)itemsByIdentifier countByEnumeratingWithState:&v36 objects:v35 count:16];
@@ -230,7 +230,7 @@
           objc_enumerationMutation(v23);
         }
 
-        v27 = [(NSDictionary *)self->_itemsByIdentifier objectForKeyedSubscript:*(*(&v31 + 1) + 8 * m), v28];
+        v27 = objc_msgSend_objectForKeyedSubscript_(self->_itemsByIdentifier, v28);
         [objc_msgSend(v27 "control")];
         [objc_msgSend(v27 "control")];
       }
@@ -248,11 +248,11 @@ LABEL_34:
   _Block_object_dispose(&v51, 8);
 }
 
-uint64_t __43__AVCaptureControlsOverlay_updateControls___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__43__AVCaptureControlsOverlay_updateControls___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v7 = [*(a1 + 32) objectAtIndexedSubscript:?];
+  v7 = [*(a1 + 32) objectAtIndexedSubscript:a3];
   v8 = [a2 isEqualToString:{objc_msgSend(v7, "identifier")}];
-  v9 = [objc_msgSend(*(a1 + 40) objectForKeyedSubscript:{a2), "overlayControl"}];
+  v9 = [objc_msgSend_objectForKeyedSubscript_(*(a1 + 40)) overlayControl];
   result = [v7 overlayControl];
   v11 = v8 ^ 1;
   if (v9 != result)
@@ -284,19 +284,23 @@ uint64_t __43__AVCaptureControlsOverlay_updateControls___block_invoke(uint64_t a
     v8 = *v18;
     do
     {
-      for (i = 0; i != v7; ++i)
+      v9 = 0;
+      do
       {
         if (*v18 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
-        v11 = [objc_msgSend(v5 objectForKeyedSubscript:{v10, selfCopy), "control"}];
+        v10 = *(*(&v17 + 1) + 8 * v9);
+        v11 = [objc_msgSend_objectForKeyedSubscript_(v5 selfCopy)];
         v12 = -[AVCaptureControlsOverlayItem initWithControl:overlayControl:]([AVCaptureControlsOverlayItem alloc], "initWithControl:overlayControl:", v11, [v11 overlayControl]);
         [v3 setObject:v12 forKeyedSubscript:v10];
+
+        ++v9;
       }
 
+      while (v7 != v9);
       v7 = [v4 countByEnumeratingWithState:&v17 objects:v16 count:16];
     }
 
@@ -317,18 +321,18 @@ uint64_t __43__AVCaptureControlsOverlay_updateControls___block_invoke(uint64_t a
   dispatch_async(connectionQueue, block);
 }
 
-uint64_t __49__AVCaptureControlsOverlay__sendControlsIsolated__block_invoke(uint64_t result, uint64_t a2)
+id *__49__AVCaptureControlsOverlay__sendControlsIsolated__block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
     v2 = result;
-    result = [*(result + 32) count];
+    result = [result[4] count];
     if (!result)
     {
-      result = [*(v2 + 40) focusLockGestureEnabled];
+      result = [v2[5] focusLockGestureEnabled];
       if ((result & 1) == 0)
       {
-        v3 = *(v2 + 48);
+        v3 = v2[6];
 
         return [v3 invalidate];
       }
@@ -390,7 +394,8 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
 {
   dispatch_assert_queue_V2(self->_connectionQueue);
   os_unfair_lock_lock(&self->_controlsLock);
-  v6 = -[NSDictionary objectForKeyedSubscript:](self->_itemsByIdentifier, "objectForKeyedSubscript:", [update controlIdentifier]);
+  [update controlIdentifier];
+  v6 = objc_msgSend_objectForKeyedSubscript_(self->_itemsByIdentifier);
   os_unfair_lock_unlock(&self->_controlsLock);
   control = [v6 control];
 
@@ -408,7 +413,7 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
     v5 = [(NSDictionary *)self->_itemsByIdentifier copy];
     os_unfair_lock_unlock(&self->_controlsLock);
     array = [MEMORY[0x1E695DF70] array];
-    v13 = OUTLINED_FUNCTION_1_12(array, v7, &v95, v8, v9, v10, v11, v12, v62, v67, v71, v75, v79, v83, v87, v91, 0, 0, 0, 0, 0, 0, 0, 0, v103, v104, v105, v106, v107, v108, v109, v110, v111, *(&v111 + 1), v112, *(&v112 + 1), v113, *(&v113 + 1), v114, *(&v114 + 1), v115);
+    v13 = OUTLINED_FUNCTION_1_12(array, v7, &v95, v8, v9, v10, v11, v12, v62, v67, v71, v75, v79, v83, v87, v91, 0, 0, 0, 0, 0, 0, 0, 0, v103, v104, v105, v106, v107, v108, v109, v110, v111, *(&v111 + 1), v112, *(&v112 + 1), v113, *(&v113 + 1), v114, *(&v114 + 1));
     if (v13)
     {
       v14 = v13;
@@ -423,11 +428,12 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
             objc_enumerationMutation(v4);
           }
 
-          v17 = [array addObject:{objc_msgSend(objc_msgSend(v5, "objectForKeyedSubscript:", *(v96 + 8 * v15++)), "overlayControl")}];
+          v17 = [array addObject:{objc_msgSend(objc_msgSend_objectForKeyedSubscript_(v5), "overlayControl")}];
+          ++v15;
         }
 
         while (v14 != v15);
-        v14 = OUTLINED_FUNCTION_1_12(v17, v18, &v95, v19, v20, v21, v22, v23, v63, v68, v72, v76, v80, v84, v88, v92, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, *(&v111 + 1), v112, *(&v112 + 1), v113, *(&v113 + 1), v114, *(&v114 + 1), v115);
+        v14 = OUTLINED_FUNCTION_1_12(v17, v18, &v95, v19, v20, v21, v22, v23, v63, v68, v72, v76, v80, v84, v88, v92, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, *(&v111 + 1), v112, *(&v112 + 1), v113, *(&v113 + 1), v114, *(&v114 + 1));
       }
 
       while (v14);
@@ -435,30 +441,30 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
 
     v64 = [array copy];
     array2 = [MEMORY[0x1E695DF70] array];
+    v115 = 0u;
     v116 = 0u;
     v117 = 0u;
     v118 = 0u;
-    v119 = 0u;
-    v31 = OUTLINED_FUNCTION_1_12(array2, v25, &v116, v26, v27, v28, v29, v30, v64, v68, v72, v76, v80, v84, v88, v92, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, *(&v111 + 1), v112, *(&v112 + 1), v113, *(&v113 + 1), v114, *(&v114 + 1), v115);
+    v31 = OUTLINED_FUNCTION_1_12(array2, v25, &v115, v26, v27, v28, v29, v30, v64, v68, v72, v76, v80, v84, v88, v92, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, *(&v111 + 1), v112, *(&v112 + 1), v113, *(&v113 + 1), v114, *(&v114 + 1));
     if (v31)
     {
       v39 = v31;
-      v40 = *v117;
+      v40 = *v116;
       do
       {
         v41 = 0;
         do
         {
-          if (*v117 != v40)
+          if (*v116 != v40)
           {
             objc_enumerationMutation(v4);
           }
 
-          v42 = [objc_msgSend(v5 objectForKeyedSubscript:{*(*(&v116 + 1) + 8 * v41)), "control"}];
-          isEnabled = [v42 isEnabled];
+          control = [objc_msgSend_objectForKeyedSubscript_(v5) control];
+          isEnabled = [control isEnabled];
           if ((isEnabled & 1) == 0)
           {
-            isEnabled = [v42 enabledUpdate];
+            isEnabled = [control enabledUpdate];
             if (isEnabled)
             {
               isEnabled = [array2 addObject:isEnabled];
@@ -469,7 +475,7 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
         }
 
         while (v39 != v41);
-        v31 = OUTLINED_FUNCTION_1_12(isEnabled, v44, &v116, v45, v46, v47, v48, v49, v65, v69, v73, v77, v81, v85, v89, v93, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, *(&v111 + 1), v112, *(&v112 + 1), v113, *(&v113 + 1), v114, *(&v114 + 1), v115);
+        v31 = OUTLINED_FUNCTION_1_12(isEnabled, v44, &v115, v45, v46, v47, v48, v49, v65, v69, v73, v77, v81, v85, v89, v93, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, *(&v111 + 1), v112, *(&v112 + 1), v113, *(&v113 + 1), v114, *(&v114 + 1));
         v39 = v31;
       }
 
@@ -480,7 +486,7 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
     v114 = 0u;
     v111 = 0u;
     v112 = 0u;
-    v50 = OUTLINED_FUNCTION_4_2(v31, v32, v33, v34, v35, v36, v37, v38, v65, v69, v73, v77, v81, v85, v89, v93, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, 0);
+    v50 = OUTLINED_FUNCTION_4_2(v31, v32, v33, v34, v35, v36, v37, v38, v65, v69, v73, v77, v81, v85, v89, v93, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110);
     if (v50)
     {
       v51 = v50;
@@ -495,11 +501,12 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
             objc_enumerationMutation(v4);
           }
 
-          v53 = [array2 addObject:{objc_msgSend(objc_msgSend(objc_msgSend(v5, "objectForKeyedSubscript:", *(*(&v111 + 1) + 8 * v52++)), "control"), "overlayUpdate")}];
+          v53 = [array2 addObject:{objc_msgSend(objc_msgSend(objc_msgSend_objectForKeyedSubscript_(v5), "control"), "overlayUpdate")}];
+          ++v52;
         }
 
         while (v51 != v52);
-        v51 = OUTLINED_FUNCTION_4_2(v53, v54, v55, v56, v57, v58, v59, v60, v66, v70, v74, v78, v82, v86, v90, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111);
+        v51 = OUTLINED_FUNCTION_4_2(v53, v54, v55, v56, v57, v58, v59, v60, v66, v70, v74, v78, v82, v86, v90, v94, v95, v96, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110);
       }
 
       while (v51);
@@ -583,7 +590,7 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
 
   v8 = [*(v6 + 40) copy];
   os_unfair_lock_unlock((v6 + 32));
-  v17 = OUTLINED_FUNCTION_0_9(v9, v10, v11, v12, v13, v14, v15, v16, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, 0);
+  v17 = OUTLINED_FUNCTION_0_9(v9, v10, v11, v12, v13, v14, v15, v16, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64);
   if (v17)
   {
     v18 = v17;
@@ -597,7 +604,7 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
           objc_enumerationMutation(v8);
         }
 
-        v21 = [v8 objectForKeyedSubscript:*(8 * i)];
+        v21 = objc_msgSend_objectForKeyedSubscript_(v8);
         [objc_msgSend(v21 "control")];
         control = [v21 control];
         if (v5)
@@ -615,7 +622,7 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
         v25 = [control overlayDidMakeControlActive:v24];
       }
 
-      v18 = OUTLINED_FUNCTION_0_9(v25, v26, v27, v28, v29, v30, v31, v32, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v66);
+      v18 = OUTLINED_FUNCTION_0_9(v25, v26, v27, v28, v29, v30, v31, v32, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65);
     }
 
     while (v18);
@@ -623,7 +630,7 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
 
   if (identifier)
   {
-    identifier = [objc_msgSend(v8 objectForKeyedSubscript:{identifier), "control"}];
+    identifier = [objc_msgSend_objectForKeyedSubscript_(v8) control];
   }
 
   referencedObject = [*(v6 + 8) referencedObject];
@@ -645,7 +652,7 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
 
     self->_activeControlIdentifier = [identifier copy];
     os_unfair_lock_unlock(&self->_controlsLock);
-    v17 = OUTLINED_FUNCTION_0_9(v9, v10, v11, v12, v13, v14, v15, v16, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, 0);
+    v17 = OUTLINED_FUNCTION_0_9(v9, v10, v11, v12, v13, v14, v15, v16, v30, v32, v34, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60);
     if (v17)
     {
       v18 = v17;
@@ -659,17 +666,17 @@ void __38__AVCaptureControlsOverlay_invalidate__block_invoke(uint64_t a1)
             objc_enumerationMutation(v8);
           }
 
-          v21 = [v8 objectForKeyedSubscript:*(8 * i)];
+          v21 = objc_msgSend_objectForKeyedSubscript_(v8);
           v22 = [objc_msgSend(v21 "control")];
         }
 
-        v18 = OUTLINED_FUNCTION_0_9(v22, v23, v24, v25, v26, v27, v28, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v62);
+        v18 = OUTLINED_FUNCTION_0_9(v22, v23, v24, v25, v26, v27, v28, v29, v31, v33, v35, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61);
       }
 
       while (v18);
     }
 
-    [v7 handleControlsOverlay:self didChangeActiveControl:{objc_msgSend(objc_msgSend(v8, "objectForKeyedSubscript:", identifier), "control")}];
+    [v7 handleControlsOverlay:self didChangeActiveControl:{objc_msgSend(objc_msgSend_objectForKeyedSubscript_(v8), "control")}];
   }
 }
 

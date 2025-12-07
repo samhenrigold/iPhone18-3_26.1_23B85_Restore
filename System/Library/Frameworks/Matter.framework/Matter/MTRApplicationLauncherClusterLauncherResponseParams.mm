@@ -69,11 +69,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:1292 commandID:3 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -131,13 +131,13 @@ LABEL_6:
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*struct];
   [(MTRApplicationLauncherClusterLauncherResponseParams *)self setStatus:v5];
 
-  v7 = *(struct + 8);
-  v6 = struct + 8;
-  if (v7 == 1)
+  v8 = *(struct + 8);
+  v7 = struct + 8;
+  if (v8 == 1)
   {
-    v8 = sub_238DE36B8(v6);
-    v9 = [MEMORY[0x277CBEA90] dataWithBytes:*v8 length:v8[1]];
-    [(MTRApplicationLauncherClusterLauncherResponseParams *)self setData:v9];
+    v9 = sub_238DE36B8(v7, v6);
+    v10 = [MEMORY[0x277CBEA90] dataWithBytes:*v9 length:v9[1]];
+    [(MTRApplicationLauncherClusterLauncherResponseParams *)self setData:v10];
   }
 
   else
@@ -145,11 +145,11 @@ LABEL_6:
     [(MTRApplicationLauncherClusterLauncherResponseParams *)self setData:0];
   }
 
-  v10 = 0;
   v11 = 0;
-  result.mFile = v11;
-  result.mError = v10;
-  result.mLine = HIDWORD(v10);
+  v12 = 0;
+  result.mFile = v12;
+  result.mError = v11;
+  result.mLine = HIDWORD(v11);
   return result;
 }
 

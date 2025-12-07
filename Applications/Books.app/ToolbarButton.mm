@@ -22,7 +22,7 @@
 
 - (void)touchesEnded:(id)ended withEvent:(id)event
 {
-  sub_10000A7C4(0, &qword_100AE2248);
+  sub_10000A7C4(0, &qword_100AE2248, UITouch_ptr);
   sub_10053B0B4();
   v6 = sub_1007A2834();
   eventCopy = event;
@@ -45,7 +45,7 @@
   swift_unknownObjectRelease();
   sub_100539A34(collection);
 
-  sub_1000074E0(&v8);
+  sub_1000074E0(v8);
 }
 
 - (void)setEnabled:(BOOL)enabled
@@ -88,14 +88,16 @@
 
 - (void)setSelected:(BOOL)selected
 {
+  selectedCopy = selected;
   selfCopy = self;
-  ToolbarButton.isSelected.setter(selected);
+  ToolbarButton.isSelected.setter(selectedCopy);
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  ToolbarButton.isHighlighted.setter(highlighted);
+  ToolbarButton.isHighlighted.setter(highlightedCopy);
 }
 
 - (CGSize)intrinsicContentSize

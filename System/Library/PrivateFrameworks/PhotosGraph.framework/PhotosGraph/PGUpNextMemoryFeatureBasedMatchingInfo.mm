@@ -125,34 +125,34 @@ void __71__PGUpNextMemoryFeatureBasedMatchingInfo_matchingInfosWithMemoryNodes__
 
 + (id)representativeSceneNodesForMemoryFeatureNodes:(id)nodes
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [(PGGraphNodeCollection *)PGGraphSceneFeatureNodeCollection subsetInCollection:nodes];
   graph = [v3 graph];
   if ([v3 count])
   {
-    v21 = graph;
+    v20 = graph;
     labels = [v3 labels];
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v7 = +[PGTrendsMemoryGenerator trendsConfigurations];
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           featureLabel = [v12 featureLabel];
           v14 = [labels containsObject:featureLabel];
 
@@ -166,21 +166,21 @@ void __71__PGUpNextMemoryFeatureBasedMatchingInfo_matchingInfosWithMemoryNodes__
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v9);
     }
 
-    graph = v21;
+    graph = v20;
     if ([v6 count])
     {
-      v17 = [PGGraphSceneNodeCollection sceneNodesForSceneNames:v6 inGraph:v21];
+      v17 = [PGGraphSceneNodeCollection sceneNodesForSceneNames:v6 inGraph:v20];
     }
 
     else
     {
-      v17 = [(MAElementCollection *)[PGGraphSceneNodeCollection alloc] initWithGraph:v21];
+      v17 = [(MAElementCollection *)[PGGraphSceneNodeCollection alloc] initWithGraph:v20];
     }
 
     v18 = v17;
@@ -190,8 +190,6 @@ void __71__PGUpNextMemoryFeatureBasedMatchingInfo_matchingInfosWithMemoryNodes__
   {
     v18 = [(MAElementCollection *)[PGGraphSceneNodeCollection alloc] initWithGraph:graph];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

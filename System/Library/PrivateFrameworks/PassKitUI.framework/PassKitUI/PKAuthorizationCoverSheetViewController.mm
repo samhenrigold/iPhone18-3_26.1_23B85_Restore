@@ -69,10 +69,10 @@
 
 - (void)loadView
 {
-  v39[2] = *MEMORY[0x1E69E9840];
-  v38.receiver = self;
-  v38.super_class = PKAuthorizationCoverSheetViewController;
-  [(PKAuthorizationCoverSheetViewController *)&v38 loadView];
+  v42[2] = *MEMORY[0x1E69E9840];
+  v41.receiver = self;
+  v41.super_class = PKAuthorizationCoverSheetViewController;
+  [(PKAuthorizationCoverSheetViewController *)&v41 loadView];
   view = [(PKAuthorizationCoverSheetViewController *)self view];
   clearColor = [MEMORY[0x1E69DC888] clearColor];
   [view setBackgroundColor:clearColor];
@@ -88,93 +88,95 @@
     [view addSubview:self->_glyphView];
   }
 
-  v34 = PKLocalizedPaymentString(&cfstr_GenericPasscod.isa);
-  v33 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC38]);
-  [v33 lineHeight];
-  PKFloatRoundToPixel();
-  v35 = v8;
-  v36 = xmmword_1BE0B69E0;
-  v37 = vdupq_n_s64(2uLL);
-  v9 = [[PKContinuousButton alloc] initWithConfiguration:&v35];
+  v37 = PKLocalizedPaymentString(&cfstr_GenericPasscod.isa);
+  v36 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], *MEMORY[0x1E69DDC38]);
+  [v36 lineHeight];
+  v9.n128_u64[0] = 0.5;
+  v10.n128_f64[0] = (v8 + 8.0 + 8.0) * 0.5;
+  PKFloatRoundToPixel(v10, v9);
+  v38 = v11;
+  v39 = xmmword_1BE0B69E0;
+  v40 = vdupq_n_s64(2uLL);
+  v12 = [[PKContinuousButton alloc] initWithConfiguration:&v38];
   enterPasscodeButton = self->_enterPasscodeButton;
-  self->_enterPasscodeButton = &v9->super;
+  self->_enterPasscodeButton = &v12->super;
 
-  v11 = [MEMORY[0x1E69DC740] pkui_plainConfigurationWithTitle:v34 font:v33 lineBreakMode:4 textAlignment:1];
-  [v11 setContentInsets:{8.0, 25.0, 8.0, 25.0}];
+  v14 = [MEMORY[0x1E69DC740] pkui_plainConfigurationWithTitle:v37 font:v36 lineBreakMode:4 textAlignment:1];
+  [v14 setContentInsets:{8.0, 25.0, 8.0, 25.0}];
   systemWhiteColor = [MEMORY[0x1E69DC888] systemWhiteColor];
-  [v11 setBaseForegroundColor:systemWhiteColor];
+  [v14 setBaseForegroundColor:systemWhiteColor];
 
-  [v11 setTitleAlignment:2];
-  [(UIButton *)self->_enterPasscodeButton setConfiguration:v11];
+  [v14 setTitleAlignment:2];
+  [(UIButton *)self->_enterPasscodeButton setConfiguration:v14];
   [(UIButton *)self->_enterPasscodeButton addTarget:self action:sel__fallbackToPasscode forControlEvents:64];
   [(UIButton *)self->_enterPasscodeButton sizeToFit];
   [(UIButton *)self->_enterPasscodeButton setAlpha:0.0];
   [view addSubview:self->_enterPasscodeButton];
-  v13 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+  v16 = objc_alloc_init(MEMORY[0x1E69DCC10]);
   titleLabelView = self->_titleLabelView;
-  self->_titleLabelView = v13;
+  self->_titleLabelView = v16;
 
   [(UILabel *)self->_titleLabelView setAlpha:0.0];
   [(UILabel *)self->_titleLabelView setAdjustsFontSizeToFitWidth:1];
   [(UILabel *)self->_titleLabelView setTextAlignment:1];
-  v15 = self->_titleLabelView;
+  v18 = self->_titleLabelView;
   secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-  [(UILabel *)v15 setTextColor:secondaryLabelColor];
+  [(UILabel *)v18 setTextColor:secondaryLabelColor];
 
   [(UILabel *)self->_titleLabelView setNumberOfLines:2];
-  v17 = self->_titleLabelView;
-  v18 = *MEMORY[0x1E69DDDC8];
-  v19 = *MEMORY[0x1E69DDC28];
-  v20 = PKFontForDefaultDesign(*MEMORY[0x1E69DDDC8], *MEMORY[0x1E69DDC28]);
-  [(UILabel *)v17 setFont:v20];
+  v20 = self->_titleLabelView;
+  v21 = *MEMORY[0x1E69DDDC8];
+  v22 = *MEMORY[0x1E69DDC28];
+  v23 = PKFontForDefaultDesign(*MEMORY[0x1E69DDDC8], *MEMORY[0x1E69DDC28]);
+  [(UILabel *)v20 setFont:v23];
 
   [(UILabel *)self->_titleLabelView setLineBreakMode:4];
   [(UILabel *)self->_titleLabelView setIsAccessibilityElement:0];
   [view addSubview:self->_titleLabelView];
-  v21 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+  v24 = objc_alloc_init(MEMORY[0x1E69DCC10]);
   subtitleLabelView = self->_subtitleLabelView;
-  self->_subtitleLabelView = v21;
+  self->_subtitleLabelView = v24;
 
   [(UILabel *)self->_subtitleLabelView setAlpha:0.0];
   [(UILabel *)self->_subtitleLabelView setAdjustsFontSizeToFitWidth:1];
   [(UILabel *)self->_subtitleLabelView setTextAlignment:1];
-  v23 = self->_subtitleLabelView;
+  v26 = self->_subtitleLabelView;
   tertiaryLabelColor = [MEMORY[0x1E69DC888] tertiaryLabelColor];
-  [(UILabel *)v23 setTextColor:tertiaryLabelColor];
+  [(UILabel *)v26 setTextColor:tertiaryLabelColor];
 
   [(UILabel *)self->_subtitleLabelView setNumberOfLines:2];
-  v25 = self->_subtitleLabelView;
-  v26 = PKFontForDefaultDesign(v18, v19);
-  [(UILabel *)v25 setFont:v26];
+  v28 = self->_subtitleLabelView;
+  v29 = PKFontForDefaultDesign(v21, v22);
+  [(UILabel *)v28 setFont:v29];
 
   [(UILabel *)self->_subtitleLabelView setLineBreakMode:4];
   [(UILabel *)self->_subtitleLabelView setIsAccessibilityElement:0];
   [view addSubview:self->_subtitleLabelView];
-  v27 = [objc_alloc(MEMORY[0x1E69DC608]) initWithAccessibilityContainer:view];
+  v30 = [objc_alloc(MEMORY[0x1E69DC608]) initWithAccessibilityContainer:view];
   textAccessibilityElement = self->_textAccessibilityElement;
-  self->_textAccessibilityElement = v27;
+  self->_textAccessibilityElement = v30;
 
   [(UIAccessibilityElement *)self->_textAccessibilityElement setAccessibilityTraits:*MEMORY[0x1E69DD9F0] | *MEMORY[0x1E69DDA38]];
-  v29 = [objc_alloc(MEMORY[0x1E69DC608]) initWithAccessibilityContainer:view];
+  v32 = [objc_alloc(MEMORY[0x1E69DC608]) initWithAccessibilityContainer:view];
   passcodeAccessibilityElement = self->_passcodeAccessibilityElement;
-  self->_passcodeAccessibilityElement = v29;
+  self->_passcodeAccessibilityElement = v32;
 
-  [(UIAccessibilityElement *)self->_passcodeAccessibilityElement setAccessibilityLabel:v34];
+  [(UIAccessibilityElement *)self->_passcodeAccessibilityElement setAccessibilityLabel:v37];
   [(UIAccessibilityElement *)self->_passcodeAccessibilityElement setAccessibilityTraits:*MEMORY[0x1E69DD9B8]];
-  v31 = self->_passcodeAccessibilityElement;
-  v39[0] = self->_textAccessibilityElement;
-  v39[1] = v31;
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:2];
-  [view setAccessibilityElements:v32];
+  v34 = self->_passcodeAccessibilityElement;
+  v42[0] = self->_textAccessibilityElement;
+  v42[1] = v34;
+  v35 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
+  [view setAccessibilityElements:v35];
 
   [(PKAuthorizationCoverSheetViewController *)self _transitionToState:1 animated:0];
 }
 
 - (void)viewWillLayoutSubviews
 {
-  v53.receiver = self;
-  v53.super_class = PKAuthorizationCoverSheetViewController;
-  [(PKAuthorizationCoverSheetViewController *)&v53 viewWillLayoutSubviews];
+  v88.receiver = self;
+  v88.super_class = PKAuthorizationCoverSheetViewController;
+  [(PKAuthorizationCoverSheetViewController *)&v88 viewWillLayoutSubviews];
   view = [(PKAuthorizationCoverSheetViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -182,7 +184,7 @@
   v9 = v8;
   v11 = v10;
   [view safeAreaInsets];
-  v49 = v12;
+  v82 = v12;
   readableContentGuide = [view readableContentGuide];
   [readableContentGuide layoutFrame];
   v15 = v14;
@@ -193,11 +195,14 @@
   v19 = UIContentSizeCategoryCompareToCategory(preferredContentSizeCategory, *MEMORY[0x1E69DDC30]);
 
   [(UILabel *)self->_titleLabelView sizeThatFits:v16, 1.79769313e308];
-  v21 = v20;
+  v83 = v20;
+  v22 = v21;
   [(UILabel *)self->_subtitleLabelView sizeThatFits:v16, 1.79769313e308];
-  v23 = v22;
-  [(UIButton *)self->_enterPasscodeButton sizeThatFits:v16, 1.79769313e308];
+  v84 = v23;
   v25 = v24;
+  [(UIButton *)self->_enterPasscodeButton sizeThatFits:v16, 1.79769313e308];
+  v27 = v26;
+  v29 = v28;
   memset(&slice, 0, sizeof(slice));
   remainder.origin.x = v5;
   remainder.origin.y = v7;
@@ -206,63 +211,93 @@
   rect = v11;
   if (self->_shouldDrawGlyph)
   {
-    v54.origin.x = v5;
-    v54.origin.y = v7;
-    v54.size.width = v9;
-    v54.size.height = v11;
-    CGRectDivide(v54, &slice, &remainder, v49 + 5.0, CGRectMinYEdge);
+    v89.origin.x = v5;
+    v89.origin.y = v7;
+    v89.size.width = v9;
+    v89.size.height = v11;
+    CGRectDivide(v89, &slice, &remainder, v82 + 5.0, CGRectMinYEdge);
     CGRectDivide(remainder, &slice, &remainder, 32.0, CGRectMinYEdge);
     glyphView = self->_glyphView;
-    PKSizeAlignedInRect();
+    v31.n128_u64[0] = *&slice.origin.x;
+    v32.n128_u64[0] = *&slice.origin.y;
+    v33.n128_u64[0] = *&slice.size.width;
+    v34.n128_u64[0] = *&slice.size.height;
+    v35 = *MEMORY[0x1E69BB7F8];
+    v36.n128_u64[0] = 0x4040000000000000;
+    v37.n128_u64[0] = 0x4040000000000000;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v36, v37, v31, v32, v33, v34, v38);
     [(PKGlyphView *)glyphView setFrame:?];
+  }
+
+  else
+  {
+    v35 = *MEMORY[0x1E69BB7F8];
   }
 
   remainder.origin.x = v5;
   remainder.origin.y = v7;
   remainder.size.width = v9;
   remainder.size.height = v11;
-  v27 = v25 + 15.0;
+  v39 = v29 + 15.0;
   if (v19 == NSOrderedAscending)
   {
-    v27 = 0.0;
+    v39 = 0.0;
   }
 
-  v28 = (v11 - (v21 + v23 + v27)) * 0.5;
-  v55.origin.x = v5;
-  v55.origin.y = v7;
-  v55.size.width = v9;
-  v55.size.height = v11;
-  CGRectDivide(v55, &slice, &remainder, v28, CGRectMinYEdge);
-  CGRectDivide(remainder, &slice, &remainder, v21, CGRectMinYEdge);
+  v40 = (v11 - (v22 + v25 + v39)) * 0.5;
+  v90.origin.x = v5;
+  v90.origin.y = v7;
+  v90.size.width = v9;
+  v90.size.height = v11;
+  CGRectDivide(v90, &slice, &remainder, v40, CGRectMinYEdge);
+  CGRectDivide(remainder, &slice, &remainder, v22, CGRectMinYEdge);
   titleLabelView = self->_titleLabelView;
-  PKSizeAlignedInRect();
+  v42.n128_u64[0] = *&slice.origin.x;
+  v43.n128_u64[0] = *&slice.origin.y;
+  v44.n128_u64[0] = *&slice.size.width;
+  v45.n128_u64[0] = *&slice.size.height;
+  v46.n128_u64[0] = v83;
+  v47.n128_f64[0] = v22;
+  PKSizeAlignedInRect(v35, v46, v47, v42, v43, v44, v45, v48);
   [(UILabel *)titleLabelView setFrame:?];
-  CGRectDivide(remainder, &slice, &remainder, v23, CGRectMinYEdge);
+  CGRectDivide(remainder, &slice, &remainder, v25, CGRectMinYEdge);
   subtitleLabelView = self->_subtitleLabelView;
-  PKSizeAlignedInRect();
+  v50.n128_u64[0] = *&slice.origin.x;
+  v51.n128_u64[0] = *&slice.origin.y;
+  v52.n128_u64[0] = *&slice.size.width;
+  v53.n128_u64[0] = *&slice.size.height;
+  v54.n128_u64[0] = v84;
+  v55.n128_f64[0] = v25;
+  PKSizeAlignedInRect(v35, v54, v55, v50, v51, v52, v53, v56);
   [(UILabel *)subtitleLabelView setFrame:?];
   CGRectDivide(remainder, &slice, &remainder, 15.0, CGRectMinYEdge);
-  CGRectDivide(remainder, &slice, &remainder, v25, CGRectMinYEdge);
+  CGRectDivide(remainder, &slice, &remainder, v29, CGRectMinYEdge);
   enterPasscodeButton = self->_enterPasscodeButton;
-  PKSizeAlignedInRect();
+  v58.n128_u64[0] = *&slice.origin.x;
+  v59.n128_u64[0] = *&slice.origin.y;
+  v60.n128_u64[0] = *&slice.size.width;
+  v61.n128_u64[0] = *&slice.size.height;
+  v62.n128_u64[0] = v27;
+  v63.n128_f64[0] = v29;
+  PKSizeAlignedInRect(v35, v62, v63, v58, v59, v60, v61, v64);
   [(UIButton *)enterPasscodeButton setFrame:?];
   textAccessibilityElement = self->_textAccessibilityElement;
   [(UILabel *)self->_titleLabelView frame];
-  v34 = v33;
-  v36 = v35;
-  v38 = v37;
-  v40 = v39;
+  v67 = v66;
+  v69 = v68;
+  v71 = v70;
+  v73 = v72;
   [(UILabel *)self->_subtitleLabelView frame];
-  v58.origin.x = v41;
-  v58.origin.y = v42;
-  v58.size.width = v43;
-  v58.size.height = v44;
-  v56.origin.x = v34;
-  v56.origin.y = v36;
-  v56.size.width = v38;
-  v56.size.height = v40;
-  v57 = CGRectUnion(v56, v58);
-  [(UIAccessibilityElement *)textAccessibilityElement setAccessibilityFrameInContainerSpace:v57.origin.x, v57.origin.y, v57.size.width, v57.size.height];
+  v93.origin.x = v74;
+  v93.origin.y = v75;
+  v93.size.width = v76;
+  v93.size.height = v77;
+  v91.origin.x = v67;
+  v91.origin.y = v69;
+  v91.size.width = v71;
+  v91.size.height = v73;
+  v92 = CGRectUnion(v91, v93);
+  [(UIAccessibilityElement *)textAccessibilityElement setAccessibilityFrameInContainerSpace:v92.origin.x, v92.origin.y, v92.size.width, v92.size.height];
   passcodeAccessibilityElement = self->_passcodeAccessibilityElement;
   [(UIButton *)self->_enterPasscodeButton frame];
   [(UIAccessibilityElement *)passcodeAccessibilityElement setAccessibilityFrameInContainerSpace:?];

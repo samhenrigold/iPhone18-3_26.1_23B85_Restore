@@ -9,7 +9,7 @@
 {
   sub_19B334();
   type metadata accessor for SCATEyeTrackingView(0);
-  sub_192250(&qword_2B9CF0, type metadata accessor for SCATEyeTrackingView);
+  sub_192250(&qword_2B9CF0, type metadata accessor for SCATEyeTrackingView, &unk_1DD614);
   v2 = sub_19B344();
 
   return v2;

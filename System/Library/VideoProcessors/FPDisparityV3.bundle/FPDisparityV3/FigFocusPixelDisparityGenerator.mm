@@ -33,63 +33,63 @@
   v4 = objc_msgSend__setupImagePyramid(self, a2, v2);
   if (v4)
   {
-    v32 = v4;
+    v30 = v4;
     sub_29579CD00();
-    return v32;
+    return v30;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  memset(v37, 0, sizeof(v37));
-  v34 = *&self->_gTopLevelDisparityWidth;
-  LODWORD(v35) = self->gNumViews;
+  v33 = 0u;
+  v34 = 0u;
+  memset(v35, 0, sizeof(v35));
+  v32 = *&self->_gTopLevelDisparityWidth;
+  LODWORD(v33) = self->gNumViews;
   v6 = *&self->gVxFocusPixelViewWidth;
-  *(&v35 + 1) = *&self->gHxFocusPixelViewWidth;
-  *&v36 = *(&v35 + 1);
-  *(&v36 + 1) = v6;
-  *&v37[0] = v6;
+  *(&v33 + 1) = *&self->gHxFocusPixelViewWidth;
+  *&v34 = *(&v33 + 1);
+  *(&v34 + 1) = v6;
+  *&v35[0] = v6;
   objc_msgSend_setImagePyramid_(self->_fpDisparityEstimator, v5, self->_pyr_image);
-  BYTE8(v37[5]) = 0;
+  BYTE8(v35[5]) = 0;
   if (self->_correctionBasisCoefficientsPresent)
   {
-    BYTE8(v37[5]) = 1;
+    BYTE8(v35[5]) = 1;
     v8 = *&self->_correctionBasisCoefficients[4];
     v9 = *&self->_correctionBasisCoefficients[12];
-    *(&v37[2] + 8) = *&self->_correctionBasisCoefficients[8];
-    *(&v37[3] + 8) = v9;
-    *(&v37[4] + 8) = *&self->_correctionBasisCoefficients[16];
+    *(&v35[2] + 8) = *&self->_correctionBasisCoefficients[8];
+    *(&v35[3] + 8) = v9;
+    *(&v35[4] + 8) = *&self->_correctionBasisCoefficients[16];
     v10 = *self->_correctionBasisCoefficients;
-    *(&v37[1] + 8) = v8;
-    *(v37 + 8) = v10;
+    *(&v35[1] + 8) = v8;
+    *(v35 + 8) = v10;
   }
 
   if (self->_processingType == 1)
   {
-    BYTE8(v37[5]) = 0;
+    BYTE8(v35[5]) = 0;
   }
 
-  Resources = objc_msgSend_allocateResources_(self->_fpDisparityEstimator, v7, &v34);
+  Resources = objc_msgSend_allocateResources_(self->_fpDisparityEstimator, v7, &v32);
   if (Resources)
   {
-    v32 = Resources;
+    v30 = Resources;
     sub_29579CD78();
-    return v32;
+    return v30;
   }
 
   Textures = objc_msgSend__allocateTextures(self, v12, v13);
   if (Textures)
   {
-    v32 = Textures;
+    v30 = Textures;
     sub_29579CDF8();
-    return v32;
+    return v30;
   }
 
   v17 = objc_msgSend_allocateResources(self->_fpdDemosaic, v15, v16);
   if (v17)
   {
-    v32 = v17;
+    v30 = v17;
     sub_29579CE78();
-    return v32;
+    return v30;
   }
 
   if (self->_qualityEstimationEnabled)
@@ -123,16 +123,13 @@
   }
 
 LABEL_12:
-  if (self->_processingType != 2)
+  v30 = 0;
+  if (self->_processingType == 2)
   {
-    return 0;
+    self->_disparityPixelBufferForCalibration = CreatePixelBuffer();
   }
 
-  gTopLevelDisparityWidth = self->_gTopLevelDisparityWidth;
-  gTopLevelDisparityHeight = self->_gTopLevelDisparityHeight;
-  v32 = 0;
-  self->_disparityPixelBufferForCalibration = CreatePixelBuffer();
-  return v32;
+  return v30;
 }
 
 - (int)_allocateTextures
@@ -154,7 +151,7 @@ LABEL_12:
 
     if (!self->_focusPixelViews[0])
     {
-      sub_29579D094(&v55);
+      sub_29579D094(&v53);
       goto LABEL_21;
     }
 
@@ -164,7 +161,7 @@ LABEL_12:
 
     if (!self->_focusPixelViews[1])
     {
-      sub_29579CFE8(&v55);
+      sub_29579CFE8(&v53);
       goto LABEL_21;
     }
   }
@@ -180,7 +177,7 @@ LABEL_12:
 
   if (!self->_focusPixelViews[2])
   {
-    sub_29579D1EC(&v55);
+    sub_29579D1EC(&v53);
     goto LABEL_21;
   }
 
@@ -191,130 +188,128 @@ LABEL_12:
   if (self->_focusPixelViews[3])
   {
 LABEL_8:
-    gRawImageWidth = self->_gRawImageWidth;
-    gRawImageHeight = self->_gRawImageHeight;
     PixelBuffer = CreatePixelBuffer();
     self->_greenChannelPyramidCVP[0] = PixelBuffer;
     if (PixelBuffer)
     {
-      v21 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v20, PixelBuffer, 25, 23, 0);
+      v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v18, PixelBuffer, 25, 23, 0);
       gChannelTexture = self->_gChannelTexture;
-      self->_gChannelTexture = v21;
+      self->_gChannelTexture = v19;
 
       if (self->_gChannelTexture)
       {
-        v23 = objc_alloc(MEMORY[0x29EDB8DE8]);
-        v25 = objc_msgSend_initWithCapacity_(v23, v24, 8);
+        v21 = objc_alloc(MEMORY[0x29EDB8DE8]);
+        v23 = objc_msgSend_initWithCapacity_(v21, v22, 8);
         greenChannelPyramid = self->_greenChannelPyramid;
-        self->_greenChannelPyramid = v25;
+        self->_greenChannelPyramid = v23;
 
-        v28 = self->_greenChannelPyramid;
-        if (v28)
+        v26 = self->_greenChannelPyramid;
+        if (v26)
         {
-          objc_msgSend_setObject_atIndexedSubscript_(v28, v27, self->_gChannelTexture, 0);
+          objc_msgSend_setObject_atIndexedSubscript_(v26, v25, self->_gChannelTexture, 0);
           p_gTopLevelImageWidth = &self->_gTopLevelImageWidth;
-          v30 = 1;
-          v31 = vdup_n_s32(0x3F4CCCCDu);
+          v28 = 1;
+          v29 = vdup_n_s32(0x3F4CCCCDu);
           while (1)
           {
-            v32 = *&vadd_s32(vcvt_u32_f32(vrnda_f32(vmul_f32(vcvt_f32_u32(*p_gTopLevelImageWidth), v31))), 0x100000001) & 0xFFFFFFFEFFFFFFFELL;
-            *p_gTopLevelImageWidth = v32;
-            if (v30 == 1)
+            v30 = *&vadd_s32(vcvt_u32_f32(vrnda_f32(vmul_f32(vcvt_f32_u32(*p_gTopLevelImageWidth), v29))), 0x100000001) & 0xFFFFFFFEFFFFFFFELL;
+            *p_gTopLevelImageWidth = v30;
+            if (v28 == 1)
             {
-              v33 = CreatePixelBuffer();
-              self->_greenChannelPyramidCVP[1] = v33;
-              v35 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v34, v33, 25, 23, 0);
-              objc_msgSend_setObject_atIndexedSubscript_(self->_greenChannelPyramid, v36, v35, 1);
+              v31 = CreatePixelBuffer();
+              self->_greenChannelPyramidCVP[1] = v31;
+              v33 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v32, v31, 25, 23, 0);
+              objc_msgSend_setObject_atIndexedSubscript_(self->_greenChannelPyramid, v34, v33, 1);
 
-              v38 = objc_msgSend_objectAtIndexedSubscript_(self->_greenChannelPyramid, v37, 1);
+              v36 = objc_msgSend_objectAtIndexedSubscript_(self->_greenChannelPyramid, v35, 1);
 
-              if (!v38)
+              if (!v36)
               {
-                sub_29579D35C(&v55);
+                sub_29579D35C(&v53);
                 goto LABEL_21;
               }
             }
 
             else
             {
-              v39 = objc_msgSend__createTextureOfWidth_andHeight_withFormat_textureUsage_(self, HIDWORD(v32), v32, HIDWORD(v32), 25, 7);
-              objc_msgSend_setObject_atIndexedSubscript_(self->_greenChannelPyramid, v40, v39, v30);
+              v37 = objc_msgSend__createTextureOfWidth_andHeight_withFormat_textureUsage_(self, HIDWORD(v30), v30, HIDWORD(v30), 25, 7);
+              objc_msgSend_setObject_atIndexedSubscript_(self->_greenChannelPyramid, v38, v37, v28);
 
-              v42 = objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], v41, @"_greenChannelPyramid[%d] is nil", v30);
-              v44 = objc_msgSend_objectAtIndexedSubscript_(self->_greenChannelPyramid, v43, v30);
+              v40 = objc_msgSend_stringWithFormat_(MEMORY[0x29EDBA0F8], v39, @"_greenChannelPyramid[%d] is nil", v28);
+              v42 = objc_msgSend_objectAtIndexedSubscript_(self->_greenChannelPyramid, v41, v28);
 
-              if (!v44)
+              if (!v42)
               {
-                sub_29579D298(v42, &v55);
+                sub_29579D298(v40, &v53);
                 goto LABEL_21;
               }
             }
 
-            if (++v30 == 8)
+            if (++v28 == 8)
             {
               return 0;
             }
           }
         }
 
-        sub_29579D408(&v55);
+        sub_29579D408(&v53);
       }
 
       else
       {
-        sub_29579D4B4(&v55);
+        sub_29579D4B4(&v53);
       }
     }
 
     else
     {
-      sub_29579D560(&v55);
+      sub_29579D560(&v53);
     }
   }
 
   else
   {
-    sub_29579D140(&v55);
+    sub_29579D140(&v53);
   }
 
 LABEL_21:
-  v45 = v55;
-  if (v55)
+  v43 = v53;
+  if (v53)
   {
-    v47 = self->_focusPixelViews[0];
+    v45 = self->_focusPixelViews[0];
     self->_focusPixelViews[0] = 0;
 
-    v48 = self->_focusPixelViews[1];
+    v46 = self->_focusPixelViews[1];
     self->_focusPixelViews[1] = 0;
 
-    v49 = self->_focusPixelViews[2];
+    v47 = self->_focusPixelViews[2];
     self->_focusPixelViews[2] = 0;
 
-    v50 = self->_focusPixelViews[3];
+    v48 = self->_focusPixelViews[3];
     self->_focusPixelViews[3] = 0;
 
-    v51 = self->_gChannelTexture;
+    v49 = self->_gChannelTexture;
     self->_gChannelTexture = 0;
 
-    v52 = self->_greenChannelPyramid;
+    v50 = self->_greenChannelPyramid;
     self->_greenChannelPyramid = 0;
 
-    v53 = self->_greenChannelPyramidCVP[0];
-    if (v53)
+    v51 = self->_greenChannelPyramidCVP[0];
+    if (v51)
     {
-      CFRelease(v53);
+      CFRelease(v51);
       self->_greenChannelPyramidCVP[0] = 0;
     }
 
-    v54 = self->_greenChannelPyramidCVP[1];
-    if (v54)
+    v52 = self->_greenChannelPyramidCVP[1];
+    if (v52)
     {
-      CFRelease(v54);
+      CFRelease(v52);
       self->_greenChannelPyramidCVP[1] = 0;
     }
   }
 
-  return v45;
+  return v43;
 }
 
 - (id)_createTextureOfWidth:(unsigned int)width andHeight:(unsigned int)height withFormat:(unint64_t)format textureUsage:(unint64_t)usage
@@ -340,26 +335,27 @@ LABEL_21:
 
   *&v8 = (1 << v7);
   objc_msgSend_setUseAntialiasingForDownsamplingToFinestResolution_(self->_pyr_image, v6, 0, v8, v9);
-  v10 = vcvtq_f64_f32(vrndm_f32(vdiv_f32(vcvt_f32_u32(*p_gGuideImageWidth), vdup_lane_s32(v18, 0))));
+  v10 = vcvtq_f64_f32(vrndm_f32(vdiv_f32(vcvt_f32_u32(*p_gGuideImageWidth), vdup_lane_s32(v19, 0))));
   v11 = v10.f64[1];
-  v19 = v10.f64[0];
+  v20 = v10.f64[0];
   v13 = objc_msgSend_populatePyramidSchemeFromResolution_toResolution_scalingFactor_scales_allowSuccessiveDownscale2x_(self->_pyr_image, v12, 8, 0);
   if (v13)
   {
-    ResourcesWithMaxInputResolution = v13;
+    v17 = v13;
     sub_29579D60C();
   }
 
   else
   {
-    ResourcesWithMaxInputResolution = objc_msgSend_allocateResourcesWithMaxInputResolution_(self->_pyr_image, v14, v15, v19, v11);
+    ResourcesWithMaxInputResolution = objc_msgSend_allocateResourcesWithMaxInputResolution_(self->_pyr_image, v14, v15, v20, v11);
+    v17 = ResourcesWithMaxInputResolution;
     if (ResourcesWithMaxInputResolution)
     {
-      sub_29579D688();
+      sub_29579D688(ResourcesWithMaxInputResolution);
     }
   }
 
-  return ResourcesWithMaxInputResolution;
+  return v17;
 }
 
 - (FigFocusPixelDisparityGenerator)initWithCommandQueue:(id)queue
@@ -828,120 +824,121 @@ LABEL_11:
 
 - (int)getFPBuffersSizeFromOptions:(id)options
 {
-  v4 = objc_msgSend_objectForKeyedSubscript_(options, a2, @"Patterns");
-  v7 = v4;
-  if (!v4)
+  v5 = objc_msgSend_objectForKeyedSubscript_(options, a2, @"Patterns");
+  v8 = v5;
+  if (!v5)
   {
-    sub_29579E67C(&v31);
+    sub_29579E67C(&v38);
     goto LABEL_36;
   }
 
-  if (objc_msgSend_count(v4, v5, v6) > 0x10)
+  if (objc_msgSend_count(v5, v6, v7) > 0x10)
   {
-    sub_29579E5D0(&v31);
+    sub_29579E5D0(&v38);
 LABEL_36:
+    v17 = 0;
     v16 = 0;
-    v15 = 0;
 LABEL_37:
-    v25 = v31;
+    v26 = v38;
     goto LABEL_28;
   }
 
-  if (objc_msgSend_count(v7, v8, v9))
+  if (objc_msgSend_count(v8, v9, v10))
   {
-    v11 = 0;
-    v27 = 0;
     v12 = 0;
+    v34 = 0;
     v13 = 0;
     v14 = 0;
     v15 = 0;
     v16 = 0;
+    v17 = 0;
     do
     {
-      v17 = v16;
-      v18 = v15;
-      v16 = objc_msgSend_objectAtIndexedSubscript_(v7, v10, v11);
+      v18 = v17;
+      v19 = v16;
+      v17 = objc_msgSend_objectAtIndexedSubscript_(v8, v11, v12);
 
-      if (!v16)
+      if (!v17)
       {
-        sub_29579E524(&v31);
-        v25 = v31;
+        sub_29579E524(&v38);
+        v26 = v38;
         goto LABEL_28;
       }
 
-      v29 = 0;
-      v30 = 0;
-      v28 = v15;
-      PatternDetailsFrom_outTypeName_outCountX_outCountY_outStartX_outStartY_outStepX_outStepY = objc_msgSend_getPatternDetailsFrom_outTypeName_outCountX_outCountY_outStartX_outStartY_outStepX_outStepY_(self, v19, v16, &v28, &v30, &v29, 0, 0, 0, 0);
-      v15 = v28;
+      HIDWORD(v36) = 0;
+      v37 = 0;
+      v35 = v16;
+      PatternDetailsFrom_outTypeName_outCountX_outCountY_outStartX_outStartY_outStepX_outStepY = objc_msgSend_getPatternDetailsFrom_outTypeName_outCountX_outCountY_outStartX_outStartY_outStepX_outStepY_(self, v20, v17, &v35, &v37, &v36 + 4, 0, 0, 0, 0);
+      v16 = v35;
 
       if (PatternDetailsFrom_outTypeName_outCountX_outCountY_outStartX_outStartY_outStepX_outStepY)
       {
-        sub_29579E308(PatternDetailsFrom_outTypeName_outCountX_outCountY_outStartX_outStartY_outStepX_outStepY, &v31);
+        sub_29579E308(PatternDetailsFrom_outTypeName_outCountX_outCountY_outStartX_outStartY_outStepX_outStepY, &v38);
         goto LABEL_37;
       }
 
-      if ((objc_msgSend_isEqualToString_(v15, v21, @"H0") & 1) != 0 || objc_msgSend_isEqualToString_(v15, v22, @"H1"))
+      if ((objc_msgSend_isEqualToString_(v16, v22, @"H0") & 1) != 0 || objc_msgSend_isEqualToString_(v16, v23, @"H1"))
       {
-        if (v14)
+        if (v15)
         {
-          if (v14 != v30 || (v14 = v30, v24 = v13 == v29, v13 = v29, !v24))
+          if (v15 != v37 || (v15 = v37, v25 = v14 == HIDWORD(v36), v14 = HIDWORD(v36), !v25))
           {
-            sub_29579E478(&v31);
+            sub_29579E478(&v38);
             goto LABEL_37;
           }
         }
 
         else
         {
-          v14 = v30;
-          v13 = v29;
+          v15 = v37;
+          v14 = HIDWORD(v36);
         }
       }
 
       else
       {
-        if ((objc_msgSend_isEqualToString_(v15, v22, @"V0") & 1) == 0 && !objc_msgSend_isEqualToString_(v15, v22, @"V1"))
+        if ((objc_msgSend_isEqualToString_(v16, v23, @"V0") & 1) == 0 && !objc_msgSend_isEqualToString_(v16, v23, @"V1"))
         {
           fig_log_get_emitter();
-          FigDebugAssert3();
+          LODWORD(v28) = 0;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v28, v3, v31, v3, v33, v35, v36, v37);
           fig_log_get_emitter();
-          v25 = FigSignalErrorAtGM();
+          v26 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v29, v30, v32);
           goto LABEL_28;
         }
 
-        if (v14)
+        if (v15)
         {
-          if (v12 != v30 || (v12 = v30, v24 = v27 == v29, v27 = v29, !v24))
+          if (v13 != v37 || (v13 = v37, v25 = v34 == HIDWORD(v36), v34 = HIDWORD(v36), !v25))
           {
-            sub_29579E3CC(&v31);
+            sub_29579E3CC(&v38);
             goto LABEL_37;
           }
         }
 
         else
         {
-          v12 = v30;
-          v27 = v29;
+          v13 = v37;
+          v34 = HIDWORD(v36);
         }
       }
 
-      ++v11;
+      ++v12;
     }
 
-    while (v11 < objc_msgSend_count(v7, v22, v23));
-    if (v14)
+    while (v12 < objc_msgSend_count(v8, v23, v24));
+    if (v15)
     {
-      self->gHxFocusPixelViewWidth = v14;
-      self->gHxFocusPixelViewHeight = v13;
+      self->gHxFocusPixelViewWidth = v15;
+      self->gHxFocusPixelViewHeight = v14;
       self->gNumViews = 2;
     }
 
-    if (v12)
+    if (v13)
     {
-      v25 = 0;
-      self->gVxFocusPixelViewWidth = v12;
-      self->gVxFocusPixelViewHeight = v27;
+      v26 = 0;
+      self->gVxFocusPixelViewWidth = v13;
+      self->gVxFocusPixelViewHeight = v34;
       self->gNumViews = 4;
       goto LABEL_28;
     }
@@ -949,37 +946,37 @@ LABEL_37:
 
   else
   {
+    v17 = 0;
     v16 = 0;
-    v15 = 0;
   }
 
-  v25 = 0;
+  v26 = 0;
 LABEL_28:
 
-  return v25;
+  return v26;
 }
 
 - (int)prepareToProcess:(unsigned int)process
 {
   self->_processingType = process;
   objc_msgSend_getFPBuffersSizeFromOptions_(self, a2, self->_options);
-  objc_msgSend_getFrameSizesFromOptions_(self, v5, self->_options);
+  FrameSizesFromOptions = objc_msgSend_getFrameSizesFromOptions_(self, v5, self->_options);
   if (process - 1 > 1)
   {
     if (!process && (self->_gTopLevelDisparityWidth != 400 || self->_gTopLevelDisparityHeight != 300))
     {
-      sub_29579E728();
+      sub_29579E728(FrameSizesFromOptions);
       return 1;
     }
   }
 
   else if (self->_gTopLevelDisparityWidth != 208 || self->_gTopLevelDisparityHeight != 156)
   {
-    sub_29579E7A0();
+    sub_29579E7A0(FrameSizesFromOptions);
     return 1;
   }
 
-  result = objc_msgSend__allocateResources(self, v6, v7);
+  result = objc_msgSend__allocateResources(self, v7, v8);
   if (!result)
   {
     return result;
@@ -991,11 +988,12 @@ LABEL_28:
 
 - (int)process
 {
+  selfCopy = self;
   v120 = 1;
   outDisparity = self->_outDisparity;
   if (self->_processingType == 1)
   {
-    objc_msgSend__overrideTuningParametersForFactory(self, a2, v2);
+    self = objc_msgSend__overrideTuningParametersForFactory(self, a2, v2);
     __asm { FMOV            V0.2S, #-3.0 }
   }
 
@@ -1005,25 +1003,25 @@ LABEL_28:
   }
 
   v10 = -_D0;
-  if (!self->_imageSampleBuffer)
+  if (!selfCopy->_imageSampleBuffer)
   {
-    sub_29579F054();
+    sub_29579F054(self);
     return 8;
   }
 
-  if (!self->_rawImagePixelBufferBuffer)
+  if (!selfCopy->_rawImagePixelBufferBuffer)
   {
-    sub_29579EFDC();
+    sub_29579EFDC(self);
     return 8;
   }
 
   if (!outDisparity)
   {
-    sub_29579EF64();
+    sub_29579EF64(self);
     return 8;
   }
 
-  FocusPixelMetadata = objc_msgSend__extractFocusPixelMetadata(self, a2, v2);
+  FocusPixelMetadata = objc_msgSend__extractFocusPixelMetadata(selfCopy, a2, v2);
   if (FocusPixelMetadata)
   {
     v114 = FocusPixelMetadata;
@@ -1031,7 +1029,7 @@ LABEL_28:
     return v114;
   }
 
-  ImageBuffer = CMSampleBufferGetImageBuffer(self->_imageSampleBuffer);
+  ImageBuffer = CMSampleBufferGetImageBuffer(selfCopy->_imageSampleBuffer);
   if (!ImageBuffer)
   {
     sub_29579EEEC();
@@ -1039,26 +1037,26 @@ LABEL_28:
   }
 
   v14 = ImageBuffer;
-  v15 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v13, self->_rawImagePixelBufferBuffer, 25, 23, 0);
-  rawImageTexture = self->_rawImageTexture;
-  self->_rawImageTexture = v15;
+  v15 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_metalContext, v13, selfCopy->_rawImagePixelBufferBuffer, 25, 23, 0);
+  rawImageTexture = selfCopy->_rawImageTexture;
+  selfCopy->_rawImageTexture = v15;
 
-  if (!self->_rawImageTexture)
+  if (!selfCopy->_rawImageTexture)
   {
     sub_29579EE74();
     return 1;
   }
 
-  if (self->_processingType <= 2)
+  if (selfCopy->_processingType <= 2)
   {
-    if (CVPixelBufferGetPixelFormatType(self->_H0) == 1278226742)
+    if (CVPixelBufferGetPixelFormatType(selfCopy->_H0) == 1278226742)
     {
       v18 = 23;
     }
 
     else
     {
-      if (CVPixelBufferGetPixelFormatType(self->_H0) != 1278226536)
+      if (CVPixelBufferGetPixelFormatType(selfCopy->_H0) != 1278226536)
       {
         sub_29579E904();
         return 8;
@@ -1067,56 +1065,56 @@ LABEL_28:
       v18 = 25;
     }
 
-    H0 = self->_H0;
+    H0 = selfCopy->_H0;
     if (H0)
     {
-      v20 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v17, H0, v18, 17, 0);
-      v21 = self->_focusPixelViews[0];
-      self->_focusPixelViews[0] = v20;
+      v20 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_metalContext, v17, H0, v18, 17, 0);
+      v21 = selfCopy->_focusPixelViews[0];
+      selfCopy->_focusPixelViews[0] = v20;
     }
 
-    H1 = self->_H1;
+    H1 = selfCopy->_H1;
     if (H1)
     {
-      v23 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v17, H1, v18, 17, 0);
-      v24 = self->_focusPixelViews[1];
-      self->_focusPixelViews[1] = v23;
+      v23 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_metalContext, v17, H1, v18, 17, 0);
+      v24 = selfCopy->_focusPixelViews[1];
+      selfCopy->_focusPixelViews[1] = v23;
     }
 
-    V0 = self->_V0;
+    V0 = selfCopy->_V0;
     if (V0)
     {
-      v26 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v17, V0, v18, 17, 0);
-      v27 = self->_focusPixelViews[2];
-      self->_focusPixelViews[2] = v26;
+      v26 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_metalContext, v17, V0, v18, 17, 0);
+      v27 = selfCopy->_focusPixelViews[2];
+      selfCopy->_focusPixelViews[2] = v26;
     }
 
-    V1 = self->_V1;
+    V1 = selfCopy->_V1;
     if (V1)
     {
-      v29 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v17, V1, v18, 17, 0);
-      v30 = self->_focusPixelViews[3];
-      self->_focusPixelViews[3] = v29;
+      v29 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_metalContext, v17, V1, v18, 17, 0);
+      v30 = selfCopy->_focusPixelViews[3];
+      selfCopy->_focusPixelViews[3] = v29;
     }
   }
 
-  personSegmentationPixelBuffer = self->_personSegmentationPixelBuffer;
+  personSegmentationPixelBuffer = selfCopy->_personSegmentationPixelBuffer;
   if (personSegmentationPixelBuffer)
   {
-    v32 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v17, personSegmentationPixelBuffer, 55, 17, 0);
-    segmentationTexture = self->_segmentationTexture;
-    self->_segmentationTexture = v32;
+    v32 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_metalContext, v17, personSegmentationPixelBuffer, 55, 17, 0);
+    segmentationTexture = selfCopy->_segmentationTexture;
+    selfCopy->_segmentationTexture = v32;
 
-    personSegmentationConfidencePixelBuffer = self->_personSegmentationConfidencePixelBuffer;
+    personSegmentationConfidencePixelBuffer = selfCopy->_personSegmentationConfidencePixelBuffer;
     if (personSegmentationConfidencePixelBuffer)
     {
-      v36 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v34, personSegmentationConfidencePixelBuffer, 55, 17, 0);
-      segmentationConfidenceTexture = self->_segmentationConfidenceTexture;
-      self->_segmentationConfidenceTexture = v36;
+      v36 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_metalContext, v34, personSegmentationConfidencePixelBuffer, 55, 17, 0);
+      segmentationConfidenceTexture = selfCopy->_segmentationConfidenceTexture;
+      selfCopy->_segmentationConfidenceTexture = v36;
     }
   }
 
-  v38 = CMGetAttachment(self->_imageSampleBuffer, *MEMORY[0x29EDBFF98], 0);
+  v38 = CMGetAttachment(selfCopy->_imageSampleBuffer, *MEMORY[0x29EDBFF98], 0);
   v40 = v38;
   rect.origin.x = 0.0;
   rect.origin.y = 0.0;
@@ -1132,11 +1130,11 @@ LABEL_28:
   v116.origin.x = 0.0;
   v116.origin.y = 0.0;
   v116.size = xmmword_2957A35F0;
-  if (self->_processingType)
+  if (selfCopy->_processingType)
   {
-    objc_msgSend_setImageAGC_(self->_fpDisparityEstimator, v39, 0);
+    objc_msgSend_setImageAGC_(selfCopy->_fpDisparityEstimator, v39, 0);
     v42 = 0;
-    objc_msgSend_setQuadraBinningFactor_(self->_fpDisparityEstimator, v43, 0, *&v116.origin.x, *&v116.origin.y, *&v116.size);
+    objc_msgSend_setQuadraBinningFactor_(selfCopy->_fpDisparityEstimator, v43, 0, *&v116.origin.x, *&v116.origin.y, *&v116.size);
   }
 
   else
@@ -1149,7 +1147,7 @@ LABEL_28:
 
     v46 = objc_msgSend_objectForKeyedSubscript_(v38, v39, @"AGC");
     v49 = objc_msgSend_intValue(v46, v47, v48);
-    objc_msgSend_setImageAGC_(self->_fpDisparityEstimator, v50, v49);
+    objc_msgSend_setImageAGC_(selfCopy->_fpDisparityEstimator, v50, v49);
 
     v52 = objc_msgSend_objectForKeyedSubscript_(v40, v51, *MEMORY[0x29EDC0658]);
     v42 = objc_msgSend_intValue(v52, v53, v54);
@@ -1184,13 +1182,13 @@ LABEL_28:
       return 8;
     }
 
-    objc_msgSend_setQuadraBinningFactor_(self->_fpDisparityEstimator, v66, v42, *&v116.origin.x, *&v116.origin.y, *&v116.size);
+    objc_msgSend_setQuadraBinningFactor_(selfCopy->_fpDisparityEstimator, v66, v42, *&v116.origin.x, *&v116.origin.y, *&v116.size);
   }
 
-  objc_msgSend_setSensorCropRect_(self->_fpDisparityEstimator, v44, v45, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
-  objc_msgSend_setSensorReadoutRect_(self->_fpDisparityEstimator, v67, v68, v118.origin.x, v118.origin.y, v118.size.width, v118.size.height);
-  objc_msgSend_setTotalSensorCropRect_(self->_fpDisparityEstimator, v69, v70, v116.origin.x, v116.origin.y, *&v116.size);
-  if (objc_msgSend__populateImagePyramidFrom420fPixelBuffer_cropRect_(self, v71, v14, v117.origin.x, v117.origin.y, v117.size.width, v117.size.height))
+  objc_msgSend_setSensorCropRect_(selfCopy->_fpDisparityEstimator, v44, v45, rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
+  objc_msgSend_setSensorReadoutRect_(selfCopy->_fpDisparityEstimator, v67, v68, v118.origin.x, v118.origin.y, v118.size.width, v118.size.height);
+  objc_msgSend_setTotalSensorCropRect_(selfCopy->_fpDisparityEstimator, v69, v70, v116.origin.x, v116.origin.y, *&v116.size);
+  if (objc_msgSend__populateImagePyramidFrom420fPixelBuffer_cropRect_(selfCopy, v71, v14, v117.origin.x, v117.origin.y, v117.size.width, v117.size.height))
   {
     sub_29579EAFC(v40);
     return 3;
@@ -1209,38 +1207,38 @@ LABEL_28:
   v74 = vdup_n_s32(v73);
   v75 = vmla_s32(vmovn_s64(vcvtq_s64_f64(rect.origin)), v74, vmovn_s64(vcvtq_s64_f64(v118.origin)));
   v76 = vmul_s32(v74, vmovn_s64(vcvtq_s64_f64(v118.size)));
-  if (objc_msgSend_demosaicGreenOnly_fromL00h_validRect_waitForCompletion_(self->_fpdDemosaic, v72, self->_gChannelTexture, self->_rawImageTexture, 0, (v75.u16[0] >> (v42 != 0)), (v75.u16[2] >> (v42 != 0)), (v76.u16[0] >> (v42 != 0)), (v76.u16[2] >> (v42 != 0))))
+  if (objc_msgSend_demosaicGreenOnly_fromL00h_validRect_waitForCompletion_(selfCopy->_fpdDemosaic, v72, selfCopy->_gChannelTexture, selfCopy->_rawImageTexture, 0, (v75.u16[0] >> (v42 != 0)), (v75.u16[2] >> (v42 != 0)), (v76.u16[0] >> (v42 != 0)), (v76.u16[2] >> (v42 != 0))))
   {
     sub_29579EB7C(v40);
     return 5;
   }
 
-  if (objc_msgSend__populateRawGreenChannelPyramid(self, v77, v78))
+  if (objc_msgSend__populateRawGreenChannelPyramid(selfCopy, v77, v78))
   {
     sub_29579EBFC(v40);
     return 6;
   }
 
-  objc_msgSend_setH0ImTexture_(self->_fpDisparityEstimator, v79, self->_focusPixelViews[0]);
-  objc_msgSend_setH1ImTexture_(self->_fpDisparityEstimator, v80, self->_focusPixelViews[1]);
-  objc_msgSend_setV0ImTexture_(self->_fpDisparityEstimator, v81, self->_focusPixelViews[2]);
-  objc_msgSend_setV1ImTexture_(self->_fpDisparityEstimator, v82, self->_focusPixelViews[3]);
-  objc_msgSend_setImagePyramid_(self->_fpDisparityEstimator, v83, self->_pyr_image);
-  objc_msgSend_setGChannelPyramid_(self->_fpDisparityEstimator, v84, self->_greenChannelPyramid);
-  objc_msgSend_setSegmentationTexture_(self->_fpDisparityEstimator, v85, self->_segmentationTexture);
-  objc_msgSend_setSegmentationConfidenceTexture_(self->_fpDisparityEstimator, v86, self->_segmentationConfidenceTexture);
-  objc_msgSend_setBinaryLambdaTexture_(self->_fpDisparityEstimator, v87, 0);
-  binaryLambdaPixelBuffer = self->_binaryLambdaPixelBuffer;
+  objc_msgSend_setH0ImTexture_(selfCopy->_fpDisparityEstimator, v79, selfCopy->_focusPixelViews[0]);
+  objc_msgSend_setH1ImTexture_(selfCopy->_fpDisparityEstimator, v80, selfCopy->_focusPixelViews[1]);
+  objc_msgSend_setV0ImTexture_(selfCopy->_fpDisparityEstimator, v81, selfCopy->_focusPixelViews[2]);
+  objc_msgSend_setV1ImTexture_(selfCopy->_fpDisparityEstimator, v82, selfCopy->_focusPixelViews[3]);
+  objc_msgSend_setImagePyramid_(selfCopy->_fpDisparityEstimator, v83, selfCopy->_pyr_image);
+  objc_msgSend_setGChannelPyramid_(selfCopy->_fpDisparityEstimator, v84, selfCopy->_greenChannelPyramid);
+  objc_msgSend_setSegmentationTexture_(selfCopy->_fpDisparityEstimator, v85, selfCopy->_segmentationTexture);
+  objc_msgSend_setSegmentationConfidenceTexture_(selfCopy->_fpDisparityEstimator, v86, selfCopy->_segmentationConfidenceTexture);
+  objc_msgSend_setBinaryLambdaTexture_(selfCopy->_fpDisparityEstimator, v87, 0);
+  binaryLambdaPixelBuffer = selfCopy->_binaryLambdaPixelBuffer;
   if (binaryLambdaPixelBuffer)
   {
-    v90 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v88, binaryLambdaPixelBuffer, 10, 17, 0);
-    binaryLambdaTexture = self->_binaryLambdaTexture;
-    self->_binaryLambdaTexture = v90;
+    v90 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(selfCopy->_metalContext, v88, binaryLambdaPixelBuffer, 10, 17, 0);
+    binaryLambdaTexture = selfCopy->_binaryLambdaTexture;
+    selfCopy->_binaryLambdaTexture = v90;
 
-    v93 = self->_binaryLambdaTexture;
+    v93 = selfCopy->_binaryLambdaTexture;
     if (v93)
     {
-      objc_msgSend_setBinaryLambdaTexture_(self->_fpDisparityEstimator, v92, v93);
+      objc_msgSend_setBinaryLambdaTexture_(selfCopy->_fpDisparityEstimator, v92, v93);
       goto LABEL_42;
     }
 
@@ -1249,22 +1247,22 @@ LABEL_28:
   }
 
 LABEL_42:
-  if (objc_msgSend_setOutputDisparity_(self->_fpDisparityEstimator, v88, outDisparity))
+  if (objc_msgSend_setOutputDisparity_(selfCopy->_fpDisparityEstimator, v88, outDisparity))
   {
     sub_29579ECFC(v40);
     return 8;
   }
 
-  v96 = objc_msgSend_FPDisparityEstimator_Config(self->_fpDisparityTuningParameters, v94, v95);
-  objc_msgSend_setFpDisparityEstimatorParams_(self->_fpDisparityEstimator, v97, v96);
+  v96 = objc_msgSend_FPDisparityEstimator_Config(selfCopy->_fpDisparityTuningParameters, v94, v95);
+  objc_msgSend_setFpDisparityEstimatorParams_(selfCopy->_fpDisparityEstimator, v97, v96);
 
-  v100 = objc_msgSend_fpDisparityEstimatorParams(self->_fpDisparityEstimator, v98, v99);
+  v100 = objc_msgSend_fpDisparityEstimatorParams(selfCopy->_fpDisparityEstimator, v98, v99);
   v103 = objc_msgSend_FPpostprocessingParameters(v100, v101, v102);
   objc_msgSend_shiftToDisparityRatio(v103, v104, v105);
   v107 = v106;
 
   LODWORD(v108) = v107;
-  if (objc_msgSend_estimateFocusPixelDisparityWithBox_cstr_range_disparity_scaling_factor_(self->_fpDisparityEstimator, v109, v110, v10, v108))
+  if (objc_msgSend_estimateFocusPixelDisparityWithBox_cstr_range_disparity_scaling_factor_(selfCopy->_fpDisparityEstimator, v109, v110, v10, v108))
   {
     sub_29579ED7C(v40);
     return 7;
@@ -1272,9 +1270,9 @@ LABEL_42:
 
   else
   {
-    if (self->_qualityEstimationEnabled)
+    if (selfCopy->_qualityEstimationEnabled)
     {
-      if (objc_msgSend__computeDisparityQuality_(self, v111, &v120))
+      if (objc_msgSend__computeDisparityQuality_(selfCopy, v111, &v120))
       {
         v113 = 0;
         v120 = 0;
@@ -1288,11 +1286,11 @@ LABEL_42:
 
     else
     {
-      objc_msgSend_waitForIdle(self->_metalContext, v111, v112);
+      objc_msgSend_waitForIdle(selfCopy->_metalContext, v111, v112);
       v113 = 1;
     }
 
-    self->_disparityQuality = v113;
+    selfCopy->_disparityQuality = v113;
 
     return 0;
   }
@@ -1428,138 +1426,138 @@ LABEL_9:
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v10 = objc_msgSend_commandQueue(self->_metalContext, a2, buffer);
-  v13 = objc_msgSend_commandBuffer(v10, v11, v12);
+  v11 = objc_msgSend_commandQueue(self->_metalContext, a2, buffer);
+  v14 = objc_msgSend_commandBuffer(v11, v12, v13);
 
-  if (!v13)
+  if (!v14)
   {
-    sub_29579F84C(&v64);
-    v45 = v64;
+    sub_29579F84C(&v71);
+    v46 = v71;
     goto LABEL_18;
   }
 
-  v15 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v14, buffer, 10, 23, 0);
-  if (!v15)
+  v16 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v15, buffer, 10, 23, 0);
+  if (!v16)
   {
     sub_29579F7D4();
 LABEL_28:
-    v45 = -12786;
+    v46 = -12786;
     goto LABEL_18;
   }
 
-  v17 = v15;
-  v18 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v16, buffer, 30, 23, 1);
-  if (!v18)
+  v18 = v16;
+  v19 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metalContext, v17, buffer, 30, 23, 1);
+  if (!v19)
   {
-    sub_29579F744(v17);
+    sub_29579F744(v18);
     goto LABEL_28;
   }
 
-  v21 = v18;
-  v24 = vcvts_n_f32_u64(objc_msgSend_width(v17, v19, v20), 1uLL);
-  v25 = vcvts_n_f32_u64(objc_msgSend_height(v17, v22, v23), 1uLL);
-  v27 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v26, self->_greenChannelPyramidCVP[0], 80, 23, 0, v24, v25);
-  if (!v27)
+  v22 = v19;
+  v25 = vcvts_n_f32_u64(objc_msgSend_width(v18, v20, v21), 1uLL);
+  v26 = vcvts_n_f32_u64(objc_msgSend_height(v18, v23, v24), 1uLL);
+  v28 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v27, self->_greenChannelPyramidCVP[0], 80, 23, 0, v25, v26);
+  if (!v28)
   {
-    sub_29579F6AC(v21, v17);
+    sub_29579F6AC(v22, v18);
     goto LABEL_28;
   }
 
-  v29 = v27;
-  v30 = objc_msgSend__downscale2X420fTBGRAEqualWithCommandBuffer_in_Ytex_in_UVtex_out_tex_cropRect_(self, v28, v13, v17, v21, v27, x, y, width, height);
-  if (v30)
+  v30 = v28;
+  v31 = objc_msgSend__downscale2X420fTBGRAEqualWithCommandBuffer_in_Ytex_in_UVtex_out_tex_cropRect_(self, v29, v14, v18, v22, v28, x, y, width, height);
+  if (v31)
   {
-    v45 = v30;
-    sub_29579F410(v30, v29, v21, v17);
+    v46 = v31;
+    sub_29579F410(v31, v30, v22, v18);
   }
 
   else
   {
-    v61 = v21;
-    v62 = v17;
-    v63 = v13;
-    v33 = 0;
+    v63 = v22;
+    v66 = v18;
+    v69 = v14;
     v34 = 0;
     v35 = 0;
-    while (v24 * 0.5 > *objc_msgSend_pyramidDimensions(self->_pyr_image, v31, v32) && v25 * 0.5 > *(objc_msgSend_pyramidDimensions(self->_pyr_image, v36, v37) + 8))
+    v36 = 0;
+    while (v25 * 0.5 > *objc_msgSend_pyramidDimensions(self->_pyr_image, v32, v33) && v26 * 0.5 > *(objc_msgSend_pyramidDimensions(self->_pyr_image, v37, v38) + 8))
     {
-      v38 = objc_msgSend_newTextureViewWithPixelFormat_(v29, v36, 53);
+      v39 = objc_msgSend_newTextureViewWithPixelFormat_(v30, v37, 53);
 
-      if (!v38)
+      if (!v39)
       {
         sub_29579F608();
 LABEL_22:
-        v45 = -12786;
+        v46 = -12786;
         goto LABEL_23;
       }
 
-      v24 = v24 * 0.5;
       v25 = v25 * 0.5;
-      v33 ^= 1u;
-      v40 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v39, self->_greenChannelPyramidCVP[v33], 80, 23, 0, v24, v25);
+      v26 = v26 * 0.5;
+      v34 ^= 1u;
+      v41 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_textureSize_plane_(self->_metalContext, v40, self->_greenChannelPyramidCVP[v34], 80, 23, 0, v25, v26);
 
-      if (!v40)
+      if (!v41)
       {
         sub_29579F564();
         goto LABEL_22;
       }
 
-      v42 = objc_msgSend_newTextureViewWithPixelFormat_(v40, v41, 53);
+      v43 = objc_msgSend_newTextureViewWithPixelFormat_(v41, v42, 53);
 
-      if (!v42)
+      if (!v43)
       {
         sub_29579F4C0();
         goto LABEL_22;
       }
 
-      v44 = objc_msgSend_downscale2XEqualWithCommandBuffer_in_u32_alias_tex_out_u32_alias_tex_(self->_pyr_image, v43, v63, v38, v42);
-      v34 = v42;
-      v35 = v38;
-      v29 = v40;
-      if (v44)
+      v45 = objc_msgSend_downscale2XEqualWithCommandBuffer_in_u32_alias_tex_out_u32_alias_tex_(self->_pyr_image, v44, v69, v39, v43);
+      v35 = v43;
+      v36 = v39;
+      v30 = v41;
+      if (v45)
       {
-        v45 = v44;
+        v46 = v45;
         fig_log_get_emitter();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46, v4, v62, v4, v63, v66, v69, v70);
 
 LABEL_23:
-        v13 = v63;
+        v14 = v69;
         goto LABEL_18;
       }
     }
 
-    v13 = v63;
-    v46 = objc_msgSend_doImagePyramidWithCommandBuffer_in_tex_(self->_pyr_image, v36, v63, v29);
-    if (v46)
+    v14 = v69;
+    v47 = objc_msgSend_doImagePyramidWithCommandBuffer_in_tex_(self->_pyr_image, v37, v69, v30);
+    if (v47)
     {
-      v45 = v46;
+      v46 = v47;
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v46, v4, v62, v4, v63, v66, v69, v70);
     }
 
     else
     {
       if (*MEMORY[0x29EDB9270])
       {
-        v49 = objc_msgSend_commandQueue(v63, v47, v48);
-        v52 = objc_msgSend_commandBuffer(v49, v50, v51);
+        v50 = objc_msgSend_commandQueue(v69, v48, v49);
+        v53 = objc_msgSend_commandBuffer(v50, v51, v52);
 
-        objc_msgSend_setLabel_(v52, v53, @"KTRACE_MTLCMDBUF");
-        objc_msgSend_addCompletedHandler_(v52, v54, &unk_2A1C9FA50);
-        objc_msgSend_commit(v52, v55, v56);
-        objc_msgSend_addCompletedHandler_(v63, v57, &unk_2A1C9FA70);
+        objc_msgSend_setLabel_(v53, v54, @"KTRACE_MTLCMDBUF");
+        objc_msgSend_addCompletedHandler_(v53, v55, &unk_2A1C9FA50);
+        objc_msgSend_commit(v53, v56, v57);
+        objc_msgSend_addCompletedHandler_(v69, v58, &unk_2A1C9FA70);
       }
 
-      objc_msgSend_commit(v63, v47, v48);
-      objc_msgSend_countScales(self->_pyr_image, v58, v59);
+      objc_msgSend_commit(v69, v48, v49);
+      objc_msgSend_countScales(self->_pyr_image, v59, v60);
 
-      v45 = 0;
+      v46 = 0;
     }
   }
 
 LABEL_18:
 
-  return v45;
+  return v46;
 }
 
 - (int)_initShaders

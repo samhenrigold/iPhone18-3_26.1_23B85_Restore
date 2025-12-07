@@ -136,9 +136,9 @@
 
   if (v14 && v15)
   {
-    v17 = [(UIColor *)v14 isEqual:v15];
+    isEqual = objc_msgSend_isEqual_(v14);
 
-    if (v17)
+    if (isEqual)
     {
       goto LABEL_7;
     }

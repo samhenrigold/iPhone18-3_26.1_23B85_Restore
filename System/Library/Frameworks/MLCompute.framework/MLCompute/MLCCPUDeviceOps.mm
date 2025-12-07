@@ -1,9 +1,41 @@
 @interface MLCCPUDeviceOps
++ (id)deviceOpsWithType:(int)type params:(id)params inDeltaData:(id)data outDeltaData:(id)deltaData betaDeltaData:(id)betaDeltaData gammaDeltaData:(id)gammaDeltaData betaMomentumData:(id)momentumData gammaMomentumData:(id)self0;
++ (id)deviceOpsWithType:(int)type params:(id)params inDeltaData:(id)data outDeltaData:(id)deltaData weightsDeltaData:(id)weightsDeltaData biasDeltaData:(id)biasDeltaData weightsMomentumData:(id)momentumData biasMomentumData:(id)self0;
 - (MLCCPUDeviceOps)initWithType:(int)type params:(id)params inDeltaData:(id)data outDeltaData:(id)deltaData weightsDeltaData:(id)weightsDeltaData biasDeltaData:(id)biasDeltaData weightsMomentumData:(id)momentumData biasMomentumData:(id)self0 betaDeltaData:(id)self1 gammaDeltaData:(id)self2 betaMomentumData:(id)self3 gammaMomentumData:(id)self4;
 - (void)dealloc;
 @end
 
 @implementation MLCCPUDeviceOps
+
++ (id)deviceOpsWithType:(int)type params:(id)params inDeltaData:(id)data outDeltaData:(id)deltaData weightsDeltaData:(id)weightsDeltaData biasDeltaData:(id)biasDeltaData weightsMomentumData:(id)momentumData biasMomentumData:(id)self0
+{
+  v15 = *&type;
+  biasMomentumDataCopy = biasMomentumData;
+  momentumDataCopy = momentumData;
+  biasDeltaDataCopy = biasDeltaData;
+  weightsDeltaDataCopy = weightsDeltaData;
+  deltaDataCopy = deltaData;
+  dataCopy = data;
+  paramsCopy = params;
+  v24 = [[self alloc] initWithType:v15 params:paramsCopy inDeltaData:dataCopy outDeltaData:deltaDataCopy weightsDeltaData:weightsDeltaDataCopy biasDeltaData:biasDeltaDataCopy weightsMomentumData:momentumDataCopy biasMomentumData:biasMomentumDataCopy];
+
+  return v24;
+}
+
++ (id)deviceOpsWithType:(int)type params:(id)params inDeltaData:(id)data outDeltaData:(id)deltaData betaDeltaData:(id)betaDeltaData gammaDeltaData:(id)gammaDeltaData betaMomentumData:(id)momentumData gammaMomentumData:(id)self0
+{
+  v15 = *&type;
+  gammaMomentumDataCopy = gammaMomentumData;
+  momentumDataCopy = momentumData;
+  gammaDeltaDataCopy = gammaDeltaData;
+  betaDeltaDataCopy = betaDeltaData;
+  deltaDataCopy = deltaData;
+  dataCopy = data;
+  paramsCopy = params;
+  v24 = [[self alloc] initWithType:v15 params:paramsCopy inDeltaData:dataCopy outDeltaData:deltaDataCopy betaDeltaData:betaDeltaDataCopy gammaDeltaData:gammaDeltaDataCopy betaMomentumData:momentumDataCopy gammaMomentumData:gammaMomentumDataCopy];
+
+  return v24;
+}
 
 - (MLCCPUDeviceOps)initWithType:(int)type params:(id)params inDeltaData:(id)data outDeltaData:(id)deltaData weightsDeltaData:(id)weightsDeltaData biasDeltaData:(id)biasDeltaData weightsMomentumData:(id)momentumData biasMomentumData:(id)self0 betaDeltaData:(id)self1 gammaDeltaData:(id)self2 betaMomentumData:(id)self3 gammaMomentumData:(id)self4
 {

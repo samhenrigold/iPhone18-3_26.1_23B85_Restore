@@ -49,7 +49,6 @@
 - (id)overlayContentDataSource;
 - (id)serializableEffectParameters;
 - (int64_t)rotatedAspectRatio;
-- (uint64_t)transformAtTime:(__int128 *)time forcePosterFrame:(uint64_t)frame relativeTo:(uint64_t)to basisOrigin:;
 - (unint64_t)dynamicTextType;
 - (unint64_t)hash;
 - (unint64_t)maxCharacters;
@@ -73,6 +72,7 @@
 - (void)setTrackingProps:(id)props;
 - (void)suspendTracking;
 - (void)trackedEffectProperties:(id)properties didChangeTrackingType:(BOOL)type didChangeEnabled:(BOOL)enabled;
+- (void)transformAtTime:(__int128 *)time forcePosterFrame:(uint64_t)frame relativeTo:(uint64_t)to basisOrigin:;
 - (void)updateDynamicTextWithCompletionBlock:(id)block;
 - (void)updateRenderSizeMaintainingAppearance:(CGSize)appearance withComponentTime:(id *)time;
 - (void)updateRenderSizeMaintainingRelativeSizeAndPosition:(CGSize)position toSize:(CGSize)size withComponentTime:(id *)time;
@@ -748,7 +748,7 @@
   memset(&v11[1], 0, sizeof(PVCGPointQuad));
   v11[0].a = *&time->var0;
   *&v11[0].b.x = time->var3;
-  [(JFXOverlayEffect *)self cornersAtTime:v11 forcePosterFrame:frame includeDropShadow:shadow scale:*&origin relativeTo:1.0 basisOrigin:1.0, to.origin.x, to.origin.y, to.size.width, to.size.height];
+  objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_relativeTo_basisOrigin_(self, a2, v11, frame, shadow, *&origin, 1.0, 1.0, to.origin.x, to.origin.y, to.size.width, to.size.height);
   v11[0] = v11[1];
   pv_bounding_CGRect(v11);
   result.size.height = v10;
@@ -783,9 +783,6 @@
 
 - (PVCGPointQuad)cornersAtTime:(SEL)time forcePosterFrame:(id *)frame includeDropShadow:(BOOL)shadow scale:(BOOL)scale relativeTo:(CGPoint)to basisOrigin:(CGRect)origin
 {
-  v9 = *&a9;
-  scaleCopy = scale;
-  shadowCopy = shadow;
   height = origin.size.height;
   width = origin.size.width;
   y = to.y;
@@ -795,12 +792,10 @@
   retstr->a = 0u;
   retstr->b = 0u;
   renderEffect = [(JFXEffect *)self renderEffect];
-  v19 = renderEffect;
+  v16 = renderEffect;
   if (renderEffect)
   {
-    v21 = *&frame->var0;
-    var3 = frame->var3;
-    [renderEffect cornersAtTime:&v21 forcePosterFrame:shadowCopy includeDropShadow:scaleCopy scale:v9 viewSize:x viewOrigin:{y, width, height}];
+    objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_viewSize_viewOrigin_(renderEffect, x, y, width, height, frame->var0, *&frame->var1, frame->var3);
   }
 
   else
@@ -835,11 +830,11 @@
   return v13;
 }
 
-- (uint64_t)transformAtTime:(__int128 *)time forcePosterFrame:(uint64_t)frame relativeTo:(uint64_t)to basisOrigin:
+- (void)transformAtTime:(__int128 *)time forcePosterFrame:(uint64_t)frame relativeTo:(uint64_t)to basisOrigin:
 {
   v6 = *time;
   v7 = *(time + 2);
-  return [self transformAtTime:&v6 forcePosterFrame:frame includeTransformAnimation:1 includePlayableAspectScale:1 relativeTo:to basisOrigin:?];
+  return objc_msgSend_transformAtTime_forcePosterFrame_includeTransformAnimation_includePlayableAspectScale_relativeTo_basisOrigin_(self, a2, &v6, frame, 1, 1, to);
 }
 
 - (double)transformAtTime:(uint64_t)time@<X3> forcePosterFrame:(uint64_t)frame@<X4> includeTransformAnimation:(char)animation@<W5> includePlayableAspectScale:(uint64_t)scale@<X6> relativeTo:(__int128 *)to@<X8> basisOrigin:(float64_t)origin@<D2>
@@ -859,7 +854,7 @@
   v34 = v33;
   if (v33)
   {
-    [v33 SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(v33);
   }
 
   else
@@ -983,7 +978,7 @@
   v10[1] = v7;
   v10[2] = *&time->tx;
   v9 = *to;
-  return [(JFXOverlayEffect *)self addTransform:v10 withComponentTime:&v9 relativeTo:*&a7 basisOrigin:0 restrictToBounds:origin.origin.x, origin.origin.y, origin.size.width, origin.size.height];
+  return objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_restrictToBounds_(self, transform, v10, &v9, *&a7, 0, origin.origin.x, origin.origin.y, origin.size.width, origin.size.height);
 }
 
 - (CGAffineTransform)addTransform:(SEL)transform withComponentTime:(CGAffineTransform *)time relativeTo:(id *)to basisOrigin:(CGRect)origin restrictToBounds:(int)bounds
@@ -1000,9 +995,7 @@
   v19 = v18;
   v21 = v20;
   memset(&v39, 0, sizeof(v39));
-  v34.a = *&to->var0;
-  *&v34.b.x = to->var3;
-  [(JFXOverlayEffect *)self cornersAtTime:&v34 forcePosterFrame:1 includeDropShadow:1 scale:v9 relativeTo:1.0 basisOrigin:1.0, x, y, width, height];
+  objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_relativeTo_basisOrigin_(self, 1.0, 1.0, x, y, width, height, to->var0, *&to->var1, to->var3);
   v34 = v39;
   pv_CGPoint_get_quad_center(&v34);
   v23 = v22;
@@ -1016,9 +1009,7 @@
   v37 = *to;
   [(CGAffineTransform *)&v38 addTransform:&v36 withComponentTime:&v37 relativeTo:v9 basisOrigin:1 ignoreTranslation:x, y, width, height];
   memset(&v36, 0, sizeof(v36));
-  v34.a = *&to->var0;
-  *&v34.b.x = to->var3;
-  [(JFXOverlayEffect *)self cornersAtTime:&v34 forcePosterFrame:1 includeDropShadow:1 scale:v9 relativeTo:1.0 basisOrigin:1.0, x, y, width, height];
+  objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_relativeTo_basisOrigin_(self, 1.0, 1.0, x, y, width, height, to->var0, *&to->var1, to->var3);
   v34 = v36;
   pv_CGPoint_get_quad_center(&v34);
   v28 = time->tx + v23 - v27;
@@ -1030,7 +1021,7 @@
     [(JFXOverlayEffect *)self setPosition:&v34 withComponentTime:v9 relativeTo:v8 basisOrigin:v19 + v28 restrictToBounds:v21 + v30, x, y, width, height];
   }
 
-  result = [(JFXEffect *)self topLevelTransform];
+  result = objc_msgSend_topLevelTransform(self);
   c = v34.c;
   v33 = v35;
   *&retstr->a = v34.a;
@@ -1212,7 +1203,7 @@ LABEL_7:
         }
       }
 
-      [(JFXEffect *)self topLevelTransform:0];
+      objc_msgSend_topLevelTransform(self, 0, v18 / v19, v18 / v19, 0);
       v55 = 0;
       v75 = 0u;
       v76 = 0u;
@@ -1274,44 +1265,41 @@ LABEL_7:
       {
         v36 = CGRectMakeWithSize();
         v16 = v15;
-        *&v40.a = *&time->var0;
-        *&v40.c = time->var3;
+        *&v37.a = *&time->var0;
+        *&v37.c = time->var3;
         v18 = v17;
         v34 = v19;
         v35 = v17;
         v20 = v19;
-        [(JFXOverlayEffect *)self imageFrameAtTime:&v40 forcePosterFrame:1 includeDropShadow:1 relativeTo:1 basisOrigin:v36];
+        [(JFXOverlayEffect *)self imageFrameAtTime:&v37 forcePosterFrame:1 includeDropShadow:1 relativeTo:1 basisOrigin:v36];
         v31 = v22;
         v32 = v21;
         v29 = v24;
         v30 = v23;
-        v42.origin.x = v36;
-        v42.origin.y = v16;
-        v42.size.width = v18;
-        v42.size.height = v20;
-        MidX = CGRectGetMidX(v42);
-        v43.origin.x = v36;
-        v43.origin.y = v16;
-        v43.size.width = v18;
-        v43.size.height = v20;
-        MidY = CGRectGetMidY(v43);
+        v39.origin.x = v36;
+        v39.origin.y = v16;
+        v39.size.width = v18;
+        v39.size.height = v20;
+        MidX = CGRectGetMidX(v39);
+        v40.origin.x = v36;
+        v40.origin.y = v16;
+        v40.size.width = v18;
+        v40.size.height = v20;
+        MidY = CGRectGetMidY(v40);
         v28 = height / v8;
-        v44.origin.x = v32;
-        v44.origin.y = v31;
-        v44.size.width = v30;
-        v44.size.height = v29;
-        v26 = CGRectGetMidX(v44);
-        v45.origin.x = v32;
-        v45.origin.y = v31;
-        v45.size.width = v30;
-        v45.size.height = v29;
-        v27 = CGRectGetMidY(v45);
-        memset(&v40, 0, sizeof(v40));
-        CGAffineTransformMakeTranslation(&v40, MidX + (v26 - MidX) * (width / v9) - v26, MidY + (v27 - MidY) * v28 - v27);
-        v39 = v40;
-        v37 = *MEMORY[0x277CC08F0];
-        v38 = *(MEMORY[0x277CC08F0] + 16);
-        [(JFXOverlayEffect *)self addTransform:&v39 withComponentTime:&v37 relativeTo:1 basisOrigin:v36, v16, v35, v34];
+        v41.origin.x = v32;
+        v41.origin.y = v31;
+        v41.size.width = v30;
+        v41.size.height = v29;
+        v26 = CGRectGetMidX(v41);
+        v42.origin.x = v32;
+        v42.origin.y = v31;
+        v42.size.width = v30;
+        v42.size.height = v29;
+        v27 = CGRectGetMidY(v42);
+        memset(&v37, 0, sizeof(v37));
+        CGAffineTransformMakeTranslation(&v37, MidX + (v26 - MidX) * (width / v9) - v26, MidY + (v27 - MidY) * v28 - v27);
+        objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_(self, v36, v16, v35, v34);
         [(JFXEffect *)self setRenderSize:width, height];
         [(JFXEffect *)self setPlayableAspectRatio:aspectRatioForSize(width, height)];
       }
@@ -1319,9 +1307,9 @@ LABEL_7:
 
     else
     {
-      *&v40.a = *&time->var0;
-      *&v40.c = time->var3;
-      [(JFXOverlayEffect *)self updateRenderSizeMaintainingAppearance:&v40 withComponentTime:width, height];
+      *&v37.a = *&time->var0;
+      *&v37.c = time->var3;
+      [(JFXOverlayEffect *)self updateRenderSizeMaintainingAppearance:&v37 withComponentTime:width, height];
     }
   }
 
@@ -1386,7 +1374,7 @@ LABEL_7:
       v62 = 0u;
       v59 = 0u;
       v60 = 0u;
-      [(JFXEffect *)self topLevelTransform];
+      objc_msgSend_topLevelTransform(self);
       vars0 = v64;
       pv_simd_matrix_scale();
       v63 = v55;
@@ -1655,119 +1643,114 @@ LABEL_51:
     CGAffineTransformMakeTranslation(&v31, v28.tx + v25 * v28.c + v28.a * CenterPoint - CenterPoint, v28.ty + v25 * v28.d + v28.b * CenterPoint - v25);
     *&t2.a = *&time->var0;
     *&t2.c = time->var3;
-    [(JFXOverlayEffect *)self addTransform:&v31 withComponentTime:&t2 relativeTo:v7 basisOrigin:x, y, width, v26];
+    objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_(self, x, y, width, v26);
   }
 }
 
 - (void)applyScaleToFitFrame:(CGRect)frame withComponentTime:(id *)time relativeRect:(CGRect)rect restrictToBounds:(BOOL)bounds
 {
-  boundsCopy = bounds;
   height = rect.size.height;
   width = rect.size.width;
   y = rect.origin.y;
   x = rect.origin.x;
-  v12 = frame.size.height;
-  v13 = frame.size.width;
-  v14 = frame.origin.y;
-  v48 = frame.origin.x;
-  *&v56.a = *&time->var0;
-  *&v56.c = time->var3;
-  [(JFXOverlayEffect *)self imageFrameAtTime:&v56 forcePosterFrame:1 includeDropShadow:1 relativeTo:1 basisOrigin:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
-  v16 = v60.size.width;
-  v49 = v60.size.height;
-  if (!CGRectIsEmpty(v60))
+  v11 = frame.size.height;
+  v12 = frame.size.width;
+  v13 = frame.origin.y;
+  v47 = frame.origin.x;
+  *&v51.a = *&time->var0;
+  *&v51.c = time->var3;
+  [(JFXOverlayEffect *)self imageFrameAtTime:&v51 forcePosterFrame:1 includeDropShadow:1 relativeTo:1 basisOrigin:rect.origin.x, rect.origin.y, rect.size.width, rect.size.height];
+  v15 = v55.size.width;
+  v48 = v55.size.height;
+  if (!CGRectIsEmpty(v55))
   {
-    v43 = v14;
-    v44 = v13;
-    v45 = v12;
-    *&v56.a = *&time->var0;
-    *&v56.c = time->var3;
-    [(JFXOverlayEffect *)self imageFrameAtTime:&v56 forcePosterFrame:1 includeDropShadow:0 relativeTo:1 basisOrigin:x, y, width, height];
-    v18 = v17;
-    v41 = v17;
-    v47 = v19;
-    memset(&v59, 0, sizeof(v59));
-    CGAffineTransformMakeScale(&v59, 2.0, 2.0);
-    v55.a = *&v59.a;
-    v55.b = *&v59.c;
-    v55.c = *&v59.tx;
-    *&v58.a = *&time->var0;
-    *&v58.c = time->var3;
-    [(JFXOverlayEffect *)self addTransform:&v55 withComponentTime:&v58 relativeTo:1 basisOrigin:x, y, width, height];
-    *&v56.a = *&time->var0;
-    *&v56.c = time->var3;
-    [(JFXOverlayEffect *)self imageFrameAtTime:&v56 forcePosterFrame:1 includeDropShadow:1 relativeTo:1 basisOrigin:x, y, width, height];
-    v21 = v20;
-    v23 = v22;
-    *&v56.a = *&time->var0;
-    *&v56.c = time->var3;
-    [(JFXOverlayEffect *)self imageFrameAtTime:&v56 forcePosterFrame:1 includeDropShadow:0 relativeTo:1 basisOrigin:x, y, width, height];
-    v42 = v16;
-    v24 = vabdd_f64(v16, v18);
-    v27 = vabdd_f64(vabdd_f64(v21, v25) * 0.5, v24);
-    v28 = vabdd_f64(v49, v47);
-    v29 = vabdd_f64(vabdd_f64(v23, v26) * 0.5, v28);
-    v55.a = *&v59.a;
-    v55.b = *&v59.c;
-    v55.c = *&v59.tx;
-    CGAffineTransformInvert(&v56, &v55);
-    *&v58.a = *&time->var0;
-    *&v58.c = time->var3;
-    v46 = height;
-    [(JFXOverlayEffect *)self addTransform:&v56 withComponentTime:&v58 relativeTo:1 basisOrigin:x, y, width, height];
-    if (v27 <= 1.0 && v29 <= 1.0)
+    v42 = v13;
+    v43 = v12;
+    v44 = v11;
+    *&v51.a = *&time->var0;
+    *&v51.c = time->var3;
+    [(JFXOverlayEffect *)self imageFrameAtTime:&v51 forcePosterFrame:1 includeDropShadow:0 relativeTo:1 basisOrigin:x, y, width, height];
+    v17 = v16;
+    v40 = v16;
+    v46 = v18;
+    memset(&v54, 0, sizeof(v54));
+    CGAffineTransformMakeScale(&v54, 2.0, 2.0);
+    v50.a = *&v54.a;
+    v50.b = *&v54.c;
+    v50.c = *&v54.tx;
+    *&v53.a = *&time->var0;
+    *&v53.c = time->var3;
+    objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_(self, x, y, width, height);
+    *&v51.a = *&time->var0;
+    *&v51.c = time->var3;
+    [(JFXOverlayEffect *)self imageFrameAtTime:&v51 forcePosterFrame:1 includeDropShadow:1 relativeTo:1 basisOrigin:x, y, width, height];
+    v20 = v19;
+    v22 = v21;
+    *&v51.a = *&time->var0;
+    *&v51.c = time->var3;
+    [(JFXOverlayEffect *)self imageFrameAtTime:&v51 forcePosterFrame:1 includeDropShadow:0 relativeTo:1 basisOrigin:x, y, width, height];
+    v41 = v15;
+    v23 = vabdd_f64(v15, v17);
+    v26 = vabdd_f64(vabdd_f64(v20, v24) * 0.5, v23);
+    v27 = vabdd_f64(v48, v46);
+    v28 = vabdd_f64(vabdd_f64(v22, v25) * 0.5, v27);
+    v50.a = *&v54.a;
+    v50.b = *&v54.c;
+    v50.c = *&v54.tx;
+    CGAffineTransformInvert(&v51, &v50);
+    *&v53.a = *&time->var0;
+    *&v53.c = time->var3;
+    v45 = height;
+    objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_(self, x, y, width, height);
+    if (v26 <= 1.0 && v28 <= 1.0)
     {
+      v32 = v43;
+      v30 = v44;
+      v31 = v43;
       v33 = v44;
-      v31 = v45;
-      v32 = v44;
-      v34 = v45;
-      v36 = v49;
-      v35 = v42;
+      v35 = v48;
+      v34 = v41;
     }
 
     else
     {
-      v31 = v45;
-      v32 = v44 - v24;
-      v33 = v44;
-      v34 = v45 - v28;
-      v35 = v41;
-      v36 = v47;
+      v30 = v44;
+      v31 = v43 - v23;
+      v32 = v43;
+      v33 = v44 - v27;
+      v34 = v40;
+      v35 = v46;
     }
 
-    v37 = CGSizeFitToAspectInSize(v32, v34, v35, v36);
-    memset(&v58, 0, sizeof(v58));
-    CGAffineTransformMakeScale(&v58, v37 / v35, v37 / v35);
-    v55.a = *&v58.a;
-    v55.b = *&v58.c;
-    v55.c = *&v58.tx;
-    v53 = *&time->var0;
-    var3 = time->var3;
-    [(JFXOverlayEffect *)self addTransform:&v55 withComponentTime:&v53 relativeTo:1 basisOrigin:x, y, width, v46];
-    v61.origin.x = v48;
-    v61.origin.y = v43;
-    v61.size.width = v33;
-    v61.size.height = v31;
-    MidX = CGRectGetMidX(v61);
-    v62.origin.x = v48;
-    v62.origin.y = v43;
-    v62.size.width = v33;
-    v62.size.height = v31;
-    MidY = CGRectGetMidY(v62);
-    v57 = 0;
-    memset(&v56, 0, sizeof(v56));
-    v55.a = *&time->var0;
-    *&v55.b.x = time->var3;
-    [(JFXOverlayEffect *)self cornersAtTime:&v55 forcePosterFrame:1 includeDropShadow:1 scale:1 relativeTo:1.0 basisOrigin:1.0, x, y, width, v46];
-    v55.a = *&v56.a;
-    v55.b = *&v56.c;
-    v55.c = *&v56.tx;
-    v55.d = v57;
-    pv_CGPoint_get_quad_center(&v55);
-    CGAffineTransformMakeTranslation(&v55, MidX - v39, MidY - v40);
-    v51 = *&time->var0;
-    v52 = time->var3;
-    [(JFXOverlayEffect *)self addTransform:&v55 withComponentTime:&v51 relativeTo:1 basisOrigin:boundsCopy restrictToBounds:x, y, width, v46];
+    v36 = CGSizeFitToAspectInSize(v31, v33, v34, v35);
+    memset(&v53, 0, sizeof(v53));
+    CGAffineTransformMakeScale(&v53, v36 / v34, v36 / v34);
+    v50.a = *&v53.a;
+    v50.b = *&v53.c;
+    v50.c = *&v53.tx;
+    objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_(self, x, y, width, v45);
+    v56.origin.x = v47;
+    v56.origin.y = v42;
+    v56.size.width = v32;
+    v56.size.height = v30;
+    MidX = CGRectGetMidX(v56);
+    v57.origin.x = v47;
+    v57.origin.y = v42;
+    v57.size.width = v32;
+    v57.size.height = v30;
+    MidY = CGRectGetMidY(v57);
+    v52 = 0;
+    memset(&v51, 0, sizeof(v51));
+    v50.a = *&time->var0;
+    *&v50.b.x = time->var3;
+    objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_relativeTo_basisOrigin_(self, 1.0, 1.0, x, y, width, v45);
+    v50.a = *&v51.a;
+    v50.b = *&v51.c;
+    v50.c = *&v51.tx;
+    v50.d = v52;
+    pv_CGPoint_get_quad_center(&v50);
+    CGAffineTransformMakeTranslation(&v50, MidX - v38, MidY - v39);
+    objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_restrictToBounds_(self, x, y, width, v45);
   }
 }
 
@@ -1800,7 +1783,7 @@ LABEL_51:
     v56 = 0u;
     v52 = *&time->var0;
     *&v53 = time->var3;
-    [(JFXOverlayEffect *)self cornersAtTime:&v52 forcePosterFrame:1 includeDropShadow:1 scale:v7 relativeTo:1.0 basisOrigin:1.0, x, y, width, height];
+    objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_relativeTo_basisOrigin_(self, 1.0, 1.0, x, y, width, height);
     v52 = v55;
     v53 = v56;
     vars0 = v57;
@@ -1855,7 +1838,7 @@ LABEL_51:
   v58 = 0u;
   v55 = 0u;
   v56 = 0u;
-  [(JFXEffect *)self topLevelTransform];
+  objc_msgSend_topLevelTransform(self);
   *&v40 = v51;
   *(&v40 + 1) = v47;
   v61 = v40;
@@ -1901,8 +1884,8 @@ LABEL_51:
   if (v15)
   {
     memset(&t1, 0, sizeof(t1));
-    v68.x = width * 0.5;
-    v68.y = height * 0.5;
+    v68.n128_f64[0] = width * 0.5;
+    v68.n128_f64[1] = height * 0.5;
     *&v64[0].time.value = *&v65.a;
     *&v64[0].time.epoch = *&v65.c;
     *&v64[0].translation.y = *&v65.tx;
@@ -2128,9 +2111,9 @@ LABEL_51:
 
     v58 = vaddq_f64(*&t2.tx, vmlaq_n_f64(vmulq_n_f64(*&t2.c, v61), *&t2.a, v57));
     memset(&v67, 0, 24);
-    [v43 SIMDDouble4x4];
-    [v45 SIMDDouble4x4];
-    [v47 SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(v43);
+    objc_msgSend_SIMDDouble4x4(v45);
+    objc_msgSend_SIMDDouble4x4(v47);
     v50 = pv_simd_matrix_unproject_to_plane();
     a = v67.a;
     b = v67.b;
@@ -2165,7 +2148,7 @@ LABEL_51:
   v24 = 0u;
   v15 = *&time->var0;
   *&v16 = time->var3;
-  [(JFXOverlayEffect *)self transformAtTime:&v15 forcePosterFrame:frame includeTransformAnimation:animation includePlayableAspectScale:scale relativeTo:*&origin basisOrigin:to.origin.x, to.origin.y, to.size.width];
+  objc_msgSend_transformAtTime_forcePosterFrame_includeTransformAnimation_includePlayableAspectScale_relativeTo_basisOrigin_(self, a2, &v15, frame, animation, scale, *&origin, to.origin.x, to.origin.y, to.size.width);
   v11 = *MEMORY[0x277CBF348];
   v12 = *(MEMORY[0x277CBF348] + 8);
   v19 = v27;
@@ -2256,7 +2239,7 @@ LABEL_51:
   v16 = 0u;
   v17 = 0u;
   v15 = *time;
-  [(JFXOverlayEffect *)self cornersAtTime:&v15 forcePosterFrame:frame includeDropShadow:0 scale:*&origin relativeTo:1.0 basisOrigin:1.0, to.origin.x, to.origin.y];
+  objc_msgSend_cornersAtTime_forcePosterFrame_includeDropShadow_scale_relativeTo_basisOrigin_(self, a2, &v15, frame, 0, *&origin, 1.0, 1.0, to.origin.x, to.origin.y);
   v8 = vsubq_f64(v18, v16);
   v9.f64[0] = width;
   v9.f64[1] = height;

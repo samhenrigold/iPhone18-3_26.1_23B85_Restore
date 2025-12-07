@@ -35,17 +35,17 @@
   [(CRKClassKitChangeNotifier *)&v9 dealloc];
 }
 
-uint64_t __36__CRKClassKitChangeNotifier_dealloc__block_invoke(uint64_t result)
+id *__36__CRKClassKitChangeNotifier_dealloc__block_invoke(id *result)
 {
   v1 = result;
-  if (*(result + 32))
+  if (result[4])
   {
-    result = [*(result + 40) removeObserver:?];
+    result = [result[5] removeObserver:?];
   }
 
-  if (*(v1 + 48))
+  if (v1[6])
   {
-    v2 = *(v1 + 40);
+    v2 = v1[5];
 
     return [v2 removeObserver:?];
   }

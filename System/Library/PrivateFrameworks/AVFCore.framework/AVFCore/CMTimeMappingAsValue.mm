@@ -62,7 +62,7 @@
   memset(v7, 0, sizeof(v7));
   if (self)
   {
-    [(CMTimeMappingAsValue *)self CMTimeMappingValue];
+    objc_msgSend_CMTimeMappingValue(self, a2);
   }
 
   v2 = MEMORY[0x1E696AEC0];
@@ -90,7 +90,7 @@
       memset(v14, 0, sizeof(v14));
       if (value)
       {
-        [value CMTimeMappingValue];
+        objc_msgSend_CMTimeMappingValue(value);
       }
 
       p_timeMapping = &self->_timeMapping;
@@ -174,7 +174,7 @@
     p_timeMapping = &v6->_timeMapping;
     if (coder)
     {
-      [coder decodeCMTimeMappingForKey:@"CMTimeMapping"];
+      objc_msgSend_decodeCMTimeMappingForKey_(coder);
     }
 
     else

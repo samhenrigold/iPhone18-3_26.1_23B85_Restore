@@ -103,7 +103,7 @@
   v21 = 0u;
   v18 = 0u;
   v19 = 0u;
-  [(SBTransientOverlayWallpaperEffectView *)self _currentWallpaperTransform];
+  objc_msgSend__currentWallpaperTransform(self);
   containerOrientation = [(SBTransientOverlayWallpaperEffectView *)self containerOrientation];
   Height = v8;
   Width = v10;

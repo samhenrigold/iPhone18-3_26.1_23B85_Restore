@@ -208,34 +208,34 @@
 
 - (void)addRange:(id)range
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   rangeCopy = range;
   v7 = objc_msgSend_ranges(self, v5, v6);
   objc_sync_enter(v7);
   v10 = objc_msgSend_ranges(self, v8, v9);
   objc_msgSend_addObject_(v10, v11, rangeCopy);
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v14 = objc_msgSend_ranges(self, v12, v13, 0);
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v33, v37, 16);
+  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v32, v36, 16);
   if (v18)
   {
-    v19 = *v34;
+    v19 = *v33;
     v20 = 0.0;
     v21 = 0.0;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v34 != v19)
+        if (*v33 != v19)
         {
           objc_enumerationMutation(v14);
         }
 
-        v23 = *(*(&v33 + 1) + 8 * i);
+        v23 = *(*(&v32 + 1) + 8 * i);
         if (!objc_msgSend_operationState(v23, v16, v17))
         {
           objc_msgSend_duration(v23, v24, v25);
@@ -249,7 +249,7 @@
         }
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v16, &v33, v37, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v16, &v32, v36, 16);
     }
 
     while (v18);
@@ -264,37 +264,35 @@
   objc_msgSend_setQueueing_(self, v28, v29, v20);
   objc_msgSend_setExecuting_(self, v30, v31, v21);
   objc_sync_exit(v7);
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addRequestOperationCountsByOperationType:(id)type
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   obj = objc_msgSend_requestOperationCountsByType(self, v5, v6);
   objc_sync_enter(obj);
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v9 = objc_msgSend_allKeys(typeCopy, v7, v8);
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v38, v42, 16);
+  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v37, v41, 16);
   if (v13)
   {
-    v14 = *v39;
-    v37 = v9;
+    v14 = *v38;
+    v36 = v9;
     do
     {
       v15 = 0;
       do
       {
-        if (*v39 != v14)
+        if (*v38 != v14)
         {
-          objc_enumerationMutation(v37);
+          objc_enumerationMutation(v36);
         }
 
-        v16 = *(*(&v38 + 1) + 8 * v15);
+        v16 = *(*(&v37 + 1) + 8 * v15);
         v17 = objc_msgSend_requestOperationCountsByType(self, v11, v12, obj);
         v19 = objc_msgSend_objectForKeyedSubscript_(v17, v18, v16);
 
@@ -310,15 +308,14 @@
       }
 
       while (v13 != v15);
-      v9 = v37;
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v11, &v38, v42, 16);
+      v9 = v36;
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v36, v11, &v37, v41, 16);
     }
 
     while (v13);
   }
 
   objc_sync_exit(obj);
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 + (id)mergeUniquedCommaSeparatedString:(id)string with:(id)with
@@ -812,286 +809,49 @@
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_46;
-    }
-
-    v7 = objc_msgSend_startDate(self, v5, v6);
-    v10 = objc_msgSend_startDate(equalCopy, v8, v9);
-    isEqualToDate = objc_msgSend_isEqualToDate_(v7, v11, v10);
-
-    if (!isEqualToDate)
-    {
-      goto LABEL_46;
-    }
-
-    objc_msgSend_duration(self, v13, v14);
-    v16 = v15;
-    objc_msgSend_duration(equalCopy, v17, v18);
-    if (v16 != v21)
-    {
-      goto LABEL_46;
-    }
-
-    objc_msgSend_queueing(self, v19, v20);
-    v23 = v22;
-    objc_msgSend_queueing(equalCopy, v24, v25);
-    if (v23 != v28)
-    {
-      goto LABEL_46;
-    }
-
-    objc_msgSend_executing(self, v26, v27);
-    v30 = v29;
-    objc_msgSend_executing(equalCopy, v31, v32);
-    if (v30 != v35)
-    {
-      goto LABEL_46;
-    }
-
-    v36 = objc_msgSend_bytesUploaded(self, v33, v34);
-    if (v36 != objc_msgSend_bytesUploaded(equalCopy, v37, v38))
-    {
-      goto LABEL_46;
-    }
-
-    v41 = objc_msgSend_bytesDownloaded(self, v39, v40);
-    if (v41 != objc_msgSend_bytesDownloaded(equalCopy, v42, v43))
-    {
-      goto LABEL_46;
-    }
-
-    v46 = objc_msgSend_connections(self, v44, v45);
-    if (v46 != objc_msgSend_connections(equalCopy, v47, v48))
-    {
-      goto LABEL_46;
-    }
-
-    v51 = objc_msgSend_connectionsCreated(self, v49, v50);
-    if (v51 != objc_msgSend_connectionsCreated(equalCopy, v52, v53))
-    {
-      goto LABEL_46;
-    }
-
-    v56 = objc_msgSend_bytesFulfilledByPeers(self, v54, v55);
-    if (v56 != objc_msgSend_bytesFulfilledByPeers(equalCopy, v57, v58))
-    {
-      goto LABEL_46;
-    }
-
-    v61 = objc_msgSend_bytesFulfilledLocally(self, v59, v60);
-    if (v61 != objc_msgSend_bytesFulfilledLocally(equalCopy, v62, v63))
-    {
-      goto LABEL_46;
-    }
-
-    v66 = objc_msgSend_bytesResumed(self, v64, v65);
-    if (v66 != objc_msgSend_bytesResumed(equalCopy, v67, v68))
-    {
-      goto LABEL_46;
-    }
-
-    v71 = objc_msgSend_recordsUploaded(self, v69, v70);
-    if (v71 != objc_msgSend_recordsUploaded(equalCopy, v72, v73))
-    {
-      goto LABEL_46;
-    }
-
-    v76 = objc_msgSend_recordsDownloaded(self, v74, v75);
-    if (v76 != objc_msgSend_recordsDownloaded(equalCopy, v77, v78))
-    {
-      goto LABEL_46;
-    }
-
-    v81 = objc_msgSend_recordsDeleted(self, v79, v80);
-    if (v81 != objc_msgSend_recordsDeleted(equalCopy, v82, v83))
-    {
-      goto LABEL_46;
-    }
-
-    v86 = objc_msgSend_assetsUploaded(self, v84, v85);
-    if (v86 != objc_msgSend_assetsUploaded(equalCopy, v87, v88))
-    {
-      goto LABEL_46;
-    }
-
-    v91 = objc_msgSend_assetsUploadedFileSize(self, v89, v90);
-    if (v91 != objc_msgSend_assetsUploadedFileSize(equalCopy, v92, v93))
-    {
-      goto LABEL_46;
-    }
-
-    v96 = objc_msgSend_assetsDownloaded(self, v94, v95);
-    if (v96 != objc_msgSend_assetsDownloaded(equalCopy, v97, v98))
-    {
-      goto LABEL_46;
-    }
-
-    v101 = objc_msgSend_assetsDownloadedFileSize(self, v99, v100);
-    if (v101 != objc_msgSend_assetsDownloadedFileSize(equalCopy, v102, v103))
-    {
-      goto LABEL_46;
-    }
-
-    v106 = objc_msgSend_retries(self, v104, v105);
-    if (v106 != objc_msgSend_retries(equalCopy, v107, v108))
-    {
-      goto LABEL_46;
-    }
-
-    v111 = objc_msgSend_requestCount(self, v109, v110);
-    if (v111 != objc_msgSend_requestCount(equalCopy, v112, v113))
-    {
-      goto LABEL_46;
-    }
-
-    v116 = objc_msgSend_requestOperationCountsByType(self, v114, v115);
-    v119 = objc_msgSend_requestOperationCountsByType(equalCopy, v117, v118);
-    isEqual = objc_msgSend_isEqual_(v116, v120, v119);
-
-    if (!isEqual)
-    {
-      goto LABEL_46;
-    }
-
-    v124 = objc_msgSend_totalBytesByChunkProfile(self, v122, v123);
-    v127 = objc_msgSend_totalBytesByChunkProfile(equalCopy, v125, v126);
-    v128 = CKObjectsAreBothNilOrEqual();
-
-    if (!v128)
-    {
-      goto LABEL_46;
-    }
-
-    v131 = objc_msgSend_chunkCountByChunkProfile(self, v129, v130);
-    v134 = objc_msgSend_chunkCountByChunkProfile(equalCopy, v132, v133);
-    v135 = CKObjectsAreBothNilOrEqual();
-
-    if (!v135)
-    {
-      goto LABEL_46;
-    }
-
-    v138 = objc_msgSend_fileCountByChunkProfile(self, v136, v137);
-    v141 = objc_msgSend_fileCountByChunkProfile(equalCopy, v139, v140);
-    v142 = CKObjectsAreBothNilOrEqual();
-
-    if (!v142)
-    {
-      goto LABEL_46;
-    }
-
-    v145 = objc_msgSend_zoneishKeysRolled(self, v143, v144);
-    if (v145 != objc_msgSend_zoneishKeysRolled(equalCopy, v146, v147))
-    {
-      goto LABEL_46;
-    }
-
-    v150 = objc_msgSend_perRecordKeysRolled(self, v148, v149);
-    if (v150 != objc_msgSend_perRecordKeysRolled(equalCopy, v151, v152))
-    {
-      goto LABEL_46;
-    }
-
-    v155 = objc_msgSend_zoneKeysRolled(self, v153, v154);
-    if (v155 != objc_msgSend_zoneKeysRolled(equalCopy, v156, v157))
-    {
-      goto LABEL_46;
-    }
-
-    v160 = objc_msgSend_shareKeysRolled(self, v158, v159);
-    if (v160 != objc_msgSend_shareKeysRolled(equalCopy, v161, v162))
-    {
-      goto LABEL_46;
-    }
-
-    v165 = objc_msgSend_keyRollsSkippedBySizeCheck(self, v163, v164);
-    if (v165 != objc_msgSend_keyRollsSkippedBySizeCheck(equalCopy, v166, v167))
-    {
-      goto LABEL_46;
-    }
-
-    v170 = objc_msgSend_identitiesRolledOnRecordSave(self, v168, v169);
-    if (v170 != objc_msgSend_identitiesRolledOnRecordSave(equalCopy, v171, v172))
-    {
-      goto LABEL_46;
-    }
-
-    v175 = objc_msgSend_identitiesRolledOnZoneSave(self, v173, v174);
-    if (v175 != objc_msgSend_identitiesRolledOnZoneSave(equalCopy, v176, v177))
-    {
-      goto LABEL_46;
-    }
-
-    v180 = objc_msgSend_failedIdentityRollAttempts(self, v178, v179);
-    if (v180 != objc_msgSend_failedIdentityRollAttempts(equalCopy, v181, v182))
-    {
-      goto LABEL_46;
-    }
-
-    v185 = objc_msgSend_walrusEnabled(self, v183, v184);
-    if (v185 != objc_msgSend_walrusEnabled(equalCopy, v186, v187))
-    {
-      goto LABEL_46;
-    }
-
-    v190 = objc_msgSend_zoneKeysRemoved(self, v188, v189);
-    if (v190 != objc_msgSend_zoneKeysRemoved(equalCopy, v191, v192))
-    {
-      goto LABEL_46;
-    }
-
-    v195 = objc_msgSend_zoneishKeysRemoved(self, v193, v194);
-    if (v195 != objc_msgSend_zoneishKeysRemoved(equalCopy, v196, v197))
-    {
-      goto LABEL_46;
-    }
-
-    v200 = objc_msgSend_recordKeysRemoved(self, v198, v199);
-    if (v200 != objc_msgSend_recordKeysRemoved(equalCopy, v201, v202))
-    {
-      goto LABEL_46;
-    }
-
-    v205 = objc_msgSend_keysNotRemoved(self, v203, v204);
-    if (v205 != objc_msgSend_keysNotRemoved(equalCopy, v206, v207))
-    {
-      goto LABEL_46;
-    }
-
-    v210 = objc_msgSend_adopterCapabilityCheckValidationFailures(self, v208, v209);
-    if (v210 != objc_msgSend_adopterCapabilityCheckValidationFailures(equalCopy, v211, v212))
-    {
-      goto LABEL_46;
-    }
-
-    v215 = objc_msgSend_adopterCapabilityCheckValidationFailureTypes(self, v213, v214);
-    v218 = objc_msgSend_adopterCapabilityCheckValidationFailureTypes(equalCopy, v216, v217);
-    v219 = CKObjectsAreBothNilOrEqual();
-
-    if (!v219)
-    {
-      goto LABEL_46;
-    }
-
-    v222 = objc_msgSend_adopterCapabilityCheckResult(self, v220, v221);
-    if (v222 != objc_msgSend_adopterCapabilityCheckResult(equalCopy, v223, v224))
-    {
-      goto LABEL_46;
-    }
-
-    v227 = objc_msgSend_requiredFeatureSetValidationFailures(self, v225, v226);
-    if (v227 != objc_msgSend_requiredFeatureSetValidationFailures(equalCopy, v228, v229))
-    {
-      goto LABEL_46;
-    }
-
-    v232 = objc_msgSend_requiredFeatureSetValidationFailureTypes(self, v230, v231);
-    v235 = objc_msgSend_requiredFeatureSetValidationFailureTypes(equalCopy, v233, v234);
-    v236 = CKObjectsAreBothNilOrEqual();
-
-    if (v236)
+    if ((objc_opt_isKindOfClass() & 1) != 0
+      && (objc_msgSend_startDate(self, v5, v6), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend_startDate(equalCopy, v8, v9), v10 = objc_claimAutoreleasedReturnValue(), isEqualToDate = objc_msgSend_isEqualToDate_(v7, v11, v10), v10, v7, isEqualToDate)
+      && (objc_msgSend_duration(self, v13, v14), v16 = v15, objc_msgSend_duration(equalCopy, v17, v18), v16 == v21)
+      && (objc_msgSend_queueing(self, v19, v20), v23 = v22, objc_msgSend_queueing(equalCopy, v24, v25), v23 == v28)
+      && (objc_msgSend_executing(self, v26, v27), v30 = v29, objc_msgSend_executing(equalCopy, v31, v32), v30 == v35)
+      && (v36 = objc_msgSend_bytesUploaded(self, v33, v34), v36 == objc_msgSend_bytesUploaded(equalCopy, v37, v38))
+      && (v41 = objc_msgSend_bytesDownloaded(self, v39, v40), v41 == objc_msgSend_bytesDownloaded(equalCopy, v42, v43))
+      && (v46 = objc_msgSend_connections(self, v44, v45), v46 == objc_msgSend_connections(equalCopy, v47, v48))
+      && (v51 = objc_msgSend_connectionsCreated(self, v49, v50), v51 == objc_msgSend_connectionsCreated(equalCopy, v52, v53))
+      && (v56 = objc_msgSend_bytesFulfilledByPeers(self, v54, v55), v56 == objc_msgSend_bytesFulfilledByPeers(equalCopy, v57, v58))
+      && (v61 = objc_msgSend_bytesFulfilledLocally(self, v59, v60), v61 == objc_msgSend_bytesFulfilledLocally(equalCopy, v62, v63))
+      && (v66 = objc_msgSend_bytesResumed(self, v64, v65), v66 == objc_msgSend_bytesResumed(equalCopy, v67, v68))
+      && (v71 = objc_msgSend_recordsUploaded(self, v69, v70), v71 == objc_msgSend_recordsUploaded(equalCopy, v72, v73))
+      && (v76 = objc_msgSend_recordsDownloaded(self, v74, v75), v76 == objc_msgSend_recordsDownloaded(equalCopy, v77, v78))
+      && (v81 = objc_msgSend_recordsDeleted(self, v79, v80), v81 == objc_msgSend_recordsDeleted(equalCopy, v82, v83))
+      && (v86 = objc_msgSend_assetsUploaded(self, v84, v85), v86 == objc_msgSend_assetsUploaded(equalCopy, v87, v88))
+      && (v91 = objc_msgSend_assetsUploadedFileSize(self, v89, v90), v91 == objc_msgSend_assetsUploadedFileSize(equalCopy, v92, v93))
+      && (v96 = objc_msgSend_assetsDownloaded(self, v94, v95), v96 == objc_msgSend_assetsDownloaded(equalCopy, v97, v98))
+      && (v101 = objc_msgSend_assetsDownloadedFileSize(self, v99, v100), v101 == objc_msgSend_assetsDownloadedFileSize(equalCopy, v102, v103))
+      && (v106 = objc_msgSend_retries(self, v104, v105), v106 == objc_msgSend_retries(equalCopy, v107, v108))
+      && (v111 = objc_msgSend_requestCount(self, v109, v110), v111 == objc_msgSend_requestCount(equalCopy, v112, v113))
+      && (objc_msgSend_requestOperationCountsByType(self, v114, v115), v116 = objc_claimAutoreleasedReturnValue(), objc_msgSend_requestOperationCountsByType(equalCopy, v117, v118), v119 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v116, v120, v119), v119, v116, isEqual)
+      && (objc_msgSend_totalBytesByChunkProfile(self, v122, v123), v124 = objc_claimAutoreleasedReturnValue(), objc_msgSend_totalBytesByChunkProfile(equalCopy, v125, v126), v127 = objc_claimAutoreleasedReturnValue(), v128 = CKObjectsAreBothNilOrEqual(), v127, v124, v128)
+      && (objc_msgSend_chunkCountByChunkProfile(self, v129, v130), v131 = objc_claimAutoreleasedReturnValue(), objc_msgSend_chunkCountByChunkProfile(equalCopy, v132, v133), v134 = objc_claimAutoreleasedReturnValue(), v135 = CKObjectsAreBothNilOrEqual(), v134, v131, v135)
+      && (objc_msgSend_fileCountByChunkProfile(self, v136, v137), v138 = objc_claimAutoreleasedReturnValue(), objc_msgSend_fileCountByChunkProfile(equalCopy, v139, v140), v141 = objc_claimAutoreleasedReturnValue(), v142 = CKObjectsAreBothNilOrEqual(), v141, v138, v142)
+      && (v145 = objc_msgSend_zoneishKeysRolled(self, v143, v144), v145 == objc_msgSend_zoneishKeysRolled(equalCopy, v146, v147))
+      && (v150 = objc_msgSend_perRecordKeysRolled(self, v148, v149), v150 == objc_msgSend_perRecordKeysRolled(equalCopy, v151, v152))
+      && (v155 = objc_msgSend_zoneKeysRolled(self, v153, v154), v155 == objc_msgSend_zoneKeysRolled(equalCopy, v156, v157))
+      && (v160 = objc_msgSend_shareKeysRolled(self, v158, v159), v160 == objc_msgSend_shareKeysRolled(equalCopy, v161, v162))
+      && (v165 = objc_msgSend_keyRollsSkippedBySizeCheck(self, v163, v164), v165 == objc_msgSend_keyRollsSkippedBySizeCheck(equalCopy, v166, v167))
+      && (v170 = objc_msgSend_identitiesRolledOnRecordSave(self, v168, v169), v170 == objc_msgSend_identitiesRolledOnRecordSave(equalCopy, v171, v172))
+      && (v175 = objc_msgSend_identitiesRolledOnZoneSave(self, v173, v174), v175 == objc_msgSend_identitiesRolledOnZoneSave(equalCopy, v176, v177))
+      && (v180 = objc_msgSend_failedIdentityRollAttempts(self, v178, v179), v180 == objc_msgSend_failedIdentityRollAttempts(equalCopy, v181, v182))
+      && (v185 = objc_msgSend_walrusEnabled(self, v183, v184), v185 == objc_msgSend_walrusEnabled(equalCopy, v186, v187))
+      && (v190 = objc_msgSend_zoneKeysRemoved(self, v188, v189), v190 == objc_msgSend_zoneKeysRemoved(equalCopy, v191, v192))
+      && (v195 = objc_msgSend_zoneishKeysRemoved(self, v193, v194), v195 == objc_msgSend_zoneishKeysRemoved(equalCopy, v196, v197))
+      && (v200 = objc_msgSend_recordKeysRemoved(self, v198, v199), v200 == objc_msgSend_recordKeysRemoved(equalCopy, v201, v202))
+      && (v205 = objc_msgSend_keysNotRemoved(self, v203, v204), v205 == objc_msgSend_keysNotRemoved(equalCopy, v206, v207))
+      && (v210 = objc_msgSend_adopterCapabilityCheckValidationFailures(self, v208, v209), v210 == objc_msgSend_adopterCapabilityCheckValidationFailures(equalCopy, v211, v212))
+      && (objc_msgSend_adopterCapabilityCheckValidationFailureTypes(self, v213, v214), v215 = objc_claimAutoreleasedReturnValue(), objc_msgSend_adopterCapabilityCheckValidationFailureTypes(equalCopy, v216, v217), v218 = objc_claimAutoreleasedReturnValue(), v219 = CKObjectsAreBothNilOrEqual(), v218, v215, v219)
+      && (v222 = objc_msgSend_adopterCapabilityCheckResult(self, v220, v221), v222 == objc_msgSend_adopterCapabilityCheckResult(equalCopy, v223, v224))
+      && (v227 = objc_msgSend_requiredFeatureSetValidationFailures(self, v225, v226), v227 == objc_msgSend_requiredFeatureSetValidationFailures(equalCopy, v228, v229))
+      && (objc_msgSend_requiredFeatureSetValidationFailureTypes(self, v230, v231), v232 = objc_claimAutoreleasedReturnValue(), objc_msgSend_requiredFeatureSetValidationFailureTypes(equalCopy, v233, v234), v235 = objc_claimAutoreleasedReturnValue(), v236 = CKObjectsAreBothNilOrEqual(), v235, v232, v236))
     {
       v239 = objc_msgSend_zoneIDs(self, v237, v238);
       v242 = objc_msgSend_zoneIDs(equalCopy, v240, v241);
@@ -1100,7 +860,6 @@
 
     else
     {
-LABEL_46:
       v243 = 0;
     }
   }

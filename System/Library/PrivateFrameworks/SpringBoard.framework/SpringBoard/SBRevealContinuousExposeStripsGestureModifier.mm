@@ -197,14 +197,14 @@ LABEL_13:
     v11 = [[SBUpdateContinuousExposeStripsPresentationResponse alloc] initWithPresentationOptions:1 dismissalOptions:0 touchType:v10];
 LABEL_14:
     v12 = v11;
-    v13 = SBAppendSwitcherModifierResponse(v11, v5);
+    v13 = SBAppendSwitcherModifierResponse();
 
     v14 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:12 updateMode:3];
-    v15 = SBAppendSwitcherModifierResponse(v14, v13);
+    v15 = SBAppendSwitcherModifierResponse();
 
     v16 = [SBSwitcherTransitionRequest requestForActivatingAppLayout:self->_initialAppLayout];
     v17 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v16 gestureInitiated:1];
-    v5 = SBAppendSwitcherModifierResponse(v17, v15);
+    v5 = SBAppendSwitcherModifierResponse();
   }
 
   return v5;

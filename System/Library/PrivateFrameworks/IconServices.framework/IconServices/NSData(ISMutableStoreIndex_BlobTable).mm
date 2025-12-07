@@ -1,9 +1,9 @@
 @interface NSData(ISMutableStoreIndex_BlobTable)
 + (id)_ISMutableStoreIndex_mappedDataWithSize:()ISMutableStoreIndex_BlobTable;
-- (uint64_t)_ISMutableStoreIndex_addBlobBuffer:()ISMutableStoreIndex_BlobTable size:;
+- (_BYTE)_ISMutableStoreIndex_removeBlobForID:()ISMutableStoreIndex_BlobTable;
+- (_DWORD)_ISMutableStoreIndex_addBlobBuffer:()ISMutableStoreIndex_BlobTable size:;
 - (uint64_t)_ISMutableStoreIndex_addBlobData:()ISMutableStoreIndex_BlobTable;
 - (uint64_t)_ISMutableStoreIndex_availableSpace;
-- (uint64_t)_ISMutableStoreIndex_removeBlobForID:()ISMutableStoreIndex_BlobTable;
 @end
 
 @implementation NSData(ISMutableStoreIndex_BlobTable)
@@ -57,7 +57,7 @@
   return v4 & ~(v4 >> 63);
 }
 
-- (uint64_t)_ISMutableStoreIndex_addBlobBuffer:()ISMutableStoreIndex_BlobTable size:
+- (_DWORD)_ISMutableStoreIndex_addBlobBuffer:()ISMutableStoreIndex_BlobTable size:
 {
   result = 0;
   if (a3)
@@ -69,7 +69,7 @@
       result = [self _ISStoreIndex_blobTableHeader];
       if (result)
       {
-        v10 = *(result + 8);
+        v10 = result[2];
         v11 = a4 + v10 + 12;
         if (v11 + 12 >= v8)
         {
@@ -84,7 +84,7 @@
             *(bytes + v10 + 20) = 0;
           }
 
-          *(result + 8) = v11;
+          result[2] = v11;
           *v12 = v10;
           *(bytes + v10 + 16) = a4;
           memcpy((bytes + v10 + 24), a3, a4);
@@ -108,10 +108,10 @@
   return [self _ISMutableStoreIndex_addBlobBuffer:bytes size:v8];
 }
 
-- (uint64_t)_ISMutableStoreIndex_removeBlobForID:()ISMutableStoreIndex_BlobTable
+- (_BYTE)_ISMutableStoreIndex_removeBlobForID:()ISMutableStoreIndex_BlobTable
 {
   result = [self _ISStoreIndex_blobForID:?];
-  *(result + 8) = 0;
+  result[8] = 0;
   return result;
 }
 

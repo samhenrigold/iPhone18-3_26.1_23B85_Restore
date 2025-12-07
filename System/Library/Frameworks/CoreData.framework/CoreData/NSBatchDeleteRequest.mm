@@ -52,16 +52,16 @@
 
 - (NSBatchDeleteRequest)initWithObjectIDs:(NSArray *)objects
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (![(NSArray *)objects count])
   {
 
-    v19 = MEMORY[0x1E695DF30];
-    v20 = *MEMORY[0x1E695D940];
-    v18 = @"Must supply a non-zero number of objectIDs to request during initialization";
-    v17 = 0;
+    v18 = MEMORY[0x1E695DF30];
+    v19 = *MEMORY[0x1E695D940];
+    v17 = @"Must supply a non-zero number of objectIDs to request during initialization";
+    v16 = 0;
 LABEL_16:
-    objc_exception_throw([v19 exceptionWithName:v20 reason:v18 userInfo:v17]);
+    objc_exception_throw([v18 exceptionWithName:v19 reason:v17 userInfo:v16]);
   }
 
   superentity = [-[NSArray lastObject](objects "lastObject")];
@@ -89,40 +89,40 @@ LABEL_16:
     v7 = 0;
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v8 = [(NSArray *)objects countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v8 = [(NSArray *)objects countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(objects);
         }
 
-        if (([objc_msgSend(*(*(&v21 + 1) + 8 * i) "entity")] & 1) == 0)
+        if (([objc_msgSend(*(*(&v20 + 1) + 8 * i) "entity")] & 1) == 0)
         {
 
-          v15 = MEMORY[0x1E695DF30];
-          v16 = *MEMORY[0x1E695D940];
-          v25 = @"objectIDs";
-          v26 = objects;
-          v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
-          v18 = @"mismatched objectIDs in batch delete initializer";
+          v14 = MEMORY[0x1E695DF30];
+          v15 = *MEMORY[0x1E695D940];
+          v24 = @"objectIDs";
+          v25 = objects;
+          v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+          v17 = @"mismatched objectIDs in batch delete initializer";
+          v18 = v14;
           v19 = v15;
-          v20 = v16;
           goto LABEL_16;
         }
       }
 
-      v9 = [(NSArray *)objects countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v9 = [(NSArray *)objects countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v9);
@@ -134,9 +134,7 @@ LABEL_16:
   [(NSFetchRequest *)v12 setIncludesPendingChanges:0];
   [(NSFetchRequest *)v12 setResultType:1];
   [(NSFetchRequest *)v12 _incrementInUseCounter];
-  result = [(NSBatchDeleteRequest *)self initWithFetchRequest:v12];
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(NSBatchDeleteRequest *)self initWithFetchRequest:v12];
 }
 
 - (NSBatchDeleteRequest)initWithFetchRequest:(NSFetchRequest *)fetch
@@ -183,11 +181,10 @@ LABEL_9:
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  resultType = self->_resultType;
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<NSBatchDeleteRequest : resultType : %ld, fetch :%@ >", resultType, self->_deleteTarget];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], self->_resultType, self->_deleteTarget);
   objc_autoreleasePoolPop(v3);
 
-  return v5;
+  return v4;
 }
 
 @end

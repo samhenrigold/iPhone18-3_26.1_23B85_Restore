@@ -1,384 +1,3 @@
-void sub_297972B80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
-{
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<support::log::global_client_descriptor>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::unique_ptr<support::log::global_client_descriptor>>,void *>>>>::~unique_ptr[abi:ne200100](&a29);
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((a21 & 0x80000000) == 0)
-    {
-      goto LABEL_3;
-    }
-  }
-
-  else if ((a21 & 0x80000000) == 0)
-  {
-LABEL_3:
-    if ((a28 & 0x80000000) == 0)
-    {
-LABEL_8:
-      std::mutex::unlock(&support::log::global_client_descriptor_manager::get_descriptor_instance(std::string const&,std::string const&)::sMutex);
-      _Unwind_Resume(a1);
-    }
-
-LABEL_7:
-    operator delete(a23);
-    std::mutex::unlock(&support::log::global_client_descriptor_manager::get_descriptor_instance(std::string const&,std::string const&)::sMutex);
-    _Unwind_Resume(a1);
-  }
-
-  operator delete(a16);
-  if ((a28 & 0x80000000) == 0)
-  {
-    goto LABEL_8;
-  }
-
-  goto LABEL_7;
-}
-
-void *support::log::client::client(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  *a1 = &unk_2A1E58EF8;
-  *v12 = *a2;
-  v13 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  *__p = *a3;
-  v11 = *(a3 + 16);
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  a1[1] = &unk_2A1E5A630;
-  descriptor_instance = support::log::global_client_descriptor_manager::get_descriptor_instance(v12, __p);
-  a1[2] = descriptor_instance;
-  a1[3] = descriptor_instance;
-  a1[4] = descriptor_instance + 1;
-  a1[5] = descriptor_instance + 4;
-  a1[6] = descriptor_instance + 7;
-  if ((SHIBYTE(v11) & 0x80000000) == 0)
-  {
-    if ((SHIBYTE(v13) & 0x80000000) == 0)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_6:
-    operator delete(v12[0]);
-    if (a4)
-    {
-      goto LABEL_4;
-    }
-
-LABEL_7:
-    pthread_mutex_lock(&ctu::Singleton<support::log::manager_global,support::log::manager_global,ctu::PthreadMutexGuardPolicy<support::log::manager_global>>::sInstance);
-    if (!qword_2A13A3670)
-    {
-      v7 = operator new(0xA8uLL);
-      v7[1] = 0;
-      v7[2] = 0;
-      *v7 = &unk_2A1E5A868;
-      a4 = (v7 + 3);
-      support::log::manager_global::manager_global((v7 + 3));
-      v8 = off_2A13A3678;
-      qword_2A13A3670 = (v7 + 3);
-      off_2A13A3678 = v7;
-      if (!v8)
-      {
-LABEL_13:
-        atomic_fetch_add_explicit(v7 + 1, 1uLL, memory_order_relaxed);
-LABEL_14:
-        pthread_mutex_unlock(&ctu::Singleton<support::log::manager_global,support::log::manager_global,ctu::PthreadMutexGuardPolicy<support::log::manager_global>>::sInstance);
-        a1[7] = a4;
-        a1[8] = v7;
-        goto LABEL_15;
-      }
-
-      if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-      {
-        (v8->__on_zero_shared)(v8);
-        std::__shared_weak_count::__release_weak(v8);
-      }
-    }
-
-    a4 = qword_2A13A3670;
-    v7 = off_2A13A3678;
-    if (!off_2A13A3678)
-    {
-      goto LABEL_14;
-    }
-
-    goto LABEL_13;
-  }
-
-  operator delete(__p[0]);
-  if (SHIBYTE(v13) < 0)
-  {
-    goto LABEL_6;
-  }
-
-LABEL_3:
-  if (!a4)
-  {
-    goto LABEL_7;
-  }
-
-LABEL_4:
-  a1[7] = 0;
-  a1[8] = 0;
-LABEL_15:
-  a1[9] = a4;
-  return a1;
-}
-
-void sub_297972EC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  std::__shared_weak_count::~__shared_weak_count(v21);
-  operator delete(v23);
-  pthread_mutex_unlock(&ctu::Singleton<support::log::manager_global,support::log::manager_global,ctu::PthreadMutexGuardPolicy<support::log::manager_global>>::sInstance);
-  _Unwind_Resume(a1);
-}
-
-void *support::log::client::client(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
-{
-  *a1 = &unk_2A1E58EF8;
-  *v12 = *a2;
-  v13 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  *__p = *a3;
-  v11 = *(a3 + 16);
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  a1[1] = &unk_2A1E5A630;
-  descriptor_instance = support::log::global_client_descriptor_manager::get_descriptor_instance(v12, __p);
-  a1[2] = descriptor_instance;
-  a1[3] = descriptor_instance;
-  a1[4] = descriptor_instance + 1;
-  a1[5] = descriptor_instance + 4;
-  a1[6] = descriptor_instance + 7;
-  if ((SHIBYTE(v11) & 0x80000000) == 0)
-  {
-    if ((SHIBYTE(v13) & 0x80000000) == 0)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_7:
-    operator delete(v12[0]);
-    v7 = *a4;
-    v8 = a4[1];
-    a1[7] = *a4;
-    a1[8] = v8;
-    if (!v8)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_4;
-  }
-
-  operator delete(__p[0]);
-  if (SHIBYTE(v13) < 0)
-  {
-    goto LABEL_7;
-  }
-
-LABEL_3:
-  v7 = *a4;
-  v8 = a4[1];
-  a1[7] = *a4;
-  a1[8] = v8;
-  if (v8)
-  {
-LABEL_4:
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
-    v7 = a1[7];
-  }
-
-LABEL_5:
-  a1[9] = v7;
-  return a1;
-}
-
-void sub_297973040(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((a21 & 0x80000000) == 0)
-    {
-LABEL_3:
-      _Unwind_Resume(exception_object);
-    }
-  }
-
-  else if ((a21 & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(a16);
-  _Unwind_Resume(exception_object);
-}
-
-void *support::log::client::client(void *a1, uint64_t a2, uint64_t a3)
-{
-  *v7 = *a2;
-  v8 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  *__p = *a3;
-  v6 = *(a3 + 16);
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  support::log::client::client(a1, v7, __p, 0);
-  if (SHIBYTE(v6) < 0)
-  {
-    operator delete(__p[0]);
-    if ((SHIBYTE(v8) & 0x80000000) == 0)
-    {
-      return a1;
-    }
-  }
-
-  else if ((SHIBYTE(v8) & 0x80000000) == 0)
-  {
-    return a1;
-  }
-
-  operator delete(v7[0]);
-  return a1;
-}
-
-{
-  *v7 = *a2;
-  v8 = *(a2 + 16);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
-  *__p = *a3;
-  v6 = *(a3 + 16);
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  support::log::client::client(a1, v7, __p, 0);
-  if (SHIBYTE(v6) < 0)
-  {
-    operator delete(__p[0]);
-    if ((SHIBYTE(v8) & 0x80000000) == 0)
-    {
-      return a1;
-    }
-  }
-
-  else if ((SHIBYTE(v8) & 0x80000000) == 0)
-  {
-    return a1;
-  }
-
-  operator delete(v7[0]);
-  return a1;
-}
-
-void sub_297973128(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((a21 & 0x80000000) == 0)
-    {
-LABEL_3:
-      _Unwind_Resume(exception_object);
-    }
-  }
-
-  else if ((a21 & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(a16);
-  _Unwind_Resume(exception_object);
-}
-
-void sub_29797320C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-    if ((a21 & 0x80000000) == 0)
-    {
-LABEL_3:
-      _Unwind_Resume(exception_object);
-    }
-  }
-
-  else if ((a21 & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(a16);
-  _Unwind_Resume(exception_object);
-}
-
-void support::log::stdout_delegate::~stdout_delegate(support::log::stdout_delegate *this)
-{
-  *this = &unk_2A1E5A558;
-  if (*(this + 24) == 1)
-  {
-    v1 = *(this + 2);
-    if (v1)
-    {
-      std::__shared_weak_count::__release_weak(v1);
-    }
-  }
-}
-
-{
-  *this = &unk_2A1E5A558;
-  if (*(this + 24) == 1)
-  {
-    v2 = *(this + 2);
-    if (v2)
-    {
-      v3 = this;
-      std::__shared_weak_count::__release_weak(v2);
-      this = v3;
-    }
-  }
-
-  operator delete(this);
-}
-
-uint64_t ctu::PthreadMutexGuardPolicy<support::log::buffer>::~PthreadMutexGuardPolicy(uint64_t a1)
-{
-  pthread_mutex_lock(a1);
-  v2 = *(a1 + 72);
-  *(a1 + 64) = 0;
-  *(a1 + 72) = 0;
-  pthread_mutex_unlock(a1);
-  if (v2 && !atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    (v2->__on_zero_shared)(v2);
-    std::__shared_weak_count::__release_weak(v2);
-  }
-
-  v3 = *(a1 + 72);
-  if (!v3 || atomic_fetch_add(&v3->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-  {
-    return a1;
-  }
-
-  (v3->__on_zero_shared)(v3);
-  std::__shared_weak_count::__release_weak(v3);
-  return a1;
-}
-
 uint64_t ctu::PthreadMutexGuardPolicy<support::log::manager_global>::~PthreadMutexGuardPolicy(uint64_t a1)
 {
   pthread_mutex_lock(a1);
@@ -653,15 +272,15 @@ uint64_t **std::__hash_table<std::__hash_value_type<std::string,std::unique_ptr<
   v11 = *v10;
   if (*v10)
   {
-    v12 = v1[23];
+    v12 = *(v1 + 23);
     if (v12 >= 0)
     {
-      v13 = v1[23];
+      v13 = *(v1 + 23);
     }
 
     else
     {
-      v13 = *(v1 + 1);
+      v13 = v1[1];
     }
 
     if (v12 < 0)
@@ -1240,102 +859,99 @@ void HSFilerRT_Internal_INT::Session_INT::end(HSFilerRT_Internal_INT::Session_IN
 
 uint64_t HSFilerRT_Internal_INT::startReadSession_sync(uint64_t a1, uint64_t a2)
 {
-  v53 = *MEMORY[0x29EDCA608];
-  v3 = *a2;
+  v48 = *MEMORY[0x29EDCA608];
   {
-    v48 = 0;
-    v49 = 0;
-    v10 = **(a1 + 128);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v43 = 0;
+    v44 = 0;
+    v8 = **(a1 + 128);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_297948000, v10, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
-      Session = 0;
-      goto LABEL_41;
+      _os_log_error_impl(&dword_297948000, v8, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
+      return 0;
     }
 
     goto LABEL_9;
   }
 
-  v7 = *(a2 + 8);
-  v48 = v6;
-  v49 = v7;
-  if (v7)
+  v5 = *(a2 + 8);
+  v43 = v4;
+  v44 = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_lock(&ctu::Singleton<hsfiler_log_manager,hsfiler_log_manager,ctu::PthreadMutexGuardPolicy<hsfiler_log_manager>>::sInstance);
   if (!qword_2A13A35D0)
   {
-    v9 = operator new(0xA8uLL);
-    v9[1] = 0;
-    v9[2] = 0;
-    *v9 = &unk_2A1E59C60;
-    v8 = (v9 + 3);
-    hsfiler_log_manager::hsfiler_log_manager((v9 + 3));
-    v13 = off_2A13A35D8;
-    qword_2A13A35D0 = (v9 + 3);
-    off_2A13A35D8 = v9;
-    if (!v13)
+    v7 = operator new(0xA8uLL);
+    v7[1] = 0;
+    v7[2] = 0;
+    *v7 = &unk_2A1E59C60;
+    v6 = (v7 + 3);
+    hsfiler_log_manager::hsfiler_log_manager((v7 + 3));
+    v11 = off_2A13A35D8;
+    qword_2A13A35D0 = (v7 + 3);
+    off_2A13A35D8 = v7;
+    if (!v11)
     {
-      *buf = v9 + 3;
-      *&buf[8] = v9;
+      *buf = v7 + 3;
+      *&buf[8] = v7;
       goto LABEL_15;
     }
 
-    if (!atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v13->__on_zero_shared)(v13);
-      std::__shared_weak_count::__release_weak(v13);
+      (v11->__on_zero_shared)(v11);
+      std::__shared_weak_count::__release_weak(v11);
     }
   }
 
-  v8 = qword_2A13A35D0;
-  v9 = off_2A13A35D8;
+  v6 = qword_2A13A35D0;
+  v7 = off_2A13A35D8;
   *buf = qword_2A13A35D0;
   *&buf[8] = off_2A13A35D8;
   if (off_2A13A35D8)
   {
 LABEL_15:
-    atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v7 + 1, 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<hsfiler_log_manager,hsfiler_log_manager,ctu::PthreadMutexGuardPolicy<hsfiler_log_manager>>::sInstance);
-  support::transport::ARI::create("HSFilerARITransport", 0x2710, 1, v8, v42);
-  v14 = *&v42[0];
-  *&v42[0] = 0;
-  v15 = v48[15];
-  v48[15] = v14;
-  if (v15)
+  support::transport::ARI::create("HSFilerARITransport", 0x2710, 1, v6, v37);
+  v12 = *&v37[0];
+  *&v37[0] = 0;
+  v13 = v43[15];
+  v43[15] = v12;
+  if (v13)
   {
-    (*(*v15 + 8))(v15);
-    *&v42[0] = 0;
+    (*(*v13 + 8))(v13);
+    *&v37[0] = 0;
   }
 
-  v16 = *&buf[8];
+  v14 = *&buf[8];
   if (*&buf[8] && !atomic_fetch_add((*&buf[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v16->__on_zero_shared)(v16);
-    std::__shared_weak_count::__release_weak(v16);
+    (v14->__on_zero_shared)(v14);
+    std::__shared_weak_count::__release_weak(v14);
   }
 
-  v17 = v48;
-  v18 = v48[15];
-  v19 = **(a1 + 128);
-  if (!v18)
+  v15 = v43;
+  v16 = **(a1 + 128);
+  if (!v43[15])
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v39 = v17[4];
+      v34 = v15[4];
       *buf = 134217984;
-      *&buf[4] = v39;
-      _os_log_error_impl(&dword_297948000, v19, OS_LOG_TYPE_ERROR, "error: Failed to create ARI transport for session (%llu)", buf, 0xCu);
+      *&buf[4] = v34;
+      _os_log_error_impl(&dword_297948000, v16, OS_LOG_TYPE_ERROR, "error: Failed to create ARI transport for session (%llu)", buf, 0xCu);
       Session = 0;
-      v12 = v49;
-      if (!v49)
+      v10 = v44;
+      if (!v44)
       {
-        goto LABEL_41;
+        return Session;
       }
 
       goto LABEL_39;
@@ -1343,138 +959,134 @@ LABEL_15:
 
 LABEL_9:
     Session = 0;
-    v12 = v49;
-    if (!v49)
+    v10 = v44;
+    if (!v44)
     {
-      goto LABEL_41;
+      return Session;
     }
 
     goto LABEL_39;
   }
 
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = v17[4];
-    v21 = *(v17 + 24);
+    v17 = v15[4];
+    v18 = *(v15 + 24);
     *buf = 134218240;
-    *&buf[4] = v20;
+    *&buf[4] = v17;
     *&buf[12] = 1024;
-    *&buf[14] = v21;
-    _os_log_impl(&dword_297948000, v19, OS_LOG_TYPE_DEFAULT, "Starting read session (%llu) with sequenceID (%u)", buf, 0x12u);
-    v18 = v17[15];
+    *&buf[14] = v18;
+    _os_log_impl(&dword_297948000, v16, OS_LOG_TYPE_DEFAULT, "Starting read session (%llu) with sequenceID (%u)", buf, 0x12u);
   }
 
-  *&v22 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v45[2] = v22;
-  v45[0] = v22;
-  v45[1] = v22;
-  v46 = 0xAAAAAAAAAAAAAAAALL;
-  v47 = 0xAAAAAAAAFFFFFFFFLL;
-  v23 = *(v18 + 24);
+  *&v19 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v40[2] = v19;
+  v40[0] = v19;
+  v40[1] = v19;
+  v41 = 0xAAAAAAAAAAAAAAAALL;
+  v42 = 0xAAAAAAAAFFFFFFFFLL;
   hsfiler::ARICommandDriver::ARICommandDriver();
-  *&v24 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *__p = v24;
-  *v44 = v24;
-  v42[2] = v24;
-  v42[3] = v24;
-  v42[0] = v24;
-  v42[1] = v24;
-  AriSdk::ARI_IBIFilerHSStartReadBBSessionReq_SDK::ARI_IBIFilerHSStartReadBBSessionReq_SDK(v42);
-  v25 = &buf[2];
+  *&v20 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *__p = v20;
+  *v39 = v20;
+  v37[2] = v20;
+  v37[3] = v20;
+  v37[0] = v20;
+  v37[1] = v20;
+  AriSdk::ARI_IBIFilerHSStartReadBBSessionReq_SDK::ARI_IBIFilerHSStartReadBBSessionReq_SDK(v37);
+  v21 = &buf[2];
   bzero(&buf[2], 0xBB8uLL);
-  v26 = v17[7];
-  for (*buf = v17[8]; v26; v25 += 100)
+  v22 = v15[7];
+  for (*buf = v15[8]; v22; v21 += 100)
   {
     while (1)
     {
-      v27 = *(v26 + 39);
-      if ((v27 & 0x8000000000000000) == 0)
+      v23 = *(v22 + 39);
+      if ((v23 & 0x8000000000000000) == 0)
       {
         break;
       }
 
-      memcpy(v25, v26[2], v26[3]);
-      v26 = *v26;
-      v25 += 100;
-      if (!v26)
+      memcpy(v21, v22[2], v22[3]);
+      v22 = *v22;
+      v21 += 100;
+      if (!v22)
       {
         goto LABEL_29;
       }
     }
 
-    memcpy(v25, v26 + 2, v27);
-    v26 = *v26;
+    memcpy(v21, v22 + 2, v23);
+    v22 = *v22;
   }
 
 LABEL_29:
-  v28 = *(v17 + 6);
+  v24 = *(v15 + 6);
+  v25 = operator new(4uLL);
+  *v25 = v24;
+  v26 = __p[0];
+  __p[0] = v25;
+  if (v26)
+  {
+    operator delete(v26);
+  }
+
+  v27 = operator new(0xBBAuLL);
+  memcpy(v27, buf, 0xBBAuLL);
+  v28 = __p[1];
+  __p[1] = v27;
+  if (v28)
+  {
+    operator delete(v28);
+  }
+
   v29 = operator new(4uLL);
-  *v29 = v28;
-  v30 = __p[0];
-  __p[0] = v29;
+  *v29 = *(v15 + 25);
+  v30 = v39[0];
+  v39[0] = v29;
   if (v30)
   {
     operator delete(v30);
   }
 
-  v31 = operator new(0xBBAuLL);
-  memcpy(v31, buf, 0xBBAuLL);
-  v32 = __p[1];
-  __p[1] = v31;
+  v31 = operator new(4uLL);
+  *v31 = *(v15 + 24);
+  v32 = v39[1];
+  v39[1] = v31;
   if (v32)
   {
     operator delete(v32);
   }
 
-  v33 = operator new(4uLL);
-  *v33 = *(v17 + 25);
-  v34 = v44[0];
-  v44[0] = v33;
-  if (v34)
-  {
-    operator delete(v34);
-  }
-
-  v35 = operator new(4uLL);
-  *v35 = *(v17 + 24);
-  v36 = v44[1];
-  v44[1] = v35;
-  if (v36)
-  {
-    operator delete(v36);
-  }
-
   Session = hsfiler::ARICommandDriver::StartReadSession();
-  v40 = **(a1 + 128);
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+  v35 = **(a1 + 128);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
-    v41 = v17[4];
-    *v50 = 134217984;
-    v51 = v41;
-    _os_log_error_impl(&dword_297948000, v40, OS_LOG_TYPE_ERROR, "error: Failed StartReadBBSession ARI command for session (%llu)", v50, 0xCu);
+    v36 = v15[4];
+    *v45 = 134217984;
+    v46 = v36;
+    _os_log_error_impl(&dword_297948000, v35, OS_LOG_TYPE_ERROR, "error: Failed StartReadBBSession ARI command for session (%llu)", v45, 0xCu);
   }
 
-  MEMORY[0x29C276600](v42);
-  hsfiler::ARICommandDriver::~ARICommandDriver(v45);
-  v12 = v49;
-  if (v49)
+  MEMORY[0x29C276600](v37);
+  hsfiler::ARICommandDriver::~ARICommandDriver(v40);
+  v10 = v44;
+  if (v44)
   {
 LABEL_39:
-    if (!atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v12->__on_zero_shared)(v12);
-      std::__shared_weak_count::__release_weak(v12);
+      (v10->__on_zero_shared)(v10);
+      std::__shared_weak_count::__release_weak(v10);
     }
   }
 
-LABEL_41:
-  v37 = *MEMORY[0x29EDCA608];
   return Session;
 }
 
-void sub_297974CC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_297974CC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
 {
   std::__shared_weak_count::~__shared_weak_count(v37);
   operator delete(v39);
@@ -1485,241 +1097,234 @@ void sub_297974CC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t HSFilerRT_Internal_INT::startWriteSession_sync(uint64_t a1, uint64_t a2)
 {
-  v53 = *MEMORY[0x29EDCA608];
-  v3 = *a2;
+  v48 = *MEMORY[0x29EDCA608];
   {
-    v48 = 0;
-    v49 = 0;
-    v10 = **(a1 + 128);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v43 = 0;
+    v44 = 0;
+    v8 = **(a1 + 128);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_297948000, v10, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
-      v11 = 0;
-      goto LABEL_41;
+      _os_log_error_impl(&dword_297948000, v8, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
+      return 0;
     }
 
     goto LABEL_9;
   }
 
-  v7 = *(a2 + 8);
-  v48 = v6;
-  v49 = v7;
-  if (v7)
+  v5 = *(a2 + 8);
+  v43 = v4;
+  v44 = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_lock(&ctu::Singleton<hsfiler_log_manager,hsfiler_log_manager,ctu::PthreadMutexGuardPolicy<hsfiler_log_manager>>::sInstance);
   if (!qword_2A13A35D0)
   {
-    v9 = operator new(0xA8uLL);
-    v9[1] = 0;
-    v9[2] = 0;
-    *v9 = &unk_2A1E59C60;
-    v8 = (v9 + 3);
-    hsfiler_log_manager::hsfiler_log_manager((v9 + 3));
-    v13 = off_2A13A35D8;
-    qword_2A13A35D0 = (v9 + 3);
-    off_2A13A35D8 = v9;
-    if (!v13)
+    v7 = operator new(0xA8uLL);
+    v7[1] = 0;
+    v7[2] = 0;
+    *v7 = &unk_2A1E59C60;
+    v6 = (v7 + 3);
+    hsfiler_log_manager::hsfiler_log_manager((v7 + 3));
+    v11 = off_2A13A35D8;
+    qword_2A13A35D0 = (v7 + 3);
+    off_2A13A35D8 = v7;
+    if (!v11)
     {
-      *buf = v9 + 3;
-      *&buf[8] = v9;
+      *buf = v7 + 3;
+      *&buf[8] = v7;
       goto LABEL_15;
     }
 
-    if (!atomic_fetch_add(&v13->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v11->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v13->__on_zero_shared)(v13);
-      std::__shared_weak_count::__release_weak(v13);
+      (v11->__on_zero_shared)(v11);
+      std::__shared_weak_count::__release_weak(v11);
     }
   }
 
-  v8 = qword_2A13A35D0;
-  v9 = off_2A13A35D8;
+  v6 = qword_2A13A35D0;
+  v7 = off_2A13A35D8;
   *buf = qword_2A13A35D0;
   *&buf[8] = off_2A13A35D8;
   if (off_2A13A35D8)
   {
 LABEL_15:
-    atomic_fetch_add_explicit(v9 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v7 + 1, 1uLL, memory_order_relaxed);
   }
 
   pthread_mutex_unlock(&ctu::Singleton<hsfiler_log_manager,hsfiler_log_manager,ctu::PthreadMutexGuardPolicy<hsfiler_log_manager>>::sInstance);
-  support::transport::ARI::create("HSFilerARITransport", 0x2710, 1, v8, v42);
-  v14 = *&v42[0];
-  *&v42[0] = 0;
-  v15 = v48[15];
-  v48[15] = v14;
-  if (v15)
+  support::transport::ARI::create("HSFilerARITransport", 0x2710, 1, v6, v37);
+  v12 = *&v37[0];
+  *&v37[0] = 0;
+  v13 = v43[15];
+  v43[15] = v12;
+  if (v13)
   {
-    (*(*v15 + 8))(v15);
-    *&v42[0] = 0;
+    (*(*v13 + 8))(v13);
+    *&v37[0] = 0;
   }
 
-  v16 = *&buf[8];
+  v14 = *&buf[8];
   if (*&buf[8] && !atomic_fetch_add((*&buf[8] + 8), 0xFFFFFFFFFFFFFFFFLL))
   {
-    (v16->__on_zero_shared)(v16);
-    std::__shared_weak_count::__release_weak(v16);
+    (v14->__on_zero_shared)(v14);
+    std::__shared_weak_count::__release_weak(v14);
   }
 
-  v17 = v48;
-  v18 = v48[15];
-  v19 = **(a1 + 128);
-  if (!v18)
+  v15 = v43;
+  v16 = **(a1 + 128);
+  if (!v43[15])
   {
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v39 = v17[4];
+      v34 = v15[4];
       *buf = 134217984;
-      *&buf[4] = v39;
-      _os_log_error_impl(&dword_297948000, v19, OS_LOG_TYPE_ERROR, "error: Failed to create ARI transport for session (%llu)", buf, 0xCu);
-      v11 = 0;
-      v12 = v49;
-      if (!v49)
+      *&buf[4] = v34;
+      _os_log_error_impl(&dword_297948000, v16, OS_LOG_TYPE_ERROR, "error: Failed to create ARI transport for session (%llu)", buf, 0xCu);
+      v9 = 0;
+      v10 = v44;
+      if (!v44)
       {
-        goto LABEL_41;
+        return v9;
       }
 
       goto LABEL_39;
     }
 
 LABEL_9:
-    v11 = 0;
-    v12 = v49;
-    if (!v49)
+    v9 = 0;
+    v10 = v44;
+    if (!v44)
     {
-      goto LABEL_41;
+      return v9;
     }
 
     goto LABEL_39;
   }
 
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = v17[4];
-    v21 = *(v17 + 24);
+    v17 = v15[4];
+    v18 = *(v15 + 24);
     *buf = 134218240;
-    *&buf[4] = v20;
+    *&buf[4] = v17;
     *&buf[12] = 1024;
-    *&buf[14] = v21;
-    _os_log_impl(&dword_297948000, v19, OS_LOG_TYPE_DEFAULT, "Starting write session (%llu) with sequenceID (%u)", buf, 0x12u);
-    v18 = v17[15];
+    *&buf[14] = v18;
+    _os_log_impl(&dword_297948000, v16, OS_LOG_TYPE_DEFAULT, "Starting write session (%llu) with sequenceID (%u)", buf, 0x12u);
   }
 
-  *&v22 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v22 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v45[2] = v22;
-  v45[0] = v22;
-  v45[1] = v22;
-  v46 = 0xAAAAAAAAAAAAAAAALL;
-  v47 = 0xAAAAAAAAFFFFFFFFLL;
-  v23 = *(v18 + 24);
+  *&v19 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v19 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v40[2] = v19;
+  v40[0] = v19;
+  v40[1] = v19;
+  v41 = 0xAAAAAAAAAAAAAAAALL;
+  v42 = 0xAAAAAAAAFFFFFFFFLL;
   hsfiler::ARICommandDriver::ARICommandDriver();
-  *&v24 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v24 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *__p = v24;
-  *v44 = v24;
-  v42[2] = v24;
-  v42[3] = v24;
-  v42[0] = v24;
-  v42[1] = v24;
-  AriSdk::ARI_IBIFilerHSStartWriteBBSessionReq_SDK::ARI_IBIFilerHSStartWriteBBSessionReq_SDK(v42);
-  v25 = &buf[2];
+  *&v20 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *__p = v20;
+  *v39 = v20;
+  v37[2] = v20;
+  v37[3] = v20;
+  v37[0] = v20;
+  v37[1] = v20;
+  AriSdk::ARI_IBIFilerHSStartWriteBBSessionReq_SDK::ARI_IBIFilerHSStartWriteBBSessionReq_SDK(v37);
+  v21 = &buf[2];
   bzero(&buf[2], 0xBB8uLL);
-  v26 = v17[7];
-  for (*buf = v17[8]; v26; v25 += 100)
+  v22 = v15[7];
+  for (*buf = v15[8]; v22; v21 += 100)
   {
     while (1)
     {
-      v27 = *(v26 + 39);
-      if ((v27 & 0x8000000000000000) == 0)
+      v23 = *(v22 + 39);
+      if ((v23 & 0x8000000000000000) == 0)
       {
         break;
       }
 
-      memcpy(v25, v26[2], v26[3]);
-      v26 = *v26;
-      v25 += 100;
-      if (!v26)
+      memcpy(v21, v22[2], v22[3]);
+      v22 = *v22;
+      v21 += 100;
+      if (!v22)
       {
         goto LABEL_29;
       }
     }
 
-    memcpy(v25, v26 + 2, v27);
-    v26 = *v26;
+    memcpy(v21, v22 + 2, v23);
+    v22 = *v22;
   }
 
 LABEL_29:
-  v28 = *(v17 + 6);
+  v24 = *(v15 + 6);
+  v25 = operator new(4uLL);
+  *v25 = v24;
+  v26 = __p[0];
+  __p[0] = v25;
+  if (v26)
+  {
+    operator delete(v26);
+  }
+
+  v27 = operator new(0xBBAuLL);
+  memcpy(v27, buf, 0xBBAuLL);
+  v28 = __p[1];
+  __p[1] = v27;
+  if (v28)
+  {
+    operator delete(v28);
+  }
+
   v29 = operator new(4uLL);
-  *v29 = v28;
-  v30 = __p[0];
-  __p[0] = v29;
+  *v29 = *(v15 + 25);
+  v30 = v39[0];
+  v39[0] = v29;
   if (v30)
   {
     operator delete(v30);
   }
 
-  v31 = operator new(0xBBAuLL);
-  memcpy(v31, buf, 0xBBAuLL);
-  v32 = __p[1];
-  __p[1] = v31;
+  v31 = operator new(4uLL);
+  *v31 = *(v15 + 24);
+  v32 = v39[1];
+  v39[1] = v31;
   if (v32)
   {
     operator delete(v32);
   }
 
-  v33 = operator new(4uLL);
-  *v33 = *(v17 + 25);
-  v34 = v44[0];
-  v44[0] = v33;
-  if (v34)
+  v9 = hsfiler::ARICommandDriver::StartWriteSession();
+  v35 = **(a1 + 128);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
-    operator delete(v34);
+    v36 = v15[4];
+    *v45 = 134217984;
+    v46 = v36;
+    _os_log_error_impl(&dword_297948000, v35, OS_LOG_TYPE_ERROR, "error: Failed StartWriteBBSession ARI command for session (%llu)", v45, 0xCu);
   }
 
-  v35 = operator new(4uLL);
-  *v35 = *(v17 + 24);
-  v36 = v44[1];
-  v44[1] = v35;
-  if (v36)
-  {
-    operator delete(v36);
-  }
-
-  v11 = hsfiler::ARICommandDriver::StartWriteSession();
-  v40 = **(a1 + 128);
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
-  {
-    v41 = v17[4];
-    *v50 = 134217984;
-    v51 = v41;
-    _os_log_error_impl(&dword_297948000, v40, OS_LOG_TYPE_ERROR, "error: Failed StartWriteBBSession ARI command for session (%llu)", v50, 0xCu);
-  }
-
-  MEMORY[0x29C276620](v42);
-  hsfiler::ARICommandDriver::~ARICommandDriver(v45);
-  v12 = v49;
-  if (v49)
+  MEMORY[0x29C276620](v37);
+  hsfiler::ARICommandDriver::~ARICommandDriver(v40);
+  v10 = v44;
+  if (v44)
   {
 LABEL_39:
-    if (!atomic_fetch_add(&v12->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    if (!atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v12->__on_zero_shared)(v12);
-      std::__shared_weak_count::__release_weak(v12);
+      (v10->__on_zero_shared)(v10);
+      std::__shared_weak_count::__release_weak(v10);
     }
   }
 
-LABEL_41:
-  v37 = *MEMORY[0x29EDCA608];
-  return v11;
+  return v9;
 }
 
-void sub_2979753BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_2979753BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
 {
   std::__shared_weak_count::~__shared_weak_count(v37);
   operator delete(v39);
@@ -1730,13 +1335,145 @@ void sub_2979753BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL HSFilerRT_Internal_INT::endSession_sync(uint64_t a1, uint64_t a2)
 {
-  v37 = *MEMORY[0x29EDCA608];
-  v3 = *a2;
+  v32 = *MEMORY[0x29EDCA608];
+  {
+    v5 = v4;
+    v6 = *(a2 + 8);
+    v25 = v4;
+    v26 = v6;
+    if (v6)
+    {
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v7 = **(a1 + 128);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v5[4];
+      v9 = *(v5 + 24);
+      LODWORD(buf[0]) = 134218240;
+      *(buf + 4) = v8;
+      WORD6(buf[0]) = 1024;
+      *(buf + 14) = v9;
+      _os_log_impl(&dword_297948000, v7, OS_LOG_TYPE_DEFAULT, "Ending session (%llu) with sequenceID (%u) with the baseband", buf, 0x12u);
+    }
+
+    *&v10 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v22[1] = v10;
+    v22[2] = v10;
+    v22[0] = v10;
+    v23 = 0xAAAAAAAAAAAAAAAALL;
+    v24 = 0xAAAAAAAAFFFFFFFFLL;
+    hsfiler::ARICommandDriver::ARICommandDriver();
+    v31 = 0xAAAAAAAAAAAAAAAALL;
+    *&v11 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    buf[3] = v11;
+    __p = v11;
+    buf[1] = v11;
+    buf[2] = v11;
+    buf[0] = v11;
+    AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK::ARI_IBIFilerHSEndBBSessionReq_SDK(buf);
+    v12 = *(v5 + 6);
+    v13 = operator new(4uLL);
+    *v13 = v12;
+    v14 = __p;
+    *&__p = v13;
+    if (v14)
+    {
+      operator delete(v14);
+    }
+
+    v15 = operator new(4uLL);
+    *v15 = *(v5 + 24);
+    v16 = v31;
+    v31 = v15;
+    if (v16)
+    {
+      operator delete(v16);
+    }
+
+    v19 = hsfiler::ARICommandDriver::EndSession();
+    v20 = **(a1 + 128);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      v21 = v5[4];
+      *v27 = 134217984;
+      v28 = v21;
+      _os_log_error_impl(&dword_297948000, v20, OS_LOG_TYPE_ERROR, "error: Failed EndBBSession ARI command for session (%llu)", v27, 0xCu);
+    }
+
+    MEMORY[0x29C2765C0](buf);
+    hsfiler::ARICommandDriver::~ARICommandDriver(v22);
+    if (v6)
+    {
+      if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v6->__on_zero_shared)(v6);
+        std::__shared_weak_count::__release_weak(v6);
+      }
+    }
+
+    return v19;
+  }
+
+  else
+  {
+    v18 = **(a1 + 128);
+    result = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+    if (result)
+    {
+      LOWORD(buf[0]) = 0;
+      _os_log_error_impl(&dword_297948000, v18, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_297975854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
+  v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  va_copy(va2, va1);
+  v15 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
+  v20 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
+  MEMORY[0x29C2765C0](va2, a2, a3);
+  hsfiler::ARICommandDriver::~ARICommandDriver(va);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va1);
+  _Unwind_Resume(a1);
+}
+
+void sub_297975888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t HSFilerRT_Internal_INT::getFileSize_sync(uint64_t a1, uint64_t a2, uint64_t *a3)
+{
+  v35 = *MEMORY[0x29EDCA608];
   {
     v7 = v6;
     v8 = *(a2 + 8);
-    v30 = v6;
-    v31 = v8;
+    v28 = v6;
+    v29 = v8;
     if (v8)
     {
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1746,270 +1483,130 @@ BOOL HSFilerRT_Internal_INT::endSession_sync(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = v7[4];
-      v11 = *(v7 + 24);
-      LODWORD(buf[0]) = 134218240;
-      *(buf + 4) = v10;
-      WORD6(buf[0]) = 1024;
-      *(buf + 14) = v11;
-      _os_log_impl(&dword_297948000, v9, OS_LOG_TYPE_DEFAULT, "Ending session (%llu) with sequenceID (%u) with the baseband", buf, 0x12u);
-    }
-
-    *&v12 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v27[1] = v12;
-    v27[2] = v12;
-    v27[0] = v12;
-    v28 = 0xAAAAAAAAAAAAAAAALL;
-    v29 = 0xAAAAAAAAFFFFFFFFLL;
-    v13 = *(v7[15] + 24);
-    hsfiler::ARICommandDriver::ARICommandDriver();
-    v36 = 0xAAAAAAAAAAAAAAAALL;
-    *&v14 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    buf[3] = v14;
-    __p = v14;
-    buf[1] = v14;
-    buf[2] = v14;
-    buf[0] = v14;
-    AriSdk::ARI_IBIFilerHSEndBBSessionReq_SDK::ARI_IBIFilerHSEndBBSessionReq_SDK(buf);
-    v15 = *(v7 + 6);
-    v16 = operator new(4uLL);
-    *v16 = v15;
-    v17 = __p;
-    *&__p = v16;
-    if (v17)
-    {
-      operator delete(v17);
-    }
-
-    v18 = operator new(4uLL);
-    *v18 = *(v7 + 24);
-    v19 = v36;
-    v36 = v18;
-    if (v19)
-    {
-      operator delete(v19);
-    }
-
-    v24 = hsfiler::ARICommandDriver::EndSession();
-    v25 = **(a1 + 128);
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-    {
-      v26 = v7[4];
-      *v32 = 134217984;
-      v33 = v26;
-      _os_log_error_impl(&dword_297948000, v25, OS_LOG_TYPE_ERROR, "error: Failed EndBBSession ARI command for session (%llu)", v32, 0xCu);
-    }
-
-    MEMORY[0x29C2765C0](buf);
-    hsfiler::ARICommandDriver::~ARICommandDriver(v27);
-    if (v8)
-    {
-      if (!atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      if (*(a3 + 23) >= 0)
       {
-        (v8->__on_zero_shared)(v8);
-        std::__shared_weak_count::__release_weak(v8);
-      }
-    }
-
-    result = v24;
-    v21 = *MEMORY[0x29EDCA608];
-  }
-
-  else
-  {
-    v22 = **(a1 + 128);
-    result = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
-    if (result)
-    {
-      LOWORD(buf[0]) = 0;
-      _os_log_error_impl(&dword_297948000, v22, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
-      result = 0;
-    }
-
-    v23 = *MEMORY[0x29EDCA608];
-  }
-
-  return result;
-}
-
-void sub_297975854(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  va_copy(va2, va1);
-  v13 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
-  v19 = va_arg(va2, void);
-  MEMORY[0x29C2765C0](va2);
-  hsfiler::ARICommandDriver::~ARICommandDriver(va);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va1);
-  _Unwind_Resume(a1);
-}
-
-void sub_297975888(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HSFilerRT_Internal_INT::getFileSize_sync(uint64_t a1, uint64_t a2, char *a3)
-{
-  v39 = *MEMORY[0x29EDCA608];
-  v4 = *a2;
-  {
-    v9 = v8;
-    v10 = *(a2 + 8);
-    v32 = v8;
-    v33 = v10;
-    if (v10)
-    {
-      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v11 = **(a1 + 128);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = v9[4];
-      if (a3[23] >= 0)
-      {
-        v13 = a3;
+        v11 = a3;
       }
 
       else
       {
-        v13 = *a3;
+        v11 = *a3;
       }
 
       LODWORD(buf[0]) = 134218242;
-      *(buf + 4) = v12;
+      *(buf + 4) = v10;
       WORD6(buf[0]) = 2080;
-      *(buf + 14) = v13;
-      _os_log_impl(&dword_297948000, v11, OS_LOG_TYPE_DEFAULT, "Getting session (%llu) file (%s) size from baseband", buf, 0x16u);
+      *(buf + 14) = v11;
+      _os_log_impl(&dword_297948000, v9, OS_LOG_TYPE_DEFAULT, "Getting session (%llu) file (%s) size from baseband", buf, 0x16u);
     }
 
-    *&v14 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v29[1] = v14;
-    v29[2] = v14;
-    v29[0] = v14;
-    v30 = 0xAAAAAAAAAAAAAAAALL;
-    v31 = 0xAAAAAAAAFFFFFFFFLL;
-    v15 = *(v9[15] + 24);
+    *&v12 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    v25[1] = v12;
+    v25[2] = v12;
+    v25[0] = v12;
+    v26 = 0xAAAAAAAAAAAAAAAALL;
+    v27 = 0xAAAAAAAAFFFFFFFFLL;
     hsfiler::ARICommandDriver::ARICommandDriver();
-    *&v16 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    __p[1] = v16;
-    v38 = v16;
-    buf[3] = v16;
-    __p[0] = v16;
-    buf[1] = v16;
-    buf[2] = v16;
-    buf[0] = v16;
+    *&v13 = 0xAAAAAAAAAAAAAAAALL;
+    *(&v13 + 1) = 0xAAAAAAAAAAAAAAAALL;
+    __p[1] = v13;
+    v34 = v13;
+    buf[3] = v13;
+    __p[0] = v13;
+    buf[1] = v13;
+    buf[2] = v13;
+    buf[0] = v13;
     AriSdk::ARI_IBIFilerHSReadBBGetSizeReq_SDK::ARI_IBIFilerHSReadBBGetSizeReq_SDK(buf);
-    v17 = *(v9 + 6);
-    v18 = operator new(4uLL);
-    *v18 = v17;
-    v19 = *&__p[0];
-    *&__p[0] = v18;
-    if (v19)
+    v14 = *(v7 + 6);
+    v15 = operator new(4uLL);
+    *v15 = v14;
+    v16 = *&__p[0];
+    *&__p[0] = v15;
+    if (v16)
     {
-      operator delete(v19);
+      operator delete(v16);
     }
 
-    v20 = a3[23];
-    if ((v20 & 0x80u) == 0)
+    v17 = *(a3 + 23);
+    if ((v17 & 0x80u) == 0)
     {
-      v21 = a3;
+      v18 = a3;
     }
 
     else
     {
-      v21 = *a3;
+      v18 = *a3;
     }
 
-    if ((v20 & 0x80u) != 0)
+    if ((v17 & 0x80u) != 0)
     {
-      v20 = *(a3 + 1);
+      v17 = a3[1];
     }
 
-    AriSdk::TlvArray<char,100ul>::assign<std::__wrap_iter<char const*>>((__p + 8), v21, &v21[v20]);
-    v22 = operator new(4uLL);
-    *v22 = *(v9 + 24);
-    v23 = v38;
-    *&v38 = v22;
-    if (v23)
+    AriSdk::TlvArray<char,100ul>::assign<std::__wrap_iter<char const*>>((__p + 8), v18, &v18[v17]);
+    v19 = operator new(4uLL);
+    *v19 = *(v7 + 24);
+    v20 = v34;
+    *&v34 = v19;
+    if (v20)
     {
-      operator delete(v23);
+      operator delete(v20);
     }
 
     hsfiler::ARICommandDriver::GetReadSize();
-    v27 = **(a1 + 128);
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v23 = **(a1 + 128);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v28 = v9[4];
-      *v34 = 134217984;
-      v35 = v28;
-      _os_log_error_impl(&dword_297948000, v27, OS_LOG_TYPE_ERROR, "error: Failed ReadBBGetSize ARI command for session (%llu)", v34, 0xCu);
+      v24 = v7[4];
+      *v30 = 134217984;
+      v31 = v24;
+      _os_log_error_impl(&dword_297948000, v23, OS_LOG_TYPE_ERROR, "error: Failed ReadBBGetSize ARI command for session (%llu)", v30, 0xCu);
     }
 
     MEMORY[0x29C2765E0](buf);
-    hsfiler::ARICommandDriver::~ARICommandDriver(v29);
-    if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    hsfiler::ARICommandDriver::~ARICommandDriver(v25);
+    if (v8 && !atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      (v10->__on_zero_shared)(v10);
-      std::__shared_weak_count::__release_weak(v10);
+      (v8->__on_zero_shared)(v8);
+      std::__shared_weak_count::__release_weak(v8);
     }
   }
 
   else
   {
-    v24 = **(a1 + 128);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v21 = **(a1 + 128);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_error_impl(&dword_297948000, v24, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
+      _os_log_error_impl(&dword_297948000, v21, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
     }
   }
 
-  v25 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-void sub_297975CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_297975CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va2, a3);
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va2, a5);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   va_copy(va2, va1);
-  v13 = va_arg(va2, void);
   v15 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
   v17 = va_arg(va2, void);
   v18 = va_arg(va2, void);
   v19 = va_arg(va2, void);
-  MEMORY[0x29C2765E0](va2);
+  v20 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
+  MEMORY[0x29C2765E0](va2, a2, a3);
   hsfiler::ARICommandDriver::~ARICommandDriver(va);
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va1);
   _Unwind_Resume(a1);
@@ -2017,7 +1614,7 @@ void sub_297975CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 
 void AriSdk::TlvArray<char,100ul>::assign<std::__wrap_iter<char const*>>(Ari *a1, char *a2, char *a3)
 {
-  v53 = *MEMORY[0x29EDCA608];
+  v52 = *MEMORY[0x29EDCA608];
   v4 = a3 - a2;
   if ((a3 - a2) < 0x65)
   {
@@ -2077,7 +1674,7 @@ void AriSdk::TlvArray<char,100ul>::assign<std::__wrap_iter<char const*>>(Ari *a1
 
         v13 = &v11[v12 & 0xFFFFFFFFFFFFFFE0];
         v30 = v11 + 16;
-        v31 = (a2 + 16);
+        v31 = a2 + 16;
         v32 = v12 & 0xFFFFFFFFFFFFFFE0;
         do
         {
@@ -2085,7 +1682,7 @@ void AriSdk::TlvArray<char,100ul>::assign<std::__wrap_iter<char const*>>(Ari *a1
           *(v30 - 1) = *(v31 - 1);
           *v30 = v33;
           v30 += 2;
-          v31 += 2;
+          v31 += 32;
           v32 -= 32;
         }
 
@@ -2107,7 +1704,7 @@ LABEL_34:
       }
 
       *(a1 + 1) = v13;
-      goto LABEL_44;
+      return;
     }
 
     v19 = *(a1 + 1);
@@ -2184,7 +1781,7 @@ LABEL_42:
     v36 = v22;
 LABEL_43:
     *(a1 + 1) = v36;
-    goto LABEL_44;
+    return;
   }
 
   LogLevels = Ari::GetLogLevels(a1);
@@ -2193,29 +1790,29 @@ LABEL_43:
     OsLog = AriOsa::GetOsLog(LogLevels);
     if (os_log_type_enabled(OsLog, OS_LOG_TYPE_ERROR))
     {
-      AriOsa::LogSrcInfo(v40, "/AppleInternal/Library/BuildRoots/4~CAp9ugB6BN4_7o5_ni_nqpzR2zaN46Dzo_3IlW4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ARI/ari_sdk_msg.h", "assign", v16);
-      v39 = v41 >= 0 ? v40 : v40[0];
+      AriOsa::LogSrcInfo(v39, "/AppleInternal/Library/BuildRoots/4~CAp9ugB6BN4_7o5_ni_nqpzR2zaN46Dzo_3IlW4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ARI/ari_sdk_msg.h", "assign", v16);
+      v38 = v40 >= 0 ? v39 : v39[0];
       *__p = 136316418;
       *&__p[4] = "ari";
-      v43 = 2080;
-      v44 = v39;
-      v45 = 1024;
-      v46 = 385;
-      v47 = 2048;
-      v48 = a1;
-      v49 = 2048;
-      v50 = v4;
-      v51 = 2048;
-      v52 = 100;
+      v42 = 2080;
+      v43 = v38;
+      v44 = 1024;
+      v45 = 385;
+      v46 = 2048;
+      v47 = a1;
+      v48 = 2048;
+      v49 = v4;
+      v50 = 2048;
+      v51 = 100;
       _os_log_error_impl(&dword_297948000, OsLog, OS_LOG_TYPE_ERROR, "%s: (%s:%d) Range assignment too large(%p), got(%ld) max(%ld)", __p, 0x3Au);
-      if (v41 < 0)
+      if (v40 < 0)
       {
-        operator delete(v40[0]);
+        operator delete(v39[0]);
       }
     }
 
     AriOsa::LogSrcInfo(__p, "/AppleInternal/Library/BuildRoots/4~CAp9ugB6BN4_7o5_ni_nqpzR2zaN46Dzo_3IlW4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/ARI/ari_sdk_msg.h", "assign", v16);
-    if (v45 >= 0)
+    if (v44 >= 0)
     {
       v18 = __p;
     }
@@ -2226,14 +1823,11 @@ LABEL_43:
     }
 
     AriOsa::LogToDefaultStringLogger(8, "(%s:%d) Range assignment too large(%p), got(%ld) max(%ld)", v17, v18, 385, a1, v4, 100);
-    if (SHIBYTE(v45) < 0)
+    if (SHIBYTE(v44) < 0)
     {
       operator delete(*__p);
     }
   }
-
-LABEL_44:
-  v38 = *MEMORY[0x29EDCA608];
 }
 
 void sub_297976098(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -2249,267 +1843,266 @@ void sub_297976098(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL HSFilerRT_Internal_INT::readFile_sync(uint64_t a1, uint64_t a2, char *a3, mach_vm_size_t a4, uint64_t a5)
 {
-  v74 = *MEMORY[0x29EDCA608];
-  v6 = *a2;
+  v70 = *MEMORY[0x29EDCA608];
   if (*a2)
   {
-    v11 = **v6;
-    if (v12)
+    if (v10)
     {
-      v13 = v12;
-      v14 = *(a2 + 8);
-      v63 = v12;
-      v64 = v14;
-      if (v14)
+      v11 = v10;
+      v12 = *(a2 + 8);
+      v59 = v10;
+      v60 = v12;
+      if (v12)
       {
-        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v15 = **(a1 + 128);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v13 = **(a1 + 128);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = v13[4];
+        v14 = v11[4];
         if (a3[23] >= 0)
         {
-          v17 = a3;
+          v15 = a3;
         }
 
         else
         {
-          v17 = *a3;
+          v15 = *a3;
         }
 
         *buf = 134218242;
-        *&buf[4] = v16;
+        *&buf[4] = v14;
         *&buf[12] = 2080;
-        *&buf[14] = v17;
-        _os_log_impl(&dword_297948000, v15, OS_LOG_TYPE_DEFAULT, "Reading session (%llu) file (%s) from baseband", buf, 0x16u);
+        *&buf[14] = v15;
+        _os_log_impl(&dword_297948000, v13, OS_LOG_TYPE_DEFAULT, "Reading session (%llu) file (%s) from baseband", buf, 0x16u);
       }
 
-      *&v18 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v60[1] = v18;
-      v60[2] = v18;
-      v60[0] = v18;
-      v61 = 0xAAAAAAAAAAAAAAAALL;
-      v62 = 0xAAAAAAAAFFFFFFFFLL;
-      v19 = *(v13[15] + 24);
-      hsfiler::ARICommandDriver::ARICommandDriver();
-      *&v20 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v72[1] = v20;
-      v73 = v20;
-      v71 = v20;
-      v72[0] = v20;
-      *&buf[16] = v20;
-      v70 = v20;
-      *buf = v20;
-      AriSdk::ARI_IBIFilerHSReadBBReq_SDK::ARI_IBIFilerHSReadBBReq_SDK(buf);
-      v58 = 0xAAAAAAAAAAAAAAAALL;
-      v59 = 0;
+      *&v16 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v56[1] = v16;
+      v56[2] = v16;
+      v56[0] = v16;
       v57 = 0xAAAAAAAAAAAAAAAALL;
-      v68 = 11;
+      v58 = 0xAAAAAAAAFFFFFFFFLL;
+      hsfiler::ARICommandDriver::ARICommandDriver();
+      *&v17 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v68[1] = v17;
+      v69 = v17;
+      v67 = v17;
+      v68[0] = v17;
+      *&buf[16] = v17;
+      v66 = v17;
+      *buf = v17;
+      AriSdk::ARI_IBIFilerHSReadBBReq_SDK::ARI_IBIFilerHSReadBBReq_SDK(buf);
+      v54 = 0xAAAAAAAAAAAAAAAALL;
+      v55 = 0;
+      v53 = 0xAAAAAAAAAAAAAAAALL;
+      v64 = 11;
       strcpy(__p, "HSFilerRead");
       pthread_mutex_lock(&ctu::Singleton<hsfiler_log_manager,hsfiler_log_manager,ctu::PthreadMutexGuardPolicy<hsfiler_log_manager>>::sInstance);
       if (!qword_2A13A35D0)
       {
-        v22 = operator new(0xA8uLL);
-        v22->__shared_owners_ = 0;
-        v22->__shared_weak_owners_ = 0;
-        v22->__vftable = &unk_2A1E59C60;
-        v21 = &v22[1];
-        hsfiler_log_manager::hsfiler_log_manager(&v22[1]);
-        v25 = off_2A13A35D8;
-        qword_2A13A35D0 = &v22[1];
-        off_2A13A35D8 = v22;
-        if (!v25)
+        v19 = operator new(0xA8uLL);
+        v19->__shared_owners_ = 0;
+        v19->__shared_weak_owners_ = 0;
+        v19->__vftable = &unk_2A1E59C60;
+        v18 = &v19[1].__vftable;
+        hsfiler_log_manager::hsfiler_log_manager(&v19[1]);
+        v22 = off_2A13A35D8;
+        qword_2A13A35D0 = &v19[1];
+        off_2A13A35D8 = v19;
+        if (!v22)
         {
-          v55 = &v22[1];
-          v56 = v22;
+          v51 = &v19[1];
+          v52 = v19;
 LABEL_19:
-          atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
 LABEL_20:
           pthread_mutex_unlock(&ctu::Singleton<hsfiler_log_manager,hsfiler_log_manager,ctu::PthreadMutexGuardPolicy<hsfiler_log_manager>>::sInstance);
-          support::transport::PCIMemRegion::create(__p, 3, a4, 0, 0, 5000, v21, &v57);
-          if (v56 && !atomic_fetch_add(&v56->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          support::transport::PCIMemRegion::create(__p, 3, a4, 0, 0, 5000, v18, &v53);
+          if (v52 && !atomic_fetch_add(&v52->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v56->__on_zero_shared)(v56);
-            std::__shared_weak_count::__release_weak(v56);
-            if ((v68 & 0x80000000) == 0)
+            (v52->__on_zero_shared)(v52);
+            std::__shared_weak_count::__release_weak(v52);
+            if ((v64 & 0x80000000) == 0)
             {
 LABEL_24:
-              if (v57)
+              if (v53)
               {
-                v26 = v63;
-                v27 = v63[6];
-                v28 = operator new(4uLL);
-                *v28 = v27;
-                v29 = *&v72[0];
-                *&v72[0] = v28;
-                if (v29)
+                v23 = v59;
+                v24 = v59[6];
+                v25 = operator new(4uLL);
+                *v25 = v24;
+                v26 = *&v68[0];
+                *&v68[0] = v25;
+                if (v26)
                 {
-                  operator delete(v29);
+                  operator delete(v26);
                 }
 
-                v30 = a3[23];
-                if ((v30 & 0x80u) == 0)
+                v27 = a3[23];
+                if ((v27 & 0x80u) == 0)
                 {
-                  v31 = a3;
+                  v28 = a3;
                 }
 
                 else
                 {
-                  v31 = *a3;
+                  v28 = *a3;
                 }
 
-                if ((v30 & 0x80u) != 0)
+                if ((v27 & 0x80u) != 0)
                 {
-                  v30 = *(a3 + 1);
+                  v27 = *(a3 + 1);
                 }
 
-                AriSdk::TlvArray<char,100ul>::assign<std::__wrap_iter<char const*>>((v72 + 8), v31, &v31[v30]);
-                v32 = operator new(8uLL);
-                *v32 = a4;
-                v33 = v73;
-                *&v73 = v32;
-                if (v33)
+                AriSdk::TlvArray<char,100ul>::assign<std::__wrap_iter<char const*>>((v68 + 8), v28, &v28[v27]);
+                v29 = operator new(8uLL);
+                *v29 = a4;
+                v30 = v69;
+                *&v69 = v29;
+                if (v30)
                 {
-                  operator delete(v33);
+                  operator delete(v30);
                 }
 
-                v34 = operator new(4uLL);
-                *v34 = v26[24];
-                v35 = *(&v73 + 1);
-                *(&v73 + 1) = v34;
-                if (v35)
+                v31 = operator new(4uLL);
+                *v31 = v23[24];
+                v32 = *(&v69 + 1);
+                *(&v69 + 1) = v31;
+                if (v32)
                 {
-                  operator delete(v35);
+                  operator delete(v32);
                 }
 
                 FileFromBB = hsfiler::ARICommandDriver::ReadFileFromBB();
-                if (v59)
+                if (v55)
                 {
-                  v37 = FileFromBB;
+                  v34 = FileFromBB;
                 }
 
                 else
                 {
-                  v37 = 0;
+                  v34 = 0;
                 }
 
-                if ((v37 & 1) == 0)
+                if ((v34 & 1) == 0)
                 {
-                  v43 = FileFromBB;
-                  v51 = **(a1 + 128);
-                  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+                  v40 = FileFromBB;
+                  v47 = **(a1 + 128);
+                  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                   {
-                    v52 = *(v26 + 4);
+                    v48 = *(v23 + 4);
                     *__p = 134217984;
-                    *&__p[4] = v52;
-                    _os_log_error_impl(&dword_297948000, v51, OS_LOG_TYPE_ERROR, "error: Failed ReadBB ARI command for session (%llu)", __p, 0xCu);
+                    *&__p[4] = v48;
+                    _os_log_error_impl(&dword_297948000, v47, OS_LOG_TYPE_ERROR, "error: Failed ReadBB ARI command for session (%llu)", __p, 0xCu);
                   }
 
                   goto LABEL_49;
                 }
 
-                v38 = *v59[9];
-                if (!v38)
+                v35 = *v55[9];
+                if (!v35)
                 {
-                  v39 = *(a5 + 24);
-                  if (v39)
+                  v36 = *(a5 + 24);
+                  if (v36)
                   {
-                    *__p = *(v57 + 160);
-                    v55 = a4;
-                    (*(*v39 + 48))(v39, __p, &v55);
+                    *__p = *(v53 + 160);
+                    v51 = a4;
+                    (*(*v36 + 48))(v36, __p, &v51);
                   }
 
-                  v40 = **(a1 + 128);
-                  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+                  v37 = **(a1 + 128);
+                  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                   {
-                    v41 = *(v26 + 4);
+                    v38 = *(v23 + 4);
                     if (a3[23] >= 0)
                     {
-                      v42 = a3;
+                      v39 = a3;
                     }
 
                     else
                     {
-                      v42 = *a3;
+                      v39 = *a3;
                     }
 
                     *__p = 134218242;
-                    *&__p[4] = v41;
-                    v66 = 2080;
-                    v67 = v42;
-                    _os_log_impl(&dword_297948000, v40, OS_LOG_TYPE_DEFAULT, "Successfully read session (%llu) file (%s) from baseband", __p, 0x16u);
+                    *&__p[4] = v38;
+                    v62 = 2080;
+                    v63 = v39;
+                    _os_log_impl(&dword_297948000, v37, OS_LOG_TYPE_DEFAULT, "Successfully read session (%llu) file (%s) from baseband", __p, 0x16u);
                   }
 
-                  v43 = 1;
+                  v40 = 1;
                   goto LABEL_49;
                 }
 
-                v53 = **(a1 + 128);
-                if (!os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+                v49 = **(a1 + 128);
+                if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_66;
                 }
 
-                v54 = *(v26 + 4);
+                v50 = *(v23 + 4);
                 *__p = 134218240;
-                *&__p[4] = v54;
-                v66 = 1024;
-                LODWORD(v67) = v38;
-                v48 = "error: Failed ReadBB ARI command for session (%llu): result %d";
-                v49 = v53;
-                v50 = 18;
+                *&__p[4] = v50;
+                v62 = 1024;
+                LODWORD(v63) = v35;
+                v44 = "error: Failed ReadBB ARI command for session (%llu): result %d";
+                v45 = v49;
+                v46 = 18;
               }
 
               else
               {
-                v47 = **(a1 + 128);
-                if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+                v43 = **(a1 + 128);
+                if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                 {
 LABEL_66:
-                  v43 = 0;
+                  v40 = 0;
 LABEL_49:
-                  if (v59)
+                  if (v55)
                   {
-                    (*(*v59 + 2))(v59);
+                    (*(*v55 + 2))(v55);
                   }
 
-                  v44 = v58;
-                  if (v58 && !atomic_fetch_add((v58 + 8), 0xFFFFFFFFFFFFFFFFLL))
+                  v41 = v54;
+                  if (v54 && !atomic_fetch_add((v54 + 8), 0xFFFFFFFFFFFFFFFFLL))
                   {
-                    (v44->__on_zero_shared)(v44);
-                    std::__shared_weak_count::__release_weak(v44);
+                    (v41->__on_zero_shared)(v41);
+                    std::__shared_weak_count::__release_weak(v41);
                   }
 
                   MEMORY[0x29C276580](buf);
-                  hsfiler::ARICommandDriver::~ARICommandDriver(v60);
-                  v45 = v64;
-                  if (v64 && !atomic_fetch_add(&v64->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+                  hsfiler::ARICommandDriver::~ARICommandDriver(v56);
+                  v42 = v60;
+                  if (v60)
                   {
-                    (v45->__on_zero_shared)(v45);
-                    std::__shared_weak_count::__release_weak(v45);
+                    if (!atomic_fetch_add(&v60->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+                    {
+                      (v42->__on_zero_shared)(v42);
+                      std::__shared_weak_count::__release_weak(v42);
+                    }
                   }
 
-                  result = v43;
-                  goto LABEL_58;
+                  return v40;
                 }
 
                 *__p = 0;
-                v48 = "error: Failed to create PCI memory region";
-                v49 = v47;
-                v50 = 2;
+                v44 = "error: Failed to create PCI memory region";
+                v45 = v43;
+                v46 = 2;
               }
 
-              _os_log_error_impl(&dword_297948000, v49, OS_LOG_TYPE_ERROR, v48, __p, v50);
-              v43 = 0;
+              _os_log_error_impl(&dword_297948000, v45, OS_LOG_TYPE_ERROR, v44, __p, v46);
+              v40 = 0;
               goto LABEL_49;
             }
           }
 
-          else if ((v68 & 0x80000000) == 0)
+          else if ((v64 & 0x80000000) == 0)
           {
             goto LABEL_24;
           }
@@ -2518,17 +2111,17 @@ LABEL_49:
           goto LABEL_24;
         }
 
-        if (!atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v25->__on_zero_shared)(v25);
-          std::__shared_weak_count::__release_weak(v25);
+          (v22->__on_zero_shared)(v22);
+          std::__shared_weak_count::__release_weak(v22);
         }
       }
 
-      v21 = qword_2A13A35D0;
-      v22 = off_2A13A35D8;
-      v55 = qword_2A13A35D0;
-      v56 = off_2A13A35D8;
+      v18 = qword_2A13A35D0;
+      v19 = off_2A13A35D8;
+      v51 = qword_2A13A35D0;
+      v52 = off_2A13A35D8;
       if (!off_2A13A35D8)
       {
         goto LABEL_20;
@@ -2538,21 +2131,19 @@ LABEL_49:
     }
   }
 
-  v23 = **(a1 + 128);
-  result = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+  v20 = **(a1 + 128);
+  result = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
   if (result)
   {
     *buf = 0;
-    _os_log_error_impl(&dword_297948000, v23, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
-    result = 0;
+    _os_log_error_impl(&dword_297948000, v20, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
+    return 0;
   }
 
-LABEL_58:
-  v46 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_297976784(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32)
+void sub_297976784(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32)
 {
   std::__shared_weak_count::~__shared_weak_count(v32);
   operator delete(v34);
@@ -2565,290 +2156,289 @@ void sub_297976784(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL HSFilerRT_Internal_INT::writeFile_sync(uint64_t a1, uint64_t a2, char *a3, mach_vm_size_t a4, uint64_t a5)
 {
-  v73 = *MEMORY[0x29EDCA608];
-  v6 = *a2;
+  v69 = *MEMORY[0x29EDCA608];
   if (*a2)
   {
-    v11 = **v6;
-    if (v12)
+    if (v10)
     {
-      v13 = v12;
-      v14 = *(a2 + 8);
-      v62 = v12;
-      v63 = v14;
-      if (v14)
+      v11 = v10;
+      v12 = *(a2 + 8);
+      v58 = v10;
+      v59 = v12;
+      if (v12)
       {
-        atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v15 = **(a1 + 128);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v13 = **(a1 + 128);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = v13[4];
+        v14 = v11[4];
         if (a3[23] >= 0)
         {
-          v17 = a3;
+          v15 = a3;
         }
 
         else
         {
-          v17 = *a3;
+          v15 = *a3;
         }
 
         *buf = 134218242;
-        *&buf[4] = v16;
+        *&buf[4] = v14;
         *&buf[12] = 2080;
-        *&buf[14] = v17;
-        _os_log_impl(&dword_297948000, v15, OS_LOG_TYPE_DEFAULT, "Writing session (%llu) file (%s) to baseband", buf, 0x16u);
+        *&buf[14] = v15;
+        _os_log_impl(&dword_297948000, v13, OS_LOG_TYPE_DEFAULT, "Writing session (%llu) file (%s) to baseband", buf, 0x16u);
       }
 
-      *&v18 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v59[1] = v18;
-      v59[2] = v18;
-      v59[0] = v18;
-      v60 = 0xAAAAAAAAAAAAAAAALL;
-      v61 = 0xAAAAAAAAFFFFFFFFLL;
-      v19 = *(v13[15] + 24);
-      hsfiler::ARICommandDriver::ARICommandDriver();
-      v72 = 0xAAAAAAAAAAAAAAAALL;
-      *&v20 = 0xAAAAAAAAAAAAAAAALL;
-      *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v70[1] = v20;
-      v71 = v20;
-      v69 = v20;
-      v70[0] = v20;
-      *&buf[16] = v20;
-      v68 = v20;
-      *buf = v20;
-      AriSdk::ARI_IBIFilerHSWriteBBReq_SDK::ARI_IBIFilerHSWriteBBReq_SDK(buf);
-      v57 = 0xAAAAAAAAAAAAAAAALL;
-      v58 = 0;
+      *&v16 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v16 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v55[1] = v16;
+      v55[2] = v16;
+      v55[0] = v16;
       v56 = 0xAAAAAAAAAAAAAAAALL;
-      v66 = 12;
+      v57 = 0xAAAAAAAAFFFFFFFFLL;
+      hsfiler::ARICommandDriver::ARICommandDriver();
+      v68 = 0xAAAAAAAAAAAAAAAALL;
+      *&v17 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v17 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v66[1] = v17;
+      v67 = v17;
+      v65 = v17;
+      v66[0] = v17;
+      *&buf[16] = v17;
+      v64 = v17;
+      *buf = v17;
+      AriSdk::ARI_IBIFilerHSWriteBBReq_SDK::ARI_IBIFilerHSWriteBBReq_SDK(buf);
+      v53 = 0xAAAAAAAAAAAAAAAALL;
+      v54 = 0;
+      v52 = 0xAAAAAAAAAAAAAAAALL;
+      v62 = 12;
       strcpy(__p, "HSFilerWrite");
       pthread_mutex_lock(&ctu::Singleton<hsfiler_log_manager,hsfiler_log_manager,ctu::PthreadMutexGuardPolicy<hsfiler_log_manager>>::sInstance);
       if (!qword_2A13A35D0)
       {
-        v22 = operator new(0xA8uLL);
-        v22->__shared_owners_ = 0;
-        v22->__shared_weak_owners_ = 0;
-        v22->__vftable = &unk_2A1E59C60;
-        v21 = &v22[1];
-        hsfiler_log_manager::hsfiler_log_manager(&v22[1]);
-        v25 = off_2A13A35D8;
-        qword_2A13A35D0 = &v22[1];
-        off_2A13A35D8 = v22;
-        if (!v25)
+        v19 = operator new(0xA8uLL);
+        v19->__shared_owners_ = 0;
+        v19->__shared_weak_owners_ = 0;
+        v19->__vftable = &unk_2A1E59C60;
+        v18 = &v19[1].__vftable;
+        hsfiler_log_manager::hsfiler_log_manager(&v19[1]);
+        v22 = off_2A13A35D8;
+        qword_2A13A35D0 = &v19[1];
+        off_2A13A35D8 = v19;
+        if (!v22)
         {
-          v54 = &v22[1];
-          v55 = v22;
+          v50 = &v19[1];
+          v51 = v19;
 LABEL_19:
-          atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(&v19->__shared_owners_, 1uLL, memory_order_relaxed);
 LABEL_20:
           pthread_mutex_unlock(&ctu::Singleton<hsfiler_log_manager,hsfiler_log_manager,ctu::PthreadMutexGuardPolicy<hsfiler_log_manager>>::sInstance);
-          support::transport::PCIMemRegion::create(__p, 3, a4, 0, 0, 5000, v21, &v56);
-          if (v55 && !atomic_fetch_add(&v55->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+          support::transport::PCIMemRegion::create(__p, 3, a4, 0, 0, 5000, v18, &v52);
+          if (v51 && !atomic_fetch_add(&v51->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
           {
-            (v55->__on_zero_shared)(v55);
-            std::__shared_weak_count::__release_weak(v55);
-            if ((v66 & 0x80000000) == 0)
+            (v51->__on_zero_shared)(v51);
+            std::__shared_weak_count::__release_weak(v51);
+            if ((v62 & 0x80000000) == 0)
             {
 LABEL_24:
-              if (v56)
+              if (v52)
               {
-                v26 = *(a5 + 24);
-                if (v26)
+                v23 = *(a5 + 24);
+                if (v23)
                 {
-                  *__p = *(v56 + 160);
-                  v54 = a4;
-                  if ((*(*v26 + 48))(v26, __p, &v54))
+                  *__p = *(v52 + 160);
+                  v50 = a4;
+                  if ((*(*v23 + 48))(v23, __p, &v50))
                   {
-                    v27 = v62;
-                    v28 = v62[6];
-                    v29 = operator new(4uLL);
-                    *v29 = v28;
-                    v30 = *&v70[0];
-                    *&v70[0] = v29;
-                    if (v30)
+                    v24 = v58;
+                    v25 = v58[6];
+                    v26 = operator new(4uLL);
+                    *v26 = v25;
+                    v27 = *&v66[0];
+                    *&v66[0] = v26;
+                    if (v27)
                     {
-                      operator delete(v30);
+                      operator delete(v27);
                     }
 
-                    v31 = a3[23];
-                    if ((v31 & 0x80u) == 0)
+                    v28 = a3[23];
+                    if ((v28 & 0x80u) == 0)
                     {
-                      v32 = a3;
-                    }
-
-                    else
-                    {
-                      v32 = *a3;
-                    }
-
-                    if ((v31 & 0x80u) != 0)
-                    {
-                      v31 = *(a3 + 1);
-                    }
-
-                    AriSdk::TlvArray<char,100ul>::assign<std::__wrap_iter<char const*>>((v70 + 8), v32, &v32[v31]);
-                    v33 = operator new(8uLL);
-                    *v33 = a4;
-                    v34 = v71;
-                    *&v71 = v33;
-                    if (v34)
-                    {
-                      operator delete(v34);
-                    }
-
-                    v35 = operator new(4uLL);
-                    *v35 = v27[24];
-                    v36 = v72;
-                    v72 = v35;
-                    if (v36)
-                    {
-                      operator delete(v36);
-                    }
-
-                    v37 = hsfiler::ARICommandDriver::WriteFileToBB();
-                    if (v58)
-                    {
-                      v38 = v37;
+                      v29 = a3;
                     }
 
                     else
                     {
-                      v38 = 0;
+                      v29 = *a3;
                     }
 
-                    if ((v38 & 1) == 0)
+                    if ((v28 & 0x80u) != 0)
                     {
-                      v43 = v37;
-                      v51 = **(a1 + 128);
-                      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+                      v28 = *(a3 + 1);
+                    }
+
+                    AriSdk::TlvArray<char,100ul>::assign<std::__wrap_iter<char const*>>((v66 + 8), v29, &v29[v28]);
+                    v30 = operator new(8uLL);
+                    *v30 = a4;
+                    v31 = v67;
+                    *&v67 = v30;
+                    if (v31)
+                    {
+                      operator delete(v31);
+                    }
+
+                    v32 = operator new(4uLL);
+                    *v32 = v24[24];
+                    v33 = v68;
+                    v68 = v32;
+                    if (v33)
+                    {
+                      operator delete(v33);
+                    }
+
+                    v34 = hsfiler::ARICommandDriver::WriteFileToBB();
+                    if (v54)
+                    {
+                      v35 = v34;
+                    }
+
+                    else
+                    {
+                      v35 = 0;
+                    }
+
+                    if ((v35 & 1) == 0)
+                    {
+                      v40 = v34;
+                      v47 = **(a1 + 128);
+                      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                       {
-                        v52 = *(v27 + 4);
+                        v48 = *(v24 + 4);
                         *__p = 134217984;
-                        *&__p[4] = v52;
-                        _os_log_error_impl(&dword_297948000, v51, OS_LOG_TYPE_ERROR, "error: Failed WriteBB ARI command for session (%llu)", __p, 0xCu);
+                        *&__p[4] = v48;
+                        _os_log_error_impl(&dword_297948000, v47, OS_LOG_TYPE_ERROR, "error: Failed WriteBB ARI command for session (%llu)", __p, 0xCu);
                       }
 
                       goto LABEL_49;
                     }
 
-                    v39 = *v58[9];
-                    v40 = **(a1 + 128);
-                    if (!v39)
+                    v36 = *v54[9];
+                    v37 = **(a1 + 128);
+                    if (!v36)
                     {
-                      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+                      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                       {
-                        v41 = *(v27 + 4);
+                        v38 = *(v24 + 4);
                         if (a3[23] >= 0)
                         {
-                          v42 = a3;
+                          v39 = a3;
                         }
 
                         else
                         {
-                          v42 = *a3;
+                          v39 = *a3;
                         }
 
                         *__p = 134218242;
-                        *&__p[4] = v41;
+                        *&__p[4] = v38;
                         *&__p[12] = 2080;
-                        v65 = v42;
-                        _os_log_impl(&dword_297948000, v40, OS_LOG_TYPE_DEFAULT, "Wrote session (%llu) file (%s) to baseband", __p, 0x16u);
+                        v61 = v39;
+                        _os_log_impl(&dword_297948000, v37, OS_LOG_TYPE_DEFAULT, "Wrote session (%llu) file (%s) to baseband", __p, 0x16u);
                       }
 
-                      v43 = 1;
+                      v40 = 1;
                       goto LABEL_49;
                     }
 
-                    if (!os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+                    if (!os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
                     {
                       goto LABEL_71;
                     }
 
-                    v53 = *(v27 + 4);
+                    v49 = *(v24 + 4);
                     *__p = 134218240;
-                    *&__p[4] = v53;
+                    *&__p[4] = v49;
                     *&__p[12] = 1024;
-                    LODWORD(v65) = v39;
-                    v48 = "error: Failed WriteBB ARI command for session (%llu): result %d";
-                    v49 = v40;
-                    v50 = 18;
+                    LODWORD(v61) = v36;
+                    v44 = "error: Failed WriteBB ARI command for session (%llu): result %d";
+                    v45 = v37;
+                    v46 = 18;
 LABEL_73:
-                    _os_log_error_impl(&dword_297948000, v49, OS_LOG_TYPE_ERROR, v48, __p, v50);
-                    v43 = 0;
+                    _os_log_error_impl(&dword_297948000, v45, OS_LOG_TYPE_ERROR, v44, __p, v46);
+                    v40 = 0;
                     goto LABEL_49;
                   }
 
-                  v47 = **(a1 + 128);
-                  if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+                  v43 = **(a1 + 128);
+                  if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                   {
                     *__p = 0;
-                    v48 = "error: Failed to get data from caller";
+                    v44 = "error: Failed to get data from caller";
                     goto LABEL_67;
                   }
 
 LABEL_71:
-                  v43 = 0;
+                  v40 = 0;
 LABEL_49:
-                  if (v58)
+                  if (v54)
                   {
-                    (*(*v58 + 2))(v58);
+                    (*(*v54 + 2))(v54);
                   }
 
-                  v44 = v57;
-                  if (v57 && !atomic_fetch_add((v57 + 8), 0xFFFFFFFFFFFFFFFFLL))
+                  v41 = v53;
+                  if (v53 && !atomic_fetch_add((v53 + 8), 0xFFFFFFFFFFFFFFFFLL))
                   {
-                    (v44->__on_zero_shared)(v44);
-                    std::__shared_weak_count::__release_weak(v44);
+                    (v41->__on_zero_shared)(v41);
+                    std::__shared_weak_count::__release_weak(v41);
                   }
 
                   MEMORY[0x29C2765A0](buf);
-                  hsfiler::ARICommandDriver::~ARICommandDriver(v59);
-                  v45 = v63;
-                  if (v63 && !atomic_fetch_add(&v63->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+                  hsfiler::ARICommandDriver::~ARICommandDriver(v55);
+                  v42 = v59;
+                  if (v59)
                   {
-                    (v45->__on_zero_shared)(v45);
-                    std::__shared_weak_count::__release_weak(v45);
+                    if (!atomic_fetch_add(&v59->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+                    {
+                      (v42->__on_zero_shared)(v42);
+                      std::__shared_weak_count::__release_weak(v42);
+                    }
                   }
 
-                  result = v43;
-                  goto LABEL_58;
+                  return v40;
                 }
 
-                v47 = **(a1 + 128);
-                if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+                v43 = **(a1 + 128);
+                if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_71;
                 }
 
                 *__p = 0;
-                v48 = "error: Invalid write buffer callback";
+                v44 = "error: Invalid write buffer callback";
               }
 
               else
               {
-                v47 = **(a1 + 128);
-                if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+                v43 = **(a1 + 128);
+                if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_71;
                 }
 
                 *__p = 0;
-                v48 = "error: Failed to create PCI memory region";
+                v44 = "error: Failed to create PCI memory region";
               }
 
 LABEL_67:
-              v49 = v47;
-              v50 = 2;
+              v45 = v43;
+              v46 = 2;
               goto LABEL_73;
             }
           }
 
-          else if ((v66 & 0x80000000) == 0)
+          else if ((v62 & 0x80000000) == 0)
           {
             goto LABEL_24;
           }
@@ -2857,17 +2447,17 @@ LABEL_67:
           goto LABEL_24;
         }
 
-        if (!atomic_fetch_add(&v25->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+        if (!atomic_fetch_add(&v22->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
         {
-          (v25->__on_zero_shared)(v25);
-          std::__shared_weak_count::__release_weak(v25);
+          (v22->__on_zero_shared)(v22);
+          std::__shared_weak_count::__release_weak(v22);
         }
       }
 
-      v21 = qword_2A13A35D0;
-      v22 = off_2A13A35D8;
-      v54 = qword_2A13A35D0;
-      v55 = off_2A13A35D8;
+      v18 = qword_2A13A35D0;
+      v19 = off_2A13A35D8;
+      v50 = qword_2A13A35D0;
+      v51 = off_2A13A35D8;
       if (!off_2A13A35D8)
       {
         goto LABEL_20;
@@ -2877,21 +2467,19 @@ LABEL_67:
     }
   }
 
-  v23 = **(a1 + 128);
-  result = os_log_type_enabled(v23, OS_LOG_TYPE_ERROR);
+  v20 = **(a1 + 128);
+  result = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
   if (result)
   {
     *buf = 0;
-    _os_log_error_impl(&dword_297948000, v23, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
-    result = 0;
+    _os_log_error_impl(&dword_297948000, v20, OS_LOG_TYPE_ERROR, "error: Failed to cast session pointer object", buf, 2u);
+    return 0;
   }
 
-LABEL_58:
-  v46 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_297976F44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32)
+void sub_297976F44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, char a32)
 {
   std::__shared_weak_count::~__shared_weak_count(v32);
   operator delete(v34);
@@ -3138,14 +2726,15 @@ uint64_t HSFilerSession::addToQueue(uint64_t a1, uint64_t *a2, const void **a3, 
   return v17;
 }
 
-void sub_2979776F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_2979776F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
-  if (v11)
+  va_start(va, a10);
+  if (v10)
   {
-    _Block_release(v11);
+    _Block_release(v10);
   }
 
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -3224,7 +2813,7 @@ void HSFilerReadSession::~HSFilerReadSession(HSFilerReadSession *this)
   operator delete(v1);
 }
 
-void HSFilerReadSession::create(unsigned int a1@<W0>, NSObject **a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void HSFilerReadSession::create(uint64_t a1@<X0>, NSObject **a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
 {
   v22 = 0xAAAAAAAAAAAAAAAALL;
   v23 = 0xAAAAAAAAAAAAAAAALL;
@@ -3339,30 +2928,32 @@ LABEL_24:
   }
 }
 
-void sub_297977C24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_297977C24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  HSFilerSession::~HSFilerSession(v13);
-  operator delete(v15);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a13);
-  _Unwind_Resume(a1);
-}
-
-void sub_297977C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
+  va_start(va, a12);
+  HSFilerSession::~HSFilerSession(v12);
+  operator delete(v14);
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_297977C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_297977C44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  if (v13)
+  va_start(va, a9);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void sub_297977C58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+{
+  va_start(va, a12);
+  if (v12)
   {
-    dispatch_release(v13);
+    dispatch_release(v12);
   }
 
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a11);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -3447,9 +3038,9 @@ uint64_t HSFilerReadSession::readWithFile(uint64_t a1, uint64_t a2, uint64_t a3,
   return v17;
 }
 
-void sub_297977E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_297977E8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3551,15 +3142,16 @@ uint64_t HSFilerReadSession::readWithStream(uint64_t a1, uint64_t a2, uint64_t *
   return v18;
 }
 
-void sub_297978148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_297978148(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    _Block_release(v13);
+    _Block_release(v12);
   }
 
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a11);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -3644,15 +3236,16 @@ uint64_t HSFilerReadSession::readWithBuff(uint64_t a1, uint64_t a2, uint64_t *a3
   return v18;
 }
 
-void sub_2979783C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_2979783C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    _Block_release(v13);
+    _Block_release(v12);
   }
 
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a11);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -3682,7 +3275,7 @@ void HSFilerWriteSession::~HSFilerWriteSession(HSFilerWriteSession *this)
   operator delete(v1);
 }
 
-void HSFilerWriteSession::create(unsigned int a1@<W0>, NSObject **a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+void HSFilerWriteSession::create(uint64_t a1@<X0>, NSObject **a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
 {
   v22 = 0xAAAAAAAAAAAAAAAALL;
   v23 = 0xAAAAAAAAAAAAAAAALL;
@@ -3797,30 +3390,32 @@ LABEL_24:
   }
 }
 
-void sub_297978740(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_297978740(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  HSFilerSession::~HSFilerSession(v13);
-  operator delete(v15);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a13);
-  _Unwind_Resume(a1);
-}
-
-void sub_297978760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
+  va_start(va, a12);
+  HSFilerSession::~HSFilerSession(v12);
+  operator delete(v14);
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_297978774(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_297978760(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  if (v13)
+  va_start(va, a9);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void sub_297978774(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+{
+  va_start(va, a12);
+  if (v12)
   {
-    dispatch_release(v13);
+    dispatch_release(v12);
   }
 
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a11);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -3905,9 +3500,9 @@ uint64_t HSFilerWriteSession::writeWithFile(uint64_t a1, uint64_t a2, uint64_t a
   return v17;
 }
 
-void sub_2979789A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2979789A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -4009,15 +3604,16 @@ uint64_t HSFilerWriteSession::writeWithStream(uint64_t a1, uint64_t a2, uint64_t
   return v18;
 }
 
-void sub_297978C64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_297978C64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    _Block_release(v13);
+    _Block_release(v12);
   }
 
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a11);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -4102,15 +3698,16 @@ uint64_t HSFilerWriteSession::writeWithBuff(uint64_t a1, uint64_t a2, uint64_t *
   return v18;
 }
 
-void sub_297978EE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, char a13)
+void sub_297978EE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    _Block_release(v13);
+    _Block_release(v12);
   }
 
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a11);
-  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -4282,118 +3879,116 @@ void sub_2979792A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void **BasebandTransportICE::configurePhysical(BasebandTransportICE *this)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v2 = *(this + 5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v5) = 0;
-    _os_log_impl(&dword_297948000, v2, OS_LOG_TYPE_DEFAULT, "#I using physical pipe...", &v5, 2u);
+    LOWORD(v4) = 0;
+    _os_log_impl(&dword_297948000, v2, OS_LOG_TYPE_DEFAULT, "#I using physical pipe...", &v4, 2u);
   }
 
-  v5 = &unk_2A1E5ADB8;
-  v6 = this;
-  v7 = &v5;
-  std::__function::__value_func<BOOL ()(void)>::swap[abi:ne200100](&v5, this + 54);
-  if (v7 == &v5)
+  v4 = &unk_2A1E5ADB8;
+  v5 = this;
+  v6 = &v4;
+  std::__function::__value_func<BOOL ()(void)>::swap[abi:ne200100](&v4, this + 54);
+  if (v6 == &v4)
   {
-    (*(*v7 + 4))(v7);
+    (*(*v6 + 4))(v6);
   }
 
-  else if (v7)
+  else if (v6)
   {
-    (*(*v7 + 5))();
+    (*(*v6 + 5))();
   }
 
-  v5 = &unk_2A1E5AE38;
-  v6 = this;
-  v7 = &v5;
-  std::__function::__value_func<BOOL ()(unsigned char *,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](&v5, this + 50);
-  if (v7 == &v5)
+  v4 = &unk_2A1E5AE38;
+  v5 = this;
+  v6 = &v4;
+  std::__function::__value_func<BOOL ()(unsigned char *,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](&v4, this + 50);
+  if (v6 == &v4)
   {
-    (*(*v7 + 4))(v7);
+    (*(*v6 + 4))(v6);
   }
 
-  else if (v7)
+  else if (v6)
   {
-    (*(*v7 + 5))();
+    (*(*v6 + 5))();
   }
 
-  v5 = &unk_2A1E5AEB8;
-  v6 = this;
-  v7 = &v5;
-  std::__function::__value_func<BOOL ()(unsigned char const*,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](&v5, this + 46);
-  result = v7;
-  if (v7 == &v5)
+  v4 = &unk_2A1E5AEB8;
+  v5 = this;
+  v6 = &v4;
+  std::__function::__value_func<BOOL ()(unsigned char const*,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](&v4, this + 46);
+  result = v6;
+  if (v6 == &v4)
   {
-    result = (*(*v7 + 4))(v7);
+    return (*(*v6 + 4))(v6);
   }
 
-  else if (v7)
+  if (v6)
   {
-    result = (*(*v7 + 5))();
+    return (*(*v6 + 5))();
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void **BasebandTransportICE::configureARIPipe(BasebandTransportICE *this)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   v2 = *(this + 5);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v5) = 0;
-    _os_log_impl(&dword_297948000, v2, OS_LOG_TYPE_DEFAULT, "#I using ARI client pipe...", &v5, 2u);
+    LOWORD(v4) = 0;
+    _os_log_impl(&dword_297948000, v2, OS_LOG_TYPE_DEFAULT, "#I using ARI client pipe...", &v4, 2u);
   }
 
-  v5 = &unk_2A1E5ABD8;
-  v6 = this;
-  v7 = &v5;
-  std::__function::__value_func<BOOL ()(void)>::swap[abi:ne200100](&v5, this + 54);
-  if (v7 == &v5)
+  v4 = &unk_2A1E5ABD8;
+  v5 = this;
+  v6 = &v4;
+  std::__function::__value_func<BOOL ()(void)>::swap[abi:ne200100](&v4, this + 54);
+  if (v6 == &v4)
   {
-    (*(*v7 + 4))(v7);
+    (*(*v6 + 4))(v6);
   }
 
-  else if (v7)
+  else if (v6)
   {
-    (*(*v7 + 5))();
+    (*(*v6 + 5))();
   }
 
-  v5 = &unk_2A1E5AC68;
-  v7 = &v5;
-  std::__function::__value_func<BOOL ()(unsigned char *,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](&v5, this + 50);
-  if (v7 == &v5)
+  v4 = &unk_2A1E5AC68;
+  v6 = &v4;
+  std::__function::__value_func<BOOL ()(unsigned char *,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](&v4, this + 50);
+  if (v6 == &v4)
   {
-    (*(*v7 + 4))(v7);
+    (*(*v6 + 4))(v6);
   }
 
-  else if (v7)
+  else if (v6)
   {
-    (*(*v7 + 5))();
+    (*(*v6 + 5))();
   }
 
-  v5 = &unk_2A1E5ACF8;
-  v6 = this;
-  v7 = &v5;
-  std::__function::__value_func<BOOL ()(unsigned char const*,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](&v5, this + 46);
-  result = v7;
-  if (v7 == &v5)
+  v4 = &unk_2A1E5ACF8;
+  v5 = this;
+  v6 = &v4;
+  std::__function::__value_func<BOOL ()(unsigned char const*,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](&v4, this + 46);
+  result = v6;
+  if (v6 == &v4)
   {
-    result = (*(*v7 + 4))(v7);
+    return (*(*v6 + 4))(v6);
   }
 
-  else if (v7)
+  if (v6)
   {
-    result = (*(*v7 + 5))();
+    return (*(*v6 + 5))();
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t BasebandTransportICE::open(BasebandTransport *a1, uint64_t *a2, const void **a3)
+uint64_t BasebandTransportICE::open(NSObject **a1, uint64_t *a2, const void **a3)
 {
   if (*a2 == 8)
   {
@@ -4422,7 +4017,7 @@ uint64_t BasebandTransportICE::open(BasebandTransport *a1, uint64_t *a2, const v
 
     else
     {
-      v12 = *(a1 + 5);
+      v12 = a1[5];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -4496,7 +4091,7 @@ void sub_2979798D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL BasebandTransportICE::openARIClientPipe(uint64_t a1, __int128 *a2, void **a3)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   v6 = *a2;
   v7 = a2[1];
   *(a1 + 80) = *(a2 + 32);
@@ -4544,11 +4139,10 @@ BOOL BasebandTransportICE::openARIClientPipe(uint64_t a1, __int128 *a2, void **a
 
   else
   {
-    v23 = *(a1 + 464);
-    v24[0] = v11;
-    v24[1] = v13;
+    v22[0] = v11;
+    v22[1] = v13;
     atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    v3 = v24;
+    v3 = v22;
     v16 = AriHost::SetRTEventHandler() == 0;
     v17 = *(a1 + 40);
     if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
@@ -4565,9 +4159,9 @@ BOOL BasebandTransportICE::openARIClientPipe(uint64_t a1, __int128 *a2, void **a
   }
 
   *buf = 136315394;
-  v26 = v18;
-  v27 = 1024;
-  v28 = v19;
+  v24 = v18;
+  v25 = 1024;
+  v26 = v19;
   _os_log_impl(&dword_297948000, v17, OS_LOG_TYPE_DEFAULT, "#I ARI pipe open %s ctx 0x%x", buf, 0x12u);
 LABEL_14:
   if (!v15)
@@ -4580,7 +4174,6 @@ LABEL_14:
   }
 
   std::__shared_weak_count::__release_weak(v13);
-  v21 = *MEMORY[0x29EDCA608];
   return v16;
 }
 
@@ -4642,51 +4235,51 @@ uint64_t BasebandTransportICE::close_sync(BasebandTransportICE *this)
 
 uint64_t ___ZN20BasebandTransportICE17openARIClientPipeEN17BasebandTransport10ParametersEN8dispatch5blockIU13block_pointerFvPhjEEE_block_invoke(void *a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v2 = a1[6];
-  if (v2 && (v3 = a1[4], (v4 = std::__shared_weak_count::lock(v2)) != 0))
+  if (!v2)
   {
-    v5 = v4;
-    if (a1[5])
+    return 0xFFFFFFFFLL;
+  }
+
+  v3 = a1[4];
+  v4 = std::__shared_weak_count::lock(v2);
+  if (!v4)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v5 = v4;
+  if (a1[5])
+  {
+    v6 = *(v3 + 40);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(v3 + 40);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        *__p = 136315138;
-        *&__p[4] = "ipc.bb";
-        _os_log_error_impl(&dword_297948000, v6, OS_LOG_TYPE_ERROR, "Got AriHost::ARI_RT_REINIT callback for %s", __p, 0xCu);
-      }
+      *__p = 136315138;
+      *&__p[4] = "ipc.bb";
+      _os_log_error_impl(&dword_297948000, v6, OS_LOG_TYPE_ERROR, "Got AriHost::ARI_RT_REINIT callback for %s", __p, 0xCu);
+    }
 
-      v11 = 6;
-      strcpy(__p, "ipc.bb");
-      AriHost::ReRegisterClient();
-      if (v11 < 0)
+    v10 = 6;
+    strcpy(__p, "ipc.bb");
+    AriHost::ReRegisterClient();
+    if (v10 < 0)
+    {
+      operator delete(*__p);
+      result = 0;
+      if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
-        operator delete(*__p);
-        result = 0;
-        if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
 LABEL_14:
-          v9 = result;
-          (v5->__on_zero_shared)(v5);
-          std::__shared_weak_count::__release_weak(v5);
-          result = v9;
-        }
-      }
-
-      else
-      {
-        result = 0;
-        if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
-        {
-          goto LABEL_14;
-        }
+        v8 = result;
+        (v5->__on_zero_shared)(v5);
+        std::__shared_weak_count::__release_weak(v5);
+        return v8;
       }
     }
 
     else
     {
-      result = 0xFFFFFFFFLL;
+      result = 0;
       if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
       {
         goto LABEL_14;
@@ -4697,9 +4290,12 @@ LABEL_14:
   else
   {
     result = 0xFFFFFFFFLL;
+    if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      goto LABEL_14;
+    }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -4716,51 +4312,50 @@ void sub_297979E80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 BOOL BasebandTransportICE::writeARIClientPipe(BasebandTransportICE *this, const unsigned __int8 *a2, uint64_t a3, unsigned int *a4)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v5 = *(this + 2);
-  if (!v5 || (v8 = *(this + 1), (v9 = std::__shared_weak_count::lock(v5)) == 0))
+  if (!v5 || (v8 = std::__shared_weak_count::lock(v5)) == 0)
   {
     std::__throw_bad_weak_ptr[abi:ne200100]();
   }
 
-  v10 = v9;
-  atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-  if (atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v9 = v8;
+  atomic_fetch_add_explicit(&v8->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  if (atomic_fetch_add(&v8->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     if (*(this + 117))
     {
 LABEL_5:
-      atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       started = AriHost::Send();
-      v12 = v10;
+      v11 = v9;
       goto LABEL_6;
     }
   }
 
   else
   {
-    (v9->__on_zero_shared)(v9);
-    std::__shared_weak_count::__release_weak(v10);
+    (v8->__on_zero_shared)(v8);
+    std::__shared_weak_count::__release_weak(v9);
     if (*(this + 117))
     {
       goto LABEL_5;
     }
   }
 
-  v14 = *(this + 116);
-  atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+  atomic_fetch_add_explicit(&v9->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   started = AriHost::StartStream();
-  v12 = v10;
+  v11 = v9;
 LABEL_6:
-  std::__shared_weak_count::__release_weak(v12);
+  std::__shared_weak_count::__release_weak(v11);
   if (started)
   {
-    v13 = *(this + 5);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = *(this + 5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
-      v18 = a3;
-      _os_log_error_impl(&dword_297948000, v13, OS_LOG_TYPE_ERROR, "Failed to send %zu bytes on ARI pipe", buf, 0xCu);
+      v15 = a3;
+      _os_log_error_impl(&dword_297948000, v12, OS_LOG_TYPE_ERROR, "Failed to send %zu bytes on ARI pipe", buf, 0xCu);
     }
   }
 
@@ -4769,8 +4364,7 @@ LABEL_6:
     *a4 = a3;
   }
 
-  std::__shared_weak_count::__release_weak(v10);
-  v15 = *MEMORY[0x29EDCA608];
+  std::__shared_weak_count::__release_weak(v9);
   return started == 0;
 }
 
@@ -4900,13 +4494,19 @@ uint64_t BasebandTransportICE::sendToDataHandler(BasebandTransportICE *this, uns
 
 uint64_t ___ZN20BasebandTransportICE18writeARIClientPipeEPKhmPjbj_block_invoke_10(void *a1, AriMsg *a2, unsigned int a3)
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v4 = a1[6];
-  if (!v4 || (v7 = a1[4], v8 = std::__shared_weak_count::lock(v4), (v21 = v8) == 0))
+  if (!v4)
   {
-    result = 0xFFFFFFFFLL;
-    v14 = *MEMORY[0x29EDCA608];
-    return result;
+    return 0xFFFFFFFFLL;
+  }
+
+  v7 = a1[4];
+  v8 = std::__shared_weak_count::lock(v4);
+  v18 = v8;
+  if (!v8)
+  {
+    return 0xFFFFFFFFLL;
   }
 
   v9 = v8;
@@ -4915,10 +4515,14 @@ uint64_t ___ZN20BasebandTransportICE18writeARIClientPipeEPKhmPjbj_block_invoke_1
     result = 0xFFFFFFFFLL;
     if (atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      goto LABEL_9;
+      return result;
     }
 
-    goto LABEL_12;
+LABEL_11:
+    v14 = result;
+    (v9->__on_zero_shared)(v9);
+    std::__shared_weak_count::__release_weak(v9);
+    return v14;
   }
 
   block[0] = MEMORY[0x29EDCA5F8];
@@ -4927,7 +4531,7 @@ uint64_t ___ZN20BasebandTransportICE18writeARIClientPipeEPKhmPjbj_block_invoke_1
   block[3] = &__block_descriptor_tmp_12_0;
   block[4] = v7;
   block[5] = a2;
-  v19 = a3;
+  v16 = a3;
   dispatch_async(*(v7 + 96), block);
   BufCtx = AriMsg::GetBufCtx(a2, a3);
   *(v7 + 468) = BufCtx;
@@ -4938,35 +4542,27 @@ uint64_t ___ZN20BasebandTransportICE18writeARIClientPipeEPKhmPjbj_block_invoke_1
   {
     if (atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
-      goto LABEL_9;
+      return result;
     }
 
-LABEL_12:
-    v16 = result;
-    (v9->__on_zero_shared)(v9);
-    std::__shared_weak_count::__release_weak(v9);
-    result = v16;
-    v17 = *MEMORY[0x29EDCA608];
-    return result;
+    goto LABEL_11;
   }
 
   *buf = 67109120;
-  v23 = BufCtx;
+  v20 = BufCtx;
   _os_log_impl(&dword_297948000, v11, OS_LOG_TYPE_DEFAULT, "#I bypass will use ctx id 0x%x", buf, 8u);
   result = 0;
   if (!atomic_fetch_add(&v9->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
-    goto LABEL_12;
+    goto LABEL_11;
   }
 
-LABEL_9:
-  v15 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_29797A644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_29797A644(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   std::shared_ptr<support::transport::AriSelfHostedRT::initRTServer(void)::syncVars>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5023,7 +4619,7 @@ void sub_29797A78C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t BasebandTransportICE::closeARIClientPipe_sync(BasebandTransportICE *this)
+uint64_t BasebandTransportICE::closeARIClientPipe_sync(BasebandTransportICE *this, int a2)
 {
   AriHost::EndStream(*(this + 117));
   *(this + 117) = 0;
@@ -5184,13 +4780,13 @@ uint64_t std::__function::__func<BasebandTransportICE::configureARIPipe(void)::$
   return result;
 }
 
-uint64_t std::__function::__func<BasebandTransportICE::configureARIPipe(void)::$_0,std::allocator<BasebandTransportICE::configureARIPipe(void)::$_0>,BOOL ()(void)>::operator()(uint64_t a1)
+uint64_t std::__function::__func<BasebandTransportICE::configureARIPipe(void)::$_0,std::allocator<BasebandTransportICE::configureARIPipe(void)::$_0>,BOOL ()(void)>::operator()(uint64_t a1, int a2)
 {
-  v1 = *(a1 + 8);
-  AriHost::EndStream(*(v1 + 468));
-  *(v1 + 468) = 0;
-  AriHost::DeregisterClient(*(v1 + 464));
-  *(v1 + 464) = 0;
+  v2 = *(a1 + 8);
+  AriHost::EndStream(*(v2 + 468));
+  *(v2 + 468) = 0;
+  AriHost::DeregisterClient(*(v2 + 464));
+  *(v2 + 464) = 0;
   return 1;
 }
 
@@ -5220,57 +4816,53 @@ uint64_t std::__function::__func<BasebandTransportICE::configureARIPipe(void)::$
 
 void *std::__function::__value_func<BOOL ()(void)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v8[3] = *MEMORY[0x29EDCA608];
-  if (a2 == result)
+  v5[3] = *MEMORY[0x29EDCA608];
+  if (a2 != result)
   {
-LABEL_8:
-    v6 = *MEMORY[0x29EDCA608];
-    return result;
-  }
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        memset(v5, 170, 24);
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
 
-  v3 = result;
-  result = result[3];
-  v4 = a2[3];
-  if (result != v3)
-  {
-    if (v4 != a2)
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
     {
       v3[3] = v4;
       a2[3] = result;
-      v5 = *MEMORY[0x29EDCA608];
-      return result;
     }
-
-    (*(*v4 + 24))(a2[3], v3);
-    result = (*(*a2[3] + 32))(a2[3]);
-    a2[3] = v3[3];
-    v3[3] = v3;
-    goto LABEL_8;
   }
 
-  if (v4 == a2)
-  {
-    memset(v8, 170, 24);
-    (*(*result + 24))(result, v8);
-    (*(*v3[3] + 32))(v3[3]);
-    v3[3] = 0;
-    (*(*a2[3] + 24))(a2[3], v3);
-    (*(*a2[3] + 32))(a2[3]);
-    a2[3] = 0;
-    v3[3] = v3;
-    (*(v8[0] + 24))(v8, a2);
-    result = (*(v8[0] + 32))(v8);
-  }
-
-  else
-  {
-    (*(*result + 24))(result, a2);
-    result = (*(*v3[3] + 32))(v3[3]);
-    v3[3] = a2[3];
-  }
-
-  a2[3] = a2;
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5317,57 +4909,53 @@ uint64_t std::__function::__func<BasebandTransportICE::configureARIPipe(void)::$
 
 void *std::__function::__value_func<BOOL ()(unsigned char *,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v8[3] = *MEMORY[0x29EDCA608];
-  if (a2 == result)
+  v5[3] = *MEMORY[0x29EDCA608];
+  if (a2 != result)
   {
-LABEL_8:
-    v6 = *MEMORY[0x29EDCA608];
-    return result;
-  }
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        memset(v5, 170, 24);
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
 
-  v3 = result;
-  result = result[3];
-  v4 = a2[3];
-  if (result != v3)
-  {
-    if (v4 != a2)
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
     {
       v3[3] = v4;
       a2[3] = result;
-      v5 = *MEMORY[0x29EDCA608];
-      return result;
     }
-
-    (*(*v4 + 24))(a2[3], v3);
-    result = (*(*a2[3] + 32))(a2[3]);
-    a2[3] = v3[3];
-    v3[3] = v3;
-    goto LABEL_8;
   }
 
-  if (v4 == a2)
-  {
-    memset(v8, 170, 24);
-    (*(*result + 24))(result, v8);
-    (*(*v3[3] + 32))(v3[3]);
-    v3[3] = 0;
-    (*(*a2[3] + 24))(a2[3], v3);
-    (*(*a2[3] + 32))(a2[3]);
-    a2[3] = 0;
-    v3[3] = v3;
-    (*(v8[0] + 24))(v8, a2);
-    result = (*(v8[0] + 32))(v8);
-  }
-
-  else
-  {
-    (*(*result + 24))(result, a2);
-    result = (*(*v3[3] + 32))(v3[3]);
-    v3[3] = a2[3];
-  }
-
-  a2[3] = a2;
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5474,7 +5062,7 @@ LABEL_6:
   return v10;
 }
 
-void sub_29797B504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34)
+void sub_29797B504(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34)
 {
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a24, 8);
@@ -5552,57 +5140,53 @@ void *___ZZN20BasebandTransportICE16configureARIPipeEvENK3__2clEPKhmPjbj_block_i
 
 void *std::__function::__value_func<BOOL ()(unsigned char const*,unsigned long,unsigned int *,BOOL,unsigned int)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v8[3] = *MEMORY[0x29EDCA608];
-  if (a2 == result)
+  v5[3] = *MEMORY[0x29EDCA608];
+  if (a2 != result)
   {
-LABEL_8:
-    v6 = *MEMORY[0x29EDCA608];
-    return result;
-  }
+    v3 = result;
+    result = result[3];
+    v4 = a2[3];
+    if (result == v3)
+    {
+      if (v4 == a2)
+      {
+        memset(v5, 170, 24);
+        (*(*result + 24))(result, v5);
+        (*(*v3[3] + 32))(v3[3]);
+        v3[3] = 0;
+        (*(*a2[3] + 24))(a2[3], v3);
+        (*(*a2[3] + 32))(a2[3]);
+        a2[3] = 0;
+        v3[3] = v3;
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
+      }
 
-  v3 = result;
-  result = result[3];
-  v4 = a2[3];
-  if (result != v3)
-  {
-    if (v4 != a2)
+      else
+      {
+        (*(*result + 24))(result, a2);
+        result = (*(*v3[3] + 32))(v3[3]);
+        v3[3] = a2[3];
+      }
+
+      a2[3] = a2;
+    }
+
+    else if (v4 == a2)
+    {
+      (*(*v4 + 24))(a2[3], v3);
+      result = (*(*a2[3] + 32))(a2[3]);
+      a2[3] = v3[3];
+      v3[3] = v3;
+    }
+
+    else
     {
       v3[3] = v4;
       a2[3] = result;
-      v5 = *MEMORY[0x29EDCA608];
-      return result;
     }
-
-    (*(*v4 + 24))(a2[3], v3);
-    result = (*(*a2[3] + 32))(a2[3]);
-    a2[3] = v3[3];
-    v3[3] = v3;
-    goto LABEL_8;
   }
 
-  if (v4 == a2)
-  {
-    memset(v8, 170, 24);
-    (*(*result + 24))(result, v8);
-    (*(*v3[3] + 32))(v3[3]);
-    v3[3] = 0;
-    (*(*a2[3] + 24))(a2[3], v3);
-    (*(*a2[3] + 32))(a2[3]);
-    a2[3] = 0;
-    v3[3] = v3;
-    (*(v8[0] + 24))(v8, a2);
-    result = (*(v8[0] + 32))(v8);
-  }
-
-  else
-  {
-    (*(*result + 24))(result, a2);
-    result = (*(*v3[3] + 32))(v3[3]);
-    v3[3] = a2[3];
-  }
-
-  a2[3] = a2;
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5674,13 +5258,6 @@ uint64_t std::__function::__func<BasebandTransportICE::configurePhysical(void)::
   return result;
 }
 
-uint64_t std::__function::__func<BasebandTransportICE::configurePhysical(void)::$_1,std::allocator<BasebandTransportICE::configurePhysical(void)::$_1>,BOOL ()(unsigned char *,unsigned long,unsigned int *,BOOL,unsigned int)>::operator()(uint64_t a1, unsigned __int8 **a2, unint64_t *a3, unsigned int **a4, unsigned __int8 *a5, unsigned int *a6)
-{
-  v6 = *a5;
-  v7 = *a6;
-  return BasebandTransport::read(*(a1 + 8), *a2, *a3, *a4);
-}
-
 uint64_t std::__function::__func<BasebandTransportICE::configurePhysical(void)::$_1,std::allocator<BasebandTransportICE::configurePhysical(void)::$_1>,BOOL ()(unsigned char *,unsigned long,unsigned int *,BOOL,unsigned int)>::target(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 8);
@@ -5720,13 +5297,6 @@ uint64_t std::__function::__func<BasebandTransportICE::configurePhysical(void)::
   *a2 = &unk_2A1E5AEB8;
   a2[1] = v2;
   return result;
-}
-
-uint64_t std::__function::__func<BasebandTransportICE::configurePhysical(void)::$_2,std::allocator<BasebandTransportICE::configurePhysical(void)::$_2>,BOOL ()(unsigned char const*,unsigned long,unsigned int *,BOOL,unsigned int)>::operator()(uint64_t a1, const unsigned __int8 **a2, uint64_t *a3, unsigned int **a4, unsigned __int8 *a5, unsigned int *a6)
-{
-  v6 = *a5;
-  v7 = *a6;
-  return BasebandTransport::write(*(a1 + 8), *a2, *a3, *a4);
 }
 
 uint64_t std::__function::__func<BasebandTransportICE::configurePhysical(void)::$_2,std::allocator<BasebandTransportICE::configurePhysical(void)::$_2>,BOOL ()(unsigned char const*,unsigned long,unsigned int *,BOOL,unsigned int)>::target(uint64_t a1, uint64_t a2)

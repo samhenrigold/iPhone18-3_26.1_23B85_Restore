@@ -1,12 +1,12 @@
 @interface BWDeepZoomProcessorController
 + (void)initialize;
 - (BWDeepZoomProcessorController)initWithConfiguration:(id)configuration;
+- (id)_process;
+- (id)_serviceNextRequest;
+- (id)_updateStateIfNeeded;
 - (int)enqueueInputForProcessing:(id)processing delegate:(id)delegate;
 - (int)prepareWithPixelBufferPoolProvider:(id)provider;
 - (uint64_t)_loadSetupAndPrepareDeepZoomProcessor;
-- (uint64_t)_process;
-- (uint64_t)_serviceNextRequest;
-- (uint64_t)_updateStateIfNeeded;
 - (void)cancelProcessing;
 - (void)dealloc;
 - (void)inputSampleBufferReceived:(id)received;
@@ -45,14 +45,14 @@
   [(NSMutableArray *)self->_requestQueue removeAllObjects];
   [(BWDeepZoomProcessorRequest *)self->_currentRequest setErr:4294950490];
 
-  [(BWDeepZoomProcessorController *)self _serviceNextRequest];
+  [(BWDeepZoomProcessorController *)&self->super.super.isa _serviceNextRequest];
 }
 
 - (void)inputSampleBufferReceived:(id)received
 {
   [(BWDeepZoomProcessorRequest *)self->_currentRequest input];
 
-  [(BWDeepZoomProcessorController *)self _updateStateIfNeeded];
+  [(BWDeepZoomProcessorController *)&self->super.super.isa _updateStateIfNeeded];
 }
 
 - (uint64_t)_loadSetupAndPrepareDeepZoomProcessor
@@ -93,50 +93,50 @@
           [(BWTiledEspressoInferenceConfiguration *)v10 setForceSynchronousInference:0];
           [OUTLINED_FUNCTION_0_125() pipelineProcessingContext];
           [OUTLINED_FUNCTION_8() setPipelineProcessingContext:?];
-          v99[0] = &unk_1F2247DE8;
-          v99[1] = &unk_1F2247E00;
-          v100[0] = &unk_1F2247E00;
-          v100[1] = &unk_1F2247DE8;
+          v98[0] = &unk_1F2247DE8;
+          v98[1] = &unk_1F2247E00;
+          v99[0] = &unk_1F2247E00;
+          v99[1] = &unk_1F2247DE8;
+          v98[2] = &unk_1F2247E18;
           v99[2] = &unk_1F2247E18;
-          v100[2] = &unk_1F2247E18;
           v53 = v10;
-          v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:3];
+          v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v99 forKeys:v98 count:3];
           -[BWDeepZoomInferenceConfiguration setType:](v10, "setType:", [objc_msgSend(v49 objectForKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithInt:", objc_msgSend(OUTLINED_FUNCTION_0_125(), "type"))), "unsignedIntValue"}]);
           if ([(BWDeepZoomInferenceConfiguration *)v10 type])
           {
             LODWORD(v51) = v5;
+            v96[0] = &unk_1F2247E30;
+            v96[1] = &unk_1F2247E00;
             v97[0] = &unk_1F2247E30;
             v97[1] = &unk_1F2247E00;
-            v98[0] = &unk_1F2247E30;
-            v98[1] = &unk_1F2247E00;
+            v96[2] = &unk_1F2247DE8;
+            v96[3] = &unk_1F2247E18;
             v97[2] = &unk_1F2247DE8;
             v97[3] = &unk_1F2247E18;
-            v98[2] = &unk_1F2247DE8;
-            v98[3] = &unk_1F2247E18;
+            v96[4] = &unk_1F2247E48;
+            v96[5] = &unk_1F2247E60;
             v97[4] = &unk_1F2247E48;
             v97[5] = &unk_1F2247E60;
-            v98[4] = &unk_1F2247E48;
-            v98[5] = &unk_1F2247E60;
-            [MEMORY[0x1E695DF20] dictionaryWithObjects:v98 forKeys:v97 count:6];
+            [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:v96 count:6];
             [OUTLINED_FUNCTION_0_125() mode];
             [OUTLINED_FUNCTION_37_0() numberWithInt:?];
             -[BWDeepZoomInferenceConfiguration setMode:](v10, "setMode:", [objc_msgSend(OUTLINED_FUNCTION_28() "objectForKeyedSubscript:"unsignedIntValue"")]);
             dictionary = [MEMORY[0x1E695DF90] dictionary];
+            v92 = 0u;
             v93 = 0u;
             v94 = 0u;
             v95 = 0u;
-            v96 = 0u;
             sensorConfigurationsByPortType = [OUTLINED_FUNCTION_0_125() sensorConfigurationsByPortType];
-            v13 = [sensorConfigurationsByPortType countByEnumeratingWithState:&v93 objects:v92 count:16];
+            v13 = [sensorConfigurationsByPortType countByEnumeratingWithState:&v92 objects:v91 count:16];
             if (v13)
             {
               v14 = v13;
-              v15 = *v94;
+              v15 = *v93;
               do
               {
                 for (i = 0; i != v14; ++i)
                 {
-                  if (*v94 != v15)
+                  if (*v93 != v15)
                   {
                     objc_enumerationMutation(sensorConfigurationsByPortType);
                   }
@@ -145,7 +145,7 @@
                   [OUTLINED_FUNCTION_28() setObject:? forKeyedSubscript:?];
                 }
 
-                v14 = [sensorConfigurationsByPortType countByEnumeratingWithState:&v93 objects:v92 count:16];
+                v14 = [sensorConfigurationsByPortType countByEnumeratingWithState:&v92 objects:v91 count:16];
               }
 
               while (v14);
@@ -195,8 +195,8 @@ LABEL_32:
                   [OUTLINED_FUNCTION_8() setHeight:?];
                   [(BWVideoFormatRequirements *)v21 setSupportedPixelFormats:v19];
                   [(BWVideoFormatRequirements *)v21 setBytesPerRowAlignment:64];
-                  v91 = v21;
-                  [MEMORY[0x1E695DEC8] arrayWithObjects:&v91 count:1];
+                  v90 = v21;
+                  [MEMORY[0x1E695DEC8] arrayWithObjects:&v90 count:1];
                   v22 = [OUTLINED_FUNCTION_7() formatByResolvingRequirements:?];
 
                   if (v22)
@@ -209,8 +209,8 @@ LABEL_32:
                     [OUTLINED_FUNCTION_7() setHeight:?];
                     [(BWVideoFormatRequirements *)v23 setSupportedPixelFormats:v19];
                     [(BWVideoFormatRequirements *)v23 setBytesPerRowAlignment:64];
-                    v90 = v23;
-                    [MEMORY[0x1E695DEC8] arrayWithObjects:&v90 count:1];
+                    v89 = v23;
+                    [MEMORY[0x1E695DEC8] arrayWithObjects:&v89 count:1];
                     v24 = [OUTLINED_FUNCTION_8() formatByResolvingRequirements:?];
 
                     if (v24)
@@ -233,8 +233,8 @@ LABEL_32:
                       [OUTLINED_FUNCTION_7() setHeight:?];
                       [v33 setSupportedPixelFormats:v19];
                       [v33 setBytesPerRowAlignment:64];
-                      v89 = v33;
-                      [MEMORY[0x1E695DEC8] arrayWithObjects:&v89 count:1];
+                      v88 = v33;
+                      [MEMORY[0x1E695DEC8] arrayWithObjects:&v88 count:1];
                       if ([OUTLINED_FUNCTION_28() formatByResolvingRequirements:?])
                       {
                         type = [OUTLINED_FUNCTION_8_67() setObject:? forKeyedSubscript:?];
@@ -242,7 +242,7 @@ LABEL_32:
                         {
 LABEL_43:
                           v35 = *(v1 + 112);
-                          result = OUTLINED_FUNCTION_5_4(type, v26, v27, v28, v29, v30, v31, v32, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85, 0);
+                          result = OUTLINED_FUNCTION_5_4(type, v26, v27, v28, v29, v30, v31, v32, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v79, v81, v83, v85);
                           if (!result)
                           {
                             return result;
@@ -268,7 +268,7 @@ LABEL_45:
 
                             if (v36 == ++v38)
                             {
-                              result = OUTLINED_FUNCTION_5_4(v39, v40, v41, v42, v43, v44, v45, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86, v87);
+                              result = OUTLINED_FUNCTION_5_4(v39, v40, v41, v42, v43, v44, v45, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, v78, v80, v82, v84, v86);
                               v36 = result;
                               if (result)
                               {
@@ -280,7 +280,7 @@ LABEL_45:
                           }
                         }
 
-                        if ([OUTLINED_FUNCTION_0_125() mode] == 5 || (v34 = +[BWVideoFormatRequirements formatRequirements](BWVideoFormatRequirements, "formatRequirements"), objc_msgSend(v34, "setWidth:", objc_msgSend(OUTLINED_FUNCTION_0_125(), "stereoPhotoOutputDimensions")), objc_msgSend(v34, "setHeight:", objc_msgSend(OUTLINED_FUNCTION_0_125(), "stereoPhotoOutputDimensions") >> 32), objc_msgSend(v34, "setSupportedPixelFormats:", v19), objc_msgSend(v34, "setBytesPerRowAlignment:", 64), v88 = v34, (v24 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v88, 1))) != 0))
+                        if ([OUTLINED_FUNCTION_0_125() mode] == 5 || (v34 = +[BWVideoFormatRequirements formatRequirements](BWVideoFormatRequirements, "formatRequirements"), objc_msgSend(v34, "setWidth:", objc_msgSend(OUTLINED_FUNCTION_0_125(), "stereoPhotoOutputDimensions")), objc_msgSend(v34, "setHeight:", objc_msgSend(OUTLINED_FUNCTION_0_125(), "stereoPhotoOutputDimensions") >> 32), objc_msgSend(v34, "setSupportedPixelFormats:", v19), objc_msgSend(v34, "setBytesPerRowAlignment:", 64), v87 = v34, (v24 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", &v87, 1))) != 0))
                         {
                           type = [OUTLINED_FUNCTION_8_67() setObject:v24 forKeyedSubscript:0x1F219ECD0];
                           goto LABEL_43;
@@ -333,24 +333,24 @@ LABEL_45:
   return 0;
 }
 
-- (uint64_t)_serviceNextRequest
+- (id)_serviceNextRequest
 {
   if (result)
   {
     v1 = result;
-    delegate = [*(result + 88) delegate];
-    input = [*(v1 + 88) input];
-    v4 = [*(v1 + 88) err];
+    delegate = [result[11] delegate];
+    input = [v1[11] input];
+    v4 = [v1[11] err];
 
-    *(v1 + 88) = 0;
+    v1[11] = 0;
     [delegate processorController:v1 didFinishProcessingInput:input err:v4];
 
-    firstObject = [*(v1 + 80) firstObject];
-    *(v1 + 88) = firstObject;
+    firstObject = [v1[10] firstObject];
+    v1[11] = firstObject;
     if (firstObject)
     {
-      [*(v1 + 80) removeObjectAtIndex:0];
-      [objc_msgSend(*(v1 + 88) "input")];
+      [v1[10] removeObjectAtIndex:0];
+      [objc_msgSend(v1[11] "input")];
     }
 
     return [(BWDeepZoomProcessorController *)v1 _updateStateIfNeeded];
@@ -359,13 +359,13 @@ LABEL_45:
   return result;
 }
 
-- (uint64_t)_updateStateIfNeeded
+- (id)_updateStateIfNeeded
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 88);
-    currentState = [*(result + 72) currentState];
+    v2 = result[11];
+    currentState = [result[9] currentState];
     if (v2)
     {
       if (currentState == 2)
@@ -389,10 +389,10 @@ LABEL_45:
       v4 = 1;
     }
 
-    result = [*(v1 + 72) currentState];
+    result = [v1[9] currentState];
     if (v4 != result)
     {
-      v5 = *(v1 + 72);
+      v5 = v1[9];
 
       return [v5 transitionToState:v4];
     }
@@ -401,7 +401,7 @@ LABEL_45:
   return result;
 }
 
-- (uint64_t)_process
+- (id)_process
 {
   if (!result)
   {
@@ -409,7 +409,7 @@ LABEL_45:
   }
 
   v1 = result;
-  input = [*(result + 88) input];
+  input = [result[11] input];
   settings = [input settings];
   if ([OUTLINED_FUNCTION_1_137() err])
   {

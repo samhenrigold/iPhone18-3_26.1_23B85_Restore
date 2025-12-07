@@ -222,7 +222,7 @@ void __43___OSBatteryPredictor_client_setIBLMState___block_invoke_92(uint64_t a1
     v7 = [*(a1 + 32) log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __43___OSBatteryPredictor_client_setIBLMState___block_invoke_92_cold_2(a1);
+      __43___OSBatteryPredictor_client_setIBLMState___block_invoke_92_cold_2();
     }
   }
 }
@@ -258,7 +258,7 @@ void __56___OSBatteryPredictor_client_setIBLMNotificationsState___block_invoke_9
     v7 = [*(a1 + 32) log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __43___OSBatteryPredictor_client_setIBLMState___block_invoke_92_cold_2(a1);
+      __43___OSBatteryPredictor_client_setIBLMState___block_invoke_92_cold_2();
     }
   }
 }
@@ -307,15 +307,15 @@ void __34___OSBatteryPredictor_timeToEmpty__block_invoke(uint64_t a1, void *a2)
 
 void __34___OSBatteryPredictor_timeToEmpty__block_invoke_96(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) log];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = v5;
-    _os_log_impl(&dword_25D171000, v7, OS_LOG_TYPE_DEFAULT, "TTE XPC call object: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v5;
+    _os_log_impl(&dword_25D171000, v7, OS_LOG_TYPE_DEFAULT, "TTE XPC call object: %@", &v11, 0xCu);
   }
 
   [v5 predictedDischargeTime];
@@ -323,67 +323,39 @@ void __34___OSBatteryPredictor_timeToEmpty__block_invoke_96(uint64_t a1, void *a
   v9 = *(*(a1 + 48) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v6;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __94___OSBatteryPredictor_typicalBatteryLevelWithReferenceDays_aggregatedOverTimeWidth_withError___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_4_0(v2);
-  NSStringFromSelector(v3);
+  v2 = OUTLINED_FUNCTION_4_0(v1);
+  NSStringFromSelector(v2);
   objc_claimAutoreleasedReturnValue();
-  v4 = [OUTLINED_FUNCTION_2_0() debugDescription];
+  v3 = [OUTLINED_FUNCTION_2_0() debugDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_25D171000, v5, v6, "Error executing %@: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25D171000, v4, v5, "Error executing %@: %@", v6, v7, v8, v9);
 }
 
 void __94___OSBatteryPredictor_typicalBatteryLevelWithReferenceDays_aggregatedOverTimeWidth_withError___block_invoke_84_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_7(v2);
-  NSStringFromSelector(v3);
+  v2 = OUTLINED_FUNCTION_7(v1);
+  NSStringFromSelector(v2);
   objc_claimAutoreleasedReturnValue();
-  v4 = [OUTLINED_FUNCTION_2_0() debugDescription];
+  v3 = [OUTLINED_FUNCTION_2_0() debugDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_25D171000, v5, v6, "Server error executing %@: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25D171000, v4, v5, "Server error executing %@: %@", v6, v7, v8, v9);
 }
 
 void __46___OSBatteryPredictor_overrideAllMitigations___block_invoke_90_cold_1()
 {
   OUTLINED_FUNCTION_4();
-  v1 = *MEMORY[0x277D85DE8];
-  v3 = OUTLINED_FUNCTION_6(v2);
-  NSStringFromSelector(v3);
+  v2 = OUTLINED_FUNCTION_6(v1);
+  NSStringFromSelector(v2);
   objc_claimAutoreleasedReturnValue();
-  v4 = [OUTLINED_FUNCTION_2_0() debugDescription];
+  v3 = [OUTLINED_FUNCTION_2_0() debugDescription];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1(&dword_25D171000, v5, v6, "Server error executing %@: %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-void __43___OSBatteryPredictor_client_setIBLMState___block_invoke_92_cold_2(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 48);
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __34___OSBatteryPredictor_timeToEmpty__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25D171000, v4, v5, "Server error executing %@: %@", v6, v7, v8, v9);
 }
 
 @end

@@ -73,11 +73,11 @@
     session = [scene session];
     persistentIdentifier = [session persistentIdentifier];
     *buf = 138543874;
-    v99 = activityType;
-    v100 = 2112;
-    v101 = userInfo;
-    v102 = 2114;
-    v103 = persistentIdentifier;
+    v105 = activityType;
+    v106 = 2112;
+    v107 = userInfo;
+    v108 = 2114;
+    v109 = persistentIdentifier;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "activityManager continueActivity: activityType=%{public}@, userInfo=%@, withSceneID=%{public}@", buf, 0x20u);
   }
 
@@ -121,28 +121,28 @@ LABEL_49:
     obj = self;
     userInfo2 = v22;
     lastObject = [v22 substringFromIndex:{objc_msgSend(@"NSUA:", "length")}];
-    v90 = 0u;
-    v91 = 0u;
-    v92 = 0u;
-    v93 = 0u;
-    v96[0] = @"com.apple.iBooks.openBook";
-    v96[1] = @"com.apple.iBooks.playAudiobook";
-    v24 = [NSArray arrayWithObjects:v96 count:2];
-    v25 = [v24 countByEnumeratingWithState:&v90 objects:v97 count:16];
+    v96 = 0u;
+    v97 = 0u;
+    v98 = 0u;
+    v99 = 0u;
+    v102[0] = @"com.apple.iBooks.openBook";
+    v102[1] = @"com.apple.iBooks.playAudiobook";
+    v24 = [NSArray arrayWithObjects:v102 count:2];
+    v25 = [v24 countByEnumeratingWithState:&v96 objects:v103 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v91;
+      v27 = *v97;
 LABEL_11:
       v28 = 0;
       while (1)
       {
-        if (*v91 != v27)
+        if (*v97 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = [*(*(&v90 + 1) + 8 * v28) stringByAppendingString:@"."];
+        v29 = [*(*(&v96 + 1) + 8 * v28) stringByAppendingString:@"."];
         if ([lastObject hasPrefix:v29])
         {
           break;
@@ -150,7 +150,7 @@ LABEL_11:
 
         if (v26 == ++v28)
         {
-          v26 = [v24 countByEnumeratingWithState:&v90 objects:v97 count:16];
+          v26 = [v24 countByEnumeratingWithState:&v96 objects:v103 count:16];
           if (v26)
           {
             goto LABEL_11;
@@ -215,7 +215,7 @@ LABEL_17:
       v38 = BCSceneLog();
       if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        sub_10078CB6C();
+        sub_10078CB6C(v38, v51, v52);
       }
 
       bu_assetIDFromURL = 0;
@@ -238,29 +238,29 @@ LABEL_47:
     if (userInfo2)
     {
       [activityCopy contextIdentifierPath];
-      v86 = 0u;
-      v87 = 0u;
-      v88 = 0u;
-      v41 = v89 = 0u;
-      v42 = [v41 countByEnumeratingWithState:&v86 objects:v95 count:16];
-      v73 = controllerCopy;
-      v74 = userInfo2;
+      v92 = 0u;
+      v93 = 0u;
+      v94 = 0u;
+      v41 = v95 = 0u;
+      v42 = [v41 countByEnumeratingWithState:&v92 objects:v101 count:16];
+      v79 = controllerCopy;
+      v80 = userInfo2;
       if (v42)
       {
         v43 = v42;
         v44 = v41;
         obja = self;
-        v45 = *v87;
+        v45 = *v93;
         do
         {
           for (i = 0; i != v43; i = i + 1)
           {
-            if (*v87 != v45)
+            if (*v93 != v45)
             {
               objc_enumerationMutation(v44);
             }
 
-            v47 = [*(*(&v86 + 1) + 8 * i) componentsSeparatedByString:@":"];
+            v47 = [*(*(&v92 + 1) + 8 * i) componentsSeparatedByString:@":"];
             firstObject = [v47 firstObject];
             if ([firstObject isEqualToString:@"bookAssetID"])
             {
@@ -279,16 +279,16 @@ LABEL_47:
             }
           }
 
-          v43 = [v44 countByEnumeratingWithState:&v86 objects:v95 count:16];
+          v43 = [v44 countByEnumeratingWithState:&v92 objects:v101 count:16];
         }
 
         while (v43);
         bu_assetIDFromURL = 0;
 LABEL_65:
-        userInfo2 = v74;
+        userInfo2 = v80;
         self = obja;
         v41 = v44;
-        controllerCopy = v73;
+        controllerCopy = v79;
       }
 
       else
@@ -299,38 +299,38 @@ LABEL_65:
       if ([bu_assetIDFromURL length])
       {
         selfCopy = self;
-        v84 = 0u;
-        v85 = 0u;
-        v82 = 0u;
-        v83 = 0u;
+        v90 = 0u;
+        v91 = 0u;
+        v88 = 0u;
+        v89 = 0u;
         objb = v41;
-        v64 = [objb countByEnumeratingWithState:&v82 objects:v94 count:16];
-        if (v64)
+        v68 = [objb countByEnumeratingWithState:&v88 objects:v100 count:16];
+        if (v68)
         {
-          v65 = v64;
-          v72 = v41;
-          v66 = *v83;
+          v69 = v68;
+          v78 = v41;
+          v70 = *v89;
           while (2)
           {
-            for (j = 0; j != v65; j = j + 1)
+            for (j = 0; j != v69; j = j + 1)
             {
-              if (*v83 != v66)
+              if (*v89 != v70)
               {
                 objc_enumerationMutation(objb);
               }
 
-              v68 = [*(*(&v82 + 1) + 8 * j) componentsSeparatedByString:@":"];
-              firstObject2 = [v68 firstObject];
+              v72 = [*(*(&v88 + 1) + 8 * j) componentsSeparatedByString:@":"];
+              firstObject2 = [v72 firstObject];
               if ([firstObject2 isEqualToString:bu_assetIDFromURL])
               {
-                v70 = [v68 count];
+                v74 = [v72 count];
 
-                if (v70 >= 2)
+                if (v74 >= 2)
                 {
-                  v71 = [v68 objectAtIndex:1];
-                  if ([v71 length])
+                  v77 = [v72 objectAtIndex:1];
+                  if ([v77 length])
                   {
-                    v39 = [[BKAnchorPathLocation alloc] initWithPath:v71];
+                    v39 = [[BKAnchorPathLocation alloc] initWithPath:v77];
                   }
 
                   else
@@ -338,11 +338,11 @@ LABEL_65:
                     v39 = 0;
                   }
 
-                  v41 = v72;
+                  v41 = v78;
 
                   self = selfCopy;
-                  controllerCopy = v73;
-                  userInfo2 = v74;
+                  controllerCopy = v79;
+                  userInfo2 = v80;
                   goto LABEL_88;
                 }
               }
@@ -352,8 +352,8 @@ LABEL_65:
               }
             }
 
-            v65 = [objb countByEnumeratingWithState:&v82 objects:v94 count:16];
-            if (v65)
+            v69 = [objb countByEnumeratingWithState:&v88 objects:v100 count:16];
+            if (v69)
             {
               continue;
             }
@@ -363,15 +363,15 @@ LABEL_65:
 
           v39 = 0;
           self = selfCopy;
-          controllerCopy = v73;
-          userInfo2 = v74;
-          v41 = v72;
+          controllerCopy = v79;
+          userInfo2 = v80;
+          v41 = v78;
         }
 
         else
         {
           v39 = 0;
-          userInfo2 = v74;
+          userInfo2 = v80;
         }
       }
 
@@ -380,7 +380,7 @@ LABEL_65:
         objb = BCSceneLog();
         if (os_log_type_enabled(objb, OS_LOG_TYPE_ERROR))
         {
-          sub_10078CAEC();
+          sub_10078CAEC(objb, v75, v76);
         }
 
         v39 = 0;
@@ -394,7 +394,7 @@ LABEL_88:
       v41 = BCSceneLog();
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        sub_10078CB2C();
+        sub_10078CB2C(v41, v65, v66);
       }
 
       v39 = 0;
@@ -409,29 +409,29 @@ LABEL_88:
 LABEL_50:
   if ([bu_assetIDFromURL length])
   {
-    v51 = BCSceneLog();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+    v53 = BCSceneLog();
+    if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v99 = bu_assetIDFromURL;
-      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_INFO, "Handling incoming assetID to continue user activity: %@", buf, 0xCu);
+      v105 = bu_assetIDFromURL;
+      _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "Handling incoming assetID to continue user activity: %@", buf, 0xCu);
     }
 
-    v52 = +[BKAppDelegate delegate];
-    appLaunchCoordinator = [v52 appLaunchCoordinator];
+    v54 = +[BKAppDelegate delegate];
+    appLaunchCoordinator = [v54 appLaunchCoordinator];
 
-    v78[0] = _NSConcreteStackBlock;
-    v78[1] = 3221225472;
-    v78[2] = sub_1000A94E8;
-    v78[3] = &unk_100A05F98;
-    v79 = bu_assetIDFromURL;
+    v84[0] = _NSConcreteStackBlock;
+    v84[1] = 3221225472;
+    v84[2] = sub_1000A94E8;
+    v84[3] = &unk_100A05F98;
+    v85 = bu_assetIDFromURL;
     selfCopy2 = self;
-    v81 = v39;
-    v54 = v39;
+    v87 = v39;
+    v56 = v39;
     webpageURL = bu_assetIDFromURL;
-    [appLaunchCoordinator appLaunchCoordinatorOnConditionMask:65 blockID:@"Handle incoming asset continueActivity" performBlock:v78];
+    [appLaunchCoordinator appLaunchCoordinatorOnConditionMask:65 blockID:@"Handle incoming asset continueActivity" performBlock:v84];
 
-    v56 = v79;
+    v58 = v85;
   }
 
   else
@@ -439,11 +439,11 @@ LABEL_50:
     [(BKUserActivityManager *)self setHoldAtLaunchScreenAssertion:0];
 
     activityType5 = [activityCopy activityType];
-    v58 = [activityType5 isEqualToString:NSUserActivityTypeBrowsingWeb];
+    v60 = [activityType5 isEqualToString:NSUserActivityTypeBrowsingWeb];
 
-    if (!v58)
+    if (!v60)
     {
-      v61 = 0;
+      v63 = 0;
       goto LABEL_60;
     }
 
@@ -457,16 +457,16 @@ LABEL_50:
       [appLaunchCoordinator setObject:_sourceApplication2 forKeyedSubscript:UIApplicationOpenURLOptionsSourceApplicationKey];
     }
 
-    v54 = +[BKAppDelegate delegate];
-    v56 = [appLaunchCoordinator copy];
-    [v54 applicationOpenURL:webpageURL options:v56 sceneController:0];
+    v56 = +[BKAppDelegate delegate];
+    v58 = [appLaunchCoordinator copy];
+    [v56 applicationOpenURL:webpageURL options:v58 sceneController:0];
   }
 
 LABEL_59:
-  v61 = 1;
+  v63 = 1;
 LABEL_60:
 
-  return v61;
+  return v63;
 }
 
 - (void)_continueOpenBookActivity:(id)activity sceneController:(id)controller location:(id)location

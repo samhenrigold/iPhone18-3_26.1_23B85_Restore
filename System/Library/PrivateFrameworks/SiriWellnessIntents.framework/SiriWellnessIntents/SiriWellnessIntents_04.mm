@@ -1,2641 +1,12 @@
-uint64_t SpecificMedicationsPersistor.saveScheduledMedication(named:specifiedDateInterval:medStatusTaken:)(uint64_t a1)
-{
-  v9 = *v2;
-  v4 = *(*v2 + 664);
-  *(v9 + 216) = *v2;
-  v10 = (v9 + 216);
-  *(v9 + 672) = a1;
-  *(v9 + 680) = v1;
-
-  if (v1)
-  {
-    v7 = *v10;
-    v6 = SpecificMedicationsPersistor.saveScheduledMedication(named:specifiedDateInterval:medStatusTaken:);
-  }
-
-  else
-  {
-
-    v5 = *v10;
-    v6 = SpecificMedicationsPersistor.saveScheduledMedication(named:specifiedDateInterval:medStatusTaken:);
-  }
-
-  return MEMORY[0x2822009F8](v6, 0);
-}
-
-{
-  v6 = *v1;
-  v3 = *(*v1 + 712);
-  *(v6 + 216) = *v1;
-  *(v6 + 720) = a1;
-
-  v4 = *(v6 + 216);
-
-  return MEMORY[0x2822009F8](SpecificMedicationsPersistor.saveScheduledMedication(named:specifiedDateInterval:medStatusTaken:), 0);
-}
-
-{
-  v6 = *v1;
-  v3 = *(*v1 + 736);
-  *(v6 + 216) = *v1;
-  *(v6 + 744) = a1;
-
-  v4 = *(v6 + 216);
-
-  return MEMORY[0x2822009F8](SpecificMedicationsPersistor.saveScheduledMedication(named:specifiedDateInterval:medStatusTaken:), 0);
-}
-
-uint64_t SpecificMedicationsPersistor.getDateIntervalCloserToNow(firstDateInterval:secondDateInterval:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v16 = a5;
-  v17 = a1;
-  v22 = a2;
-  v18 = a3;
-  v19 = a4;
-  v46 = 0;
-  v45 = 0;
-  v44 = 0;
-  v42 = 0;
-  v43 = 0;
-  v39 = 0.0;
-  v36 = 0.0;
-  v28 = type metadata accessor for Date();
-  v23 = *(v28 - 8);
-  v24 = v28 - 8;
-  v20 = (*(v23 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v28);
-  v27 = &v15 - v20;
-  v21 = (v6 + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](&v15 - v20);
-  v26 = &v15 - v21;
-  v46 = &v15 - v21;
-  v45 = a1;
-  v44 = v7;
-  v42 = v8;
-  v43 = v9;
-  Date.init()();
-  DateInterval.start.getter();
-  Date.timeIntervalSince(_:)();
-  v25 = v10;
-  v30 = *(v23 + 8);
-  v29 = v23 + 8;
-  v30(v27, v28);
-  v40 = v25;
-  v32 = MEMORY[0x277D839F8];
-  v33 = MEMORY[0x277D83A20];
-  v34 = MEMORY[0x277D83A50];
-  abs<A>(_:)();
-  v35 = v41;
-  v39 = v41;
-  DateInterval.start.getter();
-  Date.timeIntervalSince(_:)();
-  v31 = v11;
-  v30(v27, v28);
-  v37 = v31;
-  abs<A>(_:)();
-  v36 = v38;
-  if (v35 >= v38)
-  {
-    v13 = type metadata accessor for DateInterval();
-    (*(*(v13 - 8) + 16))(v16, v22);
-  }
-
-  else
-  {
-    v12 = type metadata accessor for DateInterval();
-    (*(*(v12 - 8) + 16))(v16, v17);
-  }
-
-  return (v30)(v26, v28);
-}
-
-id closure #1 in SpecificMedicationsPersistor.saveScheduledMedication(named:specifiedDateInterval:medStatusTaken:)@<X0>(id *a1@<X0>, uint64_t *a2@<X8>)
-{
-  result = [*a1 scheduleItemIdentifier];
-  v9 = result;
-  if (result)
-  {
-    v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v5 = v3;
-    result = MEMORY[0x277D82BD8](v9);
-    v6 = v4;
-    v7 = v5;
-  }
-
-  else
-  {
-    v6 = 0;
-    v7 = 0;
-  }
-
-  *a2 = v6;
-  a2[1] = v7;
-  return result;
-}
-
-uint64_t implicit closure #5 in SpecificMedicationsPersistor.saveScheduledMedication(named:specifiedDateInterval:medStatusTaken:)(uint64_t a1)
-{
-  swift_beginAccess();
-  v3 = *(a1 + 16);
-  swift_endAccess();
-  return v3;
-}
-
-uint64_t SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:)(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
-{
-  *(v4 + 1696) = a4;
-  *(v4 + 1688) = a3;
-  *(v4 + 2273) = a2 & 1;
-  *(v4 + 1680) = a1;
-  *(v4 + 1128) = v4;
-  *(v4 + 1136) = 0;
-  *(v4 + 2272) = 0;
-  *(v4 + 888) = 0;
-  *(v4 + 896) = 0;
-  *(v4 + 1144) = 0;
-  *(v4 + 1152) = 0;
-  *(v4 + 1192) = 0;
-  *(v4 + 904) = 0;
-  *(v4 + 912) = 0;
-  *(v4 + 1232) = 0;
-  *(v4 + 1240) = 0;
-  *(v4 + 920) = 0;
-  *(v4 + 928) = 0;
-  *(v4 + 1264) = 0;
-  *(v4 + 1272) = 0;
-  *(v4 + 1320) = 0;
-  *(v4 + 1328) = 0;
-  *(v4 + 936) = 0;
-  *(v4 + 944) = 0;
-  *(v4 + 1352) = 0;
-  *(v4 + 1368) = 0;
-  *(v4 + 2280) = 0;
-  *(v4 + 2288) = 0;
-  *(v4 + 1384) = 0;
-  *(v4 + 952) = 0;
-  *(v4 + 960) = 0;
-  *(v4 + 1408) = 0;
-  *(v4 + 1416) = 0;
-  *(v4 + 1424) = 0;
-  *(v4 + 1440) = 0;
-  *(v4 + 968) = 0;
-  *(v4 + 976) = 0;
-  *(v4 + 1464) = 0;
-  *(v4 + 1480) = 0;
-  *(v4 + 1528) = 0;
-  memset((v4 + 56), 0, 0x28uLL);
-  *(v4 + 1536) = 0;
-  *(v4 + 984) = 0;
-  *(v4 + 992) = 0;
-  *(v4 + 1000) = 0;
-  *(v4 + 1008) = 0;
-  *(v4 + 1544) = 0;
-  *(v4 + 1552) = 0;
-  *(v4 + 1632) = 0;
-  *(v4 + 1096) = 0;
-  *(v4 + 1104) = 0;
-  *(v4 + 1640) = 0;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttMd, &_s10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttMR);
-  *(v4 + 1704) = v5;
-  v14 = *(v5 - 8);
-  *(v4 + 1712) = v14;
-  v6 = *(v14 + 64) + 15;
-  *(v4 + 1720) = swift_task_alloc();
-  v15 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg3key_10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt5valuetSgMd, &_sSSSg3key_10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt5valuetSgMR) - 8) + 64);
-  *(v4 + 1728) = swift_task_alloc();
-  *(v4 + 1736) = swift_task_alloc();
-  v7 = type metadata accessor for Date();
-  *(v4 + 1744) = v7;
-  v16 = *(v7 - 8);
-  *(v4 + 1752) = v16;
-  v8 = *(v16 + 64) + 15;
-  *(v4 + 1760) = swift_task_alloc();
-  v17 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttSgMd, &_s10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttSgMR) - 8) + 64);
-  *(v4 + 1768) = swift_task_alloc();
-  *(v4 + 1776) = swift_task_alloc();
-  *(v4 + 1784) = swift_task_alloc();
-  v9 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_SSSitSgMd, &_s10Foundation4DateVSg_SSSitSgMR) - 8) + 64) + 15;
-  *(v4 + 1792) = swift_task_alloc();
-  v18 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64);
-  *(v4 + 1800) = swift_task_alloc();
-  *(v4 + 1808) = swift_task_alloc();
-  *(v4 + 1816) = swift_task_alloc();
-  v10 = type metadata accessor for DateInterval();
-  *(v4 + 1824) = v10;
-  v19 = *(v10 - 8);
-  *(v4 + 1832) = v19;
-  *(v4 + 1840) = *(v19 + 64);
-  *(v4 + 1848) = swift_task_alloc();
-  v11 = type metadata accessor for Logger();
-  *(v4 + 1856) = v11;
-  v20 = *(v11 - 8);
-  *(v4 + 1864) = v20;
-  v21 = *(v20 + 64);
-  *(v4 + 1872) = swift_task_alloc();
-  *(v4 + 1880) = swift_task_alloc();
-  *(v4 + 1888) = swift_task_alloc();
-  *(v4 + 1896) = swift_task_alloc();
-  *(v4 + 1904) = swift_task_alloc();
-  *(v4 + 1912) = swift_task_alloc();
-  *(v4 + 1920) = swift_task_alloc();
-  *(v4 + 1928) = swift_task_alloc();
-  *(v4 + 1936) = swift_task_alloc();
-  *(v4 + 1944) = swift_task_alloc();
-  *(v4 + 1952) = swift_task_alloc();
-  *(v4 + 1960) = swift_task_alloc();
-  *(v4 + 1968) = swift_task_alloc();
-  *(v4 + 1136) = a1;
-  *(v4 + 2272) = a2 & 1;
-  *(v4 + 888) = a3;
-  *(v4 + 896) = a4;
-  v12 = *(v4 + 1128);
-
-  return MEMORY[0x2822009F8](SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:), 0);
-}
-
-uint64_t SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:)()
-{
-  v53 = v0;
-  v1 = v0[246];
-  v41 = v0[233];
-  v43 = v0[232];
-  v0[141] = v0;
-  v42 = Logger.wellnessIntents.unsafeMutableAddressor();
-  swift_beginAccess();
-  v44 = *(v41 + 16);
-  v0[247] = v44;
-  v0[248] = (v41 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v44(v1, v42, v43);
-  swift_endAccess();
-  oslog = Logger.logObject.getter();
-  v45 = static os_log_type_t.debug.getter();
-  v0[249] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v47 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(oslog, v45))
-  {
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v37 = createStorage<A>(capacity:type:)(0);
-    v38 = createStorage<A>(capacity:type:)(0);
-    *(v40 + 1648) = buf;
-    *(v40 + 1656) = v37;
-    *(v40 + 1664) = v38;
-    serialize(_:at:)(0, (v40 + 1648));
-    serialize(_:at:)(0, (v40 + 1648));
-    *(v40 + 1672) = v47;
-    v39 = swift_task_alloc();
-    v39[2] = v40 + 1648;
-    v39[3] = v40 + 1656;
-    v39[4] = v40 + 1664;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-
-    _os_log_impl(&dword_269912000, oslog, v45, "Got startTime, endTime.", buf, 2u);
-    destroyStorage<A>(_:count:)(v37, 0, v35);
-    destroyStorage<A>(_:count:)(v38, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
-  }
-
-  v17 = *(v40 + 1968);
-  v2 = *(v40 + 1960);
-  v20 = *(v40 + 1856);
-  v25 = *(v40 + 1848);
-  v23 = *(v40 + 1840);
-  v26 = *(v40 + 1824);
-  v22 = *(v40 + 1680);
-  v16 = *(v40 + 1864);
-  v21 = *(v40 + 1832);
-  MEMORY[0x277D82BD8](oslog);
-  v18 = *(v16 + 8);
-  *(v40 + 2000) = v18;
-  *(v40 + 2008) = (v16 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v18(v17, v20);
-  v19 = Logger.wellnessIntents.unsafeMutableAddressor();
-  swift_beginAccess();
-  v44(v2, v19, v20);
-  swift_endAccess();
-  (*(v21 + 16))(v25, v22, v26);
-  v24 = (*(v21 + 80) + 16) & ~*(v21 + 80);
-  v27 = swift_allocObject();
-  (*(v21 + 32))(v27 + v24, v25, v26);
-  log = Logger.logObject.getter();
-  v34 = static os_log_type_t.debug.getter();
-  v29 = swift_allocObject();
-  *(v29 + 16) = 32;
-  v30 = swift_allocObject();
-  *(v30 + 16) = 8;
-  v28 = swift_allocObject();
-  *(v28 + 16) = partial apply for implicit closure #1 in SpecificMedicationsPersistor.saveMedication(named:medStatusTaken:dosage:dosageUnit:);
-  *(v28 + 24) = v27;
-  v31 = swift_allocObject();
-  *(v31 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-  *(v31 + 24) = v28;
-  _allocateUninitializedArray<A>(_:)();
-  v32 = v3;
-
-  *v32 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v32[1] = v29;
-
-  v32[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v32[3] = v30;
-
-  v32[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v32[5] = v31;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(log, v34))
-  {
-    v13 = static UnsafeMutablePointer.allocate(capacity:)();
-    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v14 = createStorage<A>(capacity:type:)(0);
-    v15 = createStorage<A>(capacity:type:)(1);
-    v48 = v13;
-    v49 = v14;
-    v50 = v15;
-    serialize(_:at:)(2, &v48);
-    serialize(_:at:)(1, &v48);
-    v51 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v52 = v29;
-    closure #1 in osLogInternal(_:log:type:)(&v51, &v48, &v49, &v50);
-    v51 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v52 = v30;
-    closure #1 in osLogInternal(_:log:type:)(&v51, &v48, &v49, &v50);
-    v51 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v52 = v31;
-    closure #1 in osLogInternal(_:log:type:)(&v51, &v48, &v49, &v50);
-    _os_log_impl(&dword_269912000, log, v34, "searching dateinterval: %s", v13, 0xCu);
-    destroyStorage<A>(_:count:)(v14, 0, v12);
-    destroyStorage<A>(_:count:)(v15, 1, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D6497C0](v13, MEMORY[0x277D84B78]);
-  }
-
-  else
-  {
-  }
-
-  v10 = *(v40 + 1960);
-  v11 = *(v40 + 1856);
-  MEMORY[0x277D82BD8](log);
-  v18(v10, v11);
-  v4 = swift_allocObject();
-  *(v40 + 2016) = v4;
-  *(v40 + 1144) = v4 + 16;
-  v5 = swift_task_alloc();
-  *(v40 + 2024) = v5;
-  *v5 = *(v40 + 1128);
-  v5[1] = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-  v6 = *(v40 + 1696);
-  v7 = *(v40 + 1688);
-  v8 = *(v40 + 1680);
-
-  return SpecificMedicationsPersistor.getDoseEvents(for:medicationIdentifier:)(v8, 0, v7, v6);
-}
-
-{
-  v1 = v0[267];
-  v2 = v0[266];
-  v0[141] = v0;
-  v0[129] = v2;
-  v0[130] = v1;
-  if (v0[130])
-  {
-    v17 = *(v128 + 1040);
-    *(v128 + 1016) = *(v128 + 1032);
-    *(v128 + 1024) = v17;
-  }
-
-  else
-  {
-    *(v128 + 1016) = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Unknown Name", 0xCuLL, 1);
-    if (*(v128 + 1040))
-    {
-      outlined destroy of String.UTF8View(v128 + 1032);
-    }
-  }
-
-  v102 = *(v128 + 2112);
-  v105 = *(v128 + 2088);
-  v103 = (*(v128 + 2104) + 16);
-  v100 = *(v128 + 1024);
-  v101 = MEMORY[0x26D6492A0](*(v128 + 1016));
-
-  [v102 setMedName_];
-  MEMORY[0x277D82BD8](v101);
-  MEMORY[0x277D82BD8](v102);
-  swift_beginAccess();
-  v104 = *v103;
-  MEMORY[0x277D82BE0](*v103);
-  result = swift_endAccess();
-  if (__OFSUB__(v105, 1))
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v80 = *(v128 + 2104);
-    v77 = *(v128 + 2088);
-    v97 = *(v128 + 1992);
-    v75 = *(v128 + 1984);
-    v76 = *(v128 + 1976);
-    v19 = *(v128 + 1912);
-    v74 = *(v128 + 1856);
-    *(v128 + 1560) = v105 - 1;
-    v20 = String.init<A>(_:)();
-    v72 = MEMORY[0x26D6492A0](v20);
-
-    [v104 setRemainingMedCount_];
-    MEMORY[0x277D82BD8](v72);
-    MEMORY[0x277D82BD8](v104);
-    v73 = Logger.wellnessIntents.unsafeMutableAddressor();
-    swift_beginAccess();
-    v76(v19, v73, v74);
-    swift_endAccess();
-
-    v82 = swift_allocObject();
-    *(v82 + 16) = v77;
-    oslog = Logger.logObject.getter();
-    v99 = static os_log_type_t.debug.getter();
-    v84 = swift_allocObject();
-    *(v84 + 16) = 32;
-    v85 = swift_allocObject();
-    *(v85 + 16) = 8;
-    v78 = swift_allocObject();
-    *(v78 + 16) = partial apply for implicit closure #9 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-    *(v78 + 24) = v80;
-    v86 = swift_allocObject();
-    *(v86 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-    *(v86 + 24) = v78;
-    v87 = swift_allocObject();
-    *(v87 + 16) = 32;
-    v88 = swift_allocObject();
-    *(v88 + 16) = 8;
-    v79 = swift_allocObject();
-    *(v79 + 16) = partial apply for implicit closure #10 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-    *(v79 + 24) = v80;
-    v89 = swift_allocObject();
-    *(v89 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-    *(v89 + 24) = v79;
-    v90 = swift_allocObject();
-    *(v90 + 16) = 32;
-    v91 = swift_allocObject();
-    *(v91 + 16) = 8;
-    v81 = swift_allocObject();
-    *(v81 + 16) = partial apply for implicit closure #11 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-    *(v81 + 24) = v80;
-    v92 = swift_allocObject();
-    *(v92 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-    *(v92 + 24) = v81;
-    v93 = swift_allocObject();
-    *(v93 + 16) = 0;
-    v94 = swift_allocObject();
-    *(v94 + 16) = 8;
-    v83 = swift_allocObject();
-    *(v83 + 16) = partial apply for implicit closure #12 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-    *(v83 + 24) = v82;
-    v95 = swift_allocObject();
-    *(v95 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int);
-    *(v95 + 24) = v83;
-    _allocateUninitializedArray<A>(_:)();
-    v96 = v21;
-
-    *v96 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[1] = v84;
-
-    v96[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[3] = v85;
-
-    v96[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[5] = v86;
-
-    v96[6] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[7] = v87;
-
-    v96[8] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[9] = v88;
-
-    v96[10] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[11] = v89;
-
-    v96[12] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[13] = v90;
-
-    v96[14] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[15] = v91;
-
-    v96[16] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[17] = v92;
-
-    v96[18] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[19] = v93;
-
-    v96[20] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v96[21] = v94;
-
-    v96[22] = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-    v96[23] = v95;
-    _finalizeUninitializedArray<A>(_:)();
-
-    if (os_log_type_enabled(oslog, v99))
-    {
-      v22 = *(v128 + 2072);
-      buf = static UnsafeMutablePointer.allocate(capacity:)();
-      v68 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v70 = createStorage<A>(capacity:type:)(0);
-      v71 = createStorage<A>(capacity:type:)(3);
-      *(v128 + 1576) = buf;
-      *(v128 + 1584) = v70;
-      *(v128 + 1592) = v71;
-      serialize(_:at:)(2, (v128 + 1576));
-      serialize(_:at:)(4, (v128 + 1576));
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v84;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      if (v22)
-      {
-      }
-
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v85;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v86;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v87;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v88;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v89;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v90;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v91;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v92;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v93;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append(_:);
-      *(v128 + 1056) = v94;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      *(v128 + 1048) = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-      *(v128 + 1056) = v95;
-      closure #1 in osLogInternal(_:log:type:)(v128 + 1048, v128 + 1576, v128 + 1584, v128 + 1592);
-      _os_log_impl(&dword_269912000, oslog, v99, "Appending MatchedMedSchedule with scheduleID (%s), medName (%s), schedule (%s), and remainingMedCount (%ld)", buf, 0x2Au);
-      destroyStorage<A>(_:count:)(v70, 0, v68);
-      destroyStorage<A>(_:count:)(v71, 3, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
-
-      v67 = 0;
-    }
-
-    else
-    {
-
-      v67 = *(v128 + 2072);
-    }
-
-    v62 = *(v128 + 2096);
-    v64 = *(v128 + 2080);
-    v58 = *(v128 + 2008);
-    v59 = *(v128 + 2000);
-    v56 = *(v128 + 1912);
-    v57 = *(v128 + 1856);
-    v63 = *(v128 + 1800);
-    v60 = (*(v128 + 2104) + 16);
-    MEMORY[0x277D82BD8](oslog);
-    v59(v56, v57);
-    swift_beginAccess();
-    v61 = *v60;
-    MEMORY[0x277D82BE0](*v60);
-    swift_endAccess();
-    *(v128 + 1568) = v61;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriWellnessIntents18MatchedMedScheduleCGMd, &_sSay19SiriWellnessIntents18MatchedMedScheduleCGMR);
-    Array.append(_:)();
-
-    outlined destroy of Date?(v63);
-
-    *(v128 + 2072) = v67;
-    v66 = *(v128 + 1736);
-    v65 = *(v128 + 1728);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSD8IteratorVySSSg10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt_GMd, &_sSD8IteratorVySSSg10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt_GMR);
-    Dictionary.Iterator.next()();
-    outlined init with take of (key: String?, value: (scheduleDate: Date?, medID: String, count: Int))?(v65, v66);
-    v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg3key_10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt5valuetMd, &_sSSSg3key_10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt5valuetMR);
-    if ((*(*(v113 - 8) + 48))(v66, 1) == 1)
-    {
-      v26 = *(v128 + 2064);
-      v29 = *(v128 + 2048);
-      v30 = *(v128 + 2016);
-      outlined destroy of [String? : (scheduleDate: Date?, medID: String, count: Int)].Iterator((v128 + 56));
-      type metadata accessor for LogSpecificMedicationsIntentResponse();
-      v55 = LogSpecificMedicationsIntentResponse.__allocating_init(code:userActivity:)(104, 0);
-      MEMORY[0x277D82BE0](v55);
-      *(v128 + 1536) = v55;
-      v27 = *(v128 + 1528);
-
-      isa = Array._bridgeToObjectiveC()().super.isa;
-
-      [v55 setMatchingSchedules_];
-      MEMORY[0x277D82BD8](isa);
-      MEMORY[0x277D82BD8](*(v128 + 1536));
-      outlined destroy of [HKQuantityType]((v128 + 1528));
-
-      v23 = *(v128 + 1968);
-      v31 = *(v128 + 1960);
-      v32 = *(v128 + 1952);
-      v33 = *(v128 + 1944);
-      v34 = *(v128 + 1936);
-      v35 = *(v128 + 1928);
-      v36 = *(v128 + 1920);
-      v37 = *(v128 + 1912);
-      v38 = *(v128 + 1904);
-      v39 = *(v128 + 1896);
-      v40 = *(v128 + 1888);
-      v41 = *(v128 + 1880);
-      v42 = *(v128 + 1872);
-      v43 = *(v128 + 1848);
-      v44 = *(v128 + 1816);
-      v45 = *(v128 + 1808);
-      v46 = *(v128 + 1800);
-      v47 = *(v128 + 1792);
-      v48 = *(v128 + 1784);
-      v49 = *(v128 + 1776);
-      v50 = *(v128 + 1768);
-      v51 = *(v128 + 1760);
-      v52 = *(v128 + 1736);
-      v53 = *(v128 + 1728);
-      v54 = *(v128 + 1720);
-
-      v24 = *(*(v128 + 1128) + 8);
-      v25 = *(v128 + 1128);
-
-      return v24(v55);
-    }
-
-    else
-    {
-      v3 = *(v128 + 2064);
-      v120 = *(v128 + 1800);
-      v4 = *(v128 + 1736);
-      v121 = *(v128 + 1720);
-      v119 = *(v128 + 1704);
-      v118 = *v4;
-      v127 = v4[1];
-      *(v128 + 2080) = v127;
-      v5 = v4 + *(v113 + 48);
-      v6 = &v5[*(v119 + 48)];
-      v114 = *v6;
-      v116 = *(v6 + 1);
-      v124 = *&v5[*(v119 + 64)];
-      *(v128 + 2088) = v124;
-      v115 = &v121[*(v119 + 48)];
-      v117 = *(v119 + 64);
-      outlined init with take of Date?(v5, v121);
-      *v115 = v114;
-      *(v115 + 1) = v116;
-      *&v121[v117] = v124;
-      *(v128 + 984) = v118;
-      *(v128 + 992) = v127;
-      v7 = &v121[*(v119 + 48)];
-      v122 = *v7;
-      v123 = v7[1];
-      *(v128 + 2096) = v123;
-      outlined init with take of Date?(v121, v120);
-      *(v128 + 1000) = v122;
-      *(v128 + 1008) = v123;
-      *(v128 + 1544) = v124;
-      v126 = swift_allocObject();
-      *(v128 + 2104) = v126;
-      *(v128 + 1552) = v126 + 16;
-      v8 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Match", 5uLL, 1);
-      INObject.__allocating_init(identifier:display:)(v9, 0, v8);
-      v125 = v10;
-      MEMORY[0x277D82BE0](v10);
-      *(v126 + 16) = v125;
-      swift_beginAccess();
-      swift_endAccess();
-
-      if (v127)
-      {
-        v111 = MEMORY[0x26D6492A0](v118);
-
-        v112 = v111;
-      }
-
-      else
-      {
-        v112 = 0;
-      }
-
-      v109 = *(v128 + 1800);
-      [v125 setScheduleID_];
-      MEMORY[0x277D82BD8](v112);
-      MEMORY[0x277D82BD8](v125);
-      swift_beginAccess();
-      v108 = *(v126 + 16);
-      MEMORY[0x277D82BE0](v108);
-      swift_endAccess();
-      v110 = getFormattedTimeString(time:)(v109);
-      if (v11)
-      {
-        v106 = MEMORY[0x26D6492A0](v110);
-
-        v107 = v106;
-      }
-
-      else
-      {
-        v107 = 0;
-      }
-
-      [v108 setSchedule_];
-      MEMORY[0x277D82BD8](v107);
-      MEMORY[0x277D82BD8](v108);
-      swift_beginAccess();
-      v12 = *(v126 + 16);
-      *(v128 + 2112) = v12;
-      MEMORY[0x277D82BE0](v12);
-      swift_endAccess();
-
-      v13 = swift_task_alloc();
-      *(v128 + 2120) = v13;
-      *v13 = *(v128 + 1128);
-      v13[1] = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-      v14 = *(v128 + 1696);
-      v15 = *(v128 + 1688);
-
-      return SpecificMedicationsPersistor.displayNameFor(identifier:)(v122, v123, v15, v14);
-    }
-  }
-
-  return result;
-}
-
-{
-  v5 = v0[256];
-  v6 = v0[252];
-  v0[141] = v0;
-  outlined destroy of [HKQuantityType](v0 + 180);
-
-  v31 = v0[270];
-  v1 = v0[246];
-  v7 = v0[245];
-  v8 = v0[244];
-  v9 = v0[243];
-  v10 = v0[242];
-  v11 = v0[241];
-  v12 = v0[240];
-  v13 = v0[239];
-  v14 = v0[238];
-  v15 = v0[237];
-  v16 = v0[236];
-  v17 = v0[235];
-  v18 = v0[234];
-  v19 = v0[231];
-  v20 = v0[227];
-  v21 = v0[226];
-  v22 = v0[225];
-  v23 = v0[224];
-  v24 = v0[223];
-  v25 = v0[222];
-  v26 = v0[221];
-  v27 = v0[220];
-  v28 = v0[217];
-  v29 = v0[216];
-  v30 = v0[215];
-
-  v2 = *(v0[141] + 8);
-  v3 = v0[141];
-
-  return v2(v31);
-}
-
-{
-  v40 = v0[274];
-  v41 = v0[272];
-  v0[141] = v0;
-  v0[178] = v40;
-  MEMORY[0x277D82BE0](v40);
-  v0[179] = v40;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriWellnessIntents14MatchedMedNameCGMd, &_sSay19SiriWellnessIntents14MatchedMedNameCGMR);
-  Array.append(_:)();
-  MEMORY[0x277D82BD8](v40);
-  MEMORY[0x277D82BD8](v41);
-  v1 = v0[257];
-  IndexingIterator.next()();
-  v42 = v0[175];
-  v0[272] = v42;
-  if (v42)
-  {
-    v39[177] = v42;
-    v2 = swift_task_alloc();
-    v39[273] = v2;
-    *v2 = v39[141];
-    v2[1] = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-    v3 = v39[212];
-    v4 = v39[211];
-
-    return SpecificMedicationsPersistor.buildMatchedMedName(from:shouldIncludeAsNeededParams:)(v42, 1, v4, v3);
-  }
-
-  else
-  {
-    v9 = v39[271];
-    v12 = v39[256];
-    v13 = v39[252];
-    outlined destroy of [HKQuantityType](v39 + 119);
-    type metadata accessor for LogSpecificMedicationsIntentResponse();
-    v38 = LogSpecificMedicationsIntentResponse.__allocating_init(code:userActivity:)(110, 0);
-    MEMORY[0x277D82BE0](v38);
-    v39[176] = v38;
-    v10 = v39[173];
-
-    isa = Array._bridgeToObjectiveC()().super.isa;
-
-    [v38 setMatchingMeds_];
-    MEMORY[0x277D82BD8](isa);
-    MEMORY[0x277D82BD8](v39[176]);
-    outlined destroy of [HKQuantityType](v39 + 173);
-
-    v6 = v39[246];
-    v14 = v39[245];
-    v15 = v39[244];
-    v16 = v39[243];
-    v17 = v39[242];
-    v18 = v39[241];
-    v19 = v39[240];
-    v20 = v39[239];
-    v21 = v39[238];
-    v22 = v39[237];
-    v23 = v39[236];
-    v24 = v39[235];
-    v25 = v39[234];
-    v26 = v39[231];
-    v27 = v39[227];
-    v28 = v39[226];
-    v29 = v39[225];
-    v30 = v39[224];
-    v31 = v39[223];
-    v32 = v39[222];
-    v33 = v39[221];
-    v34 = v39[220];
-    v35 = v39[217];
-    v36 = v39[216];
-    v37 = v39[215];
-
-    v7 = *(v39[141] + 8);
-    v8 = v39[141];
-
-    return v7(v38);
-  }
-}
-
-{
-  v5 = v0[275];
-  v6 = v0[256];
-  v7 = v0[252];
-  v0[141] = v0;
-  outlined destroy of [HKQuantityType](v0 + 166);
-
-  v32 = v0[278];
-  v1 = v0[246];
-  v8 = v0[245];
-  v9 = v0[244];
-  v10 = v0[243];
-  v11 = v0[242];
-  v12 = v0[241];
-  v13 = v0[240];
-  v14 = v0[239];
-  v15 = v0[238];
-  v16 = v0[237];
-  v17 = v0[236];
-  v18 = v0[235];
-  v19 = v0[234];
-  v20 = v0[231];
-  v21 = v0[227];
-  v22 = v0[226];
-  v23 = v0[225];
-  v24 = v0[224];
-  v25 = v0[223];
-  v26 = v0[222];
-  v27 = v0[221];
-  v28 = v0[220];
-  v29 = v0[217];
-  v30 = v0[216];
-  v31 = v0[215];
-
-  v2 = *(v0[141] + 8);
-  v3 = v0[141];
-
-  return v2(v32);
-}
-
-{
-  v41 = v0[283];
-  v42 = v0[281];
-  v0[141] = v0;
-  v0[159] = v41;
-  MEMORY[0x277D82BE0](v41);
-  v0[160] = v41;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriWellnessIntents14MatchedMedNameCGMd, &_sSay19SiriWellnessIntents14MatchedMedNameCGMR);
-  Array.append(_:)();
-  MEMORY[0x277D82BD8](v41);
-  MEMORY[0x277D82BD8](v42);
-  v1 = v0[257];
-  IndexingIterator.next()();
-  v43 = v0[157];
-  v0[281] = v43;
-  if (v43)
-  {
-    v40[158] = v43;
-    v2 = swift_task_alloc();
-    v40[282] = v2;
-    *v2 = v40[141];
-    v2[1] = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-    v3 = v40[212];
-    v4 = v40[211];
-
-    return SpecificMedicationsPersistor.buildMatchedMedName(from:shouldIncludeAsNeededParams:)(v43, 1, v4, v3);
-  }
-
-  else
-  {
-    v9 = v40[280];
-    v11 = v40[279];
-    v13 = v40[256];
-    v14 = v40[252];
-    outlined destroy of [HKQuantityType](v40 + 115);
-    v10 = v40[155];
-
-    isa = Array._bridgeToObjectiveC()().super.isa;
-
-    [v11 setMatchingMeds_];
-    MEMORY[0x277D82BD8](isa);
-    outlined destroy of [HKQuantityType](v40 + 155);
-    MEMORY[0x277D82BD8](v40[154]);
-
-    v39 = v40[279];
-    v6 = v40[246];
-    v15 = v40[245];
-    v16 = v40[244];
-    v17 = v40[243];
-    v18 = v40[242];
-    v19 = v40[241];
-    v20 = v40[240];
-    v21 = v40[239];
-    v22 = v40[238];
-    v23 = v40[237];
-    v24 = v40[236];
-    v25 = v40[235];
-    v26 = v40[234];
-    v27 = v40[231];
-    v28 = v40[227];
-    v29 = v40[226];
-    v30 = v40[225];
-    v31 = v40[224];
-    v32 = v40[223];
-    v33 = v40[222];
-    v34 = v40[221];
-    v35 = v40[220];
-    v36 = v40[217];
-    v37 = v40[216];
-    v38 = v40[215];
-
-    v7 = *(v40[141] + 8);
-    v8 = v40[141];
-
-    return v7(v39);
-  }
-}
-
-{
-  v44 = v0[255];
-  v1 = v0[252];
-  v49 = v0[249];
-  v47 = v0[248];
-  v48 = v0[247];
-  v2 = v0[234];
-  v46 = v0[232];
-  v0[141] = v0;
-  swift_deallocUninitializedObject();
-  v3 = v44;
-  v0[144] = v44;
-  v45 = Logger.wellnessIntents.unsafeMutableAddressor();
-  swift_beginAccess();
-  v48(v2, v45, v46);
-  swift_endAccess();
-  oslog = Logger.logObject.getter();
-  v50 = static os_log_type_t.error.getter();
-  v52 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(oslog, v50))
-  {
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v40 = createStorage<A>(capacity:type:)(0);
-    v41 = createStorage<A>(capacity:type:)(0);
-    *(v43 + 1160) = buf;
-    *(v43 + 1168) = v40;
-    *(v43 + 1176) = v41;
-    serialize(_:at:)(0, (v43 + 1160));
-    serialize(_:at:)(0, (v43 + 1160));
-    *(v43 + 1184) = v52;
-    v42 = swift_task_alloc();
-    v42[2] = v43 + 1160;
-    v42[3] = v43 + 1168;
-    v42[4] = v43 + 1176;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-
-    _os_log_impl(&dword_269912000, oslog, v50, "Failed fetching dose events for specified timeframe.", buf, 2u);
-    destroyStorage<A>(_:count:)(v40, 0, v38);
-    destroyStorage<A>(_:count:)(v41, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
-  }
-
-  v12 = *(v43 + 2040);
-  v10 = *(v43 + 2008);
-  v11 = *(v43 + 2000);
-  v8 = *(v43 + 1872);
-  v9 = *(v43 + 1856);
-  MEMORY[0x277D82BD8](oslog);
-  v11(v8, v9);
-  type metadata accessor for LogSpecificMedicationsIntentResponse();
-  v37 = LogSpecificMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
-
-  v4 = *(v43 + 1968);
-  v13 = *(v43 + 1960);
-  v14 = *(v43 + 1952);
-  v15 = *(v43 + 1944);
-  v16 = *(v43 + 1936);
-  v17 = *(v43 + 1928);
-  v18 = *(v43 + 1920);
-  v19 = *(v43 + 1912);
-  v20 = *(v43 + 1904);
-  v21 = *(v43 + 1896);
-  v22 = *(v43 + 1888);
-  v23 = *(v43 + 1880);
-  v24 = *(v43 + 1872);
-  v25 = *(v43 + 1848);
-  v26 = *(v43 + 1816);
-  v27 = *(v43 + 1808);
-  v28 = *(v43 + 1800);
-  v29 = *(v43 + 1792);
-  v30 = *(v43 + 1784);
-  v31 = *(v43 + 1776);
-  v32 = *(v43 + 1768);
-  v33 = *(v43 + 1760);
-  v34 = *(v43 + 1736);
-  v35 = *(v43 + 1728);
-  v36 = *(v43 + 1720);
-
-  v5 = *(*(v43 + 1128) + 8);
-  v6 = *(v43 + 1128);
-
-  return v5(v37);
-}
-
-uint64_t SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:)(uint64_t a1)
-{
-  v10 = *v2;
-  v9 = v10 + 141;
-  v4 = *(*v2 + 2024);
-  v10[141] = *v2;
-  v10[254] = a1;
-  v10[255] = v1;
-
-  if (v1)
-  {
-    v7 = *v9;
-    v6 = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-  }
-
-  else
-  {
-    v5 = *v9;
-    v6 = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-  }
-
-  return MEMORY[0x2822009F8](v6, 0);
-}
-
-{
-  v479 = v1;
-  MEMORY[0x28223BE20](a1);
-  v433 = v1;
-  v2 = *(v1 + 2032);
-  v438 = *(v1 + 2016);
-  v444 = *(v1 + 1992);
-  v436 = *(v1 + 1984);
-  v437 = *(v1 + 1976);
-  v3 = *(v1 + 1952);
-  v435 = *(v1 + 1856);
-  *(v1 + 1128) = v1;
-  *(v438 + 16) = v2;
-  v434 = Logger.wellnessIntents.unsafeMutableAddressor();
-  swift_beginAccess();
-  v437(v3, v434, v435);
-  swift_endAccess();
-
-  oslog = Logger.logObject.getter();
-  v446 = static os_log_type_t.debug.getter();
-  v440 = swift_allocObject();
-  *(v440 + 16) = 0;
-  v441 = swift_allocObject();
-  *(v441 + 16) = 8;
-  v439 = swift_allocObject();
-  *(v439 + 16) = partial apply for implicit closure #2 in SpecificMedicationsPersistor.saveMedication(named:medStatusTaken:dosage:dosageUnit:);
-  *(v439 + 24) = v438;
-  v442 = swift_allocObject();
-  *(v442 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int);
-  *(v442 + 24) = v439;
-  _allocateUninitializedArray<A>(_:)();
-  v443 = v4;
-
-  *v443 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v443[1] = v440;
-
-  v443[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v443[3] = v441;
-
-  v443[4] = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-  v443[5] = v442;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(oslog, v446))
-  {
-    v5 = *(v1 + 2040);
-    buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v429 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v431 = createStorage<A>(capacity:type:)(0);
-    v432 = createStorage<A>(capacity:type:)(0);
-    v474 = buf;
-    v475 = v431;
-    v476 = v432;
-    serialize(_:at:)(0, &v474);
-    serialize(_:at:)(1, &v474);
-    v477 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v478 = v440;
-    closure #1 in osLogInternal(_:log:type:)(&v477, &v474, &v475, &v476);
-    if (v5)
-    {
-    }
-
-    v477 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v478 = v441;
-    closure #1 in osLogInternal(_:log:type:)(&v477, &v474, &v475, &v476);
-    v477 = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-    v478 = v442;
-    closure #1 in osLogInternal(_:log:type:)(&v477, &v474, &v475, &v476);
-    _os_log_impl(&dword_269912000, oslog, v446, "fetched %ld doseEvents", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v431, 0, v429);
-    destroyStorage<A>(_:count:)(v432, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
-
-    v428 = 0;
-    v427 = 0;
-  }
-
-  else
-  {
-
-    v428 = *(v1 + 2040);
-  }
-
-  v418 = *(v1 + 2016);
-  v410 = *(v1 + 2008);
-  v411 = *(v1 + 2000);
-  v424 = *(v1 + 1992);
-  v416 = *(v1 + 1984);
-  v417 = *(v1 + 1976);
-  v409 = *(v1 + 1952);
-  v7 = *(v1 + 1944);
-  v415 = *(v1 + 1856);
-  MEMORY[0x277D82BD8](oslog);
-  v411(v409, v415);
-  swift_beginAccess();
-  v412 = *(v418 + 16);
-
-  swift_endAccess();
-  v413 = filterUniqueDoseEvents(doseEvents:)(v412);
-
-  swift_beginAccess();
-  v8 = *(v418 + 16);
-  *(v418 + 16) = v413;
-
-  swift_endAccess();
-  v414 = Logger.wellnessIntents.unsafeMutableAddressor();
-  swift_beginAccess();
-  v417(v7, v414, v415);
-  swift_endAccess();
-
-  log = Logger.logObject.getter();
-  v426 = static os_log_type_t.debug.getter();
-  v420 = swift_allocObject();
-  *(v420 + 16) = 0;
-  v421 = swift_allocObject();
-  *(v421 + 16) = 8;
-  v419 = swift_allocObject();
-  *(v419 + 16) = partial apply for implicit closure #2 in SpecificMedicationsPersistor.saveMedication(named:medStatusTaken:dosage:dosageUnit:);
-  *(v419 + 24) = v418;
-  v422 = swift_allocObject();
-  *(v422 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int);
-  *(v422 + 24) = v419;
-  _allocateUninitializedArray<A>(_:)();
-  v423 = v9;
-
-  *v423 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v423[1] = v420;
-
-  v423[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v423[3] = v421;
-
-  v423[4] = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-  v423[5] = v422;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(log, v426))
-  {
-    v406 = static UnsafeMutablePointer.allocate(capacity:)();
-    v405 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v407 = createStorage<A>(capacity:type:)(0);
-    v408 = createStorage<A>(capacity:type:)(0);
-    v469 = v406;
-    v470 = v407;
-    v471 = v408;
-    serialize(_:at:)(0, &v469);
-    serialize(_:at:)(1, &v469);
-    v472 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v473 = v420;
-    closure #1 in osLogInternal(_:log:type:)(&v472, &v469, &v470, &v471);
-    if (v428)
-    {
-    }
-
-    v472 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v473 = v421;
-    closure #1 in osLogInternal(_:log:type:)(&v472, &v469, &v470, &v471);
-    v472 = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-    v473 = v422;
-    closure #1 in osLogInternal(_:log:type:)(&v472, &v469, &v470, &v471);
-    _os_log_impl(&dword_269912000, log, v426, "filtered to %ld unique doseEvents", v406, 0xCu);
-    destroyStorage<A>(_:count:)(v407, 0, v405);
-    destroyStorage<A>(_:count:)(v408, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D6497C0](v406, MEMORY[0x277D84B78]);
-
-    v403 = 0;
-    v404 = 0;
-  }
-
-  else
-  {
-
-    v403 = v428;
-    v404 = v427;
-  }
-
-  v393 = *(v1 + 2008);
-  v394 = *(v1 + 2000);
-  v391 = *(v1 + 1944);
-  v392 = *(v1 + 1856);
-  v396 = *(v1 + 1704);
-  v399 = (*(v1 + 2016) + 16);
-  MEMORY[0x277D82BD8](log);
-  v394(v391, v392);
-  v398 = swift_allocObject();
-  *(v1 + 2048) = v398;
-  *(v1 + 1192) = v398 + 16;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg_10Foundation4DateVSg08scheduleB0_SS5medIDSi5countttMd, &_sSSSg_10Foundation4DateVSg08scheduleB0_SS5medIDSi5countttMR);
-  _allocateUninitializedArray<A>(_:)();
-  v395 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
-  v397 = lazy protocol witness table accessor for type String? and conformance <A> A?();
-  *(v398 + 16) = Dictionary.init(dictionaryLiteral:)();
-  swift_beginAccess();
-  v400 = *v399;
-
-  swift_endAccess();
-  *(v1 + 1200) = v400;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
-  lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
-  Collection<>.makeIterator()();
-  v401 = v403;
-  for (i = v404; ; i = v362)
-  {
-    *(v1 + 2056) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMR);
-    IndexingIterator.next()();
-    v390 = *(v1 + 1208);
-    if (!v390)
-    {
-      break;
-    }
-
-    v387 = *(v1 + 1992);
-    v369 = *(v1 + 1984);
-    v370 = *(v1 + 1976);
-    v10 = *(v1 + 1936);
-    v368 = *(v1 + 1856);
-    *(v1 + 1632) = v390;
-    v367 = Logger.wellnessIntents.unsafeMutableAddressor();
-    swift_beginAccess();
-    v370(v10, v367, v368);
-    swift_endAccess();
-    MEMORY[0x277D82BE0](v390);
-    v371 = swift_allocObject();
-    *(v371 + 16) = v390;
-    MEMORY[0x277D82BE0](v390);
-    v373 = swift_allocObject();
-    *(v373 + 16) = v390;
-    MEMORY[0x277D82BE0](v390);
-    v375 = swift_allocObject();
-    *(v375 + 16) = v390;
-    v388 = Logger.logObject.getter();
-    v389 = static os_log_type_t.debug.getter();
-    v377 = swift_allocObject();
-    *(v377 + 16) = 32;
-    v378 = swift_allocObject();
-    *(v378 + 16) = 8;
-    v372 = swift_allocObject();
-    *(v372 + 16) = partial apply for implicit closure #4 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-    *(v372 + 24) = v371;
-    v379 = swift_allocObject();
-    *(v379 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-    *(v379 + 24) = v372;
-    v380 = swift_allocObject();
-    *(v380 + 16) = 32;
-    v381 = swift_allocObject();
-    *(v381 + 16) = 8;
-    v374 = swift_allocObject();
-    *(v374 + 16) = partial apply for implicit closure #5 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-    *(v374 + 24) = v373;
-    v382 = swift_allocObject();
-    *(v382 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-    *(v382 + 24) = v374;
-    v383 = swift_allocObject();
-    *(v383 + 16) = 32;
-    v384 = swift_allocObject();
-    *(v384 + 16) = 8;
-    v376 = swift_allocObject();
-    *(v376 + 16) = partial apply for implicit closure #7 in SpecificMedicationsPersistor.buildMatchedMedName(from:shouldIncludeAsNeededParams:);
-    *(v376 + 24) = v375;
-    v385 = swift_allocObject();
-    *(v385 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-    *(v385 + 24) = v376;
-    _allocateUninitializedArray<A>(_:)();
-    v386 = v11;
-
-    *v386 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v386[1] = v377;
-
-    v386[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v386[3] = v378;
-
-    v386[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v386[5] = v379;
-
-    v386[6] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v386[7] = v380;
-
-    v386[8] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v386[9] = v381;
-
-    v386[10] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v386[11] = v382;
-
-    v386[12] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v386[13] = v383;
-
-    v386[14] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v386[15] = v384;
-
-    v386[16] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v386[17] = v385;
-    _finalizeUninitializedArray<A>(_:)();
-
-    if (os_log_type_enabled(v388, v389))
-    {
-      v364 = static UnsafeMutablePointer.allocate(capacity:)();
-      v363 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v365 = createStorage<A>(capacity:type:)(0);
-      v366 = createStorage<A>(capacity:type:)(3);
-      v464 = v364;
-      v465 = v365;
-      v466 = v366;
-      serialize(_:at:)(2, &v464);
-      serialize(_:at:)(3, &v464);
-      v467 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v468 = v377;
-      closure #1 in osLogInternal(_:log:type:)(&v467, &v464, &v465, &v466);
-      if (v401)
-      {
-      }
-
-      v467 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v468 = v378;
-      closure #1 in osLogInternal(_:log:type:)(&v467, &v464, &v465, &v466);
-      v467 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v468 = v379;
-      closure #1 in osLogInternal(_:log:type:)(&v467, &v464, &v465, &v466);
-      v467 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v468 = v380;
-      closure #1 in osLogInternal(_:log:type:)(&v467, &v464, &v465, &v466);
-      v467 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v468 = v381;
-      closure #1 in osLogInternal(_:log:type:)(&v467, &v464, &v465, &v466);
-      v467 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v468 = v382;
-      closure #1 in osLogInternal(_:log:type:)(&v467, &v464, &v465, &v466);
-      v467 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v468 = v383;
-      closure #1 in osLogInternal(_:log:type:)(&v467, &v464, &v465, &v466);
-      v467 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v468 = v384;
-      closure #1 in osLogInternal(_:log:type:)(&v467, &v464, &v465, &v466);
-      v467 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v468 = v385;
-      closure #1 in osLogInternal(_:log:type:)(&v467, &v464, &v465, &v466);
-      _os_log_impl(&dword_269912000, v388, v389, "got a dose event with scheduleID: %s, medID: %s, status: %s", v364, 0x20u);
-      destroyStorage<A>(_:count:)(v365, 0, v363);
-      destroyStorage<A>(_:count:)(v366, 3, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D6497C0](v364, MEMORY[0x277D84B78]);
-
-      v361 = 0;
-      v362 = 0;
-    }
-
-    else
-    {
-
-      v361 = v401;
-      v362 = i;
-    }
-
-    v358 = *(v1 + 2008);
-    v359 = *(v1 + 2000);
-    v356 = *(v1 + 1936);
-    v357 = *(v1 + 1856);
-    MEMORY[0x277D82BD8](v388);
-    v359(v356, v357);
-    v360 = [v390 scheduleItemIdentifier];
-    if (v360)
-    {
-      v352 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v353 = v12;
-      MEMORY[0x277D82BD8](v360);
-      v354 = v352;
-      v355 = v353;
-    }
-
-    else
-    {
-      v354 = 0;
-      v355 = 0;
-    }
-
-    v351 = *(v1 + 1784);
-    v350 = *(v1 + 1704);
-    v349 = *(v1 + 1712);
-    v13 = *(v398 + 16);
-    *(v1 + 1064) = v354;
-    *(v1 + 1072) = v355;
-    MEMORY[0x26D649240]();
-    outlined destroy of String.UTF8View(v1 + 1064);
-    if ((*(v349 + 48))(v351, 1, v350) == 1)
-    {
-      v324 = *(v1 + 1792);
-      outlined destroy of (scheduleDate: Date?, medID: String, count: Int)?(*(v1 + 1784));
-      v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_SSSitMd, &_s10Foundation4DateVSg_SSSitMR);
-      (*(*(v23 - 8) + 56))(v324, 1);
-    }
-
-    else
-    {
-      v348 = *(v1 + 1792);
-      v341 = *(v1 + 1784);
-      v14 = *(v1 + 1704);
-      v15 = &v341[*(v14 + 48)];
-      v342 = *v15;
-      v344 = *(v15 + 1);
-      v346 = *&v341[*(v14 + 64)];
-      v347 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_SSSitMd, &_s10Foundation4DateVSg_SSSitMR);
-      v343 = &v348[*(v347 + 48)];
-      v345 = *(v347 + 64);
-      outlined init with take of Date?(v341, v348);
-      *v343 = v342;
-      *(v343 + 1) = v344;
-      *&v348[v345] = v346;
-      (*(*(v347 - 8) + 56))();
-    }
-
-    v339 = *(v1 + 1792);
-    v340 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_SSSitMd, &_s10Foundation4DateVSg_SSSitMR);
-    if ((*(*(v340 - 8) + 48))(v339, 1) == 1)
-    {
-      outlined destroy of (Date?, String, Int)?(*(v1 + 1792));
-      v323 = [v390 scheduleItemIdentifier];
-      if (v323)
-      {
-        v319 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v320 = v24;
-        MEMORY[0x277D82BD8](v323);
-        v321 = v319;
-        v322 = v320;
-      }
-
-      else
-      {
-        v321 = 0;
-        v322 = 0;
-      }
-
-      v315 = *(v1 + 1768);
-      v25 = *(v1 + 1704);
-      v316 = (v315 + *(v25 + 48));
-      v317 = *(v25 + 64);
-      v318 = [v390 scheduledDate];
-      if (v318)
-      {
-        v314 = *(v1 + 1808);
-        v312 = *(v1 + 1760);
-        v313 = *(v1 + 1744);
-        v311 = *(v1 + 1752);
-        static Date._unconditionallyBridgeFromObjectiveC(_:)();
-        (*(v311 + 32))(v314, v312, v313);
-        (*(v311 + 56))(v314, 0, 1, v313);
-        MEMORY[0x277D82BD8](v318);
-      }
-
-      else
-      {
-        (*(*(v1 + 1752) + 56))(*(v1 + 1808), 1, 1, *(v1 + 1744));
-      }
-
-      v309 = *(v1 + 1768);
-      v308 = *(v1 + 1704);
-      v307 = *(v1 + 1712);
-      outlined init with take of Date?(*(v1 + 1808), v309);
-      v306 = [v390 medicationIdentifier];
-      v310 = [v306 underlyingIdentifier];
-      *v316 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v316[1] = v26;
-      MEMORY[0x277D82BD8](v306);
-      *(v315 + v317) = 1;
-      (*(v307 + 56))(v309, 0, 1, v308);
-      *(v1 + 1080) = v321;
-      *(v1 + 1088) = v322;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSg10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttGMd, &_sSDySSSg10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttGMR);
-      Dictionary.subscript.setter();
-      MEMORY[0x277D82BD8](v310);
-      MEMORY[0x277D82BD8](v390);
-      v327 = v361;
-    }
-
-    else
-    {
-      v16 = *(v1 + 1792);
-      v17 = &v16[*(v340 + 48)];
-      v335 = *v17;
-      v336 = *(v17 + 1);
-      v337 = *&v16[*(v340 + 64)];
-      outlined init with take of Date?(v16, *(v1 + 1816));
-      *(v1 + 1096) = v335;
-      *(v1 + 1104) = v336;
-      *(v1 + 1640) = v337;
-      v338 = [v390 scheduleItemIdentifier];
-      if (v338)
-      {
-        v331 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v332 = v18;
-        MEMORY[0x277D82BD8](v338);
-        v333 = v331;
-        v334 = v332;
-      }
-
-      else
-      {
-        v333 = 0;
-        v334 = 0;
-      }
-
-      v328 = *(v1 + 1776);
-      v19 = *(v1 + 1704);
-      v330 = &v328[*(v19 + 48)];
-      v329 = *(v19 + 64);
-      outlined init with copy of Date?(*(v1 + 1816), v328);
-
-      *v330 = v335;
-      *(v330 + 1) = v336;
-      if (__OFADD__(v337, 1))
-      {
-        __break(1u);
-        return result;
-      }
-
-      v326 = *(v1 + 1816);
-      v325 = *(v1 + 1776);
-      v21 = *(v1 + 1712);
-      v22 = *(v1 + 1704);
-      *&v328[v329] = v337 + 1;
-      (*(v21 + 56))();
-      *(v1 + 1112) = v333;
-      *(v1 + 1120) = v334;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSg10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttGMd, &_sSDySSSg10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttGMR);
-      Dictionary.subscript.setter();
-
-      outlined destroy of Date?(v326);
-      MEMORY[0x277D82BD8](v390);
-      v327 = v361;
-    }
-
-    v401 = v327;
-  }
-
-  v303 = (*(v1 + 2016) + 16);
-  outlined destroy of [HKQuantityType]((v1 + 904));
-  swift_beginAccess();
-  v304 = *v303;
-
-  swift_endAccess();
-  *(v1 + 1216) = v304;
-  v305 = Collection.isEmpty.getter();
-
-  if (v305)
-  {
-    v299 = *(v1 + 1992);
-    v297 = *(v1 + 1984);
-    v298 = *(v1 + 1976);
-    v27 = *(v1 + 1928);
-    v296 = *(v1 + 1856);
-    v295 = Logger.wellnessIntents.unsafeMutableAddressor();
-    swift_beginAccess();
-    v298(v27, v295, v296);
-    swift_endAccess();
-    v301 = Logger.logObject.getter();
-    v300 = static os_log_type_t.debug.getter();
-    v302 = _allocateUninitializedArray<A>(_:)();
-    if (!os_log_type_enabled(v301, v300))
-    {
-
-      goto LABEL_47;
-    }
-
-    v291 = static UnsafeMutablePointer.allocate(capacity:)();
-    v290 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v292 = createStorage<A>(capacity:type:)(0);
-    v293 = createStorage<A>(capacity:type:)(0);
-    *(v1 + 1600) = v291;
-    *(v1 + 1608) = v292;
-    *(v1 + 1616) = v293;
-    serialize(_:at:)(0, (v1 + 1600));
-    serialize(_:at:)(0, (v1 + 1600));
-    *(v1 + 1624) = v302;
-    v294 = swift_task_alloc();
-    v294[2] = v1 + 1600;
-    v294[3] = v1 + 1608;
-    v294[4] = v1 + 1616;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-    Sequence.forEach(_:)();
-    if (!v401)
-    {
-
-      _os_log_impl(&dword_269912000, v301, v300, "Time specified, but no potential time match found. Returning .noMatchFound.", v291, 2u);
-      destroyStorage<A>(_:count:)(v292, 0, v290);
-      destroyStorage<A>(_:count:)(v293, 0, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D6497C0](v291, MEMORY[0x277D84B78]);
-
-LABEL_47:
-      v287 = *(v1 + 2016);
-      v285 = *(v1 + 2008);
-      v286 = *(v1 + 2000);
-      v283 = *(v1 + 1928);
-      v284 = *(v1 + 1856);
-      MEMORY[0x277D82BD8](v301);
-      v286(v283, v284);
-      type metadata accessor for LogSpecificMedicationsIntentResponse();
-      v288 = LogSpecificMedicationsIntentResponse.__allocating_init(code:userActivity:)(105, 0);
-
-      v289 = v288;
-LABEL_121:
-      v63 = *(v1 + 1968);
-      v66 = *(v1 + 1960);
-      v67 = *(v1 + 1952);
-      v68 = *(v1 + 1944);
-      v69 = *(v1 + 1936);
-      v70 = *(v1 + 1928);
-      v71 = *(v1 + 1920);
-      v72 = *(v1 + 1912);
-      v73 = *(v1 + 1904);
-      v74 = *(v1 + 1896);
-      v75 = *(v1 + 1888);
-      v76 = *(v1 + 1880);
-      v77 = *(v1 + 1872);
-      v78 = *(v1 + 1848);
-      v79 = *(v1 + 1816);
-      v80 = *(v1 + 1808);
-      v81 = *(v1 + 1800);
-      v82 = *(v1 + 1792);
-      v83 = *(v1 + 1784);
-      v84 = *(v1 + 1776);
-      v85 = *(v1 + 1768);
-      v86 = *(v1 + 1760);
-      v87 = *(v1 + 1736);
-      v88 = *(v1 + 1728);
-      v89 = *(v1 + 1720);
-
-      v64 = *(*(v1 + 1128) + 8);
-      v65 = *(v1 + 1128);
-
-      return v64(v289);
-    }
-  }
-
-  v280 = *(v1 + 1704);
-  v281 = *(v398 + 16);
-
-  v282 = MEMORY[0x26D649210](v281, v395, v280, v397);
-
-  if (v282 <= 1)
-  {
-    v224 = *(v1 + 2016);
-    swift_beginAccess();
-    doseEvents._rawValue = *(v224 + 16);
-
-    swift_endAccess();
-    v226 = allDoseEventsAreUnlogged(doseEvents:)(doseEvents);
-
-    if (v226)
-    {
-      v220 = *(v1 + 1992);
-      v218 = *(v1 + 1984);
-      v219 = *(v1 + 1976);
-      v43 = *(v1 + 1904);
-      v217 = *(v1 + 1856);
-      v216 = Logger.wellnessIntents.unsafeMutableAddressor();
-      swift_beginAccess();
-      v219(v43, v216, v217);
-      swift_endAccess();
-      v222 = Logger.logObject.getter();
-      v221 = static os_log_type_t.debug.getter();
-      v223 = _allocateUninitializedArray<A>(_:)();
-      if (os_log_type_enabled(v222, v221))
-      {
-        v212 = static UnsafeMutablePointer.allocate(capacity:)();
-        v211 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v213 = createStorage<A>(capacity:type:)(0);
-        v214 = createStorage<A>(capacity:type:)(0);
-        *(v1 + 1496) = v212;
-        *(v1 + 1504) = v213;
-        *(v1 + 1512) = v214;
-        serialize(_:at:)(0, (v1 + 1496));
-        serialize(_:at:)(0, (v1 + 1496));
-        *(v1 + 1520) = v223;
-        v215 = swift_task_alloc();
-        v215[2] = v1 + 1496;
-        v215[3] = v1 + 1504;
-        v215[4] = v1 + 1512;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-        Sequence.forEach(_:)();
-        if (v401)
-        {
-        }
-
-        _os_log_impl(&dword_269912000, v222, v221, "All dose events in group are unlogged, continuing to write", v212, 2u);
-        destroyStorage<A>(_:count:)(v213, 0, v211);
-        destroyStorage<A>(_:count:)(v214, 0, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D6497C0](v212, MEMORY[0x277D84B78]);
-
-        v210 = 0;
-      }
-
-      else
-      {
-
-        v210 = v401;
-      }
-
-      v206 = *(v1 + 2008);
-      v207 = *(v1 + 2000);
-      v204 = *(v1 + 1904);
-      v205 = *(v1 + 1856);
-      v208 = (*(v1 + 2016) + 16);
-      MEMORY[0x277D82BD8](v222);
-      v207(v204, v205);
-      type metadata accessor for HKMedicationExposableDoseEvent();
-      *(v1 + 1440) = _allocateUninitializedArray<A>(_:)();
-      swift_beginAccess();
-      v209 = *v208;
-
-      swift_endAccess();
-      *(v1 + 1448) = v209;
-      Collection<>.makeIterator()();
-      while (1)
-      {
-        IndexingIterator.next()();
-        v203 = *(v1 + 1456);
-        if (!v203)
-        {
-          break;
-        }
-
-        *(v1 + 1464) = v203;
-        *(v1 + 1472) = [v203 scheduledDoseQuantity];
-        if (*(v1 + 1472))
-        {
-          isa = *(v1 + 1472);
-        }
-
-        else
-        {
-          type metadata accessor for NSNumber();
-          isa = NSNumber.init(integerLiteral:)(1).super.super.isa;
-          if (*(v1 + 1472))
-          {
-            outlined destroy of HealthKitPersistor((v1 + 1472));
-          }
-        }
-
-        v202 = [v203 updateForNewDoseQuantity_];
-        MEMORY[0x277D82BD8](isa);
-        *(v1 + 1480) = v202;
-        MEMORY[0x277D82BE0](v202);
-        *(v1 + 1488) = v202;
-        Array.append(_:)();
-        MEMORY[0x277D82BD8](v202);
-        MEMORY[0x277D82BD8](v203);
-      }
-
-      v199 = *(v1 + 1992);
-      v188 = *(v1 + 1984);
-      v189 = *(v1 + 1976);
-      v44 = *(v1 + 1896);
-      v187 = *(v1 + 1856);
-      v190 = *(v1 + 2273);
-      outlined destroy of [HKQuantityType]((v1 + 968));
-      v186 = Logger.wellnessIntents.unsafeMutableAddressor();
-      swift_beginAccess();
-      v189(v44, v186, v187);
-      swift_endAccess();
-      v191 = swift_allocObject();
-      *(v191 + 16) = v190;
-      v200 = Logger.logObject.getter();
-      v201 = static os_log_type_t.debug.getter();
-      v195 = swift_allocObject();
-      *(v195 + 16) = 0;
-      v196 = swift_allocObject();
-      *(v196 + 16) = 4;
-      v192 = swift_allocObject();
-      *(v192 + 16) = partial apply for implicit closure #5 in LogSpecificMedicationsIntentHandler.handle(intent:);
-      *(v192 + 24) = v191;
-      v193 = swift_allocObject();
-      *(v193 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
-      *(v193 + 24) = v192;
-      v194 = swift_allocObject();
-      *(v194 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
-      *(v194 + 24) = v193;
-      v197 = swift_allocObject();
-      *(v197 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int32);
-      *(v197 + 24) = v194;
-      _allocateUninitializedArray<A>(_:)();
-      v198 = v45;
-
-      *v198 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v198[1] = v195;
-
-      v198[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v198[3] = v196;
-
-      v198[4] = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
-      v198[5] = v197;
-      _finalizeUninitializedArray<A>(_:)();
-
-      if (os_log_type_enabled(v200, v201))
-      {
-        v183 = static UnsafeMutablePointer.allocate(capacity:)();
-        v182 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v184 = createStorage<A>(capacity:type:)(0);
-        v185 = createStorage<A>(capacity:type:)(0);
-        v453 = v183;
-        v454 = v184;
-        v455 = v185;
-        serialize(_:at:)(0, &v453);
-        serialize(_:at:)(1, &v453);
-        v456 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v457 = v195;
-        closure #1 in osLogInternal(_:log:type:)(&v456, &v453, &v454, &v455);
-        if (v210)
-        {
-        }
-
-        v456 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v457 = v196;
-        closure #1 in osLogInternal(_:log:type:)(&v456, &v453, &v454, &v455);
-        v456 = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
-        v457 = v197;
-        closure #1 in osLogInternal(_:log:type:)(&v456, &v453, &v454, &v455);
-        _os_log_impl(&dword_269912000, v200, v201, "Calling writeDoseEvent() for specified time with medStatus: %{BOOL}d", v183, 8u);
-        destroyStorage<A>(_:count:)(v184, 0, v182);
-        destroyStorage<A>(_:count:)(v185, 0, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D6497C0](v183, MEMORY[0x277D84B78]);
-      }
-
-      else
-      {
-      }
-
-      v178 = *(v1 + 2008);
-      v179 = *(v1 + 2000);
-      v176 = *(v1 + 1896);
-      v177 = *(v1 + 1856);
-      v180 = *(v1 + 1696);
-      MEMORY[0x277D82BD8](v200);
-      v179(v176, v177);
-      MEMORY[0x277D82BE0](v180);
-      v181 = *(v1 + 1440);
-      *(v1 + 2144) = v181;
-
-      v46 = swift_task_alloc();
-      v47 = v181;
-      *(v1 + 2152) = v46;
-      *v46 = *(v1 + 1128);
-      v46[1] = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-      v48 = *(v1 + 1696);
-      v49 = *(v1 + 2273);
-      v481 = *(v1 + 1688);
-      v482 = v48;
-      v50 = v49 & 1;
-
-      return SpecificMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:medicationIDPresent:dosage:dosageUnit:)(v48, v47, v50, 0, 0, 1, 0, 0);
-    }
-
-    v173 = *(v1 + 2016);
-    swift_beginAccess();
-    v174._rawValue = *(v173 + 16);
-
-    swift_endAccess();
-    v175 = allLoggedWithMixedStatus(doseEvents:)(v174);
-
-    if (v175)
-    {
-      goto LABEL_89;
-    }
-
-    v169 = *(v1 + 2016);
-    v170 = *(v1 + 2273);
-    swift_beginAccess();
-    v171._rawValue = *(v169 + 16);
-
-    swift_endAccess();
-    v172 = oneExistingStatusWithConflictingRequest(doseEvents:requestedStatus:)(v171, v170 & 1);
-
-    if (v172)
-    {
-LABEL_89:
-      v166 = *(v1 + 1992);
-      v151 = *(v1 + 1984);
-      v152 = *(v1 + 1976);
-      v51 = *(v1 + 1888);
-      v150 = *(v1 + 1856);
-      v147 = *(v1 + 2273);
-      v146 = (*(v1 + 2016) + 16);
-      swift_beginAccess();
-      v145._rawValue = *v146;
-
-      swift_endAccess();
-      v153 = allLoggedWithMixedStatus(doseEvents:)(v145);
-
-      *(v1 + 2280) = v153;
-      swift_beginAccess();
-      v148._rawValue = *v146;
-
-      swift_endAccess();
-      v154 = oneExistingStatusWithConflictingRequest(doseEvents:requestedStatus:)(v148, v147 & 1);
-
-      *(v1 + 2288) = v154;
-      v149 = Logger.wellnessIntents.unsafeMutableAddressor();
-      swift_beginAccess();
-      v152(v51, v149, v150);
-      swift_endAccess();
-      v155 = swift_allocObject();
-      *(v155 + 16) = v153;
-      v157 = swift_allocObject();
-      *(v157 + 16) = v154;
-      v167 = Logger.logObject.getter();
-      v168 = static os_log_type_t.debug.getter();
-      v159 = swift_allocObject();
-      *(v159 + 16) = 32;
-      v160 = swift_allocObject();
-      *(v160 + 16) = 8;
-      v156 = swift_allocObject();
-      *(v156 + 16) = partial apply for implicit closure #1 in SpecificMedicationsPersistor.updateDosageForDoseEvent(doseEvent:inputDosage:inputDosageUnit:);
-      *(v156 + 24) = v155;
-      v161 = swift_allocObject();
-      *(v161 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-      *(v161 + 24) = v156;
-      v162 = swift_allocObject();
-      *(v162 + 16) = 32;
-      v163 = swift_allocObject();
-      *(v163 + 16) = 8;
-      v158 = swift_allocObject();
-      *(v158 + 16) = partial apply for implicit closure #1 in SpecificMedicationsPersistor.updateDosageForDoseEvent(doseEvent:inputDosage:inputDosageUnit:);
-      *(v158 + 24) = v157;
-      v164 = swift_allocObject();
-      *(v164 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-      *(v164 + 24) = v158;
-      _allocateUninitializedArray<A>(_:)();
-      v165 = v52;
-
-      *v165 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v165[1] = v159;
-
-      v165[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v165[3] = v160;
-
-      v165[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v165[5] = v161;
-
-      v165[6] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v165[7] = v162;
-
-      v165[8] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v165[9] = v163;
-
-      v165[10] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v165[11] = v164;
-      _finalizeUninitializedArray<A>(_:)();
-
-      if (os_log_type_enabled(v167, v168))
-      {
-        v142 = static UnsafeMutablePointer.allocate(capacity:)();
-        v141 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v143 = createStorage<A>(capacity:type:)(0);
-        v144 = createStorage<A>(capacity:type:)(2);
-        v448 = v142;
-        v449 = v143;
-        v450 = v144;
-        serialize(_:at:)(2, &v448);
-        serialize(_:at:)(2, &v448);
-        v451 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v452 = v159;
-        closure #1 in osLogInternal(_:log:type:)(&v451, &v448, &v449, &v450);
-        if (v401)
-        {
-        }
-
-        v451 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v452 = v160;
-        closure #1 in osLogInternal(_:log:type:)(&v451, &v448, &v449, &v450);
-        v451 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v452 = v161;
-        closure #1 in osLogInternal(_:log:type:)(&v451, &v448, &v449, &v450);
-        v451 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v452 = v162;
-        closure #1 in osLogInternal(_:log:type:)(&v451, &v448, &v449, &v450);
-        v451 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v452 = v163;
-        closure #1 in osLogInternal(_:log:type:)(&v451, &v448, &v449, &v450);
-        v451 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v452 = v164;
-        closure #1 in osLogInternal(_:log:type:)(&v451, &v448, &v449, &v450);
-        _os_log_impl(&dword_269912000, v167, v168, "Calling either allLoggedWithMixedStatus (%s) or oneExistingStatusWithConflictingRequest (%s)", v142, 0x16u);
-        destroyStorage<A>(_:count:)(v143, 0, v141);
-        destroyStorage<A>(_:count:)(v144, 2, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D6497C0](v142, MEMORY[0x277D84B78]);
-      }
-
-      else
-      {
-      }
-
-      v136 = *(v1 + 2008);
-      v137 = *(v1 + 2000);
-      v134 = *(v1 + 1888);
-      v135 = *(v1 + 1856);
-      v138 = (*(v1 + 2016) + 16);
-      MEMORY[0x277D82BD8](v167);
-      v137(v134, v135);
-      *(v1 + 2168) = type metadata accessor for MatchedMedName();
-      *(v1 + 1384) = _allocateUninitializedArray<A>(_:)();
-      swift_beginAccess();
-      v139 = *v138;
-
-      swift_endAccess();
-      *(v1 + 1392) = v139;
-      Collection<>.makeIterator()();
-      v53 = *(v1 + 2056);
-      IndexingIterator.next()();
-      v140 = *(v1 + 1400);
-      *(v1 + 2176) = v140;
-      if (!v140)
-      {
-        v128 = *(v1 + 2168);
-        v131 = *(v1 + 2048);
-        v132 = *(v1 + 2016);
-        outlined destroy of [HKQuantityType]((v1 + 952));
-        type metadata accessor for LogSpecificMedicationsIntentResponse();
-        v133 = LogSpecificMedicationsIntentResponse.__allocating_init(code:userActivity:)(110, 0);
-        MEMORY[0x277D82BE0](v133);
-        *(v1 + 1408) = v133;
-        v129 = *(v1 + 1384);
-
-        v130 = Array._bridgeToObjectiveC()().super.isa;
-
-        [v133 setMatchingMeds_];
-        MEMORY[0x277D82BD8](v130);
-        MEMORY[0x277D82BD8](*(v1 + 1408));
-        outlined destroy of [HKQuantityType]((v1 + 1384));
-
-        v289 = v133;
-        goto LABEL_121;
-      }
-
-      *(v1 + 1416) = v140;
-      v54 = swift_task_alloc();
-      v55 = v140;
-      v433[273] = v54;
-      *v54 = v433[141];
-      v54[1] = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-      v56 = v433[212];
-      v57 = v433[211];
-    }
-
-    else
-    {
-      v124 = *(v1 + 2016);
-      swift_beginAccess();
-      v125 = *(v124 + 16);
-
-      swift_endAccess();
-      v126 = getUnloggedDoseEvents(doseEvents:)();
-
-      *(v1 + 1224) = v126;
-      v127 = Collection.isEmpty.getter();
-
-      if ((v127 & 1) == 0)
-      {
-        v121 = *(v1 + 2016);
-        swift_beginAccess();
-        v122 = *(v121 + 16);
-
-        swift_endAccess();
-        v123 = getUnloggedDoseEvents(doseEvents:)();
-        *(v1 + 2200) = v123;
-
-        *(v1 + 1320) = v123;
-        type metadata accessor for HKMedicationExposableDoseEvent();
-        *(v1 + 1328) = _allocateUninitializedArray<A>(_:)();
-
-        *(v1 + 1336) = v123;
-        Collection<>.makeIterator()();
-        while (1)
-        {
-          IndexingIterator.next()();
-          v120 = *(v1 + 1344);
-          if (!v120)
-          {
-            break;
-          }
-
-          *(v1 + 1352) = v120;
-          *(v1 + 1360) = [v120 scheduledDoseQuantity];
-          if (*(v1 + 1360))
-          {
-            v447 = *(v1 + 1360);
-          }
-
-          else
-          {
-            type metadata accessor for NSNumber();
-            v447 = NSNumber.init(integerLiteral:)(1).super.super.isa;
-            if (*(v1 + 1360))
-            {
-              outlined destroy of HealthKitPersistor((v1 + 1360));
-            }
-          }
-
-          v119 = [v120 updateForNewDoseQuantity_];
-          MEMORY[0x277D82BD8](v447);
-          *(v1 + 1368) = v119;
-          MEMORY[0x277D82BE0](v119);
-          *(v1 + 1376) = v119;
-          Array.append(_:)();
-          MEMORY[0x277D82BD8](v119);
-          MEMORY[0x277D82BD8](v120);
-        }
-
-        v117 = *(v1 + 1696);
-        outlined destroy of [HKQuantityType]((v1 + 936));
-        MEMORY[0x277D82BE0](v117);
-        v118 = *(v1 + 1328);
-        *(v1 + 2208) = v118;
-
-        v58 = swift_task_alloc();
-        v47 = v118;
-        *(v1 + 2216) = v58;
-        *v58 = *(v1 + 1128);
-        v58[1] = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-        v48 = *(v1 + 1696);
-        v59 = *(v1 + 2273);
-        v481 = *(v1 + 1688);
-        v482 = v48;
-        v50 = v59 & 1;
-
-        return SpecificMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:medicationIDPresent:dosage:dosageUnit:)(v48, v47, v50, 0, 0, 1, 0, 0);
-      }
-
-      v113 = *(v1 + 1992);
-      v111 = *(v1 + 1984);
-      v112 = *(v1 + 1976);
-      v60 = *(v1 + 1880);
-      v110 = *(v1 + 1856);
-      v109 = Logger.wellnessIntents.unsafeMutableAddressor();
-      swift_beginAccess();
-      v112(v60, v109, v110);
-      swift_endAccess();
-      v115 = Logger.logObject.getter();
-      v114 = static os_log_type_t.debug.getter();
-      v116 = _allocateUninitializedArray<A>(_:)();
-      if (os_log_type_enabled(v115, v114))
-      {
-        v105 = static UnsafeMutablePointer.allocate(capacity:)();
-        v104 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v106 = createStorage<A>(capacity:type:)(0);
-        v107 = createStorage<A>(capacity:type:)(0);
-        *(v1 + 1288) = v105;
-        *(v1 + 1296) = v106;
-        *(v1 + 1304) = v107;
-        serialize(_:at:)(0, (v1 + 1288));
-        serialize(_:at:)(0, (v1 + 1288));
-        *(v1 + 1312) = v116;
-        v108 = swift_task_alloc();
-        v108[2] = v1 + 1288;
-        v108[3] = v1 + 1296;
-        v108[4] = v1 + 1304;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
-        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-        Sequence.forEach(_:)();
-        if (v401)
-        {
-        }
-
-        _os_log_impl(&dword_269912000, v115, v114, "allMedsLoggedAlready, returning code .allMedsLoggedAlready", v105, 2u);
-        destroyStorage<A>(_:count:)(v106, 0, v104);
-        destroyStorage<A>(_:count:)(v107, 0, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D6497C0](v105, MEMORY[0x277D84B78]);
-      }
-
-      else
-      {
-      }
-
-      v98 = *(v1 + 2008);
-      v99 = *(v1 + 2000);
-      v96 = *(v1 + 1880);
-      v97 = *(v1 + 1856);
-      v101 = (*(v1 + 2016) + 16);
-      MEMORY[0x277D82BD8](v115);
-      v99(v96, v97);
-      type metadata accessor for LogSpecificMedicationsIntentResponse();
-      v100 = LogSpecificMedicationsIntentResponse.__allocating_init(code:userActivity:)(111, 0);
-      *(v1 + 2232) = v100;
-      MEMORY[0x277D82BE0](v100);
-      *(v1 + 1232) = v100;
-      *(v1 + 2240) = type metadata accessor for MatchedMedName();
-      *(v1 + 1240) = _allocateUninitializedArray<A>(_:)();
-      swift_beginAccess();
-      v102 = *v101;
-
-      swift_endAccess();
-      *(v1 + 1248) = v102;
-      Collection<>.makeIterator()();
-      v61 = *(v1 + 2056);
-      IndexingIterator.next()();
-      v103 = *(v1 + 1256);
-      *(v1 + 2248) = v103;
-      if (!v103)
-      {
-        v90 = *(v1 + 2240);
-        v92 = *(v1 + 2232);
-        v94 = *(v1 + 2048);
-        v95 = *(v1 + 2016);
-        outlined destroy of [HKQuantityType]((v1 + 920));
-        v91 = *(v1 + 1240);
-
-        v93 = Array._bridgeToObjectiveC()().super.isa;
-
-        [v92 setMatchingMeds_];
-        MEMORY[0x277D82BD8](v93);
-        outlined destroy of [HKQuantityType]((v1 + 1240));
-        MEMORY[0x277D82BD8](*(v1 + 1232));
-
-        v289 = *(v1 + 2232);
-        goto LABEL_121;
-      }
-
-      *(v1 + 1264) = v103;
-      v62 = swift_task_alloc();
-      v55 = v103;
-      v433[282] = v62;
-      *v62 = v433[141];
-      v62[1] = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-      v56 = v433[212];
-      v57 = v433[211];
-    }
-
-    return SpecificMedicationsPersistor.buildMatchedMedName(from:shouldIncludeAsNeededParams:)(v55, 1, v57, v56);
-  }
-
-  v277 = *(v1 + 1992);
-  v270 = *(v1 + 1984);
-  v271 = *(v1 + 1976);
-  v28 = *(v1 + 1920);
-  v269 = *(v1 + 1856);
-  v268 = Logger.wellnessIntents.unsafeMutableAddressor();
-  swift_beginAccess();
-  v271(v28, v268, v269);
-  swift_endAccess();
-
-  v278 = Logger.logObject.getter();
-  v279 = static os_log_type_t.debug.getter();
-  v273 = swift_allocObject();
-  *(v273 + 16) = 0;
-  v274 = swift_allocObject();
-  *(v274 + 16) = 8;
-  v272 = swift_allocObject();
-  *(v272 + 16) = partial apply for implicit closure #7 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-  *(v272 + 24) = v398;
-  v275 = swift_allocObject();
-  *(v275 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int);
-  *(v275 + 24) = v272;
-  _allocateUninitializedArray<A>(_:)();
-  v276 = v29;
-
-  *v276 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v276[1] = v273;
-
-  v276[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v276[3] = v274;
-
-  v276[4] = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-  v276[5] = v275;
-  _finalizeUninitializedArray<A>(_:)();
-
-  if (os_log_type_enabled(v278, v279))
-  {
-    v265 = static UnsafeMutablePointer.allocate(capacity:)();
-    v264 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v266 = createStorage<A>(capacity:type:)(0);
-    v267 = createStorage<A>(capacity:type:)(0);
-    v459 = v265;
-    v460 = v266;
-    v461 = v267;
-    serialize(_:at:)(0, &v459);
-    serialize(_:at:)(1, &v459);
-    v462 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v463 = v273;
-    closure #1 in osLogInternal(_:log:type:)(&v462, &v459, &v460, &v461);
-    if (v401)
-    {
-    }
-
-    v462 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v463 = v274;
-    closure #1 in osLogInternal(_:log:type:)(&v462, &v459, &v460, &v461);
-    v462 = partial apply for closure #1 in OSLogArguments.append<A>(_:);
-    v463 = v275;
-    closure #1 in osLogInternal(_:log:type:)(&v462, &v459, &v460, &v461);
-    _os_log_impl(&dword_269912000, v278, v279, "Multiple schedules (%ld) found for specified timeframe without name, returning .needsScheduleDisambiguation", v265, 0xCu);
-    destroyStorage<A>(_:count:)(v266, 0, v264);
-    destroyStorage<A>(_:count:)(v267, 0, MEMORY[0x277D84F70] + 8);
-    MEMORY[0x26D6497C0](v265, MEMORY[0x277D84B78]);
-
-    v263 = 0;
-  }
-
-  else
-  {
-
-    v263 = v401;
-  }
-
-  v256 = *(v1 + 2008);
-  v257 = *(v1 + 2000);
-  v254 = *(v1 + 1920);
-  v255 = *(v1 + 1856);
-  v259 = *(v1 + 1704);
-  MEMORY[0x277D82BD8](v278);
-  v257(v254, v255);
-  *(v1 + 2064) = type metadata accessor for MatchedMedSchedule();
-  *(v1 + 1528) = _allocateUninitializedArray<A>(_:)();
-  swift_beginAccess();
-  v258 = *(v398 + 16);
-
-  swift_endAccess();
-  Dictionary.makeIterator()();
-  memcpy((v1 + 56), (v1 + 16), 0x28uLL);
-  *(v1 + 2072) = v263;
-  v261 = *(v1 + 1736);
-  v260 = *(v1 + 1728);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSD8IteratorVySSSg10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt_GMd, &_sSD8IteratorVySSSg10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt_GMR);
-  Dictionary.Iterator.next()();
-  outlined init with take of (key: String?, value: (scheduleDate: Date?, medID: String, count: Int))?(v260, v261);
-  v262 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSg3key_10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt5valuetMd, &_sSSSg3key_10Foundation4DateVSg08scheduleC0_SS5medIDSi5countt5valuetMR);
-  if ((*(*(v262 - 8) + 48))(v261, 1) == 1)
-  {
-    v227 = *(v1 + 2064);
-    v230 = *(v1 + 2048);
-    v231 = *(v1 + 2016);
-    outlined destroy of [String? : (scheduleDate: Date?, medID: String, count: Int)].Iterator((v1 + 56));
-    type metadata accessor for LogSpecificMedicationsIntentResponse();
-    v232 = LogSpecificMedicationsIntentResponse.__allocating_init(code:userActivity:)(104, 0);
-    MEMORY[0x277D82BE0](v232);
-    *(v1 + 1536) = v232;
-    v228 = *(v1 + 1528);
-
-    v229 = Array._bridgeToObjectiveC()().super.isa;
-
-    [v232 setMatchingSchedules_];
-    MEMORY[0x277D82BD8](v229);
-    MEMORY[0x277D82BD8](*(v1 + 1536));
-    outlined destroy of [HKQuantityType]((v1 + 1528));
-
-    v289 = v232;
-    goto LABEL_121;
-  }
-
-  v30 = *(v1 + 2064);
-  v246 = *(v1 + 1800);
-  v31 = *(v1 + 1736);
-  v247 = *(v1 + 1720);
-  v245 = *(v1 + 1704);
-  v244 = *v31;
-  v253 = v31[1];
-  *(v1 + 2080) = v253;
-  v32 = v31 + *(v262 + 48);
-  v33 = &v32[*(v245 + 48)];
-  v240 = *v33;
-  v242 = *(v33 + 1);
-  v250 = *&v32[*(v245 + 64)];
-  *(v1 + 2088) = v250;
-  v241 = &v247[*(v245 + 48)];
-  v243 = *(v245 + 64);
-  outlined init with take of Date?(v32, v247);
-  *v241 = v240;
-  *(v241 + 1) = v242;
-  *&v247[v243] = v250;
-  *(v1 + 984) = v244;
-  *(v1 + 992) = v253;
-  v34 = &v247[*(v245 + 48)];
-  v248 = *v34;
-  v249 = v34[1];
-  *(v1 + 2096) = v249;
-  outlined init with take of Date?(v247, v246);
-  *(v1 + 1000) = v248;
-  *(v1 + 1008) = v249;
-  *(v1 + 1544) = v250;
-  v252 = swift_allocObject();
-  *(v1 + 2104) = v252;
-  *(v1 + 1552) = v252 + 16;
-  v35 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("Match", 5uLL, 1);
-  INObject.__allocating_init(identifier:display:)(v36, 0, v35);
-  v251 = v37;
-  MEMORY[0x277D82BE0](v37);
-  *(v252 + 16) = v251;
-  swift_beginAccess();
-  swift_endAccess();
-
-  if (v253)
-  {
-    v238 = MEMORY[0x26D6492A0](v244);
-
-    v239 = v238;
-  }
-
-  else
-  {
-    v239 = 0;
-  }
-
-  v236 = *(v1 + 1800);
-  [v251 setScheduleID_];
-  MEMORY[0x277D82BD8](v239);
-  MEMORY[0x277D82BD8](v251);
-  swift_beginAccess();
-  v235 = *(v252 + 16);
-  MEMORY[0x277D82BE0](v235);
-  swift_endAccess();
-  v237 = getFormattedTimeString(time:)(v236);
-  if (v38)
-  {
-    v233 = MEMORY[0x26D6492A0](v237);
-
-    v234 = v233;
-  }
-
-  else
-  {
-    v234 = 0;
-  }
-
-  [v235 setSchedule_];
-  MEMORY[0x277D82BD8](v234);
-  MEMORY[0x277D82BD8](v235);
-  swift_beginAccess();
-  v39 = *(v252 + 16);
-  *(v1 + 2112) = v39;
-  MEMORY[0x277D82BE0](v39);
-  swift_endAccess();
-
-  v40 = swift_task_alloc();
-  v433[265] = v40;
-  *v40 = v433[141];
-  v40[1] = SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:);
-  v41 = v433[212];
-  v42 = v433[211];
-
-  return SpecificMedicationsPersistor.displayNameFor(identifier:)(v248, v249, v42, v41);
-}
-
-{
-  v8 = *v1;
-  v3 = *(*v1 + 2152);
-  v6 = *(*v1 + 2144);
-  v7 = *(*v1 + 1696);
-  *(v8 + 1128) = *v1;
-  *(v8 + 2160) = a1;
-
-  v4 = *(v8 + 1128);
-
-  return MEMORY[0x2822009F8](SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:), 0);
-}
-
-{
-  v6 = *v1;
-  v3 = *(*v1 + 2184);
-  *(v6 + 1128) = *v1;
-  *(v6 + 2192) = a1;
-
-  v4 = *(v6 + 1128);
-
-  return MEMORY[0x2822009F8](SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:), 0);
-}
-
-{
-  v8 = *v1;
-  v3 = *(*v1 + 2216);
-  v6 = *(*v1 + 2208);
-  v7 = *(*v1 + 1696);
-  *(v8 + 1128) = *v1;
-  *(v8 + 2224) = a1;
-
-  v4 = *(v8 + 1128);
-
-  return MEMORY[0x2822009F8](SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:), 0);
-}
-
-{
-  v6 = *v1;
-  v3 = *(*v1 + 2256);
-  *(v6 + 1128) = *v1;
-  *(v6 + 2264) = a1;
-
-  v4 = *(v6 + 1128);
-
-  return MEMORY[0x2822009F8](SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:), 0);
-}
-
-uint64_t SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:)(uint64_t a1, uint64_t a2)
-{
-  v8 = *v2;
-  v4 = *(*v2 + 2120);
-  v7 = *(*v2 + 2096);
-  v8[141] = *v2;
-  v8[266] = a1;
-  v8[267] = a2;
-
-  v5 = v8[141];
-
-  return MEMORY[0x2822009F8](SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:), 0);
-}
-
 uint64_t implicit closure #1 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:)(uint64_t a1)
 {
-  v2[1] = a1;
-  v5 = type metadata accessor for DateInterval();
-  v4 = *(v5 - 8);
-  v3 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v5);
-  v6 = v2 - v3;
-  (*(v4 + 16))();
+  v4 = a1;
+  v7 = type metadata accessor for DateInterval();
+  v6 = *(v7 - 8);
+  v5 = (*(v6 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v1 = MEMORY[0x28223BE20](v7, v4);
+  v8 = &v3 - v5;
+  (*(v6 + 16))(v1);
   lazy protocol witness table accessor for type DateInterval and conformance DateInterval();
   return String.init<A>(describing:)();
 }
@@ -2677,7 +48,7 @@ uint64_t implicit closure #5 in SpecificMedicationsPersistor.saveScheduledMedica
 uint64_t implicit closure #6 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:)(void *a1)
 {
   [a1 status];
-  type metadata accessor for HKMedicationDoseEventStatus();
+  type metadata accessor for HKMedicationDoseEventStatus(0);
   return String.init<A>(describing:)();
 }
 
@@ -2720,199 +91,180 @@ uint64_t SpecificMedicationsPersistor.displayNameFor(identifier:)(uint64_t a1, u
   v4[28] = 0;
   v5 = type metadata accessor for Logger();
   v4[33] = v5;
-  v8 = *(v5 - 8);
-  v4[34] = v8;
-  v9 = *(v8 + 64);
+  v4[34] = *(v5 - 8);
   v4[35] = swift_task_alloc();
   v4[36] = swift_task_alloc();
   v4[8] = a1;
   v4[9] = a2;
   v4[10] = a3;
   v4[11] = a4;
-  v6 = v4[18];
 
   return MEMORY[0x2822009F8](SpecificMedicationsPersistor.displayNameFor(identifier:), 0);
 }
 
 uint64_t SpecificMedicationsPersistor.displayNameFor(identifier:)()
 {
-  v26 = *(v0 + 240);
+  v23 = *(v0 + 240);
   *(v0 + 144) = v0;
 
-  if (v26)
+  if (v23)
   {
-    v1 = *(v25 + 240);
-    *(v25 + 96) = *(v25 + 232);
-    *(v25 + 104) = v1;
+    v1 = *(v22 + 240);
+    *(v22 + 96) = *(v22 + 232);
+    *(v22 + 104) = v1;
     v2 = swift_task_alloc();
-    *(v25 + 296) = v2;
-    *v2 = *(v25 + 144);
+    *(v22 + 296) = v2;
+    *v2 = *(v22 + 144);
     v2[1] = SpecificMedicationsPersistor.displayNameFor(identifier:);
-    v3 = *(v25 + 256);
-    v4 = *(v25 + 248);
+    v3 = *(v22 + 256);
+    v4 = *(v22 + 248);
 
     return SpecificMedicationsPersistor.UTCQuery()(v4, v3);
   }
 
   else
   {
-    v6 = *(v25 + 288);
-    v21 = *(v25 + 264);
-    v19 = *(v25 + 272);
-    v20 = Logger.wellnessIntents.unsafeMutableAddressor();
+    v6 = *(v22 + 288);
+    v18 = *(v22 + 264);
+    v16 = *(v22 + 272);
+    v17 = Logger.wellnessIntents.unsafeMutableAddressor();
     swift_beginAccess();
-    (*(v19 + 16))(v6, v20, v21);
+    (*(v16 + 16))(v6, v17, v18);
     swift_endAccess();
-    v23 = Logger.logObject.getter();
-    v22 = static os_log_type_t.error.getter();
+    v20 = Logger.logObject.getter();
+    v19 = static os_log_type_t.error.getter();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v24 = _allocateUninitializedArray<A>(_:)();
-    if (os_log_type_enabled(v23, v22))
+    v21 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v20, v19))
     {
       buf = static UnsafeMutablePointer.allocate(capacity:)();
-      v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v16 = createStorage<A>(capacity:type:)(0);
-      v17 = createStorage<A>(capacity:type:)(0);
-      *(v25 + 152) = buf;
-      *(v25 + 160) = v16;
-      *(v25 + 168) = v17;
-      serialize(_:at:)(0, (v25 + 152));
-      serialize(_:at:)(0, (v25 + 152));
-      *(v25 + 176) = v24;
-      v18 = swift_task_alloc();
-      v18[2] = v25 + 152;
-      v18[3] = v25 + 160;
-      v18[4] = v25 + 168;
+      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v13 = createStorage<A>(capacity:type:)(0, v11, v11);
+      v14 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v22 + 152) = buf;
+      *(v22 + 160) = v13;
+      *(v22 + 168) = v14;
+      serialize(_:at:)(0, (v22 + 152));
+      serialize(_:at:)(0, (v22 + 152));
+      *(v22 + 176) = v21;
+      v15 = swift_task_alloc();
+      v15[2] = v22 + 152;
+      v15[3] = v22 + 160;
+      v15[4] = v22 + 168;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
       lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
       Sequence.forEach(_:)();
 
-      _os_log_impl(&dword_269912000, v23, v22, "Identifier passed into displayNameFor() was nil, returning nil", buf, 2u);
-      destroyStorage<A>(_:count:)(v16, 0, v14);
-      destroyStorage<A>(_:count:)(v17, 0, MEMORY[0x277D84F70] + 8);
+      _os_log_impl(&dword_269912000, v20, v19, "Identifier passed into displayNameFor() was nil, returning nil", buf, 2u);
+      destroyStorage<A>(_:count:)(v13, 0, v11);
+      destroyStorage<A>(_:count:)(v14, 0, MEMORY[0x277D84F70] + 8);
       MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
     }
 
-    v11 = *(v25 + 288);
-    v12 = *(v25 + 264);
-    v10 = *(v25 + 272);
-    MEMORY[0x277D82BD8](v23);
-    (*(v10 + 8))(v11, v12);
-    v7 = *(v25 + 288);
-    v13 = *(v25 + 280);
+    v9 = *(v22 + 288);
+    v10 = *(v22 + 264);
+    v8 = *(v22 + 272);
+    MEMORY[0x277D82BD8](v20);
+    (*(v8 + 8))(v9, v10);
 
-    v8 = *(*(v25 + 144) + 8);
-    v9 = *(v25 + 144);
+    v7 = *(*(v22 + 144) + 8);
 
-    return v8(0);
+    return v7(0);
   }
 }
 
 {
   v1 = v0[38];
-  v7 = v0[30];
-  v6 = v0[29];
+  v5 = v0[30];
+  v4 = v0[29];
   v0[18] = v0;
   v0[28] = v1;
 
-  v0[16] = v6;
-  v0[17] = v7;
+  v0[16] = v4;
+  v0[17] = v5;
   MEMORY[0x26D649240]();
   outlined destroy of String.UTF8View((v0 + 16));
-  v9 = v0[14];
-  v10 = v0[15];
+  v6 = v0[14];
+  v7 = v0[15];
 
-  v2 = v0[36];
-  v8 = v0[35];
+  v2 = *(v0[18] + 8);
 
-  v3 = *(v0[18] + 8);
-  v4 = v0[18];
-
-  return v3(v9, v10);
+  return v2(v6, v7);
 }
 
 {
-  v19 = v0[39];
+  v15 = v0[39];
   v1 = v0[35];
-  v20 = v0[34];
-  v22 = v0[33];
-  v2 = v0[30];
+  v16 = v0[34];
+  v18 = v0[33];
   v0[18] = v0;
 
-  v3 = v19;
-  v0[23] = v19;
-  v21 = Logger.wellnessIntents.unsafeMutableAddressor();
+  v2 = v15;
+  v0[23] = v15;
+  v17 = Logger.wellnessIntents.unsafeMutableAddressor();
   swift_beginAccess();
-  (*(v20 + 16))(v1, v21, v22);
+  (*(v16 + 16))(v1, v17, v18);
   swift_endAccess();
-  v24 = Logger.logObject.getter();
-  v23 = static os_log_type_t.error.getter();
+  v20 = Logger.logObject.getter();
+  v19 = static os_log_type_t.error.getter();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v25 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v24, v23))
+  v21 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v20, v19))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v15 = createStorage<A>(capacity:type:)(0);
-    v16 = createStorage<A>(capacity:type:)(0);
-    *(v18 + 192) = buf;
-    *(v18 + 200) = v15;
-    *(v18 + 208) = v16;
-    serialize(_:at:)(0, (v18 + 192));
-    serialize(_:at:)(0, (v18 + 192));
-    *(v18 + 216) = v25;
-    v17 = swift_task_alloc();
-    v17[2] = v18 + 192;
-    v17[3] = v18 + 200;
-    v17[4] = v18 + 208;
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v11 = createStorage<A>(capacity:type:)(0, v9, v9);
+    v12 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v14 + 192) = buf;
+    *(v14 + 200) = v11;
+    *(v14 + 208) = v12;
+    serialize(_:at:)(0, (v14 + 192));
+    serialize(_:at:)(0, (v14 + 192));
+    *(v14 + 216) = v21;
+    v13 = swift_task_alloc();
+    v13[2] = v14 + 192;
+    v13[3] = v14 + 200;
+    v13[4] = v14 + 208;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
     lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
     Sequence.forEach(_:)();
 
-    _os_log_impl(&dword_269912000, v24, v23, "Call to UTCQuery() threw, returning nil", buf, 2u);
-    destroyStorage<A>(_:count:)(v15, 0, v13);
-    destroyStorage<A>(_:count:)(v16, 0, MEMORY[0x277D84F70] + 8);
+    _os_log_impl(&dword_269912000, v20, v19, "Call to UTCQuery() threw, returning nil", buf, 2u);
+    destroyStorage<A>(_:count:)(v11, 0, v9);
+    destroyStorage<A>(_:count:)(v12, 0, MEMORY[0x277D84F70] + 8);
     MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
   }
 
-  v11 = *(v18 + 312);
-  v9 = *(v18 + 280);
-  v10 = *(v18 + 264);
-  v8 = *(v18 + 272);
-  MEMORY[0x277D82BD8](v24);
-  (*(v8 + 8))(v9, v10);
+  v8 = *(v14 + 312);
+  v6 = *(v14 + 280);
+  v7 = *(v14 + 264);
+  v5 = *(v14 + 272);
+  MEMORY[0x277D82BD8](v20);
+  (*(v5 + 8))(v6, v7);
 
-  v4 = *(v18 + 288);
-  v12 = *(v18 + 280);
+  v3 = *(*(v14 + 144) + 8);
 
-  v5 = *(*(v18 + 144) + 8);
-  v6 = *(v18 + 144);
-
-  return v5(0);
+  return v3(0);
 }
 
 uint64_t SpecificMedicationsPersistor.displayNameFor(identifier:)(uint64_t a1)
 {
-  v9 = *v2;
-  v4 = *(*v2 + 296);
-  v9[18] = *v2;
-  v10 = v9 + 18;
-  v9[38] = a1;
-  v9[39] = v1;
+  v5 = *v2;
+  v5[18] = *v2;
+  v5[38] = a1;
+  v5[39] = v1;
 
   if (v1)
   {
-    v7 = *v10;
-    v6 = SpecificMedicationsPersistor.displayNameFor(identifier:);
+    v3 = SpecificMedicationsPersistor.displayNameFor(identifier:);
   }
 
   else
   {
-    v5 = *v10;
-    v6 = SpecificMedicationsPersistor.displayNameFor(identifier:);
+    v3 = SpecificMedicationsPersistor.displayNameFor(identifier:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0);
+  return MEMORY[0x2822009F8](v3, 0);
 }
 
 uint64_t implicit closure #9 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:)(uint64_t a1)
@@ -3013,7 +365,7 @@ uint64_t implicit closure #4 in SpecificMedicationsPersistor.writeDoseEvent(medi
 uint64_t implicit closure #5 in SpecificMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:medicationIDPresent:dosage:dosageUnit:)(void *a1)
 {
   [a1 logOrigin];
-  type metadata accessor for HKMedicationDoseEventLogOrigin();
+  type metadata accessor for HKMedicationDoseEventLogOrigin(0);
   return String.init<A>(describing:)();
 }
 
@@ -3039,9 +391,7 @@ uint64_t SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:)(ui
   *(v5 + 192) = 0;
   v6 = type metadata accessor for Logger();
   *(v5 + 336) = v6;
-  v9 = *(v6 - 8);
-  *(v5 + 344) = v9;
-  v10 = *(v9 + 64);
+  *(v5 + 344) = *(v6 - 8);
   *(v5 + 352) = swift_task_alloc();
   *(v5 + 360) = swift_task_alloc();
   *(v5 + 368) = swift_task_alloc();
@@ -3052,194 +402,185 @@ uint64_t SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:)(ui
   *(v5 + 208) = a5;
   *(v5 + 152) = a3;
   *(v5 + 160) = a4;
-  v7 = *(v5 + 200);
 
   return MEMORY[0x2822009F8](SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:), 0);
 }
 
 uint64_t SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:)()
 {
-  v29 = *(v0 + 304);
+  v23 = *(v0 + 304);
   *(v0 + 200) = v0;
 
-  if (v29)
+  if (v23)
   {
-    v1 = *(v28 + 304);
-    *(v28 + 168) = *(v28 + 296);
-    *(v28 + 176) = v1;
+    v1 = *(v22 + 304);
+    *(v22 + 168) = *(v22 + 296);
+    *(v22 + 176) = v1;
     v2 = swift_task_alloc();
-    *(v28 + 392) = v2;
-    *v2 = *(v28 + 200);
+    *(v22 + 392) = v2;
+    *v2 = *(v22 + 200);
     v2[1] = SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:);
-    v3 = *(v28 + 328);
-    v4 = *(v28 + 320);
+    v3 = *(v22 + 328);
+    v4 = *(v22 + 320);
 
     return SpecificMedicationsPersistor.doUTCQueryForMedications()(v4, v3);
   }
 
   else
   {
-    v6 = *(v28 + 360);
-    v24 = *(v28 + 336);
-    v22 = *(v28 + 344);
-    v23 = Logger.wellnessIntents.unsafeMutableAddressor();
+    v6 = *(v22 + 360);
+    v18 = *(v22 + 336);
+    v16 = *(v22 + 344);
+    v17 = Logger.wellnessIntents.unsafeMutableAddressor();
     swift_beginAccess();
-    (*(v22 + 16))(v6, v23, v24);
+    (*(v16 + 16))(v6, v17, v18);
     swift_endAccess();
     oslog = Logger.logObject.getter();
-    v25 = static os_log_type_t.debug.getter();
+    v19 = static os_log_type_t.debug.getter();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v27 = _allocateUninitializedArray<A>(_:)();
-    if (os_log_type_enabled(oslog, v25))
+    v21 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(oslog, v19))
     {
       buf = static UnsafeMutablePointer.allocate(capacity:)();
-      v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v19 = createStorage<A>(capacity:type:)(0);
-      v20 = createStorage<A>(capacity:type:)(0);
-      *(v28 + 216) = buf;
-      *(v28 + 224) = v19;
-      *(v28 + 232) = v20;
-      serialize(_:at:)(0, (v28 + 216));
-      serialize(_:at:)(0, (v28 + 216));
-      *(v28 + 240) = v27;
-      v21 = swift_task_alloc();
-      v21[2] = v28 + 216;
-      v21[3] = v28 + 224;
-      v21[4] = v28 + 232;
+      v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v13 = createStorage<A>(capacity:type:)(0, v11, v11);
+      v14 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v22 + 216) = buf;
+      *(v22 + 224) = v13;
+      *(v22 + 232) = v14;
+      serialize(_:at:)(0, (v22 + 216));
+      serialize(_:at:)(0, (v22 + 216));
+      *(v22 + 240) = v21;
+      v15 = swift_task_alloc();
+      v15[2] = v22 + 216;
+      v15[3] = v22 + 224;
+      v15[4] = v22 + 232;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
       lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
       Sequence.forEach(_:)();
 
-      _os_log_impl(&dword_269912000, oslog, v25, "medicationID passed into getAsNeededDosageUnitFromHealthApp was nil, returning nil", buf, 2u);
-      destroyStorage<A>(_:count:)(v19, 0, v17);
-      destroyStorage<A>(_:count:)(v20, 0, MEMORY[0x277D84F70] + 8);
+      _os_log_impl(&dword_269912000, oslog, v19, "medicationID passed into getAsNeededDosageUnitFromHealthApp was nil, returning nil", buf, 2u);
+      destroyStorage<A>(_:count:)(v13, 0, v11);
+      destroyStorage<A>(_:count:)(v14, 0, MEMORY[0x277D84F70] + 8);
       MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
     }
 
-    v11 = *(v28 + 360);
-    v12 = *(v28 + 336);
-    v10 = *(v28 + 344);
+    v9 = *(v22 + 360);
+    v10 = *(v22 + 336);
+    v8 = *(v22 + 344);
     MEMORY[0x277D82BD8](oslog);
-    (*(v10 + 8))(v11, v12);
-    v7 = *(v28 + 384);
-    v13 = *(v28 + 376);
-    v14 = *(v28 + 368);
-    v15 = *(v28 + 360);
-    v16 = *(v28 + 352);
+    (*(v8 + 8))(v9, v10);
 
-    v8 = *(*(v28 + 200) + 8);
-    v9 = *(v28 + 200);
+    v7 = *(*(v22 + 200) + 8);
 
-    return v8(0);
+    return v7(0);
   }
 }
 
 {
-  v103 = v0;
+  v92 = v0;
   v1 = v0[51];
   v2 = v0[50];
-  v85 = v0[38];
-  v84 = v0[37];
+  v74 = v0[38];
+  v73 = v0[37];
   v0[25] = v0;
   v0[32] = v2;
 
-  v86 = swift_task_alloc();
-  *(v86 + 16) = v84;
-  *(v86 + 24) = v85;
+  v75 = swift_task_alloc();
+  *(v75 + 16) = v73;
+  *(v75 + 24) = v74;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo23HKUserTrackedMedicationCGMd, &_sSaySo23HKUserTrackedMedicationCGMR);
   lazy protocol witness table accessor for type [HKUserTrackedMedication] and conformance [A]();
-  v87 = _ArrayProtocol.filter(_:)();
+  v76 = _ArrayProtocol.filter(_:)();
   if (v1)
   {
-    v14 = *(v83 + 304);
   }
 
   else
   {
-    v81 = *(v83 + 304);
 
-    *(v83 + 264) = v87;
-    *(v83 + 272) = v87;
+    *(v72 + 264) = v76;
+    *(v72 + 272) = v76;
     lazy protocol witness table accessor for type [HKUserTrackedMedication] and conformance [A]();
     Collection.first.getter();
-    v82 = *(v83 + 280);
-    if (v82)
+    v71 = *(v72 + 280);
+    if (v71)
     {
-      v78 = [v82 medication];
-      MEMORY[0x277D82BD8](v82);
-      v79 = [v78 loggingUnit];
-      MEMORY[0x277D82BD8](v78);
-      v80 = v79;
+      v68 = [v71 medication];
+      MEMORY[0x277D82BD8](v71);
+      v69 = [v68 loggingUnit];
+      MEMORY[0x277D82BD8](v68);
+      v70 = v69;
     }
 
     else
     {
-      v80 = 0;
+      v70 = 0;
     }
 
-    if (v80)
+    if (v70)
     {
-      v3 = *(v83 + 384);
-      v68 = *(v83 + 336);
-      v66 = *(v83 + 344);
-      *(v83 + 288) = v80;
-      v67 = Logger.wellnessIntents.unsafeMutableAddressor();
+      v3 = *(v72 + 384);
+      v58 = *(v72 + 336);
+      v56 = *(v72 + 344);
+      *(v72 + 288) = v70;
+      v57 = Logger.wellnessIntents.unsafeMutableAddressor();
       swift_beginAccess();
-      v69 = *(v66 + 16);
-      v69(v3, v67, v68);
+      v59 = *(v56 + 16);
+      v59(v3, v57, v58);
       swift_endAccess();
-      MEMORY[0x277D82BE0](v80);
-      v70 = swift_allocObject();
-      *(v70 + 16) = v80;
+      MEMORY[0x277D82BE0](v70);
+      v60 = swift_allocObject();
+      *(v60 + 16) = v70;
       oslog = Logger.logObject.getter();
-      v77 = static os_log_type_t.debug.getter();
-      v72 = swift_allocObject();
-      *(v72 + 16) = 32;
-      v73 = swift_allocObject();
-      *(v73 + 16) = 8;
-      v71 = swift_allocObject();
-      *(v71 + 16) = partial apply for implicit closure #2 in SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:);
-      *(v71 + 24) = v70;
-      v74 = swift_allocObject();
-      *(v74 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-      *(v74 + 24) = v71;
+      v67 = static os_log_type_t.debug.getter();
+      v62 = swift_allocObject();
+      *(v62 + 16) = 32;
+      v63 = swift_allocObject();
+      *(v63 + 16) = 8;
+      v61 = swift_allocObject();
+      *(v61 + 16) = partial apply for implicit closure #2 in SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:);
+      *(v61 + 24) = v60;
+      v64 = swift_allocObject();
+      *(v64 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+      *(v64 + 24) = v61;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
       _allocateUninitializedArray<A>(_:)();
-      v75 = v4;
+      v65 = v4;
 
-      *v75 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v75[1] = v72;
+      *v65 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v65[1] = v62;
 
-      v75[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v75[3] = v73;
+      v65[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+      v65[3] = v63;
 
-      v75[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v75[5] = v74;
+      v65[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+      v65[5] = v64;
       _finalizeUninitializedArray<A>(_:)();
 
-      if (os_log_type_enabled(oslog, v77))
+      if (os_log_type_enabled(oslog, v67))
       {
         buf = static UnsafeMutablePointer.allocate(capacity:)();
-        v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v64 = createStorage<A>(capacity:type:)(0);
-        v65 = createStorage<A>(capacity:type:)(1);
-        v98 = buf;
-        v99 = v64;
-        v100 = v65;
-        serialize(_:at:)(2, &v98);
-        serialize(_:at:)(1, &v98);
-        v101 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v102 = v72;
-        closure #1 in osLogInternal(_:log:type:)(&v101, &v98, &v99, &v100);
-        v101 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v102 = v73;
-        closure #1 in osLogInternal(_:log:type:)(&v101, &v98, &v99, &v100);
-        v101 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v102 = v74;
-        closure #1 in osLogInternal(_:log:type:)(&v101, &v98, &v99, &v100);
-        _os_log_impl(&dword_269912000, oslog, v77, "getAsNeededDosageUnit had raw unit of %s", buf, 0xCu);
-        destroyStorage<A>(_:count:)(v64, 0, v62);
-        destroyStorage<A>(_:count:)(v65, 1, MEMORY[0x277D84F70] + 8);
+        v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v54 = createStorage<A>(capacity:type:)(0, v52, v52);
+        v55 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        v87 = buf;
+        v88 = v54;
+        v89 = v55;
+        serialize(_:at:)(2, &v87);
+        serialize(_:at:)(1, &v87);
+        v90 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v91 = v62;
+        closure #1 in osLogInternal(_:log:type:)(&v90, &v87, &v88, &v89);
+        v90 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v91 = v63;
+        closure #1 in osLogInternal(_:log:type:)(&v90, &v87, &v88, &v89);
+        v90 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v91 = v64;
+        closure #1 in osLogInternal(_:log:type:)(&v90, &v87, &v88, &v89);
+        _os_log_impl(&dword_269912000, oslog, v67, "getAsNeededDosageUnit had raw unit of %s", buf, 0xCu);
+        destroyStorage<A>(_:count:)(v54, 0, v52);
+        destroyStorage<A>(_:count:)(v55, 1, MEMORY[0x277D84F70] + 8);
         MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
       }
 
@@ -3247,263 +588,253 @@ uint64_t SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:)()
       {
       }
 
-      v58 = *(v83 + 384);
-      v59 = *(v83 + 336);
-      fora = *(v83 + 312);
-      v57 = *(v83 + 344);
+      v48 = *(v72 + 384);
+      v49 = *(v72 + 336);
+      fora = *(v72 + 312);
+      v47 = *(v72 + 344);
       MEMORY[0x277D82BD8](oslog);
-      v60 = *(v57 + 8);
-      v60(v58, v59);
+      v50 = *(v47 + 8);
+      v50(v48, v49);
       v5 = HKMedicationLoggingUnit.getDisplayUnit(for:)(fora);
       if (v5.value._object)
       {
-        v55 = *(v83 + 304);
-        *(v83 + 184) = v5;
-        MEMORY[0x277D82BD8](v80);
+        *(v72 + 184) = v5;
+        MEMORY[0x277D82BD8](v70);
 
-        v56 = v5;
+        v46 = v5;
       }
 
       else
       {
-        v6 = *(v83 + 376);
-        v46 = *(v83 + 336);
-        v45 = Logger.wellnessIntents.unsafeMutableAddressor();
+        v6 = *(v72 + 376);
+        v37 = *(v72 + 336);
+        v36 = Logger.wellnessIntents.unsafeMutableAddressor();
         swift_beginAccess();
-        v69(v6, v45, v46);
+        v59(v6, v36, v37);
         swift_endAccess();
-        MEMORY[0x277D82BE0](v80);
-        v47 = swift_allocObject();
-        *(v47 + 16) = v80;
+        MEMORY[0x277D82BE0](v70);
+        v38 = swift_allocObject();
+        *(v38 + 16) = v70;
         log = Logger.logObject.getter();
-        v54 = static os_log_type_t.debug.getter();
-        v49 = swift_allocObject();
-        *(v49 + 16) = 64;
-        v50 = swift_allocObject();
-        *(v50 + 16) = 8;
-        v48 = swift_allocObject();
-        *(v48 + 16) = partial apply for implicit closure #3 in LogQuantityIntentHandler.handle(intent:);
-        *(v48 + 24) = v47;
-        v51 = swift_allocObject();
-        *(v51 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
-        *(v51 + 24) = v48;
+        v45 = static os_log_type_t.debug.getter();
+        v40 = swift_allocObject();
+        *(v40 + 16) = 64;
+        v41 = swift_allocObject();
+        *(v41 + 16) = 8;
+        v39 = swift_allocObject();
+        *(v39 + 16) = partial apply for implicit closure #3 in LogQuantityIntentHandler.handle(intent:);
+        *(v39 + 24) = v38;
+        v42 = swift_allocObject();
+        *(v42 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
+        *(v42 + 24) = v39;
         _allocateUninitializedArray<A>(_:)();
-        v52 = v7;
+        v43 = v7;
 
-        *v52 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v52[1] = v49;
+        *v43 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v43[1] = v40;
 
-        v52[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v52[3] = v50;
+        v43[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+        v43[3] = v41;
 
-        v52[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v52[5] = v51;
+        v43[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+        v43[5] = v42;
         _finalizeUninitializedArray<A>(_:)();
 
-        if (os_log_type_enabled(log, v54))
+        if (os_log_type_enabled(log, v45))
         {
-          v42 = static UnsafeMutablePointer.allocate(capacity:)();
-          v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          v43 = createStorage<A>(capacity:type:)(1);
-          v44 = createStorage<A>(capacity:type:)(0);
-          v93 = v42;
-          v94 = v43;
-          v95 = v44;
-          serialize(_:at:)(2, &v93);
-          serialize(_:at:)(1, &v93);
-          v96 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v97 = v49;
-          closure #1 in osLogInternal(_:log:type:)(&v96, &v93, &v94, &v95);
-          v96 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v97 = v50;
-          closure #1 in osLogInternal(_:log:type:)(&v96, &v93, &v94, &v95);
-          v96 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v97 = v51;
-          closure #1 in osLogInternal(_:log:type:)(&v96, &v93, &v94, &v95);
-          _os_log_impl(&dword_269912000, log, v54, "Failed to find or map displayDosageUnit, here's dosageUnit: %@", v42, 0xCu);
-          destroyStorage<A>(_:count:)(v43, 1, v41);
-          destroyStorage<A>(_:count:)(v44, 0, MEMORY[0x277D84F70] + 8);
-          MEMORY[0x26D6497C0](v42, MEMORY[0x277D84B78]);
+          v33 = static UnsafeMutablePointer.allocate(capacity:)();
+          v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+          v34 = createStorage<A>(capacity:type:)(1, v32, v32);
+          v35 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+          v82 = v33;
+          v83 = v34;
+          v84 = v35;
+          serialize(_:at:)(2, &v82);
+          serialize(_:at:)(1, &v82);
+          v85 = partial apply for closure #1 in OSLogArguments.append(_:);
+          v86 = v40;
+          closure #1 in osLogInternal(_:log:type:)(&v85, &v82, &v83, &v84);
+          v85 = partial apply for closure #1 in OSLogArguments.append(_:);
+          v86 = v41;
+          closure #1 in osLogInternal(_:log:type:)(&v85, &v82, &v83, &v84);
+          v85 = partial apply for closure #1 in OSLogArguments.append(_:);
+          v86 = v42;
+          closure #1 in osLogInternal(_:log:type:)(&v85, &v82, &v83, &v84);
+          _os_log_impl(&dword_269912000, log, v45, "Failed to find or map displayDosageUnit, here's dosageUnit: %@", v33, 0xCu);
+          destroyStorage<A>(_:count:)(v34, 1, v32);
+          destroyStorage<A>(_:count:)(v35, 0, MEMORY[0x277D84F70] + 8);
+          MEMORY[0x26D6497C0](v33, MEMORY[0x277D84B78]);
         }
 
         else
         {
         }
 
-        v38 = *(v83 + 376);
-        v39 = *(v83 + 336);
-        v40 = *(v83 + 304);
+        v30 = *(v72 + 376);
+        v31 = *(v72 + 336);
         MEMORY[0x277D82BD8](log);
-        v60(v38, v39);
-        MEMORY[0x277D82BD8](v80);
+        v50(v30, v31);
+        MEMORY[0x277D82BD8](v70);
 
-        v56.value._countAndFlagsBits = 0;
-        v56.value._object = 0;
+        v46.value._countAndFlagsBits = 0;
+        v46.value._object = 0;
       }
     }
 
     else
     {
-      v8 = *(v83 + 368);
-      v29 = *(v83 + 336);
-      v27 = *(v83 + 344);
-      v28 = Logger.wellnessIntents.unsafeMutableAddressor();
+      v8 = *(v72 + 368);
+      v21 = *(v72 + 336);
+      v19 = *(v72 + 344);
+      v20 = Logger.wellnessIntents.unsafeMutableAddressor();
       swift_beginAccess();
-      (*(v27 + 16))(v8, v28, v29);
+      (*(v19 + 16))(v8, v20, v21);
       swift_endAccess();
 
-      v30 = swift_allocObject();
-      *(v30 + 16) = v87;
-      v36 = Logger.logObject.getter();
-      v37 = static os_log_type_t.debug.getter();
-      v32 = swift_allocObject();
-      *(v32 + 16) = 32;
-      v33 = swift_allocObject();
-      *(v33 + 16) = 8;
-      v31 = swift_allocObject();
-      *(v31 + 16) = partial apply for implicit closure #1 in SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:);
-      *(v31 + 24) = v30;
-      v34 = swift_allocObject();
-      *(v34 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-      *(v34 + 24) = v31;
+      v22 = swift_allocObject();
+      *(v22 + 16) = v76;
+      v28 = Logger.logObject.getter();
+      v29 = static os_log_type_t.debug.getter();
+      v24 = swift_allocObject();
+      *(v24 + 16) = 32;
+      v25 = swift_allocObject();
+      *(v25 + 16) = 8;
+      v23 = swift_allocObject();
+      *(v23 + 16) = partial apply for implicit closure #1 in SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:);
+      *(v23 + 24) = v22;
+      v26 = swift_allocObject();
+      *(v26 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+      *(v26 + 24) = v23;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
       _allocateUninitializedArray<A>(_:)();
-      v35 = v9;
+      v27 = v9;
 
-      *v35 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v35[1] = v32;
+      *v27 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v27[1] = v24;
 
-      v35[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v35[3] = v33;
+      v27[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+      v27[3] = v25;
 
-      v35[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-      v35[5] = v34;
+      v27[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+      v27[5] = v26;
       _finalizeUninitializedArray<A>(_:)();
 
-      if (os_log_type_enabled(v36, v37))
+      if (os_log_type_enabled(v28, v29))
       {
-        v24 = static UnsafeMutablePointer.allocate(capacity:)();
-        v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v25 = createStorage<A>(capacity:type:)(0);
-        v26 = createStorage<A>(capacity:type:)(1);
-        v88 = v24;
-        v89 = v25;
-        v90 = v26;
-        serialize(_:at:)(2, &v88);
-        serialize(_:at:)(1, &v88);
-        v91 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v92 = v32;
-        closure #1 in osLogInternal(_:log:type:)(&v91, &v88, &v89, &v90);
-        v91 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v92 = v33;
-        closure #1 in osLogInternal(_:log:type:)(&v91, &v88, &v89, &v90);
-        v91 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v92 = v34;
-        closure #1 in osLogInternal(_:log:type:)(&v91, &v88, &v89, &v90);
-        _os_log_impl(&dword_269912000, v36, v37, "Failed to find or map dosageUnit, here's the med: %s", v24, 0xCu);
-        destroyStorage<A>(_:count:)(v25, 0, v23);
-        destroyStorage<A>(_:count:)(v26, 1, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D6497C0](v24, MEMORY[0x277D84B78]);
+        v16 = static UnsafeMutablePointer.allocate(capacity:)();
+        v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v17 = createStorage<A>(capacity:type:)(0, v15, v15);
+        v18 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        v77 = v16;
+        v78 = v17;
+        v79 = v18;
+        serialize(_:at:)(2, &v77);
+        serialize(_:at:)(1, &v77);
+        v80 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v81 = v24;
+        closure #1 in osLogInternal(_:log:type:)(&v80, &v77, &v78, &v79);
+        v80 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v81 = v25;
+        closure #1 in osLogInternal(_:log:type:)(&v80, &v77, &v78, &v79);
+        v80 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v81 = v26;
+        closure #1 in osLogInternal(_:log:type:)(&v80, &v77, &v78, &v79);
+        _os_log_impl(&dword_269912000, v28, v29, "Failed to find or map dosageUnit, here's the med: %s", v16, 0xCu);
+        destroyStorage<A>(_:count:)(v17, 0, v15);
+        destroyStorage<A>(_:count:)(v18, 1, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D6497C0](v16, MEMORY[0x277D84B78]);
       }
 
       else
       {
       }
 
-      v20 = *(v83 + 368);
-      v21 = *(v83 + 336);
-      v22 = *(v83 + 304);
-      v19 = *(v83 + 344);
-      MEMORY[0x277D82BD8](v36);
-      (*(v19 + 8))(v20, v21);
+      v13 = *(v72 + 368);
+      v14 = *(v72 + 336);
+      v12 = *(v72 + 344);
+      MEMORY[0x277D82BD8](v28);
+      (*(v12 + 8))(v13, v14);
 
-      v56.value._countAndFlagsBits = 0;
-      v56.value._object = 0;
+      v46.value._countAndFlagsBits = 0;
+      v46.value._object = 0;
     }
 
-    v10 = *(v83 + 384);
-    v15 = *(v83 + 376);
-    v16 = *(v83 + 368);
-    v17 = *(v83 + 360);
-    v18 = *(v83 + 352);
+    v10 = *(*(v72 + 200) + 8);
 
-    v11 = *(*(v83 + 200) + 8);
-    v12 = *(v83 + 200);
-
-    return v11(v56.value._countAndFlagsBits, v56.value._object);
+    return v10(v46.value._countAndFlagsBits, v46.value._object);
   }
 }
 
 {
-  v41 = v0;
-  v26 = v0[51];
+  v34 = v0;
+  v19 = v0[51];
   v1 = v0[44];
-  v23 = v0[43];
-  v25 = v0[42];
+  v16 = v0[43];
+  v18 = v0[42];
   v0[25] = v0;
-  v2 = v26;
-  v0[31] = v26;
-  v24 = Logger.wellnessIntents.unsafeMutableAddressor();
+  v2 = v19;
+  v0[31] = v19;
+  v17 = Logger.wellnessIntents.unsafeMutableAddressor();
   swift_beginAccess();
-  (*(v23 + 16))(v1, v24, v25);
+  (*(v16 + 16))(v1, v17, v18);
   swift_endAccess();
-  v3 = v26;
-  v27 = swift_allocObject();
-  *(v27 + 16) = v26;
+  v3 = v19;
+  v20 = swift_allocObject();
+  *(v20 + 16) = v19;
   default argument 2 of OSLogInterpolation.appendInterpolation(_:privacy:attributes:)();
 
-  v34 = Logger.logObject.getter();
-  v35 = static os_log_type_t.debug.getter();
-  v30 = swift_allocObject();
-  *(v30 + 16) = 64;
-  v31 = swift_allocObject();
-  *(v31 + 16) = 8;
-  v28 = swift_allocObject();
-  *(v28 + 16) = partial apply for implicit closure #10 in getPreferredUnit(for:store:);
-  *(v28 + 24) = v27;
-  v29 = swift_allocObject();
-  *(v29 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
-  *(v29 + 24) = v28;
-  v32 = swift_allocObject();
-  *(v32 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
-  *(v32 + 24) = v29;
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.debug.getter();
+  v23 = swift_allocObject();
+  *(v23 + 16) = 64;
+  v24 = swift_allocObject();
+  *(v24 + 16) = 8;
+  v21 = swift_allocObject();
+  *(v21 + 16) = partial apply for implicit closure #10 in getPreferredUnit(for:store:);
+  *(v21 + 24) = v20;
+  v22 = swift_allocObject();
+  *(v22 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
+  *(v22 + 24) = v21;
+  v25 = swift_allocObject();
+  *(v25 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
+  *(v25 + 24) = v22;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
   _allocateUninitializedArray<A>(_:)();
-  v33 = v4;
+  v26 = v4;
 
-  *v33 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v33[1] = v30;
+  *v26 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v26[1] = v23;
 
-  v33[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v33[3] = v31;
+  v26[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v26[3] = v24;
 
-  v33[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v33[5] = v32;
+  v26[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v26[5] = v25;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v34, v35))
+  if (os_log_type_enabled(v27, v28))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v20 = createStorage<A>(capacity:type:)(1);
-    v21 = createStorage<A>(capacity:type:)(0);
-    v36 = buf;
-    v37 = v20;
-    v38 = v21;
-    serialize(_:at:)(2, &v36);
-    serialize(_:at:)(1, &v36);
-    v39 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v40 = v30;
-    closure #1 in osLogInternal(_:log:type:)(&v39, &v36, &v37, &v38);
-    v39 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v40 = v31;
-    closure #1 in osLogInternal(_:log:type:)(&v39, &v36, &v37, &v38);
-    v39 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v40 = v32;
-    closure #1 in osLogInternal(_:log:type:)(&v39, &v36, &v37, &v38);
-    _os_log_impl(&dword_269912000, v34, v35, "Error getting as needed dosage unit: %@", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v20, 1, v18);
-    destroyStorage<A>(_:count:)(v21, 0, MEMORY[0x277D84F70] + 8);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v13 = createStorage<A>(capacity:type:)(1, v11, v11);
+    v14 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v29 = buf;
+    v30 = v13;
+    v31 = v14;
+    serialize(_:at:)(2, &v29);
+    serialize(_:at:)(1, &v29);
+    v32 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v33 = v23;
+    closure #1 in osLogInternal(_:log:type:)(&v32, &v29, &v30, &v31);
+    v32 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v33 = v24;
+    closure #1 in osLogInternal(_:log:type:)(&v32, &v29, &v30, &v31);
+    v32 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v33 = v25;
+    closure #1 in osLogInternal(_:log:type:)(&v32, &v29, &v30, &v31);
+    _os_log_impl(&dword_269912000, v27, v28, "Error getting as needed dosage unit: %@", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v13, 1, v11);
+    destroyStorage<A>(_:count:)(v14, 0, MEMORY[0x277D84F70] + 8);
     MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
   }
 
@@ -3511,48 +842,36 @@ uint64_t SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:)()
   {
   }
 
-  v12 = v22[51];
-  v10 = v22[44];
-  v11 = v22[42];
-  v13 = v22[38];
-  v9 = v22[43];
-  MEMORY[0x277D82BD8](v34);
-  (*(v9 + 8))(v10, v11);
+  v10 = v15[51];
+  v8 = v15[44];
+  v9 = v15[42];
+  v7 = v15[43];
+  MEMORY[0x277D82BD8](v27);
+  (*(v7 + 8))(v8, v9);
 
-  v5 = v22[48];
-  v14 = v22[47];
-  v15 = v22[46];
-  v16 = v22[45];
-  v17 = v22[44];
+  v5 = *(v15[25] + 8);
 
-  v6 = *(v22[25] + 8);
-  v7 = v22[25];
-
-  return v6(0);
+  return v5(0);
 }
 
 uint64_t SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:)(uint64_t a1)
 {
-  v9 = *v2;
-  v4 = *(*v2 + 392);
-  v9[25] = *v2;
-  v10 = v9 + 25;
-  v9[50] = a1;
-  v9[51] = v1;
+  v5 = *v2;
+  v5[25] = *v2;
+  v5[50] = a1;
+  v5[51] = v1;
 
   if (v1)
   {
-    v7 = *v10;
-    v6 = SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:);
+    v3 = SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:);
   }
 
   else
   {
-    v5 = *v10;
-    v6 = SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:);
+    v3 = SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0);
+  return MEMORY[0x2822009F8](v3, 0);
 }
 
 uint64_t SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3574,9 +893,7 @@ uint64_t SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:)(uin
   v4[28] = 0;
   v5 = type metadata accessor for Logger();
   v4[43] = v5;
-  v8 = *(v5 - 8);
-  v4[44] = v8;
-  v9 = *(v8 + 64);
+  v4[44] = *(v5 - 8);
   v4[45] = swift_task_alloc();
   v4[46] = swift_task_alloc();
   v4[47] = swift_task_alloc();
@@ -3585,8 +902,8 @@ uint64_t SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:)(uin
   v4[21] = a3;
   v4[22] = a4;
   v6 = swift_task_alloc();
-  *(v12 + 384) = v6;
-  *v6 = *(v12 + 232);
+  *(v10 + 384) = v6;
+  *v6 = *(v10 + 232);
   v6[1] = SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:);
 
   return SpecificMedicationsPersistor.doUTCQueryForMedications()(a3, a4);
@@ -3594,203 +911,189 @@ uint64_t SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:)(uin
 
 uint64_t SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:)(uint64_t a1)
 {
-  v9 = *v2;
-  v4 = *(*v2 + 384);
-  v9[29] = *v2;
-  v10 = v9 + 29;
-  v9[49] = a1;
-  v9[50] = v1;
+  v5 = *v2;
+  v5[29] = *v2;
+  v5[49] = a1;
+  v5[50] = v1;
 
   if (v1)
   {
-    v7 = *v10;
-    v6 = SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:);
+    v3 = SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:);
   }
 
   else
   {
-    v5 = *v10;
-    v6 = SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:);
+    v3 = SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0);
+  return MEMORY[0x2822009F8](v3, 0);
 }
 
 uint64_t SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:)()
 {
-  v89 = v0;
+  v75 = v0;
   v1 = v0[50];
   v2 = v0[49];
-  v81 = v0[42];
-  v80 = v0[41];
+  v67 = v0[42];
+  v66 = v0[41];
   v0[29] = v0;
   v0[31] = v2;
 
-  v82 = swift_task_alloc();
-  *(v82 + 16) = v80;
-  *(v82 + 24) = v81;
+  v68 = swift_task_alloc();
+  *(v68 + 16) = v66;
+  *(v68 + 24) = v67;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo23HKUserTrackedMedicationCGMd, &_sSaySo23HKUserTrackedMedicationCGMR);
   lazy protocol witness table accessor for type [HKUserTrackedMedication] and conformance [A]();
-  v83 = _ArrayProtocol.filter(_:)();
+  v69 = _ArrayProtocol.filter(_:)();
   if (v1)
   {
-    v22 = *(v79 + 336);
   }
 
   else
   {
-    v77 = *(v79 + 336);
 
-    *(v79 + 256) = v83;
-    *(v79 + 264) = v83;
+    *(v65 + 256) = v69;
+    *(v65 + 264) = v69;
     lazy protocol witness table accessor for type [HKUserTrackedMedication] and conformance [A]();
     Collection.first.getter();
-    v78 = *(v79 + 272);
-    if (v78)
+    v64 = *(v65 + 272);
+    if (v64)
     {
-      v74 = [v78 medication];
-      MEMORY[0x277D82BD8](v78);
-      v75 = [v74 displayNameComponents];
-      MEMORY[0x277D82BD8](v74);
-      v76 = [v75 displayStrength];
-      if (v76)
+      v61 = [v64 medication];
+      MEMORY[0x277D82BD8](v64);
+      v62 = [v61 displayNameComponents];
+      MEMORY[0x277D82BD8](v61);
+      v63 = [v62 displayStrength];
+      if (v63)
       {
-        v70 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v71 = v3;
-        MEMORY[0x277D82BD8](v76);
-        v72 = v70;
-        v73 = v71;
+        v57 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v58 = v3;
+        MEMORY[0x277D82BD8](v63);
+        v59 = v57;
+        v60 = v58;
       }
 
       else
       {
-        v72 = 0;
-        v73 = 0;
+        v59 = 0;
+        v60 = 0;
       }
 
-      MEMORY[0x277D82BD8](v75);
-      v68 = v72;
-      v69 = v73;
+      MEMORY[0x277D82BD8](v62);
+      v55 = v59;
+      v56 = v60;
     }
 
     else
     {
-      v68 = 0;
-      v69 = 0;
+      v55 = 0;
+      v56 = 0;
     }
 
-    if (v69)
+    if (v56)
     {
-      *(v79 + 184) = v68;
-      *(v79 + 192) = v69;
-      *(v79 + 200) = v68;
-      *(v79 + 208) = v69;
+      *(v65 + 184) = v55;
+      *(v65 + 192) = v56;
+      *(v65 + 200) = v55;
+      *(v65 + 208) = v56;
       v4 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" ", 1uLL, 1);
-      v66 = lazy protocol witness table accessor for type String and conformance String();
-      v65 = MEMORY[0x277D837D0];
-      v64 = default argument 1 of StringProtocol<>.split(separator:maxSplits:omittingEmptySubsequences:)();
+      v53 = lazy protocol witness table accessor for type String and conformance String();
+      v52 = MEMORY[0x277D837D0];
+      v51 = default argument 1 of StringProtocol<>.split(separator:maxSplits:omittingEmptySubsequences:)();
       v5 = default argument 2 of StringProtocol<>.split(separator:maxSplits:omittingEmptySubsequences:)();
-      v67 = MEMORY[0x26D649820](v4._countAndFlagsBits, v4._object, v64, v5 & 1, v65, v66);
+      v54 = MEMORY[0x26D649820](v4._countAndFlagsBits, v4._object, v51, v5 & 1, v52, v53);
 
-      *(v79 + 312) = v67;
+      *(v65 + 312) = v54;
       if (MEMORY[0x26D6494A0]() == 2)
       {
         Array.subscript.getter();
-        v6 = *(v79 + 16);
-        v7 = *(v79 + 24);
-        v8 = *(v79 + 32);
-        v9 = *(v79 + 40);
-        v63 = Double.init(_:)();
-        if (v10)
+        v50 = Double.init(_:)();
+        if (v6)
         {
 
-          v60 = 0;
-          v61 = 0;
-          v62 = 0;
+          v47 = 0;
+          v48 = 0;
+          v49 = 0;
         }
 
         else
         {
-          *(v79 + 320) = v63;
+          *(v65 + 320) = v50;
           Array.subscript.getter();
-          v11 = *(v79 + 48);
-          v12 = *(v79 + 56);
-          v13 = *(v79 + 64);
-          v57 = *(v79 + 72);
-          v58 = String.init(_:)();
-          v59 = v14;
+          v45 = String.init(_:)();
+          v46 = v7;
 
-          *(v79 + 216) = v58;
-          *(v79 + 224) = v59;
+          *(v65 + 216) = v45;
+          *(v65 + 224) = v46;
 
-          v60 = v63;
-          v61 = v58;
-          v62 = v59;
+          v47 = v50;
+          v48 = v45;
+          v49 = v46;
         }
       }
 
       else
       {
-        v15 = *(v79 + 376);
-        v48 = *(v79 + 344);
-        v46 = *(v79 + 352);
-        v47 = Logger.wellnessIntents.unsafeMutableAddressor();
+        v8 = *(v65 + 376);
+        v36 = *(v65 + 344);
+        v34 = *(v65 + 352);
+        v35 = Logger.wellnessIntents.unsafeMutableAddressor();
         swift_beginAccess();
-        (*(v46 + 16))(v15, v47, v48);
+        (*(v34 + 16))(v8, v35, v36);
         swift_endAccess();
 
-        v49 = swift_allocObject();
-        *(v49 + 16) = v68;
-        *(v49 + 24) = v69;
+        v37 = swift_allocObject();
+        *(v37 + 16) = v55;
+        *(v37 + 24) = v56;
         oslog = Logger.logObject.getter();
-        v56 = static os_log_type_t.debug.getter();
-        v51 = swift_allocObject();
-        *(v51 + 16) = 32;
-        v52 = swift_allocObject();
-        *(v52 + 16) = 8;
-        v50 = swift_allocObject();
-        *(v50 + 16) = partial apply for implicit closure #4 in LogQuantityIntentHandler.handle(intent:);
-        *(v50 + 24) = v49;
-        v53 = swift_allocObject();
-        *(v53 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-        *(v53 + 24) = v50;
+        v44 = static os_log_type_t.debug.getter();
+        v39 = swift_allocObject();
+        *(v39 + 16) = 32;
+        v40 = swift_allocObject();
+        *(v40 + 16) = 8;
+        v38 = swift_allocObject();
+        *(v38 + 16) = partial apply for implicit closure #4 in LogQuantityIntentHandler.handle(intent:);
+        *(v38 + 24) = v37;
+        v41 = swift_allocObject();
+        *(v41 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+        *(v41 + 24) = v38;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
         _allocateUninitializedArray<A>(_:)();
-        v54 = v16;
+        v42 = v9;
 
-        *v54 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v54[1] = v51;
+        *v42 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v42[1] = v39;
 
-        v54[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v54[3] = v52;
+        v42[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+        v42[3] = v40;
 
-        v54[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v54[5] = v53;
+        v42[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+        v42[5] = v41;
         _finalizeUninitializedArray<A>(_:)();
 
-        if (os_log_type_enabled(oslog, v56))
+        if (os_log_type_enabled(oslog, v44))
         {
           buf = static UnsafeMutablePointer.allocate(capacity:)();
-          v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          v44 = createStorage<A>(capacity:type:)(0);
-          v45 = createStorage<A>(capacity:type:)(1);
-          v84 = buf;
-          v85 = v44;
-          v86 = v45;
-          serialize(_:at:)(2, &v84);
-          serialize(_:at:)(1, &v84);
-          v87 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v88 = v51;
-          closure #1 in osLogInternal(_:log:type:)(&v87, &v84, &v85, &v86);
-          v87 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v88 = v52;
-          closure #1 in osLogInternal(_:log:type:)(&v87, &v84, &v85, &v86);
-          v87 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v88 = v53;
-          closure #1 in osLogInternal(_:log:type:)(&v87, &v84, &v85, &v86);
-          _os_log_impl(&dword_269912000, oslog, v56, "Unexpected displayStrength string format: %s", buf, 0xCu);
-          destroyStorage<A>(_:count:)(v44, 0, v42);
-          destroyStorage<A>(_:count:)(v45, 1, MEMORY[0x277D84F70] + 8);
+          v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+          v32 = createStorage<A>(capacity:type:)(0, v30, v30);
+          v33 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+          v70 = buf;
+          v71 = v32;
+          v72 = v33;
+          serialize(_:at:)(2, &v70);
+          serialize(_:at:)(1, &v70);
+          v73 = partial apply for closure #1 in OSLogArguments.append(_:);
+          v74 = v39;
+          closure #1 in osLogInternal(_:log:type:)(&v73, &v70, &v71, &v72);
+          v73 = partial apply for closure #1 in OSLogArguments.append(_:);
+          v74 = v40;
+          closure #1 in osLogInternal(_:log:type:)(&v73, &v70, &v71, &v72);
+          v73 = partial apply for closure #1 in OSLogArguments.append(_:);
+          v74 = v41;
+          closure #1 in osLogInternal(_:log:type:)(&v73, &v70, &v71, &v72);
+          _os_log_impl(&dword_269912000, oslog, v44, "Unexpected displayStrength string format: %s", buf, 0xCu);
+          destroyStorage<A>(_:count:)(v32, 0, v30);
+          destroyStorage<A>(_:count:)(v33, 1, MEMORY[0x277D84F70] + 8);
           MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
         }
 
@@ -3798,149 +1101,144 @@ uint64_t SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:)()
         {
         }
 
-        v40 = *(v79 + 376);
-        v41 = *(v79 + 344);
-        v39 = *(v79 + 352);
+        v28 = *(v65 + 376);
+        v29 = *(v65 + 344);
+        v27 = *(v65 + 352);
         MEMORY[0x277D82BD8](oslog);
-        (*(v39 + 8))(v40, v41);
+        (*(v27 + 8))(v28, v29);
 
-        v60 = 0;
-        v61 = 0;
-        v62 = 0;
+        v47 = 0;
+        v48 = 0;
+        v49 = 0;
       }
     }
 
     else
     {
-      v17 = *(v79 + 368);
-      v35 = *(v79 + 344);
-      v33 = *(v79 + 352);
-      v34 = Logger.wellnessIntents.unsafeMutableAddressor();
+      v10 = *(v65 + 368);
+      v23 = *(v65 + 344);
+      v21 = *(v65 + 352);
+      v22 = Logger.wellnessIntents.unsafeMutableAddressor();
       swift_beginAccess();
-      (*(v33 + 16))(v17, v34, v35);
+      (*(v21 + 16))(v10, v22, v23);
       swift_endAccess();
       log = Logger.logObject.getter();
-      v36 = static os_log_type_t.debug.getter();
+      v24 = static os_log_type_t.debug.getter();
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v38 = _allocateUninitializedArray<A>(_:)();
-      if (os_log_type_enabled(log, v36))
+      v26 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(log, v24))
       {
-        v29 = static UnsafeMutablePointer.allocate(capacity:)();
-        v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v30 = createStorage<A>(capacity:type:)(0);
-        v31 = createStorage<A>(capacity:type:)(0);
-        *(v79 + 280) = v29;
-        *(v79 + 288) = v30;
-        *(v79 + 296) = v31;
-        serialize(_:at:)(0, (v79 + 280));
-        serialize(_:at:)(0, (v79 + 280));
-        *(v79 + 304) = v38;
-        v32 = swift_task_alloc();
-        v32[2] = v79 + 280;
-        v32[3] = v79 + 288;
-        v32[4] = v79 + 296;
+        v17 = static UnsafeMutablePointer.allocate(capacity:)();
+        v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v18 = createStorage<A>(capacity:type:)(0, v16, v16);
+        v19 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        *(v65 + 280) = v17;
+        *(v65 + 288) = v18;
+        *(v65 + 296) = v19;
+        serialize(_:at:)(0, (v65 + 280));
+        serialize(_:at:)(0, (v65 + 280));
+        *(v65 + 304) = v26;
+        v20 = swift_task_alloc();
+        v20[2] = v65 + 280;
+        v20[3] = v65 + 288;
+        v20[4] = v65 + 296;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
         lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
         Sequence.forEach(_:)();
 
-        _os_log_impl(&dword_269912000, log, v36, "getAsNeededStrengthFromHealthApp: Couldn't find displayStrength in UserTrackedMeds", v29, 2u);
-        destroyStorage<A>(_:count:)(v30, 0, v28);
-        destroyStorage<A>(_:count:)(v31, 0, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D6497C0](v29, MEMORY[0x277D84B78]);
+        _os_log_impl(&dword_269912000, log, v24, "getAsNeededStrengthFromHealthApp: Couldn't find displayStrength in UserTrackedMeds", v17, 2u);
+        destroyStorage<A>(_:count:)(v18, 0, v16);
+        destroyStorage<A>(_:count:)(v19, 0, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D6497C0](v17, MEMORY[0x277D84B78]);
       }
 
-      v26 = *(v79 + 368);
-      v27 = *(v79 + 344);
-      v25 = *(v79 + 352);
+      v14 = *(v65 + 368);
+      v15 = *(v65 + 344);
+      v13 = *(v65 + 352);
       MEMORY[0x277D82BD8](log);
-      (*(v25 + 8))(v26, v27);
+      (*(v13 + 8))(v14, v15);
 
-      v60 = 0;
-      v61 = 0;
-      v62 = 0;
+      v47 = 0;
+      v48 = 0;
+      v49 = 0;
     }
 
-    v18 = *(v79 + 376);
-    v23 = *(v79 + 368);
-    v24 = *(v79 + 360);
+    v11 = *(*(v65 + 232) + 8);
 
-    v19 = *(*(v79 + 232) + 8);
-    v20 = *(v79 + 232);
-
-    return v19(v60, v61, v62);
+    return v11(v47, v48, v49);
   }
 }
 
 {
-  v38 = v0;
-  v23 = v0[50];
+  v34 = v0;
+  v19 = v0[50];
   v1 = v0[45];
-  v20 = v0[44];
-  v22 = v0[43];
+  v16 = v0[44];
+  v18 = v0[43];
   v0[29] = v0;
-  v2 = v23;
-  v0[30] = v23;
-  v21 = Logger.wellnessIntents.unsafeMutableAddressor();
+  v2 = v19;
+  v0[30] = v19;
+  v17 = Logger.wellnessIntents.unsafeMutableAddressor();
   swift_beginAccess();
-  (*(v20 + 16))(v1, v21, v22);
+  (*(v16 + 16))(v1, v17, v18);
   swift_endAccess();
-  v3 = v23;
-  v24 = swift_allocObject();
-  *(v24 + 16) = v23;
+  v3 = v19;
+  v20 = swift_allocObject();
+  *(v20 + 16) = v19;
   default argument 2 of OSLogInterpolation.appendInterpolation(_:privacy:attributes:)();
 
-  v31 = Logger.logObject.getter();
-  v32 = static os_log_type_t.error.getter();
-  v27 = swift_allocObject();
-  *(v27 + 16) = 64;
-  v28 = swift_allocObject();
-  *(v28 + 16) = 8;
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.error.getter();
+  v23 = swift_allocObject();
+  *(v23 + 16) = 64;
+  v24 = swift_allocObject();
+  *(v24 + 16) = 8;
+  v21 = swift_allocObject();
+  *(v21 + 16) = partial apply for implicit closure #10 in getPreferredUnit(for:store:);
+  *(v21 + 24) = v20;
+  v22 = swift_allocObject();
+  *(v22 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
+  *(v22 + 24) = v21;
   v25 = swift_allocObject();
-  *(v25 + 16) = partial apply for implicit closure #10 in getPreferredUnit(for:store:);
-  *(v25 + 24) = v24;
-  v26 = swift_allocObject();
-  *(v26 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
-  *(v26 + 24) = v25;
-  v29 = swift_allocObject();
-  *(v29 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
-  *(v29 + 24) = v26;
+  *(v25 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
+  *(v25 + 24) = v22;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
   _allocateUninitializedArray<A>(_:)();
-  v30 = v4;
+  v26 = v4;
 
-  *v30 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v30[1] = v27;
+  *v26 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v26[1] = v23;
 
-  v30[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v30[3] = v28;
+  v26[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v26[3] = v24;
 
-  v30[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v30[5] = v29;
+  v26[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v26[5] = v25;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v31, v32))
+  if (os_log_type_enabled(v27, v28))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v17 = createStorage<A>(capacity:type:)(1);
-    v18 = createStorage<A>(capacity:type:)(0);
-    v33 = buf;
-    v34 = v17;
-    v35 = v18;
-    serialize(_:at:)(2, &v33);
-    serialize(_:at:)(1, &v33);
-    v36 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v37 = v27;
-    closure #1 in osLogInternal(_:log:type:)(&v36, &v33, &v34, &v35);
-    v36 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v37 = v28;
-    closure #1 in osLogInternal(_:log:type:)(&v36, &v33, &v34, &v35);
-    v36 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v37 = v29;
-    closure #1 in osLogInternal(_:log:type:)(&v36, &v33, &v34, &v35);
-    _os_log_impl(&dword_269912000, v31, v32, "Error doing UTC Query for Medications: %@", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v17, 1, v15);
-    destroyStorage<A>(_:count:)(v18, 0, MEMORY[0x277D84F70] + 8);
+    v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v13 = createStorage<A>(capacity:type:)(1, v11, v11);
+    v14 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v29 = buf;
+    v30 = v13;
+    v31 = v14;
+    serialize(_:at:)(2, &v29);
+    serialize(_:at:)(1, &v29);
+    v32 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v33 = v23;
+    closure #1 in osLogInternal(_:log:type:)(&v32, &v29, &v30, &v31);
+    v32 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v33 = v24;
+    closure #1 in osLogInternal(_:log:type:)(&v32, &v29, &v30, &v31);
+    v32 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v33 = v25;
+    closure #1 in osLogInternal(_:log:type:)(&v32, &v29, &v30, &v31);
+    _os_log_impl(&dword_269912000, v27, v28, "Error doing UTC Query for Medications: %@", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v13, 1, v11);
+    destroyStorage<A>(_:count:)(v14, 0, MEMORY[0x277D84F70] + 8);
     MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
   }
 
@@ -3948,21 +1246,16 @@ uint64_t SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:)()
   {
   }
 
-  v12 = v19[50];
-  v10 = v19[45];
-  v11 = v19[43];
-  v9 = v19[44];
-  MEMORY[0x277D82BD8](v31);
-  (*(v9 + 8))(v10, v11);
+  v10 = v15[50];
+  v8 = v15[45];
+  v9 = v15[43];
+  v7 = v15[44];
+  MEMORY[0x277D82BD8](v27);
+  (*(v7 + 8))(v8, v9);
 
-  v5 = v19[47];
-  v13 = v19[46];
-  v14 = v19[45];
+  v5 = *(v15[29] + 8);
 
-  v6 = *(v19[29] + 8);
-  v7 = v19[29];
-
-  return v6(0, 0);
+  return v5(0, 0);
 }
 
 uint64_t SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3985,9 +1278,7 @@ uint64_t SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:)(uint6
   v4[48] = 0;
   v5 = type metadata accessor for Logger();
   v4[57] = v5;
-  v17 = *(v5 - 8);
-  v4[58] = v17;
-  v18 = *(v17 + 64);
+  v4[58] = *(v5 - 8);
   v4[59] = swift_task_alloc();
   v4[60] = swift_task_alloc();
   v4[61] = swift_task_alloc();
@@ -3995,34 +1286,26 @@ uint64_t SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:)(uint6
   v4[63] = swift_task_alloc();
   v6 = type metadata accessor for DateInterval();
   v4[64] = v6;
-  v19 = *(v6 - 8);
-  v4[65] = v19;
-  v7 = *(v19 + 64) + 15;
+  v4[65] = *(v6 - 8);
   v4[66] = swift_task_alloc();
-  v8 = type metadata accessor for Calendar();
-  v4[67] = v8;
-  v20 = *(v8 - 8);
-  v4[68] = v20;
-  v9 = *(v20 + 64) + 15;
+  v7 = type metadata accessor for Calendar();
+  v4[67] = v7;
+  v4[68] = *(v7 - 8);
   v4[69] = swift_task_alloc();
-  v10 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v4[70] = swift_task_alloc();
-  v11 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8TimeZoneVSgMd, &_s10Foundation8TimeZoneVSgMR);
   v4[71] = swift_task_alloc();
-  v12 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation8CalendarVSgMd, &_s10Foundation8CalendarVSgMR);
   v4[72] = swift_task_alloc();
-  v13 = type metadata accessor for DateComponents();
-  v4[73] = v13;
-  v21 = *(v13 - 8);
-  v4[74] = v21;
-  v22 = *(v21 + 64);
+  v8 = type metadata accessor for DateComponents();
+  v4[73] = v8;
+  v4[74] = *(v8 - 8);
   v4[75] = swift_task_alloc();
   v4[76] = swift_task_alloc();
-  v14 = type metadata accessor for Date();
-  v4[77] = v14;
-  v23 = *(v14 - 8);
-  v4[78] = v23;
-  v24 = *(v23 + 64);
+  v9 = type metadata accessor for Date();
+  v4[77] = v9;
+  v4[78] = *(v9 - 8);
   v4[79] = swift_task_alloc();
   v4[80] = swift_task_alloc();
   v4[81] = swift_task_alloc();
@@ -4031,265 +1314,261 @@ uint64_t SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:)(uint6
   v4[18] = a2;
   v4[19] = a3;
   v4[20] = a4;
-  v15 = v4[23];
 
   return MEMORY[0x2822009F8](SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:), 0);
 }
 
 uint64_t SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:)()
 {
-  v136 = v0;
-  v131 = "Fatal error";
-  v132 = "Unexpectedly found nil while unwrapping an Optional value";
-  v133 = "SiriWellnessIntents/LogSpecificMedicationsIntentHandler.swift";
-  v134 = partial apply for closure #1 in osLogInternal(_:log:type:);
-  v135 = *(v0 + 432);
+  v133 = v0;
+  v128 = "Fatal error";
+  v129 = "Unexpectedly found nil while unwrapping an Optional value";
+  v130 = "SiriWellnessIntents/LogSpecificMedicationsIntentHandler.swift";
+  v131 = partial apply for closure #1 in osLogInternal(_:log:type:);
+  v132 = *(v0 + 432);
   *(v0 + 184) = v0;
 
-  if (v135)
+  if (v132)
   {
-    v1 = v130;
-    v109 = *(v130 + 432);
-    v2 = v109;
-    v118 = *(v130 + 656);
-    v3 = *(v130 + 624);
-    v129 = *(v130 + 616);
-    v117 = *(v130 + 608);
-    v120 = *(v130 + 600);
-    v4 = *(v130 + 592);
-    v121 = *(v130 + 584);
-    v111 = *(v130 + 576);
-    v112 = *(v130 + 568);
-    v127 = *(v130 + 560);
-    v123 = *(v130 + 552);
-    v5 = *(v130 + 544);
-    v124 = *(v130 + 536);
-    v6 = *(v130 + 424);
-    v126 = v3;
+    v1 = v127;
+    v106 = *(v127 + 432);
+    v2 = v106;
+    v115 = *(v127 + 656);
+    v3 = *(v127 + 624);
+    v126 = *(v127 + 616);
+    v114 = *(v127 + 608);
+    v117 = *(v127 + 600);
+    v4 = *(v127 + 592);
+    v118 = *(v127 + 584);
+    v108 = *(v127 + 576);
+    v109 = *(v127 + 568);
+    v124 = *(v127 + 560);
+    v120 = *(v127 + 552);
+    v5 = *(v127 + 544);
+    v121 = *(v127 + 536);
+    v6 = *(v127 + 424);
+    v123 = v3;
+    v113 = v4;
     v116 = v4;
-    v119 = v4;
-    v110 = v5;
-    v122 = v5;
-    v125 = v130 + 168;
-    *(v130 + 168) = v6;
+    v107 = v5;
+    v119 = v5;
+    v122 = v127 + 168;
+    *(v127 + 168) = v6;
     *(v1 + 176) = v2;
     Date.init()();
-    v7 = *(v110 + 56);
-    v128 = 1;
-    v7(v111, 1, 1, v124);
-    v113 = 0;
+    v7 = *(v107 + 56);
+    v125 = 1;
+    v7(v108, 1, 1, v121);
+    v110 = 0;
     v8 = type metadata accessor for TimeZone();
-    (*(*(v8 - 8) + 56))(v112, 1);
-    v114 = &v37;
-    v37 = 0;
-    v115 = 1;
-    LOBYTE(v38) = 1;
-    v39 = 0;
-    v40 = 1;
-    v41 = 0;
-    v42 = 1;
-    v43 = 0;
-    v44 = 1;
-    v45 = 0;
-    v46 = 1;
-    v47 = 0;
-    v48 = 1;
-    v49 = 0;
-    v50 = 1;
-    v51 = 0;
-    v52 = 1;
-    v53 = 0;
-    v54 = 1;
-    v55 = 0;
-    v56 = 1;
-    v57 = 0;
-    v58 = 1;
+    (*(*(v8 - 8) + 56))(v109, 1);
+    v111 = &v34;
+    v34 = 0;
+    v112 = 1;
+    LOBYTE(v35) = 1;
+    v36 = 0;
+    v37 = 1;
+    v38 = 0;
+    v39 = 1;
+    v40 = 0;
+    v41 = 1;
+    v42 = 0;
+    v43 = 1;
+    v44 = 0;
+    v45 = 1;
+    v46 = 0;
+    v47 = 1;
+    v48 = 0;
+    v49 = 1;
+    v50 = 0;
+    v51 = 1;
+    v52 = 0;
+    v53 = 1;
+    v54 = 0;
+    v55 = 1;
     DateComponents.init(calendar:timeZone:era:year:month:day:hour:minute:second:nanosecond:weekday:weekdayOrdinal:quarter:weekOfMonth:weekOfYear:yearForWeekOfYear:)();
     DateComponents.day.setter();
     static Calendar.current.getter();
-    (*(v116 + 16))(v120, v117, v121);
+    (*(v113 + 16))(v117, v114, v118);
     default argument 2 of Calendar.date(byAdding:to:wrappingComponents:)();
     Calendar.date(byAdding:to:wrappingComponents:)();
-    v9 = v120;
-    v10 = v121;
-    v11 = v130;
-    v12 = v119 + 8;
-    v13 = *(v119 + 8);
-    *(v130 + 664) = v13;
+    v9 = v117;
+    v10 = v118;
+    v11 = v127;
+    v12 = v116 + 8;
+    v13 = *(v116 + 8);
+    *(v127 + 664) = v13;
     *(v11 + 672) = v12 & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
     v13(v9, v10);
-    (*(v122 + 8))(v123, v124);
-    if ((*(v126 + 48))(v127, v128, v129) == 1)
+    (*(v119 + 8))(v120, v121);
+    if ((*(v123 + 48))(v124, v125, v126) == 1)
     {
-      LOBYTE(v37) = 2;
-      v38 = 966;
-      LODWORD(v39) = 0;
+      LOBYTE(v34) = 2;
+      v35 = 966;
+      LODWORD(v36) = 0;
       return _assertionFailure(_:_:file:line:flags:)();
     }
 
     else
     {
-      v100 = *(v130 + 656);
-      v99 = *(v130 + 648);
-      v106 = *(v130 + 640);
-      v105 = *(v130 + 632);
-      v15 = *(v130 + 624);
-      v101 = *(v130 + 616);
-      v16 = *(v130 + 560);
-      v104 = *(v130 + 528);
-      v107 = *(v130 + 424);
-      v98 = v15;
+      v97 = *(v127 + 656);
+      v96 = *(v127 + 648);
+      v103 = *(v127 + 640);
+      v102 = *(v127 + 632);
+      v15 = *(v127 + 624);
+      v98 = *(v127 + 616);
+      v101 = *(v127 + 528);
+      v104 = *(v127 + 424);
+      v95 = v15;
       (*(v15 + 32))();
-      v103 = *(v98 + 16);
-      v102 = v98 + 16;
-      v103(v106, v99, v101);
-      v103(v105, v100, v101);
+      v100 = *(v95 + 16);
+      v99 = v95 + 16;
+      v100(v103, v96, v98);
+      v100(v102, v97, v98);
       DateInterval.init(start:end:)();
       type metadata accessor for HKMedicationIdentifier();
 
-      v108 = HKMedicationIdentifier.__allocating_init(rawIdentifier:)();
-      *(v130 + 680) = v108;
-      v17 = swift_task_alloc();
-      v18 = v130;
-      v19 = v108;
-      *(v130 + 688) = v17;
-      *v17 = v18[23];
-      v17[1] = SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:);
-      v20 = v18[66];
-      v21 = v18[56];
-      v22 = v18[55];
+      v105 = HKMedicationIdentifier.__allocating_init(rawIdentifier:)(v104, v106);
+      *(v127 + 680) = v105;
+      v16 = swift_task_alloc();
+      v17 = v127;
+      v18 = v105;
+      *(v127 + 688) = v16;
+      *v16 = v17[23];
+      v16[1] = SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:);
+      v19 = v17[66];
+      v20 = v17[56];
+      v21 = v17[55];
 
-      return SpecificMedicationsPersistor.getDoseEvents(for:medicationIdentifier:)(v20, v19, v22, v21);
+      return SpecificMedicationsPersistor.getDoseEvents(for:medicationIdentifier:)(v19, v18, v21, v20);
     }
   }
 
   else
   {
-    v23 = *(v130 + 480);
-    v24 = *(v130 + 464);
-    v93 = *(v130 + 456);
-    v91 = v24;
-    v92 = Logger.wellnessIntents.unsafeMutableAddressor();
-    v94 = v130 + 16;
+    v22 = *(v127 + 480);
+    v23 = *(v127 + 464);
+    v90 = *(v127 + 456);
+    v88 = v23;
+    v89 = Logger.wellnessIntents.unsafeMutableAddressor();
+    v91 = v127 + 16;
     swift_beginAccess();
-    (*(v91 + 16))(v23, v92, v93);
+    (*(v88 + 16))(v22, v89, v90);
     swift_endAccess();
     oslog = Logger.logObject.getter();
-    v95 = static os_log_type_t.debug.getter();
+    v92 = static os_log_type_t.debug.getter();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v97 = _allocateUninitializedArray<A>(_:)();
-    if (os_log_type_enabled(oslog, v95))
+    v94 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(oslog, v92))
     {
       buf = static UnsafeMutablePointer.allocate(capacity:)();
-      v80 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v81 = 0;
-      v83 = createStorage<A>(capacity:type:)(0);
-      v25 = createStorage<A>(capacity:type:)(0);
-      v26 = v83;
-      v27 = v130;
-      v84 = v25;
-      v28 = (v130 + 192);
-      v86 = (v130 + 192);
-      *(v130 + 192) = buf;
-      v87 = v27 + 200;
-      *(v27 + 200) = v26;
-      v88 = v27 + 208;
-      *(v27 + 208) = v25;
-      v85 = 0;
-      serialize(_:at:)(0, v28);
-      serialize(_:at:)(0, v86);
-      *(v130 + 216) = v97;
-      v29 = swift_task_alloc();
-      v30 = v87;
-      v31 = v88;
-      v89 = v29;
-      v29[2] = v86;
-      v29[3] = v30;
-      v29[4] = v31;
-      v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v78 = 0;
+      v80 = createStorage<A>(capacity:type:)(0, v77, v77);
+      v24 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      v25 = v80;
+      v26 = v127;
+      v81 = v24;
+      v27 = (v127 + 192);
+      v83 = (v127 + 192);
+      *(v127 + 192) = buf;
+      v84 = v26 + 200;
+      *(v26 + 200) = v25;
+      v85 = v26 + 208;
+      *(v26 + 208) = v24;
+      v82 = 0;
+      serialize(_:at:)(0, v27);
+      serialize(_:at:)(0, v83);
+      *(v127 + 216) = v94;
+      v28 = swift_task_alloc();
+      v29 = v84;
+      v30 = v85;
+      v86 = v28;
+      v28[2] = v83;
+      v28[3] = v29;
+      v28[4] = v30;
+      v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
       lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
       Sequence.forEach(_:)();
 
-      _os_log_impl(&dword_269912000, oslog, v95, "medicationID passed into getAsNeededDosageFromHealthApp was nil, returning 1.0", buf, 2u);
-      v79 = 0;
-      destroyStorage<A>(_:count:)(v83, 0, v80);
-      destroyStorage<A>(_:count:)(v84, 0, MEMORY[0x277D84F70] + 8);
+      _os_log_impl(&dword_269912000, oslog, v92, "medicationID passed into getAsNeededDosageFromHealthApp was nil, returning 1.0", buf, 2u);
+      v76 = 0;
+      destroyStorage<A>(_:count:)(v80, 0, v77);
+      destroyStorage<A>(_:count:)(v81, 0, MEMORY[0x277D84F70] + 8);
       MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
     }
 
-    v60 = *(v130 + 480);
-    v32 = *(v130 + 464);
-    v61 = *(v130 + 456);
-    v59 = v32;
+    v57 = *(v127 + 480);
+    v31 = *(v127 + 464);
+    v58 = *(v127 + 456);
+    v56 = v31;
     MEMORY[0x277D82BD8](oslog);
-    (*(v59 + 8))(v60, v61);
-    v77 = v130 + 136;
-    v78 = v130 + 152;
-    v33 = *(v130 + 656);
-    v62 = *(v130 + 648);
-    v63 = *(v130 + 640);
-    v64 = *(v130 + 632);
-    v65 = *(v130 + 608);
-    v66 = *(v130 + 600);
-    v67 = *(v130 + 576);
-    v68 = *(v130 + 568);
-    v69 = *(v130 + 560);
-    v70 = *(v130 + 552);
-    v71 = *(v130 + 528);
-    v72 = *(v130 + 504);
-    v73 = *(v130 + 496);
-    v74 = *(v130 + 488);
-    v75 = *(v130 + 480);
-    v76 = *(v130 + 472);
+    (*(v56 + 8))(v57, v58);
+    v74 = v127 + 136;
+    v75 = v127 + 152;
+    v59 = *(v127 + 648);
+    v60 = *(v127 + 640);
+    v61 = *(v127 + 632);
+    v62 = *(v127 + 608);
+    v63 = *(v127 + 600);
+    v64 = *(v127 + 576);
+    v65 = *(v127 + 568);
+    v66 = *(v127 + 560);
+    v67 = *(v127 + 552);
+    v68 = *(v127 + 528);
+    v69 = *(v127 + 504);
+    v70 = *(v127 + 496);
+    v71 = *(v127 + 488);
+    v72 = *(v127 + 480);
+    v73 = *(v127 + 472);
 
-    v34 = *(*(v130 + 184) + 8);
-    v35 = *(v130 + 184);
-    v36.n128_u64[0] = 1.0;
+    v32 = *(*(v127 + 184) + 8);
+    v33.n128_u64[0] = 1.0;
 
-    return v34(v36);
+    return v32(v33);
   }
 }
 
 {
-  v139 = v0[87];
+  v114 = v0[87];
   v0[23] = v0;
 
-  v0[28] = v139;
-  v0[30] = v139;
-  v138 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
+  v0[28] = v114;
+  v0[30] = v114;
+  v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
   lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
-  v140 = Collection.isEmpty.getter();
+  v115 = Collection.isEmpty.getter();
 
-  if (v140)
+  if (v115)
   {
-    v9 = *(v137 + 488);
-    v53 = *(v137 + 456);
-    v51 = *(v137 + 464);
-    v52 = Logger.wellnessIntents.unsafeMutableAddressor();
+    v9 = *(v112 + 488);
+    v34 = *(v112 + 456);
+    v32 = *(v112 + 464);
+    v33 = Logger.wellnessIntents.unsafeMutableAddressor();
     swift_beginAccess();
-    (*(v51 + 16))(v9, v52, v53);
+    (*(v32 + 16))(v9, v33, v34);
     swift_endAccess();
     log = Logger.logObject.getter();
-    v54 = static os_log_type_t.debug.getter();
+    v35 = static os_log_type_t.debug.getter();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v56 = _allocateUninitializedArray<A>(_:)();
-    if (os_log_type_enabled(log, v54))
+    v37 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(log, v35))
     {
-      v10 = *(v137 + 704);
-      v47 = static UnsafeMutablePointer.allocate(capacity:)();
-      v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v48 = createStorage<A>(capacity:type:)(0);
-      v49 = createStorage<A>(capacity:type:)(0);
-      *(v137 + 248) = v47;
-      *(v137 + 256) = v48;
-      *(v137 + 264) = v49;
-      serialize(_:at:)(0, (v137 + 248));
-      serialize(_:at:)(0, (v137 + 248));
-      *(v137 + 272) = v56;
-      v50 = swift_task_alloc();
-      v50[2] = v137 + 248;
-      v50[3] = v137 + 256;
-      v50[4] = v137 + 264;
+      v10 = *(v112 + 704);
+      v28 = static UnsafeMutablePointer.allocate(capacity:)();
+      v27 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v29 = createStorage<A>(capacity:type:)(0, v27, v27);
+      v30 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v112 + 248) = v28;
+      *(v112 + 256) = v29;
+      *(v112 + 264) = v30;
+      serialize(_:at:)(0, (v112 + 248));
+      serialize(_:at:)(0, (v112 + 248));
+      *(v112 + 272) = v37;
+      v31 = swift_task_alloc();
+      v31[2] = v112 + 248;
+      v31[3] = v112 + 256;
+      v31[4] = v112 + 264;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
       lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
       Sequence.forEach(_:)();
@@ -4297,231 +1576,225 @@ uint64_t SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:)()
       {
       }
 
-      _os_log_impl(&dword_269912000, log, v54, "No previously logged As Needed dose events in health app. Falling back to dosage == 1.", v47, 2u);
-      destroyStorage<A>(_:count:)(v48, 0, v46);
-      destroyStorage<A>(_:count:)(v49, 0, MEMORY[0x277D84F70] + 8);
-      MEMORY[0x26D6497C0](v47, MEMORY[0x277D84B78]);
+      _os_log_impl(&dword_269912000, log, v35, "No previously logged As Needed dose events in health app. Falling back to dosage == 1.", v28, 2u);
+      destroyStorage<A>(_:count:)(v29, 0, v27);
+      destroyStorage<A>(_:count:)(v30, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v28, MEMORY[0x277D84B78]);
     }
 
     else
     {
     }
 
-    v40 = *(v137 + 672);
-    v41 = *(v137 + 664);
-    v42 = *(v137 + 656);
-    v37 = *(v137 + 648);
-    v43 = *(v137 + 616);
-    v38 = *(v137 + 608);
-    v39 = *(v137 + 584);
-    v35 = *(v137 + 528);
-    v34 = *(v137 + 512);
-    v31 = *(v137 + 488);
-    v32 = *(v137 + 456);
-    v45 = *(v137 + 432);
-    v36 = *(v137 + 624);
-    v33 = *(v137 + 520);
-    v30 = *(v137 + 464);
+    v23 = *(v112 + 664);
+    v24 = *(v112 + 656);
+    v20 = *(v112 + 648);
+    v25 = *(v112 + 616);
+    v21 = *(v112 + 608);
+    v22 = *(v112 + 584);
+    v18 = *(v112 + 528);
+    v17 = *(v112 + 512);
+    v14 = *(v112 + 488);
+    v15 = *(v112 + 456);
+    v19 = *(v112 + 624);
+    v16 = *(v112 + 520);
+    v13 = *(v112 + 464);
     MEMORY[0x277D82BD8](log);
-    (*(v30 + 8))(v31, v32);
-    outlined destroy of [HKQuantityType]((v137 + 224));
-    (*(v33 + 8))(v35, v34);
-    v44 = *(v36 + 8);
-    v44(v37, v43);
-    v41(v38, v39);
-    v44(v42, v43);
+    (*(v13 + 8))(v14, v15);
+    outlined destroy of [HKQuantityType]((v112 + 224));
+    (*(v16 + 8))(v18, v17);
+    v26 = *(v19 + 8);
+    v26(v20, v25);
+    v23(v21, v22);
+    v26(v24, v25);
 
-    v121 = 1.0;
+    v96 = 1.0;
     goto LABEL_29;
   }
 
-  v135 = *(v137 + 224);
+  v110 = *(v112 + 224);
 
-  *(v137 + 280) = v135;
+  *(v112 + 280) = v110;
   Collection.first.getter();
-  v136 = *(v137 + 288);
+  v111 = *(v112 + 288);
 
-  if (v136)
+  if (v111)
   {
-    v133 = [v136 scheduledDoseQuantity];
-    MEMORY[0x277D82BD8](v136);
-    v134 = v133;
+    v108 = [v111 scheduledDoseQuantity];
+    MEMORY[0x277D82BD8](v111);
+    v109 = v108;
   }
 
   else
   {
-    v134 = 0;
+    v109 = 0;
   }
 
-  if (!v134)
+  if (!v109)
   {
-    v4 = *(v137 + 704);
-    v102 = *(v137 + 224);
+    v4 = *(v112 + 704);
+    v79 = *(v112 + 224);
 
-    *(v137 + 304) = v102;
+    *(v112 + 304) = v79;
     lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
     result = Sequence.sorted(by:)();
-    v103 = result;
+    v80 = result;
     if (v4)
     {
       return result;
     }
 
-    outlined destroy of [HKQuantityType]((v137 + 304));
-    *(v137 + 312) = v103;
+    outlined destroy of [HKQuantityType]((v112 + 304));
+    *(v112 + 312) = v80;
     v6 = lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
-    MEMORY[0x26D649280](v138, v6);
-    v100 = *(v137 + 296);
-    *(v137 + 320) = v100;
-    *(v137 + 328) = v100;
+    MEMORY[0x26D649280](v113, v6);
+    v77 = *(v112 + 296);
+    *(v112 + 320) = v77;
+    *(v112 + 328) = v77;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18ReversedCollectionVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss18ReversedCollectionVySaySo30HKMedicationExposableDoseEventCGGMR);
     lazy protocol witness table accessor for type ReversedCollection<[HKMedicationExposableDoseEvent]> and conformance ReversedCollection<A>();
     Collection.first.getter();
-    v101 = *(v137 + 336);
-    if (v101)
+    v78 = *(v112 + 336);
+    if (v78)
     {
-      v98 = [v101 doseQuantity];
-      MEMORY[0x277D82BD8](v101);
-      v99 = v98;
+      v75 = [v78 doseQuantity];
+      MEMORY[0x277D82BD8](v78);
+      v76 = v75;
     }
 
     else
     {
-      v99 = 0;
+      v76 = 0;
     }
 
-    if (v99)
+    if (v76)
     {
-      v91 = *(v137 + 672);
-      v92 = *(v137 + 664);
-      v93 = *(v137 + 656);
-      v88 = *(v137 + 648);
-      v94 = *(v137 + 616);
-      v89 = *(v137 + 608);
-      v90 = *(v137 + 584);
-      v86 = *(v137 + 528);
-      v85 = *(v137 + 512);
-      v96 = *(v137 + 432);
-      v87 = *(v137 + 624);
-      v84 = *(v137 + 520);
-      *(v137 + 376) = v99;
-      [v99 doubleValue];
-      v97 = v7;
-      MEMORY[0x277D82BD8](v99);
+      v70 = *(v112 + 664);
+      v71 = *(v112 + 656);
+      v67 = *(v112 + 648);
+      v72 = *(v112 + 616);
+      v68 = *(v112 + 608);
+      v69 = *(v112 + 584);
+      v65 = *(v112 + 528);
+      v64 = *(v112 + 512);
+      v66 = *(v112 + 624);
+      v63 = *(v112 + 520);
+      *(v112 + 376) = v76;
+      [v76 doubleValue];
+      v74 = v7;
+      MEMORY[0x277D82BD8](v76);
 
-      outlined destroy of [HKQuantityType]((v137 + 224));
-      (*(v84 + 8))(v86, v85);
-      v95 = *(v87 + 8);
-      v95(v88, v94);
-      v92(v89, v90);
-      v95(v93, v94);
+      outlined destroy of [HKQuantityType]((v112 + 224));
+      (*(v63 + 8))(v65, v64);
+      v73 = *(v66 + 8);
+      v73(v67, v72);
+      v70(v68, v69);
+      v73(v71, v72);
 
-      v121 = v97;
+      v96 = v74;
     }
 
     else
     {
-      v8 = *(v137 + 496);
-      v80 = *(v137 + 456);
-      v78 = *(v137 + 464);
-      v79 = Logger.wellnessIntents.unsafeMutableAddressor();
+      v8 = *(v112 + 496);
+      v59 = *(v112 + 456);
+      v57 = *(v112 + 464);
+      v58 = Logger.wellnessIntents.unsafeMutableAddressor();
       swift_beginAccess();
-      (*(v78 + 16))(v8, v79, v80);
+      (*(v57 + 16))(v8, v58, v59);
       swift_endAccess();
       oslog = Logger.logObject.getter();
-      v81 = static os_log_type_t.debug.getter();
+      v60 = static os_log_type_t.debug.getter();
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v83 = _allocateUninitializedArray<A>(_:)();
-      if (os_log_type_enabled(oslog, v81))
+      v62 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(oslog, v60))
       {
-        v74 = static UnsafeMutablePointer.allocate(capacity:)();
-        v73 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v75 = createStorage<A>(capacity:type:)(0);
-        v76 = createStorage<A>(capacity:type:)(0);
-        *(v137 + 344) = v74;
-        *(v137 + 352) = v75;
-        *(v137 + 360) = v76;
-        serialize(_:at:)(0, (v137 + 344));
-        serialize(_:at:)(0, (v137 + 344));
-        *(v137 + 368) = v83;
-        v77 = swift_task_alloc();
-        v77[2] = v137 + 344;
-        v77[3] = v137 + 352;
-        v77[4] = v137 + 360;
+        v53 = static UnsafeMutablePointer.allocate(capacity:)();
+        v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v54 = createStorage<A>(capacity:type:)(0, v52, v52);
+        v55 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        *(v112 + 344) = v53;
+        *(v112 + 352) = v54;
+        *(v112 + 360) = v55;
+        serialize(_:at:)(0, (v112 + 344));
+        serialize(_:at:)(0, (v112 + 344));
+        *(v112 + 368) = v62;
+        v56 = swift_task_alloc();
+        v56[2] = v112 + 344;
+        v56[3] = v112 + 352;
+        v56[4] = v112 + 360;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
         lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
         Sequence.forEach(_:)();
 
-        _os_log_impl(&dword_269912000, oslog, v81, "No previously logged As Needed dose events in health app. Falling back to dosage == 1.", v74, 2u);
-        destroyStorage<A>(_:count:)(v75, 0, v73);
-        destroyStorage<A>(_:count:)(v76, 0, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D6497C0](v74, MEMORY[0x277D84B78]);
+        _os_log_impl(&dword_269912000, oslog, v60, "No previously logged As Needed dose events in health app. Falling back to dosage == 1.", v53, 2u);
+        destroyStorage<A>(_:count:)(v54, 0, v52);
+        destroyStorage<A>(_:count:)(v55, 0, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D6497C0](v53, MEMORY[0x277D84B78]);
       }
 
-      v67 = *(v137 + 672);
-      v68 = *(v137 + 664);
-      v69 = *(v137 + 656);
-      v64 = *(v137 + 648);
-      v70 = *(v137 + 616);
-      v65 = *(v137 + 608);
-      v66 = *(v137 + 584);
-      v62 = *(v137 + 528);
-      v61 = *(v137 + 512);
-      v58 = *(v137 + 496);
-      v59 = *(v137 + 456);
-      v72 = *(v137 + 432);
-      v63 = *(v137 + 624);
-      v60 = *(v137 + 520);
-      v57 = *(v137 + 464);
+      v48 = *(v112 + 664);
+      v49 = *(v112 + 656);
+      v45 = *(v112 + 648);
+      v50 = *(v112 + 616);
+      v46 = *(v112 + 608);
+      v47 = *(v112 + 584);
+      v43 = *(v112 + 528);
+      v42 = *(v112 + 512);
+      v39 = *(v112 + 496);
+      v40 = *(v112 + 456);
+      v44 = *(v112 + 624);
+      v41 = *(v112 + 520);
+      v38 = *(v112 + 464);
       MEMORY[0x277D82BD8](oslog);
-      (*(v57 + 8))(v58, v59);
+      (*(v38 + 8))(v39, v40);
 
-      outlined destroy of [HKQuantityType]((v137 + 224));
-      (*(v60 + 8))(v62, v61);
-      v71 = *(v63 + 8);
-      v71(v64, v70);
-      v68(v65, v66);
-      v71(v69, v70);
+      outlined destroy of [HKQuantityType]((v112 + 224));
+      (*(v41 + 8))(v43, v42);
+      v51 = *(v44 + 8);
+      v51(v45, v50);
+      v48(v46, v47);
+      v51(v49, v50);
 
-      v121 = 1.0;
+      v96 = 1.0;
     }
 
     goto LABEL_29;
   }
 
-  v1 = *(v137 + 504);
-  v129 = *(v137 + 456);
-  v127 = *(v137 + 464);
-  *(v137 + 384) = v134;
-  v128 = Logger.wellnessIntents.unsafeMutableAddressor();
+  v1 = *(v112 + 504);
+  v104 = *(v112 + 456);
+  v102 = *(v112 + 464);
+  *(v112 + 384) = v109;
+  v103 = Logger.wellnessIntents.unsafeMutableAddressor();
   swift_beginAccess();
-  (*(v127 + 16))(v1, v128, v129);
+  (*(v102 + 16))(v1, v103, v104);
   swift_endAccess();
-  v131 = Logger.logObject.getter();
-  v130 = static os_log_type_t.debug.getter();
+  v106 = Logger.logObject.getter();
+  v105 = static os_log_type_t.debug.getter();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v132 = _allocateUninitializedArray<A>(_:)();
-  if (!os_log_type_enabled(v131, v130))
+  v107 = _allocateUninitializedArray<A>(_:)();
+  if (!os_log_type_enabled(v106, v105))
   {
 
     goto LABEL_10;
   }
 
-  v2 = *(v137 + 704);
+  v2 = *(v112 + 704);
   buf = static UnsafeMutablePointer.allocate(capacity:)();
-  v122 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-  v124 = createStorage<A>(capacity:type:)(0);
-  v125 = createStorage<A>(capacity:type:)(0);
-  *(v137 + 392) = buf;
-  *(v137 + 400) = v124;
-  *(v137 + 408) = v125;
-  serialize(_:at:)(0, (v137 + 392));
-  serialize(_:at:)(0, (v137 + 392));
-  *(v137 + 416) = v132;
-  v126 = swift_task_alloc();
-  v126[2] = v137 + 392;
-  v126[3] = v137 + 400;
-  v126[4] = v137 + 408;
+  v97 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+  v99 = createStorage<A>(capacity:type:)(0, v97, v97);
+  v100 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+  *(v112 + 392) = buf;
+  *(v112 + 400) = v99;
+  *(v112 + 408) = v100;
+  serialize(_:at:)(0, (v112 + 392));
+  serialize(_:at:)(0, (v112 + 392));
+  *(v112 + 416) = v107;
+  v101 = swift_task_alloc();
+  v101[2] = v112 + 392;
+  v101[3] = v112 + 400;
+  v101[4] = v112 + 408;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
   lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
   Sequence.forEach(_:)();
@@ -4529,137 +1802,118 @@ uint64_t SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:)()
   {
   }
 
-  _os_log_impl(&dword_269912000, v131, v130, "This is a scheduled med. Whether being taken per schedule or As Needed, return the scheduledDoseQuantity.", buf, 2u);
-  destroyStorage<A>(_:count:)(v124, 0, v122);
-  destroyStorage<A>(_:count:)(v125, 0, MEMORY[0x277D84F70] + 8);
+  _os_log_impl(&dword_269912000, v106, v105, "This is a scheduled med. Whether being taken per schedule or As Needed, return the scheduledDoseQuantity.", buf, 2u);
+  destroyStorage<A>(_:count:)(v99, 0, v97);
+  destroyStorage<A>(_:count:)(v100, 0, MEMORY[0x277D84F70] + 8);
   MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
 
 LABEL_10:
-  v114 = *(v137 + 672);
-  v115 = *(v137 + 664);
-  v116 = *(v137 + 656);
-  v111 = *(v137 + 648);
-  v117 = *(v137 + 616);
-  v112 = *(v137 + 608);
-  v113 = *(v137 + 584);
-  v109 = *(v137 + 528);
-  v108 = *(v137 + 512);
-  v105 = *(v137 + 504);
-  v106 = *(v137 + 456);
-  v119 = *(v137 + 432);
-  v110 = *(v137 + 624);
-  v107 = *(v137 + 520);
-  v104 = *(v137 + 464);
-  MEMORY[0x277D82BD8](v131);
-  (*(v104 + 8))(v105, v106);
-  [v134 doubleValue];
-  v120 = v3;
-  MEMORY[0x277D82BD8](v134);
-  outlined destroy of [HKQuantityType]((v137 + 224));
-  (*(v107 + 8))(v109, v108);
-  v118 = *(v110 + 8);
-  v118(v111, v117);
-  v115(v112, v113);
-  v118(v116, v117);
+  v91 = *(v112 + 664);
+  v92 = *(v112 + 656);
+  v88 = *(v112 + 648);
+  v93 = *(v112 + 616);
+  v89 = *(v112 + 608);
+  v90 = *(v112 + 584);
+  v86 = *(v112 + 528);
+  v85 = *(v112 + 512);
+  v82 = *(v112 + 504);
+  v83 = *(v112 + 456);
+  v87 = *(v112 + 624);
+  v84 = *(v112 + 520);
+  v81 = *(v112 + 464);
+  MEMORY[0x277D82BD8](v106);
+  (*(v81 + 8))(v82, v83);
+  [v109 doubleValue];
+  v95 = v3;
+  MEMORY[0x277D82BD8](v109);
+  outlined destroy of [HKQuantityType]((v112 + 224));
+  (*(v84 + 8))(v86, v85);
+  v94 = *(v87 + 8);
+  v94(v88, v93);
+  v91(v89, v90);
+  v94(v92, v93);
 
-  v121 = v120;
+  v96 = v95;
 LABEL_29:
-  v11 = *(v137 + 656);
-  v15 = *(v137 + 648);
-  v16 = *(v137 + 640);
-  v17 = *(v137 + 632);
-  v18 = *(v137 + 608);
-  v19 = *(v137 + 600);
-  v20 = *(v137 + 576);
-  v21 = *(v137 + 568);
-  v22 = *(v137 + 560);
-  v23 = *(v137 + 552);
-  v24 = *(v137 + 528);
-  v25 = *(v137 + 504);
-  v26 = *(v137 + 496);
-  v27 = *(v137 + 488);
-  v28 = *(v137 + 480);
-  v29 = *(v137 + 472);
 
-  v12.n128_f64[0] = v121;
-  v13 = *(*(v137 + 184) + 8);
-  v14 = *(v137 + 184);
+  v11.n128_f64[0] = v96;
+  v12 = *(*(v112 + 184) + 8);
 
-  return v13(v12);
+  return v12(v11);
 }
 
 {
-  v66 = v0;
-  v51 = v0[88];
+  v47 = v0;
+  v32 = v0[88];
   v1 = v0[85];
   v2 = v0[59];
-  v48 = v0[58];
-  v50 = v0[57];
+  v29 = v0[58];
+  v31 = v0[57];
   v0[23] = v0;
   MEMORY[0x277D82BD8](v1);
-  v3 = v51;
-  v0[29] = v51;
-  v49 = Logger.wellnessIntents.unsafeMutableAddressor();
+  v3 = v32;
+  v0[29] = v32;
+  v30 = Logger.wellnessIntents.unsafeMutableAddressor();
   swift_beginAccess();
-  (*(v48 + 16))(v2, v49, v50);
+  (*(v29 + 16))(v2, v30, v31);
   swift_endAccess();
-  v4 = v51;
-  v52 = swift_allocObject();
-  *(v52 + 16) = v51;
+  v4 = v32;
+  v33 = swift_allocObject();
+  *(v33 + 16) = v32;
   default argument 2 of OSLogInterpolation.appendInterpolation(_:privacy:attributes:)();
 
-  v59 = Logger.logObject.getter();
-  v60 = static os_log_type_t.error.getter();
-  v55 = swift_allocObject();
-  *(v55 + 16) = 64;
-  v56 = swift_allocObject();
-  *(v56 + 16) = 8;
-  v53 = swift_allocObject();
-  *(v53 + 16) = partial apply for implicit closure #10 in getPreferredUnit(for:store:);
-  *(v53 + 24) = v52;
-  v54 = swift_allocObject();
-  *(v54 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
-  *(v54 + 24) = v53;
-  v57 = swift_allocObject();
-  *(v57 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
-  *(v57 + 24) = v54;
+  v40 = Logger.logObject.getter();
+  v41 = static os_log_type_t.error.getter();
+  v36 = swift_allocObject();
+  *(v36 + 16) = 64;
+  v37 = swift_allocObject();
+  *(v37 + 16) = 8;
+  v34 = swift_allocObject();
+  *(v34 + 16) = partial apply for implicit closure #10 in getPreferredUnit(for:store:);
+  *(v34 + 24) = v33;
+  v35 = swift_allocObject();
+  *(v35 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:);
+  *(v35 + 24) = v34;
+  v38 = swift_allocObject();
+  *(v38 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
+  *(v38 + 24) = v35;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
   _allocateUninitializedArray<A>(_:)();
-  v58 = v5;
+  v39 = v5;
 
-  *v58 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v58[1] = v55;
+  *v39 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v39[1] = v36;
 
-  v58[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v58[3] = v56;
+  v39[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v39[3] = v37;
 
-  v58[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v58[5] = v57;
+  v39[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v39[5] = v38;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v59, v60))
+  if (os_log_type_enabled(v40, v41))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v45 = createStorage<A>(capacity:type:)(1);
-    v46 = createStorage<A>(capacity:type:)(0);
-    v61 = buf;
-    v62 = v45;
-    v63 = v46;
-    serialize(_:at:)(2, &v61);
-    serialize(_:at:)(1, &v61);
-    v64 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v65 = v55;
-    closure #1 in osLogInternal(_:log:type:)(&v64, &v61, &v62, &v63);
-    v64 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v65 = v56;
-    closure #1 in osLogInternal(_:log:type:)(&v64, &v61, &v62, &v63);
-    v64 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v65 = v57;
-    closure #1 in osLogInternal(_:log:type:)(&v64, &v61, &v62, &v63);
-    _os_log_impl(&dword_269912000, v59, v60, "Failed to write doseEvents: %@. Falling back to dosage == 1.", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v45, 1, v43);
-    destroyStorage<A>(_:count:)(v46, 0, MEMORY[0x277D84F70] + 8);
+    v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v26 = createStorage<A>(capacity:type:)(1, v24, v24);
+    v27 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v42 = buf;
+    v43 = v26;
+    v44 = v27;
+    serialize(_:at:)(2, &v42);
+    serialize(_:at:)(1, &v42);
+    v45 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v46 = v36;
+    closure #1 in osLogInternal(_:log:type:)(&v45, &v42, &v43, &v44);
+    v45 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v46 = v37;
+    closure #1 in osLogInternal(_:log:type:)(&v45, &v42, &v43, &v44);
+    v45 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v46 = v38;
+    closure #1 in osLogInternal(_:log:type:)(&v45, &v42, &v43, &v44);
+    _os_log_impl(&dword_269912000, v40, v41, "Failed to write doseEvents: %@. Falling back to dosage == 1.", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v26, 1, v24);
+    destroyStorage<A>(_:count:)(v27, 0, MEMORY[0x277D84F70] + 8);
     MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
   }
 
@@ -4667,78 +1921,54 @@ LABEL_29:
   {
   }
 
-  v14 = v47[88];
-  v22 = v47[84];
-  v23 = v47[83];
-  v24 = v47[82];
-  v19 = v47[81];
-  v25 = v47[77];
-  v20 = v47[76];
-  v21 = v47[73];
-  v16 = v47[66];
-  v17 = v47[64];
-  v12 = v47[59];
-  v13 = v47[57];
-  v27 = v47[54];
-  v18 = v47[78];
-  v15 = v47[65];
-  v11 = v47[58];
-  MEMORY[0x277D82BD8](v59);
-  (*(v11 + 8))(v12, v13);
+  v12 = v28[88];
+  v20 = v28[83];
+  v21 = v28[82];
+  v17 = v28[81];
+  v22 = v28[77];
+  v18 = v28[76];
+  v19 = v28[73];
+  v14 = v28[66];
+  v15 = v28[64];
+  v10 = v28[59];
+  v11 = v28[57];
+  v16 = v28[78];
+  v13 = v28[65];
+  v9 = v28[58];
+  MEMORY[0x277D82BD8](v40);
+  (*(v9 + 8))(v10, v11);
 
-  (*(v15 + 8))(v16, v17);
-  v26 = *(v18 + 8);
-  v26(v19, v25);
-  v23(v20, v21);
-  v26(v24, v25);
+  (*(v13 + 8))(v14, v15);
+  v23 = *(v16 + 8);
+  v23(v17, v22);
+  v20(v18, v19);
+  v23(v21, v22);
 
-  v6 = v47[82];
-  v28 = v47[81];
-  v29 = v47[80];
-  v30 = v47[79];
-  v31 = v47[76];
-  v32 = v47[75];
-  v33 = v47[72];
-  v34 = v47[71];
-  v35 = v47[70];
-  v36 = v47[69];
-  v37 = v47[66];
-  v38 = v47[63];
-  v39 = v47[62];
-  v40 = v47[61];
-  v41 = v47[60];
-  v42 = v47[59];
+  v6 = *(v28[23] + 8);
+  v7.n128_u64[0] = 1.0;
 
-  v7 = *(v47[23] + 8);
-  v8 = v47[23];
-  v9.n128_u64[0] = 1.0;
-
-  return v7(v9);
+  return v6(v7);
 }
 
 uint64_t SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:)(uint64_t a1)
 {
-  v9 = *v2;
-  v4 = *(*v2 + 688);
-  *(v9 + 184) = *v2;
-  v10 = (v9 + 184);
-  *(v9 + 696) = a1;
-  *(v9 + 704) = v1;
+  v5 = *v2;
+  *(v5 + 184) = *v2;
+  *(v5 + 696) = a1;
+  *(v5 + 704) = v1;
 
   if (v1)
   {
-    v7 = *v10;
-    v6 = SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:);
+    v3 = SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:);
   }
 
   else
   {
 
-    v5 = *v10;
-    v6 = SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:);
+    v3 = SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0);
+  return MEMORY[0x2822009F8](v3, 0);
 }
 
 uint64_t implicit closure #2 in SpecificMedicationsPersistor.buildMatchedMedName(from:shouldIncludeAsNeededParams:)(void *a1)
@@ -4849,42 +2079,36 @@ uint64_t protocol witness for SpecificMedicationsPersisting.isLoggingAuthorized(
 
 uint64_t protocol witness for SpecificMedicationsPersisting.save(startTime:endTime:hasMeridiem:medicationIDs:medStatusTaken:dosage:dosageUnit:) in conformance SpecificMedicationsPersistor(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5, uint64_t a6, char a7, uint64_t a8)
 {
-  v12 = v9;
-  *(v9 + 16) = v9;
-  v13 = *v8;
-  v14 = v8[1];
-  v10 = swift_task_alloc();
-  *(v12 + 24) = v10;
-  *v10 = *(v12 + 16);
-  v10[1] = protocol witness for QuantityPersisting.save(quantityIdentifier:value:units:) in conformance HealthKitPersistor;
+  v11 = v8;
+  *(v8 + 16) = v8;
+  v9 = swift_task_alloc();
+  *(v11 + 24) = v9;
+  *v9 = *(v11 + 16);
+  v9[1] = protocol witness for QuantityPersisting.save(quantityIdentifier:value:units:) in conformance HealthKitPersistor;
 
   return SpecificMedicationsPersistor.save(startTime:endTime:hasMeridiem:medicationIDs:medStatusTaken:dosage:dosageUnit:)(a1, a2, a3 & 1, a4, a5 & 1, a6, a7 & 1, a8);
 }
 
 uint64_t protocol witness for SpecificMedicationsPersisting.saveWithID(scheduleID:medicationIDs:medStatus:dosage:dosageUnit:confirmedAsNeeded:confirmedAsScheduled:) in conformance SpecificMedicationsPersistor(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8)
 {
-  v12 = v9;
-  *(v9 + 16) = v9;
-  v13 = *v8;
-  v14 = v8[1];
-  v10 = swift_task_alloc();
-  *(v12 + 24) = v10;
-  *v10 = *(v12 + 16);
-  v10[1] = protocol witness for QuantityPersisting.save(quantityIdentifier:value:units:) in conformance HealthKitPersistor;
+  v11 = v8;
+  *(v8 + 16) = v8;
+  v9 = swift_task_alloc();
+  *(v11 + 24) = v9;
+  *v9 = *(v11 + 16);
+  v9[1] = protocol witness for QuantityPersisting.save(quantityIdentifier:value:units:) in conformance HealthKitPersistor;
 
   return SpecificMedicationsPersistor.saveWithID(scheduleID:medicationIDs:medStatus:dosage:dosageUnit:confirmedAsNeeded:confirmedAsScheduled:)(a1, a2, a3, a4 & 1, a5, a6 & 1, a7, a8);
 }
 
 uint64_t protocol witness for SpecificMedicationsPersisting.saveAsNeededWithStrength(medicationID:medStatusTaken:dosage:dosageUnit:strength:strengthUnit:) in conformance SpecificMedicationsPersistor(uint64_t a1, uint64_t a2, char a3, uint64_t a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v12 = v9;
-  *(v9 + 16) = v9;
-  v13 = *v8;
-  v14 = v8[1];
-  v10 = swift_task_alloc();
-  *(v12 + 24) = v10;
-  *v10 = *(v12 + 16);
-  v10[1] = protocol witness for QuantityPersisting.save(quantityIdentifier:value:units:) in conformance HealthKitPersistor;
+  v11 = v8;
+  *(v8 + 16) = v8;
+  v9 = swift_task_alloc();
+  *(v11 + 24) = v9;
+  *v9 = *(v11 + 16);
+  v9[1] = protocol witness for QuantityPersisting.save(quantityIdentifier:value:units:) in conformance HealthKitPersistor;
 
   return SpecificMedicationsPersistor.saveAsNeededWithStrength(medicationID:medStatusTaken:dosage:dosageUnit:strength:strengthUnit:)(a1, a2, a3 & 1, a4, a5 & 1, a6, a7, a8);
 }
@@ -4904,13 +2128,12 @@ uint64_t protocol witness for SpecificMedicationsPersisting.displayNameFor(ident
 }
 
 {
-  v6 = *v2;
-  v3 = *(*v2 + 24);
-  *(v6 + 16) = *v2;
+  v5 = *v2;
+  *(v5 + 16) = *v2;
 
-  v4 = *(*(v6 + 16) + 8);
+  v3 = *(*(v5 + 16) + 8);
 
-  return v4(a1, a2);
+  return v3(a1, a2);
 }
 
 uint64_t protocol witness for SpecificMedicationsPersisting.sampleScheduleIDFor(dateInterval:) in conformance SpecificMedicationsPersistor(uint64_t a1)
@@ -4939,17 +2162,15 @@ uint64_t SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:)(uint64_
   v3[11] = 0;
   v4 = type metadata accessor for Logger();
   v3[22] = v4;
-  v7 = *(v4 - 8);
-  v3[23] = v7;
-  v8 = *(v7 + 64);
+  v3[23] = *(v4 - 8);
   v3[24] = swift_task_alloc();
   v3[25] = swift_task_alloc();
   v3[13] = a1;
   v3[8] = a2;
   v3[9] = a3;
   v5 = swift_task_alloc();
-  *(v9 + 208) = v5;
-  *v5 = *(v9 + 96);
+  *(v7 + 208) = v5;
+  *v5 = *(v7 + 96);
   v5[1] = SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:);
 
   return SpecificMedicationsPersistor.getDoseEvents(for:medicationIdentifier:)(a1, 0, a2, a3);
@@ -4957,137 +2178,133 @@ uint64_t SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:)(uint64_
 
 uint64_t SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:)(uint64_t a1)
 {
-  v9 = *v2;
-  v4 = *(*v2 + 208);
-  v9[12] = *v2;
-  v10 = v9 + 12;
-  v9[27] = a1;
-  v9[28] = v1;
+  v5 = *v2;
+  v5[12] = *v2;
+  v5[27] = a1;
+  v5[28] = v1;
 
   if (v1)
   {
-    v7 = *v10;
-    v6 = SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:);
+    v3 = SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:);
   }
 
   else
   {
-    v5 = *v10;
-    v6 = SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:);
+    v3 = SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0);
+  return MEMORY[0x2822009F8](v3, 0);
 }
 
 uint64_t SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:)()
 {
-  v43 = v0;
-  v36 = v0[27];
+  v40 = v0;
+  v33 = v0[27];
   v0[12] = v0;
 
-  v0[14] = v36;
-  v0[20] = v36;
+  v0[14] = v33;
+  v0[20] = v33;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
   lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
   Collection.first.getter();
-  v37 = v0[21];
+  v34 = v0[21];
 
-  if (v37)
+  if (v34)
   {
-    v34 = [v37 scheduleItemIdentifier];
-    if (v34)
+    v31 = [v34 scheduleItemIdentifier];
+    if (v31)
     {
-      v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v31 = v1;
-      MEMORY[0x277D82BD8](v34);
-      v32 = v30;
-      v33 = v31;
+      v27 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v28 = v1;
+      MEMORY[0x277D82BD8](v31);
+      v29 = v27;
+      v30 = v28;
     }
 
     else
     {
-      v32 = 0;
-      v33 = 0;
+      v29 = 0;
+      v30 = 0;
     }
 
-    MEMORY[0x277D82BD8](v37);
-    v28 = v32;
-    v29 = v33;
+    MEMORY[0x277D82BD8](v34);
+    v25 = v29;
+    v26 = v30;
   }
 
   else
   {
-    v28 = 0;
-    v29 = 0;
+    v25 = 0;
+    v26 = 0;
   }
 
-  v2 = v35[25];
-  v19 = v35[22];
-  v17 = v35[23];
-  v35[10] = v28;
-  v35[11] = v29;
-  v18 = Logger.wellnessIntents.unsafeMutableAddressor();
+  v2 = v32[25];
+  v16 = v32[22];
+  v14 = v32[23];
+  v32[10] = v25;
+  v32[11] = v26;
+  v15 = Logger.wellnessIntents.unsafeMutableAddressor();
   swift_beginAccess();
-  (*(v17 + 16))(v2, v18, v19);
+  (*(v14 + 16))(v2, v15, v16);
   swift_endAccess();
 
+  v17 = swift_allocObject();
+  *(v17 + 16) = v25;
+  *(v17 + 24) = v26;
+  v23 = Logger.logObject.getter();
+  v24 = static os_log_type_t.debug.getter();
+  v19 = swift_allocObject();
+  *(v19 + 16) = 32;
   v20 = swift_allocObject();
-  *(v20 + 16) = v28;
-  *(v20 + 24) = v29;
-  v26 = Logger.logObject.getter();
-  v27 = static os_log_type_t.debug.getter();
-  v22 = swift_allocObject();
-  *(v22 + 16) = 32;
-  v23 = swift_allocObject();
-  *(v23 + 16) = 8;
+  *(v20 + 16) = 8;
+  v18 = swift_allocObject();
+  *(v18 + 16) = partial apply for implicit closure #2 in SpecificMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:medicationIDPresent:dosage:dosageUnit:);
+  *(v18 + 24) = v17;
   v21 = swift_allocObject();
-  *(v21 + 16) = partial apply for implicit closure #2 in SpecificMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:medicationIDPresent:dosage:dosageUnit:);
-  *(v21 + 24) = v20;
-  v24 = swift_allocObject();
-  *(v24 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-  *(v24 + 24) = v21;
+  *(v21 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+  *(v21 + 24) = v18;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
   _allocateUninitializedArray<A>(_:)();
-  v25 = v3;
+  v22 = v3;
 
-  *v25 = partial apply for closure #1 in OSLogArguments.append(_:);
-  v25[1] = v22;
+  *v22 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v22[1] = v19;
 
-  v25[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v25[3] = v23;
+  v22[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v22[3] = v20;
 
-  v25[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-  v25[5] = v24;
+  v22[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v22[5] = v21;
   _finalizeUninitializedArray<A>(_:)();
 
-  if (os_log_type_enabled(v26, v27))
+  if (os_log_type_enabled(v23, v24))
   {
-    v4 = v35[28];
+    v4 = v32[28];
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v15 = createStorage<A>(capacity:type:)(0);
-    v16 = createStorage<A>(capacity:type:)(1);
-    v38 = buf;
-    v39 = v15;
-    v40 = v16;
-    serialize(_:at:)(2, &v38);
-    serialize(_:at:)(1, &v38);
-    v41 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v42 = v22;
-    closure #1 in osLogInternal(_:log:type:)(&v41, &v38, &v39, &v40);
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v12 = createStorage<A>(capacity:type:)(0, v10, v10);
+    v13 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v35 = buf;
+    v36 = v12;
+    v37 = v13;
+    serialize(_:at:)(2, &v35);
+    serialize(_:at:)(1, &v35);
+    v38 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v39 = v19;
+    closure #1 in osLogInternal(_:log:type:)(&v38, &v35, &v36, &v37);
     if (v4)
     {
     }
 
-    v41 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v42 = v23;
-    closure #1 in osLogInternal(_:log:type:)(&v41, &v38, &v39, &v40);
-    v41 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v42 = v24;
-    closure #1 in osLogInternal(_:log:type:)(&v41, &v38, &v39, &v40);
-    _os_log_impl(&dword_269912000, v26, v27, "got scheduleItemIdentifier: %s", buf, 0xCu);
-    destroyStorage<A>(_:count:)(v15, 0, v13);
-    destroyStorage<A>(_:count:)(v16, 1, MEMORY[0x277D84F70] + 8);
+    v38 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v39 = v20;
+    closure #1 in osLogInternal(_:log:type:)(&v38, &v35, &v36, &v37);
+    v38 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v39 = v21;
+    closure #1 in osLogInternal(_:log:type:)(&v38, &v35, &v36, &v37);
+    _os_log_impl(&dword_269912000, v23, v24, "got scheduleItemIdentifier: %s", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v12, 0, v10);
+    destroyStorage<A>(_:count:)(v13, 1, MEMORY[0x277D84F70] + 8);
     MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
   }
 
@@ -5095,77 +2312,70 @@ uint64_t SpecificMedicationsPersistor.sampleScheduleIDFor(dateInterval:)()
   {
   }
 
-  v10 = v35[25];
-  v11 = v35[22];
-  v9 = v35[23];
-  MEMORY[0x277D82BD8](v26);
-  (*(v9 + 8))(v10, v11);
-  outlined destroy of [HKQuantityType](v35 + 14);
-  v6 = v35[25];
-  v12 = v35[24];
+  v8 = v32[25];
+  v9 = v32[22];
+  v7 = v32[23];
+  MEMORY[0x277D82BD8](v23);
+  (*(v7 + 8))(v8, v9);
+  outlined destroy of [HKQuantityType](v32 + 14);
 
-  v7 = *(v35[12] + 8);
-  v8 = v35[12];
+  v6 = *(v32[12] + 8);
 
-  return v7(v28, v29);
+  return v6(v25, v26);
 }
 
 {
-  v18 = v0[28];
+  v15 = v0[28];
   v1 = v0[24];
-  v19 = v0[23];
-  v21 = v0[22];
+  v16 = v0[23];
+  v18 = v0[22];
   v0[12] = v0;
-  v2 = v18;
-  v0[15] = v18;
-  v20 = Logger.wellnessIntents.unsafeMutableAddressor();
+  v2 = v15;
+  v0[15] = v15;
+  v17 = Logger.wellnessIntents.unsafeMutableAddressor();
   swift_beginAccess();
-  (*(v19 + 16))(v1, v20, v21);
+  (*(v16 + 16))(v1, v17, v18);
   swift_endAccess();
-  v23 = Logger.logObject.getter();
-  v22 = static os_log_type_t.error.getter();
+  v20 = Logger.logObject.getter();
+  v19 = static os_log_type_t.error.getter();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-  v24 = _allocateUninitializedArray<A>(_:)();
-  if (os_log_type_enabled(v23, v22))
+  v21 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v20, v19))
   {
     buf = static UnsafeMutablePointer.allocate(capacity:)();
-    v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    v14 = createStorage<A>(capacity:type:)(0);
-    v15 = createStorage<A>(capacity:type:)(0);
-    *(v17 + 128) = buf;
-    *(v17 + 136) = v14;
-    *(v17 + 144) = v15;
-    serialize(_:at:)(0, (v17 + 128));
-    serialize(_:at:)(0, (v17 + 128));
-    *(v17 + 152) = v24;
-    v16 = swift_task_alloc();
-    v16[2] = v17 + 128;
-    v16[3] = v17 + 136;
-    v16[4] = v17 + 144;
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v11 = createStorage<A>(capacity:type:)(0, v9, v9);
+    v12 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v14 + 128) = buf;
+    *(v14 + 136) = v11;
+    *(v14 + 144) = v12;
+    serialize(_:at:)(0, (v14 + 128));
+    serialize(_:at:)(0, (v14 + 128));
+    *(v14 + 152) = v21;
+    v13 = swift_task_alloc();
+    v13[2] = v14 + 128;
+    v13[3] = v14 + 136;
+    v13[4] = v14 + 144;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
     lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
     Sequence.forEach(_:)();
 
-    _os_log_impl(&dword_269912000, v23, v22, "Failed fetching dose events for specified timeframe.", buf, 2u);
-    destroyStorage<A>(_:count:)(v14, 0, v12);
-    destroyStorage<A>(_:count:)(v15, 0, MEMORY[0x277D84F70] + 8);
+    _os_log_impl(&dword_269912000, v20, v19, "Failed fetching dose events for specified timeframe.", buf, 2u);
+    destroyStorage<A>(_:count:)(v11, 0, v9);
+    destroyStorage<A>(_:count:)(v12, 0, MEMORY[0x277D84F70] + 8);
     MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
   }
 
-  v10 = *(v17 + 224);
-  v8 = *(v17 + 192);
-  v9 = *(v17 + 176);
-  v7 = *(v17 + 184);
-  MEMORY[0x277D82BD8](v23);
-  (*(v7 + 8))(v8, v9);
+  v8 = *(v14 + 224);
+  v6 = *(v14 + 192);
+  v7 = *(v14 + 176);
+  v5 = *(v14 + 184);
+  MEMORY[0x277D82BD8](v20);
+  (*(v5 + 8))(v6, v7);
 
-  v3 = *(v17 + 200);
-  v11 = *(v17 + 192);
+  v3 = *(*(v14 + 96) + 8);
 
-  v4 = *(*(v17 + 96) + 8);
-  v5 = *(v17 + 96);
-
-  return v4(0);
+  return v3(0);
 }
 
 uint64_t protocol witness for SpecificMedicationsPersisting.buildMatchedMedName(from:shouldIncludeAsNeededParams:) in conformance SpecificMedicationsPersistor(uint64_t a1, char a2)
@@ -5191,118 +2401,103 @@ uint64_t SpecificMedicationsPersistor.doUTCQueryForMedications()(uint64_t a1, ui
   v2[3] = 0;
   v2[2] = a1;
   v2[3] = a2;
-  v3 = v2[4];
   return MEMORY[0x2822009F8](SpecificMedicationsPersistor.doUTCQueryForMedications(), 0);
 }
 
 uint64_t SpecificMedicationsPersistor.doUTCQueryForMedications()()
 {
-  v7 = v0[7];
-  v6 = v0[6];
+  v6 = v0[7];
+  v5 = v0[6];
   v0[4] = v0;
   v1 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)("doUTCQueryForMedications()", 0x1AuLL, 1);
   v0[8] = v1._object;
+  MEMORY[0x277D82BE0](v5);
   MEMORY[0x277D82BE0](v6);
-  MEMORY[0x277D82BE0](v7);
-  v9 = swift_task_alloc();
-  v0[9] = v9;
-  *(v9 + 16) = v6;
-  *(v9 + 24) = v7;
-  v2 = *(MEMORY[0x277D85A40] + 4);
-  v3 = swift_task_alloc();
-  *(v8 + 80) = v3;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo23HKUserTrackedMedicationCGMd, &_sSaySo23HKUserTrackedMedicationCGMR);
-  *v3 = *(v8 + 32);
-  v3[1] = SpecificMedicationsPersistor.doUTCQueryForMedications();
+  v8 = swift_task_alloc();
+  v0[9] = v8;
+  *(v8 + 16) = v5;
+  *(v8 + 24) = v6;
+  v2 = swift_task_alloc();
+  *(v7 + 80) = v2;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo23HKUserTrackedMedicationCGMd, &_sSaySo23HKUserTrackedMedicationCGMR);
+  *v2 = *(v7 + 32);
+  v2[1] = SpecificMedicationsPersistor.doUTCQueryForMedications();
 
-  return MEMORY[0x2822008A0](v8 + 40, 0, 0, v1._countAndFlagsBits, v1._object, partial apply for closure #1 in SpecificMedicationsPersistor.doUTCQueryForMedications(), v9, v4);
+  return MEMORY[0x2822008A0](v7 + 40, 0, 0, v1._countAndFlagsBits, v1._object, partial apply for closure #1 in SpecificMedicationsPersistor.doUTCQueryForMedications(), v8, v3);
 }
 
 {
-  v11 = *v1;
-  v2 = *(*v1 + 80);
-  v11[4] = *v1;
-  v12 = v11 + 4;
-  v11[11] = v0;
+  v6 = *v1;
+  v6[4] = *v1;
+  v6[11] = v0;
 
   if (v0)
   {
-    v6 = *v12;
-    v5 = SpecificMedicationsPersistor.doUTCQueryForMedications();
+    v2 = SpecificMedicationsPersistor.doUTCQueryForMedications();
   }
 
   else
   {
-    v3 = v11[9];
-    v10 = v11[8];
-    v9 = v11[7];
-    v8 = v11[6];
+    v5 = v6[7];
+    v4 = v6[6];
 
-    v4 = *v12;
-    v5 = SpecificMedicationsPersistor.doUTCQueryForMedications();
+    v2 = SpecificMedicationsPersistor.doUTCQueryForMedications();
   }
 
-  return MEMORY[0x2822009F8](v5, 0);
+  return MEMORY[0x2822009F8](v2, 0);
 }
 
 {
   *(v0 + 32) = v0;
-  v1 = *(v0 + 40);
-  v2 = *(*(v0 + 32) + 8);
-  v3 = *(v0 + 32);
-  return v2(v1);
+  return (*(*(v0 + 32) + 8))(*(v0 + 40));
 }
 
 {
-  v1 = v0[9];
-  v9 = v0[8];
-  v8 = v0[7];
-  v7 = v0[6];
+  v4 = v0[7];
+  v3 = v0[6];
   v0[4] = v0;
 
-  MEMORY[0x277D82BD8](v7);
-  MEMORY[0x277D82BD8](v8);
+  MEMORY[0x277D82BD8](v3);
+  MEMORY[0x277D82BD8](v4);
 
-  v2 = v0;
-  v3 = *(v0[4] + 8);
-  v4 = v0[4];
-  v5 = v2[11];
+  v1 = *(v0[4] + 8);
 
-  return v3();
+  return v1();
 }
 
 uint64_t closure #1 in SpecificMedicationsPersistor.doUTCQueryForMedications()(uint64_t a1, void *a2, uint64_t a3)
 {
-  v18 = a1;
-  v16 = a2;
-  v17 = a3;
-  v12 = partial apply for closure #1 in closure #1 in SpecificMedicationsPersistor.doUTCQueryForMedications();
-  v13 = "Fatal error";
-  v14 = "Unexpectedly found nil while implicitly unwrapping an Optional value";
-  v15 = "SiriWellnessIntents/LogSpecificMedicationsIntentHandler.swift";
+  v19 = a1;
+  v17 = a2;
+  v18 = a3;
+  v13 = partial apply for closure #1 in closure #1 in SpecificMedicationsPersistor.doUTCQueryForMedications();
+  v14 = "Fatal error";
+  v15 = "Unexpectedly found nil while implicitly unwrapping an Optional value";
+  v16 = "SiriWellnessIntents/LogSpecificMedicationsIntentHandler.swift";
+  v34 = 0;
+  v32 = 0;
   v33 = 0;
   v31 = 0;
-  v32 = 0;
-  v30 = 0;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMd, &_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMR);
-  v21 = *(v19 - 8);
-  v20 = v19 - 8;
-  v22 = v21;
-  v23 = *(v21 + 64);
-  v24 = (v23 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v25 = &v6 - v24;
-  v33 = MEMORY[0x28223BE20](v18);
-  v31 = v3;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMd, &_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMR);
+  v22 = *(v20 - 8);
+  v21 = v20 - 8;
+  v23 = v22;
+  v24 = *(v22 + 64);
+  v25 = (v24 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v19, v17);
+  v26 = &v7 - v25;
+  v34 = v3;
   v32 = v4;
-  v26 = 0;
-  v27 = type metadata accessor for HKUserTrackedConceptQuery();
+  v33 = v5;
+  v27 = 0;
+  v28 = type metadata accessor for HKUserTrackedConceptQuery();
   type metadata accessor for HKUserTrackedConceptType();
-  v28 = *MEMORY[0x277CCCE88];
-  MEMORY[0x277D82BE0](v28);
-  v29 = HKUserTrackedConceptType.__allocating_init(identifier:)(v28);
-  if (v29)
+  v29 = *MEMORY[0x277CCCE88];
+  MEMORY[0x277D82BE0](v29);
+  v30 = HKUserTrackedConceptType.__allocating_init(identifier:)(v29);
+  if (v30)
   {
-    v11 = v29;
+    v12 = v30;
   }
 
   else
@@ -5311,324 +2506,324 @@ uint64_t closure #1 in SpecificMedicationsPersistor.doUTCQueryForMedications()(u
     __break(1u);
   }
 
-  v9 = v11;
-  v6 = v22;
-  (*(v21 + 16))(v25, v18, v19);
-  v7 = (*(v6 + 80) + 16) & ~*(v6 + 80);
-  v8 = swift_allocObject();
-  (*(v21 + 32))(v8 + v7, v25, v19);
-  v10 = HKUserTrackedConceptQuery.__allocating_init(userTrackedConceptType:predicate:sortDescriptors:resultsHandler:)(v9, 0, 0, v12, v8);
-  v30 = v10;
-  MEMORY[0x277D82BE0](v16);
-  [v16 executeQuery_];
-  MEMORY[0x277D82BD8](v16);
-  return MEMORY[0x277D82BD8](v10);
+  v10 = v12;
+  v7 = v23;
+  (*(v22 + 16))(v26, v19, v20);
+  v8 = (*(v7 + 80) + 16) & ~*(v7 + 80);
+  v9 = swift_allocObject();
+  (*(v22 + 32))(v9 + v8, v26, v20);
+  v11 = HKUserTrackedConceptQuery.__allocating_init(userTrackedConceptType:predicate:sortDescriptors:resultsHandler:)(v10, 0, 0, v13, v9);
+  v31 = v11;
+  MEMORY[0x277D82BE0](v17);
+  [v17 executeQuery_];
+  MEMORY[0x277D82BD8](v17);
+  return MEMORY[0x277D82BD8](v11);
 }
 
 uint64_t closure #1 in closure #1 in SpecificMedicationsPersistor.doUTCQueryForMedications()(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v119 = a4;
-  v128 = a3;
-  v120 = a2;
-  v118 = a1;
-  v116 = 0;
+  v121 = a4;
+  v130 = a3;
+  v122 = a2;
+  v120 = a1;
+  v118 = 0;
+  v155 = 0;
+  v154 = 0;
   v153 = 0;
   v152 = 0;
-  v151 = 0;
-  v150 = 0;
-  v117 = 0;
-  v144 = 0;
-  v143 = 0;
-  v142[1] = 0;
-  v142[0] = 0;
-  v138 = 0;
+  v119 = 0;
+  v146 = 0;
+  v145 = 0;
+  v144[1] = 0;
+  v144[0] = 0;
+  v140 = 0;
+  v139 = 0;
   v137 = 0;
-  v135 = 0;
-  v121 = type metadata accessor for Logger();
-  v122 = *(v121 - 8);
-  v123 = v122;
-  v124 = *(v122 + 64);
-  v4 = MEMORY[0x28223BE20](v128);
-  v126 = (v124 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v125 = v34 - v126;
-  v5 = MEMORY[0x28223BE20](v4);
-  v127 = v34 - v126;
-  v153 = v6;
-  v152 = v7;
-  v151 = v5;
-  v150 = v8;
-  v9 = v5;
-  if (v128)
+  v123 = type metadata accessor for Logger();
+  v124 = *(v123 - 8);
+  v125 = v124;
+  v126 = *(v124 + 64);
+  MEMORY[0x28223BE20](v130, v122);
+  v128 = (v126 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v127 = v36 - v128;
+  MEMORY[0x28223BE20](v4, v5);
+  v129 = v36 - v128;
+  v155 = v6;
+  v154 = v7;
+  v153 = v8;
+  v152 = v9;
+  v10 = v8;
+  if (v130)
   {
-    v115 = v128;
-    v10 = v127;
-    v95 = v128;
-    v135 = v128;
-    v93 = Logger.wellnessIntents.unsafeMutableAddressor();
-    v101 = 32;
-    v94 = &v134;
+    v117 = v130;
+    v11 = v129;
+    v97 = v130;
+    v137 = v130;
+    v95 = Logger.wellnessIntents.unsafeMutableAddressor();
+    v103 = 32;
+    v96 = &v136;
     swift_beginAccess();
-    (*(v123 + 16))(v10, v93, v121);
+    (*(v125 + 16))(v11, v95, v123);
     swift_endAccess();
-    v11 = v95;
-    v102 = 7;
-    v103 = swift_allocObject();
-    *(v103 + 16) = v95;
-    v113 = Logger.logObject.getter();
-    v96 = v113;
-    v112 = static os_log_type_t.error.getter();
-    v97 = v112;
-    v98 = 17;
-    v106 = swift_allocObject();
-    v99 = v106;
-    *(v106 + 16) = 64;
-    v107 = swift_allocObject();
-    v100 = v107;
-    *(v107 + 16) = 8;
-    v12 = swift_allocObject();
-    v13 = v103;
-    v104 = v12;
-    *(v12 + 16) = partial apply for implicit closure #1 in closure #1 in closure #1 in HKHealthStore.query(correlationType:firstQuantityType:secondQuantityType:start:end:);
-    *(v12 + 24) = v13;
-    v14 = swift_allocObject();
-    v15 = v104;
-    v110 = v14;
-    v105 = v14;
-    *(v14 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
-    *(v14 + 24) = v15;
-    v111 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-    v108 = _allocateUninitializedArray<A>(_:)();
-    v109 = v16;
+    v12 = v97;
+    v104 = 7;
+    v105 = swift_allocObject();
+    *(v105 + 16) = v97;
+    v115 = Logger.logObject.getter();
+    v98 = v115;
+    v114 = static os_log_type_t.error.getter();
+    v99 = v114;
+    v100 = 17;
+    v108 = swift_allocObject();
+    v101 = v108;
+    *(v108 + 16) = 64;
+    v109 = swift_allocObject();
+    v102 = v109;
+    *(v109 + 16) = 8;
+    v13 = swift_allocObject();
+    v14 = v105;
+    v106 = v13;
+    *(v13 + 16) = partial apply for implicit closure #1 in closure #1 in closure #1 in HKHealthStore.query(correlationType:firstQuantityType:secondQuantityType:start:end:);
+    *(v13 + 24) = v14;
+    v15 = swift_allocObject();
+    v16 = v106;
+    v112 = v15;
+    v107 = v15;
+    *(v15 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:);
+    *(v15 + 24) = v16;
+    v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+    v110 = _allocateUninitializedArray<A>(_:)();
+    v111 = v17;
 
-    v17 = v106;
-    v18 = v109;
-    *v109 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v18[1] = v17;
+    v18 = v108;
+    v19 = v111;
+    *v111 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v19[1] = v18;
 
-    v19 = v107;
     v20 = v109;
-    v109[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v20[3] = v19;
+    v21 = v111;
+    v111[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v21[3] = v20;
 
-    v21 = v109;
-    v22 = v110;
-    v109[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v21[5] = v22;
+    v22 = v111;
+    v23 = v112;
+    v111[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v22[5] = v23;
     _finalizeUninitializedArray<A>(_:)();
 
-    if (os_log_type_enabled(v113, v112))
+    if (os_log_type_enabled(v115, v114))
     {
-      v24 = v117;
-      v86 = static UnsafeMutablePointer.allocate(capacity:)();
-      v83 = v86;
-      v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v89 = 1;
-      v87 = createStorage<A>(capacity:type:)(1);
-      v85 = v87;
-      v88 = createStorage<A>(capacity:type:)(0);
-      v133[0] = v86;
-      v132 = v87;
-      v131 = v88;
-      v90 = v133;
-      serialize(_:at:)(2, v133);
-      serialize(_:at:)(v89, v90);
-      v129 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v130 = v99;
-      closure #1 in osLogInternal(_:log:type:)(&v129, v90, &v132, &v131);
-      v91 = v24;
-      v92 = v24;
-      if (v24)
+      v25 = v119;
+      v88 = static UnsafeMutablePointer.allocate(capacity:)();
+      v85 = v88;
+      v86 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v91 = 1;
+      v89 = createStorage<A>(capacity:type:)(1, v86, v86);
+      v87 = v89;
+      v90 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      v135[0] = v88;
+      v134 = v89;
+      v133 = v90;
+      v92 = v135;
+      serialize(_:at:)(2, v135);
+      serialize(_:at:)(v91, v92);
+      v131 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v132 = v101;
+      closure #1 in osLogInternal(_:log:type:)(&v131, v92, &v134, &v133);
+      v93 = v25;
+      v94 = v25;
+      if (v25)
       {
-        v81 = 0;
+        v83 = 0;
 
         __break(1u);
       }
 
       else
       {
-        v129 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v130 = v100;
-        closure #1 in osLogInternal(_:log:type:)(&v129, v133, &v132, &v131);
+        v131 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v132 = v102;
+        closure #1 in osLogInternal(_:log:type:)(&v131, v135, &v134, &v133);
+        v81 = 0;
+        v82 = 0;
+        v131 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v132 = v107;
+        closure #1 in osLogInternal(_:log:type:)(&v131, v135, &v134, &v133);
         v79 = 0;
         v80 = 0;
-        v129 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v130 = v105;
-        closure #1 in osLogInternal(_:log:type:)(&v129, v133, &v132, &v131);
-        v77 = 0;
-        v78 = 0;
-        _os_log_impl(&dword_269912000, v96, v97, "Error while querying HealthKit for medication samples: %@", v83, 0xCu);
-        destroyStorage<A>(_:count:)(v85, 1, v84);
-        destroyStorage<A>(_:count:)(v88, 0, MEMORY[0x277D84F70] + 8);
-        MEMORY[0x26D6497C0](v83, MEMORY[0x277D84B78]);
+        _os_log_impl(&dword_269912000, v98, v99, "Error while querying HealthKit for medication samples: %@", v85, 0xCu);
+        destroyStorage<A>(_:count:)(v87, 1, v86);
+        destroyStorage<A>(_:count:)(v90, 0, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D6497C0](v85, MEMORY[0x277D84B78]);
 
-        v82 = v77;
+        v84 = v79;
       }
     }
 
     else
     {
-      v25 = v117;
+      v26 = v119;
 
-      v82 = v25;
+      v84 = v26;
     }
 
-    v75 = v82;
+    v77 = v84;
 
-    (*(v123 + 8))(v127, v121);
-    v26 = v95;
-    v133[1] = v95;
+    (*(v125 + 8))(v129, v123);
+    v27 = v97;
+    v135[1] = v97;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMd, &_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMR);
     CheckedContinuation.resume(throwing:)();
 
-    return v75;
+    return v77;
   }
 
   else
   {
 
-    if (v120)
+    if (v122)
     {
-      v114 = v120;
-      v64 = v120;
-      v144 = v120;
-      v62 = 0;
-      v63 = type metadata accessor for HKUserTrackedMedication();
-      v143 = _allocateUninitializedArray<A>(_:)();
+      v116 = v122;
+      v66 = v122;
+      v146 = v122;
+      v64 = 0;
+      v65 = type metadata accessor for HKUserTrackedMedication();
+      v145 = _allocateUninitializedArray<A>(_:)();
 
-      v141 = v64;
-      v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo20HKUserTrackedConceptCGMd, &_sSaySo20HKUserTrackedConceptCGMR);
+      v143 = v66;
+      v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo20HKUserTrackedConceptCGMd, &_sSaySo20HKUserTrackedConceptCGMR);
       lazy protocol witness table accessor for type [HKUserTrackedConcept] and conformance [A]();
       Collection<>.makeIterator()();
-      for (i = v117; ; i = v51)
+      for (i = v119; ; i = v53)
       {
-        v60 = i;
+        v62 = i;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo20HKUserTrackedConceptCGGMd, &_ss16IndexingIteratorVySaySo20HKUserTrackedConceptCGGMR);
         IndexingIterator.next()();
-        v61 = v140;
-        if (!v140)
+        v63 = v142;
+        if (!v142)
         {
           break;
         }
 
-        v59 = v61;
-        v56 = v61;
-        v138 = v61;
-        v28 = v61;
+        v61 = v63;
+        v58 = v63;
+        v140 = v63;
+        v29 = v63;
         objc_opt_self();
-        v29 = swift_dynamicCastObjCClass();
-        v57 = v29;
-        if (v29)
+        v30 = swift_dynamicCastObjCClass();
+        v59 = v30;
+        if (v30)
         {
-          v55 = v57;
+          v57 = v59;
         }
 
         else
         {
 
-          v55 = 0;
+          v57 = 0;
         }
 
-        v54 = v55;
-        if (v55)
+        v56 = v57;
+        if (v57)
         {
-          v53 = v54;
-          v52 = v54;
-          v137 = v54;
-          v30 = v54;
-          v136 = v52;
+          v55 = v56;
+          v54 = v56;
+          v139 = v56;
+          v31 = v56;
+          v138 = v54;
           __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo23HKUserTrackedMedicationCGMd, &_sSaySo23HKUserTrackedMedicationCGMR);
           Array.append(_:)();
         }
 
-        v51 = v60;
+        v53 = v62;
       }
 
-      outlined destroy of [HKQuantityType](v142);
-      v58 = v143;
+      outlined destroy of [HKQuantityType](v144);
+      v60 = v145;
 
-      v139 = v58;
+      v141 = v60;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMd, &_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMR);
       CheckedContinuation.resume(returning:)();
-      outlined destroy of [HKQuantityType](&v143);
+      outlined destroy of [HKQuantityType](&v145);
 
-      return v60;
+      return v62;
     }
 
     else
     {
-      v27 = v125;
-      v67 = Logger.wellnessIntents.unsafeMutableAddressor();
-      v68 = &v149;
-      v71 = 0;
+      v28 = v127;
+      v69 = Logger.wellnessIntents.unsafeMutableAddressor();
+      v70 = &v151;
+      v73 = 0;
       swift_beginAccess();
-      (*(v123 + 16))(v27, v67, v121);
+      (*(v125 + 16))(v28, v69, v123);
       swift_endAccess();
-      v73 = Logger.logObject.getter();
-      v69 = v73;
-      v72 = static os_log_type_t.error.getter();
-      v70 = v72;
+      v75 = Logger.logObject.getter();
+      v71 = v75;
+      v74 = static os_log_type_t.error.getter();
+      v72 = v74;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v74 = _allocateUninitializedArray<A>(_:)();
-      if (os_log_type_enabled(v73, v72))
+      v76 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(v75, v74))
       {
-        v31 = v117;
-        v42 = static UnsafeMutablePointer.allocate(capacity:)();
-        v38 = v42;
-        v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v40 = 0;
-        v43 = createStorage<A>(capacity:type:)(0);
-        v41 = v43;
-        v44 = createStorage<A>(capacity:type:)(v40);
-        v148[0] = v42;
-        v147 = v43;
-        v146 = v44;
-        v45 = 0;
-        v46 = v148;
-        serialize(_:at:)(0, v148);
-        serialize(_:at:)(v45, v46);
-        v145 = v74;
-        v47 = v34;
-        MEMORY[0x28223BE20](v34);
-        v48 = &v34[-6];
-        v34[-4] = v32;
-        v34[-3] = &v147;
-        v34[-2] = &v146;
-        v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+        v32 = v119;
+        v44 = static UnsafeMutablePointer.allocate(capacity:)();
+        v40 = v44;
+        v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v42 = 0;
+        v45 = createStorage<A>(capacity:type:)(0, v41, v41);
+        v43 = v45;
+        v46 = createStorage<A>(capacity:type:)(v42, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        v150[0] = v44;
+        v149 = v45;
+        v148 = v46;
+        v47 = 0;
+        v48 = v150;
+        serialize(_:at:)(0, v150);
+        serialize(_:at:)(v47, v48);
+        v147 = v76;
+        v49 = v36;
+        MEMORY[0x28223BE20](v36, v33);
+        v50 = &v36[-6];
+        v36[-4] = v34;
+        v36[-3] = &v149;
+        v36[-2] = &v148;
+        v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
         lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
         Sequence.forEach(_:)();
-        v50 = v31;
-        if (v31)
+        v52 = v32;
+        if (v32)
         {
           __break(1u);
         }
 
         else
         {
-          _os_log_impl(&dword_269912000, v69, v70, "No dose events found using HKUserTrackedConceptQuery, returning empty array", v38, 2u);
-          v36 = 0;
-          destroyStorage<A>(_:count:)(v41, 0, v39);
-          destroyStorage<A>(_:count:)(v44, v36, MEMORY[0x277D84F70] + 8);
-          MEMORY[0x26D6497C0](v38, MEMORY[0x277D84B78]);
+          _os_log_impl(&dword_269912000, v71, v72, "No dose events found using HKUserTrackedConceptQuery, returning empty array", v40, 2u);
+          v38 = 0;
+          destroyStorage<A>(_:count:)(v43, 0, v41);
+          destroyStorage<A>(_:count:)(v46, v38, MEMORY[0x277D84F70] + 8);
+          MEMORY[0x26D6497C0](v40, MEMORY[0x277D84B78]);
 
-          v37 = v50;
+          v39 = v52;
         }
       }
 
       else
       {
 
-        v37 = v117;
+        v39 = v119;
       }
 
-      v35 = v37;
+      v37 = v39;
 
-      (*(v123 + 8))(v125, v121);
-      v34[1] = 0;
-      v34[2] = type metadata accessor for HKUserTrackedMedication();
-      v148[1] = _allocateUninitializedArray<A>(_:)();
+      (*(v125 + 8))(v127, v123);
+      v36[1] = 0;
+      v36[2] = type metadata accessor for HKUserTrackedMedication();
+      v150[1] = _allocateUninitializedArray<A>(_:)();
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMd, &_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMR);
       CheckedContinuation.resume(returning:)();
-      return v35;
+      return v37;
     }
   }
 }
@@ -5649,41 +2844,35 @@ uint64_t SpecificMedicationsPersistor.UTCQuery()(uint64_t a1, uint64_t a2)
   v2[12] = 0;
   v3 = type metadata accessor for Logger();
   v2[23] = v3;
-  v7 = *(v3 - 8);
-  v2[24] = v7;
-  v4 = *(v7 + 64) + 15;
+  v2[24] = *(v3 - 8);
   v2[25] = swift_task_alloc();
   v2[5] = a1;
   v2[6] = a2;
-  v5 = swift_task_alloc();
-  *(v8 + 208) = v5;
-  *v5 = *(v8 + 136);
-  v5[1] = SpecificMedicationsPersistor.UTCQuery();
+  v4 = swift_task_alloc();
+  *(v6 + 208) = v4;
+  *v4 = *(v6 + 136);
+  v4[1] = SpecificMedicationsPersistor.UTCQuery();
 
   return SpecificMedicationsPersistor.doUTCQueryForMedications()(a1, a2);
 }
 
 uint64_t SpecificMedicationsPersistor.UTCQuery()(uint64_t a1)
 {
-  v10 = *v2;
-  v4 = *(*v2 + 208);
-  v10[17] = *v2;
-  v11 = v10 + 17;
-  v10[27] = a1;
-  v10[28] = v1;
+  v6 = *v2;
+  v6[17] = *v2;
+  v6[27] = a1;
+  v6[28] = v1;
 
   if (v1)
   {
-    v6 = v10[25];
 
-    v8 = *(*v11 + 8);
+    v4 = *(v6[17] + 8);
 
-    return v8(v7);
+    return v4(v3);
   }
 
   else
   {
-    v5 = *v11;
 
     return MEMORY[0x2822009F8](SpecificMedicationsPersistor.UTCQuery(), 0);
   }
@@ -5691,155 +2880,152 @@ uint64_t SpecificMedicationsPersistor.UTCQuery()(uint64_t a1)
 
 uint64_t SpecificMedicationsPersistor.UTCQuery()()
 {
-  v51 = v0;
-  v44 = v0[27];
+  v48 = v0;
+  v41 = v0[27];
   v0[17] = v0;
-  v0[18] = v44;
+  v0[18] = v41;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_SStMd, &_sSS_SStMR);
   _allocateUninitializedArray<A>(_:)();
   v0[19] = Dictionary.init(dictionaryLiteral:)();
 
-  v0[20] = v44;
+  v0[20] = v41;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo23HKUserTrackedMedicationCGMd, &_sSaySo23HKUserTrackedMedicationCGMR);
   lazy protocol witness table accessor for type [HKUserTrackedMedication] and conformance [A]();
   Collection<>.makeIterator()();
-  v45 = v0[28];
+  v42 = v0[28];
   while (1)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo23HKUserTrackedMedicationCGGMd, &_ss16IndexingIteratorVySaySo23HKUserTrackedMedicationCGGMR);
     IndexingIterator.next()();
-    v42 = v43[21];
-    if (!v42)
+    v39 = v40[21];
+    if (!v39)
     {
       break;
     }
 
-    v1 = v43[25];
-    v32 = v43[23];
-    v30 = v43[24];
-    v43[22] = v42;
-    v31 = Logger.wellnessIntents.unsafeMutableAddressor();
+    v1 = v40[25];
+    v29 = v40[23];
+    v27 = v40[24];
+    v40[22] = v39;
+    v28 = Logger.wellnessIntents.unsafeMutableAddressor();
     swift_beginAccess();
-    (*(v30 + 16))(v1, v31, v32);
+    (*(v27 + 16))(v1, v28, v29);
     swift_endAccess();
-    MEMORY[0x277D82BE0](v42);
+    MEMORY[0x277D82BE0](v39);
+    v30 = swift_allocObject();
+    *(v30 + 16) = v39;
+    v36 = Logger.logObject.getter();
+    v37 = static os_log_type_t.debug.getter();
+    v32 = swift_allocObject();
+    *(v32 + 16) = 32;
     v33 = swift_allocObject();
-    *(v33 + 16) = v42;
-    v39 = Logger.logObject.getter();
-    v40 = static os_log_type_t.debug.getter();
-    v35 = swift_allocObject();
-    *(v35 + 16) = 32;
-    v36 = swift_allocObject();
-    *(v36 + 16) = 8;
+    *(v33 + 16) = 8;
+    v31 = swift_allocObject();
+    *(v31 + 16) = partial apply for implicit closure #1 in SpecificMedicationsPersistor.UTCQuery();
+    *(v31 + 24) = v30;
     v34 = swift_allocObject();
-    *(v34 + 16) = partial apply for implicit closure #1 in SpecificMedicationsPersistor.UTCQuery();
-    *(v34 + 24) = v33;
-    v37 = swift_allocObject();
-    *(v37 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-    *(v37 + 24) = v34;
+    *(v34 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+    *(v34 + 24) = v31;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
     _allocateUninitializedArray<A>(_:)();
-    v38 = v2;
+    v35 = v2;
 
-    *v38 = partial apply for closure #1 in OSLogArguments.append(_:);
-    v38[1] = v35;
+    *v35 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35[1] = v32;
 
-    v38[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v38[3] = v36;
+    v35[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35[3] = v33;
 
-    v38[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-    v38[5] = v37;
+    v35[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35[5] = v34;
     _finalizeUninitializedArray<A>(_:)();
 
-    if (os_log_type_enabled(v39, v40))
+    if (os_log_type_enabled(v36, v37))
     {
       buf = static UnsafeMutablePointer.allocate(capacity:)();
-      v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      v28 = createStorage<A>(capacity:type:)(0);
-      v29 = createStorage<A>(capacity:type:)(1);
-      v46 = buf;
-      v47 = v28;
-      v48 = v29;
-      serialize(_:at:)(2, &v46);
-      serialize(_:at:)(1, &v46);
-      v49 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v50 = v35;
-      closure #1 in osLogInternal(_:log:type:)(&v49, &v46, &v47, &v48);
-      if (v45)
+      v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v25 = createStorage<A>(capacity:type:)(0, v23, v23);
+      v26 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      v43 = buf;
+      v44 = v25;
+      v45 = v26;
+      serialize(_:at:)(2, &v43);
+      serialize(_:at:)(1, &v43);
+      v46 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v47 = v32;
+      closure #1 in osLogInternal(_:log:type:)(&v46, &v43, &v44, &v45);
+      if (v42)
       {
       }
 
-      v49 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v50 = v36;
-      closure #1 in osLogInternal(_:log:type:)(&v49, &v46, &v47, &v48);
-      v49 = partial apply for closure #1 in OSLogArguments.append(_:);
-      v50 = v37;
-      closure #1 in osLogInternal(_:log:type:)(&v49, &v46, &v47, &v48);
-      _os_log_impl(&dword_269912000, v39, v40, "Got a medication: %s", buf, 0xCu);
-      destroyStorage<A>(_:count:)(v28, 0, v26);
-      destroyStorage<A>(_:count:)(v29, 1, MEMORY[0x277D84F70] + 8);
+      v46 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v47 = v33;
+      closure #1 in osLogInternal(_:log:type:)(&v46, &v43, &v44, &v45);
+      v46 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v47 = v34;
+      closure #1 in osLogInternal(_:log:type:)(&v46, &v43, &v44, &v45);
+      _os_log_impl(&dword_269912000, v36, v37, "Got a medication: %s", buf, 0xCu);
+      destroyStorage<A>(_:count:)(v25, 0, v23);
+      destroyStorage<A>(_:count:)(v26, 1, MEMORY[0x277D84F70] + 8);
       MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
 
-      v24 = 0;
-      v25 = 0;
+      v21 = 0;
+      v22 = 0;
     }
 
     else
     {
 
-      v24 = v45;
-      v25 = v41;
+      v21 = v42;
+      v22 = v38;
     }
 
-    v12 = v43[25];
-    v13 = v43[23];
-    v11 = v43[24];
-    MEMORY[0x277D82BD8](v39);
-    (*(v11 + 8))(v12, v13);
-    v14 = [v42 0x1FB7CA078];
-    v15 = [v14 identifier];
+    v9 = v40[25];
+    v10 = v40[23];
+    v8 = v40[24];
+    MEMORY[0x277D82BD8](v36);
+    (*(v8 + 8))(v9, v10);
+    v11 = [v39 0x1FB7CA078];
+    v12 = [v11 identifier];
+    MEMORY[0x277D82BD8](v11);
+    v13 = [v12 underlyingIdentifier];
+    v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v20 = v4;
+    v40[9] = v17;
+    v40[10] = v4;
+    MEMORY[0x277D82BD8](v12);
+    MEMORY[0x277D82BD8](v13);
+    v14 = [v39 0x1FB7CA078];
+    v15 = [v14 displayNameComponents];
     MEMORY[0x277D82BD8](v14);
-    v16 = [v15 underlyingIdentifier];
-    v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v23 = v4;
-    v43[9] = v20;
-    v43[10] = v4;
+    v16 = [v15 medicationDisplayName];
+    v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v19 = v5;
+    v40[11] = v18;
+    v40[12] = v5;
     MEMORY[0x277D82BD8](v15);
     MEMORY[0x277D82BD8](v16);
-    v17 = [v42 0x1FB7CA078];
-    v18 = [v17 displayNameComponents];
-    MEMORY[0x277D82BD8](v17);
-    v19 = [v18 medicationDisplayName];
-    v21 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v22 = v5;
-    v43[11] = v21;
-    v43[12] = v5;
-    MEMORY[0x277D82BD8](v18);
-    MEMORY[0x277D82BD8](v19);
 
-    v43[13] = v21;
-    v43[14] = v22;
-    v43[15] = v20;
-    v43[16] = v23;
+    v40[13] = v18;
+    v40[14] = v19;
+    v40[15] = v17;
+    v40[16] = v20;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd, _sSDyS2SGMR);
     Dictionary.subscript.setter();
 
-    MEMORY[0x277D82BD8](v42);
-    v45 = v24;
-    v41 = v25;
+    MEMORY[0x277D82BD8](v39);
+    v42 = v21;
+    v38 = v22;
   }
 
-  v8 = v43[27];
-  v9 = v43[25];
-  outlined destroy of [HKQuantityType](v43 + 7);
-  v10 = v43[19];
+  outlined destroy of [HKQuantityType](v40 + 7);
+  v7 = v40[19];
 
-  outlined destroy of [HKQuantityType](v43 + 19);
+  outlined destroy of [HKQuantityType](v40 + 19);
 
-  v6 = *(v43[17] + 8);
-  v7 = v43[17];
+  v6 = *(v40[17] + 8);
 
-  return v6(v10);
+  return v6(v7);
 }
 
 uint64_t implicit closure #1 in SpecificMedicationsPersistor.UTCQuery()(void *a1)
@@ -5856,35 +3042,35 @@ uint64_t implicit closure #1 in SpecificMedicationsPersistor.UTCQuery()(void *a1
 
 uint64_t closure #1 in SpecificMedicationsPersistor.getAsNeededDosageFromHealthApp(for:)(uint64_t a1, uint64_t a2)
 {
-  v8 = a1;
-  v7[1] = a2;
-  v24 = 0;
-  v23 = 0;
-  v18 = type metadata accessor for Date();
-  v13 = *(v18 - 8);
-  v14 = v18 - 8;
-  v9 = (*(v13 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  v2 = MEMORY[0x28223BE20](v8);
-  v15 = v7 - v9;
-  v10 = (v3 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v4 = MEMORY[0x28223BE20](v2);
-  v17 = v7 - v10;
-  v24 = *v4;
-  v12 = *v5;
-  v23 = v12;
-  v11 = 0x1FB31F000uLL;
-  v21 = [v24 0x1FB31F378];
+  v11 = a1;
+  v10 = a2;
+  v27 = 0;
+  v26 = 0;
+  v21 = type metadata accessor for Date();
+  v16 = *(v21 - 8);
+  v17 = v21 - 8;
+  v12 = (*(v16 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v11, v10);
+  v18 = &v9 - v12;
+  v13 = (v2 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v5 = MEMORY[0x28223BE20](v3, v4);
+  v20 = &v9 - v13;
+  v27 = *v6;
+  v15 = *v7;
+  v26 = v15;
+  v14 = 0x1FB31F000uLL;
+  v24 = [v27 0x1FB31F378];
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = [v12 (v11 + 888)];
+  v19 = [v15 (v14 + 888)];
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  v22 = static Date.< infix(_:_:)();
-  v20 = *(v13 + 8);
-  v19 = v13 + 8;
-  v20(v15, v18);
-  MEMORY[0x277D82BD8](v16);
-  v20(v17, v18);
-  MEMORY[0x277D82BD8](v21);
-  return v22 & 1;
+  v25 = static Date.< infix(_:_:)();
+  v23 = *(v16 + 8);
+  v22 = v16 + 8;
+  v23(v18, v21);
+  MEMORY[0x277D82BD8](v19);
+  v23(v20, v21);
+  MEMORY[0x277D82BD8](v24);
+  return v25 & 1;
 }
 
 uint64_t closure #1 in SpecificMedicationsPersistor.getMedicationsMatching(medicationIDs:strength:strengthUnit:isAsNeeded:)(id *a1, uint64_t a2)
@@ -5913,7 +3099,6 @@ uint64_t closure #1 in SpecificMedicationsPersistor.getMedicationsMatching(medic
 
 uint64_t closure #2 in SpecificMedicationsPersistor.getMedicationsMatching(medicationIDs:strength:strengthUnit:isAsNeeded:)(id *a1, char a2)
 {
-  v4 = *a1;
   if (a2)
   {
     v3 = [*a1 hasSchedule] ^ 1;
@@ -5929,346 +3114,346 @@ uint64_t closure #2 in SpecificMedicationsPersistor.getMedicationsMatching(medic
 
 uint64_t closure #3 in SpecificMedicationsPersistor.getMedicationsMatching(medicationIDs:strength:strengthUnit:isAsNeeded:)(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
-  v144 = a5;
-  v143 = a4;
-  v145 = a3;
-  v147 = *&a2;
-  v146 = a1;
-  v141 = 0;
+  v146 = a5;
+  v145 = a4;
+  v147 = a3;
+  v149 = *&a2;
+  v148 = a1;
+  v143 = 0;
+  v185 = 0;
+  v184 = 0;
   v183 = 0;
   v182 = 0;
   v181 = 0;
-  v180 = 0;
+  v180 = 0.0;
   v179 = 0;
-  v178 = 0.0;
-  v177 = 0;
-  v176 = 0;
-  v170 = 0;
-  v169 = 0;
-  v166 = 0;
-  v159 = 0.0;
-  v157 = 0;
-  v156 = 0;
-  v142 = a3 & 1;
-  v148 = type metadata accessor for Logger();
-  v149 = *(v148 - 8);
-  v150 = v149;
-  v151 = *(v149 + 64);
-  v5 = MEMORY[0x28223BE20](v146);
-  v153 = (v151 + 15) & 0xFFFFFFFFFFFFFFF0;
-  v152 = &v36 - v153;
-  v6 = MEMORY[0x28223BE20](v5);
-  v154 = &v36 - v153;
-  v155 = *v6;
-  v183 = v155;
-  v181 = v7;
-  v182 = v8;
-  v179 = v9;
-  v180 = v10;
-  if ((v11 & 1) != 0 || (v139 = v147, v138 = v147, v178 = v147, , !v144))
+  v178 = 0;
+  v172 = 0;
+  v171 = 0;
+  v168 = 0;
+  v161 = 0.0;
+  v159 = 0;
+  v158 = 0;
+  v144 = a3 & 1;
+  v150 = type metadata accessor for Logger();
+  v151 = *(v150 - 8);
+  v152 = v151;
+  v153 = *(v151 + 64);
+  MEMORY[0x28223BE20](v148, *&v149);
+  v155 = (v153 + 15) & 0xFFFFFFFFFFFFFFF0;
+  v154 = &v38 - v155;
+  MEMORY[0x28223BE20](v5, v6);
+  v156 = &v38 - v155;
+  v157 = *v7;
+  v185 = v157;
+  v183 = v8;
+  v184 = v9;
+  v181 = v10;
+  v182 = v11;
+  if ((v12 & 1) != 0 || (v141 = v149, v140 = v149, v180 = v149, , !v146))
   {
-    v100 = 1;
-    v101 = v140;
+    v102 = 1;
+    v103 = v142;
   }
 
   else
   {
-    v136 = v143;
-    v137 = v144;
-    v130 = v144;
-    v131 = v143;
-    v176 = v143;
-    v177 = v144;
-    v132 = [v155 medication];
-    v134 = [v132 displayNameComponents];
-    v133 = v134;
+    v138 = v145;
+    v139 = v146;
+    v132 = v146;
+    v133 = v145;
+    v178 = v145;
+    v179 = v146;
+    v134 = [v157 medication];
+    v136 = [v134 displayNameComponents];
+    v135 = v136;
 
-    v12 = [v134 displayStrength];
-    v135 = v12;
-    if (v12)
+    v13 = [v136 displayStrength];
+    v137 = v13;
+    if (v13)
     {
-      v129 = v135;
-      v124 = v135;
-      v125 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v126 = v13;
+      v131 = v137;
+      v126 = v137;
+      v127 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v128 = v14;
 
-      v127 = v125;
-      v128 = v126;
+      v129 = v127;
+      v130 = v128;
     }
 
     else
     {
-      v127 = 0;
-      v128 = 0;
+      v129 = 0;
+      v130 = 0;
     }
 
-    v122 = v128;
-    v123 = v127;
-    if (v128)
+    v124 = v130;
+    v125 = v129;
+    if (v130)
     {
-      v120 = v123;
-      v121 = v122;
-      v105 = v122;
-      v104 = v123;
-      v169 = v123;
-      v170 = v122;
+      v122 = v125;
+      v123 = v124;
+      v107 = v124;
+      v106 = v125;
+      v171 = v125;
+      v172 = v124;
 
-      v167 = v104;
-      v168 = v105;
-      v109 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" ", 1uLL, 1);
-      v108 = lazy protocol witness table accessor for type String and conformance String();
-      v107 = MEMORY[0x277D837D0];
-      v106 = default argument 1 of StringProtocol<>.split(separator:maxSplits:omittingEmptySubsequences:)();
-      v15 = default argument 2 of StringProtocol<>.split(separator:maxSplits:omittingEmptySubsequences:)();
-      v111 = MEMORY[0x26D649820](v109._countAndFlagsBits, v109._object, v106, v15 & 1, v107, v108);
-      v110 = v111;
+      v169 = v106;
+      v170 = v107;
+      v111 = String.init(_builtinStringLiteral:utf8CodeUnitCount:isASCII:)(" ", 1uLL, 1);
+      v110 = lazy protocol witness table accessor for type String and conformance String();
+      v109 = MEMORY[0x277D837D0];
+      v108 = default argument 1 of StringProtocol<>.split(separator:maxSplits:omittingEmptySubsequences:)();
+      v16 = default argument 2 of StringProtocol<>.split(separator:maxSplits:omittingEmptySubsequences:)();
+      v113 = MEMORY[0x26D649820](v111._countAndFlagsBits, v111._object, v108, v16 & 1, v109, v110);
+      v112 = v113;
 
-      v166 = v111;
+      v168 = v113;
       if (MEMORY[0x26D6494A0]() == 2)
       {
         Array.subscript.getter();
-        v103 = COERCE_DOUBLE(Double.init(_:)());
-        if (v16)
+        v105 = COERCE_DOUBLE(Double.init(_:)());
+        if (v17)
         {
 
-          v100 = 0;
-          v101 = v140;
+          v102 = 0;
+          v103 = v142;
         }
 
         else
         {
-          v102 = v103;
-          v99 = v103;
-          v159 = v103;
+          v104 = v105;
+          v101 = v105;
+          v161 = v105;
           Array.subscript.getter();
-          v94 = v158;
-          v97 = String.init(_:)();
-          v98 = v17;
-          v95 = v97;
-          v96 = v17;
+          v96 = v160;
+          v99 = String.init(_:)();
+          v100 = v18;
+          v97 = v99;
+          v98 = v18;
 
-          v156 = v97;
-          v157 = v98;
+          v158 = v99;
+          v159 = v100;
 
-          if (v99 == v138)
+          if (v101 == v140)
           {
-            v93 = MEMORY[0x26D649310](v95, v96, v131, v130, v99);
+            v95 = MEMORY[0x26D649310](v97, v98, v133, v132, v101);
           }
 
           else
           {
-            v93 = 0;
+            v95 = 0;
           }
 
-          v92 = v93;
+          v94 = v95;
 
-          v100 = v92;
-          v101 = v140;
+          v102 = v94;
+          v103 = v142;
         }
       }
 
       else
       {
-        v18 = v152;
-        v71 = Logger.wellnessIntents.unsafeMutableAddressor();
-        v75 = 32;
-        v79 = 32;
-        v72 = &v165;
+        v19 = v154;
+        v73 = Logger.wellnessIntents.unsafeMutableAddressor();
+        v77 = 32;
+        v81 = 32;
+        v74 = &v167;
         swift_beginAccess();
-        (*(v150 + 16))(v18, v71, v148);
+        (*(v152 + 16))(v19, v73, v150);
         swift_endAccess();
 
-        v80 = 7;
-        v19 = swift_allocObject();
-        v20 = v105;
-        v81 = v19;
-        *(v19 + 16) = v104;
-        *(v19 + 24) = v20;
-        v91 = Logger.logObject.getter();
-        v73 = v91;
-        v90 = static os_log_type_t.debug.getter();
-        v74 = v90;
-        v76 = 17;
-        v84 = swift_allocObject();
-        v77 = v84;
-        *(v84 + 16) = v75;
-        v85 = swift_allocObject();
-        v78 = v85;
-        *(v85 + 16) = 8;
-        v21 = swift_allocObject();
-        v22 = v81;
-        v82 = v21;
-        *(v21 + 16) = partial apply for implicit closure #4 in LogQuantityIntentHandler.handle(intent:);
-        *(v21 + 24) = v22;
-        v23 = swift_allocObject();
-        v24 = v82;
-        v88 = v23;
-        v83 = v23;
-        *(v23 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
-        *(v23 + 24) = v24;
-        v89 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-        v86 = _allocateUninitializedArray<A>(_:)();
-        v87 = v25;
+        v82 = 7;
+        v20 = swift_allocObject();
+        v21 = v107;
+        v83 = v20;
+        *(v20 + 16) = v106;
+        *(v20 + 24) = v21;
+        v93 = Logger.logObject.getter();
+        v75 = v93;
+        v92 = static os_log_type_t.debug.getter();
+        v76 = v92;
+        v78 = 17;
+        v86 = swift_allocObject();
+        v79 = v86;
+        *(v86 + 16) = v77;
+        v87 = swift_allocObject();
+        v80 = v87;
+        *(v87 + 16) = 8;
+        v22 = swift_allocObject();
+        v23 = v83;
+        v84 = v22;
+        *(v22 + 16) = partial apply for implicit closure #4 in LogQuantityIntentHandler.handle(intent:);
+        *(v22 + 24) = v23;
+        v24 = swift_allocObject();
+        v25 = v84;
+        v90 = v24;
+        v85 = v24;
+        *(v24 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+        *(v24 + 24) = v25;
+        v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+        v88 = _allocateUninitializedArray<A>(_:)();
+        v89 = v26;
 
-        v26 = v84;
-        v27 = v87;
-        *v87 = partial apply for closure #1 in OSLogArguments.append(_:);
-        v27[1] = v26;
+        v27 = v86;
+        v28 = v89;
+        *v89 = partial apply for closure #1 in OSLogArguments.append(_:);
+        v28[1] = v27;
 
-        v28 = v85;
         v29 = v87;
-        v87[2] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v29[3] = v28;
+        v30 = v89;
+        v89[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+        v30[3] = v29;
 
-        v30 = v87;
-        v31 = v88;
-        v87[4] = partial apply for closure #1 in OSLogArguments.append(_:);
-        v30[5] = v31;
+        v31 = v89;
+        v32 = v90;
+        v89[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+        v31[5] = v32;
         _finalizeUninitializedArray<A>(_:)();
 
-        if (os_log_type_enabled(v91, v90))
+        if (os_log_type_enabled(v93, v92))
         {
-          v68 = v140;
-          v63 = static UnsafeMutablePointer.allocate(capacity:)();
-          v60 = v63;
-          v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-          v64 = createStorage<A>(capacity:type:)(0);
-          v62 = v64;
-          v66 = 1;
-          v65 = createStorage<A>(capacity:type:)(1);
-          v164 = v63;
-          v163 = v64;
-          v162 = v65;
-          v67 = &v164;
-          serialize(_:at:)(2, &v164);
-          serialize(_:at:)(v66, v67);
-          v32 = v68;
-          v160 = partial apply for closure #1 in OSLogArguments.append(_:);
-          v161 = v77;
-          closure #1 in osLogInternal(_:log:type:)(&v160, v67, &v163, &v162);
-          v69 = v32;
-          v70 = v32;
-          if (v32)
+          v70 = v142;
+          v65 = static UnsafeMutablePointer.allocate(capacity:)();
+          v62 = v65;
+          v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+          v66 = createStorage<A>(capacity:type:)(0, v63, v63);
+          v64 = v66;
+          v68 = 1;
+          v67 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+          v166 = v65;
+          v165 = v66;
+          v164 = v67;
+          v69 = &v166;
+          serialize(_:at:)(2, &v166);
+          serialize(_:at:)(v68, v69);
+          v33 = v70;
+          v162 = partial apply for closure #1 in OSLogArguments.append(_:);
+          v163 = v79;
+          closure #1 in osLogInternal(_:log:type:)(&v162, v69, &v165, &v164);
+          v71 = v33;
+          v72 = v33;
+          if (v33)
           {
-            v58 = 0;
+            v60 = 0;
 
             __break(1u);
           }
 
           else
           {
-            v160 = partial apply for closure #1 in OSLogArguments.append(_:);
-            v161 = v78;
-            closure #1 in osLogInternal(_:log:type:)(&v160, &v164, &v163, &v162);
+            v162 = partial apply for closure #1 in OSLogArguments.append(_:);
+            v163 = v80;
+            closure #1 in osLogInternal(_:log:type:)(&v162, &v166, &v165, &v164);
+            v58 = 0;
+            v59 = 0;
+            v162 = partial apply for closure #1 in OSLogArguments.append(_:);
+            v163 = v85;
+            closure #1 in osLogInternal(_:log:type:)(&v162, &v166, &v165, &v164);
             v56 = 0;
             v57 = 0;
-            v160 = partial apply for closure #1 in OSLogArguments.append(_:);
-            v161 = v83;
-            closure #1 in osLogInternal(_:log:type:)(&v160, &v164, &v163, &v162);
-            v54 = 0;
-            v55 = 0;
-            _os_log_impl(&dword_269912000, v73, v74, "Unexpected displayStrength string format: %s", v60, 0xCu);
-            destroyStorage<A>(_:count:)(v62, 0, v61);
-            destroyStorage<A>(_:count:)(v65, 1, MEMORY[0x277D84F70] + 8);
-            MEMORY[0x26D6497C0](v60, MEMORY[0x277D84B78]);
+            _os_log_impl(&dword_269912000, v75, v76, "Unexpected displayStrength string format: %s", v62, 0xCu);
+            destroyStorage<A>(_:count:)(v64, 0, v63);
+            destroyStorage<A>(_:count:)(v67, 1, MEMORY[0x277D84F70] + 8);
+            MEMORY[0x26D6497C0](v62, MEMORY[0x277D84B78]);
 
-            v59 = v54;
+            v61 = v56;
           }
         }
 
         else
         {
 
-          v59 = v140;
+          v61 = v142;
         }
 
-        v53 = v59;
+        v55 = v61;
 
-        (*(v150 + 8))(v152, v148);
+        (*(v152 + 8))(v154, v150);
 
-        v100 = 0;
-        v101 = v53;
+        v102 = 0;
+        v103 = v55;
       }
     }
 
     else
     {
-      v14 = v154;
+      v15 = v156;
 
-      v112 = Logger.wellnessIntents.unsafeMutableAddressor();
-      v113 = &v175;
-      v116 = 0;
+      v114 = Logger.wellnessIntents.unsafeMutableAddressor();
+      v115 = &v177;
+      v118 = 0;
       swift_beginAccess();
-      (*(v150 + 16))(v14, v112, v148);
+      (*(v152 + 16))(v15, v114, v150);
       swift_endAccess();
-      v118 = Logger.logObject.getter();
-      v114 = v118;
-      v117 = static os_log_type_t.debug.getter();
-      v115 = v117;
+      v120 = Logger.logObject.getter();
+      v116 = v120;
+      v119 = static os_log_type_t.debug.getter();
+      v117 = v119;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
-      v119 = _allocateUninitializedArray<A>(_:)();
-      if (os_log_type_enabled(v118, v117))
+      v121 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(v120, v119))
       {
-        v51 = v140;
-        v43 = static UnsafeMutablePointer.allocate(capacity:)();
-        v39 = v43;
-        v40 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        v41 = 0;
-        v44 = createStorage<A>(capacity:type:)(0);
-        v42 = v44;
-        v45 = createStorage<A>(capacity:type:)(v41);
-        v174 = v43;
-        v173 = v44;
-        v172 = v45;
-        v46 = 0;
-        v47 = &v174;
-        serialize(_:at:)(0, &v174);
-        serialize(_:at:)(v46, v47);
-        v171 = v119;
-        v48 = &v36;
-        MEMORY[0x28223BE20](&v36);
-        v49 = &v36 - 6;
-        *(&v36 - 4) = v33;
-        *(&v36 - 3) = &v173;
-        *(&v36 - 2) = &v172;
-        v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+        v53 = v142;
+        v45 = static UnsafeMutablePointer.allocate(capacity:)();
+        v41 = v45;
+        v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v43 = 0;
+        v46 = createStorage<A>(capacity:type:)(0, v42, v42);
+        v44 = v46;
+        v47 = createStorage<A>(capacity:type:)(v43, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        v176 = v45;
+        v175 = v46;
+        v174 = v47;
+        v48 = 0;
+        v49 = &v176;
+        serialize(_:at:)(0, &v176);
+        serialize(_:at:)(v48, v49);
+        v173 = v121;
+        v50 = &v38;
+        MEMORY[0x28223BE20](&v38, v34);
+        v51 = &v38 - 6;
+        *(&v38 - 4) = v35;
+        *(&v38 - 3) = &v175;
+        *(&v38 - 2) = &v174;
+        v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
         lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
-        v34 = v51;
+        v36 = v53;
         Sequence.forEach(_:)();
-        v52 = v34;
-        if (v34)
+        v54 = v36;
+        if (v36)
         {
           __break(1u);
         }
 
         else
         {
-          _os_log_impl(&dword_269912000, v114, v115, "Couldn't find displayStrength in UserTrackedMed", v39, 2u);
-          v37 = 0;
-          destroyStorage<A>(_:count:)(v42, 0, v40);
-          destroyStorage<A>(_:count:)(v45, v37, MEMORY[0x277D84F70] + 8);
-          MEMORY[0x26D6497C0](v39, MEMORY[0x277D84B78]);
+          _os_log_impl(&dword_269912000, v116, v117, "Couldn't find displayStrength in UserTrackedMed", v41, 2u);
+          v39 = 0;
+          destroyStorage<A>(_:count:)(v44, 0, v42);
+          destroyStorage<A>(_:count:)(v47, v39, MEMORY[0x277D84F70] + 8);
+          MEMORY[0x26D6497C0](v41, MEMORY[0x277D84B78]);
 
-          v38 = v52;
+          v40 = v54;
         }
       }
 
       else
       {
 
-        v38 = v140;
+        v40 = v142;
       }
 
-      v36 = v38;
+      v38 = v40;
 
-      (*(v150 + 8))(v154, v148);
+      (*(v152 + 8))(v156, v150);
 
-      v100 = 0;
-      v101 = v36;
+      v102 = 0;
+      v103 = v38;
     }
   }
 
-  return v100 & 1;
+  return v102 & 1;
 }
 
 uint64_t closure #1 in SpecificMedicationsPersistor.getAsNeededStrengthFromHealthApp(for:)(id *a1, uint64_t a2, uint64_t a3)
@@ -6286,14 +3471,14 @@ uint64_t closure #1 in SpecificMedicationsPersistor.getAsNeededStrengthFromHealt
   return v12 & 1;
 }
 
-uint64_t implicit closure #1 in SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:)()
+uint64_t implicit closure #1 in SpecificMedicationsPersistor.getAsNeededDosageUnit(for:dosageCount:)(void *a1)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo23HKUserTrackedMedicationCGMd, &_sSaySo23HKUserTrackedMedicationCGMR);
   lazy protocol witness table accessor for type [HKUserTrackedMedication] and conformance [A]();
   Collection.first.getter();
-  if (v1)
+  if (v2)
   {
-    [v1 medication];
+    [v2 medication];
     (MEMORY[0x277D82BD8])();
   }
 
@@ -6310,13 +3495,13 @@ uint64_t implicit closure #2 in SpecificMedicationsPersistor.getAsNeededDosageUn
   return String.init<A>(describing:)();
 }
 
-id @nonobjc HKMedicationIdentifier.init(rawIdentifier:)()
+id @nonobjc HKMedicationIdentifier.init(rawIdentifier:)(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x26D6492A0]();
-  v3 = [v1 initWithRawIdentifier_];
-  MEMORY[0x277D82BD8](v2);
+  v4 = MEMORY[0x26D6492A0](a1);
+  v5 = [v3 initWithRawIdentifier_];
+  MEMORY[0x277D82BD8](v4);
 
-  return v3;
+  return v5;
 }
 
 id @nonobjc INObject.init(identifier:display:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -6383,7 +3568,6 @@ id @nonobjc HKUserTrackedConceptQuery.init(userTrackedConceptType:predicate:sort
 uint64_t thunk for @escaping @callee_guaranteed (@guaranteed HKUserTrackedConceptQuery, @guaranteed [HKUserTrackedConcept]?, @guaranteed Error?) -> ()(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
 
   MEMORY[0x277D82BE0](a2);
   MEMORY[0x277D82BE0](a3);
@@ -6416,81 +3600,11 @@ uint64_t thunk for @escaping @callee_guaranteed (@guaranteed HKUserTrackedConcep
   MEMORY[0x277D82BD8](a2);
 }
 
-uint64_t sub_2699DAC98()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DACD8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DAD70()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DADB0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DAE48()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DAE88()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DAF74()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DAFE8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t thunk for @escaping @callee_guaranteed () -> (@unowned Int32)@<X0>(uint64_t (*a1)(void)@<X0>, _DWORD *a2@<X8>)
 {
   result = a1();
   *a2 = result;
   return result;
-}
-
-uint64_t sub_2699DB070()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB0BC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 uint64_t _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0(uint64_t *a1, uint64_t a2, uint64_t a3)
@@ -6514,125 +3628,6 @@ unint64_t lazy protocol witness table accessor for type Int32 and conformance In
   }
 
   return v2;
-}
-
-uint64_t sub_2699DB240()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB280()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB318()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB358()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB398()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB534()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB574()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB60C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB64C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB6E4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB724()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB764()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB7A4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB83C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB87C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB914()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DB954()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 unint64_t lazy protocol witness table accessor for type [String] and conformance [A]()
@@ -6673,27 +3668,6 @@ unint64_t lazy protocol witness table accessor for type [String] and conformance
   }
 
   return v2;
-}
-
-uint64_t sub_2699DBA1C()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DBABC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DBAFC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 void *outlined init with copy of NSNumber?(void *a1, void *a2)
@@ -6742,54 +3716,10 @@ unint64_t type metadata accessor for HKMedicationIdentifier()
   return v2;
 }
 
-uint64_t sub_2699DBDC4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DBE04()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DBE44()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DBF1C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DBF5C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DBF9C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t sub_2699DBFDC()
 {
-  v3 = *(type metadata accessor for DateInterval() - 8);
-  v1 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v4 = v1 + *(v3 + 64);
-  (*(v3 + 8))(v0 + v1);
+  v2 = *(type metadata accessor for DateInterval() - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
   return swift_deallocObject();
 }
 
@@ -6799,62 +3729,6 @@ uint64_t partial apply for implicit closure #1 in SpecificMedicationsPersistor.s
   v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
 
   return implicit closure #1 in SpecificMedicationsPersistor.saveScheduledMedication(specifiedDateInterval:medStatusTaken:)(v2);
-}
-
-uint64_t sub_2699DC164()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC1A4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC1E4()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC2B0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC2F0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC388()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC3C8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC408()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
 }
 
 unint64_t lazy protocol witness table accessor for type String? and conformance <A> A?()
@@ -6952,62 +3826,6 @@ unint64_t lazy protocol witness table accessor for type [HKUserTrackedMedication
   return v2;
 }
 
-uint64_t sub_2699DC6A0()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC740()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC780()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC844()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC884()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC8C4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC904()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DC94C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t _s2os18OSLogInterpolationV06appendC0_5align7privacyyxyXA_AA0B15StringAlignmentVAA0B7PrivacyVts06CustomG11ConvertibleRzlFSSycfu_TA_3()
 {
   v5 = *(v0 + 16);
@@ -7016,83 +3834,6 @@ uint64_t _s2os18OSLogInterpolationV06appendC0_5align7privacyyxyXA_AA0B15StringAl
   v1 = lazy protocol witness table accessor for type [String?] and conformance [A]();
 
   return implicit closure #1 in OSLogInterpolation.appendInterpolation<A>(_:align:privacy:)(v5, v3, v4, v1);
-}
-
-uint64_t sub_2699DCADC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCB1C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCBB4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCBF4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCC60()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCCA0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCE28()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCE68()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCF40()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCF80()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DCFC0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 unint64_t type metadata accessor for HKUserTrackedMedication()
@@ -7109,789 +3850,10 @@ unint64_t type metadata accessor for HKUserTrackedMedication()
   return v2;
 }
 
-uint64_t sub_2699DD184()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD224()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD264()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for implicit closure #1 in SpecificMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:medicationIDPresent:dosage:dosageUnit:)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return implicit closure #6 in SpecificMedicationsPersistor.saveWithID(scheduleID:medicationIDs:medStatus:dosage:dosageUnit:confirmedAsNeeded:confirmedAsScheduled:)();
-}
-
-uint64_t sub_2699DD2E0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t partial apply for implicit closure #2 in SpecificMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:medicationIDPresent:dosage:dosageUnit:)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return implicit closure #7 in SpecificMedicationsPersistor.saveWithID(scheduleID:medicationIDs:medStatus:dosage:dosageUnit:confirmedAsNeeded:confirmedAsScheduled:)();
-}
-
-uint64_t sub_2699DD384()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD3C4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD45C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD49C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD4DC()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD57C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD5BC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD784()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD7C4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD85C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD89C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD934()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DD974()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDAE4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDB24()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDBBC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDBFC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDC94()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDCD4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDD94()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDDD4()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDED4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDF6C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DDFAC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE044()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE084()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE11C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE15C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE19C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE1DC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE274()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE2B4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE34C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE38C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE424()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE464()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE4FC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE53C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE5AC()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE644()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE684()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE6C4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE704()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE7C8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE808()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE8A0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE8E0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE978()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE9B8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DE9F8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEA38()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEA78()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEC00()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEC40()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DECF8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DED38()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEDD0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEE10()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEEA8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEEE8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEF80()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DEFC0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF08C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF0CC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF190()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF1D0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF294()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF2D4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF340()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF3D8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF418()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF4B0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF4F0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF5B4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF5F4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF660()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF6F8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF738()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF7D0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF810()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DF8A0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFBF8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFC38()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFCD0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFD10()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFDA8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFDE8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFE80()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFEC0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFF58()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699DFF98()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0030()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0070()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0108()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0148()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E01E0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0220()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E02B8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E02F8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0390()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E03D0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0468()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E04A8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E04E8()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0528()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t sub_2699E0568()
 {
-  v3 = *(type metadata accessor for DateInterval() - 8);
-  v1 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v4 = v1 + *(v3 + 64);
-  (*(v3 + 8))(v0 + v1);
+  v2 = *(type metadata accessor for DateInterval() - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
   return swift_deallocObject();
 }
 
@@ -7901,13 +3863,6 @@ uint64_t partial apply for implicit closure #2 in SpecificMedicationsPersistor.s
   v3 = v1 + ((*(*(v2 - 8) + 80) + 16) & ~*(*(v2 - 8) + 80));
 
   return implicit closure #2 in SpecificMedicationsPersistor.saveScheduledMedication(named:specifiedDateInterval:medStatusTaken:)(v3, a1);
-}
-
-uint64_t sub_2699E06A8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 unint64_t lazy protocol witness table accessor for type DateInterval and conformance DateInterval()
@@ -7924,222 +3879,10 @@ unint64_t lazy protocol witness table accessor for type DateInterval and conform
   return v2;
 }
 
-uint64_t sub_2699E081C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E085C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E08F4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0934()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0974()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E09B4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0B3C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0B7C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0C14()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0C54()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0D2C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0D6C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0DAC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t sub_2699E0DEC()
 {
-  v3 = *(type metadata accessor for DateInterval() - 8);
-  v1 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v4 = v1 + *(v3 + 64);
-  (*(v3 + 8))(v0 + v1);
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0F10()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0F50()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E0FE8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1028()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E10C0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1100()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1140()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1230()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1270()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1308()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1348()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E140C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E144C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E148C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E14CC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E156C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E15AC()
-{
-  v1 = *(v0 + 24);
-
+  v2 = *(type metadata accessor for DateInterval() - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
   return swift_deallocObject();
 }
 
@@ -8181,117 +3924,17 @@ _OWORD *outlined init with take of (key: String?, value: (scheduleDate: Date?, m
   return a2;
 }
 
-uint64_t sub_2699E19C8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1A08()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1AA0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1AE0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1B78()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1BB8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1C50()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1C90()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1E10()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1E50()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1EE8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1F28()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E1FC0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2000()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t outlined destroy of (scheduleDate: Date?, medID: String, count: Int)?(uint64_t a1)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttMd, &_s10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttMR);
-  if (!(*(*(v6 - 8) + 48))(a1, 1))
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttMd, &_s10Foundation4DateVSg08scheduleB0_SS5medIDSi5counttMR);
+  if (!(*(*(v5 - 8) + 48))(a1, 1))
   {
-    v3 = type metadata accessor for Date();
-    v4 = *(v3 - 8);
-    if (!(*(v4 + 48))(a1, 1))
+    v2 = type metadata accessor for Date();
+    v3 = *(v2 - 8);
+    if (!(*(v3 + 48))(a1, 1))
     {
-      (*(v4 + 8))(a1, v3);
+      (*(v3 + 8))(a1, v2);
     }
-
-    v1 = *(a1 + *(v6 + 48) + 8);
   }
 
   return a1;
@@ -8299,111 +3942,18 @@ uint64_t outlined destroy of (scheduleDate: Date?, medID: String, count: Int)?(u
 
 uint64_t outlined destroy of (Date?, String, Int)?(uint64_t a1)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_SSSitMd, &_s10Foundation4DateVSg_SSSitMR);
-  if (!(*(*(v6 - 8) + 48))(a1, 1))
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSg_SSSitMd, &_s10Foundation4DateVSg_SSSitMR);
+  if (!(*(*(v5 - 8) + 48))(a1, 1))
   {
-    v3 = type metadata accessor for Date();
-    v4 = *(v3 - 8);
-    if (!(*(v4 + 48))(a1, 1))
+    v2 = type metadata accessor for Date();
+    v3 = *(v2 - 8);
+    if (!(*(v3 + 48))(a1, 1))
     {
-      (*(v4 + 8))(a1, v3);
+      (*(v3 + 8))(a1, v2);
     }
-
-    v1 = *(a1 + *(v6 + 48) + 8);
   }
 
   return a1;
-}
-
-uint64_t sub_2699E2308()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2348()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2388()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E23F8()
-{
-  v1 = *(v0 + 16);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2498()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E24D8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E25C0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2600()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E26E0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2720()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E27F8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2838()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2878()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 unint64_t lazy protocol witness table accessor for type String and conformance String()
@@ -8417,83 +3967,6 @@ unint64_t lazy protocol witness table accessor for type String and conformance S
   }
 
   return v2;
-}
-
-uint64_t sub_2699E2930()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E29C8()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2A08()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2AE0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2B20()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2B60()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2C28()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2CC0()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2D00()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2DF4()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E2E34()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 unint64_t type metadata accessor for HKUserTrackedConceptQuery()
@@ -8526,10 +3999,8 @@ unint64_t type metadata accessor for HKUserTrackedConceptType()
 
 uint64_t sub_2699E2F78()
 {
-  v3 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMd, &_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMR) - 8);
-  v1 = (*(v3 + 80) + 16) & ~*(v3 + 80);
-  v4 = v1 + *(v3 + 64);
-  (*(v3 + 8))(v0 + v1);
+  v2 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMd, &_sScCySaySo23HKUserTrackedMedicationCGs5Error_pGMR) - 8);
+  (*(v2 + 8))(v0 + ((*(v2 + 80) + 16) & ~*(v2 + 80)));
   return swift_deallocObject();
 }
 
@@ -8578,20 +4049,6 @@ unint64_t lazy protocol witness table accessor for type [HKUserTrackedConcept] a
   }
 
   return v2;
-}
-
-uint64_t sub_2699E32CC()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E330C()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
 }
 
 unint64_t type metadata accessor for HKMedicationLoggingUnit()
@@ -8678,7 +4135,7 @@ unint64_t lazy protocol witness table accessor for type Double? and conformance 
   return v2;
 }
 
-void *outlined init with copy of [HKMedicationExposableDoseEvent](uint64_t *a1, void *a2)
+void *outlined init with copy of [HKMedicationExposableDoseEvent](void *a1, void *a2)
 {
   v4 = *a1;
 
@@ -8715,27 +4172,6 @@ unint64_t lazy protocol witness table accessor for type Bool? and conformance A?
   return v2;
 }
 
-uint64_t sub_2699E3790()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E3828()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
-uint64_t sub_2699E3868()
-{
-  v1 = *(v0 + 24);
-
-  return swift_deallocObject();
-}
-
 uint64_t Logger.wellnessIntents.unsafeMutableAddressor()
 {
   if (one-time initialization token for wellnessIntents != -1)
@@ -8767,11 +4203,9 @@ __int128 *Log.subsystem.unsafeMutableAddressor()
 
 uint64_t static Log.subsystem.getter()
 {
-  v0 = Log.subsystem.unsafeMutableAddressor();
-  v2 = *v0;
-  v3 = *(v0 + 1);
+  v1 = *Log.subsystem.unsafeMutableAddressor();
 
-  return v2;
+  return v1;
 }
 
 uint64_t one-time initialization function for healthCategory()
@@ -8794,11 +4228,9 @@ __int128 *Log.healthCategory.unsafeMutableAddressor()
 
 uint64_t static Log.healthCategory.getter()
 {
-  v0 = Log.healthCategory.unsafeMutableAddressor();
-  v2 = *v0;
-  v3 = *(v0 + 1);
+  v1 = *Log.healthCategory.unsafeMutableAddressor();
 
-  return v2;
+  return v1;
 }
 
 uint64_t one-time initialization function for wellnessCategory()
@@ -8821,11 +4253,9 @@ __int128 *Log.wellnessCategory.unsafeMutableAddressor()
 
 uint64_t static Log.wellnessCategory.getter()
 {
-  v0 = Log.wellnessCategory.unsafeMutableAddressor();
-  v2 = *v0;
-  v3 = *(v0 + 1);
+  v1 = *Log.wellnessCategory.unsafeMutableAddressor();
 
-  return v2;
+  return v1;
 }
 
 uint64_t one-time initialization function for emergencyCategory()
@@ -8848,11 +4278,9 @@ __int128 *Log.emergencyCategory.unsafeMutableAddressor()
 
 uint64_t static Log.emergencyCategory.getter()
 {
-  v0 = Log.emergencyCategory.unsafeMutableAddressor();
-  v2 = *v0;
-  v3 = *(v0 + 1);
+  v1 = *Log.emergencyCategory.unsafeMutableAddressor();
 
-  return v2;
+  return v1;
 }
 
 uint64_t one-time initialization function for commonCategory()
@@ -8875,23 +4303,17 @@ __int128 *Log.commonCategory.unsafeMutableAddressor()
 
 uint64_t static Log.commonCategory.getter()
 {
-  v0 = Log.commonCategory.unsafeMutableAddressor();
-  v2 = *v0;
-  v3 = *(v0 + 1);
+  v1 = *Log.commonCategory.unsafeMutableAddressor();
 
-  return v2;
+  return v1;
 }
 
 uint64_t one-time initialization function for health()
 {
   type metadata accessor for OS_os_log();
-  v0 = Log.subsystem.unsafeMutableAddressor();
-  v3 = *v0;
-  v4 = *(v0 + 1);
+  Log.subsystem.unsafeMutableAddressor();
 
-  v1 = Log.healthCategory.unsafeMutableAddressor();
-  v5 = *v1;
-  v6 = *(v1 + 1);
+  Log.healthCategory.unsafeMutableAddressor();
 
   result = OS_os_log.init(subsystem:category:)();
   static Log.health = result;
@@ -8928,13 +4350,9 @@ uint64_t static Log.health.getter()
 uint64_t one-time initialization function for wellnessIntents()
 {
   type metadata accessor for OS_os_log();
-  v0 = Log.subsystem.unsafeMutableAddressor();
-  v3 = *v0;
-  v4 = *(v0 + 1);
+  Log.subsystem.unsafeMutableAddressor();
 
-  v1 = Log.wellnessCategory.unsafeMutableAddressor();
-  v5 = *v1;
-  v6 = *(v1 + 1);
+  Log.wellnessCategory.unsafeMutableAddressor();
 
   result = OS_os_log.init(subsystem:category:)();
   static Log.wellnessIntents = result;
@@ -8971,13 +4389,9 @@ uint64_t static Log.wellnessIntents.getter()
 uint64_t one-time initialization function for emergency()
 {
   type metadata accessor for OS_os_log();
-  v0 = Log.subsystem.unsafeMutableAddressor();
-  v3 = *v0;
-  v4 = *(v0 + 1);
+  Log.subsystem.unsafeMutableAddressor();
 
-  v1 = Log.emergencyCategory.unsafeMutableAddressor();
-  v5 = *v1;
-  v6 = *(v1 + 1);
+  Log.emergencyCategory.unsafeMutableAddressor();
 
   result = OS_os_log.init(subsystem:category:)();
   static Log.emergency = result;
@@ -9014,13 +4428,9 @@ uint64_t static Log.emergency.getter()
 uint64_t one-time initialization function for common()
 {
   type metadata accessor for OS_os_log();
-  v0 = Log.subsystem.unsafeMutableAddressor();
-  v3 = *v0;
-  v4 = *(v0 + 1);
+  Log.subsystem.unsafeMutableAddressor();
 
-  v1 = Log.commonCategory.unsafeMutableAddressor();
-  v5 = *v1;
-  v6 = *(v1 + 1);
+  Log.commonCategory.unsafeMutableAddressor();
 
   result = OS_os_log.init(subsystem:category:)();
   static Log.common = result;
@@ -9079,18 +4489,17 @@ unint64_t type metadata accessor for OS_os_log()
   return v2;
 }
 
-uint64_t __swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
+uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v6 = a2;
+  v5 = a2;
   if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v2 = *(*(a1 - 8) + 64);
-    v3 = swift_slowAlloc();
-    *a2 = v3;
-    return v3;
+    v2 = swift_slowAlloc();
+    *a2 = v2;
+    return v2;
   }
 
-  return v6;
+  return v5;
 }
 
 uint64_t static Logger.wellnessIntents.getter@<X0>(uint64_t a1@<X8>)
@@ -9104,23 +4513,23 @@ uint64_t static Logger.wellnessIntents.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t static Logger.wellnessIntents.setter(uint64_t a1)
 {
-  v9 = a1;
-  v10 = type metadata accessor for Logger();
-  v7 = *(v10 - 8);
-  v8 = v10 - 8;
-  v3 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v10);
-  v5 = &v2 - v3;
-  v4 = Logger.wellnessIntents.unsafeMutableAddressor();
-  (*(v7 + 16))(v5, v9, v10);
-  v6 = &v11;
+  v10 = a1;
+  v11 = type metadata accessor for Logger();
+  v8 = *(v11 - 8);
+  v9 = v11 - 8;
+  v4 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v11, v1);
+  v6 = &v3 - v4;
+  v5 = Logger.wellnessIntents.unsafeMutableAddressor();
+  (*(v8 + 16))(v6, v10, v11);
+  v7 = &v12;
   swift_beginAccess();
-  (*(v7 + 40))(v4, v5, v10);
+  (*(v8 + 40))(v5, v6, v11);
   swift_endAccess();
-  return (*(v7 + 8))(v9, v10);
+  return (*(v8 + 8))(v10, v11);
 }
 
-uint64_t (*static Logger.wellnessIntents.modify())()
+uint64_t (*static Logger.wellnessIntents.modify())(uint64_t a1)
 {
   Logger.wellnessIntents.unsafeMutableAddressor();
   swift_beginAccess();
@@ -9149,23 +4558,23 @@ uint64_t static Logger.health.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t static Logger.health.setter(uint64_t a1)
 {
-  v9 = a1;
-  v10 = type metadata accessor for Logger();
-  v7 = *(v10 - 8);
-  v8 = v10 - 8;
-  v3 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v10);
-  v5 = &v2 - v3;
-  v4 = Logger.health.unsafeMutableAddressor();
-  (*(v7 + 16))(v5, v9, v10);
-  v6 = &v11;
+  v10 = a1;
+  v11 = type metadata accessor for Logger();
+  v8 = *(v11 - 8);
+  v9 = v11 - 8;
+  v4 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v11, v1);
+  v6 = &v3 - v4;
+  v5 = Logger.health.unsafeMutableAddressor();
+  (*(v8 + 16))(v6, v10, v11);
+  v7 = &v12;
   swift_beginAccess();
-  (*(v7 + 40))(v4, v5, v10);
+  (*(v8 + 40))(v5, v6, v11);
   swift_endAccess();
-  return (*(v7 + 8))(v9, v10);
+  return (*(v8 + 8))(v10, v11);
 }
 
-uint64_t (*static Logger.health.modify())()
+uint64_t (*static Logger.health.modify())(uint64_t a1)
 {
   Logger.health.unsafeMutableAddressor();
   swift_beginAccess();
@@ -9194,23 +4603,23 @@ uint64_t static Logger.emergency.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t static Logger.emergency.setter(uint64_t a1)
 {
-  v9 = a1;
-  v10 = type metadata accessor for Logger();
-  v7 = *(v10 - 8);
-  v8 = v10 - 8;
-  v3 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v10);
-  v5 = &v2 - v3;
-  v4 = Logger.emergency.unsafeMutableAddressor();
-  (*(v7 + 16))(v5, v9, v10);
-  v6 = &v11;
+  v10 = a1;
+  v11 = type metadata accessor for Logger();
+  v8 = *(v11 - 8);
+  v9 = v11 - 8;
+  v4 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v11, v1);
+  v6 = &v3 - v4;
+  v5 = Logger.emergency.unsafeMutableAddressor();
+  (*(v8 + 16))(v6, v10, v11);
+  v7 = &v12;
   swift_beginAccess();
-  (*(v7 + 40))(v4, v5, v10);
+  (*(v8 + 40))(v5, v6, v11);
   swift_endAccess();
-  return (*(v7 + 8))(v9, v10);
+  return (*(v8 + 8))(v10, v11);
 }
 
-uint64_t (*static Logger.emergency.modify())()
+uint64_t (*static Logger.emergency.modify())(uint64_t a1)
 {
   Logger.emergency.unsafeMutableAddressor();
   swift_beginAccess();
@@ -9239,23 +4648,23 @@ uint64_t static Logger.common.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t static Logger.common.setter(uint64_t a1)
 {
-  v9 = a1;
-  v10 = type metadata accessor for Logger();
-  v7 = *(v10 - 8);
-  v8 = v10 - 8;
-  v3 = (*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20](v10);
-  v5 = &v2 - v3;
-  v4 = Logger.common.unsafeMutableAddressor();
-  (*(v7 + 16))(v5, v9, v10);
-  v6 = &v11;
+  v10 = a1;
+  v11 = type metadata accessor for Logger();
+  v8 = *(v11 - 8);
+  v9 = v11 - 8;
+  v4 = (*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v11, v1);
+  v6 = &v3 - v4;
+  v5 = Logger.common.unsafeMutableAddressor();
+  (*(v8 + 16))(v6, v10, v11);
+  v7 = &v12;
   swift_beginAccess();
-  (*(v7 + 40))(v4, v5, v10);
+  (*(v8 + 40))(v5, v6, v11);
   swift_endAccess();
-  return (*(v7 + 8))(v9, v10);
+  return (*(v8 + 8))(v10, v11);
 }
 
-uint64_t (*static Logger.common.modify())()
+uint64_t (*static Logger.common.modify())(uint64_t a1)
 {
   Logger.common.unsafeMutableAddressor();
   swift_beginAccess();
@@ -9348,25 +4757,11 @@ BOOL static HealthKitDistanceProvider.Source.__derived_enum_equals(_:_:)(char a1
   return v4 == v3;
 }
 
-uint64_t HealthKitDistanceProvider.Source.hashValue.getter()
+uint64_t HealthKitDistanceProvider.Source.hashValue.getter(char a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for HealthKitDistanceProvider.Source();
+  type metadata accessor for HealthKitDistanceProvider.Source(0, a2, a3, a4);
   swift_getWitnessTable();
   return _hashValue<A>(for:)();
-}
-
-uint64_t protocol witness for Hashable.hashValue.getter in conformance HealthKitDistanceProvider<A>.Source(uint64_t a1)
-{
-  v3 = *v1;
-  v4 = *(a1 + 16);
-  return HealthKitDistanceProvider.Source.hashValue.getter();
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance HealthKitDistanceProvider<A>.Source(uint64_t a1, uint64_t a2)
-{
-  v4 = *v2;
-  v5 = *(a2 + 16);
-  return HealthKitDistanceProvider.Source.hash(into:)();
 }
 
 uint64_t HealthKitDistanceProvider.store.getter()
@@ -9386,7 +4781,6 @@ uint64_t HealthKitDistanceProvider.sources.getter()
 uint64_t HealthKitDistanceProvider.failure.getter()
 {
   v2 = *(v0 + 16);
-  v3 = *(v0 + 24);
 
   return v2;
 }
@@ -9394,7 +4788,6 @@ uint64_t HealthKitDistanceProvider.failure.getter()
 uint64_t HealthKitDistanceProvider.mapIntent.getter()
 {
   v2 = *(v0 + 32);
-  v3 = *(v0 + 40);
 
   return v2;
 }
@@ -9427,16 +4820,9 @@ uint64_t HealthKitDistanceProvider.init(store:sources:failure:mapIntent:)@<X0>(u
   return result;
 }
 
-void *outlined destroy of HealthKitDistanceProvider<A>(void *a1)
+void __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> outlined destroy of HealthKitDistanceProvider<A>(void *a1)
 {
   MEMORY[0x277D82BD8](*a1);
-  v1 = a1[1];
-
-  v2 = a1[3];
-
-  v3 = a1[5];
-
-  return a1;
 }
 
 uint64_t HealthKitDistanceProvider.isQueryAuthorized()()
@@ -9468,133 +4854,115 @@ uint64_t HealthKitDistanceProvider.query(start:end:)(uint64_t a1, uint64_t a2, u
   v5[24] = 0;
   v5[25] = 0;
   memcpy(v5 + 2, __src, 0x30uLL);
-  v15 = v5[2];
-  v16 = v5[3];
-  v17 = v5[4];
-  v18 = v5[5];
-  v19 = v5[6];
-  v20 = v5[7];
+  v12 = v5[2];
+  v13 = v5[3];
+  v14 = v5[4];
+  v15 = v5[5];
+  v16 = v5[6];
+  v17 = v5[7];
   v6 = *(a4 + 16);
   v5[30] = v6;
-  v12 = *(v6 - 8);
-  v5[31] = v12;
-  v7 = *(v12 + 64) + 15;
+  v5[31] = *(v6 - 8);
   v5[32] = swift_task_alloc();
   v5[21] = a2;
   v5[22] = a3;
-  v5[8] = v15;
-  v5[9] = v16;
-  v5[10] = v17;
-  v5[11] = v18;
-  v5[12] = v19;
-  v5[13] = v20;
-  v8 = v5[20];
+  v5[8] = v12;
+  v5[9] = v13;
+  v5[10] = v14;
+  v5[11] = v15;
+  v5[12] = v16;
+  v5[13] = v17;
 
   return MEMORY[0x2822009F8](HealthKitDistanceProvider.query(start:end:), 0);
 }
 
-uint64_t HealthKitDistanceProvider.query(start:end:)()
 {
-  v4 = v0[30];
-  v5 = v0[29];
-  v7 = v0[28];
-  v6 = v0[27];
-  v0[20] = v0;
-  type metadata accessor for HealthKitDistanceProvider.Source();
+  v5 = v4[30];
+  v8 = v5;
+  v9 = v4[29];
+  v11 = v4[28];
+  v10 = v4[27];
+  v4[20] = v4;
+  type metadata accessor for HealthKitDistanceProvider.Source(255, v5, a3, a4);
   __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s19SiriWellnessIntents10StatisticsVySdGSgMd, &_s19SiriWellnessIntents10StatisticsVySdGSgMR);
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  outlined init with copy of HealthKitDistanceProvider<A>(v5, v0 + 14);
-  v10 = swift_task_alloc();
-  v0[33] = v10;
-  v10[2] = v4;
-  v10[3] = v5;
-  v10[4] = v6;
-  v10[5] = v7;
+  outlined init with copy of HealthKitDistanceProvider<A>(v9, v4 + 14);
+  v14 = swift_task_alloc();
+  v4[33] = v14;
+  v14[2] = v8;
+  v14[3] = v9;
+  v14[4] = v10;
+  v14[5] = v11;
   __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s19SiriWellnessIntents10StatisticsVySdGMd, &_s19SiriWellnessIntents10StatisticsVySdGMR);
   swift_getWitnessTable();
-  v9 = type metadata accessor for Dictionary();
-  default argument 1 of withThrowingTaskGroup<A, B>(of:returning:isolation:body:)(TupleTypeMetadata2, v9);
-  v1 = *(MEMORY[0x277D859B8] + 4);
-  v2 = swift_task_alloc();
-  *(v8 + 272) = v2;
-  *v2 = *(v8 + 160);
-  v2[1] = HealthKitDistanceProvider.query(start:end:);
+  v13 = type metadata accessor for Dictionary();
+  default argument 1 of withThrowingTaskGroup<A, B>(of:returning:isolation:body:)(TupleTypeMetadata2, v13);
+  v6 = swift_task_alloc();
+  *(v12 + 272) = v6;
+  *v6 = *(v12 + 160);
+  v6[1] = HealthKitDistanceProvider.query(start:end:);
 
-  return MEMORY[0x282200740](v8 + 184, TupleTypeMetadata2, v9, 0, 0, &async function pointer to partial apply for closure #1 in HealthKitDistanceProvider.query(start:end:), v10);
+  return MEMORY[0x282200740](v12 + 184, TupleTypeMetadata2, v13, 0, 0, &async function pointer to partial apply for closure #1 in HealthKitDistanceProvider.query(start:end:), v14);
 }
 
+uint64_t HealthKitDistanceProvider.query(start:end:)()
 {
-  v9 = *v1;
-  v2 = *(*v1 + 272);
-  v9[20] = *v1;
-  v10 = v9 + 20;
-  v9[35] = v0;
+  v5 = *v1;
+  v5[20] = *v1;
+  v5[35] = v0;
 
   if (v0)
   {
-    v6 = *v10;
-    v5 = HealthKitDistanceProvider.query(start:end:);
+    v2 = HealthKitDistanceProvider.query(start:end:);
   }
 
   else
   {
-    v3 = v9[33];
-    v8 = v9[29];
+    v4 = v5[29];
 
-    outlined destroy of HealthKitDistanceProvider<A>(v8);
-    v4 = *v10;
-    v5 = HealthKitDistanceProvider.query(start:end:);
+    outlined destroy of HealthKitDistanceProvider<A>(v4);
+    v2 = HealthKitDistanceProvider.query(start:end:);
   }
 
-  return MEMORY[0x2822009F8](v5, 0);
+  return MEMORY[0x2822009F8](v2, 0);
 }
 
 {
-  v11 = v0[32];
-  v9 = v0[31];
-  v10 = v0[30];
+  v8 = v0[32];
+  v6 = v0[31];
+  v7 = v0[30];
   v1 = v0[29];
-  v8 = v0[26];
+  v5 = v0[26];
   v0[20] = v0;
-  v12 = v0[23];
-  v0[25] = v12;
-  v7 = *(v1 + 32);
-  v2 = *(v1 + 40);
+  v9 = v0[23];
+  v0[25] = v9;
+  v4 = *(v1 + 32);
 
-  v7(v12);
+  v4(v9);
 
-  (*(v9 + 16))(v8, v11, v10);
-  (*(v9 + 8))(v11, v10);
+  (*(v6 + 16))(v5, v8, v7);
+  (*(v6 + 8))(v8, v7);
 
-  v3 = v0[32];
+  v2 = *(v0[20] + 8);
 
-  v4 = *(v0[20] + 8);
-  v5 = v0[20];
-
-  return v4();
+  return v2();
 }
 
 {
-  v12 = v0[35];
-  v1 = v0[33];
-  v9 = v0[29];
-  v10 = v0[26];
+  v7 = v0[35];
+  v5 = v0[29];
   v0[20] = v0;
 
-  outlined destroy of HealthKitDistanceProvider<A>(v9);
-  v2 = v12;
-  v0[24] = v12;
-  v11 = v9[2];
-  v3 = v9[3];
+  outlined destroy of HealthKitDistanceProvider<A>(v5);
+  v1 = v7;
+  v0[24] = v7;
+  v6 = v5[2];
 
-  v11(v4);
+  v6(v2);
 
-  v5 = v0[32];
+  v3 = *(v0[20] + 8);
 
-  v6 = *(v0[20] + 8);
-  v7 = v0[20];
-
-  return v6();
+  return v3();
 }
 
 uint64_t closure #1 in HealthKitDistanceProvider.query(start:end:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -9616,136 +4984,111 @@ uint64_t closure #1 in HealthKitDistanceProvider.query(start:end:)(uint64_t a1, 
   *(v6 + 416) = 0;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGMd, &_s19SiriWellnessIntents10StatisticsVySdGMR);
   *(v6 + 248) = v7;
-  v15 = *(v7 - 8);
-  *(v6 + 256) = v15;
-  v8 = *(v15 + 64) + 15;
+  *(v6 + 256) = *(v7 - 8);
   *(v6 + 264) = swift_task_alloc();
-  v16 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGSgMd, &_s19SiriWellnessIntents10StatisticsVySdGSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGSgMd, &_s19SiriWellnessIntents10StatisticsVySdGSgMR);
   *(v6 + 272) = swift_task_alloc();
   *(v6 + 280) = swift_task_alloc();
   *(v6 + 288) = swift_task_alloc();
-  v17 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8);
-  *(v6 + 296) = v17;
-  *(v6 + 304) = *(v17 + 64);
+  v12 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8);
+  *(v6 + 296) = v12;
+  *(v6 + 304) = *(v12 + 64);
   *(v6 + 312) = swift_task_alloc();
   *(v6 + 320) = swift_task_alloc();
-  v9 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, "\u058B") - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, "\u058B");
   *(v6 + 328) = swift_task_alloc();
-  *(v6 + 336) = type metadata accessor for HealthKitDistanceProvider.Source();
+  *(v6 + 336) = type metadata accessor for HealthKitDistanceProvider.Source(255, a6, v8, v9);
   *(v6 + 344) = swift_getTupleTypeMetadata2();
-  v10 = *(*(type metadata accessor for Optional() - 8) + 64) + 15;
+  type metadata accessor for Optional();
   *(v6 + 352) = swift_task_alloc();
   *(v6 + 360) = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5Error_pMd, &_ss5Error_pMR);
-  v11 = type metadata accessor for ThrowingTaskGroup.Iterator();
-  *(v6 + 368) = v11;
-  v18 = *(v11 - 8);
-  *(v6 + 376) = v18;
-  v12 = *(v18 + 64) + 15;
+  v10 = type metadata accessor for ThrowingTaskGroup.Iterator();
+  *(v6 + 368) = v10;
+  *(v6 + 376) = *(v10 - 8);
   *(v6 + 384) = swift_task_alloc();
   *(v6 + 152) = a2;
   *(v6 + 160) = a3;
   *(v6 + 168) = a4;
   *(v6 + 176) = a5;
-  v13 = *(v6 + 144);
 
   return MEMORY[0x2822009F8](closure #1 in HealthKitDistanceProvider.query(start:end:), 0);
 }
 
 uint64_t closure #1 in HealthKitDistanceProvider.query(start:end:)()
 {
-  v36 = v0[42];
-  v33 = v0[31];
-  v34 = v0[27];
   v0[18] = v0;
   v0[49] = swift_getWitnessTable();
   v0[23] = Dictionary.init()();
-  v35 = *(v34 + 8);
 
   Set.makeIterator()();
   memcpy(v0 + 13, v0 + 8, 0x28uLL);
   while (1)
   {
-    v1 = *(v32 + 336);
     type metadata accessor for Set.Iterator();
     Set.Iterator.next()();
-    v31 = *(v32 + 409);
-    if (v31 == 5)
+    v20 = *(v21 + 409);
+    if (v20 == 5)
     {
       break;
     }
 
-    v24 = *(v32 + 360);
-    v23 = *(v32 + 344);
-    v26 = *(v32 + 328);
-    v19 = *(v32 + 320);
-    v22 = *(v32 + 312);
-    v16 = *(v32 + 304);
-    v17 = *(v32 + 240);
-    v14 = *(v32 + 232);
-    v13 = *(v32 + 224);
-    __src = *(v32 + 216);
-    v8 = *(v32 + 208);
-    v15 = *(v32 + 296);
-    *(v32 + 416) = v31;
-    v9 = type metadata accessor for TaskPriority();
-    (*(*(v9 - 8) + 56))(v26, 1);
-    outlined init with copy of HealthKitDistanceProvider<A>(__src, (v32 + 16));
-    outlined init with copy of Date?(v13, v19);
-    outlined init with copy of Date?(v14, v22);
-    v10 = *(v15 + 80);
-    v20 = (v10 + 96) & ~v10;
-    v21 = (v20 + v16 + v10) & ~v10;
-    v25 = swift_allocObject();
-    *(v25 + 16) = 0;
-    *(v25 + 24) = 0;
-    *(v25 + 32) = v17;
-    *(v25 + 40) = v31;
-    memcpy((v25 + 48), __src, 0x30uLL);
-    outlined init with take of Date?(v19, (v25 + v20));
-    outlined init with take of Date?(v22, (v25 + v21));
-    v11 = type metadata accessor for ThrowingTaskGroup();
-    _sScg7addTask8priority9operationyScPSg_xyYaKYAcntF(v26, &async function pointer to partial apply for closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:), v25, v11);
-    outlined destroy of TaskPriority?(v26);
+    v19 = *(v21 + 328);
+    v14 = *(v21 + 320);
+    v17 = *(v21 + 312);
+    v11 = *(v21 + 304);
+    v12 = *(v21 + 240);
+    v9 = *(v21 + 232);
+    v8 = *(v21 + 224);
+    __src = *(v21 + 216);
+    v10 = *(v21 + 296);
+    *(v21 + 416) = v20;
+    v4 = type metadata accessor for TaskPriority();
+    (*(*(v4 - 8) + 56))(v19, 1);
+    outlined init with copy of HealthKitDistanceProvider<A>(__src, (v21 + 16));
+    outlined init with copy of Date?(v8, v14);
+    outlined init with copy of Date?(v9, v17);
+    v5 = *(v10 + 80);
+    v15 = (v5 + 96) & ~v5;
+    v16 = (v15 + v11 + v5) & ~v5;
+    v18 = swift_allocObject();
+    *(v18 + 16) = 0;
+    *(v18 + 24) = 0;
+    *(v18 + 32) = v12;
+    *(v18 + 40) = v20;
+    memcpy((v18 + 48), __src, 0x30uLL);
+    outlined init with take of Date?(v14, (v18 + v15));
+    outlined init with take of Date?(v17, (v18 + v16));
+    v6 = type metadata accessor for ThrowingTaskGroup();
+    _sScg7addTask8priority9operationyScPSg_xyYaKYAcntF(v19, &async function pointer to partial apply for closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:), v18, v6);
+    outlined destroy of TaskPriority?(v19);
   }
 
-  v28 = *(v32 + 384);
-  v30 = *(v32 + 360);
-  v29 = *(v32 + 344);
-  v27 = *(v32 + 208);
-  outlined destroy of [String? : (scheduleDate: Date?, medID: String, count: Int)].Iterator((v32 + 104));
-  v2 = *v27;
+  outlined destroy of [String? : (scheduleDate: Date?, medID: String, count: Int)].Iterator((v21 + 104));
   ThrowingTaskGroup.makeAsyncIterator()();
-  v3 = *(MEMORY[0x277D85828] + 4);
-  v4 = swift_task_alloc();
-  *(v32 + 400) = v4;
-  *v4 = *(v32 + 144);
-  v4[1] = closure #1 in HealthKitDistanceProvider.query(start:end:);
-  v5 = *(v32 + 384);
-  v6 = *(v32 + 368);
-  v7 = *(v32 + 352);
+  v1 = swift_task_alloc();
+  *(v21 + 400) = v1;
+  *v1 = *(v21 + 144);
+  v1[1] = closure #1 in HealthKitDistanceProvider.query(start:end:);
+  v2 = *(v21 + 368);
+  v3 = *(v21 + 352);
 
-  return MEMORY[0x2822004E8](v7, 0, 0, v6, v32 + 192);
+  return MEMORY[0x2822004E8](v3, 0, 0, v2, v21 + 192);
 }
 
 {
-  v7 = *v1;
-  v2 = *(*v1 + 400);
-  *(v7 + 144) = *v1;
-  v8 = (v7 + 144);
+  *(*v1 + 144) = *v1;
 
   if (v0)
   {
-    v5 = *v8;
-    v4 = closure #1 in HealthKitDistanceProvider.query(start:end:);
+    v2 = closure #1 in HealthKitDistanceProvider.query(start:end:);
   }
 
   else
   {
-    v3 = *v8;
-    v4 = closure #1 in HealthKitDistanceProvider.query(start:end:);
+    v2 = closure #1 in HealthKitDistanceProvider.query(start:end:);
   }
 
-  return MEMORY[0x2822009F8](v4, 0);
+  return MEMORY[0x2822009F8](v2, 0);
 }
 
 {
@@ -9754,95 +5097,68 @@ uint64_t closure #1 in HealthKitDistanceProvider.query(start:end:)()
   v0[18] = v0;
   if ((*(*(v2 - 8) + 48))(v1, 1) == 1)
   {
-    v27 = *(v36 + 384);
-    v3 = *(v36 + 368);
-    v28 = *(v36 + 352);
-    v29 = *(v36 + 328);
-    v30 = *(v36 + 320);
-    v31 = *(v36 + 312);
-    v32 = *(v36 + 288);
-    v33 = *(v36 + 280);
-    v34 = *(v36 + 272);
-    v35 = *(v36 + 264);
-    v26 = *(v36 + 200);
-    (*(*(v36 + 376) + 8))();
-    *v26 = *(v36 + 184);
+    v20 = *(v21 + 200);
+    (*(*(v21 + 376) + 8))();
+    *v20 = *(v21 + 184);
 
-    v4 = *(*(v36 + 144) + 8);
-    v5 = *(v36 + 144);
+    v3 = *(*(v21 + 144) + 8);
 
-    return v4();
+    return v3();
   }
 
   else
   {
-    v7 = *(v36 + 352);
-    v22 = *(v36 + 288);
-    v25 = *(v36 + 280);
-    v24 = *(v36 + 248);
-    v23 = *(v36 + 256);
-    v21 = *v7;
-    v8 = &v7[*(*(v36 + 344) + 48)];
-    *(v36 + 408) = *v7;
-    outlined init with take of Statistics<Double>?(v8, v22);
-    outlined init with copy of Statistics<Double>?(v22, v25);
-    if ((*(v23 + 48))(v25, 1, v24) == 1)
+    v5 = *(v21 + 352);
+    v16 = *(v21 + 288);
+    v19 = *(v21 + 280);
+    v18 = *(v21 + 248);
+    v17 = *(v21 + 256);
+    v15 = *v5;
+    v6 = &v5[*(*(v21 + 344) + 48)];
+    *(v21 + 408) = *v5;
+    outlined init with take of Statistics<Double>?(v6, v16);
+    outlined init with copy of Statistics<Double>?(v16, v19);
+    if ((*(v17 + 48))(v19, 1, v18) == 1)
     {
-      outlined destroy of Statistics<Double>?(*(v36 + 280));
+      outlined destroy of Statistics<Double>?(*(v21 + 280));
     }
 
     else
     {
-      v18 = *(v36 + 392);
-      v16 = *(v36 + 336);
-      v19 = *(v36 + 272);
-      v20 = *(v36 + 264);
-      v17 = *(v36 + 248);
-      v15 = *(v36 + 256);
-      outlined init with take of Statistics<Double>(*(v36 + 280), v20);
-      v9 = outlined init with copy of Statistics<Double>(v20, v19);
-      (*(v15 + 56))(v19, 0, 1, v17, v9);
-      *(v36 + 410) = v21;
+      v13 = *(v21 + 272);
+      v14 = *(v21 + 264);
+      v12 = *(v21 + 248);
+      v11 = *(v21 + 256);
+      outlined init with take of Statistics<Double>(*(v21 + 280), v14);
+      v7 = outlined init with copy of Statistics<Double>(v14, v13);
+      (*(v11 + 56))(v13, 0, 1, v12, v7);
+      *(v21 + 410) = v15;
       type metadata accessor for Dictionary();
       Dictionary.subscript.setter();
-      outlined destroy of Statistics<Double>(v20);
+      outlined destroy of Statistics<Double>(v14);
     }
 
-    outlined destroy of Statistics<Double>?(*(v36 + 288));
-    v10 = *(MEMORY[0x277D85828] + 4);
-    v11 = swift_task_alloc();
-    *(v36 + 400) = v11;
-    *v11 = *(v36 + 144);
-    v11[1] = closure #1 in HealthKitDistanceProvider.query(start:end:);
-    v12 = *(v36 + 384);
-    v13 = *(v36 + 368);
-    v14 = *(v36 + 352);
+    outlined destroy of Statistics<Double>?(*(v21 + 288));
+    v8 = swift_task_alloc();
+    *(v21 + 400) = v8;
+    *v8 = *(v21 + 144);
+    v8[1] = closure #1 in HealthKitDistanceProvider.query(start:end:);
+    v9 = *(v21 + 368);
+    v10 = *(v21 + 352);
 
-    return MEMORY[0x2822004E8](v14, 0, 0, v13, v36 + 192);
+    return MEMORY[0x2822004E8](v10, 0, 0, v9, v21 + 192);
   }
 }
 
 {
-  v7 = v0[48];
   v1 = v0[47];
-  v2 = v0[46];
-  v8 = v0[44];
-  v9 = v0[41];
-  v10 = v0[40];
-  v11 = v0[39];
-  v12 = v0[36];
-  v13 = v0[35];
-  v14 = v0[34];
-  v15 = v0[33];
   v0[18] = v0;
-  v3 = v0[24];
   (*(v1 + 8))();
   outlined destroy of [HKQuantityType](v0 + 23);
 
-  v4 = *(v0[18] + 8);
-  v5 = v0[18];
+  v2 = *(v0[18] + 8);
 
-  return v4();
+  return v2();
 }
 
 void *outlined init with copy of HealthKitDistanceProvider<A>(void *a1, void *a2)
@@ -9883,8 +5199,9 @@ uint64_t partial apply for closure #1 in HealthKitDistanceProvider.query(start:e
   return closure #1 in HealthKitDistanceProvider.query(start:end:)(a1, a2, v8, v9, v10, v11);
 }
 
-uint64_t closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:)(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
+  v10 = a4;
   *(v8 + 88) = a8;
   *(v8 + 80) = a7;
   *(v8 + 72) = a6;
@@ -9897,19 +5214,5437 @@ uint64_t closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:)
   *(v8 + 32) = 0;
   *(v8 + 40) = 0;
   *(v8 + 48) = 0;
-  type metadata accessor for HealthKitDistanceProvider.Source();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s19SiriWellnessIntents10StatisticsVySdGSgMd, &_s19SiriWellnessIntents10StatisticsVySdGSgMR);
-  TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  *(v8 + 96) = TupleTypeMetadata2;
-  v10 = *(*(TupleTypeMetadata2 - 8) + 64) + 15;
+  type metadata accessor for HealthKitDistanceProvider.Source(255, a8, a3, a4);
+  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s19SiriWellnessIntents10StatisticsVySdGSgMd, &_s19SiriWellnessIntents10StatisticsVySdGSgMR);
+  *(v8 + 96) = swift_getTupleTypeMetadata2();
   *(v8 + 104) = swift_task_alloc();
-  v11 = *(*(v14 - 8) + 64) + 15;
   *(v8 + 112) = swift_task_alloc();
-  *(v8 + 152) = a4;
+  *(v8 + 152) = v10;
   *(v8 + 24) = a5;
   *(v8 + 32) = a6;
   *(v8 + 40) = a7;
-  v12 = *(v8 + 16);
 
   return MEMORY[0x2822009F8](closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:), 0);
+}
+
+uint64_t closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:)()
+{
+  v9 = *(v0 + 64);
+  v8 = *(v0 + 153);
+  *(v0 + 16) = v0;
+  type metadata accessor for HKQuantityType();
+  v1 = HealthKitDistanceProvider.Source.quantityTypeIdentifier.getter(v8);
+  v11 = MEMORY[0x26D649710](v1);
+  *(v0 + 120) = v11;
+  *(v0 + 48) = v11;
+  v2 = *v9;
+  *(v0 + 128) = *v9;
+  MEMORY[0x277D82BE0](v2);
+  v3 = swift_task_alloc();
+  v10[17] = v3;
+  *v3 = v10[2];
+  v3[1] = closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:);
+  v4 = v10[14];
+  v5 = v10[10];
+  v6 = v10[9];
+
+  return HKHealthStore.query(quantityType:start:end:)(v4, v11, v6, v5);
+}
+
+{
+  v4 = *v1;
+  *(v4 + 16) = *v1;
+  *(v4 + 144) = v0;
+
+  if (v0)
+  {
+    v2 = closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:);
+  }
+
+  else
+  {
+
+    v2 = closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v8 = *(v0 + 120);
+  v1 = *(v0 + 112);
+  v9 = v1;
+  v10 = *(v0 + 104);
+  v7 = *(v0 + 96);
+  v2 = *(v0 + 153);
+  v6 = *(v0 + 56);
+  *(v0 + 16) = v0;
+  v3 = *(v7 + 48);
+  *v10 = v2;
+  outlined init with copy of Statistics<Double>?(v1, &v10[v3]);
+  outlined init with copy of (HealthKitDistanceProvider<A>.Source, Statistics<Double>?)(v10, v6, v7);
+  outlined destroy of (HealthKitDistanceProvider<A>.Source, Statistics<Double>?)(v10, v7);
+  outlined destroy of Statistics<Double>?(v9);
+  MEMORY[0x277D82BD8](v8);
+
+  v4 = *(*(v0 + 16) + 8);
+
+  return v4();
+}
+
+{
+  v1 = v0[16];
+  v4 = v0[15];
+  v0[2] = v0;
+  MEMORY[0x277D82BD8](v1);
+  MEMORY[0x277D82BD8](v4);
+
+  v2 = *(v0[2] + 8);
+
+  return v2();
+}
+
+uint64_t _sScg7addTask8priority9operationyScPSg_xyYaKYAcntF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v30 = a1;
+  v26 = a2;
+  v27 = a3;
+  v28 = a4;
+  v31 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, "\u058B") - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v30, v4);
+  v32 = &v8 - v31;
+  outlined init with copy of TaskPriority?(v5, &v8 - v31);
+  v33 = type metadata accessor for TaskPriority();
+  v34 = *(v33 - 8);
+  v35 = v33 - 8;
+  if ((*(v34 + 48))(v32, 1) == 1)
+  {
+    outlined destroy of TaskPriority?(v32);
+    v25 = 0;
+  }
+
+  else
+  {
+    v24 = TaskPriority.rawValue.getter();
+    (*(v34 + 8))(v32, v33);
+    v25 = v24;
+  }
+
+  v21 = v25 | 0x3100;
+  v23 = *(v27 + 16);
+  v22 = *(v27 + 24);
+  swift_unknownObjectRetain();
+  if (v23)
+  {
+    v19 = v23;
+    v20 = v22;
+    v13 = v22;
+    v14 = v23;
+    swift_getObjectType();
+    v15 = dispatch thunk of Actor.unownedExecutor.getter();
+    v16 = v6;
+    swift_unknownObjectRelease();
+    v17 = v15;
+    v18 = v16;
+  }
+
+  else
+  {
+    v17 = 0;
+    v18 = 0;
+  }
+
+  v10 = v18;
+  v9 = v17;
+  v8 = *v29;
+
+  v11 = *(v28 + 16);
+  v39[4] = v11;
+  v12 = 0;
+  if (v9 != 0 || v10 != 0)
+  {
+    v39[0] = 0;
+    v39[1] = 0;
+    v39[2] = v9;
+    v39[3] = v10;
+    v12 = v39;
+  }
+
+  v36 = 1;
+  v37 = v12;
+  v38 = v8;
+  swift_task_create();
+}
+
+uint64_t protocol witness for DataProviding.isQueryAuthorized() in conformance HealthKitDistanceProvider<A>()
+{
+  *(v1 + 64) = v1;
+  memcpy((v1 + 16), v0, 0x30uLL);
+  v2 = swift_task_alloc();
+  *(v4 + 72) = v2;
+  *v2 = *(v4 + 64);
+  v2[1] = protocol witness for DataProviding.isQueryAuthorized() in conformance HealthKitDistanceProvider<A>;
+
+  return HealthKitDistanceProvider.isQueryAuthorized()();
+}
+
+uint64_t protocol witness for DataProviding.isQueryAuthorized() in conformance HealthKitDistanceProvider<A>(unsigned int a1)
+{
+  v4 = *v1;
+  *(v4 + 64) = *v1;
+
+  v2 = *(*(v4 + 64) + 8);
+
+  return v2(a1);
+}
+
+uint64_t protocol witness for DataProviding.isLoggingAuthorized() in conformance HealthKitDistanceProvider<A>()
+{
+  *(v1 + 64) = v1;
+  memcpy((v1 + 16), v0, 0x30uLL);
+  v2 = swift_task_alloc();
+  *(v4 + 72) = v2;
+  *v2 = *(v4 + 64);
+  v2[1] = protocol witness for DataProviding.isQueryAuthorized() in conformance HealthKitDistanceProvider<A>;
+
+  return HealthKitDistanceProvider.isQueryAuthorized()();
+}
+
+void *static HealthKitDistanceProvider<A>.ambiguousDistance(store:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  MEMORY[0x277D82BE0](a1);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GMd, &_s19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GMR);
+  _allocateUninitializedArray<A>(_:)();
+  *v2 = 0;
+  v2[1] = 1;
+  _finalizeUninitializedArray<A>(_:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GGMd, &_sSay19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GGMR);
+  lazy protocol witness table accessor for type HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source and conformance HealthKitDistanceProvider<A>.Source();
+  lazy protocol witness table accessor for type [HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source] and conformance [A]();
+  v5 = Set.init<A>(_:)();
+  AmbiguousDistanceIntentResponse = type metadata accessor for GetAmbiguousDistanceIntentResponse();
+  HealthKitDistanceProvider.init(store:sources:failure:mapIntent:)(a1, v5, implicit closure #1 in static HealthKitDistanceProvider<A>.ambiguousDistance(store:), 0, closure #1 in static HealthKitDistanceProvider<A>.ambiguousDistance(store:), 0, AmbiguousDistanceIntentResponse, v8);
+  return memcpy(a2, v8, 0x30uLL);
+}
+
+unint64_t lazy protocol witness table accessor for type HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source and conformance HealthKitDistanceProvider<A>.Source()
+{
+  v2 = lazy protocol witness table cache variable for type HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source and conformance HealthKitDistanceProvider<A>.Source;
+  if (!lazy protocol witness table cache variable for type HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source and conformance HealthKitDistanceProvider<A>.Source)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GMd, &_s19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GMR);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source and conformance HealthKitDistanceProvider<A>.Source);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+unint64_t lazy protocol witness table accessor for type [HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source] and conformance [A]()
+{
+  v2 = lazy protocol witness table cache variable for type [HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source] and conformance [A];
+  if (!lazy protocol witness table cache variable for type [HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source] and conformance [A])
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GGMd, &_sSay19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GGMR);
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type [HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source] and conformance [A]);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+char *implicit closure #1 in static HealthKitDistanceProvider<A>.ambiguousDistance(store:)@<X0>(char **a1@<X8>)
+{
+  type metadata accessor for GetAmbiguousDistanceIntentResponse();
+  result = GetAmbiguousDistanceIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+  *a1 = result;
+  return result;
+}
+
+char *closure #1 in static HealthKitDistanceProvider<A>.ambiguousDistance(store:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  v50 = a2;
+  v77 = a1;
+  v94 = 0;
+  v93 = 0;
+  v92 = 0;
+  v91 = 0;
+  v88 = 0;
+  v87 = 0;
+  v51 = 0;
+  v52 = type metadata accessor for DateInterval();
+  v53 = *(v52 - 8);
+  v54 = v52 - 8;
+  v55 = (v53[8] + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](0, v2);
+  v56 = &v32 - v55;
+  v57 = (v3 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v4, &v32 - v55);
+  v58 = &v32 - v57;
+  v59 = type metadata accessor for Date();
+  v60 = *(v59 - 8);
+  v61 = v59 - 8;
+  v62 = (v60[8] + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v59, v5);
+  v63 = &v32 - v62;
+  v64 = (v6 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](&v32 - v62, v7);
+  v65 = &v32 - v64;
+  v66 = (v8 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](&v32 - v64, v9);
+  v67 = &v32 - v66;
+  v68 = (v10 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](&v32 - v66, v11);
+  v69 = &v32 - v68;
+  v94 = &v32 - v68;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGSgMd, &_s19SiriWellnessIntents10StatisticsVySdGSgMR);
+  v70 = (*(*(v12 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v12, v13);
+  v71 = &v32 - v70;
+  v72 = (v14 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](&v32 - v70, v15);
+  v83 = &v32 - v72;
+  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGMd, &_s19SiriWellnessIntents10StatisticsVySdGMR);
+  v81 = *(v84 - 1);
+  v82 = v84 - 2;
+  v73 = (*(v81 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v77, v16);
+  v74 = &v32 - v73;
+  v93 = &v32 - v73;
+  v75 = (v17 + 15) & 0xFFFFFFFFFFFFFFF0;
+  MEMORY[0x28223BE20](v18, v19);
+  v76 = &v32 - v75;
+  v92 = &v32 - v75;
+  v91 = v20;
+  v79 = &v90;
+  v90 = 0;
+  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GMd, &_s19SiriWellnessIntents25HealthKitDistanceProviderV6SourceOyAA012GetAmbiguousF14IntentResponseC_GMR);
+  AmbiguousDistanceIntent = lazy protocol witness table accessor for type HealthKitDistanceProvider<GetAmbiguousDistanceIntentResponse>.Source and conformance HealthKitDistanceProvider<A>.Source();
+  MEMORY[0x26D649240](v79, v77, v78, v84);
+  v85 = *(v81 + 48);
+  v86 = v81 + 48;
+  if (v85(v83, 1, v84) == 1)
+  {
+    outlined destroy of Statistics<Double>?(v83);
+  }
+
+  else
+  {
+    v21 = outlined init with take of Statistics<Double>(v83, v76);
+    v89 = 1;
+    MEMORY[0x26D649240](&v89, v77, v78, v84, AmbiguousDistanceIntent, v21);
+    if (v85(v71, 1, v84) != 1)
+    {
+      v22 = v58;
+      v23 = outlined init with take of Statistics<Double>(v71, v74);
+      v24 = &v76[v84[7]];
+      v44 = v53[2];
+      v43 = v53 + 2;
+      v44(v22, v24, v52, v23);
+      DateInterval.start.getter();
+      v25 = v56;
+      v46 = v53[1];
+      v45 = v53 + 1;
+      v46(v58, v52);
+      (v44)(v25, &v74[v84[7]], v52);
+      DateInterval.start.getter();
+      v46(v56, v52);
+      v47 = lazy protocol witness table accessor for type Date and conformance Date();
+      min<A>(_:_:)();
+      v49 = v60[1];
+      v48 = v60 + 1;
+      v49(v65, v59);
+      v49(v67, v59);
+      v88 = v67;
+      (v44)(v58, &v76[v84[7]], v52);
+      DateInterval.end.getter();
+      v26 = v56;
+      v46(v58, v52);
+      (v44)(v26, &v74[v84[7]], v52);
+      DateInterval.end.getter();
+      v46(v56, v52);
+      max<A>(_:_:)();
+      v49(v63, v59);
+      v49(v65, v59);
+      v34 = 0;
+      type metadata accessor for GetAmbiguousDistanceIntentResponse();
+      v42 = GetAmbiguousDistanceIntentResponse.__allocating_init(code:userActivity:)(4, v34);
+      v87 = v42;
+      v37 = v60[2];
+      v36 = v60 + 2;
+      v37(v65, v69, v59);
+      v27.super.isa = Date._bridgeToObjectiveC()().super.isa;
+      v28 = v65;
+      isa = v27.super.isa;
+      v49(v65, v59);
+      [v42 setSampleStartDate_];
+      MEMORY[0x277D82BD8](isa);
+      v37(v28, v67, v59);
+      v38 = Date._bridgeToObjectiveC()().super.isa;
+      v49(v65, v59);
+      [v42 setSampleEndDate_];
+      MEMORY[0x277D82BD8](v38);
+      [v42 setWalkRunDistance_];
+      [v42 setWheelchairDistance_];
+      v29 = &v76[v84[9]];
+      v39 = *v29;
+      v40 = *(v29 + 1);
+
+      v41 = MEMORY[0x26D6492A0](v39, v40);
+
+      [v42 setUnit_];
+      MEMORY[0x277D82BD8](v41);
+      MEMORY[0x277D82BE0](v42);
+      v30 = v42;
+      *v50 = v42;
+      MEMORY[0x277D82BD8](v30);
+      v49(v67, v59);
+      v49(v69, v59);
+      outlined destroy of Statistics<Double>(v74);
+      return outlined destroy of Statistics<Double>(v76);
+    }
+
+    outlined destroy of Statistics<Double>?(v71);
+    outlined destroy of Statistics<Double>(v76);
+  }
+
+  v33 = 0;
+  type metadata accessor for GetAmbiguousDistanceIntentResponse();
+  result = GetAmbiguousDistanceIntentResponse.__allocating_init(code:userActivity:)(102, v33);
+  *v50 = result;
+  return result;
+}
+
+uint64_t protocol witness for AmbiguousDistanceProviding.query(start:end:) in conformance <A> HealthKitDistanceProvider<A>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(v4 + 64) = v4;
+  memcpy((v4 + 16), v3, 0x30uLL);
+  v5 = swift_task_alloc();
+  *(v7 + 80) = v5;
+  *v5 = *(v7 + 64);
+  v5[1] = protocol witness for AmbiguousDistanceProviding.query(start:end:) in conformance <A> HealthKitDistanceProvider<A>;
+
+  return HealthKitDistanceProvider.query(start:end:)(v7 + 72, a1, a2, a3);
+}
+
+uint64_t protocol witness for AmbiguousDistanceProviding.query(start:end:) in conformance <A> HealthKitDistanceProvider<A>()
+{
+  v4 = *v0;
+  v5 = *v0;
+  *(v5 + 64) = *v0;
+
+  v1 = *(v4 + 72);
+  v2 = *(*(v5 + 64) + 8);
+
+  return v2(v1);
+}
+
+uint64_t type metadata instantiation function for HealthKitDistanceProvider()
+{
+  GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
+  swift_cvw_instantiateLayoutString();
+  return GenericValueMetadataWithLayoutString;
+}
+
+uint64_t getEnumTagSinglePayload for HealthKitDistanceProvider(uint64_t a1, int a2)
+{
+  if (a2)
+  {
+    if (a2 < 0 && *(a1 + 48))
+    {
+      v4 = *a1 + 0x7FFFFFFF;
+    }
+
+    else
+    {
+      v3 = -1;
+      if (!HIDWORD(*a1))
+      {
+        v3 = *a1;
+      }
+
+      v4 = v3;
+    }
+  }
+
+  else
+  {
+    v4 = -1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for HealthKitDistanceProvider(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFF)
+  {
+    *result = a2 + 0x80000000;
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    *(result + 24) = 0;
+    *(result + 32) = 0;
+    *(result + 40) = 0;
+    if (a3 > 0x7FFFFFFF)
+    {
+      *(result + 48) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 > 0x7FFFFFFF)
+    {
+      *(result + 48) = 0;
+    }
+
+    if (a2)
+    {
+      *result = a2 - 1;
+    }
+  }
+
+  return result;
+}
+
+char *outlined init with take of Statistics<Double>?(char *a1, char *a2)
+{
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGMd, &_s19SiriWellnessIntents10StatisticsVySdGMR);
+  v10 = *(v9 - 1);
+  if ((*(v10 + 48))(a1, 1))
+  {
+    v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGSgMd, &_s19SiriWellnessIntents10StatisticsVySdGSgMR);
+    memcpy(a2, a1, *(*(v3 - 8) + 64));
+  }
+
+  else
+  {
+    v5 = type metadata accessor for DateInterval();
+    v6 = *(v5 - 8);
+    if ((*(v6 + 48))(a1, 1))
+    {
+      v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
+      memcpy(a2, a1, *(*(v2 - 8) + 64));
+    }
+
+    else
+    {
+      (*(v6 + 32))(a2, a1, v5);
+      (*(v6 + 56))(a2, 0, 1, v5);
+    }
+
+    (*(v6 + 32))(&a2[v9[7]], &a1[v9[7]], v5);
+    *&a2[v9[8]] = *&a1[v9[8]];
+    *&a2[v9[9]] = *&a1[v9[9]];
+    *&a2[v9[10]] = *&a1[v9[10]];
+    *&a2[v9[11]] = *&a1[v9[11]];
+    *&a2[v9[12]] = *&a1[v9[12]];
+    *&a2[v9[13]] = *&a1[v9[13]];
+    (*(v10 + 56))();
+  }
+
+  return a2;
+}
+
+char *outlined init with copy of Statistics<Double>?(char *a1, char *a2)
+{
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGMd, &_s19SiriWellnessIntents10StatisticsVySdGMR);
+  v13 = *(v12 - 1);
+  if ((*(v13 + 48))(a1, 1))
+  {
+    v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGSgMd, &_s19SiriWellnessIntents10StatisticsVySdGSgMR);
+    memcpy(a2, a1, *(*(v4 - 8) + 64));
+  }
+
+  else
+  {
+    v8 = type metadata accessor for DateInterval();
+    v9 = *(v8 - 8);
+    if ((*(v9 + 48))(a1, 1))
+    {
+      v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
+      memcpy(a2, a1, *(*(v2 - 8) + 64));
+    }
+
+    else
+    {
+      (*(v9 + 16))(a2, a1, v8);
+      (*(v9 + 56))(a2, 0, 1, v8);
+    }
+
+    (*(v9 + 16))(&a2[v12[7]], &a1[v12[7]], v8);
+    *&a2[v12[8]] = *&a1[v12[8]];
+    v3 = v12[9];
+    v6 = &a2[v3];
+    *&a2[v3] = *&a1[v3];
+    v7 = *&a1[v3 + 8];
+
+    *(v6 + 1) = v7;
+    *&a2[v12[10]] = *&a1[v12[10]];
+    *&a2[v12[11]] = *&a1[v12[11]];
+    *&a2[v12[12]] = *&a1[v12[12]];
+    *&a2[v12[13]] = *&a1[v12[13]];
+    (*(v13 + 56))();
+  }
+
+  return a2;
+}
+
+uint64_t sub_2699E9640()
+{
+  v4 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8);
+  v1 = *(v4 + 80);
+  v6 = (v1 + 96) & ~v1;
+  v5 = (v6 + *(v4 + 64) + v1) & ~v1;
+  swift_unknownObjectRelease();
+  MEMORY[0x277D82BD8](*(v0 + 48));
+
+  v7 = type metadata accessor for Date();
+  v8 = *(v7 - 8);
+  v9 = *(v8 + 48);
+  if (!(v9)(v0 + v6, 1))
+  {
+    (*(v8 + 8))(v3 + v6, v7);
+  }
+
+  if (!v9())
+  {
+    (*(v8 + 8))(v3 + v5, v7);
+  }
+
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:)(uint64_t a1)
+{
+  v7 = v2;
+  *(v2 + 16) = v2;
+  v13 = *(v1 + 32);
+  v6 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8);
+  v3 = *(v6 + 80);
+  v11 = (v3 + 96) & ~v3;
+  v12 = (v11 + *(v6 + 64) + v3) & ~v3;
+  v8 = *(v1 + 16);
+  v9 = *(v1 + 24);
+  v10 = *(v1 + 40);
+  v4 = swift_task_alloc();
+  *(v7 + 24) = v4;
+  *v4 = *(v7 + 16);
+  v4[1] = _sIeghH_IeAgH_TRTQ0_;
+
+  return closure #1 in closure #1 in HealthKitDistanceProvider.query(start:end:)(a1, v8, v9, v10, v1 + 48, v1 + v11, v1 + v12, v13);
+}
+
+_BYTE *outlined init with copy of (HealthKitDistanceProvider<A>.Source, Statistics<Double>?)(_BYTE *a1, _BYTE *a2, uint64_t a3)
+{
+  *a2 = *a1;
+  v13 = *(a3 + 48);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGMd, &_s19SiriWellnessIntents10StatisticsVySdGMR);
+  v16 = *(v15 - 1);
+  if ((*(v16 + 48))(&a1[v13], 1))
+  {
+    v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGSgMd, &_s19SiriWellnessIntents10StatisticsVySdGSgMR);
+    memcpy(&a2[v13], &a1[v13], *(*(v5 - 8) + 64));
+  }
+
+  else
+  {
+    v10 = type metadata accessor for DateInterval();
+    v11 = *(v10 - 8);
+    if ((*(v11 + 48))(&a1[v13], 1))
+    {
+      v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
+      memcpy(&a2[v13], &a1[v13], *(*(v3 - 8) + 64));
+    }
+
+    else
+    {
+      (*(v11 + 16))();
+      (*(v11 + 56))(&a2[v13], 0, 1, v10);
+    }
+
+    v7 = &a2[v13];
+    (*(v11 + 16))(&a2[v13 + v15[7]], &a1[v13 + v15[7]], v10);
+    *&v7[v15[8]] = *&a1[v13 + v15[8]];
+    v4 = v15[9];
+    v8 = &a2[v13 + v4];
+    *&v7[v4] = *&a1[v13 + v4];
+    v9 = *&a1[v13 + 8 + v4];
+
+    *(v8 + 1) = v9;
+    *&v7[v15[10]] = *&a1[v13 + v15[10]];
+    *&v7[v15[11]] = *&a1[v13 + v15[11]];
+    *&v7[v15[12]] = *&a1[v13 + v15[12]];
+    *&v7[v15[13]] = *&a1[v13 + v15[13]];
+    (*(v16 + 56))();
+  }
+
+  return a2;
+}
+
+uint64_t outlined destroy of (HealthKitDistanceProvider<A>.Source, Statistics<Double>?)(uint64_t a1, uint64_t a2)
+{
+  v5 = *(a2 + 48);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriWellnessIntents10StatisticsVySdGMd, &_s19SiriWellnessIntents10StatisticsVySdGMR);
+  if (!(*(*(v7 - 8) + 48))(a1 + v5, 1))
+  {
+    v3 = type metadata accessor for DateInterval();
+    v4 = *(v3 - 8);
+    if (!(*(v4 + 48))(a1 + v5, 1))
+    {
+      (*(v4 + 8))(a1 + v5, v3);
+    }
+
+    (*(v4 + 8))(a1 + v5 + *(v7 + 28), v3);
+  }
+
+  return a1;
+}
+
+uint64_t _resumeUnsafeThrowingContinuationWithError<A>(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7[1] = a3;
+  v7[0] = a2;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  return UnsafeContinuation.resume(throwing:)(v7, a1, a3, v3, MEMORY[0x277D84950]);
+}
+
+void *LogPeriodIntentHandler.init(storage:)(void *a1)
+{
+  ObjectType = swift_getObjectType();
+  __dst[5] = a1;
+  v11 = v1;
+  outlined init with copy of QuantityPersisting?(a1, v8);
+  if (v9)
+  {
+    outlined init with take of QuantityPersisting(v8, __dst);
+  }
+
+  else
+  {
+    v2 = PeriodPersistor.init()();
+    __dst[3] = &type metadata for PeriodPersistor;
+    __dst[4] = &protocol witness table for PeriodPersistor;
+    __dst[0] = v2;
+    if (v9)
+    {
+      outlined destroy of QuantityPersisting?(v8);
+    }
+  }
+
+  outlined init with take of QuantityPersisting(__dst, &v1[OBJC_IVAR____TtC19SiriWellnessIntents22LogPeriodIntentHandler_storage]);
+  v7.receiver = v11;
+  v7.super_class = ObjectType;
+  v4 = objc_msgSendSuper2(&v7, sel_init);
+  MEMORY[0x277D82BE0](v4);
+  v11 = v4;
+  outlined destroy of QuantityPersisting?(a1);
+  MEMORY[0x277D82BD8](v11);
+  return v4;
+}
+
+id PeriodPersistor.init()()
+{
+  v3 = 0;
+  type metadata accessor for HKMenstrualCyclesStore();
+  type metadata accessor for HKHealthStore();
+  v0 = NSDateFormatter.__allocating_init()();
+  v2 = HKUnitPreferenceController.__allocating_init(healthStore:)(v0);
+  MEMORY[0x277D82BE0](v2);
+  v3 = v2;
+  outlined destroy of HealthKitPersistor(&v3);
+  return v2;
+}
+
+uint64_t LogPeriodIntentHandler.handle(intent:)(uint64_t a1)
+{
+  v2[44] = v1;
+  v2[43] = a1;
+  v2[24] = v2;
+  v2[25] = 0;
+  v2[26] = 0;
+  v3 = type metadata accessor for Date();
+  v2[45] = v3;
+  v2[46] = *(v3 - 8);
+  v2[47] = swift_task_alloc();
+  v2[48] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v2[49] = swift_task_alloc();
+  v2[50] = swift_task_alloc();
+  v4 = type metadata accessor for Logger();
+  v2[51] = v4;
+  v2[52] = *(v4 - 8);
+  v2[53] = swift_task_alloc();
+  v2[54] = swift_task_alloc();
+  v2[55] = swift_task_alloc();
+  v2[56] = swift_task_alloc();
+  v2[25] = a1;
+  v2[26] = v1;
+
+  return MEMORY[0x2822009F8](LogPeriodIntentHandler.handle(intent:), 0);
+}
+
+{
+  v3 = *v1;
+  *(v3 + 192) = *v1;
+  *(v3 + 520) = a1;
+
+  return MEMORY[0x2822009F8](LogPeriodIntentHandler.handle(intent:), 0);
+}
+
+uint64_t LogPeriodIntentHandler.handle(intent:)()
+{
+  v1 = v0[56];
+  v19 = v0[52];
+  v21 = v0[51];
+  v0[24] = v0;
+  v20 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  v2 = *(v19 + 16);
+  v0[57] = v2;
+  v0[58] = (v19 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v2(v1, v20, v21);
+  swift_endAccess();
+  v23 = Logger.logObject.getter();
+  v22 = static os_log_type_t.debug.getter();
+  v0[59] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v24 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v23, v22))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v15 = createStorage<A>(capacity:type:)(0, v13, v13);
+    v16 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v18 + 312) = buf;
+    *(v18 + 320) = v15;
+    *(v18 + 328) = v16;
+    serialize(_:at:)(0, (v18 + 312));
+    serialize(_:at:)(0, (v18 + 312));
+    *(v18 + 336) = v24;
+    v17 = swift_task_alloc();
+    v17[2] = v18 + 312;
+    v17[3] = v18 + 320;
+    v17[4] = v18 + 328;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+
+    _os_log_impl(&dword_269912000, v23, v22, "Checking authorization for Cycle Tracking...", buf, 2u);
+    destroyStorage<A>(_:count:)(v15, 0, v13);
+    destroyStorage<A>(_:count:)(v16, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+  }
+
+  *(v18 + 480) = 0;
+  v7 = *(v18 + 448);
+  v8 = *(v18 + 408);
+  v9 = *(v18 + 352);
+  v6 = *(v18 + 416);
+  MEMORY[0x277D82BD8](v23);
+  v3 = *(v6 + 8);
+  *(v18 + 488) = v3;
+  *(v18 + 496) = (v6 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v3(v7, v8);
+  outlined init with copy of QuantityPersisting(v9 + OBJC_IVAR____TtC19SiriWellnessIntents22LogPeriodIntentHandler_storage, v18 + 16);
+  v12 = *(v18 + 40);
+  v10 = *(v18 + 48);
+  __swift_project_boxed_opaque_existential_1((v18 + 16), v12);
+  v11 = (*(v10 + 8) + **(v10 + 8));
+  v4 = swift_task_alloc();
+  *(v18 + 504) = v4;
+  *v4 = *(v18 + 192);
+  v4[1] = LogPeriodIntentHandler.handle(intent:);
+
+  return v11(v12, v10);
+}
+
+{
+  v75 = *(v0 + 528);
+  *(v0 + 192) = v0;
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
+  if (v75)
+  {
+    v70 = *(v74 + 456);
+    v1 = *(v74 + 440);
+    v69 = *(v74 + 408);
+    v68 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v70(v1, v68, v69);
+    swift_endAccess();
+    v72 = Logger.logObject.getter();
+    v71 = static os_log_type_t.debug.getter();
+    v73 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v72, v71))
+    {
+      v2 = *(v74 + 480);
+      v64 = static UnsafeMutablePointer.allocate(capacity:)();
+      v63 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v65 = createStorage<A>(capacity:type:)(0, v63, v63);
+      v66 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v74 + 280) = v64;
+      *(v74 + 288) = v65;
+      *(v74 + 296) = v66;
+      serialize(_:at:)(0, (v74 + 280));
+      serialize(_:at:)(0, (v74 + 280));
+      *(v74 + 304) = v73;
+      v67 = swift_task_alloc();
+      v67[2] = v74 + 280;
+      v67[3] = v74 + 288;
+      v67[4] = v74 + 296;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+      if (v2)
+      {
+      }
+
+      _os_log_impl(&dword_269912000, v72, v71, "Authorization check successful for Cycle Tracking!", v64, 2u);
+      destroyStorage<A>(_:count:)(v65, 0, v63);
+      destroyStorage<A>(_:count:)(v66, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v64, MEMORY[0x277D84B78]);
+
+      v62 = 0;
+    }
+
+    else
+    {
+
+      v62 = *(v74 + 480);
+    }
+
+    v59 = *(v74 + 488);
+    v57 = *(v74 + 440);
+    v58 = *(v74 + 408);
+    v60 = *(v74 + 344);
+    MEMORY[0x277D82BD8](v72);
+    v59(v57, v58);
+    v61 = [v60 date];
+    if (v61)
+    {
+      v56 = *(v74 + 400);
+      v54 = *(v74 + 384);
+      v55 = *(v74 + 360);
+      v53 = *(v74 + 368);
+      static Date._unconditionallyBridgeFromObjectiveC(_:)();
+      (*(v53 + 32))(v56, v54, v55);
+      (*(v53 + 56))(v56, 0, 1, v55);
+      MEMORY[0x277D82BD8](v61);
+    }
+
+    else
+    {
+      (*(*(v74 + 368) + 56))(*(v74 + 400), 1, 1, *(v74 + 360));
+    }
+
+    v3 = (*(v74 + 368) + 48);
+    v52 = *v3;
+    if ((*v3)(*(v74 + 400), 1, *(v74 + 360)) != 1)
+    {
+      outlined destroy of Date?(*(v74 + 400));
+LABEL_18:
+      v37 = [*(v74 + 344) date];
+      if (v37)
+      {
+        v36 = *(v74 + 392);
+        v34 = *(v74 + 384);
+        v35 = *(v74 + 360);
+        v33 = *(v74 + 368);
+        static Date._unconditionallyBridgeFromObjectiveC(_:)();
+        (*(v33 + 32))(v36, v34, v35);
+        (*(v33 + 56))(v36, 0, 1, v35);
+        MEMORY[0x277D82BD8](v37);
+      }
+
+      else
+      {
+        (*(*(v74 + 368) + 56))(*(v74 + 392), 1, 1, *(v74 + 360));
+      }
+
+      if (v52(*(v74 + 392), 1, *(v74 + 360)) == 1)
+      {
+        v31 = *(v74 + 392);
+        v32 = *(v74 + 360);
+        Date.init()();
+        if (v52(v31, 1, v32) != 1)
+        {
+          outlined destroy of Date?(*(v74 + 392));
+        }
+      }
+
+      else
+      {
+        (*(*(v74 + 368) + 32))(*(v74 + 376), *(v74 + 392), *(v74 + 360));
+      }
+
+      v26 = *(v74 + 344);
+      outlined init with copy of QuantityPersisting(*(v74 + 352) + OBJC_IVAR____TtC19SiriWellnessIntents22LogPeriodIntentHandler_storage, v74 + 56);
+      v28 = *(v74 + 80);
+      v29 = *(v74 + 88);
+      __swift_project_boxed_opaque_existential_1((v74 + 56), v28);
+      v27 = [v26 flow];
+      v30 = (*(v29 + 16) + **(v29 + 16));
+      v5 = swift_task_alloc();
+      *(v74 + 512) = v5;
+      *v5 = *(v74 + 192);
+      v5[1] = LogPeriodIntentHandler.handle(intent:);
+      v6 = *(v74 + 376);
+
+      return v30(v6, v27, v28, v29);
+    }
+
+    outlined destroy of Date?(*(v74 + 400));
+    v48 = *(v74 + 456);
+    v4 = *(v74 + 432);
+    v47 = *(v74 + 408);
+    v46 = Logger.wellness.unsafeMutableAddressor();
+    swift_beginAccess();
+    v48(v4, v46, v47);
+    swift_endAccess();
+    oslog = Logger.logObject.getter();
+    v49 = static os_log_type_t.debug.getter();
+    v51 = _allocateUninitializedArray<A>(_:)();
+    if (!os_log_type_enabled(oslog, v49))
+    {
+
+      goto LABEL_17;
+    }
+
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v41 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v43 = createStorage<A>(capacity:type:)(0, v41, v41);
+    v44 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v74 + 248) = buf;
+    *(v74 + 256) = v43;
+    *(v74 + 264) = v44;
+    serialize(_:at:)(0, (v74 + 248));
+    serialize(_:at:)(0, (v74 + 248));
+    *(v74 + 272) = v51;
+    v45 = swift_task_alloc();
+    v45[2] = v74 + 248;
+    v45[3] = v74 + 256;
+    v45[4] = v74 + 264;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+    if (!v62)
+    {
+
+      _os_log_impl(&dword_269912000, oslog, v49, "LogPeriodIntentHandler missing date. Assuming date is Now.", buf, 2u);
+      destroyStorage<A>(_:count:)(v43, 0, v41);
+      destroyStorage<A>(_:count:)(v44, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+
+LABEL_17:
+      v40 = *(v74 + 488);
+      v38 = *(v74 + 432);
+      v39 = *(v74 + 408);
+      MEMORY[0x277D82BD8](oslog);
+      v40(v38, v39);
+      goto LABEL_18;
+    }
+  }
+
+  v22 = *(v74 + 456);
+  v8 = *(v74 + 424);
+  v21 = *(v74 + 408);
+  v20 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  v22(v8, v20, v21);
+  swift_endAccess();
+  log = Logger.logObject.getter();
+  v23 = static os_log_type_t.error.getter();
+  v25 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(log, v23))
+  {
+    v9 = *(v74 + 480);
+    v16 = static UnsafeMutablePointer.allocate(capacity:)();
+    v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v17 = createStorage<A>(capacity:type:)(0, v15, v15);
+    v18 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v74 + 216) = v16;
+    *(v74 + 224) = v17;
+    *(v74 + 232) = v18;
+    serialize(_:at:)(0, (v74 + 216));
+    serialize(_:at:)(0, (v74 + 216));
+    *(v74 + 240) = v25;
+    v19 = swift_task_alloc();
+    v19[2] = v74 + 216;
+    v19[3] = v74 + 224;
+    v19[4] = v74 + 232;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+    if (v9)
+    {
+    }
+
+    _os_log_impl(&dword_269912000, log, v23, "Not authorized to write Cycle Tracking data.", v16, 2u);
+    destroyStorage<A>(_:count:)(v17, 0, v15);
+    destroyStorage<A>(_:count:)(v18, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](v16, MEMORY[0x277D84B78]);
+  }
+
+  else
+  {
+  }
+
+  v13 = *(v74 + 488);
+  v11 = *(v74 + 424);
+  v12 = *(v74 + 408);
+  MEMORY[0x277D82BD8](log);
+  v13(v11, v12);
+  type metadata accessor for LogPeriodIntentResponse();
+  v14 = LogPeriodIntentResponse.__allocating_init(code:userActivity:)(101, 0);
+
+  v10 = *(*(v74 + 192) + 8);
+
+  return v10(v14);
+}
+
+{
+  v4 = v0[47];
+  v3 = v0[46];
+  v5 = v0[45];
+  v0[24] = v0;
+  __swift_destroy_boxed_opaque_existential_1(v0 + 7);
+  (*(v3 + 8))(v4, v5);
+  v6 = v0[65];
+
+  v1 = *(v0[24] + 8);
+
+  return v1(v6);
+}
+
+uint64_t LogPeriodIntentHandler.handle(intent:)(char a1)
+{
+  v3 = *v1;
+  *(v3 + 192) = *v1;
+  *(v3 + 528) = a1;
+
+  return MEMORY[0x2822009F8](LogPeriodIntentHandler.handle(intent:), 0);
+}
+
+uint64_t @objc closure #1 in LogPeriodIntentHandler.handle(intent:)(uint64_t a1, const void *a2, uint64_t a3)
+{
+  v3[4] = a3;
+  v3[3] = a1;
+  v3[2] = v3;
+  MEMORY[0x277D82BE0](a1);
+  v3[5] = _Block_copy(a2);
+  MEMORY[0x277D82BE0](a3);
+  v5 = swift_task_alloc();
+  *(v8 + 48) = v5;
+  *v5 = *(v8 + 16);
+  v5[1] = @objc closure #1 in LogQuantityIntentHandler.handle(intent:);
+
+  return LogPeriodIntentHandler.handle(intent:)(a1);
+}
+
+id LogPeriodIntentHandler.__deallocating_deinit()
+{
+  v3 = v0;
+  v2.receiver = v0;
+  v2.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+uint64_t PeriodPersistor.isLoggingAuthorized()(uint64_t a1)
+{
+  v1[4] = a1;
+  v1[2] = v1;
+  v1[3] = 0;
+  v1[3] = a1;
+  return MEMORY[0x2822009F8](PeriodPersistor.isLoggingAuthorized(), 0);
+}
+
+uint64_t PeriodPersistor.isLoggingAuthorized()()
+{
+  v1 = v0[4];
+  v4 = v1;
+  v0[2] = v0;
+  MEMORY[0x277D82BE0](v1);
+  v6 = [v4 healthStore];
+  v0[5] = v6;
+  MEMORY[0x277D82BD8](v4);
+  v2 = swift_task_alloc();
+  *(v5 + 48) = v2;
+  *v2 = *(v5 + 16);
+  v2[1] = PeriodPersistor.isLoggingAuthorized();
+
+  return isSiriAuthorizedToAccessHealthData(store:)(v6);
+}
+
+uint64_t PeriodPersistor.isLoggingAuthorized()(unsigned int a1)
+{
+  v5 = *v1;
+  v4 = *(*v1 + 40);
+  *(v5 + 16) = *v1;
+
+  v2 = *(*(v5 + 16) + 8);
+
+  return v2(a1);
+}
+
+uint64_t PeriodPersistor.save(date:flow:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(v3 + 248) = a3;
+  *(v3 + 240) = a2;
+  *(v3 + 232) = a1;
+  *(v3 + 168) = v3;
+  *(v3 + 176) = 0;
+  *(v3 + 184) = 0;
+  *(v3 + 192) = 0;
+  *(v3 + 200) = 0;
+  *(v3 + 208) = 0;
+  *(v3 + 216) = 0;
+  *(v3 + 376) = 0;
+  *(v3 + 224) = 0;
+  v4 = type metadata accessor for Logger();
+  *(v3 + 256) = v4;
+  *(v3 + 264) = *(v4 - 8);
+  *(v3 + 272) = swift_task_alloc();
+  v5 = type metadata accessor for Calendar();
+  *(v3 + 280) = v5;
+  *(v3 + 288) = *(v5 - 8);
+  *(v3 + 296) = swift_task_alloc();
+  v6 = type metadata accessor for Date();
+  *(v3 + 304) = v6;
+  *(v3 + 312) = *(v6 - 8);
+  *(v3 + 320) = swift_task_alloc();
+  *(v3 + 176) = a1;
+  *(v3 + 184) = a2;
+  *(v3 + 192) = a3;
+
+  return MEMORY[0x2822009F8](PeriodPersistor.save(date:flow:), 0);
+}
+
+uint64_t PeriodPersistor.save(date:flow:)()
+{
+  v7 = *(v0 + 320);
+  v5 = *(v0 + 312);
+  v6 = *(v0 + 304);
+  v10 = *(v0 + 296);
+  v8 = *(v0 + 288);
+  v9 = *(v0 + 280);
+  v17 = *(v0 + 248);
+  v13 = *(v0 + 240);
+  v1 = *(v0 + 232);
+  *(v0 + 168) = v0;
+  v2 = *(v5 + 16);
+  *(v0 + 328) = v2;
+  *(v0 + 336) = (v5 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v2(v7, v1);
+  isa = Date._bridgeToObjectiveC()().super.isa;
+  *(v0 + 344) = isa;
+  *(v0 + 200) = isa;
+  v3 = *(v5 + 8);
+  *(v0 + 352) = v3;
+  *(v0 + 360) = (v5 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v3(v7, v6);
+  static Calendar.current.getter();
+  v12 = Calendar._bridgeToObjectiveC()().super.isa;
+  (*(v8 + 8))(v10, v9);
+  v16 = [(objc_class *)isa hk_dayIndexWithCalendar:v12];
+  MEMORY[0x277D82BD8](v12);
+  *(v0 + 208) = v16;
+  MEMORY[0x277D82BE0](v17);
+  v15 = PeriodFlow.toMenstrualFlow()(v13);
+  *(v0 + 16) = *(v0 + 168);
+  *(v0 + 56) = v0 + 377;
+  *(v0 + 24) = PeriodPersistor.save(date:flow:);
+  v14 = swift_continuation_init();
+  *(v0 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySbs5Error_pGMd, &_sSccySbs5Error_pGMR);
+  *(v0 + 112) = v14;
+  *(v0 + 80) = MEMORY[0x277D85DD0];
+  *(v0 + 88) = 1107296256;
+  *(v0 + 92) = 0;
+  *(v0 + 96) = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned Bool, @unowned NSError?) -> () with result type Bool;
+  *(v0 + 104) = &block_descriptor_6;
+  [v17 saveBleedingFlow:v15 forBleedingType:0 dayIndex:v16 completion:?];
+
+  return MEMORY[0x282200938](v0 + 16);
+}
+
+{
+  v4 = *v0;
+  v4[21] = *v0;
+  v1 = v4[6];
+  v4[46] = v1;
+  if (v1)
+  {
+    v2 = PeriodPersistor.save(date:flow:);
+  }
+
+  else
+  {
+    v2 = PeriodPersistor.save(date:flow:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v46 = v0;
+  v1 = *(v0 + 248);
+  *(v0 + 168) = v0;
+  v40 = *(v0 + 377);
+  *(v0 + 376) = v40 & 1;
+  MEMORY[0x277D82BD8](v1);
+  if (v40)
+  {
+    v32 = v39[44];
+    v36 = v39[43];
+    v30 = v39[41];
+    v33 = v39[40];
+    v31 = v39[38];
+    v35 = v39[30];
+    v29 = v39[29];
+    type metadata accessor for LogPeriodIntentResponse();
+    v37 = LogPeriodIntentResponse.__allocating_init(code:userActivity:)(4, 0);
+    v39[28] = v37;
+    v30(v33, v29, v31);
+    isa = Date._bridgeToObjectiveC()().super.isa;
+    v32(v33, v31);
+    [v37 setDate_];
+    MEMORY[0x277D82BD8](isa);
+    [v37 setFlow_];
+    MEMORY[0x277D82BD8](v36);
+    v38 = v37;
+  }
+
+  else
+  {
+    lazy protocol witness table accessor for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError();
+    v20 = swift_allocError();
+    swift_willThrow();
+    v2 = v39[34];
+    v19 = v39[32];
+    v17 = v39[33];
+    v3 = v20;
+    v39[27] = v20;
+    v18 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    (*(v17 + 16))(v2, v18, v19);
+    swift_endAccess();
+    v4 = v20;
+    v21 = swift_allocObject();
+    *(v21 + 16) = v20;
+    oslog = Logger.logObject.getter();
+    v28 = static os_log_type_t.error.getter();
+    v23 = swift_allocObject();
+    *(v23 + 16) = 32;
+    v24 = swift_allocObject();
+    *(v24 + 16) = 8;
+    v22 = swift_allocObject();
+    *(v22 + 16) = partial apply for implicit closure #5 in HealthKitPersistor.save(quantityIdentifier:value:units:);
+    *(v22 + 24) = v21;
+    v25 = swift_allocObject();
+    *(v25 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+    *(v25 + 24) = v22;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+    _allocateUninitializedArray<A>(_:)();
+    v26 = v5;
+
+    *v26 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v26[1] = v23;
+
+    v26[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v26[3] = v24;
+
+    v26[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v26[5] = v25;
+    _finalizeUninitializedArray<A>(_:)();
+
+    if (os_log_type_enabled(oslog, v28))
+    {
+      buf = static UnsafeMutablePointer.allocate(capacity:)();
+      v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v15 = createStorage<A>(capacity:type:)(0, v13, v13);
+      v16 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      v41 = buf;
+      v42 = v15;
+      v43 = v16;
+      serialize(_:at:)(2, &v41);
+      serialize(_:at:)(1, &v41);
+      v44 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v45 = v23;
+      closure #1 in osLogInternal(_:log:type:)(&v44, &v41, &v42, &v43);
+      v44 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v45 = v24;
+      closure #1 in osLogInternal(_:log:type:)(&v44, &v41, &v42, &v43);
+      v44 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v45 = v25;
+      closure #1 in osLogInternal(_:log:type:)(&v44, &v41, &v42, &v43);
+      _os_log_impl(&dword_269912000, oslog, v28, "Failed to persist sample. Error: %s", buf, 0xCu);
+      destroyStorage<A>(_:count:)(v15, 0, v13);
+      destroyStorage<A>(_:count:)(v16, 1, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v11 = v39[43];
+    v9 = v39[34];
+    v10 = v39[32];
+    v8 = v39[33];
+    MEMORY[0x277D82BD8](oslog);
+    (*(v8 + 8))(v9, v10);
+    type metadata accessor for LogPeriodIntentResponse();
+    v12 = LogPeriodIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+
+    MEMORY[0x277D82BD8](v11);
+    v38 = v12;
+  }
+
+  v6 = *(v39[21] + 8);
+
+  return v6(v38);
+}
+
+uint64_t PeriodPersistor.save(date:flow:)(uint64_t a1)
+{
+  v36 = v1;
+  v18 = v1[31];
+  v1[21] = v1;
+  swift_willThrow();
+  MEMORY[0x277D82BD8](v18);
+  v22 = v1[46];
+  v2 = v1[34];
+  v19 = v1[33];
+  v21 = v1[32];
+  v3 = v22;
+  v1[27] = v22;
+  v20 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  (*(v19 + 16))(v2, v20, v21);
+  swift_endAccess();
+  v4 = v22;
+  v23 = swift_allocObject();
+  *(v23 + 16) = v22;
+  v29 = Logger.logObject.getter();
+  v30 = static os_log_type_t.error.getter();
+  v25 = swift_allocObject();
+  *(v25 + 16) = 32;
+  v26 = swift_allocObject();
+  *(v26 + 16) = 8;
+  v24 = swift_allocObject();
+  *(v24 + 16) = partial apply for implicit closure #5 in HealthKitPersistor.save(quantityIdentifier:value:units:);
+  *(v24 + 24) = v23;
+  v27 = swift_allocObject();
+  *(v27 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:align:privacy:);
+  *(v27 + 24) = v24;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  _allocateUninitializedArray<A>(_:)();
+  v28 = v5;
+
+  *v28 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[1] = v25;
+
+  v28[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[3] = v26;
+
+  v28[4] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v28[5] = v27;
+  _finalizeUninitializedArray<A>(_:)();
+
+  if (os_log_type_enabled(v29, v30))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v15 = createStorage<A>(capacity:type:)(0, v13, v13);
+    v16 = createStorage<A>(capacity:type:)(1, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v31 = buf;
+    v32 = v15;
+    v33 = v16;
+    serialize(_:at:)(2, &v31);
+    serialize(_:at:)(1, &v31);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v25;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v26;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    v34 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v35 = v27;
+    closure #1 in osLogInternal(_:log:type:)(&v34, &v31, &v32, &v33);
+    _os_log_impl(&dword_269912000, v29, v30, "Failed to persist sample. Error: %s", buf, 0xCu);
+    destroyStorage<A>(_:count:)(v15, 0, v13);
+    destroyStorage<A>(_:count:)(v16, 1, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+  }
+
+  else
+  {
+  }
+
+  v11 = v17[43];
+  v9 = v17[34];
+  v10 = v17[32];
+  v8 = v17[33];
+  MEMORY[0x277D82BD8](v29);
+  (*(v8 + 8))(v9, v10);
+  type metadata accessor for LogPeriodIntentResponse();
+  v12 = LogPeriodIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+
+  MEMORY[0x277D82BD8](v11);
+
+  v6 = *(v17[21] + 8);
+
+  return v6(v12);
+}
+
+uint64_t @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned Bool, @unowned NSError?) -> () with result type Bool(uint64_t a1, char a2, void *a3)
+{
+  MEMORY[0x277D82BE0](a3);
+  v8 = *__swift_project_boxed_opaque_existential_1((a1 + 32), *(a1 + 56));
+  if (a3)
+  {
+    v4 = a3;
+    _resumeUnsafeThrowingContinuationWithError<A>(_:_:)(v8, a3, MEMORY[0x277D839B0]);
+  }
+
+  else
+  {
+    v9 = a2;
+    _resumeUnsafeThrowingContinuation<A>(_:_:)(v8, &v9, MEMORY[0x277D839B0]);
+  }
+
+  return MEMORY[0x277D82BD8](a3);
+}
+
+uint64_t protocol witness for PeriodPersisting.isLoggingAuthorized() in conformance PeriodPersistor()
+{
+  v4 = v1;
+  *(v1 + 16) = v1;
+  v5 = *v0;
+  v2 = swift_task_alloc();
+  *(v4 + 24) = v2;
+  *v2 = *(v4 + 16);
+  v2[1] = protocol witness for QuantityPersisting.isLoggingAuthorized(for:) in conformance HealthKitPersistor;
+
+  return PeriodPersistor.isLoggingAuthorized()(v5);
+}
+
+uint64_t protocol witness for PeriodPersisting.save(date:flow:) in conformance PeriodPersistor(uint64_t a1, uint64_t a2)
+{
+  v6 = v3;
+  *(v3 + 16) = v3;
+  v8 = *v2;
+  v4 = swift_task_alloc();
+  *(v6 + 24) = v4;
+  *v4 = *(v6 + 16);
+  v4[1] = protocol witness for QuantityPersisting.save(quantityIdentifier:value:units:) in conformance HealthKitPersistor;
+
+  return PeriodPersistor.save(date:flow:)(a1, a2, v8);
+}
+
+uint64_t sub_2699EDBAC()
+{
+  MEMORY[0x277D82BD8](*(v0 + 16));
+  _Block_release(*(v0 + 24));
+  MEMORY[0x277D82BD8](*(v0 + 32));
+  return swift_deallocObject();
+}
+
+uint64_t partial apply for @objc closure #1 in LogPeriodIntentHandler.handle(intent:)()
+{
+  v4 = v1;
+  *(v1 + 16) = v1;
+  v7 = v0[2];
+  v5 = v0[3];
+  v6 = v0[4];
+  v2 = swift_task_alloc();
+  *(v4 + 24) = v2;
+  *v2 = *(v4 + 16);
+  v2[1] = _sIeghH_IeAgH_TRTQ0_;
+
+  return @objc closure #1 in LogPeriodIntentHandler.handle(intent:)(v7, v5, v6);
+}
+
+unint64_t lazy protocol witness table accessor for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError()
+{
+  v2 = lazy protocol witness table cache variable for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError;
+  if (!lazy protocol witness table cache variable for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError;
+  if (!lazy protocol witness table cache variable for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError;
+  if (!lazy protocol witness table cache variable for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type PeriodPersistor.StorageError and conformance PeriodPersistor.StorageError);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+uint64_t UnsafeContinuation.resume(throwing:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  swift_allocError();
+  (*(*(a4 - 8) + 32))(v5, a1);
+  return swift_continuation_throwingResumeWithError();
+}
+
+unint64_t type metadata accessor for HKMenstrualCyclesStore()
+{
+  v2 = lazy cache variable for type metadata for HKMenstrualCyclesStore;
+  if (!lazy cache variable for type metadata for HKMenstrualCyclesStore)
+  {
+    objc_opt_self();
+    ObjCClassMetadata = swift_getObjCClassMetadata();
+    atomic_store(ObjCClassMetadata, &lazy cache variable for type metadata for HKMenstrualCyclesStore);
+    return ObjCClassMetadata;
+  }
+
+  return v2;
+}
+
+uint64_t PeriodProjectionFocus.init(rawValue:)(uint64_t a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return 0;
+    case 1:
+      return 1;
+    case 2:
+      return 2;
+    case 3:
+      return 3;
+    case 4:
+      return 4;
+    case 5:
+      return 5;
+    case 6:
+      return 6;
+  }
+
+  return 0;
+}
+
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance PeriodProjectionFocus@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  result = PeriodProjectionFocus.init(rawValue:)(*a1);
+  *a2 = result;
+  *(a2 + 8) = v3 & 1;
+  return result;
+}
+
+id static PeriodProjectionFocusResolutionResult.success(with:)()
+{
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  PeriodProjectionFocus.rawValue.getter();
+  v1 = [ObjCClassFromMetadata successWithResolvedValue_];
+
+  return v1;
+}
+
+id static PeriodProjectionFocusResolutionResult.confirmationRequired(with:)()
+{
+  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
+  PeriodProjectionFocus.rawValue.getter();
+  v1 = [ObjCClassFromMetadata confirmationRequiredWithValueToConfirm_];
+
+  return v1;
+}
+
+id PeriodProjectionFocusResolutionResult.__allocating_init(JSONDictionary:intent:)(uint64_t a1, uint64_t a2)
+{
+  v4 = objc_allocWithZone(v2);
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+  v7 = [v4 initWithJSONDictionary_forIntent_];
+  MEMORY[0x277D82BD8](a2);
+  MEMORY[0x277D82BD8](isa);
+
+  return v7;
+}
+
+id PeriodProjectionFocusResolutionResult.init(JSONDictionary:intent:)(uint64_t a1, uint64_t a2)
+{
+  v10 = 0;
+  v9 = a1;
+  v8 = a2;
+
+  isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+  v7.receiver = 0;
+  v7.super_class = type metadata accessor for PeriodProjectionFocusResolutionResult();
+  v6 = objc_msgSendSuper2(&v7, sel_initWithJSONDictionary_forIntent_, isa, a2);
+  MEMORY[0x277D82BD8](isa);
+  if (v6)
+  {
+    MEMORY[0x277D82BE0](v6);
+    v10 = v6;
+    MEMORY[0x277D82BD8](a2);
+
+    MEMORY[0x277D82BD8](v10);
+    return v6;
+  }
+
+  else
+  {
+    MEMORY[0x277D82BD8](0);
+    MEMORY[0x277D82BD8](a2);
+
+    return 0;
+  }
+}
+
+id PeriodProjectionFocusResolutionResult.__deallocating_deinit()
+{
+  v3 = v0;
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for PeriodProjectionFocusResolutionResult();
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+id LogSpecificMedicationsIntent.init()()
+{
+  v3 = 0;
+  v2.receiver = 0;
+  v2.super_class = type metadata accessor for LogSpecificMedicationsIntent();
+  v1 = objc_msgSendSuper2(&v2, sel_init);
+  MEMORY[0x277D82BE0](v1);
+  v3 = v1;
+  MEMORY[0x277D82BD8](v1);
+  return v1;
+}
+
+id LogSpecificMedicationsIntent.__allocating_init(coder:)(uint64_t a1)
+{
+  v4 = [objc_allocWithZone(v1) initWithCoder_];
+  MEMORY[0x277D82BD8](a1);
+  return v4;
+}
+
+id LogSpecificMedicationsIntent.init(coder:)(uint64_t a1)
+{
+  v7 = 0;
+  v6 = a1;
+  v5.receiver = 0;
+  v5.super_class = type metadata accessor for LogSpecificMedicationsIntent();
+  v4 = objc_msgSendSuper2(&v5, sel_initWithCoder_, a1);
+  if (v4)
+  {
+    MEMORY[0x277D82BE0](v4);
+    v7 = v4;
+    MEMORY[0x277D82BD8](a1);
+    MEMORY[0x277D82BD8](v7);
+    return v4;
+  }
+
+  else
+  {
+    MEMORY[0x277D82BD8](0);
+    MEMORY[0x277D82BD8](a1);
+    return 0;
+  }
+}
+
+id LogSpecificMedicationsIntent.__allocating_init(identifier:backingStore:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v11 = objc_allocWithZone(v3);
+  if (a2)
+  {
+    v6 = MEMORY[0x26D6492A0](a1);
+
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v5 = [v11 initWithIdentifier_backingStore_];
+  MEMORY[0x277D82BD8](a3);
+  MEMORY[0x277D82BD8](v7);
+  return v5;
+}
+
+id LogSpecificMedicationsIntent.init(identifier:backingStore:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v14 = 0;
+  v12 = a1;
+  v13 = a2;
+  v11 = a3;
+
+  if (a2)
+  {
+    v5 = MEMORY[0x26D6492A0](a1);
+
+    v6 = v5;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  v10.receiver = 0;
+  v10.super_class = type metadata accessor for LogSpecificMedicationsIntent();
+  v4 = objc_msgSendSuper2(&v10, sel_initWithIdentifier_backingStore_, v6, a3);
+  MEMORY[0x277D82BD8](v6);
+  MEMORY[0x277D82BE0](v4);
+  v14 = v4;
+  MEMORY[0x277D82BD8](a3);
+
+  MEMORY[0x277D82BD8](v14);
+  return v4;
+}
+
+id LogSpecificMedicationsIntent.__allocating_init(domain:verb:parametersByName:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v13 = objc_allocWithZone(v5);
+  v16 = MEMORY[0x26D6492A0](a1, a2);
+  v18 = MEMORY[0x26D6492A0](a3, a4);
+  if (a5)
+  {
+    isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+    v6 = [v13 initWithDomain:v16 verb:v18 parametersByName:isa];
+  }
+
+  else
+  {
+    v6 = [v13 initWithDomain:v16 verb:v18 parametersByName:0];
+  }
+
+  v9 = v6;
+  MEMORY[0x277D82BD8](v8);
+  MEMORY[0x277D82BD8](v18);
+
+  MEMORY[0x277D82BD8](v16);
+
+  return v9;
+}
+
+id LogSpecificMedicationsIntent.init(domain:verb:parametersByName:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v22 = 0;
+  v20 = a1;
+  v21 = a2;
+  v18 = a3;
+  v19 = a4;
+  v17 = a5;
+
+  v11 = MEMORY[0x26D6492A0](a1, a2);
+
+  v14 = MEMORY[0x26D6492A0](a3, a4);
+
+  if (a5)
+  {
+    isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+    v8 = isa;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v16.receiver = 0;
+  v16.super_class = type metadata accessor for LogSpecificMedicationsIntent();
+  v6 = objc_msgSendSuper2(&v16, sel_initWithDomain_verb_parametersByName_, v11, v14, v8);
+  MEMORY[0x277D82BD8](v8);
+  MEMORY[0x277D82BD8](v14);
+  MEMORY[0x277D82BD8](v11);
+  MEMORY[0x277D82BE0](v6);
+  v22 = v6;
+
+  MEMORY[0x277D82BD8](v22);
+  return v6;
+}
+
+id LogSpecificMedicationsIntent.__deallocating_deinit()
+{
+  v3 = v0;
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for LogSpecificMedicationsIntent();
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+uint64_t LogSpecificMedicationsIntentResponseCode.init(rawValue:)(uint64_t a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return 0;
+    case 1:
+      return 1;
+    case 2:
+      return 2;
+    case 3:
+      return 3;
+    case 4:
+      return 4;
+    case 5:
+      return 5;
+    case 6:
+      return 6;
+    case 100:
+      return 100;
+    case 101:
+      return 101;
+    case 102:
+      return 102;
+    case 103:
+      return 103;
+    case 104:
+      return 104;
+    case 105:
+      return 105;
+    case 106:
+      return 106;
+    case 107:
+      return 107;
+    case 108:
+      return 108;
+    case 109:
+      return 109;
+    case 110:
+      return 110;
+    case 111:
+      return 111;
+    case 112:
+      return 112;
+  }
+
+  return 0;
+}
+
+uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance LogSpecificMedicationsIntentResponseCode@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+{
+  result = LogSpecificMedicationsIntentResponseCode.init(rawValue:)(*a1);
+  *a2 = result;
+  *(a2 + 8) = v3 & 1;
+  return result;
+}
+
+uint64_t LogSpecificMedicationsIntentResponse.code.getter()
+{
+  v2 = (v0 + OBJC_IVAR___LogSpecificMedicationsIntentResponse_code);
+  swift_beginAccess();
+  v3 = *v2;
+  swift_endAccess();
+  return v3;
+}
+
+uint64_t LogSpecificMedicationsIntentResponse.code.setter(uint64_t a1)
+{
+  v3 = (v1 + OBJC_IVAR___LogSpecificMedicationsIntentResponse_code);
+  swift_beginAccess();
+  *v3 = a1;
+  return swift_endAccess();
+}
+
+uint64_t key path getter for LogSpecificMedicationsIntentResponse.code : LogSpecificMedicationsIntentResponse@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v3 = *a1;
+  MEMORY[0x277D82BE0](*a1);
+  *a2 = LogSpecificMedicationsIntentResponse.code.getter();
+  return MEMORY[0x277D82BD8](v3);
+}
+
+uint64_t key path setter for LogSpecificMedicationsIntentResponse.code : LogSpecificMedicationsIntentResponse(uint64_t *a1, void *a2)
+{
+  v4 = *a1;
+  v3 = *a2;
+  MEMORY[0x277D82BE0](*a2);
+  LogSpecificMedicationsIntentResponse.code.setter(v4);
+  return MEMORY[0x277D82BD8](v3);
+}
+
+char *LogSpecificMedicationsIntentResponse.init(code:userActivity:)(uint64_t a1, uint64_t a2)
+{
+  v6 = [v7 init];
+  MEMORY[0x277D82BE0](v6);
+  v3 = &v6[OBJC_IVAR___LogSpecificMedicationsIntentResponse_code];
+  swift_beginAccess();
+  *v3 = a1;
+  swift_endAccess();
+  MEMORY[0x277D82BE0](v6);
+  [v6 setUserActivity_];
+  MEMORY[0x277D82BD8](v6);
+  MEMORY[0x277D82BD8](a2);
+  MEMORY[0x277D82BD8](v6);
+  return v6;
+}
+
+id LogSpecificMedicationsIntentResponse.init()()
+{
+  v3 = 0;
+  *OBJC_IVAR___LogSpecificMedicationsIntentResponse_code = 0;
+  v2.receiver = v3;
+  v2.super_class = type metadata accessor for LogSpecificMedicationsIntentResponse();
+  v1 = objc_msgSendSuper2(&v2, sel_init);
+  MEMORY[0x277D82BE0](v1);
+  v3 = v1;
+  MEMORY[0x277D82BD8](v1);
+  return v1;
+}
+
+id LogSpecificMedicationsIntentResponse.__allocating_init(coder:)(uint64_t a1)
+{
+  v4 = [objc_allocWithZone(v1) initWithCoder_];
+  MEMORY[0x277D82BD8](a1);
+  return v4;
+}
+
+id LogSpecificMedicationsIntentResponse.init(coder:)(uint64_t a1)
+{
+  v7 = 0;
+  v6 = a1;
+  *OBJC_IVAR___LogSpecificMedicationsIntentResponse_code = 0;
+  v5.receiver = v7;
+  v5.super_class = type metadata accessor for LogSpecificMedicationsIntentResponse();
+  v4 = objc_msgSendSuper2(&v5, sel_initWithCoder_, a1);
+  if (v4)
+  {
+    MEMORY[0x277D82BE0](v4);
+    v7 = v4;
+    MEMORY[0x277D82BD8](a1);
+    MEMORY[0x277D82BD8](v7);
+    return v4;
+  }
+
+  else
+  {
+    MEMORY[0x277D82BD8](0);
+    MEMORY[0x277D82BD8](a1);
+    return 0;
+  }
+}
+
+id LogSpecificMedicationsIntentResponse.__allocating_init(backingStore:)(uint64_t a1)
+{
+  v4 = [objc_allocWithZone(v1) initWithBackingStore_];
+  MEMORY[0x277D82BD8](a1);
+  return v4;
+}
+
+id LogSpecificMedicationsIntentResponse.init(backingStore:)(uint64_t a1)
+{
+  v7 = 0;
+  v6 = a1;
+  *OBJC_IVAR___LogSpecificMedicationsIntentResponse_code = 0;
+  v5.receiver = v7;
+  v5.super_class = type metadata accessor for LogSpecificMedicationsIntentResponse();
+  v4 = objc_msgSendSuper2(&v5, sel_initWithBackingStore_, a1);
+  if (v4)
+  {
+    MEMORY[0x277D82BE0](v4);
+    v7 = v4;
+    MEMORY[0x277D82BD8](a1);
+    MEMORY[0x277D82BD8](v7);
+    return v4;
+  }
+
+  else
+  {
+    MEMORY[0x277D82BD8](0);
+    MEMORY[0x277D82BD8](a1);
+    return 0;
+  }
+}
+
+id LogSpecificMedicationsIntentResponse.__allocating_init(propertiesByName:)(uint64_t a1)
+{
+  v8 = objc_allocWithZone(v1);
+  if (a1)
+  {
+    isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+    v2 = [v8 initWithPropertiesByName_];
+  }
+
+  else
+  {
+    v2 = [v8 initWithPropertiesByName_];
+  }
+
+  v5 = v2;
+  MEMORY[0x277D82BD8](v4);
+  return v5;
+}
+
+id LogSpecificMedicationsIntentResponse.init(propertiesByName:)(uint64_t a1)
+{
+  v9 = 0;
+  v8 = a1;
+  *OBJC_IVAR___LogSpecificMedicationsIntentResponse_code = 0;
+
+  if (a1)
+  {
+    isa = Dictionary._bridgeToObjectiveC()().super.isa;
+
+    v5 = isa;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v7.receiver = v9;
+  v7.super_class = type metadata accessor for LogSpecificMedicationsIntentResponse();
+  v3 = objc_msgSendSuper2(&v7, sel_initWithPropertiesByName_, v5);
+  MEMORY[0x277D82BD8](v5);
+  if (v3)
+  {
+    MEMORY[0x277D82BE0](v3);
+    v9 = v3;
+
+    MEMORY[0x277D82BD8](v9);
+    return v3;
+  }
+
+  else
+  {
+    MEMORY[0x277D82BD8](0);
+
+    return 0;
+  }
+}
+
+id LogSpecificMedicationsIntentResponse.__deallocating_deinit()
+{
+  v3 = v0;
+  v2.receiver = v0;
+  v2.super_class = type metadata accessor for LogSpecificMedicationsIntentResponse();
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+unint64_t lazy protocol witness table accessor for type LogSpecificMedicationsIntentResponseCode and conformance LogSpecificMedicationsIntentResponseCode()
+{
+  v2 = lazy protocol witness table cache variable for type LogSpecificMedicationsIntentResponseCode and conformance LogSpecificMedicationsIntentResponseCode;
+  if (!lazy protocol witness table cache variable for type LogSpecificMedicationsIntentResponseCode and conformance LogSpecificMedicationsIntentResponseCode)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type LogSpecificMedicationsIntentResponseCode and conformance LogSpecificMedicationsIntentResponseCode);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+{
+  v2 = lazy protocol witness table cache variable for type LogSpecificMedicationsIntentResponseCode and conformance LogSpecificMedicationsIntentResponseCode;
+  if (!lazy protocol witness table cache variable for type LogSpecificMedicationsIntentResponseCode and conformance LogSpecificMedicationsIntentResponseCode)
+  {
+    WitnessTable = swift_getWitnessTable();
+    atomic_store(WitnessTable, &lazy protocol witness table cache variable for type LogSpecificMedicationsIntentResponseCode and conformance LogSpecificMedicationsIntentResponseCode);
+    return WitnessTable;
+  }
+
+  return v2;
+}
+
+void *LogGenericMedicationsIntentHandler.init(storage:)(void *a1)
+{
+  ObjectType = swift_getObjectType();
+  __dst[5] = a1;
+  v11 = v1;
+  outlined init with copy of QuantityPersisting?(a1, v8);
+  if (v9)
+  {
+    outlined init with take of QuantityPersisting(v8, __dst);
+  }
+
+  else
+  {
+    memset(v7, 0, sizeof(v7));
+    __dst[3] = &type metadata for GenericMedicationsPersistor;
+    __dst[4] = &protocol witness table for GenericMedicationsPersistor;
+    __dst[0] = swift_allocObject();
+    GenericMedicationsPersistor.init(medStorageHelper:)(v7, (__dst[0] + 16));
+    if (v9)
+    {
+      outlined destroy of QuantityPersisting?(v8);
+    }
+  }
+
+  outlined init with take of QuantityPersisting(__dst, &v1[OBJC_IVAR____TtC19SiriWellnessIntents34LogGenericMedicationsIntentHandler_storage]);
+  v6.receiver = v11;
+  v6.super_class = ObjectType;
+  v3 = objc_msgSendSuper2(&v6, sel_init);
+  MEMORY[0x277D82BE0](v3);
+  v11 = v3;
+  outlined destroy of QuantityPersisting?(a1);
+  MEMORY[0x277D82BD8](v11);
+  return v3;
+}
+
+void *GenericMedicationsPersistor.init(medStorageHelper:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  memset(__b, 0, sizeof(__b));
+  __dst[5] = a1;
+  type metadata accessor for HKHealthStore();
+  v6 = NSDateFormatter.__allocating_init()();
+  MEMORY[0x277D82BE0](v6);
+  __b[0] = v6;
+  type metadata accessor for HKMedicationExposableDoseEventControl();
+  __b[1] = HKUnitPreferenceController.__allocating_init(healthStore:)(v6);
+  outlined init with copy of QuantityPersisting?(a1, v9);
+  if (v10)
+  {
+    outlined init with take of QuantityPersisting(v9, __dst);
+  }
+
+  else
+  {
+    v4 = type metadata accessor for MedStorageHelper();
+    memset(v8, 0, sizeof(v8));
+    v2 = MedStorageHelper.__allocating_init(storage:)(v8);
+    __dst[3] = v4;
+    __dst[4] = &protocol witness table for MedStorageHelper;
+    __dst[0] = v2;
+    if (v10)
+    {
+      outlined destroy of QuantityPersisting?(v9);
+    }
+  }
+
+  outlined init with take of QuantityPersisting(__dst, &__b[2]);
+  outlined init with copy of GenericMedicationsPersistor(__b, a2);
+  outlined destroy of QuantityPersisting?(a1);
+  return outlined destroy of GenericMedicationsPersistor(__b);
+}
+
+uint64_t sub_2699F08B4()
+{
+  MEMORY[0x277D82BD8](v0[2]);
+  MEMORY[0x277D82BD8](v0[3]);
+  __swift_destroy_boxed_opaque_existential_1(v0 + 4);
+  return swift_deallocObject();
+}
+
+uint64_t LogGenericMedicationsIntentHandler.handle(intent:)(uint64_t a1)
+{
+  *(v2 + 528) = v1;
+  *(v2 + 520) = a1;
+  *(v2 + 304) = v2;
+  *(v2 + 312) = 0;
+  *(v2 + 320) = 0;
+  *(v2 + 696) = 0;
+  *(v2 + 704) = 0;
+  *(v2 + 712) = 0;
+  *(v2 + 720) = 0;
+  v3 = type metadata accessor for Logger();
+  *(v2 + 536) = v3;
+  *(v2 + 544) = *(v3 - 8);
+  *(v2 + 552) = swift_task_alloc();
+  *(v2 + 560) = swift_task_alloc();
+  *(v2 + 568) = swift_task_alloc();
+  *(v2 + 576) = swift_task_alloc();
+  *(v2 + 584) = swift_task_alloc();
+  *(v2 + 592) = swift_task_alloc();
+  *(v2 + 600) = swift_task_alloc();
+  *(v2 + 312) = a1;
+  *(v2 + 320) = v1;
+
+  return MEMORY[0x2822009F8](LogGenericMedicationsIntentHandler.handle(intent:), 0);
+}
+
+{
+  v3 = *v1;
+  *(v3 + 304) = *v1;
+  *(v3 + 672) = a1;
+
+  return MEMORY[0x2822009F8](LogGenericMedicationsIntentHandler.handle(intent:), 0);
+}
+
+{
+  v3 = *v1;
+  *(v3 + 304) = *v1;
+  *(v3 + 688) = a1;
+
+  return MEMORY[0x2822009F8](LogGenericMedicationsIntentHandler.handle(intent:), 0);
+}
+
+uint64_t LogGenericMedicationsIntentHandler.handle(intent:)()
+{
+  v1 = v0[75];
+  v19 = v0[68];
+  v21 = v0[67];
+  v0[38] = v0;
+  v20 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  v2 = *(v19 + 16);
+  v0[76] = v2;
+  v0[77] = (v19 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v2(v1, v20, v21);
+  swift_endAccess();
+  v23 = Logger.logObject.getter();
+  v22 = static os_log_type_t.debug.getter();
+  v0[78] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v24 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v23, v22))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v15 = createStorage<A>(capacity:type:)(0, v13, v13);
+    v16 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v18 + 488) = buf;
+    *(v18 + 496) = v15;
+    *(v18 + 504) = v16;
+    serialize(_:at:)(0, (v18 + 488));
+    serialize(_:at:)(0, (v18 + 488));
+    *(v18 + 512) = v24;
+    v17 = swift_task_alloc();
+    v17[2] = v18 + 488;
+    v17[3] = v18 + 496;
+    v17[4] = v18 + 504;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+
+    _os_log_impl(&dword_269912000, v23, v22, "Checking authorization for medications...", buf, 2u);
+    destroyStorage<A>(_:count:)(v15, 0, v13);
+    destroyStorage<A>(_:count:)(v16, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+  }
+
+  *(v18 + 632) = 0;
+  v7 = *(v18 + 600);
+  v8 = *(v18 + 536);
+  v9 = *(v18 + 528);
+  v6 = *(v18 + 544);
+  MEMORY[0x277D82BD8](v23);
+  v3 = *(v6 + 8);
+  *(v18 + 640) = v3;
+  *(v18 + 648) = (v6 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v3(v7, v8);
+  outlined init with copy of QuantityPersisting(v9 + OBJC_IVAR____TtC19SiriWellnessIntents34LogGenericMedicationsIntentHandler_storage, v18 + 16);
+  v12 = *(v18 + 40);
+  v10 = *(v18 + 48);
+  __swift_project_boxed_opaque_existential_1((v18 + 16), v12);
+  v11 = (*(v10 + 8) + **(v10 + 8));
+  v4 = swift_task_alloc();
+  *(v18 + 656) = v4;
+  *v4 = *(v18 + 304);
+  v4[1] = LogGenericMedicationsIntentHandler.handle(intent:);
+
+  return v11(v12, v10);
+}
+
+{
+  v170 = v0;
+  v159 = *(v0 + 697);
+  *(v0 + 304) = v0;
+  __swift_destroy_boxed_opaque_existential_1((v0 + 16));
+  if ((v159 & 1) == 0)
+  {
+    v27 = *(v158 + 608);
+    v14 = *(v158 + 552);
+    v26 = *(v158 + 536);
+    v25 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v27(v14, v25, v26);
+    swift_endAccess();
+    v29 = Logger.logObject.getter();
+    v28 = static os_log_type_t.error.getter();
+    v30 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v29, v28))
+    {
+      v15 = *(v158 + 632);
+      v21 = static UnsafeMutablePointer.allocate(capacity:)();
+      v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v22 = createStorage<A>(capacity:type:)(0, v20, v20);
+      v23 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v158 + 328) = v21;
+      *(v158 + 336) = v22;
+      *(v158 + 344) = v23;
+      serialize(_:at:)(0, (v158 + 328));
+      serialize(_:at:)(0, (v158 + 328));
+      *(v158 + 352) = v30;
+      v24 = swift_task_alloc();
+      v24[2] = v158 + 328;
+      v24[3] = v158 + 336;
+      v24[4] = v158 + 344;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+      if (v15)
+      {
+      }
+
+      _os_log_impl(&dword_269912000, v29, v28, "Not authorized to write medications data.", v21, 2u);
+      destroyStorage<A>(_:count:)(v22, 0, v20);
+      destroyStorage<A>(_:count:)(v23, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v21, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v19 = *(v158 + 640);
+    v17 = *(v158 + 552);
+    v18 = *(v158 + 536);
+    MEMORY[0x277D82BD8](v29);
+    v19(v17, v18);
+    type metadata accessor for LogGenericMedicationsIntentResponse();
+    v48 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(101, 0);
+    goto LABEL_59;
+  }
+
+  v154 = *(v158 + 608);
+  v1 = *(v158 + 592);
+  v153 = *(v158 + 536);
+  v152 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  v154(v1, v152, v153);
+  swift_endAccess();
+  oslog = Logger.logObject.getter();
+  v155 = static os_log_type_t.debug.getter();
+  v157 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(oslog, v155))
+  {
+    v2 = *(v158 + 632);
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v147 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v149 = createStorage<A>(capacity:type:)(0, v147, v147);
+    v150 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v158 + 456) = buf;
+    *(v158 + 464) = v149;
+    *(v158 + 472) = v150;
+    serialize(_:at:)(0, (v158 + 456));
+    serialize(_:at:)(0, (v158 + 456));
+    *(v158 + 480) = v157;
+    v151 = swift_task_alloc();
+    v151[2] = v158 + 456;
+    v151[3] = v158 + 464;
+    v151[4] = v158 + 472;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+    if (v2)
+    {
+    }
+
+    _os_log_impl(&dword_269912000, oslog, v155, "Authorization check successful for medications!", buf, 2u);
+    destroyStorage<A>(_:count:)(v149, 0, v147);
+    destroyStorage<A>(_:count:)(v150, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+
+    v146 = 0;
+  }
+
+  else
+  {
+
+    v146 = *(v158 + 632);
+  }
+
+  v144 = *(v158 + 640);
+  v142 = *(v158 + 592);
+  v143 = *(v158 + 536);
+  v145 = *(v158 + 520);
+  MEMORY[0x277D82BD8](oslog);
+  v144(v142, v143);
+  *(v158 + 360) = [v145 medStatus];
+  if (*(v158 + 360))
+  {
+    v139 = *(v158 + 360);
+    MEMORY[0x277D82BE0](v139);
+    outlined destroy of HealthKitPersistor((v158 + 360));
+    v140 = [v139 BOOLValue];
+    MEMORY[0x277D82BD8](v139);
+    v141 = v140;
+  }
+
+  else
+  {
+    outlined destroy of HealthKitPersistor((v158 + 360));
+    v141 = 2;
+  }
+
+  if (v141 == 2)
+  {
+    v41 = *(v158 + 608);
+    v13 = *(v158 + 560);
+    v40 = *(v158 + 536);
+    v39 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v41(v13, v39, v40);
+    swift_endAccess();
+    v43 = Logger.logObject.getter();
+    v42 = static os_log_type_t.error.getter();
+    v44 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v43, v42))
+    {
+      v35 = static UnsafeMutablePointer.allocate(capacity:)();
+      v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v36 = createStorage<A>(capacity:type:)(0, v34, v34);
+      v37 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v158 + 368) = v35;
+      *(v158 + 376) = v36;
+      *(v158 + 384) = v37;
+      serialize(_:at:)(0, (v158 + 368));
+      serialize(_:at:)(0, (v158 + 368));
+      *(v158 + 392) = v44;
+      v38 = swift_task_alloc();
+      v38[2] = v158 + 368;
+      v38[3] = v158 + 376;
+      v38[4] = v158 + 384;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+      if (v146)
+      {
+      }
+
+      _os_log_impl(&dword_269912000, v43, v42, "Unable to extract BOOLean value for medStatusTaken from LogGenericMedicationsIntent.", v35, 2u);
+      destroyStorage<A>(_:count:)(v36, 0, v34);
+      destroyStorage<A>(_:count:)(v37, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v35, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v33 = *(v158 + 640);
+    v31 = *(v158 + 560);
+    v32 = *(v158 + 536);
+    MEMORY[0x277D82BD8](v43);
+    v33(v31, v32);
+    type metadata accessor for LogGenericMedicationsIntentResponse();
+    v48 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+    goto LABEL_59;
+  }
+
+  v3 = *(v158 + 520);
+  *(v158 + 696) = v141 & 1;
+  *(v158 + 400) = [v3 shouldOverwriteExistingStatuses];
+  if (*(v158 + 400))
+  {
+    v136 = *(v158 + 400);
+    MEMORY[0x277D82BE0](v136);
+    outlined destroy of HealthKitPersistor((v158 + 400));
+    v137 = [v136 BOOLValue];
+    MEMORY[0x277D82BD8](v136);
+    v138 = v137;
+  }
+
+  else
+  {
+    outlined destroy of HealthKitPersistor((v158 + 400));
+    v138 = 2;
+  }
+
+  if (v138 != 2)
+  {
+    v118 = *(v158 + 608);
+    v4 = *(v158 + 584);
+    v117 = *(v158 + 536);
+    *(v158 + 720) = v138 & 1;
+    v116 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v118(v4, v116, v117);
+    swift_endAccess();
+    v119 = swift_allocObject();
+    *(v119 + 16) = v141 & 1;
+    v123 = swift_allocObject();
+    *(v123 + 16) = v138 & 1;
+    log = Logger.logObject.getter();
+    v135 = static os_log_type_t.debug.getter();
+    v127 = swift_allocObject();
+    *(v127 + 16) = 0;
+    v128 = swift_allocObject();
+    *(v128 + 16) = 4;
+    v120 = swift_allocObject();
+    *(v120 + 16) = partial apply for implicit closure #5 in LogSpecificMedicationsIntentHandler.handle(intent:);
+    *(v120 + 24) = v119;
+    v121 = swift_allocObject();
+    *(v121 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+    *(v121 + 24) = v120;
+    v122 = swift_allocObject();
+    *(v122 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+    *(v122 + 24) = v121;
+    v129 = swift_allocObject();
+    *(v129 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int32);
+    *(v129 + 24) = v122;
+    v130 = swift_allocObject();
+    *(v130 + 16) = 0;
+    v131 = swift_allocObject();
+    *(v131 + 16) = 4;
+    v124 = swift_allocObject();
+    *(v124 + 16) = partial apply for implicit closure #5 in LogSpecificMedicationsIntentHandler.handle(intent:);
+    *(v124 + 24) = v123;
+    v125 = swift_allocObject();
+    *(v125 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+    *(v125 + 24) = v124;
+    v126 = swift_allocObject();
+    *(v126 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+    *(v126 + 24) = v125;
+    v132 = swift_allocObject();
+    *(v132 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int32);
+    *(v132 + 24) = v126;
+    _allocateUninitializedArray<A>(_:)();
+    v133 = v5;
+
+    *v133 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v133[1] = v127;
+
+    v133[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v133[3] = v128;
+
+    v133[4] = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+    v133[5] = v129;
+
+    v133[6] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v133[7] = v130;
+
+    v133[8] = partial apply for closure #1 in OSLogArguments.append(_:);
+    v133[9] = v131;
+
+    v133[10] = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+    v133[11] = v132;
+    _finalizeUninitializedArray<A>(_:)();
+
+    if (os_log_type_enabled(log, v135))
+    {
+      v113 = static UnsafeMutablePointer.allocate(capacity:)();
+      v112 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v114 = createStorage<A>(capacity:type:)(0, v112, v112);
+      v115 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      v165 = v113;
+      v166 = v114;
+      v167 = v115;
+      serialize(_:at:)(0, &v165);
+      serialize(_:at:)(2, &v165);
+      v168 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v169 = v127;
+      closure #1 in osLogInternal(_:log:type:)(&v168, &v165, &v166, &v167);
+      if (v146)
+      {
+      }
+
+      v168 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v169 = v128;
+      closure #1 in osLogInternal(_:log:type:)(&v168, &v165, &v166, &v167);
+      v168 = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+      v169 = v129;
+      closure #1 in osLogInternal(_:log:type:)(&v168, &v165, &v166, &v167);
+      v168 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v169 = v130;
+      closure #1 in osLogInternal(_:log:type:)(&v168, &v165, &v166, &v167);
+      v168 = partial apply for closure #1 in OSLogArguments.append(_:);
+      v169 = v131;
+      closure #1 in osLogInternal(_:log:type:)(&v168, &v165, &v166, &v167);
+      v168 = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+      v169 = v132;
+      closure #1 in osLogInternal(_:log:type:)(&v168, &v165, &v166, &v167);
+      _os_log_impl(&dword_269912000, log, v135, "Persisting generic medications with override...\n  medStatusIsTaken: %{BOOL}d\n  shouldOverwriteExistingStatuses: %{BOOL}d", v113, 0xEu);
+      destroyStorage<A>(_:count:)(v114, 0, v112);
+      destroyStorage<A>(_:count:)(v115, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v113, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v107 = *(v158 + 640);
+    v105 = *(v158 + 584);
+    v106 = *(v158 + 536);
+    v108 = *(v158 + 528);
+    MEMORY[0x277D82BD8](log);
+    v107(v105, v106);
+    outlined init with copy of QuantityPersisting(v108 + OBJC_IVAR____TtC19SiriWellnessIntents34LogGenericMedicationsIntentHandler_storage, v158 + 96);
+    v109 = *(v158 + 120);
+    v110 = *(v158 + 128);
+    __swift_project_boxed_opaque_existential_1((v158 + 96), v109);
+    v111 = (*(v110 + 16) + **(v110 + 16));
+    v7 = swift_task_alloc();
+    *(v158 + 664) = v7;
+    *v7 = *(v158 + 304);
+    v7[1] = LogGenericMedicationsIntentHandler.handle(intent:);
+
+    return v111(v141 & 1, v138 & 1, v109, v110);
+  }
+
+  *(v158 + 408) = [*(v158 + 520) isTimeframeToday];
+  if (*(v158 + 408))
+  {
+    v102 = *(v158 + 408);
+    MEMORY[0x277D82BE0](v102);
+    outlined destroy of HealthKitPersistor((v158 + 408));
+    v103 = [v102 BOOLValue];
+    MEMORY[0x277D82BD8](v102);
+    v104 = v103;
+  }
+
+  else
+  {
+    outlined destroy of HealthKitPersistor((v158 + 408));
+    v104 = 2;
+  }
+
+  if (v104 == 2)
+  {
+    v56 = *(v158 + 608);
+    v12 = *(v158 + 568);
+    v55 = *(v158 + 536);
+    v54 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v56(v12, v54, v55);
+    swift_endAccess();
+    v58 = Logger.logObject.getter();
+    v57 = static os_log_type_t.error.getter();
+    v59 = _allocateUninitializedArray<A>(_:)();
+    if (!os_log_type_enabled(v58, v57))
+    {
+
+      goto LABEL_45;
+    }
+
+    v50 = static UnsafeMutablePointer.allocate(capacity:)();
+    v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v51 = createStorage<A>(capacity:type:)(0, v49, v49);
+    v52 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v158 + 416) = v50;
+    *(v158 + 424) = v51;
+    *(v158 + 432) = v52;
+    serialize(_:at:)(0, (v158 + 416));
+    serialize(_:at:)(0, (v158 + 416));
+    *(v158 + 440) = v59;
+    v53 = swift_task_alloc();
+    v53[2] = v158 + 416;
+    v53[3] = v158 + 424;
+    v53[4] = v158 + 432;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+    if (!v146)
+    {
+
+      _os_log_impl(&dword_269912000, v58, v57, "Not an override case & unable to extract BOOLean value for isTimeframeToday from LogGenericMedicationsIntent.", v50, 2u);
+      destroyStorage<A>(_:count:)(v51, 0, v49);
+      destroyStorage<A>(_:count:)(v52, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v50, MEMORY[0x277D84B78]);
+
+LABEL_45:
+      v47 = *(v158 + 640);
+      v45 = *(v158 + 568);
+      v46 = *(v158 + 536);
+      MEMORY[0x277D82BD8](v58);
+      v47(v45, v46);
+      type metadata accessor for LogGenericMedicationsIntentResponse();
+      v48 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+LABEL_59:
+
+      v16 = *(*(v158 + 304) + 8);
+
+      return v16(v48);
+    }
+  }
+
+  v8 = *(v158 + 520);
+  *(v158 + 704) = v104 & 1;
+  *(v158 + 448) = [v8 confirmedLogAsScheduled];
+  if (*(v158 + 448))
+  {
+    v99 = *(v158 + 448);
+    MEMORY[0x277D82BE0](v99);
+    outlined destroy of HealthKitPersistor((v158 + 448));
+    v100 = [v99 BOOLValue];
+    MEMORY[0x277D82BD8](v99);
+    v101 = v100;
+  }
+
+  else
+  {
+    outlined destroy of HealthKitPersistor((v158 + 448));
+    v101 = 2;
+  }
+
+  if (v101 == 2)
+  {
+    v98 = 0;
+  }
+
+  else
+  {
+    v98 = v101;
+  }
+
+  v73 = *(v158 + 608);
+  v9 = *(v158 + 576);
+  v72 = *(v158 + 536);
+  *(v158 + 712) = v98 & 1;
+  v71 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  v73(v9, v71, v72);
+  swift_endAccess();
+  v74 = swift_allocObject();
+  *(v74 + 16) = v104 & 1;
+  v78 = swift_allocObject();
+  *(v78 + 16) = v141 & 1;
+  v82 = swift_allocObject();
+  *(v82 + 16) = v98 & 1;
+  v96 = Logger.logObject.getter();
+  v97 = static os_log_type_t.debug.getter();
+  v86 = swift_allocObject();
+  *(v86 + 16) = 0;
+  v87 = swift_allocObject();
+  *(v87 + 16) = 4;
+  v75 = swift_allocObject();
+  *(v75 + 16) = partial apply for implicit closure #5 in LogSpecificMedicationsIntentHandler.handle(intent:);
+  *(v75 + 24) = v74;
+  v76 = swift_allocObject();
+  *(v76 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+  *(v76 + 24) = v75;
+  v77 = swift_allocObject();
+  *(v77 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+  *(v77 + 24) = v76;
+  v88 = swift_allocObject();
+  *(v88 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int32);
+  *(v88 + 24) = v77;
+  v89 = swift_allocObject();
+  *(v89 + 16) = 0;
+  v90 = swift_allocObject();
+  *(v90 + 16) = 4;
+  v79 = swift_allocObject();
+  *(v79 + 16) = partial apply for implicit closure #5 in LogSpecificMedicationsIntentHandler.handle(intent:);
+  *(v79 + 24) = v78;
+  v80 = swift_allocObject();
+  *(v80 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+  *(v80 + 24) = v79;
+  v81 = swift_allocObject();
+  *(v81 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+  *(v81 + 24) = v80;
+  v91 = swift_allocObject();
+  *(v91 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int32);
+  *(v91 + 24) = v81;
+  v92 = swift_allocObject();
+  *(v92 + 16) = 0;
+  v93 = swift_allocObject();
+  *(v93 + 16) = 4;
+  v83 = swift_allocObject();
+  *(v83 + 16) = partial apply for implicit closure #5 in LogSpecificMedicationsIntentHandler.handle(intent:);
+  *(v83 + 24) = v82;
+  v84 = swift_allocObject();
+  *(v84 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+  *(v84 + 24) = v83;
+  v85 = swift_allocObject();
+  *(v85 + 16) = partial apply for implicit closure #1 in OSLogInterpolation.appendInterpolation(_:format:privacy:);
+  *(v85 + 24) = v84;
+  v94 = swift_allocObject();
+  *(v94 + 16) = partial apply for thunk for @escaping @callee_guaranteed () -> (@unowned Int32);
+  *(v94 + 24) = v85;
+  _allocateUninitializedArray<A>(_:)();
+  v95 = v10;
+
+  *v95 = partial apply for closure #1 in OSLogArguments.append(_:);
+  v95[1] = v86;
+
+  v95[2] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v95[3] = v87;
+
+  v95[4] = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+  v95[5] = v88;
+
+  v95[6] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v95[7] = v89;
+
+  v95[8] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v95[9] = v90;
+
+  v95[10] = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+  v95[11] = v91;
+
+  v95[12] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v95[13] = v92;
+
+  v95[14] = partial apply for closure #1 in OSLogArguments.append(_:);
+  v95[15] = v93;
+
+  v95[16] = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+  v95[17] = v94;
+  _finalizeUninitializedArray<A>(_:)();
+
+  if (os_log_type_enabled(v96, v97))
+  {
+    v68 = static UnsafeMutablePointer.allocate(capacity:)();
+    v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v69 = createStorage<A>(capacity:type:)(0, v67, v67);
+    v70 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v160 = v68;
+    v161 = v69;
+    v162 = v70;
+    serialize(_:at:)(0, &v160);
+    serialize(_:at:)(3, &v160);
+    v163 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v164 = v86;
+    closure #1 in osLogInternal(_:log:type:)(&v163, &v160, &v161, &v162);
+    if (v146)
+    {
+    }
+
+    v163 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v164 = v87;
+    closure #1 in osLogInternal(_:log:type:)(&v163, &v160, &v161, &v162);
+    v163 = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+    v164 = v88;
+    closure #1 in osLogInternal(_:log:type:)(&v163, &v160, &v161, &v162);
+    v163 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v164 = v89;
+    closure #1 in osLogInternal(_:log:type:)(&v163, &v160, &v161, &v162);
+    v163 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v164 = v90;
+    closure #1 in osLogInternal(_:log:type:)(&v163, &v160, &v161, &v162);
+    v163 = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+    v164 = v91;
+    closure #1 in osLogInternal(_:log:type:)(&v163, &v160, &v161, &v162);
+    v163 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v164 = v92;
+    closure #1 in osLogInternal(_:log:type:)(&v163, &v160, &v161, &v162);
+    v163 = partial apply for closure #1 in OSLogArguments.append(_:);
+    v164 = v93;
+    closure #1 in osLogInternal(_:log:type:)(&v163, &v160, &v161, &v162);
+    v163 = _s2os14OSLogArgumentsV6appendyyxycs17FixedWidthIntegerRzlFySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcfU_TA_0;
+    v164 = v94;
+    closure #1 in osLogInternal(_:log:type:)(&v163, &v160, &v161, &v162);
+    _os_log_impl(&dword_269912000, v96, v97, "Persisting generic medications...\n  isTimeframeToday: %{BOOL}d\n  medStatusIsTaken: %{BOOL}d\n  confirmedLogAsScheduled: %{BOOL}d", v68, 0x14u);
+    destroyStorage<A>(_:count:)(v69, 0, v67);
+    destroyStorage<A>(_:count:)(v70, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](v68, MEMORY[0x277D84B78]);
+  }
+
+  else
+  {
+  }
+
+  v62 = *(v158 + 640);
+  v60 = *(v158 + 576);
+  v61 = *(v158 + 536);
+  v63 = *(v158 + 528);
+  MEMORY[0x277D82BD8](v96);
+  v62(v60, v61);
+  outlined init with copy of QuantityPersisting(v63 + OBJC_IVAR____TtC19SiriWellnessIntents34LogGenericMedicationsIntentHandler_storage, v158 + 56);
+  v64 = *(v158 + 80);
+  v65 = *(v158 + 88);
+  __swift_project_boxed_opaque_existential_1((v158 + 56), v64);
+  v66 = (*(v65 + 24) + **(v65 + 24));
+  v11 = swift_task_alloc();
+  *(v158 + 680) = v11;
+  *v11 = *(v158 + 304);
+  v11[1] = LogGenericMedicationsIntentHandler.handle(intent:);
+
+  return v66(v104 & 1, v141 & 1, v98 & 1, v64, v65);
+}
+
+{
+  v0[38] = v0;
+  __swift_destroy_boxed_opaque_existential_1(v0 + 12);
+  v3 = v0[84];
+
+  v1 = *(v0[38] + 8);
+
+  return v1(v3);
+}
+
+{
+  v0[38] = v0;
+  __swift_destroy_boxed_opaque_existential_1(v0 + 7);
+  v3 = v0[86];
+
+  v1 = *(v0[38] + 8);
+
+  return v1(v3);
+}
+
+uint64_t LogGenericMedicationsIntentHandler.handle(intent:)(char a1)
+{
+  v3 = *v1;
+  *(v3 + 304) = *v1;
+  *(v3 + 697) = a1;
+
+  return MEMORY[0x2822009F8](LogGenericMedicationsIntentHandler.handle(intent:), 0);
+}
+
+uint64_t @objc closure #1 in LogGenericMedicationsIntentHandler.handle(intent:)(uint64_t a1, const void *a2, uint64_t a3)
+{
+  v3[4] = a3;
+  v3[3] = a1;
+  v3[2] = v3;
+  MEMORY[0x277D82BE0](a1);
+  v3[5] = _Block_copy(a2);
+  MEMORY[0x277D82BE0](a3);
+  v5 = swift_task_alloc();
+  *(v8 + 48) = v5;
+  *v5 = *(v8 + 16);
+  v5[1] = @objc closure #1 in LogQuantityIntentHandler.handle(intent:);
+
+  return LogGenericMedicationsIntentHandler.handle(intent:)(a1);
+}
+
+id LogGenericMedicationsIntentHandler.__deallocating_deinit()
+{
+  v3 = v0;
+  v2.receiver = v0;
+  v2.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v2, sel_dealloc);
+}
+
+uint64_t GenericMedicationsPersistor.medicationController.getter()
+{
+  v2 = *(v0 + 8);
+  MEMORY[0x277D82BE0](v2);
+  return v2;
+}
+
+void *outlined init with copy of GenericMedicationsPersistor(void *a1, void *a2)
+{
+  v4 = *a1;
+  MEMORY[0x277D82BE0](*a1);
+  *a2 = v4;
+  v5 = a1[1];
+  MEMORY[0x277D82BE0](v5);
+  a2[1] = v5;
+  v2 = a1[5];
+  a2[5] = v2;
+  a2[6] = a1[6];
+  (**(v2 - 8))(a2 + 2, a1 + 2);
+  return a2;
+}
+
+void *outlined destroy of GenericMedicationsPersistor(void *a1)
+{
+  MEMORY[0x277D82BD8](*a1);
+  MEMORY[0x277D82BD8](a1[1]);
+  __swift_destroy_boxed_opaque_existential_1(a1 + 2);
+  return a1;
+}
+
+uint64_t GenericMedicationsPersistor.isLoggingAuthorized()()
+{
+  v1[4] = v0;
+  v1[2] = v1;
+  v1[3] = 0;
+  v1[3] = v0;
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.isLoggingAuthorized(), 0);
+}
+
+{
+  v1 = v0[4];
+  v0[2] = v0;
+  v5 = *v1;
+  v0[5] = *v1;
+  MEMORY[0x277D82BE0](v5);
+  v2 = swift_task_alloc();
+  *(v4 + 48) = v2;
+  *v2 = *(v4 + 16);
+  v2[1] = PeriodPersistor.isLoggingAuthorized();
+
+  return isSiriAuthorizedToAccessHealthData(store:)(v5);
+}
+
+uint64_t GenericMedicationsPersistor.numMedInAppToday(doseEvents:)(uint64_t a1)
+{
+  v2[15] = a1;
+  v2[8] = v2;
+  v2[9] = 0;
+  v2[10] = 0;
+  v2[11] = 0;
+  v2[2] = 0;
+  v2[3] = 0;
+  v2[14] = 0;
+  v2[9] = a1;
+  v2[10] = v1;
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.numMedInAppToday(doseEvents:), 0);
+}
+
+uint64_t GenericMedicationsPersistor.numMedInAppToday(doseEvents:)()
+{
+  v11 = v0[15];
+  v0[8] = v0;
+  _allocateUninitializedArray<A>(_:)();
+  v0[11] = Set.init(arrayLiteral:)();
+
+  v0[12] = v11;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
+  lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
+  Collection<>.makeIterator()();
+  while (1)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMR);
+    IndexingIterator.next()();
+    v9 = v10[13];
+    if (!v9)
+    {
+      break;
+    }
+
+    v10[14] = v9;
+    v5 = [v9 medicationIdentifier];
+    v8 = [v5 underlyingIdentifier];
+    v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v7 = v1;
+    MEMORY[0x277D82BD8](v5);
+    v10[6] = v6;
+    v10[7] = v7;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sShySSGMd, &_sShySSGMR);
+    Set.insert(_:)();
+    MEMORY[0x277D82BD8](v8);
+
+    MEMORY[0x277D82BD8](v9);
+  }
+
+  outlined destroy of [HKQuantityType](v10 + 2);
+
+  v4 = Set.count.getter();
+
+  outlined destroy of [HKQuantityType](v10 + 11);
+  v2 = *(v10[8] + 8);
+
+  return v2(v4);
+}
+
+uint64_t GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:)(char a1, char a2)
+{
+  *(v3 + 264) = v2;
+  *(v3 + 554) = a2 & 1;
+  *(v3 + 553) = a1 & 1;
+  *(v3 + 192) = v3;
+  *(v3 + 552) = 0;
+  *(v3 + 560) = 0;
+  *(v3 + 200) = 0;
+  *(v3 + 208) = 0;
+  *(v3 + 224) = 0;
+  *(v3 + 168) = 0;
+  *(v3 + 176) = 0;
+  *(v3 + 184) = 0;
+  v4 = type metadata accessor for Logger();
+  *(v3 + 272) = v4;
+  *(v3 + 280) = *(v4 - 8);
+  *(v3 + 288) = swift_task_alloc();
+  v5 = type metadata accessor for Date();
+  *(v3 + 296) = v5;
+  *(v3 + 304) = *(v5 - 8);
+  *(v3 + 312) = swift_task_alloc();
+  *(v3 + 320) = swift_task_alloc();
+  *(v3 + 328) = swift_task_alloc();
+  *(v3 + 336) = swift_task_alloc();
+  v6 = type metadata accessor for DateInterval();
+  *(v3 + 344) = v6;
+  *(v3 + 352) = *(v6 - 8);
+  *(v3 + 360) = swift_task_alloc();
+  *(v3 + 368) = swift_task_alloc();
+  *(v3 + 552) = a1 & 1;
+  *(v3 + 560) = a2 & 1;
+  *(v3 + 200) = v2;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:), 0);
+}
+
+uint64_t GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:)(uint64_t a1)
+{
+  v12 = *(v1 + 368);
+  v15 = *(v1 + 360);
+  v13 = *(v1 + 352);
+  v14 = *(v1 + 344);
+  v5 = *(v1 + 336);
+  v9 = *(v1 + 328);
+  v6 = *(v1 + 320);
+  v10 = *(v1 + 312);
+  v4 = *(v1 + 304);
+  v7 = *(v1 + 296);
+  v11 = *(v1 + 264);
+  *(v1 + 192) = v1;
+  Date.init()();
+  Date.startOfDay.getter(v9);
+  v8 = *(v4 + 8);
+  v8(v5, v7);
+  Date.init()();
+  Date.endOfDay.getter(v10);
+  v8(v6, v7);
+  DateInterval.init(start:end:)();
+  v18 = *(v11 + 8);
+  *(v1 + 376) = v18;
+  MEMORY[0x277D82BE0](v18);
+  (*(v13 + 16))(v15, v12, v14);
+  isa = DateInterval._bridgeToObjectiveC()().super.isa;
+  *(v1 + 384) = isa;
+  v2 = *(v13 + 8);
+  *(v1 + 392) = v2;
+  *(v1 + 400) = (v13 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v2(v15, v14);
+  *(v1 + 16) = *(v1 + 192);
+  *(v1 + 56) = v1 + 216;
+  *(v1 + 24) = GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:);
+  v16 = swift_continuation_init();
+  *(v1 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySaySo30HKMedicationExposableDoseEventCGs5Error_pGMd, &_sSccySaySo30HKMedicationExposableDoseEventCGs5Error_pGMR);
+  *(v1 + 112) = v16;
+  *(v1 + 80) = MEMORY[0x277D85DD0];
+  *(v1 + 88) = 1107296256;
+  *(v1 + 92) = 0;
+  *(v1 + 96) = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSArray?, @unowned NSError?) -> () with result type [HKMedicationExposableDoseEvent];
+  *(v1 + 104) = &block_descriptor_7;
+  [v18 doseEventsForDateInterval:isa medicationIdentifier:0 completion:?];
+
+  return MEMORY[0x282200938](v1 + 16);
+}
+
+{
+  v4 = *v1;
+  v3 = *(*v1 + 440);
+  *(v4 + 192) = *v1;
+  *(v4 + 464) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:), 0);
+}
+
+{
+  v4 = *v1;
+  v3 = *(*v1 + 472);
+  *(v4 + 192) = *v1;
+  *(v4 + 488) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:), 0);
+}
+
+{
+  v4 = *v1;
+  v3 = *(*v1 + 496);
+  *(v4 + 192) = *v1;
+  *(v4 + 520) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:), 0);
+}
+
+{
+  v4 = *v1;
+  v3 = *(*v1 + 528);
+  *(v4 + 192) = *v1;
+  *(v4 + 544) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:), 0);
+}
+
+{
+  v22 = v1[51];
+  v21 = v1[49];
+  v18 = v1[48];
+  v17 = v1[47];
+  v19 = v1[46];
+  v20 = v1[43];
+  v16 = v1[36];
+  v23 = v1[35];
+  v25 = v1[34];
+  v1[24] = v1;
+  swift_willThrow();
+  MEMORY[0x277D82BD8](v17);
+  MEMORY[0x277D82BD8](v18);
+  v21(v19, v20);
+  v2 = v22;
+  v1[28] = v22;
+  v24 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  (*(v23 + 16))(v16, v24, v25);
+  swift_endAccess();
+  v27 = Logger.logObject.getter();
+  v26 = static os_log_type_t.error.getter();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v28 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v27, v26))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v12 = createStorage<A>(capacity:type:)(0, v10, v10);
+    v13 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v15 + 232) = buf;
+    *(v15 + 240) = v12;
+    *(v15 + 248) = v13;
+    serialize(_:at:)(0, (v15 + 232));
+    serialize(_:at:)(0, (v15 + 232));
+    *(v15 + 256) = v28;
+    v14 = swift_task_alloc();
+    v14[2] = v15 + 232;
+    v14[3] = v15 + 240;
+    v14[4] = v15 + 248;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+
+    _os_log_impl(&dword_269912000, v27, v26, "Failed fetching dose events for timeframe.", buf, 2u);
+    destroyStorage<A>(_:count:)(v12, 0, v10);
+    destroyStorage<A>(_:count:)(v13, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+  }
+
+  v8 = *(v15 + 408);
+  v6 = *(v15 + 288);
+  v7 = *(v15 + 272);
+  v5 = *(v15 + 280);
+  MEMORY[0x277D82BD8](v27);
+  (*(v5 + 8))(v6, v7);
+  type metadata accessor for LogGenericMedicationsIntentResponse();
+  v9 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+
+  v3 = *(*(v15 + 192) + 8);
+
+  return v3(v9);
+}
+
+uint64_t GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:)()
+{
+  v4 = *v0;
+  v4[24] = *v0;
+  v1 = v4[6];
+  v4[51] = v1;
+  if (v1)
+  {
+    v2 = GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:);
+  }
+
+  else
+  {
+    v2 = GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v24 = *(v0 + 384);
+  v23 = *(v0 + 376);
+  v30 = *(v0 + 553);
+  *(v0 + 192) = v0;
+  v25 = *(v0 + 216);
+
+  *(v0 + 208) = v25;
+  MEMORY[0x277D82BD8](v23);
+  MEMORY[0x277D82BD8](v24);
+  v26 = filterUniqueDoseEvents(doseEvents:)(v25, v1);
+
+  *(v0 + 208) = v26;
+
+  v27 = GenericMedicationsPersistor.getDoseEventsByStatus(doseEvents:)(v26);
+  v28 = v2;
+  v29 = v3;
+  *(v0 + 416) = v27;
+  *(v0 + 424) = v2;
+  *(v0 + 432) = v3;
+
+  *(v0 + 168) = v27;
+  *(v0 + 176) = v28;
+  *(v0 + 184) = v29;
+  if (v30)
+  {
+    if (*(v22 + 554))
+    {
+      v21 = *(*(v22 + 264) + 8);
+      *(v22 + 440) = v21;
+      MEMORY[0x277D82BE0](v21);
+      type metadata accessor for HKMedicationExposableDoseEvent();
+      v20 = static Array.+ infix(_:_:)();
+      *(v22 + 448) = v20;
+      v4 = swift_task_alloc();
+      v5 = v20;
+      v6 = v4;
+      v7 = v21;
+      *(v22 + 456) = v6;
+      *v6 = *(v22 + 192);
+      v6[1] = GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:);
+      v8 = 1;
+    }
+
+    else
+    {
+      v19 = *(*(v22 + 264) + 8);
+      *(v22 + 472) = v19;
+      MEMORY[0x277D82BE0](v19);
+      v10 = swift_task_alloc();
+      v5 = v29;
+      v11 = v10;
+      v7 = v19;
+      *(v22 + 480) = v11;
+      *v11 = *(v22 + 192);
+      v11[1] = GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:);
+      v8 = 1;
+    }
+  }
+
+  else if (*(v22 + 554))
+  {
+    v18 = *(*(v22 + 264) + 8);
+    *(v22 + 496) = v18;
+    MEMORY[0x277D82BE0](v18);
+    type metadata accessor for HKMedicationExposableDoseEvent();
+    v17 = static Array.+ infix(_:_:)();
+    *(v22 + 504) = v17;
+    v12 = swift_task_alloc();
+    v5 = v17;
+    v13 = v12;
+    v7 = v18;
+    *(v22 + 512) = v13;
+    *v13 = *(v22 + 192);
+    v13[1] = GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:);
+    v8 = 0;
+  }
+
+  else
+  {
+    v16 = *(*(v22 + 264) + 8);
+    *(v22 + 528) = v16;
+    MEMORY[0x277D82BE0](v16);
+    v14 = swift_task_alloc();
+    v5 = v29;
+    v15 = v14;
+    v7 = v16;
+    *(v22 + 536) = v15;
+    *v15 = *(v22 + 192);
+    v15[1] = GenericMedicationsPersistor.saveWithOverride(medStatusTaken:shouldOverwriteExistingStatuses:);
+    v8 = 0;
+  }
+
+  return GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:)(v7, v5, v8);
+}
+
+{
+  v4 = v0[49];
+  v5 = v0[46];
+  v3 = v0[43];
+  v0[24] = v0;
+
+  outlined destroy of [HKQuantityType](v0 + 26);
+  v4(v5, v3);
+  v6 = v0[58];
+
+  v1 = *(v0[24] + 8);
+
+  return v1(v6);
+}
+
+{
+  v4 = v0[49];
+  v5 = v0[46];
+  v3 = v0[43];
+  v0[24] = v0;
+
+  outlined destroy of [HKQuantityType](v0 + 26);
+  v4(v5, v3);
+  v6 = v0[61];
+
+  v1 = *(v0[24] + 8);
+
+  return v1(v6);
+}
+
+{
+  v4 = v0[49];
+  v5 = v0[46];
+  v3 = v0[43];
+  v0[24] = v0;
+
+  outlined destroy of [HKQuantityType](v0 + 26);
+  v4(v5, v3);
+  v6 = v0[65];
+
+  v1 = *(v0[24] + 8);
+
+  return v1(v6);
+}
+
+{
+  v4 = v0[49];
+  v5 = v0[46];
+  v3 = v0[43];
+  v0[24] = v0;
+
+  outlined destroy of [HKQuantityType](v0 + 26);
+  v4(v5, v3);
+  v6 = v0[68];
+
+  v1 = *(v0[24] + 8);
+
+  return v1(v6);
+}
+
+uint64_t GenericMedicationsPersistor.getDoseEventsByStatus(doseEvents:)(uint64_t a1)
+{
+  v41 = a1;
+  v53 = 0;
+  v70 = 0;
+  v69 = 0;
+  v67 = 0;
+  v66 = 0;
+  v65 = 0;
+  v64[1] = 0;
+  v64[0] = 0;
+  v61 = 0;
+  v40 = 0;
+  v49 = type metadata accessor for Logger();
+  v42 = v49;
+  v43 = *(v49 - 8);
+  v47 = v43;
+  v44 = v43;
+  v45 = *(v43 + 64);
+  MEMORY[0x28223BE20](v41, v49);
+  v1 = v11 - ((v45 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v46 = v1;
+  v70 = v2;
+  v69 = v3;
+  v48 = Logger.wellnessIntents.unsafeMutableAddressor();
+  v50 = &v68;
+  swift_beginAccess();
+  (*(v47 + 16))(v1, v48, v49);
+  swift_endAccess();
+  v55 = Logger.logObject.getter();
+  v51 = v55;
+  v54 = static os_log_type_t.debug.getter();
+  v52 = v54;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v56 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v55, v54))
+  {
+    v4 = v40;
+    v31 = static UnsafeMutablePointer.allocate(capacity:)();
+    v27 = v31;
+    v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v29 = 0;
+    v32 = createStorage<A>(capacity:type:)(0, v28, v28);
+    v30 = v32;
+    v33 = createStorage<A>(capacity:type:)(v29, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    v60[0] = v31;
+    v59 = v32;
+    v58 = v33;
+    v34 = 0;
+    v35 = v60;
+    serialize(_:at:)(0, v60);
+    serialize(_:at:)(v34, v35);
+    v57 = v56;
+    v36 = v11;
+    MEMORY[0x28223BE20](v11, v5);
+    v37 = &v11[-6];
+    v11[-4] = v6;
+    v11[-3] = &v59;
+    v11[-2] = &v58;
+    v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+    v39 = v4;
+    if (v4)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      _os_log_impl(&dword_269912000, v51, v52, "getting doseEvents by status", v27, 2u);
+      v25 = 0;
+      destroyStorage<A>(_:count:)(v30, 0, v28);
+      destroyStorage<A>(_:count:)(v33, v25, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v27, MEMORY[0x277D84B78]);
+
+      v26 = v39;
+    }
+  }
+
+  else
+  {
+
+    v26 = v40;
+  }
+
+  v23 = v26;
+
+  (*(v44 + 8))(v46, v42);
+  v19 = 0;
+  v20 = type metadata accessor for HKMedicationExposableDoseEvent();
+  v67 = _allocateUninitializedArray<A>(_:)();
+  v66 = _allocateUninitializedArray<A>(_:)();
+  v65 = _allocateUninitializedArray<A>(_:)();
+
+  v63 = v41;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
+  v21 = v22;
+  lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
+  Collection<>.makeIterator()();
+  for (i = v23; ; i = v13)
+  {
+    v17 = i;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMR);
+    IndexingIterator.next()();
+    v18 = v62;
+    if (!v62)
+    {
+      break;
+    }
+
+    v16 = v18;
+    v14 = v18;
+    v61 = v18;
+    v15 = [v18 status];
+    if (v15 == 4)
+    {
+      v7 = v14;
+      v60[1] = v14;
+      Array.append(_:)();
+    }
+
+    else
+    {
+      if (v15 == 5)
+      {
+        v8 = v14;
+        v60[2] = v14;
+      }
+
+      else
+      {
+        v9 = v14;
+        v60[3] = v14;
+      }
+
+      Array.append(_:)();
+    }
+
+    v13 = v17;
+  }
+
+  outlined destroy of [HKQuantityType](v64);
+  v12 = v67;
+
+  v11[1] = v66;
+
+  v11[2] = v65;
+
+  outlined destroy of [HKQuantityType](&v65);
+  outlined destroy of [HKQuantityType](&v66);
+  outlined destroy of [HKQuantityType](&v67);
+  return v12;
+}
+
+uint64_t GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:)(uint64_t a1, uint64_t a2, char a3)
+{
+  *(v4 + 528) = v3;
+  *(v4 + 745) = a3 & 1;
+  *(v4 + 520) = a2;
+  *(v4 + 512) = a1;
+  *(v4 + 288) = v4;
+  *(v4 + 296) = 0;
+  *(v4 + 304) = 0;
+  *(v4 + 744) = 0;
+  *(v4 + 312) = 0;
+  *(v4 + 320) = 0;
+  *(v4 + 328) = 0;
+  *(v4 + 336) = 0;
+  *(v4 + 344) = 0;
+  *(v4 + 272) = 0;
+  *(v4 + 280) = 0;
+  *(v4 + 368) = 0;
+  *(v4 + 408) = 0;
+  *(v4 + 416) = 0;
+  *(v4 + 424) = 0;
+  *(v4 + 432) = 0;
+  *(v4 + 448) = 0;
+  *(v4 + 464) = 0;
+  v5 = type metadata accessor for Date();
+  *(v4 + 536) = v5;
+  *(v4 + 544) = *(v5 - 8);
+  *(v4 + 552) = swift_task_alloc();
+  *(v4 + 560) = swift_task_alloc();
+  v6 = type metadata accessor for Logger();
+  *(v4 + 568) = v6;
+  *(v4 + 576) = *(v6 - 8);
+  *(v4 + 584) = swift_task_alloc();
+  *(v4 + 592) = swift_task_alloc();
+  *(v4 + 296) = a1;
+  *(v4 + 304) = a2;
+  *(v4 + 744) = a3 & 1;
+  *(v4 + 312) = v3;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:), 0);
+}
+
+uint64_t GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:)()
+{
+  v1 = v0[74];
+  v35 = v0[72];
+  v37 = v0[71];
+  v0[36] = v0;
+  v36 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  v2 = *(v35 + 16);
+  v0[75] = v2;
+  v0[76] = (v35 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+  v2(v1, v36, v37);
+  swift_endAccess();
+  v39 = Logger.logObject.getter();
+  v38 = static os_log_type_t.debug.getter();
+  v0[77] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v40 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v39, v38))
+  {
+    v30 = static UnsafeMutablePointer.allocate(capacity:)();
+    v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v31 = createStorage<A>(capacity:type:)(0, v29, v29);
+    v32 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v34 + 480) = v30;
+    *(v34 + 488) = v31;
+    *(v34 + 496) = v32;
+    serialize(_:at:)(0, (v34 + 480));
+    serialize(_:at:)(0, (v34 + 480));
+    *(v34 + 504) = v40;
+    v33 = swift_task_alloc();
+    v33[2] = v34 + 480;
+    v33[3] = v34 + 488;
+    v33[4] = v34 + 496;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+
+    _os_log_impl(&dword_269912000, v39, v38, "Starting to write dose event", v30, 2u);
+    destroyStorage<A>(_:count:)(v31, 0, v29);
+    destroyStorage<A>(_:count:)(v32, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](v30, MEMORY[0x277D84B78]);
+  }
+
+  v26 = *(v34 + 592);
+  v27 = *(v34 + 568);
+  v28 = *(v34 + 745);
+  v25 = *(v34 + 576);
+  MEMORY[0x277D82BD8](v39);
+  v3 = *(v25 + 8);
+  *(v34 + 624) = v3;
+  *(v34 + 632) = (v25 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v3(v26, v27);
+  if (v28)
+  {
+    v24 = 4;
+  }
+
+  else
+  {
+    v24 = 5;
+  }
+
+  *(v34 + 640) = v24;
+  v22 = *(v34 + 520);
+  *(v34 + 320) = v24;
+  *(v34 + 648) = type metadata accessor for HKMedicationExposableDoseEvent();
+  *(v34 + 328) = _allocateUninitializedArray<A>(_:)();
+  *(v34 + 656) = type metadata accessor for MatchedMedName();
+  *(v34 + 336) = _allocateUninitializedArray<A>(_:)();
+  *(v34 + 344) = _allocateUninitializedArray<A>(_:)();
+  Date.init()();
+
+  *(v34 + 352) = v22;
+  *(v34 + 664) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
+  lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
+  Collection<>.makeIterator()();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMR);
+  IndexingIterator.next()();
+  v23 = *(v34 + 360);
+  *(v34 + 672) = v23;
+  if (v23)
+  {
+    v4 = *(v34 + 640);
+    v13 = *(v34 + 560);
+    v5 = *(v34 + 552);
+    v14 = *(v34 + 536);
+    v17 = *(v34 + 528);
+    v12 = *(v34 + 544);
+    *(v34 + 416) = v23;
+    v15 = [v23 updateForNewStatus_];
+    *(v34 + 680) = v15;
+    *(v34 + 424) = v15;
+    (*(v12 + 16))(v5, v13, v14);
+    isa = Date._bridgeToObjectiveC()().super.isa;
+    (*(v12 + 8))(v5, v14);
+    v21 = [v15 updateForNewStartDate_];
+    *(v34 + 688) = v21;
+    MEMORY[0x277D82BD8](isa);
+    *(v34 + 432) = v21;
+    MEMORY[0x277D82BE0](v21);
+    *(v34 + 440) = v21;
+    Array.append(_:)();
+    outlined init with copy of QuantityPersisting(v17 + 16, v34 + 144);
+    v18 = *(v34 + 168);
+    v19 = *(v34 + 176);
+    __swift_project_boxed_opaque_existential_1((v34 + 144), v18);
+    v20 = (*(v19 + 24) + **(v19 + 24));
+    v6 = swift_task_alloc();
+    *(v34 + 696) = v6;
+    *v6 = *(v34 + 288);
+    v6[1] = GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:);
+
+    return v20(v21, 1, v18, v19);
+  }
+
+  else
+  {
+    v11 = *(v34 + 512);
+    outlined destroy of [HKQuantityType]((v34 + 272));
+
+    v10 = Array._bridgeToObjectiveC()().super.isa;
+    *(v34 + 728) = v10;
+
+    *(v34 + 16) = *(v34 + 288);
+    *(v34 + 56) = v8;
+    *(v34 + 24) = GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:);
+    v9 = swift_continuation_init();
+    *(v34 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5Error_pGMd, &_sSccyyts5Error_pGMR);
+    *(v34 + 112) = v9;
+    *(v34 + 80) = MEMORY[0x277D85DD0];
+    *(v34 + 88) = 1107296256;
+    *(v34 + 92) = 0;
+    *(v34 + 96) = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned Bool, @unowned NSError?) -> () with result type () zero on error;
+    *(v34 + 104) = &block_descriptor_151;
+    [v11 writeDoseEvents:v10 completion:?];
+
+    return MEMORY[0x282200938](v34 + 16);
+  }
+}
+
+{
+  v1 = *(v0 + 704);
+  *(v0 + 288) = v0;
+  if (v1)
+  {
+    v8 = v9[88];
+    v9[58] = v8;
+    __swift_destroy_boxed_opaque_existential_1(v9 + 18);
+    MEMORY[0x277D82BE0](v8);
+    v9[59] = v8;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriWellnessIntents14MatchedMedNameCGMd, &_sSay19SiriWellnessIntents14MatchedMedNameCGMR);
+    Array.append(_:)();
+    MEMORY[0x277D82BD8](v8);
+  }
+
+  else
+  {
+    __swift_destroy_boxed_opaque_existential_1(v9 + 18);
+  }
+
+  v7 = v9[84];
+  outlined init with copy of QuantityPersisting(v9[66] + 16, (v9 + 23));
+  v4 = v9[26];
+  v5 = v9[27];
+  __swift_project_boxed_opaque_existential_1(v9 + 23, v4);
+  v6 = (*(v5 + 24) + **(v5 + 24));
+  v2 = swift_task_alloc();
+  v9[89] = v2;
+  *v2 = v9[36];
+  v2[1] = GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:);
+
+  return v6(v7, 1, v4, v5);
+}
+
+{
+  v1 = *(v0 + 720);
+  *(v0 + 288) = v0;
+  if (v1)
+  {
+    v12 = *(v24 + 720);
+    *(v24 + 448) = v12;
+    __swift_destroy_boxed_opaque_existential_1((v24 + 184));
+    MEMORY[0x277D82BE0](v12);
+    *(v24 + 456) = v12;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriWellnessIntents14MatchedMedNameCGMd, &_sSay19SiriWellnessIntents14MatchedMedNameCGMR);
+    Array.append(_:)();
+    MEMORY[0x277D82BD8](v12);
+  }
+
+  else
+  {
+    __swift_destroy_boxed_opaque_existential_1((v24 + 184));
+  }
+
+  v10 = *(v24 + 680);
+  v11 = *(v24 + 672);
+  MEMORY[0x277D82BD8](*(v24 + 688));
+  MEMORY[0x277D82BD8](v10);
+  MEMORY[0x277D82BD8](v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMR);
+  IndexingIterator.next()();
+  v13 = *(v24 + 360);
+  *(v24 + 672) = v13;
+  if (v13)
+  {
+    v2 = *(v24 + 640);
+    v15 = *(v24 + 560);
+    v3 = *(v24 + 552);
+    v16 = *(v24 + 536);
+    v19 = *(v24 + 528);
+    v14 = *(v24 + 544);
+    *(v24 + 416) = v13;
+    v17 = [v13 updateForNewStatus_];
+    *(v24 + 680) = v17;
+    *(v24 + 424) = v17;
+    (*(v14 + 16))(v3, v15, v16);
+    isa = Date._bridgeToObjectiveC()().super.isa;
+    (*(v14 + 8))(v3, v16);
+    v23 = [v17 updateForNewStartDate_];
+    *(v24 + 688) = v23;
+    MEMORY[0x277D82BD8](isa);
+    *(v24 + 432) = v23;
+    MEMORY[0x277D82BE0](v23);
+    *(v24 + 440) = v23;
+    Array.append(_:)();
+    outlined init with copy of QuantityPersisting(v19 + 16, v24 + 144);
+    v20 = *(v24 + 168);
+    v21 = *(v24 + 176);
+    __swift_project_boxed_opaque_existential_1((v24 + 144), v20);
+    v22 = (*(v21 + 24) + **(v21 + 24));
+    v4 = swift_task_alloc();
+    *(v24 + 696) = v4;
+    *v4 = *(v24 + 288);
+    v4[1] = GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:);
+
+    return v22(v23, 1, v20, v21);
+  }
+
+  else
+  {
+    v9 = *(v24 + 512);
+    outlined destroy of [HKQuantityType]((v24 + 272));
+
+    v8 = Array._bridgeToObjectiveC()().super.isa;
+    *(v24 + 728) = v8;
+
+    *(v24 + 16) = *(v24 + 288);
+    *(v24 + 56) = v6;
+    *(v24 + 24) = GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:);
+    v7 = swift_continuation_init();
+    *(v24 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5Error_pGMd, &_sSccyyts5Error_pGMR);
+    *(v24 + 112) = v7;
+    *(v24 + 80) = MEMORY[0x277D85DD0];
+    *(v24 + 88) = 1107296256;
+    *(v24 + 92) = 0;
+    *(v24 + 96) = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned Bool, @unowned NSError?) -> () with result type () zero on error;
+    *(v24 + 104) = &block_descriptor_151;
+    [v9 writeDoseEvents:v8 completion:?];
+
+    return MEMORY[0x282200938](v24 + 16);
+  }
+}
+
+{
+  v4 = *v0;
+  v5 = *v0;
+  *(v5 + 288) = *v0;
+  v1 = *(v4 + 48);
+  *(v5 + 736) = v1;
+  if (v1)
+  {
+    v2 = GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:);
+  }
+
+  else
+  {
+    v2 = GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v1 = v0[91];
+  v7 = v0[70];
+  v6 = v0[68];
+  v8 = v0[67];
+  v0[36] = v0;
+  MEMORY[0x277D82BD8](v1);
+  type metadata accessor for LogGenericMedicationsIntentResponse();
+  v9 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(4, 0);
+  MEMORY[0x277D82BE0](v9);
+  v0[51] = v9;
+
+  isa = Array._bridgeToObjectiveC()().super.isa;
+
+  [v9 setMatchingMeds_];
+  MEMORY[0x277D82BD8](isa);
+
+  v5 = Array._bridgeToObjectiveC()().super.isa;
+
+  [v9 setMatchingMedsBeforeUpdate_];
+  MEMORY[0x277D82BD8](v5);
+  MEMORY[0x277D82BD8](v0[51]);
+  (*(v6 + 8))(v7, v8);
+  outlined destroy of [HKQuantityType](v0 + 43);
+  outlined destroy of [HKQuantityType](v0 + 42);
+  outlined destroy of [HKQuantityType](v0 + 41);
+
+  v2 = *(v0[36] + 8);
+
+  return v2(v9);
+}
+
+uint64_t GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:)(uint64_t a1)
+{
+  v3 = *v1;
+  *(v3 + 288) = *v1;
+  *(v3 + 704) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:), 0);
+}
+
+{
+  v3 = *v1;
+  *(v3 + 288) = *v1;
+  *(v3 + 720) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:), 0);
+}
+
+{
+  v21 = v1[92];
+  v20 = v1[91];
+  v24 = v1[75];
+  v19 = v1[73];
+  v23 = v1[71];
+  v1[36] = v1;
+  swift_willThrow();
+  MEMORY[0x277D82BD8](v20);
+  v2 = v21;
+  v1[46] = v21;
+  v22 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  v24(v19, v22, v23);
+  swift_endAccess();
+  v26 = Logger.logObject.getter();
+  v25 = static os_log_type_t.error.getter();
+  v27 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v26, v25))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v15 = createStorage<A>(capacity:type:)(0, v13, v13);
+    v16 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v18 + 376) = buf;
+    *(v18 + 384) = v15;
+    *(v18 + 392) = v16;
+    serialize(_:at:)(0, (v18 + 376));
+    serialize(_:at:)(0, (v18 + 376));
+    *(v18 + 400) = v27;
+    v17 = swift_task_alloc();
+    v17[2] = v18 + 376;
+    v17[3] = v18 + 384;
+    v17[4] = v18 + 392;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+
+    _os_log_impl(&dword_269912000, v26, v25, "Failed writing updated dose events for specific meds.", buf, 2u);
+    destroyStorage<A>(_:count:)(v15, 0, v13);
+    destroyStorage<A>(_:count:)(v16, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+  }
+
+  v8 = *(v18 + 736);
+  v7 = *(v18 + 624);
+  v5 = *(v18 + 584);
+  v6 = *(v18 + 568);
+  v10 = *(v18 + 560);
+  v11 = *(v18 + 536);
+  v9 = *(v18 + 544);
+  MEMORY[0x277D82BD8](v26);
+  v7(v5, v6);
+  type metadata accessor for LogGenericMedicationsIntentResponse();
+  v12 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+
+  (*(v9 + 8))(v10, v11);
+  outlined destroy of [HKQuantityType]((v18 + 344));
+  outlined destroy of [HKQuantityType]((v18 + 336));
+  outlined destroy of [HKQuantityType]((v18 + 328));
+
+  v3 = *(*(v18 + 288) + 8);
+
+  return v3(v12);
+}
+
+uint64_t GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:)(char a1, char a2, char a3)
+{
+  *(v4 + 1176) = v3;
+  *(v4 + 1731) = a3 & 1;
+  *(v4 + 1730) = a2 & 1;
+  *(v4 + 1729) = a1 & 1;
+  *(v4 + 584) = v4;
+  *(v4 + 1728) = 0;
+  *(v4 + 1736) = 0;
+  *(v4 + 1744) = 0;
+  *(v4 + 592) = 0;
+  *(v4 + 600) = 0;
+  *(v4 + 616) = 0;
+  *(v4 + 656) = 0;
+  *(v4 + 672) = 0;
+  *(v4 + 680) = 0;
+  *(v4 + 552) = 0;
+  *(v4 + 560) = 0;
+  *(v4 + 704) = 0;
+  *(v4 + 744) = 0;
+  *(v4 + 792) = 0;
+  *(v4 + 800) = 0;
+  *(v4 + 568) = 0;
+  *(v4 + 576) = 0;
+  *(v4 + 824) = 0;
+  *(v4 + 864) = 0;
+  *(v4 + 1056) = 0;
+  *(v4 + 1064) = 0;
+  *(v4 + 1104) = 0;
+  v5 = type metadata accessor for Logger();
+  *(v4 + 1184) = v5;
+  *(v4 + 1192) = *(v5 - 8);
+  *(v4 + 1200) = swift_task_alloc();
+  *(v4 + 1208) = swift_task_alloc();
+  *(v4 + 1216) = swift_task_alloc();
+  *(v4 + 1224) = swift_task_alloc();
+  *(v4 + 1232) = swift_task_alloc();
+  *(v4 + 1240) = swift_task_alloc();
+  *(v4 + 1248) = swift_task_alloc();
+  *(v4 + 1256) = swift_task_alloc();
+  *(v4 + 1264) = swift_task_alloc();
+  *(v4 + 1272) = swift_task_alloc();
+  *(v4 + 1280) = swift_task_alloc();
+  *(v4 + 1288) = swift_task_alloc();
+  v6 = type metadata accessor for Date();
+  *(v4 + 1296) = v6;
+  *(v4 + 1304) = *(v6 - 8);
+  *(v4 + 1312) = swift_task_alloc();
+  *(v4 + 1320) = swift_task_alloc();
+  *(v4 + 1328) = swift_task_alloc();
+  *(v4 + 1336) = swift_task_alloc();
+  v7 = type metadata accessor for DateInterval();
+  *(v4 + 1344) = v7;
+  *(v4 + 1352) = *(v7 - 8);
+  *(v4 + 1360) = swift_task_alloc();
+  *(v4 + 1368) = swift_task_alloc();
+  *(v4 + 1728) = a1 & 1;
+  *(v4 + 1736) = a2 & 1;
+  *(v4 + 1744) = a3 & 1;
+  *(v4 + 592) = v3;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:), 0);
+}
+
+uint64_t GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:)(uint64_t a1)
+{
+  v12 = *(v1 + 1368);
+  v15 = *(v1 + 1360);
+  v13 = *(v1 + 1352);
+  v14 = *(v1 + 1344);
+  v5 = *(v1 + 1336);
+  v9 = *(v1 + 1328);
+  v6 = *(v1 + 1320);
+  v10 = *(v1 + 1312);
+  v4 = *(v1 + 1304);
+  v7 = *(v1 + 1296);
+  v11 = *(v1 + 1176);
+  *(v1 + 584) = v1;
+  Date.init()();
+  Date.startOfDay.getter(v9);
+  v8 = *(v4 + 8);
+  v8(v5, v7);
+  Date.init()();
+  Date.endOfDay.getter(v10);
+  v8(v6, v7);
+  DateInterval.init(start:end:)();
+  v18 = *(v11 + 8);
+  *(v1 + 1376) = v18;
+  MEMORY[0x277D82BE0](v18);
+  (*(v13 + 16))(v15, v12, v14);
+  isa = DateInterval._bridgeToObjectiveC()().super.isa;
+  *(v1 + 1384) = isa;
+  v2 = *(v13 + 8);
+  *(v1 + 1392) = v2;
+  *(v1 + 1400) = (v13 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+  v2(v15, v14);
+  *(v1 + 16) = *(v1 + 584);
+  *(v1 + 56) = v1 + 608;
+  *(v1 + 24) = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+  v16 = swift_continuation_init();
+  *(v1 + 136) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySaySo30HKMedicationExposableDoseEventCGs5Error_pGMd, &_sSccySaySo30HKMedicationExposableDoseEventCGs5Error_pGMR);
+  *(v1 + 112) = v16;
+  *(v1 + 80) = MEMORY[0x277D85DD0];
+  *(v1 + 88) = 1107296256;
+  *(v1 + 92) = 0;
+  *(v1 + 96) = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSArray?, @unowned NSError?) -> () with result type [HKMedicationExposableDoseEvent];
+  *(v1 + 104) = &block_descriptor_158;
+  [v18 doseEventsForDateInterval:isa medicationIdentifier:0 completion:?];
+
+  return MEMORY[0x282200938](v1 + 16);
+}
+
+{
+  v3 = *v1;
+  *(v3 + 584) = *v1;
+  *(v3 + 1488) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:), 0);
+}
+
+{
+  v3 = *v1;
+  *(v3 + 584) = *v1;
+  *(v3 + 1560) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:), 0);
+}
+
+{
+  v5 = *v2;
+  v5[73] = *v2;
+  v5[198] = a1;
+  v5[199] = v1;
+
+  if (v1)
+  {
+    v3 = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+  }
+
+  else
+  {
+
+    v3 = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+  }
+
+  return MEMORY[0x2822009F8](v3, 0);
+}
+
+{
+  v3 = *v1;
+  *(v3 + 584) = *v1;
+  *(v3 + 1640) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:), 0);
+}
+
+{
+  v3 = *v1;
+  *(v3 + 584) = *v1;
+  *(v3 + 1688) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:), 0);
+}
+
+{
+  v4 = *v1;
+  v3 = *(*v1 + 1696);
+  *(v4 + 584) = *v1;
+  *(v4 + 1720) = a1;
+
+  return MEMORY[0x2822009F8](GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:), 0);
+}
+
+{
+  v20 = v1[174];
+  v17 = v1[173];
+  v16 = v1[172];
+  v18 = v1[171];
+  v19 = v1[168];
+  v1[73] = v1;
+  swift_willThrow();
+  MEMORY[0x277D82BD8](v16);
+  MEMORY[0x277D82BD8](v17);
+  v20(v18, v19);
+  v21 = v1[176];
+  v2 = v1[150];
+  v22 = v1[149];
+  v24 = v1[148];
+  v3 = v21;
+  v1[77] = v21;
+  v23 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  (*(v22 + 16))(v2, v23, v24);
+  swift_endAccess();
+  v26 = Logger.logObject.getter();
+  v25 = static os_log_type_t.error.getter();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v27 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v26, v25))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v12 = createStorage<A>(capacity:type:)(0, v10, v10);
+    v13 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v15 + 624) = buf;
+    *(v15 + 632) = v12;
+    *(v15 + 640) = v13;
+    serialize(_:at:)(0, (v15 + 624));
+    serialize(_:at:)(0, (v15 + 624));
+    *(v15 + 648) = v27;
+    v14 = swift_task_alloc();
+    v14[2] = v15 + 624;
+    v14[3] = v15 + 632;
+    v14[4] = v15 + 640;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+
+    _os_log_impl(&dword_269912000, v26, v25, "Failed fetching dose events for timeframe.", buf, 2u);
+    destroyStorage<A>(_:count:)(v12, 0, v10);
+    destroyStorage<A>(_:count:)(v13, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+  }
+
+  v7 = *(v15 + 1200);
+  v8 = *(v15 + 1184);
+  v6 = *(v15 + 1192);
+  MEMORY[0x277D82BD8](v26);
+  (*(v6 + 8))(v7, v8);
+  type metadata accessor for LogGenericMedicationsIntentResponse();
+  v9 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+
+  v4 = *(*(v15 + 584) + 8);
+
+  return v4(v9);
+}
+
+uint64_t GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:)()
+{
+  v4 = *v0;
+  v5 = *v0;
+  *(v5 + 584) = *v0;
+  v1 = *(v4 + 48);
+  *(v5 + 1408) = v1;
+  if (v1)
+  {
+    v2 = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+  }
+
+  else
+  {
+    v2 = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+  }
+
+  return MEMORY[0x2822009F8](v2, 0);
+}
+
+{
+  v87 = v0[173];
+  v86 = v0[172];
+  v0[73] = v0;
+  v88 = v0[76];
+
+  v0[75] = v88;
+  MEMORY[0x277D82BD8](v86);
+  MEMORY[0x277D82BD8](v87);
+  v89 = filterUniqueDoseEvents(doseEvents:)(v88, v1);
+
+  v0[75] = v89;
+
+  v2 = type metadata accessor for HKMedicationExposableDoseEvent();
+  v90 = MEMORY[0x26D6494A0](v89, v2);
+
+  if (!v90)
+  {
+    v3 = *(v85 + 1288);
+    v81 = *(v85 + 1184);
+    v79 = *(v85 + 1192);
+    v80 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    (*(v79 + 16))(v3, v80, v81);
+    swift_endAccess();
+    v83 = Logger.logObject.getter();
+    v82 = static os_log_type_t.debug.getter();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+    v84 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v83, v82))
+    {
+      v75 = static UnsafeMutablePointer.allocate(capacity:)();
+      v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v76 = createStorage<A>(capacity:type:)(0, v74, v74);
+      v77 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v85 + 1144) = v75;
+      *(v85 + 1152) = v76;
+      *(v85 + 1160) = v77;
+      serialize(_:at:)(0, (v85 + 1144));
+      serialize(_:at:)(0, (v85 + 1144));
+      *(v85 + 1168) = v84;
+      v78 = swift_task_alloc();
+      v78[2] = v85 + 1144;
+      v78[3] = v85 + 1152;
+      v78[4] = v85 + 1160;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+
+      _os_log_impl(&dword_269912000, v83, v82, "No medications found for today.", v75, 2u);
+      destroyStorage<A>(_:count:)(v76, 0, v74);
+      destroyStorage<A>(_:count:)(v77, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v75, MEMORY[0x277D84B78]);
+    }
+
+    v70 = *(v85 + 1392);
+    v71 = *(v85 + 1368);
+    v69 = *(v85 + 1344);
+    v67 = *(v85 + 1288);
+    v68 = *(v85 + 1184);
+    v66 = *(v85 + 1192);
+    MEMORY[0x277D82BD8](v83);
+    (*(v66 + 8))(v67, v68);
+    type metadata accessor for LogGenericMedicationsIntentResponse();
+    v72 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(104, 0);
+    outlined destroy of [HKQuantityType]((v85 + 600));
+    v70(v71, v69);
+    v73 = v72;
+LABEL_20:
+
+    v12 = *(*(v85 + 584) + 8);
+
+    return v12(v73);
+  }
+
+  if (v90 == 1)
+  {
+    v4 = *(v85 + 1280);
+    v61 = *(v85 + 1184);
+    v59 = *(v85 + 1192);
+    v60 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v62 = *(v59 + 16);
+    *(v85 + 1416) = v62;
+    *(v85 + 1424) = (v59 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v62(v4, v60, v61);
+    swift_endAccess();
+    oslog = Logger.logObject.getter();
+    v63 = static os_log_type_t.debug.getter();
+    *(v85 + 1432) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+    v65 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(oslog, v63))
+    {
+      buf = static UnsafeMutablePointer.allocate(capacity:)();
+      v54 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v56 = createStorage<A>(capacity:type:)(0, v54, v54);
+      v57 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v85 + 1112) = buf;
+      *(v85 + 1120) = v56;
+      *(v85 + 1128) = v57;
+      serialize(_:at:)(0, (v85 + 1112));
+      serialize(_:at:)(0, (v85 + 1112));
+      *(v85 + 1136) = v65;
+      v58 = swift_task_alloc();
+      v58[2] = v85 + 1112;
+      v58[3] = v85 + 1120;
+      v58[4] = v85 + 1128;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+
+      _os_log_impl(&dword_269912000, oslog, v63, "One dose event found for today, treat like a specific meds request.", buf, 2u);
+      destroyStorage<A>(_:count:)(v56, 0, v54);
+      destroyStorage<A>(_:count:)(v57, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+    }
+
+    *(v85 + 1440) = 0;
+    v49 = *(v85 + 1280);
+    v50 = *(v85 + 1184);
+    v48 = *(v85 + 1192);
+    MEMORY[0x277D82BD8](oslog);
+    v51 = *(v48 + 8);
+    *(v85 + 1448) = v51;
+    *(v85 + 1456) = (v48 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v51(v49, v50);
+    v52 = *(v85 + 600);
+
+    *(v85 + 1008) = v52;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
+    lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
+    Collection.first.getter();
+    v53 = *(v85 + 1016);
+    *(v85 + 1464) = v53;
+    if (!v53)
+    {
+      v7 = *(v85 + 1264);
+      v40 = *(v85 + 1184);
+
+      v39 = Logger.wellnessIntents.unsafeMutableAddressor();
+      swift_beginAccess();
+      v62(v7, v39, v40);
+      swift_endAccess();
+      log = Logger.logObject.getter();
+      v41 = static os_log_type_t.error.getter();
+      v43 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(log, v41))
+      {
+        v35 = static UnsafeMutablePointer.allocate(capacity:)();
+        v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v36 = createStorage<A>(capacity:type:)(0, v34, v34);
+        v37 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        *(v85 + 1024) = v35;
+        *(v85 + 1032) = v36;
+        *(v85 + 1040) = v37;
+        serialize(_:at:)(0, (v85 + 1024));
+        serialize(_:at:)(0, (v85 + 1024));
+        *(v85 + 1048) = v43;
+        v38 = swift_task_alloc();
+        v38[2] = v85 + 1024;
+        v38[3] = v85 + 1032;
+        v38[4] = v85 + 1040;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+        Sequence.forEach(_:)();
+
+        _os_log_impl(&dword_269912000, log, v41, "Supposed to be one dose event in doseEvents, but unable to unpack it - returning .failure", v35, 2u);
+        destroyStorage<A>(_:count:)(v36, 0, v34);
+        destroyStorage<A>(_:count:)(v37, 0, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D6497C0](v35, MEMORY[0x277D84B78]);
+      }
+
+      v31 = *(v85 + 1392);
+      v32 = *(v85 + 1368);
+      v30 = *(v85 + 1344);
+      v28 = *(v85 + 1264);
+      v29 = *(v85 + 1184);
+      MEMORY[0x277D82BD8](log);
+      v51(v28, v29);
+      type metadata accessor for LogGenericMedicationsIntentResponse();
+      v33 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+      outlined destroy of [HKQuantityType]((v85 + 600));
+      v31(v32, v30);
+      v73 = v33;
+      goto LABEL_20;
+    }
+
+    v44 = *(v85 + 1176);
+    *(v85 + 1056) = v53;
+
+    *(v85 + 1472) = type metadata accessor for LogGenericMedicationsIntentResponse();
+    *(v85 + 1064) = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(106, 0);
+    outlined init with copy of QuantityPersisting(v44 + 16, v85 + 224);
+    v45 = *(v85 + 248);
+    v46 = *(v85 + 256);
+    __swift_project_boxed_opaque_existential_1((v85 + 224), v45);
+    v47 = (*(v46 + 24) + **(v46 + 24));
+    v5 = swift_task_alloc();
+    *(v85 + 1480) = v5;
+    *v5 = *(v85 + 584);
+    v5[1] = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+
+    return v47(v53, 1, v45, v46);
+  }
+
+  else
+  {
+    v8 = *(v85 + 1256);
+    v24 = *(v85 + 1184);
+    v22 = *(v85 + 1192);
+    v23 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v9 = *(v22 + 16);
+    *(v85 + 1496) = v9;
+    *(v85 + 1504) = (v22 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
+    v9(v8, v23, v24);
+    swift_endAccess();
+    v26 = Logger.logObject.getter();
+    v25 = static os_log_type_t.debug.getter();
+    *(v85 + 1512) = __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+    v27 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v26, v25))
+    {
+      v18 = static UnsafeMutablePointer.allocate(capacity:)();
+      v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v19 = createStorage<A>(capacity:type:)(0, v17, v17);
+      v20 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v85 + 976) = v18;
+      *(v85 + 984) = v19;
+      *(v85 + 992) = v20;
+      serialize(_:at:)(0, (v85 + 976));
+      serialize(_:at:)(0, (v85 + 976));
+      *(v85 + 1000) = v27;
+      v21 = swift_task_alloc();
+      v21[2] = v85 + 976;
+      v21[3] = v85 + 984;
+      v21[4] = v85 + 992;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+
+      _os_log_impl(&dword_269912000, v26, v25, "Multiple dose events found for today, proceed with generic meds request.", v18, 2u);
+      destroyStorage<A>(_:count:)(v19, 0, v17);
+      destroyStorage<A>(_:count:)(v20, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v18, MEMORY[0x277D84B78]);
+    }
+
+    *(v85 + 1520) = 0;
+    v14 = *(v85 + 1256);
+    v15 = *(v85 + 1184);
+    v13 = *(v85 + 1192);
+    MEMORY[0x277D82BD8](v26);
+    v10 = *(v13 + 8);
+    *(v85 + 1528) = v10;
+    *(v85 + 1536) = (v13 + 8) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
+    v10(v14, v15);
+    v16 = *(v85 + 600);
+    *(v85 + 1544) = v16;
+
+    v11 = swift_task_alloc();
+    *(v85 + 1552) = v11;
+    *v11 = *(v85 + 584);
+    v11[1] = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+
+    return GenericMedicationsPersistor.numMedInAppToday(doseEvents:)(v16);
+  }
+}
+
+{
+  v1 = *(v0 + 1488);
+  *(v0 + 584) = v0;
+  if (v1)
+  {
+    v28 = *(v35 + 1488);
+    v31 = *(v35 + 1392);
+    v32 = *(v35 + 1368);
+    v30 = *(v35 + 1344);
+    v29 = *(v35 + 1464);
+    *(v35 + 1104) = v28;
+    __swift_destroy_boxed_opaque_existential_1((v35 + 224));
+    v33 = *(v35 + 1064);
+    MEMORY[0x277D82BE0](v33);
+    type metadata accessor for MatchedMedName();
+    _allocateUninitializedArray<A>(_:)();
+    v26 = v2;
+    MEMORY[0x277D82BE0](v28);
+    *v26 = v28;
+    _finalizeUninitializedArray<A>(_:)();
+    isa = Array._bridgeToObjectiveC()().super.isa;
+
+    [v33 setMatchingMeds_];
+    MEMORY[0x277D82BD8](isa);
+    MEMORY[0x277D82BD8](v28);
+    MEMORY[0x277D82BD8](*(v35 + 1064));
+    MEMORY[0x277D82BD8](v29);
+    outlined destroy of [HKQuantityType]((v35 + 600));
+    v31(v32, v30);
+    v34 = v33;
+  }
+
+  else
+  {
+    v22 = *(v35 + 1416);
+    v3 = *(v35 + 1272);
+    v21 = *(v35 + 1184);
+    __swift_destroy_boxed_opaque_existential_1((v35 + 224));
+    v20 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v22(v3, v20, v21);
+    swift_endAccess();
+    v24 = Logger.logObject.getter();
+    v23 = static os_log_type_t.error.getter();
+    v25 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v24, v23))
+    {
+      v4 = *(v35 + 1440);
+      buf = static UnsafeMutablePointer.allocate(capacity:)();
+      v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v17 = createStorage<A>(capacity:type:)(0, v15, v15);
+      v18 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v35 + 1072) = buf;
+      *(v35 + 1080) = v17;
+      *(v35 + 1088) = v18;
+      serialize(_:at:)(0, (v35 + 1072));
+      serialize(_:at:)(0, (v35 + 1072));
+      *(v35 + 1096) = v25;
+      v19 = swift_task_alloc();
+      v19[2] = v35 + 1072;
+      v19[3] = v35 + 1080;
+      v19[4] = v35 + 1088;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+      if (v4)
+      {
+      }
+
+      _os_log_impl(&dword_269912000, v24, v23, "GenericMedicationsPersistor: attempt to buildMatchedMed failed, returning .failure.", buf, 2u);
+      destroyStorage<A>(_:count:)(v17, 0, v15);
+      destroyStorage<A>(_:count:)(v18, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v9 = *(v35 + 1448);
+    v12 = *(v35 + 1392);
+    v13 = *(v35 + 1368);
+    v11 = *(v35 + 1344);
+    v7 = *(v35 + 1272);
+    v8 = *(v35 + 1184);
+    v10 = *(v35 + 1464);
+    MEMORY[0x277D82BD8](v24);
+    v9(v7, v8);
+    v14 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+    MEMORY[0x277D82BD8](*(v35 + 1064));
+    MEMORY[0x277D82BD8](v10);
+    outlined destroy of [HKQuantityType]((v35 + 600));
+    v12(v13, v11);
+    v34 = v14;
+  }
+
+  v6 = *(*(v35 + 584) + 8);
+
+  return v6(v34);
+}
+
+{
+  v1 = *(v0 + 1560);
+  v2 = *(v0 + 1729);
+  *(v0 + 584) = v0;
+  *(v0 + 656) = v1;
+  if ((v2 & 1) != 0 || *(v124 + 1560) <= 1)
+  {
+    if ((*(v124 + 1731) & 1) == 0)
+    {
+      v104 = *(v124 + 600);
+      *(v124 + 1568) = v104;
+
+      v5 = swift_task_alloc();
+      *(v124 + 1576) = v5;
+      *v5 = *(v124 + 584);
+      v5[1] = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+
+      return GenericMedicationsPersistor.getConfirmationLogAsScheduled(doseEvents:)(v104);
+    }
+
+    doseEvents._rawValue = *(v124 + 600);
+
+    v103 = allDoseEventsAreUnlogged(doseEvents:)(doseEvents);
+
+    if (v103)
+    {
+      v98 = *(v124 + 1496);
+      v7 = *(v124 + 1240);
+      v97 = *(v124 + 1184);
+      v96 = Logger.wellnessIntents.unsafeMutableAddressor();
+      swift_beginAccess();
+      v98(v7, v96, v97);
+      swift_endAccess();
+      oslog = Logger.logObject.getter();
+      v99 = static os_log_type_t.debug.getter();
+      v101 = _allocateUninitializedArray<A>(_:)();
+      if (!os_log_type_enabled(oslog, v99))
+      {
+
+        goto LABEL_21;
+      }
+
+      v8 = *(v124 + 1520);
+      buf = static UnsafeMutablePointer.allocate(capacity:)();
+      v91 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v93 = createStorage<A>(capacity:type:)(0, v91, v91);
+      v94 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v124 + 912) = buf;
+      *(v124 + 920) = v93;
+      *(v124 + 928) = v94;
+      serialize(_:at:)(0, (v124 + 912));
+      serialize(_:at:)(0, (v124 + 912));
+      *(v124 + 936) = v101;
+      v95 = swift_task_alloc();
+      v95[2] = v124 + 912;
+      v95[3] = v124 + 920;
+      v95[4] = v124 + 928;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+      if (!v8)
+      {
+
+        _os_log_impl(&dword_269912000, oslog, v99, "All dose events for day are unlogged, continuing to write", buf, 2u);
+        destroyStorage<A>(_:count:)(v93, 0, v91);
+        destroyStorage<A>(_:count:)(v94, 0, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+
+LABEL_21:
+        v90 = *(v124 + 1528);
+        v88 = *(v124 + 1240);
+        v89 = *(v124 + 1184);
+        MEMORY[0x277D82BD8](oslog);
+        v90(v88, v89);
+LABEL_46:
+        v27 = *(*(v124 + 1176) + 8);
+        *(v124 + 1696) = v27;
+        MEMORY[0x277D82BE0](v27);
+        v26 = *(v124 + 600);
+        *(v124 + 1704) = v26;
+
+        v23 = swift_task_alloc();
+        *(v124 + 1712) = v23;
+        *v23 = *(v124 + 584);
+        v23[1] = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+        v24 = *(v124 + 1730) & 1;
+
+        return GenericMedicationsPersistor.writeDoseEvent(medicationController:doseEvents:medStatusTaken:)(v27, v26, v24);
+      }
+    }
+
+    v86._rawValue = *(v124 + 600);
+
+    v87 = allLoggedWithMixedStatus(doseEvents:)(v86);
+
+    if (v87 || (v83 = *(v124 + 1730), v84._rawValue = *(v124 + 600), , v85 = oneExistingStatusWithConflictingRequest(doseEvents:requestedStatus:)(v84, v83 & 1), , v85))
+    {
+      v79 = *(v124 + 1496);
+      v9 = *(v124 + 1232);
+      v78 = *(v124 + 1184);
+      v77 = Logger.wellnessIntents.unsafeMutableAddressor();
+      swift_beginAccess();
+      v79(v9, v77, v78);
+      swift_endAccess();
+      log = Logger.logObject.getter();
+      v80 = static os_log_type_t.debug.getter();
+      v82 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(log, v80))
+      {
+        v10 = *(v124 + 1520);
+        v73 = static UnsafeMutablePointer.allocate(capacity:)();
+        v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v74 = createStorage<A>(capacity:type:)(0, v72, v72);
+        v75 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        *(v124 + 880) = v73;
+        *(v124 + 888) = v74;
+        *(v124 + 896) = v75;
+        serialize(_:at:)(0, (v124 + 880));
+        serialize(_:at:)(0, (v124 + 880));
+        *(v124 + 904) = v82;
+        v76 = swift_task_alloc();
+        v76[2] = v124 + 880;
+        v76[3] = v124 + 888;
+        v76[4] = v124 + 896;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+        Sequence.forEach(_:)();
+        if (v10)
+        {
+        }
+
+        _os_log_impl(&dword_269912000, log, v80, "Calling either allLoggedWithMixedStatus or oneExistingStatusWithConflictingRequest", v73, 2u);
+        destroyStorage<A>(_:count:)(v74, 0, v72);
+        destroyStorage<A>(_:count:)(v75, 0, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D6497C0](v73, MEMORY[0x277D84B78]);
+
+        v71 = 0;
+      }
+
+      else
+      {
+
+        v71 = *(v124 + 1520);
+      }
+
+      *(v124 + 1600) = v71;
+      v68 = *(v124 + 1528);
+      v66 = *(v124 + 1232);
+      v67 = *(v124 + 1184);
+      MEMORY[0x277D82BD8](log);
+      v68(v66, v67);
+      *(v124 + 1608) = type metadata accessor for LogGenericMedicationsIntentResponse();
+      *(v124 + 792) = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(107, 0);
+      *(v124 + 1616) = type metadata accessor for MatchedMedName();
+      *(v124 + 800) = _allocateUninitializedArray<A>(_:)();
+      v69 = *(v124 + 600);
+
+      *(v124 + 808) = v69;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
+      lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
+      Collection<>.makeIterator()();
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMR);
+      IndexingIterator.next()();
+      v70 = *(v124 + 816);
+      *(v124 + 1624) = v70;
+      if (v70)
+      {
+        v11 = *(v124 + 1176);
+        *(v124 + 824) = v70;
+        outlined init with copy of QuantityPersisting(v11 + 16, v124 + 184);
+        v63 = *(v124 + 208);
+        v64 = *(v124 + 216);
+        __swift_project_boxed_opaque_existential_1((v124 + 184), v63);
+        v65 = (*(v64 + 24) + **(v64 + 24));
+        v12 = swift_task_alloc();
+        v13 = v63;
+        v14 = v64;
+        v15 = v65;
+        v16 = v12;
+        v17 = v70;
+        *(v124 + 1632) = v16;
+        *v16 = *(v124 + 584);
+        v16[1] = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+
+        return v15(v17, 1, v13, v14);
+      }
+
+      v60 = *(v124 + 1392);
+      v61 = *(v124 + 1368);
+      v59 = *(v124 + 1344);
+      outlined destroy of [HKQuantityType]((v124 + 568));
+      v62 = *(v124 + 792);
+      MEMORY[0x277D82BE0](v62);
+
+      isa = Array._bridgeToObjectiveC()().super.isa;
+
+      [v62 setMatchingMeds_];
+      MEMORY[0x277D82BD8](isa);
+      outlined destroy of [HKQuantityType]((v124 + 800));
+      MEMORY[0x277D82BD8](*(v124 + 792));
+      outlined destroy of [HKQuantityType]((v124 + 600));
+      v60(v61, v59);
+      v112 = v62;
+    }
+
+    else
+    {
+      v55 = *(v124 + 600);
+
+      v56 = getUnloggedDoseEvents(doseEvents:)(v55);
+
+      *(v124 + 664) = v56;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo30HKMedicationExposableDoseEventCGMd, &_sSaySo30HKMedicationExposableDoseEventCGMR);
+      lazy protocol witness table accessor for type [HKMedicationExposableDoseEvent] and conformance [A]();
+      v57 = Collection.isEmpty.getter();
+
+      if ((v57 & 1) == 0)
+      {
+        v28 = *(v124 + 600);
+
+        v29 = getUnloggedDoseEvents(doseEvents:)(v28);
+
+        *(v124 + 600) = v29;
+
+        goto LABEL_46;
+      }
+
+      v51 = *(v124 + 1496);
+      v18 = *(v124 + 1216);
+      v50 = *(v124 + 1184);
+      v49 = Logger.wellnessIntents.unsafeMutableAddressor();
+      swift_beginAccess();
+      v51(v18, v49, v50);
+      swift_endAccess();
+      v53 = Logger.logObject.getter();
+      v52 = static os_log_type_t.debug.getter();
+      v54 = _allocateUninitializedArray<A>(_:)();
+      if (os_log_type_enabled(v53, v52))
+      {
+        v19 = *(v124 + 1520);
+        v45 = static UnsafeMutablePointer.allocate(capacity:)();
+        v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        v46 = createStorage<A>(capacity:type:)(0, v44, v44);
+        v47 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+        *(v124 + 760) = v45;
+        *(v124 + 768) = v46;
+        *(v124 + 776) = v47;
+        serialize(_:at:)(0, (v124 + 760));
+        serialize(_:at:)(0, (v124 + 760));
+        *(v124 + 784) = v54;
+        v48 = swift_task_alloc();
+        v48[2] = v124 + 760;
+        v48[3] = v124 + 768;
+        v48[4] = v124 + 776;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+        lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+        Sequence.forEach(_:)();
+        if (v19)
+        {
+        }
+
+        _os_log_impl(&dword_269912000, v53, v52, "allMedsLoggedAlready, returning code .allMedsLoggedAlready", v45, 2u);
+        destroyStorage<A>(_:count:)(v46, 0, v44);
+        destroyStorage<A>(_:count:)(v47, 0, MEMORY[0x277D84F70] + 8);
+        MEMORY[0x26D6497C0](v45, MEMORY[0x277D84B78]);
+
+        v43 = 0;
+      }
+
+      else
+      {
+
+        v43 = *(v124 + 1520);
+      }
+
+      *(v124 + 1648) = v43;
+      v40 = *(v124 + 1528);
+      v38 = *(v124 + 1216);
+      v39 = *(v124 + 1184);
+      MEMORY[0x277D82BD8](v53);
+      v40(v38, v39);
+      *(v124 + 1656) = type metadata accessor for LogGenericMedicationsIntentResponse();
+      *(v124 + 672) = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(108, 0);
+      *(v124 + 1664) = type metadata accessor for MatchedMedName();
+      *(v124 + 680) = _allocateUninitializedArray<A>(_:)();
+      v41 = *(v124 + 600);
+
+      *(v124 + 688) = v41;
+      Collection<>.makeIterator()();
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMR);
+      IndexingIterator.next()();
+      v42 = *(v124 + 696);
+      *(v124 + 1672) = v42;
+      if (v42)
+      {
+        v20 = *(v124 + 1176);
+        *(v124 + 704) = v42;
+        outlined init with copy of QuantityPersisting(v20 + 16, v124 + 144);
+        v35 = *(v124 + 168);
+        v36 = *(v124 + 176);
+        __swift_project_boxed_opaque_existential_1((v124 + 144), v35);
+        v37 = (*(v36 + 24) + **(v36 + 24));
+        v21 = swift_task_alloc();
+        v13 = v35;
+        v14 = v36;
+        v15 = v37;
+        v22 = v21;
+        v17 = v42;
+        *(v124 + 1680) = v22;
+        *v22 = *(v124 + 584);
+        v22[1] = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+
+        return v15(v17, 1, v13, v14);
+      }
+
+      v32 = *(v124 + 1392);
+      v33 = *(v124 + 1368);
+      v31 = *(v124 + 1344);
+      outlined destroy of [HKQuantityType]((v124 + 552));
+      v34 = *(v124 + 672);
+      MEMORY[0x277D82BE0](v34);
+
+      v30 = Array._bridgeToObjectiveC()().super.isa;
+
+      [v34 setMatchingMeds_];
+      MEMORY[0x277D82BD8](v30);
+      outlined destroy of [HKQuantityType]((v124 + 680));
+      MEMORY[0x277D82BD8](*(v124 + 672));
+      outlined destroy of [HKQuantityType]((v124 + 600));
+      v32(v33, v31);
+      v112 = v34;
+    }
+  }
+
+  else
+  {
+    v120 = *(v124 + 1496);
+    v3 = *(v124 + 1248);
+    v119 = *(v124 + 1184);
+    v118 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v120(v3, v118, v119);
+    swift_endAccess();
+    v122 = Logger.logObject.getter();
+    v121 = static os_log_type_t.debug.getter();
+    v123 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v122, v121))
+    {
+      v4 = *(v124 + 1520);
+      v114 = static UnsafeMutablePointer.allocate(capacity:)();
+      v113 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v115 = createStorage<A>(capacity:type:)(0, v113, v113);
+      v116 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v124 + 944) = v114;
+      *(v124 + 952) = v115;
+      *(v124 + 960) = v116;
+      serialize(_:at:)(0, (v124 + 944));
+      serialize(_:at:)(0, (v124 + 944));
+      *(v124 + 968) = v123;
+      v117 = swift_task_alloc();
+      v117[2] = v124 + 944;
+      v117[3] = v124 + 952;
+      v117[4] = v124 + 960;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+      if (v4)
+      {
+      }
+
+      _os_log_impl(&dword_269912000, v122, v121, "Multiple medications found for none (implicitly today) timeframe, returning .multipleMedsFound", v114, 2u);
+      destroyStorage<A>(_:count:)(v115, 0, v113);
+      destroyStorage<A>(_:count:)(v116, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](v114, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v107 = *(v124 + 1528);
+    v109 = *(v124 + 1392);
+    v110 = *(v124 + 1368);
+    v108 = *(v124 + 1344);
+    v105 = *(v124 + 1248);
+    v106 = *(v124 + 1184);
+    MEMORY[0x277D82BD8](v122);
+    v107(v105, v106);
+    type metadata accessor for LogGenericMedicationsIntentResponse();
+    v111 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(103, 0);
+    outlined destroy of [HKQuantityType]((v124 + 600));
+    v109(v110, v108);
+    v112 = v111;
+  }
+
+  v25 = *(*(v124 + 584) + 8);
+
+  return v25(v112);
+}
+
+{
+  v4 = v0[174];
+  v5 = v0[171];
+  v3 = v0[168];
+  v0[73] = v0;
+  outlined destroy of [HKQuantityType](v0 + 75);
+  v4(v5, v3);
+  v6 = v0[198];
+
+  v1 = *(v0[73] + 8);
+
+  return v1(v6);
+}
+
+{
+  v1 = *(v0 + 1640);
+  *(v0 + 584) = v0;
+  if (v1)
+  {
+    v33 = *(v39 + 1640);
+    v34 = *(v39 + 1624);
+    *(v39 + 864) = v33;
+    __swift_destroy_boxed_opaque_existential_1((v39 + 184));
+    MEMORY[0x277D82BE0](v33);
+    *(v39 + 872) = v33;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriWellnessIntents14MatchedMedNameCGMd, &_sSay19SiriWellnessIntents14MatchedMedNameCGMR);
+    Array.append(_:)();
+    MEMORY[0x277D82BD8](v33);
+    MEMORY[0x277D82BD8](v34);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMR);
+    IndexingIterator.next()();
+    v35 = *(v39 + 816);
+    *(v39 + 1624) = v35;
+    if (v35)
+    {
+      v2 = *(v39 + 1176);
+      *(v39 + 824) = v35;
+      outlined init with copy of QuantityPersisting(v2 + 16, v39 + 184);
+      v36 = *(v39 + 208);
+      v37 = *(v39 + 216);
+      __swift_project_boxed_opaque_existential_1((v39 + 184), v36);
+      v38 = (*(v37 + 24) + **(v37 + 24));
+      v3 = swift_task_alloc();
+      *(v39 + 1632) = v3;
+      *v3 = *(v39 + 584);
+      v3[1] = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+
+      return v38(v35, 1, v36, v37);
+    }
+
+    v10 = *(v39 + 1392);
+    v11 = *(v39 + 1368);
+    v9 = *(v39 + 1344);
+    outlined destroy of [HKQuantityType]((v39 + 568));
+    v12 = *(v39 + 792);
+    MEMORY[0x277D82BE0](v12);
+
+    isa = Array._bridgeToObjectiveC()().super.isa;
+
+    [v12 setMatchingMeds_];
+    MEMORY[0x277D82BD8](isa);
+    outlined destroy of [HKQuantityType]((v39 + 800));
+    MEMORY[0x277D82BD8](*(v39 + 792));
+    outlined destroy of [HKQuantityType]((v39 + 600));
+    v10(v11, v9);
+    v21 = v12;
+  }
+
+  else
+  {
+    v29 = *(v39 + 1496);
+    v5 = *(v39 + 1224);
+    v28 = *(v39 + 1184);
+    __swift_destroy_boxed_opaque_existential_1((v39 + 184));
+    v27 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v29(v5, v27, v28);
+    swift_endAccess();
+    v31 = Logger.logObject.getter();
+    v30 = static os_log_type_t.error.getter();
+    v32 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v31, v30))
+    {
+      v6 = *(v39 + 1600);
+      buf = static UnsafeMutablePointer.allocate(capacity:)();
+      v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v24 = createStorage<A>(capacity:type:)(0, v22, v22);
+      v25 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v39 + 832) = buf;
+      *(v39 + 840) = v24;
+      *(v39 + 848) = v25;
+      serialize(_:at:)(0, (v39 + 832));
+      serialize(_:at:)(0, (v39 + 832));
+      *(v39 + 856) = v32;
+      v26 = swift_task_alloc();
+      v26[2] = v39 + 832;
+      v26[3] = v39 + 840;
+      v26[4] = v39 + 848;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+      if (v6)
+      {
+      }
+
+      _os_log_impl(&dword_269912000, v31, v30, "Couldn't create MatchedMedName from doseEvent, returning .failure.", buf, 2u);
+      destroyStorage<A>(_:count:)(v24, 0, v22);
+      destroyStorage<A>(_:count:)(v25, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v15 = *(v39 + 1528);
+    v18 = *(v39 + 1392);
+    v19 = *(v39 + 1368);
+    v17 = *(v39 + 1344);
+    v13 = *(v39 + 1224);
+    v14 = *(v39 + 1184);
+    v16 = *(v39 + 1624);
+    MEMORY[0x277D82BD8](v31);
+    v15(v13, v14);
+    v20 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+    MEMORY[0x277D82BD8](v16);
+    outlined destroy of [HKQuantityType]((v39 + 568));
+    outlined destroy of [HKQuantityType]((v39 + 800));
+    MEMORY[0x277D82BD8](*(v39 + 792));
+    outlined destroy of [HKQuantityType]((v39 + 600));
+    v18(v19, v17);
+    v21 = v20;
+  }
+
+  v7 = *(*(v39 + 584) + 8);
+
+  return v7(v21);
+}
+
+{
+  v1 = *(v0 + 1688);
+  *(v0 + 584) = v0;
+  if (v1)
+  {
+    v33 = *(v39 + 1688);
+    v34 = *(v39 + 1672);
+    *(v39 + 744) = v33;
+    __swift_destroy_boxed_opaque_existential_1((v39 + 144));
+    MEMORY[0x277D82BE0](v33);
+    *(v39 + 752) = v33;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay19SiriWellnessIntents14MatchedMedNameCGMd, &_sSay19SiriWellnessIntents14MatchedMedNameCGMR);
+    Array.append(_:)();
+    MEMORY[0x277D82BD8](v33);
+    MEMORY[0x277D82BD8](v34);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMd, &_ss16IndexingIteratorVySaySo30HKMedicationExposableDoseEventCGGMR);
+    IndexingIterator.next()();
+    v35 = *(v39 + 696);
+    *(v39 + 1672) = v35;
+    if (v35)
+    {
+      v2 = *(v39 + 1176);
+      *(v39 + 704) = v35;
+      outlined init with copy of QuantityPersisting(v2 + 16, v39 + 144);
+      v36 = *(v39 + 168);
+      v37 = *(v39 + 176);
+      __swift_project_boxed_opaque_existential_1((v39 + 144), v36);
+      v38 = (*(v37 + 24) + **(v37 + 24));
+      v3 = swift_task_alloc();
+      *(v39 + 1680) = v3;
+      *v3 = *(v39 + 584);
+      v3[1] = GenericMedicationsPersistor.save(isTimeframeToday:medStatusTaken:confirmedLogAsScheduled:);
+
+      return v38(v35, 1, v36, v37);
+    }
+
+    v10 = *(v39 + 1392);
+    v11 = *(v39 + 1368);
+    v9 = *(v39 + 1344);
+    outlined destroy of [HKQuantityType]((v39 + 552));
+    v12 = *(v39 + 672);
+    MEMORY[0x277D82BE0](v12);
+
+    isa = Array._bridgeToObjectiveC()().super.isa;
+
+    [v12 setMatchingMeds_];
+    MEMORY[0x277D82BD8](isa);
+    outlined destroy of [HKQuantityType]((v39 + 680));
+    MEMORY[0x277D82BD8](*(v39 + 672));
+    outlined destroy of [HKQuantityType]((v39 + 600));
+    v10(v11, v9);
+    v21 = v12;
+  }
+
+  else
+  {
+    v29 = *(v39 + 1496);
+    v5 = *(v39 + 1208);
+    v28 = *(v39 + 1184);
+    __swift_destroy_boxed_opaque_existential_1((v39 + 144));
+    v27 = Logger.wellnessIntents.unsafeMutableAddressor();
+    swift_beginAccess();
+    v29(v5, v27, v28);
+    swift_endAccess();
+    v31 = Logger.logObject.getter();
+    v30 = static os_log_type_t.error.getter();
+    v32 = _allocateUninitializedArray<A>(_:)();
+    if (os_log_type_enabled(v31, v30))
+    {
+      v6 = *(v39 + 1648);
+      buf = static UnsafeMutablePointer.allocate(capacity:)();
+      v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      v24 = createStorage<A>(capacity:type:)(0, v22, v22);
+      v25 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+      *(v39 + 712) = buf;
+      *(v39 + 720) = v24;
+      *(v39 + 728) = v25;
+      serialize(_:at:)(0, (v39 + 712));
+      serialize(_:at:)(0, (v39 + 712));
+      *(v39 + 736) = v32;
+      v26 = swift_task_alloc();
+      v26[2] = v39 + 712;
+      v26[3] = v39 + 720;
+      v26[4] = v39 + 728;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+      lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+      Sequence.forEach(_:)();
+      if (v6)
+      {
+      }
+
+      _os_log_impl(&dword_269912000, v31, v30, "Couldn't create MatchedMedName from doseEvent, returning .failure.", buf, 2u);
+      destroyStorage<A>(_:count:)(v24, 0, v22);
+      destroyStorage<A>(_:count:)(v25, 0, MEMORY[0x277D84F70] + 8);
+      MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+    }
+
+    else
+    {
+    }
+
+    v15 = *(v39 + 1528);
+    v18 = *(v39 + 1392);
+    v19 = *(v39 + 1368);
+    v17 = *(v39 + 1344);
+    v13 = *(v39 + 1208);
+    v14 = *(v39 + 1184);
+    v16 = *(v39 + 1672);
+    MEMORY[0x277D82BD8](v31);
+    v15(v13, v14);
+    v20 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+    MEMORY[0x277D82BD8](v16);
+    outlined destroy of [HKQuantityType]((v39 + 552));
+    outlined destroy of [HKQuantityType]((v39 + 680));
+    MEMORY[0x277D82BD8](*(v39 + 672));
+    outlined destroy of [HKQuantityType]((v39 + 600));
+    v18(v19, v17);
+    v21 = v20;
+  }
+
+  v7 = *(*(v39 + 584) + 8);
+
+  return v7(v21);
+}
+
+{
+  v4 = v0[174];
+  v5 = v0[171];
+  v3 = v0[168];
+  v0[73] = v0;
+  outlined destroy of [HKQuantityType](v0 + 75);
+  v4(v5, v3);
+  v6 = v0[215];
+
+  v1 = *(v0[73] + 8);
+
+  return v1(v6);
+}
+
+{
+  v16 = v0[174];
+  v17 = v0[171];
+  v15 = v0[168];
+  v0[73] = v0;
+
+  outlined destroy of [HKQuantityType](v0 + 75);
+  v16(v17, v15);
+  v18 = v0[199];
+  v1 = v0[150];
+  v19 = v0[149];
+  v21 = v0[148];
+  v2 = v18;
+  v0[77] = v18;
+  v20 = Logger.wellnessIntents.unsafeMutableAddressor();
+  swift_beginAccess();
+  (*(v19 + 16))(v1, v20, v21);
+  swift_endAccess();
+  v23 = Logger.logObject.getter();
+  v22 = static os_log_type_t.error.getter();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMd, &_sySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcMR);
+  v24 = _allocateUninitializedArray<A>(_:)();
+  if (os_log_type_enabled(v23, v22))
+  {
+    buf = static UnsafeMutablePointer.allocate(capacity:)();
+    v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    v11 = createStorage<A>(capacity:type:)(0, v9, v9);
+    v12 = createStorage<A>(capacity:type:)(0, MEMORY[0x277D84F70] + 8, MEMORY[0x277D84F70] + 8);
+    *(v14 + 624) = buf;
+    *(v14 + 632) = v11;
+    *(v14 + 640) = v12;
+    serialize(_:at:)(0, (v14 + 624));
+    serialize(_:at:)(0, (v14 + 624));
+    *(v14 + 648) = v24;
+    v13 = swift_task_alloc();
+    v13[2] = v14 + 624;
+    v13[3] = v14 + 632;
+    v13[4] = v14 + 640;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMd, &_sSayySpys5UInt8VGz_SpySo8NSObjectCSgGSgzSpyypGSgztcGMR);
+    lazy protocol witness table accessor for type [(_:_:_:)] and conformance [A]();
+    Sequence.forEach(_:)();
+
+    _os_log_impl(&dword_269912000, v23, v22, "Failed fetching dose events for timeframe.", buf, 2u);
+    destroyStorage<A>(_:count:)(v11, 0, v9);
+    destroyStorage<A>(_:count:)(v12, 0, MEMORY[0x277D84F70] + 8);
+    MEMORY[0x26D6497C0](buf, MEMORY[0x277D84B78]);
+  }
+
+  v6 = *(v14 + 1200);
+  v7 = *(v14 + 1184);
+  v5 = *(v14 + 1192);
+  MEMORY[0x277D82BD8](v23);
+  (*(v5 + 8))(v6, v7);
+  type metadata accessor for LogGenericMedicationsIntentResponse();
+  v8 = LogGenericMedicationsIntentResponse.__allocating_init(code:userActivity:)(5, 0);
+
+  v3 = *(*(v14 + 584) + 8);
+
+  return v3(v8);
 }

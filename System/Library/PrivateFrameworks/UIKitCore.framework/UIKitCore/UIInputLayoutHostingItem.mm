@@ -1190,7 +1190,7 @@ LABEL_16:
   v35 = [v34 window];
   v36 = [*(a1 + 32) containerView];
   v37 = [v36 window];
-  v38 = [v35 isEqual:v37];
+  isEqual = objc_msgSend_isEqual_(v35);
 
   v39 = [*(a1 + 32) accessoryToGuideConstraint];
   if (v39)
@@ -1198,7 +1198,7 @@ LABEL_16:
     v40 = v39;
     v41 = [*(a1 + 32) inputAccessoryView];
     v42 = [v41 superview];
-    v43 = (v42 != 0) & v38;
+    v43 = (v42 != 0) & isEqual;
 
     if (v43 == 1)
     {
@@ -2135,7 +2135,7 @@ LABEL_16:
     if (currentState)
     {
       currentState2 = [(UIInputLayoutHostingItem *)self currentState];
-      -[UIInputLayoutHostingItem changeConstraintsForState:animated:](self, "changeConstraintsForState:animated:", keyboardState, [currentState2 isEqual:keyboardState] ^ 1);
+      [(UIInputLayoutHostingItem *)self changeConstraintsForState:keyboardState animated:objc_msgSend_isEqual_(currentState2) ^ 1];
     }
 
     else
@@ -2674,9 +2674,9 @@ LABEL_7:
 {
   transitionCopy = transition;
   infoCopy = info;
-  v8 = [transitionCopy isEqualToString:0x1EFB7ADB0];
-  v9 = [transitionCopy isEqualToString:0x1EFB7ADD0];
-  if ((v8 & 1) != 0 || v9)
+  isEqualToString = objc_msgSend_isEqualToString_(transitionCopy);
+  v9 = objc_msgSend_isEqualToString_(transitionCopy);
+  if ((isEqualToString & 1) != 0 || v9)
   {
     v11 = [infoCopy objectForKey:@"Origin"];
     v12 = [infoCopy objectForKey:@"IsCompact"];
@@ -2700,7 +2700,7 @@ LABEL_7:
           v16 = _Block_copy(aBlock);
           [v11 CGPointValue];
           v19 = v18;
-          if (v8)
+          if (isEqualToString)
           {
             v20 = v17;
             v23[0] = MEMORY[0x1E69E9820];
@@ -2751,11 +2751,11 @@ void __54__UIInputLayoutHostingItem_updateTransition_withInfo___block_invoke(uin
   [v6 layoutIfNeeded];
 }
 
-uint64_t __54__UIInputLayoutHostingItem_updateTransition_withInfo___block_invoke_3(uint64_t result, int a2)
+id *__54__UIInputLayoutHostingItem_updateTransition_withInfo___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) finishFlickTransition];
+    return [result[4] finishFlickTransition];
   }
 
   return result;
@@ -2765,11 +2765,11 @@ uint64_t __54__UIInputLayoutHostingItem_updateTransition_withInfo___block_invoke
 {
   transitionCopy = transition;
   infoCopy = info;
-  v8 = [transitionCopy isEqualToString:0x1EFB7ADB0];
-  v9 = [transitionCopy isEqualToString:0x1EFB7ADD0];
-  if ((v8 & 1) != 0 || v9)
+  isEqualToString = objc_msgSend_isEqualToString_(transitionCopy);
+  v9 = objc_msgSend_isEqualToString_(transitionCopy);
+  if ((isEqualToString & 1) != 0 || v9)
   {
-    if (v8)
+    if (isEqualToString)
     {
       owner = [(UIInputWindowControllerHostingItem *)self owner];
       [owner generateNotificationsForCompactAssistantFlickGestureCompletion:infoCopy];

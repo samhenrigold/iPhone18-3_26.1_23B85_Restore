@@ -12,21 +12,21 @@
 
 - (_ANEInMemoryModelDescriptor)initWithNetworkText:(id)text weights:(id)weights optionsPlist:(id)plist isMILModel:(BOOL)model
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   textCopy = text;
   weightsCopy = weights;
   plistCopy = plist;
   if (textCopy && weightsCopy)
   {
-    v50.receiver = self;
-    v50.super_class = _ANEInMemoryModelDescriptor;
-    self = [(_ANEInMemoryModelDescriptor *)&v50 init];
+    v49.receiver = self;
+    v49.super_class = _ANEInMemoryModelDescriptor;
+    self = [(_ANEInMemoryModelDescriptor *)&v49 init];
     if (self)
     {
-      v42 = a2;
+      v41 = a2;
       modelCopy = model;
-      v44 = plistCopy;
-      v45 = textCopy;
+      v43 = plistCopy;
+      v44 = textCopy;
       v14 = [textCopy copy];
       networkText = self->_networkText;
       self->_networkText = v14;
@@ -40,38 +40,38 @@
       allKeys = [weightsCopy allKeys];
       v20 = [allKeys sortedArrayUsingComparator:&__block_literal_global_7];
 
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       v21 = v20;
-      v22 = [v21 countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v45 objects:v50 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v47;
+        v24 = *v46;
         while (2)
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v47 != v24)
+            if (*v46 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v26 = *(*(&v46 + 1) + 8 * i);
+            v26 = *(*(&v45 + 1) + 8 * i);
             v27 = [weightsCopy objectForKeyedSubscript:v26];
             if (![v27 count])
             {
               v38 = +[_ANELog framework];
               if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
               {
-                [_ANEInMemoryModelDescriptor initWithNetworkText:v42 weights:v26 optionsPlist:v38 isMILModel:?];
+                [_ANEInMemoryModelDescriptor initWithNetworkText:v41 weights:v26 optionsPlist:v38 isMILModel:?];
               }
 
               selfCopy = 0;
-              plistCopy = v44;
-              textCopy = v45;
+              plistCopy = v43;
+              textCopy = v44;
               goto LABEL_20;
             }
 
@@ -81,7 +81,7 @@
             [v18 addObject:firstObject];
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v46 objects:v51 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v45 objects:v50 count:16];
           if (v23)
           {
             continue;
@@ -95,8 +95,8 @@
       weightsHash = self->_weightsHash;
       self->_weightsHash = v30;
 
-      plistCopy = v44;
-      v32 = [v44 copy];
+      plistCopy = v43;
+      v32 = [v43 copy];
       optionsPlist = self->_optionsPlist;
       self->_optionsPlist = v32;
 
@@ -105,7 +105,7 @@
       self->_optionsPlistHash = v34;
 
       self->_isMILModel = modelCopy;
-      textCopy = v45;
+      textCopy = v44;
     }
 
     self = self;
@@ -117,15 +117,15 @@
     v37 = +[_ANELog framework];
     if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v41 = NSStringFromSelector(a2);
+      v40 = NSStringFromSelector(a2);
       *buf = 138413058;
-      v53 = v41;
-      v54 = 2112;
-      v55 = textCopy;
-      v56 = 2112;
-      v57 = weightsCopy;
-      v58 = 2112;
-      v59 = plistCopy;
+      v52 = v40;
+      v53 = 2112;
+      v54 = textCopy;
+      v55 = 2112;
+      v56 = weightsCopy;
+      v57 = 2112;
+      v58 = plistCopy;
       _os_log_error_impl(&dword_1AD246000, v37, OS_LOG_TYPE_ERROR, "%@: Invalid arguments. networkText=%@ : weights=%@ : optionsPlist=%@", buf, 0x2Au);
     }
 
@@ -134,7 +134,6 @@
 
 LABEL_20:
 
-  v39 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -223,15 +222,13 @@ LABEL_20:
 
 - (void)initWithNetworkText:(NSObject *)a3 weights:optionsPlist:isMILModel:.cold.1(const char *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = NSStringFromSelector(a1);
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1AD246000, a3, OS_LOG_TYPE_ERROR, "%@: Empty weights dictionary for index=%@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1AD246000, a3, OS_LOG_TYPE_ERROR, "%@: Empty weights dictionary for index=%@", &v6, 0x16u);
 }
 
 @end

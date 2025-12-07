@@ -4,7 +4,6 @@
 - (void)_sendCircleViewStatusChangedForContext:(id)context;
 - (void)dealloc;
 - (void)eventReceived:(const char *)received eventValue:(unint64_t)value;
-- (void)init;
 - (void)observeChangeToState:(unint64_t)state circleProxy:(id)proxy handler:(id)handler;
 - (void)observeCircleStateWithCircleProxy:(id)proxy changeHandler:(id)handler;
 @end
@@ -39,10 +38,15 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "Deallocated %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = _CDPLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    [CDPDCircleStateObserver dealloc];
+  }
+
+  v4.receiver = self;
+  v4.super_class = CDPDCircleStateObserver;
+  [(CDPDCircleStateObserver *)&v4 dealloc];
 }
 
 - (void)observeCircleStateWithCircleProxy:(id)proxy changeHandler:(id)handler
@@ -88,7 +92,7 @@ void __75__CDPDCircleStateObserver_observeCircleStateWithCircleProxy_changeHandl
 
   else if (v6)
   {
-    __75__CDPDCircleStateObserver_observeCircleStateWithCircleProxy_changeHandler___block_invoke_cold_2(v3, a1);
+    __75__CDPDCircleStateObserver_observeCircleStateWithCircleProxy_changeHandler___block_invoke_cold_2(v3);
   }
 
   v7 = *(a1 + 48);
@@ -127,61 +131,57 @@ uint64_t __68__CDPDCircleStateObserver_observeChangeToState_circleProxy_handler_
 
 - (void)_sendCircleStatusChangedForContext:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [contextCopy altDSID];
     *buf = 141558274;
-    v13 = 1752392040;
-    v14 = 2112;
-    v15 = altDSID;
+    v12 = 1752392040;
+    v13 = 2112;
+    v14 = altDSID;
     _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "_sendCircleStatusChangedForContext: calling circleStatusChangedForAccountContext for altDSID (%{mask.hash}@", buf, 0x16u);
   }
 
   circleObservers = self->_circleObservers;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __62__CDPDCircleStateObserver__sendCircleStatusChangedForContext___block_invoke;
-  v10[3] = &unk_278E24480;
-  v11 = contextCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __62__CDPDCircleStateObserver__sendCircleStatusChangedForContext___block_invoke;
+  v9[3] = &unk_278E24480;
+  v10 = contextCopy;
   v8 = contextCopy;
-  [(NSMutableArray *)circleObservers enumerateObjectsUsingBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(NSMutableArray *)circleObservers enumerateObjectsUsingBlock:v9];
 }
 
 - (void)_sendCircleViewStatusChangedForContext:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = _CDPLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [contextCopy altDSID];
     *buf = 141558274;
-    v13 = 1752392040;
-    v14 = 2112;
-    v15 = altDSID;
+    v12 = 1752392040;
+    v13 = 2112;
+    v14 = altDSID;
     _os_log_impl(&dword_24510B000, v5, OS_LOG_TYPE_DEFAULT, "_sendCircleStatusChangedForContext: calling circleStatusChangedForAccountContext for altDSID (%{mask.hash}@", buf, 0x16u);
   }
 
   circleObservers = self->_circleObservers;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __66__CDPDCircleStateObserver__sendCircleViewStatusChangedForContext___block_invoke;
-  v10[3] = &unk_278E24480;
-  v11 = contextCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __66__CDPDCircleStateObserver__sendCircleViewStatusChangedForContext___block_invoke;
+  v9[3] = &unk_278E24480;
+  v10 = contextCopy;
   v8 = contextCopy;
-  [(NSMutableArray *)circleObservers enumerateObjectsUsingBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(NSMutableArray *)circleObservers enumerateObjectsUsingBlock:v9];
 }
 
 - (void)eventReceived:(const char *)received eventValue:(unint64_t)value
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (!strcmp(*MEMORY[0x277CDBDA0], received) || !strcmp(*MEMORY[0x277CDBE68], received))
   {
     contextForPrimaryAccount = _CDPLogSystem();
@@ -194,10 +194,10 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v10 = 136315138;
+    v9 = 136315138;
     receivedCopy2 = received;
 LABEL_8:
-    _os_log_impl(&dword_24510B000, contextForPrimaryAccount, OS_LOG_TYPE_DEFAULT, "Processing circle status changed event for event %s", &v10, 0xCu);
+    _os_log_impl(&dword_24510B000, contextForPrimaryAccount, OS_LOG_TYPE_DEFAULT, "Processing circle status changed event for event %s", &v9, 0xCu);
     goto LABEL_9;
   }
 
@@ -211,7 +211,7 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    v10 = 136315138;
+    v9 = 136315138;
     receivedCopy2 = received;
     goto LABEL_8;
   }
@@ -222,53 +222,20 @@ LABEL_8:
   }
 
 LABEL_10:
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-- (void)init
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "Initialized %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)observeCircleStateWithCircleProxy:changeHandler:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "%@ started observing state", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__CDPDCircleStateObserver_observeCircleStateWithCircleProxy_changeHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_24510B000, v2, v3, "Error checking circle status (%@) after observing kSOSCCCircleChangedNotification - %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_24510B000, v2, v3, "Error checking circle status (%@) after observing kSOSCCCircleChangedNotification - %@", v4, v5, v6, v7);
 }
 
-void __75__CDPDCircleStateObserver_observeCircleStateWithCircleProxy_changeHandler___block_invoke_cold_2(uint64_t a1, uint64_t a2)
+void __75__CDPDCircleStateObserver_observeCircleStateWithCircleProxy_changeHandler___block_invoke_cold_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
-  v4 = *(a2 + 40);
+  v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_24510B000, v5, v6, "Circle state is %@ after observing kSOSCCCircleChangedNotification (observer %p)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)eventReceived:eventValue:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_24510B000, v0, v1, "Circle observer ignoring: %s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_24510B000, v2, v3, "Circle state is %@ after observing kSOSCCCircleChangedNotification (observer %p)", v4, v5, v6, v7);
 }
 
 @end

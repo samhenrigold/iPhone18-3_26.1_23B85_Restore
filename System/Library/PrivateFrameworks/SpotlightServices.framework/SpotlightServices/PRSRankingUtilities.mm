@@ -18,7 +18,7 @@
 
 + (BOOL)multiWordString:(id)string hasPrefix:(id)prefix
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   prefixCopy = prefix;
   lowercaseString = [string lowercaseString];
   lowercaseString2 = [prefixCopy lowercaseString];
@@ -29,32 +29,32 @@
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v9 = [lowercaseString componentsSeparatedByString:{@" ", 0}];
-    v8 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
-      v10 = *v15;
+      v10 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v9);
           }
 
-          if ([*(*(&v14 + 1) + 8 * i) hasPrefix:lowercaseString2])
+          if ([*(*(&v13 + 1) + 8 * i) hasPrefix:lowercaseString2])
           {
             LOBYTE(v8) = 1;
             goto LABEL_13;
           }
         }
 
-        v8 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v9 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -67,7 +67,6 @@
 LABEL_13:
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -75,9 +74,9 @@ LABEL_13:
 {
   termsCopy = terms;
   v4 = termsCopy;
-  if (termsCopy && [termsCopy count])
+  if (termsCopy && objc_msgSend_count(termsCopy))
   {
-    v5 = [v4 count];
+    v5 = objc_msgSend_count(v4);
     if (v5)
     {
       v6 = 0;
@@ -163,13 +162,13 @@ LABEL_13:
 {
   weekCopy = week;
   dayCopy = day;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   datesCopy = dates;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v12 = [datesCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [datesCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v12)
   {
     v13 = v12;
@@ -177,17 +176,17 @@ LABEL_13:
     v15 = 0;
     v16 = 0;
     v17 = 0;
-    v18 = *v26;
+    v18 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(datesCopy);
         }
 
-        [*(*(&v25 + 1) + 8 * i) timeIntervalSinceReferenceDate];
+        [*(*(&v24 + 1) + 8 * i) timeIntervalSinceReferenceDate];
         v21 = time - v20;
         if (v21 <= 86400.0)
         {
@@ -210,7 +209,7 @@ LABEL_13:
         }
       }
 
-      v13 = [datesCopy countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v13 = [datesCopy countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v13);
@@ -228,32 +227,29 @@ LABEL_13:
   *month = v14;
   *weekCopy = v15;
   *dayCopy = v16;
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (float)floatValue:(float)value withSigFigs:(int64_t)figs
 {
   valueCopy = value;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (value >= 10.0)
   {
-    v15 = 0u;
-    v16 = 0u;
-    *v13 = 0u;
     v14 = 0u;
-    v11 = 0u;
-    v12 = 0u;
-    *__str = 0u;
+    v15 = 0u;
+    *v12 = 0u;
+    v13 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    *__str = 0u;
+    v9 = 0u;
     snprintf(__str, 0x40uLL, "%%.%ldg", figs);
-    snprintf(v13, 0x40uLL, __str, valueCopy);
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v13];
+    snprintf(v12, 0x40uLL, __str, valueCopy);
+    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
     [v5 floatValue];
     valueCopy = v6;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return valueCopy;
 }
 

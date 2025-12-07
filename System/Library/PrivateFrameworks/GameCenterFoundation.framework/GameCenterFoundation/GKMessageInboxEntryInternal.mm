@@ -45,28 +45,26 @@
   return v3;
 }
 
-void __54__GKMessageInboxEntryInternal_secureCodedPropertyKeys__block_invoke()
+void __54__GKMessageInboxEntryInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[7] = *MEMORY[0x277D85DE8];
-  v3[0] = @"url";
-  v4[0] = objc_opt_class();
-  v3[1] = @"senderHandle";
-  v4[1] = objc_opt_class();
-  v3[2] = @"senderAlias";
-  v4[2] = objc_opt_class();
-  v3[3] = @"contactID";
-  v4[3] = objc_opt_class();
-  v3[4] = @"contactName";
-  v4[4] = objc_opt_class();
-  v3[5] = @"friendCode";
-  v4[5] = objc_opt_class();
-  v3[6] = @"timestamp";
-  v4[6] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:7];
-  v1 = secureCodedPropertyKeys_sSecureCodedKeys_13;
-  secureCodedPropertyKeys_sSecureCodedKeys_13 = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[7] = *MEMORY[0x277D85DE8];
+  v4[0] = @"url";
+  v5[0] = objc_opt_class();
+  v4[1] = @"senderHandle";
+  v5[1] = objc_opt_class();
+  v4[2] = @"senderAlias";
+  v5[2] = objc_opt_class();
+  v4[3] = @"contactID";
+  v5[3] = objc_opt_class();
+  v4[4] = @"contactName";
+  v5[4] = objc_opt_class();
+  v4[5] = @"friendCode";
+  v5[5] = objc_opt_class();
+  v4[6] = @"timestamp";
+  v5[6] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:7];
+  v3 = secureCodedPropertyKeys_sSecureCodedKeys_13;
+  secureCodedPropertyKeys_sSecureCodedKeys_13 = v2;
 }
 
 - (NSString)senderDisplayName

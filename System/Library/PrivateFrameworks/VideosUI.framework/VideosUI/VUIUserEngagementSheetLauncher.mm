@@ -45,10 +45,10 @@ void __48__VUIUserEngagementSheetLauncher_sharedInstance__block_invoke()
 
 - (id)_init
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = VUIUserEngagementSheetLauncher;
-  v2 = [(VUIUserEngagementSheetLauncher *)&v15 init];
+  v20 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = VUIUserEngagementSheetLauncher;
+  v2 = [(VUIUserEngagementSheetLauncher *)&v17 init];
   if (v2)
   {
     v3 = +[_TtC8VideosUI26VUIBarItemSelectionManager lastSelectedIdentifier];
@@ -79,22 +79,22 @@ void __48__VUIUserEngagementSheetLauncher_sharedInstance__block_invoke()
       v2->_lastPromptLaunchNumberAfterGDPR = 3;
     }
 
-    v10 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = VUIDefaultLogObject(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       firstPromptLaunchNumberAfterGDPR = v2->_firstPromptLaunchNumberAfterGDPR;
       *buf = 134217984;
-      v17 = firstPromptLaunchNumberAfterGDPR;
-      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - firstPromptLaunchNumberAfterGDPR:%lu", buf, 0xCu);
+      v19 = firstPromptLaunchNumberAfterGDPR;
+      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - firstPromptLaunchNumberAfterGDPR:%lu", buf, 0xCu);
     }
 
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = VUIDefaultLogObject(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       lastPromptLaunchNumberAfterGDPR = v2->_lastPromptLaunchNumberAfterGDPR;
       *buf = 134217984;
-      v17 = lastPromptLaunchNumberAfterGDPR;
-      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - lastPromptLaunchNumberAfterGDPR:%lu", buf, 0xCu);
+      v19 = lastPromptLaunchNumberAfterGDPR;
+      _os_log_impl(&dword_1E323F000, v14, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - lastPromptLaunchNumberAfterGDPR:%lu", buf, 0xCu);
     }
   }
 
@@ -113,13 +113,14 @@ void __48__VUIUserEngagementSheetLauncher_sharedInstance__block_invoke()
 
 - (void)handleAMSEngagementPresentationSheet:(BOOL)sheet isRepromptSupported:(BOOL)supported
 {
-  if (+[VUIGDPRPresentationManager shouldShowWelcomeScreen]|| sheet)
+  v7 = +[VUIGDPRPresentationManager shouldShowWelcomeScreen];
+  if ((v7 & 1) != 0 || sheet)
   {
-    v8 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = VUIDefaultLogObject(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - handleAMSEngagementPresentationSheet additional requirements to show sheet not met.", location, 2u);
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - handleAMSEngagementPresentationSheet additional requirements to show sheet not met.", location, 2u);
     }
   }
 
@@ -130,27 +131,27 @@ void __48__VUIUserEngagementSheetLauncher_sharedInstance__block_invoke()
     aBlock[1] = 3221225472;
     aBlock[2] = __91__VUIUserEngagementSheetLauncher_handleAMSEngagementPresentationSheet_isRepromptSupported___block_invoke;
     aBlock[3] = &unk_1E872E508;
-    objc_copyWeak(&v13, location);
+    objc_copyWeak(&v14, location);
     supportedCopy = supported;
     aBlock[4] = self;
-    v7 = _Block_copy(aBlock);
+    v8 = _Block_copy(aBlock);
     if (_os_feature_enabled_impl())
     {
-      [VUILocalNotificationService authorizationStatusWithCompletionHandler:v7];
+      [VUILocalNotificationService authorizationStatusWithCompletionHandler:v8];
     }
 
     else
     {
       vuiNotificationCenter = [MEMORY[0x1E6983308] vuiNotificationCenter];
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __91__VUIUserEngagementSheetLauncher_handleAMSEngagementPresentationSheet_isRepromptSupported___block_invoke_42;
-      v10[3] = &unk_1E872E530;
-      v11 = v7;
-      [vuiNotificationCenter getNotificationSettingsWithCompletionHandler:v10];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __91__VUIUserEngagementSheetLauncher_handleAMSEngagementPresentationSheet_isRepromptSupported___block_invoke_42;
+      v11[3] = &unk_1E872E530;
+      v12 = v8;
+      [vuiNotificationCenter getNotificationSettingsWithCompletionHandler:v11];
     }
 
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(location);
   }
 }
@@ -182,12 +183,12 @@ void __91__VUIUserEngagementSheetLauncher_handleAMSEngagementPresentationSheet_i
 
 void __91__VUIUserEngagementSheetLauncher_handleAMSEngagementPresentationSheet_isRepromptSupported___block_invoke_2(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v2 = VUIDefaultLogObject();
+  v29 = *MEMORY[0x1E69E9840];
+  v2 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v25) = 0;
-    _os_log_impl(&dword_1E323F000, v2, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - handleAMSEngagementPresentationSheet being called", &v25, 2u);
+    LOWORD(v27) = 0;
+    _os_log_impl(&dword_1E323F000, v2, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - handleAMSEngagementPresentationSheet being called", &v27, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -200,12 +201,12 @@ void __91__VUIUserEngagementSheetLauncher_handleAMSEngagementPresentationSheet_i
     v7 = [v6 objectForKey:@"KettleNumberOfAppLaunch"];
 
     v8 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:{objc_msgSend(v7, "intValue") + 1}];
-    v9 = VUIDefaultLogObject();
+    v9 = VUIDefaultLogObject(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v25 = 138412290;
-      v26 = v8;
-      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - Total number of launches: %@", &v25, 0xCu);
+      v27 = 138412290;
+      v28 = v8;
+      _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - Total number of launches: %@", &v27, 0xCu);
     }
 
     v10 = [MEMORY[0x1E695E000] standardUserDefaults];
@@ -213,53 +214,55 @@ void __91__VUIUserEngagementSheetLauncher_handleAMSEngagementPresentationSheet_i
 
     v11 = [MEMORY[0x1E695DF00] date];
     v12 = [v8 intValue];
-    if ([WeakRetained firstPromptLaunchNumberAfterGDPR] == v12)
+    v13 = [WeakRetained firstPromptLaunchNumberAfterGDPR];
+    if (v13 == v12)
     {
-      v13 = [MEMORY[0x1E695E000] standardUserDefaults];
-      [v13 setObject:v11 forKey:@"KettleFirstPromptTimestamp"];
+      v14 = [MEMORY[0x1E695E000] standardUserDefaults];
+      [v14 setObject:v11 forKey:@"KettleFirstPromptTimestamp"];
 
       if ((*(a1 + 56) & 1) == 0)
       {
-        v14 = [MEMORY[0x1E695E000] standardUserDefaults];
-        [v14 setBool:1 forKey:@"KettleShouldStopShowingAMSSheet"];
+        v15 = [MEMORY[0x1E695E000] standardUserDefaults];
+        [v15 setBool:1 forKey:@"KettleShouldStopShowingAMSSheet"];
       }
 
-      [*(a1 + 32) _showNotificationAuthorizationSheet];
+      v13 = [*(a1 + 32) _showNotificationAuthorizationSheet];
     }
 
     else if (*(a1 + 56) == 1)
     {
-      v15 = [MEMORY[0x1E695E000] standardUserDefaults];
-      v16 = [v15 objectForKey:@"KettleFirstPromptTimestamp"];
+      v16 = [MEMORY[0x1E695E000] standardUserDefaults];
+      v17 = [v16 objectForKey:@"KettleFirstPromptTimestamp"];
 
-      [v16 timeIntervalSince1970];
-      v18 = v17;
+      [v17 timeIntervalSince1970];
+      v19 = v18;
       [v11 timeIntervalSince1970];
-      v20 = v19;
-      LODWORD(v15) = [v8 intValue];
-      if ([WeakRetained lastPromptLaunchNumberAfterGDPR] <= v15 && v18 > 0.0 && v20 - v18 >= 259200.0)
+      v21 = v20;
+      LODWORD(v16) = [v8 intValue];
+      v22 = [WeakRetained lastPromptLaunchNumberAfterGDPR];
+      if (v22 <= v16 && v19 > 0.0 && v21 - v19 >= 259200.0)
       {
-        v21 = VUIDefaultLogObject();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v23 = VUIDefaultLogObject(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          LOWORD(v25) = 0;
-          _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - Reprompting for the notification sheet for the last time.", &v25, 2u);
+          LOWORD(v27) = 0;
+          _os_log_impl(&dword_1E323F000, v23, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - Reprompting for the notification sheet for the last time.", &v27, 2u);
         }
 
-        v22 = [MEMORY[0x1E695E000] standardUserDefaults];
-        [v22 setBool:1 forKey:@"KettleShouldStopShowingAMSSheet"];
+        v24 = [MEMORY[0x1E695E000] standardUserDefaults];
+        [v24 setBool:1 forKey:@"KettleShouldStopShowingAMSSheet"];
 
         [*(a1 + 32) _showNotificationAuthorizationSheet];
       }
     }
 
-    v23 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v25 = VUIDefaultLogObject(v13);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
-      v24 = [*(a1 + 32) lastTabIdentifier];
-      v25 = 138412290;
-      v26 = v24;
-      _os_log_impl(&dword_1E323F000, v23, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - Current tab identifier:%@", &v25, 0xCu);
+      v26 = [*(a1 + 32) lastTabIdentifier];
+      v27 = 138412290;
+      v28 = v26;
+      _os_log_impl(&dword_1E323F000, v25, OS_LOG_TYPE_INFO, "VUIUserEngagementSheetLauncher - Current tab identifier:%@", &v27, 0xCu);
     }
   }
 }
@@ -333,7 +336,7 @@ void __69__VUIUserEngagementSheetLauncher__showNotificationAuthorizationSheet__b
   v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = VUIDefaultLogObject();
+  v7 = VUIDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = [v6 localizedDescription];
@@ -355,7 +358,7 @@ void __69__VUIUserEngagementSheetLauncher__showNotificationAuthorizationSheet__b
 
   else if ([v6 code] == 11)
   {
-    v11 = VUIDefaultLogObject();
+    v11 = VUIDefaultLogObject(11);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       LOWORD(v12) = 0;
@@ -378,7 +381,7 @@ void __69__VUIUserEngagementSheetLauncher__showNotificationAuthorizationSheet__b
 - (void)_handleUserNotificationAction:(int64_t)action
 {
   v8 = *MEMORY[0x1E69E9840];
-  v5 = VUIDefaultLogObject();
+  v5 = VUIDefaultLogObject(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = 134217984;
@@ -455,7 +458,7 @@ void __69__VUIUserEngagementSheetLauncher_handleEngagementRequest_completion___b
 
   else
   {
-    v8 = VUIDefaultLogObject();
+    v8 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *v9 = 0;

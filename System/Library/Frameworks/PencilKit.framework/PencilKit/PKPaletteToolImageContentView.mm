@@ -1,12 +1,12 @@
 @interface PKPaletteToolImageContentView
-- (uint64_t)initWithImageView:(uint64_t)view;
+- (id)initWithImageView:(id *)view;
 - (void)_updateUI;
-- (void)setSelectedView:(uint64_t)view;
+- (void)setSelectedView:(id *)view;
 @end
 
 @implementation PKPaletteToolImageContentView
 
-- (uint64_t)initWithImageView:(uint64_t)view
+- (id)initWithImageView:(id *)view
 {
   v23[4] = *MEMORY[0x1E69E9840];
   v4 = a2;
@@ -20,8 +20,8 @@
     {
       objc_storeStrong(v5 + 52, a2);
       *(view + 408) = 0;
-      v6 = *(view + 424);
-      *(view + 424) = 0;
+      v6 = view[53];
+      view[53] = 0;
 
       [v4 setTranslatesAutoresizingMaskIntoConstraints:0];
       [view addSubview:v4];
@@ -100,12 +100,12 @@ LABEL_9:
   }
 }
 
-- (void)setSelectedView:(uint64_t)view
+- (void)setSelectedView:(id *)view
 {
   v4 = a2;
   if (view)
   {
-    v5 = *(view + 424);
+    v5 = view[53];
     if (v5 != v4)
     {
       superview = [v5 superview];
@@ -120,7 +120,7 @@ LABEL_9:
         [MEMORY[0x1E69DD250] performWithoutAnimation:v7];
       }
 
-      objc_storeStrong((view + 424), a2);
+      objc_storeStrong(view + 53, a2);
       [(PKPaletteToolImageContentView *)view _updateUI];
     }
   }

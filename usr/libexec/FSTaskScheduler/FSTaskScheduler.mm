@@ -1,4 +1,4 @@
-BOOL isInternalBuild()
+BOOL isInternalBuild(uint64_t a1, uint64_t a2)
 {
   if (qword_1000146D0 != -1)
   {
@@ -248,8 +248,9 @@ void sub_100001520(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void fetch_and_process_iocs_store_buffer(int a1, int a2)
+void fetch_and_process_iocs_store_buffer(int a1, uint64_t a2)
 {
+  v2 = a2;
   size = 0;
   v10 = a1;
   if (sysctlbyname("vfs.io_compression_dump_stats", 0, &size, &v10, 4uLL))
@@ -312,11 +313,11 @@ LABEL_13:
     if (v9)
     {
       *buf = 67109120;
-      v13 = a2;
+      v13 = v2;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "IOCS: Sucessfully read iocs_store_buffer. Action = %d", buf, 8u);
     }
 
-    ProcessIOCSStoreBuffer(v6, size, a2);
+    ProcessIOCSStoreBuffer(v6, size, v2);
   }
 
   free(v6);
@@ -335,10 +336,11 @@ uint64_t iocompressionstats_notification()
   return 0;
 }
 
-void sub_100001810(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001810(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 uint64_t sub_10000183C()
@@ -491,7 +493,7 @@ LABEL_23:
   bzero(a2, 0x3FFuLL);
 }
 
-int64_t GetFileExtensionFromFilePath(const char *a1, const char **a2)
+size_t GetFileExtensionFromFilePath(const char *a1, const char **a2)
 {
   result = strnlen(a1, 0x400uLL);
   if (result < 2)
@@ -1347,16 +1349,18 @@ xpc_object_t sub_1000033CC(uint64_t a1)
   return v2;
 }
 
-void sub_100003498(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003498(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_1000034C0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000034C0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 int main(int argc, const char **argv, const char **envp)
@@ -1366,59 +1370,59 @@ int main(int argc, const char **argv, const char **envp)
   {
     syslog(5, "Started");
     v7 = +[NSUserDefaults standardUserDefaults];
-    v28[0] = @"NANDNotificationThresholdPerInterval";
-    v29[0] = [NSNumber numberWithDouble:10.0];
-    v28[1] = @"NANDNotificationThresholdPerDay";
-    v29[1] = [NSNumber numberWithDouble:100.0];
-    v28[2] = @"NANDNotificationTimeout";
-    v29[2] = [NSNumber numberWithDouble:0.0];
-    [(NSUserDefaults *)v7 registerDefaults:[NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:3]];
-    v8 = isInternalBuild();
-    v9 = isTaskingEnabled(@"NANDUsageDialogActive");
-    v10 = is_darwinos | ~(v8 & _os_feature_enabled_impl() & (v9 != 0));
-    v11 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
-    if (v10)
+    v30[0] = @"NANDNotificationThresholdPerInterval";
+    v31[0] = [NSNumber numberWithDouble:10.0];
+    v30[1] = @"NANDNotificationThresholdPerDay";
+    v31[1] = [NSNumber numberWithDouble:100.0];
+    v30[2] = @"NANDNotificationTimeout";
+    v31[2] = [NSNumber numberWithDouble:0.0];
+    v8 = [(NSUserDefaults *)v7 registerDefaults:[NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:3]];
+    v10 = isInternalBuild(v8, v9);
+    v11 = isTaskingEnabled(@"NANDUsageDialogActive");
+    v12 = is_darwinos | ~(v10 & _os_feature_enabled_impl() & (v11 != 0));
+    v13 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+    if (v12)
     {
-      if (v11)
+      if (v13)
       {
-        v12 = "True";
-        if (v9)
+        v14 = "True";
+        if (v11)
         {
-          v13 = "True";
+          v15 = "True";
         }
 
         else
         {
-          v13 = "False";
+          v15 = "False";
         }
 
         *buf = 136315650;
-        *&buf[4] = v13;
+        *&buf[4] = v15;
         *&buf[12] = 2080;
         if (!is_darwinos)
         {
-          v12 = "False";
+          v14 = "False";
         }
 
-        *&buf[14] = v12;
+        *&buf[14] = v14;
         *&buf[22] = 2080;
-        v31 = "False";
+        v33 = "False";
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "NANDStats :: nand_longetivity_daemon feature not enabled. isTaskingEnabled: %s, isWeakLinked: %s, nandDaemonEnabled: %s", buf, 0x20u);
       }
     }
 
     else
     {
-      if (v11)
+      if (v13)
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "NANDStats :: Registering nand_longetivity_daemon", buf, 2u);
       }
 
       [(NSUserDefaults *)v7 doubleForKey:@"NANDNotificationThresholdPerInterval"];
-      v15 = v14;
-      [(NSUserDefaults *)v7 doubleForKey:@"NANDNotificationThresholdPerDay"];
       v17 = v16;
+      [(NSUserDefaults *)v7 doubleForKey:@"NANDNotificationThresholdPerDay"];
+      v19 = v18;
       [(NSUserDefaults *)v7 doubleForKey:@"NANDNotificationTimeout"];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
@@ -1426,59 +1430,59 @@ int main(int argc, const char **argv, const char **envp)
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "NANDStats :: In nand_longetivity_daemon. Registering nand stats info daemon\n", buf, 2u);
       }
 
+      v28[0] = 0;
+      v28[1] = v28;
+      v28[2] = 0x2020000000;
+      v29 = 0;
+      v27[0] = 0;
+      v27[1] = v27;
+      v27[2] = 0x2020000000;
+      v27[3] = 0;
       v26[0] = 0;
       v26[1] = v26;
       v26[2] = 0x2020000000;
-      v27 = 0;
-      v25[0] = 0;
-      v25[1] = v25;
-      v25[2] = 0x2020000000;
-      v25[3] = 0;
-      v24[0] = 0;
-      v24[1] = v24;
-      v24[2] = 0x2020000000;
-      v24[3] = 0;
+      v26[3] = 0;
       if (!qword_1000146E8)
       {
-        v18 = +[FBSDisplayLayoutMonitorConfiguration configurationForDefaultMainDisplayMonitor];
+        v20 = +[FBSDisplayLayoutMonitorConfiguration configurationForDefaultMainDisplayMonitor];
         *buf = _NSConcreteStackBlock;
         *&buf[8] = 3221225472;
         *&buf[16] = sub_100003D68;
-        v31 = &unk_1000108E8;
-        v32 = v26;
-        v33 = v25;
-        v34 = v24;
-        [v18 setTransitionHandler:buf];
-        qword_1000146E8 = [FBSDisplayLayoutMonitor monitorWithConfiguration:v18];
+        v33 = &unk_1000108E8;
+        v34 = v28;
+        v35 = v27;
+        v36 = v26;
+        [v20 setTransitionHandler:buf];
+        qword_1000146E8 = [FBSDisplayLayoutMonitor monitorWithConfiguration:v20];
       }
 
-      v19 = xpc_dictionary_create(0, 0, 0);
-      xpc_dictionary_set_BOOL(v19, XPC_ACTIVITY_REPEATING, 1);
-      xpc_dictionary_set_BOOL(v19, XPC_ACTIVITY_ALLOW_BATTERY, 1);
-      xpc_dictionary_set_int64(v19, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
-      xpc_dictionary_set_string(v19, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
+      v21 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_BOOL(v21, XPC_ACTIVITY_REPEATING, 1);
+      xpc_dictionary_set_BOOL(v21, XPC_ACTIVITY_ALLOW_BATTERY, 1);
+      xpc_dictionary_set_int64(v21, XPC_ACTIVITY_INTERVAL, XPC_ACTIVITY_INTERVAL_1_DAY);
+      xpc_dictionary_set_string(v21, XPC_ACTIVITY_PRIORITY, XPC_ACTIVITY_PRIORITY_MAINTENANCE);
       handler[0] = _NSConcreteStackBlock;
       handler[1] = 3221225472;
       handler[2] = sub_1000047EC;
       handler[3] = &unk_100010910;
-      handler[5] = v15;
-      handler[6] = v17;
-      handler[4] = v26;
-      xpc_activity_register("com.apple.fs_task_scheduler.nandstats", v19, handler);
-      _Block_object_dispose(v24, 8);
-      _Block_object_dispose(v25, 8);
+      handler[5] = v17;
+      handler[6] = v19;
+      handler[4] = v28;
+      xpc_activity_register("com.apple.fs_task_scheduler.nandstats", v21, handler);
       _Block_object_dispose(v26, 8);
+      _Block_object_dispose(v27, 8);
+      _Block_object_dispose(v28, 8);
     }
 
     xpc_activity_register("com.apple.fs_task_scheduler", XPC_ACTIVITY_CHECK_IN, &stru_100010930);
     if ((is_darwinos & 1) == 0 && IOCSFeatureEnabled())
     {
-      v20 = os_log_create("com.apple.FSTaskScheduler.IOCS", "main");
-      oslog = v20;
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = os_log_create("com.apple.FSTaskScheduler.IOCS", "main");
+      oslog = v22;
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "IOCS feature is enabled, setting up IOCS periodic job", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "IOCS feature is enabled, setting up IOCS periodic job", buf, 2u);
       }
 
       ScheduleIOCSTask();
@@ -1497,10 +1501,10 @@ int main(int argc, const char **argv, const char **envp)
   {
     do
     {
-      v21 = v6 >> 24;
-      if (v21 != 102)
+      v23 = v6 >> 24;
+      if (v23 != 102)
       {
-        if (v21 == 105)
+        if (v23 == 105)
         {
           if (IOCSFeatureEnabled())
           {
@@ -1544,20 +1548,20 @@ int main(int argc, const char **argv, const char **envp)
   return 0;
 }
 
-void sub_100003ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100003ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va2, a9);
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va2, a16);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   va_copy(va2, va1);
-  v15 = va_arg(va2, void);
-  v17 = va_arg(va2, void);
-  v18 = va_arg(va2, void);
-  v19 = va_arg(va2, void);
+  v22 = va_arg(va2, void);
+  v24 = va_arg(va2, void);
+  v25 = va_arg(va2, void);
+  v26 = va_arg(va2, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va2, 8);
@@ -1677,12 +1681,12 @@ void sub_100003D68(void *a1, uint64_t a2, void *a3)
     return;
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v5 = [a3 elements];
-  v6 = [v5 countByEnumeratingWithState:&v64 objects:v71 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v63 objects:v70 count:16];
   if (!v6)
   {
     return;
@@ -1690,24 +1694,24 @@ void sub_100003D68(void *a1, uint64_t a2, void *a3)
 
   v7 = v6;
   v8 = &CRIsAppleInternal_ptr;
-  v9 = *v65;
+  v9 = *v64;
   v10 = SBSDisplayLayoutElementHomeScreenIdentifier;
-  v52 = SBSDisplayLayoutElementHomeScreenIdentifier;
-  v53 = *v65;
-  v50 = v4;
-  v49 = v5;
+  v51 = SBSDisplayLayoutElementHomeScreenIdentifier;
+  v52 = *v64;
+  v49 = v4;
+  v48 = v5;
   while (2)
   {
     v11 = 0;
-    v51 = v7;
+    v50 = v7;
     do
     {
-      if (*v65 != v9)
+      if (*v64 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v12 = *(*(&v64 + 1) + 8 * v11);
+      v12 = *(*(&v63 + 1) + 8 * v11);
       if (![objc_msgSend(v12 "identifier")])
       {
         if ([objc_msgSend(v12 "identifier")])
@@ -1716,17 +1720,17 @@ void sub_100003D68(void *a1, uint64_t a2, void *a3)
         }
 
         pStmt = 0;
-        v34 = sqlite3_prepare_v2(CRUdb, "SELECT bundleID, logicalWrites FROM NANDStats WHERE presentDialog & 0x1 = 0x1", -1, &pStmt, 0);
-        if (v34)
+        v33 = sqlite3_prepare_v2(CRUdb, "SELECT bundleID, logicalWrites FROM NANDStats WHERE presentDialog & 0x1 = 0x1", -1, &pStmt, 0);
+        if (v33)
         {
-          v42 = v34;
+          v41 = v33;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
-            v43 = sqlite3_errmsg(CRUdb);
+            v42 = sqlite3_errmsg(CRUdb);
             *buf = 67109378;
-            *v70 = v42;
-            *&v70[4] = 2080;
-            *&v70[6] = v43;
+            *v69 = v41;
+            *&v69[4] = 2080;
+            *&v69[6] = v42;
             _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "NANDStats - Exception ::::: SQL Select failure %d %s\n", buf, 0x12u);
           }
 
@@ -1758,22 +1762,22 @@ void sub_100003D68(void *a1, uint64_t a2, void *a3)
         sqlite3_reset(pStmt);
         while (sqlite3_step(pStmt) == 100)
         {
-          v35 = sqlite3_column_text(pStmt, 0);
-          v36 = sqlite3_column_int64(pStmt, 1);
+          v34 = sqlite3_column_text(pStmt, 0);
+          v35 = sqlite3_column_int64(pStmt, 1);
           if ([objc_msgSend(v12 "identifier")])
           {
-            v37 = *(v4[5] + 8);
-            v38 = *(v37 + 24);
-            if (v38)
+            v36 = *(v4[5] + 8);
+            v37 = *(v36 + 24);
+            if (v37)
             {
-              free(v38);
+              free(v37);
               *(*(v4[5] + 8) + 24) = 0;
               *(*(v4[6] + 8) + 24) = 0;
-              v37 = *(v4[5] + 8);
+              v36 = *(v4[5] + 8);
             }
 
-            *(v37 + 24) = strdup(v35);
-            *(*(v4[6] + 8) + 24) = v36;
+            *(v36 + 24) = strdup(v34);
+            *(*(v4[6] + 8) + 24) = v35;
             v8 = &CRIsAppleInternal_ptr;
             break;
           }
@@ -1797,28 +1801,28 @@ void sub_100003D68(void *a1, uint64_t a2, void *a3)
           goto LABEL_58;
         }
 
-        v39 = *(*(v4[5] + 8) + 24);
+        v38 = *(*(v4[5] + 8) + 24);
         *buf = 136315394;
-        *v70 = v39;
-        *&v70[8] = 2112;
-        *&v70[10] = pStmt;
-        v40 = "NANDStats - Exception ::::: Attempt to retrieve application record for bundle identifier %s failed with error: %@\n";
-        v41 = 22;
+        *v69 = v38;
+        *&v69[8] = 2112;
+        *&v69[10] = pStmt;
+        v39 = "NANDStats - Exception ::::: Attempt to retrieve application record for bundle identifier %s failed with error: %@\n";
+        v40 = 22;
         goto LABEL_57;
       }
 
       v14 = [objc_msgSend(v13 "localizedName")];
       v15 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
-      v55 = v14;
+      v54 = v14;
       if (v14)
       {
         if (v15)
         {
           v16 = *(*(v4[5] + 8) + 24);
           *buf = 136315394;
-          *v70 = v16;
-          *&v70[8] = 2080;
-          *&v70[10] = v14;
+          *v69 = v16;
+          *&v69[8] = 2080;
+          *&v69[10] = v14;
           _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "NANDStats: localizedName for bundleID: %s is %s\n", buf, 0x16u);
         }
 
@@ -1838,37 +1842,36 @@ void sub_100003D68(void *a1, uint64_t a2, void *a3)
 
         v19 = [NSBundle bundleWithURL:v18];
         obj = +[NSBundle preferredLocalizationsFromArray:forPreferences:](NSBundle, "preferredLocalizationsFromArray:forPreferences:", [(NSBundle *)v19 localizations], +[NSLocale preferredLanguages]);
-        if (v19 && ([(NSBundle *)v19 _cfBundle], v59 = 0u, v60 = 0u, v61 = 0u, v62 = 0u, (v20 = [(NSArray *)obj countByEnumeratingWithState:&v59 objects:v68 count:16]) != 0))
+        if (v19 && ([(NSBundle *)v19 _cfBundle], v58 = 0u, v59 = 0u, v60 = 0u, v61 = 0u, (v20 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v67 count:16]) != 0))
         {
           v21 = v20;
-          v22 = *v60;
+          v22 = *v59;
 LABEL_23:
           v23 = 0;
           while (1)
           {
-            if (*v60 != v22)
+            if (*v59 != v22)
             {
               objc_enumerationMutation(obj);
             }
 
-            v24 = *(*(&v59 + 1) + 8 * v23);
-            v25 = CFBundleCopyLocalizedStringForLocalization();
-            v26 = [NSString stringWithFormat:CFBundleCopyLocalizedStringForLocalization(), [NSString stringWithUTF8String:v55]];
-            if (v25 && v26 != 0)
+            v24 = CFBundleCopyLocalizedStringForLocalization();
+            v25 = [NSString stringWithFormat:CFBundleCopyLocalizedStringForLocalization(), [NSString stringWithUTF8String:v54]];
+            if (v24 && v25 != 0)
             {
               break;
             }
 
             if (v21 == ++v23)
             {
-              v28 = v26;
-              v21 = [(NSArray *)obj countByEnumeratingWithState:&v59 objects:v68 count:16];
+              v27 = v25;
+              v21 = [(NSArray *)obj countByEnumeratingWithState:&v58 objects:v67 count:16];
               if (v21)
               {
                 goto LABEL_23;
               }
 
-              if (v25 && v28)
+              if (v24 && v27)
               {
                 break;
               }
@@ -1881,32 +1884,32 @@ LABEL_23:
         else
         {
 LABEL_35:
-          [NSString stringWithFormat:@"%@ is writing relatively large amounts of data to internal storage. This may cause additional NAND wear.", [NSString stringWithUTF8String:v55]];
+          [NSString stringWithFormat:@"%@ is writing relatively large amounts of data to internal storage. This may cause additional NAND wear.", [NSString stringWithUTF8String:v54]];
         }
 
-        v29 = time(0);
+        v28 = time(0);
         ppStmt[1] = _NSConcreteStackBlock;
         ppStmt[2] = 3221225472;
-        v4 = v50;
+        v4 = v49;
         ppStmt[3] = sub_100004700;
         ppStmt[4] = &unk_1000108C0;
-        v57 = xmmword_10000A780;
-        ppStmt[5] = *(v50 + 6);
-        v58 = v55;
+        v56 = xmmword_10000A780;
+        ppStmt[5] = *(v49 + 6);
+        v57 = v54;
         AnalyticsSendEventLazy();
         ppStmt[0] = 0;
-        v30 = sqlite3_prepare_v2(CRUdb, "UPDATE NANDStats SET presentDialog = ?, dialogTimestamp = ?, dialogInterval = CASE WHEN presentDialog >> 8 & 0x1 == 0x1 AND dialogInterval >= 25 THEN 30 WHEN presentDialog >> 8 & 0x1 == 0x1 AND dialogInterval < 25 THEN dialogInterval * 5 ELSE dialogInterval END WHERE bundleID = ?", -1, ppStmt, 0);
-        if (v30)
+        v29 = sqlite3_prepare_v2(CRUdb, "UPDATE NANDStats SET presentDialog = ?, dialogTimestamp = ?, dialogInterval = CASE WHEN presentDialog >> 8 & 0x1 == 0x1 AND dialogInterval >= 25 THEN 30 WHEN presentDialog >> 8 & 0x1 == 0x1 AND dialogInterval < 25 THEN dialogInterval * 5 ELSE dialogInterval END WHERE bundleID = ?", -1, ppStmt, 0);
+        if (v29)
         {
-          v44 = v30;
+          v43 = v29;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
-            v45 = sqlite3_errmsg(CRUdb);
+            v44 = sqlite3_errmsg(CRUdb);
             *buf = 67109378;
-            *v70 = v44;
-            *&v70[4] = 2080;
-            *&v70[6] = v45;
-            v46 = "NANDStats - Exception ::::: SQL Update prepare failure %d %s\n";
+            *v69 = v43;
+            *&v69[4] = 2080;
+            *&v69[6] = v44;
+            v45 = "NANDStats - Exception ::::: SQL Update prepare failure %d %s\n";
             goto LABEL_74;
           }
 
@@ -1916,53 +1919,53 @@ LABEL_75:
         }
 
         sqlite3_bind_int64(ppStmt[0], 1, 0);
-        sqlite3_bind_int64(ppStmt[0], 2, v29);
-        v31 = strlen(*(*(v50[5] + 8) + 24));
-        sqlite3_bind_text(ppStmt[0], 3, *(*(v50[5] + 8) + 24), v31, 0);
-        v32 = sqlite3_step(ppStmt[0]);
-        if (v32 != 101)
+        sqlite3_bind_int64(ppStmt[0], 2, v28);
+        v30 = strlen(*(*(v49[5] + 8) + 24));
+        sqlite3_bind_text(ppStmt[0], 3, *(*(v49[5] + 8) + 24), v30, 0);
+        v31 = sqlite3_step(ppStmt[0]);
+        if (v31 != 101)
         {
-          v47 = v32;
+          v46 = v31;
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
           {
-            v48 = sqlite3_errmsg(CRUdb);
+            v47 = sqlite3_errmsg(CRUdb);
             *buf = 67109378;
-            *v70 = v47;
-            *&v70[4] = 2080;
-            *&v70[6] = v48;
-            v46 = "NANDStats - Exception ::::: SQL Update step failure %d %s\n";
+            *v69 = v46;
+            *&v69[4] = 2080;
+            *&v69[6] = v47;
+            v45 = "NANDStats - Exception ::::: SQL Update step failure %d %s\n";
 LABEL_74:
-            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v46, buf, 0x12u);
+            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v45, buf, 0x12u);
           }
 
           goto LABEL_75;
         }
 
         sqlite3_finalize(ppStmt[0]);
-        v33 = *(*(v50[5] + 8) + 24);
-        if (v33)
+        v32 = *(*(v49[5] + 8) + 24);
+        if (v32)
         {
-          free(v33);
-          *(*(v50[5] + 8) + 24) = 0;
-          *(*(v50[6] + 8) + 24) = 0;
+          free(v32);
+          *(*(v49[5] + 8) + 24) = 0;
+          *(*(v49[6] + 8) + 24) = 0;
         }
 
-        v5 = v49;
-        v7 = v51;
+        v5 = v48;
+        v7 = v50;
         v8 = &CRIsAppleInternal_ptr;
 LABEL_52:
-        v10 = v52;
-        v9 = v53;
+        v10 = v51;
+        v9 = v52;
         goto LABEL_58;
       }
 
       if (v15)
       {
         *buf = 0;
-        v40 = "NANDStats - Exception ::::: Unable to derive appName from localizedName\n";
-        v41 = 2;
+        v39 = "NANDStats - Exception ::::: Unable to derive appName from localizedName\n";
+        v40 = 2;
 LABEL_57:
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v40, buf, v41);
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, v39, buf, v40);
       }
 
 LABEL_58:
@@ -1970,7 +1973,7 @@ LABEL_58:
     }
 
     while (v11 != v7);
-    v7 = [v5 countByEnumeratingWithState:&v64 objects:v71 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v63 objects:v70 count:16];
     if (v7)
     {
       continue;
@@ -2309,7 +2312,7 @@ LABEL_12:
   CRUCloseSQLDB();
 }
 
-uint64_t sub_100005158(uint64_t a1, void *a2, unint64_t a3, unint64_t a4, void *a5, void *a6, void *a7, void *a8, double a9)
+uint64_t sub_100005158(uint64_t a1, void *a2, sqlite3_int64 a3, unint64_t a4, void *a5, void *a6, void *a7, void *a8, double a9)
 {
   if (a9 * 1073741820.0 >= a3)
   {
@@ -2443,7 +2446,7 @@ void sub_10000553C(id a1, OS_xpc_object *a2)
   }
 }
 
-_DWORD *(*iocompressionstats_notification_server_routine(uint64_t a1))(_DWORD *result, uint64_t a2)
+uint64_t (*iocompressionstats_notification_server_routine(uint64_t a1))()
 {
   if (*(a1 + 20) == 5600)
   {
@@ -2466,8 +2469,6 @@ _DWORD *sub_100005630(_DWORD *result, uint64_t a2)
 
   else
   {
-    v3 = result[3];
-    v4 = result[8];
     result = iocompressionstats_notification();
     *(a2 + 32) = result;
   }
@@ -2477,14 +2478,14 @@ _DWORD *sub_100005630(_DWORD *result, uint64_t a2)
 
 uint64_t iocompressionstats_notification_server(_DWORD *a1, uint64_t a2)
 {
-  v3 = a1[2];
+  v2 = a1[2];
   *a2 = *a1 & 0x1F;
   *(a2 + 4) = 36;
-  v4 = a1[5] + 100;
-  *(a2 + 8) = v3;
+  v3 = a1[5] + 100;
+  *(a2 + 8) = v2;
   *(a2 + 12) = 0;
   *(a2 + 16) = 0;
-  *(a2 + 20) = v4;
+  *(a2 + 20) = v3;
   if (a1[5] == 5600)
   {
     if ((*a1 & 0x80000000) != 0 || a1[1] != 36)
@@ -2495,8 +2496,6 @@ uint64_t iocompressionstats_notification_server(_DWORD *a1, uint64_t a2)
 
     else
     {
-      v5 = a1[3];
-      v6 = a1[8];
       *(a2 + 32) = iocompressionstats_notification();
     }
 
@@ -3930,9 +3929,9 @@ uint64_t sub_100007C9C(int a1)
   *&dword_1000144A8 = 0u;
   unk_100014498 = 0u;
   *(&xmmword_10001447C + 12) = 0u;
-  fsinfo = a1;
+  fsinfo[0] = a1;
   word_100014478 = 1;
-  result = fsctl("/private/var", 0xC0D4682DuLL, &fsinfo, 0);
+  result = fsctl("/private/var", 0xC0D4682DuLL, fsinfo, 0);
   if (result)
   {
     return *__error();
@@ -4709,7 +4708,7 @@ void sub_100008E84()
   if (sub_100001854())
   {
     sub_100001830();
-    sub_100001810(&_mh_execute_header, v0, v1, "IOCS: failed to allocate a mach port. Error = %d", v2, v3, v4, v5, v6);
+    sub_100001810(&_mh_execute_header, v0, v1, "IOCS: failed to allocate a mach port. Error = %d", v2, v3, v4, v5);
   }
 }
 
@@ -4719,7 +4718,7 @@ void sub_100008F10()
   if (sub_100001854())
   {
     sub_100001830();
-    sub_100001810(&_mh_execute_header, v0, v1, "IOCS: failed to insert send right. Error = %d", v2, v3, v4, v5, v6);
+    sub_100001810(&_mh_execute_header, v0, v1, "IOCS: failed to insert send right. Error = %d", v2, v3, v4, v5);
   }
 }
 
@@ -4729,7 +4728,7 @@ void sub_100008F9C()
   if (sub_100001854())
   {
     sub_100001830();
-    sub_100001810(&_mh_execute_header, v0, v1, "IOCS: failed to bind host special port. Error = %d", v2, v3, v4, v5, v6);
+    sub_100001810(&_mh_execute_header, v0, v1, "IOCS: failed to bind host special port. Error = %d", v2, v3, v4, v5);
   }
 }
 
@@ -4739,7 +4738,7 @@ void sub_100009028()
   if (sub_100001854())
   {
     sub_100001830();
-    sub_100001810(&_mh_execute_header, v0, v1, "IOCS: failed to set context for inbound notifications on the mach port. Error = %d", v2, v3, v4, v5, v6);
+    sub_100001810(&_mh_execute_header, v0, v1, "IOCS: failed to set context for inbound notifications on the mach port. Error = %d", v2, v3, v4, v5);
   }
 }
 
@@ -4771,19 +4770,19 @@ void sub_100009290()
 {
   sqlite3_errmsg(qword_1000146E0);
   sub_100003480();
-  sub_1000034C0(&_mh_execute_header, v0, v1, "IOCS: SQL table failed to read: %d %s\n", v2, v3, v4, v5, v6);
+  sub_1000034C0(&_mh_execute_header, v0, v1, "IOCS: SQL table failed to read: %d %s\n", v2, v3, v4, v5);
 }
 
 void sub_1000093E4()
 {
   sqlite3_errmsg(qword_1000146E0);
   sub_100003480();
-  sub_1000034C0(&_mh_execute_header, v0, v1, "IOCS: SQL table Insert failure: %d %s\n", v2, v3, v4, v5, v6);
+  sub_1000034C0(&_mh_execute_header, v0, v1, "IOCS: SQL table Insert failure: %d %s\n", v2, v3, v4, v5);
 }
 
 void sub_100009468()
 {
   sqlite3_errmsg(qword_1000146E0);
   sub_100003480();
-  sub_1000034C0(&_mh_execute_header, v0, v1, "IOCS: table insert failure: %d %s\n", v2, v3, v4, v5, v6);
+  sub_1000034C0(&_mh_execute_header, v0, v1, "IOCS: table insert failure: %d %s\n", v2, v3, v4, v5);
 }

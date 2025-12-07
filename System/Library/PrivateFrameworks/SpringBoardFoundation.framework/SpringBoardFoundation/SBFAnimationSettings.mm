@@ -229,8 +229,9 @@ LABEL_25:
   if (self->_speed != speed)
   {
     self->_speed = speed;
+    exportedSettings = self->_exportedSettings;
     self->_exportedSettings = 0;
-    MEMORY[0x1EEE66BB8]();
+    MEMORY[0x1EEE66BB8](self, exportedSettings);
   }
 }
 

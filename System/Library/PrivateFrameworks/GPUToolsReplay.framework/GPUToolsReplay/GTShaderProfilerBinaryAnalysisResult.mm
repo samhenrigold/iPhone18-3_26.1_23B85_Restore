@@ -1,4 +1,5 @@
 @interface GTShaderProfilerBinaryAnalysisResult
++ (id)analyzeBinary:(id)binary targetIndex:(int)index isaPrinter:(id)printer;
 + (id)createWithAnalysisResult:(const void *)result;
 + (id)dataFromArchivedDataURL:(id)l;
 - (GTShaderProfilerBinaryAnalysisResult)init;
@@ -529,11 +530,11 @@
 
 - (GTShaderProfilerBinaryAnalysisResult)initWithCoder:(id)coder
 {
-  v49[2] = *MEMORY[0x277D85DE8];
+  v48[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v47.receiver = self;
-  v47.super_class = GTShaderProfilerBinaryAnalysisResult;
-  v5 = [(GTShaderProfilerBinaryAnalysisResult *)&v47 init];
+  v46.receiver = self;
+  v46.super_class = GTShaderProfilerBinaryAnalysisResult;
+  v5 = [(GTShaderProfilerBinaryAnalysisResult *)&v46 init];
   if (!v5)
   {
 LABEL_25:
@@ -554,9 +555,9 @@ LABEL_3:
   {
 LABEL_14:
     v15 = MEMORY[0x277CBEB98];
-    v49[0] = objc_opt_class();
-    v49[1] = objc_opt_class();
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
+    v48[0] = objc_opt_class();
+    v48[1] = objc_opt_class();
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
     v17 = [v15 setWithArray:v16];
 
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"instructionData"];
@@ -588,12 +589,12 @@ LABEL_14:
         v32 = (bytes + 16);
         do
         {
-          LODWORD(v46[0]) = 0;
-          *(v46 + 4) = *(v32 - 1);
+          LODWORD(v45[0]) = 0;
+          *(v45 + 4) = *(v32 - 1);
           v33 = *v32;
           v32 += 3;
-          *(&v46[2] + 4) = v33;
-          [v31 appendBytes:v46 length:28];
+          *(&v45[2] + 4) = v33;
+          [v31 appendBytes:v45 length:28];
           --v30;
         }
 
@@ -611,10 +612,10 @@ LABEL_14:
     v5->_registerInfoData = v35;
 
     v37 = MEMORY[0x277CBEB98];
-    v48[0] = objc_opt_class();
-    v48[1] = objc_opt_class();
-    v48[2] = objc_opt_class();
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:3];
+    v47[0] = objc_opt_class();
+    v47[1] = objc_opt_class();
+    v47[2] = objc_opt_class();
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
     v39 = [v37 setWithArray:v38];
     v40 = [coderCopy decodeObjectOfClasses:v39 forKey:@"strings"];
     strings = v5->_strings;
@@ -630,7 +631,7 @@ LABEL_14:
           v43 = 0;
           do
           {
-            std::vector<unsigned long>::push_back[abi:nn200100](&v5->_registerOffsets, v46);
+            std::vector<unsigned long>::push_back[abi:nn200100](&v5->_registerOffsets, v45);
             v43 += *(instructions + 33);
             instructions += 36;
           }
@@ -673,7 +674,6 @@ LABEL_14:
 
 LABEL_26:
 
-  v44 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -889,7 +889,7 @@ LABEL_26:
           v39 = v38;
         }
 
-        std::vector<std::string>::__vallocate[abi:nn200100](v5 + 64, v39);
+        std::vector<std::string>::__vallocate[abi:nn200100]((v5 + 64), v39);
       }
 
       std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
@@ -1398,6 +1398,21 @@ LABEL_26:
   *(v5 + 232) = v6;
 
   return v5;
+}
+
++ (id)analyzeBinary:(id)binary targetIndex:(int)index isaPrinter:(id)printer
+{
+  if (index > 4)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = GTShaderProfilerAnalyzeBinaryLLVM(binary, *&index, printer);
+  }
+
+  return v6;
 }
 
 @end

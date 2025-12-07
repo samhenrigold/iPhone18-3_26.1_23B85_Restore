@@ -99,12 +99,12 @@
 
 - (id)presentTranslationTipWithLanguages:(id)languages
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD54C10);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAD54C10, &qword_190DE84D0);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v15 - v5;
   v7 = sub_190D519C0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD57920);
-  sub_190B4C634(&qword_1EAD46BD0, MEMORY[0x1E6969770]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EAD57920, &unk_190DE8FC0);
+  sub_190B4C634(&qword_1EAD46BD0, MEMORY[0x1E6969770], MEMORY[0x1E6969780]);
   v8 = sub_190D56D90();
   selfCopy = self;
   CKChatTipManager.presentTranslationTip(languages:)(v8, v6);

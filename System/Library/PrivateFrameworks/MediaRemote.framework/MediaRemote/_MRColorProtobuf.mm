@@ -139,7 +139,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    red = self->_red;
     PBDataWriterWriteFloatField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -159,7 +158,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  green = self->_green;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 2) == 0)
@@ -174,12 +172,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  blue = self->_blue;
   PBDataWriterWriteFloatField();
   if (*&self->_has)
   {
 LABEL_5:
-    alpha = self->_alpha;
     PBDataWriterWriteFloatField();
   }
 

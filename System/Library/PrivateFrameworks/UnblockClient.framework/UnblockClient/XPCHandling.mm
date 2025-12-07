@@ -8,15 +8,16 @@ int *__62__UBUnblockClient_XPCHandling__openConnectionToUnblockService__block_in
   result = MEMORY[0x27439FD10](a2);
   if (result != MEMORY[0x277D86480])
   {
-    v3 = *__error();
-    v4 = _ublogt();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = __error();
+    v4 = *v3;
+    v5 = _ublogt(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __62__UBUnblockClient_XPCHandling__openConnectionToUnblockService__block_invoke_cold_1();
     }
 
     result = __error();
-    *result = v3;
+    *result = v4;
   }
 
   return result;

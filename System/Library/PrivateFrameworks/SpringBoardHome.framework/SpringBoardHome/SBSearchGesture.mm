@@ -55,7 +55,7 @@
   v4 = v3;
   v6 = v5;
   superview = [(SBSearchScrollView *)self->_scrollView superview];
-  [superview bounds];
+  objc_msgSend_bounds(superview);
   v9 = v8;
   v11 = v10;
   v13 = v12;

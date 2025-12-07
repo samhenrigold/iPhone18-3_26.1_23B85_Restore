@@ -8,21 +8,21 @@
 
 - (void)fetchAllTrustedContacts
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C5404FE8();
   MEMORY[0x1E69E5920](self);
 }
 
 - (void)startingRepair
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C54069A8();
   MEMORY[0x1E69E5920](self);
 }
 
 - (void)finishingRepair
 {
-  MEMORY[0x1E69E5928](self);
+  MEMORY[0x1E69E5928](self, a2);
   sub_1C5406D38();
   MEMORY[0x1E69E5920](self);
 }

@@ -72,10 +72,10 @@
   [(NAScheduler *)serializer performBlock:v3];
 }
 
-uint64_t __40__MTSyncServiceManager_startSyncService__block_invoke(uint64_t result)
+void *__40__MTSyncServiceManager_startSyncService__block_invoke(void *result)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v9 = *MEMORY[0x1E69E9840];
+  v1 = result[4];
   if ((*(v1 + 8) & 1) == 0)
   {
     v2 = result;
@@ -84,33 +84,32 @@ uint64_t __40__MTSyncServiceManager_startSyncService__block_invoke(uint64_t resu
       v3 = MTLogForCategory(6);
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(v2 + 32);
-        v8 = 138543362;
-        v9 = v4;
-        _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ sync currently disabled, not starting, and removing any pending changes.", &v8, 0xCu);
+        v4 = v2[4];
+        v7 = 138543362;
+        v8 = v4;
+        _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ sync currently disabled, not starting, and removing any pending changes.", &v7, 0xCu);
       }
 
-      result = [*(*(v2 + 32) + 40) removePendingChanges];
+      return [*(v2[4] + 40) removePendingChanges];
     }
 
     else
     {
-      *(*(v2 + 32) + 8) = 1;
+      *(v2[4] + 8) = 1;
       v5 = MTLogForCategory(6);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = *(v2 + 32);
-        v8 = 138543362;
-        v9 = v6;
-        _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ resuming sync service", &v8, 0xCu);
+        v6 = v2[4];
+        v7 = 138543362;
+        v8 = v6;
+        _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ resuming sync service", &v7, 0xCu);
       }
 
-      [*(*(v2 + 32) + 16) resume:0];
-      result = [*(v2 + 32) checkForPendingChanges];
+      [*(v2[4] + 16) resume:0];
+      return [v2[4] checkForPendingChanges];
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -125,42 +124,41 @@ uint64_t __40__MTSyncServiceManager_startSyncService__block_invoke(uint64_t resu
   [(NAScheduler *)serializer performBlock:v3];
 }
 
-uint64_t __39__MTSyncServiceManager_stopSyncService__block_invoke(uint64_t result)
+void *__39__MTSyncServiceManager_stopSyncService__block_invoke(void *result)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 8) == 1)
+  v8 = *MEMORY[0x1E69E9840];
+  if (*(result[4] + 8) == 1)
   {
     v1 = result;
     v2 = MTLogForCategory(6);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v1 + 32);
-      v7 = 138543362;
-      v8 = v3;
-      _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ stopping sync service", &v7, 0xCu);
+      v3 = v1[4];
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ stopping sync service", &v6, 0xCu);
     }
 
-    [*(*(v1 + 32) + 16) suspend];
+    [*(v1[4] + 16) suspend];
     v4 = MTLogForCategory(6);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(v1 + 32);
-      v7 = 138543362;
-      v8 = v5;
-      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ removing pending changes", &v7, 0xCu);
+      v5 = v1[4];
+      v6 = 138543362;
+      v7 = v5;
+      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ removing pending changes", &v6, 0xCu);
     }
 
-    result = [*(*(v1 + 32) + 40) removePendingChanges];
-    *(*(v1 + 32) + 8) = 0;
+    result = [*(v1[4] + 40) removePendingChanges];
+    *(v1[4] + 8) = 0;
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)checkForPendingChanges
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   hasPendingChanges = [(MTSyncChangeQueue *)self->_syncChangeQueue hasPendingChanges];
   v4 = MTLogForCategory(6);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
@@ -168,9 +166,9 @@ uint64_t __39__MTSyncServiceManager_stopSyncService__block_invoke(uint64_t resul
   {
     if (v5)
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ still has changes", &v8, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ still has changes", &v7, 0xCu);
     }
 
     v6 = [(MTSyncServiceManager *)self requestSync:0];
@@ -180,13 +178,11 @@ uint64_t __39__MTSyncServiceManager_stopSyncService__block_invoke(uint64_t resul
   {
     if (v5)
     {
-      v8 = 138543362;
+      v7 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ no pending changes", &v8, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ no pending changes", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncChange:(id)change
@@ -205,7 +201,7 @@ uint64_t __39__MTSyncServiceManager_stopSyncService__block_invoke(uint64_t resul
 
 void __35__MTSyncServiceManager_syncChange___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 8);
   v3 = MTLogForCategory(6);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
@@ -215,11 +211,11 @@ void __35__MTSyncServiceManager_syncChange___block_invoke(uint64_t a1)
     {
       v5 = *(a1 + 32);
       v6 = *(a1 + 40);
-      v10 = 138543618;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v6;
-      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ syncing %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v6;
+      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ syncing %{public}@", &v9, 0x16u);
     }
 
     [*(*(a1 + 32) + 40) enqueueChange:*(a1 + 40)];
@@ -231,18 +227,16 @@ void __35__MTSyncServiceManager_syncChange___block_invoke(uint64_t a1)
     if (v4)
     {
       v8 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring sync because we're not started", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ ignoring sync because we're not started", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyChange:(id)change
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = [(MTSyncChangeQueue *)self->_syncChangeQueue resolveChange:change];
   syncDataModel = MTLogForCategory(6);
   v6 = os_log_type_enabled(syncDataModel, OS_LOG_TYPE_DEFAULT);
@@ -250,11 +244,11 @@ void __35__MTSyncServiceManager_syncChange___block_invoke(uint64_t a1)
   {
     if (v6)
     {
-      v8 = 138543618;
+      v7 = 138543618;
       selfCopy2 = self;
-      v10 = 2114;
-      v11 = v4;
-      _os_log_impl(&dword_1B1F9F000, syncDataModel, OS_LOG_TYPE_DEFAULT, "%{public}@ applying change %{public}@", &v8, 0x16u);
+      v9 = 2114;
+      v10 = v4;
+      _os_log_impl(&dword_1B1F9F000, syncDataModel, OS_LOG_TYPE_DEFAULT, "%{public}@ applying change %{public}@", &v7, 0x16u);
     }
 
     syncDataModel = [(MTSyncServiceManager *)self syncDataModel];
@@ -263,55 +257,49 @@ void __35__MTSyncServiceManager_syncChange___block_invoke(uint64_t a1)
 
   else if (v6)
   {
-    v8 = 138543362;
+    v7 = 138543362;
     selfCopy2 = self;
-    _os_log_impl(&dword_1B1F9F000, syncDataModel, OS_LOG_TYPE_DEFAULT, "%{public}@ nothing to apply", &v8, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, syncDataModel, OS_LOG_TYPE_DEFAULT, "%{public}@ nothing to apply", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetDataStore
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(6);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting data store", &v6, 0xCu);
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ resetting data store", &v5, 0xCu);
   }
 
   [(MTSyncChangeQueue *)self->_syncChangeQueue removePendingChanges];
   syncDataModel = [(MTSyncServiceManager *)self syncDataModel];
   [syncDataModel resetDataStore];
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pendingChangesSent:(id)sent
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   sentCopy = sent;
   v5 = MTLogForCategory(6);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2048;
-    v10 = [sentCopy count];
-    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully sent %lu changes", &v7, 0x16u);
+    v8 = 2048;
+    v9 = [sentCopy count];
+    _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully sent %lu changes", &v6, 0x16u);
   }
 
   [(MTSyncChangeQueue *)self->_syncChangeQueue dequeueChanges:sentCopy];
   [(MTSyncServiceManager *)self checkForPendingChanges];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)requestSync:(unint64_t)sync
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (!sync)
   {
     v5 = MTLogForCategory(6);
@@ -324,13 +312,12 @@ void __35__MTSyncServiceManager_syncChange___block_invoke(uint64_t a1)
   }
 
   v6 = [(MTSyncService *)self->_syncService requestSync:sync];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __36__MTSyncServiceManager_requestSync___block_invoke;
-  v9[3] = &unk_1E7B0D658;
-  v9[4] = self;
-  [v6 addCompletionBlock:v9];
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __36__MTSyncServiceManager_requestSync___block_invoke;
+  v8[3] = &unk_1E7B0D658;
+  v8[4] = self;
+  [v6 addCompletionBlock:v8];
 
   return v6;
 }
@@ -351,16 +338,16 @@ uint64_t __36__MTSyncServiceManager_requestSync___block_invoke(uint64_t a1, uint
 
 - (void)syncStatusProvider:(id)provider didChangeSyncStatus:(unint64_t)status
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v6 = MTLogForCategory(6);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (status == 3)
   {
     if (v7)
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ sync is disabled.", &v9, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ sync is disabled.", &v8, 0xCu);
     }
 
     [(MTSyncServiceManager *)self stopSyncService];
@@ -370,29 +357,27 @@ uint64_t __36__MTSyncServiceManager_requestSync___block_invoke(uint64_t a1, uint
   {
     if (v7)
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy2 = self;
-      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ sync isn't disabled.", &v9, 0xCu);
+      _os_log_impl(&dword_1B1F9F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ sync isn't disabled.", &v8, 0xCu);
     }
 
     [(MTSyncServiceManager *)self startSyncService];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)printDiagnostics
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(1);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     syncService = [(MTSyncServiceManager *)self syncService];
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
-    v15 = 138412290;
-    v16 = v6;
-    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Sync Service: %@", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v6;
+    _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "Sync Service: %@", &v14, 0xCu);
   }
 
   v7 = MTLogForCategory(1);
@@ -400,9 +385,9 @@ uint64_t __36__MTSyncServiceManager_requestSync___block_invoke(uint64_t a1, uint
   {
     syncStatusProvider = [(MTSyncServiceManager *)self syncStatusProvider];
     syncStatus = [syncStatusProvider syncStatus];
-    v15 = 134217984;
-    v16 = syncStatus;
-    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "Sync Status: %lu", &v15, 0xCu);
+    v14 = 134217984;
+    v15 = syncStatus;
+    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "Sync Status: %lu", &v14, 0xCu);
   }
 
   v10 = MTLogForCategory(1);
@@ -411,36 +396,32 @@ uint64_t __36__MTSyncServiceManager_requestSync___block_invoke(uint64_t a1, uint
     syncChangeQueue = [(MTSyncServiceManager *)self syncChangeQueue];
     pendingChanges = [syncChangeQueue pendingChanges];
     v13 = [pendingChanges count];
-    v15 = 134217984;
-    v16 = v13;
-    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "Pending Changes: %lu", &v15, 0xCu);
+    v14 = 134217984;
+    v15 = v13;
+    _os_log_impl(&dword_1B1F9F000, v10, OS_LOG_TYPE_DEFAULT, "Pending Changes: %lu", &v14, 0xCu);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)gatherDiagnostics
 {
-  v17[3] = *MEMORY[0x1E69E9840];
-  v16[0] = @"Sync Service";
+  v16[3] = *MEMORY[0x1E69E9840];
+  v15[0] = @"Sync Service";
   syncService = [(MTSyncServiceManager *)self syncService];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v17[0] = v5;
-  v16[1] = @"Sync Status";
+  v16[0] = v5;
+  v15[1] = @"Sync Status";
   v6 = MEMORY[0x1E696AD98];
   syncStatusProvider = [(MTSyncServiceManager *)self syncStatusProvider];
   v8 = [v6 numberWithUnsignedInteger:{objc_msgSend(syncStatusProvider, "syncStatus")}];
-  v17[1] = v8;
-  v16[2] = @"Pending Changes";
+  v16[1] = v8;
+  v15[2] = @"Pending Changes";
   v9 = MEMORY[0x1E696AD98];
   syncChangeQueue = [(MTSyncServiceManager *)self syncChangeQueue];
   pendingChanges = [syncChangeQueue pendingChanges];
   v12 = [v9 numberWithUnsignedInteger:{objc_msgSend(pendingChanges, "count")}];
-  v17[2] = v12;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:3];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v16[2] = v12;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
   return v13;
 }

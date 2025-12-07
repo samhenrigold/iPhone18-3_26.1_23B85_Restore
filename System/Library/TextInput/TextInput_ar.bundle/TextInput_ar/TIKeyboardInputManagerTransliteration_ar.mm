@@ -71,20 +71,8 @@
   documentText = [revisionHistory documentText];
   v5 = [documentText length];
 
-  if (!v5)
+  if (!v5 || ([markCopy revisionHistory], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "documentText"), v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(markCopy, "revisionHistory"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "documentText"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v7, "characterAtIndex:", objc_msgSend(v9, "length") - 1), v9, v8, v7, v6, v10 == 10))
   {
-    goto LABEL_3;
-  }
-
-  revisionHistory2 = [markCopy revisionHistory];
-  documentText2 = [revisionHistory2 documentText];
-  revisionHistory3 = [markCopy revisionHistory];
-  documentText3 = [revisionHistory3 documentText];
-  v10 = [documentText2 characterAtIndex:{objc_msgSend(documentText3, "length") - 1}];
-
-  if (v10 == 10)
-  {
-LABEL_3:
     [markCopy insertText:@"\u200F"];
   }
 }
@@ -163,34 +151,34 @@ LABEL_15:
 
 - (void)handleSpaceDeletionWithContext:(id)context
 {
-  v43 = *MEMORY[0x29EDCA608];
+  v42 = *MEMORY[0x29EDCA608];
   contextCopy = context;
   revisionHistory = [contextCopy revisionHistory];
   documentText = [revisionHistory documentText];
 
   v6 = [documentText length];
   [objc_opt_class() arabicPrefixes];
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v7 = v39 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v36 objects:v42 count:16];
-  v26 = v7;
-  v27 = contextCopy;
+  v7 = v38 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v25 = v7;
+  v26 = contextCopy;
   if (v8)
   {
     v9 = v8;
-    v10 = *v37;
+    v10 = *v36;
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v37 != v10)
+      if (*v36 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = [MEMORY[0x29EDBA0F8] stringWithFormat:@" %@ ", *(*(&v36 + 1) + 8 * v11)];
+      v12 = [MEMORY[0x29EDBA0F8] stringWithFormat:@" %@ ", *(*(&v35 + 1) + 8 * v11)];
       if ([documentText hasSuffix:v12])
       {
         goto LABEL_32;
@@ -198,7 +186,7 @@ LABEL_3:
 
       if (v9 == ++v11)
       {
-        v9 = [v7 countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v35 objects:v41 count:16];
         if (v9)
         {
           goto LABEL_3;
@@ -211,26 +199,26 @@ LABEL_3:
 
   if (v6 < 4)
   {
-    v30 = 0uLL;
-    v31 = 0uLL;
-    v28 = 0uLL;
     v29 = 0uLL;
+    v30 = 0uLL;
+    v27 = 0uLL;
+    v28 = 0uLL;
     v20 = v7;
-    v21 = [v20 countByEnumeratingWithState:&v28 objects:v40 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v27 objects:v39 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v29;
+      v23 = *v28;
 LABEL_23:
       v24 = 0;
       while (1)
       {
-        if (*v29 != v23)
+        if (*v28 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v12 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@ ", *(*(&v28 + 1) + 8 * v24)];
+        v12 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@ ", *(*(&v27 + 1) + 8 * v24)];
         if (v6 == [v12 length] && (objc_msgSend(documentText, "hasSuffix:", v12) & 1) != 0)
         {
           goto LABEL_31;
@@ -238,7 +226,7 @@ LABEL_23:
 
         if (v22 == ++v24)
         {
-          v22 = [v20 countByEnumeratingWithState:&v28 objects:v40 count:16];
+          v22 = [v20 countByEnumeratingWithState:&v27 objects:v39 count:16];
           if (v22)
           {
             goto LABEL_23;
@@ -252,26 +240,26 @@ LABEL_23:
 
   else
   {
-    v34 = 0uLL;
-    v35 = 0uLL;
-    v32 = 0uLL;
     v33 = 0uLL;
+    v34 = 0uLL;
+    v31 = 0uLL;
+    v32 = 0uLL;
     v13 = v7;
-    v14 = [v13 countByEnumeratingWithState:&v32 objects:v41 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v31 objects:v40 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v33;
+      v16 = *v32;
 LABEL_12:
       v17 = 0;
       while (1)
       {
-        if (*v33 != v16)
+        if (*v32 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v32 + 1) + 8 * v17);
+        v18 = *(*(&v31 + 1) + 8 * v17);
         v12 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%@ ", v18];
         if ([documentText hasSuffix:v12])
         {
@@ -284,7 +272,7 @@ LABEL_12:
 
         if (v15 == ++v17)
         {
-          v15 = [v13 countByEnumeratingWithState:&v32 objects:v41 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v31 objects:v40 count:16];
           if (v15)
           {
             goto LABEL_12;
@@ -295,15 +283,13 @@ LABEL_12:
       }
 
 LABEL_31:
-      contextCopy = v27;
+      contextCopy = v26;
 LABEL_32:
       [contextCopy deleteTextBackward:@" "];
     }
   }
 
 LABEL_33:
-
-  v25 = *MEMORY[0x29EDCA608];
 }
 
 @end

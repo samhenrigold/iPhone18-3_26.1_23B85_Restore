@@ -510,13 +510,12 @@ LABEL_55:
 
       v35 = objc_opt_class();
       NSStringFromClass(v35);
-      v44 = dataCopy;
+      v42 = dataCopy;
       v37 = v36 = error;
-      v38 = *&v7[*v10];
       v11 = CCSkipFieldErrorForMessage();
 
       error = v36;
-      dataCopy = v44;
+      dataCopy = v42;
 LABEL_56:
       if (*&v7[*v8] < *&v7[*v9])
       {
@@ -536,22 +535,21 @@ LABEL_56:
 LABEL_66:
   if (!*&v7[*v10])
   {
-    v42 = 1;
+    v40 = 1;
     goto LABEL_70;
   }
 
 LABEL_67:
-  v39 = objc_opt_class();
-  v11 = NSStringFromClass(v39);
-  v40 = *&v7[*v10];
-  v41 = CCInvalidBufferErrorForMessage();
+  v38 = objc_opt_class();
+  v11 = NSStringFromClass(v38);
+  v39 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_68:
-  v42 = 0;
+  v40 = 0;
 LABEL_70:
 
-  return v42;
+  return v40;
 }
 
 - (CCWalletPaymentsCommerceOrderEmailShippingInformation)initWithStatus:(unsigned int)status trackingNumber:(id)number carrierName:(id)name shippingMethod:(id)method shippingDate:(id)date shippingTime:(id)time estimatedDeliveryStartDate:(id)startDate estimatedDeliveryStartTime:(id)self0 estimatedDeliveryEndDate:(id)self1 estimatedDeliveryEndTime:(id)self2 deliveryDate:(id)self3 deliveryTime:(id)self4 error:(id *)self5
@@ -575,11 +573,11 @@ LABEL_70:
     if (!v25)
     {
       CCSetError();
-      v38 = 0;
+      v37 = 0;
       v27 = numberCopy;
       v28 = timeCopy;
-      v30 = dateCopy;
-      v33 = methodCopy;
+      v29 = dateCopy;
+      v32 = methodCopy;
       goto LABEL_26;
     }
 
@@ -593,20 +591,18 @@ LABEL_70:
 
   v27 = numberCopy;
   v28 = timeCopy;
-  v29 = 0x1E696A000uLL;
-  v30 = dateCopy;
+  v29 = dateCopy;
   if (numberCopy)
   {
     objc_opt_class();
     IsInstanceOfExpectedClass = CCValidateIsInstanceOfExpectedClass();
-    v32 = v26;
+    v31 = v26;
 
-    v33 = methodCopy;
+    v32 = methodCopy;
     if (IsInstanceOfExpectedClass)
     {
       CCPBDataWriterWriteStringField();
-      v34 = nameCopy;
-      v29 = 0x1E696A000uLL;
+      v33 = nameCopy;
       if (!nameCopy)
       {
         goto LABEL_8;
@@ -616,44 +612,43 @@ LABEL_70:
     }
 
     CCSetError();
-    v38 = 0;
-    v26 = v32;
+    v37 = 0;
+    v26 = v31;
 LABEL_26:
-    v34 = nameCopy;
+    v33 = nameCopy;
     goto LABEL_46;
   }
 
-  v32 = v26;
-  v33 = methodCopy;
-  v34 = nameCopy;
+  v31 = v26;
+  v32 = methodCopy;
+  v33 = nameCopy;
   if (!nameCopy)
   {
 LABEL_8:
-    v26 = v32;
-    if (v33)
+    v26 = v31;
+    if (v32)
     {
       goto LABEL_9;
     }
 
 LABEL_18:
-    v36 = v26;
-    if (!v30)
+    v35 = v26;
+    if (!v29)
     {
       goto LABEL_11;
     }
 
 LABEL_19:
     objc_opt_class();
-    v40 = CCValidateIsInstanceOfExpectedClass();
-    v26 = v36;
+    v39 = CCValidateIsInstanceOfExpectedClass();
+    v26 = v35;
 
-    if (!v40)
+    if (!v39)
     {
       goto LABEL_45;
     }
 
     CCPBDataWriterWriteStringField();
-    v29 = 0x1E696A000uLL;
     if (v28)
     {
       goto LABEL_12;
@@ -664,196 +659,182 @@ LABEL_19:
 
 LABEL_16:
   objc_opt_class();
-  v39 = CCValidateIsInstanceOfExpectedClass();
-  v26 = v32;
+  v38 = CCValidateIsInstanceOfExpectedClass();
+  v26 = v31;
 
-  if (!v39)
+  if (!v38)
   {
     goto LABEL_45;
   }
 
   CCPBDataWriterWriteStringField();
-  v29 = 0x1E696A000uLL;
-  if (!v33)
+  if (!v32)
   {
     goto LABEL_18;
   }
 
 LABEL_9:
   objc_opt_class();
-  v35 = CCValidateIsInstanceOfExpectedClass();
-  v36 = v26;
+  v34 = CCValidateIsInstanceOfExpectedClass();
+  v35 = v26;
 
-  if (!v35)
+  if (!v34)
   {
     goto LABEL_40;
   }
 
   CCPBDataWriterWriteStringField();
-  v29 = 0x1E696A000uLL;
-  if (v30)
+  if (v29)
   {
     goto LABEL_19;
   }
 
 LABEL_11:
-  v26 = v36;
+  v26 = v35;
   if (v28)
   {
 LABEL_12:
     objc_opt_class();
-    v37 = CCValidateIsInstanceOfExpectedClass();
-    v36 = v26;
+    v36 = CCValidateIsInstanceOfExpectedClass();
+    v35 = v26;
 
-    if (!v37)
+    if (!v36)
     {
       goto LABEL_40;
     }
 
-    v61 = startTimeCopy;
+    v54 = startTimeCopy;
     CCPBDataWriterWriteStringField();
-    v29 = 0x1E696A000;
     goto LABEL_22;
   }
 
 LABEL_21:
-  v61 = startTimeCopy;
-  v36 = v26;
+  v54 = startTimeCopy;
+  v35 = v26;
 LABEL_22:
   if (!startDateCopy)
   {
-    v26 = v36;
+    v26 = v35;
     goto LABEL_28;
   }
 
-  v41 = *(v29 + 3776);
   objc_opt_class();
-  v42 = CCValidateIsInstanceOfExpectedClass();
-  v26 = v36;
+  v40 = CCValidateIsInstanceOfExpectedClass();
+  v26 = v35;
 
-  if (v42)
+  if (v40)
   {
     CCPBDataWriterWriteStringField();
-    v29 = 0x1E696A000;
 LABEL_28:
-    startTimeCopy = v61;
-    if (!v61)
+    startTimeCopy = v54;
+    if (!v54)
     {
-      v36 = v26;
+      v35 = v26;
       goto LABEL_33;
     }
 
-    v43 = *(v29 + 3776);
     objc_opt_class();
-    v44 = CCValidateIsInstanceOfExpectedClass();
-    v36 = v26;
+    v41 = CCValidateIsInstanceOfExpectedClass();
+    v35 = v26;
 
-    if (v44)
+    if (v41)
     {
       CCPBDataWriterWriteStringField();
-      v29 = 0x1E696A000;
 LABEL_33:
       if (endDateCopy)
       {
-        v45 = *(v29 + 3776);
         objc_opt_class();
-        v46 = CCValidateIsInstanceOfExpectedClass();
-        v26 = v36;
+        v42 = CCValidateIsInstanceOfExpectedClass();
+        v26 = v35;
 
-        if (!v46)
+        if (!v42)
         {
           goto LABEL_45;
         }
 
         CCPBDataWriterWriteStringField();
-        v47 = endTimeCopy;
-        v29 = 0x1E696A000;
+        v43 = endTimeCopy;
       }
 
       else
       {
-        v26 = v36;
-        v47 = endTimeCopy;
+        v26 = v35;
+        v43 = endTimeCopy;
       }
 
-      if (!v47)
+      if (!v43)
       {
-        v36 = v26;
+        v35 = v26;
         goto LABEL_42;
       }
 
-      v48 = *(v29 + 3776);
       objc_opt_class();
-      v49 = CCValidateIsInstanceOfExpectedClass();
-      v36 = v26;
+      v44 = CCValidateIsInstanceOfExpectedClass();
+      v35 = v26;
 
-      if (v49)
+      if (v44)
       {
         CCPBDataWriterWriteStringField();
-        v29 = 0x1E696A000;
 LABEL_42:
         if (!deliveryDateCopy)
         {
-          v26 = v36;
+          v26 = v35;
           goto LABEL_48;
         }
 
-        v50 = *(v29 + 3776);
         objc_opt_class();
-        v51 = CCValidateIsInstanceOfExpectedClass();
-        v26 = v36;
+        v45 = CCValidateIsInstanceOfExpectedClass();
+        v26 = v35;
 
-        if (v51)
+        if (v45)
         {
           CCPBDataWriterWriteStringField();
-          v29 = 0x1E696A000;
 LABEL_48:
           if (!deliveryTimeCopy)
           {
 LABEL_51:
             immutableData = [v24 immutableData];
-            v56 = [(CCItemMessage *)self initWithData:immutableData error:v57];
+            v49 = [(CCItemMessage *)self initWithData:immutableData error:v50];
 
-            self = v56;
-            v38 = v56;
+            self = v49;
+            v37 = v49;
             goto LABEL_46;
           }
 
-          v53 = *(v29 + 3776);
           objc_opt_class();
-          v54 = CCValidateIsInstanceOfExpectedClass();
-          v59 = v26;
+          v47 = CCValidateIsInstanceOfExpectedClass();
+          v52 = v26;
 
-          if (v54)
+          if (v47)
           {
             CCPBDataWriterWriteStringField();
-            v26 = v59;
+            v26 = v52;
             goto LABEL_51;
           }
 
-          v26 = v59;
+          v26 = v52;
         }
 
 LABEL_45:
         CCSetError();
-        v38 = 0;
+        v37 = 0;
         goto LABEL_46;
       }
     }
 
 LABEL_40:
     CCSetError();
-    v38 = 0;
-    v26 = v36;
+    v37 = 0;
+    v26 = v35;
     goto LABEL_46;
   }
 
   CCSetError();
-  v38 = 0;
-  startTimeCopy = v61;
+  v37 = 0;
+  startTimeCopy = v54;
 LABEL_46:
 
-  return v38;
+  return v37;
 }
 
 @end

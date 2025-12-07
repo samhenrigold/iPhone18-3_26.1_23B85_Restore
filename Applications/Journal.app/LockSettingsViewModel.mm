@@ -31,7 +31,7 @@
 
 - (void)environment:(id)environment stateDidChangeFromOldState:(id)state
 {
-  v5 = sub_1000F24EC(&qword_100AD5170);
+  v5 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   v8 = type metadata accessor for TaskPriority();

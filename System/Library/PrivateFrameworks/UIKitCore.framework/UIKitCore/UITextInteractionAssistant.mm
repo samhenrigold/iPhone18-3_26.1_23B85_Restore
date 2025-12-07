@@ -1020,7 +1020,7 @@ LABEL_43:
 
           v68 = 0;
 LABEL_48:
-          if ([v109[5] isEqualToString:@"_UITextCursorLinkRegion"])
+          if (objc_msgSend_isEqualToString_(v109[5]))
           {
             if (!v68)
             {
@@ -1209,9 +1209,9 @@ void __80__UITextInteractionAssistant_pointerInteraction_regionForRequest_defaul
   regionCopy = region;
   WeakRetained = objc_loadWeakRetained(&self->_view);
   identifier = [regionCopy identifier];
-  v8 = [identifier isEqual:@"_UITextCursorLinkRegion"];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v8)
+  if (isEqual)
   {
     v9 = +[UIPointerShape _linkPointerShape];
     v10 = [UIPointerStyle styleWithShape:v9 constrainedAxes:0];
@@ -1223,15 +1223,15 @@ LABEL_3:
   if (![(UITextInteractionAssistant *)self isInteractiveSelectionDisabled])
   {
     identifier2 = [regionCopy identifier];
-    if ([identifier2 isEqualToString:@"_UITextLineCursorRegion"])
+    if (objc_msgSend_isEqualToString_(identifier2))
     {
     }
 
     else
     {
-      v13 = [identifier2 isEqualToString:@"_UITextCursorBoundingRegion"];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier2);
 
-      if (!v13)
+      if (!isEqualToString)
       {
         goto LABEL_5;
       }
@@ -4531,9 +4531,9 @@ void __113__UITextInteractionAssistant_UITextInteractionAssistant_Internal__hand
 
         v14 = [v13 dominantLanguage];
         v15 = [(UIDictationMultilingualString *)v10 dominantLanguage];
-        v16 = [v14 isEqualToString:v15];
+        isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-        if (v16)
+        if (isEqualToString)
         {
           v17 = [v13 phrases];
           [(UIDictationMultilingualString *)v10 setPhrases:v17];

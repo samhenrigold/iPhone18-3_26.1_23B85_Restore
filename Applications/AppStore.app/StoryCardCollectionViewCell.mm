@@ -17,7 +17,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1002166AC();
+  sub_1002166AC(v2);
 }
 
 - (void)handleMuteButtonTapped
@@ -60,7 +60,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for StoryCardCollectionViewCell();
+  v7.super_class = type metadata accessor for StoryCardCollectionViewCell(0);
   [(StoryCardCollectionViewCell *)&v7 setAccessibilityElements:v5.super.isa];
 }
 

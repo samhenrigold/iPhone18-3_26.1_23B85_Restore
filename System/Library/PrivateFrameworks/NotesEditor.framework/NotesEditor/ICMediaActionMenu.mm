@@ -58,7 +58,7 @@
   viewCopy = view;
   menuControllerCopy = menuController;
   v20 = sub_2151BD580(available, textAvailable, protected, screen, controllerCopy, item, view, menuController, v14, v15);
-  sub_2151AF750(v14);
+  sub_2151AF750(v14, v15);
 
   return v20;
 }
@@ -101,7 +101,7 @@
   viewCopy = view;
   menuControllerCopy = menuController;
   v21 = sub_215379CD4(available, textAvailable, protected, screen, controllerCopy, item, view, children, menuController, v15, v16);
-  sub_2151AF750(v15);
+  sub_2151AF750(v15, v16);
 
   return v21;
 }
@@ -126,7 +126,7 @@
   viewCopy = view;
   menuControllerCopy = menuController;
   v20 = _s11NotesEditor15MediaActionMenuC4menu19isPasswordProtected0G14InSecureScreen24presentingViewController0M13BarButtonItem0m6SourceN007sidecareO010completionSo6UIMenuCSb_SbSo06UIViewO0CSo05UIBarqR0CSgSo0W0CSgAA013SidecarInserteO0CSgySb_SStcSgtFZ_0(protected, screen, controllerCopy, item, view, menuController, v14, v15);
-  sub_2151AF750(v14);
+  sub_2151AF750(v14, v15);
 
   return v20;
 }
@@ -173,10 +173,11 @@
   v6 = (self + OBJC_IVAR___ICMediaActionMenu_completion);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_2151AF750(v7);
+  sub_2151AF750(v7, v8);
 }
 
 - (UIBarButtonItem)presentingBarButtonItem
@@ -197,13 +198,13 @@
 
 - (id)menuSections
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5AA00);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA5AA00, &unk_2154BEF60);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_2154BDB20;
   selfCopy = self;
   *(v3 + 32) = sub_21537876C();
 
-  sub_2151A6C9C(0, &qword_281199650);
+  sub_2151A6C9C(0, &qword_281199650, 0x277D75720);
   v5 = sub_2154A1F3C();
 
   return v5;

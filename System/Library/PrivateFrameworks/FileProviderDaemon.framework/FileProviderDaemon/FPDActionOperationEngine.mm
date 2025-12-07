@@ -67,15 +67,14 @@
   dispatch_sync(queue, v15);
 }
 
-void __86__FPDActionOperationEngine_scheduleActionOperationWithInfo_request_completionHandler___block_invoke(void *a1)
+void __86__FPDActionOperationEngine_scheduleActionOperationWithInfo_request_completionHandler___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __86__FPDActionOperationEngine_scheduleActionOperationWithInfo_request_completionHandler___block_invoke_cold_1(v2);
+    __86__FPDActionOperationEngine_scheduleActionOperationWithInfo_request_completionHandler___block_invoke_cold_1(v3);
   }
 
-  v3 = a1[4];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -84,7 +83,6 @@ void __86__FPDActionOperationEngine_scheduleActionOperationWithInfo_request_comp
 
   else
   {
-    v5 = a1[4];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -94,19 +92,19 @@ void __86__FPDActionOperationEngine_scheduleActionOperationWithInfo_request_comp
     v4 = @"FPDDownloadOperation";
   }
 
-  v6 = NSClassFromString(&v4->isa);
-  v7 = [v6 alloc];
-  v8 = a1[4];
-  v9 = a1[5];
+  v5 = NSClassFromString(&v4->isa);
+  v6 = [v5 alloc];
+  v7 = a1[4];
+  v8 = a1[5];
   WeakRetained = objc_loadWeakRetained((a1[6] + 8));
-  v11 = [v7 initWithActionInfo:v8 request:v9 server:WeakRetained];
+  v10 = [v6 initWithActionInfo:v7 request:v8 server:WeakRetained];
 
-  if (v11)
+  if (v10)
   {
-    [*(a1[6] + 24) addOperation:v11];
+    [*(a1[6] + 24) addOperation:v10];
     (*(a1[7] + 16))();
-    v12 = [@"com.apple.fileprovider.daemon-op-created" fp_libnotifyPerUserNotificationName];
-    notify_post([v12 UTF8String]);
+    v11 = [@"com.apple.fileprovider.daemon-op-created" fp_libnotifyPerUserNotificationName];
+    notify_post([v11 UTF8String]);
   }
 }
 
@@ -126,42 +124,40 @@ void __86__FPDActionOperationEngine_scheduleActionOperationWithInfo_request_comp
 
 void __40__FPDActionOperationEngine_dumpStateTo___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) write:@"== action operation engine ==\n"];
   [*(a1 + 32) write:@"=================\n"];
   [*(a1 + 32) write:{@"%lu operations\n", objc_msgSend(*(*(a1 + 40) + 24), "operationCount")}];
   [*(a1 + 32) write:@"\n"];
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v2 = [*(*(a1 + 40) + 24) operations];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) dumpStateTo:*(a1 + 32)];
+        [*(*(&v7 + 1) + 8 * v6++) dumpStateTo:*(a1 + 32)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

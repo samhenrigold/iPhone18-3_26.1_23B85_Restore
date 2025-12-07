@@ -33,10 +33,9 @@
   countryCode = [(STSPaymentRequestBase *)self countryCode];
   transactionAmount = [(STSPaymentRequestBase *)self transactionAmount];
   transactionDate = [(STSPaymentRequestBase *)self transactionDate];
-  networkMerchantIdentifier = self->_networkMerchantIdentifier;
-  v10 = [v3 stringWithFormat:@"STSMerchantPaymentRequest { merchantData=%@ currencyCode=%@ countryCode=%@ transactionAmount=%@ transactionDate=%@ merchantCapabilities=%lu unpredictableNumber=%ud networkMerchantIdentifier=%@ appletIdentifier=%@}", merchantData, currencyCode, countryCode, transactionAmount, transactionDate, self->_merchantCapabilities, self->_unpredictableNumber, networkMerchantIdentifier, self->_appletIdentifier];
+  v9 = [v3 stringWithFormat:@"STSMerchantPaymentRequest { merchantData=%@ currencyCode=%@ countryCode=%@ transactionAmount=%@ transactionDate=%@ merchantCapabilities=%lu unpredictableNumber=%ud networkMerchantIdentifier=%@ appletIdentifier=%@}", merchantData, currencyCode, countryCode, transactionAmount, transactionDate, self->_merchantCapabilities, self->_unpredictableNumber, self->_networkMerchantIdentifier, self->_appletIdentifier];
 
-  return v10;
+  return v9;
 }
 
 - (STSMerchantPaymentRequest)initWithCoder:(id)coder

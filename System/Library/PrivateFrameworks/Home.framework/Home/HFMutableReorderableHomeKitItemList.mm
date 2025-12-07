@@ -210,17 +210,17 @@ id __54__HFMutableReorderableHomeKitItemList_saveWithSender___block_invoke_3(uin
     {
       accessories = [applicationDataContainer4 accessories];
       firstObject = [accessories firstObject];
-      home = [firstObject home];
+      v17 = objc_msgSend_home(firstObject);
 
       v18 = +[HFHomeKitDispatcher sharedDispatcher];
       v21[0] = MEMORY[0x277D85DD0];
       v21[1] = 3221225472;
       v21[2] = __90__HFMutableReorderableHomeKitItemList__dispatchApplicationDataDidChangeMessageWithSender___block_invoke_3;
       v21[3] = &unk_277DF3810;
-      v22 = home;
+      v22 = v17;
       v23 = v14;
       v19 = v14;
-      v20 = home;
+      v20 = v17;
       [v18 dispatchHomeObserverMessage:v21 sender:senderCopy];
 
       goto LABEL_10;

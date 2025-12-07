@@ -1,3 +1,309 @@
+RAPPlaceCorrectableString *sub_1006634F0(uint64_t a1, uint64_t a2, void *a3)
+{
+  v5 = a3;
+  v6 = [[RAPPlaceCorrectableString alloc] initWithKind:a2 originalValue:v5];
+
+  [(RAPPlaceCorrectableString *)v6 addObserver:*(a1 + 32) changeHandler:&stru_101624F08];
+
+  return v6;
+}
+
+void sub_100663570(id a1, RAPPlaceCorrectableItem *a2, RAPPlaceCorrectableAddress *a3)
+{
+  v4 = a3;
+  if ([RAPPlaceCorrectableAddress _isStructuredAddressType:[(RAPPlaceCorrectableItem *)a2 kind]])
+  {
+    [(RAPPlaceCorrectableAddress *)v4 _updateFreeformAddressWithStructuredChange];
+  }
+
+  [(RAPPlaceCorrectableAddress *)v4 _invokeChangeHandlers];
+}
+
+PersonalizedMapItemKey *sub_100666DAC(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  v4 = [NSNumber numberWithUnsignedInteger:GEOMapItemHashForPurpose()];
+  v5 = [*(a1 + 32) objectForKeyedSubscript:v4];
+  if (!v5)
+  {
+    v5 = [[PersonalizedMapItemKey alloc] initWithGeoMapItem:v3];
+    [*(a1 + 32) setObject:v5 forKeyedSubscript:v4];
+  }
+
+  return v5;
+}
+
+uint64_t sub_100666E5C(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+HistoryEntryRecentsItem *sub_100666E74(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      v5 = v3;
+      v4 = [*(*(*(a1 + 32) + 8) + 40) objectForKeyedSubscript:v5];
+      if (!v4)
+      {
+        v6 = MSPHistoryEntryMakeFromStorage();
+        v4 = [[HistoryEntryRecentsItem alloc] initWithHistoryEntry:v6];
+        [*(*(*(a1 + 32) + 8) + 40) setObject:v4 forKeyedSubscript:v5];
+      }
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+  }
+
+  return v4;
+}
+
+void sub_100666F7C(uint64_t a1, void *a2)
+{
+  v8 = a2;
+  v3 = [v8 geoMapItem];
+  if (v3)
+  {
+    v4 = (*(*(a1 + 64) + 16))();
+    [*(a1 + 32) addObject:v4];
+    [*(a1 + 40) setObject:*(a1 + 48) forKeyedSubscript:v4];
+  }
+
+  v5 = [v8 supersededSearchStorageIdentifier];
+
+  if (v5)
+  {
+    v6 = *(a1 + 56);
+    v7 = [v8 supersededSearchStorageIdentifier];
+    [v6 addObject:v7];
+  }
+}
+
+void sub_100667050(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 32);
+  v4 = [a2 storageIdentifier];
+  *(*(*(a1 + 40) + 8) + 24) = [v3 containsObject:v4] ^ 1;
+}
+
+void sub_1006670BC(uint64_t a1, void *a2)
+{
+  v16 = a2;
+  v3 = [v16 waypoints];
+  if ([v3 count] < 3)
+  {
+  }
+
+  else
+  {
+    v4 = *(*(a1 + 32) + 8);
+
+    v5 = v16;
+    if (v4 != 2)
+    {
+      goto LABEL_15;
+    }
+  }
+
+  v6 = [v16 endWaypoint];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  v5 = v16;
+  if ((isKindOfClass & 1) == 0)
+  {
+    v8 = [v16 endWaypoint];
+    v9 = [v8 mapItemStorage];
+
+    if (*(*(a1 + 32) + 8) == 2)
+    {
+      *(*(*(a1 + 72) + 8) + 24) = 0;
+    }
+
+    else if (v9)
+    {
+      v10 = (*(*(a1 + 64) + 16))();
+      v11 = *(*(a1 + 80) + 8);
+      v12 = *(v11 + 40);
+      *(v11 + 40) = v10;
+
+      if ([*(a1 + 40) containsObject:*(*(*(a1 + 80) + 8) + 40)])
+      {
+        *(*(*(a1 + 72) + 8) + 24) = 0;
+        v13 = [*(a1 + 48) objectForKeyedSubscript:*(*(*(a1 + 80) + 8) + 40)];
+        v14 = v13;
+        if (v13)
+        {
+          v15 = [v13 linkedRecentRoute];
+
+          if (!v15)
+          {
+            [v14 setLinkedRecentRoute:*(a1 + 56)];
+          }
+        }
+      }
+    }
+
+    v5 = v16;
+  }
+
+LABEL_15:
+}
+
+void sub_100667254(uint64_t a1, void *a2)
+{
+  v3 = [a2 geoMapItem];
+  if (v3)
+  {
+    v7 = v3;
+    v4 = (*(*(a1 + 32) + 16))();
+    v5 = *(*(a1 + 40) + 8);
+    v6 = *(v5 + 40);
+    *(v5 + 40) = v4;
+
+    v3 = v7;
+  }
+}
+
+BOOL sub_1006680A4(void *a1)
+{
+  v1 = a1;
+  v2 = +[NSCharacterSet whitespaceAndNewlineCharacterSet];
+  v3 = [v1 stringByTrimmingCharactersInSet:v2];
+
+  v4 = [v3 length] != 0;
+  return v4;
+}
+
+void sub_100668EF4(uint64_t a1)
+{
+  v2 = [*(a1 + 32) mapItemIfLoaded];
+  v3 = *(a1 + 48);
+  v4 = [objc_opt_class() iconSize];
+  v5 = +[MKMapItem _maps_markerImageForMapItem:scale:size:useMarkerFallback:](MKMapItem, "_maps_markerImageForMapItem:scale:size:useMarkerFallback:", v2, v4, [objc_opt_class() useMarkerFallback], v3);
+
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100669000;
+  block[3] = &unk_10165E668;
+  v6 = *(a1 + 56);
+  v9 = v5;
+  v10 = v6;
+  block[4] = *(a1 + 40);
+  v7 = v5;
+  dispatch_async(&_dispatch_main_q, block);
+}
+
+void *sub_100669000(void *result)
+{
+  v1 = result[4];
+  if (result[6] == *(v1 + 8))
+  {
+    return [*(v1 + 32) setImage:result[5]];
+  }
+
+  return result;
+}
+
+void sub_10066B084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10066B09C(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void sub_10066B0B4(uint64_t a1, void *a2, _BYTE *a3)
+{
+  v6 = a2;
+  if (v6)
+  {
+    v7 = v6;
+    objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
+    v6 = v7;
+    *a3 = 1;
+  }
+}
+
+void sub_10066B54C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_10066B564(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+{
+  if ([*(a1 + 32) isEqualToSearchResult:a2 forPurpose:5])
+  {
+    v7 = [*(*(a1 + 40) + 48) objectAtIndexedSubscript:a3];
+    v8 = *(*(a1 + 48) + 8);
+    v9 = *(v8 + 40);
+    *(v8 + 40) = v7;
+
+    *a4 = 1;
+  }
+}
+
+void sub_10066B6A8(uint64_t a1)
+{
+  v10 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v2 = *(*(a1 + 32) + 48);
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v3)
+  {
+    v4 = v3;
+    v5 = *v11;
+    do
+    {
+      v6 = 0;
+      do
+      {
+        if (*v11 != v5)
+        {
+          objc_enumerationMutation(v2);
+        }
+
+        v7 = *(a1 + 40);
+        v8 = [*(*(&v10 + 1) + 8 * v6) keys];
+        v9 = [v8 copy];
+        [v7 addObject:v9];
+
+        v6 = v6 + 1;
+      }
+
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v4);
+  }
+}
+
 void sub_10066B8D4(uint64_t a1)
 {
   v5 = [*(*(a1 + 32) + 40) keys];
@@ -50,11 +356,11 @@ void sub_10066BF10(uint64_t a1)
   *(v4 + 48) = 0;
 }
 
-void sub_10066C0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10066C0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 64), 8);
+  _Block_object_dispose((v13 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -273,9 +579,9 @@ LABEL_11:
 LABEL_13:
 }
 
-void sub_1006709D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1006709D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -337,6 +643,13 @@ void sub_100670BB8(uint64_t a1, void *a2)
   v4 = a2;
   v5 = [v2 request];
   [v3 setObject:v4 forKeyedSubscript:v5];
+}
+
+void sub_1006713DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10067140C(uint64_t a1, void *a2)
@@ -491,9 +804,9 @@ void sub_100672618(uint64_t a1)
   os_activity_scope_leave(&v5);
 }
 
-void sub_10067450C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10067450C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -644,6 +957,13 @@ int64_t sub_100676388(id a1, CarAlternateRouteFocusItem *a2, CarAlternateRouteFo
   {
     return v7 > v10;
   }
+}
+
+void sub_1006768F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id sub_100676910(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
@@ -1204,39 +1524,39 @@ void sub_10067DAD0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_10067DB08(uint64_t a1)
+void sub_10067DB08(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_100E9E6E8();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = sub_100E9E6E8();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v9) = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "MAPS IPC mapspushd connection invalidated.", &v9, 2u);
+    LOWORD(v10) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "MAPS IPC mapspushd connection invalidated.", &v10, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v4 = objc_loadWeakRetained((a1 + 40));
-    v5 = WeakRetained[13];
+    v5 = objc_loadWeakRetained((a1 + 40));
+    v6 = WeakRetained[13];
 
-    if (v4 == v5)
+    if (v5 == v6)
     {
-      v6 = WeakRetained[13];
+      v7 = WeakRetained[13];
       WeakRetained[13] = 0;
     }
 
     else
     {
-      v6 = sub_100E9E6E8();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+      v7 = sub_100E9E6E8();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v7 = objc_loadWeakRetained((a1 + 40));
-        v8 = WeakRetained[13];
-        v9 = 138412546;
-        v10 = v7;
-        v11 = 2112;
-        v12 = v8;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "MAPS IPC Not releasing connection as it has already changed from: %@ to: %@", &v9, 0x16u);
+        v8 = objc_loadWeakRetained((a1 + 40));
+        v9 = WeakRetained[13];
+        v10 = 138412546;
+        v11 = v8;
+        v12 = 2112;
+        v13 = v9;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "MAPS IPC Not releasing connection as it has already changed from: %@ to: %@", &v10, 0x16u);
       }
     }
   }
@@ -2370,13 +2690,13 @@ uint64_t sub_10068C46C(uint64_t a1)
   return result;
 }
 
-uint64_t sub_10068C5A0(uint64_t a1)
+uint64_t sub_10068C5A0(void *a1)
 {
   v2 = sub_1000410AC();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = objc_opt_class();
-    v4 = *(a1 + 48);
+    v4 = a1[6];
     v5 = v3;
     v6 = NSStringFromSelector(v4);
     v8 = 138412546;
@@ -2386,7 +2706,7 @@ uint64_t sub_10068C5A0(uint64_t a1)
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%@ %@: Dismissed Nearby Transit tip", &v8, 0x16u);
   }
 
-  result = *(a1 + 40);
+  result = a1[5];
   if (result)
   {
     return (*(result + 16))();
@@ -2522,12 +2842,12 @@ void sub_100690BE4(uint64_t a1)
   {
     v14 = [*(a1 + 48) year];
     v15 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v14 integerValue]);
-    [v66 setYear:v15];
+    objc_msgSend_setYear_(v66);
   }
 
   else
   {
-    [v66 setYear:0];
+    objc_msgSend_setYear_(v66);
   }
 
   v16 = [*(a1 + 48) manufacturer];
@@ -3214,9 +3534,9 @@ NSUUID *__cdecl sub_1006A28EC(id a1, GEOCompanionRouteDetails *a2, unint64_t a3)
   return v4;
 }
 
-void sub_1006A2B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1006A2B34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3241,9 +3561,9 @@ void sub_1006A2B64(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_1006A32F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1006A32F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3529,9 +3849,9 @@ id sub_1006A8628(uint64_t a1)
   return v3;
 }
 
-void sub_1006A9060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1006A9060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4164,9 +4484,9 @@ void sub_1006B82EC(uint64_t a1)
   }
 }
 
-void sub_1006B9668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1006B9668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4198,9 +4518,9 @@ id sub_1006BAD3C(uint64_t a1)
   return [v2 _updateDeparturesHeaderTitles];
 }
 
-void sub_1006BB0C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1006BB0C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5057,7 +5377,7 @@ void sub_1006C5E58(uint64_t a1)
   v27 = 0u;
   v28 = 0u;
   v26 = 0u;
-  +[StartNavigationDetailsBuilder defaultNavigationDetailsOptions];
+  objc_msgSend_defaultNavigationDetailsOptions(StartNavigationDetailsBuilder);
   v2 = [WeakRetained currentRoutePlanningSessionConfiguration];
   *&v27 = [v2 shouldRestoreToLowGuidance];
 
@@ -5115,7 +5435,7 @@ LABEL_7:
     v17 = [WeakRetained observedRoutePlanningSession];
     v18 = [v17 sessionInitiator];
     v19 = [WeakRetained observedRoutePlanningSession];
-    v20 = [v19 configuration];
+    v20 = objc_msgSend_configuration(v19);
     v21 = [v20 isResumingMultipointRoute];
     *buf = v26;
     *&buf[16] = v27;
@@ -5197,9 +5517,9 @@ void sub_1006C64D8(uint64_t a1, int a2)
   }
 }
 
-void sub_1006C9090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1006C9090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5660,9 +5980,9 @@ void sub_1006D1194(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_1006D1330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1006D1330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5671,6 +5991,13 @@ void sub_1006D1348(uint64_t a1)
 {
   v2 = [*(a1 + 32) items];
   *(*(*(a1 + 40) + 8) + 24) = [v2 count] != 0;
+}
+
+void sub_1006D1A6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1006D1AA8(uint64_t a1)
@@ -5706,9 +6033,9 @@ void sub_1006D1CAC(uint64_t a1)
   [WeakRetained _updateFraming];
 }
 
-void sub_1006D1F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1006D1F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6025,7 +6352,7 @@ id sub_1006D43E0(int a1)
   return v5;
 }
 
-id sub_1006D447C(void *a1, void *a2)
+NSMutableArray *sub_1006D447C(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
@@ -8438,400 +8765,4 @@ LABEL_21:
 LABEL_22:
 
   return v3;
-}
-
-void sub_1006DF8B0(uint64_t a1)
-{
-  v2 = [*(a1 + 32) view];
-  [v2 setFrame:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
-}
-
-void sub_1006E0020(uint64_t a1, void *a2)
-{
-  v3 = [a2 firstObject];
-  [*(a1 + 32) saveMapItem:v3];
-}
-
-BOOL sub_1006E152C(id a1, UIButton *a2, NSDictionary *a3)
-{
-  v3 = a2;
-  if ([(UIButton *)v3 isEnabled])
-  {
-    v4 = [(UIButton *)v3 isHidden]^ 1;
-  }
-
-  else
-  {
-    LOBYTE(v4) = 0;
-  }
-
-  return v4;
-}
-
-void sub_1006E28AC(uint64_t a1)
-{
-  v3 = [*(a1 + 32) view];
-  v1 = [v3 window];
-  v2 = [v1 rootViewController];
-  sub_100D5440C(v2);
-}
-
-int64_t sub_1006E6728(void *a1)
-{
-  v1 = a1;
-  v2 = [v1 activePhotoList];
-  v3 = [v2 count];
-  v4 = [v1 addedPhotosWithMetadata];
-  v5 = [v4 count];
-  v6 = [v1 maximumNumberOfPhotos];
-  v7 = [v1 maximumNumberOfPhotosPerSubmission];
-
-  if (v7 <= v5 || v3 >= v6)
-  {
-    v9 = 0;
-  }
-
-  else
-  {
-    v9 = v7 - v5;
-  }
-
-  return v9;
-}
-
-void sub_1006E78C8(uint64_t a1)
-{
-  v1 = [*(a1 + 32) logicController];
-  [v1 displayFilters];
-}
-
-id sub_1006E7FF0()
-{
-  if (qword_10195CF88 != -1)
-  {
-    dispatch_once(&qword_10195CF88, &stru_101626DE0);
-  }
-
-  v1 = qword_10195CF80;
-
-  return v1;
-}
-
-void sub_1006E8044(id a1)
-{
-  v1 = os_log_create("com.apple.Maps", "TransitNavigationTray");
-  v2 = qword_10195CF80;
-  qword_10195CF80 = v1;
-}
-
-void sub_1006E8354(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
-{
-  objc_destroyWeak((v14 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-double sub_1006E8378(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = WeakRetained;
-  if (WeakRetained)
-  {
-    [WeakRetained _rectOfRowToKeepVisible];
-    MinY = CGRectGetMinY(v5);
-  }
-
-  else
-  {
-    MinY = 0.0;
-  }
-
-  return MinY;
-}
-
-id sub_1006E84D0(uint64_t a1)
-{
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 32);
-  if (v2)
-  {
-    v4 = 2;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (v2)
-  {
-    v5 = 0.300000012;
-  }
-
-  else
-  {
-    v5 = 1.0;
-  }
-
-  if (v2)
-  {
-    v6 = 1.0;
-  }
-
-  else
-  {
-    v6 = 0.0;
-  }
-
-  [v3 setOverrideUserInterfaceStyle:v4];
-  [*(*(a1 + 32) + 152) setAlpha:v5];
-  v7 = *(*(a1 + 32) + 208);
-
-  return [v7 setAlpha:v6];
-}
-
-void sub_1006E8D14(uint64_t a1)
-{
-  v1 = [*(a1 + 32) cardPresentationController];
-  [v1 updateHeightForCurrentLayout];
-}
-
-void sub_1006EA6B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1006EA6D0(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained)
-  {
-    v4 = WeakRetained;
-    isKindOfClass = objc_opt_isKindOfClass();
-    WeakRetained = v4;
-    if (isKindOfClass)
-    {
-      v3 = +[MKLocationManager sharedLocationManager];
-      v4[24] = [v3 isAuthorizationNotDetermined];
-
-      [v4 updateIndicatorType];
-      WeakRetained = v4;
-    }
-  }
-}
-
-id sub_1006EB6C4()
-{
-  if (qword_10195CF98 != -1)
-  {
-    dispatch_once(&qword_10195CF98, &stru_101626E60);
-  }
-
-  v1 = qword_10195CF90;
-
-  return v1;
-}
-
-void sub_1006EB718(id a1)
-{
-  v1 = os_log_create("com.apple.Maps", "SharedTripListContaineeViewController");
-  v2 = qword_10195CF90;
-  qword_10195CF90 = v1;
-}
-
-void sub_1006EBF24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
-{
-  objc_destroyWeak((v21 + 32));
-  objc_destroyWeak((v20 + 32));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-id sub_1006EBF54(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a4;
-  v8 = a3;
-  v9 = a2;
-  v10 = sub_1006EB6C4();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
-  {
-    WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v12 = [v7 groupIdentifier];
-    v17 = 134349314;
-    v18 = WeakRetained;
-    v19 = 2112;
-    v20 = v12;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "[%{public}p] Creating cell for shared trip: %@", &v17, 0x16u);
-  }
-
-  v13 = +[TwoLinesTableViewCell identifier];
-  v14 = [v9 dequeueReusableCellWithIdentifier:v13 forIndexPath:v8];
-
-  v15 = [TwoLinesContentViewModelComposer cellModelForSharedTrip:v7];
-  [v14 setViewModel:v15];
-
-  return v14;
-}
-
-void sub_1006EC0D0(uint64_t a1)
-{
-  v2 = sub_1006EB6C4();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-  {
-    WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v7 = 134349056;
-    v8 = WeakRetained;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "[%{public}p] Reloading tableview", &v7, 0xCu);
-  }
-
-  v4 = objc_loadWeakRetained((a1 + 32));
-  v5 = v4;
-  if (v4)
-  {
-    v6 = [v4 cardPresentationController];
-    [v6 updateHeightForCurrentLayout];
-  }
-}
-
-void sub_1006ECFEC(void *a1, void *a2, void *a3)
-{
-  v11 = a3;
-  v6 = [a2 isComplete];
-  if (v6)
-  {
-    v7 = 1;
-  }
-
-  else
-  {
-    v8 = *(a1[4] + 56);
-    a1 = +[NSCharacterSet whitespaceAndNewlineCharacterSet];
-    v3 = [v8 stringByTrimmingCharactersInSet:a1];
-    v7 = [v3 length] != 0;
-  }
-
-  v9 = [v11 navigationItem];
-  v10 = [v9 rightBarButtonItem];
-  [v10 setEnabled:v7];
-
-  if ((v6 & 1) == 0)
-  {
-  }
-}
-
-void sub_1006F0388(uint64_t a1)
-{
-  v1 = *(*(a1 + 32) + 8);
-  v2 = [v1 log];
-  sub_1006F03E4(v1, 1);
-}
-
-id sub_1006F03E4(void *a1, int a2)
-{
-  v3 = a1;
-  v4 = v3;
-  if (a2)
-  {
-    v5 = "DROP TABLE reviewedplace";
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if ([v3 createTable:"CREATE TABLE IF NOT EXISTS reviewedplace(   muid INT NOT NULL withDrop:{recommendstate INT NOT NULL, photosadded INT NOT NULL, UNIQUE(muid)   );", v5}] && objc_msgSend(v4, "prepareStatement:forKey:", "INSERT OR REPLACE INTO reviewedplace    (muid, recommendstate, photosadded)    VALUES (@muid, @recommendstate, @photosadded);", @"SetReviewedPlace") && objc_msgSend(v4, "prepareStatement:forKey:", "SELECT muid, recommendstate, photosadded    FROM reviewedplace    WHERE muid = @muid    LIMIT 1;", @"FindReviewedPlace") && objc_msgSend(v4, "prepareStatement:forKey:", "DELETE FROM reviewedplace    WHERE muid = @muid    LIMIT 1;", @"RemoveReviewedPlace"))
-  {
-    v6 = [v4 prepareStatement:"DROP TABLE reviewedplace;" forKey:@"DropReviewedPlaceEntries"];
-  }
-
-  else
-  {
-    v6 = 0;
-  }
-
-  return v6;
-}
-
-void sub_1006F0570(uint64_t a1)
-{
-  v2 = *(*(a1 + 32) + 8);
-  v3 = [*(a1 + 40) muid];
-  v4 = [*(a1 + 40) recommendState];
-  v5 = [*(a1 + 40) numberOfPhotosAdded];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_1006F07F8;
-  v26 = sub_1006F0808;
-  v27 = 0;
-  *buf = _NSConcreteStackBlock;
-  *&buf[8] = 3221225472;
-  *&buf[16] = sub_1006F0810;
-  v29 = &unk_101626FD8;
-  v6 = v2;
-  v31 = &v22;
-  v32 = v3;
-  v30 = v6;
-  v33 = v4;
-  v34 = v5;
-  v7 = [v6 executeStatement:@"SetReviewedPlace" statementBlock:buf];
-  v8 = v23[5];
-  if (v8)
-  {
-    v9 = v8;
-  }
-
-  _Block_object_dispose(&v22, 8);
-  v10 = v8;
-  v11 = v7 & (v8 == 0);
-  v12 = sub_100799818();
-  v13 = v12;
-  if (v11)
-  {
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
-    {
-      goto LABEL_9;
-    }
-
-    v14 = [*(a1 + 40) muid];
-    v15 = [*(a1 + 40) recommendState];
-    v16 = [*(a1 + 40) numberOfPhotosAdded];
-    *buf = 134218496;
-    *&buf[4] = v14;
-    *&buf[12] = 2048;
-    *&buf[14] = v15;
-    *&buf[22] = 2048;
-    v29 = v16;
-    v17 = "We added a new reviewed place with muid %llu with recommend state %lu, and number of photos added %lu";
-    v18 = v13;
-    v19 = OS_LOG_TYPE_INFO;
-    v20 = 32;
-  }
-
-  else
-  {
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_9;
-    }
-
-    *buf = 138412290;
-    *&buf[4] = v10;
-    v17 = "Failed to add reviewed place with error %@";
-    v18 = v13;
-    v19 = OS_LOG_TYPE_ERROR;
-    v20 = 12;
-  }
-
-  _os_log_impl(&_mh_execute_header, v18, v19, v17, buf, v20);
-LABEL_9:
-
-  v21 = *(a1 + 48);
-  if (v21)
-  {
-    (*(v21 + 16))(v21, v10);
-  }
 }

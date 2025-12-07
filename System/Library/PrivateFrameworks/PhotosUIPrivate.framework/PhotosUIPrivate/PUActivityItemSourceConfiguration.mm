@@ -840,28 +840,28 @@ void __79__PUActivityItemSourceConfiguration__activitiesThatOnlySupportMomentSha
   return v2;
 }
 
-void __79__PUActivityItemSourceConfiguration__activitiesThatDontSupportMomentShareLinks__block_invoke()
+void __79__PUActivityItemSourceConfiguration__activitiesThatDontSupportMomentShareLinks__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = [objc_opt_class() _photosInternalActivities];
-  v11 = [v0 setWithArray:v1];
+  v1 = MEMORY[0x1E695DFD8];
+  v2 = [objc_opt_class() _photosInternalActivities];
+  v12 = [v1 setWithArray:v2];
 
-  v2 = MEMORY[0x1E695DFD8];
-  v3 = [objc_opt_class() _activitiesThatDontRequireAssetExport];
-  v4 = [v2 setWithArray:v3];
+  v3 = MEMORY[0x1E695DFD8];
+  v4 = [objc_opt_class() _activitiesThatDontRequireAssetExport];
+  v5 = [v3 setWithArray:v4];
 
-  v5 = [objc_opt_class() _photosActionSheetActivities];
-  v6 = [objc_opt_class() _systemActivitiesThatDontSupportMomentShareLinks];
-  v7 = [v11 setByAddingObjectsFromSet:v4];
-  v8 = [v7 mutableCopy];
+  v6 = [objc_opt_class() _photosActionSheetActivities];
+  v7 = [objc_opt_class() _systemActivitiesThatDontSupportMomentShareLinks];
+  v8 = [v12 setByAddingObjectsFromSet:v5];
+  v9 = [v8 mutableCopy];
 
-  [v8 addObjectsFromArray:v5];
-  [v8 addObjectsFromArray:v6];
-  [v8 addObject:*MEMORY[0x1E69CDA78]];
-  [v8 addObject:*MEMORY[0x1E69CDA90]];
-  v9 = [v8 allObjects];
-  v10 = _activitiesThatDontSupportMomentShareLinks__momentShareUnsupportedActivities;
-  _activitiesThatDontSupportMomentShareLinks__momentShareUnsupportedActivities = v9;
+  [v9 addObjectsFromArray:v6];
+  [v9 addObjectsFromArray:v7];
+  [v9 addObject:*MEMORY[0x1E69CDA78]];
+  [v9 addObject:*MEMORY[0x1E69CDA90]];
+  v10 = [v9 allObjects];
+  v11 = _activitiesThatDontSupportMomentShareLinks__momentShareUnsupportedActivities;
+  _activitiesThatDontSupportMomentShareLinks__momentShareUnsupportedActivities = v10;
 }
 
 + (id)_systemActivitiesThatDontSupportMomentShareLinks

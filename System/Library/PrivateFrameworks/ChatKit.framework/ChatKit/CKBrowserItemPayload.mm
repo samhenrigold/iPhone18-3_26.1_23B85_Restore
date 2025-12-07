@@ -885,7 +885,7 @@ LABEL_16:
   return v12;
 }
 
-void __79__CKBrowserItemPayload_CKCompositionAdditions____ck_urlFromTextBodyForRichLink__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void __79__CKBrowserItemPayload_CKCompositionAdditions____ck_urlFromTextBodyForRichLink__block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, _BYTE *a5)
 {
   v11 = a2;
   if (v11)

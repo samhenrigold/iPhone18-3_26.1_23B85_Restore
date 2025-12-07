@@ -69,29 +69,27 @@
       label2 = [personHandle2 label];
       if ([label isEqualToString:label2])
       {
-        v11 = equalCopy[2];
-        tuHandle = self->_tuHandle;
-        v13 = TUHandlesAreCanonicallyEqual();
+        v11 = TUHandlesAreCanonicallyEqual();
       }
 
       else
       {
-        v13 = 0;
+        v11 = 0;
       }
     }
 
     else
     {
-      v13 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v13 = 0;
+    v11 = 0;
   }
 
-  return v13;
+  return v11;
 }
 
 @end

@@ -2,10 +2,13 @@
 - (NSString)message;
 - (NSString)title;
 - (UIImage)image;
+- (void)image;
 - (void)layoutSubviews;
+- (void)message;
 - (void)setImage:(id)image;
 - (void)setMessage:(id)message;
 - (void)setTitle:(id)title;
+- (void)title;
 @end
 
 @implementation SKUIDonationResultView
@@ -115,7 +118,7 @@
   }
 
   message = [(SKUIDonationResultView *)self message];
-  if (message != messageCopy && ([messageCopy isEqualToString:message] & 1) == 0)
+  if (message != messageCopy && (objc_msgSend_isEqualToString_(messageCopy) & 1) == 0)
   {
     messageLabel = self->_messageLabel;
     if (messageCopy)
@@ -174,7 +177,7 @@
   }
 
   title = [(SKUIDonationResultView *)self title];
-  if (title != titleCopy && ([titleCopy isEqualToString:title] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(titleCopy) & 1) == 0)
   {
     titleLabel = self->_titleLabel;
     if (titleCopy)
@@ -238,86 +241,44 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUIDonationResultView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDonationResultView layoutSubviews]";
+}
 
-  [(SKUIDonationResultView *)self bounds];
-  v12 = v11;
-  v43 = v13;
-  v14 = v11 + -60.0;
-  [(UIImageView *)self->_imageView frame];
-  v16 = v15;
-  v18 = v17;
-  v19 = (v12 - v15) * 0.5;
-  v20 = floorf(v19);
-  [(UILabel *)self->_titleLabel frame];
-  [(UILabel *)self->_titleLabel sizeThatFits:v14, 1.79769313e308];
-  v22 = v21;
-  [(UILabel *)self->_messageLabel frame];
-  [(UILabel *)self->_messageLabel sizeThatFits:v14, 1.79769313e308];
-  v24 = v23;
-  currentDevice = [MEMORY[0x277D75418] currentDevice];
-  userInterfaceIdiom = [currentDevice userInterfaceIdiom];
+- (void)image
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDonationResultView image]";
+}
 
-  v27 = 8.0;
-  if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
-  {
-    v27 = 46.0;
-  }
+- (void)message
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDonationResultView message]";
+}
 
-  v28 = v22 + v18 + v27;
-  currentDevice2 = [MEMORY[0x277D75418] currentDevice];
-  userInterfaceIdiom2 = [currentDevice2 userInterfaceIdiom];
+- (void)setImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDonationResultView setImage:]";
+}
 
-  v31 = 12.0;
-  if ((userInterfaceIdiom2 & 0xFFFFFFFFFFFFFFFBLL) == 1)
-  {
-    v31 = 10.0;
-  }
+- (void)setMessage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDonationResultView setMessage:]";
+}
 
-  v32 = (v43 - (v24 + v28 + v31)) * 0.5;
-  v33 = floorf(v32);
-  [(UIImageView *)self->_imageView setFrame:v20, v33, v16, v18];
-  v44.origin.x = v20;
-  v44.origin.y = v33;
-  v44.size.width = v16;
-  v44.size.height = v18;
-  MaxY = CGRectGetMaxY(v44);
-  currentDevice3 = [MEMORY[0x277D75418] currentDevice];
-  userInterfaceIdiom3 = [currentDevice3 userInterfaceIdiom];
+- (void)setTitle:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDonationResultView setTitle:]";
+}
 
-  v37 = 8.0;
-  if ((userInterfaceIdiom3 & 0xFFFFFFFFFFFFFFFBLL) == 1)
-  {
-    v37 = 46.0;
-  }
-
-  v38 = MaxY + v37;
-  [(UILabel *)self->_titleLabel setFrame:30.0, v38, v14, v22];
-  v45.origin.x = 30.0;
-  v45.origin.y = v38;
-  v45.size.width = v14;
-  v45.size.height = v22;
-  v39 = CGRectGetMaxY(v45);
-  currentDevice4 = [MEMORY[0x277D75418] currentDevice];
-  userInterfaceIdiom4 = [currentDevice4 userInterfaceIdiom];
-
-  v42 = 10.0;
-  if ((userInterfaceIdiom4 & 0xFFFFFFFFFFFFFFFBLL) != 1)
-  {
-    v42 = 12.0;
-  }
-
-  [(UILabel *)self->_messageLabel setFrame:30.0, v39 + v42, v14, v24];
+- (void)title
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDonationResultView title]";
 }
 
 @end

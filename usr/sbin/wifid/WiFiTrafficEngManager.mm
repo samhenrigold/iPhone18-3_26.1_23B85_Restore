@@ -70,9 +70,9 @@ LABEL_9:
 
 - (void)discoveryIndication
 {
-  lqaMgr = [(WiFiTrafficEngManager *)self lqaMgr];
+  [(WiFiTrafficEngManager *)self lqaMgr];
 
-  nullsub_4(lqaMgr, v3);
+  nullsub_4();
 }
 
 - (__CFDictionary)retrieveEventDetails

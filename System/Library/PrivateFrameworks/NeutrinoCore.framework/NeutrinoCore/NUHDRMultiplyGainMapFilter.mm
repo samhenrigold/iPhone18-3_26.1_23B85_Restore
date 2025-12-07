@@ -22,9 +22,11 @@
 
 uint64_t __54__NUHDRMultiplyGainMapFilter_gainMapMultiplyRGBKernel__block_invoke()
 {
-  gainMapMultiplyRGBKernel_s_gainMapMultiplyRGBKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 gainMapMultiplyRGB(__sample im, __sample gm) \n{ \n  const float e = 0.01 \n  float3 color = (1 - e) * im.rgb + e; \n  float3 gain = (1 - e) * gm.rgb + e; \n  float3 light = gain * color; \n  return vec4(light, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 gainMapMultiplyRGB(__sample im, __sample gm) \n{ \n  const float e = 0.01 \n  float3 color = (1 - e) * im.rgb + e; \n  float3 gain = (1 - e) * gm.rgb + e; \n  float3 light = gain * color; \n  return vec4(light, 1.0); \n}\n"}];;
+  v1 = gainMapMultiplyRGBKernel_s_gainMapMultiplyRGBKernel;
+  gainMapMultiplyRGBKernel_s_gainMapMultiplyRGBKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)gainMapMultiplyKernel
@@ -41,9 +43,11 @@ uint64_t __54__NUHDRMultiplyGainMapFilter_gainMapMultiplyRGBKernel__block_invoke
 
 uint64_t __51__NUHDRMultiplyGainMapFilter_gainMapMultiplyKernel__block_invoke()
 {
-  gainMapMultiplyKernel_s_gainMapMultiplyKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 gainMapMultiply(__sample im, __sample gm) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float luma = dot(im.rgb, weq); \n  float maxRGB = max(max(im.r, im.g), im.b); \n  luma = 0.5 * (luma + maxRGB); \n  float gain = gm.r; \n  const float e = 0.01; \n  luma = (1 - e) * luma + e; \n  gain = (1 - e) * gain + e; \n  float light = gain * luma; \n  return vec4(light, light, light, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 gainMapMultiply(__sample im, __sample gm) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float luma = dot(im.rgb, weq); \n  float maxRGB = max(max(im.r, im.g), im.b); \n  luma = 0.5 * (luma + maxRGB); \n  float gain = gm.r; \n  const float e = 0.01; \n  luma = (1 - e) * luma + e; \n  gain = (1 - e) * gain + e; \n  float light = gain * luma; \n  return vec4(light, light, light, 1.0); \n}\n"}];;
+  v1 = gainMapMultiplyKernel_s_gainMapMultiplyKernel;
+  gainMapMultiplyKernel_s_gainMapMultiplyKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)gainMapLogMultiplyRGBKernel
@@ -60,9 +64,11 @@ uint64_t __51__NUHDRMultiplyGainMapFilter_gainMapMultiplyKernel__block_invoke()
 
 uint64_t __57__NUHDRMultiplyGainMapFilter_gainMapLogMultiplyRGBKernel__block_invoke()
 {
-  gainMapLogMultiplyRGBKernel_s_gainMapLogMultiplyRGBKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 gainMapMultiplyRGB(__sample im, __sample gm, float f) \n{ \n  float3 color = log2(1.0 + im.rgb) \n  float3 gain = log2(1.0 + gm.rgb); \n  float3 light = mix(gain, color, f); \n  light = exp2(light) - 1.0; \n  return vec4(light, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 gainMapMultiplyRGB(__sample im, __sample gm, float f) \n{ \n  float3 color = log2(1.0 + im.rgb) \n  float3 gain = log2(1.0 + gm.rgb); \n  float3 light = mix(gain, color, f); \n  light = exp2(light) - 1.0; \n  return vec4(light, 1.0); \n}\n"}];;
+  v1 = gainMapLogMultiplyRGBKernel_s_gainMapLogMultiplyRGBKernel;
+  gainMapLogMultiplyRGBKernel_s_gainMapLogMultiplyRGBKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)gainMapLogMultiplyKernel
@@ -79,9 +85,11 @@ uint64_t __57__NUHDRMultiplyGainMapFilter_gainMapLogMultiplyRGBKernel__block_inv
 
 uint64_t __54__NUHDRMultiplyGainMapFilter_gainMapLogMultiplyKernel__block_invoke()
 {
-  gainMapLogMultiplyKernel_s_gainMapLogMultiplyKernel = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 gainMapMultiply(__sample im, __sample gm, float f) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float luma = dot(im.rgb, weq); \n  float maxRGB = max(max(im.r, im.g), im.b); \n  luma = 0.5 * (luma + maxRGB); \n  luma = log2(1.0 + luma); \n  float gain = log2(1.0 + gm.r); \n  float light = mix(gain, luma, f); \n  light = exp2(light) - 1.0; \n  return vec4(light, light, light, 1.0); \n}\n"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"kernel vec4 gainMapMultiply(__sample im, __sample gm, float f) \n{ \n  const float3 weq = float3(1.0/3.0, 1.0/3.0, 1.0/3.0) \n  float luma = dot(im.rgb, weq); \n  float maxRGB = max(max(im.r, im.g), im.b); \n  luma = 0.5 * (luma + maxRGB); \n  luma = log2(1.0 + luma); \n  float gain = log2(1.0 + gm.r); \n  float light = mix(gain, luma, f); \n  light = exp2(light) - 1.0; \n  return vec4(light, light, light, 1.0); \n}\n"}];;
+  v1 = gainMapLogMultiplyKernel_s_gainMapLogMultiplyKernel;
+  gainMapLogMultiplyKernel_s_gainMapLogMultiplyKernel = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)outputImage
@@ -125,10 +133,10 @@ uint64_t __54__NUHDRMultiplyGainMapFilter_gainMapLogMultiplyKernel__block_invoke
     }
     v13 = ;
     v14 = v13;
-    [v5 extent];
+    objc_msgSend_extent(v5);
     v16 = v15;
     v18 = v17;
-    [inputImage extent];
+    objc_msgSend_extent(inputImage);
     CGAffineTransformMakeScale(&v27, v16 / v19, v18 / v20);
     v21 = [inputImage imageByApplyingTransform:&v27];
     v23 = v21;
@@ -149,7 +157,7 @@ uint64_t __54__NUHDRMultiplyGainMapFilter_gainMapLogMultiplyKernel__block_invoke
       v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
     }
 
-    [v5 extent];
+    objc_msgSend_extent(v5);
     v6 = [v14 applyWithExtent:v25 arguments:?];
   }
 

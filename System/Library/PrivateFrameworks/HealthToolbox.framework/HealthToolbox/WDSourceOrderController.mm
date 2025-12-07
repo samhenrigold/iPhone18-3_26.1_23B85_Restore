@@ -107,49 +107,46 @@ void __54__WDSourceOrderController_setOrderedSources_dataType___block_invoke(id 
 
 - (void)_notifyObserversForDataType:(id)type withProviders:(id)providers
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   providersCopy = providers;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v8 = [(NSHashTable *)self->_observers copy];
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) sourceOrderUpdatedWithOrder:providersCopy dataType:typeCopy];
+        [*(*(&v13 + 1) + 8 * v12++) sourceOrderUpdatedWithOrder:providersCopy dataType:typeCopy];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __54__WDSourceOrderController_setOrderedSources_dataType___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Error saving source order: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_251E85000, a2, OS_LOG_TYPE_ERROR, "Error saving source order: %{public}@", &v2, 0xCu);
 }
 
 @end

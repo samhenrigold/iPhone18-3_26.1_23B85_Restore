@@ -134,7 +134,7 @@ id sub_78B0(uint64_t a1)
   v4 = *(*(a1 + 32) + 72);
   if (v4)
   {
-    [v4 transform];
+    objc_msgSend_transform(v4);
   }
 
   else
@@ -148,21 +148,21 @@ id sub_78B0(uint64_t a1)
   return [*(a1 + 40) setAlpha:0.0];
 }
 
-id sub_7980(uint64_t a1)
+id sub_7980(uint64_t a1, const char *a2)
 {
-  v2 = *(*(a1 + 32) + 72);
-  if (v2)
+  v3 = *(*(a1 + 32) + 72);
+  if (v3)
   {
-    [*(*(a1 + 32) + 72) transform];
+    objc_msgSend_transform(*(*(a1 + 32) + 72), a2);
   }
 
   else
   {
-    memset(&v4, 0, sizeof(v4));
+    memset(&v5, 0, sizeof(v5));
   }
 
-  CGAffineTransformTranslate(&v5, &v4, *(a1 + 56), 0.0);
-  [v2 setTransform:&v5];
+  CGAffineTransformTranslate(&v6, &v5, *(a1 + 56), 0.0);
+  [v3 setTransform:&v6];
   [*(*(a1 + 32) + 80) setAlpha:1.0];
   [*(a1 + 32) _endAnimatingForReason:@"_NTKSolarPathDateChangeAnimatingReason"];
   [*(a1 + 40) removeFromSuperview];
@@ -188,16 +188,16 @@ id sub_7EE8(uint64_t a1)
   return [v4 setCenter:?];
 }
 
-id sub_83B0()
+id sub_83B0(uint64_t a1)
 {
   if (qword_354D0 != -1)
   {
     sub_19CF4();
   }
 
-  v1 = qword_354C8;
+  v2 = qword_354C8;
 
-  return v1;
+  return v2;
 }
 
 void sub_9538(void *a1@<X1>, uint64_t a2@<X8>)
@@ -378,13 +378,14 @@ void sub_9B34(id a1)
   _objc_release_x1();
 }
 
-void sub_A1B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_A1B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  objc_destroyWeak((v31 + 56));
+  va_start(va, a30);
+  objc_destroyWeak((v30 + 56));
   objc_destroyWeak(&location);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v32 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -420,7 +421,7 @@ id sub_A228(uint64_t a1)
     v21 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_19E94(WeakRetained);
+      sub_19E94();
     }
 
     goto LABEL_12;
@@ -442,7 +443,7 @@ id sub_A228(uint64_t a1)
     v21 = _NTKLoggingObjectForDomain();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_19E20(WeakRetained);
+      sub_19E20();
     }
 
 LABEL_12:
@@ -515,92 +516,92 @@ id sub_A5D8(void *a1, void *a2)
   return v6;
 }
 
-void sub_AA00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_AA00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  objc_destroyWeak((v31 + 56));
+  va_start(va, a30);
+  objc_destroyWeak((v30 + 56));
   objc_destroyWeak(&location);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v32 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 144), 8);
   _Unwind_Resume(a1);
 }
 
 id sub_AA5C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = WeakRetained;
   if (!WeakRetained)
   {
-    v20 = 0;
+    v19 = 0;
     goto LABEL_12;
   }
 
-  v4 = (*(WeakRetained[5] + 2))();
-  v5 = v4;
-  if (!v4)
+  v3 = (*(*(WeakRetained + 5) + 16))();
+  v4 = v3;
+  if (!v3)
   {
-    v21 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_19E94(v3);
+      sub_19E94();
     }
 
     goto LABEL_10;
   }
 
-  v6 = [v4 CGImage];
-  *(*(*(a1 + 32) + 8) + 24) = CGImageGetWidth(v6);
-  *(*(*(a1 + 40) + 8) + 24) = CGImageGetHeight(v6);
-  BytesPerRow = CGImageGetBytesPerRow(v6);
-  v8 = 4 * *(*(*(a1 + 32) + 8) + 24);
-  v9 = [v3[4] newBufferWithLength:v8 * *(*(*(a1 + 40) + 8) + 24) options:0];
-  v10 = *(*(a1 + 48) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  v5 = [v3 CGImage];
+  *(*(*(a1 + 32) + 8) + 24) = CGImageGetWidth(v5);
+  *(*(*(a1 + 40) + 8) + 24) = CGImageGetHeight(v5);
+  BytesPerRow = CGImageGetBytesPerRow(v5);
+  v7 = 4 * *(*(*(a1 + 32) + 8) + 24);
+  v8 = [*(WeakRetained + 4) newBufferWithLength:v7 * *(*(*(a1 + 40) + 8) + 24) options:0];
+  v9 = *(*(a1 + 48) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 
-  DataProvider = CGImageGetDataProvider(v6);
-  v13 = CGDataProviderCopyData(DataProvider);
-  if (!v13)
+  DataProvider = CGImageGetDataProvider(v5);
+  v12 = CGDataProviderCopyData(DataProvider);
+  if (!v12)
   {
-    v21 = _NTKLoggingObjectForDomain();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_19E20(v3);
+      sub_19E20();
     }
 
 LABEL_10:
 
-    v20 = 0;
+    v19 = 0;
     goto LABEL_11;
   }
 
-  v14 = v13;
-  BytePtr = CFDataGetBytePtr(v13);
-  v16 = [*(*(*(a1 + 48) + 8) + 40) contents];
-  v17 = *(a1 + 40);
-  v18 = *(*(v17 + 8) + 24);
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_AD28;
-  v23[3] = &unk_2CAD0;
-  v23[6] = BytePtr;
-  v23[7] = BytesPerRow;
-  v23[8] = v16;
-  v23[9] = v8;
-  v19 = *(a1 + 32);
-  v23[4] = v17;
-  v23[5] = v19;
-  dispatch_apply(v18, 0, v23);
-  CFRelease(v14);
-  v20 = [[NSMutableData alloc] initWithCapacity:{(objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "length") + 16.0)}];
-  [v20 appendBytes:*(*(a1 + 32) + 8) + 24 length:8];
-  [v20 appendBytes:*(*(a1 + 40) + 8) + 24 length:8];
-  [v20 appendBytes:objc_msgSend(*(*(*(a1 + 48) + 8) + 40) length:{"contents"), objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "length")}];
+  v13 = v12;
+  BytePtr = CFDataGetBytePtr(v12);
+  v15 = [*(*(*(a1 + 48) + 8) + 40) contents];
+  v16 = *(a1 + 40);
+  v17 = *(*(v16 + 8) + 24);
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_AD28;
+  v22[3] = &unk_2CAD0;
+  v22[6] = BytePtr;
+  v22[7] = BytesPerRow;
+  v22[8] = v15;
+  v22[9] = v7;
+  v18 = *(a1 + 32);
+  v22[4] = v16;
+  v22[5] = v18;
+  dispatch_apply(v17, 0, v22);
+  CFRelease(v13);
+  v19 = [[NSMutableData alloc] initWithCapacity:{(objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "length") + 16.0)}];
+  [v19 appendBytes:*(*(a1 + 32) + 8) + 24 length:8];
+  [v19 appendBytes:*(*(a1 + 40) + 8) + 24 length:8];
+  [v19 appendBytes:objc_msgSend(*(*(*(a1 + 48) + 8) + 40) length:{"contents"), objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "length")}];
 LABEL_11:
 
 LABEL_12:
 
-  return v20;
+  return v19;
 }
 
 void *sub_AD28(void *result, uint64_t a2)
@@ -638,17 +639,11 @@ id sub_AD88(void *a1, void *a2)
   return v7;
 }
 
-void sub_AFDC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_AFDC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
-}
-
-uint64_t sub_B004@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 8);
-  return result;
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_B010(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -931,7 +926,7 @@ id sub_12CF0(uint64_t a1)
   v12 = v11;
   v13 = [*(a1 + 32) device];
   sub_14ADC(v13, v20);
-  v14 = v20[0];
+  v14 = *v20;
   v15 = [*(a1 + 32) device];
   v16 = [(NTKSiderealDialView *)v3 initWithFrame:v15 dialDiameter:v6 device:v8, v10, v12, v14];
   v17 = [v2 newImageRefFromView:v16];
@@ -956,7 +951,7 @@ id sub_12EC4(uint64_t a1)
   v13 = v23;
   v14 = [*(a1 + 32) device];
   sub_14ADC(v14, v21);
-  v15 = v21[0];
+  v15 = *v21;
   v16 = [*(*(a1 + 32) + 56) waypoints];
   v17 = [(NTKSiderealWaypointsView *)v2 initWithFrame:v16 orbitDiameter:v5 dialDiameter:v7 waypoints:v9, v11, v13, v15];
 
@@ -1168,16 +1163,16 @@ void sub_14BC4(void *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 72) = 0x3FF0000000000000;
 }
 
-id sub_15AC8()
+id sub_15AC8(uint64_t a1)
 {
   if (qword_356C0 != -1)
   {
     sub_19F24();
   }
 
-  v1 = qword_356B8;
+  v2 = qword_356B8;
 
-  return v1;
+  return v2;
 }
 
 void sub_15D00(void *a1@<X1>, uint64_t a2@<X8>)
@@ -1805,32 +1800,25 @@ void sub_194B8(uint64_t a1, void *a2, int a3, int a4, double a5, __n128 a6)
   }
 }
 
-void sub_19D4C(uint64_t *a1)
+void sub_19DB8()
 {
-  v1 = *a1;
+  sub_B004(__stack_chk_guard);
   sub_AFF8();
-  sub_AFDC(&dword_0, v2, v3, "NTKSiderealCachedMTLTexture texture load error — imageData for cacheKey: %@ is nil. ", v4, v5, v6, v7, v8);
+  sub_AFDC(&dword_0, v0, v1, "NTKSiderealCachedMTLTexture texture load error — generateImageBlock for the cacheKey: %@ is nil.", v2, v3, v4, v5);
 }
 
-void sub_19DB8(uint64_t a1)
+void sub_19E20()
 {
-  sub_B004(a1, __stack_chk_guard);
+  sub_B004(__stack_chk_guard);
   sub_AFF8();
-  sub_AFDC(&dword_0, v1, v2, "NTKSiderealCachedMTLTexture texture load error — generateImageBlock for the cacheKey: %@ is nil.", v3, v4, v5, v6, v7);
+  sub_B010(&dword_0, v0, v1, "NTKSiderealCachedMTLTexture texture load error — pixelsRef for cacheKey: %@ and image: %@ is NULL.");
 }
 
-void sub_19E20(uint64_t a1)
+void sub_19E94()
 {
-  sub_B004(a1, __stack_chk_guard);
+  sub_B004(__stack_chk_guard);
   sub_AFF8();
-  sub_B010(&dword_0, v1, v2, "NTKSiderealCachedMTLTexture texture load error — pixelsRef for cacheKey: %@ and image: %@ is NULL.");
-}
-
-void sub_19E94(uint64_t a1)
-{
-  sub_B004(a1, __stack_chk_guard);
-  sub_AFF8();
-  sub_AFDC(&dword_0, v1, v2, "NTKSiderealCachedMTLTexture texture load error — image generated by the generateImageBlock for the cacheKey: %@ is nil.", v3, v4, v5, v6, v7);
+  sub_AFDC(&dword_0, v0, v1, "NTKSiderealCachedMTLTexture texture load error — image generated by the generateImageBlock for the cacheKey: %@ is nil.", v2, v3, v4, v5);
 }
 
 void sub_19F38(void *a1, NSObject *a2)

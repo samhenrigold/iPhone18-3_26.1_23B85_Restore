@@ -23,9 +23,9 @@
 
 - (IOKitObjectHolder)initWithObject:(unsigned int)object
 {
-  v9.receiver = self;
-  v9.super_class = IOKitObjectHolder;
-  v4 = [(IOKitObjectHolder *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = IOKitObjectHolder;
+  v4 = [(IOKitObjectHolder *)&v10 init];
   v5 = v4;
   if (!v4)
   {
@@ -35,10 +35,11 @@
   v4->_holder = object;
   if (object)
   {
-    if (IOObjectRetain(object))
+    v6 = IOObjectRetain(object);
+    if (v6)
     {
-      v6 = sub_100001170();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100001170(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_100014208();
       }
@@ -47,15 +48,15 @@
     }
 
 LABEL_8:
-    v7 = v5;
+    v8 = v5;
     goto LABEL_9;
   }
 
 LABEL_7:
-  v7 = 0;
+  v8 = 0;
 LABEL_9:
 
-  return v7;
+  return v8;
 }
 
 - (IOKitObjectHolder)initWithRetainedObject:(unsigned int)object

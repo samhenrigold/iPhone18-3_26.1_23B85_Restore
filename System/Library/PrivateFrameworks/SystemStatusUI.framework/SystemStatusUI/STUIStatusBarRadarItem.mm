@@ -50,9 +50,11 @@
 - (void)_create_radarItemView
 {
   v3 = [STUIStatusBarRadarView alloc];
-  self->_radarItemView = [(STUIStatusBarRadarView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v4 = [(STUIStatusBarRadarView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  radarItemView = self->_radarItemView;
+  self->_radarItemView = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, radarItemView);
 }
 
 @end

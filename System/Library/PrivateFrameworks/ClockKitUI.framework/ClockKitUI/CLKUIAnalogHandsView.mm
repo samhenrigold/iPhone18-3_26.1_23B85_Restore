@@ -467,7 +467,7 @@ void __42__CLKUIAnalogHandsView__stopTimeAnimation__block_invoke(uint64_t a1, vo
     v7 = v6;
     if (v6)
     {
-      [v6 transform];
+      objc_msgSend_transform(v6);
       [v4 setTransform:&v9];
     }
 

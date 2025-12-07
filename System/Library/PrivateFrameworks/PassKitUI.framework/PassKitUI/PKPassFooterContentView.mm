@@ -320,8 +320,8 @@ void __60__PKPassFooterContentView_initWithPass_presentationContext___block_invo
     {
 
 LABEL_11:
-      v15 = PKUIStoreDemoGatewayViewController();
-      [pkui_viewControllerFromResponderChain presentViewController:v15 animated:1 completion:0];
+      v18 = PKUIStoreDemoGatewayViewController(v15, v16, v17);
+      [pkui_viewControllerFromResponderChain presentViewController:v18 animated:1 completion:0];
 
       goto LABEL_26;
     }
@@ -353,47 +353,47 @@ LABEL_11:
 
   if (self->_style == 2)
   {
-    v16 = [[PKBarcodePassDetailViewController alloc] initWithPass:self->_pass];
-    [(PKBarcodePassDetailViewController *)v16 setShowCloseButton:1];
+    v19 = [[PKBarcodePassDetailViewController alloc] initWithPass:self->_pass];
+    [(PKBarcodePassDetailViewController *)v19 setShowCloseButton:1];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
     if (WeakRetained && (objc_opt_respondsToSelector() & 1) != 0)
     {
-      v18 = [WeakRetained suppressedContentForContentView:self];
+      v21 = [WeakRetained suppressedContentForContentView:self];
     }
 
     else
     {
-      v22 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v25 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1BD026000, v22, OS_LOG_TYPE_DEFAULT, "Assuming all sensitive content is suppressed.", buf, 2u);
+        _os_log_impl(&dword_1BD026000, v25, OS_LOG_TYPE_DEFAULT, "Assuming all sensitive content is suppressed.", buf, 2u);
       }
 
-      v18 = 275;
+      v21 = 275;
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __46__PKPassFooterContentView__infoButtonPressed___block_invoke;
     aBlock[3] = &unk_1E8022AD8;
-    v23 = pkui_viewControllerFromResponderChain;
-    v36 = v23;
-    v24 = _Block_copy(aBlock);
-    [(PKBarcodePassDetailViewController *)v16 setSuppressedContent:v18];
-    v25 = v24[2](v24);
-    [(PKBarcodePassDetailViewController *)v16 setDeleteOverrider:v25];
+    v26 = pkui_viewControllerFromResponderChain;
+    v39 = v26;
+    v27 = _Block_copy(aBlock);
+    [(PKBarcodePassDetailViewController *)v19 setSuppressedContent:v21];
+    v28 = v27[2](v27);
+    [(PKBarcodePassDetailViewController *)v19 setDeleteOverrider:v28];
 
-    v26 = [[PKNavigationController alloc] initWithRootViewController:v16];
-    [v23 presentViewController:v26 animated:1 completion:0];
+    v29 = [[PKNavigationController alloc] initWithRootViewController:v19];
+    [v26 presentViewController:v29 animated:1 completion:0];
   }
 
   else
   {
-    v19 = objc_alloc_init(MEMORY[0x1E69B8A60]);
+    v22 = objc_alloc_init(MEMORY[0x1E69B8A60]);
     defaultDataProvider = [MEMORY[0x1E69B8BD8] defaultDataProvider];
     objc_opt_class();
-    v34 = associatedPassUniqueID;
+    v37 = associatedPassUniqueID;
     if (objc_opt_isKindOfClass())
     {
       groupsController = [pkui_viewControllerFromResponderChain groupsController];
@@ -404,24 +404,24 @@ LABEL_11:
       groupsController = 0;
     }
 
-    v27 = [PKPaymentPassDetailViewController alloc];
+    v30 = [PKPaymentPassDetailViewController alloc];
     paymentPass = [(PKPassFooterContentView *)self paymentPass];
     mEMORY[0x1E69B8EF8] = [MEMORY[0x1E69B8EF8] sharedService];
     mEMORY[0x1E69B9020]2 = [MEMORY[0x1E69B9020] sharedService];
-    v31 = [(PKPaymentPassDetailViewController *)v27 initWithPass:paymentPass group:0 groupsController:groupsController webService:mEMORY[0x1E69B8EF8] peerPaymentWebService:mEMORY[0x1E69B9020]2 style:0 passLibraryDataProvider:v19 paymentServiceDataProvider:defaultDataProvider];
+    v34 = [(PKPaymentPassDetailViewController *)v30 initWithPass:paymentPass group:0 groupsController:groupsController webService:mEMORY[0x1E69B8EF8] peerPaymentWebService:mEMORY[0x1E69B9020]2 style:0 passLibraryDataProvider:v22 paymentServiceDataProvider:defaultDataProvider];
 
-    [(PKPaymentPassDetailViewController *)v31 setShowDoneButton:1];
+    [(PKPaymentPassDetailViewController *)v34 setShowDoneButton:1];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       groupStackView = [pkui_viewControllerFromResponderChain groupStackView];
-      [(PKPaymentPassDetailViewController *)v31 setDeleteOverrider:groupStackView];
+      [(PKPaymentPassDetailViewController *)v34 setDeleteOverrider:groupStackView];
     }
 
-    v33 = [[PKNavigationController alloc] initWithRootViewController:v31];
-    [pkui_viewControllerFromResponderChain presentViewController:v33 animated:1 completion:0];
+    v36 = [[PKNavigationController alloc] initWithRootViewController:v34];
+    [pkui_viewControllerFromResponderChain presentViewController:v36 animated:1 completion:0];
 
-    associatedPassUniqueID = v34;
+    associatedPassUniqueID = v37;
   }
 
 LABEL_26:

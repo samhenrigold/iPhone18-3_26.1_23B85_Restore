@@ -26,46 +26,13 @@
   neededCopy = needed;
   activityCopy = activity;
   errorCopy = error;
-  if (!neededCopy || [neededCopy activityType] != 1 && objc_msgSend(neededCopy, "activityType") != 2)
+  if (!neededCopy || [neededCopy activityType] != 1 && objc_msgSend(neededCopy, "activityType") != 2 || activityCopy && (v11 = objc_msgSend(activityCopy, "activityType"), v11 == objc_msgSend(neededCopy, "activityType")) && (objc_msgSend(neededCopy, "finished"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(activityCopy, "finished"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "timeIntervalSinceDate:", v13), v15 = v14, v13, v12, v15 <= *&signalDonationInterval) && (objc_msgSend(activityCopy, "error"), v16 = objc_claimAutoreleasedReturnValue(), v16, objc_msgSend(neededCopy, "error"), v17 = objc_claimAutoreleasedReturnValue(), v18 = v17 != 0, v17, (v16 != 0) == v18))
   {
-    goto LABEL_9;
-  }
-
-  if (!activityCopy)
-  {
-    goto LABEL_8;
-  }
-
-  activityType = [activityCopy activityType];
-  if (activityType != [neededCopy activityType])
-  {
-    goto LABEL_8;
-  }
-
-  finished = [neededCopy finished];
-  finished2 = [activityCopy finished];
-  [finished timeIntervalSinceDate:finished2];
-  v15 = v14;
-
-  if (v15 > *&signalDonationInterval)
-  {
-    goto LABEL_8;
-  }
-
-  error = [activityCopy error];
-
-  error2 = [neededCopy error];
-  v18 = error2 != 0;
-
-  if ((error != 0) == v18)
-  {
-LABEL_9:
     v19 = 0;
   }
 
   else
   {
-LABEL_8:
     [(EDActivityPersistence *)self donateSignalForActivity:neededCopy error:errorCopy];
     v19 = 1;
   }
@@ -127,17 +94,15 @@ void __62__EDActivityPersistence_Biome__donateSignalForActivity_error___block_in
 
 - (id)convertToUserInfo:(id)info
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v4 = MEMORY[0x1E696ACB0];
-  v11 = @"mailboxID";
+  v10 = @"mailboxID";
   stringHash = [infoCopy stringHash];
   stringValue = [stringHash stringValue];
-  v12[0] = stringValue;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v11[0] = stringValue;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v4 dataWithJSONObject:v7 options:0 error:0];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -166,28 +131,28 @@ void __62__EDActivityPersistence_Biome__donateSignalForActivity_error___block_in
 
 - (id)startActivityOfType:(int64_t)type userInfo:(id)info
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   os_unfair_lock_lock(&self->_lock);
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   allValues = [(NSMutableDictionary *)self->_currentActivities allValues];
-  v8 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v8 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
-    v9 = *v23;
+    v9 = *v22;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         if ([v11 isEqualToActivityWithType:type userInfo:infoCopy])
         {
           v12 = v11;
@@ -199,7 +164,7 @@ void __62__EDActivityPersistence_Biome__donateSignalForActivity_error___block_in
         }
       }
 
-      v8 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v8)
       {
         continue;
@@ -226,8 +191,6 @@ LABEL_11:
   }
 
   [(EDActivityHookResponder *)self->_activityHookResponder startedActivity:v15];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

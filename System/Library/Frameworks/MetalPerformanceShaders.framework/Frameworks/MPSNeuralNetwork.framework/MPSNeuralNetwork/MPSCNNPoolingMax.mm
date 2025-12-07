@@ -71,7 +71,7 @@
   v103 = __PAIR64__(kernelHeight_low, kernelWidth_low);
   v13 = vand_s8(__PAIR64__(kernelHeight_low, kernelWidth_low), 0xFFFF0000FFFFLL);
   objc_msgSend_offset(self, a2, image, states, destinationImage, v5, v6, v7);
-  v14.i16[0] = v111;
+  v14.i16[0] = v111[0];
   v102 = v14;
   objc_msgSend_offset(self, v15, v16, v17, v18, v19, v20, v21);
   v22 = v102;
@@ -135,7 +135,7 @@
   v103 = __PAIR64__(kernelHeight_low, kernelWidth_low);
   v13 = vand_s8(__PAIR64__(kernelHeight_low, kernelWidth_low), 0xFFFF0000FFFFLL);
   objc_msgSend_offset(self, a2, buffer, image, states, destinationImage, v6, v7);
-  v14.i16[0] = v112;
+  v14.i16[0] = v112[0];
   v102 = v14;
   objc_msgSend_offset(self, v15, v16, v17, v18, v19, v20, v21);
   v22 = v102;

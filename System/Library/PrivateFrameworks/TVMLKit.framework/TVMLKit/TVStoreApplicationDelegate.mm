@@ -249,7 +249,7 @@ LABEL_6:
     return 30;
   }
 
-  if (TVShouldConstrainToPortait() && ![(TVStoreApplicationDelegate *)self overrideOrientation])
+  if (TVShouldConstrainToPortait(v7, v8) && ![(TVStoreApplicationDelegate *)self overrideOrientation])
   {
     return 2;
   }

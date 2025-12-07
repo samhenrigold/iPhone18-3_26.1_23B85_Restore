@@ -625,7 +625,7 @@ void __35__UIPickerTableView_layoutSubviews__block_invoke(uint64_t a1)
           v15 = *(a1 + 32);
           if (v15)
           {
-            [v15 _transformForCellAtY:v11];
+            objc_msgSend__transformForCellAtY_(v15, v11);
           }
 
           else
@@ -1066,7 +1066,7 @@ LABEL_11:
 - (void)_setTextColor:(id)color
 {
   colorCopy = color;
-  if (([colorCopy isEqual:self->_textColor] & 1) == 0)
+  if ((objc_msgSend_isEqual_(colorCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_textColor, color);
   }

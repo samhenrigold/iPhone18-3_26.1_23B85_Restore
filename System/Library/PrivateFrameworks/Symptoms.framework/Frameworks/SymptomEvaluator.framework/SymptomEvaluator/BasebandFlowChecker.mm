@@ -37,7 +37,7 @@
 
 - (void)setEnabled:(BOOL)enabled
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (self->_enabled != enabled)
   {
     if (enabled)
@@ -55,11 +55,11 @@
       {
         pollingCancelToken = self->_pollingCancelToken;
         pollInterval = self->_pollInterval;
-        v10 = 134218240;
-        v11 = pollInterval;
-        v12 = 2048;
-        v13 = pollingCancelToken;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker new poll interval %.3f, new cancel token %lld", &v10, 0x16u);
+        v9 = 134218240;
+        v10 = pollInterval;
+        v11 = 2048;
+        v12 = pollingCancelToken;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker new poll interval %.3f, new cancel token %lld", &v9, 0x16u);
       }
     }
 
@@ -69,13 +69,11 @@
       self->_pollingCancelToken = 0;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flowDispositionChangeTo:(unsigned int)to flowIdentifier:(id)identifier ledger:(id)ledger snapshot:(id)snapshot
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   ledgerCopy = ledger;
   snapshotCopy = snapshot;
@@ -85,17 +83,17 @@
     v14 = flowScrutinyLogHandle;
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v25 = 138412802;
-      v26 = identifierCopy;
-      v27 = 1024;
+      v24 = 138412802;
+      v25 = identifierCopy;
+      v26 = 1024;
       toCopy = to;
-      v29 = 1024;
+      v28 = 1024;
       toCopy6 = to;
       v15 = "BasebandFlowChecker flowClassificationChange no change on %@  %d -> %d";
 LABEL_4:
       v16 = v14;
 LABEL_5:
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, v15, &v25, 0x18u);
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, v15, &v24, 0x18u);
     }
   }
 
@@ -110,11 +108,11 @@ LABEL_5:
         goto LABEL_32;
       }
 
-      v25 = 138412802;
-      v26 = identifierCopy;
-      v27 = 1024;
+      v24 = 138412802;
+      v25 = identifierCopy;
+      v26 = 1024;
       toCopy = v17;
-      v29 = 1024;
+      v28 = 1024;
       toCopy6 = to;
       v15 = "BasebandFlowChecker non-cell flowClassificationChange %@  %d -> %d, new is reportable";
       goto LABEL_4;
@@ -131,11 +129,11 @@ LABEL_5:
           goto LABEL_32;
         }
 
-        v25 = 138412802;
-        v26 = identifierCopy;
-        v27 = 1024;
+        v24 = 138412802;
+        v25 = identifierCopy;
+        v26 = 1024;
         toCopy = v17;
-        v29 = 1024;
+        v28 = 1024;
         toCopy6 = to;
         v15 = "BasebandFlowChecker flowClassificationChange %@  %d -> %d, nothing reportable";
         v16 = v21;
@@ -144,13 +142,13 @@ LABEL_5:
 
       if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412802;
-        v26 = identifierCopy;
-        v27 = 1024;
+        v24 = 138412802;
+        v25 = identifierCopy;
+        v26 = 1024;
         toCopy = v17;
-        v29 = 1024;
+        v28 = 1024;
         toCopy6 = to;
-        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker flow stop for %@  %d -> %d", &v25, 0x18u);
+        _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker flow stop for %@  %d -> %d", &v24, 0x18u);
       }
 
       [(BasebandFlowInformer *)self->_informer flowStop:identifierCopy];
@@ -163,9 +161,9 @@ LABEL_5:
         v19 = flowScrutinyLogHandle;
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 138412290;
-          v26 = identifierCopy;
-          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker flow stop prior to change %@", &v25, 0xCu);
+          v24 = 138412290;
+          v25 = identifierCopy;
+          _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker flow stop prior to change %@", &v24, 0xCu);
         }
 
         [(BasebandFlowInformer *)self->_informer flowStop:identifierCopy];
@@ -193,15 +191,15 @@ LABEL_5:
         v23 = flowScrutinyLogHandle;
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = 138413058;
-          v26 = identifierCopy;
-          v27 = 1024;
+          v24 = 138413058;
+          v25 = identifierCopy;
+          v26 = 1024;
           toCopy = v17;
-          v29 = 1024;
+          v28 = 1024;
           toCopy6 = to;
-          v31 = 2112;
-          v32 = snapshotCopy;
-          _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker flow start for %@ %d -> %d %@", &v25, 0x22u);
+          v30 = 2112;
+          v31 = snapshotCopy;
+          _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker flow start for %@ %d -> %d %@", &v24, 0x22u);
         }
 
         [(BasebandFlowInformer *)self->_informer flowStart:identifierCopy digest:v20];
@@ -212,17 +210,15 @@ LABEL_5:
         v22 = flowScrutinyLogHandle;
         if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
         {
-          v25 = 138412290;
-          v26 = snapshotCopy;
-          _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "BasebandFlowChecker can't create digest from snapshot: %@", &v25, 0xCu);
+          v24 = 138412290;
+          v25 = snapshotCopy;
+          _os_log_impl(&dword_23255B000, v22, OS_LOG_TYPE_ERROR, "BasebandFlowChecker can't create digest from snapshot: %@", &v24, 0xCu);
         }
       }
     }
   }
 
 LABEL_32:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)willPollFlows
@@ -275,7 +271,7 @@ LABEL_32:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   changeCopy = change;
   v10 = [pathCopy isEqualToString:@"enabled"];
@@ -285,7 +281,7 @@ LABEL_32:
     if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = changeCopy;
+      v23 = changeCopy;
       _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker: keyPath: enabled, change: %@", buf, 0xCu);
     }
 
@@ -298,17 +294,17 @@ LABEL_32:
       v16 = queue;
       if (bOOLValue)
       {
-        v17 = v22;
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
+        v17 = v21;
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
         v18 = __70__BasebandFlowChecker_observeValueForKeyPath_ofObject_change_context___block_invoke;
       }
 
       else
       {
-        v17 = v21;
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
+        v17 = v20;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
         v18 = __70__BasebandFlowChecker_observeValueForKeyPath_ofObject_change_context___block_invoke_2;
       }
 
@@ -324,7 +320,7 @@ LABEL_32:
       if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = v12;
+        v23 = v12;
         _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_ERROR, "BasebandFlowChecker: keypath for enabled had bad format for new, %@", buf, 0xCu);
       }
     }
@@ -333,18 +329,16 @@ LABEL_32:
   else if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v24 = pathCopy;
-    v25 = 2112;
-    v26 = changeCopy;
+    v23 = pathCopy;
+    v24 = 2112;
+    v25 = changeCopy;
     _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_ERROR, "BasebandFlowChecker: unrecognized keyPath: %@, change: %@", buf, 0x16u);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)activate
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = +[BasebandFlowInformer sharedInstance];
   informer = self->_informer;
   self->_informer = v3;
@@ -355,12 +349,10 @@ LABEL_32:
   if (os_log_type_enabled(flowScrutinyLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     v6 = self->_informer;
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker: informer is %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "BasebandFlowChecker: informer is %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance

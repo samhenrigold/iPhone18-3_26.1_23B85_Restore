@@ -40,17 +40,17 @@
 {
   Current = CFAbsoluteTimeGetCurrent();
   lastIdleCheck = self->_lastIdleCheck;
-  [(CLSilo *)self currentLatchedAbsoluteTimestamp];
-  if (lastIdleCheck <= v5)
+  objc_msgSend_currentLatchedAbsoluteTimestamp(self, v5, v6);
+  if (lastIdleCheck <= v9)
   {
     result = 0;
   }
 
   else
   {
-    v6 = self->_lastIdleCheck;
-    [(CLSilo *)self currentLatchedAbsoluteTimestamp];
-    result = v6 - v7 > 900.0;
+    v10 = self->_lastIdleCheck;
+    objc_msgSend_currentLatchedAbsoluteTimestamp(self, v7, v8);
+    result = v10 - v11 > 900.0;
   }
 
   self->_lastIdleCheck = Current;
@@ -59,69 +59,69 @@
 
 + (void)setGlobalConfiguration:(id)configuration
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v128 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v4 = [configurationCopy objectForKeyedSubscript:@"AutoCohortEdgesDirectoryPath"];
-  if ([v4 length])
+  v5 = objc_msgSend_objectForKeyedSubscript_(configurationCopy, v4, @"AutoCohortEdgesDirectoryPath");
+  if (objc_msgSend_length(v5, v6, v7))
   {
-    [CLAutoCohortUtilities enableAutoCohortingForProcessAtPath:v4];
+    objc_msgSend_enableAutoCohortingForProcessAtPath_(CLAutoCohortUtilities, v8, v5);
   }
 
-  v5 = objc_opt_new();
-  v49 = v4;
-  v51 = configurationCopy;
-  if (+[CLAutoCohortUtilities autoCohortingEnabled])
+  v9 = objc_opt_new();
+  v92 = v5;
+  v94 = configurationCopy;
+  if (objc_msgSend_autoCohortingEnabled(CLAutoCohortUtilities, v10, v11))
   {
     if (qword_1ED5FAD40 != -1)
     {
       dispatch_once(&qword_1ED5FAD40, &unk_1F5AC63A0);
     }
 
-    v6 = qword_1ED5FAD48;
+    v13 = qword_1ED5FAD48;
     if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289026;
-      v77 = 0;
-      v78 = 2082;
-      v79 = &unk_1DF8255EF;
-      _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting Using syng-get graph file if available}", buf, 0x12u);
+      v120 = 0;
+      v121 = 2082;
+      v122 = &unk_1DF8255EF;
+      _os_log_impl(&dword_1DF7FE000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting Using syng-get graph file if available}", buf, 0x12u);
     }
 
-    v7 = [configurationCopy objectForKeyedSubscript:{@"SyncgetGraphFile", v49}];
-    if (v7)
+    v16 = objc_msgSend_objectForKeyedSubscript_(configurationCopy, v14, @"SyncgetGraphFile", v92);
+    if (v16)
     {
-      v8 = [MEMORY[0x1E695DF48] inputStreamWithFileAtPath:v7];
-      v9 = v8;
-      if (v8)
+      v17 = objc_msgSend_inputStreamWithFileAtPath_(MEMORY[0x1E695DF48], v15, v16);
+      v20 = v17;
+      if (v17)
       {
-        [v8 open];
-        v60 = 0;
-        v10 = [MEMORY[0x1E696AE40] propertyListWithStream:v9 options:0 format:0 error:&v60];
-        v11 = v60;
-        [v9 close];
-        if (v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+        objc_msgSend_open(v17, v18, v19);
+        v103 = 0;
+        v22 = objc_msgSend_propertyListWithStream_options_format_error_(MEMORY[0x1E696AE40], v21, v20, 0, 0, &v103);
+        v23 = v103;
+        objc_msgSend_close(v20, v24, v25);
+        if (v23 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
-          v12 = 0;
+          v27 = 0;
         }
 
         else
         {
-          v12 = [MEMORY[0x1E695DF90] dictionaryWithDictionary:v10];
+          v27 = objc_msgSend_dictionaryWithDictionary_(MEMORY[0x1E695DF90], v26, v22);
           if (qword_1ED5FAD40 != -1)
           {
             dispatch_once(&qword_1ED5FAD40, &unk_1F5AC63A0);
           }
 
-          v13 = qword_1ED5FAD48;
+          v28 = qword_1ED5FAD48;
           if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68289282;
-            v77 = 0;
-            v78 = 2082;
-            v79 = &unk_1DF8255EF;
-            v80 = 2114;
-            v81 = v7;
-            _os_log_impl(&dword_1DF7FE000, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting Successfully read sync-get graph file, filePath:%{public, location:escape_only}@}", buf, 0x1Cu);
+            v120 = 0;
+            v121 = 2082;
+            v122 = &unk_1DF8255EF;
+            v123 = 2114;
+            v124 = v16;
+            _os_log_impl(&dword_1DF7FE000, v28, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting Successfully read sync-get graph file, filePath:%{public, location:escape_only}@}", buf, 0x1Cu);
           }
         }
       }
@@ -133,22 +133,22 @@
           dispatch_once(&qword_1ED5FAD40, &unk_1F5AC63A0);
         }
 
-        v36 = qword_1ED5FAD48;
+        v72 = qword_1ED5FAD48;
         if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68289282;
-          v77 = 0;
-          v78 = 2082;
-          v79 = &unk_1DF8255EF;
-          v80 = 2114;
-          v81 = v7;
-          _os_log_impl(&dword_1DF7FE000, v36, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting No sync-get graph file available to read, filePath:%{public, location:escape_only}@}", buf, 0x1Cu);
+          v120 = 0;
+          v121 = 2082;
+          v122 = &unk_1DF8255EF;
+          v123 = 2114;
+          v124 = v16;
+          _os_log_impl(&dword_1DF7FE000, v72, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting No sync-get graph file available to read, filePath:%{public, location:escape_only}@}", buf, 0x1Cu);
         }
 
-        v12 = 0;
+        v27 = 0;
       }
 
-      v34 = v50;
+      v70 = v93;
     }
 
     else
@@ -158,183 +158,185 @@
         dispatch_once(&qword_1ED5FAD40, &unk_1F5AC63A0);
       }
 
-      v35 = qword_1ED5FAD48;
+      v71 = qword_1ED5FAD48;
       if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68289026;
-        v77 = 0;
-        v78 = 2082;
-        v79 = &unk_1DF8255EF;
-        _os_log_impl(&dword_1DF7FE000, v35, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting No sync-get graph filePath supplied}", buf, 0x12u);
+        v120 = 0;
+        v121 = 2082;
+        v122 = &unk_1DF8255EF;
+        _os_log_impl(&dword_1DF7FE000, v71, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#Cohorting No sync-get graph filePath supplied}", buf, 0x12u);
       }
 
-      v12 = 0;
-      v34 = v50;
+      v27 = 0;
+      v70 = v93;
     }
 
-    v37 = [CLAutoCohortUtilities computeAutoCohortMapWithStarterGraph:v12];
+    v74 = objc_msgSend_computeAutoCohortMapWithStarterGraph_(CLAutoCohortUtilities, v73, v27);
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v5 = v37;
-    v38 = [v5 countByEnumeratingWithState:&v56 objects:v75 count:16];
-    if (v38)
+    v101 = 0u;
+    v102 = 0u;
+    v99 = 0u;
+    v100 = 0u;
+    v9 = v74;
+    v76 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v75, &v99, v118, 16);
+    if (v76)
     {
-      v39 = v38;
-      LODWORD(v40) = 0;
-      v41 = *v57;
+      v78 = v76;
+      LODWORD(v79) = 0;
+      v80 = *v100;
       do
       {
-        for (i = 0; i != v39; ++i)
+        for (i = 0; i != v78; ++i)
         {
-          if (*v57 != v41)
+          if (*v100 != v80)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v9);
           }
 
-          v43 = [v5 objectForKeyedSubscript:*(*(&v56 + 1) + 8 * i)];
-          intValue = [v43 intValue];
+          v82 = objc_msgSend_objectForKeyedSubscript_(v9, v77, *(*(&v99 + 1) + 8 * i));
+          v85 = objc_msgSend_intValue(v82, v83, v84);
 
-          if (v40 <= intValue)
+          if (v79 <= v85)
           {
-            v40 = intValue;
+            v79 = v85;
           }
 
           else
           {
-            v40 = v40;
+            v79 = v79;
           }
         }
 
-        v39 = [v5 countByEnumeratingWithState:&v56 objects:v75 count:16];
+        v78 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v77, &v99, v118, 16);
       }
 
-      while (v39);
+      while (v78);
     }
 
     else
     {
-      v40 = 0;
+      v79 = 0;
     }
 
-    v45 = [MEMORY[0x1E696AD98] numberWithInt:v40];
-    [v5 setObject:v45 forKeyedSubscript:@"default"];
+    v87 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v86, v79);
+    objc_msgSend_setObject_forKeyedSubscript_(v9, v88, v87, @"default");
 
-    v26 = v51;
+    v53 = v94;
   }
 
   else
   {
-    [configurationCopy objectForKeyedSubscript:@"CohortToNameMap"];
-    v69 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    obj = v72 = 0u;
-    v53 = [obj countByEnumeratingWithState:&v69 objects:v84 count:16];
-    if (v53)
+    objc_msgSend_objectForKeyedSubscript_(configurationCopy, v12, @"CohortToNameMap");
+    v112 = 0u;
+    v113 = 0u;
+    v114 = 0u;
+    obj = v115 = 0u;
+    v96 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v29, &v112, v127, 16);
+    if (v96)
     {
-      v52 = *v70;
+      v95 = *v113;
       do
       {
-        for (j = 0; j != v53; ++j)
+        for (j = 0; j != v96; ++j)
         {
-          if (*v70 != v52)
+          if (*v113 != v95)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v69 + 1) + 8 * j);
-          v16 = [obj objectForKeyedSubscript:{v15, v49}];
-          whitespaceAndNewlineCharacterSet = [MEMORY[0x1E696AB08] whitespaceAndNewlineCharacterSet];
-          v55 = v16;
-          v18 = [v16 componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
+          v32 = *(*(&v112 + 1) + 8 * j);
+          v33 = objc_msgSend_objectForKeyedSubscript_(obj, v30, v32, v92);
+          v36 = objc_msgSend_whitespaceAndNewlineCharacterSet(MEMORY[0x1E696AB08], v34, v35);
+          v98 = v33;
+          v38 = objc_msgSend_componentsSeparatedByCharactersInSet_(v33, v37, v36);
 
-          v67 = 0u;
-          v68 = 0u;
-          v65 = 0u;
-          v66 = 0u;
-          v19 = v18;
-          v20 = [v19 countByEnumeratingWithState:&v65 objects:v83 count:16];
-          if (v20)
+          v110 = 0u;
+          v111 = 0u;
+          v108 = 0u;
+          v109 = 0u;
+          v39 = v38;
+          v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v40, &v108, v126, 16);
+          if (v41)
           {
-            v21 = v20;
-            v22 = *v66;
+            v44 = v41;
+            v45 = *v109;
             do
             {
-              for (k = 0; k != v21; ++k)
+              for (k = 0; k != v44; ++k)
               {
-                if (*v66 != v22)
+                if (*v109 != v45)
                 {
-                  objc_enumerationMutation(v19);
+                  objc_enumerationMutation(v39);
                 }
 
-                v24 = *(*(&v65 + 1) + 8 * k);
-                v25 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v15, "intValue")}];
-                [v5 setObject:v25 forKeyedSubscript:v24];
+                v47 = *(*(&v108 + 1) + 8 * k);
+                v48 = MEMORY[0x1E696AD98];
+                v49 = objc_msgSend_intValue(v32, v42, v43);
+                v51 = objc_msgSend_numberWithInt_(v48, v50, v49);
+                objc_msgSend_setObject_forKeyedSubscript_(v9, v52, v51, v47);
               }
 
-              v21 = [v19 countByEnumeratingWithState:&v65 objects:v83 count:16];
+              v44 = objc_msgSend_countByEnumeratingWithState_objects_count_(v39, v42, &v108, v126, 16);
             }
 
-            while (v21);
+            while (v44);
           }
         }
 
-        v53 = [obj countByEnumeratingWithState:&v69 objects:v84 count:16];
+        v96 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v30, &v112, v127, 16);
       }
 
-      while (v53);
+      while (v96);
     }
 
-    v26 = v51;
-    v12 = [v51 objectForKeyedSubscript:@"NameToCohortMap"];
-    v61 = 0u;
-    v62 = 0u;
-    v63 = 0u;
-    v64 = 0u;
-    v27 = [v12 countByEnumeratingWithState:&v61 objects:v82 count:16];
-    if (v27)
+    v53 = v94;
+    v27 = objc_msgSend_objectForKeyedSubscript_(v94, v54, @"NameToCohortMap");
+    v104 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    v107 = 0u;
+    v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v55, &v104, v125, 16);
+    if (v56)
     {
-      v28 = v27;
-      v29 = *v62;
+      v58 = v56;
+      v59 = *v105;
       do
       {
-        for (m = 0; m != v28; ++m)
+        for (m = 0; m != v58; ++m)
         {
-          if (*v62 != v29)
+          if (*v105 != v59)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v27);
           }
 
-          v31 = *(*(&v61 + 1) + 8 * m);
-          v32 = [v12 objectForKeyedSubscript:{v31, v49}];
-          v33 = [MEMORY[0x1E696AD98] numberWithInt:{objc_msgSend(v32, "intValue")}];
-          [v5 setObject:v33 forKeyedSubscript:v31];
+          v61 = *(*(&v104 + 1) + 8 * m);
+          v62 = objc_msgSend_objectForKeyedSubscript_(v27, v57, v61, v92);
+          v63 = MEMORY[0x1E696AD98];
+          v66 = objc_msgSend_intValue(v62, v64, v65);
+          v68 = objc_msgSend_numberWithInt_(v63, v67, v66);
+          objc_msgSend_setObject_forKeyedSubscript_(v9, v69, v68, v61);
         }
 
-        v28 = [v12 countByEnumeratingWithState:&v61 objects:v82 count:16];
+        v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v57, &v104, v125, 16);
       }
 
-      while (v28);
-      v34 = v49;
-      v26 = v51;
+      while (v58);
+      v70 = v92;
+      v53 = v94;
     }
 
     else
     {
-      v34 = v49;
+      v70 = v92;
     }
   }
 
-  v73 = @"NameToCohortMap";
-  v74 = v5;
-  v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-  v47 = qword_1ECE5D8F8;
-  qword_1ECE5D8F8 = v46;
-
-  v48 = *MEMORY[0x1E69E9840];
+  v116 = @"NameToCohortMap";
+  v117 = v9;
+  v90 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v89, &v117, &v116, 1);
+  v91 = qword_1ECE5D8F8;
+  qword_1ECE5D8F8 = v90;
 }
 
 - (CLSilo)initWithIdentifier:(id)identifier
@@ -415,7 +417,7 @@
       _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 187, "[CLSilo assertInside]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -481,7 +483,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 192, "[CLSilo assertOutside]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -547,7 +549,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 197, "[CLSilo suspend]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -613,7 +615,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 202, "[CLSilo resume]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -679,7 +681,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 207, "[CLSilo isSuspended]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -745,7 +747,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 212, "[CLSilo currentLatchedAbsoluteTimestamp]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -753,7 +755,7 @@ LABEL_11:
 
 - (void)prepareAndRunBlock:(id)block
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (self->_isIdle)
   {
@@ -766,12 +768,12 @@ LABEL_11:
     if (os_log_type_enabled(qword_1ED5FAD48, OS_LOG_TYPE_DEFAULT))
     {
       identifier = self->_identifier;
-      v8 = 138412290;
-      v9 = identifier;
-      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_DEFAULT, "#Idleness: Silo is being resumed: %@", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = identifier;
+      _os_log_impl(&dword_1DF7FE000, v5, OS_LOG_TYPE_DEFAULT, "#Idleness: Silo is being resumed: %@", &v9, 0xCu);
     }
 
-    [(CLSilo *)self runResumeHandlers];
+    objc_msgSend_runResumeHandlers(self, v6, v7);
     self->_isIdle = 0;
   }
 
@@ -780,8 +782,6 @@ LABEL_11:
   {
     blockCopy[2](blockCopy);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)newTimer
@@ -844,7 +844,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 230, "[CLSilo newTimer]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -911,7 +911,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 236, "[CLSilo async:]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -978,7 +978,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 241, "[CLSilo sync:]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -1044,7 +1044,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 246, "[CLSilo intendToSync]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -1111,7 +1111,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 251, "[CLSilo afterInterval:async:]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -1178,7 +1178,7 @@ LABEL_11:
       _os_log_impl(&dword_1DF7FE000, v6, OS_LOG_TYPE_INFO, "{msg%{public}.0s:Assertion failed, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocationFramework/Shared/Intersilo/CLSilo.m", 256, "[CLSilo heartBeat:]");
 LABEL_11:
     dispatch_once(&qword_1ECE5D3E8, &unk_1F5AC63C0);
   }
@@ -1188,109 +1188,106 @@ LABEL_11:
 {
   resumeCopy = resume;
   notificationsCopy = notifications;
-  v8 = [[CLSiloIdleHandler alloc] initWithIdleHandler:notificationsCopy onResume:resumeCopy];
+  v8 = [CLSiloIdleHandler alloc];
+  v10 = objc_msgSend_initWithIdleHandler_onResume_(v8, v9, notificationsCopy, resumeCopy);
 
   os_unfair_lock_lock(&self->_idleHandlersLock);
-  [(NSMutableSet *)self->_idleHandlers addObject:v8];
+  objc_msgSend_addObject_(self->_idleHandlers, v11, v10);
   os_unfair_lock_unlock(&self->_idleHandlersLock);
 
-  return v8;
+  return v10;
 }
 
 - (void)unregisterForIdleNotifications:(id)notifications
 {
   notificationsCopy = notifications;
-  [notificationsCopy invalidate];
+  objc_msgSend_invalidate(notificationsCopy, v5, v6);
   os_unfair_lock_lock(&self->_idleHandlersLock);
-  [(NSMutableSet *)self->_idleHandlers removeObject:notificationsCopy];
+  objc_msgSend_removeObject_(self->_idleHandlers, v7, notificationsCopy);
 
   os_unfair_lock_unlock(&self->_idleHandlersLock);
 }
 
 - (void)runIdleHandlers
 {
-  v16 = *MEMORY[0x1E69E9840];
-  [(CLSilo *)self assertInside];
+  v21 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self, a2, v2);
   os_unfair_lock_lock(&self->_idleHandlersLock);
-  v3 = [(NSMutableSet *)self->_idleHandlers copy];
+  v6 = objc_msgSend_copy(self->_idleHandlers, v4, v5);
   os_unfair_lock_unlock(&self->_idleHandlersLock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v5)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = v6;
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v16, v20, 16);
+  if (v9)
   {
-    v6 = v5;
-    v7 = *v12;
+    v12 = v9;
+    v13 = *v17;
     do
     {
-      v8 = 0;
+      v14 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v7);
         }
 
-        onIdle = [*(*(&v11 + 1) + 8 * v8) onIdle];
-        onIdle[2]();
+        v15 = objc_msgSend_onIdle(*(*(&v16 + 1) + 8 * v14), v10, v11, v16);
+        v15[2]();
 
-        ++v8;
+        ++v14;
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v12 != v14);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v16, v20, 16);
     }
 
-    while (v6);
+    while (v12);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runResumeHandlers
 {
-  v16 = *MEMORY[0x1E69E9840];
-  [(CLSilo *)self assertInside];
+  v21 = *MEMORY[0x1E69E9840];
+  objc_msgSend_assertInside(self, a2, v2);
   os_unfair_lock_lock(&self->_idleHandlersLock);
-  v3 = [(NSMutableSet *)self->_idleHandlers copy];
+  v6 = objc_msgSend_copy(self->_idleHandlers, v4, v5);
   os_unfair_lock_unlock(&self->_idleHandlersLock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
-  if (v5)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = v6;
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v16, v20, 16);
+  if (v9)
   {
-    v6 = v5;
-    v7 = *v12;
+    v12 = v9;
+    v13 = *v17;
     do
     {
-      v8 = 0;
+      v14 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v17 != v13)
         {
-          objc_enumerationMutation(v4);
+          objc_enumerationMutation(v7);
         }
 
-        onResume = [*(*(&v11 + 1) + 8 * v8) onResume];
-        onResume[2]();
+        v15 = objc_msgSend_onResume(*(*(&v16 + 1) + 8 * v14), v10, v11, v16);
+        v15[2]();
 
-        ++v8;
+        ++v14;
       }
 
-      while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      while (v12 != v14);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v16, v20, 16);
     }
 
-    while (v6);
+    while (v12);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

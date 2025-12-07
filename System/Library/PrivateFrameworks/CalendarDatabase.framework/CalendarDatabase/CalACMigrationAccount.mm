@@ -13,10 +13,14 @@
 - (id)parentAccountIdentifier;
 - (void)setAccountDescription:(id)description;
 - (void)setAccountProperty:(id)property forKey:(id)key;
+- (void)setAuthenticated:(BOOL)authenticated;
 - (void)setAuthenticationTypeNone;
 - (void)setAuthenticationTypeParent;
+- (void)setEnabledForCalendarsDataClass:(BOOL)class;
 - (void)setPassword:(id)password;
+- (void)setProvisionedForCalendarsDataClass:(BOOL)class;
 - (void)setUsername:(id)username;
+- (void)setVisible:(BOOL)visible;
 @end
 
 @implementation CalACMigrationAccount
@@ -92,6 +96,13 @@
   return isVisible;
 }
 
+- (void)setVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  account = [(CalACMigrationAccount *)self account];
+  [account setVisible:visibleCopy];
+}
+
 - (BOOL)enabledForCalendarsDataClass
 {
   account = [(CalACMigrationAccount *)self account];
@@ -100,12 +111,26 @@
   return v3;
 }
 
+- (void)setEnabledForCalendarsDataClass:(BOOL)class
+{
+  classCopy = class;
+  account = [(CalACMigrationAccount *)self account];
+  [account setEnabled:classCopy forDataclass:*MEMORY[0x1E6959630]];
+}
+
 - (BOOL)provisionedForCalendarsDataClass
 {
   account = [(CalACMigrationAccount *)self account];
   v3 = [account isProvisionedForDataclass:*MEMORY[0x1E6959630]];
 
   return v3;
+}
+
+- (void)setProvisionedForCalendarsDataClass:(BOOL)class
+{
+  classCopy = class;
+  account = [(CalACMigrationAccount *)self account];
+  [account setProvisioned:classCopy forDataclass:*MEMORY[0x1E6959630]];
 }
 
 - (id)accountPropertyForKey:(id)key
@@ -137,6 +162,16 @@
   v2 = *MEMORY[0x1E6959AC0];
   account = [(CalACMigrationAccount *)self account];
   [account setAuthenticationType:v2];
+}
+
+- (void)setAuthenticated:(BOOL)authenticated
+{
+  authenticatedCopy = authenticated;
+  account = [(CalACMigrationAccount *)self account];
+  [account setAuthenticated:authenticatedCopy];
+
+  account2 = [(CalACMigrationAccount *)self account];
+  [account2 setSupportsAuthentication:1];
 }
 
 - (BOOL)authenticated

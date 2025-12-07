@@ -27,6 +27,7 @@
 - (void)continueVideoForCurrentTip;
 - (void)createViews;
 - (void)dealloc;
+- (void)dismissPresentedSearchResultsViewController:(BOOL)controller;
 - (void)ensureCurrentTipPositionWithViewSize:(CGSize)size;
 - (void)initCellAppearanceWithTrait:(id)trait size:(CGSize)size;
 - (void)logAppIntent:(id)intent actionDirection:(id)direction;
@@ -35,6 +36,7 @@
 - (void)pageControlPageChanged:(id)changed;
 - (void)playVideoIfNeeded;
 - (void)prefetchMediaPrefetchDelay;
+- (void)presentSearchResultsViewController:(BOOL)controller;
 - (void)presentationControllerDidDismiss:(id)dismiss;
 - (void)reconfigureAllCollectionViewItems;
 - (void)registerTraitChanges;
@@ -76,8 +78,12 @@
 - (void)updateSearchResultsForSearchController:(id)controller;
 - (void)updateSearchResultsPresentationIfNeeded;
 - (void)updateTipForCell:(id)cell startVideo:(BOOL)video;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
@@ -158,6 +164,80 @@
   [(TPSTipsViewController *)self updateContentBackgroundWithTraitCollection:traitCollection];
 
   [(TPSTipsViewController *)self registerTraitChanges];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = TPSTipsViewController;
+  [(TPSAppViewController *)&v5 viewWillAppear:appear];
+  self->_canIncreaseViewCount = 1;
+  currentTip = [(TPSTipsViewController *)self currentTip];
+
+  if (currentTip)
+  {
+    [(TPSTipsViewController *)self analyticsIncreaseCountViewForCurrentTipDelay:TPSAnalyticsViewMethodViewAppear];
+  }
+
+  [(TPSTipsViewController *)self updateNavigationTitle:self->_titleText];
+  [(TPSTipsViewController *)self updateTipForCell:0 startVideo:0];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TPSTipsViewController;
+  [(TPSAppViewController *)&v4 viewDidAppear:appear];
+  +[TPSAnalyticsSessionController incrementCollectionsViewedCount];
+  [(TPSTipsViewController *)self updateTipForCell:0 startVideo:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = TPSTipsViewController;
+  [(TPSAppViewController *)&v5 viewWillDisappear:disappear];
+  self->_canIncreaseViewCount = 0;
+  v4 = objc_opt_new();
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_delayedIncreaseCountViewForCurrentTip:" object:v4];
+
+  [(TPSTipsViewController *)self _logTimeSpentBeforeCurrentTip:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v14.receiver = self;
+  v14.super_class = TPSTipsViewController;
+  [(TPSAppViewController *)&v14 viewDidDisappear:disappear];
+  v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  visibleCells = [(UICollectionView *)self->_collectionView visibleCells];
+  v5 = [visibleCells countByEnumeratingWithState:&v10 objects:v15 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v11;
+    do
+    {
+      for (i = 0; i != v6; i = i + 1)
+      {
+        if (*v11 != v7)
+        {
+          objc_enumerationMutation(visibleCells);
+        }
+
+        v9 = *(*(&v10 + 1) + 8 * i);
+        [v9 scrubVideoToFirstFrame];
+        [v9 stopVideoPlayer];
+      }
+
+      v6 = [visibleCells countByEnumeratingWithState:&v10 objects:v15 count:16];
+    }
+
+    while (v6);
+  }
 }
 
 - (void)setDelegate:(id)delegate
@@ -543,6 +623,52 @@ LABEL_12:
   }
 }
 
+- (void)presentSearchResultsViewController:(BOOL)controller
+{
+  searchController = [(TPSTipsViewController *)self searchController];
+  if (searchController)
+  {
+    v5 = searchController;
+    isSearchViewControllerPresented = [(TPSTipsViewController *)self isSearchViewControllerPresented];
+
+    if ((isSearchViewControllerPresented & 1) == 0)
+    {
+      navigationController = [(TPSTipsViewController *)self navigationController];
+      [navigationController dismissViewControllerAnimated:0 completion:0];
+
+      searchResultsNavigationController = [(TPSTipsViewController *)self searchResultsNavigationController];
+
+      if (!searchResultsNavigationController)
+      {
+        searchResultViewModel = [(TPSTipsViewController *)self searchResultViewModel];
+        v10 = [UIViewController _makeSearchResultsViewControllerWithViewModel:searchResultViewModel];
+        [(TPSTipsViewController *)self setSearchResultsNavigationController:v10];
+
+        searchResultsNavigationController2 = [(TPSTipsViewController *)self searchResultsNavigationController];
+        [searchResultsNavigationController2 setModalPresentationStyle:7];
+      }
+
+      searchController2 = [(TPSTipsViewController *)self searchController];
+      searchBar = [searchController2 searchBar];
+
+      searchResultsNavigationController3 = [(TPSTipsViewController *)self searchResultsNavigationController];
+      popoverPresentationController = [searchResultsNavigationController3 popoverPresentationController];
+
+      [popoverPresentationController setPermittedArrowDirections:0];
+      [popoverPresentationController setPopoverLayoutMargins:{50.0, 10.0, 10.0, 10.0}];
+      [popoverPresentationController setSourceView:searchBar];
+      v19 = searchBar;
+      v16 = [NSArray arrayWithObjects:&v19 count:1];
+      [popoverPresentationController setPassthroughViews:v16];
+
+      [popoverPresentationController setDelegate:self];
+      navigationController2 = [(TPSTipsViewController *)self navigationController];
+      searchResultsNavigationController4 = [(TPSTipsViewController *)self searchResultsNavigationController];
+      [navigationController2 presentViewController:searchResultsNavigationController4 animated:1 completion:0];
+    }
+  }
+}
+
 - (BOOL)isSearchViewControllerPresented
 {
   navigationController = [(TPSTipsViewController *)self navigationController];
@@ -571,6 +697,26 @@ LABEL_12:
   }
 
   return v10 & 1;
+}
+
+- (void)dismissPresentedSearchResultsViewController:(BOOL)controller
+{
+  controllerCopy = controller;
+  if ([(TPSTipsViewController *)self isSearchViewControllerPresented])
+  {
+    objc_initWeak(&location, self);
+    navigationController = [(TPSTipsViewController *)self navigationController];
+    v6[0] = _NSConcreteStackBlock;
+    v6[1] = 3221225472;
+    v6[2] = sub_10000C514;
+    v6[3] = &unk_1000A2F48;
+    objc_copyWeak(&v7, &location);
+    v6[4] = self;
+    [navigationController dismissViewControllerAnimated:controllerCopy completion:v6];
+
+    objc_destroyWeak(&v7);
+    objc_destroyWeak(&location);
+  }
 }
 
 - (void)searchWithSearchQuery:(id)query

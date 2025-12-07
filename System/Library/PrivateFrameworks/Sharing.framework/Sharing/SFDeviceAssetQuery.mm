@@ -6,7 +6,9 @@
 - (NSString)variantIdentifier;
 - (SFDeviceAssetQuery)initWithAssetType:(id)type productType:(id)productType;
 - (SFDeviceAssetQuery)initWithBluetoothProductIdentifier:(unint64_t)identifier color:(unint64_t)color;
+- (SFDeviceAssetQuery)initWithHomePodColor:(unint64_t)color version:(unsigned int)version;
 - (SFDeviceAssetQuery)initWithProductType:(id)type additionalQueryParameters:(id)parameters;
+- (SFDeviceAssetQuery)initWithSingleHomePodColor:(unsigned __int8)color version:(unsigned int)version;
 - (SFDeviceAssetQuery)initWithTagColor:(unint64_t)color;
 - (id)description;
 - (id)loggingProductType;
@@ -37,9 +39,9 @@ uint64_t __37__SFDeviceAssetQuery_deviceWantsH264__block_invoke()
 {
   typeCopy = type;
   productTypeCopy = productType;
-  v15.receiver = self;
-  v15.super_class = SFDeviceAssetQuery;
-  v8 = [(SFDeviceAssetQuery *)&v15 init];
+  v17.receiver = self;
+  v17.super_class = SFDeviceAssetQuery;
+  v8 = [(SFDeviceAssetQuery *)&v17 init];
   v9 = v8;
   if (v8)
   {
@@ -54,11 +56,53 @@ uint64_t __37__SFDeviceAssetQuery_deviceWantsH264__block_invoke()
     productType = v9->_productType;
     v9->_productType = v12;
 
-    ASPrintF();
+    v16 = 0;
+    v15 = 0;
+    ASPrintF(&v15, "Asset-%{ptr}", v9);
     v9->_ucat = LogCategoryCreateEx();
+    if (v16)
+    {
+      v9->_ucat = LogCategoryCreateEx();
+    }
+
+    if (v15)
+    {
+      free(v15);
+    }
   }
 
   return v9;
+}
+
+- (SFDeviceAssetQuery)initWithHomePodColor:(unint64_t)color version:(unsigned int)version
+{
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"AudioAccessory%d, 1", *&version];
+  v7 = [(SFDeviceAssetQuery *)self initWithAssetType:@"com.apple.MobileAsset.SharingDeviceAssets" productType:v6];
+  if (v7)
+  {
+    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:color];
+    stringValue = [v8 stringValue];
+    color = v7->_color;
+    v7->_color = stringValue;
+  }
+
+  return v7;
+}
+
+- (SFDeviceAssetQuery)initWithSingleHomePodColor:(unsigned __int8)color version:(unsigned int)version
+{
+  colorCopy = color;
+  v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"AudioAccessorySingle%d, 1", *&version];
+  v7 = [(SFDeviceAssetQuery *)self initWithAssetType:@"com.apple.MobileAsset.SharingDeviceAssets" productType:v6];
+  if (v7)
+  {
+    v8 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:colorCopy];
+    stringValue = [v8 stringValue];
+    color = v7->_color;
+    v7->_color = stringValue;
+  }
+
+  return v7;
 }
 
 - (SFDeviceAssetQuery)initWithBluetoothProductIdentifier:(unint64_t)identifier color:(unint64_t)color
@@ -208,51 +252,56 @@ LABEL_22:
 
 - (NSString)stringIdentifier
 {
+  v20 = 0;
   loggingProductType = [(SFDeviceAssetQuery *)self loggingProductType];
-  NSAppendPrintF();
-  v3 = 0;
+  NSAppendPrintF(&v20, "productType: %@", loggingProductType);
+  v4 = v20;
 
   if ([(SFDeviceAssetQuery *)self legacyAsset])
   {
-    NSAppendPrintF();
-    v4 = v3;
+    v19 = v4;
+    NSAppendPrintF(&v19, ", legacy: YES");
+    v5 = v19;
 
-    v3 = v4;
+    v4 = v5;
   }
 
   if ([(SFDeviceAssetQuery *)self h264])
   {
-    NSAppendPrintF();
-    v5 = v3;
+    v18 = v4;
+    NSAppendPrintF(&v18, ", h264: YES");
+    v6 = v18;
 
-    v3 = v5;
+    v4 = v6;
   }
 
   color = [(SFDeviceAssetQuery *)self color];
 
   if (color)
   {
+    v17 = v4;
     color2 = [(SFDeviceAssetQuery *)self color];
-    NSAppendPrintF();
-    v7 = v3;
+    NSAppendPrintF(&v17, ", color: %@", color2);
+    v9 = v17;
 
-    v3 = v7;
+    v4 = v9;
   }
 
   additionalQueryParameters = [(SFDeviceAssetQuery *)self additionalQueryParameters];
-  v9 = [additionalQueryParameters count];
+  v11 = [additionalQueryParameters count];
 
-  if (v9)
+  if (v11)
   {
+    v16 = v4;
     additionalQueryParameters2 = [(SFDeviceAssetQuery *)self additionalQueryParameters];
-    v15 = SFCompactStringFromCollection(additionalQueryParameters2);
-    NSAppendPrintF();
-    v11 = v3;
+    v13 = SFCompactStringFromCollection(additionalQueryParameters2);
+    NSAppendPrintF(&v16, ", additionalQueryParameters: %@", v13);
+    v14 = v16;
 
-    v3 = v11;
+    v4 = v14;
   }
 
-  return v3;
+  return v4;
 }
 
 - (NSString)variantIdentifier
@@ -292,37 +341,43 @@ LABEL_22:
 
 - (id)loggingProductType
 {
+  v10 = 0;
   productType = [(SFDeviceAssetQuery *)self productType];
-  NSAppendPrintF();
-  v3 = 0;
+  NSAppendPrintF(&v10, "%@", productType);
+  v4 = v10;
 
   mappedProductType = [(SFDeviceAssetQuery *)self mappedProductType];
 
   if (mappedProductType)
   {
+    v9 = v4;
     mappedProductType2 = [(SFDeviceAssetQuery *)self mappedProductType];
-    NSAppendPrintF();
-    v5 = v3;
+    NSAppendPrintF(&v9, " (%@)", mappedProductType2);
+    v7 = v9;
 
-    v3 = v5;
+    v4 = v7;
   }
 
-  return v3;
+  return v4;
 }
 
 - (id)description
 {
-  v6 = objc_opt_class();
-  NSAppendPrintF();
-  v8 = 0;
-  v7 = [(SFDeviceAssetQuery *)self stringIdentifier:v6];
-  NSAppendPrintF();
-  v3 = v8;
+  v12 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v12, "<%@: %{ptr}", v3, self);
+  v4 = v12;
+  v11 = v4;
+  stringIdentifier = [(SFDeviceAssetQuery *)self stringIdentifier];
+  NSAppendPrintF(&v11, ", %@", stringIdentifier);
+  v6 = v11;
 
-  NSAppendPrintF();
-  v4 = v3;
+  v10 = v6;
+  NSAppendPrintF(&v10, ">");
+  v7 = v10;
+  v8 = v10;
 
-  return v3;
+  return v7;
 }
 
 - (BOOL)isEqual:(id)equal

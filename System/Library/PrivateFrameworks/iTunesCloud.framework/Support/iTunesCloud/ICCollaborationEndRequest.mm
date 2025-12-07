@@ -1,4 +1,5 @@
 @interface ICCollaborationEndRequest
+- (ICCollaborationEndRequest)initWithDatabaseID:(unsigned int)d playlistSagaID:(unint64_t)iD;
 - (id)_requestBodyWithPlaylistCloudLibraryID:(unint64_t)d;
 - (id)canonicalResponseForResponse:(id)response;
 @end
@@ -26,6 +27,23 @@
   }
 
   return v3;
+}
+
+- (ICCollaborationEndRequest)initWithDatabaseID:(unsigned int)d playlistSagaID:(unint64_t)iD
+{
+  v6 = [NSString stringWithFormat:@"databases/%u/collaboration", *&d];
+  v10.receiver = self;
+  v10.super_class = ICCollaborationEndRequest;
+  v7 = [(ICDRequest *)&v10 initWithAction:v6];
+
+  if (v7)
+  {
+    [(ICDRequest *)v7 setMethod:1];
+    v8 = [(ICCollaborationEndRequest *)v7 _requestBodyWithPlaylistCloudLibraryID:iD];
+    [(ICDRequest *)v7 setBodyData:v8];
+  }
+
+  return v7;
 }
 
 @end

@@ -112,7 +112,7 @@
   dispatch_async(queue, block);
 }
 
-uint64_t __39__EKRequestAvailabilityOperation_start__block_invoke(uint64_t a1)
+void *__39__EKRequestAvailabilityOperation_start__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCancelled];
   if ((result & 1) == 0)
@@ -192,18 +192,17 @@ void __38__EKRequestAvailabilityOperation_main__block_invoke_44(uint64_t a1)
   v3 = *(*(a1 + 32) + 296);
   if (v3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(v3 + 16);
+    v4 = *(v3 + 16);
 
-    v5();
+    v4();
   }
 
   else
   {
-    v6 = EKAvailabilityHandle;
+    v5 = EKAvailabilityHandle;
     if (os_log_type_enabled(EKAvailabilityHandle, OS_LOG_TYPE_DEBUG))
     {
-      __38__EKRequestAvailabilityOperation_main__block_invoke_44_cold_1(a1, v2, v6);
+      __38__EKRequestAvailabilityOperation_main__block_invoke_44_cold_1(a1, v2, v5);
     }
   }
 }
@@ -279,32 +278,29 @@ uint64_t __40__EKRequestAvailabilityOperation_cancel__block_invoke(uint64_t a1)
 
 void __38__EKRequestAvailabilityOperation_main__block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1A805E000, a2, OS_LOG_TYPE_DEBUG, "Operation was cancelled.  Will not return results.  Operation: [%@]", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1A805E000, a2, OS_LOG_TYPE_DEBUG, "Operation was cancelled.  Will not return results.  Operation: [%@]", &v3, 0xCu);
 }
 
 void __38__EKRequestAvailabilityOperation_main__block_invoke_44_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 40);
-  *&v4[12] = 2112;
-  *&v4[14] = *a2;
-  OUTLINED_FUNCTION_3_0(&dword_1A805E000, a2, a3, "No results block.  Will not pass along results [%@] for operation: [%@]", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 40);
+  *&v3[12] = 2112;
+  *&v3[14] = *a2;
+  OUTLINED_FUNCTION_3_0(&dword_1A805E000, a2, a3, "No results block.  Will not pass along results [%@] for operation: [%@]", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)_finishWithError:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_3_0(&dword_1A805E000, a2, a3, "Finishing operation with error: [%@].  Operation: [%@]", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_3_0(&dword_1A805E000, a2, a3, "Finishing operation with error: [%@].  Operation: [%@]", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

@@ -3,6 +3,7 @@
 - (JavaIoPrintStream)initWithJavaIoFile:(id)file;
 - (JavaIoPrintStream)initWithNSString:(id)string withNSString:(id)sString;
 - (id)appendWithJavaLangCharSequence:(id)sequence;
+- (id)appendWithJavaLangCharSequence:(id)sequence withInt:(int)int withInt:(int)withInt;
 - (id)formatWithJavaUtilLocale:(id)locale withNSString:(id)string withNSObjectArray:(id)array;
 - (id)formatWithNSString:(id)string withNSObjectArray:(id)array;
 - (void)close;
@@ -28,6 +29,8 @@
 - (void)printlnWithInt:(int)int;
 - (void)printlnWithLong:(int64_t)long;
 - (void)printlnWithNSString:(id)string;
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
+- (void)writeWithInt:(int)int;
 @end
 
 @implementation JavaIoPrintStream
@@ -292,6 +295,57 @@
   [(JavaIoPrintStream *)self printlnWithNSString:v4];
 }
 
+- (void)writeWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  if (!array)
+  {
+    JreThrowNullPointerException();
+  }
+
+  v5 = *&withInt;
+  v6 = *&int;
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
+  objc_sync_enter(self);
+  out = self->super.out_;
+  if (out)
+  {
+    [(JavaIoOutputStream *)out writeWithByteArray:array withInt:v6 withInt:v5];
+    if (self->autoFlush_)
+    {
+      [(JavaIoPrintStream *)self flush];
+    }
+  }
+
+  else
+  {
+    [(JavaIoPrintStream *)self setError];
+  }
+
+  objc_sync_exit(self);
+}
+
+- (void)writeWithInt:(int)int
+{
+  v3 = *&int;
+  objc_sync_enter(self);
+  out = self->super.out_;
+  if (out)
+  {
+    [(JavaIoOutputStream *)out writeWithInt:v3];
+    if (self->autoFlush_ && (v3 == 21 || v3 == 10))
+    {
+      [(JavaIoPrintStream *)self flush];
+    }
+  }
+
+  else
+  {
+    [(JavaIoPrintStream *)self setError];
+  }
+
+  objc_sync_exit(self);
+}
+
 - (id)appendWithJavaLangCharSequence:(id)sequence
 {
   if (sequence)
@@ -305,6 +359,28 @@
   }
 
   [(JavaIoPrintStream *)self printWithNSString:v4];
+  return self;
+}
+
+- (id)appendWithJavaLangCharSequence:(id)sequence withInt:(int)int withInt:(int)withInt
+{
+  if (sequence)
+  {
+    sequenceCopy = sequence;
+  }
+
+  else
+  {
+    sequenceCopy = @"null";
+  }
+
+  v7 = [(__CFString *)sequenceCopy subSequenceFrom:*&int to:*&withInt];
+  if (!v7)
+  {
+    JreThrowNullPointerException();
+  }
+
+  -[JavaIoPrintStream printWithNSString:](self, "printWithNSString:", [v7 description]);
   return self;
 }
 

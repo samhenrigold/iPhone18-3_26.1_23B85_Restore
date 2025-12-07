@@ -39,7 +39,7 @@
   else
   {
 
-    return PBFBSInterfaceOrientationDefaultForCurrentDeviceClass();
+    return PBFBSInterfaceOrientationDefaultForCurrentDeviceClass(v9);
   }
 }
 

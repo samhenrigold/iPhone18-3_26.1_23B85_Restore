@@ -42,7 +42,7 @@
   v15 = NSStringFromClass(v3);
   v4 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_0_1(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENRegionMonitorTelephonyDataSource, "[ENRegionMonitorTelephonyDataSource startMonitoring]", 30, "%@, %@");
 }
 
 - (void)stopMonitoring
@@ -51,7 +51,7 @@
   v15 = NSStringFromClass(v3);
   v4 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_0_1(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENRegionMonitorTelephonyDataSource, "[ENRegionMonitorTelephonyDataSource stopMonitoring]", 30, "%@, %@");
 }
 
 - (void)mobileCountryCodeChanged:(id)changed withISOString:(id)string

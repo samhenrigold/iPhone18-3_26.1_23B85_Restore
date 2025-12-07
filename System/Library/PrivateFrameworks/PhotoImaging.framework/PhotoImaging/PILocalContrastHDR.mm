@@ -92,12 +92,12 @@
 
   [(NSNumber *)self->inputScale floatValue];
   v18 = v17;
-  [(CIImage *)self->inputImage extent];
+  objc_msgSend_extent(self->inputImage);
   v20 = v19;
   v21 = v18 / v20;
   [(NSNumber *)self->inputScale floatValue];
   v23 = v22;
-  [(CIImage *)self->inputImage extent];
+  objc_msgSend_extent(self->inputImage);
   v25 = v24;
   v26 = v23 / v25;
   imageByClampingToExtent = [v16 imageByClampingToExtent];
@@ -125,11 +125,11 @@
   v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:v58 count:3];
   v40 = [(CIImage *)v34 imageByApplyingFilter:@"CIEdgePreserveUpsampleFilter" withInputParameters:v39];
 
-  [(CIImage *)self->inputImage extent];
+  objc_msgSend_extent(self->inputImage);
   v41 = [v40 imageByCroppingToRect:?];
 
   _kernelLocalContrast = [(PILocalContrastHDR *)self _kernelLocalContrast];
-  [(CIImage *)self->inputImage extent];
+  objc_msgSend_extent(self->inputImage);
   v44 = v43;
   v46 = v45;
   v48 = v47;
@@ -160,9 +160,11 @@
 
 uint64_t __42__PILocalContrastHDR__kernelLocalContrast__block_invoke()
 {
-  _kernelLocalContrast_singleton = [MEMORY[0x1E695F618] kernelWithString:{@"vec3 localContrast(vec3 im, vec3 shc, float amt) { float midAmt = amt vec3 neg = min(im, 0.0); vec3 pos = max(im, 1.0)-1.0; im = clamp(im, 0.0, 1.0); float y = dot(im, vec3(0.3333)); y = sqrt(y); y = y*(1.0-y); im = sqrt(im); float pivot = sqrt(shc.g); float a = midAmt*y; float b = -pivot*a; vec3 pix = im.r * vec3(0.299*a) + im.g * vec3(0.587*a) + im.b * vec3(0.114*a) + im + vec3(b); im = mix(im, vec3(pivot), -y*midAmt); im = mix(im, pix, 0.8); im = max(im, 0.0); im *= im; im = im + neg + pos; return im; } vec3 localContrastHLG(vec3 im, vec3 shc, float hlg_scale, float amt) { return localContrast(im.rgb/hlg_scale, shc.rgb/hlg_scale, amt).rgb * hlg_scale; } kernel vec4 _localContrastHDR(__sample im, __sample shc, float hlg_scale, float amt) { float max_comp = max(im.r, max(im.g, im.b)); float threshold = 0.75 * hlg_scale; if (max_comp <= 1.0) { im.rgb = localContrast(im.rgb, shc.rgb, amt); } else if (max_comp < threshold) { vec3 retSDR = localContrast(im.rgb, shc.rgb, amt); vec3 retHDR = localContrastHLG(im.rgb, shc.rgb, hlg_scale, amt); float lerp_t = (max_comp - 1.0) / (threshold - 1.0); im.rgb = mix(retSDR, retHDR, lerp_t); } else { im.rgb = localContrastHLG(im.rgb, shc.rgb, hlg_scale, amt); } return im; }"}];;
+  v0 = [MEMORY[0x1E695F618] kernelWithString:{@"vec3 localContrast(vec3 im, vec3 shc, float amt) { float midAmt = amt vec3 neg = min(im, 0.0); vec3 pos = max(im, 1.0)-1.0; im = clamp(im, 0.0, 1.0); float y = dot(im, vec3(0.3333)); y = sqrt(y); y = y*(1.0-y); im = sqrt(im); float pivot = sqrt(shc.g); float a = midAmt*y; float b = -pivot*a; vec3 pix = im.r * vec3(0.299*a) + im.g * vec3(0.587*a) + im.b * vec3(0.114*a) + im + vec3(b); im = mix(im, vec3(pivot), -y*midAmt); im = mix(im, pix, 0.8); im = max(im, 0.0); im *= im; im = im + neg + pos; return im; } vec3 localContrastHLG(vec3 im, vec3 shc, float hlg_scale, float amt) { return localContrast(im.rgb/hlg_scale, shc.rgb/hlg_scale, amt).rgb * hlg_scale; } kernel vec4 _localContrastHDR(__sample im, __sample shc, float hlg_scale, float amt) { float max_comp = max(im.r, max(im.g, im.b)); float threshold = 0.75 * hlg_scale; if (max_comp <= 1.0) { im.rgb = localContrast(im.rgb, shc.rgb, amt); } else if (max_comp < threshold) { vec3 retSDR = localContrast(im.rgb, shc.rgb, amt); vec3 retHDR = localContrastHLG(im.rgb, shc.rgb, hlg_scale, amt); float lerp_t = (max_comp - 1.0) / (threshold - 1.0); im.rgb = mix(retSDR, retHDR, lerp_t); } else { im.rgb = localContrastHLG(im.rgb, shc.rgb, hlg_scale, amt); } return im; }"}];;
+  v1 = _kernelLocalContrast_singleton;
+  _kernelLocalContrast_singleton = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

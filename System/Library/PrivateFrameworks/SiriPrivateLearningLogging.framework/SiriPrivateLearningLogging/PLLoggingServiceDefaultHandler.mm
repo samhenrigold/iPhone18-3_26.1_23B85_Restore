@@ -24,7 +24,7 @@
 
   selfCopy = self;
   sub_268C41B50(v6, v5, v7);
-  sub_268C39EE8(v5);
+  sub_268C39EE8(v5, v7);
 }
 
 - (_TtC26SiriPrivateLearningLogging30PLLoggingServiceDefaultHandler)init

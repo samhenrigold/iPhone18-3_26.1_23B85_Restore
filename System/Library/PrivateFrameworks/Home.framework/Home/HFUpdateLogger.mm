@@ -28,11 +28,11 @@
 
 - (HFUpdateLogger)initWithTimeout:(double)timeout description:(id)description
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
-  v17.receiver = self;
-  v17.super_class = HFUpdateLogger;
-  v7 = [(HFUpdateLogger *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = HFUpdateLogger;
+  v7 = [(HFUpdateLogger *)&v16 init];
   if (v7)
   {
     date = [MEMORY[0x277CBEAA8] date];
@@ -53,28 +53,27 @@
     [v11 _addRunningLogger:v7];
 
     v12 = [(HFUpdateLogger *)v7 loggerActivity:0];
-    os_activity_scope_enter(v12, &v16);
+    os_activity_scope_enter(v12, &v15);
 
     v13 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v19 = v7;
-      v20 = 2112;
-      v21 = descriptionCopy;
+      v18 = v7;
+      v19 = 2112;
+      v20 = descriptionCopy;
       _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "%@: Starting log for: %@", buf, 0x16u);
     }
 
-    os_activity_scope_leave(&v16);
+    os_activity_scope_leave(&v15);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)finish
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   softTimeoutTimer = [(HFUpdateLogger *)self softTimeoutTimer];
   [softTimeoutTimer invalidate];
 
@@ -93,9 +92,9 @@
     v9 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
-      v14 = v7;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Update finished in %f seconds", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = v7;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Update finished in %f seconds", &v12, 0xCu);
     }
 
     os_activity_scope_leave(&state);
@@ -103,24 +102,22 @@
 
   else
   {
-    v12 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       LODWORD(state.opaque[0]) = 134217984;
       *(state.opaque + 4) = v7;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Update finished in %f seconds", &state, 0xCu);
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "Update finished in %f seconds", &state, 0xCu);
     }
   }
 
   v10 = +[HFUpdateLoggerDebuggingController _sharedInstance];
   [v10 _removeRunningLogger:self];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleTimeout:(id)timeout
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   softTimeoutTimer = [(HFUpdateLogger *)self softTimeoutTimer];
   [softTimeoutTimer invalidate];
 
@@ -133,35 +130,33 @@
   if (self)
   {
     v9 = [(HFUpdateLogger *)self loggerActivity:0];
-    os_activity_scope_enter(v9, &v13);
+    os_activity_scope_enter(v9, &v12);
 
     v10 = HFLogForCategory(0x2CuLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       selfCopy = self;
-      v16 = 2048;
-      v17 = v8;
+      v15 = 2048;
+      v16 = v8;
       _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "%@: Soft timeout reached after %f seconds. The update will continue until it completes.", buf, 0x16u);
     }
 
-    os_activity_scope_leave(&v13);
+    os_activity_scope_leave(&v12);
   }
 
   else
   {
-    v12 = HFLogForCategory(0x2CuLL);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = HFLogForCategory(0x2CuLL);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       selfCopy = 0;
-      v16 = 2048;
-      v17 = v8;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "%@: Soft timeout reached after %f seconds. The update will continue until it completes.", buf, 0x16u);
+      v15 = 2048;
+      v16 = v8;
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_ERROR, "%@: Soft timeout reached after %f seconds. The update will continue until it completes.", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

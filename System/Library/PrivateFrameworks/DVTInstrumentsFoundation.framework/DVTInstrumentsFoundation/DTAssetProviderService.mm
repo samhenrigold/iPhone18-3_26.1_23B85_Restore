@@ -60,7 +60,7 @@
 
 + (void)beginProvidingAssetsForLocalApplication:(id)application connection:(id)connection completion:(id)completion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
   connectionCopy = connection;
   completionCopy = completion;
@@ -72,13 +72,13 @@
   if ([self shouldStartAssetServerForApplication:applicationCopy])
   {
     stringByDeletingLastPathComponent = [applicationCopy stringByDeletingLastPathComponent];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = sub_247F86370;
-    v14[3] = &unk_278EF1DB8;
-    v16 = completionCopy;
-    v15 = applicationCopy;
-    [self assetProviderWithConnection:connectionCopy workingDirectory:stringByDeletingLastPathComponent completion:v14];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = sub_247F86370;
+    v13[3] = &unk_278EF1DB8;
+    v15 = completionCopy;
+    v14 = applicationCopy;
+    [self assetProviderWithConnection:connectionCopy workingDirectory:stringByDeletingLastPathComponent completion:v13];
   }
 
   else
@@ -86,19 +86,17 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v18 = applicationCopy;
+      v17 = applicationCopy;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Not starting ODR asset provider because there is no manifest template at %@", buf, 0xCu);
     }
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (void)assetProviderWithConnection:(id)connection workingDirectory:(id)directory completion:(id)completion
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   directoryCopy = directory;
   completionCopy = completion;
@@ -123,15 +121,13 @@
   else
   {
     v11 = MEMORY[0x277CCA9B8];
-    v17 = *MEMORY[0x277CCA450];
-    v18[0] = @"no connection provided";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x277CCA450];
+    v17[0] = @"no connection provided";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     v13 = [v11 errorWithDomain:@"com.apple.dt.AssetProviderService" code:1 userInfo:v12];
 
     (completionCopy)[2](completionCopy, 0, v13);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startServingAssetsForAppWithPath:(id)path withCompletion:(id)completion
@@ -166,27 +162,25 @@
 
 - (void)serveDataFromFile:(id)file forRequestIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   identifierCopy = identifier;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v10 = 138412546;
-    v11 = identifierCopy;
-    v12 = 2112;
-    v13 = fileCopy;
-    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "ODR: Serving data for request %@ from file %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = identifierCopy;
+    v11 = 2112;
+    v12 = fileCopy;
+    _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "ODR: Serving data for request %@ from file %@", &v9, 0x16u);
   }
 
   v8 = [MEMORY[0x277CCA9F8] fileHandleForReadingAtPath:fileCopy];
   [(DTAssetProviderService *)self serveDataFromFileHandle:v8 forRequestIdentifier:identifierCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)serveDataFromFileHandle:(id)handle forRequestIdentifier:(id)identifier
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   identifierCopy = identifier;
   channel = [(DTXService *)self channel];
@@ -200,7 +194,7 @@
     if (v10)
     {
       *buf = 138412290;
-      v34 = identifierCopy;
+      v33 = identifierCopy;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ODR: Using existing channel to send response packets for request %@", buf, 0xCu);
     }
   }
@@ -210,7 +204,7 @@
     if (v10)
     {
       *buf = 138412290;
-      v34 = identifierCopy;
+      v33 = identifierCopy;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ODR: Opening new channel to send response packets for request %@", buf, 0xCu);
     }
 
@@ -226,7 +220,7 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v34 = identifierCopy;
+    v33 = identifierCopy;
     _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ODR: Starting to send data for request %@.", buf, 0xCu);
   }
 
@@ -245,18 +239,18 @@
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v34 = identifierCopy;
+            v33 = identifierCopy;
             _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "ODR: Request %@ has been cancelled, stopping sending data.", buf, 0xCu);
           }
 
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 138412802;
-            v34 = identifierCopy;
-            v35 = 2048;
-            v36 = v15;
-            v37 = 2048;
-            v38 = v16;
+            v33 = identifierCopy;
+            v34 = 2048;
+            v35 = v15;
+            v36 = 2048;
+            v37 = v16;
             _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "ODR: Cancelled request %@ after sending %llu bytes from %llu messages.", buf, 0x20u);
           }
 
@@ -297,11 +291,11 @@
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v34 = identifierCopy;
-    v35 = 2048;
-    v36 = v15;
-    v37 = 2048;
-    v38 = v16;
+    v33 = identifierCopy;
+    v34 = 2048;
+    v35 = v15;
+    v36 = 2048;
+    v37 = v16;
     _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "ODR: Finished sending request %@. Sent bytes: %llu from %llu messages.", buf, 0x20u);
   }
 
@@ -312,38 +306,37 @@ LABEL_22:
   if (channel != channel2)
   {
     v25 = *MEMORY[0x277D03688];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = sub_247F871A4;
-    v30[3] = &unk_278EF10C0;
-    v31 = identifierCopy;
-    v32 = channel;
-    [v32 sendMessageAsync:v25 replyHandler:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = sub_247F871A4;
+    v29[3] = &unk_278EF10C0;
+    v30 = identifierCopy;
+    v31 = channel;
+    [v31 sendMessageAsync:v25 replyHandler:v29];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 - (BOOL)hasCancelledRequestWithIdentifier:(id)identifier onChannel:(id)channel
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   channelCopy = channel;
   v7 = [MEMORY[0x277D03668] messageWithSelector:sel_canContinueServingRequestWithIdentifier_ objectArguments:{identifierCopy, 0}];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = sub_247F87484;
-  v20 = sub_247F87494;
-  v21 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_247F8749C;
-  v15[3] = &unk_278EF1E08;
-  v15[4] = &v16;
-  [channelCopy sendMessageSync:v7 replyHandler:v15];
-  error = [v17[5] error];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = sub_247F87484;
+  v19 = sub_247F87494;
+  v20 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_247F8749C;
+  v14[3] = &unk_278EF1E08;
+  v14[4] = &v15;
+  [channelCopy sendMessageSync:v7 replyHandler:v14];
+  error = [v16[5] error];
 
   if (error)
   {
@@ -351,11 +344,11 @@ LABEL_22:
     v10 = MEMORY[0x277D86220];
     if (os_log_type_enabled(object, OS_LOG_TYPE_ERROR))
     {
-      error2 = [v17[5] error];
+      error2 = [v16[5] error];
       *buf = 138412546;
-      v23 = identifierCopy;
-      v24 = 2112;
-      v25 = error2;
+      v22 = identifierCopy;
+      v23 = 2112;
+      v24 = error2;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ODR: Error checking if request %@ is cancelled: %@", buf, 0x16u);
     }
 
@@ -364,12 +357,11 @@ LABEL_22:
 
   else
   {
-    object = [v17[5] object];
+    object = [v16[5] object];
     v12 = [object BOOLValue]^ 1;
   }
 
-  _Block_object_dispose(&v16, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v15, 8);
   return v12;
 }
 
@@ -494,7 +486,7 @@ LABEL_22:
 
 - (id)_bestChannelForRequestWithIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   channel = [(DTXService *)self channel];
   connection = [(DTAssetProviderService *)self connection];
@@ -505,9 +497,9 @@ LABEL_22:
   {
     if (v8)
     {
-      v14 = 138412290;
-      v15 = identifierCopy;
-      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ODR: Using existing channel to send response packets for request %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = identifierCopy;
+      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ODR: Using existing channel to send response packets for request %@", &v13, 0xCu);
     }
   }
 
@@ -515,9 +507,9 @@ LABEL_22:
   {
     if (v8)
     {
-      v14 = 138412290;
-      v15 = identifierCopy;
-      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ODR: Opening new channel to send response packets for request %@", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = identifierCopy;
+      _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ODR: Opening new channel to send response packets for request %@", &v13, 0xCu);
     }
 
     connection2 = [(DTAssetProviderService *)self connection];
@@ -528,8 +520,6 @@ LABEL_22:
 
     channel = v10;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return channel;
 }
@@ -560,7 +550,7 @@ LABEL_22:
 - (BOOL)_serveData:(id)data usingChannel:(id)channel forRequestIdentifier:(id)identifier checkForCancellation:(BOOL)cancellation error:(id *)error
 {
   cancellationCopy = cancellation;
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   channelCopy = channel;
   identifierCopy = identifier;
@@ -569,7 +559,7 @@ LABEL_22:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v35 = identifierCopy;
+      v34 = identifierCopy;
       _os_log_impl(&dword_247F67000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "ODR: Sending data for request %@.", buf, 0xCu);
     }
 
@@ -586,10 +576,10 @@ LABEL_22:
     [channelCopy cancel];
     v15 = MEMORY[0x277CCA9B8];
     v16 = *MEMORY[0x277CCA5B8];
-    v32 = *MEMORY[0x277CCA450];
+    v31 = *MEMORY[0x277CCA450];
     identifierCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Request %@ has been cancelled, stopping sending data.", identifierCopy];
-    v33 = identifierCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v32 = identifierCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     v19 = v15;
     v20 = v16;
     v21 = 89;
@@ -599,10 +589,10 @@ LABEL_22:
   {
     v25 = MEMORY[0x277CCA9B8];
     v26 = *MEMORY[0x277CCA5B8];
-    v30 = *MEMORY[0x277CCA450];
+    v29 = *MEMORY[0x277CCA450];
     identifierCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"Request %@ can't send data because there is no channel connection.", identifierCopy];
-    v31 = identifierCopy;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+    v30 = identifierCopy;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
     v19 = v25;
     v20 = v26;
     v21 = 57;
@@ -619,7 +609,6 @@ LABEL_22:
   v24 = v22 == 0;
 LABEL_13:
 
-  v28 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

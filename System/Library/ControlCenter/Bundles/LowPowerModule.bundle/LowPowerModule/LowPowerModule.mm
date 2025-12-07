@@ -1,25 +1,25 @@
-void sub_29C9CF2AC(uint64_t a1)
+void sub_29C9CF2AC(uint64_t a1, const char *a2, uint64_t a3)
 {
-  if ([*(a1 + 32) isExpanded])
+  if (objc_msgSend_isExpanded(*(a1 + 32), a2, a3))
   {
-    [*(a1 + 32) _configureMenu];
+    objc_msgSend__configureMenu(*(a1 + 32), v4, v5);
   }
 
-  v2 = *(a1 + 32);
-  if ([v2 isExpanded])
+  v6 = *(a1 + 32);
+  if (objc_msgSend_isExpanded(v6, v4, v5))
   {
-    v3 = 0;
+    objc_msgSend_setSelected_(v6, v7, 0);
   }
 
   else
   {
-    v3 = [*(a1 + 32) isSelected];
+    isSelected = objc_msgSend_isSelected(*(a1 + 32), v7, v8);
+    objc_msgSend_setSelected_(v6, v12, isSelected);
   }
 
-  [v2 setSelected:v3];
-  v4 = *(a1 + 32);
-  v5 = [v4 glyphState];
-  [v4 setGlyphState:v5];
+  v13 = *(a1 + 32);
+  v15 = objc_msgSend_glyphState(v13, v9, v10);
+  objc_msgSend_setGlyphState_(v13, v14, v15);
 }
 
 void sub_29C9CF600(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location)
@@ -33,7 +33,7 @@ void sub_29C9CF600(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t sub_29C9CF640(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained toggleLowPowerMode];
+  objc_msgSend_toggleLowPowerMode(WeakRetained, v2, v3);
 
   return 0;
 }
@@ -41,43 +41,43 @@ uint64_t sub_29C9CF640(uint64_t a1)
 uint64_t sub_29C9CF674(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained toggleMobileChargeMode];
+  objc_msgSend_toggleMobileChargeMode(WeakRetained, v3, v4);
 
-  v3 = objc_loadWeakRetained((a1 + 32));
-  [v3 refreshStateAnimated:1];
+  v5 = objc_loadWeakRetained((a1 + 32));
+  objc_msgSend_refreshStateAnimated_(v5, v6, 1);
 
   return 0;
 }
 
-id sub_29C9CF92C()
+id sub_29C9CF92C(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v4 = 0;
-  v5 = &v4;
-  v6 = 0x2020000000;
-  v0 = qword_2A1A12998;
-  v7 = qword_2A1A12998;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v3 = qword_2A1A12998;
+  v13 = qword_2A1A12998;
   if (!qword_2A1A12998)
   {
-    v1 = sub_29C9D0018();
-    v5[3] = dlsym(v1, "PowerUIMCMStatusAsNotification");
-    qword_2A1A12998 = v5[3];
-    v0 = v5[3];
+    v4 = sub_29C9D0018(a1, a2, a3);
+    v11[3] = dlsym(v4, "PowerUIMCMStatusAsNotification");
+    qword_2A1A12998 = v11[3];
+    v3 = v11[3];
   }
 
-  _Block_object_dispose(&v4, 8);
-  if (!v0)
+  _Block_object_dispose(&v10, 8);
+  if (!v3)
   {
-    sub_29C9D0228();
+    sub_29C9D0228(v5, v6, v7);
   }
 
-  v2 = *v0;
+  v8 = *v3;
 
-  return v2;
+  return v8;
 }
 
-void sub_29C9CFA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C9CFA18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -95,133 +95,133 @@ void sub_29C9CFCC8(uint64_t a1, int a2, void *a3)
   if (a2)
   {
     v6 = *(a1 + 40);
-    v15 = v5;
-    v7 = [MEMORY[0x29EDB9F48] bundleForClass:objc_opt_class()];
-    v8 = v7;
+    v7 = MEMORY[0x29EDB9F48];
+    v23 = v5;
+    v8 = objc_opt_class();
+    v10 = objc_msgSend_bundleForClass_(v7, v9, v8);
+    v12 = v10;
     if (v6)
     {
-      v9 = @"CONTROL_CENTER_STATUS_LOW_POWER_MODE_ON";
+      v13 = @"CONTROL_CENTER_STATUS_LOW_POWER_MODE_ON";
     }
 
     else
     {
-      v9 = @"CONTROL_CENTER_STATUS_LOW_POWER_MODE_OFF";
+      v13 = @"CONTROL_CENTER_STATUS_LOW_POWER_MODE_OFF";
     }
 
     if (v6)
     {
-      v10 = 1;
+      v14 = 1;
     }
 
     else
     {
-      v10 = 2;
+      v14 = 2;
     }
 
-    v11 = [v7 localizedStringForKey:v9 value:&stru_2A23EED98 table:0];
+    v15 = objc_msgSend_localizedStringForKey_value_table_(v10, v11, v13, &stru_2A23EED98, 0);
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v13 = [WeakRetained contentModuleContext];
-    v14 = [MEMORY[0x29EDC0CF0] statusUpdateWithMessage:v11 type:v10];
-    [v13 enqueueStatusUpdate:v14];
+    v19 = objc_msgSend_contentModuleContext(WeakRetained, v17, v18);
+    v21 = objc_msgSend_statusUpdateWithMessage_type_(MEMORY[0x29EDC0CF0], v20, v15, v14);
+    objc_msgSend_enqueueStatusUpdate_(v19, v22, v21);
 
-    v5 = v15;
+    v5 = v23;
   }
 }
 
-Class sub_29C9CFFC0(uint64_t a1)
+Class sub_29C9CFFC0(uint64_t a1, const char *a2, uint64_t a3)
 {
-  sub_29C9D0018();
+  sub_29C9D0018(a1, a2, a3);
   result = objc_getClass("PowerUISmartChargeClient");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    sub_29C9D02D8();
+    sub_29C9D02D8(result, v5, v6);
   }
 
   qword_2A1A12990 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t sub_29C9D0018()
+uint64_t sub_29C9D0018(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x29EDCA608];
-  v3[0] = 0;
+  v8 = *MEMORY[0x29EDCA608];
+  v5[0] = 0;
   if (!qword_2A1A129A0)
   {
-    v3[1] = MEMORY[0x29EDCA5F8];
-    v3[2] = 3221225472;
-    v3[3] = sub_29C9D0110;
-    v3[4] = &unk_29F33D098;
-    v3[5] = v3;
-    v4 = xmmword_29F33D080;
-    v5 = 0;
+    v5[1] = MEMORY[0x29EDCA5F8];
+    v5[2] = 3221225472;
+    v5[3] = sub_29C9D0110;
+    v5[4] = &unk_29F33D098;
+    v5[5] = v5;
+    v6 = xmmword_29F33D080;
+    v7 = 0;
     qword_2A1A129A0 = _sl_dlopen();
   }
 
-  v0 = qword_2A1A129A0;
+  v3 = qword_2A1A129A0;
   if (!qword_2A1A129A0)
   {
-    sub_29C9D0354(v3);
+    sub_29C9D0354(v5, a2, a3);
   }
 
-  if (v3[0])
+  if (v5[0])
   {
-    free(v3[0]);
+    free(v5[0]);
   }
 
-  v1 = *MEMORY[0x29EDCA608];
-  return v0;
+  return v3;
 }
 
 uint64_t sub_29C9D0110(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_2A1A129A0 = result;
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void *sub_29C9D0184(uint64_t a1)
+void *sub_29C9D0184(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v2 = sub_29C9D0018();
-  result = dlsym(v2, "PowerUIMCMStatusAsNotification");
+  v4 = sub_29C9D0018(a1, a2, a3);
+  result = dlsym(v4, "PowerUIMCMStatusAsNotification");
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_2A1A12998 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-void sub_29C9D01D4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29C9D01D4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void sub_29C9D0228()
+void sub_29C9D0228(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v0 = [MEMORY[0x29EDB9F28] currentHandler];
-  v1 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:"NSString *getPowerUIMCMStatusAsNotification(void)"];
-  [v0 handleFailureInFunction:v1 file:@"CCUILowPowerModule.m" lineNumber:22 description:{@"%s", dlerror()}];
+  v3 = objc_msgSend_currentHandler(MEMORY[0x29EDB9F28], a2, a3);
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v4, "NSString *getPowerUIMCMStatusAsNotification(void)");
+  v6 = dlerror();
+  objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v3, v7, v5, @"CCUILowPowerModule.m", 22, @"%s", v6);
 
   __break(1u);
 }
 
-void sub_29C9D02D8()
+void sub_29C9D02D8(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v0 = [MEMORY[0x29EDB9F28] currentHandler];
-  v1 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:"Class getPowerUISmartChargeClientClass(void)_block_invoke"];
-  [v0 handleFailureInFunction:v1 file:@"CCUILowPowerModule.m" lineNumber:21 description:{@"Unable to find class %s", "PowerUISmartChargeClient"}];
+  v3 = objc_msgSend_currentHandler(MEMORY[0x29EDB9F28], a2, a3);
+  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v4, "Class getPowerUISmartChargeClientClass(void)_block_invoke");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v3, v6, v5, @"CCUILowPowerModule.m", 21, @"Unable to find class %s", "PowerUISmartChargeClient");
 
   __break(1u);
 }
 
-void sub_29C9D0354(void *a1)
+void sub_29C9D0354(void *a1, const char *a2, uint64_t a3)
 {
-  v2 = [MEMORY[0x29EDB9F28] currentHandler];
-  v3 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:"void *PowerUILibrary(void)"];
-  [v2 handleFailureInFunction:v3 file:@"CCUILowPowerModule.m" lineNumber:20 description:{@"%s", *a1}];
+  v4 = objc_msgSend_currentHandler(MEMORY[0x29EDB9F28], a2, a3);
+  v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x29EDBA0F8], v5, "void *PowerUILibrary(void)");
+  objc_msgSend_handleFailureInFunction_file_lineNumber_description_(v4, v7, v6, @"CCUILowPowerModule.m", 20, @"%s", *a1);
 
   __break(1u);
   JUMPOUT(0x29C9D03D4);

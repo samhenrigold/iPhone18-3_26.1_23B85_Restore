@@ -86,35 +86,33 @@
 
 + (NSDictionary)properties
 {
-  v15[8] = *MEMORY[0x1E69E9840];
-  v14[0] = @"name";
+  v14[8] = *MEMORY[0x1E69E9840];
+  v13[0] = @"name";
   v2 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v15[0] = v2;
-  v14[1] = @"subtitle";
+  v14[0] = v2;
+  v13[1] = @"subtitle";
   v3 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v15[1] = v3;
-  v14[2] = @"detailPage";
+  v14[1] = v3;
+  v13[2] = @"detailPage";
   v4 = [WFCloudKitItemProperty itemReferencePropertyWithName:@"detailPage" itemClass:objc_opt_class()];
-  v15[2] = v4;
-  v14[3] = @"iphone3xImage";
+  v14[2] = v4;
+  v13[3] = @"iphone3xImage";
   v5 = [MEMORY[0x1E69E0AF8] typeWithUTType:*MEMORY[0x1E6982E30]];
   v6 = [WFCloudKitItemProperty assetPropertyWithName:@"imageFile" fileType:v5 ignoredByDefault:1 encrypted:0];
-  v15[3] = v6;
-  v14[4] = @"language";
+  v14[3] = v6;
+  v13[4] = @"language";
   v7 = [WFCloudKitItemProperty objectPropertyWithName:"objectPropertyWithName:ignoredByDefault:encrypted:" ignoredByDefault:? encrypted:?];
-  v15[4] = v7;
-  v14[5] = @"base";
+  v14[4] = v7;
+  v13[5] = @"base";
   v8 = [WFCloudKitItemProperty itemReferencePropertyWithName:@"base" itemClass:objc_opt_class()];
-  v15[5] = v8;
-  v14[6] = @"persistentIdentifier";
+  v14[5] = v8;
+  v13[6] = @"persistentIdentifier";
   v9 = [WFCloudKitItemProperty objectPropertyWithName:"objectPropertyWithName:ignoredByDefault:encrypted:" ignoredByDefault:? encrypted:?];
-  v15[6] = v9;
-  v14[7] = @"supportedIdioms";
+  v14[6] = v9;
+  v13[7] = @"supportedIdioms";
   v10 = [WFCloudKitItemProperty objectPropertyWithName:?];
-  v15[7] = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:8];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v14[7] = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:8];
 
   return v11;
 }

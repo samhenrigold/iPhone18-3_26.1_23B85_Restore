@@ -13,6 +13,7 @@
 - (void)_buildCredentialSpecifierCache:(id)cache;
 - (void)_buildSignInGroupSpecifierCache:(id)cache;
 - (void)_buildSpecifierCache:(id)cache;
+- (void)_finishSignInWithAccount:(id)account animated:(BOOL)animated;
 - (void)_handleTimeout;
 - (void)_incrementSigninFailureCount;
 - (void)_launchForgotPasswordUrl;
@@ -20,6 +21,7 @@
 - (void)_loadRegionsIfNecessary;
 - (void)_resignFirstResponders;
 - (void)_returnKeyPressed;
+- (void)_setFieldsEnabled:(BOOL)enabled animated:(BOOL)animated;
 - (void)_setupAppearBlockForAccountAuthorizeWithAuthID:(id)d token:(id)token;
 - (void)_setupAppearBlockForNewPasswordWithAppleID:(id)d;
 - (void)_setupEventHandlers;
@@ -37,9 +39,13 @@
 - (void)learnMorePressed:(id)pressed;
 - (void)loadView;
 - (void)passwordFieldEmptyStateChanged:(id)changed forSpecifier:(id)specifier;
+- (void)setCreateAccountButtonEnabled:(BOOL)enabled animated:(BOOL)animated;
 - (void)setHideLearnMoreButton:(BOOL)button;
+- (void)setPasswordEnabled:(BOOL)enabled animated:(BOOL)animated;
 - (void)setPasswordText:(id)text;
+- (void)setSignInButtonEnabled:(BOOL)enabled animated:(BOOL)animated;
 - (void)setSpecifier:(id)specifier;
+- (void)setUsernameEnabled:(BOOL)enabled animated:(BOOL)animated;
 - (void)setUsernameText:(id)text;
 - (void)showCreateAccountController;
 - (void)signInTapped:(id)tapped;
@@ -47,7 +53,10 @@
 - (void)systemApplicationDidEnterBackground;
 - (void)systemApplicationWillEnterForeground;
 - (void)usernameFieldEmptyStateChanged:(id)changed forSpecifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFRegSignInController
@@ -341,13 +350,38 @@ LABEL_6:
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegSignInController;
+  [(CNFRegFirstRunController *)&v4 viewWillAppear:appear];
+  [(CNFRegSignInController *)self _updateUI];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegSignInController;
+  [(CNFRegFirstRunController *)&v4 viewDidAppear:appear];
+  [(CNFRegSignInController *)self _updateUI];
+  [(CNFRegListController *)self _showWiFiAlertIfNecessary];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegSignInController;
+  [(CNFRegFirstRunController *)&v4 viewWillDisappear:disappear];
+  [(CNFRegSignInController *)self _resignFirstResponders];
+}
+
 - (void)setSpecifier:(id)specifier
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
-  v9.receiver = self;
-  v9.super_class = CNFRegSignInController;
-  [(CNFRegFirstRunController *)&v9 setSpecifier:specifierCopy];
+  v8.receiver = self;
+  v8.super_class = CNFRegSignInController;
+  [(CNFRegFirstRunController *)&v8 setSpecifier:specifierCopy];
   v5 = [specifierCopy propertyForKey:@"cnf-hideLearnMoreButton"];
   if (v5)
   {
@@ -355,20 +389,18 @@ LABEL_6:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_impl(&dword_243BE5000, v6, OS_LOG_TYPE_DEFAULT, "Setting hide learn more button to : %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v8 = v5;
+      v7 = v5;
       IMLogString();
     }
 
     -[CNFRegSignInController setHideLearnMoreButton:](self, "setHideLearnMoreButton:", [v5 BOOLValue]);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)systemApplicationWillEnterForeground
@@ -427,7 +459,7 @@ LABEL_6:
 
 - (id)getUserNameForSpecifier:(id)specifier
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   if (self->_useSystemAccount)
   {
@@ -438,13 +470,13 @@ LABEL_6:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = systemAccount;
+      v15 = systemAccount;
       _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Using system account for username field: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v14 = systemAccount;
+      v13 = systemAccount;
       IMLogString();
     }
 
@@ -457,7 +489,7 @@ LABEL_6:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v16 = systemAccount;
+        v15 = systemAccount;
         _os_log_impl(&dword_243BE5000, v10, OS_LOG_TYPE_DEFAULT, "** WARNING ** We are using a system account but it has no login: %@", buf, 0xCu);
       }
 
@@ -477,8 +509,6 @@ LABEL_6:
       pendingUsername = [regController3 guessedAccountName];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return pendingUsername;
 }
@@ -740,7 +770,7 @@ LABEL_6:
 
 - (void)createAccountControllerDidFinish:(id)finish withAppleId:(id)id authID:(id)d authToken:(id)token
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   finishCopy = finish;
   idCopy = id;
   dCopy = d;
@@ -761,47 +791,47 @@ LABEL_6:
     v14 = 0;
   }
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __88__CNFRegSignInController_createAccountControllerDidFinish_withAppleId_authID_authToken___block_invoke;
-  v26[3] = &unk_278DE81E0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __88__CNFRegSignInController_createAccountControllerDidFinish_withAppleId_authID_authToken___block_invoke;
+  v25[3] = &unk_278DE81E0;
   v15 = finishCopy;
-  v27 = v15;
+  v26 = v15;
   selfCopy = self;
-  [(CNFRegFirstRunController *)self _executeDismissBlock:v26];
+  [(CNFRegFirstRunController *)self _executeDismissBlock:v25];
   if (v14)
   {
     v16 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v30 = idCopy;
-      v31 = 2112;
-      v32 = dCopy;
-      v33 = 2112;
-      v34 = tokenCopy;
+      v29 = idCopy;
+      v30 = 2112;
+      v31 = dCopy;
+      v32 = 2112;
+      v33 = tokenCopy;
       _os_log_impl(&dword_243BE5000, v16, OS_LOG_TYPE_DEFAULT, "Signing in with username (new account): %@  profileID: %@ token: %@", buf, 0x20u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v20 = dCopy;
-      v21 = tokenCopy;
-      v19 = idCopy;
+      v19 = dCopy;
+      v20 = tokenCopy;
+      v18 = idCopy;
       IMLogString();
     }
 
-    [(CNFRegSignInController *)self setPendingUsername:idCopy, v19, v20, v21];
+    [(CNFRegSignInController *)self setPendingUsername:idCopy, v18, v19, v20];
     [(CNFRegSignInController *)self setPendingPassword:0];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __88__CNFRegSignInController_createAccountControllerDidFinish_withAppleId_authID_authToken___block_invoke_167;
-    v22[3] = &unk_278DE8668;
-    v22[4] = self;
-    v23 = idCopy;
-    v24 = dCopy;
-    v25 = tokenCopy;
-    v17 = MEMORY[0x245D4D850](v22);
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __88__CNFRegSignInController_createAccountControllerDidFinish_withAppleId_authID_authToken___block_invoke_167;
+    v21[3] = &unk_278DE8668;
+    v21[4] = self;
+    v22 = idCopy;
+    v23 = dCopy;
+    v24 = tokenCopy;
+    v17 = MEMORY[0x245D4D850](v21);
     if ([(CNFRegListController *)self appeared])
     {
       v17[2](v17);
@@ -812,8 +842,6 @@ LABEL_6:
       [(CNFRegListController *)self setAppearBlock:v17];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __88__CNFRegSignInController_createAccountControllerDidFinish_withAppleId_authID_authToken___block_invoke(uint64_t a1)
@@ -854,9 +882,9 @@ uint64_t __88__CNFRegSignInController_createAccountControllerDidFinish_withApple
 
 - (void)_updateControllerState
 {
-  v14.receiver = self;
-  v14.super_class = CNFRegSignInController;
-  [(CNFRegFirstRunController *)&v14 _updateControllerState];
+  v19.receiver = self;
+  v19.super_class = CNFRegSignInController;
+  [(CNFRegFirstRunController *)&v19 _updateControllerState];
   regController = [(CNFRegListController *)self regController];
   account = [(CNFRegFirstRunController *)self account];
   v5 = [regController accountStateForAccount:account];
@@ -870,17 +898,8 @@ uint64_t __88__CNFRegSignInController_createAccountControllerDidFinish_withApple
     {
       if ((v5 & 4) != 0)
       {
-        if ([(CNFRegFirstRunController *)self pushCompletionControllerIfPossible])
-        {
-          v13 = 1;
-        }
-
-        else
-        {
-          v13 = [(CNFRegFirstRunController *)self dismissWithState:v5];
-        }
-
-        CNFAssert(v13, 7, @"Finished signin but no action was taken");
+        v18 = [(CNFRegFirstRunController *)self pushCompletionControllerIfPossible]|| [(CNFRegFirstRunController *)self dismissWithState:v5];
+        CNFAssert(v18, 7, @"Finished signin but no action was taken", v13, v14, v15, v16, v17, v19.receiver);
         goto LABEL_13;
       }
 
@@ -915,6 +934,27 @@ LABEL_13:
   }
 }
 
+- (void)_setFieldsEnabled:(BOOL)enabled animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  enabledCopy = enabled;
+  v8.receiver = self;
+  v8.super_class = CNFRegSignInController;
+  [CNFRegListController _setFieldsEnabled:sel__setFieldsEnabled_animated_ animated:?];
+  [(CNFRegSignInController *)self setUsernameEnabled:enabledCopy animated:animatedCopy];
+  [(CNFRegSignInController *)self setPasswordEnabled:enabledCopy animated:animatedCopy];
+  [(CNFRegSignInController *)self setCreateAccountButtonEnabled:enabledCopy animated:animatedCopy];
+  v7 = enabledCopy && ![(CNFRegSignInController *)self passwordIsEmpty]&& ![(CNFRegSignInController *)self usernameIsEmpty];
+  [(CNFRegSignInController *)self setSignInButtonEnabled:v7 animated:animatedCopy];
+}
+
+- (void)_finishSignInWithAccount:(id)account animated:(BOOL)animated
+{
+  [(CNFRegFirstRunController *)self _stopValidationModeAnimated:1, animated];
+
+  [(CNFRegSignInController *)self _updateControllerState];
+}
+
 - (void)_returnKeyPressed
 {
   if (![(CNFRegSignInController *)self usernameIsEmpty])
@@ -942,24 +982,24 @@ LABEL_13:
 
 - (void)signInWithUsername:(id)username password:(id)password
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   passwordCopy = password;
   v8 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = usernameCopy;
+    v13 = usernameCopy;
     _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Signing in with username (password entered): %@", buf, 0xCu);
   }
 
   if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
   {
-    v12 = usernameCopy;
+    v11 = usernameCopy;
     IMLogString();
   }
 
-  [(CNFRegSignInController *)self setPendingUsername:usernameCopy, v12];
+  [(CNFRegSignInController *)self setPendingUsername:usernameCopy, v11];
   [(CNFRegSignInController *)self setPendingPassword:passwordCopy];
   [(CNFRegFirstRunController *)self _startValidationModeAnimated:0];
   buf[0] = 0;
@@ -974,13 +1014,11 @@ LABEL_13:
 
   [(CNFRegSignInController *)self _startTimeout];
   [(CNFRegSignInController *)self _loadRegionsIfNecessary];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)signInTapped:(id)tapped
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   tappedCopy = tapped;
   v5 = OSLogHandleForIDSCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1007,12 +1045,12 @@ LABEL_13:
       passwordTextField = [(CNFRegSignInController *)self passwordTextField];
       text2 = [passwordTextField text];
 
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __39__CNFRegSignInController_signInTapped___block_invoke;
-      v24[3] = &unk_278DE8A98;
-      v24[4] = self;
-      v13 = MEMORY[0x245D4D850](v24);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __39__CNFRegSignInController_signInTapped___block_invoke;
+      v23[3] = &unk_278DE8A98;
+      v23[4] = self;
+      v13 = MEMORY[0x245D4D850](v23);
       if (regController3 && [regController3 length])
       {
         if (text2 && [text2 length])
@@ -1021,17 +1059,17 @@ LABEL_13:
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v26 = regController3;
+            v25 = regController3;
             _os_log_impl(&dword_243BE5000, v14, OS_LOG_TYPE_DEFAULT, "Signing in with username (password entered): %@", buf, 0xCu);
           }
 
           if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
           {
-            v23 = regController3;
+            v22 = regController3;
             IMLogString();
           }
 
-          [(CNFRegSignInController *)self setPendingUsername:regController3, v23];
+          [(CNFRegSignInController *)self setPendingUsername:regController3, v22];
           [(CNFRegSignInController *)self setPendingPassword:text2];
           [(CNFRegFirstRunController *)self _startValidationModeAnimated:0];
           buf[0] = 0;
@@ -1083,8 +1121,6 @@ LABEL_10:
   }
 
 LABEL_26:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __39__CNFRegSignInController_signInTapped___block_invoke(uint64_t a1, void *a2)
@@ -1109,7 +1145,7 @@ void __39__CNFRegSignInController_signInTapped___block_invoke(uint64_t a1, void 
 - (void)learnMorePressed:(id)pressed
 {
   v3 = *MEMORY[0x277D76620];
-  v4 = CNFRegLocalizedSplashScreenURL();
+  v4 = CNFRegLocalizedSplashScreenURL(self, a2);
   [v3 openURL:v4 withCompletionHandler:0];
 }
 
@@ -1165,6 +1201,142 @@ void __39__CNFRegSignInController_signInTapped___block_invoke(uint64_t a1, void 
   [WeakRetained dismissFinished:(accountState >> 30) & 1];
 }
 
+- (void)setUsernameEnabled:(BOOL)enabled animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x277D85DE8];
+  v7 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *buf = 138412290;
+    v12 = v8;
+    _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Setting username enabled to :%@", buf, 0xCu);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    v9 = @"NO";
+    if (enabledCopy)
+    {
+      v9 = @"YES";
+    }
+
+    v10 = v9;
+    IMLogString();
+  }
+
+  [(CNFRegListController *)self _setSpecifierEnabled:self->_usernameSpecifier enabled:enabledCopy animated:animatedCopy, v10];
+}
+
+- (void)setPasswordEnabled:(BOOL)enabled animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x277D85DE8];
+  v7 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *buf = 138412290;
+    v12 = v8;
+    _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Setting password enabled to :%@", buf, 0xCu);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    v9 = @"NO";
+    if (enabledCopy)
+    {
+      v9 = @"YES";
+    }
+
+    v10 = v9;
+    IMLogString();
+  }
+
+  [(CNFRegListController *)self _setSpecifierEnabled:self->_passwordSpecifier enabled:enabledCopy animated:animatedCopy, v10];
+}
+
+- (void)setCreateAccountButtonEnabled:(BOOL)enabled animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x277D85DE8];
+  v7 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *buf = 138412290;
+    v12 = v8;
+    _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Setting account button enabled to :%@", buf, 0xCu);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    v9 = @"NO";
+    if (enabledCopy)
+    {
+      v9 = @"YES";
+    }
+
+    v10 = v9;
+    IMLogString();
+  }
+
+  [(CNFRegListController *)self _setSpecifierEnabled:self->_createAccountButtonSpecifier enabled:enabledCopy animated:animatedCopy, v10];
+}
+
+- (void)setSignInButtonEnabled:(BOOL)enabled animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x277D85DE8];
+  v7 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *buf = 138412290;
+    v12 = v8;
+    _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Setting signin button enabled to :%@", buf, 0xCu);
+  }
+
+  if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+  {
+    v9 = @"NO";
+    if (enabledCopy)
+    {
+      v9 = @"YES";
+    }
+
+    v10 = v9;
+    IMLogString();
+  }
+
+  [(CNFRegListController *)self _setSpecifierEnabled:self->_signInButtonSpecifier enabled:enabledCopy animated:animatedCopy, v10];
+}
+
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   v9.receiver = self;
@@ -1191,9 +1363,7 @@ void __39__CNFRegSignInController_signInTapped___block_invoke(uint64_t a1, void 
 
 - (void)_buildCreateAccountButtonSpecifierCache:(id)cache
 {
-  v4 = [cache specifierForID:@"FACETIME_SIGNIN_CREATE_ACCOUNT_ID"];
-  createAccountButtonSpecifier = self->_createAccountButtonSpecifier;
-  self->_createAccountButtonSpecifier = v4;
+  self->_createAccountButtonSpecifier = [cache specifierForID:@"FACETIME_SIGNIN_CREATE_ACCOUNT_ID"];
 
   MEMORY[0x2821F96F8]();
 }
@@ -1234,7 +1404,7 @@ void __39__CNFRegSignInController_signInTapped___block_invoke(uint64_t a1, void 
 
 - (void)_showRegistrationFailureWithError:(id)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (errorCopy)
   {
@@ -1242,13 +1412,13 @@ void __39__CNFRegSignInController_signInTapped___block_invoke(uint64_t a1, void 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v41 = errorCopy;
+      v40 = errorCopy;
       _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Received sign in error : %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v35 = errorCopy;
+      v34 = errorCopy;
       IMLogString();
     }
 
@@ -1266,93 +1436,91 @@ void __39__CNFRegSignInController_signInTapped___block_invoke(uint64_t a1, void 
   if (v8 && (code > 0x1A || ((1 << code) & 0x4100C00) == 0))
   {
     userInfo = [errorCopy userInfo];
-    v11 = [userInfo objectForKey:@"cnf-customTitle"];
-    v12 = v11;
-    if (v11)
+    v10 = [userInfo objectForKey:@"cnf-customTitle"];
+    v11 = v10;
+    if (v10)
     {
-      v13 = v11;
+      v12 = v10;
     }
 
     else
     {
-      v14 = CommunicationsSetupUIBundle();
-      v15 = CNFRegStringTableName();
-      v13 = [v14 localizedStringForKey:@"FACETIME_ACTIVATION_ERROR_TITLE" value:&stru_2856D3978 table:v15];
+      v13 = CommunicationsSetupUIBundle();
+      v14 = CNFRegStringTableName();
+      v12 = [v13 localizedStringForKey:@"FACETIME_ACTIVATION_ERROR_TITLE" value:&stru_2856D3978 table:v14];
     }
 
     localizedDescription = [errorCopy localizedDescription];
-    v17 = localizedDescription;
+    v16 = localizedDescription;
     if (localizedDescription)
     {
-      v18 = localizedDescription;
+      v17 = localizedDescription;
     }
 
     else
     {
-      v19 = CommunicationsSetupUIBundle();
-      v20 = CNFRegStringTableName();
-      v18 = [v19 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_GENERIC" value:&stru_2856D3978 table:v20];
+      v18 = CommunicationsSetupUIBundle();
+      v19 = CNFRegStringTableName();
+      v17 = [v18 localizedStringForKey:@"FACETIME_SIGNIN_ERROR_GENERIC" value:&stru_2856D3978 table:v19];
     }
 
     userInfo2 = [errorCopy userInfo];
-    v22 = [userInfo2 objectForKey:@"cnf-customButton"];
-    v23 = v22;
-    if (v22)
+    v21 = [userInfo2 objectForKey:@"cnf-customButton"];
+    v22 = v21;
+    if (v21)
     {
-      v24 = v22;
+      v23 = v21;
     }
 
     else
     {
-      v25 = CommunicationsSetupUIBundle();
-      v26 = CNFRegStringTableName();
-      v24 = [v25 localizedStringForKey:@"FACETIME_ALERT_OK" value:&stru_2856D3978 table:v26];
+      v24 = CommunicationsSetupUIBundle();
+      v25 = CNFRegStringTableName();
+      v23 = [v24 localizedStringForKey:@"FACETIME_ALERT_OK" value:&stru_2856D3978 table:v25];
     }
 
-    v27 = [MEMORY[0x277D75110] alertControllerWithTitle:v13 message:v18 preferredStyle:1];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __60__CNFRegSignInController__showRegistrationFailureWithError___block_invoke;
-    v39[3] = &unk_278DE8AC0;
-    v39[4] = self;
-    v39[5] = code;
-    v28 = [MEMORY[0x277D750F8] actionWithTitle:v24 style:0 handler:v39];
-    [v27 addAction:v28];
+    v26 = [MEMORY[0x277D75110] alertControllerWithTitle:v12 message:v17 preferredStyle:1];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __60__CNFRegSignInController__showRegistrationFailureWithError___block_invoke;
+    v38[3] = &unk_278DE8AC0;
+    v38[4] = self;
+    v38[5] = code;
+    v27 = [MEMORY[0x277D750F8] actionWithTitle:v23 style:0 handler:v38];
+    [v26 addAction:v27];
 
     userInfo3 = [errorCopy userInfo];
-    v30 = [userInfo3 objectForKey:@"cnf-customActionTitle"];
+    v29 = [userInfo3 objectForKey:@"cnf-customActionTitle"];
 
-    if (v30)
+    if (v29)
     {
-      v31 = MEMORY[0x277D750F8];
+      v30 = MEMORY[0x277D750F8];
       userInfo4 = [errorCopy userInfo];
-      v33 = [userInfo4 objectForKey:@"cnf-customActionTitle"];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __60__CNFRegSignInController__showRegistrationFailureWithError___block_invoke_2;
-      v36[3] = &unk_278DE8420;
-      v37 = errorCopy;
+      v32 = [userInfo4 objectForKey:@"cnf-customActionTitle"];
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __60__CNFRegSignInController__showRegistrationFailureWithError___block_invoke_2;
+      v35[3] = &unk_278DE8420;
+      v36 = errorCopy;
       selfCopy = self;
-      v34 = [v31 actionWithTitle:v33 style:0 handler:v36];
-      [v27 addAction:v34];
+      v33 = [v30 actionWithTitle:v32 style:0 handler:v35];
+      [v26 addAction:v33];
     }
 
-    [(CNFRegSignInController *)self presentViewController:v27 animated:1 completion:0];
+    [(CNFRegSignInController *)self presentViewController:v26 animated:1 completion:0];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t __60__CNFRegSignInController__showRegistrationFailureWithError___block_invoke(unint64_t result)
+id *__60__CNFRegSignInController__showRegistrationFailureWithError___block_invoke(id *result)
 {
-  if (*(result + 40) == 3)
+  if (result[5] == 3)
   {
     v1 = result;
-    [*(result + 32) _incrementSigninFailureCount];
-    result = [*(v1 + 32) signinFailureCount];
+    [result[4] _incrementSigninFailureCount];
+    result = [v1[4] signinFailureCount];
     if (result >= 3)
     {
-      v2 = *(v1 + 32);
+      v2 = v1[4];
 
       return [v2 _showSigninFailureAlert];
     }
@@ -1363,7 +1531,7 @@ unint64_t __60__CNFRegSignInController__showRegistrationFailureWithError___block
 
 void __60__CNFRegSignInController__showRegistrationFailureWithError___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) userInfo];
   v5 = [v4 objectForKey:@"cnf-customActionURLString"];
@@ -1377,13 +1545,13 @@ void __60__CNFRegSignInController__showRegistrationFailureWithError___block_invo
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v12 = v6;
+        v11 = v6;
         _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Launching URL : %@", buf, 0xCu);
       }
 
       if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
       {
-        v10 = v6;
+        v9 = v6;
         IMLogString();
       }
 
@@ -1391,8 +1559,6 @@ void __60__CNFRegSignInController__showRegistrationFailureWithError___block_invo
       [v8 openURL:v6];
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_showSigninFailureAlert

@@ -27,14 +27,13 @@
 {
   v3 = sub_241CF8CF8();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v4 + 16))(v7, self + OBJC_IVAR____TtC14BookFoundation6MAsset_url, v3);
-  v8 = sub_241CF8C98();
-  (*(v4 + 8))(v7, v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v4 + 16))(v6, self + OBJC_IVAR____TtC14BookFoundation6MAsset_url, v3);
+  v7 = sub_241CF8C98();
+  (*(v4 + 8))(v6, v3);
 
-  return v8;
+  return v7;
 }
 
 - (BOOL)isBook
@@ -86,63 +85,61 @@
 {
   swift_getObjectType();
   v3 = sub_241C93918(&qword_27EC69DF0, &unk_241CFB1C0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v16[-v5];
-  v16[15] = 21;
+  v5 = &v15[-v4];
+  v15[15] = 21;
   selfCopy = self;
-  v8 = sub_241CF1C04(0);
+  v7 = sub_241CF1C04(0);
   sub_241CB4490();
-  sub_241CD7154(v8, MEMORY[0x277D837D0], v17);
+  sub_241CD7154(v7, MEMORY[0x277D837D0], v16);
 
-  if (v17[1])
+  if (v16[1])
   {
-    sub_241CB00C8(1, v6);
+    sub_241CB00C8(1, v5);
 
-    v9 = sub_241CF8D88();
-    v10 = *(v9 - 8);
-    v11 = (*(v10 + 48))(v6, 1, v9);
-    v12 = 0;
-    if (v11 != 1)
+    v8 = sub_241CF8D88();
+    v9 = *(v8 - 8);
+    v10 = (*(v9 + 48))(v5, 1, v8);
+    v11 = 0;
+    if (v10 != 1)
     {
-      v13 = sub_241CF8D38();
-      (*(v10 + 8))(v6, v9);
-      v12 = v13;
+      v12 = sub_241CF8D38();
+      (*(v9 + 8))(v5, v8);
+      v11 = v12;
     }
   }
 
   else
   {
 
-    v14 = sub_241CF8D88();
-    (*(*(v14 - 8) + 56))(v6, 1, 1, v14);
-    v12 = 0;
+    v13 = sub_241CF8D88();
+    (*(*(v13 - 8) + 56))(v5, 1, 1, v13);
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 - (NSURL)bookSampleDownloadURL
 {
   v3 = sub_241C93918(&qword_27EC69EF0, &unk_241CFBC20);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  MAsset.bookSampleDownloadURL.getter(v6);
+  MAsset.bookSampleDownloadURL.getter(v5);
 
-  v8 = sub_241CF8CF8();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_241CF8CF8();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_241CF8C98();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_241CF8C98();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)pagesAreRTL
@@ -202,24 +199,23 @@
 - (NSDate)expectedReleaseDate
 {
   v3 = sub_241C93918(&qword_27EC69DF0, &unk_241CFB1C0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  MAsset.expectedReleaseDate.getter(v6);
+  MAsset.expectedReleaseDate.getter(v5);
 
-  v8 = sub_241CF8D88();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_241CF8D88();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_241CF8D38();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_241CF8D38();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (int64_t)fileSize
@@ -271,39 +267,38 @@
 {
   swift_getObjectType();
   v3 = sub_241C93918(&qword_27EC69EF0, &unk_241CFBC20);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = v16 - v5;
+  v5 = v15 - v4;
   selfCopy = self;
-  v8 = MAsset.preview.getter();
+  v7 = MAsset.preview.getter();
   sub_241CB4948();
-  sub_241CD7154(v8, MEMORY[0x277D837D0], v16);
+  sub_241CD7154(v7, MEMORY[0x277D837D0], v15);
 
-  if (v16[1])
+  if (v15[1])
   {
     sub_241CF8CD8();
 
-    v9 = sub_241CF8CF8();
-    v10 = *(v9 - 8);
-    v11 = (*(v10 + 48))(v6, 1, v9);
-    v12 = 0;
-    if (v11 != 1)
+    v8 = sub_241CF8CF8();
+    v9 = *(v8 - 8);
+    v10 = (*(v9 + 48))(v5, 1, v8);
+    v11 = 0;
+    if (v10 != 1)
     {
-      v13 = sub_241CF8C98();
-      (*(v10 + 8))(v6, v9);
-      v12 = v13;
+      v12 = sub_241CF8C98();
+      (*(v9 + 8))(v5, v8);
+      v11 = v12;
     }
   }
 
   else
   {
 
-    v14 = sub_241CF8CF8();
-    (*(*(v14 - 8) + 56))(v6, 1, 1, v14);
-    v12 = 0;
+    v13 = sub_241CF8CF8();
+    (*(*(v13 - 8) + 56))(v5, 1, 1, v13);
+    v11 = 0;
   }
 
-  return v12;
+  return v11;
 }
 
 - (NSString)artworkURL

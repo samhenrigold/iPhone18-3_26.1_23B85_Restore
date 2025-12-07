@@ -407,10 +407,10 @@ void __49__PXPhotosSectionedLayout__forceSectionIfNeeded___block_invoke(uint64_t
       v10 = v9;
       if (v9)
       {
-        [v9 indexPath];
+        objc_msgSend_indexPath(v9);
         if (*&v15[0] != *MEMORY[0x277D3CF78])
         {
-          [v10 indexPath];
+          objc_msgSend_indexPath(v10);
           v11.f64[0] = NAN;
           v11.f64[1] = NAN;
           v15[0] = v14;
@@ -541,7 +541,7 @@ void __80__PXPhotosSectionedLayout_didFaultInSublayout_atIndex_fromEstimatedCont
     {
       v12 = decoratedSpriteReference;
       *objectReference = decoratedSpriteReference;
-      [v12 indexPath];
+      objc_msgSend_indexPath(v12);
       v13 = v25;
     }
 
@@ -554,7 +554,7 @@ void __80__PXPhotosSectionedLayout_didFaultInSublayout_atIndex_fromEstimatedCont
       {
         v21 = v20;
         *objectReference = v20;
-        [v21 indexPath];
+        objc_msgSend_indexPath(v21);
         v13 = v24;
       }
 
@@ -601,7 +601,7 @@ LABEL_22:
     {
       v17 = v16;
       *objectReference = v16;
-      [v17 indexPath];
+      objc_msgSend_indexPath(v17);
       v13 = v23;
     }
 

@@ -368,11 +368,11 @@ void __51__SKUIActivityIndicatorView__activityIndicatorSize__block_invoke()
 {
   labelCopy = label;
   style = [labelCopy style];
-  v6 = SKUIViewElementFontWithStyle(style);
-  if (!v6)
+  v7 = SKUIViewElementFontWithStyle(style);
+  if (!v7)
   {
-    v7 = SKUIFontPreferredFontForTextStyle(8);
-    v6 = [v7 fontWithSize:11.0];
+    v8 = SKUIFontPreferredFontForTextStyle(8, v6);
+    v7 = [v8 fontWithSize:11.0];
   }
 
   ikColor = [style ikColor];
@@ -384,9 +384,9 @@ void __51__SKUIActivityIndicatorView__activityIndicatorSize__block_invoke()
   }
 
   text = [labelCopy text];
-  v11 = [text attributedStringWithDefaultFont:v6 foregroundColor:color style:style];
+  v12 = [text attributedStringWithDefaultFont:v7 foregroundColor:color style:style];
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)_isAnimating
@@ -466,11 +466,29 @@ void __51__SKUIActivityIndicatorView__activityIndicatorSize__block_invoke()
   }
 }
 
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIActivityIndicatorView prefetchResourcesForViewElement:reason:context:]";
+}
+
 + (void)preferredSizeForViewElement:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIActivityIndicatorView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIActivityIndicatorView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIActivityIndicatorView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

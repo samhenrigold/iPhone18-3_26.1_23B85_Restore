@@ -3,6 +3,7 @@
 + (CNAutocompleteSourceInclusionPolicy)policyWithFetchRequest:(id)request;
 + (CNAutocompleteSourceInclusionPolicy)policyWithPolicies:(id)policies;
 + (CNAutocompleteSourceInclusionPolicy)policyWithUserDefaults:(id)defaults;
++ (CNAutocompleteSourceInclusionPolicy)policyWithValue:(BOOL)value;
 + (id)defaultPolicyWithFetchRequest:(id)request;
 + (id)policyForNoContactsAccess;
 @end
@@ -18,7 +19,7 @@
 
 + (id)defaultPolicyWithFetchRequest:(id)request
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   mEMORY[0x277CFBDB8] = [MEMORY[0x277CFBDB8] sharedInstance];
   isAccessGranted = [mEMORY[0x277CFBDB8] isAccessGranted];
@@ -30,10 +31,10 @@
     v9 = [self policyWithUserDefaults:standardPreferences];
 
     policyWithCurrentProcessEntitlements = [self policyWithCurrentProcessEntitlements];
-    v15[0] = v7;
-    v15[1] = v9;
-    v15[2] = policyWithCurrentProcessEntitlements;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
+    v14[0] = v7;
+    v14[1] = v9;
+    v14[2] = policyWithCurrentProcessEntitlements;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
     policyForNoContactsAccess = [self policyWithPolicies:v11];
   }
 
@@ -41,8 +42,6 @@
   {
     policyForNoContactsAccess = [self policyForNoContactsAccess];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return policyForNoContactsAccess;
 }
@@ -62,28 +61,28 @@
   policyForNoContactsAccess = objc_alloc_init(_CNAutocompleteMutableSourceInclusionPolicy);
   if ([requestCopy isZeroKeywordSearch])
   {
-    if ([requestCopy searchType] == 4)
+    searchType = [requestCopy searchType];
+    if (searchType == 4)
     {
-      -[_CNAutocompleteMutableSourceInclusionPolicy setIncludeRecents:](policyForNoContactsAccess, "setIncludeRecents:", [requestCopy includeRecents]);
-      v8 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = CNALoggingContextDebug(-[_CNAutocompleteMutableSourceInclusionPolicy setIncludeRecents:](policyForNoContactsAccess, "setIncludeRecents:", [requestCopy includeRecents]));
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 0;
-        v9 = "Will only search Duet, Recents (because search type photos) and Supplemental because search string has a 0 length";
-        v10 = &v13;
+        v14 = 0;
+        v10 = "Will only search Duet, Recents (because search type photos) and Supplemental because search string has a 0 length";
+        v11 = &v14;
 LABEL_10:
-        _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, v9, v10, 2u);
+        _os_log_impl(&dword_2155FE000, v9, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
       }
     }
 
     else
     {
-      v8 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = CNALoggingContextDebug(searchType);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v12) = 0;
-        v9 = "Will only search Duet and Supplemental because search string has a 0 length";
-        v10 = &v12;
+        LOWORD(v13) = 0;
+        v10 = "Will only search Duet and Supplemental because search string has a 0 length";
+        v11 = &v13;
         goto LABEL_10;
       }
     }
@@ -125,6 +124,23 @@ LABEL_13:
 {
   policiesCopy = policies;
   v4 = [[_CNAutocompleteAggregateSourceInclusionPolicy alloc] initWithPolicies:policiesCopy];
+
+  return v4;
+}
+
++ (CNAutocompleteSourceInclusionPolicy)policyWithValue:(BOOL)value
+{
+  valueCopy = value;
+  v4 = objc_alloc_init(_CNAutocompleteMutableSourceInclusionPolicy);
+  [(_CNAutocompleteMutableSourceInclusionPolicy *)v4 setIncludeContacts:valueCopy];
+  [(_CNAutocompleteMutableSourceInclusionPolicy *)v4 setIncludeRecents:valueCopy];
+  [(_CNAutocompleteMutableSourceInclusionPolicy *)v4 setIncludeStewie:valueCopy];
+  [(_CNAutocompleteMutableSourceInclusionPolicy *)v4 setIncludeSuggestions:valueCopy];
+  [(_CNAutocompleteMutableSourceInclusionPolicy *)v4 setIncludeLocalExtensions:valueCopy];
+  [(_CNAutocompleteMutableSourceInclusionPolicy *)v4 setIncludeDirectoryServers:valueCopy];
+  [(_CNAutocompleteMutableSourceInclusionPolicy *)v4 setIncludeCalendarServers:valueCopy];
+  [(_CNAutocompleteMutableSourceInclusionPolicy *)v4 setIncludeSupplementalResults:valueCopy];
+  [(_CNAutocompleteMutableSourceInclusionPolicy *)v4 setIncludePredictions:valueCopy];
 
   return v4;
 }

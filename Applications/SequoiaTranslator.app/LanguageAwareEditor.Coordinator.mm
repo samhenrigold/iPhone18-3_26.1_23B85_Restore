@@ -59,20 +59,22 @@
 
 - (void)textViewDidBeginEditing:(id)editing
 {
-  type metadata accessor for LanguageAwareTextView();
+  type metadata accessor for LanguageAwareTextView(0);
   v5 = swift_dynamicCastClass();
   if (v5)
   {
     v6 = v5;
     v7 = self + OBJC_IVAR____TtCV17SequoiaTranslator19LanguageAwareEditor11Coordinator_languageAwareEditor;
-    v8 = *&v7[*(type metadata accessor for LanguageAwareEditor(0) + 64)];
-    if (v8)
+    v8 = &v7[*(type metadata accessor for LanguageAwareEditor(0) + 64)];
+    v9 = *v8;
+    if (*v8)
     {
+      v10 = *(v8 + 1);
       editingCopy = editing;
       selfCopy = self;
-      sub_10001AD18(v8);
-      v8(v6);
-      sub_10001ABE4(v8);
+      sub_10001AD18(v9, v10);
+      v9(v6);
+      sub_10001ABE4(v9, v10);
     }
   }
 }

@@ -73,7 +73,7 @@
 - (void)_addClassToContainer:(Class)container
 {
   v4 = NSStringFromClass(container);
-  [(HMIJSONArchiver *)self _addValueToContainer:v4 forKey:@"$"];
+  [HMIJSONArchiver _addValueToContainer:"_addValueToContainer:forKey:" forKey:?];
 }
 
 - (void)_addValueToContainer:(id)container forKey:(id)key
@@ -82,17 +82,18 @@
   keyCopy = key;
   if ([(HMIJSONArchiver *)self _containerIsArray])
   {
-    [self->_container addObject:containerCopy];
+    [self->_container addObject:?];
   }
 
   else if (containerCopy)
   {
-    [self->_container setValue:containerCopy forKey:keyCopy];
+    [self->_container setValue:? forKey:?];
   }
 }
 
 - (id)_JSONObjectWithObject:(id)object options:(int64_t)options
 {
+  optionsCopy = options;
   objectCopy = object;
   if (!objectCopy)
   {
@@ -115,7 +116,7 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        null2 = [(HMIJSONArchiver *)self _valueForNumber:objectCopy];
+        null2 = [(HMIJSONArchiver *)self _valueForNumber:?];
         goto LABEL_16;
       }
 
@@ -123,7 +124,7 @@
       if (objc_opt_isKindOfClass())
       {
         initWithDictionary = objc_alloc_init(MEMORY[0x277CCAA68]);
-        object = [(HMIJSONArchiver *)initWithDictionary stringFromDate:objectCopy];
+        object = [(HMIJSONArchiver *)initWithDictionary stringFromDate:?];
         goto LABEL_10;
       }
 
@@ -141,33 +142,22 @@ LABEL_12:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __49__HMIJSONArchiver__JSONObjectWithObject_options___block_invoke;
-          v14[3] = &unk_2787546A8;
-          v14[4] = self;
-          v14[5] = options;
-          null2 = [objectCopy na_map:v14];
+          null2 = [objectCopy na_map:?];
           goto LABEL_16;
         }
 
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v13[0] = MEMORY[0x277D85DD0];
-          v13[1] = 3221225472;
-          v13[2] = __49__HMIJSONArchiver__JSONObjectWithObject_options___block_invoke_2;
-          v13[3] = &unk_2787546D0;
-          v13[4] = self;
-          v13[5] = options;
-          null2 = [objectCopy na_dictionaryByMappingValues:v13];
+          null2 = [objectCopy na_dictionaryByMappingValues:?];
           goto LABEL_16;
         }
 
         initWithDictionary = [[HMIJSONArchiver alloc] initWithDictionary];
-        [(HMIJSONArchiver *)initWithDictionary setOptions:options];
-        [(HMIJSONArchiver *)initWithDictionary _addClassToContainer:objc_opt_class()];
-        [objectCopy encodeWithCoder:initWithDictionary];
+        [(HMIJSONArchiver *)initWithDictionary setOptions:?];
+        objc_opt_class();
+        [(HMIJSONArchiver *)initWithDictionary _addClassToContainer:?];
+        [objectCopy encodeWithCoder:?];
         object = [(HMIJSONArchiver *)initWithDictionary object];
 LABEL_10:
         v11 = object;
@@ -175,10 +165,10 @@ LABEL_10:
         goto LABEL_17;
       }
 
-      if (options)
+      if (optionsCopy)
       {
-        initWithDictionary = [objectCopy base64EncodedStringWithOptions:0];
-        object = [MEMORY[0x277CCACA8] stringWithFormat:@"data:base64, %@", initWithDictionary];;
+        initWithDictionary = [objectCopy base64EncodedStringWithOptions:?];
+        object = [MEMORY[0x277CCACA8] stringWithFormat:initWithDictionary];
         goto LABEL_10;
       }
 
@@ -198,37 +188,35 @@ LABEL_17:
 
 - (void)encodeInt32:(int)int32 forKey:(id)key
 {
-  v4 = *&int32;
-  v6 = MEMORY[0x277CCABB0];
+  v5 = MEMORY[0x277CCABB0];
   keyCopy = key;
-  v8 = [v6 numberWithInt:v4];
-  [(HMIJSONArchiver *)self _addValueToContainer:v8 forKey:keyCopy];
+  v7 = [v5 numberWithInt:?];
+  [HMIJSONArchiver _addValueToContainer:"_addValueToContainer:forKey:" forKey:?];
 }
 
 - (void)encodeInt64:(int64_t)int64 forKey:(id)key
 {
-  v6 = MEMORY[0x277CCABB0];
+  v5 = MEMORY[0x277CCABB0];
   keyCopy = key;
-  v8 = [v6 numberWithLongLong:int64];
-  [(HMIJSONArchiver *)self _addValueToContainer:v8 forKey:keyCopy];
+  v7 = [v5 numberWithLongLong:?];
+  [HMIJSONArchiver _addValueToContainer:"_addValueToContainer:forKey:" forKey:?];
 }
 
 - (void)encodeDouble:(double)double forKey:(id)key
 {
-  v6 = MEMORY[0x277CCABB0];
+  v5 = MEMORY[0x277CCABB0];
   keyCopy = key;
-  v9 = [v6 numberWithDouble:double];
-  v8 = [(HMIJSONArchiver *)self _valueForNumber:v9];
-  [(HMIJSONArchiver *)self _addValueToContainer:v8 forKey:keyCopy];
+  v8 = [v5 numberWithDouble:?];
+  v7 = [(HMIJSONArchiver *)self _valueForNumber:?];
+  [HMIJSONArchiver _addValueToContainer:"_addValueToContainer:forKey:" forKey:?];
 }
 
 - (void)encodeBool:(BOOL)bool forKey:(id)key
 {
-  boolCopy = bool;
-  v6 = MEMORY[0x277CCABB0];
+  v5 = MEMORY[0x277CCABB0];
   keyCopy = key;
-  v8 = [v6 numberWithBool:boolCopy];
-  [(HMIJSONArchiver *)self _addValueToContainer:v8 forKey:keyCopy];
+  v7 = [v5 numberWithBool:?];
+  [HMIJSONArchiver _addValueToContainer:"_addValueToContainer:forKey:" forKey:?];
 }
 
 - (id)_valueForNumber:(id)number
@@ -236,18 +224,17 @@ LABEL_17:
   v3 = MEMORY[0x277CCA980];
   v4 = MEMORY[0x277CCACA8];
   [number floatValue];
-  v6 = [v4 stringWithFormat:@"%.6f", v5];
-  v7 = [v3 decimalNumberWithString:v6];
+  v6 = [v4 stringWithFormat:v5];
+  v7 = [v3 decimalNumberWithString:?];
 
   return v7;
 }
 
 - (void)encodeObject:(id)object forKey:(id)key
 {
-  options = self->_options;
   keyCopy = key;
-  v8 = [(HMIJSONArchiver *)self _JSONObjectWithObject:object options:options];
-  [(HMIJSONArchiver *)self _addValueToContainer:v8 forKey:keyCopy];
+  v6 = [HMIJSONArchiver _JSONObjectWithObject:"_JSONObjectWithObject:options:" options:?];
+  [HMIJSONArchiver _addValueToContainer:"_addValueToContainer:forKey:" forKey:?];
 }
 
 - (NSString)objectJSON
@@ -255,8 +242,8 @@ LABEL_17:
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   v4 = MEMORY[0x277CCAAA0];
   object = [(HMIJSONArchiver *)self object];
-  v6 = [v4 dataWithJSONObject:object options:10 error:0];
-  v7 = [v3 initWithData:v6 encoding:4];
+  v6 = [v4 dataWithJSONObject:? options:? error:?];
+  v7 = [v3 initWithData:? encoding:?];
 
   return v7;
 }
@@ -266,8 +253,8 @@ LABEL_17:
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   v4 = MEMORY[0x277CCAAA0];
   object = [(HMIJSONArchiver *)self object];
-  v6 = [v4 dataWithJSONObject:object options:11 error:0];
-  v7 = [v3 initWithData:v6 encoding:4];
+  v6 = [v4 dataWithJSONObject:? options:? error:?];
+  v7 = [v3 initWithData:? encoding:?];
 
   return v7;
 }
@@ -275,32 +262,21 @@ LABEL_17:
 + (id)JSONObjectWithObject:(id)object options:(int64_t)options
 {
   objectCopy = object;
-  v6 = objc_alloc_init(HMIJSONArchiver);
-  [(HMIJSONArchiver *)v6 setOptions:options];
-  v7 = [(HMIJSONArchiver *)v6 _JSONObjectWithObject:objectCopy options:options];
+  v5 = objc_alloc_init(HMIJSONArchiver);
+  [(HMIJSONArchiver *)v5 setOptions:?];
+  v6 = [HMIJSONArchiver _JSONObjectWithObject:v5 options:"_JSONObjectWithObject:options:"];
 
-  return v7;
+  return v6;
 }
 
 + (id)JSONObjectStringWithObject:(id)object pretty:(BOOL)pretty options:(int64_t)options
 {
-  prettyCopy = pretty;
-  v6 = [self JSONObjectWithObject:object options:options];
-  if (prettyCopy)
-  {
-    v7 = 15;
-  }
+  v5 = [self JSONObjectWithObject:? options:?];
+  v6 = objc_alloc(MEMORY[0x277CCACA8]);
+  v7 = [MEMORY[0x277CCAAA0] dataWithJSONObject:? options:? error:?];
+  v8 = [v6 initWithData:? encoding:?];
 
-  else
-  {
-    v7 = 14;
-  }
-
-  v8 = objc_alloc(MEMORY[0x277CCACA8]);
-  v9 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v6 options:v7 error:0];
-  v10 = [v8 initWithData:v9 encoding:4];
-
-  return v10;
+  return v8;
 }
 
 @end

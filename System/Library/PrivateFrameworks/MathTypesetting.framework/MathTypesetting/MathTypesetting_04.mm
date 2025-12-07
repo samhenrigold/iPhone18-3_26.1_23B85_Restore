@@ -1,4 +1,4 @@
-void sub_25827FB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_25827FB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
 {
   a10 = &a15;
   std::vector<std::pair<EQKit::StemStretch::Key,unsigned long>>::__destroy_vector::operator()[abi:ne200100](&a10);
@@ -60,10 +60,11 @@ BOOL EQKit::Font::STIXCollection::fontsLoadedCorrectly(EQKit::Font::STIXCollecti
   return v4;
 }
 
-void EQKit::Font::STIXCollection::characterPropertyLengthForScript(EQKit::Font::STIXCollection *a1@<X0>, int a2@<W1>, const EQKit::Script::Info *a3@<X2>, EQKit::Unicode *a4@<X3>, uint64_t a5@<X8>)
+void EQKit::Font::STIXCollection::characterPropertyLengthForScript(EQKit::Font::STIXCollection *a1@<X0>, uint64_t a2@<X1>, const EQKit::Script::Info *a3@<X2>, EQKit::Unicode *a4@<X3>, uint64_t a5@<X8>)
 {
   v5 = a4;
-  EQKit::Font::STIXCollection::fontNameForCharacterWithScript(a1, a3, a4, &__s);
+  v6 = a2;
+  EQKit::Font::STIXCollection::fontNameForCharacterWithScript(&__s, a1, a3, a4);
   if ((SHIBYTE(__s.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if (*(&__s.__r_.__value_.__s + 23))
@@ -85,7 +86,7 @@ LABEL_8:
 
   std::string::__init_copy_ctor_external(&__p, __s.__r_.__value_.__l.__data_, __s.__r_.__value_.__l.__size_);
 LABEL_6:
-  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, a2, &__p, v5, a5);
+  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, v6, &__p, v5, a5);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -108,12 +109,12 @@ void sub_2582800F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void EQKit::Font::STIXCollection::fontNameForCharacterWithScript(EQKit::Font::STIXCollection *this@<X0>, const EQKit::Script::Info *a2@<X2>, EQKit::Unicode *a3@<X1>, std::string *a4@<X8>)
+void EQKit::Font::STIXCollection::fontNameForCharacterWithScript(std::string *__return_ptr a1@<X8>, EQKit::Font::STIXCollection *this@<X0>, const EQKit::Script::Info *a3@<X2>, EQKit::Unicode *a4@<X1>)
 {
-  v5 = a3;
-  v8 = EQKit::Font::STIXCollection::lookupChar(this, a3, a2, 0);
-  v9 = EQKit::Font::STIXCollection::lookupFontForCh(this, v8, 0, a2, 0);
-  if (v9 || v8 != v5 && (v9 = EQKit::Font::STIXCollection::lookupFontForCh(this, v5, 0, a2, 0)) != 0)
+  v5 = a4;
+  v8 = EQKit::Font::STIXCollection::lookupChar(this, a4, a3, 0);
+  v9 = EQKit::Font::STIXCollection::lookupFontForCh(this, v8, 0, a3, 0);
+  if (v9 || v8 != v5 && (v9 = EQKit::Font::STIXCollection::lookupFontForCh(this, v5, 0, a3, 0)) != 0)
   {
     if (*(v9 + 39) < 0)
     {
@@ -133,7 +134,7 @@ void EQKit::Font::STIXCollection::fontNameForCharacterWithScript(EQKit::Font::ST
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(a4, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(a1, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -142,7 +143,7 @@ void EQKit::Font::STIXCollection::fontNameForCharacterWithScript(EQKit::Font::ST
 
   else
   {
-    *a4 = __p;
+    *a1 = __p;
   }
 }
 
@@ -1109,7 +1110,7 @@ void _updateAttributedString(id *a1, const unsigned int *a2, _NSRange a3, CTFont
   }
 }
 
-CTFontRef EQKit::Font::STIXCollection::newFontForStretchedCharacterWithScript(EQKit::Font::STIXCollection *a1, unsigned int *a2, int a3, EQKit::Script::Info *this, double a5)
+CTFontRef EQKit::Font::STIXCollection::newFontForStretchedCharacterWithScript(EQKit::Font::STIXCollection *a1, _DWORD *a2, uint64_t a3, EQKit::Script::Info *this, double a5)
 {
   v10 = EQKit::Script::Info::symbolicFontTraits(this);
   v11 = a1 + 168;
@@ -1133,18 +1134,18 @@ CTFontRef EQKit::Font::STIXCollection::newFontForStretchedCharacterWithScript(EQ
     {
 LABEL_21:
       v24 = *(a1 + 47);
-      EQKit::Font::STIXCollection::stemStretchKey(this, a1, v13, a3, v27);
+      EQKit::Font::STIXCollection::stemStretchKey(v27, this, a1, v13, a3);
       v25 = EQKitCache<EQKit::StemStretch::Key,EQKitTypes::Axis::Enum,EQKitTypes::Axis::Enum>::lookup(v24, v27) != a3;
       EQKit::StemStretch::Key::~Key(v27);
       v14 = *a2;
       goto LABEL_22;
     }
 
-    v16 = (a1 + 312);
-    v17 = (a1 + 312);
+    v16 = a1 + 312;
+    v17 = a1 + 312;
     do
     {
-      v22 = *(v21 + 32);
+      v22 = *(v21 + 8);
       v19 = v22 >= v13;
       v23 = v22 < v13;
       if (v19)
@@ -1152,7 +1153,7 @@ LABEL_21:
         v17 = v21;
       }
 
-      v21 = *(v21 + 8 * v23);
+      v21 = *&v21[8 * v23];
     }
 
     while (v21);
@@ -1171,11 +1172,11 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v16 = (a1 + 288);
-    v17 = (a1 + 288);
+    v16 = a1 + 288;
+    v17 = a1 + 288;
     do
     {
-      v18 = *(v15 + 32);
+      v18 = *(v15 + 8);
       v19 = v18 >= v13;
       v20 = v18 < v13;
       if (v19)
@@ -1183,7 +1184,7 @@ LABEL_21:
         v17 = v15;
       }
 
-      v15 = *(v15 + 8 * v20);
+      v15 = *&v15[8 * v20];
     }
 
     while (v15);
@@ -1235,8 +1236,8 @@ LABEL_2:
   else
   {
     v9 = **a1;
-    v10 = a2;
-    v7 = std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(a1 + 1, a2);
+    v11 = a2;
+    v7 = std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(a1 + 1, a2, &std::piecewise_construct, &v11, &v10);
     v5 = v8;
     *(v7 + 12) = v8;
     v7[7] = v9;
@@ -1250,20 +1251,21 @@ LABEL_2:
   return v5;
 }
 
-void EQKit::Font::STIXCollection::stemStretchKey(CGFloat *this@<X2>, const __CFCharacterSet **a2@<X0>, const __CTFont *a3@<X1>, int a4@<W3>, uint64_t a5@<X8>)
+void EQKit::Font::STIXCollection::stemStretchKey(uint64_t *__return_ptr a1@<X8>, CGFloat *this@<X2>, const __CFCharacterSet **a3@<X0>, const __CTFont *a4@<X1>, uint64_t a5@<X3>)
 {
+  v5 = a5;
   v10 = EQKit::Script::Info::symbolicFontTraits(this) & 2;
   if (v10)
   {
-    v11 = (a2 + 28);
+    v11 = a3 + 28;
   }
 
   else
   {
-    v11 = (a2 + 21);
+    v11 = a3 + 21;
   }
 
-  v12 = EQKit::Font::STIXCollection::SizeVariant::fontInfoForCharacterWithScript(v11, a3, a4, this, 1, 1.79769313e308);
+  v12 = EQKit::Font::STIXCollection::SizeVariant::fontInfoForCharacterWithScript(v11, a4, v5, this, 1, 1.79769313e308);
   if (v12)
   {
     v13 = 1;
@@ -1276,18 +1278,18 @@ void EQKit::Font::STIXCollection::stemStretchKey(CGFloat *this@<X2>, const __CFC
 
   if (!v13)
   {
-    v12 = EQKit::Font::STIXCollection::SizeVariant::fontInfoForCharacterWithScript((a2 + 21), a3, a4, this, 1, 1.79769313e308);
+    v12 = EQKit::Font::STIXCollection::SizeVariant::fontInfoForCharacterWithScript((a3 + 21), a4, v5, this, 1, 1.79769313e308);
   }
 
   if (v12)
   {
-    EQKit::StemStretch::Key::Key(a5);
+    EQKit::StemStretch::Key::Key(a1);
   }
 
   else
   {
-    v12 = EQKit::Font::STIXCollection::lookupFontForCh(a2, a3, 0, this, 0);
-    EQKit::StemStretch::Key::Key(a5);
+    v12 = EQKit::Font::STIXCollection::lookupFontForCh(a3, a4, 0, this, 0);
+    EQKit::StemStretch::Key::Key(a1);
     if (!v12)
     {
       return;
@@ -1299,23 +1301,23 @@ void EQKit::Font::STIXCollection::stemStretchKey(CGFloat *this@<X2>, const __CFC
     CopyWithAttributes = CTFontCreateCopyWithAttributes(*v12, this[2], 0, 0);
     if (CopyWithAttributes)
     {
-      v15 = EQKit::Font::STIXCollection::ruleThicknessWithScript(a2, this);
-      EQKit::StemStretch::Key::keyForFontAndCharacter(CopyWithAttributes, a3, v15, v16);
-      EQKit::StemStretch::Key::operator=(a5, v16);
+      v15 = EQKit::Font::STIXCollection::ruleThicknessWithScript(a3, this);
+      EQKit::StemStretch::Key::keyForFontAndCharacter(CopyWithAttributes, a4, v15, v16);
+      EQKit::StemStretch::Key::operator=(a1, v16);
       EQKit::StemStretch::Key::~Key(v16);
       CFRelease(CopyWithAttributes);
     }
   }
 }
 
-void sub_2582815E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void sub_2582815E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
 {
   EQKit::StemStretch::Key::~Key(&a9);
   EQKit::StemStretch::Key::~Key(v9);
   _Unwind_Resume(a1);
 }
 
-CTFontRef EQKit::Font::STIXCollection::SizeVariant::newFontForCharacterWithScript(uint64_t a1, unsigned int a2, int a3, uint64_t a4, int a5, double a6)
+CTFontRef EQKit::Font::STIXCollection::SizeVariant::newFontForCharacterWithScript(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, double a6)
 {
   v7 = EQKit::Font::STIXCollection::SizeVariant::fontInfoForCharacterWithScript(a1, a2, a3, a4, a5, a6);
   if (!v7)
@@ -1411,7 +1413,7 @@ uint64_t EQKit::Font::STIXCollection::compositeStretchForCharacter(uint64_t a1, 
   }
 }
 
-double EQKit::Font::STIXCollection::accentUnderHAdjustment(EQKit::Font::STIXCollection *this, UTF32Char a2, const EQKit::Script::Info *a3)
+double EQKit::Font::STIXCollection::accentUnderHAdjustment(const __CFCharacterSet **this, UTF32Char a2, const EQKit::Script::Info *a3)
 {
   v6 = 0.0;
   v3 = EQKit::Font::STIXCollection::accentHAdjustment(this, a2, a3, &v6, &v5);
@@ -1424,7 +1426,7 @@ double EQKit::Font::STIXCollection::accentUnderHAdjustment(EQKit::Font::STIXColl
   return result;
 }
 
-const __CFCharacterSet *EQKit::Font::STIXCollection::accentHAdjustment(EQKit::Font::STIXCollection *this, UTF32Char a2, const EQKit::Script::Info *a3, double *a4, double *a5)
+const __CFCharacterSet *EQKit::Font::STIXCollection::accentHAdjustment(const __CFCharacterSet **this, UTF32Char a2, const EQKit::Script::Info *a3, double *a4, double *a5)
 {
   v10 = *(a3 + 4);
   v11 = *(a3 + 10);
@@ -1449,7 +1451,7 @@ const __CFCharacterSet *EQKit::Font::STIXCollection::accentHAdjustment(EQKit::Fo
       {
         v16 = result;
         EQKit::Font::SlantKey::SlantKey(v32, result, a2);
-        v17 = EQKitCache<EQKit::Font::SlantKey,EQKit::Font::SlantInfo,EQKit::Font::SlantInfo>::lookup(*(this + 49), v32);
+        v17 = EQKitCache<EQKit::Font::SlantKey,EQKit::Font::SlantInfo,EQKit::Font::SlantInfo>::lookup(this[49], v32);
         v19 = v18;
         if (v32[0])
         {
@@ -1530,7 +1532,7 @@ void sub_258281934(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-double EQKit::Font::STIXCollection::accentOverHAdjustment(EQKit::Font::STIXCollection *this, UTF32Char a2, const EQKit::Script::Info *a3)
+double EQKit::Font::STIXCollection::accentOverHAdjustment(const __CFCharacterSet **this, UTF32Char a2, const EQKit::Script::Info *a3)
 {
   v5 = 0.0;
   v3 = EQKit::Font::STIXCollection::accentHAdjustment(this, a2, a3, &v6, &v5);
@@ -1573,8 +1575,8 @@ LABEL_10:
     else
     {
       v11 = **a1;
-      v12 = a2;
-      v8 = std::__hash_table<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::__unordered_map_hasher<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::hash<EQKit::Font::SlantKey>,std::equal_to<EQKit::Font::SlantKey>,true>,std::__unordered_map_equal<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::equal_to<EQKit::Font::SlantKey>,std::hash<EQKit::Font::SlantKey>,true>,std::allocator<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>>>::__emplace_unique_key_args<EQKit::Font::SlantKey,std::piecewise_construct_t const&,std::tuple<EQKit::Font::SlantKey const&>,std::tuple<>>(a1 + 1, a2);
+      v13 = a2;
+      v8 = std::__hash_table<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::__unordered_map_hasher<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::hash<EQKit::Font::SlantKey>,std::equal_to<EQKit::Font::SlantKey>,true>,std::__unordered_map_equal<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::equal_to<EQKit::Font::SlantKey>,std::hash<EQKit::Font::SlantKey>,true>,std::allocator<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>>>::__emplace_unique_key_args<EQKit::Font::SlantKey,std::piecewise_construct_t const&,std::tuple<EQKit::Font::SlantKey const&>,std::tuple<>>(a1 + 1, a2, &std::piecewise_construct, &v13, &v12);
       *(v8 + 5) = v10;
       v8[7] = v11;
       if (a1[4] > a1[7])
@@ -1592,35 +1594,35 @@ LABEL_10:
   return v5;
 }
 
-BOOL EQKit::Font::STIXCollection::isCharacterStretchableInAxis(uint64_t a1, EQKit::Unicode *a2, int a3, uint64_t *a4)
+BOOL EQKit::Font::STIXCollection::isCharacterStretchableInAxis(uint64_t ***a1, EQKit::Unicode *a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a4 + 4);
   v7 = *(a4 + 10);
   v8 = *(a4 + 3);
   v9 = *(a4 + 6);
   v10 = a4[4];
-  v30 = *a4;
-  v31 = v6;
-  v32 = v7;
-  v33 = v8;
-  v34 = 0x4028000000000000;
-  v35 = v9;
-  v36 = v10;
-  v11 = EQKit::Font::STIXCollection::lookupChar(a1, a2, &v30, 1);
+  v31 = *a4;
+  v32 = v6;
+  v33 = v7;
+  v34 = v8;
+  v35 = 0x4028000000000000;
+  v36 = v9;
+  v37 = v10;
+  v11 = EQKit::Font::STIXCollection::lookupChar(a1, a2, &v31, 1);
   v12 = v11;
   if (a3 == 1)
   {
-    v19 = *(a1 + 312);
+    v19 = a1[39];
     if (!v19)
     {
       goto LABEL_18;
     }
 
-    v14 = a1 + 312;
-    v15 = a1 + 312;
+    v14 = (a1 + 39);
+    v15 = (a1 + 39);
     do
     {
-      v20 = *(v19 + 32);
+      v20 = *(v19 + 8);
       v17 = v20 >= v11;
       v21 = v20 < v11;
       if (v17)
@@ -1628,7 +1630,7 @@ BOOL EQKit::Font::STIXCollection::isCharacterStretchableInAxis(uint64_t a1, EQKi
         v15 = v19;
       }
 
-      v19 = *(v19 + 8 * v21);
+      v19 = v19[v21];
     }
 
     while (v19);
@@ -1641,17 +1643,17 @@ BOOL EQKit::Font::STIXCollection::isCharacterStretchableInAxis(uint64_t a1, EQKi
       goto LABEL_18;
     }
 
-    v13 = *(a1 + 288);
+    v13 = a1[36];
     if (!v13)
     {
       goto LABEL_18;
     }
 
-    v14 = a1 + 288;
-    v15 = a1 + 288;
+    v14 = (a1 + 36);
+    v15 = (a1 + 36);
     do
     {
-      v16 = *(v13 + 32);
+      v16 = *(v13 + 8);
       v17 = v16 >= v11;
       v18 = v16 < v11;
       if (v17)
@@ -1659,39 +1661,39 @@ BOOL EQKit::Font::STIXCollection::isCharacterStretchableInAxis(uint64_t a1, EQKi
         v15 = v13;
       }
 
-      v13 = *(v13 + 8 * v18);
+      v13 = v13[v18];
     }
 
     while (v13);
   }
 
-  if (v15 != v14 && v11 >= *(v15 + 32))
+  if (v15 != v14 && v11 >= *(v15 + 8))
   {
     return 1;
   }
 
 LABEL_18:
-  v22 = *(a1 + 376);
-  EQKit::Font::STIXCollection::stemStretchKey(&v30, a1, v11, a3, v27);
-  LODWORD(v22) = EQKitCache<EQKit::StemStretch::Key,EQKitTypes::Axis::Enum,EQKitTypes::Axis::Enum>::lookup(v22, v27);
-  EQKit::StemStretch::Key::~Key(v27);
+  v22 = a1[47];
+  EQKit::Font::STIXCollection::stemStretchKey(v28, &v31, a1, v11, a3);
+  LODWORD(v22) = EQKitCache<EQKit::StemStretch::Key,EQKitTypes::Axis::Enum,EQKitTypes::Axis::Enum>::lookup(v22, v28);
+  EQKit::StemStretch::Key::~Key(v28);
   if (v22 == a3)
   {
     return 1;
   }
 
-  v25[0] = v12;
-  EQKitCache<unsigned int,EQKit::Font::STIXCollection::StretchInfo,EQKit::Font::STIXCollection::StretchInfo>::lookup(*(a1 + 216), v25, v27);
-  if (v29 - 1 > 0xFD)
+  LODWORD(v25[0]) = v12;
+  EQKitCache<unsigned int,EQKit::Font::STIXCollection::StretchInfo,EQKit::Font::STIXCollection::StretchInfo>::lookup(a1[27], v25, v28);
+  if (v30 - 1 > 0xFD)
   {
-    v37 = v12;
-    EQKitCache<unsigned int,EQKit::Font::STIXCollection::StretchInfo,EQKit::Font::STIXCollection::StretchInfo>::lookup(*(a1 + 272), &v37, v25);
-    return v26 - 1 < 0xFE && v25[12] == a3;
+    v38 = v12;
+    EQKitCache<unsigned int,EQKit::Font::STIXCollection::StretchInfo,EQKit::Font::STIXCollection::StretchInfo>::lookup(a1[34], &v38, v25);
+    return v27 - 1 < 0xFE && v26 == a3;
   }
 
   else
   {
-    return v28 == a3;
+    return v29 == a3;
   }
 }
 
@@ -1929,7 +1931,7 @@ double EQKit::Font::STIXCollection::ruleThicknessWithScript(const __CFCharacterS
   return v4;
 }
 
-uint64_t EQKit::Font::STIXCollection::SizeVariant::fontInfoForCharacterWithScript(uint64_t a1, unsigned int a2, int a3, uint64_t a4, int a5, double a6)
+uint64_t EQKit::Font::STIXCollection::SizeVariant::fontInfoForCharacterWithScript(uint64_t a1, int a2, int a3, uint64_t a4, int a5, double a6)
 {
   v16 = a2;
   EQKitCache<unsigned int,EQKit::Font::STIXCollection::StretchInfo,EQKit::Font::STIXCollection::StretchInfo>::lookup(*(a1 + 48), &v16, v15);
@@ -2104,7 +2106,7 @@ LABEL_35:
   if ((v28 & 1) == 0)
   {
     v29 = *(a1 + 48);
-    EQKit::Font::STIXCollection::stemStretchKey(this, a1, v16, a3, characters);
+    EQKit::Font::STIXCollection::stemStretchKey(characters, this, a1, v16, a3);
     EQKitCache<EQKit::StemStretch::Key,std::shared_ptr<EQKit::StemStretch::Glyph>,std::shared_ptr<EQKit::StemStretch::Glyph const>>::lookup(v29, characters, &glyphs);
     EQKit::StemStretch::Key::~Key(characters);
     if (*&glyphs.width && **&glyphs.width == a3)
@@ -2589,7 +2591,7 @@ uint64_t EQKitCache<unsigned int,EQKit::Font::STIXCollection::StretchInfo,EQKit:
     {
       v21 = **a1;
       v22 = a2;
-      v13 = std::__hash_table<std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 1, a2);
+      v13 = std::__hash_table<std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(a1 + 1, a2, &std::piecewise_construct, &v22);
       if (v13 + 3 != v18)
       {
         *(v13 + 18) = v19;
@@ -2643,34 +2645,34 @@ uint64_t EQKitCache<unsigned int,EQKit::Font::STIXCollection::StretchInfo,EQKit:
 
 CGPath *EQKit::Font::STIXCollection::newCGPathForRadicalWithOverbar(uint64_t a1, uint64_t a2, double *a3, uint64_t a4, double a5, double a6, double a7)
 {
-  v62 = 8730;
-  EQKitPath::EQKitPath(&v58, 0);
-  memset(&v57, 0, sizeof(v57));
-  v14 = (*(*a1 + 88))(a1, &v62, 2, a2, a5);
+  v61 = 8730;
+  EQKitPath::EQKitPath(&v57, 0);
+  memset(&v56, 0, sizeof(v56));
+  v14 = (*(*a1 + 88))(a1, &v61, 2, a2, a5);
   if (v14)
   {
-    EQKitPath::EQKitPath(v54, v14, v62);
-    EQKitPath::operator=(&v58, v54);
+    EQKitPath::EQKitPath(v54, v14, v61);
+    EQKitPath::operator=(&v57, v54);
     EQKitPath::~EQKitPath(v54);
-    if (v58)
+    if (v57)
     {
       v15 = CTFontCopyPostScriptName(v14);
-      std::string::__assign_external(&v57, [(__CFString *)v15 UTF8String]);
+      std::string::__assign_external(&v56, [(__CFString *)v15 UTF8String]);
       CFRelease(v15);
-      v16 = v61 == 1 ? v60 : EQKitPath::computePathBounds(&v58);
-      v63.origin.x = *v16;
-      v63.origin.y = v16[1];
+      v16 = v60 == 1 ? v59 : EQKitPath::computePathBounds(&v57);
+      v62.origin.x = *v16;
+      v62.origin.y = v16[1];
       v17 = v16[2];
       v18 = v16[3];
-      v63.size.width = v17;
-      v63.size.height = v18;
-      MaxY = CGRectGetMaxY(v63);
+      v62.size.width = v17;
+      v62.size.height = v18;
+      MaxY = CGRectGetMaxY(v62);
       *a4 = v17;
       *(a4 + 8) = v18;
       *(a4 + 16) = 0;
       *(a4 + 24) = 0;
       *(a4 + 32) = MaxY;
-      if (v58)
+      if (v57)
       {
         goto LABEL_15;
       }
@@ -2679,62 +2681,62 @@ CGPath *EQKit::Font::STIXCollection::newCGPathForRadicalWithOverbar(uint64_t a1,
     CFRelease(v14);
   }
 
-  else if (v58)
+  else if (v57)
   {
     v14 = 0;
     goto LABEL_15;
   }
 
-  v14 = (*(*a1 + 96))(a1, v62, 2, a2, a4, a5);
+  v14 = (*(*a1 + 96))(a1, v61, 2, a2, a4, a5);
   if (v14)
   {
     EQKitPath::EQKitPath(v54, v14);
-    EQKitPath::operator=(&v58, v54);
+    EQKitPath::operator=(&v57, v54);
     EQKitPath::~EQKitPath(v54);
     CFRelease(v14);
-    if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
     {
-      v57.__r_.__value_.__l.__size_ = 22;
-      v20 = v57.__r_.__value_.__r.__words[0];
+      v56.__r_.__value_.__l.__size_ = 22;
+      v20 = v56.__r_.__value_.__r.__words[0];
     }
 
     else
     {
-      *(&v57.__r_.__value_.__s + 23) = 22;
-      v20 = &v57;
+      *(&v56.__r_.__value_.__s + 23) = 22;
+      v20 = &v56;
     }
 
     strcpy(v20, "STIXSizeOneSym-Regular");
-    v62 = 9143;
+    v61 = 9143;
     v14 = CTFontCreateWithName(@"STIXSizeOneSym-Regular", *(a2 + 16), 0);
   }
 
 LABEL_15:
-  if (v61 == 1)
+  if (v60 == 1)
   {
-    v21 = v60;
+    v21 = v59;
   }
 
   else
   {
-    v21 = EQKitPath::computePathBounds(&v58);
+    v21 = EQKitPath::computePathBounds(&v57);
   }
 
   v22 = *v21;
   v23 = v21[1];
   v24 = v21[2];
   v25 = v21[3];
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v53, v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v53, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v53 = v57;
+    v53 = v56;
   }
 
-  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 4, &v53, v62, v54);
+  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 4, &v53, v61, v54);
   if (v14)
   {
     Size = CTFontGetSize(v14);
@@ -2752,17 +2754,17 @@ LABEL_15:
     operator delete(v53.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v52, v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v52, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v52 = v57;
+    v52 = v56;
   }
 
-  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 5, &v52, v62, v54);
+  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 5, &v52, v61, v54);
   if (v14)
   {
     v28 = CTFontGetSize(v14);
@@ -2780,17 +2782,17 @@ LABEL_15:
     operator delete(v52.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v51, v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v51, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v51 = v57;
+    v51 = v56;
   }
 
-  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 6, &v51, v62, v54);
+  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 6, &v51, v61, v54);
   if (v14)
   {
     v30 = CTFontGetSize(v14);
@@ -2808,17 +2810,17 @@ LABEL_15:
     operator delete(v51.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v50, v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v50, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v50 = v57;
+    v50 = v56;
   }
 
-  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 7, &v50, v62, v54);
+  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 7, &v50, v61, v54);
   if (v14)
   {
     v32 = CTFontGetSize(v14);
@@ -2836,17 +2838,17 @@ LABEL_15:
     operator delete(v50.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v49, v57.__r_.__value_.__l.__data_, v57.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v49, v56.__r_.__value_.__l.__data_, v56.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v49 = v57;
+    v49 = v56;
   }
 
-  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 8, &v49, v62, v54);
+  EQKit::Font::STIXCollection::characterPropertyLengthForFont(a1, 8, &v49, v61, v54);
   if (v14)
   {
     v34 = CTFontGetSize(v14);
@@ -2865,16 +2867,16 @@ LABEL_15:
   }
 
   *a3 = *(a4 + 32) + *a3;
+  v63.origin.x = v22;
+  v63.origin.y = v23;
+  v63.size.width = v24;
+  v63.size.height = v25;
+  a3[1] = a3[1] - CGRectGetMinX(v63);
   v64.origin.x = v22;
   v64.origin.y = v23;
   v64.size.width = v24;
   v64.size.height = v25;
-  a3[1] = a3[1] - CGRectGetMinX(v64);
-  v65.origin.x = v22;
-  v65.origin.y = v23;
-  v65.size.width = v24;
-  v65.size.height = v25;
-  a3[2] = a3[2] - CGRectGetMinX(v65);
+  a3[2] = a3[2] - CGRectGetMinX(v64);
   if (v14)
   {
     CFRelease(v14);
@@ -2882,18 +2884,18 @@ LABEL_15:
 
   v36 = a3[3];
   v37 = a3[4];
-  EQKitPath::findStemForEdge(&v58, 1u, v54);
-  if (v54[0] == 1)
+  EQKitPath::findStemForEdge(&v57, 1u, v54);
+  if (LOBYTE(v54[0]) == 1)
   {
-    EQKitPath::extractPath(&v58);
-    v38 = v59 + 16 * v55;
+    EQKitPath::extractPath(&v57);
+    v38 = v58 + 16 * v54[2];
     v40 = *v38;
     v39 = *(v38 + 8);
-    EQKitPath::extractPath(&v58);
-    v41 = *(v59 + 16 * v56);
+    EQKitPath::extractPath(&v57);
+    v41 = *(v58 + 16 * v55);
     if (v40 >= v41)
     {
-      v42 = *(v59 + 16 * v56);
+      v42 = *(v58 + 16 * v55);
     }
 
     else
@@ -2909,23 +2911,23 @@ LABEL_15:
     v43 = v36 + v37 + a6 + v41 - v42;
     v44 = v39;
     v45 = a7;
-    EQKitPath::appendSubpathRect(&v58, *&v42);
+    EQKitPath::appendSubpathRect(&v57, *&v42);
   }
 
   Mutable = CGPathCreateMutable();
   memset(&v48, 0, sizeof(v48));
   CGAffineTransformMakeTranslation(&v48, -v22, -v23);
-  EQKitPath::appendToCGPath(&v58, Mutable, &v48, 0);
-  if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
+  EQKitPath::appendToCGPath(&v57, Mutable, &v48, 0);
+  if (SHIBYTE(v56.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v57.__r_.__value_.__l.__data_);
+    operator delete(v56.__r_.__value_.__l.__data_);
   }
 
-  EQKitPath::~EQKitPath(&v58);
+  EQKitPath::~EQKitPath(&v57);
   return Mutable;
 }
 
-void sub_2582834C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *__p, uint64_t a56, int a57, __int16 a58, char a59, char a60, char a61)
+void sub_2582834C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *__p, uint64_t a56, int a57, __int16 a58, char a59, char a60, CGPathRef a61)
 {
   if (a60 < 0)
   {
@@ -2963,9 +2965,9 @@ CGPath *EQKit::Font::STIXCollection::newCGPathForLongDivisionWithOverbar(EQKit::
   return Mutable;
 }
 
-void sub_2582836E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2582836E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   EQKitPath::~EQKitPath(va);
   _Unwind_Resume(a1);
 }
@@ -3180,13 +3182,13 @@ void EQKit::Font::STIXCollection::FontInfo::~FontInfo(EQKit::Font::STIXCollectio
   }
 }
 
-void std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::destroy(uint64_t a1, void *a2)
+void std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::destroy(uint64_t a1, const void **a2)
 {
   if (a2)
   {
     std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::destroy(a1, *a2);
     std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::destroy(a1, a2[1]);
-    EQKit::Font::CompositeStretch::~CompositeStretch((a2 + 5));
+    EQKit::Font::CompositeStretch::~CompositeStretch(a2 + 5);
 
     operator delete(a2);
   }
@@ -3199,9 +3201,9 @@ void std::shared_ptr<EQKit::StemStretch::Glyph>::shared_ptr[abi:ne200100]<EQKit:
   operator new();
 }
 
-void sub_258283C08(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258283C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<EQKit::StemStretch::Glyph>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3387,41 +3389,41 @@ void *std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair
   return v11;
 }
 
-void *std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *a2;
+  v7 = *a2;
   if (*a2)
   {
-    v4 = CFHash(v4);
+    v7 = CFHash(v7);
   }
 
-  v5 = *(a2 + 16);
-  v6 = v4 ^ v5;
-  v7 = a1[1];
-  if (!*&v7)
+  v8 = *(a2 + 16);
+  v9 = v7 ^ v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_20;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v4 ^ v5;
-    if (v6 >= *&v7)
+    v13 = v7 ^ v8;
+    if (v9 >= *&v10)
     {
-      v10 = v6 % *&v7;
+      v13 = v9 % *&v10;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v13 = (*&v10 - 1) & v9;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_20:
     std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>();
@@ -3429,49 +3431,49 @@ LABEL_20:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v12 > 1)
     {
-      if (v13 >= *&v7)
+      if (v16 >= *&v10)
       {
-        v13 %= *&v7;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v13 != v10)
+    if (v16 != v13)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v12 = *v12;
-    if (!v12)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_20;
     }
   }
 
-  if (!EQKit::StemStretch::Key::operator==((v12 + 2), a2))
+  if (!EQKit::StemStretch::Key::operator==((v15 + 2), a2))
   {
     goto LABEL_19;
   }
 
-  return v12;
+  return v15;
 }
 
-void sub_2582841D8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582841D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<std::shared_ptr<EQKit::StemStretch::Glyph>,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3519,7 +3521,7 @@ uint64_t std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::p
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>>>::__deallocate_node(uint64_t a1, void *a2)
+void std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>>>::__deallocate_node(uint64_t a1, const void **a2)
 {
   if (a2)
   {
@@ -3527,7 +3529,7 @@ void std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<
     do
     {
       v3 = *v2;
-      EQKit::StemStretch::Key::~Key((v2 + 2));
+      EQKit::StemStretch::Key::~Key(v2 + 2);
       operator delete(v2);
       v2 = v3;
     }
@@ -3579,48 +3581,48 @@ void std::__hash_table<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQ
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<unsigned int &&>,std::tuple<>>();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v7 = v5;
+      v8 = *(v5 + 32);
+      if (v6 >= v8)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v8 >= v6)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t *a1)
+uint64_t std::unique_ptr<std::__tree_node<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3628,7 +3630,7 @@ uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<unsigned int,EQKit:
   {
     if (*(a1 + 16) == 1)
     {
-      EQKit::Font::CompositeStretch::~CompositeStretch((v2 + 40));
+      EQKit::Font::CompositeStretch::~CompositeStretch(v2 + 5);
     }
 
     operator delete(v2);
@@ -3637,41 +3639,41 @@ uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<unsigned int,EQKit:
   return a1;
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v5 = *(a1 + 8);
+  if (!v5)
   {
 LABEL_8:
     std::__tree<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,EQKit::Font::CompositeStretch>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,EQKit::Font::CompositeStretch>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>();
   }
 
-  v3 = *a2;
+  v6 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 32);
-      if (v3 >= v5)
+      v7 = v5;
+      v8 = *(v5 + 32);
+      if (v6 >= v8)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v5 = *v7;
+      if (!*v7)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v8 >= v6)
     {
-      return v4;
+      return v7;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v5 = v7[1];
+    if (!v5)
     {
       goto LABEL_8;
     }
@@ -3755,7 +3757,7 @@ uint64_t std::vector<std::pair<EQKit::StemStretch::Key,unsigned long>>::__emplac
   v13 = 0;
   v14 = 40 * v2;
   v15 = 40 * v2;
-  *(EQKit::StemStretch::Key::Key((40 * v2), a2) + 32) = *(a2 + 4);
+  *(EQKit::StemStretch::Key::Key((40 * v2), a2) + 4) = *(a2 + 4);
   *&v15 = v15 + 40;
   v7 = *(a1 + 8);
   v8 = (v14 + *a1 - v7);
@@ -3773,9 +3775,9 @@ uint64_t std::vector<std::pair<EQKit::StemStretch::Key,unsigned long>>::__emplac
   return v12;
 }
 
-void sub_258284A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_258284A1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<EQKit::StemStretch::Key,unsigned long>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3790,7 +3792,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<EQKit::Stem
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<EQKit::StemStretch::Key,unsigned long>>,std::pair<EQKit::StemStretch::Key,unsigned long>*>(int a1, EQKit::StemStretch::Key *a2, EQKit::StemStretch::Key *a3, EQKit::StemStretch::Key *this)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::pair<EQKit::StemStretch::Key,unsigned long>>,std::pair<EQKit::StemStretch::Key,unsigned long>*>(int a1, const void **a2, const void **a3, EQKit::StemStretch::Key *this)
 {
   if (a2 != a3)
   {
@@ -3800,8 +3802,8 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::p
     do
     {
       EQKit::StemStretch::Key::Key(this, v8);
-      *(this + 4) = *(v8 + 4);
-      v8 = (v8 + 40);
+      *(this + 4) = v8[4];
+      v8 += 5;
       this = (this + 40);
       v7 -= 40;
     }
@@ -3810,7 +3812,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::p
     while (v6 != a3)
     {
       EQKit::StemStretch::Key::~Key(v6);
-      v6 = (v6 + 40);
+      v6 += 5;
     }
   }
 }
@@ -3850,12 +3852,12 @@ uint64_t std::__split_buffer<std::pair<EQKit::StemStretch::Key,unsigned long>>::
   return a1;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,false>(EQKit::StemStretch::Key *a1, unint64_t a2, uint64_t (**a3)(const EQKit::StemStretch::Key *, const EQKit::StemStretch::Key *), uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,false>(EQKit::StemStretch::Key *result, const void **a2, uint64_t (**a3)(const EQKit::StemStretch::Key *, const EQKit::StemStretch::Key *), uint64_t a4, char a5)
 {
   v7 = a2;
-  v8 = a1;
+  v8 = result;
   v48 = a2;
-  v49 = a1;
+  v49 = result;
 LABEL_2:
   for (i = 1 - a4; ; ++i)
   {
@@ -3871,8 +3873,8 @@ LABEL_2:
       if (v11 == 2)
       {
         v45 = *a3;
-        v48 = (v7 - 40);
-        if ((v45)(v7 - 40))
+        v48 = (v7 - 5);
+        if ((v45)(v7 - 5))
         {
           v44 = &v49;
           v47 = &v48;
@@ -3892,21 +3894,21 @@ LABEL_2:
 
     if (v11 == 4)
     {
-      v48 = (v7 - 40);
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,0>(v8, (v8 + 40), (v8 + 80), v7 - 40, a3);
+      v48 = (v7 - 5);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,0>(v8, (v8 + 40), (v8 + 80), (v7 - 5), a3);
       return;
     }
 
     if (v11 == 5)
     {
-      v48 = (v7 - 40);
+      v48 = (v7 - 5);
       v53 = (v8 + 40);
       v54[0] = v8;
       v51 = (v8 + 120);
       v52 = (v8 + 80);
-      v50 = v7 - 40;
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,0>(v8, (v8 + 40), (v8 + 80), v8 + 120, a3);
-      if ((*a3)((v7 - 40), (v8 + 120)))
+      v50 = v7 - 5;
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,0>(v8, (v8 + 40), (v8 + 80), (v8 + 120), a3);
+      if ((*a3)((v7 - 5), (v8 + 120)))
       {
         std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::pair<EQKit::StemStretch::Key,unsigned long> *&,std::pair<EQKit::StemStretch::Key,unsigned long> *&>(&v51, &v50);
         if ((*a3)(v51, (v8 + 80)))
@@ -3952,11 +3954,11 @@ LABEL_10:
 
     v12 = v11 >> 1;
     v13 = (v8 + 40 * (v11 >> 1));
-    v14 = (v7 - 40);
+    v14 = (v7 - 5);
     if (v10 < 0x1401)
     {
       v53 = v8;
-      v54[0] = (v8 + 40 * (v11 >> 1));
+      v54[0] = v8 + 40 * (v11 >> 1);
       v52 = v14;
       v18 = (*a3)(v8, v13);
       v19 = (*a3)(v14, v8);
@@ -4042,7 +4044,7 @@ LABEL_29:
     v8 = v49;
     v23 = v49 + 40 * v12;
     v53 = (v23 - 40);
-    v54[0] = (v49 + 40);
+    v54[0] = v49 + 40;
     v52 = (v48 - 80);
     v24 = (*a3)(v23 - 40);
     v25 = (*a3)((v48 - 80), (v23 - 40));
@@ -4082,7 +4084,7 @@ LABEL_44:
 
 LABEL_45:
     v53 = (v23 + 40);
-    v54[0] = (v49 + 80);
+    v54[0] = v49 + 80;
     v52 = (v48 - 120);
     v28 = (*a3)(v23 + 40);
     v29 = (*a3)((v48 - 120), (v23 + 40));
@@ -4117,7 +4119,7 @@ LABEL_53:
 
 LABEL_54:
     v53 = (v49 + 40 * v12);
-    v54[0] = (v23 - 40);
+    v54[0] = v23 - 40;
     v52 = (v23 + 40);
     v32 = (*a3)(v23, (v23 - 40));
     v33 = (*a3)((v23 + 40), v23);
@@ -4186,7 +4188,7 @@ LABEL_66:
     }
 
     v39 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(v8, v37, a3);
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>((v37 + 40), v7, a3))
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(v37 + 5, v7, a3))
     {
       if (v39)
       {
@@ -4217,12 +4219,12 @@ LABEL_75:
   }
 
   v41 = (v8 + 40);
-  v48 = (v7 - 40);
+  v48 = (v7 - 5);
   v53 = (v8 + 40);
   v54[0] = v8;
-  v52 = (v7 - 40);
+  v52 = (v7 - 5);
   v42 = (*a3)((v8 + 40), v8);
-  v43 = (*a3)((v7 - 40), v41);
+  v43 = (*a3)((v7 - 5), v41);
   if (v42)
   {
     if (v43)
@@ -4260,9 +4262,9 @@ LABEL_98:
   }
 }
 
-void sub_25828523C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25828523C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   EQKit::StemStretch::Key::~Key(va);
   _Unwind_Resume(a1);
 }
@@ -4280,7 +4282,7 @@ void std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<std::pair<EQ
   *(v3 + 32) = v4;
 }
 
-void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,0>(const EQKit::StemStretch::Key *a1, const EQKit::StemStretch::Key *a2, const EQKit::StemStretch::Key *a3, uint64_t a4, uint64_t (**a5)(const EQKit::StemStretch::Key *, const EQKit::StemStretch::Key *))
+void std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,0>(const EQKit::StemStretch::Key *a1, const EQKit::StemStretch::Key *a2, const EQKit::StemStretch::Key *a3, const EQKit::StemStretch::Key *a4, uint64_t (**a5)(const EQKit::StemStretch::Key *, const EQKit::StemStretch::Key *))
 {
   v16 = a2;
   v17 = a1;
@@ -4335,12 +4337,12 @@ LABEL_10:
   }
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(uint64_t a1, const EQKit::StemStretch::Key *a2, uint64_t (**a3)(const EQKit::StemStretch::Key *, uint64_t))
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(const void **a1, const void **a2, uint64_t (**a3)(const void **, uint64_t))
 {
   if (a1 != a2)
   {
-    v5 = (a1 + 40);
-    if ((a1 + 40) != a2)
+    v5 = a1 + 5;
+    if (a1 + 5 != a2)
     {
       v7 = 0;
       v8 = a1;
@@ -4350,7 +4352,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::p
         if ((*a3)(v5, v8))
         {
           EQKit::StemStretch::Key::Key(v13, v9);
-          v14 = *(v8 + 9);
+          v14 = *(v8 + 72);
           v10 = v7;
           while (1)
           {
@@ -4377,30 +4379,30 @@ LABEL_10:
           EQKit::StemStretch::Key::~Key(v13);
         }
 
-        v5 = (v9 + 40);
+        v5 = v9 + 5;
         v7 += 40;
         v8 = v9;
       }
 
-      while ((v9 + 40) != a2);
+      while (v9 + 5 != a2);
     }
   }
 }
 
-void sub_258285518(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258285518(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::StemStretch::Key::~Key(va);
   _Unwind_Resume(a1);
 }
 
-void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(uint64_t a1, const EQKit::StemStretch::Key *a2, uint64_t (**a3)(const EQKit::StemStretch::Key *, uint64_t))
+void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(const void **a1, const void **a2, uint64_t (**a3)(const void **, uint64_t))
 {
   if (a1 != a2)
   {
     v4 = a1;
-    v5 = (a1 + 40);
-    if ((a1 + 40) != a2)
+    v5 = a1 + 5;
+    if (a1 + 5 != a2)
     {
       do
       {
@@ -4422,29 +4424,29 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (
           EQKit::StemStretch::Key::~Key(v8);
         }
 
-        v5 = (v7 + 40);
+        v5 = v7 + 5;
         v4 = v7;
       }
 
-      while ((v7 + 40) != a2);
+      while (v7 + 5 != a2);
     }
   }
 }
 
-void sub_258285600(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258285600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::StemStretch::Key::~Key(va);
   _Unwind_Resume(a1);
 }
 
-const EQKit::StemStretch::Key *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<EQKit::StemStretch::Key,unsigned long> *,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&)>(EQKit::StemStretch::Key *a1, unint64_t a2, unsigned int (**a3)(_BYTE *))
+const EQKit::StemStretch::Key *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<EQKit::StemStretch::Key,unsigned long> *,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&)>(EQKit::StemStretch::Key *a1, unint64_t a2, uint64_t (**a3)(const void **, const EQKit::StemStretch::Key *))
 {
   v15 = a1;
   v14 = a2;
   EQKit::StemStretch::Key::Key(v12, a1);
   v13 = *(a1 + 4);
-  if ((*a3)(v12, a2 - 40))
+  if ((*a3)(v12, (a2 - 40)))
   {
     v6 = a1;
     do
@@ -4524,14 +4526,14 @@ const EQKit::StemStretch::Key *std::__partition_with_equals_on_left[abi:ne200100
   return v10;
 }
 
-void sub_2582857A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582857A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::StemStretch::Key::~Key(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<EQKit::StemStretch::Key,unsigned long> *,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&)>(EQKit::StemStretch::Key *a1, unint64_t a2, uint64_t (**a3)(void))
+uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<EQKit::StemStretch::Key,unsigned long> *,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&)>(EQKit::StemStretch::Key *a1, unint64_t a2, uint64_t (**a3)(unint64_t, const void **))
 {
   v15 = a2;
   EQKit::StemStretch::Key::Key(v13, a1);
@@ -4560,7 +4562,7 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
       v15 = v6;
     }
 
-    while (((v10)(v6, v13) & 1) == 0);
+    while ((v10(v6, v13) & 1) == 0);
   }
 
   else
@@ -4613,14 +4615,14 @@ uint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPol
   return v11 - 40;
 }
 
-void sub_258285950(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258285950(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::StemStretch::Key::~Key(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(void *a1, const EQKit::StemStretch::Key *a2, uint64_t (**a3)(const EQKit::StemStretch::Key *, const EQKit::StemStretch::Key *))
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(void *a1, const EQKit::StemStretch::Key *a2, uint64_t (**a3)(const EQKit::StemStretch::Key *, const EQKit::StemStretch::Key *))
 {
   v28 = a2;
   v29 = a1;
@@ -4695,13 +4697,13 @@ LABEL_35:
               {
                 v23 = v16;
                 EQKit::StemStretch::Key::operator=(v16 + 40, v16);
-                *(v16 + 72) = *(v16 + 32);
+                *(v16 + 9) = *(v16 + 4);
                 if (v16 == v29)
                 {
                   break;
                 }
 
-                v16 -= 40;
+                v16 = (v16 - 40);
               }
 
               while (((*a3)(v26, (v23 - 40)) & 1) != 0);
@@ -4741,7 +4743,7 @@ LABEL_35:
   {
     if (v6 == 4)
     {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,0>(a1, (a1 + 5), (a1 + 10), a2 - 40, a3);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,0>(a1, (a1 + 5), (a1 + 10), (a2 - 40), a3);
       return 1;
     }
 
@@ -4754,7 +4756,7 @@ LABEL_35:
     v32 = (a1 + 10);
     v33 = (a1 + 5);
     v10 = (a2 - 40);
-    v30 = (a2 - 40);
+    v30 = a2 - 40;
     v31 = (a1 + 15);
     std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*,0>(a1, (a1 + 5), (a1 + 10), (a1 + 15), a3);
     if (!(*a3)(v10, (a1 + 15)))
@@ -4824,9 +4826,9 @@ LABEL_22:
   return 1;
 }
 
-void sub_258285CF8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258285CF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::StemStretch::Key::~Key(va);
   _Unwind_Resume(a1);
 }
@@ -4957,9 +4959,9 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<E
   }
 }
 
-void sub_258285FE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258285FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::StemStretch::Key::~Key(va);
   _Unwind_Resume(a1);
 }
@@ -4991,9 +4993,9 @@ void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*)(std::pair<EQK
   }
 }
 
-void sub_2582860E4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582860E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::StemStretch::Key::~Key(va);
   _Unwind_Resume(a1);
 }
@@ -5028,7 +5030,7 @@ uint64_t std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(s
   return v9;
 }
 
-void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(uint64_t a1, uint64_t a2, uint64_t (**a3)(uint64_t, uint64_t), uint64_t a4)
+void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQKit::StemStretch::Key,unsigned long> const&,std::pair<EQKit::StemStretch::Key,unsigned long> const&),std::pair<EQKit::StemStretch::Key,unsigned long>*>(uint64_t a1, uint64_t a2, uint64_t (**a3)(uint64_t, const void **), uint64_t a4)
 {
   v4 = a4 - 2;
   if (a4 >= 2)
@@ -5036,7 +5038,7 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQK
     v8 = v4 >> 1;
     v9 = a1 + 40 * (v4 >> 1);
     v10 = (a2 - 40);
-    if ((*a3)(v9, a2 - 40))
+    if ((*a3)(v9, (a2 - 40)))
     {
       EQKit::StemStretch::Key::Key(v12, v10);
       v13 = *(a2 - 8);
@@ -5063,9 +5065,9 @@ void std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<EQK
   }
 }
 
-void sub_2582862A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582862A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::StemStretch::Key::~Key(va);
   _Unwind_Resume(a1);
 }
@@ -5095,7 +5097,7 @@ void std::vector<std::pair<EQKit::StemStretch::Key,unsigned long>>::__destroy_ve
     {
       do
       {
-        EQKit::StemStretch::Key::~Key((v4 - 40));
+        EQKit::StemStretch::Key::~Key(v4 - 5);
       }
 
       while (v4 != v2);
@@ -5121,7 +5123,7 @@ uint64_t std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::p
   return result;
 }
 
-uint64_t *std::unique_ptr<std::__hash_node<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t *a1)
+uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -5129,7 +5131,7 @@ uint64_t *std::unique_ptr<std::__hash_node<std::__hash_value_type<EQKit::StemStr
   {
     if (*(a1 + 16) == 1)
     {
-      EQKit::StemStretch::Key::~Key((v2 + 16));
+      EQKit::StemStretch::Key::~Key(v2 + 2);
     }
 
     operator delete(v2);
@@ -5138,41 +5140,41 @@ uint64_t *std::unique_ptr<std::__hash_node<std::__hash_value_type<EQKit::StemStr
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>>>::__emplace_unique_key_args<EQKit::StemStretch::Key,std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *a2;
+  v7 = *a2;
   if (*a2)
   {
-    v4 = CFHash(v4);
+    v7 = CFHash(v7);
   }
 
-  v5 = *(a2 + 16);
-  v6 = v4 ^ v5;
-  v7 = a1[1];
-  if (!*&v7)
+  v8 = *(a2 + 16);
+  v9 = v7 ^ v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_20;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v4 ^ v5;
-    if (v6 >= *&v7)
+    v13 = v7 ^ v8;
+    if (v9 >= *&v10)
     {
-      v10 = v6 % *&v7;
+      v13 = v9 % *&v10;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v13 = (*&v10 - 1) & v9;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_20:
     std::__hash_table<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::__unordered_map_hasher<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::hash<EQKit::StemStretch::Key>,std::equal_to<EQKit::StemStretch::Key>,true>,std::__unordered_map_equal<EQKit::StemStretch::Key,std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,std::equal_to<EQKit::StemStretch::Key>,std::hash<EQKit::StemStretch::Key>,true>,std::allocator<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<EQKit::StemStretch::Key const&>,std::tuple<>>();
@@ -5180,49 +5182,49 @@ LABEL_20:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v12 > 1)
     {
-      if (v13 >= *&v7)
+      if (v16 >= *&v10)
       {
-        v13 %= *&v7;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v13 != v10)
+    if (v16 != v13)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v12 = *v12;
-    if (!v12)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_20;
     }
   }
 
-  if (!EQKit::StemStretch::Key::operator==((v12 + 2), a2))
+  if (!EQKit::StemStretch::Key::operator==((v15 + 2), a2))
   {
     goto LABEL_19;
   }
 
-  return v12;
+  return v15;
 }
 
-void sub_2582866A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2582866A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<EQKit::StemStretch::Key,std::pair<EQKitTypes::Axis::Enum,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5309,41 +5311,41 @@ void *std::__hash_table<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<E
   return v11;
 }
 
-void *std::__hash_table<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::__unordered_map_hasher<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::hash<EQKit::Font::SlantKey>,std::equal_to<EQKit::Font::SlantKey>,true>,std::__unordered_map_equal<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::equal_to<EQKit::Font::SlantKey>,std::hash<EQKit::Font::SlantKey>,true>,std::allocator<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>>>::__emplace_unique_key_args<EQKit::Font::SlantKey,std::piecewise_construct_t const&,std::tuple<EQKit::Font::SlantKey const&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::__unordered_map_hasher<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::hash<EQKit::Font::SlantKey>,std::equal_to<EQKit::Font::SlantKey>,true>,std::__unordered_map_equal<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::equal_to<EQKit::Font::SlantKey>,std::hash<EQKit::Font::SlantKey>,true>,std::allocator<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>>>::__emplace_unique_key_args<EQKit::Font::SlantKey,std::piecewise_construct_t const&,std::tuple<EQKit::Font::SlantKey const&>,std::tuple<>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *a2;
+  v7 = *a2;
   if (*a2)
   {
-    v4 = CFHash(v4);
+    v7 = CFHash(v7);
   }
 
-  v5 = *(a2 + 16);
-  v6 = v4 ^ v5;
-  v7 = a1[1];
-  if (!*&v7)
+  v8 = *(a2 + 16);
+  v9 = v7 ^ v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_20;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v10 = v4 ^ v5;
-    if (v6 >= *&v7)
+    v13 = v7 ^ v8;
+    if (v9 >= *&v10)
     {
-      v10 = v6 % *&v7;
+      v13 = v9 % *&v10;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v13 = (*&v10 - 1) & v9;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_20:
     std::__hash_table<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::__unordered_map_hasher<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::hash<EQKit::Font::SlantKey>,std::equal_to<EQKit::Font::SlantKey>,true>,std::__unordered_map_equal<EQKit::Font::SlantKey,std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,std::equal_to<EQKit::Font::SlantKey>,std::hash<EQKit::Font::SlantKey>,true>,std::allocator<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<EQKit::Font::SlantKey const&>,std::tuple<>>();
@@ -5351,49 +5353,49 @@ LABEL_20:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v12 > 1)
     {
-      if (v13 >= *&v7)
+      if (v16 >= *&v10)
       {
-        v13 %= *&v7;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v13 != v10)
+    if (v16 != v13)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v12 = *v12;
-    if (!v12)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_20;
     }
   }
 
-  if (!EQKit::Font::SlantKey::operator==((v12 + 2), a2))
+  if (!EQKit::Font::SlantKey::operator==((v15 + 2), a2))
   {
     goto LABEL_19;
   }
 
-  return v12;
+  return v15;
 }
 
-void sub_258286AB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258286AB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<EQKit::Font::SlantKey,std::pair<EQKit::Font::SlantInfo,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5969,20 +5971,20 @@ uint64_t std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<u
   v11 = (*a5)(a3, a2);
   if (v10)
   {
-    v13 = (a1 + 2);
+    v13 = a1 + 2;
     v12 = *a1;
     if (v11)
     {
       *a1 = *a3;
 LABEL_9:
       *a3 = v12;
-      v16 = (a3 + 2);
+      v16 = a3 + 2;
       goto LABEL_10;
     }
 
     *a1 = *a2;
     *a2 = v12;
-    v13 = (a2 + 2);
+    v13 = a2 + 2;
     v18 = *(a1 + 1);
     *(a1 + 1) = *(a2 + 1);
     *(a2 + 1) = v18;
@@ -5999,7 +6001,7 @@ LABEL_9:
     v14 = *a2;
     *a2 = *a3;
     *a3 = v14;
-    v16 = (a2 + 2);
+    v16 = a2 + 2;
     v15 = *(a2 + 1);
     *(a2 + 1) = *(a3 + 1);
     *(a3 + 1) = v15;
@@ -6007,7 +6009,7 @@ LABEL_9:
     {
       v17 = *a1;
       *a1 = *a2;
-      v13 = (a1 + 2);
+      v13 = a1 + 2;
       *a2 = v17;
 LABEL_10:
       v19 = *v13;
@@ -6107,7 +6109,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(_OWORD *, void))
+uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*>(uint64_t result, _OWORD *a2, uint64_t (**a3)(__int128 *, _OWORD *))
 {
   if (result != a2)
   {
@@ -6117,7 +6119,7 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
     v7 = (result + 16);
     if ((result + 16) != a2)
     {
-      v9 = result - 16;
+      v9 = (result - 16);
       do
       {
         v10 = v6;
@@ -6129,19 +6131,18 @@ uint64_t std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,BO
           v11 = v9;
           do
           {
-            *(v11 + 32) = *(v11 + 16);
-            *(v11 + 40) = *(v11 + 24);
-            result = (*a3)(&v12, v11);
-            v11 -= 16;
+            *(v11 + 8) = *(v11 + 4);
+            *(v11 + 5) = *(v11 + 3);
+            result = (*a3)(&v12, v11--);
           }
 
           while ((result & 1) != 0);
-          *(v11 + 32) = v12;
-          *(v11 + 40) = *(&v12 + 1);
+          *(v11 + 8) = v12;
+          *(v11 + 5) = *(&v12 + 1);
         }
 
         v7 = v6 + 1;
-        v9 += 16;
+        ++v9;
       }
 
       while (v6 + 1 != a2);
@@ -6227,7 +6228,7 @@ int *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,s
   return v6;
 }
 
-int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<unsigned int,unsigned long> *,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&)>(int *a1, unint64_t a2, uint64_t (**a3)(int *, __int128 *))
+int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::pair<unsigned int,unsigned long> *,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&)>(int *a1, int *a2, uint64_t (**a3)(int *, __int128 *))
 {
   v6 = 0;
   v13 = *a1;
@@ -6247,7 +6248,7 @@ int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,
         break;
       }
 
-      a2 -= 16;
+      a2 -= 4;
     }
 
     while (((*a3)(a2, &v13) & 1) == 0);
@@ -6257,7 +6258,7 @@ int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,
   {
     do
     {
-      a2 -= 16;
+      a2 -= 4;
     }
 
     while (!(*a3)(a2, &v13));
@@ -6273,17 +6274,17 @@ int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,
       *v8 = *v9;
       *v9 = v10;
       v11 = *(v8 + 1);
-      *(v8 + 1) = *(v9 + 8);
-      *(v9 + 8) = v11;
+      *(v8 + 1) = *(v9 + 1);
+      *(v9 + 1) = v11;
       do
       {
-        ++v8;
+        v8 += 4;
       }
 
       while (((*a3)(v8, &v13) & 1) != 0);
       do
       {
-        v9 -= 16;
+        v9 -= 4;
       }
 
       while (!(*a3)(v9, &v13));
@@ -6292,8 +6293,8 @@ int *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,
     while (v8 < v9);
   }
 
-  result = (v8 - 1);
-  if (v8 - 1 != a1)
+  result = v8 - 4;
+  if (v8 - 4 != a1)
   {
     *a1 = *(v8 - 4);
     *(a1 + 1) = *(v8 - 1);
@@ -6556,7 +6557,7 @@ LABEL_43:
   }
 }
 
-uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*,std::pair<unsigned int,unsigned long>*>(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int (**a4)(uint64_t, uint64_t))
+char *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*,std::pair<unsigned int,unsigned long>*>(char *a1, char *a2, char *a3, uint64_t (**a4)(uint64_t, __int128 *))
 {
   if (a1 != a2)
   {
@@ -6565,7 +6566,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + 16 * v9);
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*>(a1, a4, v8, v11--);
@@ -6586,9 +6587,9 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
           v13 = *v12;
           *v12 = *a1;
           *a1 = v13;
-          v14 = *(v12 + 8);
-          *(v12 + 8) = *(a1 + 8);
-          *(a1 + 8) = v14;
+          v14 = *(v12 + 1);
+          *(v12 + 1) = *(a1 + 1);
+          *(a1 + 1) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*>(a1, a4, v8, a1);
         }
 
@@ -6604,7 +6605,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
       do
       {
         v16 = *a1;
-        v17 = *(a1 + 8);
+        v17 = *(a1 + 1);
         v18 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*>(a1, a4, v8);
         if (v15 == v18)
         {
@@ -6615,9 +6616,9 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
         else
         {
           *v18 = *v15;
-          *(v18 + 8) = *(v15 + 8);
+          *(v18 + 8) = *(v15 + 1);
           *v15 = v16;
-          *(v15 + 8) = v17;
+          *(v15 + 1) = v17;
           std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*>(a1, v18 + 16, a4, (v18 + 16 - a1) >> 4);
         }
 
@@ -6633,7 +6634,7 @@ uint64_t std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)
   return a3;
 }
 
-uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*>(uint64_t result, unsigned int (**a2)(uint64_t, uint64_t), uint64_t a3, __int128 *a4)
+uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair<unsigned int,unsigned long> const&,std::pair<unsigned int,unsigned long> const&),std::pair<unsigned int,unsigned long>*>(uint64_t result, uint64_t (**a2)(uint64_t, __int128 *), uint64_t a3, __int128 *a4)
 {
   v6 = a3 - 2;
   if (a3 >= 2)
@@ -6649,7 +6650,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pa
       v13 = v12 + 1;
       v14 = result + 16 * (v12 + 1);
       v15 = v12 + 2;
-      if (v12 + 2 < a3 && (*a2)(v14, v14 + 16))
+      if (v12 + 2 < a3 && (*a2)(v14, (v14 + 16)))
       {
         v14 += 16;
         v13 = v15;
@@ -6674,7 +6675,7 @@ uint64_t std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pa
           v18 = 2 * v13 + 2;
           if (v18 < a3)
           {
-            if ((*a2)(v8 + 16 * v17, v14 + 16))
+            if ((*a2)(v8 + 16 * v17, (v14 + 16)))
             {
               v14 += 16;
               v17 = v18;
@@ -6736,7 +6737,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair
     v8 = result;
     v9 = v6 >> 1;
     v10 = result + 16 * (v6 >> 1);
-    v11 = (a2 - 16);
+    v11 = a2 - 16;
     result = (*a3)(v10, a2 - 16);
     if (result)
     {
@@ -6745,7 +6746,7 @@ uint64_t std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,BOOL (*&)(std::pair
       {
         v12 = v10;
         *v11 = *v10;
-        *(v11 + 1) = *(v10 + 8);
+        *(v11 + 8) = *(v10 + 8);
         if (!v9)
         {
           break;
@@ -6845,33 +6846,33 @@ uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::pair<EQKit:
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,std::pair<EQKit::Font::STIXCollection::StretchInfo,unsigned long>>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -6879,44 +6880,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 EQKit::Font::OpenTypeFontCollection *EQKit::Font::OpenTypeFontCollection::OpenTypeFontCollection(EQKit::Font::OpenTypeFontCollection *this, const __CFString *a2)
@@ -7013,9 +7014,9 @@ uint64_t EQKit::Font::OpenTypeFontCollection::reloadFonts(EQKit::Font::OpenTypeF
   return result;
 }
 
-void sub_258288AC4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258288AC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::AutoCFType<__CFData const*>::~AutoCFType(va);
   _Unwind_Resume(a1);
 }
@@ -7049,9 +7050,9 @@ BOOL EQKit::Font::OpenTypeFontCollection::fontsLoadedCorrectly(EQKit::Font::Open
   return v5;
 }
 
-void sub_258288B68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_258288B68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   EQKit::AutoCFType<__CFString const*>::~AutoCFType(va);
   _Unwind_Resume(a1);
 }
@@ -7624,7 +7625,7 @@ uint64_t EQKit::Font::OpenTypeFontCollection::newAttributedStringWithScript(EQKi
   return v18;
 }
 
-CTFontRef EQKit::Font::OpenTypeFontCollection::newFontForStretchedCharacterWithScript(EQKit::Font::OpenTypeFontCollection *a1, int *a2, const EQKit::Script::Info *a3, uint64_t a4)
+CTFontRef EQKit::Font::OpenTypeFontCollection::newFontForStretchedCharacterWithScript(const __CTFont **a1, unsigned int *a2, const EQKit::Script::Info *a3, uint64_t a4)
 {
   v5 = a3;
   v7 = *a2;
@@ -7650,7 +7651,7 @@ CTFontRef EQKit::Font::OpenTypeFontCollection::newFontForStretchedCharacterWithS
     return 0;
   }
 
-  v12 = *(a1 + 2);
+  v12 = a1[2];
   if (!v12)
   {
     return 0;
@@ -7846,14 +7847,14 @@ LABEL_25:
       *&v70.ty = &unk_258307BEB;
       v51 = v50;
       LOWORD(advances[0]) = 0;
-      std::vector<unsigned short>::vector[abi:ne200100](v71, v50);
+      std::vector<unsigned short>::vector[abi:ne200100](v71, v50, advances);
       v59[0] = MEMORY[0x277D85DD0];
       v59[1] = 3221225472;
       v59[2] = ___ZNK5EQKit4Font22OpenTypeFontCollection40newCGPathForStretchedCharacterWithScriptEjN10EQKitTypes4Axis4EnumEdRKNS_6Script4InfoERN9EQKitPath4InfoE_block_invoke_8;
       v59[3] = &unk_279872258;
       v59[4] = &v70;
       enumerateGlyphAssembly(v49, 1u, v59);
-      std::vector<CGSize>::vector[abi:ne200100](advances, v50);
+      std::vector<CGSize>::vector[abi:ne200100](advances, v50, MEMORY[0x277CBF3A8]);
       CTFontGetAdvancesForGlyphs(font, kCTFontOrientationHorizontal, *(*&v70.b + 48), advances[0], v50);
       v52 = 0.0;
       if (v50)
@@ -8060,14 +8061,12 @@ const void **__destroy_helper_block_e8_40c38_ZTSKN5EQKit10AutoCFTypeIPK8__CTFont
 
 __n128 __Block_byref_object_copy__0(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -8189,7 +8188,7 @@ CGFloat EQKit::Font::OpenTypeFontCollection::naturalBoundsOfCharacterWithScript(
 
 uint64_t EQKit::Font::OpenTypeFontCollection::newCGPathForRadicalWithOverbar(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
-  v27 = (*(*a1 + 96))(a1, 8730, 2, a2, a4);
+  v27 = (*(*a1 + 96))(a1, 8730, 2, a2, a4, a5);
   PathBoundingBox = CGPathGetPathBoundingBox(v27);
   x = PathBoundingBox.origin.x;
   y = PathBoundingBox.origin.y;
@@ -8226,11 +8225,11 @@ uint64_t EQKit::Font::OpenTypeFontCollection::newCGPathForRadicalWithOverbar(uin
   return v22;
 }
 
-void sub_25828A6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25828A6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, const void *);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, const void *);
   EQKit::AutoCFType<CGPath *>::~AutoCFType(va);
   EQKit::AutoCFType<CGPath const*>::~AutoCFType(va1);
   _Unwind_Resume(a1);
@@ -8295,26 +8294,26 @@ CGPath *EQKit::Font::OpenTypeFontCollection::newCGPathForLongDivisionWithOverbar
   return Mutable;
 }
 
-void sub_25828A880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25828A880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   EQKitPath::~EQKitPath(va);
-  EQKit::AutoCFType<CGPath const*>::~AutoCFType((v11 - 64));
-  EQKit::AutoCFType<__CTFont const*>::~AutoCFType((v11 - 56));
+  EQKit::AutoCFType<CGPath const*>::~AutoCFType((v18 - 64));
+  EQKit::AutoCFType<__CTFont const*>::~AutoCFType((v18 - 56));
   _Unwind_Resume(a1);
 }
 
-void *std::vector<unsigned short>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned short>::vector[abi:ne200100](uint64_t *a1, uint64_t a2, __int16 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned short>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned short>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25828AB2C(_Unwind_Exception *exception_object)
@@ -8329,7 +8328,7 @@ void sub_25828AB2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -8339,17 +8338,17 @@ void std::vector<unsigned short>::__vallocate[abi:ne200100](uint64_t a1, uint64_
   std::vector<std::string>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<CGSize>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<CGSize>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, _OWORD *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<CGPoint>::__vallocate[abi:ne200100](result, a2);
+    std::vector<CGPoint>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_25828ABE8(_Unwind_Exception *exception_object)
@@ -8481,18 +8480,18 @@ void sub_25828B4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::map<std::string_view const,EQKit::Font::CharacterProperty::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Font::CharacterProperty::Enum> const*>(void *a1, uint64_t a2, uint64_t a3)
+uint64_t std::map<std::string_view const,EQKit::Font::CharacterProperty::Enum>::map[abi:ne200100]<std::pair<std::string_view const,EQKit::Font::CharacterProperty::Enum> const*>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  a1[1] = 0;
-  v4 = a1 + 1;
-  a1[2] = 0;
-  *a1 = a1 + 1;
+  *(a1 + 8) = 0;
+  v4 = (a1 + 8);
+  *(a1 + 16) = 0;
+  *a1 = a1 + 8;
   if (a2 != a3)
   {
     v6 = a2;
     do
     {
-      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6);
+      std::__tree<std::__value_type<std::string_view const,float>,std::__map_value_compare<std::string_view const,std::__value_type<std::string_view const,float>,std::less<std::string_view const>,true>,std::allocator<std::__value_type<std::string_view const,float>>>::__emplace_hint_unique_key_args<std::string_view,std::pair<std::string_view const,float> const&>(a1, v4, v6, v6);
       v6 += 24;
     }
 
@@ -8502,9 +8501,9 @@ void *std::map<std::string_view const,EQKit::Font::CharacterProperty::Enum>::map
   return a1;
 }
 
-uint64_t std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>>>::__emplace_unique_key_args<EQKit::Font::CharacterProperty::Map::Key,std::piecewise_construct_t const&,std::tuple<EQKit::Font::CharacterProperty::Map::Key const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+void *std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>>>::__emplace_unique_key_args<EQKit::Font::CharacterProperty::Map::Key,std::piecewise_construct_t const&,std::tuple<EQKit::Font::CharacterProperty::Map::Key const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>>>::__find_equal<EQKit::Font::CharacterProperty::Map::Key>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>>>::__find_equal<EQKit::Font::CharacterProperty::Map::Key>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<EQKit::Font::CharacterProperty::Map::Key const&>,std::tuple<>>();
@@ -8603,9 +8602,9 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(__p);
 }
 
-uint64_t std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::__emplace_unique_key_args<EQKit::Font::CharacterProperty::Map::Key,std::piecewise_construct_t const&,std::tuple<EQKit::Font::CharacterProperty::Map::Key const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+void *std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::__emplace_unique_key_args<EQKit::Font::CharacterProperty::Map::Key,std::piecewise_construct_t const&,std::tuple<EQKit::Font::CharacterProperty::Map::Key const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>>>::__find_equal<EQKit::Font::CharacterProperty::Map::Key>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKitLength>>>::__find_equal<EQKit::Font::CharacterProperty::Map::Key>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::__map_value_compare<EQKit::Font::CharacterProperty::Map::Key,std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>,std::less<EQKit::Font::CharacterProperty::Map::Key>,true>,std::allocator<std::__value_type<EQKit::Font::CharacterProperty::Map::Key,EQKit::StemStretch::Config::Entry>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<EQKit::Font::CharacterProperty::Map::Key const&>,std::tuple<>>();
@@ -8818,8 +8817,8 @@ LABEL_33:
 
     else
     {
-      v15 = (v13 + v14);
-      v16 = (v13 + v6);
+      v15 = v13 + v14;
+      v16 = v13 + v6;
 LABEL_24:
       v17 = 0;
       while (*v16 != asc_2582F4C67[v17])
@@ -8840,8 +8839,8 @@ LABEL_24:
         goto LABEL_33;
       }
 
-      v18 = &v16[-v13];
-      v19 = &v16[-v13 - v6];
+      v18 = v16 - v13;
+      v19 = v16 - v13 - v6;
       if (v18 != -1)
       {
         v14 = v19;
@@ -9479,41 +9478,41 @@ void sub_25828C818(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2)
+uint64_t *std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::__emplace_unique_key_args<unsigned int,std::piecewise_construct_t const&,std::tuple<unsigned int const&>,std::tuple<>>(uint64_t a1, unsigned int *a2, uint64_t a3, unsigned int **a4)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v4 = *(a1 + 8);
+  if (!v4)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v5 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = *(v2 + 28);
-      if (v3 >= v5)
+      v6 = v4;
+      v7 = *(v4 + 28);
+      if (v5 >= v7)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v4 = *v6;
+      if (!*v6)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v7 >= v5)
     {
-      return v4;
+      return v6;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v4 = v6[1];
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -9570,7 +9569,7 @@ std::string *EQKit::AttributeCollection::setValueForKey(uint64_t a1, const std::
   v7 = a4;
   v8 = a3;
   v9 = &v7;
-  v5 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::string>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::string,std::less<EQKitTypes::Attributes::Enum>,true>,std::char_traits<char><std::string>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>(a1 + 80, &v7);
+  v5 = std::__tree<std::__value_type<std::pair<objc_object  {objcproto15EQKitLayoutNode}*,EQKitTypes::Attributes::Enum>,std::string>,std::__map_value_compare<EQKitTypes::Attributes::Enum,std::string,std::less<EQKitTypes::Attributes::Enum>,true>,std::char_traits<char><std::string>>::__emplace_unique_key_args<EQKitTypes::Attributes::Enum,std::piecewise_construct_t const&,std::tuple<EQKitTypes::Attributes::Enum const&>,std::piecewise_construct_t const&<>>((a1 + 80), &v7, &std::piecewise_construct, &v9);
   return std::string::operator=(v5 + 2, a2);
 }
 

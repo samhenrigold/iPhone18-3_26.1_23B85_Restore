@@ -452,13 +452,17 @@ uint64_t __80__SBDashBoardPluginController_pluginManager_displayedPluginDidUpdat
 - (void)_setPluginViewController:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 plugin];
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "Dismissing plugin view controller for plugin: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "Dismissing plugin view controller for plugin: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)_setPluginViewController:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 plugin];
-  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "Presenting plugin view controller for plugin: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_13(&dword_21ED4E000, v2, v3, "Presenting plugin view controller for plugin: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __56__SBDashBoardPluginController__setPluginViewController___block_invoke_cold_1(uint64_t a1, NSObject *a2)

@@ -741,27 +741,27 @@ void __47__CKStoragePlugin__configureCloudTipController__block_invoke(uint64_t a
   _Block_object_dispose(v9, 8);
 }
 
-void __47__CKStoragePlugin__configureCloudTipController__block_invoke_299(uint64_t a1)
+void __47__CKStoragePlugin__configureCloudTipController__block_invoke_299(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = [*(*(*(a1 + 40) + 8) + 40) tipType];
-      v7 = 134217984;
-      v8 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Storage plugin needs to update for tip %ld", &v7, 0xCu);
+      v4 = [*(*(*(a1 + 40) + 8) + 40) tipType];
+      v8 = 134217984;
+      v9 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Storage plugin needs to update for tip %ld", &v8, 0xCu);
     }
   }
 
-  v4 = *(a1 + 32);
+  v5 = *(a1 + 32);
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  [WeakRetained setCloudTipDescriptor:v4];
+  [WeakRetained setCloudTipDescriptor:v5];
 
-  v6 = objc_loadWeakRetained((a1 + 48));
-  [v6 reloadTips];
+  v7 = objc_loadWeakRetained((a1 + 48));
+  [v7 reloadTips];
 }
 
 void __47__CKStoragePlugin__configureCloudTipController__block_invoke_307()
@@ -770,15 +770,15 @@ void __47__CKStoragePlugin__configureCloudTipController__block_invoke_307()
   [v0 configureCloudTipManagerWithCompletionHandler:&__block_literal_global_309];
 }
 
-void __47__CKStoragePlugin__configureCloudTipController__block_invoke_2()
+void __47__CKStoragePlugin__configureCloudTipController__block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v0 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
-      *v1 = 0;
-      _os_log_impl(&dword_19020E000, v0, OS_LOG_TYPE_INFO, "Completed cloud tip configuration", v1, 2u);
+      *v3 = 0;
+      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Completed cloud tip configuration", v3, 2u);
     }
   }
 }
@@ -829,8 +829,7 @@ void __47__CKStoragePlugin__configureCloudTipController__block_invoke_2()
         [v10 setEventualGain:{objc_msgSend(dataModel2, "spaceSavedByDeletingNonSyncedAttachments")}];
 
         [v10 setDelegate:self];
-        [v10 setActivationPercent:0.0];
-        v15 = CKFrameworkBundle();
+        v15 = CKFrameworkBundle([v10 setActivationPercent:0.0]);
         v16 = [v15 localizedStringForKey:@"SECURELY_STORE_MESSAGES_IN_CASE_YOU_RESTORE_THIS_DEVICE" value:&stru_1F04268F8 table:@"ChatKit"];
         [v10 setInfoText:v16];
 
@@ -838,13 +837,13 @@ void __47__CKStoragePlugin__configureCloudTipController__block_invoke_2()
         v18 = [v17 localizedStringForKey:@"TURN_ON" value:&stru_1F04268F8 table:@"General"];
         [v10 setEnableButtonTitle:v18];
 
-        v19 = CKFrameworkBundle();
-        v20 = [v19 localizedStringForKey:@"SECURELY_STORE_MESSAGES_IN_CASE_YOU_RESTORE_THIS_DEVICE" value:&stru_1F04268F8 table:@"ChatKit"];
-        [v10 setConfirmationText:v20];
+        v20 = CKFrameworkBundle(v19);
+        v21 = [v20 localizedStringForKey:@"SECURELY_STORE_MESSAGES_IN_CASE_YOU_RESTORE_THIS_DEVICE" value:&stru_1F04268F8 table:@"ChatKit"];
+        [v10 setConfirmationText:v21];
 
-        v21 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-        v22 = [v21 localizedStringForKey:@"TURN_ON" value:&stru_1F04268F8 table:@"General"];
-        [v10 setConfirmationButtonTitle:v22];
+        v22 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+        v23 = [v22 localizedStringForKey:@"TURN_ON" value:&stru_1F04268F8 table:@"General"];
+        [v10 setConfirmationButtonTitle:v23];
 
         [(CKStoragePlugin *)self setCachedMessagesIniCloudTip:v10];
         cachedMessagesIniCloudTip2 = [(CKStoragePlugin *)self cachedMessagesIniCloudTip];
@@ -858,8 +857,8 @@ void __47__CKStoragePlugin__configureCloudTipController__block_invoke_2()
         v9 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
-          *v24 = 0;
-          _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "No prepared CKCloudTipDescriptor from the eligibility checks ==> we are ineligible for this tip and will not show it.", v24, 2u);
+          *v25 = 0;
+          _os_log_impl(&dword_19020E000, v9, OS_LOG_TYPE_INFO, "No prepared CKCloudTipDescriptor from the eligibility checks ==> we are ineligible for this tip and will not show it.", v25, 2u);
         }
       }
 

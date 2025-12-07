@@ -973,7 +973,7 @@ void __29__ICAuthenticationState_init__block_invoke_2(uint64_t a1)
   performBlockOnMainThread();
 }
 
-uint64_t __52__ICAuthenticationState_endBlockingDeauthentication__block_invoke(uint64_t a1)
+void *__52__ICAuthenticationState_endBlockingDeauthentication__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isBlockingDeauthentication];
   if ((result & 1) == 0)

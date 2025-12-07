@@ -37,59 +37,59 @@
 - (id)biologicalSex
 {
   dataSource = self->_dataSource;
-  v9 = 0;
-  v3 = [(HKAnalyticsHealthDataSource *)dataSource biologicalSexWithError:&v9];
-  v4 = v9;
-  if (v4)
-  {
-    _HKInitializeLogging();
-    v5 = HKLogMedication();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      [HKMedicationAnalyticsGenericFieldsProvider biologicalSex];
-    }
-
-    goto LABEL_7;
-  }
-
-  biologicalSex = [v3 biologicalSex];
-  if (biologicalSex > 3)
-  {
-LABEL_7:
-    v7 = 0;
-    goto LABEL_8;
-  }
-
-  v7 = off_2796CABD8[biologicalSex];
-LABEL_8:
-
-  return v7;
-}
-
-- (id)userAgeForCurrentDate:(id)date
-{
-  dataSource = self->_dataSource;
-  v9 = 0;
-  v4 = [(HKAnalyticsHealthDataSource *)dataSource ageWithCurrentDate:date error:&v9];
-  v5 = v9;
+  v10 = 0;
+  v4 = [(HKAnalyticsHealthDataSource *)dataSource biologicalSexWithError:&v10];
+  v5 = v10;
   if (v5)
   {
     _HKInitializeLogging();
     v6 = HKLogMedication();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [HKMedicationAnalyticsGenericFieldsProvider userAgeForCurrentDate:];
+      [(HKMedicationAnalyticsGenericFieldsProvider *)self biologicalSex];
     }
 
-    v7 = 0;
+    goto LABEL_7;
+  }
+
+  biologicalSex = [v4 biologicalSex];
+  if (biologicalSex > 3)
+  {
+LABEL_7:
+    v8 = 0;
+    goto LABEL_8;
+  }
+
+  v8 = off_2796CABD8[biologicalSex];
+LABEL_8:
+
+  return v8;
+}
+
+- (id)userAgeForCurrentDate:(id)date
+{
+  dataSource = self->_dataSource;
+  v10 = 0;
+  v5 = [(HKAnalyticsHealthDataSource *)dataSource ageWithCurrentDate:date error:&v10];
+  v6 = v10;
+  if (v6)
+  {
+    _HKInitializeLogging();
+    v7 = HKLogMedication();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      [HKMedicationAnalyticsGenericFieldsProvider userAgeForCurrentDate:?];
+    }
+
+    v8 = 0;
   }
 
   else
   {
-    v7 = v4;
+    v8 = v5;
   }
 
-  return v7;
+  return v8;
 }
 
 - (id)bucketedUserAgeForCurrentDate:(id)date
@@ -123,22 +123,16 @@ LABEL_8:
 
 - (void)biologicalSex
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_2(v0);
-  OUTLINED_FUNCTION_1_1(&dword_2517E7000, v2, v3, "[%{public}@] Unable access biological sex due to error: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_2(v1);
+  OUTLINED_FUNCTION_1_1(&dword_2517E7000, v3, v4, "[%{public}@] Unable access biological sex due to error: %{public}@", v5, v6, v7, v8);
 }
 
-- (void)userAgeForCurrentDate:.cold.1()
+- (void)userAgeForCurrentDate:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_2(v0);
-  OUTLINED_FUNCTION_1_1(&dword_2517E7000, v2, v3, "[%{public}@] Unable access age due to error: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_2(v1);
+  OUTLINED_FUNCTION_1_1(&dword_2517E7000, v3, v4, "[%{public}@] Unable access age due to error: %{public}@", v5, v6, v7, v8);
 }
 
 @end

@@ -49,13 +49,11 @@
   [(_CPNewsUsagePropensity *)self other];
   if (v4 != 0.0)
   {
-    other = self->_other;
     PBDataWriterWriteFloatField();
   }
 
   if ([(_CPNewsUsagePropensity *)self totalEngagements])
   {
-    totalEngagements = self->_totalEngagements;
     PBDataWriterWriteInt32Field();
   }
 }

@@ -12,13 +12,13 @@
 {
   rawData = [data rawData];
   v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithCString:rawData + 46 encoding:4];
-  v7 = [v6 isEqualToString:self->_timeString];
-  if ((v7 & 1) == 0)
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
+  if ((isEqualToString & 1) == 0)
   {
     objc_storeStrong(&self->_timeString, v6);
   }
 
-  return v7 ^ 1;
+  return isEqualToString ^ 1;
 }
 
 - (double)neededSizeForImageSet:(id)set

@@ -75,27 +75,27 @@ void __47__CBSGestaltEquipmentInfo_CurrentEquipmentInfo__block_invoke()
 
 intptr_t __47__CBSGestaltEquipmentInfo_CurrentEquipmentInfo__block_invoke_3(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v3 = [a2 meInfoList];
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         v9 = [v8 MEID];
 
         if (v9)
@@ -113,15 +113,13 @@ intptr_t __47__CBSGestaltEquipmentInfo_CurrentEquipmentInfo__block_invoke_3(uint
         [v14 addObject:v16];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 32));
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 32));
 }
 
 @end

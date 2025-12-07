@@ -124,29 +124,29 @@ LABEL_14:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUVoiceSession _processQueuedRequests]", 0x1Eu, "Start speaking text '%@'\n", v5, v6, v7, v8, text);
+      LogPrintF(ucat, "[CUVoiceSession _processQueuedRequests]", 30, "Start speaking text '%@'\n", v5, v6, v7, v8, text);
     }
 
 LABEL_13:
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __40__CUVoiceSession__processQueuedRequests__block_invoke;
-    v16[3] = &unk_1E73A49F0;
-    v16[4] = self;
-    v16[5] = text;
-    [speechRequest setDidStartSpeaking:v16];
-    sharedInstance = [getAVAudioSessionClass_9481[0]() sharedInstance];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __40__CUVoiceSession__processQueuedRequests__block_invoke;
+    v17[3] = &unk_1E73A49F0;
+    v17[4] = self;
+    v17[5] = text;
+    v12 = [speechRequest setDidStartSpeaking:v17];
+    sharedInstance = [getAVAudioSessionClass_9481(v12) sharedInstance];
     [sharedInstance setCategory:@"AVAudioSessionCategoryPlayback" mode:@"AVAudioSessionModeDefault" routeSharingPolicy:1 options:0 error:0];
 
     speechSynthesizer = self->_speechSynthesizer;
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __40__CUVoiceSession__processQueuedRequests__block_invoke_2;
-    v14[3] = &unk_1E73A4200;
-    v14[4] = self;
-    v14[5] = text;
-    v15 = speechRequest;
-    [(SiriTTSDaemonSession *)speechSynthesizer speakWithSpeechRequest:v15 didFinish:v14];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __40__CUVoiceSession__processQueuedRequests__block_invoke_2;
+    v15[3] = &unk_1E73A4200;
+    v15[4] = self;
+    v15[5] = text;
+    v16 = speechRequest;
+    [(SiriTTSDaemonSession *)speechSynthesizer speakWithSpeechRequest:v16 didFinish:v15];
 
     goto LABEL_14;
   }
@@ -159,14 +159,14 @@ uint64_t __40__CUVoiceSession__processQueuedRequests__block_invoke(uint64_t a1, 
   {
     if (*result != -1)
     {
-      return LogPrintF(result, "[CUVoiceSession _processQueuedRequests]_block_invoke", 0x1Eu, "DidStartSpeakingRequest '%@'\n", a5, a6, a7, a8, *(a1 + 40));
+      return LogPrintF(result, "[CUVoiceSession _processQueuedRequests]_block_invoke", 30, "DidStartSpeakingRequest '%@'\n", a5, a6, a7, a8, *(a1 + 40));
     }
 
     result = _LogCategory_Initialize(result, 0x1Eu);
     if (result)
     {
       result = *(*(a1 + 32) + 40);
-      return LogPrintF(result, "[CUVoiceSession _processQueuedRequests]_block_invoke", 0x1Eu, "DidStartSpeakingRequest '%@'\n", a5, a6, a7, a8, *(a1 + 40));
+      return LogPrintF(result, "[CUVoiceSession _processQueuedRequests]_block_invoke", 30, "DidStartSpeakingRequest '%@'\n", a5, a6, a7, a8, *(a1 + 40));
     }
   }
 
@@ -192,7 +192,7 @@ void __40__CUVoiceSession__processQueuedRequests__block_invoke_2(void *a1, void 
       v8 = *(v7 + 40);
     }
 
-    LogPrintF(v8, "[CUVoiceSession _processQueuedRequests]_block_invoke_2", 0x1Eu, "Did finish speaking text '%@', finished %s, error %{error}\n", v3, v4, v5, v6, a1[5]);
+    LogPrintF(v8, "[CUVoiceSession _processQueuedRequests]_block_invoke_2", 30, "Did finish speaking text '%@', finished %s, error %{error}\n", v3, v4, v5, v6, a1[5]);
     v7 = a1[4];
   }
 
@@ -207,7 +207,7 @@ LABEL_5:
       if (*v16 != -1)
       {
 LABEL_8:
-        LogPrintF(v16, "[CUVoiceSession _processQueuedRequests]_block_invoke_2", 0x3Cu, "### Finished speaking non-current request?\n", v10, v11, v12, v13, v29);
+        LogPrintF(v16, "[CUVoiceSession _processQueuedRequests]_block_invoke_2", 60, "### Finished speaking non-current request?\n", v10, v11, v12, v13, v29);
         v15 = a1[4];
         goto LABEL_10;
       }
@@ -281,7 +281,7 @@ uint64_t __30__CUVoiceSession_stopSpeaking__block_invoke(uint64_t a1)
         v9 = *(v8 + 40);
       }
 
-      LogPrintF(v9, "[CUVoiceSession stopSpeaking]_block_invoke", 0x1Eu, "Stop speaking\n", v3, v4, v5, v6, v12);
+      LogPrintF(v9, "[CUVoiceSession stopSpeaking]_block_invoke", 30, "Stop speaking\n", v3, v4, v5, v6, v12);
       v8 = *(a1 + 32);
     }
 
@@ -301,7 +301,7 @@ LABEL_6:
   completionCopy = completion;
   if (!self->_speechSynthesizer)
   {
-    v14 = objc_alloc_init(getSiriTTSDaemonSessionClass[0]());
+    v14 = objc_alloc_init(getSiriTTSDaemonSessionClass());
     speechSynthesizer = self->_speechSynthesizer;
     self->_speechSynthesizer = v14;
   }
@@ -323,7 +323,7 @@ LABEL_6:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUVoiceSession _speakText:flags:languageCode:volume:completion:]", 0x1Eu, "Stop speaking for new request\n", v17, v18, v19, v20, v44);
+      LogPrintF(ucat, "[CUVoiceSession _speakText:flags:languageCode:volume:completion:]", 30, "Stop speaking for new request\n", v17, v18, v19, v20, v44);
     }
 
 LABEL_9:
@@ -333,7 +333,7 @@ LABEL_9:
   v23 = codeCopy;
   if (!codeCopy)
   {
-    v24 = softLinkVSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences[0]();
+    v24 = softLinkVSPreferencesCopyDefaultOutputLanguageIdentifierForUserPreferences();
     v23 = @"en-US";
     if (v24)
     {
@@ -344,7 +344,7 @@ LABEL_9:
   v25 = v23;
   if ((v10 & 4) != 0)
   {
-    sharedPreferences = [getAFPreferencesClass[0]() sharedPreferences];
+    sharedPreferences = [(objc_class *)getAFPreferencesClass() sharedPreferences];
     outputVoice = [sharedPreferences outputVoice];
     name = [outputVoice name];
 
@@ -393,12 +393,12 @@ LABEL_9:
     }
 
     v45 = CUPrintFlags(v10, byte_191FFA17D, 1);
-    LogPrintF_safe(v30, "[CUVoiceSession _speakText:flags:languageCode:volume:completion:]", 0x1Eu, "Scheduling speaking '%@', flags=%@, language=%@ voice=%@ volume=%f", v32, v33, v34, v35, v31);
+    LogPrintF_safe(v30, "[CUVoiceSession _speakText:flags:languageCode:volume:completion:]", 30, "Scheduling speaking '%@', flags=%@, language=%@ voice=%@ volume=%f", v32, v33, v34, v35, v31);
   }
 
 LABEL_27:
-  v36 = [objc_alloc(getSiriTTSSynthesisVoiceClass[0]()) initWithLanguage:v25 name:v26];
-  v37 = [objc_alloc(getSiriTTSSpeechRequestClass[0]()) initWithText:textCopy voice:v36];
+  v36 = [objc_alloc(getSiriTTSSynthesisVoiceClass()) initWithLanguage:v25 name:v26];
+  v37 = [objc_alloc(getSiriTTSSpeechRequestClass()) initWithText:textCopy voice:v36];
   v39 = v37;
   if ((v10 & 8) != 0)
   {
@@ -489,7 +489,7 @@ LABEL_27:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUVoiceSession _invalidated]", 0x1Eu, "Invalidated\n", v5, v6, v7, v8, v11);
+      LogPrintF(ucat, "[CUVoiceSession _invalidated]", 30, "Invalidated\n", v5, v6, v7, v8, v11);
     }
   }
 }
@@ -527,7 +527,7 @@ LABEL_27:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUVoiceSession _invalidate]", 0x1Eu, "Stop speaking for invalidate\n", v5, v6, v7, v8, v14);
+    LogPrintF(ucat, "[CUVoiceSession _invalidate]", 30, "Stop speaking for invalidate\n", v5, v6, v7, v8, v14);
     v9 = v15;
 LABEL_12:
     [(SiriTTSDaemonSession *)self->_speechSynthesizer cancelWithRequest:v9];
@@ -549,7 +549,7 @@ LABEL_12:
   {
     v10 = self->_ucat;
 LABEL_5:
-    LogPrintF(v10, "[CUVoiceSession _invalidate]", 0x1Eu, "Waiting until current request finishes before invalidating\n", v5, v6, v7, v8, v14);
+    LogPrintF(v10, "[CUVoiceSession _invalidate]", 30, "Waiting until current request finishes before invalidating\n", v5, v6, v7, v8, v14);
   }
 
 LABEL_13:
@@ -568,9 +568,9 @@ LABEL_13:
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __38__CUVoiceSession_invalidateWithFlags___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__38__CUVoiceSession_invalidateWithFlags___block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *(result + 32);
+  v9 = result[4];
   if (*(v9 + 16))
   {
     return result;
@@ -578,14 +578,14 @@ uint64_t __38__CUVoiceSession_invalidateWithFlags___block_invoke(uint64_t result
 
   v10 = result;
   *(v9 + 16) = 1;
-  v11 = *(result + 32);
+  v11 = result[4];
   v12 = *(v11 + 40);
   if (*v12 <= 30)
   {
     if (*v12 == -1)
     {
       v13 = _LogCategory_Initialize(v12, 0x1Eu);
-      v11 = *(v10 + 32);
+      v11 = v10[4];
       if (!v13)
       {
         goto LABEL_6;
@@ -594,13 +594,13 @@ uint64_t __38__CUVoiceSession_invalidateWithFlags___block_invoke(uint64_t result
       v12 = *(v11 + 40);
     }
 
-    LogPrintF(v12, "[CUVoiceSession invalidateWithFlags:]_block_invoke", 0x1Eu, "InvalidateWithFlags: %#{flags}\n", a5, a6, a7, a8, *(v10 + 40));
-    v11 = *(v10 + 32);
+    LogPrintF(v12, "[CUVoiceSession invalidateWithFlags:]_block_invoke", 30, "InvalidateWithFlags: %#{flags}\n", a5, a6, a7, a8, *(v10 + 10));
+    v11 = v10[4];
   }
 
 LABEL_6:
-  *(v11 + 20) = *(v10 + 40);
-  v14 = *(v10 + 32);
+  *(v11 + 20) = *(v10 + 10);
+  v14 = v10[4];
 
   return [v14 _invalidate];
 }
@@ -616,9 +616,9 @@ LABEL_6:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __28__CUVoiceSession_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__28__CUVoiceSession_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(result + 32);
+  v10 = result[4];
   if (*(v10 + 16))
   {
     return result;
@@ -626,14 +626,14 @@ uint64_t __28__CUVoiceSession_invalidate__block_invoke(uint64_t result, uint64_t
 
   v11 = result;
   *(v10 + 16) = 1;
-  v12 = *(result + 32);
+  v12 = result[4];
   v13 = v12[5];
   if (*v13 <= 30)
   {
     if (*v13 == -1)
     {
       v14 = _LogCategory_Initialize(v13, 0x1Eu);
-      v12 = *(v11 + 32);
+      v12 = v11[4];
       if (!v14)
       {
         goto LABEL_6;
@@ -642,8 +642,8 @@ uint64_t __28__CUVoiceSession_invalidate__block_invoke(uint64_t result, uint64_t
       v13 = v12[5];
     }
 
-    LogPrintF(v13, "[CUVoiceSession invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v8);
-    v12 = *(v11 + 32);
+    LogPrintF(v13, "[CUVoiceSession invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v8);
+    v12 = v11[4];
   }
 
 LABEL_6:

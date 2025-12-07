@@ -61,9 +61,11 @@
 
 uint64_t ___ef_log_MessageListCellHelper_block_invoke()
 {
-  _ef_log_MessageListCellHelper_log = os_log_create("com.apple.email", "MessageListCellHelper");
+  v0 = os_log_create("com.apple.email", "MessageListCellHelper");
+  v1 = _ef_log_MessageListCellHelper_log;
+  _ef_log_MessageListCellHelper_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (MessageListCellHelper)initWithParentView:(id)view contentView:(id)contentView cellView:(id)cellView applicationProxy:(id)proxy
@@ -442,7 +444,7 @@ LABEL_46:
       if (v11)
       {
         v12 = v11;
-        v13 = _ef_log_MessageListCellHelper();
+        v13 = _ef_log_MessageListCellHelper(v11);
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           itemID = [itemCopy itemID];
@@ -552,78 +554,79 @@ LABEL_10:
 
 - (void)_registerUpdateGeneratedSummaryObservation
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   messageListItem = [(MessageListCellHelper *)self messageListItem];
   itemID = [messageListItem itemID];
 
-  v5 = _ef_log_MessageListCellHelper();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _ef_log_MessageListCellHelper(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
     selfCopy = self;
-    v28 = 2114;
-    v29 = itemID;
-    _os_log_impl(&dword_214A5E000, v5, OS_LOG_TYPE_DEFAULT, "<%p>: Have generated summary for %{public}@, deferring update until cell is not visible", buf, 0x16u);
+    v29 = 2114;
+    v30 = itemID;
+    _os_log_impl(&dword_214A5E000, v6, OS_LOG_TYPE_DEFAULT, "<%p>: Have generated summary for %{public}@, deferring update until cell is not visible", buf, 0x16u);
   }
 
-  v6 = objc_alloc_init(MEMORY[0x277D07138]);
+  v7 = objc_alloc_init(MEMORY[0x277D07138]);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   objc_initWeak(buf, self);
   mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __67__MessageListCellHelper__registerUpdateGeneratedSummaryObservation__block_invoke;
-  v23[3] = &unk_278188C28;
-  objc_copyWeak(&v25, buf);
-  v9 = *MEMORY[0x277D76E58];
-  v10 = itemID;
-  v24 = v10;
-  v11 = [defaultCenter addObserverForName:v9 object:0 queue:mainQueue usingBlock:v23];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __67__MessageListCellHelper__registerUpdateGeneratedSummaryObservation__block_invoke;
+  v24[3] = &unk_278188C28;
+  objc_copyWeak(&v26, buf);
+  v10 = *MEMORY[0x277D76E58];
+  v11 = itemID;
+  v25 = v11;
+  v12 = [defaultCenter addObserverForName:v10 object:0 queue:mainQueue usingBlock:v24];
 
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __67__MessageListCellHelper__registerUpdateGeneratedSummaryObservation__block_invoke_71;
-  v18 = &unk_278188C50;
+  v16 = MEMORY[0x277D85DD0];
+  v17 = 3221225472;
+  v18 = __67__MessageListCellHelper__registerUpdateGeneratedSummaryObservation__block_invoke_71;
+  v19 = &unk_278188C50;
   selfCopy2 = self;
-  v12 = v10;
-  v20 = v12;
-  v13 = defaultCenter;
+  v13 = v11;
   v21 = v13;
-  v14 = v11;
+  v14 = defaultCenter;
   v22 = v14;
-  [v6 addCancelationBlock:&v15];
-  [(MessageListCellHelper *)self setUpdateSummaryCancelationToken:v6, v15, v16, v17, v18, selfCopy2];
+  v15 = v12;
+  v23 = v15;
+  [v7 addCancelationBlock:&v16];
+  [(MessageListCellHelper *)self setUpdateSummaryCancelationToken:v7, v16, v17, v18, v19, selfCopy2];
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(buf);
 }
 
 void __67__MessageListCellHelper__registerUpdateGeneratedSummaryObservation__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = _ef_log_MessageListCellHelper();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _ef_log_MessageListCellHelper(WeakRetained);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 32);
-      v5 = 134218242;
-      v6 = WeakRetained;
-      v7 = 2114;
-      v8 = v4;
-      _os_log_impl(&dword_214A5E000, v3, OS_LOG_TYPE_DEFAULT, "<%p>: Applying generated summary for %{public}@ due to scene backgrounding", &v5, 0x16u);
+      v5 = *(a1 + 32);
+      v6 = 134218242;
+      v7 = v3;
+      v8 = 2114;
+      v9 = v5;
+      _os_log_impl(&dword_214A5E000, v4, OS_LOG_TYPE_DEFAULT, "<%p>: Applying generated summary for %{public}@ due to scene backgrounding", &v6, 0x16u);
     }
 
-    [WeakRetained _updateGeneratedSummary];
-    [WeakRetained setUpdateSummaryCancelationToken:0];
+    [v3 _updateGeneratedSummary];
+    [v3 setUpdateSummaryCancelationToken:0];
   }
 }
 
 uint64_t __67__MessageListCellHelper__registerUpdateGeneratedSummaryObservation__block_invoke_71(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = _ef_log_MessageListCellHelper();
+  v2 = _ef_log_MessageListCellHelper(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);

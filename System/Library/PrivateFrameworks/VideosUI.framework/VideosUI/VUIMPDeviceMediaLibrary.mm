@@ -147,8 +147,8 @@ void __49__VUIMPDeviceMediaLibrary_forceFailToSyncLibrary__block_invoke()
 
 - (void)updateFromCloudWithReason:(int64_t)reason
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v5 = VUISignpostLogObject();
+  v12 = *MEMORY[0x1E69E9840];
+  v5 = VUISignpostLogObject(self);
   if (os_signpost_enabled(v5))
   {
     *buf = 134217984;
@@ -158,18 +158,18 @@ void __49__VUIMPDeviceMediaLibrary_forceFailToSyncLibrary__block_invoke()
 
   [(VUIMPDeviceMediaLibrary *)self setDidFailUpdateMPCloudLibrary:0];
   mEMORY[0x1E69704E0] = [MEMORY[0x1E69704E0] sharedCloudController];
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __53__VUIMPDeviceMediaLibrary_updateFromCloudWithReason___block_invoke;
-  v8[3] = &unk_1E872F758;
-  v8[4] = self;
-  [mEMORY[0x1E69704E0] updateJaliscoMediaLibraryWithReason:reason == 1 completionHandler:v8];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __53__VUIMPDeviceMediaLibrary_updateFromCloudWithReason___block_invoke;
+  v9[3] = &unk_1E872F758;
+  v9[4] = self;
+  [mEMORY[0x1E69704E0] updateJaliscoMediaLibraryWithReason:reason == 1 completionHandler:v9];
 
-  v7 = VUISignpostLogObject();
-  if (os_signpost_enabled(v7))
+  v8 = VUISignpostLogObject(v7);
+  if (os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1E323F000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DeviceMediaLibrary.updateFromCloud", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1E323F000, v8, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "DeviceMediaLibrary.updateFromCloud", "", buf, 2u);
   }
 }
 

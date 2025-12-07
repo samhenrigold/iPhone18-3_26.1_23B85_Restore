@@ -131,14 +131,13 @@
   {
     v6 = objc_alloc(MEMORY[0x277CC1E70]);
     bundleIdentifier = self->_bundleIdentifier;
-    v19 = 0;
-    v5 = [v6 initWithBundleIdentifier:bundleIdentifier allowPlaceholder:1 error:&v19];
-    v8 = v19;
+    v18 = 0;
+    v5 = [v6 initWithBundleIdentifier:bundleIdentifier allowPlaceholder:1 error:&v18];
+    v8 = v18;
     v9 = v8;
     if (v8)
     {
       code = [v8 code];
-      v18 = self->_bundleIdentifier;
       STLog(2, @"%li loading application record for %@", v11, v12, v13, v14, v15, v16, code);
       v4 = 0;
     }
@@ -293,20 +292,20 @@ LABEL_11:
   }
 
   self->_isDocumentApp = isFileSharingEnabled;
-  v27 = STPersonaCopyPersonaUniqueStrings();
+  v28 = STPersonaCopyPersonaUniqueStrings(isFileSharingEnabled, v25);
   bundleIdentifier2 = [recordCopy bundleIdentifier];
   linkedParentApplication = [recordCopy linkedParentApplication];
   bundleIdentifier3 = [linkedParentApplication bundleIdentifier];
   parentAppIdentifier = self->_parentAppIdentifier;
   self->_parentAppIdentifier = bundleIdentifier3;
 
-  v32 = [STContainer containerWithIdentifier:bundleIdentifier2 containerClass:1 personaUniqueString:0];
+  v33 = [STContainer containerWithIdentifier:bundleIdentifier2 containerClass:1 personaUniqueString:0];
   appContainer = self->_appContainer;
-  self->_appContainer = v32;
+  self->_appContainer = v33;
 
-  v34 = DataContainersFromAppRecordWithPersonas(recordCopy, v27);
+  v35 = DataContainersFromAppRecordWithPersonas(recordCopy, v28);
   dataContainers = self->_dataContainers;
-  self->_dataContainers = v34;
+  self->_dataContainers = v35;
 }
 
 - (BOOL)isApple
@@ -548,7 +547,7 @@ LABEL_4:
 
 - (NSArray)documents
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   if (self->_isDocumentApp)
   {
@@ -561,30 +560,30 @@ LABEL_4:
       v7 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5 isDirectory:1];
       v8 = [defaultManager enumeratorAtURL:v7 includingPropertiesForKeys:0 options:6 errorHandler:0];
 
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v21;
+        v12 = *v20;
         v13 = *MEMORY[0x277CBE868];
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v21 != v12)
+            if (*v20 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v15 = *(*(&v20 + 1) + 8 * i);
-            v19 = 0;
-            [v15 getResourceValue:&v19 forKey:v13 error:0];
-            v16 = v19;
+            v15 = *(*(&v19 + 1) + 8 * i);
+            v18 = 0;
+            [v15 getResourceValue:&v18 forKey:v13 error:0];
+            v16 = v18;
             if ([v16 BOOLValue])
             {
               if ([v9 level] >= 4)
@@ -599,15 +598,13 @@ LABEL_4:
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v11);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -672,7 +669,7 @@ LABEL_4:
 
 - (id)updateAppSizes
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   v3 = +[STSizeVector zero];
   v4 = +[STSizeVector zero];
   appRecord = [(STStorageApp *)self appRecord];
@@ -692,20 +689,20 @@ LABEL_3:
 
   v8 = objc_alloc(MEMORY[0x277CC1E70]);
   bundleIdentifier = self->_bundleIdentifier;
-  v34 = 0;
-  v6 = [v8 initWithBundleIdentifier:bundleIdentifier allowPlaceholder:1 error:&v34];
-  v7 = v34;
+  v33 = 0;
+  v6 = [v8 initWithBundleIdentifier:bundleIdentifier allowPlaceholder:1 error:&v33];
+  v7 = v33;
 LABEL_6:
   bundleContainerURL = [v6 bundleContainerURL];
-  v31 = bundleContainerURL;
+  v30 = bundleContainerURL;
   if (bundleContainerURL)
   {
-    v33 = 0;
-    v11 = *MEMORY[0x277CBEA30];
     v32 = 0;
-    [bundleContainerURL getResourceValue:&v33 forKey:v11 error:&v32];
-    v12 = v33;
-    v13 = v32;
+    v11 = *MEMORY[0x277CBEA30];
+    v31 = 0;
+    [bundleContainerURL getResourceValue:&v32 forKey:v11 error:&v31];
+    v12 = v32;
+    v13 = v31;
     v14 = v12;
 
     [v14 BOOLValue];
@@ -716,8 +713,8 @@ LABEL_6:
   {
     if (self->_appContainer)
     {
-      v35[0] = self->_appContainer;
-      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
+      v34[0] = self->_appContainer;
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:1];
       v16 = SizesOfContainers(v15);
 
       v3 = v15;
@@ -751,7 +748,7 @@ LABEL_6:
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
     +[STLaunchDates sharedDates];
-    v30 = v3;
+    v29 = v3;
     v22 = v4;
     v23 = v6;
     v25 = v24 = v7;
@@ -762,10 +759,8 @@ LABEL_6:
     v7 = v24;
     v6 = v23;
     v4 = v22;
-    v3 = v30;
+    v3 = v29;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

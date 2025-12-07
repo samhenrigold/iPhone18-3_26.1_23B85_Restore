@@ -7,51 +7,57 @@ void ____ComputeCustomSlotsUsage_block_invoke(uint64_t a1, const void *a2, CFTyp
 {
   v3 = cf;
   v6 = CFGetTypeID(cf);
-  if (v6 == C3DValueGetTypeID())
+  TypeID = C3DValueGetTypeID(v6, v7);
+  if (v6 == TypeID)
   {
-    if (C3DValueGetTypeSemantic(v3) != 1)
+    if (C3DValueGetTypeSemantic(v3, v9) != 1)
     {
       return;
     }
 
-    v3 = *C3DValueGetBytes(v3);
+    Bytes = C3DValueGetBytes(v3, v10);
+    v3 = *Bytes;
   }
 
-  else if (v6 != C3DEffectSlotGetTypeID())
+  else
   {
-    return;
+    Bytes = C3DEffectSlotGetTypeID(TypeID, v9);
+    if (v6 != Bytes)
+    {
+      return;
+    }
   }
 
   if (v3)
   {
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 162);
-    if (v8 == 8)
+    v13 = *(a1 + 32);
+    v14 = *(v13 + 162);
+    if (v14 == 8)
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v15 = scn_default_log(Bytes, v12);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        ____ComputeCustomSlotsUsage_block_invoke_cold_1(v9);
+        ____ComputeCustomSlotsUsage_block_invoke_cold_1(v15);
       }
     }
 
     else
     {
-      *(v7 + 8 * v8 + 216) = a2;
+      *(v13 + 8 * v14 + 216) = a2;
       CFRetain(a2);
-      UVSet = C3DEffectSlotGetUVSet(v3);
+      UVSet = C3DEffectSlotGetUVSet(v3, v16);
       if (UVSet == -1)
       {
-        v11 = 0;
+        v18 = 0;
       }
 
       else
       {
-        v11 = UVSet;
+        v18 = UVSet;
       }
 
       HasInterpolationModesPerKey = C3DKeyframeControllerHasInterpolationModesPerKey(v3);
-      *(*(a1 + 32) + v8 + 203) = __UpdateHashCodeUVSetForEffectProperty(*(a1 + 32), v11, HasInterpolationModesPerKey, v8 + 27);
+      *(*(a1 + 32) + v14 + 203) = __UpdateHashCodeUVSetForEffectProperty(*(a1 + 32), v18, HasInterpolationModesPerKey, v14 + 27);
       ++*(*(a1 + 32) + 162);
     }
   }

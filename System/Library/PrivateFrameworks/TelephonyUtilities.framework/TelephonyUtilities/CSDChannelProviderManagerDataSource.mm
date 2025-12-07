@@ -86,15 +86,16 @@
   bundleURL = [installed bundleURL];
   if (bundleURL)
   {
-    v10 = 0;
-    v4 = [[LSApplicationRecord alloc] initWithURL:bundleURL allowPlaceholder:1 error:&v10];
-    v5 = v10;
+    v11 = 0;
+    v4 = [[LSApplicationRecord alloc] initWithURL:bundleURL allowPlaceholder:1 error:&v11];
+    v5 = v11;
+    v6 = v5;
     if (!v4)
     {
-      v6 = sub_100004778();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = sub_100004778(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_1004715F4(bundleURL, v5, v6);
+        sub_1004715F4(bundleURL, v6, v7);
       }
     }
   }

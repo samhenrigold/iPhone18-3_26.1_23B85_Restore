@@ -16,15 +16,15 @@
 
 - (CKDBackingPlatformAccount)initWithAppleAccount:(id)account
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   v7 = objc_msgSend_ck_cloudKitAccount(accountCopy, v5, v6);
 
   if (v7)
   {
-    v12.receiver = self;
-    v12.super_class = CKDBackingPlatformAccount;
-    self = [(CKDBackingAccount *)&v12 initWithAppleAccount:accountCopy];
+    v11.receiver = self;
+    v11.super_class = CKDBackingPlatformAccount;
+    self = [(CKDBackingAccount *)&v11 initWithAppleAccount:accountCopy];
     selfCopy = self;
   }
 
@@ -39,16 +39,15 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
     {
       *buf = 134218242;
-      v14 = accountCopy;
-      v15 = 2112;
-      v16 = accountCopy;
+      v13 = accountCopy;
+      v14 = 2112;
+      v15 = accountCopy;
       _os_log_fault_impl(&dword_22506F000, v9, OS_LOG_TYPE_FAULT, "There's an iCloud account without a CloudKit Child Account. Ignoring it. %p: %@", buf, 0x16u);
     }
 
     selfCopy = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

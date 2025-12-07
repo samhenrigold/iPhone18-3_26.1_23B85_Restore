@@ -22,20 +22,20 @@
 
 - (_ATXAppProtectionMonitor)init
 {
-  v8.receiver = self;
-  v8.super_class = _ATXAppProtectionMonitor;
-  v2 = [(_ATXAppProtectionMonitor *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = _ATXAppProtectionMonitor;
+  v2 = [(_ATXAppProtectionMonitor *)&v9 init];
   if (v2)
   {
     subjectMonitorRegistry = [MEMORY[0x277CEBEB8] subjectMonitorRegistry];
     v4 = [subjectMonitorRegistry addMonitor:v2 subjectMask:1];
     objc_storeWeak(&v2->_appProtectionSubjectMonitorSubscription, v4);
 
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "_ATXAppProtectionMonitor initialized", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_DEFAULT, "_ATXAppProtectionMonitor initialized", v8, 2u);
     }
   }
 

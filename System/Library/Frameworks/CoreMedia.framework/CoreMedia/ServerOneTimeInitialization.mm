@@ -9,12 +9,12 @@ uint64_t __figXPC_ServerOneTimeInitialization_block_invoke()
   gCommonServerListenerQueue = FigDispatchQueueCreateWithPriority("FigXPCServerCommonListenerQueue", 0, 44);
   qword_1ED4CDB30 = dispatch_queue_create("FigXPCServerCommonTimeoutQueue", 0);
   gCommonServerProcessCleanupQueue = dispatch_queue_create("FigXPCServerCommonProcessCleanupQueue", v0);
-  if (FigServer_IsMediaserverd() && !audiomxd_enabled() || (in_audio_mx_server_process() & 1) != 0 || !FigServer_IsServerProcess() || FigServer_IsAirplayd() || FigServer_IsCameracaptured())
+  if (FigServer_IsMediaserverd(gCommonServerProcessCleanupQueue, v1) && (IsServerProcess = audiomxd_enabled(), !IsServerProcess) || (IsServerProcess = in_audio_mx_server_process(), (IsServerProcess & 1) != 0) || (IsServerProcess = FigServer_IsServerProcess(IsServerProcess, v3), !IsServerProcess) || (IsServerProcess = FigServer_IsAirplayd(IsServerProcess, v3), IsServerProcess) || (IsServerProcess = FigServer_IsCameracaptured(IsServerProcess, v3), IsServerProcess))
   {
     qword_1ED4CDB38 |= 1uLL;
   }
 
-  if (FigServer_IsMediaplaybackd())
+  if (FigServer_IsMediaplaybackd(IsServerProcess, v3))
   {
     qword_1ED4CDB38 |= 2uLL;
   }

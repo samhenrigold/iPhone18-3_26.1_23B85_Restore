@@ -278,7 +278,7 @@
   v18 = geometryInRoot;
   if (geometryInRoot)
   {
-    [geometryInRoot transform];
+    objc_msgSend_transform(geometryInRoot);
   }
 
   else
@@ -680,7 +680,7 @@ LABEL_8:
     v11 = geometry;
     if (geometry)
     {
-      [geometry transformBasedOnPoint:CGPointZero.x centeredAtPoint:{CGPointZero.y, CGPointZero.x, CGPointZero.y}];
+      objc_msgSend_transformBasedOnPoint_centeredAtPoint_(geometry, CGPointZero.x, CGPointZero.y, CGPointZero.x, CGPointZero.y);
     }
 
     else
@@ -1242,7 +1242,7 @@ LABEL_8:
     if (p_playerStrokeRenderable)
     {
 LABEL_4:
-      [p_playerStrokeRenderable affineTransform];
+      objc_msgSend_affineTransform(p_playerStrokeRenderable);
       goto LABEL_7;
     }
   }
@@ -3172,7 +3172,7 @@ LABEL_34:
   v6 = originalPureGeometry;
   if (originalPureGeometry)
   {
-    [originalPureGeometry fullTransform];
+    objc_msgSend_fullTransform(originalPureGeometry);
   }
 
   else

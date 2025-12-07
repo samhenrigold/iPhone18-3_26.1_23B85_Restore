@@ -68,7 +68,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setOnShowContent:(id)content
@@ -93,7 +93,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setOnHideContent:(id)content
@@ -118,7 +118,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setOnDeleteContent:(id)content
@@ -143,7 +143,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setOnShieldUp:(id)up
@@ -168,7 +168,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setOnMessageSomeone:(id)someone
@@ -193,7 +193,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setOnLeaveConversation:(id)conversation
@@ -218,7 +218,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (id)onReportEvidenceRequested
@@ -267,7 +267,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setOnBlockParticipant:(id)participant
@@ -292,7 +292,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setOnEndCall:(id)call
@@ -317,7 +317,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setOnUnsubscribe:(id)unsubscribe
@@ -342,7 +342,7 @@
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_1BC635484(v7);
+  sub_1BC635484(v7, v8);
 }
 
 - (void)setHostingView:(id)view
@@ -385,37 +385,35 @@ LABEL_5:
 - (void)configureWithParticipant:(id)participant analysis:(id)analysis
 {
   v7 = type metadata accessor for SCUISensitiveContentOverlayView.Kind(0);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = (&v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  *v10 = participant;
-  v10[1] = analysis;
-  v10[2] = nullsub_1;
-  v10[3] = 0;
+  v9 = (&v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *v9 = participant;
+  v9[1] = analysis;
+  v9[2] = nullsub_1;
+  v9[3] = 0;
   swift_storeEnumTagMultiPayload();
   participantCopy = participant;
   analysisCopy = analysis;
-  v13 = participantCopy;
-  v14 = analysisCopy;
+  v12 = participantCopy;
+  v13 = analysisCopy;
   selfCopy = self;
-  SCUISensitiveContentOverlayView.configure(_:)(v10);
+  SCUISensitiveContentOverlayView.configure(_:)(v9);
 
-  sub_1BC741C4C(v10, type metadata accessor for SCUISensitiveContentOverlayView.Kind);
+  sub_1BC741C4C(v9, type metadata accessor for SCUISensitiveContentOverlayView.Kind);
 }
 
 - (void)configureWithAnalysis:(id)analysis
 {
   v5 = type metadata accessor for SCUISensitiveContentOverlayView.Kind(0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v8 = (&v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  *v8 = analysis;
+  v7 = (&v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *v7 = analysis;
   swift_storeEnumTagMultiPayload();
   analysisCopy = analysis;
   selfCopy = self;
-  SCUISensitiveContentOverlayView.configure(_:)(v8);
+  SCUISensitiveContentOverlayView.configure(_:)(v7);
 
-  sub_1BC741C4C(v8, type metadata accessor for SCUISensitiveContentOverlayView.Kind);
+  sub_1BC741C4C(v7, type metadata accessor for SCUISensitiveContentOverlayView.Kind);
 }
 
 - (void)clear

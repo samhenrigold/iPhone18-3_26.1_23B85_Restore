@@ -44,7 +44,7 @@
 
   else
   {
-    v6 = __atxlog_handle_modes();
+    v6 = __atxlog_handle_modes(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [(ATXModeSetupPredictionModel *)p_mode modelName];
@@ -69,64 +69,60 @@
   {
     v4 = objc_alloc(MEMORY[0x277CBFED0]);
     featuresToModel = [(ATXModeSetupPredictionModel *)self featuresToModel];
-    v17 = 0;
-    v6 = [v4 initWithDictionary:featuresToModel error:&v17];
-    v7 = v17;
+    v19 = 0;
+    v6 = [v4 initWithDictionary:featuresToModel error:&v19];
+    v7 = v19;
 
     if (v7)
     {
-      v8 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = __atxlog_handle_modes(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [(ATXModeSetupPredictionModel *)v7 probabilityScore];
       }
     }
 
-    v16 = v7;
-    v9 = [modeSetupPredictionModel predictionFromFeatures:v6 error:&v16];
-    v10 = v16;
+    v18 = v7;
+    v10 = [modeSetupPredictionModel predictionFromFeatures:v6 error:&v18];
+    v11 = v18;
 
-    if (v10)
+    if (v11)
     {
-      v11 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = __atxlog_handle_modes(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(ATXModeSetupPredictionModel *)v10 probabilityScore];
+        [(ATXModeSetupPredictionModel *)v11 probabilityScore];
       }
     }
 
-    v12 = [v9 featureValueForName:@"classProbability"];
-    [ATXCoreMLUtilities scoreForModelOutputValue:v12 outputIndexedSubscript:1];
-    v14 = v13;
+    v14 = [v10 featureValueForName:@"classProbability"];
+    [ATXCoreMLUtilities scoreForModelOutputValue:v14 outputIndexedSubscript:1];
+    v16 = v15;
   }
 
   else
   {
-    v14 = 0.0;
+    v16 = 0.0;
   }
 
-  return v14;
+  return v16;
 }
 
 - (void)modelName
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = *self;
-  v4 = ATXModeToString();
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeSetupPredictionModel: nil returned for CoreML model file name for this mode: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = ATXModeToString();
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeSetupPredictionModel: nil returned for CoreML model file name for this mode: %@", &v4, 0xCu);
 }
 
 - (void)probabilityScore
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeSetupPredictionModel - Error during inference on the CoreMLModel: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXModeSetupPredictionModel - Error during inference on the CoreMLModel: %@", &v2, 0xCu);
 }
 
 @end

@@ -66,32 +66,32 @@
 
 - (COStateManager)initWithSuiteName:(id)name clusters:(id)clusters
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   clustersCopy = clusters;
   v8 = objc_alloc_init(MEMORY[0x277CBEB98]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = clustersCopy;
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       v13 = 0;
       v14 = v8;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = [COCluster _clusterForCluster:*(*(&v20 + 1) + 8 * v13), v20];
+        v15 = [COCluster _clusterForCluster:*(*(&v19 + 1) + 8 * v13), v19];
         v8 = [v14 setByAddingObject:v15];
 
         ++v13;
@@ -99,7 +99,7 @@
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v11);
@@ -108,7 +108,6 @@
   v16 = objc_alloc_init(_COStateManagerConnectionProvider);
   v17 = [(COStateManager *)self initWithConnectionProvider:v16 suite:nameCopy clusters:v8];
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -160,15 +159,13 @@ void __25__COStateManager_dealloc__block_invoke(uint64_t a1)
 
 void __64__COStateManager_setBool_forKeyPath_clusters_completionHandler___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v5 = *(a1 + 40);
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 64)];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 _onqueue_setDictionary:v4 clusters:*(a1 + 48) cacheLocally:1 completionHandler:*(a1 + 56)];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNumber:(id)number forKeyPath:(id)path clusters:(id)clusters completionHandler:(id)handler
@@ -196,15 +193,13 @@ void __64__COStateManager_setBool_forKeyPath_clusters_completionHandler___block_
 
 void __66__COStateManager_setNumber_forKeyPath_clusters_completionHandler___block_invoke(void *a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[6];
-  v6 = a1[5];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = a1[5];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 _onqueue_setDictionary:v4 clusters:a1[7] cacheLocally:1 completionHandler:a1[8]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setString:(id)string forKeyPath:(id)path clusters:(id)clusters completionHandler:(id)handler
@@ -232,15 +227,13 @@ void __66__COStateManager_setNumber_forKeyPath_clusters_completionHandler___bloc
 
 void __66__COStateManager_setString_forKeyPath_clusters_completionHandler___block_invoke(void *a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[6];
-  v6 = a1[5];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = a1[5];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 _onqueue_setDictionary:v4 clusters:a1[7] cacheLocally:1 completionHandler:a1[8]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDate:(id)date forKeyPath:(id)path clusters:(id)clusters completionHandler:(id)handler
@@ -268,15 +261,13 @@ void __66__COStateManager_setString_forKeyPath_clusters_completionHandler___bloc
 
 void __64__COStateManager_setDate_forKeyPath_clusters_completionHandler___block_invoke(void *a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[6];
-  v6 = a1[5];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v5 = a1[5];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   [v2 _onqueue_setDictionary:v4 clusters:a1[7] cacheLocally:1 completionHandler:a1[8]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDictionary:(id)dictionary clusters:(id)clusters completionHandler:(id)handler
@@ -389,7 +380,7 @@ void __68__COStateManager_removeObjectForKeyPath_clusters_completionHandler___bl
 
 void __71__COStateManager_addObserverForKeyPathUsingPredicate_queue_usingBlock___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [[COStateObserver alloc] initWithDispatchQueue:*(a1 + 32) predicate:*(a1 + 40) block:*(a1 + 56)];
   v3 = *(*(a1 + 64) + 8);
   v4 = *(v3 + 40);
@@ -398,7 +389,7 @@ void __71__COStateManager_addObserverForKeyPathUsingPredicate_queue_usingBlock__
   v5 = COLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __71__COStateManager_addObserverForKeyPathUsingPredicate_queue_usingBlock___block_invoke_cold_1(a1, (a1 + 40));
+    __71__COStateManager_addObserverForKeyPathUsingPredicate_queue_usingBlock___block_invoke_cold_1();
   }
 
   [*(a1 + 48) _onqueue_registerObserver:*(*(*(a1 + 64) + 8) + 40)];
@@ -410,20 +401,19 @@ void __71__COStateManager_addObserverForKeyPathUsingPredicate_queue_usingBlock__
   v8 = COLogForCategory(4);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = *(*(*(a1 + 64) + 8) + 40);
-    v12 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    v13 = 134218498;
-    v14 = v11;
-    v15 = 2048;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v12;
-    _os_log_debug_impl(&dword_244328000, v8, OS_LOG_TYPE_DEBUG, "StateManager %p added observer %p with predicate %@", &v13, 0x20u);
+    v9 = *(*(*(a1 + 64) + 8) + 40);
+    v11 = *(a1 + 40);
+    v10 = *(a1 + 48);
+    v12 = 134218498;
+    v13 = v10;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2112;
+    v17 = v11;
+    _os_log_debug_impl(&dword_244328000, v8, OS_LOG_TYPE_DEBUG, "StateManager %p added observer %p with predicate %@", &v12, 0x20u);
   }
 
   dispatch_group_leave(*(*(*(a1 + 72) + 8) + 40));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer
@@ -469,15 +459,15 @@ void __33__COStateManager_removeObserver___block_invoke(uint64_t a1)
 
 void __33__COStateManager_removeObserver___block_invoke_2(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
   if (v3 && WeakRetained)
   {
-    v10 = *MEMORY[0x277CCA7E8];
-    v11[0] = v3;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x277CCA7E8];
+    v10[0] = v3;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COStateManagerErrorDomain" code:-1001 userInfo:v6];
     v8 = COLogForCategory(4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -485,8 +475,6 @@ void __33__COStateManager_removeObserver___block_invoke_2(uint64_t a1, void *a2)
       __33__COStateManager_removeObserver___block_invoke_2_cold_1();
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)changesObserved:(id)observed forPredicate:(id)predicate
@@ -508,36 +496,36 @@ void __33__COStateManager_removeObserver___block_invoke_2(uint64_t a1, void *a2)
 
 void __47__COStateManager_changesObserved_forPredicate___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = COLogForCategory(4);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __47__COStateManager_changesObserved_forPredicate___block_invoke_cold_1(a1);
+    __47__COStateManager_changesObserved_forPredicate___block_invoke_cold_1();
   }
 
   v3 = [*(a1 + 32) _sanitizeChanges:*(a1 + 40)];
   v4 = [*(a1 + 32) observers];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v18;
+    v8 = *v17;
     *&v6 = 134218240;
-    v16 = v6;
+    v15 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [v10 predicate];
         v12 = [v11 isEqual:*(a1 + 48)];
 
@@ -547,10 +535,10 @@ void __47__COStateManager_changesObserved_forPredicate___block_invoke(uint64_t a
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             v14 = *(a1 + 32);
-            *buf = v16;
-            v22 = v14;
-            v23 = 2048;
-            v24 = v10;
+            *buf = v15;
+            v21 = v14;
+            v22 = 2048;
+            v23 = v10;
             _os_log_impl(&dword_244328000, v13, OS_LOG_TYPE_DEFAULT, "StateManager %p notifying observer %p of changes", buf, 0x16u);
           }
 
@@ -558,23 +546,21 @@ void __47__COStateManager_changesObserved_forPredicate___block_invoke(uint64_t a
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_setDictionary:(id)dictionary clusters:(id)clusters cacheLocally:(BOOL)locally completionHandler:(id)handler
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   clustersCopy = clusters;
   handlerCopy = handler;
   dispatch_assert_queue_V2(self->_workQueue);
-  v40 = clustersCopy;
+  v39 = clustersCopy;
   if ([(COStateManager *)self _onqueue_clustersValid:clustersCopy])
   {
     locallyCopy = locally;
@@ -585,25 +571,25 @@ void __47__COStateManager_changesObserved_forPredicate___block_invoke(uint64_t a
     }
 
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v67 = 0u;
-    v68 = 0u;
-    v65 = 0u;
     v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
     obj = [dictionaryCopy allKeys];
-    v12 = [obj countByEnumeratingWithState:&v65 objects:v75 count:16];
+    v12 = [obj countByEnumeratingWithState:&v64 objects:v74 count:16];
     if (v12)
     {
-      v43 = *v66;
+      v42 = *v65;
       while (1)
       {
         v13 = 0;
 LABEL_7:
-        if (*v66 != v43)
+        if (*v65 != v42)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v65 + 1) + 8 * v13);
+        v14 = *(*(&v64 + 1) + 8 * v13);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -611,12 +597,12 @@ LABEL_7:
         }
 
         v15 = v14;
+        v60 = 0u;
         v61 = 0u;
         v62 = 0u;
         v63 = 0u;
-        v64 = 0u;
         v16 = _onqueue_setDictionary_clusters_cacheLocally_completionHandler__supportedClasses;
-        v17 = [v16 countByEnumeratingWithState:&v61 objects:v74 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v60 objects:v73 count:16];
         if (!v17)
         {
 LABEL_26:
@@ -624,28 +610,27 @@ LABEL_26:
           break;
         }
 
-        v18 = *v62;
+        v18 = *v61;
 LABEL_12:
         v19 = 0;
         while (1)
         {
-          if (*v62 != v18)
+          if (*v61 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v61 + 1) + 8 * v19);
-          v21 = [dictionaryCopy objectForKeyedSubscript:v15];
-          LOBYTE(v20) = objc_opt_isKindOfClass();
+          v20 = [dictionaryCopy objectForKeyedSubscript:v15];
+          isKindOfClass = objc_opt_isKindOfClass();
 
-          if (v20)
+          if (isKindOfClass)
           {
             break;
           }
 
           if (v17 == ++v19)
           {
-            v17 = [v16 countByEnumeratingWithState:&v61 objects:v74 count:16];
+            v17 = [v16 countByEnumeratingWithState:&v60 objects:v73 count:16];
             if (v17)
             {
               goto LABEL_12;
@@ -664,7 +649,7 @@ LABEL_12:
           goto LABEL_7;
         }
 
-        v12 = [obj countByEnumeratingWithState:&v65 objects:v75 count:16];
+        v12 = [obj countByEnumeratingWithState:&v64 objects:v74 count:16];
         if (!v12)
         {
           goto LABEL_21;
@@ -677,10 +662,10 @@ LABEL_12:
       {
         *location = 134218498;
         *&location[4] = val;
-        v70 = 2112;
-        v71 = dictionaryCopy;
-        v72 = 2112;
-        v73 = v31;
+        v69 = 2112;
+        v70 = dictionaryCopy;
+        v71 = 2112;
+        v72 = v31;
         _os_log_error_impl(&dword_244328000, v32, OS_LOG_TYPE_ERROR, "%p failed to set state %@ since it contains unsupported types - %@", location, 0x20u);
       }
 
@@ -692,30 +677,30 @@ LABEL_12:
 LABEL_21:
 
       objc_initWeak(location, val);
-      v56[0] = MEMORY[0x277D85DD0];
-      v56[1] = 3221225472;
-      v56[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_86;
-      v56[3] = &unk_278E12760;
-      objc_copyWeak(&v60, location);
-      v24 = v40;
-      v57 = v24;
+      v55[0] = MEMORY[0x277D85DD0];
+      v55[1] = 3221225472;
+      v55[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_86;
+      v55[3] = &unk_278E12760;
+      objc_copyWeak(&v59, location);
+      v24 = v39;
+      v56 = v24;
       dictionary = dictionary;
-      v58 = dictionary;
+      v57 = dictionary;
       v25 = dictionaryCopy;
-      v59 = v25;
-      v26 = MEMORY[0x245D5F6A0](v56);
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_2;
-      v50[3] = &unk_278E127B0;
-      objc_copyWeak(&v54, location);
-      v51 = v25;
+      v58 = v25;
+      v26 = MEMORY[0x245D5F6A0](v55);
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_2;
+      v49[3] = &unk_278E127B0;
+      objc_copyWeak(&v53, location);
+      v50 = v25;
       v27 = handlerCopy;
-      v52 = v27;
-      v55 = locallyCopy;
+      v51 = v27;
+      v54 = locallyCopy;
       v28 = v26;
-      v53 = v28;
-      v44 = [(COStateManager *)val _remoteInterfaceWithErrorHandler:v50];
+      v52 = v28;
+      v43 = [(COStateManager *)val _remoteInterfaceWithErrorHandler:v49];
       if (v24)
       {
         clusters = v24;
@@ -729,20 +714,20 @@ LABEL_21:
       v33 = clusters;
       suite = [(COStateManager *)val suite];
       clusters2 = [(COStateManager *)val clusters];
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_88;
-      v46[3] = &unk_278E127D8;
-      objc_copyWeak(&v49, location);
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_88;
+      v45[3] = &unk_278E127D8;
+      objc_copyWeak(&v48, location);
       v36 = v28;
-      v47 = v36;
-      v48 = v27;
-      [v44 setDictionary:dictionary suite:suite interestClusters:clusters2 targetCluster:v33 withCallback:v46];
+      v46 = v36;
+      v47 = v27;
+      [v43 setDictionary:dictionary suite:suite interestClusters:clusters2 targetCluster:v33 withCallback:v45];
 
-      objc_destroyWeak(&v49);
-      objc_destroyWeak(&v54);
+      objc_destroyWeak(&v48);
+      objc_destroyWeak(&v53);
 
-      objc_destroyWeak(&v60);
+      objc_destroyWeak(&v59);
       objc_destroyWeak(location);
     }
   }
@@ -758,8 +743,6 @@ LABEL_21:
     dictionary = [MEMORY[0x277CCA9B8] errorWithDomain:@"COStateManagerErrorDomain" code:-1000 userInfo:0];
     handlerCopy[2](handlerCopy, dictionary);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke()
@@ -773,6 +756,325 @@ uint64_t __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_compl
 }
 
 void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_86(uint64_t a1, void *a2, uint64_t a3)
+{
+  v48 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v35 = a1;
+  WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v7 = WeakRetained;
+  if (WeakRetained)
+  {
+    v8 = [WeakRetained state];
+    v32 = v7;
+    if (v8)
+    {
+      v9 = [v7 state];
+      v10 = [v9 mutableCopy];
+    }
+
+    else
+    {
+      v10 = [MEMORY[0x277CBEB38] dictionary];
+    }
+
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    obj = *(v35 + 32);
+    v11 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
+    if (v11)
+    {
+      v12 = v11;
+      v13 = *v41;
+      v31 = a3;
+      v30 = v5;
+      v33 = *v41;
+      do
+      {
+        for (i = 0; i != v12; ++i)
+        {
+          if (*v41 != v13)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v15 = *(*(&v40 + 1) + 8 * i);
+          if (([v5 containsObject:{v15, v30}] & 1) == 0)
+          {
+            v16 = [v10 objectForKeyedSubscript:v15];
+            if (v16)
+            {
+              [v10 objectForKeyedSubscript:v15];
+              v17 = v10;
+              v18 = v12;
+              v19 = v7;
+              v21 = v20 = a3;
+              v22 = [v21 mutableCopy];
+
+              a3 = v20;
+              v7 = v19;
+              v12 = v18;
+              v10 = v17;
+            }
+
+            else
+            {
+              v22 = [MEMORY[0x277CBEB38] dictionary];
+            }
+
+            [v22 addEntriesFromDictionary:*(v35 + 40)];
+            [v10 setObject:v22 forKey:v15];
+            [v7 setState:v10];
+            if (a3)
+            {
+              v45[0] = @"COStateManagerChangesCluster";
+              v45[1] = @"COStateManagerChangesUpdatedKeyPaths";
+              v23 = *(v35 + 48);
+              v46[0] = v15;
+              v46[1] = v23;
+              v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
+              v36 = 0u;
+              v37 = 0u;
+              v38 = 0u;
+              v39 = 0u;
+              v25 = [v7 observers];
+              v26 = [v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
+              if (v26)
+              {
+                v27 = v26;
+                v28 = *v37;
+                do
+                {
+                  for (j = 0; j != v27; ++j)
+                  {
+                    if (*v37 != v28)
+                    {
+                      objc_enumerationMutation(v25);
+                    }
+
+                    [*(*(&v36 + 1) + 8 * j) notify:v24];
+                  }
+
+                  v27 = [v25 countByEnumeratingWithState:&v36 objects:v44 count:16];
+                }
+
+                while (v27);
+              }
+
+              v5 = v30;
+              a3 = v31;
+              v7 = v32;
+            }
+
+            v13 = v33;
+          }
+        }
+
+        v12 = [obj countByEnumeratingWithState:&v40 objects:v47 count:16];
+      }
+
+      while (v12);
+    }
+  }
+}
+
+void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_2(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v5 = WeakRetained;
+  if (WeakRetained)
+  {
+    v6 = WeakRetained[2];
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_3;
+    v7[3] = &unk_278E12788;
+    v8 = v3;
+    v9 = v5;
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v13 = *(a1 + 64);
+    v12 = *(a1 + 48);
+    dispatch_async(v6, v7);
+  }
+}
+
+void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_3(uint64_t a1)
+{
+  v7[1] = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 32);
+  if (v1)
+  {
+    v6 = *MEMORY[0x277CCA7E8];
+    v7[0] = v1;
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COStateManagerErrorDomain" code:-1001 userInfo:v3];
+    v5 = COLogForCategory(4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_3_cold_1();
+    }
+
+    (*(*(a1 + 56) + 16))();
+    if (*(a1 + 72) == 1)
+    {
+      (*(*(a1 + 64) + 16))();
+    }
+  }
+}
+
+void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_88(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
+  if (WeakRetained)
+  {
+    v8 = WeakRetained[2];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_2_89;
+    v9[3] = &unk_278E121C0;
+    v10 = v3;
+    v11 = *(a1 + 32);
+    dispatch_async(v8, v9);
+  }
+
+  (*(*(a1 + 40) + 16))(*(a1 + 40), v3, v5, v6);
+}
+
+void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_2_89(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (v2)
+  {
+    v3 = [v2 userInfo];
+    v4 = [v3 objectForKeyedSubscript:@"COStateManagerErrorFailedClustersKey"];
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  (*(*(a1 + 40) + 16))();
+}
+
+- (void)_onqueue_removeObjectsForKeyPaths:(id)paths clusters:(id)clusters cacheLocally:(BOOL)locally completionHandler:(id)handler
+{
+  v51 = *MEMORY[0x277D85DE8];
+  pathsCopy = paths;
+  clustersCopy = clusters;
+  handlerCopy = handler;
+  dispatch_assert_queue_V2(self->_workQueue);
+  if ([(COStateManager *)self _onqueue_clustersValid:clustersCopy])
+  {
+    locallyCopy = locally;
+    v12 = [MEMORY[0x277CBEB58] set];
+    v48 = 0u;
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v13 = pathsCopy;
+    v14 = [v13 countByEnumeratingWithState:&v46 objects:v50 count:16];
+    if (v14)
+    {
+      v15 = *v47;
+      do
+      {
+        v16 = 0;
+        do
+        {
+          if (*v47 != v15)
+          {
+            objc_enumerationMutation(v13);
+          }
+
+          v17 = *(*(&v46 + 1) + 8 * v16);
+          objc_opt_class();
+          if (objc_opt_isKindOfClass())
+          {
+            absoluteString = [v17 absoluteString];
+            [v12 addObject:absoluteString];
+          }
+
+          ++v16;
+        }
+
+        while (v14 != v16);
+        v14 = [v13 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      }
+
+      while (v14);
+    }
+
+    objc_initWeak(&location, self);
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke;
+    v40[3] = &unk_278E12760;
+    objc_copyWeak(&v44, &location);
+    v19 = clustersCopy;
+    v41 = v19;
+    v20 = v12;
+    v42 = v20;
+    v43 = v13;
+    v21 = MEMORY[0x245D5F6A0](v40);
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_2;
+    v35[3] = &unk_278E12828;
+    objc_copyWeak(&v38, &location);
+    v22 = handlerCopy;
+    v36 = v22;
+    v39 = locallyCopy;
+    v23 = v21;
+    v37 = v23;
+    v24 = [(COStateManager *)self _remoteInterfaceWithErrorHandler:v35];
+    if (v19)
+    {
+      clusters = v19;
+    }
+
+    else
+    {
+      clusters = [(COStateManager *)self clusters];
+    }
+
+    v27 = clusters;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_91;
+    v31[3] = &unk_278E127D8;
+    objc_copyWeak(&v34, &location);
+    v28 = v23;
+    v32 = v28;
+    v33 = v22;
+    [v24 removeKeyPaths:v20 targetClusters:v27 withCallback:v31];
+
+    objc_destroyWeak(&v34);
+    objc_destroyWeak(&v38);
+
+    objc_destroyWeak(&v44);
+    objc_destroyWeak(&location);
+  }
+
+  else
+  {
+    v26 = COLogForCategory(4);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    {
+      [COStateManager _onqueue_removeObjectsForKeyPaths:clusters:cacheLocally:completionHandler:];
+    }
+
+    v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COStateManagerErrorDomain" code:-1000 userInfo:0];
+    (*(handlerCopy + 2))(handlerCopy, v20);
+  }
+}
+
+void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
@@ -823,331 +1125,6 @@ void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completio
             if (v16)
             {
               [v10 objectForKeyedSubscript:v15];
-              v17 = v10;
-              v18 = v12;
-              v19 = v7;
-              v21 = v20 = a3;
-              v22 = [v21 mutableCopy];
-
-              a3 = v20;
-              v7 = v19;
-              v12 = v18;
-              v10 = v17;
-            }
-
-            else
-            {
-              v22 = [MEMORY[0x277CBEB38] dictionary];
-            }
-
-            [v22 addEntriesFromDictionary:*(v36 + 40)];
-            [v10 setObject:v22 forKey:v15];
-            [v7 setState:v10];
-            if (a3)
-            {
-              v46[0] = @"COStateManagerChangesCluster";
-              v46[1] = @"COStateManagerChangesUpdatedKeyPaths";
-              v23 = *(v36 + 48);
-              v47[0] = v15;
-              v47[1] = v23;
-              v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
-              v37 = 0u;
-              v38 = 0u;
-              v39 = 0u;
-              v40 = 0u;
-              v25 = [v7 observers];
-              v26 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
-              if (v26)
-              {
-                v27 = v26;
-                v28 = *v38;
-                do
-                {
-                  for (j = 0; j != v27; ++j)
-                  {
-                    if (*v38 != v28)
-                    {
-                      objc_enumerationMutation(v25);
-                    }
-
-                    [*(*(&v37 + 1) + 8 * j) notify:v24];
-                  }
-
-                  v27 = [v25 countByEnumeratingWithState:&v37 objects:v45 count:16];
-                }
-
-                while (v27);
-              }
-
-              v5 = v31;
-              a3 = v32;
-              v7 = v33;
-            }
-
-            v13 = v34;
-          }
-        }
-
-        v12 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
-      }
-
-      while (v12);
-    }
-  }
-
-  v30 = *MEMORY[0x277D85DE8];
-}
-
-void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_2(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v5 = WeakRetained;
-  if (WeakRetained)
-  {
-    v6 = WeakRetained[2];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_3;
-    v7[3] = &unk_278E12788;
-    v8 = v3;
-    v9 = v5;
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v13 = *(a1 + 64);
-    v12 = *(a1 + 48);
-    dispatch_async(v6, v7);
-  }
-}
-
-void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_3(uint64_t a1)
-{
-  v8[1] = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  if (v1)
-  {
-    v7 = *MEMORY[0x277CCA7E8];
-    v8[0] = v1;
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-    v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COStateManagerErrorDomain" code:-1001 userInfo:v3];
-    v5 = COLogForCategory(4);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_3_cold_1(a1);
-    }
-
-    (*(*(a1 + 56) + 16))();
-    if (*(a1 + 72) == 1)
-    {
-      (*(*(a1 + 64) + 16))();
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_88(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v7 = WeakRetained;
-  if (WeakRetained)
-  {
-    v8 = WeakRetained[2];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_2_89;
-    v9[3] = &unk_278E121C0;
-    v10 = v3;
-    v11 = *(a1 + 32);
-    dispatch_async(v8, v9);
-  }
-
-  (*(*(a1 + 40) + 16))(*(a1 + 40), v3, v5, v6);
-}
-
-void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_2_89(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    v3 = [v2 userInfo];
-    v4 = [v3 objectForKeyedSubscript:@"COStateManagerErrorFailedClustersKey"];
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  (*(*(a1 + 40) + 16))();
-}
-
-- (void)_onqueue_removeObjectsForKeyPaths:(id)paths clusters:(id)clusters cacheLocally:(BOOL)locally completionHandler:(id)handler
-{
-  v52 = *MEMORY[0x277D85DE8];
-  pathsCopy = paths;
-  clustersCopy = clusters;
-  handlerCopy = handler;
-  dispatch_assert_queue_V2(self->_workQueue);
-  if ([(COStateManager *)self _onqueue_clustersValid:clustersCopy])
-  {
-    locallyCopy = locally;
-    v12 = [MEMORY[0x277CBEB58] set];
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v13 = pathsCopy;
-    v14 = [v13 countByEnumeratingWithState:&v47 objects:v51 count:16];
-    if (v14)
-    {
-      v15 = *v48;
-      do
-      {
-        v16 = 0;
-        do
-        {
-          if (*v48 != v15)
-          {
-            objc_enumerationMutation(v13);
-          }
-
-          v17 = *(*(&v47 + 1) + 8 * v16);
-          objc_opt_class();
-          if (objc_opt_isKindOfClass())
-          {
-            absoluteString = [v17 absoluteString];
-            [v12 addObject:absoluteString];
-          }
-
-          ++v16;
-        }
-
-        while (v14 != v16);
-        v14 = [v13 countByEnumeratingWithState:&v47 objects:v51 count:16];
-      }
-
-      while (v14);
-    }
-
-    objc_initWeak(&location, self);
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke;
-    v41[3] = &unk_278E12760;
-    objc_copyWeak(&v45, &location);
-    v19 = clustersCopy;
-    v42 = v19;
-    v20 = v12;
-    v43 = v20;
-    v44 = v13;
-    v21 = MEMORY[0x245D5F6A0](v41);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_2;
-    v36[3] = &unk_278E12828;
-    objc_copyWeak(&v39, &location);
-    v22 = handlerCopy;
-    v37 = v22;
-    v40 = locallyCopy;
-    v23 = v21;
-    v38 = v23;
-    v24 = [(COStateManager *)self _remoteInterfaceWithErrorHandler:v36];
-    if (v19)
-    {
-      clusters = v19;
-    }
-
-    else
-    {
-      clusters = [(COStateManager *)self clusters];
-    }
-
-    v27 = clusters;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_91;
-    v32[3] = &unk_278E127D8;
-    objc_copyWeak(&v35, &location);
-    v28 = v23;
-    v33 = v28;
-    v34 = v22;
-    [v24 removeKeyPaths:v20 targetClusters:v27 withCallback:v32];
-
-    objc_destroyWeak(&v35);
-    objc_destroyWeak(&v39);
-
-    objc_destroyWeak(&v45);
-    objc_destroyWeak(&location);
-  }
-
-  else
-  {
-    v26 = COLogForCategory(4);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
-    {
-      [COStateManager _onqueue_removeObjectsForKeyPaths:clusters:cacheLocally:completionHandler:];
-    }
-
-    v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COStateManagerErrorDomain" code:-1000 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, v20);
-  }
-
-  v29 = *MEMORY[0x277D85DE8];
-}
-
-void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
-{
-  v50 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  v37 = a1;
-  WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v7 = WeakRetained;
-  if (WeakRetained)
-  {
-    v8 = [WeakRetained state];
-    v34 = v7;
-    if (v8)
-    {
-      v9 = [v7 state];
-      v10 = [v9 mutableCopy];
-    }
-
-    else
-    {
-      v10 = [MEMORY[0x277CBEB38] dictionary];
-    }
-
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    obj = *(v37 + 32);
-    v11 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
-    if (v11)
-    {
-      v12 = v11;
-      v13 = *v43;
-      v33 = a3;
-      v32 = v5;
-      v35 = *v43;
-      do
-      {
-        for (i = 0; i != v12; ++i)
-        {
-          if (*v43 != v13)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          v15 = *(*(&v42 + 1) + 8 * i);
-          if (([v5 containsObject:{v15, v32}] & 1) == 0)
-          {
-            v16 = [v10 objectForKeyedSubscript:v15];
-            if (v16)
-            {
-              [v10 objectForKeyedSubscript:v15];
               v17 = v5;
               v18 = v12;
               v19 = v7;
@@ -1165,64 +1142,62 @@ void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocall
               v22 = [MEMORY[0x277CBEB38] dictionary];
             }
 
-            v23 = [*(v37 + 40) allObjects];
+            v23 = [*(v36 + 40) allObjects];
             [v22 removeObjectsForKeys:v23];
 
             [v10 setObject:v22 forKey:v15];
             [v7 setState:v10];
             if (a3)
             {
-              v47[0] = @"COStateManagerChangesCluster";
-              v47[1] = @"COStateManagerChangesRemovedKeyPaths";
-              v24 = *(v37 + 48);
-              v48[0] = v15;
-              v48[1] = v24;
-              v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+              v46[0] = @"COStateManagerChangesCluster";
+              v46[1] = @"COStateManagerChangesRemovedKeyPaths";
+              v24 = *(v36 + 48);
+              v47[0] = v15;
+              v47[1] = v24;
+              v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+              v37 = 0u;
               v38 = 0u;
               v39 = 0u;
               v40 = 0u;
-              v41 = 0u;
               v26 = [v7 observers];
-              v27 = [v26 countByEnumeratingWithState:&v38 objects:v46 count:16];
+              v27 = [v26 countByEnumeratingWithState:&v37 objects:v45 count:16];
               if (v27)
               {
                 v28 = v27;
-                v29 = *v39;
+                v29 = *v38;
                 do
                 {
                   for (j = 0; j != v28; ++j)
                   {
-                    if (*v39 != v29)
+                    if (*v38 != v29)
                     {
                       objc_enumerationMutation(v26);
                     }
 
-                    [*(*(&v38 + 1) + 8 * j) notify:v25];
+                    [*(*(&v37 + 1) + 8 * j) notify:v25];
                   }
 
-                  v28 = [v26 countByEnumeratingWithState:&v38 objects:v46 count:16];
+                  v28 = [v26 countByEnumeratingWithState:&v37 objects:v45 count:16];
                 }
 
                 while (v28);
               }
 
-              v5 = v32;
-              a3 = v33;
-              v7 = v34;
+              v5 = v31;
+              a3 = v32;
+              v7 = v33;
             }
 
-            v13 = v35;
+            v13 = v34;
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+        v12 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
       }
 
       while (v12);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -1248,16 +1223,16 @@ void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocall
 
 void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_3(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v7 = *MEMORY[0x277CCA7E8];
-  v8[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277CCA7E8];
+  v7[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COStateManagerErrorDomain" code:-1001 userInfo:v3];
   v5 = COLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_3_cold_1(a1);
+    __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_3_cold_1();
   }
 
   (*(*(a1 + 48) + 16))();
@@ -1265,8 +1240,6 @@ void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocall
   {
     (*(*(a1 + 56) + 16))();
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_91(uint64_t a1, void *a2)
@@ -1327,15 +1300,15 @@ void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocall
 
 void __44__COStateManager__onqueue_registerObserver___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
   if (v3 && WeakRetained)
   {
-    v10 = *MEMORY[0x277CCA7E8];
-    v11[0] = v3;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x277CCA7E8];
+    v10[0] = v3;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COStateManagerErrorDomain" code:-1001 userInfo:v6];
     v8 = COLogForCategory(4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -1343,8 +1316,6 @@ void __44__COStateManager__onqueue_registerObserver___block_invoke(uint64_t a1, 
       __44__COStateManager__onqueue_registerObserver___block_invoke_cold_1();
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_lostConnectionToService
@@ -1364,136 +1335,134 @@ void __44__COStateManager__onqueue_registerObserver___block_invoke(uint64_t a1, 
 
 void __42__COStateManager__lostConnectionToService__block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained && (WeakRetained[24] & 1) == 0)
   {
     WeakRetained[24] = 1;
-    v28 = WeakRetained;
+    v27 = WeakRetained;
     v2 = [WeakRetained observers];
-    v22 = [v28 state];
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
+    v21 = [v27 state];
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     obj = v2;
-    v3 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+    v3 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
     if (v3)
     {
-      v4 = *v45;
+      v4 = *v44;
       do
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v45 != v4)
+          if (*v44 != v4)
           {
             objc_enumerationMutation(obj);
           }
 
-          [v28 _onqueue_registerObserver:*(*(&v44 + 1) + 8 * i)];
+          [v27 _onqueue_registerObserver:*(*(&v43 + 1) + 8 * i)];
         }
 
-        v3 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v3 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v3);
     }
 
-    if ([v22 count])
+    if ([v21 count])
     {
-      v40 = 0;
-      v41 = &v40;
-      v42 = 0x2020000000;
-      v43 = 0;
+      v39 = 0;
+      v40 = &v39;
+      v41 = 0x2020000000;
+      v42 = 0;
+      v35 = 0u;
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
-      v39 = 0u;
-      v26 = v22;
-      v6 = [v26 countByEnumeratingWithState:&v36 objects:v49 count:16];
+      v25 = v21;
+      v6 = [v25 countByEnumeratingWithState:&v35 objects:v48 count:16];
       if (v6)
       {
-        v23 = *v37;
+        v22 = *v36;
         do
         {
-          v24 = v6;
-          for (j = 0; j != v24; ++j)
+          v23 = v6;
+          for (j = 0; j != v23; ++j)
           {
-            if (*v37 != v23)
+            if (*v36 != v22)
             {
-              objc_enumerationMutation(v26);
+              objc_enumerationMutation(v25);
             }
 
-            v8 = *(*(&v36 + 1) + 8 * j);
-            v9 = [v26 objectForKeyedSubscript:v8];
+            v8 = *(*(&v35 + 1) + 8 * j);
+            v9 = [v25 objectForKeyedSubscript:v8];
             v10 = [MEMORY[0x277CBEB38] dictionary];
-            v34 = 0u;
-            v35 = 0u;
-            v32 = 0u;
             v33 = 0u;
+            v34 = 0u;
+            v31 = 0u;
+            v32 = 0u;
             v11 = v9;
-            v12 = [v11 countByEnumeratingWithState:&v32 objects:v48 count:16];
+            v12 = [v11 countByEnumeratingWithState:&v31 objects:v47 count:16];
             if (v12)
             {
-              v13 = *v33;
+              v13 = *v32;
               do
               {
                 for (k = 0; k != v12; ++k)
                 {
-                  if (*v33 != v13)
+                  if (*v32 != v13)
                   {
                     objc_enumerationMutation(v11);
                   }
 
-                  v15 = *(*(&v32 + 1) + 8 * k);
+                  v15 = *(*(&v31 + 1) + 8 * k);
                   v16 = [COKeyPath createWithString:v15];
                   v17 = [v11 objectForKeyedSubscript:v15];
                   [v10 setObject:v17 forKey:v16];
                 }
 
-                v12 = [v11 countByEnumeratingWithState:&v32 objects:v48 count:16];
+                v12 = [v11 countByEnumeratingWithState:&v31 objects:v47 count:16];
               }
 
               while (v12);
             }
 
-            ++v41[3];
+            ++v40[3];
             v18 = *(a1 + 32);
             v19 = [MEMORY[0x277CBEB98] setWithObject:v8];
-            v29[0] = MEMORY[0x277D85DD0];
-            v29[1] = 3221225472;
-            v29[2] = __42__COStateManager__lostConnectionToService__block_invoke_2;
-            v29[3] = &unk_278E12850;
-            v29[4] = v28;
+            v28[0] = MEMORY[0x277D85DD0];
+            v28[1] = 3221225472;
+            v28[2] = __42__COStateManager__lostConnectionToService__block_invoke_2;
+            v28[3] = &unk_278E12850;
+            v28[4] = v27;
             v20 = v10;
-            v30 = v20;
-            v31 = &v40;
-            [v18 _onqueue_setDictionary:v20 clusters:v19 cacheLocally:0 completionHandler:v29];
+            v29 = v20;
+            v30 = &v39;
+            [v18 _onqueue_setDictionary:v20 clusters:v19 cacheLocally:0 completionHandler:v28];
           }
 
-          v6 = [v26 countByEnumeratingWithState:&v36 objects:v49 count:16];
+          v6 = [v25 countByEnumeratingWithState:&v35 objects:v48 count:16];
         }
 
         while (v6);
       }
 
-      _Block_object_dispose(&v40, 8);
+      _Block_object_dispose(&v39, 8);
     }
 
     else
     {
-      v28[24] = 0;
+      v27[24] = 0;
     }
 
-    WeakRetained = v28;
+    WeakRetained = v27;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __42__COStateManager__lostConnectionToService__block_invoke_2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = COLogForCategory(4);
   v5 = v4;
@@ -1501,7 +1470,7 @@ void __42__COStateManager__lostConnectionToService__block_invoke_2(void *a1, voi
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __42__COStateManager__lostConnectionToService__block_invoke_2_cold_1(a1);
+      __42__COStateManager__lostConnectionToService__block_invoke_2_cold_1();
     }
   }
 
@@ -1509,19 +1478,17 @@ void __42__COStateManager__lostConnectionToService__block_invoke_2(void *a1, voi
   {
     v6 = a1[4];
     v7 = a1[5];
-    v9 = 134218242;
-    v10 = v6;
-    v11 = 2112;
-    v12 = v7;
-    _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p Successfully re-presented state %@", &v9, 0x16u);
+    v8 = 134218242;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_244328000, v5, OS_LOG_TYPE_DEFAULT, "%p Successfully re-presented state %@", &v8, 0x16u);
   }
 
   if (!--*(*(a1[6] + 8) + 24))
   {
     *(a1[4] + 24) = 0;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_onqueue_clustersValid:(id)valid
@@ -1540,33 +1507,33 @@ void __42__COStateManager__lostConnectionToService__block_invoke_2(void *a1, voi
 
 - (id)_clustersForClustersTmp:(id)tmp
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   tmpCopy = tmp;
   if (tmpCopy)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB98]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = tmpCopy;
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         v9 = 0;
         v10 = v4;
         do
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = [COCluster _clusterForCluster:*(*(&v14 + 1) + 8 * v9), v14];
+          v11 = [COCluster _clusterForCluster:*(*(&v13 + 1) + 8 * v9), v13];
           v4 = [v10 setByAddingObject:v11];
 
           ++v9;
@@ -1574,7 +1541,7 @@ void __42__COStateManager__lostConnectionToService__block_invoke_2(void *a1, voi
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -1586,44 +1553,42 @@ void __42__COStateManager__lostConnectionToService__block_invoke_2(void *a1, voi
     v4 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)_sanitizeChanges:(id)changes
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   changesCopy = changes;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = [changesCopy objectForKeyedSubscript:@"COStateManagerChangesUpdatedKeyPaths"];
   dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   allKeys = [v4 allKeys];
-  v7 = [allKeys countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
         v12 = [COKeyPath createWithString:v11];
         v13 = [v4 objectForKeyedSubscript:v11];
         [dictionary2 setObject:v13 forKey:v12];
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v8);
@@ -1631,30 +1596,30 @@ void __42__COStateManager__lostConnectionToService__block_invoke_2(void *a1, voi
 
   v14 = [changesCopy objectForKeyedSubscript:@"COStateManagerChangesRemovedKeyPaths"];
   v15 = [MEMORY[0x277CBEB58] set];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v16 = v14;
-  v17 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [COKeyPath createWithString:*(*(&v26 + 1) + 8 * j)];
+        v21 = [COKeyPath createWithString:*(*(&v25 + 1) + 8 * j)];
         [v15 addObject:v21];
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v18);
@@ -1665,8 +1630,6 @@ void __42__COStateManager__lostConnectionToService__block_invoke_2(void *a1, voi
 
   [dictionary setObject:dictionary2 forKey:@"COStateManagerChangesUpdatedKeyPaths"];
   [dictionary setObject:v15 forKey:@"COStateManagerChangesRemovedKeyPaths"];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -1931,15 +1894,15 @@ void __85__COStateManager_ClusterExamination__fetchCompositionForCluster_dispatc
 
 void __71__COStateManager_Doorbell__delayForDoorbellChimeWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
   if (v3 && WeakRetained)
   {
-    v10 = *MEMORY[0x277CCA7E8];
-    v11[0] = v3;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = *MEMORY[0x277CCA7E8];
+    v10[0] = v3;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COStateManagerErrorDomain" code:-1001 userInfo:v6];
     v8 = COLogForCategory(4);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
@@ -1949,13 +1912,11 @@ void __71__COStateManager_Doorbell__delayForDoorbellChimeWithCompletionHandler__
 
     (*(*(a1 + 32) + 16))(0.2);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)homed_COStateManagerWithSuiteName:(id)name homeIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   nameCopy = name;
   v7 = [COCluster _homeClusterForHomeKitHomeIdentifier:identifierCopy];
@@ -1965,153 +1926,86 @@ void __71__COStateManager_Doorbell__delayForDoorbellChimeWithCompletionHandler__
   v10 = COLogForCategory(4);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134218499;
-    v14 = v9;
-    v15 = 2113;
-    v16 = identifierCopy;
-    v17 = 2112;
-    v18 = v7;
-    _os_log_impl(&dword_244328000, v10, OS_LOG_TYPE_DEFAULT, "%p Created homed COStateManager instance for %{private}@, cluster %@", &v13, 0x20u);
+    v12 = 134218499;
+    v13 = v9;
+    v14 = 2113;
+    v15 = identifierCopy;
+    v16 = 2112;
+    v17 = v7;
+    _os_log_impl(&dword_244328000, v10, OS_LOG_TYPE_DEFAULT, "%p Created homed COStateManager instance for %{private}@, cluster %@", &v12, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (void)initWithConnectionProvider:(uint64_t)a1 suite:(uint64_t)a2 clusters:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 134218242;
-  v9 = a1;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_debug_impl(&dword_244328000, a3, OS_LOG_TYPE_DEBUG, "%p state manager created with %@ provider", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __71__COStateManager_addObserverForKeyPathUsingPredicate_queue_usingBlock___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
-{
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 48);
-  v3 = *a2;
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_244328000, v4, v5, "StateManager %p adding observer with predicate %@");
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = 134218242;
+  v8 = a1;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_debug_impl(&dword_244328000, a3, OS_LOG_TYPE_DEBUG, "%p state manager created with %@ provider", &v7, 0x16u);
 }
 
 void __33__COStateManager_removeObserver___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __47__COStateManager_changesObserved_forPredicate___block_invoke_cold_1(uint64_t a1)
+void __47__COStateManager_changesObserved_forPredicate___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  v7 = v3;
-  _os_log_debug_impl(&dword_244328000, v4, OS_LOG_TYPE_DEBUG, "StateManager %p observed changes %@", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_debug_impl(&dword_244328000, v1, OS_LOG_TYPE_DEBUG, "StateManager %p observed changes %@", v2, 0x16u);
 }
 
-- (void)_onqueue_setDictionary:clusters:cacheLocally:completionHandler:.cold.1()
+void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_3_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_244328000, v0, v1, "Cannot set value for clusters %@ outside scope of COStateManager", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __81__COStateManager__onqueue_setDictionary_clusters_cacheLocally_completionHandler___block_invoke_3_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  v2 = *(a1 + 48);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-- (void)_onqueue_removeObjectsForKeyPaths:clusters:cacheLocally:completionHandler:.cold.1()
+void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_3_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_244328000, v0, v1, "Cannot remove value for clusters %@ outside scope of COStateManager", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __92__COStateManager__onqueue_removeObjectsForKeyPaths_clusters_cacheLocally_completionHandler___block_invoke_3_cold_1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void __44__COStateManager__onqueue_registerObserver___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void __42__COStateManager__lostConnectionToService__block_invoke_2_cold_1(uint64_t a1)
+void __42__COStateManager__lostConnectionToService__block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  v7 = v3;
-  _os_log_error_impl(&dword_244328000, v4, OS_LOG_TYPE_ERROR, "%p Failed to re-present state %@", v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __51__COStateManager__remoteInterfaceWithErrorHandler___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_244328000, v0, v1, "%p connection to State service interrupted", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __51__COStateManager__remoteInterfaceWithErrorHandler___block_invoke_167_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_4(&dword_244328000, v0, v1, "%p connection to State service invalidated", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_244328000, v1, OS_LOG_TYPE_ERROR, "%p Failed to re-present state %@", v2, 0x16u);
 }
 
 void __85__COStateManager_ClusterExamination__fetchCompositionForCluster_dispatchQueue_block___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__COStateManager_Doorbell__delayForDoorbellChimeWithCompletionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

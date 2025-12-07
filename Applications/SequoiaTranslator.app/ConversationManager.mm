@@ -41,14 +41,14 @@
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v9[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
   static Published.subscript.getter();
 
-  if (v9[40] == 2)
+  if (v10 == 2)
   {
     sub_1000968EC(v9);
     sub_10009BAC0(0, 0, 0);

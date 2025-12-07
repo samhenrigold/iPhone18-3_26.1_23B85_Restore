@@ -63,8 +63,6 @@
       [(NLSessionActivityWeatherManager *)selfCopy _deactivate];
     }
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_activate
@@ -78,7 +76,6 @@
 {
   v2 = +[WOCoreLocationManager sharedManager];
   [(WOCoreLocationManager *)v2 removeObserver:self];
-  MEMORY[0x277D82BD8](v2);
   [(NLWeatherSummaryManager *)self->_weatherManager cancelFetch];
   objc_storeStrong(&self->_weatherManager, 0);
 }
@@ -104,7 +101,6 @@
   [(NLSessionActivityWeatherManager *)selfCopy _handleLocations:location[0]];
   objc_storeStrong(&v6, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)authorizationStatusDidUpdateWithAuthorizationStatus:(int)status locationManager:(id)manager
@@ -125,7 +121,6 @@
 
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)locationDidFailWithError:(id)error locationManager:(id)manager
@@ -155,7 +150,6 @@
   objc_storeStrong(&v10, 0);
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManagerStateDidChangeWithState:(int64_t)state locationManager:(id)manager
@@ -176,12 +170,11 @@
 
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleLocations:(id)locations
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
@@ -189,95 +182,95 @@
   reverseObjectEnumerator = [location[0] reverseObjectEnumerator];
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](reverseObjectEnumerator);
-  v22 = [obj countByEnumeratingWithState:__b objects:v41 count:16];
-  if (v22)
+  v25 = [obj countByEnumeratingWithState:__b objects:v44 count:16];
+  if (v25)
   {
-    v18 = *__b[2];
-    v19 = 0;
-    v20 = v22;
+    v21 = *__b[2];
+    v22 = 0;
+    v23 = v25;
     while (1)
     {
-      v17 = v19;
-      if (*__b[2] != v18)
+      v20 = v22;
+      if (*__b[2] != v21)
       {
         objc_enumerationMutation(obj);
       }
 
-      v37 = *(__b[1] + 8 * v19);
-      [v37 horizontalAccuracy];
+      v40 = *(__b[1] + 8 * v22);
+      [v40 horizontalAccuracy];
       if (v3 >= 0.0)
       {
         break;
       }
 
-      ++v19;
-      if (v17 + 1 >= v20)
+      ++v22;
+      if (v20 + 1 >= v23)
       {
-        v19 = 0;
-        v20 = [obj countByEnumeratingWithState:__b objects:v41 count:16];
-        if (!v20)
+        v22 = 0;
+        v23 = [obj countByEnumeratingWithState:__b objects:v44 count:16];
+        if (!v23)
         {
           goto LABEL_9;
         }
       }
     }
 
-    [(NLSessionActivityWeatherManager *)selfCopy setLocation:v37];
-    v15 = MEMORY[0x277D85CD0];
+    [(NLSessionActivityWeatherManager *)selfCopy setLocation:v40];
+    v18 = MEMORY[0x277D85CD0];
     v4 = MEMORY[0x277D85CD0];
-    queue = v15;
-    v30 = MEMORY[0x277D85DD0];
-    v31 = -1073741824;
-    v32 = 0;
-    v33 = __52__NLSessionActivityWeatherManager__handleLocations___block_invoke;
-    v34 = &unk_277D88890;
-    v35 = MEMORY[0x277D82BE0](selfCopy);
-    dispatch_async(queue, &v30);
+    queue = v18;
+    v33 = MEMORY[0x277D85DD0];
+    v34 = -1073741824;
+    v35 = 0;
+    v36 = __52__NLSessionActivityWeatherManager__handleLocations___block_invoke;
+    v37 = &unk_277D88890;
+    v38 = MEMORY[0x277D82BE0](selfCopy);
+    dispatch_async(queue, &v33);
     MEMORY[0x277D82BD8](queue);
-    v29 = 2;
-    objc_storeStrong(&v35, 0);
+    v32 = 2;
+    objc_storeStrong(&v38, 0);
   }
 
   else
   {
 LABEL_9:
-    v29 = 0;
+    v32 = 0;
   }
 
-  MEMORY[0x277D82BD8](obj);
+  *&v5 = MEMORY[0x277D82BD8](obj).n128_u64[0];
   location = [(NLSessionActivityWeatherManager *)selfCopy location];
   MEMORY[0x277D82BD8](location);
   if (location)
   {
     _HKInitializeLogging();
-    v25 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-    v24 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v28 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+    v27 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v25;
-      v11 = v24;
-      __os_log_helper_16_0_0(v23);
-      _os_log_impl(&dword_20AEA4000, v10, v11, "[weather] Fetch current weather, log location, stop location updates", v23, 2u);
+      v13 = v28;
+      v14 = v27;
+      __os_log_helper_16_0_0(v26);
+      _os_log_impl(&dword_20AEA4000, v13, v14, "[weather] Fetch current weather, log location, stop location updates", v26, 2u);
     }
 
-    objc_storeStrong(&v25, 0);
+    objc_storeStrong(&v28, 0);
     if (!selfCopy->_weatherManager)
     {
-      v8 = [NLWeatherSummaryManager alloc];
+      v11 = [NLWeatherSummaryManager alloc];
       location2 = [(NLSessionActivityWeatherManager *)selfCopy location];
-      v5 = [NLWeatherSummaryManager initWithLocation:v8 delegate:"initWithLocation:delegate:"];
+      v6 = [NLWeatherSummaryManager initWithLocation:v11 delegate:"initWithLocation:delegate:"];
       weatherManager = selfCopy->_weatherManager;
-      selfCopy->_weatherManager = v5;
+      selfCopy->_weatherManager = v6;
       MEMORY[0x277D82BD8](weatherManager);
-      MEMORY[0x277D82BD8](location2);
+      *&v8 = MEMORY[0x277D82BD8](location2).n128_u64[0];
       [(NLWeatherSummaryManager *)selfCopy->_weatherManager fetchSummary];
     }
 
-    v7 = +[WOCoreLocationManager sharedManager];
-    [(WOCoreLocationManager *)v7 removeObserver:selfCopy];
-    MEMORY[0x277D82BD8](v7);
+    v10 = +[WOCoreLocationManager sharedManager];
+    [(WOCoreLocationManager *)v10 removeObserver:selfCopy];
+    *&v9 = MEMORY[0x277D82BD8](v10).n128_u64[0];
     [(NLSessionActivityWeatherManager *)selfCopy _logLocationTransmittedForChinaRegulatoryRequirement];
-    v29 = 0;
+    v32 = 0;
   }
 
   else
@@ -288,25 +281,25 @@ LABEL_9:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
     {
       log = oslog;
-      v13 = type;
-      __os_log_helper_16_0_0(v26);
-      _os_log_impl(&dword_20AEA4000, log, v13, "[weather] location nil, waiting for another location", v26, 2u);
+      v16 = type;
+      __os_log_helper_16_0_0(v29);
+      _os_log_impl(&dword_20AEA4000, log, v16, "[weather] location nil, waiting for another location", v29, 2u);
     }
 
     objc_storeStrong(&oslog, 0);
-    v29 = 1;
+    v32 = 1;
   }
 
   objc_storeStrong(&reverseObjectEnumerator, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
-uint64_t __52__NLSessionActivityWeatherManager__handleLocations___block_invoke(uint64_t a1)
+double __52__NLSessionActivityWeatherManager__handleLocations___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
   [WeakRetained locationDidUpdate:*(a1 + 32)];
-  return MEMORY[0x277D82BD8](WeakRetained);
+  *&result = MEMORY[0x277D82BD8](WeakRetained).n128_u64[0];
+  return result;
 }
 
 - (void)_logLocationTransmittedForChinaRegulatoryRequirement
@@ -336,116 +329,115 @@ uint64_t __52__NLSessionActivityWeatherManager__handleLocations___block_invoke(u
 
 - (void)manager:(id)manager updatedSummary:(id)summary
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, manager);
-  v43 = 0;
-  objc_storeStrong(&v43, summary);
+  v48 = 0;
+  objc_storeStrong(&v48, summary);
   if (location[0] == selfCopy->_weatherManager)
   {
-    if (v43)
+    if (v48)
     {
-      isDaytime = [v43 isDaytime];
+      isDaytime = [v48 isDaytime];
       [(NLSessionActivityWeatherManager *)selfCopy setIsDaytime:isDaytime];
-      temperature = [v43 temperature];
+      temperature = [v48 temperature];
       [(NLSessionActivityWeatherManager *)selfCopy setCurrentTemperature:?];
-      MEMORY[0x277D82BD8](temperature);
-      humidity = [v43 humidity];
+      *&v5 = MEMORY[0x277D82BD8](temperature).n128_u64[0];
+      humidity = [v48 humidity];
       [(NLSessionActivityWeatherManager *)selfCopy setCurrentHumidity:?];
-      MEMORY[0x277D82BD8](humidity);
-      airQualityIndex = [v43 airQualityIndex];
+      *&v6 = MEMORY[0x277D82BD8](humidity).n128_u64[0];
+      airQualityIndex = [v48 airQualityIndex];
       [(NLSessionActivityWeatherManager *)selfCopy setCurrentAirQualityIndex:?];
-      MEMORY[0x277D82BD8](airQualityIndex);
-      condition = [v43 condition];
+      *&v7 = MEMORY[0x277D82BD8](airQualityIndex).n128_u64[0];
+      condition = [v48 condition];
       [(NLSessionActivityWeatherManager *)selfCopy setHkPrivateWeatherCondition:condition];
-      sourceName = [v43 sourceName];
+      sourceName = [v48 sourceName];
       [(NLSessionActivityWeatherManager *)selfCopy setSourceName:?];
-      MEMORY[0x277D82BD8](sourceName);
-      [v43 coordinate];
-      v37 = v6;
-      v38 = v7;
+      *&v9 = MEMORY[0x277D82BD8](sourceName).n128_u64[0];
+      [v48 coordinate];
+      v42 = v10;
+      v43 = v11;
       _HKInitializeLogging();
-      v36 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-      v35 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v41 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+      v40 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = v36;
-        v20 = v35;
-        v8 = objc_opt_class();
-        v15 = MEMORY[0x277D82BE0](v8);
-        v34 = v15;
-        v16 = v37;
-        v17 = v38;
+        v24 = v41;
+        v25 = v40;
+        v12 = objc_opt_class();
+        v20 = MEMORY[0x277D82BE0](v12);
+        v39 = v20;
+        v21 = v42;
+        v22 = v43;
         isDaytime2 = [(NLSessionActivityWeatherManager *)selfCopy isDaytime];
-        v10 = @"YES";
+        v14 = @"YES";
         if (!isDaytime2)
         {
-          v10 = @"NO";
+          v14 = @"NO";
         }
 
-        v18 = v10;
+        v23 = v14;
         currentTemperature = [(NLSessionActivityWeatherManager *)selfCopy currentTemperature];
         currentHumidity = [(NLSessionActivityWeatherManager *)selfCopy currentHumidity];
         currentAirQualityIndex = [(NLSessionActivityWeatherManager *)selfCopy currentAirQualityIndex];
-        __os_log_helper_16_2_7_8_66_8_0_8_0_8_66_8_66_8_66_8_66(v47, v15, v16, v17, v18, currentTemperature, currentHumidity, currentAirQualityIndex);
-        _os_log_impl(&dword_20AEA4000, v19, v20, "[weather] %{public}@ received forecast data for <%f, %f>: Is Daytime? %{public}@, Temperature? %{public}@, Humidity? %{public}@, AirQualityIndex? %{public}@.", v47, 0x48u);
+        __os_log_helper_16_2_7_8_66_8_0_8_0_8_66_8_66_8_66_8_66(v52, v20, v21, v22, v23, currentTemperature, currentHumidity, currentAirQualityIndex);
+        _os_log_impl(&dword_20AEA4000, v24, v25, "[weather] %{public}@ received forecast data for <%f, %f>: Is Daytime? %{public}@, Temperature? %{public}@, Humidity? %{public}@, AirQualityIndex? %{public}@.", v52, 0x48u);
         MEMORY[0x277D82BD8](currentAirQualityIndex);
         MEMORY[0x277D82BD8](currentHumidity);
         MEMORY[0x277D82BD8](currentTemperature);
-        objc_storeStrong(&v34, 0);
+        objc_storeStrong(&v39, 0);
       }
 
-      objc_storeStrong(&v36, 0);
+      objc_storeStrong(&v41, 0);
       WeakRetained = objc_loadWeakRetained(&selfCopy->_delegate);
       [WeakRetained weatherDidUpdate:selfCopy];
-      MEMORY[0x277D82BD8](WeakRetained);
+      *&v15 = MEMORY[0x277D82BD8](WeakRetained).n128_u64[0];
     }
 
     else
     {
       _HKInitializeLogging();
-      v33 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-      v32 = 16;
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v38 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+      v37 = 16;
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        v12 = v33;
-        v13 = v32;
-        v11 = objc_opt_class();
-        v31 = MEMORY[0x277D82BE0](v11);
-        __os_log_helper_16_2_1_8_66(v46, v31);
-        _os_log_error_impl(&dword_20AEA4000, v12, v13, "[weather] %{public}@ did not receive forecast data.", v46, 0xCu);
-        objc_storeStrong(&v31, 0);
+        v17 = v38;
+        v18 = v37;
+        v16 = objc_opt_class();
+        v36 = MEMORY[0x277D82BE0](v16);
+        __os_log_helper_16_2_1_8_66(v51, v36);
+        _os_log_error_impl(&dword_20AEA4000, v17, v18, "[weather] %{public}@ did not receive forecast data.", v51, 0xCu);
+        objc_storeStrong(&v36, 0);
       }
 
-      objc_storeStrong(&v33, 0);
+      objc_storeStrong(&v38, 0);
     }
 
-    [(NLSessionActivityWeatherManager *)selfCopy setActive:0];
-    v39 = 0;
+    [(NLSessionActivityWeatherManager *)selfCopy setActive:0, v15];
+    v44 = 0;
   }
 
   else
   {
     _HKInitializeLogging();
-    v42 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
-    v41 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v47 = MEMORY[0x277D82BE0](*MEMORY[0x277CCC330]);
+    v46 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      log = v42;
-      type = v41;
-      __os_log_helper_16_0_0(v40);
-      _os_log_impl(&dword_20AEA4000, log, type, "[weather] Received a summary but not for our manager, stale, ignoring.", v40, 2u);
+      log = v47;
+      type = v46;
+      __os_log_helper_16_0_0(v45);
+      _os_log_impl(&dword_20AEA4000, log, type, "[weather] Received a summary but not for our manager, stale, ignoring.", v45, 2u);
     }
 
-    objc_storeStrong(&v42, 0);
-    v39 = 1;
+    objc_storeStrong(&v47, 0);
+    v44 = 1;
   }
 
-  objc_storeStrong(&v43, 0);
+  objc_storeStrong(&v48, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (NLSessionActivityWeatherManagerDelegate)delegate

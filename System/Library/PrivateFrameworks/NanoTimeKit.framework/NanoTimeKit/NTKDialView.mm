@@ -484,10 +484,9 @@ LABEL_37:
   {
     v4 = MEMORY[0x277CCABB0];
     [angleCopy floatValue];
-    NTKNormalizeAngle();
-    v5 = [v4 numberWithDouble:?];
+    v6 = [v4 numberWithDouble:NTKNormalizeAngle(v5)];
     hidingMaskStartAngle = self->_hidingMaskStartAngle;
-    self->_hidingMaskStartAngle = v5;
+    self->_hidingMaskStartAngle = v6;
 
     [(NTKDialView *)self updateMarkersVisibility];
   }
@@ -500,10 +499,9 @@ LABEL_37:
   {
     v4 = MEMORY[0x277CCABB0];
     [angleCopy floatValue];
-    NTKNormalizeAngle();
-    v5 = [v4 numberWithDouble:?];
+    v6 = [v4 numberWithDouble:NTKNormalizeAngle(v5)];
     hidingMaskEndAngle = self->_hidingMaskEndAngle;
-    self->_hidingMaskEndAngle = v5;
+    self->_hidingMaskEndAngle = v6;
 
     [(NTKDialView *)self updateMarkersVisibility];
   }
@@ -609,20 +607,17 @@ LABEL_37:
   if (angleProvider && ([(NTKDialView *)self angleProvider], v6 = objc_claimAutoreleasedReturnValue(), v6[2](v6, index), v7 = objc_claimAutoreleasedReturnValue(), v6, v7))
   {
     [v7 floatValue];
-    NTKNormalizeAngle();
-    v9 = v8;
+    v9 = NTKNormalizeAngle(v8);
 
     return v9;
   }
 
   else
   {
-    [(NTKDialView *)self numberOfMarkers];
+    v11 = 360.0 / [(NTKDialView *)self numberOfMarkers]* index;
 
-    NTKNormalizeAngle();
+    return NTKNormalizeAngle(v11);
   }
-
-  return result;
 }
 
 - (CGPoint)positionForMarkerAtIndex:(unint64_t)index
@@ -636,7 +631,7 @@ LABEL_37:
     [v7 position];
     v13 = v10;
     v14 = v9;
-    [v8 _getAffineTransform];
+    objc_msgSend__getAffineTransform(v8);
 
     v11 = vaddq_f64(v17, vmlaq_n_f64(vmulq_n_f64(v16, v13), v15, v14));
   }

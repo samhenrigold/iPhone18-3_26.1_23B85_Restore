@@ -21,13 +21,13 @@
   return v2;
 }
 
-void __37__SKAccountPageBagProvider_sharedBag__block_invoke()
+void __37__SKAccountPageBagProvider_sharedBag__block_invoke(uint64_t a1)
 {
   v27 = *MEMORY[0x1E69E9840];
   v20 = 0;
   v21 = &v20;
   v22 = 0x2050000000;
-  v0 = getISLoadURLBagOperationClass_softClass;
+  v1 = getISLoadURLBagOperationClass_softClass;
   v23 = getISLoadURLBagOperationClass_softClass;
   if (!getISLoadURLBagOperationClass_softClass)
   {
@@ -37,81 +37,85 @@ void __37__SKAccountPageBagProvider_sharedBag__block_invoke()
     v25 = &unk_1E7B279A8;
     v26 = &v20;
     __getISLoadURLBagOperationClass_block_invoke(v24);
-    v0 = v21[3];
+    v1 = v21[3];
   }
 
-  v1 = v0;
+  v2 = v1;
   _Block_object_dispose(&v20, 8);
-  v2 = objc_alloc_init(v0);
-  [v2 start];
-  v3 = [v2 success];
-  v4 = [v2 error];
-  if (v4)
+  v3 = objc_alloc_init(v1);
+  [v3 start];
+  v4 = [v3 success];
+  v5 = [v3 error];
+  if (v5)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = v3;
+    v6 = v4;
   }
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    v6 = [MEMORY[0x1E69D4938] sharediTunesStoreConfig];
-    if (!v6)
+    v7 = [MEMORY[0x1E69D4938] sharediTunesStoreConfig];
+    if (!v7)
     {
-      v6 = [MEMORY[0x1E69D4938] sharedConfig];
+      v7 = [MEMORY[0x1E69D4938] sharedConfig];
     }
 
-    v7 = [v6 shouldLog];
-    if ([v6 shouldLogToDisk])
+    v8 = [v7 shouldLog];
+    if ([v7 shouldLogToDisk])
     {
-      v8 = v7 | 2;
+      LODWORD(v9) = v8 | 2;
     }
 
     else
     {
-      v8 = v7;
+      LODWORD(v9) = v8;
     }
 
-    v9 = [v6 OSLogObject];
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = [v7 OSLogObject];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v8 &= 2u;
+      v9 = v9;
     }
 
-    if (v8)
+    else
     {
-      v10 = objc_opt_class();
+      v9 &= 2u;
+    }
+
+    if (v9)
+    {
+      v11 = objc_opt_class();
       *v24 = 138543618;
-      *&v24[4] = v10;
+      *&v24[4] = v11;
       *&v24[12] = 2114;
-      *&v24[14] = v4;
-      v11 = v10;
-      LODWORD(v19) = 22;
-      v12 = _os_log_send_and_compose_impl();
+      *&v24[14] = v5;
+      v12 = v11;
+      v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1B23EF000, v10, 16, "%{public}@: Failed to load URL bag with error: %{public}@", v24, 22, v20);
 
-      if (!v12)
+      if (!v13)
       {
-LABEL_18:
+LABEL_19:
 
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      v9 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, v24, v19, v20}];
-      free(v12);
+      v10 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+      free(v13);
       SSFileLog();
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
-LABEL_19:
+LABEL_20:
   v20 = 0;
   v21 = &v20;
   v22 = 0x2050000000;
-  v13 = getISAMSBagShimClass_softClass;
+  v14 = getISAMSBagShimClass_softClass;
   v23 = getISAMSBagShimClass_softClass;
   if (!getISAMSBagShimClass_softClass)
   {
@@ -121,16 +125,16 @@ LABEL_19:
     v25 = &unk_1E7B279A8;
     v26 = &v20;
     __getISAMSBagShimClass_block_invoke(v24);
-    v13 = v21[3];
+    v14 = v21[3];
   }
 
-  v14 = v13;
+  v15 = v14;
   _Block_object_dispose(&v20, 8);
-  v15 = [v13 alloc];
-  v16 = [v2 URLBag];
-  v17 = [v15 initWithURLBag:v16];
-  v18 = sharedBag__shared;
-  sharedBag__shared = v17;
+  v16 = [v14 alloc];
+  v17 = [v3 URLBag];
+  v18 = [v16 initWithURLBag:v17];
+  v19 = sharedBag__shared;
+  sharedBag__shared = v18;
 }
 
 @end

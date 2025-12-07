@@ -20,7 +20,7 @@
 
 - (id)possibleStatesForEnumeration:(id)enumeration
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   enumerationCopy = enumeration;
   v5 = objc_alloc(MEMORY[0x277CBEB18]);
   folders = [(WFInstapaperAction *)self folders];
@@ -29,27 +29,27 @@
 
   if (![(WFInstapaperAction *)self includeSpecialFolders])
   {
-    v21 = enumerationCopy;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v20 = enumerationCopy;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v9 = [v8 copy];
-    v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v23;
+      v12 = *v22;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v23 != v12)
+          if (*v22 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v22 + 1) + 8 * i);
+          v14 = *(*(&v21 + 1) + 8 * i);
           folders2 = [(WFInstapaperAction *)self folders];
           v16 = [folders2 objectForKey:v14];
           integerValue = [v16 integerValue];
@@ -60,19 +60,17 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v11);
     }
 
-    enumerationCopy = v21;
+    enumerationCopy = v20;
   }
 
   v18 = [v8 if_map:&__block_literal_global_9991];
   [enumerationCopy setHidden:{objc_msgSend(v18, "count") == 0}];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -88,36 +86,36 @@ id __51__WFInstapaperAction_possibleStatesForEnumeration___block_invoke(uint64_t
 
 - (void)engine:(id)engine connection:(id)connection didReceiveFolders:(id)folders
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   engineCopy = engine;
   foldersCopy = folders;
   v9 = objc_opt_new();
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v10 = foldersCopy;
-  v11 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v33;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v33 + 1) + 8 * i);
+        v15 = *(*(&v32 + 1) + 8 * i);
         v16 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v15, "folderID")}];
         title = [v15 title];
         [v9 setObject:v16 forKey:title];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v12);
@@ -143,13 +141,11 @@ id __51__WFInstapaperAction_possibleStatesForEnumeration___block_invoke(uint64_t
   block[2] = __58__WFInstapaperAction_engine_connection_didReceiveFolders___block_invoke;
   block[3] = &unk_278C21F68;
   block[4] = self;
-  v31 = v9;
-  v32 = engineCopy;
+  v30 = v9;
+  v31 = engineCopy;
   v27 = engineCopy;
   v28 = v9;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __58__WFInstapaperAction_engine_connection_didReceiveFolders___block_invoke(uint64_t a1)

@@ -17,6 +17,7 @@
 - (id)_inspectorSections;
 - (id)_internalAttributes;
 - (id)_nextElementNavigationInDirection:(int64_t)direction forElement:(id)element;
+- (id)addAttribute:(id)attribute toSection:(id)section withPrefix:(id)prefix performsAction:(BOOL)action settable:(BOOL)settable humanReadable:(id)readable valueType:(int64_t)type overrideIsInternalWithValue:(id)self0;
 - (id)fetchElementAtNormalizedDeviceCoordinate:(CGPoint)coordinate;
 - (id)fetchSpecialElement:(int64_t)element;
 - (id)firstElementInHierarchy:(id)hierarchy;
@@ -31,11 +32,13 @@
 - (void)deviceDidGetTargeted;
 - (void)element:(id)element performAction:(id)action withValue:(id)value completion:(id)completion;
 - (void)element:(id)element valueForAttribute:(id)attribute completion:(id)completion;
+- (void)eventManager:(id)manager notificationReceived:(int)received notification:(id)notification traits:(id)traits label:(id)label value:(id)value hint:(id)hint identifier:(id)self0;
 - (void)focusOnAXElement:(id)element;
 - (void)focusOnAXElement:(id)element scrollToVisible:(BOOL)visible;
 - (void)focusOnElement:(id)element;
 - (void)focusOnElementAtPoint:(CGPoint)point;
 - (void)hideVisualsSynchronously;
+- (void)moveInDirection:(unint64_t)direction allowMovingToContainers:(BOOL)containers allowMoveToNonAXElements:(BOOL)elements;
 - (void)previewOnElement:(id)element;
 - (void)setMonitoredEventType:(unint64_t)type;
 - (void)setShowVisuals:(BOOL)visuals;
@@ -153,6 +156,46 @@ LABEL_7:
   {
     dispatch_async(dispatchQueue, &stru_100018980);
   }
+}
+
+- (id)addAttribute:(id)attribute toSection:(id)section withPrefix:(id)prefix performsAction:(BOOL)action settable:(BOOL)settable humanReadable:(id)readable valueType:(int64_t)type overrideIsInternalWithValue:(id)self0
+{
+  settableCopy = settable;
+  actionCopy = action;
+  attributeCopy = attribute;
+  sectionCopy = section;
+  prefixCopy = prefix;
+  readableCopy = readable;
+  if (value)
+  {
+    bOOLValue = [value BOOLValue];
+    goto LABEL_8;
+  }
+
+  _internalAttributes = [(XADInspectorManager *)self _internalAttributes];
+  if ([_internalAttributes containsObject:attributeCopy])
+  {
+  }
+
+  else
+  {
+    v22 = AXAuditAttributeWithPrefixLocStringExists();
+
+    if (v22)
+    {
+      bOOLValue = 0;
+      goto LABEL_8;
+    }
+  }
+
+  v23 = attributeCopy;
+
+  bOOLValue = 1;
+  readableCopy = v23;
+LABEL_8:
+  v24 = [sectionCopy addAttribute:attributeCopy performsAction:actionCopy humanReadable:readableCopy settable:settableCopy valueType:type isInternal:bOOLValue];
+
+  return v24;
 }
 
 - (id)_internalAttributes
@@ -666,22 +709,11 @@ LABEL_8:
   if (x != v7 || y != v6)
   {
     v16 = [AXUIElement uiElementAtCoordinate:x, y];
-    if (![(XADInspectorManager *)self targetPid])
+    if (!-[XADInspectorManager targetPid](self, "targetPid") || (+[AXUIElement uiApplicationAtCoordinate:](AXUIElement, "uiApplicationAtCoordinate:", x, y), v9 = objc_claimAutoreleasedReturnValue(), -[XADInspectorManager frontmostAppForTargetPid](self, "frontmostAppForTargetPid"), v10 = objc_claimAutoreleasedReturnValue(), [v10 uiElement], v11 = objc_claimAutoreleasedReturnValue(), v10, LODWORD(v10) = objc_msgSend(v9, "isEqual:", v11), v11, v9, v10))
     {
-      goto LABEL_14;
-    }
-
-    v9 = [AXUIElement uiApplicationAtCoordinate:x, y];
-    frontmostAppForTargetPid = [(XADInspectorManager *)self frontmostAppForTargetPid];
-    uiElement = [frontmostAppForTargetPid uiElement];
-
-    LODWORD(frontmostAppForTargetPid) = [v9 isEqual:uiElement];
-    if (frontmostAppForTargetPid)
-    {
-LABEL_14:
       _currentElement = [(XADInspectorManager *)self _currentElement];
-      uiElement2 = [_currentElement uiElement];
-      v14 = [v16 isEqual:uiElement2];
+      uiElement = [_currentElement uiElement];
+      v14 = [v16 isEqual:uiElement];
 
       if ((v14 & 1) == 0)
       {
@@ -1244,6 +1276,67 @@ LABEL_25:
   return firstObject;
 }
 
+- (void)moveInDirection:(unint64_t)direction allowMovingToContainers:(BOOL)containers allowMoveToNonAXElements:(BOOL)elements
+{
+  v12 = [(XADInspectorManager *)self _currentElement:direction];
+  if (direction <= 4)
+  {
+    if (direction == 3)
+    {
+      selfCopy2 = self;
+      v8 = 2;
+    }
+
+    else
+    {
+      if (direction != 4)
+      {
+        goto LABEL_14;
+      }
+
+      selfCopy2 = self;
+      v8 = 1;
+    }
+
+    v11 = [(XADInspectorManager *)selfCopy2 _nextElementNavigationInDirection:v8 forElement:v12];
+    if (!v11)
+    {
+      goto LABEL_14;
+    }
+
+LABEL_13:
+    [(XADInspectorManager *)self focusOnAXElement:v11];
+
+    goto LABEL_14;
+  }
+
+  if (direction == 5)
+  {
+    frontmostAppForTargetPid = [(XADInspectorManager *)self frontmostAppForTargetPid];
+    v10 = [(XADInspectorManager *)self firstElementInHierarchy:frontmostAppForTargetPid];
+  }
+
+  else
+  {
+    if (direction != 6)
+    {
+      goto LABEL_14;
+    }
+
+    frontmostAppForTargetPid = [(XADInspectorManager *)self frontmostAppForTargetPid];
+    v10 = [(XADInspectorManager *)self lastElementInHierarchy:frontmostAppForTargetPid];
+  }
+
+  v11 = v10;
+
+  if (v11)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_14:
+}
+
 - (void)deviceDidGetTargeted
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_INFO))
@@ -1258,6 +1351,22 @@ LABEL_25:
 
   v4 = +[AXAuditAssetManager shared];
   [v4 downloadAssetsIfNecessary];
+}
+
+- (void)eventManager:(id)manager notificationReceived:(int)received notification:(id)notification traits:(id)traits label:(id)label value:(id)value hint:(id)hint identifier:(id)self0
+{
+  if (received == 1044)
+  {
+    block[7] = v10;
+    block[8] = v11;
+    v13 = [(XADInspectorManager *)self dispatchQueue:manager];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000063F8;
+    block[3] = &unk_1000188A0;
+    block[4] = self;
+    dispatch_async(v13, block);
+  }
 }
 
 - (void)updateAttributesIfElementIsValid

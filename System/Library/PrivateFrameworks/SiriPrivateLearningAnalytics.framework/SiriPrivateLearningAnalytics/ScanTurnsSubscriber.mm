@@ -10,7 +10,6 @@
 
 - (void)receiveSubscription:(id)subscription
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC28SiriPrivateLearningAnalyticsP33_95987ADD223C83697EEA450CF0CC3A3519ScanTurnsSubscriber_downstream);
   subscriptionCopy = subscription;
   selfCopy = self;
   sub_222AA601C(subscriptionCopy);

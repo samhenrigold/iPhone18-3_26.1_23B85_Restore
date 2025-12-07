@@ -88,7 +88,7 @@
 - (void)setEditing:(BOOL)editing
 {
   editingCopy = editing;
-  v5 = type metadata accessor for SongCell();
+  v5 = type metadata accessor for SongCell(0);
   v9.receiver = self;
   v9.super_class = v5;
   selfCopy = self;
@@ -106,7 +106,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SongCell();
+  v7.super_class = type metadata accessor for SongCell(0);
   changeCopy = change;
   v5 = v7.receiver;
   [(HorizontalLockupCollectionViewCell *)&v7 traitCollectionDidChange:changeCopy];

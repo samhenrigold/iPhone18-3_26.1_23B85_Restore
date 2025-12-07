@@ -1,4 +1,5 @@
 @interface BKDisplayCloneMirrorRequestCache
+- (void)_lock_addDeathWatcherForPid:(int)pid;
 - (void)_lock_rebuildModeCache;
 @end
 
@@ -67,6 +68,28 @@
     v21 = v15;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "clone mirror cache is now %{public}@", buf, 0xCu);
   }
+}
+
+- (void)_lock_addDeathWatcherForPid:(int)pid
+{
+  v3 = *&pid;
+  if (!self->_pidToDeathWatcher)
+  {
+    v5 = objc_alloc_init(NSMutableDictionary);
+    pidToDeathWatcher = self->_pidToDeathWatcher;
+    self->_pidToDeathWatcher = v5;
+  }
+
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_1000397E8;
+  v10[3] = &unk_1000FCD68;
+  v10[4] = self;
+  v11 = v3;
+  v7 = [[BSProcessDeathWatcher alloc] initWithPID:v3 queue:&_dispatch_main_q deathHandler:v10];
+  v8 = self->_pidToDeathWatcher;
+  v9 = [NSNumber numberWithInt:v3];
+  [(NSMutableDictionary *)v8 setObject:v7 forKey:v9];
 }
 
 @end

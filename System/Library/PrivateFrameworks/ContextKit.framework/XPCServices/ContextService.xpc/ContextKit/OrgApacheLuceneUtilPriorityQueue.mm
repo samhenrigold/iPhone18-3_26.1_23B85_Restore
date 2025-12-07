@@ -36,7 +36,6 @@
         v8 = self->heap_;
         if (v8->super.size_ <= 1)
         {
-          v11 = self->heap_;
           IOSArray_throwOutOfBoundsWithMsg(v8->super.size_, 1);
         }
 

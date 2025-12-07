@@ -3581,7 +3581,7 @@ LABEL_5:
   [v7 setActive:1 animated:1];
 }
 
-uint64_t __65__UISearchController__performAutomaticPresentationFromTextField___block_invoke_3(uint64_t a1)
+void *__65__UISearchController__performAutomaticPresentationFromTextField___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _didPresentFromViewController:*(a1 + 40)];
   *(*(a1 + 32) + 1116) &= ~0x200u;
@@ -4804,9 +4804,9 @@ LABEL_10:
 
       [searchBar _setRequiresLegacyVisualProvider];
       v11 = _UIMainBundleIdentifier();
-      v12 = [v11 isEqualToString:@"com.spotify.client"];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-      if (v12)
+      if (isEqualToString)
       {
         v13 = [searchBar backgroundImageForBarPosition:2 barMetrics:0];
         [searchBar setBackgroundImage:v13 forBarPosition:2 barMetrics:101];

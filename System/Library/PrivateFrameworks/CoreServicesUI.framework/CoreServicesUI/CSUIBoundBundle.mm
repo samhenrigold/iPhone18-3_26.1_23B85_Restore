@@ -12,18 +12,17 @@
 {
   v3 = sub_2478D889C();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(&self->super.isa + OBJC_IVAR____TtC14CoreServicesUI15CSUIBoundBundle_boundBundleInfo);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(&self->super.isa + OBJC_IVAR____TtC14CoreServicesUI15CSUIBoundBundle_boundBundleInfo);
   selfCopy = self;
-  v10 = [v8 URL];
+  v9 = [v7 URL];
   sub_2478D887C();
 
-  v11 = sub_2478D886C();
-  (*(v4 + 8))(v7, v3);
+  v10 = sub_2478D886C();
+  (*(v4 + 8))(v6, v3);
 
-  return v11;
+  return v10;
 }
 
 - (NSString)localizedName

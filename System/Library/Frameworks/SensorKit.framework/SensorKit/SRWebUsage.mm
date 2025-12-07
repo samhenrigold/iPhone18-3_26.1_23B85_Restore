@@ -76,12 +76,10 @@
 
 - (id)sr_dictionaryRepresentation
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v4 = @"totalUsageTime";
-  v5[0] = [MEMORY[0x1E696AD98] numberWithDouble:self->_totalUsageTime];
-  result = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4[1] = *MEMORY[0x1E69E9840];
+  v3 = @"totalUsageTime";
+  v4[0] = [MEMORY[0x1E696AD98] numberWithDouble:self->_totalUsageTime];
+  return [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 }
 
 - (NSString)description

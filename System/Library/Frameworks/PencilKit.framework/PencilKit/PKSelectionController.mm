@@ -47,6 +47,7 @@
 - (id)_visibleOnscreenStrokesIncludingCurrentSelection:(void *)selection forDrawing:;
 - (id)_visibleStrokesWithinExtendedBounds:(void *)bounds forDrawing:;
 - (id)applySpaceInsertionWithStrokeSelection:(void *)selection inDrawing:(void *)drawing offset:(CGFloat)offset completion:;
+- (id)contentTypeForIntersectedStrokes:(void *)strokes inDrawing:;
 - (id)drawingForUUID:(uint64_t)d;
 - (id)dropInteraction:(id)interaction previewForDroppingItem:(id)item withDefault:(id)default;
 - (id)dropInteraction:(id)interaction sessionDidUpdate:(id)update;
@@ -61,7 +62,6 @@
 - (uint64_t)_isValidDropPointForStrokes:(double)strokes didInsertNewAttachment:(double)attachment;
 - (uint64_t)_liveDrawingIsAtEndOfDocument;
 - (uint64_t)_selectionInteractionCanPerformAction:(void *)action withSender:(void *)sender inAttachment:;
-- (uint64_t)contentTypeForIntersectedStrokes:(void *)strokes inDrawing:;
 - (uint64_t)hasStrokesOrElementsSelection;
 - (uint64_t)refinementEnabled;
 - (uint64_t)shouldClampInputPoints;
@@ -88,7 +88,7 @@
 - (void)_layoutViewsIfNecessary;
 - (void)_maskImageForStrokes:(uint64_t)strokes drawing:(void *)drawing imageView:(void *)view completion:;
 - (void)_pasteStrokeSelection:(void *)selection atPoint:(uint64_t)point inDrawing:(double)drawing withSelectionType:(double)type;
-- (void)_refreshExternalElementsInStrokeSelection:(void *)selection;
+- (void)_refreshExternalElementsInStrokeSelection:(id *)selection;
 - (void)_refreshTiledViewWithSelectionForDrawing:(void *)drawing completion:;
 - (void)_removeSelectionViewAnimated:(void *)animated withCompletion:;
 - (void)_resetExternalElements:(void *)elements inAttachment:;
@@ -111,7 +111,7 @@
 - (void)clearSelectionIfNecessaryWithCompletion:(uint64_t)completion;
 - (void)commitStrokesWithCompletion:(uint64_t)completion;
 - (void)copy:(void *)copy;
-- (void)copyAll:(uint64_t)all;
+- (void)copyAll:(id *)all;
 - (void)copyTranscription:(uint64_t)transcription;
 - (void)createSticker:(uint64_t)sticker;
 - (void)currentPasteboard;
@@ -140,7 +140,7 @@
 - (void)findTranscriptionForType:(void *)type withCompletion:;
 - (void)findTranscriptionWithCompletion:(uint64_t)completion;
 - (void)generateImageForStrokeSelection:(uint64_t)selection scaleStrategy:(char)strategy highlighted:(void *)highlighted withCompletion:;
-- (void)getAllHandwritingTranscription:(uint64_t)transcription;
+- (void)getAllHandwritingTranscription:(uint64_t)result;
 - (void)hideStrokes:(void *)strokes inDrawing:;
 - (void)insertSpace:(id *)space;
 - (void)insertSpaceAtPoint:(void *)point addDefaultSpace:(void *)space strokesAbove:(double)above strokesBelow:(double)below;
@@ -993,13 +993,13 @@ void __146__PKSelectionController__findIntersectedStrokesWithoutRecognitionToSel
   }
 }
 
-- (uint64_t)contentTypeForIntersectedStrokes:(void *)strokes inDrawing:
+- (id)contentTypeForIntersectedStrokes:(void *)strokes inDrawing:
 {
   v5 = a2;
   strokesCopy = strokes;
   if (self)
   {
-    WeakRetained = objc_loadWeakRetained((self + 120));
+    WeakRetained = objc_loadWeakRetained(self + 15);
     uuid = [strokesCopy uuid];
     v9 = [WeakRetained _attachmentForUUID:uuid];
 
@@ -1120,10 +1120,11 @@ void __94__PKSelectionController_selectStrokes_externalElements_forSelectionType
 
 - (void)clearSelectionIfNecessaryAnimated:(void *)animated withCompletion:
 {
+  v3 = a2;
   animatedCopy = animated;
   if (self)
   {
-    [(PKSelectionController *)self clearSelectionIfNecessaryAnimated:a2 toBeginSelectionGesture:0 withCompletion:animatedCopy];
+    [(PKSelectionController *)self clearSelectionIfNecessaryAnimated:v3 toBeginSelectionGesture:0 withCompletion:animatedCopy];
   }
 }
 
@@ -1367,7 +1368,7 @@ void __79__PKSelectionController__selectStrokesWithoutDidSelectStrokesUpdate_inD
   v8 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained transformFromViewToStrokeSpaceInDrawing:pathCopy];
+    objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(WeakRetained);
   }
 
   else
@@ -1654,7 +1655,7 @@ LABEL_5:
     v43 = v14;
     if (WeakRetained)
     {
-      [WeakRetained transformFromStrokeSpaceToViewInDrawing:transformCopy];
+      objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
       b = v46.b;
       a = v46.a;
       c = v46.c;
@@ -1719,7 +1720,7 @@ LABEL_5:
     memset(&v15, 0, sizeof(v15));
     if (v8)
     {
-      [v8 drawingTransform];
+      objc_msgSend_drawingTransform(v8);
     }
 
     else
@@ -1762,7 +1763,7 @@ LABEL_5:
     v16 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained transformFromStrokeSpaceToViewInDrawing:viewCopy];
+      objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
     }
 
     else
@@ -2339,7 +2340,7 @@ void __65__PKSelectionController__imageViewForStrokes_drawing_completion___block
     v62 = v61;
     if (v61)
     {
-      [v61 transformFromStrokeSpaceToViewInDrawing:drawing];
+      objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(v61);
     }
 
     else
@@ -2594,10 +2595,10 @@ void __47__PKSelectionController__tearDownSelectionView__block_invoke(uint64_t a
         }
 
         v33 = [PKInk alloc];
-        version = [v27 version];
+        v34 = objc_msgSend_version(v27);
         variant = [v27 variant];
         [v27 weight];
-        v36 = [(PKInk *)v33 initWithIdentifier:identifier color:color version:version variant:variant weight:?];
+        v36 = [(PKInk *)v33 initWithIdentifier:identifier color:color version:v34 variant:variant weight:?];
 
         v37 = objc_loadWeakRetained((selfCopy + 120));
         LODWORD(variant) = [v37 sixChannelBlending];
@@ -2910,7 +2911,7 @@ LABEL_46:
   [WeakRetained _selectionRefreshWithChangeToDrawings:v7 completion:drawingsCopy];
 }
 
-- (void)_refreshExternalElementsInStrokeSelection:(void *)selection
+- (void)_refreshExternalElementsInStrokeSelection:(id *)selection
 {
   v3 = a2;
   if (selection)
@@ -2964,7 +2965,7 @@ LABEL_46:
           v21 = v20;
           if (v20)
           {
-            [v20 selectionDrawingTransform];
+            objc_msgSend_selectionDrawingTransform(v20);
           }
 
           else
@@ -2982,7 +2983,7 @@ LABEL_46:
             v24 = v23;
             if (v23)
             {
-              [v23 selectionDrawingTransform];
+              objc_msgSend_selectionDrawingTransform(v23);
             }
 
             else
@@ -4004,13 +4005,13 @@ LABEL_7:
   }
 }
 
-- (void)copyAll:(uint64_t)all
+- (void)copyAll:(id *)all
 {
   v3 = a2;
   if (all)
   {
     [(PKSelectionController *)all selectAll:v3];
-    [all _addItemsToPasteboard:*(all + 128)];
+    [all _addItemsToPasteboard:all[16]];
     [(PKSelectionController *)all clearSelectionIfNecessaryAnimated:0 withCompletion:?];
   }
 }
@@ -4057,9 +4058,7 @@ LABEL_7:
     v20 = [(PKSelectionController *)all _externalElementsInAttachment:v16];
     [(PKSelectionController *)all selectStrokes:v19 externalElements:v20 forSelectionType:1 inDrawing:v6];
     v21 = +[PKStatisticsManager sharedStatisticsManager];
-    [v19 count];
-    [v20 count];
-    [PKStatisticsManager recordSelectAllWithStrokeCount:v21 externalElementsCount:?];
+    -[PKStatisticsManager recordSelectAllWithStrokeCount:externalElementsCount:](v21, [v19 count], objc_msgSend(v20, "count"));
   }
 }
 
@@ -4661,7 +4660,7 @@ LABEL_27:
 
     if (v10)
     {
-      [v10 drawingTransform];
+      objc_msgSend_drawingTransform(v10, v16, v17);
     }
 
     else
@@ -5263,7 +5262,7 @@ id __97__PKSelectionController__createSelectionViewForDropSession_removeFromSour
     v11 = WeakRetained;
     if (WeakRetained)
     {
-      [WeakRetained transformFromViewToStrokeSpaceInDrawing:v8];
+      objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(WeakRetained);
       v12 = v22;
       v13 = v23;
       v15 = v24;
@@ -5469,7 +5468,7 @@ id __97__PKSelectionController__createSelectionViewForDropSession_removeFromSour
       v21 = v20;
       if (v20)
       {
-        [v20 transformFromViewToStrokeSpaceInDrawing:v15];
+        objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(v20);
         v22 = v32;
         v23 = v33;
         v25 = v34;
@@ -5991,7 +5990,7 @@ uint64_t __53__PKSelectionController_dropInteraction_performDrop___block_invoke(
   if (self && (WeakRetained = objc_loadWeakRetained(&self->_tiledView)) != 0)
   {
     v7 = WeakRetained;
-    [WeakRetained transformFromStrokeSpaceToViewInDrawing:v9];
+    objc_msgSend_transformFromStrokeSpaceToViewInDrawing_(WeakRetained);
   }
 
   else
@@ -7371,15 +7370,16 @@ LABEL_35:
 
 void __43__PKSelectionController_copyTranscription___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = a2;
-  v3 = [v7 transcription];
+  v9 = a2;
+  v3 = [v9 transcription];
   v4 = [v3 dataUsingEncoding:4];
 
   [(PKSelectionController *)*(a1 + 32) addTranscriptionToPasteboard:v4];
   [*(a1 + 40) timeIntervalSinceNow];
-  v5 = +[PKStatisticsManager sharedStatisticsManager];
-  v6 = [v7 transcription];
-  -[PKStatisticsManager recordCopyAsTextWithLength:time:didShowHUD:invokedFromSmartSelection:](v5, [v6 length], objc_msgSend(v7, "didShowHUD"), *(a1 + 48));
+  v6 = v5;
+  v7 = +[PKStatisticsManager sharedStatisticsManager];
+  v8 = [v9 transcription];
+  -[PKStatisticsManager recordCopyAsTextWithLength:time:didShowHUD:invokedFromSmartSelection:](v7, [v8 length], objc_msgSend(v9, "didShowHUD"), *(a1 + 48), fabs(v6));
 }
 
 - (void)addTranscriptionToPasteboard:(void *)pasteboard
@@ -7562,16 +7562,16 @@ void __44__PKSelectionController_supportsRefinement___block_invoke(uint64_t a1, 
   return PKCurrentAppSupportsRefinement();
 }
 
-- (void)getAllHandwritingTranscription:(uint64_t)transcription
+- (void)getAllHandwritingTranscription:(uint64_t)result
 {
-  if (transcription)
+  if (result)
   {
     v1[0] = MEMORY[0x1E69E9820];
     v1[1] = 3221225472;
     v1[2] = __56__PKSelectionController_getAllHandwritingTranscription___block_invoke;
     v1[3] = &unk_1E82D96E8;
-    v1[4] = transcription;
-    [(PKSelectionController *)transcription findCompleteTranscriptionForNote:v1];
+    v1[4] = result;
+    [(PKSelectionController *)result findCompleteTranscriptionForNote:v1];
   }
 }
 

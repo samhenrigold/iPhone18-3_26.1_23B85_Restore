@@ -9,31 +9,29 @@
 
 - (id)orderedProperties
 {
-  v10[16] = *MEMORY[0x277D85DE8];
-  v10[0] = @"friend_uuid";
-  v10[1] = @"duration";
-  v10[2] = @"total_energy_burned";
-  v10[3] = @"total_basal_energy_burned";
-  v10[4] = @"total_distance";
-  v10[5] = @"activity_type";
-  v10[6] = @"goal_type";
-  v10[7] = @"goal";
-  v10[8] = @"bundle_id";
-  v10[9] = @"is_watch_workout";
-  v10[10] = @"is_indoor_workout";
-  v10[11] = @"device_manufacturer";
-  v10[12] = @"device_model";
-  v10[13] = @"activity_move_mode";
-  v10[14] = @"seymour_catalog_workout_identifier";
-  v10[15] = @"seymour_media_type";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:16];
-  v9.receiver = self;
-  v9.super_class = _HDFitnessFriendWorkoutEntityEncoder;
-  superclassEncoder = [(HDEntityEncoder *)&v9 superclassEncoder];
+  v9[16] = *MEMORY[0x277D85DE8];
+  v9[0] = @"friend_uuid";
+  v9[1] = @"duration";
+  v9[2] = @"total_energy_burned";
+  v9[3] = @"total_basal_energy_burned";
+  v9[4] = @"total_distance";
+  v9[5] = @"activity_type";
+  v9[6] = @"goal_type";
+  v9[7] = @"goal";
+  v9[8] = @"bundle_id";
+  v9[9] = @"is_watch_workout";
+  v9[10] = @"is_indoor_workout";
+  v9[11] = @"device_manufacturer";
+  v9[12] = @"device_model";
+  v9[13] = @"activity_move_mode";
+  v9[14] = @"seymour_catalog_workout_identifier";
+  v9[15] = @"seymour_media_type";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:16];
+  v8.receiver = self;
+  v8.super_class = _HDFitnessFriendWorkoutEntityEncoder;
+  superclassEncoder = [(HDEntityEncoder *)&v8 superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -59,7 +57,7 @@
     HDSQLiteColumnWithNameAsDouble();
     [(HDCodableFitnessFriendWorkout *)v10 setTotalDistanceInCanonicalUnit:?];
     [(HDCodableFitnessFriendWorkout *)v10 setType:HDSQLiteColumnWithNameAsInt64()];
-    [(HDCodableFitnessFriendWorkout *)v10 setAmm:HDEntityActivityModeModeForRowAndColumnName(row)];
+    [(HDCodableFitnessFriendWorkout *)v10 setAmm:HDEntityActivityModeModeForRowAndColumnName(row, @"activity_move_mode")];
     if ((HDSQLiteColumnWithNameIsNull() & 1) == 0)
     {
       [(HDCodableFitnessFriendWorkout *)v10 setGoalType:HDSQLiteColumnWithNameAsInt64()];
@@ -159,7 +157,7 @@
     }
 
     [objectCopy setWorkoutActivityType:HDSQLiteColumnWithNameAsInt64()];
-    [objectCopy setAmm:HDEntityActivityModeModeForRowAndColumnName(row)];
+    [objectCopy setAmm:{HDEntityActivityModeModeForRowAndColumnName(row, @"activity_move_mode"}];
     v29 = HDSQLiteColumnWithNameAsInt64();
     v30 = HDSQLiteColumnWithName();
     if ((MEMORY[0x22AAC6CD0](row, v30) & 1) == 0 && _HKWorkoutGoalTypeIsValidForGoal())

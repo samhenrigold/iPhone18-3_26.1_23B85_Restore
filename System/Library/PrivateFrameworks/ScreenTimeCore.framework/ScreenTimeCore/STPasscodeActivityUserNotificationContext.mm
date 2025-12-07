@@ -51,7 +51,7 @@
 
 void __94__STPasscodeActivityUserNotificationContext_customizeNotificationContent_withCompletionBlock___block_invoke(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] localizedUserNotificationStringForKey:@"PasscodeActivityNotificationTitle" arguments:0];
   [*(a1 + 32) setTitle:v2];
 
@@ -74,16 +74,16 @@ void __94__STPasscodeActivityUserNotificationContext_customizeNotificationConten
   v9 = v8;
   if (v6)
   {
-    v20[0] = v8;
-    v20[1] = v6;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
+    v19[0] = v8;
+    v19[1] = v6;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
     v11 = @"PasscodeActivityNotificationBody";
   }
 
   else
   {
-    v21[0] = v8;
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v8;
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     v11 = @"PasscodeActivityNotificationBodyNoDate";
   }
 
@@ -102,8 +102,6 @@ void __94__STPasscodeActivityUserNotificationContext_customizeNotificationConten
 
   [*(a1 + 32) setDefaultActionURL:v18];
   (*(*(a1 + 48) + 16))();
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (STPasscodeActivityUserNotificationContext)initWithCoder:(id)coder

@@ -76,7 +76,7 @@
 {
   mainScreen = [self mainScreen];
   v3 = objc_opt_new();
-  v4 = PBFBSInterfaceOrientationDefaultForCurrentDeviceClass();
+  v4 = PBFBSInterfaceOrientationDefaultForCurrentDeviceClass(v3);
   mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
   keyWindow = [mEMORY[0x277D75128] keyWindow];
   _windowInterfaceOrientation = [keyWindow _windowInterfaceOrientation];
@@ -174,7 +174,7 @@ void __96__PBFGenericDisplayContext_mainScreenDisplayContextsForKnownOrientation
 {
   screenCopy = screen;
   collectionCopy = collection;
-  traitCollection = collectionCopy;
+  v9 = collectionCopy;
   if (screenCopy)
   {
     if (collectionCopy)
@@ -186,14 +186,15 @@ void __96__PBFGenericDisplayContext_mainScreenDisplayContextsForKnownOrientation
   }
 
   [PBFGenericDisplayContext displayContextForScreen:a2 traitCollection:self];
-  if (!traitCollection)
+  if (!v9)
   {
 LABEL_3:
-    traitCollection = [screenCopy traitCollection];
+    collectionCopy = [screenCopy traitCollection];
+    v9 = collectionCopy;
   }
 
 LABEL_4:
-  v10 = PBFBSInterfaceOrientationDefaultForCurrentDeviceClass();
+  v10 = PBFBSInterfaceOrientationDefaultForCurrentDeviceClass(collectionCopy);
   v11 = objc_allocWithZone(self);
   [screenCopy _referenceBounds];
   v13 = v12;
@@ -202,8 +203,8 @@ LABEL_4:
   v19 = v18;
   [screenCopy scale];
   v21 = v20;
-  v22 = PBFUserInterfaceStyleFromUIUserInterfaceStyle([traitCollection userInterfaceStyle]);
-  v23 = [v11 initWithBounds:v10 scale:0 interfaceOrientation:v22 sigEventsCounter:PBFAccessibilityContrastFromUIAccessibilityContrast(objc_msgSend(traitCollection userInterfaceStyle:"accessibilityContrast")) accessibilityContrast:{v13, v15, v17, v19, v21}];
+  v22 = PBFUserInterfaceStyleFromUIUserInterfaceStyle([v9 userInterfaceStyle]);
+  v23 = [v11 initWithBounds:v10 scale:0 interfaceOrientation:v22 sigEventsCounter:PBFAccessibilityContrastFromUIAccessibilityContrast(objc_msgSend(v9 userInterfaceStyle:"accessibilityContrast")) accessibilityContrast:{v13, v15, v17, v19, v21}];
 
   return v23;
 }
@@ -235,20 +236,20 @@ LABEL_4:
   identity = [configurationCopy identity];
   v8 = [v6 _screenWithFBSDisplayIdentity:identity];
 
-  v9 = PBFBSInterfaceOrientationDefaultForCurrentDeviceClass();
+  v10 = PBFBSInterfaceOrientationDefaultForCurrentDeviceClass(v9);
   traitCollection = [v8 traitCollection];
-  v11 = objc_allocWithZone(self);
+  v12 = objc_allocWithZone(self);
   [configurationCopy bounds];
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
+  v20 = v19;
   [configurationCopy scale];
-  v21 = v20;
-  v22 = PBFUserInterfaceStyleFromUIUserInterfaceStyle([traitCollection userInterfaceStyle]);
-  v23 = [v11 initWithBounds:v9 scale:0 interfaceOrientation:v22 sigEventsCounter:PBFAccessibilityContrastFromUIAccessibilityContrast(objc_msgSend(traitCollection userInterfaceStyle:"accessibilityContrast")) accessibilityContrast:{v13, v15, v17, v19, v21}];
+  v22 = v21;
+  v23 = PBFUserInterfaceStyleFromUIUserInterfaceStyle([traitCollection userInterfaceStyle]);
+  v24 = [v12 initWithBounds:v10 scale:0 interfaceOrientation:v23 sigEventsCounter:PBFAccessibilityContrastFromUIAccessibilityContrast(objc_msgSend(traitCollection userInterfaceStyle:"accessibilityContrast")) accessibilityContrast:{v14, v16, v18, v20, v22}];
 
-  return v23;
+  return v24;
 }
 
 + (id)displayContextForPersistenceIdentifier:(id)identifier
@@ -266,7 +267,7 @@ LABEL_4:
   y = *(MEMORY[0x277CBF3A0] + 8);
   width = *(MEMORY[0x277CBF3A0] + 16);
   height = *(MEMORY[0x277CBF3A0] + 24);
-  unsignedIntegerValue = PBFBSInterfaceOrientationDefaultForCurrentDeviceClass();
+  unsignedIntegerValue = PBFBSInterfaceOrientationDefaultForCurrentDeviceClass(v4);
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
@@ -416,12 +417,12 @@ void __67__PBFGenericDisplayContext_displayContextForPersistenceIdentifier___blo
   x = bounds.origin.x;
   if (CGRectIsEmpty(bounds))
   {
-    [PBFGenericDisplayContext initWithBounds:a2 scale:? interfaceOrientation:? sigEventsCounter:? userInterfaceStyle:? accessibilityContrast:?];
+    [PBFGenericDisplayContext initWithBounds:a2 scale:self interfaceOrientation:? sigEventsCounter:? userInterfaceStyle:? accessibilityContrast:?];
   }
 
   if (scale <= 0.0)
   {
-    [PBFGenericDisplayContext initWithBounds:a2 scale:? interfaceOrientation:? sigEventsCounter:? userInterfaceStyle:? accessibilityContrast:?];
+    [PBFGenericDisplayContext initWithBounds:a2 scale:self interfaceOrientation:? sigEventsCounter:? userInterfaceStyle:? accessibilityContrast:?];
   }
 
   v20.receiver = self;
@@ -713,46 +714,46 @@ LABEL_8:
   [v4 handleFailureInMethod:a1 object:a2 file:@"PBFDisplayContext.m" lineNumber:101 description:{@"Invalid parameter not satisfying: %@", @"configuration"}];
 }
 
-- (void)initWithBounds:(const char *)a1 scale:interfaceOrientation:sigEventsCounter:userInterfaceStyle:accessibilityContrast:.cold.1(const char *a1)
+- (void)initWithBounds:(const char *)a1 scale:(uint64_t)a2 interfaceOrientation:sigEventsCounter:userInterfaceStyle:accessibilityContrast:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"scale > 0"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"scale > 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"PBFDisplayContext.m";
-    v9 = 1024;
-    v10 = 155;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PBFDisplayContext.m";
+    v10 = 1024;
+    v11 = 155;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21B526000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithBounds:(const char *)a1 scale:interfaceOrientation:sigEventsCounter:userInterfaceStyle:accessibilityContrast:.cold.2(const char *a1)
+- (void)initWithBounds:(const char *)a1 scale:(uint64_t)a2 interfaceOrientation:sigEventsCounter:userInterfaceStyle:accessibilityContrast:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!CGRectIsEmpty(bounds)"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!CGRectIsEmpty(bounds)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v8 = @"PBFDisplayContext.m";
-    v9 = 1024;
-    v10 = 154;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"PBFDisplayContext.m";
+    v10 = 1024;
+    v11 = 154;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_21B526000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

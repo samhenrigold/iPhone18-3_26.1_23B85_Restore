@@ -18,9 +18,9 @@
 - (_LTLanguageDetector)initWithSelfLoggingManager:(id)manager
 {
   managerCopy = manager;
-  v40.receiver = self;
-  v40.super_class = _LTLanguageDetector;
-  v6 = [(_LTLanguageDetector *)&v40 init];
+  v44.receiver = self;
+  v44.super_class = _LTLanguageDetector;
+  v6 = [(_LTLanguageDetector *)&v44 init];
   v7 = v6;
   if (v6)
   {
@@ -45,88 +45,90 @@
     v7->_modelVersions = 0;
 
     v7->_minimumAcousticLanguageDetectorResults = _LTPreferencesMinimumAcousticLanguageDetectionResults();
-    v7->_maximumAcousticLanguageDetectorResults = _LTPreferencesMaximumAcousticLanguageDetectionResults();
-    v14 = _LTOSLogLID();
-    v7->_lidSignpostID = os_signpost_id_generate(v14);
-    v15 = dispatch_queue_create("com.apple.translation.lid.result", 0);
+    v14 = _LTPreferencesMaximumAcousticLanguageDetectionResults();
+    v7->_maximumAcousticLanguageDetectorResults = v14;
+    v16 = _LTOSLogLID(v14, v15);
+    v7->_lidSignpostID = os_signpost_id_generate(v16);
+    v17 = dispatch_queue_create("com.apple.translation.lid.result", 0);
     resultQueue = v7->_resultQueue;
-    v7->_resultQueue = v15;
+    v7->_resultQueue = v17;
 
-    v17 = dispatch_queue_create("com.apple.translation.lid.finalResult", 0);
+    v19 = dispatch_queue_create("com.apple.translation.lid.finalResult", 0);
     finalResultWaitQueue = v7->_finalResultWaitQueue;
-    v7->_finalResultWaitQueue = v17;
+    v7->_finalResultWaitQueue = v19;
 
-    v19 = objc_alloc_init(_LTOfflineAssetManager);
-    v39 = 0;
-    v20 = [(_LTOfflineAssetManager *)v19 languageDetectorAssetWithError:&v39];
-    v21 = v39;
-    if (v21)
+    v21 = objc_alloc_init(_LTOfflineAssetManager);
+    v43 = 0;
+    v22 = [(_LTOfflineAssetManager *)v21 languageDetectorAssetWithError:&v43];
+    v23 = v43;
+    v25 = v23;
+    if (v23)
     {
-      v22 = _LTOSLogLID();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v26 = _LTOSLogLID(v23, v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [_LTLanguageDetector initWithSelfLoggingManager:];
       }
 
-      v23 = 0;
+      v27 = 0;
     }
 
     else
     {
-      v42 = 0;
-      v43 = &v42;
-      v44 = 0x2050000000;
-      v24 = getCSLanguageDetectorClass_softClass;
-      v45 = getCSLanguageDetectorClass_softClass;
+      v46 = 0;
+      v47 = &v46;
+      v48 = 0x2050000000;
+      v28 = getCSLanguageDetectorClass_softClass;
+      v49 = getCSLanguageDetectorClass_softClass;
       if (!getCSLanguageDetectorClass_softClass)
       {
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __getCSLanguageDetectorClass_block_invoke;
-        v41[3] = &unk_2789B57C0;
-        v41[4] = &v42;
-        __getCSLanguageDetectorClass_block_invoke(v41);
-        v24 = v43[3];
+        v45[0] = MEMORY[0x277D85DD0];
+        v45[1] = 3221225472;
+        v45[2] = __getCSLanguageDetectorClass_block_invoke;
+        v45[3] = &unk_2789B57C0;
+        v45[4] = &v46;
+        __getCSLanguageDetectorClass_block_invoke(v45);
+        v28 = v47[3];
       }
 
-      v25 = v24;
-      _Block_object_dispose(&v42, 8);
-      v26 = [v24 alloc];
-      languageDetectorModelURL = [v20 languageDetectorModelURL];
-      v28 = [v26 initWithModelURL:languageDetectorModelURL];
+      v29 = v28;
+      _Block_object_dispose(&v46, 8);
+      v30 = [v28 alloc];
+      languageDetectorModelURL = [v22 languageDetectorModelURL];
+      v32 = [v30 initWithModelURL:languageDetectorModelURL];
       csLanguageDetector = v7->_csLanguageDetector;
-      v7->_csLanguageDetector = v28;
+      v7->_csLanguageDetector = v32;
 
       [(CSLanguageDetector *)v7->_csLanguageDetector setDelegate:v7];
-      v30 = [_LTLanguageDetectorFeatureCombinationModel alloc];
-      featureCombinationConfigUrl = [v20 featureCombinationConfigUrl];
-      v32 = [(_LTLanguageDetectorFeatureCombinationModel *)v30 initWithConfig:featureCombinationConfigUrl];
+      v34 = [_LTLanguageDetectorFeatureCombinationModel alloc];
+      featureCombinationConfigUrl = [v22 featureCombinationConfigUrl];
+      v36 = [(_LTLanguageDetectorFeatureCombinationModel *)v34 initWithConfig:featureCombinationConfigUrl];
       featureCombinationModel = v7->_featureCombinationModel;
-      v7->_featureCombinationModel = v32;
+      v7->_featureCombinationModel = v36;
 
       v7->_featureCombinationModelSupported = 0;
       objc_storeStrong(&v7->_selfLoggingManager, manager);
-      v34 = objc_alloc(MEMORY[0x277CBEB98]);
-      v35 = _LTPreferencesGetLanguageDetectorUnsupportedPairs();
-      v36 = [v34 initWithArray:v35];
+      v38 = objc_alloc(MEMORY[0x277CBEB98]);
+      v39 = _LTPreferencesGetLanguageDetectorUnsupportedPairs();
+      v40 = [v38 initWithArray:v39];
       lowConfidenceLanguagePairs = v7->_lowConfidenceLanguagePairs;
-      v7->_lowConfidenceLanguagePairs = v36;
+      v7->_lowConfidenceLanguagePairs = v40;
 
-      v23 = v7;
+      v27 = v7;
     }
   }
 
   else
   {
-    v23 = 0;
+    v27 = 0;
   }
 
-  return v23;
+  return v27;
 }
 
 - (void)startLanguageDetectionWithContext:(id)context delegate:(id)delegate
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   delegateCopy = delegate;
   objc_storeStrong(&self->_context, context);
@@ -164,18 +166,20 @@
   modelVersions = self->_modelVersions;
   self->_modelVersions = v24;
 
-  if ([contextCopy autodetectLanguage])
+  autodetectLanguage = [contextCopy autodetectLanguage];
+  if (autodetectLanguage)
   {
-    v26 = _LTOSLogLID();
-    v27 = v26;
+    v28 = _LTOSLogLID(autodetectLanguage, v27);
+    v29 = v28;
     lidSignpostID = self->_lidSignpostID;
-    if (lidSignpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    if (lidSignpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_232E53000, v27, OS_SIGNPOST_INTERVAL_BEGIN, lidSignpostID, "LID", "Start", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_232E53000, v29, OS_SIGNPOST_INTERVAL_BEGIN, lidSignpostID, "LID", "Start", buf, 2u);
     }
 
-    if ([contextCopy lidThreshold] < 0)
+    lidThreshold = [contextCopy lidThreshold];
+    if (lidThreshold < 0)
     {
       localePair3 = [contextCopy localePair];
       self->_sourceLocaleConfidenceThreshold = _LTPreferencesLanguageDetectorThresholdsForLocale(localePair3);
@@ -184,8 +188,9 @@
       reversedPair = [localePair4 reversedPair];
       self->_targetLocaleConfidenceThreshold = _LTPreferencesLanguageDetectorThresholdsForLocale(reversedPair);
 
-      v35 = _LTOSLogLID();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+      v41 = _LTOSLogLID(v39, v40);
+      v42 = os_log_type_enabled(v41, OS_LOG_TYPE_INFO);
+      if (v42)
       {
         sourceLocaleConfidenceThreshold = self->_sourceLocaleConfidenceThreshold;
         targetLocaleConfidenceThreshold = self->_targetLocaleConfidenceThreshold;
@@ -193,13 +198,13 @@
         *&buf[4] = sourceLocaleConfidenceThreshold;
         *&buf[12] = 2048;
         *&buf[14] = targetLocaleConfidenceThreshold;
-        _os_log_impl(&dword_232E53000, v35, OS_LOG_TYPE_INFO, "Confidence thresholds for source %f and target %f", buf, 0x16u);
+        _os_log_impl(&dword_232E53000, v41, OS_LOG_TYPE_INFO, "Confidence thresholds for source %f and target %f", buf, 0x16u);
       }
 
       if ((self->_sourceLocaleConfidenceThreshold + self->_targetLocaleConfidenceThreshold) <= 1.0)
       {
-        v38 = _LTOSLogLID();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+        v46 = _LTOSLogLID(v42, v43);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
         {
           [_LTLanguageDetector startLanguageDetectionWithContext:delegate:];
         }
@@ -208,14 +213,14 @@
 
     else
     {
-      v29 = _LTOSLogLID();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      v33 = _LTOSLogLID(lidThreshold, v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
-        v30 = v29;
-        lidThreshold = [contextCopy lidThreshold];
+        v34 = v33;
+        lidThreshold2 = [contextCopy lidThreshold];
         *buf = 134217984;
-        *&buf[4] = lidThreshold;
-        _os_log_impl(&dword_232E53000, v30, OS_LOG_TYPE_INFO, "Overriding confidence thresholds, setting to %ld", buf, 0xCu);
+        *&buf[4] = lidThreshold2;
+        _os_log_impl(&dword_232E53000, v34, OS_LOG_TYPE_INFO, "Overriding confidence thresholds, setting to %ld", buf, 0xCu);
       }
 
       self->_sourceLocaleConfidenceThreshold = [contextCopy lidThreshold] / 1000.0;
@@ -230,32 +235,32 @@
     targetLocale2 = [localePair6 targetLocale];
     _ltCsLocaleIdentifier2 = [targetLocale2 _ltCsLocaleIdentifier];
 
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x2050000000;
-    v45 = getCSLanguageDetectorOptionClass_softClass;
-    v55 = getCSLanguageDetectorOptionClass_softClass;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x2050000000;
+    v53 = getCSLanguageDetectorOptionClass_softClass;
+    v62 = getCSLanguageDetectorOptionClass_softClass;
     if (!getCSLanguageDetectorOptionClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getCSLanguageDetectorOptionClass_block_invoke;
-      v57 = &unk_2789B57C0;
-      v58 = &v52;
+      v64 = &unk_2789B57C0;
+      v65 = &v59;
       __getCSLanguageDetectorOptionClass_block_invoke(buf);
-      v45 = v53[3];
+      v53 = v60[3];
     }
 
-    v46 = v45;
-    _Block_object_dispose(&v52, 8);
-    v47 = objc_alloc_init(v45);
+    v54 = v53;
+    _Block_object_dispose(&v59, 8);
+    v55 = objc_alloc_init(v53);
     samplingRate = self->_samplingRate;
     *&samplingRate = samplingRate;
-    [v47 setSamplingRate:samplingRate];
-    v49 = [MEMORY[0x277CBEB98] setWithObjects:{_ltCsLocaleIdentifier, _ltCsLocaleIdentifier2, 0, v52}];
-    [v47 setDictationLanguages:v49];
+    [v55 setSamplingRate:samplingRate];
+    v57 = [MEMORY[0x277CBEB98] setWithObjects:{_ltCsLocaleIdentifier, _ltCsLocaleIdentifier2, 0, v59}];
+    [v55 setDictationLanguages:v57];
 
-    [(CSLanguageDetector *)self->_csLanguageDetector resetForNewRequest:v47];
+    [(CSLanguageDetector *)self->_csLanguageDetector resetForNewRequest:v55];
     if (self->_featureCombinationModel)
     {
       localePair7 = [contextCopy localePair];
@@ -267,13 +272,11 @@
       self->_featureCombinationModelSupported = 0;
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendLIDResult:(id)result
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   dispatch_assert_queue_V2(self->_resultQueue);
   if (!self->_finalLIDResultSent)
@@ -283,38 +286,37 @@
 
     if (v6)
     {
-      self->_finalLIDResultSent = [resultCopy isFinal];
-      v7 = _LTOSLogLID();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      isFinal = [resultCopy isFinal];
+      self->_finalLIDResultSent = isFinal;
+      v9 = _LTOSLogLID(isFinal, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v8 = v7;
+        v10 = v9;
         if ([resultCopy isFinal])
         {
-          v9 = @"final";
+          v11 = @"final";
         }
 
         else
         {
-          v9 = @"intermediate";
+          v11 = @"intermediate";
         }
 
         dominantLanguage = [resultCopy dominantLanguage];
         _ltLocaleIdentifier = [dominantLanguage _ltLocaleIdentifier];
-        v14 = 138543874;
-        v15 = v9;
-        v16 = 2114;
-        v17 = _ltLocaleIdentifier;
-        v18 = 1024;
+        v15 = 138543874;
+        v16 = v11;
+        v17 = 2114;
+        v18 = _ltLocaleIdentifier;
+        v19 = 1024;
         isConfident = [resultCopy isConfident];
-        _os_log_impl(&dword_232E53000, v8, OS_LOG_TYPE_INFO, "Sending out new %{public}@ LID result, detected %{public}@, confident %{BOOL}i", &v14, 0x1Cu);
+        _os_log_impl(&dword_232E53000, v10, OS_LOG_TYPE_INFO, "Sending out new %{public}@ LID result, detected %{public}@, confident %{BOOL}i", &v15, 0x1Cu);
       }
 
-      v12 = objc_loadWeakRetained(&self->_delegate);
-      [v12 languageDetectionResult:resultCopy];
+      v14 = objc_loadWeakRetained(&self->_delegate);
+      [v14 languageDetectionResult:resultCopy];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)haveFinalASRResults
@@ -364,11 +366,11 @@
 - (void)sendFinalLanguageDetectionResult:(BOOL)result
 {
   resultCopy = result;
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_resultQueue);
   if (self->_finalLIDResultSent)
   {
-    goto LABEL_2;
+    return;
   }
 
   lastResult = self->_lastResult;
@@ -378,100 +380,98 @@
   haveAtLeastOneFinalASRResult = [(_LTLanguageDetector *)self haveAtLeastOneFinalASRResult];
   if (self->_havePartialASRConfidences)
   {
-    v9 = haveAtLeastOneFinalASRResult;
-    v10 = [(NSMutableArray *)self->_acousticResults count]>= self->_minimumAcousticLanguageDetectorResults || v9;
-    if ((((haveFinalASRResults || self->_endAudioCalled) | v10) & 1) == 0)
+    v8 = haveAtLeastOneFinalASRResult;
+    v9 = [(NSMutableArray *)self->_acousticResults count]>= self->_minimumAcousticLanguageDetectorResults || v8;
+    if ((((haveFinalASRResults || self->_endAudioCalled) | v9) & 1) == 0)
     {
-      goto LABEL_2;
+      return;
     }
   }
 
   else if (!haveFinalASRResults)
   {
-    goto LABEL_2;
+    return;
   }
 
-  self->_useFinalThresholds |= (haveFinalASRResults || resultCopy) | ([(NSMutableArray *)self->_acousticResults count]>= self->_maximumAcousticLanguageDetectorResults);
-  v11 = _LTOSLogLID();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v10 = [(NSMutableArray *)self->_acousticResults count];
+  self->_useFinalThresholds |= haveFinalASRResults || resultCopy || v10 >= self->_maximumAcousticLanguageDetectorResults;
+  v12 = _LTOSLogLID(v10, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     acousticResults = self->_acousticResults;
-    v13 = v11;
-    v14 = [(NSMutableArray *)acousticResults count];
-    v15 = &stru_284834138;
+    v14 = v12;
+    v15 = [(NSMutableArray *)acousticResults count];
+    v16 = &stru_284834138;
     if (self->_havePartialASRConfidences)
     {
-      v16 = @", partial ASR confidences";
+      v17 = @", partial ASR confidences";
     }
 
     else
     {
-      v16 = &stru_284834138;
+      v17 = &stru_284834138;
     }
 
     *buf = 134218498;
-    v31 = v14;
-    v32 = 2114;
-    v33 = v16;
+    v32 = v15;
+    v33 = 2114;
+    v34 = v17;
     if (haveFinalASRResults)
     {
-      v15 = @", final ASR results";
+      v16 = @", final ASR results";
     }
 
-    v34 = 2114;
-    v35 = v15;
-    _os_log_impl(&dword_232E53000, v13, OS_LOG_TYPE_INFO, "Computing new LID result, with %zu acoustic results%{public}@%{public}@", buf, 0x20u);
+    v35 = 2114;
+    v36 = v16;
+    _os_log_impl(&dword_232E53000, v14, OS_LOG_TYPE_INFO, "Computing new LID result, with %zu acoustic results%{public}@%{public}@", buf, 0x20u);
   }
 
   featureCombinationModel = self->_featureCombinationModel;
   context = self->_context;
-  v19 = self->_acousticResults;
+  v20 = self->_acousticResults;
   partialSpeechResultConfidences = self->_partialSpeechResultConfidences;
   finalSpeechResults = self->_finalSpeechResults;
   modelVersions = self->_modelVersions;
   useFinalThresholds = self->_useFinalThresholds;
-  LOBYTE(v29) = [(_LTLanguageDetector *)self isLowConfidencePair];
-  v24 = [(_LTLanguageDetectorFeatureCombinationModel *)featureCombinationModel estimateLanguage:context languageDetectionResults:v19 partialSpeechResultConfidences:partialSpeechResultConfidences finalSpeechResults:finalSpeechResults modelVersions:modelVersions useFinalThresholds:useFinalThresholds isLowConfidencePair:v29];
-  v25 = self->_lastResult;
-  self->_lastResult = v24;
-
+  LOBYTE(v30) = [(_LTLanguageDetector *)self isLowConfidencePair];
+  v25 = [(_LTLanguageDetectorFeatureCombinationModel *)featureCombinationModel estimateLanguage:context languageDetectionResults:v20 partialSpeechResultConfidences:partialSpeechResultConfidences finalSpeechResults:finalSpeechResults modelVersions:modelVersions useFinalThresholds:useFinalThresholds isLowConfidencePair:v30];
   v26 = self->_lastResult;
-  if (v26)
+  self->_lastResult = v25;
+
+  v27 = self->_lastResult;
+  if (v27)
   {
     if (!self->_havePartialASRConfidences)
     {
       if (!haveFinalASRResults)
       {
-        goto LABEL_2;
+        return;
       }
 
 LABEL_26:
-      [(_LTLanguageDetectionResult *)v26 setIsFinal:1];
+      [(_LTLanguageDetectionResult *)v27 setIsFinal:1];
       [(_LTLanguageDetector *)self sendLIDResult:self->_lastResult];
       [(_LTLanguageDetector *)self endAudio];
-      goto LABEL_2;
+      return;
     }
 
-    isConfident = [(_LTLanguageDetectionResult *)v26 isConfident];
+    isConfident = [(_LTLanguageDetectionResult *)v27 isConfident];
     if ([(NSMutableArray *)self->_acousticResults count]>= self->_maximumAcousticLanguageDetectorResults)
     {
-      v28 = 1;
+      v29 = 1;
     }
 
     else
     {
-      v28 = isConfident;
+      v29 = isConfident;
     }
 
-    if (((haveFinalASRResults | v28) & 1) != 0 || resultCopy)
+    if (((haveFinalASRResults | v29) & 1) != 0 || resultCopy)
     {
-      v26 = self->_lastResult;
+      v27 = self->_lastResult;
       goto LABEL_26;
     }
   }
-
-LABEL_2:
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSpeechRecognitionResult:(id)result
@@ -496,35 +496,38 @@ LABEL_2:
 
 - (void)addSpeechAudioData:(id)data
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  if (dataCopy && [(_LTTranslationContext *)self->_context autodetectLanguage])
+  if (dataCopy)
   {
-    if (self->_finalLIDResultSent)
+    autodetectLanguage = [(_LTTranslationContext *)self->_context autodetectLanguage];
+    if (autodetectLanguage)
     {
-      v5 = _LTOSLogLID();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      if (self->_finalLIDResultSent)
       {
-        [_LTLanguageDetector addSpeechAudioData:];
-      }
-    }
-
-    else
-    {
-      v6 = [dataCopy length] / self->_audioBitDepth;
-      v7 = _LTOSLogLID();
-      if (os_signpost_enabled(v7))
-      {
-        v9 = 134217984;
-        v10 = v6;
-        _os_signpost_emit_with_name_impl(&dword_232E53000, v7, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LID Audio Data", "NumSamples: %ld", &v9, 0xCu);
+        v7 = _LTOSLogLID(autodetectLanguage, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+        {
+          [_LTLanguageDetector addSpeechAudioData:];
+        }
       }
 
-      [(CSLanguageDetector *)self->_csLanguageDetector addSamples:dataCopy numSamples:v6];
+      else
+      {
+        v8 = [dataCopy length];
+        v9 = v8 / self->_audioBitDepth;
+        v11 = _LTOSLogLID(v8, v10);
+        if (os_signpost_enabled(v11))
+        {
+          v12 = 134217984;
+          v13 = v9;
+          _os_signpost_emit_with_name_impl(&dword_232E53000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "LID Audio Data", "NumSamples: %ld", &v12, 0xCu);
+        }
+
+        [(CSLanguageDetector *)self->_csLanguageDetector addSamples:dataCopy numSamples:v9];
+      }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endAudio
@@ -590,107 +593,86 @@ LABEL_2:
 
 - (void)languageDetectorDidDetectLanguageWithConfidence:(id)confidence confidence:(id)a4 isConfident:(BOOL)confident
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   confidenceCopy = confidence;
   v7 = a4;
-  v8 = _LTOSLogLID();
-  if (os_signpost_enabled(v8))
+  v9 = _LTOSLogLID(v7, v8);
+  if (os_signpost_enabled(v9))
   {
     *buf = 138412290;
-    v51 = v7;
-    _os_signpost_emit_with_name_impl(&dword_232E53000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CS-LID Result", "confidence: %@", buf, 0xCu);
+    v59 = v7;
+    _os_signpost_emit_with_name_impl(&dword_232E53000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "CS-LID Result", "confidence: %@", buf, 0xCu);
   }
 
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   localePair = [(_LTTranslationContext *)self->_context localePair];
   sourceLocale = [localePair sourceLocale];
   _ltCsLocaleIdentifier = [sourceLocale _ltCsLocaleIdentifier];
-  v13 = [v7 objectForKeyedSubscript:_ltCsLocaleIdentifier];
+  v14 = [v7 objectForKeyedSubscript:_ltCsLocaleIdentifier];
 
-  if (!v13)
+  if (!v14 || (-[_LTTranslationContext localePair](self->_context, "localePair"), v15 = objc_claimAutoreleasedReturnValue(), [v15 sourceLocale], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dictionary, "setObject:forKeyedSubscript:", v14, v16), v16, v15, objc_msgSend(v14, "floatValue"), v17 < self->_sourceLocaleConfidenceThreshold) || (objc_msgSend(v14, "floatValue"), v18 == 0.5))
   {
-    goto LABEL_9;
-  }
-
-  localePair2 = [(_LTTranslationContext *)self->_context localePair];
-  sourceLocale2 = [localePair2 sourceLocale];
-  [dictionary setObject:v13 forKeyedSubscript:sourceLocale2];
-
-  [v13 floatValue];
-  if (v16 < self->_sourceLocaleConfidenceThreshold || ([v13 floatValue], v17 == 0.5))
-  {
-LABEL_9:
-    sourceLocale3 = 0;
-    v21 = 0;
+    sourceLocale2 = 0;
+    v24 = 0;
   }
 
   else
   {
-    localePair3 = [(_LTTranslationContext *)self->_context localePair];
-    sourceLocale3 = [localePair3 sourceLocale];
+    localePair2 = [(_LTTranslationContext *)self->_context localePair];
+    sourceLocale2 = [localePair2 sourceLocale];
 
-    v20 = _LTOSLogLID();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+    v23 = _LTOSLogLID(v21, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      [_LTLanguageDetector languageDetectorDidDetectLanguageWithConfidence:v20 confidence:v13 isConfident:&self->_sourceLocaleConfidenceThreshold];
+      [_LTLanguageDetector languageDetectorDidDetectLanguageWithConfidence:v23 confidence:v14 isConfident:?];
     }
 
-    v21 = 1;
+    v24 = 1;
   }
 
-  localePair4 = [(_LTTranslationContext *)self->_context localePair];
-  targetLocale = [localePair4 targetLocale];
+  localePair3 = [(_LTTranslationContext *)self->_context localePair];
+  targetLocale = [localePair3 targetLocale];
   _ltCsLocaleIdentifier2 = [targetLocale _ltCsLocaleIdentifier];
-  v25 = [v7 objectForKeyedSubscript:_ltCsLocaleIdentifier2];
+  v28 = [v7 objectForKeyedSubscript:_ltCsLocaleIdentifier2];
 
-  if (!v25)
+  if (!v28 || (-[_LTTranslationContext localePair](self->_context, "localePair"), v31 = objc_claimAutoreleasedReturnValue(), [v31 targetLocale], v32 = objc_claimAutoreleasedReturnValue(), objc_msgSend(dictionary, "setObject:forKeyedSubscript:", v28, v32), v32, v31, isLowConfidencePair = objc_msgSend(v28, "floatValue"), v33 < self->_targetLocaleConfidenceThreshold) || (isLowConfidencePair = objc_msgSend(v28, "floatValue"), v34 == 0.5))
   {
-    goto LABEL_15;
-  }
-
-  localePair5 = [(_LTTranslationContext *)self->_context localePair];
-  targetLocale2 = [localePair5 targetLocale];
-  [dictionary setObject:v25 forKeyedSubscript:targetLocale2];
-
-  [v25 floatValue];
-  if (v28 < self->_targetLocaleConfidenceThreshold || ([v25 floatValue], v29 == 0.5))
-  {
-LABEL_15:
-    if (!v21)
+    if (!v24)
     {
       goto LABEL_18;
     }
 
-    targetLocale3 = sourceLocale3;
+    targetLocale2 = sourceLocale2;
   }
 
   else
   {
-    localePair6 = [(_LTTranslationContext *)self->_context localePair];
-    targetLocale3 = [localePair6 targetLocale];
+    localePair4 = [(_LTTranslationContext *)self->_context localePair];
+    targetLocale2 = [localePair4 targetLocale];
 
-    v32 = _LTOSLogLID();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+    v39 = _LTOSLogLID(v37, v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
     {
-      [_LTLanguageDetector languageDetectorDidDetectLanguageWithConfidence:v32 confidence:v25 isConfident:&self->_targetLocaleConfidenceThreshold];
+      [_LTLanguageDetector languageDetectorDidDetectLanguageWithConfidence:v39 confidence:v28 isConfident:?];
     }
   }
 
-  v21 = ![(_LTLanguageDetector *)self isLowConfidencePair];
-  sourceLocale3 = targetLocale3;
+  isLowConfidencePair = [(_LTLanguageDetector *)self isLowConfidencePair];
+  v24 = isLowConfidencePair ^ 1;
+  sourceLocale2 = targetLocale2;
 LABEL_18:
-  v33 = _LTOSLogLID();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+  v40 = _LTOSLogLID(isLowConfidencePair, v30);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
   {
-    v41 = v33;
-    localeIdentifier = [sourceLocale3 localeIdentifier];
+    v49 = v40;
+    localeIdentifier = [sourceLocale2 localeIdentifier];
     *buf = 138543874;
-    v51 = localeIdentifier;
-    v52 = 1024;
-    v53 = v21;
-    v54 = 2114;
-    v55 = v7;
-    _os_log_debug_impl(&dword_232E53000, v41, OS_LOG_TYPE_DEBUG, "Acoustic LID detected %{public}@ (confident: %{BOOL}i): %{public}@", buf, 0x1Cu);
+    v59 = localeIdentifier;
+    v60 = 1024;
+    v61 = v24;
+    v62 = 2114;
+    v63 = v7;
+    _os_log_debug_impl(&dword_232E53000, v49, OS_LOG_TYPE_DEBUG, "Acoustic LID detected %{public}@ (confident: %{BOOL}i): %{public}@", buf, 0x1Cu);
   }
 
   objc_initWeak(buf, self);
@@ -699,50 +681,40 @@ LABEL_18:
   block[1] = 3221225472;
   block[2] = __94___LTLanguageDetector_languageDetectorDidDetectLanguageWithConfidence_confidence_isConfident___block_invoke;
   block[3] = &unk_2789B64E8;
-  objc_copyWeak(&v48, buf);
-  v35 = dictionary;
-  v46 = v35;
-  v49 = v21;
-  v36 = sourceLocale3;
-  v47 = v36;
+  objc_copyWeak(&v56, buf);
+  v42 = dictionary;
+  v54 = v42;
+  v57 = v24;
+  v43 = sourceLocale2;
+  v55 = v43;
   dispatch_async(resultQueue, block);
-  v37 = _LTOSLogLID();
-  v38 = v37;
+  v46 = _LTOSLogLID(v44, v45);
+  v47 = v46;
   lidSignpostID = self->_lidSignpostID;
-  if (lidSignpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+  if (lidSignpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v46))
   {
-    *v44 = 0;
-    _os_signpost_emit_with_name_impl(&dword_232E53000, v38, OS_SIGNPOST_INTERVAL_BEGIN, lidSignpostID, "LID", "End", v44, 2u);
+    *v52 = 0;
+    _os_signpost_emit_with_name_impl(&dword_232E53000, v47, OS_SIGNPOST_INTERVAL_BEGIN, lidSignpostID, "LID", "End", v52, 2u);
   }
 
-  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v56);
   objc_destroyWeak(buf);
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
-- (void)languageDetectorDidDetectLanguageWithConfidence:(void *)a1 confidence:(void *)a2 isConfident:(float *)a3 .cold.1(void *a1, void *a2, float *a3)
+- (void)languageDetectorDidDetectLanguageWithConfidence:(void *)a1 confidence:(void *)a2 isConfident:.cold.1(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = a1;
+  v3 = a1;
   [a2 floatValue];
-  v6 = *a3;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_4_0(&dword_232E53000, v7, v8, "Confident in source language (%lf) with threshold %lf", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_232E53000, v4, v5, "Confident in source language (%lf) with threshold %lf", v6, v7, v8, v9);
 }
 
-- (void)languageDetectorDidDetectLanguageWithConfidence:(void *)a1 confidence:(void *)a2 isConfident:(float *)a3 .cold.2(void *a1, void *a2, float *a3)
+- (void)languageDetectorDidDetectLanguageWithConfidence:(void *)a1 confidence:(void *)a2 isConfident:.cold.2(void *a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v5 = a1;
+  v3 = a1;
   [a2 floatValue];
-  v6 = *a3;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_4_0(&dword_232E53000, v7, v8, "Confident in target language (%lf) with threshold %lf", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4_0(&dword_232E53000, v4, v5, "Confident in target language (%lf) with threshold %lf", v6, v7, v8, v9);
 }
 
 @end

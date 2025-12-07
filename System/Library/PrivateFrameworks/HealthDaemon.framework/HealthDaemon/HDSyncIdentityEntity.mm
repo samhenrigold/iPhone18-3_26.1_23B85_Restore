@@ -132,11 +132,10 @@
 id __71__HDSyncIdentityEntity_concreteIdentityForPersistentID_database_error___block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CCACA8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() disambiguatedDatabaseTable];
-  v4 = [v1 stringWithFormat:@"SELECT %@, %@, %@, %@ FROM %@ WHERE %@=?", @"hardware_identifier", @"database_identifier", @"instance_discriminator", @"is_child", v3, *MEMORY[0x277D10A40]];
+  v2 = [objc_opt_class() disambiguatedDatabaseTable];
+  v3 = [v1 stringWithFormat:@"SELECT %@, %@, %@, %@ FROM %@ WHERE %@=?", @"hardware_identifier", @"database_identifier", @"instance_discriminator", @"is_child", v2, *MEMORY[0x277D10A40]];
 
-  return v4;
+  return v3;
 }
 
 uint64_t __71__HDSyncIdentityEntity_concreteIdentityForPersistentID_database_error___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -165,7 +164,7 @@ uint64_t __71__HDSyncIdentityEntity_concreteIdentityForPersistentID_database_err
 
 + (id)insertOrLookupConcreteIdentityForIdentity:(id)identity database:(id)database error:(id *)error
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   identityCopy = identity;
   databaseCopy = database;
   if (!identityCopy)
@@ -174,9 +173,9 @@ uint64_t __71__HDSyncIdentityEntity_concreteIdentityForPersistentID_database_err
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDSyncIdentityEntity.m" lineNumber:198 description:@"Attempt to insert a nil sync identity into the db."];
   }
 
-  v24 = 0;
-  v11 = [(HDSyncIdentityEntity *)self _concreteIdentityForIdentity:identityCopy database:databaseCopy error:&v24];
-  v12 = v24;
+  v23 = 0;
+  v11 = [(HDSyncIdentityEntity *)self _concreteIdentityForIdentity:identityCopy database:databaseCopy error:&v23];
+  v12 = v23;
   v13 = v12;
   if (v11)
   {
@@ -187,7 +186,7 @@ uint64_t __71__HDSyncIdentityEntity_concreteIdentityForPersistentID_database_err
   {
     if (error)
     {
-      v17 = v12;
+      v16 = v12;
       v14 = 0;
       *error = v13;
     }
@@ -201,22 +200,22 @@ uint64_t __71__HDSyncIdentityEntity_concreteIdentityForPersistentID_database_err
 
   else
   {
-    v25[0] = @"hardware_identifier";
-    v25[1] = @"database_identifier";
-    v25[2] = @"instance_discriminator";
-    v25[3] = @"is_child";
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __81__HDSyncIdentityEntity_insertOrLookupConcreteIdentityForIdentity_database_error___block_invoke;
-    v22[3] = &unk_278614508;
-    v19 = identityCopy;
-    v23 = v19;
-    v20 = [self insertOrReplaceEntity:0 database:databaseCopy properties:v18 error:error bindingHandler:v22];
+    v24[0] = @"hardware_identifier";
+    v24[1] = @"database_identifier";
+    v24[2] = @"instance_discriminator";
+    v24[3] = @"is_child";
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __81__HDSyncIdentityEntity_insertOrLookupConcreteIdentityForIdentity_database_error___block_invoke;
+    v21[3] = &unk_278614508;
+    v18 = identityCopy;
+    v22 = v18;
+    v19 = [self insertOrReplaceEntity:0 database:databaseCopy properties:v17 error:error bindingHandler:v21];
 
-    if (v20)
+    if (v19)
     {
-      v14 = [[HDConcreteSyncIdentity alloc] initWithIdentity:v19 entity:v20 isChild:0];
+      v14 = [[HDConcreteSyncIdentity alloc] initWithIdentity:v18 entity:v19 isChild:0];
     }
 
     else
@@ -224,8 +223,6 @@ uint64_t __71__HDSyncIdentityEntity_concreteIdentityForPersistentID_database_err
       v14 = 0;
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -286,21 +283,21 @@ id __73__HDSyncIdentityEntity_updateIsChild_concreteIdentity_transaction_error__
   return v3;
 }
 
-void __73__HDSyncIdentityEntity_updateIsChild_concreteIdentity_transaction_error___block_invoke_2(uint64_t a1)
+void __73__HDSyncIdentityEntity_updateIsChild_concreteIdentity_transaction_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
+  v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
   HDSQLiteBindFoundationValueToStatement();
 
-  v3 = [*(a1 + 32) identity];
-  v4 = [v3 hardwareIdentifier];
+  v4 = [*(a1 + 32) identity];
+  v5 = [v4 hardwareIdentifier];
   HDSQLiteBindFoundationValueToStatement();
 
-  v5 = [*(a1 + 32) identity];
-  v6 = [v5 databaseIdentifier];
+  v6 = [*(a1 + 32) identity];
+  v7 = [v6 databaseIdentifier];
   HDSQLiteBindFoundationValueToStatement();
 
-  v8 = [*(a1 + 32) identity];
-  v7 = [v8 instanceDiscriminator];
+  v9 = [*(a1 + 32) identity];
+  v8 = [v9 instanceDiscriminator];
   HDSQLiteBindFoundationValueToStatement();
 }
 
@@ -314,15 +311,15 @@ id __68__HDSyncIdentityEntity__concreteIdentityForIdentity_database_error___bloc
   return v4;
 }
 
-void __68__HDSyncIdentityEntity__concreteIdentityForIdentity_database_error___block_invoke_2(uint64_t a1)
+void __68__HDSyncIdentityEntity__concreteIdentityForIdentity_database_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [*(a1 + 32) hardwareIdentifier];
+  v3 = [*(a1 + 32) hardwareIdentifier];
   HDSQLiteBindFoundationValueToStatement();
 
-  v3 = [*(a1 + 32) databaseIdentifier];
+  v4 = [*(a1 + 32) databaseIdentifier];
   HDSQLiteBindFoundationValueToStatement();
 
-  v4 = [*(a1 + 32) instanceDiscriminator];
+  v5 = [*(a1 + 32) instanceDiscriminator];
   HDSQLiteBindFoundationValueToStatement();
 }
 
@@ -387,11 +384,10 @@ uint64_t __68__HDSyncIdentityEntity__concreteIdentityForIdentity_database_error_
 id __62__HDSyncIdentityEntity_concreteIdentityWithTransaction_error___block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CCACA8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() disambiguatedDatabaseTable];
-  v4 = [v1 stringWithFormat:@"SELECT %@, %@, %@, %@ FROM %@ WHERE %@=?", @"hardware_identifier", @"database_identifier", @"instance_discriminator", @"is_child", v3, *MEMORY[0x277D10A40]];
+  v2 = [objc_opt_class() disambiguatedDatabaseTable];
+  v3 = [v1 stringWithFormat:@"SELECT %@, %@, %@, %@ FROM %@ WHERE %@=?", @"hardware_identifier", @"database_identifier", @"instance_discriminator", @"is_child", v2, *MEMORY[0x277D10A40]];
 
-  return v4;
+  return v3;
 }
 
 uint64_t __62__HDSyncIdentityEntity_concreteIdentityWithTransaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
@@ -440,11 +436,10 @@ id __92__HDSyncIdentityEntity_enumerateConcreteIdentitiesWithTransaction_error_e
 {
   v1 = MEMORY[0x277CCACA8];
   v2 = *MEMORY[0x277D10A40];
-  v3 = *(a1 + 32);
-  v4 = [objc_opt_class() disambiguatedDatabaseTable];
-  v5 = [v1 stringWithFormat:@"SELECT %@, %@, %@, %@, %@ FROM %@", v2, @"hardware_identifier", @"database_identifier", @"instance_discriminator", @"is_child", v4];
+  v3 = [objc_opt_class() disambiguatedDatabaseTable];
+  v4 = [v1 stringWithFormat:@"SELECT %@, %@, %@, %@, %@ FROM %@", v2, @"hardware_identifier", @"database_identifier", @"instance_discriminator", @"is_child", v3];
 
-  return v5;
+  return v4;
 }
 
 uint64_t __92__HDSyncIdentityEntity_enumerateConcreteIdentitiesWithTransaction_error_enumerationHandler___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -515,11 +510,10 @@ uint64_t __92__HDSyncIdentityEntity_enumerateConcreteIdentitiesWithTransaction_e
 id __83__HDSyncIdentityEntity_childIdentitiesForCurrentSyncIdentityWithTransaction_error___block_invoke(uint64_t a1)
 {
   v1 = MEMORY[0x277CCACA8];
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() disambiguatedDatabaseTable];
-  v4 = [v1 stringWithFormat:@"SELECT %@, %@, %@ FROM %@ WHERE %@=?", @"hardware_identifier", @"database_identifier", @"instance_discriminator", v3, @"is_child"];
+  v2 = [objc_opt_class() disambiguatedDatabaseTable];
+  v3 = [v1 stringWithFormat:@"SELECT %@, %@, %@ FROM %@ WHERE %@=?", @"hardware_identifier", @"database_identifier", @"instance_discriminator", v2, @"is_child"];
 
-  return v4;
+  return v3;
 }
 
 uint64_t __83__HDSyncIdentityEntity_childIdentitiesForCurrentSyncIdentityWithTransaction_error___block_invoke_3(uint64_t a1, uint64_t a2)
@@ -539,12 +533,11 @@ uint64_t __83__HDSyncIdentityEntity_childIdentitiesForCurrentSyncIdentityWithTra
 
 + (id)uniquedColumns
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"hardware_identifier";
-  v5[1] = @"database_identifier";
-  v5[2] = @"instance_discriminator";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"hardware_identifier";
+  v4[1] = @"database_identifier";
+  v4[2] = @"instance_discriminator";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

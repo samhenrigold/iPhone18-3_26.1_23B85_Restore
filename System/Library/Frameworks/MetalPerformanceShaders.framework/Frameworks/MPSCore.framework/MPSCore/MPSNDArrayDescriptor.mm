@@ -303,7 +303,7 @@
 
 - (void)permuteWithDimensionOrder:(unint64_t *)order
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   do
   {
@@ -313,45 +313,49 @@
 
   while (selfCopy);
   v7 = *(v6 + 224);
-  MEMORY[0x28223BE20]();
-  v9 = v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](self, a2);
+  v9 = v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (v7)
   {
     v10 = v8;
-    bzero(v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v7);
+    bzero(v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v7);
     for (i = 0; i != v7; ++i)
     {
-      v12 = order[i];
-      v9[v12] = 1;
-      if (v12 >= *(v6 + 224) && MTLReportFailureTypeEnabled())
+      v14 = order[i];
+      v9[v14] = 1;
+      if (v14 >= *(v6 + 224))
       {
-        v13 = objc_opt_class();
-        v32[1] = NSStringFromClass(v13);
-        NSStringFromSelector(v10);
-        MTLReportFailure();
+        v11 = MTLReportFailureTypeEnabled();
+        if (v11)
+        {
+          v15 = objc_opt_class();
+          v34[1] = NSStringFromClass(v15);
+          NSStringFromSelector(v10);
+          v11 = MTLReportFailure();
+        }
       }
     }
 
-    MEMORY[0x28223BE20]();
-    v15 = v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-    if (v14)
+    MEMORY[0x28223BE20](v11, v12);
+    v17 = v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+    if (v16)
     {
-      v16 = 0;
-      v17 = *(v6 + 208);
-      v18 = 1;
+      v18 = 0;
+      v19 = *(v6 + 208);
+      v20 = 1;
       do
       {
-        v18 *= v9[v16];
-        v34 = v17;
-        v15[order[v16]] = *(&v34 | v16 & 0xF);
-        ++v16;
+        v20 *= v9[v18];
+        v36 = v19;
+        v17[order[v18]] = *(&v36 | v18 & 0xF);
+        ++v18;
       }
 
-      while (v14 != v16);
-      if (v18 != 1 && MTLReportFailureTypeEnabled())
+      while (v16 != v18);
+      if (v20 != 1 && MTLReportFailureTypeEnabled())
       {
-        v19 = objc_opt_class();
-        NSStringFromClass(v19);
+        v21 = objc_opt_class();
+        NSStringFromClass(v21);
         NSStringFromSelector(v10);
         MTLReportFailure();
       }
@@ -360,45 +364,45 @@
 
   else
   {
-    v15 = &v36;
+    v17 = &v38;
   }
 
   if (*(*(v6 + 256) + 264) == 2)
   {
-    v20 = [MPSNDArrayDescriptor alloc];
-    v21 = *(v6 + 240);
-    v22 = *(v6 + 224);
-    v23 = *(v6 + 16);
-    v24 = *(v6 + 32);
-    v25 = *(v6 + 64);
-    v35[2] = *(v6 + 48);
-    v35[3] = v25;
-    v35[0] = v23;
-    v35[1] = v24;
-    v27 = objc_msgSend_initWithDataType_dimensions_sizes_(v20, v26, v21, v22, v35);
-    *(v27 + 268) = self->_preferPackedRows;
-    *(v27 + 256) = v6;
-    *(v6 + 248) = v27;
+    v22 = [MPSNDArrayDescriptor alloc];
+    v23 = *(v6 + 240);
+    v24 = *(v6 + 224);
+    v25 = *(v6 + 16);
+    v26 = *(v6 + 32);
+    v27 = *(v6 + 64);
+    v37[2] = *(v6 + 48);
+    v37[3] = v27;
+    v37[0] = v25;
+    v37[1] = v26;
+    v29 = objc_msgSend_initWithDataType_dimensions_sizes_(v22, v28, v23, v24, v37);
+    *(v29 + 268) = self->_preferPackedRows;
+    *(v29 + 256) = v6;
+    *(v6 + 248) = v29;
     *(v6 + 264) = 1;
-    v6 = v27;
+    v6 = v29;
   }
 
-  v28 = *(v6 + 224);
-  if (v28)
+  v30 = *(v6 + 224);
+  if (v30)
   {
-    v29 = 0;
-    v30 = *(v6 + 208);
+    v31 = 0;
+    v32 = *(v6 + 208);
     do
     {
-      v31 = v15[v29];
-      v33 = v30;
-      *(&v33 | v29 & 0xF) = v31;
-      v30 = v33;
-      *(v6 + 208) = v33;
-      ++v29;
+      v33 = v17[v31];
+      v35 = v32;
+      *(&v35 | v31 & 0xF) = v33;
+      v32 = v35;
+      *(v6 + 208) = v35;
+      ++v31;
     }
 
-    while (v28 != v29);
+    while (v30 != v31);
   }
 }
 

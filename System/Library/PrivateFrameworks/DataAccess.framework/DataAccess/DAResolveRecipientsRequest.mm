@@ -1,6 +1,7 @@
 @interface DAResolveRecipientsRequest
 - (BOOL)isEqual:(id)equal;
 - (DAResolveRecipientsRequest)initWithEmailAddresses:(id)addresses;
+- (DAResolveRecipientsRequest)initWithEmailAddresses:(id)addresses retrieveCertificates:(BOOL)certificates retrieveAvailability:(BOOL)availability withStartTime:(id)time endTime:(id)endTime;
 - (id)description;
 - (unint64_t)hash;
 @end
@@ -26,33 +27,56 @@
   return v6;
 }
 
+- (DAResolveRecipientsRequest)initWithEmailAddresses:(id)addresses retrieveCertificates:(BOOL)certificates retrieveAvailability:(BOOL)availability withStartTime:(id)time endTime:(id)endTime
+{
+  availabilityCopy = availability;
+  certificatesCopy = certificates;
+  addressesCopy = addresses;
+  timeCopy = time;
+  endTimeCopy = endTime;
+  v18.receiver = self;
+  v18.super_class = DAResolveRecipientsRequest;
+  v15 = [(DAResolveRecipientsRequest *)&v18 init];
+  v16 = v15;
+  if (v15)
+  {
+    [(DAResolveRecipientsRequest *)v15 setEmailAddresses:addressesCopy];
+    [(DAResolveRecipientsRequest *)v16 setRetrieveCertificates:certificatesCopy];
+    [(DAResolveRecipientsRequest *)v16 setRetrieveAvailablilty:availabilityCopy];
+    [(DAResolveRecipientsRequest *)v16 setStartTime:timeCopy];
+    [(DAResolveRecipientsRequest *)v16 setEndTime:endTimeCopy];
+  }
+
+  return v16;
+}
+
 - (unint64_t)hash
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   emailAddresses = [(DAResolveRecipientsRequest *)self emailAddresses];
-  v3 = [emailAddresses countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [emailAddresses countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(emailAddresses);
         }
 
-        v5 += [*(*(&v10 + 1) + 8 * i) hash];
+        v5 += [*(*(&v9 + 1) + 8 * i) hash];
       }
 
-      v4 = [emailAddresses countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [emailAddresses countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -63,7 +87,6 @@
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

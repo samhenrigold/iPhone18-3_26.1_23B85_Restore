@@ -159,21 +159,21 @@
 - (CGPoint)_batteryCenter
 {
   [(CSBatteryChargingView *)self _tightFrameForElement:1];
-  x = v10.origin.x;
-  y = v10.origin.y;
-  width = v10.size.width;
-  height = v10.size.height;
-  CGRectGetMidX(v10);
-  v11.origin.x = x;
-  v11.origin.y = y;
-  v11.size.width = width;
-  v11.size.height = height;
-  CGRectGetMidY(v11);
+  x = v11.origin.x;
+  y = v11.origin.y;
+  width = v11.size.width;
+  height = v11.size.height;
+  MidX = CGRectGetMidX(v11);
+  v12.origin.x = x;
+  v12.origin.y = y;
+  v12.size.width = width;
+  v12.size.height = height;
+  CGRectGetMidY(v12);
   SBFMainScreenScale();
 
-  BSPointRoundForScale();
-  result.y = v7;
-  result.x = v6;
+  v7 = BSPointRoundForScale(MidX);
+  result.y = v8;
+  result.x = v7;
   return result;
 }
 

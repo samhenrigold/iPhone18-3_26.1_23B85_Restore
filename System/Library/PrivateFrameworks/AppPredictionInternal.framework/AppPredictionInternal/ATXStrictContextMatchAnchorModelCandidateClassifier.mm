@@ -9,7 +9,7 @@
 {
   v29 = *MEMORY[0x277D85DE8];
   occurrenceCopy = occurrence;
-  v6 = __atxlog_handle_anchor();
+  v6 = __atxlog_handle_anchor(occurrenceCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = objc_opt_class();
@@ -31,35 +31,33 @@
   anchor2 = [(ATXNaivePositiveAnchorModelCandidateClassifier *)self anchor];
   v16 = [v13 numCandidateIdOccurrencesInJointAnchorContext:candidateId2 anchor:anchor2 anchorMetadata:v12];
 
-  v17 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v18 = __atxlog_handle_anchor(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     candidateId3 = [(ATXNaivePositiveAnchorModelCandidateClassifier *)self candidateId];
     v25 = 138412546;
     v26 = candidateId3;
     v27 = 2048;
     v28 = v16;
-    _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_INFO, "Candidate %@ has %ld occurrences in the joint context of the anchor.", &v25, 0x16u);
+    _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_INFO, "Candidate %@ has %ld occurrences in the joint context of the anchor.", &v25, 0x16u);
   }
 
-  v19 = [ATXAnchorModelClassificationResult alloc];
+  v20 = [ATXAnchorModelClassificationResult alloc];
   if (v16 < 1)
   {
-    v20 = v16;
-    v21 = 0;
+    v21 = v16;
+    v22 = 0;
   }
 
   else
   {
-    v20 = v16;
-    v21 = 1;
+    v21 = v16;
+    v22 = 1;
   }
 
-  v22 = [(ATXAnchorModelClassificationResult *)v19 initWithShouldPredictCandidate:v21 score:v20];
+  v23 = [(ATXAnchorModelClassificationResult *)v20 initWithShouldPredictCandidate:v22 score:v21];
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v23;
 }
 
 - (BOOL)isEqual:(id)equal

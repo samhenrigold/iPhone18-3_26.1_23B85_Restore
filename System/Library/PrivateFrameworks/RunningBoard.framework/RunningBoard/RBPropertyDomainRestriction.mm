@@ -61,7 +61,7 @@ LABEL_8:
 
 + (id)domainRestrictionForDictionary:(id)dictionary withError:(id *)error
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKey:@"Property"];
   v8 = [dictionaryCopy objectForKey:@"Value"];
@@ -88,7 +88,7 @@ LABEL_14:
         {
           if (![v7 isEqualToString:@"BundleID"] && !objc_msgSend(v7, "isEqualToString:", @"BundlePath") && !objc_msgSend(v7, "isEqualToString:", @"GroupIdentifiers"))
           {
-            [MEMORY[0x277CCACA8] stringWithFormat:@"Unrecognized target property: %@", v7, v26];
+            [MEMORY[0x277CCACA8] stringWithFormat:@"Unrecognized target property: %@", v7, v25];
             v10 = LABEL_15:;
             v11 = v10;
             if (v10)
@@ -96,9 +96,9 @@ LABEL_14:
               if (error)
               {
                 v12 = MEMORY[0x277CCA9B8];
-                v27 = *MEMORY[0x277CCA470];
-                v28 = v10;
-                v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+                v26 = *MEMORY[0x277CCA470];
+                v27 = v10;
+                v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
                 v14 = [v12 errorWithDomain:@"RBDomainAttributeManagerDataProviderErrorDomain" code:1 userInfo:v13];
 
                 v15 = v14;
@@ -129,12 +129,12 @@ LABEL_28:
       if (error)
       {
         v17 = MEMORY[0x277CCA9B8];
-        v29 = *MEMORY[0x277CCA470];
+        v28 = *MEMORY[0x277CCA470];
         dictionaryCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"RBPropertyDomainRestriction doesn't specify value: %@", dictionaryCopy];
-        v30 = dictionaryCopy;
+        v29 = dictionaryCopy;
         v19 = MEMORY[0x277CBEAC0];
-        v20 = &v30;
-        v21 = &v29;
+        v20 = &v29;
+        v21 = &v28;
         goto LABEL_21;
       }
 
@@ -150,12 +150,12 @@ LABEL_24:
   }
 
   v17 = MEMORY[0x277CCA9B8];
-  v31 = *MEMORY[0x277CCA470];
+  v30 = *MEMORY[0x277CCA470];
   dictionaryCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"RBPropertyDomainRestriction doesn't specify property: %@", dictionaryCopy];
-  v32[0] = dictionaryCopy;
+  v31[0] = dictionaryCopy;
   v19 = MEMORY[0x277CBEAC0];
-  v20 = v32;
-  v21 = &v31;
+  v20 = v31;
+  v21 = &v30;
 LABEL_21:
   v22 = [v19 dictionaryWithObjects:v20 forKeys:v21 count:1];
   v11 = [v17 errorWithDomain:@"RBDomainAttributeManagerDataProviderErrorDomain" code:1 userInfo:v22];
@@ -166,38 +166,35 @@ LABEL_21:
 LABEL_29:
 
 LABEL_30:
-  v24 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)dictionaryRepresentation
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v3 = self->_numberValue;
   if (!v3)
   {
     v3 = self->_stringValue;
   }
 
-  v9[0] = @"Class";
+  v8[0] = @"Class";
   variantName = [(RBPropertyDomainRestriction *)self variantName];
   property = self->_property;
-  v10[0] = variantName;
-  v10[1] = property;
-  v9[1] = @"Property";
-  v9[2] = @"Value";
-  v10[2] = v3;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = variantName;
+  v9[1] = property;
+  v8[1] = @"Property";
+  v8[2] = @"Value";
+  v9[2] = v3;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }
 
 - (BOOL)allowsWithProperties:(id)properties error:(id *)error
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   if ([(NSString *)self->_property isEqualToString:@"SupportsBackgroundContentFetching"])
   {
@@ -292,7 +289,7 @@ LABEL_33:
     }
 
     groupIdentifiers = [propertiesCopy groupIdentifiers];
-    v25 = [groupIdentifiers containsObject:self->_stringValue];
+    v24 = [groupIdentifiers containsObject:self->_stringValue];
     goto LABEL_36;
   }
 
@@ -317,11 +314,11 @@ LABEL_31:
     goto LABEL_39;
   }
 
-  v25 = [groupIdentifiers isEqual:?];
+  v24 = [groupIdentifiers isEqual:?];
 LABEL_36:
-  v26 = v25;
+  v25 = v24;
 
-  if (v26)
+  if (v25)
   {
     goto LABEL_37;
   }
@@ -331,11 +328,10 @@ LABEL_15:
   {
     v10 = MEMORY[0x277CCA9B8];
     v11 = *MEMORY[0x277D47050];
-    v29[0] = *MEMORY[0x277CCA470];
+    v27[0] = *MEMORY[0x277CCA470];
     v12 = MEMORY[0x277CCACA8];
     variantName = [(RBPropertyDomainRestriction *)self variantName];
     v14 = variantName;
-    property = self->_property;
     numberValue = self->_numberValue;
     if (!numberValue)
     {
@@ -343,19 +339,18 @@ LABEL_15:
     }
 
     numberValue = [v12 stringWithFormat:@"%@ doesn't have %@='%@'", variantName, self->_property, numberValue];
-    v30[0] = numberValue;
-    v29[1] = *MEMORY[0x277D47048];
-    v18 = [(RBPropertyDomainRestriction *)self description];
-    v30[1] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
-    *error = [v10 errorWithDomain:v11 code:3 userInfo:v19];
+    v28[0] = numberValue;
+    v27[1] = *MEMORY[0x277D47048];
+    v17 = [(RBPropertyDomainRestriction *)self description];
+    v28[1] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+    *error = [v10 errorWithDomain:v11 code:3 userInfo:v18];
 
     LOBYTE(error) = 0;
   }
 
 LABEL_38:
 
-  v27 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -432,7 +427,6 @@ LABEL_23:
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   v4 = [objc_opt_class() description];
   v5 = v4;
-  property = self->_property;
   numberValue = self->_numberValue;
   if (!numberValue)
   {

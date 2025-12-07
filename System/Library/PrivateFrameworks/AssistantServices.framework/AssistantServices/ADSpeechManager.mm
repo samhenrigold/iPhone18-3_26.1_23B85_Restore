@@ -2610,9 +2610,9 @@ LABEL_62:
           {
             v54 = +[ADDictationOfflineStatusObserver sharedDictationOfflineStatusObserver];
             offlineDictationStatus = [v54 offlineDictationStatus];
-            inlineItemList = [offlineDictationStatus objectForKey:v15];
+            inlineItemList = objc_msgSend_objectForKey_(offlineDictationStatus);
 
-            v57 = [inlineItemList objectForKey:AFOfflineDictationStatusOnDeviceSearchKey];
+            v57 = objc_msgSend_objectForKey_(inlineItemList);
             LODWORD(v54) = [v57 BOOLValue];
 
             if (!v54)
@@ -3770,7 +3770,7 @@ LABEL_11:
   v5 = [(ADSpeechManager *)&v36 init];
   if (v5)
   {
-    v6 = sub_10021532C();
+    v6 = sub_10021532C("ADSpeechManagerRootQueue");
     v7 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v8 = dispatch_queue_attr_make_with_qos_class(v7, QOS_CLASS_UNSPECIFIED, 0);
 

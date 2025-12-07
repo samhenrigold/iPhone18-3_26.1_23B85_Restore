@@ -225,7 +225,7 @@ LABEL_26:
   return v19;
 }
 
-uint64_t __62__RTInferredMapItemDeduper_ingestInferredMapItem_state_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__62__RTInferredMapItemDeduper_ingestInferredMapItem_state_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) inferredMapItem:*(a1 + 40) dedupesToInferredMapItem:a2 error:0];
   if (result)

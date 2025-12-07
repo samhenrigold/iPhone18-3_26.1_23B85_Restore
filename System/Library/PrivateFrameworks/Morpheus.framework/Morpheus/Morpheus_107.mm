@@ -1,3 +1,4716 @@
+void sub_25A84C5F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17)
+{
+  mlx::core::array::~array((v17 - 64));
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a13)
+  {
+    operator delete(a13);
+  }
+
+  if (a16)
+  {
+    operator delete(a16);
+  }
+
+  if (a2 == 1)
+  {
+    v20 = __cxa_begin_catch(a1);
+    v21 = (*(*v20 + 16))(v20);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 2866, v21, v22, v23, v24, v25, v26);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84C544);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_slice_update_dynamic(uint64_t *a1, char ***a2, void *a3, uint64_t a4, int *a5, unint64_t a6, uint64_t a7)
+{
+  if (a2 && a3 && a4)
+  {
+    memset(__p, 0, sizeof(__p));
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a5, &a5[a6], a6);
+    if (a7)
+    {
+      mlx::core::slice_update(a2, a3, a4, __p, *a7, *(a7 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v11 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v11, "expected a non-empty mlx_array");
+  __cxa_throw(v11, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84C8A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 2889, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84C7DCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_softmax_axes(uint64_t *a1, const void ***a2, int *a3, unint64_t a4, int a5, uint64_t a6)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  __p = 0;
+  v17 = 0;
+  v18 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a3, &a3[a4], a4);
+  if (!a6)
+  {
+    v15 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v15, "expected a non-empty mlx_stream");
+    __cxa_throw(v15, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::softmax(a2, &__p, a5, *a6, *(a6 + 8) | 0x100000000, &v19);
+  v10 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v11 = v19;
+  v19 = 0uLL;
+  v12 = *(v10 + 8);
+  *v10 = v11;
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  mlx::core::array::~array(&v19);
+  if (__p)
+  {
+    v17 = __p;
+    operator delete(__p);
+  }
+
+  return 0;
+}
+
+void sub_25A84CAD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 2910, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84CA48);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_softmax_axis(uint64_t *a1, const void ***a2, int a3, int a4, uint64_t a5)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    goto LABEL_12;
+  }
+
+  if (!a5)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+LABEL_12:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v8 = *a5;
+  v9 = *(a5 + 8);
+  v16 = a3;
+  v18 = 0;
+  v19 = 0;
+  __p = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, &v16, &__p, 1uLL);
+  mlx::core::softmax(a2, &__p, a4, v8, v9 | 0x100000000, &v15);
+  if (__p)
+  {
+    v18 = __p;
+    operator delete(__p);
+  }
+
+  v10 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v11 = v15;
+  v15 = 0uLL;
+  v12 = *(v10 + 8);
+  *v10 = v11;
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  mlx::core::array::~array(&v15);
+  return 0;
+}
+
+void sub_25A84CCF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 2927, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84CC80);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_softmax(uint64_t *a1, const void ***a2, int a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    goto LABEL_10;
+  }
+
+  if (!a4)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+LABEL_10:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::softmax(a2, a3, *a4, *(a4 + 8) | 0x100000000, &v10);
+  v5 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v6 = v10;
+  v10 = 0uLL;
+  v7 = *(v5 + 8);
+  *v5 = v6;
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  mlx::core::array::~array(&v10);
+  return 0;
+}
+
+void sub_25A84CEB0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 2942, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84CE44);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_sort_axis(uint64_t *a1, const void ***a2, uint64_t a3, uint64_t a4)
+{
+  if (a2)
+  {
+    if (a4)
+    {
+      mlx::core::sort(a2, a3, *a4, *(a4 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84D054(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 2953, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84CFE8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_sort(uint64_t *a1, const void ***a2, uint64_t a3)
+{
+  if (a2)
+  {
+    if (a3)
+    {
+      mlx::core::sort(a2, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84D1F4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 2963, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84D188);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_split(char ***a1, uint64_t **this, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (!this)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    goto LABEL_8;
+  }
+
+  if (!a5)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+LABEL_8:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::split(&v9, this, a3, a4, *a5, *(a5 + 8) | 0x100000000);
+  v6 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  std::vector<mlx::core::array>::__vdeallocate(*a1);
+  *v6 = v9;
+  v6[2] = v10;
+  v9 = 0uLL;
+  v10 = 0;
+  v11 = &v9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v11);
+  return 0;
+}
+
+void sub_25A84D3B8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+{
+  a12 = &a9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(a1);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 2980, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84D34CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_split_sections(char ***a1, uint64_t **a2, int *a3, unint64_t a4, uint64_t a5, uint64_t a6)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  __p = 0;
+  v15 = 0;
+  v16 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a3, &a3[a4], a4);
+  if (!a6)
+  {
+    v13 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v13, "expected a non-empty mlx_stream");
+    __cxa_throw(v13, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::split(a2, &__p, a5, *a6, *(a6 + 8) | 0x100000000, &v17);
+  v10 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  std::vector<mlx::core::array>::__vdeallocate(*a1);
+  *v10 = v17;
+  v10[2] = v18;
+  v17 = 0uLL;
+  v18 = 0;
+  v19 = &v17;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v19);
+  if (__p)
+  {
+    v15 = __p;
+    operator delete(__p);
+  }
+
+  return 0;
+}
+
+void sub_25A84D5D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  *(v13 - 40) = &a13;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100]((v13 - 40));
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v16 = __cxa_begin_catch(a1);
+    v17 = (*(*v16 + 16))(v16);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3001, v17, v18, v19, v20, v21, v22);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84D54CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_sqrt(uint64_t *a1, void *a2, uint64_t a3)
+{
+  if (a2)
+  {
+    if (a3)
+    {
+      mlx::core::sqrt(a2, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84D7B0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3011, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84D744);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_square(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  if (a2)
+  {
+    if (a3)
+    {
+      mlx::core::square(a2, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84D950(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3022, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84D8E4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_squeeze_axes(uint64_t *a1, std::string::size_type *a2, int *a3, unint64_t a4, uint64_t a5)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  __p = 0;
+  v15 = 0;
+  v16 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a3, &a3[a4], a4);
+  if (!a5)
+  {
+    v13 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v13, "expected a non-empty mlx_stream");
+    __cxa_throw(v13, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::squeeze(a2, &__p, *a5, *(a5 + 8) | 0x100000000, &v17);
+  v8 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v9 = v17;
+  v17 = 0uLL;
+  v10 = *(v8 + 8);
+  *v8 = v9;
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  mlx::core::array::~array(&v17);
+  if (__p)
+  {
+    v15 = __p;
+    operator delete(__p);
+  }
+
+  return 0;
+}
+
+void sub_25A84DB44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3041, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84DAB8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_squeeze_axis(uint64_t *a1, std::string::size_type *a2, int a3, uint64_t a4)
+{
+  if (a2)
+  {
+    if (a4)
+    {
+      mlx::core::squeeze(a2, a3, *a4, *(a4 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84DD18(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3055, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84DCACLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_squeeze(uint64_t *a1, uint64_t **this, uint64_t a3)
+{
+  if (this)
+  {
+    if (a3)
+    {
+      mlx::core::squeeze(this, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84DEB8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3066, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84DE4CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_stack_axis(uint64_t *a1, const void ****a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+    goto LABEL_10;
+  }
+
+  if (!a4)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+LABEL_10:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::stack(a2, a3, *a4, *(a4 + 8) | 0x100000000, &v10);
+  v5 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v6 = v10;
+  v10 = 0uLL;
+  v7 = *(v5 + 8);
+  *v5 = v6;
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  mlx::core::array::~array(&v10);
+  return 0;
+}
+
+void sub_25A84E05C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3082, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84DFF0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_stack(uint64_t *a1, const void ****a2, uint64_t a3)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+    goto LABEL_10;
+  }
+
+  if (!a3)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+LABEL_10:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::stack(a2, *a3, *(a3 + 8) | 0x100000000, &v9);
+  v4 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v5 = v9;
+  v9 = 0uLL;
+  v6 = *(v4 + 8);
+  *v4 = v5;
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
+
+  mlx::core::array::~array(&v9);
+  return 0;
+}
+
+void sub_25A84E1FC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3094, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84E190);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_std_axes(uint64_t *a1, std::string::size_type *a2, int *a3, unint64_t a4, char a5, int a6, uint64_t a7)
+{
+  if (a2)
+  {
+    memset(__p, 0, sizeof(__p));
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a3, &a3[a4], a4);
+    if (a7)
+    {
+      mlx::core::std(a2, __p, a5, a6, *a7, *(a7 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v11 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v11, "expected a non-empty mlx_array");
+  __cxa_throw(v11, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84E408(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3117, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84E378);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_std_axis(uint64_t *a1, std::string::size_type *a2, int a3, char a4, int a5, uint64_t a6)
+{
+  if (a2)
+  {
+    if (a6)
+    {
+      mlx::core::std(a2, a3, a4, a5, *a6, *(a6 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84E5E4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3135, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84E578);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_std(uint64_t *a1, std::string::size_type *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (a2)
+  {
+    if (a5)
+    {
+      mlx::core::std(a2, a3, a4, *a5, *(a5 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84E78C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3151, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84E720);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_stop_gradient(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  if (a2)
+  {
+    if (a3)
+    {
+      mlx::core::stop_gradient(a2, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84E92C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3162, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84E8C0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_subtract(uint64_t *a1, void *a2, void *a3, uint64_t a4)
+{
+  if (a2 && a3)
+  {
+    if (a4)
+    {
+      mlx::core::subtract(a2, a3, *a4, *(a4 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84EAF0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3178, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84EA68);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_sum_axes(uint64_t *a1, std::string::size_type *a2, int *a3, unint64_t a4, char a5, uint64_t a6)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  __p = 0;
+  v17 = 0;
+  v18 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a3, &a3[a4], a4);
+  if (!a6)
+  {
+    v15 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v15, "expected a non-empty mlx_stream");
+    __cxa_throw(v15, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::sum(a2, &__p, a5, *a6, *(a6 + 8) | 0x100000000, &v19);
+  v10 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v11 = v19;
+  v19 = 0uLL;
+  v12 = *(v10 + 8);
+  *v10 = v11;
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  mlx::core::array::~array(&v19);
+  if (__p)
+  {
+    v17 = __p;
+    operator delete(__p);
+  }
+
+  return 0;
+}
+
+void sub_25A84ECF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3199, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84EC64);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_sum_axis(uint64_t *a1, std::string::size_type *a2, int a3, char a4, uint64_t a5)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    goto LABEL_10;
+  }
+
+  if (!a5)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+LABEL_10:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::sum(a2, a3, a4, *a5, *(a5 + 8) | 0x100000000, &v11);
+  v6 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v7 = v11;
+  v11 = 0uLL;
+  v8 = *(v6 + 8);
+  *v6 = v7;
+  if (v8)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
+
+  mlx::core::array::~array(&v11);
+  return 0;
+}
+
+void sub_25A84EEC8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3215, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84EE5CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_sum(uint64_t *a1, std::string::size_type *a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    goto LABEL_10;
+  }
+
+  if (!a4)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+LABEL_10:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::sum(a2, a3, *a4, *(a4 + 8) | 0x100000000, &v10);
+  v5 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v6 = v10;
+  v10 = 0uLL;
+  v7 = *(v5 + 8);
+  *v5 = v6;
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  mlx::core::array::~array(&v10);
+  return 0;
+}
+
+void sub_25A84F06C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3226, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84F000);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_swapaxes(uint64_t *a1, std::string::size_type *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (a2)
+  {
+    if (a5)
+    {
+      mlx::core::swapaxes(a2, a3, a4, *a5, *(a5 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84F214(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3243, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84F1A8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_take_axis(uint64_t *a1, const void ***a2, uint64_t **a3, uint64_t a4, uint64_t a5)
+{
+  if (a2 && a3)
+  {
+    if (a5)
+    {
+      mlx::core::take(a2, a3, a4, *a5, *(a5 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84F3DC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3263, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84F354);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_take(uint64_t *a1, const void ***a2, uint64_t **a3, uint64_t a4)
+{
+  if (a2 && a3)
+  {
+    if (a4)
+    {
+      mlx::core::take(a2, a3, *a4, *(a4 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84F5A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3279, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84F51CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_take_along_axis(uint64_t *a1, void *a2, void *a3, int a4, uint64_t a5)
+{
+  if (a2 && a3)
+  {
+    if (a5)
+    {
+      mlx::core::take_along_axis(a2, a3, a4, *a5, *(a5 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84F770(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3299, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84F6E8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_tan(uint64_t *a1, void *a2, uint64_t a3)
+{
+  if (a2)
+  {
+    if (a3)
+    {
+      mlx::core::tan(a2, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84F914(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3308, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84F8A8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_tanh(uint64_t *a1, void *a2, uint64_t a3)
+{
+  if (a2)
+  {
+    if (a3)
+    {
+      mlx::core::tanh(a2, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84FAB4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3318, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84FA48);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_tensordot(uint64_t *a1, uint64_t **a2, uint64_t **a3, int *a4, unint64_t a5, int *a6, unint64_t a7, uint64_t a8)
+{
+  if (a2 && a3)
+  {
+    memset(v16, 0, sizeof(v16));
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(v16, a4, &a4[a5], a5);
+    memset(__p, 0, sizeof(__p));
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a6, &a6[a7], a7);
+    if (a8)
+    {
+      mlx::core::tensordot(a2, a3, v16, __p, *a8, *(a8 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v13 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v13, "expected a non-empty mlx_array");
+  __cxa_throw(v13, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84FD10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  mlx::core::array::~array(&a15);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a12)
+  {
+    operator delete(a12);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(a1);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3342, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84FC64);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_tensordot_axis(uint64_t *a1, uint64_t **a2, uint64_t **a3, unsigned int a4, uint64_t a5)
+{
+  if (a2 && a3)
+  {
+    if (a5)
+    {
+      mlx::core::tensordot(a2, a3, a4, *a5, *(a5 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A84FF28(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3359, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A84FEA0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_tile(uint64_t *a1, const void ***a2, int *a3, unint64_t a4, uint64_t a5)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  memset(&__p, 0, sizeof(__p));
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a3, &a3[a4], a4);
+  if (!a5)
+  {
+    v13 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v13, "expected a non-empty mlx_stream");
+    __cxa_throw(v13, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::tile(a2, &__p, *a5, *(a5 + 8) | 0x100000000, &v15);
+  v8 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v9 = v15;
+  v15 = 0uLL;
+  v10 = *(v8 + 8);
+  *v8 = v9;
+  if (v10)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+  }
+
+  mlx::core::array::~array(&v15);
+  if (__p.__begin_)
+  {
+    __p.__end_ = __p.__begin_;
+    operator delete(__p.__begin_);
+  }
+
+  return 0;
+}
+
+void sub_25A850120(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3378, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A850094);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_topk_axis(uint64_t *a1, uint64_t **this, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (!this)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    goto LABEL_10;
+  }
+
+  if (!a5)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+LABEL_10:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::topk(this, a3, a4, *a5, *(a5 + 8) | 0x100000000, &v11);
+  v6 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v7 = v11;
+  v11 = 0uLL;
+  v8 = *(v6 + 8);
+  *v6 = v7;
+  if (v8)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
+
+  mlx::core::array::~array(&v11);
+  return 0;
+}
+
+void sub_25A8502F4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3393, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A850288);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_topk(uint64_t *a1, const void ***a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    goto LABEL_10;
+  }
+
+  if (!a4)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+LABEL_10:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::topk(a2, a3, *a4, *(a4 + 8) | 0x100000000, &v10);
+  v5 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v6 = v10;
+  v10 = 0uLL;
+  v7 = *(v5 + 8);
+  *v5 = v6;
+  if (v7)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+  }
+
+  mlx::core::array::~array(&v10);
+  return 0;
+}
+
+void sub_25A850498(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3404, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85042CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_trace(uint64_t *a1, uint64_t **a2, int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7)
+{
+  if (a2)
+  {
+    if (a7)
+    {
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A850654(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3428, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8505E8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_transpose_axes(uint64_t *a1, std::string::size_type *a2, int *a3, unint64_t a4, uint64_t a5)
+{
+  if (a2)
+  {
+    memset(__p, 0, sizeof(__p));
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a3, &a3[a4], a4);
+    if (a5)
+    {
+      mlx::core::transpose(a2, __p, *a5, *(a5 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v7 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v7, "expected a non-empty mlx_array");
+  __cxa_throw(v7, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A850848(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3447, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8507BCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_transpose(uint64_t *a1, std::string::size_type *a2, uint64_t a3)
+{
+  if (a2)
+  {
+    if (a3)
+    {
+      mlx::core::transpose(a2, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A850A14(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3458, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8509A8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_tri(uint64_t *a1, int a2, int a3, int a4, int a5, uint64_t a6)
+{
+  if (a6)
+  {
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A850BAC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3475, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A850B5CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_tril(uint64_t *a1, uint64_t *a2, int a3, uint64_t a4)
+{
+  if (a2)
+  {
+    v4 = a2[1];
+    v7[0] = *a2;
+    v7[1] = v4;
+    if (v4)
+    {
+      atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    if (a4)
+    {
+      mlx::core::tril(v7, a3, *a4, *(a4 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v5 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v5, "expected a non-empty mlx_array");
+  __cxa_throw(v5, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A850D8C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+{
+  mlx::core::array::~array(&a11);
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v13 = __cxa_begin_catch(a1);
+    v14 = (*(*v13 + 16))(v13);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3486, v14, v15, v16, v17, v18, v19);
+    __cxa_end_catch();
+    JUMPOUT(0x25A850D00);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_triu(uint64_t *a1, uint64_t *a2, int a3, uint64_t a4)
+{
+  if (a2)
+  {
+    v4 = a2[1];
+    v7[0] = *a2;
+    v7[1] = v4;
+    if (v4)
+    {
+      atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    if (a4)
+    {
+      mlx::core::triu(v7, a3, *a4, *(a4 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v5 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v5, "expected a non-empty mlx_array");
+  __cxa_throw(v5, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A850F94(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+{
+  mlx::core::array::~array(&a11);
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v13 = __cxa_begin_catch(a1);
+    v14 = (*(*v13 + 16))(v13);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3497, v14, v15, v16, v17, v18, v19);
+    __cxa_end_catch();
+    JUMPOUT(0x25A850F08);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_unflatten(uint64_t *a1, std::string::size_type *a2, uint64_t a3, int *a4, unint64_t a5, uint64_t a6)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  __p = 0;
+  v17 = 0;
+  v18 = 0;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a4, &a4[a5], a5);
+  if (!a6)
+  {
+    v15 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v15, "expected a non-empty mlx_stream");
+    __cxa_throw(v15, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::unflatten(a2, a3, &__p, *a6, *(a6 + 8) | 0x100000000, &v19);
+  v10 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v11 = v19;
+  v19 = 0uLL;
+  v12 = *(v10 + 8);
+  *v10 = v11;
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  mlx::core::array::~array(&v19);
+  if (__p)
+  {
+    v17 = __p;
+    operator delete(__p);
+  }
+
+  return 0;
+}
+
+void sub_25A8511B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3518, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A851128);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_var_axes(uint64_t *a1, std::string::size_type *a2, int *a3, unint64_t a4, char a5, int a6, uint64_t a7)
+{
+  if (a2)
+  {
+    memset(__p, 0, sizeof(__p));
+    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a3, &a3[a4], a4);
+    if (a7)
+    {
+      mlx::core::var(a2, __p, a5, a6, *a7, *(a7 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v11 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v11, "expected a non-empty mlx_array");
+  __cxa_throw(v11, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A8513EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3541, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85135CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_var_axis(uint64_t *a1, std::string::size_type *a2, int a3, char a4, int a5, uint64_t a6)
+{
+  if (a2)
+  {
+    if (a6)
+    {
+      mlx::core::var(a2, a3, a4, a5, *a6, *(a6 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A8515C8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3559, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85155CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_var(uint64_t *a1, std::string::size_type *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (a2)
+  {
+    if (a5)
+    {
+      mlx::core::var(a2, a3, a4, *a5, *(a5 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A851770(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3575, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A851704);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_view(uint64_t *a1, void *a2, int a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  LODWORD(v12) = v4;
+  BYTE4(v12) = BYTE4(v4);
+  if (!a4)
+  {
+    v11 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v11, "expected a non-empty mlx_stream");
+    __cxa_throw(v11, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  mlx::core::view(a2, &v12, *a4, *(a4 + 8) | 0x100000000, &v13);
+  v6 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v7 = v13;
+  v13 = 0uLL;
+  v8 = *(v6 + 8);
+  *v6 = v7;
+  if (v8)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+  }
+
+  mlx::core::array::~array(&v13);
+  return 0;
+}
+
+void sub_25A85194C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  mlx::core::array::~array(va);
+  if (a2 == 1)
+  {
+    v6 = __cxa_begin_catch(a1);
+    v7 = (*(*v6 + 16))(v6);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3591, v7, v8, v9, v10, v11, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8518C0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_where(uint64_t *a1, void *a2, void *a3, void *a4, uint64_t a5)
+{
+  if (a2 && a3 && a4)
+  {
+    if (a5)
+    {
+      mlx::core::where(a2, a3, a4, *a5, *(a5 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A851B38(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3611, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A851A94);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_zeros(uint64_t *a1, int *a2, unint64_t a3, int a4, uint64_t a5)
+{
+  memset(__p, 0, sizeof(__p));
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a2, &a2[a3], a3);
+  if (a5)
+  {
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A851CFC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  mlx::core::array::~array(&a13);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3630, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A851CACLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_zeros_like(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  if (a2)
+  {
+    if (a3)
+    {
+      mlx::core::zeros_like(a2, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  }
+
+  else
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  }
+
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A851EB4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/ops.cpp", 3641, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A851E48);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_vector_array_new()
+{
+  v0 = 0;
+  v1 = 0;
+  v2 = 0;
+  operator new();
+}
+
+void sub_25A851FBC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+{
+  a12 = &a9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(a1);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 14, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A851FA8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_array_set(uint64_t ***a1, uint64_t **a2)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v2 = *a1;
+  if (!v2)
+  {
+    operator new();
+  }
+
+  if (v2 != a2)
+  {
+    std::vector<mlx::core::array>::__assign_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v2, *a2, a2[1], (a2[1] - *a2) >> 4);
+  }
+
+  return 0;
+}
+
+void sub_25A85210C(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x20C40960023A9);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 25, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8520C0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_array_free(void **a1)
+{
+  if (a1)
+  {
+    v3 = a1;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v3);
+    MEMORY[0x25F851760](a1, 0x20C40960023A9);
+  }
+
+  return 0;
+}
+
+void sub_25A8522C0(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 51, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A852254);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_vector_array_new_value(void *a1)
+{
+  v6 = *MEMORY[0x277D85DE8];
+  if (a1)
+  {
+    v1 = a1[1];
+    v5[0] = *a1;
+    v5[1] = v1;
+    if (v1)
+    {
+      atomic_fetch_add_explicit((v1 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v3 = 0uLL;
+    v4 = 0;
+    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v3, v5, &v6, 1uLL);
+    operator new();
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A852470(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+{
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(exception_object);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 60, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A852400);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t mlx_vector_array_set_data(uint64_t ***a1, __int128 **a2, uint64_t a3)
+{
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
+  if (a3)
+  {
+    v4 = a3;
+    do
+    {
+      if (!*a2)
+      {
+        exception = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      std::vector<mlx::core::array>::push_back[abi:ne200100](&v9, *a2++);
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  v6 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  if (v6 != &v9)
+  {
+    std::vector<mlx::core::array>::__assign_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v6, v9, v10, (v10 - v9) >> 4);
+  }
+
+  v12 = &v9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v12);
+  return 0;
+}
+
+void sub_25A85264C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+{
+  MEMORY[0x25F851760](v12, 0x20C40960023A9);
+  a12 = &a9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 76, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8525FCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_array_set_value(char ***a1, void *a2)
+{
+  v11 = *MEMORY[0x277D85DE8];
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v3 = a2[1];
+  v10[0] = *a2;
+  v10[1] = v3;
+  if (v3)
+  {
+    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  v7 = 0uLL;
+  v8 = 0;
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(&v7, v10, &v11, 1uLL);
+  v4 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  std::vector<mlx::core::array>::__vdeallocate(*a1);
+  *v4 = v7;
+  v4[2] = v8;
+  v7 = 0uLL;
+  v8 = 0;
+  v9 = &v7;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v9);
+  mlx::core::array::~array(v10);
+  return 0;
+}
+
+void sub_25A85285C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, char a14)
+{
+  a13 = &a9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a13);
+  mlx::core::array::~array(&a14);
+  if (a2 == 1)
+  {
+    v16 = __cxa_begin_catch(a1);
+    v17 = (*(*v16 + 16))(v16);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 89, v17, v18, v19, v20, v21, v22);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8527F0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_array_append_data(void *a1, __int128 **a2, uint64_t a3)
+{
+  if (a3)
+  {
+    if (a1)
+    {
+      v4 = a3;
+      while (*a2)
+      {
+        std::vector<mlx::core::array>::push_back[abi:ne200100](a1, *a2++);
+        if (!--v4)
+        {
+          return 0;
+        }
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    }
+
+    else
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+    }
+
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return 0;
+}
+
+void sub_25A8529D8(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 104, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A852970);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_array_append_value(void *a1, __int128 *a2)
+{
+  if (!a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+    goto LABEL_6;
+  }
+
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+LABEL_6:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  std::vector<mlx::core::array>::push_back[abi:ne200100](a1, a2);
+  return 0;
+}
+
+void sub_25A852AF0(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 116, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A852A88);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_array_get(__int128 **a1, uint64_t *a2, unint64_t a3)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  if (a3 >= (a2[1] - *a2) >> 4)
+  {
+    std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v3 = *a1;
+  if (!v3)
+  {
+    operator new();
+  }
+
+  mlx::core::array::operator=(v3, (*a2 + 16 * a3));
+  return 0;
+}
+
+void sub_25A852C54(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 127, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A852BFCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_array_size(void *a1)
+{
+  if (!a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return (a1[1] - *a1) >> 4;
+}
+
+void sub_25A852D48(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 137, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A852CFCLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void mlx_vector_vector_array_new()
+{
+  v0 = 0;
+  v1 = 0;
+  v2 = 0;
+  operator new();
+}
+
+void sub_25A852E38(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void ***a12)
+{
+  a12 = &a9;
+  std::vector<std::vector<mlx::core::array>>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(a1);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 146, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A852E24);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_vector_array_set(void ****a1, uint64_t ***a2)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_vector_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v2 = *a1;
+  if (!v2)
+  {
+    operator new();
+  }
+
+  if (v2 != a2)
+  {
+    std::vector<std::vector<mlx::core::array>>::__assign_with_size[abi:ne200100]<std::vector<mlx::core::array>*,std::vector<mlx::core::array>*>(v2, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * (a2[1] - *a2));
+  }
+
+  return 0;
+}
+
+void sub_25A852FA0(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x20C40960023A9);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 157, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A852F54);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_vector_array_free(void ***a1)
+{
+  if (a1)
+  {
+    v3 = a1;
+    std::vector<std::vector<mlx::core::array>>::__destroy_vector::operator()[abi:ne200100](&v3);
+    MEMORY[0x25F851760](a1, 0x20C40960023A9);
+  }
+
+  return 0;
+}
+
+void sub_25A853154(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 184, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8530E8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::vector<std::vector<mlx::core::array>>::push_back[abi:ne200100](uint64_t a1, void **a2)
+{
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
+  {
+    result = std::vector<std::vector<mlx::core::array>>::__emplace_back_slow_path<std::vector<mlx::core::array> const&>(a1, a2);
+  }
+
+  else
+  {
+    std::vector<std::vector<mlx::core::array>>::__construct_one_at_end[abi:ne200100]<std::vector<mlx::core::array> const&>(a1, a2);
+    result = (v3 + 24);
+  }
+
+  *(a1 + 8) = result;
+  return result;
+}
+
+void mlx_vector_vector_array_new_value(void **a1)
+{
+  v5 = *MEMORY[0x277D85DE8];
+  if (a1)
+  {
+    memset(v4, 0, sizeof(v4));
+    std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v4, *a1, a1[1], (a1[1] - *a1) >> 4);
+    v2 = 0uLL;
+    v3 = 0;
+    std::vector<std::vector<mlx::core::array>>::__init_with_size[abi:ne200100]<std::vector<mlx::core::array> const*,std::vector<mlx::core::array> const*>(&v2, v4, &v5, 1uLL);
+    operator new();
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A853350(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+{
+  __cxa_free_exception(v13);
+  if (a2 == 1)
+  {
+    v16 = __cxa_begin_catch(a1);
+    v17 = (*(*v16 + 16))(v16);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 194, v17, v18, v19, v20, v21, v22);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8532E0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_vector_array_set_data(void ****a1, void *a2, uint64_t a3)
+{
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
+  if (a3)
+  {
+    v4 = a3;
+    do
+    {
+      if (!*a2)
+      {
+        exception = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+      }
+
+      std::vector<std::vector<mlx::core::array>>::push_back[abi:ne200100](&v9, *a2++);
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  v6 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  if (v6 != &v9)
+  {
+    std::vector<std::vector<mlx::core::array>>::__assign_with_size[abi:ne200100]<std::vector<mlx::core::array>*,std::vector<mlx::core::array>*>(v6, v9, v10, 0xAAAAAAAAAAAAAAABLL * (v10 - v9));
+  }
+
+  v12 = &v9;
+  std::vector<std::vector<mlx::core::array>>::__destroy_vector::operator()[abi:ne200100](&v12);
+  return 0;
+}
+
+void sub_25A85354C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void ***a12)
+{
+  MEMORY[0x25F851760](v12, 0x20C40960023A9);
+  a12 = &a9;
+  std::vector<std::vector<mlx::core::array>>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 210, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8534FCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_vector_array_set_value(void ****a1, void **a2)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  memset(v9, 0, sizeof(v9));
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v9, *a2, a2[1], (a2[1] - *a2) >> 4);
+  v6 = 0uLL;
+  v7 = 0;
+  std::vector<std::vector<mlx::core::array>>::__init_with_size[abi:ne200100]<std::vector<mlx::core::array> const*,std::vector<mlx::core::array> const*>(&v6, v9, &v10, 1uLL);
+  v3 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  std::vector<std::vector<mlx::core::array>>::__vdeallocate(*a1);
+  *v3 = v6;
+  v3[2] = v7;
+  v6 = 0uLL;
+  v7 = 0;
+  v8 = &v6;
+  std::vector<std::vector<mlx::core::array>>::__destroy_vector::operator()[abi:ne200100](&v8);
+  v8 = v9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v8);
+  return 0;
+}
+
+void sub_25A85376C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12, char a13)
+{
+  a12 = &a9;
+  std::vector<std::vector<mlx::core::array>>::__destroy_vector::operator()[abi:ne200100](&a12);
+  a12 = &a13;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(a1);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 225, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A853700);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_vector_array_append_data(uint64_t a1, void *a2, uint64_t a3)
+{
+  if (a3)
+  {
+    if (a1)
+    {
+      v4 = a3;
+      while (*a2)
+      {
+        std::vector<std::vector<mlx::core::array>>::push_back[abi:ne200100](a1, *a2++);
+        if (!--v4)
+        {
+          return 0;
+        }
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+    }
+
+    else
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_vector_array");
+    }
+
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return 0;
+}
+
+void sub_25A8538F0(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 241, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A853888);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_vector_array_append_value(uint64_t a1, void **a2)
+{
+  if (!a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_vector_array");
+    goto LABEL_6;
+  }
+
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_array");
+LABEL_6:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  std::vector<std::vector<mlx::core::array>>::push_back[abi:ne200100](a1, a2);
+  return 0;
+}
+
+void sub_25A853A08(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 253, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8539A0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_vector_array_get(uint64_t *a1, void *a2, unint64_t a3)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_vector_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3) <= a3)
+  {
+    std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v3 = (*a2 + 24 * a3);
+  v4 = *a1;
+  if (!v4)
+  {
+    operator new();
+  }
+
+  if (v4 != v3)
+  {
+    std::vector<mlx::core::array>::__assign_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(v4, *v3, v3[1], (v3[1] - *v3) >> 4);
+  }
+
+  return 0;
+}
+
+void sub_25A853B8C(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x20C40960023A9);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 266, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A853B38);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+unint64_t mlx_vector_vector_array_size(void *a1)
+{
+  if (!a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_vector_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+}
+
+void sub_25A853CB0(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 276, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A853C64);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t mlx_vector_int_set(uint64_t **a1, char **a2)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_int");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v2 = *a1;
+  if (!v2)
+  {
+    operator new();
+  }
+
+  if (v2 != a2)
+  {
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v2, *a2, a2[1], (a2[1] - *a2) >> 2);
+  }
+
+  return 0;
+}
+
+void sub_25A853EAC(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x10C402FEFCB83);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 296, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A853E60);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_int_free(uint64_t a1)
+{
+  if (a1)
+  {
+    v2 = *a1;
+    if (v2)
+    {
+      *(a1 + 8) = v2;
+      operator delete(v2);
+    }
+
+    MEMORY[0x25F851760](a1, 0x10C402FEFCB83);
+  }
+
+  return 0;
+}
+
+void sub_25A85403C(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 320, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A853FECLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void mlx_vector_int_new_value(int a1)
+{
+  v1 = a1;
+  v3 = 0;
+  v2 = 0uLL;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v2, &v1, &v2, 1uLL);
+  operator new();
+}
+
+void sub_25A854138(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(exception_object);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 329, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A854128);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t mlx_vector_int_set_data(void ***a1, int *a2, uint64_t a3)
+{
+  __p = 0;
+  v9 = 0;
+  v10 = 0;
+  if (a3)
+  {
+    v4 = a3;
+    do
+    {
+      std::vector<int>::push_back[abi:ne200100](&__p, a2++);
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  v6 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  if (v6 != &__p)
+  {
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v6, __p, v9, (v9 - __p) >> 2);
+  }
+
+  if (__p)
+  {
+    v9 = __p;
+    operator delete(__p);
+  }
+
+  return 0;
+}
+
+void sub_25A854294(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  MEMORY[0x25F851760](v11, 0x10C402FEFCB83);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(a1);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 343, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A854280);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_int_set_value(uint64_t *a1, int a2)
+{
+  v6 = a2;
+  v8 = 0;
+  v7 = 0uLL;
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v7, &v6, &v7, 1uLL);
+  v3 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  v4 = *v3;
+  if (*v3)
+  {
+    *(v3 + 8) = v4;
+    operator delete(v4);
+    *v3 = 0;
+    *(v3 + 8) = 0;
+    *(v3 + 16) = 0;
+  }
+
+  *v3 = v7;
+  *(v3 + 16) = v8;
+  return 0;
+}
+
+void sub_25A8543EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(exception_object);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 353, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8543DCLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t mlx_vector_int_append_data(const void **a1, int *a2, uint64_t a3)
+{
+  if (a3)
+  {
+    if (!a1)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_int");
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+
+    v4 = a3;
+    do
+    {
+      std::vector<int>::push_back[abi:ne200100](a1, a2++);
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  return 0;
+}
+
+void sub_25A854508(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 366, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8544BCLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t mlx_vector_int_append_value(const void **a1, int a2)
+{
+  v4 = a2;
+  if (!a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_int");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  std::vector<int>::push_back[abi:ne200100](a1, &v4);
+  return 0;
+}
+
+void sub_25A85460C(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 376, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8545BCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_int_get(_DWORD *a1, void *a2, unint64_t a3)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_int");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  if (a3 >= (a2[1] - *a2) >> 2)
+  {
+    std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  *a1 = *(*a2 + 4 * a3);
+  return 0;
+}
+
+void sub_25A85471C(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 387, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8546C4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_int_size(void *a1)
+{
+  if (!a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_int");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return (a1[1] - *a1) >> 2;
+}
+
+void sub_25A854810(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 397, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8547C4);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void mlx_vector_string_new()
+{
+  v0 = 0;
+  v1 = 0;
+  v2 = 0;
+  operator new();
+}
+
+void sub_25A854900(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+{
+  a12 = &a9;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(a1);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 406, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8548ECLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_string_set(std::vector<std::string> **a1, std::string **a2)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_string");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v2 = *a1;
+  if (!v2)
+  {
+    operator new();
+  }
+
+  if (v2 != a2)
+  {
+    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(v2, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  }
+
+  return 0;
+}
+
+void sub_25A854A68(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x20C40960023A9);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 417, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A854A1CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_string_free(void **a1)
+{
+  if (a1)
+  {
+    v3 = a1;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v3);
+    MEMORY[0x25F851760](a1, 0x20C40960023A9);
+  }
+
+  return 0;
+}
+
+void sub_25A854C20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(exception_object);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 443, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A854BCCLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<std::string>::push_back[abi:ne200100](uint64_t a1, __int128 *a2)
+{
+  v4 = *(a1 + 8);
+  v5 = *(a1 + 16);
+  if (v4 >= v5)
+  {
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 3);
+    v9 = v8 + 1;
+    if (v8 + 1 > 0xAAAAAAAAAAAAAAALL)
+    {
+      std::vector<int>::__throw_length_error[abi:ne200100]();
+    }
+
+    v10 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 3);
+    if (2 * v10 > v9)
+    {
+      v9 = 2 * v10;
+    }
+
+    if (v10 >= 0x555555555555555)
+    {
+      v11 = 0xAAAAAAAAAAAAAAALL;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    v18.__end_cap_.__value_ = a1;
+    if (v11)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(a1, v11);
+    }
+
+    v12 = 24 * v8;
+    v13 = *a2;
+    *(v12 + 16) = *(a2 + 2);
+    *v12 = v13;
+    *(a2 + 1) = 0;
+    *(a2 + 2) = 0;
+    *a2 = 0;
+    v7 = 24 * v8 + 24;
+    v14 = *(a1 + 8) - *a1;
+    v15 = v12 - v14;
+    memcpy((v12 - v14), *a1, v14);
+    v16 = *a1;
+    *a1 = v15;
+    *(a1 + 8) = v7;
+    v17 = *(a1 + 16);
+    *(a1 + 16) = 0;
+    v18.__end_ = v16;
+    v18.__end_cap_.__value_ = v17;
+    v18.__first_ = v16;
+    v18.__begin_ = v16;
+    std::__split_buffer<std::string>::~__split_buffer(&v18);
+  }
+
+  else
+  {
+    v6 = *a2;
+    *(v4 + 16) = *(a2 + 2);
+    *v4 = v6;
+    *(a2 + 8) = 0uLL;
+    *a2 = 0;
+    v7 = v4 + 24;
+  }
+
+  *(a1 + 8) = v7;
+}
+
+void mlx_vector_string_new_value(char *__s)
+{
+  v4 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(__p, __s);
+  v1 = 0uLL;
+  v2 = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v1, __p, &v4, 1uLL);
+  operator new();
+}
+
+void sub_25A854ECC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+{
+  a12 = &a9;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a18 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v20 = __cxa_begin_catch(a1);
+    v21 = (*(*v20 + 16))(v20);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 452, v21, v22, v23, v24, v25, v26);
+    __cxa_end_catch();
+    JUMPOUT(0x25A854E9CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_string_set_data(std::string ***a1, char **a2, uint64_t a3)
+{
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  if (a3)
+  {
+    v4 = a3;
+    do
+    {
+      std::string::basic_string[abi:ne200100]<0>(__p, *a2);
+      std::vector<std::string>::push_back[abi:ne200100](&v10, __p);
+      if (v9 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      ++a2;
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  v6 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  if (v6 != &v10)
+  {
+    std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(v6, v10, v11, 0xAAAAAAAAAAAAAAABLL * ((v11 - v10) >> 3));
+  }
+
+  __p[0] = &v10;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
+  return 0;
+}
+
+void sub_25A855090(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, char *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, char a15)
+{
+  MEMORY[0x25F851760](v15, 0x20C40960023A9);
+  __p = &a15;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__p);
+  if (a2 == 1)
+  {
+    v18 = __cxa_begin_catch(a1);
+    v19 = (*(*v18 + 16))(v18);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 468, v19, v20, v21, v22, v23, v24);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85507CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_string_set_value(std::vector<std::string> **a1, char *a2)
+{
+  v10 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  v5 = 0uLL;
+  v6 = 0;
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string const*,std::string const*>(&v5, __p, &v10, 1uLL);
+  v3 = *a1;
+  if (!*a1)
+  {
+    operator new();
+  }
+
+  std::vector<std::string>::__vdeallocate(*a1);
+  *&v3->__begin_ = v5;
+  v3->__end_cap_.__value_ = v6;
+  v5 = 0uLL;
+  v6 = 0;
+  v7 = &v5;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v7);
+  if (v9 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return 0;
+}
+
+void sub_25A855254(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+{
+  a12 = &a9;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a18 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v20 = __cxa_begin_catch(a1);
+    v21 = (*(*v20 + 16))(v20);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 480, v21, v22, v23, v24, v25, v26);
+    __cxa_end_catch();
+    JUMPOUT(0x25A855228);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_vector_string_append_data(uint64_t a1, char **a2, uint64_t a3)
+{
+  if (a3)
+  {
+    if (!a1)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_string");
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+
+    v4 = a3;
+    do
+    {
+      std::string::basic_string[abi:ne200100]<0>(__p, *a2);
+      std::vector<std::string>::push_back[abi:ne200100](a1, __p);
+      if (v9 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      ++a2;
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  return 0;
+}
+
+void sub_25A8553C8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(exception_object);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 495, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A855378);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t mlx_vector_string_append_value(uint64_t a1, char *a2)
+{
+  if (!a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_string");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  std::string::basic_string[abi:ne200100]<0>(__p, a2);
+  std::vector<std::string>::push_back[abi:ne200100](a1, __p);
+  if (v6 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  return 0;
+}
+
+void sub_25A855504(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(exception_object);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 507, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8554B4);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t mlx_vector_string_get(unint64_t *a1, void *a2, unint64_t a3)
+{
+  if (!a2)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_string");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3) <= a3)
+  {
+    std::vector<mlx::core::array>::__throw_out_of_range[abi:ne200100]();
+  }
+
+  v3 = *a2 + 24 * a3;
+  if (*(v3 + 23) < 0)
+  {
+    v3 = *v3;
+  }
+
+  *a1 = v3;
+  return 0;
+}
+
+void sub_25A855654(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 518, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8555FCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+unint64_t mlx_vector_string_size(void *a1)
+{
+  if (!a1)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_vector_string");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+}
+
+void sub_25A855754(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/vector.cpp", 528, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A855708);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<std::vector<mlx::core::array>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v4 -= 3;
+        v6 = v4;
+        std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v6);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+    operator delete(v5);
+  }
+}
+
+void std::vector<std::vector<mlx::core::array>>::__assign_with_size[abi:ne200100]<std::vector<mlx::core::array>*,std::vector<mlx::core::array>*>(void ***a1, uint64_t **a2, uint64_t **a3, unint64_t a4)
+{
+  v8 = *a1;
+  if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) < a4)
+  {
+    std::vector<std::vector<mlx::core::array>>::__vdeallocate(a1);
+    if (a4 <= 0xAAAAAAAAAAAAAAALL)
+    {
+      v9 = 0x5555555555555556 * (a1[2] - *a1);
+      if (v9 <= a4)
+      {
+        v9 = a4;
+      }
+
+      if (0xAAAAAAAAAAAAAAABLL * (a1[2] - *a1) >= 0x555555555555555)
+      {
+        v10 = 0xAAAAAAAAAAAAAAALL;
+      }
+
+      else
+      {
+        v10 = v9;
+      }
+
+      std::vector<std::vector<mlx::core::array>>::__vallocate[abi:ne200100](a1, v10);
+    }
+
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  v11 = a1[1] - v8;
+  if (0xAAAAAAAAAAAAAAABLL * (v11 >> 3) >= a4)
+  {
+    std::__copy_impl::operator()[abi:ne200100]<std::vector<mlx::core::array> *,std::vector<mlx::core::array> *,std::vector<mlx::core::array> *>(&v16, a2, a3, v8);
+    v13 = v12;
+    v14 = a1[1];
+    if (v14 != v12)
+    {
+      do
+      {
+        v14 -= 3;
+        v17 = v14;
+        std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v17);
+      }
+
+      while (v14 != v13);
+    }
+
+    a1[1] = v13;
+  }
+
+  else
+  {
+    std::__copy_impl::operator()[abi:ne200100]<std::vector<mlx::core::array> *,std::vector<mlx::core::array> *,std::vector<mlx::core::array> *>(&v15, a2, (a2 + v11), v8);
+    a1[1] = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<mlx::core::array>>,std::vector<mlx::core::array>*,std::vector<mlx::core::array>*,std::vector<mlx::core::array>*>(a1, (a2 + v11), a3, a1[1]);
+  }
+}
+
+void std::vector<std::vector<mlx::core::array>>::__vdeallocate(void ***a1)
+{
+  v1 = *a1;
+  if (*a1)
+  {
+    v3 = a1[1];
+    v4 = *a1;
+    if (v3 != v1)
+    {
+      do
+      {
+        v3 -= 3;
+        v5 = v3;
+        std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v5);
+      }
+
+      while (v3 != v1);
+      v4 = *a1;
+    }
+
+    a1[1] = v1;
+    operator delete(v4);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+  }
+}
+
+void std::vector<std::vector<mlx::core::array>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  if (a2 < 0xAAAAAAAAAAAAAABLL)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<mlx::core::array>>>(a1, a2);
+  }
+
+  std::vector<int>::__throw_length_error[abi:ne200100]();
+}
+
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<mlx::core::array>>,std::vector<mlx::core::array>*,std::vector<mlx::core::array>*,std::vector<mlx::core::array>*>(uint64_t a1, void **a2, void **a3, uint64_t *a4)
+{
+  v4 = a4;
+  v10 = a4;
+  v11 = a4;
+  v8[0] = a1;
+  v8[1] = &v10;
+  v8[2] = &v11;
+  v9 = 0;
+  if (a2 != a3)
+  {
+    v6 = a2;
+    do
+    {
+      *v4 = 0;
+      v4[1] = 0;
+      v4[2] = 0;
+      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v4, *v6, v6[1], (v6[1] - *v6) >> 4);
+      v6 += 3;
+      v4 = v11 + 3;
+      v11 += 3;
+    }
+
+    while (v6 != a3);
+  }
+
+  v9 = 1;
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<mlx::core::array>>,std::vector<mlx::core::array>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
+  return v4;
+}
+
+uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<mlx::core::array>>,std::vector<mlx::core::array>*>>::~__exception_guard_exceptions[abi:ne200100](uint64_t a1)
+{
+  if ((*(a1 + 24) & 1) == 0)
+  {
+    std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<mlx::core::array>>,std::vector<mlx::core::array>*>::operator()[abi:ne200100](a1);
+  }
+
+  return a1;
+}
+
+void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<mlx::core::array>>,std::vector<mlx::core::array>*>::operator()[abi:ne200100](uint64_t a1)
+{
+  v1 = **(a1 + 16);
+  v2 = **(a1 + 8);
+  while (v1 != v2)
+  {
+    v1 -= 3;
+    v3 = v1;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v3);
+  }
+}
+
+uint64_t **std::__copy_impl::operator()[abi:ne200100]<std::vector<mlx::core::array> *,std::vector<mlx::core::array> *,std::vector<mlx::core::array> *>(uint64_t a1, uint64_t **a2, uint64_t **a3, uint64_t **a4)
+{
+  v5 = a2;
+  if (a2 != a3)
+  {
+    do
+    {
+      if (v5 != a4)
+      {
+        std::vector<mlx::core::array>::__assign_with_size[abi:ne200100]<mlx::core::array const*,mlx::core::array const*>(a4, *v5, v5[1], (v5[1] - *v5) >> 4);
+      }
+
+      v5 += 3;
+      a4 += 3;
+    }
+
+    while (v5 != a3);
+    return a3;
+  }
+
+  return v5;
+}
+
+void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<mlx::core::array>>>(uint64_t a1, unint64_t a2)
+{
+  if (a2 < 0xAAAAAAAAAAAAAABLL)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+uint64_t *std::vector<std::vector<mlx::core::array>>::__init_with_size[abi:ne200100]<std::vector<mlx::core::array>*,std::vector<mlx::core::array>*>(uint64_t *result, void **a2, void **a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<std::vector<mlx::core::array>>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_25A855CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  *(v9 + 8) = v10;
+  std::vector<std::vector<mlx::core::array>>::__destroy_vector::operator()[abi:ne200100](&a9);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::vector<std::vector<mlx::core::array>>::__construct_one_at_end[abi:ne200100]<std::vector<mlx::core::array> const&>(uint64_t a1, void **a2)
+{
+  v3 = *(a1 + 8);
+  *v3 = 0;
+  v3[1] = 0;
+  v3[2] = 0;
+  result = std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v3, *a2, a2[1], (a2[1] - *a2) >> 4);
+  *(a1 + 8) = v3 + 3;
+  return result;
+}
+
+uint64_t *std::vector<std::vector<mlx::core::array>>::__emplace_back_slow_path<std::vector<mlx::core::array> const&>(char **a1, void **a2)
+{
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
+  v3 = v2 + 1;
+  if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
+  {
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
+  {
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
+  }
+
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
+  {
+    v6 = 0xAAAAAAAAAAAAAAALL;
+  }
+
+  else
+  {
+    v6 = v3;
+  }
+
+  v18 = a1;
+  if (v6)
+  {
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<mlx::core::array>>>(a1, v6);
+  }
+
+  v7 = 24 * v2;
+  v14 = 0;
+  v15 = v7;
+  v16 = 24 * v2;
+  v17 = 0;
+  *v7 = 0;
+  *(v7 + 8) = 0;
+  *(v7 + 16) = 0;
+  std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>((24 * v2), *a2, a2[1], (a2[1] - *a2) >> 4);
+  v8 = v16 + 24;
+  v9 = a1[1] - *a1;
+  v10 = &v15[-v9];
+  memcpy(&v15[-v9], *a1, v9);
+  v11 = *a1;
+  *a1 = v10;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
+  v16 = v11;
+  v17 = v12;
+  v14 = v11;
+  v15 = v11;
+  std::__split_buffer<std::vector<mlx::core::array>>::~__split_buffer(&v14);
+  return v8;
+}
+
+void sub_25A855E74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__split_buffer<std::vector<mlx::core::array>>::~__split_buffer(va);
+  _Unwind_Resume(a1);
+}
+
+void **std::__split_buffer<std::vector<mlx::core::array>>::~__split_buffer(void **a1)
+{
+  std::__split_buffer<std::vector<mlx::core::array>>::clear[abi:ne200100](a1);
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::__split_buffer<std::vector<mlx::core::array>>::clear[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v2; i = *(a1 + 16))
+  {
+    v4 = (i - 24);
+    *(a1 + 16) = v4;
+    v5 = v4;
+    std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&v5);
+  }
+}
+
+uint64_t *std::vector<std::vector<mlx::core::array>>::__init_with_size[abi:ne200100]<std::vector<mlx::core::array> const*,std::vector<mlx::core::array> const*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<std::vector<mlx::core::array>>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_25A855F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+{
+  *(v9 + 8) = v10;
+  std::vector<std::vector<mlx::core::array>>::__destroy_vector::operator()[abi:ne200100](&a9);
+  _Unwind_Resume(a1);
+}
+
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<mlx::core::array>>,std::vector<mlx::core::array> const*,std::vector<mlx::core::array> const*,std::vector<mlx::core::array>*>(uint64_t a1, void **a2, void **a3, uint64_t *a4)
+{
+  v4 = a4;
+  v10 = a4;
+  v11 = a4;
+  v8[0] = a1;
+  v8[1] = &v10;
+  v8[2] = &v11;
+  v9 = 0;
+  if (a2 != a3)
+  {
+    v6 = a2;
+    do
+    {
+      *v4 = 0;
+      v4[1] = 0;
+      v4[2] = 0;
+      std::vector<mlx::core::array>::__init_with_size[abi:ne200100]<mlx::core::array*,mlx::core::array*>(v4, *v6, v6[1], (v6[1] - *v6) >> 4);
+      v6 += 3;
+      v4 = v11 + 3;
+      v11 += 3;
+    }
+
+    while (v6 != a3);
+  }
+
+  v9 = 1;
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<mlx::core::array>>,std::vector<mlx::core::array>*>>::~__exception_guard_exceptions[abi:ne200100](v8);
+  return v4;
+}
+
+void std::vector<std::string>::__assign_with_size[abi:ne200100]<std::string*,std::string*>(std::vector<std::string> *a1, std::string *__str, std::string *a3, unint64_t a4)
+{
+  v6 = __str;
+  begin = a1->__begin_;
+  if (0xAAAAAAAAAAAAAAABLL * ((a1->__end_cap_.__value_ - a1->__begin_) >> 3) < a4)
+  {
+    std::vector<std::string>::__vdeallocate(a1);
+    if (a4 <= 0xAAAAAAAAAAAAAAALL)
+    {
+      v9 = 0x5555555555555556 * ((a1->__end_cap_.__value_ - a1->__begin_) >> 3);
+      if (v9 <= a4)
+      {
+        v9 = a4;
+      }
+
+      if (0xAAAAAAAAAAAAAAABLL * ((a1->__end_cap_.__value_ - a1->__begin_) >> 3) >= 0x555555555555555)
+      {
+        v10 = 0xAAAAAAAAAAAAAAALL;
+      }
+
+      else
+      {
+        v10 = v9;
+      }
+
+      std::vector<std::string>::__vallocate[abi:ne200100](a1, v10);
+    }
+
+    std::vector<int>::__throw_length_error[abi:ne200100]();
+  }
+
+  end = a1->__end_;
+  v12 = end - begin;
+  if (0xAAAAAAAAAAAAAAABLL * ((end - begin) >> 3) >= a4)
+  {
+    if (__str != a3)
+    {
+      do
+      {
+        std::string::operator=(begin++, v6++);
+      }
+
+      while (v6 != a3);
+      end = a1->__end_;
+    }
+
+    while (end != begin)
+    {
+      v15 = SHIBYTE(end[-1].__r_.__value_.__r.__words[2]);
+      --end;
+      if (v15 < 0)
+      {
+        operator delete(end->__r_.__value_.__l.__data_);
+      }
+    }
+
+    a1->__end_ = begin;
+  }
+
+  else
+  {
+    if (end != begin)
+    {
+      v13 = end - begin;
+      v14 = __str;
+      do
+      {
+        std::string::operator=(begin++, v14++);
+        v13 -= 24;
+      }
+
+      while (v13);
+      end = a1->__end_;
+    }
+
+    a1->__end_ = std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::string>,std::string*,std::string*,std::string*>(a1, (v6 + v12), a3, end);
+  }
+}
+
+void mlx_load_reader(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  if (a2)
+  {
+    v4 = *a2;
+    v3 = a2[1];
+    if (v3)
+    {
+      atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v7[0] = v4;
+    v7[1] = v3;
+    if (a3)
+    {
+      mlx::core::load(v7, *a3, *(a3 + 8) | 0x100000000);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v5 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v5, "expected a non-empty mlx_io_reader");
+  __cxa_throw(v5, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A856330(_Unwind_Exception *a1, int a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+{
+  va_start(va, a4);
+  mlx::core::array::~array(va);
+  if (a4)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+  }
+
+  if (a2 == 1)
+  {
+    v6 = __cxa_begin_catch(a1);
+    v7 = (*(*v6 + 16))(v6);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/io.cpp", 18, v7, v8, v9, v10, v11, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8562A4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_load(uint64_t *a1, char *a2, uint64_t a3)
+{
+  std::string::basic_string[abi:ne200100]<0>(&__p, a2);
+  if (a3)
+  {
+    mlx::core::load();
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A8564F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+{
+  mlx::core::array::~array(&a16);
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v18 = __cxa_begin_catch(a1);
+    v19 = (*(*v18 + 16))(v18);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/io.cpp", 28, v19, v20, v21, v22, v23, v24);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8564A0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_load_safetensors_reader(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a3)
+  {
+    v4 = *(a3 + 8);
+    if (v4)
+    {
+      atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    if (a4)
+    {
+      mlx::core::load_safetensors();
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v5 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v5, "expected a non-empty mlx_io_reader");
+  __cxa_throw(v5, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A856750(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  MEMORY[0x25F851760](v5, 0x10A0C408EF24B1CLL);
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v4);
+  std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::~__hash_table(va);
+  if (a2 == 1)
+  {
+    v8 = __cxa_begin_catch(a1);
+    v9 = (*(*v8 + 16))(v8);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/io.cpp", 46, v9, v10, v11, v12, v13, v14);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8566C4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_load_safetensors(int a1, int a2, char *__s, uint64_t a4)
+{
+  std::string::basic_string[abi:ne200100]<0>(&__p, __s);
+  if (a4)
+  {
+    mlx::core::load_safetensors();
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A8569B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16)
+{
+  MEMORY[0x25F851760](v17, 0x10A0C408EF24B1CLL);
+  std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(v16);
+  std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::~__hash_table(&a16);
+  if (a2 == 1)
+  {
+    v20 = __cxa_begin_catch(a1);
+    v21 = (*(*v20 + 16))(v20);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/io.cpp", 64, v21, v22, v23, v24, v25, v26);
+    __cxa_end_catch();
+    JUMPOUT(0x25A856960);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_save_writer(uint64_t *a1, void *a2, mlx::core *a3)
+{
+  if (a1)
+  {
+    v3 = *a1;
+    v4 = a1[1];
+    if (v4)
+    {
+      atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v9[0] = v3;
+    v9[1] = v4;
+    if (a2)
+    {
+      v5 = a2[1];
+      v8[0] = *a2;
+      v8[1] = v5;
+      if (v5)
+      {
+        atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+      }
+
+      mlx::core::save(v9, v8, a3);
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v6 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v6, "expected a non-empty mlx_io_writer");
+  __cxa_throw(v6, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A856B94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  if (a2 == 1)
+  {
+    v15 = __cxa_begin_catch(exception_object);
+    v16 = (*(*v15 + 16))(v15);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/io.cpp", 73, v16, v17, v18, v19, v20, v21);
+    __cxa_end_catch();
+    JUMPOUT(0x25A856B08);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void mlx_save(char *__s, void *a2)
+{
+  std::string::basic_string[abi:ne200100]<0>(&__p, __s);
+  if (a2)
+  {
+    v3 = a2[1];
+    v5[0] = *a2;
+    v5[1] = v3;
+    if (v3)
+    {
+      atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    mlx::core::save(&__p, v5);
+  }
+
+  exception = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
+  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A856D18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v19 = __cxa_begin_catch(exception_object);
+    v20 = (*(*v19 + 16))(v19);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/io.cpp", 82, v20, v21, v22, v23, v24, v25);
+    __cxa_end_catch();
+    JUMPOUT(0x25A856CC8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void mlx_save_safetensors_writer(uint64_t *a1, uint64_t a2, uint64_t a3)
+{
+  if (a1)
+  {
+    v4 = *a1;
+    v5 = a1[1];
+    if (v5)
+    {
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v11 = v4;
+    v12 = v5;
+    if (a2)
+    {
+      std::unordered_map<std::string,mlx::core::array>::unordered_map(v10, a2);
+      if (a3)
+      {
+        std::unordered_map<std::string,std::string>::unordered_map(&v9, a3);
+        mlx::core::save_safetensors();
+      }
+
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_string");
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+
+    v7 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v7, "expected a non-empty mlx_map_string_to_array");
+    __cxa_throw(v7, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v6 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v6, "expected a non-empty mlx_io_writer");
+  __cxa_throw(v6, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A856F18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+{
+  __cxa_free_exception(v14);
+  std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::~__hash_table(&a14);
+  if (*(v15 - 40))
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(v15 - 40));
+  }
+
+  if (a2 == 1)
+  {
+    v18 = __cxa_begin_catch(a1);
+    v19 = (*(*v18 + 16))(v18);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/io.cpp", 97, v19, v20, v21, v22, v23, v24);
+    __cxa_end_catch();
+    JUMPOUT(0x25A856E50);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx_save_safetensors(char *__s, uint64_t a2, uint64_t a3)
+{
+  std::string::basic_string[abi:ne200100]<0>(&v9, __s);
+  if (a2)
+  {
+    std::unordered_map<std::string,mlx::core::array>::unordered_map(v8, a2);
+    if (a3)
+    {
+      std::unordered_map<std::string,std::string>::unordered_map(v7, a3);
+      mlx::core::save_safetensors();
+    }
+
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_string");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v5 = __cxa_allocate_exception(0x10uLL);
+  std::runtime_error::runtime_error(v5, "expected a non-empty mlx_map_string_to_array");
+  __cxa_throw(v5, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+}
+
+void sub_25A857114(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+{
+  __cxa_free_exception(v15);
+  std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::~__hash_table(&a15);
+  if (*(v16 - 33) < 0)
+  {
+    operator delete(*(v16 - 56));
+  }
+
+  if (a2 == 1)
+  {
+    v19 = __cxa_begin_catch(a1);
+    v20 = (*(*v19 + 16))(v19);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/io.cpp", 112, v20, v21, v22, v23, v24, v25);
+    __cxa_end_catch();
+    JUMPOUT(0x25A857088);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,mlx::core::array>,void *> *>>(void *a1, void *a2, void *a3)
+{
+  v4 = a2;
+  v6 = a1[1];
+  if (v6)
+  {
+    for (i = 0; i != v6; ++i)
+    {
+      *(*a1 + 8 * i) = 0;
+    }
+
+    v8 = a1[2];
+    a1[2] = 0;
+    a1[3] = 0;
+    if (v8)
+    {
+      v9 = a2 == a3;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    if (v9)
+    {
+      v10 = v8;
+    }
+
+    else
+    {
+      do
+      {
+        v12[0] = v8 + 2;
+        v12[1] = v8 + 5;
+        std::pair<std::string &,mlx::core::array &>::operator=[abi:ne200100]<std::string const,mlx::core::array,0>(v12, (v4 + 2));
+        v10 = *v8;
+        std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__node_insert_multi(a1, v8);
+        v4 = *v4;
+        if (v10)
+        {
+          v11 = v4 == a3;
+        }
+
+        else
+        {
+          v11 = 1;
+        }
+
+        v8 = v10;
+      }
+
+      while (!v11);
+    }
+
+    std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__deallocate_node(a1, v10);
+  }
+
+  if (v4 != a3)
+  {
+    std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__emplace_multi<std::pair<std::string const,mlx::core::array> const&>(a1);
+  }
+}
+
+void sub_25A8572D0(void *a1)
+{
+  __cxa_begin_catch(a1);
+  std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__deallocate_node(v1, v2);
+  __cxa_rethrow();
+}
+
+void *std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__node_insert_multi(void *a1, void *a2)
+{
+  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2 + 2);
+  a2[1] = v4;
+  inserted = std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__node_insert_multi_prepare(a1, v4, a2 + 2);
+  std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__node_insert_multi_perform(a1, a2, inserted);
+  return a2;
+}
+
+uint64_t std::pair<std::string &,mlx::core::array &>::operator=[abi:ne200100]<std::string const,mlx::core::array,0>(uint64_t a1, const std::string *a2)
+{
+  std::string::operator=(*a1, a2);
+  v4 = *(a1 + 8);
+  data = a2[1].__r_.__value_.__l.__data_;
+  if (*v4 != data)
+  {
+    size = a2[1].__r_.__value_.__l.__size_;
+    if (size)
+    {
+      atomic_fetch_add_explicit((size + 8), 1uLL, memory_order_relaxed);
+    }
+
+    v7 = v4[1];
+    *v4 = data;
+    v4[1] = size;
+    if (v7)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    }
+  }
+
+  return a1;
+}
+
+const void **std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__node_insert_multi_prepare(unint64_t a1, unint64_t a2, const void **a3)
+{
+  v6 = *(a1 + 8);
+  v7 = (*(a1 + 24) + 1);
+  v8 = *(a1 + 32);
+  if (!v6 || (v8 * v6) < v7)
+  {
+    v9 = 1;
+    if (v6 >= 3)
+    {
+      v9 = (v6 & (v6 - 1)) != 0;
+    }
+
+    v10 = v9 | (2 * v6);
+    v11 = vcvtps_u32_f32(v7 / v8);
+    if (v10 <= v11)
+    {
+      v12 = v11;
+    }
+
+    else
+    {
+      v12 = v10;
+    }
+
+    std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__rehash<false>(a1, v12);
+    v6 = *(a1 + 8);
+  }
+
+  v13 = vcnt_s8(v6);
+  v13.i16[0] = vaddlv_u8(v13);
+  v14 = v13.u32[0];
+  if (v13.u32[0] > 1uLL)
+  {
+    v15 = a2;
+    if (v6 <= a2)
+    {
+      v15 = a2 % v6;
+    }
+  }
+
+  else
+  {
+    v15 = (v6 - 1) & a2;
+  }
+
+  v16 = *(*a1 + 8 * v15);
+  if (v16)
+  {
+    v17 = *v16;
+    if (*v16)
+    {
+      v18 = 0;
+      do
+      {
+        v19 = v17[1];
+        if (v14 > 1)
+        {
+          v20 = v17[1];
+          if (v19 >= v6)
+          {
+            v20 = v19 % v6;
+          }
+        }
+
+        else
+        {
+          v20 = v19 & (v6 - 1);
+        }
+
+        if (v20 != v15)
+        {
+          break;
+        }
+
+        v21 = v19 == a2 && std::equal_to<std::string>::operator()[abi:ne200100](a1, v17 + 2, a3);
+        if ((v18 & (v21 != (v18 & 1))) != 0)
+        {
+          break;
+        }
+
+        v18 |= v21 != (v18 & 1);
+        v16 = *v16;
+        v17 = *v16;
+      }
+
+      while (*v16);
+    }
+  }
+
+  return v16;
+}
+
 void *std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__node_insert_multi_perform(void *result, void *a2, void *a3)
 {
   v3 = result[1];
@@ -75,7 +4788,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__rehash<false>(unint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -91,7 +4804,7 @@ void std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std:
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -99,7 +4812,7 @@ void std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std:
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -123,12 +4836,12 @@ void std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std:
     {
 LABEL_6:
 
-      std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__do_rehash<false>(result, prime);
     }
   }
 }
 
-void std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__do_rehash<false>(uint64_t a1, unint64_t a2)
+void std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__do_rehash<false>(void **a1, unint64_t a2)
 {
   if (a2)
   {
@@ -147,12 +4860,12 @@ void std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std:
     operator delete(v3);
   }
 
-  *(a1 + 8) = 0;
+  a1[1] = 0;
 }
 
-void sub_25A857920(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A857920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,mlx::core::array>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,mlx::core::array>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -190,8 +4903,8 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
     {
       do
       {
-        std::string::operator=((v8 + 16), (v4 + 2));
-        std::string::operator=((v8 + 40), (v4 + 5));
+        std::string::operator=((v8 + 2), (v4 + 2));
+        std::string::operator=((v8 + 5), (v4 + 5));
         v10 = *v8;
         std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__node_insert_multi(a1, v8);
         v4 = *v4;
@@ -211,7 +4924,7 @@ void std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__un
 
   if (v4 != a3)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>();
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_multi<std::pair<std::string const,std::string> const&>(a1);
   }
 }
 
@@ -222,9 +4935,9 @@ void sub_25A857A98(void *a1)
   __cxa_rethrow();
 }
 
-void sub_25A857B18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A857B18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -276,41 +4989,41 @@ uint64_t std::unordered_map<std::string,std::string>::unordered_map(uint64_t a1,
   std::__hash_table<std::__hash_value_type<unsigned int,mlx::core::Fence>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,mlx::core::Fence>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,mlx::core::Fence>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,mlx::core::Fence>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::string> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::pair<std::string const,std::string> const&>();
@@ -318,54 +5031,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_25A857F0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A857F0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t mlx_fft_fft(uint64_t *a1, uint64_t **a2, int a3, int a4, uint64_t a5)
+uint64_t mlx_fft_fft(uint64_t *a1, int ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -402,7 +5115,22 @@ LABEL_10:
   return 0;
 }
 
-void mlx::core::fft::fft(uint64_t **a1@<X0>, int a2@<W1>, int a3@<W2>, mlx::core *a4@<X3>, uint64_t a5@<X4>, uint64_t **a6@<X8>)
+void sub_25A8580A8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 22, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85803CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::fft::fft(int ***a1@<X0>, int a2@<W1>, int a3@<W2>, mlx::core *a4@<X3>, uint64_t a5@<X4>, int ***a6@<X8>)
 {
   v15 = a2;
   v17 = 0;
@@ -443,7 +5171,7 @@ void sub_25A858210(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t mlx_fft_fft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+uint64_t mlx_fft_fft2(uint64_t *a1, int ***a2, int *a3, unint64_t a4, int *a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -455,11 +5183,11 @@ uint64_t mlx_fft_fft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, ui
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, a3 + 4 * a4, a4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, &a3[a4], a4);
   __p = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   if (!a7)
   {
     v17 = __cxa_allocate_exception(0x10uLL);
@@ -499,7 +5227,32 @@ uint64_t mlx_fft_fft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, ui
   return 0;
 }
 
-uint64_t mlx_fft_fftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+void sub_25A8583DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  mlx::core::array::~array(&a15);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a12)
+  {
+    operator delete(a12);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(a1);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 44, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85834CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_fft_fftn(uint64_t *a1, int ***a2, int *a3, unint64_t a4, int *a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -511,11 +5264,11 @@ uint64_t mlx_fft_fftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, ui
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, a3 + 4 * a4, a4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, &a3[a4], a4);
   __p = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   if (!a7)
   {
     v17 = __cxa_allocate_exception(0x10uLL);
@@ -555,7 +5308,32 @@ uint64_t mlx_fft_fftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, ui
   return 0;
 }
 
-uint64_t mlx_fft_ifft(uint64_t *a1, uint64_t **a2, int a3, int a4, uint64_t a5)
+void sub_25A85865C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  mlx::core::array::~array(&a15);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a12)
+  {
+    operator delete(a12);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(a1);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 66, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8585CCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_fft_ifft(uint64_t *a1, int ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -592,7 +5370,22 @@ LABEL_10:
   return 0;
 }
 
-void mlx::core::fft::ifft(uint64_t **a1@<X0>, int a2@<W1>, int a3@<W2>, mlx::core *a4@<X3>, uint64_t a5@<X4>, uint64_t **a6@<X8>)
+void sub_25A858850(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 82, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8587E4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::fft::ifft(int ***a1@<X0>, int a2@<W1>, int a3@<W2>, mlx::core *a4@<X3>, uint64_t a5@<X4>, int ***a6@<X8>)
 {
   v15 = a2;
   v17 = 0;
@@ -633,7 +5426,7 @@ void sub_25A8589B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t mlx_fft_ifft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+uint64_t mlx_fft_ifft2(uint64_t *a1, int ***a2, int *a3, unint64_t a4, int *a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -645,11 +5438,11 @@ uint64_t mlx_fft_ifft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, u
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, a3 + 4 * a4, a4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, &a3[a4], a4);
   __p = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   if (!a7)
   {
     v17 = __cxa_allocate_exception(0x10uLL);
@@ -689,7 +5482,32 @@ uint64_t mlx_fft_ifft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, u
   return 0;
 }
 
-uint64_t mlx_fft_ifftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+void sub_25A858B84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  mlx::core::array::~array(&a15);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a12)
+  {
+    operator delete(a12);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(a1);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 104, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A858AF4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_fft_ifftn(uint64_t *a1, int ***a2, int *a3, unint64_t a4, int *a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -701,11 +5519,11 @@ uint64_t mlx_fft_ifftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, u
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, a3 + 4 * a4, a4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, &a3[a4], a4);
   __p = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   if (!a7)
   {
     v17 = __cxa_allocate_exception(0x10uLL);
@@ -745,7 +5563,32 @@ uint64_t mlx_fft_ifftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, u
   return 0;
 }
 
-uint64_t mlx_fft_irfft(uint64_t *a1, uint64_t **a2, int a3, int a4, uint64_t a5)
+void sub_25A858E04(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  mlx::core::array::~array(&a15);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a12)
+  {
+    operator delete(a12);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(a1);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 126, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A858D74);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_fft_irfft(uint64_t *a1, int ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -782,7 +5625,22 @@ LABEL_10:
   return 0;
 }
 
-void mlx::core::fft::irfft(uint64_t **a1@<X0>, int a2@<W1>, int a3@<W2>, mlx::core *a4@<X3>, uint64_t a5@<X4>, uint64_t **a6@<X8>)
+void sub_25A858FF8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 142, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A858F8CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::fft::irfft(int ***a1@<X0>, int a2@<W1>, int a3@<W2>, mlx::core *a4@<X3>, uint64_t a5@<X4>, int ***a6@<X8>)
 {
   v15 = a2;
   v17 = 0;
@@ -823,7 +5681,7 @@ void sub_25A859160(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t mlx_fft_irfft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+uint64_t mlx_fft_irfft2(uint64_t *a1, int ***a2, int *a3, unint64_t a4, int *a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -835,11 +5693,11 @@ uint64_t mlx_fft_irfft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, 
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, a3 + 4 * a4, a4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, &a3[a4], a4);
   __p = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   if (!a7)
   {
     v17 = __cxa_allocate_exception(0x10uLL);
@@ -879,7 +5737,32 @@ uint64_t mlx_fft_irfft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, 
   return 0;
 }
 
-uint64_t mlx_fft_irfftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+void sub_25A85932C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  mlx::core::array::~array(&a15);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a12)
+  {
+    operator delete(a12);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(a1);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 164, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85929CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_fft_irfftn(uint64_t *a1, int ***a2, int *a3, unint64_t a4, int *a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -891,11 +5774,11 @@ uint64_t mlx_fft_irfftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, 
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, a3 + 4 * a4, a4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, &a3[a4], a4);
   __p = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   if (!a7)
   {
     v17 = __cxa_allocate_exception(0x10uLL);
@@ -935,7 +5818,32 @@ uint64_t mlx_fft_irfftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, 
   return 0;
 }
 
-uint64_t mlx_fft_rfft(uint64_t *a1, uint64_t **a2, int a3, int a4, uint64_t a5)
+void sub_25A8595AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  mlx::core::array::~array(&a15);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a12)
+  {
+    operator delete(a12);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(a1);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 186, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85951CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_fft_rfft(uint64_t *a1, int ***a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -972,7 +5880,22 @@ LABEL_10:
   return 0;
 }
 
-void mlx::core::fft::rfft(uint64_t **a1@<X0>, int a2@<W1>, int a3@<W2>, mlx::core *a4@<X3>, uint64_t a5@<X4>, uint64_t **a6@<X8>)
+void sub_25A8597A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 202, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A859734);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void mlx::core::fft::rfft(int ***a1@<X0>, int a2@<W1>, int a3@<W2>, mlx::core *a4@<X3>, uint64_t a5@<X4>, int ***a6@<X8>)
 {
   v15 = a2;
   v17 = 0;
@@ -1013,7 +5936,7 @@ void sub_25A859908(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t mlx_fft_rfft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+uint64_t mlx_fft_rfft2(uint64_t *a1, int ***a2, int *a3, unint64_t a4, int *a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -1025,11 +5948,11 @@ uint64_t mlx_fft_rfft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, u
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, a3 + 4 * a4, a4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, &a3[a4], a4);
   __p = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   if (!a7)
   {
     v17 = __cxa_allocate_exception(0x10uLL);
@@ -1069,7 +5992,32 @@ uint64_t mlx_fft_rfft2(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, u
   return 0;
 }
 
-uint64_t mlx_fft_rfftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7)
+void sub_25A859AD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  mlx::core::array::~array(&a15);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a12)
+  {
+    operator delete(a12);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(a1);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 224, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A859A44);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_fft_rfftn(uint64_t *a1, int ***a2, int *a3, unint64_t a4, int *a5, unint64_t a6, uint64_t a7)
 {
   if (!a2)
   {
@@ -1081,11 +6029,11 @@ uint64_t mlx_fft_rfftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, u
   v21 = 0;
   v22 = 0;
   v23 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, a3 + 4 * a4, a4);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&v21, a3, &a3[a4], a4);
   __p = 0;
   v19 = 0;
   v20 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   if (!a7)
   {
     v17 = __cxa_allocate_exception(0x10uLL);
@@ -1123,6 +6071,31 @@ uint64_t mlx_fft_rfftn(uint64_t *a1, uint64_t **a2, uint64_t a3, unint64_t a4, u
   }
 
   return 0;
+}
+
+void sub_25A859D54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char a15)
+{
+  mlx::core::array::~array(&a15);
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a12)
+  {
+    operator delete(a12);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(a1);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/fft.cpp", 246, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A859CC4);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t mlx_device_tostring(std::string **a1, _DWORD *a2)
@@ -1206,6 +6179,25 @@ LABEL_15:
   return 0;
 }
 
+void sub_25A85A100(_Unwind_Exception *a1, int a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  MEMORY[0x25F851760](v22, 0x1012C40EC159624);
+  operator delete(__p);
+  std::ostringstream::~ostringstream(&a9, MEMORY[0x277D82828]);
+  MEMORY[0x25F8516C0](va);
+  if (a2 == 1)
+  {
+    v25 = __cxa_begin_catch(a1);
+    v26 = (*(*v25 + 16))(v25);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/device.cpp", 17, v26, v27, v28, v29, v30, v31);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85A0A0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx_device_set(void **a1, void *a2)
 {
   if (!a2)
@@ -1226,6 +6218,21 @@ uint64_t mlx_device_set(void **a1, void *a2)
   return result;
 }
 
+void sub_25A85A360(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/device.cpp", 40, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85A314);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx_device_get_index(_DWORD *a1, uint64_t a2)
 {
   if (!a2)
@@ -1240,6 +6247,20 @@ uint64_t mlx_device_get_index(_DWORD *a1, uint64_t a2)
   return result;
 }
 
+void sub_25A85A458(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/device.cpp", 50, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85A40CLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 uint64_t mlx_device_get_type(_DWORD *a1, int *a2)
 {
   if (!a2)
@@ -1251,6 +6272,20 @@ uint64_t mlx_device_get_type(_DWORD *a1, int *a2)
 
   result = 0;
   return result;
+}
+
+void sub_25A85A55C(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/device.cpp", 60, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85A510);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 BOOL mlx_device_equal(_DWORD *a1, _DWORD *a2)
@@ -1291,6 +6326,21 @@ uint64_t mlx_set_default_device(mlx::core::metal *a1)
   return 0;
 }
 
+void sub_25A85A7C4(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/device.cpp", 84, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85A778);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx_device_free(uint64_t a1)
 {
   if (a1)
@@ -1321,7 +6371,26 @@ uint64_t mlx_version(uint64_t *a1)
   return 0;
 }
 
-uint64_t mlx_closure_set(void **a1, uint64_t a2)
+void sub_25A85A908(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(exception_object);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/version.cpp", 11, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85A8F8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t mlx_closure_set(uint64_t *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1338,6 +6407,21 @@ uint64_t mlx_closure_set(void **a1, uint64_t a2)
 
   std::function<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::operator=(v2, a2);
   return 0;
+}
+
+void sub_25A85AA4C(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x1020C40A5B76CDFLL);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 23, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85AA00);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t mlx_closure_free(uint64_t a1)
@@ -1360,12 +6444,28 @@ void mlx_closure_new_func(uint64_t a1)
   operator new();
 }
 
+void sub_25A85ABD0(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](va);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 58, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85ABA0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void mlx_closure_new_func_payload(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3[4] = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2);
+    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2, a3);
   }
 
   operator new();
@@ -1382,7 +6482,22 @@ void sub_25A85ADC8(_Unwind_Exception *a1, int a2)
   __cxa_rethrow();
 }
 
-uint64_t mlx_closure_apply(void ***a1, uint64_t a2, uint64_t a3)
+void sub_25A85ADE8(void *a1, int a2)
+{
+  __cxa_end_catch();
+  if (a2 == 1)
+  {
+    v4 = __cxa_begin_catch(a1);
+    v5 = (*(*v4 + 16))(v4);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 91, v5, v6, v7, v8, v9, v10);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85AD90);
+  }
+
+  JUMPOUT(0x25A85ADD0);
+}
+
+uint64_t mlx_closure_apply(char ***a1, uint64_t a2, uint64_t a3)
 {
   if (!a2)
   {
@@ -1422,6 +6537,22 @@ LABEL_9:
   return 0;
 }
 
+void sub_25A85B000(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+{
+  a12 = &a9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(a1);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 104, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85AF8CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void mlx_closure_new_unary(uint64_t a1)
 {
   v1[4] = *MEMORY[0x277D85DE8];
@@ -1431,7 +6562,23 @@ void mlx_closure_new_unary(uint64_t a1)
   operator new();
 }
 
-uint64_t mlx_closure_kwargs_set(void **a1, uint64_t a2)
+void sub_25A85B148(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](va);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 131, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85B118);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_closure_kwargs_set(uint64_t *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1448,6 +6595,21 @@ uint64_t mlx_closure_kwargs_set(void **a1, uint64_t a2)
 
   std::function<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::operator=(v2, a2);
   return 0;
+}
+
+void sub_25A85B290(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x1020C40A5B76CDFLL);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 151, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85B244);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t mlx_closure_kwargs_free(uint64_t a1)
@@ -1470,12 +6632,28 @@ void mlx_closure_kwargs_new_func(uint64_t a1)
   operator new();
 }
 
+void sub_25A85B414(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::~__value_func[abi:ne200100](va);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 196, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85B3E4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void mlx_closure_kwargs_new_func_payload(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3[4] = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2);
+    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2, a3);
   }
 
   operator new();
@@ -1492,7 +6670,22 @@ void sub_25A85B60C(_Unwind_Exception *a1, int a2)
   __cxa_rethrow();
 }
 
-uint64_t mlx_closure_kwargs_apply(void ***a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_25A85B62C(void *a1, int a2)
+{
+  __cxa_end_catch();
+  if (a2 == 1)
+  {
+    v4 = __cxa_begin_catch(a1);
+    v5 = (*(*v4 + 16))(v4);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 240, v5, v6, v7, v8, v9, v10);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85B5D4);
+  }
+
+  JUMPOUT(0x25A85B614);
+}
+
+uint64_t mlx_closure_kwargs_apply(char ***a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
@@ -1539,7 +6732,23 @@ LABEL_11:
   return 0;
 }
 
-uint64_t mlx_closure_value_and_grad_set(void **a1, uint64_t a2)
+void sub_25A85B868(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+{
+  a12 = &a9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(a1);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 257, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85B7D8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_closure_value_and_grad_set(uint64_t *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1556,6 +6765,21 @@ uint64_t mlx_closure_value_and_grad_set(void **a1, uint64_t a2)
 
   std::function<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::operator=(v2, a2);
   return 0;
+}
+
+void sub_25A85B9C8(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x1020C40A5B76CDFLL);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 278, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85B97CLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t mlx_closure_value_and_grad_free(uint64_t a1)
@@ -1578,12 +6802,28 @@ void mlx_closure_value_and_grad_new_func(uint64_t a1)
   operator new();
 }
 
+void sub_25A85BB4C(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](va);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 321, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85BB1CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void mlx_closure_value_and_grad_new_func_payload(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3[4] = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2);
+    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2, a3);
   }
 
   operator new();
@@ -1598,6 +6838,21 @@ void sub_25A85BD44(_Unwind_Exception *a1, int a2)
 
   __cxa_begin_catch(a1);
   __cxa_rethrow();
+}
+
+void sub_25A85BD64(void *a1, int a2)
+{
+  __cxa_end_catch();
+  if (a2 == 1)
+  {
+    v4 = __cxa_begin_catch(a1);
+    v5 = (*(*v4 + 16))(v4);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 367, v5, v6, v7, v8, v9, v10);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85BD0CLL);
+  }
+
+  JUMPOUT(0x25A85BD4CLL);
 }
 
 uint64_t mlx_closure_value_and_grad_apply(uint64_t ***a1, uint64_t ***a2, uint64_t a3, uint64_t a4)
@@ -1653,7 +6908,24 @@ LABEL_15:
   return 0;
 }
 
-uint64_t mlx_closure_custom_set(void **a1, uint64_t a2)
+void sub_25A85BFF0(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  MEMORY[0x25F851760](v3, 0x20C40960023A9);
+  std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>>::~pair(va);
+  if (a2 == 1)
+  {
+    v6 = __cxa_begin_catch(a1);
+    v7 = (*(*v6 + 16))(v6);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 385, v7, v8, v9, v10, v11, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85BF7CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_closure_custom_set(uint64_t *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1670,6 +6942,21 @@ uint64_t mlx_closure_custom_set(void **a1, uint64_t a2)
 
   std::function<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::operator=(v2, a2);
   return 0;
+}
+
+void sub_25A85C16C(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x1020C40A5B76CDFLL);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 406, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85C120);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t mlx_closure_custom_free(uint64_t a1)
@@ -1692,12 +6979,28 @@ void mlx_closure_custom_new_func(uint64_t a1)
   operator new();
 }
 
+void sub_25A85C2F0(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](va);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 454, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85C2C0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void mlx_closure_custom_new_func_payload(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3[4] = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2);
+    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2, a3);
   }
 
   operator new();
@@ -1714,7 +7017,22 @@ void sub_25A85C4E8(_Unwind_Exception *a1, int a2)
   __cxa_rethrow();
 }
 
-uint64_t mlx_closure_custom_apply(void ***a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void sub_25A85C508(void *a1, int a2)
+{
+  __cxa_end_catch();
+  if (a2 == 1)
+  {
+    v4 = __cxa_begin_catch(a1);
+    v5 = (*(*v4 + 16))(v4);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 501, v5, v6, v7, v8, v9, v10);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85C4B0);
+  }
+
+  JUMPOUT(0x25A85C4F0);
+}
+
+uint64_t mlx_closure_custom_apply(char ***a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!a2)
   {
@@ -1754,7 +7072,23 @@ LABEL_11:
   return 0;
 }
 
-uint64_t mlx_closure_custom_jvp_set(void **a1, uint64_t a2)
+void sub_25A85C768(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+{
+  a12 = &a9;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100](&a12);
+  if (a2 == 1)
+  {
+    v14 = __cxa_begin_catch(a1);
+    v15 = (*(*v14 + 16))(v14);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 520, v15, v16, v17, v18, v19, v20);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85C6BCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_closure_custom_jvp_set(uint64_t *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1771,6 +7105,21 @@ uint64_t mlx_closure_custom_jvp_set(void **a1, uint64_t a2)
 
   std::function<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::operator=(v2, a2);
   return 0;
+}
+
+void sub_25A85C8CC(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x1020C40A5B76CDFLL);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 541, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85C880);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t mlx_closure_custom_jvp_free(uint64_t a1)
@@ -1793,12 +7142,28 @@ void mlx_closure_custom_jvp_new_func(uint64_t a1)
   operator new();
 }
 
+void sub_25A85CA50(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::~__value_func[abi:ne200100](va);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 592, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85CA20);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void mlx_closure_custom_jvp_new_func_payload(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3[4] = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2);
+    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2, a3);
   }
 
   operator new();
@@ -1815,7 +7180,22 @@ void sub_25A85CC48(_Unwind_Exception *a1, int a2)
   __cxa_rethrow();
 }
 
-uint64_t mlx_closure_custom_jvp_apply(void ***a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+void sub_25A85CC68(void *a1, int a2)
+{
+  __cxa_end_catch();
+  if (a2 == 1)
+  {
+    v4 = __cxa_begin_catch(a1);
+    v5 = (*(*v4 + 16))(v4);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 643, v5, v6, v7, v8, v9, v10);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85CC10);
+  }
+
+  JUMPOUT(0x25A85CC50);
+}
+
+uint64_t mlx_closure_custom_jvp_apply(char ***a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, unint64_t a6)
 {
   if (!a2)
   {
@@ -1835,7 +7215,7 @@ LABEL_13:
   __p = 0;
   v13 = 0;
   v14 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   v8 = *(a2 + 24);
   if (!v8)
   {
@@ -1865,7 +7245,28 @@ LABEL_13:
   return 0;
 }
 
-uint64_t mlx_closure_custom_vmap_set(void **a1, uint64_t a2)
+void sub_25A85CEE0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  *(v13 - 40) = &a13;
+  std::vector<mlx::core::array>::__destroy_vector::operator()[abi:ne200100]((v13 - 40));
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v16 = __cxa_begin_catch(a1);
+    v17 = (*(*v16 + 16))(v16);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 663, v17, v18, v19, v20, v21, v22);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85CE50);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_closure_custom_vmap_set(uint64_t *a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -1882,6 +7283,21 @@ uint64_t mlx_closure_custom_vmap_set(void **a1, uint64_t a2)
 
   std::function<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::operator=(v2, a2);
   return 0;
+}
+
+void sub_25A85D060(_Unwind_Exception *a1, int a2)
+{
+  MEMORY[0x25F851760](v2, 0x1020C40A5B76CDFLL);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 684, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85D014);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t mlx_closure_custom_vmap_free(uint64_t a1)
@@ -1904,12 +7320,28 @@ void mlx_closure_custom_vmap_new_func(uint64_t a1)
   operator new();
 }
 
+void sub_25A85D1E4(_Unwind_Exception *a1, int a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::~__value_func[abi:ne200100](va);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 738, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85D1B4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void mlx_closure_custom_vmap_new_func_payload(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3[4] = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2);
+    std::shared_ptr<void>::shared_ptr[abi:ne200100]<void,void (*)(void *),0>(v3, a2, a3);
   }
 
   operator new();
@@ -1926,7 +7358,22 @@ void sub_25A85D3DC(_Unwind_Exception *a1, int a2)
   __cxa_rethrow();
 }
 
-uint64_t mlx_closure_custom_vmap_apply(uint64_t ***a1, void ***a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6)
+void sub_25A85D3FC(void *a1, int a2)
+{
+  __cxa_end_catch();
+  if (a2 == 1)
+  {
+    v4 = __cxa_begin_catch(a1);
+    v5 = (*(*v4 + 16))(v4);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 792, v5, v6, v7, v8, v9, v10);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85D3A4);
+  }
+
+  JUMPOUT(0x25A85D3E4);
+}
+
+uint64_t mlx_closure_custom_vmap_apply(uint64_t ***a1, void ***a2, uint64_t a3, uint64_t a4, int *a5, unint64_t a6)
 {
   if (!a3)
   {
@@ -1946,7 +7393,7 @@ LABEL_19:
   __p = 0;
   v15 = 0;
   v16 = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, a5 + 4 * a6, a6);
+  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(&__p, a5, &a5[a6], a6);
   v9 = *(a3 + 24);
   if (!v9)
   {
@@ -1993,19 +7440,34 @@ LABEL_19:
   return 0;
 }
 
+void sub_25A85D6C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+{
+  MEMORY[0x25F851760](v13, 0x10C402FEFCB83);
+  std::pair<std::vector<mlx::core::array>,std::vector<int>>::~pair(&a13);
+  if (a2 == 1)
+  {
+    v16 = __cxa_begin_catch(a1);
+    v17 = (*(*v16 + 16))(v16);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/closure.cpp", 813, v17, v18, v19, v20, v21, v22);
+    __cxa_end_catch();
+    JUMPOUT(0x25A85D64CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void *std::function<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -2015,15 +7477,15 @@ void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -2051,7 +7513,6 @@ void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2067,17 +7528,16 @@ void sub_25A85DA88(_Unwind_Exception *a1, int a2)
 
 void *std::function<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::unordered_map<std::string,mlx::core::array> const&)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -2087,15 +7547,15 @@ void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -2123,7 +7583,6 @@ void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2139,17 +7598,16 @@ void sub_25A85DD60(_Unwind_Exception *a1, int a2)
 
 void *std::function<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<mlx::core::array>> ()(std::vector<mlx::core::array> const&)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -2159,15 +7617,15 @@ void *std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std:
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -2195,7 +7653,6 @@ void *std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2211,17 +7668,16 @@ void sub_25A85E038(_Unwind_Exception *a1, int a2)
 
 void *std::function<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -2231,15 +7687,15 @@ void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -2267,7 +7723,6 @@ void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2283,17 +7738,16 @@ void sub_25A85E3A8(_Unwind_Exception *a1, int a2)
 
 void *std::function<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&,std::vector<mlx::core::array> const&,std::vector<int> const&)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -2303,15 +7757,15 @@ void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -2339,7 +7793,6 @@ void *std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2355,17 +7808,16 @@ void sub_25A85E680(_Unwind_Exception *a1, int a2)
 
 void *std::function<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::operator=(void *a1, uint64_t a2)
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::__value_func[abi:ne200100](v5, a2);
-  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::swap[abi:ne200100](v5, a1);
-  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::~__value_func[abi:ne200100](v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::__value_func[abi:ne200100](v4, a2);
+  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::swap[abi:ne200100](v4, a1);
+  std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::~__value_func[abi:ne200100](v4);
   return a1;
 }
 
 void *std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std::vector<int>> ()(std::vector<mlx::core::array> const&,std::vector<int> const&)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -2375,15 +7827,15 @@ void *std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std:
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -2411,7 +7863,6 @@ void *std::__function::__value_func<std::pair<std::vector<mlx::core::array>,std:
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2545,7 +7996,7 @@ uint64_t std::__function::__func<mlx_closure_new_unary::$_0,std::allocator<mlx_c
 
 void std::__function::__func<mlx_closure_new_unary::$_0,std::allocator<mlx_closure_new_unary::$_0>,std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::operator()(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (a2[1] - *a2 == 16)
   {
     operator new();
@@ -3135,7 +8586,7 @@ uint64_t sub_25A861578(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int 
   std::unordered_map<std::string,std::variant<std::string,unsigned long>>::unordered_map(v35, a1);
   std::string::basic_string[abi:ne200100]<0>(v33, "architecture");
   *(v26 - 24) = v33;
-  v27 = std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35, v33);
+  v27 = std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35, v33, &std::piecewise_construct, (v26 - 24));
   if (*(v27 + 16))
   {
     std::__throw_bad_variant_access[abi:ne200100]();
@@ -3155,7 +8606,7 @@ uint64_t sub_25A861578(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int 
 
   std::string::basic_string[abi:ne200100]<0>(v33, "max_buffer_length");
   *(v26 - 24) = v33;
-  v29 = std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35, v33);
+  v29 = std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35, v33, &std::piecewise_construct, (v26 - 24));
   if (*(v29 + 16) != 1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
@@ -3169,7 +8620,7 @@ uint64_t sub_25A861578(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int 
 
   std::string::basic_string[abi:ne200100]<0>(v33, "max_recommended_working_set_size");
   *(v26 - 24) = v33;
-  v30 = std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35, v33);
+  v30 = std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35, v33, &std::piecewise_construct, (v26 - 24));
   if (*(v30 + 16) != 1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
@@ -3183,7 +8634,7 @@ uint64_t sub_25A861578(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int 
 
   std::string::basic_string[abi:ne200100]<0>(v33, "memory_size");
   *(v26 - 24) = v33;
-  v31 = std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35, v33);
+  v31 = std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35, v33, &std::piecewise_construct, (v26 - 24));
   if (*(v31 + 16) != 1)
   {
     std::__throw_bad_variant_access[abi:ne200100]();
@@ -3208,14 +8659,33 @@ uint64_t mlx_metal_is_available(mlx::core::metal *a1)
 
 uint64_t mlx_metal_start_capture(char *__s)
 {
-  std::string::basic_string[abi:ne200100]<0>(__p, __s);
-  mlx::core::metal::start_capture(__p);
+  std::string::basic_string[abi:ne200100]<0>(&__p, __s);
+  mlx::core::metal::start_capture();
   if (v3 < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p);
   }
 
   return 0;
+}
+
+void sub_25A861858(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a2 == 1)
+  {
+    v17 = __cxa_begin_catch(exception_object);
+    v18 = (*(*v17 + 16))(v17);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/metal.cpp", 39, v18, v19, v20, v21, v22, v23);
+    __cxa_end_catch();
+    JUMPOUT(0x25A861848);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t std::unordered_map<std::string,std::variant<std::string,unsigned long>>::unordered_map(uint64_t a1, uint64_t a2)
@@ -3226,41 +8696,41 @@ uint64_t std::unordered_map<std::string,std::variant<std::string,unsigned long>>
   std::__hash_table<std::__hash_value_type<unsigned int,mlx::core::Fence>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,mlx::core::Fence>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,mlx::core::Fence>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,mlx::core::Fence>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<std::string,unsigned long>> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<std::string,unsigned long>> const&>(a1, i + 2, (i + 2));
   }
 
   return a1;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<std::string,unsigned long>> const&>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,std::variant<std::string,unsigned long>> const&>(void *a1, uint64_t *a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__construct_node_hash<std::pair<std::string const,std::variant<std::string,unsigned long>> const&>();
@@ -3268,54 +8738,54 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_25A861C34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A861C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -3460,35 +8930,35 @@ void std::__hash_table<std::__hash_value_type<std::string,std::variant<std::stri
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t *a2, uint64_t a3, __int128 **a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -3496,49 +8966,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_25A862234(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25A862234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::variant<std::string,unsigned long>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3633,6 +9103,25 @@ LABEL_17:
   return 0;
 }
 
+void sub_25A862540(_Unwind_Exception *a1, int a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  MEMORY[0x25F851760](v24, 0x1012C40EC159624);
+  operator delete(__p);
+  std::ostringstream::~ostringstream(&a11, MEMORY[0x277D82828]);
+  MEMORY[0x25F8516C0](va);
+  if (a2 == 1)
+  {
+    v27 = __cxa_begin_catch(a1);
+    v28 = (*(*v27 + 16))(v27);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 22, v28, v29, v30, v31, v32, v33);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8624E0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx_array_free(mlx::core::array *a1)
 {
   if (a1)
@@ -3644,7 +9133,7 @@ uint64_t mlx_array_free(mlx::core::array *a1)
   return 0;
 }
 
-uint64_t mlx_array_set(void **a1, uint64_t *a2)
+uint64_t mlx_array_set(uint64_t **a1, uint64_t *a2)
 {
   if (!a2)
   {
@@ -3680,19 +9169,160 @@ uint64_t mlx_array_set(void **a1, uint64_t *a2)
   return 0;
 }
 
+void sub_25A862770(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 50, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A862720);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25A862894(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  mlx::core::array::~array(va);
+  if (a2 == 1)
+  {
+    v6 = __cxa_begin_catch(a1);
+    v7 = (*(*v6 + 16))(v6);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 59, v7, v8, v9, v10, v11, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x25A862884);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25A862990(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  mlx::core::array::~array(va);
+  if (a2 == 1)
+  {
+    v6 = __cxa_begin_catch(a1);
+    v7 = (*(*v6 + 16))(v6);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 68, v7, v8, v9, v10, v11, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x25A86297CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25A862AB4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  mlx::core::array::~array(va);
+  if (a2 == 1)
+  {
+    v6 = __cxa_begin_catch(a1);
+    v7 = (*(*v6 + 16))(v6);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 76, v7, v8, v9, v10, v11, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x25A862AA4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25A862BB0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  mlx::core::array::~array(va);
+  if (a2 == 1)
+  {
+    v6 = __cxa_begin_catch(a1);
+    v7 = (*(*v6 + 16))(v6);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 85, v7, v8, v9, v10, v11, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x25A862B9CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25A862CDC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  mlx::core::array::~array(va);
+  if (a2 == 1)
+  {
+    v6 = __cxa_begin_catch(a1);
+    v7 = (*(*v6 + 16))(v6);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 93, v7, v8, v9, v10, v11, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x25A862CC8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25A862DF4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 105, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A862DE4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25A862EFC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+  mlx::core::array::~array(va);
+  if (a2 == 1)
+  {
+    v6 = __cxa_begin_catch(a1);
+    v7 = (*(*v6 + 16))(v6);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 117, v7, v8, v9, v10, v11, v12);
+    __cxa_end_catch();
+    JUMPOUT(0x25A862EE4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_25A862FEC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 128, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A862FD8);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx_array_set_complex(uint64_t *a1, float a2, float a3)
 {
-  *v9 = a2;
-  *&v9[1] = a3;
-  mlx::core::array::array(&v8, v9, 0x80000000DLL);
+  v9 = __PAIR64__(LODWORD(a3), LODWORD(a2));
+  mlx::core::array::array(v8, &v9, 0x80000000DLL);
   v4 = *a1;
   if (!*a1)
   {
     operator new();
   }
 
-  v5 = v8;
-  v8 = 0uLL;
+  v5 = *v8;
+  v8[0] = 0;
+  v8[1] = 0;
   v6 = *(v4 + 8);
   *v4 = v5;
   if (v6)
@@ -3700,94 +9330,151 @@ uint64_t mlx_array_set_complex(uint64_t *a1, float a2, float a3)
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  mlx::core::array::~array(&v8);
+  mlx::core::array::~array(v8);
   return 0;
+}
+
+void sub_25A86310C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
+  {
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 141, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8630FCLL);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 void mlx_array_new_complex(float a1, float a2)
 {
-  *v3 = a1;
-  *&v3[1] = a2;
-  mlx::core::array::array(&v2, v3, 0x80000000DLL);
+  v3 = __PAIR64__(LODWORD(a2), LODWORD(a1));
+  mlx::core::array::array(v2, &v3, 0x80000000DLL);
   operator new();
 }
 
-uint64_t mlx_array_set_data(int a1, int a2, char *__src, int a4, int a5)
+void sub_25A863200(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v26 = 0;
-  v27 = 0;
-  v28 = 0;
-  std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(&v26, __src, &__src[4 * a4], a4);
+  mlx::core::array::~array(&a9);
+  if (a2 == 1)
   {
-    case 0u:
+    v11 = __cxa_begin_catch(a1);
+    v12 = (*(*v11 + 16))(v11);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 151, v12, v13, v14, v15, v16, v17);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8631ECLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_array_set_data(uint64_t *a1, unsigned __int8 *a2, char *__src, uint64_t a4, int a5)
+{
+  v29 = 0;
+  v30 = 0;
+  v31 = 0;
+  std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(&v29, __src, &__src[4 * a4], a4);
+  switch(v12)
+  {
+    case 0:
+      memset(v27, 0, sizeof(v27));
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v27, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<BOOL *>(&v28, a2, v27, v12 & 0xFFFFFFFFFFLL);
+    case 1:
+      memset(v26, 0, sizeof(v26));
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v26, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<unsigned char *>(&v28, a2, v26, v12 & 0xFFFFFFFFFFLL);
+    case 2:
       memset(v25, 0, sizeof(v25));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v25, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<BOOL *>();
-    case 1u:
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v25, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<unsigned short *>(&v28, a2, v25, v12 & 0xFFFFFFFFFFLL);
+    case 3:
       memset(v24, 0, sizeof(v24));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v24, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<unsigned char *>();
-    case 2u:
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v24, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<unsigned int *>(&v28, a2, v24, v12 & 0xFFFFFFFFFFLL);
+    case 4:
       memset(v23, 0, sizeof(v23));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v23, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<unsigned short *>();
-    case 3u:
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v23, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<unsigned long long *>(&v28, a2, v23, v12 & 0xFFFFFFFFFFLL);
+    case 5:
       memset(v22, 0, sizeof(v22));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v22, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<unsigned int *>();
-    case 4u:
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v22, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<signed char *>(&v28, a2, v22, v12 & 0xFFFFFFFFFFLL);
+    case 6:
       memset(v21, 0, sizeof(v21));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v21, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<unsigned long long *>();
-    case 5u:
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v21, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<short *>(&v28, a2, v21, v12 & 0xFFFFFFFFFFLL);
+    case 7:
       memset(v20, 0, sizeof(v20));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v20, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<signed char *>();
-    case 6u:
-      memset(v19, 0, sizeof(v19));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v19, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<short *>();
-    case 7u:
-      memset(v18, 0, sizeof(v18));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v18, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<int *>();
-    case 8u:
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v20, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<int *>(&v28, a2, v20, v12 & 0xFFFFFFFFFFLL);
+    case 8:
       memset(__p, 0, sizeof(__p));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<long long *>();
-    case 9u:
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(__p, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<long long *>(&v28, a2, __p, v12 & 0xFFFFFFFFFFLL);
+    case 9:
+      memset(v18, 0, sizeof(v18));
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v18, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<half *>(&v28, a2, v18, v12 & 0xFFFFFFFFFFLL);
+    case 10:
+      memset(v17, 0, sizeof(v17));
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v17, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<float *>(&v28, a2, v17, v12 & 0xFFFFFFFFFFLL);
+    case 11:
       memset(v16, 0, sizeof(v16));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v16, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<half *>();
-    case 0xAu:
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v16, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<double *>(&v28, a2, v16, v12 & 0xFFFFFFFFFFLL);
+    case 12:
       memset(v15, 0, sizeof(v15));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v15, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<float *>();
-    case 0xBu:
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v15, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<mlx::core::_MLX_BFloat16 *>(&v28, a2, v15, v12 & 0xFFFFFFFFFFLL);
+    case 13:
       memset(v14, 0, sizeof(v14));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v14, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<double *>();
-    case 0xCu:
-      memset(v13, 0, sizeof(v13));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v13, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<mlx::core::_MLX_BFloat16 *>();
-    case 0xDu:
-      memset(v12, 0, sizeof(v12));
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v12, v26, v27, (v27 - v26) >> 2);
-      mlx::core::array::array<mlx::core::complex64_t *>();
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v14, v29, v30, (v30 - v29) >> 2);
+      mlx::core::array::array<mlx::core::complex64_t *>(&v28, a2, v14, v12 & 0xFFFFFFFFFFLL);
     default:
-      _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 229, "unknown data type", v6, v7, v8, v9, v10, v12[0]);
-      if (v26)
+      _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 229, "unknown data type", v7, v8, v9, v10, v11);
+      if (v29)
       {
-        v27 = v26;
-        operator delete(v26);
+        v30 = v29;
+        operator delete(v29);
       }
 
       return 1;
   }
 }
 
-uint64_t mlx_array_new_data(int a1, char *__src, int a3, int a4)
+void sub_25A863B68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *__p, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34)
+{
+  mlx::core::array::~array((v34 - 80));
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  v37 = *(v34 - 56);
+  if (v37)
+  {
+    *(v34 - 48) = v37;
+    operator delete(v37);
+  }
+
+  if (a2 == 1)
+  {
+    v38 = __cxa_begin_catch(a1);
+    v39 = (*(*v38 + 16))(v38);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 233, v39, v40, v41, v42, v43, v44);
+    __cxa_end_catch();
+    JUMPOUT(0x25A863B50);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t mlx_array_new_data(unsigned __int8 *a1, char *__src, uint64_t a3, int a4)
 {
   v5 = 0;
   if (mlx_array_set_data(&v5, a1, __src, a3, a4))
@@ -3813,6 +9500,20 @@ uint64_t mlx_array_itemsize(uint64_t a1)
   return *(*a1 + 60);
 }
 
+void sub_25A863FEC(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 259, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A863FA0);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 uint64_t mlx_array_size(uint64_t a1)
 {
   if (!a1)
@@ -3823,6 +9524,20 @@ uint64_t mlx_array_size(uint64_t a1)
   }
 
   return *(*a1 + 48);
+}
+
+void sub_25A8640DC(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 267, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864090);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t mlx_array_nbytes(uint64_t a1)
@@ -3837,6 +9552,20 @@ uint64_t mlx_array_nbytes(uint64_t a1)
   return *(*a1 + 60) * *(*a1 + 48);
 }
 
+void sub_25A8641D4(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 275, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864188);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 uint64_t mlx_array_ndim(uint64_t a1)
 {
   if (!a1)
@@ -3847,6 +9576,20 @@ uint64_t mlx_array_ndim(uint64_t a1)
   }
 
   return (*(*a1 + 8) - **a1) >> 2;
+}
+
+void sub_25A8642CC(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 283, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864280);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t mlx_array_shape(uint64_t a1)
@@ -3861,6 +9604,20 @@ uint64_t mlx_array_shape(uint64_t a1)
   return **a1;
 }
 
+void sub_25A8643BC(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 291, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864370);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 uint64_t mlx_array_strides(uint64_t a1)
 {
   if (!a1)
@@ -3873,7 +9630,21 @@ uint64_t mlx_array_strides(uint64_t a1)
   return *(*a1 + 24);
 }
 
-uint64_t mlx_array_dim(uint64_t **a1, int a2)
+void sub_25A8644AC(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 299, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864460);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t mlx_array_dim(uint64_t **a1, unsigned int a2)
 {
   if (!a1)
   {
@@ -3885,6 +9656,21 @@ uint64_t mlx_array_dim(uint64_t **a1, int a2)
   return mlx::core::array::shape(a1, a2);
 }
 
+void sub_25A864598(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 307, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A86454CLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx_array_dtype(uint64_t a1)
 {
   if (!a1)
@@ -3893,6 +9679,20 @@ uint64_t mlx_array_dtype(uint64_t a1)
     std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
     __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
+}
+
+void sub_25A864694(_Unwind_Exception *exception_object, int a2)
+{
+  if (a2 == 1)
+  {
+    v2 = __cxa_begin_catch(exception_object);
+    v3 = (*(*v2 + 16))(v2);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 315, v3, v4, v5, v6, v7, v8);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864648);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t mlx_array_eval(mlx::core::array *a1)
@@ -3908,6 +9708,21 @@ uint64_t mlx_array_eval(mlx::core::array *a1)
   return 0;
 }
 
+void sub_25A864784(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 324, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864738);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx_array_item_BOOL(_BYTE *a1, mlx::core::array *a2)
 {
   if (!a2)
@@ -3921,6 +9736,21 @@ uint64_t mlx_array_item_BOOL(_BYTE *a1, mlx::core::array *a2)
   result = 0;
   *a1 = v3;
   return result;
+}
+
+void sub_25A864884(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 334, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864838);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t mlx::core::array::item<BOOL>(mlx::core::array *a1)
@@ -3951,6 +9781,21 @@ uint64_t mlx_array_item_uint8(_BYTE *a1, mlx::core::array *a2)
   return result;
 }
 
+void sub_25A864A10(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 343, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A8649C4);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx_array_item_uint16(_WORD *a1, mlx::core::array *a2)
 {
   if (!a2)
@@ -3964,6 +9809,21 @@ uint64_t mlx_array_item_uint16(_WORD *a1, mlx::core::array *a2)
   result = 0;
   *a1 = v3;
   return result;
+}
+
+void sub_25A864B10(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 352, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864AC4);
+  }
+
+  _Unwind_Resume(a1);
 }
 
 uint64_t mlx::core::array::item<unsigned short>(mlx::core::array *a1)
@@ -3994,6 +9854,21 @@ uint64_t mlx_array_item_uint32(_DWORD *a1, mlx::core::array *a2)
   return result;
 }
 
+void sub_25A864C9C(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 361, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864C50);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx::core::array::item<unsigned int>(mlx::core::array *a1)
 {
   if (*(*a1 + 48) != 1)
@@ -4022,6 +9897,21 @@ uint64_t mlx_array_item_uint64(uint64_t *a1, mlx::core::array *a2)
   return result;
 }
 
+void sub_25A864E28(_Unwind_Exception *a1, int a2)
+{
+  __cxa_free_exception(v2);
+  if (a2 == 1)
+  {
+    v5 = __cxa_begin_catch(a1);
+    v6 = (*(*v5 + 16))(v5);
+    _mlx_error("/Library/Caches/com.apple.xbs/Sources/PFLMLHostPlugins/Morpheus/mlx/c/array.cpp", 370, v6, v7, v8, v9, v10, v11);
+    __cxa_end_catch();
+    JUMPOUT(0x25A864DDCLL);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 uint64_t mlx::core::array::item<unsigned long long>(mlx::core::array *a1)
 {
   if (*(*a1 + 48) != 1)
@@ -4033,5843 +9923,4 @@ uint64_t mlx::core::array::item<unsigned long long>(mlx::core::array *a1)
 
   mlx::core::array::eval(a1);
   return **(*a1 + 152);
-}
-
-uint64_t mlx_array_item_int8(_BYTE *a1, mlx::core::array *a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = mlx::core::array::item<signed char>(a2);
-  result = 0;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t mlx_array_item_int16(_WORD *a1, mlx::core::array *a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = mlx::core::array::item<short>(a2);
-  result = 0;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t mlx_array_item_int32(_DWORD *a1, mlx::core::array *a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = mlx::core::array::item<unsigned int>(a2);
-  result = 0;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t mlx_array_item_int64(uint64_t *a1, mlx::core::array *a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = mlx::core::array::item<unsigned long long>(a2);
-  result = 0;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t mlx_array_item_float32(float *a1, mlx::core::array *a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = mlx::core::array::item<float>(a2);
-  result = 0;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t mlx_array_item_float64(double *a1, mlx::core::array *a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = mlx::core::array::item<double>(a2);
-  result = 0;
-  *a1 = v3;
-  return result;
-}
-
-double mlx::core::array::item<double>(mlx::core::array *a1)
-{
-  if (*(*a1 + 48) != 1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::invalid_argument::invalid_argument[abi:ne200100](exception, "item can only be called on arrays of size 1.");
-    __cxa_throw(exception, off_279921408, MEMORY[0x277D82610]);
-  }
-
-  mlx::core::array::eval(a1);
-  return **(*a1 + 152);
-}
-
-uint64_t mlx_array_item_complex64(uint64_t a1, mlx::core::array *a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = mlx::core::array::item<complex float >(a2);
-  result = 0;
-  *a1 = v3;
-  *(a1 + 4) = v5;
-  return result;
-}
-
-float mlx::core::array::item<complex float >(mlx::core::array *a1)
-{
-  if (*(*a1 + 48) != 1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::invalid_argument::invalid_argument[abi:ne200100](exception, "item can only be called on arrays of size 1.");
-    __cxa_throw(exception, off_279921408, MEMORY[0x277D82610]);
-  }
-
-  mlx::core::array::eval(a1);
-  v2 = *(*a1 + 152);
-  result = *v2;
-  v4 = *(v2 + 4);
-  return result;
-}
-
-uint64_t mlx_array_item_float16(__int16 *a1, mlx::core::array *a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = mlx::core::array::item<half>(a2);
-  result = 0;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t mlx_array_item_bfloat16(__int16 *a1, mlx::core::array *a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = mlx::core::array::item<half>(a2);
-  result = 0;
-  *a1 = v3;
-  return result;
-}
-
-uint64_t mlx_array_data_BOOL(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_uint8(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_uint16(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_uint32(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_uint64(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_int8(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_int16(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_int32(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_int64(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_float32(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_float64(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_complex64(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_float16(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t mlx_array_data_bfloat16(uint64_t a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  return *(*a1 + 152);
-}
-
-uint64_t _mlx_array_is_available(BOOL *a1, mlx::core::array *this)
-{
-  if (!this)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  is_available = mlx::core::array::is_available(this);
-  result = 0;
-  *a1 = is_available;
-  return result;
-}
-
-uint64_t _mlx_array_wait(mlx::core::array *a1)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  mlx::core::array::wait(a1);
-  return 0;
-}
-
-uint64_t _mlx_array_is_contiguous(_BYTE *a1, uint64_t a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  result = 0;
-  *a1 = *(*a2 + 168) & 1;
-  return result;
-}
-
-uint64_t _mlx_array_is_row_contiguous(BOOL *a1, uint64_t a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  result = 0;
-  *a1 = (*(*a2 + 168) & 2) != 0;
-  return result;
-}
-
-uint64_t _mlx_array_is_col_contiguous(BOOL *a1, uint64_t a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  result = 0;
-  *a1 = (*(*a2 + 168) & 4) != 0;
-  return result;
-}
-
-void *std::vector<int>::__assign_with_size[abi:ne200100]<int const*,int const*>(void *result, char *__src, char *a3, unint64_t a4)
-{
-  v6 = result;
-  v7 = result[2];
-  v8 = *result;
-  if (a4 > (v7 - *result) >> 2)
-  {
-    if (v8)
-    {
-      result[1] = v8;
-      operator delete(v8);
-      v7 = 0;
-      *v6 = 0;
-      v6[1] = 0;
-      v6[2] = 0;
-    }
-
-    if (!(a4 >> 62))
-    {
-      v9 = v7 >> 1;
-      if (v7 >> 1 <= a4)
-      {
-        v9 = a4;
-      }
-
-      if (v7 >= 0x7FFFFFFFFFFFFFFCLL)
-      {
-        v10 = 0x3FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v10 = v9;
-      }
-
-      std::vector<int>::__vallocate[abi:ne200100](v6, v10);
-    }
-
-    std::vector<int>::__throw_length_error[abi:ne200100]();
-  }
-
-  v11 = result[1];
-  v12 = v11 - v8;
-  if (a4 <= (v11 - v8) >> 2)
-  {
-    v18 = a3 - __src;
-    if (v18)
-    {
-      result = memmove(*result, __src, v18);
-    }
-
-    v17 = &v8[v18];
-  }
-
-  else
-  {
-    v13 = &__src[v12];
-    if (v11 != v8)
-    {
-      result = memmove(*result, __src, v12);
-      v11 = v6[1];
-    }
-
-    v14 = v11;
-    if (v13 != a3)
-    {
-      v14 = v11;
-      v15 = v11;
-      do
-      {
-        v16 = *v13;
-        v13 += 4;
-        *v15 = v16;
-        v15 += 4;
-        v14 += 4;
-      }
-
-      while (v13 != a3);
-    }
-
-    v17 = v14;
-  }
-
-  v6[1] = v17;
-  return result;
-}
-
-void sub_25A866F08(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_25A866F78(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::array::init<unsigned char *>(uint64_t a1)
-{
-  v3[4] = *MEMORY[0x277D85DE8];
-  v2 = mlx::core::allocator::malloc((*(*a1 + 60) * *(*a1 + 48)));
-  v3[0] = &unk_286BE3468;
-  v3[1] = mlx::core::allocator::free;
-  v3[3] = v3;
-  mlx::core::array::set_data(a1, v2);
-}
-
-void sub_25A867248(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_25A8672EC(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_25A86735C(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_25A8673CC(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::array::init<unsigned long long *>(uint64_t a1)
-{
-  v3[4] = *MEMORY[0x277D85DE8];
-  v2 = mlx::core::allocator::malloc((*(*a1 + 60) * *(*a1 + 48)));
-  v3[0] = &unk_286BE3468;
-  v3[1] = mlx::core::allocator::free;
-  v3[3] = v3;
-  mlx::core::array::set_data(a1, v2);
-}
-
-void sub_25A8676D4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_25A867778(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::array::init<signed char *>(uint64_t a1)
-{
-  v3[4] = *MEMORY[0x277D85DE8];
-  v2 = mlx::core::allocator::malloc((*(*a1 + 60) * *(*a1 + 48)));
-  v3[0] = &unk_286BE3468;
-  v3[1] = mlx::core::allocator::free;
-  v3[3] = v3;
-  mlx::core::array::set_data(a1, v2);
-}
-
-void sub_25A867A48(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_25A867AEC(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::array::init<short *>(uint64_t a1)
-{
-  v3[4] = *MEMORY[0x277D85DE8];
-  v2 = mlx::core::allocator::malloc((*(*a1 + 60) * *(*a1 + 48)));
-  v3[0] = &unk_286BE3468;
-  v3[1] = mlx::core::allocator::free;
-  v3[3] = v3;
-  mlx::core::array::set_data(a1, v2);
-}
-
-void sub_25A867DF0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_25A867E94(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_25A867F04(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::array::init<long long *>(uint64_t a1)
-{
-  v3[4] = *MEMORY[0x277D85DE8];
-  v2 = mlx::core::allocator::malloc((*(*a1 + 60) * *(*a1 + 48)));
-  v3[0] = &unk_286BE3468;
-  v3[1] = mlx::core::allocator::free;
-  v3[3] = v3;
-  mlx::core::array::set_data(a1, v2);
-}
-
-void sub_25A86820C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<void ()(mlx::core::allocator::Buffer)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_25A8682B0(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_25A868320(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_25A868390(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_25A868400(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_25A868470(_Unwind_Exception *exception_object)
-{
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx_random_bernoulli(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t *a5, uint64_t *a6)
-{
-  if (a2)
-  {
-    memset(__p, 0, sizeof(__p));
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a3, a3 + 4 * a4, a4);
-    if (a5)
-    {
-      v9 = a5[1];
-      v16 = *a5;
-      v17 = v9;
-      if (v9)
-      {
-        v10 = (v9 + 8);
-        v11 = 1;
-        atomic_fetch_add_explicit(v10, 1uLL, memory_order_relaxed);
-      }
-
-      else
-      {
-        v11 = 1;
-      }
-    }
-
-    else
-    {
-      v11 = 0;
-      LOBYTE(v16) = 0;
-    }
-
-    v18 = v11;
-    if (a6)
-    {
-      v12 = *a6;
-      v13 = *(a6 + 2) | 0x100000000;
-      mlx::core::random::bernoulli(a2);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v14 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v14, "expected a non-empty mlx_array");
-  __cxa_throw(v14, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_bits(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, void *a5, uint64_t a6)
-{
-  memset(__p, 0, sizeof(__p));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a2, a2 + 4 * a3, a3);
-  if (a5)
-  {
-    v9 = a5[1];
-    v13[0] = *a5;
-    v13[1] = v9;
-    if (v9)
-    {
-      v10 = (v9 + 8);
-      v11 = 1;
-      atomic_fetch_add_explicit(v10, 1uLL, memory_order_relaxed);
-    }
-
-    else
-    {
-      v11 = 1;
-    }
-  }
-
-  else
-  {
-    v11 = 0;
-    LOBYTE(v13[0]) = 0;
-  }
-
-  v14 = v11;
-  if (a6)
-  {
-    mlx::core::random::bits(__p, a4, v13, *a6, *(a6 + 8) | 0x100000000);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_categorical_shape(uint64_t a1, uint64_t **a2, mlx::core::random *a3, uint64_t a4, unint64_t a5, uint64_t *a6, uint64_t *a7)
-{
-  if (a2)
-  {
-    memset(__p, 0, sizeof(__p));
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a4, a4 + 4 * a5, a5);
-    if (a6)
-    {
-      v11 = a6[1];
-      v18 = *a6;
-      v19 = v11;
-      if (v11)
-      {
-        v12 = (v11 + 8);
-        v13 = 1;
-        atomic_fetch_add_explicit(v12, 1uLL, memory_order_relaxed);
-      }
-
-      else
-      {
-        v13 = 1;
-      }
-    }
-
-    else
-    {
-      v13 = 0;
-      LOBYTE(v18) = 0;
-    }
-
-    v20 = v13;
-    if (a7)
-    {
-      v14 = *a7;
-      v15 = *(a7 + 2) | 0x100000000;
-      mlx::core::random::categorical(a2, a3, __p);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v16 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v16, "expected a non-empty mlx_array");
-  __cxa_throw(v16, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_categorical_num_samples(int a1, uint64_t **a2, mlx::core::random *this, uint64_t a4, uint64_t *a5, uint64_t *a6)
-{
-  if (a2)
-  {
-    if (a5)
-    {
-      v6 = a5[1];
-      v13 = *a5;
-      v14 = v6;
-      if (v6)
-      {
-        v7 = (v6 + 8);
-        v8 = 1;
-        atomic_fetch_add_explicit(v7, 1uLL, memory_order_relaxed);
-      }
-
-      else
-      {
-        v8 = 1;
-      }
-    }
-
-    else
-    {
-      v8 = 0;
-      LOBYTE(v13) = 0;
-    }
-
-    v15 = v8;
-    if (a6)
-    {
-      v9 = *a6;
-      v10 = *(a6 + 2) | 0x100000000;
-      mlx::core::random::categorical(a2, this);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v11 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v11, "expected a non-empty mlx_array");
-  __cxa_throw(v11, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_categorical(int a1, uint64_t **a2, mlx::core::random *this, uint64_t *a4, uint64_t *a5)
-{
-  if (a2)
-  {
-    if (a4)
-    {
-      v5 = a4[1];
-      v10 = *a4;
-      if (v5)
-      {
-        atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
-      }
-    }
-
-    if (a5)
-    {
-      v6 = *a5;
-      v7 = *(a5 + 2) | 0x100000000;
-      mlx::core::random::categorical(a2, this);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v8 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v8, "expected a non-empty mlx_array");
-  __cxa_throw(v8, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_gumbel(uint64_t a1, uint64_t a2, unint64_t a3, int a4, uint64_t *a5, uint64_t *a6)
-{
-  memset(__p, 0, sizeof(__p));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a2, a2 + 4 * a3, a3);
-  if (a5)
-  {
-    v10 = a5[1];
-    v16 = *a5;
-    v17 = v10;
-    if (v10)
-    {
-      v11 = (v10 + 8);
-      v12 = 1;
-      atomic_fetch_add_explicit(v11, 1uLL, memory_order_relaxed);
-    }
-
-    else
-    {
-      v12 = 1;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-    LOBYTE(v16) = 0;
-  }
-
-  v18 = v12;
-  if (a6)
-  {
-    v13 = *a6;
-    v14 = *(a6 + 2) | 0x100000000;
-    mlx::core::random::gumbel();
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_laplace(uint64_t a1, uint64_t a2, unint64_t a3, int a4, void *a5, uint64_t a6)
-{
-  memset(__p, 0, sizeof(__p));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a2, a2 + 4 * a3, a3);
-  if (a5)
-  {
-    v10 = a5[1];
-    v14[0] = *a5;
-    v14[1] = v10;
-    if (v10)
-    {
-      v11 = (v10 + 8);
-      v12 = 1;
-      atomic_fetch_add_explicit(v11, 1uLL, memory_order_relaxed);
-    }
-
-    else
-    {
-      v12 = 1;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-    LOBYTE(v14[0]) = 0;
-  }
-
-  v15 = v12;
-  if (a6)
-  {
-    mlx::core::random::laplace(__p, v9, v14, *a6, *(a6 + 8) | 0x100000000);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_multivariate_normal(uint64_t a1, uint64_t **a2, uint64_t **a3, uint64_t a4, unint64_t a5, int a6, void *a7, uint64_t a8)
-{
-  if (a2 && a3)
-  {
-    memset(__p, 0, sizeof(__p));
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a4, a4 + 4 * a5, a5);
-    if (a7)
-    {
-      v14 = a7[1];
-      v19[0] = *a7;
-      v19[1] = v14;
-      if (v14)
-      {
-        v15 = (v14 + 8);
-        v16 = 1;
-        atomic_fetch_add_explicit(v15, 1uLL, memory_order_relaxed);
-      }
-
-      else
-      {
-        v16 = 1;
-      }
-    }
-
-    else
-    {
-      v16 = 0;
-      LOBYTE(v19[0]) = 0;
-    }
-
-    v20 = v16;
-    if (a8)
-    {
-      mlx::core::random::multivariate_normal(a2, a3, __p, v13, v19, *a8, *(a8 + 8) | 0x100000000);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v17 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v17, "expected a non-empty mlx_array");
-  __cxa_throw(v17, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_normal(uint64_t a1, uint64_t a2, unint64_t a3, int a4, void *a5, uint64_t a6)
-{
-  memset(__p, 0, sizeof(__p));
-  std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a2, a2 + 4 * a3, a3);
-  if (a5)
-  {
-    v10 = a5[1];
-    v14[0] = *a5;
-    v14[1] = v10;
-    if (v10)
-    {
-      v11 = (v10 + 8);
-      v12 = 1;
-      atomic_fetch_add_explicit(v11, 1uLL, memory_order_relaxed);
-    }
-
-    else
-    {
-      v12 = 1;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-    LOBYTE(v14[0]) = 0;
-  }
-
-  v15 = v12;
-  if (a6)
-  {
-    mlx::core::random::normal(__p, v9, v14, *a6, *(a6 + 8) | 0x100000000);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_permutation(uint64_t a1, uint64_t **a2, int a3, void *a4, uint64_t a5)
-{
-  if (a2)
-  {
-    if (a4)
-    {
-      v5 = a4[1];
-      v10[0] = *a4;
-      v10[1] = v5;
-      if (v5)
-      {
-        v6 = (v5 + 8);
-        v7 = 1;
-        atomic_fetch_add_explicit(v6, 1uLL, memory_order_relaxed);
-      }
-
-      else
-      {
-        v7 = 1;
-      }
-    }
-
-    else
-    {
-      v7 = 0;
-      LOBYTE(v10[0]) = 0;
-    }
-
-    v11 = v7;
-    if (a5)
-    {
-      mlx::core::random::permutation(a2, a3, v10, *a5, *(a5 + 8) | 0x100000000);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v8 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v8, "expected a non-empty mlx_array");
-  __cxa_throw(v8, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_permutation_arange(uint64_t a1, int a2, void *a3, uint64_t a4)
-{
-  if (a3)
-  {
-    v4 = a3[1];
-    v8[0] = *a3;
-    v8[1] = v4;
-    if (v4)
-    {
-      v5 = (v4 + 8);
-      v6 = 1;
-      atomic_fetch_add_explicit(v5, 1uLL, memory_order_relaxed);
-    }
-
-    else
-    {
-      v6 = 1;
-    }
-  }
-
-  else
-  {
-    v6 = 0;
-    LOBYTE(v8[0]) = 0;
-  }
-
-  v9 = v6;
-  if (a4)
-  {
-    mlx::core::random::permutation(a2, v8, *a4, *(a4 + 8) | 0x100000000);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_randint(uint64_t a1, uint64_t **a2, uint64_t **a3, uint64_t a4, unint64_t a5, int a6, void *a7, uint64_t a8)
-{
-  if (a2 && a3)
-  {
-    memset(__p, 0, sizeof(__p));
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a4, a4 + 4 * a5, a5);
-    if (a7)
-    {
-      v14 = a7[1];
-      v19[0] = *a7;
-      v19[1] = v14;
-      if (v14)
-      {
-        v15 = (v14 + 8);
-        v16 = 1;
-        atomic_fetch_add_explicit(v15, 1uLL, memory_order_relaxed);
-      }
-
-      else
-      {
-        v16 = 1;
-      }
-    }
-
-    else
-    {
-      v16 = 0;
-      LOBYTE(v19[0]) = 0;
-    }
-
-    v20 = v16;
-    if (a8)
-    {
-      mlx::core::random::randint(a2, a3, __p, v13 & 0xFFFFFFFFFFLL, v19, *a8, *(a8 + 8) | 0x100000000);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v17 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v17, "expected a non-empty mlx_array");
-  __cxa_throw(v17, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-uint64_t mlx_random_split_num(uint64_t *a1, void *a2, int a3, uint64_t a4)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    goto LABEL_10;
-  }
-
-  if (!a4)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-LABEL_10:
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  mlx::core::random::split(a2, a3, *a4, *(a4 + 8) | 0x100000000);
-  v5 = *a1;
-  if (!*a1)
-  {
-    operator new();
-  }
-
-  v6 = v10;
-  v10 = 0uLL;
-  v7 = *(v5 + 8);
-  *v5 = v6;
-  if (v7)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
-  }
-
-  mlx::core::array::~array(&v10);
-  return 0;
-}
-
-uint64_t mlx_random_split(void **a1, void **a2, void *a3, uint64_t a4)
-{
-  if (!a3)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_array");
-    goto LABEL_20;
-  }
-
-  if (!a4)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-LABEL_20:
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  mlx::core::random::split(a3, *a4, *(a4 + 8) | 0x100000000, &v16);
-  v6 = *a1;
-  if (!*a1)
-  {
-    operator new();
-  }
-
-  v7 = v16;
-  if (*v6 != v16)
-  {
-    v8 = *(&v16 + 1);
-    if (*(&v16 + 1))
-    {
-      atomic_fetch_add_explicit((*(&v16 + 1) + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v9 = v6[1];
-    *v6 = v7;
-    v6[1] = v8;
-    if (v9)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-    }
-  }
-
-  v10 = *a2;
-  if (!*a2)
-  {
-    operator new();
-  }
-
-  v11 = v17;
-  if (*v10 != v17)
-  {
-    v12 = v18;
-    if (v18)
-    {
-      atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v13 = v10[1];
-    *v10 = v11;
-    v10[1] = v12;
-    if (v13)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
-    }
-  }
-
-  mlx::core::array::~array(&v17);
-  mlx::core::array::~array(&v16);
-  return 0;
-}
-
-void mlx_random_truncated_normal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, int a6, uint64_t *a7, uint64_t *a8)
-{
-  if (a2 && a3)
-  {
-    memset(__p, 0, sizeof(__p));
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a4, a4 + 4 * a5, a5);
-    if (a7)
-    {
-      v14 = a7[1];
-      v21 = *a7;
-      v22 = v14;
-      if (v14)
-      {
-        v15 = (v14 + 8);
-        v16 = 1;
-        atomic_fetch_add_explicit(v15, 1uLL, memory_order_relaxed);
-      }
-
-      else
-      {
-        v16 = 1;
-      }
-    }
-
-    else
-    {
-      v16 = 0;
-      LOBYTE(v21) = 0;
-    }
-
-    v23 = v16;
-    if (a8)
-    {
-      v17 = *a8;
-      v18 = *(a8 + 2) | 0x100000000;
-      mlx::core::random::truncated_normal(a2, a3, __p, v13 & 0xFFFFFFFFFFLL);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v19 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v19, "expected a non-empty mlx_array");
-  __cxa_throw(v19, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx_random_uniform(uint64_t a1, uint64_t **a2, uint64_t **a3, uint64_t a4, unint64_t a5, int a6, void *a7, uint64_t a8)
-{
-  if (a2 && a3)
-  {
-    memset(__p, 0, sizeof(__p));
-    std::vector<int>::__init_with_size[abi:ne200100]<int const*,int const*>(__p, a4, a4 + 4 * a5, a5);
-    if (a7)
-    {
-      v14 = a7[1];
-      v19[0] = *a7;
-      v19[1] = v14;
-      if (v14)
-      {
-        v15 = (v14 + 8);
-        v16 = 1;
-        atomic_fetch_add_explicit(v15, 1uLL, memory_order_relaxed);
-      }
-
-      else
-      {
-        v16 = 1;
-      }
-    }
-
-    else
-    {
-      v16 = 0;
-      LOBYTE(v19[0]) = 0;
-    }
-
-    v20 = v16;
-    if (a8)
-    {
-      mlx::core::random::uniform(a2, a3, __p, v13 & 0xFFFFFFFFFFLL, v19, *a8, *(a8 + 8) | 0x100000000);
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_stream");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v17 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v17, "expected a non-empty mlx_array");
-  __cxa_throw(v17, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-uint64_t mlx_compile(uint64_t *a1, uint64_t a2, char a3)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_closure");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::__value_func[abi:ne200100](v8, a2);
-  mlx::core::compile(v8, a3, v9);
-  if (!*a1)
-  {
-    operator new();
-  }
-
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::operator=[abi:ne200100](*a1, v9);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v9);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v8);
-  result = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t mlx_detail_compile(uint64_t *a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, unint64_t a6)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_closure");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::__value_func[abi:ne200100](v15, a2);
-  memset(__p, 0, sizeof(__p));
-  std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(__p, a5, a5 + 8 * a6, a6);
-  mlx::core::detail::compile(v15, a3, a4, __p, v16);
-  if (!*a1)
-  {
-    operator new();
-  }
-
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::operator=[abi:ne200100](*a1, v16);
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v16);
-  if (__p[0])
-  {
-    __p[1] = __p[0];
-    operator delete(__p[0]);
-  }
-
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array> const&)>::~__value_func[abi:ne200100](v15);
-  result = 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t std::vector<unsigned long long>::__init_with_size[abi:ne200100]<unsigned long long const*,unsigned long long const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<std::pair<int,int>>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_25A86B358(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx_string_new_data(const char *a1)
-{
-  v2 = strlen(a1);
-  if (v2 < 0x7FFFFFFFFFFFFFF8)
-  {
-    v3 = v2;
-    if (v2 < 0x17)
-    {
-      v5 = v2;
-      if (v2)
-      {
-        memcpy(&__dst, a1, v2);
-      }
-
-      *(&__dst + v3) = 0;
-      operator new();
-    }
-
-    operator new();
-  }
-
-  std::string::__throw_length_error[abi:ne200100]();
-}
-
-uint64_t mlx_string_set(std::string **a1, std::string *__str)
-{
-  if (!__str)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_string");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v2 = *a1;
-  if (!v2)
-  {
-    operator new();
-  }
-
-  std::string::operator=(v2, __str);
-  return 0;
-}
-
-char *mlx_string_data(char *result)
-{
-  if (!result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_string");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  if (result[23] < 0)
-  {
-    return *result;
-  }
-
-  return result;
-}
-
-uint64_t mlx_string_free(uint64_t a1)
-{
-  if (a1)
-  {
-    if (*(a1 + 23) < 0)
-    {
-      operator delete(*a1);
-    }
-
-    MEMORY[0x25F851760](a1, 0x1012C40EC159624);
-  }
-
-  return 0;
-}
-
-void mlx_map_string_to_array_new()
-{
-  v0 = 0u;
-  v1 = 0u;
-  v2 = 1065353216;
-  operator new();
-}
-
-uint64_t mlx_map_string_to_array_set(uint64_t *a1, uint64_t a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v2 = *a1;
-  if (!v2)
-  {
-    operator new();
-  }
-
-  if (v2 != a2)
-  {
-    *(v2 + 32) = *(a2 + 32);
-    std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,mlx::core::array>,void *> *>>(v2, *(a2 + 16), 0);
-  }
-
-  return 0;
-}
-
-uint64_t mlx_map_string_to_array_free(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::~__hash_table(a1);
-    MEMORY[0x25F851760](v1, 0x10A0C408EF24B1CLL);
-  }
-
-  return 0;
-}
-
-uint64_t mlx_map_string_to_array_insert(void *a1, char *a2, uint64_t *a3)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  if (!a3)
-  {
-    v7 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v7, "expected a non-empty mlx_array");
-    __cxa_throw(v7, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  std::unordered_map<std::string,mlx::core::array>::insert_or_assign[abi:ne200100]<mlx::core::array&>(a1, __p, a3);
-  if (v9 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  return 0;
-}
-
-const void **std::unordered_map<std::string,mlx::core::array>::insert_or_assign[abi:ne200100]<mlx::core::array&>(void *a1, const void **a2, uint64_t *a3)
-{
-  v4 = std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__emplace_unique_key_args<std::string,std::string,mlx::core::array&>(a1, a2);
-  v5 = v4;
-  if ((v6 & 1) == 0)
-  {
-    mlx::core::array::operator=(v4 + 5, a3);
-  }
-
-  return v5;
-}
-
-uint64_t mlx_map_string_to_array_get(void **a1, void *a2, char *__s)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_array");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(__p, __s);
-  v5 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a2, __p);
-  v6 = v5;
-  if (v11 < 0)
-  {
-    operator delete(__p[0]);
-    if (v6)
-    {
-      goto LABEL_4;
-    }
-
-    return 2;
-  }
-
-  if (!v5)
-  {
-    return 2;
-  }
-
-LABEL_4:
-  if (!*a1)
-  {
-    operator new();
-  }
-
-  mlx::core::array::operator=(*a1, v6 + 5);
-  return 0;
-}
-
-void mlx_map_string_to_array_iterator_new(uint64_t a1)
-{
-  if (a1)
-  {
-    operator new();
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_array");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-uint64_t mlx_map_string_to_array_iterator_next(void *a1, void **a2, void **a3)
-{
-  if (!a3)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_array_iterator");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v4 = *a3;
-  if (!*a3)
-  {
-    return 2;
-  }
-
-  v5 = (v4 + 16);
-  if (*(v4 + 39) < 0)
-  {
-    v5 = *v5;
-  }
-
-  *a1 = v5;
-  if (!*a2)
-  {
-    operator new();
-  }
-
-  mlx::core::array::operator=(*a2, *a3 + 5);
-  result = 0;
-  *a3 = **a3;
-  return result;
-}
-
-uint64_t mlx_map_string_to_array_iterator_free(uint64_t a1)
-{
-  if (a1)
-  {
-    MEMORY[0x25F851760](a1, 0x20C4093837F09);
-  }
-
-  return 0;
-}
-
-void mlx_map_string_to_string_new()
-{
-  v0 = 0u;
-  v1 = 0u;
-  v2 = 1065353216;
-  operator new();
-}
-
-uint64_t mlx_map_string_to_string_set(uint64_t *a1, uint64_t a2)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_string");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v2 = *a1;
-  if (!v2)
-  {
-    operator new();
-  }
-
-  if (v2 != a2)
-  {
-    *(v2 + 32) = *(a2 + 32);
-    std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *> *>>(v2, *(a2 + 16), 0);
-  }
-
-  return 0;
-}
-
-uint64_t mlx_map_string_to_string_free(uint64_t a1)
-{
-  if (a1)
-  {
-    v1 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::~__hash_table(a1);
-    MEMORY[0x25F851760](v1, 0x10A0C408EF24B1CLL);
-  }
-
-  return 0;
-}
-
-uint64_t mlx_map_string_to_string_insert(void *a1, char *a2, char *a3)
-{
-  if (!a1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_string");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(v9, a2);
-  std::string::basic_string[abi:ne200100]<0>(__p, a3);
-  std::unordered_map<std::string,std::string>::insert_or_assign[abi:ne200100]<std::string>(a1, v9, __p);
-  if (v8 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  if (v10 < 0)
-  {
-    operator delete(v9[0]);
-  }
-
-  return 0;
-}
-
-const void **std::unordered_map<std::string,std::string>::insert_or_assign[abi:ne200100]<std::string>(void *a1, const void **a2, __int128 *a3)
-{
-  v4 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string,std::string>(a1, a2);
-  v5 = v4;
-  if ((v6 & 1) == 0)
-  {
-    if (*(v4 + 63) < 0)
-    {
-      operator delete(v4[5]);
-    }
-
-    v7 = *a3;
-    v5[7] = *(a3 + 2);
-    *(v5 + 5) = v7;
-    *(a3 + 23) = 0;
-    *a3 = 0;
-  }
-
-  return v5;
-}
-
-uint64_t mlx_map_string_to_string_get(void *a1, void *a2, char *__s)
-{
-  if (!a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_string");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(__p, __s);
-  v5 = std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::find<std::string>(a2, __p);
-  v6 = v5;
-  if (v11 < 0)
-  {
-    operator delete(__p[0]);
-    if (v6)
-    {
-      goto LABEL_4;
-    }
-
-    return 2;
-  }
-
-  if (!v5)
-  {
-    return 2;
-  }
-
-LABEL_4:
-  v7 = v6 + 5;
-  if (*(v6 + 63) < 0)
-  {
-    v7 = *v7;
-  }
-
-  result = 0;
-  *a1 = v7;
-  return result;
-}
-
-void mlx_map_string_to_string_iterator_new(uint64_t a1)
-{
-  if (a1)
-  {
-    operator new();
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_string");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-uint64_t mlx_map_string_to_string_iterator_next(void *a1, void *a2, void **a3)
-{
-  if (!a3)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "expected a non-empty mlx_map_string_to_string_iterator");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v3 = *a3;
-  if (!*a3)
-  {
-    return 2;
-  }
-
-  v4 = v3 + 16;
-  if (v3[39] < 0)
-  {
-    v4 = *v4;
-  }
-
-  *a1 = v4;
-  v5 = *a3 + 5;
-  if (*(*a3 + 63) < 0)
-  {
-    v5 = *v5;
-  }
-
-  result = 0;
-  *a2 = v5;
-  *a3 = **a3;
-  return result;
-}
-
-uint64_t mlx_map_string_to_string_iterator_free(uint64_t a1)
-{
-  if (a1)
-  {
-    MEMORY[0x25F851760](a1, 0x20C4093837F09);
-  }
-
-  return 0;
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,mlx::core::array>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,mlx::core::array>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,mlx::core::array>>>::__emplace_unique_key_args<std::string,std::string,mlx::core::array&>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void sub_25A86CAF0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,mlx::core::array>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,mlx::core::array>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::string,std::string>(void *a1, const void **a2)
-{
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_18;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_18:
-    operator new();
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v12 >= *&v6)
-      {
-        v12 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v12 &= *&v6 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_17:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
-  {
-    goto LABEL_17;
-  }
-
-  return v11;
-}
-
-void sub_25A86CD94(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::Abs::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Abs has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Add::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Add has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::AddMM::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "AddMM has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Arange::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Arange has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArcCos::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArcCos has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArcCosh::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArcCosh has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArcSin::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArcSin has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArcSinh::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArcSinh has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArcTan::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArcTan has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArcTan2::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArcTan2 has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArcTanh::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArcTanh has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArgPartition::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArgPartition has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArgReduce::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArgReduce has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ArgSort::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ArgSort has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::AsType::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "AsType has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::AsStrided::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "AsStrided has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::BitwiseBinary::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "BitwiseBinary has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::BitwiseInvert::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "BitwiseInvert has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::BlockMaskedMM::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "BlockMaskedMM has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Broadcast::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Broadcast has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::BroadcastAxes::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "BroadcastAxes has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Ceil::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Ceil has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Compiled::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Compiled has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Concatenate::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Concatenate has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Conjugate::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Conjugate has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Contiguous::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Contiguous has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Convolution::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Convolution has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Copy::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Copy has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Cos::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cos has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Cosh::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cosh has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::CustomTransforms::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "CustomTransforms has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Depends::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Depends has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Divide::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Divide has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::DivMod::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "DivMod has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::DynamicSlice::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "DynamicSlice has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::DynamicSliceUpdate::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "DynamicSliceUpdate has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::NumberOfElements::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "NumberOfElements has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Remainder::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Remainder has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Equal::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Equal has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Erf::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Erf has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ErfInv::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ErfInv has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Exp::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Exp has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ExpandDims::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ExpandDims has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Expm1::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Expm1 has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::FFT::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "FFT has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Flatten::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Flatten has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Floor::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Floor has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Full::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Full has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Gather::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Gather has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::GatherAxis::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "GatherAxis has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::GatherMM::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "GatherMM has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::GatherQMM::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "GatherQMM has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Greater::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Greater has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::GreaterEqual::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "GreaterEqual has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Hadamard::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Hadamard has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Imag::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Imag has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Less::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Less has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::LessEqual::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "LessEqual has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Load::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Load has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Log::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Log has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Log1p::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Log1p has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::LogicalNot::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "LogicalNot has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::LogicalAnd::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "LogicalAnd has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::LogicalOr::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "LogicalOr has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::LogAddExp::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "LogAddExp has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::LogSumExp::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "LogSumExp has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::LUF::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "LUF has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Matmul::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Matmul has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Maximum::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Maximum has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Minimum::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Minimum has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Multiply::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Multiply has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Negative::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Negative has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::NotEqual::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "NotEqual has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Pad::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Pad has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Partition::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Partition has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Power::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Power has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::QRF::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "QRF has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::QuantizedMatmul::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "QuantizedMatmul has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::RandomBits::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "RandomBits has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Real::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Real has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Reduce::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Reduce has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Reshape::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Reshape has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Round::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Round has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Scan::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Scan has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Scatter::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Scatter has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::ScatterAxis::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ScatterAxis has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Select::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Select has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Sigmoid::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Sigmoid has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Sign::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Sign has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Sin::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Sin has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Sinh::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Sinh has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Slice::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Slice has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::SliceUpdate::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "SliceUpdate has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Softmax::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Softmax has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Sort::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Sort has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Split::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Split has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Square::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Square has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Squeeze::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Squeeze has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Sqrt::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Sqrt has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::StopGradient::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "StopGradient has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Subtract::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Subtract has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::SVD::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "SVD has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Tan::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Tan has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Tanh::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Tanh has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Transpose::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Transpose has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Unflatten::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Unflatten has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Inverse::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Inverse has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Cholesky::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cholesky has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::Eigh::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Eigh has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::View::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "View has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::LayerNorm::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "LayerNorm has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::LayerNormVJP::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "LayerNormVJP has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::RMSNorm::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "RMSNorm has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::RMSNormVJP::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "RMSNormVJP has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::RoPE::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "RoPE has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::ScaledDotProductAttention::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "ScaledDotProductAttention has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::AffineQuantize::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "AffineQuantize has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::CustomKernel::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "CustomKernel has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::distributed::AllReduce::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "AllReduce has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::distributed::AllGather::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "AllGather has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::distributed::Send::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Send has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::distributed::Recv::eval_gpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Recv has no GPU implementation.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::RMSNorm::eval_cpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "NYI");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::RMSNorm::output_shapes(uint64_t ***a1@<X1>, void *a2@<X8>)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = **a1;
-  v6 = 0;
-  v7 = 0;
-  __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v3, v3[1], (v3[1] - *v3) >> 2);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a2, &__p, &v8, 1uLL);
-  if (__p)
-  {
-    v6 = __p;
-    operator delete(__p);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25A86FA98(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::fast::RMSNorm::~RMSNorm(mlx::core::fast::RMSNorm *this)
-{
-  *this = &unk_286C09EE0;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-}
-
-{
-  *this = &unk_286C09EE0;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-
-  JUMPOUT(0x25F851760);
-}
-
-void mlx::core::fast::RMSNormVJP::eval_cpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "NYI");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::RMSNormVJP::~RMSNormVJP(mlx::core::fast::RMSNormVJP *this)
-{
-  *this = &unk_286C09F58;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-}
-
-{
-  *this = &unk_286C09F58;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-
-  JUMPOUT(0x25F851760);
-}
-
-void mlx::core::fast::LayerNorm::eval_cpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "NYI");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::LayerNorm::output_shapes(uint64_t ***a1@<X1>, void *a2@<X8>)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = **a1;
-  v6 = 0;
-  v7 = 0;
-  __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v3, v3[1], (v3[1] - *v3) >> 2);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a2, &__p, &v8, 1uLL);
-  if (__p)
-  {
-    v6 = __p;
-    operator delete(__p);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25A86FE24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::fast::LayerNorm::~LayerNorm(mlx::core::fast::LayerNorm *this)
-{
-  *this = &unk_286C09FD0;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-}
-
-{
-  *this = &unk_286C09FD0;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-
-  JUMPOUT(0x25F851760);
-}
-
-void mlx::core::fast::LayerNormVJP::eval_cpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "NYI");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::LayerNormVJP::~LayerNormVJP(mlx::core::fast::LayerNormVJP *this)
-{
-  *this = &unk_286C0A048;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-}
-
-{
-  *this = &unk_286C0A048;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-
-  JUMPOUT(0x25F851760);
-}
-
-void mlx::core::fast::RoPE::eval_cpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "NYI");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::RoPE::output_shapes(uint64_t ***a1@<X1>, void *a2@<X8>)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = **a1;
-  v6 = 0;
-  v7 = 0;
-  __p = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *v3, v3[1], (v3[1] - *v3) >> 2);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  std::vector<std::vector<int>>::__init_with_size[abi:ne200100]<std::vector<int> const*,std::vector<int> const*>(a2, &__p, &v8, 1uLL);
-  if (__p)
-  {
-    v6 = __p;
-    operator delete(__p);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void sub_25A8701B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void mlx::core::fast::RoPE::~RoPE(mlx::core::fast::RoPE *this)
-{
-  *this = &unk_286C0A0C0;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-}
-
-{
-  *this = &unk_286C0A0C0;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 56);
-  *this = &unk_286BF21A8;
-  std::__function::__value_func<std::vector<mlx::core::array> ()(std::vector<mlx::core::array>)>::~__value_func[abi:ne200100](this + 24);
-
-  JUMPOUT(0x25F851760);
-}
-
-void mlx::core::fast::CustomKernel::eval_cpu()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Custom Metal kernels only run on GPU.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::fast::CustomKernel::~CustomKernel(mlx::core::fast::CustomKernel *this)
-{
-  *this = &unk_286C0A138;
-  v2 = *(this + 12);
-  if (v2)
-  {
-    *(this + 13) = v2;
-    operator delete(v2);
-  }
-
-  if (*(this + 71) < 0)
-  {
-    operator delete(*(this + 6));
-  }
-
-  if (*(this + 47) < 0)
-  {
-    operator delete(*(this + 3));
-  }
-}
-
-{
-  *this = &unk_286C0A138;
-  v2 = *(this + 12);
-  if (v2)
-  {
-    *(this + 13) = v2;
-    operator delete(v2);
-  }
-
-  if (*(this + 71) < 0)
-  {
-    operator delete(*(this + 6));
-  }
-
-  if (*(this + 47) < 0)
-  {
-    operator delete(*(this + 3));
-  }
-
-  JUMPOUT(0x25F851760);
-}
-
-void mlx::core::Fence::Fence(void *a1)
-{
-  *a1 = 0;
-  a1[1] = 0;
-  operator new();
-}
-
-void sub_25A8704F0(void *a1)
-{
-  __cxa_begin_catch(a1);
-  mlx::core::Fence::Fence(mlx::core::Stream)::$_0::operator()(v1);
-  __cxa_rethrow();
-}
-
-void sub_25A870504(_Unwind_Exception *a1)
-{
-  __cxa_end_catch();
-  v3 = *(v1 + 8);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::Fence::wait(unsigned int **a1, uint64_t a2, int a3)
-{
-  v18 = 0;
-  v19 = a2;
-  v20 = a3;
-  v4 = *a1;
-  v5 = mlx::core::operator==(&v19 + 1, &v18);
-  if (v5)
-  {
-    v6 = *v4;
-    v8 = *a1;
-    v7 = a1[1];
-    if (v7)
-    {
-      atomic_fetch_add_explicit(v7 + 1, 1uLL, memory_order_relaxed);
-    }
-
-    v9 = mlx::core::scheduler::scheduler(v5);
-    v10 = *(v9[1] + 8 * v19);
-    std::mutex::lock(v10);
-    if (*(v10 + 160) != 1)
-    {
-      v11 = *(v10 + 72);
-      v12 = *(v10 + 80);
-      v13 = 16 * (v12 - v11) - 1;
-      if (v12 == v11)
-      {
-        v13 = 0;
-      }
-
-      if (v13 == *(v10 + 104) + *(v10 + 96))
-      {
-        std::deque<std::function<void ()(void)>>::__add_back_capacity((v10 + 64));
-        v11 = *(v10 + 72);
-        v12 = *(v10 + 80);
-      }
-
-      if (v12 == v11)
-      {
-        v15 = 0;
-      }
-
-      else
-      {
-        v14 = *(v10 + 104) + *(v10 + 96);
-        v15 = *(v11 + ((v14 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v14 & 0x7F);
-      }
-
-      *(v15 + 24) = 0;
-      operator new();
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v16 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v16, "[Fence::wait] Invalid stream.");
-  __cxa_throw(v16, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A8706F8(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v3);
-  std::mutex::unlock(v2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::Fence::update(unsigned int **a1, uint64_t a2, int a3)
-{
-  v19 = a2;
-  v20 = a3;
-  v4 = *a1;
-  ++**a1;
-  v18 = 0;
-  v5 = mlx::core::operator==(&v19 + 1, &v18);
-  if (v5)
-  {
-    v6 = *v4;
-    v8 = *a1;
-    v7 = a1[1];
-    if (v7)
-    {
-      atomic_fetch_add_explicit(v7 + 1, 1uLL, memory_order_relaxed);
-    }
-
-    v9 = mlx::core::scheduler::scheduler(v5);
-    v10 = *(v9[1] + 8 * v19);
-    std::mutex::lock(v10);
-    if (*(v10 + 160) != 1)
-    {
-      v11 = *(v10 + 72);
-      v12 = *(v10 + 80);
-      v13 = 16 * (v12 - v11) - 1;
-      if (v12 == v11)
-      {
-        v13 = 0;
-      }
-
-      if (v13 == *(v10 + 104) + *(v10 + 96))
-      {
-        std::deque<std::function<void ()(void)>>::__add_back_capacity((v10 + 64));
-        v11 = *(v10 + 72);
-        v12 = *(v10 + 80);
-      }
-
-      if (v12 == v11)
-      {
-        v15 = 0;
-      }
-
-      else
-      {
-        v14 = *(v10 + 104) + *(v10 + 96);
-        v15 = *(v11 + ((v14 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v14 & 0x7F);
-      }
-
-      *(v15 + 24) = 0;
-      operator new();
-    }
-
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-  }
-
-  v16 = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(v16, "[Fence::update] Invalid stream.");
-  __cxa_throw(v16, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A870930(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v3);
-  std::mutex::unlock(v2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t mlx::core::Fence::Fence(mlx::core::Stream)::$_0::operator()(uint64_t result)
-{
-  if (result)
-  {
-    v1 = result;
-    std::condition_variable::~condition_variable((result + 72));
-    std::mutex::~mutex((v1 + 8));
-
-    JUMPOUT(0x25F851760);
-  }
-
-  return result;
-}
-
-void std::__shared_ptr_pointer<mlx::core::FenceImpl *,mlx::core::Fence::Fence(mlx::core::Stream)::$_0,std::allocator<mlx::core::FenceImpl>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t std::__shared_ptr_pointer<mlx::core::FenceImpl *,mlx::core::Fence::Fence(mlx::core::Stream)::$_0,std::allocator<mlx::core::FenceImpl>>::__on_zero_shared(uint64_t result)
-{
-  v1 = *(result + 24);
-  if (v1)
-  {
-    std::condition_variable::~condition_variable((v1 + 72));
-    std::mutex::~mutex((v1 + 8));
-
-    JUMPOUT(0x25F851760);
-  }
-
-  return result;
-}
-
-uint64_t std::__shared_ptr_pointer<mlx::core::FenceImpl *,mlx::core::Fence::Fence(mlx::core::Stream)::$_0,std::allocator<mlx::core::FenceImpl>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void *std::__function::__func<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286C0A210;
-  v2 = a1[3];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286C0A210;
-  v1 = a1[3];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t std::__function::__func<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_286C0A210;
-  *(a2 + 8) = *(result + 8);
-  v2 = *(result + 24);
-  *(a2 + 16) = *(result + 16);
-  *(a2 + 24) = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-void std::__function::__func<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[3];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::operator()(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  m = (v2 + 8);
-  v5.__m_ = (v2 + 8);
-  v5.__owns_ = 1;
-  std::mutex::lock((v2 + 8));
-  v4 = *(a1 + 8);
-  if (*(v2 + 4) >= v4)
-  {
-    goto LABEL_5;
-  }
-
-  do
-  {
-    std::condition_variable::wait((v2 + 72), &v5);
-  }
-
-  while (*(v2 + 4) < v4);
-  if (v5.__owns_)
-  {
-    m = v5.__m_;
-LABEL_5:
-    std::mutex::unlock(m);
-  }
-}
-
-uint64_t std::__function::__func<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::wait(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void *std::__function::__func<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286C0A290;
-  v2 = a1[3];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286C0A290;
-  v1 = a1[3];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t std::__function::__func<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_286C0A290;
-  *(a2 + 8) = *(result + 8);
-  v2 = *(result + 24);
-  *(a2 + 16) = *(result + 16);
-  *(a2 + 24) = v2;
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  return result;
-}
-
-void std::__function::__func<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-void std::__function::__func<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[3];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::operator()(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  std::mutex::lock((v2 + 8));
-  *(v2 + 4) = *(a1 + 8);
-  std::condition_variable::notify_all((v2 + 72));
-
-  std::mutex::unlock((v2 + 8));
-}
-
-uint64_t std::__function::__func<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0,std::allocator<mlx::core::Fence::update(mlx::core::Stream,mlx::core::array const&)::$_0>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::Event::Event(uint64_t a1, uint64_t a2, int a3)
-{
-  *a1 = a2;
-  *(a1 + 8) = a3;
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 16) = 0;
-  operator new();
-}
-
-{
-  mlx::core::Event::Event(a1, a2, a3);
-}
-
-void sub_25A87107C(void *a1)
-{
-  __cxa_begin_catch(a1);
-  mlx::core::Fence::Fence(mlx::core::Stream)::$_0::operator()(v1);
-  __cxa_rethrow();
-}
-
-void sub_25A871090(_Unwind_Exception *a1)
-{
-  __cxa_end_catch();
-  v3 = *(v1 + 24);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::Event::wait(mlx::core::Event *this)
-{
-  v2 = *(this + 2);
-  v4.__m_ = (v2 + 8);
-  v4.__owns_ = 1;
-  std::mutex::lock((v2 + 8));
-  v3 = *(this + 4);
-  if (*v2 >= v3)
-  {
-    goto LABEL_4;
-  }
-
-  do
-  {
-    std::condition_variable::wait((v2 + 72), &v4);
-  }
-
-  while (*v2 < v3);
-  if (v4.__owns_)
-  {
-LABEL_4:
-    std::mutex::unlock(v4.__m_);
-  }
-}
-
-void mlx::core::Event::wait(uint64_t *a1, int a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v12 = *a1;
-  v13 = *(a1 + 2);
-  v3 = a1[2];
-  v2 = a1[3];
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4 = a1[4];
-  v5 = *(*(mlx::core::scheduler::scheduler(a1) + 1) + 8 * a2);
-  std::mutex::lock(v5);
-  if (*(v5 + 160) != 1)
-  {
-    v6 = *(v5 + 72);
-    v7 = *(v5 + 80);
-    v8 = 16 * (v7 - v6) - 1;
-    if (v7 == v6)
-    {
-      v8 = 0;
-    }
-
-    if (v8 == *(v5 + 104) + *(v5 + 96))
-    {
-      std::deque<std::function<void ()(void)>>::__add_back_capacity((v5 + 64));
-      v6 = *(v5 + 72);
-      v7 = *(v5 + 80);
-    }
-
-    if (v7 == v6)
-    {
-      v10 = 0;
-    }
-
-    else
-    {
-      v9 = *(v5 + 104) + *(v5 + 96);
-      v10 = *(v6 + ((v9 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v9 & 0x7F);
-    }
-
-    *(v10 + 24) = 0;
-    operator new();
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A8712FC(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v3);
-  std::mutex::unlock(v2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void mlx::core::Event::signal(uint64_t *a1, int a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v12 = *a1;
-  v13 = *(a1 + 2);
-  v3 = a1[2];
-  v2 = a1[3];
-  if (v2)
-  {
-    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v4 = a1[4];
-  v5 = *(*(mlx::core::scheduler::scheduler(a1) + 1) + 8 * a2);
-  std::mutex::lock(v5);
-  if (*(v5 + 160) != 1)
-  {
-    v6 = *(v5 + 72);
-    v7 = *(v5 + 80);
-    v8 = 16 * (v7 - v6) - 1;
-    if (v7 == v6)
-    {
-      v8 = 0;
-    }
-
-    if (v8 == *(v5 + 104) + *(v5 + 96))
-    {
-      std::deque<std::function<void ()(void)>>::__add_back_capacity((v5 + 64));
-      v6 = *(v5 + 72);
-      v7 = *(v5 + 80);
-    }
-
-    if (v7 == v6)
-    {
-      v10 = 0;
-    }
-
-    else
-    {
-      v9 = *(v5 + 104) + *(v5 + 96);
-      v10 = *(v6 + ((v9 >> 4) & 0xFFFFFFFFFFFFFF8)) + 32 * (v9 & 0x7F);
-    }
-
-    *(v10 + 24) = 0;
-    operator new();
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "Cannot enqueue work after stream is stopped.");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void sub_25A871510(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v3);
-  std::mutex::unlock(v2);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-BOOL mlx::core::Event::is_signaled(mlx::core::Event *this)
-{
-  v2 = *(this + 2);
-  std::mutex::lock((v2 + 8));
-  v3 = *v2 >= *(this + 4);
-  std::mutex::unlock((v2 + 8));
-  return v3;
-}
-
-void std::__shared_ptr_pointer<mlx::core::EventCounter *,mlx::core::Event::Event(mlx::core::Stream)::$_0,std::allocator<mlx::core::EventCounter>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
-{
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t std::__shared_ptr_pointer<mlx::core::EventCounter *,mlx::core::Event::Event(mlx::core::Stream)::$_0,std::allocator<mlx::core::EventCounter>>::__on_zero_shared(uint64_t result)
-{
-  v1 = *(result + 24);
-  if (v1)
-  {
-    std::condition_variable::~condition_variable((v1 + 72));
-    std::mutex::~mutex((v1 + 8));
-
-    JUMPOUT(0x25F851760);
-  }
-
-  return result;
-}
-
-uint64_t std::__shared_ptr_pointer<mlx::core::EventCounter *,mlx::core::Event::Event(mlx::core::Stream)::$_0,std::allocator<mlx::core::EventCounter>>::__get_deleter(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void *std::__function::__func<mlx::core::Event::wait(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::wait(mlx::core::Stream)::$_0>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286C0A370;
-  v2 = a1[4];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<mlx::core::Event::wait(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::wait(mlx::core::Stream)::$_0>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286C0A370;
-  v1 = a1[4];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t std::__function::__func<mlx::core::Event::wait(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::wait(mlx::core::Stream)::$_0>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_286C0A370;
-  v2 = *(result + 8);
-  *(a2 + 16) = *(result + 16);
-  *(a2 + 8) = v2;
-  v3 = *(result + 32);
-  *(a2 + 24) = *(result + 24);
-  *(a2 + 32) = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  *(a2 + 40) = *(result + 40);
-  return result;
-}
-
-void std::__function::__func<mlx::core::Event::wait(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::wait(mlx::core::Stream)::$_0>,void ()(void)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-void std::__function::__func<mlx::core::Event::wait(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::wait(mlx::core::Stream)::$_0>,void ()(void)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[4];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-uint64_t std::__function::__func<mlx::core::Event::wait(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::wait(mlx::core::Stream)::$_0>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void *std::__function::__func<mlx::core::Event::signal(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::signal(mlx::core::Stream)::$_0>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286C0A3F0;
-  v2 = a1[4];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  return a1;
-}
-
-void std::__function::__func<mlx::core::Event::signal(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::signal(mlx::core::Stream)::$_0>,void ()(void)>::~__func(void *a1)
-{
-  *a1 = &unk_286C0A3F0;
-  v1 = a1[4];
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t std::__function::__func<mlx::core::Event::signal(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::signal(mlx::core::Stream)::$_0>,void ()(void)>::__clone(uint64_t result, uint64_t a2)
-{
-  *a2 = &unk_286C0A3F0;
-  v2 = *(result + 8);
-  *(a2 + 16) = *(result + 16);
-  *(a2 + 8) = v2;
-  v3 = *(result + 32);
-  *(a2 + 24) = *(result + 24);
-  *(a2 + 32) = v3;
-  if (v3)
-  {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  *(a2 + 40) = *(result + 40);
-  return result;
-}
-
-void std::__function::__func<mlx::core::Event::signal(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::signal(mlx::core::Stream)::$_0>,void ()(void)>::destroy(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  if (v1)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
-  }
-}
-
-void std::__function::__func<mlx::core::Event::signal(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::signal(mlx::core::Stream)::$_0>,void ()(void)>::destroy_deallocate(void *__p)
-{
-  v2 = __p[4];
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  operator delete(__p);
-}
-
-void std::__function::__func<mlx::core::Event::signal(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::signal(mlx::core::Stream)::$_0>,void ()(void)>::operator()(uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  std::mutex::lock((v2 + 8));
-  *v2 = *(a1 + 40);
-  std::mutex::unlock((v2 + 8));
-
-  std::condition_variable::notify_all((v2 + 72));
-}
-
-uint64_t std::__function::__func<mlx::core::Event::signal(mlx::core::Stream)::$_0,std::allocator<mlx::core::Event::signal(mlx::core::Stream)::$_0>,void ()(void)>::target(uint64_t a1, uint64_t a2)
-{
-  {
-    return a1 + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::metal::eval(mlx::core::metal *this, mlx::core::array *a2)
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "[metal::eval] Cannot eval on GPU without metal backend");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::metal::finalize()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "[metal::finalize] Cannot finalize GPU without metal backend");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::metal::synchronize()
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "[metal::synchronize] Cannot synchronize GPU without metal backend");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void mlx::core::metal::device_info(mlx::core::metal *this)
-{
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, "[metal::device_info] Cannot get device info without metal backend");
-  __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
-}
-
-void *mlx::core::allocator::common_allocator(mlx::core::allocator *this)
-{
-  {
-    mlx::core::allocator::CommonAllocator::CommonAllocator(&mlx::core::allocator::common_allocator(void)::allocator_);
-    __cxa_atexit(mlx::core::allocator::CommonAllocator::~CommonAllocator, &mlx::core::allocator::common_allocator(void)::allocator_, &dword_25A232000);
-  }
-
-  return &mlx::core::allocator::common_allocator(void)::allocator_;
-}
-
-void mlx::core::allocator::CommonAllocator::~CommonAllocator(mlx::core::allocator::CommonAllocator *this)
-{
-  *this = &unk_286C0A470;
-  std::mutex::~mutex((this + 32));
-}
-
-{
-  *this = &unk_286C0A470;
-  std::mutex::~mutex((this + 32));
-
-  JUMPOUT(0x25F851760);
-}
-
-uint64_t mlx::core::allocator::Buffer::raw_ptr(mlx::core::allocator::Buffer *this)
-{
-  if (*this)
-  {
-    return *this + 8;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void *mlx::core::allocator::CommonAllocator::malloc(mlx::core::allocator::CommonAllocator *this, uint64_t a2)
-{
-  v4 = malloc_type_malloc(a2 + 8, 0x100004000313F17uLL);
-  v5 = v4;
-  if (v4)
-  {
-    *v4 = a2;
-  }
-
-  std::mutex::lock((this + 32));
-  v6 = *(this + 3);
-  v7 = *(this + 2) + a2;
-  if (v7 > v6)
-  {
-    v6 = *(this + 2) + a2;
-  }
-
-  *(this + 2) = v7;
-  *(this + 3) = v6;
-  std::mutex::unlock((this + 32));
-  return v5;
-}
-
-void mlx::core::allocator::CommonAllocator::free(uint64_t a1, void *a2)
-{
-  v4 = (*(*a1 + 16))(a1);
-  free(a2);
-  std::mutex::lock((a1 + 32));
-  *(a1 + 16) -= v4;
-
-  std::mutex::unlock((a1 + 32));
-}
-
-uint64_t mlx::core::allocator::CommonAllocator::size(uint64_t a1, uint64_t a2)
-{
-  if (a2)
-  {
-    return *a2;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-void mlx::core::reset_peak_memory(mlx::core *this)
-{
-  mlx::core::allocator::common_allocator(this);
-  std::mutex::lock(&stru_27FA06080);
-  qword_27FA06078 = 0;
-
-  std::mutex::unlock(&stru_27FA06080);
-}
-
-uint64_t mlx::core::set_memory_limit(mlx::core *this)
-{
-  mlx::core::allocator::common_allocator(this);
-  std::mutex::lock(&stru_27FA06080);
-  v2 = qword_27FA06068;
-  qword_27FA06068 = this;
-  std::mutex::unlock(&stru_27FA06080);
-  return v2;
-}
-
-mlx::core::allocator::CommonAllocator *mlx::core::allocator::CommonAllocator::CommonAllocator(mlx::core::allocator::CommonAllocator *this)
-{
-  *this = &unk_286C0A470;
-  v4 = 8;
-  v5 = 0;
-  sysctlbyname("hw.memsize", &v5, &v4, 0, 0);
-  v2 = (v5 * 0.8);
-  *(this + 1) = v2;
-  *(this + 2) = 0;
-  *(this + 3) = 0;
-  *(this + 4) = 850045863;
-  *(this + 40) = 0u;
-  *(this + 56) = 0u;
-  *(this + 72) = 0u;
-  *(this + 11) = 0;
-  if (!v2)
-  {
-    *(this + 1) = 0x200000000;
-  }
-
-  return this;
-}
-
-uint64_t sub_25A87210C(_BYTE *a1, _BYTE *a2)
-{
-  v2 = *a2;
-  v3 = *a1 == 0;
-  if (*a1)
-  {
-    v4 = 7894115;
-  }
-
-  else
-  {
-    v4 = 0x7961727261;
-  }
-
-  if (v3)
-  {
-    v5 = 0xE500000000000000;
-  }
-
-  else
-  {
-    v5 = 0xE300000000000000;
-  }
-
-  if (*a2)
-  {
-    v6 = 7894115;
-  }
-
-  else
-  {
-    v6 = 0x7961727261;
-  }
-
-  if (*a2)
-  {
-    v7 = 0xE300000000000000;
-  }
-
-  else
-  {
-    v7 = 0xE500000000000000;
-  }
-
-  if (v4 == v6 && v5 == v7)
-  {
-    v9 = 1;
-  }
-
-  else
-  {
-    v9 = sub_25A9989E8();
-  }
-
-  return v9 & 1;
-}
-
-uint64_t sub_25A8721A8()
-{
-  v1 = *v0;
-  sub_25A998B18();
-  sub_25A997D58();
-
-  return sub_25A998B38();
-}
-
-uint64_t sub_25A872220()
-{
-  *v0;
-  sub_25A997D58();
-}
-
-uint64_t sub_25A872284()
-{
-  v1 = *v0;
-  sub_25A998B18();
-  sub_25A997D58();
-
-  return sub_25A998B38();
-}
-
-uint64_t sub_25A8722F8@<X0>(uint64_t *a1@<X0>, char *a2@<X8>)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_25A9988C8();
-
-  if (v5 == 1)
-  {
-    v7 = 1;
-  }
-
-  else
-  {
-    v7 = 2;
-  }
-
-  if (!v5)
-  {
-    v7 = 0;
-  }
-
-  *a2 = v7;
-  return result;
-}
-
-void sub_25A872358(uint64_t *a1@<X8>)
-{
-  v2 = 7894115;
-  if (!*v1)
-  {
-    v2 = 0x7961727261;
-  }
-
-  v3 = 0xE500000000000000;
-  if (*v1)
-  {
-    v3 = 0xE300000000000000;
-  }
-
-  *a1 = v2;
-  a1[1] = v3;
-}
-
-uint64_t sub_25A87238C()
-{
-  if (*v0)
-  {
-    result = 7894115;
-  }
-
-  else
-  {
-    result = 0x7961727261;
-  }
-
-  *v0;
-  return result;
-}
-
-uint64_t sub_25A8723BC@<X0>(char *a1@<X8>)
-{
-  v2 = sub_25A9988C8();
-
-  if (v2 == 1)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = 2;
-  }
-
-  if (!v2)
-  {
-    v4 = 0;
-  }
-
-  *a1 = v4;
-  return result;
-}
-
-uint64_t sub_25A872438(uint64_t a1)
-{
-  v2 = sub_25A872E30();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t sub_25A872474(uint64_t a1)
-{
-  v2 = sub_25A872E30();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t sub_25A8724FC(uint64_t *a1)
-{
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA04470, &qword_25A9F7FC8);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v13[-1] - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  sub_25A872E30();
-  sub_25A998BF8();
-  if (v2)
-  {
-    __swift_destroy_boxed_opaque_existential_0Tm(a1);
-    type metadata accessor for MorpheusArray();
-    swift_deallocPartialClassInstance();
-  }
-
-  else
-  {
-    *(v1 + 40) = sub_25A93E450(v9, 0);
-    v14 = 1;
-    sub_25A872ED0();
-    sub_25A998938();
-    *(v1 + 48) = v13[0];
-    sub_25A872F24(a1, v13);
-    v3 = sub_25A8963D8(v13);
-    (*(v6 + 8))(v9, v5);
-    __swift_destroy_boxed_opaque_existential_0Tm(a1);
-  }
-
-  return v3;
-}
-
-uint64_t sub_25A87272C@<X0>(uint64_t a1@<X8>)
-{
-  v3 = v2;
-  v4 = v1;
-  v5 = a1;
-  v6 = *(v1 + 40);
-  v7 = *(v6 + 16);
-  v8 = MEMORY[0x277D84F90];
-  if (v7)
-  {
-    v38 = MEMORY[0x277D84F90];
-
-    sub_25A937550(0, v7, 0);
-    v8 = v38;
-    result = swift_beginAccess();
-    v10 = 0;
-    v11 = (v6 + 40);
-    v26 = v7;
-    v27 = v4;
-    while (v10 < *(v6 + 16))
-    {
-      v28 = v11;
-      v29 = v10;
-      v12 = v6;
-      v13 = *(v11 - 1);
-      v14 = *v11;
-      ObjectType = swift_getObjectType();
-      Strong = swift_unknownObjectWeakLoadStrong();
-      v17 = *(v4 + 32);
-      v18 = v3;
-      v19 = *(v14 + 48);
-      swift_unknownObjectRetain();
-      v19(Strong, v17, ObjectType, v14);
-      (*(v14 + 64))(v35, ObjectType, v14);
-      v3 = v18;
-      if (v18)
-      {
-
-        swift_unknownObjectRelease();
-      }
-
-      sub_25A872C84(v35, &v30);
-      v6 = v12;
-      if (v32)
-      {
-        sub_25A872CE0(&v30);
-        sub_25A872C84(v35, &v30);
-        v20 = v26;
-        v4 = v27;
-        if (v32 == 1)
-        {
-          v33 = v30;
-          v34 = v31;
-          sub_25A92DE50(&v33, v36);
-          sub_25A872D84(&v33);
-        }
-
-        else
-        {
-          sub_25A872CE0(&v30);
-          v36[3] = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA04458, &unk_25A9F7FB0);
-          v21 = swift_allocObject();
-          v36[0] = v21;
-          *(v21 + 16) = 0u;
-          *(v21 + 32) = 0u;
-        }
-
-        sub_25A872CE0(v35);
-      }
-
-      else
-      {
-        v33 = v30;
-        v34 = v31;
-        sub_25A92DE50(&v33, v36);
-        sub_25A872D84(&v33);
-        sub_25A872CE0(v35);
-        v20 = v26;
-        v4 = v27;
-      }
-
-      sub_25A92D814(v36, v37);
-      swift_unknownObjectRelease();
-      __swift_destroy_boxed_opaque_existential_0Tm(v36);
-      v38 = v8;
-      v23 = *(v8 + 16);
-      v22 = *(v8 + 24);
-      if (v23 >= v22 >> 1)
-      {
-        sub_25A937550((v22 > 1), v23 + 1, 1);
-        v8 = v38;
-      }
-
-      v10 = v29 + 1;
-      *(v8 + 16) = v23 + 1;
-      result = sub_25A872D74(v37, (v8 + 32 * v23 + 32));
-      v11 = v28 + 2;
-      if (v20 == v29 + 1)
-      {
-
-        v5 = a1;
-        goto LABEL_16;
-      }
-    }
-
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_16:
-    if (*(v4 + 48))
-    {
-      if (*(v4 + 48) == 1)
-      {
-        result = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA04460, &qword_25A9FDA30);
-        *(v5 + 24) = result;
-        *v5 = v8;
-      }
-
-      else
-      {
-
-        *v5 = 0u;
-        *(v5 + 16) = 0u;
-      }
-    }
-
-    else
-    {
-      v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA04468, &qword_25A9F7FC0);
-      result = swift_allocObject();
-      *(result + 16) = v8;
-      *(v5 + 24) = v24;
-      *v5 = result;
-    }
-
-    *(v5 + 32) = 0;
-  }
-
-  return result;
-}
-
-uint64_t sub_25A872A68()
-{
-  v1 = *(v0 + 40);
-
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA04450, "lT\a");
-  v3 = MEMORY[0x25F850440](v1, v2);
-
-  return v3;
-}
-
-uint64_t sub_25A872AD8()
-{
-  sub_25A872F88(v0 + 24);
-  v1 = *(v0 + 40);
-
-  return swift_deallocClassInstance();
-}
-
-uint64_t sub_25A872B4C(uint64_t a1, int a2)
-{
-  if (a2 && *(a1 + 8))
-  {
-    return (*a1 + 1);
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t sub_25A872B6C(uint64_t result, int a2, int a3)
-{
-  if (a2)
-  {
-    *result = (a2 - 1);
-    if (!a3)
-    {
-      return result;
-    }
-
-    v3 = 1;
-  }
-
-  else
-  {
-    if (!a3)
-    {
-      return result;
-    }
-
-    v3 = 0;
-  }
-
-  *(result + 8) = v3;
-  return result;
-}
-
-_DWORD *sub_25A872C20@<X0>(_DWORD *result@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = *result;
-  *(a2 + 4) = 0;
-  return result;
-}
-
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
-{
-  result = *a1;
-  if (!result)
-  {
-    v4 = *a2;
-    result = swift_getTypeByMangledNameInContext2();
-    *a1 = result;
-  }
-
-  return result;
-}
-
-uint64_t sub_25A872D34()
-{
-  if (*(v0 + 40))
-  {
-    __swift_destroy_boxed_opaque_existential_0Tm((v0 + 16));
-  }
-
-  return MEMORY[0x2821FE8E8](v0, 48, 7);
-}
-
-_OWORD *sub_25A872D74(_OWORD *a1, _OWORD *a2)
-{
-  v2 = a1[1];
-  *a2 = *a1;
-  a2[1] = v2;
-  return a2;
-}
-
-uint64_t sub_25A872D84(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA04458, &unk_25A9F7FB0);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
-{
-  if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
-  {
-    return (*result + ((*(*(a2 - 8) + 80) + 16) & ~*(*(a2 - 8) + 80)));
-  }
-
-  return result;
-}
-
-unint64_t sub_25A872E30()
-{
-  result = qword_27FA04478;
-  if (!qword_27FA04478)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27FA04478);
-  }
-
-  return result;
-}
-
-uint64_t __swift_destroy_boxed_opaque_existential_0Tm(uint64_t *a1)
-{
-  v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
-  {
-    return (*(v1 + 8))();
-  }
-
-  v3 = *a1;
-}
-
-unint64_t sub_25A872ED0()
-{
-  result = qword_27FA04480;
-  if (!qword_27FA04480)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27FA04480);
-  }
-
-  return result;
-}
-
-uint64_t sub_25A872F24(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 24);
-  *(a2 + 24) = v3;
-  *(a2 + 32) = *(a1 + 32);
-  (**(v3 - 8))(a2, a1);
-  return a2;
-}
-
-void sub_25A872FC4(uint64_t a1, unint64_t *a2)
-{
-  if (!*a2)
-  {
-    ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
-    {
-      atomic_store(ForeignTypeMetadata, a2);
-    }
-  }
-}
-
-uint64_t getEnumTagSinglePayload for MorpheusArray.CodingKeys(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0xFF)
-  {
-    goto LABEL_17;
-  }
-
-  if (a2 + 1 >= 0xFFFF00)
-  {
-    v2 = 4;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if ((a2 + 1) >> 8 < 0xFF)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    v4 = *(a1 + 1);
-    if (v4)
-    {
-      return (*a1 | (v4 << 8)) - 1;
-    }
-  }
-
-  else
-  {
-    if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-
-      return (*a1 | (v4 << 8)) - 1;
-    }
-
-    v4 = a1[1];
-    if (a1[1])
-    {
-      return (*a1 | (v4 << 8)) - 1;
-    }
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 2;
-  v8 = v6 - 2;
-  if (!v7)
-  {
-    v8 = -1;
-  }
-
-  return (v8 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for MorpheusArray.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 1 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 1) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 < 0xFF)
-  {
-    v4 = 0;
-  }
-
-  if (a2 > 0xFE)
-  {
-    v5 = ((a2 - 255) >> 8) + 1;
-    *result = a2 + 1;
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        *(result + 1) = v5;
-      }
-
-      else
-      {
-        *(result + 1) = v5;
-      }
-    }
-
-    else if (v4)
-    {
-      *(result + 1) = v5;
-    }
-
-    return result;
-  }
-
-  if (v4 > 1)
-  {
-    if (v4 != 2)
-    {
-      *(result + 1) = 0;
-      if (a2)
-      {
-        goto LABEL_20;
-      }
-
-      return result;
-    }
-
-    *(result + 1) = 0;
-  }
-
-  else if (v4)
-  {
-    *(result + 1) = 0;
-    if (!a2)
-    {
-      return result;
-    }
-
-LABEL_20:
-    *result = a2 + 1;
-    return result;
-  }
-
-  if (a2)
-  {
-    goto LABEL_20;
-  }
-
-  return result;
-}
-
-unint64_t sub_25A873188()
-{
-  result = qword_27FA04490;
-  if (!qword_27FA04490)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27FA04490);
-  }
-
-  return result;
-}
-
-unint64_t sub_25A8731E0()
-{
-  result = qword_27FA04498;
-  if (!qword_27FA04498)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27FA04498);
-  }
-
-  return result;
-}
-
-unint64_t sub_25A873238()
-{
-  result = qword_27FA044A0;
-  if (!qword_27FA044A0)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &qword_27FA044A0);
-  }
-
-  return result;
-}
-
-id NSNumber.swiftValue.getter@<X0>(uint64_t a1@<X8>)
-{
-  v18 = v1;
-  [v18 objCType];
-  v3 = v18;
-  v4 = sub_25A997F88();
-  v6 = v5;
-  v7 = v4 == 99 && v5 == 0xE100000000000000;
-  if (v7 || (v8 = v4, (sub_25A9989E8() & 1) != 0))
-  {
-
-    result = [v18 BOOLValue];
-    v10 = MEMORY[0x277D839B0];
-LABEL_7:
-    *(a1 + 24) = v10;
-    *a1 = result;
-    return result;
-  }
-
-  v11 = v8 == 105 && v6 == 0xE100000000000000;
-  if (v11 || (sub_25A9989E8() & 1) != 0)
-  {
-    goto LABEL_13;
-  }
-
-  if (v8 == 115 && v6 == 0xE100000000000000 || (sub_25A9989E8() & 1) != 0)
-  {
-
-    result = [v18 shortValue];
-    v13 = MEMORY[0x277D84958];
-LABEL_19:
-    *(a1 + 24) = v13;
-    *a1 = result;
-    return result;
-  }
-
-  if (v8 == 108 && v6 == 0xE100000000000000 || (sub_25A9989E8() & 1) != 0)
-  {
-LABEL_13:
-
-    result = [v18 intValue];
-    v12 = MEMORY[0x277D849A8];
-LABEL_14:
-    *(a1 + 24) = v12;
-    *a1 = result;
-    return result;
-  }
-
-  if (v8 == 113 && v6 == 0xE100000000000000 || (sub_25A9989E8() & 1) != 0)
-  {
-
-    result = [v18 integerValue];
-    v14 = MEMORY[0x277D83B88];
-LABEL_28:
-    *(a1 + 24) = v14;
-    *a1 = result;
-    return result;
-  }
-
-  if (v8 == 67 && v6 == 0xE100000000000000 || (sub_25A9989E8() & 1) != 0)
-  {
-
-    result = [v18 unsignedCharValue];
-    v10 = MEMORY[0x277D84B78];
-    goto LABEL_7;
-  }
-
-  if (v8 == 73 && v6 == 0xE100000000000000 || (sub_25A9989E8() & 1) != 0)
-  {
-    goto LABEL_36;
-  }
-
-  if (v8 == 83 && v6 == 0xE100000000000000 || (sub_25A9989E8() & 1) != 0)
-  {
-
-    result = [v18 unsignedShortValue];
-    v13 = MEMORY[0x277D84C58];
-    goto LABEL_19;
-  }
-
-  if (v8 == 76 && v6 == 0xE100000000000000 || (sub_25A9989E8() & 1) != 0)
-  {
-LABEL_36:
-
-    result = [v18 unsignedIntValue];
-    v12 = MEMORY[0x277D84CC0];
-    goto LABEL_14;
-  }
-
-  if (v8 == 81 && v6 == 0xE100000000000000 || (sub_25A9989E8() & 1) != 0)
-  {
-
-    result = [v18 unsignedIntegerValue];
-    v14 = MEMORY[0x277D83E88];
-    goto LABEL_28;
-  }
-
-  if (v8 == 102 && v6 == 0xE100000000000000 || (sub_25A9989E8() & 1) != 0)
-  {
-
-    result = [v18 floatValue];
-    *(a1 + 24) = MEMORY[0x277D83A90];
-    *a1 = v15;
-    return result;
-  }
-
-  if (v8 == 100 && v6 == 0xE100000000000000)
-  {
-
-LABEL_57:
-    result = [v18 doubleValue];
-    *(a1 + 24) = MEMORY[0x277D839F8];
-    *a1 = v17;
-    return result;
-  }
-
-  v16 = sub_25A9989E8();
-
-  if (v16)
-  {
-    goto LABEL_57;
-  }
-
-  *(a1 + 24) = sub_25A873A9C();
-  *a1 = v18;
-
-  return v18;
-}
-
-double NSNumber.attribute(for:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
-{
-  sub_25A873994(a1, a2, v3, sub_25A91BDDC, &v8);
-  if (v9)
-  {
-    sub_25A872D74(&v8, v10);
-    sub_25A872D74(v10, a3);
-  }
-
-  else
-  {
-    sub_25A872D84(&v8);
-    if (a1 == 0x61765F7466697773 && a2 == 0xEB0000000065756CLL || (sub_25A9989E8() & 1) != 0)
-    {
-      NSNumber.swiftValue.getter(a3);
-    }
-
-    else
-    {
-      result = 0.0;
-      *a3 = 0u;
-      a3[1] = 0u;
-    }
-  }
-
-  return result;
-}
-
-double sub_25A8738BC@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, _OWORD *a5@<X8>)
-{
-  v16[0] = a3;
-  v16[1] = a4;
-  v8 = sub_25A91BC08();
-  swift_beginAccess();
-  v9 = *(v8 + 16);
-
-  if (*(v9 + 16) && (v10 = sub_25A8F3600(a1, a2), (v11 & 1) != 0))
-  {
-    v12 = *(v9 + 56) + 16 * v10;
-    v14 = *v12;
-    v13 = *(v12 + 8);
-
-    v14(v16);
-  }
-
-  else
-  {
-
-    result = 0.0;
-    *a5 = 0u;
-    a5[1] = 0u;
-  }
-
-  return result;
-}
-
-double sub_25A873994@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t (*a4)(void)@<X3>, _OWORD *a5@<X8>)
-{
-  v16 = a3;
-  v8 = a4();
-  swift_beginAccess();
-  v9 = *(v8 + 16);
-
-  if (*(v9 + 16) && (v10 = sub_25A8F3600(a1, a2), (v11 & 1) != 0))
-  {
-    v12 = *(v9 + 56) + 16 * v10;
-    v14 = *v12;
-    v13 = *(v12 + 8);
-
-    v14(&v16);
-  }
-
-  else
-  {
-
-    result = 0.0;
-    *a5 = 0u;
-    a5[1] = 0u;
-  }
-
-  return result;
-}
-
-unint64_t sub_25A873A9C()
-{
-  result = qword_27FA044A8;
-  if (!qword_27FA044A8)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &qword_27FA044A8);
-  }
-
-  return result;
-}
-
-uint64_t _sSo8NSNumberC8MorpheusE3has9attributeSbSS_tF_0(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_25A91CC94(&unk_286C0D928);
-  sub_25A873BC0(&unk_286C0D948);
-  v5 = sub_25A9198A8(a1, a2, v4);
-
-  if (v5)
-  {
-    v6 = 1;
-  }
-
-  else
-  {
-    v7 = sub_25A91BDDC();
-    swift_beginAccess();
-    v8 = *(v7 + 16);
-
-    if (*(v8 + 16))
-    {
-      sub_25A8F3600(a1, a2);
-      v6 = v9;
-    }
-
-    else
-    {
-      v6 = 0;
-    }
-  }
-
-  return v6 & 1;
-}
-
-uint64_t sub_25A873C14(_BYTE *a1, _BYTE *a2)
-{
-  v2 = *a2;
-  v3 = *a1 == 0;
-  if (*a1)
-  {
-    v4 = 0x73656D616ELL;
-  }
-
-  else
-  {
-    v4 = 0x656C75646F6DLL;
-  }
-
-  if (v3)
-  {
-    v5 = 0xE600000000000000;
-  }
-
-  else
-  {
-    v5 = 0xE500000000000000;
-  }
-
-  if (*a2)
-  {
-    v6 = 0x73656D616ELL;
-  }
-
-  else
-  {
-    v6 = 0x656C75646F6DLL;
-  }
-
-  if (*a2)
-  {
-    v7 = 0xE500000000000000;
-  }
-
-  else
-  {
-    v7 = 0xE600000000000000;
-  }
-
-  if (v4 == v6 && v5 == v7)
-  {
-    v9 = 1;
-  }
-
-  else
-  {
-    v9 = sub_25A9989E8();
-  }
-
-  return v9 & 1;
-}
-
-uint64_t sub_25A873CB4()
-{
-  v1 = *v0;
-  sub_25A998B18();
-  sub_25A997D58();
-
-  return sub_25A998B38();
-}
-
-uint64_t sub_25A873D30()
-{
-  *v0;
-  sub_25A997D58();
-}
-
-uint64_t sub_25A873D98()
-{
-  v1 = *v0;
-  sub_25A998B18();
-  sub_25A997D58();
-
-  return sub_25A998B38();
-}
-
-uint64_t sub_25A873E10@<X0>(uint64_t *a1@<X0>, char *a2@<X8>)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = sub_25A9988C8();
-
-  if (v5 == 1)
-  {
-    v7 = 1;
-  }
-
-  else
-  {
-    v7 = 2;
-  }
-
-  if (!v5)
-  {
-    v7 = 0;
-  }
-
-  *a2 = v7;
-  return result;
-}
-
-void sub_25A873E70(uint64_t *a1@<X8>)
-{
-  v2 = 0x656C75646F6DLL;
-  if (*v1)
-  {
-    v2 = 0x73656D616ELL;
-  }
-
-  v3 = 0xE600000000000000;
-  if (*v1)
-  {
-    v3 = 0xE500000000000000;
-  }
-
-  *a1 = v2;
-  a1[1] = v3;
-}
-
-uint64_t sub_25A873EA8()
-{
-  if (*v0)
-  {
-    result = 0x73656D616ELL;
-  }
-
-  else
-  {
-    result = 0x656C75646F6DLL;
-  }
-
-  *v0;
-  return result;
-}
-
-uint64_t sub_25A873EDC@<X0>(char *a1@<X8>)
-{
-  v2 = sub_25A9988C8();
-
-  if (v2 == 1)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = 2;
-  }
-
-  if (!v2)
-  {
-    v4 = 0;
-  }
-
-  *a1 = v4;
-  return result;
-}
-
-uint64_t sub_25A873F40(uint64_t a1)
-{
-  v2 = sub_25A8750CC();
-
-  return MEMORY[0x2821FE718](a1, v2);
-}
-
-uint64_t sub_25A873F7C(uint64_t a1)
-{
-  v2 = sub_25A8750CC();
-
-  return MEMORY[0x2821FE720](a1, v2);
-}
-
-uint64_t sub_25A874004(uint64_t *a1)
-{
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA044B8, &qword_25A9F8208);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v15[-1] - v8;
-  v10 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  sub_25A8750CC();
-  sub_25A998BF8();
-  if (v2)
-  {
-    __swift_destroy_boxed_opaque_existential_0Tm(a1);
-    type metadata accessor for ImportFrom();
-    swift_deallocPartialClassInstance();
-  }
-
-  else
-  {
-    LOBYTE(v15[0]) = 0;
-    v1[5] = sub_25A9988F8();
-    v1[6] = v12;
-    v13 = a1[4];
-    __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-    v1[8] = sub_25A8F4D24();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FA044C8, &unk_25A9F8210);
-    v16 = 1;
-    sub_25A875120();
-    sub_25A998938();
-    v1[7] = v15[0];
-    sub_25A872F24(a1, v15);
-    v3 = sub_25A8963D8(v15);
-    (*(v6 + 8))(v9, v5);
-    __swift_destroy_boxed_opaque_existential_0Tm(a1);
-  }
-
-  return v3;
-}
-
-uint64_t sub_25A8742AC@<X0>(int64_t a1@<X8>)
-{
-  v5 = v1;
-  v7 = v1[8];
-  v8 = v5[5];
-  v9 = v5[6];
-
-  sub_25A98F0EC(v8, v9, v113);
-  v10 = v2;
-
-  if (v2)
-  {
-    return result;
-  }
-
-  v12 = v5[7];
-  v93 = *(v12 + 16);
-  if (!v93)
-  {
-LABEL_72:
-    *(a1 + 32) = 0;
-    *a1 = 0u;
-    *(a1 + 16) = 0u;
-    return __swift_destroy_boxed_opaque_existential_0Tm(v113);
-  }
-
-  v94 = v12 + 32;
-
-  v13 = 0;
-  v90 = a1;
-  v116 = v5;
-  v92 = v12;
-  while (1)
-  {
-    if (v13 >= *(v12 + 16))
-    {
-      __break(1u);
-LABEL_82:
-      __break(1u);
-LABEL_83:
-      __break(1u);
-      goto LABEL_84;
-    }
-
-    v98 = v13;
-    v14 = v94 + 40 * v13;
-    v4 = *v14;
-    ObjectType = *(v14 + 8);
-    v15 = *(v14 + 32);
-    if (*(v14 + 24))
-    {
-      v99 = *(v14 + 16);
-      v16 = *(v14 + 24);
-      if (*(v14 + 32))
-      {
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v24 = *(v14 + 8);
-
-      v99 = v4;
-      v16 = ObjectType;
-      if (v15)
-      {
-LABEL_9:
-        v17 = v116;
-        v18 = v116[6];
-        *&v104 = v116[5];
-        *(&v104 + 1) = v18;
-        swift_bridgeObjectRetain_n();
-
-        MEMORY[0x25F850290](46, 0xE100000000000000);
-
-        MEMORY[0x25F850290](v4, ObjectType);
-
-        swift_bridgeObjectRelease_n();
-        sub_25A98F0EC(v104, *(&v104 + 1), &v109);
-
-        swift_beginAccess();
-        if (swift_unknownObjectWeakLoadStrong())
-        {
-          v19 = v17[4];
-          ObjectType = swift_getObjectType();
-          v20 = *(&v110 + 1);
-          v21 = __swift_project_boxed_opaque_existential_1(&v109, *(&v110 + 1));
-          *(&v105 + 1) = v20;
-          boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(&v104);
-          v23 = v21;
-          a1 = v90;
-          (*(*(v20 - 8) + 16))(boxed_opaque_existential_0, v23, v20);
-          (*(v19 + 64))(v99, v16, &v104, ObjectType, v19);
-
-          swift_unknownObjectRelease();
-          __swift_destroy_boxed_opaque_existential_0Tm(&v104);
-        }
-
-        else
-        {
-        }
-
-        v12 = v92;
-        goto LABEL_64;
-      }
-    }
-
-    v91 = v10;
-    v25 = v114;
-    v26 = v115;
-    __swift_project_boxed_opaque_existential_1(v113, v114);
-    v27 = *(v26 + 40);
-    swift_bridgeObjectRetain_n();
-
-    v97 = v27(v25, v26);
-    v28 = v4 == 42 && ObjectType == 0xE100000000000000;
-    if (v28 || (sub_25A9989E8() & 1) != 0)
-    {
-
-      v29 = v116;
-      swift_beginAccess();
-      if (!swift_unknownObjectWeakLoadStrong())
-      {
-LABEL_41:
-        v62 = *(v97 + 32);
-        swift_beginAccess();
-        ObjectType = *(v62 + 16);
-        v63 = 1 << *(ObjectType + 32);
-        if (v63 < 64)
-        {
-          v64 = ~(-1 << v63);
-        }
-
-        else
-        {
-          v64 = -1;
-        }
-
-        v65 = v64 & *(ObjectType + 64);
-        a1 = (v63 + 63) >> 6;
-        v66 = *(v62 + 16);
-
-        v67 = 0;
-        while (v65)
-        {
-          v68 = v67;
-LABEL_56:
-          v70 = __clz(__rbit64(v65));
-          v65 &= v65 - 1;
-          v71 = v70 | (v68 << 6);
-          sub_25A874FB0(*(ObjectType + 48) + 40 * v71, v102);
-          sub_25A87500C(*(ObjectType + 56) + 32 * v71, v101);
-          v104 = v102[0];
-          v105 = v102[1];
-          *&v106 = v103;
-          sub_25A872D74(v101, (&v106 + 8));
-          v4 = v68;
-LABEL_57:
-          v111[0] = v106;
-          v111[1] = v107;
-          v112 = v108;
-          v109 = v104;
-          v110 = v105;
-          if (!*(&v105 + 1))
-          {
-
-            a1 = v90;
-            v10 = v91;
-            v12 = v92;
-            v13 = v98;
-            goto LABEL_5;
-          }
-
-          sub_25A872D74((v111 + 8), v102);
-          v104 = v109;
-          v105 = v110;
-          *&v106 = *&v111[0];
-          if (swift_dynamicCast())
-          {
-            v72 = v101[0];
-            if (swift_unknownObjectWeakLoadStrong())
-            {
-              v73 = v116[4];
-              v74 = swift_getObjectType();
-              (*(v73 + 64))(v72, *(&v72 + 1), v102, v74, v73);
-
-              swift_unknownObjectRelease();
-            }
-
-            else
-            {
-            }
-          }
-
-          __swift_destroy_boxed_opaque_existential_0Tm(v102);
-          v67 = v4;
-        }
-
-        if (a1 <= v67 + 1)
-        {
-          v69 = v67 + 1;
-        }
-
-        else
-        {
-          v69 = a1;
-        }
-
-        v4 = v69 - 1;
-        while (1)
-        {
-          v68 = v67 + 1;
-          if (__OFADD__(v67, 1))
-          {
-            break;
-          }
-
-          if (v68 >= a1)
-          {
-            v65 = 0;
-            v108 = 0;
-            v106 = 0u;
-            v107 = 0u;
-            v104 = 0u;
-            v105 = 0u;
-            goto LABEL_57;
-          }
-
-          v65 = *(ObjectType + 64 + 8 * v68);
-          ++v67;
-          if (v65)
-          {
-            goto LABEL_56;
-          }
-        }
-
-        __break(1u);
-LABEL_71:
-
-        goto LABEL_72;
-      }
-
-      v30 = v29[4];
-      v31 = swift_getObjectType();
-      v32 = (*(v30 + 8))(v31, v30);
-      swift_unknownObjectRelease();
-      swift_beginAccess();
-      v33 = *(v97 + 40);
-      swift_beginAccess();
-
-      v34 = *(v32 + 40);
-      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v36 = *(v32 + 40);
-      *&v104 = v36;
-      *(v32 + 40) = 0x8000000000000000;
-      v37 = v33 + 64;
-      v38 = -1 << *(v33 + 32);
-      if (-v38 < 64)
-      {
-        v39 = ~(-1 << -v38);
-      }
-
-      else
-      {
-        v39 = -1;
-      }
-
-      v40 = v39 & *(v33 + 64);
-      v88 = -1 << *(v33 + 32);
-      v89 = v32;
-      v41 = (63 - v38) >> 6;
-      v96 = v33;
-
-      v42 = 0;
-      v95 = v33 + 64;
-      while (v40)
-      {
-        v100 = isUniquelyReferenced_nonNull_native;
-        v45 = v42;
-LABEL_31:
-        v47 = __clz(__rbit64(v40)) | (v45 << 6);
-        v48 = (*(v96 + 48) + 16 * v47);
-        ObjectType = *v48;
-        v49 = v48[1];
-        v4 = *(*(v96 + 56) + 8 * v47);
-
-        v51 = sub_25A8F3600(ObjectType, v49);
-        isa = v36[2].isa;
-        v53 = (v50 & 1) == 0;
-        v54 = isa + v53;
-        if (__OFADD__(isa, v53))
-        {
-          goto LABEL_82;
-        }
-
-        v55 = v50;
-        if (v36[3].isa >= v54)
-        {
-          if ((v100 & 1) == 0)
-          {
-            sub_25A96944C();
-          }
-        }
-
-        else
-        {
-          sub_25A9684BC(v54, v100 & 1);
-          v56 = sub_25A8F3600(ObjectType, v49);
-          if ((v55 & 1) != (v57 & 1))
-          {
-            result = sub_25A998AA8();
-            __break(1u);
-            return result;
-          }
-
-          v51 = v56;
-        }
-
-        v40 &= v40 - 1;
-        v36 = v104;
-        if (v55)
-        {
-
-          v43 = v36[7].isa;
-          v44 = *(v43 + v51);
-          *(v43 + v51) = v4;
-        }
-
-        else
-        {
-          *(v104 + 8 * (v51 >> 6) + 64) |= 1 << v51;
-          v58 = (v36[6].isa + 16 * v51);
-          *v58 = ObjectType;
-          v58[1] = v49;
-          *(v36[7].isa + v51) = v4;
-          v59 = v36[2].isa;
-          v60 = __OFADD__(v59, 1);
-          v61 = (v59 + 1);
-          if (v60)
-          {
-            goto LABEL_83;
-          }
-
-          v36[2].isa = v61;
-        }
-
-        isUniquelyReferenced_nonNull_native = 1;
-        v42 = v45;
-        v37 = v95;
-      }
-
-      v46 = v42;
-      while (1)
-      {
-        v45 = v46 + 1;
-        if (__OFADD__(v46, 1))
-        {
-          break;
-        }
-
-        if (v45 >= v41)
-        {
-          sub_25A874FA8();
-
-          *(v89 + 40) = v36;
-          swift_endAccess();
-
-          goto LABEL_41;
-        }
-
-        v40 = *(v37 + 8 * v45);
-        ++v46;
-        if (v40)
-        {
-          v100 = isUniquelyReferenced_nonNull_native;
-          goto LABEL_31;
-        }
-      }
-
-      __break(1u);
-      goto LABEL_79;
-    }
-
-    LexicalContext.attribute(for:)(v4, ObjectType, &v104);
-    a1 = v90;
-    if (!*(&v105 + 1))
-    {
-      break;
-    }
-
-    sub_25A872D74(&v104, &v109);
-    v75 = v116;
-    swift_beginAccess();
-    if (swift_unknownObjectWeakLoadStrong())
-    {
-      v76 = v75[4];
-      v77 = swift_getObjectType();
-      (*(v76 + 64))(v99, v16, &v109, v77, v76);
-
-      swift_unknownObjectRelease();
-    }
-
-    else
-    {
-    }
-
-    v12 = v92;
-
-LABEL_64:
-    __swift_destroy_boxed_opaque_existential_0Tm(&v109);
-LABEL_5:
-    if (++v13 == v93)
-    {
-      goto LABEL_71;
-    }
-  }
-
-  sub_25A872D84(&v104);
-  if (qword_27FA043C0 == -1)
-  {
-    goto LABEL_76;
-  }
-
-LABEL_84:
-  swift_once();
-LABEL_76:
-  v78 = sub_25A997BD8();
-  __swift_project_value_buffer(v78, qword_27FA0FCE8);
-
-  v79 = v116;
-
-  v36 = sub_25A997BB8();
-  v80 = sub_25A9983A8();
-
-  if (os_log_type_enabled(v36, v80))
-  {
-    v81 = swift_slowAlloc();
-    v82 = swift_slowAlloc();
-    *&v109 = v82;
-    *v81 = 136315394;
-    v84 = v79[5];
-    v83 = v79[6];
-
-    v85 = sub_25A98CC90(v84, v83, &v109);
-
-    *(v81 + 4) = v85;
-    *(v81 + 12) = 2080;
-
-    v86 = sub_25A98CC90(v4, ObjectType, &v109);
-
-    *(v81 + 14) = v86;
-    _os_log_impl(&dword_25A232000, v36, v80, "Failed to from %s import %s.", v81, 0x16u);
-    swift_arrayDestroy();
-    MEMORY[0x25F852800](v82, -1, -1);
-    MEMORY[0x25F852800](v81, -1, -1);
-    goto LABEL_80;
-  }
-
-LABEL_79:
-
-LABEL_80:
-
-  sub_25A874F54();
-  swift_allocError();
-  *v87 = 115;
-  swift_willThrow();
-
-  return __swift_destroy_boxed_opaque_existential_0Tm(v113);
 }

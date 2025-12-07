@@ -10,7 +10,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1A211C0D8();
+  sub_1A211C0D8(selfCopy, v2);
 }
 
 - (CGSize)intrinsicContentSize

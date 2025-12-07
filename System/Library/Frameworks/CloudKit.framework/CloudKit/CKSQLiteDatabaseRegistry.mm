@@ -83,7 +83,7 @@ LABEL_12:
 - (id)entryForDatabase:(id)database refresh:(BOOL)refresh error:(id *)error
 {
   refreshCopy = refresh;
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   objc_msgSend_db(self, v9, v10);
 
@@ -100,9 +100,9 @@ LABEL_12:
   else
   {
     v18 = objc_msgSend_uuid(databaseCopy, v14, v15);
-    v33 = @"UUID";
-    v34[0] = v18;
-    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, v34, &v33, 1);
+    v32 = @"UUID";
+    v33[0] = v18;
+    v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v19, v33, &v32, 1);
     v16 = objc_msgSend_entryWithValues_label_error_setupBlock_(self, v21, v20, off_1EA910C20, 0, &unk_1EFA2FFF0);
     if (!v16)
     {
@@ -131,8 +131,6 @@ LABEL_12:
 
     objc_msgSend_setDatabaseManagerData_(databaseCopy, v22, v16);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

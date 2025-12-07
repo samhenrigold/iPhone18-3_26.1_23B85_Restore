@@ -27,38 +27,38 @@
 
 - (BOOL)_getPropertyList:(id *)list
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = self->_plists;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        propertyList = [(_LSLazyPropertyList *)*(*(&v15 + 1) + 8 * v9) propertyList];
+        propertyList = [(_LSLazyPropertyList *)*(*(&v14 + 1) + 8 * v9) propertyList];
         if (propertyList)
         {
-          [v5 addEntriesFromDictionary:{propertyList, v15}];
+          [v5 addEntriesFromDictionary:{propertyList, v14}];
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -68,33 +68,32 @@
   v12 = v11;
   *list = v11;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v11 != 0;
 }
 
 - (BOOL)_getValue:(id *)value forPropertyListKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = self->_plists;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = [*(*(&v15 + 1) + 8 * i) objectForKey:keyCopy ofClass:{0, v15}];
+        v11 = [*(*(&v14 + 1) + 8 * i) objectForKey:keyCopy ofClass:{0, v14}];
         if (v11)
         {
           LOBYTE(v8) = 1;
@@ -102,7 +101,7 @@
         }
       }
 
-      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v8)
       {
         continue;
@@ -118,43 +117,40 @@ LABEL_11:
   v12 = v11;
   *value = v11;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (void)prewarm
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v2 = self->_plists;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) prewarm];
+        [*(*(&v6 + 1) + 8 * v5++) prewarm];
       }
 
       while (v3 != v5);
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -1,3 +1,33 @@
+int fscanf_l(FILE *a1, locale_t a2, const char *a3, ...)
+{
+  va_start(va, a3);
+  if (off_1EAC9EA90)
+  {
+    (off_1EAC9EA90)(a1, 152);
+  }
+
+  v6 = &__global_locale;
+  if (a2 != -1)
+  {
+    v6 = a2;
+  }
+
+  if (a2)
+  {
+    v7 = v6;
+  }
+
+  else
+  {
+    v7 = __c_locale;
+  }
+
+  flockfile(a1);
+  v8 = __svfscanf_l(a1, v7, a3, va);
+  funlockfile(a1);
+  return v8;
+}
+
 int fwprintf(FILE *a1, const __int32 *a2, ...)
 {
   va_start(va, a2);
@@ -463,7 +493,7 @@ char *__cdecl mkdtempat_np(int dfd, char *path)
   }
 }
 
-const char *_mktemp(const char *a1)
+char *_mktemp(char *a1)
 {
   if (find_temp_path(4294967294, a1, 0, 0, _mktemp_action, 0, 0))
   {
@@ -492,7 +522,7 @@ int mkstemp_dprotected_np(char *path, int dpclass, int dpflags)
   }
 }
 
-uint64_t _mkstemp_dprotected_np_action(int a1, char *a2, int *a3, int *a4)
+uint64_t _mkstemp_dprotected_np_action(uint64_t a1, char *a2, int *a3, int *a4)
 {
   if (a1 != -2)
   {
@@ -568,7 +598,7 @@ int rpmatch(const char *a1)
   return v3;
 }
 
-BOOL __find_arguments(char *a1, _DWORD *a2, _DWORD **a3)
+BOOL __find_arguments(char *a1, _DWORD *a2, void *a3)
 {
   v127 = 1;
   v5 = v125;
@@ -1789,8 +1819,8 @@ _DWORD *build_arg_table(uint64_t a1, _DWORD *a2, _DWORD **a3)
           *&(*a3)[v8] = *v11;
           break;
         case 0x1A:
-          v12 = ((a2 + 15) & 0xFFFFFFFFFFFFFFF0);
-          a2 = v12 + 1;
+          v12 = (a2 + 15) & 0xFFFFFFFFFFFFFFF0;
+          a2 = (v12 + 16);
           *&(*a3)[v8] = *v12;
           break;
         default:
@@ -4456,7 +4486,7 @@ LABEL_87:
           }
 
           v393 = v100;
-          v117 = __hldtoa(v368, v26 + (v26 >= 0), &v392, &v394, &v391);
+          v117 = __hldtoa(v368, v26 + (v26 >= 0), &v392, &v394, &v391, v100);
         }
 
         else
@@ -4486,7 +4516,7 @@ LABEL_87:
 
         else
         {
-          v70 = &v391[-v117];
+          v70 = v391 - v117;
         }
 
         if (v392 == 0x7FFFFFFF)
@@ -5584,7 +5614,7 @@ LABEL_397:
             v10 = (&v406 - v25) >> 2;
             if (v10 >= 33)
             {
-              abort_report_np("%s:%s:%u: size (%zd) > BUF (%d)");
+              abort_report_np("%s:%s:%u: size (%zd) > BUF (%d)", "vfwprintf.c", "__vfwprintf", 1061, (&v406 - v25) >> 2, 32);
             }
 
             v13 = (v143 + 1);
@@ -9579,7 +9609,7 @@ FILE *__cdecl open_wmemstream(__int32 **__bufp, size_t *__sizep)
       v5 = malloc_type_malloc(0xA0uLL, 0x1090040970F6AABuLL);
       if (v5)
       {
-        v6 = v5;
+        v7 = v5;
         *v5 = __bufp;
         v5[1] = __sizep;
         *(v5 + 1) = 0u;
@@ -9591,31 +9621,31 @@ FILE *__cdecl open_wmemstream(__int32 **__bufp, size_t *__sizep)
         *(v5 + 7) = 0u;
         *(v5 + 8) = 0u;
         *(v5 + 9) = 0u;
-        wmemstream_update(v5);
-        v7 = funopen(v6, 0, wmemstream_write, wmemstream_seek, wmemstream_close);
-        v8 = v7;
-        if (v7)
+        wmemstream_update(v5, v6);
+        v8 = funopen(v7, 0, wmemstream_write, wmemstream_seek, wmemstream_close);
+        v9 = v8;
+        if (v8)
         {
-          fwide(v7, 1);
+          fwide(v8, 1);
         }
 
         else
         {
-          v10 = *__error();
-          free(v6);
+          v11 = *__error();
+          free(v7);
           free(*__bufp);
           *__bufp = 0;
-          *__error() = v10;
+          *__error() = v11;
         }
       }
 
       else
       {
-        v9 = *__error();
+        v10 = *__error();
         free(*__bufp);
         *__bufp = 0;
-        v8 = 0;
-        *__error() = v9;
+        v9 = 0;
+        *__error() = v10;
       }
     }
 
@@ -9627,27 +9657,27 @@ FILE *__cdecl open_wmemstream(__int32 **__bufp, size_t *__sizep)
 
   else
   {
-    v8 = 0;
+    v9 = 0;
     *__error() = 22;
   }
 
-  return v8;
+  return v9;
 }
 
-uint64_t wmemstream_update(uint64_t result)
+uint64_t wmemstream_update(uint64_t result, uint64_t a2)
 {
-  v1 = *(result + 16);
-  if ((v1 & 0x8000000000000000) != 0 || (v2 = *(result + 24), (v2 & 0x8000000000000000) != 0))
+  v2 = *(result + 16);
+  if ((v2 & 0x8000000000000000) != 0 || (v3 = *(result + 24), (v3 & 0x8000000000000000) != 0))
   {
     wmemstream_update_cold_1();
   }
 
-  if (v1 >= v2)
+  if (v2 >= v3)
   {
-    v1 = *(result + 24);
+    v2 = *(result + 24);
   }
 
-  **(result + 8) = v1;
+  **(result + 8) = v2;
   return result;
 }
 
@@ -9780,73 +9810,6 @@ LABEL_12:
     while (v3 > 0);
   }
 
-  wmemstream_update(a1);
+  wmemstream_update(a1, a2);
   return v18;
-}
-
-uint64_t wmemstream_seek(uint64_t a1, int64_t a2, int a3)
-{
-  v4 = *(a1 + 24);
-  switch(a3)
-  {
-    case 2:
-      v5 = *(a1 + 16);
-      if (a2 < 0)
-      {
-        a2 += v5;
-        if (a2 < 0)
-        {
-          v6 = __error();
-          v7 = 22;
-          goto LABEL_13;
-        }
-      }
-
-      else
-      {
-        if ((v5 ^ 0x7FFFFFFFFFFFFFFFuLL) < a2)
-        {
-          v6 = __error();
-          v7 = 84;
-LABEL_13:
-          *v6 = v7;
-          return -1;
-        }
-
-        a2 += v5;
-      }
-
-LABEL_15:
-      *(a1 + 24) = a2;
-      if (a2 != v4)
-      {
-        *(a1 + 128) = 0u;
-        *(a1 + 144) = 0u;
-        *(a1 + 96) = 0u;
-        *(a1 + 112) = 0u;
-        *(a1 + 64) = 0u;
-        *(a1 + 80) = 0u;
-        *(a1 + 32) = 0u;
-        *(a1 + 48) = 0u;
-      }
-
-      break;
-    case 1:
-      if (a2)
-      {
-        wmemstream_seek_cold_1();
-      }
-
-      break;
-    case 0:
-      if (a2 < 0)
-      {
-        wmemstream_seek_cold_2();
-      }
-
-      goto LABEL_15;
-  }
-
-  wmemstream_update(a1);
-  return *(a1 + 24);
 }

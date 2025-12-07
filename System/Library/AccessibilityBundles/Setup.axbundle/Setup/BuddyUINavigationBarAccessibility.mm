@@ -6,15 +6,15 @@
 
 - (id)accessibilityIdentifier
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v3 = AXLogUIA();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     accessibilityIdentification = [(BuddyUINavigationBarAccessibility *)self accessibilityIdentification];
     *buf = 138412546;
     selfCopy = self;
-    v32 = 2112;
-    v33 = accessibilityIdentification;
+    v31 = 2112;
+    v32 = accessibilityIdentification;
     _os_log_impl(&dword_29C309000, v3, OS_LOG_TYPE_INFO, "NavBar: Buddy: identification:%@ %@", buf, 0x16u);
   }
 
@@ -25,7 +25,7 @@
   {
     buf[0] = 0;
     objc_opt_class();
-    v29 = 0;
+    v28 = 0;
     objc_opt_class();
     v7 = __UIAccessibilityCastAsClass();
     v8 = v7;
@@ -43,8 +43,8 @@
     {
       *buf = 138412546;
       selfCopy = v10;
-      v32 = 2112;
-      v33 = visibleViewController;
+      v31 = 2112;
+      v32 = visibleViewController;
       _os_log_impl(&dword_29C309000, v12, OS_LOG_TYPE_INFO, "NavBar: Buddy: nav controller: %@ visible: %@", buf, 0x16u);
     }
 
@@ -71,8 +71,8 @@
         v21 = objc_opt_class();
         *buf = 138412546;
         selfCopy = v21;
-        v32 = 2112;
-        v33 = firstObject;
+        v31 = 2112;
+        v32 = firstObject;
         v22 = v21;
         _os_log_impl(&dword_29C309000, v20, OS_LOG_TYPE_INFO, "NavBar: Buddy: class: %@, name: %@", buf, 0x16u);
       }
@@ -89,20 +89,18 @@
     v23 = AXLogUIA();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
     {
-      v28.receiver = self;
-      v28.super_class = BuddyUINavigationBarAccessibility;
-      accessibilityIdentifier = [(BuddyUINavigationBarAccessibility *)&v28 accessibilityIdentifier];
+      v27.receiver = self;
+      v27.super_class = BuddyUINavigationBarAccessibility;
+      accessibilityIdentifier = [(BuddyUINavigationBarAccessibility *)&v27 accessibilityIdentifier];
       *buf = 138412290;
       selfCopy = accessibilityIdentifier;
       _os_log_impl(&dword_29C309000, v23, OS_LOG_TYPE_INFO, "NavBar: Buddy: returning super identifier: %@", buf, 0xCu);
     }
 
-    v27.receiver = self;
-    v27.super_class = BuddyUINavigationBarAccessibility;
-    firstObject = [(BuddyUINavigationBarAccessibility *)&v27 accessibilityIdentifier];
+    v26.receiver = self;
+    v26.super_class = BuddyUINavigationBarAccessibility;
+    firstObject = [(BuddyUINavigationBarAccessibility *)&v26 accessibilityIdentifier];
   }
-
-  v25 = *MEMORY[0x29EDCA608];
 
   return firstObject;
 }

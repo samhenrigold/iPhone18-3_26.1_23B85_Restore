@@ -5,15 +5,19 @@
 + (id)fromNPKProtoStandalonePaymentProvisioningFlowStepContext:(id)context requestContext:(id)requestContext;
 + (id)sha1hash:(id)sha1hash;
 + (id)toJsonString:(id)string;
++ (id)toNPKProtoStandaloneCreditAccountCredential:(id)credential thumbnailSize:(BOOL)size;
 + (id)toNPKProtoStandaloneError:(id)error;
 + (id)toNPKProtoStandalonePass:(id)pass thumbnailSize:(BOOL)size;
 + (id)toNPKProtoStandalonePaymentCredential:(id)credential;
++ (id)toNPKProtoStandalonePaymentCredentialUnion:(id)union withFlowIdentifier:(id)identifier thumbnailSize:(BOOL)size;
 + (id)toNPKProtoStandalonePaymentDigitalIssuanceMetadata:(id)metadata;
++ (id)toNPKProtoStandalonePaymentPass:(id)pass thumbnailSize:(BOOL)size;
 + (id)toNPKProtoStandalonePaymentProvisioningFlowManualEntryStepContext:(id)context;
 + (id)toNPKProtoStandalonePaymentProvisioningFlowPickerItem:(id)item;
 + (id)toNPKProtoStandalonePaymentProvisioningFlowPickerSection:(id)section;
 + (id)toNPKProtoStandalonePaymentProvisioningFlowStepContext:(id)context fromStep:(int)step toStep:(int)toStep;
 + (id)toNPKProtoStandalonePaymentProvisioningMethodMetadata:(id)metadata;
++ (id)toNPKProtoStandalonePaymentRemoteCredential:(id)credential thumbnailSize:(BOOL)size;
 + (id)toNPKProtoStandalonePaymentSetupField:(id)field;
 + (id)toNPKProtoStandalonePaymentSetupMoreInfoItem:(id)item;
 + (id)toNPKProtoStandalonePaymentSetupProduct:(id)product;
@@ -62,20 +66,20 @@
   v12 = *MEMORY[0x277D85DE8];
   if (size.width <= 0.0 || size.height <= 0.0)
   {
-    v5 = pk_Payment_log();
+    v5 = pk_Payment_log(self);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
-      v7 = pk_Payment_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v13.width = width;
         v13.height = height;
         v10 = 138412290;
         DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v13);
-        v8 = DictionaryRepresentation;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Ignoring invalid pass image size %@", &v10, 0xCu);
+        v9 = DictionaryRepresentation;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Ignoring invalid pass image size %@", &v10, 0xCu);
       }
     }
   }
@@ -85,8 +89,6 @@
     __PassImageSize_0 = *&size.width;
     __PassImageSize_1 = *&size.height;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (CGSize)passImageSize
@@ -105,20 +107,20 @@
   v12 = *MEMORY[0x277D85DE8];
   if (size.width <= 0.0 || size.height <= 0.0)
   {
-    v5 = pk_Payment_log();
+    v5 = pk_Payment_log(self);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
-      v7 = pk_Payment_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v13.width = width;
         v13.height = height;
         v10 = 138412290;
         DictionaryRepresentation = CGSizeCreateDictionaryRepresentation(v13);
-        v8 = DictionaryRepresentation;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Ignoring invalid pass thumbnail image size %@", &v10, 0xCu);
+        v9 = DictionaryRepresentation;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Ignoring invalid pass thumbnail image size %@", &v10, 0xCu);
       }
     }
   }
@@ -128,8 +130,6 @@
     __PassThumbnailImageSize_0 = *&size.width;
     __PassThumbnailImageSize_1 = *&size.height;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (CGSize)passThumbnailImageSize
@@ -401,37 +401,37 @@ LABEL_16:
 
 + (void)_convertWelcomeStepContext:(id)context protoContext:(id)protoContext
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   protoContextCopy = protoContext;
   welcomeStepContext = [contextCopy welcomeStepContext];
   if (welcomeStepContext)
   {
-    v22 = contextCopy;
+    v21 = contextCopy;
     v8 = objc_alloc_init(NPKProtoStandalonePaymentProvisioningFlowWelcomeStepContext);
     [protoContextCopy setWelcomeStepContext:v8];
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     obj = [welcomeStepContext heroImages];
-    v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         v12 = 0;
         do
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * v12);
+          v13 = *(*(&v23 + 1) + 8 * v12);
           v14 = objc_autoreleasePoolPush();
           v15 = objc_alloc_init(NPKProtoStandalonePaymentHeroImage);
           identifier = [v13 identifier];
@@ -453,7 +453,7 @@ LABEL_16:
             v19 = [v13 imageWithScale:?];
           }
 
-          [(NPKProtoStandalonePaymentHeroImage *)v15 setImageData:v19, v22];
+          [(NPKProtoStandalonePaymentHeroImage *)v15 setImageData:v19, v21];
           welcomeStepContext2 = [protoContextCopy welcomeStepContext];
           [welcomeStepContext2 addHeroImages:v15];
 
@@ -462,16 +462,14 @@ LABEL_16:
         }
 
         while (v10 != v12);
-        v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v10 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v10);
     }
 
-    contextCopy = v22;
+    contextCopy = v21;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_convertChooseFlowStepContext:(id)context protoContext:(id)protoContext
@@ -628,7 +626,7 @@ void __78__NPKProtoStandaloneHelper__convertChooseCredentialsStepContext_protoCo
 
 + (void)_convertReaderModeEntryStepContext:(id)context protoContext:(id)protoContext
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   protoContextCopy = protoContext;
   readerModeEntryStepContext = [context readerModeEntryStepContext];
   if (readerModeEntryStepContext)
@@ -653,27 +651,27 @@ void __78__NPKProtoStandaloneHelper__convertChooseCredentialsStepContext_protoCo
 
       if (v16)
       {
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         setupFields3 = [readerModeEntryStepContext setupFields];
-        v18 = [setupFields3 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v18 = [setupFields3 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v31;
+          v20 = *v30;
           do
           {
             v21 = 0;
             do
             {
-              if (*v31 != v20)
+              if (*v30 != v20)
               {
                 objc_enumerationMutation(setupFields3);
               }
 
-              v22 = *(*(&v30 + 1) + 8 * v21);
+              v22 = *(*(&v29 + 1) + 8 * v21);
               readerModeEntryStepContext4 = [protoContextCopy readerModeEntryStepContext];
               v24 = [self toNPKProtoStandalonePaymentSetupField:v22];
               [readerModeEntryStepContext4 addSetupFields:v24];
@@ -682,7 +680,7 @@ void __78__NPKProtoStandaloneHelper__convertChooseCredentialsStepContext_protoCo
             }
 
             while (v19 != v21);
-            v19 = [setupFields3 countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v19 = [setupFields3 countByEnumeratingWithState:&v29 objects:v33 count:16];
           }
 
           while (v19);
@@ -700,8 +698,6 @@ void __78__NPKProtoStandaloneHelper__convertChooseCredentialsStepContext_protoCo
       [readerModeEntryStepContext5 setProduct:v27];
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_convertReaderModeIngestionStepContext:(id)context protoContext:(id)protoContext
@@ -756,7 +752,7 @@ void __78__NPKProtoStandaloneHelper__convertChooseCredentialsStepContext_protoCo
 
 + (id)toNPKProtoStandalonePaymentProvisioningFlowManualEntryStepContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = objc_alloc_init(NPKProtoStandalonePaymentProvisioningFlowManualEntryStepContext);
   -[NPKProtoStandalonePaymentProvisioningFlowManualEntryStepContext setCameraFirstProvisioningEnabled:](v5, "setCameraFirstProvisioningEnabled:", [contextCopy cameraFirstProvisioningEnabled]);
@@ -769,38 +765,36 @@ void __78__NPKProtoStandaloneHelper__convertChooseCredentialsStepContext_protoCo
 
     if (v9)
     {
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       setupFields3 = [contextCopy setupFields];
-      v11 = [setupFields3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [setupFields3 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v19;
+        v13 = *v18;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v19 != v13)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(setupFields3);
             }
 
-            v15 = [self toNPKProtoStandalonePaymentSetupField:*(*(&v18 + 1) + 8 * i)];
+            v15 = [self toNPKProtoStandalonePaymentSetupField:*(*(&v17 + 1) + 8 * i)];
             [(NPKProtoStandalonePaymentProvisioningFlowManualEntryStepContext *)v5 addSetupFields:v15];
           }
 
-          v12 = [setupFields3 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v12 = [setupFields3 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v12);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1135,31 +1129,31 @@ void __76__NPKProtoStandaloneHelper__convertMoreInformationStepContext_protoCont
 
 + (id)_convertProtoWelcomeStepContext:(id)context requestContext:(id)requestContext
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   requestContextCopy = requestContext;
   v6 = [[NPKPaymentProvisioningFlowControllerWelcomeStepContext alloc] initWithRequestContext:requestContextCopy];
   array = [MEMORY[0x277CBEB18] array];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   heroImages = [contextCopy heroImages];
-  v9 = [heroImages countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [heroImages countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(heroImages);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         v14 = objc_alloc(MEMORY[0x277D38060]);
         identifier = [v13 identifier];
         imageData = [v13 imageData];
@@ -1168,7 +1162,7 @@ void __76__NPKProtoStandaloneHelper__convertMoreInformationStepContext_protoCont
         [array addObject:v17];
       }
 
-      v10 = [heroImages countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [heroImages countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -1176,8 +1170,6 @@ void __76__NPKProtoStandaloneHelper__convertMoreInformationStepContext_protoCont
 
   v18 = [array copy];
   [(NPKPaymentProvisioningFlowControllerWelcomeStepContext *)v6 setHeroImages:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -1400,7 +1392,7 @@ void __67__NPKProtoStandaloneHelper_toNPKProtoStandalonePass_thumbnailSize___blo
 
 + (id)sha1hash:(id)sha1hash
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   sha1hashCopy = sha1hash;
   CC_SHA1([sha1hashCopy bytes], objc_msgSend(sha1hashCopy, "length"), md);
   v4 = [MEMORY[0x277CCAB68] stringWithCapacity:40];
@@ -1409,9 +1401,47 @@ void __67__NPKProtoStandaloneHelper_toNPKProtoStandalonePass_thumbnailSize___blo
     [v4 appendFormat:@"%02x", md[i]];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v4;
+}
+
++ (id)toNPKProtoStandalonePaymentPass:(id)pass thumbnailSize:(BOOL)size
+{
+  sizeCopy = size;
+  passCopy = pass;
+  v7 = objc_alloc_init(NPKProtoStandalonePaymentPass);
+  v8 = objc_autoreleasePoolPush();
+  v9 = [self toNPKProtoStandalonePass:passCopy thumbnailSize:sizeCopy];
+  [(NPKProtoStandalonePaymentPass *)v7 setPass:v9];
+
+  primaryAccountIdentifier = [passCopy primaryAccountIdentifier];
+  [(NPKProtoStandalonePaymentPass *)v7 setPrimaryAccountIdentifier:primaryAccountIdentifier];
+
+  primaryAccountNumberSuffix = [passCopy primaryAccountNumberSuffix];
+  [(NPKProtoStandalonePaymentPass *)v7 setPrimaryAccountNumberSuffix:primaryAccountNumberSuffix];
+
+  deviceAccountIdentifier = [passCopy deviceAccountIdentifier];
+  [(NPKProtoStandalonePaymentPass *)v7 setDeviceAccountIdentifier:deviceAccountIdentifier];
+
+  deviceAccountNumberSuffix = [passCopy deviceAccountNumberSuffix];
+  [(NPKProtoStandalonePaymentPass *)v7 setDeviceAccountNumberSuffix:deviceAccountNumberSuffix];
+
+  -[NPKProtoStandalonePaymentPass setActivationState:](v7, "setActivationState:", [self toNPKProtoStandalonePaymentPassActivationState:{objc_msgSend(passCopy, "activationState")}]);
+  devicePrimaryPaymentApplication = [passCopy devicePrimaryPaymentApplication];
+
+  if (devicePrimaryPaymentApplication)
+  {
+    v15 = objc_alloc_init(NPKProtoStandalonePaymentApplication);
+    [(NPKProtoStandalonePaymentPass *)v7 setDevicePrimaryPaymentApplication:v15];
+
+    devicePrimaryPaymentApplication2 = [passCopy devicePrimaryPaymentApplication];
+    v17 = [self toNPKProtoStandalonePaymentApplicationState:{objc_msgSend(devicePrimaryPaymentApplication2, "state")}];
+    devicePrimaryPaymentApplication3 = [(NPKProtoStandalonePaymentPass *)v7 devicePrimaryPaymentApplication];
+    [devicePrimaryPaymentApplication3 setState:v17];
+  }
+
+  objc_autoreleasePoolPop(v8);
+
+  return v7;
 }
 
 + (int)toNPKProtoStandaloneVerificationChannelType:(unint64_t)type
@@ -1483,6 +1513,99 @@ void __67__NPKProtoStandaloneHelper_toNPKProtoStandalonePass_thumbnailSize___blo
   [(NPKProtoStandalonePaymentCredential *)v4 setLongDescription:longDescription];
 
   return v4;
+}
+
++ (id)toNPKProtoStandalonePaymentCredentialUnion:(id)union withFlowIdentifier:(id)identifier thumbnailSize:(BOOL)size
+{
+  sizeCopy = size;
+  unionCopy = union;
+  identifierCopy = identifier;
+  v10 = objc_alloc_init(NPKProtoStandalonePaymentCredentialUnion);
+  [(NPKProtoStandalonePaymentCredentialUnion *)v10 setFlowIdentifier:identifierCopy];
+
+  remoteCredential = [unionCopy remoteCredential];
+  if (remoteCredential)
+  {
+    v12 = [self toNPKProtoStandalonePaymentRemoteCredential:remoteCredential thumbnailSize:sizeCopy];
+    [(NPKProtoStandalonePaymentCredentialUnion *)v10 setRemoteCredential:v12];
+  }
+
+  accountCredential = [unionCopy accountCredential];
+  if (accountCredential)
+  {
+    v14 = [self toNPKProtoStandaloneCreditAccountCredential:accountCredential thumbnailSize:sizeCopy];
+    [(NPKProtoStandalonePaymentCredentialUnion *)v10 setCreditAccountCredential:v14];
+  }
+
+  return v10;
+}
+
++ (id)toNPKProtoStandalonePaymentRemoteCredential:(id)credential thumbnailSize:(BOOL)size
+{
+  sizeCopy = size;
+  credentialCopy = credential;
+  v7 = objc_alloc_init(NPKProtoStandalonePaymentRemoteCredential);
+  v8 = [self toNPKProtoStandalonePaymentCredential:credentialCopy];
+  [(NPKProtoStandalonePaymentRemoteCredential *)v7 setPaymentCredential:v8];
+
+  identifier = [credentialCopy identifier];
+  [(NPKProtoStandalonePaymentRemoteCredential *)v7 setIdentifier:identifier];
+
+  passURL = [credentialCopy passURL];
+  absoluteString = [passURL absoluteString];
+  [(NPKProtoStandalonePaymentRemoteCredential *)v7 setPassURL:absoluteString];
+
+  summaryMetadataDescription = [credentialCopy summaryMetadataDescription];
+  [(NPKProtoStandalonePaymentRemoteCredential *)v7 setSummaryMetadataDescription:summaryMetadataDescription];
+
+  statusDescription = [credentialCopy statusDescription];
+  [(NPKProtoStandalonePaymentRemoteCredential *)v7 setStatusDescription:statusDescription];
+
+  paymentPass = [credentialCopy paymentPass];
+  v15 = [self toNPKProtoStandalonePaymentPass:paymentPass thumbnailSize:sizeCopy];
+  [(NPKProtoStandalonePaymentRemoteCredential *)v7 setPaymentPass:v15];
+
+  -[NPKProtoStandalonePaymentRemoteCredential setRank:](v7, "setRank:", [credentialCopy rank]);
+  productIdentifier = [credentialCopy productIdentifier];
+
+  [(NPKProtoStandalonePaymentRemoteCredential *)v7 setProductIdentifier:productIdentifier];
+
+  return v7;
+}
+
++ (id)toNPKProtoStandaloneCreditAccountCredential:(id)credential thumbnailSize:(BOOL)size
+{
+  sizeCopy = size;
+  credentialCopy = credential;
+  v7 = objc_alloc_init(NPKProtoStandaloneCreditAccountCredential);
+  v8 = [self toNPKProtoStandalonePaymentCredential:credentialCopy];
+  [(NPKProtoStandaloneCreditAccountCredential *)v7 setPaymentCredential:v8];
+
+  paymentPass = [credentialCopy paymentPass];
+  v10 = [self toNPKProtoStandalonePaymentPass:paymentPass thumbnailSize:sizeCopy];
+  [(NPKProtoStandaloneCreditAccountCredential *)v7 setPaymentPass:v10];
+
+  account = [credentialCopy account];
+  creditDetails = [account creditDetails];
+  currencyCode = [creditDetails currencyCode];
+  [(NPKProtoStandaloneCreditAccountCredential *)v7 setCurrencyCode:currencyCode];
+
+  account2 = [credentialCopy account];
+  creditDetails2 = [account2 creditDetails];
+  accountSummary = [creditDetails2 accountSummary];
+  currentBalance = [accountSummary currentBalance];
+  [currentBalance doubleValue];
+  [(NPKProtoStandaloneCreditAccountCredential *)v7 setCurrentBalance:?];
+
+  account3 = [credentialCopy account];
+
+  creditDetails3 = [account3 creditDetails];
+  accountSummary2 = [creditDetails3 accountSummary];
+  creditLimit = [accountSummary2 creditLimit];
+  [creditLimit doubleValue];
+  [(NPKProtoStandaloneCreditAccountCredential *)v7 setCreditLimit:?];
+
+  return v7;
 }
 
 + (id)toNPKProtoStandalonePaymentProvisioningFlowPickerSection:(id)section

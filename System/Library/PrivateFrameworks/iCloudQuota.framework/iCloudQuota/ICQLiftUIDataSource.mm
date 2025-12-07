@@ -28,8 +28,7 @@
 {
   v12 = sub_2755EC46C();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
+  MEMORY[0x28223BE20](v12, v14);
   v16 = &v22 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v17 = _Block_copy(handler);
   sub_2755EC45C();

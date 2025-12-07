@@ -1,4 +1,5 @@
 @interface HMDAccessoryReachabilityChangedLogEvent
++ (id)eventWithReachable:(BOOL)reachable changed:(BOOL)changed duration:(double)duration accessory:(id)accessory transportReport:(id)report;
 - (HMDAccessoryReachabilityChangedLogEvent)init;
 - (NSDictionary)coreAnalyticsEventDictionary;
 - (id)__initWithReachable:(BOOL)reachable changed:(BOOL)changed duration:(double)duration accessory:(id)accessory transportReport:(id)report;
@@ -10,7 +11,7 @@
 {
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = MEMORY[0x277CCABB0];
-  [(HMDAccessoryReachabilityChangedLogEvent *)self duration];
+  objc_msgSend_duration(self);
   v6 = [v4 numberWithInteger:v5];
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDAccessoryReachabilityChangedLogEvent accessoryBatteryPowered](self, "accessoryBatteryPowered")}];
   [dictionary setObject:v7 forKeyedSubscript:@"accessoryBatteryPowered"];
@@ -83,7 +84,7 @@
   }
 
   [dictionary setObject:v6 forKeyedSubscript:v28];
-  v29 = [dictionary copy];
+  v29 = objc_msgSend_copy(dictionary);
 
   return v29;
 }
@@ -141,6 +142,17 @@
   v8 = v7;
 
   objc_exception_throw(v7);
+}
+
++ (id)eventWithReachable:(BOOL)reachable changed:(BOOL)changed duration:(double)duration accessory:(id)accessory transportReport:(id)report
+{
+  changedCopy = changed;
+  reachableCopy = reachable;
+  reportCopy = report;
+  accessoryCopy = accessory;
+  v14 = [[self alloc] __initWithReachable:reachableCopy changed:changedCopy duration:accessoryCopy accessory:reportCopy transportReport:duration];
+
+  return v14;
 }
 
 @end

@@ -4,6 +4,7 @@
 - (NSMutableDictionary)skippedFiles;
 - (id)_keyForRecord:(id)record;
 - (id)skippedFilesPlistValue;
+- (id)trackSkippedFile:(id)file syscallType:(unint64_t)type syscallErrno:(int)errno;
 - (void)_loadPreviouslySkippedFiles;
 @end
 
@@ -50,113 +51,112 @@
   v4 = +[NSFileManager defaultManager];
   if ([v4 fileExistsAtPath:plistPath])
   {
-    v26 = 0;
-    v5 = [NSData dataWithContentsOfFile:plistPath options:0 error:&v26];
-    v6 = v26;
-    if (!v5)
+    v27 = 0;
+    v5 = [NSData dataWithContentsOfFile:plistPath options:0 error:&v27];
+    v6 = v27;
+    if (v5)
     {
-      v7 = MBGetDefaultLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v26 = 0;
+      v7 = [NSPropertyListSerialization propertyListWithData:v5 options:0 format:0 error:&v26];
+      v8 = v26;
+
+      if (v8)
       {
-        *buf = 138412546;
-        v29 = plistPath;
-        v30 = 2112;
-        v31 = v6;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "dataWithContentsOfFile returned nil for path %@ %@", buf, 0x16u);
-        _MBLog();
+        v9 = MBGetDefaultLog();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138412290;
+          v30 = v8;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "NSPropertyListSerialization failed %@", buf, 0xCu);
+          _MBLog(@"E ", "NSPropertyListSerialization failed %@", v8);
+        }
       }
 
-      v8 = v6;
-      goto LABEL_26;
-    }
-
-    v25 = 0;
-    v7 = [NSPropertyListSerialization propertyListWithData:v5 options:0 format:0 error:&v25];
-    v8 = v25;
-
-    if (v8)
-    {
-      v9 = MBGetDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      else
       {
-        *buf = 138412290;
-        v29 = v8;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "NSPropertyListSerialization failed %@", buf, 0xCu);
-LABEL_24:
-        _MBLog();
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v20 = v5;
+          v21 = plistPath;
+          v9 = objc_opt_new();
+          v22 = 0u;
+          v23 = 0u;
+          v24 = 0u;
+          v25 = 0u;
+          v10 = v7;
+          v11 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
+          if (v11)
+          {
+            v12 = v11;
+            v13 = *v23;
+            do
+            {
+              for (i = 0; i != v12; i = i + 1)
+              {
+                if (*v23 != v13)
+                {
+                  objc_enumerationMutation(v10);
+                }
+
+                v15 = *(*(&v22 + 1) + 8 * i);
+                objc_opt_class();
+                if (objc_opt_isKindOfClass())
+                {
+                  v16 = [[MBSkippedFileRecord alloc] initWithDictionaryRepresentation:v15];
+                  v17 = [(MBSkippedFileTracker *)self _keyForRecord:v16];
+                  if (v17)
+                  {
+                    [v9 setObject:v16 forKeyedSubscript:v17];
+                  }
+                }
+              }
+
+              v12 = [v10 countByEnumeratingWithState:&v22 objects:v28 count:16];
+            }
+
+            while (v12);
+          }
+
+          [(MBSkippedFileTracker *)self setPreviouslySkippedFiles:v9];
+          plistPath = v21;
+          v5 = v20;
+          v8 = 0;
+        }
+
+        else
+        {
+          v9 = MBGetDefaultLog();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          {
+            v18 = objc_opt_class();
+            *buf = 138412546;
+            v30 = v18;
+            v31 = 2112;
+            v32 = plistPath;
+            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Found unexpected class (%@) when reading plist %@", buf, 0x16u);
+            v19 = objc_opt_class();
+            _MBLog(@"E ", "Found unexpected class (%@) when reading plist %@", v19, plistPath);
+          }
+        }
       }
     }
 
     else
     {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      v7 = MBGetDefaultLog();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v19 = v5;
-        v20 = plistPath;
-        v9 = objc_opt_new();
-        v21 = 0u;
-        v22 = 0u;
-        v23 = 0u;
-        v24 = 0u;
-        v10 = v7;
-        v11 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
-        if (v11)
-        {
-          v12 = v11;
-          v13 = *v22;
-          do
-          {
-            for (i = 0; i != v12; i = i + 1)
-            {
-              if (*v22 != v13)
-              {
-                objc_enumerationMutation(v10);
-              }
-
-              v15 = *(*(&v21 + 1) + 8 * i);
-              objc_opt_class();
-              if (objc_opt_isKindOfClass())
-              {
-                v16 = [[MBSkippedFileRecord alloc] initWithDictionaryRepresentation:v15];
-                v17 = [(MBSkippedFileTracker *)self _keyForRecord:v16];
-                if (v17)
-                {
-                  [v9 setObject:v16 forKeyedSubscript:v17];
-                }
-              }
-            }
-
-            v12 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
-          }
-
-          while (v12);
-        }
-
-        [(MBSkippedFileTracker *)self setPreviouslySkippedFiles:v9];
-        plistPath = v20;
-        v5 = v19;
-        v8 = 0;
-        goto LABEL_25;
-      }
-
-      v9 = MBGetDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-        v18 = objc_opt_class();
         *buf = 138412546;
-        v29 = v18;
-        v30 = 2112;
-        v31 = plistPath;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Found unexpected class (%@) when reading plist %@", buf, 0x16u);
-        objc_opt_class();
-        goto LABEL_24;
+        v30 = plistPath;
+        v31 = 2112;
+        v32 = v6;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "dataWithContentsOfFile returned nil for path %@ %@", buf, 0x16u);
+        _MBLog(@"E ", "dataWithContentsOfFile returned nil for path %@ %@", plistPath, v6);
       }
+
+      v8 = v6;
     }
-
-LABEL_25:
-
-LABEL_26:
   }
 }
 
@@ -178,6 +178,54 @@ LABEL_26:
   v8 = [NSString stringWithFormat:@"%@-%@", domain2, relativePath2];
 
   return v8;
+}
+
+- (id)trackSkippedFile:(id)file syscallType:(unint64_t)type syscallErrno:(int)errno
+{
+  v5 = *&errno;
+  fileCopy = file;
+  skippedFiles = [(MBSkippedFileTracker *)self skippedFiles];
+  v10 = [skippedFiles count];
+
+  if (!v10)
+  {
+    [(MBSkippedFileTracker *)self _loadPreviouslySkippedFiles];
+  }
+
+  v11 = objc_opt_new();
+  absolutePath = [fileCopy absolutePath];
+  [v11 setAbsolutePath:absolutePath];
+
+  domain = [fileCopy domain];
+  name = [domain name];
+  [v11 setDomain:name];
+
+  relativePath = [fileCopy relativePath];
+
+  [v11 setRelativePath:relativePath];
+  [v11 setSyscallType:type];
+  [v11 setSyscallErrno:v5];
+  v16 = [(MBSkippedFileTracker *)self _keyForRecord:v11];
+  previouslySkippedFiles = [(MBSkippedFileTracker *)self previouslySkippedFiles];
+  v18 = [previouslySkippedFiles objectForKeyedSubscript:v16];
+
+  if (v18 && ([v18 dateSkipped], v19 = objc_claimAutoreleasedReturnValue(), v19, v19))
+  {
+    dateSkipped = [v18 dateSkipped];
+  }
+
+  else
+  {
+    dateSkipped = +[NSDate now];
+  }
+
+  v21 = dateSkipped;
+  [v11 setDateSkipped:dateSkipped];
+
+  skippedFiles2 = [(MBSkippedFileTracker *)self skippedFiles];
+  [skippedFiles2 setObject:v11 forKeyedSubscript:v16];
+
+  return v11;
 }
 
 - (BOOL)writeSkippedFilesToPlistWithError:(id *)error

@@ -1,8 +1,19 @@
 @interface CellularCallEndDetails
 - (BOOL)isEqual:(id)equal;
+- (id)antennaAsString:(int)string;
+- (id)bandAsString:(int)string;
+- (id)callEventAsString:(int)string;
+- (id)callStateAsString:(int)string;
+- (id)callTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)directionAsString:(int)string;
+- (id)setupDirectionAsString:(int)string;
+- (id)setupSysModeAsString:(int)string;
+- (id)srvTypeAsString:(int)string;
+- (id)srvccTargetRatAsString:(int)string;
+- (id)sysModeAsString:(int)string;
 - (int)StringAsAntenna:(id)antenna;
 - (int)StringAsBand:(id)band;
 - (int)StringAsCallEvent:(id)event;
@@ -118,6 +129,122 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFFDFLL | v3);
+}
+
+- (id)callEventAsString:(int)string
+{
+  if (string > 10)
+  {
+    if (string <= 55)
+    {
+      switch(string)
+      {
+        case 11:
+          v4 = @"CM_CALL_EVENT_ABRV_ALERT";
+
+          return v4;
+        case 27:
+          v4 = @"CM_CALL_EVENT_SETUP_IND";
+
+          return v4;
+        case 29:
+          v4 = @"CM_CALL_EVENT_CALL_CONF";
+
+          return v4;
+      }
+    }
+
+    else if (string > 111)
+    {
+      if (string == 112)
+      {
+        v4 = @"CM_CALL_EVENT_MT_CALL_PAGE_FAIL";
+
+        return v4;
+      }
+
+      if (string == 117)
+      {
+        v4 = @"CM_CALL_EVENT_ALERT";
+
+        return v4;
+      }
+    }
+
+    else
+    {
+      if (string == 56)
+      {
+        v4 = @"CM_CALL_EVENT_ALERTING";
+
+        return v4;
+      }
+
+      if (string == 111)
+      {
+        v4 = @"CM_CALL_EVENT_HO_COMPLETE";
+
+        return v4;
+      }
+    }
+
+LABEL_61:
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string <= 2)
+  {
+    switch(string)
+    {
+      case 0:
+        v4 = @"CM_CALL_EVENT_ORIG";
+
+        return v4;
+      case 1:
+        v4 = @"CM_CALL_EVENT_ANSWER";
+
+        return v4;
+      case 2:
+        v4 = @"CM_CALL_EVENT_END_REQ";
+
+        return v4;
+    }
+
+    goto LABEL_61;
+  }
+
+  if (string <= 4)
+  {
+    if (string == 3)
+    {
+      v4 = @"CM_CALL_EVENT_END";
+    }
+
+    else
+    {
+      v4 = @"CM_CALL_EVENT_SUPS";
+    }
+
+    return v4;
+  }
+
+  if (string != 5)
+  {
+    if (string == 6)
+    {
+      v4 = @"CM_CALL_EVENT_CONNECT";
+
+      return v4;
+    }
+
+    goto LABEL_61;
+  }
+
+  v4 = @"CM_CALL_EVENT_INCOM";
+
+  return v4;
 }
 
 - (int)StringAsCallEvent:(id)event
@@ -236,6 +363,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFEFFFLL | v3);
 }
 
+- (id)directionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003176A0 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsDirection:(id)direction
 {
   directionCopy = direction;
@@ -284,6 +426,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFEFFFFFFFFFFFLL | v3);
+}
+
+- (id)srvTypeAsString:(int)string
+{
+  if ((string + 1) >= 0x18)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317480 + (string + 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsSrvType:(id)type
@@ -441,6 +598,21 @@
   self->_has = (*&self->_has & 0xFFFEFFFFFFFFFFFFLL | v3);
 }
 
+- (id)sysModeAsString:(int)string
+{
+  if (string < 0x10 && ((0x9FFFu >> string) & 1) != 0)
+  {
+    v4 = *(&off_100317620 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsSysMode:(id)mode
 {
   modeCopy = mode;
@@ -544,6 +716,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFF7FLL | v3);
+}
+
+- (id)callStateAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317540 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsCallState:(id)state
@@ -655,6 +842,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFFFDLL | v3);
 }
 
+- (id)antennaAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317570 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsAntenna:(id)antenna
 {
   antennaCopy = antenna;
@@ -708,6 +910,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFEFFLL | v3);
+}
+
+- (id)callTypeAsString:(int)string
+{
+  if ((string + 1) >= 0x12)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317590 + (string + 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsCallType:(id)type
@@ -976,6 +1193,331 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFFFBLL | v3);
+}
+
+- (id)bandAsString:(int)string
+{
+  v4 = @"SYS_BAND_BC0";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_234;
+    case 1:
+      v4 = @"SYS_BAND_BC1";
+
+      break;
+    case 3:
+      v4 = @"SYS_BAND_BC3";
+
+      break;
+    case 4:
+      v4 = @"SYS_BAND_BC4";
+
+      break;
+    case 5:
+      v4 = @"SYS_BAND_BC5";
+
+      break;
+    case 6:
+      v4 = @"SYS_BAND_BC6";
+
+      break;
+    case 7:
+      v4 = @"SYS_BAND_BC7";
+
+      break;
+    case 8:
+      v4 = @"SYS_BAND_BC8";
+
+      break;
+    case 9:
+      v4 = @"SYS_BAND_BC9";
+
+      break;
+    case 10:
+      v4 = @"SYS_BAND_BC10";
+
+      break;
+    case 11:
+      v4 = @"SYS_BAND_BC11";
+
+      break;
+    case 12:
+      v4 = @"SYS_BAND_BC12";
+
+      break;
+    case 13:
+      v4 = @"SYS_BAND_BC13";
+
+      break;
+    case 14:
+      v4 = @"SYS_BAND_BC14";
+
+      break;
+    case 15:
+      v4 = @"SYS_BAND_BC15";
+
+      break;
+    case 16:
+      v4 = @"SYS_BAND_BC16";
+
+      break;
+    case 17:
+      v4 = @"SYS_BAND_BC17";
+
+      break;
+    case 18:
+      v4 = @"SYS_BAND_BC18";
+
+      break;
+    case 19:
+      v4 = @"SYS_BAND_BC19";
+
+      break;
+    case 40:
+      v4 = @"SYS_BAND_GSM_450";
+
+      break;
+    case 41:
+      v4 = @"SYS_BAND_GSM_480";
+
+      break;
+    case 42:
+      v4 = @"SYS_BAND_GSM_750";
+
+      break;
+    case 43:
+      v4 = @"SYS_BAND_GSM_850";
+
+      break;
+    case 44:
+      v4 = @"SYS_BAND_GSM_EGSM_900";
+
+      break;
+    case 45:
+      v4 = @"SYS_BAND_GSM_PGSM_900";
+
+      break;
+    case 46:
+      v4 = @"SYS_BAND_GSM_RGSM_900";
+
+      break;
+    case 47:
+      v4 = @"SYS_BAND_GSM_DCS_1800";
+
+      break;
+    case 48:
+      v4 = @"SYS_BAND_GSM_PCS_1900";
+
+      break;
+    case 80:
+      v4 = @"SYS_BAND_WCDMA_I_IMT_2000";
+
+      break;
+    case 81:
+      v4 = @"SYS_BAND_WCDMA_II_PCS_1900";
+
+      break;
+    case 82:
+      v4 = @"SYS_BAND_WCDMA_III_1700";
+
+      break;
+    case 83:
+      v4 = @"SYS_BAND_WCDMA_IV_1700";
+
+      break;
+    case 84:
+      v4 = @"SYS_BAND_WCDMA_V_850";
+
+      break;
+    case 85:
+      v4 = @"SYS_BAND_WCDMA_VI_800";
+
+      break;
+    case 86:
+      v4 = @"SYS_BAND_WCDMA_VII_2600";
+
+      break;
+    case 87:
+      v4 = @"SYS_BAND_WCDMA_VIII_900";
+
+      break;
+    case 88:
+      v4 = @"SYS_BAND_WCDMA_IX_1700";
+
+      break;
+    case 90:
+      v4 = @"SYS_BAND_WCDMA_XI_1500";
+
+      break;
+    case 91:
+      v4 = @"SYS_BAND_WCDMA_XIX_850";
+
+      break;
+    case 120:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND1";
+
+      break;
+    case 121:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND2";
+
+      break;
+    case 122:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND3";
+
+      break;
+    case 123:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND4";
+
+      break;
+    case 124:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND5";
+
+      break;
+    case 125:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND6";
+
+      break;
+    case 126:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND7";
+
+      break;
+    case 127:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND8";
+
+      break;
+    case 128:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND9";
+
+      break;
+    case 129:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND10";
+
+      break;
+    case 130:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND11";
+
+      break;
+    case 131:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND12";
+
+      break;
+    case 132:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND13";
+
+      break;
+    case 133:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND14";
+
+      break;
+    case 136:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND17";
+
+      break;
+    case 137:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND18";
+
+      break;
+    case 138:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND19";
+
+      break;
+    case 139:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND20";
+
+      break;
+    case 140:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND21";
+
+      break;
+    case 143:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND24";
+
+      break;
+    case 144:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND25";
+
+      break;
+    case 145:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND26";
+
+      break;
+    case 152:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND33";
+
+      break;
+    case 153:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND34";
+
+      break;
+    case 154:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND35";
+
+      break;
+    case 155:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND36";
+
+      break;
+    case 156:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND37";
+
+      break;
+    case 157:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND38";
+
+      break;
+    case 158:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND39";
+
+      break;
+    case 159:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND40";
+
+      break;
+    case 160:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND41";
+
+      break;
+    case 161:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND42";
+
+      break;
+    case 162:
+      v4 = @"SYS_BAND_LTE_EUTRAN_BAND43";
+
+      break;
+    case 163:
+      v4 = @"SYS_BAND_UMTS_BAND1";
+
+      break;
+    case 164:
+      v4 = @"SYS_BAND_UMTS_BAND2";
+
+      break;
+    case 165:
+      v4 = @"SYS_BAND_UMTS_BAND3";
+
+      break;
+    case 166:
+      v4 = @"SYS_BAND_UMTS_BAND4";
+
+      break;
+    case 167:
+      v4 = @"SYS_BAND_UMTS_BAND5";
+
+      break;
+    case 168:
+      v4 = @"SYS_BAND_UMTS_BAND6";
+
+      break;
+    default:
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_234:
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsBand:(id)band
@@ -1458,6 +2000,21 @@
   self->_has = (*&self->_has & 0xFFFFFBFFFFFFFFFFLL | v3);
 }
 
+- (id)setupSysModeAsString:(int)string
+{
+  if (string < 0x10 && ((0x9FFFu >> string) & 1) != 0)
+  {
+    v4 = *(&off_100317620 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsSetupSysMode:(id)mode
 {
   modeCopy = mode;
@@ -1561,6 +2118,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFDFFFFFFFFFFLL | v3);
+}
+
+- (id)setupDirectionAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003176A0 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsSetupDirection:(id)direction
@@ -1900,6 +2472,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFBFFFFFFFFFFFLL | v3);
+}
+
+- (id)srvccTargetRatAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003176B8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsSrvccTargetRat:(id)rat
@@ -3455,7 +4042,6 @@ LABEL_83:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x20) == 0)
@@ -3475,7 +4061,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  callEvent = self->_callEvent;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -3490,7 +4075,6 @@ LABEL_4:
   }
 
 LABEL_86:
-  callId = self->_callId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -3505,7 +4089,6 @@ LABEL_5:
   }
 
 LABEL_87:
-  direction = self->_direction;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x100000000000) == 0)
@@ -3520,7 +4103,6 @@ LABEL_6:
   }
 
 LABEL_88:
-  srvType = self->_srvType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x1000000000000) == 0)
@@ -3535,7 +4117,6 @@ LABEL_7:
   }
 
 LABEL_89:
-  sysMode = self->_sysMode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -3550,7 +4131,6 @@ LABEL_8:
   }
 
 LABEL_90:
-  callState = self->_callState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -3565,7 +4145,6 @@ LABEL_9:
   }
 
 LABEL_91:
-  endStatus = self->_endStatus;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
@@ -3580,7 +4159,6 @@ LABEL_10:
   }
 
 LABEL_92:
-  qmiReleaseCause = self->_qmiReleaseCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -3595,7 +4173,6 @@ LABEL_11:
   }
 
 LABEL_93:
-  callDuration = self->_callDuration;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -3610,7 +4187,6 @@ LABEL_12:
   }
 
 LABEL_94:
-  ccCause = self->_ccCause;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -3625,7 +4201,6 @@ LABEL_13:
   }
 
 LABEL_95:
-  antenna = self->_antenna;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -3640,7 +4215,6 @@ LABEL_14:
   }
 
 LABEL_96:
-  callType = self->_callType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x100000000000000) == 0)
@@ -3655,7 +4229,6 @@ LABEL_15:
   }
 
 LABEL_97:
-  established = self->_established;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80000000000000) == 0)
@@ -3670,7 +4243,6 @@ LABEL_16:
   }
 
 LABEL_98:
-  connected = self->_connected;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -3685,7 +4257,6 @@ LABEL_17:
   }
 
 LABEL_99:
-  lteCellId = self->_lteCellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -3700,7 +4271,6 @@ LABEL_18:
   }
 
 LABEL_100:
-  cellId = self->_cellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000000000000) == 0)
@@ -3715,7 +4285,6 @@ LABEL_19:
   }
 
 LABEL_101:
-  zoneId = self->_zoneId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -3730,7 +4299,6 @@ LABEL_20:
   }
 
 LABEL_102:
-  baseId = self->_baseId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -3745,7 +4313,6 @@ LABEL_21:
   }
 
 LABEL_103:
-  lteLac = self->_lteLac;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000000000) == 0)
@@ -3760,7 +4327,6 @@ LABEL_22:
   }
 
 LABEL_104:
-  sid = self->_sid;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -3775,7 +4341,6 @@ LABEL_23:
   }
 
 LABEL_105:
-  mcc = self->_mcc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -3790,7 +4355,6 @@ LABEL_24:
   }
 
 LABEL_106:
-  mnc = self->_mnc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -3805,7 +4369,6 @@ LABEL_25:
   }
 
 LABEL_107:
-  lac = self->_lac;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000000000000) == 0)
@@ -3820,7 +4383,6 @@ LABEL_26:
   }
 
 LABEL_108:
-  mrabEver = self->_mrabEver;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x400000000000000) == 0)
@@ -3835,7 +4397,6 @@ LABEL_27:
   }
 
 LABEL_109:
-  mrabEnd = self->_mrabEnd;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -3850,7 +4411,6 @@ LABEL_28:
   }
 
 LABEL_110:
-  band = self->_band;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x1000000000) == 0)
@@ -3865,7 +4425,6 @@ LABEL_29:
   }
 
 LABEL_111:
-  rfChannel = self->_rfChannel;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -3880,7 +4439,6 @@ LABEL_30:
   }
 
 LABEL_112:
-  psc = self->_psc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000000000) == 0)
@@ -3895,7 +4453,6 @@ LABEL_31:
   }
 
 LABEL_113:
-  ttyMode = self->_ttyMode;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000000000) == 0)
@@ -3910,7 +4467,6 @@ LABEL_32:
   }
 
 LABEL_114:
-  tsAccuracyHour = self->_tsAccuracyHour;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000000000000) == 0)
@@ -3925,7 +4481,6 @@ LABEL_33:
   }
 
 LABEL_115:
-  accessoryAttached = self->_accessoryAttached;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x40000000000) == 0)
@@ -3940,7 +4495,6 @@ LABEL_34:
   }
 
 LABEL_116:
-  setupSysMode = self->_setupSysMode;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20000000000) == 0)
@@ -3955,7 +4509,6 @@ LABEL_35:
   }
 
 LABEL_117:
-  setupDirection = self->_setupDirection;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x2000000000000000) == 0)
@@ -3970,7 +4523,6 @@ LABEL_36:
   }
 
 LABEL_118:
-  sl2 = self->_sl2;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -3985,7 +4537,6 @@ LABEL_37:
   }
 
 LABEL_119:
-  coexPolicy = self->_coexPolicy;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000000000000) == 0)
@@ -4000,7 +4551,6 @@ LABEL_38:
   }
 
 LABEL_120:
-  sl = self->_sl;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x200000000000000) == 0)
@@ -4015,7 +4565,6 @@ LABEL_39:
   }
 
 LABEL_121:
-  fb = self->_fb;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -4030,7 +4579,6 @@ LABEL_40:
   }
 
 LABEL_122:
-  msOrigToFb = self->_msOrigToFb;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -4045,7 +4593,6 @@ LABEL_41:
   }
 
 LABEL_123:
-  msOrigToConf = self->_msOrigToConf;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -4060,7 +4607,6 @@ LABEL_42:
   }
 
 LABEL_124:
-  msOrigToEnd = self->_msOrigToEnd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -4075,7 +4621,6 @@ LABEL_43:
   }
 
 LABEL_125:
-  msStartToAlert = self->_msStartToAlert;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -4090,7 +4635,6 @@ LABEL_44:
   }
 
 LABEL_126:
-  msFbToSetup = self->_msFbToSetup;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
@@ -4105,7 +4649,6 @@ LABEL_45:
   }
 
 LABEL_127:
-  msPageToSetup = self->_msPageToSetup;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -4120,7 +4663,6 @@ LABEL_46:
   }
 
 LABEL_128:
-  msSetupToEnd = self->_msSetupToEnd;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -4135,7 +4677,6 @@ LABEL_47:
   }
 
 LABEL_129:
-  ecioDbx2 = self->_ecioDbx2;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x4000000000) == 0)
@@ -4150,7 +4691,6 @@ LABEL_48:
   }
 
 LABEL_130:
-  rssiDbm = self->_rssiDbm;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x8000000000000) == 0)
@@ -4165,7 +4705,6 @@ LABEL_49:
   }
 
 LABEL_131:
-  txPwrDbm = self->_txPwrDbm;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x10000000000) == 0)
@@ -4180,58 +4719,54 @@ LABEL_50:
   }
 
 LABEL_132:
-  sensorUseDuringLastCallMs = self->_sensorUseDuringLastCallMs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x8000000000) != 0)
   {
 LABEL_51:
-    sensorEndToPresentMs = self->_sensorEndToPresentMs;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_52:
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  v7 = self->_capEvents;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v86 objects:v91 count:16];
-  if (v8)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v6 = self->_capEvents;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v87;
+    v8 = v7;
+    v9 = *v23;
     do
     {
-      v11 = 0;
+      v10 = 0;
       do
       {
-        if (*v87 != v10)
+        if (*v23 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v86 + 1) + 8 * v11);
         PBDataWriterWriteSubmessage();
-        v11 = v11 + 1;
+        ++v10;
       }
 
-      while (v9 != v11);
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v86 objects:v91 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v13 = self->_has;
-  if ((*&v13 & 0x800000000000) != 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x800000000000) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v13 = self->_has;
-    if ((*&v13 & 0x100000000) == 0)
+    v11 = self->_has;
+    if ((*&v11 & 0x100000000) == 0)
     {
 LABEL_61:
-      if ((*&v13 & 0x200000000) == 0)
+      if ((*&v11 & 0x200000000) == 0)
       {
         goto LABEL_62;
       }
@@ -4240,18 +4775,17 @@ LABEL_61:
     }
   }
 
-  else if ((*&v13 & 0x100000000) == 0)
+  else if ((*&v11 & 0x100000000) == 0)
   {
     goto LABEL_61;
   }
 
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x200000000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x200000000) == 0)
   {
 LABEL_62:
-    if ((*&v13 & 0x8000) == 0)
+    if ((*&v11 & 0x8000) == 0)
     {
       goto LABEL_63;
     }
@@ -4260,13 +4794,12 @@ LABEL_62:
   }
 
 LABEL_136:
-  psPref = self->_psPref;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x8000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x8000) == 0)
   {
 LABEL_63:
-    if ((*&v13 & 0x10000) == 0)
+    if ((*&v11 & 0x10000) == 0)
     {
       goto LABEL_64;
     }
@@ -4275,13 +4808,12 @@ LABEL_63:
   }
 
 LABEL_137:
-  hoType = self->_hoType;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x10000) == 0)
+  v11 = self->_has;
+  if ((*&v11 & 0x10000) == 0)
   {
 LABEL_64:
-    if ((*&v13 & 0x2000000000) == 0)
+    if ((*&v11 & 0x2000000000) == 0)
     {
       goto LABEL_66;
     }
@@ -4290,58 +4822,54 @@ LABEL_64:
   }
 
 LABEL_138:
-  hstState = self->_hstState;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x2000000000) != 0)
   {
 LABEL_65:
-    rrcRelCause = self->_rrcRelCause;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_66:
-  v84 = 0u;
-  v85 = 0u;
-  v82 = 0u;
-  v83 = 0u;
-  v15 = self->_rfMeasInfos;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v82 objects:v90 count:16];
-  if (v16)
+  v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v12 = self->_rfMeasInfos;
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v13)
   {
-    v17 = v16;
-    v18 = *v83;
+    v14 = v13;
+    v15 = *v19;
     do
     {
-      v19 = 0;
+      v16 = 0;
       do
       {
-        if (*v83 != v18)
+        if (*v19 != v15)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v12);
         }
 
-        v20 = *(*(&v82 + 1) + 8 * v19);
         PBDataWriterWriteSubmessage();
-        v19 = v19 + 1;
+        ++v16;
       }
 
-      while (v17 != v19);
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v82 objects:v90 count:16];
+      while (v14 != v16);
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
-    while (v17);
+    while (v14);
   }
 
-  v21 = self->_has;
-  if ((*&v21 & 0x20000) != 0)
+  v17 = self->_has;
+  if ((*&v17 & 0x20000) != 0)
   {
-    isSrvccSuccess = self->_isSrvccSuccess;
     PBDataWriterWriteUint32Field();
-    v21 = self->_has;
-    if ((*&v21 & 0x400000000000) == 0)
+    v17 = self->_has;
+    if ((*&v17 & 0x400000000000) == 0)
     {
 LABEL_75:
-      if ((*&v21 & 0x200000000000) == 0)
+      if ((*&v17 & 0x200000000000) == 0)
       {
         goto LABEL_76;
       }
@@ -4350,18 +4878,17 @@ LABEL_75:
     }
   }
 
-  else if ((*&v21 & 0x400000000000) == 0)
+  else if ((*&v17 & 0x400000000000) == 0)
   {
     goto LABEL_75;
   }
 
-  srvccTargetRat = self->_srvccTargetRat;
   PBDataWriterWriteInt32Field();
-  v21 = self->_has;
-  if ((*&v21 & 0x200000000000) == 0)
+  v17 = self->_has;
+  if ((*&v17 & 0x200000000000) == 0)
   {
 LABEL_76:
-    if ((*&v21 & 0x80000) == 0)
+    if ((*&v17 & 0x80000) == 0)
     {
       goto LABEL_77;
     }
@@ -4370,13 +4897,12 @@ LABEL_76:
   }
 
 LABEL_142:
-  srvccFailureCause = self->_srvccFailureCause;
   PBDataWriterWriteUint32Field();
-  v21 = self->_has;
-  if ((*&v21 & 0x80000) == 0)
+  v17 = self->_has;
+  if ((*&v17 & 0x80000) == 0)
   {
 LABEL_77:
-    if ((*&v21 & 0x40000000) == 0)
+    if ((*&v17 & 0x40000000) == 0)
     {
       goto LABEL_79;
     }
@@ -4385,12 +4911,10 @@ LABEL_77:
   }
 
 LABEL_143:
-  lastMotionState = self->_lastMotionState;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40000000) != 0)
   {
 LABEL_78:
-    msSinceLastMotionState = self->_msSinceLastMotionState;
     PBDataWriterWriteUint32Field();
   }
 
@@ -4402,7 +4926,6 @@ LABEL_79:
 
   if ((*(&self->_has + 6) & 0x10) != 0)
   {
-    version = self->_version;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -6484,7 +7007,6 @@ LABEL_79:
       goto LABEL_344;
     }
 
-    v7 = equalCopy[254];
     if (self->_established)
     {
       if ((equalCopy[254] & 1) == 0)
@@ -6511,7 +7033,6 @@ LABEL_79:
       goto LABEL_344;
     }
 
-    v8 = equalCopy[253];
     if (self->_connected)
     {
       if ((equalCopy[253] & 1) == 0)
@@ -6655,7 +7176,6 @@ LABEL_79:
       goto LABEL_344;
     }
 
-    v9 = equalCopy[257];
     if (self->_mrabEver)
     {
       if ((equalCopy[257] & 1) == 0)
@@ -6682,7 +7202,6 @@ LABEL_79:
       goto LABEL_344;
     }
 
-    v10 = equalCopy[256];
     if (self->_mrabEnd)
     {
       if ((equalCopy[256] & 1) == 0)
@@ -6774,7 +7293,6 @@ LABEL_79:
       goto LABEL_344;
     }
 
-    v11 = equalCopy[252];
     if (self->_accessoryAttached)
     {
       if ((equalCopy[252] & 1) == 0)
@@ -6827,7 +7345,6 @@ LABEL_79:
       goto LABEL_344;
     }
 
-    v12 = equalCopy[259];
     if (self->_sl2)
     {
       if ((equalCopy[259] & 1) == 0)
@@ -6867,7 +7384,6 @@ LABEL_79:
       goto LABEL_344;
     }
 
-    v13 = equalCopy[258];
     if (self->_sl)
     {
       if ((equalCopy[258] & 1) == 0)
@@ -6894,7 +7410,6 @@ LABEL_79:
       goto LABEL_344;
     }
 
-    v14 = equalCopy[255];
     if (self->_fb)
     {
       if ((equalCopy[255] & 1) == 0)
@@ -7031,42 +7546,42 @@ LABEL_79:
     goto LABEL_344;
   }
 
-  v15 = *(equalCopy + 260);
+  v7 = *(equalCopy + 260);
   if ((*&has & 0x8000000000000) != 0)
   {
-    if ((v15 & 0x8000000000000) == 0 || self->_txPwrDbm != *(equalCopy + 60))
+    if ((v7 & 0x8000000000000) == 0 || self->_txPwrDbm != *(equalCopy + 60))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v15 & 0x8000000000000) != 0)
+  else if ((v7 & 0x8000000000000) != 0)
   {
     goto LABEL_344;
   }
 
   if ((*&has & 0x10000000000) != 0)
   {
-    if ((v15 & 0x10000000000) == 0 || self->_sensorUseDuringLastCallMs != *(equalCopy + 47))
+    if ((v7 & 0x10000000000) == 0 || self->_sensorUseDuringLastCallMs != *(equalCopy + 47))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v15 & 0x10000000000) != 0)
+  else if ((v7 & 0x10000000000) != 0)
   {
     goto LABEL_344;
   }
 
   if ((*&has & 0x8000000000) != 0)
   {
-    if ((v15 & 0x8000000000) == 0 || self->_sensorEndToPresentMs != *(equalCopy + 46))
+    if ((v7 & 0x8000000000) == 0 || self->_sensorEndToPresentMs != *(equalCopy + 46))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v15 & 0x8000000000) != 0)
+  else if ((v7 & 0x8000000000) != 0)
   {
     goto LABEL_344;
   }
@@ -7077,82 +7592,82 @@ LABEL_79:
     goto LABEL_344;
   }
 
-  v17 = self->_has;
-  v18 = *(equalCopy + 260);
-  if ((*&v17 & 0x800000000000) != 0)
+  v9 = self->_has;
+  v10 = *(equalCopy + 260);
+  if ((*&v9 & 0x800000000000) != 0)
   {
-    if ((v18 & 0x800000000000) == 0 || self->_subsId != *(equalCopy + 54))
+    if ((v10 & 0x800000000000) == 0 || self->_subsId != *(equalCopy + 54))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v18 & 0x800000000000) != 0)
+  else if ((v10 & 0x800000000000) != 0)
   {
     goto LABEL_344;
   }
 
-  if ((*&v17 & 0x100000000) != 0)
+  if ((*&v9 & 0x100000000) != 0)
   {
-    if ((v18 & 0x100000000) == 0 || self->_numSubs != *(equalCopy + 37))
+    if ((v10 & 0x100000000) == 0 || self->_numSubs != *(equalCopy + 37))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v18 & 0x100000000) != 0)
+  else if ((v10 & 0x100000000) != 0)
   {
     goto LABEL_344;
   }
 
-  if ((*&v17 & 0x200000000) != 0)
+  if ((*&v9 & 0x200000000) != 0)
   {
-    if ((v18 & 0x200000000) == 0 || self->_psPref != *(equalCopy + 38))
+    if ((v10 & 0x200000000) == 0 || self->_psPref != *(equalCopy + 38))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v18 & 0x200000000) != 0)
+  else if ((v10 & 0x200000000) != 0)
   {
     goto LABEL_344;
   }
 
-  if ((*&v17 & 0x8000) != 0)
+  if ((*&v9 & 0x8000) != 0)
   {
-    if ((v18 & 0x8000) == 0 || self->_hoType != *(equalCopy + 20))
+    if ((v10 & 0x8000) == 0 || self->_hoType != *(equalCopy + 20))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v18 & 0x8000) != 0)
+  else if ((v10 & 0x8000) != 0)
   {
     goto LABEL_344;
   }
 
-  if ((*&v17 & 0x10000) != 0)
+  if ((*&v9 & 0x10000) != 0)
   {
-    if ((v18 & 0x10000) == 0 || self->_hstState != *(equalCopy + 21))
+    if ((v10 & 0x10000) == 0 || self->_hstState != *(equalCopy + 21))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v18 & 0x10000) != 0)
+  else if ((v10 & 0x10000) != 0)
   {
     goto LABEL_344;
   }
 
-  if ((*&v17 & 0x2000000000) != 0)
+  if ((*&v9 & 0x2000000000) != 0)
   {
-    if ((v18 & 0x2000000000) == 0 || self->_rrcRelCause != *(equalCopy + 44))
+    if ((v10 & 0x2000000000) == 0 || self->_rrcRelCause != *(equalCopy + 44))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v18 & 0x2000000000) != 0)
+  else if ((v10 & 0x2000000000) != 0)
   {
     goto LABEL_344;
   }
@@ -7165,71 +7680,71 @@ LABEL_79:
       goto LABEL_344;
     }
 
-    v17 = self->_has;
+    v9 = self->_has;
   }
 
-  v20 = *(equalCopy + 260);
-  if ((*&v17 & 0x20000) != 0)
+  v12 = *(equalCopy + 260);
+  if ((*&v9 & 0x20000) != 0)
   {
-    if ((v20 & 0x20000) == 0 || self->_isSrvccSuccess != *(equalCopy + 22))
+    if ((v12 & 0x20000) == 0 || self->_isSrvccSuccess != *(equalCopy + 22))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v20 & 0x20000) != 0)
+  else if ((v12 & 0x20000) != 0)
   {
     goto LABEL_344;
   }
 
-  if ((*&v17 & 0x400000000000) != 0)
+  if ((*&v9 & 0x400000000000) != 0)
   {
-    if ((v20 & 0x400000000000) == 0 || self->_srvccTargetRat != *(equalCopy + 53))
+    if ((v12 & 0x400000000000) == 0 || self->_srvccTargetRat != *(equalCopy + 53))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v20 & 0x400000000000) != 0)
+  else if ((v12 & 0x400000000000) != 0)
   {
     goto LABEL_344;
   }
 
-  if ((*&v17 & 0x200000000000) != 0)
+  if ((*&v9 & 0x200000000000) != 0)
   {
-    if ((v20 & 0x200000000000) == 0 || self->_srvccFailureCause != *(equalCopy + 52))
+    if ((v12 & 0x200000000000) == 0 || self->_srvccFailureCause != *(equalCopy + 52))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v20 & 0x200000000000) != 0)
+  else if ((v12 & 0x200000000000) != 0)
   {
     goto LABEL_344;
   }
 
-  if ((*&v17 & 0x80000) != 0)
+  if ((*&v9 & 0x80000) != 0)
   {
-    if ((v20 & 0x80000) == 0 || self->_lastMotionState != *(equalCopy + 24))
+    if ((v12 & 0x80000) == 0 || self->_lastMotionState != *(equalCopy + 24))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v20 & 0x80000) != 0)
+  else if ((v12 & 0x80000) != 0)
   {
     goto LABEL_344;
   }
 
-  if ((*&v17 & 0x40000000) != 0)
+  if ((*&v9 & 0x40000000) != 0)
   {
-    if ((v20 & 0x40000000) == 0 || self->_msSinceLastMotionState != *(equalCopy + 35))
+    if ((v12 & 0x40000000) == 0 || self->_msSinceLastMotionState != *(equalCopy + 35))
     {
       goto LABEL_344;
     }
   }
 
-  else if ((v20 & 0x40000000) != 0)
+  else if ((v12 & 0x40000000) != 0)
   {
     goto LABEL_344;
   }
@@ -7239,35 +7754,35 @@ LABEL_79:
   {
     if ([(NSString *)transId isEqual:?])
     {
-      v17 = self->_has;
+      v9 = self->_has;
       goto LABEL_339;
     }
 
 LABEL_344:
-    v23 = 0;
+    v15 = 0;
     goto LABEL_345;
   }
 
 LABEL_339:
-  v22 = *(equalCopy + 260);
-  if ((*&v17 & 0x10000000000000) != 0)
+  v14 = *(equalCopy + 260);
+  if ((*&v9 & 0x10000000000000) != 0)
   {
-    if ((v22 & 0x10000000000000) == 0 || self->_version != *(equalCopy + 61))
+    if ((v14 & 0x10000000000000) == 0 || self->_version != *(equalCopy + 61))
     {
       goto LABEL_344;
     }
 
-    v23 = 1;
+    v15 = 1;
   }
 
   else
   {
-    v23 = (v22 & 0x10000000000000) == 0;
+    v15 = (v14 & 0x10000000000000) == 0;
   }
 
 LABEL_345:
 
-  return v23;
+  return v15;
 }
 
 - (unint64_t)hash

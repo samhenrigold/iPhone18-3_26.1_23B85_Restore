@@ -33,12 +33,12 @@
 
 - (BKSTerminationAssertion)initWithBundleIdentifier:(id)identifier efficacy:(unint64_t)efficacy name:(id)name context:(id)context withHandler:(id)handler
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   contextCopy = context;
-  v26.receiver = self;
-  v26.super_class = BKSTerminationAssertion;
-  v14 = [(BKSAssertion *)&v26 _initWithName:name handler:handler];
+  v25.receiver = self;
+  v25.super_class = BKSTerminationAssertion;
+  v14 = [(BKSAssertion *)&v25 _initWithName:name handler:handler];
   if (v14)
   {
     v15 = [identifierCopy copy];
@@ -56,14 +56,13 @@
     v20 = MEMORY[0x277D46F00];
     v21 = [MEMORY[0x277D46FA0] predicateMatchingBundleIdentifier:identifierCopy];
     v22 = [v20 limitationWithPredicate:v21];
-    v27[0] = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+    v26[0] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
     [(BKSAssertion *)v14 _setAttributes:v23];
 
     [(BKSAssertion *)v14 _acquireAsynchronously];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

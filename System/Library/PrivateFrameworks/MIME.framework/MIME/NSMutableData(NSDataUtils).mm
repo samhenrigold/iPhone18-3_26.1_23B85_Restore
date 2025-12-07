@@ -25,7 +25,7 @@
   mutableBytes = [self mutableBytes];
   v20 = a3;
   v9 = (mutableBytes + a3);
-  v10 = (mutableBytes + a3 + a4);
+  v10 = &a4[mutableBytes + a3];
   if (a4 < 1)
   {
     result = (mutableBytes + a3);
@@ -97,15 +97,15 @@ LABEL_10:
   result = &v11[v10 - v12];
 LABEL_22:
   v19 = (result - v9);
-  if (result - v9 != a4 && v21 != a4)
+  if ((result - v9) != a4 && v21 != a4)
   {
-    result = memmove(result, v10, &v21[-v20 - a4]);
+    result = memmove(result, v10, v21 - &a4[v20]);
   }
 
   if (v19 != a4)
   {
 
-    return [self setLength:&v21[v19 - a4]];
+    return [self setLength:&v19[v21 - a4]];
   }
 
   return result;

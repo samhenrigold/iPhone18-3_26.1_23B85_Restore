@@ -281,7 +281,6 @@
   objc_storeStrong(&v27, 0);
   objc_storeStrong(&v28, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_addTitleToContext:(id)context
@@ -491,7 +490,6 @@
   objc_storeStrong(&v34, 0);
   objc_storeStrong(&v35, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_continueButtonSelected:(id)selected

@@ -353,7 +353,7 @@ void __97__PKUserNotificationAuthorizationController_shouldOfferAuthorizationPro
     v9 = a3;
 
     *(*(*(a1 + 48) + 8) + 24) = 1;
-    (*(v8 + 2))(v8, v9, 1);
+    (v8)[2](v8, v9, 1);
   }
 }
 

@@ -42,7 +42,7 @@
   shadowCapImageView = self->_shadowCapImageView;
   if (shadowCapImageView)
   {
-    [(UIImageView *)shadowCapImageView transform];
+    objc_msgSend_transform(shadowCapImageView);
   }
 
   v19[0] = MEMORY[0x1E69E9820];

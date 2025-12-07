@@ -45,7 +45,7 @@
   selfCopy = self;
   sub_18BA8E218();
 
-  sub_18B7B0AC0(0, &qword_1EA9D46F0);
+  sub_18B7B0AC0(0, &qword_1EA9D46F0, 0x1E69DD250);
   v3 = sub_18BC20D88();
 
   return v3;

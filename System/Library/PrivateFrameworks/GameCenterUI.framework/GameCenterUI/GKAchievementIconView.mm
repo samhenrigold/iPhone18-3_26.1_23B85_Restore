@@ -286,13 +286,13 @@ void __90__GKAchievementIconView_loadAndProcessAchievementProgressImageForAchiev
   }
 }
 
-uint64_t __39__GKAchievementIconView_configureImage__block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+id *__39__GKAchievementIconView_configureImage__block_invoke(id *result, uint64_t a2, id a3)
 {
-  if (*(result + 32) == a3)
+  if (result[4] == a3)
   {
     v4 = result;
-    [*(result + 40) setImage:a2];
-    v5 = *(v4 + 40);
+    [result[5] setImage:a2];
+    v5 = v4[5];
 
     return [v5 _gkSetNeedsRender];
   }

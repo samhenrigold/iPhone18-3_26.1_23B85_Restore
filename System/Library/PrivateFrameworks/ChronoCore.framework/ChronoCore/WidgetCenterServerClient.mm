@@ -11,8 +11,7 @@
 - (void)invalidateRelevancesOfKind:(NSString *)kind completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D6F4620, &qword_224DB34D0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v17 - v9;
   v11 = _Block_copy(handler);
   v12 = swift_allocObject();
@@ -54,8 +53,7 @@
 - (void)invalidateRelevancesOfKind:(NSString *)kind inBundle:(NSString *)bundle completionHandler:(id)handler
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D6F4620, &qword_224DB34D0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
+  MEMORY[0x28223BE20](v9 - 8, v10);
   v12 = &v20 - v11;
   v13 = _Block_copy(handler);
   v14 = swift_allocObject();
@@ -107,8 +105,7 @@
 - (void)widgetPushTokenWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D6F4620, &qword_224DB34D0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
+  MEMORY[0x28223BE20](v5 - 8, v6);
   v8 = &v14 - v7;
   v9 = _Block_copy(handler);
   v10 = swift_allocObject();

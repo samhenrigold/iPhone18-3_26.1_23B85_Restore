@@ -34,22 +34,21 @@ uint64_t static SettingsCellularDeepLinks.urlRepresentation.getter()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents23EntityURLRepresentationV19StringInterpolationV5TokenOy016SettingsCellularaB9Extension0hI9DeepLinksV__GMd, &_s10AppIntents23EntityURLRepresentationV19StringInterpolationV5TokenOy016SettingsCellularaB9Extension0hI9DeepLinksV__GMR);
   v1 = *(v0 - 8);
-  v2 = (*(v1 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v4 = &v9 - v3;
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents23EntityURLRepresentationV19StringInterpolationVy016SettingsCellularaB9Extension0gH9DeepLinksV_GMd, &_s10AppIntents23EntityURLRepresentationV19StringInterpolationVy016SettingsCellularaB9Extension0gH9DeepLinksV_GMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  __chkstk_darwin(v0);
+  v3 = &v8 - v2;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents23EntityURLRepresentationV19StringInterpolationVy016SettingsCellularaB9Extension0gH9DeepLinksV_GMd, &_s10AppIntents23EntityURLRepresentationV19StringInterpolationVy016SettingsCellularaB9Extension0gH9DeepLinksV_GMR);
+  __chkstk_darwin(v4);
   lazy protocol witness table accessor for type SettingsCellularDeepLinks and conformance SettingsCellularDeepLinks();
   EntityURLRepresentation.StringInterpolation.init(literalCapacity:interpolationCount:)();
-  v6._object = 0x800000010000CA00;
-  v6._countAndFlagsBits = 0xD000000000000032;
-  EntityURLRepresentation.StringInterpolation.appendLiteral(_:)(v6);
-  (*(v1 + 104))(v4, enum case for EntityURLRepresentation.StringInterpolation.Token.id<A>(_:), v0);
+  v5._object = 0x800000010000CA00;
+  v5._countAndFlagsBits = 0xD000000000000032;
+  EntityURLRepresentation.StringInterpolation.appendLiteral(_:)(v5);
+  (*(v1 + 104))(v3, enum case for EntityURLRepresentation.StringInterpolation.Token.id<A>(_:), v0);
   EntityURLRepresentation.StringInterpolation.appendInterpolation(_:)();
-  (*(v1 + 8))(v4, v0);
-  v7._countAndFlagsBits = 0;
-  v7._object = 0xE000000000000000;
-  EntityURLRepresentation.StringInterpolation.appendLiteral(_:)(v7);
+  (*(v1 + 8))(v3, v0);
+  v6._countAndFlagsBits = 0;
+  v6._object = 0xE000000000000000;
+  EntityURLRepresentation.StringInterpolation.appendLiteral(_:)(v6);
   return EntityURLRepresentation.init(stringInterpolation:)();
 }
 
@@ -58,7 +57,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -190,126 +188,116 @@ unint64_t lazy protocol witness table accessor for type SettingsCellularDeepLink
 
 uint64_t SettingsCellularDeepLinks.displayRepresentation.getter@<X0>(unsigned __int8 a1@<W0>, uint64_t a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v6 = v127 - v5;
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v139 = v127 - v8;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents21DisplayRepresentationV5ImageVSgMd, &_s10AppIntents21DisplayRepresentationV5ImageVSgMR);
+  __chkstk_darwin(v4 - 8);
+  v6 = v102 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  __chkstk_darwin(v7 - 8);
+  v114 = v102 - v8;
   v9 = type metadata accessor for LocalizedStringResource.BundleDescription();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  (__chkstk_darwin)();
-  v13 = v127 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *(*(type metadata accessor for Locale() - 8) + 64);
-  (__chkstk_darwin)();
-  v15 = *(*(type metadata accessor for String.LocalizationValue() - 8) + 64);
-  (__chkstk_darwin)();
-  v137 = type metadata accessor for LocalizedStringResource();
-  v16 = *(v137 - 8);
-  v17 = *(v16 + 64);
-  v18 = (__chkstk_darwin)();
-  __chkstk_darwin(v18);
-  v135 = v19;
-  v136 = a2;
-  v138 = v6;
-  v134 = v127 - v20;
+  __chkstk_darwin(v9);
+  v12 = v102 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for Locale();
+  __chkstk_darwin(v13 - 8);
+  v14 = type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin(v14 - 8);
+  v112 = type metadata accessor for LocalizedStringResource();
+  v15 = *(v112 - 8);
+  v16 = __chkstk_darwin(v112);
+  __chkstk_darwin(v16);
+  v110 = v17;
+  v111 = a2;
+  v113 = v6;
+  v109 = v102 - v18;
   if (a1 <= 3u)
   {
     if (a1 > 1u)
     {
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v38 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+      v30 = enum case for LocalizedStringResource.BundleDescription.main(_:);
       if (a1 == 2)
       {
-        v39 = *(v10 + 104);
-        v39(v13, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
-        v132 = v39;
+        v31 = *(v10 + 104);
+        v31(v12, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
+        v107 = v31;
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v39(v13, v38, v9);
-        v40 = v139;
+        v31(v12, v30, v9);
+        v32 = v114;
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        v42 = *(v16 + 56);
-        v41 = v16 + 56;
-        v42(v40, 0, 1, v137);
+        (*(v15 + 56))(v32, 0, 1, v112);
         DisplayRepresentation.Image.init(utTypeIdentifier:)();
-        v43 = type metadata accessor for DisplayRepresentation.Image();
-        (*(*(v43 - 8) + 56))(v6, 0, 1, v43);
+        v33 = type metadata accessor for DisplayRepresentation.Image();
+        (*(*(v33 - 8) + 56))(v6, 0, 1, v33);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMd, &_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMR);
-        v137 = *(v41 + 16);
-        v44 = (*(v41 + 24) + 32) & ~*(v41 + 24);
+        v112 = *(v15 + 72);
         *(swift_allocObject() + 16) = xmmword_10000BD40;
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v45 = v38;
-        v46 = v38;
-        v47 = v132;
-        v132(v13, v46, v9);
+        v34 = v30;
+        v35 = v30;
+        v36 = v107;
+        v107(v12, v35, v9);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v47(v13, v45, v9);
+        v36(v12, v34, v9);
       }
 
       else
       {
-        v101 = *(v10 + 104);
-        LODWORD(v132) = enum case for LocalizedStringResource.BundleDescription.main(_:);
-        v101(v13, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
-        v102 = v101;
+        v86 = *(v10 + 104);
+        LODWORD(v107) = enum case for LocalizedStringResource.BundleDescription.main(_:);
+        v86(v12, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v101(v13, v38, v9);
-        v103 = v139;
+        v86(v12, v30, v9);
+        v87 = v114;
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        v105 = *(v16 + 56);
-        v104 = v16 + 56;
-        v105(v103, 0, 1, v137);
-        v106 = v138;
+        (*(v15 + 56))(v87, 0, 1, v112);
+        v88 = v113;
         DisplayRepresentation.Image.init(utTypeIdentifier:)();
-        v107 = type metadata accessor for DisplayRepresentation.Image();
-        (*(*(v107 - 8) + 56))(v106, 0, 1, v107);
+        v89 = type metadata accessor for DisplayRepresentation.Image();
+        (*(*(v89 - 8) + 56))(v88, 0, 1, v89);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMd, &_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMR);
-        v108 = *(v104 + 16);
-        v109 = (*(v104 + 24) + 32) & ~*(v104 + 24);
-        v137 = swift_allocObject();
-        *(v137 + 16) = xmmword_10000BD70;
+        v112 = swift_allocObject();
+        *(v112 + 16) = xmmword_10000BD70;
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v110 = v132;
-        v102(v13, v132, v9);
+        v90 = v107;
+        v86(v12, v107, v9);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v111 = v110;
-        v112 = v9;
-        v102(v13, v111, v9);
+        v91 = v90;
+        v92 = v9;
+        v86(v12, v91, v9);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v113 = v132;
-        v102(v13, v132, v112);
+        v93 = v107;
+        v86(v12, v107, v92);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v102(v13, v113, v112);
+        v86(v12, v93, v92);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v133 = v112;
-        v102(v13, v113, v112);
+        v108 = v92;
+        v86(v12, v93, v92);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v102(v13, v113, v112);
+        v86(v12, v93, v92);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v102(v13, v113, v133);
+        v86(v12, v93, v108);
       }
     }
 
@@ -319,132 +307,129 @@ uint64_t SettingsCellularDeepLinks.displayRepresentation.getter@<X0>(unsigned __
       static Locale.current.getter();
       if (a1)
       {
-        v74 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-        v75 = *(v10 + 104);
-        LODWORD(v132) = enum case for LocalizedStringResource.BundleDescription.main(_:);
-        v75(v13, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
-        v131 = v75;
+        v59 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+        v60 = *(v10 + 104);
+        LODWORD(v107) = enum case for LocalizedStringResource.BundleDescription.main(_:);
+        v60(v12, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
+        v106 = v60;
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v75(v13, v74, v9);
-        v76 = v139;
+        v60(v12, v59, v9);
+        v61 = v114;
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        v78 = *(v16 + 56);
-        v77 = v16 + 56;
-        v78(v76, 0, 1, v137);
+        v63 = *(v15 + 56);
+        v62 = v15 + 56;
+        v63(v61, 0, 1, v112);
         DisplayRepresentation.Image.init(utTypeIdentifier:)();
-        v79 = type metadata accessor for DisplayRepresentation.Image();
-        (*(*(v79 - 8) + 56))(v6, 0, 1, v79);
+        v64 = type metadata accessor for DisplayRepresentation.Image();
+        (*(*(v64 - 8) + 56))(v6, 0, 1, v64);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMd, &_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMR);
-        v80 = *(v77 + 16);
-        v81 = (*(v77 + 24) + 32) & ~*(v77 + 24);
-        v82 = swift_allocObject();
-        v137 = v82;
-        *(v82 + 16) = xmmword_10000BD80;
-        v83 = v82 + v81;
+        v65 = *(v62 + 16);
+        v66 = (*(v62 + 24) + 32) & ~*(v62 + 24);
+        v67 = swift_allocObject();
+        v112 = v67;
+        *(v67 + 16) = xmmword_10000BD80;
+        v68 = v67 + v66;
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v84 = v132;
-        v133 = v9;
-        v85 = v131;
-        v131(v13, v132, v9);
+        v69 = v107;
+        v108 = v9;
+        v70 = v106;
+        v106(v12, v107, v9);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v86 = v9;
-        v87 = v13;
-        v85(v13, v84, v86);
+        v71 = v9;
+        v72 = v12;
+        v70(v12, v69, v71);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        v127[0] = 2 * v80;
+        v102[0] = 2 * v65;
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v88 = v13;
-        v89 = v132;
-        v90 = v133;
-        v85(v88, v132, v133);
+        v73 = v12;
+        v74 = v107;
+        v75 = v108;
+        v70(v73, v107, v108);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        v129 = 0xD000000000000012;
+        v104 = 0xD000000000000012;
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v131(v87, v89, v90);
-        v91 = v87;
+        v106(v72, v74, v75);
+        v76 = v72;
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        v92 = v80;
+        v77 = v65;
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v93 = v87;
-        v94 = v132;
-        v95 = v133;
-        v131(v93, v132, v133);
-        v130 = (v10 + 104);
-        LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        String.LocalizationValue.init(stringLiteral:)();
-        static Locale.current.getter();
-        v96 = v95;
-        v97 = v95;
-        v98 = v131;
-        v131(v91, v94, v97);
-        v127[1] = v83;
+        v78 = v72;
+        v79 = v107;
+        v80 = v108;
+        v106(v78, v107, v108);
+        v105 = (v10 + 104);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v98(v91, v94, v96);
-        LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        v128 = v92;
-        String.LocalizationValue.init(stringLiteral:)();
-        static Locale.current.getter();
-        v98(v91, v94, v96);
-        LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        String.LocalizationValue.init(stringLiteral:)();
-        static Locale.current.getter();
-        v98(v91, v94, v96);
-        LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        v127[0] = 8 * v92 + v128;
-        v129 = 0xD000000000000013;
-        String.LocalizationValue.init(stringLiteral:)();
-        static Locale.current.getter();
-        v99 = v132;
-        v100 = v133;
-        v98(v91, v132, v133);
+        v81 = v80;
+        v82 = v80;
+        v83 = v106;
+        v106(v76, v79, v82);
+        v102[1] = v68;
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v98(v91, v99, v100);
+        v83(v76, v79, v81);
+        LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+        v103 = v77;
+        String.LocalizationValue.init(stringLiteral:)();
+        static Locale.current.getter();
+        v83(v76, v79, v81);
+        LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+        String.LocalizationValue.init(stringLiteral:)();
+        static Locale.current.getter();
+        v83(v76, v79, v81);
+        LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+        v102[0] = 8 * v77 + v103;
+        v104 = 0xD000000000000013;
+        String.LocalizationValue.init(stringLiteral:)();
+        static Locale.current.getter();
+        v84 = v107;
+        v85 = v108;
+        v83(v76, v107, v108);
+        LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+        String.LocalizationValue.init(stringLiteral:)();
+        static Locale.current.getter();
+        v83(v76, v84, v85);
       }
 
       else
       {
-        LODWORD(v132) = enum case for LocalizedStringResource.BundleDescription.main(_:);
-        v31 = *(v10 + 104);
-        v130 = (v10 + 104);
-        v131 = v31;
-        (v31)(v13);
+        LODWORD(v107) = enum case for LocalizedStringResource.BundleDescription.main(_:);
+        v26 = *(v10 + 104);
+        v105 = (v10 + 104);
+        v106 = v26;
+        (v26)(v12);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-        v33 = *(v16 + 56);
-        v32 = v16 + 56;
-        v33(v139, 1, 1, v137);
+        (*(v15 + 56))(v114, 1, 1, v112);
         DisplayRepresentation.Image.init(utTypeIdentifier:)();
-        v34 = type metadata accessor for DisplayRepresentation.Image();
-        (*(*(v34 - 8) + 56))(v6, 0, 1, v34);
+        v27 = type metadata accessor for DisplayRepresentation.Image();
+        (*(*(v27 - 8) + 56))(v6, 0, 1, v27);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMd, &_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMR);
-        v35 = (*(v32 + 24) + 32) & ~*(v32 + 24);
-        v129 = 2 * *(v32 + 16);
-        v137 = swift_allocObject();
-        *(v137 + 16) = xmmword_10000BD90;
+        v104 = 2 * *(v15 + 72);
+        v112 = swift_allocObject();
+        *(v112 + 16) = xmmword_10000BD90;
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v36 = v132;
-        v37 = v131;
-        v131(v13, v132, v9);
+        v28 = v107;
+        v29 = v106;
+        v106(v12, v107, v9);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v37(v13, v36, v9);
+        v29(v12, v28, v9);
         LocalizedStringResource.init(_:table:locale:bundle:comment:)();
         String.LocalizationValue.init(stringLiteral:)();
         static Locale.current.getter();
-        v37(v13, v36, v9);
+        v29(v12, v28, v9);
       }
     }
 
@@ -457,87 +442,84 @@ uint64_t SettingsCellularDeepLinks.displayRepresentation.getter@<X0>(unsigned __
     static Locale.current.getter();
     if (a1 == 4)
     {
-      v48 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-      v49 = *(v10 + 104);
-      LODWORD(v132) = enum case for LocalizedStringResource.BundleDescription.main(_:);
-      v49(v13, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
-      v130 = v49;
+      v37 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+      v38 = *(v10 + 104);
+      LODWORD(v107) = enum case for LocalizedStringResource.BundleDescription.main(_:);
+      v38(v12, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
+      v105 = v38;
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v49(v13, v48, v9);
-      v50 = v139;
+      v38(v12, v37, v9);
+      v39 = v114;
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-      v52 = *(v16 + 56);
-      v51 = v16 + 56;
-      v52(v50, 0, 1, v137);
-      v53 = v138;
+      v41 = *(v15 + 56);
+      v40 = v15 + 56;
+      v41(v39, 0, 1, v112);
+      v42 = v113;
       DisplayRepresentation.Image.init(utTypeIdentifier:)();
-      v54 = type metadata accessor for DisplayRepresentation.Image();
-      (*(*(v54 - 8) + 56))(v53, 0, 1, v54);
+      v43 = type metadata accessor for DisplayRepresentation.Image();
+      (*(*(v43 - 8) + 56))(v42, 0, 1, v43);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMd, &_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMR);
-      v131 = *(v51 + 16);
-      v55 = (*(v51 + 24) + 32) & ~*(v51 + 24);
-      v56 = swift_allocObject();
-      v137 = v56;
-      *(v56 + 16) = xmmword_10000BD60;
-      v57 = v56 + v55;
+      v106 = *(v40 + 16);
+      v44 = (*(v40 + 24) + 32) & ~*(v40 + 24);
+      v45 = swift_allocObject();
+      v112 = v45;
+      *(v45 + 16) = xmmword_10000BD60;
+      v46 = v45 + v44;
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v58 = v132;
-      v59 = v9;
-      v60 = v9;
-      v61 = v130;
-      v130(v13, v132, v60);
+      v47 = v107;
+      v48 = v9;
+      v49 = v9;
+      v50 = v105;
+      v105(v12, v107, v49);
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v62 = v58;
-      v63 = v59;
-      v61(v13, v62, v59);
-      v129 = v57;
+      v51 = v47;
+      v52 = v48;
+      v50(v12, v51, v48);
+      v104 = v46;
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v64 = v132;
-      v61(v13, v132, v63);
+      v53 = v107;
+      v50(v12, v107, v52);
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v61(v13, v64, v63);
+      v50(v12, v53, v52);
     }
 
     else
     {
-      v117 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-      v118 = *(v10 + 104);
-      LODWORD(v132) = enum case for LocalizedStringResource.BundleDescription.main(_:);
-      v118(v13, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
+      v95 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+      v96 = *(v10 + 104);
+      LODWORD(v107) = enum case for LocalizedStringResource.BundleDescription.main(_:);
+      v96(v12, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v118(v13, v117, v9);
-      v119 = v139;
+      v96(v12, v95, v9);
+      v97 = v114;
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-      v121 = *(v16 + 56);
-      v120 = v16 + 56;
-      v121(v119, 0, 1, v137);
-      v122 = v138;
+      (*(v15 + 56))(v97, 0, 1, v112);
+      v98 = v113;
       DisplayRepresentation.Image.init(utTypeIdentifier:)();
-      v123 = type metadata accessor for DisplayRepresentation.Image();
-      (*(*(v123 - 8) + 56))(v122, 0, 1, v123);
+      v99 = type metadata accessor for DisplayRepresentation.Image();
+      (*(*(v99 - 8) + 56))(v98, 0, 1, v99);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMd, &_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMR);
-      v137 = *(v120 + 16);
-      v124 = (*(v120 + 24) + 32) & ~*(v120 + 24);
+      v112 = *(v15 + 72);
       *(swift_allocObject() + 16) = xmmword_10000BD40;
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v125 = v132;
-      v118(v13, v132, v9);
+      v100 = v107;
+      v96(v12, v107, v9);
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v118(v13, v125, v9);
+      v96(v12, v100, v9);
     }
 
 LABEL_14:
@@ -549,31 +531,27 @@ LABEL_14:
   {
     String.LocalizationValue.init(stringLiteral:)();
     static Locale.current.getter();
-    v65 = enum case for LocalizedStringResource.BundleDescription.main(_:);
-    v66 = *(v10 + 104);
-    LODWORD(v132) = enum case for LocalizedStringResource.BundleDescription.main(_:);
-    v66(v13, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
-    v131 = v66;
+    v54 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+    v55 = *(v10 + 104);
+    LODWORD(v107) = enum case for LocalizedStringResource.BundleDescription.main(_:);
+    v55(v12, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
+    v106 = v55;
     LocalizedStringResource.init(_:table:locale:bundle:comment:)();
     String.LocalizationValue.init(stringLiteral:)();
     static Locale.current.getter();
-    v66(v13, v65, v9);
-    v67 = v139;
+    v55(v12, v54, v9);
+    v56 = v114;
     LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-    v69 = *(v16 + 56);
-    v68 = v16 + 56;
-    v70 = v138;
-    v69(v67, 0, 1, v137);
+    v57 = v113;
+    (*(v15 + 56))(v56, 0, 1, v112);
     DisplayRepresentation.Image.init(utTypeIdentifier:)();
-    v71 = type metadata accessor for DisplayRepresentation.Image();
-    (*(*(v71 - 8) + 56))(v70, 0, 1, v71);
+    v58 = type metadata accessor for DisplayRepresentation.Image();
+    (*(*(v58 - 8) + 56))(v57, 0, 1, v58);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMd, &_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMR);
-    v72 = *(v68 + 16);
-    v73 = (*(v68 + 24) + 32) & ~*(v68 + 24);
     *(swift_allocObject() + 16) = xmmword_10000BD50;
     String.LocalizationValue.init(stringLiteral:)();
     static Locale.current.getter();
-    v131(v13, v132, v9);
+    v106(v12, v107, v9);
     LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   }
 
@@ -581,56 +559,48 @@ LABEL_14:
   {
     String.LocalizationValue.init(stringLiteral:)();
     static Locale.current.getter();
-    v21 = enum case for LocalizedStringResource.BundleDescription.main(_:);
+    v19 = enum case for LocalizedStringResource.BundleDescription.main(_:);
     if (a1 == 7)
     {
-      v22 = *(v10 + 104);
-      v22(v13, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
-      v132 = v22;
+      v20 = *(v10 + 104);
+      v20(v12, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
+      v107 = v20;
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v22(v13, v21, v9);
-      v23 = v139;
-      LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-      v25 = *(v16 + 56);
-      v24 = v16 + 56;
-      v25(v23, 0, 1, v137);
+      v20(v12, v19, v9);
     }
 
     else
     {
-      v114 = *(v10 + 104);
-      v114(v13, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
-      v132 = v114;
+      v94 = *(v10 + 104);
+      v94(v12, enum case for LocalizedStringResource.BundleDescription.main(_:), v9);
+      v107 = v94;
       LocalizedStringResource.init(_:table:locale:bundle:comment:)();
       String.LocalizationValue.init(stringLiteral:)();
       static Locale.current.getter();
-      v114(v13, v21, v9);
-      v115 = v139;
-      LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-      v116 = *(v16 + 56);
-      v24 = v16 + 56;
-      v116(v115, 0, 1, v137);
+      v94(v12, v19, v9);
     }
 
+    v21 = v114;
+    LocalizedStringResource.init(_:table:locale:bundle:comment:)();
+    (*(v15 + 56))(v21, 0, 1, v112);
     DisplayRepresentation.Image.init(utTypeIdentifier:)();
-    v26 = type metadata accessor for DisplayRepresentation.Image();
-    (*(*(v26 - 8) + 56))(v6, 0, 1, v26);
+    v22 = type metadata accessor for DisplayRepresentation.Image();
+    (*(*(v22 - 8) + 56))(v6, 0, 1, v22);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMd, &_ss23_ContiguousArrayStorageCy10Foundation23LocalizedStringResourceVGMR);
-    v137 = *(v24 + 16);
-    v27 = (*(v24 + 24) + 32) & ~*(v24 + 24);
+    v112 = *(v15 + 72);
     *(swift_allocObject() + 16) = xmmword_10000BD40;
     String.LocalizationValue.init(stringLiteral:)();
     static Locale.current.getter();
-    v28 = v21;
-    v29 = v21;
-    v30 = v132;
-    v132(v13, v29, v9);
+    v23 = v19;
+    v24 = v19;
+    v25 = v107;
+    v107(v12, v24, v9);
     LocalizedStringResource.init(_:table:locale:bundle:comment:)();
     String.LocalizationValue.init(stringLiteral:)();
     static Locale.current.getter();
-    v30(v13, v28, v9);
+    v25(v12, v23, v9);
     LocalizedStringResource.init(_:table:locale:bundle:comment:)();
   }
 
@@ -641,30 +611,28 @@ LABEL_20:
 
 uint64_t one-time initialization function for typeDisplayRepresentation()
 {
-  v0 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v2 = v14 - v1;
-  v14[0] = type metadata accessor for LocalizedStringResource.BundleDescription();
-  v3 = *(v14[0] - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin();
-  v6 = v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(*(type metadata accessor for Locale() - 8) + 64);
-  __chkstk_darwin();
-  v8 = *(*(type metadata accessor for String.LocalizationValue() - 8) + 64);
-  __chkstk_darwin();
-  v9 = type metadata accessor for LocalizedStringResource();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin();
-  v12 = type metadata accessor for TypeDisplayRepresentation();
-  __swift_allocate_value_buffer(v12, static SettingsCellularDeepLinks.typeDisplayRepresentation);
-  __swift_project_value_buffer(v12, static SettingsCellularDeepLinks.typeDisplayRepresentation);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  __chkstk_darwin(v0 - 8);
+  v2 = v12 - v1;
+  v12[0] = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v3 = *(v12[0] - 8);
+  __chkstk_darwin(v12[0]);
+  v5 = v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for Locale();
+  __chkstk_darwin(v6 - 8);
+  v7 = type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin(v7 - 8);
+  v8 = type metadata accessor for LocalizedStringResource();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v10 = type metadata accessor for TypeDisplayRepresentation();
+  __swift_allocate_value_buffer(v10, static SettingsCellularDeepLinks.typeDisplayRepresentation);
+  __swift_project_value_buffer(v10, static SettingsCellularDeepLinks.typeDisplayRepresentation);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (*(v3 + 104))(v6, enum case for LocalizedStringResource.BundleDescription.main(_:), v14[0]);
+  (*(v3 + 104))(v5, enum case for LocalizedStringResource.BundleDescription.main(_:), v12[0]);
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-  (*(v10 + 56))(v2, 1, 1, v9);
+  (*(v9 + 56))(v2, 1, 1, v8);
   return TypeDisplayRepresentation.init(name:numericFormat:)();
 }
 
@@ -707,15 +675,15 @@ uint64_t static SettingsCellularDeepLinks.typeDisplayRepresentation.setter(uint6
   return (*(v4 + 8))(a1, v2);
 }
 
-uint64_t (*static SettingsCellularDeepLinks.typeDisplayRepresentation.modify())()
+uint64_t (*static SettingsCellularDeepLinks.typeDisplayRepresentation.modify(uint64_t a1))(uint64_t a1)
 {
   if (one-time initialization token for typeDisplayRepresentation != -1)
   {
     swift_once();
   }
 
-  v0 = type metadata accessor for TypeDisplayRepresentation();
-  __swift_project_value_buffer(v0, static SettingsCellularDeepLinks.typeDisplayRepresentation);
+  v1 = type metadata accessor for TypeDisplayRepresentation();
+  __swift_project_value_buffer(v1, static SettingsCellularDeepLinks.typeDisplayRepresentation);
   swift_beginAccess();
   return static SettingsCellularDeepLinks.attributionBundleIdentifier.modify;
 }
@@ -829,27 +797,25 @@ uint64_t protocol witness for EntityQuery.suggestedEntities() in conformance Set
 
 uint64_t protocol witness for EntityQuery.displayRepresentations(for:requestedComponents:) in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = async function pointer to EntityQuery.displayRepresentations(for:requestedComponents:)[1];
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = protocol witness for EntityQuery.displayRepresentations(for:requestedComponents:) in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery;
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for EntityQuery.displayRepresentations(for:requestedComponents:) in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery;
 
   return EntityQuery.displayRepresentations(for:requestedComponents:)(a1, a2, a3, a4);
 }
 
 uint64_t protocol witness for EntityQuery.displayRepresentations(for:requestedComponents:) in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery(uint64_t a1)
 {
-  v4 = *(*v2 + 16);
-  v8 = *v2;
+  v7 = *v2;
 
-  v6 = *(v8 + 8);
+  v5 = *(v7 + 8);
   if (!v1)
   {
-    v5 = a1;
+    v4 = a1;
   }
 
-  return v6(v5);
+  return v5(v4);
 }
 
 uint64_t protocol witness for EnumerableEntityQuery.allEntities() in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery(uint64_t a1)
@@ -865,82 +831,77 @@ uint64_t protocol witness for EnumerableEntityQuery.allEntities() in conformance
 
 {
   v4 = *v2;
-  v5 = *(*v2 + 24);
-  v6 = *v2;
+  v5 = *v2;
 
   if (!v1)
   {
     **(v4 + 16) = a1;
   }
 
-  v7 = *(v6 + 8);
+  v6 = *(v5 + 8);
 
-  return v7();
+  return v6();
 }
 
 uint64_t protocol witness for DynamicOptionsProvider.results() in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery(uint64_t a1, uint64_t a2)
 {
-  v5 = async function pointer to EntityQuery.results()[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  v7 = lazy protocol witness table accessor for type SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery and conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery();
-  *v6 = v2;
-  v6[1] = protocol witness for DynamicOptionsProvider.results() in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery;
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  v6 = lazy protocol witness table accessor for type SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery and conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery();
+  *v5 = v2;
+  v5[1] = protocol witness for DynamicOptionsProvider.results() in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery;
 
-  return EntityQuery.results()(a1, a2, v7);
+  return EntityQuery.results()(a1, a2, v6);
 }
 
 uint64_t protocol witness for DynamicOptionsProvider.results() in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t protocol witness for DynamicOptionsProvider.defaultResult() in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = async function pointer to DynamicOptionsProvider.defaultResult()[1];
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = protocol witness for DynamicOptionsProvider.results() in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for DynamicOptionsProvider.results() in conformance SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery;
 
   return DynamicOptionsProvider.defaultResult()(a1, a2, a3);
 }
 
-uint64_t protocol witness for static URLRepresentableEntity.urlRepresentation.getter in conformance SettingsCellularDeepLinks()
+uint64_t protocol witness for static URLRepresentableEntity.urlRepresentation.getter in conformance SettingsCellularDeepLinks(uint64_t a1)
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents23EntityURLRepresentationV19StringInterpolationV5TokenOy016SettingsCellularaB9Extension0hI9DeepLinksV__GMd, &_s10AppIntents23EntityURLRepresentationV19StringInterpolationV5TokenOy016SettingsCellularaB9Extension0hI9DeepLinksV__GMR);
-  v1 = *(v0 - 8);
-  v2 = (*(v1 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents23EntityURLRepresentationV19StringInterpolationV5TokenOy016SettingsCellularaB9Extension0hI9DeepLinksV__GMd, &_s10AppIntents23EntityURLRepresentationV19StringInterpolationV5TokenOy016SettingsCellularaB9Extension0hI9DeepLinksV__GMR);
+  v2 = *(v1 - 8);
+  __chkstk_darwin(v1);
   v4 = &v9 - v3;
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents23EntityURLRepresentationV19StringInterpolationVy016SettingsCellularaB9Extension0gH9DeepLinksV_GMd, &_s10AppIntents23EntityURLRepresentationV19StringInterpolationVy016SettingsCellularaB9Extension0gH9DeepLinksV_GMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents23EntityURLRepresentationV19StringInterpolationVy016SettingsCellularaB9Extension0gH9DeepLinksV_GMd, &_s10AppIntents23EntityURLRepresentationV19StringInterpolationVy016SettingsCellularaB9Extension0gH9DeepLinksV_GMR);
+  __chkstk_darwin(v5);
   lazy protocol witness table accessor for type SettingsCellularDeepLinks and conformance SettingsCellularDeepLinks();
   EntityURLRepresentation.StringInterpolation.init(literalCapacity:interpolationCount:)();
   v6._object = 0x800000010000CA00;
   v6._countAndFlagsBits = 0xD000000000000032;
   EntityURLRepresentation.StringInterpolation.appendLiteral(_:)(v6);
-  (*(v1 + 104))(v4, enum case for EntityURLRepresentation.StringInterpolation.Token.id<A>(_:), v0);
+  (*(v2 + 104))(v4, enum case for EntityURLRepresentation.StringInterpolation.Token.id<A>(_:), v1);
   EntityURLRepresentation.StringInterpolation.appendInterpolation(_:)();
-  (*(v1 + 8))(v4, v0);
+  (*(v2 + 8))(v4, v1);
   v7._countAndFlagsBits = 0;
   v7._object = 0xE000000000000000;
   EntityURLRepresentation.StringInterpolation.appendLiteral(_:)(v7);
   return EntityURLRepresentation.init(stringInterpolation:)();
 }
 
-uint64_t protocol witness for CustomURLRepresentationParameterConvertible.urlRepresentationParameter.getter in conformance SettingsCellularDeepLinks()
+uint64_t protocol witness for CustomURLRepresentationParameterConvertible.urlRepresentationParameter.getter in conformance SettingsCellularDeepLinks(uint64_t a1)
 {
   lazy protocol witness table accessor for type SettingsCellularDeepLinks and conformance SettingsCellularDeepLinks();
-  v1 = URLRepresentableEntity.urlRepresentationParameter.getter();
-  v2 = *(v0 + 8);
+  v2 = URLRepresentableEntity.urlRepresentationParameter.getter();
+  v3 = *(v1 + 8);
 
-  return v2(v1);
+  return v3(v2);
 }
 
 uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.getter in conformance SettingsCellularDeepLinks(uint64_t a1)
@@ -952,11 +913,10 @@ uint64_t protocol witness for static _IntentValue.defaultResolverSpecification.g
 
 uint64_t protocol witness for InstanceDisplayRepresentable.displayRepresentation(with:) in conformance SettingsCellularDeepLinks(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = async function pointer to InstanceDisplayRepresentable.displayRepresentation(with:)[1];
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = protocol witness for InstanceDisplayRepresentable.displayRepresentation(with:) in conformance SettingsCellularDeepLinks;
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for InstanceDisplayRepresentable.displayRepresentation(with:) in conformance SettingsCellularDeepLinks;
 
   return InstanceDisplayRepresentable.displayRepresentation(with:)(a1, a2, a3, a4);
 }
@@ -1145,17 +1105,17 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Setting
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance SettingsCellularDestination()
+uint64_t protocol witness for Hashable.hash(into:) in conformance SettingsCellularDestination(uint64_t a1)
 {
-  SettingsCellularDestination.rawValue.getter(*v0);
+  SettingsCellularDestination.rawValue.getter(*v1);
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SettingsCellularDestination()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SettingsCellularDestination(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  SettingsCellularDestination.rawValue.getter(v1);
+  SettingsCellularDestination.rawValue.getter(v2);
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -1190,38 +1150,35 @@ uint64_t one-time initialization function for title()
 {
   v0 = type metadata accessor for LocalizedStringResource.BundleDescription();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for Locale();
-  v6 = *(*(v5 - 8) + 64);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for Locale();
+  __chkstk_darwin(v4 - 8);
+  v5 = type metadata accessor for String.LocalizationValue();
   __chkstk_darwin(v5 - 8);
-  v7 = type metadata accessor for String.LocalizationValue();
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
-  v9 = type metadata accessor for LocalizedStringResource();
-  __swift_allocate_value_buffer(v9, static OpenSettingsCellularDeepLinks.title);
-  __swift_project_value_buffer(v9, static OpenSettingsCellularDeepLinks.title);
+  v6 = type metadata accessor for LocalizedStringResource();
+  __swift_allocate_value_buffer(v6, static OpenSettingsCellularDeepLinks.title);
+  __swift_project_value_buffer(v6, static OpenSettingsCellularDeepLinks.title);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (*(v1 + 104))(v4, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
+  (*(v1 + 104))(v3, enum case for LocalizedStringResource.BundleDescription.main(_:), v0);
   return LocalizedStringResource.init(_:table:locale:bundle:comment:)();
 }
 
-uint64_t SettingsCellularDeepLinks.typeDisplayRepresentation.unsafeMutableAddressor(void *a1, uint64_t (*a2)(void), uint64_t a3)
+uint64_t SettingsCellularDeepLinks.typeDisplayRepresentation.unsafeMutableAddressor(void *a1, uint64_t (*a2)(void), uint64_t a3, uint64_t a4)
 {
   if (*a1 == -1)
   {
-    v4 = a2(0);
+    v5 = a2(0);
   }
 
   else
   {
     swift_once();
-    v4 = a2(0);
+    v5 = a2(0);
   }
 
-  return __swift_project_value_buffer(v4, a3);
+  return __swift_project_value_buffer(v5, a3);
 }
 
 uint64_t static OpenSettingsCellularDeepLinks.title.getter@<X0>(uint64_t a1@<X8>)
@@ -1314,7 +1271,7 @@ uint64_t static OpenSettingsCellularDeepLinks.requiredCapabilities.setter(uint64
   static OpenSettingsCellularDeepLinks.requiredCapabilities = a1;
 }
 
-uint64_t (*static OpenSettingsCellularDeepLinks.requiredCapabilities.modify())()
+uint64_t (*static OpenSettingsCellularDeepLinks.requiredCapabilities.modify(uint64_t a1))(uint64_t a1)
 {
   if (one-time initialization token for requiredCapabilities != -1)
   {
@@ -1350,19 +1307,11 @@ uint64_t key path setter for static OpenSettingsCellularDeepLinks.requiredCapabi
   static OpenSettingsCellularDeepLinks.requiredCapabilities = v1;
 }
 
-uint64_t key path getter for OpenSettingsCellularDeepLinks.target : OpenSettingsCellularDeepLinks@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+void *key path getter for OpenSettingsCellularDeepLinks.target : OpenSettingsCellularDeepLinks@<X0>(_BYTE *a1@<X8>)
 {
-  v3 = *a1;
   result = IntentParameter.wrappedValue.getter();
-  *a2 = v5;
+  *a1 = v3;
   return result;
-}
-
-uint64_t key path setter for OpenSettingsCellularDeepLinks.target : OpenSettingsCellularDeepLinks(char *a1, uint64_t *a2)
-{
-  v2 = *a2;
-  v4 = *a1;
-  return IntentParameter.wrappedValue.setter();
 }
 
 uint64_t (*OpenSettingsCellularDeepLinks.target.modify(uint64_t *a1))()
@@ -1382,36 +1331,27 @@ uint64_t (*OpenSettingsCellularDeepLinks.target.modify(uint64_t *a1))()
   return OpenSettingsCellularDeepLinks.target.modify;
 }
 
-uint64_t protocol witness for OpenIntent.target.getter in conformance OpenSettingsCellularDeepLinks@<X0>(_BYTE *a1@<X8>)
+void *protocol witness for OpenIntent.target.getter in conformance OpenSettingsCellularDeepLinks@<X0>(_BYTE *a1@<X8>)
 {
-  v3 = *v1;
   result = IntentParameter.wrappedValue.getter();
-  *a1 = v5;
+  *a1 = v3;
   return result;
-}
-
-uint64_t protocol witness for OpenIntent.target.setter in conformance OpenSettingsCellularDeepLinks(char *a1)
-{
-  v2 = *v1;
-  v4 = *a1;
-  return IntentParameter.wrappedValue.setter();
 }
 
 uint64_t (*protocol witness for OpenIntent.target.modify in conformance OpenSettingsCellularDeepLinks(uint64_t *a1))()
 {
   if (&_swift_coroFrameAlloc)
   {
-    v3 = swift_coroFrameAlloc();
+    v2 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v3 = malloc(0x28uLL);
+    v2 = malloc(0x28uLL);
   }
 
-  *a1 = v3;
-  v4 = *v1;
-  *(v3 + 32) = IntentParameter.wrappedValue.modify();
+  *a1 = v2;
+  *(v2 + 32) = IntentParameter.wrappedValue.modify();
   return protocol witness for OpenIntent.target.modify in conformance OpenSettingsCellularDeepLinks;
 }
 
@@ -1433,28 +1373,26 @@ uint64_t protocol witness for static URLRepresentableIntent.urlRepresentation.ge
 
 uint64_t protocol witness for AppIntent.perform() in conformance OpenSettingsCellularDeepLinks(uint64_t a1, uint64_t a2)
 {
-  v4 = async function pointer to URLRepresentableIntent<>.perform()[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  v5 = lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
   v6 = lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
-  v7 = lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
-  v8 = lazy protocol witness table accessor for type SettingsCellularDeepLinks and conformance SettingsCellularDeepLinks();
-  *v5 = v2;
-  v5[1] = protocol witness for AppIntent.perform() in conformance OpenSettingsCellularDeepLinks;
+  v7 = lazy protocol witness table accessor for type SettingsCellularDeepLinks and conformance SettingsCellularDeepLinks();
+  *v4 = v2;
+  v4[1] = protocol witness for AppIntent.perform() in conformance OpenSettingsCellularDeepLinks;
 
-  return URLRepresentableIntent<>.perform()(a2, v6, v7, v8);
+  return URLRepresentableIntent<>.perform()(a2, v5, v6, v7);
 }
 
 uint64_t protocol witness for AppIntent.perform() in conformance OpenSettingsCellularDeepLinks()
 {
-  v2 = *(*v1 + 16);
-  v3 = *v1;
+  v2 = *v1;
 
   if (v0)
   {
-    v5 = *(v3 + 8);
+    v4 = *(v2 + 8);
 
-    return v5();
+    return v4();
   }
 
   return result;
@@ -1519,7 +1457,7 @@ void *closure #1 in serialize<A>(_:at:)(void *__src, uint64_t a2, void *__dst)
   return __src;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -1582,7 +1520,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -1654,7 +1592,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    v10 = &_swiftEmptyArrayStorage;
+    v10 = _swiftEmptyArrayStorage;
   }
 
   v12 = v10 + 32;
@@ -1690,45 +1628,44 @@ void specialized SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQ
       {
         if (v2 == 2)
         {
-          v22 = v1[155];
-          v23 = [objc_opt_self() currentDevice];
-          v24 = [v23 sf_isiPhone];
+          v20 = [objc_opt_self() currentDevice];
+          v21 = [v20 sf_isiPhone];
 
-          v25 = [objc_opt_self() sharedManager];
-          if (!v25)
+          v22 = [objc_opt_self() sharedManager];
+          if (!v22)
           {
             goto LABEL_77;
           }
 
 LABEL_32:
-          v28 = v25;
-          v29 = [v25 planItemsShouldUpdate:0];
+          v24 = v22;
+          v25 = [v22 planItemsShouldUpdate:0];
 
-          if (v29)
+          if (v25)
           {
             type metadata accessor for CTCellularPlanItem();
-            v30 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+            v26 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-            if (v30 >> 62)
+            if (v26 >> 62)
             {
-              v31 = _CocoaArrayWrapper.endIndex.getter();
+              v27 = _CocoaArrayWrapper.endIndex.getter();
             }
 
             else
             {
-              v31 = *((v30 & 0xFFFFFFFFFFFFFF8) + 0x10);
+              v27 = *((v26 & 0xFFFFFFFFFFFFFF8) + 0x10);
             }
 
-            v32 = v31 > 1;
+            v28 = v27 > 1;
           }
 
           else
           {
-            v32 = 0;
+            v28 = 0;
           }
 
-          v45 = specialized SettingsCellularUtility.getSubscriptionsInUse()();
-          if ((v24 & v32) != 1 || v45 <= 0)
+          v40 = specialized SettingsCellularUtility.getSubscriptionsInUse()();
+          if ((v21 & v28) != 1 || v40 <= 0)
           {
             goto LABEL_3;
           }
@@ -1736,18 +1673,18 @@ LABEL_32:
 LABEL_49:
           if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(&_swiftEmptyArrayStorage + 2) + 1, 1);
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, _swiftEmptyArrayStorage[2] + 1, 1);
           }
 
-          v47 = *(&_swiftEmptyArrayStorage + 2);
-          v46 = *(&_swiftEmptyArrayStorage + 3);
-          if (v47 >= v46 >> 1)
+          v42 = _swiftEmptyArrayStorage[2];
+          v41 = _swiftEmptyArrayStorage[3];
+          if (v42 >= v41 >> 1)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v46 > 1), v47 + 1, 1);
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1);
           }
 
-          *(&_swiftEmptyArrayStorage + 2) = v47 + 1;
-          *(&_swiftEmptyArrayStorage + v47 + 32) = v2;
+          _swiftEmptyArrayStorage[2] = v42 + 1;
+          *(&_swiftEmptyArrayStorage[4] + v42) = v2;
           goto LABEL_3;
         }
 
@@ -1765,31 +1702,30 @@ LABEL_36:
         goto LABEL_49;
       }
 
-      v13 = v1;
-      v14 = v1[155];
-      v15 = [objc_opt_self() currentDevice];
-      v16 = [v15 sf_isChinaRegionCellularDevice];
+      v12 = v1;
+      v13 = [objc_opt_self() currentDevice];
+      v14 = [v13 sf_isChinaRegionCellularDevice];
 
-      v17 = specialized SettingsCellularUtility.isEmbeddedSIMOnlyConfig()();
+      v15 = specialized SettingsCellularUtility.isEmbeddedSIMOnlyConfig()();
       if (one-time initialization token for logger != -1)
       {
         swift_once();
       }
 
-      v18 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v18, static SettingsCellularUtility.logger);
-      v19 = Logger.logObject.getter();
-      v20 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v19, v20))
+      v16 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v16, static SettingsCellularUtility.logger);
+      v17 = Logger.logObject.getter();
+      v18 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v17, v18))
       {
-        v21 = swift_slowAlloc();
-        *v21 = 67109120;
-        *(v21 + 4) = v17 & 1;
-        _os_log_impl(&_mh_execute_header, v19, v20, "isESimOnly %{BOOL}d", v21, 8u);
+        v19 = swift_slowAlloc();
+        *v19 = 67109120;
+        *(v19 + 4) = v15 & 1;
+        _os_log_impl(&_mh_execute_header, v17, v18, "isESimOnly %{BOOL}d", v19, 8u);
       }
 
-      v1 = v13;
-      if (v17 & 1 | ((v16 & 1) == 0))
+      v1 = v12;
+      if (v15 & 1 | ((v14 & 1) == 0))
       {
         goto LABEL_49;
       }
@@ -1801,12 +1737,11 @@ LABEL_36:
       {
         if (v2 == 4)
         {
-          v26 = v1[155];
-          v27 = [objc_opt_self() currentDevice];
-          v24 = [v27 sf_isiPhone];
+          v23 = [objc_opt_self() currentDevice];
+          v21 = [v23 sf_isiPhone];
 
-          v25 = [objc_opt_self() sharedManager];
-          if (!v25)
+          v22 = [objc_opt_self() sharedManager];
+          if (!v22)
           {
             goto LABEL_76;
           }
@@ -1829,32 +1764,31 @@ LABEL_36:
 
       if (v2 == 7)
       {
-        v3 = v1[155];
-        v4 = [objc_opt_self() currentDevice];
-        v5 = [v4 sf_isiPhone];
+        v3 = [objc_opt_self() currentDevice];
+        v4 = [v3 sf_isiPhone];
 
-        v6 = [objc_opt_self() sharedManager];
-        if (!v6)
+        v5 = [objc_opt_self() sharedManager];
+        if (!v5)
         {
           goto LABEL_75;
         }
 
-        v7 = v6;
-        v8 = [v6 planItemsShouldUpdate:0];
+        v6 = v5;
+        v7 = [v5 planItemsShouldUpdate:0];
 
-        if (v8)
+        if (v7)
         {
           type metadata accessor for CTCellularPlanItem();
-          v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+          v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-          if ((v5 & 1) == 0)
+          if ((v4 & 1) == 0)
           {
             goto LABEL_2;
           }
 
-          if (v9)
+          if (v8)
           {
-            if (v9 >> 62)
+            if (v8 >> 62)
             {
               if (_CocoaArrayWrapper.endIndex.getter() != 1 || !_CocoaArrayWrapper.endIndex.getter())
               {
@@ -1864,19 +1798,19 @@ LABEL_2:
               }
             }
 
-            else if (*((v9 & 0xFFFFFFFFFFFFFF8) + 0x10) != 1)
+            else if (*((v8 & 0xFFFFFFFFFFFFFF8) + 0x10) != 1)
             {
               goto LABEL_2;
             }
 
-            if ((v9 & 0xC000000000000001) != 0)
+            if ((v8 & 0xC000000000000001) != 0)
             {
-              v10 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+              v9 = specialized _ArrayBuffer._getElementSlowPath(_:)();
             }
 
             else
             {
-              if (!*((v9 & 0xFFFFFFFFFFFFFF8) + 0x10))
+              if (!*((v8 & 0xFFFFFFFFFFFFFF8) + 0x10))
               {
                 __break(1u);
 LABEL_75:
@@ -1890,21 +1824,21 @@ LABEL_78:
                 return;
               }
 
-              v10 = *(v9 + 32);
+              v9 = *(v8 + 32);
             }
 
-            v11 = v10;
+            v10 = v9;
 
-            v12 = [v11 type];
+            v11 = [v10 type];
 
-            if (v12 == 2)
+            if (v11 == 2)
             {
               goto LABEL_49;
             }
           }
         }
 
-        else if ((v5 & 1) == 0)
+        else if ((v4 & 1) == 0)
         {
           goto LABEL_2;
         }
@@ -1912,42 +1846,41 @@ LABEL_78:
 
       else
       {
-        v33 = v1[155];
-        v34 = objc_opt_self();
-        v35 = [v34 currentDevice];
-        v36 = [v35 sf_isiPad];
+        v29 = objc_opt_self();
+        v30 = [v29 currentDevice];
+        v31 = [v30 sf_isiPad];
 
-        if ((v36 & 1) == 0)
+        if ((v31 & 1) == 0)
         {
-          v37 = [v34 currentDevice];
-          v38 = [v37 sf_isiPhone];
+          v32 = [v29 currentDevice];
+          v33 = [v32 sf_isiPhone];
 
-          v39 = [objc_opt_self() sharedManager];
-          if (!v39)
+          v34 = [objc_opt_self() sharedManager];
+          if (!v34)
           {
             goto LABEL_78;
           }
 
-          v40 = v39;
-          v41 = [v39 planItemsShouldUpdate:0];
+          v35 = v34;
+          v36 = [v34 planItemsShouldUpdate:0];
 
-          if (v41)
+          if (v36)
           {
             type metadata accessor for CTCellularPlanItem();
-            v42 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+            v37 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-            v43 = v42 >> 62 ? _CocoaArrayWrapper.endIndex.getter() : *((v42 & 0xFFFFFFFFFFFFFF8) + 0x10);
+            v38 = v37 >> 62 ? _CocoaArrayWrapper.endIndex.getter() : *((v37 & 0xFFFFFFFFFFFFFF8) + 0x10);
 
-            v44 = v43 == 1;
+            v39 = v38 == 1;
           }
 
           else
           {
-            v44 = 0;
+            v39 = 0;
           }
 
-          v48 = specialized SettingsCellularUtility.getSubscriptionsInUse()();
-          if ((v38 & v44) == 1 && v48 == 1)
+          v43 = specialized SettingsCellularUtility.getSubscriptionsInUse()();
+          if ((v33 & v39) == 1 && v43 == 1)
           {
             goto LABEL_49;
           }
@@ -1960,34 +1893,34 @@ LABEL_3:
   }
 
   while (v0 != 9);
-  v49 = *(&_swiftEmptyArrayStorage + 2);
-  if (v49)
+  v44 = _swiftEmptyArrayStorage[2];
+  if (v44)
   {
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v49, 0);
-    v50 = *(&_swiftEmptyArrayStorage + 2);
-    v51 = 32;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v44, 0);
+    v45 = _swiftEmptyArrayStorage[2];
+    v46 = 32;
     do
     {
-      v52 = *(&_swiftEmptyArrayStorage + v51);
-      v53 = *(&_swiftEmptyArrayStorage + 3);
-      if (v50 >= v53 >> 1)
+      v47 = *(_swiftEmptyArrayStorage + v46);
+      v48 = _swiftEmptyArrayStorage[3];
+      if (v45 >= v48 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v53 > 1), v50 + 1, 1);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v48 > 1), v45 + 1, 1);
       }
 
-      *(&_swiftEmptyArrayStorage + 2) = v50 + 1;
-      *(&_swiftEmptyArrayStorage + v50 + 32) = v52;
-      ++v51;
-      ++v50;
-      --v49;
+      _swiftEmptyArrayStorage[2] = v45 + 1;
+      *(&_swiftEmptyArrayStorage[4] + v45) = v47;
+      ++v46;
+      ++v45;
+      --v44;
     }
 
-    while (v49);
+    while (v44);
   }
 
-  v54 = *(v55 + 8);
+  v49 = *(v50 + 8);
 
-  v54(&_swiftEmptyArrayStorage);
+  v49(_swiftEmptyArrayStorage);
 }
 
 id specialized SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQuery.entities(for:)()
@@ -1997,72 +1930,69 @@ id specialized SettingsCellularDeepLinks.AvailableSettingsCellularDestinationQue
   if (!v2)
   {
 LABEL_51:
-    v42 = *(&_swiftEmptyArrayStorage + 2);
-    if (v42)
+    v37 = _swiftEmptyArrayStorage[2];
+    if (v37)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v42, 0);
-      v43 = *(&_swiftEmptyArrayStorage + 2);
-      v44 = 32;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v37, 0);
+      v38 = _swiftEmptyArrayStorage[2];
+      v39 = 32;
       do
       {
-        v45 = *(&_swiftEmptyArrayStorage + v44);
-        v46 = *(&_swiftEmptyArrayStorage + 3);
-        if (v43 >= v46 >> 1)
+        v40 = *(_swiftEmptyArrayStorage + v39);
+        v41 = _swiftEmptyArrayStorage[3];
+        if (v38 >= v41 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v46 > 1), v43 + 1, 1);
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v38 + 1, 1);
         }
 
-        *(&_swiftEmptyArrayStorage + 2) = v43 + 1;
-        *(&_swiftEmptyArrayStorage + v43 + 32) = v45;
-        ++v44;
-        ++v43;
-        --v42;
+        _swiftEmptyArrayStorage[2] = v38 + 1;
+        *(&_swiftEmptyArrayStorage[4] + v38) = v40;
+        ++v39;
+        ++v38;
+        --v37;
       }
 
-      while (v42);
+      while (v37);
     }
 
-    v47 = *(v48 + 8);
+    v42 = *(v43 + 8);
 
-    return v47(&_swiftEmptyArrayStorage);
+    return v42(_swiftEmptyArrayStorage);
   }
 
   v3 = (v1 + 32);
-  v4 = &_s10Foundation22_convertNSErrorToErrorys0E0_pSo0C0CSgF_ptr;
   while (1)
   {
-    v8 = *v3++;
-    v7 = v8;
-    if (v8 <= 3)
+    v7 = *v3++;
+    v6 = v7;
+    if (v7 <= 3)
     {
-      if (v7 <= 1)
+      if (v6 <= 1)
       {
-        if (v7)
+        if (v6)
         {
-          v10 = v4[155];
-          v11 = [objc_opt_self() currentDevice];
-          v12 = [v11 sf_isChinaRegionCellularDevice];
+          v9 = [objc_opt_self() currentDevice];
+          v10 = [v9 sf_isChinaRegionCellularDevice];
 
-          v13 = specialized SettingsCellularUtility.isEmbeddedSIMOnlyConfig()();
+          v11 = specialized SettingsCellularUtility.isEmbeddedSIMOnlyConfig()();
           if (one-time initialization token for logger != -1)
           {
             swift_once();
           }
 
-          v14 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v14, static SettingsCellularUtility.logger);
-          v15 = Logger.logObject.getter();
-          v16 = static os_log_type_t.info.getter();
-          if (os_log_type_enabled(v15, v16))
+          v12 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v12, static SettingsCellularUtility.logger);
+          v13 = Logger.logObject.getter();
+          v14 = static os_log_type_t.info.getter();
+          if (os_log_type_enabled(v13, v14))
           {
-            v17 = swift_slowAlloc();
-            *v17 = 67109120;
-            *(v17 + 4) = v13 & 1;
-            _os_log_impl(&_mh_execute_header, v15, v16, "isESimOnly %{BOOL}d", v17, 8u);
+            v15 = swift_slowAlloc();
+            *v15 = 67109120;
+            *(v15 + 4) = v11 & 1;
+            _os_log_impl(&_mh_execute_header, v13, v14, "isESimOnly %{BOOL}d", v15, 8u);
           }
 
-          v4 = &_s10Foundation22_convertNSErrorToErrorys0E0_pSo0C0CSgF_ptr;
-          if (!(v13 & 1 | ((v12 & 1) == 0)))
+          if (!(v11 & 1 | ((v10 & 1) == 0)))
           {
             goto LABEL_6;
           }
@@ -2071,22 +2001,22 @@ LABEL_51:
 LABEL_43:
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(&_swiftEmptyArrayStorage + 2) + 1, 1);
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, _swiftEmptyArrayStorage[2] + 1, 1);
         }
 
-        v6 = *(&_swiftEmptyArrayStorage + 2);
-        v5 = *(&_swiftEmptyArrayStorage + 3);
-        if (v6 >= v5 >> 1)
+        v5 = _swiftEmptyArrayStorage[2];
+        v4 = _swiftEmptyArrayStorage[3];
+        if (v5 >= v4 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v5 > 1), v6 + 1, 1);
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v4 > 1), v5 + 1, 1);
         }
 
-        *(&_swiftEmptyArrayStorage + 2) = v6 + 1;
-        *(&_swiftEmptyArrayStorage + v6 + 32) = v7;
+        _swiftEmptyArrayStorage[2] = v5 + 1;
+        *(&_swiftEmptyArrayStorage[4] + v5) = v6;
         goto LABEL_6;
       }
 
-      if (v7 != 2)
+      if (v6 != 2)
       {
 LABEL_30:
         if (specialized SettingsCellularUtility.shouldShowCellularDataOptions()())
@@ -2097,9 +2027,8 @@ LABEL_30:
         goto LABEL_6;
       }
 
-      v18 = v4[155];
-      v19 = [objc_opt_self() currentDevice];
-      v20 = [v19 sf_isiPhone];
+      v16 = [objc_opt_self() currentDevice];
+      v17 = [v16 sf_isiPhone];
 
       result = [objc_opt_self() sharedManager];
       if (!result)
@@ -2110,12 +2039,12 @@ LABEL_30:
       goto LABEL_26;
     }
 
-    if (v7 <= 5)
+    if (v6 <= 5)
     {
       break;
     }
 
-    if (v7 == 6)
+    if (v6 == 6)
     {
       if (specialized SettingsCellularUtility.shouldShowNetworkSelection()())
       {
@@ -2123,10 +2052,10 @@ LABEL_30:
       }
     }
 
-    else if (v7 == 7)
+    else if (v6 == 7)
     {
       specialized SettingsCellularUtility.shouldShowDeleteESIM()();
-      if (v9)
+      if (v8)
       {
         goto LABEL_43;
       }
@@ -2134,15 +2063,14 @@ LABEL_30:
 
     else
     {
-      v29 = v4[155];
-      v30 = objc_opt_self();
-      v31 = [v30 currentDevice];
-      v32 = [v31 sf_isiPad];
+      v25 = objc_opt_self();
+      v26 = [v25 currentDevice];
+      v27 = [v26 sf_isiPad];
 
-      if ((v32 & 1) == 0)
+      if ((v27 & 1) == 0)
       {
-        v33 = [v30 currentDevice];
-        v34 = [v33 sf_isiPhone];
+        v28 = [v25 currentDevice];
+        v29 = [v28 sf_isiPhone];
 
         result = [objc_opt_self() sharedManager];
         if (!result)
@@ -2150,26 +2078,26 @@ LABEL_30:
           goto LABEL_61;
         }
 
-        v35 = result;
-        v36 = [result planItemsShouldUpdate:0];
+        v30 = result;
+        v31 = [result planItemsShouldUpdate:0];
 
-        if (v36)
+        if (v31)
         {
           type metadata accessor for CTCellularPlanItem();
-          v37 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+          v32 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-          v38 = v37 >> 62 ? _CocoaArrayWrapper.endIndex.getter() : *((v37 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          v33 = v32 >> 62 ? _CocoaArrayWrapper.endIndex.getter() : *((v32 & 0xFFFFFFFFFFFFFF8) + 0x10);
 
-          v39 = v38 == 1;
+          v34 = v33 == 1;
         }
 
         else
         {
-          v39 = 0;
+          v34 = 0;
         }
 
-        v41 = specialized SettingsCellularUtility.getSubscriptionsInUse()();
-        if ((v34 & v39) == 1 && v41 == 1)
+        v36 = specialized SettingsCellularUtility.getSubscriptionsInUse()();
+        if ((v29 & v34) == 1 && v36 == 1)
         {
           goto LABEL_43;
         }
@@ -2183,47 +2111,46 @@ LABEL_6:
     }
   }
 
-  if (v7 != 4)
+  if (v6 != 4)
   {
     goto LABEL_30;
   }
 
-  v22 = v4[155];
-  v23 = [objc_opt_self() currentDevice];
-  v20 = [v23 sf_isiPhone];
+  v19 = [objc_opt_self() currentDevice];
+  v17 = [v19 sf_isiPhone];
 
   result = [objc_opt_self() sharedManager];
   if (result)
   {
 LABEL_26:
-    v24 = result;
-    v25 = [result planItemsShouldUpdate:0];
+    v20 = result;
+    v21 = [result planItemsShouldUpdate:0];
 
-    if (v25)
+    if (v21)
     {
       type metadata accessor for CTCellularPlanItem();
-      v26 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+      v22 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-      if (v26 >> 62)
+      if (v22 >> 62)
       {
-        v27 = _CocoaArrayWrapper.endIndex.getter();
+        v23 = _CocoaArrayWrapper.endIndex.getter();
       }
 
       else
       {
-        v27 = *((v26 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        v23 = *((v22 & 0xFFFFFFFFFFFFFF8) + 0x10);
       }
 
-      v28 = v27 > 1;
+      v24 = v23 > 1;
     }
 
     else
     {
-      v28 = 0;
+      v24 = 0;
     }
 
-    v40 = specialized SettingsCellularUtility.getSubscriptionsInUse()();
-    if ((v20 & v28) == 1 && v40 > 0)
+    v35 = specialized SettingsCellularUtility.getSubscriptionsInUse()();
+    if ((v17 & v24) == 1 && v35 > 0)
     {
       goto LABEL_43;
     }
@@ -2247,8 +2174,8 @@ uint64_t specialized SettingsCellularDeepLinks.AvailableSettingsCellularDestinat
 {
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, 9, 0);
   v1 = 0;
-  v2 = &_swiftEmptyArrayStorage;
-  v3 = *(&_swiftEmptyArrayStorage + 2);
+  v2 = _swiftEmptyArrayStorage;
+  v3 = _swiftEmptyArrayStorage[2];
   do
   {
     v4 = *(&outlined read-only object #0 of static SettingsCellularDestination.allCases.getter + v1 + 32);
@@ -2305,48 +2232,41 @@ unint64_t specialized SettingsCellularDestination.init(rawValue:)(Swift::String 
 uint64_t variable initialization expression of OpenSettingsCellularDeepLinks._target()
 {
   v0 = type metadata accessor for InputConnectionBehavior();
-  v31 = *(v0 - 8);
-  v32 = v0;
-  v1 = *(v31 + 64);
+  v24 = *(v0 - 8);
+  v25 = v0;
   __chkstk_darwin(v0);
-  v30 = &v28 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents12IntentDialogVSgMd, &_s10AppIntents12IntentDialogVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  v5 = __chkstk_darwin(v3 - 8);
-  v29 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v8 = &v28 - v7;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  __chkstk_darwin(v9 - 8);
-  v12 = &v28 - v11;
-  v13 = type metadata accessor for LocalizedStringResource.BundleDescription();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
-  v17 = &v28 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = type metadata accessor for Locale();
-  v19 = *(*(v18 - 8) + 64);
-  __chkstk_darwin(v18 - 8);
-  v20 = type metadata accessor for String.LocalizationValue();
-  v21 = *(*(v20 - 8) + 64);
-  __chkstk_darwin(v20 - 8);
-  v22 = type metadata accessor for LocalizedStringResource();
-  v23 = *(v22 - 8);
-  v24 = *(v23 + 64);
-  __chkstk_darwin(v22);
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents15IntentParameterCy016SettingsCellularaB9Extension0eF9DeepLinksVGMd, &_s10AppIntents15IntentParameterCy016SettingsCellularaB9Extension0eF9DeepLinksVGMR);
+  v23 = &v21 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents12IntentDialogVSgMd, &_s10AppIntents12IntentDialogVSgMR);
+  v3 = __chkstk_darwin(v2 - 8);
+  v22 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v6 = &v21 - v5;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation23LocalizedStringResourceVSgMd, &_s10Foundation23LocalizedStringResourceVSgMR);
+  __chkstk_darwin(v7 - 8);
+  v9 = &v21 - v8;
+  v10 = type metadata accessor for LocalizedStringResource.BundleDescription();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for Locale();
+  __chkstk_darwin(v14 - 8);
+  v15 = type metadata accessor for String.LocalizationValue();
+  __chkstk_darwin(v15 - 8);
+  v16 = type metadata accessor for LocalizedStringResource();
+  v17 = *(v16 - 8);
+  __chkstk_darwin(v16);
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents15IntentParameterCy016SettingsCellularaB9Extension0eF9DeepLinksVGMd, &_s10AppIntents15IntentParameterCy016SettingsCellularaB9Extension0eF9DeepLinksVGMR);
   String.LocalizationValue.init(stringLiteral:)();
   static Locale.current.getter();
-  (*(v14 + 104))(v17, enum case for LocalizedStringResource.BundleDescription.main(_:), v13);
+  (*(v11 + 104))(v13, enum case for LocalizedStringResource.BundleDescription.main(_:), v10);
   LocalizedStringResource.init(_:table:locale:bundle:comment:)();
-  (*(v23 + 56))(v12, 1, 1, v22);
-  v33 = 9;
-  v25 = type metadata accessor for IntentDialog();
-  v26 = *(*(v25 - 8) + 56);
-  v26(v8, 1, 1, v25);
-  v26(v29, 1, 1, v25);
-  (*(v31 + 104))(v30, enum case for InputConnectionBehavior.default(_:), v32);
+  (*(v17 + 56))(v9, 1, 1, v16);
+  v26[0] = 9;
+  v18 = type metadata accessor for IntentDialog();
+  v19 = *(*(v18 - 8) + 56);
+  v19(v6, 1, 1, v18);
+  v19(v22, 1, 1, v18);
+  (*(v24 + 104))(v23, enum case for InputConnectionBehavior.default(_:), v25);
   lazy protocol witness table accessor for type SettingsCellularDeepLinks and conformance SettingsCellularDeepLinks();
   return IntentParameter<>.init(title:description:default:requestValueDialog:requestDisambiguationDialog:inputConnectionBehavior:)();
 }
@@ -2415,7 +2335,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -2457,7 +2376,7 @@ unint64_t lazy protocol witness table accessor for type SettingsCellularDestinat
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type EmptyResolverSpecification<SettingsCellularDeepLinks> and conformance EmptyResolverSpecification<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type EmptyResolverSpecification<SettingsCellularDeepLinks> and conformance EmptyResolverSpecification<A>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -2724,14 +2643,11 @@ uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -2789,11 +2705,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Identif
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IdentifierType()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance IdentifierType(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -3030,7 +2946,7 @@ id specialized SettingsCellularUtility.getSubscriptionsInUse()()
   return v5;
 }
 
-id specialized SettingsCellularUtility.shouldShowCellularDataOptions()()
+unint64_t specialized SettingsCellularUtility.shouldShowCellularDataOptions()()
 {
   v0 = objc_opt_self();
   v1 = [v0 currentDevice];
@@ -3106,7 +3022,7 @@ id specialized SettingsCellularUtility.shouldShowCellularDataOptions()()
 
     if ((result & 1) == 0 && ((v4 ^ 1) & 1) == 0)
     {
-      return (v9 == 1 && v10 == 1);
+      return v9 == 1 && v10 == 1;
     }
   }
 
@@ -3211,8 +3127,8 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v13 = &_swiftEmptyArrayStorage;
-  if (&_swiftEmptyArrayStorage >> 62)
+  v13 = _swiftEmptyArrayStorage;
+  if (_swiftEmptyArrayStorage >> 62)
   {
     goto LABEL_18;
   }
@@ -3681,12 +3597,11 @@ uint64_t outlined destroy of NSObject?(uint64_t a1)
   return a1;
 }
 
-uint64_t type metadata accessor for CTCellularPlanItem(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for CTCellularPlanItem(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -3699,98 +3614,52 @@ uint64_t closure #1 in static CellularAssistantIntents.intents.getter()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellularaB9Extension04OpenfG9DeepLinksVGMd, &_s10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellularaB9Extension04OpenfG9DeepLinksVGMR);
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v12 - v3;
+  v3 = &v11 - v2;
   lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
   _AssistantIntent.Phrase.init(stringLiteral:)();
-  v5 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v6 = *(v1 + 8);
-  v6(v4, v0);
+  v4 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v5 = *(v1 + 8);
+  v5(v3, v0);
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v6 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v5(v3, v0);
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v7 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v6(v4, v0);
-  _AssistantIntent.Phrase.init(stringLiteral:)();
-  v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v6(v4, v0);
+  v5(v3, v0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellulardE9Extension04OpeniJ9DeepLinksVGGGMd, &_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellulardE9Extension04OpeniJ9DeepLinksVGGGMR);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_10000BD90;
-  *(v9 + 32) = v5;
-  *(v9 + 40) = v7;
-  *(v9 + 48) = v8;
-  v10 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
+  v8 = swift_allocObject();
+  *(v8 + 16) = xmmword_10000BD90;
+  *(v8 + 32) = v4;
+  *(v8 + 40) = v6;
+  *(v8 + 48) = v7;
+  v9 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  return v10;
-}
-
-uint64_t closure #2 in static CellularAssistantIntents.intents.getter()
-{
-  return closure #2 in static CellularAssistantIntents.intents.getter();
-}
-
-{
-  v0 = type metadata accessor for _AssistantIntent.Value();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getKeyPath();
-  lazy protocol witness table accessor for type SettingsCellularDeepLinks and conformance SettingsCellularDeepLinks();
-  _AssistantIntent.IntentProjection.subscript.getter();
-
-  lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
-  _AssistantIntent.Value.init<A>(for:builder:)();
-  v5 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
-  (*(v1 + 8))(v4, v0);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV5ValueVGGMd, &_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV5ValueVGGMR);
-  v6 = swift_allocObject();
-  *(v6 + 16) = xmmword_10000BD50;
-  *(v6 + 32) = v5;
-  v7 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
-
-  return v7;
-}
-
-uint64_t closure #1 in closure #2 in static CellularAssistantIntents.intents.getter()
-{
-  return closure #1 in closure #2 in static CellularAssistantIntents.intents.getter();
-}
-
-{
-  v0 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySSGGMd, &_ss23_ContiguousArrayStorageCySaySSGGMR);
-  v1 = swift_allocObject();
-  *(v1 + 16) = xmmword_10000BD50;
-  *(v1 + 32) = v0;
-  v2 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
-
-  return v2;
+  return v9;
 }
 
 uint64_t closure #3 in static CellularAssistantIntents.intents.getter()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellularaB9Extension04OpenfG9DeepLinksVGMd, &_s10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellularaB9Extension04OpenfG9DeepLinksVGMR);
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v11 - v3;
+  v3 = &v10 - v2;
   lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
   _AssistantIntent.Phrase.init(stringLiteral:)();
-  v5 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v6 = *(v1 + 8);
-  v6(v4, v0);
+  v4 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v5 = *(v1 + 8);
+  v5(v3, v0);
   _AssistantIntent.Phrase.init(stringLiteral:)();
-  v7 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v6(v4, v0);
+  v6 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v5(v3, v0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellulardE9Extension04OpeniJ9DeepLinksVGGGMd, &_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellulardE9Extension04OpeniJ9DeepLinksVGGGMR);
-  v8 = swift_allocObject();
-  *(v8 + 16) = xmmword_10000BD40;
-  *(v8 + 32) = v5;
-  *(v8 + 40) = v7;
-  v9 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_10000BD40;
+  *(v7 + 32) = v4;
+  *(v7 + 40) = v6;
+  v8 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  return v9;
+  return v8;
 }
 
 uint64_t closure #1 in closure #4 in static CellularAssistantIntents.intents.getter()
@@ -3809,29 +3678,28 @@ uint64_t closure #5 in static CellularAssistantIntents.intents.getter()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellularaB9Extension04OpenfG9DeepLinksVGMd, &_s10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellularaB9Extension04OpenfG9DeepLinksVGMR);
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v12 - v3;
+  v3 = &v11 - v2;
   lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
   _AssistantIntent.Phrase.init(stringLiteral:)();
-  v5 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v6 = *(v1 + 8);
-  v6(v4, v0);
+  v4 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v5 = *(v1 + 8);
+  v5(v3, v0);
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v6 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v5(v3, v0);
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v7 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v6(v4, v0);
-  _AssistantIntent.Phrase.init(stringLiteral:)();
-  v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v6(v4, v0);
+  v5(v3, v0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellulardE9Extension04OpeniJ9DeepLinksVGGGMd, &_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellulardE9Extension04OpeniJ9DeepLinksVGGGMR);
-  v9 = swift_allocObject();
-  *(v9 + 16) = xmmword_10000BD90;
-  *(v9 + 32) = v5;
-  *(v9 + 40) = v7;
-  *(v9 + 48) = v8;
-  v10 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
+  v8 = swift_allocObject();
+  *(v8 + 16) = xmmword_10000BD90;
+  *(v8 + 32) = v4;
+  *(v8 + 40) = v6;
+  *(v8 + 48) = v7;
+  v9 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  return v10;
+  return v9;
 }
 
 uint64_t closure #1 in closure #6 in static CellularAssistantIntents.intents.getter()
@@ -3850,66 +3718,99 @@ uint64_t closure #7 in static CellularAssistantIntents.intents.getter()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellularaB9Extension04OpenfG9DeepLinksVGMd, &_s10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellularaB9Extension04OpenfG9DeepLinksVGMR);
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v14 - v3;
+  v3 = &v13 - v2;
   lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
   _AssistantIntent.Phrase.init(stringLiteral:)();
-  v17 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v5 = *(v1 + 8);
-  v5(v4, v0);
-  _AssistantIntent.Phrase.init(stringLiteral:)();
   v16 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v5(v4, v0);
+  v4 = *(v1 + 8);
+  v4(v3, v0);
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v15 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v5(v4, v0);
+  v4(v3, v0);
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v14 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v4(v3, v0);
+  _AssistantIntent.Phrase.init(stringLiteral:)();
+  v5 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
+  v4(v3, v0);
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v6 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v5(v4, v0);
+  v4(v3, v0);
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v7 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v5(v4, v0);
+  v4(v3, v0);
   _AssistantIntent.Phrase.init(stringLiteral:)();
   v8 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v5(v4, v0);
-  _AssistantIntent.Phrase.init(stringLiteral:)();
-  v9 = static _AssistantIntent.PhraseBuilder.buildExpression(_:)();
-  v5(v4, v0);
+  v4(v3, v0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellulardE9Extension04OpeniJ9DeepLinksVGGGMd, &_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV6PhraseVy_016SettingsCellulardE9Extension04OpeniJ9DeepLinksVGGGMR);
-  v10 = swift_allocObject();
-  *(v10 + 16) = xmmword_10000BD70;
-  v11 = v16;
-  *(v10 + 32) = v17;
-  *(v10 + 40) = v11;
-  *(v10 + 48) = v15;
-  *(v10 + 56) = v6;
-  *(v10 + 64) = v7;
-  *(v10 + 72) = v8;
-  *(v10 + 80) = v9;
-  v12 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
+  v9 = swift_allocObject();
+  *(v9 + 16) = xmmword_10000BD70;
+  v10 = v15;
+  *(v9 + 32) = v16;
+  *(v9 + 40) = v10;
+  *(v9 + 48) = v14;
+  *(v9 + 56) = v5;
+  *(v9 + 64) = v6;
+  *(v9 + 72) = v7;
+  *(v9 + 80) = v8;
+  v11 = static _AssistantIntent.PhraseBuilder.buildBlock(_:)();
 
-  return v12;
+  return v11;
+}
+
+uint64_t closure #2 in static CellularAssistantIntents.intents.getter(uint64_t a1, uint64_t a2)
+{
+  v2 = type metadata accessor for _AssistantIntent.Value();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v10 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getKeyPath();
+  lazy protocol witness table accessor for type SettingsCellularDeepLinks and conformance SettingsCellularDeepLinks();
+  _AssistantIntent.IntentProjection.subscript.getter();
+
+  lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
+  _AssistantIntent.Value.init<A>(for:builder:)();
+  v6 = static _AssistantIntent.ParameterValueBuilder.buildExpression(_:)();
+  (*(v3 + 8))(v5, v2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV5ValueVGGMd, &_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV5ValueVGGMR);
+  v7 = swift_allocObject();
+  *(v7 + 16) = xmmword_10000BD50;
+  *(v7 + 32) = v6;
+  v8 = static _AssistantIntent.ParameterValueBuilder.buildBlock(_:)();
+
+  return v8;
+}
+
+uint64_t closure #1 in closure #2 in static CellularAssistantIntents.intents.getter(uint64_t a1)
+{
+  v1 = static _AssistantIntent.StringValueBuilder.buildExpression(_:)();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySaySSGGMd, &_ss23_ContiguousArrayStorageCySaySSGGMR);
+  v2 = swift_allocObject();
+  *(v2 + 16) = xmmword_10000BD50;
+  *(v2 + 32) = v1;
+  v3 = static _AssistantIntent.StringValueBuilder.buildBlock(_:)();
+
+  return v3;
 }
 
 uint64_t static CellularAssistantIntents.negativePhrases.getter()
 {
   v0 = type metadata accessor for _AssistantIntent.NegativeAssistantIntentPhrases();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v8 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
   _AssistantIntent.NegativeAssistantIntentPhrases.init<A>(for:phrases:)();
-  v5 = static _AssistantIntent.NegativeAssistantIntentPhrasesBuilder.buildExpression(_:)();
-  (*(v1 + 8))(v4, v0);
+  v4 = static _AssistantIntent.NegativeAssistantIntentPhrasesBuilder.buildExpression(_:)();
+  (*(v1 + 8))(v3, v0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV08NegativefG7PhrasesVGGMd, &_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentV08NegativefG7PhrasesVGGMR);
-  v6 = swift_allocObject();
-  *(v6 + 16) = xmmword_10000BD50;
-  *(v6 + 32) = v5;
-  v7 = static _AssistantIntent.NegativeAssistantIntentPhrasesBuilder.buildBlock(_:)();
+  v5 = swift_allocObject();
+  *(v5 + 16) = xmmword_10000BD50;
+  *(v5 + 32) = v4;
+  v6 = static _AssistantIntent.NegativeAssistantIntentPhrasesBuilder.buildBlock(_:)();
 
-  return v7;
+  return v6;
 }
 
 uint64_t closure #1 in static CellularAssistantIntents.negativePhrases.getter()
@@ -3928,35 +3829,34 @@ uint64_t specialized static CellularAssistantIntents.intents.getter()
 {
   v0 = type metadata accessor for _AssistantIntent();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  v3 = __chkstk_darwin(v0);
-  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = variable initialization expression of OpenSettingsCellularDeepLinks._target(v3);
+  __chkstk_darwin(v0);
+  v3 = &v12 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = variable initialization expression of OpenSettingsCellularDeepLinks._target();
   lazy protocol witness table accessor for type OpenSettingsCellularDeepLinks and conformance OpenSettingsCellularDeepLinks();
   _AssistantIntent.init<A>(_:phrases:parameterValues:)();
+  v4 = static _AssistantIntent.Builder.buildExpression(_:)();
+  v5 = *(v1 + 8);
+  v5(v3, v0);
+  v13 = variable initialization expression of OpenSettingsCellularDeepLinks._target();
+  _AssistantIntent.init<A>(_:phrases:parameterValues:)();
   v6 = static _AssistantIntent.Builder.buildExpression(_:)();
-  v7 = *(v1 + 8);
-  v8 = v7(v5, v0);
-  v18 = variable initialization expression of OpenSettingsCellularDeepLinks._target(v8);
+  v5(v3, v0);
+  v13 = variable initialization expression of OpenSettingsCellularDeepLinks._target();
   _AssistantIntent.init<A>(_:phrases:parameterValues:)();
-  v9 = static _AssistantIntent.Builder.buildExpression(_:)();
-  v10 = v7(v5, v0);
-  v18 = variable initialization expression of OpenSettingsCellularDeepLinks._target(v10);
+  v7 = static _AssistantIntent.Builder.buildExpression(_:)();
+  v5(v3, v0);
+  v13 = variable initialization expression of OpenSettingsCellularDeepLinks._target();
   _AssistantIntent.init<A>(_:phrases:parameterValues:)();
-  v11 = static _AssistantIntent.Builder.buildExpression(_:)();
-  v12 = v7(v5, v0);
-  v18 = variable initialization expression of OpenSettingsCellularDeepLinks._target(v12);
-  _AssistantIntent.init<A>(_:phrases:parameterValues:)();
-  v13 = static _AssistantIntent.Builder.buildExpression(_:)();
-  v7(v5, v0);
+  v8 = static _AssistantIntent.Builder.buildExpression(_:)();
+  v5(v3, v0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentVGGMd, &_ss23_ContiguousArrayStorageCySay10AppIntents16_AssistantIntentVGGMR);
-  v14 = swift_allocObject();
-  *(v14 + 16) = xmmword_10000BD60;
-  *(v14 + 32) = v6;
-  *(v14 + 40) = v9;
-  *(v14 + 48) = v11;
-  *(v14 + 56) = v13;
-  v15 = static _AssistantIntent.Builder.buildBlock(_:)();
+  v9 = swift_allocObject();
+  *(v9 + 16) = xmmword_10000BD60;
+  *(v9 + 32) = v4;
+  *(v9 + 40) = v6;
+  *(v9 + 48) = v7;
+  *(v9 + 56) = v8;
+  v10 = static _AssistantIntent.Builder.buildBlock(_:)();
 
-  return v15;
+  return v10;
 }

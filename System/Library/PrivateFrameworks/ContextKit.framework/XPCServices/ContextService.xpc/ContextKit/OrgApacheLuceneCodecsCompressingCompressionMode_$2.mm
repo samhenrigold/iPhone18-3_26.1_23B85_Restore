@@ -16,7 +16,7 @@
 - (id)newDecompressor
 {
   v2 = [OrgApacheLuceneCodecsCompressingCompressionMode_DeflateDecompressor alloc];
-  sub_10009BD7C(v2, v3);
+  sub_10009BD7C(v2);
 
   return v2;
 }

@@ -40,7 +40,7 @@ uint64_t lifs_rmdir_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned in
           v16 = livefs_std_log();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
-            sub_1000385B0(&v27 + 1);
+            sub_1000385B0();
           }
 
           v58 = 0u;
@@ -84,7 +84,7 @@ uint64_t lifs_rmdir_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned in
         v19 = livefs_std_log();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          sub_100038630(&v27);
+          sub_100038630();
         }
 
         v58 = 0u;
@@ -128,7 +128,7 @@ uint64_t lifs_rmdir_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned in
       v18 = livefs_std_log();
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        sub_1000386A4(&v27 + 1);
+        sub_1000386A4();
       }
 
       v58 = 0u;
@@ -172,7 +172,7 @@ uint64_t lifs_rmdir_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned in
     v17 = livefs_std_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_100038630(&v27 + 1);
+      sub_100038630();
     }
 
     v58 = 0u;
@@ -219,7 +219,7 @@ void sub_10002F8C8(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100038718(a1);
+    sub_100038718();
   }
 
   v5 = *(a1 + 32);
@@ -460,7 +460,7 @@ uint64_t lifs_readdir_send(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsign
       v17 = livefs_std_log();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_100038794(&v30 + 1);
+        sub_100038794();
       }
 
       v61 = 0u;
@@ -504,7 +504,7 @@ uint64_t lifs_readdir_send(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsign
     v16 = livefs_std_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100038808(&v30 + 1);
+      sub_100038808();
     }
 
     v61 = 0u;
@@ -545,10 +545,11 @@ uint64_t lifs_readdir_send(uint64_t a1, uint64_t a2, int a3, uint64_t a4, unsign
   return 0;
 }
 
-void sub_10002FFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_10002FFD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a17, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -558,7 +559,7 @@ void sub_100030000(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10003887C(a1);
+    sub_10003887C();
   }
 
   v5 = *(a1 + 32);
@@ -608,7 +609,7 @@ uint64_t lifs_link_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4,
     v15 = livefs_std_log();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_10003896C(&v25 + 1);
+      sub_10003896C();
     }
 
     v16 = v25;
@@ -660,7 +661,7 @@ uint64_t lifs_link_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4,
     v18 = livefs_std_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_1000388F8(&v25 + 1);
+      sub_1000388F8();
     }
 
     v56 = 0u;
@@ -720,7 +721,7 @@ void sub_10003050C(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_1000389E0(a1);
+    sub_1000389E0();
   }
 
   v5 = *(a1 + 32);
@@ -871,7 +872,7 @@ LABEL_16:
 
 uint64_t lifs_symlink_send(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int *a5, uint64_t a6)
 {
-  v10 = [FSFileName nameWithCString:?];
+  v10 = [FSFileName nameWithCString:a3];
   v11 = [NSString stringWithUTF8String:a4];
   v12 = [NSData dataWithBytes:a6 length:184];
   v27 = 0;
@@ -884,7 +885,7 @@ uint64_t lifs_symlink_send(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
     v18 = livefs_std_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_100038AD0(&v28 + 1);
+      sub_100038AD0();
     }
 
     v19 = v28;
@@ -936,7 +937,7 @@ uint64_t lifs_symlink_send(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, u
     v21 = livefs_std_log();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100038A5C(&v28 + 1);
+      sub_100038A5C();
     }
 
     v59 = 0u;
@@ -997,7 +998,7 @@ void sub_100030BC0(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100038B44(a1);
+    sub_100038B44();
   }
 
   v5 = *(a1 + 32);
@@ -1162,7 +1163,7 @@ uint64_t lifs_readlink_send(uint64_t a1, uint64_t a2, unsigned int *a3)
     v9 = livefs_std_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100038C34(&v18 + 1);
+      sub_100038C34();
     }
 
     v10 = v18;
@@ -1214,7 +1215,7 @@ uint64_t lifs_readlink_send(uint64_t a1, uint64_t a2, unsigned int *a3)
     v12 = livefs_std_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100038BC0(&v18 + 1);
+      sub_100038BC0();
     }
 
     v49 = 0u;
@@ -1274,7 +1275,7 @@ void sub_100031224(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100038CA8(a1);
+    sub_100038CA8();
   }
 
   v5 = *(a1 + 32);
@@ -1411,7 +1412,7 @@ uint64_t lifs_remove_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned i
           v21 = livefs_std_log();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            sub_100038DA4(&v29 + 1);
+            sub_100038DA4();
           }
 
           v60 = 0u;
@@ -1455,7 +1456,7 @@ uint64_t lifs_remove_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned i
         v20 = livefs_std_log();
         if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          sub_100038E24(&v29);
+          sub_100038E24();
         }
 
         v60 = 0u;
@@ -1499,7 +1500,7 @@ uint64_t lifs_remove_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned i
       v19 = livefs_std_log();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        sub_100038E98(&v29 + 1);
+        sub_100038E98();
       }
 
       v60 = 0u;
@@ -1543,7 +1544,7 @@ uint64_t lifs_remove_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned i
     v18 = livefs_std_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_100038E24(&v29 + 1);
+      sub_100038E24();
     }
 
     v60 = 0u;
@@ -1590,7 +1591,7 @@ void sub_100031964(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100038F0C(a1);
+    sub_100038F0C();
   }
 
   v5 = *(a1 + 32);
@@ -1723,7 +1724,7 @@ uint64_t lifs_setattr_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t 
     v12 = livefs_std_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100038FFC(&v21 + 1);
+      sub_100038FFC();
     }
 
     v13 = v21;
@@ -1775,7 +1776,7 @@ uint64_t lifs_setattr_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t 
     v15 = livefs_std_log();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_100038F88(&v21 + 1);
+      sub_100038F88();
     }
 
     v52 = 0u;
@@ -1835,7 +1836,7 @@ void sub_100031F2C(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100039070(a1);
+    sub_100039070();
   }
 
   v5 = *(a1 + 32);
@@ -2011,7 +2012,7 @@ LABEL_14:
     v13 = livefs_std_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_100039160(&v20 + 1);
+      sub_100039160();
     }
 
     v51 = 0u;
@@ -2063,7 +2064,7 @@ LABEL_14:
     v14 = livefs_std_log();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1000390EC(&v20 + 1);
+      sub_1000390EC();
     }
 
     v51 = 0u;
@@ -2123,7 +2124,7 @@ void sub_100032544(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_1000391D4(a1);
+    sub_1000391D4();
   }
 
   v5 = *(a1 + 32);
@@ -2334,7 +2335,7 @@ uint64_t lifs_getattrlistbulk_send(uint64_t a1, uint64_t a2, uint64_t a3, unsign
       v19 = livefs_std_log();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        sub_100039250(&v30 + 1);
+        sub_100039250();
       }
 
       v61 = 0u;
@@ -2378,7 +2379,7 @@ uint64_t lifs_getattrlistbulk_send(uint64_t a1, uint64_t a2, uint64_t a3, unsign
     v18 = livefs_std_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_1000392C4(&v30 + 1);
+      sub_1000392C4();
     }
 
     v61 = 0u;
@@ -2419,10 +2420,11 @@ uint64_t lifs_getattrlistbulk_send(uint64_t a1, uint64_t a2, uint64_t a3, unsign
   return 0;
 }
 
-void sub_100032B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100032B90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a19, 8);
-  _Block_object_dispose(&a31, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2432,7 +2434,7 @@ void sub_100032BBC(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100039338(a1);
+    sub_100039338();
   }
 
   v5 = *(a1 + 32);
@@ -2497,7 +2499,7 @@ uint64_t lifs_write_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4
     v18 = livefs_std_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_1000394A8(&v28 + 1);
+      sub_1000394A8();
     }
 
     v19 = v28;
@@ -2549,7 +2551,7 @@ uint64_t lifs_write_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4
     v21 = livefs_std_log();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      sub_100039434(&v28 + 1);
+      sub_100039434();
     }
 
     v59 = 0u;
@@ -2659,7 +2661,7 @@ void sub_100033184(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10003951C(a1);
+    sub_10003951C();
   }
 
   v5 = *(a1 + 32);
@@ -2896,7 +2898,7 @@ uint64_t lifs_read_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int
       v15 = livefs_std_log();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        sub_100039598(&v26 + 1);
+        sub_100039598();
       }
 
       v57 = 0u;
@@ -2940,7 +2942,7 @@ uint64_t lifs_read_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int
     v14 = livefs_std_log();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_10003960C(&v26 + 1);
+      sub_10003960C();
     }
 
     v57 = 0u;
@@ -2981,10 +2983,11 @@ uint64_t lifs_read_send(uint64_t a1, uint64_t a2, unsigned int *a3, unsigned int
   return 0;
 }
 
-void sub_100033A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_100033A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a17, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2994,7 +2997,7 @@ void sub_100033A4C(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100039680(a1);
+    sub_100039680();
   }
 
   v5 = *(a1 + 32);
@@ -3125,7 +3128,7 @@ uint64_t lifs_pathconf_send(uint64_t a1, uint64_t a2, unsigned int *a3)
     v10 = livefs_std_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_100039770(&v19 + 1);
+      sub_100039770();
     }
 
     v50 = 0u;
@@ -3177,7 +3180,7 @@ uint64_t lifs_pathconf_send(uint64_t a1, uint64_t a2, unsigned int *a3)
     v13 = livefs_std_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1000396FC(&v19 + 1);
+      sub_1000396FC();
     }
 
     v50 = 0u;
@@ -3238,7 +3241,7 @@ void sub_1000341A0(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_1000397E4(a1);
+    sub_1000397E4();
   }
 
   v5 = *(a1 + 32);
@@ -3435,11 +3438,11 @@ LABEL_11:
 
 void sub_100034718(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = livefs_std_log();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = livefs_std_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    sub_100039860(a1);
+    sub_100039860();
   }
 }
 
@@ -3639,7 +3642,7 @@ void sub_100034C10(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_1000398E0(a1);
+    sub_1000398E0();
   }
 
   v5 = *(a1 + 32);
@@ -3654,8 +3657,9 @@ void sub_100034D04(uint64_t a1, int a2)
   sub_10002A3C0(v2, a2, 2, v3);
 }
 
-uint64_t lifs_getxattr_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, int a6)
+uint64_t lifs_getxattr_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v6 = a6;
   v25 = 0;
   v26 = 0;
   v10 = lifs_to_livefh(a3, &v26 + 1, &v25, &v26, 0);
@@ -3666,7 +3670,7 @@ uint64_t lifs_getxattr_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t
     v16 = livefs_std_log();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_100039A44(&v26 + 1);
+      sub_100039A44();
     }
 
     v17 = v26;
@@ -3718,7 +3722,7 @@ uint64_t lifs_getxattr_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t
     v19 = livefs_std_log();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      sub_1000399D0(&v26 + 1);
+      sub_1000399D0();
     }
 
     v57 = 0u;
@@ -3761,7 +3765,7 @@ LABEL_13:
   }
 
   v14 = v13;
-  if (a6)
+  if (v6)
   {
     v15 = livefs_std_log();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -3826,7 +3830,7 @@ void sub_1000350E8(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100039AB8(a1);
+    sub_100039AB8();
   }
 
   v5 = *(a1 + 32);
@@ -3900,7 +3904,7 @@ void sub_1000351DC(uint64_t a1, int a2, void *a3)
   sub_10002A3C0(v7, v9, v10, v8);
 }
 
-uint64_t lifs_setxattr_small_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, unint64_t a6, int a7, uint64_t a8)
+uint64_t lifs_setxattr_small_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a6 < 0x401)
   {
@@ -3916,8 +3920,9 @@ uint64_t lifs_setxattr_small_send(uint64_t a1, uint64_t a2, unsigned int *a3, ui
   return 0;
 }
 
-void sub_10003544C(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7)
+void sub_10003544C(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
+  v8 = a6;
   v28 = 0;
   v29 = 0;
   v13 = lifs_to_livefh(a2, &v29 + 1, &v28, &v29, 0);
@@ -3928,7 +3933,7 @@ void sub_10003544C(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint
     v19 = livefs_std_log();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      sub_100039C1C(&v29 + 1);
+      sub_100039C1C();
     }
 
     v20 = v29;
@@ -3980,7 +3985,7 @@ void sub_10003544C(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint
     v22 = livefs_std_log();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_100039BA8(&v29 + 1);
+      sub_100039BA8();
     }
 
     v60 = 0u;
@@ -4023,7 +4028,7 @@ LABEL_13:
   }
 
   v17 = v16;
-  if (a6)
+  if (v8)
   {
     v18 = livefs_std_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
@@ -4090,7 +4095,7 @@ LABEL_13:
 LABEL_19:
 }
 
-uint64_t lifs_setxattr_large_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, vm_address_t a5, unsigned int a6, int a7, uint64_t a8)
+uint64_t lifs_setxattr_large_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4, vm_address_t a5, unsigned int a6, uint64_t a7, uint64_t a8)
 {
   LODWORD(v8) = a6;
   if (a6 <= 0x40000)
@@ -4122,7 +4127,7 @@ uint64_t lifs_listxattr_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_
     v11 = livefs_std_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_100039D04(&v20 + 1);
+      sub_100039D04();
     }
 
     v12 = v20;
@@ -4174,7 +4179,7 @@ uint64_t lifs_listxattr_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_
     v14 = livefs_std_log();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_100039C90(&v20 + 1);
+      sub_100039C90();
     }
 
     v51 = 0u;
@@ -4235,7 +4240,7 @@ void sub_100035B88(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100039D78(a1);
+    sub_100039D78();
   }
 
   v5 = *(a1 + 32);
@@ -4384,7 +4389,7 @@ uint64_t lifs_get_volume_port_send(uint64_t a1, uint64_t a2, unsigned int *a3)
     v9 = livefs_std_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100039E68(&v18 + 1);
+      sub_100039E68();
     }
 
     v10 = v18;
@@ -4436,7 +4441,7 @@ uint64_t lifs_get_volume_port_send(uint64_t a1, uint64_t a2, unsigned int *a3)
     v12 = livefs_std_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100039DF4(&v18 + 1);
+      sub_100039DF4();
     }
 
     v49 = 0u;
@@ -4496,7 +4501,7 @@ void sub_1000361B0(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_100039EDC(a1);
+    sub_100039EDC();
   }
 
   v5 = *(a1 + 32);
@@ -4570,7 +4575,7 @@ uint64_t lifs_blockmap_file_send(uint64_t a1, uint64_t a2, unsigned int *a3, uin
     v17 = livefs_std_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_100039FCC(&v27 + 1);
+      sub_100039FCC();
     }
 
     v18 = v27;
@@ -4622,7 +4627,7 @@ uint64_t lifs_blockmap_file_send(uint64_t a1, uint64_t a2, unsigned int *a3, uin
     v20 = livefs_std_log();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_100039F58(&v27 + 1);
+      sub_100039F58();
     }
 
     v58 = 0u;
@@ -4684,7 +4689,7 @@ void sub_1000366A8(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10003A040(a1);
+    sub_10003A040();
   }
 
   v5 = *(a1 + 32);
@@ -4692,8 +4697,9 @@ void sub_1000366A8(uint64_t a1, void *a2)
   sub_10002A3C0(v5, 5, 2, v6);
 }
 
-void sub_10003679C(uint64_t a1, int a2, void *a3, void *a4)
+void sub_10003679C(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
+  v5 = a2;
   v7 = a3;
   v8 = a4;
   v45 = 0u;
@@ -4727,18 +4733,18 @@ void sub_10003679C(uint64_t a1, int a2, void *a3, void *a4)
   v19 = 0u;
   v16 = 0u;
   v17 = 0u;
-  if (a2)
+  if (v5)
   {
     v9 = livefs_std_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_10003A0BC(a1);
+      sub_10003A0BC();
     }
 
     v10 = *(a1 + 40);
     memset(v47, 0, 512);
     v11 = v47;
-    v12 = a2;
+    v12 = v5;
     v13 = 2;
   }
 
@@ -4793,7 +4799,7 @@ uint64_t lifs_endio_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4
     v19 = livefs_std_log();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      sub_10003A1D4(&v30 + 1);
+      sub_10003A1D4();
     }
 
     v20 = v30;
@@ -4845,7 +4851,7 @@ uint64_t lifs_endio_send(uint64_t a1, uint64_t a2, unsigned int *a3, uint64_t a4
     v22 = livefs_std_log();
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      sub_10003A160(&v30 + 1);
+      sub_10003A160();
     }
 
     v61 = 0u;
@@ -4908,7 +4914,7 @@ void sub_100036C8C(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10003A248(a1);
+    sub_10003A248();
   }
 
   v5 = *(a1 + 32);
@@ -4916,8 +4922,9 @@ void sub_100036C8C(uint64_t a1, void *a2)
   sub_10002A3C0(v5, 5, 2, v6);
 }
 
-void sub_100036D80(uint64_t a1, int a2, void *a3)
+void sub_100036D80(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = v5;
   v47 = 0u;
@@ -4952,18 +4959,18 @@ void sub_100036D80(uint64_t a1, int a2, void *a3)
   v20 = 0u;
   v17 = 0u;
   v18 = 0u;
-  if (a2)
+  if (v3)
   {
     v7 = livefs_std_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10003A2C4(a1);
+      sub_10003A2C4();
     }
 
     v8 = *(a1 + 40);
     memset(v49, 0, 512);
     v9 = v49;
-    v10 = a2;
+    v10 = v3;
     v11 = 2;
   }
 
@@ -5004,7 +5011,7 @@ void sub_100036F68(uint64_t a1, void *a2)
   v4 = livefs_std_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10003A370(a1);
+    sub_10003A370();
   }
 
   v5 = *(a1 + 32);
@@ -5019,24 +5026,11 @@ void sub_10003705C(uint64_t a1, int a2)
   sub_10002A3C0(v2, a2, 2, v3);
 }
 
-void sub_100037148(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100037148(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x12u);
-}
-
-unsigned int *sub_100037164@<X0>(unsigned int *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-uint64_t sub_100037170@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 40);
-  return result;
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x12u);
 }
 
 void sub_1000371AC()
@@ -5083,62 +5077,68 @@ void sub_1000374C0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10003753C(unsigned int *a1)
+void sub_10003753C()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000375B0(unsigned int *a1)
+void sub_1000375B0()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037624(uint64_t a1)
+void sub_100037624()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_1000376A0(unsigned int *a1)
+void sub_1000376A0()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037714(unsigned int *a1)
+void sub_100037714()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037788(uint64_t a1)
+void sub_100037788()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 void sub_100037884(void *a1)
 {
   [a1 length];
+  v7 = 136315394;
   sub_100037198();
-  sub_10000FE74(&_mh_execute_header, v1, v2, "%s: Got NSData too small for BOOL: %lu", v3, v4, v5, v6, 2u);
+  sub_10000FE74(&_mh_execute_header, v1, v2, "%s: Got NSData too small for BOOL: %lu", v3, v4, v5, v6, v7);
 }
 
 void sub_100037908(void *a1)
 {
   [a1 length];
+  v7 = 136315394;
   sub_100037198();
-  sub_10000FE74(&_mh_execute_header, v1, v2, "%s: Got NSData too small for number: %lu", v3, v4, v5, v6, 2u);
+  sub_10000FE74(&_mh_execute_header, v1, v2, "%s: Got NSData too small for number: %lu", v3, v4, v5, v6, v7);
 }
 
 void sub_100037A0C(os_log_t log)
@@ -5148,625 +5148,683 @@ void sub_100037A0C(os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s: sync is async", &v1, 0xCu);
 }
 
-void sub_100037A90(unsigned int *a1)
+void sub_100037A90()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037B04(unsigned int *a1)
+void sub_100037B04()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037B78(uint64_t a1)
+void sub_100037B78()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100037BF4(unsigned int *a1)
+void sub_100037BF4()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037C68(unsigned int *a1)
+void sub_100037C68()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037CDC(uint64_t a1)
+void sub_100037CDC()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100037D58(unsigned int *a1)
+void sub_100037D58()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037DCC(unsigned int *a1)
+void sub_100037DCC()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037E40(uint64_t a1)
+void sub_100037E40()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100037EBC(unsigned int *a1)
+void sub_100037EBC()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037F30(unsigned int *a1)
+void sub_100037F30()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100037FA4(uint64_t a1)
+void sub_100037FA4()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100038108(uint64_t a1)
+void sub_100038020()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  v6 = 136315394;
+  sub_100008B68();
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
+}
+
+void sub_100038094()
+{
+  v6 = 136315394;
+  sub_100008B68();
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
+}
+
+void sub_100038108()
+{
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100038184(unsigned int *a1)
+void sub_100038184()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000381F8(unsigned int *a1)
+void sub_1000381F8()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_10003826C(uint64_t a1)
+void sub_10003826C()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_1000382E8(unsigned int *a1)
+void sub_1000382E8()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_10003835C(unsigned int *a1)
+void sub_10003835C()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000383D0(uint64_t a1)
+void sub_1000383D0()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_10003844C(unsigned int *a1)
+void sub_10003844C()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000384C0(unsigned int *a1)
+void sub_1000384C0()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038534(uint64_t a1)
+void sub_100038534()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_1000385B0(unsigned int *a1)
+void sub_1000385B0()
 {
-  sub_100037164(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_100037164(__stack_chk_guard);
   sub_10003717C();
   sub_100037138();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void sub_100038630(unsigned int *a1)
+void sub_100038630()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000386A4(unsigned int *a1)
+void sub_1000386A4()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038718(uint64_t a1)
+void sub_100038718()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100038794(unsigned int *a1)
+void sub_100038794()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038808(unsigned int *a1)
+void sub_100038808()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_10003887C(uint64_t a1)
+void sub_10003887C()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_1000388F8(unsigned int *a1)
+void sub_1000388F8()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_10003896C(unsigned int *a1)
+void sub_10003896C()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000389E0(uint64_t a1)
+void sub_1000389E0()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100038A5C(unsigned int *a1)
+void sub_100038A5C()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038AD0(unsigned int *a1)
+void sub_100038AD0()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038B44(uint64_t a1)
+void sub_100038B44()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100038BC0(unsigned int *a1)
+void sub_100038BC0()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038C34(unsigned int *a1)
+void sub_100038C34()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038CA8(uint64_t a1)
+void sub_100038CA8()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100038DA4(unsigned int *a1)
+void sub_100038DA4()
 {
-  sub_100037164(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_100037164(__stack_chk_guard);
   sub_10003717C();
   sub_100037138();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void sub_100038E24(unsigned int *a1)
+void sub_100038E24()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038E98(unsigned int *a1)
+void sub_100038E98()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038F0C(uint64_t a1)
+void sub_100038F0C()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100038F88(unsigned int *a1)
+void sub_100038F88()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100038FFC(unsigned int *a1)
+void sub_100038FFC()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039070(uint64_t a1)
+void sub_100039070()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_1000390EC(unsigned int *a1)
+void sub_1000390EC()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039160(unsigned int *a1)
+void sub_100039160()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000391D4(uint64_t a1)
+void sub_1000391D4()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100039250(unsigned int *a1)
+void sub_100039250()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000392C4(unsigned int *a1)
+void sub_1000392C4()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039338(uint64_t a1)
+void sub_100039338()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100039434(unsigned int *a1)
+void sub_100039434()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000394A8(unsigned int *a1)
+void sub_1000394A8()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_10003951C(uint64_t a1)
+void sub_10003951C()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100039598(unsigned int *a1)
+void sub_100039598()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_10003960C(unsigned int *a1)
+void sub_10003960C()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039680(uint64_t a1)
+void sub_100039680()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_1000396FC(unsigned int *a1)
+void sub_1000396FC()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039770(unsigned int *a1)
+void sub_100039770()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_1000397E4(uint64_t a1)
+void sub_1000397E4()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100039860(uint64_t a1)
+void sub_100039860()
 {
-  v1 = *(a1 + 32);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_1000398E0(uint64_t a1)
+void sub_1000398E0()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_1000399D0(unsigned int *a1)
+void sub_10003995C()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  v6 = 136315394;
+  sub_100008B68();
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: requested position %u", v2, v3, v4, v5, v6);
+}
+
+void sub_1000399D0()
+{
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039A44(unsigned int *a1)
+void sub_100039A44()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039AB8(uint64_t a1)
+void sub_100039AB8()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100039BA8(unsigned int *a1)
+void sub_100039B34()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  v6 = 136315394;
+  sub_100008B68();
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: requested position %u", v2, v3, v4, v5, v6);
+}
+
+void sub_100039BA8()
+{
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039C1C(unsigned int *a1)
+void sub_100039C1C()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039C90(unsigned int *a1)
+void sub_100039C90()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039D04(unsigned int *a1)
+void sub_100039D04()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039D78(uint64_t a1)
+void sub_100039D78()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100039DF4(unsigned int *a1)
+void sub_100039DF4()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039E68(unsigned int *a1)
+void sub_100039E68()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039EDC(uint64_t a1)
+void sub_100039EDC()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_100039F58(unsigned int *a1)
+void sub_100039F58()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_100039FCC(unsigned int *a1)
+void sub_100039FCC()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_10003A040(uint64_t a1)
+void sub_10003A040()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_10003A0BC(uint64_t a1)
+void sub_10003A160()
 {
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 32);
-  sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-}
-
-void sub_10003A160(unsigned int *a1)
-{
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to get fsobj for idx %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to get fsobj for idx %u", v2, v3, v4, v5, v6);
 }
 
-void sub_10003A1D4(unsigned int *a1)
+void sub_10003A1D4()
 {
-  sub_100037164(a1, __stack_chk_guard);
+  sub_100037164(__stack_chk_guard);
+  v6 = 136315394;
   sub_100037124();
-  sub_100037148(&_mh_execute_header, v1, v2, "%s: Unable to find entry for index %u", v3, v4, v5, v6, 2u);
+  sub_100037148(&_mh_execute_header, v0, v1, "%s: Unable to find entry for index %u", v2, v3, v4, v5, v6);
 }
 
-void sub_10003A248(uint64_t a1)
+void sub_10003A248()
 {
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_10003A2C4(uint64_t a1)
+void sub_10003A370()
 {
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 52);
-  v8 = *(a1 + 32);
-  sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-}
-
-void sub_10003A370(uint64_t a1)
-{
-  sub_100037170(a1, __stack_chk_guard);
+  sub_100037170(__stack_chk_guard);
   sub_100037104();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void sub_10003A7C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003A7C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5789,16 +5847,16 @@ void sub_10003A800(uint64_t a1, void *a2, void *a3)
   *(v6 + 40) = v5;
 }
 
-void sub_10003AA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003AA70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5814,11 +5872,11 @@ void sub_10003AA9C(uint64_t a1, void *a2, void *a3)
   *(v6 + 40) = v5;
 }
 
-void sub_10003B1B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10003B1B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5832,11 +5890,12 @@ void sub_10003B1DC(uint64_t a1, void *a2, void *a3)
   *(v6 + 40) = v5;
 }
 
-void sub_10003C124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
+void sub_10003C124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
 {
-  _Block_object_dispose((v39 - 160), 8);
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 256), 8);
+  va_start(va, a38);
+  _Block_object_dispose((v38 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v38 - 256), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5878,12 +5937,13 @@ void sub_10003C2AC(uint64_t a1, void *a2, void *a3)
   *(v9 + 40) = v6;
 }
 
-void sub_10003CDB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_10003CDB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 176), 8);
-  _Block_object_dispose((v32 - 256), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 176), 8);
+  _Block_object_dispose((v31 - 256), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6043,11 +6103,12 @@ void sub_10003D170(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10003D31C(uint64_t a1, int a2, void *a3)
+void sub_10003D31C(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = v5;
-  if (!a2 && v5 && [v5 bytes])
+  if (!v3 && v5 && [v5 bytes])
   {
     v7 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [v6 bytes]);
     v8 = *(*(a1 + 32) + 8);
@@ -6075,11 +6136,12 @@ void sub_10003D31C(uint64_t a1, int a2, void *a3)
   *(v13 + 40) = v10;
 }
 
-void sub_10003D41C(uint64_t a1, int a2, void *a3)
+void sub_10003D41C(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   v6 = v5;
-  if (!a2 && v5 && [v5 bytes])
+  if (!v3 && v5 && [v5 bytes])
   {
     v7 = +[NSString stringWithUTF8String:](NSString, "stringWithUTF8String:", [v6 bytes]);
     v8 = *(a1 + 32);
@@ -6189,9 +6251,9 @@ LABEL_9:
   return result;
 }
 
-void sub_10003F68C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10003F68C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6203,30 +6265,27 @@ void sub_10003F6C8(uint64_t a1, void *a2)
   v5 = fskit_std_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    sub_100042704(a1);
+    sub_100042704();
   }
 }
 
-void sub_10003FD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003FD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_10003FDB4(void *a1)
 {
-  v2 = [*(a1[4] + 208) objectForKey:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 208) objectForKey:a1[5]];
 
   return _objc_release_x1();
 }
 
-void sub_10003FF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003FF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6253,9 +6312,9 @@ void sub_10003FF2C(void *a1)
   while (!v6);
 }
 
-void sub_100040118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100040118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6293,14 +6352,14 @@ void sub_100040130(void *a1)
   }
 }
 
-void sub_1000404EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000404EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6413,9 +6472,9 @@ LABEL_13:
 LABEL_14:
 }
 
-void sub_100040B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100040B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6548,9 +6607,9 @@ void sub_100040F8C(uint64_t a1)
   _Block_object_dispose(&v6, 8);
 }
 
-void sub_1000410E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000410E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6579,28 +6638,27 @@ void sub_10004120C(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "Got to end of %s, returning conn %@ error %@", &v4, 0x20u);
 }
 
-void sub_1000412AC(uint64_t a1)
+void sub_1000412AC()
 {
-  sub_100025444(a1, __stack_chk_guard);
+  sub_100025444(__stack_chk_guard);
   sub_1000254E4();
   sub_1000037E8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10004131C(uint64_t a1)
+void sub_10004131C()
 {
-  sub_100025444(a1, __stack_chk_guard);
+  sub_100025444(__stack_chk_guard);
   sub_1000254E4();
   sub_1000037E8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_10004138C(uint64_t a1)
+void sub_10004138C()
 {
-  v1 = *(a1 + 45);
   sub_10000380C();
   sub_10000381C();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100041410()
@@ -6617,13 +6675,13 @@ void sub_100041494()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100041550(uint64_t a1)
+void sub_100041550()
 {
-  sub_100025444(a1, __stack_chk_guard);
+  sub_100025444(__stack_chk_guard);
   sub_1000254E4();
   sub_10004118C();
   sub_100037138();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_1000415C8()
@@ -6638,13 +6696,6 @@ void sub_100041684()
   sub_10004117C();
   sub_10000381C();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-}
-
-void sub_10004170C(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_10000381C();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
 void sub_1000417A8()
@@ -6710,21 +6761,19 @@ void sub_100041B24(uint8_t *buf, _BYTE *a2, os_log_t log)
   _os_log_fault_impl(&_mh_execute_header, log, OS_LOG_TYPE_FAULT, "mountEntry connect woke while we are still waiting for an answer", buf, 2u);
 }
 
-void sub_100041BE4(uint64_t a1, uint64_t a2)
+void sub_100041BE4()
 {
-  v2 = *(a2 + 48);
   sub_100003800();
   sub_10000380C();
   sub_100037138();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100041C5C(uint64_t *a1)
+void sub_100041C5C()
 {
-  v1 = *a1;
   sub_1000254E4();
   sub_100037138();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100041CDC()
@@ -6803,7 +6852,7 @@ void sub_1000420E0(int a1)
 
 void sub_100042170()
 {
-  v5 = *__error();
+  __error();
   sub_10004116C();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
@@ -6815,12 +6864,11 @@ void sub_10004221C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100042298(uint64_t *a1)
+void sub_100042298()
 {
-  v1 = *a1;
   sub_100025430();
   sub_10000381C();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100042318(void *a1, uint8_t *buf, os_log_t log)
@@ -6835,10 +6883,10 @@ void sub_100042318(void *a1, uint8_t *buf, os_log_t log)
 void sub_100042384(void *a1)
 {
   [a1 fileSystemRepresentation];
-  v1 = *__error();
+  __error();
   sub_10000380C();
   sub_10004116C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void sub_10004241C()
@@ -6863,44 +6911,41 @@ void sub_100042518()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100042588(uint64_t a1)
+void sub_100042588()
 {
-  v1 = *(a1 + 64);
   sub_100025430();
   sub_1000037E8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100042608(uint64_t a1)
+void sub_100042608()
 {
-  sub_100025444(a1, __stack_chk_guard);
+  sub_100025444(__stack_chk_guard);
   sub_100025430();
   sub_1000037E8();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100042684(uint64_t a1)
+void sub_100042684()
 {
-  v1 = *(a1 + 64);
   sub_100025430();
   sub_1000037E8();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100042704(uint64_t a1)
+void sub_100042704()
 {
-  v1 = *(*(a1 + 32) + 64);
   sub_100025430();
   sub_100037138();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 void sub_100042790()
 {
-  v0 = *__error();
+  __error();
   sub_10000380C();
   sub_10004116C();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100042820()
@@ -7141,11 +7186,9 @@ _DWORD *sub_100042C1C(_DWORD *result, uint64_t a2)
   result = memchr(result + 12, 0, v13 - 48);
   if (result && ((v14 = v8 - 1024, v15 = v8 + 56, v3 + v4 - v15 >= 1024) ? (v16 = 1024) : (v16 = v3 + v4 - v15), (result = memchr(v15, 0, v16)) != 0))
   {
-    v17 = v3 + ((v4 + 3) & 0x1FFC);
-    if (!*v17 && *(v17 + 1) > 0x1Fu)
+    v17 = (v3 + ((v4 + 3) & 0x1FFC));
+    if (!*v17 && v17[1] > 0x1Fu)
     {
-      v19 = *(v17 + 20);
-      v20 = *(v17 + 36);
       result = lifs_mount_send(v3[3], *(v3 + 4), (v3 + 12), v15, *&v14[v10 + 1080], *&v14[v10 + 1084], &v14[v10 + 1088]);
       *(a2 + 32) = result;
       return result;
@@ -7176,8 +7219,6 @@ uint64_t sub_100042D94(uint64_t result, uint64_t a2)
   {
     if (!*(result + 108) && *(result + 112) > 0x1Fu)
     {
-      v4 = *(result + 128);
-      v5 = *(result + 144);
       result = lifs_unmount_send(*(result + 12), *(result + 32), *(result + 40), (result + 44));
       *(a2 + 32) = result;
       return result;
@@ -7202,8 +7243,6 @@ uint64_t sub_100042E38(uint64_t result, uint64_t a2)
   {
     if (!*(result + 108) && *(result + 112) > 0x1Fu)
     {
-      v4 = *(result + 128);
-      v5 = *(result + 144);
       result = lifs_unmount2_send(*(result + 12), *(result + 32), *(result + 40), (result + 44));
       *(a2 + 32) = result;
       return result;
@@ -7228,8 +7267,6 @@ uint64_t sub_100042EDC(uint64_t result, uint64_t a2)
   {
     if (!*(result + 104) && *(result + 108) > 0x1Fu)
     {
-      v4 = *(result + 124);
-      v5 = *(result + 140);
       result = lifs_statfs_send(*(result + 12), *(result + 32), (result + 40));
       *(a2 + 32) = result;
       return result;
@@ -7245,29 +7282,11 @@ uint64_t sub_100042EDC(uint64_t result, uint64_t a2)
 
 _DWORD *sub_100042F7C(_DWORD *result, uint64_t a2)
 {
-  if ((*result & 0x80000000) != 0)
+  if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], v4 - 149 >= 0xFFFFFFDB) && ((v5 = result[27], v5 <= 0x21) ? (v6 = v4 - 112 >= v5) : (v6 = 0), (v7 = ((v5 + 3) & 0x7C) + 112, v6) ? (v8 = v4 == v7) : (v8 = 0), v8 && (v4 >= 0x91 ? (v10 = 145) : (v10 = v4), (result = memchr(result + 28, 0, v10 - 112)) != 0)))
   {
-    goto LABEL_10;
-  }
-
-  v3 = result;
-  v4 = result[1];
-  if (v4 - 149 < 0xFFFFFFDB)
-  {
-    goto LABEL_10;
-  }
-
-  v5 = result[27];
-  v6 = v5 <= 0x21 && v4 - 112 >= v5;
-  v7 = ((v5 + 3) & 0x7C) + 112;
-  v8 = v6 && v4 == v7;
-  if (v8 && (v4 >= 0x91 ? (v10 = 145) : (v10 = v4), (result = memchr(result + 28, 0, v10 - 112)) != 0))
-  {
-    v11 = v3 + ((v4 + 3) & 0x1FC);
-    if (!*v11 && *(v11 + 1) > 0x1Fu)
+    v11 = (v3 + ((v4 + 3) & 0x1FC));
+    if (!*v11 && v11[1] > 0x1Fu)
     {
-      v12 = *(v11 + 20);
-      v13 = *(v11 + 36);
       result = lifs_getfsattr_send(v3[3], *(v3 + 4), v3 + 10, (v3 + 28));
       *(a2 + 32) = result;
       return result;
@@ -7278,7 +7297,6 @@ _DWORD *sub_100042F7C(_DWORD *result, uint64_t a2)
 
   else
   {
-LABEL_10:
     v9 = -304;
   }
 
@@ -7291,11 +7309,9 @@ _DWORD *sub_100043078(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], (v4 - 409) >= 0xFFFFFFDB) && (v5 = result[27], v5 <= 0x21) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 372 >= v5) ? (v7 = v4 == v6 + 372) : (v7 = 0), v7 && (result = memchr(result + 28, 0, 0x21uLL)) != 0))
   {
-    v8 = v3 + ((v4 + 3) & 0x3FC);
-    if (!*v8 && *(v8 + 1) > 0x1Fu)
+    v8 = (v3 + ((v4 + 3) & 0x3FC));
+    if (!*v8 && v8[1] > 0x1Fu)
     {
-      v10 = *(v8 + 20);
-      v11 = *(v8 + 36);
       result = lifs_setfsattr_send(v3[3], *(v3 + 4), v3 + 10, v3 + 112, v3 + v6 + 112, *(v3 + v6 + 368));
       *(a2 + 32) = result;
       return result;
@@ -7331,8 +7347,6 @@ LABEL_7:
     return result;
   }
 
-  v4 = *(result + 128);
-  v5 = *(result + 144);
   result = lifs_sync_send(*(result + 12), *(result + 32), result + 40, *(result + 104), (a2 + 36));
   *(a2 + 32) = result;
   *(a2 + 24) = NDR_record;
@@ -7348,11 +7362,9 @@ _DWORD *sub_100043240(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], v4 - 1321 >= 0xFFFFFBFF) && (v5 = result[11], v5 <= 0x400) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 296 >= v5) ? (v7 = v4 == v6 + 296) : (v7 = 0), v7 && (v4 >= 0x430 ? (v8 = 1072) : (v8 = v4), (result = memchr(result + 12, 0, v8 - 48)) != 0)))
   {
-    v9 = v3 + ((v4 + 3) & 0xFFC);
-    if (!*v9 && *(v9 + 1) > 0x1Fu)
+    v9 = (v3 + ((v4 + 3) & 0xFFC));
+    if (!*v9 && v9[1] > 0x1Fu)
     {
-      v11 = *(v9 + 20);
-      v12 = *(v9 + 36);
       result = lifs_create_send(v3[3], *(v3 + 4), (v3 + 12), (v3 + v6 + 48), v3 + v6 + 112);
       *(a2 + 32) = result;
       return result;
@@ -7375,11 +7387,9 @@ _DWORD *sub_10004334C(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], v4 - 1389 >= 0xFFFFFBFF) && (v5 = result[11], v5 <= 0x400) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 364 >= v5) ? (v7 = v4 == v6 + 364) : (v7 = 0), v7 && (v4 >= 0x430 ? (v8 = 1072) : (v8 = v4), (result = memchr(result + 12, 0, v8 - 48)) != 0)))
   {
-    v9 = v3 + ((v4 + 3) & 0xFFC);
-    if (!*v9 && *(v9 + 1) > 0x1Fu)
+    v9 = (v3 + ((v4 + 3) & 0xFFC));
+    if (!*v9 && v9[1] > 0x1Fu)
     {
-      v11 = *(v9 + 20);
-      v12 = *(v9 + 36);
       result = lifs_clonefile_send(v3[3], *(v3 + 4), (v3 + 12), (v3 + v6 + 48), (v3 + v6 + 112), *(v3 + v6 + 176), v3 + v6 + 180);
       *(a2 + 32) = result;
       return result;
@@ -7402,11 +7412,9 @@ _DWORD *sub_100043460(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], v4 - 1321 >= 0xFFFFFBFF) && (v5 = result[11], v5 <= 0x400) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 296 >= v5) ? (v7 = v4 == v6 + 296) : (v7 = 0), v7 && (v4 >= 0x430 ? (v8 = 1072) : (v8 = v4), (result = memchr(result + 12, 0, v8 - 48)) != 0)))
   {
-    v9 = v3 + ((v4 + 3) & 0xFFC);
-    if (!*v9 && *(v9 + 1) > 0x1Fu)
+    v9 = (v3 + ((v4 + 3) & 0xFFC));
+    if (!*v9 && v9[1] > 0x1Fu)
     {
-      v11 = *(v9 + 20);
-      v12 = *(v9 + 36);
       result = lifs_mkdir_send(v3[3], *(v3 + 4), (v3 + 12), (v3 + v6 + 48), v3 + v6 + 112);
       *(a2 + 32) = result;
       return result;
@@ -7429,11 +7437,9 @@ _DWORD *sub_10004356C(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], v4 - 1141 >= 0xFFFFFBFF) && (v5 = result[11], v5 <= 0x400) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 116 >= v5) ? (v7 = v4 == v6 + 116) : (v7 = 0), v7 && (v4 >= 0x430 ? (v8 = 1072) : (v8 = v4), (result = memchr(result + 12, 0, v8 - 48)) != 0)))
   {
-    v9 = v3 + ((v4 + 3) & 0xFFC);
-    if (!*v9 && *(v9 + 1) > 0x1Fu)
+    v9 = (v3 + ((v4 + 3) & 0xFFC));
+    if (!*v9 && v9[1] > 0x1Fu)
     {
-      v11 = *(v9 + 20);
-      v12 = *(v9 + 36);
       result = lifs_lookup_send(v3[3], *(v3 + 4), (v3 + 12), (v3 + v6 + 48), *(v3 + v6 + 112));
       *(a2 + 32) = result;
       return result;
@@ -7456,11 +7462,9 @@ _DWORD *sub_100043678(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], (v4 - 153) >= 0xFFFFFFDB) && (v5 = result[11], v5 <= 0x21) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 116 >= v5) ? (v7 = v4 == v6 + 116) : (v7 = 0), v7 && (result = memchr(result + 12, 0, 0x21uLL)) != 0))
   {
-    v8 = v3 + ((v4 + 3) & 0x1FC);
-    if (!*v8 && *(v8 + 1) > 0x1Fu)
+    v8 = (v3 + ((v4 + 3) & 0x1FC));
+    if (!*v8 && v8[1] > 0x1Fu)
     {
-      v10 = *(v8 + 20);
-      v11 = *(v8 + 36);
       result = lifs_lookupsmall_send(v3[3], *(v3 + 4), (v3 + 12), (v3 + v6 + 48), *(v3 + v6 + 112));
       *(a2 + 32) = result;
       return result;
@@ -7483,11 +7487,9 @@ _DWORD *sub_100043778(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], (v4 - 185) >= 0xFFFFFFBB) && (v5 = result[11], v5 <= 0x41) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 116 >= v5) ? (v7 = v4 == v6 + 116) : (v7 = 0), v7 && (result = memchr(result + 12, 0, 0x41uLL)) != 0))
   {
-    v8 = v3 + ((v4 + 3) & 0x1FC);
-    if (!*v8 && *(v8 + 1) > 0x1Fu)
+    v8 = (v3 + ((v4 + 3) & 0x1FC));
+    if (!*v8 && v8[1] > 0x1Fu)
     {
-      v10 = *(v8 + 20);
-      v11 = *(v8 + 36);
       result = lifs_lookupmed_send(v3[3], *(v3 + 4), (v3 + 12), (v3 + v6 + 48), *(v3 + v6 + 112));
       *(a2 + 32) = result;
       return result;
@@ -7517,8 +7519,6 @@ uint64_t sub_100043878(uint64_t result, uint64_t a2)
   {
     if (!*(result + 108) && *(result + 112) > 0x1Fu)
     {
-      v4 = *(result + 128);
-      v5 = *(result + 144);
       result = lifs_open_send(*(result + 12), *(result + 32), (result + 40), *(result + 104));
       *(a2 + 32) = result;
       return result;
@@ -7543,8 +7543,6 @@ uint64_t sub_10004391C(uint64_t result, uint64_t a2)
   {
     if (!*(result + 108) && *(result + 112) > 0x1Fu)
     {
-      v4 = *(result + 128);
-      v5 = *(result + 144);
       result = lifs_close_send(*(result + 12), *(result + 32), (result + 40), *(result + 104));
       *(a2 + 32) = result;
       return result;
@@ -7607,11 +7605,9 @@ _DWORD *sub_1000439C0(_DWORD *result, uint64_t a2)
   result = memchr(result + 12, 0, v13 - 48);
   if (result && ((v14 = v8 - 1024, v15 = v8 + 184, v3 + v4 - v15 >= 1024) ? (v16 = 1024) : (v16 = v3 + v4 - v15), (result = memchr(v15, 0, v16)) != 0))
   {
-    v17 = v3 + ((v4 + 3) & 0x1FFC);
-    if (!*v17 && *(v17 + 1) > 0x1Fu)
+    v17 = (v3 + ((v4 + 3) & 0x1FFC));
+    if (!*v17 && v17[1] > 0x1Fu)
     {
-      v19 = *(v17 + 20);
-      v20 = *(v17 + 36);
       result = lifs_rename_send(v3[3], *(v3 + 4), (v3 + 12), v14 + 268, v14 + 284, v15, &v14[v10 + 1208], &v14[v10 + 1272], *&v14[v10 + 1336]);
       *(a2 + 32) = result;
       return result;
@@ -7635,11 +7631,9 @@ _DWORD *sub_100043B48(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], (v4 - 1201) >= 0xFFFFFBFF) && ((v5 = result[43], v5 <= 0x400) ? (v6 = v4 - 176 >= v5) : (v6 = 0), (v7 = ((v5 + 3) & 0xFFC) + 176, v6) ? (v8 = v4 == v7) : (v8 = 0), v8 && (result = memchr(result + 44, 0, v4 - 176)) != 0))
   {
-    v10 = v3 + ((v4 + 3) & 0xFFC);
-    if (!*v10 && *(v10 + 1) > 0x1Fu)
+    v10 = (v3 + ((v4 + 3) & 0xFFC));
+    if (!*v10 && v10[1] > 0x1Fu)
     {
-      v11 = *(v10 + 20);
-      v12 = *(v10 + 36);
       result = lifs_rmdir_send(v3[3], *(v3 + 4), v3 + 10, v3 + 26, (v3 + 44));
       *(a2 + 32) = result;
       return result;
@@ -7669,8 +7663,6 @@ uint64_t sub_100043C3C(uint64_t result, uint64_t a2)
   {
     if (!*(result + 128) && *(result + 132) > 0x1Fu)
     {
-      v4 = *(result + 148);
-      v5 = *(result + 164);
       result = lifs_readdir_send(*(result + 12), *(result + 32), *(result + 40), *(result + 44), (result + 52), *(result + 116), *(result + 120));
       *(a2 + 32) = result;
       return result;
@@ -7733,11 +7725,9 @@ _DWORD *sub_100043CEC(_DWORD *result, uint64_t a2)
   result = memchr(result + 12, 0, v13 - 48);
   if (result && ((v14 = v8 - 1024, v15 = v8 + 56, v3 + v4 - v15 >= 1024) ? (v16 = 1024) : (v16 = v3 + v4 - v15), (result = memchr(v15, 0, v16)) != 0))
   {
-    v17 = v3 + ((v4 + 3) & 0x1FFC);
-    if (!*v17 && *(v17 + 1) > 0x1Fu)
+    v17 = (v3 + ((v4 + 3) & 0x1FFC));
+    if (!*v17 && v17[1] > 0x1Fu)
     {
-      v19 = *(v17 + 20);
-      v20 = *(v17 + 36);
       result = lifs_symlink_send(v3[3], *(v3 + 4), (v3 + 12), v15, &v14[v10 + 1080], &v14[v10 + 1144]);
       *(a2 + 32) = result;
       return result;
@@ -7761,11 +7751,9 @@ _DWORD *sub_100043E60(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], v4 - 1201 >= 0xFFFFFBFF) && (v5 = result[27], v5 <= 0x400) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 176 >= v5) ? (v7 = v4 == v6 + 176) : (v7 = 0), v7 && (v4 >= 0x470 ? (v8 = 1136) : (v8 = v4), (result = memchr(result + 28, 0, v8 - 112)) != 0)))
   {
-    v9 = v3 + ((v4 + 3) & 0xFFC);
-    if (!*v9 && *(v9 + 1) > 0x1Fu)
+    v9 = (v3 + ((v4 + 3) & 0xFFC));
+    if (!*v9 && v9[1] > 0x1Fu)
     {
-      v11 = *(v9 + 20);
-      v12 = *(v9 + 36);
       result = lifs_link_send(v3[3], *(v3 + 4), v3 + 10, (v3 + 28), (v3 + v6 + 112));
       *(a2 + 32) = result;
       return result;
@@ -7795,8 +7783,6 @@ uint64_t sub_100043F6C(uint64_t result, uint64_t a2)
   {
     if (!*(result + 104) && *(result + 108) > 0x1Fu)
     {
-      v4 = *(result + 124);
-      v5 = *(result + 140);
       result = lifs_readlink_send(*(result + 12), *(result + 32), (result + 40));
       *(a2 + 32) = result;
       return result;
@@ -7814,11 +7800,9 @@ _DWORD *sub_10004400C(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], v4 - 1205 >= 0xFFFFFBFF) && (v5 = result[43], v5 <= 0x400) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 180 >= v5) ? (v7 = v4 == v6 + 180) : (v7 = 0), v7 && (v4 >= 0x4B0 ? (v8 = 1200) : (v8 = v4), (result = memchr(result + 44, 0, v8 - 176)) != 0)))
   {
-    v9 = v3 + ((v4 + 3) & 0xFFC);
-    if (!*v9 && *(v9 + 1) > 0x1Fu)
+    v9 = (v3 + ((v4 + 3) & 0xFFC));
+    if (!*v9 && v9[1] > 0x1Fu)
     {
-      v11 = *(v9 + 20);
-      v12 = *(v9 + 36);
       result = lifs_remove_send(v3[3], *(v3 + 4), v3 + 10, v3 + 26, (v3 + 44), *(v3 + v6 + 176));
       *(a2 + 32) = result;
       return result;
@@ -7848,8 +7832,6 @@ uint64_t sub_10004411C(uint64_t result, uint64_t a2)
   {
     if (!*(result + 288) && *(result + 292) > 0x1Fu)
     {
-      v4 = *(result + 308);
-      v5 = *(result + 324);
       result = lifs_setattr_send(*(result + 12), *(result + 32), (result + 40), result + 104);
       *(a2 + 32) = result;
       return result;
@@ -7874,8 +7856,6 @@ uint64_t sub_1000441C0(uint64_t result, uint64_t a2)
   {
     if (!*(result + 104) && *(result + 108) > 0x1Fu)
     {
-      v4 = *(result + 124);
-      v5 = *(result + 140);
       result = lifs_getattr_send(*(result + 12), *(result + 32), (result + 40));
       *(a2 + 32) = result;
       return result;
@@ -7900,8 +7880,6 @@ uint64_t sub_100044260(uint64_t result, uint64_t a2)
   {
     if (!*(result + 132) && *(result + 136) > 0x1Fu)
     {
-      v4 = *(result + 152);
-      v5 = *(result + 168);
       result = lifs_getattrlistbulk_send(*(result + 12), *(result + 32), *(result + 40), (result + 48), *(result + 112), *(result + 116), *(result + 124));
       *(a2 + 32) = result;
       return result;
@@ -7923,8 +7901,6 @@ uint64_t sub_10004430C(uint64_t result, uint64_t a2)
     {
       if (!*(result + 136) && *(result + 140) > 0x1Fu)
       {
-        v5 = *(result + 156);
-        v6 = *(result + 172);
         result = lifs_write_send(*(result + 12), *(result + 52), (result + 60), *(result + 124), *(result + 28), v3);
         *(a2 + 32) = result;
         return result;
@@ -7972,8 +7948,6 @@ LABEL_9:
     return result;
   }
 
-  v4 = *(result + 148);
-  v5 = *(result + 164);
   result = lifs_write_wrapped_send(*(result + 12), (result + 48), *(result + 112), *(result + 120), *(result + 28), a2 + 36, (a2 + 40));
   *(a2 + 32) = result;
   *(a2 + 24) = NDR_record;
@@ -7996,8 +7970,6 @@ uint64_t sub_1000444D0(uint64_t result, uint64_t a2)
   {
     if (!*(result + 116) && *(result + 120) > 0x1Fu)
     {
-      v4 = *(result + 136);
-      v5 = *(result + 152);
       result = lifs_read_send(*(result + 12), *(result + 32), (result + 40), *(result + 104), *(result + 108));
       *(a2 + 32) = result;
       return result;
@@ -8034,8 +8006,6 @@ LABEL_9:
     return result;
   }
 
-  v4 = *(result + 148);
-  v5 = *(result + 164);
   result = lifs_read_wrapped_send(*(result + 12), (result + 48), *(result + 112), *(result + 120), *(result + 28), a2 + 36, (a2 + 40));
   *(a2 + 32) = result;
   *(a2 + 24) = NDR_record;
@@ -8058,8 +8028,6 @@ uint64_t sub_100044664(uint64_t result, uint64_t a2)
   {
     if (!*(result + 104) && *(result + 108) > 0x1Fu)
     {
-      v4 = *(result + 124);
-      v5 = *(result + 140);
       result = lifs_pathconf_send(*(result + 12), *(result + 32), (result + 40));
       *(a2 + 32) = result;
       return result;
@@ -8084,8 +8052,6 @@ uint64_t sub_100044704(uint64_t result, uint64_t a2)
   {
     if (!*(result + 104) && *(result + 108) > 0x1Fu)
     {
-      v4 = *(result + 124);
-      v5 = *(result + 140);
       result = lifs_reclaim_send(*(result + 12), *(result + 32), (result + 40));
       *(a2 + 32) = result;
       return result;
@@ -8110,8 +8076,6 @@ uint64_t sub_1000447A4(uint64_t result, uint64_t a2)
   {
     if (!*(result + 108) && *(result + 112) > 0x1Fu)
     {
-      v4 = *(result + 128);
-      v5 = *(result + 144);
       result = lifs_access_send(*(result + 12), *(result + 32), (result + 40), *(result + 104));
       *(a2 + 32) = result;
       return result;
@@ -8129,11 +8093,9 @@ _DWORD *sub_100044848(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], v4 - 253 >= 0xFFFFFF7F) && (v5 = result[27], v5 <= 0x80) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 124 >= v5) ? (v7 = v4 == v6 + 124) : (v7 = 0), v7 && (v4 >= 0xF0 ? (v8 = 240) : (v8 = v4), (result = memchr(result + 28, 0, v8 - 112)) != 0)))
   {
-    v9 = v3 + ((v4 + 3) & 0x1FC);
-    if (!*v9 && *(v9 + 1) > 0x1Fu)
+    v9 = (v3 + ((v4 + 3) & 0x1FC));
+    if (!*v9 && v9[1] > 0x1Fu)
     {
-      v11 = *(v9 + 20);
-      v12 = *(v9 + 36);
       result = lifs_getxattr_send(v3[3], *(v3 + 4), v3 + 10, (v3 + 28), *(v3 + v6 + 112), *(v3 + v6 + 120));
       *(a2 + 32) = result;
       return result;
@@ -8163,8 +8125,6 @@ uint64_t sub_100044958(uint64_t result, uint64_t a2)
   {
     if (!*(result + 112) && *(result + 116) > 0x1Fu)
     {
-      v4 = *(result + 132);
-      v5 = *(result + 148);
       result = lifs_listxattr_send(*(result + 12), *(result + 32), (result + 40), *(result + 104));
       *(a2 + 32) = result;
       return result;
@@ -8182,11 +8142,9 @@ _DWORD *sub_1000449FC(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], (v4 - 241) >= 0xFFFFFF7F) && ((v5 = result[27], v5 <= 0x80) ? (v6 = v4 - 112 >= v5) : (v6 = 0), (v7 = ((v5 + 3) & 0x1FC) + 112, v6) ? (v8 = v4 == v7) : (v8 = 0), v8 && (result = memchr(result + 28, 0, v4 - 112)) != 0))
   {
-    v10 = v3 + ((v4 + 3) & 0x1FC);
-    if (!*v10 && *(v10 + 1) > 0x1Fu)
+    v10 = (v3 + ((v4 + 3) & 0x1FC));
+    if (!*v10 && v10[1] > 0x1Fu)
     {
-      v11 = *(v10 + 20);
-      v12 = *(v10 + 36);
       result = lifs_removexattr_send(v3[3], *(v3 + 4), v3 + 10, (v3 + 28));
       *(a2 + 32) = result;
       return result;
@@ -8209,11 +8167,9 @@ _DWORD *sub_100044AEC(_DWORD *result, uint64_t a2)
 {
   if ((*result & 0x80000000) == 0 && (v3 = result, v4 = result[1], (v4 - 1281) >= 0xFFFFFF7F) && (v5 = result[27], v5 <= 0x80) && ((v6 = (v5 + 3) & 0xFFFFFFFC, v4 - 1152 >= v5) ? (v7 = v4 == v6 + 1152) : (v7 = 0), v7 && (result = memchr(result + 28, 0, 0x80uLL)) != 0))
   {
-    v8 = v3 + ((v4 + 3) & 0x7FC);
-    if (!*v8 && *(v8 + 1) > 0x1Fu)
+    v8 = (v3 + ((v4 + 3) & 0x7FC));
+    if (!*v8 && v8[1] > 0x1Fu)
     {
-      v10 = *(v8 + 20);
-      v11 = *(v8 + 36);
       result = lifs_setxattr_small_send(v3[3], *(v3 + 4), v3 + 10, (v3 + 28), v3 + v6 + 112, *(v3 + v6 + 1136), *(v3 + v6 + 1144), *(v3 + v6 + 1148));
       *(a2 + 32) = result;
       return result;
@@ -8302,11 +8258,9 @@ LABEL_19:
     goto LABEL_2;
   }
 
-  v11 = ((v5 + 3) & 0x3FC) + v4;
-  if (!*v11 && *(v11 + 4) > 0x1Fu)
+  v11 = (((v5 + 3) & 0x3FC) + v4);
+  if (!*v11 && v11[1] > 0x1Fu)
   {
-    v12 = *(v11 + 20);
-    v13 = *(v11 + 36);
     result = lifs_setxattr_large_send(*(v4 + 12), *(v4 + 52), (v4 + 60), v4 + 132, *(v4 + 28), v9, v8[34], v8[35]);
     *(a2 + 32) = result;
     return result;
@@ -8330,8 +8284,6 @@ uint64_t sub_100044D5C(uint64_t result, uint64_t a2)
   {
     if (!*(result + 104) && *(result + 108) > 0x1Fu)
     {
-      v4 = *(result + 124);
-      v5 = *(result + 140);
       result = lifs_get_volume_port_send(*(result + 12), *(result + 32), (result + 40));
       *(a2 + 32) = result;
       return result;
@@ -8356,8 +8308,6 @@ uint64_t sub_100044DFC(uint64_t result, uint64_t a2)
   {
     if (!*(result + 128) && *(result + 132) > 0x1Fu)
     {
-      v4 = *(result + 148);
-      v5 = *(result + 164);
       result = lifs_blockmap_file_send(*(result + 12), *(result + 32), (result + 40), *(result + 104), *(result + 112), *(result + 116), *(result + 120));
       *(a2 + 32) = result;
       return result;
@@ -8382,8 +8332,6 @@ uint64_t sub_100044EA8(uint64_t result, uint64_t a2)
   {
     if (!*(result + 136) && *(result + 140) > 0x1Fu)
     {
-      v4 = *(result + 156);
-      v5 = *(result + 172);
       result = lifs_endio_send(*(result + 12), *(result + 32), (result + 40), *(result + 104), *(result + 112), *(result + 120), *(result + 124), *(result + 128));
       *(a2 + 32) = result;
       return result;
@@ -8485,18 +8433,18 @@ void sub_100045514()
 
 void sub_100045720()
 {
-  v0 = *__error();
+  __error();
   sub_10000380C();
   sub_100003828();
-  _os_log_error_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x12u);
+  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x12u);
 }
 
 void sub_1000457F4()
 {
-  v0 = *__error();
+  __error();
   sub_10000380C();
   sub_100003828();
-  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0x12u);
+  _os_log_fault_impl(v0, v1, OS_LOG_TYPE_FAULT, v2, v3, 0x12u);
 }
 
 void sub_100045888()

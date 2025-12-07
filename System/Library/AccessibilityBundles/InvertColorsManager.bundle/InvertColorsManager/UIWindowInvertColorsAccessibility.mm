@@ -1,8 +1,17 @@
 @interface UIWindowInvertColorsAccessibility
 - (BOOL)_accessibilityInvertColorsSupportsDarkWindowInvert;
+- (void)_commonInitAttachedWindow:(BOOL)window debugName:(id)name scene:(id)scene;
 @end
 
 @implementation UIWindowInvertColorsAccessibility
+
+- (void)_commonInitAttachedWindow:(BOOL)window debugName:(id)name scene:(id)scene
+{
+  v6.receiver = self;
+  v6.super_class = UIWindowInvertColorsAccessibility;
+  [(UIWindowInvertColorsAccessibility *)&v6 _commonInitAttachedWindow:window debugName:name scene:scene];
+  [(UIWindowInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
+}
 
 - (BOOL)_accessibilityInvertColorsSupportsDarkWindowInvert
 {

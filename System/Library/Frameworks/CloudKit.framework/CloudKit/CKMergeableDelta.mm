@@ -222,34 +222,7 @@
       v11 = objc_msgSend_valueID(v5, v9, v10);
       isEqual = objc_msgSend_isEqual_(v8, v12, v11);
 
-      if (!isEqual)
-      {
-        goto LABEL_10;
-      }
-
-      v16 = objc_msgSend_metadata(self, v14, v15);
-      v19 = objc_msgSend_metadata(v5, v17, v18);
-      v20 = CKObjectsAreBothNilOrEqual(v16, v19);
-
-      if (!v20)
-      {
-        goto LABEL_10;
-      }
-
-      v23 = objc_msgSend__data(self, v21, v22);
-      v26 = objc_msgSend__data(v5, v24, v25);
-      v27 = CKObjectsAreBothNilOrEqual(v23, v26);
-
-      if (!v27)
-      {
-        goto LABEL_10;
-      }
-
-      v30 = objc_msgSend_asset(self, v28, v29);
-      v33 = objc_msgSend_asset(v5, v31, v32);
-      v34 = CKObjectsAreBothNilOrEqual(v30, v33);
-
-      if (v34)
+      if (isEqual && (objc_msgSend_metadata(self, v14, v15), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend_metadata(v5, v17, v18), v19 = objc_claimAutoreleasedReturnValue(), v20 = CKObjectsAreBothNilOrEqual(v16, v19), v19, v16, v20) && (objc_msgSend__data(self, v21, v22), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend__data(v5, v24, v25), v26 = objc_claimAutoreleasedReturnValue(), v27 = CKObjectsAreBothNilOrEqual(v23, v26), v26, v23, v27) && (objc_msgSend_asset(self, v28, v29), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend_asset(v5, v31, v32), v33 = objc_claimAutoreleasedReturnValue(), v34 = CKObjectsAreBothNilOrEqual(v30, v33), v33, v30, v34))
       {
         v37 = objc_msgSend_fileURL(self, v35, v36);
         v40 = objc_msgSend_fileURL(v5, v38, v39);
@@ -258,7 +231,6 @@
 
       else
       {
-LABEL_10:
         v41 = 0;
       }
     }
@@ -474,7 +446,7 @@ LABEL_10:
 
 - (id)dataWithError:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_fileURL(self, a2, error);
   v8 = objc_msgSend_asset(self, v6, v7);
   v11 = objc_msgSend__data(self, v9, v10);
@@ -498,39 +470,39 @@ LABEL_10:
       _os_log_debug_impl(&dword_1883EA000, v16, OS_LOG_TYPE_DEBUG, "Loading data from file for delta %@", buf, 0xCu);
     }
 
-    v32 = 0;
-    v14 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x1E695DEF0], v17, v5, 0, &v32);
-    v18 = v32;
+    v31 = 0;
+    v14 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x1E695DEF0], v17, v5, 0, &v31);
+    v18 = v31;
     goto LABEL_9;
   }
 
   if (v8)
   {
-    v22 = objc_msgSend_fileURL(v8, v12, v13);
+    v21 = objc_msgSend_fileURL(v8, v12, v13);
 
-    if (v22)
+    if (v21)
     {
-      v25 = MEMORY[0x1E695DEF0];
-      v26 = objc_msgSend_fileURL(v8, v23, v24);
-      v31 = 0;
-      v14 = objc_msgSend_dataWithContentsOfURL_options_error_(v25, v27, v26, 0, &v31);
-      v15 = v31;
+      v24 = MEMORY[0x1E695DEF0];
+      v25 = objc_msgSend_fileURL(v8, v22, v23);
+      v30 = 0;
+      v14 = objc_msgSend_dataWithContentsOfURL_options_error_(v24, v26, v25, 0, &v30);
+      v15 = v30;
 
       goto LABEL_10;
     }
 
-    v14 = objc_msgSend_assetContent(v8, v23, v24);
+    v14 = objc_msgSend_assetContent(v8, v22, v23);
 
     if (v14)
     {
-      v11 = objc_msgSend_assetContent(v8, v29, v30);
+      v11 = objc_msgSend_assetContent(v8, v28, v29);
 LABEL_2:
       v14 = v11;
       v15 = 0;
       goto LABEL_10;
     }
 
-    objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v29, @"CKErrorDomain", 12, @"Cannot load data from a delta asset with no content: %@", self);
+    objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v28, @"CKErrorDomain", 12, @"Cannot load data from a delta asset with no content: %@", self);
     v18 = LABEL_24:;
 LABEL_9:
     v15 = v18;
@@ -541,11 +513,11 @@ LABEL_9:
 
   if (!v14)
   {
-    objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v28, @"CKErrorDomain", 1, @"Unknown error getting data from %@", self);
+    objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v27, @"CKErrorDomain", 1, @"Unknown error getting data from %@", self);
     goto LABEL_24;
   }
 
-  v15 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v28, @"CKErrorDomain", 12, @"Cannot get unencrypted data from an encrypted delta: %@", self);
+  v15 = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v27, @"CKErrorDomain", 12, @"Cannot get unencrypted data from an encrypted delta: %@", self);
   v14 = 0;
 LABEL_10:
   if (error)
@@ -554,14 +526,12 @@ LABEL_10:
     *error = v15;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (BOOL)contentSize:(unint64_t *)size error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v7 = objc_msgSend__data(self, a2, size);
   v10 = objc_msgSend_fileURL(self, v8, v9);
   v13 = objc_msgSend_asset(self, v11, v12);
@@ -589,12 +559,12 @@ LABEL_10:
       dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
     }
 
-    v33 = ck_log_facility_distributed_sync;
+    v32 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
       selfCopy2 = self;
-      _os_log_fault_impl(&dword_1883EA000, v33, OS_LOG_TYPE_FAULT, "BUG IN CLOUDKIT: Unable to get content size for delta with no contents %@", buf, 0xCu);
+      _os_log_fault_impl(&dword_1883EA000, v32, OS_LOG_TYPE_FAULT, "BUG IN CLOUDKIT: Unable to get content size for delta with no contents %@", buf, 0xCu);
     }
 
     v17 = 0;
@@ -609,15 +579,15 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  v36 = 0;
-  v29 = *MEMORY[0x1E695DB50];
   v35 = 0;
-  ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v10, v19, &v36, v29, &v35);
-  v30 = v36;
-  v24 = v35;
+  v28 = *MEMORY[0x1E695DB50];
+  v34 = 0;
+  ResourceValue_forKey_error = objc_msgSend_getResourceValue_forKey_error_(v10, v19, &v35, v28, &v34);
+  v29 = v35;
+  v24 = v34;
   if (ResourceValue_forKey_error)
   {
-    v17 = objc_msgSend_integerValue(v30, v31, v32);
+    v17 = objc_msgSend_integerValue(v29, v30, v31);
   }
 
   else
@@ -627,14 +597,14 @@ LABEL_5:
       dispatch_once(&ck_log_initialization_predicate, ck_log_initialization_block);
     }
 
-    v34 = ck_log_facility_distributed_sync;
+    v33 = ck_log_facility_distributed_sync;
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v39 = 2112;
-      v40 = v24;
-      _os_log_error_impl(&dword_1883EA000, v34, OS_LOG_TYPE_ERROR, "Unable to get content size for file-backed delta %@: %@", buf, 0x16u);
+      v38 = 2112;
+      v39 = v24;
+      _os_log_error_impl(&dword_1883EA000, v33, OS_LOG_TYPE_ERROR, "Unable to get content size for file-backed delta %@: %@", buf, 0x16u);
     }
 
     v17 = 0;
@@ -653,13 +623,12 @@ LABEL_7:
     *size = v17;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return ResourceValue_forKey_error;
 }
 
 - (BOOL)protobufSize:(unint64_t *)size error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v7 = objc_msgSend_asset(self, a2, size);
 
   if (v7)
@@ -671,13 +640,13 @@ LABEL_7:
 
   else
   {
+    v31 = 0;
     v32 = 0;
-    v33 = 0;
-    v12 = objc_msgSend_contentSize_error_(self, v8, &v33, &v32);
-    v11 = v32;
+    v12 = objc_msgSend_contentSize_error_(self, v8, &v32, &v31);
+    v11 = v31;
     if (v12)
     {
-      v10 = v33;
+      v10 = v32;
     }
 
     else
@@ -691,7 +660,7 @@ LABEL_7:
       if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v35 = v11;
+        v34 = v11;
         _os_log_error_impl(&dword_1883EA000, v13, OS_LOG_TYPE_ERROR, "Failed to get content size when calculating delta proto size: %@", buf, 0xCu);
       }
 
@@ -747,15 +716,14 @@ LABEL_7:
     *error = v11;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)populateAssetIfNecessaryWithMaxInlineSize:(unint64_t)size
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v27 = 0;
-  if (objc_msgSend_contentSize_error_(self, a2, &v27, 0) && v27 > size)
+  v31 = *MEMORY[0x1E69E9840];
+  v26 = 0;
+  if (objc_msgSend_contentSize_error_(self, a2, &v26, 0) && v26 > size)
   {
     if (ck_log_initialization_predicate != -1)
     {
@@ -766,8 +734,8 @@ LABEL_7:
     if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_INFO))
     {
       *buf = 134218242;
-      selfCopy2 = v27;
-      v30 = 2112;
+      selfCopy2 = v26;
+      v29 = 2112;
       selfCopy = self;
       _os_log_impl(&dword_1883EA000, v5, OS_LOG_TYPE_INFO, "Will use an asset for large mergeable delta with size %ld: %@", buf, 0x16u);
     }
@@ -808,13 +776,11 @@ LABEL_7:
       }
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unpopulateAsset
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_asset(self, a2, v2);
   v7 = v4;
   if (v4)
@@ -831,9 +797,9 @@ LABEL_7:
       v11 = ck_log_facility_distributed_sync;
       if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_INFO))
       {
-        v23 = 138412290;
+        v22 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_1883EA000, v11, OS_LOG_TYPE_INFO, "Converting asset back to data for %@", &v23, 0xCu);
+        _os_log_impl(&dword_1883EA000, v11, OS_LOG_TYPE_INFO, "Converting asset back to data for %@", &v22, 0xCu);
       }
 
       v14 = objc_msgSend_assetContent(v7, v12, v13);
@@ -859,9 +825,9 @@ LABEL_15:
       v18 = ck_log_facility_distributed_sync;
       if (os_log_type_enabled(ck_log_facility_distributed_sync, OS_LOG_TYPE_INFO))
       {
-        v23 = 138412290;
+        v22 = 138412290;
         selfCopy2 = self;
-        _os_log_impl(&dword_1883EA000, v18, OS_LOG_TYPE_INFO, "Converting asset back to file URL for %@", &v23, 0xCu);
+        _os_log_impl(&dword_1883EA000, v18, OS_LOG_TYPE_INFO, "Converting asset back to file URL for %@", &v22, 0xCu);
       }
 
       v14 = objc_msgSend_fileURL(v7, v19, v20);
@@ -872,8 +838,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (int64_t)suggestedDeltaSizeForContainer:(id)container

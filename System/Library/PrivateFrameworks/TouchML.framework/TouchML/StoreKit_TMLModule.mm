@@ -30,16 +30,16 @@
 {
   v3 = MEMORY[0x277CBEB38];
   constantsCopy = constants;
-  v24 = objc_msgSend_dictionary(v3, v5, v6);
-  v7 = *MEMORY[0x277CD4630];
-  objc_msgSend_setObject_forKeyedSubscript_(v24, v8, v9, *MEMORY[0x277CDD450], *MEMORY[0x277CD4630]);
-  objc_msgSend_defineProperty_descriptor_(constantsCopy, v10, v11, @"SKStoreProductParameterITunesItemIdentifier", v24);
-  objc_msgSend_setObject_forKeyedSubscript_(v24, v12, v13, *MEMORY[0x277CDD440], v7);
-  objc_msgSend_defineProperty_descriptor_(constantsCopy, v14, v15, @"SKStoreProductParameterAffiliateToken", v24);
-  objc_msgSend_setObject_forKeyedSubscript_(v24, v16, v17, *MEMORY[0x277CDD448], v7);
-  objc_msgSend_defineProperty_descriptor_(constantsCopy, v18, v19, @"SKStoreProductParameterCampaignToken", v24);
-  objc_msgSend_setObject_forKeyedSubscript_(v24, v20, v21, *MEMORY[0x277CDD458], v7);
-  objc_msgSend_defineProperty_descriptor_(constantsCopy, v22, v23, @"SKStoreProductParameterProviderToken", v24);
+  dictionary = [v3 dictionary];
+  v5 = *MEMORY[0x277CD4630];
+  [dictionary setObject:*MEMORY[0x277CDD450] forKeyedSubscript:*MEMORY[0x277CD4630]];
+  [constantsCopy defineProperty:@"SKStoreProductParameterITunesItemIdentifier" descriptor:dictionary];
+  [dictionary setObject:*MEMORY[0x277CDD440] forKeyedSubscript:v5];
+  [constantsCopy defineProperty:@"SKStoreProductParameterAffiliateToken" descriptor:dictionary];
+  [dictionary setObject:*MEMORY[0x277CDD448] forKeyedSubscript:v5];
+  [constantsCopy defineProperty:@"SKStoreProductParameterCampaignToken" descriptor:dictionary];
+  [dictionary setObject:*MEMORY[0x277CDD458] forKeyedSubscript:v5];
+  [constantsCopy defineProperty:@"SKStoreProductParameterProviderToken" descriptor:dictionary];
 }
 
 @end

@@ -47,38 +47,37 @@
 
 - (void)_updateEnhancedStatusCodesFromLastResponse
 {
-  lastResponseLine = self->_lastResponseLine;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
 
     self->_statusString = 0;
     bytes = [self->_lastResponseLine bytes];
-    v6 = [self->_lastResponseLine length];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __60__MFSMTPResponse__updateEnhancedStatusCodesFromLastResponse__block_invoke;
-    v16 = &unk_2798B6FC8;
+    v5 = [self->_lastResponseLine length];
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __60__MFSMTPResponse__updateEnhancedStatusCodesFromLastResponse__block_invoke;
+    v15 = &unk_2798B6FC8;
     selfCopy = self;
-    v18 = a2;
+    v17 = a2;
     if (_updateEnhancedStatusCodesFromLastResponse_once != -1)
     {
-      dispatch_once(&_updateEnhancedStatusCodesFromLastResponse_once, &v13);
+      dispatch_once(&_updateEnhancedStatusCodesFromLastResponse_once, &v12);
     }
 
-    v7 = objc_alloc(MEMORY[0x277CCACA8]);
-    v8 = [v7 initWithBytesNoCopy:bytes length:v6 encoding:1 freeWhenDone:{0, v13, v14, v15, v16, selfCopy, v18}];
-    v9 = [_updateEnhancedStatusCodesFromLastResponse__responseEnhancedStatusCodesRegex firstMatchInString:v8 options:0 range:{0, v6}];
-    if (v9)
+    v6 = objc_alloc(MEMORY[0x277CCACA8]);
+    v7 = [v6 initWithBytesNoCopy:bytes length:v5 encoding:1 freeWhenDone:{0, v12, v13, v14, v15, selfCopy, v17}];
+    v8 = [_updateEnhancedStatusCodesFromLastResponse__responseEnhancedStatusCodesRegex firstMatchInString:v7 options:0 range:{0, v5}];
+    if (v8)
     {
-      v10 = v9;
-      *(self + 10) = *(self + 10) & 0xFC00 | strtoul((bytes + [v9 rangeAtIndex:1]), 0, 10) & 0x3FF;
-      *(self + 21) = (4 * (strtoul((bytes + [v10 rangeAtIndex:2]), 0, 10) & 0x3FF)) | *(self + 21) & 0xF003;
-      *(self + 11) = (16 * (strtoul((bytes + [v10 rangeAtIndex:3]), 0, 10) & 0x3FF)) | *(self + 11) & 0xC00F;
-      v11 = [v10 rangeAtIndex:5];
-      if (v11 != 0x7FFFFFFFFFFFFFFFLL)
+      v9 = v8;
+      *(self + 10) = *(self + 10) & 0xFC00 | strtoul((bytes + [v8 rangeAtIndex:1]), 0, 10) & 0x3FF;
+      *(self + 21) = (4 * (strtoul((bytes + [v9 rangeAtIndex:2]), 0, 10) & 0x3FF)) | *(self + 21) & 0xF003;
+      *(self + 11) = (16 * (strtoul((bytes + [v9 rangeAtIndex:3]), 0, 10) & 0x3FF)) | *(self + 11) & 0xC00F;
+      v10 = [v9 rangeAtIndex:5];
+      if (v10 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        self->_statusString = [v8 substringWithRange:{v11, v12}];
+        self->_statusString = [v7 substringWithRange:{v10, v11}];
       }
     }
 
@@ -98,7 +97,7 @@
   }
 }
 
-uint64_t __60__MFSMTPResponse__updateEnhancedStatusCodesFromLastResponse__block_invoke(uint64_t a1)
+void *__60__MFSMTPResponse__updateEnhancedStatusCodesFromLastResponse__block_invoke(uint64_t a1)
 {
   result = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"^([0-9]+)\\.([0-9]+)\\.([0-9]+)([ ]+)(.*)" options:16 error:0];
   _updateEnhancedStatusCodesFromLastResponse__responseEnhancedStatusCodesRegex = result;

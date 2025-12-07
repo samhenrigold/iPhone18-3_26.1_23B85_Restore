@@ -9,7 +9,7 @@
 {
   v7 = sub_1004B6B04();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = _Block_copy(reply);
   sub_1004B6A94();
@@ -26,9 +26,9 @@
 
 - (_TtC24MusicScriptUpdateService24MusicScriptUpdateService)init
 {
-  static Logger.music(_:)();
+  static Logger.music(_:)(0xD000000000000013, 0x80000001004FAC30);
   v4.receiver = self;
-  v4.super_class = type metadata accessor for MusicScriptUpdateService();
+  v4.super_class = type metadata accessor for MusicScriptUpdateService(0);
   return [(MusicScriptUpdateService *)&v4 init];
 }
 

@@ -11,33 +11,33 @@
 
 - (VUIPurchaseRequest)initWithBuyParams:(id)params ofPurchaseType:(int64_t)type
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   paramsCopy = params;
-  v17.receiver = self;
-  v17.super_class = VUIPurchaseRequest;
-  v8 = [(VUIPurchaseRequest *)&v17 init];
+  v18.receiver = self;
+  v18.super_class = VUIPurchaseRequest;
+  v8 = [(VUIPurchaseRequest *)&v18 init];
   v9 = v8;
   if (v8)
   {
     objc_storeStrong(&v8->_buyParamsString, params);
-    v10 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = VUIDefaultLogObject(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
       typeCopy = type;
-      v20 = 2112;
-      v21 = paramsCopy;
-      _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "VUIPurchaseRequest - new request type: %ld, %@", buf, 0x16u);
+      v21 = 2112;
+      v22 = paramsCopy;
+      _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "VUIPurchaseRequest - new request type: %ld, %@", buf, 0x16u);
     }
 
-    v11 = +[VUIMetricsController sharedInstance];
-    v12 = [v11 getMetricsEnhancedBuyParams:v9->_buyParamsString];
+    v12 = +[VUIMetricsController sharedInstance];
+    v13 = [v12 getMetricsEnhancedBuyParams:v9->_buyParamsString];
     enhancedBuyParamsString = v9->_enhancedBuyParamsString;
-    v9->_enhancedBuyParamsString = v12;
+    v9->_enhancedBuyParamsString = v13;
 
-    v14 = [MEMORY[0x1E698C818] buyParamsWithString:v9->_enhancedBuyParamsString];
+    v15 = [MEMORY[0x1E698C818] buyParamsWithString:v9->_enhancedBuyParamsString];
     amsBuyParams = v9->_amsBuyParams;
-    v9->_amsBuyParams = v14;
+    v9->_amsBuyParams = v15;
 
     v9->_purchaseType = 0;
     [(VUIPurchaseRequest *)v9 _createPurchaseRequest];
@@ -92,7 +92,7 @@ void __44__VUIPurchaseRequest_enqueueWithCompletion___block_invoke(uint64_t a1, 
   v22 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   errorCopy = error;
-  v8 = VUIDefaultLogObject();
+  v8 = VUIDefaultLogObject(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;

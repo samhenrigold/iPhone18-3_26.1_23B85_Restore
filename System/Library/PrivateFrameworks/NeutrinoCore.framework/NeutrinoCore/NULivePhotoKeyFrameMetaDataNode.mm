@@ -195,7 +195,7 @@
     goto LABEL_5;
   }
 
-  [stateCopy time];
+  objc_msgSend_time(stateCopy);
   if ((v17 & 0x100000000) == 0)
   {
 LABEL_5:

@@ -145,49 +145,7 @@
     {
       v5 = equalCopy;
       vendorID = self->_vendorID;
-      if (vendorID != [(AFBluetoothDeviceInfo *)v5 vendorID])
-      {
-        goto LABEL_28;
-      }
-
-      productID = self->_productID;
-      if (productID != [(AFBluetoothDeviceInfo *)v5 productID])
-      {
-        goto LABEL_28;
-      }
-
-      isAdvancedAppleAudioDevice = self->_isAdvancedAppleAudioDevice;
-      if (isAdvancedAppleAudioDevice != [(AFBluetoothDeviceInfo *)v5 isAdvancedAppleAudioDevice])
-      {
-        goto LABEL_28;
-      }
-
-      supportsInEarDetection = self->_supportsInEarDetection;
-      if (supportsInEarDetection != [(AFBluetoothDeviceInfo *)v5 supportsInEarDetection])
-      {
-        goto LABEL_28;
-      }
-
-      supportsVoiceTrigger = self->_supportsVoiceTrigger;
-      if (supportsVoiceTrigger != [(AFBluetoothDeviceInfo *)v5 supportsVoiceTrigger])
-      {
-        goto LABEL_28;
-      }
-
-      supportsJustSiri = self->_supportsJustSiri;
-      if (supportsJustSiri != [(AFBluetoothDeviceInfo *)v5 supportsJustSiri])
-      {
-        goto LABEL_28;
-      }
-
-      supportsSpokenNotification = self->_supportsSpokenNotification;
-      if (supportsSpokenNotification != [(AFBluetoothDeviceInfo *)v5 supportsSpokenNotification])
-      {
-        goto LABEL_28;
-      }
-
-      supportsListeningModeANC = self->_supportsListeningModeANC;
-      if (supportsListeningModeANC == [(AFBluetoothDeviceInfo *)v5 supportsListeningModeANC]&& (supportsListeningModeTransparency = self->_supportsListeningModeTransparency, supportsListeningModeTransparency == [(AFBluetoothDeviceInfo *)v5 supportsListeningModeTransparency]) && (supportsListeningModeAutomatic = self->_supportsListeningModeAutomatic, supportsListeningModeAutomatic == [(AFBluetoothDeviceInfo *)v5 supportsListeningModeAutomatic]) && (supportsConversationAwareness = self->_supportsConversationAwareness, supportsConversationAwareness == [(AFBluetoothDeviceInfo *)v5 supportsConversationAwareness]) && (supportsPersonalVolume = self->_supportsPersonalVolume, supportsPersonalVolume == [(AFBluetoothDeviceInfo *)v5 supportsPersonalVolume]) && (supportsAnnounceCall = self->_supportsAnnounceCall, supportsAnnounceCall == [(AFBluetoothDeviceInfo *)v5 supportsAnnounceCall]) && (supportsLiveTranslationCapability = self->_supportsLiveTranslationCapability, supportsLiveTranslationCapability == [(AFBluetoothDeviceInfo *)v5 supportsLiveTranslationCapability]))
+      if (vendorID == [(AFBluetoothDeviceInfo *)v5 vendorID]&& (productID = self->_productID, productID == [(AFBluetoothDeviceInfo *)v5 productID]) && (isAdvancedAppleAudioDevice = self->_isAdvancedAppleAudioDevice, isAdvancedAppleAudioDevice == [(AFBluetoothDeviceInfo *)v5 isAdvancedAppleAudioDevice]) && (supportsInEarDetection = self->_supportsInEarDetection, supportsInEarDetection == [(AFBluetoothDeviceInfo *)v5 supportsInEarDetection]) && (supportsVoiceTrigger = self->_supportsVoiceTrigger, supportsVoiceTrigger == [(AFBluetoothDeviceInfo *)v5 supportsVoiceTrigger]) && (supportsJustSiri = self->_supportsJustSiri, supportsJustSiri == [(AFBluetoothDeviceInfo *)v5 supportsJustSiri]) && (supportsSpokenNotification = self->_supportsSpokenNotification, supportsSpokenNotification == [(AFBluetoothDeviceInfo *)v5 supportsSpokenNotification]) && (supportsListeningModeANC = self->_supportsListeningModeANC, supportsListeningModeANC == [(AFBluetoothDeviceInfo *)v5 supportsListeningModeANC]) && (supportsListeningModeTransparency = self->_supportsListeningModeTransparency, supportsListeningModeTransparency == [(AFBluetoothDeviceInfo *)v5 supportsListeningModeTransparency]) && (supportsListeningModeAutomatic = self->_supportsListeningModeAutomatic, supportsListeningModeAutomatic == [(AFBluetoothDeviceInfo *)v5 supportsListeningModeAutomatic]) && (supportsConversationAwareness = self->_supportsConversationAwareness, supportsConversationAwareness == [(AFBluetoothDeviceInfo *)v5 supportsConversationAwareness]) && (supportsPersonalVolume = self->_supportsPersonalVolume, supportsPersonalVolume == [(AFBluetoothDeviceInfo *)v5 supportsPersonalVolume]) && (supportsAnnounceCall = self->_supportsAnnounceCall, supportsAnnounceCall == [(AFBluetoothDeviceInfo *)v5 supportsAnnounceCall]) && (supportsLiveTranslationCapability = self->_supportsLiveTranslationCapability, supportsLiveTranslationCapability == [(AFBluetoothDeviceInfo *)v5 supportsLiveTranslationCapability]))
       {
         address = [(AFBluetoothDeviceInfo *)v5 address];
         address = self->_address;
@@ -226,7 +184,6 @@
 
       else
       {
-LABEL_28:
         v28 = 0;
       }
     }

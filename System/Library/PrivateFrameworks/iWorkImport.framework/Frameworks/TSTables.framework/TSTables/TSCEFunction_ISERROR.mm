@@ -10,37 +10,37 @@
   if ((v6 & 0x7FFFFFFF8) == 8)
   {
     v7 = **arguments;
-    v33 = 0;
-    HasError_context_outError = objc_msgSend_valueHasError_context_outError_(v7, v8, 0, context, &v33);
-    v10 = v33;
-    if (objc_msgSend_isCircularReferenceError(v10, v11, v12, v13, v14))
+    v29 = 0;
+    HasError_context_outError = objc_msgSend_valueHasError_context_outError_(v7, v8, 0, context, &v29);
+    v10 = v29;
+    if (objc_msgSend_isCircularReferenceError(v10, v11, v12, v13))
     {
-      v18 = objc_msgSend_raiseErrorOrConvert_(context, v15, v10, v16, v17);
+      v16 = objc_msgSend_raiseErrorOrConvert_(context, v14, v10, v15);
     }
 
     else
     {
-      v26 = 0;
-      v27 = 0;
-      v28 = 0;
-      v29 = 1057;
-      v30 = 1;
-      v31 = -50266102;
-      v32 = 253;
-      v18 = objc_msgSend_BOOLValue_format_(TSCEBooleanValue, v15, HasError_context_outError, &v26, v17);
+      v22 = 0;
+      v23 = 0;
+      v24 = 0;
+      v25 = 1057;
+      v26 = 1;
+      v27 = -50266102;
+      v28 = 253;
+      v16 = objc_msgSend_BOOLValue_format_(TSCEBooleanValue, v14, HasError_context_outError, &v22);
     }
   }
 
   else
   {
-    v7 = objc_msgSend_functionName(spec, a2, context, spec, arguments);
-    v10 = objc_msgSend_wrongNumberOfArgumentsErrorForFunctionName_provided_(TSCEError, v19, v7, (v6 >> 3), v20);
-    v18 = objc_msgSend_raiseErrorOrConvert_(context, v21, v10, v22, v23);
+    v7 = objc_msgSend_functionName(spec, a2, context, spec);
+    v10 = objc_msgSend_wrongNumberOfArgumentsErrorForFunctionName_provided_(TSCEError, v17, v7, (v6 >> 3));
+    v16 = objc_msgSend_raiseErrorOrConvert_(context, v18, v10, v19);
   }
 
-  v24 = v18;
+  v20 = v16;
 
-  return v24;
+  return v20;
 }
 
 @end

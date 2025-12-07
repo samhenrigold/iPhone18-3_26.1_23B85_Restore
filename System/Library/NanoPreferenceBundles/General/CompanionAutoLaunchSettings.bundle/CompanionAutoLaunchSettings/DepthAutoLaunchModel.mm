@@ -15,7 +15,7 @@
 - (void)depthAutoLaunchAppSettingDidUpdate:(id)update
 {
   type metadata accessor for DepthAutoLaunchModel();
-  sub_1EAD0(&qword_3C080, v4, type metadata accessor for DepthAutoLaunchModel);
+  sub_1EAD0(&qword_3C080, v4, type metadata accessor for DepthAutoLaunchModel, &unk_2A290);
   selfCopy = self;
   sub_26194();
   sub_261A4();

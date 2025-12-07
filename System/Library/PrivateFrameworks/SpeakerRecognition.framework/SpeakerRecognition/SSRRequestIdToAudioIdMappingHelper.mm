@@ -16,64 +16,62 @@
 
 + (void)purgeAllEntriesInSpkeakerIdBiome
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = BiomeLibrary();
   siri = [v2 Siri];
   onDeviceAnalytics = [siri OnDeviceAnalytics];
   speakerIdSampling = [onDeviceAnalytics SpeakerIdSampling];
 
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
+  v13 = 0;
   pruner = [speakerIdSampling pruner];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __70__SSRRequestIdToAudioIdMappingHelper_purgeAllEntriesInSpkeakerIdBiome__block_invoke;
-  v10[3] = &unk_278577FB8;
-  v10[4] = &v11;
-  [pruner deleteWithPolicy:@"Delete all SpeakerId data" eventsPassingTest:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __70__SSRRequestIdToAudioIdMappingHelper_purgeAllEntriesInSpkeakerIdBiome__block_invoke;
+  v9[3] = &unk_278577FB8;
+  v9[4] = &v10;
+  [pruner deleteWithPolicy:@"Delete all SpeakerId data" eventsPassingTest:v9];
 
   v7 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v12[3];
+    v8 = v11[3];
     *buf = 136315394;
-    v16 = "+[SSRRequestIdToAudioIdMappingHelper purgeAllEntriesInSpkeakerIdBiome]";
-    v17 = 2048;
-    v18 = v8;
+    v15 = "+[SSRRequestIdToAudioIdMappingHelper purgeAllEntriesInSpkeakerIdBiome]";
+    v16 = 2048;
+    v17 = v8;
     _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Cleaned up %lu entries", buf, 0x16u);
   }
 
-  _Block_object_dispose(&v11, 8);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v10, 8);
 }
 
 + (id)_convertNestedDictionaryToMutable:(id)mutable
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = [mutable mutableCopy];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [v3 allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v17 != v7)
+      if (*v16 != v7)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v9 = *(*(&v16 + 1) + 8 * v8);
+      v9 = *(*(&v15 + 1) + 8 * v8);
       v10 = [v3 objectForKeyedSubscript:v9];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
@@ -89,7 +87,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -99,8 +97,6 @@ LABEL_3:
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -128,119 +124,119 @@ LABEL_3:
 
 + (void)removeMappingOnAndBefore:(id)before completion:(id)completion
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   beforeCopy = before;
   completionCopy = completion;
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __74__SSRRequestIdToAudioIdMappingHelper_removeMappingOnAndBefore_completion___block_invoke;
-  v61[3] = &unk_2785796F8;
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __74__SSRRequestIdToAudioIdMappingHelper_removeMappingOnAndBefore_completion___block_invoke;
+  v60[3] = &unk_2785796F8;
   v7 = beforeCopy;
-  v62 = v7;
+  v61 = v7;
   v8 = completionCopy;
-  v63 = v8;
-  v9 = MEMORY[0x22AA71400](v61);
+  v62 = v8;
+  v9 = MEMORY[0x22AA71400](v60);
   v10 = +[SSRRequestIdToAudioIdMappingHelper _loadRequestIdToAudioIdMappingFromPlist];
   if (v10)
   {
-    v42 = v9;
-    v43 = v8;
-    v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v41 = v9;
+    v42 = v8;
+    v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    v41 = v10;
+    v40 = v10;
     obj = v10;
-    v45 = [obj countByEnumeratingWithState:&v57 objects:v71 count:16];
-    if (v45)
+    v44 = [obj countByEnumeratingWithState:&v56 objects:v70 count:16];
+    if (v44)
     {
-      v44 = *v58;
+      v43 = *v57;
       do
       {
         v11 = 0;
         do
         {
-          if (*v58 != v44)
+          if (*v57 != v43)
           {
             objc_enumerationMutation(obj);
           }
 
-          v46 = v11;
-          v12 = *(*(&v57 + 1) + 8 * v11);
+          v45 = v11;
+          v12 = *(*(&v56 + 1) + 8 * v11);
+          v52 = 0u;
           v53 = 0u;
           v54 = 0u;
           v55 = 0u;
-          v56 = 0u;
-          v13 = [obj objectForKeyedSubscript:{v12, v41}];
-          v14 = [v13 countByEnumeratingWithState:&v53 objects:v70 count:16];
+          v13 = [obj objectForKeyedSubscript:{v12, v40}];
+          v14 = [v13 countByEnumeratingWithState:&v52 objects:v69 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v54;
+            v16 = *v53;
             do
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v54 != v16)
+                if (*v53 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = *(*(&v53 + 1) + 8 * i);
+                v18 = *(*(&v52 + 1) + 8 * i);
                 defaultDateFormatter = [MEMORY[0x277D018F8] defaultDateFormatter];
                 v20 = [defaultDateFormatter dateFromString:v18];
 
                 if (([v20 compare:v7] + 1) <= 1)
                 {
-                  v69[0] = v12;
-                  v69[1] = v18;
-                  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:2];
-                  [v48 addObject:v21];
+                  v68[0] = v12;
+                  v68[1] = v18;
+                  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:2];
+                  [v47 addObject:v21];
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v53 objects:v70 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v52 objects:v69 count:16];
             }
 
             while (v15);
           }
 
-          v11 = v46 + 1;
+          v11 = v45 + 1;
         }
 
-        while (v46 + 1 != v45);
-        v45 = [obj countByEnumeratingWithState:&v57 objects:v71 count:16];
+        while (v45 + 1 != v44);
+        v44 = [obj countByEnumeratingWithState:&v56 objects:v70 count:16];
       }
 
-      while (v45);
+      while (v44);
     }
 
-    v22 = v48;
-    if ([v48 count])
+    v22 = v47;
+    if ([v47 count])
     {
-      v51 = 0u;
-      v52 = 0u;
-      v49 = 0u;
       v50 = 0u;
-      v23 = v48;
-      v24 = [v23 countByEnumeratingWithState:&v49 objects:v64 count:16];
-      v8 = v43;
+      v51 = 0u;
+      v48 = 0u;
+      v49 = 0u;
+      v23 = v47;
+      v24 = [v23 countByEnumeratingWithState:&v48 objects:v63 count:16];
+      v8 = v42;
       if (v24)
       {
         v25 = v24;
-        v26 = *v50;
+        v26 = *v49;
         do
         {
           for (j = 0; j != v25; ++j)
           {
-            if (*v50 != v26)
+            if (*v49 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v49 + 1) + 8 * j);
-            v29 = [v28 objectAtIndexedSubscript:{0, v41}];
+            v28 = *(*(&v48 + 1) + 8 * j);
+            v29 = [v28 objectAtIndexedSubscript:{0, v40}];
             v30 = [v28 objectAtIndexedSubscript:1];
             v31 = [obj objectForKeyedSubscript:v29];
             [v31 removeObjectForKey:v30];
@@ -254,22 +250,22 @@ LABEL_3:
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v49 objects:v64 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v48 objects:v63 count:16];
         }
 
         while (v25);
       }
 
       [SSRRequestIdToAudioIdMappingHelper _writeMappingIntoPlist:obj];
-      v10 = v41;
-      v22 = v48;
+      v10 = v40;
+      v22 = v47;
     }
 
     else
     {
       v35 = *MEMORY[0x277D01970];
-      v8 = v43;
-      v10 = v41;
+      v8 = v42;
+      v10 = v40;
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
       {
         v36 = MEMORY[0x277D018F8];
@@ -277,15 +273,15 @@ LABEL_3:
         defaultDateFormatter2 = [v36 defaultDateFormatter];
         v39 = [defaultDateFormatter2 stringFromDate:v7];
         *buf = 136315394;
-        v66 = "+[SSRRequestIdToAudioIdMappingHelper removeMappingOnAndBefore:completion:]";
-        v67 = 2112;
-        v68 = v39;
+        v65 = "+[SSRRequestIdToAudioIdMappingHelper removeMappingOnAndBefore:completion:]";
+        v66 = 2112;
+        v67 = v39;
         _os_log_impl(&dword_225E12000, v37, OS_LOG_TYPE_DEFAULT, "%s mapping before date: %@ not found", buf, 0x16u);
       }
     }
 
     v34 = 0;
-    v9 = v42;
+    v9 = v41;
   }
 
   else
@@ -294,25 +290,23 @@ LABEL_3:
   }
 
   (v9)[2](v9, v34);
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __74__SSRRequestIdToAudioIdMappingHelper_removeMappingOnAndBefore_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 136315650;
-    v9 = "+[SSRRequestIdToAudioIdMappingHelper removeMappingOnAndBefore:completion:]_block_invoke";
-    v10 = 2112;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s remove mapping before and On date: %@ with error: %@", &v8, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = 136315650;
+    v8 = "+[SSRRequestIdToAudioIdMappingHelper removeMappingOnAndBefore:completion:]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s remove mapping before and On date: %@ with error: %@", &v7, 0x20u);
   }
 
   v5 = *(a1 + 40);
@@ -320,13 +314,11 @@ void __74__SSRRequestIdToAudioIdMappingHelper_removeMappingOnAndBefore_completio
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getRequestIdsForLocale:(id)locale date:(id)date error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   dateCopy = date;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -345,30 +337,30 @@ void __74__SSRRequestIdToAudioIdMappingHelper_removeMappingOnAndBefore_completio
 
         if (v14 && ([v11 objectForKeyedSubscript:localeCopy], v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "objectForKeyedSubscript:", v14), v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v16))
         {
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           v17 = [v11 objectForKeyedSubscript:localeCopy];
           localeCopy = [v17 objectForKeyedSubscript:v14];
 
-          v19 = [localeCopy countByEnumeratingWithState:&v31 objects:v37 count:16];
+          v19 = [localeCopy countByEnumeratingWithState:&v30 objects:v36 count:16];
           if (v19)
           {
-            v20 = *v32;
+            v20 = *v31;
             do
             {
               for (i = 0; i != v19; i = i + 1)
               {
-                if (*v32 != v20)
+                if (*v31 != v20)
                 {
                   objc_enumerationMutation(localeCopy);
                 }
 
-                [v9 addObject:*(*(&v31 + 1) + 8 * i)];
+                [v9 addObject:*(*(&v30 + 1) + 8 * i)];
               }
 
-              v19 = [localeCopy countByEnumeratingWithState:&v31 objects:v37 count:16];
+              v19 = [localeCopy countByEnumeratingWithState:&v30 objects:v36 count:16];
             }
 
             while (v19);
@@ -379,9 +371,9 @@ void __74__SSRRequestIdToAudioIdMappingHelper_removeMappingOnAndBefore_completio
         {
           localeCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"requests for date: %@ and locale: %@ cannot be found", v14, localeCopy];
           v25 = MEMORY[0x277CCA9B8];
-          v35 = @"reason";
-          v36 = localeCopy;
-          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+          v34 = @"reason";
+          v35 = localeCopy;
+          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
           v19 = [v25 errorWithDomain:@"com.apple.speakerrecognition" code:1259 userInfo:v26];
         }
 
@@ -420,8 +412,6 @@ LABEL_22:
 
 LABEL_23:
   v28 = [v9 copy];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -480,19 +470,19 @@ LABEL_10:
 
 void __73__SSRRequestIdToAudioIdMappingHelper_removeMappingWithLocale_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v8 = 136315650;
-    v9 = "+[SSRRequestIdToAudioIdMappingHelper removeMappingWithLocale:completion:]_block_invoke";
-    v10 = 2112;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s remove mapping locale: %@ with error: %@", &v8, 0x20u);
+    v6 = *(a1 + 32);
+    v7 = 136315650;
+    v8 = "+[SSRRequestIdToAudioIdMappingHelper removeMappingWithLocale:completion:]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s remove mapping locale: %@ with error: %@", &v7, 0x20u);
   }
 
   v5 = *(a1 + 40);
@@ -500,23 +490,19 @@ void __73__SSRRequestIdToAudioIdMappingHelper_removeMappingWithLocale_completion
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removeMapping
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   [SSRRequestIdToAudioIdMappingHelper _writeMappingIntoPlist:0];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "+[SSRRequestIdToAudioIdMappingHelper removeMapping]";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Deleting all RPI audioId to requestId mapping", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "+[SSRRequestIdToAudioIdMappingHelper removeMapping]";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Deleting all RPI audioId to requestId mapping", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removeMappingWithLocale:(id)locale date:(id)date completion:(id)completion
@@ -597,22 +583,22 @@ LABEL_15:
 
 void __78__SSRRequestIdToAudioIdMappingHelper_removeMappingWithLocale_date_completion___block_invoke(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v7 = a1[4];
-    v8 = a1[5];
-    v9 = 136315906;
-    v10 = "+[SSRRequestIdToAudioIdMappingHelper removeMappingWithLocale:date:completion:]_block_invoke";
-    v11 = 2112;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s remove mapping locale: %@ and date: %@ with error: %@", &v9, 0x2Au);
+    v6 = a1[4];
+    v7 = a1[5];
+    v8 = 136315906;
+    v9 = "+[SSRRequestIdToAudioIdMappingHelper removeMappingWithLocale:date:completion:]_block_invoke";
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s remove mapping locale: %@ and date: %@ with error: %@", &v8, 0x2Au);
   }
 
   v5 = a1[6];
@@ -620,8 +606,6 @@ void __78__SSRRequestIdToAudioIdMappingHelper_removeMappingWithLocale_date_compl
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (void)writeIntoMappingWithRequestId:(id)id audioId:(id)audioId date:(id)date locale:(id)locale completion:(id)completion
@@ -705,25 +689,25 @@ void __78__SSRRequestIdToAudioIdMappingHelper_removeMappingWithLocale_date_compl
 
 void __99__SSRRequestIdToAudioIdMappingHelper_writeIntoMappingWithRequestId_audioId_date_locale_completion___block_invoke(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
-    v7 = a1[4];
-    v8 = a1[5];
-    v9 = a1[6];
-    v10 = 136316162;
-    v11 = "+[SSRRequestIdToAudioIdMappingHelper writeIntoMappingWithRequestId:audioId:date:locale:completion:]_block_invoke";
-    v12 = 2112;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v3;
-    _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s write into mapping for requestId: %@, audioId: %@, locale: %@ with error: %@", &v10, 0x34u);
+    v6 = a1[4];
+    v7 = a1[5];
+    v8 = a1[6];
+    v9 = 136316162;
+    v10 = "+[SSRRequestIdToAudioIdMappingHelper writeIntoMappingWithRequestId:audioId:date:locale:completion:]_block_invoke";
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v3;
+    _os_log_error_impl(&dword_225E12000, v4, OS_LOG_TYPE_ERROR, "%s write into mapping for requestId: %@, audioId: %@, locale: %@ with error: %@", &v9, 0x34u);
   }
 
   v5 = a1[7];
@@ -731,13 +715,11 @@ void __99__SSRRequestIdToAudioIdMappingHelper_writeIntoMappingWithRequestId_audi
   {
     (*(v5 + 16))(v5, v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getAudioIdWithRequestId:(id)id languageCode:(id)code date:(id)date error:(id *)error
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   codeCopy = code;
   dateCopy = date;
@@ -788,9 +770,9 @@ void __99__SSRRequestIdToAudioIdMappingHelper_writeIntoMappingWithRequestId_audi
       if (error)
       {
         v25 = MEMORY[0x277CCA9B8];
-        v29 = @"reason";
-        v30[0] = idCopy;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+        v28 = @"reason";
+        v29[0] = idCopy;
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
         *error = [v25 errorWithDomain:@"com.apple.speakerrecognition" code:1257 userInfo:v26];
       }
     }
@@ -821,8 +803,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

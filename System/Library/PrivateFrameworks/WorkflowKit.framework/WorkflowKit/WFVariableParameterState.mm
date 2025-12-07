@@ -39,12 +39,10 @@
 
 - (NSArray)containedVariables
 {
-  v6[1] = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
   variable = [(WFVariableParameterState *)self variable];
-  v6[0] = variable;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
-
-  v4 = *MEMORY[0x1E69E9840];
+  v5[0] = variable;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
 
   return v3;
 }
@@ -111,7 +109,7 @@ LABEL_12:
 
 - (WFVariableParameterState)initWithSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   providerCopy = provider;
   parameterCopy = parameter;
@@ -129,16 +127,16 @@ LABEL_8:
     v15 = getWFGeneralLogObject();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v19 = 136315906;
-      v20 = "WFEnforceClass";
-      v21 = 2114;
-      v22 = v12;
-      v23 = 2114;
-      v24 = objc_opt_class();
-      v25 = 2114;
-      v26 = v11;
-      v16 = v24;
-      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v19, 0x2Au);
+      v18 = 136315906;
+      v19 = "WFEnforceClass";
+      v20 = 2114;
+      v21 = v12;
+      v22 = 2114;
+      v23 = objc_opt_class();
+      v24 = 2114;
+      v25 = v11;
+      v16 = v23;
+      _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", &v18, 0x2Au);
     }
 
     goto LABEL_8;
@@ -158,7 +156,6 @@ LABEL_8:
   }
 
 LABEL_11:
-  v17 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

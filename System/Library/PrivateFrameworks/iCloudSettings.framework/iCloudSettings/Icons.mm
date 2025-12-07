@@ -9,41 +9,39 @@
 - (id)iconURL
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_280A0EB10, &qword_2759C0740);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_275875E60(v6);
+  sub_275875E60(v5);
 
-  v8 = sub_2759B8508();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_2759B8508();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_2759B84B8();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_2759B84B8();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (NSArray)bundleIdentifiers
 {
   if (*(self + OBJC_IVAR____TtC14iCloudSettings5Icons_bundleIdentifiers))
   {
-    v2 = *(self + OBJC_IVAR____TtC14iCloudSettings5Icons_bundleIdentifiers);
 
-    v3 = sub_2759BA3D8();
+    v2 = sub_2759BA3D8();
   }
 
   else
   {
-    v3 = 0;
+    v2 = 0;
   }
 
-  return v3;
+  return v2;
 }
 
 - (_TtC14iCloudSettings5Icons)init

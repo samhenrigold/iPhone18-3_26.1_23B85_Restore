@@ -106,7 +106,7 @@
 
 - (void)addCachedCalendarServerObservable:(id)observable
 {
-  v3 = CNALoggingContextDebug();
+  v3 = CNALoggingContextDebug(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -116,7 +116,7 @@
 
 - (void)addCalendarServerObservable:(id)observable
 {
-  v3 = CNALoggingContextDebug();
+  v3 = CNALoggingContextDebug(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

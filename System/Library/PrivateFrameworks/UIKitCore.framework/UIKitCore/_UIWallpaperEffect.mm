@@ -76,7 +76,7 @@
   if (self == equalCopy)
   {
 LABEL_7:
-    v7 = 1;
+    isEqual = 1;
     goto LABEL_8;
   }
 
@@ -84,7 +84,7 @@ LABEL_7:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
 LABEL_6:
-    v7 = 0;
+    isEqual = 0;
     goto LABEL_8;
   }
 
@@ -94,10 +94,10 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v7 = [(UIColor *)color isEqual:?];
+  isEqual = objc_msgSend_isEqual_(color);
 LABEL_8:
 
-  return v7;
+  return isEqual;
 }
 
 - (void)_updateEffectDescriptor:(id)descriptor forEnvironment:(id)environment usage:(int64_t)usage

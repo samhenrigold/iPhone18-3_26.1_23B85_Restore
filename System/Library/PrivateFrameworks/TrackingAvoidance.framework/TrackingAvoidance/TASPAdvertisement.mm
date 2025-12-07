@@ -6,6 +6,7 @@
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (TASPAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date detailsBitmask:(unsigned int)bitmask uuid:(id)self0 protocolID:(id)self1;
+- (TASPAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date uuid:(id)uuid;
 - (TASPAdvertisement)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)descriptionDictionary;
@@ -96,40 +97,40 @@
 
 - (id)descriptionDictionary
 {
-  v33[14] = *MEMORY[0x277D85DE8];
-  v32[0] = @"EventType";
+  v32[14] = *MEMORY[0x277D85DE8];
+  v31[0] = @"EventType";
   v3 = objc_opt_class();
-  v31 = NSStringFromClass(v3);
-  v33[0] = v31;
-  v32[1] = @"Address";
+  v30 = NSStringFromClass(v3);
+  v32[0] = v30;
+  v31[1] = @"Address";
   address = [(TASPAdvertisement *)self address];
   hexString = [address hexString];
-  v33[1] = hexString;
-  v32[2] = @"Data";
+  v32[1] = hexString;
+  v31[2] = @"Data";
   advertisementData = [(TASPAdvertisement *)self advertisementData];
   hexString2 = [advertisementData hexString];
-  v33[2] = hexString2;
-  v32[3] = @"Status";
-  v26 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[TASPAdvertisement status](self, "status")}];
-  v33[3] = v26;
-  v32[4] = @"Reserved";
+  v32[2] = hexString2;
+  v31[3] = @"Status";
+  v25 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[TASPAdvertisement status](self, "status")}];
+  v32[3] = v25;
+  v31[4] = @"Reserved";
   reserved = [(TASPAdvertisement *)self reserved];
   hexString3 = [reserved hexString];
-  v33[4] = hexString3;
-  v32[5] = @"RSSI";
-  v23 = [MEMORY[0x277CCABB0] numberWithInteger:{-[TASPAdvertisement rssi](self, "rssi")}];
-  v33[5] = v23;
-  v32[6] = @"Date";
+  v32[4] = hexString3;
+  v31[5] = @"RSSI";
+  v22 = [MEMORY[0x277CCABB0] numberWithInteger:{-[TASPAdvertisement rssi](self, "rssi")}];
+  v32[5] = v22;
+  v31[6] = @"Date";
   scanDate = [(TASPAdvertisement *)self scanDate];
   getDateString = [scanDate getDateString];
-  v33[6] = getDateString;
-  v32[7] = @"Type";
-  v20 = [TASPAdvertisement TASPAdvertisementTypeToString:[(TASPAdvertisement *)self getType]];
-  v33[7] = v20;
-  v32[8] = @"DeviceType";
-  v19 = [TASPAdvertisement TASPAdvertisementDeviceTypeToString:[(TASPAdvertisement *)self getDeviceType]];
-  v33[8] = v19;
-  v32[9] = @"UUID";
+  v32[6] = getDateString;
+  v31[7] = @"Type";
+  v19 = [TASPAdvertisement TASPAdvertisementTypeToString:[(TASPAdvertisement *)self getType]];
+  v32[7] = v19;
+  v31[8] = @"DeviceType";
+  v18 = [TASPAdvertisement TASPAdvertisementDeviceTypeToString:[(TASPAdvertisement *)self getDeviceType]];
+  v32[8] = v18;
+  v31[9] = @"UUID";
   uuid = [(TASPAdvertisement *)self uuid];
   if (uuid)
   {
@@ -142,14 +143,14 @@
     uUIDString = &stru_287F632C0;
   }
 
-  v33[9] = uUIDString;
-  v32[10] = @"BatteryState";
+  v32[9] = uUIDString;
+  v31[10] = @"BatteryState";
   v6 = [TASPAdvertisement TASPAdvertisementBatteryStateToString:[(TASPAdvertisement *)self getBatteryState]];
-  v33[10] = v6;
-  v32[11] = @"DetailsBitmask";
+  v32[10] = v6;
+  v31[11] = @"DetailsBitmask";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{-[TASPAdvertisement detailsBitmask](self, "detailsBitmask")}];
-  v33[11] = v7;
-  v32[12] = @"DetailsBitmaskString";
+  v32[11] = v7;
+  v31[12] = @"DetailsBitmaskString";
   protocolID2 = MEMORY[0x277CCACA8];
   if ([(TASPAdvertisement *)self isPosh])
   {
@@ -182,8 +183,8 @@
   }
 
   v12 = [protocolID2 stringWithFormat:@"isPosh, %@, isApple, %@, isNearOwner, %@", v9, v10, v11];
-  v33[12] = v12;
-  v32[13] = @"ProtocolIDString";
+  v32[12] = v12;
+  v31[13] = @"ProtocolIDString";
   protocolID = [(TASPAdvertisement *)self protocolID];
   if (protocolID)
   {
@@ -196,8 +197,8 @@
     stringValue = @"0";
   }
 
-  v33[13] = stringValue;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:14];
+  v32[13] = stringValue;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:14];
   if (protocolID)
   {
   }
@@ -205,8 +206,6 @@
   if (uuid)
   {
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -229,6 +228,30 @@
   {
     return 3;
   }
+}
+
+- (TASPAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date uuid:(id)uuid
+{
+  statusCopy = status;
+  uuidCopy = uuid;
+  dateCopy = date;
+  reservedCopy = reserved;
+  dataCopy = data;
+  addressCopy = address;
+  if ([dataCopy length])
+  {
+    v21 = 2;
+  }
+
+  else
+  {
+    v21 = 6;
+  }
+
+  LODWORD(v24) = v21;
+  v22 = [(TASPAdvertisement *)self initWithAddress:addressCopy advertisementData:dataCopy status:statusCopy reserved:reservedCopy rssi:rssi scanDate:dateCopy detailsBitmask:v24 uuid:uuidCopy protocolID:0];
+
+  return v22;
 }
 
 - (TASPAdvertisement)initWithAddress:(id)address advertisementData:(id)data status:(unsigned __int8)status reserved:(id)reserved rssi:(int64_t)rssi scanDate:(id)date detailsBitmask:(unsigned int)bitmask uuid:(id)self0 protocolID:(id)self1
@@ -418,36 +441,33 @@ LABEL_18:
 - (unint64_t)getAirPodsBudPosition:(int64_t)position
 {
   positionCopy = position;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (position > 1)
   {
     v5 = TASALog;
     if (os_log_type_enabled(TASALog, OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 68289282;
-      v7[1] = 0;
-      v8 = 2082;
-      v9 = "";
-      v10 = 1026;
-      v11 = positionCopy;
-      _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:received unexpected part identifier for AirPods bud, partIdentifier:%{public}d}", v7, 0x18u);
+      v6[0] = 68289282;
+      v6[1] = 0;
+      v7 = 2082;
+      v8 = "";
+      v9 = 1026;
+      v10 = positionCopy;
+      _os_log_impl(&dword_26F2E2000, v5, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:received unexpected part identifier for AirPods bud, partIdentifier:%{public}d}", v6, 0x18u);
     }
 
-    result = 0;
+    return 0;
   }
 
   else if (([(TASPAdvertisement *)self status]>> (1 - position)))
   {
-    result = 1;
+    return 1;
   }
 
   else
   {
-    result = 2;
+    return 2;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -626,9 +646,8 @@ LABEL_18:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = [TASPAdvertisement alloc];
-  uuid = self->_uuid;
-  LODWORD(v7) = self->_detailsBitmask;
-  return [(TASPAdvertisement *)v4 initWithAddress:self->_address advertisementData:self->_advertisementData status:self->_status reserved:self->_reserved rssi:self->_rssi scanDate:self->_scanDate detailsBitmask:v7 uuid:uuid protocolID:self->_protocolID];
+  LODWORD(v6) = self->_detailsBitmask;
+  return [(TASPAdvertisement *)v4 initWithAddress:self->_address advertisementData:self->_advertisementData status:self->_status reserved:self->_reserved rssi:self->_rssi scanDate:self->_scanDate detailsBitmask:v6 uuid:self->_uuid protocolID:self->_protocolID];
 }
 
 - (BOOL)hasHawkeyeAdvertisementPolicy

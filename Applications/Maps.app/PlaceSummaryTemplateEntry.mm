@@ -21,41 +21,46 @@
 - (BOOL)containsCuratedGuideUnit
 {
   selfCopy = self;
-  v3 = sub_10022BBD0(10);
+  sub_10022BBD0(10);
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)containsUserGeneratedGuideUnit
 {
   selfCopy = self;
-  v3 = sub_10022BBD0(9);
+  sub_10022BBD0(9);
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)containsContainmentParentUnit
 {
   selfCopy = self;
-  v3 = sub_10022BBD0(16);
+  sub_10022BBD0(16);
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)containsTransitShieldsUnit
 {
   selfCopy = self;
-  v3 = sub_10022BBD0(8);
+  sub_10022BBD0(8);
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)containsPhotoCarouselUnit
 {
   selfCopy = self;
-  v3 = sub_10022BBD0(37);
+  sub_10022BBD0(37);
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (id)stringUnitContent

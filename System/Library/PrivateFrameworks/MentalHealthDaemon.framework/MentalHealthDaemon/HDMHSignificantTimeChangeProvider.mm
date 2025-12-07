@@ -42,18 +42,18 @@ uint64_t __91__HDMHSignificantTimeChangeProvider_registerForSignificantTimeChang
 
 - (void)invalidate
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2048;
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2048;
     selfCopy = self;
-    v5 = v9;
-    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidating significant time change provider %p", &v8, 0x16u);
+    v5 = v8;
+    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Invalidating significant time change provider %p", &v7, 0x16u);
   }
 
   notifyToken = self->_notifyToken;
@@ -62,8 +62,6 @@ uint64_t __91__HDMHSignificantTimeChangeProvider_registerForSignificantTimeChang
     notify_cancel(notifyToken);
     self->_notifyToken = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc

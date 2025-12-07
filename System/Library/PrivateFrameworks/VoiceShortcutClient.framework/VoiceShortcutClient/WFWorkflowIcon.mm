@@ -6,6 +6,7 @@
 - (WFWorkflowIcon)init;
 - (WFWorkflowIcon)initWithBackgroundColorValue:(int64_t)value glyphCharacter:(unsigned __int16)character customImageData:(id)data symbolOverride:(id)override;
 - (WFWorkflowIcon)initWithCoder:(id)coder;
+- (WFWorkflowIcon)initWithPaletteColor:(unint64_t)color glyphCharacter:(unsigned __int16)character customImageData:(id)data;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -150,6 +151,16 @@
   }
 
   return v13;
+}
+
+- (WFWorkflowIcon)initWithPaletteColor:(unint64_t)color glyphCharacter:(unsigned __int16)character customImageData:(id)data
+{
+  characterCopy = character;
+  dataCopy = data;
+  v9 = [WFColor colorWithPaletteColor:color];
+  v10 = -[WFWorkflowIcon initWithBackgroundColorValue:glyphCharacter:customImageData:](self, "initWithBackgroundColorValue:glyphCharacter:customImageData:", [v9 RGBAValue], characterCopy, dataCopy);
+
+  return v10;
 }
 
 @end

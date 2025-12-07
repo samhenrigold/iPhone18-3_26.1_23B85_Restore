@@ -778,7 +778,7 @@ void __46__ATRestoreAssetLink_managerDidFinishRestore___block_invoke(uint64_t a1
   dispatch_async(queue, block);
 }
 
-uint64_t __69__ATRestoreAssetLink_environmentMonitorDidChangeNetworkReachability___block_invoke(uint64_t a1)
+void *__69__ATRestoreAssetLink_environmentMonitorDidChangeNetworkReachability___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) count];
   if (result)
@@ -1093,35 +1093,35 @@ void __27__ATRestoreAssetLink_close__block_invoke_2(uint64_t a1)
   return 1;
 }
 
-void __26__ATRestoreAssetLink_open__block_invoke(uint64_t a1)
+void __26__ATRestoreAssetLink_open__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ((*(*(a1 + 32) + 88) & 1) == 0)
   {
-    v2 = _ATLogCategoryRestore();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = _ATLogCategoryRestore();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
-      v4 = *(v3 + 49);
+      v5 = *(a1 + 32);
+      v6 = *(v5 + 49);
       *buf = 138543618;
-      v10 = v3;
-      v11 = 1024;
-      v12 = v4;
-      _os_log_impl(&dword_223819000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ open. _batchingIsSupported=%{BOOL}u", buf, 0x12u);
+      v12 = v5;
+      v13 = 1024;
+      v14 = v6;
+      _os_log_impl(&dword_223819000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ open. _batchingIsSupported=%{BOOL}u", buf, 0x12u);
     }
 
     *(*(a1 + 32) + 88) = 1;
-    v5 = [MEMORY[0x277D7FA90] sharedMonitor];
-    [v5 registerObserver:*(a1 + 32)];
+    v7 = [MEMORY[0x277D7FA90] sharedMonitor];
+    [v7 registerObserver:*(a1 + 32)];
 
-    v6 = *(a1 + 32);
-    v7 = *(v6 + 72);
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 72);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __26__ATRestoreAssetLink_open__block_invoke_38;
     block[3] = &unk_2784E5938;
-    block[4] = v6;
-    dispatch_async(v7, block);
+    block[4] = v8;
+    dispatch_async(v9, block);
   }
 }
 
@@ -1195,51 +1195,51 @@ void __26__ATRestoreAssetLink_open__block_invoke_38(uint64_t a1)
   dispatch_async(queue, v7);
 }
 
-void __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke(uint64_t a1)
+void __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = _ATLogCategoryRestore();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v20 = *MEMORY[0x277D85DE8];
+  v4 = _ATLogCategoryRestore();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(v3 + 48);
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 48);
     *buf = 138543618;
-    v15 = v3;
-    v16 = 1024;
-    v17 = v4;
-    _os_log_impl(&dword_223819000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ currentRestoreState %d", buf, 0x12u);
+    v17 = v5;
+    v18 = 1024;
+    v19 = v6;
+    _os_log_impl(&dword_223819000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ currentRestoreState %d", buf, 0x12u);
   }
 
-  v5 = *(a1 + 32);
-  if (*(v5 + 48) == 1)
+  v7 = *(a1 + 32);
+  if (*(v7 + 48) == 1)
   {
-    v6 = *(v5 + 8);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke_25;
-    v12[3] = &unk_2784E4728;
-    v12[4] = v5;
-    v13 = *(a1 + 40);
-    [v6 fetchiCloudRestoreIsCompleteWithCompletion:v12];
-    v7 = v13;
+    v8 = *(v7 + 8);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke_25;
+    v14[3] = &unk_2784E4728;
+    v14[4] = v7;
+    v15 = *(a1 + 40);
+    [v8 fetchiCloudRestoreIsCompleteWithCompletion:v14];
+    v9 = v15;
   }
 
   else
   {
-    v8 = *(a1 + 40);
-    if (!v8)
+    v10 = *(a1 + 40);
+    if (!v10)
     {
       return;
     }
 
-    v9 = *(v5 + 72);
+    v11 = *(v7 + 72);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke_2_28;
     block[3] = &unk_2784E53E8;
-    v11 = v8;
-    dispatch_async(v9, block);
-    v7 = v11;
+    v13 = v10;
+    dispatch_async(v11, block);
+    v9 = v13;
   }
 }
 
@@ -1261,38 +1261,38 @@ void __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke_
   dispatch_async(v8, v10);
 }
 
-void __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke_2(uint64_t a1)
+void __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = _ATLogCategoryRestore();
-  v4 = v3;
-  if (v2)
+  v25 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 32);
+  v5 = _ATLogCategoryRestore();
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 56);
-      v6 = *(a1 + 40);
-      v7 = [*(a1 + 32) msv_description];
+      v7 = *(a1 + 56);
+      v8 = *(a1 + 40);
+      v9 = [*(a1 + 32) msv_description];
       *buf = 138543874;
-      v18 = v6;
-      v19 = 1024;
-      v20 = v5;
-      v21 = 2114;
+      v20 = v8;
+      v21 = 1024;
       v22 = v7;
-      _os_log_impl(&dword_223819000, v4, OS_LOG_TYPE_ERROR, "%{public}@ mbManager reported restoreIsComplete:%d error=%{public}@", buf, 0x1Cu);
+      v23 = 2114;
+      v24 = v9;
+      _os_log_impl(&dword_223819000, v6, OS_LOG_TYPE_ERROR, "%{public}@ mbManager reported restoreIsComplete:%d error=%{public}@", buf, 0x1Cu);
     }
   }
 
-  else if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 56);
+    v10 = *(a1 + 40);
+    v11 = *(a1 + 56);
     *buf = 138543618;
-    v18 = v8;
-    v19 = 1024;
-    v20 = v9;
-    _os_log_impl(&dword_223819000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ mbManager reported restoreIsComplete:%d", buf, 0x12u);
+    v20 = v10;
+    v21 = 1024;
+    v22 = v11;
+    _os_log_impl(&dword_223819000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ mbManager reported restoreIsComplete:%d", buf, 0x12u);
   }
 
   if (!*(a1 + 32))
@@ -1300,19 +1300,19 @@ void __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke_
     *(*(a1 + 40) + 48) = *(a1 + 56) ^ 1;
   }
 
-  v10 = *(a1 + 48);
-  if (v10)
+  v12 = *(a1 + 48);
+  if (v12)
   {
-    v11 = *(*(a1 + 40) + 72);
+    v13 = *(*(a1 + 40) + 72);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke_26;
     block[3] = &unk_2784E58C0;
-    v16 = v10;
-    v13 = *(a1 + 32);
-    v12 = v13.i64[0];
-    v15 = vextq_s8(v13, v13, 8uLL);
-    dispatch_async(v11, block);
+    v18 = v12;
+    v15 = *(a1 + 32);
+    v14 = v15.i64[0];
+    v17 = vextq_s8(v15, v15, 8uLL);
+    dispatch_async(v13, block);
   }
 }
 
@@ -1372,26 +1372,26 @@ void __57__ATRestoreAssetLink_restoreSessionActiveWithCompletion___block_invoke_
   return v2;
 }
 
-void __26__ATRestoreAssetLink_init__block_invoke(uint64_t a1)
+void __26__ATRestoreAssetLink_init__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = _ATLogCategoryRestore();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = _ATLogCategoryRestore();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_223819000, v2, OS_LOG_TYPE_ERROR, "Restore cellular policy has changed - loading the new settings", buf, 2u);
+    _os_log_impl(&dword_223819000, v4, OS_LOG_TYPE_ERROR, "Restore cellular policy has changed - loading the new settings", buf, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = WeakRetained[1];
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __26__ATRestoreAssetLink_init__block_invoke_18;
-    v6[3] = &unk_2784E46B0;
-    v7 = WeakRetained;
-    [v5 fetchBackgroundRestoreCellularAccessWithCompletion:v6];
+    v7 = WeakRetained[1];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __26__ATRestoreAssetLink_init__block_invoke_18;
+    v8[3] = &unk_2784E46B0;
+    v9 = WeakRetained;
+    [v7 fetchBackgroundRestoreCellularAccessWithCompletion:v8];
   }
 }
 

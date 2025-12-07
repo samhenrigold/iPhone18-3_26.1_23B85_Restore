@@ -76,26 +76,26 @@
   v11 = [v9 numberWithInteger:{objc_msgSend(traitCollection3, "horizontalSizeClass")}];
   v12 = MEMORY[0x1E696AD98];
   traitCollection4 = [(SLSheetImagePreviewView *)self traitCollection];
-  v17 = [v12 numberWithInteger:{objc_msgSend(traitCollection4, "verticalSizeClass")}];
-  _SLLog(v2, 7, @"SLSheetImagePreviewView intrinsicContentSize horizontalSizeClass %@ verticalSizeClass %@");
+  v27 = [v12 numberWithInteger:{objc_msgSend(traitCollection4, "verticalSizeClass")}];
+  _SLLog(v2, 7, @"SLSheetImagePreviewView intrinsicContentSize horizontalSizeClass %@ verticalSizeClass %@", v14, v15, v16, v17, v18, v11);
 
-  v16 = [MEMORY[0x1E696B098] valueWithCGSize:{v6, v6, v11, v17}];
-  _SLLog(v2, 7, @"SLSheetImagePreviewView intrinsicContentSize returning %@");
+  v19 = [MEMORY[0x1E696B098] valueWithCGSize:{v6, v6}];
+  _SLLog(v2, 7, @"SLSheetImagePreviewView intrinsicContentSize returning %@", v20, v21, v22, v23, v24, v19);
 
-  v14 = v6;
-  v15 = v6;
-  result.height = v15;
-  result.width = v14;
+  v25 = v6;
+  v26 = v6;
+  result.height = v26;
+  result.width = v25;
   return result;
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
-  _SLLog(v3, 7, @"SLSheetImagePreviewView traitCollectionDidChange:");
-  v11.receiver = self;
-  v11.super_class = SLSheetImagePreviewView;
-  [(SLSheetImagePreviewView *)&v11 traitCollectionDidChange:changeCopy];
+  _SLLog(v3, 7, @"SLSheetImagePreviewView traitCollectionDidChange:", v6, v7, v8, v9, v10, v21.receiver);
+  v21.receiver = self;
+  v21.super_class = SLSheetImagePreviewView;
+  [(SLSheetImagePreviewView *)&v21 traitCollectionDidChange:changeCopy];
   traitCollection = [(SLSheetImagePreviewView *)self traitCollection];
   horizontalSizeClass = [traitCollection horizontalSizeClass];
   if (horizontalSizeClass == [changeCopy horizontalSizeClass])
@@ -114,7 +114,7 @@
   {
   }
 
-  _SLLog(v3, 7, @"SLSheetImagePreviewView traitCollectionDidChange: now invalidatingIntrinsicContentSize");
+  _SLLog(v3, 7, @"SLSheetImagePreviewView traitCollectionDidChange: now invalidatingIntrinsicContentSize", v16, v17, v18, v19, v20, v21.receiver);
   [(SLSheetImagePreviewView *)self invalidateIntrinsicContentSize];
 LABEL_6:
 }

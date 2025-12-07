@@ -53,32 +53,26 @@ LABEL_7:
 
 + (id)matchEventWithDictionary:(void *)a1 device:error:.cold.1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v10);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
-  result = setError(1, a1);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return setError(1, a1);
 }
 
 + (id)matchEventWithDictionary:(void *)a1 device:error:.cold.2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if (OUTLINED_FUNCTION_2_1(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v10);
+    OUTLINED_FUNCTION_3_1(&dword_1C82AD000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
-  result = setError(1, a1);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return setError(1, a1);
 }
 
 @end

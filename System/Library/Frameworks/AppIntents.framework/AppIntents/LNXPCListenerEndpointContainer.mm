@@ -11,7 +11,7 @@
 
 - (NSXPCListenerEndpoint)listenerEndpoint
 {
-  v2 = XPCListenerEndpointContainer.listenerEndpoint.getter();
+  v2 = XPCListenerEndpointContainer.listenerEndpoint.getter(self);
 
   return v2;
 }
@@ -45,7 +45,7 @@
 
 - (LNAction)resolvedAction
 {
-  v2 = XPCListenerEndpointContainer.resolvedAction.getter();
+  v2 = XPCListenerEndpointContainer.resolvedAction.getter(self);
 
   return v2;
 }

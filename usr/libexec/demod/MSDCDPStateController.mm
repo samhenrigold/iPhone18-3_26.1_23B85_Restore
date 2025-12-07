@@ -22,7 +22,7 @@
 
   else
   {
-    v5 = sub_100063A54();
+    v5 = sub_100063A54(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1000E5728(v5);
@@ -77,39 +77,39 @@
 
   if (stringValue)
   {
-    v6 = [CDPAccount isICDPEnabledForDSID:stringValue];
+    v7 = [CDPAccount isICDPEnabledForDSID:stringValue];
   }
 
   else
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100063A54(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_1000E576C(v7);
+      sub_1000E576C(v8);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)isCDPManateeAvailable
 {
   cdpController = [(MSDCDPStateController *)self cdpController];
-  v8 = 0;
-  v3 = [cdpController isManateeAvailable:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [cdpController isManateeAvailable:&v9];
+  v4 = v9;
 
   if ((v3 & 1) == 0)
   {
-    v5 = sub_100063A54();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100063A54(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       localizedDescription = [v4 localizedDescription];
       *buf = 138543362;
-      v10 = localizedDescription;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "CDP manatee is NOT available because: %{public}@", buf, 0xCu);
+      v11 = localizedDescription;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "CDP manatee is NOT available because: %{public}@", buf, 0xCu);
     }
   }
 
@@ -119,14 +119,14 @@
 - (BOOL)isRecoveryKeyAvailable:(id *)available
 {
   cdpController = [(MSDCDPStateController *)self cdpController];
-  v10 = 0;
-  v5 = [cdpController isRecoveryKeyAvailableWithError:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [cdpController isRecoveryKeyAvailableWithError:&v11];
+  v6 = v11;
 
   if (v6)
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100063A54(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000E57B0(v6);
     }
@@ -134,7 +134,7 @@
 
   if (available)
   {
-    v8 = v6;
+    v9 = v6;
     *available = v6;
   }
 
@@ -144,14 +144,14 @@
 - (id)generateRecoveryKeyWithError:(id *)error
 {
   cdpController = [(MSDCDPStateController *)self cdpController];
-  v10 = 0;
-  v5 = [cdpController generateRandomRecoveryKey:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [cdpController generateRandomRecoveryKey:&v11];
+  v6 = v11;
 
   if (!v5)
   {
-    v7 = sub_100063A54();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100063A54(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_1000E5838(v6);
     }
@@ -159,7 +159,7 @@
 
   if (error)
   {
-    v8 = v6;
+    v9 = v6;
     *error = v6;
   }
 

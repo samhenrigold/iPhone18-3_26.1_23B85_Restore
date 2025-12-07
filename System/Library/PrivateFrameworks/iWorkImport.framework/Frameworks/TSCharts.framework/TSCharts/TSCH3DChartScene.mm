@@ -41,7 +41,7 @@
   result = self->_sceneInfo;
   if (result)
   {
-    return objc_msgSend_layoutSettings(result, a3, v3, v4, v5);
+    return objc_msgSend_layoutSettings(result, v3, v4, v5, a3);
   }
 
   *&retstr->var0 = 0;
@@ -52,7 +52,7 @@
 
 - (void)adjustSceneSettings
 {
-  if ((atomic_load_explicit(&qword_280A46980, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280A46980, memory_order_acquire) & 1) == 0)
   {
     sub_2764A6B84();
   }
@@ -64,25 +64,25 @@
   v21 = 0;
   if (v17)
   {
-    objc_msgSend_stageXYCenter(v17, v18, 0.0, v19, v20);
+    objc_msgSend_stageXYCenter(v17, 0.0, v19, v20);
     v21 = *__p;
   }
 
   __p[0] = 1065353216;
   *&__p[3] = 0;
   *&__p[1] = 0;
-  v95 = 1065353216;
-  v96 = 0;
-  v97 = 0;
+  v89 = 1065353216;
+  v90 = 0;
+  v91 = 0;
   v22 = vmul_f32(v21, 0);
   v23 = vaddv_f32(v22);
   *&v19 = v23 + 50.0;
   v24 = vrev64_s32(v22);
-  v98 = 1065353216;
-  v99 = COERCE_DOUBLE(vadd_f32(vadd_f32(v21, v24), 0));
-  v100 = v23 + 50.0;
-  v101 = (v23 + 0.0) + 1.0;
-  objc_msgSend_setTransform_(v7, v18, v99, v19, *&v24, __p);
+  v92 = 1065353216;
+  v93 = COERCE_DOUBLE(vadd_f32(vadd_f32(v21, v24), 0));
+  v94 = v23 + 50.0;
+  v95 = (v23 + 0.0) + 1.0;
+  objc_msgSend_setTransform_(v7, v18, v93, v19, *&v24, __p);
   v25 = qword_280A46978;
   v30 = objc_msgSend_lens(v7, v26, v27, v28, v29);
   LODWORD(v31) = v25;
@@ -101,7 +101,7 @@
 
   if (v63)
   {
-    objc_msgSend_value3(v63, v64, v65, v66, v67);
+    objc_msgSend_value3(v63, v64, v65, v66);
   }
 
   else
@@ -109,45 +109,49 @@
     memset(__p, 0, 12);
   }
 
-  sub_2761BC934(v63, __p, &v92);
-  *__p = v92;
-  __p[2] = v93;
-  objc_msgSend_setRotation_(v17, v68, COERCE_DOUBLE(__PAIR64__(HIDWORD(v92), v93)), v69, v70, __p);
+  sub_2761BC934(v63, __p, &v86);
+  *__p = v86;
+  __p[2] = v87;
+  objc_msgSend_setRotation_(v17, v67, COERCE_DOUBLE(__PAIR64__(HIDWORD(v86), v87)), v68, v69, __p);
   if (byte_280A46430 == 1)
   {
-    v71 = objc_opt_class();
-    v79 = NSStringFromSelector(a2);
+    v70 = objc_opt_class();
+    v71 = NSStringFromSelector(a2);
     if (v17)
     {
-      objc_msgSend_rotation(v17, v72, v80, v81, v82);
-      v83 = *&v90;
+      objc_msgSend_rotation(v17, v72, v73, v74);
+      v75 = *&v84;
+      v76 = *(&v84 + 1);
+      v77 = v85;
     }
 
     else
     {
-      v91 = 0;
-      v90 = 0;
-      LOBYTE(v83) = 0;
+      v85 = 0.0;
+      v84 = 0;
+      v77 = 0.0;
+      v76 = 0.0;
+      v75 = 0.0;
     }
 
-    v84 = MEMORY[0x277CCACA8];
-    sub_276152FD4("vec3(%f, %f, %f)", v72, v73, v74, v75, v76, v77, v78, SLOBYTE(v83));
-    if (v95 >= 0)
+    v78 = MEMORY[0x277CCACA8];
+    sub_276152FD4(__p, "vec3(%f, %f, %f)", v75, v76, v77);
+    if (v89 >= 0)
     {
-      objc_msgSend_stringWithUTF8String_(v84, v85, v86, v87, v88, __p);
+      objc_msgSend_stringWithUTF8String_(v78, v79, v80, v81, v82, __p);
     }
 
     else
     {
-      objc_msgSend_stringWithUTF8String_(v84, v85, v86, v87, v88, *__p);
+      objc_msgSend_stringWithUTF8String_(v78, v79, v80, v81, v82, *__p);
     }
-    v89 = ;
-    if (SHIBYTE(v95) < 0)
+    v83 = ;
+    if (SHIBYTE(v89) < 0)
     {
       operator delete(*__p);
     }
 
-    NSLog(&cfstr_PCreatingScene.isa, v71, self, v79, v89, v90, v91);
+    NSLog(&cfstr_PCreatingScene.isa, v70, self, v71, v83, v84, LODWORD(v85));
   }
 }
 
@@ -197,20 +201,20 @@
     v36 = objc_msgSend_enumeratorWithModel_chartType_seriesType_(TSCH3DChartModelEnumerator, v32, v33, v34, v35, v21, v26, v31);
 
     v41 = objc_msgSend_scene(self, v37, v38, v39, v40);
-    objc_msgSend_layoutSettings(self, v42, v43, v44, v45);
-    v50 = objc_msgSend_partWithEnumerator_layoutSettings_(v11, v46, v47, v48, v49, v36, v92);
-    v55 = objc_msgSend_seriesType(self, v51, v52, v53, v54);
-    objc_msgSend_setPart_forType_(v41, v56, v57, v58, v59, v50, v55);
+    objc_msgSend_layoutSettings(self, v42, v43, v44);
+    v49 = objc_msgSend_partWithEnumerator_layoutSettings_(v11, v45, v46, v47, v48, v36, v91);
+    v54 = objc_msgSend_seriesType(self, v50, v51, v52, v53);
+    objc_msgSend_setPart_forType_(v41, v55, v56, v57, v58, v49, v54);
 
-    v64 = objc_msgSend_sceneObject(v11, v60, v61, v62, v63);
-    objc_msgSend_setMain_(v41, v65, v66, v67, v68, v64);
+    v63 = objc_msgSend_sceneObject(v11, v59, v60, v61, v62);
+    objc_msgSend_setMain_(v41, v64, v65, v66, v67, v63);
 
-    v73 = objc_msgSend_main(v41, v69, v70, v71, v72);
-    v78 = objc_msgSend_objectWithMain_(TSCH3DChartStageSceneObject, v74, v75, v76, v77, v73);
-    objc_msgSend_addObject_(v41, v79, v80, v81, v82, v78);
+    v72 = objc_msgSend_main(v41, v68, v69, v70, v71);
+    v77 = objc_msgSend_objectWithMain_(TSCH3DChartStageSceneObject, v73, v74, v75, v76, v72);
+    objc_msgSend_addObject_(v41, v78, v79, v80, v81, v77);
 
-    v87 = objc_msgSend_sceneObject(TSCH3DChartSelectedElementHighlightSceneObject, v83, v84, v85, v86);
-    objc_msgSend_addObject_(v41, v88, v89, v90, v91, v87);
+    v86 = objc_msgSend_sceneObject(TSCH3DChartSelectedElementHighlightSceneObject, v82, v83, v84, v85);
+    objc_msgSend_addObject_(v41, v87, v88, v89, v90, v86);
   }
 }
 

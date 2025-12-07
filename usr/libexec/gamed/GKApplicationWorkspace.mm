@@ -83,13 +83,13 @@ LABEL_4:
 - (void)openURL:(id)l
 {
   lCopy = l;
-  v10 = FBSOpenApplicationOptionKeyPromptUnlockDevice;
-  v11 = &__kCFBooleanTrue;
-  v4 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v9[1] = FBSOpenApplicationOptionKeyPromptUnlockDevice;
+  v9[2] = &__kCFBooleanTrue;
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v5 = +[LSApplicationWorkspace defaultWorkspace];
-  v9 = 0;
-  [v5 openSensitiveURL:lCopy withOptions:v4 error:&v9];
-  v6 = v9;
+  v9[0] = 0;
+  [v5 openSensitiveURL:lCopy withOptions:v4 error:v9];
+  v6 = v9[0];
 
   if (v6)
   {

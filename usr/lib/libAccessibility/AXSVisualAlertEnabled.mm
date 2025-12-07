@@ -3,7 +3,7 @@
 
 @implementation AXSVisualAlertEnabled
 
-uint64_t ___AXSVisualAlertEnabled_block_invoke()
+void *___AXSVisualAlertEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

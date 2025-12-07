@@ -50,7 +50,7 @@
   return v11;
 }
 
-void __93__RTStateTransitionMotionActivityHistogram_initWithMotionActivities_fromStartDate_toEndDate___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __93__RTStateTransitionMotionActivityHistogram_initWithMotionActivities_fromStartDate_toEndDate___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = a2;
   v6 = *(*(a1 + 48) + 8);
@@ -88,7 +88,7 @@ void __93__RTStateTransitionMotionActivityHistogram_initWithMotionActivities_fro
           v20 = *(a1 + 56);
         }
 
-        if ([*(a1 + 32) count] - 1 == a3)
+        if (([*(a1 + 32) count] - 1) == a3)
         {
           v23 = *(a1 + 64);
         }

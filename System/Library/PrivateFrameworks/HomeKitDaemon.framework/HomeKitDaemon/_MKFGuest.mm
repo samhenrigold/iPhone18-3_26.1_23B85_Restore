@@ -193,7 +193,7 @@
 
 - (id)matterBulletinRegistrationForEndpointID:(id)d accessoryUUID:(id)iD deviceIdsIdentifier:(id)identifier context:(id)context
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   identifierCopy = identifier;
@@ -203,9 +203,9 @@
   iDCopy = [MEMORY[0x277CCAC30] predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K.%K contains %@) AND (%K.%K.modelID contains %@)", @"guest", self, @"deviceIdsIdentifier", identifierCopy, @"matterPaths_", @"endpointID", dCopy, @"matterPaths_", @"accessory", iDCopy];
   [v14 setPredicate:iDCopy];
 
-  v26 = 0;
-  v16 = [contextCopy executeFetchRequest:v14 error:&v26];
-  v17 = v26;
+  v25 = 0;
+  v16 = [contextCopy executeFetchRequest:v14 error:&v25];
+  v17 = v25;
   if (v16)
   {
     firstObject = [v16 firstObject];
@@ -219,65 +219,63 @@
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v22 = v25 = v19;
+      v22 = v24 = v19;
       *buf = 138544130;
-      v28 = v22;
-      v29 = 2112;
-      v30 = dCopy;
-      v31 = 2112;
-      v32 = iDCopy;
-      v33 = 2112;
-      v34 = v17;
+      v27 = v22;
+      v28 = 2112;
+      v29 = dCopy;
+      v30 = 2112;
+      v31 = iDCopy;
+      v32 = 2112;
+      v33 = v17;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch Matter bulletin registration with endpointID %@: on accessory %@, error: %@", buf, 0x2Au);
 
-      v19 = v25;
+      v19 = v24;
     }
 
     objc_autoreleasePoolPop(v19);
     firstObject = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return firstObject;
 }
 
 - (id)characteristicBulletinRegistrationForAccessory:(id)accessory serviceInstanceID:(id)d characteristicInstanceID:(id)iD deviceIdsIdentifier:(id)identifier context:(id)context
 {
-  v53[2] = *MEMORY[0x277D85DE8];
+  v52[2] = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   dCopy = d;
   iDCopy = iD;
   identifierCopy = identifier;
   contextCopy = context;
   v15 = +[_MKFCharacteristicBulletinRegistration fetchRequest];
-  v37 = MEMORY[0x277CCAC30];
-  v39 = HAPInstanceIDFromValue();
-  v41 = iDCopy;
-  v53[0] = v39;
+  v36 = MEMORY[0x277CCAC30];
+  v38 = HAPInstanceIDFromValue();
+  v40 = iDCopy;
+  v52[0] = v38;
   v16 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(iDCopy, "longLongValue")}];
-  v53[1] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:2];
+  v52[1] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
   v18 = HAPInstanceIDFromValue();
-  v52[0] = v18;
-  v42 = dCopy;
+  v51[0] = v18;
+  v41 = dCopy;
   v19 = [MEMORY[0x277CCABB0] numberWithLongLong:{objc_msgSend(dCopy, "longLongValue")}];
-  v52[1] = v19;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+  v51[1] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
   v21 = accessoryCopy;
-  v35 = accessoryCopy;
+  v34 = accessoryCopy;
   v22 = identifierCopy;
-  v23 = [v37 predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K.%K IN %@) AND (%K.%K.%K IN %@) AND (%K.%K.%K.modelID == %@)", @"guest", self, @"deviceIdsIdentifier", identifierCopy, @"characteristic", @"instanceID", v17, @"characteristic", @"service", @"instanceID", v20, @"characteristic", @"service", @"accessory", v35];
+  v23 = [v36 predicateWithFormat:@"(%K == %@) AND (%K == %@) AND (%K.%K IN %@) AND (%K.%K.%K IN %@) AND (%K.%K.%K.modelID == %@)", @"guest", self, @"deviceIdsIdentifier", identifierCopy, @"characteristic", @"instanceID", v17, @"characteristic", @"service", @"instanceID", v20, @"characteristic", @"service", @"accessory", v34];
   [v15 setPredicate:v23];
 
   v24 = v15;
-  v43 = 0;
-  v25 = [contextCopy executeFetchRequest:v15 error:&v43];
-  v26 = v43;
+  v42 = 0;
+  v25 = [contextCopy executeFetchRequest:v15 error:&v42];
+  v26 = v42;
   if (v25)
   {
     firstObject = [v25 firstObject];
-    v28 = v41;
+    v28 = v40;
   }
 
   else
@@ -285,29 +283,27 @@
     v29 = objc_autoreleasePoolPush();
     selfCopy = self;
     v31 = HMFGetOSLogHandle();
-    v28 = v41;
+    v28 = v40;
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v32 = v40 = v24;
+      v32 = v39 = v24;
       *buf = 138544130;
-      v45 = v32;
-      v46 = 2112;
-      v47 = v41;
-      v48 = 2112;
-      v49 = v21;
-      v50 = 2112;
-      v51 = v26;
+      v44 = v32;
+      v45 = 2112;
+      v46 = v40;
+      v47 = 2112;
+      v48 = v21;
+      v49 = 2112;
+      v50 = v26;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch characteristic bulletin registration with characteristic instanceID %@: on accessory %@, error: %@", buf, 0x2Au);
 
-      v24 = v40;
+      v24 = v39;
     }
 
     objc_autoreleasePoolPop(v29);
     firstObject = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -364,31 +360,31 @@
 
 - (id)allowedAccessoryUUIDs
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   allowedAccessories = [(_MKFGuest *)self allowedAccessories];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(allowedAccessories, "count")}];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   allowedAccessories2 = [(_MKFGuest *)self allowedAccessories];
-  v7 = [allowedAccessories2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [allowedAccessories2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(allowedAccessories2);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         modelID = [v11 modelID];
         [v5 addObject:modelID];
@@ -396,14 +392,13 @@
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [allowedAccessories2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [allowedAccessories2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
-  v14 = [v5 copy];
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = objc_msgSend_copy(v5);
 
   return v14;
 }
@@ -469,7 +464,7 @@
 
 + (id)findGuestUsingReverseShareID:(id)d homeModelID:(id)iD context:(id)context
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   contextCopy = context;
@@ -478,9 +473,9 @@
   [v11 setPredicate:iDCopy];
 
   [v11 setFetchLimit:2];
-  v24 = 0;
-  v13 = [contextCopy executeFetchRequest:v11 error:&v24];
-  v14 = v24;
+  v23 = 0;
+  v13 = [contextCopy executeFetchRequest:v11 error:&v23];
+  v14 = v23;
   if (v13)
   {
     if ([v13 count] == 1)
@@ -497,9 +492,9 @@
       v19 = HMFGetLogIdentifier();
       v21 = [v13 count];
       *buf = 138543618;
-      v26 = v19;
-      v27 = 2048;
-      v28 = v21;
+      v25 = v19;
+      v26 = 2048;
+      v27 = v21;
       v20 = "%{public}@Failed to fetch working store user resulted into error: %zd matching users";
       goto LABEL_8;
     }
@@ -514,9 +509,9 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v19;
-      v27 = 2114;
-      v28 = v14;
+      v25 = v19;
+      v26 = 2114;
+      v27 = v14;
       v20 = "%{public}@Failed to fetch working store user resulted into error: %{public}@";
 LABEL_8:
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, v20, buf, 0x16u);
@@ -526,8 +521,6 @@ LABEL_8:
   objc_autoreleasePoolPop(v16);
   firstObject = 0;
 LABEL_10:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }

@@ -106,8 +106,8 @@
 
 - (NSString)shortcutIdentifier
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  shortcutIdentifier = [configuration shortcutIdentifier];
+  v2 = objc_msgSend_configuration(self, a2);
+  shortcutIdentifier = [v2 shortcutIdentifier];
 
   return shortcutIdentifier;
 }
@@ -166,8 +166,8 @@ LABEL_14:
 
 - (RoutePlanningTiming)timing
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+  v2 = objc_msgSend_configuration(self, a2);
+  routeLoadingTaskFactory = [v2 routeLoadingTaskFactory];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -226,8 +226,8 @@ LABEL_13:
 
 - (CyclePreferences)cyclePreferences
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+  v2 = objc_msgSend_configuration(self, a2);
+  routeLoadingTaskFactory = [v2 routeLoadingTaskFactory];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -290,8 +290,8 @@ LABEL_13:
 
 - (TransitPreferences)transitPreferences
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+  v2 = objc_msgSend_configuration(self, a2);
+  routeLoadingTaskFactory = [v2 routeLoadingTaskFactory];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -354,8 +354,8 @@ LABEL_13:
 
 - (WalkPreferences)walkPreferences
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+  v2 = objc_msgSend_configuration(self, a2);
+  routeLoadingTaskFactory = [v2 routeLoadingTaskFactory];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -418,8 +418,8 @@ LABEL_13:
 
 - (DrivePreferences)drivePreferences
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+  v2 = objc_msgSend_configuration(self, a2);
+  routeLoadingTaskFactory = [v2 routeLoadingTaskFactory];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -596,8 +596,8 @@ LABEL_8:
 
 - (SearchResult)destinationDisplayableMarker
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  destinationWaypointRequest = [configuration destinationWaypointRequest];
+  v3 = objc_msgSend_configuration(self, a2);
+  destinationWaypointRequest = [v3 destinationWaypointRequest];
   resolvedWaypoints = [(RoutePlanningSession *)self resolvedWaypoints];
   destination = [resolvedWaypoints destination];
   v7 = [(RoutePlanningSession *)self _searchResultFromWaypointRequest:destinationWaypointRequest resolvedWaypoint:destination];
@@ -607,8 +607,8 @@ LABEL_8:
 
 - (SearchResult)originDisplayableMarker
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  originWaypointRequest = [configuration originWaypointRequest];
+  v3 = objc_msgSend_configuration(self, a2);
+  originWaypointRequest = [v3 originWaypointRequest];
   resolvedWaypoints = [(RoutePlanningSession *)self resolvedWaypoints];
   origin = [resolvedWaypoints origin];
   v7 = [(RoutePlanningSession *)self _searchResultFromWaypointRequest:originWaypointRequest resolvedWaypoint:origin];
@@ -983,8 +983,8 @@ LABEL_8:
 
 - (void)_cancelFetchingCapabilitiesSharingContacts
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  automaticSharingContacts = [configuration automaticSharingContacts];
+  v2 = objc_msgSend_configuration(self, a2);
+  automaticSharingContacts = [v2 automaticSharingContacts];
 
   v13 = 0u;
   v14 = 0u;
@@ -1049,8 +1049,8 @@ LABEL_8:
       _os_log_impl(&_mh_execute_header, observers, OS_LOG_TYPE_INFO, "Not setting automatic sharing contacts because sharing is not available (would have had %lu autosharing contacts)", &v19, 0xCu);
     }
 
-    configuration = [(RoutePlanningSession *)self configuration];
-    [configuration setAutomaticSharingContacts:0];
+    v15 = objc_msgSend_configuration(self);
+    [v15 setAutomaticSharingContacts:0];
     goto LABEL_12;
   }
 
@@ -1066,16 +1066,16 @@ LABEL_8:
     }
 
     [(RoutePlanningSession *)self _cancelFetchingCapabilitiesSharingContacts];
-    configuration2 = [(RoutePlanningSession *)self configuration];
-    [configuration2 setAutomaticSharingContacts:contactsCopy];
+    v14 = objc_msgSend_configuration(self);
+    [v14 setAutomaticSharingContacts:contactsCopy];
 
-    configuration = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
-    [configuration requestCapabilityLevelsForContacts:contactsCopy];
+    v15 = +[MSPSharedTripCapabilityLevelFetcher sharedFetcher];
+    [v15 requestCapabilityLevelsForContacts:contactsCopy];
 LABEL_12:
 
     observers = [(RoutePlanningSession *)self observers];
-    configuration3 = [(RoutePlanningSession *)self configuration];
-    automaticSharingContacts = [configuration3 automaticSharingContacts];
+    v16 = objc_msgSend_configuration(self);
+    automaticSharingContacts = [v16 automaticSharingContacts];
     [observers routePlanningSession:self didUpdateAutomaticSharingContacts:automaticSharingContacts];
 
     goto LABEL_13;
@@ -1116,8 +1116,8 @@ LABEL_13:
     }
 
     [(RoutePlanningSession *)self _cancelFetchingCapabilitiesSharingContacts];
-    configuration = [(RoutePlanningSession *)self configuration];
-    [configuration setShortcutIdentifier:0];
+    v8 = objc_msgSend_configuration(self);
+    [v8 setShortcutIdentifier:0];
   }
 
   [(RoutePlanningSession *)self _setAutomaticSharingContacts:contactsCopy];
@@ -1125,8 +1125,8 @@ LABEL_13:
 
 - (NSArray)automaticSharingContacts
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  automaticSharingContacts = [configuration automaticSharingContacts];
+  v2 = objc_msgSend_configuration(self, a2);
+  automaticSharingContacts = [v2 automaticSharingContacts];
 
   return automaticSharingContacts;
 }
@@ -1343,11 +1343,11 @@ LABEL_14:
 - (void)setShortcutIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  configuration = [(RoutePlanningSession *)self configuration];
-  shortcutIdentifier = [configuration shortcutIdentifier];
+  v5 = objc_msgSend_configuration(self);
+  shortcutIdentifier = [v5 shortcutIdentifier];
 
-  configuration2 = [(RoutePlanningSession *)self configuration];
-  [configuration2 setShortcutIdentifier:identifierCopy];
+  v7 = objc_msgSend_configuration(self);
+  [v7 setShortcutIdentifier:identifierCopy];
 
   if (identifierCopy)
   {
@@ -1612,8 +1612,8 @@ LABEL_14:
     [observers mapsSession:self didChangeState:{-[RoutePlanningSession sessionState](self, "sessionState")}];
 
     [(RoutePlanningSession *)self _updateLoadingControllerForRealtimeUpdates];
-    configuration = [(RoutePlanningSession *)self configuration];
-    locationManager = [configuration locationManager];
+    v11 = objc_msgSend_configuration(self);
+    locationManager = [v11 locationManager];
     if ([locationManager isLocationServicesDenied])
     {
       v13 = 0;
@@ -1621,8 +1621,8 @@ LABEL_14:
 
     else
     {
-      configuration2 = [(RoutePlanningSession *)self configuration];
-      locationManager2 = [configuration2 locationManager];
+      v14 = objc_msgSend_configuration(self);
+      locationManager2 = [v14 locationManager];
       isLocationServicesRestricted = [locationManager2 isLocationServicesRestricted];
 
       v13 = isLocationServicesRestricted ^ 1;
@@ -1630,8 +1630,8 @@ LABEL_14:
 
     if (!sessionState2)
     {
-      configuration3 = [(RoutePlanningSession *)self configuration];
-      isNavigationTracePlayback = [configuration3 isNavigationTracePlayback];
+      v17 = objc_msgSend_configuration(self);
+      isNavigationTracePlayback = [v17 isNavigationTracePlayback];
 
       v19 = sub_100798A3C();
       v20 = v19;
@@ -1684,8 +1684,8 @@ LABEL_29:
       }
 
       objc_initWeak(buf, self);
-      configuration4 = [(RoutePlanningSession *)self configuration];
-      locationManager3 = [configuration4 locationManager];
+      v23 = objc_msgSend_configuration(self);
+      locationManager3 = [v23 locationManager];
       v31[0] = _NSConcreteStackBlock;
       v31[1] = 3221225472;
       v31[2] = sub_100F6CF88;
@@ -2179,8 +2179,8 @@ LABEL_30:
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[%{public}p] changing transport type from %@ to %@, userInitiated:%d", buf, 0x26u);
   }
 
-  configuration = [(RoutePlanningSession *)self configuration];
-  v15 = [configuration hasTransportType:type];
+  v14 = objc_msgSend_configuration(self);
+  v15 = [v14 hasTransportType:type];
 
   if ((v15 & 1) == 0)
   {
@@ -2239,8 +2239,8 @@ LABEL_30:
     if (initiatedCopy)
     {
       v22 = +[GEOCompanionRouteContext context];
-      configuration2 = [(RoutePlanningSession *)self configuration];
-      [configuration2 setCompanionContext:v22];
+      v23 = objc_msgSend_configuration(self);
+      [v23 setCompanionContext:v22];
     }
 
     self->_currentTransportType = type;
@@ -2284,15 +2284,15 @@ LABEL_39:
       goto LABEL_40;
     }
 
-    configuration3 = [(RoutePlanningSession *)self configuration];
-    if ([configuration3 areInitialRoutesBeingFetchedExternally])
+    v31 = objc_msgSend_configuration(self);
+    if ([v31 areInitialRoutesBeingFetchedExternally])
     {
       resolvedWaypointsResult = [(RoutePlanningSession *)self resolvedWaypointsResult];
       v33 = resolvedWaypointsResult == 0;
 
       if (v33)
       {
-        routeLoadingController = [(RoutePlanningSession *)self configuration];
+        routeLoadingController = objc_msgSend_configuration(self);
         [routeLoadingController setInitialRoutesBeingFetchedExternally:0];
         goto LABEL_39;
       }
@@ -2699,8 +2699,8 @@ LABEL_13:
 
 - (id)routeCollectionResultForTransportType:(int64_t)type
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  v6 = [configuration hasTransportType:type];
+  v5 = objc_msgSend_configuration(self, a2);
+  v6 = [v5 hasTransportType:type];
 
   if (v6)
   {
@@ -2739,8 +2739,8 @@ LABEL_13:
 
 - (NSString)destinationName
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  waypointRequests = [configuration waypointRequests];
+  v3 = objc_msgSend_configuration(self, a2);
+  waypointRequests = [v3 waypointRequests];
 
   resolvedWaypoints = [(RoutePlanningSession *)self resolvedWaypoints];
   currentTransportType = [(RoutePlanningSession *)self currentTransportType];
@@ -2778,8 +2778,8 @@ LABEL_13:
   if (MapsFeature_IsEnabled_Maps182())
   {
 LABEL_14:
-    configuration2 = [(RoutePlanningSession *)self configuration];
-    destinationWaypointRequest = [configuration2 destinationWaypointRequest];
+    v7 = objc_msgSend_configuration(self);
+    destinationWaypointRequest = [v7 destinationWaypointRequest];
     destination = [resolvedWaypoints destination];
     v10 = [destinationWaypointRequest nameWithResolvedWaypoint:destination allowCurrentLocation:0];
 
@@ -2792,9 +2792,9 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  configuration2 = [waypointRequests objectAtIndexedSubscript:1];
+  v7 = [waypointRequests objectAtIndexedSubscript:1];
   destinationWaypointRequest = [resolvedWaypoints waypointAtIndex:1];
-  v10 = [configuration2 nameWithResolvedWaypoint:destinationWaypointRequest allowCurrentLocation:0];
+  v10 = [v7 nameWithResolvedWaypoint:destinationWaypointRequest allowCurrentLocation:0];
 LABEL_16:
 
   return v10;
@@ -2802,8 +2802,8 @@ LABEL_16:
 
 - (NSString)originName
 {
-  configuration = [(RoutePlanningSession *)self configuration];
-  originWaypointRequest = [configuration originWaypointRequest];
+  v3 = objc_msgSend_configuration(self, a2);
+  originWaypointRequest = [v3 originWaypointRequest];
   resolvedWaypoints = [(RoutePlanningSession *)self resolvedWaypoints];
   origin = [resolvedWaypoints origin];
   v7 = [originWaypointRequest nameWithResolvedWaypoint:origin allowCurrentLocation:1];
@@ -3064,8 +3064,8 @@ LABEL_16:
 
   if ([waypoints count])
   {
-    configuration = [(RoutePlanningSession *)self configuration];
-    waypointRequests = [configuration waypointRequests];
+    v9 = objc_msgSend_configuration(self);
+    waypointRequests = [v9 waypointRequests];
 
     *buf = 0;
     *&buf[8] = buf;
@@ -3091,8 +3091,8 @@ LABEL_16:
     if (resolvedWaypoints)
     {
       v14 = [resolvedWaypoints count];
-      configuration2 = [(RoutePlanningSession *)self configuration];
-      waypointRequests2 = [configuration2 waypointRequests];
+      v15 = objc_msgSend_configuration(self);
+      waypointRequests2 = [v15 waypointRequests];
       v17 = [waypointRequests2 count];
 
       if (v14 != v17)
@@ -3125,8 +3125,8 @@ LABEL_16:
       }
     }
 
-    configuration3 = [(RoutePlanningSession *)self configuration];
-    waypointRequests3 = [configuration3 waypointRequests];
+    v21 = objc_msgSend_configuration(self);
+    waypointRequests3 = [v21 waypointRequests];
     v23[0] = _NSConcreteStackBlock;
     v23[1] = 3221225472;
     v23[2] = sub_100FC7F3C;

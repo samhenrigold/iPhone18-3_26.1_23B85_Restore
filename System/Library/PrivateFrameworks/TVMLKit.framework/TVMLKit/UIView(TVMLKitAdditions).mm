@@ -1,4 +1,5 @@
 @interface UIView(TVMLKitAdditions)
+- (BOOL)tv_shouldReuseCachedSizeThatFits:()TVMLKitAdditions previousTargetSize:newTargetSize:;
 - (double)tv_focusMargin;
 - (double)tv_interitemSpacing;
 - (double)tv_itemHeight;
@@ -23,7 +24,6 @@
 - (uint64_t)tv_isPrototypeView;
 - (uint64_t)tv_marqueeOnHighlight;
 - (uint64_t)tv_shouldAnimatePropertyWithKey:()TVMLKitAdditions;
-- (uint64_t)tv_shouldReuseCachedSizeThatFits:()TVMLKitAdditions previousTargetSize:newTargetSize:;
 - (uint64_t)tv_showOnHighlight;
 - (uint64_t)tv_sizeThatFits:()TVMLKitAdditions;
 - (void)_transferAttributesFromElement:()TVMLKitAdditions;
@@ -141,22 +141,25 @@
 - (uint64_t)transferLayoutStylesFromElement:()TVMLKitAdditions
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v9 = v4;
-    v5 = [TVViewLayout layoutClassForElement:v4];
+    v10 = v4;
+    v6 = [TVViewLayout layoutClassForElement:v4];
     tv_layout = [self tv_layout];
-    v7 = [(objc_class *)v5 layoutWithLayout:tv_layout element:v9];
+    v8 = [(objc_class *)v6 layoutWithLayout:tv_layout element:v10];
 
-    if (v7)
+    if (v8)
     {
-      [self tv_setLayout:v7];
+      [self tv_setLayout:v8];
     }
 
-    [self _transferAttributesFromElement:v9];
+    [self _transferAttributesFromElement:v10];
+
+    v5 = v10;
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v5);
 }
 
 - (uint64_t)tv_sizeThatFits:()TVMLKitAdditions
@@ -165,17 +168,17 @@
   if (objc_opt_isKindOfClass())
   {
 
-    return [self tv_textSizeForSize:{a2, a3}];
+    return [self tv_textSizeForSize:{a3, a4}];
   }
 
   else
   {
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __44__UIView_TVMLKitAdditions__tv_sizeThatFits___block_invoke;
-    v7[3] = &unk_279D6E518;
-    v7[4] = self;
-    return [self tv_sizeThatFits:v7 withSizeCalculation:{a2, a3}];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __44__UIView_TVMLKitAdditions__tv_sizeThatFits___block_invoke;
+    v8[3] = &unk_279D6E518;
+    v8[4] = self;
+    return [self tv_sizeThatFits:v8 withSizeCalculation:{a3, a4}];
   }
 }
 
@@ -266,7 +269,7 @@
   return v15;
 }
 
-- (uint64_t)tv_shouldReuseCachedSizeThatFits:()TVMLKitAdditions previousTargetSize:newTargetSize:
+- (BOOL)tv_shouldReuseCachedSizeThatFits:()TVMLKitAdditions previousTargetSize:newTargetSize:
 {
   if (self == *MEMORY[0x277CBF3A8] && a2 == *(MEMORY[0x277CBF3A8] + 8))
   {

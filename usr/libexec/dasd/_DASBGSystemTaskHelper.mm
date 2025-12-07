@@ -118,18 +118,16 @@
 
 - (void)setupPublisher
 {
-  activityQueue = self->_activityQueue;
-  v4 = xpc_event_publisher_create();
+  v3 = xpc_event_publisher_create();
   publisher = self->_publisher;
-  self->_publisher = v4;
+  self->_publisher = v3;
 
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100005E0C;
-  v8[3] = &unk_1001B7C50;
-  v8[4] = self;
-  v6 = objc_retainBlock(v8);
-  v7 = self->_publisher;
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100005E0C;
+  v6[3] = &unk_1001B7C50;
+  v6[4] = self;
+  v5 = objc_retainBlock(v6);
   xpc_event_publisher_set_handler();
 }
 
@@ -163,16 +161,15 @@
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Activating publisher", buf, 2u);
   }
 
-  publisher = self->_publisher;
   xpc_event_publisher_activate();
-  v12 = dispatch_time(0, 10000000000);
+  v11 = dispatch_time(0, 10000000000);
   activityQueue = self->_activityQueue;
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000AD9EC;
   block[3] = &unk_1001B5668;
   block[4] = self;
-  dispatch_after(v12, activityQueue, block);
+  dispatch_after(v11, activityQueue, block);
 }
 
 - (BOOL)dasSubmitActivity:(id)activity withClientOffset:(double)offset error:(id *)error
@@ -477,11 +474,11 @@ LABEL_9:
       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
       {
         v7 = log;
-        v20 = 138543618;
-        v21 = activityCopy;
-        v22 = 2048;
+        v19 = 138543618;
+        v20 = activityCopy;
+        v21 = 2048;
         state2 = [activityCopy state];
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Invalid state to suspend task %{public}@: %ld, Cancelling", &v20, 0x16u);
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Invalid state to suspend task %{public}@: %ld, Cancelling", &v19, 0x16u);
       }
 
       [(_DASBGSystemTaskHelper *)self dasCancelActivity:activityCopy];
@@ -494,21 +491,21 @@ LABEL_9:
       {
         v9 = v8;
         name = [activityCopy name];
-        v20 = 138543874;
-        v21 = name;
-        v22 = 2048;
+        v19 = 138543874;
+        v20 = name;
+        v21 = 2048;
         state2 = [activityCopy state];
-        v24 = 2048;
-        v25 = 4;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%{public}@ state change %ld -> %ld", &v20, 0x20u);
+        v23 = 2048;
+        v24 = 4;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%{public}@ state change %ld -> %ld", &v19, 0x20u);
       }
 
       v11 = self->_log;
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 138543362;
-        v21 = activityCopy;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Suspending BGST: %{public}@", &v20, 0xCu);
+        v19 = 138543362;
+        v20 = activityCopy;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Suspending BGST: %{public}@", &v19, 0xCu);
       }
 
       [activityCopy setState:4];
@@ -523,11 +520,11 @@ LABEL_9:
       {
         v16 = v15;
         scheduler_activity2 = [activityCopy scheduler_activity];
-        v20 = 138412546;
-        v21 = scheduler_activity2;
-        v22 = 2048;
+        v19 = 138412546;
+        v20 = scheduler_activity2;
+        v21 = 2048;
         state2 = v14;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Suspending %@ with reason: %lu", &v20, 0x16u);
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Suspending %@ with reason: %lu", &v19, 0x16u);
       }
 
       if (v14)
@@ -535,14 +532,13 @@ LABEL_9:
         xpc_dictionary_set_int64(v12, "expirationReason", v14);
       }
 
-      publisher = self->_publisher;
       [activityCopy token];
       if (xpc_event_publisher_fire())
       {
-        v19 = self->_log;
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v18 = self->_log;
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          sub_100127E70(v19);
+          sub_100127E70(v18);
         }
       }
     }

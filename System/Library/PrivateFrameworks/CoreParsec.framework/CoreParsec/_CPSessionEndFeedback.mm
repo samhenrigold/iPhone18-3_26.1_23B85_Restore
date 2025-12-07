@@ -28,13 +28,11 @@
   toCopy = to;
   if ([(_CPSessionEndFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPSessionEndFeedback *)self reason])
   {
-    reason = self->_reason;
     PBDataWriterWriteInt32Field();
   }
 }

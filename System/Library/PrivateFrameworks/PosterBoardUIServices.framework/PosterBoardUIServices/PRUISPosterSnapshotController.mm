@@ -73,21 +73,21 @@
 
 - (void)executeSnapshotRequest:(id)request completionBlock:(id)block
 {
-  v58[1] = *MEMORY[0x1E69E9840];
+  v59[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   blockCopy = block;
   if (!self->_snapshotController)
   {
     v7 = MEMORY[0x1E696ABC0];
-    v57 = *MEMORY[0x1E696A588];
-    v58[0] = @"Underlying snapshot controller was nil";
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
+    v58 = *MEMORY[0x1E696A588];
+    v59[0] = @"Underlying snapshot controller was nil";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
     v9 = [v7 errorWithDomain:@"com.apple.PosterBoardUIServices.PosterSnapshotControllerErrorDomain" code:2 userInfo:v8];
 
-    v10 = PRUISLogSnapshotting();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PRUISLogSnapshotting(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(PRUISPosterSnapshotController *)self executeSnapshotRequest:v9 completionBlock:v10];
+      [(PRUISPosterSnapshotController *)self executeSnapshotRequest:v9 completionBlock:v11];
     }
 
     if (blockCopy)
@@ -98,50 +98,50 @@
 
   attachmentConfiguration = [requestCopy attachmentConfiguration];
   attachments = [attachmentConfiguration attachments];
-  v13 = [attachments count];
+  v14 = [attachments count];
 
-  v14 = objc_opt_new();
+  v15 = objc_opt_new();
+  v54[0] = 0;
+  v54[1] = v54;
+  v54[2] = 0x3032000000;
+  v54[3] = __Block_byref_object_copy_;
+  v54[4] = __Block_byref_object_dispose_;
+  v55 = 0;
   v53[0] = 0;
   v53[1] = v53;
-  v53[2] = 0x3032000000;
-  v53[3] = __Block_byref_object_copy_;
-  v53[4] = __Block_byref_object_dispose_;
-  v54 = 0;
-  v52[0] = 0;
-  v52[1] = v52;
-  v52[2] = 0x2020000000;
-  v52[3] = -10000;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy_;
-  v50 = __Block_byref_object_dispose_;
-  v51 = 0;
-  v15 = dispatch_group_create();
-  if (!v13)
+  v53[2] = 0x2020000000;
+  v53[3] = -10000;
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x3032000000;
+  v50 = __Block_byref_object_copy_;
+  v51 = __Block_byref_object_dispose_;
+  v52 = 0;
+  v16 = dispatch_group_create();
+  if (!v14)
   {
     goto LABEL_10;
   }
 
   attachmentConfiguration2 = [requestCopy attachmentConfiguration];
   attachmentHostWindowScene = [attachmentConfiguration2 attachmentHostWindowScene];
-  v18 = v47[5];
-  v47[5] = attachmentHostWindowScene;
+  v19 = v48[5];
+  v48[5] = attachmentHostWindowScene;
 
-  v19 = attachmentHostWindowScene;
-  if (v19)
+  v20 = attachmentHostWindowScene;
+  if (v20)
   {
-    dispatch_group_enter(v15);
+    dispatch_group_enter(v16);
     aBlock[6] = MEMORY[0x1E69E9820];
     aBlock[7] = 3221225472;
     aBlock[8] = __72__PRUISPosterSnapshotController_executeSnapshotRequest_completionBlock___block_invoke;
     aBlock[9] = &unk_1E83A7150;
-    v44 = v53;
-    v40 = requestCopy;
-    v41 = v19;
-    v45 = v52;
-    v42 = v14;
+    v45 = v54;
+    v41 = requestCopy;
+    v42 = v20;
+    v46 = v53;
     v43 = v15;
+    v44 = v16;
     BSDispatchMain();
 
 LABEL_10:
@@ -149,38 +149,38 @@ LABEL_10:
     aBlock[1] = 3221225472;
     aBlock[2] = __72__PRUISPosterSnapshotController_executeSnapshotRequest_completionBlock___block_invoke_3;
     aBlock[3] = &unk_1E83A7178;
-    v20 = v13 == 0;
-    aBlock[4] = v53;
-    aBlock[5] = &v46;
-    v21 = _Block_copy(aBlock);
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __72__PRUISPosterSnapshotController_executeSnapshotRequest_completionBlock___block_invoke_5;
-    v36[3] = &unk_1E83A71A0;
-    v22 = v21;
-    v37 = v22;
-    v38 = blockCopy;
-    v23 = _Block_copy(v36);
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __72__PRUISPosterSnapshotController_executeSnapshotRequest_completionBlock___block_invoke_6;
-    v31[3] = &unk_1E83A71F0;
-    v32 = requestCopy;
-    v33 = v14;
-    v24 = v23;
+    v21 = v14 == 0;
+    aBlock[4] = v54;
+    aBlock[5] = &v47;
+    v22 = _Block_copy(aBlock);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __72__PRUISPosterSnapshotController_executeSnapshotRequest_completionBlock___block_invoke_5;
+    v37[3] = &unk_1E83A71A0;
+    v23 = v22;
+    v38 = v23;
+    v39 = blockCopy;
+    v24 = _Block_copy(v37);
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __72__PRUISPosterSnapshotController_executeSnapshotRequest_completionBlock___block_invoke_6;
+    v32[3] = &unk_1E83A71F0;
+    v33 = requestCopy;
+    v34 = v15;
+    v25 = v24;
     selfCopy = self;
-    v35 = v24;
-    v25 = _Block_copy(v31);
-    v26 = v25;
-    if (v20)
+    v36 = v25;
+    v26 = _Block_copy(v32);
+    v27 = v26;
+    if (v21)
     {
-      (*(v25 + 2))(v25);
+      (*(v26 + 2))(v26);
     }
 
     else
     {
       snapshotWorkloop = [MEMORY[0x1E69C51F0] snapshotWorkloop];
-      dispatch_group_notify(v15, snapshotWorkloop, v26);
+      dispatch_group_notify(v16, snapshotWorkloop, v27);
     }
 
     goto LABEL_14;
@@ -191,20 +191,20 @@ LABEL_10:
     goto LABEL_15;
   }
 
-  v28 = MEMORY[0x1E696ABC0];
-  v55 = *MEMORY[0x1E696A588];
-  v56 = @"No attachment host window scene specified; abort";
-  v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-  v22 = [v28 errorWithDomain:@"com.apple.PosterBoardUIServices.PosterSnapshotControllerErrorDomain" code:1 userInfo:v29];
+  v29 = MEMORY[0x1E696ABC0];
+  v56 = *MEMORY[0x1E696A588];
+  v57 = @"No attachment host window scene specified; abort";
+  v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+  v23 = [v29 errorWithDomain:@"com.apple.PosterBoardUIServices.PosterSnapshotControllerErrorDomain" code:1 userInfo:v30];
 
-  (*(blockCopy + 2))(blockCopy, requestCopy, 0, v22, 0);
+  (*(blockCopy + 2))(blockCopy, requestCopy, 0, v23, 0);
 LABEL_14:
 
 LABEL_15:
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v47, 8);
 
-  _Block_object_dispose(v52, 8);
   _Block_object_dispose(v53, 8);
+  _Block_object_dispose(v54, 8);
 }
 
 void __72__PRUISPosterSnapshotController_executeSnapshotRequest_completionBlock___block_invoke(uint64_t a1)
@@ -380,7 +380,7 @@ void __72__PRUISPosterSnapshotController_executeSnapshotRequest_completionBlock_
 
   else
   {
-    v7 = PRUISLogSnapshotting();
+    v7 = PRUISLogSnapshotting(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = objc_opt_class();
@@ -415,7 +415,7 @@ void __72__PRUISPosterSnapshotController_executeSnapshotRequest_completionBlock_
   v8 = a4;
   v9 = a5;
   v10 = a3;
-  v11 = PRUISLogSnapshotting();
+  v11 = PRUISLogSnapshotting(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = objc_opt_class();

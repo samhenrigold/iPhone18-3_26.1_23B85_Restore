@@ -1,10 +1,10 @@
 @interface CNPolicy(UIAdditions)
-- (uint64_t)_cnui_maximumNumberOfValuesForProperty:()UIAdditions;
+- (char)_cnui_maximumNumberOfValuesForProperty:()UIAdditions;
 @end
 
 @implementation CNPolicy(UIAdditions)
 
-- (uint64_t)_cnui_maximumNumberOfValuesForProperty:()UIAdditions
+- (char)_cnui_maximumNumberOfValuesForProperty:()UIAdditions
 {
   v4 = a3;
   if ([v4 isEqualToString:@"birthdays"])

@@ -10,12 +10,13 @@
   OUTLINED_FUNCTION_0_10();
   MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_5();
+  v6 = v5 - v4;
   sub_1E41FDEE4();
 
-  sub_1E4062140();
+  sub_1E4062140(v6, v7);
 
-  v4 = OUTLINED_FUNCTION_74();
-  v5(v4);
+  v8 = OUTLINED_FUNCTION_74();
+  v9(v8);
 }
 
 @end

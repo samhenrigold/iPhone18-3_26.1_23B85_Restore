@@ -44,7 +44,7 @@
 
 void __29__HAPNameResolver_invalidate__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -52,11 +52,11 @@ void __29__HAPNameResolver_invalidate__block_invoke(uint64_t a1)
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) name];
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2112;
-    v14 = v6;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Name resolution time out for %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Name resolution time out for %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -66,23 +66,21 @@ void __29__HAPNameResolver_invalidate__block_invoke(uint64_t a1)
     v8 = v7;
     if ([*(a1 + 32) resolutionState] == 1)
     {
-
-LABEL_7:
-      [*(a1 + 32) _cancelTimer];
-      [*(a1 + 32) _doCompletionWithErrorCode:2 state:4];
-      goto LABEL_8;
     }
 
-    v9 = [*(a1 + 32) resolutionState];
-
-    if (!v9)
+    else
     {
-      goto LABEL_7;
-    }
-  }
+      v9 = [*(a1 + 32) resolutionState];
 
-LABEL_8:
-  v10 = *MEMORY[0x277D85DE8];
+      if (v9)
+      {
+        return;
+      }
+    }
+
+    [*(a1 + 32) _cancelTimer];
+    [*(a1 + 32) _doCompletionWithErrorCode:2 state:4];
+  }
 }
 
 - (void)resolveWithTimeout:(double)timeout completion:(id)completion
@@ -102,7 +100,7 @@ LABEL_8:
 
 void __49__HAPNameResolver_resolveWithTimeout_completion___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -111,13 +109,13 @@ void __49__HAPNameResolver_resolveWithTimeout_completion___block_invoke(uint64_t
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) name];
     v7 = *(a1 + 48);
-    v21 = 138543874;
-    v22 = v5;
-    v23 = 2112;
-    v24 = v6;
-    v25 = 2048;
-    v26 = v7;
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Starting name resolution for %@ with timeout of %f", &v21, 0x20u);
+    v20 = 138543874;
+    v21 = v5;
+    v22 = 2112;
+    v23 = v6;
+    v24 = 2048;
+    v25 = v7;
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_INFO, "%{public}@Starting name resolution for %@ with timeout of %f", &v20, 0x20u);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -129,9 +127,9 @@ void __49__HAPNameResolver_resolveWithTimeout_completion___block_invoke(uint64_t
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v11;
-      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Attempt to initiate name resolution on stale object", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v11;
+      _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Attempt to initiate name resolution on stale object", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -164,19 +162,17 @@ void __49__HAPNameResolver_resolveWithTimeout_completion___block_invoke(uint64_t
       {
         v18 = HMFGetLogIdentifier();
         v19 = [*(a1 + 32) shortDescription];
-        v21 = 138543618;
-        v22 = v18;
-        v23 = 2112;
-        v24 = v19;
-        _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "%{public}@nw_connection_create failed for %@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v18;
+        v22 = 2112;
+        v23 = v19;
+        _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "%{public}@nw_connection_create failed for %@", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
       [*(a1 + 32) _doCompletionWithErrorCode:9 state:3];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_nwConnectionStart
@@ -190,7 +186,7 @@ void __49__HAPNameResolver_resolveWithTimeout_completion___block_invoke(uint64_t
 
 - (id)_nwCreateConnection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   workQueue = [(HAPNameResolver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -205,11 +201,11 @@ void __49__HAPNameResolver_resolveWithTimeout_completion___block_invoke(uint64_t
   {
     v9 = HMFGetLogIdentifier();
     shortDescription = [(HAPNameResolver *)selfCopy shortDescription];
-    v21 = 138543618;
-    v22 = v9;
-    v23 = 2112;
-    v24 = shortDescription;
-    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@nw_connection_create with %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v9;
+    v22 = 2112;
+    v23 = shortDescription;
+    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%{public}@nw_connection_create with %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -226,8 +222,6 @@ void __49__HAPNameResolver_resolveWithTimeout_completion___block_invoke(uint64_t
     workQueue2 = [(HAPNameResolver *)selfCopy workQueue];
     nw_connection_set_queue(v17, workQueue2);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -252,7 +246,7 @@ void __49__HAPNameResolver_resolveWithTimeout_completion___block_invoke(uint64_t
 
 void __42__HAPNameResolver__setStateChangedHandler__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (!WeakRetained)
@@ -268,13 +262,13 @@ void __42__HAPNameResolver__setStateChangedHandler__block_invoke(uint64_t a1, in
     v10 = HMFGetLogIdentifier();
     v11 = [v8 name];
     *buf = 138544130;
-    v82 = v10;
-    v83 = 2112;
-    v84 = v11;
-    v85 = 1024;
-    v86 = a2;
-    v87 = 2112;
-    v88 = v5;
+    v81 = v10;
+    v82 = 2112;
+    v83 = v11;
+    v84 = 1024;
+    v85 = a2;
+    v86 = 2112;
+    v87 = v5;
     _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%{public}@nw_connection state changed %@ %d error %@", buf, 0x26u);
   }
 
@@ -300,46 +294,46 @@ void __42__HAPNameResolver__setStateChangedHandler__block_invoke(uint64_t a1, in
           goto LABEL_8;
         }
 
-        v25 = objc_autoreleasePoolPush();
-        v26 = v8;
-        v27 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v24 = objc_autoreleasePoolPush();
+        v25 = v8;
+        v26 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v28 = HMFGetLogIdentifier();
-          v29 = [v26 name];
+          v27 = HMFGetLogIdentifier();
+          v28 = [v25 name];
           *buf = 138543618;
-          v82 = v28;
-          v83 = 2112;
-          v84 = v29;
-          _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_INFO, "%{public}@nw_connection_state cancelled %@", buf, 0x16u);
+          v81 = v27;
+          v82 = 2112;
+          v83 = v28;
+          _os_log_impl(&dword_22AADC000, v26, OS_LOG_TYPE_INFO, "%{public}@nw_connection_state cancelled %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v25);
-        v13 = v26;
+        objc_autoreleasePoolPop(v24);
+        v13 = v25;
         v14 = 2;
         v15 = 4;
         goto LABEL_7;
       }
 
-      v53 = objc_autoreleasePoolPush();
-      v54 = v8;
-      v55 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+      v52 = objc_autoreleasePoolPush();
+      v53 = v8;
+      v54 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
       {
-        v56 = HMFGetLogIdentifier();
-        v57 = [v54 name];
+        v55 = HMFGetLogIdentifier();
+        v56 = [v53 name];
         *buf = 138543618;
-        v82 = v56;
-        v83 = 2112;
-        v84 = v57;
-        _os_log_impl(&dword_22AADC000, v55, OS_LOG_TYPE_INFO, "%{public}@nw_connection_state failed %@", buf, 0x16u);
+        v81 = v55;
+        v82 = 2112;
+        v83 = v56;
+        _os_log_impl(&dword_22AADC000, v54, OS_LOG_TYPE_INFO, "%{public}@nw_connection_state failed %@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v53);
-      v58 = [v54 connection];
-      nw_connection_cancel(v58);
+      objc_autoreleasePoolPop(v52);
+      v57 = [v53 connection];
+      nw_connection_cancel(v57);
 
-      v13 = v54;
+      v13 = v53;
       v14 = 8;
 LABEL_6:
       v15 = 3;
@@ -348,115 +342,115 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    v35 = objc_autoreleasePoolPush();
-    v36 = v8;
-    v37 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v34 = objc_autoreleasePoolPush();
+    v35 = v8;
+    v36 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v38 = HMFGetLogIdentifier();
-      v39 = [v36 name];
+      v37 = HMFGetLogIdentifier();
+      v38 = [v35 name];
       *buf = 138543618;
-      v82 = v38;
-      v83 = 2112;
-      v84 = v39;
-      _os_log_impl(&dword_22AADC000, v37, OS_LOG_TYPE_INFO, "%{public}@nw_connection_state ready %@", buf, 0x16u);
+      v81 = v37;
+      v82 = 2112;
+      v83 = v38;
+      _os_log_impl(&dword_22AADC000, v36, OS_LOG_TYPE_INFO, "%{public}@nw_connection_state ready %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v35);
-    v40 = [v36 connection];
-    v41 = nw_connection_copy_current_path(v40);
+    objc_autoreleasePoolPop(v34);
+    v39 = [v35 connection];
+    v40 = nw_connection_copy_current_path(v39);
 
-    if (v41)
+    if (v40)
     {
-      v42 = nw_path_copy_endpoint();
-      v43 = v42;
-      if (v42 && nw_endpoint_get_address(v42))
+      v41 = nw_path_copy_endpoint();
+      v42 = v41;
+      if (v41 && nw_endpoint_get_address(v41))
       {
-        v44 = SockAddrToString();
-        if (!v44)
+        v43 = SockAddrToString();
+        if (!v43)
         {
           Port = SockAddrGetPort();
-          v61 = [HAPSocketInfo alloc];
-          v62 = [MEMORY[0x277CCACA8] stringWithUTF8String:buf];
-          v63 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:Port];
-          v64 = [(HAPSocketInfo *)v61 initWithIPAddressString:v62 port:v63];
+          v60 = [HAPSocketInfo alloc];
+          v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:buf];
+          v62 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:Port];
+          v63 = [(HAPSocketInfo *)v60 initWithIPAddressString:v61 port:v62];
 
-          v65 = objc_autoreleasePoolPush();
-          v66 = v36;
-          v67 = HMFGetOSLogHandle();
-          v68 = v67;
-          if (v64)
+          v64 = objc_autoreleasePoolPush();
+          v65 = v35;
+          v66 = HMFGetOSLogHandle();
+          v67 = v66;
+          if (v63)
           {
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
             {
-              v69 = HMFGetLogIdentifier();
-              [v66 name];
-              v70 = v73 = v65;
-              *v75 = 138544130;
-              v76 = v69;
-              v77 = 2080;
-              *v78 = buf;
-              *&v78[8] = 1024;
-              *&v78[10] = Port;
-              v79 = 2112;
-              v80 = v70;
-              _os_log_impl(&dword_22AADC000, v68, OS_LOG_TYPE_INFO, "%{public}@nw_connection Address resolved:  %s   port: %d for %@", v75, 0x26u);
+              v68 = HMFGetLogIdentifier();
+              [v65 name];
+              v69 = v72 = v64;
+              *v74 = 138544130;
+              v75 = v68;
+              v76 = 2080;
+              *v77 = buf;
+              *&v77[8] = 1024;
+              *&v77[10] = Port;
+              v78 = 2112;
+              v79 = v69;
+              _os_log_impl(&dword_22AADC000, v67, OS_LOG_TYPE_INFO, "%{public}@nw_connection Address resolved:  %s   port: %d for %@", v74, 0x26u);
 
-              v65 = v73;
+              v64 = v72;
             }
 
-            objc_autoreleasePoolPop(v65);
-            [v66 _updateSocketInfo:v64];
+            objc_autoreleasePoolPop(v64);
+            [v65 _updateSocketInfo:v63];
           }
 
           else
           {
-            if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
             {
               HMFGetLogIdentifier();
-              v71 = v74 = v65;
-              v72 = [v66 name];
-              *v75 = 138544130;
-              v76 = v71;
-              v77 = 2080;
-              *v78 = buf;
-              *&v78[8] = 1024;
-              *&v78[10] = Port;
-              v79 = 2112;
-              v80 = v72;
-              _os_log_impl(&dword_22AADC000, v68, OS_LOG_TYPE_ERROR, "%{public}@nw_connection Address resolved:  %s   port: %d for %@, but address type could not be determined", v75, 0x26u);
+              v70 = v73 = v64;
+              v71 = [v65 name];
+              *v74 = 138544130;
+              v75 = v70;
+              v76 = 2080;
+              *v77 = buf;
+              *&v77[8] = 1024;
+              *&v77[10] = Port;
+              v78 = 2112;
+              v79 = v71;
+              _os_log_impl(&dword_22AADC000, v67, OS_LOG_TYPE_ERROR, "%{public}@nw_connection Address resolved:  %s   port: %d for %@, but address type could not be determined", v74, 0x26u);
 
-              v65 = v74;
+              v64 = v73;
             }
 
-            objc_autoreleasePoolPop(v65);
+            objc_autoreleasePoolPop(v64);
           }
 
           goto LABEL_43;
         }
 
-        v45 = v44;
-        v46 = objc_autoreleasePoolPush();
-        v47 = v36;
-        v48 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v44 = v43;
+        v45 = objc_autoreleasePoolPush();
+        v46 = v35;
+        v47 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
-          v49 = HMFGetLogIdentifier();
-          v50 = [v47 name];
-          *v75 = 138543874;
-          v76 = v49;
-          v77 = 1024;
-          *v78 = v45;
-          *&v78[4] = 2112;
-          *&v78[6] = v50;
-          _os_log_impl(&dword_22AADC000, v48, OS_LOG_TYPE_ERROR, "%{public}@nw_connection sock addr to string failed: %d %@", v75, 0x1Cu);
+          v48 = HMFGetLogIdentifier();
+          v49 = [v46 name];
+          *v74 = 138543874;
+          v75 = v48;
+          v76 = 1024;
+          *v77 = v44;
+          *&v77[4] = 2112;
+          *&v77[6] = v49;
+          _os_log_impl(&dword_22AADC000, v47, OS_LOG_TYPE_ERROR, "%{public}@nw_connection sock addr to string failed: %d %@", v74, 0x1Cu);
         }
 
-        objc_autoreleasePoolPop(v46);
-        v51 = v47;
-        v52 = 8;
+        objc_autoreleasePoolPop(v45);
+        v50 = v46;
+        v51 = 8;
 LABEL_42:
-        [v51 _doCompletionWithErrorCode:v52 state:3];
+        [v50 _doCompletionWithErrorCode:v51 state:3];
 LABEL_43:
 
         goto LABEL_8;
@@ -465,14 +459,14 @@ LABEL_43:
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
-    v59 = [v36 connection];
-    nw_connection_cancel_current_endpoint(v59);
+    v58 = [v35 connection];
+    nw_connection_cancel_current_endpoint(v58);
 
-    v51 = v36;
-    v52 = 15;
+    v50 = v35;
+    v51 = 15;
     goto LABEL_42;
   }
 
@@ -480,20 +474,20 @@ LABEL_43:
   {
     if (a2 == 1)
     {
-      v17 = objc_autoreleasePoolPush();
-      v18 = v8;
-      v19 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v16 = objc_autoreleasePoolPush();
+      v17 = v8;
+      v18 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        v20 = HMFGetLogIdentifier();
-        v21 = [v18 name];
+        v19 = HMFGetLogIdentifier();
+        v20 = [v17 name];
         *buf = 138543618;
-        v82 = v20;
-        v83 = 2112;
-        v84 = v21;
-        v22 = "%{public}@nw_connection_state waiting %@";
-        v23 = v19;
-        v24 = OS_LOG_TYPE_DEBUG;
+        v81 = v19;
+        v82 = 2112;
+        v83 = v20;
+        v21 = "%{public}@nw_connection_state waiting %@";
+        v22 = v18;
+        v23 = OS_LOG_TYPE_DEBUG;
         goto LABEL_35;
       }
     }
@@ -505,53 +499,51 @@ LABEL_43:
         goto LABEL_8;
       }
 
-      v17 = objc_autoreleasePoolPush();
-      v18 = v8;
-      v19 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v16 = objc_autoreleasePoolPush();
+      v17 = v8;
+      v18 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v20 = HMFGetLogIdentifier();
-        v21 = [v18 name];
+        v19 = HMFGetLogIdentifier();
+        v20 = [v17 name];
         *buf = 138543618;
-        v82 = v20;
-        v83 = 2112;
-        v84 = v21;
-        v22 = "%{public}@nw_connection_state preparing %@";
-        v23 = v19;
-        v24 = OS_LOG_TYPE_INFO;
+        v81 = v19;
+        v82 = 2112;
+        v83 = v20;
+        v21 = "%{public}@nw_connection_state preparing %@";
+        v22 = v18;
+        v23 = OS_LOG_TYPE_INFO;
 LABEL_35:
-        _os_log_impl(&dword_22AADC000, v23, v24, v22, buf, 0x16u);
+        _os_log_impl(&dword_22AADC000, v22, v23, v21, buf, 0x16u);
       }
     }
 
-    objc_autoreleasePoolPop(v17);
-    [v18 setResolutionState:1];
+    objc_autoreleasePoolPop(v16);
+    [v17 setResolutionState:1];
     goto LABEL_8;
   }
 
-  v30 = objc_autoreleasePoolPush();
-  v31 = v8;
-  v32 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v29 = objc_autoreleasePoolPush();
+  v30 = v8;
+  v31 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
-    v33 = HMFGetLogIdentifier();
-    v34 = [v31 name];
+    v32 = HMFGetLogIdentifier();
+    v33 = [v30 name];
     *buf = 138543618;
-    v82 = v33;
-    v83 = 2112;
-    v84 = v34;
-    _os_log_impl(&dword_22AADC000, v32, OS_LOG_TYPE_DEBUG, "%{public}@nw_connection_state invalid %@", buf, 0x16u);
+    v81 = v32;
+    v82 = 2112;
+    v83 = v33;
+    _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_DEBUG, "%{public}@nw_connection_state invalid %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v30);
+  objc_autoreleasePoolPop(v29);
 LABEL_8:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateSocketInfo:(id)info
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   workQueue = [(HAPNameResolver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -565,21 +557,19 @@ LABEL_8:
     {
       v9 = HMFGetLogIdentifier();
       name = [(HAPNameResolver *)selfCopy name];
-      v12 = 138543874;
-      v13 = v9;
-      v14 = 2112;
-      v15 = name;
-      v16 = 2112;
-      v17 = infoCopy;
-      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@IP received address %@ %@", &v12, 0x20u);
+      v11 = 138543874;
+      v12 = v9;
+      v13 = 2112;
+      v14 = name;
+      v15 = 2112;
+      v16 = infoCopy;
+      _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%{public}@IP received address %@ %@", &v11, 0x20u);
     }
 
     objc_autoreleasePoolPop(v6);
     [(HAPNameResolver *)selfCopy _cancelTimer];
     [(HAPNameResolver *)selfCopy _doCompletionWithErrorCode:0 socketInfo:infoCopy state:2];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_doCompletionWithErrorCode:(int64_t)code state:(int64_t)state
@@ -592,7 +582,7 @@ LABEL_8:
 
 - (void)_doCompletionWithErrorCode:(int64_t)code socketInfo:(id)info state:(int64_t)state
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   workQueue = [(HAPNameResolver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -610,13 +600,13 @@ LABEL_8:
   {
     v13 = HMFGetLogIdentifier();
     name = [(HAPNameResolver *)selfCopy name];
-    v24 = 138543874;
-    v25 = v13;
-    v26 = 2112;
-    v27 = name;
-    v28 = 2112;
+    v23 = 138543874;
+    v24 = v13;
+    v25 = 2112;
+    v26 = name;
+    v27 = 2112;
     codeCopy = code;
-    _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_INFO, "%{public}@Name resolution completed for %@ error %@", &v24, 0x20u);
+    _os_log_impl(&dword_22AADC000, v12, OS_LOG_TYPE_INFO, "%{public}@Name resolution completed for %@ error %@", &v23, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
@@ -647,17 +637,15 @@ LABEL_8:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v22;
-      _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_INFO, "%{public}@No completion routine for name resolution", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v22;
+      _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_INFO, "%{public}@No completion routine for name resolution", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
   }
 
   [(HAPNameResolver *)selfCopy setCompletion:0];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)resolutionState
@@ -708,7 +696,7 @@ LABEL_8:
 
 - (void)timerDidFire:(id)fire
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HAPNameResolver *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -724,18 +712,16 @@ LABEL_8:
     {
       v10 = HMFGetLogIdentifier();
       name = [(HAPNameResolver *)selfCopy name];
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = name;
-      _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%{public}@Name resolution timed out for %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = name;
+      _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_INFO, "%{public}@Name resolution timed out for %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     [(HAPNameResolver *)selfCopy _doCompletionWithErrorCode:24 state:3];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HAPNameResolver)initWithDeviceName:(id)name serviceType:(id)type domain:(id)domain

@@ -204,7 +204,7 @@
     v28[1] = objc_opt_class();
     v13 = [NSArray arrayWithObjects:v28 count:2];
     v14 = [NSSet setWithArray:v13];
-    v15 = sub_1000E82B4();
+    v15 = sub_1000E82B4(v14);
     v16 = [v14 setByAddingObjectsFromSet:v15];
     v17 = [coderCopy decodeObjectOfClasses:v16 forKey:@"operands"];
     operands = v5->_operands;

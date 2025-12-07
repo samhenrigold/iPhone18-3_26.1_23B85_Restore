@@ -62,49 +62,53 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v3 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
 
   if (v5)
   {
-    v6 = objc_opt_class();
+    v7 = objc_opt_class();
     request = self->_request;
-    v33 = 138412546;
-    v34 = v6;
-    v35 = 2112;
-    v36 = request;
-    LODWORD(v31) = 22;
-    v29 = &v33;
-    v8 = _os_log_send_and_compose_impl();
-    if (v8)
+    v36 = 138412546;
+    v37 = v7;
+    v38 = 2112;
+    v39 = request;
+    v9 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Running request: %@", &v36, 22);
+    if (v9)
     {
-      v9 = v8;
-      v10 = [NSString stringWithCString:v8 encoding:4, &v33, v31];
-      free(v9);
-      v29 = v10;
+      v10 = v9;
+      v11 = [NSString stringWithCString:v9 encoding:4];
+      free(v10);
+      v32 = v11;
       SSFileLog();
     }
   }
 
   [(CheckDownloadQueueOperation *)self _runPendingCancelDownloadOperations];
-  v32 = 0;
+  v35 = 0;
   _newURLOperation = [(CheckDownloadQueueOperation *)self _newURLOperation];
-  if (([(CheckDownloadQueueOperation *)self runSubOperation:_newURLOperation returningError:&v32]& 1) != 0)
+  if (([(CheckDownloadQueueOperation *)self runSubOperation:_newURLOperation returningError:&v35]& 1) != 0)
   {
-    v12 = [objc_msgSend(objc_msgSend(_newURLOperation "dataProvider")];
+    v13 = [objc_msgSend(objc_msgSend(_newURLOperation "dataProvider")];
     if (objc_opt_respondsToSelector())
     {
-      intValue = [v12 intValue];
+      intValue = [v13 intValue];
     }
 
     else
@@ -112,47 +116,52 @@
       intValue = 0;
     }
 
-    v21 = +[SSLogConfig sharedDaemonConfig];
-    if (!v21)
+    v23 = +[SSLogConfig sharedDaemonConfig];
+    if (!v23)
     {
-      v21 = +[SSLogConfig sharedConfig];
+      v23 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v21 shouldLog];
-    if ([v21 shouldLogToDisk])
+    shouldLog2 = [v23 shouldLog];
+    if ([v23 shouldLogToDisk])
     {
-      v23 = shouldLog2 | 2;
+      LODWORD(v25) = shouldLog2 | 2;
     }
 
     else
     {
-      v23 = shouldLog2;
+      LODWORD(v25) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v21 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject2 = [v23 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      v23 &= 2u;
+      v25 = v25;
     }
 
-    if (v23)
+    else
     {
-      v24 = objc_opt_class();
-      v25 = self->_request;
-      v33 = 138412802;
-      v34 = v24;
-      v35 = 2048;
-      v36 = intValue;
-      v37 = 2112;
-      v38 = v25;
-      LODWORD(v31) = 32;
-      v30 = &v33;
-      v26 = _os_log_send_and_compose_impl();
-      if (v26)
+      v25 &= 2u;
+    }
+
+    if (v25)
+    {
+      v27 = objc_opt_class();
+      v28 = self->_request;
+      v36 = 138412802;
+      v37 = v27;
+      v38 = 2048;
+      v39 = intValue;
+      v40 = 2112;
+      v41 = v28;
+      LODWORD(v34) = 32;
+      v29 = _os_log_send_and_compose_impl(v25, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Found %ld downloads for request: %@", &v36, v34);
+      if (v29)
       {
-        v27 = v26;
-        v28 = [NSString stringWithCString:v26 encoding:4, &v33, v31];
-        free(v27);
-        v30 = v28;
+        v30 = v29;
+        v31 = [NSString stringWithCString:v29 encoding:4];
+        free(v30);
+        v33 = v31;
         SSFileLog();
       }
     }
@@ -165,45 +174,51 @@
 
   else
   {
-    v14 = +[SSLogConfig sharedDaemonConfig];
-    if (!v14)
+    v15 = +[SSLogConfig sharedDaemonConfig];
+    if (!v15)
     {
-      v14 = +[SSLogConfig sharedConfig];
+      v15 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v14 shouldLog];
-    if ([v14 shouldLogToDisk])
+    shouldLog3 = [v15 shouldLog];
+    if ([v15 shouldLogToDisk])
     {
-      v16 = shouldLog3 | 2;
+      LODWORD(v17) = shouldLog3 | 2;
     }
 
     else
     {
-      v16 = shouldLog3;
+      LODWORD(v17) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([v14 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject3 = [v15 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v16 &= 2u;
+      v17 = v17;
     }
 
-    if (v16)
+    else
     {
-      v17 = objc_opt_class();
-      v18 = self->_request;
-      v33 = 138412802;
-      v34 = v17;
-      v35 = 2112;
-      v36 = v18;
-      v37 = 2112;
-      v38 = v32;
-      LODWORD(v31) = 32;
-      v19 = _os_log_send_and_compose_impl();
-      if (v19)
+      v17 &= 2u;
+    }
+
+    if (v17)
+    {
+      v19 = objc_opt_class();
+      v20 = self->_request;
+      v36 = 138412802;
+      v37 = v19;
+      v38 = 2112;
+      v39 = v20;
+      v40 = 2112;
+      v41 = v35;
+      LODWORD(v34) = 32;
+      v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Request %@ failed: %@", &v36, v34);
+      if (v21)
       {
-        v20 = v19;
-        [NSString stringWithCString:v19 encoding:4, &v33, v31];
-        free(v20);
+        v22 = v21;
+        [NSString stringWithCString:v21 encoding:4];
+        free(v22);
         SSFileLog();
       }
     }

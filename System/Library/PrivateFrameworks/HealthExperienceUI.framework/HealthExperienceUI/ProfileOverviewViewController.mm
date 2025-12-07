@@ -56,12 +56,12 @@
 
 - (void)scrollViewDidScroll:(id)scroll
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for ProfileOverviewViewController();
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for ProfileOverviewViewController();
   scrollCopy = scroll;
-  v5 = v6.receiver;
-  [(CompoundDataSourceCollectionViewController *)&v6 scrollViewDidScroll:scrollCopy];
-  sub_1BA17FD14();
+  v5 = v7.receiver;
+  v6 = [(CompoundDataSourceCollectionViewController *)&v7 scrollViewDidScroll:scrollCopy];
+  sub_1BA17FD14(v6);
 }
 
 - (void)backButtonTapped:(id)tapped
@@ -79,7 +79,7 @@
     selfCopy = v6;
   }
 
-  __swift_destroy_boxed_opaque_existential_1(&v8);
+  __swift_destroy_boxed_opaque_existential_1(v8);
 }
 
 - (void)restoreUserActivityState:(id)state

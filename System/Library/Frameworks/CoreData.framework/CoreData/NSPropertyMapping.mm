@@ -104,10 +104,12 @@ LABEL_25:
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@), name %@, valueExpression %@, userInfo %@", objc_opt_class(), -[NSPropertyMapping name](self, "name"), -[NSPropertyMapping valueExpression](self, "valueExpression"), -[NSPropertyMapping userInfo](self, "userInfo")];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_opt_class();
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, [(NSPropertyMapping *)self name], [(NSPropertyMapping *)self valueExpression], [(NSPropertyMapping *)self userInfo]);
   objc_autoreleasePoolPop(v3);
 
-  return v4;
+  return v6;
 }
 
 - (void)setName:(NSString *)name
@@ -188,7 +190,7 @@ LABEL_25:
         [(NSExpression *)v4->_valueExpression allowEvaluation];
       }
 
-      v4->_userInfo = [coder decodeObjectOfClasses:+[_PFRoutines plistClassesForSecureCoding]() forKey:@"NSUserInfo"];
+      v4->_userInfo = [coder decodeObjectOfClasses:+[_PFRoutines plistClassesForSecureCoding](_PFRoutines) forKey:@"NSUserInfo"];
       v4->_propertyTransforms = [coder decodeObjectOfClass:objc_opt_class() forKey:@"NSPropertyTransforms"];
       *&v4->_propertyMappingFlags &= ~1u;
     }

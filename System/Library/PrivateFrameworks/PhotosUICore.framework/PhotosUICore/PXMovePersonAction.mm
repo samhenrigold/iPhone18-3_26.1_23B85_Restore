@@ -96,16 +96,16 @@ void __34__PXMovePersonAction_performUndo___block_invoke(uint64_t a1)
   [(PXPhotosAction *)self performChanges:v10 completionHandler:actionCopy];
 }
 
-void __36__PXMovePersonAction_performAction___block_invoke(uint64_t a1)
+void __36__PXMovePersonAction_performAction___block_invoke(id *a1)
 {
   v48 = *MEMORY[0x1E69E9840];
-  v30 = [*(a1 + 32) destinationManualOrder];
-  v32 = [*(a1 + 32) targetLocalIdentifier];
+  v30 = [a1[4] destinationManualOrder];
+  v32 = [a1[4] targetLocalIdentifier];
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v2 = [*(a1 + 32) destinationPeople];
+  v2 = [a1[4] destinationPeople];
   v3 = [v2 countByEnumeratingWithState:&v41 objects:v47 count:16];
   if (v3)
   {
@@ -122,7 +122,7 @@ void __36__PXMovePersonAction_performAction___block_invoke(uint64_t a1)
         }
 
         v8 = *(*(&v41 + 1) + 8 * i);
-        if (([*(a1 + 40) containsObject:v8] & 1) == 0)
+        if (([a1[5] containsObject:v8] & 1) == 0)
         {
           v9 = [v8 localIdentifier];
           v10 = [v9 isEqualToString:v32];
@@ -130,14 +130,14 @@ void __36__PXMovePersonAction_performAction___block_invoke(uint64_t a1)
           if (v10)
           {
             v30 = v6;
-            v6 += [*(a1 + 40) count];
+            v6 += [a1[5] count];
           }
 
           if ([v8 manualOrder] != v6)
           {
             v11 = [MEMORY[0x1E6978990] changeRequestForPerson:v8];
             [v11 setManualOrder:v6 verified:0];
-            [*(a1 + 48) addObject:v8];
+            [a1[6] addObject:v8];
           }
 
           ++v6;
@@ -155,13 +155,13 @@ void __36__PXMovePersonAction_performAction___block_invoke(uint64_t a1)
     v6 = 1;
   }
 
-  [*(a1 + 32) setModifiedDestinationPeople:*(a1 + 48)];
+  [a1[4] setModifiedDestinationPeople:a1[6]];
   v31 = objc_opt_new();
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v12 = [*(a1 + 32) otherPeople];
+  v12 = [a1[4] otherPeople];
   v13 = [v12 countByEnumeratingWithState:&v37 objects:v46 count:16];
   if (v13)
   {
@@ -178,7 +178,7 @@ void __36__PXMovePersonAction_performAction___block_invoke(uint64_t a1)
         }
 
         v18 = *(*(&v37 + 1) + 8 * j);
-        if (([*(a1 + 40) containsObject:v18] & 1) == 0)
+        if (([a1[5] containsObject:v18] & 1) == 0)
         {
           if ([v18 manualOrder] != v16)
           {
@@ -197,17 +197,17 @@ void __36__PXMovePersonAction_performAction___block_invoke(uint64_t a1)
     while (v14);
   }
 
-  [*(a1 + 32) setModifiedOtherPeople:v31];
-  v20 = [*(*(a1 + 32) + 160) numberForKey:@"PXPeopleHomeSortingType"];
-  [*(a1 + 32) setSourceSortingType:v20];
+  [a1[4] setModifiedOtherPeople:v31];
+  v20 = [*(a1[4] + 20) numberForKey:@"PXPeopleHomeSortingType"];
+  [a1[4] setSourceSortingType:v20];
 
-  [*(*(a1 + 32) + 160) setNumber:&unk_1F190D948 forKey:@"PXPeopleHomeSortingType"];
+  [*(a1[4] + 20) setNumber:&unk_1F190D948 forKey:@"PXPeopleHomeSortingType"];
   v21 = [v32 length];
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v22 = [*(a1 + 32) sourcePeople];
+  v22 = [a1[4] sourcePeople];
   v23 = [v22 countByEnumeratingWithState:&v33 objects:v45 count:16];
   if (v23)
   {
@@ -235,7 +235,7 @@ void __36__PXMovePersonAction_performAction___block_invoke(uint64_t a1)
         v28 = *(*(&v33 + 1) + 8 * k);
         v29 = [MEMORY[0x1E6978990] changeRequestForPerson:v28];
         [v29 setManualOrder:v25 verified:1];
-        if ([v28 type] != *(a1 + 56))
+        if ([v28 type] != a1[7])
         {
           [v29 setType:?];
         }

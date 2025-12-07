@@ -44,10 +44,8 @@
 
 - (void)writeTo:(id)to
 {
-  identifier = self->_identifier;
   toCopy = to;
   PBDataWriterWriteDataField();
-  analytics = self->_analytics;
   PBDataWriterWriteSubmessage();
 }
 

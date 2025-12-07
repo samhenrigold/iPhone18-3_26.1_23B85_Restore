@@ -58,8 +58,8 @@
     objc_storeStrong(&v14->_tintColor, color);
     if (colorCopy)
     {
-      v16 = +[UIColor blackColor];
-      v15->_isTintColorBlack = [colorCopy isEqual:v16];
+      v16 = objc_msgSend_blackColor(UIColor);
+      v15->_isTintColorBlack = objc_msgSend_isEqual_(colorCopy);
     }
 
     else
@@ -219,7 +219,7 @@ LABEL_10:
 
     else
     {
-      v11 = +[UIColor blackColor];
+      v11 = objc_msgSend_blackColor(UIColor, a2);
     }
 
     v8 = v11;
@@ -361,7 +361,7 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    v6 = +[UIColor blackColor];
+    v6 = objc_msgSend_blackColor(UIColor, a2);
   }
 
   v5 = v6;

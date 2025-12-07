@@ -13,7 +13,7 @@
   swift_unknownObjectRetain();
   selfCopy = self;
   os_unfair_lock_lock((v6 + 40));
-  sub_135648((v6 + 16));
+  sub_135648((v6 + 16), v8);
   os_unfair_lock_unlock((v6 + 40));
 
   swift_unknownObjectRelease();
@@ -27,9 +27,9 @@
   [progress doubleValue];
 
   v7 = *(&selfCopy->super.isa + OBJC_IVAR____TtC11BookStoreUI25LibraryAssetStateObserver_lockProtectedData);
-  os_unfair_lock_lock(v7 + 10);
-  sub_135664(&v7[4]);
-  os_unfair_lock_unlock(v7 + 10);
+  os_unfair_lock_lock((v7 + 40));
+  sub_135664((v7 + 16));
+  os_unfair_lock_unlock((v7 + 40));
   swift_unknownObjectRelease();
 }
 

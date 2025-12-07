@@ -35,10 +35,10 @@ uint64_t __31__PCCarrierBundleHelper_helper__block_invoke()
 
 - (PCCarrierBundleHelper)init
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v18.receiver = self;
-  v18.super_class = PCCarrierBundleHelper;
-  v2 = [(PCCarrierBundleHelper *)&v18 init];
+  v20 = *MEMORY[0x277D85DE8];
+  v17.receiver = self;
+  v17.super_class = PCCarrierBundleHelper;
+  v2 = [(PCCarrierBundleHelper *)&v17 init];
   if (v2)
   {
     v3 = PCCreateQueue("PCCarrierBundleHelper-ctQueue");
@@ -55,15 +55,15 @@ uint64_t __31__PCCarrierBundleHelper_helper__block_invoke()
 
     [(CoreTelephonyClient *)v2->_ctClient setDelegate:v2];
     v9 = v2->_ctClient;
-    v17 = 0;
-    v10 = [(CoreTelephonyClient *)v9 getCurrentDataSubscriptionContextSync:&v17];
-    v11 = v17;
+    v16 = 0;
+    v10 = [(CoreTelephonyClient *)v9 getCurrentDataSubscriptionContextSync:&v16];
+    v11 = v16;
     if (v11 || !v10)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v20 = v11;
+        v19 = v11;
         _os_log_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Failed to get currentDataSimContext. {error: %@}", buf, 0xCu);
       }
     }
@@ -79,7 +79,6 @@ uint64_t __31__PCCarrierBundleHelper_helper__block_invoke()
     v2->_cachedPushSettings = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -256,7 +255,7 @@ uint64_t __31__PCCarrierBundleHelper_helper__block_invoke()
 
 - (void)_processCarrierBundleChange:(id)change
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -274,37 +273,35 @@ uint64_t __31__PCCarrierBundleHelper_helper__block_invoke()
   objc_sync_exit(selfCopy);
   if (v6)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v11)
     {
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          [*(*(&v15 + 1) + 8 * v13++) carrierBundleDidChange];
+          [*(*(&v14 + 1) + 8 * v13++) carrierBundleDidChange];
         }
 
         while (v11 != v13);
-        v11 = [v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateCurrentDataSimContext:(id)context
@@ -320,46 +317,41 @@ uint64_t __31__PCCarrierBundleHelper_helper__block_invoke()
 
 - (void)operatorBundleChange:(id)change
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = changeCopy;
-    _os_log_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "operatorBundleChange - context %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = changeCopy;
+    _os_log_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "operatorBundleChange - context %@", &v5, 0xCu);
   }
 
   [(PCCarrierBundleHelper *)self _processCarrierBundleChange:changeCopy];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentDataSimChanged:(id)changed
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = changedCopy;
-    _os_log_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "currentDataSimChanged - context %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = changedCopy;
+    _os_log_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "currentDataSimChanged - context %@", &v5, 0xCu);
   }
 
   [(PCCarrierBundleHelper *)self _updateCurrentDataSimContext:changedCopy];
   [(PCCarrierBundleHelper *)self _processCarrierBundleChange:changedCopy];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyValueForKey:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = a1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_error_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to copy carrier bundle value. {key: %@, error: %@}", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = a1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_error_impl(&dword_25E3EF000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to copy carrier bundle value. {key: %@, error: %@}", &v2, 0x16u);
 }
 
 @end

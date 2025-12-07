@@ -61,7 +61,7 @@
 
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if ([(SAExclaveCallstack *)self sizeInBytesForSerializedVersion]== length)
   {
     *&buffer->var0 = 257;
@@ -76,33 +76,32 @@
 
   else
   {
-    v16 = *__error();
-    v17 = _sa_logt();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v15 = *__error();
+    v16 = _sa_logt();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = [(SAExclaveCallstack *)self debugDescription];
+      v17 = [(SAExclaveCallstack *)self debugDescription];
       *buf = 136315650;
-      uTF8String = [v18 UTF8String];
-      v28 = 2048;
+      uTF8String = [v17 UTF8String];
+      v21 = 2048;
       sizeInBytesForSerializedVersion = [(SAExclaveCallstack *)self sizeInBytesForSerializedVersion];
-      v30 = 2048;
+      v23 = 2048;
       lengthCopy = length;
-      _os_log_error_impl(&dword_1E0E2F000, v17, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v16;
+    *__error() = v15;
     buffer = [(SAExclaveCallstack *)self debugDescription];
     dictionary = [($93CF9441C607C7AF89C984194EE6CD4E *)buffer UTF8String];
-    [(SAExclaveCallstack *)self sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(499, "%s: size %lu != buffer length %lu", v19, v20, v21, v22, v23, v24, dictionary);
+    _SASetCrashLogMessage(499, "%s: size %lu != buffer length %lu", dictionary, [(SAExclaveCallstack *)self sizeInBytesForSerializedVersion], length);
 
     _os_crash();
     __break(1u);
   }
 
-  v25 = SASerializableIndexForPointerFromSerializationDictionary(0, dictionary);
+  v18 = SASerializableIndexForPointerFromSerializationDictionary(0, dictionary);
   v12 = 0;
-  *(&buffer->var1 + 1) = v25;
+  *(&buffer->var1 + 1) = v18;
 LABEL_4:
   *(&buffer->var2 + 2) = SASerializableIndexForPointerFromSerializationDictionary(v12, dictionary);
   if (self)
@@ -118,7 +117,6 @@ LABEL_4:
   }
 
   *(&buffer->var4 + 2) = invocationID;
-  v14 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -147,7 +145,7 @@ LABEL_4:
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_7;
@@ -155,36 +153,35 @@ LABEL_4:
 
   if (length <= 0x21)
   {
-    v8 = *__error();
-    v9 = _sa_logt();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v7 = *__error();
+    v8 = _sa_logt();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v19 = 2048;
-      v20 = 34;
-      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAExclaveCallstack struct %lu", buf, 0x16u);
+      v12 = 2048;
+      v13 = 34;
+      _os_log_error_impl(&dword_1E0E2F000, v8, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAExclaveCallstack struct %lu", buf, 0x16u);
     }
 
-    *__error() = v8;
-    _SASetCrashLogMessage(526, "bufferLength %lu < serialized SAExclaveCallstack struct %lu", v10, v11, v12, v13, v14, v15, length);
+    *__error() = v7;
+    _SASetCrashLogMessage(526, "bufferLength %lu < serialized SAExclaveCallstack struct %lu", length, 34);
     _os_crash();
     __break(1u);
 LABEL_7:
-    v16 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAExclaveCallstack version" userInfo:0];
-    objc_exception_throw(v16);
+    v9 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAExclaveCallstack version" userInfo:0];
+    objc_exception_throw(v9);
   }
 
   result = objc_alloc_init(SAExclaveCallstack);
   *(result + 3) = *(buffer + 18);
   *(result + 4) = *(buffer + 26);
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (*buffer >= 2u)
   {
     goto LABEL_9;
@@ -192,24 +189,24 @@ LABEL_7:
 
   if (length <= 0x21)
   {
-    v20 = *__error();
-    v21 = _sa_logt();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v19 = *__error();
+    v20 = _sa_logt();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy = length;
-      v31 = 2048;
-      v32 = 34;
-      _os_log_error_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAExclaveCallstack struct %lu", buf, 0x16u);
+      v24 = 2048;
+      v25 = 34;
+      _os_log_error_impl(&dword_1E0E2F000, v20, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SAExclaveCallstack struct %lu", buf, 0x16u);
     }
 
-    *__error() = v20;
-    _SASetCrashLogMessage(541, "bufferLength %lu < serialized SAExclaveCallstack struct %lu", v22, v23, v24, v25, v26, v27, length);
+    *__error() = v19;
+    _SASetCrashLogMessage(541, "bufferLength %lu < serialized SAExclaveCallstack struct %lu", length, 34);
     _os_crash();
     __break(1u);
 LABEL_9:
-    v28 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAExclaveCallstack version" userInfo:0];
-    objc_exception_throw(v28);
+    v21 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SAExclaveCallstack version" userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v11 = *(buffer + 2);
@@ -223,7 +220,6 @@ LABEL_9:
   v17 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v15, dictionary, bufferDictionary, v16, 0);
   leafFrame = self->_leafFrame;
   self->_leafFrame = v17;
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

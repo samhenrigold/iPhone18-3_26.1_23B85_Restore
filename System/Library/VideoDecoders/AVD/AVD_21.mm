@@ -203,9 +203,9 @@ void AV1_Syntax::lr_params(AV1_Syntax *this)
   }
 }
 
-void *AV1_Syntax::read_tx_mode(void *this)
+AV1_Syntax *AV1_Syntax::read_tx_mode(AV1_Syntax *this)
 {
-  v1 = this[12];
+  v1 = *(this + 12);
   if (*(v1 + 162) == 1)
   {
     *(v1 + 164) = 0;
@@ -215,7 +215,7 @@ void *AV1_Syntax::read_tx_mode(void *this)
   {
     v2 = this;
     this = AV1_Syntax::get_bits(this, "tx_mode_select", 1u);
-    v3 = v2[12];
+    v3 = *(v2 + 12);
     if (this)
     {
       *(v3 + 164) = 2;
@@ -230,9 +230,9 @@ void *AV1_Syntax::read_tx_mode(void *this)
   return this;
 }
 
-void *AV1_Syntax::frame_reference_mode(void *this)
+AV1_Syntax *AV1_Syntax::frame_reference_mode(AV1_Syntax *this)
 {
-  v1 = this[12];
+  v1 = *(this + 12);
   if (*(v1 + 2948))
   {
     v2 = 0;
@@ -243,7 +243,7 @@ void *AV1_Syntax::frame_reference_mode(void *this)
     v3 = this;
     this = AV1_Syntax::get_bits(this, "reference_select", 1u);
     v2 = 2 * (this != 0);
-    v1 = v3[12];
+    v1 = *(v3 + 12);
   }
 
   *(v1 + 72) = v2;
@@ -2746,7 +2746,7 @@ uint64_t AV1_Syntax::Set_Output_All_Layers(uint64_t result, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t AV1_Syntax::Parse_Header(AV1_Syntax *this, unsigned __int8 *a2, unint64_t a3, _DWORD *a4, char a5)
+uint64_t AV1_Syntax::Parse_Header(AV1_Syntax *this, char *a2, unint64_t a3, _DWORD *a4, char a5)
 {
   v6 = a3;
   v7 = a2;
@@ -2853,8 +2853,8 @@ uint64_t AV1_Syntax::Parse_Header(AV1_Syntax *this, unsigned __int8 *a2, unint64
 
     v16 = v45;
     v17 = v46;
-    v18 = (v7 + v45);
-    if (v11 - (v7 + v45) < v46)
+    v18 = &v7[v45];
+    if (v11 - &v7[v45] < v46)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
@@ -2924,7 +2924,7 @@ LABEL_79:
             {
               if (++v35 >= v46)
               {
-                v7 = v18 + v46;
+                v7 = &v18[v46];
                 v6 -= v46;
                 goto LABEL_84;
               }
@@ -2984,7 +2984,7 @@ LABEL_66:
             goto LABEL_96;
           }
 
-          v34 = AV1_Syntax::tile_group_obu(this, v18 + v17, &v47, *(*(this + 10) + 8) == 6, v46 - v17, a4);
+          v34 = AV1_Syntax::tile_group_obu(this, &v18[v17], &v47, *(*(this + 10) + 8) == 6, v46 - v17, a4);
           if (v34)
           {
             v17 += v34;
@@ -3031,7 +3031,7 @@ LABEL_66:
                 v23 = v17;
                 while (v23)
                 {
-                  v24 = *(v7 + v16 - 1 + v23--);
+                  v24 = v7[v16 - 1 + v23--];
                   if (v24)
                   {
                     if (v24 == 128 && v17 != -1)
@@ -3251,7 +3251,7 @@ LABEL_97:
     }
 
     AV1_Syntax::skip_bytes(this, v46);
-    v7 = v18 + v46;
+    v7 = &v18[v46];
     v26 = MEMORY[0x277D86220];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -7159,7 +7159,7 @@ uint64_t is_av1_ivf_frame(_DWORD *a1, unint64_t a2, _DWORD *a3)
   return result;
 }
 
-uint64_t av1_read_next_obu(unsigned __int8 *a1, unint64_t a2, uint64_t *a3, _DWORD *a4, int a5)
+uint64_t av1_read_next_obu(char *a1, unint64_t a2, uint64_t *a3, _DWORD *a4, int a5)
 {
   v25 = *MEMORY[0x277D85DE8];
   if (!a1 || !a3 || !a4)
@@ -7403,7 +7403,7 @@ LABEL_49:
   return result;
 }
 
-uint64_t av1_get_next_frame(unsigned __int8 *a1, uint64_t a2, int a3, int a4, unsigned int a5, unsigned __int8 **a6, void *a7, _DWORD *a8)
+uint64_t av1_get_next_frame(unsigned __int8 *a1, uint64_t a2, int a3, int a4, unsigned int a5, unsigned __int8 **a6, uint64_t *a7, _DWORD *a8)
 {
   v70 = *MEMORY[0x277D85DE8];
   if (a2 >= 1)
@@ -7845,7 +7845,7 @@ LABEL_75:
   return 0;
 }
 
-uint64_t av1_populate_film_grain_params(uint64_t a1, _DWORD *a2)
+BOOL av1_populate_film_grain_params(uint64_t a1, _DWORD *a2)
 {
   if (a1)
   {
@@ -8002,7 +8002,7 @@ LABEL_14:
   pthread_cond_destroy((this + 64));
 }
 
-uint64_t BufferPool::getSecondBufferAndLink(uint64_t a1, unsigned int a2, unsigned int *a3, int a4, uint64_t a5, uint64_t a6)
+uint64_t BufferPool::getSecondBufferAndLink(uint64_t a1, unsigned int a2, unsigned int *a3, unsigned int a4, uint64_t a5, uint64_t a6)
 {
   result = BufferPool::getBuffer(a1, a3, a4, 0, a5, a6);
   if (!result)
@@ -13039,23 +13039,27 @@ uint64_t CAHDecThymeAvx::setVPInstrFifo(uint64_t this, int a2)
   return this;
 }
 
-uint64_t InLoopChromaFilterInterchangeFormat(unsigned __int8 *a1, unsigned __int8 *a2, int a3, int a4, int a5, int a6, unsigned __int8 *a7)
+uint64_t InLoopChromaFilterInterchangeFormat(unsigned __int8 *a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 *a7)
 {
+  v7 = a6;
+  v8 = a5;
+  v9 = a4;
+  v10 = a3;
   v12 = (a3 + 31) & 0xFFFFFFFFFFFFFFE0;
   LODWORD(v13) = a4 >> 1;
   v14 = ((a4 >> 1) + 15) & 0xFFFFFFF0;
   FilterFunctionInit();
-  InLoopChromaRows(a1, a3, a4, a5, a6);
-  v15 = a3;
-  if (a4 >= 2)
+  InLoopChromaRows(a1, v10, v9, v8, v7);
+  v15 = v10;
+  if (v9 >= 2)
   {
-    v16 = a5;
+    v16 = v8;
     v13 = v13;
     v17 = a7;
     do
     {
       --v13;
-      memcpy(v17, a1, a3);
+      memcpy(v17, a1, v10);
       v17 += v12;
       a1 += v16;
     }
@@ -13065,7 +13069,7 @@ uint64_t InLoopChromaFilterInterchangeFormat(unsigned __int8 *a1, unsigned __int
 
   if (v14)
   {
-    v18 = v12 - a3;
+    v18 = v12 - v10;
     v19 = v14;
     v20 = &a7[v15];
     do
@@ -13148,8 +13152,11 @@ uint64_t InLoopChromaFilterInterchangeFormat(unsigned __int8 *a1, unsigned __int
   return 0;
 }
 
-uint64_t InLoopChromaFilter(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, _DWORD *a7, uint64_t a8, unsigned int a9)
+uint64_t InLoopChromaFilter(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8, unsigned int a9)
 {
+  v9 = a5;
+  v10 = a4;
+  v11 = a3;
   v12 = a1;
   LODWORD(v13) = a4 >> 1;
   v14 = a3 + 19;
@@ -13171,16 +13178,16 @@ uint64_t InLoopChromaFilter(uint64_t a1, uint64_t a2, int a3, int a4, int a5, in
   v20 = v18 & 0xFFFFFFF8;
   v21 = a8 + 32 * v16 + 4;
   InLoopChromaRows(a1, a3, a4, a5, a6);
-  v22 = a3;
-  if (a4 >= 2)
+  v22 = v11;
+  if (v10 >= 2)
   {
-    v23 = a5;
+    v23 = v9;
     v13 = v13;
     v24 = v21;
     do
     {
       --v13;
-      memcpy(v24, v12, a3);
+      memcpy(v24, v12, v11);
       v24 += v17;
       v12 += v23;
     }
@@ -13190,7 +13197,7 @@ uint64_t InLoopChromaFilter(uint64_t a1, uint64_t a2, int a3, int a4, int a5, in
 
   if (v19 >= 0xF)
   {
-    v25 = v17 - a3;
+    v25 = v17 - v11;
     v26 = v20;
     v27 = (v21 + v22);
     do
@@ -13293,7 +13300,7 @@ LABEL_20:
   }
 }
 
-uint64_t RVRAInLoopChromaFilter(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, _DWORD *a7, uint64_t a8, unsigned int a9)
+uint64_t RVRAInLoopChromaFilter(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _DWORD *a7, uint64_t a8, unsigned int a9)
 {
   FilterFunctionInit();
   DetileRow_filter_tiled_test = DetileRow_neon;
@@ -20212,11 +20219,11 @@ LABEL_87:
 
     v48 = a3[15];
     v49 = a2[5718];
-    v50 = (a3 + 37);
+    v50 = a3 + 37;
     v52 = *(v25 + 2644) == 1 && v47 != 0;
     do
     {
-      v53 = v49 + v49 * *&v50[4 * v36];
+      v53 = v49 + v49 * v50[v36];
       if (v53 + v37 > v44)
       {
         v53 = v44 - v37;
@@ -20653,104 +20660,116 @@ BOOL is_lgh_super_frame_offset(uint64_t a1, unint64_t a2, _DWORD *a3, unsigned i
   return result;
 }
 
-uint64_t GetSliceDataForDecryptor(void *a1)
+uint64_t GetSliceDataForDecryptor(void *a1, uint64_t a2)
 {
-  v2 = a1[3];
-  if (!v2)
+  v4 = a1[3];
+  if (v4)
   {
-
-    return FigSignalErrorAtGM();
-  }
-
-  if (a1[743])
-  {
-    goto LABEL_19;
-  }
-
-  Extensions = CMFormatDescriptionGetExtensions(v2);
-  Value = CFDictionaryGetValue(Extensions, *MEMORY[0x277CC03B0]);
-  v5 = CFDictionaryGetValue(Value, @"hvcC");
-  if (v5)
-  {
-    TypeID = CFArrayGetTypeID();
-    if (TypeID == CFGetTypeID(v5))
+    if (a1[743])
     {
-      CFArrayGetValueAtIndex(v5, 0);
+      goto LABEL_10;
     }
-  }
 
-  v7 = CFDictionaryGetValue(Value, @"lhvC");
-  if (v7)
-  {
-    v8 = CFArrayGetTypeID();
-    if (v8 == CFGetTypeID(v7))
+    Extensions = CMFormatDescriptionGetExtensions(v4);
+    Value = CFDictionaryGetValue(Extensions, *MEMORY[0x277CC03B0]);
+    v7 = CFDictionaryGetValue(Value, @"hvcC");
+    if (v7)
     {
-      CFArrayGetValueAtIndex(v7, 0);
+      TypeID = CFArrayGetTypeID();
+      if (TypeID == CFGetTypeID(v7))
+      {
+        CFArrayGetValueAtIndex(v7, 0);
+      }
     }
-  }
 
-  result = FigHEVCBridge_CreateHLSfMP4ParsingInfoFromHVCCAndLHVCData();
-  if (!result)
-  {
-LABEL_19:
-    result = FigHEVCBridge_LocateSliceHeaderForHLSfMP4EncryptableNAL();
+    v9 = CFDictionaryGetValue(Value, @"lhvC");
+    if (v9)
+    {
+      v10 = CFArrayGetTypeID();
+      if (v10 == CFGetTypeID(v9))
+      {
+        CFArrayGetValueAtIndex(v9, 0);
+      }
+    }
+
+    result = FigHEVCBridge_CreateHLSfMP4ParsingInfoFromHVCCAndLHVCData();
     if (!result)
     {
-      if (a1[743])
+LABEL_10:
+      result = FigHEVCBridge_LocateSliceHeaderForHLSfMP4EncryptableNAL();
+      if (!result)
       {
-        a1[1000] = 0;
-        return 0;
-      }
+        if (a1[743])
+        {
+          a1[1000] = 0;
+          return 0;
+        }
 
-      return FigSignalErrorAtGM();
+        else
+        {
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v12, v13);
+        }
+      }
     }
+  }
+
+  else
+  {
+
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294954394, "(Fig)", 2698, v2);
   }
 
   return result;
 }
 
-uint64_t GetSliceDataForDecryptor_0(uint64_t a1)
+uint64_t GetSliceDataForDecryptor_0(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 24);
-  if (!v2)
+  v12 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 24);
+  if (v4)
   {
-
-    return FigSignalErrorAtGM();
-  }
-
-  if (*(a1 + 6728))
-  {
-    goto LABEL_16;
-  }
-
-  Extensions = CMFormatDescriptionGetExtensions(v2);
-  Value = CFDictionaryGetValue(Extensions, *MEMORY[0x277CC03B0]);
-  v5 = CFDictionaryGetValue(Value, @"avcC");
-  if (v5)
-  {
-    TypeID = CFArrayGetTypeID();
-    if (TypeID == CFGetTypeID(v5))
+    if (*(a1 + 6728))
     {
-      CFArrayGetValueAtIndex(v5, 0);
+      goto LABEL_7;
     }
-  }
 
-  result = FigH264Bridge_CreateHLSfMP4ParsingInfoFromAVCCData();
-  if (!result)
-  {
-LABEL_16:
-    result = FigH264Bridge_LocateSliceHeaderForHLSfMP4EncryptableNAL();
+    Extensions = CMFormatDescriptionGetExtensions(v4);
+    Value = CFDictionaryGetValue(Extensions, *MEMORY[0x277CC03B0]);
+    v7 = CFDictionaryGetValue(Value, @"avcC");
+    if (v7)
+    {
+      TypeID = CFArrayGetTypeID();
+      if (TypeID == CFGetTypeID(v7))
+      {
+        CFArrayGetValueAtIndex(v7, 0);
+      }
+    }
+
+    result = FigH264Bridge_CreateHLSfMP4ParsingInfoFromAVCCData();
     if (!result)
     {
-      if (*(a1 + 6728))
+LABEL_7:
+      result = FigH264Bridge_LocateSliceHeaderForHLSfMP4EncryptableNAL();
+      if (!result)
       {
-        *(a1 + 8784) = 0;
-        return 0;
-      }
+        if (*(a1 + 6728))
+        {
+          *(a1 + 8784) = 0;
+          return 0;
+        }
 
-      return FigSignalErrorAtGM();
+        else
+        {
+          return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, v10, v11);
+        }
+      }
     }
+  }
+
+  else
+  {
+
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", 0, 4294954394, "(Fig)", 2707, v2);
   }
 
   return result;

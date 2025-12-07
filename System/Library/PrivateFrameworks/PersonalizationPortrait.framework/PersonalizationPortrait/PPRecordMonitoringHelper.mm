@@ -49,49 +49,49 @@
 
 uint64_t __94__PPRecordMonitoringHelper__handleRecentChangesWithDelegates_changeGenerator_recordGenerator___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = pp_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = v3;
+    v32 = v3;
     _os_log_impl(&dword_1A7FD3000, v4, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: calling recent record handler", buf, 0xCu);
   }
 
-  v30 = 0;
+  v29 = 0;
   v5 = (*(*(a1 + 40) + 16))();
   v6 = pp_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = [v5 count];
     *buf = 138412546;
-    v33 = v3;
-    v34 = 2048;
-    v35 = v7;
+    v32 = v3;
+    v33 = 2048;
+    v34 = v7;
     _os_log_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: handling %tu record changes", buf, 0x16u);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [v3 recentRecordLoadingHandler:*(*(&v26 + 1) + 8 * i)];
+        v13 = [v3 recentRecordLoadingHandler:*(*(&v25 + 1) + 8 * i)];
         if ((v13 - 3) >= 0xFFFFFFFE)
         {
           v16 = v13;
@@ -102,20 +102,20 @@ uint64_t __94__PPRecordMonitoringHelper__handleRecentChangesWithDelegates_change
             if (v18)
             {
               *buf = 138412290;
-              v33 = v3;
+              v32 = v3;
               _os_log_debug_impl(&dword_1A7FD3000, v17, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: replied to handler with reset", buf, 0xCu);
             }
 
             v19 = *(a1 + 32);
             v20 = *(v19 + 16);
-            v23[0] = MEMORY[0x1E69E9820];
-            v23[1] = 3221225472;
-            v23[2] = __94__PPRecordMonitoringHelper__handleRecentChangesWithDelegates_changeGenerator_recordGenerator___block_invoke_16;
-            v23[3] = &unk_1E77F6A68;
-            v23[4] = v19;
-            v24 = v3;
-            v25 = *(a1 + 48);
-            dispatch_async(v20, v23);
+            v22[0] = MEMORY[0x1E69E9820];
+            v22[1] = 3221225472;
+            v22[2] = __94__PPRecordMonitoringHelper__handleRecentChangesWithDelegates_changeGenerator_recordGenerator___block_invoke_16;
+            v22[3] = &unk_1E77F6A68;
+            v22[4] = v19;
+            v23 = v3;
+            v24 = *(a1 + 48);
+            dispatch_async(v20, v22);
           }
 
           else
@@ -123,7 +123,7 @@ uint64_t __94__PPRecordMonitoringHelper__handleRecentChangesWithDelegates_change
             if (v18)
             {
               *buf = 138412290;
-              v33 = v3;
+              v32 = v3;
               _os_log_debug_impl(&dword_1A7FD3000, v17, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: replied to handler with stop", buf, 0xCu);
             }
 
@@ -135,7 +135,7 @@ uint64_t __94__PPRecordMonitoringHelper__handleRecentChangesWithDelegates_change
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
       if (v10)
       {
         continue;
@@ -149,14 +149,13 @@ uint64_t __94__PPRecordMonitoringHelper__handleRecentChangesWithDelegates_change
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v33 = v3;
+    v32 = v3;
     _os_log_debug_impl(&dword_1A7FD3000, v14, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: done calling recentRecordLoadingHandlers", buf, 0xCu);
   }
 
   v15 = 1;
 LABEL_24:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -177,13 +176,13 @@ LABEL_24:
 
 BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGenerator___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = pp_default_log_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v3;
+    v17 = v3;
     _os_log_impl(&dword_1A7FD3000, v4, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: calling recent setup", buf, 0xCu);
   }
 
@@ -199,7 +198,7 @@ BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGener
       if (v9)
       {
         *buf = 138412290;
-        v18 = v3;
+        v17 = v3;
         _os_log_debug_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: replied to setup with reset", buf, 0xCu);
       }
 
@@ -210,8 +209,8 @@ BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGener
       block[2] = __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGenerator___block_invoke_13;
       block[3] = &unk_1E77F6A68;
       block[4] = v10;
-      v15 = v3;
-      v16 = *(a1 + 40);
+      v14 = v3;
+      v15 = *(a1 + 40);
       dispatch_async(v11, block);
     }
 
@@ -220,7 +219,7 @@ BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGener
       if (v9)
       {
         *buf = 138412290;
-        v18 = v3;
+        v17 = v3;
         _os_log_debug_impl(&dword_1A7FD3000, v8, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: replied to setup with stop", buf, 0xCu);
       }
 
@@ -228,58 +227,57 @@ BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGener
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6 < 0xFFFFFFFE;
 }
 
 - (void)sendChangesToDelegatesWithChangeGenerator:(id)generator recordGenerator:(id)recordGenerator
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   generatorCopy = generator;
   recordGeneratorCopy = recordGenerator;
-  v21 = os_transaction_create();
+  v20 = os_transaction_create();
   allObjects = [(NSHashTable *)self->_delegates allObjects];
   v9 = pp_default_log_handle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     name = self->_name;
     *buf = 138412546;
-    v30 = name;
-    v31 = 2048;
-    v32 = [allObjects count];
+    v29 = name;
+    v30 = 2048;
+    v31 = [allObjects count];
     _os_log_impl(&dword_1A7FD3000, v9, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: sending changes to %tu delegates", buf, 0x16u);
   }
 
-  v20 = allObjects;
+  v19 = allObjects;
   v11 = [(PPRecordMonitoringHelper *)self _setupRecentChangesWithDelegates:allObjects recordGenerator:recordGeneratorCopy];
-  v22 = recordGeneratorCopy;
-  v23 = generatorCopy;
+  v21 = recordGeneratorCopy;
+  v22 = generatorCopy;
   v12 = [(PPRecordMonitoringHelper *)self _handleRecentChangesWithDelegates:v11 changeGenerator:generatorCopy recordGenerator:recordGeneratorCopy];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     do
     {
       v16 = 0;
       do
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v24 + 1) + 8 * v16);
+        v17 = *(*(&v23 + 1) + 8 * v16);
         v18 = pp_default_log_handle();
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v30 = v17;
+          v29 = v17;
           _os_log_debug_impl(&dword_1A7FD3000, v18, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: calling recentRecordLoadingCompletion", buf, 0xCu);
         }
 
@@ -288,19 +286,17 @@ BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGener
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetWithDelegate:(id)delegate recentChangesInProgress:(BOOL)progress recordGenerator:(id)generator
 {
   progressCopy = progress;
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   generatorCopy = generator;
   if (progressCopy)
@@ -308,9 +304,9 @@ BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGener
     v10 = pp_default_log_handle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = delegateCopy;
-      _os_log_impl(&dword_1A7FD3000, v10, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: calling completion block in preparation for reset", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = delegateCopy;
+      _os_log_impl(&dword_1A7FD3000, v10, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: calling completion block in preparation for reset", &v12, 0xCu);
     }
 
     [delegateCopy recentRecordLoadingCompletion];
@@ -319,57 +315,55 @@ BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGener
   v11 = pp_default_log_handle();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = delegateCopy;
-    _os_log_impl(&dword_1A7FD3000, v11, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: calling resetRecordData", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = delegateCopy;
+    _os_log_impl(&dword_1A7FD3000, v11, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: calling resetRecordData", &v12, 0xCu);
   }
 
   [delegateCopy resetRecordData];
   [(PPRecordMonitoringHelper *)self loadRecordsWithDelegate:delegateCopy recordGenerator:generatorCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendResetToAllDelegatesWithRecordGenerator:(id)generator
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   generatorCopy = generator;
-  v15 = os_transaction_create();
+  v14 = os_transaction_create();
   allObjects = [(NSHashTable *)self->_delegates allObjects];
   v6 = pp_default_log_handle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v22 = [allObjects count];
+    v21 = [allObjects count];
     _os_log_impl(&dword_1A7FD3000, v6, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: sending reset to all %tu delegates", buf, 0xCu);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v11);
+        v12 = *(*(&v15 + 1) + 8 * v11);
         v13 = pp_default_log_handle();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v22 = v12;
+          v21 = v12;
           _os_log_debug_impl(&dword_1A7FD3000, v13, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: calling reset", buf, 0xCu);
         }
 
@@ -378,13 +372,11 @@ BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGener
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleChangeNotificationWithName:(id)name afterDelaySeconds:(double)seconds handler:(id)handler
@@ -407,34 +399,32 @@ BOOL __77__PPRecordMonitoringHelper__setupRecentChangesWithDelegates_recordGener
 
 uint64_t __87__PPRecordMonitoringHelper_handleChangeNotificationWithName_afterDelaySeconds_handler___block_invoke(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = pp_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[5];
     v4 = *(a1[4] + 8);
-    v7 = 138412546;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: handleChangeNotification for %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: handleChangeNotification for %@", &v6, 0x16u);
   }
 
-  result = (*(a1[6] + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 - (void)loadRecordsWithDelegate:(id)delegate recordGenerator:(id)generator
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   generatorCopy = generator;
   v7 = pp_default_log_handle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = delegateCopy;
+    v28 = delegateCopy;
     _os_log_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: loading records", buf, 0xCu);
   }
 
@@ -443,7 +433,7 @@ uint64_t __87__PPRecordMonitoringHelper_handleChangeNotificationWithName_afterDe
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v29 = delegateCopy;
+    v28 = delegateCopy;
     _os_log_debug_impl(&dword_1A7FD3000, v9, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: calling recordLoadingSetup", buf, 0xCu);
   }
 
@@ -455,7 +445,7 @@ uint64_t __87__PPRecordMonitoringHelper_handleChangeNotificationWithName_afterDe
     if (v12)
     {
       *buf = 138412290;
-      v29 = delegateCopy;
+      v28 = delegateCopy;
       _os_log_debug_impl(&dword_1A7FD3000, v11, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: replied stop to setup, going to call completion", buf, 0xCu);
     }
 
@@ -467,38 +457,38 @@ uint64_t __87__PPRecordMonitoringHelper_handleChangeNotificationWithName_afterDe
     if (v12)
     {
       *buf = 138412290;
-      v29 = delegateCopy;
+      v28 = delegateCopy;
       _os_log_debug_impl(&dword_1A7FD3000, v11, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: calling recordGenerator", buf, 0xCu);
     }
 
     generatorCopy[2](generatorCopy, delegateCopy);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v13 = v26 = 0u;
-    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = v25 = 0u;
+    v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
+          v18 = *(*(&v22 + 1) + 8 * i);
           v19 = objc_autoreleasePoolPush();
-          if ([delegateCopy recordLoadingHandler:{v18, v23}] == 1)
+          if ([delegateCopy recordLoadingHandler:{v18, v22}] == 1)
           {
             v20 = pp_default_log_handle();
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v29 = delegateCopy;
+              v28 = delegateCopy;
               _os_log_debug_impl(&dword_1A7FD3000, v20, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: replied stop to record handler", buf, 0xCu);
             }
 
@@ -509,7 +499,7 @@ uint64_t __87__PPRecordMonitoringHelper_handleChangeNotificationWithName_afterDe
           objc_autoreleasePoolPop(v19);
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v15)
         {
           continue;
@@ -525,14 +515,12 @@ LABEL_23:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v29 = delegateCopy;
+      v28 = delegateCopy;
       _os_log_debug_impl(&dword_1A7FD3000, v21, OS_LOG_TYPE_DEBUG, "PPRecordMonitoringHelper: %@: calling recordLoadingCompletion", buf, 0xCu);
     }
 
     [delegateCopy recordLoadingCompletion];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)loadRecordsAndMonitorChangesWithDelegate:(id)delegate recordGenerator:(id)generator notificationRegistrationBlock:(id)block
@@ -563,14 +551,14 @@ LABEL_23:
 
 void __115__PPRecordMonitoringHelper_loadRecordsAndMonitorChangesWithDelegate_recordGenerator_notificationRegistrationBlock___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = pp_default_log_handle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: loadRecordsAndMonitorChangesWithDelegate", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1A7FD3000, v2, OS_LOG_TYPE_DEFAULT, "PPRecordMonitoringHelper: %@: loadRecordsAndMonitorChangesWithDelegate", &v7, 0xCu);
   }
 
   [*(a1 + 40) loadRecordsWithDelegate:*(a1 + 32) recordGenerator:*(a1 + 48)];
@@ -587,8 +575,6 @@ void __115__PPRecordMonitoringHelper_loadRecordsAndMonitorChangesWithDelegate_re
 
     v5[32] = 1;
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (PPRecordMonitoringHelper)initWithName:(id)name

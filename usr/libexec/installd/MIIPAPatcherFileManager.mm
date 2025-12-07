@@ -1,12 +1,14 @@
 @interface MIIPAPatcherFileManager
 + (id)defaultManager;
 - (BOOL)copyFromURL:(id)l toURL:(id)rL withError:(id *)error;
+- (BOOL)createDirectoryAtPath:(id)path relativeToURL:(id)l mode:(unsigned __int16)mode withError:(id *)error;
 - (BOOL)createDirectoryAtURL:(id)l mode:(unsigned __int16)mode withError:(id *)error;
 - (BOOL)enumerateDirectoryAtURL:(id)l includeTypes:(unint64_t)types withError:(id *)error enumerator:(id)enumerator;
 - (BOOL)moveSourceURL:(id)l toDestinationURL:(id)rL fallBackToCopy:(BOOL)copy withError:(id *)error;
 - (BOOL)removeURL:(id)l withError:(id *)error;
 - (BOOL)syncEnumerateLinesFromFileURL:(id)l options:(unint64_t)options error:(id *)error enumerator:(id)enumerator;
 - (BOOL)syncReadBytesFromFileURL:(id)l chunkSize:(unint64_t)size error:(id *)error handler:(id)handler;
+- (BOOL)writePlistRepresentation:(id)representation format:(unint64_t)format toFileURL:(id)l mode:(unsigned __int16)mode withError:(id *)error;
 - (id)_hexOfHashBuffer:(const char *)buffer length:(unint64_t)length upperCase:(BOOL)case;
 - (id)_md5OfFileURL:(id)l chunkSize:(unint64_t)size withError:(id *)error;
 - (id)_sha256OfFileURL:(id)l chunkSize:(unint64_t)size withError:(id *)error;
@@ -475,6 +477,47 @@ LABEL_28:
   return v23;
 }
 
+- (BOOL)writePlistRepresentation:(id)representation format:(unint64_t)format toFileURL:(id)l mode:(unsigned __int16)mode withError:(id *)error
+{
+  modeCopy = mode;
+  lCopy = l;
+  v21 = 0;
+  v13 = [(MIIPAPatcherFileManager *)self dataFromPlistRepresentation:representation format:format withError:&v21];
+  v14 = v21;
+  v15 = v14;
+  if (v13)
+  {
+    v20 = v14;
+    v16 = [(MIIPAPatcherFileManager *)self writeData:v13 toFileURL:lCopy mode:modeCopy withError:&v20];
+    v17 = v20;
+
+    v15 = v17;
+    if (!error)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    v16 = 0;
+    if (!error)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  if (!v16)
+  {
+    v18 = v15;
+    *error = v15;
+  }
+
+LABEL_7:
+
+  return v16;
+}
+
 - (BOOL)enumerateDirectoryAtURL:(id)l includeTypes:(unint64_t)types withError:(id *)error enumerator:(id)enumerator
 {
   lCopy = l;
@@ -764,6 +807,23 @@ LABEL_31:
   {
     v9 = 0;
     v10 = 1;
+  }
+
+  return v10;
+}
+
+- (BOOL)createDirectoryAtPath:(id)path relativeToURL:(id)l mode:(unsigned __int16)mode withError:(id *)error
+{
+  modeCopy = mode;
+  v9 = [l URLByAppendingPathComponent:path isDirectory:1];
+  v15 = 0;
+  v10 = [(MIIPAPatcherFileManager *)self createDirectoryAtURL:v9 mode:modeCopy withError:&v15];
+  v11 = v15;
+  v12 = v11;
+  if (error && !v10)
+  {
+    v13 = v11;
+    *error = v12;
   }
 
   return v10;

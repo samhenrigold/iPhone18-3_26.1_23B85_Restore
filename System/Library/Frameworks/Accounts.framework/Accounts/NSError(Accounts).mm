@@ -125,51 +125,52 @@ LABEL_10:
 {
   v43 = *MEMORY[0x1E69E9840];
   v4 = a3;
-  if ([v4 conformsToProtocol:&unk_1F211BCE0])
+  v5 = [v4 conformsToProtocol:&unk_1F211BCE0];
+  if (v5)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       ac_secureCodingError = [v4 ac_secureCodingError];
 LABEL_4:
-      v6 = ac_secureCodingError;
+      v7 = ac_secureCodingError;
       goto LABEL_41;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v6 = objc_opt_new();
+      v7 = objc_opt_new();
       v36 = 0u;
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      v8 = v4;
-      v9 = [v8 countByEnumeratingWithState:&v36 objects:v42 count:16];
-      if (v9)
+      v9 = v4;
+      v10 = [v9 countByEnumeratingWithState:&v36 objects:v42 count:16];
+      if (v10)
       {
-        v10 = v9;
-        v11 = *v37;
+        v11 = v10;
+        v12 = *v37;
         do
         {
-          for (i = 0; i != v10; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v37 != v11)
+            if (*v37 != v12)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v9);
             }
 
-            v13 = [self ac_sanitizeObject:*(*(&v36 + 1) + 8 * i)];
-            if (v13)
+            v14 = [self ac_sanitizeObject:*(*(&v36 + 1) + 8 * i)];
+            if (v14)
             {
-              [v6 addObject:v13];
+              [v7 addObject:v14];
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v36 objects:v42 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v36 objects:v42 count:16];
         }
 
-        while (v10);
+        while (v11);
       }
     }
 
@@ -178,37 +179,37 @@ LABEL_4:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v6 = objc_opt_new();
+        v7 = objc_opt_new();
         v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v8 = v4;
-        v14 = [v8 countByEnumeratingWithState:&v32 objects:v41 count:16];
-        if (v14)
+        v9 = v4;
+        v15 = [v9 countByEnumeratingWithState:&v32 objects:v41 count:16];
+        if (v15)
         {
-          v15 = v14;
-          v16 = *v33;
+          v16 = v15;
+          v17 = *v33;
           do
           {
-            for (j = 0; j != v15; ++j)
+            for (j = 0; j != v16; ++j)
             {
-              if (*v33 != v16)
+              if (*v33 != v17)
               {
-                objc_enumerationMutation(v8);
+                objc_enumerationMutation(v9);
               }
 
-              v18 = [self ac_sanitizeObject:*(*(&v32 + 1) + 8 * j)];
-              if (v18)
+              v19 = [self ac_sanitizeObject:*(*(&v32 + 1) + 8 * j)];
+              if (v19)
               {
-                [v6 addObject:v18];
+                [v7 addObject:v19];
               }
             }
 
-            v15 = [v8 countByEnumeratingWithState:&v32 objects:v41 count:16];
+            v16 = [v9 countByEnumeratingWithState:&v32 objects:v41 count:16];
           }
 
-          while (v15);
+          while (v16);
         }
       }
 
@@ -221,40 +222,40 @@ LABEL_4:
           goto LABEL_4;
         }
 
-        v6 = objc_opt_new();
+        v7 = objc_opt_new();
         v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v8 = v4;
-        v19 = [v8 countByEnumeratingWithState:&v28 objects:v40 count:16];
-        if (v19)
+        v9 = v4;
+        v20 = [v9 countByEnumeratingWithState:&v28 objects:v40 count:16];
+        if (v20)
         {
-          v20 = v19;
-          v21 = *v29;
+          v21 = v20;
+          v22 = *v29;
           do
           {
-            for (k = 0; k != v20; ++k)
+            for (k = 0; k != v21; ++k)
             {
-              if (*v29 != v21)
+              if (*v29 != v22)
               {
-                objc_enumerationMutation(v8);
+                objc_enumerationMutation(v9);
               }
 
-              v23 = *(*(&v28 + 1) + 8 * k);
-              v24 = [v8 objectForKeyedSubscript:{v23, v28}];
-              v25 = [self ac_sanitizeObject:v24];
+              v24 = *(*(&v28 + 1) + 8 * k);
+              v25 = [v9 objectForKeyedSubscript:{v24, v28}];
+              v26 = [self ac_sanitizeObject:v25];
 
-              if (v25)
+              if (v26)
               {
-                [v6 setObject:v25 forKey:v23];
+                [v7 setObject:v26 forKey:v24];
               }
             }
 
-            v20 = [v8 countByEnumeratingWithState:&v28 objects:v40 count:16];
+            v21 = [v9 countByEnumeratingWithState:&v28 objects:v40 count:16];
           }
 
-          while (v20);
+          while (v21);
         }
       }
     }
@@ -262,20 +263,18 @@ LABEL_4:
 
   else
   {
-    v7 = _ACLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _ACLogSystem(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [(NSError(Accounts) *)v4 ac_sanitizeObject:v7];
+      [(NSError(Accounts) *)v4 ac_sanitizeObject:v8];
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
 LABEL_41:
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v6;
+  return v7;
 }
 
 - (id)ac_secureCodingError
@@ -292,11 +291,10 @@ LABEL_41:
 
 - (void)ac_sanitizeObject:()Accounts .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_DEBUG, "Removing object %@ error userInfo because it is not NSSecureCoding.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1AC3CD000, a2, OS_LOG_TYPE_DEBUG, "Removing object %@ error userInfo because it is not NSSecureCoding.", &v2, 0xCu);
 }
 
 @end

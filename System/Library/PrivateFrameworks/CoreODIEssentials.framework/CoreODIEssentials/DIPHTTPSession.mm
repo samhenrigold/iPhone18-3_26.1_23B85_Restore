@@ -22,32 +22,30 @@
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECC0EAF8, &unk_1DB0A9580);
-  v9 = *(*(v8 - 8) + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8 - 8, v10);
-  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11, v14);
-  v16 = &v25 - v15;
-  v17 = sub_1DB09CBF4();
-  v18 = *(v17 - 8);
-  v19 = *(v18 + 64);
-  MEMORY[0x1EEE9AC00](v17, v20);
-  v22 = &v25 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = _Block_copy(handler);
+  v9 = MEMORY[0x1EEE9AC00](v8 - 8);
+  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v13 = &v20 - v12;
+  v14 = sub_1DB09CBF4();
+  v15 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = &v20 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = _Block_copy(handler);
   sub_1DB09CBA4();
-  (*(v18 + 56))(v16, 1, 1, v17);
-  sub_1DAFB3B74(v16, v13);
-  v24 = 0;
-  if ((*(v18 + 48))(v13, 1, v17) != 1)
+  (*(v15 + 56))(v13, 1, 1, v14);
+  sub_1DAFB3B74(v13, v11);
+  v19 = 0;
+  if ((*(v15 + 48))(v11, 1, v14) != 1)
   {
-    v24 = sub_1DB09CB84();
-    (*(v18 + 8))(v13, v17);
+    v19 = sub_1DB09CB84();
+    (*(v15 + 8))(v11, v14);
   }
 
-  v23[2](v23, v24);
+  v18[2](v18, v19);
 
-  _Block_release(v23);
-  sub_1DAF40AEC(v16, &qword_1ECC0EAF8, &unk_1DB0A9580);
-  (*(v18 + 8))(v22, v17);
+  _Block_release(v18);
+  sub_1DAF40AEC(v13, &qword_1ECC0EAF8, &unk_1DB0A9580);
+  (*(v15 + 8))(v17, v14);
 }
 
 - (void)URLSession:(id)session taskIsWaitingForConnectivity:(id)connectivity

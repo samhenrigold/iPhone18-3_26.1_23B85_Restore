@@ -1,3 +1,62 @@
+void kaldi::nnet1::VectorwiseQuantizedAffineTransform<signed char>::~VectorwiseQuantizedAffineTransform(void *a1)
+{
+  kaldi::nnet1::VectorwiseQuantizedAffineTransform<signed char>::~VectorwiseQuantizedAffineTransform(a1);
+
+  JUMPOUT(0x1B8C85350);
+}
+
+void kaldi::nnet1::VectorwiseQuantizedAffineTransform<signed char>::Info(uint64_t a1@<X0>, std::string *a2@<X8>)
+{
+  std::string::basic_string[abi:ne200100]<0>(&v11, "\n  linearity is vectorwise quantized");
+  v4 = std::string::append(&v11, "\n  bias");
+  v5 = *&v4->__r_.__value_.__l.__data_;
+  v12.__r_.__value_.__r.__words[2] = v4->__r_.__value_.__r.__words[2];
+  *&v12.__r_.__value_.__l.__data_ = v5;
+  v4->__r_.__value_.__l.__size_ = 0;
+  v4->__r_.__value_.__r.__words[2] = 0;
+  v4->__r_.__value_.__r.__words[0] = 0;
+  kaldi::nnet1::MomentStatistics<float>(a1 + 88);
+  if ((v10 & 0x80u) == 0)
+  {
+    v6 = __p;
+  }
+
+  else
+  {
+    v6 = __p[0];
+  }
+
+  if ((v10 & 0x80u) == 0)
+  {
+    v7 = v10;
+  }
+
+  else
+  {
+    v7 = __p[1];
+  }
+
+  v8 = std::string::append(&v12, v6, v7);
+  *a2 = *v8;
+  v8->__r_.__value_.__l.__size_ = 0;
+  v8->__r_.__value_.__r.__words[2] = 0;
+  v8->__r_.__value_.__r.__words[0] = 0;
+  if (v10 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v12.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v11.__r_.__value_.__l.__data_);
+  }
+}
+
 void sub_1B54E4F60(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
 {
   if (a14 < 0)
@@ -18,19 +77,21 @@ void sub_1B54E4F60(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void kaldi::nnet1::VectorwiseQuantizedAffineTransform<signed char>::WriteData(uint64_t a1, void *a2, int a3)
+void kaldi::nnet1::VectorwiseQuantizedAffineTransform<signed char>::WriteData(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   kaldi::VectorwiseQuantizedMatrix<signed char>::Write((a1 + 48), a2, a3);
 
-  kaldi::CuVectorBase<float>::Write(a1 + 88, a2, a3);
+  kaldi::CuVectorBase<float>::Write(a1 + 88, a2, v3);
 }
 
 uint64_t *kaldi::nnet1::VectorwiseQuantizedAffineTransform<signed char>::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
   LODWORD(a4) = 1.0;
   kaldi::CuMatrixBase<float>::AddMatMat<signed char>(a3, a2, 111, a1 + 48, 112, a4, 0.0);
+  v6.n128_u32[0] = 1.0;
 
-  return kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 88, 1.0, 1.0);
+  return kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 88, v6, 1.0);
 }
 
 void kaldi::nnet1::VectorwiseQuantizedAffineTransform<signed char>::BackpropagateFnc()
@@ -101,9 +162,9 @@ uint64_t kaldi::nnet1::VectorwiseQuantizedAffineTransform<signed char>::Vectorwi
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 24) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(a1 + 24, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>((a1 + 24), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
   *a1 = &unk_1F2D18A68;
-  kaldi::VectorwiseQuantizedMatrix<signed char>::VectorwiseQuantizedMatrix(a1 + 48, a2 + 48);
+  kaldi::VectorwiseQuantizedMatrix<signed char>::VectorwiseQuantizedMatrix((a1 + 48), (a2 + 48));
   kaldi::CuVector<float>::CuVector((a1 + 88), a2 + 88);
   return a1;
 }
@@ -252,19 +313,21 @@ void sub_1B54E5640(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::WriteData(uint64_t a1, void *a2, int a3)
+void kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::WriteData(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
   kaldi::VectorwiseQuantizedMatrix<short>::Write((a1 + 48), a2, a3);
 
-  kaldi::CuVectorBase<float>::Write(a1 + 88, a2, a3);
+  kaldi::CuVectorBase<float>::Write(a1 + 88, a2, v3);
 }
 
 uint64_t *kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::PropagateFnc(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
   LODWORD(a4) = 1.0;
   kaldi::CuMatrixBase<float>::AddMatMat<short>(a3, a2, 111, a1 + 48, 112, a4, 0.0);
+  v6.n128_u32[0] = 1.0;
 
-  return kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 88, 1.0, 1.0);
+  return kaldi::CuMatrixBase<float>::AddVecToRows(a3, a1 + 88, v6, 1.0);
 }
 
 void kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::BackpropagateFnc()
@@ -279,8 +342,8 @@ void kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::GetUnitOutputFnc(u
 {
   a5.i32[0] = *(*(a1 + 96) + 4 * a3);
   kaldi::CuVectorBase<float>::Set(a4, a5);
-  kaldi::VectorwiseQuantizedMatrix<short>::Row(a1 + 48, a3, v9);
-  kaldi::QuantizedVectorBase<short>::AddMatVec(v9, a2 + 8, a4 + 8, 1.0);
+  kaldi::VectorwiseQuantizedMatrix<short>::Row(a1 + 48, a3, &v9);
+  kaldi::QuantizedVectorBase<short>::AddMatVec(&v9, a2 + 8, a4 + 8, 1.0);
 }
 
 float kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::GetUnitOutputFnc(uint64_t a1, uint64_t a2, int a3)
@@ -335,9 +398,9 @@ uint64_t kaldi::nnet1::VectorwiseQuantizedAffineTransform<short>::VectorwiseQuan
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
   *(a1 + 24) = 0;
-  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>(a1 + 24, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
+  std::vector<kaldi::CuWorkspace *>::__init_with_size[abi:ne200100]<kaldi::CuWorkspace **,kaldi::CuWorkspace **>((a1 + 24), *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
   *a1 = &unk_1F2D18B28;
-  kaldi::VectorwiseQuantizedMatrix<short>::VectorwiseQuantizedMatrix(a1 + 48, a2 + 48);
+  kaldi::VectorwiseQuantizedMatrix<short>::VectorwiseQuantizedMatrix((a1 + 48), (a2 + 48));
   kaldi::CuVector<float>::CuVector((a1 + 88), a2 + 88);
   return a1;
 }
@@ -356,7 +419,7 @@ void sub_1B54E5A10(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *NgramEvalStats::_incrementCounts(NgramEvalStats *this, const unsigned int *a2, unsigned int a3, uint64_t a4)
+unsigned int *NgramEvalStats::_incrementCounts(NgramEvalStats *this, const unsigned int *a2, unsigned int a3, uint64_t a4)
 {
   v5 = this;
   result = (this + 160);
@@ -384,7 +447,7 @@ void *NgramEvalStats::_incrementCounts(NgramEvalStats *this, const unsigned int 
     }
   }
 
-  result[1] += a4;
+  *(result + 1) += a4;
   return result;
 }
 
@@ -428,17 +491,17 @@ uint64_t NgramEvalStats::countSentence(NgramEvalStats *this, const unsigned int 
   return v6;
 }
 
-void NgramEvalStats::~NgramEvalStats(NgramEvalStats *this)
+void NgramEvalStats::~NgramEvalStats(unsigned int **this)
 {
   *this = &unk_1F2D12C98;
-  Trie<unsigned int,unsigned long>::~Trie(this + 160);
+  Trie<unsigned int,unsigned long>::~Trie(this + 20);
 
   quasar::Bitmap::~Bitmap(this);
 }
 
 {
   *this = &unk_1F2D12C98;
-  Trie<unsigned int,unsigned long>::~Trie(this + 160);
+  Trie<unsigned int,unsigned long>::~Trie(this + 20);
   quasar::Bitmap::~Bitmap(this);
 
   JUMPOUT(0x1B8C85350);
@@ -446,61 +509,67 @@ void NgramEvalStats::~NgramEvalStats(NgramEvalStats *this)
 
 uint64_t quasar::IndexRuleLmeWordTagger::init(uint64_t a1, quasar::SystemConfig *this, uint64_t a3)
 {
-  __p[0] = quasar::SystemConfig::getConfigFileVersion(this);
-  quasar::result_handler::Range::Range(&v43, 90, 0);
-  if (!quasar::SystemConfig::Version::operator<(__p, &v43))
+  quasar::SystemConfig::getConfigFileVersion(this);
+  __p[0] = v6;
+  quasar::result_handler::Range::Range(&v44, 90, 0);
+  if (!quasar::SystemConfig::Version::operator<(__p, &v44))
   {
-    v6 = std::string::basic_string[abi:ne200100]<0>(&v42, "lme-word-tagger");
-    v7 = std::string::insert(v6, 0, ".");
-    v8 = *&v7->__r_.__value_.__l.__data_;
-    v43.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
-    *&v43.__r_.__value_.__l.__data_ = v8;
-    v7->__r_.__value_.__l.__size_ = 0;
-    v7->__r_.__value_.__r.__words[2] = 0;
-    v7->__r_.__value_.__r.__words[0] = 0;
-    v9 = std::string::append(&v43, ".");
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    *&v26 = *(&v9->__r_.__value_.__l + 2);
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
-    std::string::basic_string[abi:ne200100]<0>(v44, "index-rule-tagger");
-    if ((v45 & 0x80u) == 0)
-    {
-      v11 = v44;
-    }
-
-    else
-    {
-      v11 = v44[0];
-    }
-
-    if ((v45 & 0x80u) == 0)
+    v7 = std::string::basic_string[abi:ne200100]<0>(&v43, "lme-word-tagger");
+    v8 = std::string::insert(v7, 0, ".");
+    v9 = *&v8->__r_.__value_.__l.__data_;
+    v44.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
+    *&v44.__r_.__value_.__l.__data_ = v9;
+    v8->__r_.__value_.__l.__size_ = 0;
+    v8->__r_.__value_.__r.__words[2] = 0;
+    v8->__r_.__value_.__r.__words[0] = 0;
+    v10 = std::string::append(&v44, ".");
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    *&v27 = *(&v10->__r_.__value_.__l + 2);
+    *__p = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
+    std::string::basic_string[abi:ne200100]<0>(v45, "index-rule-tagger");
+    if ((v46 & 0x80u) == 0)
     {
       v12 = v45;
     }
 
     else
     {
-      v12 = v44[1];
+      v12 = v45[0];
     }
 
-    v13 = std::string::append(__p, v11, v12);
-    v14 = *&v13->__r_.__value_.__l.__data_;
-    v47 = v13->__r_.__value_.__r.__words[2];
-    v46 = v14;
-    v13->__r_.__value_.__l.__size_ = 0;
-    v13->__r_.__value_.__r.__words[2] = 0;
-    v13->__r_.__value_.__r.__words[0] = 0;
-    if (v45 < 0)
+    if ((v46 & 0x80u) == 0)
     {
-      operator delete(v44[0]);
+      v13 = v46;
     }
 
-    if (SBYTE7(v26) < 0)
+    else
+    {
+      v13 = v45[1];
+    }
+
+    v14 = std::string::append(__p, v12, v13);
+    v15 = *&v14->__r_.__value_.__l.__data_;
+    v48 = v14->__r_.__value_.__r.__words[2];
+    v47 = v15;
+    v14->__r_.__value_.__l.__size_ = 0;
+    v14->__r_.__value_.__r.__words[2] = 0;
+    v14->__r_.__value_.__r.__words[0] = 0;
+    if (v46 < 0)
+    {
+      operator delete(v45[0]);
+    }
+
+    if (SBYTE7(v27) < 0)
     {
       operator delete(__p[0]);
+    }
+
+    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(v44.__r_.__value_.__l.__data_);
     }
 
     if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
@@ -508,95 +577,90 @@ uint64_t quasar::IndexRuleLmeWordTagger::init(uint64_t a1, quasar::SystemConfig 
       operator delete(v43.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v42.__r_.__value_.__l.__data_);
-    }
-
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, &v46, __p);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, &v47, __p);
     quasar::IndexRuleLmeWordTagger::registerParams(a1, this, __p);
-    if (SBYTE7(v26) < 0)
+    if (SBYTE7(v27) < 0)
     {
       operator delete(__p[0]);
     }
 
-    quasar::SystemConfig::getPrefix(this, &v42);
-    v15 = *(a3 + 23);
-    if (v15 >= 0)
+    quasar::SystemConfig::getPrefix(this, &v43);
+    v16 = *(a3 + 23);
+    if (v16 >= 0)
     {
-      v16 = a3;
+      v17 = a3;
     }
 
     else
     {
-      v16 = *a3;
+      v17 = *a3;
     }
 
-    if (v15 >= 0)
+    if (v16 >= 0)
     {
-      v17 = *(a3 + 23);
+      v18 = *(a3 + 23);
     }
 
     else
     {
-      v17 = *(a3 + 8);
+      v18 = *(a3 + 8);
     }
 
-    v18 = std::string::append(&v42, v16, v17);
-    v19 = *&v18->__r_.__value_.__l.__data_;
-    v43.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-    *&v43.__r_.__value_.__l.__data_ = v19;
-    v18->__r_.__value_.__l.__size_ = 0;
-    v18->__r_.__value_.__r.__words[2] = 0;
-    v18->__r_.__value_.__r.__words[0] = 0;
-    if (v47 >= 0)
+    v19 = std::string::append(&v43, v17, v18);
+    v20 = *&v19->__r_.__value_.__l.__data_;
+    v44.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
+    *&v44.__r_.__value_.__l.__data_ = v20;
+    v19->__r_.__value_.__l.__size_ = 0;
+    v19->__r_.__value_.__r.__words[2] = 0;
+    v19->__r_.__value_.__r.__words[0] = 0;
+    if (v48 >= 0)
     {
-      v20 = &v46;
+      v21 = &v47;
     }
 
     else
     {
-      v20 = v46;
+      v21 = v47;
     }
 
-    if (v47 >= 0)
+    if (v48 >= 0)
     {
-      v21 = HIBYTE(v47);
+      v22 = HIBYTE(v48);
     }
 
     else
     {
-      v21 = *(&v46 + 1);
+      v22 = *(&v47 + 1);
     }
 
-    v22 = std::string::append(&v43, v20, v21);
-    v23 = *&v22->__r_.__value_.__l.__data_;
-    *&v26 = *(&v22->__r_.__value_.__l + 2);
-    *__p = v23;
-    v22->__r_.__value_.__l.__size_ = 0;
-    v22->__r_.__value_.__r.__words[2] = 0;
-    v22->__r_.__value_.__r.__words[0] = 0;
-    quasar::SystemConfig::readPtree(this, __p);
+    v23 = std::string::append(&v44, v21, v22);
+    v24 = *&v23->__r_.__value_.__l.__data_;
+    *&v27 = *(&v23->__r_.__value_.__l + 2);
+    *__p = v24;
+    v23->__r_.__value_.__l.__size_ = 0;
+    v23->__r_.__value_.__r.__words[2] = 0;
+    v23->__r_.__value_.__r.__words[0] = 0;
+    quasar::SystemConfig::readPtree(this, __p, 0, 0);
   }
 
   if (quasar::gLogLevel >= 1)
   {
-    v40 = 0u;
     v41 = 0u;
-    v38 = 0u;
+    v42 = 0u;
     v39 = 0u;
-    v36 = 0u;
+    v40 = 0u;
     v37 = 0u;
-    v34 = 0u;
+    v38 = 0u;
     v35 = 0u;
-    v32 = 0u;
+    v36 = 0u;
     v33 = 0u;
-    *v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
+    v34 = 0u;
+    *v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    v26 = 0u;
+    v30 = 0u;
     v27 = 0u;
+    v28 = 0u;
     *__p = 0u;
     kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Config Version is not high enough for index rule denumeration", 61);
@@ -772,16 +836,16 @@ std::string *quasar::IndexRuleLmeWordTagger::addTagsToWord(std::string *result, 
 
     if (0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 4) > v8)
     {
-      v9 = *a2 + 80 * v8;
-      v10 = *(v9 + 47);
+      v9 = (*a2 + 80 * v8);
+      v10 = SHIBYTE(v9[1].__r_.__value_.__r.__words[2]);
       if (v10 >= 0)
       {
-        v11 = *(v9 + 47);
+        v11 = HIBYTE(v9[1].__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        v11 = *(v9 + 32);
+        v11 = v9[1].__r_.__value_.__l.__size_;
       }
 
       v12 = v3[2].__r_.__value_.__s.__data_[7];
@@ -793,8 +857,8 @@ std::string *quasar::IndexRuleLmeWordTagger::addTagsToWord(std::string *result, 
 
       if (v11 == v12)
       {
-        v14 = (v9 + 24);
-        v15 = *(v9 + 24);
+        v14 = v9 + 1;
+        data = v9[1].__r_.__value_.__l.__data_;
         if (v10 >= 0)
         {
           v16 = v14;
@@ -802,7 +866,7 @@ std::string *quasar::IndexRuleLmeWordTagger::addTagsToWord(std::string *result, 
 
         else
         {
-          v16 = v15;
+          v16 = data;
         }
 
         if (v13 >= 0)
@@ -829,71 +893,72 @@ std::string *quasar::IndexRuleLmeWordTagger::addTagsToWord(std::string *result, 
 
 void quasar::getLmeWordTagger(quasar::SystemConfig *a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
 {
-  __p[0] = quasar::SystemConfig::getConfigFileVersion(a1);
-  quasar::result_handler::Range::Range(&v11, 90, 0);
-  if (!quasar::SystemConfig::Version::operator<(__p, &v11))
+  quasar::SystemConfig::getConfigFileVersion(a1);
+  __p[0] = v6;
+  quasar::result_handler::Range::Range(&v12, 90, 0);
+  if (!quasar::SystemConfig::Version::operator<(__p, &v12))
   {
     if (*(a2 + 23) >= 0)
     {
-      v6 = *(a2 + 23);
+      v7 = *(a2 + 23);
     }
 
     else
     {
-      v6 = a2[1];
+      v7 = a2[1];
     }
 
-    v7 = &v11;
-    std::string::basic_string[abi:ne200100](&v11, v6 + 1);
-    if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    v8 = &v12;
+    std::string::basic_string[abi:ne200100](&v12, v7 + 1);
+    if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
     {
-      v7 = v11.__r_.__value_.__r.__words[0];
+      v8 = v12.__r_.__value_.__r.__words[0];
     }
 
-    if (v6)
+    if (v7)
     {
       if (*(a2 + 23) >= 0)
       {
-        v8 = a2;
+        v9 = a2;
       }
 
       else
       {
-        v8 = *a2;
+        v9 = *a2;
       }
 
-      memmove(v7, v8, v6);
+      memmove(v8, v9, v7);
     }
 
-    *(&v7->__r_.__value_.__l.__data_ + v6) = 46;
-    v9 = std::string::append(&v11, "lme-word-tagger");
-    v10 = *&v9->__r_.__value_.__l.__data_;
-    *&v13 = *(&v9->__r_.__value_.__l + 2);
-    *__p = v10;
-    v9->__r_.__value_.__l.__size_ = 0;
-    v9->__r_.__value_.__r.__words[2] = 0;
-    v9->__r_.__value_.__r.__words[0] = 0;
+    *(&v8->__r_.__value_.__l.__data_ + v7) = 46;
+    v10 = std::string::append(&v12, "lme-word-tagger");
+    v11 = *&v10->__r_.__value_.__l.__data_;
+    *&v14 = *(&v10->__r_.__value_.__l + 2);
+    *__p = v11;
+    v10->__r_.__value_.__l.__size_ = 0;
+    v10->__r_.__value_.__r.__words[2] = 0;
+    v10->__r_.__value_.__r.__words[0] = 0;
     quasar::SystemConfig::getPtreeOptional(a1, __p);
   }
 
   if (quasar::gLogLevel >= 5)
   {
-    v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v15 = 0u;
+    v19 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
+    v15 = 0u;
     *__p = 0u;
     kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Config Version is not high enough for denumeration", 50);
@@ -991,9 +1056,9 @@ uint64_t std::vector<quasar::IndexRuleLmeWordTagger::Rule>::__emplace_back_slow_
   return v17;
 }
 
-void sub_1B54E7020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B54E7020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::IndexRuleLmeWordTagger::Rule>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1133,7 +1198,7 @@ uint64_t ResolveIndexForCollation(void *a1, int a2)
   }
 }
 
-uint64_t SDWord_GetName(void *a1, char *a2, char *a3, unint64_t a4)
+uint64_t SDWord_GetName(void *a1, char *a2, char *a3, size_t a4)
 {
   v6 = (*(*a1 + 48))(a1, a2 - 1);
   v8 = v7;
@@ -1167,7 +1232,7 @@ int *SDWord_GetTagBits(uint64_t a1, uint64_t a2, int a3, _WORD *a4, size_t a5)
       exit(1);
     }
 
-    v10 = result + 1;
+    v10 = (result + 2);
     result = quasar::tennessee::nashville::GenericNashvilleLexicon<std::string_view,quasar::tennessee::nashville::flatbuf::TokenInfoToUTF8StringViewFunctor>::GetMetadata(a1);
     v11 = (result - *result);
     if (*v11 >= 0xBu)
@@ -1241,7 +1306,7 @@ uint64_t SDVoc_GetAllowedWordCollations(uint64_t a1, void *a2, unint64_t a3)
   return 2;
 }
 
-uint64_t SDVoc_GetCollationName(int a1, unsigned int a2, void *__dst, unint64_t a4)
+uint64_t SDVoc_GetCollationName(int a1, unsigned int a2, void *__dst, size_t a4)
 {
   if (a2 != 3)
   {
@@ -1512,7 +1577,7 @@ uint64_t SDColl_StringCompare(void *a1, int a2, const char *a3, const char *a4)
   return (*(*v7 + 16))(v7, v10, v9);
 }
 
-void *SDEnv_GetData(uint64_t a1, const char *a2, void *a3, unint64_t a4)
+void *SDEnv_GetData(uint64_t a1, const char *a2, void *a3, size_t a4)
 {
   if (*a1 != 8 || (v4 = *(a1 + 8)) == 0)
   {
@@ -1566,7 +1631,7 @@ LABEL_24:
 LABEL_23:
         v18 = (Metadata + v13 + *(Metadata + v13));
 LABEL_25:
-        flatbuffers_2_0_6::String::str(v18, __s1);
+        flatbuffers_2_0_6::String::str(__s1, v18);
         goto LABEL_39;
       }
     }
@@ -1778,11 +1843,11 @@ uint64_t fst::MinimizeCompactLattice<fst::LatticeWeightTpl<float>,int>(uint64_t 
   return v2;
 }
 
-uint64_t fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::Minimize(float *a1)
+uint64_t fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::Minimize(uint64_t *a1)
 {
   if (!(*(**a1 + 64))(*a1, 0x4000000000, 1))
   {
-    fst::TopSort<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>();
+    fst::TopSort<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(*a1);
   }
 
   fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::ComputeStateHashValues(a1);
@@ -1925,7 +1990,7 @@ void sub_1B54E85CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::ComputeStateMap(float *a1)
+void **fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::ComputeStateMap(float *a1)
 {
   v2 = (*(**a1 + 160))(*a1);
   v26 = 0u;
@@ -1936,8 +2001,8 @@ uint64_t fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::Compute
   {
     for (i = 0; i < v2; LODWORD(v24) = i)
     {
-      v25[0] = (*(a1 + 2) + 8 * i);
-      v4 = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<int>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<int>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v26, v25[0]);
+      v25[0].__locale_ = (*(a1 + 2) + 8 * i);
+      v4 = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<int>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<int>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v26, v25[0].__locale_, &std::piecewise_construct, v25);
       std::vector<int>::push_back[abi:ne200100](v4 + 3, &v24);
       i = v24 + 1;
     }
@@ -2012,8 +2077,8 @@ uint64_t fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::Compute
     do
     {
       v24 = *(*(a1 + 2) + 8 * (v5 - 1));
-      v25[0] = &v24;
-      v18 = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<int>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<int>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v26, &v24);
+      v25[0].__locale_ = &v24;
+      v18 = std::__hash_table<std::__hash_value_type<unsigned long,std::vector<int>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<int>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&v26, &v24, &std::piecewise_construct, v25);
       v19 = 0;
       v20 = v18[3];
       v21 = v18[4];
@@ -2506,33 +2571,33 @@ void sub_1B54E92DC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<int>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<int>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<int>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<int>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<int>>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, uint64_t **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2540,47 +2605,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,false>(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,false>(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
   v9 = a1;
@@ -2606,7 +2671,7 @@ LABEL_2:
     {
       v23 = a2 - 6;
       v24 = *(a2 - 12);
-      if (v24 >= *v9 && (v24 > *v9 || *(a2 - 2) >= *(v9 + 40)))
+      if (v24 >= *v9 && (v24 > *v9 || *(a2 - 2) >= *(v9 + 10)))
       {
         return;
       }
@@ -2647,7 +2712,7 @@ LABEL_10:
     }
 
     v14 = v13 >> 1;
-    v15 = (v9 + 48 * (v13 >> 1));
+    v15 = &v9[6 * (v13 >> 1)];
     if (v12 < 0x1801)
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v15, v9, (a2 - 6));
@@ -2661,10 +2726,10 @@ LABEL_10:
     {
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v9, v15, (a2 - 6));
       v16 = 3 * v14;
-      v17 = (v9 + 48 * v14 - 48);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>((v9 + 48), v17, (a2 - 12));
-      v18 = (v9 + 48 + 16 * v16);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>((a1 + 96), v18, (a2 - 18));
+      v17 = &v9[6 * v14 - 6];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v9 + 6, v17, (a2 - 12));
+      v18 = &v9[2 * v16 + 6];
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(a1 + 12, v18, (a2 - 18));
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v17, v15, v18);
       std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(a1, v15);
       if (a5)
@@ -2673,8 +2738,8 @@ LABEL_10:
       }
     }
 
-    v19 = *(a1 - 48);
-    if (v19 >= *a1 && (v19 > *a1 || *(a1 - 8) >= *(a1 + 40)))
+    v19 = *(a1 - 12);
+    if (v19 >= *a1 && (v19 > *a1 || *(a1 - 2) >= *(a1 + 10)))
     {
       v9 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &>(a1, a2);
       goto LABEL_24;
@@ -2688,8 +2753,8 @@ LABEL_19:
     }
 
     v22 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>(a1, v20);
-    v9 = v20 + 48;
-    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>(v20 + 48, a2))
+    v9 = v20 + 6;
+    if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>((v20 + 6), a2))
     {
       a4 = -v11;
       a2 = v20;
@@ -2706,7 +2771,7 @@ LABEL_19:
     {
 LABEL_22:
       std::__introsort<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,false>(a1, v20, a3, -v11, a5 & 1);
-      v9 = v20 + 48;
+      v9 = v20 + 6;
 LABEL_24:
       a5 = 0;
       a4 = -v11;
@@ -2717,7 +2782,7 @@ LABEL_24:
   if (v13 == 3)
   {
 
-    std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v9, (v9 + 48), (a2 - 6));
+    std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v9, v9 + 6, (a2 - 6));
     return;
   }
 
@@ -2726,28 +2791,28 @@ LABEL_24:
     if (v13 == 5)
     {
 
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v9, v9 + 48, v9 + 96, v9 + 144, (a2 - 6));
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v9, (v9 + 6), (v9 + 12), (v9 + 18), (a2 - 6));
       return;
     }
 
     goto LABEL_10;
   }
 
-  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v9, (v9 + 48), v9 + 96);
+  std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(v9, v9 + 6, (v9 + 12));
   v25 = *(a2 - 12);
-  v26 = *(v9 + 96);
-  if (v25 < v26 || v25 <= v26 && *(a2 - 2) < *(v9 + 136))
+  v26 = *(v9 + 24);
+  if (v25 < v26 || v25 <= v26 && *(a2 - 2) < *(v9 + 34))
   {
-    std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>((v9 + 96), a2 - 6);
-    v27 = *(v9 + 96);
-    v28 = *(v9 + 48);
-    if (v27 < v28 || v27 <= v28 && *(v9 + 136) < *(v9 + 88))
+    std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(v9 + 12, a2 - 6);
+    v27 = *(v9 + 24);
+    v28 = *(v9 + 12);
+    if (v27 < v28 || v27 <= v28 && *(v9 + 34) < *(v9 + 22))
     {
-      std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>((v9 + 48), (v9 + 96));
-      v29 = *(v9 + 48);
-      if (v29 < *v9 || v29 <= *v9 && *(v9 + 88) < *(v9 + 40))
+      std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(v9 + 6, v9 + 12);
+      v29 = *(v9 + 12);
+      if (v29 < *v9 || v29 <= *v9 && *(v9 + 22) < *(v9 + 10))
       {
-        v23 = (v9 + 48);
+        v23 = v9 + 6;
         goto LABEL_35;
       }
     }
@@ -2958,7 +3023,7 @@ void std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlgPolicy,fst::C
         }
 
         v4 = v3 + 6;
-        v5 += 12;
+        v5 += 6;
       }
 
       while (v3 + 6 != a2);
@@ -2976,7 +3041,7 @@ void sub_1B54EA064(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &>(uint64_t *a1, unint64_t a2)
+uint64_t *std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &>(uint64_t *a1, unint64_t a2)
 {
   v17 = *a1;
   v4 = a1 + 1;
@@ -2993,12 +3058,12 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     i = a1;
     do
     {
-      v9 = *(i + 48);
-      i += 48;
+      v9 = *(i + 12);
+      i += 6;
       v8 = v9;
     }
 
-    while (v17 >= v9 && (v17 > v8 || v5 >= *(i + 40)));
+    while (v17 >= v9 && (v17 > v8 || v5 >= *(i + 10)));
   }
 
   else
@@ -3019,12 +3084,12 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
   while (i < a2)
   {
     std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(i, a2);
-    v12 = *(i + 48);
-    i += 48;
-    for (j = v12; v17 >= j && (v17 > j || v22 >= *(i + 40)); j = v13)
+    v12 = *(i + 12);
+    i += 6;
+    for (j = v12; v17 >= j && (v17 > j || v22 >= *(i + 10)); j = v13)
     {
-      v13 = *(i + 48);
-      i += 48;
+      v13 = *(i + 12);
+      i += 6;
     }
 
     do
@@ -3042,21 +3107,21 @@ unint64_t std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPol
     while (v15 && v22 < *(a2 + 40));
   }
 
-  if ((i - 48) != a1)
+  if (i - 6 != a1)
   {
-    *a1 = *(i - 48);
-    fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v4, i - 40);
-    *(a1 + 10) = *(i - 8);
+    *a1 = *(i - 6);
+    fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v4, (i - 5));
+    *(a1 + 10) = *(i - 2);
   }
 
-  *(i - 48) = v17;
-  *(i - 40) = v18;
-  if ((i - 40) != &v18)
+  *(i - 6) = v17;
+  *(i - 5) = v18;
+  if (i - 5 != &v18)
   {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((i - 32), __p, v20, (v20 - __p) >> 2);
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(i - 4, __p, v20, (v20 - __p) >> 2);
   }
 
-  *(i - 8) = v22;
+  *(i - 2) = v22;
   if (__p)
   {
     v20 = __p;
@@ -3076,7 +3141,7 @@ void sub_1B54EA274(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &>(uint64_t *a1, unint64_t a2)
+uint64_t *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &>(uint64_t *a1, unint64_t a2)
 {
   v21 = *a1;
   v4 = a1 + 1;
@@ -3148,15 +3213,15 @@ LABEL_19:
       {
         do
         {
-          v16 = *(v14 + 48);
-          v14 += 48;
+          v16 = *(v14 + 12);
+          v14 += 6;
           v17 = v16 <= v21;
         }
 
         while (v16 < v21);
       }
 
-      while (v17 && *(v14 + 40) < v26);
+      while (v17 && *(v14 + 10) < v26);
       do
       {
         v19 = *(v15 - 48);
@@ -3170,28 +3235,28 @@ LABEL_19:
     while (v14 < v15);
   }
 
-  if ((v14 - 48) != a1)
+  if (v14 - 6 != a1)
   {
-    *a1 = *(v14 - 48);
-    fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v4, v14 - 40);
-    *(a1 + 10) = *(v14 - 8);
+    *a1 = *(v14 - 6);
+    fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>::operator=(v4, (v14 - 5));
+    *(a1 + 10) = *(v14 - 2);
   }
 
-  *(v14 - 48) = v21;
-  *(v14 - 40) = v22;
-  if ((v14 - 40) != &v22)
+  *(v14 - 6) = v21;
+  *(v14 - 5) = v22;
+  if (v14 - 5 != &v22)
   {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((v14 - 32), __p, v24, (v24 - __p) >> 2);
+    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(v14 - 4, __p, v24, (v24 - __p) >> 2);
   }
 
-  *(v14 - 8) = v26;
+  *(v14 - 2) = v26;
   if (__p)
   {
     v24 = __p;
     operator delete(__p);
   }
 
-  return v14 - 48;
+  return v14 - 6;
 }
 
 void sub_1B54EA490(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
@@ -3204,7 +3269,7 @@ void sub_1B54EA490(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>(uint64_t a1, uint64_t *a2)
 {
   v4 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 4);
   if (v4 <= 2)
@@ -3213,9 +3278,9 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::
     {
       if (v4 == 2)
       {
-        v5 = (a2 - 48);
-        v6 = *(a2 - 48);
-        if (v6 >= *a1 && (v6 > *a1 || *(a2 - 8) >= *(a1 + 40)))
+        v5 = a2 - 6;
+        v6 = *(a2 - 12);
+        if (v6 >= *a1 && (v6 > *a1 || *(a2 - 2) >= *(a1 + 40)))
         {
           return 1;
         }
@@ -3232,18 +3297,18 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,fst::
   switch(v4)
   {
     case 3:
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(a1, (a1 + 48), a2 - 48);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(a1, (a1 + 48), (a2 - 6));
       return 1;
     case 4:
       std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(a1, (a1 + 48), a1 + 96);
-      v15 = *(a2 - 48);
+      v15 = *(a2 - 12);
       v16 = *(a1 + 96);
-      if (v15 >= v16 && (v15 > v16 || *(a2 - 8) >= *(a1 + 136)))
+      if (v15 >= v16 && (v15 > v16 || *(a2 - 2) >= *(a1 + 136)))
       {
         return 1;
       }
 
-      std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>((a1 + 96), (a2 - 48));
+      std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>((a1 + 96), a2 - 6);
       v17 = *(a1 + 96);
       v18 = *(a1 + 48);
       if (v17 >= v18 && (v17 > v18 || *(a1 + 136) >= *(a1 + 88)))
@@ -3263,15 +3328,15 @@ LABEL_38:
       std::swap[abi:ne200100]<fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int>>(a1, v5);
       return 1;
     case 5:
-      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(a1, a1 + 48, a1 + 96, a1 + 144, a2 - 48);
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(a1, a1 + 48, a1 + 96, a1 + 144, (a2 - 6));
       return 1;
   }
 
 LABEL_13:
   v7 = (a1 + 96);
   std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *,0>(a1, (a1 + 48), a1 + 96);
-  v8 = a1 + 144;
-  if (a1 + 144 == a2)
+  v8 = (a1 + 144);
+  if ((a1 + 144) == a2)
   {
     return 1;
   }
@@ -3280,15 +3345,15 @@ LABEL_13:
   v10 = 0;
   while (1)
   {
-    if (*v8 < *v7 || *v8 <= *v7 && *(v8 + 40) < v7[10])
+    if (*v8 < *v7 || *v8 <= *v7 && *(v8 + 10) < *(v7 + 10))
     {
       v21 = *v8;
-      v22 = *(v8 + 8);
+      v22 = v8[1];
       v24 = 0;
       v25 = 0;
       __p = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(v8 + 16), *(v8 + 24), (*(v8 + 24) - *(v8 + 16)) >> 2);
-      v26 = *(v8 + 40);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v8[2], v8[3], (v8[3] - v8[2]) >> 2);
+      v26 = *(v8 + 10);
       for (i = v9; ; i -= 48)
       {
         *(a1 + i + 144) = *(a1 + i + 96);
@@ -3327,13 +3392,13 @@ LABEL_27:
 
       if (++v10 == 8)
       {
-        return v8 + 48 == a2;
+        return v8 + 6 == a2;
       }
     }
 
     v7 = v8;
     v9 += 48;
-    v8 += 48;
+    v8 += 6;
     if (v8 == a2)
     {
       return 1;
@@ -3508,17 +3573,17 @@ void sub_1B54EAB48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v10 = *a1;
-    v11 = *(a1 + 8);
+    v11 = a1[1];
     v13 = 0;
     v14 = 0;
     __p = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, *(a1 + 16), *(a1 + 24), (*(a1 + 24) - *(a1 + 16)) >> 2);
-    v15 = *(a1 + 40);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, a1[2], a1[3], (a1[3] - a1[2]) >> 2);
+    v15 = *(a1 + 10);
     v8 = std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>(a1, a3, a4);
     v9 = v8;
     if (v8 == (a2 - 48))
@@ -3546,7 +3611,7 @@ void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMin
       }
 
       *(a2 - 8) = v15;
-      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>(a1, (v9 + 6), a3, 0xAAAAAAAAAAAAAAABLL * ((v9 - a1 + 48) >> 4));
+      std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,fst::CompactLatticeMinimizer<fst::LatticeWeightTpl<float>,int>::EquivalenceSorter &,fst::ArcTpl<fst::CompactLatticeWeightTpl<fst::LatticeWeightTpl<float>,int>,int> *>(a1, (v9 + 6), a3, 0xAAAAAAAAAAAAAAABLL * (((v9 + 6) - a1) >> 4));
     }
 
     if (__p)
@@ -3675,7 +3740,7 @@ void sub_1B54EAF18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void quasar::corrective_reranking::CorrectiveReranker::CorrectiveReranker(std::string *this, const quasar::corrective_reranking::CorrectiveRerankerConfig *a2, const quasar::PTree *a3, const quasar::corrective_reranking::Models *a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
@@ -3707,7 +3772,7 @@ void quasar::corrective_reranking::CorrectiveReranker::CorrectiveReranker(std::s
   v11 = 0;
   while (1)
   {
-    if (v15[v11 * 8 + 23] < 0)
+    if (SHIBYTE(v15[v11 + 2]) < 0)
     {
       operator delete(v14[v11 + 3]);
     }
@@ -3723,13 +3788,13 @@ void quasar::corrective_reranking::CorrectiveReranker::CorrectiveReranker(std::s
       v12 = 0;
       while (1)
       {
-        if (v17[v12 + 23] < 0)
+        if (SHIBYTE(v17[v12 + 2]) < 0)
         {
-          operator delete(*&v17[v12]);
+          operator delete(v17[v12]);
         }
 
-        v12 -= 24;
-        if (v12 == -96)
+        v12 -= 3;
+        if (v12 == -12)
         {
           std::string::basic_string[abi:ne200100]<0>(v14, ".");
           std::string::basic_string[abi:ne200100]<0>(v15, "!");
@@ -3739,13 +3804,13 @@ void quasar::corrective_reranking::CorrectiveReranker::CorrectiveReranker(std::s
           v13 = 0;
           while (1)
           {
-            if (v17[v13 + 23] < 0)
+            if (SHIBYTE(v17[v13 + 2]) < 0)
             {
-              operator delete(*&v17[v13]);
+              operator delete(v17[v13]);
             }
 
-            v13 -= 24;
-            if (v13 == -96)
+            v13 -= 3;
+            if (v13 == -12)
             {
               quasar::corrective_reranking::InitFeaturizers(a2 + 3, a3, &this[9].__r_.__value_.__r.__words[2]);
               kaldi::quasar::LoadClassifier(a2);
@@ -3760,38 +3825,38 @@ void quasar::corrective_reranking::CorrectiveReranker::CorrectiveReranker(std::s
 void sub_1B54EB1E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   std::vector<std::unique_ptr<quasar::corrective_reranking::Featurizer>>::__destroy_vector::operator()[abi:ne200100](&__p);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v15 + 24));
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v15 + 19));
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((v15 + 14));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v15 + 24);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v15 + 19);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v15 + 14);
   quasar::corrective_reranking::CorrectiveRerankerConfig::~CorrectiveRerankerConfig(v15);
   _Unwind_Resume(a1);
 }
 
-uint64_t quasar::corrective_reranking::CorrectiveReranker::performCorrectiveReranking@<X0>(quasar::corrective_reranking *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::performCorrectiveReranking(quasar::corrective_reranking *a1@<X0>, quasar::corrective_reranking::Parse **a2@<X1>, uint64_t a3@<X2>, quasar::corrective_reranking::Parse **a4@<X8>)
 {
   *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  a4[1] = 0;
+  a4[2] = 0;
   v7 = std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(a4, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 7));
   if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
   {
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
-    v70 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v61 = 0u;
+    v64 = 0u;
     v62 = 0u;
-    *__p = 0u;
     v60 = 0u;
+    v61 = 0u;
+    *__p = 0u;
+    v59 = 0u;
     kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Adjacent edits enabled: ", 24);
     isAdjacentEditsEnabled = quasar::corrective_reranking::isAdjacentEditsEnabled(v9);
@@ -3799,7 +3864,7 @@ uint64_t quasar::corrective_reranking::CorrectiveReranker::performCorrectiveRera
     quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
   }
 
-  v53 = *(a3 + 136);
+  v52 = *(a3 + 136);
   v11 = quasar::corrective_reranking::isAdjacentEditsEnabled(v7);
   if (v11)
   {
@@ -3811,43 +3876,43 @@ uint64_t quasar::corrective_reranking::CorrectiveReranker::performCorrectiveRera
     v12 = 1;
   }
 
-  v52 = v12;
+  v51 = v12;
   if (*(a3 + 124))
   {
     quasar::corrective_reranking::CorrectiveReranker::correctTarget(a1, a4, __p);
     std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(a4);
     *a4 = *__p;
-    *(a4 + 16) = v60;
+    a4[2] = v59;
     __p[1] = 0;
-    *&v60 = 0;
+    *&v59 = 0;
     __p[0] = 0;
-    *&v77 = __p;
-    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
+    *&v76 = __p;
+    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
     if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
     {
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v68 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v61 = 0u;
+      v64 = 0u;
       v62 = 0u;
-      *__p = 0u;
       v60 = 0u;
+      v61 = 0u;
+      *__p = 0u;
+      v59 = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Target Correction]\n", 20);
-      *&v77 = a4;
-      BYTE8(v77) = 0;
-      v78 = a3;
-      quasar::corrective_reranking::operator<<(v13, &v77);
+      *&v76 = a4;
+      BYTE8(v76) = 0;
+      v77 = a3;
+      quasar::corrective_reranking::operator<<(v13, &v76);
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
   }
@@ -3857,37 +3922,37 @@ uint64_t quasar::corrective_reranking::CorrectiveReranker::performCorrectiveRera
     quasar::corrective_reranking::CorrectiveReranker::correctPayload(a1, a4, 0, __p);
     std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(a4);
     *a4 = *__p;
-    *(a4 + 16) = v60;
+    a4[2] = v59;
     __p[1] = 0;
-    *&v60 = 0;
+    *&v59 = 0;
     __p[0] = 0;
-    *&v77 = __p;
-    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
+    *&v76 = __p;
+    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
     if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
     {
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v68 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v61 = 0u;
+      v64 = 0u;
       v62 = 0u;
-      *__p = 0u;
       v60 = 0u;
+      v61 = 0u;
+      *__p = 0u;
+      v59 = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Payload Correction]\n", 21);
-      *&v77 = a4;
-      BYTE8(v77) = 0;
-      v78 = a3;
-      quasar::corrective_reranking::operator<<(v14, &v77);
+      *&v76 = a4;
+      BYTE8(v76) = 0;
+      v77 = a3;
+      quasar::corrective_reranking::operator<<(v14, &v76);
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
   }
@@ -3897,43 +3962,43 @@ uint64_t quasar::corrective_reranking::CorrectiveReranker::performCorrectiveRera
     quasar::corrective_reranking::CorrectiveReranker::cleanParses(a1, a4, a3, __p);
     std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(a4);
     *a4 = *__p;
-    *(a4 + 16) = v60;
+    a4[2] = v59;
     __p[1] = 0;
-    *&v60 = 0;
+    *&v59 = 0;
     __p[0] = 0;
-    *&v77 = __p;
-    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
+    *&v76 = __p;
+    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
     if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
     {
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v68 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v61 = 0u;
+      v64 = 0u;
       v62 = 0u;
-      *__p = 0u;
       v60 = 0u;
+      v61 = 0u;
+      *__p = 0u;
+      v59 = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Parse Cleaning]\n", 17);
-      *&v77 = a4;
-      BYTE8(v77) = 0;
-      v78 = a3;
-      quasar::corrective_reranking::operator<<(v15, &v77);
+      *&v76 = a4;
+      BYTE8(v76) = 0;
+      v77 = a3;
+      quasar::corrective_reranking::operator<<(v15, &v76);
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
   }
 
   v17 = *a4;
-  v16 = *(a4 + 8);
+  v16 = a4[1];
   if (*a4 == v16)
   {
 LABEL_37:
@@ -3941,12 +4006,12 @@ LABEL_37:
     goto LABEL_38;
   }
 
-  v18 = *(a4 + 8);
+  v18 = a4[1];
   while (1)
   {
     quasar::corrective_reranking::Parse::getIntent(v17, __p);
     v19 = std::__hash_table<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>>>::find<std::string>(a1 + 14, __p);
-    if (SBYTE7(v60) < 0)
+    if (SBYTE7(v59) < 0)
     {
       operator delete(__p[0]);
     }
@@ -3974,14 +4039,14 @@ LABEL_37:
         quasar::corrective_reranking::Parse::getIntent(v20, __p);
         v21 = std::__hash_table<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<kaldi::quasar::ShortlistDataInManyFiles::NotLoadedShortListDataOnDisk,std::shared_ptr<kaldi::quasar::ShortlistDataOnDisk>>>>>::find<std::string>(a1 + 14, __p);
         v22 = v21;
-        if (SBYTE7(v60) < 0)
+        if (SBYTE7(v59) < 0)
         {
           operator delete(__p[0]);
           if (!v22)
           {
 LABEL_36:
             quasar::corrective_reranking::Parse::operator=(v18, v20);
-            v18 += 384;
+            v18 += 24;
           }
         }
 
@@ -4002,14 +4067,14 @@ LABEL_36:
   }
 
 LABEL_38:
-  std::vector<quasar::corrective_reranking::Parse>::erase(a4, v18, *(a4 + 8));
+  std::vector<quasar::corrective_reranking::Parse>::erase(a4, v18, a4[1]);
   v23 = *(a3 + 132);
   if (v23 >= 1)
   {
-    v77 = 0uLL;
-    v78 = 0;
+    v76 = 0uLL;
+    v77 = 0;
     v24 = *a4;
-    v25 = *(a4 + 8);
+    v25 = a4[1];
     if (0xAAAAAAAAAAAAAAABLL * ((v25 - *a4) >> 7) >= v23)
     {
       v26 = v23;
@@ -4020,7 +4085,7 @@ LABEL_38:
       v26 = 0xAAAAAAAAAAAAAAABLL * ((v25 - *a4) >> 7);
     }
 
-    std::random_device::random_device[abi:ne200100](v56);
+    std::random_device::random_device[abi:ne200100](v55);
     v27 = arc4random();
     LODWORD(__p[0]) = v27;
     for (i = 1; i != 624; ++i)
@@ -4029,50 +4094,50 @@ LABEL_38:
       *(__p + i) = v27;
     }
 
-    v76 = 0;
-    std::__sample[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<quasar::corrective_reranking::Parse *>,std::__wrap_iter<quasar::corrective_reranking::Parse *>,std::back_insert_iterator<std::vector<quasar::corrective_reranking::Parse>>,unsigned long,std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>>(v24, v25, &v77, v26, __p);
-    std::random_device::~random_device(v56);
+    v75 = 0;
+    std::__sample[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<quasar::corrective_reranking::Parse *>,std::__wrap_iter<quasar::corrective_reranking::Parse *>,std::back_insert_iterator<std::vector<quasar::corrective_reranking::Parse>>,unsigned long,std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>>(v24, v25, &v76, v26, __p);
+    std::random_device::~random_device(v55);
     std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(a4);
-    *a4 = v77;
-    *(a4 + 16) = v78;
-    v78 = 0;
-    v77 = 0uLL;
+    *a4 = v76;
+    a4[2] = v77;
+    v77 = 0;
+    v76 = 0uLL;
     if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
     {
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v68 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v61 = 0u;
+      v64 = 0u;
       v62 = 0u;
-      *__p = 0u;
       v60 = 0u;
+      v61 = 0u;
+      *__p = 0u;
+      v59 = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Limit Number of Parses to ", 27);
       v30 = MEMORY[0x1B8C84C00](v29, *(a3 + 132));
       v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "]\n", 2);
-      *&v56[0].__padding_ = a4;
-      v57 = 0;
-      v58 = a3;
-      quasar::corrective_reranking::operator<<(v31, v56);
+      *&v55[0].__padding_ = a4;
+      v56 = 0;
+      v57 = a3;
+      quasar::corrective_reranking::operator<<(v31, v55);
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
 
-    __p[0] = &v77;
+    __p[0] = &v76;
     std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](__p);
   }
 
   v33 = *a4;
-  v32 = *(a4 + 8);
+  v32 = a4[1];
   while (v33 != v32)
   {
     quasar::corrective_reranking::Parse::updateAdjustedSlots(v33, a3);
@@ -4081,29 +4146,29 @@ LABEL_38:
 
   if (*(a3 + 145) == 1 && quasar::gLogLevel > 4)
   {
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
-    v70 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v61 = 0u;
+    v64 = 0u;
     v62 = 0u;
-    *__p = 0u;
     v60 = 0u;
+    v61 = 0u;
+    *__p = 0u;
+    v59 = 0u;
     kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
     v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Update Adjusted Slots]\n", 24);
-    *&v77 = a4;
-    BYTE8(v77) = 0;
-    v78 = a3;
-    quasar::corrective_reranking::operator<<(v35, &v77);
+    *&v76 = a4;
+    BYTE8(v76) = 0;
+    v77 = a3;
+    quasar::corrective_reranking::operator<<(v35, &v76);
     quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
   }
 
@@ -4112,81 +4177,81 @@ LABEL_38:
     quasar::corrective_reranking::CorrectiveReranker::rankParses(a1, a4, a3, a3 + 72, a3 + 96, __p);
     std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(a4);
     *a4 = *__p;
-    *(a4 + 16) = v60;
+    a4[2] = v59;
     __p[1] = 0;
-    *&v60 = 0;
+    *&v59 = 0;
     __p[0] = 0;
-    *&v77 = __p;
-    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
+    *&v76 = __p;
+    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
     if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
     {
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v68 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v61 = 0u;
+      v64 = 0u;
       v62 = 0u;
-      *__p = 0u;
       v60 = 0u;
+      v61 = 0u;
+      *__p = 0u;
+      v59 = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Re-Ranking]\n", 13);
-      *&v77 = a4;
-      BYTE8(v77) = 1;
-      v78 = a3;
-      quasar::corrective_reranking::operator<<(v36, &v77);
+      *&v76 = a4;
+      BYTE8(v76) = 1;
+      v77 = a3;
+      quasar::corrective_reranking::operator<<(v36, &v76);
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
   }
 
   if (*(a3 + 128) == 1)
   {
-    memset(v55, 0, sizeof(v55));
-    std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(v55, *a4, *(a4 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a4 + 8) - *a4) >> 7));
-    quasar::corrective_reranking::CorrectiveReranker::filterParsesForUi(a1, v55, a3, 1, __p);
+    memset(v54, 0, sizeof(v54));
+    std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(v54, *a4, a4[1], 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 7));
+    quasar::corrective_reranking::CorrectiveReranker::filterParsesForUi(a1, v54, a3, 1, __p);
     std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(a4);
     *a4 = *__p;
-    *(a4 + 16) = v60;
+    a4[2] = v59;
     __p[1] = 0;
-    *&v60 = 0;
+    *&v59 = 0;
     __p[0] = 0;
-    *&v77 = __p;
-    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
-    *&v77 = v55;
-    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
+    *&v76 = __p;
+    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
+    *&v76 = v54;
+    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
     if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
     {
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v68 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v61 = 0u;
+      v64 = 0u;
       v62 = 0u;
-      *__p = 0u;
       v60 = 0u;
+      v61 = 0u;
+      *__p = 0u;
+      v59 = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Filter Parses for UI - Initial]\n", 33);
-      *&v77 = a4;
-      BYTE8(v77) = 0;
-      v78 = a3;
-      quasar::corrective_reranking::operator<<(v37, &v77);
+      *&v76 = a4;
+      BYTE8(v76) = 0;
+      v77 = a3;
+      quasar::corrective_reranking::operator<<(v37, &v76);
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
   }
@@ -4194,45 +4259,45 @@ LABEL_38:
   v38 = v11 ^ 1;
   if (*(a3 + 129) == 1)
   {
-    quasar::corrective_reranking::CorrectiveReranker::correctFloatingPunctuation(a4, a3, v38, __p);
+    quasar::corrective_reranking::CorrectiveReranker::correctFloatingPunctuation(__p, a4, a3, v38);
     std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(a4);
     *a4 = *__p;
-    *(a4 + 16) = v60;
+    a4[2] = v59;
     __p[1] = 0;
-    *&v60 = 0;
+    *&v59 = 0;
     __p[0] = 0;
-    *&v77 = __p;
-    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
+    *&v76 = __p;
+    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
     if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
     {
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v68 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v61 = 0u;
+      v64 = 0u;
       v62 = 0u;
-      *__p = 0u;
       v60 = 0u;
+      v61 = 0u;
+      *__p = 0u;
+      v59 = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Floating Punctuation Removal]\n", 31);
-      *&v77 = a4;
-      BYTE8(v77) = 0;
-      v78 = a3;
-      quasar::corrective_reranking::operator<<(v39, &v77);
+      *&v76 = a4;
+      BYTE8(v76) = 0;
+      v77 = a3;
+      quasar::corrective_reranking::operator<<(v39, &v76);
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
 
     v41 = *a4;
-    v40 = *(a4 + 8);
+    v40 = a4[1];
     while (v41 != v40)
     {
       quasar::corrective_reranking::Parse::updateAdjustedSlots(v41, a3);
@@ -4241,72 +4306,72 @@ LABEL_38:
 
     if (*(a3 + 145) == 1 && quasar::gLogLevel > 4)
     {
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v68 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v61 = 0u;
+      v64 = 0u;
       v62 = 0u;
-      *__p = 0u;
       v60 = 0u;
+      v61 = 0u;
+      *__p = 0u;
+      v59 = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       v43 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Update Adjusted Slots]\n", 24);
-      *&v77 = a4;
-      BYTE8(v77) = 0;
-      v78 = a3;
-      quasar::corrective_reranking::operator<<(v43, &v77);
+      *&v76 = a4;
+      BYTE8(v76) = 0;
+      v77 = a3;
+      quasar::corrective_reranking::operator<<(v43, &v76);
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
   }
 
-  quasar::corrective_reranking::CorrectiveReranker::correctPayloadCapitalization(a1, a4, a3, v52, v38 & v53, *(a3 + 145), __p);
+  quasar::corrective_reranking::CorrectiveReranker::correctPayloadCapitalization(a1, a4, a3, v51, v38 & v52, *(a3 + 145), __p);
   std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(a4);
   *a4 = *__p;
-  *(a4 + 16) = v60;
+  a4[2] = v59;
   __p[1] = 0;
-  *&v60 = 0;
+  *&v59 = 0;
   __p[0] = 0;
-  *&v77 = __p;
-  std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
+  *&v76 = __p;
+  std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
   if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
   {
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
-    v70 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v61 = 0u;
+    v64 = 0u;
     v62 = 0u;
-    *__p = 0u;
     v60 = 0u;
+    v61 = 0u;
+    *__p = 0u;
+    v59 = 0u;
     kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
     v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Payload Capitalization Correction]\n", 36);
-    *&v77 = a4;
-    BYTE8(v77) = 0;
-    v78 = a3;
-    quasar::corrective_reranking::operator<<(v45, &v77);
+    *&v76 = a4;
+    BYTE8(v76) = 0;
+    v77 = a3;
+    quasar::corrective_reranking::operator<<(v45, &v76);
     quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
   }
 
   v46 = *a4;
-  v47 = *(a4 + 8);
+  v47 = a4[1];
   while (v46 != v47)
   {
     quasar::corrective_reranking::Parse::updateAdjustedSlots(v46, a3);
@@ -4315,102 +4380,99 @@ LABEL_38:
 
   if (*(a3 + 145) == 1 && quasar::gLogLevel > 4)
   {
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
-    v70 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v61 = 0u;
+    v64 = 0u;
     v62 = 0u;
-    *__p = 0u;
     v60 = 0u;
+    v61 = 0u;
+    *__p = 0u;
+    v59 = 0u;
     kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
     v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Update Adjusted Slots]\n", 24);
-    *&v77 = a4;
-    BYTE8(v77) = 0;
-    v78 = a3;
-    quasar::corrective_reranking::operator<<(v49, &v77);
+    *&v76 = a4;
+    BYTE8(v76) = 0;
+    v77 = a3;
+    quasar::corrective_reranking::operator<<(v49, &v76);
     quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
   }
 
   if (*(a3 + 128) == 1)
   {
-    memset(v54, 0, sizeof(v54));
-    std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(v54, *a4, *(a4 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a4 + 8) - *a4) >> 7));
-    quasar::corrective_reranking::CorrectiveReranker::filterParsesForUi(a1, v54, a3, 0, __p);
+    memset(v53, 0, sizeof(v53));
+    std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(v53, *a4, a4[1], 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 7));
+    quasar::corrective_reranking::CorrectiveReranker::filterParsesForUi(a1, v53, a3, 0, __p);
     std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(a4);
     *a4 = *__p;
-    *(a4 + 16) = v60;
+    a4[2] = v59;
     __p[1] = 0;
-    *&v60 = 0;
+    *&v59 = 0;
     __p[0] = 0;
-    *&v77 = __p;
-    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
-    *&v77 = v54;
-    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v77);
+    *&v76 = __p;
+    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
+    *&v76 = v53;
+    std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v76);
     if (*(a3 + 145) == 1 && quasar::gLogLevel >= 5)
     {
-      v74 = 0u;
-      v75 = 0u;
-      v72 = 0u;
       v73 = 0u;
-      v70 = 0u;
+      v74 = 0u;
       v71 = 0u;
-      v68 = 0u;
+      v72 = 0u;
       v69 = 0u;
-      v66 = 0u;
+      v70 = 0u;
       v67 = 0u;
-      v64 = 0u;
+      v68 = 0u;
       v65 = 0u;
+      v66 = 0u;
       v63 = 0u;
-      v61 = 0u;
+      v64 = 0u;
       v62 = 0u;
-      *__p = 0u;
       v60 = 0u;
+      v61 = 0u;
+      *__p = 0u;
+      v59 = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
       v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "[Filter Parses for UI - Final]\n", 31);
-      *&v77 = a4;
-      BYTE8(v77) = 0;
-      v78 = a3;
-      quasar::corrective_reranking::operator<<(v50, &v77);
+      *&v76 = a4;
+      BYTE8(v76) = 0;
+      v77 = a3;
+      quasar::corrective_reranking::operator<<(v50, &v76);
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
   }
 
-  result = quasar::corrective_reranking::CorrectiveReranker::checkParses(v44, a4, a3);
-  if ((result & 1) == 0)
+  if ((quasar::corrective_reranking::CorrectiveReranker::checkParses(v44, a4, a3) & 1) == 0)
   {
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
-    v70 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    v61 = 0u;
+    v64 = 0u;
     v62 = 0u;
-    *__p = 0u;
     v60 = 0u;
+    v61 = 0u;
+    *__p = 0u;
+    v59 = 0u;
     kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "check_parses: Invalid parse found! This is a must-fix bug.", 58);
     quasar::QuasarExceptionMessage::~QuasarExceptionMessage(__p);
   }
-
-  return result;
 }
 
 void sub_1B54EC004(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::random_device a16, uint64_t a17, uint64_t a18, uint64_t a19)
@@ -4423,70 +4485,70 @@ void sub_1B54EC004(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1B54EC0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B54EC0A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   quasar::QuasarDebugMessage::~QuasarDebugMessage(va);
-  *(v12 - 128) = v11;
-  std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100]((v12 - 128));
+  *(v19 - 128) = v18;
+  std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100]((v19 - 128));
   _Unwind_Resume(a1);
 }
 
-void quasar::corrective_reranking::CorrectiveReranker::correctTarget(uint64_t a1@<X0>, quasar::corrective_reranking::Parse **a2@<X1>, uint64_t a3@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::correctTarget(uint64_t a1@<X0>, quasar::corrective_reranking::Parse **a2@<X1>, uint64_t *a4@<X8>)
 {
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
-  v5 = *a2;
-  v6 = a2[1];
-  if (*a2 != v6)
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  v6 = *a2;
+  v7 = a2[1];
+  if (*a2 != v7)
   {
     while (1)
     {
-      quasar::corrective_reranking::Parse::getIntent(v5, __p);
-      if ((SBYTE7(v22) & 0x80000000) == 0)
+      quasar::corrective_reranking::Parse::getIntent(v6, __p);
+      if ((SBYTE7(v23) & 0x80000000) == 0)
       {
         break;
       }
 
       if (__p[1] == 7)
       {
-        v10 = *__p[0] != 1952672100 || *(__p[0] + 3) != 1702125940;
+        v11 = *__p[0] != 1952672100 || *(__p[0] + 3) != 1702125940;
         operator delete(__p[0]);
-        if (v10)
+        if (v11)
         {
           goto LABEL_23;
         }
 
 LABEL_18:
-        v11 = *(a3 + 8);
-        if (v11 >= *(a3 + 16))
+        v12 = a4[1];
+        if (v12 >= a4[2])
         {
-          v12 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a3, v5);
+          v13 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a4, v6);
         }
 
         else
         {
-          quasar::corrective_reranking::Parse::Parse(*(a3 + 8), v5);
-          v12 = v11 + 384;
+          quasar::corrective_reranking::Parse::Parse(a4[1], v6);
+          v13 = v12 + 384;
         }
 
-        *(a3 + 8) = v12;
+        a4[1] = v13;
         goto LABEL_23;
       }
 
       operator delete(__p[0]);
 LABEL_23:
-      v5 = (v5 + 384);
-      if (v5 == v6)
+      v6 = (v6 + 384);
+      if (v6 == v7)
       {
-        v5 = *a2;
-        v6 = a2[1];
+        v6 = *a2;
+        v7 = a2[1];
         goto LABEL_25;
       }
     }
 
-    if (SBYTE7(v22) != 7)
+    if (SBYTE7(v23) != 7)
     {
       goto LABEL_23;
     }
@@ -4500,22 +4562,22 @@ LABEL_23:
   }
 
 LABEL_25:
-  while (v5 != v6)
+  while (v6 != v7)
   {
-    v13 = *(a1 + 68);
-    if (v13 >= 1 && 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 7) > v13)
+    v14 = *(a1 + 68);
+    if (v14 >= 1 && 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 7) > v14)
     {
       break;
     }
 
-    quasar::corrective_reranking::Parse::getIntent(v5, __p);
-    if (SBYTE7(v22) < 0)
+    quasar::corrective_reranking::Parse::getIntent(v6, __p);
+    if (SBYTE7(v23) < 0)
     {
       if (__p[1] == 7)
       {
-        v16 = *__p[0] != 1952672100 || *(__p[0] + 3) != 1702125940;
+        v17 = *__p[0] != 1952672100 || *(__p[0] + 3) != 1702125940;
         operator delete(__p[0]);
-        if (!v16)
+        if (!v17)
         {
           goto LABEL_55;
         }
@@ -4527,83 +4589,83 @@ LABEL_25:
       }
     }
 
-    else if (SBYTE7(v22) == 7 && LODWORD(__p[0]) == 1952672100 && *(__p + 3) == 1702125940)
+    else if (SBYTE7(v23) == 7 && LODWORD(__p[0]) == 1952672100 && *(__p + 3) == 1702125940)
     {
       goto LABEL_55;
     }
 
-    if (quasar::corrective_reranking::Parse::isTargetExpectingCommand(v5))
+    if (quasar::corrective_reranking::Parse::isTargetExpectingCommand(v6))
     {
-      if (*(v5 + 376) != 1)
+      if (*(v6 + 376) != 1)
       {
-        quasar::corrective_reranking::Parse::getTarget(v5, 0, v39);
-        quasar::corrective_reranking::CorrectiveReranker::findTargetCandidates(&v38);
+        quasar::corrective_reranking::Parse::getTarget(v40, v6, 0);
+        quasar::corrective_reranking::CorrectiveReranker::findTargetCandidates(&v39);
       }
 
-      v17 = *(a3 + 8);
-      if (v17 >= *(a3 + 16))
+      v18 = a4[1];
+      if (v18 >= a4[2])
       {
 LABEL_53:
-        v18 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a3, v5);
+        v19 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a4, v6);
         goto LABEL_54;
       }
     }
 
     else
     {
-      v17 = *(a3 + 8);
-      if (v17 >= *(a3 + 16))
+      v18 = a4[1];
+      if (v18 >= a4[2])
       {
         goto LABEL_53;
       }
     }
 
-    quasar::corrective_reranking::Parse::Parse(*(a3 + 8), v5);
-    v18 = v17 + 384;
+    quasar::corrective_reranking::Parse::Parse(a4[1], v6);
+    v19 = v18 + 384;
 LABEL_54:
-    *(a3 + 8) = v18;
+    a4[1] = v19;
 LABEL_55:
-    v5 = (v5 + 384);
+    v6 = (v6 + 384);
   }
 
-  v19 = *(a1 + 68);
-  if (v19 >= 1 && 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 7) > v19)
+  v20 = *(a1 + 68);
+  if (v20 >= 1 && 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 7) > v20)
   {
     if (quasar::gLogLevel >= 5)
     {
-      v36 = 0u;
       v37 = 0u;
-      v34 = 0u;
+      v38 = 0u;
       v35 = 0u;
-      v32 = 0u;
+      v36 = 0u;
       v33 = 0u;
-      v30 = 0u;
+      v34 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v26 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
+      v28 = 0u;
       v25 = 0u;
-      v22 = 0u;
+      v26 = 0u;
       v23 = 0u;
+      v24 = 0u;
       *__p = 0u;
       kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
-      v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Dropping parses since parse count is too high: ", 47);
-      MEMORY[0x1B8C84C30](v20, 0xAAAAAAAAAAAAAAABLL * ((*(a3 + 8) - *a3) >> 7));
+      v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(__p, "Dropping parses since parse count is too high: ", 47);
+      MEMORY[0x1B8C84C30](v21, 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 7));
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
-      LODWORD(v19) = *(a1 + 68);
+      LODWORD(v20) = *(a1 + 68);
     }
 
-    std::vector<quasar::corrective_reranking::Parse>::resize(a3, v19);
+    std::vector<quasar::corrective_reranking::Parse>::resize(a4, v20);
   }
 }
 
-void quasar::corrective_reranking::CorrectiveReranker::correctPayload(uint64_t a1@<X0>, uint64_t *a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::correctPayload(uint64_t a1@<X0>, const quasar::corrective_reranking::Parse **a2@<X1>, char a3@<W2>, uint64_t *a4@<X8>)
 {
   v5 = *(a1 + 56);
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  a4[1] = 0;
+  a4[2] = 0;
   *a4 = 0;
   v6 = *a2;
   if (v5 <= 0)
@@ -4620,23 +4682,23 @@ void quasar::corrective_reranking::CorrectiveReranker::correctPayload(uint64_t a
     {
       if (!quasar::corrective_reranking::Parse::isPayloadExpectingCommand(v6))
       {
-        v10 = *(a4 + 8);
-        if (v10 >= *(a4 + 16))
+        v10 = a4[1];
+        if (v10 >= a4[2])
         {
           v11 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a4, v6);
         }
 
         else
         {
-          quasar::corrective_reranking::Parse::Parse(*(a4 + 8), v6);
+          quasar::corrective_reranking::Parse::Parse(a4[1], v6);
           v11 = v10 + 384;
         }
 
-        *(a4 + 8) = v11;
+        a4[1] = v11;
         continue;
       }
 
-      quasar::corrective_reranking::Parse::getPayload(v6, 0, &v18);
+      quasar::corrective_reranking::Parse::getPayload(&v18, v6, 0);
       size = HIBYTE(v18.__r_.__value_.__r.__words[2]);
       if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
@@ -4649,29 +4711,29 @@ void quasar::corrective_reranking::CorrectiveReranker::correctPayload(uint64_t a
         {
           if ((a3 & 1) == 0)
           {
-            v13 = *(a4 + 8);
-            if (v13 >= *(a4 + 16))
+            v13 = a4[1];
+            if (v13 >= a4[2])
             {
               v14 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a4, v6);
             }
 
             else
             {
-              quasar::corrective_reranking::Parse::Parse(*(a4 + 8), v6);
+              quasar::corrective_reranking::Parse::Parse(a4[1], v6);
               v14 = v13 + 384;
             }
 
-            *(a4 + 8) = v14;
+            a4[1] = v14;
           }
 
           quasar::utf::toString();
         }
 
-        v9 = *(a4 + 8);
-        if (v9 < *(a4 + 16))
+        v9 = a4[1];
+        if (v9 < a4[2])
         {
 LABEL_15:
-          quasar::corrective_reranking::Parse::Parse(*(a4 + 8), v6);
+          quasar::corrective_reranking::Parse::Parse(a4[1], v6);
           v12 = v9 + 384;
           goto LABEL_20;
         }
@@ -4679,8 +4741,8 @@ LABEL_15:
 
       else
       {
-        v9 = *(a4 + 8);
-        if (v9 < *(a4 + 16))
+        v9 = a4[1];
+        if (v9 < a4[2])
         {
           goto LABEL_15;
         }
@@ -4688,7 +4750,7 @@ LABEL_15:
 
       v12 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a4, v6);
 LABEL_20:
-      *(a4 + 8) = v12;
+      a4[1] = v12;
       if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v18.__r_.__value_.__l.__data_);
@@ -4710,11 +4772,11 @@ void sub_1B54ECF74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void quasar::corrective_reranking::CorrectiveReranker::cleanParses(uint64_t a1@<X0>, quasar::corrective_reranking::Parse **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::cleanParses(uint64_t a1@<X0>, quasar::corrective_reranking::Parse **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   memset(v24, 0, sizeof(v24));
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  a4[1] = 0;
+  a4[2] = 0;
   *a4 = 0;
   v5 = *a2;
   v6 = a2[1];
@@ -4831,19 +4893,19 @@ LABEL_64:
           }
         }
 
-        v17 = *(a4 + 8);
-        if (v17 >= *(a4 + 16))
+        v17 = a4[1];
+        if (v17 >= a4[2])
         {
           v18 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a4, v5);
         }
 
         else
         {
-          quasar::corrective_reranking::Parse::Parse(*(a4 + 8), v5);
+          quasar::corrective_reranking::Parse::Parse(a4[1], v5);
           v18 = v17 + 384;
         }
 
-        *(a4 + 8) = v18;
+        a4[1] = v18;
       }
 
       if (v23 == 1 && SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -4860,10 +4922,10 @@ LABEL_64:
     a1 = v20;
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((v19 - v5) >> 7) > 1 && 0xAAAAAAAAAAAAAAABLL * ((*(a4 + 8) - *a4) >> 7) <= 1)
+  if (0xAAAAAAAAAAAAAAABLL * ((v19 - v5) >> 7) > 1 && 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 7) <= 1)
   {
     quasar::corrective_reranking::CorrectiveReranker::correctPayload(a1, v24, 1, &__p);
-    std::vector<quasar::corrective_reranking::Parse>::__insert_with_size[abi:ne200100]<std::__wrap_iter<quasar::corrective_reranking::Parse*>,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(a4, *(a4 + 8), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 7));
+    std::vector<quasar::corrective_reranking::Parse>::__insert_with_size[abi:ne200100]<std::__wrap_iter<quasar::corrective_reranking::Parse*>,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(a4, a4[1], __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 7));
     v21.__r_.__value_.__r.__words[0] = &__p;
     std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&v21);
   }
@@ -4882,9 +4944,9 @@ void sub_1B54ED634(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t quasar::corrective_reranking::CorrectiveReranker::rankParses@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
+uint64_t *quasar::corrective_reranking::CorrectiveReranker::rankParses@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, quasar::corrective_reranking::Parse **a6@<X8>)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42[29] = *MEMORY[0x1E69E9840];
   *a6 = 0;
   a6[1] = 0;
   a6[2] = 0;
@@ -4915,7 +4977,7 @@ uint64_t quasar::corrective_reranking::CorrectiveReranker::rankParses@<X0>(uint6
         __p[0] = 0;
         __p[1] = 0;
         v41[0] = 0;
-        std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(__p, v18 + 4 * v19 * v17, v18 + 4 * v19 * v17 + 4 * v20, v20);
+        std::vector<float>::__init_with_size[abi:ne200100]<float const*,float const*>(__p, (v18 + 4 * v19 * v17), (v18 + 4 * v19 * v17 + 4 * v20), v20);
         v21 = (v16 + v15);
         v23 = v21 + 22;
         v22 = v21[22];
@@ -4991,11 +5053,11 @@ LABEL_14:
       std::string::basic_string[abi:ne200100]<0>(&v41[1], "redo");
       std::string::basic_string[abi:ne200100]<0>(v42, "stop");
       std::unordered_set<std::string>::unordered_set(v35, __p, 3);
-      for (i = 0; i != -72; i -= 24)
+      for (i = 0; i != -9; i -= 3)
       {
-        if (v42[i + 23] < 0)
+        if (SHIBYTE(v42[i + 2]) < 0)
         {
-          operator delete(*&v42[i]);
+          operator delete(v42[i]);
         }
       }
 
@@ -5056,29 +5118,29 @@ LABEL_14:
   return result;
 }
 
-void sub_1B54EDAF0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B54EDAF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va3, a2);
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va3, a3);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void *);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
   va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
+  v10 = va_arg(va2, void);
   v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
   v14 = va_arg(va2, void);
+  v15 = va_arg(va2, void);
   va_copy(va3, va2);
-  v15 = va_arg(va3, void **);
-  v17 = va_arg(va3, void);
+  v16 = va_arg(va3, void **);
   v18 = va_arg(va3, void);
   v19 = va_arg(va3, void);
   v20 = va_arg(va3, void);
+  v21 = va_arg(va3, void);
   quasar::QuasarDebugMessage::~QuasarDebugMessage(va3);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va);
   kaldi::Matrix<float>::~Matrix(va1);
@@ -5093,11 +5155,11 @@ void quasar::corrective_reranking::CorrectiveReranker::filterParsesForUi(uint64_
   *(a5 + 8) = 0;
   *(a5 + 16) = 0;
   memset(&__p, 0, sizeof(__p));
-  memset(&v29, 0, sizeof(v29));
+  memset(&v31, 0, sizeof(v31));
   v6 = *a2;
   if (a2[1] == *a2)
   {
-    goto LABEL_60;
+    goto LABEL_66;
   }
 
   v10 = 0;
@@ -5158,7 +5220,7 @@ LABEL_17:
           goto LABEL_26;
         }
 
-        goto LABEL_54;
+        goto LABEL_60;
       }
     }
 
@@ -5187,69 +5249,89 @@ LABEL_26:
           std::basic_string<char32_t>::basic_string[abi:ne200100]<0>(&__dst, byte_1B5B03720);
         }
 
-        if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v19 = &v29;
+          v19 = &v31;
         }
 
         else
         {
-          v19 = v29.__r_.__value_.__r.__words[0];
+          v19 = v31.__r_.__value_.__r.__words[0];
         }
 
-        if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v31.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v20 = HIBYTE(v29.__r_.__value_.__r.__words[2]);
+          v20 = HIBYTE(v31.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v20 = v29.__r_.__value_.__l.__size_;
+          v20 = v31.__r_.__value_.__l.__size_;
         }
 
-        quasar::utf32::caseInsensitiveEquals(v19, v20);
+        if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v21 = &__dst;
+        }
+
+        else
+        {
+          v21 = __dst.__r_.__value_.__r.__words[0];
+        }
+
+        if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        {
+          v22 = HIBYTE(__dst.__r_.__value_.__r.__words[2]);
+        }
+
+        else
+        {
+          v22 = __dst.__r_.__value_.__l.__size_;
+        }
+
+        quasar::utf32::caseInsensitiveEquals(v19, v20, v21, v22);
       }
 
       v18 = *(a5 + 8);
       if (*(v11 + 112) == 1 && *a5 != v18)
       {
-        v21 = *a5 + 88;
-        while (*(v21 + 24) != 1 || !quasar::corrective_reranking::TargetRange::overlaps((v11 + 88), v21))
+        v23 = *a5 + 88;
+        while (*(v23 + 24) != 1 || !quasar::corrective_reranking::TargetRange::overlaps((v11 + 88), v23))
         {
-          v22 = (v21 + 296);
-          v21 += 384;
-          if (v22 == v18)
+          v24 = (v23 + 296);
+          v23 += 384;
+          if (v24 == v18)
           {
             v18 = *(a5 + 8);
-            goto LABEL_49;
+            goto LABEL_55;
           }
         }
 
-        goto LABEL_54;
+        goto LABEL_60;
       }
 
-LABEL_49:
+LABEL_55:
       if (v18 < *(a5 + 16))
       {
         quasar::corrective_reranking::Parse::Parse(v18, v11);
-LABEL_51:
-        v23 = &v18[16];
-LABEL_53:
-        *(a5 + 8) = v23;
-        goto LABEL_54;
+LABEL_57:
+        v25 = &v18[16];
+LABEL_59:
+        *(a5 + 8) = v25;
+        goto LABEL_60;
       }
 
-LABEL_52:
-      v23 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a5, v11);
-      goto LABEL_53;
+LABEL_58:
+      v25 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a5, v11);
+      goto LABEL_59;
     }
 
-LABEL_54:
+LABEL_60:
     ++v10;
     v6 = *a2;
     if (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 7) <= v10)
     {
-      goto LABEL_60;
+      goto LABEL_66;
     }
   }
 
@@ -5272,45 +5354,45 @@ LABEL_54:
       std::basic_string<char32_t>::basic_string[abi:ne200100]<0>(&__dst, byte_1B5B03720);
     }
 
-    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v29.__r_.__value_.__l.__data_);
+      operator delete(v31.__r_.__value_.__l.__data_);
     }
 
-    v29 = __dst;
+    v31 = __dst;
     v18 = *(a5 + 8);
     if (v18 < *(a5 + 16))
     {
       quasar::corrective_reranking::Parse::Parse(*(a5 + 8), v11);
-      goto LABEL_51;
+      goto LABEL_57;
     }
 
-    goto LABEL_52;
+    goto LABEL_58;
   }
 
-  v24 = *(a5 + 8);
-  if (v24 >= *(a5 + 16))
+  v26 = *(a5 + 8);
+  if (v26 >= *(a5 + 16))
   {
-    v25 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a5, v11);
+    v27 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a5, v11);
   }
 
   else
   {
     quasar::corrective_reranking::Parse::Parse(*(a5 + 8), v11);
-    v25 = v24 + 384;
+    v27 = v26 + 384;
   }
 
-  *(a5 + 8) = v25;
-LABEL_60:
-  v26 = *(a1 + 72);
-  if (v26 >= 1 && 0xAAAAAAAAAAAAAAABLL * ((*(a5 + 8) - *a5) >> 7) > v26)
+  *(a5 + 8) = v27;
+LABEL_66:
+  v28 = *(a1 + 72);
+  if (v28 >= 1 && 0xAAAAAAAAAAAAAAABLL * ((*(a5 + 8) - *a5) >> 7) > v28)
   {
-    std::vector<quasar::corrective_reranking::Parse>::resize(a5, v26);
+    std::vector<quasar::corrective_reranking::Parse>::resize(a5, v28);
   }
 
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v29.__r_.__value_.__l.__data_);
+    operator delete(v31.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -5335,40 +5417,40 @@ void sub_1B54EDF40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void quasar::corrective_reranking::CorrectiveReranker::correctFloatingPunctuation(uint64_t a1@<X1>, uint64_t a2@<X2>, char a3@<W3>, uint64_t a4@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::correctFloatingPunctuation(uint64_t *__return_ptr a1@<X8>, quasar::corrective_reranking::Parse **a3@<X1>, uint64_t a4@<X2>, char a5@<W3>)
 {
-  v5 = *a1;
-  v6 = *(a1 + 8);
-  if (v6 == *a1)
+  v6 = *a3;
+  v7 = a3[1];
+  if (v7 == *a3)
   {
-    *a4 = 0;
-    *(a4 + 8) = 0;
-    *(a4 + 16) = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
 
-    std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(a4, v5, v6, 0);
+    std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(a1, v6, v7, 0);
   }
 
   else
   {
-    if (a3)
+    if (a5)
     {
-      quasar::corrective_reranking::Parse::getIntent(*a1, __p);
+      quasar::corrective_reranking::Parse::getIntent(*a3, __p);
       if (SHIBYTE(__p[0].__r_.__value_.__r.__words[2]) < 0)
       {
         if (__p[0].__r_.__value_.__l.__size_ != 6)
         {
           operator delete(__p[0].__r_.__value_.__l.__data_);
 LABEL_36:
-          *a4 = 0;
-          *(a4 + 8) = 0;
-          *(a4 + 16) = 0;
-          std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(a4, *a1, *(a1 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 7));
+          *a1 = 0;
+          a1[1] = 0;
+          a1[2] = 0;
+          std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(a1, *a3, a3[1], 0xAAAAAAAAAAAAAAABLL * ((a3[1] - *a3) >> 7));
           return;
         }
 
-        v13 = *__p[0].__r_.__value_.__l.__data_ != 1701602660 || *(__p[0].__r_.__value_.__r.__words[0] + 4) != 25972;
+        v14 = *__p[0].__r_.__value_.__l.__data_ != 1701602660 || *(__p[0].__r_.__value_.__r.__words[0] + 4) != 25972;
         operator delete(__p[0].__r_.__value_.__l.__data_);
-        if (v13)
+        if (v14)
         {
           goto LABEL_36;
         }
@@ -5387,15 +5469,15 @@ LABEL_36:
         }
       }
 
-      quasar::corrective_reranking::TargetRange::getTargetFromText(v5 + 88, a2, __p);
+      quasar::corrective_reranking::TargetRange::getTargetFromText(v6 + 88, a4, __p);
       if ((__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v14 = __p;
+        v15 = __p;
       }
 
       else
       {
-        v14 = __p[0].__r_.__value_.__r.__words[0];
+        v15 = __p[0].__r_.__value_.__r.__words[0];
       }
 
       if ((__p[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -5408,33 +5490,33 @@ LABEL_36:
         size = __p[0].__r_.__value_.__l.__size_;
       }
 
-      quasar::utf32::convertToLowerCaseOrThrow(v14, size);
+      quasar::utf32::convertToLowerCaseOrThrow(v15, size);
     }
 
-    *a4 = 0;
-    *(a4 + 8) = 0;
-    *(a4 + 16) = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     do
     {
-      quasar::corrective_reranking::CorrectiveReranker::extendTargetToSubsequentPunctuation(v5, a2, __p);
-      v10 = *(a4 + 8);
-      if (v10 >= *(a4 + 16))
+      quasar::corrective_reranking::CorrectiveReranker::extendTargetToSubsequentPunctuation(__p, v6, a4);
+      v11 = a1[1];
+      if (v11 >= a1[2])
       {
-        v11 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse&>(a4, __p);
+        v12 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse&>(a1, __p);
       }
 
       else
       {
-        quasar::corrective_reranking::Parse::Parse(*(a4 + 8), __p);
-        v11 = v10 + 384;
+        quasar::corrective_reranking::Parse::Parse(a1[1], __p);
+        v12 = v11 + 384;
       }
 
-      *(a4 + 8) = v11;
+      a1[1] = v12;
       quasar::corrective_reranking::Parse::~Parse(&__p[0].__r_.__value_.__l.__data_);
-      v5 = (v5 + 384);
+      v6 = (v6 + 384);
     }
 
-    while (v5 != v6);
+    while (v6 != v7);
   }
 }
 
@@ -5454,11 +5536,12 @@ void sub_1B54EE5C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void quasar::corrective_reranking::CorrectiveReranker::correctPayloadCapitalization(quasar::corrective_reranking *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, int a4@<W3>, char a5@<W4>, int a6@<W5>, uint64_t a7@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::correctPayloadCapitalization(quasar::corrective_reranking *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, char a5@<W4>, int a6@<W5>, uint64_t *a7@<X8>)
 {
+  v24 = a4;
   *a7 = 0;
-  *(a7 + 8) = 0;
-  *(a7 + 16) = 0;
+  a7[1] = 0;
+  a7[2] = 0;
   v10 = *a2;
   if (a2[1] != *a2)
   {
@@ -5466,10 +5549,10 @@ void quasar::corrective_reranking::CorrectiveReranker::correctPayloadCapitalizat
     v13 = 0;
     do
     {
-      if (v13 >= a4)
+      if (v13 >= v24)
       {
-        v18 = *(a7 + 8);
-        if (v18 >= *(a7 + 16))
+        v18 = a7[1];
+        if (v18 >= a7[2])
         {
           goto LABEL_15;
         }
@@ -5487,19 +5570,19 @@ void quasar::corrective_reranking::CorrectiveReranker::correctPayloadCapitalizat
           {
 LABEL_6:
             quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalization(a1, (v10 + v12), a3, __p);
-            v16 = *(a7 + 8);
-            if (v16 >= *(a7 + 16))
+            v16 = a7[1];
+            if (v16 >= a7[2])
             {
               v17 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse&>(a7, __p);
             }
 
             else
             {
-              quasar::corrective_reranking::Parse::Parse(*(a7 + 8), __p);
+              quasar::corrective_reranking::Parse::Parse(a7[1], __p);
               v17 = v16 + 384;
             }
 
-            *(a7 + 8) = v17;
+            a7[1] = v17;
             quasar::corrective_reranking::Parse::~Parse(__p);
             goto LABEL_17;
           }
@@ -5510,8 +5593,8 @@ LABEL_6:
           goto LABEL_6;
         }
 
-        v18 = *(a7 + 8);
-        if (v18 >= *(a7 + 16))
+        v18 = a7[1];
+        if (v18 >= a7[2])
         {
 LABEL_15:
           v19 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a7, (v10 + v12));
@@ -5519,10 +5602,10 @@ LABEL_15:
         }
       }
 
-      quasar::corrective_reranking::Parse::Parse(*(a7 + 8), (v10 + v12));
+      quasar::corrective_reranking::Parse::Parse(a7[1], (v10 + v12));
       v19 = v18 + 384;
 LABEL_16:
-      *(a7 + 8) = v19;
+      a7[1] = v19;
 LABEL_17:
       ++v13;
       v10 = *a2;
@@ -5532,7 +5615,7 @@ LABEL_17:
     while (0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 7) > v13);
   }
 
-  if ((a5 & 1) != 0 && quasar::corrective_reranking::CorrectiveReranker::hasCasingConflictsWithTopParse(a1, a7, a3))
+  if ((a5 & 1) != 0 && quasar::corrective_reranking::CorrectiveReranker::hasCasingConflictsWithTopParse(a1, a7, a3, v24))
   {
     if (a6 && quasar::gLogLevel >= 5)
     {
@@ -5558,9 +5641,9 @@ LABEL_17:
       quasar::QuasarDebugMessage::~QuasarDebugMessage(__p);
     }
 
-    if (*(a7 + 8) != *a7)
+    if (a7[1] != *a7)
     {
-      quasar::corrective_reranking::Parse::getPayload(*a7, 0, &v25);
+      quasar::corrective_reranking::Parse::getPayload(&v25, *a7, 0);
       if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         v20 = &v25;
@@ -5617,11 +5700,11 @@ uint64_t quasar::corrective_reranking::CorrectiveReranker::checkParses(int a1, u
   return v8;
 }
 
-void quasar::corrective_reranking::CorrectiveReranker::findTargetCandidates(void *a1@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::findTargetCandidates(uint64_t *a4@<X8>)
 {
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
   quasar::corrective_reranking::tokenize();
 }
 
@@ -5634,7 +5717,7 @@ void sub_1B54EF034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<quasar::corrective_reranking::Parse>::resize(void *a1, unint64_t a2)
+void std::vector<quasar::corrective_reranking::Parse>::resize(void ***a1, unint64_t a2)
 {
   v3 = a1[1];
   v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 7);
@@ -5648,30 +5731,30 @@ void std::vector<quasar::corrective_reranking::Parse>::resize(void *a1, unint64_
 
   else if (!v5)
   {
-    v7 = *a1 + 384 * a2;
+    v7 = &(*a1)[48 * a2];
     while (v3 != v7)
     {
-      quasar::corrective_reranking::Parse::~Parse((v3 - 384));
+      quasar::corrective_reranking::Parse::~Parse(v3 - 48);
     }
 
     a1[1] = v7;
   }
 }
 
-BOOL quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalization@<W0>(quasar::corrective_reranking *a1@<X0>, const quasar::corrective_reranking::Parse *a2@<X1>, uint64_t *a3@<X2>, std::wstring *a4@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalization(quasar::corrective_reranking *a1@<X0>, const quasar::corrective_reranking::Parse *a2@<X1>, uint64_t *a3@<X2>, std::wstring *x8_0@<X8>)
 {
   if (!quasar::corrective_reranking::isAdjacentEditsEnabled(a1))
   {
 
-    quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV1(a1, a2, a3, a4);
+    quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV1(a1, a2, a3, x8_0);
   }
 
-  return quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV2(a1, a2, a3, a4);
+  quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV2(a1, a2, a3, x8_0);
 }
 
-BOOL quasar::corrective_reranking::CorrectiveReranker::hasCasingConflictsWithTopParse(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL quasar::corrective_reranking::CorrectiveReranker::hasCasingConflictsWithTopParse(quasar::corrective_reranking *a1, uint64_t a2, uint64_t a3, int a4)
 {
-  v3 = *a2;
+  v4 = *a2;
   if (*a2 != *(a2 + 8))
   {
     result = quasar::corrective_reranking::Parse::isPayloadExpectingCommand(*a2);
@@ -5680,46 +5763,46 @@ BOOL quasar::corrective_reranking::CorrectiveReranker::hasCasingConflictsWithTop
       return result;
     }
 
-    v7 = *a2;
+    v8 = *a2;
     if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 7) >= 2)
     {
-      v8 = 1;
+      v9 = 1;
       do
       {
-        quasar::corrective_reranking::Parse::Parse(&v13, (v7 + 384 * v8));
-        if (quasar::corrective_reranking::Parse::isPayloadExpectingCommand(&v13) && v14[24] == 1 && *(v3 + 112) == 1)
+        quasar::corrective_reranking::Parse::Parse(&v14, (v8 + 384 * v9));
+        if (quasar::corrective_reranking::Parse::isPayloadExpectingCommand(&v14) && v15[24] == 1 && *(v4 + 112) == 1)
         {
-          quasar::corrective_reranking::TargetRange::getTargetFromText(v14, a3, &v12);
-          quasar::corrective_reranking::TargetRange::getTargetFromText(v3 + 88, a3, &v11);
-          if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          quasar::corrective_reranking::TargetRange::getTargetFromText(v15, a3, &v13);
+          quasar::corrective_reranking::TargetRange::getTargetFromText(v4 + 88, a3, &v12);
+          if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            v9 = &v12;
+            v10 = &v13;
           }
 
           else
           {
-            v9 = v12.__r_.__value_.__r.__words[0];
+            v10 = v13.__r_.__value_.__r.__words[0];
           }
 
-          if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+          if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
-            size = HIBYTE(v12.__r_.__value_.__r.__words[2]);
+            size = HIBYTE(v13.__r_.__value_.__r.__words[2]);
           }
 
           else
           {
-            size = v12.__r_.__value_.__l.__size_;
+            size = v13.__r_.__value_.__l.__size_;
           }
 
-          quasar::utf32::convertToLowerCaseOrThrow(v9, size);
+          quasar::utf32::convertToLowerCaseOrThrow(v10, size);
         }
 
-        quasar::corrective_reranking::Parse::~Parse(&v13.__r_.__value_.__l.__data_);
-        ++v8;
-        v7 = *a2;
+        quasar::corrective_reranking::Parse::~Parse(&v14.__r_.__value_.__l.__data_);
+        ++v9;
+        v8 = *a2;
       }
 
-      while (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 7) > v8);
+      while (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8) - *a2) >> 7) > v9);
     }
   }
 
@@ -5790,22 +5873,22 @@ void quasar::corrective_reranking::CorrectiveReranker::featurizeParses(void *a1,
   }
 }
 
-void quasar::corrective_reranking::CorrectiveReranker::applyOverridePhrases(void *a1@<X1>, uint64_t a2@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::applyOverridePhrases(uint64_t *a2@<X1>, uint64_t a4@<X8>)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4 = 0;
-  *v3 = 0u;
-  if (*a1 != a1[1])
+  v7[0] = *MEMORY[0x1E69E9840];
+  v6 = 0;
+  *v5 = 0u;
+  if (*a2 != a2[1])
   {
-    quasar::corrective_reranking::detokenize((*a1 + 32));
+    quasar::corrective_reranking::detokenize((*a2 + 32));
   }
 
-  *a2 = 0uLL;
-  *(a2 + 16) = 0;
-  v4 = 0;
-  v3[0] = 0;
-  v3[1] = 0;
-  __p = v3;
+  *a4 = 0uLL;
+  *(a4 + 16) = 0;
+  v6 = 0;
+  v5[0] = 0;
+  v5[1] = 0;
+  __p = v5;
   std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&__p);
 }
 
@@ -5818,18 +5901,18 @@ void sub_1B54F035C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   if (LOBYTE(STACK[0x358]) == 1)
   {
-    quasar::corrective_reranking::Parse::~Parse(&a71);
+    quasar::corrective_reranking::Parse::~Parse(&a66);
   }
 
-  a71 = &STACK[0x360];
-  std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](&a71);
+  a66 = &STACK[0x360];
+  std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](&a66);
   if (SLOBYTE(STACK[0x38F]) < 0)
   {
     operator delete(STACK[0x378]);
   }
 
-  a71 = &STACK[0x390];
-  std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&a71);
+  a66 = &STACK[0x390];
+  std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&a66);
   _Unwind_Resume(a1);
 }
 
@@ -5872,19 +5955,19 @@ uint64_t std::optional<quasar::corrective_reranking::AdjustedPayloadParts>::~opt
   return a1;
 }
 
-void quasar::corrective_reranking::CorrectiveReranker::extendTargetToSubsequentPunctuation(quasar::corrective_reranking::Parse *this@<X1>, uint64_t a2@<X2>, std::wstring *a3@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::extendTargetToSubsequentPunctuation(std::wstring *__return_ptr a1@<X8>, int **this@<X1>, uint64_t a4@<X2>)
 {
-  v12[4] = *MEMORY[0x1E69E9840];
-  memset(v12, 0, 24);
+  v13[4] = *MEMORY[0x1E69E9840];
+  memset(v13, 0, 24);
   if (!quasar::corrective_reranking::Parse::isTargetExpectingCommand(this))
   {
     goto LABEL_20;
   }
 
   quasar::corrective_reranking::Parse::getIntent(this, __p);
-  if ((v10 & 0x80000000) == 0)
+  if ((v11 & 0x80000000) == 0)
   {
-    if (v10 != 6)
+    if (v11 != 6)
     {
       goto LABEL_20;
     }
@@ -5895,7 +5978,7 @@ void quasar::corrective_reranking::CorrectiveReranker::extendTargetToSubsequentP
     }
 
 LABEL_18:
-    quasar::corrective_reranking::TargetRange::getTargetFromText(this + 88, a2, &v11);
+    quasar::corrective_reranking::TargetRange::getTargetFromText((this + 11), a4, &v12);
     quasar::utf::toString();
   }
 
@@ -5905,16 +5988,16 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  v8 = *__p[0] != 1701602660 || *(__p[0] + 2) != 25972;
+  v9 = *__p[0] != 1701602660 || *(__p[0] + 2) != 25972;
   operator delete(__p[0]);
-  if (!v8)
+  if (!v9)
   {
     goto LABEL_18;
   }
 
 LABEL_20:
-  quasar::corrective_reranking::Parse::Parse(a3, this);
-  __p[0] = v12;
+  quasar::corrective_reranking::Parse::Parse(a1, this);
+  __p[0] = v13;
   std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](__p);
 }
 
@@ -5939,7 +6022,7 @@ void sub_1B54F0A44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *quasar::corrective_reranking::CorrectiveReranker::findAdjacentPunctuationRange(uint64_t a1, uint64_t *a2, int a3, int a4)
+std::string::size_type quasar::corrective_reranking::CorrectiveReranker::findAdjacentPunctuationRange(uint64_t a1, uint64_t *a2, int a3, int a4)
 {
   if (*(a2 + 23) >= 0)
   {
@@ -6044,7 +6127,7 @@ void sub_1B54F0D24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV2@<W0>(quasar::corrective_reranking *a1@<X0>, const quasar::corrective_reranking::Parse *a2@<X1>, uint64_t *a3@<X2>, std::wstring *a4@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV2(quasar::corrective_reranking *a1@<X0>, const quasar::corrective_reranking::Parse *a2@<X1>, uint64_t *a3@<X2>, std::wstring *a5@<X8>)
 {
   v13 = *MEMORY[0x1E69E9840];
   if ((quasar::corrective_reranking::isAdjacentEditsEnabled(a1) & 1) == 0)
@@ -6054,16 +6137,13 @@ BOOL quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizatio
     kaldi::KaldiErrorMessage::~KaldiErrorMessage(&v12);
   }
 
-  v8 = quasar::corrective_reranking::Parse::Parse(a4, a2);
-  result = quasar::corrective_reranking::Parse::isTargetExpectingCommand(v8);
-  if (result)
+  v9 = quasar::corrective_reranking::Parse::Parse(a5, a2);
+  if (quasar::corrective_reranking::Parse::isTargetExpectingCommand(v9))
   {
-    quasar::corrective_reranking::TextEdit::TextEdit(v11, a4);
+    quasar::corrective_reranking::TextEdit::TextEdit(v11, a5);
     quasar::corrective_reranking::TextEdit::onText(v11, a3, &v10);
-    quasar::corrective_reranking::TransformerClassifier::classifyCapitalization(*(*(a1 + 13) + 24), &v10, a4, a3);
+    quasar::corrective_reranking::TransformerClassifier::classifyCapitalization(*(*(a1 + 13) + 24), &v10, a5, a3);
   }
-
-  return result;
 }
 
 void sub_1B54F2188(_Unwind_Exception *a1, int a2)
@@ -6076,14 +6156,14 @@ void sub_1B54F2188(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV1(quasar::corrective_reranking *a1@<X0>, const quasar::corrective_reranking::Parse *a2@<X1>, uint64_t *a3@<X2>, std::wstring *a4@<X8>)
+void quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV1(quasar::corrective_reranking *a1@<X0>, const quasar::corrective_reranking::Parse *a2@<X1>, uint64_t *a3@<X2>, std::wstring *a5@<X8>)
 {
   if (!quasar::corrective_reranking::isAdjacentEditsEnabled(a1))
   {
-    quasar::corrective_reranking::Parse::Parse(a4, a2);
-    quasar::corrective_reranking::TextEdit::TextEdit(v9, a4);
-    quasar::corrective_reranking::TextEdit::onText(v9, a3, &v8);
-    quasar::corrective_reranking::TransformerClassifier::classifyCapitalization(*(*(a1 + 13) + 24), &v8, a4, a3);
+    quasar::corrective_reranking::Parse::Parse(a5, a2);
+    quasar::corrective_reranking::TextEdit::TextEdit(v10, a5);
+    quasar::corrective_reranking::TextEdit::onText(v10, a3, &v9);
+    quasar::corrective_reranking::TransformerClassifier::classifyCapitalization(*(*(a1 + 13) + 24), &v9, a5, a3);
   }
 
   kaldi::KaldiWarnMessage::KaldiWarnMessage(__p);
@@ -6091,7 +6171,7 @@ void quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizatio
   kaldi::KaldiErrorMessage::~KaldiErrorMessage(__p);
 }
 
-void *quasar::pySlice<std::vector<quasar::corrective_reranking::TokenClassification>>@<X0>(void *result@<X0>, int a2@<W1>, int a3@<W2>, uint64_t *a4@<X8>)
+void *quasar::pySlice<std::vector<quasar::corrective_reranking::TokenClassification>>@<X0>(void *result@<X0>, int a2@<W1>, int a3@<W2>, void **a4@<X8>)
 {
   v5 = result[1];
   if (*result == v5)
@@ -6143,21 +6223,21 @@ void *quasar::pySlice<std::vector<quasar::corrective_reranking::TokenClassificat
   return result;
 }
 
-void sub_1B54F302C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B54F302C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<quasar::corrective_reranking::TokenClassification>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV2(quasar::corrective_reranking::Parse const&,std::basic_string<char32_t> const&,int)const::$_5::operator()(uint64_t a1, unsigned int a2)
 {
-  v2 = **(a1 + 32) + (a2 << 6);
-  quasar::pySlice<std::basic_string<char32_t>>(***a1, *(v2 + 48), *(v2 + 52) + *(v2 + 48), __p);
+  v4 = **(a1 + 32) + (a2 << 6);
+  quasar::pySlice<std::basic_string<char32_t>>(***a1, *(v4 + 48), *(v4 + 52) + *(v4 + 48), __p);
   quasar::corrective_reranking::classifyCasing(__p);
 }
 
-double quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV2(quasar::corrective_reranking::Parse const&,std::basic_string<char32_t> const&,int)const::$_6::operator()@<D0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+double quasar::corrective_reranking::CorrectiveReranker::applyPayloadCapitalizationV2(quasar::corrective_reranking::Parse const&,std::basic_string<char32_t> const&,int)const::$_6::operator()@<D0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   if (a2[1] != *a2)
   {
@@ -6247,7 +6327,7 @@ uint64_t quasar::corrective_reranking::Parse::operator=(uint64_t a1, __int128 *a
   return a1;
 }
 
-uint64_t std::vector<quasar::corrective_reranking::Parse>::erase(uint64_t a1, uint64_t a2, __int128 *a3)
+__int128 *std::vector<quasar::corrective_reranking::Parse>::erase(uint64_t a1, __int128 *a2, __int128 *a3)
 {
   if (a3 != a2)
   {
@@ -6269,7 +6349,7 @@ uint64_t std::vector<quasar::corrective_reranking::Parse>::erase(uint64_t a1, ui
 
     while (v6 != v7)
     {
-      v6 -= 48;
+      v6 -= 24;
       quasar::corrective_reranking::Parse::~Parse(v6);
     }
 
@@ -6394,25 +6474,25 @@ std::wstring *quasar::corrective_reranking::Parse::Parse(std::wstring *this, con
   return this;
 }
 
-void sub_1B54F3A58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B54F3A58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 112) == 1)
+  if (*(v3 + 112) == 1)
   {
-    v4 = *(v2 + 88);
-    if (v4)
+    v5 = *(v3 + 88);
+    if (v5)
     {
-      *(v2 + 96) = v4;
-      operator delete(v4);
+      *(v3 + 96) = v5;
+      operator delete(v5);
     }
   }
 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
   std::vector<quasar::TextTokenizer::Token>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 23) < 0)
+  if (*(v3 + 23) < 0)
   {
-    operator delete(*v2);
+    operator delete(*v3);
   }
 
   _Unwind_Resume(a1);
@@ -6669,9 +6749,9 @@ __n128 std::__optional_storage_base<quasar::corrective_reranking::TargetRange,fa
     this->__end_ = 0;
     this->__end_cap_.__value_ = 0;
     result = *a2;
-    *this = *a2->n128_u8;
-    a2->n128_u64[0] = 0;
-    a2->n128_u64[1] = 0;
+    *&this->__begin_ = *a2;
+    this->__end_cap_.__value_ = a2[1].n128_u64[0];
+    *a2 = 0uLL;
     a2[1].n128_u64[0] = 0;
     LOBYTE(this[1].__begin_) = 1;
   }
@@ -6729,20 +6809,17 @@ __n128 std::__optional_storage_base<quasar::corrective_reranking::AdjustedPayloa
     v7 = *a2;
     *(a1 + 16) = *(a2 + 2);
     *a1 = v7;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v8 = *(a2 + 24);
     *(a1 + 40) = *(a2 + 5);
     *(a1 + 24) = v8;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     result = a2[3];
     *(a1 + 64) = *(a2 + 8);
     *(a1 + 48) = result;
-    *(a2 + 7) = 0;
-    *(a2 + 8) = 0;
+    *(a2 + 56) = 0uLL;
     *(a2 + 6) = 0;
     *(a1 + 72) = 1;
   }
@@ -6773,7 +6850,7 @@ void std::__optional_destruct_base<quasar::corrective_reranking::AdjustedPayload
   }
 }
 
-uint64_t std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse*,quasar::corrective_reranking::Parse*>(uint64_t *result, quasar::corrective_reranking::Parse *a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6783,14 +6860,14 @@ uint64_t std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:
   return result;
 }
 
-void sub_1B54F4184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1B54F4184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<quasar::corrective_reranking::Parse>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<quasar::corrective_reranking::Parse>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAABLL)
   {
@@ -6873,7 +6950,7 @@ void std::vector<quasar::corrective_reranking::Parse>::__destroy_vector::operato
   }
 }
 
-void std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(void **a1)
+void std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(void ***a1)
 {
   v1 = *a1;
   if (*a1)
@@ -6899,7 +6976,7 @@ void std::vector<quasar::corrective_reranking::Parse>::__vdeallocate(void **a1)
   }
 }
 
-uint64_t std::__sample[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<quasar::corrective_reranking::Parse *>,std::__wrap_iter<quasar::corrective_reranking::Parse *>,std::back_insert_iterator<std::vector<quasar::corrective_reranking::Parse>>,unsigned long,std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>>(const quasar::corrective_reranking::Parse *a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
+uint64_t *std::__sample[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<quasar::corrective_reranking::Parse *>,std::__wrap_iter<quasar::corrective_reranking::Parse *>,std::back_insert_iterator<std::vector<quasar::corrective_reranking::Parse>>,unsigned long,std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>>(const quasar::corrective_reranking::Parse *a1, uint64_t a2, uint64_t *a3, unint64_t a4, uint64_t a5)
 {
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 7);
   if (v6 >= a4)
@@ -6922,20 +6999,20 @@ uint64_t std::__sample[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<qua
       v14[1] = v10;
       if (std::uniform_int_distribution<unsigned long>::operator()<std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>>(v14, a5, v14) < v7)
       {
-        v11 = *(a3 + 8);
-        if (v11 >= *(a3 + 16))
+        v11 = a3[1];
+        if (v11 >= a3[2])
         {
           v12 = std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(a3, v9);
         }
 
         else
         {
-          quasar::corrective_reranking::Parse::Parse(*(a3 + 8), v9);
+          quasar::corrective_reranking::Parse::Parse(a3[1], v9);
           v12 = v11 + 384;
-          *(a3 + 8) = v11 + 384;
+          a3[1] = v11 + 384;
         }
 
-        *(a3 + 8) = v12;
+        a3[1] = v12;
         --v7;
       }
 
@@ -6992,7 +7069,7 @@ void std::allocator<std::pair<std::basic_string<char32_t>,quasar::corrective_rer
   }
 }
 
-uint64_t std::vector<std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>>::__emplace_back_slow_path<std::basic_string<char32_t>&,quasar::corrective_reranking::TargetRange&>(uint64_t *a1, __int128 *a2, uint64_t *a3)
+uint64_t std::vector<std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>>::__emplace_back_slow_path<std::basic_string<char32_t>&,quasar::corrective_reranking::TargetRange&>(void *a1, __int128 *a2, uint64_t a3)
 {
   v3 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v4 = v3 + 1;
@@ -7042,14 +7119,14 @@ uint64_t std::vector<std::pair<std::basic_string<char32_t>,quasar::corrective_re
   return v13;
 }
 
-void sub_1B54F4684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B54F4684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-std::wstring *std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>::pair[abi:ne200100]<std::basic_string<char32_t>&,quasar::corrective_reranking::TargetRange&,0>(std::wstring *this, __int128 *a2, uint64_t *a3)
+std::wstring *std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>::pair[abi:ne200100]<std::basic_string<char32_t>&,quasar::corrective_reranking::TargetRange&,0>(std::wstring *this, __int128 *a2, uint64_t a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -7066,7 +7143,7 @@ std::wstring *std::pair<std::basic_string<char32_t>,quasar::corrective_reranking
   this[1].__r_.__value_.__r.__words[0] = 0;
   this[1].__r_.__value_.__l.__size_ = 0;
   this[1].__r_.__value_.__r.__words[2] = 0;
-  std::vector<quasar::corrective_reranking::TextRange>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::TextRange*,quasar::corrective_reranking::TextRange*>(&this[1], *a3, a3[1], (a3[1] - *a3) >> 3);
+  std::vector<quasar::corrective_reranking::TextRange>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::TextRange*,quasar::corrective_reranking::TextRange*>(&this[1], *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
   return this;
 }
 
@@ -7180,9 +7257,9 @@ void std::__split_buffer<std::pair<std::basic_string<char32_t>,quasar::correctiv
   }
 }
 
-uint64_t std::__tree<std::basic_string<char32_t>>::__emplace_unique_key_args<std::basic_string<char32_t>,std::basic_string<char32_t> const&>(uint64_t a1, uint64_t a2)
+void *std::__tree<std::basic_string<char32_t>>::__emplace_unique_key_args<std::basic_string<char32_t>,std::basic_string<char32_t> const&>(uint64_t **a1, uint64_t a2, uint64_t a3)
 {
-  result = *std::__tree<std::basic_string<char32_t>>::__find_equal<std::basic_string<char32_t>>(a1, &v3, a2);
+  result = *std::__tree<std::basic_string<char32_t>>::__find_equal<std::basic_string<char32_t>>(a1, &v4, a2);
   if (!result)
   {
     std::__tree<std::basic_string<char32_t>>::__construct_node<std::basic_string<char32_t> const&>();
@@ -7341,7 +7418,7 @@ uint64_t std::__tree<std::basic_string<char32_t>>::__count_unique<std::basic_str
   return 0;
 }
 
-uint64_t std::vector<std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>>::__emplace_back_slow_path<std::basic_string<char32_t> const&,quasar::corrective_reranking::TargetRange&>(uint64_t *a1, __int128 *a2, uint64_t *a3)
+uint64_t std::vector<std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>>::__emplace_back_slow_path<std::basic_string<char32_t> const&,quasar::corrective_reranking::TargetRange&>(uint64_t *a1, __int128 *a2, uint64_t a3)
 {
   v3 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v4 = v3 + 1;
@@ -7391,14 +7468,14 @@ uint64_t std::vector<std::pair<std::basic_string<char32_t>,quasar::corrective_re
   return v13;
 }
 
-void sub_1B54F4CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B54F4CE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-std::wstring *std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>::pair[abi:ne200100]<std::basic_string<char32_t> const&,quasar::corrective_reranking::TargetRange&,0>(std::wstring *this, __int128 *a2, uint64_t *a3)
+std::wstring *std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>::pair[abi:ne200100]<std::basic_string<char32_t> const&,quasar::corrective_reranking::TargetRange&,0>(std::wstring *this, __int128 *a2, uint64_t a3)
 {
   if (*(a2 + 23) < 0)
   {
@@ -7415,7 +7492,7 @@ std::wstring *std::pair<std::basic_string<char32_t>,quasar::corrective_reranking
   this[1].__r_.__value_.__r.__words[0] = 0;
   this[1].__r_.__value_.__l.__size_ = 0;
   this[1].__r_.__value_.__r.__words[2] = 0;
-  std::vector<quasar::corrective_reranking::TextRange>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::TextRange*,quasar::corrective_reranking::TextRange*>(&this[1], *a3, a3[1], (a3[1] - *a3) >> 3);
+  std::vector<quasar::corrective_reranking::TextRange>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::TextRange*,quasar::corrective_reranking::TextRange*>(&this[1], *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 3);
   return this;
 }
 
@@ -7429,21 +7506,21 @@ void sub_1B54F4D6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(uint64_t a1, const quasar::corrective_reranking::Parse *a2)
+uint64_t std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::Parse const&>(uint64_t *a1, const quasar::corrective_reranking::Parse *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 7);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 7);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 7) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 7) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 7);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 7);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 7) >= 0x55555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 7) >= 0x55555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAALL;
   }
@@ -7463,14 +7540,14 @@ uint64_t std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_p
   v14 = 384 * v2;
   quasar::corrective_reranking::Parse::Parse((384 * v2), a2);
   v15 = 384 * v2 + 384;
-  v7 = *(a1 + 8);
+  v7 = a1[1];
   v8 = 384 * v2 + *a1 - v7;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::corrective_reranking::Parse>,quasar::corrective_reranking::Parse*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -7479,14 +7556,14 @@ uint64_t std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_p
   return v12;
 }
 
-void sub_1B54F4EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B54F4EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::corrective_reranking::Parse>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::corrective_reranking::Parse>,quasar::corrective_reranking::Parse*>(uint64_t a1, void **a2, __int128 *a3, uint64_t a4)
+void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::corrective_reranking::Parse>,quasar::corrective_reranking::Parse*>(uint64_t a1, void **a2, void **a3, uint64_t a4)
 {
   if (a2 != a3)
   {
@@ -7513,8 +7590,7 @@ uint64_t quasar::corrective_reranking::Parse::Parse(uint64_t result, __int128 *a
   v2 = *a2;
   *(result + 16) = *(a2 + 2);
   *result = v2;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
+  *(a2 + 8) = 0uLL;
   *a2 = 0;
   *(result + 24) = *(a2 + 6);
   *(result + 40) = 0;
@@ -7522,16 +7598,14 @@ uint64_t quasar::corrective_reranking::Parse::Parse(uint64_t result, __int128 *a
   *(result + 32) = 0;
   *(result + 32) = a2[2];
   *(result + 48) = *(a2 + 6);
-  *(a2 + 4) = 0;
-  *(a2 + 5) = 0;
+  a2[2] = 0uLL;
   *(a2 + 6) = 0;
   *(result + 56) = 0;
   *(result + 64) = 0;
   *(result + 72) = 0;
   *(result + 56) = *(a2 + 56);
   *(result + 72) = *(a2 + 9);
-  *(a2 + 8) = 0;
-  *(a2 + 9) = 0;
+  a2[4] = 0uLL;
   *(a2 + 7) = 0;
   LODWORD(v2) = *(a2 + 20);
   *(result + 88) = 0;
@@ -7544,8 +7618,7 @@ uint64_t quasar::corrective_reranking::Parse::Parse(uint64_t result, __int128 *a
     *(result + 104) = 0;
     *(result + 88) = *(a2 + 88);
     *(result + 104) = *(a2 + 13);
-    *(a2 + 11) = 0;
-    *(a2 + 12) = 0;
+    *(a2 + 88) = 0uLL;
     *(a2 + 13) = 0;
     *(result + 112) = 1;
   }
@@ -7555,14 +7628,12 @@ uint64_t quasar::corrective_reranking::Parse::Parse(uint64_t result, __int128 *a
   *(result + 136) = 0;
   *(result + 120) = *(a2 + 120);
   *(result + 136) = *(a2 + 17);
-  *(a2 + 15) = 0;
-  *(a2 + 16) = 0;
+  *(a2 + 120) = 0uLL;
   *(a2 + 17) = 0;
   v3 = a2[9];
   *(result + 160) = *(a2 + 20);
   *(result + 144) = v3;
-  *(a2 + 19) = 0;
-  *(a2 + 20) = 0;
+  *(a2 + 152) = 0uLL;
   *(a2 + 18) = 0;
   *(result + 168) = *(a2 + 42);
   *(result + 184) = 0;
@@ -7570,8 +7641,7 @@ uint64_t quasar::corrective_reranking::Parse::Parse(uint64_t result, __int128 *a
   *(result + 176) = 0;
   *(result + 176) = a2[11];
   *(result + 192) = *(a2 + 24);
-  *(a2 + 23) = 0;
-  *(a2 + 24) = 0;
+  *(a2 + 184) = 0uLL;
   *(a2 + 22) = 0;
   *(result + 200) = *(a2 + 200);
   *(result + 216) = 0;
@@ -7579,16 +7649,14 @@ uint64_t quasar::corrective_reranking::Parse::Parse(uint64_t result, __int128 *a
   *(result + 208) = 0;
   *(result + 208) = a2[13];
   *(result + 224) = *(a2 + 28);
-  *(a2 + 26) = 0;
-  *(a2 + 27) = 0;
+  a2[13] = 0uLL;
   *(a2 + 28) = 0;
   *(result + 232) = 0;
   *(result + 240) = 0;
   *(result + 248) = 0;
   *(result + 232) = *(a2 + 232);
   *(result + 248) = *(a2 + 31);
-  *(a2 + 30) = 0;
-  *(a2 + 31) = 0;
+  a2[15] = 0uLL;
   *(a2 + 29) = 0;
   *(result + 256) = *(a2 + 256);
   *(result + 264) = 0;
@@ -7600,8 +7668,7 @@ uint64_t quasar::corrective_reranking::Parse::Parse(uint64_t result, __int128 *a
     *(result + 280) = 0;
     *(result + 264) = *(a2 + 33);
     *(result + 272) = a2[17];
-    *(a2 + 33) = 0;
-    *(a2 + 34) = 0;
+    *(a2 + 264) = 0uLL;
     *(a2 + 35) = 0;
     *(result + 288) = 1;
   }
@@ -7613,20 +7680,17 @@ uint64_t quasar::corrective_reranking::Parse::Parse(uint64_t result, __int128 *a
     v4 = *(a2 + 296);
     *(result + 312) = *(a2 + 39);
     *(result + 296) = v4;
-    *(a2 + 38) = 0;
-    *(a2 + 39) = 0;
+    a2[19] = 0uLL;
     *(a2 + 37) = 0;
     v5 = a2[20];
     *(result + 336) = *(a2 + 42);
     *(result + 320) = v5;
-    *(a2 + 41) = 0;
-    *(a2 + 42) = 0;
+    *(a2 + 328) = 0uLL;
     *(a2 + 40) = 0;
     v6 = *(a2 + 344);
     *(result + 360) = *(a2 + 45);
     *(result + 344) = v6;
-    *(a2 + 44) = 0;
-    *(a2 + 45) = 0;
+    a2[22] = 0uLL;
     *(a2 + 43) = 0;
     *(result + 368) = 1;
   }
@@ -7652,7 +7716,7 @@ uint64_t std::__split_buffer<quasar::corrective_reranking::Parse>::~__split_buff
   return a1;
 }
 
-void std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::ASRCandidate const&,std::vector<std::string> const&,float const&,quasar::corrective_reranking::TargetRange>(void *a1, __int128 *a2, int a3, uint64_t a4, __int128 *a5)
+void std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::ASRCandidate const&,std::vector<std::string> const&,float const&,quasar::corrective_reranking::TargetRange>(void *a1, __int128 *a2, void *a3, float *a4, __int128 *a5)
 {
   v5 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 7) + 1;
   if (v5 <= 0xAAAAAAAAAAAAAALL)
@@ -7683,34 +7747,34 @@ void std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<
   std::vector<int>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_1B54F52CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B54F52CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::corrective_reranking::Parse>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::allocator<quasar::corrective_reranking::Parse>::construct[abi:ne200100]<quasar::corrective_reranking::Parse,quasar::corrective_reranking::ASRCandidate const&,std::vector<std::string> const&,float const&,quasar::corrective_reranking::TargetRange>(uint64_t a1, std::wstring *a2, __int128 *a3, int a4, uint64_t a5, __int128 *a6)
+void std::allocator<quasar::corrective_reranking::Parse>::construct[abi:ne200100]<quasar::corrective_reranking::Parse,quasar::corrective_reranking::ASRCandidate const&,std::vector<std::string> const&,float const&,quasar::corrective_reranking::TargetRange>(uint64_t a1, std::wstring *a2, __int128 *a3, void *a4, float *a5, __int128 *a6)
 {
-  v18 = *a6;
-  v19 = *(a6 + 2);
-  *(a6 + 1) = 0;
-  *(a6 + 2) = 0;
+  v9 = *a5;
+  v19 = *a6;
+  v20 = *(a6 + 2);
+  *(a6 + 8) = 0uLL;
   *a6 = 0;
-  v20 = 1;
-  memset(v17, 0, sizeof(v17));
-  std::basic_string<char32_t>::basic_string[abi:ne200100]<0>(__dst, byte_1B5B03720);
+  v21 = 1;
+  memset(v18, 0, sizeof(v18));
+  std::basic_string<char32_t>::basic_string[abi:ne200100]<0>(&__dst, byte_1B5B03720);
+  memset(v16, 0, sizeof(v16));
   memset(v15, 0, sizeof(v15));
   memset(v14, 0, sizeof(v14));
-  memset(v13, 0, sizeof(v13));
-  LOBYTE(v11) = 0;
-  v12 = 0;
-  LOBYTE(v9) = 0;
-  v10 = 0;
-  quasar::corrective_reranking::Parse::Parse(a2, a3, a4, &v18, v17, __dst, v15, 1, v14, v13, 0, &v11, &v9, 0, 0, 0, 0, 0, 0);
+  LOBYTE(v12) = 0;
+  v13 = 0;
+  LOBYTE(v10) = 0;
+  v11 = 0;
+  quasar::corrective_reranking::Parse::Parse(a2, a3, a4, &v19, v18, &__dst, v16, 1, v9, 0.0, v15, v14, 0, &v12, &v10, 0, 0, 0, 0, 0, 0);
 }
 
-void sub_1B54F5498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, char a29, int a30, char a31)
+void sub_1B54F5498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, int a30, char a31)
 {
   std::optional<quasar::corrective_reranking::AdjustedPayloadParts>::~optional(&a16);
   if (a29 == 1)
@@ -7856,25 +7920,25 @@ uint64_t std::vector<std::pair<std::basic_string<char32_t>,quasar::corrective_re
 uint64_t std::vector<std::pair<std::basic_string<char32_t>,quasar::corrective_reranking::TargetRange>>::__move_range(uint64_t result, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   v4 = *(result + 8);
-  v5 = (a2 + v4 - a4);
+  v5 = a2 + v4 - a4;
   v6 = v4;
   while (v5 < a3)
   {
     v7 = *v5;
-    *(v6 + 16) = *(v5 + 2);
+    *(v6 + 16) = *(v5 + 16);
     *v6 = v7;
-    *(v5 + 1) = 0;
-    *(v5 + 2) = 0;
+    *(v5 + 8) = 0;
+    *(v5 + 16) = 0;
     *v5 = 0;
     *(v6 + 24) = 0;
     *(v6 + 32) = 0;
     *(v6 + 40) = 0;
     *(v6 + 24) = *(v5 + 24);
-    *(v6 + 40) = *(v5 + 5);
-    *(v5 + 3) = 0;
-    *(v5 + 4) = 0;
-    *(v5 + 5) = 0;
-    v5 += 3;
+    *(v6 + 40) = *(v5 + 40);
+    *(v5 + 24) = 0;
+    *(v5 + 32) = 0;
+    *(v5 + 40) = 0;
+    v5 += 48;
     v6 += 48;
   }
 
@@ -8003,13 +8067,13 @@ std::basic_string<char32_t> *std::pair<std::basic_string<char32_t>,quasar::corre
   std::basic_string<char32_t>::operator=(a1, a2);
   if (a1 != a2)
   {
-    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(a1[1].__r_.__value_.__r.__words, *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
+    std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(&a1[1], *(a2 + 24), *(a2 + 32), (*(a2 + 32) - *(a2 + 24)) >> 3);
   }
 
   return a1;
 }
 
-void std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::ASRCandidate const&,std::vector<std::string> const&,float const&,quasar::corrective_reranking::TargetRange const&>(void *a1, __int128 *a2, int a3, uint64_t a4, uint64_t *a5)
+void std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<quasar::corrective_reranking::ASRCandidate const&,std::vector<std::string> const&,float const&,quasar::corrective_reranking::TargetRange const&>(void *a1, __int128 *a2, void *a3, float *a4, uint64_t a5)
 {
   v5 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 7) + 1;
   if (v5 <= 0xAAAAAAAAAAAAAALL)
@@ -8040,31 +8104,32 @@ void std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_path<
   std::vector<int>::__throw_length_error[abi:ne200100]();
 }
 
-void sub_1B54F5BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B54F5BE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::corrective_reranking::Parse>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::allocator<quasar::corrective_reranking::Parse>::construct[abi:ne200100]<quasar::corrective_reranking::Parse,quasar::corrective_reranking::ASRCandidate const&,std::vector<std::string> const&,float const&,quasar::corrective_reranking::TargetRange const&>(uint64_t a1, std::wstring *a2, __int128 *a3, int a4, uint64_t a5, uint64_t *a6)
+void std::allocator<quasar::corrective_reranking::Parse>::construct[abi:ne200100]<quasar::corrective_reranking::Parse,quasar::corrective_reranking::ASRCandidate const&,std::vector<std::string> const&,float const&,quasar::corrective_reranking::TargetRange const&>(uint64_t a1, std::wstring *a2, __int128 *a3, void *a4, float *a5, uint64_t a6)
 {
+  v9 = *a5;
+  memset(v19, 0, sizeof(v19));
+  std::vector<quasar::corrective_reranking::TextRange>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::TextRange*,quasar::corrective_reranking::TextRange*>(v19, *a6, *(a6 + 8), (*(a6 + 8) - *a6) >> 3);
+  v20 = 1;
   memset(v18, 0, sizeof(v18));
-  std::vector<quasar::corrective_reranking::TextRange>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::TextRange*,quasar::corrective_reranking::TextRange*>(v18, *a6, a6[1], (a6[1] - *a6) >> 3);
-  v19 = 1;
-  memset(v17, 0, sizeof(v17));
-  std::basic_string<char32_t>::basic_string[abi:ne200100]<0>(__dst, byte_1B5B03720);
+  std::basic_string<char32_t>::basic_string[abi:ne200100]<0>(&__dst, byte_1B5B03720);
+  memset(v16, 0, sizeof(v16));
   memset(v15, 0, sizeof(v15));
   memset(v14, 0, sizeof(v14));
-  memset(v13, 0, sizeof(v13));
-  LOBYTE(v11) = 0;
-  v12 = 0;
-  LOBYTE(v9) = 0;
-  v10 = 0;
-  quasar::corrective_reranking::Parse::Parse(a2, a3, a4, v18, v17, __dst, v15, 1, v14, v13, 0, &v11, &v9, 0, 0, 0, 0, 0, 0);
+  LOBYTE(v12) = 0;
+  v13 = 0;
+  LOBYTE(v10) = 0;
+  v11 = 0;
+  quasar::corrective_reranking::Parse::Parse(a2, a3, a4, v19, v18, &__dst, v16, 1, v9, 0.0, v15, v14, 0, &v12, &v10, 0, 0, 0, 0, 0, 0);
 }
 
-void sub_1B54F5DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, char a29, int a30, char a31)
+void sub_1B54F5DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, int a30, char a31)
 {
   std::optional<quasar::corrective_reranking::AdjustedPayloadParts>::~optional(&a16);
   if (a29 == 1)
@@ -8103,7 +8168,7 @@ void sub_1B54F5DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void **std::vector<quasar::corrective_reranking::Parse>::__insert_with_size[abi:ne200100]<std::__wrap_iter<quasar::corrective_reranking::Parse*>,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(void *a1, uint64_t a2, const quasar::corrective_reranking::Parse *a3, quasar::corrective_reranking::Parse *a4, uint64_t a5)
+void **std::vector<quasar::corrective_reranking::Parse>::__insert_with_size[abi:ne200100]<std::__wrap_iter<quasar::corrective_reranking::Parse*>,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(void *a1, void **a2, const quasar::corrective_reranking::Parse *a3, quasar::corrective_reranking::Parse *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -8117,7 +8182,7 @@ void **std::vector<quasar::corrective_reranking::Parse>::__insert_with_size[abi:
       if ((0xAAAAAAAAAAAAAAABLL * ((v10 - a2) >> 7)) >= a5)
       {
         v19 = 3 * a5;
-        std::vector<quasar::corrective_reranking::Parse>::__move_range(a1, a2, a1[1], a2 + 384 * a5);
+        std::vector<quasar::corrective_reranking::Parse>::__move_range(a1, a2, a1[1], &a2[48 * a5]);
         v20 = (v7 + 128 * v19);
         v21 = v5;
         do
@@ -8335,56 +8400,56 @@ void std::__optional_storage_base<quasar::corrective_reranking::AdjustedPayloadP
   }
 }
 
-uint64_t std::vector<quasar::corrective_reranking::Parse>::__append(uint64_t result, unint64_t a2)
+void ***std::vector<quasar::corrective_reranking::Parse>::__append(void ***result, unint64_t a2)
 {
   v3 = result;
-  v4 = *(result + 8);
-  v5 = *(result + 16);
+  v4 = result[1];
+  v5 = result[2];
   if (0xAAAAAAAAAAAAAAABLL * ((v5 - v4) >> 7) >= a2)
   {
     if (a2)
     {
-      v10 = v4 + 384 * a2;
+      v10 = &v4[48 * a2];
       do
       {
-        *(v4 + 336) = 0uLL;
-        *(v4 + 352) = 0uLL;
-        *(v4 + 304) = 0uLL;
-        *(v4 + 320) = 0uLL;
-        *(v4 + 272) = 0uLL;
-        *(v4 + 288) = 0uLL;
-        *(v4 + 192) = 0uLL;
-        *(v4 + 208) = 0uLL;
-        *(v4 + 160) = 0uLL;
-        *(v4 + 176) = 0uLL;
-        *(v4 + 128) = 0uLL;
-        *(v4 + 144) = 0uLL;
-        *(v4 + 96) = 0uLL;
-        *(v4 + 112) = 0uLL;
-        *(v4 + 64) = 0uLL;
-        *(v4 + 80) = 0uLL;
-        *(v4 + 32) = 0uLL;
-        *(v4 + 48) = 0uLL;
+        *(v4 + 21) = 0uLL;
+        *(v4 + 22) = 0uLL;
+        *(v4 + 19) = 0uLL;
+        *(v4 + 20) = 0uLL;
+        *(v4 + 17) = 0uLL;
+        *(v4 + 18) = 0uLL;
+        *(v4 + 12) = 0uLL;
+        *(v4 + 13) = 0uLL;
+        *(v4 + 10) = 0uLL;
+        *(v4 + 11) = 0uLL;
+        *(v4 + 8) = 0uLL;
+        *(v4 + 9) = 0uLL;
+        *(v4 + 6) = 0uLL;
+        *(v4 + 7) = 0uLL;
+        *(v4 + 4) = 0uLL;
+        *(v4 + 5) = 0uLL;
+        *(v4 + 2) = 0uLL;
+        *(v4 + 3) = 0uLL;
         *v4 = 0uLL;
-        *(v4 + 16) = 0uLL;
+        *(v4 + 1) = 0uLL;
         *(v4 + 200) = 1;
-        *(v4 + 208) = 0uLL;
-        *(v4 + 224) = 0uLL;
-        *(v4 + 224) = 0uLL;
-        *(v4 + 240) = 0uLL;
-        *(v4 + 240) = 0uLL;
-        *(v4 + 256) = 0uLL;
+        *(v4 + 13) = 0uLL;
+        *(v4 + 14) = 0uLL;
+        *(v4 + 14) = 0uLL;
+        *(v4 + 15) = 0uLL;
+        *(v4 + 15) = 0uLL;
+        *(v4 + 16) = 0uLL;
         *(v4 + 256) = 0;
-        *(v4 + 368) = 0;
-        *(v4 + 376) = 0;
-        v4 += 384;
+        v4[46] = 0;
+        v4[47] = 0;
+        v4 += 48;
       }
 
       while (v4 != v10);
       v4 = v10;
     }
 
-    *(result + 8) = v4;
+    result[1] = v4;
   }
 
   else
@@ -8460,13 +8525,13 @@ uint64_t std::vector<quasar::corrective_reranking::Parse>::__append(uint64_t res
 
     while (v12 != 384 * v6 + 384 * a2);
     *&v19 = v11 + 384 * a2;
-    v13 = *(result + 8);
+    v13 = result[1];
     v14 = v11 + *result - v13;
     std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::corrective_reranking::Parse>,quasar::corrective_reranking::Parse*>(result, *result, v13, v14);
     v15 = *v3;
     *v3 = v14;
-    v16 = *(v3 + 16);
-    *(v3 + 8) = v19;
+    v16 = v3[2];
+    *(v3 + 1) = v19;
     *&v19 = v15;
     *(&v19 + 1) = v16;
     v17 = v15;
@@ -8477,9 +8542,9 @@ uint64_t std::vector<quasar::corrective_reranking::Parse>::__append(uint64_t res
   return result;
 }
 
-void sub_1B54F65D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1B54F65D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<quasar::corrective_reranking::Parse>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8579,9 +8644,9 @@ uint64_t std::vector<quasar::EuclidNeighbor>::__emplace_back_slow_path<std::stri
   return v20;
 }
 
-void sub_1B54F67A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B54F67A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::TextTokenizer::Token>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8636,14 +8701,14 @@ uint64_t std::vector<quasar::corrective_reranking::Parse>::__emplace_back_slow_p
   return v12;
 }
 
-void sub_1B54F68D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1B54F68D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<quasar::corrective_reranking::Parse>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void **std::vector<quasar::corrective_reranking::Parse>::__insert_with_size[abi:ne200100]<std::__wrap_iter<quasar::corrective_reranking::Parse const*>,std::__wrap_iter<quasar::corrective_reranking::Parse const*>>(void *a1, uint64_t a2, const quasar::corrective_reranking::Parse *a3, quasar::corrective_reranking::Parse *a4, uint64_t a5)
+void **std::vector<quasar::corrective_reranking::Parse>::__insert_with_size[abi:ne200100]<std::__wrap_iter<quasar::corrective_reranking::Parse const*>,std::__wrap_iter<quasar::corrective_reranking::Parse const*>>(void *a1, void **a2, const quasar::corrective_reranking::Parse *a3, quasar::corrective_reranking::Parse *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -8657,7 +8722,7 @@ void **std::vector<quasar::corrective_reranking::Parse>::__insert_with_size[abi:
       if ((0xAAAAAAAAAAAAAAABLL * ((v10 - a2) >> 7)) >= a5)
       {
         v19 = 3 * a5;
-        std::vector<quasar::corrective_reranking::Parse>::__move_range(a1, a2, a1[1], a2 + 384 * a5);
+        std::vector<quasar::corrective_reranking::Parse>::__move_range(a1, a2, a1[1], &a2[48 * a5]);
         v20 = (v7 + 128 * v19);
         v21 = v5;
         do
@@ -8785,7 +8850,7 @@ void sub_1B54F6B70(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse const*,quasar::corrective_reranking::Parse const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+std::wstring *std::vector<quasar::corrective_reranking::Parse>::__init_with_size[abi:ne200100]<quasar::corrective_reranking::Parse const*,quasar::corrective_reranking::Parse const*>(std::wstring *result, quasar::corrective_reranking::Parse *a2, quasar::corrective_reranking::Parse *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -8802,7 +8867,7 @@ void sub_1B54F6BFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::__stable_sort<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(uint64_t a1, __int128 *a2, unint64_t a3, quasar::corrective_reranking::Parse *a4, uint64_t a5)
+void std::__stable_sort<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(uint64_t a1, __int128 *a2, unint64_t a3, quasar::corrective_reranking::Parse *a4, int64_t a5)
 {
   if (a3 >= 2)
   {
@@ -8955,7 +9020,7 @@ LABEL_28:
     {
       v10 = a4;
       v11 = a3 >> 1;
-      v12 = a1 + 384 * (a3 >> 1);
+      v12 = (a1 + 384 * (a3 >> 1));
       if (a3 <= a5)
       {
         v31 = 0;
@@ -8964,14 +9029,14 @@ LABEL_28:
         std::__stable_sort_move<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(a1, (a1 + 384 * (a3 >> 1)), a3 >> 1, a4);
         v31 = a3 >> 1;
         v23 = a3 - v11;
-        v24 = v10 + 384 * v11;
-        std::__stable_sort_move<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(v6 + 384 * (a3 >> 1), a2, v23, v24);
+        v24 = (v10 + 384 * v11);
+        std::__stable_sort_move<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(&v6[24 * (a3 >> 1)], a2, v23, v24);
         v31 = a3;
-        v25 = v10 + 384 * a3;
+        v25 = (v10 + 384 * a3);
         v26 = v24;
         while (v26 != v25)
         {
-          if (*(v26 + 168) <= *(v10 + 42))
+          if (*(v26 + 42) <= *(v10 + 42))
           {
             quasar::corrective_reranking::Parse::operator=(v6, v10);
             v10 = (v10 + 384);
@@ -8980,17 +9045,17 @@ LABEL_28:
           else
           {
             quasar::corrective_reranking::Parse::operator=(v6, v26);
-            v26 += 384;
+            v26 = (v26 + 384);
           }
 
-          v6 += 384;
+          v6 += 24;
           if (v10 == v24)
           {
             while (v26 != v25)
             {
               quasar::corrective_reranking::Parse::operator=(v6, v26);
-              v26 += 384;
-              v6 += 384;
+              v26 = (v26 + 384);
+              v6 += 24;
             }
 
             goto LABEL_43;
@@ -9001,7 +9066,7 @@ LABEL_28:
         {
           quasar::corrective_reranking::Parse::operator=(v6, v10);
           v10 = (v10 + 384);
-          v6 += 384;
+          v6 += 24;
         }
 
 LABEL_43:
@@ -9036,39 +9101,40 @@ LABEL_43:
   }
 }
 
-void sub_1B54F70E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B54F70E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::unique_ptr<quasar::corrective_reranking::Parse,std::__destruct_n &>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::__stable_sort_move<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(uint64_t result, __int128 *a2, unint64_t a3, uint64_t a4)
+void std::__stable_sort_move<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(uint64_t a1, __int128 *a2, unint64_t a3, quasar::corrective_reranking::Parse *a4)
 {
   if (!a3)
   {
-    return result;
+    return;
   }
 
   v4 = a4;
-  v7 = result;
+  v7 = a1;
   if (a3 == 2)
   {
-    if (*(a2 - 54) <= *(result + 168))
+    if (*(a2 - 54) <= *(a1 + 168))
     {
-      quasar::corrective_reranking::Parse::Parse(a4, result);
-      v8 = v4 + 384;
+      quasar::corrective_reranking::Parse::Parse(a4, a1);
+      v8 = (v4 + 384);
       v9 = a2 - 24;
       goto LABEL_23;
     }
 
     quasar::corrective_reranking::Parse::Parse(a4, a2 - 24);
-    v8 = v4 + 384;
+    v8 = (v4 + 384);
 LABEL_7:
     v9 = v7;
 LABEL_23:
 
-    return quasar::corrective_reranking::Parse::Parse(v8, v9);
+    quasar::corrective_reranking::Parse::Parse(v8, v9);
+    return;
   }
 
   if (a3 == 1)
@@ -9079,49 +9145,49 @@ LABEL_23:
 
   if (a3 > 8)
   {
-    v18 = result + 384 * (a3 >> 1);
-    std::__stable_sort<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(result, v18, a3 >> 1, a4, a3 >> 1);
-    result = std::__stable_sort<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(v7 + 384 * (a3 >> 1), a2, a3 - (a3 >> 1), v4 + 384 * (a3 >> 1), a3 - (a3 >> 1));
+    v18 = a1 + 384 * (a3 >> 1);
+    std::__stable_sort<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(a1, v18, a3 >> 1, a4, a3 >> 1);
+    std::__stable_sort<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(v7 + 384 * (a3 >> 1), a2, a3 - (a3 >> 1), (v4 + 384 * (a3 >> 1)), a3 - (a3 >> 1));
     v19 = v7 + 384 * (a3 >> 1);
     while (v19 != a2)
     {
       if (*(v19 + 168) <= *(v7 + 168))
       {
-        result = quasar::corrective_reranking::Parse::Parse(v4, v7);
+        quasar::corrective_reranking::Parse::Parse(v4, v7);
         v7 += 384;
       }
 
       else
       {
-        result = quasar::corrective_reranking::Parse::Parse(v4, v19);
+        quasar::corrective_reranking::Parse::Parse(v4, v19);
         v19 += 384;
       }
 
-      v4 += 384;
+      v4 = (v4 + 384);
       if (v7 == v18)
       {
         while (v19 != a2)
         {
-          result = quasar::corrective_reranking::Parse::Parse(v4, v19);
+          quasar::corrective_reranking::Parse::Parse(v4, v19);
           v19 += 384;
-          v4 += 384;
+          v4 = (v4 + 384);
         }
 
-        return result;
+        return;
       }
     }
 
     while (v7 != v18)
     {
-      result = quasar::corrective_reranking::Parse::Parse(v4, v7);
+      quasar::corrective_reranking::Parse::Parse(v4, v7);
       v7 += 384;
-      v4 += 384;
+      v4 = (v4 + 384);
     }
   }
 
-  else if (result != a2)
+  else if (a1 != a2)
   {
-    result = quasar::corrective_reranking::Parse::Parse(a4, result);
+    quasar::corrective_reranking::Parse::Parse(a4, a1);
     v10 = (v7 + 384);
     if ((v7 + 384) != a2)
     {
@@ -9130,11 +9196,11 @@ LABEL_23:
       do
       {
         v13 = v10;
-        v14 = v12 + 384;
+        v14 = (v12 + 384);
         v15 = v12 + 384;
-        if (*(v7 + 552) <= *(v12 + 168))
+        if (*(v7 + 552) <= *(v12 + 42))
         {
-          result = quasar::corrective_reranking::Parse::Parse(v15, v10);
+          quasar::corrective_reranking::Parse::Parse(v15, v10);
         }
 
         else
@@ -9153,7 +9219,7 @@ LABEL_23:
               }
 
               v17 -= 384;
-              quasar::corrective_reranking::Parse::operator=(v16, (v17 + v4));
+              quasar::corrective_reranking::Parse::operator=(v16, (v4 + v17));
               if (!v17)
               {
                 v16 = v4;
@@ -9162,7 +9228,7 @@ LABEL_23:
             }
           }
 
-          result = quasar::corrective_reranking::Parse::operator=(v16, v13);
+          quasar::corrective_reranking::Parse::operator=(v16, v13);
         }
 
         v10 = v13 + 24;
@@ -9174,11 +9240,9 @@ LABEL_23:
       while (v13 + 24 != a2);
     }
   }
-
-  return result;
 }
 
-void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void **a6, uint64_t a7)
+void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4, uint64_t a5, void **a6, uint64_t a7)
 {
   if (a5)
   {
@@ -9194,13 +9258,13 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
       v14 = -a4;
       while (1)
       {
-        v15 = a1 + v13;
-        if (*(a2 + 168) > *(a1 + v13 + 168))
+        v15 = (v13 + a1);
+        if (*(a2 + 42) > *(v13 + a1 + 168))
         {
           break;
         }
 
-        v13 += 384;
+        v13 += 24;
         if (__CFADD__(v14++, 1))
         {
           return;
@@ -9214,7 +9278,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
         if (v14 == -1)
         {
 
-          std::swap[abi:ne200100]<quasar::corrective_reranking::Parse>(a1 + v13, a2);
+          std::swap[abi:ne200100]<quasar::corrective_reranking::Parse>(v13 + a1, a2);
           return;
         }
 
@@ -9227,11 +9291,11 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
           do
           {
             v27 = v26 >> 1;
-            v28 = v18 + 384 * (v26 >> 1);
-            v29 = *(v28 + 168);
-            v30 = v28 + 384;
+            v28 = &v18[24 * (v26 >> 1)];
+            v29 = *(v28 + 42);
+            v30 = v28 + 24;
             v26 += ~(v26 >> 1);
-            if (v29 > *(a1 + 384 * v25 + v13 + 168))
+            if (v29 > *(&a1[24 * v25 + 10] + v13 + 8))
             {
               v18 = v30;
             }
@@ -9246,26 +9310,26 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
         }
 
         v17 = 0xAAAAAAAAAAAAAAABLL * ((v18 - a2) >> 7);
-        v19 = a1 + 384 * v25 + v13;
+        v19 = (&a1[24 * v25] + v13);
       }
 
       else
       {
         v17 = v8 / 2;
-        v18 = a2 + 384 * (v8 / 2);
+        v18 = &a2[24 * (v8 / 2)];
         v19 = a2;
-        if (a2 - a1 != v13)
+        if ((a2 - a1) != v13)
         {
           v20 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1 - v13) >> 7);
-          v19 = a1 + v13;
+          v19 = (v13 + a1);
           do
           {
             v21 = v20 >> 1;
-            v22 = v19 + 384 * (v20 >> 1);
-            v23 = *(v22 + 168);
-            v24 = v22 + 384;
+            v22 = &v19[24 * (v20 >> 1)];
+            v23 = *(v22 + 42);
+            v24 = v22 + 24;
             v20 += ~(v20 >> 1);
-            if (*(v18 + 168) > v23)
+            if (*(v18 + 42) > v23)
             {
               v20 = v21;
             }
@@ -9301,12 +9365,12 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
 
       a4 = -v14 - v25;
       v35 = v8 - v17;
-      if (v25 + v17 >= v8 - (v25 + v17) - v14)
+      if ((v25 + v17) >= (v8 - (v25 + v17) - v14))
       {
         v39 = v25;
         v40 = v17;
         v38 = a7;
-        std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(a3, v18, v56, a4, v35, v57);
+        std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(a3, v18, v56, a4, v35, v57, a7);
         v18 = v19;
         a6 = v57;
         v35 = v40;
@@ -9315,11 +9379,11 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
 
       else
       {
-        v36 = a1 + v13;
+        v36 = v13 + a1;
         v37 = v19;
         a6 = v57;
         v38 = a7;
-        std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(v36, v37, a3, v25, v17, v57);
+        std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::CorrectiveReranker::rankParses(std::vector<quasar::corrective_reranking::Parse> const&,std::basic_string<char32_t> const&,std::vector<int> const&,std::vector<int> const&,BOOL)::$_0 &,std::__wrap_iter<quasar::corrective_reranking::Parse*>>(v36, v37, a3, v25, v17, v57, a7);
         v15 = a3;
         a3 = v56;
       }
@@ -9350,7 +9414,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
         quasar::corrective_reranking::Parse::Parse(v50, v51);
         ++v43;
         v51 += 24;
-        v50 += 384;
+        v50 += 48;
       }
 
       while (v51 != v41);
@@ -9372,7 +9436,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
           v52 = v54 + 24;
         }
 
-        a1 += 384;
+        a1 += 24;
         if (v50 == v53)
         {
           goto LABEL_66;
@@ -9382,8 +9446,8 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
       do
       {
         quasar::corrective_reranking::Parse::operator=(a1, v53);
-        a1 += 384;
-        v55 = v50 - 384 == v53;
+        a1 += 24;
+        v55 = v50 - 48 == v53;
         v53 += 48;
       }
 
@@ -9401,27 +9465,27 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
       v43 = 0;
       do
       {
-        quasar::corrective_reranking::Parse::Parse(&a6[v42 / 8], (a2 + v42));
+        quasar::corrective_reranking::Parse::Parse(&a6[v42 / 8], &a2[v42 / 0x10]);
         a2 = v41;
         ++v43;
         v42 += 384;
       }
 
       while (&v41[v42 / 0x10] != a3);
-      v44 = a3 - 384;
+      v44 = (a3 - 24);
       v45 = &a6[v42 / 8];
       while (a2 != a1)
       {
         v46 = *(v45 - 54);
-        v47 = *(a2 - 216);
+        v47 = *(a2 - 54);
         if (v46 <= v47)
         {
-          v48 = v45 - 24;
+          v48 = (v45 - 48);
         }
 
         else
         {
-          v48 = (a2 - 384);
+          v48 = a2 - 24;
         }
 
         if (v46 <= v47)
@@ -9431,12 +9495,12 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
 
         else
         {
-          v49 = a2 - 384;
+          v49 = a2 - 24;
         }
 
         if (v46 <= v47)
         {
-          v45 -= 24;
+          v45 -= 48;
         }
 
         quasar::corrective_reranking::Parse::operator=(v44, v48);
@@ -9450,7 +9514,7 @@ void std::__inplace_merge<std::_ClassicAlgPolicy,quasar::corrective_reranking::C
 
       while (v45 != a6)
       {
-        v45 -= 24;
+        v45 -= 48;
         quasar::corrective_reranking::Parse::operator=(v44, v45);
         v44 -= 384;
       }
@@ -9724,86 +9788,4 @@ void std::vector<quasar::corrective_reranking::TokenClassification>::__destroy_v
 
     operator delete(v5);
   }
-}
-
-uint64_t std::vector<quasar::corrective_reranking::TokenClassification>::__emplace_back_slow_path<quasar::corrective_reranking::TokenClassification&>(uint64_t *a1, __int128 *a2)
-{
-  v2 = (a1[1] - *a1) >> 6;
-  v3 = v2 + 1;
-  if ((v2 + 1) >> 58)
-  {
-    std::vector<int>::__throw_length_error[abi:ne200100]();
-  }
-
-  v6 = a1[2] - *a1;
-  if (v6 >> 5 > v3)
-  {
-    v3 = v6 >> 5;
-  }
-
-  if (v6 >= 0x7FFFFFFFFFFFFFC0)
-  {
-    v7 = 0x3FFFFFFFFFFFFFFLL;
-  }
-
-  else
-  {
-    v7 = v3;
-  }
-
-  v17 = a1;
-  if (v7)
-  {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<quasar::corrective_reranking::TokenClassification>>(a1, v7);
-  }
-
-  v14 = 0;
-  v15 = v2 << 6;
-  std::allocator_traits<std::allocator<quasar::corrective_reranking::TokenClassification>>::construct[abi:ne200100]<quasar::corrective_reranking::TokenClassification,quasar::corrective_reranking::TokenClassification&,0>(a1, (v2 << 6), a2);
-  v16 = ((v2 << 6) + 64);
-  v8 = a1[1];
-  v9 = (v2 << 6) + *a1 - v8;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<quasar::corrective_reranking::TokenClassification>,quasar::corrective_reranking::TokenClassification*>(a1, *a1, v8, v9);
-  v10 = *a1;
-  *a1 = v9;
-  v11 = a1[2];
-  v13 = v16;
-  *(a1 + 1) = v16;
-  *&v16 = v10;
-  *(&v16 + 1) = v11;
-  v14 = v10;
-  v15 = v10;
-  std::__split_buffer<quasar::corrective_reranking::TokenClassification>::~__split_buffer(&v14);
-  return v13;
-}
-
-void sub_1B54F7CB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  std::__split_buffer<quasar::corrective_reranking::TokenClassification>::~__split_buffer(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::allocator_traits<std::allocator<quasar::corrective_reranking::TokenClassification>>::construct[abi:ne200100]<quasar::corrective_reranking::TokenClassification,quasar::corrective_reranking::TokenClassification&,0>(int a1, std::wstring *this, __int128 *a3)
-{
-  if (*(a3 + 23) < 0)
-  {
-    std::basic_string<char32_t>::__init_copy_ctor_external(this, *a3, *(a3 + 1));
-  }
-
-  else
-  {
-    v5 = *a3;
-    this->__r_.__value_.__r.__words[2] = *(a3 + 2);
-    *&this->__r_.__value_.__l.__data_ = v5;
-  }
-
-  this[1].__r_.__value_.__r.__words[0] = 0;
-  this[1].__r_.__value_.__l.__size_ = 0;
-  this[1].__r_.__value_.__r.__words[2] = 0;
-  result = std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&this[1], *(a3 + 3), *(a3 + 4), (*(a3 + 4) - *(a3 + 3)) >> 2);
-  v7 = *(a3 + 6);
-  this[2].__r_.__value_.__s.__data_[2] = *(a3 + 14);
-  this[2].__r_.__value_.__r.__words[0] = v7;
-  return result;
 }

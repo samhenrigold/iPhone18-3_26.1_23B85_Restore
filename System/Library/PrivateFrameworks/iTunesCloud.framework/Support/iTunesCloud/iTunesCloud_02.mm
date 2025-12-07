@@ -1,22 +1,3 @@
-void sub_100052744(uint64_t a1)
-{
-  sub_100052BF4();
-  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("MPHomeMonitor");
-  if (*(*(*(a1 + 32) + 8) + 24))
-  {
-    qword_100213BD8 = *(*(*(a1 + 32) + 8) + 24);
-  }
-
-  else
-  {
-    v2 = +[NSAssertionHandler currentHandler];
-    v3 = [NSString stringWithUTF8String:"Class getMPHomeMonitorClass(void)_block_invoke"];
-    [v2 handleFailureInFunction:v3 file:@"ICDMediaUserStateCenterServer.m" lineNumber:54 description:{@"Unable to find class %s", "MPHomeMonitor"}];
-
-    __break(1u);
-  }
-}
-
 void sub_10005280C(uint64_t a1)
 {
   sub_100052BF4();
@@ -138,7 +119,6 @@ LABEL_7:
 
 uint64_t sub_100052D44(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213BE0 = result;
   return result;
@@ -198,7 +178,6 @@ LABEL_7:
 
 uint64_t sub_100052FD0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213BC8 = result;
   return result;
@@ -872,7 +851,7 @@ void sub_1000586D0(uint64_t a1)
   }
 }
 
-void sub_10005896C(void *a1, int a2, void *a3)
+void sub_10005896C(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
   v6 = os_log_create("com.apple.amp.itunescloudd", "PlaybackPosition");
@@ -881,34 +860,33 @@ void sub_10005896C(void *a1, int a2, void *a3)
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = a1[4];
+      v8 = *(a1 + 32);
       v9 = [v5 msv_description];
-      v12 = 138544130;
-      v13 = v8;
-      v14 = 1024;
-      v15 = a2;
-      v16 = 2114;
-      v17 = v5;
-      v18 = 2114;
-      v19 = v9;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "[%{public}@ pushPlaybackPositionEntity:completionBlock:] Finished. success=%{BOOL}u error=%{public}@ error=%{public}@", &v12, 0x26u);
+      v11 = 138544130;
+      v12 = v8;
+      v13 = 1024;
+      v14 = a2;
+      v15 = 2114;
+      v16 = v5;
+      v17 = 2114;
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "[%{public}@ pushPlaybackPositionEntity:completionBlock:] Finished. success=%{BOOL}u error=%{public}@ error=%{public}@", &v11, 0x26u);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = a1[4];
-    v12 = 138543874;
-    v13 = v10;
-    v14 = 1024;
-    v15 = a2;
-    v16 = 2114;
-    v17 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@ pushPlaybackPositionEntity:completionBlock:] Finished. success=%{BOOL}u error=%{public}@", &v12, 0x1Cu);
+    v10 = *(a1 + 32);
+    v11 = 138543874;
+    v12 = v10;
+    v13 = 1024;
+    v14 = a2;
+    v15 = 2114;
+    v16 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@ pushPlaybackPositionEntity:completionBlock:] Finished. success=%{BOOL}u error=%{public}@", &v11, 0x1Cu);
   }
 
-  v11 = a1[5];
-  (*(a1[6] + 16))();
+  (*(*(a1 + 48) + 16))();
 }
 
 void sub_100058CB4(uint64_t a1, int a2, void *a3, void *a4)
@@ -1112,67 +1090,74 @@ void sub_10005AA64(uint64_t a1, void *a2)
 
   [v3 writeUInt32:v6 withCode:1836282979];
   [v3 writeUInt32:*(a1 + 40) withCode:1836413810];
-  v8 = *(a1 + 32);
-  v9 = v3;
+  v8 = v3;
   v7 = v3;
   ICDAAPUtilitiesWriteContainer();
 }
 
-void sub_10005AB54(uint64_t a1)
+void sub_10005AB54(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   ICDAAPUtilitiesWriteContainer();
 }
 
 uint64_t sub_10005ABEC(uint64_t a1, void *a2)
 {
-  v10 = a2;
-  v3 = *(*(a1 + 32) + 152);
+  v11 = a2;
   [*(a1 + 40) writeUInt8:DAAPPinTypeFromICLibraryPinEntityType() withCode:1835625316];
-  v4 = *(a1 + 32);
-  if (v4[14] < 1)
+  v3 = *(a1 + 32);
+  if (v3[14] < 1)
   {
-    if (v4[19] == 4)
+    if (v3[19] == 4)
     {
-      v5 = 1634353513;
+      v4 = 1634353513;
     }
 
     else
     {
-      v5 = 1634888036;
+      v4 = 1634888036;
     }
 
-    [v10 writeString:v4[15] withCode:v5];
+    [v11 writeString:v3[15] withCode:v4];
   }
 
   else
   {
-    [v10 writeUInt32:? withCode:?];
+    [v11 writeUInt32:? withCode:?];
   }
 
-  v6 = [*(*(a1 + 32) + 128) length];
-  v7 = *(a1 + 32);
-  if (v6)
+  v5 = [*(*(a1 + 32) + 128) length];
+  v6 = *(a1 + 32);
+  if (v5)
   {
-    [v10 writeString:*(v7 + 128) withCode:1634364521];
+    [v11 writeString:*(v6 + 128) withCode:1634364521];
   }
 
   else
   {
-    v8 = *(v7 + 104);
-    if (v8)
+    v7 = *(v6 + 104);
+    if (v7)
     {
-      [v10 writeSInt32:v8 withCode:1634365556];
+      [v11 writeSInt32:v7 withCode:1634365556];
     }
   }
 
-  if ([*(*(a1 + 32) + 136) length])
+  v8 = [*(*(a1 + 32) + 136) length];
+  v9 = v11;
+  if (v8)
   {
-    [v10 writeString:*(*(a1 + 32) + 136) withCode:1634364528];
+    v8 = [v11 writeString:*(*(a1 + 32) + 136) withCode:1634364528];
+    v9 = v11;
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(v8, v9);
+}
+
+void sub_10005B5C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, ...)
+{
+  va_start(va, a58);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10005B5E0(uint64_t a1, uint64_t a2)
@@ -1236,17 +1221,16 @@ void sub_10005C210(uint64_t a1, void *a2, void *a3)
     v8 = os_log_create("com.apple.amp.itunescloudd", "Artwork");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
-      v10 = objc_opt_class();
-      v11 = *(*(a1 + 32) + 88);
-      v12 = v10;
-      v19 = 138543874;
-      v20 = v10;
-      v21 = 2048;
-      v22 = [v11 count];
-      v23 = 2114;
-      v24 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Loading artwork info for %lu cloud IDs failed with error=%{public}@", &v19, 0x20u);
+      v9 = objc_opt_class();
+      v10 = *(*(a1 + 32) + 88);
+      v11 = v9;
+      v18 = 138543874;
+      v19 = v9;
+      v20 = 2048;
+      v21 = [v10 count];
+      v22 = 2114;
+      v23 = v5;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "[%{public}@] Loading artwork info for %lu cloud IDs failed with error=%{public}@", &v18, 0x20u);
     }
   }
 
@@ -1255,37 +1239,37 @@ void sub_10005C210(uint64_t a1, void *a2, void *a3)
     v8 = [v6 artworkInfoDictionaries];
     if ([v8 count])
     {
-      v13 = [v8 copy];
-      v14 = *(a1 + 32);
-      v15 = *(v14 + 104);
-      *(v14 + 104) = v13;
+      v12 = [v8 copy];
+      v13 = *(a1 + 32);
+      v14 = *(v13 + 104);
+      *(v13 + 104) = v12;
     }
   }
 
-  v16 = *(a1 + 32);
-  v17 = [v7 responseCode];
+  v15 = *(a1 + 32);
+  v16 = [v7 responseCode];
 
-  if (v17 > 399)
+  if (v16 > 399)
   {
-    if (v17 != 404 && v17 != 400)
+    if (v16 != 404 && v16 != 400)
     {
       goto LABEL_13;
     }
 
-    v18 = 3;
+    v17 = 3;
   }
 
   else
   {
-    v18 = 1;
-    if (v17 != 200 && v17 != 204)
+    v17 = 1;
+    if (v16 != 200 && v16 != 204)
     {
 LABEL_13:
-      v18 = 2;
+      v17 = 2;
     }
   }
 
-  [v16 setStatus:v18];
+  [v15 setStatus:v17];
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
@@ -1294,17 +1278,15 @@ void sub_10005C858(uint64_t a1, void *a2)
   v3 = *(a1 + 48);
   v4 = a2;
   [v4 writeUInt32:v3 withCode:1836413810];
-  v7 = *(a1 + 52);
   v5 = *(a1 + 32);
   v6 = *(a1 + 40);
   ICDAAPUtilitiesWriteContainer();
 }
 
-void sub_10005C930(uint64_t a1)
+void sub_10005C930(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 48);
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
   ICDAAPUtilitiesWriteContainer();
 }
 
@@ -1342,18 +1324,17 @@ void sub_10005CB40(uint64_t a1, void *a2, void *a3)
   {
     [*(a1 + 32) elementCodeForProperty:v5];
     [*(a1 + 32) valueTypeForProperty:v5];
-    v7 = *(a1 + 40);
     ICDAAPUtilitiesWriteProperty();
   }
 
   else
   {
-    v8 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v7 = os_log_create("com.apple.amp.itunescloudd", "CloudSync");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "No DAAP code found for container property: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "No DAAP code found for container property: %{public}@", &v8, 0xCu);
     }
   }
 }
@@ -1389,13 +1370,14 @@ void sub_10005CCF0(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-void sub_10005D8DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_10005D8DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose((v31 - 144), 8);
+  va_start(va, a30);
+  _Block_object_dispose((v30 - 144), 8);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 224), 8);
-  _Block_object_dispose((v31 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 224), 8);
+  _Block_object_dispose((v30 - 192), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2105,9 +2087,9 @@ LABEL_20:
   (*(a1[7] + 16))();
 }
 
-void sub_10005F348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10005F348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2482,7 +2464,7 @@ id sub_10006144C(uint64_t a1, void *a2)
   result = [a2 statusType];
   v4 = result;
   v5 = result == 1;
-  if (*(a1 + 40) != v5 || *(a1 + 41) != *(a1 + 42))
+  if (__PAIR64__(*(a1 + 41), *(a1 + 40)) != __PAIR64__(*(a1 + 42), v5))
   {
     v6 = os_log_create("com.apple.amp.itunescloudd", "XPC");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -2766,9 +2748,9 @@ id sub_100062744()
   return v1;
 }
 
-void sub_10006280C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10006280C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2914,7 +2896,6 @@ LABEL_7:
 
 uint64_t sub_100062EC0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213C40 = result;
   return result;
@@ -3417,6 +3398,13 @@ void sub_1000645C0(uint64_t a1)
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "ICDServer %p - currentPolicy=%d and is not in a supported configuration. Will not attempt to reload cloud library for secondary users]", &v11, 0x12u);
     }
   }
+}
+
+void sub_100064CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_100064CD4(uint64_t result, uint64_t a2)
@@ -4079,9 +4067,9 @@ LABEL_6:
   (*(*(a1 + 40) + 16))(*(a1 + 40), v6, v13);
 }
 
-void sub_1000680B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000680B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4220,9 +4208,9 @@ void sub_100068588(uint64_t a1)
   }
 }
 
-void sub_10006898C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_10006898C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4270,9 +4258,9 @@ id sub_100068A74()
   return v1;
 }
 
-void sub_100068B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100068B3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4500,9 +4488,11 @@ void sub_100069988(id a1)
 
 void sub_100069AA4(id a1)
 {
-  qword_100213C10 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___ICCloudServerListenerEndpointServiceProtocol];
+  v1 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___ICCloudServerListenerEndpointServiceProtocol];
+  v2 = qword_100213C10;
+  qword_100213C10 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 id sub_10006A380(uint64_t a1)
@@ -4765,9 +4755,9 @@ void sub_10006C26C(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10006CB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10006CB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4800,145 +4790,144 @@ void sub_10006CBD0(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   }
 }
 
-void sub_10006CD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10006CD70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10006CD88(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = ICCloudServerSupportedServiceGetName();
-  v4 = os_log_create("com.apple.amp.itunescloudd", "XPC");
-  v5 = v4;
-  if (v3)
+  v2 = ICCloudServerSupportedServiceGetName();
+  v3 = os_log_create("com.apple.amp.itunescloudd", "XPC");
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
-      v18 = 134218242;
-      v19 = v6;
-      v20 = 2114;
-      v21 = v3;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "ICDServer %p - Looking up XPC Listener [%{public}@]", &v18, 0x16u);
+      v5 = *(a1 + 32);
+      v17 = 134218242;
+      v18 = v5;
+      v19 = 2114;
+      v20 = v2;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "ICDServer %p - Looking up XPC Listener [%{public}@]", &v17, 0x16u);
     }
 
-    v7 = [*(*(a1 + 32) + 72) objectForKeyedSubscript:v3];
+    v6 = [*(*(a1 + 32) + 72) objectForKeyedSubscript:v2];
 
-    if (v7)
+    if (v6)
     {
       goto LABEL_28;
     }
 
-    v8 = *(a1 + 48);
-    if (v8 > 3)
+    v7 = *(a1 + 48);
+    if (v7 > 3)
     {
-      if (v8 > 5)
+      if (v7 > 5)
       {
-        if (v8 == 6)
+        if (v7 == 6)
         {
-          v7 = +[NSXPCListener anonymousListener];
-          v11 = [*(a1 + 32) playbackPositionService];
+          v6 = +[NSXPCListener anonymousListener];
+          v10 = [*(a1 + 32) playbackPositionService];
         }
 
         else
         {
-          if (v8 != 7)
+          if (v7 != 7)
           {
             goto LABEL_27;
           }
 
-          v7 = +[NSXPCListener anonymousListener];
-          v11 = [*(a1 + 32) cloudBadgingService];
+          v6 = +[NSXPCListener anonymousListener];
+          v10 = [*(a1 + 32) cloudBadgingService];
         }
       }
 
       else
       {
-        if (v8 == 4)
+        if (v7 == 4)
         {
-          v7 = +[NSXPCListener anonymousListener];
+          v6 = +[NSXPCListener anonymousListener];
           [*(a1 + 32) cloudServiceStatusMonitor];
         }
 
         else
         {
-          v7 = +[NSXPCListener anonymousListener];
+          v6 = +[NSXPCListener anonymousListener];
           [*(a1 + 32) mediaUserStateCenterServer];
         }
-        v11 = ;
+        v10 = ;
       }
     }
 
     else
     {
-      if (v8 <= 1)
+      if (v7 <= 1)
       {
-        if (!v8)
+        if (!v7)
         {
-          v12 = +[NSAssertionHandler currentHandler];
-          [v12 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"ICDServer.m" lineNumber:444 description:@"We should never get here"];
+          v11 = +[NSAssertionHandler currentHandler];
+          [v11 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"ICDServer.m" lineNumber:444 description:@"We should never get here"];
 
-          v7 = 0;
+          v6 = 0;
           goto LABEL_27;
         }
 
-        if (v8 != 1)
+        if (v7 != 1)
         {
 LABEL_27:
-          [*(*(a1 + 32) + 72) setObject:v7 forKeyedSubscript:v3];
-          [v7 resume];
+          [*(*(a1 + 32) + 72) setObject:v6 forKeyedSubscript:v2];
+          [v6 resume];
 
 LABEL_28:
-          v14 = os_log_create("com.apple.amp.itunescloudd", "XPC");
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v13 = os_log_create("com.apple.amp.itunescloudd", "XPC");
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
-            v15 = *(a1 + 32);
-            v18 = 134218242;
-            v19 = v15;
-            v20 = 2114;
-            v21 = v3;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "ICDServer %p - Retrieved XPC Listener [%{public}@]", &v18, 0x16u);
+            v14 = *(a1 + 32);
+            v17 = 134218242;
+            v18 = v14;
+            v19 = 2114;
+            v20 = v2;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "ICDServer %p - Retrieved XPC Listener [%{public}@]", &v17, 0x16u);
           }
 
-          v16 = [*(*(a1 + 32) + 72) objectForKeyedSubscript:v3];
-          v17 = *(*(a1 + 40) + 8);
-          v5 = *(v17 + 40);
-          *(v17 + 40) = v16;
+          v15 = [*(*(a1 + 32) + 72) objectForKeyedSubscript:v2];
+          v16 = *(*(a1 + 40) + 8);
+          v4 = *(v16 + 40);
+          *(v16 + 40) = v15;
           goto LABEL_31;
         }
 
-        v9 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.itunescloudd.xpc"];
+        v8 = [[NSXPCListener alloc] initWithMachServiceName:@"com.apple.itunescloudd.xpc"];
 LABEL_18:
-        v7 = v9;
-        [v9 setDelegate:*(a1 + 32)];
+        v6 = v8;
+        [v8 setDelegate:*(a1 + 32)];
         goto LABEL_27;
       }
 
-      if (v8 != 2)
+      if (v7 != 2)
       {
-        v9 = +[NSXPCListener anonymousListener];
+        v8 = +[NSXPCListener anonymousListener];
         goto LABEL_18;
       }
 
-      v7 = +[NSXPCListener anonymousListener];
-      v11 = [*(a1 + 32) networkAvailabilityService];
+      v6 = +[NSXPCListener anonymousListener];
+      v10 = [*(a1 + 32) networkAvailabilityService];
     }
 
-    v13 = v11;
-    [v7 setDelegate:v11];
+    v12 = v10;
+    [v6 setDelegate:v10];
 
     goto LABEL_27;
   }
 
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 32);
-    v18 = 134217984;
-    v19 = v10;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "ICDServer %p - No XPC listener [unknown service]", &v18, 0xCu);
+    v9 = *(a1 + 32);
+    v17 = 134217984;
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "ICDServer %p - No XPC listener [unknown service]", &v17, 0xCu);
   }
 
 LABEL_31:
@@ -5105,9 +5094,11 @@ uint64_t sub_10006E6E8(uint64_t a1, char a2, void *a3)
 
 void sub_10006E9F0(id a1)
 {
-  qword_100213C00 = [[ICDServer alloc] _init];
+  v1 = [[ICDServer alloc] _init];
+  v2 = qword_100213C00;
+  qword_100213C00 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_10006EBA8(uint64_t a1, void *a2)
@@ -5261,14 +5252,14 @@ LABEL_10:
   _Block_object_dispose(&v17, 8);
 }
 
-void sub_10006FB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10006FB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5318,26 +5309,25 @@ void sub_10006FC44(uint64_t a1)
 
 void sub_10006FE44(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = [*(a1 + 32) powerAssertionIdentifier];
+  v2 = [*(a1 + 32) powerAssertionIdentifier];
   CPSetPowerAssertionWithIdentifier();
 
-  v5 = *(a1 + 40);
-  v4 = *(a1 + 48);
-  if (v4)
+  v4 = *(a1 + 40);
+  v3 = *(a1 + 48);
+  if (v3)
   {
-    if (!v5)
+    if (!v4)
     {
-      v6 = [*(a1 + 32) watchdog];
-      [v6 suspend];
+      v5 = [*(a1 + 32) watchdog];
+      [v5 suspend];
 
-      v7 = os_log_create("com.apple.amp.itunescloudd", "Artwork");
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v6 = os_log_create("com.apple.amp.itunescloudd", "Artwork");
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = [*(a1 + 32) powerAssertionIdentifier];
+        v7 = [*(a1 + 32) powerAssertionIdentifier];
         *buf = 138543362;
-        v14 = v8;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Releasing power assertion: %{public}@", buf, 0xCu);
+        v13 = v7;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Releasing power assertion: %{public}@", buf, 0xCu);
       }
 
       [*(a1 + 32) _artistHeroImageUpdateFinished];
@@ -5347,28 +5337,28 @@ void sub_10006FE44(uint64_t a1)
     goto LABEL_10;
   }
 
-  if (!v5)
+  if (!v4)
   {
 LABEL_10:
-    if (v5 < v4)
+    if (v4 < v3)
     {
-      v12 = [*(a1 + 32) watchdog];
-      [v12 resume];
+      v11 = [*(a1 + 32) watchdog];
+      [v11 resume];
     }
 
     return;
   }
 
-  v9 = [*(a1 + 32) watchdog];
-  [v9 resume];
+  v8 = [*(a1 + 32) watchdog];
+  [v8 resume];
 
-  v10 = os_log_create("com.apple.amp.itunescloudd", "Artwork");
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = os_log_create("com.apple.amp.itunescloudd", "Artwork");
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [*(a1 + 32) powerAssertionIdentifier];
+    v10 = [*(a1 + 32) powerAssertionIdentifier];
     *buf = 138543362;
-    v14 = v11;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Taking power assertion: %{public}@", buf, 0xCu);
+    v13 = v10;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Taking power assertion: %{public}@", buf, 0xCu);
   }
 }
 
@@ -5794,6 +5784,13 @@ void sub_1000710A8(void *a1, uint64_t a2)
   [v3 setValue:v4 forDatabaseProperty:@"MLArtistHeroImageImportDatabaseRevision"];
 }
 
+void sub_100071A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100071AA8(uint64_t a1, void *a2)
 {
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
@@ -6155,9 +6152,9 @@ uint64_t sub_100073514(void *a1, void *a2)
   return 1;
 }
 
-void sub_100073A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100073A70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6321,7 +6318,6 @@ void sub_100074148(uint64_t a1, void *a2)
 
 uint64_t sub_100074220(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213C70 = result;
   return result;
@@ -6853,9 +6849,9 @@ void sub_100075ED8(void *a1, uint64_t a2, void *a3, void *a4)
   }
 }
 
-void sub_1000768B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1000768B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7362,7 +7358,7 @@ uint64_t sub_100079A28(uint64_t a1)
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return _objc_release_x1();
+  return _objc_release_x1(v2, v4);
 }
 
 id sub_100079BE4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7575,8 +7571,6 @@ void sub_10007AEB8(uint64_t a1, void *a2)
     [v3 writeString:v4 withCode:1836152165];
   }
 
-  *(a1 + 48);
-  *(a1 + 48);
   v5 = *(a1 + 40);
   ICDAAPUtilitiesWriteContainer();
 }
@@ -7584,35 +7578,32 @@ void sub_10007AEB8(uint64_t a1, void *a2)
 void sub_10007AFC0(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v9 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * v8);
-        v10 = *(a1 + 48);
-        v11 = *(a1 + 40);
         ICDAAPUtilitiesWriteProperty();
-        v8 = v8 + 1;
+        ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -7660,25 +7651,24 @@ LABEL_7:
 
 uint64_t sub_10007B834(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213C80 = result;
   return result;
 }
 
-void sub_10007C5BC(id *a1)
+void sub_10007C5BC(id *a1, uint64_t a2)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
+  v3 = a1[4];
+  v4 = a1[5];
+  v5 = a1[6];
   ICDAAPUtilitiesWriteContainer();
 }
 
-void sub_10007C67C(id *a1)
+void sub_10007C67C(id *a1, uint64_t a2)
 {
-  v2 = a1[4];
-  v3 = a1[5];
-  v4 = a1[6];
+  v3 = a1[4];
+  v4 = a1[5];
+  v5 = a1[6];
   ICDAAPUtilitiesWriteContainer();
 }
 
@@ -7704,33 +7694,32 @@ void sub_10007C73C(uint64_t a1, void *a2)
 void sub_10007C928(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v10 + 1) + 8 * v8);
         ICDAAPUtilitiesWriteProperty();
-        v8 = v8 + 1;
+        ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -7740,33 +7729,32 @@ void sub_10007C928(uint64_t a1, void *a2)
 void sub_10007CA34(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v10 + 1) + 8 * v8);
         ICDAAPUtilitiesWriteProperty();
-        v8 = v8 + 1;
+        ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -7929,7 +7917,6 @@ LABEL_10:
 
 uint64_t sub_10007EBEC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_100213C90 = result;
   return result;
@@ -7945,21 +7932,19 @@ void sub_10007F3A4(uint64_t a1, void *a2)
 
 void sub_10007F690(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 40);
-  v8 = v3;
-  v5 = [*(a1 + 32) _configurationForAccount:? baseConfiguration:?];
-  if (v5)
+  v6 = a2;
+  v3 = [*(a1 + 32) _configurationForAccount:? baseConfiguration:?];
+  if (v3)
   {
-    v6 = *(a1 + 48);
-    v7 = [*(a1 + 32) _configurationForAccount:v8 baseConfiguration:*(a1 + 40)];
-    [v6 addObject:v7];
+    v4 = *(a1 + 48);
+    v5 = [*(a1 + 32) _configurationForAccount:v6 baseConfiguration:*(a1 + 40)];
+    [v4 addObject:v5];
   }
 }
 
-void sub_10007FF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10007FF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7996,9 +7981,9 @@ void sub_10007FF40(uint64_t a1, void *a2)
   }
 }
 
-void sub_100080334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100080334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8662,50 +8647,47 @@ void sub_100082AF4(uint64_t a1, void *a2)
     v6 = [*(a1 + 32) libraryIdentifier];
     v7 = [v5 isEqualToString:v6];
 
-    v8 = *(a1 + 32);
-    v9 = [objc_opt_class() logCategory];
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v8 = [objc_opt_class() logCategory];
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (v7)
     {
-      if (v10)
+      if (v9)
       {
+        v10 = objc_opt_class();
         v11 = *(a1 + 32);
-        v12 = objc_opt_class();
-        v13 = *(a1 + 32);
-        v14 = v12;
-        v25 = 138544130;
-        v26 = v12;
-        v27 = 2048;
-        v28 = v13;
-        v29 = 2114;
-        v30 = objc_opt_class();
-        v31 = 2048;
-        v32 = v4;
-        v15 = v30;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Calling block on one of our operations [%{public}@ %p]", &v25, 0x2Au);
+        v12 = v10;
+        v22 = 138544130;
+        v23 = v10;
+        v24 = 2048;
+        v25 = v11;
+        v26 = 2114;
+        v27 = objc_opt_class();
+        v28 = 2048;
+        v29 = v4;
+        v13 = v27;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Calling block on one of our operations [%{public}@ %p]", &v22, 0x2Au);
       }
 
-      (*(*(a1 + 40) + 16))(*(a1 + 40), v4, v16, v17, v18, v19);
+      (*(*(a1 + 40) + 16))(*(a1 + 40), v4, v14, v15, v16, v17);
     }
 
     else
     {
-      if (v10)
+      if (v9)
       {
-        v20 = *(a1 + 32);
-        v21 = objc_opt_class();
-        v22 = *(a1 + 32);
-        v23 = v21;
-        v25 = 138544130;
-        v26 = v21;
-        v27 = 2048;
-        v28 = v22;
-        v29 = 2114;
-        v30 = objc_opt_class();
-        v31 = 2048;
-        v32 = v4;
-        v24 = v30;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Ignoring operation which is not ours [%{public}@ %p]", &v25, 0x2Au);
+        v18 = objc_opt_class();
+        v19 = *(a1 + 32);
+        v20 = v18;
+        v22 = 138544130;
+        v23 = v18;
+        v24 = 2048;
+        v25 = v19;
+        v26 = 2114;
+        v27 = objc_opt_class();
+        v28 = 2048;
+        v29 = v4;
+        v21 = v27;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Ignoring operation which is not ours [%{public}@ %p]", &v22, 0x2Au);
       }
     }
   }
@@ -8722,50 +8704,47 @@ void sub_100082D18(uint64_t a1, void *a2)
     v6 = [*(a1 + 32) libraryIdentifier];
     v7 = [v5 isEqualToString:v6];
 
-    v8 = *(a1 + 32);
-    v9 = [objc_opt_class() logCategory];
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v8 = [objc_opt_class() logCategory];
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
     if (v7)
     {
-      if (v10)
+      if (v9)
       {
+        v10 = objc_opt_class();
         v11 = *(a1 + 32);
-        v12 = objc_opt_class();
-        v13 = *(a1 + 32);
-        v14 = v12;
-        v25 = 138544130;
-        v26 = v12;
-        v27 = 2048;
-        v28 = v13;
-        v29 = 2114;
-        v30 = objc_opt_class();
-        v31 = 2048;
-        v32 = v4;
-        v15 = v30;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Calling block on one of our background operations [%{public}@ %p]", &v25, 0x2Au);
+        v12 = v10;
+        v22 = 138544130;
+        v23 = v10;
+        v24 = 2048;
+        v25 = v11;
+        v26 = 2114;
+        v27 = objc_opt_class();
+        v28 = 2048;
+        v29 = v4;
+        v13 = v27;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Calling block on one of our background operations [%{public}@ %p]", &v22, 0x2Au);
       }
 
-      (*(*(a1 + 40) + 16))(*(a1 + 40), v4, v16, v17, v18, v19);
+      (*(*(a1 + 40) + 16))(*(a1 + 40), v4, v14, v15, v16, v17);
     }
 
     else
     {
-      if (v10)
+      if (v9)
       {
-        v20 = *(a1 + 32);
-        v21 = objc_opt_class();
-        v22 = *(a1 + 32);
-        v23 = v21;
-        v25 = 138544130;
-        v26 = v21;
-        v27 = 2048;
-        v28 = v22;
-        v29 = 2114;
-        v30 = objc_opt_class();
-        v31 = 2048;
-        v32 = v4;
-        v24 = v30;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Ignoring background operation which is not ours [%{public}@ %p]", &v25, 0x2Au);
+        v18 = objc_opt_class();
+        v19 = *(a1 + 32);
+        v20 = v18;
+        v22 = 138544130;
+        v23 = v18;
+        v24 = 2048;
+        v25 = v19;
+        v26 = 2114;
+        v27 = objc_opt_class();
+        v28 = 2048;
+        v29 = v4;
+        v21 = v27;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ %p -  Ignoring background operation which is not ours [%{public}@ %p]", &v22, 0x2Au);
       }
     }
   }
@@ -8774,85 +8753,82 @@ void sub_100082D18(uint64_t a1, void *a2)
 void sub_100083000(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = *(a1 + 32);
-  v7 = [objc_opt_class() logCategory];
-  v8 = v7;
+  v6 = [objc_opt_class() logCategory];
+  v7 = v6;
   if (a2)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 134217984;
-      v30 = v9;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Connected to library successfully.", buf, 0xCu);
+      v27 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Connected to library successfully.", buf, 0xCu);
     }
 
-    v10 = *(a1 + 48);
-    if (v10)
+    v9 = *(a1 + 48);
+    if (v9)
     {
-      (*(v10 + 16))(v10, *(a1 + 40));
+      (*(v9 + 16))(v9, *(a1 + 40));
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 134218242;
-      v30 = v11;
-      v31 = 2114;
-      v32 = v5;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "CloudLibrary %p - Failed to connect to library with error: %{public}@", buf, 0x16u);
+      v27 = v10;
+      v28 = 2114;
+      v29 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "CloudLibrary %p - Failed to connect to library with error: %{public}@", buf, 0x16u);
     }
 
-    v12 = [*(*(a1 + 32) + 32) userIdentity];
-    v13 = [*(*(a1 + 32) + 32) userIdentityStore];
-    v14 = v13;
-    if (v12)
+    v11 = [*(*(a1 + 32) + 32) userIdentity];
+    v12 = [*(*(a1 + 32) + 32) userIdentityStore];
+    v13 = v12;
+    if (v11)
     {
-      v15 = v13 == 0;
+      v14 = v12 == 0;
     }
 
     else
     {
-      v15 = 1;
+      v14 = 1;
     }
 
-    if (v15)
+    if (v14)
     {
-      v16 = *(a1 + 40);
       (*(*(a1 + 48) + 16))();
     }
 
     else
     {
-      v28 = 0;
-      v17 = [v13 getVerificationContextForUserIdentity:v12 error:&v28];
-      v18 = v28;
-      v19 = v18;
-      if (v17)
+      v25 = 0;
+      v15 = [v12 getVerificationContextForUserIdentity:v11 error:&v25];
+      v16 = v25;
+      v17 = v16;
+      if (v15)
       {
-        [v17 setInteractionLevel:1];
-        [v17 setDebugReason:@"Connecting to cloud library"];
-        v20 = [[ICUserVerificationRequest alloc] initWithVerificationContext:v17];
-        v21 = [ICStoreRequestContext alloc];
-        v22 = +[ICClientInfo defaultInfo];
-        v23 = [v21 initWithIdentity:v12 identityStore:v14 clientInfo:v22];
-        [v20 setStoreRequestContext:v23];
+        [v15 setInteractionLevel:1];
+        [v15 setDebugReason:@"Connecting to cloud library"];
+        v18 = [[ICUserVerificationRequest alloc] initWithVerificationContext:v15];
+        v19 = [ICStoreRequestContext alloc];
+        v20 = +[ICClientInfo defaultInfo];
+        v21 = [v19 initWithIdentity:v11 identityStore:v13 clientInfo:v20];
+        [v18 setStoreRequestContext:v21];
 
-        v25[0] = _NSConcreteStackBlock;
-        v25[1] = 3221225472;
-        v25[2] = sub_1000832EC;
-        v25[3] = &unk_1001DC268;
-        v27 = *(a1 + 48);
-        v26 = *(a1 + 40);
-        [v20 performWithResponseHandler:v25];
+        v22[0] = _NSConcreteStackBlock;
+        v22[1] = 3221225472;
+        v22[2] = sub_1000832EC;
+        v22[3] = &unk_1001DC268;
+        v24 = *(a1 + 48);
+        v23 = *(a1 + 40);
+        [v18 performWithResponseHandler:v22];
       }
 
       else
       {
-        v24 = *(a1 + 40);
         (*(*(a1 + 48) + 16))();
       }
     }
@@ -8898,10 +8874,10 @@ void sub_10008353C(uint64_t a1, void *a2, void *a3)
     }
 
     v8 = *(a1 + 32);
-    v42 = 134218242;
-    v43 = v8;
-    v44 = 2114;
-    v45 = v6;
+    v39 = 134218242;
+    v40 = v8;
+    v41 = 2114;
+    v42 = v6;
     v9 = "CloudLibrary %p - failed to load url bag. err=%{public}@";
     v10 = v7;
     v11 = 22;
@@ -8916,20 +8892,20 @@ void sub_10008353C(uint64_t a1, void *a2, void *a3)
       goto LABEL_13;
     }
 
-    v23 = *(a1 + 32);
-    v42 = 134217984;
-    v43 = v23;
+    v22 = *(a1 + 32);
+    v39 = 134217984;
+    v40 = v22;
     v9 = "CloudLibrary %p - Service disabled in URL bag.";
     v10 = v7;
     v11 = 12;
 LABEL_12:
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v9, &v42, v11);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v9, &v39, v11);
 LABEL_13:
 
-    v24 = *(a1 + 40);
-    if (v24)
+    v23 = *(a1 + 40);
+    if (v23)
     {
-      (*(v24 + 16))(v24, 0);
+      (*(v23 + 16))(v23, 0);
     }
 
     goto LABEL_35;
@@ -8940,73 +8916,70 @@ LABEL_13:
 
   objc_opt_class();
   LOBYTE(v12) = objc_opt_isKindOfClass();
-  v14 = *(a1 + 32);
-  v15 = objc_opt_class();
+  v14 = objc_opt_class();
   if (v12)
   {
-    v16 = [v15 oversizeLogCategory];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = [v14 oversizeLogCategory];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = *(a1 + 32);
-      v42 = 134218242;
-      v43 = v17;
-      v44 = 2114;
-      v45 = v13;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Library Bag: %{public}@", &v42, 0x16u);
+      v16 = *(a1 + 32);
+      v39 = 134218242;
+      v40 = v16;
+      v41 = 2114;
+      v42 = v13;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Library Bag: %{public}@", &v39, 0x16u);
     }
 
-    v18 = ICGetCloudDAAPClientPrefix();
-    v19 = [v18 stringByAppendingString:@"base-url"];
-    v20 = [v13 objectForKey:v19];
-    v21 = v20;
-    if (v20)
+    v17 = ICGetCloudDAAPClientPrefix();
+    v18 = [v17 stringByAppendingString:@"base-url"];
+    v19 = [v13 objectForKey:v18];
+    v20 = v19;
+    if (v19)
     {
-      v22 = v20;
+      v21 = v19;
     }
 
     else
     {
-      v22 = [v13 objectForKey:@"base-url"];
+      v21 = [v13 objectForKey:@"base-url"];
     }
 
-    v28 = v22;
+    v27 = v21;
 
-    if (v28 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+    if (v27 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v29 = *(a1 + 32);
-      v30 = [objc_opt_class() logCategory];
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v28 = [objc_opt_class() logCategory];
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
-        v31 = *(a1 + 32);
-        v42 = 134218242;
-        v43 = v31;
-        v44 = 2114;
-        v45 = v28;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Determined server URL: %{public}@", &v42, 0x16u);
+        v29 = *(a1 + 32);
+        v39 = 134218242;
+        v40 = v29;
+        v41 = 2114;
+        v42 = v27;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "CloudLibrary %p - Determined server URL: %{public}@", &v39, 0x16u);
       }
 
-      v32 = *(*(a1 + 32) + 32);
-      v33 = [v28 stringByAppendingString:@"/"];
-      v34 = [NSURL URLWithString:v33];
-      [v32 setBaseURL:v34];
+      v30 = *(*(a1 + 32) + 32);
+      v31 = [v27 stringByAppendingString:@"/"];
+      v32 = [NSURL URLWithString:v31];
+      [v30 setBaseURL:v32];
 
       [*(a1 + 32) _continueConnectingToLibraryWithCompletionHandler:*(a1 + 40)];
     }
 
     else
     {
-      v35 = *(a1 + 48);
-      v36 = *(a1 + 32);
-      v37 = [objc_opt_class() logCategory];
-      v38 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
-      if (v35 == 1)
+      v33 = *(a1 + 48);
+      v34 = [objc_opt_class() logCategory];
+      v35 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
+      if (v33 == 1)
       {
-        if (v38)
+        if (v35)
         {
-          v39 = *(a1 + 32);
-          v42 = 134217984;
-          v43 = v39;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "CloudLibrary %p - No library URL found, invalidating the URL bag and retrying...", &v42, 0xCu);
+          v36 = *(a1 + 32);
+          v39 = 134217984;
+          v40 = v36;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "CloudLibrary %p - No library URL found, invalidating the URL bag and retrying...", &v39, 0xCu);
         }
 
         [*(a1 + 32) _connectToLibraryWithCompletionHandler:*(a1 + 40) allowRetry:0 forceBagReload:1];
@@ -9014,18 +8987,18 @@ LABEL_13:
 
       else
       {
-        if (v38)
+        if (v35)
         {
-          v40 = *(a1 + 32);
-          v42 = 134217984;
-          v43 = v40;
-          _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "CloudLibrary %p - No library URL found.", &v42, 0xCu);
+          v37 = *(a1 + 32);
+          v39 = 134217984;
+          v40 = v37;
+          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "CloudLibrary %p - No library URL found.", &v39, 0xCu);
         }
 
-        v41 = *(a1 + 40);
-        if (v41)
+        v38 = *(a1 + 40);
+        if (v38)
         {
-          (*(v41 + 16))(v41, 0);
+          (*(v38 + 16))(v38, 0);
         }
       }
     }
@@ -9033,19 +9006,19 @@ LABEL_13:
 
   else
   {
-    v25 = [v15 logCategory];
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v24 = [v14 logCategory];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v26 = *(a1 + 32);
-      v42 = 134217984;
-      v43 = v26;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "CloudLibrary %p - No URL bag found", &v42, 0xCu);
+      v25 = *(a1 + 32);
+      v39 = 134217984;
+      v40 = v25;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "CloudLibrary %p - No URL bag found", &v39, 0xCu);
     }
 
-    v27 = *(a1 + 40);
-    if (v27)
+    v26 = *(a1 + 40);
+    if (v26)
     {
-      (*(v27 + 16))(v27, 0);
+      (*(v26 + 16))(v26, 0);
     }
   }
 

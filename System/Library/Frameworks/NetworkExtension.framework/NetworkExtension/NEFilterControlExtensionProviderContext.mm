@@ -63,7 +63,7 @@
 {
   pathCopy = path;
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
-  if ([pathCopy isEqualToString:@"remediationMap"])
+  if (objc_msgSend_isEqualToString_(pathCopy))
   {
     remediationMap = [_principalObject remediationMap];
     v9 = [remediationMap count];
@@ -75,7 +75,7 @@
     }
   }
 
-  if ([pathCopy isEqualToString:@"URLAppendStringMap"])
+  if (objc_msgSend_isEqualToString_(pathCopy))
   {
     uRLAppendStringMap = [_principalObject URLAppendStringMap];
     v12 = [uRLAppendStringMap count];
@@ -120,15 +120,15 @@
 
 - (void)startFilterWithOptions:(id)options completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   handlerCopy = handler;
   _principalObject = [(NEExtensionProviderContext *)self _principalObject];
   objc_initWeak(&location, _principalObject);
 
-  v16.receiver = self;
-  v16.super_class = NEFilterControlExtensionProviderContext;
-  [(NEFilterExtensionProviderContext *)&v16 startFilterWithOptions:optionsCopy completionHandler:handlerCopy];
+  v15.receiver = self;
+  v15.super_class = NEFilterControlExtensionProviderContext;
+  [(NEFilterExtensionProviderContext *)&v15 startFilterWithOptions:optionsCopy completionHandler:handlerCopy];
   objc_initWeak(&from, self);
   v9 = ne_log_obj();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -139,20 +139,18 @@
   }
 
   v10 = objc_loadWeakRetained(&location);
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __84__NEFilterControlExtensionProviderContext_startFilterWithOptions_completionHandler___block_invoke;
-  v12[3] = &unk_1E7F074A0;
-  objc_copyWeak(&v13, &location);
-  objc_copyWeak(&v14, &from);
-  [v10 startFilterWithCompletionHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __84__NEFilterControlExtensionProviderContext_startFilterWithOptions_completionHandler___block_invoke;
+  v11[3] = &unk_1E7F074A0;
+  objc_copyWeak(&v12, &location);
+  objc_copyWeak(&v13, &from);
+  [v10 startFilterWithCompletionHandler:v11];
 
-  objc_destroyWeak(&v14);
   objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&from);
   objc_destroyWeak(&location);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __84__NEFilterControlExtensionProviderContext_startFilterWithOptions_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -202,9 +200,11 @@ void __84__NEFilterControlExtensionProviderContext_startFilterWithOptions_comple
 
 uint64_t __74__NEFilterControlExtensionProviderContext__extensionAuxiliaryHostProtocol__block_invoke()
 {
-  _extensionAuxiliaryHostProtocol_protocol_3668 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2628];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2628];
+  v1 = _extensionAuxiliaryHostProtocol_protocol_3668;
+  _extensionAuxiliaryHostProtocol_protocol_3668 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)_extensionAuxiliaryVendorProtocol
@@ -221,9 +221,11 @@ uint64_t __74__NEFilterControlExtensionProviderContext__extensionAuxiliaryHostPr
 
 uint64_t __76__NEFilterControlExtensionProviderContext__extensionAuxiliaryVendorProtocol__block_invoke()
 {
-  _extensionAuxiliaryVendorProtocol_protocol_3673 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2560];
+  v0 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F38C2560];
+  v1 = _extensionAuxiliaryVendorProtocol_protocol_3673;
+  _extensionAuxiliaryVendorProtocol_protocol_3673 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

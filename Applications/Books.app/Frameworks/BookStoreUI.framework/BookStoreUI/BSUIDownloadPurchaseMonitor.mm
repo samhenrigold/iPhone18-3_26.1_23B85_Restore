@@ -85,16 +85,17 @@
 {
   collectionCopy = collection;
   trackerCopy = tracker;
-  if ([collectionCopy length])
+  v10 = [collectionCopy length];
+  if (v10)
   {
     if (self->_queuedStoreIDsToRemoveFromMySamples)
     {
-      v10 = BSUIDownloadPurchaseMonitorLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = BSUIDownloadPurchaseMonitorLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v21 = collectionCopy;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "BSUIDownloadPurchaseMonitor: Deferred removal of %@ from My Samples", buf, 0xCu);
+        v22 = collectionCopy;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "BSUIDownloadPurchaseMonitor: Deferred removal of %@ from My Samples", buf, 0xCu);
       }
 
       [(NSMutableArray *)self->_queuedStoreIDsToRemoveFromMySamples addObject:collectionCopy];
@@ -102,20 +103,20 @@
 
     else
     {
-      v11 = [BCCollectionMember collectionMemberIDWithCollectionID:kBKCollectionDefaultIDSamples assetID:collectionCopy];
+      v12 = [BCCollectionMember collectionMemberIDWithCollectionID:kBKCollectionDefaultIDSamples assetID:collectionCopy];
       cloudCollectionsManager = [(BSUIDownloadPurchaseMonitor *)self cloudCollectionsManager];
       collectionMemberManager = [cloudCollectionsManager collectionMemberManager];
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_1EDE0;
-      v15[3] = &unk_3877D8;
-      v15[4] = self;
-      v16 = v11;
-      v17 = trackerCopy;
-      v18 = collectionCopy;
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_1EDE0;
+      v16[3] = &unk_3877D8;
+      v16[4] = self;
+      v17 = v12;
+      v18 = trackerCopy;
+      v19 = collectionCopy;
       typeCopy = type;
-      v14 = v11;
-      [collectionMemberManager collectionMemberForCollectionMemberID:v14 completion:v15];
+      v15 = v12;
+      [collectionMemberManager collectionMemberForCollectionMemberID:v15 completion:v16];
     }
   }
 }

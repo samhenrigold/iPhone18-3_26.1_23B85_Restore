@@ -70,7 +70,7 @@
     [bindableCopy _setContextBinder:self];
     if (bindableCopy)
     {
-      [bindableCopy _bindingDescription];
+      objc_msgSend__bindingDescription(bindableCopy);
       if (v10)
       {
         selfCopy = self;
@@ -176,7 +176,7 @@ LABEL_22:
   _boundContext = [v7 _boundContext];
   if (v7)
   {
-    [v7 _bindingDescription];
+    objc_msgSend__bindingDescription(v7);
   }
 
   if (_boundContext)
@@ -610,7 +610,7 @@ LABEL_11:
               selfCopy = [v15 _boundContext];
               if (v15)
               {
-                [v15 _bindingDescription];
+                objc_msgSend__bindingDescription(v15);
                 if (v19)
                 {
                   [(_UIContextBinder *)selfCopy orderAbove:0];
@@ -811,7 +811,7 @@ LABEL_6:
       WeakRetained = objc_loadWeakRetained(&self->_contextCreationPolicyHolder);
       if (bindableCopy)
       {
-        [bindableCopy _bindingDescription];
+        objc_msgSend__bindingDescription(bindableCopy);
       }
 
       else
@@ -869,7 +869,7 @@ LABEL_6:
   substrateCopy = substrate;
   if (bindableCopy)
   {
-    [bindableCopy _bindingDescription];
+    objc_msgSend__bindingDescription(bindableCopy);
   }
 
   v7 = objc_opt_new();

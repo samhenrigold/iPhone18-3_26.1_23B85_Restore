@@ -7,8 +7,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1000EA1E8(appear);
+  sub_1000EA1E8(appearCopy);
 }
 
 - (_TtC18SharingViewService25AirTagErrorViewController)initWithContentView:(id)view

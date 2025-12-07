@@ -47,7 +47,7 @@
 
 - (void)didDisconnectWithError:(id)error
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (hap2LogInitialize_onceToken != -1)
   {
@@ -57,16 +57,14 @@
   v5 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2112;
-    v10 = errorCopy;
-    _os_log_error_impl(&dword_22AADC000, v5, OS_LOG_TYPE_ERROR, "%@ (Base) Disconnected with error: %@", &v7, 0x16u);
+    v8 = 2112;
+    v9 = errorCopy;
+    _os_log_error_impl(&dword_22AADC000, v5, OS_LOG_TYPE_ERROR, "%@ (Base) Disconnected with error: %@", &v6, 0x16u);
   }
 
   [(HAP2AccessoryServerTransportBase *)self _closeWithError:errorCopy completion:&__block_literal_global_6709];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_closeWithError:(void *)error completion:
@@ -127,7 +125,7 @@ void *__56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke(
 
 void __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_35(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (hap2LogInitialize_onceToken != -1)
@@ -142,9 +140,9 @@ void __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_3
     {
       v10 = *(a1 + 32);
       *buf = 138412546;
-      v30 = v10;
-      v31 = 2112;
-      v32 = v8;
+      v29 = v10;
+      v30 = 2112;
+      v31 = v8;
       _os_log_error_impl(&dword_22AADC000, v9, OS_LOG_TYPE_ERROR, "%@ (Base) Failed to close: %@", buf, 0x16u);
     }
   }
@@ -153,17 +151,17 @@ void __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_3
   {
     v11 = *(a1 + 32);
     *buf = 138412290;
-    v30 = v11;
+    v29 = v11;
     _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEFAULT, "%@ (Base) Closed", buf, 0xCu);
   }
 
   v12 = [*(a1 + 32) propertyLock];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_36;
-  v28[3] = &unk_2786D6CA0;
-  v28[4] = *(a1 + 32);
-  [v12 performWritingBlock:v28];
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_36;
+  v27[3] = &unk_2786D6CA0;
+  v27[4] = *(a1 + 32);
+  [v12 performWritingBlock:v27];
 
   v13 = *(a1 + 40);
   if (v13)
@@ -184,12 +182,12 @@ void __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_3
   block[2] = __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_2;
   block[3] = &unk_2786D5F70;
   v18 = v15;
-  v26 = v18;
-  v27 = a2;
+  v25 = v18;
+  v26 = a2;
   v19 = v7;
-  v24 = v19;
+  v23 = v19;
   v20 = v8;
-  v25 = v20;
+  v24 = v20;
   dispatch_async(v17, block);
 
   [*(a1 + 32) didChangeStateWithError:v20];
@@ -203,8 +201,6 @@ void __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_3
   {
     [v21 finish];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInternalState:(void *)state
@@ -310,7 +306,7 @@ void __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_3
 
 - (void)updateMaxRequestTimeout:(double)timeout
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (hap2LogInitialize_onceToken != -1)
   {
     dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
@@ -329,17 +325,17 @@ void __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_3
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v16 = __Block_byref_object_copy__6734;
-  v17 = __Block_byref_object_dispose__6735;
-  v18 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __60__HAP2AccessoryServerTransportBase_updateMaxRequestTimeout___block_invoke;
-  v14[3] = &unk_2786D5778;
-  *&v14[6] = timeout;
-  v14[4] = self;
-  v14[5] = buf;
-  v7 = MEMORY[0x231885210](v14);
+  v15 = __Block_byref_object_copy__6734;
+  v16 = __Block_byref_object_dispose__6735;
+  v17 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __60__HAP2AccessoryServerTransportBase_updateMaxRequestTimeout___block_invoke;
+  v13[3] = &unk_2786D5778;
+  *&v13[6] = timeout;
+  v13[4] = self;
+  v13[5] = buf;
+  v7 = MEMORY[0x231885210](v13);
   v8 = [HAP2AsynchronousBlockOperation alloc];
   v9 = NSStringFromSelector(a2);
   v10 = [(HAP2AsynchronousBlockOperation *)v8 initWithName:v9 block:v7];
@@ -350,7 +346,6 @@ void __56__HAP2AccessoryServerTransportBase__closeWithOperation___block_invoke_3
   [operationQueue addOperation:*(*&buf[8] + 40)];
 
   _Block_object_dispose(buf, 8);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __60__HAP2AccessoryServerTransportBase_updateMaxRequestTimeout___block_invoke(uint64_t a1)
@@ -459,7 +454,7 @@ uint64_t __60__HAP2AccessoryServerTransportBase_updateMaxRequestTimeout___block_
 
 - (void)closeWithError:(id)error completion:(id)completion
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   errorCopy = error;
   if (hap2LogInitialize_onceToken != -1)
@@ -470,19 +465,17 @@ uint64_t __60__HAP2AccessoryServerTransportBase_updateMaxRequestTimeout___block_
   v8 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
+    v9 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%@ (Base) Scheduling close", &v10, 0xCu);
+    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%@ (Base) Scheduling close", &v9, 0xCu);
   }
 
   [(HAP2AccessoryServerTransportBase *)self _closeWithError:errorCopy completion:completionCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendRequest:(id)request completion:(id)completion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   if (hap2LogInitialize_onceToken != -1)
@@ -493,19 +486,17 @@ uint64_t __60__HAP2AccessoryServerTransportBase_updateMaxRequestTimeout___block_
   v8 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
   {
-    v12 = 138412546;
+    v11 = 138412546;
     selfCopy = self;
-    v14 = 2112;
-    v15 = requestCopy;
-    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%@ (Base) Scheduling send for request %@", &v12, 0x16u);
+    v13 = 2112;
+    v14 = requestCopy;
+    _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_INFO, "%@ (Base) Scheduling send for request %@", &v11, 0x16u);
   }
 
   v9 = [[HAP2AccessoryServerTransportBaseOperationSendRequest alloc] initWithTransport:self request:requestCopy completion:completionCopy];
 
   operationQueue = [(HAP2AccessoryServerTransportBase *)self operationQueue];
   [operationQueue addOperation:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HAP2AccessoryServerTransportBase__sendRequestWithOperation___block_invoke(uint64_t a1)
@@ -555,7 +546,7 @@ LABEL_14:
 
 void __62__HAP2AccessoryServerTransportBase__sendRequestWithOperation___block_invoke_33(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if ([*(a1 + 32) isCancelled])
@@ -569,9 +560,9 @@ void __62__HAP2AccessoryServerTransportBase__sendRequestWithOperation___block_in
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
     {
       v9 = *(a1 + 40);
-      *v18 = 138412290;
-      *&v18[4] = v9;
-      _os_log_debug_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%@ (Base) Operation was canceled", v18, 0xCu);
+      *v17 = 138412290;
+      *&v17[4] = v9;
+      _os_log_debug_impl(&dword_22AADC000, v8, OS_LOG_TYPE_DEBUG, "%@ (Base) Operation was canceled", v17, 0xCu);
     }
   }
 
@@ -594,12 +585,12 @@ void __62__HAP2AccessoryServerTransportBase__sendRequestWithOperation___block_in
           v12 = *(v12 + 288);
         }
 
-        *v18 = 138412546;
-        *&v18[4] = v11;
-        *&v18[12] = 2112;
-        *&v18[14] = v12;
+        *v17 = 138412546;
+        *&v17[4] = v11;
+        *&v17[12] = 2112;
+        *&v17[14] = v12;
         v13 = v10;
-        _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%@ (Base) Received response for request %@", v18, 0x16u);
+        _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, "%@ (Base) Received response for request %@", v17, 0x16u);
       }
 
       v14 = *(a1 + 32);
@@ -621,24 +612,22 @@ void __62__HAP2AccessoryServerTransportBase__sendRequestWithOperation___block_in
     {
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
       {
-        v17 = *(a1 + 40);
-        *v18 = 138412546;
-        *&v18[4] = v17;
-        *&v18[12] = 2112;
-        *&v18[14] = v7;
-        _os_log_error_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%@ (Base) Failed to send: %@", v18, 0x16u);
+        v16 = *(a1 + 40);
+        *v17 = 138412546;
+        *&v17[4] = v16;
+        *&v17[12] = 2112;
+        *&v17[14] = v7;
+        _os_log_error_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%@ (Base) Failed to send: %@", v17, 0x16u);
       }
 
       [*(a1 + 32) finishWithError:v7];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openWithCompletion:(id)completion
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (hap2LogInitialize_onceToken != -1)
   {
@@ -648,17 +637,15 @@ void __62__HAP2AccessoryServerTransportBase__sendRequestWithOperation___block_in
   v5 = hap2Log_accessory;
   if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
+    v8 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%@ (Base) Scheduling open", &v9, 0xCu);
+    _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%@ (Base) Scheduling open", &v8, 0xCu);
   }
 
   v6 = [[HAP2AccessoryServerTransportBaseOperationOpen alloc] initWithTransport:self completion:completionCopy];
 
   operationQueue = [(HAP2AccessoryServerTransportBase *)self operationQueue];
   [operationQueue addOperation:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke(uint64_t a1)
@@ -694,7 +681,7 @@ void __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke(ui
 
 void __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_23(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if ([*(a1 + 32) isCancelled])
@@ -707,9 +694,9 @@ void __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_23
     v9 = hap2Log_accessory;
     if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEBUG))
     {
-      v27 = *(a1 + 40);
+      v26 = *(a1 + 40);
       *buf = 138412290;
-      v40 = v27;
+      v39 = v26;
       _os_log_debug_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEBUG, "%@ (Base) Operation was canceled", buf, 0xCu);
     }
 
@@ -746,39 +733,39 @@ void __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_23
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v40 = WeakRetained;
-        v41 = 2112;
-        v42 = v8;
+        v39 = WeakRetained;
+        v40 = 2112;
+        v41 = v8;
         _os_log_error_impl(&dword_22AADC000, v16, OS_LOG_TYPE_ERROR, "%@ (Base) Failed to open: %@", buf, 0x16u);
       }
 
       v17 = [WeakRetained propertyLock];
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_24;
-      v38[3] = &unk_2786D6CA0;
-      v38[4] = WeakRetained;
-      [v17 performWritingBlock:v38];
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_24;
+      v37[3] = &unk_2786D6CA0;
+      v37[4] = WeakRetained;
+      [v17 performWritingBlock:v37];
 
       [WeakRetained didChangeStateWithError:v8];
       v18 = [WeakRetained propertyLock];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_2;
-      v37[3] = &unk_2786D6CA0;
-      v37[4] = WeakRetained;
-      [v18 performWritingBlock:v37];
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_2;
+      v36[3] = &unk_2786D6CA0;
+      v36[4] = WeakRetained;
+      [v18 performWritingBlock:v36];
 
       v19 = [WeakRetained delegateQueue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_3;
       block[3] = &unk_2786D5F70;
-      v35 = v14;
-      v36 = a2;
-      v33 = v7;
+      v34 = v14;
+      v35 = a2;
+      v32 = v7;
       v20 = v8;
-      v34 = v20;
+      v33 = v20;
       v21 = v14;
       dispatch_async(v19, block);
 
@@ -786,7 +773,7 @@ void __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_23
       [*(a1 + 32) finishWithError:v20];
       [*(a1 + 48) invalidate];
 
-      v22 = v35;
+      v22 = v34;
     }
 
     else
@@ -794,37 +781,35 @@ void __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_23
       if (os_log_type_enabled(hap2Log_accessory, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v40 = WeakRetained;
+        v39 = WeakRetained;
         _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_DEFAULT, "%@ (Base) Opened", buf, 0xCu);
       }
 
       v23 = [WeakRetained propertyLock];
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_25;
-      v31[3] = &unk_2786D6CA0;
-      v31[4] = WeakRetained;
-      [v23 performWritingBlock:v31];
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_25;
+      v30[3] = &unk_2786D6CA0;
+      v30[4] = WeakRetained;
+      [v23 performWritingBlock:v30];
 
       v24 = [WeakRetained delegateQueue];
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_2_26;
-      v28[3] = &unk_2786D65D8;
-      v30 = v14;
-      v29 = v7;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __55__HAP2AccessoryServerTransportBase__openWithOperation___block_invoke_2_26;
+      v27[3] = &unk_2786D65D8;
+      v29 = v14;
+      v28 = v7;
       v25 = v14;
-      dispatch_async(v24, v28);
+      dispatch_async(v24, v27);
 
       [WeakRetained didChangeStateWithError:0];
       [*(a1 + 32) finish];
       [*(a1 + 48) invalidate];
 
-      v22 = v30;
+      v22 = v29;
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (HAP2AccessoryServerTransportCommon)underlyingTransport

@@ -394,7 +394,7 @@ void sub_1EFC(id a1)
 
 uint64_t sub_2024(void *a1, void *a2, uint64_t a3, unint64_t a4)
 {
-  v6 = [a2 objectForKeyedSubscript:?];
+  v6 = [a2 objectForKeyedSubscript:a3];
   v7 = v6;
   if (v6 && (v8 = [v6 intValue], v8 < a4))
   {
@@ -449,16 +449,16 @@ uint64_t sub_2CDC(uint64_t a1, void *a2)
   return _objc_release_x1();
 }
 
-id sub_30F4()
+id sub_30F4(uint64_t a1)
 {
   if (qword_15800 != -1)
   {
     sub_60E4();
   }
 
-  v1 = qword_157F8;
+  v2 = qword_157F8;
 
-  return v1;
+  return v2;
 }
 
 CGPath *sub_3360(uint64_t a1, uint64_t a2, float64_t a3, float64_t a4)
@@ -507,7 +507,7 @@ CGPath *sub_3360(uint64_t a1, uint64_t a2, float64_t a3, float64_t a4)
   return Mutable;
 }
 
-id sub_4588(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
+CAAnimationGroup *sub_4588(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
 {
   v11 = a6;
   v12 = a5;
@@ -527,7 +527,7 @@ id sub_4588(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *
   return v13;
 }
 
-id sub_46E0(uint64_t a1, uint64_t a2, void *a3)
+CABasicAnimation *sub_46E0(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
   v6 = objc_opt_new();
@@ -543,7 +543,7 @@ id sub_46E0(uint64_t a1, uint64_t a2, void *a3)
   return v6;
 }
 
-id sub_479C(void *a1, uint64_t a2, int a3, uint64_t a4, int a5, CGColor *a6, void *a7)
+CAAnimationGroup *sub_479C(void *a1, uint64_t a2, int a3, uint64_t a4, int a5, CGColor *a6, void *a7)
 {
   v13 = a7;
   if (a3 && a5)
@@ -595,7 +595,7 @@ id sub_479C(void *a1, uint64_t a2, int a3, uint64_t a4, int a5, CGColor *a6, voi
   return v14;
 }
 
-id sub_4980(uint64_t a1, uint64_t a2, void *a3, void *a4)
+CABasicAnimation *sub_4980(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v7 = a4;
   v8 = a3;

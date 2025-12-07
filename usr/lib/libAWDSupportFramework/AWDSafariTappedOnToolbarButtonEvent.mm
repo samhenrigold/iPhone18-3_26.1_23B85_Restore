@@ -1,5 +1,6 @@
 @interface AWDSafariTappedOnToolbarButtonEvent
 - (BOOL)isEqual:(id)equal;
+- (id)buttonAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -41,6 +42,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)buttonAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32F30[string];
+  }
 }
 
 - (int)StringAsButton:(id)button
@@ -180,7 +194,6 @@ LABEL_4:
     }
 
 LABEL_6:
-    button = self->_button;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 4) == 0)
     {
@@ -190,7 +203,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) != 0)
@@ -205,7 +217,6 @@ LABEL_3:
   }
 
 LABEL_7:
-  usedLongTap = self->_usedLongTap;
 
   PBDataWriterWriteBOOLField();
 }

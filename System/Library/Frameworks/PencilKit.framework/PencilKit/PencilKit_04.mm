@@ -61,7 +61,7 @@ void (*protocol witness for Collection.subscript.read in conformance PKStrokePat
 
   else
   {
-    result = _assertionFailure(_:_:file:line:flags:)();
+    result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
     __break(1u);
   }
 
@@ -295,7 +295,7 @@ uint64_t static PKStrokePath._conditionallyBridgeFromObjectiveC(_:result:)(void 
   return 1;
 }
 
-unint64_t lazy protocol witness table accessor for type PKStrokePath and conformance PKStrokePath()
+unint64_t lazy protocol witness table accessor for type PKStrokePath and conformance PKStrokePath(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type PKStrokePath and conformance PKStrokePath;
   if (!lazy protocol witness table cache variable for type PKStrokePath and conformance PKStrokePath)
@@ -340,7 +340,7 @@ unint64_t lazy protocol witness table accessor for type PKStrokePath and conform
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Int and conformance Int()
+unint64_t lazy protocol witness table accessor for type Int and conformance Int(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Int and conformance Int;
   if (!lazy protocol witness table cache variable for type Int and conformance Int)
@@ -352,12 +352,12 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<PKStrokePath> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<PKStrokePath> and conformance <> Slice<A>(unint64_t *a1, uint64_t (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVy9PencilKit12PKStrokePathVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5SliceVy9PencilKit12PKStrokePathVGMd, &_ss5SliceVy9PencilKit12PKStrokePathVGMR);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, a1);
@@ -366,13 +366,13 @@ uint64_t lazy protocol witness table accessor for type Slice<PKStrokePath> and c
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSnySiGMd);
-    lazy protocol witness table accessor for type Int and conformance Int();
+    v4 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSnySiGMd, &_sSnySiGMR);
+    lazy protocol witness table accessor for type Int and conformance Int(v4, v5, v6);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -682,7 +682,7 @@ LABEL_33:
 LABEL_34:
   __break(1u);
 LABEL_35:
-  result = _assertionFailure(_:_:file:line:flags:)();
+  result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
   __break(1u);
   return result;
 }
@@ -748,7 +748,7 @@ LABEL_15:
 
   __break(1u);
 LABEL_18:
-  result = _assertionFailure(_:_:file:line:flags:)();
+  result = _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "PencilKit/PKStrokePoint.swift", 29, 2, 92, 0);
   __break(1u);
   return result;
 }
@@ -890,7 +890,7 @@ void std::vector<ClipperLib::IntPoint>::push_back[abi:ne200100](uint64_t a1, __i
   *(a1 + 8) = v7;
 }
 
-uint64_t std::vector<std::vector<ClipperLib::IntPoint>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<ClipperLib::IntPoint>>::push_back[abi:ne200100](uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -901,7 +901,7 @@ uint64_t std::vector<std::vector<ClipperLib::IntPoint>>::push_back[abi:ne200100]
   else
   {
     std::vector<std::vector<ClipperLib::IntPoint>>::__construct_one_at_end[abi:ne200100]<std::vector<ClipperLib::IntPoint> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -965,7 +965,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<ClipperLib::IntPoint>
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::vector<ClipperLib::IntPoint>>::__construct_one_at_end[abi:ne200100]<std::vector<ClipperLib::IntPoint> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<ClipperLib::IntPoint>>::__construct_one_at_end[abi:ne200100]<std::vector<ClipperLib::IntPoint> const&>(uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -976,21 +976,21 @@ uint64_t std::vector<std::vector<ClipperLib::IntPoint>>::__construct_one_at_end[
   return result;
 }
 
-uint64_t std::vector<std::vector<ClipperLib::IntPoint>>::__emplace_back_slow_path<std::vector<ClipperLib::IntPoint> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<ClipperLib::IntPoint>>::__emplace_back_slow_path<std::vector<ClipperLib::IntPoint> const&>(char **a1, const void **a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -1014,16 +1014,16 @@ uint64_t std::vector<std::vector<ClipperLib::IntPoint>>::__emplace_back_slow_pat
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(24 * v2, *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
+  std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>((24 * v2), *a2, a2[1], 0xAAAAAAAAAAAAAAABLL * ((a2[1] - *a2) >> 3));
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -1032,14 +1032,14 @@ uint64_t std::vector<std::vector<ClipperLib::IntPoint>>::__emplace_back_slow_pat
   return v8;
 }
 
-void sub_1C7D25378(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7D25378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<ClipperLib::IntPoint>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1061,7 +1061,7 @@ void sub_1C7D253EC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<ClipperLib::IntPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ClipperLib::IntPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1216,7 +1216,7 @@ void sub_1C7D263AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C7D27654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
+void sub_1C7D27654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34)
 {
   _Block_object_dispose(&a29, 8);
 
@@ -1811,7 +1811,7 @@ Class __getBETextDocumentRequestClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1822,24 +1822,24 @@ LABEL_4:
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "BETextDocumentRequest");
   }
 
   qword_1ED6A4F30 = *(*(*(a1 + 32) + 8) + 24);
   return result;
 }
 
-uint64_t __BrowserEngineKitLibraryCore_block_invoke()
+uint64_t __BrowserEngineKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_1ED6A4F38 = result;
   return result;
 }
 
-void sub_1C7D2BB70(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C7D2BB70(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PKSelectionView;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -1899,7 +1899,7 @@ void sub_1C7D323E4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7D34088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
+void sub_1C7D34088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id a28)
 {
   _Block_object_dispose(&a23, 8);
 
@@ -1970,7 +1970,7 @@ void sub_1C7D3B81C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7D3CCAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25)
+void sub_1C7D3CCAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25)
 {
   if (__p)
   {
@@ -1989,14 +1989,12 @@ void sub_1C7D3CCAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 __n128 __Block_byref_object_copy__1(__n128 *a1, __n128 *a2)
 {
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
+  a1[3] = 0uLL;
   a1[4].n128_u64[0] = 0;
   result = a2[3];
   a1[3] = result;
   a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
+  a2[3] = 0uLL;
   a2[4].n128_u64[0] = 0;
   return result;
 }
@@ -2046,7 +2044,7 @@ void sub_1C7D430C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7D43E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1C7D43E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -2080,10 +2078,11 @@ __n128 __Block_byref_object_copy__444(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1C7D47A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1C7D47A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a28);
 
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -2268,7 +2267,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[PKT
             a1 = v3 + 4;
           }
 
-          v5 = (a2 - 4);
+          v5 = a2 - 4;
           goto LABEL_31;
         }
 
@@ -2277,8 +2276,8 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[PKT
           return 1;
         }
 
-        v6 = (a1 + 4);
-        v7 = (a2 - 4);
+        v6 = a1 + 4;
+        v7 = a2 - 4;
         break;
       case 4:
         std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,-[PKTiledView updateTilesForVisibleRectRendering:offscreen:overrideAdditionalStrokes:]::$_0 &,AttachmentTileInfo *,0>(a1, (a1 + 4), (a1 + 8), (a2 - 4));
@@ -2302,8 +2301,8 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[PKT
           return 1;
         }
 
-        v6 = (v3 + 4);
-        v7 = (v3 + 8);
+        v6 = v3 + 4;
+        v7 = v3 + 8;
         break;
       default:
         goto LABEL_16;
@@ -2312,7 +2311,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[PKT
     std::_IterOps<std::_ClassicAlgPolicy>::iter_swap[abi:ne200100]<AttachmentTileInfo *&,AttachmentTileInfo *&>(v6, v7);
     if (v3[7] < v3[3])
     {
-      v5 = (v3 + 4);
+      v5 = v3 + 4;
       goto LABEL_24;
     }
 
@@ -2328,7 +2327,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[PKT
   {
     if (*(a2 - 1) < a1[3])
     {
-      v5 = (a2 - 4);
+      v5 = a2 - 4;
 LABEL_24:
       a1 = v3;
 LABEL_31:
@@ -2436,10 +2435,11 @@ LABEL_44:
   }
 }
 
-void sub_1C7D57330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_1C7D57330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
-  _Block_object_dispose(&a28, 8);
-  _Block_object_dispose((v28 - 168), 8);
+  va_start(va, a27);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v27 - 168), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2464,9 +2464,9 @@ void sub_1C7D5CD3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7D639D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C7D639D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2478,25 +2478,25 @@ void sub_1C7D645C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7D647C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C7D647C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va2, a9);
-  va_start(va1, a9);
-  va_start(va, a9);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va2, a16);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   va_copy(va2, va1);
-  v17 = va_arg(va2, void);
-  v19 = va_arg(va2, void);
-  v20 = va_arg(va2, void);
-  v21 = va_arg(va2, void);
+  v24 = va_arg(va2, void);
+  v26 = va_arg(va2, void);
+  v27 = va_arg(va2, void);
+  v28 = va_arg(va2, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va2, 8);
-  _Block_object_dispose((v10 - 96), 8);
-  objc_sync_exit(v9);
+  _Block_object_dispose((v17 - 96), 8);
+  objc_sync_exit(v16);
 
   _Unwind_Resume(a1);
 }
@@ -2512,7 +2512,7 @@ double _PKVectorSafeGet(void *a1, int a2)
   return *(*a1 + 8 * v2);
 }
 
-void _PKTriangularWindow(int a1, const void **a2)
+void _PKTriangularWindow(unsigned int a1, const void **a2)
 {
   if (a1 >= 1)
   {
@@ -2536,7 +2536,7 @@ void _PKTriangularWindow(int a1, const void **a2)
         v12 = -v10;
       }
 
-      v13[0] = (a1 - v12) / v8 * v9;
+      *v13 = (a1 - v12) / v8 * v9;
       std::vector<double>::push_back[abi:ne200100](a2, v13);
       v10 += 2;
       --v11;
@@ -2573,7 +2573,7 @@ void _PKTrapezoidWindow(int a1, int a2, const void **a3)
       v17 = v13 / 2;
       do
       {
-        v20[0] = v16 / v14 * v15;
+        *v20 = v16 / v14 * v15;
         std::vector<double>::push_back[abi:ne200100](a3, v20);
         v16 = v16 + 1.0;
         --v17;
@@ -2584,7 +2584,7 @@ void _PKTrapezoidWindow(int a1, int a2, const void **a3)
 
     for (; v11; --v11)
     {
-      v20[0] = v15;
+      *v20 = v15;
       std::vector<double>::push_back[abi:ne200100](a3, v20);
     }
 
@@ -2594,7 +2594,7 @@ void _PKTrapezoidWindow(int a1, int a2, const void **a3)
       v19 = 0.0;
       do
       {
-        v20[0] = (1.0 - v19 / v18) * v15;
+        *v20 = (1.0 - v19 / v18) * v15;
         std::vector<double>::push_back[abi:ne200100](a3, v20);
         v19 = v19 + 1.0;
         --v14;
@@ -2605,9 +2605,9 @@ void _PKTrapezoidWindow(int a1, int a2, const void **a3)
   }
 }
 
-void _PKConvolve(uint64_t *a1, void *a2, const void **a3)
+void _PKConvolve(uint64_t a1, void *a2, const void **a3)
 {
-  if (a1[1] != *a1)
+  if (*(a1 + 8) != *a1)
   {
     v6 = 0;
     do
@@ -2624,7 +2624,7 @@ void _PKConvolve(uint64_t *a1, void *a2, const void **a3)
           v12 = 0;
           v13 = 0;
           v14 = 0;
-          std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v12, *a1, a1[1], (a1[1] - *a1) >> 3);
+          std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(&v12, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 3);
           if (v8 >= (a2[1] - *a2) >> 3)
           {
             std::vector<double>::__throw_out_of_range[abi:ne200100]();
@@ -2655,7 +2655,7 @@ void _PKConvolve(uint64_t *a1, void *a2, const void **a3)
       std::vector<double>::push_back[abi:ne200100](a3, &v15);
     }
 
-    while (v6 < (a1[1] - *a1) >> 3);
+    while (v6 < (*(a1 + 8) - *a1) >> 3);
   }
 }
 
@@ -2808,7 +2808,7 @@ void sub_1C7D669F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void PKSmoothedCurvature(uint64_t *a1, const void **a2)
+void PKSmoothedCurvature(uint64_t a1, const void **a2)
 {
   v15 = 0;
   v16 = 0;
@@ -2816,7 +2816,7 @@ void PKSmoothedCurvature(uint64_t *a1, const void **a2)
   v13 = 0;
   v14 = 0;
   v12 = 0;
-  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(&v12, *a1, a1[1], (a1[1] - *a1) >> 4);
+  std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(&v12, *a1, *(a1 + 8), (*(a1 + 8) - *a1) >> 4);
   _PKCurvature(&v12, &v15);
   if (v12)
   {
@@ -3140,7 +3140,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<_PKStrokePoint>>(uint
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CGPoint>::__init_with_size[abi:ne200100]<CGPoint*,CGPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3162,7 +3162,7 @@ void sub_1C7D67190(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CGPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -3189,14 +3189,14 @@ double legacy_drawing::VectorTimestampClock::VectorTimestampClock(legacy_drawing
   return result;
 }
 
-void legacy_drawing::VectorTimestampClock::~VectorTimestampClock(legacy_drawing::VectorTimestampClock *this)
+void legacy_drawing::VectorTimestampClock::~VectorTimestampClock(void ***this)
 {
   *this = &unk_1F4768898;
   std::unique_ptr<PB::Data>::reset[abi:ne200100](this + 4, 0);
-  if (*(this + 1))
+  if (this[1])
   {
     std::vector<std::unique_ptr<legacy_drawing::VectorTimestampClockReplicaClock>>::clear[abi:ne200100](this + 1);
-    operator delete(*(this + 1));
+    operator delete(this[1]);
   }
 
   PB::Base::~Base(this);
@@ -3208,29 +3208,30 @@ void legacy_drawing::VectorTimestampClock::~VectorTimestampClock(legacy_drawing:
   JUMPOUT(0x1CCA6ECB0);
 }
 
-uint64_t legacy_drawing::VectorTimestampClock::VectorTimestampClock(uint64_t this, const legacy_drawing::VectorTimestampClock *a2)
+legacy_drawing::VectorTimestampClock *legacy_drawing::VectorTimestampClock::VectorTimestampClock(legacy_drawing::VectorTimestampClock *this, const PB::Data **a2)
 {
   *this = &unk_1F4768898;
   *(this + 8) = 0u;
   *(this + 24) = 0u;
-  if (*(a2 + 4))
+  if (a2[4])
   {
     operator new();
   }
 
-  if (*(a2 + 1) != *(a2 + 2))
+  v2 = a2[1];
+  if (v2 != a2[2])
   {
-    PB::PtrVector<legacy_drawing::VectorTimestampClockReplicaClock>::emplace_back<legacy_drawing::VectorTimestampClockReplicaClock const&>();
+    PB::PtrVector<legacy_drawing::VectorTimestampClockReplicaClock>::emplace_back<legacy_drawing::VectorTimestampClockReplicaClock const&>(this + 8, *v2);
   }
 
   return this;
 }
 
-uint64_t legacy_drawing::VectorTimestampClock::operator=(uint64_t a1, const legacy_drawing::VectorTimestampClock *a2)
+uint64_t legacy_drawing::VectorTimestampClock::operator=(uint64_t a1, const PB::Data **a2)
 {
   if (a1 != a2)
   {
-    legacy_drawing::VectorTimestampClock::VectorTimestampClock(v7, a2);
+    legacy_drawing::VectorTimestampClock::VectorTimestampClock(&v7, a2);
     v3 = v9;
     v4 = *(a1 + 8);
     *(a1 + 8) = v8;
@@ -3238,7 +3239,7 @@ uint64_t legacy_drawing::VectorTimestampClock::operator=(uint64_t a1, const lega
     *(a1 + 24) = v3;
     v8 = v4;
     v9 = v5;
-    legacy_drawing::VectorTimestampClock::~VectorTimestampClock(v7);
+    legacy_drawing::VectorTimestampClock::~VectorTimestampClock(&v7);
   }
 
   return a1;
@@ -3291,7 +3292,7 @@ uint64_t legacy_drawing::VectorTimestampClock::operator=(uint64_t a1, uint64_t a
 {
   if (a1 != a2)
   {
-    legacy_drawing::VectorTimestampClock::VectorTimestampClock(v7, a2);
+    legacy_drawing::VectorTimestampClock::VectorTimestampClock(&v7, a2);
     v3 = v9;
     v4 = *(a1 + 8);
     *(a1 + 8) = v8;
@@ -3299,7 +3300,7 @@ uint64_t legacy_drawing::VectorTimestampClock::operator=(uint64_t a1, uint64_t a
     *(a1 + 24) = v3;
     v8 = v4;
     v9 = v5;
-    legacy_drawing::VectorTimestampClock::~VectorTimestampClock(v7);
+    legacy_drawing::VectorTimestampClock::~VectorTimestampClock(&v7);
   }
 
   return a1;
@@ -3333,49 +3334,49 @@ uint64_t legacy_drawing::VectorTimestampClock::readFrom(legacy_drawing::VectorTi
   {
     while (1)
     {
-      v6 = *a2;
+      v7 = *a2;
       if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
       {
         break;
       }
 
-      v7 = 0;
       v8 = 0;
       v9 = 0;
-      v10 = (v6 + v2);
-      v11 = v2 + 1;
+      v10 = 0;
+      v11 = (v7 + v2);
+      v12 = v2 + 1;
       while (1)
       {
-        *(a2 + 1) = v11;
-        v12 = *v10++;
-        v9 |= (v12 & 0x7F) << v7;
-        if ((v12 & 0x80) == 0)
+        *(a2 + 1) = v12;
+        v13 = *v11++;
+        v10 |= (v13 & 0x7F) << v8;
+        if ((v13 & 0x80) == 0)
         {
           break;
         }
 
-        v7 += 7;
-        ++v11;
-        v13 = v8++ > 8;
-        if (v13)
+        v8 += 7;
+        ++v12;
+        v14 = v9++ > 8;
+        if (v14)
         {
           goto LABEL_22;
         }
       }
 
 LABEL_18:
-      if ((v9 & 7) == 4)
+      if ((v10 & 7) == 4)
       {
         v4 = 0;
         goto LABEL_28;
       }
 
-      if ((v9 >> 3) == 2)
+      if ((v10 >> 3) == 2)
       {
-        PB::PtrVector<legacy_drawing::VectorTimestampClockReplicaClock>::emplace_back<>();
+        PB::PtrVector<legacy_drawing::VectorTimestampClockReplicaClock>::emplace_back<>(this + 8);
       }
 
-      if ((v9 >> 3) == 1)
+      if ((v10 >> 3) == 1)
       {
         operator new();
       }
@@ -3383,8 +3384,8 @@ LABEL_18:
 LABEL_22:
       if ((PB::Reader::skip(a2) & 1) == 0)
       {
-        v21 = 0;
-        return v21 & 1;
+        v22 = 0;
+        return v22 & 1;
       }
 
       v2 = *(a2 + 1);
@@ -3396,34 +3397,34 @@ LABEL_22:
       }
     }
 
-    v14 = 0;
     v15 = 0;
-    v9 = 0;
-    v16 = (v6 + v2);
-    v17 = v3 >= v2;
-    v18 = v3 - v2;
-    if (!v17)
+    v16 = 0;
+    v10 = 0;
+    v17 = (v7 + v2);
+    v18 = v3 >= v2;
+    v19 = v3 - v2;
+    if (!v18)
     {
-      v18 = 0;
+      v19 = 0;
     }
 
-    v19 = v2 + 1;
-    while (v18)
+    v20 = v2 + 1;
+    while (v19)
     {
-      v20 = *v16;
-      *(a2 + 1) = v19;
-      v9 |= (v20 & 0x7F) << v14;
-      if ((v20 & 0x80) == 0)
+      v21 = *v17;
+      *(a2 + 1) = v20;
+      v10 |= (v21 & 0x7F) << v15;
+      if ((v21 & 0x80) == 0)
       {
         goto LABEL_18;
       }
 
-      v14 += 7;
-      ++v16;
-      --v18;
-      ++v19;
-      v13 = v15++ > 8;
-      if (v13)
+      v15 += 7;
+      ++v17;
+      --v19;
+      ++v20;
+      v14 = v16++ > 8;
+      if (v14)
       {
         goto LABEL_22;
       }
@@ -3434,8 +3435,8 @@ LABEL_22:
   }
 
 LABEL_28:
-  v21 = v4 ^ 1;
-  return v21 & 1;
+  v22 = v4 ^ 1;
+  return v22 & 1;
 }
 
 uint64_t legacy_drawing::VectorTimestampClock::writeTo(uint64_t this, PB::Writer *a2)
@@ -3663,17 +3664,17 @@ void sub_1C7D6AE1C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1C7D6CB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C7D6CB94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7D6E030(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7D6E030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<PKProtobufUnknownFields>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3707,18 +3708,18 @@ PB::Writer ***std::unique_ptr<PKProtobufUnknownFields>::~unique_ptr[abi:ne200100
   return a1;
 }
 
-uint64_t *std::shared_ptr<PKProtobufUnknownFields>::shared_ptr[abi:ne200100]<PKProtobufUnknownFields,std::default_delete<PKProtobufUnknownFields>,0>(uint64_t *result, uint64_t *a2)
+uint64_t *std::shared_ptr<PKProtobufUnknownFields>::shared_ptr[abi:ne200100]<PKProtobufUnknownFields,std::default_delete<PKProtobufUnknownFields>,0>(uint64_t *a1, uint64_t *a2)
 {
   v2 = *a2;
-  *result = *a2;
+  *a1 = *a2;
   if (v2)
   {
     operator new();
   }
 
-  result[1] = 0;
+  a1[1] = 0;
   *a2 = 0;
-  return result;
+  return a1;
 }
 
 void std::__shared_ptr_pointer<PKProtobufUnknownFields  *>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -3866,19 +3867,19 @@ void LogTouchIfEnabled(UITouch *a1, int a2)
   }
 }
 
-void std::vector<PKInputPoint>::resize(void *a1, unint64_t a2)
+void std::vector<PKInputPoint>::resize(void *result, unint64_t a2)
 {
-  v2 = 0xF0F0F0F0F0F0F0F1 * ((a1[1] - *a1) >> 3);
+  v2 = 0xF0F0F0F0F0F0F0F1 * ((result[1] - *result) >> 3);
   v3 = a2 >= v2;
   v4 = a2 - v2;
   if (v4 != 0 && v3)
   {
-    std::vector<PKInputPoint>::__append(a1, v4);
+    std::vector<PKInputPoint>::__append(result, v4);
   }
 
   else if (!v3)
   {
-    a1[1] = *a1 + 136 * a2;
+    result[1] = *result + 136 * a2;
   }
 }
 
@@ -3979,19 +3980,17 @@ void std::vector<PKInputPoint>::push_back[abi:ne200100](uint64_t a1, uint64_t a2
   *(a1 + 8) = v12;
 }
 
-void *std::vector<PKInputPoint>::reserve(void *result, unint64_t a2)
+void std::vector<PKInputPoint>::reserve(void *a1, unint64_t a2)
 {
-  if (0xF0F0F0F0F0F0F0F1 * ((result[2] - *result) >> 3) < a2)
+  if (0xF0F0F0F0F0F0F0F1 * ((a1[2] - *a1) >> 3) < a2)
   {
     if (a2 < 0x1E1E1E1E1E1E1E2)
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<PKInputPoint>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<PKInputPoint>>(a1, a2);
     }
 
     std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_1C7D7E534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, void *a16, void *a17)
@@ -4009,12 +4008,12 @@ void sub_1C7D823E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ___ZL22PKShouldLogTouchEventsv_block_invoke()
+void ___ZL22PKShouldLogTouchEventsv_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_variant_has_internal_diagnostics())
   {
-    v0 = [MEMORY[0x1E695E000] standardUserDefaults];
-    _MergedGlobals_289_0 = [v0 BOOLForKey:@"PKLogTouchEventsInPencilKit"];
+    v2 = [MEMORY[0x1E695E000] standardUserDefaults];
+    _MergedGlobals_289_0 = [v2 BOOLForKey:@"PKLogTouchEventsInPencilKit"];
   }
 
   else
@@ -4110,7 +4109,7 @@ void ___ZL29PKRenderAfterTouchRollUpdatesv_block_invoke()
   byte_1EC291562 = [v0 BOOLForKey:@"PKRenderAfterTouchRollUpdates"];
 }
 
-uint64_t std::vector<PKInputPoint>::__init_with_size[abi:ne200100]<PKInputPoint*,PKInputPoint*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<PKInputPoint>::__init_with_size[abi:ne200100]<PKInputPoint*,PKInputPoint*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4132,7 +4131,7 @@ void sub_1C7D846B8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<PKInputPoint>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PKInputPoint>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1E1E1E1E1E1E1E2)
   {
@@ -4148,10 +4147,10 @@ void ___ZL34PKAlwaysRenderLiveStrokesAsPreviewv_block_invoke()
   byte_1EC291563 = [v0 BOOLForKey:@"PKAlwaysRenderLiveStrokesAsPreview"];
 }
 
-void sub_1C7D849EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C7D849EC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = PKTitleQuery;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -4322,7 +4321,7 @@ void _PKHandleProofreadingSettingsDidChange(uint64_t a1, void *a2)
   v6 = v5;
   if (v5)
   {
-    v7 = *(v5 + 1);
+    v7 = v5[1];
     if (v7)
     {
       (*(v7 + 16))(v7, v6);
@@ -4489,6 +4488,7 @@ drawing::Stroke *drawing::Stroke::Stroke(drawing::Stroke *this, const drawing::S
   *(this + 13) = 0;
   *(this + 15) = 0;
   *(this + 136) = 0u;
+  v5 = (this + 136);
   *(this + 24) = 0;
   *(this + 25) = 0;
   *(this + 24) = 0u;
@@ -4496,23 +4496,23 @@ drawing::Stroke *drawing::Stroke::Stroke(drawing::Stroke *this, const drawing::S
   *(this + 14) = 0;
   *(this + 152) = 0u;
   *(this + 168) = 0u;
-  v5 = *(a2 + 24);
-  v6 = *(a2 + 25);
-  if (v6)
+  v6 = *(a2 + 24);
+  v7 = *(a2 + 25);
+  if (v7)
   {
-    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-    v7 = *(this + 25);
-    *(this + 24) = v5;
-    *(this + 25) = v6;
-    if (v7)
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+    v8 = *(this + 25);
+    *(this + 24) = v6;
+    *(this + 25) = v7;
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
   }
 
   else
   {
-    *(this + 24) = v5;
+    *(this + 24) = v6;
     *(this + 25) = 0;
   }
 
@@ -4534,9 +4534,9 @@ drawing::Stroke *drawing::Stroke::Stroke(drawing::Stroke *this, const drawing::S
 
   if (*(a2 + 184))
   {
-    v8 = *(a2 + 6);
+    v9 = *(a2 + 6);
     *(this + 184) |= 1u;
-    *(this + 6) = v8;
+    *(this + 6) = v9;
   }
 
   if (*(a2 + 14))
@@ -4556,9 +4556,9 @@ drawing::Stroke *drawing::Stroke::Stroke(drawing::Stroke *this, const drawing::S
 
   if ((*(a2 + 184) & 4) != 0)
   {
-    v9 = *(a2 + 16);
+    v10 = *(a2 + 16);
     *(this + 184) |= 4u;
-    *(this + 16) = v9;
+    *(this + 16) = v10;
   }
 
   if (*(a2 + 20))
@@ -4571,88 +4571,89 @@ drawing::Stroke *drawing::Stroke::Stroke(drawing::Stroke *this, const drawing::S
     std::vector<PB::Data>::__assign_with_size[abi:ne200100]<PB::Data*,PB::Data*>(this + 64, *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 4);
   }
 
-  if (*(a2 + 17) != *(a2 + 18))
+  v11 = *(a2 + 17);
+  if (v11 != *(a2 + 18))
   {
-    PB::PtrVector<drawing::Stroke>::emplace_back<drawing::Stroke const&>();
+    PB::PtrVector<drawing::Stroke>::emplace_back<drawing::Stroke const&>(v5, *v11);
   }
 
   if (this != a2)
   {
-    v10 = *(a2 + 1);
-    v11 = *(a2 + 2);
-    v12 = v11 - v10;
-    v13 = *(this + 3);
-    v14 = *(this + 1);
-    if (v13 - v14 < (v11 - v10))
+    v12 = *(a2 + 1);
+    v13 = *(a2 + 2);
+    v14 = v13 - v12;
+    v15 = *(this + 3);
+    v16 = *(this + 1);
+    if (v15 - v16 < (v13 - v12))
     {
-      v15 = v12 >> 2;
-      if (v14)
+      v17 = v14 >> 2;
+      if (v16)
       {
-        *(this + 2) = v14;
-        operator delete(v14);
-        v13 = 0;
+        *(this + 2) = v16;
+        operator delete(v16);
+        v15 = 0;
         *v4 = 0;
         v4[1] = 0;
         v4[2] = 0;
       }
 
-      if (!(v15 >> 62))
+      if (!(v17 >> 62))
       {
-        v16 = v13 >> 1;
-        if (v13 >> 1 <= v15)
+        v18 = v15 >> 1;
+        if (v15 >> 1 <= v17)
         {
-          v16 = v12 >> 2;
+          v18 = v14 >> 2;
         }
 
-        if (v13 >= 0x7FFFFFFFFFFFFFFCLL)
+        if (v15 >= 0x7FFFFFFFFFFFFFFCLL)
         {
-          v17 = 0x3FFFFFFFFFFFFFFFLL;
+          v19 = 0x3FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v17 = v16;
+          v19 = v18;
         }
 
-        if (!(v17 >> 62))
+        if (!(v19 >> 62))
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(v4, v17);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(v4, v19);
         }
       }
 
       std::vector<CGPoint>::__throw_length_error[abi:ne200100]();
     }
 
-    v18 = *(this + 2);
-    v19 = v18 - v14;
-    if (v18 - v14 >= v12)
+    v20 = *(this + 2);
+    v21 = v20 - v16;
+    if (v20 - v16 >= v14)
     {
-      if (v11 != v10)
+      if (v13 != v12)
       {
-        memmove(*(this + 1), *(a2 + 1), v11 - v10);
+        memmove(*(this + 1), *(a2 + 1), v13 - v12);
       }
 
-      v21 = &v14[v12];
+      v23 = &v16[v14];
     }
 
     else
     {
-      v20 = &v10[v19];
-      if (v18 != v14)
+      v22 = &v12[v21];
+      if (v20 != v16)
       {
-        memmove(*(this + 1), *(a2 + 1), v19);
-        v18 = *(this + 2);
+        memmove(*(this + 1), *(a2 + 1), v21);
+        v20 = *(this + 2);
       }
 
-      if (v11 != v20)
+      if (v13 != v22)
       {
-        memmove(v18, v20, v11 - v20);
+        memmove(v20, v22, v13 - v22);
       }
 
-      v21 = &v18[v11 - v20];
+      v23 = &v20[v13 - v22];
     }
 
-    *(this + 2) = v21;
+    *(this + 2) = v23;
   }
 
   if (*(a2 + 5))
@@ -4662,9 +4663,9 @@ drawing::Stroke *drawing::Stroke::Stroke(drawing::Stroke *this, const drawing::S
 
   if ((*(a2 + 184) & 2) != 0)
   {
-    v22 = *(a2 + 12);
+    v24 = *(a2 + 12);
     *(this + 184) |= 2u;
-    *(this + 12) = v22;
+    *(this + 12) = v24;
   }
 
   if (*(a2 + 7))
@@ -4680,7 +4681,7 @@ drawing::Stroke *drawing::Stroke::Stroke(drawing::Stroke *this, const drawing::S
   return this;
 }
 
-uint64_t drawing::Stroke::operator=(uint64_t a1, const drawing::Stroke *a2)
+drawing *drawing::Stroke::operator=(drawing *a1, const drawing::Stroke *a2)
 {
   if (a1 != a2)
   {
@@ -5081,7 +5082,7 @@ uint64_t drawing::Stroke::readFrom(drawing::Stroke *this, PB::Reader *a2)
     while (!v14);
 LABEL_17:
     v22 = 0;
-    LODWORD(v23) = 0;
+    v23 = 0;
 LABEL_18:
     v24 = *(this + 24);
     if (!v24)
@@ -5339,7 +5340,7 @@ LABEL_126:
         PB::Reader::read(a2, (v42 - 16));
         goto LABEL_83;
       case 0xBu:
-        PB::PtrVector<drawing::Stroke>::emplace_back<>();
+        PB::PtrVector<drawing::Stroke>::emplace_back<>(this + 17);
       case 0xCu:
         if (v22 == 2)
         {
@@ -5869,7 +5870,7 @@ uint64_t drawing::Stroke::operator==(uint64_t a1, uint64_t a2)
       v20 += 16;
     }
 
-    result = PB::PtrVector<drawing::Stroke>::operator==((a1 + 136), (a2 + 136));
+    result = PB::PtrVector<drawing::Stroke>::operator==((a1 + 136), a2 + 136);
     if (result)
     {
       v22 = *(a1 + 8);
@@ -5959,12 +5960,12 @@ LABEL_74:
   return result;
 }
 
-uint64_t PB::PtrVector<drawing::Stroke>::operator==(void *a1, void *a2)
+uint64_t PB::PtrVector<drawing::Stroke>::operator==(uint64_t **a1, uint64_t a2)
 {
   v3 = *a1;
   v2 = a1[1];
   v4 = *a2;
-  if ((v2 - *a1) != (a2[1] - *a2))
+  if (v2 - *a1 != *(a2 + 8) - *a2)
   {
     return 0;
   }
@@ -6274,9 +6275,9 @@ LABEL_49:
   return v39 ^ v40 ^ v38 ^ v37 ^ v36 ^ v35 ^ v14 ^ v15 ^ v20 ^ v23 ^ v26 ^ v28 ^ v29 ^ v30 ^ v32 ^ v33;
 }
 
-uint64_t drawing::Stroke::makeSortID(uint64_t this)
+void *drawing::Stroke::makeSortID(void *this)
 {
-  if (!*(this + 104))
+  if (!this[13])
   {
     operator new();
   }
@@ -6284,9 +6285,9 @@ uint64_t drawing::Stroke::makeSortID(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Stroke::makeVersion(uint64_t this)
+void *drawing::Stroke::makeVersion(void *this)
 {
-  if (!*(this + 176))
+  if (!this[22])
   {
     operator new();
   }
@@ -6294,9 +6295,9 @@ uint64_t drawing::Stroke::makeVersion(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Stroke::makeStrokeData(uint64_t this)
+void *drawing::Stroke::makeStrokeData(void *this)
 {
-  if (!*(this + 112))
+  if (!this[14])
   {
     operator new();
   }
@@ -6304,9 +6305,9 @@ uint64_t drawing::Stroke::makeStrokeData(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Stroke::makeBounds(uint64_t this)
+void *drawing::Stroke::makeBounds(void *this)
 {
-  if (!*(this + 32))
+  if (!this[4])
   {
     operator new();
   }
@@ -6314,9 +6315,9 @@ uint64_t drawing::Stroke::makeBounds(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Stroke::makeTransform(uint64_t this)
+void *drawing::Stroke::makeTransform(void *this)
 {
-  if (!*(this + 168))
+  if (!this[21])
   {
     operator new();
   }
@@ -6324,9 +6325,9 @@ uint64_t drawing::Stroke::makeTransform(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Stroke::makeSubstrokesVersion(uint64_t this)
+void *drawing::Stroke::makeSubstrokesVersion(void *this)
 {
-  if (!*(this + 160))
+  if (!this[20])
   {
     operator new();
   }
@@ -6334,9 +6335,9 @@ uint64_t drawing::Stroke::makeSubstrokesVersion(uint64_t this)
   return this;
 }
 
-uint64_t drawing::Stroke::makeInkTransform(uint64_t this)
+void *drawing::Stroke::makeInkTransform(void *this)
 {
-  if (!*(this + 56))
+  if (!this[7])
   {
     operator new();
   }
@@ -6442,7 +6443,7 @@ void std::vector<PB::Data>::__assign_with_size[abi:ne200100]<PB::Data*,PB::Data*
   }
 }
 
-void std::vector<PB::Data>::__vdeallocate(void **a1)
+void std::vector<PB::Data>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -6470,7 +6471,7 @@ void std::vector<PB::Data>::__vdeallocate(void **a1)
   }
 }
 
-void std::vector<PB::Data>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<PB::Data>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6626,9 +6627,9 @@ uint64_t std::vector<PB::Data>::__emplace_back_slow_path<>(uint64_t a1)
   return v12;
 }
 
-void sub_1C7D96E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1C7D96E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<PB::Data>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6652,7 +6653,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<PB::Da
     do
     {
       v10 = *v5;
-      v5 += 2;
+      v5 = (v5 + 16);
       free(v10);
     }
 
@@ -7461,7 +7462,7 @@ void _PKSplitPathApplier(void **a1, const CGPathElement *a2)
         }
 
         *(8 * v35) = Mutable;
-        v32 = 8 * v35 + 8;
+        v32 = (8 * v35 + 8);
         memcpy(0, v33, v34);
         *a1 = 0;
         a1[1] = v32;
@@ -7475,7 +7476,7 @@ void _PKSplitPathApplier(void **a1, const CGPathElement *a2)
       else
       {
         *v31 = Mutable;
-        v32 = (v31 + 1);
+        v32 = v31 + 8;
       }
 
       a1[1] = v32;
@@ -7707,7 +7708,7 @@ LABEL_5:
   }
 }
 
-void PKPointsFromPath(const CGPath *a1, uint64_t *a2, double a3, double a4)
+void PKPointsFromPath(const CGPath *a1, const void **a2, double a3, double a4)
 {
   if (a1)
   {
@@ -7801,20 +7802,20 @@ void PKPointsFromLineSegments(uint64_t *a1, void *a2, double a3)
   }
 }
 
-void std::vector<CGPoint>::resize(void *a1, unint64_t a2)
+void std::vector<CGPoint>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<CGPoint>::__append(a1, a2 - v2);
+    std::vector<CGPoint>::__append(result, a2 - v2);
   }
 }
 
@@ -9468,12 +9469,12 @@ void __stylusDeviceRemovedCallback_block_invoke(uint64_t a1)
   }
 }
 
-void sub_1C7DA1578(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C7DA1578(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = PKLRUCache;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -9506,9 +9507,9 @@ void sub_1C7DA202C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1C7DA678C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7DA678C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   drawing::StrokeDelta::~StrokeDelta(va);
 
   _Unwind_Resume(a1);
@@ -9574,9 +9575,9 @@ LABEL_4:
   return v6;
 }
 
-void sub_1C7DA6B40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7DA6B40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   drawing::StrokeDelta::~StrokeDelta(va);
   _Unwind_Resume(a1);
 }
@@ -9603,31 +9604,31 @@ id PKProtobufUtilitiesNSDataFromArchiveWithHeader<drawing::StrokeDelta>(uint64_t
   return v4;
 }
 
-void sub_1C7DA6C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1C7DA6C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   PB::Writer::~Writer(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7DA70CC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7DA70CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   drawing::StrokeDelta::~StrokeDelta(va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1C7DA731C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1C7DA731C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   drawing::StrokeDelta::~StrokeDelta(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1C7DA85D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1C7DA85D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

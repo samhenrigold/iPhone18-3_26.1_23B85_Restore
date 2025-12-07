@@ -35,6 +35,8 @@
 - (void)setSmartStackAudioEnabled:(id)enabled specifier:(id)specifier;
 - (void)setWristTemperatureEnabled:(id)enabled specifier:(id)specifier;
 - (void)showSettingsPrivacyPane;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HKBridgePrivacyController
@@ -74,6 +76,24 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = HKBridgePrivacyController;
+  [(HKBridgePrivacyController *)&v4 viewWillAppear:appear];
+  +[HKBridgePrivacyUserVisitDonation donateUserVisitForPrivacySection];
+  [(HKBridgePrivacyController *)self _registerObservers];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(HKBridgePrivacyController *)self _unregisterObservers];
+  v5.receiver = self;
+  v5.super_class = HKBridgePrivacyController;
+  [(HKBridgePrivacyController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (void)_registerObservers

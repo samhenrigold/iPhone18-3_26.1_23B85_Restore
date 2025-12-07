@@ -1,8 +1,19 @@
 @interface SADirCacheElement
++ (id)newWithBundleIDs:(id)ds purgeable:(BOOL)purgeable cacheFolder:(BOOL)folder;
 - (SADirCacheElement)initWithBundleIDs:(id)ds purgeable:(BOOL)purgeable cacheFolder:(BOOL)folder;
 @end
 
 @implementation SADirCacheElement
+
++ (id)newWithBundleIDs:(id)ds purgeable:(BOOL)purgeable cacheFolder:(BOOL)folder
+{
+  folderCopy = folder;
+  purgeableCopy = purgeable;
+  dsCopy = ds;
+  v8 = [[SADirCacheElement alloc] initWithBundleIDs:dsCopy purgeable:purgeableCopy cacheFolder:folderCopy];
+
+  return v8;
+}
 
 - (SADirCacheElement)initWithBundleIDs:(id)ds purgeable:(BOOL)purgeable cacheFolder:(BOOL)folder
 {

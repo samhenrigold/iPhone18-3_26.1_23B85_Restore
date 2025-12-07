@@ -303,43 +303,41 @@
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     v15 = [callDataSource _callWithUUID:listCopy];
 
-    v16 = sub_100004778();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+    v17 = sub_100004778(v16);
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
     if (v15)
     {
-      if (v17)
-      {
-        *buf = 138412290;
-        v43 = v12;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Processing delayed actions: %@", buf, 0xCu);
-      }
-
-      v39 = 0u;
-      v40 = 0u;
-      v37 = 0u;
-      v38 = 0u;
-      v16 = v12;
-      v18 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
       if (v18)
       {
-        v19 = v18;
-        v35 = v12;
-        v36 = listCopy;
-        v20 = *v38;
-        v21 = &swift_cvw_initEnumMetadataSinglePayloadWithLayoutString_ptr;
+        *buf = 138412290;
+        v41 = v12;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Processing delayed actions: %@", buf, 0xCu);
+      }
+
+      v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
+      v17 = v12;
+      v19 = [v17 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      if (v19)
+      {
+        v20 = v19;
+        v33 = v12;
+        v34 = listCopy;
+        v21 = *v36;
         v22 = &swift_cvw_initEnumMetadataSinglePayloadWithLayoutString_ptr;
         v23 = &swift_cvw_initEnumMetadataSinglePayloadWithLayoutString_ptr;
         do
         {
-          for (i = 0; i != v19; i = i + 1)
+          for (i = 0; i != v20; i = i + 1)
           {
-            if (*v38 != v20)
+            if (*v36 != v21)
             {
-              objc_enumerationMutation(v16);
+              objc_enumerationMutation(v17);
             }
 
-            v25 = *(*(&v37 + 1) + 8 * i);
-            v26 = v21[394];
+            v25 = *(*(&v35 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
@@ -348,7 +346,6 @@
 
             else
             {
-              v27 = v22[393];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -357,9 +354,9 @@
 
               else
               {
-                v28 = v23[397];
                 objc_opt_class();
-                if (objc_opt_isKindOfClass())
+                isKindOfClass = objc_opt_isKindOfClass();
+                if (isKindOfClass)
                 {
                   [(CSDFaceTimeProviderDelegate *)self provider:providerCopy performSetSendingVideoCallAction:v25];
                 }
@@ -367,43 +364,42 @@
                 else
                 {
                   selfCopy = self;
-                  v30 = providerCopy;
-                  v31 = v16;
-                  v32 = v22;
-                  v33 = v23;
-                  v34 = sub_100004778();
-                  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+                  v28 = providerCopy;
+                  v29 = v17;
+                  v30 = v22;
+                  v31 = v23;
+                  v32 = sub_100004778(isKindOfClass);
+                  if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 138412290;
-                    v43 = v25;
-                    _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Unsupported delayed action: %@", buf, 0xCu);
+                    v41 = v25;
+                    _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "Unsupported delayed action: %@", buf, 0xCu);
                   }
 
                   [v25 fail];
-                  v23 = v33;
-                  v22 = v32;
-                  v16 = v31;
-                  providerCopy = v30;
+                  v23 = v31;
+                  v22 = v30;
+                  v17 = v29;
+                  providerCopy = v28;
                   self = selfCopy;
-                  v21 = &swift_cvw_initEnumMetadataSinglePayloadWithLayoutString_ptr;
                 }
               }
             }
           }
 
-          v19 = [v16 countByEnumeratingWithState:&v37 objects:v41 count:16];
+          v20 = [v17 countByEnumeratingWithState:&v35 objects:v39 count:16];
         }
 
-        while (v19);
-        v12 = v35;
-        listCopy = v36;
+        while (v20);
+        v12 = v33;
+        listCopy = v34;
       }
     }
 
-    else if (v17)
+    else if (v18)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Not processing delayed actions because we no longer have a call", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Not processing delayed actions because we no longer have a call", buf, 2u);
     }
   }
 }
@@ -413,16 +409,16 @@
   delegateCopy = delegate;
   dCopy = d;
   dateCopy = date;
-  v11 = sub_100004778();
+  v11 = sub_100004778(dateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412802;
-    v17 = delegateCopy;
-    v18 = 2112;
-    v19 = dCopy;
-    v20 = 2112;
-    v21 = dateCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "providerDelegate: %@ callUUID: %@ dateStartedConnecting: %@", &v16, 0x20u);
+    v17 = 138412802;
+    v18 = delegateCopy;
+    v19 = 2112;
+    v20 = dCopy;
+    v21 = 2112;
+    v22 = dateCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "providerDelegate: %@ callUUID: %@ dateStartedConnecting: %@", &v17, 0x20u);
   }
 
   provider = [(CSDFaceTimeProviderDelegate *)self provider];
@@ -434,12 +430,12 @@
 
   if (!v14)
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = dCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Ending call since dataSource is not tracking any call for callUUID: %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = dCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Ending call since dataSource is not tracking any call for callUUID: %@", &v17, 0xCu);
     }
 
     [delegateCopy endCallWithUUIDAsLocalHangup:dCopy];
@@ -451,16 +447,16 @@
   delegateCopy = delegate;
   dCopy = d;
   dateCopy = date;
-  v11 = sub_100004778();
+  v11 = sub_100004778(dateCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412802;
-    v17 = delegateCopy;
-    v18 = 2112;
-    v19 = dCopy;
-    v20 = 2112;
-    v21 = dateCopy;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "providerDelegate: %@ callUUID: %@ dateConnected: %@", &v16, 0x20u);
+    v17 = 138412802;
+    v18 = delegateCopy;
+    v19 = 2112;
+    v20 = dCopy;
+    v21 = 2112;
+    v22 = dateCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "providerDelegate: %@ callUUID: %@ dateConnected: %@", &v17, 0x20u);
   }
 
   provider = [(CSDFaceTimeProviderDelegate *)self provider];
@@ -472,12 +468,12 @@
 
   if (!v14)
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = dCopy;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Ending call since dataSource is not tracking any call for callUUID: %@", &v16, 0xCu);
+      v17 = 138412290;
+      v18 = dCopy;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Ending call since dataSource is not tracking any call for callUUID: %@", &v17, 0xCu);
     }
 
     [delegateCopy endCallWithUUIDAsLocalHangup:dCopy];
@@ -490,7 +486,7 @@
   dCopy = d;
   dateCopy = date;
   contextCopy = context;
-  v15 = sub_100004778();
+  v15 = sub_100004778(contextCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413314;
@@ -637,15 +633,16 @@ LABEL_30:
       v36 = *v46;
       do
       {
-        for (i = 0; i != v35; i = i + 1)
+        v37 = 0;
+        do
         {
           if (*v46 != v36)
           {
             objc_enumerationMutation(v33);
           }
 
-          v38 = *(*(&v45 + 1) + 8 * i);
-          v39 = sub_100004778();
+          v38 = *(*(&v45 + 1) + 8 * v37);
+          v39 = sub_100004778(v34);
           if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412802;
@@ -657,13 +654,16 @@ LABEL_30:
             _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Ending call with UUID %@ on other provider delegate %@ because ended reason was %ld", buf, 0x20u);
           }
 
-          [v38 endCallWithUUIDAsDeclinedElsewhere:dCopy];
+          v34 = [v38 endCallWithUUIDAsDeclinedElsewhere:dCopy];
+          v37 = v37 + 1;
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        while (v35 != v37);
+        v34 = [v33 countByEnumeratingWithState:&v45 objects:v53 count:16];
+        v35 = v34;
       }
 
-      while (v35);
+      while (v34);
     }
 
 LABEL_39:
@@ -693,7 +693,7 @@ LABEL_40:
   delegateCopy = delegate;
   transactionCopy = transaction;
   completionCopy = completion;
-  v11 = sub_100004778();
+  v11 = sub_100004778(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412546;
@@ -795,7 +795,7 @@ LABEL_12:
 {
   delegateCopy = delegate;
   dCopy = d;
-  v8 = sub_100004778();
+  v8 = sub_100004778(dCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 138412546;
@@ -880,7 +880,7 @@ LABEL_10:
 - (void)provider:(id)provider timedOutPerformingAction:(id)action
 {
   actionCopy = action;
-  v5 = sub_100004778();
+  v5 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -900,11 +900,11 @@ LABEL_10:
 {
   providerCopy = provider;
   actionCopy = action;
-  v10 = sub_100004778();
+  v10 = sub_100004778(actionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v57 = actionCopy;
+    v60 = actionCopy;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "action: %@", buf, 0xCu);
   }
 
@@ -927,18 +927,18 @@ LABEL_10:
     blockUtilities2 = [(__CFString *)actionCopy handle];
     callUUID = [(__CFString *)blockUtilities2 value];
     iDSFormattedDestinationID = [callUUID IDSFormattedDestinationID];
-    v39 = [NSArray arrayWithObject:iDSFormattedDestinationID];
-    [(CSDFaceTimeProviderDelegate *)self initiateModernFTInviteForAction:actionCopy destinations:v39 excludedIMAVDestinations:&__NSArray0__struct joinCallActionToFulfill:0];
+    v42 = [NSArray arrayWithObject:iDSFormattedDestinationID];
+    [(CSDFaceTimeProviderDelegate *)self initiateModernFTInviteForAction:actionCopy destinations:v42 excludedIMAVDestinations:&__NSArray0__struct joinCallActionToFulfill:0];
 
     goto LABEL_27;
   }
 
   blockUtilities2 = +[TUCallCapabilities outgoingRelayCallerID];
-  v17 = sub_100004778();
+  v17 = sub_100004778(blockUtilities2);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v57 = blockUtilities2;
+    v60 = blockUtilities2;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "outgoingCallerID: %@", buf, 0xCu);
   }
 
@@ -951,50 +951,50 @@ LABEL_10:
 
     if (isUPlusOneSessionCapabilitiesEnabled)
     {
-      v21 = [(CSDFaceTimeProviderDelegate *)self _createJoinCallAction:actionCopy outgoingCallerID:blockUtilities2 gftOneToOneDestinations:0];
-      v22 = +[NSDate now];
-      [v22 timeIntervalSinceDate:callUUID];
-      v24 = v23 * 1000.0;
+      v22 = [(CSDFaceTimeProviderDelegate *)self _createJoinCallAction:actionCopy outgoingCallerID:blockUtilities2 gftOneToOneDestinations:0];
+      v23 = +[NSDate now];
+      [v23 timeIntervalSinceDate:callUUID];
+      v25 = v24 * 1000.0;
 
-      if (v24 > 5000.0)
+      if (v25 > 5000.0)
       {
-        v60 = TUCallTUStartCallActionDuration;
-        v25 = [NSNumber numberWithDouble:v24];
-        stringValue = [v25 stringValue];
-        v27 = [stringValue stringByAppendingString:@"ms duration"];
-        v61 = v27;
-        v28 = [NSDictionary dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+        v63 = TUCallTUStartCallActionDuration;
+        v27 = [NSNumber numberWithDouble:v25];
+        stringValue = [v27 stringValue];
+        v29 = [stringValue stringByAppendingString:@"ms duration"];
+        v64 = v29;
+        v30 = [NSDictionary dictionaryWithObjects:&v64 forKeys:&v63 count:1];
 
-        v29 = sub_100004778();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+        v32 = sub_100004778(v31);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
           callUUID2 = [(__CFString *)actionCopy callUUID];
           *buf = 138412546;
-          v57 = callUUID2;
-          v58 = 2112;
-          v59 = v28;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "reportJoinDurationLongerThanThreasholdForCallUUID: %@, %@", buf, 0x16u);
+          v60 = callUUID2;
+          v61 = 2112;
+          v62 = v30;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "reportJoinDurationLongerThanThreasholdForCallUUID: %@, %@", buf, 0x16u);
         }
 
-        v31 = +[CSDReportingController sharedInstance];
+        v34 = +[CSDReportingController sharedInstance];
         callUUID3 = [(__CFString *)actionCopy callUUID];
-        [v31 reportJoinDurationLongerThanThreasholdForCallUUID:callUUID3 report:v28];
+        [v34 reportJoinDurationLongerThanThreasholdForCallUUID:callUUID3 report:v30];
       }
 
-      v33 = sub_100004778();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v36 = sub_100004778(v26);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v57 = v21;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Created join call action without gftOneToOneDestinations: %@", buf, 0xCu);
+        v60 = v22;
+        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Created join call action without gftOneToOneDestinations: %@", buf, 0xCu);
       }
 
-      [(CSDFaceTimeProviderDelegate *)self provider:providerCopy performJoinCallAction:v21 shouldUseIDSDemuxer:0];
+      [(CSDFaceTimeProviderDelegate *)self provider:providerCopy performJoinCallAction:v22 shouldUseIDSDemuxer:0];
       handle2 = [(__CFString *)actionCopy handle];
       value = [handle2 value];
       iDSFormattedDestinationID2 = [value IDSFormattedDestinationID];
-      v37 = [NSArray arrayWithObject:iDSFormattedDestinationID2];
-      [(CSDFaceTimeProviderDelegate *)self initiateModernFTInviteForAction:actionCopy destinations:v37 excludedIMAVDestinations:&__NSArray0__struct joinCallActionToFulfill:0];
+      v40 = [NSArray arrayWithObject:iDSFormattedDestinationID2];
+      [(CSDFaceTimeProviderDelegate *)self initiateModernFTInviteForAction:actionCopy destinations:v40 excludedIMAVDestinations:&__NSArray0__struct joinCallActionToFulfill:0];
 
       goto LABEL_27;
     }
@@ -1004,33 +1004,33 @@ LABEL_10:
   {
   }
 
-  v40 = sub_100004778();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v43 = sub_100004778(v21);
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
   {
     featureFlags2 = [(CSDFaceTimeProviderDelegate *)self featureFlags];
     if ([featureFlags2 uPlusOneSessionWithCapabilitiesEnabled])
     {
-      v42 = @"YES";
+      v45 = @"YES";
     }
 
     else
     {
-      v42 = @"NO";
+      v45 = @"NO";
     }
 
     serverBag2 = [(CSDFaceTimeProviderDelegate *)self serverBag];
     isUPlusOneSessionCapabilitiesEnabled2 = [serverBag2 isUPlusOneSessionCapabilitiesEnabled];
-    v45 = @"NO";
+    v48 = @"NO";
     if (isUPlusOneSessionCapabilitiesEnabled2)
     {
-      v45 = @"YES";
+      v48 = @"YES";
     }
 
     *buf = 138412546;
-    v57 = v42;
-    v58 = 2112;
-    v59 = v45;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "uPlusOneSessionWithCapabilitiesEnabled: %@, isUPlusOneSessionCapabilitiesEnabled: %@", buf, 0x16u);
+    v60 = v45;
+    v61 = 2112;
+    v62 = v48;
+    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "uPlusOneSessionWithCapabilitiesEnabled: %@, isUPlusOneSessionCapabilitiesEnabled: %@", buf, 0x16u);
   }
 
   callUUID4 = [(__CFString *)actionCopy callUUID];
@@ -1040,18 +1040,18 @@ LABEL_10:
   handle3 = [(__CFString *)actionCopy handle];
   tuHandle = [handle3 tuHandle];
   isVideo = [(__CFString *)actionCopy isVideo];
-  v51[0] = _NSConcreteStackBlock;
-  v51[1] = 3221225472;
-  v51[2] = sub_10012E774;
-  v51[3] = &unk_10061C300;
-  v51[4] = self;
-  v52 = actionCopy;
+  v54[0] = _NSConcreteStackBlock;
+  v54[1] = 3221225472;
+  v54[2] = sub_10012E774;
+  v54[3] = &unk_10061C300;
+  v54[4] = self;
+  v55 = actionCopy;
   blockUtilities2 = blockUtilities2;
-  v53 = blockUtilities2;
+  v56 = blockUtilities2;
   callUUID = callUUID;
-  v54 = callUUID;
-  v55 = providerCopy;
-  [faceTimeInviteDemuxer idsPeersForHandle:tuHandle video:isVideo fromID:blockUtilities2 completionHandler:v51];
+  v57 = callUUID;
+  v58 = providerCopy;
+  [faceTimeInviteDemuxer idsPeersForHandle:tuHandle video:isVideo fromID:blockUtilities2 completionHandler:v54];
 
 LABEL_27:
 }
@@ -1121,39 +1121,39 @@ LABEL_27:
     v12 = 0;
   }
 
-  v13 = sub_100004778();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100004778(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [actionCopy UUID];
-    v15 = uUID;
-    v16 = &stru_100631E68;
+    v16 = uUID;
+    v17 = &stru_100631E68;
     if (v12)
     {
-      v16 = @", is nearby session";
+      v17 = @", is nearby session";
     }
 
     *buf = 138412546;
-    v86 = uUID;
-    v87 = 2112;
-    v88 = v16;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Perform join call with action UUID: %@%@", buf, 0x16u);
+    v94 = uUID;
+    v95 = 2112;
+    v96 = v17;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Perform join call with action UUID: %@%@", buf, 0x16u);
   }
 
   blockUtilities = [(CSDFaceTimeProviderDelegate *)self blockUtilities];
   remoteMembers = [actionCopy remoteMembers];
-  v19 = [blockUtilities blockCallReasonForMembers:remoteMembers providerIdentifier:@"com.apple.telephonyutilities.callservicesd.FaceTimeProvider"];
+  v20 = [blockUtilities blockCallReasonForMembers:remoteMembers providerIdentifier:@"com.apple.telephonyutilities.callservicesd.FaceTimeProvider"];
 
-  if (v19 < 1)
+  if (v20 < 1)
   {
     pseudonym = [actionCopy pseudonym];
     if ([pseudonym length])
     {
       publicKey = [actionCopy publicKey];
-      v24 = [publicKey length];
+      v25 = [publicKey length];
 
-      if (v24)
+      if (v25)
       {
-        v25 = 0;
+        v26 = 0;
         goto LABEL_16;
       }
     }
@@ -1163,12 +1163,12 @@ LABEL_27:
     }
 
     remoteMembers2 = [actionCopy remoteMembers];
-    v27 = [remoteMembers2 count];
+    v28 = [remoteMembers2 count];
 
-    if (!v27)
+    if (!v28)
     {
-      v31 = sub_100004778();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v34 = sub_100004778(v29);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         sub_100475E1C();
       }
@@ -1176,16 +1176,16 @@ LABEL_27:
       goto LABEL_29;
     }
 
-    v25 = 1;
+    v26 = 1;
 LABEL_16:
     faceTimeIDSProviderDelegate = [(CSDFaceTimeProviderDelegate *)self faceTimeIDSProviderDelegate];
     callUUID = [actionCopy callUUID];
-    v30 = [faceTimeIDSProviderDelegate isUpgradingCallWithUUID:callUUID];
+    v32 = [faceTimeIDSProviderDelegate isUpgradingCallWithUUID:callUUID];
 
-    if (v30)
+    if (v32)
     {
-      v31 = sub_100004778();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v34 = sub_100004778(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         sub_100475DE8();
       }
@@ -1196,35 +1196,39 @@ LABEL_29:
       goto LABEL_63;
     }
 
-    if (([actionCopy isVideo] & 1) == 0 && objc_msgSend(actionCopy, "isVideoEnabled"))
+    if (([actionCopy isVideo] & 1) == 0)
     {
-      v31 = sub_100004778();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      isVideoEnabled = [actionCopy isVideoEnabled];
+      if (isVideoEnabled)
       {
-        sub_100475DB4();
-      }
+        v34 = sub_100004778(isVideoEnabled);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        {
+          sub_100475DB4();
+        }
 
-      goto LABEL_29;
+        goto LABEL_29;
+      }
     }
 
     faceTimeIDSProviderDelegate2 = [(CSDFaceTimeProviderDelegate *)self faceTimeIDSProviderDelegate];
     callUUID2 = [actionCopy callUUID];
-    v34 = [faceTimeIDSProviderDelegate2 isManagingCallWithUUID:callUUID2];
+    v38 = [faceTimeIDSProviderDelegate2 isManagingCallWithUUID:callUUID2];
 
-    if (v34)
+    if (v38)
     {
       [actionCopy setUpgrade:1];
       faceTimeIDSProviderDelegate3 = [(CSDFaceTimeProviderDelegate *)self faceTimeIDSProviderDelegate];
       callUUID3 = [actionCopy callUUID];
-      v37 = [faceTimeIDSProviderDelegate3 upgradeSessionUUIDForCallWithUUID:callUUID3];
-      [actionCopy setUpgradeSessionUUID:v37];
+      v41 = [faceTimeIDSProviderDelegate3 upgradeSessionUUIDForCallWithUUID:callUUID3];
+      [actionCopy setUpgradeSessionUUID:v41];
 
-      v38 = sub_100004778();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v43 = sub_100004778(v42);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v86 = actionCopy;
-        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Updated to action: %@", buf, 0xCu);
+        v94 = actionCopy;
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Updated to action: %@", buf, 0xCu);
       }
 
       faceTimeIDSProviderDelegate4 = [(CSDFaceTimeProviderDelegate *)self faceTimeIDSProviderDelegate];
@@ -1235,34 +1239,35 @@ LABEL_29:
     {
       faceTimeIMAVProviderDelegate = [(CSDFaceTimeProviderDelegate *)self faceTimeIMAVProviderDelegate];
       callUUID4 = [actionCopy callUUID];
-      v42 = [faceTimeIMAVProviderDelegate isManagingCallWithUUID:callUUID4];
+      v47 = [faceTimeIMAVProviderDelegate isManagingCallWithUUID:callUUID4];
 
-      if (!v42)
+      if (!v47)
       {
 LABEL_35:
-        v45 = +[CSDConversationProviderManager sharedInstance];
+        v51 = +[CSDConversationProviderManager sharedInstance];
         conversationProviderIdentifier = [actionCopy conversationProviderIdentifier];
-        v47 = [v45 tuConversationProviderForIdentifier:conversationProviderIdentifier];
+        v53 = [v51 tuConversationProviderForIdentifier:conversationProviderIdentifier];
 
-        if ((v25 & demuxerCopy) != 1 || v12 | (([v47 isDefaultProvider] & 1) == 0))
+        if ((v26 & demuxerCopy) != 1 || v12 | (([v53 isDefaultProvider] & 1) == 0))
         {
-          if (!v47)
+          if (!v53)
           {
 LABEL_62:
 
             goto LABEL_63;
           }
 
-          isDefaultProvider = [v47 isDefaultProvider];
-          v49 = sub_100004778();
-          v50 = os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
-          if (isDefaultProvider)
+          isDefaultProvider = [v53 isDefaultProvider];
+          v55 = isDefaultProvider;
+          v56 = sub_100004778(isDefaultProvider);
+          v57 = os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT);
+          if (v55)
           {
-            if (v50)
+            if (v57)
             {
               *buf = 138412290;
-              v86 = actionCopy;
-              _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Sending JoinCallAction to FaceTimeConversationProviderDelegate- action: %@", buf, 0xCu);
+              v94 = actionCopy;
+              _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Sending JoinCallAction to FaceTimeConversationProviderDelegate- action: %@", buf, 0xCu);
             }
 
             faceTimeConversationProviderDelegate = [(CSDFaceTimeProviderDelegate *)self faceTimeConversationProviderDelegate];
@@ -1270,30 +1275,30 @@ LABEL_62:
 
           else
           {
-            if (v50)
+            if (v57)
             {
               *buf = 138412290;
-              v86 = actionCopy;
-              _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Sending JoinCallAction to CSDGFTServiceConversationProviderDelegate- action: %@", buf, 0xCu);
+              v94 = actionCopy;
+              _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Sending JoinCallAction to CSDGFTServiceConversationProviderDelegate- action: %@", buf, 0xCu);
             }
 
             faceTimeConversationProviderDelegate = [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
           }
 
-          v52 = faceTimeConversationProviderDelegate;
+          v59 = faceTimeConversationProviderDelegate;
           [faceTimeConversationProviderDelegate provider:providerCopy performJoinCallAction:actionCopy];
 LABEL_61:
 
           goto LABEL_62;
         }
 
-        v52 = +[TUCallCapabilities outgoingRelayCallerID];
-        v53 = sub_100004778();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+        v59 = +[TUCallCapabilities outgoingRelayCallerID];
+        v60 = sub_100004778(v59);
+        if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v86 = v52;
-          _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "joinCall: callerID: %@", buf, 0xCu);
+          v94 = v59;
+          _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "joinCall: callerID: %@", buf, 0xCu);
         }
 
         featureFlags = [(CSDFaceTimeProviderDelegate *)self featureFlags];
@@ -1307,19 +1312,19 @@ LABEL_61:
             faceTimeConversationProviderDelegate2 = [(CSDFaceTimeProviderDelegate *)self faceTimeConversationProviderDelegate];
             [faceTimeConversationProviderDelegate2 provider:providerCopy performJoinCallAction:actionCopy];
 
-            v58 = [CXStartCallAction alloc];
+            v66 = [CXStartCallAction alloc];
             callUUID5 = [actionCopy callUUID];
             remoteMembers3 = [actionCopy remoteMembers];
             anyObject = [remoteMembers3 anyObject];
             handle = [anyObject handle];
-            v63 = [v58 initWithCallUUID:callUUID5 handle:handle];
+            v71 = [v66 initWithCallUUID:callUUID5 handle:handle];
 
-            [v63 setVideo:{objc_msgSend(actionCopy, "isVideo")}];
-            handle2 = [v63 handle];
+            [v71 setVideo:{objc_msgSend(actionCopy, "isVideo")}];
+            handle2 = [v71 handle];
             value = [handle2 value];
             iDSFormattedDestinationID = [value IDSFormattedDestinationID];
-            v67 = [NSArray arrayWithObject:iDSFormattedDestinationID];
-            [(CSDFaceTimeProviderDelegate *)self initiateModernFTInviteForAction:v63 destinations:v67 excludedIMAVDestinations:&__NSArray0__struct joinCallActionToFulfill:0];
+            v75 = [NSArray arrayWithObject:iDSFormattedDestinationID];
+            [(CSDFaceTimeProviderDelegate *)self initiateModernFTInviteForAction:v71 destinations:v75 excludedIMAVDestinations:&__NSArray0__struct joinCallActionToFulfill:0];
 
             goto LABEL_61;
           }
@@ -1329,37 +1334,37 @@ LABEL_61:
         {
         }
 
-        v81 = v52;
-        v68 = sub_100004778();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+        v89 = v59;
+        v76 = sub_100004778(v64);
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
         {
           featureFlags2 = [(CSDFaceTimeProviderDelegate *)self featureFlags];
           if ([featureFlags2 uPlusOneSessionWithCapabilitiesEnabled])
           {
-            v70 = @"YES";
+            v78 = @"YES";
           }
 
           else
           {
-            v70 = @"NO";
+            v78 = @"NO";
           }
 
           serverBag2 = [(CSDFaceTimeProviderDelegate *)self serverBag];
           if ([serverBag2 isUPlusOneSessionCapabilitiesEnabled])
           {
-            v72 = @"YES";
+            v80 = @"YES";
           }
 
           else
           {
-            v72 = @"NO";
+            v80 = @"NO";
           }
 
           *buf = 138412546;
-          v86 = v70;
-          v87 = 2112;
-          v88 = v72;
-          _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "uPlusOneSessionWithCapabilitiesEnabled: %@, isUPlusOneSessionCapabilitiesEnabled: %@", buf, 0x16u);
+          v94 = v78;
+          v95 = 2112;
+          v96 = v80;
+          _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "uPlusOneSessionWithCapabilitiesEnabled: %@, isUPlusOneSessionCapabilitiesEnabled: %@", buf, 0x16u);
         }
 
         callUUID6 = [actionCopy callUUID];
@@ -1371,26 +1376,26 @@ LABEL_61:
         handle3 = [anyObject2 handle];
         tuHandle = [handle3 tuHandle];
         isVideo = [actionCopy isVideo];
-        v82[0] = _NSConcreteStackBlock;
-        v82[1] = 3221225472;
-        v82[2] = sub_1001301B8;
-        v82[3] = &unk_10061C378;
-        v82[4] = self;
-        v83 = actionCopy;
-        v84 = providerCopy;
-        v80 = isVideo;
-        v52 = v81;
-        [faceTimeInviteDemuxer idsPeersForHandle:tuHandle video:v80 fromID:v81 completionHandler:v82];
+        v90[0] = _NSConcreteStackBlock;
+        v90[1] = 3221225472;
+        v90[2] = sub_1001301B8;
+        v90[3] = &unk_10061C378;
+        v90[4] = self;
+        v91 = actionCopy;
+        v92 = providerCopy;
+        v88 = isVideo;
+        v59 = v89;
+        [faceTimeInviteDemuxer idsPeersForHandle:tuHandle video:v88 fromID:v89 completionHandler:v90];
 
         goto LABEL_61;
       }
 
-      v43 = sub_100004778();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v49 = sub_100004778(v48);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v86 = actionCopy;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Found a IMAV chat that is being tracked for action: %@", buf, 0xCu);
+        v94 = actionCopy;
+        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Found a IMAV chat that is being tracked for action: %@", buf, 0xCu);
       }
 
       faceTimeIDSProviderDelegate4 = [(CSDFaceTimeProviderDelegate *)self faceTimeIMAVProviderDelegate];
@@ -1403,7 +1408,7 @@ LABEL_61:
 
   blockUtilities2 = [(CSDFaceTimeProviderDelegate *)self blockUtilities];
   callUUID8 = [actionCopy callUUID];
-  [blockUtilities2 reportFailureForReason:v19 provider:providerCopy callUUID:callUUID8 actionToFail:actionCopy];
+  [blockUtilities2 reportFailureForReason:v20 provider:providerCopy callUUID:callUUID8 actionToFail:actionCopy];
 
 LABEL_63:
 }
@@ -1432,53 +1437,53 @@ LABEL_63:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -1497,18 +1502,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -1589,53 +1598,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v31 = v48 = providerCopy;
+    v31 = v51 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v47 = [v31 isManagingCallWithUUID:callUUID4];
+    v50 = [v31 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v48;
-    if (v47)
+    providerCopy = v51;
+    if (v50)
     {
       goto LABEL_7;
     }
 
-    v33 = sub_100004778();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_100004778(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v50 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v53 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v36 = [callDataSource _callWithUUID:callUUID5];
+    v37 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v36)
+    if (v37)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v39)
+      v40 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v40)
       {
-        v40 = v39;
+        v41 = v40;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v41 = sub_100004778();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+          v43 = sub_100004778(v42);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v50 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v53 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v44 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v44 addObject:actionCopy];
+          v46 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v46 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -1654,18 +1663,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v36 status] == 5 || objc_msgSend(v36, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v45 = sub_100004778();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        status = [v37 status];
+        if (status == 5 || (status = [v37 status], status == 6))
         {
-          *buf = 138412290;
-          v50 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v48 = sub_100004778(status);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v53 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -1748,53 +1761,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -1813,18 +1826,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -1905,53 +1922,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -1970,18 +1987,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -2062,53 +2083,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -2127,18 +2148,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -2219,53 +2244,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -2284,18 +2309,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -2376,53 +2405,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -2441,18 +2470,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -2533,53 +2566,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -2598,18 +2631,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -2690,53 +2727,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -2755,18 +2792,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -2847,53 +2888,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -2912,18 +2953,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -3004,53 +3049,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -3069,18 +3114,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -3161,53 +3210,53 @@ LABEL_15:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v30 = v47 = providerCopy;
+    v30 = v50 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v46 = [v30 isManagingCallWithUUID:callUUID4];
+    v49 = [v30 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v47;
-    if (v46)
+    providerCopy = v50;
+    if (v49)
     {
       goto LABEL_7;
     }
 
-    v32 = sub_100004778();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_100004778(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v49 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v52 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v35 = [callDataSource _callWithUUID:callUUID5];
+    v36 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v35)
+    if (v36)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v38 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v38)
+      v39 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v39)
       {
-        v39 = v38;
+        v40 = v39;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_24:
-          v40 = sub_100004778();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v42 = sub_100004778(v41);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v49 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v43 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v43 addObject:actionCopy];
+          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v45 addObject:actionCopy];
 
           goto LABEL_35;
         }
@@ -3226,18 +3275,22 @@ LABEL_24:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v35 status] == 5 || objc_msgSend(v35, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v44 = sub_100004778();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+        status = [v36 status];
+        if (status == 5 || (status = [v36 status], status == 6))
         {
-          *buf = 138412290;
-          v49 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v47 = sub_100004778(status);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v52 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_35;
+          [actionCopy fulfill];
+          goto LABEL_35;
+        }
       }
     }
 
@@ -3335,53 +3388,53 @@ LABEL_9:
     }
 
     [(CSDFaceTimeProviderDelegate *)self groupFaceTimeServiceProviderDelegate];
-    v32 = v49 = providerCopy;
+    v32 = v52 = providerCopy;
     callUUID4 = [actionCopy callUUID];
-    v48 = [v32 isManagingCallWithUUID:callUUID4];
+    v51 = [v32 isManagingCallWithUUID:callUUID4];
 
-    providerCopy = v49;
-    if (v48)
+    providerCopy = v52;
+    if (v51)
     {
       goto LABEL_11;
     }
 
-    v34 = sub_100004778();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = sub_100004778(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v51 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
+      v54 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "[WARN] No provider delegate is managing call for action %@", buf, 0xCu);
     }
 
     callDataSource = [(CSDFaceTimeProviderDelegate *)self callDataSource];
     callUUID5 = [actionCopy callUUID];
-    v37 = [callDataSource _callWithUUID:callUUID5];
+    v38 = [callDataSource _callWithUUID:callUUID5];
 
-    if (v37)
+    if (v38)
     {
       delayedActionsByCallUUID = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
       callUUID6 = [actionCopy callUUID];
-      v40 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
-      if (v40)
+      v41 = [delayedActionsByCallUUID objectForKeyedSubscript:callUUID6];
+      if (v41)
       {
-        v41 = v40;
+        v42 = v41;
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
 
 LABEL_28:
-          v42 = sub_100004778();
-          if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+          v44 = sub_100004778(v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v51 = actionCopy;
-            _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
+            v54 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Delaying action %@", buf, 0xCu);
           }
 
           delayedActionsByCallUUID2 = [(CSDFaceTimeProviderDelegate *)self delayedActionsByCallUUID];
           callUUID7 = [actionCopy callUUID];
-          v45 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
-          [v45 addObject:actionCopy];
+          v47 = [delayedActionsByCallUUID2 objectForKeyedSubscript:callUUID7];
+          [v47 addObject:actionCopy];
 
           goto LABEL_39;
         }
@@ -3400,18 +3453,22 @@ LABEL_28:
       }
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && ([v37 status] == 5 || objc_msgSend(v37, "status") == 6))
+      if (objc_opt_isKindOfClass())
       {
-        v46 = sub_100004778();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        status = [v38 status];
+        if (status == 5 || (status = [v38 status], status == 6))
         {
-          *buf = 138412290;
-          v51 = actionCopy;
-          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
-        }
+          v49 = sub_100004778(status);
+          if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v54 = actionCopy;
+            _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Fulfilling action %@ because call has ended", buf, 0xCu);
+          }
 
-        [actionCopy fulfill];
-        goto LABEL_39;
+          [actionCopy fulfill];
+          goto LABEL_39;
+        }
       }
     }
 
@@ -3582,7 +3639,7 @@ LABEL_19:
 
           else
           {
-            v28 = sub_100004778();
+            v28 = sub_100004778(0);
             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
@@ -3632,8 +3689,8 @@ LABEL_19:
 - (void)_checkAndSendReturningSilencedIMAVAnalytic:(id)analytic
 {
   analyticCopy = analytic;
-  v48 = +[NSUserDefaults standardUserDefaults];
-  v4 = [v48 arrayForKey:@"returnedIMAVCalls"];
+  v51 = +[NSUserDefaults standardUserDefaults];
+  v4 = [v51 arrayForKey:@"returnedIMAVCalls"];
   v5 = objc_alloc_init(CHManager);
   v6 = [CHHandle alloc];
   handle = [analyticCopy handle];
@@ -3652,7 +3709,7 @@ LABEL_19:
   v11 = [v6 initWithType:v8 value:value];
 
   v12 = +[NSMutableArray array];
-  v45 = v11;
+  v48 = v11;
   v13 = [CHRecentCall predicateForCallsWithRemoteParticipantHandle:v11];
   [v12 addObject:v13];
 
@@ -3661,7 +3718,7 @@ LABEL_19:
   v16 = [v14 dateByAddingUnit:16 value:-1 toDate:v15 options:0];
 
   v17 = +[NSDate date];
-  v44 = v16;
+  v47 = v16;
   v18 = [CHRecentCall predicateForCallsBetweenStartDate:v16 endDate:v17];
   [v12 addObject:v18];
 
@@ -3669,88 +3726,88 @@ LABEL_19:
   [v12 addObject:v19];
 
   v20 = [NSCompoundPredicate andPredicateWithSubpredicates:v12];
-  v46 = v5;
+  v49 = v5;
   v21 = [v5 callsWithPredicate:v20 limit:-1 offset:0 batchSize:-1];
 
-  v22 = sub_100004778();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_100004778(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v55 = [v21 count];
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Found %lu calls matching search predicate for returning silenced IMAV", buf, 0xCu);
+    v58 = [v21 count];
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Found %lu calls matching search predicate for returning silenced IMAV", buf, 0xCu);
   }
 
-  v47 = analyticCopy;
+  v50 = analyticCopy;
   if (v4)
   {
-    v23 = [v4 mutableCopy];
+    v24 = [v4 mutableCopy];
   }
 
   else
   {
-    v23 = +[NSMutableArray array];
+    v24 = +[NSMutableArray array];
   }
 
-  v24 = v23;
-  v51 = 0u;
+  v25 = v24;
+  v54 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v25 = v21;
-  v26 = [v25 countByEnumeratingWithState:&v49 objects:v53 count:16];
-  if (v26)
+  v53 = 0u;
+  v26 = v21;
+  v27 = [v26 countByEnumeratingWithState:&v52 objects:v56 count:16];
+  if (v27)
   {
-    v27 = v26;
-    v43 = v12;
-    v28 = *v50;
-    v29 = 1;
+    v28 = v27;
+    v46 = v12;
+    v29 = *v53;
+    v30 = 1;
     do
     {
-      for (i = 0; i != v27; i = i + 1)
+      for (i = 0; i != v28; i = i + 1)
       {
-        if (*v50 != v28)
+        if (*v53 != v29)
         {
-          objc_enumerationMutation(v25);
+          objc_enumerationMutation(v26);
         }
 
-        v31 = *(*(&v49 + 1) + 8 * i);
-        uniqueId = [v31 uniqueId];
-        v33 = [v4 containsObject:uniqueId];
+        v32 = *(*(&v52 + 1) + 8 * i);
+        uniqueId = [v32 uniqueId];
+        v34 = [v4 containsObject:uniqueId];
 
-        if (v33)
+        if (v34)
         {
-          v34 = sub_100004778();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+          v36 = sub_100004778(v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Call has already been returned, not reporting it", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Call has already been returned, not reporting it", buf, 2u);
           }
 
-          v29 = 0;
+          v30 = 0;
         }
 
-        uniqueId2 = [v31 uniqueId];
-        [v24 addObject:uniqueId2];
+        uniqueId2 = [v32 uniqueId];
+        [v25 addObject:uniqueId2];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v52 objects:v56 count:16];
     }
 
-    while (v27);
+    while (v28);
 
-    [v48 setObject:v24 forKey:@"returnedIMAVCalls"];
-    v12 = v43;
-    if ((v29 & 1) == 0)
+    v38 = [v51 setObject:v25 forKey:@"returnedIMAVCalls"];
+    v12 = v46;
+    if ((v30 & 1) == 0)
     {
-      v36 = sub_100004778();
-      v37 = v47;
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v39 = sub_100004778(v38);
+      v40 = v50;
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        handle3 = [v47 handle];
+        handle3 = [v50 handle];
         value2 = [handle3 value];
         *buf = 138412290;
-        v55 = value2;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "No recent unreturned silenced IMAV calls found for handle %@ in the last 24 hours", buf, 0xCu);
+        v58 = value2;
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "No recent unreturned silenced IMAV calls found for handle %@ in the last 24 hours", buf, 0xCu);
       }
 
       goto LABEL_28;
@@ -3760,18 +3817,18 @@ LABEL_19:
   else
   {
 
-    [v48 setObject:v24 forKey:@"returnedIMAVCalls"];
+    v38 = [v51 setObject:v25 forKey:@"returnedIMAVCalls"];
   }
 
-  v40 = sub_100004778();
-  v37 = v47;
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v43 = sub_100004778(v38);
+  v40 = v50;
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
   {
-    handle4 = [v47 handle];
+    handle4 = [v50 handle];
     value3 = [handle4 value];
     *buf = 138412290;
-    v55 = value3;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Found recent IMAV calls for handle that has not been returned %@", buf, 0xCu);
+    v58 = value3;
+    _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Found recent IMAV calls for handle that has not been returned %@", buf, 0xCu);
   }
 
   +[CSDAnalyticsReporter sendReplyingToIMAVCallEvent];

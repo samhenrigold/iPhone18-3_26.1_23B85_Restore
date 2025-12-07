@@ -6,7 +6,7 @@
 
 + (void)_addGuestForObjectWithID:(void *)d additionalUpdates:(void *)updates context:
 {
-  v126 = *MEMORY[0x277D85DE8];
+  v125 = *MEMORY[0x277D85DE8];
   v6 = a2;
   dCopy = d;
   updatesCopy = updates;
@@ -14,26 +14,26 @@
   v9 = +[_MKFGuest entity];
   propertiesByName = [v9 propertiesByName];
   v11 = [propertiesByName objectForKeyedSubscript:@"accessCode"];
-  v118 = v11;
-  v112 = [MEMORY[0x277CBEA60] arrayWithObjects:&v118 count:1];
+  v117 = v11;
+  v111 = [MEMORY[0x277CBEA60] arrayWithObjects:&v117 count:1];
 
   v12 = v6;
   v13 = updatesCopy;
-  v111 = v8;
+  v110 = v8;
   v14 = objc_opt_self();
   objectID = v12;
   entity = [(__CFString *)objectID entity];
   v17 = +[_MKFGuest entity];
   LOBYTE(v8) = [entity isKindOfEntity:v17];
 
-  v114 = objectID;
+  v113 = objectID;
   if (v8)
   {
     goto LABEL_2;
   }
 
   *&v18 = 138543618;
-  v110 = v18;
+  v109 = v18;
   p_cache = (&OBJC_METACLASS___HMDAccessCodeManagerUtilities + 16);
   while (1)
   {
@@ -41,9 +41,9 @@
     v24 = v13;
     v25 = v13;
     v26 = objc_opt_self();
-    v117 = 0;
-    v27 = [v25 hmd_fetchExistingObjectWithID:v19 propertiesToFetch:MEMORY[0x277CBEBF8] error:&v117];
-    v28 = v117;
+    v116 = 0;
+    v27 = [v25 hmd_fetchExistingObjectWithID:v19 propertiesToFetch:MEMORY[0x277CBEBF8] error:&v116];
+    v28 = v116;
     if (v28)
     {
       v29 = v28;
@@ -54,11 +54,11 @@
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v121 = v33;
-        v122 = 2114;
-        v123 = v19;
-        v124 = 2114;
-        v125 = v29;
+        v120 = v33;
+        v121 = 2114;
+        v122 = v19;
+        v123 = 2114;
+        v124 = v29;
         _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch object with objectID %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -82,17 +82,17 @@ LABEL_8:
       if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
       {
         v55 = HMFGetLogIdentifier();
-        *buf = v110;
-        v121 = v55;
-        v122 = 2114;
-        v123 = v19;
+        *buf = v109;
+        v120 = v55;
+        v121 = 2114;
+        v122 = v19;
         _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find object with objectID %{public}@ while searching for its parent", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v52);
-      v116 = 0;
-      v51 = [v25 existingObjectWithID:v19 error:&v116];
-      v29 = v116;
+      v115 = 0;
+      v51 = [v25 existingObjectWithID:v19 error:&v115];
+      v29 = v115;
       if (!v51)
       {
         v78 = objc_autoreleasePoolPush();
@@ -101,10 +101,10 @@ LABEL_8:
         if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
         {
           v81 = HMFGetLogIdentifier();
-          *buf = v110;
-          v121 = v81;
-          v122 = 2114;
-          v123 = v19;
+          *buf = v109;
+          v120 = v81;
+          v121 = 2114;
+          v122 = v19;
           _os_log_impl(&dword_229538000, v80, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find object with objectID %{public}@ using existingObjectWithID API", buf, 0x16u);
         }
 
@@ -240,27 +240,27 @@ LABEL_9:
       if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
       {
         v85 = HMFGetLogIdentifier();
-        *buf = v110;
-        v121 = v85;
-        v122 = 2114;
-        v123 = v19;
+        *buf = v109;
+        v120 = v85;
+        v121 = 2114;
+        v122 = v19;
         _os_log_impl(&dword_229538000, v84, OS_LOG_TYPE_ERROR, "%{public}@No parent pointer found for the objectID: %{public}@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v82);
 LABEL_69:
       v20 = 0;
-      v22 = v112;
+      v22 = v111;
       v21 = dCopy;
       goto LABEL_70;
     }
 
     v36 = v35;
-    v119 = v35;
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v119 count:1];
-    v115 = 0;
-    v38 = [v25 hmd_fetchExistingObjectWithID:v19 propertiesToFetch:v37 error:&v115];
-    v39 = v115;
+    v118 = v35;
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v118 count:1];
+    v114 = 0;
+    v38 = [v25 hmd_fetchExistingObjectWithID:v19 propertiesToFetch:v37 error:&v114];
+    v39 = v114;
 
     if (v39)
     {
@@ -271,11 +271,11 @@ LABEL_69:
       {
         v89 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v121 = v89;
-        v122 = 2114;
-        v123 = v19;
-        v124 = 2114;
-        v125 = v39;
+        v120 = v89;
+        v121 = 2114;
+        v122 = v19;
+        v123 = 2114;
+        v124 = v39;
         _os_log_impl(&dword_229538000, v88, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch object with objectID %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -291,17 +291,17 @@ LABEL_69:
       if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
       {
         v93 = HMFGetLogIdentifier();
-        *buf = v110;
-        v121 = v93;
-        v122 = 2114;
-        v123 = v19;
+        *buf = v109;
+        v120 = v93;
+        v121 = 2114;
+        v122 = v19;
         _os_log_impl(&dword_229538000, v92, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find object with objectID %{public}@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v90);
       v39 = 0;
 LABEL_61:
-      v22 = v112;
+      v22 = v111;
       v21 = dCopy;
 
       v20 = 0;
@@ -320,11 +320,11 @@ LABEL_70:
       {
         v97 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v121 = v97;
-        v122 = 2114;
-        v123 = v36;
-        v124 = 2112;
-        v125 = v38;
+        v120 = v97;
+        v121 = 2114;
+        v122 = v36;
+        v123 = 2112;
+        v124 = v38;
         _os_log_impl(&dword_229538000, v96, OS_LOG_TYPE_ERROR, "%{public}@Object has no value for '%{public}@': %@", buf, 0x20u);
       }
 
@@ -358,11 +358,11 @@ LABEL_68:
       {
         v101 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v121 = v101;
-        v122 = 2114;
-        v123 = v36;
-        v124 = 2112;
-        v125 = v38;
+        v120 = v101;
+        v121 = 2114;
+        v122 = v36;
+        v123 = 2112;
+        v124 = v38;
         _os_log_impl(&dword_229538000, v100, OS_LOG_TYPE_ERROR, "%{public}@Object value for '%{public}@' is not an object: %@", buf, 0x20u);
       }
 
@@ -397,7 +397,7 @@ LABEL_68:
 LABEL_2:
   v19 = objectID;
   v20 = v19;
-  v22 = v112;
+  v22 = v111;
   v21 = dCopy;
 LABEL_71:
 
@@ -423,22 +423,20 @@ LABEL_71:
   else
   {
     v104 = objc_autoreleasePoolPush();
-    v105 = v111;
+    v105 = v110;
     v106 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
     {
       v107 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v121 = v107;
-      v122 = 2114;
-      v123 = v114;
+      v120 = v107;
+      v121 = 2114;
+      v122 = v113;
       _os_log_impl(&dword_229538000, v106, OS_LOG_TYPE_ERROR, "%{public}@Couldn't find guest for model with objectID %{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v104);
   }
-
-  v109 = *MEMORY[0x277D85DE8];
 }
 
 @end

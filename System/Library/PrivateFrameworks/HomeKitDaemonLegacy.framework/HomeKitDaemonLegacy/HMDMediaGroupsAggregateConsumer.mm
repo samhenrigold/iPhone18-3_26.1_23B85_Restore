@@ -246,7 +246,7 @@ uint64_t __75__HMDMediaGroupsAggregateConsumer_destinationControllerDataWithIden
 
 - (BOOL)isAggregateTopic:(id)topic
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   v5 = [MEMORY[0x277CD19F0] decodeTopic:topicCopy];
   v6 = v5;
@@ -272,13 +272,13 @@ LABEL_14:
       {
         v18 = HMFGetLogIdentifier();
         v20 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v8, "homeEventTopicSuffixID")}];
-        v23 = 138543874;
-        v24 = v18;
-        v25 = 2112;
-        v26 = v20;
-        v27 = 2112;
-        v28 = v6;
-        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Received unexpected topic id: %@ topic: %@", &v23, 0x20u);
+        v22 = 138543874;
+        v23 = v18;
+        v24 = 2112;
+        v25 = v20;
+        v26 = 2112;
+        v27 = v6;
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Received unexpected topic id: %@ topic: %@", &v22, 0x20u);
 
         goto LABEL_12;
       }
@@ -292,11 +292,11 @@ LABEL_14:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = HMFGetLogIdentifier();
-        v23 = 138543618;
-        v24 = v18;
-        v25 = 2112;
-        v26 = v6;
-        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert to parsed home topic using topic: %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v18;
+        v24 = 2112;
+        v25 = v6;
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert to parsed home topic using topic: %@", &v22, 0x16u);
 LABEL_12:
       }
     }
@@ -312,24 +312,23 @@ LABEL_12:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v14 = HMFGetLogIdentifier();
-    v23 = 138543618;
-    v24 = v14;
-    v25 = 2112;
-    v26 = topicCopy;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse topic: %@", &v23, 0x16u);
+    v22 = 138543618;
+    v23 = v14;
+    v24 = 2112;
+    v25 = topicCopy;
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to parse topic: %@", &v22, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
   v10 = 0;
 LABEL_15:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (void)didReceiveEvent:(id)event topic:(id)topic
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   topicCopy = topic;
   if ([(HMDMediaGroupsAggregateConsumer *)self isAggregateTopic:topicCopy])
@@ -351,11 +350,11 @@ LABEL_15:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         v18 = HMFGetLogIdentifier();
-        v20 = 138543618;
-        v21 = v18;
-        v22 = 2112;
-        v23 = topicCopy;
-        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Error deserializing event encoded aggregation data for topic: %@", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v18;
+        v21 = 2112;
+        v22 = topicCopy;
+        _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Error deserializing event encoded aggregation data for topic: %@", &v19, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -370,31 +369,29 @@ LABEL_15:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v20 = 138543618;
-      v21 = v14;
-      v22 = 2112;
-      v23 = topicCopy;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle received event due to unexpected topic: %@", &v20, 0x16u);
+      v19 = 138543618;
+      v20 = v14;
+      v21 = 2112;
+      v22 = topicCopy;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to handle received event due to unexpected topic: %@", &v19, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyOfUpdatedAggregateData
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v15 = 138543362;
-    v16 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated aggregate data", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Notifying of updated aggregate data", &v14, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -415,15 +412,13 @@ LABEL_15:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify of update aggregate data due to no delegate", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to notify of update aggregate data due to no delegate", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unstageNullDestinationForCurrentDestinationController
@@ -441,7 +436,7 @@ LABEL_15:
 
 - (void)startSubscriptionForHome:(id)home
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   mediaGroupsAggregateDataTopicName = [homeCopy mediaGroupsAggregateDataTopicName];
   v6 = objc_autoreleasePoolPush();
@@ -451,29 +446,27 @@ LABEL_15:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v16 = v9;
-    v17 = 2112;
-    v18 = mediaGroupsAggregateDataTopicName;
+    v15 = v9;
+    v16 = 2112;
+    v17 = mediaGroupsAggregateDataTopicName;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Subscribing to aggregated media group data with topic: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   subscriptionProvider = [(HMDMediaGroupsAggregateConsumer *)selfCopy subscriptionProvider];
-  v14 = mediaGroupsAggregateDataTopicName;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __60__HMDMediaGroupsAggregateConsumer_startSubscriptionForHome___block_invoke;
-  v13[3] = &unk_279734EB8;
-  v13[4] = selfCopy;
-  [subscriptionProvider registerConsumer:selfCopy topicFilters:v11 completion:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = mediaGroupsAggregateDataTopicName;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __60__HMDMediaGroupsAggregateConsumer_startSubscriptionForHome___block_invoke;
+  v12[3] = &unk_279734EB8;
+  v12[4] = selfCopy;
+  [subscriptionProvider registerConsumer:selfCopy topicFilters:v11 completion:v12];
 }
 
 void __60__HMDMediaGroupsAggregateConsumer_startSubscriptionForHome___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -485,23 +478,21 @@ void __60__HMDMediaGroupsAggregateConsumer_startSubscriptionForHome___block_invo
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v6;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v6;
       _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Register consumer completed with error: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __60__HMDMediaGroupsAggregateConsumer_startSubscriptionForHome___block_invoke_17;
-  v12[3] = &unk_279734E90;
-  v12[4] = *(a1 + 32);
-  [v5 hmf_enumerateKeysAndObjectsWithAutoreleasePoolUsingBlock:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __60__HMDMediaGroupsAggregateConsumer_startSubscriptionForHome___block_invoke_17;
+  v11[3] = &unk_279734E90;
+  v11[4] = *(a1 + 32);
+  [v5 hmf_enumerateKeysAndObjectsWithAutoreleasePoolUsingBlock:v11];
 }
 
 - (void)stopSubscription
@@ -517,7 +508,7 @@ void __60__HMDMediaGroupsAggregateConsumer_startSubscriptionForHome___block_invo
 
 void __51__HMDMediaGroupsAggregateConsumer_stopSubscription__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -527,41 +518,38 @@ void __51__HMDMediaGroupsAggregateConsumer_stopSubscription__block_invoke(uint64
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Unregister consumer completed with error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Unregister consumer completed with error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unconfigure
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Unconfiguring media groups aggregate consumer", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Unconfiguring media groups aggregate consumer", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDMediaGroupsAggregateConsumer *)selfCopy stopSubscription];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithHome:(id)home
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -569,9 +557,9 @@ void __51__HMDMediaGroupsAggregateConsumer_stopSubscription__block_invoke(uint64
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Configuring media groups aggregate consumer", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Configuring media groups aggregate consumer", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -584,8 +572,6 @@ void __51__HMDMediaGroupsAggregateConsumer_stopSubscription__block_invoke(uint64
 
   homeTheaterSetupMetricDispatcher = [homeCopy homeTheaterSetupMetricDispatcher];
   [(HMDMediaGroupsAggregateConsumer *)selfCopy setHomeTheaterSetupMetricDispatcher:homeTheaterSetupMetricDispatcher];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaGroupsAggregateData)aggregationData
@@ -598,7 +584,7 @@ void __51__HMDMediaGroupsAggregateConsumer_stopSubscription__block_invoke(uint64
 
 - (void)_trackHomeTheaterMetricsInAggregateData:(id)data
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   homeTheaterSetupMetricDispatcher = [(HMDMediaGroupsAggregateConsumer *)self homeTheaterSetupMetricDispatcher];
   v6 = homeTheaterSetupMetricDispatcher;
@@ -616,21 +602,21 @@ void __51__HMDMediaGroupsAggregateConsumer_stopSubscription__block_invoke(uint64
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v37 = v12;
-        v38 = 2112;
-        v39 = activeGroupIdentifier2;
+        v36 = v12;
+        v37 = 2112;
+        v38 = activeGroupIdentifier2;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Check committed home theater UUID: %@ in aggregate data", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
       destinationControllersData = [dataCopy destinationControllersData];
-      v31 = MEMORY[0x277D85DD0];
-      v32 = 3221225472;
-      v33 = __75__HMDMediaGroupsAggregateConsumer__trackHomeTheaterMetricsInAggregateData___block_invoke;
-      v34 = &unk_27972B060;
+      v30 = MEMORY[0x277D85DD0];
+      v31 = 3221225472;
+      v32 = __75__HMDMediaGroupsAggregateConsumer__trackHomeTheaterMetricsInAggregateData___block_invoke;
+      v33 = &unk_27972B060;
       v14 = activeGroupIdentifier2;
-      v35 = v14;
-      v15 = [destinationControllersData na_firstObjectPassingTest:&v31];
+      v34 = v14;
+      v15 = [destinationControllersData na_firstObjectPassingTest:&v30];
       if (!v15)
       {
         goto LABEL_12;
@@ -644,14 +630,14 @@ void __51__HMDMediaGroupsAggregateConsumer_stopSubscription__block_invoke(uint64
       {
         v20 = HMFGetLogIdentifier();
         [MEMORY[0x277CCABB0] numberWithUnsignedInteger:activeMetricType];
-        v21 = v30 = v17;
+        v21 = v29 = v17;
         *buf = 138543618;
-        v37 = v20;
-        v38 = 2112;
-        v39 = v21;
+        v36 = v20;
+        v37 = 2112;
+        v38 = v21;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Attempting to mark request committed for metric type: %@", buf, 0x16u);
 
-        v17 = v30;
+        v17 = v29;
       }
 
       objc_autoreleasePoolPop(v17);
@@ -695,14 +681,12 @@ LABEL_12:
   {
     v27 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v27;
+    v36 = v27;
     _os_log_impl(&dword_2531F8000, v26, OS_LOG_TYPE_INFO, "%{public}@No home theater setup metric has been tracked", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v24);
 LABEL_16:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__HMDMediaGroupsAggregateConsumer__trackHomeTheaterMetricsInAggregateData___block_invoke(uint64_t a1, void *a2)
@@ -716,7 +700,7 @@ uint64_t __75__HMDMediaGroupsAggregateConsumer__trackHomeTheaterMetricsInAggrega
 
 - (void)_trackMediaSystemMetricsInAggregateData:(id)data
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   mediaSystemSetupMetricDispatcher = [(HMDMediaGroupsAggregateConsumer *)self mediaSystemSetupMetricDispatcher];
   v6 = mediaSystemSetupMetricDispatcher;
@@ -733,20 +717,20 @@ uint64_t __75__HMDMediaGroupsAggregateConsumer__trackHomeTheaterMetricsInAggrega
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v11;
+        v25 = v11;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Check committed media system in aggregate data", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
       activeGroupIdentifier2 = [v6 activeGroupIdentifier];
       groups = [dataCopy groups];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __75__HMDMediaGroupsAggregateConsumer__trackMediaSystemMetricsInAggregateData___block_invoke;
-      v23[3] = &unk_27972E038;
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __75__HMDMediaGroupsAggregateConsumer__trackMediaSystemMetricsInAggregateData___block_invoke;
+      v22[3] = &unk_27972E038;
       v14 = activeGroupIdentifier2;
-      v24 = v14;
-      v15 = [groups na_firstObjectPassingTest:v23];
+      v23 = v14;
+      v15 = [groups na_firstObjectPassingTest:v22];
       activeMetricType = [v6 activeMetricType];
       if (v15 && activeMetricType == 1)
       {
@@ -777,14 +761,12 @@ LABEL_15:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v26 = v21;
+    v25 = v21;
     _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@No media system setup metric has been tracked", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v18);
 LABEL_16:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__HMDMediaGroupsAggregateConsumer__trackMediaSystemMetricsInAggregateData___block_invoke(uint64_t a1, void *a2)
@@ -799,7 +781,7 @@ uint64_t __75__HMDMediaGroupsAggregateConsumer__trackMediaSystemMetricsInAggrega
 
 - (void)commitAggregationData:(id)data
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -807,11 +789,11 @@ uint64_t __75__HMDMediaGroupsAggregateConsumer__trackMediaSystemMetricsInAggrega
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = dataCopy;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Committing aggregation data %@ for consumer", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = dataCopy;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Committing aggregation data %@ for consumer", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -820,8 +802,6 @@ uint64_t __75__HMDMediaGroupsAggregateConsumer__trackMediaSystemMetricsInAggrega
 
   [(HMDMediaGroupsAggregateConsumer *)selfCopy _trackMediaSystemMetricsInAggregateData:dataCopy];
   [(HMDMediaGroupsAggregateConsumer *)selfCopy _trackHomeTheaterMetricsInAggregateData:dataCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMediaGroupsAggregateConsumer)initWithIdentifier:(id)identifier subscriptionProvider:(id)provider notificationCenter:(id)center stageManager:(id)manager
@@ -890,12 +870,11 @@ LABEL_11:
 
 uint64_t __46__HMDMediaGroupsAggregateConsumer_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_63724;
-  logCategory__hmf_once_v19_63724 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_63724;
+  logCategory__hmf_once_v19_63724 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

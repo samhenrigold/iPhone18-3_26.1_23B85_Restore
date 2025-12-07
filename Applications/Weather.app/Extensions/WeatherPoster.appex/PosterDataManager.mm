@@ -22,7 +22,7 @@
   managerCopy = manager;
   errorCopy = error;
   selfCopy = self;
-  sub_100045280();
+  sub_100045280(selfCopy, errorCopy);
 }
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization

@@ -16,6 +16,7 @@
 - (int64_t)contactCountForMainItem:(id)item;
 - (void)_applyFilter;
 - (void)_reloadSections;
+- (void)removeServerFilter;
 - (void)setFilter:(id)filter;
 - (void)setFilterForItem:(id)item;
 - (void)setHidesSearchableSources:(BOOL)sources;
@@ -792,6 +793,13 @@ uint64_t __50__CNAccountsAndGroupsDataSource_multiSelectFilter__block_invoke_2(u
   }
 
   return v4;
+}
+
+- (void)removeServerFilter
+{
+  serverFilter = self->_serverFilter;
+  self->_serverFilter = 0;
+  MEMORY[0x1EEE66BB8](self, serverFilter);
 }
 
 - (void)setFilterForItem:(id)item

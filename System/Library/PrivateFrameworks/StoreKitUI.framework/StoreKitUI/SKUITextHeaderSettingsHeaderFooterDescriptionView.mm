@@ -153,61 +153,8 @@
 
 - (void)layoutSubviews
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
-      if (v3)
-      {
-        [(SKUITextHeaderSettingsHeaderFooterDescriptionView *)v3 layoutSubviews:v4];
-      }
-    }
-  }
-
-  v34.receiver = self;
-  v34.super_class = SKUITextHeaderSettingsHeaderFooterDescriptionView;
-  [(SKUITextHeaderSettingsHeaderFooterDescriptionView *)&v34 layoutSubviews];
-  v11 = [MEMORY[0x277D74300] preferredFontForTextStyle:*MEMORY[0x277D76938]];
-  [(UILabel *)self->_label setFont:v11];
-  [(SKUITextHeaderSettingsHeaderFooterDescriptionView *)self bounds];
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
-  [(SKUITextHeaderSettingsHeaderFooterDescriptionView *)self layoutMargins];
-  v21 = v20;
-  v23 = v22;
-  v35.origin.x = v13;
-  v35.origin.y = v15;
-  v35.size.width = v17;
-  v35.size.height = v19;
-  v24 = CGRectGetWidth(v35) - v21 - v23;
-  [(UILabel *)self->_label sizeThatFits:v24, 1.0];
-  v26 = v25;
-  [v11 _scaledValueForValue:8.0];
-  v28 = v27;
-  [(UILabel *)self->_label _baselineOffsetFromBottom];
-  v30 = v28 - v29;
-  v36.origin.x = v13;
-  v36.origin.y = v15;
-  v36.size.width = v17;
-  v36.size.height = v19;
-  Height = CGRectGetHeight(v36);
-  label = self->_label;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v21, Height - v30 - v26, v24, v26, v13, v15, v17, v19);
-  [(UILabel *)label setFrame:?];
-  if (storeShouldReverseLayoutDirection())
-  {
-    v33 = 2;
-  }
-
-  else
-  {
-    v33 = 0;
-  }
-
-  [(UILabel *)self->_label setTextAlignment:v33];
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextHeaderSettingsHeaderFooterDescriptionView layoutSubviews]";
 }
 
 + (id)_concatenateTextFromLabelElements:(id)elements
@@ -265,6 +212,42 @@
   [v6 setText:v8];
 
   return v6;
+}
+
++ (void)preferredSizeForSettingsHeaderFooterDescription:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextHeaderSettingsHeaderFooterDescriptionView preferredSizeForSettingsHeaderFooterDescription:context:]";
+}
+
++ (void)prefetchResourcesForSettingsHeaderFooterDescription:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextHeaderSettingsHeaderFooterDescriptionView prefetchResourcesForSettingsHeaderFooterDescription:reason:context:]";
+}
+
++ (void)requestLayoutForSettingsHeaderFooterDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextHeaderSettingsHeaderFooterDescriptionView requestLayoutForSettingsHeaderFooterDescription:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 settingsHeaderFooterDescription:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITextHeaderSettingsHeaderFooterDescriptionView sizeThatFitsWidth:settingsHeaderFooterDescription:context:]";
+}
+
+- (void)reloadWithSettingsHeaderFooterDescription:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextHeaderSettingsHeaderFooterDescriptionView reloadWithSettingsHeaderFooterDescription:width:context:]";
+}
+
+- (void)setImage:(uint64_t)a3 forArtworkRequest:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITextHeaderSettingsHeaderFooterDescriptionView setImage:forArtworkRequest:context:]";
 }
 
 @end

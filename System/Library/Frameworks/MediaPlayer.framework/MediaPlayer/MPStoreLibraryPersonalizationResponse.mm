@@ -8,35 +8,35 @@
 
 - (id)newOperationForDetailedKeepLocalStatusConfigurationForSectionAtIndex:(int64_t)index responseHandler:(id)handler
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   results = [(MPModelResponse *)self results];
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
   v8 = objc_alloc_init(MPLibraryAddStatusObserver);
   v9 = [MEMORY[0x1E695DFA8] set];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x4812000000;
-  v35 = __Block_byref_object_copy__32562;
-  v36 = __Block_byref_object_dispose__32563;
-  v37 = "";
-  v39 = 0;
-  v40 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x4812000000;
+  v37 = __Block_byref_object_copy__32562;
+  v38 = __Block_byref_object_dispose__32563;
+  v39 = "";
+  v41 = 0;
+  v42 = 0;
   __p = 0;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __126__MPStoreLibraryPersonalizationResponse_newOperationForDetailedKeepLocalStatusConfigurationForSectionAtIndex_responseHandler___block_invoke;
-  v27[3] = &unk_1E767B968;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __126__MPStoreLibraryPersonalizationResponse_newOperationForDetailedKeepLocalStatusConfigurationForSectionAtIndex_responseHandler___block_invoke;
+  v29[3] = &unk_1E767B968;
   v10 = v8;
-  v28 = v10;
+  v30 = v10;
   v11 = v9;
-  v29 = v11;
-  v30 = &v41;
-  v31 = &v32;
-  [results enumerateItemsUsingBlock:v27];
+  v31 = v11;
+  v32 = &v43;
+  v33 = &v34;
+  [results enumerateItemsUsingBlock:v29];
   v12 = [results sectionAtIndex:index];
   if (objc_opt_respondsToSelector())
   {
@@ -48,7 +48,7 @@
     keepLocalEnableState = 0;
   }
 
-  if (v33[7] != v33[6])
+  if (v35[7] != v35[6])
   {
     v14 = objc_alloc_init(MPModelLibraryKeepLocalStatusRequestOperation);
     activeAccount = [MEMORY[0x1E69E4680] activeAccount];
@@ -56,33 +56,33 @@
 
     [(MPModelLibraryKeepLocalStatusRequestOperation *)v14 setLibraryView:v16];
     [(MPModelLibraryKeepLocalStatusRequestOperation *)v14 setEnableState:keepLocalEnableState];
-    v17 = [MEMORY[0x1E696AD98] numberWithInteger:v42[3]];
+    v17 = [MEMORY[0x1E696AD98] numberWithInteger:v44[3]];
     [(MPModelLibraryKeepLocalStatusRequestOperation *)v14 setRedownloadableItemCount:v17];
 
-    v21 = MEMORY[0x1A58E1100]();
-    mlcore::ItemPropertyPersistentID(v21);
-    std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+    v23 = MEMORY[0x1A58E1100]();
+    *&v21 = mlcore::ItemPropertyPersistentID(v23);
+    std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v22, &v21, (v35 + 6));
   }
 
   v18 = MEMORY[0x1E696AAE0];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __126__MPStoreLibraryPersonalizationResponse_newOperationForDetailedKeepLocalStatusConfigurationForSectionAtIndex_responseHandler___block_invoke_2;
-  v22[3] = &unk_1E767B990;
-  v24 = handlerCopy;
-  v25 = &v41;
-  v26 = keepLocalEnableState;
-  v23 = v12;
-  v19 = [v18 blockOperationWithBlock:v22];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __126__MPStoreLibraryPersonalizationResponse_newOperationForDetailedKeepLocalStatusConfigurationForSectionAtIndex_responseHandler___block_invoke_2;
+  v24[3] = &unk_1E767B990;
+  v26 = handlerCopy;
+  v27 = &v43;
+  v28 = keepLocalEnableState;
+  v25 = v12;
+  v19 = [v18 blockOperationWithBlock:v24];
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v34, 8);
   if (__p)
   {
-    v39 = __p;
+    v41 = __p;
     operator delete(__p);
   }
 
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v43, 8);
   return v19;
 }
 

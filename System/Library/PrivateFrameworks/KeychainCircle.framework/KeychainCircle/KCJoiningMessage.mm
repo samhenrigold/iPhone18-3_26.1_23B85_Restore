@@ -1,11 +1,47 @@
 @interface KCJoiningMessage
++ (id)encodeToDERType:(int)type data:(id)data payload:(id)payload error:(id *)error;
 + (id)messageWithDER:(id)r error:(id *)error;
++ (id)messageWithType:(int)type data:(id)data error:(id *)error;
++ (id)messageWithType:(int)type data:(id)data payload:(id)payload error:(id *)error;
++ (id)messageWithType:(int)type data:(id)data secondData:(id)secondData error:(id *)error;
 + (unint64_t)encodedSizeType:(int)type data:(id)data payload:(id)payload error:(id *)error;
 - (BOOL)inflatePartsOfEncoding:(id *)encoding;
 - (KCJoiningMessage)initWithDER:(id)r error:(id *)error;
+- (KCJoiningMessage)initWithType:(int)type data:(id)data payload:(id)payload error:(id *)error;
 @end
 
 @implementation KCJoiningMessage
+
+- (KCJoiningMessage)initWithType:(int)type data:(id)data payload:(id)payload error:(id *)error
+{
+  v8 = *&type;
+  dataCopy = data;
+  payloadCopy = payload;
+  v18.receiver = self;
+  v18.super_class = KCJoiningMessage;
+  v12 = [(KCJoiningMessage *)&v18 init];
+  if (v12 && ([KCJoiningMessage encodeToDERType:v8 data:dataCopy payload:payloadCopy error:error], v13 = objc_claimAutoreleasedReturnValue(), der = v12->_der, v12->_der = v13, der, !v12->_der))
+  {
+    v16 = 0;
+  }
+
+  else
+  {
+    if ([(KCJoiningMessage *)v12 inflatePartsOfEncoding:error])
+    {
+      v15 = v12;
+    }
+
+    else
+    {
+      v15 = 0;
+    }
+
+    v16 = v15;
+  }
+
+  return v16;
+}
 
 - (KCJoiningMessage)initWithDER:(id)r error:(id *)error
 {
@@ -91,6 +127,49 @@ LABEL_5:
   return v15;
 }
 
++ (id)encodeToDERType:(int)type data:(id)data payload:(id)payload error:(id *)error
+{
+  v8 = *&type;
+  dataCopy = data;
+  payloadCopy = payload;
+  v11 = [KCJoiningMessage encodedSizeType:v8 data:dataCopy payload:payloadCopy error:error];
+  if (!v11)
+  {
+    v23 = 0;
+    goto LABEL_11;
+  }
+
+  v12 = [MEMORY[0x277CBEB28] dataWithLength:v11];
+  mutableBytes = [v12 mutableBytes];
+  v15 = mutableBytes + [v12 length];
+  v16 = v15;
+  if (payloadCopy)
+  {
+    v16 = kcder_encode_data(payloadCopy, v14, mutableBytes, v15);
+  }
+
+  kcder_encode_data(dataCopy, v14, mutableBytes, v16);
+  ccder_encode_uint64();
+  v17 = ccder_encode_constructed_tl();
+  if (v17)
+  {
+    if (v17 == mutableBytes)
+    {
+      v23 = v12;
+      goto LABEL_10;
+    }
+
+    KCJoiningErrorCreate(3, error, @"Size didn't match encoding", v18, v19, v20, v21, v22, v25);
+  }
+
+  v23 = 0;
+LABEL_10:
+
+LABEL_11:
+
+  return v23;
+}
+
 + (unint64_t)encodedSizeType:(int)type data:(id)data payload:(id)payload error:(id *)error
 {
   payloadCopy = payload;
@@ -111,6 +190,35 @@ LABEL_5:
   {
     v8 = 0;
   }
+
+  return v8;
+}
+
++ (id)messageWithType:(int)type data:(id)data payload:(id)payload error:(id *)error
+{
+  v8 = *&type;
+  payloadCopy = payload;
+  dataCopy = data;
+  v11 = [[KCJoiningMessage alloc] initWithType:v8 data:dataCopy payload:payloadCopy error:error];
+
+  return v11;
+}
+
++ (id)messageWithType:(int)type data:(id)data secondData:(id)secondData error:(id *)error
+{
+  v8 = *&type;
+  secondDataCopy = secondData;
+  dataCopy = data;
+  v11 = [[KCJoiningMessage alloc] initWithType:v8 data:dataCopy payload:secondDataCopy error:error];
+
+  return v11;
+}
+
++ (id)messageWithType:(int)type data:(id)data error:(id *)error
+{
+  v6 = *&type;
+  dataCopy = data;
+  v8 = [[KCJoiningMessage alloc] initWithType:v6 data:dataCopy payload:0 error:error];
 
   return v8;
 }

@@ -25,7 +25,7 @@
 
 - (void)scannerDidStop:(id)stop
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stopCopy = stop;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -34,7 +34,7 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v18 = v8;
+    v17 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@WAC Scan Stopped...", buf, 0xCu);
   }
 
@@ -48,9 +48,9 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v18 = v12;
-      v19 = 2048;
-      v20 = 2;
+      v17 = v12;
+      v18 = 2048;
+      v19 = 2;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Scan was still flagged as active, restarting after %lu seconds...", buf, 0x16u);
     }
 
@@ -65,13 +65,11 @@
     block[4] = v10;
     dispatch_after(v13, dispatchQueue, block);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanner:(id)scanner didError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   scannerCopy = scanner;
   errorCopy = error;
   v8 = objc_autoreleasePoolPush();
@@ -80,20 +78,19 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v11;
-    v15 = 2112;
-    v16 = errorCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Error while scanning for WAC devices: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v11;
+    v14 = 2112;
+    v15 = errorCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Error while scanning for WAC devices: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanner:(id)scanner didUpdateDevice:(id)device
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   scannerCopy = scanner;
   deviceCopy = device;
   selfCopy = self;
@@ -111,13 +108,13 @@
     {
       v16 = HMFGetLogIdentifier();
       wacDevice = [v12 wacDevice];
-      *v21 = 138543874;
-      *&v21[4] = v16;
-      *&v21[12] = 2112;
-      *&v21[14] = wacDevice;
-      *&v21[22] = 2112;
-      v22 = v9;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Updating WAC device: %@ -> %@", v21, 0x20u);
+      *v20 = 138543874;
+      *&v20[4] = v16;
+      *&v20[12] = 2112;
+      *&v20[14] = wacDevice;
+      *&v20[22] = 2112;
+      v21 = v9;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Updating WAC device: %@ -> %@", v20, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -126,13 +123,13 @@
     if (delegate)
     {
       delegateQueue = [(HMDWACBrowser *)v14 delegateQueue];
-      *v21 = MEMORY[0x277D85DD0];
-      *&v21[8] = 3221225472;
-      *&v21[16] = ____updateDevice_block_invoke;
-      v22 = &unk_2797359B0;
-      v23 = delegate;
-      v24 = v12;
-      dispatch_async(delegateQueue, v21);
+      *v20 = MEMORY[0x277D85DD0];
+      *&v20[8] = 3221225472;
+      *&v20[16] = ____updateDevice_block_invoke;
+      v21 = &unk_2797359B0;
+      v22 = delegate;
+      v23 = v12;
+      dispatch_async(delegateQueue, v20);
     }
   }
 
@@ -140,8 +137,6 @@
   {
     __addDevice(selfCopy, v9);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scanner:(id)scanner didRemoveDevice:(id)device
@@ -152,7 +147,7 @@
 
 - (void)clearBackoff
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -160,7 +155,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Backoff cleared", buf, 0xCu);
   }
 
@@ -172,12 +167,11 @@
   block[3] = &unk_279735D00;
   block[4] = selfCopy;
   dispatch_async(dispatchQueue, block);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestBackoff
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -185,7 +179,7 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Backoff requested", buf, 0xCu);
   }
 
@@ -197,7 +191,6 @@
   block[3] = &unk_279735D00;
   block[4] = selfCopy;
   dispatch_async(dispatchQueue, block);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopBrowsingForAccessories
@@ -245,9 +238,9 @@ uint64_t __43__HMDWACBrowser_stopBrowsingForAccessories__block_invoke(uint64_t a
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __44__HMDWACBrowser_startBrowsingForAccessories__block_invoke(uint64_t a1)
+void *__44__HMDWACBrowser_startBrowsingForAccessories__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) scanIsActive];
   if ((result & 1) == 0)
   {
@@ -258,16 +251,15 @@ uint64_t __44__HMDWACBrowser_startBrowsingForAccessories__block_invoke(uint64_t 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Activating WAC Scanner...", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Activating WAC Scanner...", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
-    result = [*(*(a1 + 32) + 16) start];
+    return [*(*(a1 + 32) + 16) start];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -340,12 +332,11 @@ uint64_t __35__HMDWACBrowser_setDelegate_queue___block_invoke(uint64_t a1)
 
 uint64_t __28__HMDWACBrowser_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_112675;
-  logCategory__hmf_once_v10_112675 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_112675;
+  logCategory__hmf_once_v10_112675 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

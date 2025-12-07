@@ -33,7 +33,7 @@
 
   if (v6)
   {
-    type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIMenuElement);
+    type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for UIMenuElement, 0x1E69DCC78);
     v7.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -47,11 +47,11 @@
 
 - (void)handlePageOrderedCollectionDifference:(id)difference
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20CollectionDifferenceVySo7PDFPageCGMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss20CollectionDifferenceVySo7PDFPageCGMd, &_ss20CollectionDifferenceVySo7PDFPageCGMR);
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
   v7 = &v12 - v6;
-  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PDFPage);
+  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PDFPage, 0x1E6978038);
   static CollectionDifference._unconditionallyBridgeFromObjectiveC(_:)();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)

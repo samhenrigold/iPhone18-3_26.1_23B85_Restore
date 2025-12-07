@@ -37,7 +37,7 @@ void __59___UICollectionPreferredSizes_copyByDirtyingPreferredSizes__block_invok
   [*(a1 + 32) setObject:v5 forKeyedSubscript:a2];
 }
 
-void __59___UICollectionPreferredSizes_copyByDirtyingPreferredSizes__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void __59___UICollectionPreferredSizes_copyByDirtyingPreferredSizes__block_invoke_2(uint64_t a1, uint64_t a2, id *a3)
 {
   v5 = [(_UICollectionPreferredSizes *)a3 copyByDirtyingPreferredSizes];
   [*(a1 + 32) setObject:v5 forKeyedSubscript:a2];

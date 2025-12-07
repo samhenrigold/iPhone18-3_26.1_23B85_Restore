@@ -58,7 +58,7 @@
 
   else
   {
-    v3 = _AAUILogSystem();
+    v3 = _AAUILogSystem(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       [AAUISpinnerManager startNavigationSpinner];
@@ -72,8 +72,8 @@ void __44__AAUISpinnerManager_startNavigationSpinner__block_invoke(uint64_t a1)
 
   if (v2)
   {
-    v3 = _AAUILogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _AAUILogSystem(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __44__AAUISpinnerManager_startNavigationSpinner__block_invoke_cold_1();
     }
@@ -81,9 +81,9 @@ void __44__AAUISpinnerManager_startNavigationSpinner__block_invoke(uint64_t a1)
 
   else
   {
-    v4 = [[AAUINavigationItemSpinnerController alloc] initWithNavigationItem:*(*(a1 + 32) + 24) hideBackButton:*(*(a1 + 32) + 32)];
-    [(AAUINavigationItemSpinnerController *)v4 startSpinning];
-    [*(*(a1 + 32) + 8) setObject:v4 forKeyedSubscript:@"_AAUINavSpinnerKey"];
+    v5 = [[AAUINavigationItemSpinnerController alloc] initWithNavigationItem:*(*(a1 + 32) + 24) hideBackButton:*(*(a1 + 32) + 32)];
+    [(AAUINavigationItemSpinnerController *)v5 startSpinning];
+    [*(*(a1 + 32) + 8) setObject:v5 forKeyedSubscript:@"_AAUINavSpinnerKey"];
   }
 }
 
@@ -111,8 +111,8 @@ void __53__AAUISpinnerManager_startSpinnerInSpecifier_forKey___block_invoke(void
 
   if (v2)
   {
-    v3 = _AAUILogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _AAUILogSystem(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __53__AAUISpinnerManager_startSpinnerInSpecifier_forKey___block_invoke_cold_1();
     }
@@ -120,9 +120,9 @@ void __53__AAUISpinnerManager_startSpinnerInSpecifier_forKey___block_invoke(void
 
   else
   {
-    v4 = [[AAUISpecifierSpinnerController alloc] initWithSpecifier:a1[6]];
-    [(AAUISpecifierSpinnerController *)v4 startSpinning];
-    [*(a1[4] + 8) setObject:v4 forKeyedSubscript:a1[5]];
+    v5 = [[AAUISpecifierSpinnerController alloc] initWithSpecifier:a1[6]];
+    [(AAUISpecifierSpinnerController *)v5 startSpinning];
+    [*(a1[4] + 8) setObject:v5 forKeyedSubscript:a1[5]];
   }
 }
 
@@ -187,7 +187,7 @@ void __42__AAUISpinnerManager_stopAnimatingForKey___block_invoke(uint64_t a1)
 
   else
   {
-    v4 = _AAUILogSystem();
+    v4 = _AAUILogSystem(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __42__AAUISpinnerManager_stopAnimatingForKey___block_invoke_cold_1();

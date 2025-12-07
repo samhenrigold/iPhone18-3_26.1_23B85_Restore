@@ -696,7 +696,7 @@ void __63__WFLocation_locationsByConsolidatingDuplicates_originalOrder___block_i
   return array;
 }
 
-uint64_t __57__WFLocation_locationsByConsolidatingDuplicatesInBucket___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__57__WFLocation_locationsByConsolidatingDuplicatesInBucket___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 isEqual:*(a1 + 32)];
   if ((result & 1) == 0)

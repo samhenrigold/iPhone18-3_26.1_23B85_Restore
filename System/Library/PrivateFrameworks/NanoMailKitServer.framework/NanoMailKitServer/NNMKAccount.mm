@@ -51,11 +51,11 @@
 
 - (NNMKAccount)initWithCoder:(id)coder
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v33.receiver = self;
-  v33.super_class = NNMKAccount;
-  v5 = [(NNMKAccount *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = NNMKAccount;
+  v5 = [(NNMKAccount *)&v32 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"kNSCodingKeyAccountId"];
@@ -106,7 +106,6 @@
     v5->_typeIdentifier = v29;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -136,96 +135,94 @@
 
 + (id)inboxesFromAccounts:(id)accounts
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(accountsCopy, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v5 = accountsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
+        v18 = 0u;
         v19 = 0u;
         v20 = 0u;
         v21 = 0u;
-        v22 = 0u;
         mailboxes = [v10 mailboxes];
-        v12 = [mailboxes countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v12 = [mailboxes countByEnumeratingWithState:&v18 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v20;
+          v14 = *v19;
           do
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v20 != v14)
+              if (*v19 != v14)
               {
                 objc_enumerationMutation(mailboxes);
               }
 
-              v16 = *(*(&v19 + 1) + 8 * j);
+              v16 = *(*(&v18 + 1) + 8 * j);
               if ([v16 type] == 1)
               {
                 [v4 addObject:v16];
               }
             }
 
-            v13 = [mailboxes countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v13 = [mailboxes countByEnumeratingWithState:&v18 objects:v26 count:16];
           }
 
           while (v13);
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (BOOL)maySupportStandaloneMode
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   emailAddresses = [(NNMKAccount *)self emailAddresses];
-  v3 = [emailAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [emailAddresses countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(emailAddresses);
         }
 
-        lowercaseString = [*(*(&v12 + 1) + 8 * i) lowercaseString];
+        lowercaseString = [*(*(&v11 + 1) + 8 * i) lowercaseString];
         v8 = [lowercaseString containsString:@"@gmail.com"];
 
         if (v8)
@@ -235,7 +232,7 @@
         }
       }
 
-      v4 = [emailAddresses countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [emailAddresses countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v4)
       {
         continue;
@@ -248,7 +245,6 @@
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -306,38 +302,38 @@ LABEL_11:
 
 - (BOOL)_isiCloud
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   typeIdentifier = [(NNMKAccount *)self typeIdentifier];
   v4 = [typeIdentifier isEqualToString:*MEMORY[0x277CB8C68]];
 
   if (v4)
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     emailAddresses = [(NNMKAccount *)self emailAddresses];
-    v6 = [emailAddresses countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [emailAddresses countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
-      v7 = *v12;
+      v7 = *v11;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v12 != v7)
+          if (*v11 != v7)
           {
             objc_enumerationMutation(emailAddresses);
           }
 
-          if ([NNMKAccount isiCloudEmailAddress:*(*(&v11 + 1) + 8 * i)])
+          if ([NNMKAccount isiCloudEmailAddress:*(*(&v10 + 1) + 8 * i)])
           {
             LOBYTE(v6) = 1;
             goto LABEL_13;
           }
         }
 
-        v6 = [emailAddresses countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v6 = [emailAddresses countByEnumeratingWithState:&v10 objects:v14 count:16];
         if (v6)
         {
           continue;
@@ -355,7 +351,6 @@ LABEL_13:
     LOBYTE(v6) = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -436,10 +431,9 @@ LABEL_6:
 {
   v3 = MEMORY[0x277CCACA8];
   accountId = [(NNMKAccount *)self accountId];
-  parentAccountIdentifier = self->_parentAccountIdentifier;
-  v6 = [v3 stringWithFormat:@"[Id: %@, Display Name: %@, Should Archive: %d, Email Addresses: %@, Parent Id: %@, Standalone state: %lu]", accountId, self->_displayName, self->_shouldArchive, self->_emailAddresses, parentAccountIdentifier, self->_standaloneState];
+  v5 = [v3 stringWithFormat:@"[Id: %@, Display Name: %@, Should Archive: %d, Email Addresses: %@, Parent Id: %@, Standalone state: %lu]", accountId, self->_displayName, self->_shouldArchive, self->_emailAddresses, self->_parentAccountIdentifier, self->_standaloneState];
 
-  return v6;
+  return v5;
 }
 
 - (void)initWithCoder:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -451,14 +445,12 @@ LABEL_6:
 
 - (void)areStandaloneNotificationsEnabledWithCloudNotificationsEnabled:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 localId];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "Missing typeIdentifier for accountId: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_25B19F000, v3, OS_LOG_TYPE_ERROR, "Missing typeIdentifier for accountId: %{public}@", &v5, 0xCu);
 }
 
 @end

@@ -464,10 +464,10 @@ LABEL_21:
       sub_10133A5A8();
     }
 
-    v34 = off_1019EDA68;
+    v27 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10130DA10(v34);
+      sub_10130DA10(v27);
     }
 
     pathCopy = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
@@ -494,10 +494,10 @@ LABEL_21:
       sub_10133A4C8();
     }
 
-    v35 = off_1019EDA68;
+    v28 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10130DA10(v35);
+      sub_10130DA10(v28);
     }
 
     v11 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
@@ -509,7 +509,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v143 = pathCopy;
+  v136 = pathCopy;
   if (self->mReentrancyValue)
   {
     +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -565,12 +565,12 @@ LABEL_21:
         sub_10130DA10(v22);
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Intentionally crashing for reentrant setSelectionPath: call to avoid mangled state", v23, v24, v25, v26, v27, v28, v29, "[CRLEditorController setSelectionPath:withFlags:]");
-      v30 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
-      v31 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
-      [CRLAssertionHandler handleFailureInFunction:v30 file:v31 lineNumber:169 isFatal:1 description:"Intentionally crashing for reentrant setSelectionPath: call to avoid mangled state"];
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Intentionally crashing for reentrant setSelectionPath: call to avoid mangled state", "[CRLEditorController setSelectionPath:withFlags:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m", 169);
+      v23 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
+      v24 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
+      [CRLAssertionHandler handleFailureInFunction:v23 file:v24 lineNumber:169 isFatal:1 description:"Intentionally crashing for reentrant setSelectionPath: call to avoid mangled state"];
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v32, v33);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v25, v26);
       abort();
     }
   }
@@ -581,41 +581,41 @@ LABEL_21:
   }
 
   v11 = +[NSMutableArray array];
-  v36 = self->mSelectionPath;
+  v29 = self->mSelectionPath;
   selectionPath = [(CRLEditorController *)self selectionPath];
-  v38 = [pathCopy isEqual:selectionPath];
+  v31 = [pathCopy isEqual:selectionPath];
 
-  if (flags & 0x400) == 0 && (v38)
+  if (flags & 0x400) == 0 && (v31)
   {
-    v39 = 0;
+    v32 = 0;
     goto LABEL_194;
   }
 
   selectionPath2 = [(CRLEditorController *)self selectionPath];
-  v41 = [pathCopy isEqual:selectionPath2];
+  v34 = [pathCopy isEqual:selectionPath2];
 
   if (qword_101AD5C68 != -1)
   {
     sub_10133A0D0();
   }
 
-  v42 = off_1019EEB30;
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+  v35 = off_1019EEB30;
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
   {
-    sub_10133A0F8(self, pathCopy, v42);
+    sub_10133A0F8(self, pathCopy, v35);
   }
 
-  v43 = v41 ^ 1;
+  v36 = v34 ^ 1;
 
-  v146 = +[NSMutableArray array];
-  orderedSelections = [(CRLSelectionPath *)v36 orderedSelections];
+  v139 = +[NSMutableArray array];
+  orderedSelections = [(CRLSelectionPath *)v29 orderedSelections];
   p_mSelectionPath = &self->mSelectionPath;
   if (![orderedSelections count])
   {
     orderedSelections2 = [pathCopy orderedSelections];
-    v71 = [orderedSelections2 count];
+    v64 = [orderedSelections2 count];
 
-    if (!v71)
+    if (!v64)
     {
       goto LABEL_71;
     }
@@ -630,8 +630,8 @@ LABEL_21:
         sub_10133A218();
       }
 
-      v72 = off_1019EDA68;
-      if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+      v65 = off_1019EDA68;
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
         sub_10133A240();
       }
@@ -641,89 +641,89 @@ LABEL_21:
         sub_10133A2D0();
       }
 
-      v73 = off_1019EDA68;
-      if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+      v66 = off_1019EDA68;
+      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
       {
         sub_101339E6C();
       }
 
-      v74 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
-      v75 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
-      [CRLAssertionHandler handleFailureInFunction:v74 file:v75 lineNumber:218 isFatal:0 description:"Least specific selection MUST be a board selection. Selection path is malformed. %@", pathCopy];
+      v67 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
+      v68 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
+      [CRLAssertionHandler handleFailureInFunction:v67 file:v68 lineNumber:218 isFatal:0 description:"Least specific selection MUST be a board selection. Selection path is malformed. %@", pathCopy];
     }
   }
 
 LABEL_71:
-  v140 = v43;
+  v133 = v36;
   orderedSelections3 = [pathCopy orderedSelections];
   [orderedSelections3 objectEnumerator];
-  v47 = v46 = self;
+  v40 = v39 = self;
 
-  nextObject = [v47 nextObject];
-  v167 = 0u;
-  v168 = 0u;
-  v169 = 0u;
-  v170 = 0u;
-  v141 = v46;
-  currentEditors = [(CRLEditorController *)v46 currentEditors];
+  nextObject = [v40 nextObject];
+  v160 = 0u;
+  v161 = 0u;
+  v162 = 0u;
+  v163 = 0u;
+  v134 = v39;
+  currentEditors = [(CRLEditorController *)v39 currentEditors];
   objectEnumerator = [currentEditors objectEnumerator];
 
-  v51 = [objectEnumerator countByEnumeratingWithState:&v167 objects:v182 count:16];
-  v142 = v11;
-  v138 = v36;
-  if (!v51)
+  v44 = [objectEnumerator countByEnumeratingWithState:&v160 objects:v175 count:16];
+  v135 = v11;
+  v131 = v29;
+  if (!v44)
   {
-    v53 = 0;
-    v139 = 0;
+    v46 = 0;
+    v132 = 0;
     goto LABEL_108;
   }
 
-  v52 = v51;
-  v53 = 0;
-  v54 = *v168;
+  v45 = v44;
+  v46 = 0;
+  v47 = *v161;
   nextObject2 = nextObject;
-  v153 = v47;
+  v146 = v40;
 LABEL_73:
-  v56 = 0;
+  v49 = 0;
   while (1)
   {
     nextObject = nextObject2;
-    if (*v168 != v54)
+    if (*v161 != v47)
     {
       objc_enumerationMutation(objectEnumerator);
     }
 
-    v57 = *(*(&v167 + 1) + 8 * v56);
-    currentEditors2 = [(CRLEditorController *)v141 currentEditors];
-    v59 = [currentEditors2 objectAtIndex:0];
+    v50 = *(*(&v160 + 1) + 8 * v49);
+    currentEditors2 = [(CRLEditorController *)v134 currentEditors];
+    v52 = [currentEditors2 objectAtIndex:0];
 
-    if (v57 == v59)
+    if (v50 == v52)
     {
       if (nextObject)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v62 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+          v55 = +[CRLAssertionHandler _atomicIncrementAssertCount];
           if (qword_101AD5A10 != -1)
           {
             sub_10133A2F8();
           }
 
-          v63 = off_1019EDA68;
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+          v56 = off_1019EDA68;
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
             *buf = 67110146;
-            *v175 = v62;
-            *&v175[4] = 2082;
-            *&v175[6] = "[CRLEditorController setSelectionPath:withFlags:]";
-            *&v175[14] = 2082;
-            *&v175[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m";
-            *&v175[24] = 1024;
-            *&v175[26] = 234;
-            v176 = 2112;
-            v177 = v143;
-            _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Least specific selection MUST be a board selection. Selection path is malformed. %@", buf, 0x2Cu);
+            *v168 = v55;
+            *&v168[4] = 2082;
+            *&v168[6] = "[CRLEditorController setSelectionPath:withFlags:]";
+            *&v168[14] = 2082;
+            *&v168[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m";
+            *&v168[24] = 1024;
+            *&v168[26] = 234;
+            v169 = 2112;
+            v170 = v136;
+            _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Least specific selection MUST be a board selection. Selection path is malformed. %@", buf, 0x2Cu);
           }
 
           if (qword_101AD5A10 != -1)
@@ -731,50 +731,50 @@ LABEL_73:
             sub_10133A320();
           }
 
-          v64 = v53;
-          v65 = off_1019EDA68;
-          if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+          v57 = v46;
+          v58 = off_1019EDA68;
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
           {
-            v68 = +[CRLAssertionHandler packedBacktraceString];
+            v61 = +[CRLAssertionHandler packedBacktraceString];
             *buf = 67109378;
-            *v175 = v62;
-            *&v175[4] = 2114;
-            *&v175[6] = v68;
-            _os_log_error_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
+            *v168 = v55;
+            *&v168[4] = 2114;
+            *&v168[6] = v61;
+            _os_log_error_impl(&_mh_execute_header, v58, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
           }
 
-          v66 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
-          v67 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
-          [CRLAssertionHandler handleFailureInFunction:v66 file:v67 lineNumber:234 isFatal:0 description:"Least specific selection MUST be a board selection. Selection path is malformed. %@", v143];
+          v59 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
+          v60 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
+          [CRLAssertionHandler handleFailureInFunction:v59 file:v60 lineNumber:234 isFatal:0 description:"Least specific selection MUST be a board selection. Selection path is malformed. %@", v136];
 
-          v53 = v64;
-          v47 = v153;
+          v46 = v57;
+          v40 = v146;
         }
       }
 
       goto LABEL_79;
     }
 
-    if (!nextObject || ([v57 shouldRemainOnEditorStackForSelection:nextObject inSelectionPath:v143 withNewEditors:v146] & 1) == 0)
+    if (!nextObject || ([v50 shouldRemainOnEditorStackForSelection:nextObject inSelectionPath:v136 withNewEditors:v139] & 1) == 0)
     {
       break;
     }
 
 LABEL_79:
-    v60 = v57;
+    v53 = v50;
 
-    nextObject2 = [v47 nextObject];
+    nextObject2 = [v40 nextObject];
 
-    v61 = v60;
-    v53 = v61;
-    [v146 addObject:v61];
-    if (v52 == ++v56)
+    v54 = v53;
+    v46 = v54;
+    [v139 addObject:v54];
+    if (v45 == ++v49)
     {
-      v69 = [objectEnumerator countByEnumeratingWithState:&v167 objects:v182 count:16];
-      v52 = v69;
-      if (!v69)
+      v62 = [objectEnumerator countByEnumeratingWithState:&v160 objects:v175 count:16];
+      v45 = v62;
+      if (!v62)
       {
-        v139 = 0;
+        v132 = 0;
         nextObject = nextObject2;
         goto LABEL_95;
       }
@@ -783,88 +783,88 @@ LABEL_79:
     }
   }
 
-  v139 = v57;
-  v140 = 1;
+  v132 = v50;
+  v133 = 1;
 LABEL_95:
-  v11 = v142;
-  v36 = v138;
+  v11 = v135;
+  v29 = v131;
 LABEL_108:
 
-  pathCopy = v143;
-  v154 = v53;
+  pathCopy = v136;
+  v147 = v46;
   if (nextObject)
   {
-    if ((objc_opt_respondsToSelector() & 1) != 0 && [v53 shouldDiscardAllSubselectionsStartingWithSelection:nextObject withNewEditorStack:v146 selectionPath:v143])
+    if ((objc_opt_respondsToSelector() & 1) != 0 && [v46 shouldDiscardAllSubselectionsStartingWithSelection:nextObject withNewEditorStack:v139 selectionPath:v136])
     {
-      [v143 selectionPathPoppingOffSelection:nextObject];
-      pathCopy = v76 = v143;
-      v77 = p_mSelectionPath;
+      [v136 selectionPathPoppingOffSelection:nextObject];
+      pathCopy = v69 = v136;
+      v70 = p_mSelectionPath;
     }
 
     else
     {
-      v78 = [v53 nextEditorForSelection:nextObject withNewEditorStack:v146 selectionPath:v143];
-      if (v78)
+      v71 = [v46 nextEditorForSelection:nextObject withNewEditorStack:v139 selectionPath:v136];
+      if (v71)
       {
-        v79 = v78;
-        v77 = p_mSelectionPath;
+        v72 = v71;
+        v70 = p_mSelectionPath;
         while (1)
         {
-          [v146 addObject:v79];
-          if (v47)
+          [v139 addObject:v72];
+          if (v40)
           {
-            nextObject3 = [v47 nextObject];
+            nextObject3 = [v40 nextObject];
 
             nextObject = nextObject3;
             if (!nextObject3)
             {
-              v76 = v79;
+              v69 = v72;
               goto LABEL_141;
             }
           }
 
-          if ((objc_opt_respondsToSelector() & 1) != 0 && [v79 shouldDiscardAllSubselectionsStartingWithSelection:nextObject withNewEditorStack:v146 selectionPath:v143])
+          if ((objc_opt_respondsToSelector() & 1) != 0 && [v72 shouldDiscardAllSubselectionsStartingWithSelection:nextObject withNewEditorStack:v139 selectionPath:v136])
           {
-            v90 = [v143 selectionPathPoppingOffSelection:nextObject];
+            v83 = [v136 selectionPathPoppingOffSelection:nextObject];
 
-            v76 = v79;
-            pathCopy = v90;
+            v69 = v72;
+            pathCopy = v83;
             goto LABEL_141;
           }
 
-          v76 = v79;
-          v79 = [v76 nextEditorForSelection:nextObject withNewEditorStack:v146 selectionPath:v143];
+          v69 = v72;
+          v72 = [v69 nextEditorForSelection:nextObject withNewEditorStack:v139 selectionPath:v136];
 
-          if (!v79)
+          if (!v72)
           {
             break;
           }
         }
 
-        v85 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+        v78 = +[CRLAssertionHandler _atomicIncrementAssertCount];
         if (qword_101AD5A10 != -1)
         {
           sub_10133A348();
         }
 
-        v86 = off_1019EDA68;
-        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
+        v79 = off_1019EDA68;
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
         {
           *buf = 67110658;
-          *v175 = v85;
-          *&v175[4] = 2082;
-          *&v175[6] = "[CRLEditorController setSelectionPath:withFlags:]";
-          *&v175[14] = 2082;
-          *&v175[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m";
-          *&v175[24] = 1024;
-          *&v175[26] = 307;
-          v176 = 2112;
-          v177 = v76;
-          v178 = 2112;
-          v179 = nextObject;
-          v180 = 2112;
-          v181 = v143;
-          _os_log_error_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d oldEditor %@ didn't push editor for selection %@ in selection path %@", buf, 0x40u);
+          *v168 = v78;
+          *&v168[4] = 2082;
+          *&v168[6] = "[CRLEditorController setSelectionPath:withFlags:]";
+          *&v168[14] = 2082;
+          *&v168[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m";
+          *&v168[24] = 1024;
+          *&v168[26] = 307;
+          v169 = 2112;
+          v170 = v69;
+          v171 = 2112;
+          v172 = nextObject;
+          v173 = 2112;
+          v174 = v136;
+          _os_log_error_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d oldEditor %@ didn't push editor for selection %@ in selection path %@", buf, 0x40u);
         }
 
         if (qword_101AD5A10 != -1)
@@ -872,54 +872,54 @@ LABEL_108:
           sub_10133A370();
         }
 
-        v87 = off_1019EDA68;
-        if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+        v80 = off_1019EDA68;
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
         {
-          v136 = +[CRLAssertionHandler packedBacktraceString];
+          v129 = +[CRLAssertionHandler packedBacktraceString];
           *buf = 67109378;
-          *v175 = v85;
-          *&v175[4] = 2114;
-          *&v175[6] = v136;
-          _os_log_error_impl(&_mh_execute_header, v87, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
+          *v168 = v78;
+          *&v168[4] = 2114;
+          *&v168[6] = v129;
+          _os_log_error_impl(&_mh_execute_header, v80, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: Assertion backtrace: >>%{public}@<<", buf, 0x12u);
         }
 
-        v88 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
-        v89 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
-        pathCopy = v143;
-        [CRLAssertionHandler handleFailureInFunction:v88 file:v89 lineNumber:307 isFatal:0 description:"oldEditor %@ didn't push editor for selection %@ in selection path %@", v76, nextObject, v143];
+        v81 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
+        v82 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
+        pathCopy = v136;
+        [CRLAssertionHandler handleFailureInFunction:v81 file:v82 lineNumber:307 isFatal:0 description:"oldEditor %@ didn't push editor for selection %@ in selection path %@", v69, nextObject, v136];
 
-        v11 = v142;
+        v11 = v135;
 LABEL_141:
-        v53 = v154;
+        v46 = v147;
       }
 
       else
       {
-        v81 = +[CRLAssertionHandler _atomicIncrementAssertCount];
-        v77 = p_mSelectionPath;
+        v74 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+        v70 = p_mSelectionPath;
         if (qword_101AD5A10 != -1)
         {
           sub_10133A398();
         }
 
-        v82 = off_1019EDA68;
-        if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+        v75 = off_1019EDA68;
+        if (os_log_type_enabled(v75, OS_LOG_TYPE_ERROR))
         {
           *buf = 67110658;
-          *v175 = v81;
-          *&v175[4] = 2082;
-          *&v175[6] = "[CRLEditorController setSelectionPath:withFlags:]";
-          *&v175[14] = 2082;
-          *&v175[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m";
-          *&v175[24] = 1024;
-          *&v175[26] = 277;
-          v176 = 2112;
-          v177 = v53;
-          v178 = 2112;
-          v179 = nextObject;
-          v180 = 2112;
-          v181 = v143;
-          _os_log_error_impl(&_mh_execute_header, v82, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d oldEditor %@ didn't push editor for selection %@ in selection path %@", buf, 0x40u);
+          *v168 = v74;
+          *&v168[4] = 2082;
+          *&v168[6] = "[CRLEditorController setSelectionPath:withFlags:]";
+          *&v168[14] = 2082;
+          *&v168[16] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m";
+          *&v168[24] = 1024;
+          *&v168[26] = 277;
+          v169 = 2112;
+          v170 = v46;
+          v171 = 2112;
+          v172 = nextObject;
+          v173 = 2112;
+          v174 = v136;
+          _os_log_error_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d oldEditor %@ didn't push editor for selection %@ in selection path %@", buf, 0x40u);
         }
 
         if (qword_101AD5A10 != -1)
@@ -927,98 +927,98 @@ LABEL_141:
           sub_10133A3C0();
         }
 
-        v83 = off_1019EDA68;
-        if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+        v76 = off_1019EDA68;
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
         {
           sub_101339E6C();
         }
 
-        v76 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
-        v84 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
-        pathCopy = v143;
-        [CRLAssertionHandler handleFailureInFunction:v76 file:v84 lineNumber:277 isFatal:0 description:"oldEditor %@ didn't push editor for selection %@ in selection path %@", v53, nextObject, v143];
+        v69 = [NSString stringWithUTF8String:"[CRLEditorController setSelectionPath:withFlags:]"];
+        v77 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLEditorController.m"];
+        pathCopy = v136;
+        [CRLAssertionHandler handleFailureInFunction:v69 file:v77 lineNumber:277 isFatal:0 description:"oldEditor %@ didn't push editor for selection %@ in selection path %@", v46, nextObject, v136];
       }
     }
   }
 
   else
   {
-    v77 = p_mSelectionPath;
+    v70 = p_mSelectionPath;
   }
 
-  if (v53)
+  if (v46)
   {
-    orderedSelections4 = [(CRLSelectionPath *)v36 orderedSelections];
+    orderedSelections4 = [(CRLSelectionPath *)v29 orderedSelections];
     objectEnumerator2 = [orderedSelections4 objectEnumerator];
 
     nextObject4 = [objectEnumerator2 nextObject];
     orderedSelections5 = [pathCopy orderedSelections];
     objectEnumerator3 = [orderedSelections5 objectEnumerator];
 
-    v151 = objectEnumerator3;
+    v144 = objectEnumerator3;
     nextObject5 = [objectEnumerator3 nextObject];
-    v163 = 0u;
-    v164 = 0u;
-    v165 = 0u;
-    v166 = 0u;
-    obj = [v146 objectEnumerator];
-    v97 = [obj countByEnumeratingWithState:&v163 objects:v173 count:16];
-    if (v97)
+    v156 = 0u;
+    v157 = 0u;
+    v158 = 0u;
+    v159 = 0u;
+    obj = [v139 objectEnumerator];
+    v90 = [obj countByEnumeratingWithState:&v156 objects:v166 count:16];
+    if (v90)
     {
-      v98 = v97;
-      v99 = 0;
-      v149 = *v164;
+      v91 = v90;
+      v92 = 0;
+      v142 = *v157;
       do
       {
-        v100 = 0;
-        v101 = nextObject4;
-        v102 = nextObject5;
+        v93 = 0;
+        v94 = nextObject4;
+        v95 = nextObject5;
         do
         {
-          if (*v164 != v149)
+          if (*v157 != v142)
           {
             objc_enumerationMutation(obj);
           }
 
-          v103 = *(*(&v163 + 1) + 8 * v100);
-          if (v101 | v102 && ([v101 isEqual:v102] & 1) == 0)
+          v96 = *(*(&v156 + 1) + 8 * v93);
+          if (v94 | v95 && ([v94 isEqual:v95] & 1) == 0)
           {
-            v104 = [v103 selectionWillChangeFromSelection:v101 toSelection:v102 withFlags:flags inSelectionPath:pathCopy withNewEditors:v146];
-            v105 = v104;
-            if (v104 && ([v104 isEqual:v102] & 1) == 0)
+            v97 = [v96 selectionWillChangeFromSelection:v94 toSelection:v95 withFlags:flags inSelectionPath:pathCopy withNewEditors:v139];
+            v98 = v97;
+            if (v97 && ([v97 isEqual:v95] & 1) == 0)
             {
               if (qword_101AD5C70 != -1)
               {
                 sub_10133A3E8();
               }
 
-              v106 = off_1019EEB38;
-              if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
+              v99 = off_1019EEB38;
+              if (os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412802;
-                *v175 = v103;
-                *&v175[8] = 2112;
-                *&v175[10] = v102;
-                *&v175[18] = 2112;
-                *&v175[20] = v105;
-                _os_log_debug_impl(&_mh_execute_header, v106, OS_LOG_TYPE_DEBUG, "editor %@ modified its selection component from %@ to %@", buf, 0x20u);
+                *v168 = v96;
+                *&v168[8] = 2112;
+                *&v168[10] = v95;
+                *&v168[18] = 2112;
+                *&v168[20] = v98;
+                _os_log_debug_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEBUG, "editor %@ modified its selection component from %@ to %@", buf, 0x20u);
               }
 
               orderedSelections6 = [pathCopy orderedSelections];
-              v144 = pathCopy;
-              v108 = [orderedSelections6 mutableCopy];
+              v137 = pathCopy;
+              v101 = [orderedSelections6 mutableCopy];
 
-              [v108 replaceObjectAtIndex:v99 withObject:v105];
-              v109 = [CRLSelectionPath selectionPathWithSelectionArray:v108];
+              [v101 replaceObjectAtIndex:v92 withObject:v98];
+              v102 = [CRLSelectionPath selectionPathWithSelectionArray:v101];
 
-              pathCopy = v109;
-              v11 = v142;
+              pathCopy = v102;
+              v11 = v135;
             }
 
-            [v11 addObject:v103];
+            [v11 addObject:v96];
           }
 
-          if (v103 == v154)
+          if (v96 == v147)
           {
 
             nextObject4 = 0;
@@ -1030,108 +1030,108 @@ LABEL_141:
             nextObject4 = [objectEnumerator2 nextObject];
           }
 
-          nextObject5 = [v151 nextObject];
+          nextObject5 = [v144 nextObject];
 
-          ++v99;
-          v100 = v100 + 1;
-          v101 = nextObject4;
-          v102 = nextObject5;
+          ++v92;
+          v93 = v93 + 1;
+          v94 = nextObject4;
+          v95 = nextObject5;
         }
 
-        while (v98 != v100);
-        v98 = [obj countByEnumeratingWithState:&v163 objects:v173 count:16];
+        while (v91 != v93);
+        v91 = [obj countByEnumeratingWithState:&v156 objects:v166 count:16];
       }
 
-      while (v98);
+      while (v91);
     }
 
-    v77 = p_mSelectionPath;
-    v36 = v138;
+    v70 = p_mSelectionPath;
+    v29 = v131;
   }
 
-  v150 = v139 != 0;
-  self = v141;
-  v39 = v140;
-  if (v139)
+  v143 = v132 != 0;
+  self = v134;
+  v32 = v133;
+  if (v132)
   {
-    [(CRLEditorController *)v141 p_popEditor:?];
+    [(CRLEditorController *)v134 p_popEditor:?];
   }
 
-  objc_storeStrong(v77, pathCopy);
-  v161 = 0u;
-  v162 = 0u;
-  v159 = 0u;
-  v160 = 0u;
-  v152 = v146;
-  v110 = [v152 countByEnumeratingWithState:&v159 objects:v172 count:16];
-  if (v110)
+  objc_storeStrong(v70, pathCopy);
+  v154 = 0u;
+  v155 = 0u;
+  v152 = 0u;
+  v153 = 0u;
+  v145 = v139;
+  v103 = [v145 countByEnumeratingWithState:&v152 objects:v165 count:16];
+  if (v103)
   {
-    v111 = v110;
-    v112 = *v160;
+    v104 = v103;
+    v105 = *v153;
     do
     {
-      for (i = 0; i != v111; i = i + 1)
+      for (i = 0; i != v104; i = i + 1)
       {
-        if (*v160 != v112)
+        if (*v153 != v105)
         {
-          objc_enumerationMutation(v152);
+          objc_enumerationMutation(v145);
         }
 
-        v114 = *(*(&v159 + 1) + 8 * i);
-        if (([(NSMutableArray *)v141->mEditorStack containsObject:v114]& 1) == 0)
+        v107 = *(*(&v152 + 1) + 8 * i);
+        if (([(NSMutableArray *)v134->mEditorStack containsObject:v107]& 1) == 0)
         {
-          [(CRLEditorController *)v141 p_pushEditor:v114];
-          v150 = 1;
+          [(CRLEditorController *)v134 p_pushEditor:v107];
+          v143 = 1;
         }
       }
 
-      v111 = [v152 countByEnumeratingWithState:&v159 objects:v172 count:16];
+      v104 = [v145 countByEnumeratingWithState:&v152 objects:v165 count:16];
     }
 
-    while (v111);
+    while (v104);
   }
 
-  v115 = v154;
-  if (v154)
+  v108 = v147;
+  if (v147)
   {
-    v145 = pathCopy;
-    orderedSelections7 = [(CRLSelectionPath *)v36 orderedSelections];
+    v138 = pathCopy;
+    orderedSelections7 = [(CRLSelectionPath *)v29 orderedSelections];
     objectEnumerator4 = [orderedSelections7 objectEnumerator];
 
     nextObject6 = [objectEnumerator4 nextObject];
-    orderedSelections8 = [*v77 orderedSelections];
+    orderedSelections8 = [*v70 orderedSelections];
     objectEnumerator5 = [orderedSelections8 objectEnumerator];
 
     nextObject7 = [objectEnumerator5 nextObject];
-    v155 = 0u;
-    v156 = 0u;
-    v157 = 0u;
-    v158 = 0u;
-    objectEnumerator6 = [v152 objectEnumerator];
-    v123 = [objectEnumerator6 countByEnumeratingWithState:&v155 objects:v171 count:16];
-    if (v123)
+    v148 = 0u;
+    v149 = 0u;
+    v150 = 0u;
+    v151 = 0u;
+    objectEnumerator6 = [v145 objectEnumerator];
+    v116 = [objectEnumerator6 countByEnumeratingWithState:&v148 objects:v164 count:16];
+    if (v116)
     {
-      v124 = v123;
-      v125 = *v156;
+      v117 = v116;
+      v118 = *v149;
       do
       {
-        v126 = 0;
-        v127 = nextObject6;
-        v128 = nextObject7;
+        v119 = 0;
+        v120 = nextObject6;
+        v121 = nextObject7;
         do
         {
-          if (*v156 != v125)
+          if (*v149 != v118)
           {
             objc_enumerationMutation(objectEnumerator6);
           }
 
-          v129 = *(*(&v155 + 1) + 8 * v126);
-          if (v127 | v128 && ([v127 isEqual:v128] & 1) == 0)
+          v122 = *(*(&v148 + 1) + 8 * v119);
+          if (v120 | v121 && ([v120 isEqual:v121] & 1) == 0)
           {
-            [v129 selectionDidChangeFromSelection:v127 toSelection:v128 withFlags:flags];
+            [v122 selectionDidChangeFromSelection:v120 toSelection:v121 withFlags:flags];
           }
 
-          if (v129 == v154)
+          if (v122 == v147)
           {
 
             objectEnumerator4 = 0;
@@ -1145,28 +1145,28 @@ LABEL_141:
 
           nextObject7 = [objectEnumerator5 nextObject];
 
-          v126 = v126 + 1;
-          v127 = nextObject6;
-          v128 = nextObject7;
+          v119 = v119 + 1;
+          v120 = nextObject6;
+          v121 = nextObject7;
         }
 
-        while (v124 != v126);
-        v124 = [objectEnumerator6 countByEnumeratingWithState:&v155 objects:v171 count:16];
+        while (v117 != v119);
+        v117 = [objectEnumerator6 countByEnumeratingWithState:&v148 objects:v164 count:16];
       }
 
-      while (v124);
+      while (v117);
     }
 
-    v11 = v142;
-    pathCopy = v145;
-    self = v141;
-    v36 = v138;
-    v39 = v140;
-    v115 = v154;
+    v11 = v135;
+    pathCopy = v138;
+    self = v134;
+    v29 = v131;
+    v32 = v133;
+    v108 = v147;
   }
 
   [(CRLEditorController *)self p_refreshTextInputEditorWithFlags:flags];
-  if (v150)
+  if (v143)
   {
     [(CRLEditorController *)self p_didChangeCurrentEditors];
   }
@@ -1174,21 +1174,21 @@ LABEL_141:
 LABEL_194:
   --self->mReentrancyValue;
   [(CRLEditorController *)self notifyResignedTextInputEditors];
-  if (v39)
+  if (v32)
   {
-    v130 = [NSDictionary alloc];
-    v131 = [NSNumber numberWithUnsignedInteger:flags];
-    v132 = [v130 initWithObjectsAndKeys:{v131, @"CRLEditorControllerSelectionFlagsKey", v11, @"CRLEditorControllerEditorsKey", v36, @"CRLEditorControllerOldSelectionPathKey", 0}];
+    v123 = [NSDictionary alloc];
+    v124 = [NSNumber numberWithUnsignedInteger:flags];
+    v125 = [v123 initWithObjectsAndKeys:{v124, @"CRLEditorControllerSelectionFlagsKey", v11, @"CRLEditorControllerEditorsKey", v29, @"CRLEditorControllerOldSelectionPathKey", 0}];
 
-    v133 = +[NSNotificationCenter defaultCenter];
-    [v133 postNotificationName:@"CRLEditorControllerSelectionPathDidChangeNotification" object:self userInfo:v132];
+    v126 = +[NSNotificationCenter defaultCenter];
+    [v126 postNotificationName:@"CRLEditorControllerSelectionPathDidChangeNotification" object:self userInfo:v125];
   }
 
-  v134 = [(NSMutableArray *)self->mBlocksToPerform copy];
+  v127 = [(NSMutableArray *)self->mBlocksToPerform copy];
   mBlocksToPerform = self->mBlocksToPerform;
   self->mBlocksToPerform = 0;
 
-  [v134 makeObjectsPerformSelector:"invoke"];
+  [v127 makeObjectsPerformSelector:"invoke"];
 LABEL_197:
 }
 

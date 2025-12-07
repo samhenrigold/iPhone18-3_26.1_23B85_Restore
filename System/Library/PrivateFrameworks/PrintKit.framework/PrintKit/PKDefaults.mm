@@ -733,7 +733,7 @@ uint64_t __44__PKDefaults_PrintKitPrivate__urfIsOptional__block_invoke()
 
 void __45__PKDefaults_PrintKitPrivate__ippsIsRequired__block_invoke()
 {
-  v0 = [getMCProfileConnectionClass() sharedConnection];
+  v0 = [(objc_class *)getMCProfileConnectionClass() sharedConnection];
   +[PKDefaults(PrintKitPrivate) ippsIsRequired]::ippsRequired = [v0 isAirPrintTrustedTLSRequirementEnforced];
 }
 
@@ -749,7 +749,7 @@ void __45__PKDefaults_PrintKitPrivate__ippsIsRequired__block_invoke()
 
 void __59__PKDefaults_PrintKitPrivate__mcProfilePrintersOnlyAllowed__block_invoke()
 {
-  v0 = [getMCProfileConnectionClass() sharedConnection];
+  v0 = [(objc_class *)getMCProfileConnectionClass() sharedConnection];
   v1 = [v0 isAirPrintAllowed];
 
   +[PKDefaults(PrintKitPrivate) mcProfilePrintersOnlyAllowed]::onlyProfilePrintersAllowed = v1 ^ 1;
@@ -767,7 +767,7 @@ void __59__PKDefaults_PrintKitPrivate__mcProfilePrintersOnlyAllowed__block_invok
 
 void __61__PKDefaults_PrintKitPrivate__airPrintBeaconDiscoveryAllowed__block_invoke()
 {
-  v0 = [getMCProfileConnectionClass() sharedConnection];
+  v0 = [(objc_class *)getMCProfileConnectionClass() sharedConnection];
   +[PKDefaults(PrintKitPrivate) airPrintBeaconDiscoveryAllowed]::allowed = [v0 isAirPrintiBeaconDiscoveryAllowed];
 }
 
@@ -779,7 +779,7 @@ void __61__PKDefaults_PrintKitPrivate__airPrintBeaconDiscoveryAllowed__block_inv
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  sharedConnection = [getMCProfileConnectionClass() sharedConnection];
+  sharedConnection = [(objc_class *)getMCProfileConnectionClass() sharedConnection];
   knownAirPrintIPPURLStrings = [sharedConnection knownAirPrintIPPURLStrings];
 
   v6 = 0;

@@ -20,11 +20,11 @@
 
 - (NEProxyConfigurationNetworkAgent)initWithProxyConfiguration:(id)configuration
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  v12.receiver = self;
-  v12.super_class = NEProxyConfigurationNetworkAgent;
-  v5 = [(NEProxyConfigurationNetworkAgent *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = NEProxyConfigurationNetworkAgent;
+  v5 = [(NEProxyConfigurationNetworkAgent *)&v11 init];
   if (!v5)
   {
 LABEL_7:
@@ -39,7 +39,7 @@ LABEL_7:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = configurationCopy;
+      v13 = configurationCopy;
       _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "Failed to turn proxy configuration into agent data: %@", buf, 0xCu);
     }
 
@@ -52,7 +52,6 @@ LABEL_7:
   v8 = v5;
 LABEL_8:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

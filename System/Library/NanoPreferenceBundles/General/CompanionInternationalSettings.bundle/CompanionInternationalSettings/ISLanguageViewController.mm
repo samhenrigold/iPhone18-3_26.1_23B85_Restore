@@ -16,9 +16,12 @@
 - (void)generateLanguageCells;
 - (void)loadData;
 - (void)loadView;
+- (void)reloadDataAndScrollToCheckedLanguageWithAnimation:(BOOL)animation;
 - (void)searchBar:(id)bar textDidChange:(id)change;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateNavigationItem;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ISLanguageViewController
@@ -72,6 +75,14 @@
   [navigationItem setLeftBarButtonItem:v6];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ISLanguageViewController;
+  [(ISLanguageViewController *)&v4 viewWillAppear:appear];
+  [(ISLanguageViewController *)self updateNavigationItem];
+}
+
 - (void)generateLanguageCells
 {
   numberOfSections = [(UITableView *)self->_tableView numberOfSections];
@@ -99,6 +110,16 @@
       }
     }
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(ISLanguageViewController *)self generateLanguageCells];
+  v5.receiver = self;
+  v5.super_class = ISLanguageViewController;
+  [(ISLanguageViewController *)&v5 viewDidAppear:appearCopy];
+  [(ISLanguageViewController *)self emitNavigationEventForLanguageViewController];
 }
 
 - (void)emitNavigationEventForLanguageViewController
@@ -383,6 +404,55 @@
   tableView = self->_tableView;
   indexPathForSelectedRow = [(UITableView *)tableView indexPathForSelectedRow];
   [(UITableView *)tableView deselectRowAtIndexPath:indexPathForSelectedRow animated:1];
+}
+
+- (void)reloadDataAndScrollToCheckedLanguageWithAnimation:(BOOL)animation
+{
+  animationCopy = animation;
+  [(UITableView *)self->_tableView reloadData];
+  checkedLanguageCode = [(ISLanguageViewController *)self checkedLanguageCode];
+  if ([checkedLanguageCode length])
+  {
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = -1;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x3032000000;
+    v21 = sub_8D2C;
+    v22 = sub_8D3C;
+    v23 = 0;
+    languageSections = [(ISLanguageViewController *)self languageSections];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_8D44;
+    v14[3] = &unk_28CD0;
+    v7 = checkedLanguageCode;
+    v15 = v7;
+    v16 = &v24;
+    v17 = &v18;
+    [languageSections enumerateObjectsUsingBlock:v14];
+
+    for (i = 0; i < [v19[5] count]; ++i)
+    {
+      v9 = [v19[5] objectAtIndexedSubscript:i];
+      identifier = [v9 identifier];
+      v11 = [identifier isEqualToString:v7];
+
+      if (v11)
+      {
+        tableView = self->_tableView;
+        v13 = [NSIndexPath indexPathForRow:i inSection:v25[3]];
+        [(UITableView *)tableView scrollToRowAtIndexPath:v13 atScrollPosition:2 animated:animationCopy];
+
+        break;
+      }
+    }
+
+    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v24, 8);
+  }
 }
 
 - (void)searchBar:(id)bar textDidChange:(id)change

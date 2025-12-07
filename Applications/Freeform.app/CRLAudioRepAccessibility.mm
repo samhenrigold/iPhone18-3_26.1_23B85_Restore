@@ -334,9 +334,9 @@ LABEL_43:
         v34 = crlaxTarget3;
         if (crlaxTarget3)
         {
-          [crlaxTarget3 transform];
+          objc_msgSend_transform(crlaxTarget3);
           v35 = v102;
-          [v34 transform];
+          objc_msgSend_transform(v34);
           v36 = v101;
         }
 

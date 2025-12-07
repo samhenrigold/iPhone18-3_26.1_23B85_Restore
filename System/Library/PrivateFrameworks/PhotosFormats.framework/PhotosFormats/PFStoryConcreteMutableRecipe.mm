@@ -23,7 +23,7 @@
   minorVersion = [(PFStoryConcreteRecipe *)self minorVersion];
   libraries = [(PFStoryConcreteRecipe *)self libraries];
   assets = [(PFStoryConcreteRecipe *)self assets];
-  [(PFStoryConcreteRecipe *)self overallDurationInfo];
+  objc_msgSend_overallDurationInfo(self);
   currentStyle = [(PFStoryConcreteRecipe *)self currentStyle];
   seedSongIdentifiersByCatalog = [(PFStoryConcreteRecipe *)self seedSongIdentifiersByCatalog];
   autoEditDecisionLists = [(PFStoryConcreteRecipe *)self autoEditDecisionLists];
@@ -56,7 +56,7 @@
   v6 = [libraries indexesOfObjectsPassingTest:v10];
 
   libraries2 = [(PFStoryConcreteRecipe *)self libraries];
-  v8 = [libraries2 mutableCopy];
+  v8 = objc_msgSend_mutableCopy(libraries2);
 
   [v8 removeObjectsAtIndexes:v6];
   v9 = [v8 copy];
@@ -91,7 +91,7 @@
   v7 = [presentations indexesOfObjectsPassingTest:v11];
 
   presentations2 = [(PFStoryConcreteRecipe *)self presentations];
-  v9 = [presentations2 mutableCopy];
+  v9 = objc_msgSend_mutableCopy(presentations2);
 
   [v9 removeObjectsAtIndexes:v7];
   v10 = [v9 copy];
@@ -143,7 +143,7 @@ uint64_t __65__PFStoryConcreteMutableRecipe_removePresentationWithIdentifier___b
   v7 = [assets indexesOfObjectsPassingTest:v11];
 
   assets2 = [(PFStoryConcreteRecipe *)self assets];
-  v9 = [assets2 mutableCopy];
+  v9 = objc_msgSend_mutableCopy(assets2);
 
   [v9 removeObjectsAtIndexes:v7];
   v10 = [v9 copy];

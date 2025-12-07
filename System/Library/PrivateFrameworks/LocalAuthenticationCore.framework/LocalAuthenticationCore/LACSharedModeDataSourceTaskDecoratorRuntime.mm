@@ -75,23 +75,21 @@
 
 - (id)description
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
-  v13[0] = @"minValue";
+  v12[0] = @"minValue";
   v5 = MEMORY[0x1E696AD98];
   [(LACSharedModeDataSourceTaskDecoratorRuntime *)self minValue];
   v6 = [v5 numberWithDouble:?];
-  v13[1] = @"maxValue";
-  v14[0] = v6;
+  v12[1] = @"maxValue";
+  v13[0] = v6;
   v7 = MEMORY[0x1E696AD98];
   [(LACSharedModeDataSourceTaskDecoratorRuntime *)self maxValue];
   v8 = [v7 numberWithDouble:?];
-  v14[1] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v10 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v9];;
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

@@ -7,7 +7,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_100578DFC();
+  sub_100578DFC(selfCopy);
 }
 
 @end

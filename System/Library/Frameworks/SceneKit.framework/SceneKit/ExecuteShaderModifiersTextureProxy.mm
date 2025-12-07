@@ -5,7 +5,7 @@
 
 CFTypeID ___ExecuteShaderModifiersTextureProxy_block_invoke(uint64_t a1, uint64_t a2, const void *a3)
 {
-  TypeID = C3DEffectSlotGetTypeID();
+  TypeID = C3DEffectSlotGetTypeID(a1, a2);
   result = CFGetTypeID(a3);
   if (a3)
   {

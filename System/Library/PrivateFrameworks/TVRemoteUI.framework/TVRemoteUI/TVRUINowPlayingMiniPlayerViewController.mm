@@ -91,7 +91,7 @@ void __62__TVRUINowPlayingMiniPlayerViewController__setupSystemMonitor__block_in
 
 void __62__TVRUINowPlayingMiniPlayerViewController__setupSystemMonitor__block_invoke_2(uint64_t a1)
 {
-  v2 = _TVRUINowPlayingLog();
+  v2 = _TVRUINowPlayingLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -109,7 +109,7 @@ void __62__TVRUINowPlayingMiniPlayerViewController__setupSystemMonitor__block_in
 - (void)onScreenLockChanged
 {
   v11 = *MEMORY[0x277D85DE8];
-  v3 = _TVRUINowPlayingLog();
+  v3 = _TVRUINowPlayingLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     systemMonitor = [(TVRUINowPlayingMiniPlayerViewController *)self systemMonitor];

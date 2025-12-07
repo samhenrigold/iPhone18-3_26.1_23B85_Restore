@@ -1,3 +1,21 @@
+void HgcColorBalanceNoClipGammaOne::~HgcColorBalanceNoClipGammaOne(HgcColorBalanceNoClipGammaOne *this)
+{
+  *this = &unk_28725B108;
+  v2 = *(this + 62);
+  if (v2)
+  {
+    MEMORY[0x2666E9F00](v2, 0x1000C408070C27FLL);
+  }
+
+  HGColorMatrix::~HGColorMatrix(this);
+}
+
+{
+  HgcColorBalanceNoClipGammaOne::~HgcColorBalanceNoClipGammaOne(this);
+
+  HGObject::operator delete(v1);
+}
+
 uint64_t HgcColorBalanceNoClipGammaOne::SetParameter(HgcColorBalanceNoClipGammaOne *this, uint64_t a2, __n128 a3, float a4, float a5, float a6, char *a7)
 {
   v7 = 0xFFFFFFFFLL;
@@ -1856,7 +1874,7 @@ void HgcSampleTiledNoise::~HgcSampleTiledNoise(HGNode *this)
   HGObject::operator delete(v1);
 }
 
-uint64_t HgcSampleTiledNoise::SetParameter(HgcSampleTiledNoise *this, uint64_t a2, __n128 a3, float a4, float a5, float a6, char *a7, double a8)
+uint64_t HgcSampleTiledNoise::SetParameter(HgcSampleTiledNoise *this, uint64_t a2, __n128 a3, float a4, float a5, float a6, double a7, char *a8)
 {
   v8 = 0xFFFFFFFFLL;
   if (a2 > 2)
@@ -1864,12 +1882,12 @@ uint64_t HgcSampleTiledNoise::SetParameter(HgcSampleTiledNoise *this, uint64_t a
     switch(a2)
     {
       case 3:
-        *&a8 = -a3.n128_f32[0];
+        *&a7 = -a3.n128_f32[0];
         v12 = *(this + 51);
-        if (*(v12 + 48) != -a3.n128_f32[0] || *(v12 + 52) != *&a8 || *(v12 + 56) != *&a8 || *(v12 + 60) != *&a8)
+        if (*(v12 + 48) != -a3.n128_f32[0] || *(v12 + 52) != *&a7 || *(v12 + 56) != *&a7 || *(v12 + 60) != *&a7)
         {
           a3.n128_f32[1] = a4;
-          *(v12 + 48) = vdupq_lane_s32(*&a8, 0);
+          *(v12 + 48) = vdupq_lane_s32(*&a7, 0);
           a3.n128_u64[1] = __PAIR64__(LODWORD(a6), LODWORD(a5));
           *(v12 + 256) = a3;
           goto LABEL_38;
@@ -1943,7 +1961,7 @@ uint64_t HgcSampleTiledNoise::SetParameter(HgcSampleTiledNoise *this, uint64_t a
           *(v9 + 40) = a5;
           *(v9 + 44) = a6;
 LABEL_38:
-          HGNode::ClearBits(this, a2, a7);
+          HGNode::ClearBits(this, a2, a8);
           return 1;
         }
 
@@ -3249,7 +3267,7 @@ uint64_t HgcConvolvePass8tap::RenderTile(float32x4_t **this, HGTile *a2)
   return 0;
 }
 
-uint64_t HgcConvolvePass8tap::GetDOD(float **this, HGRenderer *a2, int a3, HGRect a4)
+uint64_t HgcConvolvePass8tap::GetDOD(int (***this)(float **, HGRenderer *), HGRenderer *a2, int a3, HGRect a4)
 {
   if (a3)
   {
@@ -3258,9 +3276,9 @@ uint64_t HgcConvolvePass8tap::GetDOD(float **this, HGRenderer *a2, int a3, HGRec
 
   v5 = *&a4.var2;
   v6 = *&a4.var0;
-  if ((*(*this + 39))(this, a2) >= 1)
+  if ((*this)[39](this, a2) >= 1)
   {
-    v8 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v8 = HGRectMake4i(-1, -1, 1, 1);
     LODWORD(v6) = HGRectGrow(v6, v5, v8);
   }
 
@@ -3274,48 +3292,48 @@ uint64_t HgcConvolvePass8tap::GetDOD(float **this, HGRenderer *a2, int a3, HGRec
   v25 = v24;
   LODWORD(v26) = v11;
   LODWORD(v27) = v15;
-  v28 = HGRectTranslate(v9, v26, v13, v27, -this[51][4]);
+  v28 = HGRectTranslate(v9, v26, v13, v27, -*(this[51] + 4));
   v33 = HGRectIntegral(v29, v28, v30, v31, v32);
   v35 = HGRectUnion(v23, v25, v33, v34);
   v37 = v36;
   LODWORD(v38) = v11;
   LODWORD(v39) = v15;
-  v40 = HGRectTranslate(v9, v38, v13, v39, -this[51][8]);
+  v40 = HGRectTranslate(v9, v38, v13, v39, -*(this[51] + 8));
   v45 = HGRectIntegral(v41, v40, v42, v43, v44);
   v47 = HGRectUnion(v35, v37, v45, v46);
   v49 = v48;
   LODWORD(v50) = v11;
   LODWORD(v51) = v15;
-  v52 = HGRectTranslate(v9, v50, v13, v51, -this[51][12]);
+  v52 = HGRectTranslate(v9, v50, v13, v51, -*(this[51] + 12));
   v57 = HGRectIntegral(v53, v52, v54, v55, v56);
   v59 = HGRectUnion(v47, v49, v57, v58);
   v61 = v60;
   LODWORD(v62) = v11;
   LODWORD(v63) = v15;
-  v64 = HGRectTranslate(v9, v62, v13, v63, -this[51][16]);
+  v64 = HGRectTranslate(v9, v62, v13, v63, -*(this[51] + 16));
   v69 = HGRectIntegral(v65, v64, v66, v67, v68);
   v71 = HGRectUnion(v59, v61, v69, v70);
   v73 = v72;
   LODWORD(v74) = v11;
   LODWORD(v75) = v15;
-  v76 = HGRectTranslate(v9, v74, v13, v75, -this[51][20]);
+  v76 = HGRectTranslate(v9, v74, v13, v75, -*(this[51] + 20));
   v81 = HGRectIntegral(v77, v76, v78, v79, v80);
   v83 = HGRectUnion(v71, v73, v81, v82);
   v85 = v84;
   LODWORD(v86) = v11;
   LODWORD(v87) = v15;
-  v88 = HGRectTranslate(v9, v86, v13, v87, -this[51][24]);
+  v88 = HGRectTranslate(v9, v86, v13, v87, -*(this[51] + 24));
   v93 = HGRectIntegral(v89, v88, v90, v91, v92);
   v95 = HGRectUnion(v83, v85, v93, v94);
   v97 = v96;
   LODWORD(v98) = v11;
   LODWORD(v99) = v15;
-  v100 = HGRectTranslate(v9, v98, v13, v99, -this[51][28]);
+  v100 = HGRectTranslate(v9, v98, v13, v99, -*(this[51] + 28));
   v105 = HGRectIntegral(v101, v100, v102, v103, v104);
   return HGRectUnion(v95, v97, v105, v106);
 }
 
-uint64_t HgcConvolvePass8tap::GetROI(float **this, HGRenderer *a2, int a3, HGRect a4)
+uint64_t HgcConvolvePass8tap::GetROI(int (***this)(float **, HGRenderer *), HGRenderer *a2, int a3, HGRect a4)
 {
   v4 = 0;
   if (!a3)
@@ -3330,49 +3348,49 @@ uint64_t HgcConvolvePass8tap::GetROI(float **this, HGRenderer *a2, int a3, HGRec
     v23 = v22;
     LODWORD(v24) = v9;
     LODWORD(v25) = v13;
-    v26 = HGRectTranslate(v7, v24, v11, v25, this[51][4]);
+    v26 = HGRectTranslate(v7, v24, v11, v25, *(this[51] + 4));
     v31 = HGRectIntegral(v27, v26, v28, v29, v30);
     v33 = HGRectUnion(v21, v23, v31, v32);
     v35 = v34;
     LODWORD(v36) = v9;
     LODWORD(v37) = v13;
-    v38 = HGRectTranslate(v7, v36, v11, v37, this[51][8]);
+    v38 = HGRectTranslate(v7, v36, v11, v37, *(this[51] + 8));
     v43 = HGRectIntegral(v39, v38, v40, v41, v42);
     v45 = HGRectUnion(v33, v35, v43, v44);
     v47 = v46;
     LODWORD(v48) = v9;
     LODWORD(v49) = v13;
-    v50 = HGRectTranslate(v7, v48, v11, v49, this[51][12]);
+    v50 = HGRectTranslate(v7, v48, v11, v49, *(this[51] + 12));
     v55 = HGRectIntegral(v51, v50, v52, v53, v54);
     v57 = HGRectUnion(v45, v47, v55, v56);
     v59 = v58;
     LODWORD(v60) = v9;
     LODWORD(v61) = v13;
-    v62 = HGRectTranslate(v7, v60, v11, v61, this[51][16]);
+    v62 = HGRectTranslate(v7, v60, v11, v61, *(this[51] + 16));
     v67 = HGRectIntegral(v63, v62, v64, v65, v66);
     v69 = HGRectUnion(v57, v59, v67, v68);
     v71 = v70;
     LODWORD(v72) = v9;
     LODWORD(v73) = v13;
-    v74 = HGRectTranslate(v7, v72, v11, v73, this[51][20]);
+    v74 = HGRectTranslate(v7, v72, v11, v73, *(this[51] + 20));
     v79 = HGRectIntegral(v75, v74, v76, v77, v78);
     v81 = HGRectUnion(v69, v71, v79, v80);
     v83 = v82;
     LODWORD(v84) = v9;
     LODWORD(v85) = v13;
-    v86 = HGRectTranslate(v7, v84, v11, v85, this[51][24]);
+    v86 = HGRectTranslate(v7, v84, v11, v85, *(this[51] + 24));
     v91 = HGRectIntegral(v87, v86, v88, v89, v90);
     v93 = HGRectUnion(v81, v83, v91, v92);
     v95 = v94;
     LODWORD(v96) = v9;
     LODWORD(v97) = v13;
-    v98 = HGRectTranslate(v7, v96, v11, v97, this[51][28]);
+    v98 = HGRectTranslate(v7, v96, v11, v97, *(this[51] + 28));
     v103 = HGRectIntegral(v99, v98, v100, v101, v102);
     v4 = HGRectUnion(v93, v95, v103, v104);
     v106 = v105;
-    if ((*(*this + 39))(this, a2) >= 1)
+    if ((*this)[39](this, a2) >= 1)
     {
-      v107 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v107 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(v4, v106, v107);
     }
   }
@@ -3744,7 +3762,7 @@ uint64_t HgcSmearToRect::GetDOD(HgcSmearToRect *this, HGRenderer *a2, int a3, HG
     v6 = *&a4.var0;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v6, v5, v7);
     }
 
@@ -3766,7 +3784,7 @@ uint64_t HgcSmearToRect::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRect a4)
   v9 = v8;
   if ((*(*this + 312))(this, a2) >= 1)
   {
-    v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+    v10 = HGRectMake4i(-1, -1, 1, 1);
     return HGRectGrow(DOD, v9, v10);
   }
 
@@ -4806,7 +4824,7 @@ uint64_t HgcContrastBezierLuma::GetDOD(HgcContrastBezierLuma *this, HGRenderer *
   {
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v5, v4, v7);
     }
 
@@ -4827,12 +4845,12 @@ uint64_t HgcContrastBezierLuma::GetROI(HGNode *this, HGRenderer *a2, int a3, HGR
 {
   if (a3 == 1)
   {
-    Input = HGRenderer::GetInput(a2, this, 1u);
+    Input = HGRenderer::GetInput(a2, this, 1);
     DOD = HGRenderer::GetDOD(a2, Input);
     v9 = v8;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v10 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(DOD, v9, v10);
     }
   }
@@ -5567,7 +5585,7 @@ uint64_t HgcContrastBezierRGB::GetDOD(HgcContrastBezierRGB *this, HGRenderer *a2
   {
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v7 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v7 = HGRectMake4i(-1, -1, 1, 1);
       HGRectGrow(v5, v4, v7);
     }
 
@@ -5588,12 +5606,12 @@ uint64_t HgcContrastBezierRGB::GetROI(HGNode *this, HGRenderer *a2, int a3, HGRe
 {
   if (a3 == 1)
   {
-    Input = HGRenderer::GetInput(a2, this, 1u);
+    Input = HGRenderer::GetInput(a2, this, 1);
     DOD = HGRenderer::GetDOD(a2, Input);
     v9 = v8;
     if ((*(*this + 312))(this, a2) >= 1)
     {
-      v10 = HGRectMake4i(0xFFFFFFFF, 0xFFFFFFFF, 1u, 1u);
+      v10 = HGRectMake4i(-1, -1, 1, 1);
       return HGRectGrow(DOD, v9, v10);
     }
   }
@@ -6601,21 +6619,14 @@ float HgcContrastRGB::GetParameter(HgcContrastRGB *this, int a2, float *a3)
   return result;
 }
 
-uint64_t LiHelium::createTextureHandleNode@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X2>, unsigned int *a4@<X3>, void *a5@<X8>)
+uint64_t LiHelium::createTextureHandleNode@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unsigned int *a4@<X3>, void *a5@<X8>)
 {
   result = FxSupport::createTextureHandleNode(a1, a2, a3, a4, &v7);
   *a5 = v7;
   return result;
 }
 
-HGBitmapLoader *LiHelium::createBitmapNode@<X0>(PCBitmap **a1@<X0>, unsigned int *a2@<X1>, void *a3@<X8>)
-{
-  result = FxSupport::createBitmapNode(a1, a2, &v5);
-  *a3 = v5;
-  return result;
-}
-
-uint64_t LiHelium::createTransformNode@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, int a3@<W2>, float *a4@<X4>, void *a5@<X8>)
+HGXForm *LiHelium::createTransformNode@<X0>(double *a1@<X0>, HGXForm **a2@<X1>, int a3@<W2>, float *a4@<X4>, HGXForm **a5@<X8>)
 {
   if (PCMatrix44Tmpl<double>::is2Didentity(a1))
   {
@@ -6633,21 +6644,21 @@ uint64_t LiHelium::createTransformNode@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>,
   {
     v12 = HGObject::operator new(0x90uLL);
     HGTransform::HGTransform(v12);
-    v13 = *(a1 + 80);
-    v31 = *(a1 + 64);
+    v13 = *(a1 + 5);
+    v31 = *(a1 + 4);
     v32 = v13;
-    v14 = *(a1 + 112);
-    v33 = *(a1 + 96);
+    v14 = *(a1 + 7);
+    v33 = *(a1 + 6);
     v34 = v14;
-    v15 = *(a1 + 16);
+    v15 = *(a1 + 1);
     v26 = *a1;
     v27 = v15;
-    v16 = *(a1 + 48);
-    v28 = *(a1 + 32);
-    v17 = v26.f64[1];
+    v16 = *(a1 + 3);
+    v28 = *(a1 + 2);
+    v17 = *(&v26 + 1);
     v18 = v27;
     v19 = *(&v31 + 1);
-    *&v26.f64[1] = v28;
+    *(&v26 + 1) = v28;
     *&v27 = v31;
     v20 = *(&v32 + 1);
     *(&v27 + 1) = v33;
@@ -6664,7 +6675,7 @@ uint64_t LiHelium::createTransformNode@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>,
     v21 = HGObject::operator new(0x210uLL);
     HGXForm::HGXForm(v21);
     (*(*v21 + 576))(v21, v12);
-    if (a3 && (fabs(*(a1 + 96)) >= 0.0000001 || fabs(*(a1 + 104)) >= 0.0000001 || (v24 = 0.0, v25 = 0.0, PCMatrix44Tmpl<double>::singularValues22(a1, &v25, &v24), v22 = *(a1 + 120), v25 / v22 <= 1.0) && fabs(v25 / v22 + -1.0) >= 0.0000001 || (v23 = v24 / v22, v23 <= 1.0) && fabs(v23 + -1.0) >= 0.0000001))
+    if (a3 && (fabs(a1[12]) >= 0.0000001 || fabs(a1[13]) >= 0.0000001 || (v24 = 0.0, v25 = 0.0, PCMatrix44Tmpl<double>::singularValues22(a1, &v25, &v24), v22 = a1[15], v25 / v22 <= 1.0) && fabs(v25 / v22 + -1.0) >= 0.0000001 || (v23 = v24 / v22, v23 <= 1.0) && fabs(v23 + -1.0) >= 0.0000001))
     {
       (*(*v21 + 592))(v21, 0, 1.0);
       (*(*v21 + 632))(v21, 0.0);
@@ -6752,10 +6763,10 @@ uint64_t LiHelium::convertMotionBlendMode(int a1)
 
 uint64_t LiHelium::createBlurNode@<X0>(float a1@<S0>, float a2@<S1>, HGBlur **a3@<X8>)
 {
-  v7 = HGObject::operator new(0x220uLL);
-  HGBlur::HGBlur(v7);
-  *a3 = v7;
-  return (*(*v7 + 96))(v7, 0, a1, a2, 0.0, 0.0);
+  v6 = HGObject::operator new(0x220uLL);
+  HGBlur::HGBlur(v6);
+  *a3 = v6;
+  return (*(*v6 + 96))(v6, 0, a1, a2, 0.0, 0.0);
 }
 
 uint64_t LiHelium::setUpGLRenderer(HGGPURenderer *a1, uint64_t a2)
@@ -6794,22 +6805,22 @@ uint64_t LiHelium::setUpGLRenderer(HGGPURenderer *a1, uint64_t a2)
   return result;
 }
 
-void LiHelium::createExternallyOwnedTexture(uint64_t a1, EAGLContext *a2, int a3, ProGL *this)
+void LiHelium::createExternallyOwnedTexture(uint64_t a2, EAGLContext *a3, int a4, ProGL *this)
 {
-  ProGL::findContext(this, a2, &v5);
-  HGFormatUtils::toGLInternalFormat(*(*a1 + 16));
+  ProGL::findContext(this, &v7);
+  HGFormatUtils::toGLInternalFormat(*(*a2 + 16));
   ProGL::createExternallyOwnedTexture();
 }
 
-void LiRenderQueueTextureOwner::create(uint64_t a1@<X1>, void *a2@<X8>)
+void LiRenderQueueTextureOwner::create(uint64_t a2@<X1>, void *a3@<X8>)
 {
-  if (a1)
+  if (a2)
   {
     std::allocate_shared[abi:ne200100]<LiRenderQueueTextureOwner,std::allocator<LiRenderQueueTextureOwner>,HGRef<HGGLTexture> const&,HGRenderQueue *&,0>();
   }
 
-  *a2 = 0;
-  a2[1] = 0;
+  *a3 = 0;
+  a3[1] = 0;
 }
 
 void LiRenderQueueTextureOwner::~LiRenderQueueTextureOwner(LiRenderQueueTextureOwner *this)
@@ -6897,7 +6908,7 @@ void LiRenderingTechnology::LiRenderingTechnology(LiRenderingTechnology *this)
   *(this + 34) = 0;
   *(this + 36) = 0x600000002;
   *(this + 22) = 1;
-  if ((atomic_load_explicit(&qword_280C5E818, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280C5E818, memory_order_acquire) & 1) == 0)
   {
     LiRenderingTechnology::LiRenderingTechnology();
   }
@@ -6946,11 +6957,11 @@ int *LiRenderingTechnology::setFlagAtIndex(int *this, char a2, int a3)
 
 void LiRenderingTechnology::LiRenderingTechnology()
 {
-  if (__cxa_guard_acquire(&qword_280C5E818))
+  if (__cxa_guard_acquire(byte_280C5E818))
   {
     _MergedGlobals_32 = getenv("MOTION_BITDEPTH");
 
-    __cxa_guard_release(&qword_280C5E818);
+    __cxa_guard_release(byte_280C5E818);
   }
 }
 
@@ -7047,23 +7058,23 @@ void LiAgent::LiAgent(LiAgent *this, const LiRenderParameters *a2, int a3)
   *(this + 424) = *(a2 + 184);
   PCColorDescription::PCColorDescription(this + 18);
   *(this + 456) = 1;
-  getIdentity();
+  getIdentity(v7, v8);
   *(this + 20) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v9, v10);
   *(this + 21) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v11, v12);
   *(this + 22) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v13, v14);
   *(this + 23) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v15, v16);
   *(this + 24) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v17, v18);
   *(this + 27) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v19, v20);
   *(this + 25) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v21, v22);
   *(this + 26) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v23, v24);
   *(this + 28) = &qword_280C5E828;
   *(this + 29) = 0;
 }
@@ -7081,9 +7092,9 @@ void sub_25FF4032C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void getIdentity(void)
+void getIdentity(uint64_t result, uint64_t a2)
 {
-  if ((atomic_load_explicit(&_MergedGlobals_33, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals_33, memory_order_acquire) & 1) == 0)
   {
     getIdentity();
   }
@@ -7126,21 +7137,21 @@ uint64_t LiAgent::LiAgent(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   PCColorDescription::PCColorDescription((a1 + 432));
   *(a1 + 456) = 1;
   *(a1 + 160) = a3;
-  getIdentity();
+  getIdentity(v9, v10);
   *(a1 + 168) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v11, v12);
   *(a1 + 176) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v13, v14);
   *(a1 + 184) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v15, v16);
   *(a1 + 192) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v17, v18);
   *(a1 + 216) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v19, v20);
   *(a1 + 200) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v21, v22);
   *(a1 + 208) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v23, v24);
   *(a1 + 224) = &qword_280C5E828;
   return a1;
 }
@@ -7197,23 +7208,23 @@ void LiAgent::LiAgent(LiAgent *this, LiImageSource *a2, const LiRenderParameters
   *(this + 424) = *(a3 + 184);
   PCColorDescription::PCColorDescription(this + 18);
   *(this + 456) = 1;
-  getIdentity();
+  getIdentity(v8, v9);
   *(this + 20) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v10, v11);
   *(this + 21) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v12, v13);
   *(this + 22) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v14, v15);
   *(this + 23) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v16, v17);
   *(this + 24) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v18, v19);
   *(this + 27) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v20, v21);
   *(this + 25) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v22, v23);
   *(this + 26) = &qword_280C5E828;
-  getIdentity();
+  getIdentity(v24, v25);
   *(this + 28) = &qword_280C5E828;
 }
 
@@ -7329,10 +7340,10 @@ void LiAgent::~LiAgent(LiAgent *this)
   LiClipSet::~LiClipSet((this + 96));
 }
 
-uint64_t LiAgent::loadTransform(uint64_t result, uint64_t a2)
+uint64_t LiAgent::loadTransform(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  v3 = *(result + 232);
+  v3 = *(a1 + 232);
   if (!v3)
   {
     operator new();
@@ -7352,7 +7363,7 @@ uint64_t LiAgent::loadTransform(uint64_t result, uint64_t a2)
     }
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t LiAgent::clearTransform(LiAgent *this)
@@ -7367,11 +7378,12 @@ uint64_t LiAgent::clearTransform(LiAgent *this)
   return result;
 }
 
-void LiAgent::setImageSpace(uint64_t a1, int a2)
+void LiAgent::setImageSpace(uint64_t result, uint64_t a2)
 {
+  v2 = a2;
   if ((a2 & 0xFFFFFFFE) == 2)
   {
-    if (!PCMatrix44Tmpl<double>::is2Didentity(*(a1 + 168)) || a2 != 2 && !PCMatrix44Tmpl<double>::is2Didentity(*(a1 + 224)))
+    if (!PCMatrix44Tmpl<double>::is2Didentity(*(result + 168)) || v2 != 2 && !PCMatrix44Tmpl<double>::is2Didentity(*(result + 224)))
     {
       operator new();
     }
@@ -7379,7 +7391,7 @@ void LiAgent::setImageSpace(uint64_t a1, int a2)
 
   else if (a2)
   {
-    if (a2 == 1 && !PCMatrix44Tmpl<double>::isIdentity(*(a1 + 176)))
+    if (a2 == 1 && !PCMatrix44Tmpl<double>::isIdentity(*(result + 176)))
     {
       operator new();
     }
@@ -7387,28 +7399,28 @@ void LiAgent::setImageSpace(uint64_t a1, int a2)
 
   else
   {
-    getIdentity();
-    *(a1 + 160) = &qword_280C5E828;
-    getIdentity();
-    *(a1 + 168) = &qword_280C5E828;
-    getIdentity();
-    *(a1 + 176) = &qword_280C5E828;
-    getIdentity();
-    *(a1 + 184) = &qword_280C5E828;
-    getIdentity();
-    *(a1 + 192) = &qword_280C5E828;
-    getIdentity();
-    *(a1 + 216) = &qword_280C5E828;
-    getIdentity();
-    *(a1 + 200) = &qword_280C5E828;
-    getIdentity();
-    *(a1 + 208) = &qword_280C5E828;
-    getIdentity();
-    *(a1 + 224) = &qword_280C5E828;
+    getIdentity(result, a2);
+    *(result + 160) = &qword_280C5E828;
+    getIdentity(v4, v5);
+    *(result + 168) = &qword_280C5E828;
+    getIdentity(v6, v7);
+    *(result + 176) = &qword_280C5E828;
+    getIdentity(v8, v9);
+    *(result + 184) = &qword_280C5E828;
+    getIdentity(v10, v11);
+    *(result + 192) = &qword_280C5E828;
+    getIdentity(v12, v13);
+    *(result + 216) = &qword_280C5E828;
+    getIdentity(v14, v15);
+    *(result + 200) = &qword_280C5E828;
+    getIdentity(v16, v17);
+    *(result + 208) = &qword_280C5E828;
+    getIdentity(v18, v19);
+    *(result + 224) = &qword_280C5E828;
   }
 }
 
-uint64_t LiAgent::getFilmToObjectTransform@<X0>(LiAgent *this@<X0>, uint64_t a2@<X8>)
+uint64_t *LiAgent::getFilmToObjectTransform@<X0>(uint64_t *__return_ptr a1@<X8>, LiAgent *this@<X0>)
 {
   v14 = 0x3FF0000000000000;
   v11 = 0x3FF0000000000000;
@@ -7421,7 +7433,7 @@ uint64_t LiAgent::getFilmToObjectTransform@<X0>(LiAgent *this@<X0>, uint64_t a2@
   v12 = 0u;
   v13 = 0u;
   PCMatrix44Tmpl<double>::planarInverseZ(&v5, *(this + 22), 0.0);
-  return PCMatrix44Tmpl<double>::operator*(&v5, *(this + 21), a2);
+  return PCMatrix44Tmpl<double>::operator*(&v5, *(this + 21), a1);
 }
 
 uint64_t LiAgent::setPixelTransform(uint64_t result, uint64_t a2)
@@ -7528,7 +7540,7 @@ BOOL LiAgent::getInversePixelTransform@<W0>(LiAgent *this@<X0>, double a2@<D0>, 
   return LiAgent::getInversePixelTransform(this, a3, a2);
 }
 
-uint64_t LiAgent::getHelium@<X0>(LiAgent *this@<X0>, LiImageSource *a2@<X1>, void *a3@<X8>)
+uint64_t *LiAgent::getHelium@<X0>(uint64_t *__return_ptr a1@<X8>, LiAgent *this@<X0>, LiImageSource *a3@<X1>)
 {
   v6 = *(this + 32);
   if (v6)
@@ -7557,14 +7569,14 @@ uint64_t LiAgent::getHelium@<X0>(LiAgent *this@<X0>, LiImageSource *a2@<X1>, voi
   *(this + 444) = *&v11[12];
   *(this + 456) = v7;
   PCCFRef<CGColorSpace *>::~PCCFRef(v11);
-  if (a2)
+  if (a3)
   {
-    *(this + 2) = a2;
+    *(this + 2) = a3;
     operator new();
   }
 
   result = *(this + 32);
-  *a3 = result;
+  *a1 = result;
   if (result)
   {
     return (*(*result + 16))(result);
@@ -7584,51 +7596,51 @@ void sub_25FF428F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-double LiAgent::getObjectToFilmTransform(uint64_t a1, uint64_t a2)
+double LiAgent::getObjectToFilmTransform(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v2 = *(a1 + 208);
-  if (v2 != a2)
+  v3 = *(a1 + 208);
+  if (v3 != a2)
   {
-    v3 = 0;
-    v4 = a2;
+    v4 = 0;
+    v5 = a2;
     do
     {
       for (i = 0; i != 32; i += 8)
       {
-        *(v4 + i) = *(v2 + i);
+        *(v5 + i) = *(v3 + i);
       }
 
-      ++v3;
-      v4 += 32;
-      v2 += 32;
+      ++v4;
+      v5 += 32;
+      v3 += 32;
     }
 
-    while (v3 != 4);
+    while (v4 != 4);
   }
 
   return PCMatrix44Tmpl<double>::rightMult(a2, *(a1 + 192));
 }
 
-double LiAgent::getFilmToWorldTransform(uint64_t a1, uint64_t a2)
+double LiAgent::getFilmToWorldTransform(uint64_t a1, uint64_t a2, __n128 a3)
 {
-  v2 = *(a1 + 184);
-  if (v2 != a2)
+  v3 = *(a1 + 184);
+  if (v3 != a2)
   {
-    v3 = 0;
-    v4 = a2;
+    v4 = 0;
+    v5 = a2;
     do
     {
       for (i = 0; i != 32; i += 8)
       {
-        *(v4 + i) = *(v2 + i);
+        *(v5 + i) = *(v3 + i);
       }
 
-      ++v3;
-      v4 += 32;
-      v2 += 32;
+      ++v4;
+      v5 += 32;
+      v3 += 32;
     }
 
-    while (v3 != 4);
+    while (v4 != 4);
   }
 
   return PCMatrix44Tmpl<double>::rightMult(a2, *(a1 + 168));
@@ -7797,7 +7809,7 @@ CGColorSpace **LiAgent::setActualColorDescription(CGColorSpace **this, const FxC
   return result;
 }
 
-uint64_t LiAgent::makeHeliumXForm@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X3>, void *a4@<X8>)
+HGXForm *LiAgent::makeHeliumXForm@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, HGXForm **a3@<X3>, HGXForm **a4@<X8>)
 {
   v4 = *(a2 + 80);
   v16[4] = *(a2 + 64);
@@ -7836,7 +7848,7 @@ uint64_t LiAgent::makeHeliumXForm@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint6
   return LiAgent::makeHeliumXForm(a1, v16, a3, a4);
 }
 
-CGColorSpace **LiAgent::conformToRequestedColorSpace@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+CGColorSpace **LiAgent::conformToRequestedColorSpace@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, PCColorUtil **a3@<X8>)
 {
   ActualColorDescription = LiAgent::getActualColorDescription(a1);
   v7 = *ActualColorDescription;
@@ -7887,7 +7899,7 @@ void sub_25FF43324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (*v13)
   {
-    (*(**v13 + 24))(*v13);
+    (*(**v13 + 24))(*v13, a2, a3, a4, a5, a6, a7, a8);
   }
 
   PCCFRef<CGColorSpace *>::~PCCFRef(&a9);
@@ -7908,38 +7920,38 @@ LiAgent **std::unique_ptr<LiAgent>::~unique_ptr[abi:ne200100](LiAgent **a1)
   return a1;
 }
 
-void LiAgent::getHeliumInColorSpace(LiAgent *this@<X0>, LiImageSource *a2@<X1>, CGColorSpace *a3@<X2>, void *a4@<X8>)
+void LiAgent::getHeliumInColorSpace(LiAgent *this@<X0>, LiImageSource *a2@<X1>, CGColorSpace *a3@<X2>, uint64_t *a4@<X8>)
 {
   LiAgentRequestedColorSpaceSentry::LiAgentRequestedColorSpaceSentry(v7, this, a3);
-  LiAgent::getHelium(this, a2, a4);
+  LiAgent::getHelium(a4, this, a2);
   LiAgentRequestedColorSpaceSentry::~LiAgentRequestedColorSpaceSentry(v7);
 }
 
-void sub_25FF43424(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FF43424(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   LiAgentRequestedColorSpaceSentry::~LiAgentRequestedColorSpaceSentry(va);
   _Unwind_Resume(a1);
 }
 
-void LiAgent::getHeliumInColorDescription(LiAgent *this@<X0>, LiImageSource *a2@<X1>, const FxColorDescription *a3@<X2>, void *a4@<X8>)
+void LiAgent::getHeliumInColorDescription(LiAgent *this@<X0>, LiImageSource *a2@<X1>, const FxColorDescription *a3@<X2>, uint64_t *a4@<X8>)
 {
   LiAgentRequestedColorSpaceSentry::LiAgentRequestedColorSpaceSentry(v7, this, a3);
-  LiAgent::getHelium(this, a2, a4);
+  LiAgent::getHelium(a4, this, a2);
   LiAgentRequestedColorSpaceSentry::~LiAgentRequestedColorSpaceSentry(v7);
 }
 
-void sub_25FF43498(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FF43498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   LiAgentRequestedColorSpaceSentry::~LiAgentRequestedColorSpaceSentry(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t LiAgent::getDOD@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
+uint64_t LiAgent::getDOD@<X0>(uint64_t *__return_ptr a1@<X8>, uint64_t this@<X0>)
 {
-  *a2 = xmmword_260343AA0;
-  *(a2 + 16) = 0;
+  *a1 = xmmword_260343AA0;
+  *(a1 + 16) = 0;
   if (*(this + 256))
   {
     v3 = this;
@@ -7949,7 +7961,7 @@ uint64_t LiAgent::getDOD@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
     this = HGRectIsInfinite(DOD, v6);
     if (this)
     {
-      *(a2 + 16) = 1;
+      *(a1 + 16) = 1;
     }
 
     else
@@ -8001,10 +8013,10 @@ uint64_t LiAgent::getDOD@<X0>(uint64_t this@<X0>, uint64_t a2@<X8>)
         v11 = v13 - v8;
       }
 
-      *a2 = v9;
-      *(a2 + 4) = v8;
-      *(a2 + 8) = v10;
-      *(a2 + 12) = v11;
+      *a1 = v9;
+      *(a1 + 1) = v8;
+      *(a1 + 2) = v10;
+      *(a1 + 3) = v11;
     }
   }
 
@@ -8021,7 +8033,7 @@ void LiAgent::getExtent(LiAgent *this@<X0>, LiPolygon *a2@<X8>)
 
   else if (*(this + 32))
   {
-    LiAgent::getDOD(this, v8);
+    LiAgent::getDOD(&v8, this);
     if (v11 == 1)
     {
       LiPolygon::setAll(a2);
@@ -8029,8 +8041,8 @@ void LiAgent::getExtent(LiAgent *this@<X0>, LiPolygon *a2@<X8>)
 
     else if ((v9 & 0x80000000) == 0 && (v10 & 0x80000000) == 0)
     {
-      v4.i64[0] = v8[0];
-      v4.i64[1] = v8[1];
+      v4.i64[0] = v8;
+      v4.i64[1] = SHIDWORD(v8);
       v5 = vcvtq_f64_s64(v4);
       v6 = v9;
       v7 = v10;
@@ -8190,7 +8202,7 @@ void LiAgent::getBoundary(LiAgent *this@<X0>, uint64_t a2@<X8>)
     if (!PCMatrix44Tmpl<double>::transformRect<double>(&v70, a2, a2))
     {
 LABEL_25:
-      LiAgent::getDOD(this, &v61);
+      LiAgent::getDOD(&v61, this);
       if (v62 == 1)
       {
         v48 = __cxa_allocate_exception(0x40uLL);
@@ -8266,10 +8278,10 @@ __n128 LiAgent::getObjectToImageTransform@<Q0>(LiAgent *this@<X0>, uint64_t a2@<
   return result;
 }
 
-__n128 LiAgent::getROI@<Q0>(__n128 *this@<X0>, __n128 *a2@<X8>)
+__n128 LiAgent::getROI@<Q0>(__n128 *__return_ptr a1@<X8>, __n128 *this@<X0>)
 {
   result = this[5];
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
@@ -8302,7 +8314,7 @@ __n128 LiAgent::setClientROI(__n128 *a1, __n128 *a2)
   return result;
 }
 
-double LiAgent::getClientPixelTransform@<D0>(double **this@<X0>, uint64_t a2@<X8>)
+double LiAgent::getClientPixelTransform@<D0>(void *this@<X0>, uint64_t a2@<X8>)
 {
   *(a2 + 120) = 0x3FF0000000000000;
   *(a2 + 80) = 0x3FF0000000000000;
@@ -8317,7 +8329,7 @@ double LiAgent::getClientPixelTransform@<D0>(double **this@<X0>, uint64_t a2@<X8
   *(a2 + 104) = 0u;
   if (*this)
   {
-    v3 = *(*this + 20);
+    v3 = *(*this + 160);
     if (v3 != a2)
     {
       v4 = 0;
@@ -8746,7 +8758,7 @@ void *LiAgent::getWorldClipPlanes(LiAgent *this)
   return result;
 }
 
-uint64_t LiAgent::makeHeliumXForm@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X8>)
+HGXForm *LiAgent::makeHeliumXForm@<X0>(uint64_t a1@<X0>, double *a2@<X1>, HGXForm **a3@<X2>, HGXForm **a4@<X8>)
 {
   v8 = *(a1 + 384);
   LODWORD(v11) = *(a1 + 380);
@@ -8760,7 +8772,7 @@ uint64_t LiAgent::makeHeliumXForm@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint6
   return LiHelium::createTransformNode(a2, a3, *(*(a1 + 48) + 132), &v11, a4);
 }
 
-uint64_t LiAgent::makeHeliumXForm@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+HGXForm *LiAgent::makeHeliumXForm@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, HGXForm **a3@<X8>)
 {
   v4 = 0;
   LiAgent::makeHeliumXForm(a1, a2, &v4, a3);
@@ -8773,11 +8785,11 @@ uint64_t LiAgent::makeHeliumXForm@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void 
   return result;
 }
 
-void sub_25FF4460C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25FF4460C(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 24))(a10);
+    (*(*a10 + 24))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -8859,8 +8871,8 @@ void LiAgentRequestedColorSpaceSentry::~LiAgentRequestedColorSpaceSentry(CGColor
   v3 = *this;
   PCCFRef<CGColorSpace *>::operator=(*this + 50, this + 1);
   v4 = this[2];
-  *(v3 + 104) = *(this + 6);
-  *(v3 + 51) = v4;
+  *(v3 + 416) = *(this + 6);
+  *(v3 + 408) = v4;
   *(v3 + 424) = *(this + 32);
   PCCFRef<CGColorSpace *>::~PCCFRef(v2);
 }
@@ -9073,7 +9085,7 @@ void LiAgent_getHelium_Matrixes::LiAgent_getHelium_Matrixes(LiAgent_getHelium_Ma
 
 void getIdentity()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_33))
+  if (__cxa_guard_acquire(_MergedGlobals_33))
   {
     qword_280C5E8A0 = 0x3FF0000000000000;
     qword_280C5E878 = 0x3FF0000000000000;
@@ -9087,7 +9099,7 @@ void getIdentity()
     unk_280C5E890 = 0u;
     __cxa_atexit(OZChannelBase::setRangeName, &qword_280C5E828, &dword_25F8F0000);
 
-    __cxa_guard_release(&_MergedGlobals_33);
+    __cxa_guard_release(_MergedGlobals_33);
   }
 }
 
@@ -9207,12 +9219,12 @@ double LiCamera::calcFilmSpaceTransform(uint64_t a1, double *a2, uint64_t a3)
   return result;
 }
 
-void LiCamera::getLocalCenterOfProjection(LiCamera *this@<X0>, uint64_t a2@<X8>)
+void LiCamera::getLocalCenterOfProjection(LiCamera *this@<X0>, float64x2_t *a2@<X8>)
 {
   v4 = (*(*this + 632))(this);
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  *a2 = 0;
+  a2->f64[1] = 0.0;
+  a2[1].f64[0] = 0.0;
+  a2->f64[0] = 0.0;
   if (v4 == 1)
   {
     (*(*this + 272))(v9, this);
@@ -9350,7 +9362,7 @@ void LiCamera::getFocalPoint(LiCamera *this@<X0>, uint64_t a2@<X8>)
   }
 }
 
-double *LiCamera::getPosition@<X0>(LiCamera *this@<X0>, uint64_t a2@<X8>)
+double LiCamera::getPosition@<D0>(LiCamera *this@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 0;
@@ -9370,7 +9382,8 @@ double *LiCamera::getPosition@<X0>(LiCamera *this@<X0>, uint64_t a2@<X8>)
   }
 
   (*(*this + 424))(v7, this);
-  return PCMatrix44Tmpl<double>::transform<double>(v7, a2, a2);
+  PCMatrix44Tmpl<double>::transform<double>(v7, a2, a2);
+  return result;
 }
 
 void LiCamera::getViewPoint(LiCamera *this@<X0>, uint64_t a2@<X8>)
@@ -9445,7 +9458,7 @@ void LiCamera::getFocalDistance(LiCamera *this)
   }
 }
 
-double *LiCamera::adjustTranslationForModel(uint64_t a1, int a2, int a3, float64x2_t *a4)
+void LiCamera::adjustTranslationForModel(uint64_t a1, int a2, int a3, float64x2_t *a4)
 {
   v8 = (*(*a1 + 504))(a1);
   v9 = (*(*a1 + 520))(a1);
@@ -9472,28 +9485,28 @@ double *LiCamera::adjustTranslationForModel(uint64_t a1, int a2, int a3, float64
 
   v13 = (*(*a1 + 688))(a1);
   v14 = (*(*a1 + 488))(a1);
-  (*(*a1 + 272))(v30, a1);
-  (*(*a1 + 16))(v29, a1);
-  (*(*a1 + 424))(v28, a1);
-  v27[4] = v28[4];
-  v27[5] = v28[5];
-  v27[6] = v28[6];
-  v27[7] = v28[7];
-  v27[0] = v28[0];
-  v27[1] = v28[1];
-  v27[2] = v28[2];
-  v27[3] = v28[3];
-  if (!PCMatrix44Tmpl<double>::invert(v27, v27, 0.0))
+  (*(*a1 + 272))(v29, a1);
+  (*(*a1 + 16))(v28, a1);
+  (*(*a1 + 424))(v27, a1);
+  v26[4] = v27[4];
+  v26[5] = v27[5];
+  v26[6] = v27[6];
+  v26[7] = v27[7];
+  v26[0] = v27[0];
+  v26[1] = v27[1];
+  v26[2] = v27[2];
+  v26[3] = v27[3];
+  if (!PCMatrix44Tmpl<double>::invert(v26, v26, 0.0))
   {
     exception = __cxa_allocate_exception(0x40uLL);
-    PCString::PCString(&v26, "singular parent matrix");
-    PCException::PCException(exception, &v26);
+    PCString::PCString(&v25, "singular parent matrix");
+    PCException::PCException(exception, &v25);
   }
 
-  PCMatrix44Tmpl<double>::transform<double>(v28, a4->f64, a4->f64);
-  v25 = *&v29[2];
-  v15 = *&v29[10];
-  v16 = v13 * v14 * v30[0] * 0.5;
+  PCMatrix44Tmpl<double>::transform<double>(v27, a4->f64, a4->f64);
+  v24 = *&v28[2];
+  v15 = *&v28[10];
+  v16 = v13 * v14 * v29[0] * 0.5;
   v17 = v16 / tan(v11 * 0.5 * 3.14159265 / 180.0);
   v18 = v15 * v17;
   if (a3 == 1)
@@ -9501,15 +9514,15 @@ double *LiCamera::adjustTranslationForModel(uint64_t a1, int a2, int a3, float64
     v18 = -(v15 * v17);
   }
 
-  v19.f64[0] = v25;
-  *&v19.f64[1] = v29[6];
+  v19.f64[0] = v24;
+  *&v19.f64[1] = v28[6];
   v20 = vmulq_n_f64(v19, v17);
   v21 = vdup_n_s32(a3 == 1);
   v22.i64[0] = v21.u32[0];
   v22.i64[1] = v21.u32[1];
   *a4 = vaddq_f64(*a4, vbslq_s8(vcltzq_s64(vshlq_n_s64(v22, 0x3FuLL)), vnegq_f64(v20), v20));
   a4[1].f64[0] = v18 + a4[1].f64[0];
-  return PCMatrix44Tmpl<double>::transform<double>(v27, a4->f64, a4->f64);
+  PCMatrix44Tmpl<double>::transform<double>(v26, a4->f64, a4->f64);
 }
 
 void LiCamera::adjustFarPlaneForModel(uint64_t a1, int a2, int a3, double *a4)

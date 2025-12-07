@@ -31,38 +31,36 @@
 
 - (NSArray)attributeDescriptions
 {
-  v26[6] = *MEMORY[0x1E69E9840];
+  v25[6] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   uniqueIdentifier = [(HMHomeInvitation *)self uniqueIdentifier];
-  v24 = [v3 initWithName:@"ID" value:uniqueIdentifier];
-  v26[0] = v24;
+  v23 = [v3 initWithName:@"ID" value:uniqueIdentifier];
+  v25[0] = v23;
   v4 = objc_alloc(MEMORY[0x1E69A29C8]);
   inviter = [(HMIncomingHomeInvitation *)self inviter];
   userID = [inviter userID];
-  v21 = [v4 initWithName:@"Inviter UserID" value:userID];
-  v26[1] = v21;
+  v20 = [v4 initWithName:@"Inviter UserID" value:userID];
+  v25[1] = v20;
   v5 = objc_alloc(MEMORY[0x1E69A29C8]);
   inviter2 = [(HMIncomingHomeInvitation *)self inviter];
   name = [inviter2 name];
   v8 = [v5 initWithName:@"Inviter Name" value:name];
-  v26[2] = v8;
+  v25[2] = v8;
   v9 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMIncomingHomeInvitation *)self isInviteeRestrictedGuest];
   v10 = HMFBooleanToString();
   v11 = [v9 initWithName:@"Is RG" value:v10];
-  v26[3] = v11;
+  v25[3] = v11;
   v12 = objc_alloc(MEMORY[0x1E69A29C8]);
   [(HMIncomingHomeInvitation *)self homeHasCameras];
   v13 = HMFBooleanToString();
   v14 = [v12 initWithName:@"DoesHomeHasCameras" value:v13];
-  v26[4] = v14;
+  v25[4] = v14;
   v15 = objc_alloc(MEMORY[0x1E69A29C8]);
   restrictedGuestSchedule = [(HMIncomingHomeInvitation *)self restrictedGuestSchedule];
   v17 = [v15 initWithName:@"rgSchedule" value:restrictedGuestSchedule];
-  v26[5] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:6];
-
-  v19 = *MEMORY[0x1E69E9840];
+  v25[5] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:6];
 
   return v18;
 }
@@ -136,28 +134,28 @@
 
 - (void)reportJunkInviteWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMHomeInvitation *)self context];
   if (!handlerCopy)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation reportJunkInviteWithCompletionHandler:]", @"completion"];
-    v19 = objc_autoreleasePoolPush();
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation reportJunkInviteWithCompletionHandler:]", @"completion"];
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v22;
-      v26 = 2112;
-      v27 = v18;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v24 = v21;
+      v25 = 2112;
+      v26 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-    objc_exception_throw(v23);
+    objc_autoreleasePoolPop(v18);
+    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v6 = context;
@@ -171,7 +169,7 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v11;
+      v24 = v11;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling a junk invitation.", buf, 0xCu);
     }
 
@@ -199,9 +197,9 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v14;
-      v26 = 2080;
-      v27 = "[HMIncomingHomeInvitation reportJunkInviteWithCompletionHandler:]";
+      v24 = v14;
+      v25 = 2080;
+      v26 = "[HMIncomingHomeInvitation reportJunkInviteWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -209,34 +207,32 @@
     v13 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acceptInviteWithPresenceAuthStatus:(unint64_t)status completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMHomeInvitation *)self context];
   if (!handlerCopy)
   {
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation acceptInviteWithPresenceAuthStatus:completionHandler:]", @"completion"];
-    v22 = objc_autoreleasePoolPush();
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation acceptInviteWithPresenceAuthStatus:completionHandler:]", @"completion"];
+    v21 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v24 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v25 = HMFGetLogIdentifier();
+      v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v25;
-      v29 = 2112;
-      v30 = v21;
-      _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v27 = v24;
+      v28 = 2112;
+      v29 = v20;
+      _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v22);
-    v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v21 userInfo:0];
-    objc_exception_throw(v26);
+    objc_autoreleasePoolPop(v21);
+    v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:0];
+    objc_exception_throw(v25);
   }
 
   v8 = context;
@@ -251,9 +247,9 @@
       v13 = HMFGetLogIdentifier();
       v14 = HMUserPresenceAuthorizationStatusAsString(status);
       *buf = 138543618;
-      v28 = v13;
-      v29 = 2112;
-      v30 = v14;
+      v27 = v13;
+      v28 = 2112;
+      v29 = v14;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Handling accepted invitation with presenceAuthStatus: %@.", buf, 0x16u);
     }
 
@@ -281,9 +277,9 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v17;
-      v29 = 2080;
-      v30 = "[HMIncomingHomeInvitation acceptInviteWithPresenceAuthStatus:completionHandler:]";
+      v27 = v17;
+      v28 = 2080;
+      v29 = "[HMIncomingHomeInvitation acceptInviteWithPresenceAuthStatus:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -291,34 +287,32 @@
     v16 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, v16);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acceptInviteWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMHomeInvitation *)self context];
   if (!handlerCopy)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation acceptInviteWithCompletionHandler:]", @"completion"];
-    v19 = objc_autoreleasePoolPush();
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation acceptInviteWithCompletionHandler:]", @"completion"];
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v22;
-      v26 = 2112;
-      v27 = v18;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v24 = v21;
+      v25 = 2112;
+      v26 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-    objc_exception_throw(v23);
+    objc_autoreleasePoolPop(v18);
+    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v6 = context;
@@ -332,7 +326,7 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v11;
+      v24 = v11;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling accepted invitation.", buf, 0xCu);
     }
 
@@ -360,9 +354,9 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v14;
-      v26 = 2080;
-      v27 = "[HMIncomingHomeInvitation acceptInviteWithCompletionHandler:]";
+      v24 = v14;
+      v25 = 2080;
+      v26 = "[HMIncomingHomeInvitation acceptInviteWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -370,34 +364,32 @@
     v13 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ignoreInviteWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMHomeInvitation *)self context];
   if (!handlerCopy)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation ignoreInviteWithCompletionHandler:]", @"completion"];
-    v19 = objc_autoreleasePoolPush();
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation ignoreInviteWithCompletionHandler:]", @"completion"];
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v22;
-      v26 = 2112;
-      v27 = v18;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v24 = v21;
+      v25 = 2112;
+      v26 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-    objc_exception_throw(v23);
+    objc_autoreleasePoolPop(v18);
+    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v6 = context;
@@ -411,7 +403,7 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v11;
+      v24 = v11;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling ignored invitation.", buf, 0xCu);
     }
 
@@ -439,9 +431,9 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v14;
-      v26 = 2080;
-      v27 = "[HMIncomingHomeInvitation ignoreInviteWithCompletionHandler:]";
+      v24 = v14;
+      v25 = 2080;
+      v26 = "[HMIncomingHomeInvitation ignoreInviteWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -449,34 +441,32 @@
     v13 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelInviteWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMHomeInvitation *)self context];
   if (!handlerCopy)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation cancelInviteWithCompletionHandler:]", @"completion"];
-    v19 = objc_autoreleasePoolPush();
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMIncomingHomeInvitation cancelInviteWithCompletionHandler:]", @"completion"];
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v22;
-      v26 = 2112;
-      v27 = v18;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v24 = v21;
+      v25 = 2112;
+      v26 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-    objc_exception_throw(v23);
+    objc_autoreleasePoolPop(v18);
+    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v6 = context;
@@ -490,7 +480,7 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v25 = v11;
+      v24 = v11;
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Handling declined invitation.", buf, 0xCu);
     }
 
@@ -518,9 +508,9 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v14;
-      v26 = 2080;
-      v27 = "[HMIncomingHomeInvitation cancelInviteWithCompletionHandler:]";
+      v24 = v14;
+      v25 = 2080;
+      v26 = "[HMIncomingHomeInvitation cancelInviteWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -528,8 +518,6 @@
     v13 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     handlerCopy[2](handlerCopy, v13);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (NSUUID)homeUUID
@@ -550,7 +538,7 @@
 
 - (void)_unconfigure
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   context = [(HMHomeInvitation *)self context];
 
   v4 = objc_autoreleasePoolPush();
@@ -562,9 +550,9 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -575,17 +563,15 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring incoming Home invitation", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring incoming Home invitation", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [(HMIncomingHomeInvitation *)selfCopy setHomeManager:0];
     [(HMHomeInvitation *)selfCopy setContext:0];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__configureWithContext:(id)context homeManager:(id)manager
@@ -627,20 +613,20 @@
 
 + (id)incomingHomeInvitationFromEncodedData:(id)data homeManager:(id)manager
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   managerCopy = manager;
   if (dataCopy)
   {
     v8 = MEMORY[0x1E696ACD0];
     v9 = MEMORY[0x1E695DFD8];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     v11 = [v9 setWithArray:v10];
-    v24 = 0;
-    v12 = [v8 unarchivedObjectOfClasses:v11 fromData:dataCopy error:&v24];
-    v13 = v24;
+    v23 = 0;
+    v12 = [v8 unarchivedObjectOfClasses:v11 fromData:dataCopy error:&v23];
+    v13 = v23;
 
     if (v12)
     {
@@ -674,9 +660,9 @@
       {
         v21 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v26 = v21;
-        v27 = 2112;
-        v28 = v13;
+        v25 = v21;
+        v26 = 2112;
+        v27 = v13;
         _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive incoming home invitation data from encoded invitations data: %@", buf, 0x16u);
       }
 
@@ -686,8 +672,6 @@
 
   v14 = MEMORY[0x1E695E0F0];
 LABEL_12:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

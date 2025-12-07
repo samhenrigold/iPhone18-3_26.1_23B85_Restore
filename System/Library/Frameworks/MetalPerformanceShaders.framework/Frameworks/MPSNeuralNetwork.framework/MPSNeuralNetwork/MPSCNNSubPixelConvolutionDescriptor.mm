@@ -16,7 +16,7 @@
     outputFeatureChannels = selfCopy->super._outputFeatureChannels;
     if (v7)
     {
-      MTLReportFailure();
+      MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x2AD, @"outputFeatureChannels (%lu) in convolution descriptor must be multiple of scaleFactor*scaleFactor=%lu becuase these values are rearragned in scaleFactor x scaleFactor pixel block by sub pixel convolution with each pixel having outputFeatureChannels/(scaleFactor*scaleFactor) channels\n", v8, v9, v10, v11);
       self = selfCopy;
       outputFeatureChannels = selfCopy->super._outputFeatureChannels;
     }
@@ -46,18 +46,18 @@ LABEL_4:
   }
 
   selfCopy2 = self;
-  v9 = subPixelScaleFactor;
-  v10 = MTLReportFailureTypeEnabled();
-  subPixelScaleFactor = v9;
-  v11 = v10;
+  v13 = subPixelScaleFactor;
+  v14 = MTLReportFailureTypeEnabled();
+  subPixelScaleFactor = v13;
+  v19 = v14;
   self = selfCopy2;
-  if (!v11)
+  if (!v19)
   {
     goto LABEL_4;
   }
 
-  MTLReportFailure();
-  selfCopy2->super._subPixelScaleFactor = v9;
+  MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNConvolution.mm", 0x2B3, @"When number of groups (%lu) is greater than 1, number of feature channel in upsampled output image (outputFeatureChannels/(scaleFactor*scaleFactor)) (%lu) must be multiple of 4\n", v15, v16, v17, v18);
+  selfCopy2->super._subPixelScaleFactor = v13;
 }
 
 @end

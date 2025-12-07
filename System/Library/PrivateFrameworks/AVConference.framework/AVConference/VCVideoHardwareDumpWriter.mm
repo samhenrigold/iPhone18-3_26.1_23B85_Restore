@@ -58,17 +58,17 @@ LABEL_8:
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   sources = self->_sources;
   if (sources)
   {
     CFRelease(sources);
   }
 
-  VCVideoHardwareDumpWriter_CloseDumpFile(self, a2, v2, v3, v4, v5, v6, v7);
-  v10.receiver = self;
-  v10.super_class = VCVideoHardwareDumpWriter;
-  [(VCVideoHardwareDumpWriter *)&v10 dealloc];
+  VCVideoHardwareDumpWriter_CloseDumpFile(self);
+  v4.receiver = self;
+  v4.super_class = VCVideoHardwareDumpWriter;
+  [(VCVideoHardwareDumpWriter *)&v4 dealloc];
 }
 
 - (void)init
@@ -80,7 +80,7 @@ LABEL_8:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate dump writer", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate dump writer", v2, v3, v4, v5);
     }
   }
 }

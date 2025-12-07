@@ -128,13 +128,12 @@
 
 - (double)computedActivationTime
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (![(SASActivationRequest *)self isDeviceButtonRequest]|| !AFDeviceSupportsZLL())
   {
 LABEL_15:
     [(SASActivationRequest *)self activationTime];
-    v14 = v13;
-    goto LABEL_16;
+    return v13;
   }
 
   self->_waketimeMIBSize = 48;
@@ -157,21 +156,21 @@ LABEL_15:
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v36 = "[SASActivationRequest computedActivationTime]";
+    v35 = "[SASActivationRequest computedActivationTime]";
     _os_log_impl(&dword_1C8137000, v8, OS_LOG_TYPE_DEFAULT, "%s Device wants Home Button ZLL, checking wake time", buf, 0xCu);
   }
 
+  v32 = 0;
   v33 = 0;
-  v34 = 0;
-  v32 = 16;
+  v31 = 16;
   if (*p_waketimeMIBSize)
   {
-    v9 = sysctl(self->_waketimeMIB, *p_waketimeMIBSize, &v33, &v32, 0, 0);
+    v9 = sysctl(self->_waketimeMIB, *p_waketimeMIBSize, &v32, &v31, 0, 0);
   }
 
   else
   {
-    v9 = sysctlbyname("kern.waketime", &v33, &v32, 0, 0);
+    v9 = sysctlbyname("kern.waketime", &v32, &v31, 0, 0);
   }
 
   v10 = v9;
@@ -188,70 +187,68 @@ LABEL_15:
   }
 
   v14 = v11;
-  v17 = v33 + (v34 / 0xF4240uLL);
+  v16 = v32 + (v33 / 0xF4240uLL);
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSince1970];
-  v20 = v19 - v17;
+  v19 = v18 - v16;
 
   processInfo = [MEMORY[0x1E696AE30] processInfo];
   [processInfo systemUptime];
-  v23 = v22;
+  v22 = v21;
 
-  v24 = *v5;
+  v23 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v36 = "[SASActivationRequest computedActivationTime]";
-    v37 = 2048;
-    v38 = v20;
-    _os_log_impl(&dword_1C8137000, v24, OS_LOG_TYPE_DEFAULT, "%s Wake time was %lf seconds ago", buf, 0x16u);
+    v35 = "[SASActivationRequest computedActivationTime]";
+    v36 = 2048;
+    v37 = v19;
+    _os_log_impl(&dword_1C8137000, v23, OS_LOG_TYPE_DEFAULT, "%s Wake time was %lf seconds ago", buf, 0x16u);
   }
 
-  v25 = v23 - v14;
-  v26 = *v5;
+  v24 = v22 - v14;
+  v25 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v36 = "[SASActivationRequest computedActivationTime]";
-    v37 = 2048;
-    v38 = v25;
-    _os_log_impl(&dword_1C8137000, v26, OS_LOG_TYPE_DEFAULT, "%s Button down time was %lf seconds ago", buf, 0x16u);
+    v35 = "[SASActivationRequest computedActivationTime]";
+    v36 = 2048;
+    v37 = v24;
+    _os_log_impl(&dword_1C8137000, v25, OS_LOG_TYPE_DEFAULT, "%s Button down time was %lf seconds ago", buf, 0x16u);
   }
 
-  v27 = v20 - v25;
+  v26 = v19 - v24;
+  v27 = *v5;
+  if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315394;
+    v35 = "[SASActivationRequest computedActivationTime]";
+    v36 = 2048;
+    v37 = v26;
+    _os_log_impl(&dword_1C8137000, v27, OS_LOG_TYPE_DEFAULT, "%s Wake -> Button down delta is %lf", buf, 0x16u);
+  }
+
   v28 = *v5;
-  if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
+  v29 = os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT);
+  if (v26 > 0.0 && v26 < 0.75)
   {
-    *buf = 136315394;
-    v36 = "[SASActivationRequest computedActivationTime]";
-    v37 = 2048;
-    v38 = v27;
-    _os_log_impl(&dword_1C8137000, v28, OS_LOG_TYPE_DEFAULT, "%s Wake -> Button down delta is %lf", buf, 0x16u);
-  }
-
-  v29 = *v5;
-  v30 = os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT);
-  if (v27 > 0.0 && v27 < 0.75)
-  {
-    if (v30)
+    if (v29)
     {
       *buf = 136315138;
-      v36 = "[SASActivationRequest computedActivationTime]";
-      _os_log_impl(&dword_1C8137000, v29, OS_LOG_TYPE_DEFAULT, "%s Using Wake Time", buf, 0xCu);
+      v35 = "[SASActivationRequest computedActivationTime]";
+      _os_log_impl(&dword_1C8137000, v28, OS_LOG_TYPE_DEFAULT, "%s Using Wake Time", buf, 0xCu);
     }
 
-    v14 = v14 - v27;
+    return v14 - v26;
   }
 
-  else if (v30)
+  else if (v29)
   {
     *buf = 136315138;
-    v36 = "[SASActivationRequest computedActivationTime]";
-    _os_log_impl(&dword_1C8137000, v29, OS_LOG_TYPE_DEFAULT, "%s Using Button Down Time", buf, 0xCu);
+    v35 = "[SASActivationRequest computedActivationTime]";
+    _os_log_impl(&dword_1C8137000, v28, OS_LOG_TYPE_DEFAULT, "%s Using Button Down Time", buf, 0xCu);
   }
 
-LABEL_16:
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -713,7 +710,7 @@ LABEL_8:
 
 - (double)buttonDownTimestamp
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   context = [(SASActivationRequest *)self context];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -731,9 +728,9 @@ LABEL_8:
       v9 = *MEMORY[0x1E698D0A0];
       if (os_log_type_enabled(*MEMORY[0x1E698D0A0], OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315138;
-        v15 = "[SASActivationRequest buttonDownTimestamp]";
-        _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s button down timestamp sent in format where absolute time conversion is invalid", &v14, 0xCu);
+        v13 = 136315138;
+        v14 = "[SASActivationRequest buttonDownTimestamp]";
+        _os_log_impl(&dword_1C8137000, v9, OS_LOG_TYPE_DEFAULT, "%s button down timestamp sent in format where absolute time conversion is invalid", &v13, 0xCu);
       }
 
       context3 = [(SASActivationRequest *)self context];
@@ -742,7 +739,6 @@ LABEL_8:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -911,13 +907,11 @@ LABEL_8:
 
 - (void)computedActivationTime
 {
-  v11 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   strerror(a2);
+  v10 = 136315394;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1C8137000, v4, v5, "%s Failed looking up waketime %{public}s", v6, v7, v8, v9, 2u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1C8137000, v4, v5, "%s Failed looking up waketime %{public}s", v6, v7, v8, v9, v10);
 }
 
 @end

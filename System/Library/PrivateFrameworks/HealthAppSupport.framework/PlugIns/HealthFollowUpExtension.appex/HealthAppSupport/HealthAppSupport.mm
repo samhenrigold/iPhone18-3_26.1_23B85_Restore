@@ -6,16 +6,15 @@ void sub_100001C50(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = v5;
-      v8 = objc_opt_class();
-      v9 = *(a1 + 32);
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v9;
-      v10 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[%@] Successfully cleared follow-up item with identifier %@", &v11, 0x16u);
+      v6 = v5;
+      v7 = objc_opt_class();
+      v8 = *(a1 + 32);
+      v10 = 138412546;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      v9 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[%@] Successfully cleared follow-up item with identifier %@", &v10, 0x16u);
     }
   }
 
@@ -25,10 +24,11 @@ void sub_100001C50(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_100001DE0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100001DE0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id sub_100001E00(id a1)
@@ -39,93 +39,90 @@ id sub_100001E00(id a1)
 
 uint64_t static EmergencyAccessBuddyViewControllerCreator.makeFollowUpViewController(for:healthStore:followUpDelegate:)(uint64_t a1, unint64_t a2, void *a3, uint64_t a4)
 {
-  v45 = a4;
-  v46 = a3;
+  v42 = a4;
+  v43 = a3;
   v6 = sub_100002D48();
-  v43 = *(v6 - 8);
-  v7 = *(v43 + 64);
-  (__chkstk_darwin)();
-  v42 = &v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v44 = sub_100002CD8();
-  v9 = *(v44 - 8);
-  v10 = *(v9 + 64);
-  (__chkstk_darwin)();
-  v12 = (&v40 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v13 = sub_100002CF8();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = (__chkstk_darwin)();
-  v18 = &v40 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v20 = &v40 - v19;
-  v21 = sub_100002D58();
-  v47 = a2;
-  if (v21 == a1 && v22 == a2)
+  v40 = *(v6 - 8);
+  __chkstk_darwin(v6);
+  v39 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v41 = sub_100002CD8();
+  v8 = *(v41 - 8);
+  __chkstk_darwin(v41);
+  v10 = (&v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = sub_100002CF8();
+  v12 = *(v11 - 8);
+  v13 = __chkstk_darwin(v11);
+  v15 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v13);
+  v17 = &v37 - v16;
+  v18 = sub_100002D58();
+  v44 = a2;
+  if (v18 == a1 && v19 == a2)
   {
 
     goto LABEL_15;
   }
 
-  v41 = v6;
-  v24 = sub_100002DB8();
+  v38 = v6;
+  v21 = sub_100002DB8();
 
-  if (v24)
+  if (v21)
   {
 LABEL_15:
     sub_100002CE8();
-    *v12 = v45;
-    v36 = &enum case for EmergencyAccessBuddyFlow.followUpOnboarding(_:);
+    *v10 = v42;
+    v33 = &enum case for EmergencyAccessBuddyFlow.followUpOnboarding(_:);
 LABEL_16:
-    (*(v9 + 104))(v12, *v36, v44);
-    (*(v14 + 16))(v18, v20, v13);
-    v37 = objc_allocWithZone(sub_100002D18());
+    (*(v8 + 104))(v10, *v33, v41);
+    (*(v12 + 16))(v15, v17, v11);
+    v34 = objc_allocWithZone(sub_100002D18());
     swift_unknownObjectRetain();
-    v38 = v46;
-    v35 = sub_100002D08();
-    (*(v14 + 8))(v20, v13);
-    return v35;
+    v35 = v43;
+    v32 = sub_100002D08();
+    (*(v12 + 8))(v17, v11);
+    return v32;
   }
 
-  if (sub_100002D58() == a1 && v25 == v47)
+  if (sub_100002D58() == a1 && v22 == v44)
   {
 
     goto LABEL_19;
   }
 
-  v40 = a1;
-  v27 = sub_100002DB8();
+  v37 = a1;
+  v24 = sub_100002DB8();
 
-  if (v27)
+  if (v24)
   {
 LABEL_19:
     sub_100002CE8();
-    *v12 = v45;
-    v36 = &enum case for EmergencyAccessBuddyFlow.followUpReview(_:);
+    *v10 = v42;
+    v33 = &enum case for EmergencyAccessBuddyFlow.followUpReview(_:);
     goto LABEL_16;
   }
 
-  v28 = v42;
+  v25 = v39;
   sub_100002D28();
 
-  v29 = sub_100002D38();
-  v30 = sub_100002D78();
+  v26 = sub_100002D38();
+  v27 = sub_100002D78();
 
-  if (os_log_type_enabled(v29, v30))
+  if (os_log_type_enabled(v26, v27))
   {
-    v31 = swift_slowAlloc();
-    v48 = swift_slowAlloc();
-    *v31 = 136315394;
-    v32 = sub_100002DC8();
-    v34 = sub_10000243C(v32, v33, &v48);
+    v28 = swift_slowAlloc();
+    v45 = swift_slowAlloc();
+    *v28 = 136315394;
+    v29 = sub_100002DC8();
+    v31 = sub_10000243C(v29, v30, &v45);
 
-    *(v31 + 4) = v34;
-    *(v31 + 12) = 2080;
-    *(v31 + 14) = sub_10000243C(v40, v47, &v48);
-    _os_log_impl(&_mh_execute_header, v29, v30, "[%s] Received an action identifier that we don't know how to handle: %s", v31, 0x16u);
+    *(v28 + 4) = v31;
+    *(v28 + 12) = 2080;
+    *(v28 + 14) = sub_10000243C(v37, v44, &v45);
+    _os_log_impl(&_mh_execute_header, v26, v27, "[%s] Received an action identifier that we don't know how to handle: %s", v28, 0x16u);
     swift_arrayDestroy();
   }
 
-  (*(v43 + 8))(v28, v41);
+  (*(v40 + 8))(v25, v38);
   return 0;
 }
 
@@ -143,11 +140,11 @@ id EmergencyAccessBuddyViewControllerCreator.init()()
   return objc_msgSendSuper2(&v2, "init");
 }
 
-id EmergencyAccessBuddyViewControllerCreator.__deallocating_deinit()
+id EmergencyAccessBuddyViewControllerCreator.__deallocating_deinit(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for EmergencyAccessBuddyViewControllerCreator();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for EmergencyAccessBuddyViewControllerCreator();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 unint64_t sub_10000243C(uint64_t a1, unint64_t a2, uint64_t *a3)
@@ -250,11 +247,9 @@ LABEL_8:
 
 char *sub_100002614(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100002660(a1, a2);
+  v3 = sub_100002660(a1, a2);
   sub_100002790(&off_1000043A0);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100002660(uint64_t a1, unint64_t a2)
@@ -354,7 +349,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -368,15 +362,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_1000028E4(result, v12, 1, v3);
+  result = sub_1000028E4(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -391,15 +385,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -408,12 +402,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -555,28 +549,29 @@ void sub_100002A98()
   }
 }
 
-void sub_100002AEC(void *a1)
+void sub_100002AEC(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = sub_100001E00(v2);
-  sub_100001DE0(&_mh_execute_header, v4, v5, "[%@] No view controller found for item with identifier: %@", v6, v7, v8, v9, v10);
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = sub_100001E00(v3);
+  sub_100001DE0(&_mh_execute_header, v5, v6, "[%@] No view controller found for item with identifier: %@", v7, v8, v9, v10);
 }
 
-void sub_100002B88(void *a1)
+void sub_100002B88(void *a1, uint64_t a2)
 {
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = sub_100001E00(v2);
-  sub_100001DE0(&_mh_execute_header, v4, v5, "[%@] Action did not have an accepted identifier for us to process: %@", v6, v7, v8, v9, v10);
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = sub_100001E00(v3);
+  sub_100001DE0(&_mh_execute_header, v5, v6, "[%@] Action did not have an accepted identifier for us to process: %@", v7, v8, v9, v10);
 }
 
 void sub_100002C24(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v13 = *(a1 + 32);
-  v6 = v5;
-  sub_100001DE0(&_mh_execute_header, v7, v8, "[%@] Failed to clear follow-up item with identifier %@", v9, v10, v11, v12, 2u);
+  v3 = a2;
+  *v11 = 138412546;
+  *&v11[4] = objc_opt_class();
+  *&v11[12] = 2112;
+  *&v11[14] = *(a1 + 32);
+  v4 = *&v11[4];
+  sub_100001DE0(&_mh_execute_header, v5, v6, "[%@] Failed to clear follow-up item with identifier %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
 }

@@ -88,7 +88,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if (has)
@@ -123,29 +123,29 @@ LABEL_5:
   if ([(NSMutableArray *)self->_experts count])
   {
     v5 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_experts, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     experts = self->_experts;
-    v7 = [(NSMutableArray *)experts countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v7 = [(NSMutableArray *)experts countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v24;
+      v9 = *v23;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(experts);
           }
 
-          [v5 addObject:{objc_msgSend(*(*(&v23 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v5 addObject:{objc_msgSend(*(*(&v22 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v8 = [(NSMutableArray *)experts countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v8 = [(NSMutableArray *)experts countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v8);
@@ -157,29 +157,29 @@ LABEL_5:
   if ([(NSMutableArray *)self->_suggestions count])
   {
     v11 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_suggestions, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     suggestions = self->_suggestions;
-    v13 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v13 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(suggestions);
           }
 
-          [v11 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v11 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v14 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v14 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v14);
@@ -188,17 +188,15 @@ LABEL_5:
     [dictionary setObject:v11 forKey:@"suggestions"];
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -218,75 +216,69 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  durationSinceLastSuccessfulTraining = self->_durationSinceLastSuccessfulTraining;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    trainingTime = self->_trainingTime;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_5:
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   experts = self->_experts;
-  v7 = [(NSMutableArray *)experts countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v7)
+  v6 = [(NSMutableArray *)experts countByEnumeratingWithState:&v19 objects:v24 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v26;
+    v7 = v6;
+    v8 = *v20;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v9)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(experts);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v8 = [(NSMutableArray *)experts countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v7 = [(NSMutableArray *)experts countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   suggestions = self->_suggestions;
-  v13 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v13)
+  v11 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v22;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      for (j = 0; j != v14; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v22 != v15)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(suggestions);
         }
 
-        v17 = *(*(&v21 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v12 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -358,7 +350,7 @@ LABEL_5:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v32 = *MEMORY[0x29EDCA608];
+  v31 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -394,65 +386,64 @@ LABEL_4:
   }
 
 LABEL_5:
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   experts = self->_experts;
-  v9 = [(NSMutableArray *)experts countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v9 = [(NSMutableArray *)experts countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(experts);
         }
 
-        v13 = [*(*(&v26 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v25 + 1) + 8 * i) copyWithZone:zone];
         [v6 addExperts:v13];
       }
 
-      v10 = [(NSMutableArray *)experts countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v10 = [(NSMutableArray *)experts countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v10);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   suggestions = self->_suggestions;
-  v15 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v15 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v23;
+    v17 = *v22;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v23 != v17)
+        if (*v22 != v17)
         {
           objc_enumerationMutation(suggestions);
         }
 
-        v19 = [*(*(&v22 + 1) + 8 * j) copyWithZone:zone];
+        v19 = [*(*(&v21 + 1) + 8 * j) copyWithZone:zone];
         [v6 addSuggestions:v19];
       }
 
-      v16 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v16 = [(NSMutableArray *)suggestions countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v16);
   }
 
-  v20 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -461,7 +452,6 @@ LABEL_5:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 44);
     if (*&self->_has)
     {
       if ((*(equal + 44) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -567,7 +557,7 @@ LABEL_8:
 
 - (void)mergeFrom:(id)from
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   v5 = *(from + 44);
   if (v5)
   {
@@ -601,63 +591,61 @@ LABEL_4:
   }
 
 LABEL_5:
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = *(from + 3);
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDCoreRoutineMagicalMomentsExperts *)self addExperts:*(*(&v21 + 1) + 8 * i)];
+        [(AWDCoreRoutineMagicalMomentsExperts *)self addExperts:*(*(&v20 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v8);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v11 = *(from + 4);
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v18;
+    v14 = *v17;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v18 != v14)
+        if (*v17 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(AWDCoreRoutineMagicalMomentsExperts *)self addSuggestions:*(*(&v17 + 1) + 8 * j)];
+        [(AWDCoreRoutineMagicalMomentsExperts *)self addSuggestions:*(*(&v16 + 1) + 8 * j)];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v13);
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 @end

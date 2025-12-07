@@ -11,6 +11,7 @@
 - (void)loadView;
 - (void)textDidChange:(id)change;
 - (void)updatePrompt:(id)prompt;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BTSPairController
@@ -52,6 +53,21 @@
   v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v11 = [v10 localizedStringForKey:@"PAIRING_PROMPT" value:&stru_284EE3458 table:@"Devices"];
   [(BTSPairController *)self updatePrompt:v11];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = BTSPairController;
+  [(BTSPairController *)&v9 viewWillAppear:appear];
+  navigationItem = [(BTSPairController *)self navigationItem];
+  rightBarButtonItem = [navigationItem rightBarButtonItem];
+  [rightBarButtonItem setEnabled:0];
+
+  v6 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC60]);
+  v7 = [(BTSPairController *)self indexPathForIndex:1];
+  v8 = [v6 cellForRowAtIndexPath:v7];
+  [v8 becomeFirstResponder];
 }
 
 - (void)dealloc
@@ -114,10 +130,10 @@
     {
       v8 = MEMORY[0x277CCACA8];
       promptFormat = self->_promptFormat;
-      v14 = 0;
+      v15 = 0;
       name = [object name];
-      v11 = [v8 stringWithValidatedFormat:promptFormat validFormatSpecifiers:@"%@" error:&v14, name];
-      v12 = v14;
+      v11 = [v8 stringWithValidatedFormat:promptFormat validFormatSpecifiers:@"%@" error:&v15, name];
+      v12 = v15;
 
       if (v11)
       {
@@ -127,7 +143,7 @@
 
       else
       {
-        navigationItem = sharedBluetoothSettingsLogComponent();
+        navigationItem = sharedBluetoothSettingsLogComponent(v13);
         if (os_log_type_enabled(navigationItem, OS_LOG_TYPE_ERROR))
         {
           [(BTSPairController *)v12 deviceUpdated:navigationItem];
@@ -238,14 +254,13 @@
 
 - (void)deviceUpdated:(os_log_t)log .cold.1(uint64_t a1, uint64_t *a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a2;
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_23C0F7000, log, OS_LOG_TYPE_ERROR, "bad format string in notification (%@): %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_23C0F7000, log, OS_LOG_TYPE_ERROR, "bad format string in notification (%@): %@", &v4, 0x16u);
 }
 
 @end

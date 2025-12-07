@@ -676,7 +676,7 @@ LABEL_31:
       v25 = 1;
       v23 = 0;
       v21 = 0;
-      v22 = 0;
+      v22 = 0.0;
       [(THWReviewImageWithTargetsLayout *)self p_calculateTextPlacardNumRows:&v25 numCols:&v24 rowHeight:&v21 colWidth:&v22 lasRowNeedsCentering:&v23];
       [(THWReviewImageWithTargetsLayout *)self p_placardHorzPadding];
       [placard index];

@@ -2819,7 +2819,7 @@ LABEL_11:
   v30 = v11;
   if (layoutCopy)
   {
-    [layoutCopy pureTransformInRoot];
+    objc_msgSend_pureTransformInRoot(layoutCopy);
   }
 
   else
@@ -2875,7 +2875,7 @@ LABEL_11:
     memset(&v81, 0, sizeof(v81));
     if (ungroupingCopy)
     {
-      [ungroupingCopy transformInRoot];
+      objc_msgSend_transformInRoot(ungroupingCopy);
     }
 
     v8 = objc_opt_class();
@@ -2953,7 +2953,7 @@ LABEL_11:
             v38 = geometry2;
             if (geometry2)
             {
-              [geometry2 transform];
+              objc_msgSend_transform(geometry2);
             }
 
             else
@@ -2968,7 +2968,7 @@ LABEL_11:
             memset(&v82, 0, sizeof(v82));
             if (v40)
             {
-              [v40 transform];
+              objc_msgSend_transform(v40);
             }
 
             else
@@ -2981,7 +2981,7 @@ LABEL_11:
             memset(&t1, 0, sizeof(t1));
             if (geometry)
             {
-              [geometry fullTransform];
+              objc_msgSend_fullTransform(geometry);
             }
 
             else
@@ -2995,14 +2995,14 @@ LABEL_11:
             if (v55)
             {
               memset(&v66, 0, sizeof(v66));
-              [v55 transformInRoot];
+              objc_msgSend_transformInRoot(v55);
               v65 = v66;
               v41 = [CRLCounterRotateInfo infoGeometryForTransformInRoot:&v65 isChildFlipped:0];
               v42 = v41;
               memset(&v65, 0, sizeof(v65));
               if (v41)
               {
-                [v41 transform];
+                objc_msgSend_transform(v41);
               }
 
               else
@@ -3028,7 +3028,7 @@ LABEL_11:
           {
             if (geometry)
             {
-              [geometry fullTransform];
+              objc_msgSend_fullTransform(geometry);
             }
 
             else
@@ -3048,7 +3048,7 @@ LABEL_11:
           {
             if (v29)
             {
-              [v29 fullTransform];
+              objc_msgSend_fullTransform(v29);
             }
 
             else
@@ -3061,7 +3061,7 @@ LABEL_11:
             v32 = geometry3;
             if (geometry3)
             {
-              [geometry3 transform];
+              objc_msgSend_transform(geometry3);
             }
 
             else
@@ -4019,7 +4019,7 @@ LABEL_12:
     v24 = pureGeometry;
     if (pureGeometry)
     {
-      [pureGeometry fullTransform];
+      objc_msgSend_fullTransform(pureGeometry);
     }
 
     else
@@ -4092,7 +4092,7 @@ LABEL_12:
       {
         v85 = v60;
         v77 = v61;
-        [v53 transform];
+        objc_msgSend_transform(v53);
         v61 = v77;
         v60 = v85;
         v63 = v88;
@@ -4417,12 +4417,12 @@ LABEL_22:
         sub_10130DA10(v24);
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Offset for index was too large.", v25, v26, v27, v28, v29, v30, v31, "[CRLCanvasEditorHelper commandToInsertBoardItems:intoContainer:belowBoardItem:withOffset:]");
-      v32 = [NSString stringWithUTF8String:"[CRLCanvasEditorHelper commandToInsertBoardItems:intoContainer:belowBoardItem:withOffset:]"];
-      v33 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasEditorHelper.m"];
-      [CRLAssertionHandler handleFailureInFunction:v32 file:v33 lineNumber:2125 isFatal:1 description:"Offset for index was too large."];
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Offset for index was too large.", "[CRLCanvasEditorHelper commandToInsertBoardItems:intoContainer:belowBoardItem:withOffset:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasEditorHelper.m", 2125);
+      v25 = [NSString stringWithUTF8String:"[CRLCanvasEditorHelper commandToInsertBoardItems:intoContainer:belowBoardItem:withOffset:]"];
+      v26 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasEditorHelper.m"];
+      [CRLAssertionHandler handleFailureInFunction:v25 file:v26 lineNumber:2125 isFatal:1 description:"Offset for index was too large."];
 
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v34, v35);
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v27, v28);
       abort();
     }
 
@@ -4868,7 +4868,7 @@ LABEL_15:
       v20 = layout;
       if (layout)
       {
-        [layout transformInRoot];
+        objc_msgSend_transformInRoot(layout);
       }
 
       else
@@ -5967,7 +5967,7 @@ LABEL_56:
     v20 = parent;
     if (parent)
     {
-      [parent transformInRoot];
+      objc_msgSend_transformInRoot(parent);
     }
 
     else
@@ -6018,7 +6018,7 @@ LABEL_56:
     v22 = parent;
     if (parent)
     {
-      [parent transformInRoot];
+      objc_msgSend_transformInRoot(parent);
     }
 
     else

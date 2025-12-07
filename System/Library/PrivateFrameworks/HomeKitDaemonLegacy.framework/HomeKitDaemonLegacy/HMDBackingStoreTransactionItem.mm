@@ -51,7 +51,7 @@
     v14 = messageCopy;
     if (isKindOfClass)
     {
-      v14 = [messageCopy copy];
+      v14 = objc_msgSend_copy(messageCopy);
     }
 
     objc_storeStrong(&v10->_message, v14);

@@ -5,20 +5,29 @@
 - (WPAirPlaySolo)initWithDelegate:(id)delegate queue:(id)queue;
 - (WPAirPlaySoloDelegate)delegate;
 - (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)advertisingPendingOfType:(unsigned __int8)type;
+- (void)advertisingStartedOfType:(unsigned __int8)type;
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error;
 - (void)deviceDiscovered:(id)discovered;
 - (void)failedToStartTrackingPeer:(id)peer error:(id)error;
+- (void)foundPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)invalidate;
+- (void)lostPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)peerTrackingAvailable;
 - (void)peerTrackingFull;
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type;
+- (void)scanningStartedOfType:(unsigned __int8)type;
+- (void)scanningStoppedOfType:(unsigned __int8)type;
 - (void)startConnectionlessAdvertisingWithData:(id)data;
 - (void)startConnectionlessScanningWithData:(id)data;
 - (void)startTrackingPeer:(id)peer withData:(id)data;
+- (void)startedTrackingPeer:(id)peer ofType:(unsigned __int8)type;
 - (void)stateDidChange:(int64_t)change;
 - (void)stopConnectionlessAdvertising;
 - (void)stopConnectionlessAdvertising:(id)advertising;
 - (void)stopConnectionlessScanningWithData:(id)data;
 - (void)stopTrackingPeer:(id)peer withData:(id)data;
+- (void)stoppedTrackingPeer:(id)peer ofType:(unsigned __int8)type;
 @end
 
 @implementation WPAirPlaySolo
@@ -226,6 +235,30 @@
   }
 }
 
+- (void)advertisingStartedOfType:(unsigned __int8)type
+{
+  delegate = [(WPAirPlaySolo *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAirPlaySolo *)self delegate];
+    [delegate2 airPlaySoloStartedAdvertising:self];
+  }
+}
+
+- (void)advertisingStoppedOfType:(unsigned __int8)type withError:(id)error
+{
+  v5 = [(WPAirPlaySolo *)self delegate:type];
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    delegate = [(WPAirPlaySolo *)self delegate];
+    [delegate airPlaySoloStoppedAdvertising:self];
+  }
+}
+
 - (void)advertisingFailedToStart:(id)start ofType:(unsigned __int8)type
 {
   startCopy = start;
@@ -239,9 +272,21 @@
   }
 }
 
+- (void)advertisingPendingOfType:(unsigned __int8)type
+{
+  delegate = [(WPAirPlaySolo *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAirPlaySolo *)self delegate];
+    [delegate2 airPlaySoloAdvertisingPending:self];
+  }
+}
+
 - (void)deviceDiscovered:(id)discovered
 {
-  v26[5] = *MEMORY[0x277D85DE8];
+  v25[5] = *MEMORY[0x277D85DE8];
   discoveredCopy = discovered;
   delegate = [(WPAirPlaySolo *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -256,30 +301,30 @@
     v12 = [discoveredCopy objectForKeyedSubscript:@"kDeviceTime"];
     v13 = [v7 subdataWithRange:{4, objc_msgSend(v7, "length") - 4}];
 
-    v21 = @"WPPuckTypeAirPlaySoloRSSI";
-    v22 = @"WPPuckTypeAirPlaySoloAdvertisingData";
-    v19 = v9;
-    v26[0] = v9;
-    v26[1] = v13;
-    v23 = @"WPPuckTypeAirPlaySoloAdvertisingChannel";
+    v20 = @"WPPuckTypeAirPlaySoloRSSI";
+    v21 = @"WPPuckTypeAirPlaySoloAdvertisingData";
+    v18 = v9;
+    v25[0] = v9;
+    v25[1] = v13;
+    v22 = @"WPPuckTypeAirPlaySoloAdvertisingChannel";
     null = v8;
     if (!v8)
     {
       null = [MEMORY[0x277CBEB68] null];
     }
 
-    v26[2] = null;
-    v24 = @"WPAirPlaySoloKeyDeviceAddress";
+    v25[2] = null;
+    v23 = @"WPAirPlaySoloKeyDeviceAddress";
     data = v11;
     if (!v11)
     {
       data = [MEMORY[0x277CBEA90] data];
     }
 
-    v25 = @"WPAirPlaySoloKeyDeviceTime";
-    v26[3] = data;
-    v26[4] = v12;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v21 count:{5, v19}];
+    v24 = @"WPAirPlaySoloKeyDeviceTime";
+    v25[3] = data;
+    v25[4] = v12;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v20 count:{5, v18}];
     if (v11)
     {
       if (v8)
@@ -305,8 +350,30 @@ LABEL_8:
   }
 
 LABEL_9:
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)scanningStartedOfType:(unsigned __int8)type
+{
+  delegate = [(WPAirPlaySolo *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAirPlaySolo *)self delegate];
+    [delegate2 airPlaySoloStartedScanning:self];
+  }
+}
+
+- (void)scanningStoppedOfType:(unsigned __int8)type
+{
+  delegate = [(WPAirPlaySolo *)self delegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    delegate2 = [(WPAirPlaySolo *)self delegate];
+    [delegate2 airPlaySoloStoppedScanning:self];
+  }
 }
 
 - (void)scanningFailedToStart:(id)start ofType:(unsigned __int8)type
@@ -319,6 +386,44 @@ LABEL_9:
   {
     delegate2 = [(WPAirPlaySolo *)self delegate];
     [delegate2 airPlaySolo:self failedToStartScanningWithError:startCopy];
+  }
+}
+
+- (void)startedTrackingPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v13[1] = *MEMORY[0x277D85DE8];
+  peerCopy = peer;
+  delegate = [(WPAirPlaySolo *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    v9 = [WPAirPlaySolo puckTypeToString:typeCopy];
+    v12 = @"WPPuckType";
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    delegate2 = [(WPAirPlaySolo *)self delegate];
+    [delegate2 airPlaySolo:self didStartTrackingPeer:peerCopy withData:v10 error:0];
+  }
+}
+
+- (void)stoppedTrackingPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v13[1] = *MEMORY[0x277D85DE8];
+  peerCopy = peer;
+  delegate = [(WPAirPlaySolo *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    v9 = [WPAirPlaySolo puckTypeToString:typeCopy];
+    v12 = @"WPPuckType";
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    delegate2 = [(WPAirPlaySolo *)self delegate];
+    [delegate2 airPlaySolo:self didStopTrackingPeer:peerCopy withData:v10];
   }
 }
 
@@ -335,6 +440,44 @@ LABEL_9:
     peerUUID = [peerCopy peerUUID];
     peerTrackingDictionary = [peerCopy peerTrackingDictionary];
     [delegate2 airPlaySolo:self didStartTrackingPeer:peerUUID withData:peerTrackingDictionary error:errorCopy];
+  }
+}
+
+- (void)foundPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v13[1] = *MEMORY[0x277D85DE8];
+  peerCopy = peer;
+  delegate = [(WPAirPlaySolo *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    v9 = [WPAirPlaySolo puckTypeToString:typeCopy];
+    v12 = @"WPPuckType";
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    delegate2 = [(WPAirPlaySolo *)self delegate];
+    [delegate2 airPlaySolo:self didFindPeer:peerCopy withData:v10];
+  }
+}
+
+- (void)lostPeer:(id)peer ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  v13[1] = *MEMORY[0x277D85DE8];
+  peerCopy = peer;
+  delegate = [(WPAirPlaySolo *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    v9 = [WPAirPlaySolo puckTypeToString:typeCopy];
+    v12 = @"WPPuckType";
+    v13[0] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    delegate2 = [(WPAirPlaySolo *)self delegate];
+    [delegate2 airPlaySolo:self didLosePeer:peerCopy withData:v10];
   }
 }
 

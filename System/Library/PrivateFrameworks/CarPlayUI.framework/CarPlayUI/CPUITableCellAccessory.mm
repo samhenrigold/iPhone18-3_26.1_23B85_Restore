@@ -24,7 +24,7 @@
   return v2;
 }
 
-uint64_t __48__CPUITableCellAccessory_accessoryWithCloudIcon__block_invoke()
+uint64_t __48__CPUITableCellAccessory_accessoryWithCloudIcon__block_invoke(uint64_t a1)
 {
   accessoryWithCloudIcon__accessory = objc_opt_new();
 
@@ -48,7 +48,7 @@ uint64_t __48__CPUITableCellAccessory_accessoryWithCloudIcon__block_invoke()
   return v2;
 }
 
-uint64_t __49__CPUITableCellAccessory_accessoryWithiCloudIcon__block_invoke()
+uint64_t __49__CPUITableCellAccessory_accessoryWithiCloudIcon__block_invoke(uint64_t a1)
 {
   accessoryWithiCloudIcon__accessory = objc_opt_new();
 
@@ -72,7 +72,7 @@ uint64_t __49__CPUITableCellAccessory_accessoryWithiCloudIcon__block_invoke()
   return v2;
 }
 
-uint64_t __58__CPUITableCellAccessory_accessoryWithDisclosureIndicator__block_invoke()
+uint64_t __58__CPUITableCellAccessory_accessoryWithDisclosureIndicator__block_invoke(uint64_t a1)
 {
   accessoryWithDisclosureIndicator__accessory = objc_opt_new();
 

@@ -159,7 +159,7 @@
   [v12 setSharedUserId:uppercaseString];
 
   uppercaseString2 = [dCopy uppercaseString];
-  v15 = [scoresCopy objectForKey:uppercaseString2];
+  v15 = objc_msgSend_objectForKey_(scoresCopy);
 
   if (v15)
   {
@@ -1309,7 +1309,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  primaryUser = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:dCopy];
+  primaryUser = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID);
   v6 = primaryUser;
   if (!primaryUser)
   {
@@ -1342,7 +1342,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  primaryUser = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:dCopy];
+  primaryUser = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID);
   v6 = primaryUser;
   if (!primaryUser)
   {
@@ -1744,7 +1744,7 @@ LABEL_8:
         }
 
         v11 = *(*(&v25 + 1) + 8 * i);
-        v12 = [v6 objectForKey:v11];
+        v12 = objc_msgSend_objectForKey_(v6);
         v13 = [NSMutableDictionary alloc];
         loggableDictionary = [v12 loggableDictionary];
         v15 = [v13 initWithDictionary:loggableDictionary copyItems:1];
@@ -1954,7 +1954,7 @@ LABEL_8:
         objc_enumerationMutation(v9);
       }
 
-      v15 = [(NSMutableDictionary *)self->_sharedUsersByHomeUserUUID objectForKey:*(*(&v29 + 1) + 8 * v14), v27];
+      v15 = objc_msgSend_objectForKey_(self->_sharedUsersByHomeUserUUID, v27);
       v16 = [ADCommunalDeviceUser saHomeMemberInfo:v15];
       homeMemberSettings2 = [v16 homeMemberSettings];
       meCard2 = [homeMemberSettings2 meCard];
@@ -1989,7 +1989,7 @@ LABEL_16:
 
 LABEL_18:
 
-      v14 = v14 + 1;
+      ++v14;
     }
 
     while (v12 != v14);
@@ -2133,7 +2133,7 @@ LABEL_22:
           _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "%s #multi-user-atv No iCloudAltDSID found for user.. checking local mapping", buf, 0xCu);
         }
 
-        iCloudAltDSID = [(NSMutableDictionary *)self->_iCloudAltDSIDByHomeUserID objectForKey:dCopy, errorCopy];
+        iCloudAltDSID = objc_msgSend_objectForKey_(self->_iCloudAltDSIDByHomeUserID, errorCopy);
         v22 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
         {
@@ -2171,7 +2171,7 @@ LABEL_22:
 
   else
   {
-    userCopy = [(NSMutableDictionary *)self->_sharedUsersByiCloudAltDSID objectForKey:iCloudAltDSID];
+    userCopy = objc_msgSend_objectForKey_(self->_sharedUsersByiCloudAltDSID);
     if (userCopy)
     {
 LABEL_22:
@@ -2491,7 +2491,7 @@ LABEL_7:
     goto LABEL_5;
   }
 
-  v21 = [(NSMutableDictionary *)self->_sharedUsersByHomeUserUUID objectForKey:userCopy];
+  v21 = objc_msgSend_objectForKey_(self->_sharedUsersByHomeUserUUID);
   if (v21)
   {
 
@@ -2618,7 +2618,7 @@ LABEL_78:
             goto LABEL_79;
           }
 
-          v77 = [(NSMutableDictionary *)sharedUsersByiCloudAltDSID objectForKey:dCopy];
+          v77 = objc_msgSend_objectForKey_(sharedUsersByiCloudAltDSID);
           if (!v77)
           {
 LABEL_77:
@@ -2690,14 +2690,14 @@ LABEL_73:
       self->_sharedUsersByiCloudAltDSID = v34;
     }
 
-    v36 = [(NSMutableDictionary *)self->_sharedUsersByHomeUserUUID objectForKey:userCopy];
+    v36 = objc_msgSend_objectForKey_(self->_sharedUsersByHomeUserUUID);
     homeUserUUID4 = [v36 homeUserUUID];
     v38 = [homeUserUUID4 isEqualToString:userCopy];
 
     if (v38)
     {
       v39 = idCopy;
-      v40 = [(NSMutableDictionary *)self->_sharedUsersByHomeUserUUID objectForKey:userCopy];
+      v40 = objc_msgSend_objectForKey_(self->_sharedUsersByHomeUserUUID);
       v41 = AFSiriLogContextDaemon;
       if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_INFO))
       {
@@ -2892,7 +2892,7 @@ LABEL_79:
   v70 = +[NSProcessInfo processInfo];
   processIdentifier = [v70 processIdentifier];
   v72 = byte_100590548;
-  v73 = sub_100097574();
+  v73 = sub_100097574(processIdentifier);
   [v69 reportIssueForError:v66 type:6102 context:&__NSDictionary0__struct processIdentifier:processIdentifier walkboutStatus:v72 triggerForIDSIdentifiers:v73];
 
   idCopy = v89;
@@ -3044,15 +3044,15 @@ LABEL_17:
         _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "%s A new device owner will be added:(%{private}@)", buf, 0x16u);
       }
 
-      v36 = [(NSMutableDictionary *)self->_homeUserSettings objectForKey:ownerCopy];
-      v37 = [v36 objectForKey:@"personalDomainsIsEnabled"];
+      v36 = objc_msgSend_objectForKey_(self->_homeUserSettings);
+      v37 = objc_msgSend_objectForKey_(v36);
       v58 = [v37 integerValue] == 1;
 
       v59 = v36;
-      v38 = [v36 objectForKey:@"allowUnauthenticatedRequests"];
+      v38 = objc_msgSend_objectForKey_(v36);
       v57 = [v38 integerValue] == 1;
 
-      v39 = [v36 objectForKey:@"allowExplicitContent"];
+      v39 = objc_msgSend_objectForKey_(v36);
       v56 = [v39 integerValue] == 1;
 
       v28 = userIdCopy;
@@ -3684,7 +3684,7 @@ LABEL_3:
   homeUserSettings = self->_homeUserSettings;
   if (homeUserSettings)
   {
-    v12 = [(NSMutableDictionary *)self->_homeUserSettings objectForKey:userCopy];
+    v12 = objc_msgSend_objectForKey_(self->_homeUserSettings);
     if (v12)
     {
       v13 = v12;
@@ -3707,7 +3707,7 @@ LABEL_3:
         v13 = v15;
       }
 
-      v16 = [v13 objectForKey:@"allowVoiceID"];
+      v16 = objc_msgSend_objectForKey_(v13);
       v17 = v16;
       if (v16 && [v16 integerValue] == 1)
       {
@@ -3799,7 +3799,7 @@ LABEL_27:
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s ", &v18, 0xCu);
   }
 
-  v6 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:settingsCopy];
+  v6 = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID);
   if (!v6)
   {
     sharedUserID = [(ADCommunalDeviceUser *)self->_primaryUser sharedUserID];
@@ -3853,8 +3853,8 @@ LABEL_27:
 - (BOOL)_updateHomeKitSettings:(id)settings
 {
   settingsCopy = settings;
-  v5 = [(NSMutableDictionary *)self->_homeUserSettings objectForKey:settingsCopy];
-  v6 = [(NSMutableDictionary *)self->_sharedUsersByHomeUserUUID objectForKey:settingsCopy];
+  v5 = objc_msgSend_objectForKey_(self->_homeUserSettings);
+  v6 = objc_msgSend_objectForKey_(self->_sharedUsersByHomeUserUUID);
   if (!v6)
   {
     homeUserUUID = [(ADCommunalDeviceUser *)self->_primaryUser homeUserUUID];
@@ -3902,7 +3902,7 @@ LABEL_11:
   {
     homeUserSettings = self->_homeUserSettings;
     homeUserUUID = [(ADCommunalDeviceUser *)self->_deviceOwner homeUserUUID];
-    v5 = [(NSMutableDictionary *)homeUserSettings objectForKey:homeUserUUID];
+    v5 = objc_msgSend_objectForKey_(homeUserSettings);
 
     [(ADMultiUserService *)self _updateCommunalDeviceUser:self->_deviceOwner withSettings:v5];
     v6 = +[ADPreferences sharedPreferences];
@@ -3925,9 +3925,9 @@ LABEL_11:
 {
   homeUserSettings = self->_homeUserSettings;
   homeUserUUID = [(ADCommunalDeviceUser *)self->_deviceOwner homeUserUUID];
-  v5 = [(NSMutableDictionary *)homeUserSettings objectForKey:homeUserUUID];
+  v5 = objc_msgSend_objectForKey_(homeUserSettings);
 
-  v6 = [v5 objectForKey:@"allowVoiceID"];
+  v6 = objc_msgSend_objectForKey_(v5);
   integerValue = [v6 integerValue];
 
   if ((integerValue != 1) == [(ADCommunalDeviceUser *)self->_deviceOwner voiceIDAllowedByUser])
@@ -3947,10 +3947,10 @@ LABEL_11:
 {
   userCopy = user;
   settingsCopy = settings;
-  v7 = [settingsCopy objectForKey:@"allowVoiceID"];
-  v8 = [settingsCopy objectForKey:@"personalDomainsIsEnabled"];
-  v9 = [settingsCopy objectForKey:@"allowUnauthenticatedRequests"];
-  v10 = [settingsCopy objectForKey:@"allowExplicitContent"];
+  v7 = objc_msgSend_objectForKey_(settingsCopy);
+  v8 = objc_msgSend_objectForKey_(settingsCopy);
+  v9 = objc_msgSend_objectForKey_(settingsCopy);
+  v10 = objc_msgSend_objectForKey_(settingsCopy);
 
   integerValue = [v7 integerValue];
   personalDomainsIsEnabled = [userCopy personalDomainsIsEnabled];
@@ -4001,13 +4001,13 @@ LABEL_11:
 {
   changeCopy = change;
   settingsCopy = settings;
-  v7 = [settingsCopy objectForKey:@"personalDomainsIsEnabled"];
+  v7 = objc_msgSend_objectForKey_(settingsCopy);
   bOOLValue = [v7 BOOLValue];
 
-  v9 = [settingsCopy objectForKey:@"allowUnauthenticatedRequests"];
+  v9 = objc_msgSend_objectForKey_(settingsCopy);
   bOOLValue2 = [v9 BOOLValue];
 
-  v11 = [settingsCopy objectForKey:@"allowExplicitContent"];
+  v11 = objc_msgSend_objectForKey_(settingsCopy);
 
   bOOLValue3 = [v11 BOOLValue];
   if (bOOLValue == [changeCopy personalDomainsIsEnabled] && bOOLValue2 == objc_msgSend(changeCopy, "unauthenticatedRequestsAllowed"))
@@ -4108,7 +4108,7 @@ LABEL_11:
   if (userCopy)
   {
     [(NSMutableDictionary *)self->_sharedUsersSiriLanguageBySharedUserID setValue:languageCopy forKey:userCopy];
-    v11 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:userCopy];
+    v11 = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID);
     v12 = v11;
     if (v11)
     {
@@ -4225,7 +4225,7 @@ LABEL_11:
           objc_enumerationMutation(v5);
         }
 
-        v10 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:*(*(&v33 + 1) + 8 * v9)];
+        v10 = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID);
         if (([v10 nonCloudSyncedUser] & 1) == 0)
         {
           if (AFIsATVOnly())
@@ -4252,7 +4252,7 @@ LABEL_11:
           [v4 addObject:dictionaryRepresentation];
         }
 
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
@@ -4284,7 +4284,7 @@ LABEL_11:
             objc_enumerationMutation(v15);
           }
 
-          v20 = [(NSMutableDictionary *)self->_sharedUsersByiCloudAltDSID objectForKey:*(*(&v29 + 1) + 8 * v19), v29];
+          v20 = objc_msgSend_objectForKey_(self->_sharedUsersByiCloudAltDSID, v29);
           sharedUserID = [v20 sharedUserID];
 
           if (!sharedUserID)
@@ -4293,7 +4293,7 @@ LABEL_11:
             [v4 addObject:dictionaryRepresentation2];
           }
 
-          v19 = v19 + 1;
+          ++v19;
         }
 
         while (v17 != v19);
@@ -4790,7 +4790,7 @@ LABEL_11:
         }
 
         v43 = *(*(&v92 + 1) + 8 * v42);
-        v44 = [(NSMutableDictionary *)v23->_sharedUsersBySharedUserID objectForKey:v43, v85];
+        v44 = objc_msgSend_objectForKey_(v23->_sharedUsersBySharedUserID, v85);
         v45 = [p_vtable + 17 saHomeMemberInfo:v44];
         v46 = AFSiriLogContextDaemon;
         if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
@@ -5016,16 +5016,16 @@ LABEL_68:
         v28 = v6;
         sharedUserID = [(ADCommunalDeviceUser *)primaryUser sharedUserID];
         settings = [(ADCommunalDeviceUser *)self->_primaryUser settings];
-        v31 = [settings objectForKey:SAHomeMemberSettingsPreferredLanguagePListKey];
+        v31 = objc_msgSend_objectForKey_(settings);
         *buf = 136315906;
-        v52 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
-        v53 = 2112;
-        v54 = sharedUserID;
-        v55 = 2112;
-        v56 = v31;
-        v57 = 2048;
+        v51 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
+        v52 = 2112;
+        v53 = sharedUserID;
+        v54 = 2112;
+        v55 = v31;
+        v56 = 2048;
         v8 = 1;
-        v58 = 1;
+        v57 = 1;
         _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "%s Primary user's Siri language matches HomePod's. sharedUserId: %@, device language: %@, current count: %lu", buf, 0x2Au);
       }
 
@@ -5043,38 +5043,37 @@ LABEL_68:
       v33 = self->_primaryUser;
       v34 = v6;
       settings2 = [(ADCommunalDeviceUser *)v33 settings];
-      v36 = [settings2 objectForKey:SAHomeMemberSettingsPreferredLanguagePListKey];
+      v36 = objc_msgSend_objectForKey_(settings2);
       sharedUserID2 = [(ADCommunalDeviceUser *)self->_primaryUser sharedUserID];
       *buf = 136316162;
-      v52 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
-      v53 = 2112;
-      v54 = primaryUserSiriLanguage;
-      v55 = 2112;
-      v56 = v36;
-      v57 = 2112;
-      v58 = sharedUserID2;
-      v59 = 2048;
-      v60 = 0;
+      v51 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
+      v52 = 2112;
+      v53 = primaryUserSiriLanguage;
+      v54 = 2112;
+      v55 = v36;
+      v56 = 2112;
+      v57 = sharedUserID2;
+      v58 = 2048;
+      v59 = 0;
       _os_log_debug_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "%s Primary user's Siri language (%@) doesn't match HomePod's. sharedUserId: %@, device language: %@, current count: %lu", buf, 0x34u);
     }
   }
 
   v8 = 0;
 LABEL_9:
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   obj = self->_sharedUsersBySharedUserID;
-  v9 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v9 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v45 objects:v49 count:16];
   if (!v9)
   {
     goto LABEL_23;
   }
 
   v11 = v9;
-  v12 = *v47;
-  v44 = SAHomeMemberSettingsPreferredLanguagePListKey;
+  v12 = *v46;
   *&v10 = 136316162;
   v38 = v10;
   do
@@ -5082,12 +5081,12 @@ LABEL_9:
     v13 = 0;
     do
     {
-      if (*v47 != v12)
+      if (*v46 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKeyedSubscript:*(*(&v46 + 1) + 8 * v13), v38];
+      v14 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKeyedSubscript:*(*(&v45 + 1) + 8 * v13), v38];
       sharedUsersSiriLanguageBySharedUserID = self->_sharedUsersSiriLanguageBySharedUserID;
       sharedUserID3 = [v14 sharedUserID];
       v17 = [(NSMutableDictionary *)sharedUsersSiriLanguageBySharedUserID objectForKeyedSubscript:sharedUserID3];
@@ -5104,15 +5103,15 @@ LABEL_9:
         log = v18;
         sharedUserID4 = [v14 sharedUserID];
         settings3 = [v14 settings];
-        v39 = [settings3 objectForKey:v44];
+        v39 = objc_msgSend_objectForKey_(settings3);
         *buf = 136315906;
-        v52 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
-        v53 = 2112;
-        v54 = sharedUserID4;
-        v55 = 2112;
-        v56 = v39;
-        v57 = 2048;
-        v58 = v8;
+        v51 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
+        v52 = 2112;
+        v53 = sharedUserID4;
+        v54 = 2112;
+        v55 = v39;
+        v56 = 2048;
+        v57 = v8;
         v19 = log;
         v20 = log;
         v21 = "%s Secondary user's Siri language code matches HomePod's. sharedUserId: %@, device language: %@, current count: %lu";
@@ -5130,17 +5129,17 @@ LABEL_9:
         loga = v23;
         sharedUserID4 = [v14 sharedUserID];
         settings3 = [v14 settings];
-        v39 = [settings3 objectForKey:v44];
+        v39 = objc_msgSend_objectForKey_(settings3);
         *buf = v38;
-        v52 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
-        v53 = 2112;
-        v54 = v17;
-        v55 = 2112;
-        v56 = sharedUserID4;
-        v57 = 2112;
-        v58 = v39;
-        v59 = 2048;
-        v60 = v8;
+        v51 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
+        v52 = 2112;
+        v53 = v17;
+        v54 = 2112;
+        v55 = sharedUserID4;
+        v56 = 2112;
+        v57 = v39;
+        v58 = 2048;
+        v59 = v8;
         v19 = loga;
         v20 = loga;
         v21 = "%s Secondary user's Siri language code (%@) doesn't match HomePod's. sharedUserId: %@, device language: %@, current count: %lu";
@@ -5154,7 +5153,7 @@ LABEL_18:
     }
 
     while (v11 != v13);
-    v24 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+    v24 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v45 objects:v49 count:16];
     v11 = v24;
   }
 
@@ -5165,11 +5164,11 @@ LABEL_23:
   if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v52 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
-    v53 = 2112;
-    v54 = languageCode;
-    v55 = 2048;
-    v56 = v8;
+    v51 = "[ADMultiUserService countUsersWithMatchingSiriLanguage]";
+    v52 = 2112;
+    v53 = languageCode;
+    v54 = 2048;
+    v55 = v8;
     _os_log_debug_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEBUG, "%s Total users with matching Siri languages to HomePod's (%@): %lu", buf, 0x20u);
   }
 
@@ -5240,7 +5239,7 @@ LABEL_23:
     v32 = v9;
     while (1)
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v10; ++i)
       {
         v14 = v11;
         if (*v34 != v12)
@@ -5248,11 +5247,11 @@ LABEL_23:
           objc_enumerationMutation(v7);
         }
 
-        v11 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:*(*(&v33 + 1) + 8 * i), v32];
+        v11 = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID, v32);
 
         sharedUsersMeDeviceBySharedUserID = self->_sharedUsersMeDeviceBySharedUserID;
         sharedUserID3 = [v11 sharedUserID];
-        v17 = [(NSMutableDictionary *)sharedUsersMeDeviceBySharedUserID objectForKey:sharedUserID3];
+        v17 = objc_msgSend_objectForKey_(sharedUsersMeDeviceBySharedUserID);
 
         if (v17)
         {
@@ -5448,7 +5447,7 @@ LABEL_8:
         objc_enumerationMutation(v8);
       }
 
-      v12 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:*(*(&v32 + 1) + 8 * v14), v31, v32];
+      v12 = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID, v31, v32);
 
       if ([v12 personalDomainsIsEnabled])
       {
@@ -5494,7 +5493,7 @@ LABEL_8:
       _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, v20, buf, 0x20u);
 
 LABEL_17:
-      v14 = v14 + 1;
+      ++v14;
     }
 
     while (v11 != v14);
@@ -5610,7 +5609,7 @@ LABEL_23:
         }
 
         v19 = *(*(&v31 + 1) + 8 * i);
-        v15 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:v19, v30, v31];
+        v15 = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID, v30, v31);
 
         if (v15)
         {
@@ -5655,11 +5654,11 @@ LABEL_23:
 {
   userCopy = user;
   v5 = sub_10001A3B0(userCopy);
-  v6 = [(NSMutableDictionary *)self->_sharedUsersSiriCloudSyncBySharedUserID objectForKey:userCopy];
+  v6 = objc_msgSend_objectForKey_(self->_sharedUsersSiriCloudSyncBySharedUserID);
 
   if (v6)
   {
-    v7 = [(NSMutableDictionary *)self->_sharedUsersSiriCloudSyncBySharedUserID objectForKey:userCopy];
+    v7 = objc_msgSend_objectForKey_(self->_sharedUsersSiriCloudSyncBySharedUserID);
     bOOLValue = [v7 BOOLValue];
 
     if (v5)
@@ -5887,7 +5886,7 @@ LABEL_17:
       if (sharedSiriId && ([(NSMutableArray *)self->_usersWithAvailableVoiceProfiles containsObject:sharedSiriId]& 1) == 0)
       {
         [(NSMutableArray *)self->_usersWithAvailableVoiceProfiles addObject:sharedSiriId];
-        v24 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:sharedSiriId];
+        v24 = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID);
         [(ADMultiUserService *)self _untrackUUIDsForUser:v24];
 
         v30 = 1;
@@ -6759,7 +6758,7 @@ LABEL_6:
       if (sharedSiriId2 && ([(NSMutableArray *)self->_usersWithAvailableVoiceProfiles containsObject:sharedSiriId2]& 1) == 0)
       {
         [(NSMutableArray *)self->_usersWithAvailableVoiceProfiles addObject:sharedSiriId2];
-        v31 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:sharedSiriId2];
+        v31 = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID);
         [(ADMultiUserService *)self _untrackUUIDsForUser:v31];
 
         v68 = 1;
@@ -6799,7 +6798,7 @@ LABEL_30:
           }
 
           v40 = *(*(&v93 + 1) + 8 * j);
-          v41 = [(NSMutableDictionary *)self->_sharedUsersBySharedUserID objectForKey:v40];
+          v41 = objc_msgSend_objectForKey_(self->_sharedUsersBySharedUserID);
           if ([v41 nonCloudSyncedUser])
           {
             [v66 addObject:v40];

@@ -312,13 +312,13 @@ void __37__NRRegistryHistoryStore_setHistory___block_invoke(uint64_t a1)
 void __37__NRRegistryHistoryStore_setHistory___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a1;
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 collection];
   v6 = [*(v2 + 32) secureProperties];
   v7 = *(v2 + 32);
-  v58 = v5;
+  v57 = v5;
   v8 = v6;
   if (v7)
   {
@@ -330,9 +330,9 @@ void __37__NRRegistryHistoryStore_setHistory___block_invoke_2(uint64_t a1, void 
     {
       v12 = [MEMORY[0x1E696AC08] defaultManager];
       v13 = +[NRDataFilePaths pathToNanoRegistryStateDirectory];
-      v62 = 0;
-      v14 = [v12 createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v62];
-      v15 = v62;
+      v61 = 0;
+      v14 = [v12 createDirectoryAtPath:v13 withIntermediateDirectories:1 attributes:0 error:&v61];
+      v15 = v61;
 
       if ((v14 & 1) == 0)
       {
@@ -344,12 +344,12 @@ void __37__NRRegistryHistoryStore_setHistory___block_invoke_2(uint64_t a1, void 
           v18 = nr_daemon_log();
           if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            v53 = +[NRDataFilePaths pathToNanoRegistryStateDirectory];
-            v54 = [v15 nr_safeDescription];
+            v52 = +[NRDataFilePaths pathToNanoRegistryStateDirectory];
+            v53 = [v15 nr_safeDescription];
             *buf = 138543618;
-            v78 = v53;
-            v79 = 2114;
-            v80 = v54;
+            v77 = v52;
+            v78 = 2114;
+            v79 = v53;
             _os_log_error_impl(&dword_1E0ADF000, v18, OS_LOG_TYPE_ERROR, "Can't create path %{public}@! error=%{public}@", buf, 0x16u);
           }
         }
@@ -377,57 +377,57 @@ void __37__NRRegistryHistoryStore_setHistory___block_invoke_2(uint64_t a1, void 
 
     if ((v25 & v20) == 1)
     {
-      v55 = v8;
-      v56 = v4;
-      v57 = v2;
+      v54 = v8;
+      v55 = v4;
+      v56 = v2;
       v26 = MEMORY[0x1E695DFA8];
       v27 = [v7 secureProperties];
       v28 = [v27 allSecurePropertyIDs];
       v29 = [v26 setWithArray:v28];
 
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
       v72 = 0u;
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
       obj = [v7 collection];
-      v61 = [obj countByEnumeratingWithState:&v71 objects:buf count:16];
-      if (v61)
+      v60 = [obj countByEnumeratingWithState:&v70 objects:buf count:16];
+      if (v60)
       {
-        v60 = *v72;
+        v59 = *v71;
         do
         {
-          for (i = 0; i != v61; ++i)
+          for (i = 0; i != v60; ++i)
           {
-            if (*v72 != v60)
+            if (*v71 != v59)
             {
               objc_enumerationMutation(obj);
             }
 
-            v31 = *(*(&v71 + 1) + 8 * i);
+            v31 = *(*(&v70 + 1) + 8 * i);
             v32 = v7;
             v33 = [v7 collection];
             v34 = [v33 objectForKeyedSubscript:v31];
 
-            v69 = 0u;
-            v70 = 0u;
-            v67 = 0u;
             v68 = 0u;
+            v69 = 0u;
+            v66 = 0u;
+            v67 = 0u;
             v35 = v34;
-            v36 = [v35 countByEnumeratingWithState:&v67 objects:v76 count:16];
+            v36 = [v35 countByEnumeratingWithState:&v66 objects:v75 count:16];
             if (v36)
             {
               v37 = v36;
-              v38 = *v68;
+              v38 = *v67;
               do
               {
                 for (j = 0; j != v37; ++j)
                 {
-                  if (*v68 != v38)
+                  if (*v67 != v38)
                   {
                     objc_enumerationMutation(v35);
                   }
 
-                  v40 = [v35 objectForKeyedSubscript:*(*(&v67 + 1) + 8 * j)];
+                  v40 = [v35 objectForKeyedSubscript:*(*(&v66 + 1) + 8 * j)];
                   v41 = [v40 value];
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
@@ -436,7 +436,7 @@ void __37__NRRegistryHistoryStore_setHistory___block_invoke_2(uint64_t a1, void 
                   }
                 }
 
-                v37 = [v35 countByEnumeratingWithState:&v67 objects:v76 count:16];
+                v37 = [v35 countByEnumeratingWithState:&v66 objects:v75 count:16];
               }
 
               while (v37);
@@ -445,39 +445,39 @@ void __37__NRRegistryHistoryStore_setHistory___block_invoke_2(uint64_t a1, void 
             v7 = v32;
           }
 
-          v61 = [obj countByEnumeratingWithState:&v71 objects:buf count:16];
+          v60 = [obj countByEnumeratingWithState:&v70 objects:buf count:16];
         }
 
-        while (v61);
+        while (v60);
       }
 
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       v42 = v29;
-      v43 = [v42 countByEnumeratingWithState:&v63 objects:v75 count:16];
-      v8 = v55;
-      v4 = v56;
+      v43 = [v42 countByEnumeratingWithState:&v62 objects:v74 count:16];
+      v8 = v54;
+      v4 = v55;
       if (v43)
       {
         v44 = v43;
-        v45 = *v64;
+        v45 = *v63;
         do
         {
           for (k = 0; k != v44; ++k)
           {
-            if (*v64 != v45)
+            if (*v63 != v45)
             {
               objc_enumerationMutation(v42);
             }
 
-            v47 = *(*(&v63 + 1) + 8 * k);
+            v47 = *(*(&v62 + 1) + 8 * k);
             v48 = [v7 secureProperties];
             [v48 removeSecureProperty:v47];
           }
 
-          v44 = [v42 countByEnumeratingWithState:&v63 objects:v75 count:16];
+          v44 = [v42 countByEnumeratingWithState:&v62 objects:v74 count:16];
         }
 
         while (v44);
@@ -486,16 +486,15 @@ void __37__NRRegistryHistoryStore_setHistory___block_invoke_2(uint64_t a1, void 
       v49 = [v7 secureProperties];
       [NRDataFileHistoryHelpers archiveSecureProperties:v49];
 
-      v2 = v57;
+      v2 = v56;
     }
   }
 
-  [*(v2 + 32) _notifyDiffIndexObserversWithHistoryEntry:v4 deviceCollection:v58 secureProperties:v8];
+  [*(v2 + 32) _notifyDiffIndexObserversWithHistoryEntry:v4 deviceCollection:v57 secureProperties:v8];
   v50 = *(v2 + 32);
   v51 = [v4 diff];
 
-  [v50 _notifyDiffObserversWithDiff:v51 deviceCollection:v58 secureProperties:v8];
-  v52 = *MEMORY[0x1E69E9840];
+  [v50 _notifyDiffObserversWithDiff:v51 deviceCollection:v57 secureProperties:v8];
 }
 
 - (void)grabHistoryWithReadBlock:(id)block
@@ -584,9 +583,8 @@ void __52__NRRegistryHistoryStore_grabHistoryWithWriteBlock___block_invoke(uint6
   return v6;
 }
 
-void __61__NRRegistryHistoryStore_addDiffIndexObserverWithWriteBlock___block_invoke(void *a1)
+void __61__NRRegistryHistoryStore_addDiffIndexObserverWithWriteBlock___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = a1[4];
   v3 = [objc_opt_class() _nextToken];
   v4 = *(a1[6] + 8);
   v5 = *(v4 + 40);
@@ -619,55 +617,54 @@ void __61__NRRegistryHistoryStore_addDiffIndexObserverWithWriteBlock___block_inv
 
 - (void)_notifyDiffIndexObserversWithHistoryEntry:(id)entry deviceCollection:(id)collection secureProperties:(id)properties
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   collectionCopy = collection;
   propertiesCopy = properties;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = __Block_byref_object_copy__4;
-  v28 = __Block_byref_object_dispose__4;
-  v29 = 0;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __102__NRRegistryHistoryStore__notifyDiffIndexObserversWithHistoryEntry_deviceCollection_secureProperties___block_invoke;
-  v23[3] = &unk_1E86DB8F0;
-  v23[4] = self;
-  v23[5] = &v24;
-  [(NRRegistry *)self performUnderCollectionLock:v23];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__4;
+  v27 = __Block_byref_object_dispose__4;
+  v28 = 0;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __102__NRRegistryHistoryStore__notifyDiffIndexObserversWithHistoryEntry_deviceCollection_secureProperties___block_invoke;
+  v22[3] = &unk_1E86DB8F0;
+  v22[4] = self;
+  v22[5] = &v23;
+  [(NRRegistry *)self performUnderCollectionLock:v22];
   v20 = 0u;
-  v11 = v25[5];
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v30 count:16];
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v11 = v24[5];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v29 count:16];
   if (v12)
   {
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * i);
-        v16 = [v25[5] objectForKeyedSubscript:{v15, v19}];
+        v15 = *(*(&v18 + 1) + 8 * i);
+        v16 = [v24[5] objectForKeyedSubscript:{v15, v18}];
         diff = [entryCopy diff];
         (v16)[2](v16, diff, collectionCopy, propertiesCopy, v15, [entryCopy index] + 1);
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v19 objects:v30 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v18 objects:v29 count:16];
     }
 
     while (v12);
   }
 
-  _Block_object_dispose(&v24, 8);
-  v18 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v23, 8);
 }
 
 uint64_t __102__NRRegistryHistoryStore__notifyDiffIndexObserversWithHistoryEntry_deviceCollection_secureProperties___block_invoke(uint64_t a1)

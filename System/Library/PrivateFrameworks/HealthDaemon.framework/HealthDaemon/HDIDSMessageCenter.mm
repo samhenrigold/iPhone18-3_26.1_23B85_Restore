@@ -8,9 +8,13 @@
 - (void)_handleError:(void *)error context:;
 - (void)_logPrefix;
 - (void)_updateExpireTimerWithTimestamp:(uint64_t)timestamp;
+- (void)addErrorHandler:(SEL)handler forMessageID:(unsigned __int16)d;
+- (void)addRequestHandler:(SEL)handler forMessageID:(unsigned __int16)d;
+- (void)addResponseHandler:(SEL)handler forMessageID:(unsigned __int16)d;
 - (void)cancelPendingRequestsWithMessageID:(unsigned __int16)d device:(id)device;
 - (void)dealloc;
 - (void)invalidate;
+- (void)mapPBRequest:(Class)request toResponse:(Class)response messageID:(unsigned __int16)d;
 - (void)obliterateWithReason:(id)reason preserveCopy:(BOOL)copy;
 - (void)resume;
 - (void)sendRequest:(id)request;
@@ -148,7 +152,7 @@ LABEL_4:
   if (v15)
   {
     objc_storeWeak(&v15->_daemon, daemonCopy);
-    v17 = [identifierCopy copy];
+    v17 = objc_msgSend_copy(identifierCopy);
     serviceIdentifier = v16->_serviceIdentifier;
     v16->_serviceIdentifier = v17;
 
@@ -195,7 +199,7 @@ LABEL_4:
 
 void __85__HDIDSMessageCenter_initWithIDSServiceIdentifier_persistentDictionary_queue_daemon___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -203,55 +207,55 @@ void __85__HDIDSMessageCenter_initWithIDSServiceIdentifier_persistentDictionary_
     Current = CFAbsoluteTimeGetCurrent();
     v2 = [MEMORY[0x277CBEB18] array];
     v3 = WeakRetained[10];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __37__HDIDSMessageCenter__expireMessages__block_invoke;
-    v25[3] = &unk_27862AF18;
-    v27 = sel__expireMessages;
-    v25[4] = WeakRetained;
-    v28 = Current;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __37__HDIDSMessageCenter__expireMessages__block_invoke;
+    v24[3] = &unk_27862AF18;
+    v26 = sel__expireMessages;
+    v24[4] = WeakRetained;
+    v27 = Current;
     v4 = v2;
-    v26 = v4;
-    [v3 enumerateObjectsSortedByExpirationDate:v25];
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
+    v25 = v4;
+    [v3 enumerateObjectsSortedByExpirationDate:v24];
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v21 objects:v33 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v20 objects:v32 count:16];
     if (v6)
     {
       v8 = v6;
-      v9 = *v22;
+      v9 = *v21;
       v10 = MEMORY[0x277CCC328];
       *&v7 = 138412546;
-      v18 = v7;
-      v19 = v5;
+      v17 = v7;
+      v18 = v5;
       do
       {
         v11 = 0;
         do
         {
-          if (*v22 != v9)
+          if (*v21 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v12 = *(*(&v21 + 1) + 8 * v11);
-          v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HDIDSErrorDomain" code:2 userInfo:{0, v18}];
+          v12 = *(*(&v20 + 1) + 8 * v11);
+          v13 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HDIDSErrorDomain" code:2 userInfo:{0, v17}];
           _HKInitializeLogging();
           v14 = *v10;
           if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEBUG))
           {
             v15 = v14;
             v16 = [(HDIDSMessageCenter *)WeakRetained _logPrefix];
-            *buf = v18;
-            v30 = v16;
-            v31 = 2112;
-            v32 = v12;
+            *buf = v17;
+            v29 = v16;
+            v30 = 2112;
+            v31 = v12;
             _os_log_debug_impl(&dword_228986000, v15, OS_LOG_TYPE_DEBUG, "%@ expire: %@", buf, 0x16u);
 
-            v5 = v19;
+            v5 = v18;
           }
 
           [(HDIDSMessageCenter *)WeakRetained _handleError:v13 context:v12];
@@ -260,14 +264,12 @@ void __85__HDIDSMessageCenter_initWithIDSServiceIdentifier_persistentDictionary_
         }
 
         while (v8 != v11);
-        v8 = [v5 countByEnumeratingWithState:&v21 objects:v33 count:16];
+        v8 = [v5 countByEnumeratingWithState:&v20 objects:v32 count:16];
       }
 
       while (v8);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -323,6 +325,72 @@ void __32__HDIDSMessageCenter_invalidate__block_invoke(uint64_t a1)
   v4 = [[HDIDSPersistentDictionary alloc] initWithURL:lCopy objectClass:objc_opt_class()];
 
   return v4;
+}
+
+- (void)addRequestHandler:(SEL)handler forMessageID:(unsigned __int16)d
+{
+  dCopy = d;
+  handlerCopy = handler;
+  if (self->_service)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    v11 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HDIDSMessageCenter.m" lineNumber:221 description:{@"Cannot use %@ after using -resume", v11, handlerCopy}];
+  }
+
+  requestHandlers = self->_requestHandlers;
+  v7 = [MEMORY[0x277CCAE60] valueWithBytes:&handlerCopy objCType:":"];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:dCopy];
+  [(NSMutableDictionary *)requestHandlers setObject:v7 forKey:v8];
+}
+
+- (void)addErrorHandler:(SEL)handler forMessageID:(unsigned __int16)d
+{
+  dCopy = d;
+  handlerCopy = handler;
+  if (self->_service)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    v11 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HDIDSMessageCenter.m" lineNumber:227 description:{@"Cannot use %@ after using -resume", v11, handlerCopy}];
+  }
+
+  errorHandlers = self->_errorHandlers;
+  v7 = [MEMORY[0x277CCAE60] valueWithBytes:&handlerCopy objCType:":"];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:dCopy];
+  [(NSMutableDictionary *)errorHandlers setObject:v7 forKey:v8];
+}
+
+- (void)addResponseHandler:(SEL)handler forMessageID:(unsigned __int16)d
+{
+  dCopy = d;
+  handlerCopy = handler;
+  if (self->_service)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    v11 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"HDIDSMessageCenter.m" lineNumber:233 description:{@"Cannot use %@ after using -resume", v11, handlerCopy}];
+  }
+
+  responseHandlers = self->_responseHandlers;
+  v7 = [MEMORY[0x277CCAE60] valueWithBytes:&handlerCopy objCType:":"];
+  v8 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:dCopy];
+  [(NSMutableDictionary *)responseHandlers setObject:v7 forKey:v8];
+}
+
+- (void)mapPBRequest:(Class)request toResponse:(Class)response messageID:(unsigned __int16)d
+{
+  dCopy = d;
+  v11 = objc_alloc_init(HDIDSPBMapping);
+  if (v11)
+  {
+    objc_storeStrong(&v11->_requestClass, request);
+    objc_storeStrong(&v11->_responseClass, response);
+  }
+
+  pbMapping = self->_pbMapping;
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:dCopy];
+  [(NSMutableDictionary *)pbMapping setObject:v11 forKeyedSubscript:v10];
 }
 
 - (id)_pbMappingForMessageID:(uint64_t)d
@@ -498,29 +566,29 @@ LABEL_4:
 
 void __34__HDIDSMessageCenter_sendRequest___block_invoke(uint64_t a1)
 {
-  v90[1] = *MEMORY[0x277D85DE8];
+  v89[1] = *MEMORY[0x277D85DE8];
   v1 = atomic_load((*(a1 + 32) + 104));
   if (v1)
   {
-    goto LABEL_48;
+    return;
   }
 
   if (!*(*(a1 + 32) + 40))
   {
-    v65 = [MEMORY[0x277CCA890] currentHandler];
-    v66 = *(a1 + 48);
-    v67 = *(a1 + 32);
-    v68 = NSStringFromSelector(v66);
-    [v65 handleFailureInMethod:v66 object:v67 file:@"HDIDSMessageCenter.m" lineNumber:326 description:{@"Cannot use %@ until -resume is used", v68}];
+    v64 = [MEMORY[0x277CCA890] currentHandler];
+    v65 = *(a1 + 48);
+    v66 = *(a1 + 32);
+    v67 = NSStringFromSelector(v65);
+    [v64 handleFailureInMethod:v65 object:v66 file:@"HDIDSMessageCenter.m" lineNumber:326 description:{@"Cannot use %@ until -resume is used", v67}];
   }
 
-  v73 = [*(a1 + 40) messageID];
-  v74 = [*(a1 + 40) priority];
+  v72 = [*(a1 + 40) messageID];
+  v73 = [*(a1 + 40) priority];
   v3 = MEMORY[0x277CBEB28];
   v4 = [*(a1 + 40) data];
   v5 = [v3 dataWithCapacity:{objc_msgSend(v4, "length") + 3}];
 
-  [v5 appendBytes:&v73 length:3];
+  [v5 appendBytes:&v72 length:3];
   v6 = [*(a1 + 40) data];
   v7 = [v6 length];
 
@@ -573,9 +641,9 @@ void __34__HDIDSMessageCenter_sendRequest___block_invoke(uint64_t a1)
 
   v19 = *(*(a1 + 32) + 56);
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:{objc_msgSend(*(a1 + 40), "messageID")}];
-  *&v69 = [v19 objectForKey:v20];
+  *&v68 = [v19 objectForKey:v20];
 
-  *(&v69 + 1) = v18;
+  *(&v68 + 1) = v18;
   if (v18)
   {
     [v11 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277D185B0]];
@@ -592,7 +660,7 @@ void __34__HDIDSMessageCenter_sendRequest___block_invoke(uint64_t a1)
   v23 = [*(a1 + 40) toParticipant];
   v24 = [v23 deviceIdentifier];
 
-  v70 = v5;
+  v69 = v5;
   if (!v22)
   {
     v36 = MEMORY[0x277CCACA8];
@@ -600,9 +668,9 @@ void __34__HDIDSMessageCenter_sendRequest___block_invoke(uint64_t a1)
     v38 = [v37 description];
     v39 = [v36 stringWithFormat:@"missing destination device identifer for %@", v38];
 
-    v89 = *MEMORY[0x277CCA450];
-    v90[0] = v39;
-    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:&v89 count:1];
+    v88 = *MEMORY[0x277CCA450];
+    v89[0] = v39;
+    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:&v88 count:1];
     v28 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HDIDSErrorDomain" code:3 userInfo:v40];
 
     v27 = 0;
@@ -611,11 +679,11 @@ void __34__HDIDSMessageCenter_sendRequest___block_invoke(uint64_t a1)
 
   v25 = *(*(a1 + 32) + 40);
   v26 = [MEMORY[0x277CBEB98] setWithObject:v22];
+  v70 = 0;
   v71 = 0;
-  v72 = 0;
-  LOBYTE(v25) = [v25 sendData:v5 toDestinations:v26 priority:v10 options:v11 identifier:&v72 error:&v71];
-  v27 = v72;
-  v28 = v71;
+  LOBYTE(v25) = [v25 sendData:v5 toDestinations:v26 priority:v10 options:v11 identifier:&v71 error:&v70];
+  v27 = v71;
+  v28 = v70;
 
   if ((v25 & 1) == 0)
   {
@@ -624,27 +692,27 @@ LABEL_27:
     v41 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v59 = *(a1 + 32);
-      v60 = v41;
-      v61 = [(HDIDSMessageCenter *)v59 _logPrefix];
-      v62 = [*(a1 + 40) messageID];
-      v63 = HDStringFromHDIDSPriority([*(a1 + 40) priority]);
-      v64 = [v70 length];
+      v58 = *(a1 + 32);
+      v59 = v41;
+      v60 = [(HDIDSMessageCenter *)v58 _logPrefix];
+      v61 = [*(a1 + 40) messageID];
+      v62 = HDStringFromHDIDSPriority([*(a1 + 40) priority]);
+      v63 = [v69 length];
       *buf = 138544898;
-      v76 = v61;
-      v77 = 2114;
-      v78 = v27;
-      v79 = 1024;
-      v80 = v62;
-      v81 = 2114;
-      v82 = v63;
-      v83 = 2114;
-      v84 = v22;
-      v85 = 2048;
-      v86 = v64;
-      v87 = 2114;
-      v88 = v28;
-      _os_log_error_impl(&dword_228986000, v60, OS_LOG_TYPE_ERROR, "%{public}@ outgoing request %{public}@ messageID:%u pri:%{public}@ to %{public}@ (%tu bytes) error: %{public}@", buf, 0x44u);
+      v75 = v60;
+      v76 = 2114;
+      v77 = v27;
+      v78 = 1024;
+      v79 = v61;
+      v80 = 2114;
+      v81 = v62;
+      v82 = 2114;
+      v83 = v22;
+      v84 = 2048;
+      v85 = v63;
+      v86 = 2114;
+      v87 = v28;
+      _os_log_error_impl(&dword_228986000, v59, OS_LOG_TYPE_ERROR, "%{public}@ outgoing request %{public}@ messageID:%u pri:%{public}@ to %{public}@ (%tu bytes) error: %{public}@", buf, 0x44u);
     }
 
     v35 = 0;
@@ -660,19 +728,19 @@ LABEL_27:
     v32 = [(HDIDSMessageCenter *)v30 _logPrefix];
     LODWORD(v30) = [*(a1 + 40) messageID];
     v33 = HDStringFromHDIDSPriority([*(a1 + 40) priority]);
-    v34 = [v70 length];
+    v34 = [v69 length];
     *buf = 138544642;
-    v76 = v32;
-    v77 = 2114;
-    v78 = v27;
-    v79 = 1024;
-    v80 = v30;
-    v81 = 2114;
-    v82 = v33;
-    v83 = 2114;
-    v84 = v22;
-    v85 = 2048;
-    v86 = v34;
+    v75 = v32;
+    v76 = 2114;
+    v77 = v27;
+    v78 = 1024;
+    v79 = v30;
+    v80 = 2114;
+    v81 = v33;
+    v82 = 2114;
+    v83 = v22;
+    v84 = 2048;
+    v85 = v34;
     _os_log_impl(&dword_228986000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@ outgoing request %{public}@ messageID:%u pri:%{public}@ to %{public}@ (%tu bytes)", buf, 0x3Au);
   }
 
@@ -723,10 +791,10 @@ LABEL_30:
       [v53 messageCenter:*(a1 + 32) didResolveIDSIdentifierForRequest:*(a1 + 40)];
     }
 
-    [*(*(a1 + 32) + 80) didSendRequest:v27 deviceID:v24 type:objc_msgSend(*(a1 + 40) length:{"messageID"), objc_msgSend(v70, "length")}];
+    [*(*(a1 + 32) + 80) didSendRequest:v27 deviceID:v24 type:objc_msgSend(*(a1 + 40) length:{"messageID"), objc_msgSend(v69, "length")}];
     if (v35)
     {
-      if (v69 != 0)
+      if (v68 != 0)
       {
         Current = CFAbsoluteTimeGetCurrent();
         [*(a1 + 40) responseTimeout];
@@ -757,14 +825,11 @@ LABEL_30:
   {
     [(HDIDSMessageCenter *)*(a1 + 32) _handleError:v28 context:v42];
   }
-
-LABEL_48:
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 void __36__HDIDSMessageCenter__sendResponse___block_invoke(uint64_t a1)
 {
-  v103[1] = *MEMORY[0x277D85DE8];
+  v102[1] = *MEMORY[0x277D85DE8];
   v1 = atomic_load((*(a1 + 32) + 104));
   if ((v1 & 1) == 0)
   {
@@ -777,12 +842,12 @@ void __36__HDIDSMessageCenter__sendResponse___block_invoke(uint64_t a1)
       [v73 handleFailureInMethod:v74 object:v75 file:@"HDIDSMessageCenter.m" lineNumber:435 description:{@"Cannot use %@ until -resume is used", v76}];
     }
 
-    v85 = *(a1 + 64);
+    v84 = *(a1 + 64);
     v3 = MEMORY[0x277CBEB28];
     v4 = [*(a1 + 40) data];
     v5 = [v3 dataWithCapacity:{objc_msgSend(v4, "length") + 2}];
 
-    [v5 appendBytes:&v85 length:2];
+    [v5 appendBytes:&v84 length:2];
     v6 = [*(a1 + 40) data];
     v7 = [v6 length];
 
@@ -826,7 +891,7 @@ void __36__HDIDSMessageCenter__sendResponse___block_invoke(uint64_t a1)
 
     v15 = *(*(a1 + 32) + 56);
     v16 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(a1 + 64)];
-    v81 = [v15 objectForKey:v16];
+    v80 = [v15 objectForKey:v16];
 
     v17 = [*(a1 + 40) toParticipant];
     v18 = [v17 destinationIdentifier];
@@ -834,16 +899,16 @@ void __36__HDIDSMessageCenter__sendResponse___block_invoke(uint64_t a1)
     v19 = [*(a1 + 40) toParticipant];
     v20 = [v19 deviceIdentifier];
 
-    v82 = v5;
+    v81 = v5;
     if (v18)
     {
       v21 = *(*(a1 + 32) + 40);
       v22 = [MEMORY[0x277CBEB98] setWithObject:v18];
+      v82 = 0;
       v83 = 0;
-      v84 = 0;
-      v23 = [v21 sendData:v5 toDestinations:v22 priority:v10 options:v11 identifier:&v84 error:&v83];
-      v24 = v84;
-      v25 = v83;
+      v23 = [v21 sendData:v5 toDestinations:v22 priority:v10 options:v11 identifier:&v83 error:&v82];
+      v24 = v83;
+      v25 = v82;
 
       if (v23)
       {
@@ -861,24 +926,24 @@ void __36__HDIDSMessageCenter__sendResponse___block_invoke(uint64_t a1)
           v35 = *(a1 + 48);
           HDStringFromHDIDSPriority([*(a1 + 40) priority]);
           v36 = loga = v20;
-          v37 = [v82 length];
+          v37 = [v81 length];
           *buf = 138544898;
-          v87 = v30;
-          v88 = 2114;
-          v89 = v24;
-          v90 = 2114;
-          v91 = v35;
+          v86 = v30;
+          v87 = 2114;
+          v88 = v24;
+          v89 = 2114;
+          v90 = v35;
           v25 = v34;
           v18 = v33;
           v11 = v32;
-          v92 = 1024;
-          v93 = v31;
-          v94 = 2114;
-          v95 = v36;
-          v96 = 2114;
-          v97 = v18;
-          v98 = 2048;
-          v99 = v37;
+          v91 = 1024;
+          v92 = v31;
+          v93 = 2114;
+          v94 = v36;
+          v95 = 2114;
+          v96 = v18;
+          v97 = 2048;
+          v98 = v37;
           _os_log_impl(&dword_228986000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@ outgoing response %{public}@ to request %{public}@ messageID:%u pri:%{public}@ to %{public}@ (%tu bytes)", buf, 0x44u);
 
           v20 = loga;
@@ -892,9 +957,9 @@ void __36__HDIDSMessageCenter__sendResponse___block_invoke(uint64_t a1)
     else
     {
       v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"missing device identifer in request %@", *(a1 + 48)];
-      v102 = *MEMORY[0x277CCA450];
-      v103[0] = v39;
-      v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:&v102 count:1];
+      v101 = *MEMORY[0x277CCA450];
+      v102[0] = v39;
+      v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v102 forKeys:&v101 count:1];
       v25 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HDIDSErrorDomain" code:3 userInfo:v40];
 
       v24 = 0;
@@ -911,24 +976,24 @@ void __36__HDIDSMessageCenter__sendResponse___block_invoke(uint64_t a1)
       v69 = v20;
       v70 = *(a1 + 48);
       v71 = HDStringFromHDIDSPriority([*(a1 + 40) priority]);
-      v72 = [v82 length];
+      v72 = [v81 length];
       *buf = 138545154;
-      v87 = v67;
-      v88 = 2114;
-      v89 = v24;
-      v90 = 2114;
-      v91 = v70;
+      v86 = v67;
+      v87 = 2114;
+      v88 = v24;
+      v89 = 2114;
+      v90 = v70;
       v20 = v69;
-      v92 = 1024;
-      v93 = v68;
-      v94 = 2114;
-      v95 = v71;
-      v96 = 2114;
-      v97 = v18;
-      v98 = 2048;
-      v99 = v72;
-      v100 = 2114;
-      v101 = v25;
+      v91 = 1024;
+      v92 = v68;
+      v93 = 2114;
+      v94 = v71;
+      v95 = 2114;
+      v96 = v18;
+      v97 = 2048;
+      v98 = v72;
+      v99 = 2114;
+      v100 = v25;
       _os_log_error_impl(&dword_228986000, logb, OS_LOG_TYPE_ERROR, "%{public}@ outgoing response %{public}@ to request %{public}@ messageID:%u pri:%{public}@ to %{public}@ (%tu bytes) error: %{public}@", buf, 0x4Eu);
     }
 
@@ -973,17 +1038,17 @@ LABEL_28:
         v55 = *(*(a1 + 32) + 80);
         v56 = *(a1 + 48);
         v57 = *(a1 + 66);
-        v58 = [v82 length];
+        v58 = [v81 length];
         v59 = v55;
         v60 = v46;
         [v59 didSendResponse:v24 toRequest:v56 deviceID:v46 type:v57 length:v58];
         if (v38)
         {
-          v61 = v82;
+          v61 = v81;
           v25 = v51;
           v18 = v50;
           v11 = log;
-          if (v81)
+          if (v80)
           {
             [*(a1 + 40) sendTimeout];
             if (v62 <= 0.0)
@@ -1008,14 +1073,14 @@ LABEL_28:
           v25 = v51;
           [(HDIDSMessageCenter *)*(a1 + 32) _handleError:v51 context:v45];
           [*(*(a1 + 32) + 80) didReceiveError:v51 forMessageID:v24];
-          v61 = v82;
+          v61 = v81;
           v18 = v50;
           v11 = log;
         }
 
 LABEL_40:
 
-        goto LABEL_41;
+        return;
       }
     }
 
@@ -1032,7 +1097,7 @@ LABEL_40:
     }
 
     v60 = v46;
-    v61 = v82;
+    v61 = v81;
     if ((v38 & 1) == 0)
     {
       [(HDIDSMessageCenter *)*(a1 + 32) _handleError:v25 context:v45];
@@ -1040,9 +1105,6 @@ LABEL_40:
 
     goto LABEL_40;
   }
-
-LABEL_41:
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelPendingRequestsWithMessageID:(unsigned __int16)d device:(id)device
@@ -1069,18 +1131,18 @@ LABEL_41:
 
 void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = atomic_load((*(a1 + 32) + 104));
   if ((v1 & 1) == 0)
   {
     v3 = *(a1 + 32);
     if (!*(v3 + 40))
     {
-      v23 = [MEMORY[0x277CCA890] currentHandler];
-      v24 = *(a1 + 48);
-      v25 = *(a1 + 32);
-      v26 = NSStringFromSelector(v24);
-      [v23 handleFailureInMethod:v24 object:v25 file:@"HDIDSMessageCenter.m" lineNumber:548 description:{@"Cannot use %@ until -resume is used", v26}];
+      v22 = [MEMORY[0x277CCA890] currentHandler];
+      v23 = *(a1 + 48);
+      v24 = *(a1 + 32);
+      v25 = NSStringFromSelector(v23);
+      [v22 handleFailureInMethod:v23 object:v24 file:@"HDIDSMessageCenter.m" lineNumber:548 description:{@"Cannot use %@ until -resume is used", v25}];
 
       v3 = *(a1 + 32);
     }
@@ -1090,31 +1152,31 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
     v6 = [*(a1 + 40) hd_deviceIdentifier];
     v7 = [v4 messageIDsForPendingOutgoingMessagesWithType:v5 deviceID:v6];
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v28 objects:v38 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v27 objects:v37 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v29;
+      v11 = *v28;
       v12 = MEMORY[0x277CCC328];
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v29 != v11)
+          if (*v28 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v28 + 1) + 8 * i);
+          v14 = *(*(&v27 + 1) + 8 * i);
           v15 = *(*(a1 + 32) + 40);
-          v27 = 0;
-          v16 = [v15 cancelIdentifier:v14 error:&v27];
-          v17 = v27;
+          v26 = 0;
+          v16 = [v15 cancelIdentifier:v14 error:&v26];
+          v17 = v26;
           if ((v16 & 1) == 0)
           {
             _HKInitializeLogging();
@@ -1125,17 +1187,17 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
               v20 = v18;
               v21 = [(HDIDSMessageCenter *)v19 _logPrefix];
               *buf = 138543874;
-              v33 = v21;
-              v34 = 2114;
-              v35 = v14;
-              v36 = 2114;
-              v37 = v17;
+              v32 = v21;
+              v33 = 2114;
+              v34 = v14;
+              v35 = 2114;
+              v36 = v17;
               _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%{public}@ failed to cancel request %{public}@: %{public}@", buf, 0x20u);
             }
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v28 objects:v38 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v27 objects:v37 count:16];
       }
 
       while (v10);
@@ -1143,8 +1205,6 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
 
     [*(*(a1 + 32) + 80) didCancel:v8];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
@@ -1185,7 +1245,7 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
 
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context
 {
-  v129 = *MEMORY[0x277D85DE8];
+  v128 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dCopy = d;
   contextCopy = context;
@@ -1198,7 +1258,7 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
   {
     v18 = [(HDIDSMessageCenter *)self deviceForFromID:dCopy];
     v19 = [HDIDSParticipant alloc];
-    v119 = v18;
+    v118 = v18;
     if (v18)
     {
       v20 = [(HDIDSParticipant *)v19 initWithDevice:v18];
@@ -1218,8 +1278,8 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
     {
       if (v24 >= 2)
       {
-        v115 = deviceIdentifier;
-        v113 = *[dataCopy bytes];
+        v114 = deviceIdentifier;
+        v112 = *[dataCopy bytes];
         obj = [dataCopy subdataWithRange:{2, objc_msgSend(dataCopy, "length") - 2}];
         persistentContextStore = self->_persistentContextStore;
         incomingResponseIdentifier2 = [contextCopy incomingResponseIdentifier];
@@ -1229,7 +1289,7 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
         v28 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
-          v107 = v21;
+          v106 = v21;
           _logPrefix = [(HDIDSMessageCenter *)self _logPrefix];
           incomingResponseIdentifier3 = [contextCopy incomingResponseIdentifier];
           if (v27)
@@ -1244,53 +1304,53 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
 
           v32 = v31;
           *buf = 138544642;
-          v122 = _logPrefix;
-          v123 = 2114;
-          *v124 = incomingResponseIdentifier3;
-          *&v124[8] = 2114;
-          *&v124[10] = v31;
-          *&v124[18] = 1024;
-          *&v124[20] = v113;
-          v125 = 2114;
-          v126 = dCopy;
-          v127 = 2048;
-          v128 = [dataCopy length];
+          v121 = _logPrefix;
+          v122 = 2114;
+          *v123 = incomingResponseIdentifier3;
+          *&v123[8] = 2114;
+          *&v123[10] = v31;
+          *&v123[18] = 1024;
+          *&v123[20] = v112;
+          v124 = 2114;
+          v125 = dCopy;
+          v126 = 2048;
+          v127 = [dataCopy length];
           _os_log_impl(&dword_228986000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ incoming response %{public}@ to request %{public}@ messageID:%u from %{public}@ (%tu bytes)", buf, 0x3Au);
 
-          v21 = v107;
+          v21 = v106;
         }
 
         if (v27)
         {
-          v111 = dCopy;
+          v110 = dCopy;
           v33 = self->_persistentContextStore;
           outgoingResponseIdentifier = [contextCopy outgoingResponseIdentifier];
           v35 = *(v27 + 16);
-          -[HDIDSPersistentDictionary didReceiveResponse:toRequest:deviceID:type:length:](v33, "didReceiveResponse:toRequest:deviceID:type:length:", outgoingResponseIdentifier, v35, v115, v113, [dataCopy length]);
+          -[HDIDSPersistentDictionary didReceiveResponse:toRequest:deviceID:type:length:](v33, "didReceiveResponse:toRequest:deviceID:type:length:", outgoingResponseIdentifier, v35, v114, v112, [dataCopy length]);
 
           v36 = self->_persistentContextStore;
           incomingResponseIdentifier4 = [contextCopy incomingResponseIdentifier];
           [(HDIDSPersistentDictionary *)v36 removeObjectForKey:incomingResponseIdentifier4];
 
-          if (*(v27 + 10) != v113)
+          if (*(v27 + 10) != v112)
           {
             _HKInitializeLogging();
             v38 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              v95 = v38;
+              v94 = v38;
               _logPrefix2 = [(HDIDSMessageCenter *)self _logPrefix];
-              v97 = *(v27 + 10);
+              v96 = *(v27 + 10);
               incomingResponseIdentifier5 = [contextCopy incomingResponseIdentifier];
               *buf = 138544130;
-              v122 = _logPrefix2;
-              v123 = 1024;
-              *v124 = v113;
-              *&v124[4] = 1024;
-              *&v124[6] = v97;
-              *&v124[10] = 2114;
-              *&v124[12] = incomingResponseIdentifier5;
-              _os_log_error_impl(&dword_228986000, v95, OS_LOG_TYPE_ERROR, "%{public}@ unexpected message ID (%u != %u) for message %{public}@", buf, 0x22u);
+              v121 = _logPrefix2;
+              v122 = 1024;
+              *v123 = v112;
+              *&v123[4] = 1024;
+              *&v123[6] = v96;
+              *&v123[10] = 2114;
+              *&v123[12] = incomingResponseIdentifier5;
+              _os_log_error_impl(&dword_228986000, v94, OS_LOG_TYPE_ERROR, "%{public}@ unexpected message ID (%u != %u) for message %{public}@", buf, 0x22u);
             }
           }
 
@@ -1300,14 +1360,14 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
             v39 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              v99 = v39;
+              v98 = v39;
               _logPrefix3 = [(HDIDSMessageCenter *)self _logPrefix];
-              v101 = *(v27 + 16);
+              v100 = *(v27 + 16);
               *buf = 138543618;
-              v122 = _logPrefix3;
-              v123 = 2114;
-              *v124 = v101;
-              _os_log_error_impl(&dword_228986000, v99, OS_LOG_TYPE_ERROR, "%{public}@ unexpected response %{public}@", buf, 0x16u);
+              v121 = _logPrefix3;
+              v122 = 2114;
+              *v123 = v100;
+              _os_log_error_impl(&dword_228986000, v98, OS_LOG_TYPE_ERROR, "%{public}@ unexpected response %{public}@", buf, 0x16u);
             }
           }
 
@@ -1315,7 +1375,7 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
           v41 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:*(v27 + 10)];
           v42 = [(NSMutableDictionary *)responseHandlers objectForKey:v41];
 
-          dCopy = v111;
+          dCopy = v110;
           if (v42)
           {
             aSelector = 0;
@@ -1330,10 +1390,10 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
               objc_storeStrong(&v44->_data, obj);
             }
 
-            v110 = [(HDIDSMessageCenter *)self _pbMappingForMessageID:?];
-            if (v110)
+            v109 = [(HDIDSMessageCenter *)self _pbMappingForMessageID:?];
+            if (v109)
             {
-              v45 = v110[2];
+              v45 = v109[2];
               if (v45)
               {
                 v46 = v21;
@@ -1370,19 +1430,19 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
               log = v53;
               _logPrefix4 = [(HDIDSMessageCenter *)self _logPrefix];
               [contextCopy outgoingResponseIdentifier];
-              v89 = v108 = v21;
-              v90 = NSStringFromSelector(aSelector);
+              v88 = v107 = v21;
+              v89 = NSStringFromSelector(aSelector);
               *buf = 138413058;
-              v122 = _logPrefix4;
-              v123 = 2112;
-              *v124 = v89;
-              *&v124[8] = 1024;
-              *&v124[10] = v113;
-              *&v124[14] = 2112;
-              *&v124[16] = v90;
+              v121 = _logPrefix4;
+              v122 = 2112;
+              *v123 = v88;
+              *&v123[8] = 1024;
+              *&v123[10] = v112;
+              *&v123[14] = 2112;
+              *&v123[16] = v89;
               _os_log_debug_impl(&dword_228986000, log, OS_LOG_TYPE_DEBUG, "%@ dispatching incoming response %@ with message id %u to '%@'", buf, 0x26u);
 
-              v21 = v108;
+              v21 = v107;
             }
 
             WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1395,13 +1455,13 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
             v83 = *MEMORY[0x277CCC328];
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
             {
-              v102 = v83;
+              v101 = v83;
               _logPrefix5 = [(HDIDSMessageCenter *)self _logPrefix];
               *buf = 138543618;
-              v122 = _logPrefix5;
-              v123 = 1024;
-              *v124 = v113;
-              _os_log_error_impl(&dword_228986000, v102, OS_LOG_TYPE_ERROR, "%{public}@ no registered response handler for message: %hu", buf, 0x12u);
+              v121 = _logPrefix5;
+              v122 = 1024;
+              *v123 = v112;
+              _os_log_error_impl(&dword_228986000, v101, OS_LOG_TYPE_ERROR, "%{public}@ no registered response handler for message: %hu", buf, 0x12u);
             }
           }
         }
@@ -1416,18 +1476,18 @@ void __64__HDIDSMessageCenter_cancelPendingRequestsWithMessageID_device___block_
             _logPrefix6 = [(HDIDSMessageCenter *)self _logPrefix];
             incomingResponseIdentifier6 = [contextCopy incomingResponseIdentifier];
             *buf = 138543874;
-            v122 = _logPrefix6;
-            v123 = 1024;
-            *v124 = v113;
-            *&v124[4] = 2114;
-            *&v124[6] = incomingResponseIdentifier6;
+            v121 = _logPrefix6;
+            v122 = 1024;
+            *v123 = v112;
+            *&v123[4] = 2114;
+            *&v123[6] = incomingResponseIdentifier6;
             _os_log_impl(&dword_228986000, v80, OS_LOG_TYPE_DEFAULT, "%{public}@ could not find context for message: %hu identifier %{public}@", buf, 0x1Cu);
           }
 
           v27 = 0;
         }
 
-        deviceIdentifier = v115;
+        deviceIdentifier = v114;
         goto LABEL_56;
       }
 
@@ -1443,33 +1503,33 @@ LABEL_57:
 
     bytes = [dataCopy bytes];
     v56 = *bytes;
-    v114 = *(bytes + 2);
+    v113 = *(bytes + 2);
     _HKInitializeLogging();
     v57 = *MEMORY[0x277CCC328];
-    v116 = deviceIdentifier;
+    v115 = deviceIdentifier;
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
     {
       obja = v57;
       _logPrefix7 = [(HDIDSMessageCenter *)self _logPrefix];
       outgoingResponseIdentifier3 = [contextCopy outgoingResponseIdentifier];
-      HDStringFromHDIDSPriority(v114);
+      HDStringFromHDIDSPriority(v113);
       v60 = v59 = v21;
       *buf = 138544642;
-      v122 = _logPrefix7;
-      v123 = 2114;
-      *v124 = outgoingResponseIdentifier3;
-      *&v124[8] = 1024;
-      *&v124[10] = v56;
-      *&v124[14] = 2114;
-      *&v124[16] = v60;
-      v125 = 2114;
-      v126 = dCopy;
-      v127 = 2048;
-      v128 = [dataCopy length];
+      v121 = _logPrefix7;
+      v122 = 2114;
+      *v123 = outgoingResponseIdentifier3;
+      *&v123[8] = 1024;
+      *&v123[10] = v56;
+      *&v123[14] = 2114;
+      *&v123[16] = v60;
+      v124 = 2114;
+      v125 = dCopy;
+      v126 = 2048;
+      v127 = [dataCopy length];
       _os_log_impl(&dword_228986000, obja, OS_LOG_TYPE_DEFAULT, "%{public}@ incoming request %{public}@ messageID:%u pri:%{public}@ from %{public}@ (%tu bytes)", buf, 0x3Au);
 
       v21 = v59;
-      deviceIdentifier = v116;
+      deviceIdentifier = v115;
     }
 
     v61 = self->_persistentContextStore;
@@ -1503,7 +1563,7 @@ LABEL_57:
     {
       objc_setProperty_nonatomic_copy(obj, v68, outgoingResponseIdentifier6, 32);
 
-      *(obj + 6) = v114;
+      *(obj + 6) = v113;
       *(obj + 16) = [contextCopy expectsPeerResponse];
     }
 
@@ -1551,26 +1611,26 @@ LABEL_57:
       [v27 getValue:&aSelector];
       _HKInitializeLogging();
       v77 = *MEMORY[0x277CCC328];
-      deviceIdentifier = v116;
+      deviceIdentifier = v115;
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
       {
-        v91 = v77;
+        v90 = v77;
         _logPrefix8 = [(HDIDSMessageCenter *)self _logPrefix];
         outgoingResponseIdentifier7 = [contextCopy outgoingResponseIdentifier];
         NSStringFromSelector(aSelector);
-        v94 = v109 = v21;
+        v93 = v108 = v21;
         *buf = 138413058;
-        v122 = _logPrefix8;
-        v123 = 2112;
-        *v124 = outgoingResponseIdentifier7;
-        *&v124[8] = 1024;
-        *&v124[10] = v56;
-        *&v124[14] = 2112;
-        *&v124[16] = v94;
-        _os_log_debug_impl(&dword_228986000, v91, OS_LOG_TYPE_DEBUG, "%@ dispatching incoming request %@ with message id %u to '%@'", buf, 0x26u);
+        v121 = _logPrefix8;
+        v122 = 2112;
+        *v123 = outgoingResponseIdentifier7;
+        *&v123[8] = 1024;
+        *&v123[10] = v56;
+        *&v123[14] = 2112;
+        *&v123[16] = v93;
+        _os_log_debug_impl(&dword_228986000, v90, OS_LOG_TYPE_DEBUG, "%@ dispatching incoming request %@ with message id %u to '%@'", buf, 0x26u);
 
-        deviceIdentifier = v116;
-        v21 = v109;
+        deviceIdentifier = v115;
+        v21 = v108;
       }
 
       v78 = objc_loadWeakRetained(&self->_delegate);
@@ -1579,14 +1639,14 @@ LABEL_57:
       goto LABEL_56;
     }
 
-    v85 = objc_loadWeakRetained(&self->_delegate);
-    v86 = objc_opt_respondsToSelector();
+    v84 = objc_loadWeakRetained(&self->_delegate);
+    v85 = objc_opt_respondsToSelector();
 
-    deviceIdentifier = v116;
-    if (v86)
+    deviceIdentifier = v115;
+    if (v85)
     {
-      v87 = objc_loadWeakRetained(&self->_delegate);
-      [v87 messageCenter:self didReceiveUnknownRequest:obj];
+      v86 = objc_loadWeakRetained(&self->_delegate);
+      [v86 messageCenter:self didReceiveUnknownRequest:obj];
     }
 
     else
@@ -1597,19 +1657,19 @@ LABEL_57:
       }
 
       _HKInitializeLogging();
-      v88 = *MEMORY[0x277CCC328];
+      v87 = *MEMORY[0x277CCC328];
       if (!os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_65;
       }
 
-      v87 = v88;
+      v86 = v87;
       _logPrefix9 = [(HDIDSMessageCenter *)self _logPrefix];
       *buf = 138543618;
-      v122 = _logPrefix9;
-      v123 = 1024;
-      *v124 = v56;
-      _os_log_error_impl(&dword_228986000, v87, OS_LOG_TYPE_ERROR, "%{public}@ received a message of type %u for which no request handler was registered.", buf, 0x12u);
+      v121 = _logPrefix9;
+      v122 = 1024;
+      *v123 = v56;
+      _os_log_error_impl(&dword_228986000, v86, OS_LOG_TYPE_ERROR, "%{public}@ received a message of type %u for which no request handler was registered.", buf, 0x12u);
     }
 
 LABEL_65:
@@ -1620,13 +1680,11 @@ LABEL_56:
   }
 
 LABEL_58:
-
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service didSwitchActivePairedDevice:(id)device acknowledgementBlock:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   blockCopy = block;
   queue = self->_queue;
@@ -1644,13 +1702,13 @@ LABEL_58:
       _logPrefix = [(HDIDSMessageCenter *)self _logPrefix];
       serviceIdentifier = self->_serviceIdentifier;
       hd_shortDescription = [deviceCopy hd_shortDescription];
-      v22 = 138543874;
-      v23 = _logPrefix;
-      v24 = 2114;
-      v25 = serviceIdentifier;
-      v26 = 2114;
-      v27 = hd_shortDescription;
-      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ active paired IDSDevice for %{public}@ did switch: %{public}@", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = _logPrefix;
+      v23 = 2114;
+      v24 = serviceIdentifier;
+      v25 = 2114;
+      v26 = hd_shortDescription;
+      _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ active paired IDSDevice for %{public}@ did switch: %{public}@", &v21, 0x20u);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -1662,8 +1720,6 @@ LABEL_58:
       [v20 messageCenter:self activeDeviceDidChange:deviceCopy acknowledgementHandler:blockCopy];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (HDIDSMessageCenterDelegate)delegate

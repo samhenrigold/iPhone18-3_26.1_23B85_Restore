@@ -41,9 +41,7 @@
       self->_progressPublished = 0;
     }
 
-    v4 = [BRCProgress progressToReplaceUploadProgress:self->_progress];
-    v5 = self->_progress;
-    self->_progress = v4;
+    self->_progress = [BRCProgress progressToReplaceUploadProgress:self->_progress];
 
     MEMORY[0x2821F96F8]();
   }

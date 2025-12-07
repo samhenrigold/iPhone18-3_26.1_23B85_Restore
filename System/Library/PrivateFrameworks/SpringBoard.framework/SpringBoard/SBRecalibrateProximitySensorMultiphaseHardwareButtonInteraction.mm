@@ -141,7 +141,7 @@ LABEL_12:
   v29 = *MEMORY[0x277D85DE8];
   if (self->_phase != phase)
   {
-    v7 = SBLogButtonsInteraction();
+    v7 = SBLogButtonsInteraction(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = objc_opt_class();

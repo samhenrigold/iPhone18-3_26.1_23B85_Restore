@@ -332,11 +332,11 @@ void __70__PXStoryViewBufferingController__updateBufferingControllerProperties__
   }
 }
 
-uint64_t __63__PXStoryViewBufferingController_observable_didChange_context___block_invoke(uint64_t result)
+id *__63__PXStoryViewBufferingController_observable_didChange_context___block_invoke(id *result)
 {
-  if (*(result + 40))
+  if (result[5])
   {
-    return [*(result + 32) _invalidateWantsBufferingHUDVisible];
+    return [result[4] _invalidateWantsBufferingHUDVisible];
   }
 
   return result;
@@ -356,11 +356,11 @@ uint64_t __63__PXStoryViewBufferingController_observable_didChange_context___blo
   [(PXStoryController *)self performChanges:v5];
 }
 
-uint64_t __52__PXStoryViewBufferingController_handleModelChange___block_invoke(uint64_t result)
+id *__52__PXStoryViewBufferingController_handleModelChange___block_invoke(id *result)
 {
-  if ((*(result + 40) & 0x40) != 0)
+  if ((result[5] & 0x40) != 0)
   {
-    return [*(result + 32) _invalidateMainModel];
+    return [result[4] _invalidateMainModel];
   }
 
   return result;

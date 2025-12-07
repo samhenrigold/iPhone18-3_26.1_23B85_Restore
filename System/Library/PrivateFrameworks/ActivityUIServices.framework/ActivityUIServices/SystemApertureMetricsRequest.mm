@@ -123,16 +123,16 @@
 - (_TtC18ActivityUIServices28SystemApertureMetricsRequest)initWithXPCDictionary:(id)dictionary
 {
   swift_unknownObjectRetain();
-  v3 = sub_18E627B18();
+  v4 = sub_18E627B18(dictionary);
   swift_unknownObjectRelease();
-  return v3;
+  return v4;
 }
 
 - (void)encodeWithXPCDictionary:(id)dictionary
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_18E6274F4();
+  sub_18E6274F4(dictionary);
   swift_unknownObjectRelease();
 }
 

@@ -65,19 +65,17 @@ id __69__WFAXSDSettings_mapLocalizedSupportedSoundDetectionTypesUsingBlock___blo
 
 + (id)allBMApplianceTypes
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v2 = getAXSDSoundDetectionTypeApplianceBeeps();
   v3 = soft_bmTypeForSoundDetectionType(v2);
-  v11[0] = v3;
+  v10[0] = v3;
   v4 = getAXSDSoundDetectionTypeApplianceBuzzes();
   v5 = soft_bmTypeForSoundDetectionType(v4);
-  v11[1] = v5;
+  v10[1] = v5;
   v6 = getAXSDSoundDetectionTypeApplianceBellDings();
   v7 = soft_bmTypeForSoundDetectionType(v6);
-  v11[2] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[2] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
 
   return v8;
 }
@@ -86,15 +84,15 @@ id __69__WFAXSDSettings_mapLocalizedSupportedSoundDetectionTypesUsingBlock___blo
 {
   typeCopy = type;
   v4 = getAXSDSoundDetectionTypeApplianceBeeps();
-  v5 = [typeCopy isEqualToString:v4];
+  isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
 
   v6 = getAXSDSoundDetectionTypeApplianceBuzzes();
-  v7 = [typeCopy isEqualToString:v6];
+  v7 = objc_msgSend_isEqualToString_(typeCopy);
 
   v8 = getAXSDSoundDetectionTypeApplianceBellDings();
-  v9 = [typeCopy isEqualToString:v8];
+  v9 = objc_msgSend_isEqualToString_(typeCopy);
 
-  return (v5 | v7 | v9) & 1;
+  return (isEqualToString | v7 | v9) & 1;
 }
 
 + (id)localizedNameForSoundDetectionType:(id)type

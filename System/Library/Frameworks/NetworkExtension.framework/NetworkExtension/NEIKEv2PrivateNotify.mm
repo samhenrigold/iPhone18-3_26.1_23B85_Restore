@@ -69,7 +69,7 @@
 - (NEIKEv2PrivateNotify)initWithNotifyStatus:(unsigned __int16)status notifyData:(id)data
 {
   statusCopy = status;
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (statusCopy >> 13 <= 4)
   {
@@ -77,16 +77,16 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v15 = statusCopy;
+      v14 = statusCopy;
       _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "Invalid private notify status %u", buf, 8u);
     }
 
     goto LABEL_7;
   }
 
-  v13.receiver = self;
-  v13.super_class = NEIKEv2PrivateNotify;
-  v7 = [(NEIKEv2PrivateNotify *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = NEIKEv2PrivateNotify;
+  v7 = [(NEIKEv2PrivateNotify *)&v12 init];
   if (!v7)
   {
     self = ne_log_obj();
@@ -108,7 +108,6 @@ LABEL_7:
   v8->_notifyData = v9;
 LABEL_8:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

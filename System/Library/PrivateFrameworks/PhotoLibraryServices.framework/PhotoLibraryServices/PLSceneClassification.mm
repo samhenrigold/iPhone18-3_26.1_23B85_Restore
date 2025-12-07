@@ -152,13 +152,13 @@ LABEL_13:
 {
   v37 = *MEMORY[0x1E69E9840];
   v5 = [(PLSceneClassification *)self objectIDsForRelationshipNamed:@"assetAttributes"];
-  if (![v5 count])
+  if (!objc_msgSend_count(v5))
   {
     goto LABEL_4;
   }
 
   v6 = [(PLSceneClassification *)self objectIDsForRelationshipNamed:@"assetAttributesForTemporalSceneClassifications"];
-  if ([v6 count] || (-[PLSceneClassification duration](self, "duration"), v26 != 0.0))
+  if (objc_msgSend_count(v6) || (objc_msgSend_duration(self), v26 != 0.0))
   {
 
 LABEL_4:
@@ -175,7 +175,7 @@ LABEL_4:
 
 LABEL_5:
   v7 = [(PLSceneClassification *)self objectIDsForRelationshipNamed:@"assetAttributes"];
-  if ([v7 count])
+  if (objc_msgSend_count(v7))
   {
 LABEL_6:
 
@@ -183,13 +183,13 @@ LABEL_6:
   }
 
   v9 = [(PLSceneClassification *)self objectIDsForRelationshipNamed:@"assetAttributesForTemporalSceneClassifications"];
-  if (![v9 count])
+  if (!objc_msgSend_count(v9))
   {
 
     goto LABEL_6;
   }
 
-  [(PLSceneClassification *)self duration];
+  objc_msgSend_duration(self);
   v11 = v10;
 
   if (v11 > 0.0)
@@ -199,10 +199,10 @@ LABEL_6:
 
 LABEL_7:
   v8 = [(PLSceneClassification *)self objectIDsForRelationshipNamed:@"assetAttributes"];
-  if (![v8 count])
+  if (!objc_msgSend_count(v8))
   {
     v12 = [(PLSceneClassification *)self objectIDsForRelationshipNamed:@"assetAttributesForTemporalSceneClassifications"];
-    v13 = [v12 count];
+    v13 = objc_msgSend_count(v12);
 
     if (v13)
     {
@@ -210,7 +210,7 @@ LABEL_7:
     }
 
     [(PLSceneClassification *)self startTime];
-    if (v29 < 0.0 || ([(PLSceneClassification *)self duration], v30 <= 0.0))
+    if (v29 < 0.0 || (objc_msgSend_duration(self), v30 <= 0.0))
     {
       [(PLSceneClassification *)self startTime];
       if (v31 != 0.0)
@@ -218,7 +218,7 @@ LABEL_7:
         goto LABEL_13;
       }
 
-      [(PLSceneClassification *)self duration];
+      objc_msgSend_duration(self);
       if (v32 != 0.0)
       {
         goto LABEL_13;
@@ -234,7 +234,7 @@ LABEL_13:
   assetAttributesForTemporalSceneClassifications = [(PLSceneClassification *)self assetAttributesForTemporalSceneClassifications];
   [(PLSceneClassification *)self startTime];
   v18 = v17;
-  [(PLSceneClassification *)self duration];
+  objc_msgSend_duration(self);
   v20 = objc_msgSend(v14, "stringWithFormat:", @"There was a validation issue when attempting to insert PLSceneClassification (assetAttributes: %p, assetAttributesForTemporalSceneClassifications: %p, startTime: %g, duration: %g, classificationType: %d"), assetAttributes, assetAttributesForTemporalSceneClassifications, v18, v19, -[PLSceneClassification classificationType](self, "classificationType");
 
   v21 = PLBackendGetLog();
@@ -598,7 +598,7 @@ void __158__PLSceneClassification_batchFetchScenesByAssetObjectIDWithAssetObject
   v73 = a1;
   v70 = v6;
   v71 = v5;
-  [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v12, "count")}];
+  [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v12)];
   v19 = v18 = v12;
   v20 = [MEMORY[0x1E696AD18] strongToStrongObjectsMapTable];
   v80 = 0u;
@@ -828,7 +828,7 @@ LABEL_39:
 
   if (v16)
   {
-    v17 = [v16 count];
+    v17 = objc_msgSend_count(v16);
   }
 
   else

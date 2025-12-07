@@ -98,7 +98,7 @@
 
   else
   {
-    v19 = VUIDefaultLogObject();
+    v19 = VUIDefaultLogObject(0);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [VUIActionBundleOffer performWithTargetResponder:v19 completionHandler:?];
@@ -111,7 +111,7 @@
 uint64_t __69__VUIActionBundleOffer_performWithTargetResponder_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6[0] = 67109120;

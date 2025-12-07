@@ -48,16 +48,16 @@
 
 - (void)setAnimationState:(int64_t)state
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (self->_animationState == state)
   {
-    goto LABEL_26;
+    return;
   }
 
   self->_animationState = state;
   if (self->_isDeactivating)
   {
-    goto LABEL_26;
+    return;
   }
 
   stateCopy = 0;
@@ -86,8 +86,6 @@
 
       if (self->_currentCoachingGoal == 4)
       {
-LABEL_26:
-        v20 = *MEMORY[0x277D85DE8];
         return;
       }
 
@@ -97,7 +95,7 @@ LABEL_26:
       }
 
       v8 = ARShouldUseLogTypeError_internalOSVersion_0;
-      v9 = _ARLogCoaching_1();
+      v9 = _ARLogCoaching_1(self);
       v10 = v9;
       if (v8 == 1)
       {
@@ -107,11 +105,11 @@ LABEL_26:
           v12 = NSStringFromClass(v11);
           currentCoachingGoal = self->_currentCoachingGoal;
           *buf = 138543874;
-          v26 = v12;
-          v27 = 2048;
+          v24 = v12;
+          v25 = 2048;
           selfCopy2 = self;
-          v29 = 2048;
-          v30 = currentCoachingGoal;
+          v27 = 2048;
+          v28 = currentCoachingGoal;
           v14 = "%{public}@ <%p>: Trying to set animation state to geo tracking but geo tracking is not the current goal, goal is: %ld";
           v15 = v10;
           v16 = OS_LOG_TYPE_ERROR;
@@ -122,22 +120,22 @@ LABEL_32:
 
       else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
-        v22 = objc_opt_class();
-        v12 = NSStringFromClass(v22);
-        v23 = self->_currentCoachingGoal;
+        v20 = objc_opt_class();
+        v12 = NSStringFromClass(v20);
+        v21 = self->_currentCoachingGoal;
         *buf = 138543874;
-        v26 = v12;
-        v27 = 2048;
+        v24 = v12;
+        v25 = 2048;
         selfCopy2 = self;
-        v29 = 2048;
-        v30 = v23;
+        v27 = 2048;
+        v28 = v21;
         v14 = "Error: %{public}@ <%p>: Trying to set animation state to geo tracking but geo tracking is not the current goal, goal is: %ld";
         v15 = v10;
         v16 = OS_LOG_TYPE_INFO;
         goto LABEL_32;
       }
 
-      goto LABEL_26;
+      return;
     }
 
     [(ARCoachingAnimationView *)self clampCubeToQuarterRotation];
@@ -180,14 +178,11 @@ LABEL_25:
   state3 = [(ARCoachingRenderer *)self->_renderer state];
   snapState2 = [state3 snapState];
 
-  if (snapState2 == stateCopy)
+  if (snapState2 != stateCopy)
   {
-    goto LABEL_26;
+    state4 = [(ARCoachingRenderer *)self->_renderer state];
+    [state4 setSnapState:stateCopy];
   }
-
-  state4 = [(ARCoachingRenderer *)self->_renderer state];
-  [state4 setSnapState:stateCopy];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)intrinsicContentSize
@@ -274,8 +269,9 @@ LABEL_25:
 
 void __50__ARCoachingAnimationView_startCoachingAnimation___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
     if (ARShouldUseLogTypeError_onceToken_0 != -1)
@@ -283,45 +279,43 @@ void __50__ARCoachingAnimationView_startCoachingAnimation___block_invoke(uint64_
       [ARCoachingAnimationView setAnimationState:];
     }
 
-    v4 = ARShouldUseLogTypeError_internalOSVersion_0;
-    v5 = _ARLogCoaching_1();
-    v6 = v5;
-    if (v4 == 1)
+    v5 = ARShouldUseLogTypeError_internalOSVersion_0;
+    v6 = _ARLogCoaching_1(v3);
+    v7 = v6;
+    if (v5 == 1)
     {
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v7 = *(a1 + 32);
         v8 = objc_opt_class();
         v9 = NSStringFromClass(v8);
         v10 = *(a1 + 32);
         *buf = 138543874;
-        v20 = v9;
-        v21 = 2048;
-        v22 = v10;
-        v23 = 2112;
-        v24 = v3;
+        v18 = v9;
+        v19 = 2048;
+        v20 = v10;
+        v21 = 2112;
+        v22 = v4;
         v11 = "%{public}@ <%p>: Failed to create coaching renderer: %@";
-        v12 = v6;
+        v12 = v7;
         v13 = OS_LOG_TYPE_ERROR;
 LABEL_10:
         _os_log_impl(&dword_23D3AE000, v12, v13, v11, buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v14 = *(a1 + 32);
-      v15 = objc_opt_class();
-      v9 = NSStringFromClass(v15);
-      v16 = *(a1 + 32);
+      v14 = objc_opt_class();
+      v9 = NSStringFromClass(v14);
+      v15 = *(a1 + 32);
       *buf = 138543874;
-      v20 = v9;
-      v21 = 2048;
-      v22 = v16;
-      v23 = 2112;
-      v24 = v3;
+      v18 = v9;
+      v19 = 2048;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v4;
       v11 = "Error: %{public}@ <%p>: Failed to create coaching renderer: %@";
-      v12 = v6;
+      v12 = v7;
       v13 = OS_LOG_TYPE_INFO;
       goto LABEL_10;
     }
@@ -336,8 +330,6 @@ LABEL_10:
   block[4] = *(a1 + 32);
   dispatch_async(MEMORY[0x277D85CD0], block);
 LABEL_12:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)killCoachingAnimation
@@ -368,24 +360,24 @@ LABEL_12:
 
 - (void)updateCubeRotation:(id)rotation motionTracker:(id)tracker
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   trackerCopy = tracker;
   rotationCopy = rotation;
   camera = [rotationCopy camera];
   [camera viewMatrixForOrientation:{objc_msgSend(rotationCopy, "interfaceOrientation")}];
-  v33 = v9;
-  v34 = v10;
-  v31 = v11;
-  v32 = v12;
+  v32 = v9;
+  v33 = v10;
+  v30 = v11;
+  v31 = v12;
 
-  v13 = vzip1q_s32(v33, v31);
-  v14 = vzip2q_s32(v33, v31);
-  v15 = vzip1q_s32(v34, v32);
-  v16 = vzip2q_s32(v34, v32);
+  v13 = vzip1q_s32(v32, v30);
+  v14 = vzip2q_s32(v32, v30);
+  v15 = vzip1q_s32(v33, v31);
+  v16 = vzip2q_s32(v33, v31);
   *self->_lastCameraRight = vmlaq_f32(vmlaq_f32(vmlaq_f32(vzip1q_s32(v13, v15), 0, vzip2q_s32(v13, v15)), 0, vzip1q_s32(v14, v16)), 0, vzip2q_s32(v14, v16));
   camera2 = [rotationCopy camera];
 
-  [camera2 transform];
+  objc_msgSend_transform(camera2);
   *self->_lastCameraTranslation = v18;
 
   self->_wasRotating = self->_isRotating;
@@ -400,14 +392,14 @@ LABEL_12:
         goto LABEL_7;
       }
 
-      v20 = _ARLogCoaching_1();
+      v20 = _ARLogCoaching_1(isMoving);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         v21 = objc_opt_class();
         v22 = NSStringFromClass(v21);
         *buf = 138543618;
-        v36 = v22;
-        v37 = 2048;
+        v35 = v22;
+        v36 = 2048;
         selfCopy2 = self;
         _os_log_impl(&dword_23D3AE000, v20, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Coaching animation began rotation", buf, 0x16u);
       }
@@ -436,14 +428,14 @@ LABEL_7:
 
   if (self->_wasRotating)
   {
-    v27 = _ARLogCoaching_1();
+    v27 = _ARLogCoaching_1(isMoving);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
     {
       v28 = objc_opt_class();
       v29 = NSStringFromClass(v28);
       *buf = 138543618;
-      v36 = v29;
-      v37 = 2048;
+      v35 = v29;
+      v36 = 2048;
       selfCopy2 = self;
       _os_log_impl(&dword_23D3AE000, v27, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Coaching animation ended rotation", buf, 0x16u);
     }
@@ -452,8 +444,6 @@ LABEL_7:
   }
 
 LABEL_13:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clampCubeToQuarterRotation

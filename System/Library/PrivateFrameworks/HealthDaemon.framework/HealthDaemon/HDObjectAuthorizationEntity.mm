@@ -16,26 +16,23 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"object";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"object";
   v2 = [objc_alloc(MEMORY[0x277D10B38]) initWithEntityClass:objc_opt_class() property:@"uuid" deletionAction:2];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)uniquedColumns
 {
-  v5[4] = *MEMORY[0x277D85DE8];
-  v5[0] = @"object";
-  v5[1] = @"source";
-  v5[2] = @"sync_provenance";
-  v5[3] = @"sync_identity";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:4];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[4] = *MEMORY[0x277D85DE8];
+  v4[0] = @"object";
+  v4[1] = @"source";
+  v4[2] = @"sync_provenance";
+  v4[3] = @"sync_identity";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:4];
 
   return v2;
 }
@@ -72,52 +69,52 @@
 
 uint64_t __115__HDObjectAuthorizationEntity__setObjectAuthorizationRecords_syncProvenance_syncIdentity_skipErrors_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38[7] = *MEMORY[0x277D85DE8];
-  v27 = a2;
-  v38[0] = @"object";
-  v38[1] = @"source";
-  v38[2] = @"status";
-  v38[3] = @"sync_provenance";
-  v38[4] = @"sync_identity";
-  v38[5] = @"modification_date";
-  v38[6] = @"session";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:7];
+  v37[7] = *MEMORY[0x277D85DE8];
+  v26 = a2;
+  v37[0] = @"object";
+  v37[1] = @"source";
+  v37[2] = @"status";
+  v37[3] = @"sync_provenance";
+  v37[4] = @"sync_identity";
+  v37[5] = @"modification_date";
+  v37[6] = @"session";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:7];
   Current = CFAbsoluteTimeGetCurrent();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = *(a1 + 32);
-  v7 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+  v7 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
   if (v7)
   {
     v9 = v7;
-    v25 = a3;
-    v10 = *v32;
+    v24 = a3;
+    v10 = *v31;
     *&v8 = 138543362;
-    v24 = v8;
+    v23 = v8;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v32 != v10)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v31 + 1) + 8 * i);
+        v12 = *(*(&v30 + 1) + 8 * i);
         v13 = *(a1 + 40);
-        v14 = [v27 protectedDatabase];
-        v30 = 0;
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __115__HDObjectAuthorizationEntity__setObjectAuthorizationRecords_syncProvenance_syncIdentity_skipErrors_profile_error___block_invoke_2;
-        v28[3] = &unk_278625F00;
-        v28[4] = v12;
-        *&v28[5] = Current;
-        v29 = *(a1 + 48);
-        v15 = [v13 insertOrReplaceEntity:1 database:v14 properties:v5 error:&v30 bindingHandler:v28];
-        v16 = v30;
+        v14 = [v26 protectedDatabase];
+        v29 = 0;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __115__HDObjectAuthorizationEntity__setObjectAuthorizationRecords_syncProvenance_syncIdentity_skipErrors_profile_error___block_invoke_2;
+        v27[3] = &unk_278625F00;
+        v27[4] = v12;
+        *&v27[5] = Current;
+        v28 = *(a1 + 48);
+        v15 = [v13 insertOrReplaceEntity:1 database:v14 properties:v5 error:&v29 bindingHandler:v27];
+        v16 = v29;
 
         if (!v15)
         {
@@ -125,8 +122,8 @@ uint64_t __115__HDObjectAuthorizationEntity__setObjectAuthorizationRecords_syncP
           v17 = *MEMORY[0x277CCC2A0];
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
-            *buf = v24;
-            v36 = v16;
+            *buf = v23;
+            v35 = v16;
             _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "Failed to insert or update object authorization: %{public}@", buf, 0xCu);
           }
 
@@ -134,10 +131,10 @@ uint64_t __115__HDObjectAuthorizationEntity__setObjectAuthorizationRecords_syncP
           v19 = v18;
           if (v18)
           {
-            if (v25)
+            if (v24)
             {
               v20 = v18;
-              *v25 = v19;
+              *v24 = v19;
             }
 
             else
@@ -155,7 +152,7 @@ uint64_t __115__HDObjectAuthorizationEntity__setObjectAuthorizationRecords_syncP
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v31 objects:v37 count:16];
+      v9 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
       if (v9)
       {
         continue;
@@ -168,7 +165,6 @@ uint64_t __115__HDObjectAuthorizationEntity__setObjectAuthorizationRecords_syncP
   v21 = 1;
 LABEL_18:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -322,7 +318,7 @@ uint64_t __74__HDObjectAuthorizationEntity_resetAuthorizationForObjects_profile_
 
 BOOL __90__HDObjectAuthorizationEntity__insertCodableObjectAuthorizations_syncStore_profile_error___block_invoke(void *a1, void *a2, uint64_t *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a1[4];
   v6 = a2;
   v7 = [v5 syncIdentityManager];
@@ -339,16 +335,14 @@ BOOL __90__HDObjectAuthorizationEntity__insertCodableObjectAuthorizations_syncSt
     v12 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
-      v15 = *a3;
-      v16 = 138543362;
-      v17 = v15;
-      _os_log_fault_impl(&dword_228986000, v12, OS_LOG_TYPE_FAULT, "HDObjectAuthorizationSyncEntity ConcreteSyncIdentity from received codable is nil %{public}@", &v16, 0xCu);
+      v14 = *a3;
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_fault_impl(&dword_228986000, v12, OS_LOG_TYPE_FAULT, "HDObjectAuthorizationSyncEntity ConcreteSyncIdentity from received codable is nil %{public}@", &v15, 0xCu);
     }
   }
 
-  result = v11 != 0;
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  return v11 != 0;
 }
 
 + (id)authorizationStatusForSamplesOfType:(id)type sourceEntity:(id)entity profile:(id)profile error:(id *)error
@@ -437,11 +431,10 @@ uint64_t __94__HDObjectAuthorizationEntity_authorizationStatusForSamplesOfType_s
 
 uint64_t __94__HDObjectAuthorizationEntity_authorizationStatusForSamplesOfType_sourceEntity_profile_error___block_invoke_3(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = [*(a1 + 40) code];
+  v4 = [*(a1 + 40) code];
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 uint64_t __94__HDObjectAuthorizationEntity_authorizationStatusForSamplesOfType_sourceEntity_profile_error___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -556,34 +549,34 @@ uint64_t __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourc
 
 uint64_t __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourceEntity_sessionIdentifier_profile_error___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = *(a1 + 32);
-  v24 = v4;
+  v23 = v4;
   v6 = [v4 unprotectedDatabase];
   v7 = [v5 UUIDForProperty:@"uuid" database:v6];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = *(a1 + 40);
-  v8 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v8)
   {
     v9 = v8;
-    v22 = *v33;
+    v21 = *v32;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v33 != v22)
+        if (*v32 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * v10);
+        v11 = *(*(&v31 + 1) + 8 * v10);
         v12 = objc_alloc_init(MEMORY[0x277CCD710]);
         [v12 setSourceUUID:v7];
         v13 = [v11 UUID];
@@ -591,24 +584,24 @@ uint64_t __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourc
 
         [v12 setSessionUUID:*(a1 + 48)];
         [v12 setStatus:0];
-        v14 = [v24 protectedDatabase];
+        v14 = [v23 protectedDatabase];
         v15 = *(a1 + 56);
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourceEntity_sessionIdentifier_profile_error___block_invoke_3;
-        v28[3] = &unk_278613528;
-        v29 = v7;
-        v30 = *(a1 + 48);
-        v31 = v11;
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourceEntity_sessionIdentifier_profile_error___block_invoke_4;
-        v25[3] = &unk_27861B670;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourceEntity_sessionIdentifier_profile_error___block_invoke_3;
+        v27[3] = &unk_278613528;
+        v28 = v7;
+        v29 = *(a1 + 48);
+        v30 = v11;
+        v24[0] = MEMORY[0x277D85DD0];
+        v24[1] = 3221225472;
+        v24[2] = __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourceEntity_sessionIdentifier_profile_error___block_invoke_4;
+        v24[3] = &unk_27861B670;
         v16 = *(a1 + 72);
-        v26 = v12;
-        v27 = v16;
+        v25 = v12;
+        v26 = v16;
         v17 = v12;
-        LODWORD(v11) = [v14 executeSQL:v15 error:a3 bindingHandler:v28 enumerationHandler:v25];
+        LODWORD(v11) = [v14 executeSQL:v15 error:a3 bindingHandler:v27 enumerationHandler:v24];
 
         [*(a1 + 64) addObject:v17];
         if (!v11)
@@ -621,7 +614,7 @@ uint64_t __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourc
       }
 
       while (v9 != v10);
-      v9 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
       if (v9)
       {
         continue;
@@ -634,17 +627,14 @@ uint64_t __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourc
   v18 = 1;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-void __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourceEntity_sessionIdentifier_profile_error___block_invoke_3(uint64_t a1)
+void __107__HDObjectAuthorizationEntity_authorizationRecordsForSamples_sourceEntity_sessionIdentifier_profile_error___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v3 = *(a1 + 40);
   HDSQLiteBindFoundationValueToStatement();
-  v4 = [*(a1 + 48) UUID];
+  v3 = [*(a1 + 48) UUID];
   HDSQLiteBindFoundationValueToStatement();
 }
 

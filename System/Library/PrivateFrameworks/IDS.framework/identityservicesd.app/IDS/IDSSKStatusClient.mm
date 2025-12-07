@@ -630,7 +630,7 @@ LABEL_9:
   v4 = 30.0;
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v4 = v5;
   }
 
@@ -645,7 +645,7 @@ LABEL_9:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 
@@ -665,7 +665,7 @@ LABEL_9:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    [v3 doubleValue];
+    objc_msgSend_doubleValue(v3);
     v5 = v4;
   }
 

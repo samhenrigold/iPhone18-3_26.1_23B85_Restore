@@ -1,4 +1,5 @@
 @interface TIKeyboardInputManager_ta
+- (id)addInput:(id)input flags:(unsigned int)flags point:(CGPoint)point firstDelete:(unint64_t *)delete;
 - (id)deleteFromInput:(unint64_t *)input;
 - (id)externalStringToInternal:(id)internal;
 - (id)internalStringToExternal:(id)external;
@@ -47,23 +48,16 @@
 
 - (id)keyboardFeatureSpecialization
 {
-  alphabeticLayout = [(TIKeyboardInputManagerIndic *)self alphabeticLayout];
-  v4 = 0x29EDC7230;
-  if (!alphabeticLayout)
-  {
-    v4 = &off_29F37BFF8;
-  }
-
-  v5 = *v4;
-  v6 = objc_opt_class();
+  [(TIKeyboardInputManagerIndic *)self alphabeticLayout];
+  v3 = objc_opt_class();
   tamilFeatureSpecialization = self->_tamilFeatureSpecialization;
   if (!tamilFeatureSpecialization)
   {
-    v8 = [v6 alloc];
+    v5 = [v3 alloc];
     inputMode = [(TIKeyboardInputManagerBase *)self inputMode];
-    v10 = [v8 initWithInputMode:inputMode];
-    v11 = self->_tamilFeatureSpecialization;
-    self->_tamilFeatureSpecialization = v10;
+    v7 = [v5 initWithInputMode:inputMode];
+    v8 = self->_tamilFeatureSpecialization;
+    self->_tamilFeatureSpecialization = v7;
 
     config = [(TIKeyboardInputManager_ta *)self config];
     -[TIKeyboardFeatureSpecialization setUseRelaxedOVSPolicy:](self->_tamilFeatureSpecialization, "setUseRelaxedOVSPolicy:", [config allowRelaxedOVSPolicy]);
@@ -118,15 +112,15 @@
 
 - (void)initTransliteratorsWithID:(id)d
 {
-  v17[1] = *MEMORY[0x29EDCA608];
+  v15[1] = *MEMORY[0x29EDCA608];
   dCopy = d;
   v5 = TIBundleForInputMode();
   v6 = [v5 pathForResource:dCopy ofType:@"txt"];
   if (v6)
   {
-    v17[0] = 0;
-    v7 = [MEMORY[0x29EDBA0F8] stringWithContentsOfFile:v6 encoding:4 error:v17];
-    v8 = v17[0];
+    v15[0] = 0;
+    v7 = [MEMORY[0x29EDBA0F8] stringWithContentsOfFile:v6 encoding:4 error:v15];
+    v8 = v15[0];
     if (v7)
     {
       v9 = malloc_type_malloc(2 * [v7 length], 0x1000040BDFB0063uLL);
@@ -151,18 +145,17 @@
 
       else
       {
-        v15[1] = v15;
-        v16 = 0;
+        v13[1] = v13;
+        v14 = 0;
         MEMORY[0x2A1C7C4A8](v10);
-        [dCopy getCharacters:v15 - ((v12 + 15) & 0x1FFFFFFF0) range:0];
+        [dCopy getCharacters:v13 - ((v12 + 15) & 0x1FFFFFFF0) range:0];
         [v7 getCharacters:v9];
         self->_internalToExternalTransliterator = utrans_openU();
-        if (v16 <= 0)
+        if (v14 <= 0)
         {
           self->_externalToInternalTransliterator = utrans_openU();
-          if (v16 >= 1)
+          if (v14 >= 1)
           {
-            internalToExternalTransliterator = self->_internalToExternalTransliterator;
             utrans_close();
             self->_internalToExternalTransliterator = 0;
           }
@@ -174,8 +167,6 @@
 
 LABEL_14:
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (id)externalStringToInternal:(id)internal
@@ -218,14 +209,34 @@ LABEL_14:
   return v6;
 }
 
+- (id)addInput:(id)input flags:(unsigned int)flags point:(CGPoint)point firstDelete:(unint64_t *)delete
+{
+  y = point.y;
+  x = point.x;
+  v9 = *&flags;
+  inputCopy = input;
+  if (!-[TIKeyboardInputManagerIndic alphabeticLayout](self, "alphabeticLayout") && !self->_isQWERTYLayout && [inputCopy isEqualToString:@"க்ஷ"])
+  {
+    v12 = [MEMORY[0x29EDBA0F8] _stringWithUnichar:3005];
+
+    inputCopy = v12;
+  }
+
+  v15.receiver = self;
+  v15.super_class = TIKeyboardInputManager_ta;
+  v13 = [(TIKeyboardInputManager_ta *)&v15 addInput:inputCopy flags:v9 point:delete firstDelete:x, y];
+
+  return v13;
+}
+
 - (id)deleteFromInput:(unint64_t *)input
 {
-  v32[4] = *MEMORY[0x29EDCA608];
+  v31[4] = *MEMORY[0x29EDCA608];
   if ([(TIKeyboardInputManagerIndic *)self alphabeticLayout])
   {
-    v31.receiver = self;
-    v31.super_class = TIKeyboardInputManager_ta;
-    [(TIKeyboardInputManager_ta *)&v31 deleteFromInput:input];
+    v30.receiver = self;
+    v30.super_class = TIKeyboardInputManager_ta;
+    [(TIKeyboardInputManager_ta *)&v30 deleteFromInput:input];
     v11 = LABEL_11:;
     goto LABEL_12;
   }
@@ -249,74 +260,73 @@ LABEL_14:
 
   if (v8 || (v9 = inputIndex, v10 = *MEMORY[0x29EDC7288], [*(&self->super.super.super.super.isa + v10) length] < inputIndex))
   {
-    v30.receiver = self;
-    v30.super_class = TIKeyboardInputManager_ta;
-    [(TIKeyboardInputManager_ta *)&v30 deleteFromInput:input];
+    v29.receiver = self;
+    v29.super_class = TIKeyboardInputManager_ta;
+    [(TIKeyboardInputManager_ta *)&v29 deleteFromInput:input];
     goto LABEL_11;
   }
 
-  v27 = v9;
-  v28 = a2;
-  v29 = v9;
-  v14 = [*(&self->super.super.super.super.isa + v10) substringToIndex:?];
-  v15 = 0;
+  v26 = v9;
+  v27 = a2;
+  v28 = v9;
+  v13 = [*(&self->super.super.super.super.isa + v10) substringToIndex:?];
+  v14 = 0;
   v11 = 0;
-  v16 = *(&self->super.super.super.super.isa + v7);
+  v15 = *(&self->super.super.super.super.isa + v7);
   do
   {
-    TIInputManager::delete_from_input(v16);
-    if (v15)
+    TIInputManager::delete_from_input(v15);
+    if (v14)
     {
       TIInputManager::delete_from_favonius_stroke_history(*(&self->super.super.super.super.isa + v7));
     }
 
-    TIInputManager::input_string(v32, *(&self->super.super.super.super.isa + v7));
-    v18 = KB::ns_string(v32, v17);
-    KB::String::~String(v32);
-    v19 = [v18 substringToIndex:(*(&self->super.super.super.super.isa + v7))[24]];
-    v20 = [(TIKeyboardInputManager_ta *)self internalStringToExternal:v19];
+    TIInputManager::input_string(v31, *(&self->super.super.super.super.isa + v7));
+    v17 = KB::ns_string(v31, v16);
+    KB::String::~String(v31);
+    v18 = [v17 substringToIndex:(*(&self->super.super.super.super.isa + v7))[24]];
+    v19 = [(TIKeyboardInputManager_ta *)self internalStringToExternal:v18];
 
-    if (v20 && (v21 = [v14 length], v21 > objc_msgSend(v20, "length")) && objc_msgSend(v14, "hasPrefix:", v20))
+    if (v19 && (v20 = [v13 length], v20 > objc_msgSend(v19, "length")) && objc_msgSend(v13, "hasPrefix:", v19))
     {
-      v22 = [(TIKeyboardInputManager_ta *)self suffixOfDesiredString:v20 toAppendToInputString:*(&self->super.super.super.super.isa + v10) withInputIndex:v29 afterDeletionCount:input];
+      v21 = [(TIKeyboardInputManager_ta *)self suffixOfDesiredString:v19 toAppendToInputString:*(&self->super.super.super.super.isa + v10) withInputIndex:v28 afterDeletionCount:input];
 
-      v23 = [(TIKeyboardInputManager_ta *)self internalStringToExternal:v18];
-      [*(&self->super.super.super.super.isa + v10) setString:v23];
+      v22 = [(TIKeyboardInputManager_ta *)self internalStringToExternal:v17];
+      [*(&self->super.super.super.super.isa + v10) setString:v22];
 
-      v24 = 1;
-      v11 = v22;
+      v23 = 1;
+      v11 = v21;
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
 
-    v16 = *(&self->super.super.super.super.isa + v7);
-    v25 = *(v16 + 24);
-    if (v24)
+    v15 = *(&self->super.super.super.super.isa + v7);
+    v24 = *(v15 + 24);
+    if (v23)
     {
       break;
     }
 
-    v15 = 1;
+    v14 = 1;
   }
 
-  while (v25);
-  if ((v24 & 1) == 0)
+  while (v24);
+  if ((v23 & 1) == 0)
   {
-    if (v25)
+    if (v24)
     {
-      [(TIKeyboardInputManager_ta *)(&self->super.super.super.super.isa + v10) deleteFromInput:v28, self, v27];
+      [(TIKeyboardInputManager_ta *)(&self->super.super.super.super.isa + v10) deleteFromInput:v27, self, v26];
     }
 
-    v26 = [(TIKeyboardInputManager_ta *)self suffixOfDesiredString:&stru_2A252CFB8 toAppendToInputString:*(&self->super.super.super.super.isa + v10) withInputIndex:v29 afterDeletionCount:input];
+    v25 = [(TIKeyboardInputManager_ta *)self suffixOfDesiredString:&stru_2A252CFB8 toAppendToInputString:*(&self->super.super.super.super.isa + v10) withInputIndex:v28 afterDeletionCount:input];
 
-    v11 = v26;
+    v11 = v25;
   }
 
 LABEL_12:
-  v12 = *MEMORY[0x29EDCA608];
 
   return v11;
 }

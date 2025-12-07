@@ -23,7 +23,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_23BFC2240();
+  sub_23BFC2240(selfCopy);
 }
 
 - (void)prepareForSwatchWithLayout:(id)layout typeface:(int64_t)typeface complicationVisibility:(unint64_t)visibility palette:(id)palette numerals:(unint64_t)numerals device:(id)device

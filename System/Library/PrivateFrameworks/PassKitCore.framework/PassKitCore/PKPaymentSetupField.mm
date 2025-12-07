@@ -599,66 +599,66 @@ LABEL_88:
     goto LABEL_89;
   }
 
-  v6 = [@"cardholderName" isEqualToString:identifierCopy];
-  if (type > 1 || (v6 & 1) == 0)
+  isEqualToString = objc_msgSend_isEqualToString_(@"cardholderName");
+  if (type > 1 || (isEqualToString & 1) == 0)
   {
-    v7 = [@"primaryAccountNumber" isEqualToString:identifierCopy];
+    v7 = objc_msgSend_isEqualToString_(@"primaryAccountNumber");
     if (type > 1 || (v7 & 1) == 0)
     {
-      v8 = [@"cardExpiration" isEqualToString:identifierCopy];
+      v8 = objc_msgSend_isEqualToString_(@"cardExpiration");
       if ((type & 0xFFFFFFFFFFFFFFFDLL) != 0 || (v8 & 1) == 0)
       {
-        v9 = [@"physicalCardDescription" isEqualToString:identifierCopy];
+        v9 = objc_msgSend_isEqualToString_(@"physicalCardDescription");
         if (type > 1 || (v9 & 1) == 0)
         {
-          v10 = [@"cardSecurityCode" isEqualToString:identifierCopy];
+          v10 = objc_msgSend_isEqualToString_(@"cardSecurityCode");
           if (type > 1 || (v10 & 1) == 0)
           {
-            v11 = [@"cardPIN" isEqualToString:identifierCopy];
+            v11 = objc_msgSend_isEqualToString_(@"cardPIN");
             if (type > 1 || (v11 & 1) == 0)
             {
-              v12 = [@"cardOnFilePrimaryAccountNumber" isEqualToString:identifierCopy];
+              v12 = objc_msgSend_isEqualToString_(@"cardOnFilePrimaryAccountNumber");
               if (type > 1 || (v12 & 1) == 0)
               {
-                v13 = [@"firstName" isEqualToString:identifierCopy];
+                v13 = objc_msgSend_isEqualToString_(@"firstName");
                 if (type > 1 || (v13 & 1) == 0)
                 {
-                  v14 = [@"lastName" isEqualToString:identifierCopy];
+                  v14 = objc_msgSend_isEqualToString_(@"lastName");
                   if (type > 1 || (v14 & 1) == 0)
                   {
-                    v15 = [@"email" isEqualToString:identifierCopy];
+                    v15 = objc_msgSend_isEqualToString_(@"email");
                     if (type > 1 || (v15 & 1) == 0)
                     {
-                      if ([@"addressLine1" isEqualToString:identifierCopy])
+                      if (objc_msgSend_isEqualToString_(@"addressLine1"))
                       {
                         if (type < 2)
                         {
                           goto LABEL_65;
                         }
 
-                        if (([@"addressLine2" isEqualToString:identifierCopy] & 1) == 0)
+                        if ((objc_msgSend_isEqualToString_(@"addressLine2") & 1) == 0)
                         {
-                          [@"street2" isEqualToString:identifierCopy];
+                          objc_msgSend_isEqualToString_(@"street2");
                         }
                       }
 
                       else
                       {
-                        v16 = [@"street1" isEqualToString:identifierCopy];
+                        v16 = objc_msgSend_isEqualToString_(@"street1");
                         if (type <= 1 && (v16 & 1) != 0)
                         {
                           goto LABEL_65;
                         }
 
-                        if (([@"addressLine2" isEqualToString:identifierCopy] & 1) == 0)
+                        if ((objc_msgSend_isEqualToString_(@"addressLine2") & 1) == 0)
                         {
-                          v19 = [@"street2" isEqualToString:identifierCopy];
+                          v19 = objc_msgSend_isEqualToString_(@"street2");
                           if (type <= 1 && (v19 & 1) != 0)
                           {
                             goto LABEL_65;
                           }
 
-                          v21 = [@"postalCode" isEqualToString:identifierCopy];
+                          v21 = objc_msgSend_isEqualToString_(@"postalCode");
                           if (type <= 1 && (v21 & 1) != 0)
                           {
                             goto LABEL_65;
@@ -673,48 +673,48 @@ LABEL_88:
                         }
                       }
 
-                      [@"postalCode" isEqualToString:identifierCopy];
+                      objc_msgSend_isEqualToString_(@"postalCode");
 LABEL_32:
-                      v17 = [@"dateOfBirth" isEqualToString:identifierCopy];
+                      v17 = objc_msgSend_isEqualToString_(@"dateOfBirth");
                       if ((type & 0xFFFFFFFFFFFFFFFDLL) != 0 || (v17 & 1) == 0)
                       {
-                        v18 = [@"subLocality" isEqualToString:identifierCopy];
+                        v18 = objc_msgSend_isEqualToString_(@"subLocality");
                         if (type > 1 || (v18 & 1) == 0)
                         {
-                          v20 = [@"administrativeArea" isEqualToString:identifierCopy];
-                          if ((type > 1 || (v20 & 1) == 0) && (![@"state" isEqualToString:identifierCopy] || type && type != 5))
+                          v20 = objc_msgSend_isEqualToString_(@"administrativeArea");
+                          if ((type > 1 || (v20 & 1) == 0) && (!objc_msgSend_isEqualToString_(@"state") || type && type != 5))
                           {
-                            v22 = [@"city" isEqualToString:identifierCopy];
-                            if ((type > 1 || (v22 & 1) == 0) && (![@"countryCode" isEqualToString:identifierCopy] || type && type != 5))
+                            v22 = objc_msgSend_isEqualToString_(@"city");
+                            if ((type > 1 || (v22 & 1) == 0) && (!objc_msgSend_isEqualToString_(@"countryCode") || type && type != 5))
                             {
-                              v23 = [@"phoneNumber" isEqualToString:identifierCopy];
-                              if ((type > 1 || (v23 & 1) == 0) && (![@"citizenship" isEqualToString:identifierCopy] || type && type != 5))
+                              v23 = objc_msgSend_isEqualToString_(@"phoneNumber");
+                              if ((type > 1 || (v23 & 1) == 0) && (!objc_msgSend_isEqualToString_(@"citizenship") || type && type != 5))
                               {
-                                v24 = [@"yearlyIncome" isEqualToString:identifierCopy];
+                                v24 = objc_msgSend_isEqualToString_(@"yearlyIncome");
                                 if (type > 1 || (v24 & 1) == 0)
                                 {
-                                  v25 = [@"totalIncome" isEqualToString:identifierCopy];
+                                  v25 = objc_msgSend_isEqualToString_(@"totalIncome");
                                   if (type > 1 || (v25 & 1) == 0)
                                   {
-                                    v26 = [@"totalAssets" isEqualToString:identifierCopy];
-                                    if ((type > 1 || (v26 & 1) == 0) && (![@"totalAssetsPicker" isEqualToString:identifierCopy] || type && type != 5) && (!objc_msgSend(@"yearlyIncomeLabel", "isEqualToString:", identifierCopy) || type && type != 3))
+                                    v26 = objc_msgSend_isEqualToString_(@"totalAssets");
+                                    if ((type > 1 || (v26 & 1) == 0) && (!objc_msgSend_isEqualToString_(@"totalAssetsPicker") || type && type != 5) && (!objc_msgSend_isEqualToString_(@"yearlyIncomeLabel") || type && type != 3))
                                     {
-                                      v28 = [@"ssnFull" isEqualToString:identifierCopy];
+                                      v28 = objc_msgSend_isEqualToString_(@"ssnFull");
                                       if (type > 1 || (v28 & 1) == 0)
                                       {
-                                        v29 = [@"ssnSuffix" isEqualToString:identifierCopy];
+                                        v29 = objc_msgSend_isEqualToString_(@"ssnSuffix");
                                         if (type > 1 || (v29 & 1) == 0)
                                         {
-                                          v30 = [@"transactionLimit" isEqualToString:identifierCopy];
+                                          v30 = objc_msgSend_isEqualToString_(@"transactionLimit");
                                           if (type > 1 || (v30 & 1) == 0)
                                           {
-                                            v31 = [@"monthlySpendLimit" isEqualToString:identifierCopy];
-                                            if ((type > 1 || (v31 & 1) == 0) && (![@"aboutCreditReporting" isEqualToString:identifierCopy] || type && type != 3))
+                                            v31 = objc_msgSend_isEqualToString_(@"monthlySpendLimit");
+                                            if ((type > 1 || (v31 & 1) == 0) && (!objc_msgSend_isEqualToString_(@"aboutCreditReporting") || type && type != 3))
                                             {
-                                              v32 = [@"balance" isEqualToString:identifierCopy];
+                                              v32 = objc_msgSend_isEqualToString_(@"balance");
                                               if (type > 1 || (v32 & 1) == 0)
                                               {
-                                                v33 = [@"otpCode" isEqualToString:identifierCopy];
+                                                v33 = objc_msgSend_isEqualToString_(@"otpCode");
                                                 if ((type > 1 || (v33 & 1) == 0) && type - 1 > 4)
                                                 {
                                                   goto LABEL_88;

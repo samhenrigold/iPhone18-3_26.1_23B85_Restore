@@ -247,40 +247,40 @@ void __86__CRKConcreteClassKitRosterRequirements_registerForMembershipChangeDarw
 
   if (!v5)
   {
-    v6 = _CRKLogASM_11();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _CRKLogASM_11(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CRKConcreteClassKitRosterRequirements *)v6 makeDataObservers];
+      [(CRKConcreteClassKitRosterRequirements *)v7 makeDataObservers];
     }
   }
 
-  v7 = [(CRKConcreteClassKitRosterRequirements *)self makeDataChangedBlockWithObserverDescription:@"classes"];
-  [v5 setDataChanged:v7];
+  v8 = [(CRKConcreteClassKitRosterRequirements *)self makeDataChangedBlockWithObserverDescription:@"classes"];
+  [v5 setDataChanged:v8];
 
   [(CRKConcreteClassKitRosterRequirements *)self addNullableObserver:v5 toArray:v3];
   if ([(CRKConcreteClassKitRosterRequirements *)self isForInstructor])
   {
     classKitFacade2 = [(CRKConcreteClassKitRosterRequirements *)self classKitFacade];
-    v9 = [classKitFacade2 locationsObserverWithSortDescriptors:0];
+    v10 = [classKitFacade2 locationsObserverWithSortDescriptors:0];
 
-    if (!v9)
+    if (!v10)
     {
-      v10 = _CRKLogASM_11();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = _CRKLogASM_11(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [(CRKConcreteClassKitRosterRequirements *)v10 makeDataObservers];
+        [(CRKConcreteClassKitRosterRequirements *)v12 makeDataObservers];
       }
     }
 
-    v11 = [(CRKConcreteClassKitRosterRequirements *)self makeDataChangedBlockWithObserverDescription:@"locations"];
-    [v9 setDataChanged:v11];
+    v13 = [(CRKConcreteClassKitRosterRequirements *)self makeDataChangedBlockWithObserverDescription:@"locations"];
+    [v10 setDataChanged:v13];
 
-    [(CRKConcreteClassKitRosterRequirements *)self addNullableObserver:v9 toArray:v3];
+    [(CRKConcreteClassKitRosterRequirements *)self addNullableObserver:v10 toArray:v3];
   }
 
-  v12 = [v3 copy];
+  v14 = [v3 copy];
 
-  return v12;
+  return v14;
 }
 
 - (void)addNullableObserver:(id)observer toArray:(id)array
@@ -479,51 +479,52 @@ LABEL_7:
 
 - (void)callGeneralObserversWithReason:(id)reason
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
     [(CRKConcreteClassKitRosterRequirements *)a2 callGeneralObserversWithReason:?];
   }
 
-  v6 = _CRKLogASM_11();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CRKLogASM_11(isMainThread);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v19 = reasonCopy;
-    _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "Firing roster requirements general observers with reason: '%{public}@'", buf, 0xCu);
+    v20 = reasonCopy;
+    _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "Firing roster requirements general observers with reason: '%{public}@'", buf, 0xCu);
   }
 
-  v15 = 0u;
   v16 = 0u;
-  v13 = 0u;
+  v17 = 0u;
   v14 = 0u;
+  v15 = 0u;
   generalObserversByToken = [(CRKConcreteClassKitRosterRequirements *)self generalObserversByToken];
   allValues = [generalObserversByToken allValues];
 
-  v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v9)
+  v10 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v10)
   {
-    v10 = v9;
-    v11 = *v14;
+    v11 = v10;
+    v12 = *v15;
     do
     {
-      v12 = 0;
+      v13 = 0;
       do
       {
-        if (*v14 != v11)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(allValues);
         }
 
-        (*(*(*(&v13 + 1) + 8 * v12++) + 16))();
+        (*(*(*(&v14 + 1) + 8 * v13++) + 16))();
       }
 
-      while (v10 != v12);
-      v10 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v11 != v13);
+      v11 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
-    while (v10);
+    while (v11);
   }
 }
 

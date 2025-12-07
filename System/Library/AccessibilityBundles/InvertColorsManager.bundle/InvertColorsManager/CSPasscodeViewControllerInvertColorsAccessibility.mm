@@ -1,8 +1,17 @@
 @interface CSPasscodeViewControllerInvertColorsAccessibility
 - (void)_accessibilityLoadInvertColors;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CSPasscodeViewControllerInvertColorsAccessibility
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CSPasscodeViewControllerInvertColorsAccessibility;
+  [(CSPasscodeViewControllerInvertColorsAccessibility *)&v4 viewWillAppear:appear];
+  [(CSPasscodeViewControllerInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
+}
 
 - (void)_accessibilityLoadInvertColors
 {

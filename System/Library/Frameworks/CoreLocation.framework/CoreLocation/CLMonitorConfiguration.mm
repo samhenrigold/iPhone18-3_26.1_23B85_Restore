@@ -26,7 +26,8 @@
     }
 
 LABEL_8:
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v20 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, name, queue);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v20, v21, a2, self, @"CLMonitorConfiguration.m", 51, @"Monitoring queue is nil");
     if (name)
     {
       goto LABEL_4;
@@ -35,7 +36,8 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+  v18 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, name, queue);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v18, v19, a2, self, @"CLMonitorConfiguration.m", 48, @"Monitoring event handler is nil");
   if (!queue)
   {
     goto LABEL_8;
@@ -48,29 +50,37 @@ LABEL_3:
   }
 
 LABEL_9:
-  [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+  v22 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, name, queue);
+  objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v22, v23, a2, self, @"CLMonitorConfiguration.m", 54, @"Monitor name is nil");
 LABEL_4:
-  v10 = -[CLMonitorConfiguration initWithName:path:onSilo:eventHandler:useMonitorQueueForVendingMonitor:vendingHandler:]([CLMonitorConfiguration alloc], "initWithName:path:onSilo:eventHandler:useMonitorQueueForVendingMonitor:vendingHandler:", name, 0, [objc_alloc(MEMORY[0x1E69AD360]) initWithUnderlyingQueue:queue], eventHandler, 1, 0);
+  v10 = objc_alloc(MEMORY[0x1E69AD360]);
+  v13 = objc_msgSend_initWithUnderlyingQueue_(v10, v11, queue, v12);
+  v14 = [CLMonitorConfiguration alloc];
+  v16 = objc_msgSend_initWithName_path_onSilo_eventHandler_useMonitorQueueForVendingMonitor_vendingHandler_(v14, v15, name, 0, v13, eventHandler, 1, 0);
 
-  return v10;
+  return v16;
 }
 
 + (id)_configWithMonitorName:(id)name
 {
   if (!name)
   {
-    [objc_msgSend(MEMORY[0x1E696AAA8] "currentHandler")];
+    v16 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], a2, 0, v3);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v16, v17, a2, self, @"CLMonitorConfiguration.m", 68, @"Monitor name is nil");
   }
 
-  v4 = +[CLLocationManager sharedQueue];
-  v5 = -[CLMonitorConfiguration initWithName:path:onSilo:eventHandler:useMonitorQueueForVendingMonitor:vendingHandler:]([CLMonitorConfiguration alloc], "initWithName:path:onSilo:eventHandler:useMonitorQueueForVendingMonitor:vendingHandler:", name, 0, [objc_alloc(MEMORY[0x1E69AD360]) initWithUnderlyingQueue:v4], 0, 1, 0);
+  v5 = objc_msgSend_sharedQueue(CLLocationManager, a2, name, v3);
+  v6 = objc_alloc(MEMORY[0x1E69AD360]);
+  v9 = objc_msgSend_initWithUnderlyingQueue_(v6, v7, v5, v8);
+  v10 = [CLMonitorConfiguration alloc];
+  v12 = objc_msgSend_initWithName_path_onSilo_eventHandler_useMonitorQueueForVendingMonitor_vendingHandler_(v10, v11, name, 0, v9, 0, 1, 0);
 
-  return v5;
+  return v12;
 }
 
 + (id)configWithMonitorName:(id)name onBehalfOfBundleIdentifier:(id)identifier queue:(id)queue eventHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (qword_1ED519088 != -1)
   {
     dispatch_once(&qword_1ED519088, &unk_1F0E6B620);
@@ -79,34 +89,35 @@ LABEL_4:
   v10 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v13[0] = 68289538;
-    v13[1] = 0;
-    v14 = 2082;
-    v15 = "";
-    v16 = 2114;
+    v21[0] = 68289538;
+    v21[1] = 0;
+    v22 = 2082;
+    v23 = "";
+    v24 = 2114;
     selfCopy = self;
-    v18 = 2082;
-    uTF8String = [identifier UTF8String];
-    _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor monitor-config with onBehalfOfBundleId, self:%{public, location:escape_only}@, OnBehalfBundleId:%{public, location:escape_only}s}", v13, 0x26u);
+    v26 = 2082;
+    v27 = objc_msgSend_UTF8String(identifier, v11, v12, v13);
+    _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor monitor-config with onBehalfOfBundleId, self:%{public, location:escape_only}@, OnBehalfBundleId:%{public, location:escape_only}s}", v21, 0x26u);
   }
 
-  result = -[CLMonitorConfiguration initWithName:path:onSilo:eventHandler:useMonitorQueueForVendingMonitor:vendingHandler:]([CLMonitorConfiguration alloc], "initWithName:path:onSilo:eventHandler:useMonitorQueueForVendingMonitor:vendingHandler:", name, 0, [objc_alloc(MEMORY[0x1E69AD360]) initWithUnderlyingQueue:queue], 0, 1, 0);
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  v14 = objc_alloc(MEMORY[0x1E69AD360]);
+  v17 = objc_msgSend_initWithUnderlyingQueue_(v14, v15, queue, v16);
+  v18 = [CLMonitorConfiguration alloc];
+  return objc_msgSend_initWithName_path_onSilo_eventHandler_useMonitorQueueForVendingMonitor_vendingHandler_(v18, v19, name, 0, v17, 0, 1, 0);
 }
 
 - (CLMonitorConfiguration)initWithName:(id)name path:(id)path onSilo:(id)silo eventHandler:(id)handler useMonitorQueueForVendingMonitor:(BOOL)monitor vendingHandler:(id)vendingHandler
 {
-  v35 = *MEMORY[0x1E69E9840];
-  v22.receiver = self;
-  v22.super_class = CLMonitorConfiguration;
-  v15 = [(CLMonitorConfiguration *)&v22 init];
+  v40 = *MEMORY[0x1E69E9840];
+  v27.receiver = self;
+  v27.super_class = CLMonitorConfiguration;
+  v15 = [(CLMonitorConfiguration *)&v27 init];
   if (v15)
   {
     v16 = _os_activity_create(&dword_19B873000, "CL: CLMonitorConfiguration #monitor", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    v21.opaque[0] = 0;
-    v21.opaque[1] = 0;
-    os_activity_scope_enter(v16, &v21);
+    v26.opaque[0] = 0;
+    v26.opaque[1] = 0;
+    os_activity_scope_enter(v16, &v26);
 
     if (qword_1ED519088 != -1)
     {
@@ -116,24 +127,24 @@ LABEL_4:
     v17 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = NSStringFromSelector(a2);
+      v21 = NSStringFromSelector(a2);
       *buf = 68290050;
-      v24 = 0;
-      v25 = 2082;
-      v26 = "";
-      v27 = 2082;
-      v28 = "activity";
-      v29 = 2114;
-      v30 = v18;
-      v31 = 2050;
-      v32 = v15;
-      v33 = 2114;
+      v29 = 0;
+      v30 = 2082;
+      v31 = "";
+      v32 = 2082;
+      v33 = "activity";
+      v34 = 2114;
+      v35 = v21;
+      v36 = 2050;
+      v37 = v15;
+      v38 = 2114;
       nameCopy = name;
       _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLMonitorConfiguration #monitor, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, name:%{public, location:escape_only}@}", buf, 0x3Au);
     }
 
-    v15->_name = [name copy];
-    v15->_path = [path copy];
+    v15->_name = objc_msgSend_copy(name, v18, v19, v20);
+    v15->_path = objc_msgSend_copy(path, v22, v23, v24);
     v15->_silo = silo;
     v15->_useMonitorQueue = monitor;
     if (handler)
@@ -146,23 +157,23 @@ LABEL_4:
       v15->_vendingHandler = _Block_copy(vendingHandler);
     }
 
-    os_activity_scope_leave(&v21);
+    os_activity_scope_leave(&v26);
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (CLMonitorConfiguration)initWithName:(id)name path:(id)path onQueue:(id)queue eventHandler:(id)handler useMonitorQueueForVendingMonitor:(BOOL)monitor vendingHandler:(id)vendingHandler
 {
-  v12 = [objc_alloc(MEMORY[0x1E69AD360]) initWithUnderlyingQueue:queue];
+  v13 = objc_alloc(MEMORY[0x1E69AD360]);
+  v17 = objc_msgSend_initWithUnderlyingQueue_(v13, v14, queue, v15);
 
-  return [(CLMonitorConfiguration *)self initWithName:name path:path onSilo:v12 eventHandler:handler useMonitorQueueForVendingMonitor:1 vendingHandler:0];
+  return objc_msgSend_initWithName_path_onSilo_eventHandler_useMonitorQueueForVendingMonitor_vendingHandler_(self, v16, name, path, v17, handler, 1, 0);
 }
 
 - (void)dealloc
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = _os_activity_create(&dword_19B873000, "CL: CLMonitorConfiguration #monitor", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -178,14 +189,14 @@ LABEL_4:
   {
     v6 = NSStringFromSelector(a2);
     *buf = 68289794;
-    v11 = 0;
-    v12 = 2082;
-    v13 = "";
-    v14 = 2082;
-    v15 = "activity";
-    v16 = 2114;
-    v17 = v6;
-    v18 = 2050;
+    v16 = 0;
+    v17 = 2082;
+    v18 = "";
+    v19 = 2082;
+    v20 = "activity";
+    v21 = 2114;
+    v22 = v6;
+    v23 = 2050;
     selfCopy = self;
     _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLMonitorConfiguration #monitor, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p}", buf, 0x30u);
   }
@@ -198,26 +209,25 @@ LABEL_4:
   self->_eventHandler = 0;
   _Block_release(self->_vendingHandler);
   self->_vendingHandler = 0;
-  [(CLMonitorConfiguration *)self setIdentityToken:0];
-  [(CLMonitorConfiguration *)self setStorageToken:0];
-  [(CLMonitorConfiguration *)self setManager:0];
-  v8.receiver = self;
-  v8.super_class = CLMonitorConfiguration;
-  [(CLMonitorConfiguration *)&v8 dealloc];
+  objc_msgSend_setIdentityToken_(self, v7, 0, v8);
+  objc_msgSend_setStorageToken_(self, v9, 0, v10);
+  objc_msgSend_setManager_(self, v11, 0, v12);
+  v13.receiver = self;
+  v13.super_class = CLMonitorConfiguration;
+  [(CLMonitorConfiguration *)&v13 dealloc];
   os_activity_scope_leave(&state);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
 {
-  name = [(CLMonitorConfiguration *)self name];
+  v4 = objc_msgSend_name(self, a2, v2, v3);
 
-  return [(NSString *)name hash];
+  return objc_msgSend_hash(v4, v5, v6, v7);
 }
 
 - (void)vendMonitorWithIdentityAndAuthorizationAttributes:(id)attributes
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v6 = _os_activity_create(&dword_19B873000, "CL: CLMonitorConfiguration #monitor", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -231,38 +241,38 @@ LABEL_4:
   v7 = qword_1ED519090;
   if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = NSStringFromSelector(a2);
+    v11 = NSStringFromSelector(a2);
     *buf = 68290051;
-    v14 = 0;
-    v15 = 2082;
-    v16 = "";
-    v17 = 2082;
-    v18 = "activity";
-    v19 = 2114;
-    v20 = v8;
-    v21 = 2050;
+    v25 = 0;
+    v26 = 2082;
+    v27 = "";
+    v28 = 2082;
+    v29 = "activity";
+    v30 = 2114;
+    v31 = v11;
+    v32 = 2050;
     selfCopy = self;
-    v23 = 2113;
+    v34 = 2113;
     attributesCopy = attributes;
     _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:CLMonitorConfiguration #monitor, event:%{public, location:escape_only}s, _cmd:%{public, location:escape_only}@, self:%{public}p, vendingAttributes:%{private, location:escape_only}@}", buf, 0x3Au);
   }
 
-  [(CLLocationManager *)[(CLMonitorConfiguration *)self manager] removeIdentifiableClient:self];
-  global_queue = [(CLDispatchSilo *)self->_silo queue];
-  if (![(CLMonitorConfiguration *)self useMonitorQueue])
+  v12 = objc_msgSend_manager(self, v8, v9, v10);
+  objc_msgSend_removeIdentifiableClient_(v12, v13, self, v14);
+  global_queue = objc_msgSend_queue(self->_silo, v15, v16, v17);
+  if ((objc_msgSend_useMonitorQueue(self, v19, v20, v21) & 1) == 0)
   {
     global_queue = dispatch_get_global_queue(17, 0);
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = sub_19B891A08;
-  v11[3] = &unk_1E753CF38;
-  v11[4] = self;
-  v11[5] = attributes;
-  dispatch_async(global_queue, v11);
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = sub_19B891A08;
+  v22[3] = &unk_1E753CF38;
+  v22[4] = self;
+  v22[5] = attributes;
+  dispatch_async(global_queue, v22);
   os_activity_scope_leave(&state);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setVendingHandler:(id)handler
@@ -313,39 +323,39 @@ LABEL_4:
 
 - (void)updateIdentityToken:(id)token withStorageToken:(id)storageToken
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v39[2] = *MEMORY[0x1E69E9840];
   objc_sync_enter(self);
-  [(CLMonitorConfiguration *)self setIdentityToken:token];
-  [(CLMonitorConfiguration *)self setStorageToken:storageToken];
-  if ([(CLMonitorConfiguration *)self identityToken]&& [(CLMonitorConfiguration *)self storageToken])
+  objc_msgSend_setIdentityToken_(self, v7, token, v8);
+  objc_msgSend_setStorageToken_(self, v9, storageToken, v10);
+  if (objc_msgSend_identityToken(self, v11, v12, v13) && objc_msgSend_storageToken(self, v14, v15, v16))
   {
-    v16[0] = @"kCLMonitorIdentityTokenKey";
-    v16[1] = @"kCLMonitorLedgerAccessKey";
-    v17[0] = [(CLMonitorConfiguration *)self identityToken];
-    v17[1] = [(CLMonitorConfiguration *)self storageToken];
-    -[CLMonitorConfiguration vendMonitorWithIdentityAndAuthorizationAttributes:](self, "vendMonitorWithIdentityAndAuthorizationAttributes:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2]);
+    v38[0] = @"kCLMonitorIdentityTokenKey";
+    v38[1] = @"kCLMonitorLedgerAccessKey";
+    v39[0] = objc_msgSend_identityToken(self, v17, v18, v19);
+    v39[1] = objc_msgSend_storageToken(self, v20, v21, v22);
+    v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v23, v39, v38, 2);
+    objc_msgSend_vendMonitorWithIdentityAndAuthorizationAttributes_(self, v25, v24, v26);
     if (qword_1ED519088 != -1)
     {
       dispatch_once(&qword_1ED519088, &unk_1F0E6B620);
     }
 
-    v7 = qword_1ED519090;
+    v27 = qword_1ED519090;
     if (os_log_type_enabled(qword_1ED519090, OS_LOG_TYPE_DEFAULT))
     {
-      v9[0] = 68289538;
-      v9[1] = 0;
-      v10 = 2082;
-      v11 = "";
-      v12 = 2114;
+      v31[0] = 68289538;
+      v31[1] = 0;
+      v32 = 2082;
+      v33 = "";
+      v34 = 2114;
       selfCopy = self;
-      v14 = 2114;
-      name = [(CLMonitorConfiguration *)self name];
-      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor completion handler called, self:%{public, location:escape_only}@, monitor:%{public, location:escape_only}@}", v9, 0x26u);
+      v36 = 2114;
+      v37 = objc_msgSend_name(self, v28, v29, v30);
+      _os_log_impl(&dword_19B873000, v27, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#monitor completion handler called, self:%{public, location:escape_only}@, monitor:%{public, location:escape_only}@}", v31, 0x26u);
     }
   }
 
   objc_sync_exit(self);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -126,9 +126,9 @@
 - (ATXSharedDigestEngagementTrackingMetrics)initWithProto:(id)proto
 {
   protoCopy = proto;
-  v13.receiver = self;
-  v13.super_class = ATXSharedDigestEngagementTrackingMetrics;
-  v5 = [(ATXSharedDigestEngagementTrackingMetrics *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = ATXSharedDigestEngagementTrackingMetrics;
+  v5 = [(ATXSharedDigestEngagementTrackingMetrics *)&v14 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -137,41 +137,42 @@
   if (!protoCopy)
   {
 LABEL_9:
-    v10 = 0;
+    v11 = 0;
     goto LABEL_10;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = __atxlog_handle_notification_management(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDigestTimeline *)v5 initWithProto:v11];
+      [(ATXDigestTimeline *)v5 initWithProto:v12];
     }
 
     goto LABEL_9;
   }
 
-  v6 = protoCopy;
-  v5->_numEngagementsInUpcoming = [v6 numEngagementsInUpcoming];
-  v5->_numEngagementsInScheduled = [v6 numEngagementsInScheduled];
-  v5->_numEngagementsAfterExpiration = [v6 numEngagementsAfterExpiration];
-  v5->_numExpansions = [v6 numExpansions];
-  sectionIdentifier = [v6 sectionIdentifier];
+  v7 = protoCopy;
+  v5->_numEngagementsInUpcoming = [v7 numEngagementsInUpcoming];
+  v5->_numEngagementsInScheduled = [v7 numEngagementsInScheduled];
+  v5->_numEngagementsAfterExpiration = [v7 numEngagementsAfterExpiration];
+  v5->_numExpansions = [v7 numExpansions];
+  sectionIdentifier = [v7 sectionIdentifier];
   sectionIdentifier = v5->_sectionIdentifier;
   v5->_sectionIdentifier = sectionIdentifier;
 
-  v5->_sectionPosition = [v6 sectionPosition];
-  v5->_sectionSize = [v6 sectionSize];
-  numDigestExpansions = [v6 numDigestExpansions];
+  v5->_sectionPosition = [v7 sectionPosition];
+  v5->_sectionSize = [v7 sectionSize];
+  numDigestExpansions = [v7 numDigestExpansions];
 
   v5->_numDigestExpansions = numDigestExpansions;
 LABEL_5:
-  v10 = v5;
+  v11 = v5;
 LABEL_10:
 
-  return v10;
+  return v11;
 }
 
 - (ATXSharedDigestEngagementTrackingMetrics)initWithProtoData:(id)data

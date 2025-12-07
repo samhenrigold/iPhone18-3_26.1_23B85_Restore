@@ -24,38 +24,38 @@
 
 - (BNBannerLayoutInfoV2)_effectiveLayoutInfo
 {
-  [(BNBannerLayoutManager *)self layoutInfoV2];
+  objc_msgSend_layoutInfoV2(self, a3);
   if (v13)
   {
-    return [(BNBannerLayoutManager *)self layoutInfoV2];
+    return objc_msgSend_layoutInfoV2(self, *&v5);
   }
 
   v5 = vmovn_s32(vuzp1q_s32(vceqq_f64(v14, *MEMORY[0x1E69DDCE0]), vceqq_f64(v15, *(MEMORY[0x1E69DDCE0] + 16))));
   v5.i16[0] = vminv_u16(v5);
   if ((v5.i8[0] & 1) == 0)
   {
-    return [(BNBannerLayoutManager *)self layoutInfoV2];
+    return objc_msgSend_layoutInfoV2(self, *&v5);
   }
 
   v5 = *MEMORY[0x1E695F060];
   v6 = *(MEMORY[0x1E695F060] + 8);
   if (v16 != *MEMORY[0x1E695F060] || v17 != v6)
   {
-    return [(BNBannerLayoutManager *)self layoutInfoV2];
+    return objc_msgSend_layoutInfoV2(self, *&v5);
   }
 
   v5 = *&v18;
   if (v18 != 0.0)
   {
-    return [(BNBannerLayoutManager *)self layoutInfoV2];
+    return objc_msgSend_layoutInfoV2(self, *&v5);
   }
 
-  [(BNBannerLayoutManager *)self layoutInfo:v18];
+  objc_msgSend_layoutInfo(self, v18, v6);
   retstr->presentationEdge = v12;
-  [(BNBannerLayoutManager *)self layoutInfo];
+  objc_msgSend_layoutInfo(self);
   *&retstr->contentInsets.top = v10;
   *&retstr->contentInsets.bottom = v11;
-  result = [(BNBannerLayoutManager *)self layoutInfo];
+  result = objc_msgSend_layoutInfo(self);
   retstr->maximumContentSize = v9;
   retstr->interBannerSpacing = 8.0;
   return result;
@@ -74,10 +74,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    BNRegisterBannerKitLogging();
+    BNRegisterBannerKitLogging(v3, v4);
   }
 }
 
@@ -392,7 +393,7 @@
   v12 = size.height;
   v13 = size.width;
   v15 = objc_opt_class();
-  [(BNBannerLayoutManager *)self _effectiveLayoutInfo];
+  objc_msgSend__effectiveLayoutInfo(self);
   [v15 _dismissedFrameForContentWithPreferredSize:v20 inUseableContainerFrame:overshootCopy containerBounds:v13 layoutInfo:v12 overshoot:x scale:{y, width, height, *&bounds.origin.x, *&bounds.origin.y, *&bounds.size.width, *&bounds.size.height, *&scale}];
   result.size.height = v19;
   result.size.width = v18;
@@ -410,7 +411,7 @@
   v10 = size.height;
   v11 = size.width;
   v13 = objc_opt_class();
-  [(BNBannerLayoutManager *)self _effectiveLayoutInfo];
+  objc_msgSend__effectiveLayoutInfo(self);
   [v13 _presentedFrameForContentWithPreferredSize:v18 inUseableContainerFrame:v11 containerBounds:v10 layoutInfo:x scale:{y, width, height, *&bounds.origin.x, *&bounds.origin.y, *&bounds.size.width, *&bounds.size.height, *&scale}];
   result.size.height = v17;
   result.size.width = v16;
@@ -430,7 +431,7 @@
   v10 = frame.origin.y;
   v11 = frame.origin.x;
   v13 = objc_opt_class();
-  [(BNBannerLayoutManager *)self _effectiveLayoutInfo];
+  objc_msgSend__effectiveLayoutInfo(self);
   [v13 _presentedFrameForContentWithFrame:&v18 afterContentWithFrame:v11 layoutInfo:{v10, v9, v8, x, y, width, height}];
   result.size.height = v17;
   result.size.width = v16;

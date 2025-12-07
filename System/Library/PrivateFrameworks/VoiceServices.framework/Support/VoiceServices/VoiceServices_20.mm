@@ -1162,7 +1162,7 @@ LABEL_187:
 
       else
       {
-        --v40;
+        LODWORD(v40) = v40 - 1;
       }
     }
 
@@ -1222,7 +1222,7 @@ LABEL_206:
       break;
     }
 
-    ++v40;
+    v40 = (v40 + 1);
   }
 
   while (v40 < v172);
@@ -1370,7 +1370,7 @@ LABEL_268:
   return v39;
 }
 
-void sub_1000DA21C(uint64_t a1, char *__s, int64_t a3, CFMutableArrayRef *a4, CFMutableArrayRef *a5, const void *ValueAtIndex)
+void sub_1000DA21C(void *a1, char *__s, int64_t a3, CFMutableArrayRef *a4, CFMutableArrayRef *a5, const void *ValueAtIndex)
 {
   v12 = strlen(__s);
   if (v12 > a3)
@@ -1390,7 +1390,7 @@ LABEL_7:
     if (v14)
     {
       v15 = v14;
-      v16 = sub_1000E7E18(*(a1 + 560), v14);
+      v16 = sub_1000E7E18(a1[70], v14);
       if (!v16)
       {
         v22 = VSGetLogDefault();
@@ -1407,10 +1407,10 @@ LABEL_7:
       }
 
       v17 = v16;
-      v18 = *(a1 + 616);
+      v18 = a1[77];
       if (v18)
       {
-        v19 = v18(a1, v16, ValueAtIndex, *(a1 + 656));
+        v19 = v18(a1, v16, ValueAtIndex, a1[82]);
         v20 = v19;
         if (v19)
         {
@@ -1523,7 +1523,7 @@ void sub_1000DA450(uint64_t a1, uint64_t a2, int a3, int a4, __CFArray **a5)
   }
 }
 
-void sub_1000DA5B8(unsigned __int8 **a1, uint64_t *a2)
+void sub_1000DA5B8(void *a1, uint64_t *a2)
 {
   if (a2)
   {
@@ -1570,75 +1570,75 @@ uint64_t sub_1000DA634(uint64_t a1, unsigned __int8 *a2)
   return v6;
 }
 
-uint64_t sub_1000DA720(uint64_t **a1)
+uint64_t sub_1000DA720(uint64_t **a1, uint64_t a2)
 {
-  v1 = *a1;
-  v2 = **a1;
-  if (!v2)
+  v2 = *a1;
+  v3 = **a1;
+  if (!v3)
   {
     return 0;
   }
 
-  v3 = sub_100043E60(v2);
-  if (v3)
+  v4 = sub_100043E60(v3, a2);
+  if (v4)
   {
-    v4 = v3;
-    v5 = VSGetLogDefault();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v5 = v4;
+    v6 = VSGetLogDefault();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v11 = 67109634;
-      v12 = v4;
-      v13 = 2080;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSElvis.c";
-      v15 = 1024;
-      v16 = 1951;
-      _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Error %d at %s:%d\n", &v11, 0x18u);
+      v12 = 67109634;
+      v13 = v5;
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSElvis.c";
+      v16 = 1024;
+      v17 = 1951;
+      _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Error %d at %s:%d\n", &v12, 0x18u);
     }
 
-    if (v4 > 0xB)
+    if (v5 > 0xB)
     {
-      v6 = 4294963295;
+      v7 = 4294963295;
     }
 
     else
     {
-      v6 = dword_1000F2D38[v4];
+      v7 = dword_1000F2D38[v5];
     }
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v7 = sub_1000493AC(*v1, 0);
-  if (v7)
+  v8 = sub_1000493AC(*v2, 0);
+  if (v8)
   {
-    v8 = v7;
-    v9 = VSGetLogDefault();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v9 = v8;
+    v10 = VSGetLogDefault();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = 67109634;
-      v12 = v8;
-      v13 = 2080;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSElvis.c";
-      v15 = 1024;
-      v16 = 1954;
-      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Error %d at %s:%d\n", &v11, 0x18u);
+      v12 = 67109634;
+      v13 = v9;
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSElvis.c";
+      v16 = 1024;
+      v17 = 1954;
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Error %d at %s:%d\n", &v12, 0x18u);
     }
 
-    if (v8 > 0xB)
+    if (v9 > 0xB)
     {
       return 4294963295;
     }
 
     else
     {
-      return dword_1000F2D38[v8];
+      return dword_1000F2D38[v9];
     }
   }
 
-  return v6;
+  return v7;
 }
 
 uint64_t sub_1000DA8D0(uint64_t **a1, char *a2, int a3, uint64_t a4, _BYTE *a5)
@@ -1833,7 +1833,7 @@ uint64_t sub_1000DAC74(uint64_t **a1, const __CFSet *a2, uint64_t a3, int a4)
   v20 = 0;
   if (a4)
   {
-    v9 = sub_1000435C8(v6);
+    v9 = sub_1000435C8(v6, a2);
     v10 = VSGetLogDefault();
     v11 = v10;
     if (v9)
@@ -1965,7 +1965,7 @@ uint64_t sub_1000DAF48(uint64_t a1, BOOL *a2, double a3)
   return result;
 }
 
-uint64_t sub_1000DAF98(uint64_t **a1, const __CFURL *a2, double a3)
+uint64_t sub_1000DAF98(uint64_t ***a1, const __CFURL *a2, double a3)
 {
   if (*(a1 + 2) != a3 && *(a1 + 1) != a3)
   {
@@ -2046,13 +2046,13 @@ LABEL_34:
       if (v16)
       {
         v20 = *a1;
-        *(v20 + 64) = 0u;
-        *(v20 + 80) = 0u;
-        *(v20 + 32) = 0u;
-        *(v20 + 48) = 0u;
-        *(v20 + 8) = sub_1000DB58C;
-        *(v20 + 16) = sub_1000DB584;
-        *(v20 + 24) = sub_1000DB570;
+        *(v20 + 4) = 0u;
+        *(v20 + 5) = 0u;
+        *(v20 + 2) = 0u;
+        *(v20 + 3) = 0u;
+        v20[1] = sub_1000DB58C;
+        v20[2] = sub_1000DB584;
+        v20[3] = sub_1000DB570;
         v6 = sub_10003FE70(v38, v37, (*a1 + 1), *a1);
         if (v6)
         {
@@ -2138,7 +2138,7 @@ LABEL_17:
   return 4294963290;
 }
 
-uint64_t *sub_1000DB410(uint64_t *result)
+uint64_t ***sub_1000DB410(uint64_t ***result)
 {
   v1 = *result;
   if (*result)
@@ -2812,7 +2812,7 @@ uint64_t sub_1000DC0C4()
       v18 = 0;
     }
 
-    v19 = sub_100041E90(v18, v2, v13, v17, -1, v8, 0, 0, &v27);
+    v19 = sub_100041E90(v18, v2, v13, v17, 0xFFFFFFFFLL, v8, 0, 0, &v27);
     v20 = v27;
     v21 = VSGetLogDefault();
     v22 = v21;
@@ -2858,7 +2858,7 @@ uint64_t sub_1000DC0C4()
       v24 = 0;
     }
 
-    v25 = sub_100041C10(v24, v2, v13, -1, v8, 0, 0, &v27);
+    v25 = sub_100041C10(v24, v2, v13, 0xFFFFFFFF, v8, 0, 0, &v27);
     if (v27 | v25)
     {
       v23 = v25;
@@ -4624,7 +4624,7 @@ LABEL_219:
   return v10;
 }
 
-uint64_t sub_1000DE4CC(uint64_t *a1)
+uint64_t sub_1000DE4CC(uint64_t ***a1)
 {
   sub_1000DB410(a1);
   v2 = *a1;
@@ -4727,8 +4727,10 @@ void sub_1000DE62C(OpaqueAudioQueue *a1, int a2)
   }
 }
 
-void sub_1000DE730(mach_port_name_t a1, int a2, const char *a3, const char *a4, UInt8 *bytes, CFIndex numBytes, const UInt8 *a7, unsigned int a8, double a9, __int16 a10, unsigned __int8 a11, _BYTE *a12)
+void sub_1000DE730(CFStringRef a1, uint64_t a2, const char *a3, const char *a4, UInt8 *bytes, CFIndex numBytes, const UInt8 *a7, unsigned int a8, double a9, __int16 a10, char a11, _BYTE *a12)
 {
+  v17 = a2;
+  v18 = a1;
   v19 = 0;
   v40 = 0;
   *v38 = 0u;
@@ -4806,9 +4808,9 @@ LABEL_33:
             _os_log_debug_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "%s: allowing recognition start\n", buf, 0xCu);
           }
 
-          DWORD2(v36) = a1;
+          DWORD2(v36) = v18;
           cf[0] = v19;
-          LODWORD(v39) = a2;
+          LODWORD(v39) = v17;
           *(&v39 + 1) = a9;
           LOWORD(v40) = a10;
           BYTE2(v40) = a11;
@@ -4862,9 +4864,9 @@ LABEL_14:
     CFRelease(v19);
   }
 
-  if (a1 - 1 <= 0xFFFFFFFD && !v23)
+  if (v18 - 1 <= 0xFFFFFFFD && !v23)
   {
-    mach_port_deallocate(mach_task_self_, a1);
+    mach_port_deallocate(mach_task_self_, v18);
   }
 }
 
@@ -4965,30 +4967,30 @@ LABEL_16:
 
 uint64_t sub_1000DED78(__CFRunLoopSource *a1)
 {
-  v167 = 0;
-  memset(&v148, 0, sizeof(v148));
+  v178 = 0;
+  memset(&v159, 0, sizeof(v159));
   context = 0u;
-  v150 = 0u;
-  v151 = 0u;
+  v161 = 0u;
+  v162 = 0u;
   *cf = 0u;
-  v153 = 0u;
-  v154 = 0u;
-  v155 = 0u;
-  v156 = 0u;
-  v157 = 0u;
-  v158 = 0u;
-  v159 = 0u;
-  *v160 = 0u;
+  v164 = 0u;
+  v165 = 0u;
+  v166 = 0u;
+  v167 = 0u;
+  v168 = 0u;
+  v169 = 0u;
+  v170 = 0u;
+  *v171 = 0u;
   *inAQ = 0u;
-  v162[1] = 0;
+  v173[1] = 0;
   *cf1 = 0u;
   *inExtAudioFile = 0u;
   *inAudioFile = 0u;
-  v166 = 0xFFFFFFFF00000000;
+  v177 = 0xFFFFFFFF00000000;
   LODWORD(inAQ[0]) = -1;
-  v162[0] = -1;
+  v173[0] = -1;
   Current = CFRunLoopGetCurrent();
-  v3 = sub_1000E1934(sub_1000E13EC, &v167);
+  v3 = sub_1000E1934(sub_1000E13EC, &v178);
   if (v3)
   {
     CFRunLoopAddSource(Current, v3, kCFRunLoopDefaultMode);
@@ -4999,19 +5001,19 @@ uint64_t sub_1000DED78(__CFRunLoopSource *a1)
     CFRunLoopAddSource(Current, a1, kCFRunLoopDefaultMode);
   }
 
-  if (v167)
+  if (v178)
   {
     goto LABEL_6;
   }
 
-  v147 = 0;
-  v146 = 0;
+  v158 = 0;
+  v157 = 0;
   v5 = &unk_100106000;
   theString = kVSServerRecognitionPreparedNotification;
-  v144 = kVSServerRecognitionErrorNotification;
-  v145 = kVSServerRecognitionErrorCodeKey;
-  v142 = kVSServerRecognitionResultsKey;
-  v143 = kVSServerRecognitionResultsNotification;
+  v155 = kVSServerRecognitionErrorNotification;
+  v156 = kVSServerRecognitionErrorCodeKey;
+  v153 = kVSServerRecognitionResultsKey;
+  v154 = kVSServerRecognitionResultsNotification;
   do
   {
     pthread_mutex_lock(&stru_100101210);
@@ -5040,28 +5042,28 @@ LABEL_31:
 
     object = os_transaction_create();
     sub_1000E1A1C(v3, 1);
-    v140 = a1;
+    v151 = a1;
     if (*ValueAtIndex == 1)
     {
-      v7 = v5;
-      v147 = *(ValueAtIndex + 6);
-      v146 = getiopolicy_np(0, 1);
+      v11 = v5;
+      v158 = *(ValueAtIndex + 6);
+      v157 = getiopolicy_np(0, 1);
       setiopolicy_np(0, 1, 3);
       if (!setpriority(3, 0, 4096))
       {
-        v8 = VSGetLogDefault();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v12 = VSGetLogDefault();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           *outPropertyData = 0;
-          _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Running with background thread priority", outPropertyData, 2u);
+          _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Running with background thread priority", outPropertyData, 2u);
         }
       }
 
-      v5 = v7;
+      v5 = v11;
       if (*ValueAtIndex)
       {
 LABEL_38:
-        v9 = 0;
+        v13 = 0;
         *(&context + 4) = 0;
         cf1[1] = 0;
         BYTE5(inAQ[0]) = 1;
@@ -5080,87 +5082,87 @@ LABEL_38:
         goto LABEL_38;
       }
 
-      v147 = *(ValueAtIndex + 12);
+      v158 = *(ValueAtIndex + 12);
     }
 
-    v10 = *(ValueAtIndex + 2);
+    v14 = *(ValueAtIndex + 2);
     cf1[1] = *(ValueAtIndex + 4);
     *(inAQ + 5) = *(ValueAtIndex + 65);
     BYTE4(inAQ[0]) = ValueAtIndex[64];
-    v11 = *(ValueAtIndex + 5);
-    inExtAudioFile[1] = v11;
+    v15 = *(ValueAtIndex + 5);
+    inExtAudioFile[1] = v15;
     inAudioFile[1] = *(ValueAtIndex + 7);
-    v9 = *(ValueAtIndex + 3);
+    v13 = *(ValueAtIndex + 3);
     theString1 = *(ValueAtIndex + 2);
     inExtAudioFile[0] = 0;
     inAudioFile[0] = 0;
-    *(&context + 4) = v10;
-    if (v11 && AudioFileOpenURL(v11, kAudioFileReadPermission, 0x57415645u, inAudioFile))
+    *(&context + 4) = v14;
+    if (v15 && AudioFileOpenURL(v15, kAudioFileReadPermission, 0x57415645u, inAudioFile))
     {
-      v12 = v5;
-      v13 = VSGetLogDefault();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = v5;
+      v17 = VSGetLogDefault();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *outPropertyData = 0;
-        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "couldn't open audio input file for reading\n", outPropertyData, 2u);
+        _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "couldn't open audio input file for reading\n", outPropertyData, 2u);
       }
 
       DWORD2(context) = -4006;
-      v5 = v12;
+      v5 = v16;
     }
 
 LABEL_44:
-    v134 = v9;
+    v145 = v13;
     ioDataSize[0] = 40;
-    v15 = LODWORD(inAQ[0]) != -1 && LODWORD(inAQ[0]) == v147;
-    if (v150)
+    v19 = LODWORD(inAQ[0]) != -1 && LODWORD(inAQ[0]) == v158;
+    if (v161)
     {
-      v16 = *&v151;
+      v20 = *&v162;
     }
 
     else
     {
-      v16 = -1.0;
+      v20 = -1.0;
     }
 
     memset(outPropertyData, 0, 40);
     if (inAudioFile[0])
     {
-      v17 = v5;
+      v21 = v5;
       if (AudioFileGetProperty(inAudioFile[0], 0x64666D74u, ioDataSize, outPropertyData))
       {
-        v18 = -1.0;
+        v22 = -1.0;
       }
 
       else
       {
-        v18 = *outPropertyData;
+        v22 = *outPropertyData;
       }
     }
 
     else
     {
-      v17 = v5;
+      v21 = v5;
       if (BYTE6(inAQ[0]))
       {
-        v18 = 8000.0;
+        v22 = 8000.0;
       }
 
       else
       {
-        v18 = -1.0;
+        v22 = -1.0;
       }
     }
 
-    v19 = !v15;
+    v23 = !v19;
     if (!cf[0])
     {
-      v19 = 1;
+      v23 = 1;
     }
 
-    if ((v19 & 1) != 0 || (v20 = VSPreferencesCopySpokenLanguageIdentifier()) == 0)
+    if ((v23 & 1) != 0 || (v24 = VSPreferencesCopySpokenLanguageIdentifier()) == 0)
     {
-      if (v15)
+      if (v19)
       {
         goto LABEL_77;
       }
@@ -5168,20 +5170,20 @@ LABEL_44:
 
     else
     {
-      v21 = v20;
-      v22 = CFStringCompare(v20, cf[0], 0);
-      CFRelease(v21);
-      if (v22 == kCFCompareEqualTo)
+      v25 = v24;
+      v26 = CFStringCompare(v24, cf[0], 0);
+      CFRelease(v25);
+      if (v26 == kCFCompareEqualTo)
       {
         goto LABEL_77;
       }
     }
 
-    if (v150)
+    if (v161)
     {
-      if (*(&v153 + 1))
+      if (*(&v164 + 1))
       {
-        (*(&v153 + 1))(&v150);
+        (*(&v164 + 1))(&v161);
       }
 
       if (cf[0])
@@ -5189,7 +5191,7 @@ LABEL_44:
         CFRelease(cf[0]);
       }
 
-      *&v150 = 0;
+      *&v161 = 0;
     }
 
     LODWORD(inAQ[0]) = -1;
@@ -5199,51 +5201,51 @@ LABEL_44:
       cf1[0] = 0;
     }
 
-    if (v160[1])
+    if (v171[1])
     {
-      CFRelease(v160[1]);
-      v160[1] = 0;
+      CFRelease(v171[1]);
+      v171[1] = 0;
     }
 
 LABEL_77:
-    v23 = v150 != 0;
-    if (v150)
+    v27 = v161 != 0;
+    if (v161)
     {
-      if (!*(&v157 + 1))
+      if (!*(&v168 + 1))
       {
         goto LABEL_85;
       }
 
-      v24 = (*(&v157 + 1))(&v150, 0, v18);
+      v28 = (*(&v168 + 1))(&v161, 0, v22);
     }
 
     else
     {
-      v25 = sub_1000E9358(v147, &v150);
-      DWORD2(context) = v25;
-      if (v25 && (syslog(3, "Error %d at %s:%d\n", v25, "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSRecognitionServer.c", 841), DWORD2(context)) || (LODWORD(inAQ[0]) = v147, !v153))
+      v29 = sub_1000E9358(v158, &v161);
+      DWORD2(context) = v29;
+      if (v29 && (syslog(3, "Error %d at %s:%d\n", v29, "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSRecognitionServer.c", 841), DWORD2(context)) || (LODWORD(inAQ[0]) = v158, !v164))
       {
 LABEL_85:
-        v23 = 1;
+        v27 = 1;
         goto LABEL_86;
       }
 
-      v160[1] = sub_1000E1F18(*(&v151 + 1), cf[0], cf[1]);
-      v24 = (v153)(&v150, v160[1], v18);
+      v171[1] = sub_1000E1F18(*(&v162 + 1), cf[0], cf[1]);
+      v28 = (v164)(&v161, v171[1], v22);
     }
 
-    DWORD2(context) = v24;
+    DWORD2(context) = v28;
 LABEL_86:
-    if (v16 != *&v151)
+    if (v20 != *&v162)
     {
-      v26 = VSGetLogDefault();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v30 = VSGetLogDefault();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
         *&buf[4] = "_CreateEngineIfNecessary";
-        v170 = 1024;
-        v171 = *&v151;
-        _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "%s: sample rate change (now %d Hz); invalidating queue\n", buf, 0x12u);
+        v181 = 1024;
+        v182 = *&v162;
+        _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "%s: sample rate change (now %d Hz); invalidating queue\n", buf, 0x12u);
       }
 
       sub_1000E0748(&context);
@@ -5254,58 +5256,58 @@ LABEL_86:
       syslog(3, "Error %d at %s:%d\n", DWORD2(context), "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSRecognitionServer.c", 864);
     }
 
-    v139 = Current;
-    if (v23)
+    v150 = Current;
+    if (v27)
     {
       if (*ValueAtIndex == 1)
       {
-        v27 = theString1;
-        if (!v160[1])
+        v31 = theString1;
+        if (!v171[1])
         {
-          v27 = 0;
+          v31 = 0;
         }
 
-        theString1 = v27;
+        theString1 = v31;
       }
 
-      v5 = v17;
+      v5 = v21;
     }
 
     else
     {
       BYTE5(inAQ[0]) = 0;
-      v5 = v17;
+      v5 = v21;
       if (*ValueAtIndex == 1)
       {
         if (DWORD2(context))
         {
 LABEL_200:
-          if (!sub_1000E22E4(*(ValueAtIndex + 1), *(ValueAtIndex + 2), &v150, &v160[1]))
+          if (!sub_1000E22E4(*(ValueAtIndex + 1), *(ValueAtIndex + 2), &v161, &v171[1], v7, v8, v9, v10))
           {
-            a1 = v140;
+            a1 = v151;
             if (cf1[0])
             {
               CFRelease(cf1[0]);
             }
 
-            v63 = 0;
+            v67 = 0;
             cf1[0] = sub_1000E5B24();
             goto LABEL_306;
           }
 
-          v63 = 0;
+          v67 = 0;
           LODWORD(inAQ[0]) = -1;
 LABEL_203:
-          a1 = v140;
+          a1 = v151;
           goto LABEL_306;
         }
 
 LABEL_151:
-        v132 = v3;
-        v55 = CFSetCreate(kCFAllocatorDefault, 0, 0, 0);
+        v143 = v3;
+        v59 = CFSetCreate(kCFAllocatorDefault, 0, 0, 0);
 LABEL_152:
-        v56 = 0;
-        if (v55)
+        v60 = 0;
+        if (v59)
         {
           goto LABEL_155;
         }
@@ -5324,12 +5326,12 @@ LABEL_152:
       goto LABEL_151;
     }
 
-    v132 = v3;
+    v143 = v3;
     if (CFStringCompare(theString1, @"_default", 0) == kCFCompareEqualTo)
     {
-      v56 = 1;
-      v55 = sub_1000E5B24();
-      if (v55)
+      v60 = 1;
+      v59 = sub_1000E5B24();
+      if (v59)
       {
         goto LABEL_155;
       }
@@ -5337,146 +5339,146 @@ LABEL_152:
       goto LABEL_184;
     }
 
-    v28 = v134;
-    if (!v134)
+    v32 = v145;
+    if (!v145)
     {
-      v60 = sub_1000E4E50(theString1);
-      if (v60)
+      v64 = sub_1000E4E50(theString1);
+      if (v64)
       {
         goto LABEL_180;
       }
 
 LABEL_184:
-      v61 = VSGetLogDefault();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v65 = VSGetLogDefault();
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
         *outPropertyData = 136315138;
         *&outPropertyData[4] = "_InitializeEngine";
-        _os_log_error_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "%s: no valid models could be created\n", outPropertyData, 0xCu);
+        _os_log_error_impl(&_mh_execute_header, v65, OS_LOG_TYPE_ERROR, "%s: no valid models could be created\n", outPropertyData, 0xCu);
       }
 
-      v59 = -4001;
+      v63 = -4001;
       DWORD2(context) = -4001;
-      v3 = v132;
+      v3 = v143;
       v5 = &unk_100106000;
 LABEL_187:
-      syslog(3, "Error %d at %s:%d\n", v59, "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSRecognitionServer.c", 997);
+      syslog(3, "Error %d at %s:%d\n", v63, "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSRecognitionServer.c", 997);
       goto LABEL_188;
     }
 
     ModelIdentifier = VSRecognitionDisambiguationContextGetModelIdentifier();
-    v30 = VSGetLogDefault();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v34 = VSGetLogDefault();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
       *outPropertyData = 138412290;
-      *&outPropertyData[4] = v134;
-      _os_log_debug_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "%@", outPropertyData, 0xCu);
+      *&outPropertyData[4] = v145;
+      _os_log_debug_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "%@", outPropertyData, 0xCu);
     }
 
-    v31 = sub_1000E4E50(ModelIdentifier);
-    if (!v31)
+    v35 = sub_1000E4E50(ModelIdentifier);
+    if (!v35)
     {
       goto LABEL_184;
     }
 
-    v32 = v31;
-    v33 = sub_1000E7DA4(v31);
-    v173 = 0;
+    v36 = v35;
+    v37 = sub_1000E7DA4(v35);
+    v184 = 0;
     memset(outPropertyData, 0, sizeof(outPropertyData));
-    if (!v33)
+    if (!v37)
     {
       goto LABEL_183;
     }
 
-    v122 = v33;
+    v133 = v37;
     SequenceTag = VSRecognitionDisambiguationContextGetSequenceTag();
     if (!SequenceTag)
     {
       goto LABEL_182;
     }
 
-    v35 = sub_1000E7E18(v32[73], SequenceTag);
-    if (!v35)
+    v39 = sub_1000E7E18(v36[73], SequenceTag);
+    if (!v39)
     {
       goto LABEL_182;
     }
 
-    v36 = v35;
-    Count = CFArrayGetCount(v35);
+    v40 = v39;
+    Count = CFArrayGetCount(v39);
     if (Count < 1 || (KnownClassValues = VSRecognitionDisambiguationContextGetKnownClassValues()) == 0 || (theDict = KnownClassValues, CFDictionaryGetCount(KnownClassValues) < 1))
     {
-      CFRelease(v36);
+      CFRelease(v40);
 LABEL_182:
-      CFRelease(v122);
+      CFRelease(v133);
 LABEL_183:
-      CFRelease(v32);
+      CFRelease(v36);
       goto LABEL_184;
     }
 
-    v38 = 0;
+    v42 = 0;
     theSet = 0;
-    v120 = 0;
-    v121 = 0;
-    v124 = v36;
+    v131 = 0;
+    v132 = 0;
+    v135 = v40;
     theArray = 0;
-    v123 = v32;
+    v134 = v36;
     do
     {
-      v129 = v38;
-      theString1a = CFArrayGetValueAtIndex(v36, v38);
-      v39 = CFArrayGetCount(theString1a->data);
-      if (v39 < 1)
+      v140 = v42;
+      theString1a = CFArrayGetValueAtIndex(v40, v42);
+      v43 = CFArrayGetCount(theString1a->data);
+      if (v43 < 1)
       {
         goto LABEL_147;
       }
 
-      v40 = v39;
-      *v126 = v39 - 1;
-      v41 = 0;
-      v42 = -1;
-      v43 = -1;
+      v44 = v43;
+      *v137 = v43 - 1;
+      v45 = 0;
+      v46 = -1;
+      v47 = -1;
       do
       {
-        v44 = CFArrayGetValueAtIndex(theString1a->data, v41);
-        v45 = *(v44 + 2);
-        if (v45)
+        v48 = CFArrayGetValueAtIndex(theString1a->data, v45);
+        v49 = *(v48 + 2);
+        if (v49)
         {
-          CFRetain(*(v44 + 2));
-          Value = CFDictionaryGetValue(theDict, v45);
-          if (v43 == -1 && Value == 0)
+          CFRetain(*(v48 + 2));
+          Value = CFDictionaryGetValue(theDict, v49);
+          if (v47 == -1 && Value == 0)
           {
-            v43 = v41;
+            v47 = v45;
           }
 
           if (!Value)
           {
-            v42 = v41;
+            v46 = v45;
           }
 
-          CFRelease(v45);
+          CFRelease(v49);
         }
 
-        ++v41;
+        ++v45;
       }
 
-      while (v40 != v41);
-      if (v43 == -1)
+      while (v44 != v45);
+      if (v47 == -1)
       {
-        v28 = v134;
-        v32 = v123;
+        v32 = v145;
+        v36 = v134;
 LABEL_146:
-        v36 = v124;
+        v40 = v135;
 LABEL_147:
-        v48 = v129;
+        v52 = v140;
         goto LABEL_148;
       }
 
-      v28 = v134;
-      v36 = v124;
-      v48 = v129;
-      if (v42 == -1 || !v43 && v42 == *v126)
+      v32 = v145;
+      v40 = v135;
+      v52 = v140;
+      if (v46 == -1 || !v47 && v46 == *v137)
       {
-        v32 = v123;
+        v36 = v134;
         goto LABEL_148;
       }
 
@@ -5484,7 +5486,7 @@ LABEL_147:
       theString1b = theString1a->data;
       if (theString1b)
       {
-        v28 = v134;
+        v32 = v145;
         if (!theArray)
         {
           theArray = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
@@ -5492,131 +5494,131 @@ LABEL_147:
         }
 
         Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-        v178.length = v42 - v43 + 1;
-        v127 = Mutable;
-        v178.location = v43;
-        CFArrayAppendArray(Mutable, theString1b, v178);
-        if ((v42 - v43) <= 0x7FFFFFFFFFFFFFFELL)
+        v189.length = v46 - v47 + 1;
+        v138 = Mutable;
+        v189.location = v47;
+        CFArrayAppendArray(Mutable, theString1b, v189);
+        if ((v46 - v47) <= 0x7FFFFFFFFFFFFFFELL)
         {
-          v50 = v42 - v43 + 2;
+          v54 = v46 - v47 + 2;
           do
           {
-            v51 = CFArrayGetValueAtIndex(theString1b, v43);
-            if (!CFSetContainsValue(theSet, v51))
+            v55 = CFArrayGetValueAtIndex(theString1b, v47);
+            if (!CFSetContainsValue(theSet, v55))
             {
-              CFSetAddValue(theSet, v51);
-              CFArrayAppendValue(theArray, v51);
+              CFSetAddValue(theSet, v55);
+              CFArrayAppendValue(theArray, v55);
             }
 
-            ++v43;
-            --v50;
+            ++v47;
+            --v54;
           }
 
-          while (v50 > 1);
+          while (v54 > 1);
         }
 
-        v52 = v127;
-        v53 = sub_1000E900C(kCFAllocatorDefault, v127, 0);
-        v54 = v121;
-        if (!v121)
+        v56 = v138;
+        v57 = sub_1000E900C(kCFAllocatorDefault, v138, 0);
+        v58 = v132;
+        if (!v132)
         {
-          v54 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-          v52 = v127;
-          v120 = CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks);
+          v58 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+          v56 = v138;
+          v131 = CFSetCreateMutable(kCFAllocatorDefault, 0, &kCFTypeSetCallBacks);
         }
 
-        v121 = v54;
-        v32 = v123;
-        if (!CFSetContainsValue(v120, v53))
+        v132 = v58;
+        v36 = v134;
+        if (!CFSetContainsValue(v131, v57))
         {
-          CFArrayAppendValue(v121, v53);
-          CFSetAddValue(v120, v53);
+          CFArrayAppendValue(v132, v57);
+          CFSetAddValue(v131, v57);
         }
 
         CFRelease(theString1b);
-        CFRelease(v53);
-        CFRelease(v52);
+        CFRelease(v57);
+        CFRelease(v56);
         goto LABEL_146;
       }
 
-      v32 = v123;
-      v48 = v129;
-      v28 = v134;
+      v36 = v134;
+      v52 = v140;
+      v32 = v145;
 LABEL_148:
-      v38 = v48 + 1;
+      v42 = v52 + 1;
     }
 
-    while (v38 != Count);
-    CFRelease(v36);
-    if (v121)
+    while (v42 != Count);
+    CFRelease(v40);
+    if (v132)
     {
       *outPropertyData = sub_1000E84EC;
       *&outPropertyData[8] = sub_1000E80D8;
       *&outPropertyData[16] = sub_1000E7F84;
       *&outPropertyData[24] = sub_1000E7EB8;
       *&outPropertyData[32] = 0uLL;
-      v173 = sub_1000E7E58;
-      v91 = malloc_type_malloc(0x18uLL, 0x20040960023A9uLL);
-      *v91 = v32;
-      v91[1] = v28;
-      v91[2] = 0;
+      v184 = sub_1000E7E58;
+      v102 = malloc_type_malloc(0x18uLL, 0x20040960023A9uLL);
+      *v102 = v36;
+      v102[1] = v32;
+      v102[2] = 0;
+      CFRetain(v36);
       CFRetain(v32);
-      CFRetain(v28);
-      v92 = theArray;
-      v93 = sub_1000E7A44(kCFAllocatorDefault, 0, 0, 0, theArray, v121, 0, 0, outPropertyData, v91);
-      v60 = v93;
-      if (v93)
+      v103 = theArray;
+      v104 = sub_1000E7A44(kCFAllocatorDefault, 0, 0, 0, theArray, v132, 0, 0, outPropertyData, v102);
+      v64 = v104;
+      if (v104)
       {
-        *(v93 + 648) = 1;
+        *(v104 + 648) = 1;
       }
 
       else
       {
-        sub_1000E7E58(v91);
+        sub_1000E7E58(v102);
       }
 
-      v94 = theSet;
-      CFRelease(v121);
-      CFRelease(v120);
+      v105 = theSet;
+      CFRelease(v132);
+      CFRelease(v131);
     }
 
     else
     {
-      v60 = 0;
-      v94 = theSet;
-      v92 = theArray;
+      v64 = 0;
+      v105 = theSet;
+      v103 = theArray;
     }
 
-    CFRelease(v122);
-    if (v92)
+    CFRelease(v133);
+    if (v103)
     {
-      CFRelease(v92);
+      CFRelease(v103);
     }
 
-    if (v94)
+    if (v105)
     {
-      CFRelease(v94);
+      CFRelease(v105);
     }
 
-    CFRelease(v123);
-    if (!v60)
+    CFRelease(v134);
+    if (!v64)
     {
       goto LABEL_184;
     }
 
     *buf = 0;
-    v95 = sub_1000E4150();
+    v106 = sub_1000E4150();
     *&outPropertyData[8] = 1;
     *outPropertyData = buf;
-    if (!v95)
+    if (!v106)
     {
       goto LABEL_180;
     }
 
-    v96 = v95;
-    CFDictionaryApplyFunction(v95, sub_1000E5B88, outPropertyData);
-    CFRelease(v96);
-    v97 = *buf;
+    v107 = v106;
+    CFDictionaryApplyFunction(v106, sub_1000E5B88, outPropertyData);
+    CFRelease(v107);
+    v108 = *buf;
     if (!*buf)
     {
       goto LABEL_180;
@@ -5625,55 +5627,55 @@ LABEL_148:
     MutableCopy = CFSetCreateMutableCopy(kCFAllocatorDefault, 0, *buf);
     if (!MutableCopy)
     {
-      CFRelease(v97);
+      CFRelease(v108);
 LABEL_180:
-      *outPropertyData = v60;
-      v55 = CFSetCreate(kCFAllocatorDefault, outPropertyData, 1, &kCFTypeSetCallBacks);
-      CFRelease(v60);
+      *outPropertyData = v64;
+      v59 = CFSetCreate(kCFAllocatorDefault, outPropertyData, 1, &kCFTypeSetCallBacks);
+      CFRelease(v64);
       goto LABEL_152;
     }
 
-    v55 = MutableCopy;
-    CFSetAddValue(MutableCopy, v60);
-    CFRelease(v97);
-    v56 = 0;
+    v59 = MutableCopy;
+    CFSetAddValue(MutableCopy, v64);
+    CFRelease(v108);
+    v60 = 0;
 LABEL_155:
-    v57 = cf1[0];
+    v61 = cf1[0];
     if (cf1[0])
     {
-      v3 = v132;
-      if (CFEqual(cf1[0], v55))
+      v3 = v143;
+      if (CFEqual(cf1[0], v59))
       {
-        CFRelease(v55);
+        CFRelease(v59);
         v5 = &unk_100106000;
         goto LABEL_177;
       }
 
-      v57 = cf1[0];
+      v61 = cf1[0];
     }
 
     else
     {
-      v3 = v132;
+      v3 = v143;
     }
 
-    v58 = v56 ^ 1;
-    if (v57)
+    v62 = v60 ^ 1;
+    if (v61)
     {
-      v58 = 1;
+      v62 = 1;
     }
 
-    if (v58)
+    if (v62)
     {
       v5 = &unk_100106000;
-      if (v57 && CFSetGetCount(v57) >= 1)
+      if (v61 && CFSetGetCount(v61) >= 1)
       {
-        if (*(&v154 + 1))
+        if (*(&v165 + 1))
         {
           VSCFSetSendDifferences();
         }
 
-        if (v154 && !DWORD2(context))
+        if (v165 && !DWORD2(context))
         {
           VSCFSetSendDifferences();
         }
@@ -5682,30 +5684,30 @@ LABEL_155:
       }
 
 LABEL_172:
-      if (v154)
+      if (v165)
       {
-        CFSetApplyFunction(v55, sub_1000E1350, &context);
+        CFSetApplyFunction(v59, sub_1000E1350, &context);
       }
 
       goto LABEL_174;
     }
 
     v5 = &unk_100106000;
-    if (v160[1])
+    if (v171[1])
     {
       goto LABEL_172;
     }
 
-    DWORD2(context) = sub_1000E22E4(0, 0, &v150, &v160[1]);
+    DWORD2(context) = sub_1000E22E4(0, 0, &v161, &v171[1], v7, v8, v9, v10);
 LABEL_174:
     if (cf1[0])
     {
       CFRelease(cf1[0]);
     }
 
-    cf1[0] = v55;
+    cf1[0] = v59;
 LABEL_177:
-    v59 = DWORD2(context);
+    v63 = DWORD2(context);
     if (DWORD2(context))
     {
       goto LABEL_187;
@@ -5719,36 +5721,36 @@ LABEL_188:
 
     if (*ValueAtIndex)
     {
-      v63 = 0;
+      v67 = 0;
       goto LABEL_203;
     }
 
-    v62 = CFMachPortCreateWithPort(kCFAllocatorDefault, *(ValueAtIndex + 2), nullsub_16, &v148, 0);
-    v63 = v62;
-    a1 = v140;
-    if (!v62)
+    v66 = CFMachPortCreateWithPort(kCFAllocatorDefault, *(ValueAtIndex + 2), nullsub_16, &v159, 0);
+    v67 = v66;
+    a1 = v151;
+    if (!v66)
     {
-      v65 = VSGetLogDefault();
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+      v76 = VSGetLogDefault();
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
       {
         *outPropertyData = 0;
-        _os_log_debug_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEBUG, "couldn't create instance for client port - cancelling\n", outPropertyData, 2u);
+        _os_log_debug_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEBUG, "couldn't create instance for client port - cancelling\n", outPropertyData, 2u);
       }
 
       goto LABEL_209;
     }
 
-    CFMachPortSetInvalidationCallBack(v62, sub_1000E112C);
+    CFMachPortSetInvalidationCallBack(v66, sub_1000E112C);
     if (DWORD2(context))
     {
       goto LABEL_210;
     }
 
-    v64 = (v158)(&v150, cf1[0], cf1[1], BYTE5(inAQ[0]));
-    DWORD2(context) = v64;
-    if (v64)
+    v75 = (v169)(&v161, cf1[0], cf1[1], BYTE5(inAQ[0]));
+    DWORD2(context) = v75;
+    if (v75)
     {
-      syslog(3, "Error %d at %s:%d (%s)\n", v64, "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSRecognitionServer.c", 1011, "couldn't start recognition");
+      syslog(3, "Error %d at %s:%d (%s)\n", v75, "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSRecognitionServer.c", 1011, "couldn't start recognition");
       if (DWORD2(context))
       {
         goto LABEL_210;
@@ -5762,7 +5764,7 @@ LABEL_188:
 
     if (inAQ[1])
     {
-      if (sub_1000EB410() != v162[0])
+      if (sub_1000EB410() != v173[0])
       {
         sub_1000E0748(&context);
       }
@@ -5771,119 +5773,119 @@ LABEL_188:
       {
         sub_1000EB4B4(BYTE6(inAQ[0]));
         sub_1000EB450(1, 3);
-        LOBYTE(v166) = 1;
+        LOBYTE(v177) = 1;
         goto LABEL_240;
       }
     }
 
-    v162[0] = sub_1000EB410();
-    v66 = v151;
+    v173[0] = sub_1000EB410();
+    v77 = v162;
     outBuffer = 0;
     *ioDataSize = 0;
-    v67 = +[VSAudioSession sharedInstance];
-    v68 = 1;
-    [v67 _safeSetCategoryForActivity:1];
+    v78 = +[VSAudioSession sharedInstance];
+    v79 = 1;
+    [v78 _safeSetCategoryForActivity:1];
 
-    *outPropertyData = v66;
+    *outPropertyData = v77;
     *&outPropertyData[8] = xmmword_1000F2CD0;
     *&outPropertyData[24] = xmmword_1000F2CE0;
-    v69 = CFRunLoopGetCurrent();
-    if (!AudioQueueNewInput(outPropertyData, sub_1000E1014, &context, v69, kCFRunLoopCommonModes, 0, ioDataSize))
+    v80 = CFRunLoopGetCurrent();
+    if (!AudioQueueNewInput(outPropertyData, sub_1000E1014, &context, v80, kCFRunLoopCommonModes, 0, ioDataSize))
     {
       inData = 127;
-      v70 = AudioQueueSetProperty(*ioDataSize, 0x73726371u, &inData, 4u);
-      if (v70)
+      v81 = AudioQueueSetProperty(*ioDataSize, 0x73726371u, &inData, 4u);
+      if (v81)
       {
-        v71 = sub_1000E1DA0(v70);
-        v72 = VSGetLogDefault();
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+        v82 = sub_1000E1DA0(v81);
+        v83 = VSGetLogDefault();
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          *&buf[4] = v71;
-          _os_log_error_impl(&_mh_execute_header, v72, OS_LOG_TYPE_ERROR, "error setting SRC quality: %@\n", buf, 0xCu);
+          *&buf[4] = v82;
+          _os_log_error_impl(&_mh_execute_header, v83, OS_LOG_TYPE_ERROR, "error setting SRC quality: %@\n", buf, 0xCu);
         }
 
-        CFRelease(v71);
+        CFRelease(v82);
       }
 
-      v73 = 0;
-      v74 = (*outPropertyData * (*&outPropertyData[16] * 0.05));
+      v84 = 0;
+      v85 = (*outPropertyData * (*&outPropertyData[16] * 0.05));
       do
       {
-        v75 = AudioQueueAllocateBuffer(*ioDataSize, v74, &outBuffer);
-        if (v75)
+        v86 = AudioQueueAllocateBuffer(*ioDataSize, v85, &outBuffer);
+        if (v86)
         {
-          v76 = 1;
+          v87 = 1;
         }
 
         else
         {
-          v76 = outBuffer == 0;
+          v87 = outBuffer == 0;
         }
 
-        if (!v76)
+        if (!v87)
         {
-          v75 = AudioQueueEnqueueBuffer(*ioDataSize, outBuffer, 0, 0);
+          v86 = AudioQueueEnqueueBuffer(*ioDataSize, outBuffer, 0, 0);
         }
 
-        if (v73 > 4)
+        if (v84 > 4)
         {
           break;
         }
 
-        ++v73;
+        ++v84;
       }
 
-      while (!v75);
-      v68 = v75 != 0;
+      while (!v86);
+      v79 = v86 != 0;
     }
 
-    v77 = *ioDataSize;
-    if (*ioDataSize && v68)
+    v88 = *ioDataSize;
+    if (*ioDataSize && v79)
     {
       AudioQueueDispose(*ioDataSize, 1u);
-      v78 = 0;
+      v89 = 0;
     }
 
     else
     {
       pthread_mutex_lock(&stru_1001014B0);
-      v79 = qword_100106590;
+      v90 = qword_100106590;
       if (!qword_100106590)
       {
-        v79 = CFSetCreateMutable(kCFAllocatorDefault, 0, 0);
-        qword_100106590 = v79;
+        v90 = CFSetCreateMutable(kCFAllocatorDefault, 0, 0);
+        qword_100106590 = v90;
       }
 
-      CFSetAddValue(v79, v77);
+      CFSetAddValue(v90, v88);
       pthread_mutex_unlock(&stru_1001014B0);
-      v78 = *ioDataSize;
+      v89 = *ioDataSize;
     }
 
-    a1 = v140;
-    inAQ[1] = v78;
-    v80 = AudioQueueAddPropertyListener(v78, 0x6171726Eu, sub_1000E0FAC, &context);
-    if (v80)
+    a1 = v151;
+    inAQ[1] = v89;
+    v91 = AudioQueueAddPropertyListener(v89, 0x6171726Eu, sub_1000E0FAC, &context);
+    if (v91)
     {
-      v81 = sub_1000E1DA0(v80);
-      v82 = VSGetLogDefault();
-      if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+      v92 = sub_1000E1DA0(v91);
+      v93 = VSGetLogDefault();
+      if (os_log_type_enabled(v93, OS_LOG_TYPE_ERROR))
       {
         *outPropertyData = 138412290;
-        *&outPropertyData[4] = v81;
-        _os_log_error_impl(&_mh_execute_header, v82, OS_LOG_TYPE_ERROR, "couldn't add listener for queue running state (%@)\n", outPropertyData, 0xCu);
+        *&outPropertyData[4] = v92;
+        _os_log_error_impl(&_mh_execute_header, v93, OS_LOG_TYPE_ERROR, "couldn't add listener for queue running state (%@)\n", outPropertyData, 0xCu);
       }
 
-      CFRelease(v81);
+      CFRelease(v92);
     }
 
     if (!inAQ[1])
     {
-      v90 = VSGetLogDefault();
-      if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+      v101 = VSGetLogDefault();
+      if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
       {
         *outPropertyData = 0;
-        _os_log_error_impl(&_mh_execute_header, v90, OS_LOG_TYPE_ERROR, "couldn't create audio queue\n", outPropertyData, 2u);
+        _os_log_error_impl(&_mh_execute_header, v101, OS_LOG_TYPE_ERROR, "couldn't create audio queue\n", outPropertyData, 2u);
       }
 
 LABEL_209:
@@ -5893,7 +5895,7 @@ LABEL_209:
 
     sub_1000EB4B4(BYTE6(inAQ[0]));
     sub_1000EB450(1, 3);
-    LOBYTE(v166) = 1;
+    LOBYTE(v177) = 1;
     AudioQueueStart(inAQ[1], 0);
     AudioQueuePause(inAQ[1]);
     AudioQueueReset(inAQ[1]);
@@ -5903,37 +5905,37 @@ LABEL_240:
       sub_1000DE62C(inAQ[1], 1);
     }
 
-    sub_1000E0820(45, &v166 + 1);
+    sub_1000E0820(45, &v177 + 1);
     if (cf1[1])
     {
       memset(outPropertyData, 0, 40);
-      v83 = VSLogBundleCopyURLForFile();
-      if (v83)
+      v94 = VSLogBundleCopyURLForFile();
+      if (v94)
       {
-        v84 = v83;
+        v95 = v94;
         *buf = 40;
         AudioQueueGetProperty(inAQ[1], 0x61716674u, outPropertyData, buf);
-        ExtAudioFileCreateWithURL(v84, 0x57415645u, outPropertyData, 0, 1u, inExtAudioFile);
-        CFRelease(v84);
+        ExtAudioFileCreateWithURL(v95, 0x57415645u, outPropertyData, 0, 1u, inExtAudioFile);
+        CFRelease(v95);
       }
     }
 
-    if (v162[1])
+    if (v173[1])
     {
-      v85 = CFArrayGetCount(v162[1]);
-      if (v85 >= 1)
+      v96 = CFArrayGetCount(v173[1]);
+      if (v96 >= 1)
       {
-        v86 = v85;
-        for (i = 0; i != v86; ++i)
+        v97 = v96;
+        for (i = 0; i != v97; ++i)
         {
-          v88 = inAQ[1];
-          v89 = CFArrayGetValueAtIndex(v162[1], i);
-          AudioQueueEnqueueBuffer(v88, v89, 0, 0);
+          v99 = inAQ[1];
+          v100 = CFArrayGetValueAtIndex(v173[1], i);
+          AudioQueueEnqueueBuffer(v99, v100, 0, 0);
         }
       }
 
-      CFArrayRemoveAllValues(v162[1]);
-      a1 = v140;
+      CFArrayRemoveAllValues(v173[1]);
+      a1 = v151;
     }
 
 LABEL_250:
@@ -5957,28 +5959,28 @@ LABEL_212:
     }
 
 LABEL_271:
-    sub_1000E090C(&context);
+    sub_1000E090C(&context, v68, v69, v70, v71, v72, v73, v74);
 LABEL_272:
-    while (!v167 && !DWORD2(context))
+    while (!v178 && !DWORD2(context))
     {
-      v99 = BYTE4(inAQ[0]);
+      v110 = BYTE4(inAQ[0]);
       if ((BYTE4(inAQ[0]) != 1 || context != 0) && (BYTE4(inAQ[0]) || context != 1))
       {
         break;
       }
 
       CFRunLoopRunInMode(kCFRunLoopDefaultMode, 1.79769313e308, 1u);
-      if (v99)
+      if (v110)
       {
-        v102 = BYTE4(inAQ[0]) == 0;
+        v113 = BYTE4(inAQ[0]) == 0;
       }
 
       else
       {
-        v102 = 0;
+        v113 = 0;
       }
 
-      if (v102 && context == 0)
+      if (v113 && context == 0)
       {
         goto LABEL_271;
       }
@@ -5994,16 +5996,16 @@ LABEL_272:
       qword_100106480 = 0;
       pthread_mutex_unlock(&stru_100101210);
       sub_1000DE62C(inAQ[1], 0);
-      if (HIDWORD(v166) != -1)
+      if (HIDWORD(v177) != -1)
       {
-        sub_1000E0820(SHIDWORD(v166), 0);
+        sub_1000E0820(SHIDWORD(v177), 0);
       }
     }
 
-    if (v166)
+    if (v177)
     {
       sub_1000EB450(0, 3);
-      LOBYTE(v166) = 0;
+      LOBYTE(v177) = 0;
     }
 
     if (inAudioFile[0])
@@ -6012,18 +6014,18 @@ LABEL_272:
       inAudioFile[0] = 0;
     }
 
-    if (v159)
+    if (v170)
     {
-      v104 = (v159)(&v150);
-      v105 = v104;
-      if (v104)
+      v115 = (v170)(&v161);
+      v116 = v115;
+      if (v115)
       {
-        syslog(3, "Error %d at %s:%d\n", v104, "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSRecognitionServer.c", 1299);
+        syslog(3, "Error %d at %s:%d\n", v115, "/Library/Caches/com.apple.xbs/Sources/VoiceServicesDaemons/Daemon/VSRecognitionServer.c", 1299);
       }
 
       if (!DWORD2(context))
       {
-        DWORD2(context) = v105;
+        DWORD2(context) = v116;
       }
     }
 
@@ -6038,89 +6040,89 @@ LABEL_306:
     pthread_mutex_lock(&stru_100101210);
     v5[141] = 0;
     pthread_mutex_unlock(&stru_100101210);
-    if (v63)
+    if (v67)
     {
-      CFMachPortSetInvalidationCallBack(v63, 0);
-      CFRelease(v63);
+      CFMachPortSetInvalidationCallBack(v67, 0);
+      CFRelease(v67);
     }
 
     if (*ValueAtIndex == 1)
     {
-      setiopolicy_np(0, 1, v146);
+      setiopolicy_np(0, 1, v157);
       setpriority(3, 0, 0);
-      Current = v139;
+      Current = v150;
     }
 
     else
     {
-      Current = v139;
+      Current = v150;
       if (!*ValueAtIndex)
       {
-        v106 = *(ValueAtIndex + 2);
+        v117 = *(ValueAtIndex + 2);
         if (!DWORD2(context) && context == 3)
         {
-          v133 = v3;
-          if (*(&v159 + 1))
+          v144 = v3;
+          if (*(&v170 + 1))
           {
-            v107 = (*(&v159 + 1))(&v150, cf1[0], cf1[1]);
-            v108 = v107;
-            if (v107)
+            v118 = (*(&v170 + 1))(&v161, cf1[0], cf1[1]);
+            v119 = v118;
+            if (v118)
             {
-              v109 = CFArrayGetCount(v107);
-              if (v109 >= 1)
+              v120 = CFArrayGetCount(v118);
+              if (v120 >= 1)
               {
-                v110 = v109;
-                v111 = VSGetLogDefault();
-                if (os_log_type_enabled(v111, OS_LOG_TYPE_DEBUG))
+                v121 = v120;
+                v122 = VSGetLogDefault();
+                if (os_log_type_enabled(v122, OS_LOG_TYPE_DEBUG))
                 {
-                  v112 = VSGetLogDefault();
-                  if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
+                  v123 = VSGetLogDefault();
+                  if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
                   {
                     *outPropertyData = 0;
-                    _os_log_debug_impl(&_mh_execute_header, v112, OS_LOG_TYPE_DEBUG, " \nRecognition results:\n--------------------\n", outPropertyData, 2u);
+                    _os_log_debug_impl(&_mh_execute_header, v123, OS_LOG_TYPE_DEBUG, " \nRecognition results:\n--------------------\n", outPropertyData, 2u);
                   }
 
-                  v176.location = 0;
-                  v176.length = v110;
-                  CFArrayApplyFunction(v108, v176, sub_1000E0F0C, 0);
+                  v187.location = 0;
+                  v187.length = v121;
+                  CFArrayApplyFunction(v119, v187, sub_1000E0F0C, 0);
                 }
 
-                v113 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
-                v177.location = 0;
-                v177.length = v110;
-                CFArrayApplyFunction(v108, v177, sub_1000E0DC8, v113);
-                *outPropertyData = v142;
-                *buf = v113;
-                v114 = CFDictionaryCreate(kCFAllocatorDefault, outPropertyData, buf, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+                v124 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
+                v188.location = 0;
+                v188.length = v121;
+                CFArrayApplyFunction(v119, v188, sub_1000E0DC8, v124);
+                *outPropertyData = v153;
+                *buf = v124;
+                v125 = CFDictionaryCreate(kCFAllocatorDefault, outPropertyData, buf, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
 LABEL_328:
-                if (!sub_1000E1B6C(v106, v143, v114))
+                if (!sub_1000E1B6C(v117, v154, v125))
                 {
-                  v119 = VSGetLogDefault();
-                  if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
+                  v130 = VSGetLogDefault();
+                  if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
                   {
                     *outPropertyData = 136315138;
                     *&outPropertyData[4] = "_SendChoices";
-                    _os_log_error_impl(&_mh_execute_header, v119, OS_LOG_TYPE_ERROR, "%s: error posting client completion notification\n", outPropertyData, 0xCu);
+                    _os_log_error_impl(&_mh_execute_header, v130, OS_LOG_TYPE_ERROR, "%s: error posting client completion notification\n", outPropertyData, 0xCu);
                   }
                 }
 
-                a1 = v140;
-                if (v108)
+                a1 = v151;
+                if (v119)
                 {
-                  CFRelease(v108);
+                  CFRelease(v119);
                 }
 
-                if (v114)
+                if (v125)
                 {
-                  CFRelease(v114);
+                  CFRelease(v125);
                 }
 
-                v3 = v133;
-                if (v113)
+                v3 = v144;
+                if (v124)
                 {
-                  v118 = v113;
+                  v129 = v124;
 LABEL_337:
-                  CFRelease(v118);
+                  CFRelease(v129);
                 }
 
                 goto LABEL_338;
@@ -6130,43 +6132,43 @@ LABEL_337:
 
           else
           {
-            v108 = 0;
+            v119 = 0;
           }
 
-          v113 = 0;
-          v114 = 0;
+          v124 = 0;
+          v125 = 0;
           goto LABEL_328;
         }
 
         *buf = -4001;
-        v115 = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, buf);
-        outBuffer = v115;
-        *ioDataSize = v145;
-        v116 = CFDictionaryCreate(kCFAllocatorDefault, ioDataSize, &outBuffer, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-        CFRelease(v115);
-        if (!sub_1000E1B6C(v106, v144, v116))
+        v126 = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, buf);
+        outBuffer = v126;
+        *ioDataSize = v156;
+        v127 = CFDictionaryCreate(kCFAllocatorDefault, ioDataSize, &outBuffer, 1, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        CFRelease(v126);
+        if (!sub_1000E1B6C(v117, v155, v127))
         {
-          v117 = VSGetLogDefault();
-          if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+          v128 = VSGetLogDefault();
+          if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
           {
             *outPropertyData = 136315138;
             *&outPropertyData[4] = "_SendChoices";
-            _os_log_error_impl(&_mh_execute_header, v117, OS_LOG_TYPE_ERROR, "%s: error posting client error notification\n", outPropertyData, 0xCu);
+            _os_log_error_impl(&_mh_execute_header, v128, OS_LOG_TYPE_ERROR, "%s: error posting client error notification\n", outPropertyData, 0xCu);
           }
         }
 
-        a1 = v140;
-        if (v116)
+        a1 = v151;
+        if (v127)
         {
-          v118 = v116;
+          v129 = v127;
           goto LABEL_337;
         }
 
 LABEL_338:
         v5 = &unk_100106000;
-        if (v160[0])
+        if (v171[0])
         {
-          (v160[0])(&v150);
+          (v171[0])(&v161);
         }
       }
     }
@@ -6177,16 +6179,16 @@ LABEL_338:
     LODWORD(context) = 0;
   }
 
-  while (!v167);
+  while (!v178);
 LABEL_6:
   if (a1)
   {
     CFRunLoopRemoveSource(Current, a1, kCFRunLoopDefaultMode);
   }
 
-  if (*(&v153 + 1))
+  if (*(&v164 + 1))
   {
-    (*(&v153 + 1))(&v150);
+    (*(&v164 + 1))(&v161);
   }
 
   if (cf[0])
@@ -6200,17 +6202,17 @@ LABEL_6:
     cf1[0] = 0;
   }
 
-  if (v160[1])
+  if (v171[1])
   {
-    CFRelease(v160[1]);
-    v160[1] = 0;
+    CFRelease(v171[1]);
+    v171[1] = 0;
   }
 
   sub_1000E0748(&context);
-  if (v162[1])
+  if (v173[1])
   {
-    CFRelease(v162[1]);
-    v162[1] = 0;
+    CFRelease(v173[1]);
+    v173[1] = 0;
   }
 
   if (v3)
@@ -6277,7 +6279,7 @@ void sub_1000E0820(int a1, int *a2)
   }
 }
 
-void sub_1000E090C(uint64_t a1)
+void sub_1000E090C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (!a1 || *a1 || *(a1 + 8))
   {
@@ -6292,64 +6294,64 @@ void sub_1000E090C(uint64_t a1)
     }
 
     mach_absolute_time();
-    v4 = VSGetLogDefault();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v11 = VSGetLogDefault();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       LODWORD(outPropertyData.mSampleTime) = 136315394;
       *(&outPropertyData.mSampleTime + 4) = "_BeginRecognition";
       WORD2(outPropertyData.mHostTime) = 2048;
       *(&outPropertyData.mHostTime + 6) = sub_1000EB510();
-      _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%s: sleeping for %g s\n", &outPropertyData, 0x16u);
+      _os_log_debug_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "%s: sleeping for %g s\n", &outPropertyData, 0x16u);
     }
 
-    v5 = sub_1000EB510();
-    usleep((v5 * 1000000.0));
+    v12 = sub_1000EB510();
+    usleep((v12 * 1000000.0));
     memset(&outPropertyData, 0, sizeof(outPropertyData));
     outPropertyData.mFlags = 2;
     outPropertyData.mHostTime = mach_absolute_time();
-    v6 = AudioQueueStart(*(a1 + 200), &outPropertyData);
+    v13 = AudioQueueStart(*(a1 + 200), &outPropertyData);
     pthread_mutex_lock(&stru_100101210);
     qword_100106480 = *(a1 + 200);
     pthread_mutex_unlock(&stru_100101210);
-    v7 = VSGetLogDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v14 = VSGetLogDefault();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       mach_absolute_time();
       VSAbsoluteTimeToSecond();
       ioDataSize = 136315394;
-      v22 = "_BeginRecognition";
-      v23 = 2048;
-      v24 = v16;
-      _os_log_debug_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "%s: finished starting queue in %g s\n", &ioDataSize, 0x16u);
-      if (v6)
+      v29 = "_BeginRecognition";
+      v30 = 2048;
+      v31 = v23;
+      _os_log_debug_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "%s: finished starting queue in %g s\n", &ioDataSize, 0x16u);
+      if (v13)
       {
         goto LABEL_16;
       }
     }
 
-    else if (v6)
+    else if (v13)
     {
 LABEL_16:
       *(a1 + 8) = -4001;
-      v8 = sub_1000E1DA0(v6);
-      v9 = VSGetLogDefault();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v15 = sub_1000E1DA0(v13);
+      v16 = VSGetLogDefault();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         ioDataSize = 138412290;
-        v22 = v8;
-        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "couldn't start audio queue for recognition (%@)\n", &ioDataSize, 0xCu);
+        v29 = v15;
+        _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "couldn't start audio queue for recognition (%@)\n", &ioDataSize, 0xCu);
       }
 
-      CFRelease(v8);
+      CFRelease(v15);
       goto LABEL_24;
     }
 
-    v17 = VSGetLogDefault();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v24 = VSGetLogDefault();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
       ioDataSize = 136315138;
-      v22 = "_BeginRecognition";
-      _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "%s: starting recognition\n", &ioDataSize, 0xCu);
+      v29 = "_BeginRecognition";
+      _os_log_debug_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "%s: starting recognition\n", &ioDataSize, 0xCu);
     }
 
     *a1 = 1;
@@ -6357,12 +6359,12 @@ LABEL_16:
     goto LABEL_24;
   }
 
-  v2 = VSGetLogDefault();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v9 = VSGetLogDefault();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(outPropertyData.mSampleTime) = 136315138;
     *(&outPropertyData.mSampleTime + 4) = "_BeginRecognition";
-    _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s: starting recognition from file\n", &outPropertyData, 0xCu);
+    _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%s: starting recognition from file\n", &outPropertyData, 0xCu);
   }
 
   *a1 = 1;
@@ -6371,11 +6373,11 @@ LABEL_16:
   ioDataSize = 40;
   if (AudioFileGetProperty(*(a1 + 256), 0x64666D74u, &ioDataSize, &outPropertyData))
   {
-    v3 = VSGetLogDefault();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v10 = VSGetLogDefault();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       LOWORD(ioNumBytes[0]) = 0;
-      _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "couldn't get file format description.\n", ioNumBytes, 2u);
+      _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "couldn't get file format description.\n", ioNumBytes, 2u);
     }
 
     *a1 = 3;
@@ -6385,18 +6387,18 @@ LABEL_16:
 
   ioNumPackets = 400;
   ioNumBytes[0] = 400 * LODWORD(outPropertyData.mRateScalar);
-  v18 = 0;
-  v10 = malloc_type_malloc((400 * LODWORD(outPropertyData.mRateScalar)), 0x8E1F4C05uLL);
-  if (!v10)
+  v25 = 0;
+  v17 = malloc_type_malloc((400 * LODWORD(outPropertyData.mRateScalar)), 0x8E1F4C05uLL);
+  if (!v17)
   {
     *a1 = 3;
     goto LABEL_23;
   }
 
-  v11 = v10;
+  v18 = v17;
   if (!*(a1 + 8))
   {
-    v13 = 0;
+    v20 = 0;
     do
     {
       if (*a1 == 3)
@@ -6404,18 +6406,18 @@ LABEL_16:
         break;
       }
 
-      if (AudioFileReadPacketData(*(a1 + 256), 0, ioNumBytes, 0, v13, &ioNumPackets, v11))
+      if (AudioFileReadPacketData(*(a1 + 256), 0, ioNumBytes, 0, v20, &ioNumPackets, v18))
       {
         *(a1 + 8) = -4001;
         break;
       }
 
-      v14 = ioNumPackets;
+      v21 = ioNumPackets;
       if (ioNumPackets)
       {
-        v15 = (*(a1 + 152))(a1 + 16, v11, ioNumPackets, LODWORD(outPropertyData.mRateScalar), &v18);
-        *(a1 + 8) = v15;
-        if (v18 == 1)
+        v22 = (*(a1 + 152))(a1 + 16, v18, ioNumPackets, LODWORD(outPropertyData.mRateScalar), &v25);
+        *(a1 + 8) = v22;
+        if (v25 == 1)
         {
           *a1 = 3;
         }
@@ -6428,29 +6430,29 @@ LABEL_16:
 
       else
       {
-        v15 = *(a1 + 8);
+        v22 = *(a1 + 8);
       }
 
       *a1 = 3;
 LABEL_38:
-      v13 += v14;
+      v20 += v21;
     }
 
-    while (!v15);
+    while (!v22);
   }
 
   *a1 = 3;
-  free(v11);
+  free(v18);
 LABEL_23:
   AudioFileClose(*(a1 + 256));
   *(a1 + 256) = 0;
 LABEL_24:
   if (!*(a1 + 8))
   {
-    v12 = *(a1 + 184);
-    if (v12)
+    v19 = *(a1 + 184);
+    if (v19)
     {
-      sub_1000E2224(v12, 1);
+      sub_1000E2224(v19, 1);
     }
   }
 }
@@ -6526,14 +6528,14 @@ LABEL_14:
   CFRelease(DictionaryRepresentation);
 }
 
-void sub_1000E0F0C(uint64_t a1)
+void sub_1000E0F0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = VSGetLogDefault();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v9 = VSGetLogDefault();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v3 = 138412290;
-    v4 = a1;
-    _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%@", &v3, 0xCu);
+    v10 = 138412290;
+    v11 = a1;
+    _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%@", &v10, 0xCu);
   }
 }
 
@@ -6593,14 +6595,14 @@ void sub_1000E1014(uint64_t a1, AudioQueueRef inAQ, AudioQueueBufferRef inBuffer
   }
 }
 
-uint64_t sub_1000E112C(__CFMachPort *a1)
+uint64_t sub_1000E112C(__CFMachPort *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = VSGetLogDefault();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v9 = VSGetLogDefault();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "_RecognitionClientInvalidationCallback";
-    _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "%s: client died - cancelling recognition\n", &v5, 0xCu);
+    v12 = 136315138;
+    v13 = "_RecognitionClientInvalidationCallback";
+    _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "%s: client died - cancelling recognition\n", &v12, 0xCu);
   }
 
   Port = CFMachPortGetPort(a1);
@@ -6983,13 +6985,14 @@ uint64_t sub_1000E1AEC(const void *a1)
   return pthread_mutex_unlock(&stru_100101250);
 }
 
-BOOL sub_1000E1B6C(unsigned int a1, CFStringRef theString, const __CFDictionary *a3)
+BOOL sub_1000E1B6C(uint64_t a1, CFStringRef theString, const __CFDictionary *a3)
 {
   if (!theString)
   {
     return 0;
   }
 
+  v5 = a1;
   Length = CFStringGetLength(theString);
   usedBufLen = Length;
   if (!Length)
@@ -7044,13 +7047,13 @@ BOOL sub_1000E1B6C(unsigned int a1, CFStringRef theString, const __CFDictionary 
     v11 = BinaryXMLData;
     BytePtr = CFDataGetBytePtr(BinaryXMLData);
     v13 = CFDataGetLength(v11);
-    v14 = sub_1000EE154(a1, buffer, BytePtr, v13);
+    v14 = sub_1000EE154(v5, buffer, BytePtr, v13);
     CFRelease(v11);
   }
 
   else
   {
-    v14 = sub_1000EE154(a1, buffer, 0, 0);
+    v14 = sub_1000EE154(v5, buffer, 0, 0);
   }
 
   v8 = v14 == 0;
@@ -7331,18 +7334,18 @@ LABEL_11:
   return pthread_mutex_unlock(&stru_100101290);
 }
 
-uint64_t sub_1000E22E4(const __CFString *a1, const __CFString *a2, void *a3, CFTypeRef *a4)
+uint64_t sub_1000E22E4(const __CFString *a1, const __CFString *a2, void *a3, CFTypeRef *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   cf = 0;
-  v136 = 0;
-  v134 = 0u;
-  v135 = 0u;
-  v7 = *a4;
-  v8 = VSGetLogDefault();
-  if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v140 = 0;
+  v138 = 0u;
+  v139 = 0u;
+  v11 = *a4;
+  v12 = VSGetLogDefault();
+  if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v127 = 0;
-    v130 = 0;
+    v131 = 0;
+    v134 = 0;
     goto LABEL_16;
   }
 
@@ -7351,99 +7354,99 @@ uint64_t sub_1000E22E4(const __CFString *a1, const __CFString *a2, void *a3, CFT
   {
     Length = CFStringGetLength(a1);
     MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, 0x8000100u);
-    v11 = MaximumSizeForEncoding;
+    v15 = MaximumSizeForEncoding;
     *context = MaximumSizeForEncoding;
     if (MaximumSizeForEncoding < 256)
     {
-      v12 = v140;
+      v16 = v144;
     }
 
     else
     {
-      v12 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x2B21A663uLL);
+      v16 = malloc_type_malloc(MaximumSizeForEncoding + 1, 0x2B21A663uLL);
     }
 
-    v148.location = 0;
-    v148.length = Length;
-    CFStringGetBytes(a1, v148, 0x8000100u, 0, 0, v12, v11, context);
-    v12[*context] = 0;
-    v130 = v12;
+    v152.location = 0;
+    v152.length = Length;
+    CFStringGetBytes(a1, v152, 0x8000100u, 0, 0, v16, v15, context);
+    v16[*context] = 0;
+    v134 = v16;
     if (a2)
     {
       goto LABEL_10;
     }
 
 LABEL_7:
-    v127 = 0;
-    v13 = "all";
+    v131 = 0;
+    v17 = "all";
     goto LABEL_14;
   }
 
-  v130 = 0;
-  v12 = "all";
+  v134 = 0;
+  v16 = "all";
   if (!a2)
   {
     goto LABEL_7;
   }
 
 LABEL_10:
-  v14 = CFStringGetLength(a2);
-  v15 = CFStringGetMaximumSizeForEncoding(v14, 0x8000100u);
-  v16 = v15;
-  *context = v15;
-  if (v15 < 256)
+  v18 = CFStringGetLength(a2);
+  v19 = CFStringGetMaximumSizeForEncoding(v18, 0x8000100u);
+  v20 = v19;
+  *context = v19;
+  if (v19 < 256)
   {
-    v13 = v139;
+    v17 = v143;
   }
 
   else
   {
-    v13 = malloc_type_malloc(v15 + 1, 0x65D2CC51uLL);
-    v16 = *context;
+    v17 = malloc_type_malloc(v19 + 1, 0x65D2CC51uLL);
+    v20 = *context;
   }
 
-  v149.location = 0;
-  v149.length = v14;
-  CFStringGetBytes(a2, v149, 0x8000100u, 0, 0, v13, v16, context);
-  v13[*context] = 0;
-  v127 = v13;
+  v153.location = 0;
+  v153.length = v18;
+  CFStringGetBytes(a2, v153, 0x8000100u, 0, 0, v17, v20, context);
+  v17[*context] = 0;
+  v131 = v17;
 LABEL_14:
-  v17 = VSGetLogDefault();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v21 = VSGetLogDefault();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *context = 136315394;
-    *&context[4] = v12;
-    v144 = 2080;
-    *v145 = v13;
-    _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "caching model <%s> class <%s> ...\n", context, 0x16u);
+    *&context[4] = v16;
+    v148 = 2080;
+    *v149 = v17;
+    _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "caching model <%s> class <%s> ...\n", context, 0x16u);
   }
 
 LABEL_16:
   NSPushAutoreleasePool();
   Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  if (v7)
+  if (v11)
   {
-    v19 = sub_1000E9464(kCFAllocatorDefault, v7);
-    if (v19)
+    v23 = sub_1000E9464(kCFAllocatorDefault, v11);
+    if (v23)
     {
-      v20 = v19;
+      v24 = v23;
       *context = 0;
-      pthread_mutex_lock((v19 + 16));
-      if (*(v20 + 80) && CPRecordStoreGetDatabase() && CPSqliteDatabaseStatementForReading())
+      pthread_mutex_lock((v23 + 16));
+      if (*(v24 + 80) && CPRecordStoreGetDatabase() && CPSqliteDatabaseStatementForReading())
       {
         CPSqliteStatementSendResults();
         CPSqliteStatementReset();
       }
 
-      pthread_mutex_unlock((v20 + 16));
-      v21 = *context;
+      pthread_mutex_unlock((v24 + 16));
+      v25 = *context;
       if (*context)
       {
         CFDictionaryApplyFunction(*context, sub_1000E40E4, Mutable);
-        CFRelease(v21);
+        CFRelease(v25);
       }
 
-      CFRelease(v20);
+      CFRelease(v24);
     }
 
     if (a3)
@@ -7452,16 +7455,16 @@ LABEL_16:
     }
 
 LABEL_37:
+    v37 = 0;
     v33 = 0;
-    v29 = 0;
     goto LABEL_218;
   }
 
-  v32 = VSGetLogDefault();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v36 = VSGetLogDefault();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
     *context = 0;
-    _os_log_debug_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "no valid cache found; recaching everything.\n", context, 2u);
+    _os_log_debug_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "no valid cache found; recaching everything.\n", context, 2u);
   }
 
   a1 = 0;
@@ -7474,46 +7477,46 @@ LABEL_26:
   if (!a1)
   {
     theString = a2;
-    v23 = 0;
-    v30 = 0;
-    v24 = 0;
+    v27 = 0;
+    v34 = 0;
+    v28 = 0;
     goto LABEL_56;
   }
 
-  v22 = sub_1000E4E50(a1);
-  if (!v22)
+  v26 = sub_1000E4E50(a1);
+  if (!v26)
   {
     theString = a2;
-    v29 = 0;
-    v36 = 1;
-    v133 = -4006;
+    v33 = 0;
+    v40 = 1;
+    v137 = -4006;
     goto LABEL_77;
   }
 
-  v23 = v22;
-  v24 = sub_1000E8AB8(v22);
-  if (CFDictionaryContainsKey(Mutable, v23))
+  v27 = v26;
+  v28 = sub_1000E8AB8(v26);
+  if (CFDictionaryContainsKey(Mutable, v27))
   {
-    Value = CFDictionaryGetValue(Mutable, v23);
-    data = v23[19].data;
+    Value = CFDictionaryGetValue(Mutable, v27);
+    data = v27[19].data;
     if (data)
     {
-      if ((data)(v23, Value, v23[20].data))
+      if ((data)(v27, Value, v27[20].data))
       {
         theString = a2;
-        v27 = VSGetLogDefault();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+        v31 = VSGetLogDefault();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
         {
-          v97 = v23[16].length;
+          v101 = v27[16].length;
           *context = 136315138;
-          *&context[4] = v97;
-          _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "cache for model <%s> is valid; skipping recache request.\n", context, 0xCu);
+          *&context[4] = v101;
+          _os_log_debug_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "cache for model <%s> is valid; skipping recache request.\n", context, 0xCu);
         }
 
-        LODWORD(v28) = 0;
-        v29 = 0;
-        v30 = 0;
-        v31 = 1;
+        LODWORD(v32) = 0;
+        v33 = 0;
+        v34 = 0;
+        v35 = 1;
         goto LABEL_71;
       }
     }
@@ -7521,24 +7524,24 @@ LABEL_26:
 
   if (!a2)
   {
-    v37 = a3[9];
-    if (v37)
+    v41 = a3[9];
+    if (v41)
     {
-      v37(a3, v23, 1);
-      CFDictionaryRemoveValue(Mutable, v23);
+      v41(a3, v27, 1);
+      CFDictionaryRemoveValue(Mutable, v27);
     }
 
-    v30 = 0;
+    v34 = 0;
     goto LABEL_50;
   }
 
-  v30 = sub_1000E7E18(v23[17].data, a2);
-  if (!v30)
+  v34 = sub_1000E7E18(v27[17].data, a2);
+  if (!v34)
   {
     theString = a2;
-    v31 = 0;
-    v29 = 0;
-    LODWORD(v28) = -4006;
+    v35 = 0;
+    v33 = 0;
+    LODWORD(v32) = -4006;
     goto LABEL_71;
   }
 
@@ -7548,64 +7551,64 @@ LABEL_26:
     goto LABEL_56;
   }
 
-  if (!CFDictionaryContainsKey(Mutable, v23))
+  if (!CFDictionaryContainsKey(Mutable, v27))
   {
 LABEL_50:
     theString = 0;
     goto LABEL_56;
   }
 
-  v34 = a3[8];
+  v38 = a3[8];
   theString = a2;
-  if (v34)
+  if (v38)
   {
-    v35 = v34(a3, v23);
-    if (v35)
+    v39 = v38(a3, v27);
+    if (v39)
     {
-      LODWORD(v28) = v35;
-      v31 = 0;
-      v29 = 0;
+      LODWORD(v32) = v39;
+      v35 = 0;
+      v33 = 0;
 LABEL_71:
-      CFRelease(v23);
+      CFRelease(v27);
       goto LABEL_72;
     }
 
-    CFDictionarySetValue(Mutable, v23, v24);
+    CFDictionarySetValue(Mutable, v27, v28);
   }
 
-  v38 = a3[10];
-  if (v38)
+  v42 = a3[10];
+  if (v42)
   {
-    v38(a3, v23, v30);
+    v42(a3, v27, v34);
   }
 
 LABEL_56:
-  v29 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-  sub_1000E3590(v29);
+  v33 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+  sub_1000E3590(v33);
   if (!a1)
   {
     *context = 0;
-    v44 = sub_1000E4150();
-    v28 = v44;
-    if (v44)
+    v48 = sub_1000E4150();
+    v32 = v48;
+    if (v48)
     {
-      CFDictionaryApplyFunction(v44, sub_1000E5C58, context);
-      CFRelease(v28);
-      v28 = *context;
+      CFDictionaryApplyFunction(v48, sub_1000E5C58, context);
+      CFRelease(v32);
+      v32 = *context;
       if (*context)
       {
-        *&v134 = a3;
-        *(&v134 + 1) = Mutable;
-        *&v135 = 0;
-        *(&v135 + 1) = v7;
-        LOBYTE(v136) = 0;
-        HIDWORD(v136) = 0;
-        CFSetApplyFunction(*context, sub_1000E3E7C, &v134);
-        v31 = v136 == 0;
-        cf = v135;
-        v45 = v28;
-        LODWORD(v28) = HIDWORD(v136);
-        CFRelease(v45);
+        *&v138 = a3;
+        *(&v138 + 1) = Mutable;
+        *&v139 = 0;
+        *(&v139 + 1) = v11;
+        LOBYTE(v140) = 0;
+        HIDWORD(v140) = 0;
+        CFSetApplyFunction(*context, sub_1000E3E7C, &v138);
+        v35 = v140 == 0;
+        cf = v139;
+        v49 = v32;
+        LODWORD(v32) = HIDWORD(v140);
+        CFRelease(v49);
         goto LABEL_70;
       }
     }
@@ -7615,19 +7618,19 @@ LABEL_56:
 
   if (theString)
   {
-    v39 = a3[11];
-    if (v39)
+    v43 = a3[11];
+    if (v43)
     {
-      LODWORD(v28) = v39(a3, v23, v30);
-      if (!v28)
+      LODWORD(v32) = v43(a3, v27, v34);
+      if (!v32)
       {
-        CFDictionarySetValue(Mutable, v23, v24);
-        v40 = a3;
-        v41 = v7;
-        v42 = v23;
-        v43 = v30;
+        CFDictionarySetValue(Mutable, v27, v28);
+        v44 = a3;
+        v45 = v11;
+        v46 = v27;
+        v47 = v34;
 LABEL_67:
-        sub_1000E3624(&cf, v40, v41, v42, v43);
+        sub_1000E3624(&cf, v44, v45, v46, v47);
         goto LABEL_68;
       }
 
@@ -7637,81 +7640,81 @@ LABEL_67:
 
   else
   {
-    v46 = a3[8];
-    if (v46)
+    v50 = a3[8];
+    if (v50)
     {
-      LODWORD(v28) = v46(a3, v23);
-      if (!v28)
+      LODWORD(v32) = v50(a3, v27);
+      if (!v32)
       {
-        CFDictionarySetValue(Mutable, v23, v24);
-        v40 = a3;
-        v41 = v7;
-        v42 = v23;
-        v43 = 0;
+        CFDictionarySetValue(Mutable, v27, v28);
+        v44 = a3;
+        v45 = v11;
+        v46 = v27;
+        v47 = 0;
         goto LABEL_67;
       }
 
 LABEL_68:
-      v31 = 0;
+      v35 = 0;
       goto LABEL_70;
     }
   }
 
-  v31 = 0;
-  LODWORD(v28) = -4009;
+  v35 = 0;
+  LODWORD(v32) = -4009;
 LABEL_70:
   sub_1000E3590(0);
-  if (v23)
+  if (v27)
   {
     goto LABEL_71;
   }
 
 LABEL_72:
-  if (v30)
+  if (v34)
   {
-    CFRelease(v30);
+    CFRelease(v34);
   }
 
-  if (v24)
+  if (v28)
   {
-    CFRelease(v24);
+    CFRelease(v28);
   }
 
-  v133 = v28;
-  v36 = v28 != 0 || v31;
+  v137 = v32;
+  v40 = v32 != 0 || v35;
 LABEL_77:
-  v47 = VSGetLogDefault();
-  if (!os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+  v51 = VSGetLogDefault();
+  if (!os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
   {
     goto LABEL_87;
   }
 
   mach_absolute_time();
-  v48 = VSGetLogDefault();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+  v52 = VSGetLogDefault();
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
   {
     VSAbsoluteTimeToSecond();
-    v84 = "all";
+    v88 = "all";
     *context = 134218754;
-    *&context[4] = v85;
-    v86 = v130;
+    *&context[4] = v89;
+    v90 = v134;
     if (!a1)
     {
-      v86 = "all";
+      v90 = "all";
     }
 
-    v144 = 1024;
+    v148 = 1024;
     if (theString)
     {
-      v84 = v127;
+      v88 = v131;
     }
 
-    *v145 = v133;
-    *&v145[4] = 2080;
-    *&v145[6] = v86;
-    v146 = 2080;
-    v147 = v84;
-    _os_log_debug_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEBUG, "... finished caching model in %g s with error %d <%s> class <%s>\n", context, 0x26u);
+    *v149 = v137;
+    *&v149[4] = 2080;
+    *&v149[6] = v90;
+    v150 = 2080;
+    v151 = v88;
+    _os_log_debug_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEBUG, "... finished caching model in %g s with error %d <%s> class <%s>\n", context, 0x26u);
     if (!a1)
     {
       goto LABEL_83;
@@ -7723,103 +7726,103 @@ LABEL_77:
   if (a1)
   {
 LABEL_80:
-    if (v130 && v130 != v140)
+    if (v134 && v134 != v144)
     {
-      free(v130);
+      free(v134);
     }
   }
 
 LABEL_83:
-  if (theString && v127 && v127 != v139)
+  if (theString && v131 && v131 != v143)
   {
-    free(v127);
+    free(v131);
   }
 
 LABEL_87:
   NSPopAutoreleasePool();
-  if (v36)
+  if (v40)
   {
-    v33 = v133;
+    v37 = v137;
     goto LABEL_218;
   }
 
-  v131 = cf;
-  v49 = a3[4];
+  v135 = cf;
+  v53 = a3[4];
   pthread_once(&stru_100101320, sub_1000E5E40);
-  v50 = qword_1001064E0;
+  v54 = qword_1001064E0;
   url = 0;
   pthread_once(&stru_100101320, sub_1000E5E40);
   if (qword_1001064E0)
   {
-    v51 = VSCopyContentsOfDirectoryAtURL();
-    if (v51)
+    v55 = VSCopyContentsOfDirectoryAtURL();
+    if (v55)
     {
-      v52 = v51;
-      *v120 = v49;
-      v122 = v29;
-      v128 = Mutable;
-      Count = CFArrayGetCount(v51);
+      v56 = v55;
+      *v124 = v53;
+      v126 = v33;
+      v132 = Mutable;
+      Count = CFArrayGetCount(v55);
       if (Count >= 1)
       {
-        v54 = Count;
-        for (i = 0; i != v54; ++i)
+        v58 = Count;
+        for (i = 0; i != v58; ++i)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v52, i);
+          ValueAtIndex = CFArrayGetValueAtIndex(v56, i);
           PathComponent = CFURLCopyLastPathComponent(ValueAtIndex);
           if (PathComponent)
           {
-            v58 = PathComponent;
-            v59 = CFStringGetLength(PathComponent);
-            if (v59 == CFStringGetLength(@"temp.vscache.XXXXX") && CFStringHasPrefix(v58, @"temp.vscache."))
+            v62 = PathComponent;
+            v63 = CFStringGetLength(PathComponent);
+            if (v63 == CFStringGetLength(@"temp.vscache.XXXXX") && CFStringHasPrefix(v62, @"temp.vscache."))
             {
               VSCFURLDeleteDirectoryContents();
               VSDeleteItemAtURL();
             }
 
-            CFRelease(v58);
+            CFRelease(v62);
           }
         }
       }
 
-      CFRelease(v52);
-      Mutable = v128;
-      v29 = v122;
-      v49 = *v120;
+      CFRelease(v56);
+      Mutable = v132;
+      v33 = v126;
+      v53 = *v124;
     }
   }
 
-  if (v50 && VSCreateTemporaryDirectory())
+  if (v54 && VSCreateTemporaryDirectory())
   {
-    v60 = a3[13];
-    v33 = v133;
-    if (v60)
+    v64 = a3[13];
+    v37 = v137;
+    if (v64)
     {
-      v61 = v60(a3, url) == 0;
+      v65 = v64(a3, url) == 0;
     }
 
     else
     {
-      v61 = 1;
+      v65 = 1;
     }
 
-    if (v131 && (v63 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, url, @"KeywordIndex.plist", 0)) != 0)
+    if (v135 && (v67 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, url, @"KeywordIndex.plist", 0)) != 0)
     {
-      v64 = v63;
-      v65 = VSKeywordIndexSaveToURL();
-      v66 = v65 == 0;
-      if (!v65)
+      v68 = v67;
+      v69 = VSKeywordIndexSaveToURL();
+      v70 = v69 == 0;
+      if (!v69)
       {
-        v67 = VSGetLogDefault();
-        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+        v71 = VSGetLogDefault();
+        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
         {
           *context = 136315138;
           *&context[4] = "_SaveEngineToCache";
-          _os_log_error_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "%s: couldn't write keyword index for cache\n", context, 0xCu);
+          _os_log_error_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "%s: couldn't write keyword index for cache\n", context, 0xCu);
         }
       }
 
-      CFRelease(v64);
-      if (!v61)
+      CFRelease(v68);
+      if (!v65)
       {
         goto LABEL_136;
       }
@@ -7827,178 +7830,178 @@ LABEL_87:
 
     else
     {
-      v66 = 1;
-      if (!v61)
+      v70 = 1;
+      if (!v65)
       {
         goto LABEL_136;
       }
     }
 
-    v132 = v66;
-    v68 = *a4;
-    v69 = url;
+    v136 = v70;
+    v72 = *a4;
+    v73 = url;
     if (!*a4)
     {
 LABEL_127:
-      v75 = sub_1000E9464(kCFAllocatorDefault, v69);
-      if (v75)
+      v79 = sub_1000E9464(kCFAllocatorDefault, v73);
+      if (v79)
       {
-        v76 = v75;
+        v80 = v79;
         if (Mutable)
         {
-          CFDictionaryApplyFunction(Mutable, sub_1000E3BA0, v75);
+          CFDictionaryApplyFunction(Mutable, sub_1000E3BA0, v79);
         }
 
-        v124 = a3;
-        v77 = CFGetAllocator(v76);
-        MutableCopy = CFStringCreateMutableCopy(v77, 0, @"DELETE FROM ValueTranslation");
-        pthread_mutex_lock((v76 + 16));
+        v128 = a3;
+        v81 = CFGetAllocator(v80);
+        MutableCopy = CFStringCreateMutableCopy(v81, 0, @"DELETE FROM ValueTranslation");
+        pthread_mutex_lock((v80 + 16));
         if (a1)
         {
-          v79 = CFStringGetLength(a1);
-          v80 = v79 != 0;
-          if (v79)
+          v83 = CFStringGetLength(a1);
+          v84 = v83 != 0;
+          if (v83)
           {
-            v81 = @" model_id = ?";
+            v85 = @" model_id = ?";
           }
 
           else
           {
-            v81 = 0;
+            v85 = 0;
           }
         }
 
         else
         {
-          v80 = 0;
-          v81 = 0;
+          v84 = 0;
+          v85 = 0;
         }
 
-        v129 = Mutable;
+        v133 = Mutable;
         if (theString)
         {
-          v87 = CFStringGetLength(theString);
-          v88 = v87 != 0;
-          if (v87)
+          v91 = CFStringGetLength(theString);
+          v92 = v91 != 0;
+          if (v91)
           {
-            v89 = @" class_id = ?";
+            v93 = @" class_id = ?";
           }
 
           else
           {
-            v89 = 0;
+            v93 = 0;
           }
         }
 
         else
         {
-          v88 = 0;
-          v89 = 0;
+          v92 = 0;
+          v93 = 0;
         }
 
-        if (v80 || v88)
+        if (v84 || v92)
         {
           CFStringAppend(MutableCopy, @" WHERE");
         }
 
-        if (v80)
+        if (v84)
         {
-          CFStringAppend(MutableCopy, v81);
-          if (v88)
+          CFStringAppend(MutableCopy, v85);
+          if (v92)
           {
             CFStringAppend(MutableCopy, @" AND");
 LABEL_155:
-            CFStringAppend(MutableCopy, v89);
+            CFStringAppend(MutableCopy, v93);
           }
         }
 
-        else if (v88)
+        else if (v92)
         {
           goto LABEL_155;
         }
 
-        v33 = v133;
-        if (*(v76 + 80))
+        v37 = v137;
+        if (*(v80 + 80))
         {
           if (CPRecordStoreGetDatabase())
           {
-            v90 = CPSqliteDatabaseStatementForWriting();
-            if (v90)
+            v94 = CPSqliteDatabaseStatementForWriting();
+            if (v94)
             {
-              v91 = v90;
-              v123 = v29;
-              if (v80)
+              v95 = v94;
+              v127 = v33;
+              if (v84)
               {
-                v92 = CFStringGetLength(a1);
-                v93 = CFStringGetMaximumSizeForEncoding(v92, 0x8000100u);
-                v94 = v93;
-                buffer[0].__pn_.__r_.__value_.__r.__words[0] = v93;
-                if (v93 < 256)
+                v96 = CFStringGetLength(a1);
+                v97 = CFStringGetMaximumSizeForEncoding(v96, 0x8000100u);
+                v98 = v97;
+                buffer[0].__pn_.__r_.__value_.__r.__words[0] = v97;
+                if (v97 < 256)
                 {
-                  v95 = context;
+                  v99 = context;
                 }
 
                 else
                 {
-                  v95 = malloc_type_malloc(v93 + 1, 0x234D24F4uLL);
+                  v99 = malloc_type_malloc(v97 + 1, 0x234D24F4uLL);
                 }
 
-                v150.location = 0;
-                v150.length = v92;
-                CFStringGetBytes(a1, v150, 0x8000100u, 0, 0, v95, v94, buffer);
-                v95[buffer[0].__pn_.__r_.__value_.__r.__words[0]] = 0;
-                sqlite3_bind_text(*(v91 + 8), 1, v95, -1, 0);
-                v96 = 2;
-                v33 = v133;
+                v154.location = 0;
+                v154.length = v96;
+                CFStringGetBytes(a1, v154, 0x8000100u, 0, 0, v99, v98, buffer);
+                v99[buffer[0].__pn_.__r_.__value_.__r.__words[0]] = 0;
+                sqlite3_bind_text(*(v95 + 8), 1, v99, -1, 0);
+                v100 = 2;
+                v37 = v137;
               }
 
               else
               {
-                v95 = 0;
-                v96 = 1;
+                v99 = 0;
+                v100 = 1;
               }
 
-              if (v88)
+              if (v92)
               {
-                v121 = v96;
-                v98 = CFStringGetLength(theString);
-                v99 = CFStringGetMaximumSizeForEncoding(v98, 0x8000100u);
-                v100 = v99;
-                *buf = v99;
-                if (v99 < 256)
+                v125 = v100;
+                v102 = CFStringGetLength(theString);
+                v103 = CFStringGetMaximumSizeForEncoding(v102, 0x8000100u);
+                v104 = v103;
+                *buf = v103;
+                if (v103 < 256)
                 {
-                  v101 = buffer;
+                  v105 = buffer;
                 }
 
                 else
                 {
-                  v101 = malloc_type_malloc(v99 + 1, 0xBA5ACFF0uLL);
+                  v105 = malloc_type_malloc(v103 + 1, 0xBA5ACFF0uLL);
                 }
 
-                v151.location = 0;
-                v151.length = v98;
-                CFStringGetBytes(theString, v151, 0x8000100u, 0, 0, v101, v100, buf);
-                v101->__pn_.__r_.__value_.__s.__data_[*buf] = 0;
-                sqlite3_bind_text(*(v91 + 8), v121, v101, -1, 0);
-                v33 = v133;
+                v155.location = 0;
+                v155.length = v102;
+                CFStringGetBytes(theString, v155, 0x8000100u, 0, 0, v105, v104, buf);
+                v105->__pn_.__r_.__value_.__s.__data_[*buf] = 0;
+                sqlite3_bind_text(*(v95 + 8), v125, v105, -1, 0);
+                v37 = v137;
               }
 
               else
               {
-                v101 = 0;
+                v105 = 0;
               }
 
               CPSqliteStatementPerform();
               CPSqliteStatementReset();
-              if (v80 && v95 && v95 != context)
+              if (v84 && v99 && v99 != context)
               {
-                free(v95);
+                free(v99);
               }
 
-              v29 = v123;
-              if (v88 && v101 && v101 != buffer)
+              v33 = v127;
+              if (v92 && v105 && v105 != buffer)
               {
-                free(v101);
+                free(v105);
               }
             }
           }
@@ -8006,214 +8009,214 @@ LABEL_155:
 
         CPRecordStoreInvalidateCachedInstancesOfClass();
         CFRelease(MutableCopy);
-        pthread_mutex_unlock((v76 + 16));
-        if (v29)
+        pthread_mutex_unlock((v80 + 16));
+        if (v33)
         {
-          CFDictionaryApplyFunction(v29, sub_1000E3A64, v76);
+          CFDictionaryApplyFunction(v33, sub_1000E3A64, v80);
         }
 
-        sub_1000E95D4(v76);
-        CFRelease(v76);
-        v102 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-        CFDictionarySetValue(v102, @"VSLocaleIdentifier", v49);
-        CFDictionarySetValue(v102, @"VSEngineIdentifier", v124[3]);
-        v103 = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, v124 + 5);
-        CFDictionarySetValue(v102, @"VSVersion", v103);
-        CFRelease(v103);
-        v104 = sub_1000E5DF0();
-        Mutable = v129;
-        if (v104)
+        sub_1000E95D4(v80);
+        CFRelease(v80);
+        v106 = CFDictionaryCreateMutable(kCFAllocatorDefault, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+        CFDictionarySetValue(v106, @"VSLocaleIdentifier", v53);
+        CFDictionarySetValue(v106, @"VSEngineIdentifier", v128[3]);
+        v107 = CFNumberCreate(kCFAllocatorDefault, kCFNumberCFIndexType, v128 + 5);
+        CFDictionarySetValue(v106, @"VSVersion", v107);
+        CFRelease(v107);
+        v108 = sub_1000E5DF0();
+        Mutable = v133;
+        if (v108)
         {
-          v105 = v104;
-          CFDictionarySetValue(v102, @"VSPluginVersions", v104);
-          CFRelease(v105);
+          v109 = v108;
+          CFDictionarySetValue(v106, @"VSPluginVersions", v108);
+          CFRelease(v109);
         }
 
         buffer[0].__pn_.__r_.__value_.__r.__words[0] = 0;
-        v106 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, url, @"Info.plist", 0);
-        if (!v106)
+        v110 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, url, @"Info.plist", 0);
+        if (!v110)
         {
           goto LABEL_208;
         }
 
-        v107 = v106;
-        v108 = CFWriteStreamCreateWithFile(kCFAllocatorDefault, v106);
-        if (v108)
+        v111 = v110;
+        v112 = CFWriteStreamCreateWithFile(kCFAllocatorDefault, v110);
+        if (v112)
         {
-          v109 = v108;
-          if (CFWriteStreamOpen(v108))
+          v113 = v112;
+          if (CFWriteStreamOpen(v112))
           {
-            v110 = CFPropertyListWrite(v102, v109, kCFPropertyListBinaryFormat_v1_0, 0, buffer);
-            if (v110 <= 0)
+            v114 = CFPropertyListWrite(v106, v113, kCFPropertyListBinaryFormat_v1_0, 0, buffer);
+            if (v114 <= 0)
             {
-              v111 = VSGetLogDefault();
-              if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
+              v115 = VSGetLogDefault();
+              if (os_log_type_enabled(v115, OS_LOG_TYPE_ERROR))
               {
                 *context = 0;
-                _os_log_error_impl(&_mh_execute_header, v111, OS_LOG_TYPE_ERROR, "error writing model configuration cache Info.plist:\n", context, 2u);
+                _os_log_error_impl(&_mh_execute_header, v115, OS_LOG_TYPE_ERROR, "error writing model configuration cache Info.plist:\n", context, 2u);
               }
 
               if (buffer[0].__pn_.__r_.__value_.__r.__words[0])
               {
-                v112 = VSGetLogDefault();
-                if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
+                v116 = VSGetLogDefault();
+                if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
                 {
                   *context = 138412290;
                   *&context[4] = buffer[0].__pn_.__r_.__value_.__r.__words[0];
-                  _os_log_error_impl(&_mh_execute_header, v112, OS_LOG_TYPE_ERROR, "%@\n", context, 0xCu);
+                  _os_log_error_impl(&_mh_execute_header, v116, OS_LOG_TYPE_ERROR, "%@\n", context, 0xCu);
                 }
               }
             }
 
-            CFWriteStreamClose(v109);
+            CFWriteStreamClose(v113);
             if (buffer[0].__pn_.__r_.__value_.__r.__words[0])
             {
               CFRelease(buffer[0].__pn_.__r_.__value_.__l.__data_);
             }
 
-            CFRelease(v109);
-            CFRelease(v107);
-            v33 = v133;
-            if (v110 >= 1)
+            CFRelease(v113);
+            CFRelease(v111);
+            v37 = v137;
+            if (v114 >= 1)
             {
-              v83 = sub_1000E2150(v124[3]);
-              if (!v83 || !CFURLGetFileSystemRepresentation(url, 1u, buffer, 1024) || !CFURLGetFileSystemRepresentation(v83, 1u, context, 1024))
+              v87 = sub_1000E2150(v128[3]);
+              if (!v87 || !CFURLGetFileSystemRepresentation(url, 1u, buffer, 1024) || !CFURLGetFileSystemRepresentation(v87, 1u, context, 1024))
               {
 LABEL_202:
-                CFRelease(v102);
-                if (!v132)
+                CFRelease(v106);
+                if (!v136)
                 {
                   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
                   CFNotificationCenterPostNotification(DarwinNotifyCenter, kVSKeywordIndexDidChangeNotification, 0, 0, 1u);
                 }
 
-                v116 = v124[14];
-                if (v116)
+                v120 = v128[14];
+                if (v120)
                 {
-                  v116(v124, v83);
+                  v120(v128, v87);
                 }
 
                 goto LABEL_215;
               }
 
               VSCFURLDeleteDirectoryContents();
-              rename(buffer, context, v113);
-              if (!v114)
+              rename(buffer, context, v117);
+              if (!v118)
               {
                 if (*a4)
                 {
                   CFRelease(*a4);
                 }
 
-                *a4 = v83;
-                CFRetain(v83);
+                *a4 = v87;
+                CFRetain(v87);
                 goto LABEL_202;
               }
 
 LABEL_211:
-              CFRelease(v102);
+              CFRelease(v106);
               goto LABEL_212;
             }
 
 LABEL_208:
-            v117 = VSGetLogDefault();
-            if (os_log_type_enabled(v117, OS_LOG_TYPE_ERROR))
+            v121 = VSGetLogDefault();
+            if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
             {
               *context = 136315138;
               *&context[4] = "_SaveEngineToCache";
-              _os_log_error_impl(&_mh_execute_header, v117, OS_LOG_TYPE_ERROR, "%s: error setting info dict on temp cache\n", context, 0xCu);
+              _os_log_error_impl(&_mh_execute_header, v121, OS_LOG_TYPE_ERROR, "%s: error setting info dict on temp cache\n", context, 0xCu);
             }
 
-            v83 = 0;
+            v87 = 0;
             goto LABEL_211;
           }
 
-          CFRelease(v109);
+          CFRelease(v113);
         }
 
-        CFRelease(v107);
+        CFRelease(v111);
         goto LABEL_208;
       }
 
-      v82 = VSGetLogDefault();
-      if (os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
+      v86 = VSGetLogDefault();
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
       {
         *context = 136315138;
         *&context[4] = "_SaveEngineToCache";
-        _os_log_error_impl(&_mh_execute_header, v82, OS_LOG_TYPE_ERROR, "%s: couldn't create manifest for cache\n", context, 0xCu);
+        _os_log_error_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "%s: couldn't create manifest for cache\n", context, 0xCu);
       }
 
 LABEL_136:
-      v83 = 0;
+      v87 = 0;
 LABEL_212:
-      v118 = VSGetLogDefault();
-      if (os_log_type_enabled(v118, OS_LOG_TYPE_ERROR))
+      v122 = VSGetLogDefault();
+      if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
         *&buf[4] = "_SaveEngineToCache";
-        _os_log_error_impl(&_mh_execute_header, v118, OS_LOG_TYPE_ERROR, "%s: couldn't move temp cache into place... deleting\n", buf, 0xCu);
+        _os_log_error_impl(&_mh_execute_header, v122, OS_LOG_TYPE_ERROR, "%s: couldn't move temp cache into place... deleting\n", buf, 0xCu);
       }
 
       VSCFURLDeleteDirectoryContents();
       VSDeleteItemAtURL();
 LABEL_215:
       CFRelease(url);
-      if (v83)
+      if (v87)
       {
-        CFRelease(v83);
+        CFRelease(v87);
       }
 
       sub_1000E2224(0, 0);
       goto LABEL_218;
     }
 
-    v70 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, *a4, @"Manifest.sqlitedb", 0);
-    v71 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v68, @"Manifest.sqlitedb", 0);
-    v72 = v71;
-    if (v70 && v71)
+    v74 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, *a4, @"Manifest.sqlitedb", 0);
+    v75 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v72, @"Manifest.sqlitedb", 0);
+    v76 = v75;
+    if (v74 && v75)
     {
-      if (CFURLGetFileSystemRepresentation(v70, 1u, context, 1024))
+      if (CFURLGetFileSystemRepresentation(v74, 1u, context, 1024))
       {
-        if (CFURLGetFileSystemRepresentation(v72, 1u, buffer, 1024))
+        if (CFURLGetFileSystemRepresentation(v76, 1u, buffer, 1024))
         {
           if (copyfile(context, buffer, 0, 0))
           {
-            v73 = VSGetLogDefault();
-            if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+            v77 = VSGetLogDefault();
+            if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
             {
-              v74 = *__error();
+              v78 = *__error();
               *buf = 67109120;
-              *&buf[4] = v74;
-              _os_log_error_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "err %d copying manifest\n", buf, 8u);
+              *&buf[4] = v78;
+              _os_log_error_impl(&_mh_execute_header, v77, OS_LOG_TYPE_ERROR, "err %d copying manifest\n", buf, 8u);
             }
           }
         }
       }
     }
 
-    else if (!v70)
+    else if (!v74)
     {
       goto LABEL_125;
     }
 
-    CFRelease(v70);
+    CFRelease(v74);
 LABEL_125:
-    v33 = v133;
-    if (v72)
+    v37 = v137;
+    if (v76)
     {
-      CFRelease(v72);
+      CFRelease(v76);
     }
 
     goto LABEL_127;
   }
 
-  v62 = VSGetLogDefault();
-  v33 = v133;
-  if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+  v66 = VSGetLogDefault();
+  v37 = v137;
+  if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
   {
     *context = 136315138;
     *&context[4] = "_SaveEngineToCache";
-    _os_log_error_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "%s: couldn't save cache; no base dir exists or couldn't create temp cache\n", context, 0xCu);
+    _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "%s: couldn't save cache; no base dir exists or couldn't create temp cache\n", context, 0xCu);
   }
 
 LABEL_218:
@@ -8227,12 +8230,12 @@ LABEL_218:
     CFRelease(cf);
   }
 
-  if (v29)
+  if (v33)
   {
-    CFRelease(v29);
+    CFRelease(v33);
   }
 
-  return v33;
+  return v37;
 }
 
 void sub_1000E3590(const void *a1)
@@ -9209,19 +9212,19 @@ const void *sub_1000E4CC4(const void *a1)
 {
   pthread_mutex_lock(&stru_1001012E0);
   v2 = sub_1000E419C();
-  if (v2 && CFDictionaryGetValue(v2, a1) && (v3 = sub_1000E4DB0()) != 0)
+  if (v2 && (v3 = CFDictionaryGetValue(v2, a1)) != 0 && (v4 = sub_1000E4DB0(v3)) != 0)
   {
-    v4 = v3;
-    if (qword_1001064C8 && (Value = CFDictionaryGetValue(qword_1001064C8, v3)) != 0)
+    v5 = v4;
+    if (qword_1001064C8 && (Value = CFDictionaryGetValue(qword_1001064C8, v4)) != 0)
     {
-      v6 = Value;
+      v7 = Value;
       CFRetain(Value);
     }
 
     else
     {
-      v6 = sub_1000E6080(kCFAllocatorDefault, v4);
-      if (v6)
+      v7 = sub_1000E6080(kCFAllocatorDefault, v5);
+      if (v7)
       {
         Mutable = qword_1001064C8;
         if (!qword_1001064C8)
@@ -9230,23 +9233,23 @@ const void *sub_1000E4CC4(const void *a1)
           qword_1001064C8 = Mutable;
         }
 
-        CFDictionarySetValue(Mutable, v4, v6);
+        CFDictionarySetValue(Mutable, v5, v7);
       }
     }
 
-    CFRelease(v4);
+    CFRelease(v5);
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   pthread_mutex_unlock(&stru_1001012E0);
-  return v6;
+  return v7;
 }
 
-CFURLRef sub_1000E4DB0()
+CFURLRef sub_1000E4DB0(uint64_t a1)
 {
   CFStringGetTypeID();
   ValueIfType = VSCFDictionaryGetValueIfType();
@@ -9255,17 +9258,17 @@ CFURLRef sub_1000E4DB0()
     return 0;
   }
 
-  v1 = ValueIfType;
-  v2 = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, @"/System/Library/VoiceServices/PlugIns", kCFURLPOSIXPathStyle, 1u);
-  if (!v2)
+  v2 = ValueIfType;
+  v3 = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, @"/System/Library/VoiceServices/PlugIns", kCFURLPOSIXPathStyle, 1u);
+  if (!v3)
   {
     return 0;
   }
 
-  v3 = v2;
-  v4 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v2, v1, 1u);
-  CFRelease(v3);
-  return v4;
+  v4 = v3;
+  v5 = CFURLCreateCopyAppendingPathComponent(kCFAllocatorDefault, v3, v2, 1u);
+  CFRelease(v4);
+  return v5;
 }
 
 const __CFString *sub_1000E4E50(const void *a1)
@@ -9475,7 +9478,7 @@ LABEL_19:
   CFBooleanGetTypeID();
   CFNumberGetTypeID();
   v122 = 0;
-  valuePtr[0] = 0;
+  *valuePtr = 0;
   v121 = 0;
   v116 = 0;
   ValueIfType = VSCFDictionaryGetValueIfType();
@@ -9756,13 +9759,13 @@ LABEL_50:
       {
 LABEL_91:
         v71 = 0;
-        valuePtr[0] = 0;
+        *valuePtr = 0;
         goto LABEL_92;
       }
     }
 
     CFNumberGetValue(v68, kCFNumberCFIndexType, valuePtr);
-    v71 = valuePtr[0];
+    v71 = *valuePtr;
 LABEL_92:
     if (v107)
     {
@@ -9920,7 +9923,7 @@ LABEL_131:
 
   else
   {
-    valuePtr[0] = 0;
+    *valuePtr = 0;
   }
 
   if (BOOLean)
@@ -9934,7 +9937,7 @@ LABEL_131:
   }
 
   v5 = v109;
-  v8 = sub_1000E7A44(v36, v100, valuePtr[0], v95, v122, v34, v116, v102, &v117, v3);
+  v8 = sub_1000E7A44(v36, v100, *valuePtr, v95, v122, v34, v116, v102, &v117, v3);
   if (v8 && cf)
   {
     v96 = *(v3 + 104);

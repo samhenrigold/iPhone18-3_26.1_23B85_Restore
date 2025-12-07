@@ -10,10 +10,10 @@ void sub_1AFD55360(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void,
   }
 }
 
-uint64_t sub_1AFD55430()
+uint64_t sub_1AFD55430(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_getTupleTypeLayout();
     swift_initStructMetadata();
@@ -23,10 +23,10 @@ uint64_t sub_1AFD55430()
   return result;
 }
 
-uint64_t sub_1AFD55500()
+uint64_t sub_1AFD55500(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_getTupleTypeLayout();
     swift_initStructMetadata();
@@ -39,9 +39,9 @@ uint64_t sub_1AFD55500()
 uint64_t sub_1AFD555D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v11 = *(a5 - 8);
-  v12 = MEMORY[0x1EEE9AC00](a1, a2);
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = v16(v12, v12 + *(*(v15 - 8) + 64), v14);
+  v12 = MEMORY[0x1EEE9AC00](a1);
+  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = v17(v16, v16 + *(*(v15 - 8) + 64), v14, v12);
   if (v8)
   {
     return (*(v11 + 32))(a8, v14, a5);
@@ -50,7 +50,7 @@ uint64_t sub_1AFD555D4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return result;
 }
 
-void (*sub_1AFD556C8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(uint64_t a1, char a2)
+void (*sub_1AFD556C8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(uint64_t **a1, char a2)
 {
   v9 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
@@ -110,20 +110,20 @@ void (*sub_1AFD556C8(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(uint64_t 
   return sub_1AFD558EC;
 }
 
-void sub_1AFD558EC(uint64_t a1, char a2)
+void sub_1AFD558EC(uint64_t **a1, char a2)
 {
   v2 = *a1;
-  v4 = *(*a1 + 32);
-  v3 = *(*a1 + 40);
-  v6 = *(*a1 + 64);
-  v5 = *(*a1 + 72);
-  v7 = *(*a1 + 48);
-  v10 = *(*a1 + 56);
-  v8 = *(*a1 + 24);
+  v4 = (*a1)[4];
+  v3 = (*a1)[5];
+  v6 = (*a1)[8];
+  v5 = (*a1)[9];
+  v7 = (*a1)[6];
+  v10 = (*a1)[7];
+  v8 = (*a1)[3];
   if (a2)
   {
     (*(v4 + 16))(v3, v7, v2[3]);
-    swift_getWitnessTable();
+    swift_getWitnessTable(MEMORY[0x1E69E74F8], v8);
     sub_1AFDFE9F8();
     v9 = *(v4 + 8);
     v9(v3, v8);
@@ -133,7 +133,7 @@ void sub_1AFD558EC(uint64_t a1, char a2)
 
   else
   {
-    swift_getWitnessTable();
+    swift_getWitnessTable(MEMORY[0x1E69E74F8], v2[3]);
     sub_1AFDFE9F8();
     (*(v6 + 8))(v5, v10);
     (*(v4 + 8))(v7, v8);
@@ -148,71 +148,73 @@ void sub_1AFD558EC(uint64_t a1, char a2)
 
 uint64_t sub_1AFD55A94@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X8>)
 {
-  v56 = a1;
-  v57 = a4;
+  v51 = a1;
+  v52 = a4;
   v6 = *(a3 + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v55 = *(TupleTypeMetadata2 - 8);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata2, v8);
-  v54 = &v46 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10, v11);
-  v13 = &v46 - v12;
-  v14 = *(AssociatedTypeWitness - 8);
-  MEMORY[0x1EEE9AC00](v15, v16);
-  v18 = &v46 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v19, v20);
-  v22 = &v46 - v21;
-  v49 = a2;
+  v50 = *(TupleTypeMetadata2 - 8);
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v49 = &v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v41 - v10;
+  v12 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v41 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v41 - v17;
+  v44 = a2;
   swift_getAssociatedConformanceWitness();
-  v23 = sub_1AFDFD998();
-  v24 = *(v23 - 8);
-  v51 = v23;
-  v52 = v24;
-  MEMORY[0x1EEE9AC00](v23, v25);
-  v27 = &v46 - v26;
-  v48 = v4;
-  v50 = v6;
+  v19 = sub_1AFDFD998();
+  v20 = *(v19 - 8);
+  v46 = v19;
+  v47 = v20;
+  MEMORY[0x1EEE9AC00](v19);
+  v22 = &v41 - v21;
+  v43 = v4;
+  v45 = v6;
   sub_1AFDFD848();
   sub_1AFDFD888();
   sub_1AFDFCDC8();
-  v28 = *(v14 + 32);
-  v29 = v13;
-  v28(v13, v22, AssociatedTypeWitness);
-  v30 = TupleTypeMetadata2;
-  v31 = &v13[*(TupleTypeMetadata2 + 48)];
-  v46 = v13;
-  v28(v31, v18, AssociatedTypeWitness);
-  v32 = v28;
-  v33 = v54;
-  v34 = v55;
-  (*(v55 + 16))(v54, v29, v30);
-  v35 = *(v30 + 48);
-  v32(v27, v33, AssociatedTypeWitness);
-  v47 = v32;
-  v36 = *(v14 + 8);
-  v36(&v33[v35], AssociatedTypeWitness);
-  (*(v34 + 32))(v33, v46, v30);
-  v37 = v51;
-  v32(&v27[*(v51 + 36)], &v33[*(v30 + 48)], AssociatedTypeWitness);
-  v36(v33, AssociatedTypeWitness);
-  v38 = v56;
-  v39 = v48;
-  v40 = v49;
+  v23 = *(v12 + 32);
+  v24 = v11;
+  v23(v11, v18, AssociatedTypeWitness);
+  v25 = TupleTypeMetadata2;
+  v26 = &v11[*(TupleTypeMetadata2 + 48)];
+  v41 = v11;
+  v23(v26, v15, AssociatedTypeWitness);
+  v27 = v23;
+  v28 = v49;
+  v29 = v50;
+  (*(v50 + 16))(v49, v24, v25);
+  v30 = *(v25 + 48);
+  v27(v22, v28, AssociatedTypeWitness);
+  v42 = v27;
+  v31 = *(v12 + 8);
+  v31(&v28[v30], AssociatedTypeWitness);
+  (*(v29 + 32))(v28, v41, v25);
+  v32 = v46;
+  v27(&v22[*(v46 + 36)], &v28[*(v25 + 48)], AssociatedTypeWitness);
+  v31(v28, AssociatedTypeWitness);
+  v33 = v51;
+  v34 = v43;
+  v35 = v44;
   sub_1AFDFD858();
-  v41 = v52;
-  (*(v52 + 8))(v27, v37);
-  v42 = sub_1AFDFF248();
-  v43 = v57;
-  (*(*(v40 - 8) + 16))(&v57[*(v42 + 40)], v39, v40);
-  (*(v41 + 16))(v27, v38, v37);
-  v44 = v47;
-  v47(v43, v27, AssociatedTypeWitness);
-  return v44(&v43[*(v42 + 36)], &v27[*(v37 + 36)], AssociatedTypeWitness);
+  v36 = v47;
+  (*(v47 + 8))(v22, v32);
+  v37 = sub_1AFDFF248();
+  v38 = v52;
+  (*(*(v35 - 8) + 16))(&v52[*(v37 + 40)], v34, v35);
+  (*(v36 + 16))(v22, v33, v32);
+  v39 = v42;
+  v42(v38, v22, AssociatedTypeWitness);
+  return v39(&v38[*(v37 + 36)], &v22[*(v32 + 36)], AssociatedTypeWitness);
 }
 
 uint64_t sub_1AFD55F1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v172 = a3;
+  v173 = a3;
   v174 = a3;
   v175 = a3;
   v176 = a3;
@@ -221,139 +223,137 @@ uint64_t sub_1AFD55F1C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   v179 = a3;
   v180 = a3;
   v181 = a3;
-  v182 = a3;
-  v183 = a3;
   TupleTypeMetadata = swift_getTupleTypeMetadata();
   v9 = *(TupleTypeMetadata - 1);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata, v10);
-  v12 = &v151 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x1EEE9AC00](v13, v14);
-  v17 = &v151 - v16;
-  v18 = *(v9 + 16);
-  v156 = a1;
-  v18(&v151 - v16, a1, TupleTypeMetadata, v15);
-  v19 = TupleTypeMetadata[12];
-  v172 = TupleTypeMetadata[16];
-  v173 = v19;
-  v20 = TupleTypeMetadata[20];
-  v170 = TupleTypeMetadata[24];
-  v171 = v20;
-  v21 = TupleTypeMetadata[28];
-  v167 = TupleTypeMetadata[32];
-  v168 = v21;
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v11 = &v149 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = MEMORY[0x1EEE9AC00](v12);
+  v15 = &v149 - v14;
+  v16 = *(v9 + 16);
+  v154 = a1;
+  v16(&v149 - v14, a1, TupleTypeMetadata, v13);
+  v17 = TupleTypeMetadata[12];
+  v170 = TupleTypeMetadata[16];
+  v171 = v17;
+  v18 = TupleTypeMetadata[20];
+  v168 = TupleTypeMetadata[24];
+  v169 = v18;
+  v19 = TupleTypeMetadata[28];
+  v165 = TupleTypeMetadata[32];
+  v166 = v19;
+  v20 = TupleTypeMetadata[36];
+  v163 = TupleTypeMetadata[40];
+  v164 = v20;
+  v162 = TupleTypeMetadata[44];
+  v155 = a2;
+  v153 = v9 + 16;
+  v152 = v16;
+  (v16)(v11, a2, TupleTypeMetadata);
+  v161 = TupleTypeMetadata[12];
+  v160 = TupleTypeMetadata[16];
+  v159 = TupleTypeMetadata[20];
+  v158 = TupleTypeMetadata[24];
+  v157 = TupleTypeMetadata[28];
+  v21 = TupleTypeMetadata[32];
   v22 = TupleTypeMetadata[36];
-  v165 = TupleTypeMetadata[40];
-  v166 = v22;
-  v164 = TupleTypeMetadata[44];
-  v157 = a2;
-  v155 = v9 + 16;
-  v154 = v18;
-  (v18)(v12, a2, TupleTypeMetadata);
-  v163 = TupleTypeMetadata[12];
-  v162 = TupleTypeMetadata[16];
-  v161 = TupleTypeMetadata[20];
-  v160 = TupleTypeMetadata[24];
-  v159 = TupleTypeMetadata[28];
-  v23 = TupleTypeMetadata[32];
-  v24 = TupleTypeMetadata[36];
-  v25 = TupleTypeMetadata[40];
-  v26 = TupleTypeMetadata[44];
-  v158 = a4;
-  LODWORD(v169) = sub_1AFDFCE58();
-  v27 = *(a3 - 8);
-  v28 = *(v27 + 8);
-  v153 = v27 + 8;
-  v28(&v12[v26], a3);
-  v28(&v12[v25], a3);
-  v28(&v12[v24], a3);
-  v28(&v12[v23], a3);
-  v28(&v12[v159], a3);
-  v28(&v12[v160], a3);
-  v28(&v12[v161], a3);
-  v28(&v12[v162], a3);
-  v28(&v163[v12], a3);
-  v163 = v12;
-  v28(v12, a3);
-  v28(&v17[v164], a3);
-  v28(&v17[v165], a3);
-  v28(&v17[v166], a3);
-  v28(&v17[v167], a3);
-  v28(&v17[v168], a3);
-  v28(&v17[v170], a3);
-  v28(&v17[v171], a3);
-  v28(v172 + v17, a3);
-  v28(&v173[v17], a3);
-  v172 = v28;
-  v173 = v17;
-  v28(v17, a3);
-  if ((v169 & 1) != 0
-    && (v29 = v173, v30 = v154, v154(v173, v156, TupleTypeMetadata), v31 = TupleTypeMetadata[12], v32 = TupleTypeMetadata[16], v170 = TupleTypeMetadata[20], v171 = v32, v169 = TupleTypeMetadata[24], v33 = TupleTypeMetadata[28], v166 = v31, v167 = v33, v34 = TupleTypeMetadata[32], v164 = TupleTypeMetadata[36], v165 = v34, v162 = TupleTypeMetadata[40], v161 = TupleTypeMetadata[44], v35 = v163, v30(v163, v157, TupleTypeMetadata), v36 = TupleTypeMetadata[12], v160 = TupleTypeMetadata[16], v159 = TupleTypeMetadata[20], v152 = TupleTypeMetadata[24], v151 = TupleTypeMetadata[28], v37 = TupleTypeMetadata[32], v38 = TupleTypeMetadata[36], v39 = TupleTypeMetadata[40], v40 = TupleTypeMetadata[44], LODWORD(v168) = sub_1AFDFCE58(), v41 = &v35[v40], v42 = v172, v172(v41, a3), v42(&v35[v39], a3), v42(&v35[v38], a3), v42(&v35[v37], a3), v42(&v35[v151], a3), v42(&v35[v152], a3), v42(&v35[v159], a3), v42(&v35[v160], a3), v42(&v35[v36], a3), v42(v35, a3), v42(&v29[v161], a3), v42(&v29[v162], a3), v42(&v29[v164], a3), v42(&v29[v165], a3), v42(&v29[v167], a3), v42(&v29[v169], a3), v42(&v29[v170], a3), v42(&v29[v171], a3), v42(&v29[v166], a3), v42(v29, a3), (v168 & 1) != 0)
-    && (v43 = v173, v44 = v154, v154(v173, v156, TupleTypeMetadata), v45 = TupleTypeMetadata[12], v46 = TupleTypeMetadata[16], v170 = TupleTypeMetadata[20], v171 = v45, v169 = TupleTypeMetadata[24], v167 = TupleTypeMetadata[28], v47 = TupleTypeMetadata[32], v165 = v46, v166 = v47, v164 = TupleTypeMetadata[36], v162 = TupleTypeMetadata[40], v161 = TupleTypeMetadata[44], v48 = v163, v44(v163, v157, TupleTypeMetadata), v160 = TupleTypeMetadata[12], v49 = TupleTypeMetadata[16], v159 = TupleTypeMetadata[20], v152 = TupleTypeMetadata[24], v151 = TupleTypeMetadata[28], v50 = TupleTypeMetadata[32], v51 = TupleTypeMetadata[36], v52 = TupleTypeMetadata[40], v53 = TupleTypeMetadata[44], LODWORD(v168) = sub_1AFDFCE58(), v54 = &v48[v53], v55 = v172, v172(v54, a3), v55(&v48[v52], a3), v55(&v48[v51], a3), v55(&v48[v50], a3), v55(&v48[v151], a3), v55(&v48[v152], a3), v55(&v48[v159], a3), v55(&v48[v49], a3), v55(&v48[v160], a3), v55(v48, a3), v55(&v43[v161], a3), v55(&v43[v162], a3), v55(&v43[v164], a3), v55(&v43[v166], a3), v55(&v43[v167], a3), v55(&v43[v169], a3), v55(&v43[v170], a3), v55(&v43[v165], a3), v55(&v43[v171], a3), v55(v43, a3), (v168 & 1) != 0)
-    && (v56 = v173, v57 = v154, v154(v173, v156, TupleTypeMetadata), v58 = TupleTypeMetadata[12], v170 = TupleTypeMetadata[16], v171 = v58, v59 = TupleTypeMetadata[20], v169 = TupleTypeMetadata[24], v167 = TupleTypeMetadata[28], v60 = TupleTypeMetadata[32], v165 = v59, v166 = v60, v164 = TupleTypeMetadata[36], v162 = TupleTypeMetadata[40], v161 = TupleTypeMetadata[44], v61 = v163, v57(v163, v157, TupleTypeMetadata), v160 = TupleTypeMetadata[12], v159 = TupleTypeMetadata[16], v62 = TupleTypeMetadata[20], v152 = TupleTypeMetadata[24], v151 = TupleTypeMetadata[28], v63 = TupleTypeMetadata[32], v64 = TupleTypeMetadata[36], v65 = TupleTypeMetadata[40], v66 = TupleTypeMetadata[44], LODWORD(v168) = sub_1AFDFCE58(), v67 = &v61[v66], v68 = v172, v172(v67, a3), v68(&v61[v65], a3), v68(&v61[v64], a3), v68(&v61[v63], a3), v68(&v61[v151], a3), v68(&v61[v152], a3), v68(&v61[v62], a3), v68(&v61[v159], a3), v68(&v61[v160], a3), v68(v61, a3), v68(&v56[v161], a3), v68(&v56[v162], a3), v68(&v56[v164], a3), v68(&v56[v166], a3), v68(&v56[v167], a3), v68(&v56[v169], a3), v68(&v56[v165], a3), v68(&v56[v170], a3), v68(&v56[v171], a3), v68(v56, a3), (v168 & 1) != 0)
-    && (v69 = v173, v70 = v154, v154(v173, v156, TupleTypeMetadata), v71 = TupleTypeMetadata[12], v170 = TupleTypeMetadata[16], v171 = v71, v169 = TupleTypeMetadata[20], v72 = TupleTypeMetadata[24], v73 = TupleTypeMetadata[28], v166 = TupleTypeMetadata[32], v167 = v73, v74 = TupleTypeMetadata[36], v164 = v72, v165 = v74, v162 = TupleTypeMetadata[40], v161 = TupleTypeMetadata[44], v75 = v163, v70(v163, v157, TupleTypeMetadata), v160 = TupleTypeMetadata[12], v159 = TupleTypeMetadata[16], v152 = TupleTypeMetadata[20], v76 = TupleTypeMetadata[24], v151 = TupleTypeMetadata[28], v77 = TupleTypeMetadata[32], v78 = TupleTypeMetadata[36], v79 = TupleTypeMetadata[40], v80 = TupleTypeMetadata[44], LODWORD(v168) = sub_1AFDFCE58(), v81 = &v75[v80], v82 = v172, v172(v81, a3), v82(&v75[v79], a3), v82(&v75[v78], a3), v82(&v75[v77], a3), v82(&v75[v151], a3), v82(&v75[v76], a3), v82(&v75[v152], a3), v82(&v75[v159], a3), v82(&v75[v160], a3), v82(v75, a3), v82(&v69[v161], a3), v82(&v69[v162], a3), v82(&v69[v165], a3), v82(&v69[v166], a3), v82(&v69[v167], a3), v82(&v69[v164], a3), v82(&v69[v169], a3), v82(&v69[v170], a3), v82(&v69[v171], a3), v82(v69, a3), (v168 & 1) != 0)
-    && (v83 = v173, v84 = v154, v154(v173, v156, TupleTypeMetadata), v85 = TupleTypeMetadata[12], v170 = TupleTypeMetadata[16], v171 = v85, v86 = TupleTypeMetadata[20], v168 = TupleTypeMetadata[24], v169 = v86, v162 = TupleTypeMetadata[28], v87 = TupleTypeMetadata[32], v165 = TupleTypeMetadata[36], v166 = v87, v164 = TupleTypeMetadata[40], v161 = TupleTypeMetadata[44], v88 = v163, v84(v163, v157, TupleTypeMetadata), v160 = TupleTypeMetadata[12], v159 = TupleTypeMetadata[16], v152 = TupleTypeMetadata[20], v151 = TupleTypeMetadata[24], v89 = TupleTypeMetadata[28], v90 = TupleTypeMetadata[32], v91 = TupleTypeMetadata[36], v92 = TupleTypeMetadata[40], v93 = TupleTypeMetadata[44], LODWORD(v167) = sub_1AFDFCE58(), v94 = &v88[v93], v95 = v172, v172(v94, a3), v95(&v88[v92], a3), v95(&v88[v91], a3), v95(&v88[v90], a3), v95(&v88[v89], a3), v95(&v88[v151], a3), v95(&v88[v152], a3), v95(&v88[v159], a3), v95(&v88[v160], a3), v95(v88, a3), v95(&v83[v161], a3), v95(&v83[v164], a3), v95(&v83[v165], a3), v95(&v83[v166], a3), v95(&v83[v162], a3), v95(&v83[v168], a3), v95(&v83[v169], a3), v95(&v83[v170], a3), v95(&v83[v171], a3), v95(v83, a3), (v167 & 1) != 0)
-    && (v96 = v173, v97 = v154, v154(v173, v156, TupleTypeMetadata), v98 = TupleTypeMetadata[12], v170 = TupleTypeMetadata[16], v171 = v98, v99 = TupleTypeMetadata[20], v168 = TupleTypeMetadata[24], v169 = v99, v166 = TupleTypeMetadata[28], v161 = TupleTypeMetadata[32], v100 = TupleTypeMetadata[36], v164 = TupleTypeMetadata[40], v165 = v100, v162 = TupleTypeMetadata[44], v101 = v163, v97(v163, v157, TupleTypeMetadata), v160 = TupleTypeMetadata[12], v159 = TupleTypeMetadata[16], v152 = TupleTypeMetadata[20], v151 = TupleTypeMetadata[24], v102 = TupleTypeMetadata[28], v103 = TupleTypeMetadata[32], v104 = TupleTypeMetadata[36], v105 = TupleTypeMetadata[40], v106 = TupleTypeMetadata[44], LODWORD(v167) = sub_1AFDFCE58(), v107 = &v101[v106], v108 = v172, v172(v107, a3), v108(&v101[v105], a3), v108(&v101[v104], a3), v108(&v101[v103], a3), v108(&v101[v102], a3), v108(&v101[v151], a3), v108(&v101[v152], a3), v108(&v101[v159], a3), v108(&v101[v160], a3), v108(v101, a3), v108(&v96[v162], a3), v108(&v96[v164], a3), v108(&v96[v165], a3), v108(&v96[v161], a3), v108(&v96[v166], a3), v108(&v96[v168], a3), v108(&v96[v169], a3), v108(&v96[v170], a3), v108(&v96[v171], a3), v108(v96, a3), (v167 & 1) != 0)
-    && (v109 = v173, v110 = v154, v154(v173, v156, TupleTypeMetadata), v111 = TupleTypeMetadata[12], v170 = TupleTypeMetadata[16], v171 = v111, v112 = TupleTypeMetadata[20], v168 = TupleTypeMetadata[24], v169 = v112, v113 = TupleTypeMetadata[28], v165 = TupleTypeMetadata[32], v166 = v113, v161 = TupleTypeMetadata[36], v164 = TupleTypeMetadata[40], v162 = TupleTypeMetadata[44], v114 = v163, v110(v163, v157, TupleTypeMetadata), v160 = TupleTypeMetadata[12], v159 = TupleTypeMetadata[16], v152 = TupleTypeMetadata[20], v151 = TupleTypeMetadata[24], v115 = TupleTypeMetadata[28], v116 = TupleTypeMetadata[32], v117 = TupleTypeMetadata[36], v118 = TupleTypeMetadata[40], v119 = TupleTypeMetadata[44], LODWORD(v167) = sub_1AFDFCE58(), v120 = &v114[v119], v121 = v172, v172(v120, a3), v121(&v114[v118], a3), v121(&v114[v117], a3), v121(&v114[v116], a3), v121(&v114[v115], a3), v121(&v114[v151], a3), v121(&v114[v152], a3), v121(&v114[v159], a3), v121(&v114[v160], a3), v121(v114, a3), v121(&v109[v162], a3), v121(&v109[v164], a3), v121(&v109[v161], a3), v121(&v109[v165], a3), v121(&v109[v166], a3), v121(&v109[v168], a3), v121(&v109[v169], a3), v121(&v109[v170], a3), v121(&v109[v171], a3), v121(v109, a3), (v167 & 1) != 0)
-    && (v122 = v173, v123 = v154, v154(v173, v156, TupleTypeMetadata), v124 = TupleTypeMetadata[12], v170 = TupleTypeMetadata[16], v171 = v124, v125 = TupleTypeMetadata[20], v168 = TupleTypeMetadata[24], v169 = v125, v126 = TupleTypeMetadata[28], v165 = TupleTypeMetadata[32], v166 = v126, v164 = TupleTypeMetadata[36], v161 = TupleTypeMetadata[40], v162 = TupleTypeMetadata[44], v127 = v163, v123(v163, v157, TupleTypeMetadata), v160 = TupleTypeMetadata[12], v159 = TupleTypeMetadata[16], v152 = TupleTypeMetadata[20], v151 = TupleTypeMetadata[24], v128 = TupleTypeMetadata[28], v129 = TupleTypeMetadata[32], v130 = TupleTypeMetadata[36], v131 = TupleTypeMetadata[40], v132 = TupleTypeMetadata[44], LODWORD(v167) = sub_1AFDFCE58(), v133 = &v127[v132], v134 = v172, v172(v133, a3), v134(&v127[v131], a3), v134(&v127[v130], a3), v134(&v127[v129], a3), v134(&v127[v128], a3), v134(&v127[v151], a3), v134(&v127[v152], a3), v134(&v127[v159], a3), v134(&v127[v160], a3), v134(v127, a3), v134(&v122[v162], a3), v134(&v122[v161], a3), v134(&v122[v164], a3), v134(&v122[v165], a3), v134(&v122[v166], a3), v134(&v122[v168], a3), v134(&v122[v169], a3), v134(&v122[v170], a3), v134(&v122[v171], a3), v134(v122, a3), (v167 & 1) != 0))
+  v23 = TupleTypeMetadata[40];
+  v24 = TupleTypeMetadata[44];
+  v156 = a4;
+  LODWORD(v167) = sub_1AFDFCE58();
+  v25 = *(a3 - 8);
+  v26 = *(v25 + 8);
+  v151 = v25 + 8;
+  v26(&v11[v24], a3);
+  v26(&v11[v23], a3);
+  v26(&v11[v22], a3);
+  v26(&v11[v21], a3);
+  v26(&v11[v157], a3);
+  v26(&v11[v158], a3);
+  v26(&v11[v159], a3);
+  v26(&v11[v160], a3);
+  v26(&v161[v11], a3);
+  v161 = v11;
+  v26(v11, a3);
+  v26(&v15[v162], a3);
+  v26(&v15[v163], a3);
+  v26(&v15[v164], a3);
+  v26(&v15[v165], a3);
+  v26(&v15[v166], a3);
+  v26(&v15[v168], a3);
+  v26(&v15[v169], a3);
+  v26(v170 + v15, a3);
+  v26(&v171[v15], a3);
+  v170 = v26;
+  v171 = v15;
+  v26(v15, a3);
+  if ((v167 & 1) != 0
+    && (v27 = v171, v28 = v152, v152(v171, v154, TupleTypeMetadata), v29 = TupleTypeMetadata[12], v30 = TupleTypeMetadata[16], v168 = TupleTypeMetadata[20], v169 = v30, v167 = TupleTypeMetadata[24], v31 = TupleTypeMetadata[28], v164 = v29, v165 = v31, v32 = TupleTypeMetadata[32], v162 = TupleTypeMetadata[36], v163 = v32, v160 = TupleTypeMetadata[40], v159 = TupleTypeMetadata[44], v33 = v161, v28(v161, v155, TupleTypeMetadata), v34 = TupleTypeMetadata[12], v158 = TupleTypeMetadata[16], v157 = TupleTypeMetadata[20], v150 = TupleTypeMetadata[24], v149 = TupleTypeMetadata[28], v35 = TupleTypeMetadata[32], v36 = TupleTypeMetadata[36], v37 = TupleTypeMetadata[40], v38 = TupleTypeMetadata[44], LODWORD(v166) = sub_1AFDFCE58(), v39 = &v33[v38], v40 = v170, v170(v39, a3), v40(&v33[v37], a3), v40(&v33[v36], a3), v40(&v33[v35], a3), v40(&v33[v149], a3), v40(&v33[v150], a3), v40(&v33[v157], a3), v40(&v33[v158], a3), v40(&v33[v34], a3), v40(v33, a3), v40(&v27[v159], a3), v40(&v27[v160], a3), v40(&v27[v162], a3), v40(&v27[v163], a3), v40(&v27[v165], a3), v40(&v27[v167], a3), v40(&v27[v168], a3), v40(&v27[v169], a3), v40(&v27[v164], a3), v40(v27, a3), (v166 & 1) != 0)
+    && (v41 = v171, v42 = v152, v152(v171, v154, TupleTypeMetadata), v43 = TupleTypeMetadata[12], v44 = TupleTypeMetadata[16], v168 = TupleTypeMetadata[20], v169 = v43, v167 = TupleTypeMetadata[24], v165 = TupleTypeMetadata[28], v45 = TupleTypeMetadata[32], v163 = v44, v164 = v45, v162 = TupleTypeMetadata[36], v160 = TupleTypeMetadata[40], v159 = TupleTypeMetadata[44], v46 = v161, v42(v161, v155, TupleTypeMetadata), v158 = TupleTypeMetadata[12], v47 = TupleTypeMetadata[16], v157 = TupleTypeMetadata[20], v150 = TupleTypeMetadata[24], v149 = TupleTypeMetadata[28], v48 = TupleTypeMetadata[32], v49 = TupleTypeMetadata[36], v50 = TupleTypeMetadata[40], v51 = TupleTypeMetadata[44], LODWORD(v166) = sub_1AFDFCE58(), v52 = &v46[v51], v53 = v170, v170(v52, a3), v53(&v46[v50], a3), v53(&v46[v49], a3), v53(&v46[v48], a3), v53(&v46[v149], a3), v53(&v46[v150], a3), v53(&v46[v157], a3), v53(&v46[v47], a3), v53(&v46[v158], a3), v53(v46, a3), v53(&v41[v159], a3), v53(&v41[v160], a3), v53(&v41[v162], a3), v53(&v41[v164], a3), v53(&v41[v165], a3), v53(&v41[v167], a3), v53(&v41[v168], a3), v53(&v41[v163], a3), v53(&v41[v169], a3), v53(v41, a3), (v166 & 1) != 0)
+    && (v54 = v171, v55 = v152, v152(v171, v154, TupleTypeMetadata), v56 = TupleTypeMetadata[12], v168 = TupleTypeMetadata[16], v169 = v56, v57 = TupleTypeMetadata[20], v167 = TupleTypeMetadata[24], v165 = TupleTypeMetadata[28], v58 = TupleTypeMetadata[32], v163 = v57, v164 = v58, v162 = TupleTypeMetadata[36], v160 = TupleTypeMetadata[40], v159 = TupleTypeMetadata[44], v59 = v161, v55(v161, v155, TupleTypeMetadata), v158 = TupleTypeMetadata[12], v157 = TupleTypeMetadata[16], v60 = TupleTypeMetadata[20], v150 = TupleTypeMetadata[24], v149 = TupleTypeMetadata[28], v61 = TupleTypeMetadata[32], v62 = TupleTypeMetadata[36], v63 = TupleTypeMetadata[40], v64 = TupleTypeMetadata[44], LODWORD(v166) = sub_1AFDFCE58(), v65 = &v59[v64], v66 = v170, v170(v65, a3), v66(&v59[v63], a3), v66(&v59[v62], a3), v66(&v59[v61], a3), v66(&v59[v149], a3), v66(&v59[v150], a3), v66(&v59[v60], a3), v66(&v59[v157], a3), v66(&v59[v158], a3), v66(v59, a3), v66(&v54[v159], a3), v66(&v54[v160], a3), v66(&v54[v162], a3), v66(&v54[v164], a3), v66(&v54[v165], a3), v66(&v54[v167], a3), v66(&v54[v163], a3), v66(&v54[v168], a3), v66(&v54[v169], a3), v66(v54, a3), (v166 & 1) != 0)
+    && (v67 = v171, v68 = v152, v152(v171, v154, TupleTypeMetadata), v69 = TupleTypeMetadata[12], v168 = TupleTypeMetadata[16], v169 = v69, v167 = TupleTypeMetadata[20], v70 = TupleTypeMetadata[24], v71 = TupleTypeMetadata[28], v164 = TupleTypeMetadata[32], v165 = v71, v72 = TupleTypeMetadata[36], v162 = v70, v163 = v72, v160 = TupleTypeMetadata[40], v159 = TupleTypeMetadata[44], v73 = v161, v68(v161, v155, TupleTypeMetadata), v158 = TupleTypeMetadata[12], v157 = TupleTypeMetadata[16], v150 = TupleTypeMetadata[20], v74 = TupleTypeMetadata[24], v149 = TupleTypeMetadata[28], v75 = TupleTypeMetadata[32], v76 = TupleTypeMetadata[36], v77 = TupleTypeMetadata[40], v78 = TupleTypeMetadata[44], LODWORD(v166) = sub_1AFDFCE58(), v79 = &v73[v78], v80 = v170, v170(v79, a3), v80(&v73[v77], a3), v80(&v73[v76], a3), v80(&v73[v75], a3), v80(&v73[v149], a3), v80(&v73[v74], a3), v80(&v73[v150], a3), v80(&v73[v157], a3), v80(&v73[v158], a3), v80(v73, a3), v80(&v67[v159], a3), v80(&v67[v160], a3), v80(&v67[v163], a3), v80(&v67[v164], a3), v80(&v67[v165], a3), v80(&v67[v162], a3), v80(&v67[v167], a3), v80(&v67[v168], a3), v80(&v67[v169], a3), v80(v67, a3), (v166 & 1) != 0)
+    && (v81 = v171, v82 = v152, v152(v171, v154, TupleTypeMetadata), v83 = TupleTypeMetadata[12], v168 = TupleTypeMetadata[16], v169 = v83, v84 = TupleTypeMetadata[20], v166 = TupleTypeMetadata[24], v167 = v84, v160 = TupleTypeMetadata[28], v85 = TupleTypeMetadata[32], v163 = TupleTypeMetadata[36], v164 = v85, v162 = TupleTypeMetadata[40], v159 = TupleTypeMetadata[44], v86 = v161, v82(v161, v155, TupleTypeMetadata), v158 = TupleTypeMetadata[12], v157 = TupleTypeMetadata[16], v150 = TupleTypeMetadata[20], v149 = TupleTypeMetadata[24], v87 = TupleTypeMetadata[28], v88 = TupleTypeMetadata[32], v89 = TupleTypeMetadata[36], v90 = TupleTypeMetadata[40], v91 = TupleTypeMetadata[44], LODWORD(v165) = sub_1AFDFCE58(), v92 = &v86[v91], v93 = v170, v170(v92, a3), v93(&v86[v90], a3), v93(&v86[v89], a3), v93(&v86[v88], a3), v93(&v86[v87], a3), v93(&v86[v149], a3), v93(&v86[v150], a3), v93(&v86[v157], a3), v93(&v86[v158], a3), v93(v86, a3), v93(&v81[v159], a3), v93(&v81[v162], a3), v93(&v81[v163], a3), v93(&v81[v164], a3), v93(&v81[v160], a3), v93(&v81[v166], a3), v93(&v81[v167], a3), v93(&v81[v168], a3), v93(&v81[v169], a3), v93(v81, a3), (v165 & 1) != 0)
+    && (v94 = v171, v95 = v152, v152(v171, v154, TupleTypeMetadata), v96 = TupleTypeMetadata[12], v168 = TupleTypeMetadata[16], v169 = v96, v97 = TupleTypeMetadata[20], v166 = TupleTypeMetadata[24], v167 = v97, v164 = TupleTypeMetadata[28], v159 = TupleTypeMetadata[32], v98 = TupleTypeMetadata[36], v162 = TupleTypeMetadata[40], v163 = v98, v160 = TupleTypeMetadata[44], v99 = v161, v95(v161, v155, TupleTypeMetadata), v158 = TupleTypeMetadata[12], v157 = TupleTypeMetadata[16], v150 = TupleTypeMetadata[20], v149 = TupleTypeMetadata[24], v100 = TupleTypeMetadata[28], v101 = TupleTypeMetadata[32], v102 = TupleTypeMetadata[36], v103 = TupleTypeMetadata[40], v104 = TupleTypeMetadata[44], LODWORD(v165) = sub_1AFDFCE58(), v105 = &v99[v104], v106 = v170, v170(v105, a3), v106(&v99[v103], a3), v106(&v99[v102], a3), v106(&v99[v101], a3), v106(&v99[v100], a3), v106(&v99[v149], a3), v106(&v99[v150], a3), v106(&v99[v157], a3), v106(&v99[v158], a3), v106(v99, a3), v106(&v94[v160], a3), v106(&v94[v162], a3), v106(&v94[v163], a3), v106(&v94[v159], a3), v106(&v94[v164], a3), v106(&v94[v166], a3), v106(&v94[v167], a3), v106(&v94[v168], a3), v106(&v94[v169], a3), v106(v94, a3), (v165 & 1) != 0)
+    && (v107 = v171, v108 = v152, v152(v171, v154, TupleTypeMetadata), v109 = TupleTypeMetadata[12], v168 = TupleTypeMetadata[16], v169 = v109, v110 = TupleTypeMetadata[20], v166 = TupleTypeMetadata[24], v167 = v110, v111 = TupleTypeMetadata[28], v163 = TupleTypeMetadata[32], v164 = v111, v159 = TupleTypeMetadata[36], v162 = TupleTypeMetadata[40], v160 = TupleTypeMetadata[44], v112 = v161, v108(v161, v155, TupleTypeMetadata), v158 = TupleTypeMetadata[12], v157 = TupleTypeMetadata[16], v150 = TupleTypeMetadata[20], v149 = TupleTypeMetadata[24], v113 = TupleTypeMetadata[28], v114 = TupleTypeMetadata[32], v115 = TupleTypeMetadata[36], v116 = TupleTypeMetadata[40], v117 = TupleTypeMetadata[44], LODWORD(v165) = sub_1AFDFCE58(), v118 = &v112[v117], v119 = v170, v170(v118, a3), v119(&v112[v116], a3), v119(&v112[v115], a3), v119(&v112[v114], a3), v119(&v112[v113], a3), v119(&v112[v149], a3), v119(&v112[v150], a3), v119(&v112[v157], a3), v119(&v112[v158], a3), v119(v112, a3), v119(&v107[v160], a3), v119(&v107[v162], a3), v119(&v107[v159], a3), v119(&v107[v163], a3), v119(&v107[v164], a3), v119(&v107[v166], a3), v119(&v107[v167], a3), v119(&v107[v168], a3), v119(&v107[v169], a3), v119(v107, a3), (v165 & 1) != 0)
+    && (v120 = v171, v121 = v152, v152(v171, v154, TupleTypeMetadata), v122 = TupleTypeMetadata[12], v168 = TupleTypeMetadata[16], v169 = v122, v123 = TupleTypeMetadata[20], v166 = TupleTypeMetadata[24], v167 = v123, v124 = TupleTypeMetadata[28], v163 = TupleTypeMetadata[32], v164 = v124, v162 = TupleTypeMetadata[36], v159 = TupleTypeMetadata[40], v160 = TupleTypeMetadata[44], v125 = v161, v121(v161, v155, TupleTypeMetadata), v158 = TupleTypeMetadata[12], v157 = TupleTypeMetadata[16], v150 = TupleTypeMetadata[20], v149 = TupleTypeMetadata[24], v126 = TupleTypeMetadata[28], v127 = TupleTypeMetadata[32], v128 = TupleTypeMetadata[36], v129 = TupleTypeMetadata[40], v130 = TupleTypeMetadata[44], LODWORD(v165) = sub_1AFDFCE58(), v131 = &v125[v130], v132 = v170, v170(v131, a3), v132(&v125[v129], a3), v132(&v125[v128], a3), v132(&v125[v127], a3), v132(&v125[v126], a3), v132(&v125[v149], a3), v132(&v125[v150], a3), v132(&v125[v157], a3), v132(&v125[v158], a3), v132(v125, a3), v132(&v120[v160], a3), v132(&v120[v159], a3), v132(&v120[v162], a3), v132(&v120[v163], a3), v132(&v120[v164], a3), v132(&v120[v166], a3), v132(&v120[v167], a3), v132(&v120[v168], a3), v132(&v120[v169], a3), v132(v120, a3), (v165 & 1) != 0))
   {
-    v135 = v173;
-    v136 = v154;
-    v154(v173, v156, TupleTypeMetadata);
-    v137 = TupleTypeMetadata[12];
-    v170 = TupleTypeMetadata[16];
-    v171 = v137;
-    v138 = TupleTypeMetadata[20];
-    v168 = TupleTypeMetadata[24];
-    v169 = v138;
-    v139 = TupleTypeMetadata[28];
-    v166 = TupleTypeMetadata[32];
-    v167 = v139;
-    v140 = TupleTypeMetadata[36];
-    v164 = TupleTypeMetadata[40];
-    v165 = v140;
-    v161 = TupleTypeMetadata[44];
-    v141 = v163;
-    v136(v163, v157, TupleTypeMetadata);
-    v162 = TupleTypeMetadata[12];
-    v160 = TupleTypeMetadata[16];
-    v159 = TupleTypeMetadata[20];
-    v157 = TupleTypeMetadata[24];
-    v142 = TupleTypeMetadata[28];
-    v143 = TupleTypeMetadata[32];
-    v144 = TupleTypeMetadata[36];
-    v145 = TupleTypeMetadata[40];
-    v146 = TupleTypeMetadata[44];
-    v147 = sub_1AFDFCE58();
-    v148 = &v141[v146];
-    v149 = v172;
-    v172(v148, a3);
-    v149(&v141[v145], a3);
-    v149(&v141[v144], a3);
-    v149(&v141[v143], a3);
-    v149(&v141[v142], a3);
-    v149(&v141[v157], a3);
-    v149(&v141[v159], a3);
-    v149(&v141[v160], a3);
-    v149(&v141[v162], a3);
-    v149(v141, a3);
-    v149(&v135[v161], a3);
-    v149(&v135[v164], a3);
-    v149(&v135[v165], a3);
-    v149(&v135[v166], a3);
-    v149(&v135[v167], a3);
-    v149(&v135[v168], a3);
-    v149(&v135[v169], a3);
-    v149(&v135[v170], a3);
-    v149(&v135[v171], a3);
-    v149(v135, a3);
+    v133 = v171;
+    v134 = v152;
+    v152(v171, v154, TupleTypeMetadata);
+    v135 = TupleTypeMetadata[12];
+    v168 = TupleTypeMetadata[16];
+    v169 = v135;
+    v136 = TupleTypeMetadata[20];
+    v166 = TupleTypeMetadata[24];
+    v167 = v136;
+    v137 = TupleTypeMetadata[28];
+    v164 = TupleTypeMetadata[32];
+    v165 = v137;
+    v138 = TupleTypeMetadata[36];
+    v162 = TupleTypeMetadata[40];
+    v163 = v138;
+    v159 = TupleTypeMetadata[44];
+    v139 = v161;
+    v134(v161, v155, TupleTypeMetadata);
+    v160 = TupleTypeMetadata[12];
+    v158 = TupleTypeMetadata[16];
+    v157 = TupleTypeMetadata[20];
+    v155 = TupleTypeMetadata[24];
+    v140 = TupleTypeMetadata[28];
+    v141 = TupleTypeMetadata[32];
+    v142 = TupleTypeMetadata[36];
+    v143 = TupleTypeMetadata[40];
+    v144 = TupleTypeMetadata[44];
+    v145 = sub_1AFDFCE58();
+    v146 = &v139[v144];
+    v147 = v170;
+    v170(v146, a3);
+    v147(&v139[v143], a3);
+    v147(&v139[v142], a3);
+    v147(&v139[v141], a3);
+    v147(&v139[v140], a3);
+    v147(&v139[v155], a3);
+    v147(&v139[v157], a3);
+    v147(&v139[v158], a3);
+    v147(&v139[v160], a3);
+    v147(v139, a3);
+    v147(&v133[v159], a3);
+    v147(&v133[v162], a3);
+    v147(&v133[v163], a3);
+    v147(&v133[v164], a3);
+    v147(&v133[v165], a3);
+    v147(&v133[v166], a3);
+    v147(&v133[v167], a3);
+    v147(&v133[v168], a3);
+    v147(&v133[v169], a3);
+    v147(v133, a3);
   }
 
   else
   {
-    v147 = 0;
+    v145 = 0;
   }
 
-  return v147 & 1;
+  return v145 & 1;
 }
 
 uint64_t sub_1AFD57D30(uint64_t a1, uint64_t *a2, uint64_t a3)
@@ -376,11 +376,11 @@ uint64_t sub_1AFD57D30(uint64_t a1, uint64_t *a2, uint64_t a3)
   return (*(*(v6 - 8) + 8))(a1, v6);
 }
 
-void (*sub_1AFD57E0C(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, uint64_t a2)
+void (*sub_1AFD57E0C(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, char a2)
 {
   v5 = v3;
-  v44 = a2;
-  v46 = *MEMORY[0x1E69E9840];
+  v43 = a2;
+  v45 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -393,7 +393,7 @@ void (*sub_1AFD57E0C(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, uint64_t
   }
 
   v9 = v8;
-  v45 = a1;
+  v44 = a1;
   *a1 = v8;
   v8[8] = v5;
   v10 = *(a3 + 16);
@@ -409,7 +409,7 @@ void (*sub_1AFD57E0C(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, uint64_t
   TupleTypeMetadata = swift_getTupleTypeMetadata();
   v9[10] = TupleTypeMetadata;
   v12 = *(TupleTypeMetadata - 1);
-  v13 = v12[8];
+  v13 = *(v12 + 64);
   if (v7)
   {
     v14 = swift_coroFrameAlloc();
@@ -432,58 +432,58 @@ void (*sub_1AFD57E0C(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, uint64_t
   v19 = *(v17 + 64);
   if (MEMORY[0x1E69E7D08])
   {
-    v43 = swift_coroFrameAlloc();
-    v9[14] = v43;
+    v42 = swift_coroFrameAlloc();
+    v9[14] = v42;
     v20 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v43 = malloc(v19);
-    v9[14] = v43;
+    v42 = malloc(v19);
+    v9[14] = v42;
     v20 = malloc(v19);
   }
 
-  v41 = *v44;
-  v21 = v41;
-  v42 = v20;
+  v40 = *v43;
+  v21 = v40;
+  v41 = v20;
   v9[15] = v20;
   v9[16] = v21;
-  (v12[2])(v16, v5, TupleTypeMetadata);
+  (*(v12 + 16))(v16, v5, TupleTypeMetadata);
   v22 = TupleTypeMetadata[12];
   v23 = TupleTypeMetadata[16];
-  v44 = v12;
+  v43 = v12;
   v24 = TupleTypeMetadata[20];
   v25 = TupleTypeMetadata[28];
-  v37 = TupleTypeMetadata[24];
-  v38 = v25;
+  v36 = TupleTypeMetadata[24];
+  v37 = v25;
   v26 = TupleTypeMetadata[36];
-  v39 = TupleTypeMetadata[32];
-  v40 = v26;
+  v38 = TupleTypeMetadata[32];
+  v39 = v26;
   v27 = *(v18 + 32);
   v27(v14, v16, v10);
   v28 = v14 + v22;
   v29 = v16 + v22;
-  v30 = v42;
+  v30 = v41;
   v27(v28, v29, v10);
   v27(v14 + v23, v16 + v23, v10);
   v27(v14 + v24, v16 + v24, v10);
+  v27(v14 + v36, v16 + v36, v10);
   v27(v14 + v37, v16 + v37, v10);
   v27(v14 + v38, v16 + v38, v10);
-  v27(v14 + v39, v16 + v39, v10);
-  v31 = (v27)(v14 + v40, v16 + v40, v10);
-  MEMORY[0x1EEE9AC00](v31, v32);
-  v36[2] = v10;
-  v36[3] = v41;
-  v33 = v43;
-  sub_1AF6F430C(v14, sub_1AFD62EA8, v36, TupleTypeMetadata, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v34);
+  v31 = (v27)(v14 + v39, v16 + v39, v10);
+  MEMORY[0x1EEE9AC00](v31);
+  v35[2] = v10;
+  v35[3] = v40;
+  v32 = v42;
+  sub_1AF6F430C(v14, sub_1AFD62EA8, v35, TupleTypeMetadata, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v33);
   v9[17] = 0;
-  (v44[1])(v14, TupleTypeMetadata);
-  v27(v30, v33, v10);
+  (v43[1])(v14, TupleTypeMetadata);
+  v27(v30, v32, v10);
   return sub_1AFD581F8;
 }
 
-void sub_1AFD581F8(uint64_t a1, uint64_t a2)
+void sub_1AFD581F8(uint64_t a1, char a2)
 {
   v2 = *a1;
   v3 = *(*a1 + 128);
@@ -492,37 +492,37 @@ void sub_1AFD581F8(uint64_t a1, uint64_t a2)
   v6 = *(*a1 + 104);
   v8 = *(*a1 + 80);
   v7 = *(*a1 + 88);
-  v20 = *(*a1 + 96);
-  v21 = v7;
+  v19 = *(*a1 + 96);
+  v20 = v7;
   v10 = v2[8];
   v9 = v2[9];
   if (a2)
   {
     v11 = (*(v6 + 16))(v4, v5, v2[9]);
-    MEMORY[0x1EEE9AC00](v11, v12);
-    v17 = v9;
-    v18 = v3;
-    v19 = v4;
-    sub_1AFD555D4(v10, sub_1AFD60DD4, v16, v8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v13);
-    v14 = *(v6 + 8);
-    v14(v4, v9);
-    v14(v5, v9);
+    MEMORY[0x1EEE9AC00](v11);
+    v16 = v9;
+    v17 = v3;
+    v18 = v4;
+    sub_1AFD555D4(v10, sub_1AFD60DD4, v15, v8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v12);
+    v13 = *(v6 + 8);
+    v13(v4, v9);
+    v13(v5, v9);
   }
 
   else
   {
-    MEMORY[0x1EEE9AC00](a1, a2);
-    v17 = v9;
-    v18 = v3;
-    v19 = v5;
-    sub_1AFD555D4(v10, sub_1AFD62ED8, v16, v8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v15);
+    MEMORY[0x1EEE9AC00](a1);
+    v16 = v9;
+    v17 = v3;
+    v18 = v5;
+    sub_1AFD555D4(v10, sub_1AFD62ED8, v15, v8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v14);
     (*(v6 + 8))(v5, v9);
   }
 
   free(v5);
   free(v4);
+  free(v19);
   free(v20);
-  free(v21);
   free(v2);
 }
 
@@ -543,9 +543,9 @@ uint64_t (*sub_1AFD583DC(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))()
   return sub_1AF62903C;
 }
 
-uint64_t sub_1AFD584EC()
+uint64_t sub_1AFD584EC(uint64_t a1, uint64_t a2)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(aA_20);
 
   return sub_1AFDFD808();
 }
@@ -569,8 +569,8 @@ uint64_t (*sub_1AFD58594(void *a1, uint64_t *a2, uint64_t a3))()
 
 void (*sub_1AFD5861C(void *a1, uint64_t a2, uint64_t a3))(uint64_t a1)
 {
-  v38 = a2;
-  v40 = *MEMORY[0x1E69E9840];
+  v37 = a2;
+  v39 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -597,7 +597,7 @@ void (*sub_1AFD5861C(void *a1, uint64_t a2, uint64_t a3))(uint64_t a1)
   TupleTypeMetadata = swift_getTupleTypeMetadata();
   v10 = *(TupleTypeMetadata - 1);
   v11 = *(v10 + 64);
-  v39 = a1;
+  v38 = a1;
   if (v5)
   {
     v12 = swift_coroFrameAlloc();
@@ -620,47 +620,47 @@ void (*sub_1AFD5861C(void *a1, uint64_t a2, uint64_t a3))(uint64_t a1)
   v17 = *(v15 + 64);
   if (v5)
   {
-    v36 = swift_coroFrameAlloc();
-    v7[12] = v36;
+    v35 = swift_coroFrameAlloc();
+    v7[12] = v35;
     v18 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v36 = malloc(*(v15 + 64));
-    v7[12] = v36;
+    v35 = malloc(*(v15 + 64));
+    v7[12] = v35;
     v18 = malloc(v17);
   }
 
-  v35 = v18;
+  v34 = v18;
   v7[13] = v18;
-  (*(v10 + 16))(v14, v37, TupleTypeMetadata);
+  (*(v10 + 16))(v14, v36, TupleTypeMetadata);
   v19 = TupleTypeMetadata[12];
-  v37 = v10;
+  v36 = v10;
   v20 = TupleTypeMetadata[16];
   v21 = TupleTypeMetadata[20];
   v22 = TupleTypeMetadata[24];
   v23 = TupleTypeMetadata[32];
-  v32 = TupleTypeMetadata[28];
-  v33 = v23;
-  v34 = TupleTypeMetadata[36];
+  v31 = TupleTypeMetadata[28];
+  v32 = v23;
+  v33 = TupleTypeMetadata[36];
   v24 = *(v16 + 32);
   v24(v12, v14, v8);
   v24(v12 + v19, v14 + v19, v8);
   v24(v12 + v20, v14 + v20, v8);
   v24(v12 + v21, v14 + v21, v8);
   v24(v12 + v22, v14 + v22, v8);
+  v24(v12 + v31, v14 + v31, v8);
   v24(v12 + v32, v14 + v32, v8);
-  v24(v12 + v33, v14 + v33, v8);
-  v25 = (v24)(v12 + v34, v14 + v34, v8);
-  MEMORY[0x1EEE9AC00](v25, v26);
-  v31[2] = v8;
-  v31[3] = v38;
-  v27 = v36;
-  sub_1AF6F430C(v12, sub_1AFD62EA8, v31, TupleTypeMetadata, MEMORY[0x1E69E73E0], v8, MEMORY[0x1E69E7410], v28);
-  v29 = v35;
-  (*(v37 + 8))(v12, TupleTypeMetadata);
-  v24(v29, v27, v8);
+  v25 = (v24)(v12 + v33, v14 + v33, v8);
+  MEMORY[0x1EEE9AC00](v25);
+  v30[2] = v8;
+  v30[3] = v37;
+  v26 = v35;
+  sub_1AF6F430C(v12, sub_1AFD62EA8, v30, TupleTypeMetadata, MEMORY[0x1E69E73E0], v8, MEMORY[0x1E69E7410], v27);
+  v28 = v34;
+  (*(v36 + 8))(v12, TupleTypeMetadata);
+  v24(v28, v26, v8);
   return sub_1AFD589E4;
 }
 
@@ -682,28 +682,28 @@ void sub_1AFD589E4(uint64_t a1)
 
 uint64_t sub_1AFD58A68@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(aQ_22);
 
   return sub_1AFD55A94(a1, a2, WitnessTable, a3);
 }
 
-uint64_t sub_1AFD58AD0()
+uint64_t sub_1AFD58AD0(uint64_t a1)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(aA_20, a1);
 
   return sub_1AFDFD828();
 }
 
-uint64_t sub_1AFD58B3C()
+uint64_t sub_1AFD58B3C(uint64_t a1, uint64_t a2)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(aA_20);
 
   return sub_1AFDFD7F8();
 }
 
 uint64_t sub_1AFD58BF0(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(byte_1AFEAB450, a1);
 
   return MEMORY[0x1EEE698E0](a1, WitnessTable);
 }
@@ -711,402 +711,402 @@ uint64_t sub_1AFD58BF0(uint64_t a1)
 uint64_t sub_1AFD58C5C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v61 = a3;
-  v59 = a1;
-  v76 = *MEMORY[0x1E69E9840];
+  v57 = a3;
+  v55 = a1;
+  v72 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 16);
+  v64 = v6;
+  v65 = v6;
+  v66 = v6;
+  v67 = v6;
   v68 = v6;
   v69 = v6;
   v70 = v6;
   v71 = v6;
-  v72 = v6;
-  v73 = v6;
-  v74 = v6;
-  v75 = v6;
   TupleTypeMetadata = swift_getTupleTypeMetadata();
   v7 = *(TupleTypeMetadata - 8);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata, v8);
-  v55 = &v45 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10, v11);
-  v54 = &v45 - v12;
-  v58 = v6;
-  v13 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v14, v15);
-  v53 = &v45 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getWitnessTable();
-  v17 = sub_1AFDFE468();
-  v46 = *(v17 - 8);
-  v19 = MEMORY[0x1EEE9AC00](v17, v18);
-  v21 = &v45 - v20;
-  v22 = *(*(a2 - 8) + 16);
-  v60 = a2;
-  v22(v21, v4, a2, v19);
-  v23 = 0;
-  v24 = 0;
-  v47 = v17;
-  v25 = *(v17 + 36);
-  v67 = v21;
-  v52 = v25;
-  *&v21[v25] = 0;
-  v51 = *(v7 + 16);
-  v50 = v13 + 32;
-  v56 = v7 + 16;
-  v49 = (v7 + 8);
-  v48 = (v13 + 8);
-  v26 = (v13 + 32);
-  v27 = v58;
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v51 = &v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v50 = &v41 - v10;
+  v54 = v6;
+  v11 = *(v6 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v12);
+  v49 = &v41 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getWitnessTable(byte_1AFEAB450, a2, v13);
+  v15 = sub_1AFDFE468();
+  v42 = *(v15 - 8);
+  v16 = MEMORY[0x1EEE9AC00](v15);
+  v18 = &v41 - v17;
+  v19 = *(*(a2 - 8) + 16);
+  v56 = a2;
+  v19(v18, v4, a2, v16);
+  v20 = 0;
+  v21 = 0;
+  v43 = v15;
+  v22 = *(v15 + 36);
+  v63 = v18;
+  v48 = v22;
+  *&v18[v22] = 0;
+  v47 = *(v7 + 16);
+  v46 = v11 + 32;
+  v52 = v7 + 16;
+  v45 = (v7 + 8);
+  v44 = (v11 + 8);
+  v23 = (v11 + 32);
+  v24 = v54;
   do
   {
-    v65 = v23;
-    v66 = v24;
-    v28 = v54;
-    v29 = TupleTypeMetadata;
-    v51(v54, v67, TupleTypeMetadata);
-    v30 = v29[12];
-    v31 = v29[16];
-    v32 = v29[20];
-    v33 = v29[24];
-    v34 = v29[32];
-    v62 = v29[28];
-    v63 = v34;
-    v64 = v29[36];
-    v35 = *v26;
-    v36 = v55;
-    (*v26)(v55, v28, v27);
-    v35((v36 + v30), &v28[v30], v27);
-    v35((v36 + v31), &v28[v31], v27);
-    v35((v36 + v32), &v28[v32], v27);
-    v35((v36 + v33), &v28[v33], v27);
-    v35((v36 + v62), &v28[v62], v27);
-    v35((v36 + v63), &v28[v63], v27);
-    v37 = (v35)(v36 + v64, &v28[v64], v27);
-    MEMORY[0x1EEE9AC00](v37, v38);
-    v39 = v65;
-    v24 = v66;
-    *(&v45 - 2) = v27;
-    *(&v45 - 1) = v39;
-    v40 = v53;
-    sub_1AF6F430C(v36, sub_1AFD60AE0, (&v45 - 4), v29, MEMORY[0x1E69E73E0], v27, MEMORY[0x1E69E7410], v41);
-    (*v49)(v36, v29);
-    v68 = v39;
-    swift_getWitnessTable();
-    v42 = v52;
-    v43 = v67;
+    v61 = v20;
+    v62 = v21;
+    v25 = v50;
+    v26 = TupleTypeMetadata;
+    v47(v50, v63, TupleTypeMetadata);
+    v27 = v26[12];
+    v28 = v26[16];
+    v29 = v26[20];
+    v30 = v26[24];
+    v31 = v26[32];
+    v58 = v26[28];
+    v59 = v31;
+    v60 = v26[36];
+    v32 = *v23;
+    v33 = v51;
+    (*v23)(v51, v25, v24);
+    v32((v33 + v27), &v25[v27], v24);
+    v32((v33 + v28), &v25[v28], v24);
+    v32((v33 + v29), &v25[v29], v24);
+    v32((v33 + v30), &v25[v30], v24);
+    v32((v33 + v58), &v25[v58], v24);
+    v32((v33 + v59), &v25[v59], v24);
+    v34 = (v32)(v33 + v60, &v25[v60], v24);
+    MEMORY[0x1EEE9AC00](v34);
+    v35 = v61;
+    v21 = v62;
+    *(&v41 - 2) = v24;
+    *(&v41 - 1) = v35;
+    v36 = v49;
+    sub_1AF6F430C(v33, sub_1AFD60AE0, (&v41 - 4), v26, MEMORY[0x1E69E73E0], v24, MEMORY[0x1E69E7410], v37);
+    (*v45)(v33, v26);
+    v64 = v35;
+    swift_getWitnessTable(aA_20, v56);
+    v38 = v48;
+    v39 = v63;
     sub_1AFDFD7F8();
     sub_1AFDFCD08();
-    (*v48)(v40, v27);
-    v23 = *&v43[v42];
+    (*v44)(v36, v24);
+    v20 = *&v39[v38];
   }
 
-  while (v23 != 8);
-  return (*(v46 + 8))(v67, v47);
+  while (v20 != 8);
+  return (*(v42 + 8))(v63, v43);
 }
 
 uint64_t sub_1AFD591E4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v125 = a3;
+  v126 = a3;
   v127 = a3;
   v128 = a3;
   v129 = a3;
   v130 = a3;
   v131 = a3;
   v132 = a3;
-  v133 = a3;
-  v134 = a3;
   TupleTypeMetadata = swift_getTupleTypeMetadata();
   v9 = *(TupleTypeMetadata - 1);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata, v10);
-  v12 = &v108 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x1EEE9AC00](v13, v14);
-  v17 = &v108 - v16;
-  v18 = *(v9 + 16);
-  v113 = a1;
-  v18(&v108 - v16, a1, TupleTypeMetadata, v15);
-  v19 = TupleTypeMetadata[12];
-  v125 = TupleTypeMetadata[16];
-  v126 = v19;
-  v20 = TupleTypeMetadata[20];
-  v123 = TupleTypeMetadata[24];
-  v124 = v20;
-  v21 = TupleTypeMetadata[28];
-  v120 = TupleTypeMetadata[32];
-  v121 = v21;
-  v119 = TupleTypeMetadata[36];
-  v114 = a2;
-  v112 = v9 + 16;
-  v111 = v18;
-  (v18)(v12, a2, TupleTypeMetadata);
-  v22 = TupleTypeMetadata[12];
-  v117 = TupleTypeMetadata[16];
-  v118 = v22;
-  v23 = TupleTypeMetadata[20];
-  v115 = a4;
-  v116 = v23;
-  v24 = TupleTypeMetadata[24];
-  v25 = TupleTypeMetadata[28];
-  v26 = TupleTypeMetadata[32];
-  v27 = TupleTypeMetadata[36];
-  LODWORD(v122) = sub_1AFDFCE58();
-  v28 = *(*(a3 - 8) + 8);
-  v28(&v12[v27], a3);
-  v28(&v12[v26], a3);
-  v28(&v12[v25], a3);
-  v28(&v12[v24], a3);
-  v28(&v12[v116], a3);
-  v28(&v12[v117], a3);
-  v28(&v118[v12], a3);
-  v118 = v12;
-  v28(v12, a3);
-  v28(&v17[v119], a3);
-  v28(&v17[v120], a3);
-  v28(&v17[v121], a3);
-  v28(&v17[v123], a3);
-  v28(&v17[v124], a3);
-  v28(&v17[v125], a3);
-  v28(&v126[v17], a3);
-  v126 = v17;
-  v28(v17, a3);
-  if ((v122 & 1) != 0
-    && (v29 = v126, v30 = v111, v111(v126, v113, TupleTypeMetadata), v31 = TupleTypeMetadata[12], v32 = TupleTypeMetadata[16], v124 = TupleTypeMetadata[20], v125 = v32, v33 = TupleTypeMetadata[24], v122 = v31, v123 = v33, v34 = TupleTypeMetadata[28], v120 = TupleTypeMetadata[32], v121 = v34, v119 = TupleTypeMetadata[36], v35 = v118, v30(v118, v114, TupleTypeMetadata), v36 = TupleTypeMetadata[12], v37 = TupleTypeMetadata[16], v116 = TupleTypeMetadata[20], v117 = v37, v110 = TupleTypeMetadata[24], v109 = TupleTypeMetadata[28], v38 = TupleTypeMetadata[32], v39 = TupleTypeMetadata[36], LOBYTE(v31) = sub_1AFDFCE58(), v28(&v35[v39], a3), v28(&v35[v38], a3), v28(&v35[v109], a3), v28(&v35[v110], a3), v28(&v35[v116], a3), v28(&v35[v117], a3), v28(&v35[v36], a3), v28(v35, a3), v28(&v29[v119], a3), v28(&v29[v120], a3), v28(&v29[v121], a3), v28(&v29[v123], a3), v28(&v29[v124], a3), v28(&v29[v125], a3), v28(&v29[v122], a3), v28(v29, a3), (v31 & 1) != 0)
-    && (v40 = v126, v41 = v111, v111(v126, v113, TupleTypeMetadata), v42 = TupleTypeMetadata[12], v43 = TupleTypeMetadata[16], v124 = TupleTypeMetadata[20], v125 = v42, v123 = TupleTypeMetadata[24], v44 = TupleTypeMetadata[28], v121 = v43, v122 = v44, v45 = TupleTypeMetadata[32], v119 = TupleTypeMetadata[36], v120 = v45, v46 = v118, v41(v118, v114, TupleTypeMetadata), v47 = TupleTypeMetadata[12], v48 = TupleTypeMetadata[16], v116 = TupleTypeMetadata[20], v117 = v47, v110 = TupleTypeMetadata[24], v109 = TupleTypeMetadata[28], v49 = TupleTypeMetadata[32], v50 = TupleTypeMetadata[36], LOBYTE(v43) = sub_1AFDFCE58(), v28(&v46[v50], a3), v28(&v46[v49], a3), v28(&v46[v109], a3), v28(&v46[v110], a3), v28(&v46[v116], a3), v28(&v46[v48], a3), v28(&v46[v117], a3), v28(v46, a3), v28(&v40[v119], a3), v28(&v40[v120], a3), v28(&v40[v122], a3), v28(&v40[v123], a3), v28(&v40[v124], a3), v28(&v40[v121], a3), v28(&v40[v125], a3), v28(v40, a3), (v43 & 1) != 0)
-    && (v51 = v126, v52 = v111, v111(v126, v113, TupleTypeMetadata), v53 = TupleTypeMetadata[12], v124 = TupleTypeMetadata[16], v125 = v53, v54 = TupleTypeMetadata[20], v55 = TupleTypeMetadata[24], v122 = TupleTypeMetadata[28], v123 = v55, v56 = TupleTypeMetadata[32], v120 = v54, v121 = v56, v119 = TupleTypeMetadata[36], v57 = v118, v52(v118, v114, TupleTypeMetadata), v58 = TupleTypeMetadata[12], v116 = TupleTypeMetadata[16], v117 = v58, v59 = TupleTypeMetadata[20], v110 = TupleTypeMetadata[24], v109 = TupleTypeMetadata[28], v60 = TupleTypeMetadata[32], v61 = TupleTypeMetadata[36], LOBYTE(v54) = sub_1AFDFCE58(), v28(&v57[v61], a3), v28(&v57[v60], a3), v28(&v57[v109], a3), v28(&v57[v110], a3), v28(&v57[v59], a3), v28(&v57[v116], a3), v28(&v57[v117], a3), v28(v57, a3), v28(&v51[v119], a3), v28(&v51[v121], a3), v28(&v51[v122], a3), v28(&v51[v123], a3), v28(&v51[v120], a3), v28(&v51[v124], a3), v28(&v51[v125], a3), v28(v51, a3), (v54 & 1) != 0)
-    && (v62 = v126, v63 = v111, v111(v126, v113, TupleTypeMetadata), v64 = TupleTypeMetadata[12], v124 = TupleTypeMetadata[16], v125 = v64, v65 = TupleTypeMetadata[20], v66 = TupleTypeMetadata[24], v122 = TupleTypeMetadata[28], v123 = v65, v121 = TupleTypeMetadata[32], v67 = TupleTypeMetadata[36], v119 = v66, v120 = v67, v68 = v118, v63(v118, v114, TupleTypeMetadata), v69 = TupleTypeMetadata[12], v116 = TupleTypeMetadata[16], v117 = v69, v110 = TupleTypeMetadata[20], v70 = TupleTypeMetadata[24], v109 = TupleTypeMetadata[28], v71 = TupleTypeMetadata[32], v72 = TupleTypeMetadata[36], LOBYTE(v66) = sub_1AFDFCE58(), v28(&v68[v72], a3), v28(&v68[v71], a3), v28(&v68[v109], a3), v28(&v68[v70], a3), v28(&v68[v110], a3), v28(&v68[v116], a3), v28(&v68[v117], a3), v28(v68, a3), v28(&v62[v120], a3), v28(&v62[v121], a3), v28(&v62[v122], a3), v28(&v62[v119], a3), v28(&v62[v123], a3), v28(&v62[v124], a3), v28(&v62[v125], a3), v28(v62, a3), (v66 & 1) != 0)
-    && (v73 = v126, v74 = v111, v111(v126, v113, TupleTypeMetadata), v75 = TupleTypeMetadata[12], v124 = TupleTypeMetadata[16], v125 = v75, v76 = TupleTypeMetadata[20], v122 = TupleTypeMetadata[24], v123 = v76, v77 = TupleTypeMetadata[28], v78 = TupleTypeMetadata[32], v119 = TupleTypeMetadata[36], v120 = v78, v79 = v118, v74(v118, v114, TupleTypeMetadata), v80 = TupleTypeMetadata[12], v116 = TupleTypeMetadata[16], v117 = v80, v110 = TupleTypeMetadata[20], v109 = TupleTypeMetadata[24], v81 = TupleTypeMetadata[28], v82 = TupleTypeMetadata[32], v83 = TupleTypeMetadata[36], LODWORD(v121) = sub_1AFDFCE58(), v28(&v79[v83], a3), v28(&v79[v82], a3), v28(&v79[v81], a3), v28(&v79[v109], a3), v28(&v79[v110], a3), v28(&v79[v116], a3), v28(&v79[v117], a3), v28(v79, a3), v28(&v73[v119], a3), v28(&v73[v120], a3), v28(&v73[v77], a3), v28(&v73[v122], a3), v28(&v73[v123], a3), v28(&v73[v124], a3), v28(&v73[v125], a3), v28(v73, a3), (v121 & 1) != 0)
-    && (v84 = v126, v85 = v111, v111(v126, v113, TupleTypeMetadata), v86 = TupleTypeMetadata[12], v124 = TupleTypeMetadata[16], v125 = v86, v87 = TupleTypeMetadata[20], v122 = TupleTypeMetadata[24], v123 = v87, v88 = TupleTypeMetadata[28], v89 = TupleTypeMetadata[32], v119 = TupleTypeMetadata[36], v120 = v88, v90 = v118, v85(v118, v114, TupleTypeMetadata), v91 = TupleTypeMetadata[12], v116 = TupleTypeMetadata[16], v117 = v91, v110 = TupleTypeMetadata[20], v109 = TupleTypeMetadata[24], v92 = TupleTypeMetadata[28], v93 = TupleTypeMetadata[32], v94 = TupleTypeMetadata[36], LODWORD(v121) = sub_1AFDFCE58(), v28(&v90[v94], a3), v28(&v90[v93], a3), v28(&v90[v92], a3), v28(&v90[v109], a3), v28(&v90[v110], a3), v28(&v90[v116], a3), v28(&v90[v117], a3), v28(v90, a3), v28(&v84[v119], a3), v28(&v84[v89], a3), v28(&v84[v120], a3), v28(&v84[v122], a3), v28(&v84[v123], a3), v28(&v84[v124], a3), v28(&v84[v125], a3), v28(v84, a3), (v121 & 1) != 0))
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v11 = &v106 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = MEMORY[0x1EEE9AC00](v12);
+  v15 = &v106 - v14;
+  v16 = *(v9 + 16);
+  v111 = a1;
+  v16(&v106 - v14, a1, TupleTypeMetadata, v13);
+  v17 = TupleTypeMetadata[12];
+  v123 = TupleTypeMetadata[16];
+  v124 = v17;
+  v18 = TupleTypeMetadata[20];
+  v121 = TupleTypeMetadata[24];
+  v122 = v18;
+  v19 = TupleTypeMetadata[28];
+  v118 = TupleTypeMetadata[32];
+  v119 = v19;
+  v117 = TupleTypeMetadata[36];
+  v112 = a2;
+  v110 = v9 + 16;
+  v109 = v16;
+  (v16)(v11, a2, TupleTypeMetadata);
+  v20 = TupleTypeMetadata[12];
+  v115 = TupleTypeMetadata[16];
+  v116 = v20;
+  v21 = TupleTypeMetadata[20];
+  v113 = a4;
+  v114 = v21;
+  v22 = TupleTypeMetadata[24];
+  v23 = TupleTypeMetadata[28];
+  v24 = TupleTypeMetadata[32];
+  v25 = TupleTypeMetadata[36];
+  LODWORD(v120) = sub_1AFDFCE58();
+  v26 = *(*(a3 - 8) + 8);
+  v26(&v11[v25], a3);
+  v26(&v11[v24], a3);
+  v26(&v11[v23], a3);
+  v26(&v11[v22], a3);
+  v26(&v11[v114], a3);
+  v26(&v11[v115], a3);
+  v26(&v116[v11], a3);
+  v116 = v11;
+  v26(v11, a3);
+  v26(&v15[v117], a3);
+  v26(&v15[v118], a3);
+  v26(&v15[v119], a3);
+  v26(&v15[v121], a3);
+  v26(&v15[v122], a3);
+  v26(&v15[v123], a3);
+  v26(&v124[v15], a3);
+  v124 = v15;
+  v26(v15, a3);
+  if ((v120 & 1) != 0
+    && (v27 = v124, v28 = v109, v109(v124, v111, TupleTypeMetadata), v29 = TupleTypeMetadata[12], v30 = TupleTypeMetadata[16], v122 = TupleTypeMetadata[20], v123 = v30, v31 = TupleTypeMetadata[24], v120 = v29, v121 = v31, v32 = TupleTypeMetadata[28], v118 = TupleTypeMetadata[32], v119 = v32, v117 = TupleTypeMetadata[36], v33 = v116, v28(v116, v112, TupleTypeMetadata), v34 = TupleTypeMetadata[12], v35 = TupleTypeMetadata[16], v114 = TupleTypeMetadata[20], v115 = v35, v108 = TupleTypeMetadata[24], v107 = TupleTypeMetadata[28], v36 = TupleTypeMetadata[32], v37 = TupleTypeMetadata[36], LOBYTE(v29) = sub_1AFDFCE58(), v26(&v33[v37], a3), v26(&v33[v36], a3), v26(&v33[v107], a3), v26(&v33[v108], a3), v26(&v33[v114], a3), v26(&v33[v115], a3), v26(&v33[v34], a3), v26(v33, a3), v26(&v27[v117], a3), v26(&v27[v118], a3), v26(&v27[v119], a3), v26(&v27[v121], a3), v26(&v27[v122], a3), v26(&v27[v123], a3), v26(&v27[v120], a3), v26(v27, a3), (v29 & 1) != 0)
+    && (v38 = v124, v39 = v109, v109(v124, v111, TupleTypeMetadata), v40 = TupleTypeMetadata[12], v41 = TupleTypeMetadata[16], v122 = TupleTypeMetadata[20], v123 = v40, v121 = TupleTypeMetadata[24], v42 = TupleTypeMetadata[28], v119 = v41, v120 = v42, v43 = TupleTypeMetadata[32], v117 = TupleTypeMetadata[36], v118 = v43, v44 = v116, v39(v116, v112, TupleTypeMetadata), v45 = TupleTypeMetadata[12], v46 = TupleTypeMetadata[16], v114 = TupleTypeMetadata[20], v115 = v45, v108 = TupleTypeMetadata[24], v107 = TupleTypeMetadata[28], v47 = TupleTypeMetadata[32], v48 = TupleTypeMetadata[36], LOBYTE(v41) = sub_1AFDFCE58(), v26(&v44[v48], a3), v26(&v44[v47], a3), v26(&v44[v107], a3), v26(&v44[v108], a3), v26(&v44[v114], a3), v26(&v44[v46], a3), v26(&v44[v115], a3), v26(v44, a3), v26(&v38[v117], a3), v26(&v38[v118], a3), v26(&v38[v120], a3), v26(&v38[v121], a3), v26(&v38[v122], a3), v26(&v38[v119], a3), v26(&v38[v123], a3), v26(v38, a3), (v41 & 1) != 0)
+    && (v49 = v124, v50 = v109, v109(v124, v111, TupleTypeMetadata), v51 = TupleTypeMetadata[12], v122 = TupleTypeMetadata[16], v123 = v51, v52 = TupleTypeMetadata[20], v53 = TupleTypeMetadata[24], v120 = TupleTypeMetadata[28], v121 = v53, v54 = TupleTypeMetadata[32], v118 = v52, v119 = v54, v117 = TupleTypeMetadata[36], v55 = v116, v50(v116, v112, TupleTypeMetadata), v56 = TupleTypeMetadata[12], v114 = TupleTypeMetadata[16], v115 = v56, v57 = TupleTypeMetadata[20], v108 = TupleTypeMetadata[24], v107 = TupleTypeMetadata[28], v58 = TupleTypeMetadata[32], v59 = TupleTypeMetadata[36], LOBYTE(v52) = sub_1AFDFCE58(), v26(&v55[v59], a3), v26(&v55[v58], a3), v26(&v55[v107], a3), v26(&v55[v108], a3), v26(&v55[v57], a3), v26(&v55[v114], a3), v26(&v55[v115], a3), v26(v55, a3), v26(&v49[v117], a3), v26(&v49[v119], a3), v26(&v49[v120], a3), v26(&v49[v121], a3), v26(&v49[v118], a3), v26(&v49[v122], a3), v26(&v49[v123], a3), v26(v49, a3), (v52 & 1) != 0)
+    && (v60 = v124, v61 = v109, v109(v124, v111, TupleTypeMetadata), v62 = TupleTypeMetadata[12], v122 = TupleTypeMetadata[16], v123 = v62, v63 = TupleTypeMetadata[20], v64 = TupleTypeMetadata[24], v120 = TupleTypeMetadata[28], v121 = v63, v119 = TupleTypeMetadata[32], v65 = TupleTypeMetadata[36], v117 = v64, v118 = v65, v66 = v116, v61(v116, v112, TupleTypeMetadata), v67 = TupleTypeMetadata[12], v114 = TupleTypeMetadata[16], v115 = v67, v108 = TupleTypeMetadata[20], v68 = TupleTypeMetadata[24], v107 = TupleTypeMetadata[28], v69 = TupleTypeMetadata[32], v70 = TupleTypeMetadata[36], LOBYTE(v64) = sub_1AFDFCE58(), v26(&v66[v70], a3), v26(&v66[v69], a3), v26(&v66[v107], a3), v26(&v66[v68], a3), v26(&v66[v108], a3), v26(&v66[v114], a3), v26(&v66[v115], a3), v26(v66, a3), v26(&v60[v118], a3), v26(&v60[v119], a3), v26(&v60[v120], a3), v26(&v60[v117], a3), v26(&v60[v121], a3), v26(&v60[v122], a3), v26(&v60[v123], a3), v26(v60, a3), (v64 & 1) != 0)
+    && (v71 = v124, v72 = v109, v109(v124, v111, TupleTypeMetadata), v73 = TupleTypeMetadata[12], v122 = TupleTypeMetadata[16], v123 = v73, v74 = TupleTypeMetadata[20], v120 = TupleTypeMetadata[24], v121 = v74, v75 = TupleTypeMetadata[28], v76 = TupleTypeMetadata[32], v117 = TupleTypeMetadata[36], v118 = v76, v77 = v116, v72(v116, v112, TupleTypeMetadata), v78 = TupleTypeMetadata[12], v114 = TupleTypeMetadata[16], v115 = v78, v108 = TupleTypeMetadata[20], v107 = TupleTypeMetadata[24], v79 = TupleTypeMetadata[28], v80 = TupleTypeMetadata[32], v81 = TupleTypeMetadata[36], LODWORD(v119) = sub_1AFDFCE58(), v26(&v77[v81], a3), v26(&v77[v80], a3), v26(&v77[v79], a3), v26(&v77[v107], a3), v26(&v77[v108], a3), v26(&v77[v114], a3), v26(&v77[v115], a3), v26(v77, a3), v26(&v71[v117], a3), v26(&v71[v118], a3), v26(&v71[v75], a3), v26(&v71[v120], a3), v26(&v71[v121], a3), v26(&v71[v122], a3), v26(&v71[v123], a3), v26(v71, a3), (v119 & 1) != 0)
+    && (v82 = v124, v83 = v109, v109(v124, v111, TupleTypeMetadata), v84 = TupleTypeMetadata[12], v122 = TupleTypeMetadata[16], v123 = v84, v85 = TupleTypeMetadata[20], v120 = TupleTypeMetadata[24], v121 = v85, v86 = TupleTypeMetadata[28], v87 = TupleTypeMetadata[32], v117 = TupleTypeMetadata[36], v118 = v86, v88 = v116, v83(v116, v112, TupleTypeMetadata), v89 = TupleTypeMetadata[12], v114 = TupleTypeMetadata[16], v115 = v89, v108 = TupleTypeMetadata[20], v107 = TupleTypeMetadata[24], v90 = TupleTypeMetadata[28], v91 = TupleTypeMetadata[32], v92 = TupleTypeMetadata[36], LODWORD(v119) = sub_1AFDFCE58(), v26(&v88[v92], a3), v26(&v88[v91], a3), v26(&v88[v90], a3), v26(&v88[v107], a3), v26(&v88[v108], a3), v26(&v88[v114], a3), v26(&v88[v115], a3), v26(v88, a3), v26(&v82[v117], a3), v26(&v82[v87], a3), v26(&v82[v118], a3), v26(&v82[v120], a3), v26(&v82[v121], a3), v26(&v82[v122], a3), v26(&v82[v123], a3), v26(v82, a3), (v119 & 1) != 0))
   {
-    v95 = v126;
-    v96 = v111;
-    v111(v126, v113, TupleTypeMetadata);
-    v97 = TupleTypeMetadata[12];
-    v124 = TupleTypeMetadata[16];
-    v125 = v97;
-    v98 = TupleTypeMetadata[20];
-    v122 = TupleTypeMetadata[24];
-    v123 = v98;
-    v99 = TupleTypeMetadata[28];
-    v120 = TupleTypeMetadata[32];
-    v121 = v99;
-    v100 = TupleTypeMetadata[36];
-    v101 = v118;
-    v96(v118, v114, TupleTypeMetadata);
-    v119 = TupleTypeMetadata[12];
-    v102 = TupleTypeMetadata[16];
-    v116 = TupleTypeMetadata[20];
-    v117 = v102;
-    v114 = TupleTypeMetadata[24];
-    v103 = TupleTypeMetadata[28];
-    v104 = TupleTypeMetadata[32];
-    v105 = TupleTypeMetadata[36];
-    v106 = sub_1AFDFCE58();
-    v28(&v101[v105], a3);
-    v28(&v101[v104], a3);
-    v28(&v101[v103], a3);
-    v28(&v101[v114], a3);
-    v28(&v101[v116], a3);
-    v28(&v101[v117], a3);
-    v28(&v101[v119], a3);
-    v28(v101, a3);
-    v28(&v95[v100], a3);
-    v28(&v95[v120], a3);
-    v28(&v95[v121], a3);
-    v28(&v95[v122], a3);
-    v28(&v95[v123], a3);
-    v28(&v95[v124], a3);
-    v28(&v95[v125], a3);
-    v28(v95, a3);
+    v93 = v124;
+    v94 = v109;
+    v109(v124, v111, TupleTypeMetadata);
+    v95 = TupleTypeMetadata[12];
+    v122 = TupleTypeMetadata[16];
+    v123 = v95;
+    v96 = TupleTypeMetadata[20];
+    v120 = TupleTypeMetadata[24];
+    v121 = v96;
+    v97 = TupleTypeMetadata[28];
+    v118 = TupleTypeMetadata[32];
+    v119 = v97;
+    v98 = TupleTypeMetadata[36];
+    v99 = v116;
+    v94(v116, v112, TupleTypeMetadata);
+    v117 = TupleTypeMetadata[12];
+    v100 = TupleTypeMetadata[16];
+    v114 = TupleTypeMetadata[20];
+    v115 = v100;
+    v112 = TupleTypeMetadata[24];
+    v101 = TupleTypeMetadata[28];
+    v102 = TupleTypeMetadata[32];
+    v103 = TupleTypeMetadata[36];
+    v104 = sub_1AFDFCE58();
+    v26(&v99[v103], a3);
+    v26(&v99[v102], a3);
+    v26(&v99[v101], a3);
+    v26(&v99[v112], a3);
+    v26(&v99[v114], a3);
+    v26(&v99[v115], a3);
+    v26(&v99[v117], a3);
+    v26(v99, a3);
+    v26(&v93[v98], a3);
+    v26(&v93[v118], a3);
+    v26(&v93[v119], a3);
+    v26(&v93[v120], a3);
+    v26(&v93[v121], a3);
+    v26(&v93[v122], a3);
+    v26(&v93[v123], a3);
+    v26(v93, a3);
   }
 
   else
   {
-    v106 = 0;
+    v104 = 0;
   }
 
-  return v106 & 1;
+  return v104 & 1;
 }
 
 uint64_t sub_1AFD5A4FC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, char *a8@<X7>, uint64_t a9@<X8>, uint64_t a10, uint64_t a11, int *a12)
 {
-  v83 = a8;
-  v79 = a7;
-  v80 = a9;
-  v75 = a5;
-  v76 = a6;
-  v73 = a3;
-  v74 = a4;
-  v81 = a12;
-  v77 = a11;
+  v81 = a8;
+  v77 = a7;
+  v78 = a9;
+  v73 = a5;
+  v74 = a6;
+  v71 = a3;
+  v72 = a4;
+  v79 = a12;
+  v75 = a11;
+  v84 = a10;
+  v85 = a10;
   v86 = a10;
   v87 = a10;
   v88 = a10;
   v89 = a10;
   v90 = a10;
   v91 = a10;
-  v92 = a10;
-  v93 = a10;
   TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v78 = *(TupleTypeMetadata - 1);
-  v15 = v78;
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata, v16);
-  v18 = &v71 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = MEMORY[0x1EEE9AC00](v19, v20);
-  v23 = &v71 - v22;
-  v82 = &v71 - v22;
-  v24 = *(a10 - 8);
-  v25 = *(v24 + 32);
-  v25(&v71 - v22, a1, a10, v21);
-  (v25)(&v23[TupleTypeMetadata[12]], a2, a10);
-  (v25)(&v23[TupleTypeMetadata[16]], v73, a10);
-  (v25)(&v23[TupleTypeMetadata[20]], v74, a10);
-  (v25)(&v23[TupleTypeMetadata[24]], v75, a10);
-  (v25)(&v23[TupleTypeMetadata[28]], v76, a10);
-  (v25)(&v23[TupleTypeMetadata[32]], v79, a10);
-  (v25)(&v23[TupleTypeMetadata[36]], v83, a10);
-  v84 = v24 + 32;
-  v85 = v25;
-  v26 = v25;
-  v27 = *(v15 + 16);
-  v79 = v15 + 16;
-  v83 = v27;
-  (v27)(v18, v23, TupleTypeMetadata);
-  v28 = TupleTypeMetadata[12];
-  v75 = TupleTypeMetadata[16];
-  v76 = v28;
+  v76 = *(TupleTypeMetadata - 1);
+  v15 = v76;
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v17 = &v69 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19.n128_f64[0] = MEMORY[0x1EEE9AC00](v18);
+  v21 = &v69 - v20;
+  v80 = &v69 - v20;
+  v22 = *(a10 - 8);
+  v23 = *(v22 + 32);
+  v23(&v69 - v20, a1, a10, v19);
+  (v23)(&v21[TupleTypeMetadata[12]], a2, a10);
+  (v23)(&v21[TupleTypeMetadata[16]], v71, a10);
+  (v23)(&v21[TupleTypeMetadata[20]], v72, a10);
+  (v23)(&v21[TupleTypeMetadata[24]], v73, a10);
+  (v23)(&v21[TupleTypeMetadata[28]], v74, a10);
+  (v23)(&v21[TupleTypeMetadata[32]], v77, a10);
+  (v23)(&v21[TupleTypeMetadata[36]], v81, a10);
+  v82 = v22 + 32;
+  v83 = v23;
+  v24 = v23;
+  v25 = *(v15 + 16);
+  v77 = v15 + 16;
+  v81 = v25;
+  (v25)(v17, v21, TupleTypeMetadata);
+  v26 = TupleTypeMetadata[12];
+  v73 = TupleTypeMetadata[16];
+  v74 = v26;
+  v72 = TupleTypeMetadata[20];
+  v27 = TupleTypeMetadata[24];
+  v28 = TupleTypeMetadata[28];
+  v29 = TupleTypeMetadata[32];
+  v30 = TupleTypeMetadata[36];
+  v24(v78, v17, a10);
+  v31 = *(v22 + 8);
+  v31(&v17[v30], a10);
+  v31(&v17[v29], a10);
+  v31(&v17[v28], a10);
+  v31(&v17[v27], a10);
+  v31(&v17[v72], a10);
+  v31(&v17[v73], a10);
+  v31(&v17[v74], a10);
+  (v81)(v17, v80, TupleTypeMetadata);
+  v32 = TupleTypeMetadata[12];
+  v33 = TupleTypeMetadata[16];
+  v73 = TupleTypeMetadata[20];
+  v74 = v33;
+  v34 = TupleTypeMetadata[24];
+  v71 = TupleTypeMetadata[28];
+  v72 = v34;
+  v70 = TupleTypeMetadata[32];
+  v35 = TupleTypeMetadata[36];
+  v79 = type metadata accessor for __FixedArrayCodableStorage8(0, a10, v75, v79);
+  v36 = v78;
+  v37 = v83;
+  v83(v78 + v79[11], &v17[v32], a10);
+  v31(&v17[v35], a10);
+  v31(&v17[v70], a10);
+  v31(&v17[v71], a10);
+  v31(&v17[v72], a10);
+  v31(&v17[v73], a10);
+  v31(&v17[v74], a10);
+  v31(v17, a10);
+  (v81)(v17, v80, TupleTypeMetadata);
+  v38 = TupleTypeMetadata[12];
+  v39 = TupleTypeMetadata[16];
   v74 = TupleTypeMetadata[20];
-  v29 = TupleTypeMetadata[24];
-  v30 = TupleTypeMetadata[28];
-  v31 = TupleTypeMetadata[32];
-  v32 = TupleTypeMetadata[36];
-  v26(v80, v18, a10);
-  v33 = *(v24 + 8);
-  v33(&v18[v32], a10);
-  v33(&v18[v31], a10);
-  v33(&v18[v30], a10);
-  v33(&v18[v29], a10);
-  v33(&v18[v74], a10);
-  v33(&v18[v75], a10);
-  v33(&v18[v76], a10);
-  (v83)(v18, v82, TupleTypeMetadata);
-  v34 = TupleTypeMetadata[12];
-  v35 = TupleTypeMetadata[16];
+  v75 = v38;
+  v73 = TupleTypeMetadata[24];
+  v40 = TupleTypeMetadata[28];
+  v41 = TupleTypeMetadata[32];
+  v42 = TupleTypeMetadata[36];
+  v37(v36 + v79[12], &v17[v39], a10);
+  v31(&v17[v42], a10);
+  v31(&v17[v41], a10);
+  v31(&v17[v40], a10);
+  v31(&v17[v73], a10);
+  v31(&v17[v74], a10);
+  v31(&v17[v75], a10);
+  v31(v17, a10);
+  v43 = v80;
+  (v81)(v17, v80, TupleTypeMetadata);
+  v44 = TupleTypeMetadata[12];
+  v74 = TupleTypeMetadata[16];
+  v75 = v44;
+  v45 = TupleTypeMetadata[20];
+  v46 = TupleTypeMetadata[24];
+  v72 = TupleTypeMetadata[28];
+  v73 = v46;
+  v47 = TupleTypeMetadata[32];
+  v48 = TupleTypeMetadata[36];
+  v49 = v78;
+  v83(v78 + v79[13], &v17[v45], a10);
+  v31(&v17[v48], a10);
+  v31(&v17[v47], a10);
+  v31(&v17[v72], a10);
+  v31(&v17[v73], a10);
+  v31(&v17[v74], a10);
+  v31(&v17[v75], a10);
+  v31(v17, a10);
+  (v81)(v17, v43, TupleTypeMetadata);
+  v50 = TupleTypeMetadata[12];
+  v74 = TupleTypeMetadata[16];
+  v75 = v50;
+  v73 = TupleTypeMetadata[20];
+  v51 = TupleTypeMetadata[28];
+  v52 = TupleTypeMetadata[32];
+  v53 = TupleTypeMetadata[36];
+  v54 = v79;
+  v83(v49 + v79[14], &v17[TupleTypeMetadata[24]], a10);
+  v31(&v17[v53], a10);
+  v31(&v17[v52], a10);
+  v31(&v17[v51], a10);
+  v31(&v17[v73], a10);
+  v31(&v17[v74], a10);
+  v31(&v17[v75], a10);
+  v31(v17, a10);
+  v55 = v80;
+  (v81)(v17, v80, TupleTypeMetadata);
+  v56 = TupleTypeMetadata[12];
+  v74 = TupleTypeMetadata[16];
+  v75 = v56;
+  v57 = TupleTypeMetadata[20];
+  v72 = TupleTypeMetadata[24];
+  v73 = v57;
+  v58 = TupleTypeMetadata[32];
+  v59 = TupleTypeMetadata[36];
+  v83(v49 + v54[15], &v17[TupleTypeMetadata[28]], a10);
+  v31(&v17[v59], a10);
+  v31(&v17[v58], a10);
+  v31(&v17[v72], a10);
+  v31(&v17[v73], a10);
+  v31(&v17[v74], a10);
+  v31(&v17[v75], a10);
+  v31(v17, a10);
+  (v81)(v17, v55, TupleTypeMetadata);
+  v81 = TupleTypeMetadata[12];
+  v77 = TupleTypeMetadata[16];
   v75 = TupleTypeMetadata[20];
-  v76 = v35;
-  v36 = TupleTypeMetadata[24];
-  v73 = TupleTypeMetadata[28];
-  v74 = v36;
-  v72 = TupleTypeMetadata[32];
-  v37 = TupleTypeMetadata[36];
-  v81 = type metadata accessor for __FixedArrayCodableStorage8();
-  v38 = v80;
-  v39 = v85;
-  v85(v80 + v81[11], &v18[v34], a10);
-  v33(&v18[v37], a10);
-  v33(&v18[v72], a10);
-  v33(&v18[v73], a10);
-  v33(&v18[v74], a10);
-  v33(&v18[v75], a10);
-  v33(&v18[v76], a10);
-  v33(v18, a10);
-  (v83)(v18, v82, TupleTypeMetadata);
-  v40 = TupleTypeMetadata[12];
-  v41 = TupleTypeMetadata[16];
-  v76 = TupleTypeMetadata[20];
-  v77 = v40;
-  v75 = TupleTypeMetadata[24];
-  v42 = TupleTypeMetadata[28];
-  v43 = TupleTypeMetadata[32];
-  v44 = TupleTypeMetadata[36];
-  v39(v38 + v81[12], &v18[v41], a10);
-  v33(&v18[v44], a10);
-  v33(&v18[v43], a10);
-  v33(&v18[v42], a10);
-  v33(&v18[v75], a10);
-  v33(&v18[v76], a10);
-  v33(&v18[v77], a10);
-  v33(v18, a10);
-  v45 = v82;
-  (v83)(v18, v82, TupleTypeMetadata);
-  v46 = TupleTypeMetadata[12];
-  v76 = TupleTypeMetadata[16];
-  v77 = v46;
-  v47 = TupleTypeMetadata[20];
-  v48 = TupleTypeMetadata[24];
-  v74 = TupleTypeMetadata[28];
-  v75 = v48;
-  v49 = TupleTypeMetadata[32];
-  v50 = TupleTypeMetadata[36];
-  v51 = v80;
-  v85(v80 + v81[13], &v18[v47], a10);
-  v33(&v18[v50], a10);
-  v33(&v18[v49], a10);
-  v33(&v18[v74], a10);
-  v33(&v18[v75], a10);
-  v33(&v18[v76], a10);
-  v33(&v18[v77], a10);
-  v33(v18, a10);
-  (v83)(v18, v45, TupleTypeMetadata);
-  v52 = TupleTypeMetadata[12];
-  v76 = TupleTypeMetadata[16];
-  v77 = v52;
-  v75 = TupleTypeMetadata[20];
-  v53 = TupleTypeMetadata[28];
-  v54 = TupleTypeMetadata[32];
-  v55 = TupleTypeMetadata[36];
-  v56 = v81;
-  v85(v51 + v81[14], &v18[TupleTypeMetadata[24]], a10);
-  v33(&v18[v55], a10);
-  v33(&v18[v54], a10);
-  v33(&v18[v53], a10);
-  v33(&v18[v75], a10);
-  v33(&v18[v76], a10);
-  v33(&v18[v77], a10);
-  v33(v18, a10);
-  v57 = v82;
-  (v83)(v18, v82, TupleTypeMetadata);
-  v58 = TupleTypeMetadata[12];
-  v76 = TupleTypeMetadata[16];
-  v77 = v58;
-  v59 = TupleTypeMetadata[20];
-  v74 = TupleTypeMetadata[24];
-  v75 = v59;
-  v60 = TupleTypeMetadata[32];
-  v61 = TupleTypeMetadata[36];
-  v85(v51 + v56[15], &v18[TupleTypeMetadata[28]], a10);
-  v33(&v18[v61], a10);
-  v33(&v18[v60], a10);
-  v33(&v18[v74], a10);
-  v33(&v18[v75], a10);
-  v33(&v18[v76], a10);
-  v33(&v18[v77], a10);
-  v33(v18, a10);
-  (v83)(v18, v57, TupleTypeMetadata);
-  v83 = TupleTypeMetadata[12];
-  v79 = TupleTypeMetadata[16];
-  v77 = TupleTypeMetadata[20];
-  v62 = TupleTypeMetadata[24];
-  v63 = TupleTypeMetadata[28];
-  v64 = TupleTypeMetadata[36];
-  v85(v51 + v81[16], &v18[TupleTypeMetadata[32]], a10);
-  v33(&v18[v64], a10);
-  v33(&v18[v63], a10);
-  v33(&v18[v62], a10);
-  v33(&v18[v77], a10);
-  v33(&v18[v79], a10);
-  v33(&v83[v18], a10);
-  v33(v18, a10);
-  (*(v78 + 32))(v18, v82, TupleTypeMetadata);
-  v65 = TupleTypeMetadata[12];
-  v83 = TupleTypeMetadata[16];
-  v66 = TupleTypeMetadata[20];
-  v67 = TupleTypeMetadata[24];
-  v68 = TupleTypeMetadata[28];
-  v69 = TupleTypeMetadata[32];
-  v85(v80 + v81[17], &v18[TupleTypeMetadata[36]], a10);
-  v33(&v18[v69], a10);
-  v33(&v18[v68], a10);
-  v33(&v18[v67], a10);
-  v33(&v18[v66], a10);
-  v33(&v83[v18], a10);
-  v33(&v18[v65], a10);
-  return (v33)(v18, a10);
+  v60 = TupleTypeMetadata[24];
+  v61 = TupleTypeMetadata[28];
+  v62 = TupleTypeMetadata[36];
+  v83(v49 + v79[16], &v17[TupleTypeMetadata[32]], a10);
+  v31(&v17[v62], a10);
+  v31(&v17[v61], a10);
+  v31(&v17[v60], a10);
+  v31(&v17[v75], a10);
+  v31(&v17[v77], a10);
+  v31(&v81[v17], a10);
+  v31(v17, a10);
+  (*(v76 + 32))(v17, v80, TupleTypeMetadata);
+  v63 = TupleTypeMetadata[12];
+  v81 = TupleTypeMetadata[16];
+  v64 = TupleTypeMetadata[20];
+  v65 = TupleTypeMetadata[24];
+  v66 = TupleTypeMetadata[28];
+  v67 = TupleTypeMetadata[32];
+  v83(v78 + v79[17], &v17[TupleTypeMetadata[36]], a10);
+  v31(&v17[v67], a10);
+  v31(&v17[v66], a10);
+  v31(&v17[v65], a10);
+  v31(&v17[v64], a10);
+  v31(&v81[v17], a10);
+  v31(&v17[v63], a10);
+  return (v31)(v17, a10);
 }
 
 uint64_t sub_1AFD5AF50(uint64_t a1, uint64_t a2)
@@ -1176,138 +1176,139 @@ uint64_t sub_1AFD5AF50(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1AFD5B198(void *a1, uint64_t a2)
+uint64_t sub_1AFD5B198(void *a1, int *a2)
 {
-  v3 = *(a2 + 16);
-  v11[0] = a2;
-  v11[1] = v3;
-  type metadata accessor for __FixedArrayCodableStorage8.CodingKeys();
-  swift_getWitnessTable();
-  v4 = sub_1AFDFE9A8();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4, v6);
-  v8 = v11 - v7;
+  v4 = *(a2 + 2);
+  v3 = *(a2 + 3);
+  v12 = a2;
+  v13 = v4;
+  v5 = type metadata accessor for __FixedArrayCodableStorage8.CodingKeys(255, v4, v3, *(a2 + 4));
+  swift_getWitnessTable(aY_26, v5, v12, v13);
+  v6 = sub_1AFDFE9A8();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v12 - v8;
   sub_1AF441150(a1, a1[3]);
   sub_1AFDFF3F8();
-  v19 = 0;
-  v9 = v11[3];
+  v22 = 0;
+  v10 = v14;
   sub_1AFDFE918();
-  if (!v9)
+  if (!v10)
   {
-    v18 = 1;
+    v21 = 1;
     sub_1AFDFE918();
-    v17 = 2;
+    v20 = 2;
     sub_1AFDFE918();
-    v16 = 3;
+    v19 = 3;
     sub_1AFDFE918();
-    v15 = 4;
+    v18 = 4;
     sub_1AFDFE918();
-    v14 = 5;
+    v17 = 5;
     sub_1AFDFE918();
-    v13 = 6;
+    v16 = 6;
     sub_1AFDFE918();
-    v12 = 7;
+    v15 = 7;
     sub_1AFDFE918();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v7 + 8))(v9, v6);
 }
 
-uint64_t sub_1AFD5B454@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t sub_1AFD5B454@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v55 = a4;
-  v67 = *(a2 - 8);
-  MEMORY[0x1EEE9AC00](a1, a2);
-  v56 = &v53 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8, v9);
-  v57 = &v53 - v10;
-  MEMORY[0x1EEE9AC00](v11, v12);
-  v58 = &v53 - v13;
-  MEMORY[0x1EEE9AC00](v14, v15);
-  v59 = &v53 - v16;
-  MEMORY[0x1EEE9AC00](v17, v18);
-  v60 = &v53 - v19;
-  MEMORY[0x1EEE9AC00](v20, v21);
-  v61 = &v53 - v22;
-  MEMORY[0x1EEE9AC00](v23, v24);
-  v62 = &v53 - v25;
-  MEMORY[0x1EEE9AC00](v26, v27);
-  v63 = &v53 - v28;
-  type metadata accessor for __FixedArrayCodableStorage8.CodingKeys();
-  swift_getWitnessTable();
-  v69 = sub_1AFDFE818();
-  v65 = *(v69 - 8);
-  MEMORY[0x1EEE9AC00](v69, v29);
-  v31 = &v53 - v30;
-  v64 = a2;
-  v66 = a3;
-  v32 = type metadata accessor for __FixedArrayCodableStorage8();
-  v54 = *(v32 - 8);
-  MEMORY[0x1EEE9AC00](v32, v33);
-  v35 = &v53 - v34;
+  v52 = a5;
+  v64 = *(a2 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v53 = &v50 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v54 = &v50 - v11;
+  MEMORY[0x1EEE9AC00](v12);
+  v55 = &v50 - v13;
+  MEMORY[0x1EEE9AC00](v14);
+  v56 = &v50 - v15;
+  MEMORY[0x1EEE9AC00](v16);
+  v57 = &v50 - v17;
+  MEMORY[0x1EEE9AC00](v18);
+  v58 = &v50 - v19;
+  MEMORY[0x1EEE9AC00](v20);
+  v59 = &v50 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v60 = &v50 - v23;
+  v27 = type metadata accessor for __FixedArrayCodableStorage8.CodingKeys(255, v24, v25, v26);
+  swift_getWitnessTable(aY_26, v27);
+  v66 = sub_1AFDFE818();
+  v62 = *(v66 - 8);
+  MEMORY[0x1EEE9AC00](v66);
+  v29 = &v50 - v28;
+  v61 = a2;
+  v63 = a3;
+  v30 = type metadata accessor for __FixedArrayCodableStorage8(0, a2, a3, a4);
+  v51 = *(v30 - 8);
+  MEMORY[0x1EEE9AC00](v30);
+  v32 = &v50 - v31;
   sub_1AF441150(a1, a1[3]);
-  v68 = v31;
-  v36 = v70;
+  v65 = v29;
+  v33 = v67;
   sub_1AFDFF3B8();
-  if (v36)
+  if (v33)
   {
     return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(a1);
   }
 
-  v37 = v67;
-  v78 = 0;
-  v38 = v63;
-  v39 = v64;
+  v34 = v64;
+  v75 = 0;
+  v35 = v60;
+  v36 = v61;
   sub_1AFDFE768();
-  v70 = *(v37 + 32);
-  v70(v35, v38, v39);
-  v77 = 1;
-  v40 = v62;
+  v67 = *(v34 + 32);
+  v67(v32, v35, v36);
+  v74 = 1;
+  v37 = v59;
   sub_1AFDFE768();
-  v41 = *(v32 + 44);
-  v63 = v35;
-  v70(&v35[v41], v40, v39);
-  v76 = 2;
-  v42 = v61;
-  v62 = 0;
+  v38 = *(v30 + 44);
+  v60 = v32;
+  v67(&v32[v38], v37, v36);
+  v73 = 2;
+  v39 = v58;
+  v59 = 0;
   sub_1AFDFE768();
-  v53 = a1;
-  v70(&v63[*(v32 + 48)], v42, v39);
-  v75 = 3;
-  v43 = v60;
+  v50 = a1;
+  v67(&v60[*(v30 + 48)], v39, v36);
+  v72 = 3;
+  v40 = v57;
   sub_1AFDFE768();
-  v44 = v32;
-  v45 = v63;
-  v70(&v63[v44[13]], v43, v39);
-  v74 = 4;
-  v46 = v59;
+  v41 = v30;
+  v42 = v60;
+  v67(&v60[v41[13]], v40, v36);
+  v71 = 4;
+  v43 = v56;
   sub_1AFDFE768();
-  v70(&v45[v44[14]], v46, v39);
-  v73 = 5;
-  v47 = v58;
+  v67(&v42[v41[14]], v43, v36);
+  v70 = 5;
+  v44 = v55;
   sub_1AFDFE768();
-  v48 = v53;
-  v70(&v45[v44[15]], v47, v39);
-  v72 = 6;
-  v49 = v57;
+  v45 = v50;
+  v67(&v42[v41[15]], v44, v36);
+  v69 = 6;
+  v46 = v54;
   sub_1AFDFE768();
-  v70(&v45[v44[16]], v49, v39);
-  v71 = 7;
-  v50 = v56;
+  v67(&v42[v41[16]], v46, v36);
+  v68 = 7;
+  v47 = v53;
   sub_1AFDFE768();
-  (*(v65 + 8))(v68, v69);
-  v70(&v45[v44[17]], v50, v39);
-  v51 = v54;
-  (*(v54 + 16))(v55, v45, v44);
-  _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v48);
-  return (*(v51 + 8))(v45, v44);
+  (*(v62 + 8))(v65, v66);
+  v67(&v42[v41[17]], v47, v36);
+  v48 = v51;
+  (*(v51 + 16))(v52, v42, v41);
+  _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v45);
+  return (*(v48 + 8))(v42, v41);
 }
 
-uint64_t sub_1AFD5BD60()
+uint64_t sub_1AFD5BD60(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(aY_26, a3);
 
-  return sub_1AF609060();
+  return sub_1AF609060(a1, a2, a3, WitnessTable);
 }
 
 uint64_t sub_1AFD5BDE4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
@@ -1326,62 +1327,62 @@ uint64_t sub_1AFD5BE18@<X0>(_BYTE *a1@<X8>)
 
 uint64_t sub_1AFD5BE4C(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(aY_26, a1);
 
   return MEMORY[0x1EEE6BB70](a1, WitnessTable);
 }
 
 uint64_t sub_1AFD5BEA0(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(aY_26, a1);
 
   return MEMORY[0x1EEE6BB78](a1, WitnessTable);
 }
 
-uint64_t sub_1AFD5BF30@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_1AFD5BF30@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v24 = a3;
-  v25 = type metadata accessor for __FixedArrayCodableStorage8();
-  MEMORY[0x1EEE9AC00](v25, v6);
-  v35 = &v19 - v7;
-  v8 = type metadata accessor for FixedArray8();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8, v10);
-  v12 = &v19 - v11;
+  v26 = a5;
+  v27 = type metadata accessor for __FixedArrayCodableStorage8(0, a2, a3, a4);
+  MEMORY[0x1EEE9AC00](v27);
+  v37 = &v21 - v8;
+  v11 = type metadata accessor for FixedArray8(0, a2, v9, v10);
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v21 - v13;
   sub_1AF441150(a1, a1[3]);
   sub_1AFDFF398();
-  if (!v3)
+  if (!v5)
   {
-    v21 = v12;
-    v22 = v9;
-    v23 = v8;
-    sub_1AF441150(v34, v34[3]);
-    v13 = v25;
-    swift_getWitnessTable();
-    v14 = v35;
+    v23 = v14;
+    v24 = v12;
+    v25 = v11;
+    sub_1AF441150(v36, v36[3]);
+    v15 = v27;
+    swift_getWitnessTable(aA_21, v27);
+    v16 = v37;
     sub_1AFDFEE88();
-    v15 = *(*(a2 - 8) + 32);
-    v16 = v21;
-    v15(v21, v14, a2);
-    v20 = v13[11];
-    v26 = a2;
-    v27 = a2;
+    v17 = *(*(a2 - 8) + 32);
+    v18 = v23;
+    v17(v23, v16, a2);
+    v22 = v15[11];
     v28 = a2;
     v29 = a2;
     v30 = a2;
     v31 = a2;
     v32 = a2;
     v33 = a2;
+    v34 = a2;
+    v35 = a2;
     TupleTypeMetadata = swift_getTupleTypeMetadata();
-    v15(&v16[TupleTypeMetadata[12]], &v14[v20], a2);
-    v15(&v16[TupleTypeMetadata[16]], &v14[v13[12]], a2);
-    v15(&v16[TupleTypeMetadata[20]], &v14[v13[13]], a2);
-    v15(&v16[TupleTypeMetadata[24]], &v14[v13[14]], a2);
-    v15(&v16[TupleTypeMetadata[28]], &v14[v13[15]], a2);
-    v15(&v16[TupleTypeMetadata[32]], &v14[v13[16]], a2);
-    v15(&v16[TupleTypeMetadata[36]], &v14[v13[17]], a2);
-    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v34);
-    (*(v22 + 32))(v24, v16, v23);
+    v17(&v18[TupleTypeMetadata[12]], &v16[v22], a2);
+    v17(&v18[TupleTypeMetadata[16]], &v16[v15[12]], a2);
+    v17(&v18[TupleTypeMetadata[20]], &v16[v15[13]], a2);
+    v17(&v18[TupleTypeMetadata[24]], &v16[v15[14]], a2);
+    v17(&v18[TupleTypeMetadata[28]], &v16[v15[15]], a2);
+    v17(&v18[TupleTypeMetadata[32]], &v16[v15[16]], a2);
+    v17(&v18[TupleTypeMetadata[36]], &v16[v15[17]], a2);
+    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v36);
+    (*(v24 + 32))(v26, v18, v25);
   }
 
   return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(a1);
@@ -1391,31 +1392,31 @@ uint64_t sub_1AFD5C268(void *a1, uint64_t a2, uint64_t a3, int *a4)
 {
   v17 = a3;
   v16 = a4;
-  v5 = *(a2 + 16);
-  v20[0] = v5;
-  v20[1] = v5;
-  v20[2] = v5;
-  v21 = v5;
-  v22 = v5;
-  v23 = v5;
-  v24 = v5;
-  v25 = v5;
+  v7 = *(a2 + 16);
+  v20[0] = v7;
+  v20[1] = v7;
+  v20[2] = v7;
+  v21 = v7;
+  v22 = v7;
+  v23 = v7;
+  v24 = v7;
+  v25 = v7;
   TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v7 = *(TupleTypeMetadata - 1);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata, v8);
-  v10 = &v16 - v9;
-  v11 = type metadata accessor for __FixedArrayCodableStorage8();
-  v19 = *(v11 - 8);
-  MEMORY[0x1EEE9AC00](v11, v12);
+  v9 = *(TupleTypeMetadata - 1);
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v11 = &v16 - v10;
+  v12 = type metadata accessor for __FixedArrayCodableStorage8(0, v7, a3, a4);
+  v19 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
   v14 = &v16 - v13;
   sub_1AF441150(a1, a1[3]);
   sub_1AFDFF3D8();
-  (*(v7 + 16))(v10, v18, TupleTypeMetadata);
-  sub_1AFD5A4FC(v10, &v10[TupleTypeMetadata[12]], &v10[TupleTypeMetadata[16]], &v10[TupleTypeMetadata[20]], &v10[TupleTypeMetadata[24]], &v10[TupleTypeMetadata[28]], &v10[TupleTypeMetadata[32]], &v10[TupleTypeMetadata[36]], v14, v5, v17, v16);
+  (*(v9 + 16))(v11, v18, TupleTypeMetadata);
+  sub_1AFD5A4FC(v11, &v11[TupleTypeMetadata[12]], &v11[TupleTypeMetadata[16]], &v11[TupleTypeMetadata[20]], &v11[TupleTypeMetadata[24]], &v11[TupleTypeMetadata[28]], &v11[TupleTypeMetadata[32]], &v11[TupleTypeMetadata[36]], v14, v7, v17, v16);
   sub_1AF448018(v20, v21);
-  swift_getWitnessTable();
+  swift_getWitnessTable(aY_27, v12);
   sub_1AFDFEF28();
-  (*(v19 + 8))(v14, v11);
+  (*(v19 + 8))(v14, v12);
   return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v20);
 }
 
@@ -1442,11 +1443,11 @@ uint64_t sub_1AFD5C534(uint64_t a1, uint64_t *a2, uint64_t a3)
   return (*(*(v7 - 8) + 8))(a1, v7);
 }
 
-void (*sub_1AFD5C618(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, uint64_t a2)
+void (*sub_1AFD5C618(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, char a2)
 {
   v5 = v3;
-  v47 = a2;
-  v49 = *MEMORY[0x1E69E9840];
+  v46 = a2;
+  v48 = *MEMORY[0x1E69E9840];
   v7 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -1459,7 +1460,7 @@ void (*sub_1AFD5C618(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, uint64_t
   }
 
   v9 = v8;
-  v48 = a1;
+  v47 = a1;
   *a1 = v8;
   v8[10] = v5;
   v10 = *(a3 + 16);
@@ -1477,7 +1478,7 @@ void (*sub_1AFD5C618(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, uint64_t
   TupleTypeMetadata = swift_getTupleTypeMetadata();
   v9[12] = TupleTypeMetadata;
   v12 = *(TupleTypeMetadata - 1);
-  v13 = v12[8];
+  v13 = *(v12 + 64);
   if (v7)
   {
     v14 = swift_coroFrameAlloc();
@@ -1500,63 +1501,63 @@ void (*sub_1AFD5C618(void *a1, uint64_t *a2, uint64_t a3))(uint64_t a1, uint64_t
   v19 = *(v17 + 64);
   if (MEMORY[0x1E69E7D08])
   {
-    v46 = swift_coroFrameAlloc();
-    v9[16] = v46;
+    v45 = swift_coroFrameAlloc();
+    v9[16] = v45;
     v20 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v46 = malloc(v19);
-    v9[16] = v46;
+    v45 = malloc(v19);
+    v9[16] = v45;
     v20 = malloc(v19);
   }
 
-  v44 = *v47;
-  v21 = v44;
-  v45 = v20;
+  v43 = *v46;
+  v21 = v43;
+  v44 = v20;
   v9[17] = v20;
   v9[18] = v21;
-  (v12[2])(v16, v5, TupleTypeMetadata);
+  (*(v12 + 16))(v16, v5, TupleTypeMetadata);
   v22 = TupleTypeMetadata[12];
-  v47 = v12;
+  v46 = v12;
   v23 = TupleTypeMetadata[16];
   v24 = TupleTypeMetadata[20];
   v25 = TupleTypeMetadata[28];
-  v38 = TupleTypeMetadata[24];
-  v39 = v25;
+  v37 = TupleTypeMetadata[24];
+  v38 = v25;
   v26 = TupleTypeMetadata[36];
-  v40 = TupleTypeMetadata[32];
-  v41 = v26;
+  v39 = TupleTypeMetadata[32];
+  v40 = v26;
   v27 = TupleTypeMetadata[44];
-  v42 = TupleTypeMetadata[40];
-  v43 = v27;
+  v41 = TupleTypeMetadata[40];
+  v42 = v27;
   v28 = *(v18 + 32);
   v28(v14, v16, v10);
   v28(v14 + v22, v16 + v22, v10);
   v28(v14 + v23, v16 + v23, v10);
   v29 = v14 + v24;
   v30 = v16 + v24;
-  v31 = v45;
+  v31 = v44;
   v28(v29, v30, v10);
+  v28(v14 + v37, v16 + v37, v10);
   v28(v14 + v38, v16 + v38, v10);
   v28(v14 + v39, v16 + v39, v10);
   v28(v14 + v40, v16 + v40, v10);
   v28(v14 + v41, v16 + v41, v10);
-  v28(v14 + v42, v16 + v42, v10);
-  v32 = (v28)(v14 + v43, v16 + v43, v10);
-  MEMORY[0x1EEE9AC00](v32, v33);
-  v37[2] = v10;
-  v37[3] = v44;
-  v34 = v46;
-  sub_1AF6F430C(v14, sub_1AFD62EC0, v37, TupleTypeMetadata, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v35);
+  v32 = (v28)(v14 + v42, v16 + v42, v10);
+  MEMORY[0x1EEE9AC00](v32);
+  v36[2] = v10;
+  v36[3] = v43;
+  v33 = v45;
+  sub_1AF6F430C(v14, sub_1AFD62EC0, v36, TupleTypeMetadata, MEMORY[0x1E69E73E0], v10, MEMORY[0x1E69E7410], v34);
   v9[19] = 0;
-  (v47[1])(v14, TupleTypeMetadata);
-  v28(v31, v34, v10);
+  (v46[1])(v14, TupleTypeMetadata);
+  v28(v31, v33, v10);
   return sub_1AFD5CA4C;
 }
 
-void sub_1AFD5CA4C(uint64_t a1, uint64_t a2)
+void sub_1AFD5CA4C(uint64_t a1, char a2)
 {
   v2 = *a1;
   v3 = *(*a1 + 144);
@@ -1565,46 +1566,47 @@ void sub_1AFD5CA4C(uint64_t a1, uint64_t a2)
   v6 = *(*a1 + 120);
   v8 = *(*a1 + 96);
   v7 = *(*a1 + 104);
-  v20 = *(*a1 + 112);
-  v21 = v7;
+  v19 = *(*a1 + 112);
+  v20 = v7;
   v10 = v2[10];
   v9 = v2[11];
   if (a2)
   {
     v11 = (*(v6 + 16))(v4, v5, v2[11]);
-    MEMORY[0x1EEE9AC00](v11, v12);
-    v17 = v9;
-    v18 = v3;
-    v19 = v4;
-    sub_1AFD555D4(v10, sub_1AFD60E68, v16, v8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v13);
-    v14 = *(v6 + 8);
-    v14(v4, v9);
-    v14(v5, v9);
+    MEMORY[0x1EEE9AC00](v11);
+    v16 = v9;
+    v17 = v3;
+    v18 = v4;
+    sub_1AFD555D4(v10, sub_1AFD60E68, v15, v8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v12);
+    v13 = *(v6 + 8);
+    v13(v4, v9);
+    v13(v5, v9);
   }
 
   else
   {
-    MEMORY[0x1EEE9AC00](a1, a2);
-    v17 = v9;
-    v18 = v3;
-    v19 = v5;
-    sub_1AFD555D4(v10, sub_1AFD62EF0, v16, v8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v15);
+    MEMORY[0x1EEE9AC00](a1);
+    v16 = v9;
+    v17 = v3;
+    v18 = v5;
+    sub_1AFD555D4(v10, sub_1AFD62EF0, v15, v8, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7CA8] + 8, MEMORY[0x1E69E7410], v14);
     (*(v6 + 8))(v5, v9);
   }
 
   free(v5);
   free(v4);
+  free(v19);
   free(v20);
-  free(v21);
   free(v2);
 }
 
-uint64_t sub_1AFD5CC30(uint64_t a1)
+uint64_t sub_1AFD5CC30(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, const char *a5)
 {
-  sub_1AFD60D3C();
-  swift_getWitnessTable();
-  v2 = sub_1AFDFF248();
-  return (*(*(v2 - 8) + 8))(a1, v2);
+  v10 = *a2;
+  sub_1AFD60D3C(a1, &v10, a3, a4);
+  swift_getWitnessTable(a5, a3);
+  v8 = sub_1AFDFF248();
+  return (*(*(v8 - 8) + 8))(a1, v8);
 }
 
 void (*sub_1AFD5CCC4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(void *)
@@ -1624,9 +1626,9 @@ void (*sub_1AFD5CCC4(void *a1, uint64_t a2, uint64_t a3, uint64_t a4))(void *)
   return sub_1AFD62F10;
 }
 
-uint64_t sub_1AFD5CDD4()
+uint64_t sub_1AFD5CDD4(uint64_t a1, uint64_t a2)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(byte_1AFEAB398);
 
   return sub_1AFDFD808();
 }
@@ -1650,8 +1652,8 @@ void (*sub_1AFD5CE7C(void *a1, uint64_t *a2, uint64_t a3))(void *)
 
 void (*sub_1AFD5CF04(void *a1, uint64_t a2, uint64_t a3))(uint64_t a1)
 {
-  v41 = a2;
-  v43 = *MEMORY[0x1E69E9840];
+  v40 = a2;
+  v42 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E69E7D08];
   if (MEMORY[0x1E69E7D08])
   {
@@ -1680,7 +1682,7 @@ void (*sub_1AFD5CF04(void *a1, uint64_t a2, uint64_t a3))(uint64_t a1)
   TupleTypeMetadata = swift_getTupleTypeMetadata();
   v10 = *(TupleTypeMetadata - 1);
   v11 = *(v10 + 64);
-  v42 = a1;
+  v41 = a1;
   if (v5)
   {
     v12 = swift_coroFrameAlloc();
@@ -1703,52 +1705,52 @@ void (*sub_1AFD5CF04(void *a1, uint64_t a2, uint64_t a3))(uint64_t a1)
   v17 = *(v15 + 64);
   if (v5)
   {
-    v39 = swift_coroFrameAlloc();
-    v7[14] = v39;
+    v38 = swift_coroFrameAlloc();
+    v7[14] = v38;
     v18 = swift_coroFrameAlloc();
   }
 
   else
   {
-    v39 = malloc(*(v15 + 64));
-    v7[14] = v39;
+    v38 = malloc(*(v15 + 64));
+    v7[14] = v38;
     v18 = malloc(v17);
   }
 
-  v38 = v18;
+  v37 = v18;
   v7[15] = v18;
-  (*(v10 + 16))(v14, v40, TupleTypeMetadata);
-  v40 = v10;
+  (*(v10 + 16))(v14, v39, TupleTypeMetadata);
+  v39 = v10;
   v19 = TupleTypeMetadata[12];
   v20 = TupleTypeMetadata[16];
   v21 = TupleTypeMetadata[20];
   v22 = TupleTypeMetadata[24];
   v23 = TupleTypeMetadata[32];
-  v33 = TupleTypeMetadata[28];
-  v34 = v23;
+  v32 = TupleTypeMetadata[28];
+  v33 = v23;
   v24 = TupleTypeMetadata[40];
-  v35 = TupleTypeMetadata[36];
-  v36 = v24;
-  v37 = TupleTypeMetadata[44];
+  v34 = TupleTypeMetadata[36];
+  v35 = v24;
+  v36 = TupleTypeMetadata[44];
   v25 = *(v16 + 32);
   v25(v12, v14, v8);
   v25(v12 + v19, v14 + v19, v8);
   v25(v12 + v20, v14 + v20, v8);
   v25(v12 + v21, v14 + v21, v8);
   v25(v12 + v22, v14 + v22, v8);
+  v25(v12 + v32, v14 + v32, v8);
   v25(v12 + v33, v14 + v33, v8);
   v25(v12 + v34, v14 + v34, v8);
   v25(v12 + v35, v14 + v35, v8);
-  v25(v12 + v36, v14 + v36, v8);
-  v26 = (v25)(v12 + v37, v14 + v37, v8);
-  MEMORY[0x1EEE9AC00](v26, v27);
-  v32[2] = v8;
-  v32[3] = v41;
-  v28 = v39;
-  sub_1AF6F430C(v12, sub_1AFD62EC0, v32, TupleTypeMetadata, MEMORY[0x1E69E73E0], v8, MEMORY[0x1E69E7410], v29);
-  v30 = v38;
-  (*(v40 + 8))(v12, TupleTypeMetadata);
-  v25(v30, v28, v8);
+  v26 = (v25)(v12 + v36, v14 + v36, v8);
+  MEMORY[0x1EEE9AC00](v26);
+  v31[2] = v8;
+  v31[3] = v40;
+  v27 = v38;
+  sub_1AF6F430C(v12, sub_1AFD62EC0, v31, TupleTypeMetadata, MEMORY[0x1E69E73E0], v8, MEMORY[0x1E69E7410], v28);
+  v29 = v37;
+  (*(v39 + 8))(v12, TupleTypeMetadata);
+  v25(v29, v27, v8);
   return sub_1AFD5D314;
 }
 
@@ -1770,164 +1772,164 @@ void sub_1AFD5D314(uint64_t a1)
 
 uint64_t sub_1AFD5D398@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(byte_1AFEAB328);
 
   return sub_1AFD55A94(a1, a2, WitnessTable, a3);
 }
 
-uint64_t sub_1AFD5D400()
+uint64_t sub_1AFD5D400(uint64_t a1)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(byte_1AFEAB398, a1);
 
   return sub_1AFDFD828();
 }
 
-uint64_t sub_1AFD5D46C()
+uint64_t sub_1AFD5D46C(uint64_t a1, uint64_t a2)
 {
-  swift_getWitnessTable();
+  swift_getWitnessTable(byte_1AFEAB398);
 
   return sub_1AFDFD7F8();
 }
 
-uint64_t sub_1AFD5D508(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t *, uint64_t, uint64_t, void))
+uint64_t sub_1AFD5D508(uint64_t *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t (*a5)(uint64_t *, uint64_t, uint64_t, void))
 {
   v9 = *a1;
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(a4, a2, a3);
   return a5(&v9, a2, WitnessTable, MEMORY[0x1E69E6570]);
 }
 
-uint64_t sub_1AFD5D588@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1AFD5D588@<X0>(uint64_t a1@<X0>, const char *a2@<X2>, uint64_t a3@<X8>)
 {
-  v3 = v2;
-  (*(*(a1 - 8) + 32))(a2, v3, a1);
-  swift_getWitnessTable();
+  v6 = v3;
+  (*(*(a1 - 8) + 32))(a3, v6, a1);
+  swift_getWitnessTable(a2, a1);
   result = sub_1AFDFE468();
-  *(a2 + *(result + 36)) = 0;
+  *(a3 + *(result + 36)) = 0;
   return result;
 }
 
 uint64_t sub_1AFD5D610(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(byte_1AFEAB1E8, a1);
 
   return MEMORY[0x1EEE698E0](a1, WitnessTable);
 }
 
-uint64_t sub_1AFD5D67C(uint64_t a1)
+uint64_t sub_1AFD5D67C(uint64_t a1, uint64_t a2, const char *a3)
 {
-  swift_getWitnessTable();
-  v3 = sub_1AFD60D38();
-  (*(*(a1 - 8) + 8))(v1, a1);
-  return v3;
+  WitnessTable = swift_getWitnessTable(a3, a1);
+  v6 = sub_1AFD60D38(v3, a1, WitnessTable);
+  (*(*(a1 - 8) + 8))(v3, a1);
+  return v6;
 }
 
 uint64_t sub_1AFD5D9C0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v59 = a3;
-  v57 = a1;
-  v78 = *MEMORY[0x1E69E9840];
+  v55 = a3;
+  v53 = a1;
+  v74 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 16);
+  v64 = v6;
+  v65 = v6;
+  v66 = v6;
+  v67 = v6;
   v68 = v6;
   v69 = v6;
   v70 = v6;
   v71 = v6;
   v72 = v6;
   v73 = v6;
-  v74 = v6;
-  v75 = v6;
-  v76 = v6;
-  v77 = v6;
   TupleTypeMetadata = swift_getTupleTypeMetadata();
   v7 = *(TupleTypeMetadata - 8);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata, v8);
-  v54 = &v45 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10, v11);
-  v52 = &v45 - v12;
-  v53 = v6;
-  v13 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v14, v15);
-  v51 = &v45 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  swift_getWitnessTable();
-  v17 = sub_1AFDFE468();
-  v45 = *(v17 - 8);
-  v19 = MEMORY[0x1EEE9AC00](v17, v18);
-  v21 = &v45 - v20;
-  v22 = *(*(a2 - 8) + 16);
-  v58 = a2;
-  v22(v21, v4, a2, v19);
-  v23 = 0;
-  v24 = 0;
-  v46 = v17;
-  v25 = *(v17 + 36);
-  v67 = v21;
-  v50 = &v21[v25];
-  *v50 = 0;
-  v49 = *(v7 + 16);
-  v26 = (v13 + 32);
-  v55 = v7 + 16;
-  v48 = (v7 + 8);
-  v47 = (v13 + 8);
-  v27 = TupleTypeMetadata;
-  v28 = v53;
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v50 = &v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v48 = &v41 - v10;
+  v49 = v6;
+  v11 = *(v6 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v12);
+  v47 = &v41 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  swift_getWitnessTable(byte_1AFEAB1E8, a2, v13);
+  v15 = sub_1AFDFE468();
+  v41 = *(v15 - 8);
+  v16 = MEMORY[0x1EEE9AC00](v15);
+  v18 = &v41 - v17;
+  v19 = *(*(a2 - 8) + 16);
+  v54 = a2;
+  v19(v18, v4, a2, v16);
+  v20 = 0;
+  v21 = 0;
+  v42 = v15;
+  v22 = *(v15 + 36);
+  v63 = v18;
+  v46 = &v18[v22];
+  *v46 = 0;
+  v45 = *(v7 + 16);
+  v23 = (v11 + 32);
+  v51 = v7 + 16;
+  v44 = (v7 + 8);
+  v43 = (v11 + 8);
+  v24 = TupleTypeMetadata;
+  v25 = v49;
   do
   {
-    v65 = v23;
-    v66 = v24;
-    v29 = v52;
-    v49(v52, v67, v27);
-    v30 = v27[12];
-    v31 = v27[16];
-    v32 = v27[20];
-    v33 = v27[24];
-    v34 = v27[32];
-    v60 = v27[28];
-    v61 = v34;
-    v35 = v27[40];
-    v62 = v27[36];
-    v63 = v35;
-    v64 = v27[44];
-    v36 = *v26;
-    v37 = v54;
-    (*v26)(v54, v29, v28);
-    v36((v37 + v30), &v29[v30], v28);
-    v36((v37 + v31), &v29[v31], v28);
-    v36((v37 + v32), &v29[v32], v28);
-    v36((v37 + v33), &v29[v33], v28);
-    v36((v37 + v60), &v29[v60], v28);
-    v36((v37 + v61), &v29[v61], v28);
-    v36((v37 + v62), &v29[v62], v28);
-    v36((v37 + v63), &v29[v63], v28);
-    v38 = (v36)(v37 + v64, &v29[v64], v28);
-    MEMORY[0x1EEE9AC00](v38, v39);
-    v40 = v65;
-    v24 = v66;
-    *(&v45 - 2) = v28;
-    *(&v45 - 1) = v40;
-    v41 = v51;
-    sub_1AF6F430C(v37, sub_1AFD60B14, (&v45 - 4), v27, MEMORY[0x1E69E73E0], v28, MEMORY[0x1E69E7410], v42);
-    (*v48)(v37, v27);
-    v68 = v40;
-    swift_getWitnessTable();
-    v43 = v50;
+    v61 = v20;
+    v62 = v21;
+    v26 = v48;
+    v45(v48, v63, v24);
+    v27 = v24[12];
+    v28 = v24[16];
+    v29 = v24[20];
+    v30 = v24[24];
+    v31 = v24[32];
+    v56 = v24[28];
+    v57 = v31;
+    v32 = v24[40];
+    v58 = v24[36];
+    v59 = v32;
+    v60 = v24[44];
+    v33 = *v23;
+    v34 = v50;
+    (*v23)(v50, v26, v25);
+    v33((v34 + v27), &v26[v27], v25);
+    v33((v34 + v28), &v26[v28], v25);
+    v33((v34 + v29), &v26[v29], v25);
+    v33((v34 + v30), &v26[v30], v25);
+    v33((v34 + v56), &v26[v56], v25);
+    v33((v34 + v57), &v26[v57], v25);
+    v33((v34 + v58), &v26[v58], v25);
+    v33((v34 + v59), &v26[v59], v25);
+    v35 = (v33)(v34 + v60, &v26[v60], v25);
+    MEMORY[0x1EEE9AC00](v35);
+    v36 = v61;
+    v21 = v62;
+    *(&v41 - 2) = v25;
+    *(&v41 - 1) = v36;
+    v37 = v47;
+    sub_1AF6F430C(v34, sub_1AFD60B14, (&v41 - 4), v24, MEMORY[0x1E69E73E0], v25, MEMORY[0x1E69E7410], v38);
+    (*v44)(v34, v24);
+    v64 = v36;
+    swift_getWitnessTable(byte_1AFEAB398, v54);
+    v39 = v46;
     sub_1AFDFD7F8();
     sub_1AFDFCD08();
-    (*v47)(v41, v28);
-    v23 = *v43;
+    (*v43)(v37, v25);
+    v20 = *v39;
   }
 
-  while (*v43 != 10);
-  return (*(v45 + 8))(v67, v46);
+  while (*v39 != 10);
+  return (*(v41 + 8))(v63, v42);
 }
 
-uint64_t sub_1AFD5DF90(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *, uint64_t, uint64_t))
+uint64_t sub_1AFD5DF90(uint64_t a1, uint64_t a2, uint64_t (*a3)(void *, uint64_t, uint64_t))
 {
   sub_1AFDFF288();
   a3(v7, a1, a2);
   return sub_1AFDFF2F8();
 }
 
-uint64_t sub_1AFD5E050(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *, uint64_t, uint64_t))
+uint64_t sub_1AFD5E050(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void *, uint64_t, uint64_t))
 {
   v6 = *(a3 - 8);
   sub_1AFDFF288();
@@ -1937,17 +1939,19 @@ uint64_t sub_1AFD5E050(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *
 
 uint64_t sub_1AFD5E0AC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10, char *a11, uint64_t a12, uint64_t a13, int *a14)
 {
-  v92 = a8;
-  v88 = a7;
-  v87 = a6;
-  v86 = a5;
-  v85 = a4;
-  v84 = a3;
-  v93 = a9;
-  v94 = a14;
-  v95 = a11;
-  v89 = a10;
-  v90 = a13;
+  v90 = a8;
+  v86 = a7;
+  v85 = a6;
+  v84 = a5;
+  v83 = a4;
+  v82 = a3;
+  v91 = a9;
+  v92 = a14;
+  v93 = a11;
+  v87 = a10;
+  v88 = a13;
+  v97 = a12;
+  v98 = a12;
   v99 = a12;
   v100 = a12;
   v101 = a12;
@@ -1956,247 +1960,245 @@ uint64_t sub_1AFD5E0AC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>
   v104 = a12;
   v105 = a12;
   v106 = a12;
-  v107 = a12;
-  v108 = a12;
   TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v91 = *(TupleTypeMetadata - 1);
-  v17 = v91;
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata, v18);
-  v20 = &v84 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = MEMORY[0x1EEE9AC00](v21, v22);
-  v25 = &v84 - v24;
-  v97 = &v84 - v24;
-  v26 = *(a12 - 8);
-  v27 = *(v26 + 32);
-  v27(&v84 - v24, a1, a12, v23);
-  (v27)(&v25[TupleTypeMetadata[12]], a2, a12);
-  (v27)(&v25[TupleTypeMetadata[16]], v84, a12);
-  (v27)(&v25[TupleTypeMetadata[20]], v85, a12);
-  (v27)(&v25[TupleTypeMetadata[24]], v86, a12);
-  (v27)(&v25[TupleTypeMetadata[28]], v87, a12);
-  (v27)(&v25[TupleTypeMetadata[32]], v88, a12);
-  (v27)(&v25[TupleTypeMetadata[36]], v92, a12);
-  (v27)(&v25[TupleTypeMetadata[40]], v89, a12);
-  (v27)(&v25[TupleTypeMetadata[44]], v95, a12);
-  v28 = v27;
-  v98 = v27;
-  v29 = *(v17 + 16);
-  v92 = v17 + 16;
-  v95 = v29;
-  v96 = v26 + 32;
-  (v29)(v20, v25, TupleTypeMetadata);
-  v30 = TupleTypeMetadata[12];
-  v88 = TupleTypeMetadata[16];
-  v89 = v30;
+  v89 = *(TupleTypeMetadata - 1);
+  v17 = v89;
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v19 = &v82 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21.n128_f64[0] = MEMORY[0x1EEE9AC00](v20);
+  v23 = &v82 - v22;
+  v95 = &v82 - v22;
+  v24 = *(a12 - 8);
+  v25 = *(v24 + 32);
+  v25(&v82 - v22, a1, a12, v21);
+  (v25)(&v23[TupleTypeMetadata[12]], a2, a12);
+  (v25)(&v23[TupleTypeMetadata[16]], v82, a12);
+  (v25)(&v23[TupleTypeMetadata[20]], v83, a12);
+  (v25)(&v23[TupleTypeMetadata[24]], v84, a12);
+  (v25)(&v23[TupleTypeMetadata[28]], v85, a12);
+  (v25)(&v23[TupleTypeMetadata[32]], v86, a12);
+  (v25)(&v23[TupleTypeMetadata[36]], v90, a12);
+  (v25)(&v23[TupleTypeMetadata[40]], v87, a12);
+  (v25)(&v23[TupleTypeMetadata[44]], v93, a12);
+  v26 = v25;
+  v96 = v25;
+  v27 = *(v17 + 16);
+  v90 = v17 + 16;
+  v93 = v27;
+  v94 = v24 + 32;
+  (v27)(v19, v23, TupleTypeMetadata);
+  v28 = TupleTypeMetadata[12];
+  v86 = TupleTypeMetadata[16];
+  v87 = v28;
+  v85 = TupleTypeMetadata[20];
+  v84 = TupleTypeMetadata[24];
+  v83 = TupleTypeMetadata[28];
+  v29 = TupleTypeMetadata[32];
+  v30 = TupleTypeMetadata[36];
+  v31 = TupleTypeMetadata[40];
+  v32 = TupleTypeMetadata[44];
+  v26(v91, v19, a12);
+  v33 = *(v24 + 8);
+  v33(&v19[v32], a12);
+  v33(&v19[v31], a12);
+  v33(&v19[v30], a12);
+  v33(&v19[v29], a12);
+  v33(&v19[v83], a12);
+  v33(&v19[v84], a12);
+  v33(&v19[v85], a12);
+  v33(&v19[v86], a12);
+  v33(&v19[v87], a12);
+  v34 = v93;
+  (v93)(v19, v95, TupleTypeMetadata);
+  v35 = TupleTypeMetadata[12];
+  v36 = TupleTypeMetadata[16];
+  v86 = TupleTypeMetadata[20];
+  v87 = v36;
+  v85 = TupleTypeMetadata[24];
+  v84 = TupleTypeMetadata[28];
+  v83 = TupleTypeMetadata[32];
+  v82 = TupleTypeMetadata[36];
+  v37 = TupleTypeMetadata[40];
+  v38 = TupleTypeMetadata[44];
+  v92 = type metadata accessor for __FixedArrayCodableStorage10(0, a12, v88, v92);
+  v96(v91 + v92[11], &v19[v35], a12);
+  v33(&v19[v38], a12);
+  v33(&v19[v37], a12);
+  v33(&v19[v82], a12);
+  v33(&v19[v83], a12);
+  v33(&v19[v84], a12);
+  v33(&v19[v85], a12);
+  v33(&v19[v86], a12);
+  v33(&v19[v87], a12);
+  v33(v19, a12);
+  v39 = v95;
+  v34(v19, v95, TupleTypeMetadata);
+  v40 = TupleTypeMetadata[12];
+  v41 = TupleTypeMetadata[16];
   v87 = TupleTypeMetadata[20];
+  v88 = v40;
   v86 = TupleTypeMetadata[24];
   v85 = TupleTypeMetadata[28];
-  v31 = TupleTypeMetadata[32];
-  v32 = TupleTypeMetadata[36];
-  v33 = TupleTypeMetadata[40];
-  v34 = TupleTypeMetadata[44];
-  v28(v93, v20, a12);
-  v35 = *(v26 + 8);
-  v35(&v20[v34], a12);
-  v35(&v20[v33], a12);
-  v35(&v20[v32], a12);
-  v35(&v20[v31], a12);
-  v35(&v20[v85], a12);
-  v35(&v20[v86], a12);
-  v35(&v20[v87], a12);
-  v35(&v20[v88], a12);
-  v35(&v20[v89], a12);
-  v36 = v95;
-  (v95)(v20, v97, TupleTypeMetadata);
-  v37 = TupleTypeMetadata[12];
-  v38 = TupleTypeMetadata[16];
-  v88 = TupleTypeMetadata[20];
-  v89 = v38;
+  v84 = TupleTypeMetadata[32];
+  v42 = TupleTypeMetadata[36];
+  v43 = TupleTypeMetadata[40];
+  v44 = TupleTypeMetadata[44];
+  v45 = v91;
+  v96(v91 + v92[12], &v19[v41], a12);
+  v33(&v19[v44], a12);
+  v33(&v19[v43], a12);
+  v33(&v19[v42], a12);
+  v33(&v19[v84], a12);
+  v33(&v19[v85], a12);
+  v33(&v19[v86], a12);
+  v33(&v19[v87], a12);
+  v33(&v19[v88], a12);
+  v33(v19, a12);
+  (v93)(v19, v39, TupleTypeMetadata);
+  v46 = TupleTypeMetadata[12];
+  v87 = TupleTypeMetadata[16];
+  v88 = v46;
+  v47 = TupleTypeMetadata[20];
+  v86 = TupleTypeMetadata[24];
+  v85 = TupleTypeMetadata[28];
+  v84 = TupleTypeMetadata[32];
+  v48 = TupleTypeMetadata[36];
+  v49 = TupleTypeMetadata[40];
+  v50 = TupleTypeMetadata[44];
+  v96(v45 + v92[13], &v19[v47], a12);
+  v33(&v19[v50], a12);
+  v33(&v19[v49], a12);
+  v33(&v19[v48], a12);
+  v33(&v19[v84], a12);
+  v33(&v19[v85], a12);
+  v33(&v19[v86], a12);
+  v33(&v19[v87], a12);
+  v33(&v19[v88], a12);
+  v33(v19, a12);
+  (v93)(v19, v95, TupleTypeMetadata);
+  v51 = TupleTypeMetadata[12];
+  v87 = TupleTypeMetadata[16];
+  v88 = v51;
+  v86 = TupleTypeMetadata[20];
+  v52 = TupleTypeMetadata[24];
+  v85 = TupleTypeMetadata[28];
+  v84 = TupleTypeMetadata[32];
+  v53 = TupleTypeMetadata[36];
+  v54 = TupleTypeMetadata[40];
+  v55 = TupleTypeMetadata[44];
+  v56 = v92;
+  v96(v91 + v92[14], &v19[v52], a12);
+  v33(&v19[v55], a12);
+  v33(&v19[v54], a12);
+  v33(&v19[v53], a12);
+  v33(&v19[v84], a12);
+  v33(&v19[v85], a12);
+  v33(&v19[v86], a12);
+  v33(&v19[v87], a12);
+  v33(&v19[v88], a12);
+  v33(v19, a12);
+  (v93)(v19, v95, TupleTypeMetadata);
+  v57 = TupleTypeMetadata[12];
+  v87 = TupleTypeMetadata[16];
+  v88 = v57;
+  v86 = TupleTypeMetadata[20];
+  v85 = TupleTypeMetadata[24];
+  v58 = TupleTypeMetadata[28];
+  v84 = TupleTypeMetadata[32];
+  v59 = TupleTypeMetadata[36];
+  v60 = TupleTypeMetadata[40];
+  v61 = TupleTypeMetadata[44];
+  v62 = v91;
+  v96(v91 + v56[15], &v19[v58], a12);
+  v33(&v19[v61], a12);
+  v33(&v19[v60], a12);
+  v33(&v19[v59], a12);
+  v33(&v19[v84], a12);
+  v33(&v19[v85], a12);
+  v33(&v19[v86], a12);
+  v33(&v19[v87], a12);
+  v33(&v19[v88], a12);
+  v33(v19, a12);
+  (v93)(v19, v95, TupleTypeMetadata);
+  v63 = TupleTypeMetadata[12];
+  v87 = TupleTypeMetadata[16];
+  v88 = v63;
+  v86 = TupleTypeMetadata[20];
+  v85 = TupleTypeMetadata[24];
+  v84 = TupleTypeMetadata[28];
+  v64 = TupleTypeMetadata[36];
+  v65 = TupleTypeMetadata[40];
+  v66 = TupleTypeMetadata[44];
+  v96(v62 + v92[16], &v19[TupleTypeMetadata[32]], a12);
+  v33(&v19[v66], a12);
+  v33(&v19[v65], a12);
+  v33(&v19[v64], a12);
+  v33(&v19[v84], a12);
+  v33(&v19[v85], a12);
+  v33(&v19[v86], a12);
+  v33(&v19[v87], a12);
+  v33(&v19[v88], a12);
+  v33(v19, a12);
+  (v93)(v19, v95, TupleTypeMetadata);
+  v67 = TupleTypeMetadata[12];
+  v87 = TupleTypeMetadata[16];
+  v88 = v67;
+  v86 = TupleTypeMetadata[20];
+  v85 = TupleTypeMetadata[24];
+  v84 = TupleTypeMetadata[28];
+  v68 = TupleTypeMetadata[32];
+  v69 = TupleTypeMetadata[40];
+  v70 = TupleTypeMetadata[44];
+  v71 = v96;
+  v96(v62 + v92[17], &v19[TupleTypeMetadata[36]], a12);
+  v33(&v19[v70], a12);
+  v33(&v19[v69], a12);
+  v33(&v19[v68], a12);
+  v33(&v19[v84], a12);
+  v33(&v19[v85], a12);
+  v33(&v19[v86], a12);
+  v33(&v19[v87], a12);
+  v33(&v19[v88], a12);
+  v33(v19, a12);
+  (v93)(v19, v95, TupleTypeMetadata);
+  v93 = TupleTypeMetadata[12];
+  v90 = TupleTypeMetadata[16];
+  v72 = TupleTypeMetadata[20];
   v87 = TupleTypeMetadata[24];
+  v88 = v72;
   v86 = TupleTypeMetadata[28];
-  v85 = TupleTypeMetadata[32];
-  v84 = TupleTypeMetadata[36];
-  v39 = TupleTypeMetadata[40];
-  v40 = TupleTypeMetadata[44];
-  v94 = type metadata accessor for __FixedArrayCodableStorage10();
-  v98(v93 + v94[11], &v20[v37], a12);
-  v35(&v20[v40], a12);
-  v35(&v20[v39], a12);
-  v35(&v20[v84], a12);
-  v35(&v20[v85], a12);
-  v35(&v20[v86], a12);
-  v35(&v20[v87], a12);
-  v35(&v20[v88], a12);
-  v35(&v20[v89], a12);
-  v35(v20, a12);
-  v41 = v97;
-  v36(v20, v97, TupleTypeMetadata);
-  v42 = TupleTypeMetadata[12];
-  v43 = TupleTypeMetadata[16];
-  v89 = TupleTypeMetadata[20];
-  v90 = v42;
-  v88 = TupleTypeMetadata[24];
-  v87 = TupleTypeMetadata[28];
-  v86 = TupleTypeMetadata[32];
-  v44 = TupleTypeMetadata[36];
-  v45 = TupleTypeMetadata[40];
-  v46 = TupleTypeMetadata[44];
-  v47 = v93;
-  v98(v93 + v94[12], &v20[v43], a12);
-  v35(&v20[v46], a12);
-  v35(&v20[v45], a12);
-  v35(&v20[v44], a12);
-  v35(&v20[v86], a12);
-  v35(&v20[v87], a12);
-  v35(&v20[v88], a12);
-  v35(&v20[v89], a12);
-  v35(&v20[v90], a12);
-  v35(v20, a12);
-  (v95)(v20, v41, TupleTypeMetadata);
-  v48 = TupleTypeMetadata[12];
-  v89 = TupleTypeMetadata[16];
-  v90 = v48;
-  v49 = TupleTypeMetadata[20];
-  v88 = TupleTypeMetadata[24];
-  v87 = TupleTypeMetadata[28];
-  v86 = TupleTypeMetadata[32];
-  v50 = TupleTypeMetadata[36];
-  v51 = TupleTypeMetadata[40];
-  v52 = TupleTypeMetadata[44];
-  v98(v47 + v94[13], &v20[v49], a12);
-  v35(&v20[v52], a12);
-  v35(&v20[v51], a12);
-  v35(&v20[v50], a12);
-  v35(&v20[v86], a12);
-  v35(&v20[v87], a12);
-  v35(&v20[v88], a12);
-  v35(&v20[v89], a12);
-  v35(&v20[v90], a12);
-  v35(v20, a12);
-  (v95)(v20, v97, TupleTypeMetadata);
-  v53 = TupleTypeMetadata[12];
-  v89 = TupleTypeMetadata[16];
-  v90 = v53;
-  v88 = TupleTypeMetadata[20];
-  v54 = TupleTypeMetadata[24];
-  v87 = TupleTypeMetadata[28];
-  v86 = TupleTypeMetadata[32];
-  v55 = TupleTypeMetadata[36];
-  v56 = TupleTypeMetadata[40];
-  v57 = TupleTypeMetadata[44];
-  v58 = v94;
-  v98(v93 + v94[14], &v20[v54], a12);
-  v35(&v20[v57], a12);
-  v35(&v20[v56], a12);
-  v35(&v20[v55], a12);
-  v35(&v20[v86], a12);
-  v35(&v20[v87], a12);
-  v35(&v20[v88], a12);
-  v35(&v20[v89], a12);
-  v35(&v20[v90], a12);
-  v35(v20, a12);
-  (v95)(v20, v97, TupleTypeMetadata);
-  v59 = TupleTypeMetadata[12];
-  v89 = TupleTypeMetadata[16];
-  v90 = v59;
-  v88 = TupleTypeMetadata[20];
-  v87 = TupleTypeMetadata[24];
-  v60 = TupleTypeMetadata[28];
-  v86 = TupleTypeMetadata[32];
-  v61 = TupleTypeMetadata[36];
-  v62 = TupleTypeMetadata[40];
-  v63 = TupleTypeMetadata[44];
-  v64 = v93;
-  v98(v93 + v58[15], &v20[v60], a12);
-  v35(&v20[v63], a12);
-  v35(&v20[v62], a12);
-  v35(&v20[v61], a12);
-  v35(&v20[v86], a12);
-  v35(&v20[v87], a12);
-  v35(&v20[v88], a12);
-  v35(&v20[v89], a12);
-  v35(&v20[v90], a12);
-  v35(v20, a12);
-  (v95)(v20, v97, TupleTypeMetadata);
-  v65 = TupleTypeMetadata[12];
-  v89 = TupleTypeMetadata[16];
-  v90 = v65;
-  v88 = TupleTypeMetadata[20];
-  v87 = TupleTypeMetadata[24];
-  v86 = TupleTypeMetadata[28];
-  v66 = TupleTypeMetadata[36];
-  v67 = TupleTypeMetadata[40];
-  v68 = TupleTypeMetadata[44];
-  v98(v64 + v94[16], &v20[TupleTypeMetadata[32]], a12);
-  v35(&v20[v68], a12);
-  v35(&v20[v67], a12);
-  v35(&v20[v66], a12);
-  v35(&v20[v86], a12);
-  v35(&v20[v87], a12);
-  v35(&v20[v88], a12);
-  v35(&v20[v89], a12);
-  v35(&v20[v90], a12);
-  v35(v20, a12);
-  (v95)(v20, v97, TupleTypeMetadata);
-  v69 = TupleTypeMetadata[12];
-  v89 = TupleTypeMetadata[16];
-  v90 = v69;
-  v88 = TupleTypeMetadata[20];
-  v87 = TupleTypeMetadata[24];
-  v86 = TupleTypeMetadata[28];
-  v70 = TupleTypeMetadata[32];
-  v71 = TupleTypeMetadata[40];
-  v72 = TupleTypeMetadata[44];
-  v73 = v98;
-  v98(v64 + v94[17], &v20[TupleTypeMetadata[36]], a12);
-  v35(&v20[v72], a12);
-  v35(&v20[v71], a12);
-  v35(&v20[v70], a12);
-  v35(&v20[v86], a12);
-  v35(&v20[v87], a12);
-  v35(&v20[v88], a12);
-  v35(&v20[v89], a12);
-  v35(&v20[v90], a12);
-  v35(v20, a12);
-  (v95)(v20, v97, TupleTypeMetadata);
+  v73 = TupleTypeMetadata[32];
+  v74 = TupleTypeMetadata[36];
+  v75 = TupleTypeMetadata[44];
+  v71(v62 + v92[18], &v19[TupleTypeMetadata[40]], a12);
+  v33(&v19[v75], a12);
+  v33(&v19[v74], a12);
+  v33(&v19[v73], a12);
+  v33(&v19[v86], a12);
+  v33(&v19[v87], a12);
+  v33(&v19[v88], a12);
+  v33(&v19[v90], a12);
+  v33(&v93[v19], a12);
+  v33(v19, a12);
+  (*(v89 + 32))(v19, v95, TupleTypeMetadata);
   v95 = TupleTypeMetadata[12];
-  v92 = TupleTypeMetadata[16];
-  v74 = TupleTypeMetadata[20];
-  v89 = TupleTypeMetadata[24];
-  v90 = v74;
-  v88 = TupleTypeMetadata[28];
-  v75 = TupleTypeMetadata[32];
-  v76 = TupleTypeMetadata[36];
-  v77 = TupleTypeMetadata[44];
-  v73(v64 + v94[18], &v20[TupleTypeMetadata[40]], a12);
-  v35(&v20[v77], a12);
-  v35(&v20[v76], a12);
-  v35(&v20[v75], a12);
-  v35(&v20[v88], a12);
-  v35(&v20[v89], a12);
-  v35(&v20[v90], a12);
-  v35(&v20[v92], a12);
-  v35(&v95[v20], a12);
-  v35(v20, a12);
-  (*(v91 + 32))(v20, v97, TupleTypeMetadata);
-  v97 = TupleTypeMetadata[12];
-  v95 = TupleTypeMetadata[16];
-  v92 = TupleTypeMetadata[20];
-  v78 = TupleTypeMetadata[24];
-  v79 = TupleTypeMetadata[28];
-  v80 = TupleTypeMetadata[32];
-  v81 = TupleTypeMetadata[36];
-  v82 = TupleTypeMetadata[40];
-  v98(v93 + v94[19], &v20[TupleTypeMetadata[44]], a12);
-  v35(&v20[v82], a12);
-  v35(&v20[v81], a12);
-  v35(&v20[v80], a12);
-  v35(&v20[v79], a12);
-  v35(&v20[v78], a12);
-  v35(&v20[v92], a12);
-  v35(&v95[v20], a12);
-  v35(&v97[v20], a12);
-  return (v35)(v20, a12);
+  v93 = TupleTypeMetadata[16];
+  v90 = TupleTypeMetadata[20];
+  v76 = TupleTypeMetadata[24];
+  v77 = TupleTypeMetadata[28];
+  v78 = TupleTypeMetadata[32];
+  v79 = TupleTypeMetadata[36];
+  v80 = TupleTypeMetadata[40];
+  v96(v91 + v92[19], &v19[TupleTypeMetadata[44]], a12);
+  v33(&v19[v80], a12);
+  v33(&v19[v79], a12);
+  v33(&v19[v78], a12);
+  v33(&v19[v77], a12);
+  v33(&v19[v76], a12);
+  v33(&v19[v90], a12);
+  v33(&v93[v19], a12);
+  v33(&v95[v19], a12);
+  return (v33)(v19, a12);
 }
 
 uint64_t sub_1AFD5F094(uint64_t a1, uint64_t a2)
@@ -2278,158 +2280,159 @@ uint64_t sub_1AFD5F094(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t sub_1AFD5F35C(void *a1, uint64_t a2)
+uint64_t sub_1AFD5F35C(void *a1, int *a2)
 {
-  v3 = *(a2 + 16);
-  v11[1] = a2;
-  v11[2] = v3;
-  type metadata accessor for __FixedArrayCodableStorage10.CodingKeys();
-  swift_getWitnessTable();
-  v4 = sub_1AFDFE9A8();
-  v5 = *(v4 - 8);
-  MEMORY[0x1EEE9AC00](v4, v6);
-  v8 = v11 - v7;
+  v4 = *(a2 + 2);
+  v3 = *(a2 + 3);
+  v12[1] = a2;
+  v12[2] = v4;
+  v5 = type metadata accessor for __FixedArrayCodableStorage10.CodingKeys(255, v4, v3, *(a2 + 4));
+  swift_getWitnessTable(byte_1AFEABAF0, v5);
+  v6 = sub_1AFDFE9A8();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = v12 - v8;
   sub_1AF441150(a1, a1[3]);
   sub_1AFDFF3F8();
-  v21 = 0;
-  v9 = v11[4];
+  v22 = 0;
+  v10 = v12[4];
   sub_1AFDFE918();
-  if (!v9)
+  if (!v10)
   {
-    v20 = 1;
+    v21 = 1;
     sub_1AFDFE918();
-    v19 = 2;
+    v20 = 2;
     sub_1AFDFE918();
-    v18 = 3;
+    v19 = 3;
     sub_1AFDFE918();
-    v17 = 4;
+    v18 = 4;
     sub_1AFDFE918();
-    v16 = 5;
+    v17 = 5;
     sub_1AFDFE918();
-    v15 = 6;
+    v16 = 6;
     sub_1AFDFE918();
-    v14 = 7;
+    v15 = 7;
     sub_1AFDFE918();
-    v13 = 8;
+    v14 = 8;
     sub_1AFDFE918();
-    v12 = 9;
+    v13 = 9;
     sub_1AFDFE918();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v7 + 8))(v9, v6);
 }
 
-uint64_t sub_1AFD5F66C@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t sub_1AFD5F66C@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v64 = a4;
-  v71 = *(a2 - 8);
-  MEMORY[0x1EEE9AC00](a1, a2);
-  v65 = &v60 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8, v9);
-  v66 = &v60 - v10;
-  MEMORY[0x1EEE9AC00](v11, v12);
-  v67 = &v60 - v13;
-  MEMORY[0x1EEE9AC00](v14, v15);
-  v68 = &v60 - v16;
-  MEMORY[0x1EEE9AC00](v17, v18);
-  v69 = &v60 - v19;
-  MEMORY[0x1EEE9AC00](v20, v21);
-  v70 = &v60 - v22;
-  MEMORY[0x1EEE9AC00](v23, v24);
-  v74 = &v60 - v25;
-  MEMORY[0x1EEE9AC00](v26, v27);
-  v73 = &v60 - v28;
-  MEMORY[0x1EEE9AC00](v29, v30);
-  v72 = &v60 - v31;
-  MEMORY[0x1EEE9AC00](v32, v33);
-  v75 = &v60 - v34;
-  type metadata accessor for __FixedArrayCodableStorage10.CodingKeys();
-  swift_getWitnessTable();
-  v35 = sub_1AFDFE818();
-  v77 = *(v35 - 8);
-  v78 = v35;
-  MEMORY[0x1EEE9AC00](v35, v36);
-  v38 = &v60 - v37;
-  v79 = a2;
-  v76 = a3;
-  v39 = type metadata accessor for __FixedArrayCodableStorage10();
-  v63 = *(v39 - 8);
-  MEMORY[0x1EEE9AC00](v39, v40);
-  v42 = &v60 - v41;
+  v59 = a5;
+  v66 = *(a2 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v60 = &v55 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v61 = &v55 - v11;
+  MEMORY[0x1EEE9AC00](v12);
+  v62 = &v55 - v13;
+  MEMORY[0x1EEE9AC00](v14);
+  v63 = &v55 - v15;
+  MEMORY[0x1EEE9AC00](v16);
+  v64 = &v55 - v17;
+  MEMORY[0x1EEE9AC00](v18);
+  v65 = &v55 - v19;
+  MEMORY[0x1EEE9AC00](v20);
+  v69 = &v55 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v68 = &v55 - v23;
+  MEMORY[0x1EEE9AC00](v24);
+  v67 = &v55 - v25;
+  MEMORY[0x1EEE9AC00](v26);
+  v70 = &v55 - v27;
+  v31 = type metadata accessor for __FixedArrayCodableStorage10.CodingKeys(255, v28, v29, v30);
+  swift_getWitnessTable(byte_1AFEABAF0, v31);
+  v32 = sub_1AFDFE818();
+  v72 = *(v32 - 8);
+  v73 = v32;
+  MEMORY[0x1EEE9AC00](v32);
+  v34 = &v55 - v33;
+  v74 = a2;
+  v71 = a3;
+  v35 = type metadata accessor for __FixedArrayCodableStorage10(0, a2, a3, a4);
+  v58 = *(v35 - 8);
+  MEMORY[0x1EEE9AC00](v35);
+  v37 = &v55 - v36;
   sub_1AF441150(a1, a1[3]);
-  v80 = v38;
-  v43 = v81;
+  v75 = v34;
+  v38 = v76;
   sub_1AFDFF3B8();
-  if (v43)
+  if (v38)
   {
     return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(a1);
   }
 
-  v45 = v72;
-  v44 = v73;
-  v46 = v74;
-  v81 = v42;
-  v61 = v39;
-  v62 = a1;
-  v91 = 0;
-  v47 = v75;
-  v48 = v79;
+  v40 = v67;
+  v39 = v68;
+  v41 = v69;
+  v76 = v37;
+  v56 = v35;
+  v57 = a1;
+  v86 = 0;
+  v42 = v70;
+  v43 = v74;
   sub_1AFDFE768();
-  v75 = *(v71 + 32);
-  v60 = v71 + 32;
-  (v75)(v81, v47, v48);
-  v90 = 1;
-  v49 = v45;
+  v70 = *(v66 + 32);
+  v55 = v66 + 32;
+  (v70)(v76, v42, v43);
+  v85 = 1;
+  v44 = v40;
   sub_1AFDFE768();
+  v45 = v56;
+  (v70)(&v76[v56[11]], v44, v43);
+  v84 = 2;
+  v67 = 0;
+  sub_1AFDFE768();
+  (v70)(&v76[v45[12]], v39, v43);
+  v83 = 3;
+  sub_1AFDFE768();
+  (v70)(&v76[v45[13]], v41, v43);
+  v82 = 4;
+  v46 = v65;
+  sub_1AFDFE768();
+  (v70)(&v76[v45[14]], v46, v43);
+  v81 = 5;
+  v47 = v64;
+  sub_1AFDFE768();
+  (v70)(&v76[v45[15]], v47, v43);
+  v80 = 6;
+  v48 = v63;
+  sub_1AFDFE768();
+  (v70)(&v76[v45[16]], v48, v43);
+  v79 = 7;
+  v49 = v62;
+  sub_1AFDFE768();
+  (v70)(&v76[v56[17]], v49, v43);
+  v78[0] = 8;
   v50 = v61;
-  (v75)(&v81[v61[11]], v49, v48);
-  v89 = 2;
-  v72 = 0;
   sub_1AFDFE768();
-  (v75)(&v81[v50[12]], v44, v48);
-  v88 = 3;
+  (v70)(&v76[v56[18]], v50, v74);
+  v77 = 9;
   sub_1AFDFE768();
-  (v75)(&v81[v50[13]], v46, v48);
-  v87 = 4;
-  v51 = v70;
-  sub_1AFDFE768();
-  (v75)(&v81[v50[14]], v51, v48);
-  v86 = 5;
-  v52 = v69;
-  sub_1AFDFE768();
-  (v75)(&v81[v50[15]], v52, v48);
-  v85 = 6;
-  v53 = v68;
-  sub_1AFDFE768();
-  (v75)(&v81[v50[16]], v53, v48);
-  v84 = 7;
-  v54 = v67;
-  sub_1AFDFE768();
-  (v75)(&v81[v61[17]], v54, v48);
-  v83 = 8;
-  v55 = v66;
-  sub_1AFDFE768();
-  (v75)(&v81[v61[18]], v55, v79);
-  v82 = 9;
-  sub_1AFDFE768();
-  (*(v77 + 8))(v80, v78);
-  v56 = v61;
-  v57 = v81;
-  (v75)(&v81[v61[19]], v65, v79);
-  v58 = v63;
-  (*(v63 + 16))(v64, v57, v56);
-  _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v62);
-  return (*(v58 + 8))(v57, v56);
+  (*(v72 + 8))(v75, v73);
+  v51 = v56;
+  v52 = v76;
+  (v70)(&v76[v56[19]], v60, v74);
+  v53 = v58;
+  (*(v58 + 16))(v59, v52, v51);
+  _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v57);
+  return (*(v53 + 8))(v52, v51);
 }
 
-uint64_t sub_1AFD601E4()
+uint64_t sub_1AFD601E4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(byte_1AFEABAF0, a3);
 
-  return sub_1AF609060();
+  return sub_1AF609060(a1, a2, a3, WitnessTable);
 }
 
-uint64_t sub_1AFD60250(uint64_t a1, void *a2, uint64_t a3, void (*a4)(_BYTE *, void, void, void, void))
+uint64_t sub_1AFD60250(uint64_t a1, void *a2, uint64_t a3, uint64_t (*a4)(void *, void, void, void, void))
 {
   sub_1AFDFF288();
   a4(v8, *v4, a2[2], a2[3], a2[4]);
@@ -2452,52 +2455,50 @@ uint64_t sub_1AFD602E0@<X0>(_BYTE *a1@<X8>)
 
 uint64_t sub_1AFD60314(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(byte_1AFEABAF0, a1);
 
   return MEMORY[0x1EEE6BB70](a1, WitnessTable);
 }
 
 uint64_t sub_1AFD60368(uint64_t a1)
 {
-  WitnessTable = swift_getWitnessTable();
+  WitnessTable = swift_getWitnessTable(byte_1AFEABAF0, a1);
 
   return MEMORY[0x1EEE6BB78](a1, WitnessTable);
 }
 
-uint64_t sub_1AFD603F8@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_1AFD603F8@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v25 = a3;
-  v26 = type metadata accessor for __FixedArrayCodableStorage10();
-  MEMORY[0x1EEE9AC00](v26, v6);
-  v38 = &v21 - v7;
-  v8 = type metadata accessor for FixedArray10();
-  v9 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8, v10);
-  v12 = &v21 - v11;
+  v27 = a5;
+  v28 = type metadata accessor for __FixedArrayCodableStorage10(0, a2, a3, a4);
+  MEMORY[0x1EEE9AC00](v28);
+  v40 = &v23 - v8;
+  v11 = type metadata accessor for FixedArray10(0, a2, v9, v10);
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v23 - v13;
   sub_1AF441150(a1, a1[3]);
   sub_1AFDFF398();
-  if (v3)
+  if (v5)
   {
-    v20 = a1;
+    v22 = a1;
   }
 
   else
   {
-    v23 = v8;
-    v24 = a1;
-    v21 = v12;
-    v22 = v9;
-    sub_1AF441150(v37, v37[3]);
-    v13 = v26;
-    swift_getWitnessTable();
-    v14 = v38;
+    v25 = v11;
+    v26 = a1;
+    v23 = v14;
+    v24 = v12;
+    sub_1AF441150(v39, v39[3]);
+    v15 = v28;
+    swift_getWitnessTable(byte_1AFEAB8D8, v28);
+    v16 = v40;
     sub_1AFDFEE88();
-    v16 = *(*(a2 - 8) + 32);
-    v17 = v21;
-    v16(v21, v14, a2);
-    v18 = v13[11];
-    v27 = a2;
-    v28 = a2;
+    v18 = *(*(a2 - 8) + 32);
+    v19 = v23;
+    v18(v23, v16, a2);
+    v20 = v15[11];
     v29 = a2;
     v30 = a2;
     v31 = a2;
@@ -2506,55 +2507,57 @@ uint64_t sub_1AFD603F8@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
     v34 = a2;
     v35 = a2;
     v36 = a2;
+    v37 = a2;
+    v38 = a2;
     TupleTypeMetadata = swift_getTupleTypeMetadata();
-    v16(&v17[TupleTypeMetadata[12]], &v14[v18], a2);
-    v16(&v17[TupleTypeMetadata[16]], &v14[v13[12]], a2);
-    v16(&v17[TupleTypeMetadata[20]], &v14[v13[13]], a2);
-    v16(&v17[TupleTypeMetadata[24]], &v14[v13[14]], a2);
-    v16(&v17[TupleTypeMetadata[28]], &v14[v13[15]], a2);
-    v16(&v17[TupleTypeMetadata[32]], &v14[v13[16]], a2);
-    v16(&v17[TupleTypeMetadata[36]], &v14[v13[17]], a2);
-    v16(&v17[TupleTypeMetadata[40]], &v14[v13[18]], a2);
-    v16(&v17[TupleTypeMetadata[44]], &v14[v13[19]], a2);
-    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v37);
-    (*(v22 + 32))(v25, v17, v23);
-    v20 = v24;
+    v18(&v19[TupleTypeMetadata[12]], &v16[v20], a2);
+    v18(&v19[TupleTypeMetadata[16]], &v16[v15[12]], a2);
+    v18(&v19[TupleTypeMetadata[20]], &v16[v15[13]], a2);
+    v18(&v19[TupleTypeMetadata[24]], &v16[v15[14]], a2);
+    v18(&v19[TupleTypeMetadata[28]], &v16[v15[15]], a2);
+    v18(&v19[TupleTypeMetadata[32]], &v16[v15[16]], a2);
+    v18(&v19[TupleTypeMetadata[36]], &v16[v15[17]], a2);
+    v18(&v19[TupleTypeMetadata[40]], &v16[v15[18]], a2);
+    v18(&v19[TupleTypeMetadata[44]], &v16[v15[19]], a2);
+    _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v39);
+    (*(v24 + 32))(v27, v19, v25);
+    v22 = v26;
   }
 
-  return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v20);
+  return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v22);
 }
 
 uint64_t sub_1AFD60774(void *a1, uint64_t a2, uint64_t a3, int *a4)
 {
   v17 = a3;
   v16 = a4;
-  v5 = *(a2 + 16);
-  v20[0] = v5;
-  v20[1] = v5;
-  v20[2] = v5;
-  v21 = v5;
-  v22 = v5;
-  v23 = v5;
-  v24 = v5;
-  v25 = v5;
-  v26 = v5;
-  v27 = v5;
+  v7 = *(a2 + 16);
+  v20[0] = v7;
+  v20[1] = v7;
+  v20[2] = v7;
+  v21 = v7;
+  v22 = v7;
+  v23 = v7;
+  v24 = v7;
+  v25 = v7;
+  v26 = v7;
+  v27 = v7;
   TupleTypeMetadata = swift_getTupleTypeMetadata();
-  v7 = *(TupleTypeMetadata - 1);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata, v8);
-  v10 = &v16 - v9;
-  v11 = type metadata accessor for __FixedArrayCodableStorage10();
-  v19 = *(v11 - 8);
-  MEMORY[0x1EEE9AC00](v11, v12);
+  v9 = *(TupleTypeMetadata - 1);
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v11 = &v16 - v10;
+  v12 = type metadata accessor for __FixedArrayCodableStorage10(0, v7, a3, a4);
+  v19 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
   v14 = &v16 - v13;
   sub_1AF441150(a1, a1[3]);
   sub_1AFDFF3D8();
-  (*(v7 + 16))(v10, v18, TupleTypeMetadata);
-  sub_1AFD5E0AC(v10, &v10[TupleTypeMetadata[12]], &v10[TupleTypeMetadata[16]], &v10[TupleTypeMetadata[20]], &v10[TupleTypeMetadata[24]], &v10[TupleTypeMetadata[28]], &v10[TupleTypeMetadata[32]], &v10[TupleTypeMetadata[36]], v14, &v10[TupleTypeMetadata[40]], &v10[TupleTypeMetadata[44]], v5, v17, v16);
+  (*(v9 + 16))(v11, v18, TupleTypeMetadata);
+  sub_1AFD5E0AC(v11, &v11[TupleTypeMetadata[12]], &v11[TupleTypeMetadata[16]], &v11[TupleTypeMetadata[20]], &v11[TupleTypeMetadata[24]], &v11[TupleTypeMetadata[28]], &v11[TupleTypeMetadata[32]], &v11[TupleTypeMetadata[36]], v14, &v11[TupleTypeMetadata[40]], &v11[TupleTypeMetadata[44]], v7, v17, v16);
   sub_1AF448018(v20, v21);
-  swift_getWitnessTable();
+  swift_getWitnessTable(byte_1AFEAB8B0, v12);
   sub_1AFDFEF28();
-  (*(v19 + 8))(v14, v11);
+  (*(v19 + 8))(v14, v12);
   return _s3VFX14_BinaryDecoderC16SingleValueStoreVwxx_0(v20);
 }
 
@@ -2567,7 +2570,7 @@ uint64_t sub_1AFD60BA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return a6(a1, a2 + *(v12 + 36), AssociatedTypeWitness, AssociatedConformanceWitness);
 }
 
-uint64_t sub_1AFD60C78()
+uint64_t sub_1AFD60C78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_getAssociatedTypeWitness();
   swift_getAssociatedConformanceWitness();
@@ -2576,35 +2579,35 @@ uint64_t sub_1AFD60C78()
   return sub_1AFDFCDC8();
 }
 
-uint64_t sub_1AFD60D3C()
+uint64_t sub_1AFD60D3C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  sub_1AFDFF248();
-  swift_getWitnessTable();
+  v4 = sub_1AFDFF248();
+  swift_getWitnessTable(MEMORY[0x1E69E74F8], v4);
 
   return sub_1AFDFE9F8();
 }
 
-uint64_t sub_1AFD60DF0@<X0>(uint64_t a1@<X8>)
+uint64_t sub_1AFD60DF0@<X0>(uint64_t a3@<X8>)
 {
-  v4 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  v5 = sub_1AFDFCE78();
-  return (*(*(v4 - 8) + 16))(a1, v5 + *(*(v4 - 8) + 72) * v3, v4);
+  v6 = *(v3 + 16);
+  v5 = *(v3 + 24);
+  v7 = sub_1AFDFCE78();
+  return (*(*(v6 - 8) + 16))(a3, v7 + *(*(v6 - 8) + 72) * v5, v6);
 }
 
-uint64_t sub_1AFD60E84()
+uint64_t sub_1AFD60E84(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = v0[2];
-  v2 = v0[3];
-  v3 = v0[4];
-  v4 = sub_1AFDFDD78();
-  return (*(*(v1 - 8) + 24))(v4 + *(*(v1 - 8) + 72) * v2, v3, v1);
+  v5 = v4[2];
+  v6 = v4[3];
+  v7 = v4[4];
+  v8 = sub_1AFDFDD78();
+  return (*(*(v5 - 8) + 24))(v8 + *(*(v5 - 8) + 72) * v6, v7, v5);
 }
 
-uint64_t sub_1AFD60EFC()
+uint64_t sub_1AFD60EFC(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -3068,10 +3071,10 @@ LABEL_28:
   return v20();
 }
 
-uint64_t sub_1AFD61F24()
+uint64_t sub_1AFD61F24(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_initStructMetadata();
     return 0;
@@ -3511,9 +3514,9 @@ LABEL_28:
   return v20();
 }
 
-uint64_t sub_1AFD62F64()
+uint64_t sub_1AFD62F64(uint64_t a1)
 {
-  v0 = 0xD00000000000001ELL;
+  v1 = 0xD00000000000001ELL;
   if (swift_dynamicCastMetatype())
   {
     return 0xD000000000000020;
@@ -3524,10 +3527,10 @@ uint64_t sub_1AFD62F64()
     return 0xD00000000000001CLL;
   }
 
-  v1 = 0xD00000000000001DLL;
+  v2 = 0xD00000000000001DLL;
   if (swift_dynamicCastMetatype())
   {
-    return v1;
+    return v2;
   }
 
   if (swift_dynamicCastMetatype())
@@ -3542,7 +3545,7 @@ uint64_t sub_1AFD62F64()
 
   if (swift_dynamicCastMetatype() || swift_dynamicCastMetatype() || swift_dynamicCastMetatype())
   {
-    return v0;
+    return v1;
   }
 
   if (swift_dynamicCastMetatype())
@@ -3557,7 +3560,7 @@ uint64_t sub_1AFD62F64()
 
   if (swift_dynamicCastMetatype())
   {
-    return v1;
+    return v2;
   }
 
   if (swift_dynamicCastMetatype())
@@ -3582,7 +3585,7 @@ uint64_t sub_1AFD62F64()
 
   if (swift_dynamicCastMetatype())
   {
-    return v1;
+    return v2;
   }
 
   if (swift_dynamicCastMetatype())
@@ -3602,13 +3605,13 @@ uint64_t sub_1AFD62F64()
 
   if (swift_dynamicCastMetatype())
   {
-    return v0;
+    return v1;
   }
 
-  v1 = 0xD000000000000021;
+  v2 = 0xD000000000000021;
   if (swift_dynamicCastMetatype() || swift_dynamicCastMetatype())
   {
-    return v1;
+    return v2;
   }
 
   if (swift_dynamicCastMetatype())
@@ -3616,27 +3619,27 @@ uint64_t sub_1AFD62F64()
     return 0xD000000000000020;
   }
 
-  v1 = 0xD000000000000022;
+  v2 = 0xD000000000000022;
   if (swift_dynamicCastMetatype())
   {
-    return v1;
+    return v2;
   }
 
   if (swift_dynamicCastMetatype())
   {
-    return v1;
+    return v2;
   }
 
-  v1 = 0xD000000000000022;
+  v2 = 0xD000000000000022;
   if (swift_dynamicCastMetatype() || swift_dynamicCastMetatype())
   {
-    return v1;
+    return v2;
   }
 
   sub_1AFDFE218();
 
-  v3 = sub_1AFDFF4B8();
-  MEMORY[0x1B2718AE0](v3);
+  v4 = sub_1AFDFF4B8();
+  MEMORY[0x1B2718AE0](v4);
 
   result = sub_1AFDFE518();
   __break(1u);
@@ -3787,9 +3790,9 @@ double vfx_script_particle_get_color(_:_:)(void *a1, unint64_t a2)
   return *&v3;
 }
 
-void sub_1AFD637B4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+void sub_1AFD637B4(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t))
 {
-  v3 = a3();
+  v3 = a3(a1, a2);
   if (v3)
   {
     v4 = v3;
@@ -3811,9 +3814,9 @@ __n128 vfx_script_particle_set_velocity(_:_:_:)(void *a1, unint64_t a2, __n128 a
   return result;
 }
 
-double sub_1AFD63868(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), void (*a4)(__n128))
+double sub_1AFD63868(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t, uint64_t), void (*a4)(__n128))
 {
-  v5 = a3();
+  v5 = a3(a1, a2);
   if (!v5)
   {
     return 0.0;
@@ -4385,7 +4388,7 @@ double vfx_script_particle_get_texture_frame(_:_:)(void *a1, unint64_t a2)
   return result;
 }
 
-uint64_t vfx_script_particle_set_pivot(void *a1, unint64_t a2, float32x4_t a3)
+_DWORD *vfx_script_particle_set_pivot(void *a1, unint64_t a2, float32x4_t a3)
 {
   result = sub_1AFC03494(a1, a2);
   if (result)
@@ -4400,7 +4403,7 @@ uint64_t vfx_script_particle_set_pivot(void *a1, unint64_t a2, float32x4_t a3)
   return result;
 }
 
-uint64_t vfx_script_particle_set_pivot(_:_:_:)(void *a1, unint64_t a2, float32x4_t a3)
+_DWORD *vfx_script_particle_set_pivot(_:_:_:)(void *a1, unint64_t a2, float32x4_t a3)
 {
   result = sub_1AFC03494(a1, a2);
   if (result)
@@ -4423,8 +4426,8 @@ double vfx_script_particle_get_pivot(void *a1, unint64_t a2)
     return 0.0;
   }
 
-  v3 = sub_1AF57F008(*v2);
-  nullsub_210(v3);
+  sub_1AF57F008(*v2);
+  nullsub_210();
   return result;
 }
 
@@ -5060,14 +5063,14 @@ double sub_1AFD64914(uint64_t a1)
   return result;
 }
 
-void sub_1AFD649F8(uint64_t a1, float a2, float a3, float a4)
+void sub_1AFD649F8(unsigned int *a1, float a2, float a3, float a4)
 {
-  *(a1 + 224) = a2;
-  *(a1 + 228) = a3;
-  *(a1 + 232) = a4;
+  *(a1 + 56) = a2;
+  *(a1 + 57) = a3;
+  *(a1 + 58) = a4;
   v5 = fmaxf(a4, 1.0e-12);
-  *(a1 + 144) = v5;
-  *(a1 + 148) = 1.0 / v5;
+  *(a1 + 36) = v5;
+  *(a1 + 37) = 1.0 / v5;
   v6 = llroundf((1.0 / v5) * a2);
   if (v6 >= 1024)
   {
@@ -5097,71 +5100,71 @@ void sub_1AFD649F8(uint64_t a1, float a2, float a3, float a4)
   }
 
   *a1 = v7;
-  *(a1 + 4) = v9;
-  v10 = v5 * v7;
+  a1[1] = v9;
+  *&v10 = v5 * v7;
   v11 = v5 * v9;
-  *(a1 + 128) = v10;
-  *(a1 + 132) = v11;
-  if (v10 < v11)
+  a1[32] = v10;
+  *(a1 + 33) = v11;
+  if (*&v10 < v11)
   {
-    v10 = v5 * v9;
+    *&v10 = v5 * v9;
   }
 
-  *(a1 + 136) = v10;
-  *(a1 + 140) = 1.0 / v10;
-  *(a1 + 8) = v7 | 2;
-  *(a1 + 12) = v9 + 2;
+  a1[34] = v10;
+  *(a1 + 35) = 1.0 / *&v10;
+  a1[2] = v7 | 2;
+  a1[3] = v9 + 2;
   v12 = (v9 + 2) * (v7 | 2);
-  *(a1 + 16) = v12;
+  a1[4] = v12;
   if (v7 <= v9)
   {
     v7 = v9;
   }
 
-  *(a1 + 20) = v7;
-  sub_1AF121C28((a1 + 152), v12);
-  sub_1AF121C28((a1 + 176), *(a1 + 16));
-  sub_1AF121C28((a1 + 200), *(a1 + 16));
-  sub_1AFD64E5C((a1 + 368), *a1, *(a1 + 4));
-  sub_1AFD64E5C((a1 + 464), *a1, *(a1 + 4));
-  sub_1AFD64E5C((a1 + 560), *a1, *(a1 + 4));
-  sub_1AF121C28((a1 + 656), *(a1 + 16));
-  sub_1AF121C28((a1 + 680), *(a1 + 16));
-  sub_1AF121C28((a1 + 704), *(a1 + 16));
-  sub_1AF121C28((a1 + 736), *(a1 + 16));
-  sub_1AF121C28((a1 + 760), *(a1 + 16));
-  sub_1AF121C28((a1 + 784), *(a1 + 16));
-  sub_1AF121C28((a1 + 808), *(a1 + 16));
-  sub_1AF121C28((a1 + 832), *(a1 + 16));
+  *(a1 + 5) = v7;
+  sub_1AF121C28(a1 + 19, v12);
+  sub_1AF121C28(a1 + 22, a1[4]);
+  sub_1AF121C28(a1 + 25, a1[4]);
+  sub_1AFD64E5C(a1 + 46, *a1, a1[1]);
+  sub_1AFD64E5C(a1 + 58, *a1, a1[1]);
+  sub_1AFD64E5C(a1 + 70, *a1, a1[1]);
+  sub_1AF121C28(a1 + 82, a1[4]);
+  sub_1AF121C28(a1 + 85, a1[4]);
+  sub_1AF121C28(a1 + 88, a1[4]);
+  sub_1AF121C28(a1 + 92, a1[4]);
+  sub_1AF121C28(a1 + 95, a1[4]);
+  sub_1AF121C28(a1 + 98, a1[4]);
+  sub_1AF121C28(a1 + 101, a1[4]);
+  sub_1AF121C28(a1 + 104, a1[4]);
   sub_1AFD64EC8(a1);
-  v13 = *(a1 + 16);
+  v13 = a1[4];
   if (v13 >= 1)
   {
     v14 = 4 * v13;
-    bzero(*(a1 + 200), 4 * v13);
-    bzero(*(a1 + 784), v14);
+    bzero(*(a1 + 25), 4 * v13);
+    bzero(*(a1 + 98), v14);
   }
 
-  sub_1AFD64FB0(a1, (a1 + 152), a1 + 368);
-  sub_1AFD64FB0(a1, (a1 + 176), a1 + 464);
-  sub_1AFD64FB0(a1, (a1 + 200), a1 + 560);
-  v15 = *(a1 + 16);
+  sub_1AFD64FB0(a1, a1 + 19, (a1 + 92));
+  sub_1AFD64FB0(a1, a1 + 22, (a1 + 116));
+  sub_1AFD64FB0(a1, a1 + 25, (a1 + 140));
+  v15 = a1[4];
   if (v15 < 1)
   {
-    *(a1 + 728) = 257;
+    *(a1 + 364) = 257;
     *(a1 + 730) = 1;
   }
 
   else
   {
     v16 = 4 * v15;
-    bzero(*(a1 + 656), 4 * v15);
-    bzero(*(a1 + 680), v16);
-    bzero(*(a1 + 704), v16);
-    *(a1 + 728) = 257;
+    bzero(*(a1 + 82), 4 * v15);
+    bzero(*(a1 + 85), v16);
+    bzero(*(a1 + 88), v16);
+    *(a1 + 364) = 257;
     *(a1 + 730) = 1;
-    bzero(*(a1 + 808), v16);
-    v17 = *(a1 + 832);
+    bzero(*(a1 + 101), v16);
+    v17 = *(a1 + 104);
 
     bzero(v17, v16);
   }
@@ -5632,15 +5635,16 @@ void sub_1AFD65098(uint64_t a1, char a2, char a3, char a4, char a5, char a6, flo
   }
 }
 
-void sub_1AFD655BC(int *a1, int a2, float **a3, uint64_t *a4, int a5, float a6, float a7)
+void sub_1AFD655BC(unsigned int *result, uint64_t a2, float **a3, uint64_t *a4, int a5, float a6, float a7)
 {
   if (a5 >= 1)
   {
+    v10 = a2;
     v12 = 0;
-    v13 = *a1;
-    v14 = a1[1];
-    v15 = (a6 * a7) * (v14 * *a1);
-    v16 = (*a1 + 1);
+    v13 = *result;
+    v14 = result[1];
+    v15 = (a6 * a7) * (v14 * *result);
+    v16 = *result + 1;
     do
     {
       if (v13 >= 1)
@@ -5657,7 +5661,7 @@ void sub_1AFD655BC(int *a1, int a2, float **a3, uint64_t *a4, int a5, float a6, 
 
           else
           {
-            v20 = a1[2];
+            v20 = result[2];
             v21 = v19 + 1;
             v22 = &v18[v19];
             v23 = 4 * v20;
@@ -5683,7 +5687,7 @@ void sub_1AFD655BC(int *a1, int a2, float **a3, uint64_t *a4, int a5, float a6, 
         while (v21 != v16);
       }
 
-      sub_1AFD66694(a1, a2, a3);
+      sub_1AFD66694(result, v10, a3);
       ++v12;
     }
 
@@ -5706,7 +5710,7 @@ float sub_1AFD656FC(unsigned int *a1, float **a2, float **a3, float **a4, float 
     v19 = *a2;
     v20 = *a6;
     v21 = v14 + 1;
-    v22 = (*a3 + 1);
+    v22 = *a3 + 1;
     v23 = 1;
     do
     {
@@ -5770,26 +5774,26 @@ float sub_1AFD656FC(unsigned int *a1, float **a2, float **a3, float **a4, float 
         v48 = 1;
         do
         {
-          v49 = v33[v35 + v36 / 4] - *&v45[v36];
-          v50 = *(v34 + 4 * (v35 + v37) + v36) - *(v34 + 4 * (v35 + v37) + v36 - 8);
+          v49 = v33[v35 + v36] - *&v45[v36 * 4];
+          v50 = *(v34 + 4 * (v35 + v37) + v36 * 4) - *(v34 + 4 * (v35 + v37) + v36 * 4 - 8);
           v51 = (v50 * v50) + (v49 * v49);
           if (v51 <= 1.0e-12)
           {
-            *(v42 + v36) = 0;
+            v42[v36] = 0.0;
             v54 = 0.0;
             v53 = v41;
           }
 
           else
           {
-            v52 = ((a7 * a8) * (((*&v44[v36] - *(v40 + v36)) + *(v46 + v36 - 8)) - *(v46 + v36))) / sqrtf(v51);
+            v52 = ((a7 * a8) * (((*&v44[v36 * 4] - v40[v36]) + v46[v36 - 2]) - v46[v36])) / sqrtf(v51);
             v53 = v48 * v37 + v35;
-            *(v42 + v36) = v49 * v52;
+            v42[v36] = v49 * v52;
             v54 = v50 * v52;
           }
 
           v39[v53] = v54;
-          v36 += 4 * v37;
+          v36 += v37;
           v41 += v37;
           ++v48;
           --v47;
@@ -6049,8 +6053,8 @@ float32x4_t *sub_1AFD65E18(float32x4_t *result, int a2, float32x4_t a3, float a4
     v15 = sinf(v14) * a4;
     if (a2)
     {
-      v16 = *(v8 + 112);
-      v17 = vsubq_f32(a3, *(v8 + 64));
+      v16 = v8[7];
+      v17 = vsubq_f32(a3, v8[4]);
       v18 = vmulq_f32(v16, xmmword_1AFE21390);
       v19 = vnegq_f32(v18);
       v20 = vtrn2q_s32(v18, vtrn1q_s32(v18, v19));
@@ -6083,9 +6087,9 @@ float32x4_t *sub_1AFD65E18(float32x4_t *result, int a2, float32x4_t a3, float a4
 
     v35 = *&v28;
     v37 = v33;
-    *(v8 + 728) &= sub_1AFD65FC4(v8, (v8 + 656), 0, *&v28, v15, v13 * *&v33) ^ 1;
-    result = sub_1AFD65FC4(v8, (v8 + 680), 0, v35, v15, vmuls_lane_f32(v13, v37, 1));
-    *(v8 + 729) &= result ^ 1;
+    v8[45].i8[8] &= sub_1AFD65FC4(v8, &v8[41], 0, *&v28, v15, v13 * *&v33) ^ 1;
+    result = sub_1AFD65FC4(v8, &v8[42].i64[1], 0, v35, v15, vmuls_lane_f32(v13, v37, 1));
+    v8[45].i8[9] &= result ^ 1;
   }
 
   return result;
@@ -6312,8 +6316,8 @@ float32x4_t *sub_1AFD66268(float32x4_t *result, int a2, float32x4_t a3, float a4
     v19 = v17 * a4;
     if (a2)
     {
-      v20 = *(v10 + 112);
-      v21 = vsubq_f32(v31, *(v10 + 64));
+      v20 = v10[7];
+      v21 = vsubq_f32(v31, v10[4]);
       v22 = vmulq_f32(v20, xmmword_1AFE21390);
       v23 = vnegq_f32(v22);
       v24 = vtrn2q_s32(v22, vtrn1q_s32(v22, v23));
@@ -6330,8 +6334,8 @@ float32x4_t *sub_1AFD66268(float32x4_t *result, int a2, float32x4_t a3, float a4
       *&v18 = vaddq_f32(vmlaq_laneq_f32(vmulq_laneq_f32(v27, v20, 3), v30, v20, 2), vmlaq_n_f32(vmulq_lane_f32(vextq_s8(v27, v28, 8uLL), *v20.f32, 1), vextq_s8(v29, v29, 8uLL), v20.f32[0])).u64[0];
     }
 
-    result = sub_1AFD65FC4(v10, (v10 + 704), 0, v18, v19, v15 * a5);
-    *(v10 + 730) &= result ^ 1;
+    result = sub_1AFD65FC4(v10, &v10[44], 0, v18, v19, v15 * a5);
+    v10[45].i8[10] &= result ^ 1;
   }
 
   return result;
@@ -6579,7 +6583,7 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
     v27 = v5;
     do
     {
-      v28 = v24[v25];
+      v28 = *(v24 + 4 * v25);
       if (a2 == 2)
       {
         v28 = -v28;
@@ -6627,7 +6631,7 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
     v39 = v4;
     do
     {
-      v40 = v35[v37];
+      v40 = *(v35 + 4 * v37);
       if (a2 == 1)
       {
         v40 = -v40;
@@ -6648,7 +6652,7 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
   v44 = (v3 + 44);
   v45 = (v3 + 50);
   v46 = *a3;
-  v47 = (*a3 + 1);
+  v47 = *a3 + 1;
   v48 = 4 * v5;
   v49 = v36;
   v50 = 4 * v33;
@@ -6764,7 +6768,7 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
                 v75 = v72;
               }
 
-              *(v47 + 4 * v72++) = v61 * *(v73 + 4 * v75);
+              v47[v72++] = v61 * *(v73 + 4 * v75);
               --v74;
             }
 
@@ -6808,8 +6812,8 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
         {
           v82 = 0;
           v83 = *v62;
-          v84 = 4 * v3[2];
-          v85 = (v154 + v84);
+          v84 = v3[2];
+          v85 = &v154[v84];
           v86 = v57;
           do
           {
@@ -6826,7 +6830,7 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
             *v85 = v61 * *(v83 + 4 * v87);
             ++v82;
             --v86;
-            v85 = (v85 + v84);
+            v85 = (v85 + v84 * 4);
           }
 
           while (v53 != v82);
@@ -6837,13 +6841,13 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
       {
         if (v4 >= 1)
         {
-          v99 = v3[2];
-          v100 = &v46[v99];
+          v99 = 4 * v3[2];
+          v100 = v46 + v99;
           v101 = v53;
           do
           {
-            *(v100 + v50) = v100[1];
-            v100 = (v100 + v99 * 4);
+            *(v100 + v50) = *(v100 + 4);
+            v100 += v99;
             --v101;
           }
 
@@ -6862,23 +6866,23 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
           v118 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v117, v55)));
           if (vuzp1_s16(v118, *v117.i8).u8[0])
           {
-            *(v116 + 4 * v115) = 0;
+            v116[v115] = 0.0;
           }
 
           if (vuzp1_s16(v118, *&v117).i8[2])
           {
-            *(v116 + 8 * v115) = 0;
+            v116[2 * v115] = 0.0;
           }
 
           v119 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v117, v54)));
           if (vuzp1_s16(v119, v119).i32[1])
           {
-            *(v116 + 12 * v115) = 0;
-            *(v116 + 16 * v115) = 0;
+            v116[3 * v115] = 0.0;
+            v116[4 * v115] = 0.0;
           }
 
           v114 += 4;
-          v116 += 16 * v115;
+          v116 += 4 * v115;
         }
 
         while (v51 != v114);
@@ -6893,8 +6897,8 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
         {
           v76 = 0;
           v77 = *v62;
-          v78 = v3[2];
-          v79 = &v46[v78];
+          v78 = 4 * v3[2];
+          v79 = (v46 + v78);
           v80 = v57;
           do
           {
@@ -6911,7 +6915,7 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
             *v79 = v61 * *(v77 + 4 * v81);
             ++v76;
             --v80;
-            v79 = (v79 + v78 * 4);
+            v79 = (v79 + v78);
           }
 
           while (v53 != v76);
@@ -6922,13 +6926,13 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
       {
         if (v4 >= 1)
         {
-          v96 = v3[2];
-          v97 = &v46[v96];
+          v96 = 4 * v3[2];
+          v97 = (v46 + v96);
           v98 = v53;
           do
           {
             *v97 = v97[v29];
-            v97 = (v97 + v96 * 4);
+            v97 = (v97 + v96);
             --v98;
           }
 
@@ -6947,23 +6951,23 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
           v112 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v111, v55)));
           if (vuzp1_s16(v112, *v111.i8).u8[0])
           {
-            v110[v109] = 0.0;
+            *(v110 + 4 * v109) = 0;
           }
 
           if (vuzp1_s16(v112, *&v111).i8[2])
           {
-            v110[2 * v109] = 0.0;
+            *(v110 + 8 * v109) = 0;
           }
 
           v113 = vmovn_s64(vcgeq_u64(v52, vorrq_s8(v111, v54)));
           if (vuzp1_s16(v113, v113).i32[1])
           {
-            v110[3 * v109] = 0.0;
-            v110[4 * v109] = 0.0;
+            *(v110 + 12 * v109) = 0;
+            *(v110 + 16 * v109) = 0;
           }
 
           v108 += 4;
-          v110 += 4 * v109;
+          v110 += 16 * v109;
         }
 
         while (v51 != v108);
@@ -6978,7 +6982,7 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
         {
           v67 = 0;
           v68 = *v62;
-          v69 = v47 + 4 * (v3[2] * v49);
+          v69 = &v47[(v3[2] * v49)];
           v70 = v155;
           do
           {
@@ -6992,7 +6996,7 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
               v71 = v67;
             }
 
-            *(v69 + 4 * v67++) = v61 * *(v68 + 4 * v71);
+            v69[v67++] = v61 * *(v68 + 4 * v71);
             --v70;
           }
 
@@ -7009,7 +7013,7 @@ float sub_1AFD66694(unsigned int *a1, int a2, float **a3)
           goto LABEL_134;
         }
 
-        v102 = (v47 + 4 * (v3[2] * v49));
+        v102 = &v47[(v3[2] * v49)];
 LABEL_114:
         v146 = v29;
         v147 = v34;
@@ -7050,8 +7054,8 @@ LABEL_114:
       if (v5 >= 1)
       {
         v88 = v3[2];
-        v89 = (v47 + 4 * v88 * v49);
-        v90 = (v47 + 4 * v88);
+        v89 = &v47[v88 * v49];
+        v90 = &v47[v88];
         v91 = v56;
         do
         {
@@ -7614,7 +7618,7 @@ uint64_t sub_1AFD67790(uint64_t a1, const char *a2, char a3, char a4, unsigned i
     *(v20 + 17) = a3;
     *(v20 + 18) = a6;
     *&v23 = &v25;
-    *(sub_1AFD6809C((a1 + 16), &v25) + 5) = v16;
+    *(sub_1AFD6809C((a1 + 16), &v25, &unk_1AFE22A40, &v23) + 5) = v16;
     sub_1AF3436B0((a1 + 104), *(a1 + 132) + ((*(a1 + 112) - *(a1 + 104)) >> 3));
   }
 
@@ -7852,54 +7856,54 @@ uint64_t vfx_counters_get_values(uint64_t result, unsigned int a2, void *a3, uns
 
 void vfx_counters_get_desc(uint64_t a1@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(a1);
-  MEMORY[0x1EEE9AC00](v6, v7);
-  v9 = (v20 - ((v8 + 15) & 0xFFFFFFFF0));
-  values = vfx_counters_get_values(a1, a2, v9, v10);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = (v19 - ((v7 + 15) & 0xFFFFFFFF0));
+  values = vfx_counters_get_values(a1, a2, v8, v9);
   if (values)
   {
-    v12 = 0.0;
-    v13 = -INFINITY;
-    v14 = INFINITY;
-    v15 = values;
+    v11 = 0.0;
+    v12 = -INFINITY;
+    v13 = INFINITY;
+    v14 = values;
     do
     {
-      v16 = *v9++;
-      v17 = v16;
-      if (v16 < v14)
+      v15 = *v8++;
+      v16 = v15;
+      if (v15 < v13)
       {
-        v14 = v17;
+        v13 = v16;
       }
 
-      if (v13 < v17)
+      if (v12 < v16)
       {
-        v13 = v17;
+        v12 = v16;
       }
 
-      v12 = v12 + v17;
-      --v15;
+      v11 = v11 + v16;
+      --v14;
     }
 
-    while (v15);
-    v18 = v12 / values;
+    while (v14);
+    v17 = v11 / values;
   }
 
   else
   {
+    v12 = 0.0;
     v13 = 0.0;
-    v14 = 0.0;
-    v18 = 0.0;
+    v17 = 0.0;
   }
 
   *(a3 + 32) = 0;
-  v19 = *(a1 + 56) + 24 * a2;
-  *a3 = *v19;
-  *(a3 + 8) = v14;
-  *(a3 + 16) = v13;
-  *(a3 + 24) = v18;
-  *(a3 + 32) = *(v19 + 12);
-  *(a3 + 36) = *(v19 + 16);
+  v18 = *(a1 + 56) + 24 * a2;
+  *a3 = *v18;
+  *(a3 + 8) = v13;
+  *(a3 + 16) = v12;
+  *(a3 + 24) = v17;
+  *(a3 + 32) = *(v18 + 12);
+  *(a3 + 36) = *(v18 + 16);
   os_unfair_lock_unlock(a1);
 }
 
@@ -7913,21 +7917,21 @@ void sub_1AFD67ED0(uint64_t a1, unint64_t a2)
   sub_1AF10A1D0();
 }
 
-void *sub_1AFD67F28(void *result, void *a2)
+uint64_t *sub_1AFD67F28(uint64_t *a1, void *a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = a2[1];
   if (v2 != *a2)
   {
-    sub_1AFD67F9C(result, 0xAAAAAAAAAAAAAAABLL * ((v2 - *a2) >> 3));
+    sub_1AFD67F9C(a1, 0xAAAAAAAAAAAAAAABLL * ((v2 - *a2) >> 3));
   }
 
-  return result;
+  return a1;
 }
 
-void sub_1AFD67F9C(uint64_t a1, unint64_t a2)
+void sub_1AFD67F9C(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -8004,33 +8008,33 @@ uint64_t *sub_1AFD67FE8(void *a1, unsigned int *a2)
   return result;
 }
 
-uint64_t *sub_1AFD6809C(void *a1, unsigned int *a2)
+uint64_t *sub_1AFD6809C(void *a1, unsigned int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % v3.i32[0];
+      v7 = v4 % v5.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -8038,44 +8042,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t *sub_1AFD682D0(void *a1, unsigned int *a2)
@@ -8098,10 +8102,11 @@ void sub_1AFD68308()
   }
 }
 
-void prof_eventTime(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void prof_eventTime(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (byte_1EB6C36F9 == 1)
   {
+    v9 = result;
     v10 = currentThreadProfiler_0();
     v11 = v10 + 56 * *(v10 + 16);
     v14 = *(v11 + 40);
@@ -8119,7 +8124,7 @@ void prof_eventTime(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
     *(v15 + 16) = a5;
     *(v15 + 24) = a2;
     *(v15 + 32) = 0;
-    *(v15 + 40) = a1;
+    *(v15 + 40) = v9;
     *(v15 + 41) = 0;
     ++*v13;
   }
@@ -8136,10 +8141,11 @@ uint64_t currentThreadProfiler_0()
   return v0;
 }
 
-void prof_eventTimeSmallData(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void prof_eventTimeSmallData(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (byte_1EB6C36F9 == 1)
   {
+    v11 = result;
     v12 = currentThreadProfiler_0();
     v13 = v12 + 56 * *(v12 + 16);
     v16 = *(v13 + 40);
@@ -8157,7 +8163,7 @@ void prof_eventTimeSmallData(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     *(v17 + 16) = a5;
     *(v17 + 24) = a2;
     *(v17 + 32) = a6;
-    *(v17 + 40) = a1;
+    *(v17 + 40) = v11;
     *(v17 + 41) = 1;
     ++*v15;
   }
@@ -8203,7 +8209,7 @@ void prof_eventTimeBlockData(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   }
 }
 
-void prof_eventTimeRange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void prof_eventTimeRange(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (byte_1EB6C36F9 == 1)
   {
@@ -8222,7 +8228,7 @@ void prof_eventTimeRange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
     *v15 = a3;
     *(v15 + 8) = a4;
     *(v15 + 16) = a5;
-    *(v15 + 24) = a1;
+    *(v15 + 24) = result;
     *(v15 + 32) = 0;
     *(v15 + 40) = 0;
     v16 = *v13;
@@ -8246,7 +8252,7 @@ void prof_eventTimeRange(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   }
 }
 
-void prof_eventTimeRangeSmallData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void prof_eventTimeRangeSmallData(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   if (byte_1EB6C36F9 == 1)
   {
@@ -8265,7 +8271,7 @@ void prof_eventTimeRangeSmallData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
     *v17 = a3;
     *(v17 + 8) = a4;
     *(v17 + 16) = a5;
-    *(v17 + 24) = a1;
+    *(v17 + 24) = result;
     *(v17 + 32) = a6;
     *(v17 + 40) = 256;
     v18 = *v15;
@@ -8439,10 +8445,11 @@ void prof_eventTimeRangeDynamicString(uint64_t a1, uint64_t a2, uint64_t a3, uin
   }
 }
 
-void prof_event(char a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void prof_event(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (byte_1EB6C36F9 == 1)
   {
+    v7 = result;
     v8 = currentThreadProfiler_0();
     v9 = v8 + 56 * *(v8 + 16) + 24;
     switch(byte_1EB644770)
@@ -8474,16 +8481,17 @@ void prof_event(char a1, uint64_t a2, uint64_t a3, uint64_t a4)
     *(v12 + 16) = a4;
     *(v12 + 24) = StatusReg;
     *(v12 + 32) = 0;
-    *(v12 + 40) = a1;
+    *(v12 + 40) = v7;
     *(v12 + 41) = 0;
     ++*(v9 + 16);
   }
 }
 
-void prof_eventSmallData(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void prof_eventSmallData(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (byte_1EB6C36F9 == 1)
   {
+    v9 = result;
     v10 = currentThreadProfiler_0();
     v11 = v10 + 56 * *(v10 + 16) + 24;
     switch(byte_1EB644770)
@@ -8515,7 +8523,7 @@ void prof_eventSmallData(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
     *(v14 + 16) = a4;
     *(v14 + 24) = StatusReg;
     *(v14 + 32) = a5;
-    *(v14 + 40) = a1;
+    *(v14 + 40) = v9;
     *(v14 + 41) = 1;
     ++*(v11 + 16);
   }
@@ -8578,7 +8586,7 @@ void prof_eventBlockData(char a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_
   }
 }
 
-void prof_beginFlame(uint64_t a1, uint64_t a2, uint64_t a3)
+void prof_beginFlame(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (byte_1EB6C36F9 == 1)
   {
@@ -8613,7 +8621,7 @@ void prof_beginFlame(uint64_t a1, uint64_t a2, uint64_t a3)
     }
 
     v14 = *(v7 + 32) + (v13 << 6);
-    *v14 = a1;
+    *v14 = result;
     *(v14 + 8) = a2;
     *(v14 + 16) = a3;
     *(v14 + 24) = StatusReg;
@@ -8628,7 +8636,7 @@ void prof_beginFlame(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void prof_beginFlameSmallData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void prof_beginFlameSmallData(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (byte_1EB6C36F9 == 1)
   {
@@ -8663,7 +8671,7 @@ void prof_beginFlameSmallData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
     }
 
     v16 = *(v9 + 32) + (v15 << 6);
-    *v16 = a1;
+    *v16 = result;
     *(v16 + 8) = a2;
     *(v16 + 16) = a3;
     *(v16 + 24) = StatusReg;
@@ -8678,8 +8686,9 @@ void prof_beginFlameSmallData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   }
 }
 
-void prof_beginFlameBlockData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void *a6)
+void prof_beginFlameBlockData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
 {
+  v6 = a5;
   v11 = a6;
   if (byte_1EB6C36F9 == 1)
   {
@@ -8702,25 +8711,25 @@ void prof_beginFlameBlockData(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
         break;
     }
 
-    sub_1AFD6952C(v12 + 56 * v13 + 24, StatusReg, a1, a2, a3, a4, v15, a5);
+    sub_1AFD6952C((v12 + 56 * v13 + 24), StatusReg, a1, a2, a3, a4, v15, v6);
     v11 = v15;
   }
 }
 
-void sub_1AFD6952C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, char a8)
+void sub_1AFD6952C(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, char a8)
 {
   aBlock = a7;
-  v15 = *(a1 + 48);
-  v16 = *(a1 + 52);
+  v15 = a1[12];
+  v16 = *(a1 + 26);
   v17 = *a1;
   v18 = *a1;
-  if ((*a1 + 1) > *(a1 + 4))
+  if (*a1 + 1 > a1[1])
   {
     sub_1AFD6A58C(a1);
     v18 = *a1;
   }
 
-  v19 = *(a1 + 8) + (v18 << 6);
+  v19 = *(a1 + 1) + (v18 << 6);
   *v19 = a3;
   *(v19 + 8) = a4;
   *(v19 + 16) = a5;
@@ -8731,18 +8740,18 @@ void sub_1AFD6952C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   *(v19 + 48) = a6;
   *(v19 + 56) = a8;
   ++*a1;
-  v20 = *(a1 + 32);
-  if (v20 + 1 > *(a1 + 36))
+  v20 = a1[8];
+  if (v20 + 1 > a1[9])
   {
-    sub_1AFD6A68C((a1 + 32));
-    v20 = *(a1 + 32);
+    sub_1AFD6A68C(a1 + 8);
+    v20 = a1[8];
   }
 
-  v21 = *(a1 + 40);
+  v21 = *(a1 + 5);
   *(v21 + 8 * v20) = _Block_copy(aBlock);
-  ++*(a1 + 32);
-  *(a1 + 48) = v17;
-  ++*(a1 + 52);
+  ++a1[8];
+  a1[12] = v17;
+  ++*(a1 + 26);
 }
 
 void prof_endFlame()
@@ -8801,14 +8810,15 @@ void prof_commit()
   }
 }
 
-void prof_setData(uint64_t a1, char a2, void *a3)
+void prof_setData(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   if (byte_1EB6C36F9 == 1)
   {
     v7 = v5;
     v6 = currentThreadProfiler_0();
-    sub_1AFD6986C(v6 + 56 * *(v6 + 16) + 24, a1, a2, v7);
+    sub_1AFD6986C(v6 + 56 * *(v6 + 16) + 24, a1, v3, v7);
     v5 = v7;
   }
 }
@@ -8897,14 +8907,14 @@ void prof_resumeCollectProfilers()
   }
 }
 
-void prof_collectProfilers()
+void prof_collectProfilers(double a1)
 {
   if (byte_1EB6C36F9 == 1 && (byte_1EB6C36FA & 1) == 0)
   {
     ++dword_1EB6C19C0;
-    HIDWORD(v0) = -1775253149 * dword_1EB6C19C0;
-    LODWORD(v0) = -1775253149 * dword_1EB6C19C0;
-    if ((v0 >> 2) <= 0xDA740D)
+    HIDWORD(v1) = -1775253149 * dword_1EB6C19C0;
+    LODWORD(v1) = -1775253149 * dword_1EB6C19C0;
+    if ((v1 >> 2) <= 0xDA740D)
     {
       sub_1AFD69B80();
       os_unfair_lock_lock(&unk_1EB644778);
@@ -9270,14 +9280,14 @@ uint64_t sub_1AFD6A184(uint64_t a1, char *a2)
   *(a1 + 16) = 0;
   do
   {
-    sub_1AFD6A458(a1 + v4 + 24);
+    sub_1AFD6A458((a1 + v4 + 24));
     v4 += 56;
   }
 
   while (v4 != 28672);
   *(v5 + 24) = 0;
   *(v5 + 26) = *(v5 + 26) & 0xFC | 1;
-  v9 = (a1 + 28712);
+  v8 = (a1 + 28712);
   *(a1 + 28704) = 0u;
   *(a1 + 28720) = 0u;
   if (a2)
@@ -9287,41 +9297,41 @@ uint64_t sub_1AFD6A184(uint64_t a1, char *a2)
 
   else
   {
-    v10 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], v6, v7, v8);
-    v14 = objc_msgSend_name(v10, v11, v12, v13);
-    v15 = v14;
-    v19 = objc_msgSend_UTF8String(v15, v16, v17, v18);
+    v9 = objc_msgSend_currentThread(MEMORY[0x1E696AF00], v6, v7);
+    v12 = objc_msgSend_name(v9, v10, v11);
+    v13 = v12;
+    v16 = objc_msgSend_UTF8String(v13, v14, v15);
 
-    if (v19)
+    if (v16)
     {
       if (qword_1EB6C3700)
       {
-        v20 = *qword_1EB6C3700;
+        v17 = *qword_1EB6C3700;
       }
 
       else
       {
-        v20 = 0;
+        v17 = 0;
       }
 
-      if (*v19)
+      if (*v16)
       {
-        v21 = v19;
+        v18 = v16;
       }
 
       else
       {
-        v21 = "Thread";
+        v18 = "Thread";
       }
 
-      sub_1AFD6A384("%s [%d]", v21, v20, &v23);
+      sub_1AFD6A384(&v20, "%s [%d]", v18, v17);
       if (*(v5 + 63) < 0)
       {
-        operator delete(*v9);
+        operator delete(*v8);
       }
 
-      *v9 = v23;
-      *(a1 + 28728) = v24;
+      *v8 = v20;
+      *(a1 + 28728) = v21;
     }
   }
 
@@ -9358,37 +9368,37 @@ uint64_t sub_1AFD6A338(uint64_t a1)
   return a1;
 }
 
-void sub_1AFD6A384(char *__format@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
+void sub_1AFD6A384(uint64_t *__return_ptr a1@<X8>, char *__format@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
-  v8 = snprintf(0, 0, __format, a2, a3);
+  v8 = snprintf(0, 0, __format, a3, a4);
   if (v8 < 0)
   {
-    a4[23] = 0;
-    *a4 = 0;
+    *(a1 + 23) = 0;
+    *a1 = 0;
   }
 
   else
   {
     v9 = (v8 + 1);
     v10 = malloc_type_malloc(v9, 0x100004077774924uLL);
-    snprintf(v10, v9, __format, a2, a3);
-    sub_1AFD6A76C(a4, v10, &v10[v9 - 1], v9 - 1);
+    snprintf(v10, v9, __format, a3, a4);
+    sub_1AFD6A76C(a1, v10, &v10[v9 - 1], v9 - 1);
 
     free(v10);
   }
 }
 
-uint64_t sub_1AFD6A458(uint64_t a1)
+unsigned int *sub_1AFD6A458(unsigned int *a1)
 {
   *a1 = 0x20000000000;
-  *(a1 + 8) = 0;
+  *(a1 + 1) = 0;
   sub_1AFD6A58C(a1);
-  *(a1 + 16) = 0x20000000000;
-  *(a1 + 24) = 0;
-  sub_1AFD6A608((a1 + 16));
-  *(a1 + 32) = 0x2000000000;
-  *(a1 + 40) = 0;
-  sub_1AFD6A68C((a1 + 32));
+  *(a1 + 2) = 0x20000000000;
+  *(a1 + 3) = 0;
+  sub_1AFD6A608(a1 + 4);
+  *(a1 + 4) = 0x2000000000;
+  *(a1 + 5) = 0;
+  sub_1AFD6A68C(a1 + 8);
   sub_1AFD6A514(a1);
   return a1;
 }
@@ -9490,7 +9500,7 @@ void sub_1AFD6A720(unsigned int *a1)
   *a1 = 0;
 }
 
-_BYTE *sub_1AFD6A76C(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *sub_1AFD6A76C(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -9503,14 +9513,14 @@ _BYTE *sub_1AFD6A76C(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 

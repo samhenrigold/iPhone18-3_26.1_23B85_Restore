@@ -1,5 +1,8 @@
 @interface _CATArbitratorRegistrationEntry
 - (_CATArbitratorRegistrationEntry)initWithResource:(id)resource maxConcurrentCount:(unint64_t)count;
+- (id)makeResourceProxyIfPossible:(BOOL)possible;
+- (id)makeResourceProxyIfPossibleWithoutLocking:(BOOL)locking;
+- (id)waitForResourceWithExclusive:(BOOL)exclusive group:(id)group;
 - (void)invalidate;
 - (void)pendingWaitsNeedServicing;
 - (void)resourceProxyDidInvalidate:(id)invalidate;
@@ -65,6 +68,40 @@ LABEL_3:
   }
 
   return v9;
+}
+
+- (id)makeResourceProxyIfPossible:(BOOL)possible
+{
+  possibleCopy = possible;
+  v5 = self->mPendingWaits;
+  objc_sync_enter(v5);
+  if (self->_currentCount >= self->mMaxConcurrentCount)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = [(_CATArbitratorRegistrationEntry *)self makeResourceProxyIfPossibleWithoutLocking:possibleCopy];
+  }
+
+  objc_sync_exit(v5);
+
+  return v6;
+}
+
+- (id)waitForResourceWithExclusive:(BOOL)exclusive group:(id)group
+{
+  exclusiveCopy = exclusive;
+  groupCopy = group;
+  v7 = self->mPendingWaits;
+  objc_sync_enter(v7);
+  v8 = [[_CATProxyWaitToken alloc] initWithExclusive:exclusiveCopy group:groupCopy];
+  [(NSMutableArray *)self->mPendingWaits addObject:v8];
+  [(_CATArbitratorRegistrationEntry *)self pendingWaitsNeedServicing];
+  objc_sync_exit(v7);
+
+  return v8;
 }
 
 - (void)invalidate
@@ -158,6 +195,48 @@ LABEL_6:
 
   v5 = firstObject;
 LABEL_7:
+}
+
+- (id)makeResourceProxyIfPossibleWithoutLocking:(BOOL)locking
+{
+  lockingCopy = locking;
+  v5 = self->mPendingWaits;
+  objc_sync_enter(v5);
+  currentCount = self->_currentCount;
+  if (!lockingCopy)
+  {
+    if (currentCount >= self->mMaxConcurrentCount)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_5:
+    v7 = [[_CATArbitratorResourceProxy alloc] initWithResource:self->mResource registration:self exclusive:lockingCopy];
+    if (lockingCopy)
+    {
+      mMaxConcurrentCount = self->mMaxConcurrentCount;
+    }
+
+    else
+    {
+      mMaxConcurrentCount = self->_currentCount + 1;
+    }
+
+    self->_currentCount = mMaxConcurrentCount;
+    goto LABEL_9;
+  }
+
+  if (!currentCount)
+  {
+    goto LABEL_5;
+  }
+
+LABEL_3:
+  v7 = 0;
+LABEL_9:
+  objc_sync_exit(v5);
+
+  return v7;
 }
 
 - (void)initWithResource:maxConcurrentCount:.cold.1()

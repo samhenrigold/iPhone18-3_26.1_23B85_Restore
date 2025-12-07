@@ -3,7 +3,7 @@
 
 @implementation UICollectionView
 
-uint64_t __58__UICollectionView_MailUI__mui_indexPathsForPreparedItems__block_invoke()
+uint64_t __58__UICollectionView_MailUI__mui_indexPathsForPreparedItems__block_invoke(uint64_t a1)
 {
   result = objc_opt_respondsToSelector();
   mui_indexPathsForPreparedItems_shouldUseImprovedSPI = result & 1;
@@ -63,7 +63,7 @@ uint64_t __125__UICollectionView_UICollectionView_MailUI__mui_interactiveDeselec
   return (*(*(a1 + 48) + 16))();
 }
 
-uint64_t __125__UICollectionView_UICollectionView_MailUI__mui_interactiveDeselectAllSelectedIndexPathsUsingTransitionCoordinator_animated___block_invoke_4(uint64_t a1, void *a2)
+void *__125__UICollectionView_UICollectionView_MailUI__mui_interactiveDeselectAllSelectedIndexPathsUsingTransitionCoordinator_animated___block_invoke_4(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)

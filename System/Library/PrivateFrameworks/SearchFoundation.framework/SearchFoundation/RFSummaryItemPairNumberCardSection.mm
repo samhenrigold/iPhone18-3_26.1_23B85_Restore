@@ -13,11 +13,11 @@
 
 - (RFSummaryItemPairNumberCardSection)initWithProtobuf:(id)protobuf
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v77.receiver = self;
-  v77.super_class = RFSummaryItemPairNumberCardSection;
-  v5 = [(SFCardSection *)&v77 init];
+  v76.receiver = self;
+  v76.super_class = RFSummaryItemPairNumberCardSection;
+  v5 = [(SFCardSection *)&v76 init];
   if (v5)
   {
     number = [protobufCopy number];
@@ -91,33 +91,33 @@
       v31 = 0;
     }
 
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
     v74 = 0u;
+    v75 = 0u;
+    v72 = 0u;
+    v73 = 0u;
     text_5s2 = [protobufCopy text_5s];
-    v33 = [text_5s2 countByEnumeratingWithState:&v73 objects:v78 count:16];
+    v33 = [text_5s2 countByEnumeratingWithState:&v72 objects:v77 count:16];
     if (v33)
     {
       v34 = v33;
-      v35 = *v74;
+      v35 = *v73;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v74 != v35)
+          if (*v73 != v35)
           {
             objc_enumerationMutation(text_5s2);
           }
 
-          v37 = [[RFTextProperty alloc] initWithProtobuf:*(*(&v73 + 1) + 8 * i)];
+          v37 = [[RFTextProperty alloc] initWithProtobuf:*(*(&v72 + 1) + 8 * i)];
           if (v37)
           {
             [v31 addObject:v37];
           }
         }
 
-        v34 = [text_5s2 countByEnumeratingWithState:&v73 objects:v78 count:16];
+        v34 = [text_5s2 countByEnumeratingWithState:&v72 objects:v77 count:16];
       }
 
       while (v34);
@@ -207,7 +207,6 @@
     v70 = v5;
   }
 
-  v71 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

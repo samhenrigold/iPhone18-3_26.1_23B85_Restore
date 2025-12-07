@@ -57,7 +57,7 @@ LABEL_6:
 
   if (v10)
   {
-    v11 = [v10 isEqualToString:@"hidden"];
+    v11 = objc_msgSend_isEqualToString_(v10);
   }
 
   else

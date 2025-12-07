@@ -8,29 +8,29 @@
 
 - (void)registerArchiver:(id)archiver
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   archiverCopy = archiver;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   transferIdentifiers = [archiverCopy transferIdentifiers];
-  v6 = [transferIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [transferIdentifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(transferIdentifiers);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * v9);
+        v10 = *(*(&v16 + 1) + 8 * v9);
         waitingFiles = [(WFRemoteExecutionFileCoordinator *)self waitingFiles];
         v12 = [waitingFiles objectForKey:v10];
 
@@ -51,7 +51,7 @@
       }
 
       while (v7 != v9);
-      v7 = [transferIdentifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [transferIdentifiers countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -64,57 +64,55 @@
   transferIdentifiers = [(WFRemoteExecutionFileCoordinator *)self waitingArchivers];
   [transferIdentifiers addObject:archiverCopy];
 LABEL_11:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleFile:(id)file withIdentifier:(id)identifier
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   identifierCopy = identifier;
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   selfCopy = self;
   obj = [(WFRemoteExecutionFileCoordinator *)self waitingArchivers];
-  v9 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+  v9 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
   if (v9)
   {
     v10 = v9;
-    v31 = *v41;
+    v30 = *v40;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v41 != v31)
+        if (*v40 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * i);
+        v12 = *(*(&v39 + 1) + 8 * i);
+        v35 = 0u;
         v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
         transferIdentifiers = [v12 transferIdentifiers];
-        v14 = [transferIdentifiers countByEnumeratingWithState:&v36 objects:v45 count:16];
+        v14 = [transferIdentifiers countByEnumeratingWithState:&v35 objects:v44 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v37;
+          v16 = *v36;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v37 != v16)
+              if (*v36 != v16)
               {
                 objc_enumerationMutation(transferIdentifiers);
               }
 
-              if ([*(*(&v36 + 1) + 8 * j) isEqualToString:identifierCopy])
+              if (objc_msgSend_isEqualToString_(*(*(&v35 + 1) + 8 * j)))
               {
                 [v12 setFileURL:fileCopy];
                 [v12 fileAvailabilityChanged];
@@ -122,14 +120,14 @@ LABEL_11:
               }
             }
 
-            v15 = [transferIdentifiers countByEnumeratingWithState:&v36 objects:v45 count:16];
+            v15 = [transferIdentifiers countByEnumeratingWithState:&v35 objects:v44 count:16];
           }
 
           while (v15);
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v10 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
     }
 
     while (v10);
@@ -137,31 +135,31 @@ LABEL_11:
 
   if ([v8 count])
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     waitingFiles2 = v8;
-    v19 = [waitingFiles2 countByEnumeratingWithState:&v32 objects:v44 count:16];
+    v19 = [waitingFiles2 countByEnumeratingWithState:&v31 objects:v43 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v33;
+      v21 = *v32;
       do
       {
         for (k = 0; k != v20; ++k)
         {
-          if (*v33 != v21)
+          if (*v32 != v21)
           {
             objc_enumerationMutation(waitingFiles2);
           }
 
-          v23 = *(*(&v32 + 1) + 8 * k);
+          v23 = *(*(&v31 + 1) + 8 * k);
           waitingArchivers = [(WFRemoteExecutionFileCoordinator *)selfCopy waitingArchivers];
           [waitingArchivers removeObject:v23];
         }
 
-        v20 = [waitingFiles2 countByEnumeratingWithState:&v32 objects:v44 count:16];
+        v20 = [waitingFiles2 countByEnumeratingWithState:&v31 objects:v43 count:16];
       }
 
       while (v20);
@@ -180,8 +178,6 @@ LABEL_11:
     [waitingFiles2 setObject:fileCopy forKey:identifierCopy];
 LABEL_28:
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (WFRemoteExecutionFileCoordinator)init

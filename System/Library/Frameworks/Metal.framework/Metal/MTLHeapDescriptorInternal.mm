@@ -116,7 +116,7 @@
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v23[24] = *MEMORY[0x1E69E9840];
+  v22[24] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   var6 = self->_private->var6;
   v7 = @"MTLStorageModePrivate";
@@ -126,8 +126,8 @@
   }
 
   v8 = MEMORY[0x1E696AEC0];
-  v22.receiver = self;
-  v22.super_class = MTLHeapDescriptorInternal;
+  v21.receiver = self;
+  v21.super_class = MTLHeapDescriptorInternal;
   if (var6 >> 4)
   {
     v9 = v7;
@@ -138,13 +138,13 @@
     v9 = @"MTLStorageModeShared";
   }
 
-  v10 = [(MTLHeapDescriptorInternal *)&v22 description];
-  v23[0] = v5;
-  v23[1] = @"size =";
+  v10 = [(MTLHeapDescriptorInternal *)&v21 description];
+  v22[0] = v5;
+  v22[1] = @"size =";
   v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_private->var0];
   v12 = @"MTLCPUCacheModeDefaultCache";
-  v23[2] = v11;
-  v23[3] = v5;
+  v22[2] = v11;
+  v22[3] = v5;
   if ((var6 & 0xF) != 0)
   {
     v12 = @"Invalid";
@@ -155,19 +155,19 @@
     v12 = @"MTLCPUCacheModeWriteCombined";
   }
 
-  v23[4] = @"cpuCacheMode =";
-  v23[5] = v12;
-  v23[6] = v5;
-  v23[7] = @"storageMode =";
-  v23[8] = v9;
-  v23[9] = v5;
-  v23[10] = @"hazardTrackingMode =";
-  v23[11] = MTLHazardTrackingModeString((var6 >> 8) & 3);
-  v23[12] = v5;
-  v23[13] = @"resourceOptions =";
-  v23[14] = MTLResourceOptionsString(var6);
-  v23[15] = v5;
-  v23[16] = @"type =";
+  v22[4] = @"cpuCacheMode =";
+  v22[5] = v12;
+  v22[6] = v5;
+  v22[7] = @"storageMode =";
+  v22[8] = v9;
+  v22[9] = v5;
+  v22[10] = @"hazardTrackingMode =";
+  v22[11] = MTLHazardTrackingModeString((var6 >> 8) & 3);
+  v22[12] = v5;
+  v22[13] = @"resourceOptions =";
+  v22[14] = MTLResourceOptionsString(var6);
+  v22[15] = v5;
+  v22[16] = @"type =";
   v13 = self->_private;
   var5 = v13->var5;
   v15 = @"MTLHeapTypePlacement";
@@ -186,9 +186,9 @@
     v16 = @"MTLHeapTypeAutomatic";
   }
 
-  v23[17] = v16;
-  v23[18] = v5;
-  v23[19] = @"addressRanges =";
+  v22[17] = v16;
+  v22[18] = v5;
+  v22[19] = @"addressRanges =";
   addressRanges = self->_addressRanges;
   if (addressRanges)
   {
@@ -201,14 +201,12 @@
     v18 = @"nil";
   }
 
-  v23[20] = v18;
-  v23[21] = v5;
-  v23[22] = @"maxCompatiblePlacementSparsePageSize = ";
-  v23[23] = MTLSparsePageSizeString(v13->var10);
-  v19 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:{24), "componentsJoinedByString:", @" "}];
-  result = [v8 stringWithFormat:@"%@%@", v10, v19, v22.receiver, v22.super_class];
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  v22[20] = v18;
+  v22[21] = v5;
+  v22[22] = @"maxCompatiblePlacementSparsePageSize = ";
+  v22[23] = MTLSparsePageSizeString(v13->var10);
+  v19 = [objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:{24), "componentsJoinedByString:", @" "}];
+  return [v8 stringWithFormat:@"%@%@", v10, v19, v21.receiver, v21.super_class];
 }
 
 - (void)setResourceOptions:(unint64_t)options

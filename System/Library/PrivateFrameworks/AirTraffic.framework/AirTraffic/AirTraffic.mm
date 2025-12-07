@@ -77,18 +77,18 @@ id ATStringWithArray(void *a1)
 
 unint64_t ATGetPhysicalSizeForLogicalSize(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = __blockMask;
   if (!__blockMask)
   {
-    memset(&v7, 0, 512);
-    if (statfs([@"/var/mobile/Media/" UTF8String], &v7))
+    memset(&v6, 0, 512);
+    if (statfs([@"/var/mobile/Media/" UTF8String], &v6))
     {
       v3 = os_log_create("com.apple.amp.AirTraffic", "Framework");
       if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        *v6 = 0;
-        _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_DEFAULT, "Could not determine system block size", v6, 2u);
+        *v5 = 0;
+        _os_log_impl(&dword_23EC61000, v3, OS_LOG_TYPE_DEFAULT, "Could not determine system block size", v5, 2u);
       }
 
       v2 = 4095;
@@ -96,19 +96,18 @@ unint64_t ATGetPhysicalSizeForLogicalSize(uint64_t a1)
 
     else
     {
-      v2 = v7.f_bsize - 1;
+      v2 = v6.f_bsize - 1;
     }
 
     __blockMask = v2;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return ~v2 & (v2 + a1);
 }
 
 uint64_t ATGetUsageForPath(void *a1, _DWORD *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = v3;
   if (v3)
@@ -122,9 +121,9 @@ uint64_t ATGetUsageForPath(void *a1, _DWORD *a2)
         v6 = __error();
         v7 = strerror(*v6);
         *buf = 138543618;
-        v11 = v4;
-        v12 = 2080;
-        v13 = v7;
+        v10 = v4;
+        v11 = 2080;
+        v12 = v7;
         _os_log_impl(&dword_23EC61000, v5, OS_LOG_TYPE_ERROR, "ATGetUsageForPath encountered error. path=%{public}@ err=%s", buf, 0x16u);
       }
     }
@@ -135,76 +134,75 @@ uint64_t ATGetUsageForPath(void *a1, _DWORD *a2)
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 uint64_t ATGetLibrarianDocumentUsage(int a1, int a2, void *a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = __Block_byref_object_copy_;
-  v50 = __Block_byref_object_dispose_;
-  v51 = 0;
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy_;
-  v44 = __Block_byref_object_dispose_;
+  v54 = *MEMORY[0x277D85DE8];
   v45 = 0;
+  v46 = &v45;
+  v47 = 0x3032000000;
+  v48 = __Block_byref_object_copy_;
+  v49 = __Block_byref_object_dispose_;
+  v50 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x3032000000;
+  v42 = __Block_byref_object_copy_;
+  v43 = __Block_byref_object_dispose_;
+  v44 = 0;
   v3 = dispatch_semaphore_create(0);
-  v33 = MEMORY[0x277D85DD0];
-  v34 = 3221225472;
-  v35 = __ATGetLibrarianDocumentUsage_block_invoke;
-  v36 = &unk_278C6D588;
-  v38 = &v40;
-  v39 = &v46;
-  v37 = v3;
+  v32 = MEMORY[0x277D85DD0];
+  v33 = 3221225472;
+  v34 = __ATGetLibrarianDocumentUsage_block_invoke;
+  v35 = &unk_278C6D588;
+  v37 = &v39;
+  v38 = &v45;
+  v36 = v3;
   BRGetTotalApplicationDocumentUsage();
-  dispatch_semaphore_wait(v37, 0xFFFFFFFFFFFFFFFFLL);
-  if (!v41[5])
+  dispatch_semaphore_wait(v36, 0xFFFFFFFFFFFFFFFFLL);
+  if (!v40[5])
   {
-    obj = [v47[5] description];
+    obj = [v46[5] description];
     v19 = os_log_create("com.apple.amp.AirTraffic", "Framework");
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v54 = obj;
+      v53 = obj;
       _os_log_impl(&dword_23EC61000, v19, OS_LOG_TYPE_DEFAULT, "no usage info. err=%{public}@", buf, 0xCu);
     }
 
     goto LABEL_20;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  obj = v41[5];
-  v4 = [obj countByEnumeratingWithState:&v29 objects:v52 count:{16, v37}];
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  obj = v40[5];
+  v4 = [obj countByEnumeratingWithState:&v28 objects:v51 count:{16, v36}];
   if (!v4)
   {
 LABEL_20:
+    v25 = 0;
     v26 = 0;
-    v27 = 0;
     goto LABEL_21;
   }
 
+  v25 = 0;
   v26 = 0;
-  v27 = 0;
-  v5 = *v30;
+  v5 = *v29;
   do
   {
     for (i = 0; i != v4; ++i)
     {
-      if (*v30 != v5)
+      if (*v29 != v5)
       {
         objc_enumerationMutation(obj);
       }
 
-      v7 = *(*(&v29 + 1) + 8 * i);
+      v7 = *(*(&v28 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -225,7 +223,7 @@ LABEL_20:
         if (v11 == 1)
         {
           v12 = [v8 bundleIdentifier];
-          v13 = [v41[5] objectForKey:v12];
+          v13 = [v40[5] objectForKey:v12];
           v14 = [v13 valueForKey:@"Total Size"];
           v15 = [v14 unsignedLongLongValue];
 
@@ -233,13 +231,13 @@ LABEL_20:
           v17 = [v13 valueForKey:@"Document Count"];
           v18 = [v17 unsignedLongLongValue];
 
-          v27 += v16;
-          v26 += v18;
+          v26 += v16;
+          v25 += v18;
         }
       }
     }
 
-    v4 = [obj countByEnumeratingWithState:&v29 objects:v52 count:16];
+    v4 = [obj countByEnumeratingWithState:&v28 objects:v51 count:16];
   }
 
   while (v4);
@@ -247,20 +245,20 @@ LABEL_21:
 
   if (a3)
   {
-    *a3 = v26;
+    *a3 = v25;
   }
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v45, 8);
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v27;
+  return v26;
 }
 
-void sub_23EC64EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_23EC64EB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a31, 8);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -326,24 +324,24 @@ uint64_t ATIsRecoverableError(void *a1)
 
 void ATReportEventIncrementingScalarKey(void *a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = countKeyForScalarReportingEvent(v1);
   v3 = v2;
   if (v1)
   {
-    v13 = v2;
-    v14[0] = &unk_28515C888;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = v2;
+    v13[0] = &unk_28515C888;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     AnalyticsSendEvent();
     v5 = os_log_create("com.apple.amp.AirTraffic", "Framework");
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543618;
-      v10 = v4;
-      v11 = 2114;
-      v12 = v1;
-      _os_log_impl(&dword_23EC61000, v5, OS_LOG_TYPE_DEFAULT, "Reporting payload=%{public}@ for %{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v4;
+      v10 = 2114;
+      v11 = v1;
+      _os_log_impl(&dword_23EC61000, v5, OS_LOG_TYPE_DEFAULT, "Reporting payload=%{public}@ for %{public}@", &v8, 0x16u);
     }
   }
 
@@ -356,13 +354,11 @@ void ATReportEventIncrementingScalarKey(void *a1)
     v4 = os_log_create("com.apple.amp.AirTraffic", "Framework");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = 0;
-      _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_DEFAULT, "Could not find reporting key for %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = 0;
+      _os_log_impl(&dword_23EC61000, v4, OS_LOG_TYPE_DEFAULT, "Could not find reporting key for %{public}@", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 id countKeyForScalarReportingEvent(void *a1)
@@ -411,7 +407,7 @@ void ATReportEventAddDoubleToScalarKey(void *a1, double a2)
 
 void ATReportEventAddValueToScalarKey(void *a1, void *a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   if (v3)
@@ -420,18 +416,18 @@ void ATReportEventAddValueToScalarKey(void *a1, void *a2)
     v6 = v5;
     if (v5)
     {
-      v14 = v5;
-      v15[0] = v4;
-      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v13 = v5;
+      v14[0] = v4;
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       AnalyticsSendEvent();
       v8 = os_log_create("com.apple.amp.AirTraffic", "Framework");
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543618;
-        v11 = v7;
-        v12 = 2114;
-        v13 = v3;
-        _os_log_impl(&dword_23EC61000, v8, OS_LOG_TYPE_DEFAULT, "Reporting payload=%{public}@ for %{public}@", &v10, 0x16u);
+        v9 = 138543618;
+        v10 = v7;
+        v11 = 2114;
+        v12 = v3;
+        _os_log_impl(&dword_23EC61000, v8, OS_LOG_TYPE_DEFAULT, "Reporting payload=%{public}@ for %{public}@", &v9, 0x16u);
       }
     }
 
@@ -440,14 +436,12 @@ void ATReportEventAddValueToScalarKey(void *a1, void *a2)
       v7 = os_log_create("com.apple.amp.AirTraffic", "Framework");
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = v3;
-        _os_log_impl(&dword_23EC61000, v7, OS_LOG_TYPE_DEFAULT, "Could not find reporting key for %{public}@", &v10, 0xCu);
+        v9 = 138543362;
+        v10 = v3;
+        _os_log_impl(&dword_23EC61000, v7, OS_LOG_TYPE_DEFAULT, "Could not find reporting key for %{public}@", &v9, 0xCu);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void ATReportEventAddIntToScalarKey(void *a1, uint64_t a2)
@@ -458,9 +452,9 @@ void ATReportEventAddIntToScalarKey(void *a1, uint64_t a2)
   ATReportEventAddValueToScalarKey(v4, v5);
 }
 
-void sub_23EC66454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23EC66454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -477,6 +471,13 @@ uint64_t __Block_byref_object_copy__279(uint64_t result, uint64_t a2)
   *(result + 40) = *(a2 + 40);
   *(a2 + 40) = 0;
   return result;
+}
+
+void sub_23EC6ACA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy__363(uint64_t result, uint64_t a2)
@@ -668,16 +669,16 @@ void sub_23EC6F7A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23EC72A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_23EC72A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -690,17 +691,17 @@ uint64_t __Block_byref_object_copy__1186(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23EC73350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23EC73350(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23EC73D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23EC73D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -712,16 +713,16 @@ uint64_t __Block_byref_object_copy__1249(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23EC74040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_23EC74040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23EC74528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23EC74528(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -733,16 +734,16 @@ uint64_t __Block_byref_object_copy__1399(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_23EC777C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23EC777C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23EC77AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23EC77AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -834,9 +835,9 @@ const char *_StringForXPCType(uint64_t a1)
   return "Unknown type";
 }
 
-void sub_23EC795B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23EC795B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

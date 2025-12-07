@@ -23,7 +23,7 @@
 {
   if (PickerSuggestionResultFetcher.Result.suggestionSubtypeByAssetUUID.getter())
   {
-    sub_1B3710718(0, &qword_1EB852330);
+    sub_1B3710718(0, &qword_1EB852330, 0x1E696AD98);
     v2 = sub_1B3C9C4A8();
   }
 

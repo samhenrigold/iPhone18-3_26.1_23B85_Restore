@@ -110,9 +110,9 @@ LABEL_5:
   forModifierCopy = forModifier;
   if ([eventCopy type] == 17)
   {
-    if (self->_modifier != forModifierCopy || (v9 = self->_appLayoutsToFilter, [eventCopy appLayout], v10 = objc_claimAutoreleasedReturnValue(), LODWORD(v9) = -[NSArray containsObject:](v9, "containsObject:", v10), v10, !v9))
+    if (self->_modifier != forModifierCopy || (v9 = self->_appLayoutsToFilter, [eventCopy appLayout], v10 = objc_claimAutoreleasedReturnValue(), LODWORD(v9) = objc_msgSend_containsObject_(v9), v10, !v9))
     {
-      if (self->_passthroughModifier != forModifierCopy || (appLayoutsToFilter = self->_appLayoutsToFilter, [eventCopy appLayout], v12 = objc_claimAutoreleasedReturnValue(), LOBYTE(appLayoutsToFilter) = -[NSArray containsObject:](appLayoutsToFilter, "containsObject:", v12), v12, (appLayoutsToFilter & 1) != 0))
+      if (self->_passthroughModifier != forModifierCopy || (appLayoutsToFilter = self->_appLayoutsToFilter, [eventCopy appLayout], v12 = objc_claimAutoreleasedReturnValue(), LOBYTE(appLayoutsToFilter) = objc_msgSend_containsObject_(appLayoutsToFilter), v12, (appLayoutsToFilter & 1) != 0))
       {
         v13 = 0;
         goto LABEL_28;
@@ -296,7 +296,7 @@ id __78__SBFilteringSwitcherModifier_routingModifier_filteredAppLayouts_forModif
 - (id)routingModifier:(id)modifier animationAttributesModifierForLayoutElement:(id)element
 {
   elementCopy = element;
-  if ([elementCopy switcherLayoutElementType] || !-[NSArray containsObject:](self->_appLayoutsToFilter, "containsObject:", elementCopy))
+  if ([elementCopy switcherLayoutElementType] || (objc_msgSend_containsObject_(self->_appLayoutsToFilter) & 1) == 0)
   {
     v6 = &OBJC_IVAR___SBFilteringSwitcherModifier__passthroughModifier;
   }

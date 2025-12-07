@@ -10,10 +10,12 @@
 - (id)copyWithDestination:(id)destination;
 - (id)descriptionWithPointer:(BOOL)pointer;
 - (void)setAttributedMessageName:(id)name;
+- (void)setDisallowsIDSRacing:(BOOL)racing;
 - (void)setInternalResponseHandler:(id)handler;
 - (void)setResponseHandler:(id)handler;
 - (void)setResponseRestriction:(unint64_t)restriction;
 - (void)setRestriction:(unint64_t)restriction;
+- (void)setSecure:(BOOL)secure;
 - (void)setSenderContext:(id)context;
 - (void)setToID:(id)d;
 - (void)setType:(int64_t)type;
@@ -43,6 +45,19 @@
 
   [(HMDRemoteMessage *)v13 setDisallowsIDSRacing:[(HMDRemoteMessage *)self disallowsIDSRacing]];
   return v13;
+}
+
+- (void)setDisallowsIDSRacing:(BOOL)racing
+{
+  racingCopy = racing;
+  userInfo = [(HMDRemoteMessage *)self userInfo];
+  v8 = [userInfo mutableCopy];
+
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:racingCopy];
+  [v8 setObject:v6 forKeyedSubscript:@"HMD.remoteDisallowsIDSRacing"];
+
+  internal = [(HMDRemoteMessage *)self internal];
+  [internal setUserInfo:v8];
 }
 
 - (NSString)collapseID
@@ -85,7 +100,7 @@
 
     [v8 setObject:nameCopy forKeyedSubscript:@"HMD.attributedMessageName"];
     internal = [(HMDRemoteMessage *)self internal];
-    v7 = [v8 copy];
+    v7 = objc_msgSend_copy(v8);
     [internal setUserInfo:v7];
   }
 }
@@ -108,7 +123,7 @@
   [v9 setObject:v6 forKeyedSubscript:@"HMD.remoteTransportResponseRestriction"];
 
   internal = [(HMDRemoteMessage *)self internal];
-  v8 = [v9 copy];
+  v8 = objc_msgSend_copy(v9);
   [internal setUserInfo:v8];
 }
 
@@ -121,7 +136,7 @@
   [v9 setObject:v6 forKeyedSubscript:@"HMD.remoteTransportRestriction"];
 
   internal = [(HMDRemoteMessage *)self internal];
-  v8 = [v9 copy];
+  v8 = objc_msgSend_copy(v9);
   [internal setUserInfo:v8];
 }
 
@@ -158,6 +173,20 @@
       [(HMDRemoteMessage *)self setTransactionIdentifier:uUID];
     }
   }
+}
+
+- (void)setSecure:(BOOL)secure
+{
+  secureCopy = secure;
+  userInfo = [(HMDRemoteMessage *)self userInfo];
+  v9 = [userInfo mutableCopy];
+
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:secureCopy];
+  [v9 setObject:v6 forKeyedSubscript:@"HMD.remoteSecure"];
+
+  internal = [(HMDRemoteMessage *)self internal];
+  v8 = objc_msgSend_copy(v9);
+  [internal setUserInfo:v8];
 }
 
 - (id)descriptionWithPointer:(BOOL)pointer
@@ -226,7 +255,7 @@
 
 - (HMDRemoteMessage)initWithName:(id)name qualityOfService:(int64_t)service destination:(id)destination payload:(id)payload headers:(id)headers type:(int64_t)type timeout:(double)timeout secure:(BOOL)self0 restriction:(unint64_t)self1 sendOptions:(unint64_t)self2 collapseID:(id)self3
 {
-  v43[3] = *MEMORY[0x277D85DE8];
+  v42[3] = *MEMORY[0x277D85DE8];
   nameCopy = name;
   destinationCopy = destination;
   payloadCopy = payload;
@@ -254,28 +283,28 @@
     v24 = 8 * v23 + 9;
   }
 
-  v43[0] = MEMORY[0x277CBEC38];
-  v42[0] = @"HMD.remote";
-  v42[1] = @"HMD.remoteSecure";
+  v42[0] = MEMORY[0x277CBEC38];
+  v41[0] = @"HMD.remote";
+  v41[1] = @"HMD.remoteSecure";
   v27 = [MEMORY[0x277CCABB0] numberWithBool:secure];
-  v43[1] = v27;
-  v42[2] = @"HMD.remoteTransportRestriction";
+  v42[1] = v27;
+  v41[2] = @"HMD.remoteTransportRestriction";
   v28 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:restriction];
-  v43[2] = v28;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
+  v42[2] = v28;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
 
   if (dCopy)
   {
     v30 = [v29 mutableCopy];
     [v30 setObject:dCopy forKeyedSubscript:@"HMD.remoteCollapseID"];
-    v31 = [v30 copy];
+    v31 = objc_msgSend_copy(v30);
 
     v29 = v31;
   }
 
-  v41.receiver = self;
-  v41.super_class = HMDRemoteMessage;
-  v32 = [(HMDRemoteMessage *)&v41 initWithName:nameCopy qualityOfService:v24 destination:destinationCopy userInfo:v29 headers:headersCopy payload:payloadCopy];
+  v40.receiver = self;
+  v40.super_class = HMDRemoteMessage;
+  v32 = [(HMDRemoteMessage *)&v40 initWithName:nameCopy qualityOfService:v24 destination:destinationCopy userInfo:v29 headers:headersCopy payload:payloadCopy];
   v33 = v32;
   if (v32)
   {
@@ -296,7 +325,6 @@
     v33->_sendOptions = options;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v33;
 }
 

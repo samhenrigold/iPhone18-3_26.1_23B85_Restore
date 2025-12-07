@@ -5,6 +5,7 @@
 - (id)_personUUIDsInSocialGroupNode:(id)node photoLibrary:(id)library;
 - (id)assetSearchKeywordsByMomentUUIDWithEventUUIDs:(id)ds ofType:(unint64_t)type searchEntityAccumulator:(id)accumulator progressBlock:(id)block;
 - (id)searchKeywordsByEventWithEventUUIDs:(id)ds ofType:(unint64_t)type photoLibrary:(id)library progressBlock:(id)block;
+- (id)searchableAssetUUIDsBySocialGroupWithEventUUIDs:(id)ds ofType:(unint64_t)type inPhotoLibrary:(id)library isFullAnalysis:(BOOL)analysis progressBlock:(id)block;
 - (void)_aggregatePublicEventsWithoutBusinessForMomentNode:(id)node searchEntityAccumuator:(id)accumuator;
 - (void)_enumerateBusinessAndPublicEventKeywordsForEvent:(id)event usingBlock:(id)block;
 - (void)_enumerateEventNodesForUUIDs:(id)ds ofType:(unint64_t)type usingBlock:(id)block;
@@ -14,39 +15,39 @@
 
 - (id)_holidayNodesForTimedEvent:(id)event
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   celebratedHolidayNodes = [eventCopy celebratedHolidayNodes];
-  v40 = [celebratedHolidayNodes mutableCopy];
+  v39 = [celebratedHolidayNodes mutableCopy];
 
   holidayNodes = [eventCopy holidayNodes];
   countryCode = [(NSLocale *)self->_userLocale countryCode];
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v7 = holidayNodes;
-  v8 = [v7 countByEnumeratingWithState:&v50 objects:v55 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v51;
-    v34 = v7;
+    v10 = *v50;
+    v33 = v7;
     selfCopy = self;
-    v33 = *v51;
+    v32 = *v50;
     do
     {
       v11 = 0;
-      v36 = v9;
+      v35 = v9;
       do
       {
-        if (*v51 != v10)
+        if (*v50 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v50 + 1) + 8 * v11);
-        if (([v40 containsObject:v12] & 1) == 0)
+        v12 = *(*(&v49 + 1) + 8 * v11);
+        if (([v39 containsObject:v12] & 1) == 0)
         {
           name = [v12 name];
           v13 = [(CLSHolidayCalendarEventService *)self->_holidayService eventRuleForHolidayName:?];
@@ -58,34 +59,34 @@
 
             if (v16)
             {
-              v39 = v12;
-              v37 = v11;
-              v48 = 0u;
-              v49 = 0u;
-              v46 = 0u;
+              v38 = v12;
+              v36 = v11;
               v47 = 0u;
+              v48 = 0u;
+              v45 = 0u;
+              v46 = 0u;
               obj = [eventCopy dateNodes];
               v17 = v14;
-              v44 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
-              if (v44)
+              v43 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+              if (v43)
               {
-                v18 = *v47;
-                v41 = *v47;
+                v18 = *v46;
+                v40 = *v46;
                 do
                 {
-                  for (i = 0; i != v44; ++i)
+                  for (i = 0; i != v43; ++i)
                   {
-                    if (*v47 != v18)
+                    if (*v46 != v18)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v20 = *(*(&v46 + 1) + 8 * i);
+                    v20 = *(*(&v45 + 1) + 8 * i);
                     v21 = objc_alloc_init(MEMORY[0x277CBEAB8]);
                     [v21 setYear:{objc_msgSend(v20, "year")}];
                     [v21 setMonth:{objc_msgSend(v20, "month")}];
                     [v21 setDay:{objc_msgSend(v20, "day")}];
-                    v45 = [MEMORY[0x277D27690] dateFromComponents:v21 inTimeZone:0];
+                    v44 = [MEMORY[0x277D27690] dateFromComponents:v21 inTimeZone:0];
                     v22 = [v17 localDateByEvaluatingRuleForDate:? countryCode:?];
                     v23 = [MEMORY[0x277D27690] startOfDayForDate:v22];
                     v24 = [MEMORY[0x277D27690] endOfDayForDate:v22];
@@ -98,13 +99,13 @@
                       v29 = [v27 compare:v24];
 
                       v17 = v26;
-                      v18 = v41;
+                      v18 = v40;
 
                       v30 = v29 == -1;
                       eventCopy = v28;
                       if (v30)
                       {
-                        [v40 addObject:v39];
+                        [v39 addObject:v38];
                       }
                     }
 
@@ -113,18 +114,18 @@
                     }
                   }
 
-                  v44 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
+                  v43 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
                 }
 
-                while (v44);
+                while (v43);
               }
 
               v14 = v17;
-              v7 = v34;
+              v7 = v33;
               self = selfCopy;
-              v10 = v33;
-              v9 = v36;
-              v11 = v37;
+              v10 = v32;
+              v9 = v35;
+              v11 = v36;
             }
           }
         }
@@ -133,20 +134,18 @@
       }
 
       while (v11 != v9);
-      v9 = [v7 countByEnumeratingWithState:&v50 objects:v55 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v49 objects:v54 count:16];
     }
 
     while (v9);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
-
-  return v40;
+  return v39;
 }
 
 - (id)_personUUIDsInSocialGroupNode:(id)node photoLibrary:(id)library
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   libraryCopy = library;
   graph = [nodeCopy graph];
@@ -155,63 +154,61 @@
   v11 = [v9 objectForKeyedSubscript:uUID];
 
   v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v11, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = [MEMORY[0x277CD9938] uuidFromLocalIdentifier:{*(*(&v21 + 1) + 8 * i), v21}];
+        v18 = [MEMORY[0x277CD9938] uuidFromLocalIdentifier:{*(*(&v20 + 1) + 8 * i), v20}];
         if (v18)
         {
           [v12 addObject:v18];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (void)_aggregatePublicEventsWithoutBusinessForMomentNode:(id)node searchEntityAccumuator:(id)accumuator
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEB18];
   accumuatorCopy = accumuator;
   nodeCopy = node;
   array = [v5 array];
   v9 = [MEMORY[0x277CBEB58] set];
   v10 = [MEMORY[0x277CBEB58] set];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __101__PGSearchKeywordComputer__aggregatePublicEventsWithoutBusinessForMomentNode_searchEntityAccumuator___block_invoke;
-  v29[3] = &unk_278883E60;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __101__PGSearchKeywordComputer__aggregatePublicEventsWithoutBusinessForMomentNode_searchEntityAccumuator___block_invoke;
+  v28[3] = &unk_278883E60;
   v11 = array;
-  v30 = v11;
+  v29 = v11;
   v12 = v10;
-  v31 = v12;
+  v30 = v12;
   v13 = v9;
-  v32 = v13;
-  [nodeCopy enumeratePublicEventNodesUsingBlock:v29];
+  v31 = v13;
+  [nodeCopy enumeratePublicEventNodesUsingBlock:v28];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setObject:v11 forKeyedSubscript:&unk_284483CF0];
   allObjects = [v12 allObjects];
@@ -230,10 +227,10 @@
 
   v23 = [v21 uuidFromLocalIdentifier:localIdentifier];
 
-  v28 = 0;
-  [accumuatorCopy accumulatePublicEventsInPublicEventKeywords:dictionary forMomentUUID:v23 dateInterval:v20 error:&v28];
+  v27 = 0;
+  [accumuatorCopy accumulatePublicEventsInPublicEventKeywords:dictionary forMomentUUID:v23 dateInterval:v20 error:&v27];
 
-  v24 = v28;
+  v24 = v27;
   if (v24)
   {
     v25 = +[PGLogging sharedLogging];
@@ -242,12 +239,10 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v34 = v24;
+      v33 = v24;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Error returned by accumulatePublicEventsInPublicEventKeywords(): (%@)", buf, 0xCu);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __101__PGSearchKeywordComputer__aggregatePublicEventsWithoutBusinessForMomentNode_searchEntityAccumuator___block_invoke(void *a1, void *a2)
@@ -324,24 +319,24 @@ void __87__PGSearchKeywordComputer__enumerateBusinessAndPublicEventKeywordsForEv
 
 void __87__PGSearchKeywordComputer__enumerateBusinessAndPublicEventKeywordsForEvent_usingBlock___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [MEMORY[0x277CBEB38] dictionary];
   v6 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v4, "count")}];
   v7 = [MEMORY[0x277CBEB58] set];
-  v43 = [*(a1 + 32) count];
-  v41 = a1;
+  v42 = [*(a1 + 32) count];
+  v40 = a1;
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
   v9 = [MEMORY[0x277CBEB58] set];
   v10 = [MEMORY[0x277CBEB58] set];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v11 = v4;
-  v44 = [v11 countByEnumeratingWithState:&v53 objects:v58 count:16];
-  v40 = v11;
-  if (!v44)
+  v43 = [v11 countByEnumeratingWithState:&v52 objects:v57 count:16];
+  v39 = v11;
+  if (!v43)
   {
 
     [v5 setObject:v6 forKeyedSubscript:&unk_284483CC0];
@@ -353,112 +348,112 @@ LABEL_26:
   }
 
   v12 = v6;
-  v38 = v5;
-  v39 = v8;
+  v37 = v5;
+  v38 = v8;
   v13 = v5;
-  v42 = *v54;
+  v41 = *v53;
   v14 = 1;
   v15 = v11;
-  v36 = v7;
-  v37 = v6;
-  v48 = v10;
+  v35 = v7;
+  v36 = v6;
+  v47 = v10;
   do
   {
-    for (i = 0; i != v44; ++i)
+    for (i = 0; i != v43; ++i)
     {
-      if (*v54 != v42)
+      if (*v53 != v41)
       {
         objc_enumerationMutation(v15);
       }
 
-      v17 = [*(*(&v53 + 1) + 8 * i) targetNode];
+      v17 = [*(*(&v52 + 1) + 8 * i) targetNode];
       v18 = [v17 name];
       if ([v18 length])
       {
         [v12 addObject:v18];
       }
 
-      v47 = v18;
+      v46 = v18;
       v19 = [v17 businessCategories];
       if ([v7 count])
       {
         v14 &= [v7 intersectsSet:v19];
       }
 
-      v46 = v19;
+      v45 = v19;
       [v7 unionSet:v19];
-      if (v43)
+      if (v42)
       {
-        v45 = i;
+        v44 = i;
         v20 = v9;
-        v51 = 0u;
-        v52 = 0u;
-        v49 = 0u;
         v50 = 0u;
-        v21 = *(v41 + 32);
-        v22 = [v21 countByEnumeratingWithState:&v49 objects:v57 count:16];
+        v51 = 0u;
+        v48 = 0u;
+        v49 = 0u;
+        v21 = *(v40 + 32);
+        v22 = [v21 countByEnumeratingWithState:&v48 objects:v56 count:16];
         if (v22)
         {
           v23 = v22;
-          v24 = *v50;
+          v24 = *v49;
           do
           {
             for (j = 0; j != v23; ++j)
             {
-              if (*v50 != v24)
+              if (*v49 != v24)
               {
                 objc_enumerationMutation(v21);
               }
 
-              v26 = *(*(&v49 + 1) + 8 * j);
+              v26 = *(*(&v48 + 1) + 8 * j);
               v27 = [v26 businessNode];
               v28 = [v27 isSameNodeAsNode:v17];
 
               if (v28)
               {
                 v29 = [v26 name];
-                [v39 addObject:v29];
+                [v38 addObject:v29];
 
                 v30 = [v26 performers];
-                [v48 unionSet:v30];
+                [v47 unionSet:v30];
 
                 v31 = [v26 localizedCategories];
                 [v20 unionSet:v31];
               }
             }
 
-            v23 = [v21 countByEnumeratingWithState:&v49 objects:v57 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v48 objects:v56 count:16];
           }
 
           while (v23);
         }
 
-        v12 = v37;
-        v13 = v38;
-        v7 = v36;
-        v15 = v40;
+        v12 = v36;
+        v13 = v37;
+        v7 = v35;
+        v15 = v39;
         v9 = v20;
-        v10 = v48;
-        i = v45;
+        v10 = v47;
+        i = v44;
       }
     }
 
-    v44 = [v15 countByEnumeratingWithState:&v53 objects:v58 count:16];
+    v43 = [v15 countByEnumeratingWithState:&v52 objects:v57 count:16];
   }
 
-  while (v44);
+  while (v43);
 
   v5 = v13;
   v6 = v12;
   [v13 setObject:v12 forKeyedSubscript:&unk_284483CC0];
-  v8 = v39;
+  v8 = v38;
   if (v14)
   {
     goto LABEL_26;
   }
 
 LABEL_27:
-  if (v43)
+  if (v42)
   {
     [v5 setObject:v8 forKeyedSubscript:&unk_284483CF0];
     v33 = [v10 allObjects];
@@ -468,9 +463,7 @@ LABEL_27:
     [v5 setObject:v34 forKeyedSubscript:&unk_284483C78];
   }
 
-  (*(*(v41 + 40) + 16))();
-
-  v35 = *MEMORY[0x277D85DE8];
+  (*(*(v40 + 40) + 16))();
 }
 
 - (id)_personLocalIdentifiersBySocialGroupUUIDWithPhotoLibrary:(id)library graph:(id)graph
@@ -500,32 +493,32 @@ LABEL_27:
 
 - (void)_enumerateEventNodesForUUIDs:(id)ds ofType:(unint64_t)type usingBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   blockCopy = block;
   if (type == 1)
   {
     loggingConnection = [PGGraphHighlightNodeCollection highlightNodesForUUIDs:dsCopy inGraph:self->_graph];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __74__PGSearchKeywordComputer__enumerateEventNodesForUUIDs_ofType_usingBlock___block_invoke_2;
-    v14[3] = &unk_278883DE8;
-    v15 = blockCopy;
-    [loggingConnection enumerateNodesUsingBlock:v14];
-    v11 = v15;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __74__PGSearchKeywordComputer__enumerateEventNodesForUUIDs_ofType_usingBlock___block_invoke_2;
+    v13[3] = &unk_278883DE8;
+    v14 = blockCopy;
+    [loggingConnection enumerateNodesUsingBlock:v13];
+    v11 = v14;
     goto LABEL_5;
   }
 
   if (!type)
   {
     loggingConnection = [PGGraphMomentNodeCollection momentNodesForUUIDs:dsCopy inGraph:self->_graph];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __74__PGSearchKeywordComputer__enumerateEventNodesForUUIDs_ofType_usingBlock___block_invoke;
-    v16[3] = &unk_278883DC0;
-    v17 = blockCopy;
-    [loggingConnection enumerateNodesUsingBlock:v16];
-    v11 = v17;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __74__PGSearchKeywordComputer__enumerateEventNodesForUUIDs_ofType_usingBlock___block_invoke;
+    v15[3] = &unk_278883DC0;
+    v16 = blockCopy;
+    [loggingConnection enumerateNodesUsingBlock:v15];
+    v11 = v16;
 LABEL_5:
 
     goto LABEL_8;
@@ -542,8 +535,162 @@ LABEL_5:
   }
 
 LABEL_8:
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (id)searchableAssetUUIDsBySocialGroupWithEventUUIDs:(id)ds ofType:(unint64_t)type inPhotoLibrary:(id)library isFullAnalysis:(BOOL)analysis progressBlock:(id)block
+{
+  analysisCopy = analysis;
+  v71[1] = *MEMORY[0x277D85DE8];
+  dsCopy = ds;
+  libraryCopy = library;
+  blockCopy = block;
+  v13 = _Block_copy(blockCopy);
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v60 = 0;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
+  if (!v13 || (v14 = CFAbsoluteTimeGetCurrent(), v14 - v54[3] < 0.01) || (v54[3] = v14, LOBYTE(v65) = 0, v13[2](v13, &v65, 0.0), v15 = *(v58 + 24) | v65, *(v58 + 24) = v15, (v15 & 1) == 0))
+  {
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    librarySpecificFetchOptions = [libraryCopy librarySpecificFetchOptions];
+    v71[0] = *MEMORY[0x277CD9AA8];
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
+    [librarySpecificFetchOptions setFetchPropertySets:v18];
+
+    v19 = 0;
+    buf = 0;
+    *&v69 = &buf;
+    *(&v69 + 1) = 0x2020000000;
+    v70 = analysisCopy << 63 >> 63;
+    if ((analysisCopy & 1) == 0)
+    {
+      array = [MEMORY[0x277CBEB18] array];
+      v21 = [MEMORY[0x277CBEB98] setWithArray:dsCopy];
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUUIDs_ofType_inPhotoLibrary_isFullAnalysis_progressBlock___block_invoke;
+      v50[3] = &unk_278883D48;
+      v19 = array;
+      v51 = v19;
+      p_buf = &buf;
+      [(PGSearchKeywordComputer *)self _enumerateEventNodesForUUIDs:v21 ofType:type usingBlock:v50];
+    }
+
+    if (v13)
+    {
+      Current = CFAbsoluteTimeGetCurrent();
+      if (Current - v54[3] >= 0.01)
+      {
+        v54[3] = Current;
+        LOBYTE(v61) = 0;
+        v13[2](v13, &v61, 0.5);
+        v23 = *(v58 + 24) | v61;
+        *(v58 + 24) = v23;
+        if (v23)
+        {
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+          {
+            v65 = 0x2AA04000202;
+            LOWORD(v66) = 2080;
+            *(&v66 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v65, 0x12u);
+          }
+
+          v16 = MEMORY[0x277CBEC10];
+          goto LABEL_27;
+        }
+      }
+    }
+
+    v24 = librarySpecificFetchOptions;
+    v65 = 0;
+    *&v66 = &v65;
+    *(&v66 + 1) = 0x2020000000;
+    v67 = 0x3FE0000000000000;
+    selfCopy = self;
+    graph = self->_graph;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUUIDs_ofType_inPhotoLibrary_isFullAnalysis_progressBlock___block_invoke_317;
+    v37[3] = &unk_278883D98;
+    v27 = v13;
+    v44 = &v53;
+    v45 = &v65;
+    v48 = 0x3F847AE147AE147BLL;
+    v46 = &v57;
+    v43 = v27;
+    v37[4] = selfCopy;
+    v38 = libraryCopy;
+    v47 = &buf;
+    v49 = analysisCopy;
+    librarySpecificFetchOptions = v24;
+    v39 = v24;
+    v40 = &unk_284485BF8;
+    v41 = v19;
+    v28 = dictionary;
+    v42 = v28;
+    [(MAGraph *)graph enumerateNodesWithLabel:@"SocialGroup" domain:302 usingBlock:v37];
+    if (*(v58 + 24) == 1)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      {
+        v61 = 67109378;
+        v62 = 736;
+        v63 = 2080;
+        v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
+        v29 = MEMORY[0x277D86220];
+LABEL_18:
+        _os_log_impl(&dword_22F0FC000, v29, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v61, 0x12u);
+      }
+    }
+
+    else
+    {
+      if (!v13 || (v30 = CFAbsoluteTimeGetCurrent(), v30 - v54[3] < 0.01) || (v54[3] = v30, v36 = 0, v27[2](v27, &v36, 1.0), v31 = *(v58 + 24) | v36, *(v58 + 24) = v31, (v31 & 1) == 0))
+      {
+        v16 = v28;
+        goto LABEL_26;
+      }
+
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      {
+        v61 = 67109378;
+        v62 = 738;
+        v63 = 2080;
+        v64 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
+        v29 = MEMORY[0x277D86220];
+        goto LABEL_18;
+      }
+    }
+
+    v16 = MEMORY[0x277CBEC10];
+LABEL_26:
+
+    _Block_object_dispose(&v65, 8);
+LABEL_27:
+
+    _Block_object_dispose(&buf, 8);
+    goto LABEL_28;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  {
+    buf = 0x29104000202;
+    LOWORD(v69) = 2080;
+    *(&v69 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
+    _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
+  }
+
+  v16 = MEMORY[0x277CBEC10];
+LABEL_28:
+  _Block_object_dispose(&v53, 8);
+  _Block_object_dispose(&v57, 8);
+
+  return v16;
 }
 
 void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUUIDs_ofType_inPhotoLibrary_isFullAnalysis_progressBlock___block_invoke(uint64_t a1, void *a2)
@@ -567,9 +714,9 @@ void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUU
 
 void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUUIDs_ofType_inPhotoLibrary_isFullAnalysis_progressBlock___block_invoke_317(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
-  if (*(a1 + 80) && (Current = CFAbsoluteTimeGetCurrent(), v7 = *(*(a1 + 88) + 8), Current - *(v7 + 24) >= *(a1 + 120)) && (*(v7 + 24) = Current, v35 = 0, (*(*(a1 + 80) + 16))(*(*(*(a1 + 96) + 8) + 24)), *(*(*(a1 + 104) + 8) + 24) = *(*(*(a1 + 104) + 8) + 24), *(*(*(a1 + 104) + 8) + 24) == 1))
+  if (*(a1 + 80) && (Current = CFAbsoluteTimeGetCurrent(), v7 = *(*(a1 + 88) + 8), Current - *(v7 + 24) >= *(a1 + 120)) && (*(v7 + 24) = Current, v34 = 0, (*(*(a1 + 80) + 16))(*(*(*(a1 + 96) + 8) + 24)), *(*(*(a1 + 104) + 8) + 24) = *(*(*(a1 + 104) + 8) + 24), *(*(*(a1 + 104) + 8) + 24) == 1))
   {
     *a3 = 1;
   }
@@ -586,7 +733,7 @@ void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUU
       {
         if (*(a1 + 128) == 1)
         {
-          [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.@count >= %lu AND SUBQUERY(%K, $f, $f.%K IN %@ AND $f.%K IN %@).@count >= %lu", @"detectedFaces", v10, @"detectedFaces", @"personForFace.verifiedType", *(a1 + 56), @"personForFace.personUUID", v8, v10, v26, v27];
+          [MEMORY[0x277CCAC30] predicateWithFormat:@"%K.@count >= %lu AND SUBQUERY(%K, $f, $f.%K IN %@ AND $f.%K IN %@).@count >= %lu", @"detectedFaces", v10, @"detectedFaces", @"personForFace.verifiedType", *(a1 + 56), @"personForFace.personUUID", v8, v10, v25, v26];
         }
 
         else
@@ -598,30 +745,30 @@ void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUU
 
         v12 = [MEMORY[0x277CD97A8] fetchAssetsWithOptions:*(a1 + 48)];
         v13 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v12, "count")}];
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         v14 = v12;
-        v15 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v30 objects:v35 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v32;
+          v17 = *v31;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v32 != v17)
+              if (*v31 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = [*(*(&v31 + 1) + 8 * i) uuid];
+              v19 = [*(*(&v30 + 1) + 8 * i) uuid];
               [v13 addObject:v19];
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v31 objects:v36 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v30 objects:v35 count:16];
           }
 
           while (v16);
@@ -634,20 +781,18 @@ void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUU
 
         v22 = [MEMORY[0x277CD9938] fetchVerifiedPersonUUIDsGroupedByAssetUUIDForAssetUUIDs:v13 options:v20];
         v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v13, "count")}];
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUUIDs_ofType_inPhotoLibrary_isFullAnalysis_progressBlock___block_invoke_350;
-        v28[3] = &unk_278883D70;
-        v29 = v23;
-        v30 = v10;
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUUIDs_ofType_inPhotoLibrary_isFullAnalysis_progressBlock___block_invoke_350;
+        v27[3] = &unk_278883D70;
+        v28 = v23;
+        v29 = v10;
         v24 = v23;
-        [v22 enumerateKeysAndObjectsUsingBlock:v28];
+        [v22 enumerateKeysAndObjectsUsingBlock:v27];
         [*(a1 + 72) setObject:v24 forKeyedSubscript:v8];
       }
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUUIDs_ofType_inPhotoLibrary_isFullAnalysis_progressBlock___block_invoke_350(uint64_t a1, void *a2, void *a3)
@@ -685,7 +830,7 @@ void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUU
 
 - (id)assetSearchKeywordsByMomentUUIDWithEventUUIDs:(id)ds ofType:(unint64_t)type searchEntityAccumulator:(id)accumulator progressBlock:(id)block
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   accumulatorCopy = accumulator;
   aBlock = block;
@@ -702,20 +847,20 @@ void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUU
   v14 = _Block_copy(aBlock);
   buf = 0;
   p_buf = &buf;
-  v51 = 0x2020000000;
-  v52 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
-  v48 = 0;
-  if (v14 && (v15 = CFAbsoluteTimeGetCurrent(), v15 - v46[3] >= 0.01) && (v46[3] = v15, LOBYTE(v53[0]) = 0, (*(v14 + 2))(v14, v53, 0.0), v16 = *(p_buf + 24) | LOBYTE(v53[0]), *(p_buf + 24) = v16, (v16 & 1) != 0))
+  v50 = 0x2020000000;
+  v51 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
+  if (v14 && (v15 = CFAbsoluteTimeGetCurrent(), v15 - v45[3] >= 0.01) && (v45[3] = v15, LOBYTE(v52[0]) = 0, (*(v14 + 2))(v14, v52, 0.0), v16 = *(p_buf + 24) | LOBYTE(v52[0]), *(p_buf + 24) = v16, (v16 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v56 = 0x16E04000202;
-      LOWORD(v57) = 2080;
-      *(&v57 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
-      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v56, 0x12u);
+      v55 = 0x16E04000202;
+      LOWORD(v56) = 2080;
+      *(&v56 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
+      _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &v55, 0x12u);
     }
 
     aggregatedKeywords = MEMORY[0x277CBEC10];
@@ -725,39 +870,39 @@ void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUU
   {
     v18 = objc_alloc_init(PGSearchKeywordComputerKeywordAggregator);
     meNodeCollection = [(PGGraph *)self->_graph meNodeCollection];
-    v56 = 0;
-    *&v57 = &v56;
-    *(&v57 + 1) = 0x2020000000;
-    v58 = 0;
+    v55 = 0;
+    *&v56 = &v55;
+    *(&v56 + 1) = 0x2020000000;
+    v57 = 0;
     v20 = 1.0 / [dsCopy count];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke;
-    v34[3] = &unk_278883D20;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke;
+    v33[3] = &unk_278883D20;
     v21 = v14;
-    v39 = &v45;
-    v40 = &v56;
-    v41 = &buf;
-    v42 = 0x3F847AE147AE147BLL;
-    v43 = v20;
-    v38 = v21;
-    v34[4] = self;
+    v38 = &v44;
+    v39 = &v55;
+    v40 = &buf;
+    v41 = 0x3F847AE147AE147BLL;
+    v42 = v20;
+    v37 = v21;
+    v33[4] = self;
     v22 = v18;
-    v35 = v22;
-    v36 = accumulatorCopy;
+    v34 = v22;
+    v35 = accumulatorCopy;
     typeCopy = type;
     v23 = meNodeCollection;
-    v37 = v23;
-    [(PGSearchKeywordComputer *)self _enumerateEventNodesForUUIDs:dsCopy ofType:type usingBlock:v34];
-    if (v14 && (Current = CFAbsoluteTimeGetCurrent(), Current - v46[3] >= 0.01) && (v46[3] = Current, v33 = 0, (*(v21 + 2))(v21, &v33, 1.0), v25 = *(p_buf + 24) | v33, *(p_buf + 24) = v25, (v25 & 1) != 0))
+    v36 = v23;
+    [(PGSearchKeywordComputer *)self _enumerateEventNodesForUUIDs:dsCopy ofType:type usingBlock:v33];
+    if (v14 && (Current = CFAbsoluteTimeGetCurrent(), Current - v45[3] >= 0.01) && (v45[3] = Current, v32 = 0, (*(v21 + 2))(v21, &v32, 1.0), v25 = *(p_buf + 24) | v32, *(p_buf + 24) = v25, (v25 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v53[0] = 67109378;
-        v53[1] = 647;
-        v54 = 2080;
-        v55 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v53, 0x12u);
+        v52[0] = 67109378;
+        v52[1] = 647;
+        v53 = 2080;
+        v54 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v52, 0x12u);
       }
 
       aggregatedKeywords = MEMORY[0x277CBEC10];
@@ -769,30 +914,28 @@ void __126__PGSearchKeywordComputer_searchableAssetUUIDsBySocialGroupWithEventUU
       v27 = v26;
       if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
       {
-        LOWORD(v53[0]) = 0;
-        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v27, OS_SIGNPOST_INTERVAL_END, v11, "assetSearchKeywordsByMomentUUIDWithEventUUIDs", "", v53, 2u);
+        LOWORD(v52[0]) = 0;
+        _os_signpost_emit_with_name_impl(&dword_22F0FC000, v27, OS_SIGNPOST_INTERVAL_END, v11, "assetSearchKeywordsByMomentUUIDWithEventUUIDs", "", v52, 2u);
       }
 
       aggregatedKeywords = [(PGSearchKeywordComputerKeywordAggregator *)v22 aggregatedKeywords];
     }
 
-    _Block_object_dispose(&v56, 8);
+    _Block_object_dispose(&v55, 8);
   }
 
-  _Block_object_dispose(&v45, 8);
+  _Block_object_dispose(&v44, 8);
   _Block_object_dispose(&buf, 8);
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return aggregatedKeywords;
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v114[1] = *MEMORY[0x277D85DE8];
+  v112[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = objc_autoreleasePoolPush();
-  if (*(a1 + 64) && (Current = CFAbsoluteTimeGetCurrent(), v8 = *(*(a1 + 72) + 8), Current - *(v8 + 24) >= *(a1 + 96)) && (*(v8 + 24) = Current, v105 = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 80) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+  if (*(a1 + 64) && (Current = CFAbsoluteTimeGetCurrent(), v8 = *(*(a1 + 72) + 8), Current - *(v8 + 24) >= *(a1 + 96)) && (*(v8 + 24) = Current, v103 = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 80) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
   {
     *a3 = 1;
   }
@@ -802,13 +945,13 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     *(*(*(a1 + 80) + 8) + 24) = *(a1 + 104) + *(*(*(a1 + 80) + 8) + 24);
     v9 = *(a1 + 32);
     v10 = [v5 businessedEvent];
-    v102[0] = MEMORY[0x277D85DD0];
-    v102[1] = 3221225472;
-    v102[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_2;
-    v102[3] = &unk_278883C70;
-    v103 = *(a1 + 40);
-    v104 = *(a1 + 48);
-    [v9 _enumerateBusinessAndPublicEventKeywordsForEvent:v10 usingBlock:v102];
+    v100[0] = MEMORY[0x277D85DD0];
+    v100[1] = 3221225472;
+    v100[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_2;
+    v100[3] = &unk_278883C70;
+    v101 = *(a1 + 40);
+    v102 = *(a1 + 48);
+    [v9 _enumerateBusinessAndPublicEventKeywordsForEvent:v10 usingBlock:v100];
 
     if (_os_feature_enabled_impl() && !*(a1 + 112))
     {
@@ -817,197 +960,194 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
 
     if (!*(a1 + 112) && [v5 isPartOfTrip])
     {
-      v11 = *(a1 + 32);
-      v12 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v13 = [v12 localizedStringForKey:@"PGHighlightTripSearchableText" value:@"PGHighlightTripSearchableText" table:@"Localizable"];
+      v11 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v12 = [v11 localizedStringForKey:@"PGHighlightTripSearchableText" value:@"PGHighlightTripSearchableText" table:@"Localizable"];
 
-      v114[0] = v13;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:1];
-      v112 = &unk_284483B70;
-      v113 = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v113 forKeys:&v112 count:1];
-      v16 = [v5 eventCollection];
-      v17 = [v16 eventMomentNodes];
-      v97[0] = MEMORY[0x277D85DD0];
-      v97[1] = 3221225472;
-      v97[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_292;
-      v97[3] = &unk_278883C98;
-      v98 = *(a1 + 40);
-      v99 = v15;
-      v100 = *(a1 + 48);
-      v101 = v13;
-      v18 = v13;
-      v19 = v15;
-      [v17 enumerateNodesUsingBlock:v97];
+      v112[0] = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:1];
+      v110 = &unk_284483B70;
+      v111 = v13;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
+      v15 = [v5 eventCollection];
+      v16 = [v15 eventMomentNodes];
+      v95[0] = MEMORY[0x277D85DD0];
+      v95[1] = 3221225472;
+      v95[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_292;
+      v95[3] = &unk_278883C98;
+      v96 = *(a1 + 40);
+      v97 = v14;
+      v98 = *(a1 + 48);
+      v99 = v12;
+      v17 = v12;
+      v18 = v14;
+      [v16 enumerateNodesUsingBlock:v95];
     }
 
-    v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v21 = [v5 meaningfulEvent];
-    v22 = [v21 meaningNodes];
+    v19 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v20 = [v5 meaningfulEvent];
+    v21 = [v20 meaningNodes];
 
-    v94[0] = MEMORY[0x277D85DD0];
-    v94[1] = 3221225472;
-    v94[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_293;
-    v94[3] = &unk_278883BA8;
-    v23 = v20;
-    v24 = *(a1 + 32);
-    v95 = v23;
-    v96 = v24;
-    v66 = v22;
-    [v22 enumerateNodesUsingBlock:v94];
-    if ([v23 count])
+    v92[0] = MEMORY[0x277D85DD0];
+    v92[1] = 3221225472;
+    v92[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_293;
+    v92[3] = &unk_278883BA8;
+    v22 = v19;
+    v23 = *(a1 + 32);
+    v93 = v22;
+    v94 = v23;
+    v64 = v21;
+    [v21 enumerateNodesUsingBlock:v92];
+    if ([v22 count])
     {
-      v110 = &unk_284483B88;
-      v111 = v23;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v111 forKeys:&v110 count:1];
-      v26 = [v5 eventCollection];
-      v27 = [v26 eventMomentNodes];
-      v89[0] = MEMORY[0x277D85DD0];
-      v89[1] = 3221225472;
-      v89[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_295;
-      v89[3] = &unk_278883C98;
-      v90 = *(a1 + 40);
-      v91 = v25;
-      v92 = *(a1 + 48);
-      v93 = v23;
-      v28 = v25;
-      [v27 enumerateNodesUsingBlock:v89];
+      v108 = &unk_284483B88;
+      v109 = v22;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+      v25 = [v5 eventCollection];
+      v26 = [v25 eventMomentNodes];
+      v87[0] = MEMORY[0x277D85DD0];
+      v87[1] = 3221225472;
+      v87[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_295;
+      v87[3] = &unk_278883C98;
+      v88 = *(a1 + 40);
+      v89 = v24;
+      v90 = *(a1 + 48);
+      v91 = v22;
+      v27 = v24;
+      [v26 enumerateNodesUsingBlock:v87];
     }
 
-    v29 = *(a1 + 32);
-    v30 = [v5 timedEvent];
-    v31 = [v29 _holidayNodesForTimedEvent:v30];
+    v28 = *(a1 + 32);
+    v29 = [v5 timedEvent];
+    v30 = [v28 _holidayNodesForTimedEvent:v29];
 
-    if ([v31 count])
+    if ([v30 count])
     {
-      v64 = v6;
-      v32 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v31, "count")}];
+      v62 = v6;
+      v31 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v30, "count")}];
+      v83 = 0u;
+      v84 = 0u;
       v85 = 0u;
       v86 = 0u;
-      v87 = 0u;
-      v88 = 0u;
-      v63 = v31;
-      v33 = v31;
-      v34 = [v33 countByEnumeratingWithState:&v85 objects:v109 count:16];
-      if (v34)
+      v61 = v30;
+      v32 = v30;
+      v33 = [v32 countByEnumeratingWithState:&v83 objects:v107 count:16];
+      if (v33)
       {
-        v35 = v34;
-        v36 = *v86;
+        v34 = v33;
+        v35 = *v84;
         do
         {
-          for (i = 0; i != v35; ++i)
+          for (i = 0; i != v34; ++i)
           {
-            if (*v86 != v36)
+            if (*v84 != v35)
             {
-              objc_enumerationMutation(v33);
+              objc_enumerationMutation(v32);
             }
 
-            v38 = [*(*(&v85 + 1) + 8 * i) name];
-            if ([v38 length])
+            v37 = [*(*(&v83 + 1) + 8 * i) name];
+            if ([v37 length])
             {
-              v39 = [MEMORY[0x277D276C8] localizedNameForName:v38];
-              [v32 addObject:v39];
+              v38 = [MEMORY[0x277D276C8] localizedNameForName:v37];
+              [v31 addObject:v38];
             }
           }
 
-          v35 = [v33 countByEnumeratingWithState:&v85 objects:v109 count:16];
+          v34 = [v32 countByEnumeratingWithState:&v83 objects:v107 count:16];
         }
 
-        while (v35);
+        while (v34);
       }
 
-      v107 = &unk_284483BA0;
-      v108 = v32;
-      v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
-      v41 = [v5 eventCollection];
-      v42 = [v41 eventMomentNodes];
-      v80[0] = MEMORY[0x277D85DD0];
-      v80[1] = 3221225472;
-      v80[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_296;
-      v80[3] = &unk_278883C98;
-      v81 = *(a1 + 40);
-      v82 = v40;
-      v83 = *(a1 + 48);
-      v84 = v32;
-      v43 = v32;
-      v44 = v40;
-      [v42 enumerateNodesUsingBlock:v80];
+      v105 = &unk_284483BA0;
+      v106 = v31;
+      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
+      v40 = [v5 eventCollection];
+      v41 = [v40 eventMomentNodes];
+      v78[0] = MEMORY[0x277D85DD0];
+      v78[1] = 3221225472;
+      v78[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_296;
+      v78[3] = &unk_278883C98;
+      v79 = *(a1 + 40);
+      v80 = v39;
+      v81 = *(a1 + 48);
+      v82 = v31;
+      v42 = v31;
+      v43 = v39;
+      [v41 enumerateNodesUsingBlock:v78];
 
-      v6 = v64;
-      v31 = v63;
+      v6 = v62;
+      v30 = v61;
     }
 
-    v45 = [v5 locatedEvent];
-    v46 = [v45 happensPartiallyAtHomeOrWorkOfPersonNodes:*(a1 + 56)];
+    v44 = [v5 locatedEvent];
+    v45 = [v44 happensPartiallyAtHomeOrWorkOfPersonNodes:*(a1 + 56)];
 
-    if (v46)
+    if (v45)
     {
-      v47 = [v5 eventCollection];
-      v48 = [v47 eventMomentNodes];
-      v77[0] = MEMORY[0x277D85DD0];
-      v77[1] = 3221225472;
-      v77[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_297;
-      v77[3] = &unk_278883C98;
-      v49 = *(a1 + 56);
-      v65 = *(a1 + 32);
-      v50 = v65.i64[1];
-      v51.i64[0] = *(a1 + 48);
-      v51.i64[1] = v49;
-      v78 = vextq_s8(v51, v65, 8uLL);
-      v79 = vextq_s8(v65, v51, 8uLL);
-      [v48 enumerateNodesUsingBlock:v77];
+      v46 = [v5 eventCollection];
+      v47 = [v46 eventMomentNodes];
+      v75[0] = MEMORY[0x277D85DD0];
+      v75[1] = 3221225472;
+      v75[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_297;
+      v75[3] = &unk_278883C98;
+      v48 = *(a1 + 56);
+      v63 = *(a1 + 32);
+      v49 = v63.i64[1];
+      v50.i64[0] = *(a1 + 48);
+      v50.i64[1] = v48;
+      v76 = vextq_s8(v50, v63, 8uLL);
+      v77 = vextq_s8(v63, v50, 8uLL);
+      [v47 enumerateNodesUsingBlock:v75];
     }
 
-    v52 = [v5 eventCollection];
-    v53 = [v52 eventMomentNodes];
-    v74[0] = MEMORY[0x277D85DD0];
-    v74[1] = 3221225472;
-    v74[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_302;
-    v74[3] = &unk_278888B78;
-    v75 = *(a1 + 40);
-    v76 = *(a1 + 48);
-    [v53 enumerateNodesUsingBlock:v74];
+    v51 = [v5 eventCollection];
+    v52 = [v51 eventMomentNodes];
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_302;
+    v72[3] = &unk_278888B78;
+    v73 = *(a1 + 40);
+    v74 = *(a1 + 48);
+    [v52 enumerateNodesUsingBlock:v72];
 
-    v54 = [v5 eventCollection];
-    v55 = [v54 eventMomentNodes];
-    v71[0] = MEMORY[0x277D85DD0];
-    v71[1] = 3221225472;
-    v71[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_307;
-    v71[3] = &unk_278888B78;
-    v72 = *(a1 + 40);
-    v73 = *(a1 + 48);
-    [v55 enumerateNodesUsingBlock:v71];
+    v53 = [v5 eventCollection];
+    v54 = [v53 eventMomentNodes];
+    v69[0] = MEMORY[0x277D85DD0];
+    v69[1] = 3221225472;
+    v69[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_307;
+    v69[3] = &unk_278888B78;
+    v70 = *(a1 + 40);
+    v71 = *(a1 + 48);
+    [v54 enumerateNodesUsingBlock:v69];
 
-    v56 = objc_alloc(MEMORY[0x277CBEB98]);
-    v106[0] = @"Museum";
-    v106[1] = @"AmusementPark";
-    v106[2] = @"Park";
-    v106[3] = @"Stadium";
-    v106[4] = @"Restaurant";
-    v57 = [MEMORY[0x277CBEA60] arrayWithObjects:v106 count:5];
-    v58 = [v56 initWithArray:v57];
+    v55 = objc_alloc(MEMORY[0x277CBEB98]);
+    v104[0] = @"Museum";
+    v104[1] = @"AmusementPark";
+    v104[2] = @"Park";
+    v104[3] = @"Stadium";
+    v104[4] = @"Restaurant";
+    v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:5];
+    v57 = [v55 initWithArray:v56];
 
-    v59 = [v5 eventCollection];
-    v60 = [v59 eventMomentNodes];
-    v67[0] = MEMORY[0x277D85DD0];
-    v67[1] = 3221225472;
-    v67[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_312;
-    v67[3] = &unk_278883CF8;
-    v68 = v58;
-    v69 = *(a1 + 40);
-    v70 = *(a1 + 48);
-    v61 = v58;
-    [v60 enumerateNodesUsingBlock:v67];
+    v58 = [v5 eventCollection];
+    v59 = [v58 eventMomentNodes];
+    v65[0] = MEMORY[0x277D85DD0];
+    v65[1] = 3221225472;
+    v65[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_312;
+    v65[3] = &unk_278883CF8;
+    v66 = v57;
+    v67 = *(a1 + 40);
+    v68 = *(a1 + 48);
+    v60 = v57;
+    [v59 enumerateNodesUsingBlock:v65];
   }
 
   objc_autoreleasePoolPop(v6);
-
-  v62 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [a2 anyObject];
   v7 = [v6 sourceNode];
@@ -1055,10 +1195,10 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
   [*(a1 + 32) aggregateKeywordArraysByCategoryMask:v5 forMomentUUID:v10 fromUniversalStartDate:v14 toEndDate:v15];
   v19 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v14 endDate:v15];
   v20 = *(a1 + 40);
-  v25 = 0;
-  [v20 accumulatePublicEventsInPublicEventKeywords:v5 forMomentUUID:v10 dateInterval:v19 error:&v25];
+  v24 = 0;
+  [v20 accumulatePublicEventsInPublicEventKeywords:v5 forMomentUUID:v10 dateInterval:v19 error:&v24];
 
-  v21 = v25;
+  v21 = v24;
   if (v21)
   {
     v22 = +[PGLogging sharedLogging];
@@ -1067,17 +1207,15 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v27 = v21;
+      v26 = v21;
       _os_log_error_impl(&dword_22F0FC000, v23, OS_LOG_TYPE_ERROR, "Error returned by accumulatePublicEventsInPublicEventKeywords(): (%@)", buf, 0xCu);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_292(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1[4];
   v4 = a1[5];
   v5 = a2;
@@ -1089,9 +1227,9 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
 
   v9 = a1[6];
   v10 = a1[7];
-  v15 = 0;
-  [v9 accumulateTrip:v10 forMomentUUID:v8 error:&v15];
-  v11 = v15;
+  v14 = 0;
+  [v9 accumulateTrip:v10 forMomentUUID:v8 error:&v14];
+  v11 = v14;
   if (v11)
   {
     v12 = +[PGLogging sharedLogging];
@@ -1100,17 +1238,15 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v11;
+      v16 = v11;
       _os_log_error_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_ERROR, "Error returned by accumulateTrip(): (%@)", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_293(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 label];
   if (([v4 isEqualToString:@"Gathering"] & 1) == 0)
@@ -1122,44 +1258,41 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
       v6 = localizationKeyForMeaningLabel(v4);
       if (v6)
       {
-        v7 = *(a1 + 40);
-        v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v9 = [v8 localizedStringForKey:v6 value:v6 table:@"Localizable"];
+        v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+        v8 = [v7 localizedStringForKey:v6 value:v6 table:@"Localizable"];
 
-        [*(a1 + 32) setValue:v9 forKey:v4];
+        [*(a1 + 32) setValue:v8 forKey:v4];
       }
 
       else
       {
-        v10 = +[PGLogging sharedLogging];
-        v11 = [v10 loggingConnection];
+        v9 = +[PGLogging sharedLogging];
+        v10 = [v9 loggingConnection];
 
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v19 = v4;
-          _os_log_error_impl(&dword_22F0FC000, v11, OS_LOG_TYPE_ERROR, "No localization key for meaning label: (%@)", buf, 0xCu);
+          v17 = v4;
+          _os_log_error_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_ERROR, "No localization key for meaning label: (%@)", buf, 0xCu);
         }
       }
     }
 
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_294;
-    v15[3] = &unk_278883BA8;
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    v16 = v12;
-    v17 = v13;
-    [v3 traverseParentMeaningHierarchyUsingBlock:v15];
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_294;
+    v13[3] = &unk_278883BA8;
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 40);
+    v14 = v11;
+    v15 = v12;
+    [v3 traverseParentMeaningHierarchyUsingBlock:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_295(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1[4];
   v4 = a1[5];
   v5 = a2;
@@ -1171,9 +1304,9 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
 
   v9 = a1[6];
   v10 = a1[7];
-  v15 = 0;
-  [v9 accumulateMeanings:v10 forMomentUUID:v8 error:&v15];
-  v11 = v15;
+  v14 = 0;
+  [v9 accumulateMeanings:v10 forMomentUUID:v8 error:&v14];
+  v11 = v14;
   if (v11)
   {
     v12 = +[PGLogging sharedLogging];
@@ -1182,17 +1315,15 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v11;
+      v16 = v11;
       _os_log_error_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_ERROR, "Error returned by accumulateMeanings(): (%@)", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_296(void *a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a1[4];
   v4 = a1[5];
   v5 = a2;
@@ -1204,9 +1335,9 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
 
   v9 = a1[6];
   v10 = a1[7];
-  v15 = 0;
-  [v9 accumulateHolidays:v10 forMomentUUID:v8 error:&v15];
-  v11 = v15;
+  v14 = 0;
+  [v9 accumulateHolidays:v10 forMomentUUID:v8 error:&v14];
+  v11 = v14;
   if (v11)
   {
     v12 = +[PGLogging sharedLogging];
@@ -1215,12 +1346,10 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v17 = v11;
+      v16 = v11;
       _os_log_error_impl(&dword_22F0FC000, v13, OS_LOG_TYPE_ERROR, "Error returned by accumulateHolidays(): (%@)", buf, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_297(uint64_t a1, void *a2)
@@ -1270,7 +1399,7 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_312(uint64_t a1, void *a2)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 collection];
   v5 = [v4 poiNodesWithNonzeroConfidence];
@@ -1281,18 +1410,18 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     v7 = [v6 localizedNames];
     v8 = [v7 allObjects];
 
-    v21 = &unk_284483C60;
-    v22[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = &unk_284483C60;
+    v21[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     v10 = MEMORY[0x277CD98F8];
     v11 = [v3 localIdentifier];
     v12 = [v10 uuidFromLocalIdentifier:v11];
 
     [*(a1 + 40) aggregateKeywordsByCategoryMask:v9 forMomentNode:v3];
     v13 = *(a1 + 48);
-    v18 = 0;
-    [v13 accumulateLocationPOIWithPOIKeywords:v8 forMomentUUID:v12 error:&v18];
-    v14 = v18;
+    v17 = 0;
+    [v13 accumulateLocationPOIWithPOIKeywords:v8 forMomentUUID:v12 error:&v17];
+    v14 = v17;
     if (v14)
     {
       v15 = +[PGLogging sharedLogging];
@@ -1301,18 +1430,16 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v20 = v14;
+        v19 = v14;
         _os_log_error_impl(&dword_22F0FC000, v16, OS_LOG_TYPE_ERROR, "Error returned by accumulateLocationPOI(): (%@)", buf, 0xCu);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_2_308(uint64_t a1, void *a2, void *a3)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 collection];
   v7 = [v6 continentNodes];
@@ -1320,9 +1447,9 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
   if ([v7 count])
   {
     v8 = [v7 names];
-    v33 = &unk_284483C48;
-    v34[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = &unk_284483C48;
+    v33[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v10 = MEMORY[0x277CD98F8];
     v11 = [*(a1 + 32) localIdentifier];
     v12 = [v10 uuidFromLocalIdentifier:v11];
@@ -1358,12 +1485,12 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     v21 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v16 endDate:v20];
     [*(a1 + 40) aggregateKeywordsByCategoryMask:v9 forMomentUUID:v12 duringDateInterval:v21];
     v22 = *(a1 + 48);
-    v30 = 0;
-    [v22 accumulateLocationContinentsWithContinentKeywords:v8 forMomentUUID:v12 dateInterval:v21 error:&v30];
-    v23 = v30;
+    v29 = 0;
+    [v22 accumulateLocationContinentsWithContinentKeywords:v8 forMomentUUID:v12 dateInterval:v21 error:&v29];
+    v23 = v29;
     if (v23)
     {
-      v29 = v16;
+      v28 = v16;
       v24 = v8;
       v25 = v9;
       v26 = +[PGLogging sharedLogging];
@@ -1372,22 +1499,20 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v32 = v23;
+        v31 = v23;
         _os_log_error_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_ERROR, "Error returned by accumulateLocationContinents(): (%@)", buf, 0xCu);
       }
 
       v9 = v25;
       v8 = v24;
-      v16 = v29;
+      v16 = v28;
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_2_303(uint64_t a1, void *a2, void *a3)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 collection];
   v7 = [v6 subcontinentNodes];
@@ -1395,9 +1520,9 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
   if ([v7 count])
   {
     v8 = [v7 names];
-    v33 = &unk_284483C30;
-    v34[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v32 = &unk_284483C30;
+    v33[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v10 = MEMORY[0x277CD98F8];
     v11 = [*(a1 + 32) localIdentifier];
     v12 = [v10 uuidFromLocalIdentifier:v11];
@@ -1433,12 +1558,12 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     v21 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v16 endDate:v20];
     [*(a1 + 40) aggregateKeywordsByCategoryMask:v9 forMomentUUID:v12 duringDateInterval:v21];
     v22 = *(a1 + 48);
-    v30 = 0;
-    [v22 accumulateLocationSubcontinentsWithContinentKeywords:v8 forMomentUUID:v12 dateInterval:v21 error:&v30];
-    v23 = v30;
+    v29 = 0;
+    [v22 accumulateLocationSubcontinentsWithContinentKeywords:v8 forMomentUUID:v12 dateInterval:v21 error:&v29];
+    v23 = v29;
     if (v23)
     {
-      v29 = v16;
+      v28 = v16;
       v24 = v8;
       v25 = v9;
       v26 = +[PGLogging sharedLogging];
@@ -1447,22 +1572,20 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v32 = v23;
+        v31 = v23;
         _os_log_error_impl(&dword_22F0FC000, v27, OS_LOG_TYPE_ERROR, "Error returned by accumulateLocationSubcontinents(): (%@)", buf, 0xCu);
       }
 
       v9 = v25;
       v8 = v24;
-      v16 = v29;
+      v16 = v28;
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_2_298(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:2];
@@ -1477,15 +1600,15 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     v12 = [v11 homeOrWorkNodes];
     v13 = [v9 collectionByIntersecting:v12];
 
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_3;
-    v36[3] = &unk_278887CF8;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_3;
+    v35[3] = &unk_278887CF8;
     v14 = v7;
     v15 = *(a1 + 32);
-    v37 = v14;
-    v38 = v15;
-    [v13 enumerateNodesUsingBlock:v36];
+    v36 = v14;
+    v37 = v15;
+    [v13 enumerateNodesUsingBlock:v35];
     if ([v14 count])
     {
       v16 = MEMORY[0x277CD9918];
@@ -1505,7 +1628,7 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
       }
 
       v22 = v21;
-      v34 = v11;
+      v33 = v11;
 
       v23 = [v5 universalEndDate];
       v24 = v23;
@@ -1524,54 +1647,51 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
       v27 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v22 endDate:v26];
       [*(a1 + 48) aggregateKeywordsByCategoryMask:v14 forMomentUUID:v18 duringDateInterval:v27];
       v28 = *(a1 + 56);
-      v35 = 0;
-      [v28 accumulateHomeAndWorkWithHomeAndWorkKeywords:v14 forMomentUUID:v18 dateInterval:v27 error:&v35];
-      v29 = v35;
+      v34 = 0;
+      [v28 accumulateHomeAndWorkWithHomeAndWorkKeywords:v14 forMomentUUID:v18 dateInterval:v27 error:&v34];
+      v29 = v34;
       if (v29)
       {
-        v33 = v22;
+        v32 = v22;
         v30 = +[PGLogging sharedLogging];
         v31 = [v30 loggingConnection];
 
         if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v40 = v29;
+          v39 = v29;
           _os_log_error_impl(&dword_22F0FC000, v31, OS_LOG_TYPE_ERROR, "Error returned by accumulateHomeAndWorkWithomeAndWorkKeywords(): (%@)", buf, 0xCu);
         }
 
-        v22 = v33;
+        v22 = v32;
       }
 
-      v11 = v34;
+      v11 = v33;
     }
 
     v9 = v13;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v6 = [a2 label];
-  if ([v6 isEqualToString:@"Home"])
+  v5 = [a2 label];
+  if ([v5 isEqualToString:@"Home"])
   {
     [*(a1 + 32) setObject:MEMORY[0x277CBEC38] forKeyedSubscript:&unk_284483BD0];
   }
 
-  else if ([v6 isEqualToString:@"Work"])
+  else if ([v5 isEqualToString:@"Work"])
   {
-    v3 = *(a1 + 40);
-    v4 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v5 = [v4 localizedStringForKey:@"PGWorkSearchableText" value:@"PGWorkSearchableText" table:@"Localizable"];
-    [*(a1 + 32) setObject:v5 forKeyedSubscript:&unk_284483BE8];
+    v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v4 = [v3 localizedStringForKey:@"PGWorkSearchableText" value:@"PGWorkSearchableText" table:@"Localizable"];
+    [*(a1 + 32) setObject:v4 forKeyedSubscript:&unk_284483BE8];
   }
 }
 
 void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUIDs_ofType_searchEntityAccumulator_progressBlock___block_invoke_294(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [a2 label];
   v4 = [*(a1 + 32) objectForKeyedSubscript:v3];
 
@@ -1580,52 +1700,49 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     v5 = localizationKeyForMeaningLabel(v3);
     if (v5)
     {
-      v6 = *(a1 + 40);
-      v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v8 = [v7 localizedStringForKey:v5 value:v5 table:@"Localizable"];
+      v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v7 = [v6 localizedStringForKey:v5 value:v5 table:@"Localizable"];
 
-      [*(a1 + 32) setValue:v8 forKey:v3];
+      [*(a1 + 32) setValue:v7 forKey:v3];
     }
 
     else
     {
-      v9 = +[PGLogging sharedLogging];
-      v10 = [v9 loggingConnection];
+      v8 = +[PGLogging sharedLogging];
+      v9 = [v8 loggingConnection];
 
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v12 = 138412290;
-        v13 = v3;
-        _os_log_error_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_ERROR, "No localization key for meaning label: (%@)", &v12, 0xCu);
+        v10 = 138412290;
+        v11 = v3;
+        _os_log_error_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_ERROR, "No localization key for meaning label: (%@)", &v10, 0xCu);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)searchKeywordsByEventWithEventUUIDs:(id)ds ofType:(unint64_t)type photoLibrary:(id)library progressBlock:(id)block
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   libraryCopy = library;
   blockCopy = block;
   v13 = _Block_copy(blockCopy);
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2020000000;
-  v46 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
   v42 = 0;
-  if (v13 && (v14 = CFAbsoluteTimeGetCurrent(), v14 - v40[3] >= 0.01) && (v40[3] = v14, LOBYTE(v47[0]) = 0, (*(v13 + 2))(v13, v47, 0.0), v15 = *(v44 + 24) | LOBYTE(v47[0]), *(v44 + 24) = v15, (v15 & 1) != 0))
+  v43 = &v42;
+  v44 = 0x2020000000;
+  v45 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  if (v13 && (v14 = CFAbsoluteTimeGetCurrent(), v14 - v39[3] >= 0.01) && (v39[3] = v14, LOBYTE(v46[0]) = 0, (*(v13 + 2))(v13, v46, 0.0), v15 = *(v43 + 24) | LOBYTE(v46[0]), *(v43 + 24) = v15, (v15 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       buf = 0x4D04000202;
-      LOWORD(v51) = 2080;
-      *(&v51 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
+      LOWORD(v50) = 2080;
+      *(&v50 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
     }
 
@@ -1637,38 +1754,38 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     v17 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(dsCopy, "count")}];
     meNodeCollection = [(PGGraph *)self->_graph meNodeCollection];
     buf = 0;
-    *&v51 = &buf;
-    *(&v51 + 1) = 0x2020000000;
-    v52 = 0;
+    *&v50 = &buf;
+    *(&v50 + 1) = 0x2020000000;
+    v51 = 0;
     v19 = [dsCopy count];
-    v28[1] = 3221225472;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke;
-    v28[3] = &unk_278883D20;
+    v27[1] = 3221225472;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke;
+    v27[3] = &unk_278883D20;
     p_buf = &buf;
-    v36 = 1.0 / v19;
+    v35 = 1.0 / v19;
     v20 = v13;
-    v37 = 0x3F847AE147AE147BLL;
-    v34 = &v39;
-    v35 = &v43;
-    v32 = v20;
-    v28[4] = self;
-    v29 = libraryCopy;
+    v36 = 0x3F847AE147AE147BLL;
+    v33 = &v38;
+    v34 = &v42;
+    v31 = v20;
+    v27[4] = self;
+    v28 = libraryCopy;
     typeCopy = type;
     v21 = meNodeCollection;
-    v30 = v21;
+    v29 = v21;
     v22 = v17;
-    v31 = v22;
-    [(PGSearchKeywordComputer *)self _enumerateEventNodesForUUIDs:dsCopy ofType:type usingBlock:v28];
-    if (v13 && (Current = CFAbsoluteTimeGetCurrent(), Current - v40[3] >= 0.01) && (v40[3] = Current, v27 = 0, (*(v20 + 2))(v20, &v27, 1.0), v24 = *(v44 + 24) | v27, *(v44 + 24) = v24, (v24 & 1) != 0))
+    v30 = v22;
+    [(PGSearchKeywordComputer *)self _enumerateEventNodesForUUIDs:dsCopy ofType:type usingBlock:v27];
+    if (v13 && (Current = CFAbsoluteTimeGetCurrent(), Current - v39[3] >= 0.01) && (v39[3] = Current, v26 = 0, (*(v20 + 2))(v20, &v26, 1.0), v24 = *(v43 + 24) | v26, *(v43 + 24) = v24, (v24 & 1) != 0))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v47[0] = 67109378;
-        v47[1] = 349;
-        v48 = 2080;
-        v49 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
-        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v47, 0x12u);
+        v46[0] = 67109378;
+        v46[1] = 349;
+        v47 = 2080;
+        v48 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Search/PGSearchKeywordComputer.m";
+        _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v46, 0x12u);
       }
 
       v16 = MEMORY[0x277CBEC10];
@@ -1682,47 +1799,45 @@ void __118__PGSearchKeywordComputer_assetSearchKeywordsByMomentUUIDWithEventUUID
     _Block_object_dispose(&buf, 8);
   }
 
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v43, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
 
   return v16;
 }
 
 void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v204 = *MEMORY[0x277D85DE8];
-  v146 = a2;
+  v201 = *MEMORY[0x277D85DE8];
+  v143 = a2;
   context = objc_autoreleasePoolPush();
   *(*(*(a1 + 72) + 8) + 24) = *(a1 + 96) + *(*(*(a1 + 72) + 8) + 24);
-  v145 = [MEMORY[0x277CBEB38] dictionary];
-  v4 = [v146 peopledEvent];
-  v144 = [v4 personNodes];
+  v142 = [MEMORY[0x277CBEB38] dictionary];
+  v4 = [v143 peopledEvent];
+  v141 = [v4 personNodes];
 
-  if ([v144 count])
+  if ([v141 count])
   {
     v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v189 = 0u;
+    v190 = 0u;
+    v191 = 0u;
     v192 = 0u;
-    v193 = 0u;
-    v194 = 0u;
-    v195 = 0u;
-    v6 = v144;
-    v7 = [v6 countByEnumeratingWithState:&v192 objects:v203 count:16];
+    v6 = v141;
+    v7 = [v6 countByEnumeratingWithState:&v189 objects:v200 count:16];
     if (v7)
     {
-      v8 = *v193;
+      v8 = *v190;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v193 != v8)
+          if (*v190 != v8)
           {
             objc_enumerationMutation(v6);
           }
 
           v10 = MEMORY[0x277CD9918];
-          v11 = [*(*(&v192 + 1) + 8 * i) localIdentifier];
+          v11 = [*(*(&v189 + 1) + 8 * i) localIdentifier];
           v12 = [v10 uuidFromLocalIdentifier:v11];
 
           if (v12)
@@ -1731,48 +1846,48 @@ void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_ph
           }
         }
 
-        v7 = [v6 countByEnumeratingWithState:&v192 objects:v203 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v189 objects:v200 count:16];
       }
 
       while (v7);
     }
 
-    [v145 setObject:v5 forKeyedSubscript:&unk_284483AF8];
+    [v142 setObject:v5 forKeyedSubscript:&unk_284483AF8];
   }
 
-  if (*(a1 + 64) && (v13 = CFAbsoluteTimeGetCurrent(), v14 = *(*(a1 + 80) + 8), v13 - *(v14 + 24) >= *(a1 + 104)) && (*(v14 + 24) = v13, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+  if (*(a1 + 64) && (v13 = CFAbsoluteTimeGetCurrent(), v14 = *(*(a1 + 80) + 8), v13 - *(v14 + 24) >= *(a1 + 104)) && (*(v14 + 24) = v13, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
   {
     *a3 = 1;
   }
 
   else
   {
-    v15 = [v146 peopledEvent];
-    v143 = [v15 petNodes];
+    v15 = [v143 peopledEvent];
+    v140 = [v15 petNodes];
 
-    if ([v143 count])
+    if ([v140 count])
     {
       v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v190 = 0u;
-      v191 = 0u;
+      v187 = 0u;
       v188 = 0u;
-      v189 = 0u;
-      v17 = v143;
-      v18 = [v17 countByEnumeratingWithState:&v188 objects:v202 count:16];
+      v185 = 0u;
+      v186 = 0u;
+      v17 = v140;
+      v18 = [v17 countByEnumeratingWithState:&v185 objects:v199 count:16];
       if (v18)
       {
-        v19 = *v189;
+        v19 = *v186;
         do
         {
           for (j = 0; j != v18; ++j)
           {
-            if (*v189 != v19)
+            if (*v186 != v19)
             {
               objc_enumerationMutation(v17);
             }
 
             v21 = MEMORY[0x277CD9918];
-            v22 = [*(*(&v188 + 1) + 8 * j) localIdentifier];
+            v22 = [*(*(&v185 + 1) + 8 * j) localIdentifier];
             v23 = [v21 uuidFromLocalIdentifier:v22];
 
             if (v23)
@@ -1781,57 +1896,57 @@ void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_ph
             }
           }
 
-          v18 = [v17 countByEnumeratingWithState:&v188 objects:v202 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v185 objects:v199 count:16];
         }
 
         while (v18);
       }
 
-      [v145 setObject:v16 forKeyedSubscript:&unk_284483B10];
+      [v142 setObject:v16 forKeyedSubscript:&unk_284483B10];
     }
 
-    if (*(a1 + 64) && (v24 = CFAbsoluteTimeGetCurrent(), v25 = *(*(a1 + 80) + 8), v24 - *(v25 + 24) >= *(a1 + 104)) && (*(v25 + 24) = v24, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+    if (*(a1 + 64) && (v24 = CFAbsoluteTimeGetCurrent(), v25 = *(*(a1 + 80) + 8), v24 - *(v25 + 24) >= *(a1 + 104)) && (*(v25 + 24) = v24, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
     {
       *a3 = 1;
     }
 
     else
     {
-      v26 = [v146 peopledEvent];
-      v142 = [v26 socialGroupNodes];
+      v26 = [v143 peopledEvent];
+      v139 = [v26 socialGroupNodes];
 
-      if ([v142 count])
+      if ([v139 count])
       {
         v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v28 = +[PGGraphSocialGroupNode importanceSortDescriptors];
-        v29 = [v142 sortedArrayUsingDescriptors:v28];
+        v29 = [v139 sortedArrayUsingDescriptors:v28];
 
-        v186 = 0u;
-        v187 = 0u;
+        v183 = 0u;
         v184 = 0u;
-        v185 = 0u;
+        v181 = 0u;
+        v182 = 0u;
         v30 = v29;
-        v31 = [v30 countByEnumeratingWithState:&v184 objects:v201 count:16];
+        v31 = [v30 countByEnumeratingWithState:&v181 objects:v198 count:16];
         if (v31)
         {
-          v32 = *v185;
+          v32 = *v182;
           do
           {
             for (k = 0; k != v31; ++k)
             {
-              if (*v185 != v32)
+              if (*v182 != v32)
               {
                 objc_enumerationMutation(v30);
               }
 
-              v34 = [*(a1 + 32) _personUUIDsInSocialGroupNode:*(*(&v184 + 1) + 8 * k) photoLibrary:*(a1 + 40)];
+              v34 = [*(a1 + 32) _personUUIDsInSocialGroupNode:*(*(&v181 + 1) + 8 * k) photoLibrary:*(a1 + 40)];
               if ([v34 count] >= 2)
               {
                 [v27 addObject:v34];
               }
             }
 
-            v31 = [v30 countByEnumeratingWithState:&v184 objects:v201 count:16];
+            v31 = [v30 countByEnumeratingWithState:&v181 objects:v198 count:16];
           }
 
           while (v31);
@@ -1839,99 +1954,99 @@ void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_ph
 
         if ([v27 count])
         {
-          [v145 setObject:v27 forKeyedSubscript:&unk_284483B28];
+          [v142 setObject:v27 forKeyedSubscript:&unk_284483B28];
         }
       }
 
-      if (*(a1 + 64) && (v35 = CFAbsoluteTimeGetCurrent(), v36 = *(*(a1 + 80) + 8), v35 - *(v36 + 24) >= *(a1 + 104)) && (*(v36 + 24) = v35, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+      if (*(a1 + 64) && (v35 = CFAbsoluteTimeGetCurrent(), v36 = *(*(a1 + 80) + 8), v35 - *(v36 + 24) >= *(a1 + 104)) && (*(v36 + 24) = v35, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
       {
         *a3 = 1;
       }
 
       else
       {
-        v37 = [v146 locatedEvent];
-        v141 = [v37 addressNodes];
+        v37 = [v143 locatedEvent];
+        v138 = [v37 addressNodes];
 
-        if ([v141 count])
+        if ([v138 count])
         {
-          v38 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v141, "count")}];
-          v182 = 0u;
-          v183 = 0u;
+          v38 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v138, "count")}];
+          v179 = 0u;
           v180 = 0u;
-          v181 = 0u;
-          v39 = v141;
-          v40 = [v39 countByEnumeratingWithState:&v180 objects:v200 count:16];
+          v177 = 0u;
+          v178 = 0u;
+          v39 = v138;
+          v40 = [v39 countByEnumeratingWithState:&v177 objects:v197 count:16];
           if (v40)
           {
-            v41 = *v181;
+            v41 = *v178;
             do
             {
               for (m = 0; m != v40; ++m)
               {
-                if (*v181 != v41)
+                if (*v178 != v41)
                 {
                   objc_enumerationMutation(v39);
                 }
 
-                v43 = locationNamesByCategoryForAddress(*(*(&v180 + 1) + 8 * m));
+                v43 = locationNamesByCategoryForAddress(*(*(&v177 + 1) + 8 * m));
                 [v38 addObject:v43];
               }
 
-              v40 = [v39 countByEnumeratingWithState:&v180 objects:v200 count:16];
+              v40 = [v39 countByEnumeratingWithState:&v177 objects:v197 count:16];
             }
 
             while (v40);
           }
 
-          [v145 setObject:v38 forKeyedSubscript:&unk_284483B40];
+          [v142 setObject:v38 forKeyedSubscript:&unk_284483B40];
         }
 
-        if (*(a1 + 64) && (v44 = CFAbsoluteTimeGetCurrent(), v45 = *(*(a1 + 80) + 8), v44 - *(v45 + 24) >= *(a1 + 104)) && (*(v45 + 24) = v44, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+        if (*(a1 + 64) && (v44 = CFAbsoluteTimeGetCurrent(), v45 = *(*(a1 + 80) + 8), v44 - *(v45 + 24) >= *(a1 + 104)) && (*(v45 + 24) = v44, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
         {
           *a3 = 1;
         }
 
         else
         {
-          v46 = [v146 timedEvent];
-          v140 = [v46 dateNodes];
+          v46 = [v143 timedEvent];
+          v137 = [v46 dateNodes];
 
-          if ([v140 count])
+          if ([v137 count])
           {
-            v47 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v140, "count")}];
-            v178 = 0u;
-            v179 = 0u;
+            v47 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v137, "count")}];
+            v175 = 0u;
             v176 = 0u;
-            v177 = 0u;
-            v48 = v140;
-            v49 = [v48 countByEnumeratingWithState:&v176 objects:v199 count:16];
+            v173 = 0u;
+            v174 = 0u;
+            v48 = v137;
+            v49 = [v48 countByEnumeratingWithState:&v173 objects:v196 count:16];
             if (v49)
             {
-              v50 = *v177;
+              v50 = *v174;
               do
               {
                 for (n = 0; n != v49; ++n)
                 {
-                  if (*v177 != v50)
+                  if (*v174 != v50)
                   {
                     objc_enumerationMutation(v48);
                   }
 
-                  v52 = [*(*(&v176 + 1) + 8 * n) localDate];
+                  v52 = [*(*(&v173 + 1) + 8 * n) localDate];
                   if (v52)
                   {
                     [v47 addObject:v52];
                   }
                 }
 
-                v49 = [v48 countByEnumeratingWithState:&v176 objects:v199 count:16];
+                v49 = [v48 countByEnumeratingWithState:&v173 objects:v196 count:16];
               }
 
               while (v49);
             }
 
-            [v145 setObject:v47 forKeyedSubscript:&unk_284483B58];
+            [v142 setObject:v47 forKeyedSubscript:&unk_284483B58];
           }
 
           if (*(a1 + 64))
@@ -1941,7 +2056,7 @@ void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_ph
             if (Current - *(v54 + 24) >= *(a1 + 104))
             {
               *(v54 + 24) = Current;
-              LOBYTE(v154) = 0;
+              LOBYTE(v151) = 0;
               (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24));
               *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24);
               v55 = *(*(*(a1 + 88) + 8) + 24);
@@ -1952,15 +2067,14 @@ void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_ph
             }
           }
 
-          if (*(a1 + 112) && [v146 isTrip])
+          if (*(a1 + 112) && [v143 isTrip])
           {
-            v56 = *(a1 + 32);
-            v57 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-            v58 = [v57 localizedStringForKey:@"PGHighlightTripSearchableText" value:@"PGHighlightTripSearchableText" table:@"Localizable"];
-            [v145 setObject:v58 forKeyedSubscript:&unk_284483B70];
+            v56 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+            v57 = [v56 localizedStringForKey:@"PGHighlightTripSearchableText" value:@"PGHighlightTripSearchableText" table:@"Localizable"];
+            [v142 setObject:v57 forKeyedSubscript:&unk_284483B70];
           }
 
-          if (*(a1 + 64) && (v59 = CFAbsoluteTimeGetCurrent(), v60 = *(*(a1 + 80) + 8), v59 - *(v60 + 24) >= *(a1 + 104)) && (*(v60 + 24) = v59, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), v55 = *(*(*(a1 + 88) + 8) + 24), v55 == 1))
+          if (*(a1 + 64) && (v58 = CFAbsoluteTimeGetCurrent(), v59 = *(*(a1 + 80) + 8), v58 - *(v59 + 24) >= *(a1 + 104)) && (*(v59 + 24) = v58, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), v55 = *(*(*(a1 + 88) + 8) + 24), v55 == 1))
           {
 LABEL_81:
             *a3 = v55;
@@ -1968,316 +2082,315 @@ LABEL_81:
 
           else
           {
-            v61 = objc_alloc_init(MEMORY[0x277CBEB58]);
-            v62 = [v146 meaningfulEvent];
-            v63 = [v62 meaningNodes];
+            v60 = objc_alloc_init(MEMORY[0x277CBEB58]);
+            v61 = [v143 meaningfulEvent];
+            v62 = [v61 meaningNodes];
 
-            if (!v63)
+            if (!v62)
             {
-              if ([v146 isTrip])
+              if ([v143 isTrip])
               {
-                v63 = 0;
+                v62 = 0;
               }
 
               else
               {
-                v64 = [v146 eventCollection];
-                v65 = [v64 eventMomentNodes];
-                v63 = [v65 meaningNodes];
+                v63 = [v143 eventCollection];
+                v64 = [v63 eventMomentNodes];
+                v62 = [v64 meaningNodes];
               }
             }
 
-            v174[0] = MEMORY[0x277D85DD0];
-            v174[1] = 3221225472;
-            v174[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_251;
-            v174[3] = &unk_278883BA8;
-            v174[4] = *(a1 + 32);
-            v137 = v61;
-            v175 = v137;
-            v134 = v63;
-            [v63 enumerateNodesUsingBlock:v174];
-            if ([v137 count])
+            v171[0] = MEMORY[0x277D85DD0];
+            v171[1] = 3221225472;
+            v171[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_251;
+            v171[3] = &unk_278883BA8;
+            v171[4] = *(a1 + 32);
+            v134 = v60;
+            v172 = v134;
+            v131 = v62;
+            [v62 enumerateNodesUsingBlock:v171];
+            if ([v134 count])
             {
-              v66 = [v137 allObjects];
-              [v145 setObject:v66 forKeyedSubscript:&unk_284483B88];
+              v65 = [v134 allObjects];
+              [v142 setObject:v65 forKeyedSubscript:&unk_284483B88];
             }
 
-            if (*(a1 + 64) && (v67 = CFAbsoluteTimeGetCurrent(), v68 = *(*(a1 + 80) + 8), v67 - *(v68 + 24) >= *(a1 + 104)) && (*(v68 + 24) = v67, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+            if (*(a1 + 64) && (v66 = CFAbsoluteTimeGetCurrent(), v67 = *(*(a1 + 80) + 8), v66 - *(v67 + 24) >= *(a1 + 104)) && (*(v67 + 24) = v66, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
             {
               *a3 = 1;
             }
 
             else
             {
-              v69 = *(a1 + 32);
-              v70 = [v146 timedEvent];
-              v136 = [v69 _holidayNodesForTimedEvent:v70];
+              v68 = *(a1 + 32);
+              v69 = [v143 timedEvent];
+              v133 = [v68 _holidayNodesForTimedEvent:v69];
 
-              if ([v136 count])
+              if ([v133 count])
               {
-                v71 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v136, "count")}];
-                v172 = 0u;
-                v173 = 0u;
+                v70 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v133, "count")}];
+                v169 = 0u;
                 v170 = 0u;
-                v171 = 0u;
-                v72 = v136;
-                v73 = [v72 countByEnumeratingWithState:&v170 objects:v198 count:16];
-                if (v73)
+                v167 = 0u;
+                v168 = 0u;
+                v71 = v133;
+                v72 = [v71 countByEnumeratingWithState:&v167 objects:v195 count:16];
+                if (v72)
                 {
-                  v74 = *v171;
+                  v73 = *v168;
                   do
                   {
-                    for (ii = 0; ii != v73; ++ii)
+                    for (ii = 0; ii != v72; ++ii)
                     {
-                      if (*v171 != v74)
+                      if (*v168 != v73)
                       {
-                        objc_enumerationMutation(v72);
+                        objc_enumerationMutation(v71);
                       }
 
-                      v76 = [*(*(&v170 + 1) + 8 * ii) name];
-                      if ([v76 length])
+                      v75 = [*(*(&v167 + 1) + 8 * ii) name];
+                      if ([v75 length])
                       {
-                        v77 = [MEMORY[0x277D276C8] localizedNameForName:v76];
-                        [v71 addObject:v77];
+                        v76 = [MEMORY[0x277D276C8] localizedNameForName:v75];
+                        [v70 addObject:v76];
                       }
                     }
 
-                    v73 = [v72 countByEnumeratingWithState:&v170 objects:v198 count:16];
+                    v72 = [v71 countByEnumeratingWithState:&v167 objects:v195 count:16];
                   }
 
-                  while (v73);
+                  while (v72);
                 }
 
-                [v145 setObject:v71 forKeyedSubscript:&unk_284483BA0];
+                [v142 setObject:v70 forKeyedSubscript:&unk_284483BA0];
               }
 
-              if (*(a1 + 64) && (v78 = CFAbsoluteTimeGetCurrent(), v79 = *(*(a1 + 80) + 8), v78 - *(v79 + 24) >= *(a1 + 104)) && (*(v79 + 24) = v78, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+              if (*(a1 + 64) && (v77 = CFAbsoluteTimeGetCurrent(), v78 = *(*(a1 + 80) + 8), v77 - *(v78 + 24) >= *(a1 + 104)) && (*(v78 + 24) = v77, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
               {
                 *a3 = 1;
               }
 
               else
               {
-                v80 = [v146 locatedEvent];
-                v135 = [v80 roiNodes];
+                v79 = [v143 locatedEvent];
+                v132 = [v79 roiNodes];
 
-                if ([v135 count])
+                if ([v132 count])
                 {
-                  v81 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v135, "count")}];
-                  v168 = 0u;
-                  v169 = 0u;
+                  v80 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v132, "count")}];
+                  v165 = 0u;
                   v166 = 0u;
-                  v167 = 0u;
-                  v82 = v135;
-                  v83 = [v82 countByEnumeratingWithState:&v166 objects:v197 count:16];
-                  if (v83)
+                  v163 = 0u;
+                  v164 = 0u;
+                  v81 = v132;
+                  v82 = [v81 countByEnumeratingWithState:&v163 objects:v194 count:16];
+                  if (v82)
                   {
-                    v84 = *v167;
+                    v83 = *v164;
                     do
                     {
-                      for (jj = 0; jj != v83; ++jj)
+                      for (jj = 0; jj != v82; ++jj)
                       {
-                        if (*v167 != v84)
+                        if (*v164 != v83)
                         {
-                          objc_enumerationMutation(v82);
+                          objc_enumerationMutation(v81);
                         }
 
-                        v86 = *(*(&v166 + 1) + 8 * jj);
-                        v87 = [v86 label];
-                        v88 = [v87 isEqualToString:@"Urban"];
+                        v85 = *(*(&v163 + 1) + 8 * jj);
+                        v86 = [v85 label];
+                        v87 = [v86 isEqualToString:@"Urban"];
 
-                        if ((v88 & 1) == 0)
+                        if ((v87 & 1) == 0)
                         {
-                          v89 = [v86 localizedName];
-                          if ([v89 length])
+                          v88 = [v85 localizedName];
+                          if ([v88 length])
                           {
-                            [v81 addObject:v89];
+                            [v80 addObject:v88];
                           }
                         }
                       }
 
-                      v83 = [v82 countByEnumeratingWithState:&v166 objects:v197 count:16];
+                      v82 = [v81 countByEnumeratingWithState:&v163 objects:v194 count:16];
                     }
 
-                    while (v83);
+                    while (v82);
                   }
 
-                  if ([v81 count])
+                  if ([v80 count])
                   {
-                    v90 = v81;
+                    v89 = v80;
                   }
 
                   else
                   {
-                    v90 = 0;
+                    v89 = 0;
                   }
 
-                  [v145 setObject:v90 forKeyedSubscript:&unk_284483BB8];
+                  [v142 setObject:v89 forKeyedSubscript:&unk_284483BB8];
                 }
 
                 if (*(a1 + 64))
                 {
-                  v91 = CFAbsoluteTimeGetCurrent();
-                  v92 = *(*(a1 + 80) + 8);
-                  if (v91 - *(v92 + 24) >= *(a1 + 104))
+                  v90 = CFAbsoluteTimeGetCurrent();
+                  v91 = *(*(a1 + 80) + 8);
+                  if (v90 - *(v91 + 24) >= *(a1 + 104))
                   {
-                    *(v92 + 24) = v91;
-                    LOBYTE(v154) = 0;
+                    *(v91 + 24) = v90;
+                    LOBYTE(v151) = 0;
                     (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24));
                     *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24);
-                    v93 = *(*(*(a1 + 88) + 8) + 24);
-                    if (v93 == 1)
+                    v92 = *(*(*(a1 + 88) + 8) + 24);
+                    if (v92 == 1)
                     {
                       goto LABEL_134;
                     }
                   }
                 }
 
-                v94 = [v146 locatedEvent];
-                if ([v94 happensPartiallyAtHomeOfPersonNodes:*(a1 + 48)])
+                v93 = [v143 locatedEvent];
+                if ([v93 happensPartiallyAtHomeOfPersonNodes:*(a1 + 48)])
                 {
-                  v95 = MEMORY[0x277CBEC38];
+                  v94 = MEMORY[0x277CBEC38];
                 }
 
                 else
                 {
-                  v95 = 0;
+                  v94 = 0;
                 }
 
-                [v145 setObject:v95 forKeyedSubscript:&unk_284483BD0];
+                [v142 setObject:v94 forKeyedSubscript:&unk_284483BD0];
 
-                v96 = [v146 locatedEvent];
-                v97 = [v96 happensPartiallyAtWorkOfPersonNodes:*(a1 + 48)];
+                v95 = [v143 locatedEvent];
+                v96 = [v95 happensPartiallyAtWorkOfPersonNodes:*(a1 + 48)];
 
-                if (v97)
+                if (v96)
                 {
-                  v98 = *(a1 + 32);
-                  v99 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-                  v100 = [v99 localizedStringForKey:@"PGWorkSearchableText" value:@"PGWorkSearchableText" table:@"Localizable"];
-                  [v145 setObject:v100 forKeyedSubscript:&unk_284483BE8];
+                  v97 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+                  v98 = [v97 localizedStringForKey:@"PGWorkSearchableText" value:@"PGWorkSearchableText" table:@"Localizable"];
+                  [v142 setObject:v98 forKeyedSubscript:&unk_284483BE8];
                 }
 
-                if (*(a1 + 64) && (v101 = CFAbsoluteTimeGetCurrent(), v102 = *(*(a1 + 80) + 8), v101 - *(v102 + 24) >= *(a1 + 104)) && (*(v102 + 24) = v101, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), v93 = *(*(*(a1 + 88) + 8) + 24), v93 == 1))
+                if (*(a1 + 64) && (v99 = CFAbsoluteTimeGetCurrent(), v100 = *(*(a1 + 80) + 8), v99 - *(v100 + 24) >= *(a1 + 104)) && (*(v100 + 24) = v99, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), v92 = *(*(*(a1 + 88) + 8) + 24), v92 == 1))
                 {
 LABEL_134:
-                  *a3 = v93;
+                  *a3 = v92;
                 }
 
                 else
                 {
-                  v103 = [MEMORY[0x277CBEB38] dictionary];
-                  v104 = *(a1 + 32);
-                  v105 = [v146 businessedEvent];
-                  v164[0] = MEMORY[0x277D85DD0];
-                  v164[1] = 3221225472;
-                  v164[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_269;
-                  v164[3] = &unk_278883BD0;
-                  v106 = v103;
-                  v165 = v106;
-                  [v104 _enumerateBusinessAndPublicEventKeywordsForEvent:v105 usingBlock:v164];
+                  v101 = [MEMORY[0x277CBEB38] dictionary];
+                  v102 = *(a1 + 32);
+                  v103 = [v143 businessedEvent];
+                  v161[0] = MEMORY[0x277D85DD0];
+                  v161[1] = 3221225472;
+                  v161[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_269;
+                  v161[3] = &unk_278883BD0;
+                  v104 = v101;
+                  v162 = v104;
+                  [v102 _enumerateBusinessAndPublicEventKeywordsForEvent:v103 usingBlock:v161];
 
-                  v162[0] = MEMORY[0x277D85DD0];
-                  v162[1] = 3221225472;
-                  v162[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_3;
-                  v162[3] = &unk_278883BF8;
-                  v107 = v145;
-                  v163 = v107;
-                  [v106 enumerateKeysAndObjectsUsingBlock:v162];
-                  if (*(a1 + 64) && (v108 = CFAbsoluteTimeGetCurrent(), v109 = *(*(a1 + 80) + 8), v108 - *(v109 + 24) >= *(a1 + 104)) && (*(v109 + 24) = v108, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+                  v159[0] = MEMORY[0x277D85DD0];
+                  v159[1] = 3221225472;
+                  v159[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_3;
+                  v159[3] = &unk_278883BF8;
+                  v105 = v142;
+                  v160 = v105;
+                  [v104 enumerateKeysAndObjectsUsingBlock:v159];
+                  if (*(a1 + 64) && (v106 = CFAbsoluteTimeGetCurrent(), v107 = *(*(a1 + 80) + 8), v106 - *(v107 + 24) >= *(a1 + 104)) && (*(v107 + 24) = v106, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
                   {
                     *a3 = 1;
                   }
 
                   else
                   {
-                    v110 = [v146 timedEvent];
-                    v111 = [v110 seasonNodes];
+                    v108 = [v143 timedEvent];
+                    v109 = [v108 seasonNodes];
 
-                    v112 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v111, "count")}];
-                    v160 = 0u;
-                    v161 = 0u;
+                    v110 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v109, "count")}];
+                    v157 = 0u;
                     v158 = 0u;
-                    v159 = 0u;
-                    v113 = v111;
-                    v114 = [v113 countByEnumeratingWithState:&v158 objects:v196 count:16];
-                    if (v114)
+                    v155 = 0u;
+                    v156 = 0u;
+                    v111 = v109;
+                    v112 = [v111 countByEnumeratingWithState:&v155 objects:v193 count:16];
+                    if (v112)
                     {
-                      v115 = *v159;
+                      v113 = *v156;
                       do
                       {
-                        for (kk = 0; kk != v114; ++kk)
+                        for (kk = 0; kk != v112; ++kk)
                         {
-                          if (*v159 != v115)
+                          if (*v156 != v113)
                           {
-                            objc_enumerationMutation(v113);
+                            objc_enumerationMutation(v111);
                           }
 
-                          v117 = [*(*(&v158 + 1) + 8 * kk) localizedName];
-                          [v112 addObject:v117];
+                          v115 = [*(*(&v155 + 1) + 8 * kk) localizedName];
+                          [v110 addObject:v115];
                         }
 
-                        v114 = [v113 countByEnumeratingWithState:&v158 objects:v196 count:16];
+                        v112 = [v111 countByEnumeratingWithState:&v155 objects:v193 count:16];
                       }
 
-                      while (v114);
+                      while (v112);
                     }
 
-                    [v107 setObject:v112 forKeyedSubscript:&unk_284483C00];
-                    if (*(a1 + 64) && (v118 = CFAbsoluteTimeGetCurrent(), v119 = *(*(a1 + 80) + 8), v118 - *(v119 + 24) >= *(a1 + 104)) && (*(v119 + 24) = v118, LOBYTE(v154) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+                    [v105 setObject:v110 forKeyedSubscript:&unk_284483C00];
+                    if (*(a1 + 64) && (v116 = CFAbsoluteTimeGetCurrent(), v117 = *(*(a1 + 80) + 8), v116 - *(v117 + 24) >= *(a1 + 104)) && (*(v117 + 24) = v116, LOBYTE(v151) = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
                     {
                       *a3 = 1;
                     }
 
                     else
                     {
-                      v120 = [MEMORY[0x277CBEB38] dictionary];
+                      v118 = [MEMORY[0x277CBEB38] dictionary];
+                      v151 = 0;
+                      v152 = &v151;
+                      v153 = 0x2020000000;
                       v154 = 0;
-                      v155 = &v154;
-                      v156 = 0x2020000000;
-                      v157 = 0;
-                      v121 = [v146 eventCollection];
-                      v122 = [v121 eventMomentNodes];
-                      v151[0] = MEMORY[0x277D85DD0];
-                      v151[1] = 3221225472;
-                      v151[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_275;
-                      v151[3] = &unk_278889050;
-                      v153 = &v154;
-                      v123 = v120;
-                      v152 = v123;
-                      [v122 enumerateNodesUsingBlock:v151];
+                      v119 = [v143 eventCollection];
+                      v120 = [v119 eventMomentNodes];
+                      v148[0] = MEMORY[0x277D85DD0];
+                      v148[1] = 3221225472;
+                      v148[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_275;
+                      v148[3] = &unk_278889050;
+                      v150 = &v151;
+                      v121 = v118;
+                      v149 = v121;
+                      [v120 enumerateNodesUsingBlock:v148];
 
-                      if (*(a1 + 64) && (v124 = CFAbsoluteTimeGetCurrent(), v125 = *(*(a1 + 80) + 8), v124 - *(v125 + 24) >= *(a1 + 104)) && (*(v125 + 24) = v124, v150 = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
+                      if (*(a1 + 64) && (v122 = CFAbsoluteTimeGetCurrent(), v123 = *(*(a1 + 80) + 8), v122 - *(v123 + 24) >= *(a1 + 104)) && (*(v123 + 24) = v122, v147 = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) = *(*(*(a1 + 88) + 8) + 24), *(*(*(a1 + 88) + 8) + 24) == 1))
                       {
                         *a3 = 1;
                       }
 
                       else
                       {
-                        v126 = v155[3];
-                        v127 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v123, "count")}];
-                        v147[0] = MEMORY[0x277D85DD0];
-                        v147[1] = 3221225472;
-                        v147[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_3_280;
-                        v147[3] = &unk_278883C48;
-                        v149 = v126 * 0.3;
-                        v128 = v127;
-                        v148 = v128;
-                        [v123 enumerateKeysAndObjectsUsingBlock:v147];
-                        [v107 setObject:v128 forKeyedSubscript:&unk_284483C18];
-                        if (*(a1 + 64) && (v129 = CFAbsoluteTimeGetCurrent(), v130 = *(*(a1 + 80) + 8), v129 - *(v130 + 24) >= *(a1 + 104)) && (*(v130 + 24) = v129, v150 = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) |= v150, *(*(*(a1 + 88) + 8) + 24) == 1))
+                        v124 = v152[3];
+                        v125 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v121, "count")}];
+                        v144[0] = MEMORY[0x277D85DD0];
+                        v144[1] = 3221225472;
+                        v144[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_3_280;
+                        v144[3] = &unk_278883C48;
+                        v146 = v124 * 0.3;
+                        v126 = v125;
+                        v145 = v126;
+                        [v121 enumerateKeysAndObjectsUsingBlock:v144];
+                        [v105 setObject:v126 forKeyedSubscript:&unk_284483C18];
+                        if (*(a1 + 64) && (v127 = CFAbsoluteTimeGetCurrent(), v128 = *(*(a1 + 80) + 8), v127 - *(v128 + 24) >= *(a1 + 104)) && (*(v128 + 24) = v127, v147 = 0, (*(*(a1 + 64) + 16))(*(*(*(a1 + 72) + 8) + 24)), *(*(*(a1 + 88) + 8) + 24) |= v147, *(*(*(a1 + 88) + 8) + 24) == 1))
                         {
                           *a3 = 1;
                         }
 
                         else
                         {
-                          v131 = *(a1 + 56);
-                          v132 = [v146 UUID];
-                          [v131 setObject:v107 forKeyedSubscript:v132];
+                          v129 = *(a1 + 56);
+                          v130 = [v143 UUID];
+                          [v129 setObject:v105 forKeyedSubscript:v130];
                         }
                       }
 
-                      _Block_object_dispose(&v154, 8);
+                      _Block_object_dispose(&v151, 8);
                     }
                   }
                 }
@@ -2290,12 +2403,11 @@ LABEL_134:
   }
 
   objc_autoreleasePoolPop(context);
-  v133 = *MEMORY[0x277D85DE8];
 }
 
 void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_251(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 label];
   if (([v4 isEqualToString:@"Gathering"] & 1) == 0)
@@ -2303,37 +2415,34 @@ void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_ph
     v5 = localizationKeyForMeaningLabel(v4);
     if (v5)
     {
-      v6 = *(a1 + 32);
-      v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v8 = [v7 localizedStringForKey:v5 value:v5 table:@"Localizable"];
+      v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v7 = [v6 localizedStringForKey:v5 value:v5 table:@"Localizable"];
 
-      [*(a1 + 40) addObject:v8];
+      [*(a1 + 40) addObject:v7];
     }
 
     else
     {
-      v9 = +[PGLogging sharedLogging];
-      v10 = [v9 loggingConnection];
+      v8 = +[PGLogging sharedLogging];
+      v9 = [v8 loggingConnection];
 
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v16 = v4;
-        _os_log_error_impl(&dword_22F0FC000, v10, OS_LOG_TYPE_ERROR, "No localization key for meaning label: (%@)", buf, 0xCu);
+        v14 = v4;
+        _os_log_error_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_ERROR, "No localization key for meaning label: (%@)", buf, 0xCu);
       }
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_253;
-    v13[3] = &unk_278883BA8;
-    v11 = *(a1 + 40);
-    v13[4] = *(a1 + 32);
-    v14 = v11;
-    [v3 traverseParentMeaningHierarchyUsingBlock:v13];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_253;
+    v11[3] = &unk_278883BA8;
+    v10 = *(a1 + 40);
+    v11[4] = *(a1 + 32);
+    v12 = v10;
+    [v3 traverseParentMeaningHierarchyUsingBlock:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_269(uint64_t a1, uint64_t a2, void *a3)
@@ -2414,32 +2523,29 @@ void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_ph
 
 void __97__PGSearchKeywordComputer_searchKeywordsByEventWithEventUUIDs_ofType_photoLibrary_progressBlock___block_invoke_253(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [a2 label];
   v4 = localizationKeyForMeaningLabel(v3);
   if (v4)
   {
-    v5 = *(a1 + 32);
-    v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v7 = [v6 localizedStringForKey:v4 value:v4 table:@"Localizable"];
+    v5 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v6 = [v5 localizedStringForKey:v4 value:v4 table:@"Localizable"];
 
-    [*(a1 + 40) addObject:v7];
+    [*(a1 + 40) addObject:v6];
   }
 
   else
   {
-    v8 = +[PGLogging sharedLogging];
-    v9 = [v8 loggingConnection];
+    v7 = +[PGLogging sharedLogging];
+    v8 = [v7 loggingConnection];
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v3;
-      _os_log_error_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_ERROR, "No localization key for meaning label: (%@)", &v11, 0xCu);
+      v9 = 138412290;
+      v10 = v3;
+      _os_log_error_impl(&dword_22F0FC000, v8, OS_LOG_TYPE_ERROR, "No localization key for meaning label: (%@)", &v9, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (PGSearchKeywordComputer)initWithGraph:(id)graph searchComputationCache:(id)cache

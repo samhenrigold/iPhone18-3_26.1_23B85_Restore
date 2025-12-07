@@ -116,13 +116,13 @@
 
 + (id)migrationReportFromData:(id)data
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAC8];
   dataCopy = data;
-  v12 = 0;
-  v5 = [v3 unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v12];
+  v11 = 0;
+  v5 = [v3 unarchivedObjectOfClass:objc_opt_class() fromData:dataCopy error:&v11];
 
-  v6 = v12;
+  v6 = v11;
   if (!v5)
   {
     v7 = brc_bread_crumbs();
@@ -131,14 +131,12 @@
     {
       fp_prettyDescription = [v6 fp_prettyDescription];
       *buf = 138412546;
-      v14 = fp_prettyDescription;
-      v15 = 2112;
-      v16 = v7;
+      v13 = fp_prettyDescription;
+      v14 = 2112;
+      v15 = v7;
       _os_log_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed restoring migration report: %@%@", buf, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

@@ -36,7 +36,7 @@ id accessibilityLocalizedString(void *a1)
 
 id _createFormatDurationString(double a1, double a2)
 {
-  v3 = MEMORY[0x29C2E5E80](1);
+  v3 = MEMORY[0x29C2E5E80](1, a1);
   v4 = MEMORY[0x29C2E5E80](1, a2);
   v5 = objc_allocWithZone(MEMORY[0x29EDBA0F8]);
   v6 = accessibilityLocalizedString(@"slomo.trim.duration");

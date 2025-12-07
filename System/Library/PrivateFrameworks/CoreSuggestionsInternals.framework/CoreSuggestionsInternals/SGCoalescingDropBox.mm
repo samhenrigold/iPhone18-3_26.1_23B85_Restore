@@ -35,62 +35,58 @@
 
 - (void)updateBox:(id)box delay:(double)delay
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   boxCopy = box;
   pthread_mutex_lock(&self->_boxLock);
-  v19 = 0;
-  boxCopy[2](boxCopy, self->_box, &v19);
+  v16 = 0;
+  boxCopy[2](boxCopy, self->_box, &v16);
 
   pendingMerge = self->_pendingMerge;
   if (pendingMerge)
   {
-    transaction = self->_transaction;
     if ((os_transaction_needs_more_time() & 1) == 0)
     {
-      v9 = sgLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v8 = sgLogHandle();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         name = self->_name;
         *buf = 136315138;
-        v21 = name;
-        _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEFAULT, "SGCoalescingDropbox %s unable to extend transaction TTL.", buf, 0xCu);
+        v18 = name;
+        _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEFAULT, "SGCoalescingDropbox %s unable to extend transaction TTL.", buf, 0xCu);
       }
 
       queue = self->_queue;
-      v12 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, &__block_literal_global_22071);
-      dispatch_async(queue, v12);
+      v11 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, &__block_literal_global_22071);
+      dispatch_async(queue, v11);
     }
   }
 
   else
   {
-    v13 = self->_name;
-    v14 = os_transaction_create();
-    v15 = self->_transaction;
-    self->_transaction = v14;
+    v12 = os_transaction_create();
+    transaction = self->_transaction;
+    self->_transaction = v12;
 
     self->_pendingMerge = 1;
   }
 
   ++self->_outstanding;
   pthread_mutex_unlock(&self->_boxLock);
-  if (delay <= 0.0 || (v19 & 1) != 0)
+  if (delay <= 0.0 || (v16 & 1) != 0)
   {
     dispatch_source_merge_data(self->_source, 1uLL);
   }
 
   else if (!pendingMerge)
   {
-    v16 = self->_queue;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __39__SGCoalescingDropBox_updateBox_delay___block_invoke_2;
-    v18[3] = &unk_278954A30;
-    v18[4] = self;
-    [MEMORY[0x277D425A0] runAsyncOnQueue:v16 afterDelaySeconds:v18 block:delay];
+    v14 = self->_queue;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __39__SGCoalescingDropBox_updateBox_delay___block_invoke_2;
+    v15[3] = &unk_278954A30;
+    v15[4] = self;
+    [MEMORY[0x277D425A0] runAsyncOnQueue:v14 afterDelaySeconds:v15 block:delay];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (SGCoalescingDropBox)initWithName:(const char *)name boxMaker:(id)maker handler:(id)handler qos:(unsigned int)qos

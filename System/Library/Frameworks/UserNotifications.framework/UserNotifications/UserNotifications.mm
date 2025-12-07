@@ -125,7 +125,7 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t UNEqualObjects(void *a1, void *a2)
+unint64_t UNEqualObjects(void *a1, void *a2)
 {
   if (a1 && a2)
   {
@@ -138,7 +138,7 @@ uint64_t UNEqualObjects(void *a1, void *a2)
   }
 }
 
-uint64_t UNEqualStrings(void *a1, void *a2)
+unint64_t UNEqualStrings(void *a1, void *a2)
 {
   if (a1 && a2)
   {
@@ -264,15 +264,16 @@ __CFString *UNStringFromNotificationAttachmentDisplayLocation(unint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_1B85ED804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B85ED804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -329,10 +330,11 @@ __CFString *UNAuthorizationStatusString(unint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 BOOL UNSimilarArrays(void *a1, void *a2)
@@ -407,18 +409,16 @@ LABEL_9:
 
 void UNLogToDeveloper(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: %@", a1, a2];
   NSLog(@"%@", v2);
   v3 = UNLogCommunicationNotifications;
   if (os_log_type_enabled(UNLogCommunicationNotifications, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v6 = v2;
+    v5 = v2;
     _os_log_impl(&dword_1B85E3000, v3, OS_LOG_TYPE_DEFAULT, "Logged to developer: %{public}@", buf, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 id UNNotificationDestinationStrings(char a1)
@@ -539,6 +539,13 @@ __CFString *UNNotificationAttachmentFamilyToString(uint64_t a1)
   }
 }
 
+void sub_1B85F3150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 Class __getINSendMessageIntentClass_block_invoke(uint64_t a1)
 {
   IntentsLibrary();
@@ -555,40 +562,35 @@ Class __getINSendMessageIntentClass_block_invoke(uint64_t a1)
 
 void IntentsLibrary()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = 0;
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = 0;
   if (!IntentsLibraryCore_frameworkLibrary)
   {
-    v1[1] = MEMORY[0x1E69E9820];
-    v1[2] = 3221225472;
-    v1[3] = __IntentsLibraryCore_block_invoke;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_1E7CFF9B0;
-    v3 = 0;
+    v0[1] = MEMORY[0x1E69E9820];
+    v0[2] = 3221225472;
+    v0[3] = __IntentsLibraryCore_block_invoke;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_1E7CFF9B0;
+    v2 = 0;
     IntentsLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!IntentsLibraryCore_frameworkLibrary)
   {
-    IntentsLibrary_cold_1(v1);
+    IntentsLibrary_cold_1(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __IntentsLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IntentsLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -626,29 +628,29 @@ void sub_1B85F3D4C(_Unwind_Exception *a1)
 
 id UNSafeCastAny(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = UNSafeCast(*(*(&v14 + 1) + 8 * i), v4);
+        v10 = UNSafeCast(*(*(&v13 + 1) + 8 * i), v4);
         if (v10)
         {
           v11 = v10;
@@ -656,7 +658,7 @@ id UNSafeCastAny(void *a1, void *a2)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -668,8 +670,6 @@ id UNSafeCastAny(void *a1, void *a2)
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -711,16 +711,16 @@ __CFString *_UNNotificationCommunicationContextCapabilitiesDescription(uint64_t 
   }
 }
 
-id UNBundle()
+id UNBundle(uint64_t a1)
 {
   if (UNBundle___onceToken != -1)
   {
     UNBundle_cold_1();
   }
 
-  v1 = UNBundle___userNotificationBundle;
+  v2 = UNBundle___userNotificationBundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __UNBundle_block_invoke()
@@ -733,7 +733,7 @@ uint64_t __UNBundle_block_invoke()
 id UNLocalizedStringForKey(void *a1)
 {
   v1 = a1;
-  v2 = UNBundle();
+  v2 = UNBundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:&stru_1F308F460 table:0];
 
   return v3;
@@ -742,15 +742,15 @@ id UNLocalizedStringForKey(void *a1)
 id UNLocalizedFormatStringForKey(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = UNBundle();
+  v3 = UNBundle(v2);
   v4 = [v3 localizedStringForKey:v2 value:&stru_1F308F460 table:0];
 
   return v4;
 }
 
-void sub_1B85FE098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B85FE098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -810,9 +810,9 @@ uint64_t UNCRemoteServicesNeeded()
   return UNCDaemonEnabled();
 }
 
-void sub_1B8600530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B8600530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -833,40 +833,35 @@ Class __getINSendMessageIntentClass_block_invoke_0(uint64_t a1)
 
 void IntentsLibrary_0()
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1[0] = 0;
+  v3 = *MEMORY[0x1E69E9840];
+  v0[0] = 0;
   if (!IntentsLibraryCore_frameworkLibrary_0)
   {
-    v1[1] = MEMORY[0x1E69E9820];
-    v1[2] = 3221225472;
-    v1[3] = __IntentsLibraryCore_block_invoke_0;
-    v1[4] = &__block_descriptor_40_e5_v8__0l;
-    v1[5] = v1;
-    v2 = xmmword_1E7CFFCE0;
-    v3 = 0;
+    v0[1] = MEMORY[0x1E69E9820];
+    v0[2] = 3221225472;
+    v0[3] = __IntentsLibraryCore_block_invoke_0;
+    v0[4] = &__block_descriptor_40_e5_v8__0l;
+    v0[5] = v0;
+    v1 = xmmword_1E7CFFCE0;
+    v2 = 0;
     IntentsLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   if (!IntentsLibraryCore_frameworkLibrary_0)
   {
-    IntentsLibrary_cold_1_0(v1);
+    IntentsLibrary_cold_1_0(v0);
   }
 
-  if (v1[0])
+  if (v0[0])
   {
-    free(v1[0]);
+    free(v0[0]);
   }
-
-  v0 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __IntentsLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   IntentsLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1002,23 +997,17 @@ LABEL_18:
   return v7;
 }
 
-uint64_t OUTLINED_FUNCTION_2@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
-}
-
 id OUTLINED_FUNCTION_3(id a1)
 {
 
   return a1;
 }
 
-void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void __getINSendMessageIntentClass_block_invoke_cold_1()

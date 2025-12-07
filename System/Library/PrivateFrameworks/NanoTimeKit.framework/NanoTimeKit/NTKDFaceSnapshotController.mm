@@ -17,6 +17,7 @@
 - (void)_onQueue_async:(id)queue_async;
 - (void)_queue_snapshotFaces:(id)faces completion:(id)completion;
 - (void)_queue_updateAllSnapshots;
+- (void)_queue_updateSnapshotForFace:(id)face complicationTemplateChanged:(BOOL)changed;
 - (void)_queue_updateSnapshotForFace:(id)face inStore:(id)store;
 - (void)_queue_updateSnapshots:(id)snapshots completion:(id)completion;
 - (void)_startSnapshottingActivity;
@@ -1205,6 +1206,30 @@ LABEL_22:
   else
   {
     [(NTKDFaceSnapshotController *)self _queue_updateSnapshotForFace:faceCopy complicationTemplateChanged:0];
+  }
+}
+
+- (void)_queue_updateSnapshotForFace:(id)face complicationTemplateChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  faceCopy = face;
+  dispatch_assert_queue_V2(self->_queue);
+  v7 = sub_100005974();
+
+  if (v7)
+  {
+    v8 = [(NTKDFaceSnapshotController *)self _queue_snapshotObjectsForFace:faceCopy complicationTemplateChanged:changedCopy];
+    [(NTKDFaceSnapshotController *)self _queue_updateSnapshots:v8 completion:0];
+  }
+
+  else
+  {
+    v9 = _NTKLoggingObjectForDomain();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "_queue_updateSnapshotForFace:complicationTemplateChanged: no active device so we are not taking snapshots.", v10, 2u);
+    }
   }
 }
 

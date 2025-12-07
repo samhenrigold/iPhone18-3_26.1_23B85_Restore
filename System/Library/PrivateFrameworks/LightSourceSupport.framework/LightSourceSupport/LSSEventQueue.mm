@@ -28,27 +28,25 @@
   if (schedule)
   {
     os_unfair_lock_lock((schedule + 16));
-    [(LSSSampleBuffer *)*(schedule + 8) removeStartingAt:?];
-    v4 = *(schedule + 8);
-    v5 = *(a2 + 48);
+    [(LSSSampleBuffer *)*(schedule + 8) removeStartingAt:v4, *a2];
+    v5 = *(schedule + 8);
+    v6 = *(a2 + 48);
     v9[2] = *(a2 + 32);
-    v9[3] = v5;
-    v6 = *(a2 + 80);
+    v9[3] = v6;
+    v7 = *(a2 + 80);
     v9[4] = *(a2 + 64);
-    v9[5] = v6;
-    v7 = *(a2 + 16);
+    v9[5] = v7;
+    v8 = *(a2 + 16);
     v9[0] = *a2;
-    v9[1] = v7;
-    [(LSSSampleBuffer *)v4 append:v9];
+    v9[1] = v8;
+    [(LSSSampleBuffer *)v5 append:v9];
     os_unfair_lock_unlock((schedule + 16));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)intervalForTime:(double)time@<D0>
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   a2[11] = 0u;
   a2[12] = 0u;
   a2[9] = 0u;
@@ -65,97 +63,91 @@
   if (self)
   {
     os_unfair_lock_lock((self + 16));
-    [(LSSSampleBuffer *)*(self + 8) intervalContaining:v13, time];
-    v6 = v13[11];
-    a2[10] = v13[10];
+    [(LSSSampleBuffer *)*(self + 8) intervalContaining:v12, time];
+    v6 = v12[11];
+    a2[10] = v12[10];
     a2[11] = v6;
-    a2[12] = v13[12];
-    v7 = v13[7];
-    a2[6] = v13[6];
+    a2[12] = v12[12];
+    v7 = v12[7];
+    a2[6] = v12[6];
     a2[7] = v7;
-    v8 = v13[9];
-    a2[8] = v13[8];
+    v8 = v12[9];
+    a2[8] = v12[8];
     a2[9] = v8;
-    v9 = v13[3];
-    a2[2] = v13[2];
+    v9 = v12[3];
+    a2[2] = v12[2];
     a2[3] = v9;
-    v10 = v13[5];
-    a2[4] = v13[4];
+    v10 = v12[5];
+    a2[4] = v12[4];
     a2[5] = v10;
-    v11 = v13[1];
-    *a2 = v13[0];
+    v11 = v12[1];
+    *a2 = v12[0];
     a2[1] = v11;
     os_unfair_lock_unlock((self + 16));
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (os_unfair_lock_s)lightSourceForTime:(os_unfair_lock_s *)time
 {
-  v42 = *MEMORY[0x277D85DE8];
-  if (!time)
+  v40 = *MEMORY[0x277D85DE8];
+  if (time)
   {
-    goto LABEL_4;
-  }
+    timeCopy = time;
+    os_unfair_lock_lock(time + 4);
+    [(LSSSampleBuffer *)*&timeCopy[2]._os_unfair_lock_opaque intervalContaining:a2];
+    v22 = v34;
+    v23 = v35;
+    v24 = v36;
+    v25 = v37;
+    v18 = v30;
+    v19 = v31;
+    v20 = v32;
+    v21 = v33;
+    v14 = v26;
+    v15 = v27;
+    v16 = v28;
+    v17 = v29;
+    v4 = v38;
+    v5 = v39;
+    os_unfair_lock_unlock(timeCopy + 4);
+    if (v4)
+    {
+      v12 = 0u;
+      v13 = 0u;
+      v10 = 0u;
+      v11 = 0u;
+      v8 = 0u;
+      v9 = 0u;
+      v34 = v22;
+      v35 = v23;
+      v36 = v24;
+      v37 = v25;
+      v30 = v18;
+      v31 = v19;
+      v32 = v20;
+      v33 = v21;
+      v26 = v14;
+      v27 = v15;
+      v28 = v16;
+      v29 = v17;
+      v38 = v4;
+      v39 = v5;
+      LSSLightDirectionFromTimeInInterval(&v26, &v8, a2);
+      v6 = [LSSLightSource alloc];
+      v28 = v10;
+      v29 = v11;
+      v30 = v12;
+      v31 = v13;
+      v26 = v8;
+      v27 = v9;
+      time = [(LSSLightSource *)v6 initWithSample:&v26];
+    }
 
-  timeCopy = time;
-  os_unfair_lock_lock(time + 4);
-  [(LSSSampleBuffer *)*&timeCopy[2]._os_unfair_lock_opaque intervalContaining:a2];
-  v24 = v36;
-  v25 = v37;
-  v26 = v38;
-  v27 = v39;
-  v20 = v32;
-  v21 = v33;
-  v22 = v34;
-  v23 = v35;
-  v16 = v28;
-  v17 = v29;
-  v18 = v30;
-  v19 = v31;
-  v4 = v40;
-  v5 = v41;
-  os_unfair_lock_unlock(timeCopy + 4);
-  if (v4)
-  {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v36 = v24;
-    v37 = v25;
-    v38 = v26;
-    v39 = v27;
-    v32 = v20;
-    v33 = v21;
-    v34 = v22;
-    v35 = v23;
-    v28 = v16;
-    v29 = v17;
-    v30 = v18;
-    v31 = v19;
-    v40 = v4;
-    v41 = v5;
-    LSSLightDirectionFromTimeInInterval(&v28, &v10, a2);
-    v6 = [LSSLightSource alloc];
-    v30 = v12;
-    v31 = v13;
-    v32 = v14;
-    v33 = v15;
-    v28 = v10;
-    v29 = v11;
-    time = [(LSSLightSource *)v6 initWithSample:&v28];
-LABEL_4:
-    v7 = *MEMORY[0x277D85DE8];
-    goto LABEL_5;
+    else
+    {
+      time = 0;
+    }
   }
-
-  time = 0;
-  v9 = *MEMORY[0x277D85DE8];
-LABEL_5:
 
   return time;
 }

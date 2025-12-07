@@ -1,6 +1,6 @@
 @interface SRDaemonNotification
 + (void)initialize;
-- (id)initWithSensor:(void *)sensor;
+- (char)initWithSensor:(void *)sensor;
 - (void)dealloc;
 @end
 
@@ -14,7 +14,7 @@
   }
 }
 
-- (id)initWithSensor:(void *)sensor
+- (char)initWithSensor:(void *)sensor
 {
   if (!sensor)
   {
@@ -73,24 +73,24 @@
 
 uint64_t __53__SRDaemonNotification_registerForDaemonNotification__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   Weak = objc_loadWeak((a1 + 32));
   v2 = SRLogDaemonNotification;
   if (os_log_type_enabled(SRLogDaemonNotification, OS_LOG_TYPE_DEBUG))
   {
     if (Weak)
     {
-      v6 = *(Weak + 4);
+      v5 = *(Weak + 4);
     }
 
     else
     {
-      v6 = 0;
+      v5 = 0;
     }
 
-    v7 = 138543362;
-    v8 = v6;
-    _os_log_debug_impl(&dword_26561F000, v2, OS_LOG_TYPE_DEBUG, "Got a notification for %{public}@ to re-connect to the daemon", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_debug_impl(&dword_26561F000, v2, OS_LOG_TYPE_DEBUG, "Got a notification for %{public}@ to re-connect to the daemon", &v6, 0xCu);
     if (Weak)
     {
       goto LABEL_3;
@@ -98,7 +98,7 @@ uint64_t __53__SRDaemonNotification_registerForDaemonNotification__block_invoke(
 
 LABEL_8:
     v3 = 0;
-    goto LABEL_4;
+    return [v3 daemonNotificationDaemonDidStart:Weak];
   }
 
   if (!Weak)
@@ -108,22 +108,19 @@ LABEL_8:
 
 LABEL_3:
   v3 = objc_loadWeak(Weak + 3);
-LABEL_4:
-  result = [v3 daemonNotificationDaemonDidStart:Weak];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [v3 daemonNotificationDaemonDidStart:Weak];
 }
 
 uint64_t __53__SRDaemonNotification_registerForDaemonNotification__block_invoke_5(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   Weak = objc_loadWeak((a1 + 32));
   v2 = SRLogDaemonNotification;
   if (os_log_type_enabled(SRLogDaemonNotification, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138543362;
-    v7 = @"com.apple.SensorKit.significantTimeChange";
-    _os_log_debug_impl(&dword_26561F000, v2, OS_LOG_TYPE_DEBUG, "Got a notification for %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = @"com.apple.SensorKit.significantTimeChange";
+    _os_log_debug_impl(&dword_26561F000, v2, OS_LOG_TYPE_DEBUG, "Got a notification for %{public}@", &v5, 0xCu);
     if (Weak)
     {
       goto LABEL_3;
@@ -142,23 +139,22 @@ LABEL_4:
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    result = [v3 daemonNotificationDaemonDidChangeTimeSignificantly:Weak];
+    return [v3 daemonNotificationDaemonDidChangeTimeSignificantly:Weak];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __53__SRDaemonNotification_registerForDaemonNotification__block_invoke_8(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   Weak = objc_loadWeak((a1 + 32));
   v2 = SRLogDaemonNotification;
   if (os_log_type_enabled(SRLogDaemonNotification, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 138543362;
-    v7 = @"com.apple.SensorKit.resetDatastore";
-    _os_log_debug_impl(&dword_26561F000, v2, OS_LOG_TYPE_DEBUG, "Got a notification for %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = @"com.apple.SensorKit.resetDatastore";
+    _os_log_debug_impl(&dword_26561F000, v2, OS_LOG_TYPE_DEBUG, "Got a notification for %{public}@", &v5, 0xCu);
     if (Weak)
     {
       goto LABEL_3;
@@ -177,10 +173,9 @@ LABEL_4:
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    result = [v3 daemonNotificationDaemonDidResetDatastore:Weak];
+    return [v3 daemonNotificationDaemonDidResetDatastore:Weak];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 

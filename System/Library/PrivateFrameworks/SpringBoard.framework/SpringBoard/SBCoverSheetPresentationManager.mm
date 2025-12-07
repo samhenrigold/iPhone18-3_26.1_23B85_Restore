@@ -821,8 +821,7 @@ LABEL_28:
   sceneManager = [(SBCoverSheetPresentationManager *)self sceneManager];
   [sceneManager updateForegroundScenesForCoverSheetAnimationActive:0];
 
-  [(SBCoverSheetPresentationManager *)self _updateWallpaperOverlay];
-  v6 = SBLogTelemetrySignposts();
+  v6 = SBLogTelemetrySignposts([(SBCoverSheetPresentationManager *)self _updateWallpaperOverlay]);
   if (os_signpost_enabled(v6))
   {
     *v8 = 0;
@@ -1092,16 +1091,17 @@ void __55__SBCoverSheetPresentationManager_initWithWindowScene___block_invoke_2(
   coverSheetViewController = [(SBCoverSheetPresentationManager *)self coverSheetViewController];
   isShowingModalView = [coverSheetViewController isShowingModalView];
 
-  if ([(SBUILockStateProvider *)self->_uiLockStateProvider isUILocked]!= presentedCopy || (v21 = [(SBCoverSheetSlidingViewController *)self->_coverSheetSlidingViewController isAnyGestureActivelyRecognized], presentedCopy && forcePresentedCopy) || v21 || isInSecureApp)
+  if ([(SBUILockStateProvider *)self->_uiLockStateProvider isUILocked]!= presentedCopy || (v22 = [(SBCoverSheetSlidingViewController *)self->_coverSheetSlidingViewController isAnyGestureActivelyRecognized], presentedCopy && forcePresentedCopy) || v22 || isInSecureApp)
   {
     activeGestureRecognizer = [(SBCoverSheetSlidingViewController *)self->_coverSheetSlidingViewController activeGestureRecognizer];
+    v19 = activeGestureRecognizer;
     if (animatedCopy && !presentedCopy)
     {
-      v19 = SBLogTelemetrySignposts();
-      if (os_signpost_enabled(v19))
+      v20 = SBLogTelemetrySignposts(activeGestureRecognizer);
+      if (os_signpost_enabled(v20))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v19, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SB_LOCKSCREEN_UNLOCK_ANIMATION_START", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_21ED4E000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SB_LOCKSCREEN_UNLOCK_ANIMATION_START", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
       }
 
       kdebug_trace();
@@ -1109,8 +1109,8 @@ void __55__SBCoverSheetPresentationManager_initWithWindowScene___block_invoke_2(
       [defaultCenter postNotificationName:@"SBCoverSheetWillAnimateDeactivation" object:self];
     }
 
-    [activeGestureRecognizer setEnabled:0];
-    [activeGestureRecognizer setEnabled:1];
+    [v19 setEnabled:0];
+    [v19 setEnabled:1];
     self->_transitionOverrideOptions = options;
     [(SBCoverSheetSlidingViewController *)self->_coverSheetSlidingViewController setPresented:presentedCopy forUserGesture:(options >> 2) & 1 animated:animatedCopy withCompletion:completionCopy];
     self->_transitionOverrideOptions = 0;
@@ -1128,7 +1128,7 @@ void __55__SBCoverSheetPresentationManager_initWithWindowScene___block_invoke_2(
     block[1] = 3221225472;
     block[2] = __131__SBCoverSheetPresentationManager__setCoverSheetPresented_forcePresented_animated_dismissModalPresentation_options_withCompletion___block_invoke;
     block[3] = &unk_2783A9348;
-    v24 = completionCopy;
+    v25 = completionCopy;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 }
@@ -2788,7 +2788,7 @@ uint64_t __126__SBCoverSheetPresentationManager_coverSheetSlidingViewController_
   v13 = SBLogCoverSheet();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [(SBCoverSheetPresentationManager *)v13 coverSheetSlidingViewController:v14 animateForGestureActive:v15 withProgress:v16 beginBlock:v17 endBlock:v18, v19, v20];
+    [(SBCoverSheetPresentationManager *)v13 coverSheetSlidingViewController:v14 animateForGestureActive:v15 withProgress:v16 beginBlock:v17 endBlock:v18, v19, v20, progress];
   }
 
   if (self->_iconAnimator && self->_iconAnimatorCompletionGroup)
@@ -3554,8 +3554,7 @@ void __73__SBCoverSheetPresentationManager_hostableEntityPresenter_didEndHosting
 
   if (!_appearState)
   {
-    [(SBCoverSheetPresentationManager *)self _notifyDelegateWillPresent];
-    v22 = SBLogTelemetrySignposts();
+    v22 = SBLogTelemetrySignposts([(SBCoverSheetPresentationManager *)self _notifyDelegateWillPresent]);
     if (os_signpost_enabled(v22))
     {
       *v27 = 0;
@@ -3774,21 +3773,21 @@ void __73__SBCoverSheetPresentationManager_hostableEntityPresenter_didEndHosting
 
 - (void)_prepareInterstitialTransitionForSlidingViewController:(id)controller
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v5 = SBLogCoverSheet();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v9 = 138412290;
-    v10 = controllerCopy;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "_prepareInterstitialTransitionForSlidingViewController: %@", &v9, 0xCu);
+    v10 = 138412290;
+    v11 = controllerCopy;
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "_prepareInterstitialTransitionForSlidingViewController: %@", &v10, 0xCu);
   }
 
-  v6 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v6))
+  v7 = SBLogTelemetrySignposts(v6);
+  if (os_signpost_enabled(v7))
   {
-    LOWORD(v9) = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v6, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_COVERSHEET_INTERSTITIAL_TRANSITION", " enableTelemetry=YES  isAnimation=YES ", &v9, 2u);
+    LOWORD(v10) = 0;
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v7, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "SB_COVERSHEET_INTERSTITIAL_TRANSITION", " enableTelemetry=YES  isAnimation=YES ", &v10, 2u);
   }
 
   kdebug_trace();
@@ -3820,14 +3819,14 @@ void __73__SBCoverSheetPresentationManager_hostableEntityPresenter_didEndHosting
 
 - (void)_cleanupInterstitialTransitionForSlidingViewController:(id)controller
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   v5 = SBLogCoverSheet();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v11 = 138412290;
-    v12 = controllerCopy;
-    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "_cleanupInterstitialTransitionForSlidingViewController: %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = controllerCopy;
+    _os_log_impl(&dword_21ED4E000, v5, OS_LOG_TYPE_INFO, "_cleanupInterstitialTransitionForSlidingViewController: %@", &v12, 0xCu);
   }
 
   [controllerCopy setDismissalSlidingMode:1];
@@ -3837,11 +3836,11 @@ void __73__SBCoverSheetPresentationManager_hostableEntityPresenter_didEndHosting
   coverSheetViewController = [(SBCoverSheetPresentationManager *)self coverSheetViewController];
   [coverSheetViewController cleanupInterstitialPresentationToPresented:!v8 inPlace:v7];
 
-  v10 = SBLogTelemetrySignposts();
-  if (os_signpost_enabled(v10))
+  v11 = SBLogTelemetrySignposts(v10);
+  if (os_signpost_enabled(v11))
   {
-    LOWORD(v11) = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v10, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_COVERSHEET_INTERSTITIAL_TRANSITION", " enableTelemetry=YES  isAnimation=YES ", &v11, 2u);
+    LOWORD(v12) = 0;
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v11, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_COVERSHEET_INTERSTITIAL_TRANSITION", " enableTelemetry=YES  isAnimation=YES ", &v12, 2u);
   }
 
   kdebug_trace();
@@ -3849,7 +3848,7 @@ void __73__SBCoverSheetPresentationManager_hostableEntityPresenter_didEndHosting
 
 - (BOOL)_performInterstitialPresentationIfNeeded:(id)needed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
   if (!CSFeatureEnabled())
   {
@@ -3865,7 +3864,7 @@ void __73__SBCoverSheetPresentationManager_hostableEntityPresenter_didEndHosting
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v19 = neededCopy;
+      v20 = neededCopy;
       _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "_performInterstitialPresentationIfNeeded: %@", buf, 0xCu);
     }
 
@@ -3885,11 +3884,11 @@ void __73__SBCoverSheetPresentationManager_hostableEntityPresenter_didEndHosting
 LABEL_11:
         self->_isPresentingInterstitial = 0;
 LABEL_14:
-        v15 = SBLogTelemetrySignposts();
-        if (os_signpost_enabled(v15))
+        v16 = SBLogTelemetrySignposts(v13);
+        if (os_signpost_enabled(v16))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_21ED4E000, v15, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_COVERSHEET_INTERSTITIAL_TRANSITION", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_21ED4E000, v16, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_COVERSHEET_INTERSTITIAL_TRANSITION", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
         }
 
         kdebug_trace();
@@ -3909,13 +3908,13 @@ LABEL_14:
     pearlMatchingStateProvider = [(SBCoverSheetPresentationManager *)self pearlMatchingStateProvider];
     [pearlMatchingStateProvider reset];
 
-    v14 = *MEMORY[0x277D76620];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __76__SBCoverSheetPresentationManager__performInterstitialPresentationIfNeeded___block_invoke;
-    v17[3] = &unk_2783A8C18;
-    v17[4] = self;
-    [v14 _performBlockAfterCATransactionCommits:v17];
+    v15 = *MEMORY[0x277D76620];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __76__SBCoverSheetPresentationManager__performInterstitialPresentationIfNeeded___block_invoke;
+    v18[3] = &unk_2783A8C18;
+    v18[4] = self;
+    v13 = [v15 _performBlockAfterCATransactionCommits:v18];
     goto LABEL_14;
   }
 
@@ -3955,8 +3954,7 @@ void __76__SBCoverSheetPresentationManager__performInterstitialPresentationIfNee
 
   if (_appearState == 2)
   {
-    [(SBCoverSheetPresentationManager *)self _notifyDelegateWillDismissWithVelocity:velocity];
-    v11 = SBLogTelemetrySignposts();
+    v11 = SBLogTelemetrySignposts([(SBCoverSheetPresentationManager *)self _notifyDelegateWillDismissWithVelocity:velocity]);
     if (os_signpost_enabled(v11))
     {
       *v21 = 0;
@@ -5031,48 +5029,48 @@ LABEL_25:
   }
 }
 
-void __111__SBCoverSheetPresentationManager__setTransitionProgress_animated_gestureActive_coverSheetProgress_completion___block_invoke(uint64_t a1)
+void __111__SBCoverSheetPresentationManager__setTransitionProgress_animated_gestureActive_coverSheetProgress_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = SBLogDashBoardTelemetrySignposts();
-  if (os_signpost_enabled(v2))
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = SBLogDashBoardTelemetrySignposts();
+  if (os_signpost_enabled(v3))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_ICON_FLY_IN_ANIMATION", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_21ED4E000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "SB_ICON_FLY_IN_ANIMATION", " enableTelemetry=YES  isAnimation=YES ", buf, 2u);
   }
 
   kdebug_trace();
-  v3 = SBLogCoverSheet();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SBLogCoverSheet();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(*(a1 + 32) + 256);
+    v5 = *(*(a1 + 32) + 256);
     *buf = 134217984;
-    v9 = v4;
-    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Running completion for icon animation group %p", buf, 0xCu);
+    v10 = v5;
+    _os_log_impl(&dword_21ED4E000, v4, OS_LOG_TYPE_DEFAULT, "Running completion for icon animation group %p", buf, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setIconAnimatorCompletionGroup:0];
-  v6 = dispatch_time(0, 100000000);
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __111__SBCoverSheetPresentationManager__setTransitionProgress_animated_gestureActive_coverSheetProgress_completion___block_invoke_229;
-  v7[3] = &unk_2783A92D8;
-  v7[4] = *(a1 + 32);
-  v7[5] = WeakRetained;
-  dispatch_after(v6, MEMORY[0x277D85CD0], v7);
+  v7 = dispatch_time(0, 100000000);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __111__SBCoverSheetPresentationManager__setTransitionProgress_animated_gestureActive_coverSheetProgress_completion___block_invoke_229;
+  v8[3] = &unk_2783A92D8;
+  v8[4] = *(a1 + 32);
+  v8[5] = WeakRetained;
+  dispatch_after(v7, MEMORY[0x277D85CD0], v8);
 }
 
-uint64_t __111__SBCoverSheetPresentationManager__setTransitionProgress_animated_gestureActive_coverSheetProgress_completion___block_invoke_229(uint64_t a1)
+uint64_t __111__SBCoverSheetPresentationManager__setTransitionProgress_animated_gestureActive_coverSheetProgress_completion___block_invoke_229(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = SBLogCoverSheet();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = SBLogCoverSheet();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 256);
-    v5 = 134217984;
-    v6 = v3;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "Cleaning up icon animator for icon animation group %p", &v5, 0xCu);
+    v4 = *(*(a1 + 32) + 256);
+    v6 = 134217984;
+    v7 = v4;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Cleaning up icon animator for icon animation group %p", &v6, 0xCu);
   }
 
   return [*(a1 + 40) _cleanupIconAnimator];
@@ -5234,6 +5232,27 @@ uint64_t __111__SBCoverSheetPresentationManager__setTransitionProgress_animated_
   v4 = 138412290;
   v5 = v3;
   _os_log_debug_impl(&dword_21ED4E000, a2, OS_LOG_TYPE_DEBUG, "animateIconFlyInForPresenting:%@ beginBlock:endBlock:", &v4, 0xCu);
+}
+
+- (void)coverSheetSlidingViewController:(uint64_t)a3 animateForGestureActive:(uint64_t)a4 withProgress:(uint64_t)a5 beginBlock:(uint64_t)a6 endBlock:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
+{
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a1, a3, "animateForGestureActive withProgress: %.2f", a5, a6, a7, a8, v9, DWORD2(v9));
+}
+
+- (void)_setCoverSheet:(uint64_t)a3 windowVisible:(uint64_t)a4 forReason:(uint64_t)a5 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a2, a3, "Remaining reasons: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)_setCoverSheet:(uint64_t)a3 windowVisible:(uint64_t)a4 forReason:(uint64_t)a5 .cold.4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, a2, a3, "Updated Reasons: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_isIconFlyInAnimationAllowed

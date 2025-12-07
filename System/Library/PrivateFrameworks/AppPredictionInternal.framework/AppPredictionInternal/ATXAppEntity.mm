@@ -33,19 +33,13 @@
 - (int64_t)hash
 {
   sub_226836C58();
-  v3 = *(&self->super.isa + OBJC_IVAR___ATXAppEntity_identifier);
-  v4 = *&self->bundleID[OBJC_IVAR___ATXAppEntity_identifier];
   selfCopy = self;
   sub_226836498();
-  v6 = *(&selfCopy->super.isa + OBJC_IVAR___ATXAppEntity_bundleID);
-  v7 = *&selfCopy->bundleID[OBJC_IVAR___ATXAppEntity_bundleID];
   sub_226836498();
-  v8 = *(&selfCopy->super.isa + OBJC_IVAR___ATXAppEntity_type);
-  v9 = *&selfCopy->bundleID[OBJC_IVAR___ATXAppEntity_type];
   sub_226836498();
-  v10 = sub_226836C38();
+  v4 = sub_226836C38();
 
-  return v10;
+  return v4;
 }
 
 - (NSString)debugDescription

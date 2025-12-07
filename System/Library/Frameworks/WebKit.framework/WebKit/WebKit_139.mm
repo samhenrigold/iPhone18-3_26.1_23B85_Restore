@@ -339,64 +339,64 @@ LABEL_49:
         v32 = *(this + 38);
         *(this + 38) = 0;
         v70 = v32;
-        v33 = WTF::fastMalloc(0x148);
+        v33 = WTF::fastMalloc(v32, 0x148);
         *v33 = &unk_1F1107340;
-        *(v33 + 8) = *buf;
+        v33[1] = *buf;
         *(v33 + 16) = buf[8];
-        *(v33 + 24) = *&buf[16];
+        v33[3] = *&buf[16];
         v34 = *&buf[24];
         *buf = 0;
         *&buf[16] = 0;
         *&buf[24] = 0;
-        *(v33 + 32) = v34;
+        v33[4] = v34;
         v35 = *&buf[32];
         *(v33 + 49) = *&buf[41];
-        *(v33 + 40) = v35;
+        *(v33 + 5) = v35;
         *(v33 + 72) = 0;
         *(v33 + 200) = 0;
         if (v60 == 1)
         {
-          std::__optional_storage_base<WebCore::PCM::AttributionTriggerData,false>::__construct[abi:sn200100]<WebCore::PCM::AttributionTriggerData>(v33 + 72, v59);
+          std::__optional_storage_base<WebCore::PCM::AttributionTriggerData,false>::__construct[abi:sn200100]<WebCore::PCM::AttributionTriggerData>((v33 + 9), v59);
         }
 
         v36 = v62;
-        *(v33 + 208) = v61;
-        *(v33 + 224) = v36;
+        *(v33 + 13) = v61;
+        *(v33 + 14) = v36;
         *(v33 + 240) = 0;
         *(v33 + 248) = 0;
         if (v64 == 1)
         {
           v37 = v63;
           v63 = 0;
-          *(v33 + 240) = v37;
+          v33[30] = v37;
           *(v33 + 248) = 1;
         }
 
-        *(v33 + 256) = v65;
+        v33[32] = v65;
         v38 = *(&v65 + 1);
         v65 = 0u;
-        *(v33 + 264) = v38;
-        *(v33 + 272) = v66;
+        v33[33] = v38;
+        v33[34] = v66;
         v39 = *(&v66 + 1);
         v66 = 0u;
-        *(v33 + 280) = v39;
+        v33[35] = v39;
         *(v33 + 288) = 0;
         *(v33 + 312) = 0;
         if (v69 == 1)
         {
-          *(v33 + 288) = v67;
+          v33[36] = v67;
           v40 = *(&v67 + 1);
           v67 = 0uLL;
-          *(v33 + 296) = v40;
+          v33[37] = v40;
           v41 = v68;
           v68 = 0;
-          *(v33 + 304) = v41;
+          v33[38] = v41;
           *(v33 + 312) = 1;
         }
 
         v42 = v70;
         v70 = 0;
-        *(v33 + 320) = v42;
+        v33[40] = v42;
         v48 = v33;
         WebKit::PCM::NetworkLoader::start(&v55, &v50, v23, &v48);
         v44 = v48;
@@ -472,7 +472,7 @@ void *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::getTo
   a1[41] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WebCore::PrivateClickMeasurement::~PrivateClickMeasurement((a1 + 2), a2);
@@ -494,7 +494,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::ge
   a1[41] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WebCore::PrivateClickMeasurement::~PrivateClickMeasurement((a1 + 2), a2);
@@ -615,7 +615,7 @@ void *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::getTo
   a1[18] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WebCore::PCM::AttributionTriggerData::~AttributionTriggerData((a1 + 2), a2);
@@ -637,7 +637,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::ge
   a1[18] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WebCore::PCM::AttributionTriggerData::~AttributionTriggerData((a1 + 2), a2);
@@ -741,9 +741,9 @@ LABEL_16:
   return result;
 }
 
-uint64_t WTF::tryMakeString<WTF::ASCIILiteral>@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t WTF::tryMakeString<WTF::ASCIILiteral>@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = v3 != 0;
   v5 = v3 - 1;
   if (v4)
@@ -758,7 +758,7 @@ uint64_t WTF::tryMakeString<WTF::ASCIILiteral>@<X0>(uint64_t a1@<X0>, void *a2@<
 
   if (!(v6 >> 31))
   {
-    return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(v6, 1, *a1, v6, a2);
+    return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(v6, 1uLL, *a1, v6, a2);
   }
 
   result = 161;
@@ -766,7 +766,7 @@ uint64_t WTF::tryMakeString<WTF::ASCIILiteral>@<X0>(uint64_t a1@<X0>, void *a2@<
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t result@<X0>, int a2@<W1>, _OWORD *a3@<X2>, size_t a4@<X3>, void *a5@<X8>)
+uint64_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, _OWORD *a3@<X2>, size_t a4@<X3>, uint64_t *a5@<X8>)
 {
   v7 = result;
   if (a2)
@@ -775,15 +775,15 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::
     {
       if ((result & 0x80000000) == 0)
       {
-        result = WTF::tryFastCompactMalloc((result + 20));
+        result = WTF::tryFastCompactMalloc(&v20, (result + 20));
         v9 = v20;
         if (v20)
         {
-          result = v20 + 20;
+          result = (v20 + 20);
           *v20 = 2;
-          *(v20 + 4) = v7;
-          *(v20 + 8) = v20 + 20;
-          *(v20 + 16) = 4;
+          *(v9 + 4) = v7;
+          *(v9 + 8) = v9 + 20;
+          *(v9 + 16) = 4;
           if (a4)
           {
             if (a4 == 1)
@@ -822,15 +822,15 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  result = WTF::tryFastCompactMalloc(((2 * result) + 20));
+  result = WTF::tryFastCompactMalloc(&v20, ((2 * result) + 20));
   v9 = v20;
   if (v20)
   {
     v10 = (v20 + 20);
     *v20 = 2;
-    *(v20 + 4) = v7;
-    *(v20 + 8) = v20 + 20;
-    *(v20 + 16) = 0;
+    *(v9 + 4) = v7;
+    *(v9 + 8) = v9 + 20;
+    *(v9 + 16) = 0;
     if (a4 >= 0x40)
     {
       v11 = &v10[2 * (a4 & 0x7FFFFFFFFFFFFFC0)];
@@ -862,7 +862,7 @@ LABEL_11:
       v10 = v11;
     }
 
-    while (v10 != (v20 + 20 + 2 * a4))
+    while (v10 != (v9 + 20 + 2 * a4))
     {
       v19 = *a3;
       a3 = (a3 + 1);
@@ -908,7 +908,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::ge
 
 NSObject *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::getSignedUnlinkableTokenForSource(WebCore::PrivateClickMeasurement &&)::$_0,void,WTF::String const&,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WTF::JSONImpl>,WTF::DefaultRefDerefTraits<WTF::JSONImpl>> const&>::call(NSObject *result, atomic_uint **a2, WTF::JSONImpl::ObjectBase **a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   isa = result[1].isa;
   if (isa)
   {
@@ -934,14 +934,14 @@ LABEL_63:
           return result;
         }
 
-        result = WebKit::PrivateClickMeasurementManager::getSignatureBase64URLFromTokenSignatureResponse(&v34, v9, *a2, *a3);
-        if (v35 != 1)
+        result = WebKit::PrivateClickMeasurementManager::getSignatureBase64URLFromTokenSignatureResponse(&v35, v9, *a2, *a3);
+        if (v36 != 1)
         {
 LABEL_59:
-          if (v35 == 1)
+          if (v36 == 1)
           {
-            result = v34;
-            v34 = 0;
+            result = v35;
+            v35 = 0;
             if (result)
             {
               if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -994,10 +994,10 @@ LABEL_41:
                 atomic_fetch_add_explicit(v19, 2u, memory_order_relaxed);
               }
 
-              v37 = v19;
+              v38 = v19;
               WebCore::PrivateClickMeasurement::setSourceSecretToken();
-              v21 = v37;
-              v37 = 0;
+              v21 = v38;
+              v38 = 0;
               if (v21 && atomic_fetch_add_explicit(v21, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
                 WTF::StringImpl::destroy(v21, v20);
@@ -1039,8 +1039,8 @@ LABEL_39:
             goto LABEL_40;
           }
 
-          WebCore::PrivateClickMeasurement::calculateAndUpdateSourceSecretToken(&v32, &v7[2], &v34);
-          if (v33 != 1)
+          WebCore::PrivateClickMeasurement::calculateAndUpdateSourceSecretToken(&v33, &v7[2], &v35);
+          if (v34 != 1)
           {
 LABEL_52:
             v24 = *(v8 + 8);
@@ -1053,24 +1053,28 @@ LABEL_52:
             v25 = *(v24 + 208);
             WTF::StringImpl::createWithoutCopyingNonEmpty();
             (*(*v25 + 16))(v25, 0, &buf);
-            v27 = buf;
+            v28 = buf;
             *&buf = 0;
-            if (v27 && atomic_fetch_add_explicit(v27, 0xFFFFFFFE, memory_order_relaxed) == 2)
+            if (v28)
             {
-              WTF::StringImpl::destroy(v27, v26);
+              add_explicit = atomic_fetch_add_explicit(v28, 0xFFFFFFFE, memory_order_relaxed);
+              if (add_explicit == 2)
+              {
+                WTF::StringImpl::destroy(v28, v26);
+              }
             }
 
-            v28 = *(v8 + 8);
-            if (!v28)
+            v29 = *(v8 + 8);
+            if (!v29)
             {
               __break(0xC471u);
               JUMPOUT(0x19DD5A1BCLL);
             }
 
-            v29 = WTF::fastMalloc(0x10);
-            *v29 = &unk_1F1107368;
-            *&buf = v29;
-            WebKit::PrivateClickMeasurementManager::insertPrivateClickMeasurement(v28, &v7[2], &buf);
+            v30 = WTF::fastMalloc(add_explicit, 0x10);
+            *v30 = &unk_1F1107368;
+            *&buf = v30;
+            WebKit::PrivateClickMeasurementManager::insertPrivateClickMeasurement(v29, &v7[2], &buf);
             result = buf;
             *&buf = 0;
             if (result)
@@ -1085,12 +1089,12 @@ LABEL_52:
           if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_INFO))
           {
             WTF::String::utf8();
-            v12 = v31 ? v31 + 16 : 0;
+            v12 = v32 ? v32 + 16 : 0;
             LODWORD(buf) = 136446210;
             *(&buf + 4) = v12;
             _os_log_impl(&dword_19D52D000, v7, OS_LOG_TYPE_INFO, "Got the following error in calculateAndUpdateSourceSecretToken(): '%{public}s", &buf, 0xCu);
-            v14 = v31;
-            v31 = 0;
+            v14 = v32;
+            v32 = 0;
             if (v14)
             {
               if (*v14 == 1)
@@ -1112,43 +1116,43 @@ LABEL_52:
             JUMPOUT(0x19DD5A21CLL);
           }
 
-          if ((v33 & 1) == 0)
+          if ((v34 & 1) == 0)
           {
             goto LABEL_39;
           }
 
           v15 = *(v10 + 208);
-          v16 = v32;
-          if (v32)
+          v16 = v33;
+          if (v33)
           {
-            atomic_fetch_add_explicit(v32, 2u, memory_order_relaxed);
+            atomic_fetch_add_explicit(v33, 2u, memory_order_relaxed);
           }
 
-          v30 = v16;
+          v31 = v16;
           *&buf = "[Private Click Measurement] ";
           *(&buf + 1) = 29;
-          WTF::tryMakeString<WTF::ASCIILiteral,WTF::String>(&buf, &v30, &v31);
-          if (v31)
+          WTF::tryMakeString<WTF::ASCIILiteral,WTF::String>(&buf, &v31, &v32);
+          if (v32)
           {
-            (*(*v15 + 16))(v15, 2, &v31);
-            v17 = v31;
-            v31 = 0;
+            (*(*v15 + 16))(v15, 2, &v32);
+            v17 = v32;
+            v32 = 0;
             if (v17 && atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               WTF::StringImpl::destroy(v17, v9);
             }
 
-            result = v30;
-            v30 = 0;
+            result = v31;
+            v31 = 0;
             if (result && atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               result = WTF::StringImpl::destroy(result, v9);
             }
 
-            if (v33 == 1)
+            if (v34 == 1)
             {
-              result = v32;
-              v32 = 0;
+              result = v33;
+              v33 = 0;
               if (result)
               {
                 if (atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -1249,7 +1253,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::ge
   return WTF::fastFree(a1, v4);
 }
 
-atomic_uint *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::getSignedUnlinkableTokenForDestination(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WebCore::PCM::AttributionTriggerData &&,WTF::String const&)::$_0,void,WebCore::PCM::AttributionTriggerData &&,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WebKit::PrivateClickMeasurementManager::getSignedUnlinkableTokenForDestination(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WebCore::PCM::AttributionTriggerData &&,WTF::String const&)::$_0>,WTF::DefaultRefDerefTraits<WebKit::PrivateClickMeasurementManager::getSignedUnlinkableTokenForDestination(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WebCore::PCM::AttributionTriggerData &&,WTF::String const&)::$_0>> const&>::call(atomic_uint *volatile result, atomic_uint **a2, WTF::JSONImpl::ObjectBase **a3)
+atomic_uint *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::getSignedUnlinkableTokenForDestination(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WebCore::PCM::AttributionTriggerData &&,WTF::String const&)::$_0,void,WebCore::PCM::AttributionTriggerData &&,WTF::RefPtr<WTF::JSONImpl::Object,WTF::RawPtrTraits<WebKit::PrivateClickMeasurementManager::getSignedUnlinkableTokenForDestination(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WebCore::PCM::AttributionTriggerData &&,WTF::String const&)::$_0>,WTF::DefaultRefDerefTraits<WebKit::PrivateClickMeasurementManager::getSignedUnlinkableTokenForDestination(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WebCore::PCM::AttributionTriggerData &&,WTF::String const&)::$_0>> const&>::call(atomic_uint *result, atomic_uint **a2, WTF::JSONImpl::ObjectBase **a3)
 {
   v37 = *MEMORY[0x1E69E9840];
   v3 = *(result + 1);
@@ -1593,7 +1597,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::ha
 
 void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handleAttribution(WebCore::PCM::AttributionTriggerData &&,WTF::URL const&,WebCore::RegistrableDomain &&,WTF::URL const,WTF::String const&)::$_0,void,WebCore::PCM::AttributionTriggerData &,WTF::String>::call(uint64_t a1, uint64_t a2, WebCore::PrivateClickMeasurement *a3)
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 8);
   if (v3)
   {
@@ -1639,9 +1643,9 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
           }
 
           updated = WebCore::PrivateClickMeasurement::calculateAndUpdateDestinationUnlinkableToken(&cf, a3, v8);
-          if (v84)
+          if (v85)
           {
-            if (v84 != 1)
+            if (v85 != 1)
             {
               mpark::throw_bad_variant_access(updated);
             }
@@ -1658,17 +1662,17 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
               v17 = *buf;
             }
 
-            v88 = v17;
+            v89 = v17;
             v26 = qword_1ED640FE0;
             if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_INFO))
             {
               WTF::String::utf8();
-              v27 = v92 ? v92 + 16 : 0;
+              v27 = v93 ? v93 + 16 : 0;
               *buf = 136446210;
               *&buf[4] = v27;
               _os_log_impl(&dword_19D52D000, v26, OS_LOG_TYPE_INFO, "Got the following error in calculateAndUpdateDestinationUnlinkableToken(): '%{public}s", buf, 0xCu);
-              v29 = v92;
-              v92 = 0;
+              v29 = v93;
+              v93 = 0;
               if (v29)
               {
                 if (*v29 == 1)
@@ -1691,39 +1695,39 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
             }
 
             v31 = *(v30 + 208);
-            v32 = v88;
-            if (v88)
+            v32 = v89;
+            if (v89)
             {
-              atomic_fetch_add_explicit(v88, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(v89, 2u, memory_order_relaxed);
             }
 
-            v87 = v32;
+            v88 = v32;
             *buf = "[Private Click Measurement] ";
             *&buf[8] = 29;
-            WTF::tryMakeString<WTF::ASCIILiteral,WTF::String>(buf, &v87, &v92);
-            if (!v92)
+            WTF::tryMakeString<WTF::ASCIILiteral,WTF::String>(buf, &v88, &v93);
+            if (!v93)
             {
               __break(0xC471u);
               JUMPOUT(0x19DD5B5CCLL);
             }
 
-            (*(*v31 + 16))(v31, 2, &v92);
-            v33 = v92;
-            v92 = 0;
+            (*(*v31 + 16))(v31, 2, &v93);
+            v33 = v93;
+            v93 = 0;
             if (v33 && atomic_fetch_add_explicit(v33, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               WTF::StringImpl::destroy(v33, v8);
             }
 
-            v34 = v87;
-            v87 = 0;
+            v34 = v88;
+            v88 = 0;
             if (v34 && atomic_fetch_add_explicit(v34, 0xFFFFFFFE, memory_order_relaxed) == 2)
             {
               WTF::StringImpl::destroy(v34, v8);
             }
 
-            v35 = v88;
-            v88 = 0;
+            v35 = v89;
+            v89 = 0;
             if (!v35)
             {
               goto LABEL_137;
@@ -1747,10 +1751,10 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
               CFRelease(v19);
             }
 
-            v20 = v81;
-            if (v81)
+            v20 = v82;
+            if (v82)
             {
-              CFRetain(v81);
+              CFRetain(v82);
             }
 
             v21 = *(a2 + 64);
@@ -1760,10 +1764,10 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
               CFRelease(v21);
             }
 
-            v22 = v82;
-            if (v82)
+            v22 = v83;
+            if (v83)
             {
-              CFRetain(v82);
+              CFRetain(v83);
             }
 
             v23 = *(a2 + 72);
@@ -1773,10 +1777,10 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
               CFRelease(v23);
             }
 
-            v24 = v83;
-            if (v83)
+            v24 = v84;
+            if (v84)
             {
-              atomic_fetch_add_explicit(v83, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(v84, 2u, memory_order_relaxed);
             }
 
             v25 = *(a2 + 80);
@@ -1795,24 +1799,24 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
               CFRetain(v18);
             }
 
-            v36 = v81;
-            *(a2 + 64) = v81;
+            v36 = v82;
+            *(a2 + 64) = v82;
             if (v36)
             {
               CFRetain(v36);
             }
 
-            v37 = v82;
-            *(a2 + 72) = v82;
+            v37 = v83;
+            *(a2 + 72) = v83;
             if (v37)
             {
               CFRetain(v37);
             }
 
-            v38 = v83;
-            if (v83)
+            v38 = v84;
+            if (v84)
             {
-              atomic_fetch_add_explicit(v83, 2u, memory_order_relaxed);
+              atomic_fetch_add_explicit(v84, 2u, memory_order_relaxed);
             }
 
             *(a2 + 80) = v38;
@@ -1827,13 +1831,13 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
               goto LABEL_137;
             }
 
-            v94 = 0;
-            v92 = 0;
-            WTF::URL::invalidate(&v92);
+            v95 = 0;
+            v93 = 0;
+            WTF::URL::invalidate(&v93);
             WebCore::PCM::AttributionTriggerData::tokenSignatureURL(buf, a2);
-            LOBYTE(v88) = 0;
-            v91 = 0;
-            if (v97 == 1)
+            LOBYTE(v89) = 0;
+            v92 = 0;
+            if (v98 == 1)
             {
               v40 = *buf;
               if (*buf)
@@ -1841,17 +1845,17 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
                 atomic_fetch_add_explicit(*buf, 2u, memory_order_relaxed);
               }
 
-              v88 = v40;
-              v89 = *&buf[8];
-              v90 = v96;
-              v91 = 1;
+              v89 = v40;
+              v90 = *&buf[8];
+              v91 = v97;
+              v92 = 1;
             }
 
-            WebKit::PrivateClickMeasurementManager::configureForTokenSigning(v39, &v94, &v92, &v88);
-            if (v91 == 1)
+            WebKit::PrivateClickMeasurementManager::configureForTokenSigning(v39, &v95, &v93, &v89);
+            if (v92 == 1)
             {
-              v41 = v88;
-              v88 = 0;
+              v41 = v89;
+              v89 = 0;
               if (v41)
               {
                 if (atomic_fetch_add_explicit(v41, 0xFFFFFFFE, memory_order_relaxed) == 2)
@@ -1861,7 +1865,7 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
               }
             }
 
-            if (v97 == 1)
+            if (v98 == 1)
             {
               v42 = *buf;
               *buf = 0;
@@ -1874,13 +1878,13 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
               }
             }
 
-            v35 = v92;
-            if (!v92)
+            v35 = v93;
+            if (!v93)
             {
               goto LABEL_137;
             }
 
-            if (*(v92 + 1) && (v93 & 1) != 0)
+            if (*(v93 + 1) && (v94 & 1) != 0)
             {
               v43 = qword_1ED640FE0;
               if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_INFO))
@@ -1891,20 +1895,20 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
 
               v44 = *(v39 + 208);
               WTF::StringImpl::createWithoutCopyingNonEmpty();
-              v87 = *buf;
-              (*(*v44 + 16))(v44, 0, &v87);
-              v46 = v87;
-              v87 = 0;
+              v88 = *buf;
+              (*(*v44 + 16))(v44, 0, &v88);
+              v46 = v88;
+              v88 = 0;
               if (v46 && atomic_fetch_add_explicit(v46, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
                 WTF::StringImpl::destroy(v46, v45);
               }
 
-              WebCore::PCM::AttributionTriggerData::tokenSignatureJSON(&v86, a2);
-              v47 = v86;
-              v86 = 0;
-              v87 = v47;
-              v48 = v94;
+              WebCore::PCM::AttributionTriggerData::tokenSignatureJSON(&v87, a2);
+              v47 = v87;
+              v87 = 0;
+              v88 = v47;
+              v48 = v95;
               WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded((v39 + 16), v39);
               v49 = *(v39 + 16);
               atomic_fetch_add(v49, 1u);
@@ -1913,194 +1917,179 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
               *(a1 + 16) = 0;
               *(a1 + 24) = 0;
               *&buf[8] = v50;
-              LOWORD(v96) = *a2;
-              BYTE2(v96) = *(a2 + 2);
-              BYTE8(v96) = 0;
-              v97 = 0;
+              LOWORD(v97) = *a2;
+              BYTE2(v97) = *(a2 + 2);
+              BYTE8(v97) = 0;
+              v98 = 0;
               if (*(a2 + 16) == 1)
               {
-                v76 = *(a2 + 8);
+                v77 = *(a2 + 8);
                 *(a2 + 8) = 0;
-                *(&v96 + 1) = v76;
-                v97 = 1;
+                *(&v97 + 1) = v77;
+                v98 = 1;
               }
 
-              LOBYTE(v98) = 0;
-              v99 = 0;
+              LOBYTE(v99) = 0;
+              v100 = 0;
               if (*(a2 + 32) == 1)
               {
                 v51 = *(a2 + 24);
                 *(a2 + 24) = 0;
-                v98 = v51;
-                v99 = 1;
+                v99 = v51;
+                v100 = 1;
               }
 
-              LOBYTE(v100) = 0;
-              v101 = 0;
+              LOBYTE(v101) = 0;
+              v102 = 0;
               if (*(a2 + 48) == 1)
               {
-                v77 = *(a2 + 40);
+                v78 = *(a2 + 40);
                 *(a2 + 40) = 0;
-                v100 = v77;
-                v101 = 1;
+                v101 = v78;
+                v102 = 1;
               }
 
-              LOBYTE(v102) = 0;
-              v104 = 0;
+              LOBYTE(v103) = 0;
+              v105 = 0;
               if (*(a2 + 88) == 1)
               {
                 v52 = *(a2 + 56);
                 *(a2 + 56) = 0u;
                 v53 = *(a2 + 72);
                 *(a2 + 72) = 0u;
-                v102 = v52;
-                v103 = v53;
-                v104 = 1;
+                v103 = v52;
+                v104 = v53;
+                v105 = 1;
               }
 
-              LOBYTE(v105) = 0;
-              v107 = 0;
+              LOBYTE(v106) = 0;
+              v108 = 0;
               if (*(a2 + 120) == 1)
               {
                 v54 = *(a2 + 96);
                 *(a2 + 96) = 0;
                 *(a2 + 104) = 0;
-                v105 = v54;
+                v106 = v54;
                 v55 = *(a2 + 112);
                 *(a2 + 112) = 0;
-                v106 = v55;
-                v107 = 1;
+                v107 = v55;
+                v108 = 1;
               }
 
               WTF::String::isolatedCopy();
-              v56 = WTF::fastMalloc(0xA8);
-              *v56 = &unk_1F1107390;
-              *(v56 + 8) = *buf;
-              v57 = *&buf[8];
+              v57 = WTF::fastMalloc(v56, 0xA8);
+              *v57 = &unk_1F1107390;
+              v57[1] = *buf;
+              v58 = *&buf[8];
               *buf = 0;
               *&buf[8] = 0;
-              *(v56 + 16) = v57;
-              v58 = *&buf[16];
+              v57[2] = v58;
+              v59 = *&buf[16];
               *&buf[16] = 0;
-              *(v56 + 24) = v58;
-              *(v56 + 32) = v96;
-              *(v56 + 34) = BYTE2(v96);
-              *(v56 + 40) = 0;
-              *(v56 + 48) = 0;
-              if (v97 == 1)
+              v57[3] = v59;
+              *(v57 + 16) = v97;
+              *(v57 + 34) = BYTE2(v97);
+              *(v57 + 40) = 0;
+              *(v57 + 48) = 0;
+              if (v98 == 1)
               {
-                v78 = *(&v96 + 1);
-                *(&v96 + 1) = 0;
-                *(v56 + 40) = v78;
-                *(v56 + 48) = 1;
+                v79 = *(&v97 + 1);
+                *(&v97 + 1) = 0;
+                v57[5] = v79;
+                *(v57 + 48) = 1;
               }
 
-              *(v56 + 56) = 0;
-              *(v56 + 64) = 0;
-              if (v99 == 1)
+              *(v57 + 56) = 0;
+              *(v57 + 64) = 0;
+              if (v100 == 1)
               {
-                v59 = v98;
-                v98 = 0;
-                *(v56 + 56) = v59;
-                *(v56 + 64) = 1;
+                v60 = v99;
+                v99 = 0;
+                v57[7] = v60;
+                *(v57 + 64) = 1;
               }
 
-              *(v56 + 72) = 0;
-              *(v56 + 80) = 0;
-              if (v101 == 1)
+              *(v57 + 72) = 0;
+              *(v57 + 80) = 0;
+              if (v102 == 1)
               {
-                v79 = v100;
-                v100 = 0;
-                *(v56 + 72) = v79;
-                *(v56 + 80) = 1;
+                v80 = v101;
+                v101 = 0;
+                v57[9] = v80;
+                *(v57 + 80) = 1;
               }
 
-              *(v56 + 88) = 0;
-              *(v56 + 120) = 0;
-              if (v104 == 1)
+              *(v57 + 88) = 0;
+              *(v57 + 120) = 0;
+              if (v105 == 1)
               {
-                *(v56 + 88) = v102;
-                *(v56 + 104) = v103;
-                v60 = *(&v103 + 1);
-                v102 = 0u;
+                *(v57 + 11) = v103;
+                v57[13] = v104;
+                v61 = *(&v104 + 1);
                 v103 = 0u;
-                *(v56 + 112) = v60;
-                *(v56 + 120) = 1;
+                v104 = 0u;
+                v57[14] = v61;
+                *(v57 + 120) = 1;
               }
 
-              *(v56 + 128) = 0;
-              *(v56 + 152) = 0;
-              if (v107 == 1)
+              *(v57 + 128) = 0;
+              *(v57 + 152) = 0;
+              if (v108 == 1)
               {
-                *(v56 + 128) = v105;
-                v61 = *(&v105 + 1);
-                v105 = 0uLL;
-                *(v56 + 136) = v61;
-                v62 = v106;
-                v106 = 0;
-                *(v56 + 144) = v62;
-                *(v56 + 152) = 1;
+                v57[16] = v106;
+                v62 = *(&v106 + 1);
+                v106 = 0uLL;
+                v57[17] = v62;
+                v63 = v107;
+                v107 = 0;
+                v57[18] = v63;
+                *(v57 + 152) = 1;
               }
 
-              v63 = v108;
-              v108 = 0;
-              *(v56 + 160) = v63;
-              v85 = v56;
-              WebKit::PCM::NetworkLoader::start(&v92, &v87, v48, &v85);
-              v65 = v85;
-              v85 = 0;
-              if (v65)
+              v64 = v109;
+              v109 = 0;
+              v57[20] = v64;
+              v86 = v57;
+              WebKit::PCM::NetworkLoader::start(&v93, &v88, v48, &v86);
+              v66 = v86;
+              v86 = 0;
+              if (v66)
               {
-                (*(*v65 + 8))(v65);
+                (*(*v66 + 8))(v66);
               }
 
-              v66 = v108;
-              v108 = 0;
-              if (v66 && atomic_fetch_add_explicit(v66, 0xFFFFFFFE, memory_order_relaxed) == 2)
-              {
-                WTF::StringImpl::destroy(v66, v64);
-              }
-
-              WebCore::PCM::AttributionTriggerData::~AttributionTriggerData(&v96, v64);
-              v67 = *&buf[16];
-              *&buf[16] = 0;
+              v67 = v109;
+              v109 = 0;
               if (v67 && atomic_fetch_add_explicit(v67, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v67, v8);
+                WTF::StringImpl::destroy(v67, v65);
               }
 
-              v68 = *&buf[8];
-              *&buf[8] = 0;
+              WebCore::PCM::AttributionTriggerData::~AttributionTriggerData(&v97, v65);
+              v68 = *&buf[16];
+              *&buf[16] = 0;
               if (v68 && atomic_fetch_add_explicit(v68, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
                 WTF::StringImpl::destroy(v68, v8);
               }
 
-              v69 = *buf;
+              v69 = *&buf[8];
+              *&buf[8] = 0;
+              if (v69 && atomic_fetch_add_explicit(v69, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              {
+                WTF::StringImpl::destroy(v69, v8);
+              }
+
+              v70 = *buf;
               *buf = 0;
-              if (v69 && atomic_fetch_add(v69, 0xFFFFFFFF) == 1)
+              if (v70 && atomic_fetch_add(v70, 0xFFFFFFFF) == 1)
               {
-                atomic_store(1u, v69);
-                WTF::fastFree(v69, v8);
+                atomic_store(1u, v70);
+                WTF::fastFree(v70, v8);
               }
 
-              v70 = v87;
-              v87 = 0;
-              if (v70)
-              {
-                if (*v70 == 1)
-                {
-                  WTF::JSONImpl::Value::operator delete();
-                }
-
-                else
-                {
-                  --*v70;
-                }
-              }
-
-              v71 = v86;
-              v86 = 0;
+              v71 = v88;
+              v88 = 0;
               if (v71)
               {
                 if (*v71 == 1)
@@ -2114,8 +2103,23 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
                 }
               }
 
-              v35 = v92;
-              v92 = 0;
+              v72 = v87;
+              v87 = 0;
+              if (v72)
+              {
+                if (*v72 == 1)
+                {
+                  WTF::JSONImpl::Value::operator delete();
+                }
+
+                else
+                {
+                  --*v72;
+                }
+              }
+
+              v35 = v93;
+              v93 = 0;
               if (!v35)
               {
                 goto LABEL_137;
@@ -2124,7 +2128,7 @@ void WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::handle
 
             else
             {
-              v92 = 0;
+              v93 = 0;
             }
 
 LABEL_89:
@@ -2134,39 +2138,39 @@ LABEL_89:
             }
 
 LABEL_137:
-            if (v84 == 255)
+            if (v85 == 255)
             {
               goto LABEL_149;
             }
 
-            if (!v84)
+            if (!v85)
             {
-              v72 = v83;
+              v73 = v84;
+              v84 = 0;
+              if (v73 && atomic_fetch_add_explicit(v73, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              {
+                WTF::StringImpl::destroy(v73, v8);
+              }
+
+              v74 = v83;
               v83 = 0;
-              if (v72 && atomic_fetch_add_explicit(v72, 0xFFFFFFFE, memory_order_relaxed) == 2)
-              {
-                WTF::StringImpl::destroy(v72, v8);
-              }
-
-              v73 = v82;
-              v82 = 0;
-              if (v73)
-              {
-                CFRelease(v73);
-              }
-
-              v74 = v81;
-              v81 = 0;
               if (v74)
               {
                 CFRelease(v74);
               }
 
-              v75 = cf;
-              cf = 0;
+              v75 = v82;
+              v82 = 0;
               if (v75)
               {
                 CFRelease(v75);
+              }
+
+              v76 = cf;
+              cf = 0;
+              if (v76)
+              {
+                CFRelease(v76);
               }
 
               goto LABEL_149;
@@ -2445,7 +2449,7 @@ LABEL_23:
               goto LABEL_56;
             }
 
-            if ((v33 & 0x80000000) != 0 || (WTF::tryFastCompactMalloc((v33 + 20)), (v34 = *&v82[0]) == 0))
+            if ((v33 & 0x80000000) != 0 || (WTF::tryFastCompactMalloc(v82, (v33 + 20)), (v34 = *&v82[0]) == 0))
             {
 LABEL_69:
               __break(0xC471u);
@@ -2453,7 +2457,7 @@ LABEL_69:
             }
 
             qmemcpy((*&v82[0] + 20), "[Private Click Measurement] Setting timer for firing attribution request to the debug mode timeout of ", 102);
-            **&v82[0] = 2;
+            *v34 = 2;
             *(v34 + 4) = v33;
             *(v34 + 8) = v34 + 20;
             *(v34 + 16) = 4;
@@ -2570,13 +2574,13 @@ LABEL_25:
   return WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v46, a2);
 }
 
-uint64_t WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+uint64_t *WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
-  v8[0] = a1;
-  v8[1] = a2;
-  v7[0] = a3;
-  v7[1] = a4;
-  result = WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral>(v8, v7, a5);
+  v9[0] = a1;
+  v9[1] = a2;
+  v8[0] = a3;
+  v8[1] = a4;
+  result = WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral>(v9, v8, a5);
   if (!*a5)
   {
     __break(0xC471u);
@@ -2585,52 +2589,52 @@ uint64_t WTF::makeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral>@<X0>(uint64
   return result;
 }
 
-uint64_t WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral>@<X0>(void *a1@<X0>, void *a2@<X2>, uint64_t *a3@<X8>)
+uint64_t *WTF::tryMakeString<WTF::ASCIILiteral,double,WTF::ASCIILiteral>@<X0>(uint64_t *a1@<X0>, void *a3@<X2>, uint64_t *x8_0@<X8>)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = a1[1];
-  v5 = v4 != 0;
-  v6 = v4 - 1;
-  if (!v5)
+  v17 = *MEMORY[0x1E69E9840];
+  v5 = a1[1];
+  v6 = v5 != 0;
+  v7 = v5 - 1;
+  if (!v6)
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v13[0] = *a1;
-  v13[1] = v6;
-  if (v6 >> 31)
+  v14[0] = *a1;
+  v14[1] = v7;
+  if (v7 >> 31)
   {
     goto LABEL_8;
   }
 
   WTF::numberToStringAndSize();
-  v15 = v8;
-  v9 = a2[1];
-  v5 = v9 != 0;
-  v10 = v9 - 1;
-  if (!v5)
+  v16 = v9;
+  v10 = a3[1];
+  v6 = v10 != 0;
+  v11 = v10 - 1;
+  if (!v6)
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  v12[0] = *a2;
-  v12[1] = v10;
-  if (v10 >> 31)
+  v13[0] = *a3;
+  v13[1] = v11;
+  if (v11 >> 31)
   {
 LABEL_8:
     __break(0xC471u);
     JUMPOUT(0x19DD5BDECLL);
   }
 
-  return WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(v13, v14, v12, a3);
+  return WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(v14, v15, v13, x8_0);
 }
 
-uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t result@<X0>, int8x16_t *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t *WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t *result@<X0>, __int128 *a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v4 = a2[7].i32[3];
+  v4 = *(a2 + 31);
   v5 = *(a3 + 8);
-  if (((v4 | v5) & 0x80000000) != 0 || ((v6 = result, v7 = *(result + 8), v8 = __OFADD__(v4, v5), v9 = v4 + v5, !v8) ? (v10 = 0) : (v10 = 1), (v7 & 0x80000000) != 0 || (v10 & 1) != 0 || (result = (v7 + v9), __OFADD__(v7, v9))))
+  if (((v4 | v5) & 0x80000000) != 0 || ((v6 = result, v7 = result[1], v8 = __OFADD__(v4, v5), v9 = v4 + v5, !v8) ? (v10 = 0) : (v10 = 1), (v7 & 0x80000000) != 0 || (v10 & 1) != 0 || (result = (v7 + v9), __OFADD__(v7, v9))))
   {
     *a4 = 0;
   }
@@ -2650,13 +2654,13 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILiteral
     v15 = a2[3];
     v16[2] = a2[2];
     v16[3] = v15;
-    return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(result, 1, v11, v7, v16, *a3, v5, a4);
+    return WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(result, 1uLL, v11, v7, v16, *a3, v5, a4);
   }
 
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t result@<X0>, int a2@<W1>, unint64_t a3@<X2>, size_t a4@<X3>, int8x16_t *a5@<X4>, _OWORD *a6@<X5>, size_t a7@<X6>, uint64_t *a8@<X8>)
+uint64_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<double,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, size_t a4@<X3>, int8x16_t *a5@<X4>, _OWORD *a6@<X5>, size_t a7@<X6>, uint64_t *a8@<X8>)
 {
   v14 = result;
   v57 = *MEMORY[0x1E69E9840];
@@ -2667,7 +2671,7 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::
     {
       if ((result & 0x80000000) == 0)
       {
-        result = WTF::tryFastCompactMalloc((result + 20));
+        result = WTF::tryFastCompactMalloc(__src.i64, (result + 20));
         v17 = __src.i64[0];
         if (__src.i64[0])
         {
@@ -2775,7 +2779,7 @@ LABEL_20:
     goto LABEL_19;
   }
 
-  result = WTF::tryFastCompactMalloc((2 * result + 20));
+  result = WTF::tryFastCompactMalloc(__src.i64, (2 * result + 20));
   v17 = __src.i64[0];
   if (__src.i64[0])
   {
@@ -2931,34 +2935,34 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::fi
   return WTF::fastFree(this, a2);
 }
 
-WTF *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::fireConversionRequest(WebCore::PrivateClickMeasurement const&,WebCore::PCM::AttributionReportEndpoint)::$_0,void,WebCore::PrivateClickMeasurement&&,WTF::String const&>::call(WTF *result, uint64_t a2)
+WTF *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::fireConversionRequest(WebCore::PrivateClickMeasurement const&,WebCore::PCM::AttributionReportEndpoint)::$_0,void,WebCore::PrivateClickMeasurement&&,WTF::String const&>::call(WTF *result, uint64_t a2, uint64_t *a3)
 {
-  v2 = *(result + 1);
-  if (v2)
+  v3 = *(result + 1);
+  if (v3)
   {
-    v3 = *(v2 + 8);
-    if (v3)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      v5 = result;
-      ++v3[2];
+      v6 = result;
+      ++v4[2];
       result = WTF::base64Decode();
-      if (v22 == 1)
+      if (v24 == 1)
       {
         result = PAL::CryptoDigest::create();
-        if ((v22 & 1) == 0)
+        if ((v24 & 1) == 0)
         {
           goto LABEL_28;
         }
 
         PAL::CryptoDigest::addBytes();
-        PAL::CryptoDigest::computeHash(&v16, v19);
+        PAL::CryptoDigest::computeHash(&v18, v21);
         WTF::base64EncodeToString();
-        result = v16;
-        if (v16)
+        result = v18;
+        if (v18)
         {
-          v16 = 0;
-          v17 = 0;
-          result = WTF::fastFree(result, v6);
+          v18 = 0;
+          v19 = 0;
+          result = WTF::fastFree(result, v7);
         }
 
         if ((*(a2 + 296) & 1) == 0)
@@ -2968,72 +2972,72 @@ LABEL_28:
           return result;
         }
 
-        if (WTF::equal(v18, *(a2 + 288), v7) && *(a2 + 184) == 1)
+        if (WTF::equal(v20, *(a2 + 288), v8) && *(a2 + 184) == 1)
         {
-          v9 = *(v5 + 16);
+          v10 = *(v6 + 16);
           if (*(a2 + 176) == 1)
           {
-            WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v3 + 4, v3);
-            v10 = *(v3 + 2);
-            if (v10)
+            WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v4 + 4, v4);
+            v12 = *(v4 + 2);
+            if (v12)
             {
-              atomic_fetch_add(v10, 1u);
+              add = atomic_fetch_add(v12, 1u);
             }
 
-            v11 = *(v5 + 16);
-            v12 = WTF::fastMalloc(0x18);
-            *v12 = &unk_1F1107458;
-            *(v12 + 8) = v10;
-            *(v12 + 16) = v11;
-            v16 = v12;
-            WebKit::PrivateClickMeasurementManager::getTokenPublicKey(v3, a2, v9, 0, &v16);
-            if (v16)
+            v13 = *(v6 + 16);
+            v14 = WTF::fastMalloc(add, 0x18);
+            *v14 = &unk_1F1107458;
+            v14[1] = v12;
+            *(v14 + 16) = v13;
+            v18 = v14;
+            WebKit::PrivateClickMeasurementManager::getTokenPublicKey(v4, a2, v10, 0, &v18);
+            if (v18)
             {
-              (*(*v16 + 8))(v16);
+              (*(*v18 + 8))(v18);
             }
           }
 
           else
           {
-            WebKit::PrivateClickMeasurementManager::fireConversionRequestImpl(v3, a2, *(v5 + 16));
+            WebKit::PrivateClickMeasurementManager::fireConversionRequestImpl(v4, a2, *(v6 + 16));
           }
         }
 
-        v13 = v18;
-        v18 = 0;
-        if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v15 = v20;
+        v20 = 0;
+        if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v13, v8);
+          WTF::StringImpl::destroy(v15, v9);
         }
 
-        result = v19;
-        v19 = 0;
+        result = v21;
+        v21 = 0;
         if (result)
         {
           PAL::CryptoDigest::~CryptoDigest(result);
-          result = bmalloc::api::tzoneFree(v14, v15);
+          result = bmalloc::api::tzoneFree(v16, v17);
         }
 
-        if (v22)
+        if (v24)
         {
-          result = v20;
-          if (v20)
+          result = v22;
+          if (v22)
           {
-            v20 = 0;
-            v21 = 0;
-            result = WTF::fastFree(result, v8);
+            v22 = 0;
+            v23 = 0;
+            result = WTF::fastFree(result, v9);
           }
         }
       }
 
-      if (v3[2] == 1)
+      if (v4[2] == 1)
       {
-        return (*(*v3 + 8))(v3);
+        return (*(*v4 + 8))(v4);
       }
 
       else
       {
-        --v3[2];
+        --v4[2];
       }
     }
   }
@@ -3069,34 +3073,34 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::fi
   return WTF::fastFree(this, a2);
 }
 
-WTF *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::fireConversionRequest(WebCore::PrivateClickMeasurement const&,WebCore::PCM::AttributionReportEndpoint)::$_0::operator() const(WebCore::PrivateClickMeasurement&&,WTF::String const&)::{lambda(WebCore::PrivateClickMeasurement&,WTF::String const)#1},void,WebCore::PrivateClickMeasurement&,WTF::String const>::call(WTF *result, uint64_t a2)
+WTF *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::fireConversionRequest(WebCore::PrivateClickMeasurement const&,WebCore::PCM::AttributionReportEndpoint)::$_0::operator() const(WebCore::PrivateClickMeasurement&&,WTF::String const&)::{lambda(WebCore::PrivateClickMeasurement&,WTF::String const)#1},void,WebCore::PrivateClickMeasurement&,WTF::String const>::call(WTF *result, uint64_t a2, uint64_t *a3)
 {
-  v2 = *(result + 1);
-  if (v2)
+  v3 = *(result + 1);
+  if (v3)
   {
-    v3 = *(v2 + 8);
-    if (v3)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      v5 = result;
-      ++v3[2];
+      v6 = result;
+      ++v4[2];
       result = WTF::base64Decode();
-      if (v18 == 1)
+      if (v19 == 1)
       {
         result = PAL::CryptoDigest::create();
-        if ((v18 & 1) == 0)
+        if ((v19 & 1) == 0)
         {
           goto LABEL_23;
         }
 
         PAL::CryptoDigest::addBytes();
-        PAL::CryptoDigest::computeHash(&v12, v15);
+        PAL::CryptoDigest::computeHash(&v13, v16);
         WTF::base64EncodeToString();
-        result = v12;
-        if (v12)
+        result = v13;
+        if (v13)
         {
-          v12 = 0;
           v13 = 0;
-          result = WTF::fastFree(result, v6);
+          v14 = 0;
+          result = WTF::fastFree(result, v7);
         }
 
         if ((*(a2 + 184) & 1) == 0 || (*(a2 + 176) & 1) == 0)
@@ -3106,46 +3110,46 @@ LABEL_23:
           return result;
         }
 
-        if (WTF::equal(v14, *(a2 + 168), v7))
+        if (WTF::equal(v15, *(a2 + 168), v8))
         {
-          WebKit::PrivateClickMeasurementManager::fireConversionRequestImpl(v3, a2, *(v5 + 16));
+          WebKit::PrivateClickMeasurementManager::fireConversionRequestImpl(v4, a2, *(v6 + 16));
         }
 
-        v9 = v14;
-        v14 = 0;
-        if (v9 && atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
-        {
-          WTF::StringImpl::destroy(v9, v8);
-        }
-
-        result = v15;
+        v10 = v15;
         v15 = 0;
+        if (v10 && atomic_fetch_add_explicit(v10, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        {
+          WTF::StringImpl::destroy(v10, v9);
+        }
+
+        result = v16;
+        v16 = 0;
         if (result)
         {
           PAL::CryptoDigest::~CryptoDigest(result);
-          result = bmalloc::api::tzoneFree(v10, v11);
+          result = bmalloc::api::tzoneFree(v11, v12);
         }
 
-        if (v18)
+        if (v19)
         {
-          result = v16;
-          if (v16)
+          result = v17;
+          if (v17)
           {
-            v16 = 0;
             v17 = 0;
-            result = WTF::fastFree(result, v8);
+            v18 = 0;
+            result = WTF::fastFree(result, v9);
           }
         }
       }
 
-      if (v3[2] == 1)
+      if (v4[2] == 1)
       {
-        return (*(*v3 + 8))(v3);
+        return (*(*v4 + 8))(v4);
       }
 
       else
       {
-        --v3[2];
+        --v4[2];
       }
     }
   }
@@ -3181,34 +3185,34 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::fi
   return WTF::fastFree(this, a2);
 }
 
-WTF *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::fireConversionRequest(WebCore::PrivateClickMeasurement const&,WebCore::PCM::AttributionReportEndpoint)::$_1,void,WebCore::PrivateClickMeasurement&&,WTF::String const&>::call(WTF *result, uint64_t a2)
+WTF *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::fireConversionRequest(WebCore::PrivateClickMeasurement const&,WebCore::PCM::AttributionReportEndpoint)::$_1,void,WebCore::PrivateClickMeasurement&&,WTF::String const&>::call(WTF *result, uint64_t a2, uint64_t *a3)
 {
-  v2 = *(result + 1);
-  if (v2)
+  v3 = *(result + 1);
+  if (v3)
   {
-    v3 = *(v2 + 8);
-    if (v3)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      v5 = result;
-      ++v3[2];
+      v6 = result;
+      ++v4[2];
       result = WTF::base64Decode();
-      if (v17 == 1)
+      if (v18 == 1)
       {
         result = PAL::CryptoDigest::create();
-        if ((v17 & 1) == 0)
+        if ((v18 & 1) == 0)
         {
           goto LABEL_23;
         }
 
         PAL::CryptoDigest::addBytes();
-        PAL::CryptoDigest::computeHash(&v11, v14);
+        PAL::CryptoDigest::computeHash(&v12, v15);
         WTF::base64EncodeToString();
-        result = v11;
-        if (v11)
+        result = v12;
+        if (v12)
         {
-          v11 = 0;
           v12 = 0;
-          result = WTF::fastFree(result, v6);
+          v13 = 0;
+          result = WTF::fastFree(result, v7);
         }
 
         if ((*(a2 + 184) & 1) == 0)
@@ -3218,46 +3222,46 @@ LABEL_23:
           return result;
         }
 
-        if (*(a2 + 176) == 1 && WTF::equal(v13, *(a2 + 168), v7))
+        if (*(a2 + 176) == 1 && WTF::equal(v14, *(a2 + 168), v8))
         {
-          WebKit::PrivateClickMeasurementManager::fireConversionRequestImpl(v3, a2, *(v5 + 16));
+          WebKit::PrivateClickMeasurementManager::fireConversionRequestImpl(v4, a2, *(v6 + 16));
         }
 
-        v8 = v13;
-        v13 = 0;
-        if (v8 && atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
-        {
-          WTF::StringImpl::destroy(v8, v6);
-        }
-
-        result = v14;
+        v9 = v14;
         v14 = 0;
+        if (v9 && atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        {
+          WTF::StringImpl::destroy(v9, v7);
+        }
+
+        result = v15;
+        v15 = 0;
         if (result)
         {
           PAL::CryptoDigest::~CryptoDigest(result);
-          result = bmalloc::api::tzoneFree(v9, v10);
+          result = bmalloc::api::tzoneFree(v10, v11);
         }
 
-        if (v17)
+        if (v18)
         {
-          result = v15;
-          if (v15)
+          result = v16;
+          if (v16)
           {
-            v15 = 0;
             v16 = 0;
-            result = WTF::fastFree(result, v6);
+            v17 = 0;
+            result = WTF::fastFree(result, v7);
           }
         }
       }
 
-      if (v3[2] == 1)
+      if (v4[2] == 1)
       {
-        return (*(*v3 + 8))(v3);
+        return (*(*v4 + 8))(v4);
       }
 
       else
       {
-        --v3[2];
+        --v4[2];
       }
     }
   }
@@ -3400,10 +3404,10 @@ WTF::WallTime *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManag
   {
     v9 = *(v6 + 208);
     v31 = *(v6 + 192);
-    *v32 = v9;
+    v32[0] = v9;
     if (BYTE8(v31))
     {
-      if (!BYTE8(v9) || (v10 = v32, v32[0] >= *&v31))
+      if (!BYTE8(v9) || (v10 = v32, *v32 >= *&v31))
       {
         v10 = &v31;
       }
@@ -3455,13 +3459,13 @@ LABEL_12:
 
     v17 = *(v6 + 208);
     v31 = *(v6 + 192);
-    *v32 = v17;
+    v32[0] = v17;
     if (BYTE8(v31))
     {
       if (BYTE8(v17))
       {
         v18 = &v31;
-        if (*&v31 < v32[0])
+        if (*&v31 < *v32)
         {
           v18 = v32;
         }
@@ -3497,8 +3501,7 @@ LABEL_28:
         {
           WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v21, v3);
           v22 = *(v3 + 16);
-          atomic_fetch_add(v22, 1u);
-          v23 = WTF::fastMalloc(0x18);
+          v23 = WTF::fastMalloc(atomic_fetch_add(v22, 1u), 0x18);
           v24 = &unk_1F1107430;
         }
 
@@ -3506,13 +3509,12 @@ LABEL_28:
         {
           WTF::WeakPtrFactory<WebPushD::PushServiceConnection,WTF::DefaultWeakPtrImpl>::initializeIfNeeded(v21, v3);
           v22 = *(v3 + 16);
-          atomic_fetch_add(v22, 1u);
-          v23 = WTF::fastMalloc(0x18);
+          v23 = WTF::fastMalloc(atomic_fetch_add(v22, 1u), 0x18);
           v24 = &unk_1F1107480;
         }
 
         *v23 = v24;
-        *(v23 + 8) = v22;
+        v23[1] = v22;
         *(v23 + 16) = v13 & 1;
         v30 = v23;
         WebKit::PrivateClickMeasurementManager::getTokenPublicKey(v3, &v31, v13 & 1, 0, &v30);
@@ -3613,7 +3615,7 @@ void *WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::destr
   a1[2] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = a1[1];
@@ -3634,7 +3636,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PrivateClickMeasurementManager::de
   *(this + 2) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 1);
@@ -3752,7 +3754,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN6WebKit3PCM25handlePCMMessageWithRepl
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -3894,14 +3896,14 @@ LABEL_11:
   return result;
 }
 
-uint64_t WebKit::Daemon::Coder<WTF::String,void>::decodeStringText<unsigned char,WebKit::Daemon::Decoder>@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+void *WebKit::Daemon::Coder<WTF::String,void>::decodeStringText<unsigned char,WebKit::Daemon::Decoder>@<X0>(void *result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
 {
-  if (*(result + 8) - *(result + 16) >= a2)
+  if (result[1] - result[2] >= a2)
   {
     v4 = result;
     result = WTF::StringImpl::createUninitialized();
-    v5 = *(v4 + 16);
-    if (*(v4 + 8) < v5)
+    v5 = v4[2];
+    if (v4[1] < v5)
     {
       __break(1u);
     }
@@ -3909,7 +3911,7 @@ uint64_t WebKit::Daemon::Coder<WTF::String,void>::decodeStringText<unsigned char
     else
     {
       result = 0;
-      *(v4 + 16) = *(v4 + 16);
+      v4[2] = v4[2];
       *a3 = v6;
       *(a3 + 8) = 1;
     }
@@ -3924,13 +3926,13 @@ uint64_t WebKit::Daemon::Coder<WTF::String,void>::decodeStringText<unsigned char
   return result;
 }
 
-uint64_t WebKit::Daemon::Coder<WTF::String,void>::decodeStringText<char16_t,WebKit::Daemon::Decoder>@<X0>(uint64_t result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
+void *WebKit::Daemon::Coder<WTF::String,void>::decodeStringText<char16_t,WebKit::Daemon::Decoder>@<X0>(void *result@<X0>, unsigned int a2@<W1>, uint64_t a3@<X8>)
 {
-  if (*(result + 8) - *(result + 16) >= 2 * a2)
+  if (result[1] - result[2] >= 2 * a2)
   {
     v4 = result;
     result = WTF::StringImpl::createUninitialized();
-    if (*(v4 + 8) < *(v4 + 16))
+    if (v4[1] < v4[2])
     {
       __break(1u);
     }
@@ -3938,7 +3940,7 @@ uint64_t WebKit::Daemon::Coder<WTF::String,void>::decodeStringText<char16_t,WebK
     else
     {
       result = 0;
-      *(v4 + 16) = *(v4 + 16);
+      v4[2] = v4[2];
       *a3 = v5;
       *(a3 + 8) = 1;
     }
@@ -3973,7 +3975,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN6WebKit3PCM25handlePCMMessageWithRepl
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4018,7 +4020,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN6WebKit3PCM25handlePCMMessageWithRepl
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4063,7 +4065,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN6WebKit3PCM25handlePCMMessageWithRepl
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4081,7 +4083,7 @@ WTF::StringImpl *_ZN3WTF6Detail15CallableWrapperIZN6WebKit3PCM25handlePCMMessage
   v13 = 0;
   v14 = 0;
   WebKit::Daemon::Coder<WTF::String,void>::encode<WebKit::Daemon::Encoder>(&v13, &v10);
-  WebKit::Daemon::Encoder::takeBuffer(&v13, &v11);
+  WebKit::Daemon::Encoder::takeBuffer(&v11, &v13);
   v5 = v13;
   if (v13)
   {
@@ -4197,7 +4199,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN6WebKit3PCM25handlePCMMessageWithRepl
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4242,7 +4244,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZN6WebKit3PCM25handlePCMMessageWithRepl
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4287,7 +4289,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZNK6WebKit3PCM12ManagerProxy20sendMessa
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4331,7 +4333,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZNK6WebKit3PCM12ManagerProxy20sendMessa
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4375,7 +4377,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZNK6WebKit3PCM12ManagerProxy20sendMessa
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4419,13 +4421,13 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZNK6WebKit3PCM12ManagerProxy20sendMessa
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
 }
 
-WTF::StringImpl *_ZN3WTF6Detail15CallableWrapperIZNK6WebKit3PCM12ManagerProxy20sendMessageWithReplyILNS3_11MessageTypeE6EJEJNS_6StringEEEEvONS_17CompletionHandlerIFvDpT1_EEEDpOT0_EUlT_E_vJONS_6VectorIhLm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEEEEE4callESN_(uint64_t a1, uint64_t a2, __n128 a3)
+WTF::StringImpl *_ZN3WTF6Detail15CallableWrapperIZNK6WebKit3PCM12ManagerProxy20sendMessageWithReplyILNS3_11MessageTypeE6EJEJNS_6StringEEEEvONS_17CompletionHandlerIFvDpT1_EEEDpOT0_EUlT_E_vJONS_6VectorIhLm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEEEEE4callESN_(uint64_t a1, unint64_t a2, __n128 a3)
 {
   a3.n128_u64[0] = 0;
   v4 = *a2;
@@ -4434,7 +4436,7 @@ WTF::StringImpl *_ZN3WTF6Detail15CallableWrapperIZNK6WebKit3PCM12ManagerProxy20s
   v10[0] = v4;
   v10[1] = v5;
   v10[2] = 0;
-  v6 = WTF::fastMalloc(0x10);
+  v6 = WTF::fastMalloc(v5, 0x10);
   v7 = *(a1 + 8);
   *(a1 + 8) = 0;
   *v6 = &unk_1F1102268;
@@ -4500,7 +4502,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZNK6WebKit3PCM12ManagerProxy20sendMessa
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4544,7 +4546,7 @@ uint64_t _ZN3WTF6Detail15CallableWrapperIZNK6WebKit3PCM12ManagerProxy20sendMessa
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4583,7 +4585,7 @@ void *WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::PersistentStore
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return a1;
@@ -4604,7 +4606,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::PersistentSt
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4810,7 +4812,7 @@ void *WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::insertPrivateCl
   a1[43] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WebCore::PrivateClickMeasurement::~PrivateClickMeasurement((a1 + 3), a2);
@@ -4832,7 +4834,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::insertPrivat
   a1[43] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WebCore::PrivateClickMeasurement::~PrivateClickMeasurement((a1 + 3), a2);
@@ -4847,29 +4849,29 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::insertPrivat
   return WTF::fastFree(a1, v4);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::insertPrivateClickMeasurement(WebCore::PrivateClickMeasurement &&,WebKit::PrivateClickMeasurementAttributionType,WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(uint64_t a1)
+uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::insertPrivateClickMeasurement(WebCore::PrivateClickMeasurement &&,WebKit::PrivateClickMeasurementAttributionType,WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(uint64_t a1, unint64_t a2)
 {
-  v2 = *(*(a1 + 8) + 16);
-  if (v2)
+  v3 = *(*(a1 + 8) + 16);
+  if (v3)
   {
-    ++v2[26];
-    WebKit::PCM::Database::insertPrivateClickMeasurement(v2, a1 + 24, *(a1 + 336));
-    if (v2[26] == 1)
+    ++v3[26];
+    WebKit::PCM::Database::insertPrivateClickMeasurement(v3, (a1 + 24), *(a1 + 336));
+    if (v3[26] == 1)
     {
-      (*(*v2 + 64))(v2);
+      (*(*v3 + 64))(v3);
     }
 
     else
     {
-      --v2[26];
+      --v3[26];
     }
   }
 
-  v3 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>((a1 + 344), &v5);
-  WTF::RunLoop::mainSingleton(v3);
+  v4 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>((a1 + 344), &v6);
+  WTF::RunLoop::mainSingleton(v4);
   WTF::RunLoop::dispatch();
-  result = v5;
-  v5 = 0;
+  result = v6;
+  v6 = 0;
   if (result)
   {
     return (*(*result + 8))(result);
@@ -4900,7 +4902,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::markAllUnatt
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -4960,299 +4962,300 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::attributePri
   return WTF::fastFree(a1, v3);
 }
 
-unsigned int *WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::attributePrivateClickMeasurement(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WTF::String const&,WebCore::PCM::AttributionTriggerData &&,WebCore::PrivateClickMeasurement::IsRunningLayoutTest,WTF::CompletionHandler<void ()(std::optional<WebCore::PCM::AttributionSecondsUntilSendData> &&,WebKit::PCM::DebugInfo &&)> &&)::$_0,void>::call(uint64_t a1)
+unsigned int *WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::attributePrivateClickMeasurement(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WTF::String const&,WebCore::PCM::AttributionTriggerData &&,WebCore::PrivateClickMeasurement::IsRunningLayoutTest,WTF::CompletionHandler<void ()(std::optional<WebCore::PCM::AttributionSecondsUntilSendData> &&,WebKit::PCM::DebugInfo &&)> &&)::$_0,void>::call(uint64_t a1, unint64_t a2)
 {
-  v101 = *MEMORY[0x1E69E9840];
-  v2 = *(*(a1 + 8) + 16);
-  if (v2)
+  v104 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 8);
+  v4 = v3[2];
+  if (v4)
   {
-    ++*(v2 + 104);
-    WebKit::PCM::Database::clearExpiredPrivateClickMeasurement(v2);
-    v3 = *(a1 + 48);
-    if (v3 > 0xF || (v4 = *(a1 + 49), v4 >= 0x40))
+    ++*(v4 + 104);
+    WebKit::PCM::Database::clearExpiredPrivateClickMeasurement(v4);
+    v5 = *(a1 + 48);
+    if (v5 > 0xF || (v6 = *(a1 + 49), v6 >= 0x40))
     {
-      v32 = qword_1ED640FE0;
+      v34 = qword_1ED640FE0;
       if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_19D52D000, v32, OS_LOG_TYPE_INFO, "Got an invalid attribution.", buf, 2u);
+        _os_log_impl(&dword_19D52D000, v34, OS_LOG_TYPE_INFO, "Got an invalid attribution.", buf, 2u);
       }
 
-      LOBYTE(v92) = 2;
+      LOBYTE(v95) = 2;
       WTF::StringImpl::createWithoutCopyingNonEmpty();
-      v33 = WTF::fastMalloc(0x10);
-      v35 = v33;
-      *v33 = v92;
-      v36 = v93;
-      if (v93)
+      v36 = WTF::fastMalloc(v35, 0x10);
+      v38 = v36;
+      *v36 = v95;
+      v39 = v96;
+      if (v96)
       {
-        atomic_fetch_add_explicit(v93, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v96, 2u, memory_order_relaxed);
       }
 
-      *(v33 + 8) = v36;
-      v96[0] = 0;
-      v97 = 0;
+      v36[1] = v39;
+      v99[0] = 0;
+      v100 = 0;
       *buf = 0;
       *&buf[8] = 0;
-      v98 = v33;
-      v99 = 0x100000001;
-      WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(buf, v34);
-      v38 = v93;
-      v93 = 0;
-      if (v38 && atomic_fetch_add_explicit(v38, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      v101 = v36;
+      v102 = 0x100000001;
+      WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(buf, v37);
+      v41 = v96;
+      v96 = 0;
+      if (v41 && atomic_fetch_add_explicit(v41, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v38, v37);
+        WTF::StringImpl::destroy(v41, v40);
       }
 
-      *buf = *v96;
-      *&buf[16] = *&v96[16];
-      LOBYTE(v86) = v97;
-      v39 = v35 + 16;
+      *buf = *v99;
+      *&buf[16] = *&v99[16];
+      LOBYTE(v89) = v100;
+      v42 = v38 + 2;
       goto LABEL_79;
     }
 
-    v81 = 0;
-    v82 = 0;
-    v5 = qword_1ED640FE0;
+    v84 = 0;
+    v85 = 0;
+    v7 = qword_1ED640FE0;
     if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_INFO))
     {
       *buf = 67109376;
-      *&buf[4] = v3;
+      *&buf[4] = v5;
       *&buf[8] = 1024;
-      *&buf[10] = v4;
-      _os_log_impl(&dword_19D52D000, v5, OS_LOG_TYPE_INFO, "Got an attribution with attribution trigger data: %u and priority: %u.", buf, 0xEu);
+      *&buf[10] = v6;
+      _os_log_impl(&dword_19D52D000, v7, OS_LOG_TYPE_INFO, "Got an attribution with attribution trigger data: %u and priority: %u.", buf, 0xEu);
     }
 
     buf[0] = 4;
-    WTF::makeString<WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral>(&buf[8], "[Private Click Measurement] Got an attribution with attribution trigger data: '", 80, v3, v4, "'.", 3);
-    v6 = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v81, 1uLL, buf);
-    v8 = HIDWORD(v82);
-    v9 = v81;
-    v10 = v81 + 16 * HIDWORD(v82);
-    *v10 = *v6;
-    v11 = *(v6 + 8);
-    *(v6 + 8) = 0;
-    *(v10 + 8) = v11;
-    v12 = (v8 + 1);
-    HIDWORD(v82) = v8 + 1;
-    v13 = *&buf[8];
+    WTF::makeString<WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral>(&buf[8], "[Private Click Measurement] Got an attribution with attribution trigger data: '", 80, v5, v6, "'.", 3);
+    v8 = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v84, 1uLL, buf);
+    v10 = HIDWORD(v85);
+    v11 = v84;
+    v12 = &v84[2 * HIDWORD(v85)];
+    *v12 = *v8;
+    v13 = *(v8 + 8);
+    *(v8 + 8) = 0;
+    v12[1] = v13;
+    v14 = (v10 + 1);
+    HIDWORD(v85) = v10 + 1;
+    v15 = *&buf[8];
     *&buf[8] = 0;
-    if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v13, v7);
+      WTF::StringImpl::destroy(v15, v9);
     }
 
-    v14 = WebKit::PCM::Database::domainID(v2, (a1 + 24));
-    v15 = WebKit::PCM::Database::domainID(v2, (a1 + 32));
-    if (HIDWORD(v14) && HIDWORD(v15))
+    v16 = WebKit::PCM::Database::domainID(v4, (a1 + 24));
+    v17 = WebKit::PCM::Database::domainID(v4, (a1 + 32));
+    if (HIDWORD(v16) && HIDWORD(v17))
     {
-      v79 = v9;
-      WebKit::DatabaseUtilities::scopedStatement(v2, (v2 + 120), "findPrivateClickMeasurement", &v84);
-      if (!v84 || WebCore::SQLiteStatement::bindInt(v84) || WebCore::SQLiteStatement::bindInt(v84) || WebCore::SQLiteStatement::bindText())
+      v82 = v11;
+      WebKit::DatabaseUtilities::scopedStatement(v4, (v4 + 120), "findPrivateClickMeasurement", &v87);
+      if (!v87 || WebCore::SQLiteStatement::bindInt(v87) || WebCore::SQLiteStatement::bindInt(v87) || WebCore::SQLiteStatement::bindText())
       {
-        v17 = qword_1ED640FE0;
+        v19 = qword_1ED640FE0;
         if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_ERROR))
         {
-          ErrorMsg = WebCore::SQLiteDatabase::lastErrorMsg((v2 + 16));
+          ErrorMsg = WebCore::SQLiteDatabase::lastErrorMsg((v4 + 16));
           *buf = 134218243;
-          *&buf[4] = v2;
+          *&buf[4] = v4;
           *&buf[12] = 2081;
           *&buf[14] = ErrorMsg;
-          _os_log_error_impl(&dword_19D52D000, v17, OS_LOG_TYPE_ERROR, "%p - Database::findPrivateClickMeasurement findUnattributedQuery, error message: %{private}s", buf, 0x16u);
+          _os_log_error_impl(&dword_19D52D000, v19, OS_LOG_TYPE_ERROR, "%p - Database::findPrivateClickMeasurement findUnattributedQuery, error message: %{private}s", buf, 0x16u);
         }
       }
 
-      WebKit::DatabaseUtilities::scopedStatement(v2, (v2 + 128), "findPrivateClickMeasurement", &v83);
-      if (!v83 || WebCore::SQLiteStatement::bindInt(v83) || WebCore::SQLiteStatement::bindInt(v83) || WebCore::SQLiteStatement::bindText())
+      WebKit::DatabaseUtilities::scopedStatement(v4, (v4 + 128), "findPrivateClickMeasurement", &v86);
+      if (!v86 || WebCore::SQLiteStatement::bindInt(v86) || WebCore::SQLiteStatement::bindInt(v86) || WebCore::SQLiteStatement::bindText())
       {
-        v18 = qword_1ED640FE0;
+        v20 = qword_1ED640FE0;
         if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_ERROR))
         {
-          v68 = WebCore::SQLiteDatabase::lastErrorMsg((v2 + 16));
+          v71 = WebCore::SQLiteDatabase::lastErrorMsg((v4 + 16));
           *buf = 134218243;
-          *&buf[4] = v2;
+          *&buf[4] = v4;
           *&buf[12] = 2081;
-          *&buf[14] = v68;
-          _os_log_error_impl(&dword_19D52D000, v18, OS_LOG_TYPE_ERROR, "%p - Database::findPrivateClickMeasurement findAttributedQuery, error message: %{private}s", buf, 0x16u);
+          *&buf[14] = v71;
+          _os_log_error_impl(&dword_19D52D000, v20, OS_LOG_TYPE_ERROR, "%p - Database::findPrivateClickMeasurement findAttributedQuery, error message: %{private}s", buf, 0x16u);
         }
       }
 
-      v96[0] = 0;
-      v100 = 0;
-      if (WebCore::SQLiteStatement::step(v84) == 100)
+      v99[0] = 0;
+      v103 = 0;
+      if (WebCore::SQLiteStatement::step(v87) == 100)
       {
-        WebKit::DatabaseUtilities::buildPrivateClickMeasurementFromDatabase(v84, v2, 0, buf);
-        std::optional<WebCore::PrivateClickMeasurement>::operator=[abi:sn200100]<WebCore::PrivateClickMeasurement,void>(v96, buf);
-        WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(buf, v19);
-      }
-
-      LOBYTE(v92) = 0;
-      v95 = 0;
-      if (WebCore::SQLiteStatement::step(v83) == 100)
-      {
-        WebKit::DatabaseUtilities::buildPrivateClickMeasurementFromDatabase(v83, v2, 1, buf);
-        std::optional<WebCore::PrivateClickMeasurement>::operator=[abi:sn200100]<WebCore::PrivateClickMeasurement,void>(&v92, buf);
+        WebKit::DatabaseUtilities::buildPrivateClickMeasurementFromDatabase(v87, v4, 0, buf);
+        std::optional<WebCore::PrivateClickMeasurement>::operator=[abi:sn200100]<WebCore::PrivateClickMeasurement,void>(v99, buf);
         WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(buf, v21);
       }
 
-      buf[0] = 0;
-      v89 = 0;
-      v9 = v79;
-      if (v100 == 1)
+      LOBYTE(v95) = 0;
+      v98 = 0;
+      if (WebCore::SQLiteStatement::step(v86) == 100)
       {
-        WebCore::PrivateClickMeasurement::PrivateClickMeasurement(buf, v96);
-        v89 = 1;
+        WebKit::DatabaseUtilities::buildPrivateClickMeasurementFromDatabase(v86, v4, 1, buf);
+        std::optional<WebCore::PrivateClickMeasurement>::operator=[abi:sn200100]<WebCore::PrivateClickMeasurement,void>(&v95, buf);
+        WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(buf, v23);
       }
 
-      v90[0] = 0;
-      v91 = 0;
-      if (v95 == 1)
+      buf[0] = 0;
+      v92 = 0;
+      v11 = v82;
+      if (v103 == 1)
       {
-        WebCore::PrivateClickMeasurement::PrivateClickMeasurement(v90, &v92);
-        v91 = 1;
-        if (v95)
+        WebCore::PrivateClickMeasurement::PrivateClickMeasurement(buf, v99);
+        v92 = 1;
+      }
+
+      LOBYTE(v93[0]) = 0;
+      v94 = 0;
+      if (v98 == 1)
+      {
+        WebCore::PrivateClickMeasurement::PrivateClickMeasurement(v93, &v95);
+        v94 = 1;
+        if (v98)
         {
-          WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(&v92, v20);
+          WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(&v95, v22);
         }
       }
 
-      if (v100 == 1)
+      if (v103 == 1)
       {
-        WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(v96, v20);
+        WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(v99, v22);
       }
 
-      MEMORY[0x19EB0CD50](&v83);
-      MEMORY[0x19EB0CD50](&v84);
-      if (v89)
+      MEMORY[0x19EB0CD50](&v86);
+      MEMORY[0x19EB0CD50](&v87);
+      if (v92)
       {
-        v22 = WebKit::PCM::Database::domainID(v2, &buf[8]);
-        v23 = WebKit::PCM::Database::domainID(v2, &buf[16]);
-        if (HIDWORD(v22) && HIDWORD(v23))
+        v24 = WebKit::PCM::Database::domainID(v4, &buf[8]);
+        v25 = WebKit::PCM::Database::domainID(v4, &buf[16]);
+        if (HIDWORD(v24) && HIDWORD(v25))
         {
-          WebKit::DatabaseUtilities::scopedStatement(v2, (v2 + 136), "removeUnattributed", &v92);
-          if (!v92 || WebCore::SQLiteStatement::bindInt(v92) || WebCore::SQLiteStatement::bindInt(v92) || WebCore::SQLiteStatement::bindText() || WebCore::SQLiteStatement::step(v92) != 101)
+          WebKit::DatabaseUtilities::scopedStatement(v4, (v4 + 136), "removeUnattributed", &v95);
+          if (!v95 || WebCore::SQLiteStatement::bindInt(v95) || WebCore::SQLiteStatement::bindInt(v95) || WebCore::SQLiteStatement::bindText() || WebCore::SQLiteStatement::step(v95) != 101)
           {
-            v24 = qword_1ED640FE0;
+            v26 = qword_1ED640FE0;
             if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_ERROR))
             {
-              v73 = WebCore::SQLiteDatabase::lastErrorMsg((v2 + 16));
-              *v96 = 134218243;
-              *&v96[4] = v2;
-              *&v96[12] = 2081;
-              *&v96[14] = v73;
-              _os_log_error_impl(&dword_19D52D000, v24, OS_LOG_TYPE_ERROR, "%p - Database::removeUnattributed, error message: %{private}s", v96, 0x16u);
+              v76 = WebCore::SQLiteDatabase::lastErrorMsg((v4 + 16));
+              *v99 = 134218243;
+              *&v99[4] = v4;
+              *&v99[12] = 2081;
+              *&v99[14] = v76;
+              _os_log_error_impl(&dword_19D52D000, v26, OS_LOG_TYPE_ERROR, "%p - Database::removeUnattributed, error message: %{private}s", v99, 0x16u);
             }
           }
 
-          MEMORY[0x19EB0CD50](&v92);
+          MEMORY[0x19EB0CD50](&v95);
         }
 
-        if ((v89 & 1) == 0)
+        if ((v92 & 1) == 0)
         {
           goto LABEL_121;
         }
 
         WebCore::PrivateClickMeasurement::attributeAndGetEarliestTimeToSend();
-        LODWORD(v92) = *&v96[1];
-        *(&v92 + 3) = *&v96[4];
-        v25 = v96[8];
-        LODWORD(v84) = *&v96[9];
-        *(&v84 + 3) = *&v96[12];
-        LODWORD(v83) = *&v96[17];
-        *(&v83 + 3) = *&v96[20];
-        v26 = v96[24];
-        *&v80[3] = *&v96[28];
-        *v80 = *&v96[25];
-        if (v96[8] & 1) != 0 && (v96[24])
+        LODWORD(v95) = *&v99[1];
+        *(&v95 + 3) = *&v99[4];
+        v27 = v99[8];
+        LODWORD(v87) = *&v99[9];
+        *(&v87 + 3) = *&v99[12];
+        LODWORD(v86) = *&v99[17];
+        *(&v86 + 3) = *&v99[20];
+        v28 = v99[24];
+        *&v83[3] = *&v99[28];
+        *v83 = *&v99[25];
+        if (v99[8] & 1) != 0 && (v99[24])
         {
-          v77 = v96[16];
-          v78 = v96[0];
-          v27 = qword_1ED640FE0;
+          v80 = v99[16];
+          v81 = v99[0];
+          v29 = qword_1ED640FE0;
           if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_INFO))
           {
-            *v96 = 67109376;
-            *&v96[4] = v3;
-            *&v96[8] = 1024;
-            *&v96[10] = v4;
-            _os_log_impl(&dword_19D52D000, v27, OS_LOG_TYPE_INFO, "Converted a stored ad click with attribution trigger data: %u and priority: %u.", v96, 0xEu);
+            *v99 = 67109376;
+            *&v99[4] = v5;
+            *&v99[8] = 1024;
+            *&v99[10] = v6;
+            _os_log_impl(&dword_19D52D000, v29, OS_LOG_TYPE_INFO, "Converted a stored ad click with attribution trigger data: %u and priority: %u.", v99, 0xEu);
           }
 
-          v96[0] = 4;
-          v28 = &v96[8];
-          WTF::makeString<WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral>(&v96[8], "[Private Click Measurement] Converted a stored ad click with attribution trigger data: '", 89, v3, v4, "'.", 3);
-          if (v12 == v82)
+          v99[0] = 4;
+          v30 = &v99[8];
+          WTF::makeString<WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral>(&v99[8], "[Private Click Measurement] Converted a stored ad click with attribution trigger data: '", 89, v5, v6, "'.", 3);
+          if (v14 == v85)
           {
-            v30 = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v81, v12 + 1, v96);
-            LODWORD(v12) = HIDWORD(v82);
-            v79 = v81;
-            v31 = v81 + 16 * HIDWORD(v82);
-            v28 = (v30 + 8);
-            *v31 = *v30;
+            v32 = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v84, v14 + 1, v99);
+            LODWORD(v14) = HIDWORD(v85);
+            v82 = v84;
+            v33 = &v84[2 * HIDWORD(v85)];
+            v30 = (v32 + 8);
+            *v33 = *v32;
           }
 
           else
           {
-            v31 = v79 + 16 * v12;
-            *v31 = v96[0];
+            v33 = &v82[2 * v14];
+            *v33 = v99[0];
           }
 
-          v61 = *v28;
-          *v28 = 0;
-          *(v31 + 8) = v61;
-          v12 = (v12 + 1);
-          HIDWORD(v82) = v12;
-          v62 = *&v96[8];
-          *&v96[8] = 0;
-          if (v62 && atomic_fetch_add_explicit(v62, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          v64 = *v30;
+          *v30 = 0;
+          v33[1] = v64;
+          v14 = (v14 + 1);
+          HIDWORD(v85) = v14;
+          v65 = *&v99[8];
+          *&v99[8] = 0;
+          if (v65 && atomic_fetch_add_explicit(v65, 0xFFFFFFFE, memory_order_relaxed) == 2)
           {
-            WTF::StringImpl::destroy(v62, v29);
+            WTF::StringImpl::destroy(v65, v31);
           }
 
-          if (v91 != 1)
+          if (v94 != 1)
           {
 LABEL_101:
-            if (v89)
+            if (v92)
             {
-              WebKit::PCM::Database::insertPrivateClickMeasurement(v2, buf, 1);
-              v63 = qword_1ED640FE0;
+              WebKit::PCM::Database::insertPrivateClickMeasurement(v4, buf, 1);
+              v66 = qword_1ED640FE0;
               if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_INFO))
               {
-                *v96 = 67109376;
-                *&v96[4] = v3;
-                *&v96[8] = 1024;
-                *&v96[10] = v4;
-                _os_log_impl(&dword_19D52D000, v63, OS_LOG_TYPE_INFO, "Replaced a previously converted ad click with a new one with attribution data: %u and priority: %u because it had higher priority.", v96, 0xEu);
+                *v99 = 67109376;
+                *&v99[4] = v5;
+                *&v99[8] = 1024;
+                *&v99[10] = v6;
+                _os_log_impl(&dword_19D52D000, v66, OS_LOG_TYPE_INFO, "Replaced a previously converted ad click with a new one with attribution data: %u and priority: %u because it had higher priority.", v99, 0xEu);
               }
 
-              v96[0] = 4;
-              v64 = &v96[8];
-              WTF::makeString<WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral>(&v96[8], "[Private Click Measurement] Replaced a previously converted ad click with a new one with attribution trigger data: '", 117, v3, v4, "' because it had higher priority.", 34);
-              if (v12 == v82)
+              v99[0] = 4;
+              v67 = &v99[8];
+              WTF::makeString<WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral>(&v99[8], "[Private Click Measurement] Replaced a previously converted ad click with a new one with attribution trigger data: '", 117, v5, v6, "' because it had higher priority.", 34);
+              if (v14 == v85)
               {
-                v65 = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v81, v12 + 1, v96);
-                LODWORD(v12) = HIDWORD(v82);
-                v79 = v81;
-                v66 = v81 + 16 * HIDWORD(v82);
-                v64 = (v65 + 8);
-                *v66 = *v65;
+                v68 = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v84, v14 + 1, v99);
+                LODWORD(v14) = HIDWORD(v85);
+                v82 = v84;
+                v69 = &v84[2 * HIDWORD(v85)];
+                v67 = (v68 + 8);
+                *v69 = *v68;
               }
 
               else
               {
-                v66 = v79 + 16 * v12;
-                *v66 = v96[0];
+                v69 = &v82[2 * v14];
+                *v69 = v99[0];
               }
 
-              v69 = *v64;
-              *v64 = 0;
-              *(v66 + 8) = v69;
-              LODWORD(v12) = v12 + 1;
-              HIDWORD(v82) = v12;
-              v70 = *&v96[8];
-              *&v96[8] = 0;
-              if (v70 && atomic_fetch_add_explicit(v70, 0xFFFFFFFE, memory_order_relaxed) == 2)
+              v72 = *v67;
+              *v67 = 0;
+              v69[1] = v72;
+              LODWORD(v14) = v14 + 1;
+              HIDWORD(v85) = v14;
+              v73 = *&v99[8];
+              *&v99[8] = 0;
+              if (v73 && atomic_fetch_add_explicit(v73, 0xFFFFFFFE, memory_order_relaxed) == 2)
               {
-                WTF::StringImpl::destroy(v70, v16);
+                WTF::StringImpl::destroy(v73, v18);
               }
 
               goto LABEL_110;
@@ -5262,28 +5265,28 @@ LABEL_120:
             __break(1u);
           }
 
-          if (v89)
+          if (v92)
           {
-            if (!WebCore::PrivateClickMeasurement::hasHigherPriorityThan(buf, v90))
+            if (!WebCore::PrivateClickMeasurement::hasHigherPriorityThan(buf, v93))
             {
 LABEL_110:
-              v96[0] = v78;
-              *&v96[1] = v92;
-              *&v96[4] = *(&v92 + 3);
-              v96[8] = v25;
-              *&v96[9] = v84;
-              *&v96[12] = *(&v84 + 3);
-              v96[16] = v77;
-              *&v96[17] = v83;
-              *&v96[20] = *(&v83 + 3);
-              v96[24] = v26;
-              *&v96[28] = *&v80[3];
-              *&v96[25] = *v80;
-              v97 = 1;
-              v98 = v79;
-              v44 = v82;
-              v81 = 0;
-              v82 = 0;
+              v99[0] = v81;
+              *&v99[1] = v95;
+              *&v99[4] = *(&v95 + 3);
+              v99[8] = v27;
+              *&v99[9] = v87;
+              *&v99[12] = *(&v87 + 3);
+              v99[16] = v80;
+              *&v99[17] = v86;
+              *&v99[20] = *(&v86 + 3);
+              v99[24] = v28;
+              *&v99[28] = *&v83[3];
+              *&v99[25] = *v83;
+              v100 = 1;
+              v101 = v82;
+              v47 = v85;
+              v84 = 0;
+              v85 = 0;
               goto LABEL_72;
             }
 
@@ -5291,179 +5294,188 @@ LABEL_110:
           }
 
 LABEL_121:
-          v76 = std::__throw_bad_optional_access[abi:sn200100]();
-          return WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::attributePrivateClickMeasurement(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WTF::String const&,WebCore::PCM::AttributionTriggerData &&,WebCore::PrivateClickMeasurement::IsRunningLayoutTest,WTF::CompletionHandler<void ()(std::optional<WebCore::PCM::AttributionSecondsUntilSendData> &&,WebKit::PCM::DebugInfo &&)> &&)::$_0::operator()(void)::{lambda(void)#1},void>::~CallableWrapper(v76);
+          v79 = std::__throw_bad_optional_access[abi:sn200100]();
+          return WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::attributePrivateClickMeasurement(WebCore::PCM::SourceSite &&,WebCore::PCM::AttributionDestinationSite &&,WTF::String const&,WebCore::PCM::AttributionTriggerData &&,WebCore::PrivateClickMeasurement::IsRunningLayoutTest,WTF::CompletionHandler<void ()(std::optional<WebCore::PCM::AttributionSecondsUntilSendData> &&,WebKit::PCM::DebugInfo &&)> &&)::$_0::operator()(void)::{lambda(void)#1},void>::~CallableWrapper(v79);
         }
 
-        v96[0] = 0;
-        v97 = 0;
-        v81 = 0;
-        v98 = v79;
+        v99[0] = 0;
+        v100 = 0;
+        v84 = 0;
+        v101 = v82;
 LABEL_71:
-        v44 = v82;
-        v82 = 0;
+        v47 = v85;
+        v85 = 0;
 LABEL_72:
-        v99 = __PAIR64__(v12, v44);
+        v102 = __PAIR64__(v14, v47);
 LABEL_73:
-        if (v91 == 1)
+        if (v94 == 1)
         {
-          WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(v90, v16);
+          WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(v93, v18);
         }
 
-        if (v89 == 1)
+        if (v92 == 1)
         {
-          WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(buf, v16);
+          WebCore::PrivateClickMeasurement::~PrivateClickMeasurement(buf, v18);
         }
 
-        WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v81, v16);
-        v35 = v98;
-        *buf = *v96;
-        *&buf[16] = *&v96[16];
-        LOBYTE(v86) = v97;
-        if (!HIDWORD(v99))
+        WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v84, v18);
+        v38 = v101;
+        add_explicit = HIDWORD(v102);
+        *buf = *v99;
+        *&buf[16] = *&v99[16];
+        LOBYTE(v89) = v100;
+        if (!HIDWORD(v102))
         {
-          v50 = 0;
+          v53 = 0;
 LABEL_87:
-          v51 = v99;
-          v99 = 0;
-          v98 = 0;
-          v52 = *(a1 + 184);
+          v54 = v102;
+          v102 = 0;
+          v101 = 0;
+          v55 = *(a1 + 184);
           *(a1 + 184) = 0;
-          v87[0] = v35;
-          v88 = v52;
-          v53 = WTF::fastMalloc(0x48);
-          *v53 = &unk_1F11077C8;
-          v54 = v86;
-          v55 = *buf;
-          *(v53 + 24) = *&buf[16];
-          *(v53 + 8) = v55;
-          *(v53 + 40) = v54;
-          *(v53 + 48) = v35;
-          v87[0] = 0;
-          v87[1] = 0;
-          *(v53 + 56) = v51;
-          *(v53 + 60) = v50;
-          *(v53 + 64) = v52;
-          v81 = v53;
-          WTF::RunLoop::mainSingleton(v53);
+          v90[0] = v38;
+          v91 = v55;
+          v56 = WTF::fastMalloc(add_explicit, 0x48);
+          *v56 = &unk_1F11077C8;
+          v57 = v89;
+          v58 = *buf;
+          *(v56 + 3) = *&buf[16];
+          *(v56 + 1) = v58;
+          v56[5] = v57;
+          v56[6] = v38;
+          v90[0] = 0;
+          v90[1] = 0;
+          *(v56 + 14) = v54;
+          *(v56 + 15) = v53;
+          v56[8] = v55;
+          v84 = v56;
+          WTF::RunLoop::mainSingleton(v56);
           WTF::RunLoop::dispatch();
-          v57 = v81;
-          v81 = 0;
-          if (v57)
+          v60 = v84;
+          v84 = 0;
+          if (v60)
           {
-            (*(*v57 + 8))(v57);
+            (*(*v60 + 8))(v60);
           }
 
-          v88 = 0;
-          WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v87, v56);
-          result = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v98, v58);
-          if (*(v2 + 104) == 1)
+          v91 = 0;
+          WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v90, v59);
+          result = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v101, v61);
+          if (*(v4 + 104) == 1)
           {
-            return (*(*v2 + 64))(v2);
+            return (*(*v4 + 64))(v4);
           }
 
-          --*(v2 + 104);
+          --*(v4 + 104);
           return result;
         }
 
-        v39 = v98 + 16 * HIDWORD(v99);
+        v42 = &v101[2 * HIDWORD(v102)];
         do
         {
 LABEL_79:
-          LOBYTE(v92) = *v35;
-          v45 = v35 + 8;
+          LOBYTE(v95) = *v38;
+          v49 = v38 + 1;
           WTF::String::isolatedCopy();
-          *v35 = v92;
-          v47 = v93;
-          v93 = 0;
-          v48 = *(v35 + 8);
-          *(v35 + 8) = v47;
-          if (v48 && atomic_fetch_add_explicit(v48, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          *v38 = v95;
+          add_explicit = v96;
+          v96 = 0;
+          v51 = v38[1];
+          v38[1] = add_explicit;
+          if (v51)
           {
-            WTF::StringImpl::destroy(v48, v46);
+            add_explicit = atomic_fetch_add_explicit(v51, 0xFFFFFFFE, memory_order_relaxed);
+            if (add_explicit == 2)
+            {
+              WTF::StringImpl::destroy(v51, v50);
+            }
           }
 
-          v49 = v93;
-          v93 = 0;
-          if (v49 && atomic_fetch_add_explicit(v49, 0xFFFFFFFE, memory_order_relaxed) == 2)
+          v52 = v96;
+          v96 = 0;
+          if (v52)
           {
-            WTF::StringImpl::destroy(v49, v46);
+            add_explicit = atomic_fetch_add_explicit(v52, 0xFFFFFFFE, memory_order_relaxed);
+            if (add_explicit == 2)
+            {
+              WTF::StringImpl::destroy(v52, v50);
+            }
           }
 
-          v35 += 16;
+          v38 += 2;
         }
 
-        while (v45 + 8 != v39);
-        v35 = v98;
-        v50 = HIDWORD(v99);
+        while (v49 + 1 != v42);
+        v38 = v101;
+        v53 = HIDWORD(v102);
         goto LABEL_87;
       }
 
-      if ((v91 & 1) != 0 && (WebCore::PrivateClickMeasurement::hasPreviouslyBeenReported(v90) & 1) == 0)
+      if ((v94 & 1) != 0 && (WebCore::PrivateClickMeasurement::hasPreviouslyBeenReported(v93) & 1) == 0)
       {
-        if ((v91 & 1) == 0)
+        if ((v94 & 1) == 0)
         {
           goto LABEL_121;
         }
 
         WebCore::PrivateClickMeasurement::attributeAndGetEarliestTimeToSend();
-        if (v93 != 1 || (v94 & 1) == 0)
+        if (v96 != 1 || (v97 & 1) == 0)
         {
-          v96[0] = 0;
-          v97 = 0;
-          v98 = v79;
-          v60 = v82;
-          v81 = 0;
-          v82 = 0;
-          v99 = __PAIR64__(v12, v60);
+          v99[0] = 0;
+          v100 = 0;
+          v101 = v82;
+          v63 = v85;
+          v84 = 0;
+          v85 = 0;
+          v102 = __PAIR64__(v14, v63);
           goto LABEL_73;
         }
 
-        if ((v91 & 1) == 0)
+        if ((v94 & 1) == 0)
         {
           goto LABEL_120;
         }
 
-        WebKit::PCM::Database::insertPrivateClickMeasurement(v2, v90, 1);
-        v40 = qword_1ED640FE0;
+        WebKit::PCM::Database::insertPrivateClickMeasurement(v4, v93, 1);
+        v43 = qword_1ED640FE0;
         if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_INFO))
         {
-          *v96 = 67109376;
-          *&v96[4] = v3;
-          *&v96[8] = 1024;
-          *&v96[10] = v4;
-          _os_log_impl(&dword_19D52D000, v40, OS_LOG_TYPE_INFO, "Re-converted an ad click with a new one with attribution trigger data: %u and priority: %u because it had higher priority.", v96, 0xEu);
+          *v99 = 67109376;
+          *&v99[4] = v5;
+          *&v99[8] = 1024;
+          *&v99[10] = v6;
+          _os_log_impl(&dword_19D52D000, v43, OS_LOG_TYPE_INFO, "Re-converted an ad click with a new one with attribution trigger data: %u and priority: %u because it had higher priority.", v99, 0xEu);
         }
 
-        v96[0] = 4;
-        v41 = &v96[8];
-        WTF::makeString<WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral>(&v96[8], "[Private Click Measurement] Re-converted an ad click with a new one with attribution trigger data: '", 101, v3, v4, "'' because it had higher priority.", 35);
-        if (v12 == v82)
+        v99[0] = 4;
+        v44 = &v99[8];
+        WTF::makeString<WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral,unsigned char,WTF::ASCIILiteral>(&v99[8], "[Private Click Measurement] Re-converted an ad click with a new one with attribution trigger data: '", 101, v5, v6, "'' because it had higher priority.", 35);
+        if (v14 == v85)
         {
-          v42 = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v81, v12 + 1, v96);
-          LODWORD(v12) = HIDWORD(v82);
-          v9 = v81;
-          v43 = v81 + 16 * HIDWORD(v82);
-          v41 = (v42 + 8);
-          *v43 = *v42;
+          v45 = WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v84, v14 + 1, v99);
+          LODWORD(v14) = HIDWORD(v85);
+          v11 = v84;
+          v46 = &v84[2 * HIDWORD(v85)];
+          v44 = (v45 + 8);
+          *v46 = *v45;
         }
 
         else
         {
-          v43 = v79 + 16 * v12;
-          *v43 = v96[0];
+          v46 = &v82[2 * v14];
+          *v46 = v99[0];
         }
 
-        v71 = *v41;
-        *v41 = 0;
-        *(v43 + 8) = v71;
-        LODWORD(v12) = v12 + 1;
-        HIDWORD(v82) = v12;
-        v72 = *&v96[8];
-        *&v96[8] = 0;
-        if (v72 && atomic_fetch_add_explicit(v72, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        v74 = *v44;
+        *v44 = 0;
+        v46[1] = v74;
+        LODWORD(v14) = v14 + 1;
+        HIDWORD(v85) = v14;
+        v75 = *&v99[8];
+        *&v99[8] = 0;
+        if (v75 && atomic_fetch_add_explicit(v75, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v72, v16);
+          WTF::StringImpl::destroy(v75, v18);
         }
       }
     }
@@ -5471,25 +5483,25 @@ LABEL_79:
     else
     {
       buf[0] = 0;
-      v89 = 0;
-      v90[0] = 0;
-      v91 = 0;
+      v92 = 0;
+      LOBYTE(v93[0]) = 0;
+      v94 = 0;
     }
 
-    v96[0] = 0;
-    v97 = 0;
-    v81 = 0;
-    v98 = v9;
+    v99[0] = 0;
+    v100 = 0;
+    v84 = 0;
+    v101 = v11;
     goto LABEL_71;
   }
 
-  v74 = *(a1 + 184);
+  v77 = *(a1 + 184);
   *(a1 + 184) = 0;
-  v75 = WTF::fastMalloc(0x10);
-  *v75 = &unk_1F11077A0;
-  *(v75 + 1) = v74;
-  *buf = v75;
-  WTF::RunLoop::mainSingleton(v75);
+  v78 = WTF::fastMalloc(v3, 0x10);
+  *v78 = &unk_1F11077A0;
+  v78[1] = v77;
+  *buf = v78;
+  WTF::RunLoop::mainSingleton(v78);
   WTF::RunLoop::dispatch();
   result = *buf;
   *buf = 0;
@@ -5521,7 +5533,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::attributePri
   *(this + 1) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -5547,7 +5559,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::attributePri
   *(a1 + 64) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector((a1 + 48), a2);
@@ -5560,7 +5572,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::attributePri
   *(a1 + 64) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WTF::Vector<WebKit::PCM::DebugInfo::Message,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector((a1 + 48), a2);
@@ -5606,7 +5618,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::privateClick
   *(this + 3) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 2);
@@ -5614,13 +5626,13 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::privateClick
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::privateClickMeasurementToStringForTesting(WTF::CompletionHandler<void ()(WTF::String)> &&)::$_0,void>::call(unint64_t a1)
+WTF::StringImpl *WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::privateClickMeasurementToStringForTesting(WTF::CompletionHandler<void ()(WTF::String)> &&)::$_0,void>::call(unint64_t a1)
 {
   v1 = a1;
   v118 = *MEMORY[0x1E69E9840];
@@ -6224,9 +6236,9 @@ LABEL_80:
   v50 = *(v1 + 24);
   *(v1 + 24) = 0;
   *&buf[8] = v50;
-  v51 = WTF::fastMalloc(0x18);
+  v51 = WTF::fastMalloc(v50, 0x18);
   *v51 = &unk_1F1107818;
-  *(v51 + 8) = *buf;
+  *(v51 + 1) = *buf;
   *buf = 0;
   *&buf[8] = 0;
   v113[0] = v51;
@@ -6272,7 +6284,7 @@ void *WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::privateClickMea
   a1[2] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = a1[1];
@@ -6292,7 +6304,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::privateClick
   *(this + 2) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 1);
@@ -6356,7 +6368,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::allAttribute
   *(this + 3) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 2);
@@ -6364,7 +6376,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::allAttribute
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -6395,68 +6407,68 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::allAttribute
 
         else
         {
-          v5 = v32 + 312 * HIDWORD(v33);
+          v5 = &v32[39 * HIDWORD(v33)];
           *v5 = buf[0];
           v6 = *&buf[8];
           *&buf[8] = 0;
-          *(v5 + 1) = v6;
+          v5[1] = v6;
           v7 = *&buf[16];
           *&buf[16] = 0;
-          *(v5 + 2) = v7;
+          v5[2] = v7;
           v8 = v38[0];
           *(v5 + 33) = *(v38 + 9);
-          *(v5 + 24) = v8;
-          v5[56] = 0;
-          v5[184] = 0;
+          *(v5 + 3) = v8;
+          *(v5 + 56) = 0;
+          *(v5 + 184) = 0;
           if (v39[128] == 1)
           {
-            std::__optional_storage_base<WebCore::PCM::AttributionTriggerData,false>::__construct[abi:sn200100]<WebCore::PCM::AttributionTriggerData>((v5 + 56), v39);
+            std::__optional_storage_base<WebCore::PCM::AttributionTriggerData,false>::__construct[abi:sn200100]<WebCore::PCM::AttributionTriggerData>((v5 + 7), v39);
           }
 
           v9 = v41;
           *(v5 + 12) = v40;
           *(v5 + 13) = v9;
-          v5[224] = 0;
-          v5[232] = 0;
+          *(v5 + 224) = 0;
+          *(v5 + 232) = 0;
           if (v43 == 1)
           {
             v10 = v42;
             v42 = 0;
-            *(v5 + 28) = v10;
-            v5[232] = 1;
+            v5[28] = v10;
+            *(v5 + 232) = 1;
           }
 
           v11 = v44;
           v44 = 0;
-          *(v5 + 30) = v11;
+          v5[30] = v11;
           v12 = v45;
           v45 = 0;
-          *(v5 + 31) = v12;
+          v5[31] = v12;
           v13 = v46;
           v46 = 0;
-          *(v5 + 32) = v13;
+          v5[32] = v13;
           v14 = v47;
           v47 = 0;
-          *(v5 + 33) = v14;
-          v5[272] = 0;
-          v5[296] = 0;
+          v5[33] = v14;
+          *(v5 + 272) = 0;
+          *(v5 + 296) = 0;
           if (v51 == 1)
           {
             v15 = v48;
             v48 = 0;
-            *(v5 + 34) = v15;
+            v5[34] = v15;
             v16 = v49;
             v49 = 0;
-            *(v5 + 35) = v16;
+            v5[35] = v16;
             v17 = v50;
             v50 = 0;
-            *(v5 + 36) = v17;
-            v5[296] = 1;
+            v5[36] = v17;
+            *(v5 + 296) = 1;
           }
 
           v18 = v52;
           v52 = 0;
-          *(v5 + 38) = v18;
+          v5[38] = v18;
           ++HIDWORD(v33);
         }
 
@@ -6503,16 +6515,16 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::allAttribute
   v22 = *(a1 + 24);
   *(a1 + 24) = 0;
   *&buf[16] = v22;
-  v23 = WTF::fastMalloc(0x20);
+  v23 = WTF::fastMalloc(v22, 0x20);
   *v23 = &unk_1F1107868;
-  *(v23 + 1) = *buf;
+  v23[1] = *buf;
   v24 = *&buf[8];
   *buf = 0;
   *&buf[8] = 0;
-  *(v23 + 2) = v24;
+  v23[2] = v24;
   v25 = *&buf[16];
   *&buf[16] = 0;
-  *(v23 + 3) = v25;
+  v23[3] = v25;
   v32 = v23;
   WTF::RunLoop::mainSingleton(v23);
   WTF::RunLoop::dispatch();
@@ -6541,7 +6553,7 @@ void *WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::allAttributedPr
   a1[3] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WTF::Vector<WebCore::PrivateClickMeasurement,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector((a1 + 1), a2);
@@ -6555,7 +6567,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::allAttribute
   *(a1 + 3) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   WTF::Vector<WebCore::PrivateClickMeasurement,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(a1 + 8, a2);
@@ -6601,7 +6613,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::markAttribut
   *(this + 3) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 2);
@@ -6609,95 +6621,95 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::markAttribut
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::markAttributedPrivateClickMeasurementsAsExpiredForTesting(WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(uint64_t *a1)
+uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::markAttributedPrivateClickMeasurementsAsExpiredForTesting(WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(uint64_t *a1, unint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = *(a1[1] + 16);
-  if (v2)
+  v20 = *MEMORY[0x1E69E9840];
+  v3 = *(a1[1] + 16);
+  if (v3)
   {
-    ++v2[26];
+    ++v3[26];
     WTF::WallTime::now(a1);
-    WebKit::DatabaseUtilities::beginTransactionIfNecessary(v2, v14);
+    WebKit::DatabaseUtilities::beginTransactionIfNecessary(v15, v3);
     WebCore::SQLiteDatabase::prepareStatement();
     WebCore::SQLiteDatabase::prepareStatement();
-    if (v13)
+    if (v14)
     {
       goto LABEL_6;
     }
 
-    v3 = WebCore::SQLiteStatement::bindInt(v12);
-    if (v3)
+    v4 = WebCore::SQLiteStatement::bindInt(v13);
+    if (v4)
     {
       goto LABEL_6;
     }
 
-    if (v13)
+    if (v14)
     {
-      mpark::throw_bad_variant_access(v3);
+      mpark::throw_bad_variant_access(v4);
     }
 
-    if (WebCore::SQLiteStatement::step(v12) != 101)
+    if (WebCore::SQLiteStatement::step(v13) != 101)
     {
 LABEL_6:
-      v4 = qword_1ED640FE0;
-      if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_ERROR))
-      {
-        ErrorMsg = WebCore::SQLiteDatabase::lastErrorMsg((v2 + 4));
-        *buf = 134218243;
-        v16 = v2;
-        v17 = 2081;
-        v18 = ErrorMsg;
-        _os_log_error_impl(&dword_19D52D000, v4, OS_LOG_TYPE_ERROR, "%p - Database::markAttributedPrivateClickMeasurementsAsExpiredForTesting, error message: %{private}s", buf, 0x16u);
-      }
-    }
-
-    if (v11 || WebCore::SQLiteStatement::step(v10) != 101)
-    {
       v5 = qword_1ED640FE0;
       if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_ERROR))
       {
-        v9 = WebCore::SQLiteDatabase::lastErrorMsg((v2 + 4));
+        ErrorMsg = WebCore::SQLiteDatabase::lastErrorMsg((v3 + 4));
         *buf = 134218243;
-        v16 = v2;
-        v17 = 2081;
-        v18 = v9;
+        v17 = v3;
+        v18 = 2081;
+        v19 = ErrorMsg;
         _os_log_error_impl(&dword_19D52D000, v5, OS_LOG_TYPE_ERROR, "%p - Database::markAttributedPrivateClickMeasurementsAsExpiredForTesting, error message: %{private}s", buf, 0x16u);
       }
     }
 
-    if (!v11)
+    if (v12 || WebCore::SQLiteStatement::step(v11) != 101)
     {
-      WebCore::SQLiteStatement::~SQLiteStatement(v10);
+      v6 = qword_1ED640FE0;
+      if (os_log_type_enabled(qword_1ED640FE0, OS_LOG_TYPE_ERROR))
+      {
+        v10 = WebCore::SQLiteDatabase::lastErrorMsg((v3 + 4));
+        *buf = 134218243;
+        v17 = v3;
+        v18 = 2081;
+        v19 = v10;
+        _os_log_error_impl(&dword_19D52D000, v6, OS_LOG_TYPE_ERROR, "%p - Database::markAttributedPrivateClickMeasurementsAsExpiredForTesting, error message: %{private}s", buf, 0x16u);
+      }
     }
 
-    if (!v13)
+    if (!v12)
     {
-      WebCore::SQLiteStatement::~SQLiteStatement(v12);
+      WebCore::SQLiteStatement::~SQLiteStatement(v11);
     }
 
-    WTF::ScopeExit<WTF::Function<void ()(void)>>::~ScopeExit(v14);
-    if (v2[26] == 1)
+    if (!v14)
     {
-      (*(*v2 + 64))(v2);
+      WebCore::SQLiteStatement::~SQLiteStatement(v13);
+    }
+
+    WTF::ScopeExit<WTF::Function<void ()(void)>>::~ScopeExit(v15);
+    if (v3[26] == 1)
+    {
+      (*(*v3 + 64))(v3);
     }
 
     else
     {
-      --v2[26];
+      --v3[26];
     }
   }
 
-  v6 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>(a1 + 3, v12);
-  WTF::RunLoop::mainSingleton(v6);
+  v7 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>(a1 + 3, v13);
+  WTF::RunLoop::mainSingleton(v7);
   WTF::RunLoop::dispatch();
-  result = v12[0];
-  v12[0] = 0;
+  result = v13[0];
+  v13[0] = 0;
   if (result)
   {
     return (*(*result + 8))(result);
@@ -6734,7 +6746,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivate
   *(this + 3) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 2);
@@ -6742,37 +6754,37 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivate
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivateClickMeasurement(WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(uint64_t a1)
+uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivateClickMeasurement(WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(uint64_t a1, unint64_t a2)
 {
-  v2 = *(*(a1 + 8) + 16);
-  if (v2)
+  v3 = *(*(a1 + 8) + 16);
+  if (v3)
   {
-    ++*(v2 + 104);
-    v6[0] = 0;
-    v6[8] = 0;
-    WebKit::PCM::Database::clearPrivateClickMeasurement(v2, v6);
-    if (*(v2 + 104) == 1)
+    ++*(v3 + 104);
+    v7[0] = 0;
+    v7[8] = 0;
+    WebKit::PCM::Database::clearPrivateClickMeasurement(v3, v7);
+    if (*(v3 + 104) == 1)
     {
-      (*(*v2 + 64))(v2);
+      (*(*v3 + 64))(v3);
     }
 
     else
     {
-      --*(v2 + 104);
+      --*(v3 + 104);
     }
   }
 
-  v3 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>((a1 + 24), &v5);
-  WTF::RunLoop::mainSingleton(v3);
+  v4 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>((a1 + 24), &v6);
+  WTF::RunLoop::mainSingleton(v4);
   WTF::RunLoop::dispatch();
-  result = v5;
-  v5 = 0;
+  result = v6;
+  v6 = 0;
   if (result)
   {
     return (*(*result + 8))(result);
@@ -6788,7 +6800,7 @@ void *WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivateCli
   a1[4] = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = a1[3];
@@ -6803,7 +6815,7 @@ void *WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivateCli
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v5 + 2);
-    (*(*v5 + 8))(v5);
+    (*(*v5 + 8))(v5, a2);
   }
 
   return a1;
@@ -6816,7 +6828,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivate
   *(this + 4) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 3);
@@ -6831,54 +6843,54 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivate
   if (v5 && atomic_fetch_add(v5 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v5 + 2);
-    (*(*v5 + 8))(v5);
+    (*(*v5 + 8))(v5, a2);
   }
 
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivateClickMeasurementForRegistrableDomain(WebCore::RegistrableDomain &&,WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(void *a1)
+uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearPrivateClickMeasurementForRegistrableDomain(WebCore::RegistrableDomain &&,WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(void *a1, WTF::StringImpl *a2)
 {
-  v2 = *(a1[1] + 16);
-  if (v2)
+  v3 = *(a1[1] + 16);
+  if (v3)
   {
-    ++*(v2 + 104);
-    v3 = a1[3];
-    if (v3)
+    ++*(v3 + 104);
+    v4 = a1[3];
+    if (v4)
     {
-      atomic_fetch_add_explicit(v3, 2u, memory_order_relaxed);
-      v8 = v3;
-      v9 = 1;
-      WebKit::PCM::Database::clearPrivateClickMeasurement(v2, &v8);
-      if (atomic_fetch_add_explicit(v3, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      atomic_fetch_add_explicit(v4, 2u, memory_order_relaxed);
+      v9 = v4;
+      v10 = 1;
+      WebKit::PCM::Database::clearPrivateClickMeasurement(v3, &v9);
+      if (atomic_fetch_add_explicit(v4, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v3, v4);
+        WTF::StringImpl::destroy(v4, v5);
       }
     }
 
     else
     {
-      v8 = 0;
-      v9 = 1;
-      WebKit::PCM::Database::clearPrivateClickMeasurement(v2, &v8);
+      v9 = 0;
+      v10 = 1;
+      WebKit::PCM::Database::clearPrivateClickMeasurement(v3, &v9);
     }
 
-    if (*(v2 + 104) == 1)
+    if (*(v3 + 104) == 1)
     {
-      (*(*v2 + 64))(v2);
+      (*(*v3 + 64))(v3);
     }
 
     else
     {
-      --*(v2 + 104);
+      --*(v3 + 104);
     }
   }
 
-  v5 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>(a1 + 4, &v7);
-  WTF::RunLoop::mainSingleton(v5);
+  v6 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>(a1 + 4, &v8);
+  WTF::RunLoop::mainSingleton(v6);
   WTF::RunLoop::dispatch();
-  result = v7;
-  v7 = 0;
+  result = v8;
+  v8 = 0;
   if (result)
   {
     return (*(*result + 8))(result);
@@ -6909,7 +6921,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::clearExpired
   if (v3 && atomic_fetch_add(v3 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 2);
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -7218,7 +7230,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::close(WTF::C
   *(this + 3) = 0;
   if (v3)
   {
-    (*(*v3 + 8))(v3);
+    (*(*v3 + 8))(v3, a2);
   }
 
   v4 = *(this + 2);
@@ -7226,35 +7238,35 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::close(WTF::C
   if (v4 && atomic_fetch_add(v4 + 2, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v4 + 2);
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
 }
 
-uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::close(WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(uint64_t a1)
+uint64_t WTF::Detail::CallableWrapper<WebKit::PCM::PersistentStore::close(WTF::CompletionHandler<void ()(void)> &&)::$_0,void>::call(uint64_t a1, unint64_t a2)
 {
-  v2 = *(a1 + 8);
-  v3 = *(v2 + 16);
-  *(v2 + 16) = 0;
-  if (v3)
+  v3 = *(a1 + 8);
+  v4 = *(v3 + 16);
+  *(v3 + 16) = 0;
+  if (v4)
   {
-    if (v3[26] == 1)
+    if (v4[26] == 1)
     {
-      (*(*v3 + 64))(v3);
+      (*(*v4 + 64))(v4, a2);
     }
 
     else
     {
-      --v3[26];
+      --v4[26];
     }
   }
 
-  v4 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>((a1 + 24), &v6);
-  WTF::RunLoop::mainSingleton(v4);
+  v5 = std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::CompletionHandler<void ()(void)>,void>,WTF::CompletionHandler<void ()(void)>,0>((a1 + 24), &v7);
+  WTF::RunLoop::mainSingleton(v5);
   WTF::RunLoop::dispatch();
-  result = v6;
-  v6 = 0;
+  result = v7;
+  v7 = 0;
   if (result)
   {
     return (*(*result + 8))(result);
@@ -7273,7 +7285,7 @@ void WebKit::createItemRecursive(unsigned __int8 *a1@<X0>, void *a2@<X1>, uint64
     v9 = 120 * v7;
     do
     {
-      WebKit::createItemRecursive(&v75, v8, a2);
+      WebKit::createItemRecursive(v8, a2, &v75);
       v10 = v75;
       if (v75)
       {
@@ -7753,15 +7765,16 @@ void sub_19DD65704()
   JUMPOUT(0x19DD6571CLL);
 }
 
-void sub_19DD65C3C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, WTF::StringImpl *a13, char a14)
+void sub_19DD65C3C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF::StringImpl *a11, uint64_t a12, WTF::StringImpl *a13, ...)
 {
-  std::experimental::fundamentals_v3::expected<WebCore::DigitalCredentialsResponseData,WebCore::ExceptionData>::~expected(&a14, a2);
-  if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  va_start(va, a13);
+  std::experimental::fundamentals_v3::expected<WebCore::DigitalCredentialsResponseData,WebCore::ExceptionData>::~expected(va, a2);
+  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v15, v17);
+    WTF::StringImpl::destroy(v14, v16);
   }
 
-  if (v14)
+  if (v13)
   {
   }
 
@@ -7769,7 +7782,7 @@ void sub_19DD65C3C(_Unwind_Exception *a1, WTF::StringImpl *a2, int a3, int a4, i
   {
     if (atomic_fetch_add_explicit(a13, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(a13, v17);
+      WTF::StringImpl::destroy(a13, v16);
     }
   }
 
@@ -7808,7 +7821,7 @@ void sub_19DD661A0(_Unwind_Exception *exception_object, WTF::StringImpl *a2, int
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::makeString<WTF::String,WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, void *a7@<X8>)
+uint64_t *WTF::makeString<WTF::String,WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, void *a7@<X8>)
 {
   v10[0] = a2;
   v10[1] = a3;
@@ -7906,7 +7919,7 @@ void layerPathWithHole(CAShapeLayer *a1, const WebCore::FloatQuad *a2, const Web
       v36 = *this;
       v37 = v19;
       v42 = 0;
-      *v43 = 0;
+      v43[0] = 0;
       v40 = 0;
       v41 = 0;
       v21 = WebCore::FloatQuad::containsPoint(&v38, &v36);
@@ -7914,7 +7927,7 @@ void layerPathWithHole(CAShapeLayer *a1, const WebCore::FloatQuad *a2, const Web
       if (v21 || (findIntersectionOnLineBetweenPoints(&v38, (&v38 + 8), &v36, (&v37 + 8), v43, v20) & 1) == 0)
       {
         v22 = 0;
-        *v43 = v36;
+        v43[0] = v36;
       }
 
       else
@@ -7972,7 +7985,7 @@ void layerPathWithHole(CAShapeLayer *a1, const WebCore::FloatQuad *a2, const Web
 
       else
       {
-        *v43 = v38;
+        v43[0] = v38;
         v21 = 1;
       }
 
@@ -8011,8 +8024,8 @@ void layerPathWithHole(CAShapeLayer *a1, const WebCore::FloatQuad *a2, const Web
         findIntersectionOnLineBetweenPoints(&v38, (&v39 + 8), &v40, &v41, &v40, v29);
       }
 
-      v11 = v43[1];
-      v10 = v43[0];
+      v11 = *(v43 + 1);
+      v10 = *v43;
       v13 = *(&v42 + 1);
       v12 = *&v42;
       v15 = *(&v41 + 1);
@@ -8084,6 +8097,13 @@ void sub_19DD670D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
+void sub_19DD672FC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, WTF *a11, int a12, WTF *a13, int a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  WebCore::GraphicsContextCG::~GraphicsContextCG(va);
+  _Unwind_Resume(a1);
+}
+
 void sub_19DD67C68(_Unwind_Exception *a1, void *a2)
 {
   WTF::Vector<WebCore::InspectorOverlayHighlight::GridHighlightOverlay,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v2, a2);
@@ -8153,7 +8173,7 @@ void sub_19DD67C68(_Unwind_Exception *a1, void *a2)
   _Unwind_Resume(a1);
 }
 
-uint64_t WTF::Vector<WebCore::CertificateInfo,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, uint64_t a2)
+uint64_t WTF::Vector<WebCore::CertificateInfo,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, unint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 12);
@@ -8165,32 +8185,33 @@ uint64_t WTF::Vector<WebCore::CertificateInfo,0ul,WTF::CrashOnOverflow,16ul,WTF:
     return v2;
   }
 
-  if (!(v3 >> 29))
+  v4 = (v3 >> 29);
+  if (!v4)
   {
-    v5 = WTF::fastMalloc((8 * v3));
+    v6 = WTF::fastMalloc(v4, (8 * v3));
     *(v2 + 8) = v3;
-    *v2 = v5;
-    v6 = *(a2 + 12);
-    if (v6)
+    *v2 = v6;
+    v7 = *(a2 + 12);
+    if (v7)
     {
-      v7 = v5;
-      v8 = *a2;
-      v9 = 8 * v6;
+      v8 = v6;
+      v9 = *a2;
+      v10 = 8 * v7;
       do
       {
-        v10 = *v8;
-        *v7 = *v8;
-        if (v10)
+        v11 = *v9;
+        *v8 = *v9;
+        if (v11)
         {
-          CFRetain(v10);
+          CFRetain(v11);
         }
 
-        ++v7;
         ++v8;
-        v9 -= 8;
+        ++v9;
+        v10 -= 8;
       }
 
-      while (v9);
+      while (v10);
     }
 
     return v2;
@@ -8213,7 +8234,7 @@ void sub_19DD67ECC(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::Vector<WebCore::ISO18013PresentmentRequest,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, uint64_t a2)
+uint64_t WTF::Vector<WebCore::ISO18013PresentmentRequest,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, unint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 12);
@@ -8227,25 +8248,26 @@ uint64_t WTF::Vector<WebCore::ISO18013PresentmentRequest,0ul,WTF::CrashOnOverflo
 
   if (v3 < 0xAAAAAAB)
   {
-    v5 = 24 * v3;
-    v6 = WTF::fastMalloc((24 * v3));
-    *(v2 + 8) = v5 / 0x18;
-    *v2 = v6;
-    v7 = *(a2 + 12);
-    if (v7)
+    v5 = (3 * v3);
+    v6 = 8 * v5;
+    v7 = WTF::fastMalloc(v5, (8 * v5));
+    *(v2 + 8) = v6 / 0x18;
+    *v2 = v7;
+    v8 = *(a2 + 12);
+    if (v8)
     {
-      v8 = v6 + 8;
-      v9 = 24 * v7;
-      v10 = *a2 + 8;
+      v9 = (v7 + 1);
+      v10 = 24 * v8;
+      v11 = *a2 + 8;
       do
       {
-        *(v8 - 8) = *(v10 - 8);
-        v8 = WTF::Vector<WebCore::ISO18013DocumentRequestSet,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v8, v10) + 24;
-        v10 += 24;
-        v9 -= 24;
+        *(v9 - 8) = *(v11 - 8);
+        v9 = WTF::Vector<WebCore::ISO18013DocumentRequestSet,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v9, v11) + 24;
+        v11 += 24;
+        v10 -= 24;
       }
 
-      while (v9);
+      while (v10);
     }
 
     return v2;
@@ -8268,7 +8290,7 @@ void sub_19DD67FAC(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::Vector<WebCore::ISO18013DocumentRequestSet,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, uint64_t a2)
+uint64_t WTF::Vector<WebCore::ISO18013DocumentRequestSet,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, unint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 12);
@@ -8280,24 +8302,25 @@ uint64_t WTF::Vector<WebCore::ISO18013DocumentRequestSet,0ul,WTF::CrashOnOverflo
     return v2;
   }
 
-  if (!(v3 >> 28))
+  v4 = (v3 >> 28);
+  if (!v4)
   {
-    v5 = WTF::fastMalloc((16 * v3));
+    v6 = WTF::fastMalloc(v4, (16 * v3));
     *(v2 + 8) = v3;
-    *v2 = v5;
-    v6 = *(a2 + 12);
-    if (v6)
+    *v2 = v6;
+    v7 = *(a2 + 12);
+    if (v7)
     {
-      v7 = *a2;
-      v8 = 16 * v6;
+      v8 = *a2;
+      v9 = 16 * v7;
       do
       {
-        v5 = WTF::Vector<WebCore::ISO18013DocumentRequest,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v5, v7) + 16;
-        v7 += 2;
-        v8 -= 16;
+        v6 = (WTF::Vector<WebCore::ISO18013DocumentRequest,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v6, v8) + 16);
+        v8 += 2;
+        v9 -= 16;
       }
 
-      while (v8);
+      while (v9);
     }
 
     return v2;
@@ -8334,33 +8357,34 @@ uint64_t WTF::Vector<WebCore::ISO18013DocumentRequest,0ul,WTF::CrashOnOverflow,1
 
   if (v3 < 0xAAAAAAB)
   {
-    v5 = 24 * v3;
-    v6 = WTF::fastMalloc((24 * v3));
-    *(v2 + 8) = v5 / 0x18;
-    *v2 = v6;
-    v7 = *(a2 + 3);
-    if (v7)
+    v5 = (3 * v3);
+    v6 = 8 * v5;
+    v7 = WTF::fastMalloc(v5, (8 * v5));
+    *(v2 + 8) = v6 / 0x18;
+    *v2 = v7;
+    v8 = *(a2 + 3);
+    if (v8)
     {
-      v8 = *a2;
-      v9 = v6 + 8;
-      v10 = 24 * v7;
-      v11 = v8 + 8;
+      v9 = *a2;
+      v10 = (v7 + 1);
+      v11 = 24 * v8;
+      v12 = v9 + 8;
       do
       {
-        v12 = *(v11 - 8);
-        if (v12)
+        v13 = *(v12 - 8);
+        if (v13)
         {
-          atomic_fetch_add_explicit(v12, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v13, 2u, memory_order_relaxed);
         }
 
-        *(v9 - 8) = v12;
-        WTF::Vector<std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v9, v11);
-        v9 += 24;
-        v11 += 24;
-        v10 -= 24;
+        *(v10 - 8) = v13;
+        WTF::Vector<std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v10, v12);
+        v10 += 24;
+        v12 += 24;
+        v11 -= 24;
       }
 
-      while (v10);
+      while (v11);
     }
 
     return v2;
@@ -8390,7 +8414,7 @@ void sub_19DD6814C(_Unwind_Exception *exception_object, WTF::StringImpl *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::Vector<std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, uint64_t a2)
+uint64_t WTF::Vector<std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, unint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 12);
@@ -8404,23 +8428,24 @@ uint64_t WTF::Vector<std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,Web
 
   if (v3 < 0xAAAAAAB)
   {
-    v5 = 24 * v3;
-    v6 = WTF::fastMalloc((24 * v3));
-    *(v2 + 8) = v5 / 0x18;
-    *v2 = v6;
-    v7 = *(a2 + 12);
-    if (v7)
+    v5 = (3 * v3);
+    v6 = 8 * v5;
+    v7 = WTF::fastMalloc(v5, (8 * v5));
+    *(v2 + 8) = v6 / 0x18;
+    *v2 = v7;
+    v8 = *(a2 + 12);
+    if (v8)
     {
-      v8 = *a2;
-      v9 = 24 * v7;
+      v9 = *a2;
+      v10 = 24 * v8;
       do
       {
-        v6 = std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>::pair[abi:sn200100](v6, v8) + 3;
-        v8 += 24;
-        v9 -= 24;
+        v7 = std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>::pair[abi:sn200100](v7, v9) + 3;
+        v9 += 3;
+        v10 -= 24;
       }
 
-      while (v9);
+      while (v10);
     }
 
     return v2;
@@ -8443,7 +8468,7 @@ void sub_19DD6823C(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-atomic_uint **std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>::pair[abi:sn200100](atomic_uint **a1, uint64_t a2)
+atomic_uint **std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>::pair[abi:sn200100](atomic_uint **a1, atomic_uint **a2)
 {
   v3 = *a2;
   if (*a2)
@@ -8452,7 +8477,7 @@ atomic_uint **std::pair<WTF::String,WTF::Vector<std::pair<WTF::String,WebCore::I
   }
 
   *a1 = v3;
-  WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector((a1 + 1), (a2 + 8));
+  WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector((a1 + 1), a2 + 1);
   return a1;
 }
 
@@ -8483,31 +8508,32 @@ uint64_t WTF::Vector<std::pair<WTF::String,WebCore::ISO18013ElementInfo>,0ul,WTF
     return v2;
   }
 
-  if (!(v3 >> 28))
+  v4 = (v3 >> 28);
+  if (!v4)
   {
-    v5 = WTF::fastMalloc((16 * v3));
+    v6 = WTF::fastMalloc(v4, (16 * v3));
     *(v2 + 8) = v3;
-    *v2 = v5;
-    v6 = *(a2 + 3);
-    if (v6)
+    *v2 = v6;
+    v7 = *(a2 + 3);
+    if (v7)
     {
-      v7 = *a2;
-      v8 = *a2 + 16 * v6;
+      v8 = *a2;
+      v9 = *a2 + 16 * v7;
       do
       {
-        v9 = *v7;
-        if (*v7)
+        v10 = *v8;
+        if (*v8)
         {
-          atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
+          atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
         }
 
-        *v5 = v9;
-        *(v5 + 8) = *(v7 + 8);
-        v5 += 16;
-        v7 += 16;
+        *v6 = v10;
+        *(v6 + 8) = *(v8 + 8);
+        v6 += 2;
+        v8 += 16;
       }
 
-      while (v7 != v8);
+      while (v8 != v9);
     }
 
     return v2;
@@ -8580,72 +8606,74 @@ WebCore::InspectorOverlayHighlight::GridHighlightOverlay *WebCore::InspectorOver
       goto LABEL_16;
     }
 
-    v6 = 20 * v5;
-    v7 = WTF::fastMalloc((20 * v5));
-    *(this + 4) = v6 / 0x14;
-    *(this + 1) = v7;
-    v8 = *(a2 + 5);
-    if (v8)
+    v6 = (5 * v5);
+    v7 = 4 * v6;
+    v8 = WTF::fastMalloc(v6, (4 * v6));
+    *(this + 4) = v7 / 0x14;
+    *(this + 1) = v8;
+    v9 = *(a2 + 5);
+    if (v9)
     {
-      v9 = *(a2 + 1);
-      v10 = 20 * v8;
+      v10 = *(a2 + 1);
+      v11 = 20 * v9;
       do
       {
-        v11 = *v9;
-        *(v7 + 16) = *(v9 + 4);
-        *v7 = v11;
-        v7 += 20;
-        v9 = (v9 + 20);
-        v10 -= 20;
+        v12 = *v10;
+        *(v8 + 4) = *(v10 + 4);
+        *v8 = v12;
+        v8 = (v8 + 20);
+        v10 = (v10 + 20);
+        v11 -= 20;
       }
 
-      while (v10);
+      while (v11);
     }
   }
 
   WTF::Vector<WebCore::PlatformTimeRanges::Range,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(this + 24, a2 + 24);
-  v12 = *(a2 + 13);
+  v13 = *(a2 + 13);
   *(this + 5) = 0;
   *(this + 6) = 0;
-  *(this + 13) = v12;
-  if (!v12)
+  *(this + 13) = v13;
+  if (!v13)
   {
     goto LABEL_15;
   }
 
-  if (v12 >= 0x6666667)
+  if (v13 >= 0x6666667)
   {
 LABEL_16:
     __break(0xC471u);
     JUMPOUT(0x19DD68630);
   }
 
-  v13 = 40 * v12;
-  v14 = WTF::fastMalloc((40 * v12));
-  *(this + 12) = v13 / 0x28;
-  *(this + 5) = v14;
-  v15 = *(a2 + 13);
-  if (v15)
+  v14 = (5 * v13);
+  v15 = 8 * v14;
+  v16 = WTF::fastMalloc(v14, (8 * v14));
+  *(this + 12) = v15 / 0x28;
+  *(this + 5) = v16;
+  v17 = *(a2 + 13);
+  if (v17)
   {
-    v16 = *(a2 + 5);
-    v17 = v16 + 40 * v15;
+    v18 = *(a2 + 5);
+    v19 = v18 + 40 * v17;
     do
     {
-      v18 = *v16;
-      if (*v16)
+      v20 = *v18;
+      if (*v18)
       {
-        atomic_fetch_add_explicit(v18, 2u, memory_order_relaxed);
+        atomic_fetch_add_explicit(v20, 2u, memory_order_relaxed);
       }
 
-      *v14 = v18;
-      v19 = *(v16 + 8);
-      *(v14 + 24) = *(v16 + 24);
-      *(v14 + 8) = v19;
-      v14 += 40;
-      v16 += 40;
+      *v16 = v20;
+      v21 = *(v18 + 8);
+      *(v16 + 3) = *(v18 + 24);
+      *(v16 + 1) = v21;
+      v16 += 5;
+      v18 += 40;
     }
 
-    while (v16 != v17);
+    while (v18 != v19);
   }
 
 LABEL_15:
@@ -8685,7 +8713,7 @@ void sub_19DD6863C(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, uint64_t a2)
+uint64_t WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t result, unint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 12);
@@ -8699,11 +8727,12 @@ uint64_t WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16u
 
   if (v3 < 0x6666667)
   {
-    v5 = 40 * v3;
-    v6 = WTF::fastMalloc((40 * v3));
-    *(v2 + 8) = v5 / 0x28;
-    *v2 = v6;
-    WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel>::uninitializedCopy(*a2, *a2 + 40 * *(a2 + 12), v6);
+    v5 = (5 * v3);
+    v6 = 8 * v5;
+    v7 = WTF::fastMalloc(v5, (8 * v5));
+    *(v2 + 8) = v6 / 0x28;
+    *v2 = v7;
+    WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel>::uninitializedCopy(*a2, *a2 + 40 * *(a2 + 12), v7);
     return v2;
   }
 
@@ -8724,7 +8753,7 @@ void sub_19DD68754(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel>::uninitializedCopy(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel>::uninitializedCopy(uint64_t result, unint64_t a2, uint64_t a3)
 {
   if (result != a2)
   {
@@ -8740,25 +8769,26 @@ uint64_t WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel>::uninitialize
       *(v9 + 12) = v8;
       if (v8)
       {
-        if (v8 >> 27)
+        v10 = (v8 >> 27);
+        if (v10)
         {
           __break(0xC471u);
           JUMPOUT(0x19DD68854);
         }
 
-        v10 = WTF::fastMalloc((32 * v8));
-        v11 = a3 + v6;
-        *(v11 + 8) = v8;
-        *v11 = v10;
-        result = WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel::Content>::uninitializedCopy(*v7, *v7 + 32 * *(v7 + 12), v10);
+        v11 = WTF::fastMalloc(v10, (32 * v8));
+        v12 = a3 + v6;
+        *(v12 + 8) = v8;
+        *v12 = v11;
+        result = WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel::Content>::uninitializedCopy(*v7, *v7 + 32 * *(v7 + 12), v11);
       }
 
       *(v9 + 16) = *(v7 + 16);
-      v12 = *(v7 + 24);
-      *(v9 + 24) = v12;
-      if ((v12 & 0x8000000000000) != 0)
+      v13 = *(v7 + 24);
+      *(v9 + 24) = v13;
+      if ((v13 & 0x8000000000000) != 0)
       {
-        atomic_fetch_add((v12 & 0xFFFFFFFFFFFFLL), 1u);
+        atomic_fetch_add((v13 & 0xFFFFFFFFFFFFLL), 1u);
       }
 
       *(a3 + v6 + 32) = *(v5 + v6 + 32);
@@ -8880,26 +8910,26 @@ void sub_19DD68960(_Unwind_Exception *exception_object, void *a2)
   _Unwind_Resume(exception_object);
 }
 
-unsigned int *WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(unsigned int *a1, unsigned int *a2)
+uint64_t WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(uint64_t a1, unsigned int *a2)
 {
   if (a2 != a1)
   {
-    v4 = a1[3];
+    v4 = *(a1 + 12);
     v5 = a2[3];
     if (v4 <= v5)
     {
-      if (v5 > a1[2])
+      if (v5 > *(a1 + 8))
       {
         WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(a1, 0);
         WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(a1, a2[3]);
-        v4 = a1[3];
+        v4 = *(a1 + 12);
       }
     }
 
     else
     {
-      WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel>::destruct(*a1 + 40 * v5, (*a1 + 40 * v4));
-      a1[3] = v5;
+      WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel>::destruct((*a1 + 40 * v5), (*a1 + 40 * v4));
+      *(a1 + 12) = v5;
       v4 = v5;
     }
 
@@ -9026,7 +9056,7 @@ unsigned int *WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflo
 
       while (v6 != v8);
       v6 = *a2;
-      v24 = a1[3];
+      v24 = *(a1 + 12);
       v7 = *a1;
     }
 
@@ -9036,7 +9066,7 @@ unsigned int *WTF::Vector<WebCore::InspectorOverlayLabel,0ul,WTF::CrashOnOverflo
     }
 
     WTF::VectorTypeOperations<WebCore::InspectorOverlayLabel>::uninitializedCopy(&v6[5 * v24], &v6[5 * a2[3]], v7 + 40 * v24);
-    a1[3] = a2[3];
+    *(a1 + 12) = a2[3];
   }
 
   return a1;
@@ -9051,7 +9081,7 @@ void sub_19DD68F94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t WTF::tryMakeString<WTF::String,WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>@<X0>(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X3>, void *a5@<X8>)
+uint64_t *WTF::tryMakeString<WTF::String,WTF::ASCIILiteral,WTF::String,WTF::ASCIILiteral>@<X0>(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t *a3@<X2>, void *a4@<X3>, void *a5@<X8>)
 {
   v15 = *a1;
   v5 = a2[1];
@@ -9091,7 +9121,7 @@ LABEL_8:
   return WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>(&v15, v14, &v13, v12, a5);
 }
 
-uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+uint64_t *WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t *result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   v6 = *result;
   if (*result)
@@ -9130,7 +9160,7 @@ uint64_t WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::String,void>
   return result;
 }
 
-uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t result@<X0>, int a2@<W1>, uint64_t a3@<X2>, int8x16_t *a4@<X3>, size_t a5@<X4>, _DWORD *a6@<X5>, _OWORD *a7@<X6>, unint64_t a8@<X7>, void *a9@<X8>)
+uint64_t *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<WTF::String,void>,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>>@<X0>(uint64_t *result@<X0>, unint64_t a2@<X1>, unint64_t a3@<X2>, int8x16_t *a4@<X3>, size_t a5@<X4>, _DWORD *a6@<X5>, _OWORD *a7@<X6>, unint64_t a8@<X7>, void *a9@<X8>)
 {
   v15 = result;
   v17 = result;
@@ -9140,7 +9170,7 @@ uint64_t WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::
     {
       if ((result & 0x80000000) == 0)
       {
-        result = WTF::tryFastCompactMalloc((result + 20));
+        result = WTF::tryFastCompactMalloc(&v51, (result + 20));
         v18 = v51;
         if (!v51)
         {
@@ -9237,7 +9267,7 @@ LABEL_19:
     goto LABEL_18;
   }
 
-  result = WTF::tryFastCompactMalloc((2 * result + 20));
+  result = WTF::tryFastCompactMalloc(&v51, (2 * result + 20));
   v18 = v51;
   if (!v51)
   {
@@ -9468,27 +9498,27 @@ WebKit::ServiceWorkerDownloadTask *WebKit::ServiceWorkerDownloadTask::close(WebK
     if (v2)
     {
       v3 = this;
-      ++*(v2 + 4);
-      WebKit::WebSWServerToContextConnection::protectedIPCConnection(v2, &v7);
-      v4 = v7;
+      ++*(v2 + 16);
+      WebKit::WebSWServerToContextConnection::protectedIPCConnection(&v8, v2);
+      v4 = v8;
       v5 = *(v3 + 75);
       if (v5)
       {
-        v9 = *(v3 + 75);
+        v10 = *(v3 + 75);
         LOBYTE(v5) = 1;
       }
 
       else
       {
-        LOBYTE(v9) = 0;
+        LOBYTE(v10) = 0;
       }
 
-      v8 = 395;
-      v10 = v5;
-      IPC::Connection::removeMessageReceiveQueue(v7, &v8);
+      v9 = 395;
+      v11 = v5;
+      IPC::Connection::removeMessageReceiveQueue(v8, &v9);
       if (v4)
       {
-        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v4);
+        WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v4, v6);
       }
 
       WebKit::WebSWServerToContextConnection::unregisterDownload(v2, v3);
@@ -9497,17 +9527,17 @@ WebKit::ServiceWorkerDownloadTask *WebKit::ServiceWorkerDownloadTask::close(WebK
       if (this && atomic_fetch_add(this, 0xFFFFFFFF) == 1)
       {
         atomic_store(1u, this);
-        this = WTF::fastFree(this, v6);
+        this = WTF::fastFree(this, v7);
       }
 
-      if (*(v2 + 4) == 1)
+      if (*(v2 + 16) == 1)
       {
         return (*(*v2 + 8))(v2);
       }
 
       else
       {
-        --*(v2 + 4);
+        --*(v2 + 16);
       }
     }
   }
@@ -9538,7 +9568,7 @@ uint64_t WebKit::ServiceWorkerDownloadTask::dispatch(atomic_ullong *a1, uint64_t
 LABEL_6:
   v7 = *a2;
   *a2 = 0;
-  v8 = WTF::fastMalloc(0x18);
+  v8 = WTF::fastMalloc(v5, 0x18);
   *v8 = &unk_1F1107D38;
   v8[1] = a1;
   v8[2] = v7;
@@ -9587,7 +9617,7 @@ WebKit::ServiceWorkerDownloadTask *WebKit::ServiceWorkerDownloadTask::cancel(ato
 
   WTF::ThreadSafeWeakPtrControlBlock::strongRef(this[1]);
 LABEL_6:
-  v5 = WTF::fastMalloc(0x18);
+  v5 = WTF::fastMalloc(v3, 0x18);
   *v5 = &unk_1F1107D60;
   v5[1] = this;
   v5[2] = this;
@@ -9604,11 +9634,11 @@ LABEL_6:
   this[78] = 0;
   if (v7)
   {
-    v8 = *(v7 + 2) - 1;
-    *(v7 + 2) = v8;
+    v8 = *(v7 + 16) - 1;
+    *(v7 + 16) = v8;
     if (!v8)
     {
-      *(*(v7 + 1) + 8) = 0;
+      *(*(v7 + 8) + 8) = 0;
       sandbox_extension_release();
     }
 
@@ -9637,45 +9667,45 @@ BOOL WebKit::ServiceWorkerDownloadTask::sendToServiceWorker<Messages::WebSWConte
     return 0;
   }
 
-  ++v3[4];
-  WebKit::WebSWServerToContextConnection::protectedIPCConnection(v3, &v8);
-  v5 = v8;
-  v6 = IPC::Connection::send<Messages::WebSWContextManagerConnection::CancelFetch>(v8, a2, 0, 0, 0) == 0;
+  ++*(v3 + 16);
+  WebKit::WebSWServerToContextConnection::protectedIPCConnection(&v9, v3);
+  v5 = v9;
+  v7 = IPC::Connection::send<Messages::WebSWContextManagerConnection::CancelFetch>(v9, a2, 0, 0, 0) == 0;
   if (v5)
   {
-    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v5);
+    WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<IPC::Connection,(WTF::DestructionThread)2>::deref(v5, v6);
   }
 
-  if (v3[4] == 1)
+  if (*(v3 + 16) == 1)
   {
     (*(*v3 + 8))(v3);
   }
 
   else
   {
-    --v3[4];
+    --*(v3 + 16);
   }
 
-  return v6;
+  return v7;
 }
 
-WebKit::SandboxExtensionImpl *WebKit::ServiceWorkerDownloadTask::setPendingDownloadLocation(atomic_ullong *a1, atomic_uint **a2, uint64_t *a3, char a4)
+WTF::StringImpl *WebKit::ServiceWorkerDownloadTask::setPendingDownloadLocation(atomic_ullong *a1, atomic_uint **a2, uint64_t **a3, char a4)
 {
   v5 = a1[2];
   if (v5 && *(v5 + 8))
   {
-    v25 = 0;
+    v26 = 0;
     WTF::String::operator=(a1 + 15, a2);
-    WebKit::SandboxExtensionHandle::~SandboxExtensionHandle(&v25);
+    WebKit::SandboxExtensionHandle::~SandboxExtensionHandle(&v26);
     v8 = 0;
     if (*a3)
     {
-      v8 = WTF::fastMalloc(0x18);
+      v8 = WTF::fastMalloc(*a3, 0x18);
       *v8 = 1;
       v9 = *a3;
       *a3 = 0;
-      *(v8 + 8) = v9;
-      *(v8 + 16) = 0;
+      v8[1] = v9;
+      v8[2] = 0;
     }
 
     v10 = a1[78];
@@ -9696,17 +9726,17 @@ WebKit::SandboxExtensionImpl *WebKit::ServiceWorkerDownloadTask::setPendingDownl
     }
 
     ++*v8;
-    v24 = *(v8 + 16);
-    *(v8 + 16) = v24 + 1;
-    if (!v24)
+    v25 = v8[2];
+    v8[2] = v25 + 1;
+    if (!v25)
     {
-      WebKit::SandboxExtensionImpl::consume(*(v8 + 8));
+      WebKit::SandboxExtensionImpl::consume(v8[1]);
     }
 
     v10 = WTF::RefCounted<WebKit::SandboxExtension>::deref(v8);
 LABEL_7:
     v11 = WebKit::serviceWorkerDownloadTaskQueueSingleton(v10);
-    v25 = a1;
+    v26 = a1;
     while (1)
     {
       v12 = a1[1];
@@ -9725,56 +9755,56 @@ LABEL_7:
 
     WTF::ThreadSafeWeakPtrControlBlock::strongRef(a1[1]);
 LABEL_12:
-    v26 = a1;
-    v27 = a4;
+    v27 = a1;
+    v28 = a4;
     WTF::String::isolatedCopy();
-    v14 = WTF::fastMalloc(0x28);
-    *v14 = &unk_1F1107DB0;
-    *(v14 + 8) = v25;
-    *(v14 + 16) = v26;
-    *(v14 + 24) = v27;
-    v15 = v28;
-    v26 = 0;
-    v28 = 0;
-    v29 = v14;
-    *(v14 + 32) = v15;
-    (*(*v11 + 48))(v11, &v29);
-    v17 = v29;
+    v15 = WTF::fastMalloc(v14, 0x28);
+    *v15 = &unk_1F1107DB0;
+    v15[1] = v26;
+    v15[2] = v27;
+    *(v15 + 24) = v28;
+    v16 = v29;
+    v27 = 0;
     v29 = 0;
-    if (v17)
+    v30 = v15;
+    v15[4] = v16;
+    (*(*v11 + 48))(v11, &v30);
+    v18 = v30;
+    v30 = 0;
+    if (v18)
     {
-      (*(*v17 + 8))(v17);
+      (*(*v18 + 8))(v18);
     }
 
-    result = v28;
-    v28 = 0;
+    result = v29;
+    v29 = 0;
     if (result && atomic_fetch_add_explicit(result, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      result = WTF::StringImpl::destroy(result, v16);
+      result = WTF::StringImpl::destroy(result, v17);
     }
 
-    v19 = v26;
-    v26 = 0;
-    if (v19)
+    v20 = v27;
+    v27 = 0;
+    if (v20)
     {
-      return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::deref(v19 + 1);
+      return WTF::ThreadSafeRefCountedAndCanMakeThreadSafeWeakPtr<WebKit::NetworkDataTask,(WTF::DestructionThread)1>::deref(v20 + 1, v17);
     }
 
     return result;
   }
 
-  v20 = WebKit::serviceWorkerDownloadTaskQueueSingleton(a1);
+  v21 = WebKit::serviceWorkerDownloadTaskQueueSingleton(a1);
   while (1)
   {
-    v21 = a1[1];
-    if ((v21 & 1) == 0)
+    v22 = a1[1];
+    if ((v22 & 1) == 0)
     {
       break;
     }
 
-    v22 = a1[1];
-    atomic_compare_exchange_strong_explicit(a1 + 1, &v22, v21 + 2, memory_order_relaxed, memory_order_relaxed);
-    if (v22 == v21)
+    v23 = a1[1];
+    atomic_compare_exchange_strong_explicit(a1 + 1, &v23, v22 + 2, memory_order_relaxed, memory_order_relaxed);
+    if (v23 == v22)
     {
       goto LABEL_24;
     }
@@ -9782,14 +9812,14 @@ LABEL_12:
 
   WTF::ThreadSafeWeakPtrControlBlock::strongRef(a1[1]);
 LABEL_24:
-  v23 = WTF::fastMalloc(0x18);
-  *v23 = &unk_1F1107D88;
-  *(v23 + 1) = a1;
-  *(v23 + 2) = a1;
-  v25 = v23;
-  (*(*v20 + 48))(v20, &v25);
-  result = v25;
-  v25 = 0;
+  v24 = WTF::fastMalloc(v22, 0x18);
+  *v24 = &unk_1F1107D88;
+  v24[1] = a1;
+  v24[2] = a1;
+  v26 = v24;
+  (*(*v21 + 48))(v21, &v26);
+  result = v26;
+  v26 = 0;
   if (result)
   {
     return (*(*result + 8))(result);

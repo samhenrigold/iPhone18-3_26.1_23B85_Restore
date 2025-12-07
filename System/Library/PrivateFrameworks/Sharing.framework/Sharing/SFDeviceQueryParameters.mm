@@ -52,78 +52,98 @@
 - (id)maAssetQueryDescription
 {
   maQuery = [(SFDeviceQueryParameters *)self maQuery];
-  v17 = 0;
-  v10 = objc_opt_class();
-  NSAppendPrintF();
-  v16 = 0;
-  NSAppendPrintF();
-  v3 = v16;
+  v21 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v21, "<%@: %{ptr}", v3, maQuery);
+  v4 = v21;
+  v20 = v4;
+  NSAppendPrintF(&v20, ", returnTypes: ");
+  v5 = v20;
 
   returnTypes = [maQuery returnTypes];
   if (returnTypes == 2)
   {
-    v13 = v3;
-    v5 = &v13;
+    v17 = v5;
+    v7 = &v17;
+    NSAppendPrintF(&v17, "UnionOfCatalogInstalled");
   }
 
   else if (returnTypes == 1)
   {
-    v14 = v3;
-    v5 = &v14;
+    v18 = v5;
+    v7 = &v18;
+    NSAppendPrintF(&v18, "InstalledOnly");
   }
 
   else if (returnTypes)
   {
-    v12 = v3;
-    v5 = &v12;
+    v16 = v5;
+    v7 = &v16;
+    NSAppendPrintF(&v16, "?");
   }
 
   else
   {
-    v15 = v3;
-    v5 = &v15;
+    v19 = v5;
+    v7 = &v19;
+    NSAppendPrintF(&v19, "CatalogOnly");
   }
 
-  NSAppendPrintF();
-  v6 = *v5;
+  v8 = *v7;
 
+  v15 = v8;
   queryParams = [maQuery queryParams];
-  NSAppendPrintF();
-  v7 = v6;
+  NSAppendPrintF(&v15, ", queryParams: %##@", queryParams);
+  v10 = v15;
 
-  NSAppendPrintF();
-  v8 = v7;
+  v14 = v10;
+  NSAppendPrintF(&v14, ">");
+  v11 = v14;
+  v12 = v14;
 
-  return v7;
+  return v11;
 }
 
 - (id)description
 {
-  v9 = objc_opt_class();
-  NSAppendPrintF();
-  v3 = 0;
-  if ([(SFDeviceQueryParameters *)self installedOnly:v9])
+  v15 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v15, "<%@: %{ptr}", v3, self);
+  v4 = v15;
+  v14 = v4;
+  if ([(SFDeviceQueryParameters *)self installedOnly])
   {
-    v4 = "yes";
+    v5 = "yes";
   }
 
   else
   {
-    v4 = "no";
+    v5 = "no";
   }
 
-  v10 = v4;
-  NSAppendPrintF();
-  v5 = v3;
+  NSAppendPrintF(&v14, ", installedOnly %s", v5);
+  v6 = v14;
 
-  [(SFDeviceQueryParameters *)self fallback];
-  NSAppendPrintF();
-  v6 = v5;
+  v13 = v6;
+  if ([(SFDeviceQueryParameters *)self fallback])
+  {
+    v7 = "yes";
+  }
 
-  NSAppendPrintF();
-  v7 = v6;
+  else
+  {
+    v7 = "no";
+  }
 
-  return v6;
+  NSAppendPrintF(&v13, ", fallback %s", v7);
+  v8 = v13;
+
+  v12 = v8;
+  NSAppendPrintF(&v12, ">");
+  v9 = v12;
+  v10 = v12;
+
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal

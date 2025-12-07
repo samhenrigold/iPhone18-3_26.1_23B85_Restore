@@ -2,7 +2,7 @@
 + (CMPhotoDecompressionSession)_sharedDecompressionSession;
 - (CGImage)waitForImageRef;
 - (_UINewCGImageDecompressor)init;
-- (id)initWithSourceImage:(void *)image completionQueue:;
+- (char)initWithSourceImage:(void *)image completionQueue:;
 - (void)_finishDecompressingWithImage:(CGImage *)image error:(id)error;
 - (void)dealloc;
 - (void)decompressAsync:(uint64_t)async;
@@ -117,7 +117,7 @@
   objc_exception_throw(v2);
 }
 
-- (id)initWithSourceImage:(void *)image completionQueue:
+- (char)initWithSourceImage:(void *)image completionQueue:
 {
   v20 = *MEMORY[0x1E69E9840];
   imageCopy = image;

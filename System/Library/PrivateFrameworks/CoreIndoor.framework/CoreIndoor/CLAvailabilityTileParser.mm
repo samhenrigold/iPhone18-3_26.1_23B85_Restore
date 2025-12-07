@@ -924,17 +924,17 @@ LABEL_131:
   v511 = *MEMORY[0x277D85DE8];
   nCopy = n;
   pathCopy = path;
-  v464 = nCopy;
-  v458 = pathCopy;
+  v465 = nCopy;
+  v459 = pathCopy;
   if (nCopy)
   {
     if (pathCopy)
     {
       objc_msgSend_dataUsingEncoding_(nCopy, v7, v8, v9, v10, 4);
-      v457 = v488 = 0;
-      v463 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x277CCAAA0], v11, v12, v13, v14);
-      v460 = 0;
-      if (v460)
+      v458 = v488 = 0;
+      v464 = objc_msgSend_JSONObjectWithData_options_error_(MEMORY[0x277CCAAA0], v11, v12, v13, v14);
+      v461 = 0;
+      if (v461)
       {
         if (qword_28144B270 != -1)
         {
@@ -944,11 +944,11 @@ LABEL_131:
         log = qword_28144B278;
         if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
         {
-          v23 = objc_msgSend_description(v460, v19, v20, v21, v22);
+          v23 = objc_msgSend_description(v461, v19, v20, v21, v22);
           v24 = v23;
           v29 = objc_msgSend_UTF8String(v23, v25, v26, v27, v28);
-          v30 = v464;
-          v35 = objc_msgSend_UTF8String(v464, v31, v32, v33, v34);
+          v30 = v465;
+          v35 = objc_msgSend_UTF8String(v465, v31, v32, v33, v34);
           *buf = 136315394;
           *&buf[4] = v29;
           *&buf[12] = 2080;
@@ -961,8 +961,8 @@ LABEL_131:
 
       else
       {
-        v37 = objc_msgSend_objectForKey_(v463, v15, v16, v17, v18, @"venues");
-        v456 = v37;
+        v37 = objc_msgSend_objectForKey_(v464, v15, v16, v17, v18, @"venues");
+        v457 = v37;
         if (v37)
         {
           if (objc_msgSend_count(v37, v38, v39, v40, v41))
@@ -976,7 +976,7 @@ LABEL_131:
             v42 = qword_28144B278;
             if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
             {
-              v47 = objc_msgSend_count(v456, v43, v44, v45, v46);
+              v47 = objc_msgSend_count(v457, v43, v44, v45, v46);
               LODWORD(v489[0]) = 134217984;
               *(v489 + 4) = v47;
               _os_log_impl(&dword_245A2E000, v42, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, adding %lu venues", v489, 0xCu);
@@ -986,22 +986,22 @@ LABEL_131:
             v487 = 0u;
             v484 = 0u;
             v485 = 0u;
-            log = v456;
-            v454 = objc_msgSend_countByEnumeratingWithState_objects_count_(log, v48, v49, v50, v51, &v484, v493, 16);
-            if (v454)
+            log = v457;
+            v455 = objc_msgSend_countByEnumeratingWithState_objects_count_(log, v48, v49, v50, v51, &v484, v493, 16);
+            if (v455)
             {
-              v455 = *v485;
+              v456 = *v485;
               v55 = 134217984;
               do
               {
-                for (i = 0; i != v454; ++i)
+                for (i = 0; i != v455; ++i)
                 {
-                  if (*v485 != v455)
+                  if (*v485 != v456)
                   {
                     objc_enumerationMutation(log);
                   }
 
-                  v462 = *(*(&v484 + 1) + 8 * i);
+                  v463 = *(*(&v484 + 1) + 8 * i);
                   v56 = *v495;
                   v57 = *&buf[24];
                   if (*&buf[24] >= *v495)
@@ -1018,7 +1018,7 @@ LABEL_131:
 
                   ++*&buf[24];
                   v58 = *(*&buf[16] + 8 * v57);
-                  v59 = objc_msgSend_objectForKey_(v462, v52, *&v55, v53, v54, @"exteriors");
+                  v59 = objc_msgSend_objectForKey_(v463, v52, *&v55, v53, v54, @"exteriors");
                   v482 = 0u;
                   v483 = 0u;
                   v480 = 0u;
@@ -1027,13 +1027,13 @@ LABEL_131:
                   v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v60, v61, v62, v63, &v480, v492, 16);
                   if (v64)
                   {
-                    v466 = *v481;
+                    v467 = *v481;
                     do
                     {
-                      v467 = v64;
-                      for (j = 0; j != v467; ++j)
+                      v468 = v64;
+                      for (j = 0; j != v468; ++j)
                       {
-                        if (*v481 != v466)
+                        if (*v481 != v467)
                         {
                           objc_enumerationMutation(obj);
                         }
@@ -1057,7 +1057,6 @@ LABEL_131:
                         *(v58 + 48) = v72 + 1;
                         v74 = *(v73 + 8 * v72);
                         v75 = objc_msgSend_objectForKey_(v70, v65, v66, v67, v68, @"latitude");
-                        v468 = v70;
                         v80 = objc_msgSend_objectForKey_(v70, v76, v77, v78, v79, @"longitude");
                         if (qword_28144B270 != -1)
                         {
@@ -1078,66 +1077,64 @@ LABEL_131:
                           v96 = objc_msgSend_objectAtIndex_(v75, v92, v93, v94, v95, k);
                           objc_msgSend_doubleValue(v96, v97, v98, v99, v100);
                           v102 = *(v74 + 24);
-                          v103 = *(v74 + 16);
                           if (v102 == *(v74 + 28))
                           {
                             if (2 * v102 <= v102 + 1)
                             {
-                              v104 = v102 + 1;
+                              v103 = v102 + 1;
                             }
 
                             else
                             {
-                              v104 = 2 * v102;
+                              v103 = 2 * v102;
                             }
 
-                            if (v104 <= 4)
+                            if (v103 <= 4)
                             {
-                              v104 = 4;
+                              v103 = 4;
                             }
 
-                            *(v74 + 28) = v104;
+                            *(v74 + 28) = v103;
                             operator new[]();
                           }
 
-                          v105 = *(v74 + 16);
+                          v104 = *(v74 + 16);
                           *(v74 + 24) = v102 + 1;
-                          *(v105 + 8 * v102) = v101;
+                          *(v104 + 8 * v102) = v101;
 
-                          v110 = objc_msgSend_objectAtIndex_(v80, v106, v107, v108, v109, k);
-                          objc_msgSend_doubleValue(v110, v111, v112, v113, v114);
-                          v116 = *(v74 + 48);
-                          v117 = *(v74 + 40);
-                          if (v116 == *(v74 + 52))
+                          v109 = objc_msgSend_objectAtIndex_(v80, v105, v106, v107, v108, k);
+                          objc_msgSend_doubleValue(v109, v110, v111, v112, v113);
+                          v115 = *(v74 + 48);
+                          if (v115 == *(v74 + 52))
                           {
-                            if (2 * v116 <= v116 + 1)
+                            if (2 * v115 <= v115 + 1)
                             {
-                              v118 = v116 + 1;
+                              v116 = v115 + 1;
                             }
 
                             else
                             {
-                              v118 = 2 * v116;
+                              v116 = 2 * v115;
                             }
 
-                            if (v118 <= 4)
+                            if (v116 <= 4)
                             {
-                              v118 = 4;
+                              v116 = 4;
                             }
 
-                            *(v74 + 52) = v118;
+                            *(v74 + 52) = v116;
                             operator new[]();
                           }
 
-                          v119 = *(v74 + 40);
-                          *(v74 + 48) = v116 + 1;
-                          *(v119 + 8 * v116) = v115;
+                          v117 = *(v74 + 40);
+                          *(v74 + 48) = v115 + 1;
+                          *(v117 + 8 * v115) = v114;
                         }
 
-                        v120 = objc_msgSend_valueForKey_(v468, v92, v93, v94, v95, @"tolerance");
-                        objc_msgSend_doubleValue(v120, v121, v122, v123, v124);
+                        v118 = objc_msgSend_valueForKey_(v70, v92, v93, v94, v95, @"tolerance");
+                        objc_msgSend_doubleValue(v118, v119, v120, v121, v122);
                         *(v74 + 76) |= 4u;
-                        *(v74 + 64) = v125;
+                        *(v74 + 64) = v123;
                       }
 
                       v64 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v65, v66, v67, v68, &v480, v492, 16);
@@ -1150,86 +1147,86 @@ LABEL_131:
                   v479 = 0u;
                   v477 = 0u;
                   v476 = 0u;
-                  v129 = objc_msgSend_objectForKey_(v462, v126, 0.0, v127, v128, @"ids");
-                  v134 = objc_msgSend_countByEnumeratingWithState_objects_count_(v129, v130, v131, v132, v133, &v476, v491, 16);
-                  if (v134)
+                  v127 = objc_msgSend_objectForKey_(v463, v124, 0.0, v125, v126, @"ids");
+                  v132 = objc_msgSend_countByEnumeratingWithState_objects_count_(v127, v128, v129, v130, v131, &v476, v491, 16);
+                  if (v132)
                   {
-                    v135 = *v477;
+                    v133 = *v477;
                     do
                     {
-                      for (m = 0; m != v134; ++m)
+                      for (m = 0; m != v132; ++m)
                       {
-                        if (*v477 != v135)
+                        if (*v477 != v133)
                         {
-                          objc_enumerationMutation(v129);
+                          objc_enumerationMutation(v127);
                         }
 
-                        v137 = *(*(&v476 + 1) + 8 * m);
-                        v138 = v137;
-                        v143 = objc_msgSend_UTF8String(v137, v139, v140, v141, v142);
-                        v144 = v143;
-                        v145 = *(v58 + 28);
-                        v146 = *(v58 + 24);
-                        if (v146 >= v145)
+                        v135 = *(*(&v476 + 1) + 8 * m);
+                        v136 = v135;
+                        v141 = objc_msgSend_UTF8String(v135, v137, v138, v139, v140);
+                        v142 = v141;
+                        v143 = *(v58 + 28);
+                        v144 = *(v58 + 24);
+                        if (v144 >= v143)
                         {
-                          if (v145 == *(v58 + 32))
+                          if (v143 == *(v58 + 32))
                           {
-                            v143 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v58 + 16));
-                            v145 = *(v58 + 28);
+                            v141 = wireless_diagnostics::google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v58 + 16));
+                            v143 = *(v58 + 28);
                           }
 
-                          *(v58 + 28) = v145 + 1;
-                          v148 = wireless_diagnostics::google::protobuf::internal::StringTypeHandlerBase::New(v143);
-                          v149 = *(v58 + 16);
-                          v150 = *(v58 + 24);
-                          *(v58 + 24) = v150 + 1;
-                          *(v149 + 8 * v150) = v148;
+                          *(v58 + 28) = v143 + 1;
+                          v146 = wireless_diagnostics::google::protobuf::internal::StringTypeHandlerBase::New(v141);
+                          v147 = *(v58 + 16);
+                          v148 = *(v58 + 24);
+                          *(v58 + 24) = v148 + 1;
+                          *(v147 + 8 * v148) = v146;
                         }
 
                         else
                         {
-                          v147 = *(v58 + 16);
-                          *(v58 + 24) = v146 + 1;
-                          v148 = *(v147 + 8 * v146);
+                          v145 = *(v58 + 16);
+                          *(v58 + 24) = v144 + 1;
+                          v146 = *(v145 + 8 * v144);
                         }
 
-                        MEMORY[0x245D78760](v148, v144);
+                        MEMORY[0x245D78760](v146, v142);
                         if (qword_28144B270 != -1)
                         {
                           sub_245A8EB7C();
                         }
 
-                        v151 = qword_28144B278;
-                        if (os_log_type_enabled(v151, OS_LOG_TYPE_DEBUG))
+                        v149 = qword_28144B278;
+                        if (os_log_type_enabled(v149, OS_LOG_TYPE_DEBUG))
                         {
-                          v152 = v137;
-                          v157 = objc_msgSend_UTF8String(v137, v153, v154, v155, v156);
+                          v150 = v135;
+                          v155 = objc_msgSend_UTF8String(v135, v151, v152, v153, v154);
                           LODWORD(v489[0]) = 136315138;
-                          *(v489 + 4) = v157;
-                          _os_log_impl(&dword_245A2E000, v151, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, added venue ID %s", v489, 0xCu);
+                          *(v489 + 4) = v155;
+                          _os_log_impl(&dword_245A2E000, v149, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, added venue ID %s", v489, 0xCu);
                         }
                       }
 
-                      v134 = objc_msgSend_countByEnumeratingWithState_objects_count_(v129, v158, v159, v160, v161, &v476, v491, 16);
+                      v132 = objc_msgSend_countByEnumeratingWithState_objects_count_(v127, v156, v157, v158, v159, &v476, v491, 16);
                     }
 
-                    while (v134);
+                    while (v132);
                   }
 
-                  v166 = objc_msgSend_valueForKey_(v462, v162, v163, v164, v165, @"context");
-                  v171 = objc_msgSend_intValue(v166, v167, v168, v169, v170);
+                  v164 = objc_msgSend_valueForKey_(v463, v160, v161, v162, v163, @"context");
+                  v169 = objc_msgSend_intValue(v164, v165, v166, v167, v168);
 
-                  if ((v171 - 1) < 2)
+                  if ((v169 - 1) < 2)
                   {
                     *(v58 + 104) |= 8u;
-                    *(v58 + 96) = v171;
+                    *(v58 + 96) = v169;
                   }
 
-                  v176 = objc_msgSend_objectForKey_(v462, v172, v173, v174, v175, @"tileDownloadConfiguration");
-                  v181 = objc_msgSend_objectForKey_(v176, v177, v178, v179, v180, @"floorIdxsForWifiDownloadOnly");
+                  v174 = objc_msgSend_objectForKey_(v463, v170, v171, v172, v173, @"tileDownloadConfiguration");
+                  v179 = objc_msgSend_objectForKey_(v174, v175, v176, v177, v178, @"floorIdxsForWifiDownloadOnly");
                   *(v58 + 104) |= 4u;
-                  v182 = *(v58 + 64);
-                  if (!v182)
+                  v180 = *(v58 + 64);
+                  if (!v180)
                   {
                     operator new();
                   }
@@ -1238,311 +1235,310 @@ LABEL_131:
                   v475 = 0u;
                   v472 = 0u;
                   v473 = 0u;
-                  v183 = v181;
-                  v189 = objc_msgSend_countByEnumeratingWithState_objects_count_(v183, v184, v185, v186, v187, &v472, v490, 16);
-                  if (v189)
+                  v181 = v179;
+                  v187 = objc_msgSend_countByEnumeratingWithState_objects_count_(v181, v182, v183, v184, v185, &v472, v490, 16);
+                  if (v187)
                   {
-                    v193 = *v473;
+                    v191 = *v473;
                     do
                     {
-                      for (n = 0; n != v189; ++n)
+                      for (n = 0; n != v187; ++n)
                       {
-                        if (*v473 != v193)
+                        if (*v473 != v191)
                         {
-                          objc_enumerationMutation(v183);
+                          objc_enumerationMutation(v181);
                         }
 
-                        v196 = objc_msgSend_unsignedIntValue(*(*(&v472 + 1) + 8 * n), v188, v190, v191, v192);
-                        v197 = *(v182 + 24);
-                        v198 = *(v182 + 16);
-                        if (v197 == *(v182 + 28))
+                        v194 = objc_msgSend_unsignedIntValue(*(*(&v472 + 1) + 8 * n), v186, v188, v189, v190);
+                        v195 = *(v180 + 24);
+                        if (v195 == *(v180 + 28))
                         {
-                          if (2 * v197 <= v197 + 1)
+                          if (2 * v195 <= v195 + 1)
                           {
-                            v199 = v197 + 1;
+                            v196 = v195 + 1;
                           }
 
                           else
                           {
-                            v199 = 2 * v197;
+                            v196 = 2 * v195;
                           }
 
-                          if (v199 <= 4)
+                          if (v196 <= 4)
                           {
-                            v199 = 4;
+                            v196 = 4;
                           }
 
-                          *(v182 + 28) = v199;
+                          *(v180 + 28) = v196;
                           operator new[]();
                         }
 
-                        v195 = *(v182 + 16);
-                        *(v182 + 24) = v197 + 1;
-                        *(v195 + 4 * v197) = v196;
+                        v193 = *(v180 + 16);
+                        *(v180 + 24) = v195 + 1;
+                        *(v193 + 4 * v195) = v194;
                       }
 
-                      v189 = objc_msgSend_countByEnumeratingWithState_objects_count_(v183, v188, v190, v191, v192, &v472, v490, 16);
+                      v187 = objc_msgSend_countByEnumeratingWithState_objects_count_(v181, v186, v188, v189, v190, &v472, v490, 16);
                     }
 
-                    while (v189);
+                    while (v187);
                   }
                 }
 
-                v454 = objc_msgSend_countByEnumeratingWithState_objects_count_(log, v52, *&v55, v53, v54, &v484, v493, 16);
+                v455 = objc_msgSend_countByEnumeratingWithState_objects_count_(log, v52, *&v55, v53, v54, &v484, v493, 16);
               }
 
-              while (v454);
+              while (v455);
             }
 
-            v204 = objc_msgSend_valueForKey_(v463, v200, v201, v202, v203, @"parameterOverrides");
-            v205 = v204 == 0;
+            v201 = objc_msgSend_valueForKey_(v464, v197, v198, v199, v200, @"parameterOverrides");
+            v202 = v201 == 0;
 
-            if (!v205)
+            if (!v202)
             {
               v510 |= 2u;
-              v210 = v496;
+              v207 = v496;
               if (!v496)
               {
                 operator new();
               }
 
-              v211 = objc_msgSend_objectForKeyedSubscript_(v463, v206, v207, v208, v209, @"parameterOverrides");
-              objc_msgSend__setParamOverrides_fromDict_(CLAvailabilityTileParser, v212, v213, v214, v215, v210, v211);
+              v208 = objc_msgSend_objectForKeyedSubscript_(v464, v203, v204, v205, v206, @"parameterOverrides");
+              objc_msgSend__setParamOverrides_fromDict_(CLAvailabilityTileParser, v209, v210, v211, v212, v207, v208);
             }
 
-            v216 = objc_msgSend_objectForKey_(v463, v206, v207, v208, v209, @"motionActivityDebounceParameters");
-            v217 = v216 == 0;
+            v213 = objc_msgSend_objectForKey_(v464, v203, v204, v205, v206, @"motionActivityDebounceParameters");
+            v214 = v213 == 0;
 
-            if (!v217)
+            if (!v214)
             {
-              v222 = objc_msgSend_objectForKey_(v463, v218, v219, v220, v221, @"motionActivityDebounceParameters");
-              v227 = objc_msgSend_valueForKey_(v222, v223, v224, v225, v226, @"nonFitnessToCyclingSeconds");
-              v228 = v227 == 0;
+              v219 = objc_msgSend_objectForKey_(v464, v215, v216, v217, v218, @"motionActivityDebounceParameters");
+              v224 = objc_msgSend_valueForKey_(v219, v220, v221, v222, v223, @"nonFitnessToCyclingSeconds");
+              v225 = v224 == 0;
 
-              if (!v228)
+              if (!v225)
               {
                 v510 |= 0x4000u;
-                v233 = v508;
+                v230 = v508;
                 if (!v508)
                 {
                   operator new();
                 }
 
-                v234 = objc_msgSend_valueForKey_(v222, v229, v230, v231, v232, @"nonFitnessToCyclingSeconds");
-                v239 = objc_msgSend_unsignedIntValue(v234, v235, v236, v237, v238);
-                *(v233 + 36) |= 1u;
-                *(v233 + 16) = v239;
+                v231 = objc_msgSend_valueForKey_(v219, v226, v227, v228, v229, @"nonFitnessToCyclingSeconds");
+                v236 = objc_msgSend_unsignedIntValue(v231, v232, v233, v234, v235);
+                *(v230 + 36) |= 1u;
+                *(v230 + 16) = v236;
               }
 
-              v240 = objc_msgSend_valueForKey_(v222, v229, v230, v231, v232, @"nonFitnessToRunningSeconds");
-              v241 = v240 == 0;
+              v237 = objc_msgSend_valueForKey_(v219, v226, v227, v228, v229, @"nonFitnessToRunningSeconds");
+              v238 = v237 == 0;
 
-              if (!v241)
+              if (!v238)
               {
                 v510 |= 0x4000u;
-                v246 = v508;
+                v243 = v508;
                 if (!v508)
                 {
                   operator new();
                 }
 
-                v247 = objc_msgSend_valueForKey_(v222, v242, v243, v244, v245, @"nonFitnessToRunningSeconds");
-                v252 = objc_msgSend_unsignedIntValue(v247, v248, v249, v250, v251);
-                *(v246 + 36) |= 2u;
-                *(v246 + 20) = v252;
+                v244 = objc_msgSend_valueForKey_(v219, v239, v240, v241, v242, @"nonFitnessToRunningSeconds");
+                v249 = objc_msgSend_unsignedIntValue(v244, v245, v246, v247, v248);
+                *(v243 + 36) |= 2u;
+                *(v243 + 20) = v249;
               }
 
-              v253 = objc_msgSend_valueForKey_(v222, v242, v243, v244, v245, @"runningToNonFitnessSeconds");
-              v254 = v253 == 0;
+              v250 = objc_msgSend_valueForKey_(v219, v239, v240, v241, v242, @"runningToNonFitnessSeconds");
+              v251 = v250 == 0;
 
-              if (!v254)
+              if (!v251)
               {
                 v510 |= 0x4000u;
-                v259 = v508;
+                v256 = v508;
                 if (!v508)
                 {
                   operator new();
                 }
 
-                v260 = objc_msgSend_valueForKey_(v222, v255, v256, v257, v258, @"runningToNonFitnessSeconds");
-                v265 = objc_msgSend_unsignedIntValue(v260, v261, v262, v263, v264);
-                *(v259 + 36) |= 4u;
-                *(v259 + 24) = v265;
+                v257 = objc_msgSend_valueForKey_(v219, v252, v253, v254, v255, @"runningToNonFitnessSeconds");
+                v262 = objc_msgSend_unsignedIntValue(v257, v258, v259, v260, v261);
+                *(v256 + 36) |= 4u;
+                *(v256 + 24) = v262;
               }
 
-              v266 = objc_msgSend_valueForKey_(v222, v255, v256, v257, v258, @"cyclingToNonFitnessSeconds");
-              v267 = v266 == 0;
+              v263 = objc_msgSend_valueForKey_(v219, v252, v253, v254, v255, @"cyclingToNonFitnessSeconds");
+              v264 = v263 == 0;
 
-              if (!v267)
+              if (!v264)
               {
                 v510 |= 0x4000u;
-                v272 = v508;
+                v269 = v508;
                 if (!v508)
                 {
                   operator new();
                 }
 
-                v273 = objc_msgSend_valueForKey_(v222, v268, v269, v270, v271, @"cyclingToNonFitnessSeconds");
-                v278 = objc_msgSend_unsignedIntValue(v273, v274, v275, v276, v277);
-                *(v272 + 36) |= 8u;
-                *(v272 + 28) = v278;
+                v270 = objc_msgSend_valueForKey_(v219, v265, v266, v267, v268, @"cyclingToNonFitnessSeconds");
+                v275 = objc_msgSend_unsignedIntValue(v270, v271, v272, v273, v274);
+                *(v269 + 36) |= 8u;
+                *(v269 + 28) = v275;
               }
             }
 
-            v279 = objc_msgSend_valueForKey_(v463, v218, v219, v220, v221, @"availabilityZScoreConfidenceInterval");
-            v280 = v279 == 0;
+            v276 = objc_msgSend_valueForKey_(v464, v215, v216, v217, v218, @"availabilityZScoreConfidenceInterval");
+            v277 = v276 == 0;
 
-            if (!v280)
+            if (!v277)
             {
-              v285 = objc_msgSend_valueForKey_(v463, v281, v282, v283, v284, @"availabilityZScoreConfidenceInterval");
-              objc_msgSend_doubleValue(v285, v286, v287, v288, v289);
+              v282 = objc_msgSend_valueForKey_(v464, v278, v279, v280, v281, @"availabilityZScoreConfidenceInterval");
+              objc_msgSend_doubleValue(v282, v283, v284, v285, v286);
               v510 |= 4u;
-              v497 = v290;
+              v497 = v287;
             }
 
-            v291 = objc_msgSend_valueForKey_(v463, v281, v282, v283, v284, @"indoorPrefetchRadiusKM");
-            v292 = v291 == 0;
+            v288 = objc_msgSend_valueForKey_(v464, v278, v279, v280, v281, @"indoorPrefetchRadiusKM");
+            v289 = v288 == 0;
 
-            if (!v292)
+            if (!v289)
             {
-              v297 = objc_msgSend_valueForKey_(v463, v293, v294, v295, v296, @"indoorPrefetchRadiusKM");
-              v302 = objc_msgSend_unsignedIntValue(v297, v298, v299, v300, v301);
+              v294 = objc_msgSend_valueForKey_(v464, v290, v291, v292, v293, @"indoorPrefetchRadiusKM");
+              v299 = objc_msgSend_unsignedIntValue(v294, v295, v296, v297, v298);
               v510 |= 8u;
-              v498 = v302;
+              v498 = v299;
             }
 
-            v303 = objc_msgSend_valueForKey_(v463, v293, v294, v295, v296, @"regionalPrefetchRadiusKM");
-            v304 = v303 == 0;
+            v300 = objc_msgSend_valueForKey_(v464, v290, v291, v292, v293, @"regionalPrefetchRadiusKM");
+            v301 = v300 == 0;
 
-            if (!v304)
+            if (!v301)
             {
-              v309 = objc_msgSend_valueForKey_(v463, v305, v306, v307, v308, @"regionalPrefetchRadiusKM");
-              v314 = objc_msgSend_unsignedIntValue(v309, v310, v311, v312, v313);
+              v306 = objc_msgSend_valueForKey_(v464, v302, v303, v304, v305, @"regionalPrefetchRadiusKM");
+              v311 = objc_msgSend_unsignedIntValue(v306, v307, v308, v309, v310);
               v510 |= 0x10u;
-              v499 = v314;
+              v499 = v311;
             }
 
-            v315 = objc_msgSend_valueForKey_(v463, v305, v306, v307, v308, @"indoorPrefetchMaxFloorCount");
-            v316 = v315 == 0;
+            v312 = objc_msgSend_valueForKey_(v464, v302, v303, v304, v305, @"indoorPrefetchMaxFloorCount");
+            v313 = v312 == 0;
 
-            if (!v316)
+            if (!v313)
             {
-              v321 = objc_msgSend_valueForKey_(v463, v317, v318, v319, v320, @"indoorPrefetchMaxFloorCount");
-              v326 = objc_msgSend_unsignedIntValue(v321, v322, v323, v324, v325);
+              v318 = objc_msgSend_valueForKey_(v464, v314, v315, v316, v317, @"indoorPrefetchMaxFloorCount");
+              v323 = objc_msgSend_unsignedIntValue(v318, v319, v320, v321, v322);
               v510 |= 0x20u;
-              v500 = v326;
+              v500 = v323;
             }
 
-            v327 = objc_msgSend_valueForKey_(v463, v317, v318, v319, v320, @"regionalPrefetchMaxFloorCount");
-            v328 = v327 == 0;
+            v324 = objc_msgSend_valueForKey_(v464, v314, v315, v316, v317, @"regionalPrefetchMaxFloorCount");
+            v325 = v324 == 0;
 
-            if (!v328)
+            if (!v325)
             {
-              v333 = objc_msgSend_valueForKey_(v463, v329, v330, v331, v332, @"regionalPrefetchMaxFloorCount");
-              v338 = objc_msgSend_unsignedIntValue(v333, v334, v335, v336, v337);
+              v330 = objc_msgSend_valueForKey_(v464, v326, v327, v328, v329, @"regionalPrefetchMaxFloorCount");
+              v335 = objc_msgSend_unsignedIntValue(v330, v331, v332, v333, v334);
               v510 |= 0x40u;
-              v501 = v338;
+              v501 = v335;
             }
 
-            v339 = objc_msgSend_valueForKey_(v463, v329, v330, v331, v332, @"indoorPrefetchMaxTotalBytes");
-            v340 = v339 == 0;
+            v336 = objc_msgSend_valueForKey_(v464, v326, v327, v328, v329, @"indoorPrefetchMaxTotalBytes");
+            v337 = v336 == 0;
 
-            if (!v340)
+            if (!v337)
             {
-              v345 = objc_msgSend_valueForKey_(v463, v341, v342, v343, v344, @"indoorPrefetchMaxTotalBytes");
-              v350 = objc_msgSend_unsignedIntValue(v345, v346, v347, v348, v349);
+              v342 = objc_msgSend_valueForKey_(v464, v338, v339, v340, v341, @"indoorPrefetchMaxTotalBytes");
+              v347 = objc_msgSend_unsignedIntValue(v342, v343, v344, v345, v346);
               v510 |= 0x80u;
-              v502 = v350;
+              v502 = v347;
             }
 
-            v351 = objc_msgSend_valueForKey_(v463, v341, v342, v343, v344, @"regionalPrefetchMaxTotalBytes");
-            v352 = v351 == 0;
+            v348 = objc_msgSend_valueForKey_(v464, v338, v339, v340, v341, @"regionalPrefetchMaxTotalBytes");
+            v349 = v348 == 0;
 
-            if (!v352)
+            if (!v349)
             {
-              v357 = objc_msgSend_valueForKey_(v463, v353, v354, v355, v356, @"regionalPrefetchMaxTotalBytes");
-              v362 = objc_msgSend_unsignedIntValue(v357, v358, v359, v360, v361);
+              v354 = objc_msgSend_valueForKey_(v464, v350, v351, v352, v353, @"regionalPrefetchMaxTotalBytes");
+              v359 = objc_msgSend_unsignedIntValue(v354, v355, v356, v357, v358);
               v510 |= 0x100u;
-              v503 = v362;
+              v503 = v359;
             }
 
-            v363 = objc_msgSend_valueForKey_(v463, v353, v354, v355, v356, @"indoorLocationOfInterestMergeRadiusKM");
-            v364 = v363 == 0;
+            v360 = objc_msgSend_valueForKey_(v464, v350, v351, v352, v353, @"indoorLocationOfInterestMergeRadiusKM");
+            v361 = v360 == 0;
 
-            if (!v364)
+            if (!v361)
             {
-              v369 = objc_msgSend_valueForKey_(v463, v365, v366, v367, v368, @"indoorLocationOfInterestMergeRadiusKM");
-              v374 = objc_msgSend_unsignedIntValue(v369, v370, v371, v372, v373);
+              v366 = objc_msgSend_valueForKey_(v464, v362, v363, v364, v365, @"indoorLocationOfInterestMergeRadiusKM");
+              v371 = objc_msgSend_unsignedIntValue(v366, v367, v368, v369, v370);
               v510 |= 0x200u;
-              v504 = v374;
+              v504 = v371;
             }
 
-            v375 = objc_msgSend_valueForKey_(v463, v365, v366, v367, v368, @"regionalLocationOfInterestMergeRadiusKM");
-            v376 = v375 == 0;
+            v372 = objc_msgSend_valueForKey_(v464, v362, v363, v364, v365, @"regionalLocationOfInterestMergeRadiusKM");
+            v373 = v372 == 0;
 
-            if (!v376)
+            if (!v373)
             {
-              v381 = objc_msgSend_valueForKey_(v463, v377, v378, v379, v380, @"regionalLocationOfInterestMergeRadiusKM");
-              v386 = objc_msgSend_unsignedIntValue(v381, v382, v383, v384, v385);
+              v378 = objc_msgSend_valueForKey_(v464, v374, v375, v376, v377, @"regionalLocationOfInterestMergeRadiusKM");
+              v383 = objc_msgSend_unsignedIntValue(v378, v379, v380, v381, v382);
               v510 |= 0x400u;
-              v505 = v386;
+              v505 = v383;
             }
 
-            v387 = objc_msgSend_valueForKey_(v463, v377, v378, v379, v380, @"preferPredictionWithinNActivityCycles");
-            v388 = v387 == 0;
+            v384 = objc_msgSend_valueForKey_(v464, v374, v375, v376, v377, @"preferPredictionWithinNActivityCycles");
+            v385 = v384 == 0;
 
-            if (!v388)
+            if (!v385)
             {
-              v393 = objc_msgSend_valueForKey_(v463, v389, v390, v391, v392, @"preferPredictionWithinNActivityCycles");
-              v398 = objc_msgSend_unsignedIntValue(v393, v394, v395, v396, v397);
+              v390 = objc_msgSend_valueForKey_(v464, v386, v387, v388, v389, @"preferPredictionWithinNActivityCycles");
+              v395 = objc_msgSend_unsignedIntValue(v390, v391, v392, v393, v394);
               v510 |= 0x800u;
-              v506 = v398;
+              v506 = v395;
             }
 
-            v399 = objc_msgSend_valueForKey_(v463, v389, v390, v391, v392, @"indoorNumberOfDaysBeforeTileRedownload");
-            v400 = v399 == 0;
+            v396 = objc_msgSend_valueForKey_(v464, v386, v387, v388, v389, @"indoorNumberOfDaysBeforeTileRedownload");
+            v397 = v396 == 0;
 
-            if (!v400)
+            if (!v397)
             {
-              v405 = objc_msgSend_valueForKey_(v463, v401, v402, v403, v404, @"indoorNumberOfDaysBeforeTileRedownload");
-              objc_msgSend_floatValue(v405, v406, v407, v408, v409);
+              v402 = objc_msgSend_valueForKey_(v464, v398, v399, v400, v401, @"indoorNumberOfDaysBeforeTileRedownload");
+              objc_msgSend_floatValue(v402, v403, v404, v405, v406);
               v510 |= 0x1000u;
-              v507 = v410;
+              v507 = v407;
             }
 
-            v411 = objc_msgSend_valueForKey_(v463, v401, v402, v403, v404, @"regionalNumberOfDaysBeforeTileRedownload");
-            v412 = v411 == 0;
+            v408 = objc_msgSend_valueForKey_(v464, v398, v399, v400, v401, @"regionalNumberOfDaysBeforeTileRedownload");
+            v409 = v408 == 0;
 
-            if (!v412)
+            if (!v409)
             {
-              v417 = objc_msgSend_valueForKey_(v463, v413, v414, v415, v416, @"regionalNumberOfDaysBeforeTileRedownload");
-              objc_msgSend_floatValue(v417, v418, v419, v420, v421);
+              v414 = objc_msgSend_valueForKey_(v464, v410, v411, v412, v413, @"regionalNumberOfDaysBeforeTileRedownload");
+              objc_msgSend_floatValue(v414, v415, v416, v417, v418);
               v510 |= 0x2000u;
-              v509 = v422;
+              v509 = v419;
             }
 
-            v423 = objc_msgSend_path(v458, v413, v414, v415, v416);
-            v424 = v423;
-            v429 = objc_msgSend_UTF8String(v423, v425, v426, v427, v428);
-            v430 = strlen(v429);
-            if (v430 >= 0x7FFFFFFFFFFFFFF8)
+            v420 = objc_msgSend_path(v459, v410, v411, v412, v413);
+            v421 = v420;
+            v426 = objc_msgSend_UTF8String(v420, v422, v423, v424, v425);
+            v427 = strlen(v426);
+            if (v427 >= 0x7FFFFFFFFFFFFFF8)
             {
               sub_245A3C1B4();
             }
 
-            v431 = v430;
-            if (v430 >= 0x17)
+            v428 = v427;
+            if (v427 >= 0x17)
             {
               operator new();
             }
 
-            *(&__dst.__r_.__value_.__s + 23) = v430;
-            if (v430)
+            *(&__dst.__r_.__value_.__s + 23) = v427;
+            if (v427)
             {
-              memmove(&__dst, v429, v430);
+              memmove(&__dst, v426, v427);
             }
 
-            __dst.__r_.__value_.__s.__data_[v431] = 0;
+            __dst.__r_.__value_.__s.__data_[v428] = 0;
 
             if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
             {
@@ -1573,8 +1569,8 @@ LABEL_131:
               sub_245A8EB7C();
             }
 
-            v447 = qword_28144B278;
-            if (os_log_type_enabled(v447, OS_LOG_TYPE_DEBUG))
+            v443 = qword_28144B278;
+            if (os_log_type_enabled(v443, OS_LOG_TYPE_DEBUG))
             {
               p_dst = &__dst;
               if ((__dst.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
@@ -1584,7 +1580,7 @@ LABEL_131:
 
               LODWORD(v489[0]) = 136315138;
               *(v489 + 4) = p_dst;
-              _os_log_impl(&dword_245A2E000, v447, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, find tile at %s", v489, 0xCu);
+              _os_log_impl(&dword_245A2E000, v443, OS_LOG_TYPE_DEBUG, "@IndoorAvl, generateAvlTileFromJSON, find tile at %s", v489, 0xCu);
             }
 
             if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -1607,14 +1603,14 @@ LABEL_131:
             sub_245A8EB7C();
           }
 
-          v432 = qword_28144B278;
-          if (os_log_type_enabled(v432, OS_LOG_TYPE_ERROR))
+          v429 = qword_28144B278;
+          if (os_log_type_enabled(v429, OS_LOG_TYPE_ERROR))
           {
-            v439 = v464;
-            v444 = objc_msgSend_UTF8String(v464, v440, v441, v442, v443);
+            v436 = v465;
+            v441 = objc_msgSend_UTF8String(v465, v437, v438, v439, v440);
             *buf = 136315138;
-            *&buf[4] = v444;
-            _os_log_impl(&dword_245A2E000, v432, OS_LOG_TYPE_ERROR, "@IndoorAvl, generateAvlTileFromJSON, expected at least one venue, str=\n%s\n", buf, 0xCu);
+            *&buf[4] = v441;
+            _os_log_impl(&dword_245A2E000, v429, OS_LOG_TYPE_ERROR, "@IndoorAvl, generateAvlTileFromJSON, expected at least one venue, str=\n%s\n", buf, 0xCu);
           }
         }
 
@@ -1625,29 +1621,28 @@ LABEL_131:
             sub_245A8EB7C();
           }
 
-          v432 = qword_28144B278;
-          if (os_log_type_enabled(v432, OS_LOG_TYPE_ERROR))
+          v429 = qword_28144B278;
+          if (os_log_type_enabled(v429, OS_LOG_TYPE_ERROR))
           {
-            v433 = v464;
-            v438 = objc_msgSend_UTF8String(v464, v434, v435, v436, v437);
+            v430 = v465;
+            v435 = objc_msgSend_UTF8String(v465, v431, v432, v433, v434);
             *buf = 136315138;
-            *&buf[4] = v438;
-            _os_log_impl(&dword_245A2E000, v432, OS_LOG_TYPE_ERROR, "@IndoorAvl, generateAvlTileFromJSON, no venues given in avl tile json??, str=\n%s\n", buf, 0xCu);
+            *&buf[4] = v435;
+            _os_log_impl(&dword_245A2E000, v429, OS_LOG_TYPE_ERROR, "@IndoorAvl, generateAvlTileFromJSON, no venues given in avl tile json??, str=\n%s\n", buf, 0xCu);
           }
         }
 
         v36 = 0;
-        log = v456;
+        log = v457;
       }
 
 LABEL_154:
 
-      v445 = *MEMORY[0x277D85DE8];
       return v36;
     }
 
-    v452 = sub_245A7B168();
-    if (os_log_type_enabled(v452, OS_LOG_TYPE_FAULT))
+    v451 = sub_245A7B168(0);
+    if (os_log_type_enabled(v451, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
@@ -1656,10 +1651,10 @@ LABEL_154:
       *&buf[20] = "assert";
       *v495 = 2081;
       *&v495[2] = "path != nullptr";
-      _os_log_impl(&dword_245A2E000, v452, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_245A2E000, v451, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v453 = sub_245A7B168();
+    v453 = sub_245A7B168(v452);
     if (os_signpost_enabled(v453))
     {
       *buf = 68289539;
@@ -1672,8 +1667,8 @@ LABEL_154:
       _os_signpost_emit_with_name_impl(&dword_245A2E000, v453, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path", "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v451 = sub_245A7B168();
-    if (os_log_type_enabled(v451, OS_LOG_TYPE_INFO))
+    v449 = sub_245A7B168(v454);
+    if (os_log_type_enabled(v449, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
@@ -1682,14 +1677,16 @@ LABEL_154:
       *&buf[20] = "assert";
       *v495 = 2081;
       *&v495[2] = "path != nullptr";
-      _os_log_impl(&dword_245A2E000, v451, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_245A2E000, v449, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate at nil path, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
+
+    v450 = 254;
   }
 
   else
   {
-    v449 = sub_245A7B168();
-    if (os_log_type_enabled(v449, OS_LOG_TYPE_FAULT))
+    v445 = sub_245A7B168(pathCopy);
+    if (os_log_type_enabled(v445, OS_LOG_TYPE_FAULT))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
@@ -1698,11 +1695,11 @@ LABEL_154:
       *&buf[20] = "assert";
       *v495 = 2081;
       *&v495[2] = "jsonStr != nullptr";
-      _os_log_impl(&dword_245A2E000, v449, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_245A2E000, v445, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v450 = sub_245A7B168();
-    if (os_signpost_enabled(v450))
+    v447 = sub_245A7B168(v446);
+    if (os_signpost_enabled(v447))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
@@ -1711,11 +1708,11 @@ LABEL_154:
       *&buf[20] = "assert";
       *v495 = 2081;
       *&v495[2] = "jsonStr != nullptr";
-      _os_signpost_emit_with_name_impl(&dword_245A2E000, v450, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string", "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_signpost_emit_with_name_impl(&dword_245A2E000, v447, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string", "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
 
-    v451 = sub_245A7B168();
-    if (os_log_type_enabled(v451, OS_LOG_TYPE_INFO))
+    v449 = sub_245A7B168(v448);
+    if (os_log_type_enabled(v449, OS_LOG_TYPE_INFO))
     {
       *buf = 68289539;
       *&buf[8] = 2082;
@@ -1724,11 +1721,13 @@ LABEL_154:
       *&buf[20] = "assert";
       *v495 = 2081;
       *&v495[2] = "jsonStr != nullptr";
-      _os_log_impl(&dword_245A2E000, v451, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
+      _os_log_impl(&dword_245A2E000, v449, OS_LOG_TYPE_INFO, "{msg%{public}.0s:@IndoorAvl, generateAvlTileFromJSON, cannot generate from nil string, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", buf, 0x26u);
     }
+
+    v450 = 253;
   }
 
-  result = abort_report_np();
+  result = abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/daemon/Framework/CLAvailabilityTileParser.mm", v450, "+[CLAvailabilityTileParser generateAvlTileFromJSON:atPath:]");
   __break(1u);
   return result;
 }

@@ -60,9 +60,9 @@ void __102__SBFolderControllerAccessibility_scrollUsingDecelerationAnimationToDe
 {
   v3 = [(SBFolderControllerAccessibility *)self safeValueForKey:@"_closeFolderTimer"];
 
-  v16.receiver = self;
-  v16.super_class = SBFolderControllerAccessibility;
-  [(SBFolderControllerAccessibility *)&v16 _setCloseFolderTimerIfNecessary];
+  v18.receiver = self;
+  v18.super_class = SBFolderControllerAccessibility;
+  [(SBFolderControllerAccessibility *)&v18 _setCloseFolderTimerIfNecessary];
   if ((SBAXPerformingAXDrag & 1) == 0)
   {
     v4 = [(SBFolderControllerAccessibility *)self safeValueForKey:@"_closeFolderTimer"];
@@ -78,23 +78,23 @@ void __102__SBFolderControllerAccessibility_scrollUsingDecelerationAnimationToDe
     SBHAXCancelSBAXIconMoveSpeakTimer();
     if (v4)
     {
-      v6 = AXSBHIconManagerFromSharedIconController();
-      v7 = [v6 safeValueForKey:@"openedFolder"];
+      v8 = AXSBHIconManagerFromSharedIconController(v6, v7);
+      v9 = [v8 safeValueForKey:@"openedFolder"];
 
-      if (v7)
+      if (v9)
       {
-        v8 = MEMORY[0x29EDBA0F8];
-        v9 = accessibilityLocalizedString(@"dragged.outside.folder");
-        v10 = [v7 safeValueForKey:@"displayName"];
-        v11 = [v8 localizedStringWithFormat:v9, v10];
+        v10 = MEMORY[0x29EDBA0F8];
+        v11 = accessibilityLocalizedString(@"dragged.outside.folder");
+        v12 = [v9 safeValueForKey:@"displayName"];
+        v13 = [v10 localizedStringWithFormat:v11, v12];
 
-        v12 = MEMORY[0x29EDBA0F8];
-        v13 = accessibilityLocalizedString(@"dragged.outside.folder.hint");
-        v14 = [v12 localizedStringWithFormat:v13, 5];
+        v14 = MEMORY[0x29EDBA0F8];
+        v15 = accessibilityLocalizedString(@"dragged.outside.folder.hint");
+        v16 = [v14 localizedStringWithFormat:v15, 5];
 
-        LODWORD(v13) = *MEMORY[0x29EDC7EA8];
-        v15 = __UIAXStringForVariables();
-        UIAccessibilityPostNotification(v13, v15);
+        LODWORD(v15) = *MEMORY[0x29EDC7EA8];
+        v17 = __UIAXStringForVariables();
+        UIAccessibilityPostNotification(v15, v17);
       }
     }
   }

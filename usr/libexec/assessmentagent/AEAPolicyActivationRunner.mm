@@ -9,10 +9,10 @@
 {
   swift_unknownObjectRetain();
 
-  v3 = sub_10004D954();
+  v4 = sub_10004D954(scratchpad);
   swift_unknownObjectRelease();
 
-  return v3;
+  return v4;
 }
 
 - (void)activateWithScratchpad:(id)scratchpad invalidationHandler:(id)handler completion:(id)completion

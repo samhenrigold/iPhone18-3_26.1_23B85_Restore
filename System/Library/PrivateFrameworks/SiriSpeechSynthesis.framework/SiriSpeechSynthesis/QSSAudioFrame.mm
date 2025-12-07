@@ -73,11 +73,7 @@ uint64_t __35__QSSAudioFrame_addObjectToBuffer___block_invoke(uint64_t a1, const
 
 - (void)audio_bytes:(id)audio_bytes
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   audio_bytesCopy = audio_bytes;
-  v7 = *root[*v5[4].var0 + *root[*v5[4].var0].var0].var0;
-  v8 = audio_bytesCopy;
   (*(audio_bytes + 2))();
 }
 

@@ -18,9 +18,9 @@
 - (TTRIRecurrenceMonthlyChooserController)initWithDate:(id)date
 {
   dateCopy = date;
-  v21.receiver = self;
-  v21.super_class = TTRIRecurrenceMonthlyChooserController;
-  v5 = [(TTRIRecurrenceChooserController *)&v21 initWithDate:dateCopy];
+  v23.receiver = self;
+  v23.super_class = TTRIRecurrenceMonthlyChooserController;
+  v5 = [(TTRIRecurrenceChooserController *)&v23 initWithDate:dateCopy];
   if (v5)
   {
     v6 = [[TTRIRecurrenceMonthDayChooserController alloc] initWithDate:dateCopy];
@@ -35,19 +35,19 @@
     onEachCell = v5->_onEachCell;
     v5->_onEachCell = &v10->super;
 
-    v12 = RemindersUICoreBundleGet();
-    v13 = [v12 localizedStringForKey:@"Each" value:@"Each" table:@"Localizable"];
+    v13 = RemindersUICoreBundleGet(v12);
+    v14 = [v13 localizedStringForKey:@"Each" value:@"Each" table:@"Localizable"];
     textLabel = [(UITableViewCell *)v5->_onEachCell textLabel];
-    [textLabel setText:v13];
+    [textLabel setText:v14];
 
-    v15 = [[TTRIUIFullWidthDividerTableViewCell alloc] initWithStyle:0 reuseIdentifier:0];
+    v16 = [[TTRIUIFullWidthDividerTableViewCell alloc] initWithStyle:0 reuseIdentifier:0];
     onTheCell = v5->_onTheCell;
-    v5->_onTheCell = &v15->super.super;
+    v5->_onTheCell = &v16->super.super;
 
-    v17 = RemindersUICoreBundleGet();
-    v18 = [v17 localizedStringForKey:@"On the…" value:@"On the…" table:@"Localizable"];
+    v19 = RemindersUICoreBundleGet(v18);
+    v20 = [v19 localizedStringForKey:@"On the…" value:@"On the…" table:@"Localizable"];
     textLabel2 = [(UITableViewCell *)v5->_onTheCell textLabel];
-    [textLabel2 setText:v18];
+    [textLabel2 setText:v20];
   }
 
   return v5;

@@ -205,7 +205,7 @@
   memset(&v85, 0, sizeof(v85));
   if (v54)
   {
-    [v54 imageTransformForOrientation:4];
+    objc_msgSend_imageTransformForOrientation_(v54);
   }
 
   else

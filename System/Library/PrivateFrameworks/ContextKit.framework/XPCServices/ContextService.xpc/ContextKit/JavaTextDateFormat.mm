@@ -1,6 +1,8 @@
 @interface JavaTextDateFormat
 + (id)getDateInstance;
++ (id)getDateInstanceWithInt:(int)int;
 + (id)getTimeInstance;
++ (id)getTimeInstanceWithInt:(int)int;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isLenient;
 - (JavaTextDateFormat)formatWithId:(id)id withJavaLangStringBuffer:(id)buffer withJavaTextFieldPosition:(id)position;
@@ -10,6 +12,7 @@
 - (id)parseWithNSString:(id)string;
 - (unint64_t)hash;
 - (void)dealloc;
+- (void)setLenientWithBoolean:(BOOL)boolean;
 - (void)setTimeZoneWithJavaUtilTimeZone:(id)zone;
 @end
 
@@ -82,7 +85,6 @@ LABEL_11:
     objc_opt_class();
     if (!equal)
     {
-      numberFormat = self->numberFormat_;
       JreThrowNullPointerException();
     }
 
@@ -91,13 +93,13 @@ LABEL_11:
       JreThrowClassCastException();
     }
 
-    v5 = self->numberFormat_;
-    if (!v5)
+    numberFormat = self->numberFormat_;
+    if (!numberFormat)
     {
       goto LABEL_16;
     }
 
-    v6 = [(JavaTextNumberFormat *)v5 isEqual:*(equal + 2)];
+    v6 = [(JavaTextNumberFormat *)numberFormat isEqual:*(equal + 2)];
     if (!v6)
     {
       return v6;
@@ -194,11 +196,29 @@ LABEL_9:
   return JavaTextDateFormat_getDateInstanceWithInt_withJavaUtilLocale_(2, Default, v3, v4, v5, v6, v7, v8);
 }
 
++ (id)getDateInstanceWithInt:(int)int
+{
+  v8 = *&int;
+  sub_10027748C(*&int, a2, *&int, v3, v4, v5, v6, v7);
+  Default = JavaUtilLocale_getDefault();
+
+  return JavaTextDateFormat_getDateInstanceWithInt_withJavaUtilLocale_(v8, Default, v10, v11, v12, v13, v14, v15);
+}
+
 + (id)getTimeInstance
 {
   Default = JavaUtilLocale_getDefault();
 
   return JavaTextDateFormat_getTimeInstanceWithInt_withJavaUtilLocale_(2, Default, v3, v4, v5, v6, v7, v8);
+}
+
++ (id)getTimeInstanceWithInt:(int)int
+{
+  v8 = *&int;
+  sub_1002774D4(*&int, a2, *&int, v3, v4, v5, v6, v7);
+  Default = JavaUtilLocale_getDefault();
+
+  return JavaTextDateFormat_getTimeInstanceWithInt_withJavaUtilLocale_(v8, Default, v10, v11, v12, v13, v14, v15);
 }
 
 - (id)getTimeZone
@@ -256,6 +276,17 @@ LABEL_9:
   }
 
   return v6;
+}
+
+- (void)setLenientWithBoolean:(BOOL)boolean
+{
+  calendar = self->calendar_;
+  if (!calendar)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaUtilCalendar *)calendar setLenientWithBoolean:boolean];
 }
 
 - (void)setTimeZoneWithJavaUtilTimeZone:(id)zone

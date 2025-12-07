@@ -1,8 +1,5 @@
 @interface ABPKSkeleton
 - (ABPKSkeleton)initWithType:(int64_t)type;
-- (__n128)cameraRootTransform;
-- (__n128)deviceRootTransform;
-- (__n128)renderingCameraRootTransform;
 - (__n128)setCameraRootTransform:(__n128)transform;
 - (__n128)setDeviceRootTransform:(__n128)transform;
 - (__n128)setRenderingCameraRootTransform:(__n128)transform;
@@ -16,7 +13,7 @@
 - (void)setLocalPoses:(const ABPKTransform *)poses andUpdateModelPoses:(BOOL)modelPoses;
 - (void)setModelPoses:(id *)poses andUpdateLocalPoses:(BOOL)localPoses;
 - (void)setModelPosesFromDict:(id)dict andUpdateLocalPoses:(BOOL)poses;
-- (void)transformModelPoses:(int)poses andUpdateLocalPoses:(float32x4_t)localPoses;
+- (void)transformModelPoses:(float32x4_t)poses andUpdateLocalPoses:(float32x4_t)localPoses;
 - (void)updateJointPosesAndRootTransformUsingDepthEstimatedScale;
 - (void)updateLocalPosesFromModelPoses;
 - (void)updateModelPosesFromLocalPoses;
@@ -40,7 +37,7 @@ LABEL_12:
   v4->_skeletonType = type;
   if (type > 4 || type == 1)
   {
-    v13 = __ABPKLogSharedInstance();
+    v13 = __ABPKLogSharedInstance(v4);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v15) = 0;
@@ -186,37 +183,34 @@ LABEL_13:
 
 void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v22 = a2;
+  v21 = a2;
   v5 = a3;
-  v23 = *MEMORY[0x277D860B8];
-  v24 = *(MEMORY[0x277D860B8] + 16);
-  v21 = *(MEMORY[0x277D860B8] + 48);
-  v25 = *(MEMORY[0x277D860B8] + 32);
+  v22 = *MEMORY[0x277D860B8];
+  v23 = *(MEMORY[0x277D860B8] + 16);
+  v20 = *(MEMORY[0x277D860B8] + 48);
+  v24 = *(MEMORY[0x277D860B8] + 32);
   v6 = [v5 objectForKey:@"translation"];
   v7 = [v6 objectAtIndexedSubscript:0];
   [v7 floatValue];
-  v20 = v8;
+  v19 = v8;
 
   v9 = [v6 objectAtIndexedSubscript:1];
   [v9 floatValue];
-  v19 = v10;
+  v18 = v10;
 
   v11 = [v6 objectAtIndexedSubscript:2];
   [v11 floatValue];
-  v18 = v12;
+  v17 = v12;
 
   v13 = *(a1 + 32);
-  v14 = [*(v13 + 72) indexOfJointWithName:v22];
-  *&v15 = __PAIR64__(v19, v20);
-  *(&v15 + 1) = __PAIR64__(HIDWORD(v21), v18);
+  v14 = [*(v13 + 72) indexOfJointWithName:v21];
+  *&v15 = __PAIR64__(v18, v19);
+  *(&v15 + 1) = __PAIR64__(HIDWORD(v20), v17);
   v16 = (*(v13 + 32) + (v14 << 6));
-  *v16 = v23;
-  v16[1] = v24;
-  v16[2] = v25;
+  *v16 = v22;
+  v16[1] = v23;
+  v16[2] = v24;
   v16[3] = v15;
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLocalPoses:(const ABPKTransform *)poses andUpdateModelPoses:(BOOL)modelPoses
@@ -290,29 +284,29 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
 
 - (void)updateModelPosesFromLocalPoses
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   skeletonDefinition = [(ABPKSkeleton *)self skeletonDefinition];
   parentChildOrder = [skeletonDefinition parentChildOrder];
 
-  v5 = [parentChildOrder countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v5 = [parentChildOrder countByEnumeratingWithState:&v31 objects:v37 count:16];
   if (v5)
   {
-    v6 = *v33;
+    v6 = *v32;
     do
     {
       v7 = 0;
       do
       {
-        if (*v33 != v6)
+        if (*v32 != v6)
         {
           objc_enumerationMutation(parentChildOrder);
         }
 
-        intValue = [*(*(&v32 + 1) + 8 * v7) intValue];
+        intValue = [*(*(&v31 + 1) + 8 * v7) intValue];
         skeletonDefinition2 = [(ABPKSkeleton *)self skeletonDefinition];
         v10 = [skeletonDefinition2 parentJoint:intValue];
 
@@ -342,22 +336,22 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
           v21 = v19[1];
           v22 = v19[2];
           v23 = v19[3];
-          v36[0] = v12;
-          v36[1] = v13;
-          v36[2] = v14;
-          v36[3] = v17;
+          v35[0] = v12;
+          v35[1] = v13;
+          v35[2] = v14;
+          v35[3] = v17;
           do
           {
-            v37[v16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v20, COERCE_FLOAT(v36[v16])), v21, *&v36[v16], 1), v22, v36[v16], 2), v23, v36[v16], 3);
+            v36[v16] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v20, COERCE_FLOAT(v35[v16])), v21, *&v35[v16], 1), v22, v35[v16], 2), v23, v35[v16], 3);
             ++v16;
           }
 
           while (v16 != 4);
-          v24 = v37[1];
-          v25 = v37[2];
-          v26 = v37[3];
+          v24 = v36[1];
+          v25 = v36[2];
+          v26 = v36[3];
           v27 = (begin + 64 * intValue);
-          *v27 = v37[0];
+          *v27 = v36[0];
           v27[1] = v24;
           v27[2] = v25;
           v27[3] = v26;
@@ -367,13 +361,11 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
       }
 
       while (v7 != v5);
-      v5 = [parentChildOrder countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v5 = [parentChildOrder countByEnumeratingWithState:&v31 objects:v37 count:16];
     }
 
     while (v5);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scaleTransform:(id *)transform withScale:(float)scale
@@ -385,10 +377,10 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
 
 - (void)updateJointPosesAndRootTransformUsingDepthEstimatedScale
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (self->_estimatedScale == -1.0)
   {
-    v2 = __ABPKLogSharedInstance();
+    v2 = __ABPKLogSharedInstance(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -398,28 +390,28 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     skeletonDefinition = [(ABPKSkeleton *)self skeletonDefinition];
     parentChildOrder = [skeletonDefinition parentChildOrder];
 
-    v6 = [parentChildOrder countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v6 = [parentChildOrder countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v6)
     {
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         v8 = 0;
         do
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(parentChildOrder);
           }
 
-          intValue = [*(*(&v17 + 1) + 8 * v8) intValue];
+          intValue = [*(*(&v16 + 1) + 8 * v8) intValue];
           v10 = (self->_modelPoses.__begin_ + 64 * intValue);
           v11 = vmulq_n_f32(v10[3], self->_estimatedScale);
           v11.i32[3] = 1.0;
@@ -430,7 +422,7 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
         }
 
         while (v6 != v8);
-        v6 = [parentChildOrder countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v6 = [parentChildOrder countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v6);
@@ -444,14 +436,12 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
     v15.i32[3] = 1.0;
     *&self->_anon_90[48] = v15;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-- (void)transformModelPoses:(int)poses andUpdateLocalPoses:(float32x4_t)localPoses
+- (void)transformModelPoses:(float32x4_t)poses andUpdateLocalPoses:(float32x4_t)localPoses
 {
-  v7 = *(self + 4);
-  for (i = *(self + 5); v7 != i; v7 += 4)
+  v7 = result[4];
+  for (i = result[5]; v7 != i; v7 += 4)
   {
     v9 = 0;
     v10 = v7[1];
@@ -463,7 +453,7 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
     v16[3] = v12;
     do
     {
-      v17[v9] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(localPoses, COERCE_FLOAT(v16[v9])), a5, *&v16[v9], 1), a6, v16[v9], 2), a7, v16[v9], 3);
+      v17[v9] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a2, COERCE_FLOAT(v16[v9])), poses, *&v16[v9], 1), localPoses, v16[v9], 2), a5, v16[v9], 3);
       ++v9;
     }
 
@@ -477,60 +467,60 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
     v7[3] = v15;
   }
 
-  if (poses)
+  if (a7)
   {
-    return [self updateLocalPosesFromModelPoses];
+    return [result updateLocalPosesFromModelPoses];
   }
 
-  return self;
+  return result;
 }
 
 - (id)toDictionary
 {
-  v41[3] = *MEMORY[0x277D85DE8];
+  v40[3] = *MEMORY[0x277D85DE8];
+  v31 = objc_opt_new();
   v32 = objc_opt_new();
-  v33 = objc_opt_new();
   v2 = 0;
   for (i = 0; [(ABPKSkeletonDefinition *)self->_skeletonDefinition jointCount]> i; ++i)
   {
     v4 = objc_opt_new();
     v5 = (self->_modelPoses.__begin_ + v2);
-    v35 = v5[1];
-    v36 = *v5;
-    v34 = v5[2];
-    v38 = v5[3];
+    v34 = v5[1];
+    v35 = *v5;
+    v33 = v5[2];
+    v37 = v5[3];
     v6 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-    v41[0] = v6;
-    HIDWORD(v7) = v38.i32[1];
-    LODWORD(v7) = v38.i32[1];
+    v40[0] = v6;
+    HIDWORD(v7) = v37.i32[1];
+    LODWORD(v7) = v37.i32[1];
     v8 = [MEMORY[0x277CCABB0] numberWithFloat:v7];
-    v41[1] = v8;
-    v9 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(v38.u32[1], v38.u32[2]))}];
-    v41[2] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
+    v40[1] = v8;
+    v9 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(v37.u32[1], v37.u32[2]))}];
+    v40[2] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
 
     [v4 setObject:v10 forKeyedSubscript:@"translation"];
-    v43.columns[1] = v35;
-    v43.columns[0] = v36;
-    v43.columns[2] = v34;
-    v43.columns[3] = v38;
-    *v11.i64 = simd_quaternion(v43);
-    v39 = v11;
+    v42.columns[1] = v34;
+    v42.columns[0] = v35;
+    v42.columns[2] = v33;
+    v42.columns[3] = v37;
+    *v11.i64 = simd_quaternion(v42);
+    v38 = v11;
     v12 = [MEMORY[0x277CCABB0] numberWithFloat:?];
-    v40[0] = v12;
-    HIDWORD(v13) = v39.i32[1];
-    LODWORD(v13) = v39.i32[1];
+    v39[0] = v12;
+    HIDWORD(v13) = v38.i32[1];
+    LODWORD(v13) = v38.i32[1];
     v14 = [MEMORY[0x277CCABB0] numberWithFloat:v13];
-    v40[1] = v14;
-    v15 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(v39.u32[1], v39.u32[3]))}];
-    v40[2] = v15;
-    v16 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(v39.u32[1], v39.u32[2]))}];
-    v40[3] = v16;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
+    v39[1] = v14;
+    v15 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(v38.u32[1], v38.u32[3]))}];
+    v39[2] = v15;
+    v16 = [MEMORY[0x277CCABB0] numberWithFloat:{COERCE_DOUBLE(__PAIR64__(v38.u32[1], v38.u32[2]))}];
+    v39[3] = v16;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:4];
 
     [v4 setObject:v17 forKeyedSubscript:@"orientation"];
     v18 = [(ABPKSkeletonDefinition *)self->_skeletonDefinition jointName:i];
-    [v33 setObject:v4 forKeyedSubscript:v18];
+    [v32 setObject:v4 forKeyedSubscript:v18];
 
     v2 += 64;
   }
@@ -544,12 +534,10 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
   v29 = simdMatrix4x4ToNSMat(v25, v26, v27, v28);
   [v19 setObject:v29 forKeyedSubscript:@"device_root_transform"];
 
-  [v32 setObject:v33 forKeyedSubscript:@"pose"];
-  [v32 setObject:v19 forKeyedSubscript:@"root_transforms"];
+  [v31 setObject:v32 forKeyedSubscript:@"pose"];
+  [v31 setObject:v19 forKeyedSubscript:@"root_transforms"];
 
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v32;
+  return v31;
 }
 
 - (float)computeHeight
@@ -570,67 +558,59 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
 
   else
   {
-    if ([(ABPKSkeleton *)self skeletonType]!= 4)
+    skeletonType = [(ABPKSkeleton *)self skeletonType];
+    if (skeletonType != 4)
     {
-      v5 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __ABPKLogSharedInstance(skeletonType);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_ERROR, " Invalid skeleton type specified. Returning height = 0 ", buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v6, OS_LOG_TYPE_ERROR, " Invalid skeleton type specified. Returning height = 0 ", buf, 2u);
       }
     }
 
     skeletonDefinition = [(ABPKSkeleton *)self skeletonDefinition];
-    v7 = [skeletonDefinition indexOfJointWithName:@"leftfoot"];
+    v8 = [skeletonDefinition indexOfJointWithName:@"leftfoot"];
 
     skeletonDefinition2 = [(ABPKSkeleton *)self skeletonDefinition];
-    v9 = [skeletonDefinition2 indexOfJointWithName:@"leftleg"];
+    v10 = [skeletonDefinition2 indexOfJointWithName:@"leftleg"];
 
     skeletonDefinition3 = [(ABPKSkeleton *)self skeletonDefinition];
-    v11 = [skeletonDefinition3 indexOfJointWithName:@"leftupleg"];
+    v12 = [skeletonDefinition3 indexOfJointWithName:@"leftupleg"];
 
     skeletonDefinition4 = [(ABPKSkeleton *)self skeletonDefinition];
-    v13 = [skeletonDefinition4 indexOfJointWithName:@"hips"];
+    v14 = [skeletonDefinition4 indexOfJointWithName:@"hips"];
 
     skeletonDefinition5 = [(ABPKSkeleton *)self skeletonDefinition];
-    v15 = [skeletonDefinition5 indexOfJointWithName:@"spine7"];
+    v16 = [skeletonDefinition5 indexOfJointWithName:@"spine7"];
 
     skeletonDefinition6 = [(ABPKSkeleton *)self skeletonDefinition];
-    v17 = [skeletonDefinition6 indexOfJointWithName:@"neck1"];
+    v18 = [skeletonDefinition6 indexOfJointWithName:@"neck1"];
 
     skeletonDefinition7 = [(ABPKSkeleton *)self skeletonDefinition];
-    v19 = [skeletonDefinition7 indexOfJointWithName:@"head"];
+    v20 = [skeletonDefinition7 indexOfJointWithName:@"head"];
 
-    v20 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v7 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v9 << 6) + 48));
-    v37 = vmulq_f32(v20, v20);
-    v21 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v9 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v11 << 6) + 48));
-    v22 = vmulq_f32(v21, v21);
-    v23 = vaddv_f32(vsqrt_f32(vadd_f32(vzip1_s32(*&vextq_s8(v37, v37, 8uLL), *&vextq_s8(v22, v22, 8uLL)), vadd_f32(vzip1_s32(*v37.i8, *v22.i8), vzip2_s32(*v37.i8, *v22.i8)))));
-    v24.i32[0] = *([(ABPKSkeleton *)self modelPoses]+ (v13 << 6) + 52);
-    v38 = v24;
-    v25.i32[0] = *([(ABPKSkeleton *)self modelPoses]+ (v11 << 6) + 52);
-    v26 = vsubq_f32(v38, v25);
-    v27 = vmulq_f32(v26, v26);
-    v28 = v23 + sqrtf(v27.f32[2] + vaddv_f32(*v27.f32));
-    v29 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v13 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v15 << 6) + 48));
-    v30 = vmulq_f32(v29, v29);
-    v31 = v28 + sqrtf(v30.f32[2] + vaddv_f32(*v30.f32));
-    v32 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v15 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v17 << 6) + 48));
-    v33 = vmulq_f32(v32, v32);
-    v34 = v31 + sqrtf(v33.f32[2] + vaddv_f32(*v33.f32));
-    v35 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v17 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v19 << 6) + 48));
-    v36 = vmulq_f32(v35, v35);
-    return v34 + sqrtf(v36.f32[2] + vaddv_f32(*v36.f32));
+    v21 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v8 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v10 << 6) + 48));
+    v38 = vmulq_f32(v21, v21);
+    v22 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v10 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v12 << 6) + 48));
+    v23 = vmulq_f32(v22, v22);
+    v24 = vaddv_f32(vsqrt_f32(vadd_f32(vzip1_s32(*&vextq_s8(v38, v38, 8uLL), *&vextq_s8(v23, v23, 8uLL)), vadd_f32(vzip1_s32(*v38.i8, *v23.i8), vzip2_s32(*v38.i8, *v23.i8)))));
+    v25.i32[0] = *([(ABPKSkeleton *)self modelPoses]+ (v14 << 6) + 52);
+    v39 = v25;
+    v26.i32[0] = *([(ABPKSkeleton *)self modelPoses]+ (v12 << 6) + 52);
+    v27 = vsubq_f32(v39, v26);
+    v28 = vmulq_f32(v27, v27);
+    v29 = v24 + sqrtf(v28.f32[2] + vaddv_f32(*v28.f32));
+    v30 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v14 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v16 << 6) + 48));
+    v31 = vmulq_f32(v30, v30);
+    v32 = v29 + sqrtf(v31.f32[2] + vaddv_f32(*v31.f32));
+    v33 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v16 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v18 << 6) + 48));
+    v34 = vmulq_f32(v33, v33);
+    v35 = v32 + sqrtf(v34.f32[2] + vaddv_f32(*v34.f32));
+    v36 = vsubq_f32(*([(ABPKSkeleton *)self modelPoses]+ (v18 << 6) + 48), *([(ABPKSkeleton *)self modelPoses]+ (v20 << 6) + 48));
+    v37 = vmulq_f32(v36, v36);
+    return v35 + sqrtf(v37.f32[2] + vaddv_f32(*v37.f32));
   }
-}
-
-- (__n128)cameraRootTransform
-{
-  result = *(self + 80);
-  v2 = *(self + 96);
-  v3 = *(self + 112);
-  v4 = *(self + 128);
-  return result;
 }
 
 - (__n128)setCameraRootTransform:(__n128)transform
@@ -642,30 +622,12 @@ void __58__ABPKSkeleton_setModelPosesFromDict_andUpdateLocalPoses___block_invoke
   return result;
 }
 
-- (__n128)renderingCameraRootTransform
-{
-  result = *(self + 144);
-  v2 = *(self + 160);
-  v3 = *(self + 176);
-  v4 = *(self + 192);
-  return result;
-}
-
 - (__n128)setRenderingCameraRootTransform:(__n128)transform
 {
   result[9] = a2;
   result[10] = transform;
   result[11] = a4;
   result[12] = a5;
-  return result;
-}
-
-- (__n128)deviceRootTransform
-{
-  result = *(self + 208);
-  v2 = *(self + 224);
-  v3 = *(self + 240);
-  v4 = *(self + 256);
   return result;
 }
 

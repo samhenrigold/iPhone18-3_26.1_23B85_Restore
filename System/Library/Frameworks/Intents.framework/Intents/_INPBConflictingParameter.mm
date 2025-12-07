@@ -14,35 +14,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_alternateItems count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v5 = self->_alternateItems;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v15 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v14 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -57,8 +57,6 @@
     v12 = [keyPath copy];
     [dictionary setObject:v12 forKeyedSubscript:@"keyPath"];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -170,35 +168,34 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
   v5 = self->_alternateItems;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -208,11 +205,8 @@ LABEL_13:
 
   if (keyPath)
   {
-    keyPath = self->_keyPath;
     PBDataWriterWriteStringField();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setKeyPath:(id)path

@@ -14,13 +14,6 @@
 
 + (void)setHasSeenAnnounceNotifications:(BOOL)notifications
 {
-  v3 = MEMORY[0x1E695E4D0];
-  if (!notifications)
-  {
-    v3 = MEMORY[0x1E695E4C0];
-  }
-
-  v4 = *v3;
   CFPrefs_SetValue();
 
   CFPreferencesAppSynchronize(@"com.apple.Sharing");

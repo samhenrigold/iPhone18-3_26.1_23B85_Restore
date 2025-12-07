@@ -31,151 +31,160 @@
   return v2;
 }
 
-void __41__SSNetworkQualityInquiry_sharedInstance__block_invoke()
+void __41__SSNetworkQualityInquiry_sharedInstance__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v0 = objc_alloc_init(SSNetworkQualityInquiry);
-  v1 = sharedInstance_sharedSelf;
-  sharedInstance_sharedSelf = v0;
+  v17 = *MEMORY[0x1E69E9840];
+  v1 = objc_alloc_init(SSNetworkQualityInquiry);
+  v2 = sharedInstance_sharedSelf;
+  sharedInstance_sharedSelf = v1;
 
   if (!sharedInstance_sharedSelf)
   {
-    v2 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v2)
+    v3 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v3)
     {
-      v2 = +[SSLogConfig sharedConfig];
+      v3 = +[SSLogConfig sharedConfig];
     }
 
-    v3 = [v2 shouldLog];
-    if ([v2 shouldLogToDisk])
+    v4 = [v3 shouldLog];
+    if ([v3 shouldLogToDisk])
     {
-      v4 = v3 | 2;
+      LODWORD(v5) = v4 | 2;
     }
 
     else
     {
-      v4 = v3;
+      LODWORD(v5) = v4;
     }
 
-    v5 = [v2 OSLogObject];
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = [v3 OSLogObject];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v4 &= 2u;
+      v5 = v5;
     }
 
-    if (v4)
+    else
     {
-      LODWORD(v15) = 138412290;
-      *(&v15 + 4) = objc_opt_class();
-      v6 = *(&v15 + 4);
-      LODWORD(v14) = 12;
-      v7 = _os_log_send_and_compose_impl();
+      v5 &= 2u;
+    }
 
-      if (!v7)
+    if (v5)
+    {
+      v15 = 138412290;
+      v16 = objc_opt_class();
+      v7 = v16;
+      v8 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, v6, 16, "[%@]: The network quality inquiry couldnt be initialized for metrics.", &v15, 12);
+
+      if (!v8)
       {
-LABEL_13:
+LABEL_14:
 
         return;
       }
 
-      v5 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v15, v14, v15}];
-      free(v7);
-      SSFileLog(v2, @"%@", v8, v9, v10, v11, v12, v13, v5);
+      v6 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+      free(v8);
+      SSFileLog(v3, @"%@", v9, v10, v11, v12, v13, v14, v6);
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 }
 
 - (SSNetworkQualityInquiry)init
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (([objc_opt_class() isEntitled] & 1) == 0)
   {
-    v11 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v11)
+    v13 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v13)
     {
-      v11 = +[SSLogConfig sharedConfig];
+      v13 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v11 shouldLog];
-    if ([v11 shouldLogToDisk])
+    shouldLog = [v13 shouldLog];
+    if ([v13 shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
-    oSLogObject = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    oSLogObject = [v13 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
     {
-      v13 &= 2u;
+      v15 = v15;
     }
 
-    if (v13)
+    else
     {
-      v27 = 138412290;
-      v28 = objc_opt_class();
-      v15 = v28;
-      LODWORD(v25) = 12;
-      v16 = _os_log_send_and_compose_impl();
+      v15 &= 2u;
+    }
 
-      if (!v16)
+    if (v15)
+    {
+      v28 = 138412290;
+      v29 = objc_opt_class();
+      v17 = v29;
+      v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "[%@]: Missing entitlements to perform network quality inquiry.", &v28, 12);
+
+      if (!v18)
       {
-LABEL_16:
+LABEL_17:
 
-        v3 = 0;
-        goto LABEL_17;
+        v5 = 0;
+        goto LABEL_18;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, &v27, v25}];
-      free(v16);
-      SSFileLog(v11, @"%@", v17, v18, v19, v20, v21, v22, oSLogObject);
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v18 encoding:4];
+      free(v18);
+      SSFileLog(v13, @"%@", v19, v20, v21, v22, v23, v24, oSLogObject);
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
-  v26.receiver = self;
-  v26.super_class = SSNetworkQualityInquiry;
-  v3 = [(SSNetworkQualityInquiry *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = SSNetworkQualityInquiry;
+  v3 = [(SSNetworkQualityInquiry *)&v27 init];
+  v5 = v3;
   if (v3)
   {
-    v4 = SSVSymptomPresentationFeed();
-    v5 = objc_alloc_init(SSVWeakLinkedClassForString(&cfstr_Nwnetworkofint.isa, v4));
-    manager = v3->_manager;
-    v3->_manager = v5;
+    v6 = SSVSymptomPresentationFeed(v3, v4);
+    v7 = objc_alloc_init(SSVWeakLinkedClassForString(&cfstr_Nwnetworkofint.isa, v6));
+    manager = v5->_manager;
+    v5->_manager = v7;
 
-    if (!v3->_manager)
+    if (!v5->_manager)
     {
-      v23 = 0;
-      goto LABEL_18;
+      v25 = 0;
+      goto LABEL_19;
     }
 
-    v7 = dispatch_queue_create("com.apple.StoreServices.NetworkQualityInquiry.queue", 0);
-    queue = v3->_queue;
-    v3->_queue = v7;
+    v9 = dispatch_queue_create("com.apple.StoreServices.NetworkQualityInquiry.queue", 0);
+    queue = v5->_queue;
+    v5->_queue = v9;
 
-    [(NWNetworkOfInterestManager *)v3->_manager setQueue:v3->_queue];
-    [(NWNetworkOfInterestManager *)v3->_manager setDelegate:v3];
-    v9 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    knownNetworks = v3->_knownNetworks;
-    v3->_knownNetworks = v9;
+    [(NWNetworkOfInterestManager *)v5->_manager setQueue:v5->_queue];
+    [(NWNetworkOfInterestManager *)v5->_manager setDelegate:v5];
+    v11 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    knownNetworks = v5->_knownNetworks;
+    v5->_knownNetworks = v11;
 
-    [(NWNetworkOfInterestManager *)v3->_manager trackNOIAnyForInterfaceType:2 options:0];
-    [(NWNetworkOfInterestManager *)v3->_manager trackNOIAnyForInterfaceType:1 options:0];
-    [(NWNetworkOfInterestManager *)v3->_manager trackNOIAnyForInterfaceType:3 options:0];
+    [(NWNetworkOfInterestManager *)v5->_manager trackNOIAnyForInterfaceType:2 options:0];
+    [(NWNetworkOfInterestManager *)v5->_manager trackNOIAnyForInterfaceType:1 options:0];
+    [(NWNetworkOfInterestManager *)v5->_manager trackNOIAnyForInterfaceType:3 options:0];
   }
 
-LABEL_17:
-  v3 = v3;
-  v23 = v3;
 LABEL_18:
+  v5 = v5;
+  v25 = v5;
+LABEL_19:
 
-  return v23;
+  return v25;
 }
 
 - (void)dealloc
@@ -293,7 +302,7 @@ void __57__SSNetworkQualityInquiry_performWhenKnownNetworksReady___block_invoke(
 
 - (void)didStopTrackingNOI:(id)i
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   iCopy = i;
   knownNetworks = [(SSNetworkQualityInquiry *)self knownNetworks];
   [knownNetworks removeObject:iCopy];
@@ -331,16 +340,15 @@ void __57__SSNetworkQualityInquiry_performWhenKnownNetworksReady___block_invoke(
     goto LABEL_12;
   }
 
-  v20 = 138412546;
+  v19 = 138412546;
   selfCopy = self;
-  v22 = 2112;
-  v23 = iCopy;
-  LODWORD(v19) = 22;
-  v11 = _os_log_send_and_compose_impl();
+  v21 = 2112;
+  v22 = iCopy;
+  v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 2, "[%@]: Stopped tracking %@, searching for interface again", &v19, 22);
 
   if (v11)
   {
-    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:{4, &v20, v19}];
+    oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v11 encoding:4];
     free(v11);
     SSFileLog(v6, @"%@", v12, v13, v14, v15, v16, v17, oSLogObject);
 LABEL_12:
@@ -496,7 +504,7 @@ void __46__SSNetworkQualityInquiry_investigateNetworks__block_invoke(uint64_t a1
 
 void __46__SSNetworkQualityInquiry_investigateNetworks__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -505,13 +513,13 @@ void __46__SSNetworkQualityInquiry_investigateNetworks__block_invoke_3(uint64_t 
   {
     v10 = off_1E84AFC50[v9 - 1];
     v11 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    *v29 = MEMORY[0x1E69E9820];
-    *&v29[8] = 3221225472;
-    *&v29[16] = __SSNetworkQualityInquiryReportMake_block_invoke;
-    v30 = &unk_1E84AE620;
+    *v27 = MEMORY[0x1E69E9820];
+    *&v27[8] = 3221225472;
+    *&v27[16] = __SSNetworkQualityInquiryReportMake_block_invoke;
+    v28 = &unk_1E84AE620;
     v12 = v11;
-    v31 = v12;
-    [v8 enumerateKeysAndObjectsUsingBlock:v29];
+    v29 = v12;
+    [v8 enumerateKeysAndObjectsUsingBlock:v27];
     if ([v12 count])
     {
       [v12 setObject:v10 forKeyedSubscript:@"interface"];
@@ -561,13 +569,11 @@ void __46__SSNetworkQualityInquiry_investigateNetworks__block_invoke_3(uint64_t 
     if (v18)
     {
       v19 = *(a1 + 32);
-      *v29 = 138412546;
-      *&v29[4] = v19;
-      *&v29[12] = 2112;
-      *&v29[14] = v6;
-      LODWORD(v28) = 22;
-      v27 = v29;
-      v20 = _os_log_send_and_compose_impl();
+      *v27 = 138412546;
+      *&v27[4] = v19;
+      *&v27[12] = 2112;
+      *&v27[14] = v6;
+      v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_1D48BA000, v17, 16, "Could not determine link quality for %@, reason: %@", v27, 22);
 
       if (!v20)
       {
@@ -576,7 +582,7 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      v17 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, v29, v28}];
+      v17 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog(v14, @"%@", v21, v22, v23, v24, v25, v26, v17);
     }
@@ -585,7 +591,7 @@ LABEL_20:
   }
 
 LABEL_21:
-  [*(a1 + 48) finishWithResult:{MEMORY[0x1E695E118], v27}];
+  [*(a1 + 48) finishWithResult:MEMORY[0x1E695E118]];
 }
 
 void __46__SSNetworkQualityInquiry_investigateNetworks__block_invoke_55(uint64_t a1)

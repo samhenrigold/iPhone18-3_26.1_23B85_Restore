@@ -215,13 +215,12 @@ uint64_t __48__HKStatisticsCollectionQuery_setCacheSettings___block_invoke(uint6
 
 - (void)queue_validate
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = *self;
   v3 = a2;
   identifier = [v2 identifier];
-  OUTLINED_FUNCTION_0_27(&dword_19197B000, v5, v6, "Not using cached results for query with caching identifier %@ due to strict start and end date enforcement", v7, v8, v9, v10, 2u);
-
-  v11 = *MEMORY[0x1E69E9840];
+  LODWORD(v11) = 138412290;
+  *(&v11 + 4) = identifier;
+  OUTLINED_FUNCTION_0_27(&dword_19197B000, v5, v6, "Not using cached results for query with caching identifier %@ due to strict start and end date enforcement", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (void)queue_deliverError:(id)error
@@ -293,46 +292,46 @@ LABEL_6:
   dispatch_async(queue, block);
 }
 
-uint64_t __98__HKStatisticsCollectionQuery_client_deliverStatisticsBatch_resetStatistics_isFinal_anchor_query___block_invoke(uint64_t result)
+_BYTE *__98__HKStatisticsCollectionQuery_client_deliverStatisticsBatch_resetStatistics_isFinal_anchor_query___block_invoke(_BYTE *result)
 {
   v1 = result;
-  if (*(result + 64) == 1)
+  if (result[64] == 1)
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v3 = *(v1 + 32);
+    v3 = *(v1 + 4);
     v4 = *(v3 + 176);
     *(v3 + 176) = v2;
 
-    v5 = *(v1 + 32);
+    v5 = *(v1 + 4);
     v6 = *(v5 + 208);
     *(v5 + 208) = 0;
 
-    result = [*(*(v1 + 32) + 216) _resetStatistics:MEMORY[0x1E695E0F0]];
+    result = [*(*(v1 + 4) + 216) _resetStatistics:MEMORY[0x1E695E0F0]];
   }
 
-  if (*(v1 + 40))
+  if (*(v1 + 5))
   {
-    result = [*(*(v1 + 32) + 176) addObjectsFromArray:?];
+    result = [*(*(v1 + 4) + 176) addObjectsFromArray:?];
   }
 
-  if (*(v1 + 65) == 1)
+  if (v1[65] == 1)
   {
-    v7 = *(v1 + 32);
+    v7 = *(v1 + 4);
     if (*(v7 + 184))
     {
       v8 = *(v7 + 208);
       *(v7 + 208) = 0;
 
-      [*(v1 + 32) _queue_deliverResetStatisticsObjects:*(*(v1 + 32) + 176) forQuery:*(v1 + 56)];
+      [*(v1 + 4) _queue_deliverResetStatisticsObjects:*(*(v1 + 4) + 176) forQuery:*(v1 + 7)];
     }
 
     else
     {
-      [v7 _queue_deliverInitialStatisticsObjects:*(v7 + 176) anchor:*(v1 + 48) queryUUID:*(v1 + 56)];
+      [v7 _queue_deliverInitialStatisticsObjects:*(v7 + 176) anchor:*(v1 + 6) queryUUID:*(v1 + 7)];
     }
 
     v9 = objc_opt_new();
-    v10 = *(v1 + 32);
+    v10 = *(v1 + 4);
     v11 = *(v10 + 176);
     *(v10 + 176) = v9;
 
@@ -364,12 +363,12 @@ uint64_t __98__HKStatisticsCollectionQuery_client_deliverStatisticsBatch_resetSt
 
 void __76__HKStatisticsCollectionQuery_client_deliverUpdatedStatistics_anchor_query___block_invoke(uint64_t a1)
 {
-  v4[1] = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
   objc_storeStrong((*(a1 + 32) + 208), *(a1 + 40));
   if (*(a1 + 48))
   {
-    v4[0] = *(a1 + 48);
-    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
+    v3[0] = *(a1 + 48);
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
   }
 
   else
@@ -378,8 +377,6 @@ void __76__HKStatisticsCollectionQuery_client_deliverUpdatedStatistics_anchor_qu
   }
 
   [*(a1 + 32) _queue_deliverStatisticsObjects:v2 forQuery:*(a1 + 56)];
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)client_finishedCachingStatisticsWithCacheHits:(int64_t)hits error:(id)error
@@ -410,7 +407,7 @@ void __83__HKStatisticsCollectionQuery_client_finishedCachingStatisticsWithCache
 
 - (void)_queue_deliverInitialStatisticsObjects:(id)objects anchor:(id)anchor queryUUID:(id)d
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   dCopy = d;
   [(HKStatisticsCollectionQuery *)self setLastAnchor:anchor];
@@ -427,38 +424,38 @@ void __83__HKStatisticsCollectionQuery_client_finishedCachingStatisticsWithCache
     v13 = [HKStatisticsCollection alloc];
     anchorDate = self->_anchorDate;
     intervalComponents = self->_intervalComponents;
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __87__HKStatisticsCollectionQuery__queue_deliverInitialStatisticsObjects_anchor_queryUUID___block_invoke;
-    v33[3] = &unk_1E7383AE8;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __87__HKStatisticsCollectionQuery__queue_deliverInitialStatisticsObjects_anchor_queryUUID___block_invoke;
+    v32[3] = &unk_1E7383AE8;
     v16 = objectType;
-    v34 = v16;
-    v11 = [(HKStatisticsCollection *)v13 initWithAnchorDate:anchorDate statisticsInterval:intervalComponents emptyStatisticsConstructor:v33];
+    v33 = v16;
+    v11 = [(HKStatisticsCollection *)v13 initWithAnchorDate:anchorDate statisticsInterval:intervalComponents emptyStatisticsConstructor:v32];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v17 = objectsCopy;
-    v18 = [v17 countByEnumeratingWithState:&v29 objects:v35 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v28 objects:v34 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v30;
+      v20 = *v29;
       do
       {
         v21 = 0;
         do
         {
-          if (*v30 != v20)
+          if (*v29 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          [(HKStatisticsCollection *)v11 _insertStatistics:*(*(&v29 + 1) + 8 * v21++)];
+          [(HKStatisticsCollection *)v11 _insertStatistics:*(*(&v28 + 1) + 8 * v21++)];
         }
 
         while (v19 != v21);
-        v19 = [v17 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v28 objects:v34 count:16];
       }
 
       while (v19);
@@ -471,18 +468,16 @@ void __83__HKStatisticsCollectionQuery_client_finishedCachingStatisticsWithCache
     if (v22)
     {
       v24 = queue_shouldDeactivateAfterInitialResults;
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __87__HKStatisticsCollectionQuery__queue_deliverInitialStatisticsObjects_anchor_queryUUID___block_invoke_2;
-      v26[3] = &unk_1E7376618;
-      v28 = v22;
-      v26[4] = self;
-      v27 = v11;
-      [(HKQuery *)self queue_dispatchToClientForUUID:dCopy shouldDeactivate:v24 block:v26];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __87__HKStatisticsCollectionQuery__queue_deliverInitialStatisticsObjects_anchor_queryUUID___block_invoke_2;
+      v25[3] = &unk_1E7376618;
+      v27 = v22;
+      v25[4] = self;
+      v26 = v11;
+      [(HKQuery *)self queue_dispatchToClientForUUID:dCopy shouldDeactivate:v24 block:v25];
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 HKStatistics *__87__HKStatisticsCollectionQuery__queue_deliverInitialStatisticsObjects_anchor_queryUUID___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -520,91 +515,89 @@ HKStatistics *__87__HKStatisticsCollectionQuery__queue_deliverInitialStatisticsO
 
 - (void)_queue_deliverStatisticsObjects:(id)objects forQuery:(id)query
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   queryCopy = query;
   queue = [(HKQuery *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v8 = objectsCopy;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         if ([(HKStatisticsCollection *)self->_statisticsCollection _insertStatistics:v13])
         {
           v14 = _Block_copy(self->_statisticsUpdateHandler);
           v15 = self->_statisticsCollection;
           if (v14)
           {
-            v18[0] = MEMORY[0x1E69E9820];
-            v18[1] = 3221225472;
-            v18[2] = __72__HKStatisticsCollectionQuery__queue_deliverStatisticsObjects_forQuery___block_invoke;
-            v18[3] = &unk_1E7378F90;
-            v20 = v14;
-            v18[4] = self;
-            v18[5] = v13;
-            v19 = v15;
-            [(HKQuery *)self queue_dispatchToClientForUUID:queryCopy shouldDeactivate:0 block:v18];
+            v17[0] = MEMORY[0x1E69E9820];
+            v17[1] = 3221225472;
+            v17[2] = __72__HKStatisticsCollectionQuery__queue_deliverStatisticsObjects_forQuery___block_invoke;
+            v17[3] = &unk_1E7378F90;
+            v19 = v14;
+            v17[4] = self;
+            v17[5] = v13;
+            v18 = v15;
+            [(HKQuery *)self queue_dispatchToClientForUUID:queryCopy shouldDeactivate:0 block:v17];
           }
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_predicateContainsStrictStartOrEndDateComparisonPredicate:(id)predicate
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     subpredicates = [predicateCopy subpredicates];
-    v6 = [subpredicates countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [subpredicates countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(subpredicates);
           }
 
-          v8 |= [(HKStatisticsCollectionQuery *)self _predicateContainsStrictStartOrEndDateComparisonPredicate:*(*(&v13 + 1) + 8 * i)];
+          v8 |= [(HKStatisticsCollectionQuery *)self _predicateContainsStrictStartOrEndDateComparisonPredicate:*(*(&v12 + 1) + 8 * i)];
         }
 
-        v7 = [subpredicates countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [subpredicates countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -622,7 +615,6 @@ HKStatistics *__87__HKStatisticsCollectionQuery__queue_deliverInitialStatisticsO
     LOBYTE(v8) = (objc_opt_isKindOfClass() & 1) != 0 && [(HKStatisticsCollectionQuery *)self _comparisonPredicateContainsStrictStartOrEndDateComparisonPredicate:predicateCopy];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v8 & 1;
 }
 

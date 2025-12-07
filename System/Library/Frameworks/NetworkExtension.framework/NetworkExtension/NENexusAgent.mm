@@ -109,7 +109,7 @@ LABEL_6:
 
 + (id)agentFromData:(id)data
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v4 = objc_alloc_init(NENexusAgent);
   if ([dataCopy length] < 0xCC)
@@ -117,9 +117,9 @@ LABEL_6:
     v6 = ne_log_obj();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 134217984;
-      v10 = [dataCopy length];
-      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "data.length is invalid (%lu)", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = [dataCopy length];
+      _os_log_error_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_ERROR, "data.length is invalid (%lu)", &v8, 0xCu);
     }
   }
 
@@ -131,8 +131,6 @@ LABEL_6:
       v4->_frameType = *bytes;
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

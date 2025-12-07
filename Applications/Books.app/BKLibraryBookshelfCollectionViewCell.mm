@@ -293,7 +293,7 @@
   v10 = coverLayer;
   if (coverLayer)
   {
-    [coverLayer transform];
+    objc_msgSend_transform(coverLayer);
   }
 
   else

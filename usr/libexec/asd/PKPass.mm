@@ -28,9 +28,9 @@
 - (id)arrivalAirportLong:(int64_t)long
 {
   selfCopy = self;
-  v4 = PKPass.arrivalAirportLong(_:)();
+  v7 = PKPass.arrivalAirportLong(_:)(long, v5, v6);
 
-  return v4;
+  return v7;
 }
 
 - (id)departureAirportLat:(int64_t)lat
@@ -44,9 +44,9 @@
 - (id)departureAirportLong:(int64_t)long
 {
   selfCopy = self;
-  v4 = PKPass.departureAirportLong(_:)();
+  v7 = PKPass.departureAirportLong(_:)(long, v5, v6);
 
-  return v4;
+  return v7;
 }
 
 - (NSDate)anyDate
@@ -133,8 +133,7 @@
   {
     v10 = sub_100044728(v17, v18);
     v11 = *(v9 - 8);
-    v12 = *(v11 + 64);
-    __chkstk_darwin(v10);
+    __chkstk_darwin(v10, v10, v12);
     v14 = v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
     (*(v11 + 16))(v14);
     v15 = _bridgeAnythingToObjectiveC<A>(_:)();

@@ -157,22 +157,22 @@
 
 - (void)startRefreshSearchTestIfNeeded
 {
-  options = [(MapsAppTest *)self options];
-  v4 = [options valueForKey:@"refreshWestLng"];
+  v3 = objc_msgSend_options(self, a2);
+  v4 = [v3 valueForKey:@"refreshWestLng"];
   if (!v4)
   {
     goto LABEL_8;
   }
 
   v5 = v4;
-  v6 = [options valueForKey:@"refreshEastLng"];
+  v6 = [v3 valueForKey:@"refreshEastLng"];
   if (!v6)
   {
     goto LABEL_7;
   }
 
   v7 = v6;
-  v8 = [options valueForKey:@"refreshSouthLat"];
+  v8 = [v3 valueForKey:@"refreshSouthLat"];
   if (!v8)
   {
 
@@ -181,7 +181,7 @@ LABEL_7:
   }
 
   v9 = v8;
-  v10 = [options valueForKey:@"refreshNorthLat"];
+  v10 = [v3 valueForKey:@"refreshNorthLat"];
 
   if (!v10)
   {
@@ -194,19 +194,19 @@ LABEL_8:
   [v11 removeObserver:self name:@"SearchSessionDidChangeSearchResultsNotification" object:0];
 
   v12 = objc_opt_new();
-  v13 = [options valueForKey:@"refreshWestLng"];
+  v13 = [v3 valueForKey:@"refreshWestLng"];
   [v13 doubleValue];
   [v12 setWestLng:?];
 
-  v14 = [options valueForKey:@"refreshEastLng"];
+  v14 = [v3 valueForKey:@"refreshEastLng"];
   [v14 doubleValue];
   [v12 setEastLng:?];
 
-  v15 = [options valueForKey:@"refreshSouthLat"];
+  v15 = [v3 valueForKey:@"refreshSouthLat"];
   [v15 doubleValue];
   [v12 setSouthLat:?];
 
-  v16 = [options valueForKey:@"refreshNorthLat"];
+  v16 = [v3 valueForKey:@"refreshNorthLat"];
   [v16 doubleValue];
   [v12 setNorthLat:?];
 
@@ -244,8 +244,8 @@ LABEL_9:
 
 - (void)continueToNearbyScrollTests
 {
-  options = [(MapsAppTest *)self options];
-  v4 = [options objectForKeyedSubscript:@"testName"];
+  v3 = objc_msgSend_options(self, a2);
+  v4 = [v3 objectForKeyedSubscript:@"testName"];
 
   v5 = dispatch_time(0, 1000000000);
   v7[0] = _NSConcreteStackBlock;
@@ -801,8 +801,8 @@ LABEL_9:
 
 - (void)didDisplayCarplayBrowseCategories
 {
-  options = [(MapsAppTest *)self options];
-  v4 = [options objectForKeyedSubscript:@"testName"];
+  v3 = objc_msgSend_options(self, a2);
+  v4 = [v3 objectForKeyedSubscript:@"testName"];
   testCoordinator = [(MapsAppTest *)self testCoordinator];
   pptTestScrollView = [testCoordinator pptTestScrollView];
 
@@ -907,12 +907,12 @@ LABEL_9:
   v11 = +[GEONotificationPreferenceManager sharedManager];
   [v11 setEnabled:1 forSubTestWithName:@"MSGPPTTest_Insights_ACRanking_PreLoad"];
 
-  options = [(MapsAppTest *)self options];
-  v13 = [options objectForKeyedSubscript:@"testName"];
+  v12 = objc_msgSend_options(self);
+  v13 = [v12 objectForKeyedSubscript:@"testName"];
   if ([v13 containsString:@"Nearby"])
   {
     self->_isNearbyTest = 1;
-    v14 = [options objectForKeyedSubscript:@"categoryIndex"];
+    v14 = [v12 objectForKeyedSubscript:@"categoryIndex"];
     v15 = v14;
     if (v14)
     {
@@ -929,10 +929,10 @@ LABEL_9:
 
   else
   {
-    self->_searchTestACMode = [options _mapstest_searchTestACMode];
-    self->_directionIntentTestType = [options _mapstest_directionIntentType];
-    v15 = [options objectForKeyedSubscript:@"searchQuery"];
-    v17 = [options objectForKeyedSubscript:@"searchQueryPrefix"];
+    self->_searchTestACMode = [v12 _mapstest_searchTestACMode];
+    self->_directionIntentTestType = [v12 _mapstest_directionIntentType];
+    v15 = [v12 objectForKeyedSubscript:@"searchQuery"];
+    v17 = [v12 objectForKeyedSubscript:@"searchQueryPrefix"];
     v18 = [v17 length];
     v19 = [v15 length];
     v20 = &v18[v19];
@@ -988,13 +988,13 @@ LABEL_9:
     self->_query = v27;
   }
 
-  v29 = [options objectForKeyedSubscript:@"isShowcase"];
+  v29 = [v12 objectForKeyedSubscript:@"isShowcase"];
   bOOLValue = [v29 BOOLValue];
 
   if (bOOLValue)
   {
     self->_isShowcaseTest = 1;
-    v31 = [options objectForKeyedSubscript:@"selectACSuggestionMatchingAddress"];
+    v31 = [v12 objectForKeyedSubscript:@"selectACSuggestionMatchingAddress"];
     selectACSuggestionMatchingAddress = self->_selectACSuggestionMatchingAddress;
     self->_selectACSuggestionMatchingAddress = v31;
   }
@@ -1009,8 +1009,8 @@ LABEL_9:
     testCoordinator = [(MapsAppTest *)self testCoordinator];
     [testCoordinator pptTestResetForLaunchURL];
 
-    _mapstest_mapType = [options _mapstest_mapType];
-    _mapstest_mapRegion = [options _mapstest_mapRegion];
+    _mapstest_mapType = [v12 _mapstest_mapType];
+    _mapstest_mapRegion = [v12 _mapstest_mapRegion];
     [(MapsAppTest *)self switchToMapType:_mapstest_mapType];
     mainVKMapView = [(MapsAppTest *)self mainVKMapView];
     [mainVKMapView setMapRegion:_mapstest_mapRegion pitch:0.0 yaw:0.0];
@@ -1055,8 +1055,8 @@ LABEL_9:
   {
     if ([(MapsAppTest *)self isRunningOnCarPlay])
     {
-      options = [(MapsAppTest *)self options];
-      v6 = [options objectForKeyedSubscript:@"testName"];
+      v5 = objc_msgSend_options(self);
+      v6 = [v5 objectForKeyedSubscript:@"testName"];
       if (([v6 isEqualToString:@"searchScrollBrowseCategoriesInCarPlay"] & 1) != 0 || (objc_msgSend(v6, "isEqualToString:", @"searchScrollBrowseCategoryResultsInCarPlay") & 1) != 0 || objc_msgSend(v6, "isEqualToString:", @"searchEmbarcadero"))
       {
         [(MapsAppTestSearch *)self runScrollBrowseCategoriesInCarPlay];
@@ -1065,10 +1065,10 @@ LABEL_9:
 
     else
     {
-      options = +[NSNotificationCenter defaultCenter];
-      [options addObserver:self selector:"searchKeyboardWillShow" name:UIKeyboardWillShowNotification object:0];
-      [options addObserver:self selector:"searchKeyboardDidShow" name:UIKeyboardDidShowNotification object:0];
-      [options addObserver:self selector:"searchKeyboardDidHide" name:UIKeyboardDidHideNotification object:0];
+      v5 = +[NSNotificationCenter defaultCenter];
+      [v5 addObserver:self selector:"searchKeyboardWillShow" name:UIKeyboardWillShowNotification object:0];
+      [v5 addObserver:self selector:"searchKeyboardDidShow" name:UIKeyboardDidShowNotification object:0];
+      [v5 addObserver:self selector:"searchKeyboardDidHide" name:UIKeyboardDidHideNotification object:0];
       [(MapsAppTestSearch *)self _startPrewarmingKeyboard];
     }
   }

@@ -524,7 +524,7 @@ LABEL_19:
       }
 
       location = result.location;
-      if (result.location && (v26.location = result.location - 1, v26.length = 1, v11 = CFStringFindWithOptions(self, @"\\"", v26, 1uLL, 0), location = result.location, v11))
+      if (result.location && (v26.location = result.location - 1, v26.length = 1, v11 = CFStringFindWithOptions(self, @"\", v26, 1uLL, 0), location = result.location, v11))
       {
         v9 = result.length + result.location;
       }

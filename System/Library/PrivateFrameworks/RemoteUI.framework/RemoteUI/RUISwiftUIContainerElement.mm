@@ -53,19 +53,20 @@
   v6 = (self + OBJC_IVAR____TtC8RemoteUI26RUISwiftUIContainerElement_willLayoutSubviewsHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_21B946DA8(v4);
-  sub_21B946D98(v7);
-  v9 = *(selfCopy + OBJC_IVAR____TtC8RemoteUI26RUISwiftUIContainerElement_container);
-  v10 = swift_allocObject();
+  sub_21B946DA8(v4, v5);
+  sub_21B946D98(v7, v8);
+  v10 = *(selfCopy + OBJC_IVAR____TtC8RemoteUI26RUISwiftUIContainerElement_container);
+  v11 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v11 = *((*MEMORY[0x277D85000] & *v9) + qword_27CDB2188 + 96);
+  v12 = *((*MEMORY[0x277D85000] & *v10) + qword_27CDB2188 + 96);
 
-  v11(sub_21BA06AA8, v10);
+  v12(sub_21BA06AA8, v11);
 
-  sub_21B946D98(v4);
+  sub_21B946D98(v4, v5);
 }
 
 - (void)setDidLayoutSubviewsHandler:(id)handler
@@ -86,19 +87,20 @@
   v6 = (self + OBJC_IVAR____TtC8RemoteUI26RUISwiftUIContainerElement_didLayoutSubviewsHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_21B946DA8(v4);
-  sub_21B946D98(v7);
-  v9 = *(selfCopy + OBJC_IVAR____TtC8RemoteUI26RUISwiftUIContainerElement_container);
-  v10 = swift_allocObject();
+  sub_21B946DA8(v4, v5);
+  sub_21B946D98(v7, v8);
+  v10 = *(selfCopy + OBJC_IVAR____TtC8RemoteUI26RUISwiftUIContainerElement_container);
+  v11 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v11 = *((*MEMORY[0x277D85000] & *v9) + qword_27CDB2188 + 120);
+  v12 = *((*MEMORY[0x277D85000] & *v10) + qword_27CDB2188 + 120);
 
-  v11(sub_21BA06AAC, v10);
+  v12(sub_21BA06AAC, v11);
 
-  sub_21B946D98(v4);
+  sub_21B946D98(v4, v5);
 }
 
 - (id)subElementWithID:(id)d

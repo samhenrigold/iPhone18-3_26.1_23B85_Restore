@@ -154,24 +154,7 @@
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  if ((isKindOfClass & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  underlyingPayload3 = [(STTransportRequestPayload *)self underlyingPayload];
-  v10 = objc_opt_new();
-  declarations = [underlyingPayload3 declarations];
-  v12 = declarations;
-  v13 = declarations ? declarations : &__NSArray0__struct;
-  [v10 setDeclarations:v13];
-
-  [v10 setOrganizationIdentifier:dCopy];
-  v14 = objc_opt_new();
-  uUIDString = [v14 UUIDString];
-  [v10 setSyncToken:uUIDString];
-
-  if (v10)
+  if ((isKindOfClass & 1) != 0 && ((-[STTransportRequestPayload underlyingPayload](self, "underlyingPayload"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_opt_new(), [v9 declarations], v11 = objc_claimAutoreleasedReturnValue(), (v12 = v11) != 0) ? (v13 = v11) : (v13 = &__NSArray0__struct), objc_msgSend(v10, "setDeclarations:", v13), v12, objc_msgSend(v10, "setOrganizationIdentifier:", dCopy), v14 = objc_opt_new(), objc_msgSend(v14, "UUIDString"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "setSyncToken:", v15), v15, v14, v9, v10))
   {
     v16 = +[STLog payload];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
@@ -185,7 +168,6 @@
 
   else
   {
-LABEL_12:
     v16 = +[STLog payload];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {

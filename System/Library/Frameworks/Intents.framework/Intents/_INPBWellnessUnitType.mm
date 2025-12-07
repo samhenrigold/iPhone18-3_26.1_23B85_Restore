@@ -1,8 +1,18 @@
 @interface _INPBWellnessUnitType
 - (BOOL)isEqual:(id)equal;
 - (_INPBWellnessUnitType)initWithCoder:(id)coder;
+- (id)bloodGlucoseUnitAsString:(int)string;
+- (id)bloodPressureUnitAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)energyUnitAsString:(int)string;
+- (id)heartRateUnitAsString:(int)string;
+- (id)lengthUnitAsString:(int)string;
+- (id)massUnitAsString:(int)string;
+- (id)respiratoryRateUnitAsString:(int)string;
+- (id)temperatureUnitAsString:(int)string;
+- (id)timeUnitAsString:(int)string;
+- (id)volumeUnitAsString:(int)string;
 - (int)StringAsBloodGlucoseUnit:(id)unit;
 - (int)StringAsBloodPressureUnit:(id)unit;
 - (int)StringAsEnergyUnit:(id)unit;
@@ -337,146 +347,80 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
+  v24 = 0;
+  if ([equalCopy isMemberOfClass:objc_opt_class()])
   {
-    goto LABEL_39;
-  }
-
-  hasBloodGlucoseUnit = [(_INPBWellnessUnitType *)self hasBloodGlucoseUnit];
-  if (hasBloodGlucoseUnit != [equalCopy hasBloodGlucoseUnit])
-  {
-    goto LABEL_39;
-  }
-
-  if ([(_INPBWellnessUnitType *)self hasBloodGlucoseUnit])
-  {
-    if ([equalCopy hasBloodGlucoseUnit])
+    hasBloodGlucoseUnit = [(_INPBWellnessUnitType *)self hasBloodGlucoseUnit];
+    if (hasBloodGlucoseUnit == [equalCopy hasBloodGlucoseUnit])
     {
-      bloodGlucoseUnit = self->_bloodGlucoseUnit;
-      if (bloodGlucoseUnit != [equalCopy bloodGlucoseUnit])
+      if (!-[_INPBWellnessUnitType hasBloodGlucoseUnit](self, "hasBloodGlucoseUnit") || ![equalCopy hasBloodGlucoseUnit] || (bloodGlucoseUnit = self->_bloodGlucoseUnit, bloodGlucoseUnit == objc_msgSend(equalCopy, "bloodGlucoseUnit")))
       {
-        goto LABEL_39;
+        hasBloodPressureUnit = [(_INPBWellnessUnitType *)self hasBloodPressureUnit];
+        if (hasBloodPressureUnit == [equalCopy hasBloodPressureUnit])
+        {
+          if (!-[_INPBWellnessUnitType hasBloodPressureUnit](self, "hasBloodPressureUnit") || ![equalCopy hasBloodPressureUnit] || (bloodPressureUnit = self->_bloodPressureUnit, bloodPressureUnit == objc_msgSend(equalCopy, "bloodPressureUnit")))
+          {
+            hasEnergyUnit = [(_INPBWellnessUnitType *)self hasEnergyUnit];
+            if (hasEnergyUnit == [equalCopy hasEnergyUnit])
+            {
+              if (!-[_INPBWellnessUnitType hasEnergyUnit](self, "hasEnergyUnit") || ![equalCopy hasEnergyUnit] || (energyUnit = self->_energyUnit, energyUnit == objc_msgSend(equalCopy, "energyUnit")))
+              {
+                hasHeartRateUnit = [(_INPBWellnessUnitType *)self hasHeartRateUnit];
+                if (hasHeartRateUnit == [equalCopy hasHeartRateUnit])
+                {
+                  if (!-[_INPBWellnessUnitType hasHeartRateUnit](self, "hasHeartRateUnit") || ![equalCopy hasHeartRateUnit] || (heartRateUnit = self->_heartRateUnit, heartRateUnit == objc_msgSend(equalCopy, "heartRateUnit")))
+                  {
+                    hasLengthUnit = [(_INPBWellnessUnitType *)self hasLengthUnit];
+                    if (hasLengthUnit == [equalCopy hasLengthUnit])
+                    {
+                      if (!-[_INPBWellnessUnitType hasLengthUnit](self, "hasLengthUnit") || ![equalCopy hasLengthUnit] || (lengthUnit = self->_lengthUnit, lengthUnit == objc_msgSend(equalCopy, "lengthUnit")))
+                      {
+                        hasMassUnit = [(_INPBWellnessUnitType *)self hasMassUnit];
+                        if (hasMassUnit == [equalCopy hasMassUnit])
+                        {
+                          if (!-[_INPBWellnessUnitType hasMassUnit](self, "hasMassUnit") || ![equalCopy hasMassUnit] || (massUnit = self->_massUnit, massUnit == objc_msgSend(equalCopy, "massUnit")))
+                          {
+                            hasRespiratoryRateUnit = [(_INPBWellnessUnitType *)self hasRespiratoryRateUnit];
+                            if (hasRespiratoryRateUnit == [equalCopy hasRespiratoryRateUnit])
+                            {
+                              if (!-[_INPBWellnessUnitType hasRespiratoryRateUnit](self, "hasRespiratoryRateUnit") || ![equalCopy hasRespiratoryRateUnit] || (respiratoryRateUnit = self->_respiratoryRateUnit, respiratoryRateUnit == objc_msgSend(equalCopy, "respiratoryRateUnit")))
+                              {
+                                hasTemperatureUnit = [(_INPBWellnessUnitType *)self hasTemperatureUnit];
+                                if (hasTemperatureUnit == [equalCopy hasTemperatureUnit])
+                                {
+                                  if (!-[_INPBWellnessUnitType hasTemperatureUnit](self, "hasTemperatureUnit") || ![equalCopy hasTemperatureUnit] || (temperatureUnit = self->_temperatureUnit, temperatureUnit == objc_msgSend(equalCopy, "temperatureUnit")))
+                                  {
+                                    hasTimeUnit = [(_INPBWellnessUnitType *)self hasTimeUnit];
+                                    if (hasTimeUnit == [equalCopy hasTimeUnit])
+                                    {
+                                      if (!-[_INPBWellnessUnitType hasTimeUnit](self, "hasTimeUnit") || ![equalCopy hasTimeUnit] || (timeUnit = self->_timeUnit, timeUnit == objc_msgSend(equalCopy, "timeUnit")))
+                                      {
+                                        hasVolumeUnit = [(_INPBWellnessUnitType *)self hasVolumeUnit];
+                                        if (hasVolumeUnit == [equalCopy hasVolumeUnit])
+                                        {
+                                          if (!-[_INPBWellnessUnitType hasVolumeUnit](self, "hasVolumeUnit") || ![equalCopy hasVolumeUnit] || (volumeUnit = self->_volumeUnit, volumeUnit == objc_msgSend(equalCopy, "volumeUnit")))
+                                          {
+                                            v24 = 1;
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
-  }
-
-  hasBloodPressureUnit = [(_INPBWellnessUnitType *)self hasBloodPressureUnit];
-  if (hasBloodPressureUnit != [equalCopy hasBloodPressureUnit])
-  {
-    goto LABEL_39;
-  }
-
-  if ([(_INPBWellnessUnitType *)self hasBloodPressureUnit])
-  {
-    if ([equalCopy hasBloodPressureUnit])
-    {
-      bloodPressureUnit = self->_bloodPressureUnit;
-      if (bloodPressureUnit != [equalCopy bloodPressureUnit])
-      {
-        goto LABEL_39;
-      }
-    }
-  }
-
-  hasEnergyUnit = [(_INPBWellnessUnitType *)self hasEnergyUnit];
-  if (hasEnergyUnit != [equalCopy hasEnergyUnit])
-  {
-    goto LABEL_39;
-  }
-
-  if ([(_INPBWellnessUnitType *)self hasEnergyUnit])
-  {
-    if ([equalCopy hasEnergyUnit])
-    {
-      energyUnit = self->_energyUnit;
-      if (energyUnit != [equalCopy energyUnit])
-      {
-        goto LABEL_39;
-      }
-    }
-  }
-
-  hasHeartRateUnit = [(_INPBWellnessUnitType *)self hasHeartRateUnit];
-  if (hasHeartRateUnit != [equalCopy hasHeartRateUnit])
-  {
-    goto LABEL_39;
-  }
-
-  if ([(_INPBWellnessUnitType *)self hasHeartRateUnit])
-  {
-    if ([equalCopy hasHeartRateUnit])
-    {
-      heartRateUnit = self->_heartRateUnit;
-      if (heartRateUnit != [equalCopy heartRateUnit])
-      {
-        goto LABEL_39;
-      }
-    }
-  }
-
-  hasLengthUnit = [(_INPBWellnessUnitType *)self hasLengthUnit];
-  if (hasLengthUnit != [equalCopy hasLengthUnit])
-  {
-    goto LABEL_39;
-  }
-
-  if ([(_INPBWellnessUnitType *)self hasLengthUnit])
-  {
-    if ([equalCopy hasLengthUnit])
-    {
-      lengthUnit = self->_lengthUnit;
-      if (lengthUnit != [equalCopy lengthUnit])
-      {
-        goto LABEL_39;
-      }
-    }
-  }
-
-  hasMassUnit = [(_INPBWellnessUnitType *)self hasMassUnit];
-  if (hasMassUnit != [equalCopy hasMassUnit])
-  {
-    goto LABEL_39;
-  }
-
-  if ([(_INPBWellnessUnitType *)self hasMassUnit])
-  {
-    if ([equalCopy hasMassUnit])
-    {
-      massUnit = self->_massUnit;
-      if (massUnit != [equalCopy massUnit])
-      {
-        goto LABEL_39;
-      }
-    }
-  }
-
-  hasRespiratoryRateUnit = [(_INPBWellnessUnitType *)self hasRespiratoryRateUnit];
-  if (hasRespiratoryRateUnit != [equalCopy hasRespiratoryRateUnit])
-  {
-    goto LABEL_39;
-  }
-
-  if ([(_INPBWellnessUnitType *)self hasRespiratoryRateUnit])
-  {
-    if ([equalCopy hasRespiratoryRateUnit])
-    {
-      respiratoryRateUnit = self->_respiratoryRateUnit;
-      if (respiratoryRateUnit != [equalCopy respiratoryRateUnit])
-      {
-        goto LABEL_39;
-      }
-    }
-  }
-
-  if ((v19 = -[_INPBWellnessUnitType hasTemperatureUnit](self, "hasTemperatureUnit"), v19 == [equalCopy hasTemperatureUnit]) && (!-[_INPBWellnessUnitType hasTemperatureUnit](self, "hasTemperatureUnit") || !objc_msgSend(equalCopy, "hasTemperatureUnit") || (temperatureUnit = self->_temperatureUnit, temperatureUnit == objc_msgSend(equalCopy, "temperatureUnit"))) && (v21 = -[_INPBWellnessUnitType hasTimeUnit](self, "hasTimeUnit"), v21 == objc_msgSend(equalCopy, "hasTimeUnit")) && (!-[_INPBWellnessUnitType hasTimeUnit](self, "hasTimeUnit") || !objc_msgSend(equalCopy, "hasTimeUnit") || (timeUnit = self->_timeUnit, timeUnit == objc_msgSend(equalCopy, "timeUnit"))) && (v23 = -[_INPBWellnessUnitType hasVolumeUnit](self, "hasVolumeUnit"), v23 == objc_msgSend(equalCopy, "hasVolumeUnit")) && (!-[_INPBWellnessUnitType hasVolumeUnit](self, "hasVolumeUnit") || !objc_msgSend(equalCopy, "hasVolumeUnit") || (volumeUnit = self->_volumeUnit, volumeUnit == objc_msgSend(equalCopy, "volumeUnit"))))
-  {
-    v24 = 1;
-  }
-
-  else
-  {
-LABEL_39:
-    v24 = 0;
   }
 
   return v24;
@@ -567,61 +511,51 @@ LABEL_39:
   toCopy = to;
   if ([(_INPBWellnessUnitType *)self hasBloodGlucoseUnit])
   {
-    bloodGlucoseUnit = self->_bloodGlucoseUnit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBWellnessUnitType *)self hasBloodPressureUnit])
   {
-    bloodPressureUnit = self->_bloodPressureUnit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBWellnessUnitType *)self hasEnergyUnit])
   {
-    energyUnit = self->_energyUnit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBWellnessUnitType *)self hasHeartRateUnit])
   {
-    heartRateUnit = self->_heartRateUnit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBWellnessUnitType *)self hasLengthUnit])
   {
-    lengthUnit = self->_lengthUnit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBWellnessUnitType *)self hasMassUnit])
   {
-    massUnit = self->_massUnit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBWellnessUnitType *)self hasRespiratoryRateUnit])
   {
-    respiratoryRateUnit = self->_respiratoryRateUnit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBWellnessUnitType *)self hasTemperatureUnit])
   {
-    temperatureUnit = self->_temperatureUnit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBWellnessUnitType *)self hasTimeUnit])
   {
-    timeUnit = self->_timeUnit;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBWellnessUnitType *)self hasVolumeUnit])
   {
-    volumeUnit = self->_volumeUnit;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -782,6 +716,21 @@ LABEL_39:
   return v4;
 }
 
+- (id)volumeUnitAsString:(int)string
+{
+  if (string >= 0x1D)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E72816A0 + string);
+  }
+
+  return v4;
+}
+
 - (void)setHasVolumeUnit:(BOOL)unit
 {
   if (unit)
@@ -863,6 +812,21 @@ LABEL_39:
   return v4;
 }
 
+- (id)timeUnitAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7281660 + string);
+  }
+
+  return v4;
+}
+
 - (void)setHasTimeUnit:(BOOL)unit
 {
   if (unit)
@@ -919,6 +883,21 @@ LABEL_39:
   return v4;
 }
 
+- (id)temperatureUnitAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7281648 + (string - 1));
+  }
+
+  return v4;
+}
+
 - (void)setHasTemperatureUnit:(BOOL)unit
 {
   if (unit)
@@ -960,6 +939,29 @@ LABEL_39:
   else
   {
     v4 = [unitCopy isEqualToString:@"BREATHMIN"];
+  }
+
+  return v4;
+}
+
+- (id)respiratoryRateUnitAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"BREATHMIN";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_RESPIRATORY_RATE_UNIT";
   }
 
   return v4;
@@ -1086,6 +1088,21 @@ LABEL_39:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)massUnitAsString:(int)string
+{
+  if (string >= 0x11)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E72815C0 + string);
   }
 
   return v4;
@@ -1242,6 +1259,21 @@ LABEL_39:
   return v4;
 }
 
+- (id)lengthUnitAsString:(int)string
+{
+  if ((string - 1) >= 0x16)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E7281510 + (string - 1));
+  }
+
+  return v4;
+}
+
 - (void)setHasLengthUnit:(BOOL)unit
 {
   if (unit)
@@ -1283,6 +1315,29 @@ LABEL_39:
   else
   {
     v4 = [unitCopy isEqualToString:@"BPM"];
+  }
+
+  return v4;
+}
+
+- (id)heartRateUnitAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"BPM";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_HEART_RATE_UNIT";
   }
 
   return v4;
@@ -1359,6 +1414,21 @@ LABEL_39:
   return v4;
 }
 
+- (id)energyUnitAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E72814E0 + string);
+  }
+
+  return v4;
+}
+
 - (void)setHasEnergyUnit:(BOOL)unit
 {
   if (unit)
@@ -1400,6 +1470,29 @@ LABEL_39:
   else
   {
     v4 = [unitCopy isEqualToString:@"MMHG"];
+  }
+
+  return v4;
+}
+
+- (id)bloodPressureUnitAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"MMHG";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"UNKNOWN_BLOOD_PRESSURE_UNIT";
   }
 
   return v4;
@@ -1456,6 +1549,21 @@ LABEL_39:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)bloodGlucoseUnitAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1E72814C8 + string);
   }
 
   return v4;

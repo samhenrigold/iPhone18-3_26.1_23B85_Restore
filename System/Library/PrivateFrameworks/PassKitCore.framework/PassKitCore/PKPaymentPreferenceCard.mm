@@ -58,9 +58,9 @@ uint64_t __51__PKPaymentPreferenceCard_setErrors_forPreference___block_invoke(ui
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 serialNumber];
-  v5 = [v4 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  return v5;
+  return isEqualToString;
 }
 
 - (id)errorsForPreference:(id)preference
@@ -100,7 +100,7 @@ uint64_t __47__PKPaymentPreferenceCard_errorsForPreference___block_invoke(uint64
   {
     v6 = [v5 pass];
     v7 = [v6 serialNumber];
-    v8 = [v7 isEqualToString:v3];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
     v3 = v7;
   }
@@ -108,10 +108,10 @@ uint64_t __47__PKPaymentPreferenceCard_errorsForPreference___block_invoke(uint64
   else
   {
     v6 = [v5 serialNumber];
-    v8 = [v6 isEqualToString:v3];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 @end

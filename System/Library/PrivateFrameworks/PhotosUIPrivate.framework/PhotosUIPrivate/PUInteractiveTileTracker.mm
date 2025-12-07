@@ -156,9 +156,9 @@ LABEL_8:
   [(PUInteractiveTileTracker *)self _setTileHider:v8];
   presentationLayoutInfo = [trackedTileController presentationLayoutInfo];
   v10 = +[PUOneUpTilingLayout centerTileKinds];
-  indexPath = [presentationLayoutInfo indexPath];
+  v11 = objc_msgSend_indexPath(presentationLayoutInfo);
   dataSourceIdentifier = [presentationLayoutInfo dataSourceIdentifier];
-  [(PUTileHider *)v8 hideTilesAtIndexPath:indexPath withKinds:v10 dataSourceIdentifier:dataSourceIdentifier animated:1];
+  [(PUTileHider *)v8 hideTilesAtIndexPath:v11 withKinds:v10 dataSourceIdentifier:dataSourceIdentifier animated:1];
 }
 
 - (void)update

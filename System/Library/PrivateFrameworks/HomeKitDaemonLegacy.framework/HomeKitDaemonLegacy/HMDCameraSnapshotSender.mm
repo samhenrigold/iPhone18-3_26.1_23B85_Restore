@@ -17,7 +17,7 @@
 
 - (void)_sendImageSendFailure:(id)failure
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   workQueue = [(HMDCameraSnapshotSender *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -32,9 +32,9 @@
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v27 = v11;
-    v28 = 2112;
-    v29 = remoteDestinationString;
+    v26 = v11;
+    v27 = 2112;
+    v28 = remoteDestinationString;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Sending image send failure to %@", buf, 0x16u);
   }
 
@@ -56,26 +56,24 @@
 
   v19 = [MEMORY[0x277D0F848] internalMessageWithName:@"kTakeSnapshotSendFailedNotificationKey" messagePayload:dictionary];
   [v19 setQualityOfService:33];
-  v20 = [v19 copy];
+  v20 = objc_msgSend_copy(v19);
   objc_initWeak(buf, selfCopy);
   uniqueIdentifier = [(HMDCameraSnapshotSender *)selfCopy uniqueIdentifier];
   workQueue2 = [(HMDCameraSnapshotSender *)selfCopy workQueue];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __49__HMDCameraSnapshotSender__sendImageSendFailure___block_invoke;
-  v24[3] = &unk_279733B98;
-  objc_copyWeak(&v25, buf);
-  [homeManager sendSecureMessage:v20 target:uniqueIdentifier userID:0 destination:remoteDestinationString responseQueue:workQueue2 responseHandler:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __49__HMDCameraSnapshotSender__sendImageSendFailure___block_invoke;
+  v23[3] = &unk_279733B98;
+  objc_copyWeak(&v24, buf);
+  [homeManager sendSecureMessage:v20 target:uniqueIdentifier userID:0 destination:remoteDestinationString responseQueue:workQueue2 responseHandler:v23];
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(buf);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HMDCameraSnapshotSender__sendImageSendFailure___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -84,13 +82,12 @@ void __49__HMDCameraSnapshotSender__sendImageSendFailure___block_invoke(uint64_t
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v10;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Received response for image send failure notification", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v10;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Received response for image send failure notification", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -140,12 +137,11 @@ void __49__HMDCameraSnapshotSender__sendImageSendFailure___block_invoke(uint64_t
 
 uint64_t __38__HMDCameraSnapshotSender_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_54647;
-  logCategory__hmf_once_v1_54647 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_54647;
+  logCategory__hmf_once_v1_54647 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

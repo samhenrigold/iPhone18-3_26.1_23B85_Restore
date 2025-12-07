@@ -43,7 +43,7 @@
 
 + (id)userDomainConceptPropertyListWithFreeTextMedicationName:()Medications freeTextFormCode:freeTextStrengthQuantity:
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v8 = a3;
   if (a5)
   {
@@ -51,8 +51,8 @@
     v10 = a5;
     v11 = [[v9 alloc] initWithName:0 quantity:v10 type:160021];
 
-    v16[0] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v15[0] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   }
 
   else
@@ -62,29 +62,26 @@
 
   v13 = [self _userDomainConceptPropertyListWithFreeTextMedicationName:v8 freeTextFormCode:a4 namedQuantities:v12];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)_userDomainConceptPropertyListWithFreeTextMedicationName:()Medications freeTextFormCode:namedQuantities:
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v7 = MEMORY[0x277CBEB18];
   v8 = a5;
   v9 = a3;
   v10 = [v7 alloc];
   v11 = [objc_alloc(MEMORY[0x277CCDAF8]) initWithType:160020 version:1 stringValue:v9];
 
-  v17[0] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v13 = [v10 initWithArray:v12];
 
   v14 = [objc_alloc(MEMORY[0x277CCDAF8]) initWithType:160014 version:1 integerValue:a4];
   [v13 addObject:v14];
 
   [v13 addObjectsFromArray:v8];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }

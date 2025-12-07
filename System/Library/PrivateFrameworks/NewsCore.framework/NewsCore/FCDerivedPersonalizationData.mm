@@ -38,25 +38,25 @@
 
 - (FCDerivedPersonalizationData)initWithAggregates:(id)aggregates scoringType:(unint64_t)type decayRate:(double)rate
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   aggregatesCopy = aggregates;
   if (!aggregatesCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "aggregates"];
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "aggregates"];
     *buf = 136315906;
-    v17 = "[FCDerivedPersonalizationData initWithAggregates:scoringType:decayRate:]";
-    v18 = 2080;
-    v19 = "FCDerivedPersonalizationData.m";
-    v20 = 1024;
-    v21 = 31;
-    v22 = 2114;
-    v23 = v14;
+    v16 = "[FCDerivedPersonalizationData initWithAggregates:scoringType:decayRate:]";
+    v17 = 2080;
+    v18 = "FCDerivedPersonalizationData.m";
+    v19 = 1024;
+    v20 = 31;
+    v21 = 2114;
+    v22 = v13;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v15.receiver = self;
-  v15.super_class = FCDerivedPersonalizationData;
-  v9 = [(FCDerivedPersonalizationData *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = FCDerivedPersonalizationData;
+  v9 = [(FCDerivedPersonalizationData *)&v14 init];
   v10 = v9;
   if (v9)
   {
@@ -75,7 +75,6 @@
     v10->_decayRate = rate;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

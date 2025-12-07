@@ -8,14 +8,13 @@
 
 - (void)setTableName:(id)name
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v4 = MEMORY[0x1E695DEC8];
   nameCopy2 = name;
   v6 = [v4 arrayWithObjects:&nameCopy count:1];
 
-  [(FPLocalizableStringLookup *)self setTableNames:v6, nameCopy, v9];
-  v7 = *MEMORY[0x1E69E9840];
+  [(FPLocalizableStringLookup *)self setTableNames:v6, nameCopy, v8];
 }
 
 - (NSString)tableName
@@ -28,28 +27,28 @@
 
 - (id)localizedStringForKey:(id)key
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   keyCopy = key;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = [(FPLocalizableStringLookup *)self tableNames];
-  v22 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v22)
+  v21 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  if (v21)
   {
-    v21 = *v24;
+    v20 = *v23;
     v5 = @"UNLOCALIZED_FALLBACK_MARKER";
     while (2)
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v24 != v21)
+        if (*v23 != v20)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v23 + 1) + 8 * i);
+        v7 = *(*(&v22 + 1) + 8 * i);
         cfBundle = self->_cfBundle;
         v9 = self->_bundle;
         v10 = cfBundle;
@@ -89,8 +88,8 @@
         v5 = v16;
       }
 
-      v22 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
-      if (v22)
+      v21 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      if (v21)
       {
         continue;
       }
@@ -101,8 +100,6 @@
 
   v17 = keyCopy;
 LABEL_17:
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

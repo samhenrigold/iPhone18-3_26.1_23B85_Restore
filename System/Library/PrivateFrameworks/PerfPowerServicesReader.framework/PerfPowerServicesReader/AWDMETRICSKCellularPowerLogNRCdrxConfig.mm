@@ -166,7 +166,6 @@ LABEL_19:
   toCopy = to;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -203,7 +202,6 @@ LABEL_19:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    vonrCallOngoing = self->_vonrCallOngoing;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -223,12 +221,10 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  isEndc = self->_isEndc;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_18:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -396,7 +392,6 @@ LABEL_6:
     goto LABEL_38;
   }
 
-  v5 = *(equalCopy + 72);
   if (*&self->_has)
   {
     if ((*(equalCopy + 72) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -468,7 +463,6 @@ LABEL_6:
       goto LABEL_38;
     }
 
-    v13 = *(equalCopy + 69);
     if (self->_vonrCallOngoing)
     {
       if ((*(equalCopy + 69) & 1) == 0)
@@ -496,7 +490,7 @@ LABEL_6:
     }
 
 LABEL_38:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_39;
   }
 
@@ -505,7 +499,6 @@ LABEL_38:
     goto LABEL_38;
   }
 
-  v14 = *(equalCopy + 68);
   if (self->_isEndc)
   {
     if ((*(equalCopy + 68) & 1) == 0)
@@ -520,7 +513,7 @@ LABEL_38:
   }
 
 LABEL_23:
-  v12 = (*(equalCopy + 72) & 2) == 0;
+  v11 = (*(equalCopy + 72) & 2) == 0;
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 72) & 2) == 0 || self->_subsId != *(equalCopy + 16))
@@ -528,12 +521,12 @@ LABEL_23:
       goto LABEL_38;
     }
 
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_39:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

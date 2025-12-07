@@ -94,17 +94,15 @@
 
 + (void)incrementDiscoverSuccessType:(unint64_t)type
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"StoryID";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"StoryID";
   v4 = [self descriptionForDiscoverSuccessType:type];
-  v8[1] = @"RouteID";
-  v9[0] = v4;
+  v7[1] = @"RouteID";
+  v8[0] = v4;
   discoverRouteDescription = [self discoverRouteDescription];
-  v9[1] = discoverRouteDescription;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v8[1] = discoverRouteDescription;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
   [self sendEvent:@"com.apple.com.apple.Bridge.DiscoverTab.Story" with:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

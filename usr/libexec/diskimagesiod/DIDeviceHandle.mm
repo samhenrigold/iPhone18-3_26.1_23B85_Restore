@@ -35,36 +35,45 @@
   if (client2IOhandler)
   {
     v4 = *__error();
-    if (sub_1000E95F0())
+    v5 = sub_1000E95F0();
+    if (v5)
     {
-      v12 = 0;
-      v5 = sub_1000E957C();
-      os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v14 = 25;
-      v15 = 2080;
-      v16 = "[DIDeviceHandle dealloc]";
-      v10 = 18;
-      v9 = buf;
-      v6 = _os_log_send_and_compose_impl();
-
-      if (v6)
+      v14 = 0;
+      v7 = sub_1000E957C(v5, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(__stderrp, "%s\n", v6);
-        free(v6);
+        v8 = 3;
+      }
+
+      else
+      {
+        v8 = 2;
+      }
+
+      *buf = 68157954;
+      v16 = 25;
+      v17 = 2080;
+      v18 = "[DIDeviceHandle dealloc]";
+      LODWORD(v12) = 18;
+      v9 = _os_log_send_and_compose_impl(v8, &v14, 0, 0, &_mh_execute_header, v7, 0, "%.*s: DIDeviceHandle object is deallocating, invalidating connection", buf, v12);
+
+      if (v9)
+      {
+        fprintf(__stderrp, "%s\n", v9);
+        free(v9);
       }
     }
 
     else
     {
-      v7 = sub_1000E957C();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_1000E957C(v5, v6);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v14 = 25;
-        v15 = 2080;
-        v16 = "[DIDeviceHandle dealloc]";
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%.*s: DIDeviceHandle object is deallocating, invalidating connection", buf, 0x12u);
+        v16 = 25;
+        v17 = 2080;
+        v18 = "[DIDeviceHandle dealloc]";
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%.*s: DIDeviceHandle object is deallocating, invalidating connection", buf, 0x12u);
       }
     }
 
@@ -73,9 +82,9 @@
     [client2IOhandler2 closeConnection];
   }
 
-  v11.receiver = self;
-  v11.super_class = DIDeviceHandle;
-  [(DIDeviceHandle *)&v11 dealloc:v9];
+  v13.receiver = self;
+  v13.super_class = DIDeviceHandle;
+  [(DIDeviceHandle *)&v13 dealloc];
 }
 
 - (BOOL)updateBSDNameWithBlockDevice:(id)device error:(id *)error
@@ -92,57 +101,69 @@
     if (bSDName2)
     {
       v10 = *__error();
-      if (sub_1000E95F0())
+      v11 = sub_1000E95F0();
+      if (v11)
       {
-        v11 = sub_1000E957C();
-        os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-        [(DIDeviceHandle *)self BSDName];
-        *buf = 68158210;
-        v18 = 53;
-        v19 = 2080;
-        v20 = "[DIDeviceHandle updateBSDNameWithBlockDevice:error:]";
-        v22 = v21 = 2114;
-        v12 = _os_log_send_and_compose_impl();
-
-        if (v12)
+        v21 = 0;
+        v13 = sub_1000E957C(v11, v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          fprintf(__stderrp, "%s\n", v12);
-          free(v12);
+          v14 = 3;
+        }
+
+        else
+        {
+          v14 = 2;
+        }
+
+        bSDName3 = [(DIDeviceHandle *)self BSDName];
+        *buf = 68158210;
+        v23 = 53;
+        v24 = 2080;
+        v25 = "[DIDeviceHandle updateBSDNameWithBlockDevice:error:]";
+        v26 = 2114;
+        v27 = bSDName3;
+        v16 = _os_log_send_and_compose_impl(v14, &v21, 0, 0, &_mh_execute_header, v13, 0, "%.*s: BSD name: %{public}@", buf, 28);
+
+        if (v16)
+        {
+          fprintf(__stderrp, "%s\n", v16);
+          free(v16);
         }
       }
 
       else
       {
-        v14 = sub_1000E957C();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_1000E957C(v11, v12);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          bSDName3 = [(DIDeviceHandle *)self BSDName];
+          bSDName4 = [(DIDeviceHandle *)self BSDName];
           *buf = 68158210;
-          v18 = 53;
-          v19 = 2080;
-          v20 = "[DIDeviceHandle updateBSDNameWithBlockDevice:error:]";
-          v21 = 2114;
-          v22 = bSDName3;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%.*s: BSD name: %{public}@", buf, 0x1Cu);
+          v23 = 53;
+          v24 = 2080;
+          v25 = "[DIDeviceHandle updateBSDNameWithBlockDevice:error:]";
+          v26 = 2114;
+          v27 = bSDName4;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%.*s: BSD name: %{public}@", buf, 0x1Cu);
         }
       }
 
       *__error() = v10;
-      v13 = 1;
+      v17 = 1;
     }
 
     else
     {
-      v13 = [DIError failWithEnumValue:153 verboseInfo:@"Cannot find BSD name in IO media service" error:error];
+      v17 = [DIError failWithEnumValue:153 verboseInfo:@"Cannot find BSD name in IO media service" error:error];
     }
   }
 
   else
   {
-    v13 = 0;
+    v17 = 0;
   }
 
-  return v13;
+  return v17;
 }
 
 - (BOOL)waitForQuietWithService:(unsigned int)service error:(id *)error
@@ -157,57 +178,28 @@
     }
 
     v6 = *__error();
-    if (sub_1000E95F0())
+    v7 = sub_1000E95F0();
+    if (v7)
     {
-      v7 = sub_1000E957C();
-      os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+      v26 = 0;
+      v9 = sub_1000E957C(v7, v8);
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
       *buf = 68157954;
-      v20 = 48;
-      v21 = 2080;
-      v22 = "[DIDeviceHandle waitForQuietWithService:error:]";
-      v8 = _os_log_send_and_compose_impl();
-
-      if (v8)
+      if (v10)
       {
-        fprintf(__stderrp, "%s\n", v8);
-        free(v8);
+        v11 = 3;
       }
-    }
 
-    else
-    {
-      v9 = sub_1000E957C();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      else
       {
-        *buf = 68157954;
-        v20 = 48;
-        v21 = 2080;
-        v22 = "[DIDeviceHandle waitForQuietWithService:error:]";
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%.*s: IOServiceWaitQuiet timeout occurred, retrying.", buf, 0x12u);
+        v11 = 2;
       }
-    }
 
-    *__error() = v6;
-  }
-
-  if (v5)
-  {
-    v13 = [NSString stringWithFormat:@"IOServiceWaitQuiet error 0x%x", v5];
-    v14 = [DIError failWithEnumValue:154 verboseInfo:v13 error:error];
-  }
-
-  else
-  {
-    v10 = *__error();
-    if (sub_1000E95F0())
-    {
-      v11 = sub_1000E957C();
-      os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v20 = 48;
-      v21 = 2080;
-      v22 = "[DIDeviceHandle waitForQuietWithService:error:]";
-      v12 = _os_log_send_and_compose_impl();
+      v29 = 48;
+      v30 = 2080;
+      v31 = "[DIDeviceHandle waitForQuietWithService:error:]";
+      LODWORD(v24) = 18;
+      v12 = _os_log_send_and_compose_impl(v11, &v26, 0, 0, &_mh_execute_header, v9, 16, "%.*s: IOServiceWaitQuiet timeout occurred, retrying.", buf, v24);
 
       if (v12)
       {
@@ -218,22 +210,76 @@
 
     else
     {
-      v15 = sub_1000E957C();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_1000E957C(v7, v8);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 68157954;
-        v20 = 48;
-        v21 = 2080;
-        v22 = "[DIDeviceHandle waitForQuietWithService:error:]";
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%.*s: IOServiceWaitQuiet done", buf, 0x12u);
+        v29 = 48;
+        v30 = 2080;
+        v31 = "[DIDeviceHandle waitForQuietWithService:error:]";
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%.*s: IOServiceWaitQuiet timeout occurred, retrying.", buf, 0x12u);
       }
     }
 
-    *__error() = v10;
+    *__error() = v6;
+  }
+
+  if (v5)
+  {
+    v20 = [NSString stringWithFormat:@"IOServiceWaitQuiet error 0x%x", v5];
+    v21 = [DIError failWithEnumValue:154 verboseInfo:v20 error:error];
+  }
+
+  else
+  {
+    v14 = *__error();
+    v15 = sub_1000E95F0();
+    if (v15)
+    {
+      v26 = 0;
+      v17 = sub_1000E957C(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      *buf = 68157954;
+      v29 = 48;
+      v30 = 2080;
+      v31 = "[DIDeviceHandle waitForQuietWithService:error:]";
+      LODWORD(v24) = 18;
+      v19 = _os_log_send_and_compose_impl(v18, &v26, 0, 0, &_mh_execute_header, v17, 0, "%.*s: IOServiceWaitQuiet done", buf, v24);
+
+      if (v19)
+      {
+        fprintf(__stderrp, "%s\n", v19);
+        free(v19);
+      }
+    }
+
+    else
+    {
+      v22 = sub_1000E957C(v15, v16);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68157954;
+        v29 = 48;
+        v30 = 2080;
+        v31 = "[DIDeviceHandle waitForQuietWithService:error:]";
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%.*s: IOServiceWaitQuiet done", buf, 0x12u);
+      }
+    }
+
+    *__error() = v14;
     return 1;
   }
 
-  return v14;
+  return v21;
 }
 
 - (BOOL)waitForDeviceWithError:(id *)error

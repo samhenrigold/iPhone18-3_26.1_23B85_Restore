@@ -2,6 +2,7 @@
 + (id)logger;
 - (BOOL)_sharedChannelsIsDisabledByServer;
 - (SKAPushManager)initWithQueue:(id)queue systemMonitor:(id)monitor apsConnection:(id)connection inTrafficMode:(BOOL)mode;
+- (SKAPushManager)initWithQueue:(id)queue systemMonitor:(id)monitor inTrafficMode:(BOOL)mode;
 - (SKAPushManagingDelegate)delegate;
 - (id)_pushEnvironment;
 - (id)pushToken;
@@ -29,6 +30,26 @@
 @end
 
 @implementation SKAPushManager
+
+- (SKAPushManager)initWithQueue:(id)queue systemMonitor:(id)monitor inTrafficMode:(BOOL)mode
+{
+  modeCopy = mode;
+  queueCopy = queue;
+  v9 = [(SKAPushManager *)self initWithQueue:queueCopy systemMonitor:monitor apsConnection:0 inTrafficMode:modeCopy];
+  v10 = v9;
+  if (v9)
+  {
+    _pushEnvironment = [(SKAPushManager *)v9 _pushEnvironment];
+    v12 = objc_alloc(MEMORY[0x277CEEA10]);
+    v13 = [v12 initWithEnvironmentName:_pushEnvironment namedDelegatePort:*MEMORY[0x277CEE9D8] queue:queueCopy];
+    nSClassFromString(&cfstr_Immobilenetwor.isa) = [NSClassFromString(&cfstr_Immobilenetwor.isa) sharedInstance];
+    v15 = [objc_alloc(MEMORY[0x277D07DC8]) initWithAPSConnection:v13 mobileNetworkManager:nSClassFromString(&cfstr_Immobilenetwor.isa)];
+    messageDelivery = v10->_messageDelivery;
+    v10->_messageDelivery = v15;
+  }
+
+  return v10;
+}
 
 - (SKAPushManager)initWithQueue:(id)queue systemMonitor:(id)monitor apsConnection:(id)connection inTrafficMode:(BOOL)mode
 {
@@ -75,7 +96,7 @@
 
 - (void)_initializeAPSConnection
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if (!self->_connection)
   {
     isUnderFirstDataProtectionLock = [(SKASystemMonitor *)self->_systemMonitor isUnderFirstDataProtectionLock];
@@ -85,8 +106,8 @@
     {
       if (v5)
       {
-        *v12 = 0;
-        _os_log_impl(&dword_220099000, _pushEnvironment, OS_LOG_TYPE_DEFAULT, "Deferring connection initialization as device is before first unlock.", v12, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_220099000, _pushEnvironment, OS_LOG_TYPE_DEFAULT, "Deferring connection initialization as device is before first unlock.", v11, 2u);
       }
     }
 
@@ -94,8 +115,8 @@
     {
       if (v5)
       {
-        *v12 = 0;
-        _os_log_impl(&dword_220099000, _pushEnvironment, OS_LOG_TYPE_DEFAULT, "Initializing APS connection.", v12, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_220099000, _pushEnvironment, OS_LOG_TYPE_DEFAULT, "Initializing APS connection.", v11, 2u);
       }
 
       _pushEnvironment = [(SKAPushManager *)self _pushEnvironment];
@@ -104,21 +125,19 @@
       self->_connection = v6;
 
       [(APSConnection *)self->_connection setDelegate:self];
-      v14[0] = @"com.apple.icloud.presence.mode.status";
-      v14[1] = @"com.apple.icloud.presence.shared.experience";
-      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+      v13[0] = @"com.apple.icloud.presence.mode.status";
+      v13[1] = @"com.apple.icloud.presence.shared.experience";
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
       [(APSConnection *)self->_connection _setNonWakingTopics:v8];
 
       v9 = self->_connection;
-      v13 = @"com.apple.icloud.presence.mode.status";
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+      v12 = @"com.apple.icloud.presence.mode.status";
+      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
       [(APSConnection *)v9 setUltraConstrainedTopics:v10];
 
       [(APSConnection *)self->_connection setTrackActivityPresence:0];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_pushEnvironment
@@ -262,7 +281,7 @@ LABEL_21:
 
 void __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -280,51 +299,51 @@ void __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___bl
     block[1] = 3221225472;
     block[2] = __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___block_invoke_30;
     block[3] = &unk_27843E2B8;
-    v36 = *(a1 + 48);
-    v35 = v8;
+    v35 = *(a1 + 48);
+    v34 = v8;
     dispatch_async(v12, block);
 
-    v13 = v36;
+    v13 = v35;
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
     v14 = [WeakRetained delegate];
-    v15 = [v14 shouldRetryRequestForResponse:v10 withRetryInterval:&v33 currentRetry:*(a1 + 64)];
+    v15 = [v14 shouldRetryRequestForResponse:v10 withRetryInterval:&v32 currentRetry:*(a1 + 64)];
 
-    v16 = v33;
+    v16 = v32;
     v17 = +[SKAPushManager logger];
     v18 = v17;
     if (v15 && v16)
     {
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v25 = *(a1 + 64);
+        v24 = *(a1 + 64);
         *buf = 138412802;
-        v38 = v10;
-        v39 = 1024;
-        v40 = v33;
-        v41 = 2048;
-        v42 = v25;
+        v37 = v10;
+        v38 = 1024;
+        v39 = v32;
+        v40 = 2048;
+        v41 = v24;
         _os_log_error_impl(&dword_220099000, v18, OS_LOG_TYPE_ERROR, "Retry requested for message %@, enqueueing after %u seconds (retries: %lu)", buf, 0x1Cu);
       }
 
-      v19 = dispatch_time(0, 1000000000 * v33);
+      v19 = dispatch_time(0, 1000000000 * v32);
       v20 = [WeakRetained queue];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___block_invoke_32;
-      v29[3] = &unk_27843E2E0;
-      v29[4] = WeakRetained;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___block_invoke_32;
+      v28[3] = &unk_27843E2E0;
+      v28[4] = WeakRetained;
       v21 = *(a1 + 40);
       v22 = *(a1 + 64);
-      v30 = v21;
-      v32 = v22;
-      v31 = *(a1 + 48);
-      dispatch_after(v19, v20, v29);
+      v29 = v21;
+      v31 = v22;
+      v30 = *(a1 + 48);
+      dispatch_after(v19, v20, v28);
 
-      v13 = v30;
+      v13 = v29;
     }
 
     else
@@ -336,19 +355,17 @@ void __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___bl
       }
 
       v23 = *(a1 + 32);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___block_invoke_33;
-      v26[3] = &unk_27843E2B8;
-      v28 = *(a1 + 48);
-      v27 = v10;
-      dispatch_async(v23, v26);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___block_invoke_33;
+      v25[3] = &unk_27843E2B8;
+      v27 = *(a1 + 48);
+      v26 = v10;
+      dispatch_async(v23, v25);
 
-      v13 = v28;
+      v13 = v27;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___block_invoke_30(uint64_t a1)
@@ -424,7 +441,7 @@ void __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___bl
 
 - (void)_switchFilterToNonwakingForTopic:(id)topic
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   connection = self->_connection;
   v6 = +[SKAPushManager logger];
@@ -433,9 +450,9 @@ void __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___bl
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = topicCopy;
-      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Switching %@ to non-waking", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = topicCopy;
+      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Switching %@ to non-waking", &v14, 0xCu);
     }
 
     nonWakingTopics = [(APSConnection *)self->_connection nonWakingTopics];
@@ -488,13 +505,11 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_switchFilterToOpportunisticForTopic:(id)topic
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   connection = self->_connection;
   v6 = +[SKAPushManager logger];
@@ -503,9 +518,9 @@ LABEL_21:
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = topicCopy;
-      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Switching %@ to opportunistic", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = topicCopy;
+      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Switching %@ to opportunistic", &v14, 0xCu);
     }
 
     nonWakingTopics = [(APSConnection *)self->_connection nonWakingTopics];
@@ -558,13 +573,11 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_switchFilterToEnabledForTopic:(id)topic
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   connection = self->_connection;
   v6 = +[SKAPushManager logger];
@@ -573,9 +586,9 @@ LABEL_21:
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = topicCopy;
-      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Switching %@ to enabled", &v15, 0xCu);
+      v14 = 138412290;
+      v15 = topicCopy;
+      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Switching %@ to enabled", &v14, 0xCu);
     }
 
     nonWakingTopics = [(APSConnection *)self->_connection nonWakingTopics];
@@ -628,8 +641,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_publishStatus:(id)status retryCount:(unint64_t)count completion:(id)completion
@@ -730,7 +741,7 @@ LABEL_21:
 
 void __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -748,51 +759,51 @@ void __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke(ui
     block[1] = 3221225472;
     block[2] = __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke_36;
     block[3] = &unk_27843E2B8;
-    v36 = *(a1 + 48);
-    v35 = v8;
+    v35 = *(a1 + 48);
+    v34 = v8;
     dispatch_async(v12, block);
 
-    v13 = v36;
+    v13 = v35;
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
     v14 = [WeakRetained delegate];
-    v15 = [v14 shouldRetryRequestForResponse:v10 withRetryInterval:&v33 currentRetry:*(a1 + 64)];
+    v15 = [v14 shouldRetryRequestForResponse:v10 withRetryInterval:&v32 currentRetry:*(a1 + 64)];
 
-    v16 = v33;
+    v16 = v32;
     v17 = +[SKAPushManager logger];
     v18 = v17;
     if (v15 && v16)
     {
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v25 = *(a1 + 64);
+        v24 = *(a1 + 64);
         *buf = 138412802;
-        v38 = v10;
-        v39 = 1024;
-        v40 = v33;
-        v41 = 2048;
-        v42 = v25;
+        v37 = v10;
+        v38 = 1024;
+        v39 = v32;
+        v40 = 2048;
+        v41 = v24;
         _os_log_error_impl(&dword_220099000, v18, OS_LOG_TYPE_ERROR, "Retry requested for message %@, enqueueing after %u seconds (retries: %lu)", buf, 0x1Cu);
       }
 
-      v19 = dispatch_time(0, 1000000000 * v33);
+      v19 = dispatch_time(0, 1000000000 * v32);
       v20 = [WeakRetained queue];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke_37;
-      v29[3] = &unk_27843E2E0;
-      v29[4] = WeakRetained;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke_37;
+      v28[3] = &unk_27843E2E0;
+      v28[4] = WeakRetained;
       v21 = *(a1 + 40);
       v22 = *(a1 + 64);
-      v30 = v21;
-      v32 = v22;
-      v31 = *(a1 + 48);
-      dispatch_after(v19, v20, v29);
+      v29 = v21;
+      v31 = v22;
+      v30 = *(a1 + 48);
+      dispatch_after(v19, v20, v28);
 
-      v13 = v30;
+      v13 = v29;
     }
 
     else
@@ -804,19 +815,17 @@ void __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke(ui
       }
 
       v23 = *(a1 + 32);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke_38;
-      v26[3] = &unk_27843E2B8;
-      v28 = *(a1 + 48);
-      v27 = v10;
-      dispatch_async(v23, v26);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke_38;
+      v25[3] = &unk_27843E2B8;
+      v27 = *(a1 + 48);
+      v26 = v10;
+      dispatch_async(v23, v25);
 
-      v13 = v28;
+      v13 = v27;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke_36(uint64_t a1)
@@ -937,7 +946,7 @@ LABEL_21:
 
 void __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -955,51 +964,51 @@ void __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke
     block[1] = 3221225472;
     block[2] = __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke_39;
     block[3] = &unk_27843E2B8;
-    v36 = *(a1 + 48);
-    v35 = v8;
+    v35 = *(a1 + 48);
+    v34 = v8;
     dispatch_async(v12, block);
 
-    v13 = v36;
+    v13 = v35;
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
     v14 = [WeakRetained delegate];
-    v15 = [v14 shouldRetryRequestForResponse:v10 withRetryInterval:&v33 currentRetry:*(a1 + 64)];
+    v15 = [v14 shouldRetryRequestForResponse:v10 withRetryInterval:&v32 currentRetry:*(a1 + 64)];
 
-    v16 = v33;
+    v16 = v32;
     v17 = +[SKAPushManager logger];
     v18 = v17;
     if (v15 && v16)
     {
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v25 = *(a1 + 64);
+        v24 = *(a1 + 64);
         *buf = 138412802;
-        v38 = v10;
-        v39 = 1024;
-        v40 = v33;
-        v41 = 2048;
-        v42 = v25;
+        v37 = v10;
+        v38 = 1024;
+        v39 = v32;
+        v40 = 2048;
+        v41 = v24;
         _os_log_error_impl(&dword_220099000, v18, OS_LOG_TYPE_ERROR, "Retry requested for message %@, enqueueing after %u seconds (retries: %lu)", buf, 0x1Cu);
       }
 
-      v19 = dispatch_time(0, 1000000000 * v33);
+      v19 = dispatch_time(0, 1000000000 * v32);
       v20 = [WeakRetained queue];
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke_40;
-      v29[3] = &unk_27843E2E0;
-      v29[4] = WeakRetained;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke_40;
+      v28[3] = &unk_27843E2E0;
+      v28[4] = WeakRetained;
       v21 = *(a1 + 40);
       v22 = *(a1 + 64);
-      v30 = v21;
-      v32 = v22;
-      v31 = *(a1 + 48);
-      dispatch_after(v19, v20, v29);
+      v29 = v21;
+      v31 = v22;
+      v30 = *(a1 + 48);
+      dispatch_after(v19, v20, v28);
 
-      v13 = v30;
+      v13 = v29;
     }
 
     else
@@ -1011,19 +1020,17 @@ void __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke
       }
 
       v23 = *(a1 + 32);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke_41;
-      v26[3] = &unk_27843E2B8;
-      v28 = *(a1 + 48);
-      v27 = v10;
-      dispatch_async(v23, v26);
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke_41;
+      v25[3] = &unk_27843E2B8;
+      v27 = *(a1 + 48);
+      v26 = v10;
+      dispatch_async(v23, v25);
 
-      v13 = v28;
+      v13 = v27;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke_39(uint64_t a1)
@@ -1213,7 +1220,7 @@ LABEL_21:
 
 void __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -1231,51 +1238,51 @@ void __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_inv
     block[1] = 3221225472;
     block[2] = __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_invoke_43;
     block[3] = &unk_27843E2B8;
-    v37 = *(a1 + 48);
-    v36 = v8;
+    v36 = *(a1 + 48);
+    v35 = v8;
     dispatch_async(v12, block);
 
-    v13 = v37;
+    v13 = v36;
   }
 
   else
   {
-    v34 = 0;
+    v33 = 0;
     v14 = [WeakRetained delegate];
-    v15 = [v14 shouldRetryRequestForResponse:v10 withRetryInterval:&v34 currentRetry:*(a1 + 64)];
+    v15 = [v14 shouldRetryRequestForResponse:v10 withRetryInterval:&v33 currentRetry:*(a1 + 64)];
 
-    v16 = v34;
+    v16 = v33;
     v17 = +[SKAPushManager logger];
     v18 = v17;
     if (v15 && v16)
     {
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v26 = *(a1 + 64);
+        v25 = *(a1 + 64);
         *buf = 138412802;
-        v39 = v10;
-        v40 = 1024;
-        v41 = v34;
-        v42 = 2048;
-        v43 = v26;
+        v38 = v10;
+        v39 = 1024;
+        v40 = v33;
+        v41 = 2048;
+        v42 = v25;
         _os_log_error_impl(&dword_220099000, v18, OS_LOG_TYPE_ERROR, "Retry requested for message %@, enqueueing after %u seconds (retries: %lu)", buf, 0x1Cu);
       }
 
-      v19 = dispatch_time(0, 1000000000 * v34);
+      v19 = dispatch_time(0, 1000000000 * v33);
       v20 = [WeakRetained queue];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_invoke_44;
-      v30[3] = &unk_27843E2E0;
-      v30[4] = WeakRetained;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_invoke_44;
+      v29[3] = &unk_27843E2E0;
+      v29[4] = WeakRetained;
       v21 = *(a1 + 40);
       v22 = *(a1 + 64);
-      v31 = v21;
-      v33 = v22;
-      v32 = *(a1 + 48);
-      dispatch_after(v19, v20, v30);
+      v30 = v21;
+      v32 = v22;
+      v31 = *(a1 + 48);
+      dispatch_after(v19, v20, v29);
 
-      v13 = v31;
+      v13 = v30;
     }
 
     else
@@ -1284,24 +1291,22 @@ void __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_inv
       {
         v23 = [v10 uuid];
         *buf = 138412290;
-        v39 = v23;
+        v38 = v23;
         _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Presence protobuff sent, reverse push completed for request %@, calling completion with protobuf response data", buf, 0xCu);
       }
 
       v24 = *(a1 + 32);
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_invoke_45;
-      v27[3] = &unk_27843E2B8;
-      v29 = *(a1 + 48);
-      v28 = v10;
-      dispatch_async(v24, v27);
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_invoke_45;
+      v26[3] = &unk_27843E2B8;
+      v28 = *(a1 + 48);
+      v27 = v10;
+      dispatch_async(v24, v26);
 
-      v13 = v29;
+      v13 = v28;
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_invoke_43(uint64_t a1)
@@ -1371,7 +1376,7 @@ void __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_inv
 
 - (void)_subscribeToChannels:(id)channels forTopic:(id)topic
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   topicCopy = topic;
   if ([(SKAPushManager *)self _sharedChannelsIsDisabledByServer])
@@ -1395,43 +1400,43 @@ LABEL_20:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v29 = channelsCopy;
-      v30 = 2112;
-      v31 = topicCopy;
+      v28 = channelsCopy;
+      v29 = 2112;
+      v30 = topicCopy;
       _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Subscribing to channels: %@ for topic %@", buf, 0x16u);
     }
 
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v12 = channelsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v24;
+      v15 = *v23;
       do
       {
         v16 = 0;
         do
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v23 + 1) + 8 * v16);
+          v17 = *(*(&v22 + 1) + 8 * v16);
           v18 = objc_alloc(MEMORY[0x277CD9D98]);
-          v19 = [v18 initWithChannelID:{v17, v23}];
+          v19 = [v18 initWithChannelID:{v17, v22}];
           [v8 addObject:v19];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v14);
@@ -1461,13 +1466,11 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_unsubscribeFromChannels:(id)channels forTopic:(id)topic
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   channelsCopy = channels;
   topicCopy = topic;
   if ([(SKAPushManager *)self _sharedChannelsIsDisabledByServer])
@@ -1491,41 +1494,41 @@ LABEL_20:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = channelsCopy;
+      v28 = channelsCopy;
       _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Unsubscribing from channels: %@", buf, 0xCu);
     }
 
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v12 = channelsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v24;
+      v15 = *v23;
       do
       {
         v16 = 0;
         do
         {
-          if (*v24 != v15)
+          if (*v23 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v23 + 1) + 8 * v16);
+          v17 = *(*(&v22 + 1) + 8 * v16);
           v18 = objc_alloc(MEMORY[0x277CD9D98]);
-          v19 = [v18 initWithChannelID:{v17, v23}];
+          v19 = [v18 initWithChannelID:{v17, v22}];
           [v8 addObject:v19];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v14);
@@ -1555,13 +1558,11 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_subscribedChannelsForTopic:(id)topic WithCompletion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   topicCopy = topic;
   completionCopy = completion;
   if ([(SKAPushManager *)self _sharedChannelsIsDisabledByServer])
@@ -1607,28 +1608,26 @@ LABEL_5:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v19 = topicCopy;
+    v18 = topicCopy;
     _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Fetching subscribed channels for topic %@", buf, 0xCu);
   }
 
   connection = [(SKAPushManager *)self connection];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __61__SKAPushManager__subscribedChannelsForTopic_WithCompletion___block_invoke;
-  v15[3] = &unk_27843E220;
-  v16 = topicCopy;
-  v17 = completionCopy;
-  [connection getRegisteredChannelsForTopic:v16 withCompletion:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __61__SKAPushManager__subscribedChannelsForTopic_WithCompletion___block_invoke;
+  v14[3] = &unk_27843E220;
+  v15 = topicCopy;
+  v16 = completionCopy;
+  [connection getRegisteredChannelsForTopic:v15 withCompletion:v14];
 
-  v9 = v16;
+  v9 = v15;
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __61__SKAPushManager__subscribedChannelsForTopic_WithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1647,33 +1646,33 @@ void __61__SKAPushManager__subscribedChannelsForTopic_WithCompletion___block_inv
   else
   {
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v10 = v5;
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [*(*(&v21 + 1) + 8 * i) channelID];
+          v15 = [*(*(&v20 + 1) + 8 * i) channelID];
           if ([v15 length])
           {
             [v9 addObject:v15];
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
       }
 
       while (v12);
@@ -1684,9 +1683,9 @@ void __61__SKAPushManager__subscribedChannelsForTopic_WithCompletion___block_inv
     {
       v17 = *(a1 + 32);
       *buf = 138412546;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v9;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v9;
       _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "Fetching subscribed channels completed for topic %@ with channels: %@", buf, 0x16u);
     }
 
@@ -1694,8 +1693,6 @@ void __61__SKAPushManager__subscribedChannelsForTopic_WithCompletion___block_inv
     v19 = [v9 copy];
     (*(v18 + 16))(v18, v19);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)serverTime
@@ -1739,7 +1736,7 @@ LABEL_8:
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = +[SKAPushManager logger];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -1748,27 +1745,25 @@ LABEL_8:
     topic = [messageCopy topic];
     expirationDate = [messageCopy expirationDate];
     *buf = 134218754;
-    v16 = identifier;
-    v17 = 2112;
-    v18 = messageCopy;
-    v19 = 2112;
-    v20 = topic;
-    v21 = 2112;
-    v22 = expirationDate;
+    v15 = identifier;
+    v16 = 2112;
+    v17 = messageCopy;
+    v18 = 2112;
+    v19 = topic;
+    v20 = 2112;
+    v21 = expirationDate;
     _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Receieved aps incoming message %lu : %@ -- topic: %@, expiration: %@", buf, 0x2Au);
   }
 
   queue = self->_queue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __55__SKAPushManager_connection_didReceiveIncomingMessage___block_invoke;
-  v13[3] = &unk_27843E330;
-  v13[4] = self;
-  v14 = messageCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __55__SKAPushManager_connection_didReceiveIncomingMessage___block_invoke;
+  v12[3] = &unk_27843E330;
+  v12[4] = self;
+  v13 = messageCopy;
   v11 = messageCopy;
-  dispatch_async(queue, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v12);
 }
 
 void __55__SKAPushManager_connection_didReceiveIncomingMessage___block_invoke(uint64_t a1)
@@ -1817,7 +1812,7 @@ void __55__SKAPushManager_connection_didReceiveIncomingMessage___block_invoke(ui
 
 - (void)connection:(id)connection channelSubscriptionsFailedWithFailures:(id)failures
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   failuresCopy = failures;
   v6 = +[SKAPushManager logger];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
@@ -1825,26 +1820,26 @@ void __55__SKAPushManager_connection_didReceiveIncomingMessage___block_invoke(ui
     [SKAPushManager connection:failuresCopy channelSubscriptionsFailedWithFailures:v6];
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = failuresCopy;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v18 + 1) + 8 * i);
         channelID = [v12 channelID];
         queue = self->_queue;
         block[0] = MEMORY[0x277D85DD0];
@@ -1853,18 +1848,16 @@ void __55__SKAPushManager_connection_didReceiveIncomingMessage___block_invoke(ui
         block[3] = &unk_27843E358;
         block[4] = v12;
         block[5] = self;
-        v18 = channelID;
+        v17 = channelID;
         v15 = channelID;
         dispatch_async(queue, block);
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __68__SKAPushManager_connection_channelSubscriptionsFailedWithFailures___block_invoke(uint64_t a1)
@@ -1927,54 +1920,27 @@ uint64_t __24__SKAPushManager_logger__block_invoke()
 
 void __68__SKAPushManager__createChannelWithProtoData_retryCount_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Trying to create a channel resulted in error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __55__SKAPushManager__publishStatus_retryCount_completion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Publishing status failed with resultCode %ld error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __58__SKAPushManager__provisionPayload_retryCount_completion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Provisioning failed with resultCode %ld error: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __61__SKAPushManager__sendPresenceMessage_retryCount_completion___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Presence protobuff send failed with resultCode %ld error: %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Trying to create a channel resulted in error %@", &v2, 0xCu);
 }
 
 void __61__SKAPushManager__subscribedChannelsForTopic_WithCompletion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_4(&dword_220099000, a2, a3, "Error fetching subscribed channels for topic %@! Error: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_4(&dword_220099000, a2, a3, "Error fetching subscribed channels for topic %@! Error: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)connection:(uint64_t)a1 channelSubscriptionsFailedWithFailures:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Channel subscription failed. Failures: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_220099000, a2, OS_LOG_TYPE_ERROR, "Channel subscription failed. Failures: %@", &v2, 0xCu);
 }
 
 @end

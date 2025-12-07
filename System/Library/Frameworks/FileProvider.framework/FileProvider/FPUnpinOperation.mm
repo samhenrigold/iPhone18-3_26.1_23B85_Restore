@@ -25,35 +25,35 @@
 
 - (void)actionMain
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = dispatch_group_create();
-  v29[0] = 0;
-  v29[1] = v29;
-  v29[2] = 0x3032000000;
-  v29[3] = __Block_byref_object_copy__26;
-  v29[4] = __Block_byref_object_dispose__26;
-  v30 = 0;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x3032000000;
+  v28[3] = __Block_byref_object_copy__26;
+  v28[4] = __Block_byref_object_dispose__26;
+  v29 = 0;
   v4 = objc_opt_new();
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   selfCopy = self;
   obj = self->_items;
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v5)
   {
-    v6 = *v26;
+    v6 = *v25;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         downloadingProgress = [v8 downloadingProgress];
 
         if (downloadingProgress)
@@ -65,17 +65,17 @@
         dispatch_group_enter(v3);
         v11 = +[FPDaemonConnection sharedConnection];
         itemID = [v8 itemID];
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __30__FPUnpinOperation_actionMain__block_invoke;
-        v21[3] = &unk_1E793E080;
-        v24 = v29;
-        v22 = v4;
-        v23 = v3;
-        [v11 unpinItemWithID:itemID completionHandler:v21];
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __30__FPUnpinOperation_actionMain__block_invoke;
+        v20[3] = &unk_1E793E080;
+        v23 = v28;
+        v21 = v4;
+        v22 = v3;
+        [v11 unpinItemWithID:itemID completionHandler:v20];
       }
 
-      v5 = [(NSArray *)obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v5 = [(NSArray *)obj countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v5);
@@ -87,13 +87,12 @@
   block[2] = __30__FPUnpinOperation_actionMain__block_invoke_2;
   block[3] = &unk_1E793E0D0;
   block[4] = selfCopy;
-  v19 = v4;
-  v20 = v29;
+  v18 = v4;
+  v19 = v28;
   v14 = v4;
   dispatch_group_notify(v3, callbackQueue, block);
 
-  _Block_object_dispose(v29, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v28, 8);
 }
 
 void __30__FPUnpinOperation_actionMain__block_invoke(uint64_t a1, void *a2, void *a3)

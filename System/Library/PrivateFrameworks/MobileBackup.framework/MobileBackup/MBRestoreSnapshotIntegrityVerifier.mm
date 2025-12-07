@@ -89,26 +89,21 @@
         *buf = 136315138;
         v13 = v9;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=verifier= Restore verification %s from local behavior option", buf, 0xCu);
-        goto LABEL_14;
+        _MBLog(@"I ", "=verifier= Restore verification %s from local behavior option");
       }
-
-LABEL_15:
-
-      goto LABEL_16;
     }
 
-    if (MBIsInternalInstall())
+    else if (MBIsInternalInstall())
     {
       v8 = MBGetDefaultLog();
       LOBYTE(bOOLValue) = 1;
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_15;
+        *buf = 0;
+        LOBYTE(bOOLValue) = 1;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=verifier= Restore verification enabled, because AppleInternal", buf, 2u);
+        _MBLog(@"I ", "=verifier= Restore verification enabled, because AppleInternal");
       }
-
-      *buf = 0;
-      LOBYTE(bOOLValue) = 1;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=verifier= Restore verification enabled, because AppleInternal", buf, 2u);
     }
 
     else
@@ -117,23 +112,20 @@ LABEL_15:
       bOOLValue = [v10 restoreVerificationEnabledForAccount:accountCopy];
 
       v8 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
-        goto LABEL_15;
+        *buf = 67109120;
+        LODWORD(v13) = bOOLValue;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=verifier= Restore verification enabled from server: %d", buf, 8u);
+        _MBLog(@"I ", "=verifier= Restore verification enabled from server: %d");
       }
-
-      *buf = 67109120;
-      LODWORD(v13) = bOOLValue;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "=verifier= Restore verification enabled from server: %d", buf, 8u);
     }
-
-LABEL_14:
-    _MBLog();
-    goto LABEL_15;
   }
 
-  LOBYTE(bOOLValue) = 0;
-LABEL_16:
+  else
+  {
+    LOBYTE(bOOLValue) = 0;
+  }
 
   return bOOLValue;
 }
@@ -156,163 +148,158 @@ LABEL_16:
   if ([(MBSnapshotIntegrityVerifier *)self _checkForCancellation:error])
   {
     errorCopy = error;
-    v47 = [(MBRestoreSnapshotIntegrityVerifier *)self _domainNamesFromFileListWithCommitID:self->_snapshotUUID snapshotDir:self->_snapshotDir error:error];
-    if (v47)
+    v43 = [(MBRestoreSnapshotIntegrityVerifier *)self _domainNamesFromFileListWithCommitID:self->_snapshotUUID snapshotDir:self->_snapshotDir error:error];
+    if (v43)
     {
       v12 = MBGetDefaultLog();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v13 = [v47 componentsJoinedByString:{@", "}];
+        v13 = [v43 componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v71 = v13;
+        v67 = v13;
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "=verifier= Verifying domains: %@", buf, 0xCu);
 
-        v37 = [v47 componentsJoinedByString:{@", "}];
-        _MBLog();
+        v14 = [v43 componentsJoinedByString:{@", "}];
+        _MBLog(@"Db", "=verifier= Verifying domains: %@", v14);
       }
 
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
-      v67 = 0u;
-      obj = v47;
-      v51 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
-      if (v51)
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      obj = v43;
+      v47 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
+      if (v47)
       {
-        v44 = 0;
-        v45 = 0;
-        v50 = *v67;
-        v14 = &selRef_consolidatedDomainsInFileListSynchronization;
-        v42 = planCopy;
-        v43 = managerCopy;
+        v40 = 0;
+        v41 = 0;
+        v46 = *v63;
+        v15 = &selRef_consolidatedDomainsInFileListSynchronization;
+        v38 = planCopy;
+        v39 = managerCopy;
 LABEL_9:
-        v15 = 0;
+        v16 = 0;
         while (1)
         {
-          if (*v67 != v50)
+          if (*v63 != v46)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v66 + 1) + 8 * v15);
-          if ([*(&self->super.super.isa + *(v14 + 827)) shouldForegroundRestoreDomain:{v16, v37, v38, v39, v41}])
+          v17 = *(*(&v62 + 1) + 8 * v16);
+          if ([*(&self->super.super.isa + *(v15 + 827)) shouldForegroundRestoreDomain:v17])
           {
             if (![(MBSnapshotIntegrityVerifier *)self _checkForCancellation:errorCopy])
             {
               goto LABEL_44;
             }
 
-            v17 = [managerCopy domainForName:v16];
-            if ([v17 hasRootPath])
+            v18 = [managerCopy domainForName:v17];
+            if ([v18 hasRootPath])
             {
-              v18 = [planCopy planForDomain:v17 restoreType:1 error:errorCopy];
-              v19 = v18;
-              if (!v18)
+              v19 = [planCopy planForDomain:v18 restoreType:1 error:errorCopy];
+              v20 = v19;
+              if (!v19)
               {
-                v34 = MBGetDefaultLog();
-                if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+                v35 = MBGetDefaultLog();
+                if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
                 {
-                  v35 = *errorCopy;
+                  v36 = *errorCopy;
                   *buf = 138412802;
-                  v71 = v16;
-                  v72 = 2112;
-                  v73 = planCopy;
-                  v74 = 2112;
-                  v75 = v35;
-                  _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "=verifier= Failed to find domain %@ in plan %@: %@", buf, 0x20u);
-                  v40 = *errorCopy;
-                  _MBLog();
+                  v67 = v17;
+                  v68 = 2112;
+                  v69 = planCopy;
+                  v70 = 2112;
+                  v71 = v36;
+                  _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "=verifier= Failed to find domain %@ in plan %@: %@", buf, 0x20u);
+                  _MBLog(@"E ", "=verifier= Failed to find domain %@ in plan %@: %@", v17, planCopy, *errorCopy);
                 }
 
 LABEL_44:
-                v31 = 0;
-                v33 = obj;
+                v32 = 0;
+                v34 = obj;
                 goto LABEL_45;
               }
 
-              if (![v18 wasSkipped])
+              if (![v19 wasSkipped])
               {
-                v62 = 0;
-                v63 = &v62;
-                v64 = 0x2020000000;
-                v65 = 0;
                 v58 = 0;
                 v59 = &v58;
                 v60 = 0x2020000000;
                 v61 = 0;
-                v21 = objc_opt_new();
+                v54 = 0;
+                v55 = &v54;
+                v56 = 0x2020000000;
+                v57 = 0;
+                v22 = objc_opt_new();
                 snapshotUUID = self->_snapshotUUID;
-                v53[0] = _NSConcreteStackBlock;
-                v53[1] = 3221225472;
-                v53[2] = sub_10011E514;
-                v53[3] = &unk_1003BF1B8;
-                v53[4] = self;
-                v56 = &v58;
-                v57 = &v62;
-                v54 = pathCopy;
-                v22 = v17;
-                v55 = v22;
-                LODWORD(v23) = [(MBRestoreSnapshotIntegrityVerifier *)self _verifyDomain:v22 snapshotUUID:snapshotUUID errors:v21 cancellationError:errorCopy pathForFile:v53];
+                v49[0] = _NSConcreteStackBlock;
+                v49[1] = 3221225472;
+                v49[2] = sub_10011E514;
+                v49[3] = &unk_1003BF1B8;
+                v49[4] = self;
+                v52 = &v54;
+                v53 = &v58;
+                v50 = pathCopy;
+                v23 = v18;
+                v51 = v23;
+                LODWORD(v24) = [(MBRestoreSnapshotIntegrityVerifier *)self _verifyDomain:v23 snapshotUUID:snapshotUUID errors:v22 cancellationError:errorCopy pathForFile:v49];
 
-                managerCopy = v43;
-                v14 = &selRef_consolidatedDomainsInFileListSynchronization;
+                managerCopy = v39;
+                v15 = &selRef_consolidatedDomainsInFileListSynchronization;
 
-                if (v23)
+                if (v24)
                 {
-                  v24 = v63[3];
                   v25 = v59[3];
-                  v26 = [v21 count];
-                  v44 += v24;
-                  v45 += v25;
-                  if (v26)
+                  v26 = v55[3];
+                  v27 = [v22 count];
+                  v40 += v25;
+                  v41 += v26;
+                  if (v27)
                   {
-                    v27 = MBGetDefaultLog();
-                    managerCopy = v43;
-                    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                    v28 = MBGetDefaultLog();
+                    managerCopy = v39;
+                    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
                     {
-                      v28 = v63[3];
                       v29 = v59[3];
+                      v30 = v55[3];
                       *buf = 138413058;
-                      v71 = v16;
+                      v67 = v17;
+                      v68 = 2048;
+                      v69 = v29;
+                      v70 = 2048;
+                      v71 = v30;
                       v72 = 2048;
-                      v73 = v28;
-                      v74 = 2048;
-                      v75 = v29;
-                      v76 = 2048;
-                      v77 = v26;
-                      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "=verifier= Failed to verify %@ during FG restore - checked: %llu ignored: %llu failed: %llu", buf, 0x2Au);
-                      v39 = v59[3];
-                      v41 = v26;
-                      v37 = v16;
-                      v38 = v63[3];
-                      _MBLog();
+                      v73 = v27;
+                      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "=verifier= Failed to verify %@ during FG restore - checked: %llu ignored: %llu failed: %llu", buf, 0x2Au);
+                      _MBLog(@"E ", "=verifier= Failed to verify %@ during FG restore - checked: %llu ignored: %llu failed: %llu", v17, v59[3], v55[3], v27);
                     }
 
-                    planCopy = v42;
-                    v14 = &selRef_consolidatedDomainsInFileListSynchronization;
-                    v23 = [MBError errorWithErrors:v21];
-                    if (([v19 recordVerificationFailure:v23 error:errorCopy]& 1) != 0)
+                    planCopy = v38;
+                    v15 = &selRef_consolidatedDomainsInFileListSynchronization;
+                    v24 = [MBError errorWithErrors:v22];
+                    if (([v20 recordVerificationFailure:v24 error:errorCopy]& 1) != 0)
                     {
-                      v30 = v23;
-                      *errorCopy = v23;
+                      v31 = v24;
+                      *errorCopy = v24;
                     }
 
-                    LOBYTE(v23) = 0;
+                    LOBYTE(v24) = 0;
                   }
 
                   else
                   {
-                    LOBYTE(v23) = [v19 recordVerificationSuccess:errorCopy];
-                    managerCopy = v43;
-                    planCopy = v42;
-                    v14 = &selRef_consolidatedDomainsInFileListSynchronization;
+                    LOBYTE(v24) = [v20 recordVerificationSuccess:errorCopy];
+                    managerCopy = v39;
+                    planCopy = v38;
+                    v15 = &selRef_consolidatedDomainsInFileListSynchronization;
                   }
                 }
 
+                _Block_object_dispose(&v54, 8);
                 _Block_object_dispose(&v58, 8);
-                _Block_object_dispose(&v62, 8);
 
-                if ((v23 & 1) == 0)
+                if ((v24 & 1) == 0)
                 {
                   goto LABEL_44;
                 }
@@ -320,34 +307,33 @@ LABEL_44:
                 goto LABEL_32;
               }
 
-              v20 = MBGetDefaultLog();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+              v21 = MBGetDefaultLog();
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v71 = v16;
-                _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "=verifier= Skipping verifying %@ because it was skipped", buf, 0xCu);
-                v37 = v16;
-                _MBLog();
+                v67 = v17;
+                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "=verifier= Skipping verifying %@ because it was skipped", buf, 0xCu);
+                _MBLog(@"I ", "=verifier= Skipping verifying %@ because it was skipped", v17);
               }
             }
 
             else
             {
-              v19 = MBGetDefaultLog();
-              if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+              v20 = MBGetDefaultLog();
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "=verifier= Skipping verification of domain with nil root path", buf, 2u);
-                _MBLog();
+                _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "=verifier= Skipping verification of domain with nil root path", buf, 2u);
+                _MBLog(@"I ", "=verifier= Skipping verification of domain with nil root path");
               }
             }
           }
 
 LABEL_32:
-          if (v51 == ++v15)
+          if (v47 == ++v16)
           {
-            v51 = [obj countByEnumeratingWithState:&v66 objects:v78 count:16];
-            if (v51)
+            v47 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
+            if (v47)
             {
               goto LABEL_9;
             }
@@ -357,29 +343,29 @@ LABEL_32:
         }
       }
 
-      v44 = 0;
-      v45 = 0;
+      v40 = 0;
+      v41 = 0;
 LABEL_38:
 
-      v32 = MBGetDefaultLog();
-      v33 = v32;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v33 = MBGetDefaultLog();
+      v34 = v33;
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v71 = &v45[v44];
-        v72 = 2048;
-        v73 = v44;
-        v74 = 2048;
-        v75 = v45;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "=verifier= Finished foreground verification total: %llu, checked: %llu, ignored: %llu", buf, 0x20u);
-        _MBLog();
-        v31 = 1;
-        v33 = v32;
+        v67 = &v41[v40];
+        v68 = 2048;
+        v69 = v40;
+        v70 = 2048;
+        v71 = v41;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "=verifier= Finished foreground verification total: %llu, checked: %llu, ignored: %llu", buf, 0x20u);
+        _MBLog(@"Df", "=verifier= Finished foreground verification total: %llu, checked: %llu, ignored: %llu", &v41[v40], v40, v41);
+        v32 = 1;
+        v34 = v33;
       }
 
       else
       {
-        v31 = 1;
+        v32 = 1;
       }
 
 LABEL_45:
@@ -387,16 +373,16 @@ LABEL_45:
 
     else
     {
-      v31 = 0;
+      v32 = 0;
     }
   }
 
   else
   {
-    v31 = 0;
+    v32 = 0;
   }
 
-  return v31;
+  return v32;
 }
 
 - (BOOL)verifyContainerizedDataAfterBackgroundRestore:(id)restore domainPlan:(id)plan error:(id *)error
@@ -457,8 +443,8 @@ LABEL_45:
 
           domain2 = [v10 domain];
           name2 = [domain2 name];
+          _MBLog(@"Df", "=verifier= Marking verification success for %@ because container %@ was removed during verification", name2, restoreCopy);
 LABEL_13:
-          _MBLog();
 
           goto LABEL_14;
         }
@@ -482,6 +468,7 @@ LABEL_13:
 
         domain2 = [v10 domain];
         name2 = [domain2 name];
+        _MBLog(@"Df", "=verifier= Marking verification success for %@ because parent app %@ was uninstalled during verification", name2, bundleID);
         goto LABEL_13;
       }
 
@@ -543,26 +530,26 @@ LABEL_19:
       restoreCopy = [domain rootPath];
     }
 
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x2020000000;
-    v35 = 0;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
     v31 = 0;
+    v32 = &v31;
+    v33 = 0x2020000000;
+    v34 = 0;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
     v12 = objc_opt_new();
     snapshotUUID = self->_snapshotUUID;
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_10011EDCC;
-    v24[3] = &unk_1003BF1E0;
-    v24[4] = self;
-    v26 = &v28;
-    v27 = &v32;
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10011EDCC;
+    v23[3] = &unk_1003BF1E0;
+    v23[4] = self;
+    v25 = &v27;
+    v26 = &v31;
     restoreCopy = restoreCopy;
-    v25 = restoreCopy;
-    v14 = [(MBRestoreSnapshotIntegrityVerifier *)self _verifyDomain:domain snapshotUUID:snapshotUUID errors:v12 cancellationError:error pathForFile:v24];
+    v24 = restoreCopy;
+    v14 = [(MBRestoreSnapshotIntegrityVerifier *)self _verifyDomain:domain snapshotUUID:snapshotUUID errors:v12 cancellationError:error pathForFile:v23];
 
     if (v14)
     {
@@ -574,24 +561,23 @@ LABEL_19:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           name = [domain name];
-          v19 = v33[3];
-          v20 = v29[3];
+          v19 = v32[3];
+          v20 = v28[3];
           *buf = 138413314;
-          v37 = name;
-          v38 = 2048;
-          v39 = v20 + v19;
-          v40 = 2048;
-          v41 = v19;
-          v42 = 2048;
-          v43 = v20;
-          v44 = 2048;
-          v45 = v15;
+          v36 = name;
+          v37 = 2048;
+          v38 = v20 + v19;
+          v39 = 2048;
+          v40 = v19;
+          v41 = 2048;
+          v42 = v20;
+          v43 = 2048;
+          v44 = v15;
           _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "=verifier= Finished background verification for %@ total: %llu, checked: %llu, ignored: %llu, failed: %llu", buf, 0x34u);
         }
 
         name2 = [domain name];
-        v23 = v29[3] + v33[3];
-        _MBLog();
+        _MBLog(@"Df", "=verifier= Finished background verification for %@ total: %llu, checked: %llu, ignored: %llu, failed: %llu", name2, v28[3] + v32[3], v32[3], v28[3], v15);
       }
 
       if (v15)
@@ -606,8 +592,8 @@ LABEL_19:
       }
     }
 
-    _Block_object_dispose(&v28, 8);
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v31, 8);
   }
 
   else
@@ -658,7 +644,7 @@ LABEL_19:
     LODWORD(buf) = 138412290;
     *(&buf + 4) = name;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "=verifier= Verifying domain: %@", &buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Db", "=verifier= Verifying domain: %@", name);
   }
 
   snapshotDir = self->_snapshotDir;
@@ -795,13 +781,13 @@ LABEL_19:
   v10 = dirCopy;
   if ([(MBSnapshotIntegrityVerifier *)self _checkForCancellation:error])
   {
-    v19[0] = _NSConcreteStackBlock;
-    v19[1] = 3221225472;
-    v19[2] = sub_10011F8A8;
-    v19[3] = &unk_1003BC450;
+    v17 = _NSConcreteStackBlock;
+    v18 = 3221225472;
+    v19 = sub_10011F8A8;
+    v20 = &unk_1003BC450;
     v11 = objc_opt_new();
-    v20 = v11;
-    if (MBEnumerateDomainNamesForSnapshot(v10, dCopy, error, v19))
+    v21 = v11;
+    if (MBEnumerateDomainNamesForSnapshot(v10, dCopy, error, &v17))
     {
 
       v11 = v11;
@@ -814,10 +800,9 @@ LABEL_19:
     {
       v15 = *error;
       *buf = 138412290;
-      v22 = v15;
+      v23 = v15;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=verifier= Foreground restore verification: failed to acquire all file lists %@", buf, 0xCu);
-      v18 = *error;
-      _MBLog();
+      _MBLog(@"E ", "=verifier= Foreground restore verification: failed to acquire all file lists %@", *error, v17, v18, v19, v20);
     }
   }
 
@@ -828,10 +813,9 @@ LABEL_19:
     {
       v13 = *error;
       *buf = 138412290;
-      v22 = v13;
+      v23 = v13;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "=verifier= Foreground restore verification cancelled %@", buf, 0xCu);
-      v17 = *error;
-      _MBLog();
+      _MBLog(@"Df", "=verifier= Foreground restore verification cancelled %@", *error);
     }
   }
 

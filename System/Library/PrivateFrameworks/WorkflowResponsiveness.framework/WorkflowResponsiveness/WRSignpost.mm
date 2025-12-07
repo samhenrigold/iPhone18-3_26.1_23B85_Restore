@@ -209,51 +209,6 @@
 
 - (int)diagnosticThresholdCount
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9 = 0u;
-  v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  diagnostics = [(WRSignpost *)self diagnostics];
-  v3 = [diagnostics countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
-  {
-    v4 = *v10;
-    while (2)
-    {
-      for (i = 0; i != v3; ++i)
-      {
-        if (*v10 != v4)
-        {
-          objc_enumerationMutation(diagnostics);
-        }
-
-        v6 = *(*(&v9 + 1) + 8 * i);
-        if ([v6 hasTriggerThresholdCount])
-        {
-          LODWORD(v3) = [v6 triggerThresholdCount];
-          goto LABEL_11;
-        }
-      }
-
-      v3 = [diagnostics countByEnumeratingWithState:&v9 objects:v13 count:16];
-      if (v3)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-LABEL_11:
-
-  v7 = *MEMORY[0x277D85DE8];
-  return v3;
-}
-
-- (BOOL)hasDiagnosticThresholdCount
-{
   v13 = *MEMORY[0x277D85DE8];
   v8 = 0u;
   v9 = 0u;
@@ -273,9 +228,10 @@ LABEL_11:
           objc_enumerationMutation(diagnostics);
         }
 
-        if ([*(*(&v8 + 1) + 8 * i) hasTriggerThresholdCount])
+        v6 = *(*(&v8 + 1) + 8 * i);
+        if ([v6 hasTriggerThresholdCount])
         {
-          LOBYTE(v3) = 1;
+          LODWORD(v3) = [v6 triggerThresholdCount];
           goto LABEL_11;
         }
       }
@@ -292,34 +248,76 @@ LABEL_11:
 
 LABEL_11:
 
-  v6 = *MEMORY[0x277D85DE8];
+  return v3;
+}
+
+- (BOOL)hasDiagnosticThresholdCount
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  diagnostics = [(WRSignpost *)self diagnostics];
+  v3 = [diagnostics countByEnumeratingWithState:&v7 objects:v11 count:16];
+  if (v3)
+  {
+    v4 = *v8;
+    while (2)
+    {
+      for (i = 0; i != v3; ++i)
+      {
+        if (*v8 != v4)
+        {
+          objc_enumerationMutation(diagnostics);
+        }
+
+        if ([*(*(&v7 + 1) + 8 * i) hasTriggerThresholdCount])
+        {
+          LOBYTE(v3) = 1;
+          goto LABEL_11;
+        }
+      }
+
+      v3 = [diagnostics countByEnumeratingWithState:&v7 objects:v11 count:16];
+      if (v3)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_11:
+
   return v3;
 }
 
 - (double)diagnosticThresholdIntervalSeconds
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   diagnostics = [(WRSignpost *)self diagnostics];
-  v3 = [diagnostics countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [diagnostics countByEnumeratingWithState:&v11 objects:v15 count:16];
   v4 = 0.0;
   if (v3)
   {
     v5 = v3;
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(diagnostics);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 hasTriggerThresholdDurationSum])
         {
           [v8 triggerThresholdDurationSum];
@@ -328,7 +326,7 @@ LABEL_11:
         }
       }
 
-      v5 = [diagnostics countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [diagnostics countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -340,7 +338,6 @@ LABEL_11:
 
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

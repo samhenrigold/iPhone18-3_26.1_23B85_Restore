@@ -46,14 +46,14 @@
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_feedback();
+  v7 = __atxlog_handle_feedback(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"numStepsInShortcutAtStart" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXFeedbackSessionMetadata" errorCode:-1 logHandle:v7];
 
   if (v8 || ([coderCopy error], v22 = objc_claimAutoreleasedReturnValue(), v22, !v22))
   {
     v9 = MEMORY[0x1E69C5D78];
     v10 = objc_opt_class();
-    v11 = __atxlog_handle_feedback();
+    v11 = __atxlog_handle_feedback(v10);
     v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"numStepsInShortcutAtEnd" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXFeedbackSessionMetadata" errorCode:-1 logHandle:v11];
 
     if (!v12)
@@ -62,7 +62,7 @@
 
       if (error)
       {
-        v16 = __atxlog_handle_feedback();
+        v16 = __atxlog_handle_feedback(v25);
         if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
           [ATXShortcutsEditorSessionMetadata initWithCoder:coderCopy];
@@ -75,17 +75,17 @@
 
     v13 = MEMORY[0x1E69C5D78];
     v14 = objc_opt_class();
-    v15 = __atxlog_handle_feedback();
+    v15 = __atxlog_handle_feedback(v14);
     v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"stepWasManuallyAdded" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXFeedbackSessionMetadata" errorCode:-1 logHandle:v15];
 
-    if (v16 || ([coderCopy error], v24 = objc_claimAutoreleasedReturnValue(), v24, !v24))
+    if (v16 || ([coderCopy error], v26 = objc_claimAutoreleasedReturnValue(), v26, !v26))
     {
       v17 = MEMORY[0x1E69C5D78];
       v18 = objc_opt_class();
-      v19 = __atxlog_handle_feedback();
+      v19 = __atxlog_handle_feedback(v18);
       v20 = [v17 robustDecodeObjectOfClass:v18 forKey:@"isLastSession" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.ATXFeedbackSessionMetadata" errorCode:-1 logHandle:v19];
 
-      if (v20 || ([coderCopy error], v25 = objc_claimAutoreleasedReturnValue(), v25, !v25))
+      if (v20 || ([coderCopy error], v28 = objc_claimAutoreleasedReturnValue(), v28, !v28))
       {
         self = -[ATXShortcutsEditorSessionMetadata initWithNumStepsInShortcutAtStart:](self, "initWithNumStepsInShortcutAtStart:", [v8 unsignedIntegerValue]);
         [(ATXShortcutsEditorSessionMetadata *)self setNumStepsInShortcutAtEnd:[v12 unsignedIntegerValue]];
@@ -98,8 +98,8 @@ LABEL_23:
         goto LABEL_24;
       }
 
-      v26 = __atxlog_handle_feedback();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+      v30 = __atxlog_handle_feedback(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
       {
         [ATXShortcutsEditorSessionMetadata initWithCoder:coderCopy];
       }
@@ -107,7 +107,7 @@ LABEL_23:
 
     else
     {
-      v20 = __atxlog_handle_feedback();
+      v20 = __atxlog_handle_feedback(v27);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         [ATXShortcutsEditorSessionMetadata initWithCoder:coderCopy];
@@ -118,7 +118,7 @@ LABEL_23:
     goto LABEL_22;
   }
 
-  v12 = __atxlog_handle_feedback();
+  v12 = __atxlog_handle_feedback(v23);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
   {
     [ATXShortcutsEditorSessionMetadata initWithCoder:coderCopy];
@@ -177,42 +177,30 @@ LABEL_24:
 
 - (void)initWithCoder:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_11(&dword_1DEFC4000, v2, v3, "Unable to deserialize numStepsInShortcutAtStart in ATXFeedbackSessionMetadata. Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_11(&dword_1DEFC4000, v2, v3, "Unable to deserialize numStepsInShortcutAtStart in ATXFeedbackSessionMetadata. Error: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithCoder:(void *)a1 .cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_11(&dword_1DEFC4000, v2, v3, "Unable to deserialize boxedNumStepsInShortcutAtEnd in ATXFeedbackSessionMetadata. Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_11(&dword_1DEFC4000, v2, v3, "Unable to deserialize boxedNumStepsInShortcutAtEnd in ATXFeedbackSessionMetadata. Error: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithCoder:(void *)a1 .cold.3(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_11(&dword_1DEFC4000, v2, v3, "Unable to deserialize boxedStepWasManuallyAdded in ATXFeedbackSessionMetadata. Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_11(&dword_1DEFC4000, v2, v3, "Unable to deserialize boxedStepWasManuallyAdded in ATXFeedbackSessionMetadata. Error: %@", v4, v5, v6, v7);
 }
 
 - (void)initWithCoder:(void *)a1 .cold.4(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 error];
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_0_11(&dword_1DEFC4000, v2, v3, "Unable to deserialize boxedIsLastSession in ATXFeedbackSessionMetadata. Error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_11(&dword_1DEFC4000, v2, v3, "Unable to deserialize boxedIsLastSession in ATXFeedbackSessionMetadata. Error: %@", v4, v5, v6, v7);
 }
 
 @end

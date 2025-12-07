@@ -1,3 +1,2237 @@
+uint64_t *dns_name_subdomain_of(uint64_t *a1, uint64_t ***a2)
+{
+  result = 0;
+  if (a1 && a2)
+  {
+    v4 = 0;
+    v5 = 1;
+    v6 = a2;
+    do
+    {
+      v7 = v4++;
+      v6 = *v6;
+      ++v5;
+    }
+
+    while (v6);
+    v8 = a1;
+    do
+    {
+      v9 = v6;
+      LODWORD(v6) = v6 + 1;
+      v8 = *v8;
+    }
+
+    while (v8);
+    if (v6 < v4)
+    {
+      return 0;
+    }
+
+    if (v9 != v7)
+    {
+      v10 = v5 - v6;
+      do
+      {
+        a1 = *a1;
+        if (a1)
+        {
+          v11 = v10 == 0;
+        }
+
+        else
+        {
+          v11 = 1;
+        }
+
+        ++v10;
+      }
+
+      while (!v11);
+      if (!a1)
+      {
+        return 0;
+      }
+    }
+
+    v12 = dns_names_equal(a1, a2);
+    result = a1;
+    if ((v12 & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+BOOL dns_keys_rdata_equal(uint64_t a1, uint64_t a2)
+{
+  result = 0;
+  if (*(a1 + 8) == 25 && *(a2 + 8) == 25 && *(a1 + 16) == *(a2 + 16) && *(a1 + 18) == *(a2 + 18) && *(a1 + 19) == *(a2 + 19))
+  {
+    v2 = *(a1 + 20);
+    if (v2 == *(a2 + 20) && !memcmp(*(a1 + 24), *(a2 + 24), v2))
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+unint64_t dns_txt_data_print(unint64_t __str, unsigned int a2, uint64_t a3)
+{
+  v3 = __str + 1398;
+  *__str = 0;
+  if (__str + 1398 >= __str && a2 != 0)
+  {
+    v6 = __str;
+    v7 = 0;
+    v8 = 0;
+    v9 = 0;
+    v10 = "";
+    do
+    {
+      v11 = *(a3 + v8);
+      v12 = v8 + v11 + 1;
+      if (a2 < (v8 + v11 + 1))
+      {
+        break;
+      }
+
+      if ((v8 + v11 + 1) < v8 || &v6[v9] + 1 >= v3)
+      {
+        break;
+      }
+
+      if (*(a3 + v8))
+      {
+        if (v9 * 2)
+        {
+          __str = memcpy(v6, v10, v9 * 2);
+          LOBYTE(v6[v9]) = 0;
+          v6 = (v6 + v9 * 2);
+        }
+
+        v14 = (v7 + 1);
+        v15 = (v14 + v11);
+        do
+        {
+          v16 = *(a3 + v14);
+          if ((v16 & 0x8000000000000000) == 0 && (_DefaultRuneLocale.__runetype[v16] & 0x40000) != 0)
+          {
+            if (v6 + 1 < v3)
+            {
+              *v6 = v16;
+              v6 = (v6 + 1);
+            }
+          }
+
+          else if (v6 + 5 < v3)
+          {
+            __str = snprintf(v6, 5uLL, "%o", *(a3 + v14));
+            v6 = (v6 + __str);
+          }
+
+          ++v14;
+        }
+
+        while (v14 < v15);
+        v9 = 1;
+        v10 = ", ";
+      }
+
+      if (v6 >= v3)
+      {
+        break;
+      }
+
+      v7 = v12;
+      v8 = v12;
+    }
+
+    while (a2 > v12);
+  }
+
+  return __str;
+}
+
+void omr_watcher_finalize(void *a1)
+{
+  v2 = a1[7];
+  if (v2)
+  {
+    ioloop_cancel_wake_event(v2);
+    ioloop_wakeup_release_(a1[7], "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 240);
+    a1[7] = 0;
+  }
+
+  v3 = a1[8];
+  if (v3)
+  {
+    ioloop_cancel_wake_event(v3);
+    ioloop_wakeup_release_(a1[8], "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 246);
+    a1[8] = 0;
+  }
+
+  v4 = a1[9];
+  if (v4)
+  {
+    while (1)
+    {
+      v5 = *v4;
+      if (!*v4)
+      {
+        break;
+      }
+
+      v6 = global_os_log;
+      if (v5 >= 10001)
+      {
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+        {
+          *buf = 136447490;
+          v19 = "omr_watcher_finalize";
+          v20 = 1024;
+          *v21 = v5;
+          *&v21[4] = 2048;
+          *&v21[6] = v4;
+          *&v21[14] = 2080;
+          *&v21[16] = "prefix";
+          *&v21[24] = 2080;
+          *&v21[26] = "omr-watcher.c";
+          *&v21[34] = 1024;
+          *&v21[36] = 252;
+          v16 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+          v17 = v6;
+LABEL_30:
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_FAULT, v16, buf, 0x36u);
+        }
+
+        goto LABEL_31;
+      }
+
+      v7 = *(v4 + 1);
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136447490;
+        v19 = "omr_watcher_finalize";
+        v20 = 1024;
+        *v21 = v5;
+        *&v21[4] = 2048;
+        *&v21[6] = v4;
+        *&v21[14] = 2080;
+        *&v21[16] = "prefix";
+        *&v21[24] = 2080;
+        *&v21[26] = "omr-watcher.c";
+        *&v21[34] = 1024;
+        *&v21[36] = 252;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+        v5 = *v4;
+      }
+
+      *v4 = v5 - 1;
+      if (v5 == 1)
+      {
+        v8 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136447234;
+          v19 = "omr_watcher_finalize";
+          v20 = 2048;
+          *v21 = v4;
+          *&v21[8] = 2080;
+          *&v21[10] = "prefix";
+          *&v21[18] = 2080;
+          *&v21[20] = "omr-watcher.c";
+          *&v21[28] = 1024;
+          *&v21[30] = 252;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
+        }
+
+        ++omr_prefix_finalized;
+        free(v4);
+      }
+
+      v4 = v7;
+      if (!v7)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    v15 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 136447490;
+      v19 = "omr_watcher_finalize";
+      v20 = 1024;
+      *v21 = 0;
+      *&v21[4] = 2048;
+      *&v21[6] = v4;
+      *&v21[14] = 2080;
+      *&v21[16] = "prefix";
+      *&v21[24] = 2080;
+      *&v21[26] = "omr-watcher.c";
+      *&v21[34] = 1024;
+      *&v21[36] = 252;
+      v16 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+      v17 = v15;
+      goto LABEL_30;
+    }
+
+LABEL_31:
+    abort();
+  }
+
+LABEL_15:
+  v9 = a1;
+  v10 = a1[3];
+  if (v10)
+  {
+    v11 = global_os_log;
+    do
+    {
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        v13 = v10[2];
+        v12 = v10[3];
+        if (*(v10 + 32))
+        {
+          v14 = "";
+        }
+
+        else
+        {
+          v14 = "not ";
+        }
+
+        *buf = 136447234;
+        v19 = "omr_watcher_finalize";
+        v20 = 2048;
+        *v21 = v10;
+        *&v21[8] = 2048;
+        *&v21[10] = v12;
+        *&v21[18] = 2048;
+        *&v21[20] = v13;
+        *&v21[28] = 2080;
+        *&v21[30] = v14;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s: callback %p context %p context_release %p %scanceled", buf, 0x34u);
+        v11 = global_os_log;
+      }
+
+      v10 = *v10;
+    }
+
+    while (v10);
+    v9 = a1;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      *buf = 136446210;
+      v19 = "omr_watcher_finalize";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, "%{public}s: not all callbacks were canceled prior to releasing omr_watcher.", buf, 0xCu);
+    }
+  }
+
+  free(v9);
+}
+
+void omr_watcher_netdata_mode_callback(uint64_t a1, int a2, int a3)
+{
+  if (!a3)
+  {
+    if (a2 == 1)
+    {
+      v10 = global_os_log;
+      if (*(a1 + 40))
+      {
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+        {
+          *buf = 136446210;
+          v28 = "omr_watcher_netdata_mode_callback";
+          v8 = "%{public}s: double callback";
+          v9 = v10;
+          goto LABEL_14;
+        }
+
+LABEL_18:
+        *(a1 + 104) = a2;
+        goto LABEL_19;
+      }
+
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446210;
+        v28 = "omr_watcher_netdata_mode_callback";
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: old api", buf, 0xCu);
+      }
+
+      v22 = xpc_dictionary_create(0, 0, 0);
+      xpc_dictionary_set_string(v22, "interface", "org.wpantund.v1");
+      xpc_dictionary_set_string(v22, "path", "/org/wpantund/utun2");
+      xpc_dictionary_set_string(v22, "method", "PropGet");
+      xpc_dictionary_set_string(v22, "property_name", "IPv6:Routes");
+      v16 = setup_for_command((a1 + 40), "get_prefix_list", "IPv6:Routes", 0, v22, a1, omr_watcher_route_update_callback, cti_internal_prefix_reply_callback, 0, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 803);
+      if (v22)
+      {
+        xpc_release(v22);
+      }
+
+      v23 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v24 = *a1;
+        *buf = 136447490;
+        v28 = "omr_watcher_netdata_mode_callback";
+        v29 = 1024;
+        *v30 = v24;
+        *&v30[4] = 2048;
+        *&v30[6] = a1;
+        *&v30[14] = 2080;
+        *&v30[16] = "omw";
+        *&v30[24] = 2080;
+        *&v30[26] = "omr-watcher.c";
+        v31 = 1024;
+        v32 = 804;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+      }
+
+      v19 = *a1;
+      if (*a1)
+      {
+        v25 = v19 + 1;
+        *a1 = v19 + 1;
+        if (v19 + 1 >= 10001)
+        {
+          v14 = global_os_log;
+          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+          {
+            goto LABEL_55;
+          }
+
+          *buf = 136447490;
+          v28 = "omr_watcher_netdata_mode_callback";
+          v29 = 1024;
+          *v30 = v25;
+          *&v30[4] = 2048;
+          *&v30[6] = a1;
+          *&v30[14] = 2080;
+          *&v30[16] = "omw";
+          *&v30[24] = 2080;
+          *&v30[26] = "omr-watcher.c";
+          v31 = 1024;
+          v32 = 804;
+          v21 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
+          goto LABEL_54;
+        }
+
+        goto LABEL_47;
+      }
+    }
+
+    else
+    {
+      if (a2 != 2)
+      {
+        v12 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136446210;
+          v28 = "omr_watcher_netdata_mode_callback";
+          v8 = "%{public}s: cannot start omr_watcher without knowing the netdata API mode";
+          v9 = v12;
+          v11 = OS_LOG_TYPE_ERROR;
+          goto LABEL_17;
+        }
+
+        goto LABEL_18;
+      }
+
+      v7 = global_os_log;
+      if (*(a1 + 48))
+      {
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+        {
+          *buf = 136446210;
+          v28 = "omr_watcher_netdata_mode_callback";
+          v8 = "%{public}s: double callback";
+          v9 = v7;
+LABEL_14:
+          v11 = OS_LOG_TYPE_FAULT;
+LABEL_17:
+          _os_log_impl(&_mh_execute_header, v9, v11, v8, buf, 0xCu);
+          goto LABEL_18;
+        }
+
+        goto LABEL_18;
+      }
+
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446210;
+        v28 = "omr_watcher_netdata_mode_callback";
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: new api", buf, 0xCu);
+      }
+
+      v16 = cti_track_network_data_((a1 + 48), a1, omr_watcher_netdata_callback, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 793);
+      v17 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v18 = *a1;
+        *buf = 136447490;
+        v28 = "omr_watcher_netdata_mode_callback";
+        v29 = 1024;
+        *v30 = v18;
+        *&v30[4] = 2048;
+        *&v30[6] = a1;
+        *&v30[14] = 2080;
+        *&v30[16] = "omw";
+        *&v30[24] = 2080;
+        *&v30[26] = "omr-watcher.c";
+        v31 = 1024;
+        v32 = 794;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+      }
+
+      v19 = *a1;
+      if (*a1)
+      {
+        v20 = v19 + 1;
+        *a1 = v19 + 1;
+        if (v19 + 1 >= 10001)
+        {
+          v14 = global_os_log;
+          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+          {
+            goto LABEL_55;
+          }
+
+          *buf = 136447490;
+          v28 = "omr_watcher_netdata_mode_callback";
+          v29 = 1024;
+          *v30 = v20;
+          *&v30[4] = 2048;
+          *&v30[6] = a1;
+          *&v30[14] = 2080;
+          *&v30[16] = "omw";
+          *&v30[24] = 2080;
+          *&v30[26] = "omr-watcher.c";
+          v31 = 1024;
+          v32 = 794;
+          v21 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
+          goto LABEL_54;
+        }
+
+        goto LABEL_47;
+      }
+    }
+
+    ++omr_watcher_created;
+    *a1 = v19 + 1;
+LABEL_47:
+    *(a1 + 104) = a2;
+    if (v16)
+    {
+      v26 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 136446466;
+        v28 = "omr_watcher_netdata_mode_callback";
+        v29 = 1024;
+        *v30 = v16;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "%{public}s: could not start a CTI request for getting Thread services, got status: %d", buf, 0x12u);
+      }
+    }
+
+LABEL_19:
+    v13 = *a1;
+    if (*a1)
+    {
+      v14 = global_os_log;
+      if (v13 < 10001)
+      {
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136447490;
+          v28 = "omr_watcher_netdata_mode_callback";
+          v29 = 1024;
+          *v30 = v13;
+          *&v30[4] = 2048;
+          *&v30[6] = a1;
+          *&v30[14] = 2080;
+          *&v30[16] = "omw";
+          *&v30[24] = 2080;
+          *&v30[26] = "omr-watcher.c";
+          v31 = 1024;
+          v32 = 820;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+          v13 = *a1;
+        }
+
+        *a1 = v13 - 1;
+        if (v13 == 1)
+        {
+          v15 = global_os_log;
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136447234;
+            v28 = "omr_watcher_netdata_mode_callback";
+            v29 = 2048;
+            *v30 = a1;
+            *&v30[8] = 2080;
+            *&v30[10] = "omw";
+            *&v30[18] = 2080;
+            *&v30[20] = "omr-watcher.c";
+            *&v30[28] = 1024;
+            *&v30[30] = 820;
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
+          }
+
+          ++omr_watcher_finalized;
+          omr_watcher_finalize(a1);
+        }
+
+        return;
+      }
+
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+      {
+LABEL_55:
+        abort();
+      }
+
+      *buf = 136447490;
+      v28 = "omr_watcher_netdata_mode_callback";
+      v29 = 1024;
+      *v30 = v13;
+      *&v30[4] = 2048;
+      *&v30[6] = a1;
+      *&v30[14] = 2080;
+      *&v30[16] = "omw";
+      *&v30[24] = 2080;
+      *&v30[26] = "omr-watcher.c";
+      v31 = 1024;
+      v32 = 820;
+      v21 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+    }
+
+    else
+    {
+      v14 = global_os_log;
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_55;
+      }
+
+      *buf = 136447490;
+      v28 = "omr_watcher_netdata_mode_callback";
+      v29 = 1024;
+      *v30 = 0;
+      *&v30[4] = 2048;
+      *&v30[6] = a1;
+      *&v30[14] = 2080;
+      *&v30[16] = "omw";
+      *&v30[24] = 2080;
+      *&v30[26] = "omr-watcher.c";
+      v31 = 1024;
+      v32 = 820;
+      v21 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+    }
+
+LABEL_54:
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_FAULT, v21, buf, 0x36u);
+    goto LABEL_55;
+  }
+
+  v5 = global_os_log;
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136446466;
+    v28 = "omr_watcher_netdata_mode_callback";
+    v29 = 1024;
+    *v30 = a3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}s: got error status when getting netdata mode: %d", buf, 0x12u);
+  }
+
+  if (a1)
+  {
+    goto LABEL_19;
+  }
+}
+
+void omr_watcher_route_update_callback(int *a1, uint64_t a2, int a3)
+{
+  switch(a3)
+  {
+    case -65569:
+      goto LABEL_4;
+    case 0:
+      v7 = *(a1 + 4);
+      if (v7)
+      {
+        cti_events_discontinue(v7);
+        *(a1 + 4) = 0;
+        v8 = *a1;
+        if (!*a1)
+        {
+          v9 = global_os_log;
+          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+          {
+            goto LABEL_39;
+          }
+
+          v16 = 136447490;
+          v17 = "omr_watcher_route_update_callback";
+          v18 = 1024;
+          *v19 = 0;
+          *&v19[4] = 2048;
+          *&v19[6] = a1;
+          *&v19[14] = 2080;
+          *&v19[16] = "omw";
+          *&v19[24] = 2080;
+          *&v19[26] = "omr-watcher.c";
+          v20 = 1024;
+          v21 = 743;
+          v15 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+          goto LABEL_38;
+        }
+
+        v9 = global_os_log;
+        if (v8 >= 10001)
+        {
+          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+          {
+            goto LABEL_39;
+          }
+
+          v16 = 136447490;
+          v17 = "omr_watcher_route_update_callback";
+          v18 = 1024;
+          *v19 = v8;
+          *&v19[4] = 2048;
+          *&v19[6] = a1;
+          *&v19[14] = 2080;
+          *&v19[16] = "omw";
+          *&v19[24] = 2080;
+          *&v19[26] = "omr-watcher.c";
+          v20 = 1024;
+          v21 = 743;
+          v15 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+LABEL_38:
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, v15, &v16, 0x36u);
+LABEL_39:
+          abort();
+        }
+
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = 136447490;
+          v17 = "omr_watcher_route_update_callback";
+          v18 = 1024;
+          *v19 = v8;
+          *&v19[4] = 2048;
+          *&v19[6] = a1;
+          *&v19[14] = 2080;
+          *&v19[16] = "omw";
+          *&v19[24] = 2080;
+          *&v19[26] = "omr-watcher.c";
+          v20 = 1024;
+          v21 = 743;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v16, 0x36u);
+          v8 = *a1;
+        }
+
+        *a1 = v8 - 1;
+        if (v8 == 1)
+        {
+          v10 = global_os_log;
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+          {
+            v16 = 136447234;
+            v17 = "omr_watcher_route_update_callback";
+            v18 = 2048;
+            *v19 = a1;
+            *&v19[8] = 2080;
+            *&v19[10] = "omw";
+            *&v19[18] = 2080;
+            *&v19[20] = "omr-watcher.c";
+            *&v19[28] = 1024;
+            *&v19[30] = 743;
+            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v16, 0x30u);
+          }
+
+          ++omr_watcher_finalized;
+          omr_watcher_finalize(a1);
+        }
+      }
+
+      omr_watcher_onmesh_prefix_list_fetch(a1);
+      return;
+    case -65563:
+LABEL_4:
+      v5 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = 136446210;
+        v17 = "omr_watcher_route_update_callback";
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: disconnected", &v16, 0xCu);
+      }
+
+      v6 = *(a1 + 10);
+      if (v6)
+      {
+        v6(*(a1 + 2));
+      }
+
+      break;
+    default:
+      v11 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+      {
+        v16 = 136446466;
+        v17 = "omr_watcher_route_update_callback";
+        v18 = 1024;
+        *v19 = a3;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s: unhandled error %d", &v16, 0x12u);
+      }
+
+      break;
+  }
+
+  v12 = *(a1 + 5);
+  if (!v12)
+  {
+    return;
+  }
+
+  cti_events_discontinue(v12);
+  *(a1 + 5) = 0;
+  v13 = *a1;
+  if (!*a1)
+  {
+    v9 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_39;
+    }
+
+    v16 = 136447490;
+    v17 = "omr_watcher_route_update_callback";
+    v18 = 1024;
+    *v19 = 0;
+    *&v19[4] = 2048;
+    *&v19[6] = a1;
+    *&v19[14] = 2080;
+    *&v19[16] = "omw";
+    *&v19[24] = 2080;
+    *&v19[26] = "omr-watcher.c";
+    v20 = 1024;
+    v21 = 776;
+    v15 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+    goto LABEL_38;
+  }
+
+  v9 = global_os_log;
+  if (v13 >= 10001)
+  {
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_39;
+    }
+
+    v16 = 136447490;
+    v17 = "omr_watcher_route_update_callback";
+    v18 = 1024;
+    *v19 = v13;
+    *&v19[4] = 2048;
+    *&v19[6] = a1;
+    *&v19[14] = 2080;
+    *&v19[16] = "omw";
+    *&v19[24] = 2080;
+    *&v19[26] = "omr-watcher.c";
+    v20 = 1024;
+    v21 = 776;
+    v15 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+    goto LABEL_38;
+  }
+
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = 136447490;
+    v17 = "omr_watcher_route_update_callback";
+    v18 = 1024;
+    *v19 = v13;
+    *&v19[4] = 2048;
+    *&v19[6] = a1;
+    *&v19[14] = 2080;
+    *&v19[16] = "omw";
+    *&v19[24] = 2080;
+    *&v19[26] = "omr-watcher.c";
+    v20 = 1024;
+    v21 = 776;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v16, 0x36u);
+    v13 = *a1;
+  }
+
+  *a1 = v13 - 1;
+  if (v13 == 1)
+  {
+    v14 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = 136447234;
+      v17 = "omr_watcher_route_update_callback";
+      v18 = 2048;
+      *v19 = a1;
+      *&v19[8] = 2080;
+      *&v19[10] = "omw";
+      *&v19[18] = 2080;
+      *&v19[20] = "omr-watcher.c";
+      *&v19[28] = 1024;
+      *&v19[30] = 776;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v16, 0x30u);
+    }
+
+    ++omr_watcher_finalized;
+    omr_watcher_finalize(a1);
+  }
+}
+
+void omr_watcher_onmesh_prefix_list_fetch(int *a1)
+{
+  if (*(a1 + 110) == 1)
+  {
+    v2 = *(a1 + 7);
+    if (v2)
+    {
+      ioloop_add_wake_event(v2, a1, omr_watcher_prefix_recheck_wakeup, omr_watcher_wakeup_release, 0x3A98u);
+      v3 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v4 = *a1;
+        *buf = 136447490;
+        v16 = "omr_watcher_onmesh_prefix_list_fetch";
+        v17 = 1024;
+        v18 = v4;
+        v19 = 2048;
+        v20 = a1;
+        v21 = 2080;
+        v22 = "watcher";
+        v23 = 2080;
+        v24 = "omr-watcher.c";
+        v25 = 1024;
+        v26 = 705;
+        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+      }
+
+      v5 = *a1;
+      if (*a1)
+      {
+        v6 = v5 + 1;
+        *a1 = v5 + 1;
+        if (v5 + 1 >= 10001)
+        {
+          v7 = global_os_log;
+          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+          {
+            goto LABEL_25;
+          }
+
+          *buf = 136447490;
+          v16 = "omr_watcher_onmesh_prefix_list_fetch";
+          v17 = 1024;
+          v18 = v6;
+          v19 = 2048;
+          v20 = a1;
+          v21 = 2080;
+          v22 = "watcher";
+          v23 = 2080;
+          v24 = "omr-watcher.c";
+          v25 = 1024;
+          v26 = 705;
+          goto LABEL_24;
+        }
+      }
+
+      else
+      {
+        ++omr_watcher_created;
+        *a1 = 1;
+      }
+
+      *(a1 + 110) = 1;
+    }
+  }
+
+  v8 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_string(v8, "interface", "org.wpantund.v1");
+  xpc_dictionary_set_string(v8, "path", "/org/wpantund/utun2");
+  xpc_dictionary_set_string(v8, "method", "PropGet");
+  xpc_dictionary_set_string(v8, "property_name", "Thread:OnMeshPrefixes");
+  v9 = setup_for_command(a1 + 4, "get_onmesh_prefix_list", "Thread:OnMeshPrefixes", 0, v8, a1, omr_watcher_onmesh_prefix_list_callback, cti_internal_onmesh_prefix_reply_callback, 0, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/omr-watcher.c", 710);
+  v10 = global_os_log;
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v16 = "cti_get_onmesh_prefix_list_";
+    v17 = 1024;
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}s: result %d", buf, 0x12u);
+  }
+
+  if (v8)
+  {
+    xpc_release(v8);
+  }
+
+  v11 = global_os_log;
+  if (v9)
+  {
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v16 = "omr_watcher_onmesh_prefix_list_fetch";
+      v17 = 1024;
+      v18 = v9;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s: can't get onmesh prefix list: %d", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = *a1;
+      *buf = 136447490;
+      v16 = "omr_watcher_onmesh_prefix_list_fetch";
+      v17 = 1024;
+      v18 = v12;
+      v19 = 2048;
+      v20 = a1;
+      v21 = 2080;
+      v22 = "watcher";
+      v23 = 2080;
+      v24 = "omr-watcher.c";
+      v25 = 1024;
+      v26 = 715;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+    }
+
+    v13 = *a1;
+    if (*a1)
+    {
+      v14 = v13 + 1;
+      *a1 = v13 + 1;
+      if (v13 + 1 >= 10001)
+      {
+        v7 = global_os_log;
+        if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+        {
+          goto LABEL_25;
+        }
+
+        *buf = 136447490;
+        v16 = "omr_watcher_onmesh_prefix_list_fetch";
+        v17 = 1024;
+        v18 = v14;
+        v19 = 2048;
+        v20 = a1;
+        v21 = 2080;
+        v22 = "watcher";
+        v23 = 2080;
+        v24 = "omr-watcher.c";
+        v25 = 1024;
+        v26 = 715;
+LABEL_24:
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_FAULT, "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+LABEL_25:
+        abort();
+      }
+    }
+
+    else
+    {
+      ++omr_watcher_created;
+      *a1 = 1;
+    }
+  }
+}
+
+void omr_watcher_onmesh_prefix_list_callback(void *a1, int *a2, int a3)
+{
+  v6 = global_os_log;
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 136446466;
+    v16 = "omr_watcher_onmesh_prefix_list_callback";
+    v17 = 1024;
+    *v18 = a3;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: status: %d", &v15, 0x12u);
+  }
+
+  switch(a3)
+  {
+    case -65569:
+      goto LABEL_6;
+    case 0:
+      omr_watcher_onmesh_prefixes_update(a1, a2);
+      break;
+    case -65563:
+LABEL_6:
+      v7 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 136446210;
+        v16 = "omr_watcher_onmesh_prefix_list_callback";
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: disconnected", &v15, 0xCu);
+      }
+
+      v8 = a1[10];
+      if (v8)
+      {
+        v8(a1[2]);
+      }
+
+      break;
+    default:
+      v9 = global_os_log;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+      {
+        v15 = 136446466;
+        v16 = "omr_watcher_onmesh_prefix_list_callback";
+        v17 = 1024;
+        *v18 = a3;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "%{public}s: unhandled error %d", &v15, 0x12u);
+      }
+
+      break;
+  }
+
+  v10 = a1[4];
+  if (!v10)
+  {
+    return;
+  }
+
+  cti_events_discontinue(v10);
+  a1[4] = 0;
+  v11 = *a1;
+  if (!*a1)
+  {
+    v12 = global_os_log;
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_28;
+    }
+
+    v15 = 136447490;
+    v16 = "omr_watcher_onmesh_prefix_list_callback";
+    v17 = 1024;
+    *v18 = 0;
+    *&v18[4] = 2048;
+    *&v18[6] = a1;
+    *&v18[14] = 2080;
+    *&v18[16] = "omw";
+    *&v18[24] = 2080;
+    *&v18[26] = "omr-watcher.c";
+    v19 = 1024;
+    v20 = 489;
+    v14 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+    goto LABEL_27;
+  }
+
+  v12 = global_os_log;
+  if (v11 >= 10001)
+  {
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+    {
+      goto LABEL_28;
+    }
+
+    v15 = 136447490;
+    v16 = "omr_watcher_onmesh_prefix_list_callback";
+    v17 = 1024;
+    *v18 = v11;
+    *&v18[4] = 2048;
+    *&v18[6] = a1;
+    *&v18[14] = 2080;
+    *&v18[16] = "omw";
+    *&v18[24] = 2080;
+    *&v18[26] = "omr-watcher.c";
+    v19 = 1024;
+    v20 = 489;
+    v14 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+LABEL_27:
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_FAULT, v14, &v15, 0x36u);
+LABEL_28:
+    abort();
+  }
+
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 136447490;
+    v16 = "omr_watcher_onmesh_prefix_list_callback";
+    v17 = 1024;
+    *v18 = v11;
+    *&v18[4] = 2048;
+    *&v18[6] = a1;
+    *&v18[14] = 2080;
+    *&v18[16] = "omw";
+    *&v18[24] = 2080;
+    *&v18[26] = "omr-watcher.c";
+    v19 = 1024;
+    v20 = 489;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", &v15, 0x36u);
+    v11 = *a1;
+  }
+
+  *a1 = v11 - 1;
+  if (v11 == 1)
+  {
+    v13 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 136447234;
+      v16 = "omr_watcher_onmesh_prefix_list_callback";
+      v17 = 2048;
+      *v18 = a1;
+      *&v18[8] = 2080;
+      *&v18[10] = "omw";
+      *&v18[18] = 2080;
+      *&v18[20] = "omr-watcher.c";
+      *&v18[28] = 1024;
+      *&v18[30] = 489;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", &v15, 0x30u);
+    }
+
+    ++omr_watcher_finalized;
+    omr_watcher_finalize(a1);
+  }
+}
+
+void omr_watcher_onmesh_prefixes_update(uint64_t a1, int *a2)
+{
+  v4 = &unk_1000A9000;
+  v5 = global_os_log;
+  v6 = "omr_watcher_onmesh_prefixes_update";
+  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+  {
+    if (a2)
+    {
+      v7 = *a2;
+    }
+
+    else
+    {
+      v7 = -1;
+    }
+
+    *buf = 136446722;
+    v108 = "omr_watcher_onmesh_prefixes_update";
+    v109 = 2048;
+    *v110 = a2;
+    *&v110[8] = 1024;
+    *&v110[10] = v7;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: prefixes: %p  count: %d", buf, 0x1Cu);
+  }
+
+  v104 = a2;
+  v8 = *(a1 + 8);
+  v9 = *(v8 + 208);
+  if (v9)
+  {
+    v10 = *(v9 + 8);
+    if (v10)
+    {
+      v11 = global_os_log;
+      if (v10 < 10001)
+      {
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136447490;
+          v108 = "cti_prefix_vec_release_";
+          v109 = 1024;
+          *v110 = v10;
+          *&v110[4] = 2048;
+          *&v110[6] = v9;
+          *&v110[14] = 2080;
+          *&v110[16] = "prefixes";
+          *&v110[24] = 2080;
+          *&v110[26] = "omr-watcher.c";
+          v111 = 1024;
+          LODWORD(v112) = 322;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+          v10 = *(v9 + 8);
+        }
+
+        v54 = v10 == 1;
+        *(v9 + 8) = v10 - 1;
+        v6 = "omr_watcher_onmesh_prefixes_update";
+        if (v54)
+        {
+          v12 = global_os_log;
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136447234;
+            v108 = "cti_prefix_vec_release_";
+            v109 = 2048;
+            *v110 = v9;
+            *&v110[8] = 2080;
+            *&v110[10] = "prefixes";
+            *&v110[18] = 2080;
+            *&v110[20] = "omr-watcher.c";
+            *&v110[28] = 1024;
+            *&v110[30] = 322;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
+          }
+
+          ++cti_prefix_vec_finalized;
+          cti_prefix_vec_finalize(v9);
+        }
+
+        goto LABEL_16;
+      }
+
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_192;
+      }
+
+      *buf = 136447490;
+      v108 = "cti_prefix_vec_release_";
+      v109 = 1024;
+      *v110 = v10;
+      *&v110[4] = 2048;
+      *&v110[6] = v9;
+      *&v110[14] = 2080;
+      *&v110[16] = "prefixes";
+      *&v110[24] = 2080;
+      *&v110[26] = "omr-watcher.c";
+      v111 = 1024;
+      LODWORD(v112) = 322;
+      v19 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+      v98 = v11;
+    }
+
+    else
+    {
+      v18 = global_os_log;
+      if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_192;
+      }
+
+      *buf = 136447490;
+      v108 = "cti_prefix_vec_release_";
+      v109 = 1024;
+      *v110 = 0;
+      *&v110[4] = 2048;
+      *&v110[6] = v9;
+      *&v110[14] = 2080;
+      *&v110[16] = "prefixes";
+      *&v110[24] = 2080;
+      *&v110[26] = "omr-watcher.c";
+      v111 = 1024;
+      LODWORD(v112) = 322;
+      v19 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+LABEL_190:
+      v98 = v18;
+    }
+
+LABEL_191:
+    _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_FAULT, v19, buf, 0x36u);
+    goto LABEL_192;
+  }
+
+LABEL_16:
+  *(v8 + 208) = a2;
+  v13 = a2;
+  if (a2)
+  {
+    v14 = global_os_log;
+    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = a2[2];
+      *buf = 136447490;
+      v108 = "cti_prefix_vec_retain_";
+      v109 = 1024;
+      *v110 = v15;
+      *&v110[4] = 2048;
+      *&v110[6] = a2;
+      *&v110[14] = 2080;
+      *&v110[16] = "prefixes";
+      *&v110[24] = 2080;
+      *&v110[26] = "omr-watcher.c";
+      v111 = 1024;
+      LODWORD(v112) = 325;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+    }
+
+    v16 = a2[2];
+    if (v16)
+    {
+      v17 = v16 + 1;
+      a2[2] = v16 + 1;
+      if (v16 + 1 >= 10001)
+      {
+        v18 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+        {
+          *buf = 136447490;
+          v108 = "cti_prefix_vec_retain_";
+          v109 = 1024;
+          *v110 = v17;
+          *&v110[4] = 2048;
+          *&v110[6] = a2;
+          *&v110[14] = 2080;
+          *&v110[16] = "prefixes";
+          *&v110[24] = 2080;
+          *&v110[26] = "omr-watcher.c";
+          v111 = 1024;
+          LODWORD(v112) = 325;
+          v19 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
+          goto LABEL_190;
+        }
+
+        goto LABEL_192;
+      }
+    }
+
+    else
+    {
+      ++cti_prefix_vec_created;
+      a2[2] = 1;
+    }
+  }
+
+  v20 = (a1 + 72);
+  v21 = *(a1 + 72);
+  v22 = 0;
+  if (v21)
+  {
+    v23 = (a1 + 72);
+    while (1)
+    {
+      v24 = *v13;
+      if (*v13)
+      {
+        v25 = 0;
+        while (*(v21 + 16) != **(*(v13 + 2) + 8 * v25))
+        {
+          if (v24 == ++v25)
+          {
+            goto LABEL_33;
+          }
+        }
+      }
+
+      else
+      {
+        v25 = 0;
+      }
+
+      if (v25 == v24)
+      {
+LABEL_33:
+        for (i = *(a1 + 24); i; i = *i)
+        {
+          if ((i[4] & 1) == 0)
+          {
+            (i[1])(*(a1 + 8), i[3], 0, 0, v21);
+          }
+        }
+
+        v27 = v23;
+        *v23 = *(v21 + 8);
+        v28 = global_os_log;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+        {
+          v29 = *(v21 + 16);
+          v30 = "ULA: ";
+          if ((v29 & 0xFE) != 0xFC)
+          {
+            if (v29 != 254 || (v30 = "LUA: ", (*(v21 + 17) & 0xC0) != 0x80))
+            {
+              v30 = "";
+              if ((v29 & 0xE0) == 0x20)
+              {
+                v30 = "GUA: ";
+              }
+            }
+          }
+
+          v31 = *(v21 + 32);
+          v32 = " (user)";
+          if (!*(v21 + 52))
+          {
+            v32 = "";
+          }
+
+          v33 = " (ncp)";
+          if (!*(v21 + 53))
+          {
+            v33 = "";
+          }
+
+          v34 = " (stable)";
+          if (!*(v21 + 54))
+          {
+            v34 = "";
+          }
+
+          *buf = 136449795;
+          v108 = "omr_watcher_onmesh_prefixes_update";
+          v109 = 2082;
+          *v110 = v30;
+          *&v110[8] = 2160;
+          *&v110[10] = 1752392040;
+          *&v110[18] = 1041;
+          *&v110[20] = 6;
+          *&v110[24] = 2097;
+          *&v110[26] = v21 + 16;
+          v111 = 2160;
+          v112 = 1752392040;
+          v113 = 1042;
+          v114 = 2;
+          v115 = 2098;
+          v116 = (v21 + 22);
+          v117 = 2160;
+          v118 = 1752392040;
+          v119 = 1041;
+          v120 = 8;
+          v121 = 2097;
+          v122 = (v21 + 24);
+          v123 = 1024;
+          v124 = v31;
+          v125 = 2082;
+          v126 = v32;
+          v127 = 2082;
+          v128 = v33;
+          v129 = 2082;
+          v130 = v34;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d went away%{public}s%{public}s%{public}s", buf, 0x88u);
+        }
+
+        v35 = *v21;
+        if (!*v21)
+        {
+          v18 = global_os_log;
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+          {
+            *buf = 136447490;
+            v108 = "omr_watcher_onmesh_prefixes_update";
+            v109 = 1024;
+            *v110 = 0;
+            *&v110[4] = 2048;
+            *&v110[6] = v21;
+            *&v110[14] = 2080;
+            *&v110[16] = "prefix";
+            *&v110[24] = 2080;
+            *&v110[26] = "omr-watcher.c";
+            v111 = 1024;
+            LODWORD(v112) = 347;
+            v19 = "%{public}s: ALLOC: release after finalize at %2.2d: %p (%10s): %s:%d";
+            goto LABEL_190;
+          }
+
+          goto LABEL_192;
+        }
+
+        v36 = global_os_log;
+        if (v35 >= 10001)
+        {
+          if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+          {
+            goto LABEL_192;
+          }
+
+          *buf = 136447490;
+          v108 = "omr_watcher_onmesh_prefixes_update";
+          v109 = 1024;
+          *v110 = v35;
+          *&v110[4] = 2048;
+          *&v110[6] = v21;
+          *&v110[14] = 2080;
+          *&v110[16] = "prefix";
+          *&v110[24] = 2080;
+          *&v110[26] = "omr-watcher.c";
+          v111 = 1024;
+          LODWORD(v112) = 347;
+          v19 = "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d";
+          v98 = v36;
+          goto LABEL_191;
+        }
+
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136447490;
+          v108 = "omr_watcher_onmesh_prefixes_update";
+          v109 = 1024;
+          *v110 = v35;
+          *&v110[4] = 2048;
+          *&v110[6] = v21;
+          *&v110[14] = 2080;
+          *&v110[16] = "prefix";
+          *&v110[24] = 2080;
+          *&v110[26] = "omr-watcher.c";
+          v111 = 1024;
+          LODWORD(v112) = 347;
+          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC: release at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+          v35 = *v21;
+        }
+
+        v23 = v27;
+        *v21 = v35 - 1;
+        if (v35 == 1)
+        {
+          v37 = global_os_log;
+          v13 = v104;
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 136447234;
+            v108 = "omr_watcher_onmesh_prefixes_update";
+            v109 = 2048;
+            *v110 = v21;
+            *&v110[8] = 2080;
+            *&v110[10] = "prefix";
+            *&v110[18] = 2080;
+            *&v110[20] = "omr-watcher.c";
+            *&v110[28] = 1024;
+            *&v110[30] = 347;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:      finalize: %p (%10s): %s:%d", buf, 0x30u);
+          }
+
+          ++omr_prefix_finalized;
+          free(v21);
+          v23 = v27;
+          v22 = 1;
+        }
+
+        else
+        {
+          v22 = 1;
+          v13 = v104;
+        }
+      }
+
+      else
+      {
+        *(v21 + 59) = *(v21 + 52);
+        *(v21 + 60) = *(v21 + 53);
+        *(v21 + 52) = 0;
+        *(v21 + 54) = 0;
+        v23 = (v21 + 8);
+        *(v21 + 62) = 0;
+        *(v21 + 64) = 0;
+      }
+
+      v21 = *v23;
+      if (!*v23)
+      {
+        goto LABEL_63;
+      }
+    }
+  }
+
+  v23 = (a1 + 72);
+LABEL_63:
+  v99 = v22;
+  v101 = (a1 + 72);
+  if (*v13)
+  {
+    v38 = 0;
+    v100 = 0;
+    v102 = v23;
+    v103 = v23;
+    while (1)
+    {
+      v39 = *(*(v13 + 2) + 8 * v38);
+      v40 = v39[34];
+      v41 = *(v4 + 22);
+      v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
+      if (v40 == 1)
+      {
+        if (!v42)
+        {
+          goto LABEL_81;
+        }
+
+        v43 = *v39;
+        v44 = "ULA: ";
+        if ((v43 & 0xFE) != 0xFC)
+        {
+          if (v43 != 254 || (v44 = "LUA: ", (v39[1] & 0xC0) != 0x80))
+          {
+            v44 = "GUA: ";
+            if ((v43 & 0xE0) != 0x20)
+            {
+              v44 = "";
+            }
+          }
+        }
+
+        v45 = *(v39 + 4);
+        v46 = *(v39 + 18);
+        *buf = 136449283;
+        v108 = v6;
+        v109 = 2082;
+        *v110 = v44;
+        *&v110[8] = 2160;
+        *&v110[10] = 1752392040;
+        *&v110[18] = 1041;
+        *&v110[20] = 6;
+        *&v110[24] = 2097;
+        *&v110[26] = v39;
+        v111 = 2160;
+        v112 = 1752392040;
+        v113 = 1042;
+        v114 = 2;
+        v115 = 2098;
+        v116 = v39 + 6;
+        v117 = 2160;
+        v118 = 1752392040;
+        v119 = 1041;
+        v120 = 8;
+        v121 = 2097;
+        v122 = v39 + 8;
+        v123 = 1024;
+        v124 = v45;
+        v125 = 1024;
+        LODWORD(v126) = v46;
+        v47 = v41;
+        v48 = "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d has 6LoWPAN context: id = %d";
+        v49 = 112;
+      }
+
+      else
+      {
+        if (!v42)
+        {
+          goto LABEL_81;
+        }
+
+        v50 = *v39;
+        v51 = "ULA: ";
+        if ((v50 & 0xFE) != 0xFC)
+        {
+          if (v50 != 254 || (v51 = "LUA: ", (v39[1] & 0xC0) != 0x80))
+          {
+            v51 = "GUA: ";
+            if ((v50 & 0xE0) != 0x20)
+            {
+              v51 = "";
+            }
+          }
+        }
+
+        v52 = *(v39 + 4);
+        *buf = 136449027;
+        v108 = v6;
+        v109 = 2082;
+        *v110 = v51;
+        *&v110[8] = 2160;
+        *&v110[10] = 1752392040;
+        *&v110[18] = 1041;
+        *&v110[20] = 6;
+        *&v110[24] = 2097;
+        *&v110[26] = v39;
+        v111 = 2160;
+        v112 = 1752392040;
+        v113 = 1042;
+        v114 = 2;
+        v115 = 2098;
+        v116 = v39 + 6;
+        v117 = 2160;
+        v118 = 1752392040;
+        v119 = 1041;
+        v120 = 8;
+        v121 = 2097;
+        v122 = v39 + 8;
+        v123 = 1024;
+        v124 = v52;
+        v47 = v41;
+        v48 = "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d is in thread-supplied prefix list";
+        v49 = 106;
+      }
+
+      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, v48, buf, v49);
+LABEL_81:
+      v53 = *v20;
+      if (*v20)
+      {
+        while (1)
+        {
+          v54 = *(v53 + 2) == *v39 && *(v53 + 3) == *(v39 + 1);
+          if (v54)
+          {
+            break;
+          }
+
+          v53 = *(v53 + 1);
+          if (!v53)
+          {
+            goto LABEL_87;
+          }
+        }
+
+        v70 = *(v4 + 22);
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 136446210;
+          v108 = v6;
+          _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEFAULT, "%{public}s: present", buf, 0xCu);
+        }
+
+LABEL_107:
+        v23 = v103;
+        if (v39[33] == 1)
+        {
+          v53[53] = 1;
+        }
+
+        else
+        {
+          v100 = 1;
+          v53[52] = 1;
+        }
+
+        if (v39[32] == 1)
+        {
+          v53[54] = 1;
+        }
+
+        goto LABEL_112;
+      }
+
+LABEL_87:
+      v55 = *(v4 + 22);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446210;
+        v108 = v6;
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "%{public}s: not present", buf, 0xCu);
+      }
+
+      v56 = *(v39 + 6);
+      if ((v56 & 0x100) != 0)
+      {
+        v61 = v6;
+        v62 = *(v39 + 2);
+        v63 = *(v39 + 7);
+        v64 = v39[32];
+        v65 = v39[33];
+        v66 = malloc_type_calloc(1uLL, 0x48uLL, 0xBD121BEBuLL);
+        v67 = global_os_log;
+        if (!v66)
+        {
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136446722;
+            v108 = "omr_prefix_create";
+            v109 = 2048;
+            *v110 = 1;
+            *&v110[8] = 2048;
+            *&v110[10] = 72;
+            _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_ERROR, "%{public}s: strict_calloc(%zu, %zu) failed", buf, 0x20u);
+          }
+
+          __break(1u);
+LABEL_188:
+          v18 = global_os_log;
+          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
+          {
+            *buf = 136447490;
+            v108 = "omr_prefix_create";
+            v109 = 1024;
+            *v110 = v67;
+            *&v110[4] = 2048;
+            *&v110[6] = v53;
+            *&v110[14] = 2080;
+            *&v110[16] = "ret";
+            *&v110[24] = 2080;
+            *&v110[26] = "omr-watcher.c";
+            v111 = 1024;
+            LODWORD(v112) = 161;
+            v19 = "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d";
+            goto LABEL_190;
+          }
+
+LABEL_192:
+          abort();
+        }
+
+        v53 = v66;
+        if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+        {
+          v68 = *v53;
+          *buf = 136447490;
+          v108 = "omr_prefix_create";
+          v109 = 1024;
+          *v110 = v68;
+          *&v110[4] = 2048;
+          *&v110[6] = v53;
+          *&v110[14] = 2080;
+          *&v110[16] = "ret";
+          *&v110[24] = 2080;
+          *&v110[26] = "omr-watcher.c";
+          v111 = 1024;
+          LODWORD(v112) = 161;
+          _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
+        }
+
+        v69 = *v53;
+        if (*v53)
+        {
+          LODWORD(v67) = v69 + 1;
+          *v53 = v69 + 1;
+          if (v69 + 1 >= 10001)
+          {
+            goto LABEL_188;
+          }
+        }
+
+        else
+        {
+          ++omr_prefix_created;
+          *v53 = 1;
+        }
+
+        *(v53 + 1) = *v39;
+        *(v53 + 4) = v62;
+        *(v53 + 10) = v63;
+        *(v53 + 11) = v56;
+        v53[54] = v64;
+        v53[53] = v65;
+        v53[52] = v65 ^ 1;
+        v71 = vand_s8(vmovn_s32(vshlq_u32(vdupq_n_s32(v56), xmmword_100085ED0)), 0x1000100010001);
+        *(v53 + 55) = vuzp1_s8(v71, v71).u32[0];
+        *(v53 + 12) = dword_100085F00[v56 >> 14];
+        *v102 = v53;
+        v102 = v53 + 8;
+        v6 = v61;
+        v4 = &unk_1000A9000;
+        v20 = (a1 + 72);
+        v13 = v104;
+        goto LABEL_107;
+      }
+
+      v4 = &unk_1000A9000;
+      v57 = global_os_log;
+      v23 = v103;
+      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v58 = *v39;
+        v59 = "ULA: ";
+        if ((v58 & 0xFE) != 0xFC)
+        {
+          if (v58 != 254 || (v59 = "LUA: ", (v39[1] & 0xC0) != 0x80))
+          {
+            v59 = "GUA: ";
+            if ((v58 & 0xE0) != 0x20)
+            {
+              v59 = "";
+            }
+          }
+        }
+
+        v60 = *(v39 + 4);
+        *buf = 136449027;
+        v108 = v6;
+        v109 = 2082;
+        *v110 = v59;
+        *&v110[8] = 2160;
+        *&v110[10] = 1752392040;
+        *&v110[18] = 1041;
+        *&v110[20] = 6;
+        *&v110[24] = 2097;
+        *&v110[26] = v39;
+        v111 = 2160;
+        v112 = 1752392040;
+        v113 = 1042;
+        v114 = 2;
+        v115 = 2098;
+        v116 = v39 + 6;
+        v117 = 2160;
+        v118 = 1752392040;
+        v119 = 1041;
+        v120 = 8;
+        v121 = 2097;
+        v122 = v39 + 8;
+        v123 = 1024;
+        v124 = v60;
+        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d is not on-mesh, skipping", buf, 0x6Au);
+      }
+
+LABEL_112:
+      if (++v38 >= *v13)
+      {
+        goto LABEL_115;
+      }
+    }
+  }
+
+  v100 = 0;
+LABEL_115:
+  v72 = *v20;
+  if (*v20)
+  {
+    v73 = &loc_100085000;
+    v74 = v99;
+    while (1)
+    {
+      v75 = *v23;
+      if (v72 == *v23)
+      {
+        break;
+      }
+
+      if (v72[52] != v72[59] || v72[53] != v72[60] || v72[61] != v72[54])
+      {
+        for (j = *(a1 + 24); j; j = *j)
+        {
+          if ((j[4] & 1) == 0)
+          {
+            (j[1])(*(a1 + 8), j[3], 1, 0, v72);
+          }
+        }
+
+        v74 = 1;
+      }
+
+      v72 = *(v72 + 1);
+      if (!v72)
+      {
+        goto LABEL_129;
+      }
+    }
+  }
+
+  else
+  {
+    v73 = &loc_100085000;
+    v74 = v99;
+LABEL_129:
+    v75 = *v23;
+  }
+
+  if (v75)
+  {
+    v105 = v73[508];
+    do
+    {
+      v77 = *(v4 + 22);
+      if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+      {
+        v78 = *(v75 + 16);
+        v79 = "ULA: ";
+        if ((v78 & 0xFE) != 0xFC)
+        {
+          if (v78 != 254 || (v79 = "LUA: ", (*(v75 + 17) & 0xC0) != 0x80))
+          {
+            v79 = "";
+            if ((v78 & 0xE0) == 0x20)
+            {
+              v79 = "GUA: ";
+            }
+          }
+        }
+
+        v80 = *(v75 + 32);
+        v81 = " (user)";
+        if (!*(v75 + 52))
+        {
+          v81 = "";
+        }
+
+        v82 = " (ncp)";
+        if (!*(v75 + 53))
+        {
+          v82 = "";
+        }
+
+        v83 = " (stable)";
+        if (!*(v75 + 54))
+        {
+          v83 = "";
+        }
+
+        *buf = v105;
+        v108 = v6;
+        v109 = 2082;
+        *v110 = v79;
+        *&v110[8] = 2160;
+        *&v110[10] = 1752392040;
+        *&v110[18] = 1041;
+        *&v110[20] = 6;
+        *&v110[24] = 2097;
+        *&v110[26] = v75 + 16;
+        v111 = 2160;
+        v112 = 1752392040;
+        v113 = 1042;
+        v114 = 2;
+        v115 = 2098;
+        v116 = (v75 + 22);
+        v117 = 2160;
+        v118 = 1752392040;
+        v119 = 1041;
+        v120 = 8;
+        v121 = 2097;
+        v122 = (v75 + 24);
+        v123 = 1024;
+        v124 = v80;
+        v125 = 2082;
+        v126 = v81;
+        v127 = 2082;
+        v128 = v82;
+        v129 = 2082;
+        v130 = v83;
+        _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d showed up%{public}s%{public}s%{public}s", buf, 0x88u);
+      }
+
+      for (k = *(a1 + 24); k; k = *k)
+      {
+        if ((k[4] & 1) == 0)
+        {
+          (k[1])(*(a1 + 8), k[3], 2, 0, v75);
+        }
+      }
+
+      v75 = *(v75 + 8);
+    }
+
+    while (v75);
+    v74 = 1;
+    v73 = &loc_100085000;
+  }
+
+  v85 = *(v4 + 22);
+  v86 = os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT);
+  v87 = *v101;
+  if (v86)
+  {
+    *buf = 136446466;
+    v108 = v6;
+    v109 = 2048;
+    *v110 = v87;
+    _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "%{public}s: omw->prefixes = %p", buf, 0x16u);
+    v87 = *v101;
+  }
+
+  if (v87)
+  {
+    v88 = *(v4 + 22);
+    v106 = v73[508];
+    do
+    {
+      if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+      {
+        v89 = *(v87 + 16);
+        v90 = "ULA: ";
+        if ((v89 & 0xFE) != 0xFC)
+        {
+          if (v89 != 254 || (v90 = "LUA: ", (*(v87 + 17) & 0xC0) != 0x80))
+          {
+            v90 = "";
+            if ((v89 & 0xE0) == 0x20)
+            {
+              v90 = "GUA: ";
+            }
+          }
+        }
+
+        v91 = *(v87 + 32);
+        v92 = " (user)";
+        if (!*(v87 + 52))
+        {
+          v92 = "";
+        }
+
+        v93 = " (ncp)";
+        if (!*(v87 + 53))
+        {
+          v93 = "";
+        }
+
+        v94 = " (stable)";
+        if (!*(v87 + 54))
+        {
+          v94 = "";
+        }
+
+        *buf = v106;
+        v108 = v6;
+        v109 = 2082;
+        *v110 = v90;
+        *&v110[8] = 2160;
+        *&v110[10] = 1752392040;
+        *&v110[18] = 1041;
+        *&v110[20] = 6;
+        *&v110[24] = 2097;
+        *&v110[26] = v87 + 16;
+        v111 = 2160;
+        v112 = 1752392040;
+        v113 = 1042;
+        v114 = 2;
+        v115 = 2098;
+        v116 = (v87 + 22);
+        v117 = 2160;
+        v118 = 1752392040;
+        v119 = 1041;
+        v120 = 8;
+        v121 = 2097;
+        v122 = (v87 + 24);
+        v123 = 1024;
+        v124 = v91;
+        v125 = 2082;
+        v126 = v92;
+        v127 = 2082;
+        v128 = v93;
+        v129 = 2082;
+        v130 = v94;
+        _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "%{public}s: prefix {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}/%d is currently in the list %{public}s%{public}s%{public}s", buf, 0x88u);
+        v88 = *(v4 + 22);
+      }
+
+      v87 = *(v87 + 8);
+    }
+
+    while (v87);
+  }
+
+  if ((v74 & 1) != 0 || *(a1 + 109) == 1)
+  {
+    v95 = *(a1 + 24);
+    if (v95)
+    {
+      v96 = *(a1 + 72);
+      do
+      {
+        if ((v95[4] & 1) == 0)
+        {
+          (v95[1])(*(a1 + 8), v95[3], 3, v96, 0);
+        }
+
+        v95 = *v95;
+      }
+
+      while (v95);
+    }
+
+    *(a1 + 109) = 0;
+  }
+
+  if ((v100 & 1) == 0)
+  {
+    v97 = *(a1 + 8);
+    if (*(v97 + 424) == 1)
+    {
+      *(v97 + 424) = 0;
+      adv_ctl_thread_shutdown_status_check(v97);
+    }
+  }
+}
+
 void omr_watcher_wakeup_release(void *a1)
 {
   if (!a1)
@@ -99,13 +2333,12 @@ LABEL_16:
   }
 }
 
-uint64_t omr_watcher_prefix_recheck_wakeup(uint64_t result)
+void omr_watcher_prefix_recheck_wakeup(uint64_t a1)
 {
-  *(result + 110) = 0;
-  v1 = *(result + 72);
+  *(a1 + 110) = 0;
+  v1 = *(a1 + 72);
   if (v1)
   {
-    v2 = result;
     v3 = 0;
     do
     {
@@ -125,7 +2358,7 @@ uint64_t omr_watcher_prefix_recheck_wakeup(uint64_t result)
     while (v1);
     if ((v3 & 1) == 0)
     {
-      return result;
+      return;
     }
 
 LABEL_10:
@@ -137,10 +2370,8 @@ LABEL_10:
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: prefixes expected to be refreshed were not.", &v5, 0xCu);
     }
 
-    return omr_watcher_onmesh_prefix_list_fetch(v2);
+    omr_watcher_onmesh_prefix_list_fetch(a1);
   }
-
-  return result;
 }
 
 void omr_watcher_netdata_callback(void *a1, int **a2, int a3)
@@ -716,7 +2947,7 @@ BOOL dp_start_dropping()
   return ioloop_add_wake_event(v0, 0, dp_drop_connections, 0, 0x15F90u);
 }
 
-uint64_t dp_drop_connections()
+BOOL dp_drop_connections()
 {
   for (i = dso_connections; i; i = *i)
   {
@@ -1534,18 +3765,18 @@ LABEL_87:
   }
 }
 
-void dp_tracker_idle_after(uint64_t a1, int a2, uint64_t a3)
+void dp_tracker_idle_after(int *a1, int a2, uint64_t a3)
 {
-  v3 = *(a1 + 8);
+  v3 = *(a1 + 1);
   if (v3)
   {
-    if ((*(v3 + 424) & 0x200) == 0 && !*(a1 + 24) && (!a3 || (v6 = *(a1 + 16)) == 0 || v6 == a3 && !*(a3 + 16)))
+    if ((*(v3 + 424) & 0x200) == 0 && !*(a1 + 3) && (!a3 || (v6 = *(a1 + 2)) == 0 || v6 == a3 && !*(a3 + 16)))
     {
-      v7 = *(a1 + 32);
+      v7 = *(a1 + 4);
       if (!v7)
       {
         v7 = ioloop_wakeup_create_("/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/dnssd-proxy.c", 896);
-        *(a1 + 32) = v7;
+        *(a1 + 4) = v7;
       }
 
       ioloop_add_wake_event(v7, a1, dp_tracker_idle, dp_tracker_context_release, 1000 * a2);
@@ -1608,7 +3839,7 @@ void dp_tracker_idle_after(uint64_t a1, int a2, uint64_t a3)
 
 void *dns_push_subscription_change(uint64_t a1, uint64_t a2, _WORD *a3, uint64_t a4, int a5)
 {
-  v9 = (a3 + 6);
+  v9 = a3 + 6;
   v10 = *(a4 + 96) - (a3 + 12);
   v87 = v10;
   v11 = v10 + *(a4 + 90);
@@ -2909,9 +5140,9 @@ LABEL_93:
   return v12;
 }
 
-uint64_t dp_query_start(uint64_t a1, _DWORD *a2, _BYTE *i)
+uint64_t dp_query_start(int *a1, _DWORD *a2, _BYTE *i)
 {
-  v5 = *(a1 + 200);
+  v5 = *(a1 + 25);
   v6 = *(v5 + 8);
   if (!v6)
   {
@@ -2924,7 +5155,7 @@ uint64_t dp_query_start(uint64_t a1, _DWORD *a2, _BYTE *i)
     v19 = *(v5 + 72);
     if (v19 == 28 || v19 == 1)
     {
-      v21 = *(a1 + 64);
+      v21 = *(a1 + 8);
       v175 = i;
       if (v21)
       {
@@ -2933,7 +5164,7 @@ uint64_t dp_query_start(uint64_t a1, _DWORD *a2, _BYTE *i)
 
       else
       {
-        v22 = *(*(a1 + 72) + 32) + 344;
+        v22 = *(*(a1 + 9) + 32) + 344;
       }
 
       v36 = *(v22 + 1);
@@ -2943,14 +5174,14 @@ uint64_t dp_query_start(uint64_t a1, _DWORD *a2, _BYTE *i)
         {
           if (!(*(v22 + 8) | *(v22 + 16) ^ 0xFFFF0000))
           {
-            dp_query_add_data_to_response(a1, v8, 1, 1, 4uLL, (v22 + 20), 3600, 1, 1, (*(a1 + 168) + 6));
+            dp_query_add_data_to_response(a1, v8, 1u, 1, 4uLL, (v22 + 20), 3600, 1, 1, (*(a1 + 21) + 6));
             goto LABEL_19;
           }
         }
 
         else if (v36 == 2)
         {
-          dp_query_add_data_to_response(a1, v8, 1, 1, 4uLL, (v22 + 4), 300, 1, 1, (*(a1 + 168) + 6));
+          dp_query_add_data_to_response(a1, v8, 1u, 1, 4uLL, (v22 + 4), 300, 1, 1, (*(a1 + 21) + 6));
           goto LABEL_19;
         }
       }
@@ -2961,7 +5192,7 @@ uint64_t dp_query_start(uint64_t a1, _DWORD *a2, _BYTE *i)
         if (v37 && *(v22 + 8) | *(v22 + 16) ^ 0xFFFF0000 && (*(v22 + 16) != -16777216 || *(v22 + 19) != -67043585) && (*(v22 + 16) != -16777216 || *(v22 + 20) != 254))
         {
           *v191 = *(v22 + 8);
-          dp_query_add_data_to_response(a1, v8, 28, 1, 0x10uLL, v191, 300, 1, 1, (*(a1 + 168) + 6));
+          dp_query_add_data_to_response(a1, v8, 0x1Cu, 1, 0x10uLL, v191, 300, 1, 1, (*(a1 + 21) + 6));
           v40 = global_os_log;
           if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
           {
@@ -3755,7 +5986,7 @@ LABEL_281:
                         }
 
                         *v191 = *(v141 + 1);
-                        dp_query_add_data_to_response(a1, *(v5 + 32), 28, 1, 0x10uLL, v191, 300, 1, 1, (*(a1 + 168) + 6));
+                        dp_query_add_data_to_response(a1, *(v5 + 32), 0x1Cu, 1, 0x10uLL, v191, 300, 1, 1, (*(a1 + 21) + 6));
                         v40 = global_os_log;
                         if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
                         {
@@ -3819,7 +6050,7 @@ LABEL_281:
                       }
 
                       *v191 = *(v141 + 3);
-                      dp_query_add_data_to_response(a1, *(v5 + 32), v157, 1, 0x10uLL, v191, 300, 1, 1, (*(a1 + 168) + 6));
+                      dp_query_add_data_to_response(a1, *(v5 + 32), v157, 1, 0x10uLL, v191, 300, 1, 1, (*(a1 + 21) + 6));
                       v160 = global_os_log;
                       if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
                       {
@@ -3956,13 +6187,13 @@ LABEL_279:
   v11 = 0;
   do
   {
-    v12 = *(a1 + 200);
+    v12 = *(a1 + 25);
     v13 = *(v12 + 72);
     v14 = *(v9 + 4);
     v15 = v13 == 255 || v13 == v14;
     if (v15 && *(v12 + 74) == 1 && !strcasecmp(v9[2], *(v12 + 32)))
     {
-      if (*(a1 + 72))
+      if (*(a1 + 9))
       {
         dp_query_add_data_to_response(a1, v9[3], v14, 1, *(v9 + 20), v9[4], 3600, 1, 0, 0);
       }
@@ -3970,12 +6201,12 @@ LABEL_279:
       else
       {
         v11 = "hardwired";
-        if (*(a1 + 152))
+        if (a1[38])
         {
           goto LABEL_17;
         }
 
-        dp_query_add_data_to_response(a1, v9[3], v14, 1, *(v9 + 20), v9[4], 3600, 1, 0, (*(a1 + 168) + 6));
+        dp_query_add_data_to_response(a1, v9[3], v14, 1, *(v9 + 20), v9[4], 3600, 1, 0, (*(a1 + 21) + 6));
       }
 
       v11 = "hardwired";
@@ -3995,7 +6226,7 @@ LABEL_19:
     v17 = global_os_log;
     if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(a1 + 4);
+      v18 = a1[1];
       *buf = 136446466;
       *&buf[4] = "dp_query_start";
       *&buf[12] = 1024;
@@ -4017,7 +6248,7 @@ LABEL_31:
         v23 = global_os_log;
         if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = *(a1 + 4);
+          v24 = a1[1];
           *buf = 136446466;
           *&buf[4] = "dp_query_start";
           *&buf[12] = 1024;
@@ -4042,7 +6273,7 @@ LABEL_31:
           v16 = 0;
           if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
           {
-            v35 = *(a1 + 4);
+            v35 = a1[1];
             *buf = 136446466;
             *&buf[4] = "dp_query_start";
             *&buf[12] = 1024;
@@ -4067,7 +6298,7 @@ LABEL_31:
 
     if (v6)
     {
-      v27 = *(a1 + 72) == 0;
+      v27 = *(a1 + 9) == 0;
     }
 
     else
@@ -4077,11 +6308,11 @@ LABEL_31:
 
     if (v27)
     {
-      v29 = *(a1 + 24);
+      v29 = *(a1 + 3);
       if (!v29)
       {
         v29 = ioloop_wakeup_create_("/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/dnssd-proxy.c", 3436);
-        *(a1 + 24) = v29;
+        *(a1 + 3) = v29;
       }
 
       ioloop_add_wake_event(v29, a1, dp_query_wakeup, dp_query_context_release, 0x320u);
@@ -4148,7 +6379,7 @@ LABEL_31:
 
     if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
-      v43 = *(a1 + 4);
+      v43 = a1[1];
       *buf = 136446466;
       *&buf[4] = "dp_query_start";
       *&buf[12] = 1024;
@@ -4166,7 +6397,7 @@ LABEL_29:
   }
 
   v16 = 1;
-  if (!*(a1 + 72))
+  if (!*(a1 + 9))
   {
     *i = 1;
   }
@@ -5499,35 +7730,8 @@ void dp_query_reply_from_cache(uint64_t a1, uint64_t a2, int a3)
     }
 
     v7 = global_os_log;
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT) || (v8 = *(a2 + 4), v9 = *(a1 + 64), v10 = *(a1 + 72), v11 = *(a1 + 74), v12 = *(a1 + 32), *buf = 136447747, *&buf[4] = "dp_query_reply_from_cache", *&buf[12] = 1024, *&buf[14] = v8, v23 = 1024, v24 = v9, v25 = 1024, v26 = v10, v27 = 1024, v28 = v11, v29 = 2160, v30 = 1752392040, v31 = 2081, v32 = v12, _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d] reply from cache for question - type %d class %d %{private, mask.hash}s", buf, 0x38u), (v6 = *(a1 + 40)) != 0))
     {
-      goto LABEL_5;
-    }
-
-    v8 = *(a2 + 4);
-    v9 = *(a1 + 64);
-    v10 = *(a1 + 72);
-    v11 = *(a1 + 74);
-    v12 = *(a1 + 32);
-    *buf = 136447747;
-    *&buf[4] = "dp_query_reply_from_cache";
-    *&buf[12] = 1024;
-    *&buf[14] = v8;
-    v23 = 1024;
-    v24 = v9;
-    v25 = 1024;
-    v26 = v10;
-    v27 = 1024;
-    v28 = v11;
-    v29 = 2160;
-    v30 = 1752392040;
-    v31 = 2081;
-    v32 = v12;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d] reply from cache for question - type %d class %d %{private, mask.hash}s", buf, 0x38u);
-    v6 = *(a1 + 40);
-    if (v6)
-    {
-LABEL_5:
       if (a3)
       {
         v13 = 0;
@@ -5923,8 +8127,10 @@ void dp_answer_free(void *a1)
   free(a1);
 }
 
-void dns_query_answer_process(char a1, int a2, uint8_t *a3, int a4, int a5, size_t a6, int32x4_t *a7, unsigned int a8, uint64_t a9, char a10)
+void dns_query_answer_process(char a1, int a2, uint8_t *a3, uint64_t a4, uint64_t a5, size_t a6, int32x4_t *a7, unsigned int a8, uint64_t a9, char a10)
 {
+  v11 = a5;
+  v12 = a4;
   v15 = *(a9 + 200);
   v16 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
@@ -5964,9 +8170,9 @@ void dns_query_answer_process(char a1, int a2, uint8_t *a3, int a4, int a5, size
     v50 = 2082;
     v51 = v19;
     v52 = 2082;
-    v53 = dns_rrtype_to_string(a4);
+    v53 = dns_rrtype_to_string(v12);
     v54 = 1024;
-    v55 = a5;
+    v55 = v11;
     v56 = 1024;
     v57 = a6;
     v58 = 1024;
@@ -6050,7 +8256,7 @@ LABEL_35:
     while (1)
     {
       v22 = *(a9 + 104);
-      dp_query_add_data_to_response(a9, a3, a4, a5, a6, a7, v21, 0, 0, (*(a9 + 168) + 6));
+      dp_query_add_data_to_response(a9, a3, v12, v11, a6, a7, v21, 0, 0, (*(a9 + 168) + 6));
       if ((*(a9 + 152) & 1) == 0)
       {
         break;
@@ -6072,7 +8278,7 @@ LABEL_35:
     return;
   }
 
-  if (a4 != 5 || *(v15 + 72) == 5)
+  if (v12 != 5 || *(v15 + 72) == 5)
   {
     v35 = "normal success";
     goto LABEL_35;
@@ -6099,7 +8305,7 @@ LABEL_25:
   }
 }
 
-void dns_push_query_answer_process(char a1, int a2, uint8_t *a3, int a4, int a5, size_t a6, int32x4_t *a7, int a8, uint64_t a9, char a10)
+void dns_push_query_answer_process(char a1, int a2, uint8_t *a3, uint64_t a4, uint64_t a5, size_t a6, int32x4_t *a7, uint64_t a8, uint64_t a9, char a10)
 {
   v10 = *(a9 + 8);
   if (!v10)
@@ -6145,6 +8351,9 @@ LABEL_25:
     goto LABEL_25;
   }
 
+  v12 = a8;
+  v14 = a5;
+  v15 = a4;
   v43 = *(a9 + 104);
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
@@ -6158,9 +8367,9 @@ LABEL_25:
     v51 = 2081;
     v52 = a3;
     v53 = 1024;
-    *v54 = a4;
+    *v54 = v15;
     *&v54[4] = 1024;
-    *&v54[6] = a5;
+    *&v54[6] = v14;
     LOWORD(v55) = 1024;
     *(&v55 + 2) = a6;
     HIWORD(v55) = 1024;
@@ -6211,25 +8420,25 @@ LABEL_25:
         }
 
         v42 = v21;
-        v41 = a8;
+        v41 = v12;
         while (1)
         {
           v22 = global_os_log;
           v23 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
           if ((a1 & 2) != 0)
           {
-            v24 = a8;
+            v24 = v12;
             v25 = a7;
             if (v23)
             {
               v29 = *(a9 + 4);
-              v30 = dns_rrtype_to_string(a4);
-              v31 = dns_qclass_to_string(a5);
+              v30 = dns_rrtype_to_string(v15);
+              v31 = dns_qclass_to_string(v14);
               *buf = 136448003;
               v46 = "dns_push_query_answer_process";
               v47 = 1024;
               v48 = v29;
-              a8 = v41;
+              v12 = v41;
               v49 = 2160;
               v50 = 1752392040;
               v51 = 2081;
@@ -6255,13 +8464,13 @@ LABEL_25:
             if (v23)
             {
               v26 = *(a9 + 4);
-              v27 = dns_rrtype_to_string(a4);
-              v28 = dns_qclass_to_string(a5);
+              v27 = dns_rrtype_to_string(v15);
+              v28 = dns_qclass_to_string(v14);
               *buf = 136448003;
               v46 = "dns_push_query_answer_process";
               v47 = 1024;
               v48 = v26;
-              a8 = v41;
+              v12 = v41;
               v49 = 2160;
               v50 = 1752392040;
               v51 = 2081;
@@ -6280,7 +8489,7 @@ LABEL_25:
             }
           }
 
-          dp_query_add_data_to_response(a9, a3, a4, a5, a6, v25, v24, 0, 0, 0);
+          dp_query_add_data_to_response(a9, a3, v15, v14, a6, v25, v24, 0, 0, 0);
           if ((*(a9 + 152) & 1) == 0)
           {
             break;
@@ -6301,78 +8510,77 @@ LABEL_25:
   }
 }
 
-void dp_query_add_data_to_response(uint64_t a1, uint8_t *a2, int a3, int a4, size_t a5, int32x4_t *a6, int a7, char a8, char a9, _WORD *a10)
+void dp_query_add_data_to_response(uint64_t a1, uint8_t *a2, unsigned int a3, int a4, size_t a5, int32x4_t *a6, int a7, char a8, char a9, _WORD *a10)
 {
   v12 = a4;
-  v16 = *(a1 + 104);
-  v155 = v16;
-  v156 = *(a1 + 200);
-  if (!*(v156 + 8))
+  v154 = *(a1 + 104);
+  v155 = *(a1 + 200);
+  if (!*(v155 + 8))
   {
     a8 = 1;
   }
 
   if (!a5)
   {
-    v41 = *(a1 + 72);
-    v42 = global_os_log;
-    v43 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
-    if (!v41)
+    v40 = *(a1 + 72);
+    v41 = global_os_log;
+    v42 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
+    if (!v40)
     {
-      if (!v43)
+      if (!v42)
       {
         return;
       }
 
-      v83 = *(a1 + 4);
-      v84 = *(v156 + 64);
+      v82 = *(a1 + 4);
+      v83 = *(v155 + 64);
       *buf = 136447747;
-      v182 = "dp_query_add_data_to_response";
-      v183 = 1024;
-      *v184 = v83;
-      *&v184[4] = 1024;
-      *&v184[6] = v84;
-      strcpy(v185, "p\bhash");
-      v185[7] = 0;
-      *&v185[8] = 0;
-      v186 = 2081;
-      v187 = a2;
-      v188 = 2082;
-      *v189 = dns_rrtype_to_string(a3);
-      *&v189[8] = 1024;
-      *&v189[10] = a4;
-      v39 = "%{public}s: [Q%d][QU%d] eliding zero-length response for %{private, mask.hash}s %{public}s %d";
-      v85 = v42;
-      v86 = 60;
+      v181 = "dp_query_add_data_to_response";
+      v182 = 1024;
+      *v183 = v82;
+      *&v183[4] = 1024;
+      *&v183[6] = v83;
+      strcpy(v184, "p\bhash");
+      v184[7] = 0;
+      *&v184[8] = 0;
+      v185 = 2081;
+      v186 = a2;
+      v187 = 2082;
+      *v188 = dns_rrtype_to_string(a3);
+      *&v188[8] = 1024;
+      *&v188[10] = a4;
+      v38 = "%{public}s: [Q%d][QU%d] eliding zero-length response for %{private, mask.hash}s %{public}s %d";
+      v84 = v41;
+      v85 = 60;
 LABEL_147:
-      _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, v39, buf, v86);
+      _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, v38, buf, v85);
       return;
     }
 
     v12 = a4;
-    if (v43)
+    if (v42)
     {
-      v44 = *(a1 + 4);
-      v45 = a8;
-      v46 = *(v156 + 64);
+      v43 = *(a1 + 4);
+      v44 = a8;
+      v45 = *(v155 + 64);
       *buf = 136447747;
-      v182 = "dp_query_add_data_to_response";
-      v183 = 1024;
-      *v184 = v44;
+      v181 = "dp_query_add_data_to_response";
+      v182 = 1024;
+      *v183 = v43;
       v12 = a4;
-      *&v184[4] = 1024;
-      *&v184[6] = v46;
-      a8 = v45;
-      strcpy(v185, "p\bhash");
-      v185[7] = 0;
-      *&v185[8] = 0;
-      v186 = 2081;
-      v187 = a2;
-      v188 = 2082;
-      *v189 = dns_rrtype_to_string(a3);
-      *&v189[8] = 1024;
-      *&v189[10] = a4;
-      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d] adding zero-length DSO response for %{private, mask.hash}s %{public}s %d", buf, 0x3Cu);
+      *&v183[4] = 1024;
+      *&v183[6] = v45;
+      a8 = v44;
+      strcpy(v184, "p\bhash");
+      v184[7] = 0;
+      *&v184[8] = 0;
+      v185 = 2081;
+      v186 = a2;
+      v187 = 2082;
+      *v188 = dns_rrtype_to_string(a3);
+      *&v188[8] = 1024;
+      *&v188[10] = a4;
+      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d] adding zero-length DSO response for %{private, mask.hash}s %{public}s %d", buf, 0x3Cu);
     }
   }
 
@@ -6383,72 +8591,72 @@ LABEL_147:
 
   if (a3 == 1 && a5 == 4)
   {
-    v35 = a6->u8[0];
-    if (v35 == 169)
+    v34 = a6->u8[0];
+    if (v34 == 169)
     {
       if (a6->u8[1] == 254)
       {
-        v36 = global_os_log;
+        v35 = global_os_log;
         if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
         {
           return;
         }
 
-        v97 = *(a1 + 4);
-        v98 = *(v156 + 64);
+        v96 = *(a1 + 4);
+        v97 = *(v155 + 64);
         *buf = 136448003;
-        v182 = "dp_query_add_data_to_response";
-        v183 = 1024;
-        *v184 = v97;
-        *&v184[4] = 1024;
-        *&v184[6] = v98;
-        strcpy(v185, "p\bhash");
-        v185[7] = 0;
-        *&v185[8] = 0;
-        v186 = 2081;
-        v187 = a2;
-        v188 = 2160;
-        *v189 = 1752392040;
-        *&v189[8] = 1041;
-        *&v189[10] = 4;
-        *&v189[14] = 2097;
-        *&v189[16] = a6;
-        v39 = "%{public}s: [Q%d][QU%d] eliding link-local response for %{private, mask.hash}s: %{private, mask.hash, network:in_addr}.4P";
+        v181 = "dp_query_add_data_to_response";
+        v182 = 1024;
+        *v183 = v96;
+        *&v183[4] = 1024;
+        *&v183[6] = v97;
+        strcpy(v184, "p\bhash");
+        v184[7] = 0;
+        *&v184[8] = 0;
+        v185 = 2081;
+        v186 = a2;
+        v187 = 2160;
+        *v188 = 1752392040;
+        *&v188[8] = 1041;
+        *&v188[10] = 4;
+        *&v188[14] = 2097;
+        *&v188[16] = a6;
+        v38 = "%{public}s: [Q%d][QU%d] eliding link-local response for %{private, mask.hash}s: %{private, mask.hash, network:in_addr}.4P";
         goto LABEL_129;
       }
     }
 
-    else if (v35 == 127)
+    else if (v34 == 127)
     {
-      v36 = global_os_log;
+      v35 = global_os_log;
       if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
         return;
       }
 
-      v37 = *(a1 + 4);
-      v38 = *(v156 + 64);
+      v36 = *(a1 + 4);
+      v37 = *(v155 + 64);
       *buf = 136448003;
-      v182 = "dp_query_add_data_to_response";
-      v183 = 1024;
-      *v184 = v37;
-      *&v184[4] = 1024;
-      *&v184[6] = v38;
-      strcpy(v185, "p\bhash");
-      v185[7] = 0;
-      *&v185[8] = 0;
-      v186 = 2081;
-      v187 = a2;
-      v188 = 2160;
-      *v189 = 1752392040;
-      *&v189[8] = 1041;
-      *&v189[10] = 4;
-      *&v189[14] = 2097;
-      *&v189[16] = a6;
-      v39 = "%{public}s: [Q%d][QU%d] eliding localhost response for %{private, mask.hash}s: %{private, mask.hash, network:in_addr}.4P";
+      v181 = "dp_query_add_data_to_response";
+      v182 = 1024;
+      *v183 = v36;
+      *&v183[4] = 1024;
+      *&v183[6] = v37;
+      strcpy(v184, "p\bhash");
+      v184[7] = 0;
+      *&v184[8] = 0;
+      v185 = 2081;
+      v186 = a2;
+      v187 = 2160;
+      *v188 = 1752392040;
+      *&v188[8] = 1041;
+      *&v188[10] = 4;
+      *&v188[14] = 2097;
+      *&v188[16] = a6;
+      v38 = "%{public}s: [Q%d][QU%d] eliding localhost response for %{private, mask.hash}s: %{private, mask.hash, network:in_addr}.4P";
 LABEL_129:
-      v85 = v36;
-      v86 = 70;
+      v84 = v35;
+      v85 = 70;
       goto LABEL_147;
     }
   }
@@ -6462,111 +8670,111 @@ LABEL_129:
         goto LABEL_6;
       }
 
-      v64 = global_os_log;
+      v63 = global_os_log;
       if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
         return;
       }
 
-      v65 = *(a1 + 4);
-      v66 = *(v156 + 64);
+      v64 = *(a1 + 4);
+      v65 = *(v155 + 64);
       *buf = 136449795;
-      v182 = "dp_query_add_data_to_response";
-      v183 = 1024;
-      *v184 = v65;
-      *&v184[4] = 1024;
-      *&v184[6] = v66;
-      strcpy(v185, "p\bhash");
-      v185[7] = 0;
-      *&v185[8] = 0;
-      v186 = 2081;
-      v187 = a2;
-      v188 = 2082;
-      *v189 = "LUA: ";
-      *&v189[8] = 2160;
-      *&v189[10] = 1752392040;
-      *&v189[18] = 1041;
-      *&v189[20] = 6;
-      v190 = 2097;
-      v191 = a6;
-      v192 = 2160;
-      v193 = 1752392040;
-      v194 = 1042;
-      v195 = 2;
-      v196 = 2098;
-      v197 = &a6->i8[6];
-      v198 = 2160;
-      v199 = 1752392040;
-      v200 = 1041;
-      v201 = 8;
-      v202 = 2097;
-      v203 = &a6->i64[1];
-      v39 = "%{public}s: [Q%d][QU%d] eliding link-local response for %{private, mask.hash}s: {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}";
+      v181 = "dp_query_add_data_to_response";
+      v182 = 1024;
+      *v183 = v64;
+      *&v183[4] = 1024;
+      *&v183[6] = v65;
+      strcpy(v184, "p\bhash");
+      v184[7] = 0;
+      *&v184[8] = 0;
+      v185 = 2081;
+      v186 = a2;
+      v187 = 2082;
+      *v188 = "LUA: ";
+      *&v188[8] = 2160;
+      *&v188[10] = 1752392040;
+      *&v188[18] = 1041;
+      *&v188[20] = 6;
+      v189 = 2097;
+      v190 = a6;
+      v191 = 2160;
+      v192 = 1752392040;
+      v193 = 1042;
+      v194 = 2;
+      v195 = 2098;
+      v196 = &a6->i8[6];
+      v197 = 2160;
+      v198 = 1752392040;
+      v199 = 1041;
+      v200 = 8;
+      v201 = 2097;
+      v202 = &a6->i64[1];
+      v38 = "%{public}s: [Q%d][QU%d] eliding link-local response for %{private, mask.hash}s: {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}";
     }
 
     else
     {
-      v64 = global_os_log;
+      v63 = global_os_log;
       if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
       {
         return;
       }
 
-      v107 = *(a1 + 4);
-      v108 = *(v156 + 64);
+      v106 = *(a1 + 4);
+      v107 = *(v155 + 64);
       *buf = 136449795;
-      v182 = "dp_query_add_data_to_response";
-      v183 = 1024;
-      *v184 = v107;
-      *&v184[4] = 1024;
-      *&v184[6] = v108;
-      strcpy(v185, "p\bhash");
-      v185[7] = 0;
-      *&v185[8] = 0;
-      v186 = 2081;
-      v187 = a2;
-      v188 = 2082;
-      *v189 = "";
-      *&v189[8] = 2160;
-      *&v189[10] = 1752392040;
-      *&v189[18] = 1041;
-      *&v189[20] = 6;
-      v190 = 2097;
-      v191 = a6;
-      v192 = 2160;
-      v193 = 1752392040;
-      v194 = 1042;
-      v195 = 2;
-      v196 = 2098;
-      v197 = &a6->i8[6];
-      v198 = 2160;
-      v199 = 1752392040;
-      v200 = 1041;
-      v201 = 8;
-      v202 = 2097;
-      v203 = &a6->i64[1];
-      v39 = "%{public}s: [Q%d][QU%d] eliding localhost response for %{private, mask.hash}s: {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}";
+      v181 = "dp_query_add_data_to_response";
+      v182 = 1024;
+      *v183 = v106;
+      *&v183[4] = 1024;
+      *&v183[6] = v107;
+      strcpy(v184, "p\bhash");
+      v184[7] = 0;
+      *&v184[8] = 0;
+      v185 = 2081;
+      v186 = a2;
+      v187 = 2082;
+      *v188 = "";
+      *&v188[8] = 2160;
+      *&v188[10] = 1752392040;
+      *&v188[18] = 1041;
+      *&v188[20] = 6;
+      v189 = 2097;
+      v190 = a6;
+      v191 = 2160;
+      v192 = 1752392040;
+      v193 = 1042;
+      v194 = 2;
+      v195 = 2098;
+      v196 = &a6->i8[6];
+      v197 = 2160;
+      v198 = 1752392040;
+      v199 = 1041;
+      v200 = 8;
+      v201 = 2097;
+      v202 = &a6->i64[1];
+      v38 = "%{public}s: [Q%d][QU%d] eliding localhost response for %{private, mask.hash}s: {%{public}s%{private, mask.hash, srp:in6_addr_segment}.6P:%{public, mask.hash, srp:in6_addr_segment}.2P:%{private, mask.hash, srp:in6_addr_segment}.8P}";
     }
 
-    v85 = v64;
-    v86 = 132;
+    v84 = v63;
+    v85 = 132;
     goto LABEL_147;
   }
 
 LABEL_6:
   __src = a6;
-  v18 = &unk_1000A9000;
-  v19 = global_os_log;
+  v17 = &unk_1000A9000;
+  v18 = global_os_log;
   if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = dns_rrtype_to_string(a3);
+    v19 = dns_rrtype_to_string(a3);
     *buf = 136446722;
-    v182 = "dp_query_add_data_to_response";
-    v183 = 2082;
-    *v184 = v20;
-    *&v184[8] = 1024;
-    *v185 = a5;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%{public}s: survived for rrtype %{public}s rdlen %d", buf, 0x1Cu);
+    v181 = "dp_query_add_data_to_response";
+    v182 = 2082;
+    *v183 = v19;
+    *&v183[8] = 1024;
+    *v184 = a5;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%{public}s: survived for rrtype %{public}s rdlen %d", buf, 0x1Cu);
   }
 
   if (*(a1 + 72))
@@ -6574,318 +8782,318 @@ LABEL_6:
     dns_push_start(a1);
   }
 
-  v21 = *(v156 + 8);
-  v22 = *(v156 + 32);
-  v152 = a8;
-  if (v21)
+  v20 = *(v155 + 8);
+  v21 = *(v155 + 32);
+  v151 = a8;
+  if (v20)
   {
-    dns_concatenate_name_to_wire_(a1 + 96, 0, v22, *(v21 + 8), 1247);
+    dns_concatenate_name_to_wire_(a1 + 96, 0, v21, *(v20 + 8), 1247);
     if (*(a1 + 152) >= 2u)
     {
-      v23 = "concatenate_name_to_wire";
+      v22 = "concatenate_name_to_wire";
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
-    v24 = global_os_log;
+    v23 = global_os_log;
     if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = v12;
-      v26 = *(a1 + 4);
-      v27 = *(v156 + 64);
+      v24 = v12;
+      v25 = *(a1 + 4);
+      v26 = *(v155 + 64);
       if (*(a1 + 72))
       {
-        v28 = "PUSH";
+        v27 = "PUSH";
       }
 
       else
       {
-        v28 = "DNS ";
+        v27 = "DNS ";
       }
 
-      v29 = dns_rrtype_to_string(a3);
-      v30 = *(v156 + 32);
-      v31 = *(*(v156 + 8) + 8);
+      v28 = dns_rrtype_to_string(a3);
+      v29 = *(v155 + 32);
+      v30 = *(*(v155 + 8) + 8);
       *buf = 136448515;
-      v182 = "dp_query_add_data_to_response";
-      v183 = 1024;
-      *v184 = v26;
-      v12 = v25;
-      *&v184[4] = 1024;
-      *&v184[6] = v27;
-      *v185 = 2082;
-      *&v185[2] = v28;
-      v18 = &unk_1000A9000;
-      v186 = 2082;
-      v187 = v29;
-      v188 = 1024;
-      *v189 = v12;
-      *&v189[4] = 2160;
-      *&v189[6] = 1752392040;
-      *&v189[14] = 2081;
-      *&v189[16] = v30;
-      v190 = 2160;
-      v191 = 1752392040;
-      v192 = 2081;
-      v193 = v31;
-      v32 = "%{public}s: [Q%d][QU%d] %{public}s answer:  type %{public}s class %02d %{private, mask.hash}s.%{private, mask.hash}s";
-      v33 = v24;
-      v34 = 90;
+      v181 = "dp_query_add_data_to_response";
+      v182 = 1024;
+      *v183 = v25;
+      v12 = v24;
+      *&v183[4] = 1024;
+      *&v183[6] = v26;
+      *v184 = 2082;
+      *&v184[2] = v27;
+      v17 = &unk_1000A9000;
+      v185 = 2082;
+      v186 = v28;
+      v187 = 1024;
+      *v188 = v12;
+      *&v188[4] = 2160;
+      *&v188[6] = 1752392040;
+      *&v188[14] = 2081;
+      *&v188[16] = v29;
+      v189 = 2160;
+      v190 = 1752392040;
+      v191 = 2081;
+      v192 = v30;
+      v31 = "%{public}s: [Q%d][QU%d] %{public}s answer:  type %{public}s class %02d %{private, mask.hash}s.%{private, mask.hash}s";
+      v32 = v23;
+      v33 = 90;
 LABEL_36:
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, v32, buf, v34);
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v31, buf, v33);
     }
   }
 
   else
   {
-    dns_concatenate_name_to_wire_(a1 + 96, 0, 0, v22, 1251);
+    dns_concatenate_name_to_wire_(a1 + 96, 0, 0, v21, 1251);
     if (*(a1 + 152) >= 2u)
     {
-      v23 = "compress_name_to_wire";
+      v22 = "compress_name_to_wire";
     }
 
     else
     {
-      v23 = 0;
+      v22 = 0;
     }
 
-    v47 = global_os_log;
+    v46 = global_os_log;
     if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
     {
-      v48 = v12;
+      v47 = v12;
       v12 = *(a1 + 4);
-      v49 = *(v156 + 64);
+      v48 = *(v155 + 64);
       if (*(a1 + 72))
       {
-        v50 = "push";
+        v49 = "push";
       }
 
       else
       {
-        v50 = " dns";
+        v49 = " dns";
       }
 
-      v51 = dns_rrtype_to_string(a3);
-      v52 = *(v156 + 32);
+      v50 = dns_rrtype_to_string(a3);
+      v51 = *(v155 + 32);
       *buf = 136448003;
-      v182 = "dp_query_add_data_to_response";
-      v183 = 1024;
-      *v184 = v12;
-      LOWORD(v12) = v48;
-      *&v184[4] = 1024;
-      *&v184[6] = v49;
-      *v185 = 2082;
-      *&v185[2] = v50;
-      v18 = &unk_1000A9000;
-      v186 = 2082;
-      v187 = v51;
-      v188 = 1024;
-      *v189 = v48;
-      *&v189[4] = 2160;
-      *&v189[6] = 1752392040;
-      *&v189[14] = 2081;
-      *&v189[16] = v52;
-      v32 = "%{public}s: [Q%d][QU%d] %{public}s answer:  type %{public}s class %02d %{private, mask.hash}s (p)";
-      v33 = v47;
-      v34 = 70;
+      v181 = "dp_query_add_data_to_response";
+      v182 = 1024;
+      *v183 = v12;
+      LOWORD(v12) = v47;
+      *&v183[4] = 1024;
+      *&v183[6] = v48;
+      *v184 = 2082;
+      *&v184[2] = v49;
+      v17 = &unk_1000A9000;
+      v185 = 2082;
+      v186 = v50;
+      v187 = 1024;
+      *v188 = v47;
+      *&v188[4] = 2160;
+      *&v188[6] = 1752392040;
+      *&v188[14] = 2081;
+      *&v188[16] = v51;
+      v31 = "%{public}s: [Q%d][QU%d] %{public}s answer:  type %{public}s class %02d %{private, mask.hash}s (p)";
+      v32 = v46;
+      v33 = 70;
       goto LABEL_36;
     }
   }
 
-  v53 = *(a1 + 152);
-  if (v53 > 1)
+  v52 = *(a1 + 152);
+  if (v52 > 1)
   {
     goto LABEL_61;
   }
 
-  v54 = *(a1 + 104);
-  if ((v54 + 2) >= *(a1 + 112))
+  v53 = *(a1 + 104);
+  if ((v53 + 2) >= *(a1 + 112))
   {
-    v53 = 111;
+    v52 = 111;
     *(a1 + 152) = 111;
     *(a1 + 144) = 1255;
 LABEL_61:
-    if (v23)
+    if (v22)
+    {
+      v66 = 0;
+    }
+
+    else
+    {
+      v66 = v52 > 1;
+    }
+
+    v56 = "rrtype";
+    if (!v66)
+    {
+      v56 = v22;
+    }
+
+    goto LABEL_66;
+  }
+
+  *(a1 + 104) = v53 + 1;
+  *v53 = BYTE1(a3);
+  v54 = *(a1 + 104);
+  *(a1 + 104) = v54 + 1;
+  *v54 = a3;
+  v52 = *(a1 + 152);
+  if (v22)
+  {
+    v55 = 0;
+  }
+
+  else
+  {
+    v55 = v52 > 1;
+  }
+
+  v56 = "rrtype";
+  if (!v55)
+  {
+    v56 = v22;
+  }
+
+  if (v52 > 1)
+  {
+LABEL_66:
+    if (v56)
     {
       v67 = 0;
     }
 
     else
     {
-      v67 = v53 > 1;
+      v67 = v52 > 1;
     }
 
-    v57 = "rrtype";
-    if (!v67)
+    if (v67)
     {
-      v57 = v23;
-    }
-
-    goto LABEL_66;
-  }
-
-  *(a1 + 104) = v54 + 1;
-  *v54 = BYTE1(a3);
-  v55 = *(a1 + 104);
-  *(a1 + 104) = v55 + 1;
-  *v55 = a3;
-  v53 = *(a1 + 152);
-  if (v23)
-  {
-    v56 = 0;
-  }
-
-  else
-  {
-    v56 = v53 > 1;
-  }
-
-  v57 = "rrtype";
-  if (!v56)
-  {
-    v57 = v23;
-  }
-
-  if (v53 > 1)
-  {
-LABEL_66:
-    if (v57)
-    {
-      v68 = 0;
+      v61 = "rrclass";
     }
 
     else
     {
-      v68 = v53 > 1;
-    }
-
-    if (v68)
-    {
-      v62 = "rrclass";
-    }
-
-    else
-    {
-      v62 = v57;
+      v61 = v56;
     }
 
     goto LABEL_72;
   }
 
-  v58 = *(a1 + 104);
-  if ((v58 + 2) >= *(a1 + 112))
+  v57 = *(a1 + 104);
+  if ((v57 + 2) >= *(a1 + 112))
   {
     *(a1 + 152) = 111;
     *(a1 + 144) = 1256;
-    if (v57)
+    if (v56)
     {
-      v62 = v57;
+      v61 = v56;
     }
 
     else
     {
-      v62 = "rrclass";
+      v61 = "rrclass";
     }
   }
 
   else
   {
+    *(a1 + 104) = v57 + 1;
+    *v57 = BYTE1(v12);
+    v58 = *(a1 + 104);
     *(a1 + 104) = v58 + 1;
-    *v58 = BYTE1(v12);
-    v59 = *(a1 + 104);
-    *(a1 + 104) = v59 + 1;
-    *v59 = v12;
-    v60 = *(a1 + 152);
-    if (v57)
+    *v58 = v12;
+    v59 = *(a1 + 152);
+    if (v56)
     {
-      v61 = 0;
+      v60 = 0;
     }
 
     else
     {
-      v61 = v60 > 1;
+      v60 = v59 > 1;
     }
 
-    if (v61)
+    if (v60)
     {
-      v62 = "rrclass";
+      v61 = "rrclass";
     }
 
     else
     {
-      v62 = v57;
+      v61 = v56;
     }
 
-    if (v60 <= 1)
+    if (v59 <= 1)
     {
       dns_u32_to_wire_(a1 + 96, a7, 1257);
-      v63 = *(a1 + 152) > 1u;
+      v62 = *(a1 + 152) > 1u;
       goto LABEL_73;
     }
   }
 
 LABEL_72:
-  v63 = 1;
+  v62 = 1;
 LABEL_73:
+  v159 = 0u;
   v160 = 0u;
-  v161 = 0u;
-  if (v63 && v62 == 0)
+  if (v62 && v61 == 0)
   {
-    v69 = "ttl";
+    v68 = "ttl";
   }
 
   else
   {
-    v69 = v62;
+    v68 = v61;
   }
 
+  v157 = 0uLL;
   v158 = 0uLL;
-  v159 = 0uLL;
-  v157 = 0;
-  WORD4(v158) = a3;
-  WORD5(v158) = v12;
+  v156 = 0;
+  WORD4(v157) = a3;
+  WORD5(v157) = v12;
   if (!a5)
   {
-    v73 = v18[22];
+    v72 = v17[22];
     if (*(a1 + 72))
     {
-      if (!os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_101;
       }
 
       *buf = 136446210;
-      v182 = "dp_query_add_data_to_response";
-      v74 = "%{public}s: Adding a special 0-length rdata response for DSO, possibly a removing update";
-      v75 = v73;
-      v76 = OS_LOG_TYPE_DEFAULT;
-      v77 = 12;
+      v181 = "dp_query_add_data_to_response";
+      v73 = "%{public}s: Adding a special 0-length rdata response for DSO, possibly a removing update";
+      v74 = v72;
+      v75 = OS_LOG_TYPE_DEFAULT;
+      v76 = 12;
       goto LABEL_100;
     }
 
-    if (!os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+    if (!os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_101;
     }
 
 LABEL_99:
-    v87 = *(a1 + 4);
-    v88 = *(v156 + 64);
+    v86 = *(a1 + 4);
+    v87 = *(v155 + 64);
     *buf = 136446722;
-    v182 = "dp_query_add_data_to_response";
-    v183 = 1024;
-    *v184 = v87;
-    *&v184[4] = 1024;
-    *&v184[6] = v88;
-    v74 = "%{public}s: [Q%d][QU%d] rdata didn't parse!!";
-    v75 = v73;
-    v76 = OS_LOG_TYPE_ERROR;
-    v77 = 24;
+    v181 = "dp_query_add_data_to_response";
+    v182 = 1024;
+    *v183 = v86;
+    *&v183[4] = 1024;
+    *&v183[6] = v87;
+    v73 = "%{public}s: [Q%d][QU%d] rdata didn't parse!!";
+    v74 = v72;
+    v75 = OS_LOG_TYPE_ERROR;
+    v76 = 24;
 LABEL_100:
-    _os_log_impl(&_mh_execute_header, v75, v76, v74, buf, v77);
+    _os_log_impl(&_mh_execute_header, v74, v75, v73, buf, v76);
     goto LABEL_101;
   }
 
@@ -6894,10 +9102,10 @@ LABEL_100:
     goto LABEL_101;
   }
 
-  if ((dns_rdata_parse_data_(&v158, __src, &v157, a5, a5, 0) & 1) == 0)
+  if ((dns_rdata_parse_data_(&v157, __src, &v156, a5, a5, 0) & 1) == 0)
   {
-    v73 = v18[22];
-    if (!os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+    v72 = v17[22];
+    if (!os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_101;
     }
@@ -6917,123 +9125,123 @@ LABEL_100:
 
   if (a3 == 33)
   {
-    v78 = v159;
-    v99 = "rdlength begin";
-    v100 = *(a1 + 152);
-    v101 = "answer.data.srv.priority";
-    v102 = "answer.data.srv.weight";
-    if (v100 <= 1)
+    v77 = v158;
+    v98 = "rdlength begin";
+    v99 = *(a1 + 152);
+    v100 = "answer.data.srv.priority";
+    v101 = "answer.data.srv.weight";
+    if (v99 <= 1)
     {
-      v103 = *(a1 + 104);
-      v104 = (v103 + 2);
-      if ((v103 + 2) >= *(a1 + 112))
+      v102 = *(a1 + 104);
+      v103 = (v102 + 2);
+      if ((v102 + 2) >= *(a1 + 112))
       {
-        v100 = 111;
+        v99 = 111;
       }
 
       else
       {
         if (!*(a1 + 120))
         {
-          *(a1 + 120) = v103;
-          *(a1 + 104) = v104;
-          if (v69)
+          *(a1 + 120) = v102;
+          *(a1 + 104) = v103;
+          if (v68)
           {
-            v137 = 0;
+            v136 = 0;
           }
 
           else
           {
-            v137 = v100 > 1;
+            v136 = v99 > 1;
           }
 
-          if (!v137)
+          if (!v136)
           {
-            v99 = v69;
+            v98 = v68;
           }
 
-          if ((v103 + 4) < *(a1 + 112))
+          if ((v102 + 4) < *(a1 + 112))
           {
-            v138 = BYTE8(v159);
-            v139 = HIBYTE(WORD4(v159));
-            *(a1 + 104) = v104 + 1;
-            *v104 = v139;
-            v140 = *(a1 + 104);
-            *(a1 + 104) = v140 + 1;
-            *v140 = v138;
-            v100 = *(a1 + 152);
-            if (v99)
+            v137 = BYTE8(v158);
+            v138 = HIBYTE(WORD4(v158));
+            *(a1 + 104) = v103 + 1;
+            *v103 = v138;
+            v139 = *(a1 + 104);
+            *(a1 + 104) = v139 + 1;
+            *v139 = v137;
+            v99 = *(a1 + 152);
+            if (v98)
             {
-              v141 = 0;
+              v140 = 0;
             }
 
             else
             {
-              v141 = v100 > 1;
+              v140 = v99 > 1;
             }
 
-            if (!v141)
+            if (!v140)
             {
-              v101 = v99;
+              v100 = v98;
             }
 
-            v106 = v152;
-            if (v100 > 1)
+            v105 = v151;
+            if (v99 > 1)
             {
-              v81 = v18;
+              v80 = v17;
             }
 
             else
             {
-              v142 = *(a1 + 104);
-              if ((v142 + 2) < *(a1 + 112))
+              v141 = *(a1 + 104);
+              if ((v141 + 2) < *(a1 + 112))
               {
-                v143 = BYTE10(v159);
-                v144 = HIBYTE(WORD5(v159));
-                *(a1 + 104) = v142 + 1;
-                *v142 = v144;
-                v145 = *(a1 + 104);
-                *(a1 + 104) = v145 + 1;
-                *v145 = v143;
-                v146 = *(a1 + 152);
-                if (v101)
+                v142 = BYTE10(v158);
+                v143 = HIBYTE(WORD5(v158));
+                *(a1 + 104) = v141 + 1;
+                *v141 = v143;
+                v144 = *(a1 + 104);
+                *(a1 + 104) = v144 + 1;
+                *v144 = v142;
+                v145 = *(a1 + 152);
+                if (v100)
                 {
-                  v147 = 0;
+                  v146 = 0;
                 }
 
                 else
                 {
-                  v147 = v146 > 1;
+                  v146 = v145 > 1;
                 }
 
-                if (!v147)
+                if (!v146)
                 {
-                  v102 = v101;
+                  v101 = v100;
                 }
 
-                v81 = v18;
-                if (v146 <= 1)
+                v80 = v17;
+                if (v145 <= 1)
                 {
-                  v148 = *(a1 + 104);
-                  if ((v148 + 2) < *(a1 + 112))
+                  v147 = *(a1 + 104);
+                  if ((v147 + 2) < *(a1 + 112))
                   {
-                    v149 = BYTE12(v159);
-                    v150 = HIBYTE(WORD6(v159));
-                    *(a1 + 104) = v148 + 1;
-                    *v148 = v150;
-                    v151 = *(a1 + 104);
-                    *(a1 + 104) = v151 + 1;
-                    *v151 = v149;
-                    v112 = *(a1 + 152) > 1u;
+                    v148 = BYTE12(v158);
+                    v149 = HIBYTE(WORD6(v158));
+                    *(a1 + 104) = v147 + 1;
+                    *v147 = v149;
+                    v150 = *(a1 + 104);
+                    *(a1 + 104) = v150 + 1;
+                    *v150 = v148;
+                    v111 = *(a1 + 152) > 1u;
 LABEL_168:
-                    if (v112 && v102 == 0)
+                    if (v111 && v101 == 0)
                     {
-                      v93 = "answer.data.srv.port";
+                      v92 = "answer.data.srv.port";
                     }
 
                     else
                     {
-                      v93 = v102;
+                      v92 = v101;
                     }
 
                     goto LABEL_171;
@@ -7044,80 +9252,80 @@ LABEL_168:
                 }
 
 LABEL_167:
-                v112 = 1;
+                v111 = 1;
                 goto LABEL_168;
               }
 
-              v81 = v18;
-              v100 = 111;
+              v80 = v17;
+              v99 = 111;
               *(a1 + 152) = 111;
               *(a1 + 144) = 1284;
             }
 
 LABEL_162:
-            if (v101)
+            if (v100)
             {
-              v111 = 0;
+              v110 = 0;
             }
 
             else
             {
-              v111 = v100 > 1;
+              v110 = v99 > 1;
             }
 
-            if (!v111)
+            if (!v110)
             {
-              v102 = v101;
+              v101 = v100;
             }
 
             goto LABEL_167;
           }
 
-          v81 = v18;
-          v100 = 111;
+          v80 = v17;
+          v99 = 111;
           *(a1 + 152) = 111;
           *(a1 + 144) = 1283;
 LABEL_157:
-          v106 = v152;
-          if (v99)
+          v105 = v151;
+          if (v98)
           {
-            v110 = 0;
+            v109 = 0;
           }
 
           else
           {
-            v110 = v100 > 1;
+            v109 = v99 > 1;
           }
 
-          if (!v110)
+          if (!v109)
           {
-            v101 = v99;
+            v100 = v98;
           }
 
           goto LABEL_162;
         }
 
-        v100 |= 0x2Cu;
+        v99 |= 0x2Cu;
       }
 
-      *(a1 + 152) = v100;
+      *(a1 + 152) = v99;
       *(a1 + 144) = 1282;
     }
 
-    v81 = v18;
-    if (v69)
+    v80 = v17;
+    if (v68)
     {
-      v109 = 0;
+      v108 = 0;
     }
 
     else
     {
-      v109 = v100 > 1;
+      v108 = v99 > 1;
     }
 
-    if (!v109)
+    if (!v108)
     {
-      v99 = v69;
+      v98 = v68;
     }
 
     goto LABEL_157;
@@ -7126,88 +9334,88 @@ LABEL_157:
   if (a3 != 12)
   {
 LABEL_83:
-    v70 = v18;
-    v71 = v18[22];
-    if (os_log_type_enabled(v71, OS_LOG_TYPE_FAULT))
+    v69 = v17;
+    v70 = v17[22];
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
     {
-      v72 = dns_rrtype_to_string(a3);
+      v71 = dns_rrtype_to_string(a3);
       *buf = 136446466;
-      v182 = "dp_query_add_data_to_response";
-      v183 = 2082;
-      *v184 = v72;
-      _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_FAULT, "%{public}s: mismatch between rrtypes mapped and rrtypes thought to be mappable for rrtype %{public}s", buf, 0x16u);
+      v181 = "dp_query_add_data_to_response";
+      v182 = 2082;
+      *v183 = v71;
+      _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_FAULT, "%{public}s: mismatch between rrtypes mapped and rrtypes thought to be mappable for rrtype %{public}s", buf, 0x16u);
     }
 
-    dns_rrdata_free(&v158);
-    v18 = v70;
+    dns_rrdata_free(&v157);
+    v17 = v69;
 LABEL_101:
-    v89 = *(a1 + 152);
-    if (v89 <= 1)
+    v88 = *(a1 + 152);
+    if (v88 <= 1)
     {
-      v90 = *(a1 + 104);
-      if ((v90 + 2) < *(a1 + 112))
+      v89 = *(a1 + 104);
+      if ((v89 + 2) < *(a1 + 112))
       {
+        *(a1 + 104) = v89 + 1;
+        *v89 = BYTE1(a5);
+        v90 = *(a1 + 104);
         *(a1 + 104) = v90 + 1;
-        *v90 = BYTE1(a5);
-        v91 = *(a1 + 104);
-        *(a1 + 104) = v91 + 1;
-        *v91 = a5;
-        v89 = *(a1 + 152);
-        if (v69)
+        *v90 = a5;
+        v88 = *(a1 + 152);
+        if (v68)
         {
-          v92 = 0;
+          v91 = 0;
         }
 
         else
         {
-          v92 = v89 > 1;
+          v91 = v88 > 1;
         }
 
-        if (v92)
+        if (v91)
         {
-          v93 = "rdlen";
+          v92 = "rdlen";
         }
 
         else
         {
-          v93 = v69;
+          v92 = v68;
         }
 
-        if (v89 <= 1)
+        if (v88 <= 1)
         {
-          v94 = *(a1 + 104);
-          if (v94 + a5 <= *(a1 + 112))
+          v93 = *(a1 + 104);
+          if (v93 + a5 <= *(a1 + 112))
           {
-            memcpy(v94, __src, a5);
+            memcpy(v93, __src, a5);
             *(a1 + 104) += a5;
-            v89 = *(a1 + 152);
+            v88 = *(a1 + 152);
           }
 
           else
           {
-            v89 = 111;
+            v88 = 111;
             *(a1 + 152) = 111;
             *(a1 + 144) = 1328;
           }
         }
 
 LABEL_119:
-        if (v93)
+        if (v92)
         {
-          v96 = 0;
+          v95 = 0;
         }
 
         else
         {
-          v96 = v89 > 1;
+          v95 = v88 > 1;
         }
 
-        if (v96)
+        if (v95)
         {
-          v93 = "rdata";
+          v92 = "rdata";
         }
 
-        if (v89)
+        if (v88)
         {
           goto LABEL_215;
         }
@@ -7215,129 +9423,129 @@ LABEL_119:
         goto LABEL_210;
       }
 
-      v89 = 111;
+      v88 = 111;
       *(a1 + 152) = 111;
       *(a1 + 144) = 1327;
     }
 
-    if (v69)
+    if (v68)
     {
-      v95 = 0;
+      v94 = 0;
     }
 
     else
     {
-      v95 = v89 > 1;
+      v94 = v88 > 1;
     }
 
-    if (v95)
+    if (v94)
     {
-      v93 = "rdlen";
+      v92 = "rdlen";
     }
 
     else
     {
-      v93 = v69;
+      v92 = v68;
     }
 
     goto LABEL_119;
   }
 
 LABEL_91:
-  v78 = v159;
-  v79 = *(a1 + 152);
-  if (v79 > 1)
+  v77 = v158;
+  v78 = *(a1 + 152);
+  if (v78 > 1)
   {
-    v81 = v18;
+    v80 = v17;
   }
 
   else
   {
-    v80 = *(a1 + 104);
-    if ((v80 + 2) >= *(a1 + 112))
+    v79 = *(a1 + 104);
+    if ((v79 + 2) >= *(a1 + 112))
     {
-      v81 = v18;
-      v82 = 111;
+      v80 = v17;
+      v81 = 111;
     }
 
     else
     {
       if (!*(a1 + 120))
       {
-        v81 = v18;
-        v105 = 0;
-        *(a1 + 120) = v80;
-        *(a1 + 104) = v80 + 2;
+        v80 = v17;
+        v104 = 0;
+        *(a1 + 120) = v79;
+        *(a1 + 104) = v79 + 2;
         goto LABEL_137;
       }
 
-      v81 = v18;
-      v82 = v79 | 0x2C;
+      v80 = v17;
+      v81 = v78 | 0x2C;
     }
 
-    *(a1 + 152) = v82;
+    *(a1 + 152) = v81;
     *(a1 + 144) = 1278;
   }
 
-  v105 = 1;
+  v104 = 1;
 LABEL_137:
-  if ((v105 & (v69 == 0)) != 0)
+  if ((v104 & (v68 == 0)) != 0)
   {
-    v93 = "rdlength begin";
+    v92 = "rdlength begin";
   }
 
   else
   {
-    v93 = v69;
+    v92 = v68;
   }
 
-  v106 = v152;
+  v105 = v151;
 LABEL_171:
-  dns_name_print_to_limit(v78, 0, v180, 0x100uLL);
-  if (v106)
+  dns_name_print_to_limit(v77, 0, v179, 0x100uLL);
+  if (v105)
   {
     goto LABEL_195;
   }
 
-  v113 = 0;
-  v114 = v78;
+  v112 = 0;
+  v113 = v77;
   do
   {
-    v115 = v113;
-    v113 = v114;
-    v114 = *v114;
+    v114 = v112;
+    v112 = v113;
+    v113 = *v113;
   }
 
-  while (v114);
-  if (v115 && *(v115 + 8) == 5 && dns_labels_equal(v115 + 9, "local", 5uLL))
+  while (v113);
+  if (v114 && *(v114 + 8) == 5 && dns_labels_equal(v114 + 9, "local", 5uLL))
   {
-    if (v78 && *(v78 + 8))
+    if (v77 && *(v77 + 8))
     {
-      v116 = 0;
-      v117 = v78;
+      v115 = 0;
+      v116 = v77;
       while (1)
       {
-        v118 = v116;
-        v116 = v117;
-        v117 = *v117;
-        if (!v117)
+        v117 = v115;
+        v115 = v116;
+        v116 = *v116;
+        if (!v116)
         {
           break;
         }
 
-        if (!v117[8])
+        if (!v116[8])
         {
-          if (v118 && v116[8] == 5 && dns_labels_equal((v116 + 9), "local", 5uLL))
+          if (v117 && v115[8] == 5 && dns_labels_equal((v115 + 9), "local", 5uLL))
           {
             do
             {
-              v119 = *v116;
-              free(v116);
-              v116 = v119;
+              v118 = *v115;
+              free(v115);
+              v115 = v118;
             }
 
-            while (v119);
-            *v118 = 0;
+            while (v118);
+            *v117 = 0;
           }
 
           break;
@@ -7345,121 +9553,121 @@ LABEL_171:
       }
     }
 
-    dns_name_print_to_limit(v78, 0, buf, 0x100uLL);
-    dns_concatenate_name_to_wire_(a1 + 96, v78, 0, *(*(v156 + 8) + 8), 1301);
-    if (v93)
+    dns_name_print_to_limit(v77, 0, buf, 0x100uLL);
+    dns_concatenate_name_to_wire_(a1 + 96, v77, 0, *(*(v155 + 8) + 8), 1301);
+    if (v92)
     {
-      v120 = 0;
+      v119 = 0;
     }
 
     else
     {
-      v120 = *(a1 + 152) > 1u;
+      v119 = *(a1 + 152) > 1u;
     }
 
-    if (v120)
+    if (v119)
     {
-      v93 = "concatenate_name_to_wire 2";
+      v92 = "concatenate_name_to_wire 2";
     }
 
-    v121 = v81[22];
-    if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
+    v120 = v80[22];
+    if (os_log_type_enabled(v120, OS_LOG_TYPE_DEFAULT))
     {
-      v122 = *(a1 + 4);
-      v123 = *(v156 + 64);
-      v124 = *(*(v156 + 8) + 8);
-      *v162 = 136448259;
-      v163 = "dp_query_add_data_to_response";
-      v164 = 1024;
-      v165 = v122;
-      v166 = 1024;
-      v167 = v123;
-      v168 = 2160;
-      v169 = 1752392040;
-      v170 = 2081;
-      v171 = v180;
-      v172 = 2160;
-      v173 = 1752392040;
-      v174 = 2081;
-      v175 = buf;
-      v176 = 2160;
-      v177 = 1752392040;
-      v178 = 2081;
-      v179 = v124;
-      _os_log_impl(&_mh_execute_header, v121, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d] translating %{private, mask.hash}s to %{private, mask.hash}s . %{private, mask.hash}s", v162, 0x54u);
+      v121 = *(a1 + 4);
+      v122 = *(v155 + 64);
+      v123 = *(*(v155 + 8) + 8);
+      *v161 = 136448259;
+      v162 = "dp_query_add_data_to_response";
+      v163 = 1024;
+      v164 = v121;
+      v165 = 1024;
+      v166 = v122;
+      v167 = 2160;
+      v168 = 1752392040;
+      v169 = 2081;
+      v170 = v179;
+      v171 = 2160;
+      v172 = 1752392040;
+      v173 = 2081;
+      v174 = buf;
+      v175 = 2160;
+      v176 = 1752392040;
+      v177 = 2081;
+      v178 = v123;
+      _os_log_impl(&_mh_execute_header, v120, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d] translating %{private, mask.hash}s to %{private, mask.hash}s . %{private, mask.hash}s", v161, 0x54u);
     }
 
-    v18 = v81;
+    v17 = v80;
   }
 
   else
   {
 LABEL_195:
-    dns_concatenate_name_to_wire_(a1 + 96, v78, 0, 0, 1306);
-    if (v93)
+    dns_concatenate_name_to_wire_(a1 + 96, v77, 0, 0, 1306);
+    if (v92)
     {
-      v125 = 0;
+      v124 = 0;
     }
 
     else
     {
-      v125 = *(a1 + 152) > 1u;
+      v124 = *(a1 + 152) > 1u;
     }
 
-    if (v125)
+    if (v124)
     {
-      v93 = "concatenate_name_to_wire 2";
+      v92 = "concatenate_name_to_wire 2";
     }
 
-    v18 = v81;
-    v126 = v81[22];
-    if (os_log_type_enabled(v126, OS_LOG_TYPE_DEFAULT))
+    v17 = v80;
+    v125 = v80[22];
+    if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
     {
-      v127 = *(a1 + 4);
-      v128 = v156;
-      if (v156)
+      v126 = *(a1 + 4);
+      v127 = v155;
+      if (v155)
       {
-        v128 = *(v156 + 64);
+        v127 = *(v155 + 64);
       }
 
       *buf = 136447235;
-      v182 = "dp_query_add_data_to_response";
-      v183 = 1024;
-      *v184 = v127;
-      *&v184[4] = 1024;
-      *&v184[6] = v128;
-      strcpy(v185, "p\bhash");
-      v185[7] = 0;
-      *&v185[8] = 0;
-      v186 = 2081;
-      v187 = v180;
-      _os_log_impl(&_mh_execute_header, v126, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d] compressing %{private, mask.hash}s", buf, 0x2Cu);
+      v181 = "dp_query_add_data_to_response";
+      v182 = 1024;
+      *v183 = v126;
+      *&v183[4] = 1024;
+      *&v183[6] = v127;
+      strcpy(v184, "p\bhash");
+      v184[7] = 0;
+      *&v184[8] = 0;
+      v185 = 2081;
+      v186 = v179;
+      _os_log_impl(&_mh_execute_header, v125, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d] compressing %{private, mask.hash}s", buf, 0x2Cu);
     }
   }
 
   do
   {
-    if (!v78)
+    if (!v77)
     {
       break;
     }
 
-    v129 = *v78;
-    free(v78);
-    v78 = v129;
+    v128 = *v77;
+    free(v77);
+    v77 = v128;
   }
 
-  while (v129);
-  v130 = *(a1 + 152);
-  if (v130 <= 1)
+  while (v128);
+  v129 = *(a1 + 152);
+  if (v129 <= 1)
   {
-    v131 = *(a1 + 120);
-    if (!v131)
+    v130 = *(a1 + 120);
+    if (!v130)
     {
-      v133 = v130 | 0x2C;
-      *(a1 + 152) = v133;
+      v132 = v129 | 0x2C;
+      *(a1 + 152) = v132;
       *(a1 + 144) = 1311;
-      if (v133)
+      if (v132)
       {
         goto LABEL_215;
       }
@@ -7467,43 +9675,43 @@ LABEL_195:
       goto LABEL_210;
     }
 
-    v132 = *(a1 + 104) - v131 - 2;
-    *v131 = BYTE1(v132);
-    *(*(a1 + 120) + 1) = v132;
+    v131 = *(a1 + 104) - v130 - 2;
+    *v130 = BYTE1(v131);
+    *(*(a1 + 120) + 1) = v131;
     *(a1 + 120) = 0;
-    v130 = *(a1 + 152);
+    v129 = *(a1 + 152);
   }
 
-  if (v130)
+  if (v129)
   {
 LABEL_215:
-    v134 = v18[22];
-    if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
+    v133 = v17[22];
+    if (os_log_type_enabled(v133, OS_LOG_TYPE_ERROR))
     {
-      v135 = *(a1 + 4);
-      v136 = v156;
-      if (v156)
+      v134 = *(a1 + 4);
+      v135 = v155;
+      if (v155)
       {
-        v136 = *(v156 + 64);
+        v135 = *(v155 + 64);
       }
 
-      *v162 = 136446978;
-      v163 = "dp_query_add_data_to_response";
-      v164 = 1024;
-      v165 = v135;
-      v166 = 1024;
-      v167 = v136;
-      v168 = 2082;
-      v169 = v93;
-      _os_log_impl(&_mh_execute_header, v134, OS_LOG_TYPE_ERROR, "%{public}s: [Q%d][QU%d] RR ADD FAIL: %{public}s", v162, 0x22u);
+      *v161 = 136446978;
+      v162 = "dp_query_add_data_to_response";
+      v163 = 1024;
+      v164 = v134;
+      v165 = 1024;
+      v166 = v135;
+      v167 = 2082;
+      v168 = v92;
+      _os_log_impl(&_mh_execute_header, v133, OS_LOG_TYPE_ERROR, "%{public}s: [Q%d][QU%d] RR ADD FAIL: %{public}s", v161, 0x22u);
     }
 
-    *(a1 + 104) = v155;
+    *(a1 + 104) = v154;
     return;
   }
 
 LABEL_210:
-  if (v93)
+  if (v92)
   {
     goto LABEL_215;
   }
@@ -7643,2549 +9851,4 @@ LABEL_9:
   }
 
   *(a1 + 168) = v4;
-}
-
-void dp_query_send_dns_response(uint64_t a1, uint64_t a2)
-{
-  v2 = a1;
-  v243.iov_base = 0;
-  v243.iov_len = 0;
-  v3 = *(a1 + 104);
-  v4 = *(a1 + 152);
-  if (v4)
-  {
-    v5 = 512;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v6 = *(*(a1 + 168) + 2);
-  v7 = *(a1 + 200);
-  *(a1 + 208) = 1;
-  v8 = *(a1 + 8);
-  if (!v8)
-  {
-    v53 = global_os_log;
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      return;
-    }
-
-    v54 = *(v2 + 4);
-    *buf = 136446466;
-    v245 = "dp_query_send_dns_response";
-    v246 = 1024;
-    *v247 = v54;
-    v55 = "%{public}s: [Q%d] query->tracker NULL for query!";
-    v56 = v53;
-    v57 = 18;
-    goto LABEL_154;
-  }
-
-  if (!*(v8 + 8))
-  {
-    v58 = global_os_log;
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      return;
-    }
-
-    v59 = *(v2 + 4);
-    v60 = *(v8 + 4);
-    *buf = 136446722;
-    v245 = "dp_query_send_dns_response";
-    v246 = 1024;
-    *v247 = v59;
-    *&v247[4] = 1024;
-    *&v247[6] = v60;
-    v55 = "%{public}s: [Q%d][TRK%d] query->tracker->connection NULL";
-    v56 = v58;
-    v57 = 24;
-LABEL_154:
-    _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, v55, buf, v57);
-    return;
-  }
-
-  v9 = a2;
-  v10 = a1 + 96;
-  v11 = bswap32(v6) >> 16;
-  v12 = *(v7 + 8);
-  v210 = v7;
-  if (v12 && *(v12 + 40) && (v4 & 1) == 0 && (*(v7 + 72) != 6 || **(v7 + 32)))
-  {
-    v239 = v11;
-    v222 = 0;
-    while (1)
-    {
-      dns_pointer_to_wire_(v10, v2 + 32, 2462);
-      v13 = *(v2 + 152);
-      v14 = v222;
-      if (v222)
-      {
-        v15 = 0;
-      }
-
-      else
-      {
-        v15 = v13 > 1;
-      }
-
-      if (v15)
-      {
-        v14 = "&query->enclosing_domain_pointer 1";
-      }
-
-      if (v13 >= 2)
-      {
-        if (!v14)
-        {
-          v14 = "dns_rrtype_soa";
-        }
-
-LABEL_44:
-        if (v14)
-        {
-          v28 = 0;
-        }
-
-        else
-        {
-          v28 = v13 > 1;
-        }
-
-        if (v28)
-        {
-          v22 = "dns_qclass_in";
-        }
-
-        else
-        {
-          v22 = v14;
-        }
-
-LABEL_50:
-        if (v22)
-        {
-          v29 = 0;
-        }
-
-        else
-        {
-          v29 = v13 > 1;
-        }
-
-        v25 = "ttl";
-        if (!v29)
-        {
-          v25 = v22;
-        }
-
-        goto LABEL_59;
-      }
-
-      v16 = *(v2 + 104);
-      if ((v16 + 2) >= *(v2 + 112))
-      {
-        break;
-      }
-
-      *(v2 + 104) = v16 + 1;
-      *v16 = 0;
-      v17 = *(v2 + 104);
-      *(v2 + 104) = v17 + 1;
-      *v17 = 6;
-      v13 = *(v2 + 152);
-      if (v14)
-      {
-        v18 = 0;
-      }
-
-      else
-      {
-        v18 = v13 > 1;
-      }
-
-      if (v18)
-      {
-        v14 = "dns_rrtype_soa";
-      }
-
-      if (v13 > 1)
-      {
-        goto LABEL_44;
-      }
-
-      v19 = *(v2 + 104);
-      if ((v19 + 2) >= *(v2 + 112))
-      {
-        *(v2 + 152) = 111;
-        *(v2 + 144) = 2466;
-        v30 = v14 == 0;
-        v25 = "dns_qclass_in";
-LABEL_57:
-        if (!v30)
-        {
-          v25 = v14;
-        }
-
-        goto LABEL_59;
-      }
-
-      *(v2 + 104) = v19 + 1;
-      *v19 = 0;
-      v20 = *(v2 + 104);
-      *(v2 + 104) = v20 + 1;
-      *v20 = 1;
-      v13 = *(v2 + 152);
-      if (v14)
-      {
-        v21 = 0;
-      }
-
-      else
-      {
-        v21 = v13 > 1;
-      }
-
-      if (v21)
-      {
-        v22 = "dns_qclass_in";
-      }
-
-      else
-      {
-        v22 = v14;
-      }
-
-      if (v13 >= 2)
-      {
-        goto LABEL_50;
-      }
-
-      dns_u32_to_wire_(v10, 3600, 2467);
-      v23 = *(v2 + 152);
-      if (v22)
-      {
-        v24 = 0;
-      }
-
-      else
-      {
-        v24 = v23 > 1;
-      }
-
-      v25 = "ttl";
-      if (!v24)
-      {
-        v25 = v22;
-      }
-
-      if (v23 > 1)
-      {
-        goto LABEL_59;
-      }
-
-      v26 = *(v2 + 104);
-      if ((v26 + 2) >= *(v2 + 112))
-      {
-        v27 = 111;
-LABEL_146:
-        *(v2 + 152) = v27;
-        *(v2 + 144) = 2468;
-LABEL_59:
-        v31 = 1;
-        goto LABEL_60;
-      }
-
-      if (*(v2 + 120))
-      {
-        v27 = v23 | 0x2C;
-        goto LABEL_146;
-      }
-
-      v31 = 0;
-      *(v2 + 120) = v26;
-      *(v2 + 104) = v26 + 2;
-LABEL_60:
-      if ((v31 & (v25 == 0)) != 0)
-      {
-        v32 = "rdlength_begin ";
-      }
-
-      else
-      {
-        v32 = v25;
-      }
-
-      if (uuid_name)
-      {
-        dns_name_to_wire_(0, v10, &uuid_name, 2475);
-        v33 = 2477;
-        v34 = "uuid_name";
-      }
-
-      else
-      {
-        dns_name_to_wire_(0, v10, "ns", 2479);
-        v33 = 2481;
-        v34 = "ns";
-      }
-
-      if (v32)
-      {
-        v35 = 0;
-      }
-
-      else
-      {
-        v35 = *(a1 + 152) > 1u;
-      }
-
-      if (v35)
-      {
-        v32 = v34;
-      }
-
-      dns_pointer_to_wire_(v10, a1 + 32, v33);
-      if (v32)
-      {
-        v36 = 0;
-      }
-
-      else
-      {
-        v36 = *(a1 + 152) > 1u;
-      }
-
-      if (v36)
-      {
-        v32 = "&query->enclosing_domain_pointer 2";
-      }
-
-      dns_name_to_wire_(0, v10, "postmaster", 2484);
-      if (v32)
-      {
-        v37 = 0;
-      }
-
-      else
-      {
-        v37 = *(a1 + 152) > 1u;
-      }
-
-      if (v37)
-      {
-        v32 = "postmaster";
-      }
-
-      dns_pointer_to_wire_(v10, a1 + 32, 2486);
-      if (v32)
-      {
-        v38 = 0;
-      }
-
-      else
-      {
-        v38 = *(a1 + 152) > 1u;
-      }
-
-      if (v38)
-      {
-        v32 = "&query->enclosing_domain_pointer 3";
-      }
-
-      dns_u32_to_wire_(v10, 0, 2487);
-      v39 = *(a1 + 152);
-      if (v32)
-      {
-        v40 = 0;
-      }
-
-      else
-      {
-        v40 = v39 > 1;
-      }
-
-      if (v40)
-      {
-        v32 = "serial";
-      }
-
-      if (v39 >= 2)
-      {
-        if (!v32)
-        {
-          v32 = "refresh";
-        }
-
-LABEL_122:
-        if (v32)
-        {
-          v48 = 0;
-        }
-
-        else
-        {
-          v48 = v39 > 1;
-        }
-
-        if (v48)
-        {
-          v32 = "retry";
-        }
-
-LABEL_127:
-        if (v32)
-        {
-          v49 = 0;
-        }
-
-        else
-        {
-          v49 = v39 > 1;
-        }
-
-        if (v49)
-        {
-          v32 = "expire";
-        }
-
-LABEL_132:
-        if (v32)
-        {
-          v50 = 0;
-        }
-
-        else
-        {
-          v50 = v39 > 1;
-        }
-
-        if (v50)
-        {
-          v51 = "minimum";
-        }
-
-        else
-        {
-          v51 = v32;
-        }
-
-        v222 = v51;
-LABEL_139:
-        if ((v39 & 1) == 0)
-        {
-          goto LABEL_156;
-        }
-
-        goto LABEL_140;
-      }
-
-      dns_u32_to_wire_(v10, 7200, 2488);
-      v39 = *(a1 + 152);
-      if (v32)
-      {
-        v41 = 0;
-      }
-
-      else
-      {
-        v41 = v39 > 1;
-      }
-
-      if (v41)
-      {
-        v32 = "refresh";
-      }
-
-      if (v39 >= 2)
-      {
-        goto LABEL_122;
-      }
-
-      dns_u32_to_wire_(v10, 3600, 2489);
-      v39 = *(a1 + 152);
-      if (v32)
-      {
-        v42 = 0;
-      }
-
-      else
-      {
-        v42 = v39 > 1;
-      }
-
-      if (v42)
-      {
-        v32 = "retry";
-      }
-
-      if (v39 >= 2)
-      {
-        goto LABEL_127;
-      }
-
-      dns_u32_to_wire_(v10, 86400, 2490);
-      v39 = *(a1 + 152);
-      if (v32)
-      {
-        v43 = 0;
-      }
-
-      else
-      {
-        v43 = v39 > 1;
-      }
-
-      if (v43)
-      {
-        v32 = "expire";
-      }
-
-      if (v39 >= 2)
-      {
-        goto LABEL_132;
-      }
-
-      dns_u32_to_wire_(v10, 120, 2491);
-      v39 = *(a1 + 152);
-      if (v32)
-      {
-        v44 = 0;
-      }
-
-      else
-      {
-        v44 = v39 > 1;
-      }
-
-      if (v44)
-      {
-        v45 = "minimum";
-      }
-
-      else
-      {
-        v45 = v32;
-      }
-
-      v222 = v45;
-      if (v39 > 1)
-      {
-        goto LABEL_139;
-      }
-
-      v46 = *(a1 + 120);
-      if (v46)
-      {
-        v47 = *(a1 + 104) - v46 - 2;
-        *v46 = BYTE1(v47);
-        *(*(a1 + 120) + 1) = v47;
-        *(a1 + 120) = 0;
-        if ((*(a1 + 152) & 1) == 0)
-        {
-          goto LABEL_156;
-        }
-      }
-
-      else
-      {
-        v52 = v39 | 0x2C;
-        *(a1 + 152) = v52;
-        *(a1 + 144) = 2492;
-        if ((v52 & 1) == 0)
-        {
-LABEL_156:
-          v2 = a1;
-          *(*(a1 + 168) + 8) = 256;
-          goto LABEL_158;
-        }
-      }
-
-LABEL_140:
-      v2 = a1;
-      *(a1 + 104) = v3;
-      if ((*(*(*(a1 + 8) + 8) + 424) & 0x20) == 0)
-      {
-        v5 = 512;
-LABEL_158:
-        v9 = a2;
-        LOWORD(v11) = v239;
-LABEL_159:
-        v211 = v11 & 0xFF7F | v5 | 0x400;
-        v209 = v5 != 0;
-        goto LABEL_160;
-      }
-
-      embiggen(a1);
-      *(a1 + 152) = 0;
-    }
-
-    *(v2 + 152) = 111;
-    *(v2 + 144) = 2464;
-    v30 = v14 == 0;
-    v25 = "dns_rrtype_soa";
-    goto LABEL_57;
-  }
-
-  if (*(v7 + 72) == 6)
-  {
-    v222 = 0;
-    goto LABEL_159;
-  }
-
-  v209 = v4;
-  v222 = 0;
-  v211 = v5 | v11 & 0xFBFF | 0x80;
-LABEL_160:
-  v61 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    v62 = *(v2 + 4);
-    if (v7)
-    {
-      v63 = *(v7 + 64);
-    }
-
-    else
-    {
-      v63 = 0;
-    }
-
-    v64 = bswap32(*(*(v2 + 64) + 88));
-    v65 = *(v2 + 104);
-    v66 = *(v2 + 96) + 12;
-    v67 = *(*(v2 + 168) + 3) & 0xF;
-    *buf = 136448258;
-    v245 = "dp_query_send_dns_response";
-    v246 = 1024;
-    *v247 = v62;
-    *&v247[4] = 1024;
-    *&v247[6] = v63;
-    LOWORD(v248) = 1024;
-    *(&v248 + 2) = HIWORD(v64);
-    WORD3(v248) = 2048;
-    *(&v248 + 1) = v65;
-    v249 = 2048;
-    v250 = v66;
-    v251 = 2048;
-    v252 = v65 - v66;
-    v253 = 1024;
-    v254 = v67;
-    v255 = 2082;
-    v256 = v9;
-    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d][QID %x] ->p %p ->lim %p len %zd rcode %d %{public}s", buf, 0x4Cu);
-  }
-
-  v68 = (v6 >> 8) & 0xF;
-  if (*(v2 + 152) > 1u || v68)
-  {
-    v167 = *(v2 + 168);
-    v74 = v2;
-LABEL_374:
-    v167[1] = bswap32(v211 & 0x7ECF | 0xFFFF8000) >> 16;
-    if (v68)
-    {
-      v171 = __rev16(v211 & 0x7EC0 | 0x8000 | v68);
-      goto LABEL_494;
-    }
-
-    goto LABEL_377;
-  }
-
-  v69 = *(v2 + 8);
-  v70 = *(v2 + 200);
-  if (v70)
-  {
-    v71 = *(v70 + 32);
-    if (v69)
-    {
-      goto LABEL_169;
-    }
-
-LABEL_369:
-    *(*(v2 + 168) + 2) = *(*(v2 + 168) + 2) & 0xF0FF | 0x200;
-    v168 = global_os_log;
-    v74 = v2;
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_372;
-    }
-
-    *buf = 136446723;
-    v245 = "dp_dns_queries_finished";
-    v246 = 2160;
-    *v247 = 1752392040;
-    *&v247[8] = 2081;
-    *&v248 = v71;
-    v169 = "%{public}s: NULL tracker on %{private, mask.hash}s";
-LABEL_509:
-    _os_log_impl(&_mh_execute_header, v168, OS_LOG_TYPE_ERROR, v169, buf, 0x20u);
-LABEL_506:
-    v74 = v2;
-    goto LABEL_372;
-  }
-
-  v71 = "(null)";
-  if (!v69)
-  {
-    goto LABEL_369;
-  }
-
-LABEL_169:
-  v212 = *(v2 + 8);
-  v72 = *(v69 + 16);
-  if (!v72)
-  {
-    *(*(v2 + 168) + 2) = *(*(v2 + 168) + 2) & 0xF0FF | 0x200;
-    v168 = global_os_log;
-    v74 = v2;
-    if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_372;
-    }
-
-    *buf = 136446723;
-    v245 = "dp_dns_queries_finished";
-    v246 = 2160;
-    *v247 = 1752392040;
-    *&v247[8] = 2081;
-    *&v248 = v71;
-    v169 = "%{public}s: NULL tracker->dns_queries on %{private, mask.hash}s";
-    goto LABEL_509;
-  }
-
-  v73 = *(v2 + 88);
-  v74 = v2;
-  if (v73 == 1)
-  {
-    goto LABEL_372;
-  }
-
-  v75 = 0;
-  v76 = v72;
-  do
-  {
-    if (!*(v76 + 168))
-    {
-      v207 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 136446210;
-        v245 = "dp_dns_queries_finished";
-        _os_log_impl(&_mh_execute_header, v207, OS_LOG_TYPE_ERROR, "%{public}s: null response on match query", buf, 0xCu);
-      }
-
-LABEL_505:
-      *(*(v2 + 168) + 2) = *(*(v2 + 168) + 2) & 0xF0FF | 0x200;
-      goto LABEL_506;
-    }
-
-    if (*(v76 + 64) == *(v2 + 64))
-    {
-      if (*(v76 + 208) != 1)
-      {
-        return;
-      }
-
-      ++v75;
-    }
-
-    v76 = *(v76 + 16);
-  }
-
-  while (v76);
-  if (v75 != v73)
-  {
-    return;
-  }
-
-  v77 = 0;
-  v225 = 0;
-  count = 0;
-  v221 = 0;
-  v74 = 0;
-  do
-  {
-    if (*(v72 + 64) == *(v2 + 64))
-    {
-      dns_wire_parse_((v72 + 176), *(v72 + 168), *(v72 + 104) - *(v72 + 168));
-      if ((v78 & 1) == 0)
-      {
-        goto LABEL_505;
-      }
-
-      v79 = *(v72 + 176);
-      if (!v74)
-      {
-        v74 = v72;
-        v77 = *(v72 + 176);
-      }
-
-      v225 += v79[1];
-      count += v79[2];
-      LODWORD(v221) = v79[4] + v221;
-      HIDWORD(v221) += v79[3];
-    }
-
-    v72 = *(v72 + 16);
-  }
-
-  while (v72);
-  v218 = (v77 + 16);
-  v219 = (v77 + 48);
-  v216 = (v77 + 12);
-  v217 = (v77 + 40);
-  v214 = (v77 + 8);
-  v215 = (v77 + 32);
-  v213 = (v77 + 24);
-  v220 = (v77 + 4);
-  while (2)
-  {
-    v80 = *(v212 + 16);
-    if (v80)
-    {
-      v81 = 0;
-      v240 = 0;
-      v82 = 0;
-      v83 = 0;
-      v84 = 0;
-      do
-      {
-        if (*(v2 + 64) != v80[8])
-        {
-          break;
-        }
-
-        if (v72 > 1)
-        {
-          if (v72 == 2)
-          {
-            v109 = v80[22];
-            v83 = (v109 + 40);
-            v240 = *(v109 + 12);
-            v81 = v216;
-            v84 = v217;
-            v82 = HIDWORD(v221);
-            if (!HIDWORD(v221))
-            {
-              goto LABEL_261;
-            }
-          }
-
-          else
-          {
-            if (v72 != 3)
-            {
-              goto LABEL_199;
-            }
-
-            v86 = v80[22];
-            v83 = (v86 + 48);
-            v240 = *(v86 + 16);
-            v81 = v218;
-            v84 = v219;
-            v82 = v221;
-            if (!v221)
-            {
-              goto LABEL_261;
-            }
-          }
-        }
-
-        else
-        {
-          if (!v72)
-          {
-            v87 = v80[22];
-            v83 = (v87 + 24);
-            v240 = *(v87 + 4);
-            v84 = v213;
-            v82 = v225;
-            v81 = v220;
-LABEL_199:
-            if (!v82)
-            {
-              goto LABEL_261;
-            }
-
-            goto LABEL_200;
-          }
-
-          if (v72 != 1)
-          {
-            goto LABEL_199;
-          }
-
-          v85 = v80[22];
-          v83 = (v85 + 32);
-          v240 = *(v85 + 8);
-          v81 = v214;
-          v84 = v215;
-          v82 = count;
-          if (!count)
-          {
-            goto LABEL_261;
-          }
-        }
-
-LABEL_200:
-        if (v84 == v83)
-        {
-          v106 = v83;
-          v107 = malloc_type_calloc(v82, 0x40uLL, 0x2AEA17BDuLL);
-          if (!v107)
-          {
-            v208 = global_os_log;
-            if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136446722;
-              v245 = "dp_dns_queries_finished";
-              v246 = 2048;
-              *v247 = v82;
-              *&v247[8] = 2048;
-              *&v248 = 64;
-              _os_log_impl(&_mh_execute_header, v208, OS_LOG_TYPE_ERROR, "%{public}s: strict_calloc(%zu, %zu) failed", buf, 0x20u);
-            }
-
-            __break(1u);
-          }
-
-          v108 = v107;
-          memcpy(v107, *v84, v240 << 6);
-          bzero(*v84, v240 << 6);
-          if (*v84)
-          {
-            free(*v84);
-          }
-
-          *v84 = v108;
-          v83 = v106;
-        }
-
-        else
-        {
-          v231 = v80;
-          v233 = v84;
-          v227 = v81;
-          v229 = v83;
-          v88 = v81->i32[0];
-          if (v240)
-          {
-            v89 = 0;
-            v90 = *v83;
-            v235 = *v233;
-            v237 = *v233 + 16;
-            while (1)
-            {
-              v91 = &v90[64 * v89];
-              if (v88)
-              {
-                break;
-              }
-
-LABEL_250:
-              if (v88 >= v82)
-              {
-                v105 = global_os_log;
-                if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136446978;
-                  v245 = "dp_move_rrs";
-                  v246 = 1024;
-                  *v247 = v88;
-                  *&v247[4] = 1024;
-                  *&v247[6] = v82;
-                  LOWORD(v248) = 1024;
-                  *(&v248 + 2) = v89;
-                  _os_log_impl(&_mh_execute_header, v105, OS_LOG_TYPE_ERROR, "%{public}s: first_count %d unexpectedly equal to count %d with i = %d", buf, 0x1Eu);
-                }
-              }
-
-              else
-              {
-                v101 = *v91;
-                v102 = *(v91 + 1);
-                v103 = *(v91 + 3);
-                v104 = &v235[64 * v88];
-                *(v104 + 2) = *(v91 + 2);
-                *(v104 + 3) = v103;
-                *v104 = v101;
-                *(v104 + 1) = v102;
-                ++v88;
-                *(v91 + 4) = 0;
-              }
-
-LABEL_254:
-              if (++v89 == v240)
-              {
-                goto LABEL_255;
-              }
-            }
-
-            v92 = v88;
-            v93 = v237;
-            while (2)
-            {
-              if (*(v93 - 4) != *(v91 + 4) || *(v93 - 3) != *(v91 + 5))
-              {
-                goto LABEL_232;
-              }
-
-              v94 = dns_names_equal(*(v93 - 2), *v91);
-              if (v94)
-              {
-                v95 = v72 == 0;
-              }
-
-              else
-              {
-                v95 = 1;
-              }
-
-              if (v95)
-              {
-                goto LABEL_231;
-              }
-
-              v96 = *(v93 - 4);
-              if (v96 > 0xF)
-              {
-                if (*(v93 - 4) <= 0x18u)
-                {
-                  if (v96 != 16)
-                  {
-                    if (v96 == 24)
-                    {
-                      goto LABEL_232;
-                    }
-
-                    goto LABEL_234;
-                  }
-
-                  v97 = *v93;
-                  if (v97 != v91[16])
-                  {
-                    goto LABEL_232;
-                  }
-
-                  v98 = v93[1];
-                  v99 = *(v91 + 3);
-                }
-
-                else
-                {
-                  switch(v96)
-                  {
-                    case 0x19u:
-                      if (dns_keys_rdata_equal((v93 - 2), &v90[64 * v89]))
-                      {
-                        goto LABEL_254;
-                      }
-
-                      goto LABEL_232;
-                    case 0x1Cu:
-                      if (*v93 == *(v91 + 2) && v93[1] == *(v91 + 3))
-                      {
-                        goto LABEL_254;
-                      }
-
-                      goto LABEL_232;
-                    case 0x21u:
-                      if (*(v93 + 4) != *(v91 + 12) || *(v93 + 5) != *(v91 + 13) || *(v93 + 6) != *(v91 + 14))
-                      {
-                        goto LABEL_232;
-                      }
-
-LABEL_230:
-                      LOBYTE(v94) = dns_names_equal(*v93, *(v91 + 2));
-LABEL_231:
-                      if (v94)
-                      {
-                        goto LABEL_254;
-                      }
-
-LABEL_232:
-                      v93 += 8;
-                      if (!--v92)
-                      {
-                        goto LABEL_250;
-                      }
-
-                      continue;
-                  }
-
-LABEL_234:
-                  v97 = *(v93 + 4);
-                  if (v97 != *(v91 + 12))
-                  {
-                    goto LABEL_232;
-                  }
-
-                  v98 = *v93;
-                  v99 = *(v91 + 2);
-                }
-
-                if (!memcmp(v98, v99, v97))
-                {
-                  goto LABEL_254;
-                }
-
-                goto LABEL_232;
-              }
-
-              break;
-            }
-
-            if (*(v93 - 4) > 4u)
-            {
-              if (v96 == 5 || v96 == 12)
-              {
-                goto LABEL_230;
-              }
-            }
-
-            else
-            {
-              if (v96 == 1)
-              {
-                if (*v93 == *(v91 + 4))
-                {
-                  goto LABEL_254;
-                }
-
-                goto LABEL_232;
-              }
-
-              if (v96 == 2)
-              {
-                goto LABEL_230;
-              }
-
-              if (!*(v93 - 4))
-              {
-                goto LABEL_254;
-              }
-            }
-
-            goto LABEL_234;
-          }
-
-LABEL_255:
-          v83 = v229;
-          v227->i32[0] = v88;
-          v81 = v227;
-          v2 = a1;
-          v80 = v231;
-          v84 = v233;
-        }
-
-LABEL_261:
-        v80 = v80[2];
-      }
-
-      while (v80);
-    }
-
-    LODWORD(v72) = v72 + 1;
-    if (v72 != 4)
-    {
-      continue;
-    }
-
-    break;
-  }
-
-  while (2)
-  {
-    v110 = 0;
-    v111 = *(v74 + 168);
-    v112 = *(v74 + 176);
-    v113 = v111 + 12 + *(v74 + 184);
-    *(v74 + 96) = v111;
-    *(v74 + 104) = v111 + 12;
-    *(v74 + 160) = 0;
-    *(v74 + 120) = 0;
-    *(v74 + 128) = 0;
-    v238 = (v112 + 48);
-    v241 = (v112 + 16);
-    v234 = (v112 + 40);
-    v236 = (v112 + 12);
-    *(v74 + 112) = v113;
-    v230 = (v112 + 32);
-    v232 = (v112 + 8);
-    v226 = (v112 + 24);
-    v228 = (v112 + 4);
-    v114 = 1;
-    while (2)
-    {
-      v115 = v241;
-      if (v110 == 2)
-      {
-        v115 = v236;
-      }
-
-      v116 = v234;
-      if (v110 != 2)
-      {
-        v116 = v238;
-      }
-
-      v117 = v232;
-      if (!v110)
-      {
-        v117 = v228;
-      }
-
-      v118 = v230;
-      if (!v110)
-      {
-        v118 = v226;
-      }
-
-      if (v110 <= 1)
-      {
-        v119 = v118;
-      }
-
-      else
-      {
-        v117 = v115;
-        v119 = v116;
-      }
-
-      v120 = *v117;
-      if (v120 >= 1)
-      {
-        v121 = 0;
-        v122 = 0;
-        v123 = *v119;
-        v124 = v120 << 6;
-        while (1)
-        {
-          if (*(v74 + 152))
-          {
-            goto LABEL_354;
-          }
-
-          v125 = *(v74 + 104);
-          v126 = v123 + v121;
-          dns_concatenate_name_to_wire_(v74 + 96, *(v123 + v121), 0, 0, 661);
-          v127 = *(v74 + 152);
-          if (v127 > 1)
-          {
-            goto LABEL_283;
-          }
-
-          v128 = *(v74 + 104);
-          if ((v128 + 2) < *(v74 + 112))
-          {
-            break;
-          }
-
-          v127 = 111;
-          *(v74 + 152) = 111;
-          *(v74 + 144) = 662;
-          if (v114)
-          {
-            goto LABEL_348;
-          }
-
-LABEL_286:
-          if (v127 <= 1)
-          {
-            dns_u32_to_wire_(v74 + 96, *(v123 + v121 + 12), 667);
-            v127 = *(v74 + 152);
-            if (v127 <= 1)
-            {
-              v134 = *(v74 + 104);
-              if ((v134 + 2) >= *(v74 + 112))
-              {
-                v127 = 111;
-                goto LABEL_294;
-              }
-
-              if (*(v74 + 120))
-              {
-                v127 |= 0x2Cu;
-LABEL_294:
-                *(v74 + 152) = v127;
-                *(v74 + 144) = 668;
-                goto LABEL_295;
-              }
-
-              *(v74 + 120) = v134;
-              *(v74 + 104) = v134 + 2;
-            }
-          }
-
-LABEL_295:
-          v135 = *(v126 + 8);
-          if (v135 <= 0xB)
-          {
-            if (*(v126 + 8) <= 1u)
-            {
-              if (!*(v126 + 8))
-              {
-                v154 = global_os_log;
-                if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136446210;
-                  v245 = "dns_rr_to_wire";
-                  v137 = v154;
-                  v138 = "%{public}s: invalid rr!";
-                  goto LABEL_332;
-                }
-
-LABEL_333:
-                *(v74 + 152) = v127 & 1 | 0x2C;
-                goto LABEL_353;
-              }
-
-              if (v127 > 1)
-              {
-                goto LABEL_345;
-              }
-
-              v152 = *(v74 + 104);
-              if ((v152 + 1) > *(v74 + 112))
-              {
-                *(v74 + 152) = 111;
-                v153 = 706;
-                goto LABEL_352;
-              }
-
-              *v152 = *(v123 + v121 + 16);
-              v159 = *(v74 + 104) + 4;
-              goto LABEL_360;
-            }
-
-            if (v135 == 2 || v135 == 5)
-            {
-LABEL_317:
-              v149 = *(v123 + v121 + 16);
-              v150 = v74 + 96;
-              v151 = 695;
-LABEL_344:
-              dns_concatenate_name_to_wire_(v150, v149, 0, 0, v151);
-              goto LABEL_345;
-            }
-
-            if (v135 == 6)
-            {
-              dns_concatenate_name_to_wire_(v74 + 96, *(v123 + v121 + 16), 0, 0, 682);
-              dns_concatenate_name_to_wire_(v74 + 96, *(v123 + v121 + 24), 0, 0, 683);
-              dns_u32_to_wire_(v74 + 96, *(v123 + v121 + 32), 684);
-              dns_u32_to_wire_(v74 + 96, *(v123 + v121 + 36), 685);
-              dns_u32_to_wire_(v74 + 96, *(v123 + v121 + 40), 686);
-              dns_u32_to_wire_(v74 + 96, *(v123 + v121 + 44), 687);
-              dns_u32_to_wire_(v74 + 96, *(v123 + v121 + 48), 688);
-              goto LABEL_345;
-            }
-
-            goto LABEL_334;
-          }
-
-          if (*(v126 + 8) <= 0x18u)
-          {
-            switch(v135)
-            {
-              case 0xCu:
-                goto LABEL_317;
-              case 0x10u:
-                if (v127 <= 1)
-                {
-                  v155 = *(v123 + v121 + 16);
-                  v156 = *(v74 + 104);
-                  if (v156 + v155 > *(v74 + 112))
-                  {
-                    *(v74 + 152) = 111;
-                    v153 = 725;
-                    goto LABEL_352;
-                  }
-
-                  v160 = *(v123 + v121 + 24);
-                  goto LABEL_359;
-                }
-
-                goto LABEL_345;
-              case 0x18u:
-                v136 = global_os_log;
-                if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-                {
-                  *buf = 136446210;
-                  v245 = "dns_rr_to_wire";
-                  v137 = v136;
-                  v138 = "%{public}s: signature not valid here!";
-                  goto LABEL_332;
-                }
-
-                goto LABEL_333;
-            }
-
-            goto LABEL_334;
-          }
-
-          if (v135 == 25)
-          {
-            v158 = global_os_log;
-            if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-            {
-              *buf = 136446210;
-              v245 = "dns_rr_to_wire";
-              v137 = v158;
-              v138 = "%{public}s: key not valid here!";
-LABEL_332:
-              _os_log_impl(&_mh_execute_header, v137, OS_LOG_TYPE_ERROR, v138, buf, 0xCu);
-              v127 = *(v74 + 152);
-            }
-
-            goto LABEL_333;
-          }
-
-          if (v135 != 28)
-          {
-            if (v135 == 33)
-            {
-              v139 = v123 + v121;
-              if (v127 <= 1)
-              {
-                v140 = *(v74 + 104);
-                if ((v140 + 2) >= *(v74 + 112))
-                {
-                  *(v74 + 152) = 111;
-                  v161 = 699;
-                  goto LABEL_342;
-                }
-
-                v141 = *(v139 + 24);
-                *(v74 + 104) = v140 + 1;
-                *v140 = HIBYTE(v141);
-                v142 = *(v74 + 104);
-                *(v74 + 104) = v142 + 1;
-                *v142 = v141;
-                if (*(v74 + 152) <= 1u)
-                {
-                  v143 = *(v74 + 104);
-                  if ((v143 + 2) >= *(v74 + 112))
-                  {
-                    *(v74 + 152) = 111;
-                    v161 = 700;
-                    goto LABEL_342;
-                  }
-
-                  v144 = *(v123 + v121 + 26);
-                  *(v74 + 104) = v143 + 1;
-                  *v143 = HIBYTE(v144);
-                  v145 = *(v74 + 104);
-                  *(v74 + 104) = v145 + 1;
-                  *v145 = v144;
-                  if (*(v74 + 152) <= 1u)
-                  {
-                    v146 = *(v74 + 104);
-                    if ((v146 + 2) < *(v74 + 112))
-                    {
-                      v147 = *(v123 + v121 + 28);
-                      *(v74 + 104) = v146 + 1;
-                      *v146 = HIBYTE(v147);
-                      v148 = *(v74 + 104);
-                      *(v74 + 104) = v148 + 1;
-                      *v148 = v147;
-                      goto LABEL_343;
-                    }
-
-                    *(v74 + 152) = 111;
-                    v161 = 701;
-LABEL_342:
-                    *(v74 + 144) = v161;
-                  }
-                }
-              }
-
-LABEL_343:
-              v149 = *(v139 + 16);
-              v150 = v74 + 96;
-              v151 = 702;
-              goto LABEL_344;
-            }
-
-LABEL_334:
-            if (v127 <= 1)
-            {
-              v155 = *(v123 + v121 + 24);
-              v156 = *(v74 + 104);
-              if (v156 + v155 > *(v74 + 112))
-              {
-                *(v74 + 152) = 111;
-                v153 = 678;
-                goto LABEL_352;
-              }
-
-              v160 = *(v123 + v121 + 16);
-LABEL_359:
-              memcpy(v156, v160, v155);
-              v159 = *(v74 + 104) + v155;
-LABEL_360:
-              *(v74 + 104) = v159;
-              goto LABEL_345;
-            }
-
-            goto LABEL_345;
-          }
-
-          if (v127 <= 1)
-          {
-            v157 = *(v74 + 104);
-            if ((v157 + 1) > *(v74 + 112))
-            {
-              *(v74 + 152) = 111;
-              v153 = 710;
-              goto LABEL_352;
-            }
-
-            *v157 = *(v123 + v121 + 16);
-            v159 = *(v74 + 104) + 16;
-            goto LABEL_360;
-          }
-
-LABEL_345:
-          v162 = *(v74 + 152);
-          if (v162 > 1)
-          {
-            goto LABEL_353;
-          }
-
-          v163 = *(v74 + 120);
-          if (!v163)
-          {
-            *(v74 + 152) = v162 | 0x2C;
-            v153 = 728;
-LABEL_352:
-            *(v74 + 144) = v153;
-LABEL_353:
-            *(v74 + 104) = v125;
-LABEL_354:
-            v165 = global_os_log;
-            if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-            {
-              v166 = *(v123 + v121 + 8);
-              *buf = 136446978;
-              v245 = "dns_message_rrs_to_wire";
-              v246 = 1024;
-              *v247 = v110;
-              *&v247[4] = 1024;
-              *&v247[6] = v122;
-              LOWORD(v248) = 1024;
-              *(&v248 + 2) = v166;
-              _os_log_impl(&_mh_execute_header, v165, OS_LOG_TYPE_ERROR, "%{public}s: no space in message for rr %d/%d %d", buf, 0x1Eu);
-            }
-
-            goto LABEL_356;
-          }
-
-          v164 = *(v74 + 104) - v163 - 2;
-          *v163 = BYTE1(v164);
-          *(*(v74 + 120) + 1) = v164;
-          *(v74 + 120) = 0;
-          v127 = *(v74 + 152);
-LABEL_348:
-          if (v127 > 1 || (v127 & 1) != 0)
-          {
-            goto LABEL_353;
-          }
-
-LABEL_356:
-          ++v122;
-          v121 += 64;
-          if (v124 == v121)
-          {
-            goto LABEL_363;
-          }
-        }
-
-        v129 = *(v126 + 8);
-        *(v74 + 104) = v128 + 1;
-        *v128 = HIBYTE(v129);
-        v130 = *(v74 + 104);
-        *(v74 + 104) = v130 + 1;
-        *v130 = v129;
-        v127 = *(v74 + 152);
-        if (v127 <= 1)
-        {
-          v131 = *(v74 + 104);
-          if ((v131 + 2) >= *(v74 + 112))
-          {
-            v127 = 111;
-            *(v74 + 152) = 111;
-            *(v74 + 144) = 663;
-            if (v114)
-            {
-              goto LABEL_353;
-            }
-
-            goto LABEL_295;
-          }
-
-          v132 = *(v123 + v121 + 10);
-          *(v74 + 104) = v131 + 1;
-          *v131 = HIBYTE(v132);
-          v133 = *(v74 + 104);
-          *(v74 + 104) = v133 + 1;
-          *v133 = v132;
-          v127 = *(v74 + 152);
-        }
-
-LABEL_283:
-        if (v114)
-        {
-          goto LABEL_348;
-        }
-
-        goto LABEL_286;
-      }
-
-LABEL_363:
-      v114 = 0;
-      if (++v110 != 4)
-      {
-        continue;
-      }
-
-      break;
-    }
-
-    if ((*(v74 + 152) & 1) != 0 && (*(*(*(v74 + 8) + 8) + 424) & 0x20) != 0)
-    {
-      embiggen(v74);
-      *(v74 + 152) = 0;
-      continue;
-    }
-
-    break;
-  }
-
-  *(*(v74 + 168) + 4) = vrev16_s8(vmovn_s32(*v220));
-  v2 = a1;
-LABEL_372:
-  v167 = *(v74 + 168);
-  v170 = v167[1];
-  v10 = v74 + 96;
-  v3 = *(v74 + 104);
-  if ((v170 & 0xF00) != 0)
-  {
-    v68 = (v170 >> 8) & 0xF;
-    goto LABEL_374;
-  }
-
-  v167[1] = __rev16(v211 & 0x7ECF | 0x8000);
-LABEL_377:
-  if (*(v74 + 92) != 1)
-  {
-    goto LABEL_483;
-  }
-
-  while (2)
-  {
-    v172 = *(v10 + 56);
-    if (v172 > 1)
-    {
-      goto LABEL_424;
-    }
-
-    v173 = *(v10 + 8);
-    if ((v173 + 1) >= *(v10 + 16))
-    {
-      v172 = 111;
-      *(v10 + 56) = 111;
-      *(v10 + 48) = 2606;
-LABEL_424:
-      v174 = v222;
-      if (v222)
-      {
-        v191 = 0;
-      }
-
-      else
-      {
-        v191 = v172 > 1;
-      }
-
-      if (v191)
-      {
-        v174 = "Root label";
-      }
-
-      goto LABEL_429;
-    }
-
-    *(v10 + 8) = v173 + 1;
-    *v173 = 0;
-    v172 = *(v10 + 56);
-    v174 = v222;
-    if (v222)
-    {
-      v175 = 0;
-    }
-
-    else
-    {
-      v175 = v172 > 1;
-    }
-
-    if (v175)
-    {
-      v174 = "Root label";
-    }
-
-    if (v172 > 1)
-    {
-LABEL_429:
-      if (v174)
-      {
-        v192 = 0;
-      }
-
-      else
-      {
-        v192 = v172 > 1;
-      }
-
-      if (v192)
-      {
-        v174 = "dns_rrtype_opt";
-      }
-
-LABEL_434:
-      if (v174)
-      {
-        v193 = 0;
-      }
-
-      else
-      {
-        v193 = v172 > 1;
-      }
-
-      if (v193)
-      {
-        v174 = "UDP Payload size";
-      }
-
-LABEL_439:
-      if (v174)
-      {
-        v194 = 0;
-      }
-
-      else
-      {
-        v194 = v172 > 1;
-      }
-
-      if (v194)
-      {
-        v174 = "extended-rcode";
-      }
-
-LABEL_444:
-      if (v174)
-      {
-        v195 = 0;
-      }
-
-      else
-      {
-        v195 = v172 > 1;
-      }
-
-      if (v195)
-      {
-        v174 = "EDNS version 0";
-      }
-
-LABEL_449:
-      if (v174)
-      {
-        v196 = 0;
-      }
-
-      else
-      {
-        v196 = v172 > 1;
-      }
-
-      if (v196)
-      {
-        v174 = "No extended flags";
-      }
-
-      break;
-    }
-
-    v176 = *(v10 + 8);
-    if ((v176 + 2) >= *(v10 + 16))
-    {
-      *(v10 + 56) = 111;
-      *(v10 + 48) = 2607;
-      if (!v174)
-      {
-        v174 = "dns_rrtype_opt";
-      }
-
-      goto LABEL_464;
-    }
-
-    *(v10 + 8) = v176 + 1;
-    *v176 = 0;
-    v177 = *(v10 + 8);
-    *(v10 + 8) = v177 + 1;
-    *v177 = 41;
-    v172 = *(v10 + 56);
-    if (v174)
-    {
-      v178 = 0;
-    }
-
-    else
-    {
-      v178 = v172 > 1;
-    }
-
-    if (v178)
-    {
-      v174 = "dns_rrtype_opt";
-    }
-
-    if (v172 > 1)
-    {
-      goto LABEL_434;
-    }
-
-    v179 = *(v10 + 8);
-    if ((v179 + 2) >= *(v10 + 16))
-    {
-      *(v10 + 56) = 111;
-      *(v10 + 48) = 2608;
-      if (!v174)
-      {
-        v174 = "UDP Payload size";
-      }
-
-      goto LABEL_464;
-    }
-
-    *(v10 + 8) = v179 + 1;
-    *v179 = 16;
-    v180 = *(v10 + 8);
-    *(v10 + 8) = v180 + 1;
-    *v180 = 0;
-    v172 = *(v10 + 56);
-    if (v174)
-    {
-      v181 = 0;
-    }
-
-    else
-    {
-      v181 = v172 > 1;
-    }
-
-    if (v181)
-    {
-      v174 = "UDP Payload size";
-    }
-
-    if (v172 > 1)
-    {
-      goto LABEL_439;
-    }
-
-    v182 = *(v10 + 8);
-    if ((v182 + 1) >= *(v10 + 16))
-    {
-      *(v10 + 56) = 111;
-      *(v10 + 48) = 2609;
-      if (!v174)
-      {
-        v174 = "extended-rcode";
-      }
-
-      goto LABEL_464;
-    }
-
-    *(v10 + 8) = v182 + 1;
-    *v182 = 0;
-    v172 = *(v10 + 56);
-    if (v174)
-    {
-      v183 = 0;
-    }
-
-    else
-    {
-      v183 = v172 > 1;
-    }
-
-    if (v183)
-    {
-      v174 = "extended-rcode";
-    }
-
-    if (v172 > 1)
-    {
-      goto LABEL_444;
-    }
-
-    v184 = *(v10 + 8);
-    if ((v184 + 1) >= *(v10 + 16))
-    {
-      *(v10 + 56) = 111;
-      *(v10 + 48) = 2610;
-      if (!v174)
-      {
-        v174 = "EDNS version 0";
-      }
-
-      goto LABEL_464;
-    }
-
-    *(v10 + 8) = v184 + 1;
-    *v184 = 0;
-    v172 = *(v10 + 56);
-    if (v174)
-    {
-      v185 = 0;
-    }
-
-    else
-    {
-      v185 = v172 > 1;
-    }
-
-    if (v185)
-    {
-      v174 = "EDNS version 0";
-    }
-
-    if (v172 > 1)
-    {
-      goto LABEL_449;
-    }
-
-    v186 = *(v10 + 8);
-    if ((v186 + 2) >= *(v10 + 16))
-    {
-      *(v10 + 56) = 111;
-      *(v10 + 48) = 2611;
-      if (!v174)
-      {
-        v174 = "No extended flags";
-      }
-
-      goto LABEL_464;
-    }
-
-    *(v10 + 8) = v186 + 1;
-    *v186 = 0;
-    v187 = *(v10 + 8);
-    *(v10 + 8) = v187 + 1;
-    *v187 = 0;
-    v172 = *(v10 + 56);
-    if (v174)
-    {
-      v188 = 0;
-    }
-
-    else
-    {
-      v188 = v172 > 1;
-    }
-
-    if (v188)
-    {
-      v174 = "No extended flags";
-    }
-
-    if (v172 <= 1)
-    {
-      v189 = *(v10 + 8);
-      if ((v189 + 2) < *(v10 + 16))
-      {
-        *(v10 + 8) = v189 + 1;
-        *v189 = 0;
-        v190 = *(v10 + 8);
-        *(v10 + 8) = v190 + 1;
-        *v190 = 0;
-        v172 = *(v10 + 56);
-        break;
-      }
-
-      *(v10 + 56) = 111;
-      *(v10 + 48) = 2612;
-LABEL_464:
-      if (v174)
-      {
-        v198 = v174;
-      }
-
-      else
-      {
-        v198 = "No payload";
-      }
-
-      v222 = v198;
-LABEL_460:
-      *(v74 + 104) = v3;
-      if ((*(*(*(v74 + 8) + 8) + 424) & 0x20) == 0)
-      {
-        goto LABEL_482;
-      }
-
-      embiggen(v74);
-      *(v74 + 152) = 0;
-      continue;
-    }
-
-    break;
-  }
-
-  if (v174)
-  {
-    v197 = 0;
-  }
-
-  else
-  {
-    v197 = v172 > 1;
-  }
-
-  if (v197)
-  {
-    v174 = "No payload";
-  }
-
-  v222 = v174;
-  if (v172)
-  {
-    goto LABEL_460;
-  }
-
-  *(*(v74 + 168) + 10) = 256;
-LABEL_482:
-  v2 = a1;
-LABEL_483:
-  if (*(v10 + 56) >= 2u)
-  {
-    v199 = global_os_log;
-    if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-    {
-      if (v2)
-      {
-        v200 = *(v2 + 4);
-      }
-
-      else
-      {
-        v200 = 0;
-      }
-
-      v201 = v210;
-      if (v210)
-      {
-        v201 = *(v210 + 64);
-      }
-
-      v202 = bswap32(*(*(v74 + 64) + 88));
-      *buf = 136447234;
-      v245 = "dp_query_send_dns_response";
-      v246 = 1024;
-      *v247 = v200;
-      *&v247[4] = 1024;
-      *&v247[6] = v201;
-      LOWORD(v248) = 1024;
-      *(&v248 + 2) = HIWORD(v202);
-      WORD3(v248) = 2080;
-      *(&v248 + 1) = v222;
-      _os_log_impl(&_mh_execute_header, v199, OS_LOG_TYPE_ERROR, "%{public}s: [Q%d][QU%d][QID%x] failed on %s", buf, 0x28u);
-    }
-
-    v167 = *(v74 + 168);
-    v171 = v167[1] & 0xF0FF;
-    if (!v209)
-    {
-      v171 |= 0x200u;
-    }
-  }
-
-  else
-  {
-    v167 = *(v74 + 168);
-    v171 = v167[1] & 0xF0FF;
-  }
-
-LABEL_494:
-  v167[1] = v171;
-  v203 = *(v74 + 104) - v167;
-  v243.iov_base = v167;
-  v243.iov_len = v203;
-  v204 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    if (v2)
-    {
-      v205 = *(v2 + 4);
-    }
-
-    else
-    {
-      v205 = 0;
-    }
-
-    v206 = v210;
-    if (v210)
-    {
-      v206 = *(v210 + 64);
-    }
-
-    *buf = 136446978;
-    v245 = "dp_query_send_dns_response";
-    v246 = 1024;
-    *v247 = v205;
-    *&v247[4] = 1024;
-    *&v247[6] = v206;
-    LOWORD(v248) = 2048;
-    *(&v248 + 2) = v203;
-    _os_log_impl(&_mh_execute_header, v204, OS_LOG_TYPE_DEFAULT, "%{public}s: [Q%d][QU%d] (len %zd)", buf, 0x22u);
-  }
-
-  ioloop_send_message(*(*(v74 + 8) + 8), *(v74 + 64), &v243);
-  dnssd_query_cancel(v74);
-}
-
-void served_domain_free(void *a1)
-{
-  v2 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = a1[1];
-    v12 = 136446723;
-    v13 = "served_domain_free";
-    v14 = 2160;
-    v15 = 1752392040;
-    v16 = 2081;
-    v17 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "%{public}s: served domain removed - domain name: %{private, mask.hash}s", &v12, 0x20u);
-  }
-
-  v4 = a1[5];
-  if (v4)
-  {
-    v5 = *(v4 + 16);
-    if (v5)
-    {
-      do
-      {
-        v6 = *v5;
-        free(v5);
-        v5 = v6;
-      }
-
-      while (v6);
-      v4 = a1[5];
-    }
-
-    if (*(v4 + 8))
-    {
-      free(*(v4 + 8));
-      v4 = a1[5];
-      *(v4 + 8) = 0;
-    }
-
-    free(v4);
-    a1[5] = 0;
-  }
-
-  v7 = a1[4];
-  if (v7)
-  {
-    do
-    {
-      v8 = *v7;
-      free(v7);
-      v7 = v8;
-    }
-
-    while (v8);
-  }
-
-  v9 = a1[3];
-  if (v9)
-  {
-    do
-    {
-      v10 = *v9;
-      free(v9);
-      v9 = v10;
-    }
-
-    while (v10);
-  }
-
-  v11 = a1[2];
-  if (v11)
-  {
-    free(v11);
-  }
-
-  free(a1);
-}
-
-uint64_t dp_start_question(uint64_t a1)
-{
-  sdRef = 0;
-  v2 = *(a1 + 8);
-  v3 = *(a1 + 32);
-  if (!v2)
-  {
-LABEL_10:
-    v14 = *(a1 + 68);
-    if (v14 != -5)
-    {
-LABEL_16:
-      v16 = *(a1 + 56);
-      v17 = *(a1 + 72);
-      v18 = *(a1 + 74);
-      if (!&_ne_tracker_check_is_hostname_blocked || (v17 != 1 ? (v19 = v17 == 28) : (v19 = 1), !v19 ? (v20 = v17 == 255) : (v20 = 1), !v20 ? (v21 = 0) : (v21 = 1), v18 == 1 ? (v22 = v21 == 0) : (v22 = 1), v22))
-      {
-        should_save_stacktrace = 0;
-      }
-
-      else
-      {
-        v33 = ne_tracker_check_is_hostname_blocked();
-        if (v33 == 1)
-        {
-          v6 = 4294901726;
-          goto LABEL_61;
-        }
-
-        should_save_stacktrace = ne_tracker_should_save_stacktrace();
-      }
-
-      v6 = ConnectToServer(&sdRef, v16, 8, handle_query_response, dns_question_callback, a1);
-      if (v6)
-      {
-        goto LABEL_61;
-      }
-
-      if (v3)
-      {
-        v24 = v3;
-      }
-
-      else
-      {
-        v24 = &unk_1000860E8;
-      }
-
-      v25 = strlen(v24);
-      v53 = v25 + 13;
-      os_unfair_lock_lock(&g_defaults_lock);
-      os_unfair_lock_unlock(&g_defaults_lock);
-      if (should_save_stacktrace)
-      {
-        v53 = v25 + 18;
-      }
-
-      *buf = 0;
-      v26 = create_hdr(8, &v53, buf, *(sdRef + 1) != 0, sdRef);
-      v27 = *buf;
-      v51 = v53;
-      **buf = HIBYTE(v16);
-      v27[1] = BYTE2(v16);
-      v27[2] = BYTE1(v16);
-      v27[3] = v16;
-      v27[4] = HIBYTE(v14);
-      v27[5] = BYTE2(v14);
-      v27[6] = BYTE1(v14);
-      v27[7] = v14;
-      v28 = strlen(v24) + 1;
-      memcpy(v27 + 8, v24, v28);
-      v29 = &v27[v28 + 8];
-      *v29 = BYTE1(v17);
-      v29[1] = v17;
-      v29[2] = BYTE1(v18);
-      v30 = v29 + 4;
-      v29[3] = v18;
-      *buf = v29 + 4;
-      if (should_save_stacktrace)
-      {
-        if (&v27[v28 + 8] != -4 && &v27[v51] >= v30 && v51 - (v28 + 12) >= 5)
-        {
-          *(v29 + 1) = 16779264;
-          v29[8] = 1;
-          v30 = v29 + 9;
-        }
-
-        *buf = v30;
-        v26->i32[2] |= 2u;
-      }
-
-      v31 = deliver_request(v26, sdRef);
-      v6 = v31;
-      if (!&_ne_tracker_check_is_hostname_blocked || v31 || ((should_save_stacktrace ^ 1) & 1) != 0)
-      {
-        if (v31)
-        {
-          if (v31 != -65555)
-          {
-            goto LABEL_60;
-          }
-
-          if (_should_return_noauth_error_s_once != -1)
-          {
-            dispatch_once(&_should_return_noauth_error_s_once, &__block_literal_global);
-          }
-
-          if (_should_return_noauth_error_s_should == 1)
-          {
-LABEL_60:
-            DNSServiceRefDeallocate(sdRef);
-            sdRef = 0;
-LABEL_61:
-            v37 = global_os_log;
-            if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-            {
-              v38 = *(a1 + 64);
-              *buf = 136447235;
-              *&buf[4] = "dp_start_question";
-              v55 = 1024;
-              v56 = v38;
-              v57 = 2160;
-              v58 = 1752392040;
-              v59 = 2081;
-              v60 = v3;
-              v61 = 1024;
-              LODWORD(v62) = v6;
-              v9 = "%{public}s: [QU%d] DNSServiceQueryRecord failed for '%{private, mask.hash}s': %d";
-              v10 = v37;
-              v11 = 44;
-              goto LABEL_63;
-            }
-
-            return v6;
-          }
-        }
-      }
-
-      else
-      {
-        v32 = *(sdRef + 15);
-        if (v32)
-        {
-          free(v32);
-          *(sdRef + 15) = 0;
-        }
-
-        *(sdRef + 15) = ne_tracker_copy_current_stacktrace();
-      }
-
-      v40 = global_os_log;
-      v41 = os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT);
-      v42 = sdRef;
-      if (v41)
-      {
-        v43 = *(a1 + 64);
-        v44 = *(a1 + 24);
-        *buf = 136446978;
-        *&buf[4] = "dp_start_question";
-        v55 = 1024;
-        v56 = v43;
-        v57 = 2048;
-        v58 = v44;
-        v59 = 2048;
-        v60 = sdRef;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%{public}s: [QU%d] txn %p new sdref %p", buf, 0x26u);
-        v42 = sdRef;
-      }
-
-      *(a1 + 24) = ioloop_dnssd_txn_add_(v42, a1, dp_question_context_release, "/Library/Caches/com.apple.xbs/Sources/mDNSResponderExtras/ServiceRegistration/dnssd-proxy.c", 532);
-      v45 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_DEFAULT))
-      {
-        v46 = *(a1 + 60);
-        *buf = 136447490;
-        *&buf[4] = "dp_start_question";
-        v55 = 1024;
-        v56 = v46;
-        v57 = 2048;
-        v58 = a1;
-        v59 = 2080;
-        v60 = "question";
-        v61 = 2080;
-        v62 = "dnssd-proxy.c";
-        v63 = 1024;
-        LODWORD(v64) = 534;
-        _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "%{public}s: ALLOC:  retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-      }
-
-      v47 = *(a1 + 60);
-      if (v47)
-      {
-        v48 = v47 + 1;
-        *(a1 + 60) = v47 + 1;
-        v49 = global_os_log;
-        if (v47 + 1 >= 10001)
-        {
-          if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_FAULT))
-          {
-            *buf = 136447490;
-            *&buf[4] = "dp_start_question";
-            v55 = 1024;
-            v56 = v48;
-            v57 = 2048;
-            v58 = a1;
-            v59 = 2080;
-            v60 = "question";
-            v61 = 2080;
-            v62 = "dnssd-proxy.c";
-            v63 = 1024;
-            LODWORD(v64) = 534;
-            _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_FAULT, "%{public}s: ALLOC: retain at %2.2d: %p (%10s): %s:%d", buf, 0x36u);
-          }
-
-          abort();
-        }
-      }
-
-      else
-      {
-        ++question_created;
-        *(a1 + 60) = 1;
-        v49 = global_os_log;
-      }
-
-      v6 = 0;
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
-      {
-        v50 = *(a1 + 64);
-        *buf = 136447235;
-        *&buf[4] = "dp_start_question";
-        v55 = 1024;
-        v56 = v50;
-        v57 = 2160;
-        v58 = 1752392040;
-        v59 = 2081;
-        v60 = v3;
-        v61 = 1024;
-        LODWORD(v62) = 0;
-        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%{public}s: [QU%d] DNSServiceQueryRecord started for '%{private, mask.hash}s': %d", buf, 0x2Cu);
-        return 0;
-      }
-
-      return v6;
-    }
-
-    v14 = dp_start_question_en0_ifindex;
-    if (!dp_start_question_en0_ifindex)
-    {
-      v14 = if_nametoindex("en0");
-      dp_start_question_en0_ifindex = v14;
-      if (!v14)
-      {
-        v15 = global_os_log;
-        if (!os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-        {
-          return 4294901743;
-        }
-
-        *buf = 136446210;
-        *&buf[4] = "dp_start_question";
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s: getting en0 ifindex failed!", buf, 0xCu);
-        v14 = dp_start_question_en0_ifindex;
-      }
-    }
-
-    if (v14 >= 1)
-    {
-      goto LABEL_16;
-    }
-
-    return 4294901743;
-  }
-
-  v4 = strlen(*(a1 + 32));
-  v5 = v4;
-  if (v2[5])
-  {
-    if (v4 - 249 <= 0xFFFFFFFFFFFFFEFELL)
-    {
-      v6 = 4294901756;
-      v7 = global_os_log;
-      if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-      {
-        v8 = *(a1 + 64);
-        *buf = 136446979;
-        *&buf[4] = "dp_start_question";
-        v55 = 1024;
-        v56 = v8;
-        v57 = 2160;
-        v58 = 1752392040;
-        v59 = 2081;
-        v60 = v65;
-        v9 = "%{public}s: [QU%d] question name %{private, mask.hash}s is too long for .local.";
-        v10 = v7;
-        v11 = 38;
-LABEL_63:
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, v9, buf, v11);
-        return v6;
-      }
-
-      return v6;
-    }
-
-    __memcpy_chk();
-    *&v65[v5] = 0x2E6C61636F6C2ELL;
-    goto LABEL_9;
-  }
-
-  v12 = v2[2];
-  v13 = strlen(v12) + 1;
-  if (v13 + v5 < 0x101)
-  {
-    __memcpy_chk();
-    memcpy(&v65[v5], v12, v13);
-LABEL_9:
-    v3 = v65;
-    goto LABEL_10;
-  }
-
-  v6 = 4294901756;
-  v34 = global_os_log;
-  if (os_log_type_enabled(global_os_log, OS_LOG_TYPE_ERROR))
-  {
-    v35 = *(a1 + 64);
-    v36 = v2[1];
-    *buf = 136447491;
-    *&buf[4] = "dp_start_question";
-    v55 = 1024;
-    v56 = v35;
-    v57 = 2160;
-    v58 = 1752392040;
-    v59 = 2081;
-    v60 = v65;
-    v61 = 2160;
-    v62 = 1752392040;
-    v63 = 2081;
-    v64 = v36;
-    v9 = "%{public}s: [QU%d] question name %{private, mask.hash}s is too long for %{private, mask.hash}s.";
-    v10 = v34;
-    v11 = 58;
-    goto LABEL_63;
-  }
-
-  return v6;
 }

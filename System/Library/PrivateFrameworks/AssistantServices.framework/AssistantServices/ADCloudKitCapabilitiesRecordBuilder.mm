@@ -1,5 +1,6 @@
 @interface ADCloudKitCapabilitiesRecordBuilder
 - (id)build;
+- (void)reset;
 - (void)setValue:(id)value forColumnName:(id)name;
 @end
 
@@ -27,6 +28,13 @@
   }
 
   [(NSMutableDictionary *)dictionary setObject:valueCopy forKey:nameCopy];
+}
+
+- (void)reset
+{
+  dictionary = self->_dictionary;
+  self->_dictionary = 0;
+  _objc_release_x1(self, dictionary);
 }
 
 @end

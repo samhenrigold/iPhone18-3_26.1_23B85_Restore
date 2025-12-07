@@ -28,7 +28,7 @@
 
 - (id)callerVersionForMessage:(id)message
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([messageCopy isRemote])
   {
@@ -48,11 +48,11 @@
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         v12 = HMFGetLogIdentifier();
-        v15 = 138543618;
-        v16 = v12;
-        v17 = 2112;
-        v18 = remoteSourceDevice;
-        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to get caller version from remote source device: %@", &v15, 0x16u);
+        v14 = 138543618;
+        v15 = v12;
+        v16 = 2112;
+        v17 = remoteSourceDevice;
+        _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to get caller version from remote source device: %@", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -64,14 +64,12 @@
     v7 = +[HMDHomeKitVersion currentVersion];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (unint64_t)dataSourceCallerPrivilegeWithMessage:(id)message error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   dataSource = [(HMDAccessorySettingsLocalMessageHandler *)self dataSource];
   v8 = dataSource;
@@ -89,11 +87,11 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v13;
+      v16 = 138543362;
+      v17 = v13;
       v14 = "%{public}@Failed to get caller privilege from data source";
 LABEL_7:
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, v14, &v17, 0xCu);
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, v14, &v16, 0xCu);
     }
   }
 
@@ -105,8 +103,8 @@ LABEL_7:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v13;
+      v16 = 138543362;
+      v17 = v13;
       v14 = "%{public}@Failed to data source composite settings controller due to no data source";
       goto LABEL_7;
     }
@@ -121,13 +119,12 @@ LABEL_7:
   v9 = 2;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)handleAccessorySettingsUpdateRequestMessage:(id)message
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -136,9 +133,9 @@ LABEL_11:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v39 = v8;
-    v40 = 2112;
-    v41 = messageCopy;
+    v38 = v8;
+    v39 = 2112;
+    v40 = messageCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling accessory settings update request message: %@", buf, 0x16u);
   }
 
@@ -173,7 +170,7 @@ LABEL_11:
             {
               v36 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v39 = v36;
+              v38 = v36;
               _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_ERROR, "%{public}@Failed to update setting due to no delegate", buf, 0xCu);
             }
 
@@ -192,7 +189,7 @@ LABEL_11:
           {
             v32 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v39 = v32;
+            v38 = v32;
             _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to update setting as unable to determine setting value from payload", buf, 0xCu);
           }
 
@@ -211,7 +208,7 @@ LABEL_11:
         {
           v28 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v39 = v28;
+          v38 = v28;
           _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_ERROR, "%{public}@Failed to update setting due no caller version", buf, 0xCu);
         }
 
@@ -230,9 +227,9 @@ LABEL_11:
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v39 = v24;
-        v40 = 2112;
-        v41 = messagePayload;
+        v38 = v24;
+        v39 = 2112;
+        v40 = messagePayload;
         _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to create update request payload with message payload: %@", buf, 0x16u);
       }
 
@@ -251,7 +248,7 @@ LABEL_11:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v20;
+      v38 = v20;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to update settings due to no payload found on message", buf, 0xCu);
     }
 
@@ -259,8 +256,6 @@ LABEL_11:
     v10 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8];
     [messageCopy respondWithError:v10];
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)siriAvailableLanguagesSetting
@@ -275,7 +270,7 @@ LABEL_11:
 
 - (void)handleAccessorySettingsFetchRequestMessage:(id)message
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -284,9 +279,9 @@ LABEL_11:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v52 = v8;
-    v53 = 2112;
-    v54 = messageCopy;
+    v51 = v8;
+    v52 = 2112;
+    v53 = messageCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling accessory settings fetch request message: %@", buf, 0x16u);
   }
 
@@ -304,9 +299,9 @@ LABEL_11:
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v52 = v26;
-        v53 = 2112;
-        v54 = messagePayload;
+        v51 = v26;
+        v52 = 2112;
+        v53 = messagePayload;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to create fetch request payload with message payload: %@", buf, 0x16u);
       }
 
@@ -319,9 +314,9 @@ LABEL_11:
     v11 = [(HMDAccessorySettingsLocalMessageHandler *)selfCopy callerVersionForMessage:messageCopy];
     if (v11)
     {
-      v50 = 0;
-      v12 = [(HMDAccessorySettingsLocalMessageHandler *)selfCopy dataSourceCallerPrivilegeWithMessage:messageCopy error:&v50];
-      v13 = v50;
+      v49 = 0;
+      v12 = [(HMDAccessorySettingsLocalMessageHandler *)selfCopy dataSourceCallerPrivilegeWithMessage:messageCopy error:&v49];
+      v13 = v49;
       if (!v13)
       {
         delegate = [(HMDAccessorySettingsLocalMessageHandler *)selfCopy delegate];
@@ -339,12 +334,12 @@ LABEL_11:
             {
               v36 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v52 = v36;
-              v48 = v33;
+              v51 = v36;
+              v47 = v33;
               v37 = v36;
               _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Fetching siri available language setting", buf, 0xCu);
 
-              v33 = v48;
+              v33 = v47;
             }
 
             objc_autoreleasePoolPop(v33);
@@ -358,9 +353,9 @@ LABEL_11:
 
           homeUUID = [(HMDAccessorySettingsLocalMessageHandler *)selfCopy homeUUID];
           accessoryUUID = [v10 accessoryUUID];
-          v47 = v12;
+          v46 = v12;
           v43 = delegate;
-          [delegate accessorySettingsLocalMessageHandler:selfCopy didReceiveFetchRequestMessage:messageCopy withHomeUUID:homeUUID accessoryUUID:accessoryUUID keyPaths:v32 callerVersion:v11 callerPrivilege:v47 siriAvailableLanguagesSetting:siriAvailableLanguagesSetting];
+          [delegate accessorySettingsLocalMessageHandler:selfCopy didReceiveFetchRequestMessage:messageCopy withHomeUUID:homeUUID accessoryUUID:accessoryUUID keyPaths:v32 callerVersion:v11 callerPrivilege:v46 siriAvailableLanguagesSetting:siriAvailableLanguagesSetting];
         }
 
         else
@@ -372,7 +367,7 @@ LABEL_11:
           {
             v42 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v52 = v42;
+            v51 = v42;
             _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch settings due to no delegate", buf, 0xCu);
           }
 
@@ -394,9 +389,9 @@ LABEL_11:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v52 = v18;
-        v53 = 2112;
-        v54 = v14;
+        v51 = v18;
+        v52 = 2112;
+        v53 = v14;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch settings due caller privilege data sourcing error: %@", buf, 0x16u);
       }
 
@@ -412,7 +407,7 @@ LABEL_11:
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v52 = v30;
+        v51 = v30;
         _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch settings due no caller version", buf, 0xCu);
       }
 
@@ -434,7 +429,7 @@ LABEL_32:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v52 = v22;
+    v51 = v22;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to get payload on fetch request message", buf, 0xCu);
   }
 
@@ -442,8 +437,6 @@ LABEL_32:
   v10 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:8];
   [messageCopy respondWithError:v10];
 LABEL_33:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAccessorySettingsLocalMessageHandler)initWithHomeUUID:(id)d languageValuesDataProvider:(id)provider
@@ -477,10 +470,9 @@ LABEL_33:
 
 void __54__HMDAccessorySettingsLocalMessageHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v17_135439;
-  logCategory__hmf_once_v17_135439 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v17_135439;
+  logCategory__hmf_once_v17_135439 = v0;
 }
 
 @end

@@ -3,23 +3,22 @@
 
 @implementation LSEnumerateExtensionPoints
 
-void ___LSEnumerateExtensionPoints_block_invoke(uint64_t a1)
+void ___LSEnumerateExtensionPoints_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   [(_LSDatabase *)*(a1 + 32) store];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v4 = *(a1 + 32);
   _CSArrayEnumerateAllValues();
 }
 
-_DWORD *___LSEnumerateExtensionPoints_block_invoke_2(uint64_t a1, uint64_t a2, int a3)
+void ___LSEnumerateExtensionPoints_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = _LSGetExtensionPointData(*(a1 + 32), a3);
-  if (result)
+  v4 = _LSGetExtensionPointData(*(a1 + 32), a3);
+  if (v4)
   {
     v5 = *(*(a1 + 40) + 8);
-    v6 = result[1];
-    v7 = result[11];
-    v8 = result[14];
+    v6 = v4[1];
+    v7 = v4[11];
+    v8 = v4[14];
     v9 = v7 ^ v6 ^ v8;
     v10 = v5[7];
     if (v10)
@@ -52,7 +51,7 @@ _DWORD *___LSEnumerateExtensionPoints_block_invoke_2(uint64_t a1, uint64_t a2, i
             v17 = i[2];
             if (v17[1] == v6 && v17[11] == v7 && v17[14] == v8)
             {
-              return result;
+              return;
             }
           }
 
@@ -104,7 +103,7 @@ _DWORD *___LSEnumerateExtensionPoints_block_invoke_2(uint64_t a1, uint64_t a2, i
             v22 = j[2];
             if (v22[1] == v6 && v22[11] == v7 && v22[14] == v8)
             {
-              return result;
+              return;
             }
           }
 
@@ -134,8 +133,6 @@ _DWORD *___LSEnumerateExtensionPoints_block_invoke_2(uint64_t a1, uint64_t a2, i
 
     operator new();
   }
-
-  return result;
 }
 
 @end

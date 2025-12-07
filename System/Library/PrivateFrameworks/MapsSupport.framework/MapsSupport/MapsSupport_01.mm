@@ -1,112 +1,3 @@
-void sub_10002FDE4(id a1)
-{
-  v1 = MNGetProcessHandlingLog();
-  if (os_signpost_enabled(v1))
-  {
-    *v2 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ProcessMemoryPressureWarning", " enableTelemetry=YES ", v2, 2u);
-  }
-}
-
-void sub_10002FE5C(id a1)
-{
-  v1 = MNGetProcessHandlingLog();
-  if (os_signpost_enabled(v1))
-  {
-    *v2 = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v1, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ProcessMemoryPressureCritical", " enableTelemetry=YES ", v2, 2u);
-  }
-}
-
-void sub_100030054(uint64_t a1)
-{
-  if (a1)
-  {
-    *(a1 + 8) = 0;
-    v1 = objc_alloc_init(NavdNotificationManager);
-    [(NavdNotificationManager *)v1 clearMapsSuggestionsBulletin];
-  }
-}
-
-void sub_1000301B0(void *a1)
-{
-  if ((*(a1[4] + 8) & 1) == 0)
-  {
-    v2 = objc_alloc_init(NavdNotificationManager);
-    [(NavdNotificationManager *)v2 showMapsSuggestionsBulletinWithTitle:a1[5] message:a1[6] actionURL:a1[7]];
-
-    *(a1[4] + 8) = 1;
-  }
-}
-
-void sub_1000302B8(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = WeakRetained;
-  if (WeakRetained)
-  {
-    sub_100030054(WeakRetained);
-  }
-
-  else
-  {
-    v3 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-    {
-      v4 = 136446722;
-      v5 = "NavdRealVehicleBluetoothNotifier.mm";
-      v6 = 1026;
-      v7 = 53;
-      v8 = 2082;
-      v9 = "[NavdRealVehicleBluetoothNotifier clear]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongself went away in %{public}s", &v4, 0x1Cu);
-    }
-  }
-}
-
-void sub_100030464(id a1)
-{
-  v1 = [MapsSuggestionsNavdLBALocationManager alloc];
-  v5 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v2 = dispatch_queue_create("MapsSuggestionsNavdLBALocationManagerQueue", v5);
-  v3 = [(MapsSuggestionsNavdLBALocationManager *)v1 initWithName:@"MapsSuggestionsNavdLBALocationManager" queue:v2];
-  v4 = qword_1000759A8;
-  qword_1000759A8 = v3;
-}
-
-void sub_10003063C(id a1)
-{
-  v1 = +[MNFilePaths navdCacheDirectoryPath];
-  v2 = qword_1000759B8;
-  qword_1000759B8 = v1;
-
-  v10 = 0;
-  v3 = +[NSFileManager defaultManager];
-  v4 = [v3 fileExistsAtPath:qword_1000759B8 isDirectory:&v10];
-  v5 = v10;
-
-  if ((v4 & 1) == 0 && !v5)
-  {
-    v6 = +[NSFileManager defaultManager];
-    v9 = 0;
-    [v6 createDirectoryAtPath:qword_1000759B8 withIntermediateDirectories:1 attributes:0 error:&v9];
-    v7 = v9;
-
-    if (v7)
-    {
-      v8 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138543618;
-        v12 = qword_1000759B8;
-        v13 = 2114;
-        v14 = v7;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Cannot create cache dir at: %{public}@, error: %{public}@", buf, 0x16u);
-      }
-    }
-  }
-}
-
 void sub_100030B20(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -191,29 +82,28 @@ void sub_100031C38(void *a1, uint64_t a2, uint64_t a3)
     v3 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Arrival airport offline area is not in a supported market", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Arrival airport offline area is not in a supported market", &v8, 2u);
     }
   }
 
   else
   {
     [*(a1[4] + 16) spendNow];
-    v5 = a1[5];
     v3 = MapsSuggestionsLocalizedTitleFormatForAirportArrivalNotification();
-    v6 = MapsSuggestionsLocalizedMessageForAirportArrivalNotification();
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v5 = MapsSuggestionsLocalizedMessageForAirportArrivalNotification();
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v9 = 138412546;
-      v10 = v3;
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Now telling mapspushd to display notification with the following data:\nTitle: %@\nMessage: %@", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = v3;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Now telling mapspushd to display notification with the following data:\nTitle: %@\nMessage: %@", &v8, 0x16u);
     }
 
-    v8 = objc_alloc_init(NavdNotificationManager);
-    [(NavdNotificationManager *)v8 showAirportArrivalBulletinWithTitle:v3 message:v6 mapRegion:a1[6] regionName:a1[5]];
+    v7 = objc_alloc_init(NavdNotificationManager);
+    [(NavdNotificationManager *)v7 showAirportArrivalBulletinWithTitle:v3 message:v5 mapRegion:a1[6] regionName:a1[5]];
   }
 }
 
@@ -415,7 +305,6 @@ id sub_1000326B4(void *a1, uint64_t a2, double a3, double a4)
   if (a2)
   {
     [v8 setRequiresInexpensiveNetworkConnectivity:0];
-    v9 = NavigationConfig_NavdXPCDownloadSizeBytes[1];
     [v8 setNetworkDownloadSize:GEOConfigGetInteger()];
     [v8 setNetworkUploadSize:0];
   }
@@ -602,10 +491,11 @@ void sub_100034090(uint64_t a1)
   }
 }
 
-void sub_1000348AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location, uint64_t a18, char a19)
+void sub_1000348AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location, uint64_t a18, ...)
 {
-  objc_sync_exit(v19);
-  _Block_object_dispose(&a19, 8);
+  va_start(va, a18);
+  objc_sync_exit(v18);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -670,65 +560,63 @@ void sub_100036420(uint64_t a1)
     v2 = +[NavdLocationLeecher sharedLeecher];
     [v2 removeObserver:WeakRetained];
 
-    v3 = GEOConfigMapsSuggestionsLocationManagerSLCEnabled[1];
     BOOL = GEOConfigGetBOOL();
-    v5 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v4 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       if (BOOL)
       {
-        v6 = @"YES";
+        v5 = @"YES";
       }
 
       else
       {
-        v6 = @"NO";
+        v5 = @"NO";
       }
 
-      v14 = 138412290;
-      v15 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "[PrivacyCheck] SLC Enabled? %@", &v14, 0xCu);
+      v12 = 138412290;
+      v13 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "[PrivacyCheck] SLC Enabled? %@", &v12, 0xCu);
     }
 
     if (BOOL)
     {
-      v7 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v6 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "[PrivacyCheck] Stopping SLC monitoring", &v14, 2u);
+        LOWORD(v12) = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "[PrivacyCheck] Stopping SLC monitoring", &v12, 2u);
       }
 
       [WeakRetained[1] stopMonitoringSignificantLocationChanges];
     }
 
-    v8 = GEOConfigMapsSuggestionsLocationManagerVMEnabled[1];
-    v9 = GEOConfigGetBOOL();
-    v10 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v7 = GEOConfigGetBOOL();
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      if (v9)
+      if (v7)
       {
-        v11 = @"YES";
+        v9 = @"YES";
       }
 
       else
       {
-        v11 = @"NO";
+        v9 = @"NO";
       }
 
-      v14 = 138412290;
-      v15 = v11;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "[PrivacyCheck] VM Enabled? %@", &v14, 0xCu);
+      v12 = 138412290;
+      v13 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "[PrivacyCheck] VM Enabled? %@", &v12, 0xCu);
     }
 
-    if (v9)
+    if (v7)
     {
-      v12 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v10 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "[PrivacyCheck] Stopping visit monitoring", &v14, 2u);
+        LOWORD(v12) = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "[PrivacyCheck] Stopping visit monitoring", &v12, 2u);
       }
 
       [WeakRetained[1] stopMonitoringVisits];
@@ -737,16 +625,16 @@ void sub_100036420(uint64_t a1)
 
   else
   {
-    v13 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v11 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136446722;
-      v15 = "MapsSuggestionsNavdLocationManager.m";
-      v16 = 1026;
-      v17 = 92;
-      v18 = 2082;
-      v19 = "[MapsSuggestionsNavdLocationManager onStopImplementation]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v14, 0x1Cu);
+      v12 = 136446722;
+      v13 = "MapsSuggestionsNavdLocationManager.m";
+      v14 = 1026;
+      v15 = 92;
+      v16 = 2082;
+      v17 = "[MapsSuggestionsNavdLocationManager onStopImplementation]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v12, 0x1Cu);
     }
   }
 }
@@ -778,7 +666,6 @@ void sub_100036894(uint64_t a1)
 
 void sub_100036CDC(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (MapsSuggestionsIsValidVisit())
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -790,16 +677,16 @@ void sub_100036CDC(uint64_t a1)
 
     else
     {
-      v5 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v4 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v6 = 136446722;
-        v7 = "MapsSuggestionsNavdLocationManager.m";
-        v8 = 1026;
-        v9 = 177;
-        v10 = 2082;
-        v11 = "[MapsSuggestionsNavdLocationManager locationManager:didVisit:]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v6, 0x1Cu);
+        v5 = 136446722;
+        v6 = "MapsSuggestionsNavdLocationManager.m";
+        v7 = 1026;
+        v8 = 177;
+        v9 = 2082;
+        v10 = "[MapsSuggestionsNavdLocationManager locationManager:didVisit:]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v5, 0x1Cu);
       }
     }
   }
@@ -809,10 +696,10 @@ void sub_100036CDC(uint64_t a1)
     WeakRetained = GEOFindOrCreateLog();
     if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_ERROR))
     {
-      v4 = *(a1 + 32);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_ERROR, "Dropping invalid visit: %@", &v6, 0xCu);
+      v3 = *(a1 + 32);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&_mh_execute_header, WeakRetained, OS_LOG_TYPE_ERROR, "Dropping invalid visit: %@", &v5, 0xCu);
     }
   }
 }
@@ -851,47 +738,42 @@ void sub_10003804C(uint64_t a1, void *a2)
       v7 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Received a location, starting streamers", &v16, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Received a location, starting streamers", &v11, 2u);
       }
 
-      v8 = *(a1 + 32);
-      v9 = *(a1 + 40);
       startEventKitStreamer();
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 40);
       startWalletStreamer();
       v3[2](v3, 0);
     }
 
     else
     {
-      v13 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v9 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Got called with a location but somehow MapsSuggestionsCurrentBestLocation() is still nil. Restarting location updates.", &v16, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Got called with a location but somehow MapsSuggestionsCurrentBestLocation() is still nil. Restarting location updates.", &v11, 2u);
       }
 
-      v14 = WeakRetained[10];
-      v15 = GEOConfigNavdVenueAnnouncerLocationForceTime[1];
+      v10 = WeakRetained[10];
       GEOConfigGetDouble();
-      [v14 restartWithUpdateTime:?];
+      [v10 restartWithUpdateTime:?];
     }
   }
 
   else
   {
-    v12 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v16 = 136446722;
-      v17 = "NavdVenueAnnouncer.mm";
-      v18 = 1026;
-      v19 = 342;
-      v20 = 2082;
-      v21 = "[NavdVenueAnnouncer _startStreamersWithNotificationName:resourceDepot:]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v16, 0x1Cu);
+      v11 = 136446722;
+      v12 = "NavdVenueAnnouncer.mm";
+      v13 = 1026;
+      v14 = 342;
+      v15 = 2082;
+      v16 = "[NavdVenueAnnouncer _startStreamersWithNotificationName:resourceDepot:]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v11, 0x1Cu);
     }
   }
 }
@@ -1547,7 +1429,8 @@ id *sub_10003DA24(id *result)
     v2 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      sub_10001A984(&_mh_execute_header, v3, v4, "Stopping RouteGenius", v5, v6, v7, v8, 0);
+      v19 = 0;
+      sub_10001A984(&_mh_execute_header, v3, v4, "Stopping RouteGenius", v5, v6, v7, v8, v19);
     }
 
     notify_post([@"RouteGeniusStopped" UTF8String]);
@@ -1627,7 +1510,8 @@ void sub_10003DC74(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A9BC(&_mh_execute_header, v2, v3, "Unable to convert currentLocation in to geoLocation", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_10001A9BC(&_mh_execute_header, v2, v3, "Unable to convert currentLocation in to geoLocation", v4, v5, v6, v7, v8);
   }
 }
 
@@ -1636,7 +1520,8 @@ void sub_10003DCC4()
   sub_10001A9B0();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A984(&_mh_execute_header, v3, v4, "We don't know where we are, so we can not get a route", v5, v6, v7, v8, 0);
+    v9 = 0;
+    sub_10001A984(&_mh_execute_header, v3, v4, "We don't know where we are, so we can not get a route", v5, v6, v7, v8, v9);
   }
 
   *v0 = v1;
@@ -1647,7 +1532,8 @@ void sub_10003DD14()
   sub_10001A9B0();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A984(&_mh_execute_header, v3, v4, "We have no entry to get a route for", v5, v6, v7, v8, 0);
+    v9 = 0;
+    sub_10001A984(&_mh_execute_header, v3, v4, "We have no entry to get a route for", v5, v6, v7, v8, v9);
   }
 
   *v0 = v1;
@@ -1698,7 +1584,8 @@ void sub_10003DF68(void *a1, uint64_t a2)
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A984(&_mh_execute_header, v4, v5, "Route loaded, all entries have routes", v6, v7, v8, v9, 0);
+    v10 = 0;
+    sub_10001A984(&_mh_execute_header, v4, v5, "Route loaded, all entries have routes", v6, v7, v8, v9, v10);
   }
 
   *(a2 + 153) = 1;
@@ -1710,7 +1597,8 @@ id sub_10003DFEC(void *a1)
   v2 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A984(&_mh_execute_header, v3, v4, "No entries left after route loading, stopping RouteGenius", v5, v6, v7, v8, 0);
+    v10 = 0;
+    sub_10001A984(&_mh_execute_header, v3, v4, "No entries left after route loading, stopping RouteGenius", v5, v6, v7, v8, v10);
   }
 
   return [a1 stop];
@@ -1727,7 +1615,8 @@ void sub_10003E0BC(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A9BC(&_mh_execute_header, v2, v3, "///// Scoring Dump End/////", v4, v5, v6, v7, 0);
+    v8 = 0;
+    sub_10001A9BC(&_mh_execute_header, v2, v3, "///// Scoring Dump End/////", v4, v5, v6, v7, v8);
   }
 }
 
@@ -1772,7 +1661,8 @@ void sub_10003E2A0(NSObject *a1)
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_DEBUG))
   {
-    sub_10001A9BC(&_mh_execute_header, v1, v2, "No routes, stopping route genius", v3, v4, v5, v6, 0);
+    v7 = 0;
+    sub_10001A9BC(&_mh_execute_header, v1, v2, "No routes, stopping route genius", v3, v4, v5, v6, v7);
   }
 }
 
@@ -1792,17 +1682,14 @@ void *sub_10003E344(void *a1)
     if (!v3)
     {
       v4 = [MapsSuggestionsETARequirements alloc];
-      v5 = GEOConfigNavdVehicleBTNotificationDestinationMaxAge[1];
       GEOConfigGetDouble();
-      v7 = v6;
-      v8 = GEOConfigNavdVehicleBTNotificationDestinationMaxDistance[1];
+      v6 = v5;
       GEOConfigGetDouble();
-      v10 = v9;
-      v11 = GEOConfigNavdVehicleBTNotificationDestinationMaxAccuracy[1];
+      v8 = v7;
       GEOConfigGetDouble();
-      v13 = [v4 initWithMaxAge:v7 maxDistance:v10 minAccuracy:v12];
-      v14 = v2[5];
-      v2[5] = v13;
+      v10 = [v4 initWithMaxAge:v6 maxDistance:v8 minAccuracy:v9];
+      v11 = v2[5];
+      v2[5] = v10;
 
       v3 = v2[5];
     }

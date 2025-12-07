@@ -29,16 +29,17 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
-  v5 = *&self->fHeading.timestamp;
-  v8[2] = *&self->fHeading.trueHeading;
-  v8[3] = v5;
-  v8[4] = *&self->fHeading.magnitude;
-  v9 = *&self->fHeading.calibration;
-  v6 = *&self->fHeading.z;
-  v8[0] = *&self->fHeading.x;
-  v8[1] = v6;
-  return [v4 initWithClientHeading:v8];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v9 = *&self->fHeading.timestamp;
+  v14[2] = *&self->fHeading.trueHeading;
+  v14[3] = v9;
+  v14[4] = *&self->fHeading.magnitude;
+  v15 = *&self->fHeading.calibration;
+  v10 = *&self->fHeading.z;
+  v14[0] = *&self->fHeading.x;
+  v14[1] = v10;
+  return objc_msgSend_initWithClientHeading_(v8, v11, v14, v12);
 }
 
 @end

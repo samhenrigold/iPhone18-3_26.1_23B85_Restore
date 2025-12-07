@@ -35,7 +35,7 @@ void __68__ULDataProtectionMonitor__handleKeyBagLockStatusChangeNotification__bl
 
 - (BOOL)_checkDataAvailable
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = MKBGetDeviceLockState();
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -48,14 +48,12 @@ void __68__ULDataProtectionMonitor__handleKeyBagLockStatusChangeNotification__bl
     v4 = MEMORY[0x277CCABB0];
     v5 = v3;
     v6 = [v4 numberWithInt:v2];
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Lock state: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Lock state: %@", &v9, 0xCu);
   }
 
-  result = v2 == 3 || v2 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v2 == 3 || v2 == 0;
 }
 
 - (ULDataProtectionMonitor)initWithNotificationHelper:(id)helper
@@ -75,7 +73,7 @@ void __68__ULDataProtectionMonitor__handleKeyBagLockStatusChangeNotification__bl
 
 - (void)startMonitoring:(id)monitoring
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -84,15 +82,15 @@ void __68__ULDataProtectionMonitor__handleKeyBagLockStatusChangeNotification__bl
   {
     objc_initWeak(location, self);
     notificationHelper = [(ULDataProtectionMonitor *)self notificationHelper];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __43__ULDataProtectionMonitor_startMonitoring___block_invoke;
-    v12[3] = &unk_2798D4080;
-    objc_copyWeak(&v13, location);
-    [notificationHelper addObserverForNotificationName:@"com.apple.mobile.keybagd.lock_status" handler:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __43__ULDataProtectionMonitor_startMonitoring___block_invoke;
+    v11[3] = &unk_2798D4080;
+    objc_copyWeak(&v12, location);
+    [notificationHelper addObserverForNotificationName:@"com.apple.mobile.keybagd.lock_status" handler:v11];
 
     [(ULDataProtectionMonitor *)self setDataAvailable:[(ULDataProtectionMonitor *)self _checkDataAvailable]];
-    objc_destroyWeak(&v13);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(location);
   }
 
@@ -119,12 +117,10 @@ void __68__ULDataProtectionMonitor__handleKeyBagLockStatusChangeNotification__bl
 
     *location = 138412546;
     *&location[4] = monitoringCopy;
-    v15 = 2112;
-    v16 = v10;
+    v14 = 2112;
+    v15 = v10;
     _os_log_impl(&dword_258FE9000, v8, OS_LOG_TYPE_DEFAULT, "Start monitoring: %@, dataAvailable: %@", location, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __43__ULDataProtectionMonitor_startMonitoring___block_invoke(uint64_t a1)
@@ -140,7 +136,7 @@ void __43__ULDataProtectionMonitor_startMonitoring___block_invoke(uint64_t a1)
 
 - (void)stopMonitoring:(id)monitoring
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   monitoringCopy = monitoring;
   queue = [(ULEventMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -153,16 +149,15 @@ void __43__ULDataProtectionMonitor_startMonitoring___block_invoke(uint64_t a1)
   v6 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412290;
-    v10 = monitoringCopy;
-    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = monitoringCopy;
+    _os_log_impl(&dword_258FE9000, v6, OS_LOG_TYPE_DEFAULT, "Stop monitoring: %@", &v8, 0xCu);
   }
 
   notificationHelper = [(ULDataProtectionMonitor *)self notificationHelper];
   [notificationHelper removeObserverForNotificationName:@"com.apple.mobile.keybagd.lock_status"];
 
   [(ULDataProtectionMonitor *)self setDataAvailable:0];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)latestEventAfterAddingObserverForEventName:(id)name
@@ -190,7 +185,7 @@ void __43__ULDataProtectionMonitor_startMonitoring___block_invoke(uint64_t a1)
 
 - (int)_checkHasContentProtection
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = MKBDeviceFormattedForContentProtection();
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -206,12 +201,11 @@ void __43__ULDataProtectionMonitor_startMonitoring___block_invoke(uint64_t a1)
       v4 = @"NO";
     }
 
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Init, content protection: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_impl(&dword_258FE9000, v3, OS_LOG_TYPE_DEFAULT, "Init, content protection: %@", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

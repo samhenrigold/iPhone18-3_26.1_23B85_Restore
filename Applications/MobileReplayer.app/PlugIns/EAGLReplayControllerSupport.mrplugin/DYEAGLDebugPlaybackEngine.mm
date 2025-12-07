@@ -1,8 +1,11 @@
 @interface DYEAGLDebugPlaybackEngine
+- (BOOL)shouldPerformPlaybackLoopIteration:(unsigned int)iteration;
 - (DYEAGLDebugPlaybackEngine)initWithCaptureStore:(id)store;
 - (DYEAGLDebugPlaybackEngineDelegate)delegate;
 - (DYEAGLDebugPlaybackEngineDelegate)strongDelegate;
 - (id)newFunctionPlayer;
+- (void)performPlaybackLoopIterationPostCaptureActions:(unsigned int)actions;
+- (void)performPlaybackLoopIterationPreCaptureActions:(unsigned int)actions;
 @end
 
 @implementation DYEAGLDebugPlaybackEngine
@@ -47,6 +50,63 @@
 
   [(DYEAGLFunctionPlayer *)v5 setLayerManager:self];
   return v5;
+}
+
+- (void)performPlaybackLoopIterationPreCaptureActions:(unsigned int)actions
+{
+  v3 = *&actions;
+  strongDelegate = [(DYEAGLDebugPlaybackEngine *)self strongDelegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    strongDelegate2 = [(DYEAGLDebugPlaybackEngine *)self strongDelegate];
+    [strongDelegate2 performPlaybackLoopIterationPreCaptureActions:v3];
+
+    strongDelegate3 = [(DYEAGLDebugPlaybackEngine *)self strongDelegate];
+    [strongDelegate3 shouldReturn];
+  }
+}
+
+- (void)performPlaybackLoopIterationPostCaptureActions:(unsigned int)actions
+{
+  v3 = *&actions;
+  strongDelegate = [(DYEAGLDebugPlaybackEngine *)self strongDelegate];
+  v5 = objc_opt_respondsToSelector();
+
+  if (v5)
+  {
+    strongDelegate2 = [(DYEAGLDebugPlaybackEngine *)self strongDelegate];
+    [strongDelegate2 performPlaybackLoopIterationPostCaptureActions:v3];
+
+    strongDelegate3 = [(DYEAGLDebugPlaybackEngine *)self strongDelegate];
+    [strongDelegate3 shouldReturn];
+  }
+}
+
+- (BOOL)shouldPerformPlaybackLoopIteration:(unsigned int)iteration
+{
+  v3 = *&iteration;
+  strongDelegate = [(DYEAGLDebugPlaybackEngine *)self strongDelegate];
+  v6 = objc_opt_respondsToSelector();
+
+  if ((v6 & 1) == 0)
+  {
+    return 1;
+  }
+
+  strongDelegate2 = [(DYEAGLDebugPlaybackEngine *)self strongDelegate];
+  v8 = [strongDelegate2 shouldPerformPlaybackLoopIteration:v3];
+
+  strongDelegate3 = [(DYEAGLDebugPlaybackEngine *)self strongDelegate];
+  shouldReturn = [strongDelegate3 shouldReturn];
+
+  if ((shouldReturn & 1) == 0)
+  {
+    return 1;
+  }
+
+  return v8;
 }
 
 - (DYEAGLDebugPlaybackEngineDelegate)delegate

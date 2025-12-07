@@ -155,8 +155,7 @@
 
   navigationBar = [v14 navigationBar];
   [navigationBar setBarStyle:1];
-  [navigationBar setTranslucent:1];
-  v12 = BPSNavBarBackgroundPointImage();
+  v12 = BPSNavBarBackgroundPointImage([navigationBar setTranslucent:1]);
   [navigationBar setBackgroundImage:v12 forBarMetrics:0];
 
   v13 = BPSSetupTintColor();

@@ -21,125 +21,115 @@
 
 - (id)transitiveClosureNeighborNodeIdentifiersWithStartNodeIdentifiers:(id)identifiers edgeDirection:(unint64_t)direction edgeFilter:(id)filter
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   implementation = self->_implementation;
-  v11 = 0;
-  v6 = [(KGGraphImplementation *)implementation transitiveClosureNeighborNodeIdentifiersWithStartNodeIdentifiers:identifiers edgeDirection:direction edgeFilter:filter error:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [(KGGraphImplementation *)implementation transitiveClosureNeighborNodeIdentifiersWithStartNodeIdentifiers:identifiers edgeDirection:direction edgeFilter:filter error:&v10];
+  v7 = v10;
   if (!v6)
   {
     v8 = KGLoggingConnection();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_error_impl(&dword_255870000, v8, OS_LOG_TYPE_ERROR, "Error fetching transitive closure neighbor node identifiers with error(%@)", buf, 0xCu);
     }
 
     v6 = objc_alloc_init(KGElementIdentifierSet);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)neighborNodeIdentifiersWithStartNodeIdentifiers:(id)identifiers edgeDirection:(unint64_t)direction edgeFilter:(id)filter
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   implementation = self->_implementation;
-  v11 = 0;
-  v6 = [(KGGraphImplementation *)implementation neighborNodeIdentifiersWithStartNodeIdentifiers:identifiers edgeDirection:direction edgeFilter:filter error:&v11];
-  v7 = v11;
+  v10 = 0;
+  v6 = [(KGGraphImplementation *)implementation neighborNodeIdentifiersWithStartNodeIdentifiers:identifiers edgeDirection:direction edgeFilter:filter error:&v10];
+  v7 = v10;
   if (!v6)
   {
     v8 = KGLoggingConnection();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v7;
+      v12 = v7;
       _os_log_error_impl(&dword_255870000, v8, OS_LOG_TYPE_ERROR, "Error fetching neighbor node identifiers with error(%@)", buf, 0xCu);
     }
 
     v6 = objc_alloc_init(KGElementIdentifierSet);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)edgeIdentifiersBetweenStartNodeIdentifiers:(id)identifiers endNodeIdentifiers:(id)nodeIdentifiers edgeFilter:(id)filter edgeDirection:(unint64_t)direction
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   implementation = self->_implementation;
-  v12 = 0;
-  v7 = [(KGGraphImplementation *)implementation edgeIdentifiersBetween:identifiers endNodeIdentifiers:nodeIdentifiers edgeFilter:filter edgeDirection:direction error:&v12];
-  v8 = v12;
+  v11 = 0;
+  v7 = [(KGGraphImplementation *)implementation edgeIdentifiersBetween:identifiers endNodeIdentifiers:nodeIdentifiers edgeFilter:filter edgeDirection:direction error:&v11];
+  v8 = v11;
   if (!v7)
   {
     v9 = KGLoggingConnection();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v8;
+      v13 = v8;
       _os_log_error_impl(&dword_255870000, v9, OS_LOG_TYPE_ERROR, "Error fetching edge identifiers for nodes with error(%@)", buf, 0xCu);
     }
 
     v7 = objc_alloc_init(KGElementIdentifierSet);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)edgeIdentifiersWithStartNodeIdentifiers:(id)identifiers edgeDirection:(unint64_t)direction
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   implementation = self->_implementation;
-  v10 = 0;
-  v5 = [(KGGraphImplementation *)implementation edgeIdentifiersWithStartNodeIdentifiers:identifiers edgeDirection:direction error:&v10];
-  v6 = v10;
+  v9 = 0;
+  v5 = [(KGGraphImplementation *)implementation edgeIdentifiersWithStartNodeIdentifiers:identifiers edgeDirection:direction error:&v9];
+  v6 = v9;
   if (!v5)
   {
     v7 = KGLoggingConnection();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_error_impl(&dword_255870000, v7, OS_LOG_TYPE_ERROR, "Error fetching edge identifiers for nodes with error(%@)", buf, 0xCu);
     }
 
     v5 = objc_alloc_init(KGElementIdentifierSet);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)_edgeIdentifiersMatchingFilter:(id)filter intersectingIdentifiers:(id)identifiers
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   implementation = self->_implementation;
-  v10 = 0;
-  v5 = [(KGGraphImplementation *)implementation edgeIdentifiersMatchingFilter:filter intersectingIdentifiers:identifiers error:&v10];
-  v6 = v10;
+  v9 = 0;
+  v5 = [(KGGraphImplementation *)implementation edgeIdentifiersMatchingFilter:filter intersectingIdentifiers:identifiers error:&v9];
+  v6 = v9;
   if (!v5)
   {
     v7 = KGLoggingConnection();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_error_impl(&dword_255870000, v7, OS_LOG_TYPE_ERROR, "Error fetching edge identifiers with error(%@)", buf, 0xCu);
     }
 
     v5 = objc_alloc_init(KGElementIdentifierSet);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -243,100 +233,92 @@ LABEL_12:
 
 - (id)sourcesByTargetWithEdgeIdentifiers:(id)identifiers
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   implementation = self->_implementation;
-  v9 = 0;
-  v4 = [(KGGraphImplementation *)implementation sourcesByTargetWithEdgeIdentifiers:identifiers error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [(KGGraphImplementation *)implementation sourcesByTargetWithEdgeIdentifiers:identifiers error:&v8];
+  v5 = v8;
   if (!v4)
   {
     v6 = KGLoggingConnection();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_error_impl(&dword_255870000, v6, OS_LOG_TYPE_ERROR, "Error fetching sources by target adjacency with error(%@)", buf, 0xCu);
     }
 
     v4 = objc_alloc_init(KGDirectedBinaryAdjacency);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)targetsBySourceWithEdgeIdentifiers:(id)identifiers
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   implementation = self->_implementation;
-  v9 = 0;
-  v4 = [(KGGraphImplementation *)implementation targetsBySourceWithEdgeIdentifiers:identifiers error:&v9];
-  v5 = v9;
+  v8 = 0;
+  v4 = [(KGGraphImplementation *)implementation targetsBySourceWithEdgeIdentifiers:identifiers error:&v8];
+  v5 = v8;
   if (!v4)
   {
     v6 = KGLoggingConnection();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v5;
+      v10 = v5;
       _os_log_error_impl(&dword_255870000, v6, OS_LOG_TYPE_ERROR, "Error fetching targets by source adjacency with error(%@)", buf, 0xCu);
     }
 
     v4 = objc_alloc_init(KGDirectedBinaryAdjacency);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)nodeIdentifiersOfEdgesForIdentifiers:(id)identifiers edgeDirection:(unint64_t)direction
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   implementation = self->_implementation;
-  v10 = 0;
-  v5 = [(KGGraphImplementation *)implementation nodeIdentifiersOfEdgesWithIdentifiers:identifiers edgeDirection:direction error:&v10];
-  v6 = v10;
+  v9 = 0;
+  v5 = [(KGGraphImplementation *)implementation nodeIdentifiersOfEdgesWithIdentifiers:identifiers edgeDirection:direction error:&v9];
+  v6 = v9;
   if (!v5)
   {
     v7 = KGLoggingConnection();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_error_impl(&dword_255870000, v7, OS_LOG_TYPE_ERROR, "Error fetching nodes of edges with error(%@)", buf, 0xCu);
     }
 
     v5 = objc_alloc_init(KGElementIdentifierSet);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)_nodeIdentifiersMatchingFilter:(id)filter intersectingIdentifiers:(id)identifiers
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   implementation = self->_implementation;
-  v10 = 0;
-  v5 = [(KGGraphImplementation *)implementation nodeIdentifiersMatchingFilter:filter intersectingIdentifiers:identifiers error:&v10];
-  v6 = v10;
+  v9 = 0;
+  v5 = [(KGGraphImplementation *)implementation nodeIdentifiersMatchingFilter:filter intersectingIdentifiers:identifiers error:&v9];
+  v6 = v9;
   if (!v5)
   {
     v7 = KGLoggingConnection();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_error_impl(&dword_255870000, v7, OS_LOG_TYPE_ERROR, "Error fetching node identifiers with error(%@)", buf, 0xCu);
     }
 
     v5 = objc_alloc_init(KGElementIdentifierSet);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

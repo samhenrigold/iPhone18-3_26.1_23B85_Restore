@@ -6,7 +6,7 @@
 
 - (id)bestOfFeedItems:(id)items limit:(int64_t)limit
 {
-  sub_100019558(&qword_10011F600);
+  sub_100019558(&qword_10011F600, qword_1000D6120);
   v5 = sub_1000CAED0();
 
   v6 = TodayGroupingService.bestOf(feedItems:limit:)(v5, limit);

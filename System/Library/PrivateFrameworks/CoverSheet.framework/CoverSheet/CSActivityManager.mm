@@ -2296,14 +2296,14 @@ uint64_t __63__CSActivityManager__clockActivityExistsForGroupingIdentifier___blo
 {
   v2 = [a2 groupingIdentifier];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_4(&dword_21EB05000, v3, v4, "[ActivityID: %{public}@, BundleID: %{public}@] Background tint color did change: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_4(&dword_21EB05000, v3, v4, "[ActivityID: %{public}@, BundleID: %{public}@] Background tint color did change: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)activityViewControllerTextColorDidChange:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
   v2 = [a2 groupingIdentifier];
   OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1_4(&dword_21EB05000, v3, v4, "[ActivityID: %{public}@, BundleID: %{public}@] Text color did change: %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_4(&dword_21EB05000, v3, v4, "[ActivityID: %{public}@, BundleID: %{public}@] Text color did change: %{public}@", v5, v6, v7, v8);
 }
 
 - (void)_unlockAndLaunchAppIfPossible:(uint64_t)a1 withAction:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)

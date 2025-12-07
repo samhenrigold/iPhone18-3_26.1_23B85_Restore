@@ -20,7 +20,7 @@
   {
     v6 = 0u;
     v7 = 0u;
-    [selection indexPathOfObjectPassingTest:v5];
+    objc_msgSend_indexPathOfObjectPassingTest_(selection, a2, v5);
     v3 = v6;
   }
 

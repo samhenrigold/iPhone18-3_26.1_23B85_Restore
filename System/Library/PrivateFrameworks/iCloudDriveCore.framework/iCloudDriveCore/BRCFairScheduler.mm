@@ -113,7 +113,7 @@ void __42__BRCFairScheduler_initWithWorkloop_name___block_invoke(uint64_t a1)
 
 - (void)addSource:(id)source
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -129,12 +129,12 @@ void __42__BRCFairScheduler_initWithWorkloop_name___block_invoke(uint64_t a1)
     abc_report_panic_with_signature();
     [MEMORY[0x277CCACA8] stringWithFormat:@"too many registered source"];
     objc_claimAutoreleasedReturnValue();
-    v9 = brc_bread_crumbs();
-    v10 = brc_default_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v8 = brc_bread_crumbs();
+    v9 = brc_default_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v11 = brc_append_system_info_to_message();
-      __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_3(v11, v9, buf, v10);
+      v10 = brc_append_system_info_to_message();
+      __84__BRCAccountSession_BRCDatabaseManager___finishClientTruthConnectionSetupWithError___block_invoke_cold_3(v10, v8, buf, v9);
     }
 
     brc_append_system_info_to_message();
@@ -143,8 +143,6 @@ void __42__BRCFairScheduler_initWithWorkloop_name___block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(selfCopy);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterSources

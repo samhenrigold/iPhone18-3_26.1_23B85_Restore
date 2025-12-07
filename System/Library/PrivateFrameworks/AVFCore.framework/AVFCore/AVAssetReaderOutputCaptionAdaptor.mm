@@ -215,7 +215,7 @@ LABEL_15:
   v28 = 0u;
   v29 = 0u;
   v27 = 0u;
-  [(AVCaptionGroup *)captionGroup timeRange];
+  objc_msgSend_timeRange(captionGroup);
   v25 = 0u;
   v26 = 0u;
   v23 = 0u;
@@ -241,7 +241,7 @@ LABEL_15:
         v20 = 0u;
         if (v15)
         {
-          [v15 timeRange];
+          objc_msgSend_timeRange(v15);
         }
 
         *&time1.value = v20;

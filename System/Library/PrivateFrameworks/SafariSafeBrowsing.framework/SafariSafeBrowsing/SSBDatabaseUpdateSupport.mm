@@ -48,12 +48,13 @@
 void __72__SSBDatabaseUpdateSupport__fetchCellularDataPlanWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (v5)
   {
-    v6 = SSBOSLogDatabase();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = SSBOSLogDatabase(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __72__SSBDatabaseUpdateSupport__fetchCellularDataPlanWithCompletionHandler___block_invoke_cold_1(v6, v5);
+      __72__SSBDatabaseUpdateSupport__fetchCellularDataPlanWithCompletionHandler___block_invoke_cold_1(v8, v7);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -61,10 +62,10 @@ void __72__SSBDatabaseUpdateSupport__fetchCellularDataPlanWithCompletionHandler_
 
   else
   {
-    v7 = *(a1 + 32);
-    v8 = [a2 domestic];
-    v9 = [v8 capacityBytes];
-    (*(v7 + 16))(v7, v9);
+    v9 = *(a1 + 32);
+    v10 = [a2 domestic];
+    v11 = [v10 capacityBytes];
+    (*(v9 + 16))(v9, v11);
   }
 }
 
@@ -124,14 +125,12 @@ intptr_t __62__SSBDatabaseUpdateSupport_fetchCellularDataPlanSynchronously__bloc
 
 void __72__SSBDatabaseUpdateSupport__fetchCellularDataPlanWithCompletionHandler___block_invoke_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 ssb_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_2255EE000, v3, OS_LOG_TYPE_ERROR, "Failed to get data plan metrics: %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_2255EE000, v3, OS_LOG_TYPE_ERROR, "Failed to get data plan metrics: %{public}@", &v5, 0xCu);
 }
 
 @end

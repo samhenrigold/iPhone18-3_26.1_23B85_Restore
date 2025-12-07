@@ -7,7 +7,6 @@
 - (id)_checkedArrayForString:(id)string;
 - (id)_countryFromTelephony;
 - (id)guessedLanguages;
-- (uint64_t)_startWifiScan;
 - (void)_closeWifiConnection;
 - (void)_getWifiDevice;
 - (void)_scanComplete:(id)complete error:(BOOL)error;
@@ -83,7 +82,7 @@ LABEL_9:
 
 - (id)_checkForAliases:(id)aliases
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   aliasesCopy = aliases;
   v4 = aliasesCopy;
   if (aliasesCopy)
@@ -107,8 +106,8 @@ LABEL_9:
 
           else
           {
-            v15[0] = v9;
-            v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+            v14[0] = v9;
+            v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
           }
 
           v12 = v10;
@@ -128,42 +127,40 @@ LABEL_9:
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (id)_checkForAliasesOrInvalid:(id)invalid
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   invalidCopy = invalid;
   array = [MEMORY[0x1E695DF70] array];
   if (!self->_validCountries)
   {
-    v26 = invalidCopy;
+    v25 = invalidCopy;
     v6 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     availableLocaleIdentifiers = [MEMORY[0x1E695DF58] availableLocaleIdentifiers];
-    v8 = [availableLocaleIdentifiers countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v8 = [availableLocaleIdentifiers countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v32;
+      v10 = *v31;
       v11 = *MEMORY[0x1E695D978];
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v32 != v10)
+          if (*v31 != v10)
           {
             objc_enumerationMutation(availableLocaleIdentifiers);
           }
 
           v13 = MEMORY[0x1E695DF58];
-          v14 = [MEMORY[0x1E695DF58] canonicalLocaleIdentifierFromString:*(*(&v31 + 1) + 8 * i)];
+          v14 = [MEMORY[0x1E695DF58] canonicalLocaleIdentifierFromString:*(*(&v30 + 1) + 8 * i)];
           v15 = [v13 componentsFromLocaleIdentifier:v14];
 
           v16 = [v15 objectForKey:v11];
@@ -173,7 +170,7 @@ LABEL_9:
           }
         }
 
-        v9 = [availableLocaleIdentifiers countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v9 = [availableLocaleIdentifiers countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v9);
@@ -182,42 +179,40 @@ LABEL_9:
     validCountries = self->_validCountries;
     self->_validCountries = v6;
 
-    invalidCopy = v26;
+    invalidCopy = v25;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v18 = [(ISRegionDetector *)self _checkForAliases:invalidCopy];
-  v19 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v28;
+    v21 = *v27;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v28 != v21)
+        if (*v27 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v27 + 1) + 8 * j);
+        v23 = *(*(&v26 + 1) + 8 * j);
         if ([(NSSet *)self->_validCountries containsObject:v23])
         {
           [array addObject:v23];
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v20);
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -295,39 +290,39 @@ LABEL_9:
 - (id)guessedLanguages
 {
   selfCopy = self;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   if ([(NSArray *)self->_guessedCountries count])
   {
     array = [MEMORY[0x1E695DF70] array];
     array2 = [MEMORY[0x1E695DF70] array];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v23 = selfCopy;
+    v22 = selfCopy;
     v5 = selfCopy->_guessedCountries;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v29;
+      v8 = *v28;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v29 != v8)
+          if (*v28 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [MEMORY[0x1E695DF58] languagesForRegion:*(*(&v28 + 1) + 8 * i) subdivision:0 withThreshold:1 filter:0];
+          v10 = [MEMORY[0x1E695DF58] languagesForRegion:*(*(&v27 + 1) + 8 * i) subdivision:0 withThreshold:1 filter:0];
           reverseObjectEnumerator = [v10 reverseObjectEnumerator];
           allObjects = [reverseObjectEnumerator allObjects];
 
           [array2 addObject:allObjects];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v7);
@@ -335,12 +330,12 @@ LABEL_9:
 
     while (1)
     {
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v13 = array2;
-      v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
       if (!v14)
       {
         break;
@@ -348,17 +343,17 @@ LABEL_9:
 
       v15 = v14;
       v16 = 0;
-      v17 = *v25;
+      v17 = *v24;
       do
       {
         for (j = 0; j != v15; ++j)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(v13);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * j);
+          v19 = *(*(&v23 + 1) + 8 * j);
           lastObject = [v19 lastObject];
           if (lastObject)
           {
@@ -372,7 +367,7 @@ LABEL_9:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v15);
@@ -384,7 +379,7 @@ LABEL_9:
     }
 
 LABEL_25:
-    selfCopy = v23;
+    selfCopy = v22;
   }
 
   else
@@ -397,118 +392,33 @@ LABEL_25:
     [(ISRegionDetector *)selfCopy setFirstGuessedLanguages:array];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (void)_startWifiScan
 {
-  self->fWifiManager = 0;
-  self->fWifiDevice = 0;
-  p_fWifiManager = &self->fWifiManager;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v4 = getWiFiManagerClientCreateSymbolLoc_ptr;
-  v18 = getWiFiManagerClientCreateSymbolLoc_ptr;
-  if (!getWiFiManagerClientCreateSymbolLoc_ptr)
-  {
-    v5 = MobileWiFiLibrary();
-    v16[3] = dlsym(v5, "WiFiManagerClientCreate");
-    getWiFiManagerClientCreateSymbolLoc_ptr = v16[3];
-    v4 = v16[3];
-  }
-
-  _Block_object_dispose(&v15, 8);
-  if (!v4)
-  {
-    [ISRegionDetector _startWifiScan];
-    goto LABEL_16;
-  }
-
-  v6 = (v4)(*MEMORY[0x1E695E480], 0);
-  *p_fWifiManager = v6;
-  if (!v6)
-  {
-    goto LABEL_9;
-  }
-
-  v7 = v6;
-  Current = CFRunLoopGetCurrent();
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v9 = getWiFiManagerClientScheduleWithRunLoopSymbolLoc_ptr;
-  v18 = getWiFiManagerClientScheduleWithRunLoopSymbolLoc_ptr;
-  if (!getWiFiManagerClientScheduleWithRunLoopSymbolLoc_ptr)
-  {
-    v10 = MobileWiFiLibrary();
-    v16[3] = dlsym(v10, "WiFiManagerClientScheduleWithRunLoop");
-    getWiFiManagerClientScheduleWithRunLoopSymbolLoc_ptr = v16[3];
-    v9 = v16[3];
-  }
-
-  _Block_object_dispose(&v15, 8);
-  if (!v9)
-  {
-LABEL_16:
-    [ISRegionDetector _startWifiScan];
-    goto LABEL_17;
-  }
-
-  v9(v7, Current, *MEMORY[0x1E695E8D0]);
-  [(ISRegionDetector *)self _getWifiDevice];
-LABEL_9:
-  if (self->fWifiDevice)
-  {
-    [(ISRegionDetector *)self _scanWifiList];
-    return;
-  }
-
-  v11 = *p_fWifiManager;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v12 = getWiFiManagerClientRegisterDeviceAttachmentCallbackSymbolLoc_ptr;
-  v18 = getWiFiManagerClientRegisterDeviceAttachmentCallbackSymbolLoc_ptr;
-  if (!getWiFiManagerClientRegisterDeviceAttachmentCallbackSymbolLoc_ptr)
-  {
-    v13 = MobileWiFiLibrary();
-    v16[3] = dlsym(v13, "WiFiManagerClientRegisterDeviceAttachmentCallback");
-    getWiFiManagerClientRegisterDeviceAttachmentCallbackSymbolLoc_ptr = v16[3];
-    v12 = v16[3];
-  }
-
-  _Block_object_dispose(&v15, 8);
-  if (!v12)
-  {
-LABEL_17:
-    started = [ISRegionDetector _startWifiScan];
-    _Block_object_dispose(&v15, 8);
-    _Unwind_Resume(started);
-  }
-
-  v12(v11, wifidDidBecomeAlive, self);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  [NSBundle(InternationalSupportExtensions) localizedStringInDeviceLanguageForKey:];
 }
 
 - (void)_getWifiDevice
 {
   fWifiManager = self->fWifiManager;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
   v4 = getWiFiManagerClientCopyDevicesSymbolLoc_ptr;
-  v16 = getWiFiManagerClientCopyDevicesSymbolLoc_ptr;
+  v17 = getWiFiManagerClientCopyDevicesSymbolLoc_ptr;
   if (!getWiFiManagerClientCopyDevicesSymbolLoc_ptr)
   {
     v5 = MobileWiFiLibrary();
-    v14[3] = dlsym(v5, "WiFiManagerClientCopyDevices");
-    getWiFiManagerClientCopyDevicesSymbolLoc_ptr = v14[3];
-    v4 = v14[3];
+    v15[3] = dlsym(v5, "WiFiManagerClientCopyDevices");
+    getWiFiManagerClientCopyDevicesSymbolLoc_ptr = v15[3];
+    v4 = v15[3];
   }
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v14, 8);
   if (!v4)
   {
     [ISRegionDetector _startWifiScan];
@@ -529,20 +439,20 @@ LABEL_17:
     if (ValueAtIndex)
     {
       v9 = CFGetTypeID(ValueAtIndex);
-      v13 = 0;
-      v14 = &v13;
-      v15 = 0x2020000000;
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2020000000;
       v10 = getWiFiDeviceClientGetTypeIDSymbolLoc_ptr;
-      v16 = getWiFiDeviceClientGetTypeIDSymbolLoc_ptr;
+      v17 = getWiFiDeviceClientGetTypeIDSymbolLoc_ptr;
       if (!getWiFiDeviceClientGetTypeIDSymbolLoc_ptr)
       {
         v11 = MobileWiFiLibrary();
-        v14[3] = dlsym(v11, "WiFiDeviceClientGetTypeID");
-        getWiFiDeviceClientGetTypeIDSymbolLoc_ptr = v14[3];
-        v10 = v14[3];
+        v15[3] = dlsym(v11, "WiFiDeviceClientGetTypeID");
+        getWiFiDeviceClientGetTypeIDSymbolLoc_ptr = v15[3];
+        v10 = v15[3];
       }
 
-      _Block_object_dispose(&v13, 8);
+      _Block_object_dispose(&v14, 8);
       if (v10)
       {
         if (v9 == v10())
@@ -554,9 +464,10 @@ LABEL_17:
       }
 
 LABEL_15:
-      started = [ISRegionDetector _startWifiScan];
-      _Block_object_dispose(&v13, 8);
-      _Unwind_Resume(started);
+      [ISRegionDetector _startWifiScan];
+      v13 = v12;
+      _Block_object_dispose(&v14, 8);
+      _Unwind_Resume(v13);
     }
   }
 
@@ -588,30 +499,31 @@ LABEL_12:
   [(ISRegionDetector *)self setWirelessScanStartDate:date];
 
   fWifiDevice = self->fWifiDevice;
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x2020000000;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x2020000000;
   v6 = getWiFiDeviceClientScanAsyncSymbolLoc_ptr;
-  v15 = getWiFiDeviceClientScanAsyncSymbolLoc_ptr;
+  v16 = getWiFiDeviceClientScanAsyncSymbolLoc_ptr;
   if (!getWiFiDeviceClientScanAsyncSymbolLoc_ptr)
   {
-    v10[5] = MEMORY[0x1E69E9820];
-    v10[6] = 3221225472;
-    v10[7] = __getWiFiDeviceClientScanAsyncSymbolLoc_block_invoke;
-    v10[8] = &unk_1E7D07180;
-    v11 = &v12;
+    v11[5] = MEMORY[0x1E69E9820];
+    v11[6] = 3221225472;
+    v11[7] = __getWiFiDeviceClientScanAsyncSymbolLoc_block_invoke;
+    v11[8] = &unk_1E7D07180;
+    v12 = &v13;
     v7 = MobileWiFiLibrary();
-    v13[3] = dlsym(v7, "WiFiDeviceClientScanAsync");
-    getWiFiDeviceClientScanAsyncSymbolLoc_ptr = *(v11[1] + 24);
-    v6 = v13[3];
+    v14[3] = dlsym(v7, "WiFiDeviceClientScanAsync");
+    getWiFiDeviceClientScanAsyncSymbolLoc_ptr = *(v12[1] + 24);
+    v6 = v14[3];
   }
 
-  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v13, 8);
   if (!v6)
   {
-    started = [ISRegionDetector _startWifiScan];
-    _Block_object_dispose(&v12, 8);
-    _Unwind_Resume(started);
+    [ISRegionDetector _startWifiScan];
+    v10 = v9;
+    _Block_object_dispose(&v13, 8);
+    _Unwind_Resume(v10);
   }
 
   if (v6(fWifiDevice, dictionary, scanComplete, self))
@@ -620,12 +532,12 @@ LABEL_12:
     {
       [(ISRegionDetector *)self setNumberOfWiFiScanAttemptsRemaining:[(ISRegionDetector *)self numberOfWiFiScanAttemptsRemaining]- 1];
       v8 = dispatch_time(0, 500000000);
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __33__ISRegionDetector__scanWifiList__block_invoke;
-      v10[3] = &unk_1E7D07158;
-      v10[4] = self;
-      dispatch_after(v8, MEMORY[0x1E69E96A0], v10);
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __33__ISRegionDetector__scanWifiList__block_invoke;
+      v11[3] = &unk_1E7D07158;
+      v11[4] = self;
+      dispatch_after(v8, MEMORY[0x1E69E96A0], v11);
     }
 
     else
@@ -651,7 +563,7 @@ void *__33__ISRegionDetector__scanWifiList__block_invoke(uint64_t a1)
 
 - (void)_scanComplete:(id)complete error:(BOOL)error
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   completeCopy = complete;
   v7 = completeCopy;
   if (!error && !self->_guessedCountries)
@@ -669,104 +581,104 @@ LABEL_43:
     }
 
     v9 = v8;
-    v35 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v34 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v10 = objc_alloc_init(MEMORY[0x1E696AB50]);
     v11 = 0;
-    v48 = 3;
+    v47 = 3;
     do
     {
       v12 = [v7 objectAtIndexedSubscript:v11];
 
-      v55 = 0;
-      v56 = &v55;
-      v57 = 0x2020000000;
+      v54 = 0;
+      v55 = &v54;
+      v56 = 0x2020000000;
       v13 = getWiFiNetworkGet11dCountryCodeFromIeSymbolLoc_ptr;
-      v58 = getWiFiNetworkGet11dCountryCodeFromIeSymbolLoc_ptr;
+      v57 = getWiFiNetworkGet11dCountryCodeFromIeSymbolLoc_ptr;
       if (!getWiFiNetworkGet11dCountryCodeFromIeSymbolLoc_ptr)
       {
-        v50 = MEMORY[0x1E69E9820];
-        v51 = 3221225472;
-        v52 = __getWiFiNetworkGet11dCountryCodeFromIeSymbolLoc_block_invoke;
-        v53 = &unk_1E7D07180;
-        v54 = &v55;
+        v49 = MEMORY[0x1E69E9820];
+        v50 = 3221225472;
+        v51 = __getWiFiNetworkGet11dCountryCodeFromIeSymbolLoc_block_invoke;
+        v52 = &unk_1E7D07180;
+        v53 = &v54;
         v14 = MobileWiFiLibrary();
         v15 = dlsym(v14, "WiFiNetworkGet11dCountryCodeFromIe");
-        *(v54[1] + 24) = v15;
-        getWiFiNetworkGet11dCountryCodeFromIeSymbolLoc_ptr = *(v54[1] + 24);
-        v13 = v56[3];
+        *(v53[1] + 24) = v15;
+        getWiFiNetworkGet11dCountryCodeFromIeSymbolLoc_ptr = *(v53[1] + 24);
+        v13 = v55[3];
       }
 
-      _Block_object_dispose(&v55, 8);
+      _Block_object_dispose(&v54, 8);
       if (!v13)
       {
         [ISRegionDetector _startWifiScan];
         __break(1u);
       }
 
-      if (v13(v12, v49, &v48) && v48 >= 2)
+      if (v13(v12, v48, &v47) && v47 >= 2)
       {
-        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v49 length:2 encoding:1];
-        [v35 addObject:v16];
+        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v48 length:2 encoding:1];
+        [v34 addObject:v16];
       }
 
       ++v11;
     }
 
     while (v9 != v11);
-    v17 = [(ISRegionDetector *)self _checkForAliasesOrInvalid:v35];
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
+    v17 = [(ISRegionDetector *)self _checkForAliasesOrInvalid:v34];
     v45 = 0u;
-    v18 = [v17 countByEnumeratingWithState:&v44 objects:v61 count:16];
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v18 = [v17 countByEnumeratingWithState:&v43 objects:v60 count:16];
     if (v18)
     {
-      v19 = *v45;
+      v19 = *v44;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v45 != v19)
+          if (*v44 != v19)
           {
             objc_enumerationMutation(v17);
           }
 
-          [v10 addObject:*(*(&v44 + 1) + 8 * i)];
+          [v10 addObject:*(*(&v43 + 1) + 8 * i)];
         }
 
-        v18 = [v17 countByEnumeratingWithState:&v44 objects:v61 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v43 objects:v60 count:16];
       }
 
       while (v18);
     }
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v21 = v10;
-    array = [v21 countByEnumeratingWithState:&v40 objects:v60 count:16];
+    array = [v21 countByEnumeratingWithState:&v39 objects:v59 count:16];
     if (array)
     {
       v23 = 0;
-      v24 = *v41;
+      v24 = *v40;
       do
       {
         for (j = 0; j != array; j = j + 1)
         {
-          if (*v41 != v24)
+          if (*v40 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = [v21 countForObject:*(*(&v40 + 1) + 8 * j)];
+          v26 = [v21 countForObject:*(*(&v39 + 1) + 8 * j)];
           if (v26 > v23)
           {
             v23 = v26;
           }
         }
 
-        array = [v21 countByEnumeratingWithState:&v40 objects:v60 count:16];
+        array = [v21 countByEnumeratingWithState:&v39 objects:v59 count:16];
       }
 
       while (array);
@@ -778,32 +690,32 @@ LABEL_43:
       }
 
       array = [MEMORY[0x1E695DF70] array];
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v27 = v21;
-      v28 = [v27 countByEnumeratingWithState:&v36 objects:v59 count:16];
+      v28 = [v27 countByEnumeratingWithState:&v35 objects:v58 count:16];
       if (v28)
       {
-        v29 = *v37;
+        v29 = *v36;
         do
         {
           for (k = 0; k != v28; ++k)
           {
-            if (*v37 != v29)
+            if (*v36 != v29)
             {
               objc_enumerationMutation(v27);
             }
 
-            v31 = *(*(&v36 + 1) + 8 * k);
+            v31 = *(*(&v35 + 1) + 8 * k);
             if ([v27 countForObject:v31] == v23)
             {
               [array addObject:v31];
             }
           }
 
-          v28 = [v27 countByEnumeratingWithState:&v36 objects:v59 count:16];
+          v28 = [v27 countByEnumeratingWithState:&v35 objects:v58 count:16];
         }
 
         while (v28);
@@ -821,8 +733,6 @@ LABEL_40:
 
 LABEL_44:
   [(ISRegionDetector *)self _closeWifiConnection];
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_closeWifiConnection
@@ -831,25 +741,26 @@ LABEL_44:
   if (fWifiManager)
   {
     Current = CFRunLoopGetCurrent();
-    v9 = 0;
-    v10 = &v9;
-    v11 = 0x2020000000;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x2020000000;
     v5 = getWiFiManagerClientUnscheduleFromRunLoopSymbolLoc_ptr;
-    v12 = getWiFiManagerClientUnscheduleFromRunLoopSymbolLoc_ptr;
+    v13 = getWiFiManagerClientUnscheduleFromRunLoopSymbolLoc_ptr;
     if (!getWiFiManagerClientUnscheduleFromRunLoopSymbolLoc_ptr)
     {
       v6 = MobileWiFiLibrary();
-      v10[3] = dlsym(v6, "WiFiManagerClientUnscheduleFromRunLoop");
-      getWiFiManagerClientUnscheduleFromRunLoopSymbolLoc_ptr = v10[3];
-      v5 = v10[3];
+      v11[3] = dlsym(v6, "WiFiManagerClientUnscheduleFromRunLoop");
+      getWiFiManagerClientUnscheduleFromRunLoopSymbolLoc_ptr = v11[3];
+      v5 = v11[3];
     }
 
-    _Block_object_dispose(&v9, 8);
+    _Block_object_dispose(&v10, 8);
     if (!v5)
     {
-      started = [ISRegionDetector _startWifiScan];
-      _Block_object_dispose(&v9, 8);
-      _Unwind_Resume(started);
+      [ISRegionDetector _startWifiScan];
+      v9 = v8;
+      _Block_object_dispose(&v10, 8);
+      _Unwind_Resume(v9);
     }
 
     v5(fWifiManager, Current, *MEMORY[0x1E695E8D0]);
@@ -870,13 +781,6 @@ LABEL_44:
   [(ISRegionDetector *)self setGuessedCountries:0];
   guessedCountryFromTelephony = self->_guessedCountryFromTelephony;
   self->_guessedCountryFromTelephony = 0;
-}
-
-- (uint64_t)_startWifiScan
-{
-  dlerror();
-  v0 = abort_report_np();
-  return [NSBundle(InternationalSupportExtensions) localizedStringInDeviceLanguageForKey:v0];
 }
 
 @end

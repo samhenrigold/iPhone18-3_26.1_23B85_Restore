@@ -30,32 +30,30 @@
 
 - (void)queue_populateConfiguration:(id)configuration
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v12.receiver = self;
-  v12.super_class = HKMCPregnancyStateQuery;
+  v20 = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = HKMCPregnancyStateQuery;
   configurationCopy = configuration;
-  [(HKQuery *)&v12 queue_populateConfiguration:configurationCopy];
-  [configurationCopy setIsRunningForMaintenance:{self->_isRunningForMaintenance, v12.receiver, v12.super_class}];
+  [(HKQuery *)&v13 queue_populateConfiguration:configurationCopy];
+  [configurationCopy setIsRunningForMaintenance:{self->_isRunningForMaintenance, v13.receiver, v13.super_class}];
 
-  _HKInitializeLogging();
-  v5 = HKLogMenstrualCycles;
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogMenstrualCycles;
   if (os_log_type_enabled(HKLogMenstrualCycles, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v5;
-    v7 = objc_opt_class();
     v8 = v7;
+    v9 = objc_opt_class();
+    v10 = v9;
     debugIdentifier = [(HKQuery *)self debugIdentifier];
-    v10 = [MEMORY[0x1E696AD98] numberWithBool:self->_isRunningForMaintenance];
+    v12 = [MEMORY[0x1E696AD98] numberWithBool:self->_isRunningForMaintenance];
     *buf = 138543874;
-    v14 = v7;
-    v15 = 2114;
-    v16 = debugIdentifier;
-    v17 = 2114;
-    v18 = v10;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Configured to run as maintenance: %{public}@", buf, 0x20u);
+    v15 = v9;
+    v16 = 2114;
+    v17 = debugIdentifier;
+    v18 = 2114;
+    v19 = v12;
+    _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Configured to run as maintenance: %{public}@", buf, 0x20u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queue_deliverError:(id)error
@@ -91,7 +89,7 @@
 {
   updateHandler = self->_updateHandler;
   self->_updateHandler = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, updateHandler);
 }
 
 + (void)configureClientInterface:(id)interface
@@ -147,28 +145,26 @@ void __66__HKMCPregnancyStateQuery_client_deliverPregnancyModel_queryUUID___bloc
 uint64_t __66__HKMCPregnancyStateQuery_client_deliverPregnancyModel_queryUUID___block_invoke_2(void *a1)
 {
   v14 = *MEMORY[0x1E69E9840];
-  if (HKShowSensitiveLogItems())
+  v2 = HKShowSensitiveLogItems();
+  if (v2)
   {
-    _HKInitializeLogging();
-    v2 = HKLogMenstrualCycles;
+    _HKInitializeLogging(v2, v3);
+    v4 = HKLogMenstrualCycles;
     if (os_log_type_enabled(HKLogMenstrualCycles, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = a1[4];
-      v4 = v2;
-      v5 = objc_opt_class();
-      v6 = a1[5];
+      v5 = v4;
+      v6 = objc_opt_class();
+      v7 = a1[5];
       v10 = 138543618;
-      v11 = v5;
+      v11 = v6;
       v12 = 2112;
-      v13 = v6;
-      v7 = v5;
-      _os_log_impl(&dword_19197B000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering updated pregnancy model: %@", &v10, 0x16u);
+      v13 = v7;
+      v8 = v6;
+      _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Delivering updated pregnancy model: %@", &v10, 0x16u);
     }
   }
 
-  result = (*(a1[6] + 16))(a1[6], a1[4], a1[5], 0);
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(a1[6] + 16))(a1[6], a1[4], a1[5], 0);
 }
 
 @end

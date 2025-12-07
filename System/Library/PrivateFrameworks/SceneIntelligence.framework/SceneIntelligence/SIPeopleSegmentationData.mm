@@ -17,7 +17,7 @@
   if (v5)
   {
     [(SIPeopleSegmentationData *)v5 _resolutionByConfig:configCopy];
-    v6->_segmentation = SICreateCVPixelBuffer(v7, v8, 0x4C303038u, 1);
+    v6->_segmentation = SICreateCVPixelBuffer(v7, v8, 1278226488, 1);
     v9 = v6;
   }
 

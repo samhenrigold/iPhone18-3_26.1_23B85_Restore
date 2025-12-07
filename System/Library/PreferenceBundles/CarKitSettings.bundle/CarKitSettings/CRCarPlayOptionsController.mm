@@ -1,6 +1,7 @@
 @interface CRCarPlayOptionsController
 - (BOOL)isCarPlayEnabled;
 - (id)specifiers;
+- (void)_showCarPlayUltraConfirmation:(BOOL)confirmation;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 @end
 
@@ -129,6 +130,26 @@ LABEL_5:
   }
 
 LABEL_6:
+}
+
+- (void)_showCarPlayUltraConfirmation:(BOOL)confirmation
+{
+  confirmationCopy = confirmation;
+  v5 = [_TtC14CarKitSettings40CRCarPlayUltraConfirmationViewController alloc];
+  vehicleSettingManager = [(CRCarPlayOptionsController *)self vehicleSettingManager];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_137A0;
+  v10[3] = &unk_6E2C0;
+  v10[4] = self;
+  v7 = [(CRCarPlayUltraConfirmationViewController *)v5 initWithEnableUltra:confirmationCopy vehicleSettingManager:vehicleSettingManager confirmAction:v10];
+
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_13814;
+  v8[3] = &unk_6E820;
+  v9 = confirmationCopy;
+  [(CRCarPlayOptionsController *)self presentViewController:v7 animated:1 completion:v8];
 }
 
 @end

@@ -248,7 +248,7 @@ LABEL_13:
   dispatch_async(queue, block);
 }
 
-uint64_t __31__RTAuthorizationManager_setup__block_invoke(uint64_t a1)
+void *__31__RTAuthorizationManager_setup__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _setup];
   *(*(a1 + 32) + 34) = 1;

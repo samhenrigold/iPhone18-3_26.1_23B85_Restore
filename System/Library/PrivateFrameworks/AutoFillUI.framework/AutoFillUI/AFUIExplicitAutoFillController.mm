@@ -580,38 +580,37 @@ void __55__AFUIExplicitAutoFillController__generateSuggestions___block_invoke(ui
 
   if (+[AFUIExplicitAutoFillController isCreditCardAuthenticationOngoing])
   {
-    v14 = [*(a1 + 32) authLock];
-    [v14 unlock];
+    v13 = [*(a1 + 32) authLock];
+    [v13 unlock];
   }
 
   else
   {
     [AFUIExplicitAutoFillController setIsCreditCardAuthenticationOngoing:1];
-    v3 = *(a1 + 40);
     if (objc_opt_respondsToSelector())
     {
-      v4 = *(a1 + 40);
+      v3 = *(a1 + 40);
+      v4 = objc_alloc(MEMORY[0x1E698E1B8]);
       v5 = objc_alloc(MEMORY[0x1E698E1B8]);
-      v6 = objc_alloc(MEMORY[0x1E698E1B8]);
-      v7 = [v6 creditCardPayload];
-      v8 = *(*(a1 + 32) + 8);
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __55__AFUIExplicitAutoFillController__generateSuggestions___block_invoke_2;
-      v16[3] = &unk_1E8424CD0;
-      v9 = *(a1 + 40);
-      v20 = *(a1 + 72);
-      v10 = *(a1 + 48);
-      v15 = *(a1 + 32);
-      v11 = *(a1 + 56);
-      *&v12 = v15;
-      *(&v12 + 1) = v11;
-      *&v13 = v9;
-      *(&v13 + 1) = v10;
-      v17 = v13;
-      v18 = v12;
-      v19 = *(a1 + 64);
-      [v4 authenticateIfNecessaryForCreditCardSuggestion:v5 withPayload:v7 documentTraits:v8 completionHandler:v16];
+      v6 = [v5 creditCardPayload];
+      v7 = *(*(a1 + 32) + 8);
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __55__AFUIExplicitAutoFillController__generateSuggestions___block_invoke_2;
+      v15[3] = &unk_1E8424CD0;
+      v8 = *(a1 + 40);
+      v19 = *(a1 + 72);
+      v9 = *(a1 + 48);
+      v14 = *(a1 + 32);
+      v10 = *(a1 + 56);
+      *&v11 = v14;
+      *(&v11 + 1) = v10;
+      *&v12 = v8;
+      *(&v12 + 1) = v9;
+      v16 = v12;
+      v17 = v11;
+      v18 = *(a1 + 64);
+      [v3 authenticateIfNecessaryForCreditCardSuggestion:v4 withPayload:v6 documentTraits:v7 completionHandler:v15];
     }
   }
 }

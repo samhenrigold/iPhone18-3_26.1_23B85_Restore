@@ -10,7 +10,7 @@
 
 - (AXNumericScale)init
 {
-  v3 = AXAudioGraphLog();
+  v3 = AXAudioGraphLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(AXNumericScale *)v3 init];

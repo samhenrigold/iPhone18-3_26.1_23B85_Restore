@@ -6,6 +6,7 @@
 - (id)_getInfoForAccessory:(id)accessory;
 - (void)_addAccessory:(id)accessory withTarget:(id)target;
 - (void)_removeAccessory:(id)accessory;
+- (void)accessory:(id)accessory setSupportsDragonSiri:(BOOL)siri;
 - (void)setTargetableAccessory:(id)accessory withControllers:(id)controllers;
 @end
 
@@ -18,89 +19,107 @@
   return WeakRetained;
 }
 
+- (void)accessory:(id)accessory setSupportsDragonSiri:(BOOL)siri
+{
+  siriCopy = siri;
+  accessoryCopy = accessory;
+  v6 = [(HMDSiriAccessoryMonitor *)self _getInfoForAccessory:?];
+  v7 = v6;
+  if (v6)
+  {
+    if ([v6 supportsDragonSiri] != siriCopy)
+    {
+      [v7 setSupportsDragonSiri:siriCopy];
+      if ([v7 isActiveAndSupportsDragonSiri])
+      {
+        delegate = [(HMDSiriAccessoryMonitor *)self delegate];
+        [delegate monitor:self willAllowAccessoryForDragonSiri:accessoryCopy];
+      }
+    }
+  }
+}
+
 - (void)setTargetableAccessory:(id)accessory withControllers:(id)controllers
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   controllersCopy = controllers;
   v8 = [(HMDSiriAccessoryMonitor *)self _accessoriesTargetingAccessory:accessoryCopy];
   v9 = [MEMORY[0x277CBEB98] setWithArray:controllersCopy];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __66__HMDSiriAccessoryMonitor_setTargetableAccessory_withControllers___block_invoke;
-  v35[3] = &unk_278670C80;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __66__HMDSiriAccessoryMonitor_setTargetableAccessory_withControllers___block_invoke;
+  v34[3] = &unk_278670C80;
   v10 = v8;
-  v36 = v10;
-  v11 = [v9 objectsPassingTest:v35];
+  v35 = v10;
+  v11 = [v9 objectsPassingTest:v34];
 
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __66__HMDSiriAccessoryMonitor_setTargetableAccessory_withControllers___block_invoke_2;
-  v33[3] = &unk_278670C80;
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __66__HMDSiriAccessoryMonitor_setTargetableAccessory_withControllers___block_invoke_2;
+  v32[3] = &unk_278670C80;
   v12 = controllersCopy;
-  v34 = v12;
-  v13 = [v10 objectsPassingTest:v33];
+  v33 = v12;
+  v13 = [v10 objectsPassingTest:v32];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v14 = v11;
-  v15 = [v14 countByEnumeratingWithState:&v29 objects:v38 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v28 objects:v37 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v30;
+    v17 = *v29;
     do
     {
       v18 = 0;
       do
       {
-        if (*v30 != v17)
+        if (*v29 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [(HMDSiriAccessoryMonitor *)self _addAccessory:*(*(&v29 + 1) + 8 * v18++) withTarget:accessoryCopy];
+        [(HMDSiriAccessoryMonitor *)self _addAccessory:*(*(&v28 + 1) + 8 * v18++) withTarget:accessoryCopy];
       }
 
       while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
     while (v16);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v19 = v13;
-  v20 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v24 objects:v36 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v26;
+    v22 = *v25;
     do
     {
       v23 = 0;
       do
       {
-        if (*v26 != v22)
+        if (*v25 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        [(HMDSiriAccessoryMonitor *)self _removeAccessory:*(*(&v25 + 1) + 8 * v23++), v25];
+        [(HMDSiriAccessoryMonitor *)self _removeAccessory:*(*(&v24 + 1) + 8 * v23++), v24];
       }
 
       while (v21 != v23);
-      v21 = [v19 countByEnumeratingWithState:&v25 objects:v37 count:16];
+      v21 = [v19 countByEnumeratingWithState:&v24 objects:v36 count:16];
     }
 
     while (v21);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeAccessory:(id)accessory
@@ -138,29 +157,29 @@
 
 - (id)_accessoriesTargetingAccessory:(id)accessory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   v5 = [MEMORY[0x277CBEB58] set];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   accessories = [(HMDSiriAccessoryMonitor *)self accessories];
-  v7 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(accessories);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         accessories2 = [(HMDSiriAccessoryMonitor *)self accessories];
         v13 = [accessories2 objectForKey:v11];
 
@@ -175,48 +194,46 @@
         }
       }
 
-      v8 = [accessories countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [accessories countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (BOOL)hasAnyActiveTargetingAccessories
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   accessories = [(HMDSiriAccessoryMonitor *)self accessories];
   objectEnumerator = [accessories objectEnumerator];
 
-  v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        if ([*(*(&v9 + 1) + 8 * i) isActiveAndSupportsDragonSiri])
+        if ([*(*(&v8 + 1) + 8 * i) isActiveAndSupportsDragonSiri])
         {
           LOBYTE(v4) = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [objectEnumerator countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [objectEnumerator countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -228,7 +245,6 @@
 
 LABEL_11:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

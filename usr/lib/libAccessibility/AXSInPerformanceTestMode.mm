@@ -3,7 +3,7 @@
 
 @implementation AXSInPerformanceTestMode
 
-uint64_t ___AXSInPerformanceTestMode_block_invoke()
+void *___AXSInPerformanceTestMode_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

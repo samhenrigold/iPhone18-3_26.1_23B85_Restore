@@ -439,7 +439,7 @@ void AOSTransactionSetError(uint64_t a1, CFTypeRef cf)
   }
 }
 
-uint64_t AOSTransactionSetIsFinished(uint64_t result, int a2)
+id *AOSTransactionSetIsFinished(id *result, int a2)
 {
   if (result)
   {
@@ -447,8 +447,8 @@ uint64_t AOSTransactionSetIsFinished(uint64_t result, int a2)
     *(result + 9) = a2;
     if (a2)
     {
-      [*(result + 64) lock];
-      v3 = *(v2 + 64);
+      [result[8] lock];
+      v3 = v2[8];
 
       return [v3 unlockWithCondition:1];
     }

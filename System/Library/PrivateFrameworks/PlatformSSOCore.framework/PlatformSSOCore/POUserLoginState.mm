@@ -3,6 +3,7 @@
 - (POUserLoginState)initWithData:(id)data;
 - (POUserLoginState)initWithDictionary:(id)dictionary;
 - (POUserLoginState)initWithUniqueIdentifier:(id)identifier;
+- (id)dataRepresentationForDisplay:(BOOL)display;
 - (id)description;
 - (id)dictionaryRepresentationForDisplay:(BOOL)display;
 - (void)encodeWithCoder:(id)coder;
@@ -140,10 +141,37 @@
   return v21;
 }
 
+- (id)dataRepresentationForDisplay:(BOOL)display
+{
+  v3 = [(POUserLoginState *)self dictionaryRepresentationForDisplay:display];
+  v12 = 0;
+  v4 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v3 options:11 error:&v12];
+  v5 = v12;
+  v6 = v5;
+  if (v5)
+  {
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __49__POUserLoginState_dataRepresentationForDisplay___block_invoke;
+    v10[3] = &unk_279A3DC48;
+    v11 = v5;
+    v7 = __49__POUserLoginState_dataRepresentationForDisplay___block_invoke(v10);
+
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = v4;
+  }
+
+  return v8;
+}
+
 id __49__POUserLoginState_dataRepresentationForDisplay___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error serializing user state."];
-  v2 = PO_LOG_POUserLoginState();
+  v2 = PO_LOG_POUserLoginState(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke_cold_1(v1, v2);
@@ -182,7 +210,7 @@ id __49__POUserLoginState_dataRepresentationForDisplay___block_invoke(uint64_t a
 id __33__POUserLoginState_initWithData___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Error deserializing user state."];
-  v2 = PO_LOG_POUserLoginState();
+  v2 = PO_LOG_POUserLoginState(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __61__POPrebootDeviceConfiguration_dataRepresentationForDisplay___block_invoke_cold_1(v1, v2);

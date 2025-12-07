@@ -1,5 +1,6 @@
 @interface MPSNDArrayUnaryKernel
 - (MPSNDArray)encodeToCommandBuffer:(id)cmdBuf sourceArray:(MPSNDArray *)sourceArray;
+- (MPSNDArray)encodeToCommandBuffer:(id)cmdBuf sourceArray:(MPSNDArray *)sourceArray resultState:(MPSState *)outGradientState outputStateIsTemporary:(BOOL)outputStateIsTemporary;
 - (MPSNDArrayOffsets)offsets;
 - (MPSNDArrayOffsets)strides;
 - (MPSNDArraySizes)dilationRates;
@@ -104,33 +105,38 @@
 
 - (MPSNDArray)encodeToCommandBuffer:(id)cmdBuf sourceArray:(MPSNDArray *)sourceArray
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = sourceArray;
-  v6.receiver = self;
-  v6.super_class = MPSNDArrayUnaryKernel;
-  result = -[MPSNDArrayMultiaryKernel encodeToCommandBuffer:sourceArrays:](&v6, sel_encodeToCommandBuffer_sourceArrays_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1]);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = sourceArray;
+  v5.receiver = self;
+  v5.super_class = MPSNDArrayUnaryKernel;
+  return -[MPSNDArrayMultiaryKernel encodeToCommandBuffer:sourceArrays:](&v5, sel_encodeToCommandBuffer_sourceArrays_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1]);
 }
 
 - (void)encodeToCommandBuffer:(id)cmdBuf sourceArray:(MPSNDArray *)sourceArray destinationArray:(MPSNDArray *)destination
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v7[0] = sourceArray;
-  v6.receiver = self;
-  v6.super_class = MPSNDArrayUnaryKernel;
-  -[MPSNDArrayMultiaryKernel encodeToCommandBuffer:sourceArrays:destinationArray:](&v6, sel_encodeToCommandBuffer_sourceArrays_destinationArray_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1], destination);
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
+  v6[0] = sourceArray;
+  v5.receiver = self;
+  v5.super_class = MPSNDArrayUnaryKernel;
+  -[MPSNDArrayMultiaryKernel encodeToCommandBuffer:sourceArrays:destinationArray:](&v5, sel_encodeToCommandBuffer_sourceArrays_destinationArray_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1], destination);
 }
 
-- (void)encodeToCommandBuffer:(id)cmdBuf sourceArray:(MPSNDArray *)sourceArray resultState:(MPSState *)outGradientState destinationArray:(MPSNDArray *)destination
+- (MPSNDArray)encodeToCommandBuffer:(id)cmdBuf sourceArray:(MPSNDArray *)sourceArray resultState:(MPSState *)outGradientState outputStateIsTemporary:(BOOL)outputStateIsTemporary
 {
   v8[1] = *MEMORY[0x277D85DE8];
   v8[0] = sourceArray;
   v7.receiver = self;
   v7.super_class = MPSNDArrayUnaryKernel;
-  -[MPSNDArrayMultiaryKernel encodeToCommandBuffer:sourceArrays:resultState:destinationArray:](&v7, sel_encodeToCommandBuffer_sourceArrays_resultState_destinationArray_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1], outGradientState, destination);
-  v6 = *MEMORY[0x277D85DE8];
+  return -[MPSNDArrayMultiaryKernel encodeToCommandBuffer:sourceArrays:resultState:outputStateIsTemporary:](&v7, sel_encodeToCommandBuffer_sourceArrays_resultState_outputStateIsTemporary_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1], outGradientState, outputStateIsTemporary);
+}
+
+- (void)encodeToCommandBuffer:(id)cmdBuf sourceArray:(MPSNDArray *)sourceArray resultState:(MPSState *)outGradientState destinationArray:(MPSNDArray *)destination
+{
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = sourceArray;
+  v6.receiver = self;
+  v6.super_class = MPSNDArrayUnaryKernel;
+  -[MPSNDArrayMultiaryKernel encodeToCommandBuffer:sourceArrays:resultState:destinationArray:](&v6, sel_encodeToCommandBuffer_sourceArrays_resultState_destinationArray_, cmdBuf, [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1], outGradientState, destination);
 }
 
 - (void)setOffsets:(id *)offsets

@@ -15,9 +15,9 @@
     +[_GCHIDEventDeliveryMonitor sharedInstance];
   }
 
-  v0 = sharedInstance_Shared_3;
+  v1 = sharedInstance_Shared_3;
 
-  return v0;
+  return v1;
 }
 
 - (_GCHIDEventDeliveryMonitor)init

@@ -58,9 +58,9 @@ LABEL_11:
             {
               lookupIdentifier3 = [(PLGenericLocationTuple *)self lookupIdentifier];
               lookupIdentifier4 = [(PLGenericLocationTuple *)v5 lookupIdentifier];
-              v17 = [lookupIdentifier3 isEqualToString:lookupIdentifier4];
+              isEqualToString = objc_msgSend_isEqualToString_(lookupIdentifier3);
 
-              if (!v17)
+              if (!isEqualToString)
               {
                 goto LABEL_15;
               }

@@ -3,6 +3,7 @@
 - (NSXPCConnection)UAToPasteboardConnection;
 - (PBUserActivityServicer)initWithConnection:(id)connection;
 - (void)pasteboardWillBeFetched:(id)fetched;
+- (void)remotePasteboardAvailable:(BOOL)available;
 @end
 
 @implementation PBUserActivityServicer
@@ -31,6 +32,13 @@
   }
 
   return v6;
+}
+
+- (void)remotePasteboardAvailable:(BOOL)available
+{
+  availableCopy = available;
+  v4 = +[PBPasteboardModel sharedModel];
+  [v4 _remotePasteboardDidBecomeAvailable:availableCopy];
 }
 
 - (void)pasteboardWillBeFetched:(id)fetched

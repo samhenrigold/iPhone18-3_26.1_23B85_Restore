@@ -1,14 +1,14 @@
 @interface NSString(NSStringDrawing)
 + (BOOL)usesScreenFonts;
 + (NSStringDrawingTextStorageSettings)setTypesetterBehavior:()NSStringDrawing;
-+ (NSStringDrawingTextStorageSettings)setUsesScreenFonts:()NSStringDrawing;
-+ (NSStringDrawingTextStorageSettings)showsControlCharacters;
-+ (NSStringDrawingTextStorageSettings)showsInvisibleCharacters;
-+ (NSStringDrawingTextStorageSettings)usesFontLeading;
 + (float)hyphenationFactor;
 + (int64_t)typesetterBehavior;
 + (uint64_t)defaultBaselineOffsetForFont:()NSStringDrawing;
 + (uint64_t)defaultLineHeightForFont:()NSStringDrawing;
++ (uint64_t)setUsesScreenFonts:()NSStringDrawing;
++ (uint64_t)showsControlCharacters;
++ (uint64_t)showsInvisibleCharacters;
++ (uint64_t)usesFontLeading;
 + (void)setHyphenationFactor:()NSStringDrawing;
 + (void)setShowsControlCharacters:()NSStringDrawing;
 + (void)setShowsInvisibleCharacters:()NSStringDrawing;
@@ -36,7 +36,7 @@
 
 - (void)drawAtPoint:()NSStringDrawing withAttributes:
 {
-  v9 = MEMORY[0x193AD39D0](0.15);
+  v9 = MEMORY[0x193AD39D0](self, a4, 0.15);
   MEMORY[0x193AD39E0](0.0);
   if (!a5)
   {
@@ -55,7 +55,7 @@
   {
     if (!a7)
     {
-      a7 = +[NSAttributeDictionary emptyAttributeDictionary];
+      a7 = [NSAttributeDictionary emptyAttributeDictionary:0];
     }
 
     _NSStringDrawingCore(self, a7, 1, 0, a2, a3, a4, a5, 0.0, a9, 0);
@@ -64,7 +64,7 @@
 
 - (double)sizeWithAttributes:()NSStringDrawing
 {
-  v5 = MEMORY[0x193AD39D0](0.15);
+  v5 = MEMORY[0x193AD39D0](self, a2, 0.15);
   v6 = MEMORY[0x193AD39E0](0.0);
   v7 = [self boundingRectWithSize:1 options:a3 attributes:0 context:{*MEMORY[0x1E696AA88], *(MEMORY[0x1E696AA88] + 8)}];
   v9 = v8;
@@ -73,7 +73,7 @@
   return v9;
 }
 
-+ (NSStringDrawingTextStorageSettings)usesFontLeading
++ (uint64_t)usesFontLeading
 {
   result = +[NSStringDrawingTextStorage _hasCustomSettings];
   if (result)
@@ -81,7 +81,7 @@
     result = [NSStringDrawingTextStorageSettings threadSpecificStringDrawingTextStorageSettings:?];
     if (result)
     {
-      return (*&result->_settings._flags & 1);
+      return *(result + 12) & 1;
     }
   }
 
@@ -113,7 +113,7 @@
   return +[NSLayoutManager _usesScreenFonts];
 }
 
-+ (NSStringDrawingTextStorageSettings)setUsesScreenFonts:()NSStringDrawing
++ (uint64_t)setUsesScreenFonts:()NSStringDrawing
 {
   result = +[NSLayoutManager _usesScreenFonts];
   if (result != a3)
@@ -127,7 +127,7 @@
       v5 = 0;
     }
 
-    result->_settings._flags = (*&result->_settings._flags & 0xFFFFFFFFFFFFFFFDLL | v5);
+    *(result + 12) = *(result + 12) & 0xFFFFFFFFFFFFFFFDLL | v5;
   }
 
   return result;
@@ -144,7 +144,7 @@
   }
 }
 
-+ (NSStringDrawingTextStorageSettings)showsInvisibleCharacters
++ (uint64_t)showsInvisibleCharacters
 {
   result = +[NSStringDrawingTextStorage _hasCustomSettings];
   if (result)
@@ -152,7 +152,7 @@
     result = [NSStringDrawingTextStorageSettings threadSpecificStringDrawingTextStorageSettings:?];
     if (result)
     {
-      return ((*&result->_settings._flags >> 2) & 1);
+      return (*(result + 12) >> 2) & 1;
     }
   }
 
@@ -170,7 +170,7 @@
   }
 }
 
-+ (NSStringDrawingTextStorageSettings)showsControlCharacters
++ (uint64_t)showsControlCharacters
 {
   result = +[NSStringDrawingTextStorage _hasCustomSettings];
   if (result)
@@ -178,7 +178,7 @@
     result = [NSStringDrawingTextStorageSettings threadSpecificStringDrawingTextStorageSettings:?];
     if (result)
     {
-      return ((*&result->_settings._flags >> 3) & 1);
+      return (*(result + 12) >> 3) & 1;
     }
   }
 

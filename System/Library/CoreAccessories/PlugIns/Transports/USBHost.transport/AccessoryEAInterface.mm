@@ -6,6 +6,7 @@
 - (IOUSBInterfaceStruct942)_createInterfaceFromUSBID:(unint64_t)d;
 - (id)_dequeueReadBuffer;
 - (id)_dequeueWriteBuffer;
+- (int)_clearPipeStall:(unsigned __int8)stall;
 - (void)_acceptSocketCB:(__CFSocket *)b acceptedSock:(int)sock;
 - (void)_cancelThread;
 - (void)_enqueueWriteBuffer:(id)buffer;
@@ -116,7 +117,7 @@
 
 - (void)shuttingDownSession
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (gLogObjects)
   {
     v3 = gNumLogObjects < 1;
@@ -147,16 +148,15 @@
   {
     protocolName = self->_protocolName;
     *buf = 138412290;
-    v10 = protocolName;
+    v9 = protocolName;
     _os_log_impl(&dword_2336F5000, v5, OS_LOG_TYPE_DEFAULT, "Shutting down session for NativeEA protocol %@", buf, 0xCu);
   }
 
   [(AccessoryEAInterface *)self closeDataPipes];
   [(AccessoryEAInterface *)self _sendSessionCloseNotification];
-  v8.receiver = self;
-  v8.super_class = AccessoryEAInterface;
-  [(iAP2EASession *)&v8 shuttingDownSession];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = AccessoryEAInterface;
+  [(iAP2EASession *)&v7 shuttingDownSession];
 }
 
 - (void)dealloc
@@ -186,7 +186,7 @@
 
 - (void)setDataInHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (gLogObjects)
   {
@@ -219,13 +219,13 @@
     v8 = MEMORY[0x2383AB1E0](self->_dataInHandler);
     v9 = MEMORY[0x2383AB1E0](handlerCopy);
     vidpid = self->_vidpid;
-    v14 = 134218496;
-    v15 = v8;
-    v16 = 2048;
-    v17 = v9;
-    v18 = 1024;
-    v19 = vidpid;
-    _os_log_impl(&dword_2336F5000, v7, OS_LOG_TYPE_DEFAULT, "EA Native USB: dataInHandler %p -> %p, vidpid 0x%x", &v14, 0x1Cu);
+    v13 = 134218496;
+    v14 = v8;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 1024;
+    v18 = vidpid;
+    _os_log_impl(&dword_2336F5000, v7, OS_LOG_TYPE_DEFAULT, "EA Native USB: dataInHandler %p -> %p, vidpid 0x%x", &v13, 0x1Cu);
   }
 
   v11 = MEMORY[0x2383AB1E0](handlerCopy);
@@ -236,8 +236,6 @@
   {
     [(AccessoryEAInterface *)self performSelector:sel__readSessionDataFromUSB onThread:self->_runLoopThread withObject:0 waitUntilDone:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeData:(id)data
@@ -589,118 +587,110 @@ LABEL_24:
 
 - (void)_readSessionDataFromApp
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   _dequeueWriteBuffer = [(AccessoryEAInterface *)self _dequeueWriteBuffer];
-  if (_dequeueWriteBuffer)
+  if (!_dequeueWriteBuffer)
   {
-    v5 = _dequeueWriteBuffer;
-    v6 = MEMORY[0x277D86220];
-    *&v4 = 134218240;
-    v19 = v4;
+    CFSocketDisableCallBacks(self->_sockRef, 1uLL);
+    self->_sockReadDisabled = 1;
+    return;
+  }
+
+  v5 = _dequeueWriteBuffer;
+  v6 = MEMORY[0x277D86220];
+  *&v4 = 134218240;
+  v18 = v4;
+  while (1)
+  {
     while (1)
     {
       v7 = recv(self->super._sock, [v5 writePtr], objc_msgSend(v5, "writeSpaceRemaining"), 0);
       v8 = gLogObjects;
       v9 = gNumLogObjects;
-      if (gLogObjects)
-      {
-        v10 = gNumLogObjects <= 0;
-      }
-
-      else
-      {
-        v10 = 1;
-      }
-
+      v10 = !gLogObjects || gNumLogObjects <= 0;
       v11 = !v10;
       if (v7 <= 0)
       {
-        if (v11)
-        {
-          v15 = *gLogObjects;
-        }
+        break;
+      }
 
-        else
-        {
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-          {
-            *buf = v19;
-            v23 = v8;
-            v24 = 1024;
-            v25 = v9;
-            _os_log_error_impl(&dword_2336F5000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
-          }
-
-          v16 = v6;
-          v15 = v6;
-        }
-
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
-        {
-          [(AccessoryEAInterface *)&v20 _readSessionDataFromApp];
-        }
-
-LABEL_27:
-        if (![v5 dataLength])
-        {
-          [(AccessoryEAInterface *)self _enqueueWriteBuffer:v5];
-
-          goto LABEL_32;
-        }
-
-        [(AccessoryEAInterface *)self _writeUSBData:v5];
-        _dequeueWriteBuffer2 = [(AccessoryEAInterface *)self _dequeueWriteBuffer];
-
-        v5 = _dequeueWriteBuffer2;
-        if (!_dequeueWriteBuffer2)
-        {
-          goto LABEL_32;
-        }
+      v12 = v7;
+      if (v11)
+      {
+        v13 = *gLogObjects;
       }
 
       else
       {
-        v12 = v7;
-        if (v11)
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          v13 = *gLogObjects;
+          *buf = v18;
+          v22 = v8;
+          v23 = 1024;
+          v24 = v9;
+          _os_log_error_impl(&dword_2336F5000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
         }
 
-        else
-        {
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-          {
-            *buf = v19;
-            v23 = v8;
-            v24 = 1024;
-            v25 = v9;
-            _os_log_error_impl(&dword_2336F5000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
-          }
-
-          v14 = v6;
-          v13 = v6;
-        }
-
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 134217984;
-          v23 = v12;
-          _os_log_debug_impl(&dword_2336F5000, v13, OS_LOG_TYPE_DEBUG, "EA Native USB:  read %zd bytes from app", buf, 0xCu);
-        }
-
-        [v5 moveWritePtr:v12];
-        if (![v5 writeSpaceRemaining])
-        {
-          goto LABEL_27;
-        }
+        v14 = v6;
+        v13 = v6;
       }
+
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 134217984;
+        v22 = v12;
+        _os_log_debug_impl(&dword_2336F5000, v13, OS_LOG_TYPE_DEBUG, "EA Native USB:  read %zd bytes from app", buf, 0xCu);
+      }
+
+      [v5 moveWritePtr:v12];
+      if (![v5 writeSpaceRemaining])
+      {
+        goto LABEL_27;
+      }
+    }
+
+    if (v11)
+    {
+      v15 = *gLogObjects;
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        *buf = v18;
+        v22 = v8;
+        v23 = 1024;
+        v24 = v9;
+        _os_log_error_impl(&dword_2336F5000, v6, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
+      }
+
+      v16 = v6;
+      v15 = v6;
+    }
+
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    {
+      [(AccessoryEAInterface *)&v19 _readSessionDataFromApp];
+    }
+
+LABEL_27:
+    if (![v5 dataLength])
+    {
+      break;
+    }
+
+    [(AccessoryEAInterface *)self _writeUSBData:v5];
+    _dequeueWriteBuffer2 = [(AccessoryEAInterface *)self _dequeueWriteBuffer];
+
+    v5 = _dequeueWriteBuffer2;
+    if (!_dequeueWriteBuffer2)
+    {
+      return;
     }
   }
 
-  CFSocketDisableCallBacks(self->_sockRef, 1uLL);
-  self->_sockReadDisabled = 1;
-LABEL_32:
-  v18 = *MEMORY[0x277D85DE8];
+  [(AccessoryEAInterface *)self _enqueueWriteBuffer:v5];
 }
 
 - (void)_writeUSBData:(id)data
@@ -734,6 +724,19 @@ LABEL_32:
 LABEL_10:
     [(AccessoryEAInterface *)self _writeComplete:dataCopy writeLength:0];
   }
+}
+
+- (int)_clearPipeStall:(unsigned __int8)stall
+{
+  result = ((*self->_usbInterface)->GetPipeStatus)(self->_usbInterface, stall);
+  if (result != -536870208 && result != -536870195 && result != 0)
+  {
+    ClearPipeStallBothEnds = (*self->_usbInterface)->ClearPipeStallBothEnds;
+
+    return ClearPipeStallBothEnds();
+  }
+
+  return result;
 }
 
 - (void)_writeComplete:(id)complete writeLength:(unint64_t)length
@@ -827,15 +830,14 @@ LABEL_6:
 
 - (IOUSBInterfaceStruct942)_createInterfaceFromUSBID:(unint64_t)d
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v55 = 0;
+  v59 = *MEMORY[0x277D85DE8];
+  v54 = 0;
   v4 = *MEMORY[0x277CD28A0];
   v5 = IORegistryEntryIDMatching(d);
   MatchingService = IOServiceGetMatchingService(v4, v5);
   if (!MatchingService)
   {
-    v11 = 0;
-    goto LABEL_78;
+    return 0;
   }
 
   v7 = MatchingService;
@@ -858,13 +860,13 @@ LABEL_6:
 
   if (!v13)
   {
-    v52 = 0;
+    v51 = 0;
     QueryInterface = (*theInterface)->QueryInterface;
     v15 = *MEMORY[0x277CBED08];
     byte7 = 0xE08C7C05778B8B87;
     v17 = CFUUIDGetConstantUUIDWithBytes(*MEMORY[0x277CBED08], 1u, 0xA2u, 0xD0u, 0xE9u, 0x42u, 0xF6u, 0x4Au, 0x87u, 0x8Bu, 0x8Bu, 0x77u, 5u, 0x7Cu, 0x8Cu, 0xE0u, 0xCEu);
     v18 = CFUUIDGetUUIDBytes(v17);
-    v19 = (QueryInterface)(v12, *&v18.byte0, *&v18.byte8, &v52);
+    v19 = (QueryInterface)(v12, *&v18.byte0, *&v18.byte8, &v51);
     if (((*theInterface)->Release)(theInterface))
     {
       if (gLogObjects && gNumLogObjects >= 1)
@@ -892,11 +894,11 @@ LABEL_6:
     v11 = 0;
     if (!v19)
     {
-      if (v52)
+      if (v51)
       {
-        v51 = 0x100F000FFLL;
+        v50 = 0x100F000FFLL;
         iterator = 0;
-        if ((*(*v52 + 224))(v52, &v51, &iterator) || !iterator)
+        if ((*(*v51 + 224))(v51, &v50, &iterator) || !iterator)
         {
           if (gLogObjects && gNumLogObjects >= 1)
           {
@@ -932,14 +934,14 @@ LABEL_6:
             {
               v25 = CFUUIDGetConstantUUIDWithBytes(v15, 1u, 0xA2u, 0xD0u, 0xE9u, 0x42u, 0xF6u, 0x4Au, byte7, BYTE1(byte7), BYTE2(byte7), BYTE3(byte7), BYTE4(byte7), BYTE5(byte7), BYTE6(byte7), HIBYTE(byte7), 0xCEu);
               v26 = CFUUIDGetConstantUUIDWithBytes(0, 0xBCu, 0xEAu, 0xADu, 0xDCu, 0x88u, 0x4Du, 0x4Fu, 0x27u, 0x83u, 0x40u, 0x36u, 0xD6u, 0x9Fu, 0xABu, 0x90u, 0xF6u);
-              InterfaceAndNameString = usbUtil_getInterfaceAndNameString(v7, v25, v23, v26, &v55);
+              InterfaceAndNameString = usbUtil_getInterfaceAndNameString(v7, v25, v23, v26, &v54);
               v28 = InterfaceAndNameString;
               if (InterfaceAndNameString && [InterfaceAndNameString isEqualToString:self->_protocolName])
               {
-                v11 = v55;
+                v11 = v54;
               }
 
-              else if (((*v55)->Release)(v55))
+              else if (((*v54)->Release)(v54))
               {
                 v29 = byte7;
                 v30 = gLogObjects;
@@ -954,9 +956,9 @@ LABEL_6:
                   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 134218240;
-                    v57 = v30;
-                    v58 = 1024;
-                    v59 = v31;
+                    v56 = v30;
+                    v57 = 1024;
+                    v58 = v31;
                     _os_log_error_impl(&dword_2336F5000, v24, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
                   }
 
@@ -966,7 +968,7 @@ LABEL_6:
 
                 if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
                 {
-                  [(AccessoryEAInterface *)&v48 _createInterfaceFromUSBID:v49];
+                  [(AccessoryEAInterface *)&v47 _createInterfaceFromUSBID:v48];
                 }
 
                 byte7 = v29;
@@ -986,9 +988,9 @@ LABEL_6:
                   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 134218240;
-                    v57 = v34;
-                    v58 = 1024;
-                    v59 = v35;
+                    v56 = v34;
+                    v57 = 1024;
+                    v58 = v35;
                     _os_log_error_impl(&dword_2336F5000, v24, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
                   }
 
@@ -998,7 +1000,7 @@ LABEL_6:
 
                 if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
                 {
-                  [(AccessoryEAInterface *)&v46 _createInterfaceFromUSBID:v47];
+                  [(AccessoryEAInterface *)&v45 _createInterfaceFromUSBID:v46];
                 }
               }
 
@@ -1012,7 +1014,7 @@ LABEL_6:
 
         v11 = 0;
 LABEL_58:
-        if ((*(*v52 + 24))(v52))
+        if ((*(*v51 + 24))(v51))
         {
           if (gLogObjects && gNumLogObjects >= 1)
           {
@@ -1063,14 +1065,12 @@ LABEL_58:
     }
   }
 
-LABEL_78:
-  v44 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (id)findNativeEAInterfacesForRegistryID:(unint64_t)d
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = 0x2812FF000uLL;
   if (gLogObjects)
@@ -1146,12 +1146,12 @@ LABEL_78:
       v18 = theInterface;
       if (theInterface)
       {
-        v49 = 0;
+        v48 = 0;
         QueryInterface = (*theInterface)->QueryInterface;
         v20 = *MEMORY[0x277CBED08];
         v21 = CFUUIDGetConstantUUIDWithBytes(*MEMORY[0x277CBED08], 1u, 0xA2u, 0xD0u, 0xE9u, 0x42u, 0xF6u, 0x4Au, 0x87u, 0x8Bu, 0x8Bu, 0x77u, 5u, 0x7Cu, 0x8Cu, 0xE0u, 0xCEu);
         v22 = CFUUIDGetUUIDBytes(v21);
-        v23 = (QueryInterface)(v18, *&v22.byte0, *&v22.byte8, &v49);
+        v23 = (QueryInterface)(v18, *&v22.byte0, *&v22.byte8, &v48);
         if (((*theInterface)->Release)(theInterface))
         {
           if (gLogObjects && gNumLogObjects >= 1)
@@ -1176,11 +1176,11 @@ LABEL_78:
           }
         }
 
-        if (!v23 && v49)
+        if (!v23 && v48)
         {
-          v48 = 0x100F000FFLL;
+          v47 = 0x100F000FFLL;
           iterator = 0;
-          if ((*(*v49 + 224))(v49, &v48, &iterator) || !iterator)
+          if ((*(*v48 + 224))(v48, &v47, &iterator) || !iterator)
           {
             if (gLogObjects && gNumLogObjects >= 1)
             {
@@ -1232,8 +1232,8 @@ LABEL_78:
                     {
                       *buf = 134218240;
                       dCopy = v33;
-                      v54 = 1024;
-                      v55 = v34;
+                      v53 = 1024;
+                      v54 = v34;
                       _os_log_error_impl(&dword_2336F5000, v28, OS_LOG_TYPE_ERROR, "Make sure you have called init_logging()!\ngLogObjects: %p, gNumLogObjects: %d", buf, 0x12u);
                     }
 
@@ -1259,7 +1259,7 @@ LABEL_78:
             }
           }
 
-          if ((*(*v49 + 24))(v49))
+          if ((*(*v48 + 24))(v48))
           {
             v39 = *(v5 + 1880);
             if (v39 && gNumLogObjects >= 1)
@@ -1318,14 +1318,12 @@ LABEL_78:
     v4 = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)_sendSessionOpenNotification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!_totalNumberOpenNativeSessions++)
   {
     if (gLogObjects)
@@ -1356,8 +1354,8 @@ LABEL_78:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_2336F5000, v5, OS_LOG_TYPE_DEFAULT, "Created first EA Native Session, post notification", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_2336F5000, v5, OS_LOG_TYPE_DEFAULT, "Created first EA Native Session, post notification", &v10, 2u);
     }
 
     EANativeSessionStatus = -1;
@@ -1381,9 +1379,9 @@ LABEL_78:
 
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136315138;
-        v12 = "com.apple.accessories.ea.native.sessionStatusChanged";
-        _os_log_impl(&dword_2336F5000, v6, OS_LOG_TYPE_DEFAULT, "Failed to register for %s notification!", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "com.apple.accessories.ea.native.sessionStatusChanged";
+        _os_log_impl(&dword_2336F5000, v6, OS_LOG_TYPE_DEFAULT, "Failed to register for %s notification!", &v10, 0xCu);
       }
     }
 
@@ -1408,21 +1406,19 @@ LABEL_78:
 
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
-        v11 = 136315138;
-        v12 = "com.apple.accessories.ea.native.sessionStatusChanged";
-        _os_log_impl(&dword_2336F5000, v7, OS_LOG_TYPE_INFO, "Post notification %s with state 1!", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "com.apple.accessories.ea.native.sessionStatusChanged";
+        _os_log_impl(&dword_2336F5000, v7, OS_LOG_TYPE_INFO, "Post notification %s with state 1!", &v10, 0xCu);
       }
 
       notify_post("com.apple.accessories.ea.native.sessionStatusChanged");
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendSessionCloseNotification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (!--_totalNumberOpenNativeSessions)
   {
     if (gLogObjects)
@@ -1453,8 +1449,8 @@ LABEL_78:
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_2336F5000, v4, OS_LOG_TYPE_DEFAULT, "No more EA Native Sessions, post notification", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_2336F5000, v4, OS_LOG_TYPE_DEFAULT, "No more EA Native Sessions, post notification", &v9, 2u);
     }
 
     EANativeSessionStatus = -1;
@@ -1478,9 +1474,9 @@ LABEL_78:
 
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 136315138;
-        v11 = "com.apple.accessories.ea.native.sessionStatusChanged";
-        _os_log_impl(&dword_2336F5000, v5, OS_LOG_TYPE_DEFAULT, "Failed to register for %s notification!", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "com.apple.accessories.ea.native.sessionStatusChanged";
+        _os_log_impl(&dword_2336F5000, v5, OS_LOG_TYPE_DEFAULT, "Failed to register for %s notification!", &v9, 0xCu);
       }
     }
 
@@ -1505,21 +1501,19 @@ LABEL_78:
 
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v10 = 136315138;
-        v11 = "com.apple.accessories.ea.native.sessionStatusChanged";
-        _os_log_impl(&dword_2336F5000, v6, OS_LOG_TYPE_INFO, "Post notification %s with state 0!", &v10, 0xCu);
+        v9 = 136315138;
+        v10 = "com.apple.accessories.ea.native.sessionStatusChanged";
+        _os_log_impl(&dword_2336F5000, v6, OS_LOG_TYPE_INFO, "Post notification %s with state 0!", &v9, 0xCu);
       }
 
       notify_post("com.apple.accessories.ea.native.sessionStatusChanged");
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)initializeSessionClose
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (initializeSessionClose_onceToken != -1)
   {
     +[AccessoryEAInterface initializeSessionClose];
@@ -1546,9 +1540,9 @@ LABEL_78:
 
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315138;
-      v8 = "com.apple.accessories.ea.native.sessionStatusChanged";
-      _os_log_impl(&dword_2336F5000, v2, OS_LOG_TYPE_DEFAULT, "Failed to register for %s notification!", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "com.apple.accessories.ea.native.sessionStatusChanged";
+      _os_log_impl(&dword_2336F5000, v2, OS_LOG_TYPE_DEFAULT, "Failed to register for %s notification!", &v6, 0xCu);
     }
   }
 
@@ -1573,33 +1567,30 @@ LABEL_78:
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v7 = 136315138;
-      v8 = "com.apple.accessories.ea.native.sessionStatusChanged";
-      _os_log_impl(&dword_2336F5000, v3, OS_LOG_TYPE_INFO, "Post initial notification %s with state 0!", &v7, 0xCu);
+      v6 = 136315138;
+      v7 = "com.apple.accessories.ea.native.sessionStatusChanged";
+      _os_log_impl(&dword_2336F5000, v3, OS_LOG_TYPE_INFO, "Post initial notification %s with state 0!", &v6, 0xCu);
     }
 
     notify_post("com.apple.accessories.ea.native.sessionStatusChanged");
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeData:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_6_0(&dword_2336F5000, a2, a3, "EA Native USB:  read %zd bytes from app", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_6_0(&dword_2336F5000, a2, a3, "EA Native USB:  read %zd bytes from app", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_writeData:(NSObject *)a3 .cold.4(void *a1, uint64_t a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5 = 134218240;
-  v6 = a2;
-  v7 = 2048;
-  v8 = [a1 writeSpaceRemaining];
-  _os_log_error_impl(&dword_2336F5000, a3, OS_LOG_TYPE_ERROR, "EA Native USB: read bytes from app, TOO Many Bytes!!! numberOfBytesRead %zd vs %lu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = 134218240;
+  v5 = a2;
+  v6 = 2048;
+  v7 = [a1 writeSpaceRemaining];
+  _os_log_error_impl(&dword_2336F5000, a3, OS_LOG_TYPE_ERROR, "EA Native USB: read bytes from app, TOO Many Bytes!!! numberOfBytesRead %zd vs %lu", &v4, 0x16u);
 }
 
 - (void)_writeData:.cold.6()

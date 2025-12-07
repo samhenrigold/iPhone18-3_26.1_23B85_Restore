@@ -1,6 +1,7 @@
 @interface SHLocationProvider
 + (NSMapTable)activeLocationProviders;
 + (OS_dispatch_queue)locationQueue;
++ (id)anonymizeCoordinatesPayloadForLocation:(id)location truncatingToDecimalPlaces:(signed __int16)places;
 + (id)locationProviderForRequestIdentifier:(id)identifier clientType:(int64_t)type;
 - (CLLocation)location;
 - (NSUUID)taskID;
@@ -174,6 +175,30 @@ LABEL_6:
     v15 = errorCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Location manager %@ failed to update for request %@ with error %@", &v10, 0x20u);
   }
+}
+
++ (id)anonymizeCoordinatesPayloadForLocation:(id)location truncatingToDecimalPlaces:(signed __int16)places
+{
+  placesCopy = places;
+  locationCopy = location;
+  v6 = [NSDecimalNumber alloc];
+  [locationCopy coordinate];
+  v7 = [v6 initWithDouble:?];
+  v8 = [NSDecimalNumber alloc];
+  [locationCopy coordinate];
+  v10 = v9;
+
+  v11 = [v8 initWithDouble:v10];
+  v12 = [NSDecimalNumberHandler decimalNumberHandlerWithRoundingMode:0 scale:placesCopy raiseOnExactness:0 raiseOnOverflow:0 raiseOnUnderflow:0 raiseOnDivideByZero:0];
+  v17[0] = @"latitude";
+  v13 = [v7 decimalNumberByRoundingAccordingToBehavior:v12];
+  v17[1] = @"longitude";
+  v18[0] = v13;
+  v14 = [v11 decimalNumberByRoundingAccordingToBehavior:v12];
+  v18[1] = v14;
+  v15 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:2];
+
+  return v15;
 }
 
 - (NSUUID)workerID

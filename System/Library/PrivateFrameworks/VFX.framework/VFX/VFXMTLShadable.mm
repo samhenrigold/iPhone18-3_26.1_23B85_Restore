@@ -72,7 +72,7 @@
 
   else if (type)
   {
-    v22 = sub_1AF0D5194();
+    v22 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDEA6C4();
@@ -111,7 +111,7 @@
     return self->_fragmentBuffers[indices.var1];
   }
 
-  v3 = sub_1AF0D5194();
+  v3 = sub_1AF0D5194(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1AFDEA6F8();
@@ -132,7 +132,7 @@
     return self->_fragmentTextures[indices.var1];
   }
 
-  v3 = sub_1AF0D5194();
+  v3 = sub_1AF0D5194(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1AFDEA6F8();
@@ -153,7 +153,7 @@
     return self->_fragmentSamplers[indices.var1];
   }
 
-  v3 = sub_1AF0D5194();
+  v3 = sub_1AF0D5194(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1AFDEA6F8();

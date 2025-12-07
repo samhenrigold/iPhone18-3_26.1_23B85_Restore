@@ -97,7 +97,7 @@ void __47__SASProximitySessionSharingTransport_activate__block_invoke_6(uint64_t
 
 void __57__SASProximitySessionSharingTransport_sendData_response___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = *(a1 + 32);
@@ -106,10 +106,10 @@ void __57__SASProximitySessionSharingTransport_sendData_response___block_invoke(
     if (a2)
     {
       v10 = MEMORY[0x277CCA9B8];
-      v15 = @"status";
+      v14 = @"status";
       v11 = [MEMORY[0x277CCABB0] numberWithInt:a2];
-      v16[0] = v11;
-      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = v11;
+      v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v13 = [v10 errorWithDomain:@"SASProximityErrorDomain" code:-2 userInfo:v12];
 
       (*(*(a1 + 32) + 16))();
@@ -120,8 +120,6 @@ void __57__SASProximitySessionSharingTransport_sendData_response___block_invoke(
       (*(v9 + 16))(v9, 0, v8);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

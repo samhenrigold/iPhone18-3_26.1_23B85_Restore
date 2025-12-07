@@ -73,32 +73,31 @@
     if (![(ATXTransitionPredictorCR *)self isCacheValidForDate:date location:location])
     {
       v9 = [(ATXTransitionPredictorCR *)self updateCacheOnActivity:activityCopy];
-      v10 = __atxlog_handle_dailyroutines();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v10 = v9;
+      v11 = __atxlog_handle_dailyroutines(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = @"failure";
-        if (v9)
+        v12 = @"failure";
+        if (v10)
         {
-          v11 = @"success";
+          v12 = @"success";
         }
 
         v15 = 138412290;
-        v16 = v11;
-        _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Cache update %@", &v15, 0xCu);
+        v16 = v12;
+        _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Cache update %@", &v15, 0xCu);
       }
     }
 
-    v12 = self->_upcomingTransition;
+    v13 = self->_upcomingTransition;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v12;
+  return v13;
 }
 
 - (BOOL)isCacheValidForDate:(id)date location:(id)location
@@ -106,25 +105,26 @@
   v28 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   locationCopy = location;
+  v8 = locationCopy;
   if (self->_locationAtLastPrediction && self->_upcomingTransition)
   {
     [dateCopy timeIntervalSinceReferenceDate];
-    v9 = v8;
+    v10 = v9;
     date = [(ATXPredictedTransition *)self->_upcomingTransition date];
     [date timeIntervalSinceReferenceDate];
-    v12 = v11 + 60.0;
+    v13 = v12 + 60.0;
 
-    [locationCopy distanceFromLocation:self->_locationAtLastPrediction];
-    v14 = v13;
-    v15 = @"No";
-    if (v13 < 200.0)
+    [v8 distanceFromLocation:self->_locationAtLastPrediction];
+    v15 = v14;
+    v16 = @"No";
+    if (v14 < 200.0)
     {
-      v15 = @"Yes";
+      v16 = @"Yes";
     }
 
-    v16 = v15;
-    v17 = __atxlog_handle_dailyroutines();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v17 = v16;
+    v18 = __atxlog_handle_dailyroutines(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       date2 = [(ATXPredictedTransition *)self->_upcomingTransition date];
       v22 = 138412802;
@@ -132,27 +132,26 @@
       v24 = 2112;
       v25 = date2;
       v26 = 2112;
-      v27 = v16;
-      _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Cache status -- time: %@ <? %@ + grace period, location valid: %@", &v22, 0x20u);
+      v27 = v17;
+      _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Cache status -- time: %@ <? %@ + grace period, location valid: %@", &v22, 0x20u);
     }
 
-    v19 = v14 < 200.0 && v9 < v12;
+    v20 = v15 < 200.0 && v10 < v13;
   }
 
   else
   {
-    v16 = __atxlog_handle_dailyroutines();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = __atxlog_handle_dailyroutines(locationCopy);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v22) = 0;
-      _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Cache not set", &v22, 2u);
+      _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Cache not set", &v22, 2u);
     }
 
-    v19 = 0;
+    v20 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v20;
 }
 
 - (void)invalidateCache

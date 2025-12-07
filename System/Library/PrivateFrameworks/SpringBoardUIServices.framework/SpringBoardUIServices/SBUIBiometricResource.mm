@@ -1852,10 +1852,10 @@ void __49__SBUIBiometricResource__activateMatchAssertion___block_invoke(uint64_t
   }
 }
 
-uint64_t __49__SBUIBiometricResource__activateMatchAssertion___block_invoke_2(uint64_t a1)
+uint64_t __49__SBUIBiometricResource__activateMatchAssertion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = SBLogBiometricResource();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = SBLogBiometricResource();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __49__SBUIBiometricResource__activateMatchAssertion___block_invoke_2_cold_1();
   }
@@ -2023,10 +2023,10 @@ void __56__SBUIBiometricResource__activateFingerDetectAssertion___block_invoke(u
   }
 }
 
-uint64_t __56__SBUIBiometricResource__activateFingerDetectAssertion___block_invoke_2(uint64_t a1)
+uint64_t __56__SBUIBiometricResource__activateFingerDetectAssertion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = SBLogBiometricResource();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = SBLogBiometricResource();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __56__SBUIBiometricResource__activateFingerDetectAssertion___block_invoke_2_cold_1();
   }
@@ -2118,10 +2118,10 @@ void __54__SBUIBiometricResource__activateFaceDetectAssertion___block_invoke(uin
   }
 }
 
-uint64_t __54__SBUIBiometricResource__activateFaceDetectAssertion___block_invoke_2(uint64_t a1)
+uint64_t __54__SBUIBiometricResource__activateFaceDetectAssertion___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = SBLogBiometricResource();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = SBLogBiometricResource();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__SBUIBiometricResource__activateFaceDetectAssertion___block_invoke_2_cold_1();
   }

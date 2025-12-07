@@ -78,7 +78,7 @@ LABEL_9:
 
 void __64__HDCyclingDataCollectionForwarder_insertSamples_device_source___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v3 = *(a1 + 40);
   v5 = a2;
@@ -128,7 +128,7 @@ void __64__HDCyclingDataCollectionForwarder_insertSamples_device_source___block_
       [v11 setInstantaneousPower:?];
 LABEL_8:
 
-      v23 = v11;
+      v22 = v11;
       goto LABEL_12;
   }
 
@@ -139,25 +139,24 @@ LABEL_8:
     v20 = v19;
     v21 = [v6 quantityType];
     *buf = 138543618;
-    v25 = v4;
-    v26 = 2114;
-    v27 = v21;
+    v24 = v4;
+    v25 = 2114;
+    v26 = v21;
     _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "%{public}@: Received non forwardable of %{public}@", buf, 0x16u);
   }
 
-  v23 = 0;
+  v22 = 0;
 LABEL_12:
 
-  if (v23)
+  if (v22)
   {
     [*(*(a1 + 32) + 8) feedBikeSensorData:?];
     goto LABEL_16;
   }
 
 LABEL_15:
-  v23 = 0;
+  v22 = 0;
 LABEL_16:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -73,10 +73,11 @@
 
   v7 = (self + OBJC_IVAR____TtC4Maps28SearchResultsLogicController_logicControllerUpdateHandler);
   v8 = *(self + OBJC_IVAR____TtC4Maps28SearchResultsLogicController_logicControllerUpdateHandler);
+  v9 = *(self + OBJC_IVAR____TtC4Maps28SearchResultsLogicController_logicControllerUpdateHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_1000588AC(v8);
+  sub_1000588AC(v8, v9);
 }
 
 - (ChromeViewController)chromeViewController
@@ -146,10 +147,10 @@
 
 - (void)searchSessionManagerReceiveEVChargersUpdate:(id)update
 {
-  sub_100014C84(0, &qword_10190E160);
-  static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  sub_100014C84(0, &qword_10190E160, off_1015F65F8);
+  v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1000FCE98();
+  sub_1000FCE98(v4);
 }
 
 - (GEOMapServiceTraits)currentTraits

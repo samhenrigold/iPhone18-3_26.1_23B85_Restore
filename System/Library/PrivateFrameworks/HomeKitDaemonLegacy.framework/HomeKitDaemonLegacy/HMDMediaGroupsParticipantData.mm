@@ -75,25 +75,7 @@ LABEL_6:
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_9;
-    }
-
-    destination = [(HMDMediaGroupsParticipantData *)self destination];
-    destination2 = [(HMDMediaGroupsParticipantData *)v6 destination];
-    v9 = HMFEqualObjects();
-
-    if (!v9)
-    {
-      goto LABEL_9;
-    }
-
-    destinationControllerData = [(HMDMediaGroupsParticipantData *)self destinationControllerData];
-    destinationControllerData2 = [(HMDMediaGroupsParticipantData *)v6 destinationControllerData];
-    v12 = HMFEqualObjects();
-
-    if (v12)
+    if (v6 && ([(HMDMediaGroupsParticipantData *)self destination], v7 = objc_claimAutoreleasedReturnValue(), [(HMDMediaGroupsParticipantData *)v6 destination], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && ([(HMDMediaGroupsParticipantData *)self destinationControllerData], v10 = objc_claimAutoreleasedReturnValue(), [(HMDMediaGroupsParticipantData *)v6 destinationControllerData], v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12))
     {
       v13 = MEMORY[0x277CBEB98];
       backedUpGroups = [(HMDMediaGroupsParticipantData *)self backedUpGroups];
@@ -106,7 +88,6 @@ LABEL_6:
 
     else
     {
-LABEL_9:
       v19 = 0;
     }
   }

@@ -24,7 +24,7 @@
   manifestCopy = manifest;
   selfCopy = self;
   sub_10023B46C(manifestCopy, engineCopy, v8, v9);
-  sub_1000112B4(v8);
+  sub_1000112B4(v8, v9);
 }
 
 - (MTSharedPlaybackController)init

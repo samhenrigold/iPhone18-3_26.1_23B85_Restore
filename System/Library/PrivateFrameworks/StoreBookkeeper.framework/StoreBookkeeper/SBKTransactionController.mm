@@ -5,6 +5,7 @@
 - (BOOL)_onQueue_canScheduleTransaction:(id)transaction error:(id *)error;
 - (BOOL)_onQueue_clampsCanScheduleTransaction:(id)transaction error:(id *)error;
 - (BOOL)_onQueue_isEnabledForTransaction:(id)transaction error:(id *)error;
+- (BOOL)_sendFinishedBlockForTransaction:(id)transaction success:(BOOL)success cancelled:(BOOL)cancelled error:(id)error handledAsFinishedBlock:(BOOL *)block;
 - (BOOL)isIdle;
 - (SBKTransactionController)initWithDomain:(id)domain requestURL:(id)l;
 - (SBKTransactionController)initWithDomain:(id)domain requestURL:(id)l forAccount:(id)account;
@@ -68,7 +69,7 @@
 
 - (void)operation:(id)operation failedWithError:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   errorCopy = error;
   v8 = self->_currentTransaction;
@@ -94,9 +95,9 @@
       requestProperties = [operationCopy requestProperties];
       v14 = [requestProperties URL];
       *buf = 138412546;
-      v27 = v14;
-      v28 = 2112;
-      v29 = errorCopy;
+      v26 = v14;
+      v27 = 2112;
+      v28 = errorCopy;
       _os_log_impl(&dword_26BC19000, v12, OS_LOG_TYPE_DEFAULT, "Operation failedWithError: %@ -- inputError = %@", buf, 0x16u);
     }
 
@@ -110,31 +111,29 @@
   block[1] = 3221225472;
   block[2] = __54__SBKTransactionController_operation_failedWithError___block_invoke;
   block[3] = &unk_279D22948;
-  v24 = v10;
-  v20 = v11;
+  v23 = v10;
+  v19 = v11;
   selfCopy = self;
-  v25 = v10;
-  v22 = v8;
-  v23 = v9;
+  v24 = v10;
+  v21 = v8;
+  v22 = v9;
   v16 = v9;
   v17 = v8;
   dispatch_async(queue, block);
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __54__SBKTransactionController_operation_failedWithError___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(a1 + 64) == 1)
   {
     v2 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "[StoreBookkeeper] %@.  Will suppress authentication dialogs for a while.", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "[StoreBookkeeper] %@.  Will suppress authentication dialogs for a while.", &v7, 0xCu);
     }
 
     v4 = [*(a1 + 40) _onQueue_clampsController];
@@ -152,8 +151,6 @@ void __54__SBKTransactionController_operation_failedWithError___block_invoke(uin
   {
     [*(a1 + 40) _onQueue_transactionDidFail:v6 withError:*(a1 + 56)];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)operation:(id)operation didReceiveResponse:(id)response
@@ -229,16 +226,15 @@ uint64_t __57__SBKTransactionController_operation_finishedWithOutput___block_inv
 
 uint64_t __58__SBKTransactionController__delegateTransactionDidFinish___block_invoke(uint64_t a1)
 {
-  v5 = 0;
-  [*(a1 + 32) _sendFinishedBlockForTransaction:*(a1 + 40) success:1 cancelled:0 error:0 handledAsFinishedBlock:&v5];
-  v2 = *(a1 + 48);
+  v4 = 0;
+  [*(a1 + 32) _sendFinishedBlockForTransaction:*(a1 + 40) success:1 cancelled:0 error:0 handledAsFinishedBlock:&v4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    if (v5 == 1)
+    if (v4 == 1)
     {
-      v4 = [MEMORY[0x277CCA890] currentHandler];
-      [v4 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"SBKTransactionController.m" lineNumber:687 description:@"transaction controllers with delegates can not use transaction finish blocks"];
+      v3 = [MEMORY[0x277CCA890] currentHandler];
+      [v3 handleFailureInMethod:*(a1 + 56) object:*(a1 + 32) file:@"SBKTransactionController.m" lineNumber:687 description:@"transaction controllers with delegates can not use transaction finish blocks"];
     }
 
     return [*(a1 + 48) transactionController:*(a1 + 32) transactionDidFinish:*(a1 + 40)];
@@ -269,16 +265,15 @@ uint64_t __58__SBKTransactionController__delegateTransactionDidFinish___block_in
 
 uint64_t __68__SBKTransactionController__delegateTransactionDidCancel_withError___block_invoke(uint64_t a1)
 {
-  v5 = 0;
-  [*(a1 + 32) _sendFinishedBlockForTransaction:*(a1 + 40) success:0 cancelled:1 error:*(a1 + 48) handledAsFinishedBlock:&v5];
-  v2 = *(a1 + 56);
+  v4 = 0;
+  [*(a1 + 32) _sendFinishedBlockForTransaction:*(a1 + 40) success:0 cancelled:1 error:*(a1 + 48) handledAsFinishedBlock:&v4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    if (v5 == 1)
+    if (v4 == 1)
     {
-      v4 = [MEMORY[0x277CCA890] currentHandler];
-      [v4 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"SBKTransactionController.m" lineNumber:674 description:@"transaction controllers with delegates can not use transaction finish blocks"];
+      v3 = [MEMORY[0x277CCA890] currentHandler];
+      [v3 handleFailureInMethod:*(a1 + 64) object:*(a1 + 32) file:@"SBKTransactionController.m" lineNumber:674 description:@"transaction controllers with delegates can not use transaction finish blocks"];
     }
 
     return [*(a1 + 56) transactionController:*(a1 + 32) transactionDidCancel:*(a1 + 40) error:*(a1 + 48)];
@@ -312,6 +307,30 @@ uint64_t __68__SBKTransactionController__delegateTransactionDidCancel_withError_
   }
 
   return v9;
+}
+
+- (BOOL)_sendFinishedBlockForTransaction:(id)transaction success:(BOOL)success cancelled:(BOOL)cancelled error:(id)error handledAsFinishedBlock:(BOOL *)block
+{
+  cancelledCopy = cancelled;
+  successCopy = success;
+  transactionCopy = transaction;
+  errorCopy = error;
+  v13 = [transactionCopy transactionContextForKey:@"SBKTransactionFinishedBlock"];
+  v14 = v13;
+  if (v13)
+  {
+    *block = 1;
+    v15 = (*(v13 + 16))(v13, successCopy, cancelledCopy, errorCopy);
+    [transactionCopy setTransactionContext:0 forKey:@"SBKTransactionFinishedBlock"];
+  }
+
+  else
+  {
+    v15 = 0;
+    *block = 0;
+  }
+
+  return v15;
 }
 
 - (BOOL)_delegateShouldScheduleTransaction:(id)transaction error:(id *)error
@@ -454,7 +473,7 @@ LABEL_13:
 
 - (void)_onQueue_processOperationOutput:(id)output operation:(id)operation operationAuthenticated:(BOOL)authenticated
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   outputCopy = output;
   operationCopy = operation;
   v9 = self->_currentTransaction;
@@ -481,8 +500,8 @@ LABEL_13:
           goto LABEL_15;
         }
 
-        *v32 = 138412290;
-        *&v32[4] = v15;
+        *v31 = 138412290;
+        *&v31[4] = v15;
         v19 = "Deserialized server response: %@";
       }
 
@@ -493,12 +512,12 @@ LABEL_13:
           goto LABEL_15;
         }
 
-        *v32 = 138412290;
-        *&v32[4] = v11;
+        *v31 = 138412290;
+        *&v31[4] = v11;
         v19 = "Deserialized server response produced response data: %@";
       }
 
-      _os_log_impl(&dword_26BC19000, v17, OS_LOG_TYPE_DEFAULT, v19, v32, 0xCu);
+      _os_log_impl(&dword_26BC19000, v17, OS_LOG_TYPE_DEFAULT, v19, v31, 0xCu);
 LABEL_15:
 
       if ([v15 isSuccess])
@@ -521,9 +540,9 @@ LABEL_39:
             v27 = _SBKLogCategoryDefault();
             if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              *v32 = 138412290;
-              *&v32[4] = v11;
-              _os_log_impl(&dword_26BC19000, v27, OS_LOG_TYPE_DEFAULT, "Generic error indicated by response responseDictionary: %@", v32, 0xCu);
+              *v31 = 138412290;
+              *&v31[4] = v11;
+              _os_log_impl(&dword_26BC19000, v27, OS_LOG_TYPE_DEFAULT, "Generic error indicated by response responseDictionary: %@", v31, 0xCu);
             }
 
             requestError = [v15 requestError];
@@ -535,9 +554,9 @@ LABEL_39:
             v29 = _SBKLogCategoryDefault();
             if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
-              *v32 = 138412290;
-              *&v32[4] = v11;
-              _os_log_impl(&dword_26BC19000, v29, OS_LOG_TYPE_DEFAULT, "Validation error indicated by response responseDictionary: %@", v32, 0xCu);
+              *v31 = 138412290;
+              *&v31[4] = v11;
+              _os_log_impl(&dword_26BC19000, v29, OS_LOG_TYPE_DEFAULT, "Validation error indicated by response responseDictionary: %@", v31, 0xCu);
             }
 
             requestError = [v15 requestError];
@@ -564,9 +583,9 @@ LABEL_39:
             v30 = _SBKLogCategoryDefault();
             if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
             {
-              *v32 = 138412290;
-              *&v32[4] = v11;
-              _os_log_impl(&dword_26BC19000, v30, OS_LOG_TYPE_DEFAULT, "Unknown error in response: %@", v32, 0xCu);
+              *v31 = 138412290;
+              *&v31[4] = v11;
+              _os_log_impl(&dword_26BC19000, v30, OS_LOG_TYPE_DEFAULT, "Unknown error in response: %@", v31, 0xCu);
             }
 
             requestError = [v15 requestError];
@@ -574,7 +593,7 @@ LABEL_39:
           }
 
           v26 = v28;
-          [(SBKTransactionController *)self _onQueue_transactionDidFail:v9 withError:v28, *v32];
+          [(SBKTransactionController *)self _onQueue_transactionDidFail:v9 withError:v28, *v31, *&v31[8]];
 LABEL_38:
 
           goto LABEL_39;
@@ -596,14 +615,14 @@ LABEL_38:
       }
 
       v26 = v25;
-      [(SBKTransactionController *)self _onQueue_cancelAllPendingTransactions:v25, *v32];
+      [(SBKTransactionController *)self _onQueue_cancelAllPendingTransactions:v25, *v31, *&v31[8]];
       goto LABEL_38;
     }
 
     v11 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v32 = 0;
+      *v31 = 0;
       v20 = "Not using deserialized responseDictionary because transactions have been cancelled!";
       goto LABEL_11;
     }
@@ -614,16 +633,14 @@ LABEL_38:
     v11 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v32 = 0;
+      *v31 = 0;
       v20 = "Not using deserialized response because it is not a dictionary as expected!";
 LABEL_11:
-      _os_log_impl(&dword_26BC19000, v11, OS_LOG_TYPE_DEFAULT, v20, v32, 2u);
+      _os_log_impl(&dword_26BC19000, v11, OS_LOG_TYPE_DEFAULT, v20, v31, 2u);
     }
   }
 
 LABEL_40:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_processDataInResponse:(id)response
@@ -714,22 +731,20 @@ void __51__SBKTransactionController__processDataInResponse___block_invoke_2(uint
 
 uint64_t __68__SBKTransactionController__onQueue_transactionDidCancel_withError___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "Transaction Failed: %@ -- Error: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "Transaction Failed: %@ -- Error: %@", &v6, 0x16u);
   }
 
-  result = [*(a1 + 48) _delegateTransactionDidCancel:*(a1 + 32) withError:*(a1 + 40)];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 48) _delegateTransactionDidCancel:*(a1 + 32) withError:*(a1 + 40)];
 }
 
 - (void)_onQueue_transactionDidFail:(id)fail withError:(id)error
@@ -764,41 +779,40 @@ uint64_t __68__SBKTransactionController__onQueue_transactionDidCancel_withError_
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __66__SBKTransactionController__onQueue_transactionDidFail_withError___block_invoke(uint64_t a1)
+void *__66__SBKTransactionController__onQueue_transactionDidFail_withError___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = os_log_create("com.apple.amp.StoreBookkeeper", "Default");
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v7 = 138412546;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "Transaction Failed: %@ -- Error: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_26BC19000, v2, OS_LOG_TYPE_DEFAULT, "Transaction Failed: %@ -- Error: %@", &v6, 0x16u);
   }
 
   result = [*(a1 + 48) _delegateTransactionDidFail:*(a1 + 32) withError:*(a1 + 40)];
   if ((result & 1) == 0)
   {
-    result = [*(a1 + 48) _resolveError:*(a1 + 40) resolution:0];
+    return [*(a1 + 48) _resolveError:*(a1 + 40) resolution:0];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_onQueue_currentTransactionDidFinish
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     currentTransaction = self->_currentTransaction;
-    v7 = 138412290;
-    v8 = currentTransaction;
-    _os_log_impl(&dword_26BC19000, v3, OS_LOG_TYPE_DEFAULT, "Transaction Finished: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = currentTransaction;
+    _os_log_impl(&dword_26BC19000, v3, OS_LOG_TYPE_DEFAULT, "Transaction Finished: %@", &v6, 0xCu);
   }
 
   [(SBKTransactionController *)self _onQueue_endBackgroundTask];
@@ -809,7 +823,6 @@ uint64_t __66__SBKTransactionController__onQueue_transactionDidFail_withError___
   self->_currentTransaction = 0;
 
   [(SBKTransactionController *)self _onQueue_processPendingTransactions];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_onQueue_authenticationCanProcessTransaction:(id)transaction error:(id *)error
@@ -875,7 +888,7 @@ uint64_t __66__SBKTransactionController__onQueue_transactionDidFail_withError___
 
 - (BOOL)_onQueue_canScheduleTransaction:(id)transaction error:(id *)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   if (![(SBKTransactionController *)self _onQueue_isEnabledForTransaction:transactionCopy error:error])
   {
@@ -900,11 +913,11 @@ LABEL_10:
         v9 = 0;
       }
 
-      v12 = 138412546;
-      v13 = v9;
-      v14 = 2112;
-      v15 = transactionCopy;
-      _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_DEFAULT, "Unable to schedule (due to clamps %@) transaction %@.", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v9;
+      v13 = 2112;
+      v14 = transactionCopy;
+      _os_log_impl(&dword_26BC19000, v8, OS_LOG_TYPE_DEFAULT, "Unable to schedule (due to clamps %@) transaction %@.", &v11, 0x16u);
     }
 
     goto LABEL_10;
@@ -913,7 +926,6 @@ LABEL_10:
   v7 = 1;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -930,19 +942,19 @@ LABEL_11:
 
 - (void)_onQueue_scheduleTransaction:(id)transaction isRetry:(BOOL)retry
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v7 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = transactionCopy;
+    v20 = transactionCopy;
     _os_log_impl(&dword_26BC19000, v7, OS_LOG_TYPE_DEFAULT, "Scheduling Transaction: %@", buf, 0xCu);
   }
 
-  v19 = 0;
-  v8 = [(SBKTransactionController *)self _onQueue_canScheduleTransaction:transactionCopy error:&v19];
-  v9 = v19;
+  v18 = 0;
+  v8 = [(SBKTransactionController *)self _onQueue_canScheduleTransaction:transactionCopy error:&v18];
+  v9 = v18;
   v10 = v9;
   if (v8)
   {
@@ -952,34 +964,32 @@ LABEL_11:
   else if (!retry && [v9 isClampError] && (objc_msgSend(v10, "retrySeconds"), v11 <= 5.0))
   {
     [(NSMutableArray *)self->_pendingTransactions insertObject:transactionCopy atIndex:0];
-    v13 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v12 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       [v10 retrySeconds];
       *buf = 138412546;
-      v21 = transactionCopy;
-      v22 = 2048;
-      v23 = v14;
-      _os_log_impl(&dword_26BC19000, v13, OS_LOG_TYPE_DEFAULT, "Holding transaction %@ (due to clamps) %.2f seconds", buf, 0x16u);
+      v20 = transactionCopy;
+      v21 = 2048;
+      v22 = v13;
+      _os_log_impl(&dword_26BC19000, v12, OS_LOG_TYPE_DEFAULT, "Holding transaction %@ (due to clamps) %.2f seconds", buf, 0x16u);
     }
 
     [v10 retrySeconds];
-    v16 = dispatch_time(0, ((v15 + 0.5) * 1000000000.0));
+    v15 = dispatch_time(0, ((v14 + 0.5) * 1000000000.0));
     queue = self->_queue;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __65__SBKTransactionController__onQueue_scheduleTransaction_isRetry___block_invoke;
-    v18[3] = &unk_279D231C8;
-    v18[4] = self;
-    dispatch_after(v16, queue, v18);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __65__SBKTransactionController__onQueue_scheduleTransaction_isRetry___block_invoke;
+    v17[3] = &unk_279D231C8;
+    v17[4] = self;
+    dispatch_after(v15, queue, v17);
   }
 
   else
   {
     [(SBKTransactionController *)self _onQueue_transactionDidFail:transactionCopy withError:v10];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SBKTransactionController__onQueue_scheduleTransaction_isRetry___block_invoke(uint64_t a1)
@@ -998,20 +1008,20 @@ void __65__SBKTransactionController__onQueue_scheduleTransaction_isRetry___block
 
 - (void)_onQueue_processCurrentTransaction
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     currentTransaction = self->_currentTransaction;
     *buf = 138412290;
-    v14 = currentTransaction;
+    v13 = currentTransaction;
     _os_log_impl(&dword_26BC19000, v3, OS_LOG_TYPE_DEFAULT, "Processing Transaction: %@", buf, 0xCu);
   }
 
   v5 = self->_currentTransaction;
-  v12 = 0;
-  v6 = [(SBKTransactionController *)self _onQueue_authenticationCanProcessTransaction:v5 error:&v12];
-  v7 = v12;
+  v11 = 0;
+  v6 = [(SBKTransactionController *)self _onQueue_authenticationCanProcessTransaction:v5 error:&v11];
+  v7 = v11;
   if (v6)
   {
     [(SBKTransactionController *)self _onQueue_beginBackgroundTask];
@@ -1031,55 +1041,49 @@ void __65__SBKTransactionController__onQueue_scheduleTransaction_isRetry___block
 
     [(SBKTransactionController *)self _onQueue_transactionDidFail:self->_currentTransaction withError:v7];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueue_processPendingTransactions
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_currentTransaction)
   {
     v3 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       currentTransaction = self->_currentTransaction;
-      v10 = 138412290;
-      v11 = currentTransaction;
-      _os_log_impl(&dword_26BC19000, v3, OS_LOG_TYPE_DEFAULT, "Transaction In progress: %@", &v10, 0xCu);
+      v8 = 138412290;
+      v9 = currentTransaction;
+      _os_log_impl(&dword_26BC19000, v3, OS_LOG_TYPE_DEFAULT, "Transaction In progress: %@", &v8, 0xCu);
     }
-
-LABEL_5:
-    v5 = *MEMORY[0x277D85DE8];
-    return;
   }
 
-  if (![(NSMutableArray *)self->_pendingTransactions count])
+  else if ([(NSMutableArray *)self->_pendingTransactions count])
   {
-    v9 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    [(SBKTransaction *)self->_currentTransaction setActiveRequest:0];
+    v5 = [(NSMutableArray *)self->_pendingTransactions objectAtIndex:0];
+    v6 = self->_currentTransaction;
+    self->_currentTransaction = v5;
+
+    [(SBKTransactionController *)self _onQueue_processCurrentTransaction];
+  }
+
+  else
+  {
+    v7 = os_log_create("com.apple.amp.StoreBookkeeper", "KVS");
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_26BC19000, v9, OS_LOG_TYPE_DEFAULT, "No Pending Transactions", &v10, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_26BC19000, v7, OS_LOG_TYPE_DEFAULT, "No Pending Transactions", &v8, 2u);
     }
 
     [(SBKTransactionController *)self _onQueue_endBackgroundTask];
-    goto LABEL_5;
   }
-
-  [(SBKTransaction *)self->_currentTransaction setActiveRequest:0];
-  v6 = [(NSMutableArray *)self->_pendingTransactions objectAtIndex:0];
-  v7 = self->_currentTransaction;
-  self->_currentTransaction = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
-
-  [(SBKTransactionController *)self _onQueue_processCurrentTransaction];
 }
 
 - (void)_onQueue_cancelTransaction:(id)transaction error:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   errorCopy = error;
   if (transactionCopy)
@@ -1094,11 +1098,11 @@ LABEL_5:
         v10 = @"YES";
       }
 
-      v13 = 138412546;
-      v14 = transactionCopy;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_26BC19000, v9, OS_LOG_TYPE_DEFAULT, "Cancelling transaction: %@ -- isCurrentTransaction: %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = transactionCopy;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_26BC19000, v9, OS_LOG_TYPE_DEFAULT, "Cancelling transaction: %@ -- isCurrentTransaction: %@", &v12, 0x16u);
     }
 
     if (!errorCopy)
@@ -1128,35 +1132,33 @@ LABEL_5:
     [(NSMutableArray *)self->_pendingTransactions removeObject:transactionCopy];
     [(SBKTransactionController *)self _onQueue_processPendingTransactions];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueue_cancelAllPendingTransactions:(id)transactions
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   transactionsCopy = transactions;
   v5 = [(NSMutableArray *)self->_pendingTransactions copy];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = [transactionsCopy copy];
         [v11 setTransaction:v10];
         [(SBKTransactionController *)self _onQueue_cancelTransaction:v10 error:v11];
@@ -1165,14 +1167,13 @@ LABEL_5:
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   [(NSMutableArray *)self->_pendingTransactions removeAllObjects];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onQueue_endBackgroundTask
@@ -1193,7 +1194,7 @@ LABEL_5:
   }
 }
 
-uint64_t __54__SBKTransactionController__onQueue_endBackgroundTask__block_invoke(uint64_t a1)
+void *__54__SBKTransactionController__onQueue_endBackgroundTask__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isValid];
   if (result)
@@ -1481,7 +1482,7 @@ uint64_t __48__SBKTransactionController_scheduleTransaction___block_invoke(uint6
   return v3;
 }
 
-uint64_t __34__SBKTransactionController_isIdle__block_invoke(uint64_t a1)
+void *__34__SBKTransactionController_isIdle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _onQueue_isIdle];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1583,34 +1584,34 @@ void __38__SBKTransactionController_setDomain___block_invoke(uint64_t a1)
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   v4 = *MEMORY[0x277D7FCC0];
   mEMORY[0x277D7FD00] = [MEMORY[0x277D7FD00] sharedInstance];
   [defaultCenter removeObserver:self name:v4 object:mEMORY[0x277D7FD00]];
 
   [(SBKTransactionController *)self _onQueue_endBackgroundTask];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   operations = [(NSOperationQueue *)self->_operationQueue operations];
-  v7 = [operations countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [operations countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(operations);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * v10);
+        v11 = *(*(&v13 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1621,16 +1622,15 @@ void __38__SBKTransactionController_setDomain___block_invoke(uint64_t a1)
       }
 
       while (v8 != v10);
-      v8 = [operations countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [operations countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v13.receiver = self;
-  v13.super_class = SBKTransactionController;
-  [(SBKTransactionController *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = SBKTransactionController;
+  [(SBKTransactionController *)&v12 dealloc];
 }
 
 - (SBKTransactionController)initWithDomain:(id)domain requestURL:(id)l forAccount:(id)account

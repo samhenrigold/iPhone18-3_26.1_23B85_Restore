@@ -10,7 +10,9 @@
 - (NSString)vehicleLayoutKey;
 - (id)name;
 - (unsigned)lockState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
+- (void)setLockState:(unsigned __int8)state;
 - (void)unregisterObserver:(id)observer;
 @end
 
@@ -109,6 +111,13 @@
   return lockStateValue;
 }
 
+- (void)setLockState:(unsigned __int8)state
+{
+  stateCopy = state;
+  lockStateCharacteristic = [(CAFClimateControlsLocked *)self lockStateCharacteristic];
+  [lockStateCharacteristic setLockStateValue:stateCopy];
+}
+
 - (BOOL)lockStateDisabled
 {
   lockStateCharacteristic = [(CAFClimateControlsLocked *)self lockStateCharacteristic];
@@ -165,6 +174,62 @@
   v3 = vehicleLayoutKeyCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000042000009"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    lockStateCharacteristic = [(CAFClimateControlsLocked *)self lockStateCharacteristic];
+    uniqueIdentifier2 = [lockStateCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers climateControlsLockedService:self didUpdateLockState:{-[CAFClimateControlsLocked lockState](self, "lockState")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000065"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  vehicleLayoutKeyCharacteristic = [(CAFClimateControlsLocked *)self vehicleLayoutKeyCharacteristic];
+  uniqueIdentifier4 = [vehicleLayoutKeyCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers2 = [(CAFService *)self observers];
+    vehicleLayoutKey = [(CAFClimateControlsLocked *)self vehicleLayoutKey];
+    [observers2 climateControlsLockedService:self didUpdateVehicleLayoutKey:vehicleLayoutKey];
+
+    observers = [(CAFService *)self observers];
+    name = [(CAFClimateControlsLocked *)self name];
+    [observers climateControlsLockedService:self didUpdateName:name];
+
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v20.receiver = self;
+  v20.super_class = CAFClimateControlsLocked;
+  [(CAFService *)&v20 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForLockState

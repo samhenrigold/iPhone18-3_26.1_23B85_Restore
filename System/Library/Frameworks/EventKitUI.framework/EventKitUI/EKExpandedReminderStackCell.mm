@@ -22,8 +22,8 @@
     [(UILabel *)v3->_title setTranslatesAutoresizingMaskIntoConstraints:0];
     [(UILabel *)v3->_title setNumberOfLines:1];
     [(UILabel *)v3->_title setAdjustsFontForContentSizeCategory:1];
-    contentView = [(EKExpandedReminderStackCell *)v3 contentView];
-    [contentView addSubview:v3->_title];
+    v6 = objc_msgSend_contentView(v3);
+    [v6 addSubview:v3->_title];
 
     v7 = objc_alloc_init(MEMORY[0x1E69DCC10]);
     time = v3->_time;
@@ -38,8 +38,8 @@
     secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
     [(UILabel *)v3->_time setTextColor:secondaryLabelColor];
 
-    contentView2 = [(EKExpandedReminderStackCell *)v3 contentView];
-    [contentView2 addSubview:v3->_time];
+    v11 = objc_msgSend_contentView(v3);
+    [v11 addSubview:v3->_time];
 
     v12 = objc_alloc_init(MEMORY[0x1E69DD250]);
     backgroundColorView = v3->_backgroundColorView;
@@ -49,22 +49,22 @@
     layer = [(UIView *)v3->_backgroundColorView layer];
     [layer setCornerRadius:12.0];
 
-    contentView3 = [(EKExpandedReminderStackCell *)v3 contentView];
-    [contentView3 addSubview:v3->_backgroundColorView];
+    v15 = objc_msgSend_contentView(v3);
+    [v15 addSubview:v3->_backgroundColorView];
 
-    contentView4 = [(EKExpandedReminderStackCell *)v3 contentView];
-    [contentView4 sendSubviewToBack:v3->_backgroundColorView];
+    v16 = objc_msgSend_contentView(v3);
+    [v16 sendSubviewToBack:v3->_backgroundColorView];
 
     v17 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
     backgroundImageView = v3->_backgroundImageView;
     v3->_backgroundImageView = v17;
 
     [(UIImageView *)v3->_backgroundImageView setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView5 = [(EKExpandedReminderStackCell *)v3 contentView];
-    [contentView5 addSubview:v3->_backgroundImageView];
+    v19 = objc_msgSend_contentView(v3);
+    [v19 addSubview:v3->_backgroundImageView];
 
-    contentView6 = [(EKExpandedReminderStackCell *)v3 contentView];
-    [contentView6 sendSubviewToBack:v3->_backgroundImageView];
+    v20 = objc_msgSend_contentView(v3);
+    [v20 sendSubviewToBack:v3->_backgroundImageView];
 
     objc_initWeak(&location, v3);
     v21 = MEMORY[0x1E69DC628];
@@ -84,8 +84,8 @@
     LODWORD(v26) = 1148846080;
     [(UIButton *)v3->_circle setContentCompressionResistancePriority:0 forAxis:v26];
     [(UIButton *)v3->_circle setTranslatesAutoresizingMaskIntoConstraints:0];
-    contentView7 = [(EKExpandedReminderStackCell *)v3 contentView];
-    [contentView7 addSubview:v3->_circle];
+    v27 = objc_msgSend_contentView(v3);
+    [v27 addSubview:v3->_circle];
 
     topAnchor = [(UILabel *)v3->_title topAnchor];
     topAnchor2 = [(UIView *)v3->_backgroundColorView topAnchor];
@@ -131,43 +131,43 @@
     v97[7] = v92;
     v97[8] = v91;
     leadingAnchor5 = [(UIView *)v3->_backgroundColorView leadingAnchor];
-    contentView8 = [(EKExpandedReminderStackCell *)v3 contentView];
-    leadingAnchor6 = [contentView8 leadingAnchor];
+    v68 = objc_msgSend_contentView(v3);
+    leadingAnchor6 = [v68 leadingAnchor];
     v65 = [leadingAnchor5 constraintEqualToAnchor:leadingAnchor6];
     v97[9] = v65;
     topAnchor4 = [(UIView *)v3->_backgroundColorView topAnchor];
-    contentView9 = [(EKExpandedReminderStackCell *)v3 contentView];
-    topAnchor5 = [contentView9 topAnchor];
+    v64 = objc_msgSend_contentView(v3);
+    topAnchor5 = [v64 topAnchor];
     v61 = [topAnchor4 constraintEqualToAnchor:topAnchor5];
     v97[10] = v61;
     trailingAnchor7 = [(UIView *)v3->_backgroundColorView trailingAnchor];
-    contentView10 = [(EKExpandedReminderStackCell *)v3 contentView];
-    trailingAnchor8 = [contentView10 trailingAnchor];
+    v60 = objc_msgSend_contentView(v3);
+    trailingAnchor8 = [v60 trailingAnchor];
     v57 = [trailingAnchor7 constraintEqualToAnchor:trailingAnchor8];
     v97[11] = v57;
     bottomAnchor4 = [(UIView *)v3->_backgroundColorView bottomAnchor];
-    contentView11 = [(EKExpandedReminderStackCell *)v3 contentView];
-    bottomAnchor5 = [contentView11 bottomAnchor];
+    v56 = objc_msgSend_contentView(v3);
+    bottomAnchor5 = [v56 bottomAnchor];
     v53 = [bottomAnchor4 constraintEqualToAnchor:bottomAnchor5];
     v97[12] = v53;
     leadingAnchor7 = [(UIImageView *)v3->_backgroundImageView leadingAnchor];
-    contentView12 = [(EKExpandedReminderStackCell *)v3 contentView];
-    leadingAnchor8 = [contentView12 leadingAnchor];
+    v52 = objc_msgSend_contentView(v3);
+    leadingAnchor8 = [v52 leadingAnchor];
     v49 = [leadingAnchor7 constraintEqualToAnchor:leadingAnchor8];
     v97[13] = v49;
     topAnchor6 = [(UIImageView *)v3->_backgroundImageView topAnchor];
-    contentView13 = [(EKExpandedReminderStackCell *)v3 contentView];
-    topAnchor7 = [contentView13 topAnchor];
+    v48 = objc_msgSend_contentView(v3);
+    topAnchor7 = [v48 topAnchor];
     v45 = [topAnchor6 constraintEqualToAnchor:topAnchor7];
     v97[14] = v45;
     trailingAnchor9 = [(UIImageView *)v3->_backgroundImageView trailingAnchor];
-    contentView14 = [(EKExpandedReminderStackCell *)v3 contentView];
-    trailingAnchor10 = [contentView14 trailingAnchor];
+    v35 = objc_msgSend_contentView(v3);
+    trailingAnchor10 = [v35 trailingAnchor];
     v37 = [trailingAnchor9 constraintEqualToAnchor:trailingAnchor10];
     v97[15] = v37;
     bottomAnchor6 = [(UIImageView *)v3->_backgroundImageView bottomAnchor];
-    contentView15 = [(EKExpandedReminderStackCell *)v3 contentView];
-    bottomAnchor7 = [contentView15 bottomAnchor];
+    v39 = objc_msgSend_contentView(v3);
+    bottomAnchor7 = [v39 bottomAnchor];
     v41 = [bottomAnchor6 constraintEqualToAnchor:bottomAnchor7];
     v97[16] = v41;
     v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v97 count:17];

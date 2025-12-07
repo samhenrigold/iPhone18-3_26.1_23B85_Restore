@@ -613,15 +613,15 @@ void __41__SGDSuggestManagerInterface__initialize__block_invoke_10(uint64_t a1, 
 
 void __41__SGDSuggestManagerInterface__initialize__block_invoke_11(uint64_t a1, void *a2)
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v3 = 0;
-  v10 = a2;
-  v11[0] = sel_suggestionsFromMessage_options_completionHandler_;
-  v11[1] = sel_harvestedSuggestionsFromMessage_bundleIdentifier_options_completionHandler_;
-  v11[2] = sel_harvestedSuggestionsFromMessages_bundleIdentifier_options_completionHandler_;
+  v9 = a2;
+  v10[0] = sel_suggestionsFromMessage_options_completionHandler_;
+  v10[1] = sel_harvestedSuggestionsFromMessage_bundleIdentifier_options_completionHandler_;
+  v10[2] = sel_harvestedSuggestionsFromMessages_bundleIdentifier_options_completionHandler_;
   do
   {
-    [v10 setClasses:*(a1 + 32) forSelector:v11[v3++] argumentIndex:0 ofReply:1];
+    [v9 setClasses:*(a1 + 32) forSelector:v10[v3++] argumentIndex:0 ofReply:1];
   }
 
   while (v3 != 3);
@@ -630,10 +630,9 @@ void __41__SGDSuggestManagerInterface__initialize__block_invoke_11(uint64_t a1, 
   v6 = objc_opt_class();
   v7 = [v5 initWithObjects:{v6, objc_opt_class(), 0}];
   v8 = [v4 intern:v7];
-  [v10 setClasses:v8 forSelector:sel_harvestedSuggestionsFromMessages_bundleIdentifier_options_completionHandler_ argumentIndex:0 ofReply:0];
+  [v9 setClasses:v8 forSelector:sel_harvestedSuggestionsFromMessages_bundleIdentifier_options_completionHandler_ argumentIndex:0 ofReply:0];
 
-  [*(a1 + 40) interface:v10 returns:objc_opt_class() forSelector:sel_harvestedSuggestionsFromMessage_bundleIdentifier_options_withCompletion_];
-  v9 = *MEMORY[0x1E69E9840];
+  [*(a1 + 40) interface:v9 returns:objc_opt_class() forSelector:sel_harvestedSuggestionsFromMessage_bundleIdentifier_options_withCompletion_];
 }
 
 void __41__SGDSuggestManagerInterface__initialize__block_invoke_13(uint64_t a1, void *a2)

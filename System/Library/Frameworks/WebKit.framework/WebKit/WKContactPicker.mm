@@ -51,7 +51,7 @@
     {
       if (v9 > self->_properties.m_capacity)
       {
-        WTF::Vector<WebCore::ContactProperty,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(&self->_properties, 0);
+        WTF::Vector<WebCore::ContactProperty,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(&self->_properties, 0, data);
         WTF::Vector<WebCore::ContactProperty,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::reserveCapacity<(WTF::FailureAction)0>(p_properties, *(data + 3));
         m_size = self->_properties.m_size;
       }
@@ -200,42 +200,43 @@ LABEL_5:
 
 - (void)contactPicker:(id)picker didSelectContact:(id)contact
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    [(WKContactPicker *)self _contactInfoFromCNContact:contact];
+    objc_msgSend__contactInfoFromCNContact_(self, a2, contact);
   }
 
   else
   {
-    v13 = 0u;
     v14 = 0u;
-    v12 = 0u;
+    v15 = 0u;
+    v13 = 0u;
   }
 
-  v10 = 1;
-  v9 = WTF::fastMalloc(0x30);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v9, &v12);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v9 + 16, &v13);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v9 + 32, &v14);
   v11 = 1;
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v14, v5);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v13, v6);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v12, v7);
-  [(WKContactPicker *)self _contactPickerDidDismissWithContactInfo:&v9];
-  WTF::Vector<WebCore::ContactInfo,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v9, v8);
+  v10 = WTF::fastMalloc(v5, 0x30);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v10, &v13);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector((v10 + 2), &v14);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector((v10 + 4), &v15);
+  v12 = 1;
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v15, v6);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v14, v7);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v13, v8);
+  [(WKContactPicker *)self _contactPickerDidDismissWithContactInfo:&v10];
+  WTF::Vector<WebCore::ContactInfo,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v10, v9);
 }
 
 - (void)contactPicker:(id)picker didSelectContacts:(id)contacts
 {
   v6 = [contacts count];
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
   if (!v6)
   {
 LABEL_8:
-    [(WKContactPicker *)self _contactPickerDidDismissWithContactInfo:&v15];
-    WTF::Vector<WebCore::ContactInfo,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v15, v14);
+    [(WKContactPicker *)self _contactPickerDidDismissWithContactInfo:&v14];
+    WTF::Vector<WebCore::ContactInfo,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v14, v13);
     return;
   }
 
@@ -243,29 +244,29 @@ LABEL_8:
   if (v6 < 0x5555556)
   {
     v8 = 0;
-    LODWORD(v16) = 48 * v6 / 0x30u;
-    v15 = WTF::fastMalloc((48 * v6));
-    v9 = v15;
+    LODWORD(v15) = 48 * v6 / 0x30u;
+    v14 = WTF::fastMalloc((3 * v6), (48 * v6));
+    v9 = v14;
     do
     {
-      v10 = [contacts objectAtIndexedSubscript:{v8, v15, v16, v17, v18, v19}];
+      [contacts objectAtIndexedSubscript:{v8, v14, v15, v16, v17, v18}];
       if (self)
       {
-        [(WKContactPicker *)self _contactInfoFromCNContact:v10];
+        objc_msgSend__contactInfoFromCNContact_(self);
       }
 
       else
       {
-        v18 = 0u;
-        v19 = 0u;
         v17 = 0u;
+        v18 = 0u;
+        v16 = 0u;
       }
 
-      WebCore::ContactInfo::ContactInfo(v9, &v17);
-      HIDWORD(v16) = ++v8;
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v19, v11);
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v18, v12);
-      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v17, v13);
+      WebCore::ContactInfo::ContactInfo(v9, &v16);
+      HIDWORD(v15) = ++v8;
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v18, v10);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v17, v11);
+      WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v16, v12);
       v9 += 6;
     }
 
@@ -321,7 +322,7 @@ LABEL_8:
     }
   }
 
-  v10 = [getCNContactFormatterClass() stringFromContact:a4 style:0];
+  v10 = [(objc_class *)getCNContactFormatterClass() stringFromContact:a4 style:0];
   v11 = v10;
   if (v10)
   {
@@ -634,7 +635,7 @@ void __39__WKContactPicker_dismissWithContacts___block_invoke(uint64_t a1)
                       objc_enumerationMutation(v18);
                     }
 
-                    v22 = [_MergedGlobals_244() labeledValueWithLabel:0 value:*(*(&v56 + 1) + 8 * i)];
+                    v22 = [(objc_class *)_MergedGlobals_244() labeledValueWithLabel:0 value:*(*(&v56 + 1) + 8 * i)];
                     v23 = v22;
                     if (v22)
                     {
@@ -691,14 +692,14 @@ void __39__WKContactPicker_dismissWithContacts___block_invoke(uint64_t a1)
                       objc_enumerationMutation(v30);
                     }
 
-                    v34 = [off_1ED63B638() phoneNumberWithStringValue:*(*(&v52 + 1) + 8 * j)];
+                    v34 = [(objc_class *)off_1ED63B638() phoneNumberWithStringValue:*(*(&v52 + 1) + 8 * j)];
                     v35 = v34;
                     if (v34)
                     {
                       v36 = v34;
                     }
 
-                    v37 = [_MergedGlobals_244() labeledValueWithLabel:0 value:v35];
+                    v37 = [(objc_class *)_MergedGlobals_244() labeledValueWithLabel:0 value:v35];
                     v38 = v37;
                     if (v37)
                     {

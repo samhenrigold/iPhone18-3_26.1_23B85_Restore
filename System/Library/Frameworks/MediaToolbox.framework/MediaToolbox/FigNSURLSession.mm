@@ -14,7 +14,7 @@
   v7 = 0;
   if (!self->_weakAssertion || (v7 = FigCFWeakReferenceHolderCopyReferencedObject()) == 0)
   {
-    v3 = FigNSURLSessionAssertionCreate(*MEMORY[0x1E695E480], self, figNSURLSessionAssertionFinalize, &v7);
+    FigNSURLSessionAssertionCreate(*MEMORY[0x1E695E480], self, figNSURLSessionAssertionFinalize, &v7);
     if (v3)
     {
       [(FigNSURLSession *)v3 acquireAssertion];
@@ -168,7 +168,7 @@ LABEL_11:
 - (void)acquireAssertion
 {
   fig_log_get_emitter();
-  FigSignalErrorAtGM();
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v5, v6, v7);
   if (*a2)
   {
     CFRelease(*a2);
@@ -177,58 +177,52 @@ LABEL_11:
   *a3 = 0;
 }
 
-- (uint64_t)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.1(_DWORD *a1)
+- (void)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.1(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *a1 = v2;
 }
 
-- (uint64_t)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.2(_DWORD *a1)
+- (void)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.2(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *a1 = v2;
 }
 
-- (uint64_t)initWithClientBundleIdentifier:(uint64_t)a1 clientPersonaIdentifier:(_DWORD *)a2 dispatchQueue:useNWLoader:.cold.3(uint64_t a1, _DWORD *a2)
+- (void)initWithClientBundleIdentifier:(uint64_t)a1 clientPersonaIdentifier:(_DWORD *)a2 dispatchQueue:useNWLoader:.cold.3(uint64_t a1, _DWORD *a2)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a2 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, v5, v6);
+  *a2 = v3;
 }
 
-- (uint64_t)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.4(_DWORD *a1)
+- (void)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.4(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *a1 = v2;
 }
 
-- (uint64_t)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.5(_DWORD *a1)
+- (void)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.5(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *a1 = v2;
 }
 
-- (uint64_t)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.6(_DWORD *a1)
+- (void)initWithClientBundleIdentifier:(_DWORD *)a1 clientPersonaIdentifier:dispatchQueue:useNWLoader:.cold.6(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
-  *a1 = result;
-  return result;
+  FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
+  *a1 = v2;
 }
 
 @end

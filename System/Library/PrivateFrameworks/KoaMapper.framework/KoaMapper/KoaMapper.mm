@@ -3,7 +3,7 @@ uint64_t sub_2559E1284()
   MEMORY[0x259C46670](v0 + 16);
   OUTLINED_FUNCTION_18();
 
-  return MEMORY[0x2821FE8E8](v1, v2, v3);
+  return MEMORY[0x2821FE8E8](v1);
 }
 
 uint64_t sub_2559E12D0()
@@ -11,10 +11,10 @@ uint64_t sub_2559E12D0()
   _Block_release(*(v0 + 16));
   OUTLINED_FUNCTION_18();
 
-  return MEMORY[0x2821FE8E8](v1, v2, v3);
+  return MEMORY[0x2821FE8E8](v1);
 }
 
-uint64_t sub_2559E1324(uint64_t result)
+uint64_t sub_2559E1324(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -40,7 +40,7 @@ uint64_t sub_2559E1354()
 {
   OUTLINED_FUNCTION_18();
 
-  return MEMORY[0x2821FE8E8](v1, v2, v3);
+  return MEMORY[0x2821FE8E8](v1);
 }
 
 uint64_t sub_2559E1390()
@@ -48,43 +48,31 @@ uint64_t sub_2559E1390()
   _Block_release(*(v0 + 16));
   OUTLINED_FUNCTION_18();
 
-  return MEMORY[0x2821FE8E8](v1, v2, v3);
+  return MEMORY[0x2821FE8E8](v1);
 }
 
 uint64_t sub_2559E13C4()
 {
-  v1 = *(v0 + 24);
 
-  return MEMORY[0x2821FE8E8](v0, 32, 7);
+  return MEMORY[0x2821FE8E8](v0);
 }
 
 uint64_t sub_2559E141C()
 {
-  v1 = *(v0 + 16);
 
-  return MEMORY[0x2821FE8E8](v0, 24, 7);
+  return MEMORY[0x2821FE8E8](v0);
 }
 
 uint64_t sub_2559E146C()
 {
-  v1 = *(v0 + 24);
 
-  v2 = *(v0 + 32);
-
-  v3 = *(v0 + 40);
-
-  return MEMORY[0x2821FE8E8](v0, 56, 7);
+  return MEMORY[0x2821FE8E8](v0);
 }
 
 uint64_t sub_2559E14EC()
 {
-  v1 = *(v0 + 16);
 
-  v2 = *(v0 + 24);
-
-  v3 = *(v0 + 40);
-
-  return MEMORY[0x2821FE8E8](v0, 56, 7);
+  return MEMORY[0x2821FE8E8](v0);
 }
 
 void type metadata accessor for CAFMediaSourceSemanticType()
@@ -104,13 +92,6 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance CA
   result = CAFMediaSourceSemanticType.init(rawValue:)(*a1);
   *a2 = result;
   a2[1] = BYTE1(result) & 1;
-  return result;
-}
-
-uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance CAFMediaSourceSemanticType@<X0>(_BYTE *a1@<X8>)
-{
-  result = CAFMediaSourceSemanticType.rawValue.getter(*v1);
-  *a1 = result;
   return result;
 }
 
@@ -148,19 +129,19 @@ uint64_t key path getter for CarPlayConnectionManager.car_queue : CarPlayConnect
   return result;
 }
 
-id CarPlayConnectionManager.car_queue.getter()
+id CarPlayConnectionManager.car_queue.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR___CarPlayConnectionManager_car_queue;
-  OUTLINED_FUNCTION_10();
-  v2 = *(v0 + v1);
+  v2 = OBJC_IVAR___CarPlayConnectionManager_car_queue;
+  OUTLINED_FUNCTION_10(a1);
+  v3 = *(v1 + v2);
 
-  return v2;
+  return v3;
 }
 
 void CarPlayConnectionManager.car_queue.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR___CarPlayConnectionManager_car_queue;
-  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_9(a1);
   v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
@@ -172,19 +153,19 @@ uint64_t key path getter for CarPlayConnectionManager.carManager : CarPlayConnec
   return result;
 }
 
-id CarPlayConnectionManager.carManager.getter()
+id CarPlayConnectionManager.carManager.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR___CarPlayConnectionManager_carManager;
-  OUTLINED_FUNCTION_10();
-  v2 = *(v0 + v1);
+  v2 = OBJC_IVAR___CarPlayConnectionManager_carManager;
+  OUTLINED_FUNCTION_10(a1);
+  v3 = *(v1 + v2);
 
-  return v2;
+  return v3;
 }
 
 void CarPlayConnectionManager.carManager.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR___CarPlayConnectionManager_carManager;
-  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_9(a1);
   v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
@@ -196,19 +177,19 @@ uint64_t key path getter for CarPlayConnectionManager.carManagerObservable : Car
   return result;
 }
 
-id CarPlayConnectionManager.carManagerObservable.getter()
+id CarPlayConnectionManager.carManagerObservable.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR___CarPlayConnectionManager_carManagerObservable;
-  OUTLINED_FUNCTION_10();
-  v2 = *(v0 + v1);
+  v2 = OBJC_IVAR___CarPlayConnectionManager_carManagerObservable;
+  OUTLINED_FUNCTION_10(a1);
+  v3 = *(v1 + v2);
 
-  return v2;
+  return v3;
 }
 
 void CarPlayConnectionManager.carManagerObservable.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR___CarPlayConnectionManager_carManagerObservable;
-  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_9(a1);
   v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
@@ -252,64 +233,61 @@ id CarPlayConnectionManager.__deallocating_deinit()
 
 char *CarPlayConnectionManager.init(carManager:)(void *a1)
 {
-  v31 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v2 = OUTLINED_FUNCTION_0(v31);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
+  v27 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  OUTLINED_FUNCTION_0();
+  v3 = v2;
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_13();
-  v9 = v8 - v7;
-  v10 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10);
+  v7 = v6 - v5;
+  v8 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_13();
-  v12 = type metadata accessor for DispatchQoS();
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
+  v9 = type metadata accessor for DispatchQoS();
+  MEMORY[0x28223BE20](v9 - 8);
   OUTLINED_FUNCTION_13();
-  v30 = OBJC_IVAR___CarPlayConnectionManager_car_queue;
+  v26 = OBJC_IVAR___CarPlayConnectionManager_car_queue;
   type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   static DispatchQoS.unspecified.getter();
   lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v4 + 104))(v9, *MEMORY[0x277D85260], v31);
-  *&v1[v30] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  (*(v3 + 104))(v7, *MEMORY[0x277D85260], v27);
+  *&v1[v26] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   if (specialized Array._getCount()(MEMORY[0x277D84F90]))
   {
-    v14 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5(MEMORY[0x277D84F90]);
+    v10 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5(MEMORY[0x277D84F90]);
   }
 
   else
   {
-    v14 = MEMORY[0x277D84FA0];
+    v10 = MEMORY[0x277D84FA0];
   }
 
-  *&v1[OBJC_IVAR___CarPlayConnectionManager_cancellables] = v14;
+  *&v1[OBJC_IVAR___CarPlayConnectionManager_cancellables] = v10;
   *&v1[OBJC_IVAR___CarPlayConnectionManager____lazy_storage___carRadioListener] = 0;
   *&v1[OBJC_IVAR___CarPlayConnectionManager_carManager] = a1;
   OUTLINED_FUNCTION_11();
-  type metadata accessor for OS_dispatch_queue(v15, v16, v17);
+  type metadata accessor for OS_dispatch_queue(v11, v12, v13);
   OUTLINED_FUNCTION_11();
-  lazy protocol witness table accessor for type CAFCar and conformance CAFCar(v18, v19, v20);
-  v21 = a1;
+  lazy protocol witness table accessor for type CAFCar and conformance CAFCar(v14, v15, v16);
+  v17 = a1;
   *&v1[OBJC_IVAR___CarPlayConnectionManager_carManagerObservable] = CAFObserved<>.observable.getter();
-  v33.receiver = v1;
-  v33.super_class = type metadata accessor for CarPlayConnectionManager();
-  v22 = objc_msgSendSuper2(&v33, sel_init);
-  v23 = OBJC_IVAR___CarPlayConnectionManager_carManager;
+  v29.receiver = v1;
+  v29.super_class = type metadata accessor for CarPlayConnectionManager();
+  v18 = objc_msgSendSuper2(&v29, sel_init);
+  v19 = OBJC_IVAR___CarPlayConnectionManager_carManager;
   swift_beginAccess();
-  v24 = *&v22[v23];
-  v25 = v22;
-  [v24 registerObserver_];
-  v26 = OBJC_IVAR___CarPlayConnectionManager_carManagerObservable;
+  v20 = *&v18[v19];
+  v21 = v18;
+  [v20 registerObserver_];
+  v22 = OBJC_IVAR___CarPlayConnectionManager_carManagerObservable;
   swift_beginAccess();
-  v27 = *((*MEMORY[0x277D85000] & *v25) + 0x110);
-  v28 = *&v25[v26];
-  v27();
+  v23 = *((*MEMORY[0x277D85000] & *v21) + 0x110);
+  v24 = *&v21[v22];
+  v23();
 
-  return v25;
+  return v21;
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -317,7 +295,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -330,7 +307,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -393,68 +369,66 @@ void CarPlayConnectionManager.registerUpdateHandler(_:)(uint64_t a1, uint64_t a2
 
 uint64_t CarPlayConnectionManager.attemptCarConnectionAndWaitForUpdates(_:)()
 {
-  v1 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR);
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v2);
-  v4 = &v36 - v3;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo6CAFCarCSg_GMd, &_s7Combine9PublishedV9PublisherVySo6CAFCarCSg_GMR);
-  OUTLINED_FUNCTION_0(v38);
-  v6 = v5;
-  v8 = *(v7 + 64);
+  MEMORY[0x28223BE20](v1);
+  v3 = &v31 - v2;
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo6CAFCarCSg_GMd, &_s7Combine9PublishedV9PublisherVySo6CAFCarCSg_GMR);
+  OUTLINED_FUNCTION_0();
+  v5 = v4;
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v9);
-  v11 = &v36 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGMR);
-  v39 = OUTLINED_FUNCTION_0(v12);
-  v40 = v13;
-  v15 = *(v14 + 64);
+  MEMORY[0x28223BE20](v6);
+  v8 = &v31 - v7;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGMR);
+  OUTLINED_FUNCTION_0();
+  v34 = v9;
+  v35 = v10;
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v16);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGAMGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGAMGMR);
-  v41 = OUTLINED_FUNCTION_0(v17);
-  v42 = v18;
-  v20 = *(v19 + 64);
+  MEMORY[0x28223BE20](v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGAMGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGAMGMR);
+  OUTLINED_FUNCTION_0();
+  v36 = v12;
+  v37 = v13;
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v21);
+  MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_17();
-  v22 = dispatch thunk of CAFCarManagerObservable.$currentCar.getter();
-  v37 = v0;
-  v23 = (*((*MEMORY[0x277D85000] & *v0) + 0x78))(v22);
-  v43 = v23;
-  v24 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
-  OUTLINED_FUNCTION_22(v24);
+  v15 = dispatch thunk of CAFCarManagerObservable.$currentCar.getter();
+  v32 = v0;
+  v16 = (*((*MEMORY[0x277D85000] & *v0) + 0x78))(v15);
+  v38 = v16;
+  v17 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
+  OUTLINED_FUNCTION_22(v17);
   OUTLINED_FUNCTION_11();
-  type metadata accessor for OS_dispatch_queue(v25, v26, v27);
+  type metadata accessor for OS_dispatch_queue(v18, v19, v20);
   OUTLINED_FUNCTION_3();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v28, &_s7Combine9PublishedV9PublisherVySo6CAFCarCSg_GMd, &_s7Combine9PublishedV9PublisherVySo6CAFCarCSg_GMR);
-  OUTLINED_FUNCTION_5(&lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue);
-  OUTLINED_FUNCTION_8();
-  outlined destroy of OS_dispatch_queue.SchedulerOptions?(v4);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v21, &_s7Combine9PublishedV9PublisherVySo6CAFCarCSg_GMd, &_s7Combine9PublishedV9PublisherVySo6CAFCarCSg_GMR);
+  v22 = OUTLINED_FUNCTION_5(&lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue);
+  OUTLINED_FUNCTION_8(v22);
+  outlined destroy of OS_dispatch_queue.SchedulerOptions?(v3);
 
-  (*(v6 + 8))(v11, 0x277D85C78uLL);
+  (*(v5 + 8))(v8, 0x277D85C78uLL);
   type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for CAFCar, 0x277CF8398);
   OUTLINED_FUNCTION_2();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v29, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v23, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGMR);
   OUTLINED_FUNCTION_12();
-  v30 = OUTLINED_FUNCTION_19();
-  v31(v30);
+  v24 = OUTLINED_FUNCTION_19();
+  v25(v24);
   OUTLINED_FUNCTION_18();
-  swift_allocObject();
-  OUTLINED_FUNCTION_21();
+  v26 = swift_allocObject();
+  OUTLINED_FUNCTION_21(v26);
   OUTLINED_FUNCTION_1();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v32, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGAMGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGAMGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v27, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGAMGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo6CAFCarCSg_GSo17OS_dispatch_queueCGAMGMR);
   OUTLINED_FUNCTION_15();
 
-  v33 = OUTLINED_FUNCTION_16();
-  v34(v33);
+  v28 = OUTLINED_FUNCTION_16();
+  v29(v28);
   OUTLINED_FUNCTION_20();
   AnyCancellable.store(in:)();
   swift_endAccess();
 }
 
-void closure #2 in CarPlayConnectionManager.attemptCarConnectionAndWaitForUpdates(_:)(uint64_t *a1)
+void closure #2 in CarPlayConnectionManager.attemptCarConnectionAndWaitForUpdates(_:)(uint64_t a1, uint64_t a2)
 {
-  v1 = *a1;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
@@ -469,71 +443,70 @@ void closure #2 in CarPlayConnectionManager.attemptCarConnectionAndWaitForUpdate
 
 uint64_t CarPlayConnectionManager.setupCarMediaConnection(_:)()
 {
-  v1 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR);
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v2);
-  v4 = &v36 - v3;
-  v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo8CAFMediaCSg_GMd, &_s7Combine9PublishedV9PublisherVySo8CAFMediaCSg_GMR);
-  OUTLINED_FUNCTION_0(v38);
-  v6 = v5;
-  v8 = *(v7 + 64);
+  MEMORY[0x28223BE20](v1);
+  v3 = &v31 - v2;
+  v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedV9PublisherVySo8CAFMediaCSg_GMd, &_s7Combine9PublishedV9PublisherVySo8CAFMediaCSg_GMR);
+  OUTLINED_FUNCTION_0();
+  v5 = v4;
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v9);
-  v11 = &v36 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGMR);
-  v39 = OUTLINED_FUNCTION_0(v12);
-  v40 = v13;
-  v15 = *(v14 + 64);
+  MEMORY[0x28223BE20](v6);
+  v8 = &v31 - v7;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGMR);
+  OUTLINED_FUNCTION_0();
+  v34 = v9;
+  v35 = v10;
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v16);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGAMGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGAMGMR);
-  v41 = OUTLINED_FUNCTION_0(v17);
-  v42 = v18;
-  v20 = *(v19 + 64);
+  MEMORY[0x28223BE20](v11);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGAMGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGAMGMR);
+  OUTLINED_FUNCTION_0();
+  v36 = v12;
+  v37 = v13;
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v21);
+  MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_17();
-  v22 = dispatch thunk of CAFCarObservable.$media.getter();
-  v37 = v0;
-  v23 = (*((*MEMORY[0x277D85000] & *v0) + 0x78))(v22);
-  v43 = v23;
-  v24 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
-  OUTLINED_FUNCTION_22(v24);
+  v15 = dispatch thunk of CAFCarObservable.$media.getter();
+  v32 = v0;
+  v16 = (*((*MEMORY[0x277D85000] & *v0) + 0x78))(v15);
+  v38 = v16;
+  v17 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
+  OUTLINED_FUNCTION_22(v17);
   OUTLINED_FUNCTION_11();
-  type metadata accessor for OS_dispatch_queue(v25, v26, v27);
+  type metadata accessor for OS_dispatch_queue(v18, v19, v20);
   OUTLINED_FUNCTION_3();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v28, &_s7Combine9PublishedV9PublisherVySo8CAFMediaCSg_GMd, &_s7Combine9PublishedV9PublisherVySo8CAFMediaCSg_GMR);
-  OUTLINED_FUNCTION_5(&lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue);
-  OUTLINED_FUNCTION_8();
-  outlined destroy of OS_dispatch_queue.SchedulerOptions?(v4);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v21, &_s7Combine9PublishedV9PublisherVySo8CAFMediaCSg_GMd, &_s7Combine9PublishedV9PublisherVySo8CAFMediaCSg_GMR);
+  v22 = OUTLINED_FUNCTION_5(&lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue);
+  OUTLINED_FUNCTION_8(v22);
+  outlined destroy of OS_dispatch_queue.SchedulerOptions?(v3);
 
-  (*(v6 + 8))(v11, 0x277D85C78uLL);
+  (*(v5 + 8))(v8, 0x277D85C78uLL);
   type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for CAFMedia, 0x277CF8508);
   OUTLINED_FUNCTION_2();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v29, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v23, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGMR);
   OUTLINED_FUNCTION_12();
-  v30 = OUTLINED_FUNCTION_19();
-  v31(v30);
+  v24 = OUTLINED_FUNCTION_19();
+  v25(v24);
   OUTLINED_FUNCTION_18();
-  swift_allocObject();
-  OUTLINED_FUNCTION_21();
+  v26 = swift_allocObject();
+  OUTLINED_FUNCTION_21(v26);
   OUTLINED_FUNCTION_1();
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v32, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGAMGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGAMGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](v27, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGAMGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA9PublishedV9PublisherVySo8CAFMediaCSg_GSo17OS_dispatch_queueCGAMGMR);
   OUTLINED_FUNCTION_15();
 
-  v33 = OUTLINED_FUNCTION_16();
-  v34(v33);
+  v28 = OUTLINED_FUNCTION_16();
+  v29(v28);
   OUTLINED_FUNCTION_20();
   AnyCancellable.store(in:)();
   swift_endAccess();
 }
 
-id closure #1 in CarPlayConnectionManager.attemptCarConnectionAndWaitForUpdates(_:)@<X0>(void **a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, const char *a4@<X3>, void *a5@<X8>)
+id closure #1 in CarPlayConnectionManager.attemptCarConnectionAndWaitForUpdates(_:)@<X0>(const char *a1@<X3>, void **a2@<X0>, uint64_t *a3@<X1>, uint64_t *a4@<X2>, void *a5@<X8>, ...)
 {
-  v9 = *a1;
+  v9 = *a2;
   if (one-time initialization token for Log != -1)
   {
-    OUTLINED_FUNCTION_6();
+    OUTLINED_FUNCTION_6(&one-time initialization token for Log);
   }
 
   v10 = type metadata accessor for Logger();
@@ -548,12 +521,12 @@ id closure #1 in CarPlayConnectionManager.attemptCarConnectionAndWaitForUpdates(
     v14 = swift_slowAlloc();
     v20 = v14;
     *v13 = 136315138;
-    __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+    __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
     v15 = Optional.debugDescription.getter();
     v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v15, v16, &v20);
 
     *(v13 + 4) = v17;
-    _os_log_impl(&dword_2559DF000, v11, v12, a4, v13, 0xCu);
+    _os_log_impl(&dword_2559DF000, v11, v12, a1, v13, 0xCu);
     __swift_destroy_boxed_opaque_existential_0(v14);
     MEMORY[0x259C46600](v14, -1, -1);
     MEMORY[0x259C46600](v13, -1, -1);
@@ -564,46 +537,46 @@ id closure #1 in CarPlayConnectionManager.attemptCarConnectionAndWaitForUpdates(
   return v19;
 }
 
-void closure #2 in CarPlayConnectionManager.setupCarMediaConnection(_:)(void **a1)
+void closure #2 in CarPlayConnectionManager.setupCarMediaConnection(_:)(void **a1, uint64_t a2)
 {
-  v1 = *a1;
+  v2 = *a1;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v3 = Strong;
+    v4 = Strong;
     if (one-time initialization token for Log != -1)
     {
       swift_once();
     }
 
-    v4 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v4, Log);
-    v5 = v1;
-    v6 = Logger.logObject.getter();
-    v7 = static os_log_type_t.info.getter();
+    v5 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v5, Log);
+    v6 = v2;
+    v7 = Logger.logObject.getter();
+    v8 = static os_log_type_t.info.getter();
 
-    if (os_log_type_enabled(v6, v7))
+    if (os_log_type_enabled(v7, v8))
     {
-      v8 = swift_slowAlloc();
       v9 = swift_slowAlloc();
-      v16 = v9;
-      *v8 = 136315138;
-      v10 = [v5 debugDescription];
-      v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v13 = v12;
+      v10 = swift_slowAlloc();
+      v17 = v10;
+      *v9 = 136315138;
+      v11 = [v6 debugDescription];
+      v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v14 = v13;
 
-      v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v13, &v16);
+      v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v14, &v17);
 
-      *(v8 + 4) = v14;
-      _os_log_impl(&dword_2559DF000, v6, v7, "#radio: Initializing radio listner with CAFMedia: %s", v8, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v9);
+      *(v9 + 4) = v15;
+      _os_log_impl(&dword_2559DF000, v7, v8, "#radio: Initializing radio listner with CAFMedia: %s", v9, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v10);
+      MEMORY[0x259C46600](v10, -1, -1);
       MEMORY[0x259C46600](v9, -1, -1);
-      MEMORY[0x259C46600](v8, -1, -1);
     }
 
-    v15 = CarPlayConnectionManager.carRadioListener.getter();
-    (*((*MEMORY[0x277D85000] & *v15) + 0x158))(v5);
+    v16 = CarPlayConnectionManager.carRadioListener.getter();
+    (*((*MEMORY[0x277D85000] & *v16) + 0x158))(v6);
   }
 }
 
@@ -621,7 +594,7 @@ void CarPlayConnectionManager.carManager(_:didUpdateCurrentCar:)(uint64_t a1, ui
     v3 = v2;
     if (one-time initialization token for Log != -1)
     {
-      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_6(&one-time initialization token for Log);
     }
 
     v4 = type metadata accessor for Logger();
@@ -646,7 +619,7 @@ id @nonobjc CAFCarManager.init(registrationFilePath:)(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = MEMORY[0x259C459A0]();
+    v3 = MEMORY[0x259C459A0](a1);
   }
 
   else
@@ -686,18 +659,18 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0
     v2 = MEMORY[0x277D84FA0];
   }
 
-  v21 = specialized Array._getCount()(a1);
-  if (v21)
+  v20 = specialized Array._getCount()(a1);
+  if (v20)
   {
     v3 = 0;
     v4 = v2 + 56;
-    v19 = a1;
-    v20 = a1 & 0xC000000000000001;
-    v18 = a1 + 32;
+    v18 = a1;
+    v19 = a1 & 0xC000000000000001;
+    v17 = a1 + 32;
     while (1)
     {
-      specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v3, v20 == 0, a1);
-      if (v20)
+      specialized Array._checkSubscript(_:wasNativeTypeChecked:)(v3, v19 == 0, a1);
+      if (v19)
       {
         result = MEMORY[0x259C45C30](v3, a1);
         v6 = result;
@@ -705,7 +678,7 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0
 
       else
       {
-        v6 = *(v18 + 8 * v3);
+        v6 = *(v17 + 8 * v3);
       }
 
       v7 = __OFADD__(v3++, 1);
@@ -714,49 +687,47 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0
         break;
       }
 
-      v8 = *(v2 + 40);
       type metadata accessor for AnyCancellable();
       OUTLINED_FUNCTION_4();
-      lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, v9);
+      lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, v8);
       result = dispatch thunk of Hashable._rawHashValue(seed:)();
-      v10 = ~(-1 << *(v2 + 32));
+      v9 = ~(-1 << *(v2 + 32));
       while (1)
       {
-        v11 = result & v10;
-        v12 = (result & v10) >> 6;
-        v13 = *(v4 + 8 * v12);
-        v14 = 1 << (result & v10);
-        if ((v14 & v13) == 0)
+        v10 = result & v9;
+        v11 = (result & v9) >> 6;
+        v12 = *(v4 + 8 * v11);
+        v13 = 1 << (result & v9);
+        if ((v13 & v12) == 0)
         {
           break;
         }
 
-        v22 = *(*(v2 + 48) + 8 * v11);
         OUTLINED_FUNCTION_4();
-        lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, v15);
+        lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, v14);
         if (dispatch thunk of static Equatable.== infix(_:_:)())
         {
 
           goto LABEL_17;
         }
 
-        result = v11 + 1;
+        result = v10 + 1;
       }
 
-      *(v4 + 8 * v12) = v14 | v13;
-      *(*(v2 + 48) + 8 * v11) = v6;
-      v16 = *(v2 + 16);
-      v7 = __OFADD__(v16, 1);
-      v17 = v16 + 1;
+      *(v4 + 8 * v11) = v13 | v12;
+      *(*(v2 + 48) + 8 * v10) = v6;
+      v15 = *(v2 + 16);
+      v7 = __OFADD__(v15, 1);
+      v16 = v15 + 1;
       if (v7)
       {
         goto LABEL_20;
       }
 
-      *(v2 + 16) = v17;
+      *(v2 + 16) = v16;
 LABEL_17:
-      a1 = v19;
-      if (v3 == v21)
+      a1 = v18;
+      if (v3 == v20)
       {
         goto LABEL_18;
       }
@@ -777,7 +748,7 @@ LABEL_18:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type CAFCar and conformance CAFCar(unint64_t *a1, unint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type CAFCar and conformance CAFCar(unint64_t *a1, unint64_t *a2, void *a3)
 {
   result = *a1;
   if (!result)
@@ -808,12 +779,11 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t type metadata accessor for OS_dispatch_queue(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t type metadata accessor for OS_dispatch_queue(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -836,18 +806,20 @@ uint64_t lazy protocol witness table accessor for type [OS_dispatch_queue.Attrib
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -858,7 +830,7 @@ uint64_t outlined consume of (@escaping @callee_guaranteed (@guaranteed String) 
 
 uint64_t outlined bridged method (mbbnb) of @objc NSBundle.path(forResource:ofType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v8 = MEMORY[0x259C459A0]();
+  v8 = MEMORY[0x259C459A0](a1);
 
   v9 = MEMORY[0x259C459A0](a3, a4);
 
@@ -874,7 +846,7 @@ uint64_t outlined bridged method (mbbnb) of @objc NSBundle.path(forResource:ofTy
   return v11;
 }
 
-uint64_t lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes(unint64_t *a1, uint64_t (*a2)(uint64_t))
 {
   result = *a1;
   if (!result)
@@ -894,26 +866,25 @@ uint64_t OUTLINED_FUNCTION_5(unint64_t *a1)
   return lazy protocol witness table accessor for type CAFCar and conformance CAFCar(a1, v1, v2);
 }
 
-uint64_t OUTLINED_FUNCTION_6()
+uint64_t OUTLINED_FUNCTION_6(uint64_t a1)
 {
 
   return swift_once();
 }
 
-uint64_t OUTLINED_FUNCTION_8()
+uint64_t OUTLINED_FUNCTION_8(uint64_t a1)
 {
-  v2 = *(v0 - 144);
 
   return Publisher.receive<A>(on:options:)();
 }
 
-uint64_t OUTLINED_FUNCTION_9()
+uint64_t OUTLINED_FUNCTION_9(uint64_t a1, ...)
 {
 
   return swift_beginAccess();
 }
 
-uint64_t OUTLINED_FUNCTION_10()
+uint64_t OUTLINED_FUNCTION_10(uint64_t a1, ...)
 {
 
   return swift_beginAccess();
@@ -921,14 +892,12 @@ uint64_t OUTLINED_FUNCTION_10()
 
 uint64_t OUTLINED_FUNCTION_12()
 {
-  v2 = *(v0 - 136);
 
   return Publisher.compactMap<A>(_:)();
 }
 
 uint64_t OUTLINED_FUNCTION_15()
 {
-  v2 = *(v0 - 120);
 
   return Publisher<>.sink(receiveValue:)();
 }
@@ -939,9 +908,8 @@ uint64_t OUTLINED_FUNCTION_20()
   return swift_beginAccess();
 }
 
-uint64_t OUTLINED_FUNCTION_21()
+uint64_t OUTLINED_FUNCTION_21(uint64_t a1)
 {
-  v2 = *(v0 - 152);
 
   return swift_unknownObjectWeakInit();
 }
@@ -957,28 +925,27 @@ Swift::String __swiftcall CAFMediaSourceSemanticType.stringValue()()
   v1 = v0;
   v2 = type metadata accessor for UsoEntity_common_RadioBand.DefinedValues();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   switch(v1)
   {
     case 1:
-      v7 = MEMORY[0x277D5E9E8];
+      v6 = MEMORY[0x277D5E9E8];
       goto LABEL_11;
     case 2:
-      v7 = MEMORY[0x277D5E9F0];
+      v6 = MEMORY[0x277D5E9F0];
       goto LABEL_11;
     case 3:
-      v7 = MEMORY[0x277D5E9F8];
+      v6 = MEMORY[0x277D5E9F8];
       goto LABEL_11;
     case 6:
     case 8:
-      v7 = MEMORY[0x277D5EA00];
+      v6 = MEMORY[0x277D5EA00];
 LABEL_11:
-      (*(v3 + 104))(v6, *v7, v2);
-      v12 = UsoEntity_common_RadioBand.DefinedValues.rawValue.getter();
-      v13 = v14;
-      (*(v3 + 8))(v6, v2);
+      (*(v3 + 104))(v5, *v6, v2);
+      v11 = UsoEntity_common_RadioBand.DefinedValues.rawValue.getter();
+      v12 = v13;
+      (*(v3 + 8))(v5, v2);
       break;
     default:
       if (one-time initialization token for Log != -1)
@@ -986,27 +953,27 @@ LABEL_11:
         swift_once();
       }
 
-      v8 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v8, Log);
-      v9 = Logger.logObject.getter();
-      v10 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v9, v10))
+      v7 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v7, Log);
+      v8 = Logger.logObject.getter();
+      v9 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v8, v9))
       {
-        v11 = swift_slowAlloc();
-        *v11 = 0;
-        _os_log_impl(&dword_2559DF000, v9, v10, "#radio: Received unsupported semantic type", v11, 2u);
-        MEMORY[0x259C46600](v11, -1, -1);
+        v10 = swift_slowAlloc();
+        *v10 = 0;
+        _os_log_impl(&dword_2559DF000, v8, v9, "#radio: Received unsupported semantic type", v10, 2u);
+        MEMORY[0x259C46600](v10, -1, -1);
       }
 
-      v12 = 0;
-      v13 = 0xE000000000000000;
+      v11 = 0;
+      v12 = 0xE000000000000000;
       break;
   }
 
+  v14 = v11;
   v15 = v12;
-  v16 = v13;
-  result._object = v16;
-  result._countAndFlagsBits = v15;
+  result._object = v15;
+  result._countAndFlagsBits = v14;
   return result;
 }
 
@@ -1048,24 +1015,22 @@ LABEL_16:
 
 void thunk for @escaping @callee_unowned @convention(block) (@unowned NSString) -> ()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = MEMORY[0x259C459A0]();
+  v4 = MEMORY[0x259C459A0](a1, a2);
   (*(a3 + 16))(a3, v4);
 }
 
 uint64_t RadioListener.updateHandler.getter()
 {
   v1 = (v0 + OBJC_IVAR___RadioListener_updateHandler);
-  OUTLINED_FUNCTION_9_0();
-  v3 = *v1;
-  v2 = v1[1];
-  sub_2559E1324(v3);
-  return v3;
+  OUTLINED_FUNCTION_9_0(v0 + OBJC_IVAR___RadioListener_updateHandler, v4);
+  v2 = *v1;
+  sub_2559E1324(*v1, v1[1]);
+  return v2;
 }
 
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed String) -> ()(uint64_t a1)
+uint64_t thunk for @escaping @callee_guaranteed (@guaranteed String) -> ()(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
   v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = v4;
 
@@ -1080,10 +1045,10 @@ uint64_t RadioListener.updateHandler.setter(uint64_t a1, uint64_t a2)
   v7 = v5[1];
   *v5 = a1;
   v5[1] = a2;
-  return outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(v6);
+  return outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(v6, v7);
 }
 
-uint64_t key path getter for RadioListener.updateHandler : RadioListener@<X0>(void **a1@<X0>, void *a2@<X8>)
+uint64_t key path getter for RadioListener.updateHandler : RadioListener@<X0>(void **a1@<X0>, uint64_t (**a2)()@<X8>)
 {
   result = (*((*MEMORY[0x277D85000] & **a1) + 0x120))();
   if (result)
@@ -1125,14 +1090,14 @@ uint64_t key path setter for RadioListener.updateHandler : RadioListener(uint64_
   }
 
   v7 = *((*MEMORY[0x277D85000] & **a2) + 0x128);
-  sub_2559E1324(v3);
+  sub_2559E1324(v3, v4);
   return v7(v6, v5);
 }
 
 id RadioListener.init(serialQueue:)(void *a1)
 {
   *&v1[OBJC_IVAR___RadioListener_mediaSourceObservers] = 0;
-  if (specialized Array._getCount()(MEMORY[0x277D84F90]))
+  if (specialized Array._getCount()())
   {
     v3 = _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfC7Combine14AnyCancellableC_Tt0g5(MEMORY[0x277D84F90]);
   }
@@ -1148,7 +1113,7 @@ id RadioListener.init(serialQueue:)(void *a1)
   type metadata accessor for CAFMediaSourceSemanticType();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sShySo6KVItemCGMd, &_sShySo6KVItemCGMR);
   OUTLINED_FUNCTION_1_0();
-  lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(v5, v6);
+  lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(v5, v6, &protocol conformance descriptor for CAFMediaSourceSemanticType);
   *&v1[v4] = Dictionary.init(dictionaryLiteral:)();
   swift_unknownObjectWeakInit();
   *&v1[OBJC_IVAR___RadioListener_maxStationListSize] = 1500;
@@ -1201,14 +1166,13 @@ Swift::Void __swiftcall RadioListener.clearDonatedStations()()
   type metadata accessor for CAFMediaSourceSemanticType();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sShySo6KVItemCGMd, &_sShySo6KVItemCGMR);
   OUTLINED_FUNCTION_1_0();
-  lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(v6, v7);
+  lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(v6, v7, &protocol conformance descriptor for CAFMediaSourceSemanticType);
   v8 = Dictionary.init(dictionaryLiteral:)();
   v9 = OBJC_IVAR___RadioListener_knownRadioItemsBySourceType;
   swift_beginAccess();
-  v10 = *(v1 + v9);
   *(v1 + v9) = v8;
 
-  (*((*MEMORY[0x277D85000] & *v1) + 0x1A0))(v11);
+  (*((*MEMORY[0x277D85000] & *v1) + 0x1A0))(v10);
 }
 
 Swift::Void __swiftcall RadioListener.teardownPublisherSubscriptions()()
@@ -1220,72 +1184,71 @@ Swift::Void __swiftcall RadioListener.teardownPublisherSubscriptions()()
     [Strong unregisterObserver_];
   }
 
-  v3 = *(v0 + OBJC_IVAR___RadioListener_mediaSourceObservers);
   *(v0 + OBJC_IVAR___RadioListener_mediaSourceObservers) = 0;
 
-  v4 = OBJC_IVAR___RadioListener_cancellables;
-  OUTLINED_FUNCTION_9_0();
-  v5 = *(v0 + v4);
-  if ((v5 & 0xC000000000000001) != 0)
+  v3 = OBJC_IVAR___RadioListener_cancellables;
+  OUTLINED_FUNCTION_9_0(v0 + OBJC_IVAR___RadioListener_cancellables, v19);
+  v4 = *(v0 + v3);
+  if ((v4 & 0xC000000000000001) != 0)
   {
 
     swift_unknownObjectRetain();
     __CocoaSet.makeIterator()();
     type metadata accessor for AnyCancellable();
-    lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, MEMORY[0x277CBCDA8]);
+    lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(&lazy protocol witness table cache variable for type AnyCancellable and conformance AnyCancellable, MEMORY[0x277CBCDA8], MEMORY[0x277CBCDB0]);
     Set.Iterator.init(_cocoa:)();
-    v7 = v20;
-    v6 = v21;
-    v8 = v22;
-    v9 = v23;
-    v10 = v24;
+    v6 = v20;
+    v5 = v21;
+    v7 = v22;
+    v8 = v23;
+    v9 = v24;
   }
 
   else
   {
-    v11 = -1 << *(v5 + 32);
-    v6 = v5 + 56;
-    v8 = ~v11;
-    v12 = -v11;
-    if (v12 < 64)
+    v10 = -1 << *(v4 + 32);
+    v5 = v4 + 56;
+    v7 = ~v10;
+    v11 = -v10;
+    if (v11 < 64)
     {
-      v13 = ~(-1 << v12);
+      v12 = ~(-1 << v11);
     }
 
     else
     {
-      v13 = -1;
+      v12 = -1;
     }
 
-    v10 = v13 & *(v5 + 56);
+    v9 = v12 & *(v4 + 56);
     swift_bridgeObjectRetain_n();
-    v9 = 0;
-    v7 = v5;
+    v8 = 0;
+    v6 = v4;
   }
 
-  if (v7 < 0)
+  if (v6 < 0)
   {
     goto LABEL_16;
   }
 
   while (1)
   {
+    v13 = v8;
     v14 = v9;
-    v15 = v10;
-    v16 = v9;
-    if (!v10)
+    v15 = v8;
+    if (!v9)
     {
       break;
     }
 
 LABEL_14:
-    v17 = (v15 - 1) & v15;
-    v18 = *(*(v7 + 48) + ((v16 << 9) | (8 * __clz(__rbit64(v15)))));
+    v16 = (v14 - 1) & v14;
+    v17 = *(*(v6 + 48) + ((v15 << 9) | (8 * __clz(__rbit64(v14)))));
 
-    if (!v18)
+    if (!v17)
     {
 LABEL_20:
-      outlined consume of Set<AnyCancellable>.Iterator._Variant();
+      outlined consume of Set<AnyCancellable>.Iterator._Variant(v6);
 
       return;
     }
@@ -1294,9 +1257,9 @@ LABEL_20:
     {
       AnyCancellable.cancel()();
 
+      v8 = v15;
       v9 = v16;
-      v10 = v17;
-      if ((v7 & 0x8000000000000000) == 0)
+      if ((v6 & 0x8000000000000000) == 0)
       {
         break;
       }
@@ -1306,9 +1269,9 @@ LABEL_16:
       {
         type metadata accessor for AnyCancellable();
         OUTLINED_FUNCTION_14_0();
+        v15 = v8;
         v16 = v9;
-        v17 = v10;
-        if (v19)
+        if (v18)
         {
           continue;
         }
@@ -1320,20 +1283,20 @@ LABEL_16:
 
   while (1)
   {
-    v16 = v14 + 1;
-    if (__OFADD__(v14, 1))
+    v15 = v13 + 1;
+    if (__OFADD__(v13, 1))
     {
       break;
     }
 
-    if (v16 >= ((v8 + 64) >> 6))
+    if (v15 >= ((v7 + 64) >> 6))
     {
       goto LABEL_20;
     }
 
-    v15 = *(v6 + 8 * v16);
-    ++v14;
-    if (v15)
+    v14 = *(v5 + 8 * v15);
+    ++v13;
+    if (v14)
     {
       goto LABEL_14;
     }
@@ -1423,7 +1386,7 @@ uint64_t RadioListener.registerUpdateHandler(_:)(uint64_t a1, uint64_t a2)
   }
 
   v19 = *((*v10 & *v6) + 0x128);
-  sub_2559E1324(a1);
+  sub_2559E1324(a1, a2);
   return v19(a1, a2);
 }
 
@@ -1431,8 +1394,8 @@ uint64_t RadioListener.radioStations()()
 {
   v1 = v0;
   v2 = OBJC_IVAR___RadioListener_knownRadioItemsBySourceType;
-  OUTLINED_FUNCTION_9_0();
-  v3 = specialized Dictionary.subscript.getter(6u, *(v0 + v2));
+  OUTLINED_FUNCTION_9_0(v0 + OBJC_IVAR___RadioListener_knownRadioItemsBySourceType, v69);
+  specialized Dictionary.subscript.getter(6, *(v0 + v2));
   if (v3)
   {
     v4 = sub_2559E1334(v3);
@@ -1443,7 +1406,7 @@ uint64_t RadioListener.radioStations()()
     v4 = 0;
   }
 
-  v5 = specialized Dictionary.subscript.getter(8u, *(v0 + v2));
+  specialized Dictionary.subscript.getter(8, *(v0 + v2));
   if (v5)
   {
     v6 = sub_2559E1334(v5);
@@ -1454,7 +1417,7 @@ uint64_t RadioListener.radioStations()()
     v6 = 0;
   }
 
-  v7 = specialized Dictionary.subscript.getter(2u, *(v0 + v2));
+  specialized Dictionary.subscript.getter(2, *(v0 + v2));
   if (v7)
   {
     v8 = sub_2559E1334(v7);
@@ -1465,7 +1428,7 @@ uint64_t RadioListener.radioStations()()
     v8 = 0;
   }
 
-  v9 = specialized Dictionary.subscript.getter(1u, *(v0 + v2));
+  specialized Dictionary.subscript.getter(1, *(v0 + v2));
   if (v9)
   {
     v10 = sub_2559E1334(v9);
@@ -1476,8 +1439,8 @@ uint64_t RadioListener.radioStations()()
     v10 = 0;
   }
 
-  v62 = v2;
-  v11 = specialized Dictionary.subscript.getter(3u, *(v0 + v2));
+  v61 = v2;
+  specialized Dictionary.subscript.getter(3, *(v0 + v2));
   if (v11)
   {
     v12 = sub_2559E1334(v11);
@@ -1498,10 +1461,10 @@ LABEL_55:
   swift_once();
 LABEL_17:
   v13 = type metadata accessor for Logger();
-  v59 = __swift_project_value_buffer(v13, Log);
+  v58 = __swift_project_value_buffer(v13, Log);
   v14 = Logger.logObject.getter();
   v15 = static os_log_type_t.info.getter();
-  v58 = v1;
+  v57 = v1;
   if (OUTLINED_FUNCTION_16_0(v15))
   {
     v16 = swift_slowAlloc();
@@ -1519,12 +1482,12 @@ LABEL_17:
     OUTLINED_FUNCTION_5_0();
   }
 
-  v12 = v62;
-  v17 = *&v62[v1];
+  v12 = v61;
+  v17 = *&v61[v1];
   v19 = *(v17 + 64);
   v10 = v17 + 64;
   v18 = v19;
-  v20 = 1 << *(*&v62[v1] + 32);
+  v20 = 1 << *(*&v61[v1] + 32);
   if (v20 < 64)
   {
     v21 = ~(-1 << v20);
@@ -1537,28 +1500,28 @@ LABEL_17:
 
   v22 = v21 & v18;
   v23 = (v20 + 63) >> 6;
-  v63 = *&v62[v1];
+  v62 = *&v61[v1];
 
   v24 = 0;
-  v4 = v59;
-  v60 = v23;
-  v61 = v10;
+  v4 = v58;
+  v59 = v23;
+  v60 = v10;
   while (v22)
   {
     v25 = v24;
 LABEL_28:
-    v6 = *(*(v63 + 48) + (__clz(__rbit64(v22)) | (v25 << 6)));
-    v65 = 0;
-    v66 = 0xE000000000000000;
+    v6 = *(*(v62 + 48) + (__clz(__rbit64(v22)) | (v25 << 6)));
+    v64 = 0;
+    v65 = 0xE000000000000000;
     _StringGuts.grow(_:)(30);
 
-    v65 = 0xD00000000000001CLL;
-    v66 = 0x8000000255A01710;
+    v64 = 0xD00000000000001CLL;
+    v65 = 0x8000000255A01710;
     v26 = CAFMediaSourceSemanticType.description.getter();
     MEMORY[0x259C459E0](v26);
 
-    v67 = v65;
-    v68 = v66;
+    v67 = v64;
+    v68 = v65;
     v27 = *&v12[v1];
     if (*(v27 + 16))
     {
@@ -1571,13 +1534,13 @@ LABEL_28:
 
           __CocoaSet.makeIterator()();
           type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for KVItem, 0x277D22D20);
-          lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type KVItem and conformance NSObject, &lazy cache variable for type metadata for KVItem, 0x277D22D20);
+          lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type KVItem and conformance NSObject, &lazy cache variable for type metadata for KVItem, 0x277D22D20, MEMORY[0x277D85378]);
           Set.Iterator.init(_cocoa:)();
-          v31 = v69;
-          v1 = v70;
-          v32 = v71;
-          v4 = v72;
-          v8 = v73;
+          v31 = v70;
+          v1 = v71;
+          v32 = v72;
+          v4 = v73;
+          v8 = v74;
         }
 
         else
@@ -1601,9 +1564,9 @@ LABEL_28:
           v4 = 0;
         }
 
-        v57 = v32;
+        v56 = v32;
         v6 = (v32 + 64) >> 6;
-        v64 = v31;
+        v63 = v31;
         if (v31 < 0)
         {
           goto LABEL_43;
@@ -1652,8 +1615,8 @@ LABEL_41:
 
           while (1)
           {
-            v65 = 9;
-            v66 = 0xE100000000000000;
+            v64 = 9;
+            v65 = 0xE100000000000000;
             v39 = [v12 description];
             v40 = static String._unconditionallyBridgeFromObjectiveC(_:)();
             v42 = v41;
@@ -1661,16 +1624,16 @@ LABEL_41:
             MEMORY[0x259C459E0](v40, v42);
 
             MEMORY[0x259C459E0](10, 0xE100000000000000);
-            v44 = v65;
-            v43 = v66;
-            OUTLINED_FUNCTION_15_0();
+            v44 = v64;
+            v43 = v65;
+            OUTLINED_FUNCTION_15_0(&v67, &v64);
             MEMORY[0x259C459E0](v44, v43);
             swift_endAccess();
 
             v4 = v10;
             v8 = v38;
-            v31 = v64;
-            if ((v64 & 0x8000000000000000) == 0)
+            v31 = v63;
+            if ((v63 & 0x8000000000000000) == 0)
             {
               break;
             }
@@ -1680,10 +1643,10 @@ LABEL_43:
             {
               type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for KVItem, 0x277D22D20);
               OUTLINED_FUNCTION_14_0();
-              v12 = v65;
+              v12 = v64;
               v10 = v4;
               v38 = v8;
-              if (v65)
+              if (v64)
               {
                 continue;
               }
@@ -1694,12 +1657,12 @@ LABEL_43:
         }
 
 LABEL_47:
-        outlined consume of Set<AnyCancellable>.Iterator._Variant();
-        v1 = v58;
-        v12 = v62;
-        v4 = v59;
-        v23 = v60;
-        v10 = v61;
+        outlined consume of Set<AnyCancellable>.Iterator._Variant(v63);
+        v1 = v57;
+        v12 = v61;
+        v4 = v58;
+        v23 = v59;
+        v10 = v60;
       }
     }
 
@@ -1710,22 +1673,22 @@ LABEL_47:
     {
       v6 = OUTLINED_FUNCTION_17_0();
       v46 = OUTLINED_FUNCTION_10_0();
-      v65 = v46;
+      v64 = v46;
       *v6 = 136315138;
-      OUTLINED_FUNCTION_9_0();
+      OUTLINED_FUNCTION_9_0(&v67, v66);
       v47 = v67;
       v48 = v68;
 
-      v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v48, &v65);
+      v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v48, &v64);
 
       *(v6 + 4) = v49;
-      v12 = v62;
+      v12 = v61;
       _os_log_impl(&dword_2559DF000, v45, v8, "%s", v6, 0xCu);
       __swift_destroy_boxed_opaque_existential_0(v46);
-      v10 = v61;
+      v10 = v60;
       OUTLINED_FUNCTION_5_0();
       OUTLINED_FUNCTION_5_0();
-      v23 = v60;
+      v23 = v59;
     }
 
     else
@@ -1757,108 +1720,99 @@ LABEL_47:
     }
   }
 
-  v50 = *(v1 + OBJC_IVAR___RadioListener_mediaSourceObservers);
-
   RadioListener.generateItemsFromFrequencyRanges(_:)();
-  v52 = v51;
+  v51 = v50;
 
-  v53 = *&v12[v1];
+  Dictionary<>.allValues.getter(v52);
+  v54 = v53;
 
-  v55 = Dictionary<>.allValues.getter(v54);
-
-  v65 = v55;
-  specialized Array.append<A>(contentsOf:)(v52);
-  return v65;
+  v64 = v54;
+  specialized Array.append<A>(contentsOf:)(v51);
+  return v64;
 }
 
-uint64_t specialized Dictionary.subscript.getter(Swift::UInt8 a1, uint64_t a2)
+void specialized Dictionary.subscript.getter(uint64_t a1, uint64_t a2)
 {
-  if (!*(a2 + 16))
+  if (*(a2 + 16))
   {
-    return 0;
+    specialized __RawDictionaryStorage.find<A>(_:)(a1);
+    if (v2)
+    {
+    }
   }
-
-  v3 = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-  if ((v4 & 1) == 0)
-  {
-    return 0;
-  }
-
-  v5 = *(*(a2 + 56) + 8 * v3);
 }
 
-uint64_t Dictionary<>.allValues.getter(uint64_t a1)
+void Dictionary<>.allValues.getter(uint64_t a1)
 {
-  v16 = MEMORY[0x277D84F90];
-  v3 = a1 + 64;
-  v2 = *(a1 + 64);
-  v4 = *(a1 + 32);
+  v1 = a1 + 64;
   OUTLINED_FUNCTION_3_0();
-  v7 = v6 & v5;
-  v9 = (v8 + 63) >> 6;
+  v4 = v3 & v2;
+  v6 = (v5 + 63) >> 6;
 
-  for (i = 0; v7; result = specialized Array.append<A>(contentsOf:)(v15))
+  v7 = 0;
+  if (v4)
   {
-    v12 = i;
-LABEL_7:
-    v13 = __clz(__rbit64(v7));
-    v7 &= v7 - 1;
-    v14 = *(*(a1 + 56) + ((v12 << 9) | (8 * v13)));
+    goto LABEL_7;
   }
 
   while (1)
   {
-    v12 = i + 1;
-    if (__OFADD__(i, 1))
+    v8 = v7 + 1;
+    if (__OFADD__(v7, 1))
     {
       break;
     }
 
-    if (v12 >= v9)
+    if (v8 >= v6)
     {
 
-      return v16;
+      return;
     }
 
-    v7 = *(v3 + 8 * v12);
-    ++i;
-    if (v7)
+    v4 = *(v1 + 8 * v8);
+    ++v7;
+    if (v4)
     {
-      i = v12;
-      goto LABEL_7;
+      v7 = v8;
+      do
+      {
+LABEL_7:
+        v4 &= v4 - 1;
+
+        specialized Array.append<A>(contentsOf:)(v9);
+      }
+
+      while (v4);
+      continue;
     }
   }
 
   __break(1u);
-  return result;
 }
 
 void RadioListener.generateItemsFromFrequencyRanges(_:)()
 {
-  v1 = *(v0 + OBJC_IVAR___RadioListener_mediaSourceObservers);
 
-  v3 = static FrequencyRangeUtils.getMediaSourcesFromMediaSourceObserves(_:)(v2);
+  v1 = static FrequencyRangeUtils.getMediaSourcesFromMediaSourceObserves(_:)(v0);
 
-  v4 = static FrequencyRangeUtils.createStationGeneratorsFrom(mediaSources:)(v3);
+  v2 = static FrequencyRangeUtils.createStationGeneratorsFrom(mediaSources:)(v1);
 
-  v6 = v4 + 56;
-  v5 = *(v4 + 56);
-  v7 = *(v4 + 32);
+  v3 = v2 + 56;
   OUTLINED_FUNCTION_3_0();
-  v10 = v9 & v8;
-  v12 = (v11 + 63) >> 6;
+  v6 = v5 & v4;
+  v8 = (v7 + 63) >> 6;
 
-  v13 = 0;
-  v14 = KMIntentVocabularyAuthorization;
-  v30 = v4 + 56;
-  while (v10)
+  v9 = 0;
+  v10 = KMIntentVocabularyAuthorization;
+  v26 = v2 + 56;
+  while (v6)
   {
-    v15 = v13;
+    v11 = v9;
 LABEL_7:
-    v16 = *(v4 + 48) + ((v15 << 10) | (16 * __clz(__rbit64(v10))));
-    v17 = *(v16 + 8);
-    isa = v14[38].isa;
-    v19 = *v16;
+    v12 = *(v2 + 48) + ((v11 << 10) | (16 * __clz(__rbit64(v6))));
+    v13 = *(v12 + 8);
+    isa = v10[38].isa;
+    v15 = *v12;
 
     if (isa != -1)
     {
@@ -1866,32 +1820,32 @@ LABEL_7:
       swift_once();
     }
 
-    v10 &= v10 - 1;
-    v20 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v20, Log);
-    v21 = v19;
+    v6 &= v6 - 1;
+    v16 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v16, Log);
+    v17 = v15;
 
-    v22 = Logger.logObject.getter();
-    v23 = static os_log_type_t.info.getter();
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.info.getter();
 
-    if (os_log_type_enabled(v22, v23))
+    if (os_log_type_enabled(v18, v19))
     {
-      v24 = OUTLINED_FUNCTION_17_0();
-      v25 = OUTLINED_FUNCTION_10_0();
-      v32 = v25;
-      *v24 = 136315138;
-      v26 = RadioFrequencyRangeItemGenerator.description.getter(v21, v17);
-      log = v22;
-      v28 = v4;
-      v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v27, &v32);
+      v20 = OUTLINED_FUNCTION_17_0();
+      v21 = OUTLINED_FUNCTION_10_0();
+      v28 = v21;
+      *v20 = 136315138;
+      RadioFrequencyRangeItemGenerator.description.getter(v17, v13);
+      log = v18;
+      v24 = v2;
+      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v28);
 
-      *(v24 + 4) = v29;
-      v4 = v28;
-      _os_log_impl(&dword_2559DF000, log, v23, "Donating: %s", v24, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v25);
-      v6 = v30;
+      *(v20 + 4) = v25;
+      v2 = v24;
+      _os_log_impl(&dword_2559DF000, log, v19, "Donating: %s", v20, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v21);
+      v3 = v26;
       OUTLINED_FUNCTION_5_0();
-      v14 = KMIntentVocabularyAuthorization;
+      v10 = KMIntentVocabularyAuthorization;
       OUTLINED_FUNCTION_5_0();
     }
 
@@ -1899,28 +1853,28 @@ LABEL_7:
     {
     }
 
-    v13 = v15;
+    v9 = v11;
   }
 
   while (1)
   {
-    v15 = v13 + 1;
-    if (__OFADD__(v13, 1))
+    v11 = v9 + 1;
+    if (__OFADD__(v9, 1))
     {
       break;
     }
 
-    if (v15 >= v12)
+    if (v11 >= v8)
     {
 
-      static FrequencyRangeUtils.concatenateGeneratedFrequencyItems(_:)(v4);
+      static FrequencyRangeUtils.concatenateGeneratedFrequencyItems(_:)(v2);
 
       return;
     }
 
-    v10 = *(v6 + 8 * v15);
-    ++v13;
-    if (v10)
+    v6 = *(v3 + 8 * v11);
+    ++v9;
+    if (v6)
     {
       goto LABEL_7;
     }
@@ -1932,129 +1886,123 @@ LABEL_7:
 void RadioListener.observeMediaSources(from:)(void *a1)
 {
   v2 = v1;
-  v4 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR);
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v5);
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_7_0();
-  v63 = v6;
-  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGMR);
-  OUTLINED_FUNCTION_0(v62);
-  v8 = *(v7 + 64);
+  v53 = v5;
+  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGMR);
+  OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v9);
+  MEMORY[0x28223BE20](v6);
   OUTLINED_FUNCTION_7_0();
-  v61 = v10;
-  v60 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0I18SourceSemanticTypeV_AKtGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0I18SourceSemanticTypeV_AKtGMR);
-  OUTLINED_FUNCTION_0(v60);
-  v12 = *(v11 + 64);
+  v51 = v7;
+  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0I18SourceSemanticTypeV_AKtGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0I18SourceSemanticTypeV_AKtGMR);
+  OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v13);
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_7_0();
-  v59 = v14;
-  v58 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO6FilterVy_AC10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AMtGGMd, &_s7Combine10PublishersO6FilterVy_AC10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AMtGGMR);
-  OUTLINED_FUNCTION_0(v58);
-  v16 = *(v15 + 64);
+  v49 = v9;
+  v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO6FilterVy_AC10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AMtGGMd, &_s7Combine10PublishersO6FilterVy_AC10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AMtGGMR);
+  OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v17);
+  MEMORY[0x28223BE20](v10);
   OUTLINED_FUNCTION_7_0();
-  v57 = v18;
-  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO3MapVy_AC6FilterVy_AC07CompactC0Vy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AOtGGAX_SaySo6KVItemCGtGMd, &_s7Combine10PublishersO3MapVy_AC6FilterVy_AC07CompactC0Vy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AOtGGAX_SaySo6KVItemCGtGMR);
-  OUTLINED_FUNCTION_0(v56);
-  v20 = *(v19 + 64);
+  v47 = v11;
+  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO3MapVy_AC6FilterVy_AC07CompactC0Vy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AOtGGAX_SaySo6KVItemCGtGMd, &_s7Combine10PublishersO3MapVy_AC6FilterVy_AC07CompactC0Vy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AOtGGAX_SaySo6KVItemCGtGMR);
+  OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
-  MEMORY[0x28223BE20](v21);
+  MEMORY[0x28223BE20](v12);
   OUTLINED_FUNCTION_7_0();
-  v55 = v22;
-  v23 = outlined bridged method (pb) of @objc CAFMedia.mediaSources.getter(a1);
-  if (v23)
+  v45 = v13;
+  v14 = outlined bridged method (pb) of @objc CAFMedia.mediaSources.getter(a1);
+  if (v14)
   {
-    v24 = v23;
-    v25 = specialized Array._getCount()(v23);
-    if (v25)
+    v15 = v14;
+    v16 = specialized Array._getCount()(v14);
+    if (v16)
     {
-      v26 = v25;
-      v70 = MEMORY[0x277D84F90];
+      v17 = v16;
+      v60[0] = MEMORY[0x277D84F90];
       specialized ContiguousArray.reserveCapacity(_:)();
-      if (v26 < 0)
+      if (v17 < 0)
       {
 LABEL_31:
         __break(1u);
         goto LABEL_32;
       }
 
-      v27 = 0;
+      v18 = 0;
       do
       {
-        if ((v24 & 0xC000000000000001) != 0)
+        if ((v15 & 0xC000000000000001) != 0)
         {
-          v28 = MEMORY[0x259C45C30](v27, v24);
+          v19 = MEMORY[0x259C45C30](v18, v15);
         }
 
         else
         {
-          v28 = *(v24 + 8 * v27 + 32);
+          v19 = *(v15 + 8 * v18 + 32);
         }
 
-        v29 = v28;
-        ++v27;
+        v20 = v19;
+        ++v18;
         type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for CAFMediaSource, 0x277CF8518);
-        lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CAFMediaSource and conformance CAFMediaSource, &lazy cache variable for type metadata for CAFMediaSource, 0x277CF8518);
+        lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type CAFMediaSource and conformance CAFMediaSource, &lazy cache variable for type metadata for CAFMediaSource, 0x277CF8518, MEMORY[0x277CF3880]);
         CAFObserved<>.observable.getter();
 
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v30 = *(v70 + 16);
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         specialized ContiguousArray._endMutation()();
       }
 
-      while (v26 != v27);
+      while (v17 != v18);
 
-      v31 = v70;
+      v21 = v60[0];
     }
 
     else
     {
 
-      v31 = MEMORY[0x277D84F90];
+      v21 = MEMORY[0x277D84F90];
     }
 
-    v35 = *(v2 + OBJC_IVAR___RadioListener_mediaSourceObservers);
-    *(v2 + OBJC_IVAR___RadioListener_mediaSourceObservers) = v31;
+    *(v2 + OBJC_IVAR___RadioListener_mediaSourceObservers) = v21;
 
     swift_unknownObjectWeakInit();
-    v66 = specialized Array._getCount()(v31);
-    OUTLINED_FUNCTION_9_0();
-    v36 = 0;
-    v64 = v31 & 0xFFFFFFFFFFFFFF8;
-    v65 = v31 & 0xC000000000000001;
-    v54 = v31;
+    v56 = specialized Array._getCount()();
+    OUTLINED_FUNCTION_9_0(v61, v60);
+    v25 = 0;
+    v54 = v21 & 0xFFFFFFFFFFFFFF8;
+    v55 = v21 & 0xC000000000000001;
+    v44 = v21;
     while (1)
     {
-      if (v66 == v36)
+      if (v56 == v25)
       {
 
-        MEMORY[0x259C46670](v71);
+        MEMORY[0x259C46670](v61);
         return;
       }
 
-      if (v65)
+      if (v55)
       {
-        v37 = MEMORY[0x259C45C30](v36, v31);
+        v26 = MEMORY[0x259C45C30](v25, v21);
       }
 
       else
       {
-        if (v36 >= *(v64 + 16))
+        if (v25 >= *(v54 + 16))
         {
           goto LABEL_30;
         }
 
-        v37 = *(v31 + 8 * v36 + 32);
+        v26 = *(v21 + 8 * v25 + 32);
       }
 
-      v38 = v37;
-      if (__OFADD__(v36, 1))
+      v27 = v26;
+      if (__OFADD__(v25, 1))
       {
         break;
       }
@@ -2062,74 +2010,75 @@ LABEL_31:
       Strong = swift_unknownObjectWeakLoadStrong();
       if (Strong)
       {
-        v40 = Strong;
-        v68 = v36;
-        dispatch thunk of CAFMediaSourceObservable.$mediaItems.getter();
-        v69 = swift_unknownObjectUnownedLoadStrong();
-        v41 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
-        __swift_storeEnumTagSinglePayload(v63, 1, 1, v41);
+        v29 = Strong;
+        v58 = v25;
+        v59[0] = dispatch thunk of CAFMediaSourceObservable.$mediaItems.getter();
+        v30 = swift_unknownObjectUnownedLoadStrong();
+        v59[3] = v30;
+        v31 = type metadata accessor for OS_dispatch_queue.SchedulerOptions();
+        __swift_storeEnumTagSinglePayload(v53, 1, 1, v31);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGMd, &_s7Combine12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGMR);
         type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AnyPublisher<CAFMediaItems?, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGMd, &_s7Combine12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGMR);
-        lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
+        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type AnyPublisher<CAFMediaItems?, Never> and conformance AnyPublisher<A, B>, &_s7Combine12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGMd, &_s7Combine12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGMR, MEMORY[0x277CBCD90]);
+        lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type OS_dispatch_queue and conformance OS_dispatch_queue, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78, MEMORY[0x277D85228]);
         Publisher.receive<A>(on:options:)();
-        outlined destroy of NSObject?(v63, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR);
+        outlined destroy of NSObject?(v53, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMd, &_sSo17OS_dispatch_queueC8DispatchE16SchedulerOptionsVSgMR);
 
         OUTLINED_FUNCTION_18();
-        *(swift_allocObject() + 16) = v38;
-        v42 = v38;
+        *(swift_allocObject() + 16) = v27;
+        v32 = v27;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo26CAFMediaSourceSemanticTypeV_So0A5ItemsCtMd, &_sSo26CAFMediaSourceSemanticTypeV_So0A5ItemsCtMR);
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<CAFMediaItems?, Never>, OS_dispatch_queue> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGMR);
+        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.ReceiveOn<AnyPublisher<CAFMediaItems?, Never>, OS_dispatch_queue> and conformance Publishers.ReceiveOn<A, B>, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGMd, &_s7Combine10PublishersO9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGMR, MEMORY[0x277CBCD60]);
         Publisher.compactMap<A>(_:)();
 
-        OUTLINED_FUNCTION_12_0(&v75);
-        v43(v61, v62);
+        OUTLINED_FUNCTION_12_0();
+        v33(v51, v52);
         OUTLINED_FUNCTION_18();
-        v44 = swift_allocObject();
-        *(v44 + 16) = v40;
-        v45 = swift_allocObject();
-        *(v45 + 16) = partial apply for closure #2 in closure #2 in RadioListener.observeMediaSources(from:);
-        *(v45 + 24) = v44;
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.CompactMap<Publishers.ReceiveOn<AnyPublisher<CAFMediaItems?, Never>, OS_dispatch_queue>, (CAFMediaSourceSemanticType, CAFMediaItems)> and conformance Publishers.CompactMap<A, B>, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0I18SourceSemanticTypeV_AKtGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0I18SourceSemanticTypeV_AKtGMR);
-        v46 = v40;
+        v34 = swift_allocObject();
+        *(v34 + 16) = v29;
+        v35 = swift_allocObject();
+        *(v35 + 16) = partial apply for closure #2 in closure #2 in RadioListener.observeMediaSources(from:);
+        *(v35 + 24) = v34;
+        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.CompactMap<Publishers.ReceiveOn<AnyPublisher<CAFMediaItems?, Never>, OS_dispatch_queue>, (CAFMediaSourceSemanticType, CAFMediaItems)> and conformance Publishers.CompactMap<A, B>, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0I18SourceSemanticTypeV_AKtGMd, &_s7Combine10PublishersO10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0I18SourceSemanticTypeV_AKtGMR, MEMORY[0x277CBCB10]);
+        v36 = v29;
         Publisher.filter(_:)();
 
-        OUTLINED_FUNCTION_12_0(&v74);
-        v47(v59, v60);
+        OUTLINED_FUNCTION_12_0();
+        v37(v49, v50);
         OUTLINED_FUNCTION_18();
-        v48 = swift_allocObject();
-        *(v48 + 16) = v46;
-        v49 = swift_allocObject();
-        *(v49 + 16) = partial apply for closure #3 in closure #2 in RadioListener.observeMediaSources(from:);
-        *(v49 + 24) = v48;
-        v50 = v46;
+        v38 = swift_allocObject();
+        *(v38 + 16) = v36;
+        v39 = swift_allocObject();
+        *(v39 + 16) = partial apply for closure #3 in closure #2 in RadioListener.observeMediaSources(from:);
+        *(v39 + 24) = v38;
+        v40 = v36;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo26CAFMediaSourceSemanticTypeV_SaySo6KVItemCGtMd, &_sSo26CAFMediaSourceSemanticTypeV_SaySo6KVItemCGtMR);
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.Filter<Publishers.CompactMap<Publishers.ReceiveOn<AnyPublisher<CAFMediaItems?, Never>, OS_dispatch_queue>, (CAFMediaSourceSemanticType, CAFMediaItems)>> and conformance Publishers.Filter<A>, &_s7Combine10PublishersO6FilterVy_AC10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AMtGGMd, &_s7Combine10PublishersO6FilterVy_AC10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AMtGGMR);
+        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.Filter<Publishers.CompactMap<Publishers.ReceiveOn<AnyPublisher<CAFMediaItems?, Never>, OS_dispatch_queue>, (CAFMediaSourceSemanticType, CAFMediaItems)>> and conformance Publishers.Filter<A>, &_s7Combine10PublishersO6FilterVy_AC10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AMtGGMd, &_s7Combine10PublishersO6FilterVy_AC10CompactMapVy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AMtGGMR, MEMORY[0x277CBCC90]);
         Publisher.map<A>(_:)();
 
-        OUTLINED_FUNCTION_12_0(&v73);
-        v51(v57, v58);
+        OUTLINED_FUNCTION_12_0();
+        v41(v47, v48);
         OUTLINED_FUNCTION_18();
-        *(swift_allocObject() + 16) = v50;
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.Map<Publishers.Filter<Publishers.CompactMap<Publishers.ReceiveOn<AnyPublisher<CAFMediaItems?, Never>, OS_dispatch_queue>, (CAFMediaSourceSemanticType, CAFMediaItems)>>, (CAFMediaSourceSemanticType, [KVItem])> and conformance Publishers.Map<A, B>, &_s7Combine10PublishersO3MapVy_AC6FilterVy_AC07CompactC0Vy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AOtGGAX_SaySo6KVItemCGtGMd, &_s7Combine10PublishersO3MapVy_AC6FilterVy_AC07CompactC0Vy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AOtGGAX_SaySo6KVItemCGtGMR);
-        v52 = v50;
+        *(swift_allocObject() + 16) = v40;
+        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type Publishers.Map<Publishers.Filter<Publishers.CompactMap<Publishers.ReceiveOn<AnyPublisher<CAFMediaItems?, Never>, OS_dispatch_queue>, (CAFMediaSourceSemanticType, CAFMediaItems)>>, (CAFMediaSourceSemanticType, [KVItem])> and conformance Publishers.Map<A, B>, &_s7Combine10PublishersO3MapVy_AC6FilterVy_AC07CompactC0Vy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AOtGGAX_SaySo6KVItemCGtGMd, &_s7Combine10PublishersO3MapVy_AC6FilterVy_AC07CompactC0Vy_AC9ReceiveOnVy_AA12AnyPublisherVySo13CAFMediaItemsCSgs5NeverOGSo17OS_dispatch_queueCGSo0J18SourceSemanticTypeV_AOtGGAX_SaySo6KVItemCGtGMR, MEMORY[0x277CBCC08]);
+        v42 = v40;
         Publisher<>.sink(receiveValue:)();
 
-        OUTLINED_FUNCTION_12_0(&v72);
-        v53(v55, v56);
-        OUTLINED_FUNCTION_15_0();
+        OUTLINED_FUNCTION_12_0();
+        v43(v45, v46);
+        OUTLINED_FUNCTION_15_0(v42 + OBJC_IVAR___RadioListener_cancellables, v59);
         AnyCancellable.store(in:)();
         swift_endAccess();
 
-        v36 = v68;
-        v31 = v54;
+        v25 = v58;
+        v21 = v44;
       }
 
       else
       {
       }
 
-      ++v36;
+      ++v25;
     }
 
     __break(1u);
@@ -2145,15 +2094,15 @@ LABEL_32:
     swift_once();
   }
 
-  v32 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v32, Log);
-  v67 = Logger.logObject.getter();
-  v33 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v67, v33))
+  v22 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v22, Log);
+  v57 = Logger.logObject.getter();
+  v23 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v57, v23))
   {
-    v34 = swift_slowAlloc();
-    *v34 = 0;
-    _os_log_impl(&dword_2559DF000, v67, v33, "#radio Error: CAFMedia has no media sources.", v34, 2u);
+    v24 = swift_slowAlloc();
+    *v24 = 0;
+    _os_log_impl(&dword_2559DF000, v57, v23, "#radio Error: CAFMedia has no media sources.", v24, 2u);
     OUTLINED_FUNCTION_5_0();
   }
 }
@@ -2260,7 +2209,7 @@ uint64_t closure #3 in closure #2 in RadioListener.observeMediaSources(from:)(ui
 void RadioListener.itemListFrom(semanticType:mediaItems:)(uint64_t a1, uint64_t a2)
 {
   v10 = MEMORY[0x277D84F90];
-  v4 = specialized Array._getCount()(a2);
+  v4 = specialized Array._getCount()();
   v5 = 0;
   while (v4 != v5)
   {
@@ -2308,17 +2257,17 @@ LABEL_14:
 
 id RadioListener.itemFrom(semanticType:mediaItem:)(uint64_t a1, void *a2)
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   v4 = [objc_allocWithZone(MEMORY[0x277D22D28]) init];
   v5 = RadioListener.itemIdFrom(semanticType:mediaItem:)(a1, a2);
   v6 = MEMORY[0x259C459A0](v5);
 
-  v58[0] = 0;
-  v7 = [v4 setItemType:9 itemId:v6 error:v58];
+  v57[0] = 0;
+  v7 = [v4 setItemType:9 itemId:v6 error:v57];
 
   if (v7)
   {
-    v8 = v58[0];
+    v8 = v57[0];
 
     v9 = outlined bridged method (pb) of @objc CAFMediaItem.mediaItemName.getter(a2, &selRef_mediaItemName);
     if (v10)
@@ -2331,26 +2280,26 @@ id RadioListener.itemFrom(semanticType:mediaItem:)(uint64_t a1, void *a2)
       v11 = 0;
     }
 
-    v58[0] = 0;
+    v57[0] = 0;
     v13 = OUTLINED_FUNCTION_6_0();
     v15 = [v13 v14];
 
-    v16 = v58[0];
+    v16 = v57[0];
     if (!v15)
     {
       goto LABEL_19;
     }
 
-    v17 = v58[0];
+    v17 = v57[0];
 
     CAFMediaSourceSemanticType.stringValue()();
     OUTLINED_FUNCTION_11_0();
     v21 = outlined bridged method (mnbnnn) of @objc KVItemBuilder.addField(type:value:)(355, v18, v20, v19, v4);
-    v22 = v58[0];
+    v22 = v57[0];
     if (!v21)
     {
 LABEL_27:
-      v57 = v22;
+      v56 = v22;
       v43 = _convertNSErrorToError(_:)();
 
       goto LABEL_21;
@@ -2367,17 +2316,17 @@ LABEL_27:
       v25 = 0;
     }
 
-    v58[0] = 0;
+    v57[0] = 0;
     v26 = OUTLINED_FUNCTION_6_0();
     v28 = [v26 v27];
 
-    v16 = v58[0];
+    v16 = v57[0];
     if (!v28)
     {
       goto LABEL_19;
     }
 
-    v29 = v58[0];
+    v29 = v57[0];
 
     v30 = outlined bridged method (pb) of @objc CAFMediaItem.mediaItemName.getter(a2, &selRef_identifier);
     if (v31)
@@ -2390,29 +2339,29 @@ LABEL_27:
       v32 = 0;
     }
 
-    v58[0] = 0;
+    v57[0] = 0;
     v33 = OUTLINED_FUNCTION_6_0();
     v35 = [v33 v34];
 
-    v16 = v58[0];
+    v16 = v57[0];
     if (v35)
     {
-      v36 = v58[0];
+      v36 = v57[0];
 
       CAFMediaItem.siriFormattedStringFrequency(semanticType:)(a1);
       OUTLINED_FUNCTION_11_0();
       v40 = outlined bridged method (mnbnnn) of @objc KVItemBuilder.addField(type:value:)(353, v37, v39, v38, v4);
-      v41 = v58[0];
+      v41 = v57[0];
       if (v40)
       {
 
-        v58[0] = 0;
+        v57[0] = 0;
         v42 = [v4 buildItemWithError_];
-        v22 = v58[0];
+        v22 = v57[0];
         if (v42)
         {
 
-          goto LABEL_26;
+          return v42;
         }
 
         goto LABEL_27;
@@ -2430,7 +2379,7 @@ LABEL_19:
 
   else
   {
-    v12 = v58[0];
+    v12 = v57[0];
   }
 
   v43 = _convertNSErrorToError(_:)();
@@ -2454,13 +2403,13 @@ LABEL_21:
   {
     v48 = OUTLINED_FUNCTION_17_0();
     v49 = OUTLINED_FUNCTION_10_0();
-    v58[0] = v49;
+    v57[0] = v49;
     *v48 = 136315138;
     v50 = [v45 debugDescription];
     v51 = static String._unconditionallyBridgeFromObjectiveC(_:)();
     v53 = v52;
 
-    v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v58);
+    v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, v57);
 
     *(v48 + 4) = v54;
     _os_log_impl(&dword_2559DF000, v46, v47, "#radio: Could not create KVItem from mediaItem: %s", v48, 0xCu);
@@ -2469,10 +2418,7 @@ LABEL_21:
     OUTLINED_FUNCTION_5_0();
   }
 
-  v42 = 0;
-LABEL_26:
-  v55 = *MEMORY[0x277D85DE8];
-  return v42;
+  return 0;
 }
 
 uint64_t RadioListener.itemIdFrom(semanticType:mediaItem:)(uint64_t a1, void *a2)
@@ -2522,14 +2468,14 @@ uint64_t RadioListener.itemIdFrom(semanticType:mediaItem:)(uint64_t a1, void *a2
   return dispatch thunk of CustomStringConvertible.description.getter();
 }
 
-uint64_t RadioListener.saveItemsBy(semanticType:items:)(Swift::UInt8 a1, unint64_t a2)
+uint64_t RadioListener.saveItemsBy(semanticType:items:)(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
   v6 = OBJC_IVAR___RadioListener_knownRadioItemsBySourceType;
   swift_beginAccess();
-  v7 = *&v2[v6];
 
-  v9 = Dictionary<>.totalValueCount.getter(v8);
+  Dictionary<>.totalValueCount.getter(v7);
+  v9 = v8;
 
   v10 = specialized Array._getCount()(a2);
   v11 = v9 + v10;
@@ -2555,7 +2501,7 @@ LABEL_10:
 LABEL_4:
   v12 = type metadata accessor for Logger();
   __swift_project_value_buffer(v12, Log);
-  v13 = v3;
+  v13 = v2;
 
   v14 = Logger.logObject.getter();
   v15 = static os_log_type_t.error.getter();
@@ -2581,95 +2527,89 @@ LABEL_4:
   type metadata accessor for CAFMediaSourceSemanticType();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sShySo6KVItemCGMd, &_sShySo6KVItemCGMR);
   OUTLINED_FUNCTION_1_0();
-  lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(v17, v18);
-  v19 = Dictionary.init(dictionaryLiteral:)();
-  v20 = *&v3[v6];
-  *&v3[v6] = v19;
+  lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(v17, v18, &protocol conformance descriptor for CAFMediaSourceSemanticType);
+  *&v3[v6] = Dictionary.init(dictionaryLiteral:)();
 
 LABEL_8:
 
-  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSo6KVItemC_SayAEGTt0g5(v21);
-  v23 = v22;
-  OUTLINED_FUNCTION_15_0();
-  v24 = *&v3[v6];
+  _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSo6KVItemC_SayAEGTt0g5(v19);
+  v21 = v20;
+  OUTLINED_FUNCTION_15_0(&v3[v6], v25);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v27 = *&v3[v6];
-  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v23, a1, isUniquelyReferenced_nonNull_native);
-  *&v3[v6] = v27;
+  v24 = *&v3[v6];
+  specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v21, a1, isUniquelyReferenced_nonNull_native);
+  *&v3[v6] = v24;
   return swift_endAccess();
 }
 
-uint64_t Dictionary<>.totalValueCount.getter(uint64_t a1)
+void Dictionary<>.totalValueCount.getter(uint64_t a1)
 {
-  v3 = a1 + 64;
-  v2 = *(a1 + 64);
-  v4 = *(a1 + 32);
+  v2 = a1 + 64;
   OUTLINED_FUNCTION_3_0();
-  v7 = v6 & v5;
-  v9 = (v8 + 63) >> 6;
+  v5 = v4 & v3;
+  v7 = (v6 + 63) >> 6;
 
-  v11 = 0;
-  v12 = 0;
-  while (v7)
+  v8 = 0;
+  v9 = 0;
+  while (v5)
   {
 LABEL_7:
-    v14 = *(*(a1 + 56) + ((v11 << 9) | (8 * __clz(__rbit64(v7)))));
-    if ((v14 & 0xC000000000000001) != 0)
+    v11 = *(*(a1 + 56) + ((v8 << 9) | (8 * __clz(__rbit64(v5)))));
+    if ((v11 & 0xC000000000000001) != 0)
     {
 
-      v15 = __CocoaSet.count.getter();
+      v12 = __CocoaSet.count.getter();
     }
 
     else
     {
-      v15 = *(v14 + 16);
+      v12 = *(v11 + 16);
     }
 
-    v7 &= v7 - 1;
-    v16 = __OFADD__(v12, v15);
-    v12 += v15;
-    if (v16)
+    v5 &= v5 - 1;
+    v13 = __OFADD__(v9, v12);
+    v9 += v12;
+    if (v13)
     {
       __break(1u);
 LABEL_13:
 
-      return v12;
+      return;
     }
   }
 
   while (1)
   {
-    v13 = v11 + 1;
-    if (__OFADD__(v11, 1))
+    v10 = v8 + 1;
+    if (__OFADD__(v8, 1))
     {
       break;
     }
 
-    if (v13 >= v9)
+    if (v10 >= v7)
     {
       goto LABEL_13;
     }
 
-    v7 = *(v3 + 8 * v13);
-    ++v11;
-    if (v7)
+    v5 = *(v2 + 8 * v10);
+    ++v8;
+    if (v5)
     {
-      v11 = v13;
+      v8 = v10;
       goto LABEL_7;
     }
   }
 
   __break(1u);
-  return result;
 }
 
 void _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSo6KVItemC_SayAEGTt0g5(unint64_t a1)
 {
   v2 = specialized Array._getCount()(a1);
   v3 = type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for KVItem, 0x277D22D20);
-  v4 = lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type KVItem and conformance NSObject, &lazy cache variable for type metadata for KVItem, 0x277D22D20);
+  v4 = lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type KVItem and conformance NSObject, &lazy cache variable for type metadata for KVItem, 0x277D22D20, MEMORY[0x277D85378]);
   v8[1] = MEMORY[0x259C45A60](v2, v3, v4);
-  v5 = specialized Array._getCount()(a1);
+  v5 = specialized Array._getCount()();
   for (i = 0; ; ++i)
   {
     if (v5 == i)
@@ -2709,84 +2649,83 @@ LABEL_11:
 Swift::Void __swiftcall RadioListener.donationUpdateTriggered()()
 {
   v1 = type metadata accessor for DispatchWorkItemFlags();
-  v2 = OUTLINED_FUNCTION_0(v1);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
-  v8 = &v30 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for DispatchQoS();
-  v10 = OUTLINED_FUNCTION_0(v9);
-  v31 = v11;
-  v32 = v10;
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v10);
-  v15 = &v30 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  OUTLINED_FUNCTION_0();
+  v3 = v2;
+  MEMORY[0x28223BE20](v4);
+  v6 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for DispatchQoS();
+  OUTLINED_FUNCTION_0();
+  v26 = v8;
+  v27 = v7;
+  MEMORY[0x28223BE20](v7);
+  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for Log != -1)
   {
     OUTLINED_FUNCTION_0_0();
     swift_once();
   }
 
-  v16 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v16, Log);
-  v17 = v0;
-  v18 = Logger.logObject.getter();
-  v19 = static os_log_type_t.debug.getter();
+  v11 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v11, Log);
+  v12 = v0;
+  v13 = Logger.logObject.getter();
+  v14 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v18, v19))
+  if (os_log_type_enabled(v13, v14))
   {
-    v20 = OUTLINED_FUNCTION_17_0();
-    v21 = OUTLINED_FUNCTION_10_0();
-    v30 = v4;
-    v22 = v21;
-    aBlock[0] = v21;
-    *v20 = 136315138;
-    v23 = (*((*MEMORY[0x277D85000] & *v17) + 0x138))();
-    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, aBlock);
+    v15 = OUTLINED_FUNCTION_17_0();
+    v16 = OUTLINED_FUNCTION_10_0();
+    v25 = v3;
+    v17 = v16;
+    aBlock[0] = v16;
+    *v15 = 136315138;
+    v18 = (*((*MEMORY[0x277D85000] & *v12) + 0x138))();
+    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, aBlock);
 
-    *(v20 + 4) = v25;
-    _os_log_impl(&dword_2559DF000, v18, v19, "#radio triggering donation request for: %s", v20, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v22);
-    v4 = v30;
+    *(v15 + 4) = v20;
+    _os_log_impl(&dword_2559DF000, v13, v14, "#radio triggering donation request for: %s", v15, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v17);
+    v3 = v25;
     OUTLINED_FUNCTION_5_0();
     OUTLINED_FUNCTION_5_0();
   }
 
   Strong = swift_unknownObjectUnownedLoadStrong();
   OUTLINED_FUNCTION_18();
-  v27 = swift_allocObject();
-  *(v27 + 16) = v17;
+  v22 = swift_allocObject();
+  *(v22 + 16) = v12;
   aBlock[4] = partial apply for closure #1 in RadioListener.donationUpdateTriggered();
-  aBlock[5] = v27;
+  aBlock[5] = v22;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor;
-  v28 = _Block_copy(aBlock);
-  v29 = v17;
+  v23 = _Block_copy(aBlock);
+  v24 = v12;
   static DispatchQoS.unspecified.getter();
-  v33 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v28 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x259C45AE0](0, v15, v8, v28);
-  _Block_release(v28);
+  MEMORY[0x259C45AE0](0, v10, v6, v23);
+  _Block_release(v23);
 
-  (*(v4 + 8))(v8, v1);
-  (*(v31 + 8))(v15, v32);
+  (*(v3 + 8))(v6, v1);
+  (*(v26 + 8))(v10, v27);
 }
 
-uint64_t closure #1 in RadioListener.donationUpdateTriggered()(void *a1)
+void (*closure #1 in RadioListener.donationUpdateTriggered()(void *a1))(uint64_t)
 {
   v2 = MEMORY[0x277D85000];
   result = (*((*MEMORY[0x277D85000] & *a1) + 0x120))();
   if (result)
   {
-    v4 = result;
-    v5 = (*((*v2 & *a1) + 0x138))();
-    v4(v5);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(v4);
+    v5 = result;
+    v6 = v4;
+    v7 = (*((*v2 & *a1) + 0x138))();
+    v5(v7);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed String) -> ())?(v5, v6);
   }
 
   return result;
@@ -2795,9 +2734,8 @@ uint64_t closure #1 in RadioListener.donationUpdateTriggered()(void *a1)
 uint64_t thunk for @escaping @callee_guaranteed @Sendable () -> ()(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 id RadioListener.__allocating_init()()
@@ -2852,7 +2790,7 @@ void RadioListener.accessoryDidUpdate(_:receivedAllValues:)(void *a1, char a2)
   }
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -2945,11 +2883,9 @@ LABEL_8:
 
 uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
 uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
@@ -3057,21 +2993,20 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (!result || v5 > *(v3 + 24) >> 1)
   {
     if (v4 <= v5)
     {
-      v8 = v4 + v2;
+      v7 = v4 + v2;
     }
 
     else
     {
-      v8 = v4;
+      v7 = v4;
     }
 
-    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v8, 1, v3);
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v7, 1, v3);
     v3 = result;
   }
 
@@ -3086,15 +3021,15 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v9 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v9 < v2)
+  v8 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v8 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v9 + 32), (v6 + 32), v2);
+  memcpy((v3 + v8 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -3103,12 +3038,12 @@ LABEL_14:
     return result;
   }
 
-  v10 = *(v3 + 16);
-  v11 = __OFADD__(v10, v2);
-  v12 = v10 + v2;
-  if (!v11)
+  v9 = *(v3 + 16);
+  v10 = __OFADD__(v9, v2);
+  v11 = v9 + v2;
+  if (!v10)
   {
-    *(v3 + 16) = v12;
+    *(v3 + 16) = v11;
     goto LABEL_14;
   }
 
@@ -3287,7 +3222,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return v10;
 }
 
-uint64_t lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type CAFMediaSourceSemanticType and conformance CAFMediaSourceSemanticType(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3320,17 +3255,17 @@ unint64_t specialized Array._checkSubscript(_:wasNativeTypeChecked:)(unint64_t r
   return result;
 }
 
-unint64_t specialized __RawDictionaryStorage.find<A>(_:)(Swift::UInt8 a1)
+unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1)
 {
-  v3 = *(v1 + 40);
+  v1 = a1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(a1);
-  v4 = Hasher._finalize()();
+  Hasher._combine(_:)(v1);
+  v2 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, v4);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(v1, v2);
 }
 
-uint64_t lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(unint64_t *a1, unint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(unint64_t *a1, unint64_t *a2, void *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -3367,7 +3302,7 @@ uint64_t specialized Array.append<A>(contentsOf:)(uint64_t a1)
     goto LABEL_9;
   }
 
-  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result);
+  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result, 1);
   v2 = *v1;
   v3 = *v1 & 0xFFFFFFFFFFFFFF8;
   v13 = *(v3 + 0x10);
@@ -3397,7 +3332,7 @@ LABEL_9:
   if (result != v14)
   {
 LABEL_7:
-    result = outlined consume of Set<AnyCancellable>.Iterator._Variant();
+    result = outlined consume of Set<AnyCancellable>.Iterator._Variant(v26);
     *v7 = v2;
     return result;
   }
@@ -3567,7 +3502,7 @@ uint64_t specialized Array.append<A>(contentsOf:)(unint64_t a1)
     goto LABEL_8;
   }
 
-  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result);
+  specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(result, 1);
   v7 = *v1;
   v8 = *v1 & 0xFFFFFFFFFFFFFF8;
   specialized Array._copyContents(initializing:)(v8 + 8 * *(v8 + 0x10) + 32, (*(v8 + 0x18) >> 1) - *(v8 + 0x10), a1);
@@ -3608,49 +3543,42 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(uint64_t a1)
+uint64_t specialized Array._reserveCapacityImpl(minimumCapacity:growForAppend:)(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
+  *v2 = v4;
   if (result)
   {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
     {
-      v5 = v3 & 0xFFFFFFFFFFFFFF8;
-      if (a1 <= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (a1 <= *((v4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         return result;
       }
 
       goto LABEL_9;
     }
-
-LABEL_10:
-    __CocoaSet.count.getter();
-    goto LABEL_11;
   }
 
-  if (v3 < 0 || (v3 & 0x4000000000000000) != 0)
+  else if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
-  v5 = v3 & 0xFFFFFFFFFFFFFF8;
+  __CocoaSet.count.getter();
 LABEL_9:
-  v6 = *(v5 + 16);
-LABEL_11:
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v1 = result;
+  *v2 = result;
   return result;
 }
 
-unint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, Swift::UInt8 a2, char a3)
+unint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1, uint64_t a2, char a3)
 {
   v4 = v3;
   v8 = *v3;
   v9 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
-  v11 = *(v8 + 16);
+  v11 = v8[2];
   v12 = (v10 & 1) == 0;
   v13 = v11 + v12;
   if (__OFADD__(v11, v12))
@@ -3667,9 +3595,8 @@ unint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1
     goto LABEL_5;
   }
 
-  v16 = *v4;
-  v17 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
-  if ((v15 & 1) != (v18 & 1))
+  v16 = specialized __RawDictionaryStorage.find<A>(_:)(a2);
+  if ((v15 & 1) != (v17 & 1))
   {
 LABEL_13:
     type metadata accessor for CAFMediaSourceSemanticType();
@@ -3678,20 +3605,18 @@ LABEL_13:
     return result;
   }
 
-  v14 = v17;
+  v14 = v16;
 LABEL_5:
-  v19 = *v4;
+  v18 = *v4;
   if (v15)
   {
-    v20 = v19[7];
-    v21 = *(v20 + 8 * v14);
-    *(v20 + 8 * v14) = a1;
+    *(v18[7] + 8 * v14) = a1;
   }
 
   else
   {
 
-    return specialized _NativeDictionary._insert(at:key:value:)(v14, a2, a1, v19);
+    return specialized _NativeDictionary._insert(at:key:value:)(v14, a2, a1, v18);
   }
 }
 
@@ -3787,7 +3712,7 @@ uint64_t specialized Array._copyContents(initializing:)(uint64_t result, uint64_
 
       if (v7 >= 1)
       {
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [KVItem] and conformance [A], &_sSaySo6KVItemCGMd, &_sSaySo6KVItemCGMR);
+        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [KVItem] and conformance [A], &_sSaySo6KVItemCGMd, &_sSaySo6KVItemCGMR, MEMORY[0x277D83988]);
         for (i = 0; i != v7; ++i)
         {
           __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo6KVItemCGMd, &_sSaySo6KVItemCGMR);
@@ -3829,20 +3754,12 @@ void (*specialized protocol witness for Collection.subscript.read in conformance
 uint64_t partial apply for thunk for @escaping @callee_guaranteed (@in_guaranteed String) -> (@out ())(uint64_t a1, uint64_t a2)
 {
   v3 = *(v2 + 16);
-  v4 = *(v2 + 24);
-  v6[0] = a1;
-  v6[1] = a2;
-  return v3(v6);
+  v5[0] = a1;
+  v5[1] = a2;
+  return v3(v5);
 }
 
-uint64_t partial apply for thunk for @escaping @callee_guaranteed (@guaranteed String) -> ()(void *a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return v2(*a1, a1[1]);
-}
-
-void *specialized Sequence._copySequenceContents(initializing:)(void *result, void *a2, uint64_t a3, uint64_t a4)
+uint64_t *specialized Sequence._copySequenceContents(initializing:)(uint64_t *result, uint64_t **a2, uint64_t a3, uint64_t a4)
 {
   v4 = a4;
   v7 = result;
@@ -3850,7 +3767,7 @@ void *specialized Sequence._copySequenceContents(initializing:)(void *result, vo
   {
     __CocoaSet.makeIterator()();
     type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for KVItem, 0x277D22D20);
-    lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type KVItem and conformance NSObject, &lazy cache variable for type metadata for KVItem, 0x277D22D20);
+    lazy protocol witness table accessor for type OS_dispatch_queue and conformance OS_dispatch_queue(&lazy protocol witness table cache variable for type KVItem and conformance NSObject, &lazy cache variable for type metadata for KVItem, 0x277D22D20, MEMORY[0x277D85378]);
     result = Set.Iterator.init(_cocoa:)();
     v4 = v23;
     v8 = v24;
@@ -4001,24 +3918,15 @@ uint64_t outlined destroy of NSObject?(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t partial apply for thunk for @escaping @callee_guaranteed (@unowned CAFMediaSourceSemanticType, @guaranteed CAFMediaItems) -> (@unowned Bool)(unsigned __int8 *a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return v2(*a1, *(a1 + 1)) & 1;
-}
-
 uint64_t partial apply for thunk for @escaping @callee_guaranteed (@unowned CAFMediaSourceSemanticType, @guaranteed CAFMediaItems) -> (@unowned CAFMediaSourceSemanticType, @owned [KVItem])@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = *(v2 + 16);
-  v5 = *(v2 + 24);
-  result = v4(*a1, *(a1 + 1));
+  result = (*(v2 + 16))(*a1, *(a1 + 1));
   *a2 = result;
-  *(a2 + 8) = v7;
+  *(a2 + 8) = v5;
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -4037,7 +3945,7 @@ void OUTLINED_FUNCTION_5_0()
   JUMPOUT(0x259C46600);
 }
 
-uint64_t OUTLINED_FUNCTION_9_0()
+uint64_t OUTLINED_FUNCTION_9_0(uint64_t a1, uint64_t a2)
 {
 
   return swift_beginAccess();
@@ -4061,7 +3969,7 @@ uint64_t OUTLINED_FUNCTION_14_0()
   return swift_dynamicCast();
 }
 
-uint64_t OUTLINED_FUNCTION_15_0()
+uint64_t OUTLINED_FUNCTION_15_0(uint64_t a1, uint64_t a2)
 {
 
   return swift_beginAccess();
@@ -4099,7 +4007,7 @@ uint64_t static FrequencyRangeUtils.getMediaSourcesFromMediaSourceObserves(_:)(u
       return result;
     }
 
-    v12 = MEMORY[0x277D84F90];
+    v11 = MEMORY[0x277D84F90];
     specialized ContiguousArray.reserveCapacity(_:)();
     if ((v2 & 0x8000000000000000) == 0)
     {
@@ -4121,14 +4029,13 @@ uint64_t static FrequencyRangeUtils.getMediaSourcesFromMediaSourceObserves(_:)(u
         CAFMediaSourceObservable.observed.getter();
 
         specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-        v7 = *(v12 + 16);
         specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
         specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
         specialized ContiguousArray._endMutation()();
       }
 
       while (v2 != v4);
-      return v12;
+      return v11;
     }
 
     __break(1u);
@@ -4141,16 +4048,16 @@ LABEL_19:
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v8, Log);
-  v9 = Logger.logObject.getter();
-  v10 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v9, v10))
+  v7 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v7, Log);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v11 = swift_slowAlloc();
-    *v11 = 0;
-    _os_log_impl(&dword_2559DF000, v9, v10, "#radio: No media sources — not generating items from frequency ranges", v11, 2u);
-    MEMORY[0x259C46600](v11, -1, -1);
+    v10 = swift_slowAlloc();
+    *v10 = 0;
+    _os_log_impl(&dword_2559DF000, v8, v9, "#radio: No media sources — not generating items from frequency ranges", v10, 2u);
+    MEMORY[0x259C46600](v10, -1, -1);
   }
 
   return MEMORY[0x277D84F90];
@@ -4220,57 +4127,61 @@ LABEL_3:
   return result;
 }
 
-uint64_t static FrequencyRangeUtils.concatenateGeneratedFrequencyItems(_:)(uint64_t a1)
+void static FrequencyRangeUtils.concatenateGeneratedFrequencyItems(_:)(uint64_t a1)
 {
-  v13 = MEMORY[0x277D84F90];
-  v2 = a1 + 56;
-  v3 = 1 << *(a1 + 32);
-  v4 = -1;
-  if (v3 < 64)
+  v1 = a1 + 56;
+  v2 = 1 << *(a1 + 32);
+  v3 = -1;
+  if (v2 < 64)
   {
-    v4 = ~(-1 << v3);
+    v3 = ~(-1 << v2);
   }
 
-  v5 = v4 & *(a1 + 56);
-  v6 = (v3 + 63) >> 6;
+  v4 = v3 & *(a1 + 56);
+  v5 = (v2 + 63) >> 6;
 
-  for (i = 0; v5; result = specialized Array.append<A>(contentsOf:)(v12))
+  v6 = 0;
+  if (v4)
   {
-    v9 = i;
-LABEL_9:
-    v10 = __clz(__rbit64(v5));
-    v5 &= v5 - 1;
-    v11 = *(*(a1 + 48) + ((v9 << 10) | (16 * v10)) + 8);
+    goto LABEL_9;
   }
 
   while (1)
   {
-    v9 = i + 1;
-    if (__OFADD__(i, 1))
+    v7 = v6 + 1;
+    if (__OFADD__(v6, 1))
     {
       break;
     }
 
-    if (v9 >= v6)
+    if (v7 >= v5)
     {
 
-      return v13;
+      return;
     }
 
-    v5 = *(v2 + 8 * v9);
-    ++i;
-    if (v5)
+    v4 = *(v1 + 8 * v7);
+    ++v6;
+    if (v4)
     {
-      i = v9;
-      goto LABEL_9;
+      v6 = v7;
+      do
+      {
+LABEL_9:
+        v4 &= v4 - 1;
+
+        specialized Array.append<A>(contentsOf:)(v8);
+      }
+
+      while (v4);
+      continue;
     }
   }
 
   __break(1u);
-  return result;
 }
 
-uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
+uint64_t specialized Set._Variant.insert(_:)(uint64_t *a1, void *a2)
 {
   v3 = v2;
   v6 = *v2;
@@ -4296,7 +4207,7 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
       type metadata accessor for KVItem();
       swift_dynamicCast();
       result = 0;
-      *a1 = v23;
+      *a1 = v22;
     }
 
     else
@@ -4310,8 +4221,8 @@ uint64_t specialized Set._Variant.insert(_:)(void *a1, void *a2)
       else
       {
         v16 = _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfCSo6KVItemC_Tt1g5(v7, result + 1);
-        v17 = *(v16 + 16);
-        if (*(v16 + 24) <= v17)
+        v17 = v16[2];
+        if (v16[3] <= v17)
         {
           specialized _NativeSet.resize(capacity:)(v17 + 1);
         }
@@ -4337,12 +4248,11 @@ LABEL_16:
       v13 = v11 & v12;
       if (((*(v6 + 56 + (((v11 & v12) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (v11 & v12)) & 1) == 0)
       {
-        v19 = *v3;
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v24 = *v3;
+        v23 = *v3;
         v18 = a2;
         specialized _NativeSet.insertNew(_:at:isUnique:)(v18, v13, isUniquelyReferenced_nonNull_native);
-        *v3 = v24;
+        *v3 = v23;
         goto LABEL_16;
       }
 
@@ -4357,9 +4267,9 @@ LABEL_16:
       v11 = v13 + 1;
     }
 
-    v21 = *(*(v6 + 48) + 8 * v13);
-    *a1 = v21;
-    v22 = v21;
+    v20 = *(*(v6 + 48) + 8 * v13);
+    *a1 = v20;
+    v21 = v20;
     return 0;
   }
 
@@ -4369,63 +4279,59 @@ LABEL_16:
 BOOL specialized Set._Variant.insert(_:)(void *a1, void *a2, uint64_t a3)
 {
   v5 = *v3;
-  v6 = *(*v3 + 40);
   Hasher.init(_seed:)();
-  v26 = a2;
+  v22 = a2;
   [a2 mediaSourceSemanticType];
   CAFMediaSourceSemanticType.stringValue()();
   String.hash(into:)();
 
-  v7 = Hasher._finalize()();
-  v8 = ~(-1 << *(v5 + 32));
+  v6 = Hasher._finalize()();
+  v7 = ~(-1 << *(v5 + 32));
   while (1)
   {
-    v9 = v7 & v8;
-    v10 = (1 << (v7 & v8)) & *(v5 + 56 + (((v7 & v8) >> 3) & 0xFFFFFFFFFFFFFF8));
-    if (!v10)
+    v8 = v6 & v7;
+    v9 = (1 << (v6 & v7)) & *(v5 + 56 + (((v6 & v7) >> 3) & 0xFFFFFFFFFFFFFF8));
+    if (!v9)
     {
-      v18 = *v23;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v28 = *v23;
-      v20 = v26;
+      v24 = *v19;
+      v16 = v22;
 
-      specialized _NativeSet.insertNew(_:at:isUnique:)(v20, a3, v9, isUniquelyReferenced_nonNull_native);
-      *v23 = v28;
-      *a1 = v20;
+      specialized _NativeSet.insertNew(_:at:isUnique:)(v16, a3, v8, isUniquelyReferenced_nonNull_native);
+      *v19 = v24;
+      *a1 = v16;
       a1[1] = a3;
-      return v10 == 0;
+      return v9 == 0;
     }
 
-    v11 = *(v5 + 48) + 16 * v9;
-    v12 = *(v11 + 8);
-    v13 = *v11;
+    v10 = *(*(v5 + 48) + 16 * v8);
 
-    [v13 mediaSourceSemanticType];
-    v14 = CAFMediaSourceSemanticType.stringValue()();
-    [v26 mediaSourceSemanticType];
-    v15 = CAFMediaSourceSemanticType.stringValue()();
-    if (v14._countAndFlagsBits == v15._countAndFlagsBits && v14._object == v15._object)
+    [v10 mediaSourceSemanticType];
+    v11 = CAFMediaSourceSemanticType.stringValue()();
+    [v22 mediaSourceSemanticType];
+    v12 = CAFMediaSourceSemanticType.stringValue()();
+    if (v11._countAndFlagsBits == v12._countAndFlagsBits && v11._object == v12._object)
     {
       break;
     }
 
-    v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v14 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v17)
+    if (v14)
     {
       goto LABEL_11;
     }
 
-    v7 = v9 + 1;
+    v6 = v8 + 1;
   }
 
 LABEL_11:
 
-  *v27 = *(*(v5 + 48) + 16 * v9);
-  *a1 = *v27;
-  v21 = v27[0];
+  v23 = *(*(v5 + 48) + 16 * v8);
+  *a1 = v23;
+  v17 = v23;
 
-  return v10 == 0;
+  return v9 == 0;
 }
 
 Swift::Int _ss10_NativeSetV_8capacityAByxGs07__CocoaB0Vn_SitcfCSo6KVItemC_Tt1g5(uint64_t a1, uint64_t a2)
@@ -4501,277 +4407,264 @@ LABEL_15:
   return result;
 }
 
-uint64_t specialized _NativeSet.resize(capacity:)(uint64_t a1)
+Swift::Int specialized _NativeSet.resize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo6KVItemCGMd, "b\b");
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (!*(v3 + 16))
   {
-LABEL_29:
+LABEL_27:
 
-    *v2 = v6;
+    *v2 = v5;
     return result;
   }
 
-  v7 = 0;
-  v8 = (v3 + 56);
-  v9 = 1 << *(v3 + 32);
-  if (v9 < 64)
+  v6 = 0;
+  v7 = (v3 + 56);
+  v8 = 1 << *(v3 + 32);
+  if (v8 < 64)
   {
-    v10 = ~(-1 << v9);
+    v9 = ~(-1 << v8);
   }
 
   else
   {
-    v10 = -1;
+    v9 = -1;
   }
 
-  v11 = v10 & *(v3 + 56);
-  v12 = (v9 + 63) >> 6;
-  v13 = result + 56;
-  if (!v11)
+  v10 = v9 & *(v3 + 56);
+  v11 = (v8 + 63) >> 6;
+  v12 = result + 56;
+  if (!v10)
   {
-LABEL_9:
-    v15 = v7;
+LABEL_7:
+    v14 = v6;
     while (1)
     {
-      v7 = v15 + 1;
-      if (__OFADD__(v15, 1))
+      v6 = v14 + 1;
+      if (__OFADD__(v14, 1))
       {
         __break(1u);
-        goto LABEL_31;
+        goto LABEL_29;
       }
 
-      if (v7 >= v12)
+      if (v6 >= v11)
       {
         break;
       }
 
-      v16 = v8[v7];
-      ++v15;
-      if (v16)
+      v15 = v7[v6];
+      ++v14;
+      if (v15)
       {
-        v14 = __clz(__rbit64(v16));
-        v11 = (v16 - 1) & v16;
-        goto LABEL_14;
+        v13 = __clz(__rbit64(v15));
+        v10 = (v15 - 1) & v15;
+        goto LABEL_12;
       }
     }
 
-    v26 = 1 << *(v3 + 32);
-    if (v26 >= 64)
+    v25 = 1 << *(v3 + 32);
+    if (v25 >= 64)
     {
-      specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v26 + 63) >> 6, v3 + 56);
+      specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v25 + 63) >> 6, v3 + 56);
     }
 
     else
     {
-      *v8 = -1 << v26;
+      *v7 = -1 << v25;
     }
 
     *(v3 + 16) = 0;
-    goto LABEL_29;
+    goto LABEL_27;
   }
 
   while (1)
   {
-    v14 = __clz(__rbit64(v11));
-    v11 &= v11 - 1;
-LABEL_14:
-    v17 = *(*(v3 + 48) + 8 * (v14 | (v7 << 6)));
-    result = NSObject._rawHashValue(seed:)(*(v6 + 40));
-    v18 = -1 << *(v6 + 32);
-    v19 = result & ~v18;
-    v20 = v19 >> 6;
-    if (((-1 << v19) & ~*(v13 + 8 * (v19 >> 6))) == 0)
+    v13 = __clz(__rbit64(v10));
+    v10 &= v10 - 1;
+LABEL_12:
+    v16 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
+    result = NSObject._rawHashValue(seed:)(*(v5 + 40));
+    v17 = -1 << *(v5 + 32);
+    v18 = result & ~v17;
+    v19 = v18 >> 6;
+    if (((-1 << v18) & ~*(v12 + 8 * (v18 >> 6))) == 0)
     {
       break;
     }
 
-    v21 = __clz(__rbit64((-1 << v19) & ~*(v13 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
-LABEL_23:
-    *(v13 + ((v21 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v21;
-    *(*(v6 + 48) + 8 * v21) = v17;
-    ++*(v6 + 16);
-    if (!v11)
+    v20 = __clz(__rbit64((-1 << v18) & ~*(v12 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_21:
+    *(v12 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
+    *(*(v5 + 48) + 8 * v20) = v16;
+    ++*(v5 + 16);
+    if (!v10)
     {
-      goto LABEL_9;
+      goto LABEL_7;
     }
   }
 
-  v22 = 0;
-  v23 = (63 - v18) >> 6;
-  while (++v20 != v23 || (v22 & 1) == 0)
+  v21 = 0;
+  v22 = (63 - v17) >> 6;
+  while (++v19 != v22 || (v21 & 1) == 0)
   {
-    v24 = v20 == v23;
-    if (v20 == v23)
+    v23 = v19 == v22;
+    if (v19 == v22)
     {
-      v20 = 0;
+      v19 = 0;
     }
 
-    v22 |= v24;
-    v25 = *(v13 + 8 * v20);
-    if (v25 != -1)
+    v21 |= v23;
+    v24 = *(v12 + 8 * v19);
+    if (v24 != -1)
     {
-      v21 = __clz(__rbit64(~v25)) + (v20 << 6);
-      goto LABEL_23;
+      v20 = __clz(__rbit64(~v24)) + (v19 << 6);
+      goto LABEL_21;
     }
   }
 
-LABEL_31:
+LABEL_29:
   __break(1u);
   return result;
 }
 
 {
-  v2 = v1;
-  v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
+  v2 = *v1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy9KoaMapper32RadioFrequencyRangeItemGeneratorVGMd, &_ss11_SetStorageCy9KoaMapper32RadioFrequencyRangeItemGeneratorVGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
-  if (!*(v3 + 16))
+  v4 = result;
+  if (!*(v2 + 16))
   {
-LABEL_29:
+LABEL_27:
 
-    *v2 = v6;
+    *v1 = v4;
     return result;
   }
 
-  v7 = 0;
-  v8 = (v3 + 56);
-  v9 = 1 << *(v3 + 32);
-  if (v9 < 64)
+  v5 = 0;
+  v6 = (v2 + 56);
+  v7 = 1 << *(v2 + 32);
+  if (v7 < 64)
   {
-    v10 = ~(-1 << v9);
+    v8 = ~(-1 << v7);
   }
 
   else
   {
-    v10 = -1;
+    v8 = -1;
   }
 
-  v11 = v10 & *(v3 + 56);
-  v12 = (v9 + 63) >> 6;
-  v13 = result + 56;
-  if (!v11)
+  v9 = v8 & *(v2 + 56);
+  v10 = (v7 + 63) >> 6;
+  v11 = result + 56;
+  if (!v9)
   {
-LABEL_9:
-    v15 = v7;
+LABEL_7:
+    v13 = v5;
     while (1)
     {
-      v7 = v15 + 1;
-      if (__OFADD__(v15, 1))
+      v5 = v13 + 1;
+      if (__OFADD__(v13, 1))
       {
         __break(1u);
-        goto LABEL_31;
+        goto LABEL_29;
       }
 
-      if (v7 >= v12)
+      if (v5 >= v10)
       {
         break;
       }
 
-      v16 = v8[v7];
-      ++v15;
-      if (v16)
+      v14 = v6[v5];
+      ++v13;
+      if (v14)
       {
-        v14 = __clz(__rbit64(v16));
-        v11 = (v16 - 1) & v16;
-        goto LABEL_14;
+        v12 = __clz(__rbit64(v14));
+        v9 = (v14 - 1) & v14;
+        goto LABEL_12;
       }
     }
 
-    v26 = 1 << *(v3 + 32);
-    if (v26 >= 64)
+    v23 = 1 << *(v2 + 32);
+    if (v23 >= 64)
     {
-      specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v26 + 63) >> 6, v3 + 56);
+      specialized UnsafeMutablePointer.assign(repeating:count:)(0, (v23 + 63) >> 6, v2 + 56);
     }
 
     else
     {
-      *v8 = -1 << v26;
+      *v6 = -1 << v23;
     }
 
-    *(v3 + 16) = 0;
-    goto LABEL_29;
+    *(v2 + 16) = 0;
+    goto LABEL_27;
   }
 
   while (1)
   {
-    v14 = __clz(__rbit64(v11));
-    v11 &= v11 - 1;
-LABEL_14:
-    v27 = *(*(v3 + 48) + 16 * (v14 | (v7 << 6)));
-    v17 = *(v6 + 40);
+    v12 = __clz(__rbit64(v9));
+    v9 &= v9 - 1;
+LABEL_12:
+    v24 = *(*(v2 + 48) + 16 * (v12 | (v5 << 6)));
     Hasher.init(_seed:)();
-    [v27 mediaSourceSemanticType];
+    [v24 mediaSourceSemanticType];
     CAFMediaSourceSemanticType.stringValue()();
     String.hash(into:)();
 
     result = Hasher._finalize()();
-    v18 = -1 << *(v6 + 32);
-    v19 = result & ~v18;
-    v20 = v19 >> 6;
-    if (((-1 << v19) & ~*(v13 + 8 * (v19 >> 6))) == 0)
+    v15 = -1 << *(v4 + 32);
+    v16 = result & ~v15;
+    v17 = v16 >> 6;
+    if (((-1 << v16) & ~*(v11 + 8 * (v16 >> 6))) == 0)
     {
       break;
     }
 
-    v21 = __clz(__rbit64((-1 << v19) & ~*(v13 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
-LABEL_23:
-    *(v13 + ((v21 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v21;
-    *(*(v6 + 48) + 16 * v21) = v27;
-    ++*(v6 + 16);
-    if (!v11)
+    v18 = __clz(__rbit64((-1 << v16) & ~*(v11 + 8 * (v16 >> 6)))) | v16 & 0x7FFFFFFFFFFFFFC0;
+LABEL_21:
+    *(v11 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
+    *(*(v4 + 48) + 16 * v18) = v24;
+    ++*(v4 + 16);
+    if (!v9)
     {
-      goto LABEL_9;
+      goto LABEL_7;
     }
   }
 
-  v22 = 0;
-  v23 = (63 - v18) >> 6;
-  while (++v20 != v23 || (v22 & 1) == 0)
+  v19 = 0;
+  v20 = (63 - v15) >> 6;
+  while (++v17 != v20 || (v19 & 1) == 0)
   {
-    v24 = v20 == v23;
-    if (v20 == v23)
+    v21 = v17 == v20;
+    if (v17 == v20)
     {
-      v20 = 0;
+      v17 = 0;
     }
 
-    v22 |= v24;
-    v25 = *(v13 + 8 * v20);
-    if (v25 != -1)
+    v19 |= v21;
+    v22 = *(v11 + 8 * v17);
+    if (v22 != -1)
     {
-      v21 = __clz(__rbit64(~v25)) + (v20 << 6);
-      goto LABEL_23;
+      v18 = __clz(__rbit64(~v22)) + (v17 << 6);
+      goto LABEL_21;
     }
   }
 
-LABEL_31:
+LABEL_29:
   __break(1u);
   return result;
 }
 
-unint64_t specialized _NativeSet._unsafeInsertNew(_:)(uint64_t a1, uint64_t a2)
+unint64_t specialized _NativeSet._unsafeInsertNew(_:)(uint64_t a1, void *a2)
 {
-  NSObject._rawHashValue(seed:)(*(a2 + 40));
-  v4 = -1 << *(a2 + 32);
+  NSObject._rawHashValue(seed:)(a2[5]);
   result = _HashTable.nextHole(atOrAfter:)();
-  *(a2 + 56 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << result;
-  *(*(a2 + 48) + 8 * result) = a1;
-  ++*(a2 + 16);
+  *(a2 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 56) |= 1 << result;
+  *(a2[6] + 8 * result) = a1;
+  ++a2[2];
   return result;
 }
 
@@ -4788,7 +4681,7 @@ unint64_t type metadata accessor for KVItem()
   return result;
 }
 
-Swift::Int specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, unint64_t a2, char a3)
+unint64_t specialized _NativeSet.insertNew(_:at:isUnique:)(unint64_t result, unint64_t a2, char a3)
 {
   v5 = result;
   v6 = *(*v3 + 16);
@@ -4855,100 +4748,94 @@ LABEL_15:
   return result;
 }
 
-Swift::Int specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, uint64_t a2, unint64_t a3, char a4)
+void specialized _NativeSet.insertNew(_:at:isUnique:)(Swift::Int result, uint64_t a2, unint64_t a3, char a4)
 {
   v6 = a2;
-  v25 = result;
   v7 = *(*v4 + 16);
   v8 = *(*v4 + 24);
   if (v8 <= v7 || (a4 & 1) == 0)
   {
     if (a4)
     {
-      v24 = a2;
+      v22 = a2;
       specialized _NativeSet.resize(capacity:)(v7 + 1);
       goto LABEL_8;
     }
 
     if (v8 <= v7)
     {
-      v24 = a2;
+      v22 = a2;
       specialized _NativeSet.copyAndResize(capacity:)(v7 + 1);
 LABEL_8:
-      v23 = v4;
+      v21 = v4;
       v9 = *v4;
-      v10 = *(*v4 + 40);
       Hasher.init(_seed:)();
-      [v25 mediaSourceSemanticType];
+      [result mediaSourceSemanticType];
       CAFMediaSourceSemanticType.stringValue()();
       String.hash(into:)();
 
-      result = Hasher._finalize()();
+      v10 = Hasher._finalize()();
       v11 = ~(-1 << *(v9 + 32));
       while (1)
       {
-        a3 = result & v11;
-        if (((*(v9 + 56 + (((result & v11) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (result & v11)) & 1) == 0)
+        a3 = v10 & v11;
+        if (((*(v9 + 56 + (((v10 & v11) >> 3) & 0xFFFFFFFFFFFFFF8)) >> (v10 & v11)) & 1) == 0)
         {
           break;
         }
 
-        v12 = *(v9 + 48) + 16 * a3;
-        v13 = *(v12 + 8);
-        v4 = *v12;
+        v4 = *(*(v9 + 48) + 16 * a3);
 
         [v4 mediaSourceSemanticType];
-        v14 = CAFMediaSourceSemanticType.stringValue()();
-        [v25 mediaSourceSemanticType];
-        v15 = CAFMediaSourceSemanticType.stringValue()();
-        if (v14._countAndFlagsBits == v15._countAndFlagsBits && v14._object == v15._object)
+        v12 = CAFMediaSourceSemanticType.stringValue()();
+        [result mediaSourceSemanticType];
+        v13 = CAFMediaSourceSemanticType.stringValue()();
+        if (v12._countAndFlagsBits == v13._countAndFlagsBits && v12._object == v13._object)
         {
           goto LABEL_20;
         }
 
-        v17 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if (v17)
+        if (v15)
         {
           goto LABEL_21;
         }
 
-        result = a3 + 1;
+        v10 = a3 + 1;
       }
 
-      v4 = v23;
-      v6 = v24;
+      v4 = v21;
+      v6 = v22;
       goto LABEL_17;
     }
 
-    result = specialized _NativeSet.copy()();
+    specialized _NativeSet.copy()();
   }
 
 LABEL_17:
-  v18 = *v4;
+  v16 = *v4;
   *(*v4 + 8 * (a3 >> 6) + 56) |= 1 << a3;
-  v19 = (*(v18 + 48) + 16 * a3);
-  *v19 = v25;
-  v19[1] = v6;
-  v20 = *(v18 + 16);
-  v21 = __OFADD__(v20, 1);
-  v22 = v20 + 1;
-  if (v21)
+  v17 = (*(v16 + 48) + 16 * a3);
+  *v17 = result;
+  v17[1] = v6;
+  v18 = *(v16 + 16);
+  v19 = __OFADD__(v18, 1);
+  v20 = v18 + 1;
+  if (v19)
   {
     __break(1u);
 LABEL_20:
 
 LABEL_21:
-    result = ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+    ELEMENT_TYPE_OF_SET_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
     __break(1u);
   }
 
   else
   {
-    *(v18 + 16) = v22;
+    *(v16 + 16) = v20;
   }
-
-  return result;
 }
 
 uint64_t specialized UnsafeMutablePointer.assign(repeating:count:)(uint64_t result, uint64_t a2, uint64_t a3)
@@ -5070,7 +4957,7 @@ LABEL_19:
   return result;
 }
 
-void *specialized _NativeSet.copy()()
+void specialized _NativeSet.copy()()
 {
   v1 = v0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy9KoaMapper32RadioFrequencyRangeItemGeneratorVGMd, &_ss11_SetStorageCy9KoaMapper32RadioFrequencyRangeItemGeneratorVGMR);
@@ -5079,11 +4966,11 @@ void *specialized _NativeSet.copy()()
   v4 = v3;
   if (*(v2 + 16))
   {
-    result = (v3 + 56);
+    v5 = (v3 + 56);
     v6 = ((1 << *(v4 + 32)) + 63) >> 6;
-    if (v4 != v2 || result >= v2 + 56 + 8 * v6)
+    if (v4 != v2 || v5 >= v2 + 56 + 8 * v6)
     {
-      result = memmove(result, (v2 + 56), 8 * v6);
+      memmove(v5, (v2 + 56), 8 * v6);
     }
 
     v8 = 0;
@@ -5147,115 +5034,108 @@ LABEL_19:
 
     *v1 = v4;
   }
-
-  return result;
 }
 
-uint64_t specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
+Swift::Int specialized _NativeSet.copyAndResize(capacity:)(uint64_t a1)
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCySo6KVItemCGMd, "b\b");
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v26 = v2;
-    v7 = 0;
-    v8 = 1 << *(v3 + 32);
-    if (v8 < 64)
+    v25 = v1;
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
     {
-      v9 = ~(-1 << v8);
+      v8 = ~(-1 << v7);
     }
 
     else
     {
-      v9 = -1;
+      v8 = -1;
     }
 
-    v10 = v9 & *(v3 + 56);
-    v11 = (v8 + 63) >> 6;
-    v12 = result + 56;
-    if (v10)
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    if (v9)
     {
       while (1)
       {
-        v13 = __clz(__rbit64(v10));
-        v10 &= v10 - 1;
-LABEL_14:
-        v16 = *(v6 + 40);
-        v17 = *(*(v3 + 48) + 8 * (v13 | (v7 << 6)));
-        result = NSObject._rawHashValue(seed:)(v16);
-        v18 = -1 << *(v6 + 32);
-        v19 = result & ~v18;
-        v20 = v19 >> 6;
-        if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
+        v12 = __clz(__rbit64(v9));
+        v9 &= v9 - 1;
+LABEL_12:
+        v15 = *(v5 + 40);
+        v16 = *(*(v3 + 48) + 8 * (v12 | (v6 << 6)));
+        result = NSObject._rawHashValue(seed:)(v15);
+        v17 = -1 << *(v5 + 32);
+        v18 = result & ~v17;
+        v19 = v18 >> 6;
+        if (((-1 << v18) & ~*(v11 + 8 * (v18 >> 6))) == 0)
         {
           break;
         }
 
-        v21 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
-LABEL_23:
-        *(v12 + ((v21 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v21;
-        *(*(v6 + 48) + 8 * v21) = v17;
-        ++*(v6 + 16);
-        if (!v10)
+        v20 = __clz(__rbit64((-1 << v18) & ~*(v11 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
+LABEL_21:
+        *(v11 + ((v20 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v20;
+        *(*(v5 + 48) + 8 * v20) = v16;
+        ++*(v5 + 16);
+        if (!v9)
         {
-          goto LABEL_9;
+          goto LABEL_7;
         }
       }
 
-      v22 = 0;
-      v23 = (63 - v18) >> 6;
-      while (++v20 != v23 || (v22 & 1) == 0)
+      v21 = 0;
+      v22 = (63 - v17) >> 6;
+      while (++v19 != v22 || (v21 & 1) == 0)
       {
-        v24 = v20 == v23;
-        if (v20 == v23)
+        v23 = v19 == v22;
+        if (v19 == v22)
         {
-          v20 = 0;
+          v19 = 0;
         }
 
-        v22 |= v24;
-        v25 = *(v12 + 8 * v20);
-        if (v25 != -1)
+        v21 |= v23;
+        v24 = *(v11 + 8 * v19);
+        if (v24 != -1)
         {
-          v21 = __clz(__rbit64(~v25)) + (v20 << 6);
-          goto LABEL_23;
+          v20 = __clz(__rbit64(~v24)) + (v19 << 6);
+          goto LABEL_21;
         }
       }
     }
 
     else
     {
-LABEL_9:
-      v14 = v7;
+LABEL_7:
+      v13 = v6;
       while (1)
       {
-        v7 = v14 + 1;
-        if (__OFADD__(v14, 1))
+        v6 = v13 + 1;
+        if (__OFADD__(v13, 1))
         {
           break;
         }
 
-        if (v7 >= v11)
+        if (v6 >= v10)
         {
 
-          v2 = v26;
-          goto LABEL_27;
+          v2 = v25;
+          goto LABEL_25;
         }
 
-        v15 = *(v3 + 56 + 8 * v7);
-        ++v14;
-        if (v15)
+        v14 = *(v3 + 56 + 8 * v6);
+        ++v13;
+        if (v14)
         {
-          v13 = __clz(__rbit64(v15));
-          v10 = (v15 - 1) & v15;
-          goto LABEL_14;
+          v12 = __clz(__rbit64(v14));
+          v9 = (v14 - 1) & v14;
+          goto LABEL_12;
         }
       }
 
@@ -5268,8 +5148,8 @@ LABEL_9:
   else
   {
 
-LABEL_27:
-    *v2 = v6;
+LABEL_25:
+    *v2 = v5;
   }
 
   return result;
@@ -5278,111 +5158,105 @@ LABEL_27:
 {
   v2 = v1;
   v3 = *v1;
-  if (*(*v1 + 24) > a1)
-  {
-    v4 = *(*v1 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy9KoaMapper32RadioFrequencyRangeItemGeneratorVGMd, &_ss11_SetStorageCy9KoaMapper32RadioFrequencyRangeItemGeneratorVGMR);
   result = static _SetStorage.resize(original:capacity:move:)();
-  v6 = result;
+  v5 = result;
   if (*(v3 + 16))
   {
-    v7 = 0;
-    v8 = 1 << *(v3 + 32);
-    if (v8 < 64)
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
+    if (v7 < 64)
     {
-      v9 = ~(-1 << v8);
+      v8 = ~(-1 << v7);
     }
 
     else
     {
-      v9 = -1;
+      v8 = -1;
     }
 
-    v10 = v9 & *(v3 + 56);
-    v11 = (v8 + 63) >> 6;
-    v12 = result + 56;
-    if (v10)
+    v9 = v8 & *(v3 + 56);
+    v10 = (v7 + 63) >> 6;
+    v11 = result + 56;
+    if (v9)
     {
       while (1)
       {
-        v13 = __clz(__rbit64(v10));
-        v10 &= v10 - 1;
-LABEL_14:
-        v26 = *(*(v3 + 48) + 16 * (v13 | (v7 << 6)));
-        v16 = *(v6 + 40);
+        v12 = __clz(__rbit64(v9));
+        v9 &= v9 - 1;
+LABEL_12:
+        v24 = *(*(v3 + 48) + 16 * (v12 | (v6 << 6)));
         Hasher.init(_seed:)();
-        v17 = v26;
+        v15 = v24;
 
-        [v17 mediaSourceSemanticType];
+        [v15 mediaSourceSemanticType];
         CAFMediaSourceSemanticType.stringValue()();
         String.hash(into:)();
 
         result = Hasher._finalize()();
-        v18 = -1 << *(v6 + 32);
-        v19 = result & ~v18;
-        v20 = v19 >> 6;
-        if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
+        v16 = -1 << *(v5 + 32);
+        v17 = result & ~v16;
+        v18 = v17 >> 6;
+        if (((-1 << v17) & ~*(v11 + 8 * (v17 >> 6))) == 0)
         {
           break;
         }
 
-        v21 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
-LABEL_23:
-        *(v12 + ((v21 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v21;
-        *(*(v6 + 48) + 16 * v21) = v26;
-        ++*(v6 + 16);
-        if (!v10)
+        v19 = __clz(__rbit64((-1 << v17) & ~*(v11 + 8 * (v17 >> 6)))) | v17 & 0x7FFFFFFFFFFFFFC0;
+LABEL_21:
+        *(v11 + ((v19 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v19;
+        *(*(v5 + 48) + 16 * v19) = v24;
+        ++*(v5 + 16);
+        if (!v9)
         {
-          goto LABEL_9;
+          goto LABEL_7;
         }
       }
 
-      v22 = 0;
-      v23 = (63 - v18) >> 6;
-      while (++v20 != v23 || (v22 & 1) == 0)
+      v20 = 0;
+      v21 = (63 - v16) >> 6;
+      while (++v18 != v21 || (v20 & 1) == 0)
       {
-        v24 = v20 == v23;
-        if (v20 == v23)
+        v22 = v18 == v21;
+        if (v18 == v21)
         {
-          v20 = 0;
+          v18 = 0;
         }
 
-        v22 |= v24;
-        v25 = *(v12 + 8 * v20);
-        if (v25 != -1)
+        v20 |= v22;
+        v23 = *(v11 + 8 * v18);
+        if (v23 != -1)
         {
-          v21 = __clz(__rbit64(~v25)) + (v20 << 6);
-          goto LABEL_23;
+          v19 = __clz(__rbit64(~v23)) + (v18 << 6);
+          goto LABEL_21;
         }
       }
     }
 
     else
     {
-LABEL_9:
-      v14 = v7;
+LABEL_7:
+      v13 = v6;
       while (1)
       {
-        v7 = v14 + 1;
-        if (__OFADD__(v14, 1))
+        v6 = v13 + 1;
+        if (__OFADD__(v13, 1))
         {
           break;
         }
 
-        if (v7 >= v11)
+        if (v6 >= v10)
         {
-          goto LABEL_25;
+          goto LABEL_23;
         }
 
-        v15 = *(v3 + 56 + 8 * v7);
-        ++v14;
-        if (v15)
+        v14 = *(v3 + 56 + 8 * v6);
+        ++v13;
+        if (v14)
         {
-          v13 = __clz(__rbit64(v15));
-          v10 = (v15 - 1) & v15;
-          goto LABEL_14;
+          v12 = __clz(__rbit64(v14));
+          v9 = (v14 - 1) & v14;
+          goto LABEL_12;
         }
       }
 
@@ -5394,15 +5268,15 @@ LABEL_9:
 
   else
   {
-LABEL_25:
+LABEL_23:
 
-    *v2 = v6;
+    *v2 = v5;
   }
 
   return result;
 }
 
-uint64_t RadioFrequencyRangeItemGenerator.description.getter(void *a1, uint64_t a2)
+void RadioFrequencyRangeItemGenerator.description.getter(void *a1, uint64_t a2)
 {
   _StringGuts.grow(_:)(48);
 
@@ -5417,36 +5291,36 @@ uint64_t RadioFrequencyRangeItemGenerator.description.getter(void *a1, uint64_t 
     __CocoaSet.makeIterator()();
     type metadata accessor for KVItem();
     lazy protocol witness table accessor for type KVItem and conformance NSObject();
-    result = Set.Iterator.init(_cocoa:)();
+    Set.Iterator.init(_cocoa:)();
     a2 = 0x206F6964617223;
-    v6 = 0xE700000000000000;
+    v5 = 0xE700000000000000;
+    v6 = v23;
     v7 = v24;
     v8 = v25;
-    v9 = v26;
   }
 
   else
   {
-    v10 = -1 << *(a2 + 32);
-    v6 = a2 + 56;
-    v7 = ~v10;
-    v11 = -v10;
-    if (v11 < 64)
+    v9 = -1 << *(a2 + 32);
+    v5 = a2 + 56;
+    v6 = ~v9;
+    v10 = -v9;
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v9 = v12 & *(a2 + 56);
+    v8 = v11 & *(a2 + 56);
 
-    v8 = 0;
+    v7 = 0;
   }
 
-  v13 = (v7 + 64) >> 6;
+  v12 = (v6 + 64) >> 6;
   if (a2 < 0)
   {
     goto LABEL_14;
@@ -5454,37 +5328,37 @@ uint64_t RadioFrequencyRangeItemGenerator.description.getter(void *a1, uint64_t 
 
   while (1)
   {
+    v13 = v7;
     v14 = v8;
-    v15 = v9;
-    v16 = v8;
-    if (!v9)
+    v15 = v7;
+    if (!v8)
     {
       break;
     }
 
 LABEL_12:
-    v17 = (v15 - 1) & v15;
-    v18 = *(*(a2 + 48) + ((v16 << 9) | (8 * __clz(__rbit64(v15)))));
-    if (!v18)
+    v16 = (v14 - 1) & v14;
+    v17 = *(*(a2 + 48) + ((v15 << 9) | (8 * __clz(__rbit64(v14)))));
+    if (!v17)
     {
 LABEL_18:
-      outlined consume of Set<AnyCancellable>.Iterator._Variant();
-      return 0x206F6964617223;
+      outlined consume of Set<AnyCancellable>.Iterator._Variant(a2);
+      return;
     }
 
     while (1)
     {
-      v23 = 9;
-      v19 = [v18 description];
-      v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v22 = v21;
+      v22 = 9;
+      v18 = [v17 description];
+      v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v21 = v20;
 
-      MEMORY[0x259C459E0](v20, v22);
+      MEMORY[0x259C459E0](v19, v21);
 
       MEMORY[0x259C459E0](9, 0xE100000000000000);
 
+      v7 = v15;
       v8 = v16;
-      v9 = v17;
       if ((a2 & 0x8000000000000000) == 0)
       {
         break;
@@ -5495,10 +5369,10 @@ LABEL_14:
       {
         type metadata accessor for KVItem();
         swift_dynamicCast();
-        v18 = v23;
+        v17 = v22;
+        v15 = v7;
         v16 = v8;
-        v17 = v9;
-        if (v23)
+        if (v22)
         {
           continue;
         }
@@ -5510,27 +5384,26 @@ LABEL_14:
 
   while (1)
   {
-    v16 = v14 + 1;
-    if (__OFADD__(v14, 1))
+    v15 = v13 + 1;
+    if (__OFADD__(v13, 1))
     {
       break;
     }
 
-    if (v16 >= v13)
+    if (v15 >= v12)
     {
       goto LABEL_18;
     }
 
-    v15 = *(v6 + 8 * v16);
-    ++v14;
-    if (v15)
+    v14 = *(v5 + 8 * v15);
+    ++v13;
+    if (v14)
     {
       goto LABEL_12;
     }
   }
 
   __break(1u);
-  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type KVItem and conformance NSObject()
@@ -5558,7 +5431,6 @@ id RadioFrequencyRangeItemGenerator.init(mediaSource:)(void *a1)
 
 uint64_t RadioFrequencyRangeItemGenerator.generatedItems.setter(uint64_t a1)
 {
-  v3 = *(v1 + 8);
 
   *(v1 + 8) = a1;
   return result;
@@ -5705,17 +5577,16 @@ LABEL_7:
 
 uint64_t RadioFrequencyRangeItemGenerator.kvItemsFromFrequencyStrings(_:mediaSourceSemanticType:)(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   result = MEMORY[0x277D84FA0];
-  v30 = MEMORY[0x277D84FA0];
+  v29 = MEMORY[0x277D84FA0];
   v3 = *(a1 + 16);
   if (v3)
   {
-    v4 = (a1 + 40);
-    while (1)
+    for (i = (a1 + 40); ; i += 2)
     {
-      v6 = *(v4 - 1);
-      v5 = *v4;
+      v6 = *(i - 1);
+      v5 = *i;
       v7 = objc_allocWithZone(MEMORY[0x277D22D28]);
 
       v8 = [v7 init];
@@ -5784,11 +5655,9 @@ LABEL_14:
       specialized Set._Variant.insert(_:)(__src, v21);
 
 LABEL_15:
-      v4 += 2;
       if (!--v3)
       {
-        result = v30;
-        goto LABEL_17;
+        return v29;
       }
     }
 
@@ -5801,8 +5670,6 @@ LABEL_15:
     goto LABEL_14;
   }
 
-LABEL_17:
-  v28 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5843,7 +5710,7 @@ LABEL_17:
   Float.description.getter();
 }
 
-uint64_t RadioFrequencyRangeItemGenerator.itemIDFrom(semanticType:frequency:)()
+uint64_t RadioFrequencyRangeItemGenerator.itemIDFrom(semanticType:frequency:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Hasher.init()();
   CAFMediaSourceSemanticType.stringValue()();
@@ -5854,7 +5721,7 @@ uint64_t RadioFrequencyRangeItemGenerator.itemIDFrom(semanticType:frequency:)()
   return dispatch thunk of CustomStringConvertible.description.getter();
 }
 
-uint64_t RadioFrequencyRangeItemGenerator.hash(into:)(int a1, id a2)
+uint64_t RadioFrequencyRangeItemGenerator.hash(into:)(uint64_t a1, id a2)
 {
   [a2 mediaSourceSemanticType];
   CAFMediaSourceSemanticType.stringValue()();
@@ -5890,11 +5757,11 @@ Swift::Int RadioFrequencyRangeItemGenerator.hashValue.getter(void *a1)
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance RadioFrequencyRangeItemGenerator()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance RadioFrequencyRangeItemGenerator(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  RadioFrequencyRangeItemGenerator.hash(into:)(&v3, v1);
+  RadioFrequencyRangeItemGenerator.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -5996,147 +5863,141 @@ Swift::Int ProviderError.hashValue.getter(unsigned __int8 a1)
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ProviderError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ProviderError(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  ProviderError.hash(into:)(v3, v1);
+  ProviderError.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
 uint64_t KMFindMySyncDevicesProvider.getSyncDevices()()
 {
   v1 = v0;
-  v70 = type metadata accessor for DispatchTimeInterval();
-  v2 = OUTLINED_FUNCTION_0(v70);
-  v64 = v3;
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v2);
+  v60 = type metadata accessor for DispatchTimeInterval();
+  OUTLINED_FUNCTION_0();
+  v54 = v2;
+  MEMORY[0x28223BE20](v3);
   OUTLINED_FUNCTION_13();
-  v61 = (v7 - v6);
-  v66 = type metadata accessor for DispatchTime();
-  v8 = OUTLINED_FUNCTION_0(v66);
-  v63 = v9;
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x28223BE20](v8);
-  v59 = v53 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v60 = v53 - v14;
-  v15 = type metadata accessor for DispatchWorkItemFlags();
-  v16 = OUTLINED_FUNCTION_0(v15);
-  v58 = v17;
-  v19 = *(v18 + 64);
-  MEMORY[0x28223BE20](v16);
+  v51 = (v5 - v4);
+  v56 = type metadata accessor for DispatchTime();
+  OUTLINED_FUNCTION_0();
+  v53 = v6;
+  v8 = MEMORY[0x28223BE20](v7);
+  v49 = v43 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v50 = v43 - v10;
+  v11 = type metadata accessor for DispatchWorkItemFlags();
+  OUTLINED_FUNCTION_0();
+  v48 = v12;
+  MEMORY[0x28223BE20](v13);
   OUTLINED_FUNCTION_13();
-  v22 = v21 - v20;
-  v23 = type metadata accessor for DispatchQoS();
-  v24 = OUTLINED_FUNCTION_0(v23);
-  v56 = v25;
-  v57 = v24;
-  v27 = *(v26 + 64);
-  MEMORY[0x28223BE20](v24);
+  v16 = v15 - v14;
+  type metadata accessor for DispatchQoS();
+  OUTLINED_FUNCTION_0();
+  v46 = v18;
+  v47 = v17;
+  MEMORY[0x28223BE20](v17);
   OUTLINED_FUNCTION_13();
-  v30 = v29 - v28;
-  v31 = dispatch_semaphore_create(0);
-  v32 = swift_allocObject();
-  *(v32 + 16) = MEMORY[0x277D84F90];
-  v53[0] = v32 + 16;
-  v33 = swift_allocObject();
-  *(v33 + 16) = 0;
-  v34 = *&v0[OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_syncDeviceProvider];
+  v21 = v20 - v19;
+  v22 = dispatch_semaphore_create(0);
+  v23 = swift_allocObject();
+  *(v23 + 16) = MEMORY[0x277D84F90];
+  v43[0] = v23 + 16;
+  v24 = swift_allocObject();
+  *(v24 + 16) = 0;
   dispatch thunk of CachingSyncDeviceProvider.evictCache()();
-  v35 = swift_allocObject();
-  *(v35 + 16) = 3;
-  v54 = (v35 + 16);
-  v55 = *&v1[OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_queue];
-  v36 = swift_allocObject();
-  v36[2] = v1;
-  v36[3] = v35;
-  v36[4] = v33;
-  v36[5] = v32;
-  v36[6] = v31;
+  v25 = swift_allocObject();
+  *(v25 + 16) = 3;
+  v44 = (v25 + 16);
+  v45 = *&v1[OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_queue];
+  v26 = swift_allocObject();
+  v26[2] = v1;
+  v26[3] = v25;
+  v26[4] = v24;
+  v26[5] = v23;
+  v26[6] = v22;
   aBlock[4] = partial apply for closure #1 in KMFindMySyncDevicesProvider.getSyncDevices();
-  aBlock[5] = v36;
+  aBlock[5] = v26;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_0;
-  v37 = _Block_copy(aBlock);
-  v38 = v1;
-  v62 = v35;
+  v27 = _Block_copy(aBlock);
+  v28 = v1;
+  v52 = v25;
 
-  v65 = v33;
+  v55 = v24;
 
-  v67 = v32;
+  v57 = v23;
 
-  v39 = v31;
+  v29 = v22;
   static DispatchQoS.unspecified.getter();
-  v68 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+  v58 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   _sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWlTm_0(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x259C45AE0](0, v30, v22, v37);
-  v40 = v39;
-  _Block_release(v37);
-  (*(v58 + 8))(v22, v15);
-  (*(v56 + 8))(v30, v57);
+  MEMORY[0x259C45AE0](0, v21, v16, v27);
+  v30 = v29;
+  _Block_release(v27);
+  (*(v48 + 8))(v16, v11);
+  (*(v46 + 8))(v21, v47);
 
-  v41 = v59;
+  v31 = v49;
   static DispatchTime.now()();
-  v42 = v61;
-  *v61 = 10;
-  v43 = v64;
-  v44 = v70;
-  (*(v64 + 104))(v42, *MEMORY[0x277D85188], v70);
-  v45 = v60;
-  MEMORY[0x259C45960](v41, v42);
-  (*(v43 + 8))(v42, v44);
-  v46 = *(v63 + 8);
-  v47 = v41;
-  v48 = v66;
-  v46(v47, v66);
-  LOBYTE(v44) = MEMORY[0x259C45B00](v45);
-  v46(v45, v48);
-  if (v44)
+  v32 = v51;
+  *v51 = 10;
+  v33 = v54;
+  v34 = v60;
+  (*(v54 + 104))(v32, *MEMORY[0x277D85188], v60);
+  v35 = v50;
+  MEMORY[0x259C45960](v31, v32);
+  (*(v33 + 8))(v32, v34);
+  v36 = *(v53 + 8);
+  v37 = v31;
+  v38 = v56;
+  v36(v37, v56);
+  LOBYTE(v34) = MEMORY[0x259C45B00](v35);
+  v36(v35, v38);
+  if (v34)
   {
-    v49 = 1;
+    v39 = 1;
 LABEL_5:
     lazy protocol witness table accessor for type ProviderError and conformance ProviderError();
     swift_allocError();
-    *v51 = v49;
+    *v41 = v39;
     swift_willThrow();
 
-    return v49;
+    return v39;
   }
 
-  v50 = v54;
+  v40 = v44;
   swift_beginAccess();
-  v49 = *v50;
-  if (v49 != 3)
+  v39 = *v40;
+  if (v39 != 3)
   {
     goto LABEL_5;
   }
 
   swift_beginAccess();
-  v49 = *(v67 + 16);
+  v39 = *(v57 + 16);
 
-  return v49;
+  return v39;
 }
 
-uint64_t closure #1 in KMFindMySyncDevicesProvider.getSyncDevices()(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t closure #1 in KMFindMySyncDevicesProvider.getSyncDevices()(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v10 = *&a1[OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_syncDeviceProvider];
-  v11 = swift_allocObject();
-  v11[2] = a2;
-  v11[3] = a3;
-  v11[4] = a1;
-  v11[5] = a4;
-  v11[6] = a5;
+  v10 = swift_allocObject();
+  v10[2] = a2;
+  v10[3] = a3;
+  v10[4] = a1;
+  v10[5] = a4;
+  v10[6] = a5;
 
-  v12 = a1;
+  v11 = a1;
 
-  v13 = a5;
+  v12 = a5;
   dispatch thunk of CachingSyncDeviceProvider.syncDevices(_:)();
 }
 
@@ -6172,86 +6033,81 @@ unint64_t lazy protocol witness table accessor for type ProviderError and confor
 
 uint64_t closure #1 in closure #1 in KMFindMySyncDevicesProvider.getSyncDevices()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v36 = a5;
-  v37 = a6;
-  v41 = a4;
-  v42 = a3;
+  v31 = a5;
+  v32 = a6;
+  v36 = a4;
+  v37 = a3;
   v8 = type metadata accessor for SyncDevice();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x28223BE20](v8);
-  v12 = &v32 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for SFMSyncDeviceData();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x28223BE20](v13);
-  v17 = &v32 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy10SiriFindMy17SFMSyncDeviceDataVs5Error_pGMd, &_ss6ResultOy10SiriFindMy17SFMSyncDeviceDataVs5Error_pGMR);
-  v19 = *(*(v18 - 8) + 64);
-  MEMORY[0x28223BE20](v18);
-  v21 = &v32 - v20;
-  outlined init with copy of Result<SFMSyncDeviceData, Error>(a1, &v32 - v20);
+  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for SFMSyncDeviceData();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12);
+  v15 = &v27 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOy10SiriFindMy17SFMSyncDeviceDataVs5Error_pGMd, &_ss6ResultOy10SiriFindMy17SFMSyncDeviceDataVs5Error_pGMR);
+  MEMORY[0x28223BE20](v16);
+  v18 = &v27 - v17;
+  outlined init with copy of Result<SFMSyncDeviceData, Error>(a1, &v27 - v17);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    outlined destroy of Result<SFMSyncDeviceData, Error>(v21);
+    outlined destroy of Result<SFMSyncDeviceData, Error>(v18);
     swift_beginAccess();
     *(a2 + 16) = 2;
     return OS_dispatch_semaphore.signal()();
   }
 
-  (*(v14 + 32))(v17, v21, v13);
-  v22 = SFMSyncDeviceData.syncDevices.getter();
-  v23 = *(v22 + 16);
-  if (!v23)
+  (*(v13 + 32))(v15, v18, v12);
+  v19 = SFMSyncDeviceData.syncDevices.getter();
+  v20 = *(v19 + 16);
+  if (!v20)
   {
 
-    (*(v14 + 8))(v17, v13);
-    v29 = MEMORY[0x277D84F90];
+    (*(v13 + 8))(v15, v12);
+    v25 = MEMORY[0x277D84F90];
 LABEL_10:
-    v30 = v36;
+    v26 = v31;
     swift_beginAccess();
-    v31 = *(v30 + 16);
-    *(v30 + 16) = v29;
+    *(v26 + 16) = v25;
 
     return OS_dispatch_semaphore.signal()();
   }
 
-  v33 = v17;
-  v34 = v14;
-  v35 = v13;
-  v32 = a2;
-  v43 = MEMORY[0x277D84F90];
-  v38 = v23;
+  v28 = v15;
+  v29 = v13;
+  v30 = v12;
+  v27 = a2;
+  v38[0] = MEMORY[0x277D84F90];
+  v33 = v20;
   specialized ContiguousArray.reserveCapacity(_:)();
-  v39 = v22 + ((*(v9 + 80) + 32) & ~*(v9 + 80));
-  v40 = v22;
-  v24 = v42;
+  v34 = v19 + ((*(v9 + 80) + 32) & ~*(v9 + 80));
+  v35 = v19;
+  v21 = v37;
   result = swift_beginAccess();
-  v26 = 0;
-  while (v26 < *(v40 + 16))
+  v23 = 0;
+  while (v23 < *(v35 + 16))
   {
-    result = (*(v9 + 16))(v12, v39 + *(v9 + 72) * v26, v8);
-    v27 = *(v24 + 16);
-    if (v27 == -1)
+    result = (*(v9 + 16))(v11, v34 + *(v9 + 72) * v23, v8);
+    v24 = *(v21 + 16);
+    if (v24 == -1)
     {
       goto LABEL_13;
     }
 
-    *(v24 + 16) = v27 + 1;
+    *(v21 + 16) = v24 + 1;
     KMFindMySyncDevicesProvider.itemFrom(syncDevice:itemCount:)();
-    ++v26;
-    (*(v9 + 8))(v12, v8);
+    ++v23;
+    (*(v9 + 8))(v11, v8);
     specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-    v28 = *(v43 + 16);
     specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
-    v24 = v42;
+    v21 = v37;
     specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
     result = specialized ContiguousArray._endMutation()();
-    if (v38 == v26)
+    if (v33 == v23)
     {
-      (*(v34 + 8))(v33, v35);
+      (*(v29 + 8))(v28, v30);
 
-      v29 = v43;
+      v25 = v38[0];
       goto LABEL_10;
     }
   }
@@ -6264,25 +6120,25 @@ LABEL_13:
 
 id KMFindMySyncDevicesProvider.itemFrom(syncDevice:itemCount:)()
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v1 = *(v0 + OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_itemBuilder);
   v2 = dispatch thunk of CustomStringConvertible.description.getter();
   v3 = MEMORY[0x259C459A0](v2);
 
-  v26[0] = 0;
-  v4 = [v1 setItemType:21 itemId:v3 error:v26];
+  v25[0] = 0;
+  v4 = [v1 setItemType:21 itemId:v3 error:v25];
 
   if (!v4)
   {
     goto LABEL_5;
   }
 
-  v5 = v26[0];
+  v5 = v25[0];
 
   v6 = SyncDevice.name.getter();
-  v26[0] = 0;
-  v8 = outlined bridged method (mnbnnn) of @objc KVItemBuilder.addField(type:value:)(950, v6, v7, v26, v1);
-  v9 = v26[0];
+  v25[0] = 0;
+  v8 = outlined bridged method (mnbnnn) of @objc KVItemBuilder.addField(type:value:)(950, v6, v7, v25, v1);
+  v9 = v25[0];
   if (!v8)
   {
     v13 = v9;
@@ -6300,16 +6156,16 @@ id KMFindMySyncDevicesProvider.itemFrom(syncDevice:itemCount:)()
     v12 = 0;
   }
 
-  v26[0] = 0;
-  v14 = [v1 addFieldWithType:951 value:v12 error:v26];
+  v25[0] = 0;
+  v14 = [v1 addFieldWithType:951 value:v12 error:v25];
 
-  v13 = v26[0];
+  v13 = v25[0];
   if (!v14)
   {
     goto LABEL_16;
   }
 
-  v15 = v26[0];
+  v15 = v25[0];
 
   v16 = SyncDevice.ownerLastName.getter();
   if (v17)
@@ -6322,10 +6178,10 @@ id KMFindMySyncDevicesProvider.itemFrom(syncDevice:itemCount:)()
     v18 = 0;
   }
 
-  v26[0] = 0;
-  v19 = [v1 addFieldWithType:952 value:v18 error:v26];
+  v25[0] = 0;
+  v19 = [v1 addFieldWithType:952 value:v18 error:v25];
 
-  v13 = v26[0];
+  v13 = v25[0];
   if (!v19)
   {
 LABEL_16:
@@ -6335,26 +6191,24 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v20 = v26[0];
+  v20 = v25[0];
 
-  v26[0] = 0;
+  v25[0] = 0;
   v21 = [v1 buildItemWithError_];
   if (!v21)
   {
 LABEL_5:
-    v13 = v26[0];
+    v13 = v25[0];
 LABEL_7:
     _convertNSErrorToError(_:)();
 
 LABEL_17:
     swift_willThrow();
-    goto LABEL_18;
+    return v13;
   }
 
   v13 = v21;
-  v22 = v26[0];
-LABEL_18:
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = v25[0];
   return v13;
 }
 
@@ -6368,42 +6222,39 @@ id KMFindMySyncDevicesProvider.__allocating_init()()
 id KMFindMySyncDevicesProvider.init()()
 {
   v1 = v0;
-  v18 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v2 = OUTLINED_FUNCTION_0(v18);
-  v4 = v3;
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v2);
+  v14 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  OUTLINED_FUNCTION_0();
+  v3 = v2;
+  MEMORY[0x28223BE20](v4);
   OUTLINED_FUNCTION_13();
-  v9 = v8 - v7;
-  v10 = type metadata accessor for OS_dispatch_queue.Attributes();
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10);
+  v7 = v6 - v5;
+  v8 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x28223BE20](v8);
   OUTLINED_FUNCTION_13();
-  v12 = type metadata accessor for DispatchQoS();
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
+  v9 = type metadata accessor for DispatchQoS();
+  MEMORY[0x28223BE20](v9 - 8);
   OUTLINED_FUNCTION_13();
-  v17 = OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_queue;
+  v13 = OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_queue;
   type metadata accessor for OS_dispatch_queue(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
   static DispatchQoS.unspecified.getter();
-  v20 = MEMORY[0x277D84F90];
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230]);
+  v16 = MEMORY[0x277D84F90];
+  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(&lazy protocol witness table cache variable for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes, MEMORY[0x277D85230], MEMORY[0x277D85238]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   _sSay8Dispatch0A13WorkItemFlagsVGSayxGSTsWlTm_0(&lazy protocol witness table cache variable for type [OS_dispatch_queue.Attributes] and conformance [A], &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v4 + 104))(v9, *MEMORY[0x277D85260], v18);
-  *&v0[v17] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  v14 = OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_syncDeviceProvider;
+  (*(v3 + 104))(v7, *MEMORY[0x277D85260], v14);
+  *&v0[v13] = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  v10 = OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_syncDeviceProvider;
   type metadata accessor for CachingSyncDeviceProvider();
-  *&v0[v14] = CachingSyncDeviceProvider.__allocating_init()();
-  v15 = OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_itemBuilder;
-  *&v1[v15] = [objc_allocWithZone(MEMORY[0x277D22D28]) init];
-  v19.receiver = v1;
-  v19.super_class = type metadata accessor for KMFindMySyncDevicesProvider();
-  return objc_msgSendSuper2(&v19, sel_init);
+  *&v0[v10] = CachingSyncDeviceProvider.__allocating_init()();
+  v11 = OBJC_IVAR____TtC9KoaMapper27KMFindMySyncDevicesProvider_itemBuilder;
+  *&v1[v11] = [objc_allocWithZone(MEMORY[0x277D22D28]) init];
+  v15.receiver = v1;
+  v15.super_class = type metadata accessor for KMFindMySyncDevicesProvider();
+  return objc_msgSendSuper2(&v15, sel_init);
 }
 
-uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6643,7 +6494,7 @@ uint64_t *OS_os_log.kmLog.unsafeMutableAddressor()
 {
   if (one-time initialization token for kmLog != -1)
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&one-time initialization token for kmLog);
   }
 
   return &static OS_os_log.kmLog;
@@ -6653,7 +6504,7 @@ id static OS_os_log.kmLog.getter()
 {
   if (one-time initialization token for kmLog != -1)
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&one-time initialization token for kmLog);
   }
 
   v1 = static OS_os_log.kmLog;
@@ -6668,7 +6519,7 @@ uint64_t one-time initialization function for Log()
   __swift_project_value_buffer(v0, Log);
   if (one-time initialization token for kmLog != -1)
   {
-    OUTLINED_FUNCTION_0_2();
+    OUTLINED_FUNCTION_0_2(&one-time initialization token for kmLog);
   }
 
   v1 = static OS_os_log.kmLog;
@@ -6690,20 +6541,17 @@ unint64_t type metadata accessor for OS_os_log()
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
 }
 
-uint64_t OUTLINED_FUNCTION_0_2()
+uint64_t OUTLINED_FUNCTION_0_2(uint64_t a1)
 {
 
   return swift_once();
@@ -6760,14 +6608,14 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2559F02A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2559F02A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6780,12 +6628,13 @@ uint64_t __Block_byref_object_copy__221(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2559F14F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_2559F14F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
+  va_start(va, a29);
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a24, 8);
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v30 - 136), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 136), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6816,25 +6665,25 @@ uint64_t _isDefaultLabel(void *a1)
 
 void KMMapperSetBuilderError(uint64_t a1, void *a2)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
   v3 = *MEMORY[0x277CCA7E8];
-  v9[0] = *MEMORY[0x277CCA068];
-  v9[1] = v3;
-  v10[0] = @"Encountered error building item";
-  v10[1] = a2;
+  v8[0] = *MEMORY[0x277CCA068];
+  v8[1] = v3;
+  v9[0] = @"Encountered error building item";
+  v9[1] = a2;
   v4 = MEMORY[0x277CBEAC0];
   v5 = a2;
-  v6 = [v4 dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v6 = [v4 dictionaryWithObjects:v9 forKeys:v8 count:2];
   v7 = [v2 errorWithDomain:@"com.apple.siri.koa.mapper" code:6 userInfo:v6];
 
   KVSetError();
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void sub_2559F4024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_2559F4024(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a20, 8);
   _Unwind_Resume(a1);
 }
@@ -6846,9 +6695,9 @@ uint64_t __Block_byref_object_copy__857(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2559F63E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2559F63E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6865,7 +6714,7 @@ Class __getHMMutableHomeManagerConfigurationClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("Unable to find class %s", "HMMutableHomeManagerConfiguration");
     return __getHMHomeManagerClass_block_invoke(v3);
   }
 
@@ -6883,61 +6732,55 @@ void __getHMHomeManagerClass_block_invoke(uint64_t a1)
 
   else
   {
-    abort_report_np();
+    abort_report_np("Unable to find class %s", "HMHomeManager");
     HomeKitLibrary();
   }
 }
 
 void HomeKitLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!HomeKitLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __HomeKitLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_279805C18;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __HomeKitLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_279805C18;
+    v3 = 0;
     HomeKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v0 = v2[0];
+    v0 = v1[0];
     if (HomeKitLibraryCore_frameworkLibrary)
     {
-      if (!v2[0])
+      if (!v1[0])
       {
-        goto LABEL_4;
+        return;
       }
     }
 
     else
     {
-      v0 = abort_report_np();
+      v0 = abort_report_np("%s", v1[0]);
     }
 
     free(v0);
   }
-
-LABEL_4:
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __HomeKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   HomeKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_2559F8460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2559F8460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6948,16 +6791,16 @@ uint64_t __Block_byref_object_copy__1422(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2559FB700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2559FB700(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6970,11 +6813,11 @@ uint64_t __Block_byref_object_copy__1714(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2559FD1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2559FD1DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 

@@ -31,18 +31,16 @@
 
 - (void)activate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   [(BMXPCListener *)self->_listener activate];
   v3 = __biome_log_for_category();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     listener = self->_listener;
-    v6 = 138412290;
-    v7 = listener;
-    _os_log_impl(&dword_1B6DB2000, v3, OS_LOG_TYPE_DEFAULT, "CCSetChangeRelayServer activated with listener: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = listener;
+    _os_log_impl(&dword_1B6DB2000, v3, OS_LOG_TYPE_DEFAULT, "CCSetChangeRelayServer activated with listener: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
@@ -95,33 +93,28 @@
 
 - (void)listener:(void *)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v4 = [a1 executableName];
   [a1 pid];
   OUTLINED_FUNCTION_0_6();
-  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "CCSetChangeRelayServer received new connection request from %@(%d)", v6, 0x12u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "CCSetChangeRelayServer received new connection request from %@(%d)", v5, 0x12u);
 }
 
 - (void)listener:(void *)a1 shouldAcceptNewConnection:(NSObject *)a2 .cold.2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v4 = [a1 executableName];
   [a1 pid];
   OUTLINED_FUNCTION_0_6();
-  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "CCSetChangeRelayServer refusing connection from %{public}@(%d), process is not SetStoreUpdateService", v6, 0x12u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "CCSetChangeRelayServer refusing connection from %{public}@(%d), process is not SetStoreUpdateService", v5, 0x12u);
 }
 
 - (void)notifyChangeToSet:(uint64_t)a1 completion:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "CCSetChangeRelayServer notifying change to Set: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_DEBUG, "CCSetChangeRelayServer notifying change to Set: %@", &v2, 0xCu);
 }
 
 @end

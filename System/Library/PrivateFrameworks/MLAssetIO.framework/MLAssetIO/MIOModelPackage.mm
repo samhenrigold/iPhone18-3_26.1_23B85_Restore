@@ -8,7 +8,7 @@
 
 + (id)upgradeModelSpecificationAtURL:(id)l toURL:(id)rL error:(id *)error
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -59,7 +59,7 @@
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       path3 = [v16 path];
-      +[MIOModelPackage upgradeModelSpecificationAtURL:toURL:error:].cold.2([path3 UTF8String], v41, path3);
+      +[MIOModelPackage upgradeModelSpecificationAtURL:toURL:error:].cold.2([path3 UTF8String], v40, path3);
     }
 
     if (!error)
@@ -68,13 +68,13 @@
     }
 
     v20 = MEMORY[0x1E696ABC0];
-    v37 = *MEMORY[0x1E696A578];
+    v36 = *MEMORY[0x1E696A578];
     v21 = MEMORY[0x1E696AEC0];
     path4 = [v16 path];
     v23 = path4;
     v24 = [v21 stringWithFormat:@"Model package already exists at %s", objc_msgSend(path4, "UTF8String")];
-    v38 = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v37 = v24;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
     *error = [v20 errorWithDomain:@"com.apple.mlassetio" code:2 userInfo:v25];
 
 LABEL_11:
@@ -87,19 +87,19 @@ LABEL_20:
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     path5 = [lCopy path];
-    +[MIOModelPackage upgradeModelSpecificationAtURL:toURL:error:].cold.1([path5 UTF8String], v41, path5);
+    +[MIOModelPackage upgradeModelSpecificationAtURL:toURL:error:].cold.1([path5 UTF8String], v40, path5);
   }
 
   if (error)
   {
     v27 = MEMORY[0x1E696ABC0];
-    v39 = *MEMORY[0x1E696A578];
+    v38 = *MEMORY[0x1E696A578];
     v28 = MEMORY[0x1E696AEC0];
     stringByDeletingPathExtension = [lCopy path];
     v29 = stringByDeletingPathExtension;
     v16 = [v28 stringWithFormat:@"Model does not exists at %s", objc_msgSend(stringByDeletingPathExtension, "UTF8String")];
-    v40 = v16;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v39 = v16;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
     *error = [v27 errorWithDomain:@"com.apple.mlassetio" code:1 userInfo:v30];
 
     goto LABEL_11;
@@ -107,21 +107,19 @@ LABEL_20:
 
 LABEL_21:
 
-  v35 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 + (BOOL)_upgradeModelSpecificationAtURL:(id)l packageURL:(id)rL error:(id *)error
 {
-  __p[7] = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   lCopy = l;
   rLCopy = rL;
   v8 = objc_autoreleasePoolPush();
   [lCopy lastPathComponent];
   objc_claimAutoreleasedReturnValue();
   std::string::basic_string[abi:ne200100]<0>(__p, [rLCopy fileSystemRepresentation]);
-  MPL::ModelPackage::ModelPackage();
+  MPL::ModelPackage::ModelPackage(v11, __p, 1, 0);
 }
 
 - (MIOModelPackage)initWithModelPackageAtURL:(id)l error:(id *)p_isa
@@ -140,7 +138,7 @@ LABEL_21:
     {
       v10 = lCopy;
       std::string::basic_string[abi:ne200100]<0>(&__p, [lCopy fileSystemRepresentation]);
-      MPL::ModelPackage::ModelPackage();
+      MPL::ModelPackage::ModelPackage(v19, &__p, 0, 1);
     }
 
     self = 0;
@@ -171,7 +169,6 @@ LABEL_21:
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -191,12 +188,11 @@ LABEL_21:
 
 + (void)_upgradeModelSpecificationAtURL:(uint64_t)a1 packageURL:error:.cold.1(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = (*(*a1 + 16))(a1);
-  v4 = 136315138;
-  v5 = v1;
-  OUTLINED_FUNCTION_0_0(&dword_1C1BCE000, MEMORY[0x1E69E9C10], v2, "Failed to create model package. Error: %s", &v4);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315138;
+  v4 = v1;
+  OUTLINED_FUNCTION_0_0(&dword_1C1BCE000, MEMORY[0x1E69E9C10], v2, "Failed to create model package. Error: %s", &v3);
 }
 
 - (void)initWithModelPackageAtURL:(void *)a3 error:.cold.1(uint64_t a1, uint64_t a2, void *a3)
@@ -208,14 +204,13 @@ LABEL_21:
 
 - (void)initWithModelPackageAtURL:(uint64_t)a1 error:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = (*(*a2 + 16))(a2);
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2080;
-  v8 = v3;
-  _os_log_error_impl(&dword_1C1BCE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to extract root model from model package at %@. Error: %s", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2080;
+  v7 = v3;
+  _os_log_error_impl(&dword_1C1BCE000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to extract root model from model package at %@. Error: %s", &v4, 0x16u);
 }
 
 @end

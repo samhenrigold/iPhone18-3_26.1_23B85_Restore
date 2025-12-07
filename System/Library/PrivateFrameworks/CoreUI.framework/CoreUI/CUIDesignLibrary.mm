@@ -27,11 +27,11 @@
   result = [CUIDesignLibraryCompositeCatalog compositeCatalogForDesignSystem:system colorScheme:scheme contrast:contrast styling:styling error:error];
   if (result)
   {
-    v24 = result;
-    _CUILog(3, "[CUIDesignLibrary colorWithName:%d]", v18, v19, v20, v21, v22, v23, name);
-    v25 = [v24 colorWithName:name palette:palette displayGamut:gamut hierarchyLevel:level error:error];
+    v18 = result;
+    _CUILog(3, "[CUIDesignLibrary colorWithName:%d]", name, system, palette, scheme, contrast, styling, gamut);
+    v19 = [v18 colorWithName:name palette:palette displayGamut:gamut hierarchyLevel:level error:error];
     kdebug_trace();
-    return v25;
+    return v19;
   }
 
   return result;

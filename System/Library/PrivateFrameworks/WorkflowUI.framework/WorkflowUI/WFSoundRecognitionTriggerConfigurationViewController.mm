@@ -284,7 +284,7 @@ WFSelectableListOption *__90__WFSoundRecognitionTriggerConfigurationViewControll
   return v38;
 }
 
-uint64_t __88__WFSoundRecognitionTriggerConfigurationViewController_tableView_cellForRowAtIndexPath___block_invoke(uint64_t a1)
+void *__88__WFSoundRecognitionTriggerConfigurationViewController_tableView_cellForRowAtIndexPath___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D7C088] soundDetectionEnabled];
   if ((result & 1) == 0)

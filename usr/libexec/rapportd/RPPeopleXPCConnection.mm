@@ -5,6 +5,7 @@
 - (void)clientDeviceChanged:(id)changed changes:(unsigned int)changes;
 - (void)clientDeviceFound:(id)found report:(BOOL)report;
 - (void)clientDeviceLost:(id)lost;
+- (void)clientPeopleStatusChanged:(unsigned int)changed;
 - (void)connectionInvalidated;
 - (void)xpcPeopleAddAppleID:(id)d completion:(id)completion;
 - (void)xpcPeopleDiscoveryActivate:(id)activate completion:(id)completion;
@@ -66,7 +67,7 @@
   {
     if (dword_1001D4910 <= 90 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001264F4(p_xpcCnx);
+      sub_1001264F4(p_xpcCnx, errorCopy);
       if (!a4)
       {
         goto LABEL_7;
@@ -78,7 +79,7 @@
     if (a4)
     {
 LABEL_6:
-      *a4 = RPErrorF();
+      *a4 = RPErrorF(4294896128, "Missing entitlement '%@'", v11, v12, v13, v14, v15, v16, errorCopy);
     }
   }
 
@@ -138,7 +139,7 @@ LABEL_6:
             {
               if (dword_1001D4910 <= 60 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
               {
-                sub_100126618();
+                sub_100126618(foundCopy);
               }
 
               goto LABEL_32;
@@ -168,7 +169,7 @@ LABEL_16:
             [(NSMutableDictionary *)discoveredPeople setObject:remoteObjectProxy2 forKeyedSubscript:accountID];
             if (dword_1001D4910 <= 30 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
             {
-              sub_1001265B8();
+              sub_1001265B8(remoteObjectProxy2);
               if (!reportCopy)
               {
                 goto LABEL_30;
@@ -252,7 +253,7 @@ LABEL_28:
         {
           if (dword_1001D4910 <= 60 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
           {
-            sub_100126778();
+            sub_100126778(lostCopy);
           }
 
           goto LABEL_28;
@@ -268,7 +269,7 @@ LABEL_28:
     {
       if (dword_1001D4910 <= 60 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
       {
-        sub_100126738();
+        sub_100126738(lostCopy);
       }
 
       goto LABEL_27;
@@ -339,7 +340,7 @@ LABEL_29:
           {
             if (dword_1001D4910 <= 60 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
             {
-              sub_100126828();
+              sub_100126828(changedCopy);
             }
 
             goto LABEL_22;
@@ -423,6 +424,13 @@ LABEL_10:
   }
 }
 
+- (void)clientPeopleStatusChanged:(unsigned int)changed
+{
+  v3 = *&changed;
+  remoteObjectProxy = [(NSXPCConnection *)self->_xpcCnx remoteObjectProxy];
+  [remoteObjectProxy xpcPeopleStatusChanged:v3];
+}
+
 - (void)xpcPeopleAddAppleID:(id)d completion:(id)completion
 {
   dCopy = d;
@@ -443,7 +451,7 @@ LABEL_4:
     dispatch_assert_queue_V2(self->_dispatchQueue);
     if (dword_1001D4910 <= 40 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
     {
-      sub_100126868();
+      sub_100126868(dCopy);
     }
 
     [(RPPeopleDaemon *)self->_daemon _updateFriendIdentityWithAppleID:dCopy contactID:0 sendersKnownAlias:0 userAdded:1 updateDateRequested:0 suggestedContactIDs:0];
@@ -488,16 +496,16 @@ LABEL_15:
     goto LABEL_4;
   }
 
-  v31 = 0;
-  v9 = [(RPPeopleXPCConnection *)self _entitledAndReturnError:@"com.apple.rapport.FriendAccount" error:&v31];
-  v8 = v31;
+  v38 = 0;
+  v9 = [(RPPeopleXPCConnection *)self _entitledAndReturnError:@"com.apple.rapport.FriendAccount" error:&v38];
+  v8 = v38;
   self->_entitledFriendAccount = v9;
   if (v9)
   {
 LABEL_4:
     if (dword_1001D4910 <= 40 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001268DC();
+      sub_1001268DC(dCopy);
     }
 
     v10 = [(NSMutableDictionary *)self->_daemon->_friendAccountIdentityMap objectForKeyedSubscript:dCopy];
@@ -506,7 +514,7 @@ LABEL_4:
     {
       if (dword_1001D4910 <= 40 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
       {
-        sub_10012691C();
+        sub_10012691C(v10);
       }
 
       [(NSMutableDictionary *)self->_daemon->_friendAccountIdentityMap setObject:0 forKeyedSubscript:dCopy];
@@ -515,37 +523,37 @@ LABEL_4:
       [v12 removeIdentity:v10 error:0];
     }
 
-    v24 = v10;
-    v25 = v8;
-    v26 = completionCopy;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
-    v28 = 0u;
+    v31 = v10;
+    v32 = v8;
+    v33 = completionCopy;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     allKeys = [(NSMutableDictionary *)self->_daemon->_friendDeviceIdentityMap allKeys];
-    v14 = [allKeys countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v14 = [allKeys countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v28;
+      v16 = *v35;
       do
       {
         v17 = 0;
         do
         {
-          if (*v28 != v16)
+          if (*v35 != v16)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v18 = *(*(&v27 + 1) + 8 * v17);
+          v18 = *(*(&v34 + 1) + 8 * v17);
           v19 = [(NSMutableDictionary *)self->_daemon->_friendDeviceIdentityMap objectForKeyedSubscript:v18];
           accountID = [v19 accountID];
           if ([accountID isEqual:dCopy])
           {
             if (dword_1001D4910 <= 40 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
             {
-              sub_10012695C();
+              sub_10012695C(v19);
             }
 
             [(NSMutableDictionary *)self->_daemon->_friendDeviceIdentityMap setObject:0 forKeyedSubscript:v18];
@@ -559,29 +567,29 @@ LABEL_4:
         }
 
         while (v15 != v17);
-        v22 = [allKeys countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v22 = [allKeys countByEnumeratingWithState:&v34 objects:v39 count:16];
         v15 = v22;
       }
 
       while (v22);
     }
 
-    completionCopy = v26;
-    if (v26)
+    completionCopy = v33;
+    if (v33)
     {
       if (v11)
       {
-        v26[2](v26, 0);
+        v33[2](v33, 0);
       }
 
       else
       {
-        v23 = RPErrorF();
-        v26[2](v26, v23);
+        v29 = RPErrorF(4294960569, "No account or device found to remove", v23, v24, v25, v26, v27, v28, v30);
+        v33[2](v33, v29);
       }
     }
 
-    v8 = v25;
+    v8 = v32;
     goto LABEL_33;
   }
 
@@ -642,7 +650,7 @@ LABEL_33:
 LABEL_17:
     if (dword_1001D4910 <= 30 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001269D0(self);
+      sub_1001269D0(self, activateCopy);
     }
 
     [activateCopy setDispatchQueue:self->_dispatchQueue];
@@ -718,7 +726,7 @@ LABEL_28:
     discoveryMode = [updateCopy discoveryMode];
     if (discoveryMode == 200)
     {
-      v5 = 2;
+      v8 = 2;
     }
 
     else
@@ -728,10 +736,10 @@ LABEL_28:
         goto LABEL_11;
       }
 
-      v5 = 16;
+      v8 = 16;
     }
 
-    [updateCopy setDiscoveryFlags:{objc_msgSend(updateCopy, "discoveryFlags") | v5}];
+    [updateCopy setDiscoveryFlags:{objc_msgSend(updateCopy, "discoveryFlags") | v8}];
 LABEL_11:
     discoveryFlags = [(RPPeopleDiscovery *)self->_activatedDiscovery discoveryFlags];
     discoveryFlags2 = [updateCopy discoveryFlags];
@@ -739,18 +747,14 @@ LABEL_11:
     {
       if (dword_1001D4910 <= 30 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
-        [(RPPeopleDiscovery *)self->_activatedDiscovery setDiscoveryFlags:discoveryFlags2, discoveryFlags, &unk_100149203, discoveryFlags2, &unk_100149203];
+        LogPrintF(&dword_1001D4910, "[RPPeopleXPCConnection xpcPeopleDiscoveryUpdate:]", 30, "RPPeopleDiscovery discoveryFlags changed: %#{flags} -> %#{flags}\n", discoveryFlags, &unk_100149203, discoveryFlags2, &unk_100149203);
       }
 
-      else
-      {
-        [(RPPeopleDiscovery *)self->_activatedDiscovery setDiscoveryFlags:discoveryFlags2, v9, v10, v11, v12];
-      }
+      [(RPPeopleDiscovery *)self->_activatedDiscovery setDiscoveryFlags:discoveryFlags2];
     }
 
-    v8 = (discoveryFlags2 >> 1) & 0x10 | discoveryFlags2 & 0xA | (discoveryFlags2 >> 2) & 4 | (discoveryFlags2 >> 1) & 0x20 | (discoveryFlags2 >> 2) & 1 | (discoveryFlags2 >> 1) & 0xC0 | (((discoveryFlags2 >> 10) & 1) << 12);
-    if (v8 == self->_discoveryDeviceFlags)
+    v11 = (discoveryFlags2 >> 1) & 0x10 | discoveryFlags2 & 0xA | (discoveryFlags2 >> 2) & 4 | (discoveryFlags2 >> 1) & 0x20 | (discoveryFlags2 >> 2) & 1 | (discoveryFlags2 >> 1) & 0xC0 | (((discoveryFlags2 >> 10) & 1) << 12);
+    if (v11 == self->_discoveryDeviceFlags)
     {
       if (discoveryFlags2 == discoveryFlags)
       {
@@ -760,16 +764,19 @@ LABEL_11:
 
     else
     {
-      self->_discoveryDeviceFlags = v8;
+      self->_discoveryDeviceFlags = v11;
     }
 
     [(RPPeopleDaemon *)self->_daemon _update];
     goto LABEL_22;
   }
 
-  if (dword_1001D4910 <= 90 && (dword_1001D4910 != -1 || _LogCategory_Initialize()))
+  if (dword_1001D4910 <= 90)
   {
-    sub_100126A24();
+    if (dword_1001D4910 != -1 || (v4 = _LogCategory_Initialize(), v4))
+    {
+      sub_100126A24(v4, v5, v6);
+    }
   }
 
 LABEL_22:

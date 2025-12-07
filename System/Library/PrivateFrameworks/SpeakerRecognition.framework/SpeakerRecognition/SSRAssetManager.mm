@@ -68,53 +68,53 @@ uint64_t __77__SSRAssetManager_CSLanguageCodeUpdateMonitor_didReceiveLanguageCod
 
 - (id)_compileAssets:(id)assets
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
   v5 = assetsCopy;
   if (assetsCopy && self->_onDeviceCompilationHandler)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
-    v6 = [assetsCopy countByEnumeratingWithState:&v25 objects:v37 count:16];
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v6 = [assetsCopy countByEnumeratingWithState:&v24 objects:v36 count:16];
     if (v6)
     {
       v8 = v6;
       v9 = 0;
-      v10 = *v26;
+      v10 = *v25;
       v11 = MEMORY[0x277D015D8];
       *&v7 = 136315650;
-      v23 = v7;
+      v22 = v7;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v5);
           }
 
-          v13 = *(*(&v25 + 1) + 8 * i);
+          v13 = *(*(&v24 + 1) + 8 * i);
           if ((![v13 assetType] || objc_msgSend(v13, "assetType") == 3) && (-[NSMutableSet containsObject:](self->_compiledAssets, "containsObject:", v13) & 1) == 0)
           {
             onDeviceCompilationHandler = self->_onDeviceCompilationHandler;
             assetType = [v13 assetType];
-            v24 = v9;
-            [(CSOnDeviceCompilationHandler *)onDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:v13 assetType:assetType endpointId:0 errOut:&v24];
-            v16 = v24;
+            v23 = v9;
+            [(CSOnDeviceCompilationHandler *)onDeviceCompilationHandler compileAndUpdateDeviceCachesWithAsset:v13 assetType:assetType endpointId:0 errOut:&v23];
+            v16 = v23;
 
             if (v16)
             {
               v17 = *v11;
               if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
               {
-                *buf = v23;
-                v32 = "[SSRAssetManager _compileAssets:]";
-                v33 = 2112;
-                v34 = v13;
-                v35 = 2112;
-                v36 = v16;
+                *buf = v22;
+                v31 = "[SSRAssetManager _compileAssets:]";
+                v32 = 2112;
+                v33 = v13;
+                v34 = 2112;
+                v35 = v16;
                 _os_log_error_impl(&dword_225E12000, v17, OS_LOG_TYPE_ERROR, "%s compile asset: %@ with error: %@", buf, 0x20u);
               }
 
@@ -129,7 +129,7 @@ uint64_t __77__SSRAssetManager_CSLanguageCodeUpdateMonitor_didReceiveLanguageCod
           }
         }
 
-        v8 = [v5 countByEnumeratingWithState:&v25 objects:v37 count:16];
+        v8 = [v5 countByEnumeratingWithState:&v24 objects:v36 count:16];
       }
 
       while (v8);
@@ -144,28 +144,26 @@ uint64_t __77__SSRAssetManager_CSLanguageCodeUpdateMonitor_didReceiveLanguageCod
   else
   {
     v18 = MEMORY[0x277CCA9B8];
-    v29 = *MEMORY[0x277CCA450];
+    v28 = *MEMORY[0x277CCA450];
     v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"onDeviceCompilationHandler not set or assets are nil"];
-    v30 = v19;
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v29 = v19;
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v9 = [v18 errorWithDomain:@"com.apple.speakerrecognition" code:0 userInfo:v20];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (id)_allInstalledSpeakerRecognitionAssetsForLanguage:(id)language
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   languageCopy = language;
   _getSpeakerRecognitionOverrideAsset = [(SSRAssetManager *)self _getSpeakerRecognitionOverrideAsset];
   v6 = _getSpeakerRecognitionOverrideAsset;
   if (_getSpeakerRecognitionOverrideAsset)
   {
-    v12[0] = _getSpeakerRecognitionOverrideAsset;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = _getSpeakerRecognitionOverrideAsset;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   }
 
   else
@@ -176,14 +174,12 @@ uint64_t __77__SSRAssetManager_CSLanguageCodeUpdateMonitor_didReceiveLanguageCod
   v8 = v7;
   v9 = [(SSRAssetManager *)self _compileAssets:v7];
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)_getSpeakerRecognitionOverrideAsset
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D01788] = [MEMORY[0x277D01788] sharedPreferences];
   fakeSpeakerRecognitionAssetPath = [mEMORY[0x277D01788] fakeSpeakerRecognitionAssetPath];
 
@@ -193,11 +189,11 @@ uint64_t __77__SSRAssetManager_CSLanguageCodeUpdateMonitor_didReceiveLanguageCod
     v7 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315394;
-      v12 = "[SSRAssetManager _getSpeakerRecognitionOverrideAsset]";
-      v13 = 2112;
-      v14 = stringByDeletingLastPathComponent;
-      _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Returning the speakerRecognition override asset： %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[SSRAssetManager _getSpeakerRecognitionOverrideAsset]";
+      v12 = 2112;
+      v13 = stringByDeletingLastPathComponent;
+      _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s Returning the speakerRecognition override asset： %@", &v10, 0x16u);
     }
 
     v8 = [MEMORY[0x277D015F8] assetForAssetType:3 resourcePath:stringByDeletingLastPathComponent configVersion:@"override-asset" assetProvider:0];
@@ -207,8 +203,6 @@ uint64_t __77__SSRAssetManager_CSLanguageCodeUpdateMonitor_didReceiveLanguageCod
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -238,31 +232,29 @@ uint64_t __77__SSRAssetManager_CSLanguageCodeUpdateMonitor_didReceiveLanguageCod
 
 void __48__SSRAssetManager_releaseAssetsLocksIfNecessary__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SSRAssetManager releaseAssetsLocksIfNecessary]_block_invoke";
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SSRAssetManager releaseAssetsLocksIfNecessary]_block_invoke";
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s ", &v5, 0xCu);
   }
 
   v3 = *(a1 + 32);
   v4 = *(v3 + 56);
   *(v3 + 56) = 0;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadUAFAssetsIfNecessary
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SSRAssetManager _loadUAFAssetsIfNecessary]";
-    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SSRAssetManager _loadUAFAssetsIfNecessary]";
+    _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s ", &v6, 0xCu);
   }
 
   if (!self->_uafAssetProvider)
@@ -271,8 +263,6 @@ void __48__SSRAssetManager_releaseAssetsLocksIfNecessary__block_invoke(uint64_t 
     uafAssetProvider = self->_uafAssetProvider;
     self->_uafAssetProvider = v4;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allInstalledAssetsOfType:(unint64_t)type forLanguage:(id)language
@@ -330,7 +320,7 @@ void __56__SSRAssetManager_allInstalledAssetsOfType_forLanguage___block_invoke(u
 
 void __56__SSRAssetManager_allInstalledAssetsOfType_forLanguage___block_invoke_2(void *a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [(__CFString *)v3 getAssetProviderType];
   v5 = @"MA";
@@ -344,13 +334,13 @@ void __56__SSRAssetManager_allInstalledAssetsOfType_forLanguage___block_invoke_2
   v8 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315650;
-    v17 = "[SSRAssetManager allInstalledAssetsOfType:forLanguage:]_block_invoke_2";
-    v18 = 2112;
-    v19 = v3;
-    v20 = 2112;
-    v21 = v6;
-    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s parsing provider: %@ name: %@", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "[SSRAssetManager allInstalledAssetsOfType:forLanguage:]_block_invoke_2";
+    v17 = 2112;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v6;
+    _os_log_impl(&dword_225E12000, v8, OS_LOG_TYPE_DEFAULT, "%s parsing provider: %@ name: %@", &v15, 0x20u);
   }
 
   v9 = [(__CFString *)v3 getAssetProviderType];
@@ -373,11 +363,11 @@ void __56__SSRAssetManager_allInstalledAssetsOfType_forLanguage___block_invoke_2
     }
 
 LABEL_15:
-    v16 = 136315394;
-    v17 = "[SSRAssetManager allInstalledAssetsOfType:forLanguage:]_block_invoke";
-    v18 = 2112;
-    v19 = v6;
-    _os_log_error_impl(&dword_225E12000, v14, OS_LOG_TYPE_ERROR, "%s ERR: got nil assets from provider: %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "[SSRAssetManager allInstalledAssetsOfType:forLanguage:]_block_invoke";
+    v17 = 2112;
+    v18 = v6;
+    _os_log_error_impl(&dword_225E12000, v14, OS_LOG_TYPE_ERROR, "%s ERR: got nil assets from provider: %@", &v15, 0x16u);
     goto LABEL_14;
   }
 
@@ -395,8 +385,6 @@ LABEL_15:
 
   [*(*(a1[5] + 8) + 40) insertObject:v12 atIndex:0];
 LABEL_14:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allInstalledSpeakerRecognitionAssetsForLanguage:(id)language
@@ -427,10 +415,7 @@ LABEL_14:
 
 uint64_t __67__SSRAssetManager_allInstalledSpeakerRecognitionAssetsForLanguage___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _allInstalledSpeakerRecognitionAssetsForLanguage:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _allInstalledSpeakerRecognitionAssetsForLanguage:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -463,7 +448,7 @@ uint64_t __67__SSRAssetManager_allInstalledSpeakerRecognitionAssetsForLanguage__
 
 void __63__SSRAssetManager_installedSpeakerRecognitionAssetForLanguage___block_invoke(uint64_t a1)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getSSRAssetFromMAProviderWithLanguage:*(a1 + 40)];
   v3 = *(*(a1 + 48) + 8);
   v4 = *(v3 + 40);
@@ -473,12 +458,10 @@ void __63__SSRAssetManager_installedSpeakerRecognitionAssetForLanguage___block_i
   if (v5)
   {
     v6 = *(a1 + 32);
-    v10[0] = v5;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+    v9[0] = v5;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
     v8 = [v6 _compileAssets:v7];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSpeakerRecognitionAssetWithLanguage:(id)language completion:(id)completion
@@ -500,24 +483,24 @@ void __63__SSRAssetManager_installedSpeakerRecognitionAssetForLanguage___block_i
 
 void __69__SSRAssetManager_getSpeakerRecognitionAssetWithLanguage_completion___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getSSRAssetFromMAProviderWithLanguage:*(a1 + 40)];
   v3 = v2;
   if (v2)
   {
     v4 = *(a1 + 32);
-    v11 = v2;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    v10 = v2;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
     v6 = [v4 _compileAssets:v5];
   }
 
   else
   {
     v7 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA450];
+    v11 = *MEMORY[0x277CCA450];
     v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"speakerRecognition asset not available for mobileAsset Provider"];
-    v13[0] = v5;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v12[0] = v5;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v6 = [v7 errorWithDomain:@"com.apple.speakerrecognition" code:802 userInfo:v8];
   }
 
@@ -526,8 +509,6 @@ void __69__SSRAssetManager_getSpeakerRecognitionAssetWithLanguage_completion___b
   {
     (*(v9 + 16))(v9, v3, v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)installedAssetOfType:(unint64_t)type forLanguage:(id)language
@@ -559,7 +540,7 @@ void __69__SSRAssetManager_getSpeakerRecognitionAssetWithLanguage_completion___b
 
 void __52__SSRAssetManager_installedAssetOfType_forLanguage___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D01788] sharedPreferences];
   v3 = [v2 isVoiceTriggerAssetOverridingEnabled];
 
@@ -578,7 +559,7 @@ void __52__SSRAssetManager_installedAssetOfType_forLanguage___block_invoke(uint6
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v26 = "[SSRAssetManager installedAssetOfType:forLanguage:]_block_invoke";
+        v25 = "[SSRAssetManager installedAssetOfType:forLanguage:]_block_invoke";
         _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s Retuning the VoiceTrigger override asset", buf, 0xCu);
       }
 
@@ -587,33 +568,24 @@ void __52__SSRAssetManager_installedAssetOfType_forLanguage___block_invoke(uint6
       v12 = *(v11 + 40);
       *(v11 + 40) = v10;
     }
+
+    goto LABEL_11;
   }
 
-  else
+  [*(a1 + 32) _loadUAFAssetsIfNecessary];
+  v13 = [*(*(a1 + 32) + 56) installedAssetOfType:*(a1 + 56) forLanguageCode:*(a1 + 40)];
+  v14 = *(*(a1 + 48) + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = v13;
+
+  v16 = *(*(*(a1 + 48) + 8) + 40);
+  if (!v16)
   {
-    [*(a1 + 32) _loadUAFAssetsIfNecessary];
-    v13 = [*(*(a1 + 32) + 56) installedAssetOfType:*(a1 + 56) forLanguageCode:*(a1 + 40)];
-    v14 = *(*(a1 + 48) + 8);
-    v15 = *(v14 + 40);
-    *(v14 + 40) = v13;
-
-    v16 = *(*(*(a1 + 48) + 8) + 40);
-    if (v16)
-    {
-LABEL_12:
-      v20 = *(a1 + 32);
-      v24 = v16;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
-      v22 = [v20 _compileAssets:v21];
-
-      goto LABEL_13;
-    }
-
     v17 = *MEMORY[0x277D01970];
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v26 = "[SSRAssetManager installedAssetOfType:forLanguage:]_block_invoke";
+      v25 = "[SSRAssetManager installedAssetOfType:forLanguage:]_block_invoke";
       _os_log_impl(&dword_225E12000, v17, OS_LOG_TYPE_DEFAULT, "%s UAF Asset being nil, falling back to MA asset", buf, 0xCu);
     }
 
@@ -621,24 +593,27 @@ LABEL_12:
     v19 = *(*(a1 + 48) + 8);
     v5 = *(v19 + 40);
     *(v19 + 40) = v18;
+LABEL_11:
+
+    v16 = *(*(*(a1 + 48) + 8) + 40);
+    if (!v16)
+    {
+      return;
+    }
   }
 
-  v16 = *(*(*(a1 + 48) + 8) + 40);
-  if (v16)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_13:
-  v23 = *MEMORY[0x277D85DE8];
+  v20 = *(a1 + 32);
+  v23 = v16;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v22 = [v20 _compileAssets:v21];
 }
 
 - (SSRAssetManager)initWithOnDeviceCompilationDisable:(BOOL)disable
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = SSRAssetManager;
-  v4 = [(SSRAssetManager *)&v25 init];
+  v27 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = SSRAssetManager;
+  v4 = [(SSRAssetManager *)&v24 init];
   if (!v4)
   {
 LABEL_10:
@@ -702,14 +677,13 @@ LABEL_10:
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v27 = "[SSRAssetManager initWithOnDeviceCompilationDisable:]";
+    v26 = "[SSRAssetManager initWithOnDeviceCompilationDisable:]";
     _os_log_error_impl(&dword_225E12000, v22, OS_LOG_TYPE_ERROR, "%s ERR: Failed to create asset providers - Bailing out", buf, 0xCu);
   }
 
   v21 = 0;
 LABEL_14:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -741,7 +715,7 @@ LABEL_14:
   return v3;
 }
 
-uint64_t __58__SSRAssetManager_sharedManagerOnDeviceCompilationDisable__block_invoke()
+uint64_t __58__SSRAssetManager_sharedManagerOnDeviceCompilationDisable__block_invoke(uint64_t a1, uint64_t a2)
 {
   SSRLogInitIfNeeded();
   sharedManagerOnDeviceCompilationDisable_sharedManager = [[SSRAssetManager alloc] initWithOnDeviceCompilationDisable:1];
@@ -761,7 +735,7 @@ uint64_t __58__SSRAssetManager_sharedManagerOnDeviceCompilationDisable__block_in
   return v3;
 }
 
-uint64_t __32__SSRAssetManager_sharedManager__block_invoke()
+uint64_t __32__SSRAssetManager_sharedManager__block_invoke(uint64_t a1, uint64_t a2)
 {
   SSRLogInitIfNeeded();
   sharedManager_sharedManager = [[SSRAssetManager alloc] initWithOnDeviceCompilationDisable:0];

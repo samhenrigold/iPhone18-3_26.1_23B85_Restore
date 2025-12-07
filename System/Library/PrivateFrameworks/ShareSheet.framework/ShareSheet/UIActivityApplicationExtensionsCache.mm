@@ -10,7 +10,7 @@ void __62___UIActivityApplicationExtensionsCache_sharedExtensionsCache__block_in
   sharedExtensionsCache_extensionsCache = v0;
 }
 
-uint64_t __85___UIActivityApplicationExtensionsCache__startPrecachingContinuousExtensionDiscovery__block_invoke(uint64_t a1)
+void *__85___UIActivityApplicationExtensionsCache__startPrecachingContinuousExtensionDiscovery__block_invoke(uint64_t a1)
 {
   v23 = *MEMORY[0x1E69E9840];
   v14 = 0;
@@ -67,7 +67,7 @@ uint64_t __85___UIActivityApplicationExtensionsCache__startPrecachingContinuousE
           _os_log_impl(&dword_18B359000, v9, OS_LOG_TYPE_DEFAULT, "ExtensionsCache: registered for cache key = [%@]", &buf, 0xCu);
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);

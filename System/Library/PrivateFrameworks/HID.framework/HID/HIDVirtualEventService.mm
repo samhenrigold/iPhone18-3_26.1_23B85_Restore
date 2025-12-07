@@ -20,9 +20,17 @@
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *self;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_22DF7D000);
   _os_crash_msg();
   __break(1u);
 }
@@ -37,7 +45,6 @@
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *self;
   _os_crash_msg();
   __break(1u);
 }
@@ -51,10 +58,10 @@
 
 - (HIDVirtualEventService)init
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = HIDVirtualEventService;
-  v2 = [(HIDVirtualEventService *)&v9 init];
+  v10[2] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HIDVirtualEventService;
+  v2 = [(HIDVirtualEventService *)&v8 init];
   if (v2)
   {
     v3 = [[HIDEventSystemClient alloc] initWithType:4];
@@ -65,11 +72,11 @@
     if (client)
     {
       client2 = [(HIDVirtualEventService *)v2 client];
-      v10[0] = @"PrimaryUsagePage";
-      v10[1] = @"PrimaryUsage";
-      v11[0] = &unk_284199F58;
-      v11[1] = &unk_284199F58;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+      v9[0] = @"PrimaryUsagePage";
+      v9[1] = @"PrimaryUsage";
+      v10[0] = &unk_284199F58;
+      v10[1] = &unk_284199F58;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
       [client2 setMatching:v6];
 
       client = v2;
@@ -81,22 +88,28 @@
     client = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return client;
 }
 
 - (void)activate
 {
-  v4 = *MEMORY[0x277D85DE8];
   *self = 0;
   a2[3] = 0u;
   a2[4] = 0u;
   a2[1] = 0u;
   a2[2] = 0u;
   *a2 = 0u;
-  os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-  OUTLINED_FUNCTION_0();
-  v3 = *self;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v5 = 3;
+  }
+
+  else
+  {
+    v5 = 2;
+  }
+
+  OUTLINED_FUNCTION_0(v5, v2, v3, v4, &dword_22DF7D000);
   _os_crash_msg();
   __break(1u);
 }

@@ -6,74 +6,74 @@
 
 - (id)textDirectionAnnotations
 {
-  v2 = objc_opt_new();
+  v3 = objc_opt_new();
   numberCombiningCharacterSet = [MEMORY[0x277CCA900] numberCombiningCharacterSet];
-  v4 = [objc_alloc(MEMORY[0x277CD89E0]) initWithUnit:0];
-  v5 = objc_alloc_init(MEMORY[0x277CD89C0]);
-  [v4 setString:self];
+  v5 = [objc_alloc(MEMORY[0x277CD89E0]) initWithUnit:0];
+  v6 = objc_alloc_init(MEMORY[0x277CD89C0]);
+  [v5 setString:self];
+  v47 = 0;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
   v46 = 0;
-  v47 = &v46;
-  v48 = 0x2020000000;
-  v49 = 0;
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
   v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x2020000000;
-  v41 = 0;
-  v6 = [self length];
-  v27 = MEMORY[0x277D85DD0];
-  v28 = 3221225472;
-  v29 = __64__NSString_TYTextDirectionAnnotations__textDirectionAnnotations__block_invoke;
-  v30 = &unk_279DF4868;
+  v7 = [self length];
+  v28 = MEMORY[0x277D85DD0];
+  v29 = 3221225472;
+  v30 = __64__NSString_TYTextDirectionAnnotations__textDirectionAnnotations__block_invoke;
+  v31 = &unk_279DF4868;
   selfCopy = self;
-  v35 = &v42;
-  v7 = v5;
-  v32 = v7;
-  v36 = &v46;
-  v37 = &v38;
-  v8 = numberCombiningCharacterSet;
+  v36 = &v43;
+  v8 = v6;
   v33 = v8;
-  v9 = v2;
+  v37 = &v47;
+  v38 = &v39;
+  v9 = numberCombiningCharacterSet;
   v34 = v9;
-  [v4 enumerateTokensInRange:0 usingBlock:{v6, &v27}];
-  v10 = v43[3];
-  if (v10 < [self length])
+  v10 = v3;
+  v35 = v10;
+  [v5 enumerateTokensInRange:0 usingBlock:{v7, &v28}];
+  v11 = v44[3];
+  if (v11 < [self length])
   {
-    v11 = v43[3];
-    v12 = [self length];
-    v13 = v12 - v43[3];
-    v14 = [self substringWithRange:{v11, v13}];
-    [v7 processString:v14];
-    v15 = MEMORY[0x277CBEAF8];
-    dominantLanguage = [v7 dominantLanguage];
-    v17 = [v15 characterDirectionForLanguage:dominantLanguage];
+    v12 = v44[3];
+    v13 = [self length];
+    v14 = v13 - v44[3];
+    v15 = [self substringWithRange:{v12, v14}];
+    [v8 processString:v15];
+    v16 = MEMORY[0x277CBEAF8];
+    dominantLanguage = [v8 dominantLanguage];
+    v18 = [v16 characterDirectionForLanguage:dominantLanguage];
 
-    if (*(v39 + 24) == 1 && (v17 != 2 || ([MEMORY[0x277CCA900] punctuationCharacterSet], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCA900], "characterSetWithCharactersInString:", v14), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v18, "isSupersetOfSet:", v19), v19, v18, v20)))
+    if (*(v40 + 24) == 1 && (v18 != 2 || ([MEMORY[0x277CCA900] punctuationCharacterSet], v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277CCA900], "characterSetWithCharactersInString:", v15), v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v19, "isSupersetOfSet:", v20), v20, v19, v21)))
     {
-      lastObject = [v9 lastObject];
+      lastObject = [v10 lastObject];
       range = [lastObject range];
       [lastObject range];
-      [lastObject setRange:{range, v23 + v13}];
+      [lastObject setRange:{range, v24 + v14}];
     }
 
     else
     {
-      lastObject = [TYTextDirectionAnnotation initWithRange:v11 textDirection:v13, v47[3]];
-      [v9 addObject:lastObject];
+      lastObject = [TYTextDirectionAnnotation initWithRange:v12 textDirection:v14, v48[3]];
+      [v10 addObject:lastObject];
     }
   }
 
-  v24 = v34;
-  v25 = v9;
+  v25 = v35;
+  v26 = v10;
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v42, 8);
-  _Block_object_dispose(&v46, 8);
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v47, 8);
 
-  return v25;
+  return v26;
 }
 
 @end

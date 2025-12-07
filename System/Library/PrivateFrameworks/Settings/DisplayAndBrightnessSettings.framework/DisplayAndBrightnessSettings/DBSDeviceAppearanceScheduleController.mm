@@ -44,13 +44,13 @@
   {
     v5 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v7 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale);
     bundleURL = [v7 bundleURL];
     v9 = [v5 initWithKey:@"DISPLAY_AND_BRIGHTNESS" defaultValue:0 table:@"Display" locale:currentLocale bundleURL:bundleURL];
 
     v10 = objc_alloc(MEMORY[0x277CCAEB8]);
     currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
-    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework();
+    v12 = DBS_BundleForDisplayAndBrightnessSettingsFramework(currentLocale2);
     bundleURL2 = [v12 bundleURL];
     v14 = [v10 initWithKey:@"APPEARANCE_SCHEDULE" defaultValue:0 table:@"DeviceAppearanceSchedule" locale:currentLocale2 bundleURL:bundleURL2];
 
@@ -201,7 +201,7 @@
     v13 = _styleMode2;
     if (_styleMode2)
     {
-      [_styleMode2 customSchedule];
+      objc_msgSend_customSchedule(_styleMode2);
     }
 
     else
@@ -280,7 +280,7 @@ LABEL_9:
   v5 = _styleMode;
   if (_styleMode)
   {
-    [_styleMode customSchedule];
+    objc_msgSend_customSchedule(_styleMode);
     v6 = v19;
   }
 
@@ -297,7 +297,7 @@ LABEL_9:
   v8 = _styleMode2;
   if (_styleMode2)
   {
-    [_styleMode2 customSchedule];
+    objc_msgSend_customSchedule(_styleMode2);
     v9 = *(&v17 + 1);
   }
 
@@ -326,7 +326,7 @@ LABEL_9:
   v5 = _styleMode;
   if (_styleMode)
   {
-    [_styleMode customSchedule];
+    objc_msgSend_customSchedule(_styleMode);
     v6 = v18;
   }
 
@@ -343,7 +343,7 @@ LABEL_9:
   v8 = _styleMode2;
   if (_styleMode2)
   {
-    [_styleMode2 customSchedule];
+    objc_msgSend_customSchedule(_styleMode2);
     v9 = *(&v16 + 1);
   }
 
@@ -380,7 +380,7 @@ LABEL_9:
   v11 = _styleMode;
   if (_styleMode)
   {
-    [_styleMode customSchedule];
+    objc_msgSend_customSchedule(_styleMode);
   }
 
   else
@@ -433,7 +433,7 @@ LABEL_8:
     v14 = _styleMode;
     if (_styleMode)
     {
-      [_styleMode customSchedule];
+      objc_msgSend_customSchedule(_styleMode);
       v11 = v22;
       v12 = v21;
     }
@@ -460,7 +460,7 @@ LABEL_8:
     v10 = _styleMode2;
     if (_styleMode2)
     {
-      [_styleMode2 customSchedule];
+      objc_msgSend_customSchedule(_styleMode2);
       v11 = v20;
       v12 = v19;
     }

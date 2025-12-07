@@ -34,7 +34,7 @@
 
 void __49__CSLPRFAppViewChoiceView__updateSelectedChoice___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 choice];
   v5 = *(a1 + 32);
@@ -43,65 +43,62 @@ void __49__CSLPRFAppViewChoiceView__updateSelectedChoice___block_invoke(uint64_t
   {
     if (v6)
     {
-      *v10 = 138412290;
-      *&v10[4] = v3;
+      *v9 = 138412290;
+      *&v9[4] = v3;
       v7 = MEMORY[0x277D86220];
       v8 = ">>>> selecting %@";
 LABEL_6:
-      _os_log_impl(&dword_22CE92000, v7, OS_LOG_TYPE_DEFAULT, v8, v10, 0xCu);
+      _os_log_impl(&dword_22CE92000, v7, OS_LOG_TYPE_DEFAULT, v8, v9, 0xCu);
     }
   }
 
   else if (v6)
   {
-    *v10 = 138412290;
-    *&v10[4] = v3;
+    *v9 = 138412290;
+    *&v9[4] = v3;
     v7 = MEMORY[0x277D86220];
     v8 = ">>>> unselecting %@";
     goto LABEL_6;
   }
 
-  [v3 setSelected:{v4 == v5, *v10}];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [v3 setSelected:{v4 == v5, *v9, *&v9[8]}];
 }
 
 - (void)setHorizontalOffset:(double)offset
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   self->_horizontalOffset = offset;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v5 = self->_watchViews;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setHorizontalOffset:{offset, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) setHorizontalOffset:{offset, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   [(CSLPRFAppViewChoiceView *)self setNeedsLayout];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setWatchChoice:(int64_t)choice
@@ -128,16 +125,16 @@ LABEL_6:
 
 void __42__CSLPRFAppViewChoiceView_setWatchChoice___block_invoke(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = a1[6];
     v3 = *(a1[4] + 448);
-    v7[0] = 67109376;
-    v7[1] = v2;
-    v8 = 1024;
-    v9 = v3;
-    _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, ">>>> setting choice to %d was %d", v7, 0xEu);
+    v6[0] = 67109376;
+    v6[1] = v2;
+    v7 = 1024;
+    v8 = v3;
+    _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, ">>>> setting choice to %d was %d", v6, 0xEu);
   }
 
   v4 = a1[4];
@@ -147,8 +144,6 @@ void __42__CSLPRFAppViewChoiceView_setWatchChoice___block_invoke(void *a1)
     *(v4 + 448) = v5;
     *(*(a1[5] + 8) + 24) = 1;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)currentWatchChoice
@@ -265,12 +260,12 @@ void __69__CSLPRFAppViewChoiceView_initWithDelegate_horizontalOffset_choices___b
 
 void __69__CSLPRFAppViewChoiceView_initWithDelegate_horizontalOffset_choices___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, ">>>> %d selected", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_22CE92000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, ">>>> %d selected", v6, 8u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -279,8 +274,6 @@ void __69__CSLPRFAppViewChoiceView_initWithDelegate_horizontalOffset_choices___b
   {
     [WeakRetained setWatchChoice:a2];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

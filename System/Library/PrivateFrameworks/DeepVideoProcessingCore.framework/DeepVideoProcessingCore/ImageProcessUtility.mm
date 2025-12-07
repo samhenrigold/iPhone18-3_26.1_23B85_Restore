@@ -317,8 +317,8 @@
       v20 = ([v14 width] + 15) >> 4;
       [v14 height];
       OUTLINED_FUNCTION_8_0();
-      v30 = vdupq_n_s64(0x10uLL);
-      OUTLINED_FUNCTION_4_4(v21, v22, v23, v24, v25, v26, v27, v28, v30.i64[0], v30.i64[1], 1, v20);
+      v31 = vdupq_n_s64(0x10uLL);
+      OUTLINED_FUNCTION_4_4(v21, v22, v23, v24, v25, v26, v27, v28, v31.i64[0], v31.i64[1], 1, v20, v29, 1);
       [computeCommandEncoder endEncoding];
 
       v15 = 0;
@@ -401,8 +401,8 @@
       [v12 width];
       OUTLINED_FUNCTION_3_10();
       OUTLINED_FUNCTION_8_0();
-      OUTLINED_FUNCTION_0_19();
-      OUTLINED_FUNCTION_4_4(v16, v17, v18, v19, v20, v21, v22, v23, v25, v26, v27, v8);
+      *&v16 = OUTLINED_FUNCTION_0_19().u64[0];
+      OUTLINED_FUNCTION_4_4(v17, v18, v19, v20, v21, v22, v23, v24, v26, v27, v28, v16);
       [v15 endEncoding];
       v13 = 0;
     }
@@ -456,9 +456,9 @@
         v15 = 3;
       }
 
-      LOWORD(v29[0]) = v15;
+      LOWORD(v30[0]) = v15;
       [computeCommandEncoder setComputePipelineState:*(v8 + 104)];
-      [computeCommandEncoder setBytes:v29 length:2 atIndex:0];
+      [computeCommandEncoder setBytes:v30 length:2 atIndex:0];
     }
 
     else
@@ -471,11 +471,11 @@
     [v12 width];
     OUTLINED_FUNCTION_3_10();
     OUTLINED_FUNCTION_8_0();
-    v29[0] = 12;
-    v29[1] = v16;
-    v29[2] = v8;
-    OUTLINED_FUNCTION_0_19();
-    OUTLINED_FUNCTION_4_4(v17, v18, v19, v20, v21, v22, v23, v24, v26, v27, v28, v29[0]);
+    v30[0] = 12;
+    v30[1] = v16;
+    v30[2] = v8;
+    *&v17 = OUTLINED_FUNCTION_0_19().u64[0];
+    OUTLINED_FUNCTION_4_4(v18, v19, v20, v21, v22, v23, v24, v25, v27, v28, v29, v17);
     [computeCommandEncoder endEncoding];
     v13 = 0;
 LABEL_14:

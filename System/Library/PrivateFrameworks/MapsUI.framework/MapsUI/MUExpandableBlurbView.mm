@@ -36,7 +36,7 @@
 
 - (void)_setupLabel
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   [(MUExpandableBlurbView *)self setInsetsLayoutMarginsFromSafeArea:0];
   [(MUExpandableBlurbView *)self setDirectionalLayoutMargins:*MEMORY[0x1E69DC5C0], *(MEMORY[0x1E69DC5C0] + 8), *(MEMORY[0x1E69DC5C0] + 16), *(MEMORY[0x1E69DC5C0] + 24)];
   v3 = [MUExpandingLabel alloc];
@@ -68,30 +68,29 @@
   [(MUExpandingLabel *)self->_expandingLabel setNumberOfLinesWhenCollapsed:5];
   objc_initWeak(&location, self);
   v14 = self->_expandingLabel;
-  v23 = MEMORY[0x1E69E9820];
-  v24 = 3221225472;
-  v25 = __36__MUExpandableBlurbView__setupLabel__block_invoke;
-  v26 = &unk_1E821BAC8;
-  objc_copyWeak(&v27, &location);
-  [(MUExpandingLabel *)v14 setLabelResizedBlock:&v23];
-  [(MUExpandableBlurbView *)self addSubview:self->_expandingLabel, v23, v24, v25, v26];
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __36__MUExpandableBlurbView__setupLabel__block_invoke;
+  v25 = &unk_1E821BAC8;
+  objc_copyWeak(&v26, &location);
+  [(MUExpandingLabel *)v14 setLabelResizedBlock:&v22];
+  [(MUExpandableBlurbView *)self addSubview:self->_expandingLabel, v22, v23, v24, v25];
   v15 = [MUEdgeLayout alloc];
   v16 = self->_expandingLabel;
   layoutMarginsGuide = [(MUExpandableBlurbView *)self layoutMarginsGuide];
   v18 = [(MUEdgeLayout *)v15 initWithItem:v16 container:layoutMarginsGuide];
 
   v19 = MEMORY[0x1E696ACD8];
-  v29[0] = v18;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+  v28[0] = v18;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
   [v19 _mapsui_activateLayouts:v20];
 
   [(UIView *)self _mapsui_addSelectGestureRecognizerWithTarget:self action:sel__expand];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter addObserver:self selector:sel__contentSizeDidChange name:*MEMORY[0x1E69DDC48] object:0];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __36__MUExpandableBlurbView__setupLabel__block_invoke(uint64_t a1)

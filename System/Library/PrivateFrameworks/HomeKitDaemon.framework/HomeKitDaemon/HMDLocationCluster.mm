@@ -13,43 +13,41 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   locations = [(HMDLocationCluster *)self locations];
   v5 = [v3 initWithName:@"Locations" value:locations];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
 
 - (id)locationFromKMeansClusteredGroups:(id)groups
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v4 = [groupsCopy countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v4 = [groupsCopy countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
     v7 = 0;
-    v8 = *v34;
+    v8 = *v33;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v34 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(groupsCopy);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * i);
+        v10 = *(*(&v32 + 1) + 8 * i);
         locations = [v10 locations];
         v12 = [locations count];
 
@@ -64,7 +62,7 @@
         }
       }
 
-      v5 = [groupsCopy countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v5 = [groupsCopy countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v5);
@@ -75,28 +73,28 @@
     v7 = 0;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   locations3 = [v7 locations];
-  v16 = [locations3 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v16 = [locations3 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = 0;
     v19 = *MEMORY[0x277CE41E0];
-    v20 = *v30;
+    v20 = *v29;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v30 != v20)
+        if (*v29 != v20)
         {
           objc_enumerationMutation(locations3);
         }
 
-        v22 = *(*(&v29 + 1) + 8 * j);
+        v22 = *(*(&v28 + 1) + 8 * j);
         center = [v7 center];
         [center distanceFromLocation:v22];
         v25 = v24;
@@ -110,7 +108,7 @@
         }
       }
 
-      v17 = [locations3 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v17 = [locations3 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v17);
@@ -121,65 +119,63 @@
     v18 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)generateNewGroupsFromGroups:(id)groups
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(groupsCopy, "count")}];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = groupsCopy;
-  v5 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v5 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v34;
+    v7 = *v33;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v34 != v7)
+        if (*v33 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v33 + 1) + 8 * i);
+        v9 = *(*(&v32 + 1) + 8 * i);
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         locations = [v9 locations];
-        v11 = [locations countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v11 = [locations countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v30;
+          v13 = *v29;
           v14 = 0.0;
           v15 = 0.0;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v30 != v13)
+              if (*v29 != v13)
               {
                 objc_enumerationMutation(locations);
               }
 
-              v17 = *(*(&v29 + 1) + 8 * j);
+              v17 = *(*(&v28 + 1) + 8 * j);
               [v17 coordinate];
               v15 = v15 + v18;
               [v17 coordinate];
               v14 = v14 + v19;
             }
 
-            v12 = [locations countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v12 = [locations countByEnumeratingWithState:&v28 objects:v36 count:16];
           }
 
           while (v12);
@@ -202,41 +198,39 @@
         [v4 addObject:v25];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v6 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v6);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (HMDLocationCluster)clusterWithGroups:(id)groups
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   groupsCopy = groups;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   locations = [(HMDLocationCluster *)self locations];
-  v6 = [locations countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [locations countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(locations);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
+        v10 = *(*(&v22 + 1) + 8 * i);
         if ([groupsCopy count])
         {
           v11 = 0;
@@ -268,13 +262,12 @@
         }
       }
 
-      v7 = [locations countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [locations countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -299,7 +292,7 @@
   }
 
   while (v3);
-  v12 = [v4 copy];
+  v12 = objc_msgSend_copy(v4);
   [(HMDLocationCluster *)self clusterWithGroups:v12];
   v13 = 10;
   do
@@ -318,7 +311,7 @@
 
 - (CLLocation)bestLocation
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   locations = [(HMDLocationCluster *)self locations];
   v4 = [locations count];
 
@@ -338,13 +331,13 @@
       {
         v22 = HMFGetLogIdentifier();
         locations3 = [(HMDLocationCluster *)selfCopy locations];
-        v26 = 138543874;
-        v27 = v22;
-        v28 = 2048;
-        v29 = [locations3 count];
-        v30 = 2112;
-        v31 = firstObject;
-        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Number of locations is %lu so using k-means-clustered location for best location: %@", &v26, 0x20u);
+        v25 = 138543874;
+        v26 = v22;
+        v27 = 2048;
+        v28 = [locations3 count];
+        v29 = 2112;
+        v30 = firstObject;
+        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Number of locations is %lu so using k-means-clustered location for best location: %@", &v25, 0x20u);
       }
 
       objc_autoreleasePoolPop(v19);
@@ -359,11 +352,11 @@
       {
         v10 = HMFGetLogIdentifier();
         locations4 = [(HMDLocationCluster *)selfCopy2 locations];
-        v26 = 138543618;
-        v27 = v10;
-        v28 = 2048;
-        v29 = [locations4 count];
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Number of locations is only %lu so sorting and using most accurate location for best location", &v26, 0x16u);
+        v25 = 138543618;
+        v26 = v10;
+        v27 = 2048;
+        v28 = [locations4 count];
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Number of locations is only %lu so sorting and using most accurate location for best location", &v25, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -382,16 +375,14 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v18;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Number of locations is 0 so returning nil for best location", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v18;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Number of locations is 0 so returning nil for best location", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
     firstObject = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -458,10 +449,9 @@ uint64_t __34__HMDLocationCluster_bestLocation__block_invoke(uint64_t a1, void *
 
 void __33__HMDLocationCluster_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_244479;
-  logCategory__hmf_once_v4_244479 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_244479;
+  logCategory__hmf_once_v4_244479 = v0;
 }
 
 @end

@@ -206,10 +206,10 @@
   v15 = *&rate;
   v16 = *&height;
   v17 = *&width;
-  v102 = *MEMORY[0x1E69E9840];
-  v81.receiver = self;
-  v81.super_class = VCAVFoundationCapture;
-  v19 = [(VCVideoCapture *)&v81 initWithCaptureServer:server protocolFunctions:functions];
+  v104 = *MEMORY[0x1E69E9840];
+  v83.receiver = self;
+  v83.super_class = VCAVFoundationCapture;
+  v19 = [(VCVideoCapture *)&v83 initWithCaptureServer:server protocolFunctions:functions];
   if (!v19)
   {
     return v19;
@@ -224,29 +224,29 @@
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136317954;
-        v83 = v21;
-        v84 = 2080;
-        v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-        v86 = 1024;
-        v87 = 394;
+        v85 = v21;
+        v86 = 2080;
+        v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
         v88 = 1024;
-        *v89 = v17;
-        *&v89[4] = 1024;
-        *&v89[6] = v16;
-        LOWORD(v90) = 1024;
-        *(&v90 + 2) = v15;
-        HIWORD(v90) = 1024;
-        *v91 = token;
+        v89 = 394;
+        v90 = 1024;
+        *v91 = v17;
         *&v91[4] = 1024;
-        *v92 = enabled;
-        *&v92[4] = 1024;
-        *v93 = orientation;
-        *&v93[4] = 2048;
+        *&v91[6] = v16;
+        LOWORD(v92) = 1024;
+        *(&v92 + 2) = v15;
+        HIWORD(v92) = 1024;
+        *v93 = token;
+        *&v93[4] = 1024;
+        *v94 = enabled;
+        *&v94[4] = 1024;
+        *v95 = orientation;
+        *&v95[4] = 2048;
         factorCopy = factor;
-        *v95 = 1024;
-        *&v95[2] = receive;
-        *v96 = 1024;
-        *&v96[2] = deviceOrientation;
+        *v97 = 1024;
+        *&v97[2] = receive;
+        *v98 = 1024;
+        *&v98[2] = deviceOrientation;
         v23 = " [%s] %s:%d width=%d, height=%d, frameRate=%d, sourceToken=0x%x, cinematicFramingEnabled=%d, orientation=%d, zoomFactor=%f, remoteSupportsFullScreenReceive=%d, remoteDeviceOrientation=%d";
         v24 = v22;
         v25 = 86;
@@ -275,32 +275,32 @@ LABEL_12:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136318466;
-        v83 = v26;
-        v84 = 2080;
-        v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-        v86 = 1024;
-        v87 = 394;
-        v88 = 2112;
-        *v89 = v20;
-        *&v89[8] = 2048;
-        v90 = v19;
-        *v91 = 1024;
-        *&v91[2] = v17;
-        *v92 = 1024;
-        *&v92[2] = v16;
+        v85 = v26;
+        v86 = 2080;
+        v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
+        v88 = 1024;
+        v89 = 394;
+        v90 = 2112;
+        *v91 = v20;
+        *&v91[8] = 2048;
+        v92 = v19;
         *v93 = 1024;
-        *&v93[2] = v15;
+        *&v93[2] = v17;
+        *v94 = 1024;
+        *&v94[2] = v16;
+        *v95 = 1024;
+        *&v95[2] = v15;
         LOWORD(factorCopy) = 1024;
         *(&factorCopy + 2) = token;
         HIWORD(factorCopy) = 1024;
-        *v95 = enabled;
-        *&v95[4] = 1024;
-        *v96 = orientation;
-        *&v96[4] = 2048;
+        *v97 = enabled;
+        *&v97[4] = 1024;
+        *v98 = orientation;
+        *&v98[4] = 2048;
         factorCopy2 = factor;
-        v98 = 1024;
-        receiveCopy = receive;
         v100 = 1024;
+        receiveCopy = receive;
+        v102 = 1024;
         deviceOrientationCopy = deviceOrientation;
         v23 = " [%s] %s:%d %@(%p) width=%d, height=%d, frameRate=%d, sourceToken=0x%x, cinematicFramingEnabled=%d, orientation=%d, zoomFactor=%f, remoteSupportsFullScreenReceive=%d, remoteDeviceOrientation=%d";
         v24 = v27;
@@ -338,13 +338,13 @@ LABEL_12:
     {
       isServerProcess = v19->_isServerProcess;
       *buf = 136315906;
-      v83 = v31;
-      v84 = 2080;
-      v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-      v86 = 1024;
-      v87 = 407;
+      v85 = v31;
+      v86 = 2080;
+      v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
       v88 = 1024;
-      *v89 = isServerProcess;
+      v89 = 407;
+      v90 = 1024;
+      *v91 = isServerProcess;
       _os_log_impl(&dword_1DB56E000, v32, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _isServerProcess=%d", buf, 0x22u);
     }
   }
@@ -368,11 +368,11 @@ LABEL_12:
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v83 = v36;
-          v84 = 2080;
-          v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-          v86 = 1024;
-          v87 = 417;
+          v85 = v36;
+          v86 = 2080;
+          v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
+          v88 = 1024;
+          v89 = 417;
           v38 = " [%s] %s:%d _supportNoDepthMemoji YES";
           v39 = v37;
           v40 = 28;
@@ -401,15 +401,15 @@ LABEL_32:
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136316162;
-          v83 = v41;
-          v84 = 2080;
-          v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-          v86 = 1024;
-          v87 = 417;
-          v88 = 2112;
-          *v89 = v35;
-          *&v89[8] = 2048;
-          v90 = v19;
+          v85 = v41;
+          v86 = 2080;
+          v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
+          v88 = 1024;
+          v89 = 417;
+          v90 = 2112;
+          *v91 = v35;
+          *&v91[8] = 2048;
+          v92 = v19;
           v38 = " [%s] %s:%d %@(%p) _supportNoDepthMemoji YES";
           v39 = v42;
           v40 = 48;
@@ -436,13 +436,13 @@ LABEL_32:
       {
         deviceMinFrameRate = v19->_deviceMinFrameRate;
         *buf = 136315906;
-        v83 = v45;
-        v84 = 2080;
-        v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-        v86 = 1024;
-        v87 = 421;
+        v85 = v45;
+        v86 = 2080;
+        v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
         v88 = 1024;
-        *v89 = deviceMinFrameRate;
+        v89 = 421;
+        v90 = 1024;
+        *v91 = deviceMinFrameRate;
         v48 = " [%s] %s:%d kVCDefaultCaptureDeviceFrameRateMin is set to %d";
         v49 = v46;
         v50 = 34;
@@ -472,17 +472,17 @@ LABEL_44:
       {
         v53 = v19->_deviceMinFrameRate;
         *buf = 136316418;
-        v83 = v51;
-        v84 = 2080;
-        v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-        v86 = 1024;
-        v87 = 421;
-        v88 = 2112;
-        *v89 = v44;
-        *&v89[8] = 2048;
-        v90 = v19;
-        *v91 = 1024;
-        *&v91[2] = v53;
+        v85 = v51;
+        v86 = 2080;
+        v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
+        v88 = 1024;
+        v89 = 421;
+        v90 = 2112;
+        *v91 = v44;
+        *&v91[8] = 2048;
+        v92 = v19;
+        *v93 = 1024;
+        *&v93[2] = v53;
         v48 = " [%s] %s:%d %@(%p) kVCDefaultCaptureDeviceFrameRateMin is set to %d";
         v49 = v52;
         v50 = 54;
@@ -512,11 +512,11 @@ LABEL_45:
     }
 
     *buf = 136315650;
-    v83 = v55;
-    v84 = 2080;
-    v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-    v86 = 1024;
-    v87 = 424;
+    v85 = v55;
+    v86 = 2080;
+    v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
+    v88 = 1024;
+    v89 = 424;
     v57 = " [%s] %s:%d Pick only non binned AVCaptureDeviceFormat";
     v58 = v56;
     v59 = 28;
@@ -540,15 +540,15 @@ LABEL_45:
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316162;
-      v83 = v60;
-      v84 = 2080;
-      v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-      v86 = 1024;
-      v87 = 424;
-      v88 = 2112;
-      *v89 = v54;
-      *&v89[8] = 2048;
-      v90 = v19;
+      v85 = v60;
+      v86 = 2080;
+      v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
+      v88 = 1024;
+      v89 = 424;
+      v90 = 2112;
+      *v91 = v54;
+      *&v91[8] = 2048;
+      v92 = v19;
       v57 = " [%s] %s:%d %@(%p) Pick only non binned AVCaptureDeviceFormat";
       v58 = v61;
       v59 = 48;
@@ -594,13 +594,14 @@ LABEL_57:
   [(VCAVFoundationCapture *)v19 updateCenterStageEnabled:enabled requestCaptureChange:1];
   [(AVCaptureSession *)v19->_captureSession commitConfiguration];
   [+[VCEffectsManager sharedManager](VCEffectsManager "sharedManager")];
-  if ([+[VCEffectsManager sharedManager](VCEffectsManager "sharedManager")])
+  v64 = [+[VCEffectsManager sharedManager](VCEffectsManager "sharedManager")];
+  if (v64)
   {
-    [(VCAVFoundationCapture *)v19 setFaceMeshTrackingEnabled:1];
+    v64 = [(VCAVFoundationCapture *)v19 setFaceMeshTrackingEnabled:1];
   }
 
-  v64 = VCEffectsManager_SharedManager();
-  if (VCEffectsManager_IsEffectsOn(v64))
+  v66 = VCEffectsManager_SharedManager(v64, v65);
+  if (VCEffectsManager_IsEffectsOn(v66))
   {
     [(VCAVFoundationCapture *)v19 setEffectsApplied:1];
   }
@@ -614,7 +615,7 @@ LABEL_57:
   v19->_forceMirrorCapture = [+[VCDefaults sharedInstance](VCDefaults forceMirroredCapture];
   v19->_forceDynamicEffectsFramerate = [+[VCDefaults sharedInstance](VCDefaults forceDynamicEffectsFramerate];
   [+[VCDefaults sharedInstance](VCDefaults depthFrameRateMultiplier];
-  v19->_depthFrameRateMultplier = 1.0 / v65;
+  v19->_depthFrameRateMultplier = 1.0 / v67;
   v19->_forcePearlCamera = [+[VCDefaults sharedInstance](VCDefaults forceEnablePearlCamera];
   v19->_pixelBufferCVO = -1;
   [(VCAVFoundationCapture *)v19 resetViewPointLogging];
@@ -627,12 +628,12 @@ LABEL_57:
   {
     if (objc_opt_respondsToSelector())
     {
-      v66 = [(VCAVFoundationCapture *)v19 performSelector:sel_logPrefix];
+      v68 = [(VCAVFoundationCapture *)v19 performSelector:sel_logPrefix];
     }
 
     else
     {
-      v66 = &stru_1F570E008;
+      v68 = &stru_1F570E008;
     }
 
     if (VRTraceGetErrorLogLevelForModule() <= 6)
@@ -640,8 +641,8 @@ LABEL_57:
       goto LABEL_78;
     }
 
-    v74 = VRTraceErrorLogLevelToCSTR();
-    v75 = *MEMORY[0x1E6986650];
+    v76 = VRTraceErrorLogLevelToCSTR();
+    v77 = *MEMORY[0x1E6986650];
     if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_78;
@@ -650,48 +651,48 @@ LABEL_57:
     captureFormatPrefer16By9ForSquare = v19->_captureFormatPrefer16By9ForSquare;
     cameraEffectsFrontCameraMirrored = v19->_cameraEffectsFrontCameraMirrored;
     *buf = 136316674;
-    v83 = v74;
-    v84 = 2080;
-    v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-    v86 = 1024;
-    v87 = 498;
-    v88 = 2112;
-    *v89 = v66;
-    *&v89[8] = 2048;
-    v90 = v19;
-    *v91 = 1024;
-    *&v91[2] = captureFormatPrefer16By9ForSquare;
-    *v92 = 1024;
-    *&v92[2] = cameraEffectsFrontCameraMirrored;
-    v71 = " [%s] %s:%d %@(%p) _captureFormatPrefer16By9ForSquare=%d, _cameraEffectsFrontCameraMirrored=%d";
-    v72 = v75;
-    v73 = 60;
+    v85 = v76;
+    v86 = 2080;
+    v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
+    v88 = 1024;
+    v89 = 498;
+    v90 = 2112;
+    *v91 = v68;
+    *&v91[8] = 2048;
+    v92 = v19;
+    *v93 = 1024;
+    *&v93[2] = captureFormatPrefer16By9ForSquare;
+    *v94 = 1024;
+    *&v94[2] = cameraEffectsFrontCameraMirrored;
+    v73 = " [%s] %s:%d %@(%p) _captureFormatPrefer16By9ForSquare=%d, _cameraEffectsFrontCameraMirrored=%d";
+    v74 = v77;
+    v75 = 60;
     goto LABEL_77;
   }
 
   if (VRTraceGetErrorLogLevelForModule() > 6)
   {
-    v67 = VRTraceErrorLogLevelToCSTR();
-    v68 = *MEMORY[0x1E6986650];
+    v69 = VRTraceErrorLogLevelToCSTR();
+    v70 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v69 = v19->_captureFormatPrefer16By9ForSquare;
-      v70 = v19->_cameraEffectsFrontCameraMirrored;
+      v71 = v19->_captureFormatPrefer16By9ForSquare;
+      v72 = v19->_cameraEffectsFrontCameraMirrored;
       *buf = 136316162;
-      v83 = v67;
-      v84 = 2080;
-      v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-      v86 = 1024;
-      v87 = 498;
+      v85 = v69;
+      v86 = 2080;
+      v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
       v88 = 1024;
-      *v89 = v69;
-      *&v89[4] = 1024;
-      *&v89[6] = v70;
-      v71 = " [%s] %s:%d _captureFormatPrefer16By9ForSquare=%d, _cameraEffectsFrontCameraMirrored=%d";
-      v72 = v68;
-      v73 = 40;
+      v89 = 498;
+      v90 = 1024;
+      *v91 = v71;
+      *&v91[4] = 1024;
+      *&v91[6] = v72;
+      v73 = " [%s] %s:%d _captureFormatPrefer16By9ForSquare=%d, _cameraEffectsFrontCameraMirrored=%d";
+      v74 = v70;
+      v75 = 40;
 LABEL_77:
-      _os_log_impl(&dword_1DB56E000, v72, OS_LOG_TYPE_DEFAULT, v71, buf, v73);
+      _os_log_impl(&dword_1DB56E000, v74, OS_LOG_TYPE_DEFAULT, v73, buf, v75);
     }
   }
 
@@ -699,19 +700,19 @@ LABEL_78:
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCAVFoundationCapture-init");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v78 = VRTraceErrorLogLevelToCSTR();
-    v79 = *MEMORY[0x1E6986650];
+    v80 = VRTraceErrorLogLevelToCSTR();
+    v81 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v83 = v78;
-      v84 = 2080;
-      v85 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
-      v86 = 1024;
-      v87 = 499;
-      v88 = 2048;
-      *v89 = v19;
-      _os_log_impl(&dword_1DB56E000, v79, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAVFoundationCapture-init (%p)", buf, 0x26u);
+      v85 = v80;
+      v86 = 2080;
+      v87 = "[VCAVFoundationCapture initWithCaptureServer:protocolFunctions:width:height:frameRate:videoSourceToken:cinematicFramingEnabled:videoOrientation:capturePixelFormat:zoomFactor:remoteSupportsFullScreenReceive:remoteDeviceOrientation:]";
+      v88 = 1024;
+      v89 = 499;
+      v90 = 2048;
+      *v91 = v19;
+      _os_log_impl(&dword_1DB56E000, v81, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAVFoundationCapture-init (%p)", buf, 0x26u);
     }
   }
 
@@ -1646,16 +1647,16 @@ void __52__VCAVFoundationCapture_setFaceMeshTrackingEnabled___block_invoke(uint6
   dispatch_async(captureSessionQueue, block);
 }
 
-uint64_t __43__VCAVFoundationCapture_setEffectsApplied___block_invoke(uint64_t result)
+unsigned __int8 *__43__VCAVFoundationCapture_setEffectsApplied___block_invoke(unsigned __int8 *result)
 {
   v36 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = result[40];
+  v2 = *(result + 4);
   if (v1 != *(v2 + 235))
   {
     v3 = result;
     *(v2 + 235) = v1;
-    v4 = [*(result + 32) isFrontCamera];
+    v4 = [*(result + 4) isFrontCamera];
     ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
     v6 = MEMORY[0x1E6986650];
     if (ErrorLogLevelForModule >= 7)
@@ -1664,7 +1665,7 @@ uint64_t __43__VCAVFoundationCapture_setEffectsApplied___block_invoke(uint64_t r
       v8 = *v6;
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = *(v3 + 32);
+        v9 = *(v3 + 4);
         v10 = v9[235];
         v11 = v9[246];
         LODWORD(v9) = v9[249];
@@ -1688,7 +1689,7 @@ uint64_t __43__VCAVFoundationCapture_setEffectsApplied___block_invoke(uint64_t r
 
     if (v4)
     {
-      v12 = *(v3 + 32);
+      v12 = *(v3 + 4);
       if ((v12[246] & 1) == 0 && v12[249] == 1)
       {
         if (v12[235])
@@ -1705,7 +1706,7 @@ uint64_t __43__VCAVFoundationCapture_setEffectsApplied___block_invoke(uint64_t r
       }
     }
 
-    v14 = *(v3 + 32);
+    v14 = *(v3 + 4);
     if (*(v14 + 235))
     {
       v21 = 15;
@@ -1742,7 +1743,7 @@ uint64_t __43__VCAVFoundationCapture_setEffectsApplied___block_invoke(uint64_t r
       v18 = *v6;
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = *(v3 + 40);
+        v19 = v3[40];
         *buf = 136316162;
         v23 = v17;
         v24 = 2080;
@@ -1757,8 +1758,8 @@ uint64_t __43__VCAVFoundationCapture_setEffectsApplied___block_invoke(uint64_t r
       }
     }
 
-    result = *(v3 + 32);
-    if (*(result + 288) != v21)
+    result = *(v3 + 4);
+    if (*(result + 72) != v21)
     {
       v20 = [result captureServer];
       return [v20 setCaptureFrameRate:v21];
@@ -1925,7 +1926,7 @@ void __79__VCAVFoundationCapture_encodeProcessedPixelBuffer_time_imageData_proce
     device = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
     if (device)
     {
-      [(AVCaptureDevice *)device activeVideoMaxFrameDuration];
+      objc_msgSend_activeVideoMaxFrameDuration(device);
     }
 
     else
@@ -2007,7 +2008,7 @@ void __79__VCAVFoundationCapture_captureOutput_didOutputMetadataObjects_fromConn
   if (self->_useAVConferenced)
   {
     time = v13;
-    _VCAVFoundationCapture_ProcessSampleBufferWithCaptureOutput(self, buffer, &time, output);
+    _VCAVFoundationCapture_ProcessSampleBufferWithCaptureOutput(self, buffer, &time.value, output);
     FigSampleBufferRelease();
   }
 
@@ -2028,11 +2029,12 @@ void __79__VCAVFoundationCapture_captureOutput_didOutputMetadataObjects_fromConn
 
 uint64_t __76__VCAVFoundationCapture_captureOutput_didOutputSampleBuffer_fromConnection___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 48);
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
   v6 = *(a1 + 56);
+  v7 = *(a1 + 72);
   _VCAVFoundationCapture_ProcessSampleBufferWithCaptureOutput(v3, v2, &v6, v4);
 
   return FigSampleBufferRelease();
@@ -2352,7 +2354,7 @@ LABEL_32:
 
 void __37__VCAVFoundationCapture_startPreview__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 361) == 1)
   {
@@ -2370,32 +2372,32 @@ void __37__VCAVFoundationCapture_startPreview__block_invoke(uint64_t a1)
       v6 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315650;
-        v10 = v5;
-        v11 = 2080;
-        v12 = "[VCAVFoundationCapture startPreview]_block_invoke";
-        v13 = 1024;
-        v14 = 1599;
-        _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _captureSession startRunning", &v9, 0x1Cu);
+        v11 = 136315650;
+        v12 = v5;
+        v13 = 2080;
+        v14 = "[VCAVFoundationCapture startPreview]_block_invoke";
+        v15 = 1024;
+        v16 = 1599;
+        _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _captureSession startRunning", &v11, 0x1Cu);
       }
     }
 
-    [*(*(a1 + 32) + 184) startRunning];
-    *(*(a1 + 32) + 312) = micro();
+    v7 = [*(*(a1 + 32) + 184) startRunning];
+    *(*(a1 + 32) + 312) = micro(v7, v8);
     [*(a1 + 32) unlockAVCaptureDeviceInputForConfiguration];
     if (VRTraceGetErrorLogLevelForModule() >= 7)
     {
-      v7 = VRTraceErrorLogLevelToCSTR();
-      v8 = *v4;
+      v9 = VRTraceErrorLogLevelToCSTR();
+      v10 = *v4;
       if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = 136315650;
-        v10 = v7;
-        v11 = 2080;
-        v12 = "[VCAVFoundationCapture startPreview]_block_invoke";
-        v13 = 1024;
-        v14 = 1603;
-        _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ", &v9, 0x1Cu);
+        v11 = 136315650;
+        v12 = v9;
+        v13 = 2080;
+        v14 = "[VCAVFoundationCapture startPreview]_block_invoke";
+        v15 = 1024;
+        v16 = 1603;
+        _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d ", &v11, 0x1Cu);
       }
     }
   }
@@ -2683,7 +2685,7 @@ LABEL_24:
 
 void __30__VCAVFoundationCapture_stop___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 362) & 1) != 0 || (*(v2 + 361))
   {
@@ -2691,21 +2693,21 @@ void __30__VCAVFoundationCapture_stop___block_invoke(uint64_t a1)
     if (*(a1 + 40) == 1)
     {
       *(*(a1 + 32) + 361) = 0;
-      [*(*(a1 + 32) + 184) stopRunning];
-      *(*(a1 + 32) + 320) = micro() - *(*(a1 + 32) + 312) + *(*(a1 + 32) + 320);
+      v3 = [*(*(a1 + 32) + 184) stopRunning];
+      *(*(a1 + 32) + 320) = micro(v3, v4) - *(*(a1 + 32) + 312) + *(*(a1 + 32) + 320);
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v3 = VRTraceErrorLogLevelToCSTR();
-        v4 = *MEMORY[0x1E6986650];
+        v5 = VRTraceErrorLogLevelToCSTR();
+        v6 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v10 = 136315650;
-          v11 = v3;
-          v12 = 2080;
-          v13 = "[VCAVFoundationCapture stop:]_block_invoke";
-          v14 = 1024;
-          v15 = 1694;
-          _os_log_impl(&dword_1DB56E000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _captureSession stopRunning", &v10, 0x1Cu);
+          v12 = 136315650;
+          v13 = v5;
+          v14 = 2080;
+          v15 = "[VCAVFoundationCapture stop:]_block_invoke";
+          v16 = 1024;
+          v17 = 1694;
+          _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _captureSession stopRunning", &v12, 0x1Cu);
         }
       }
 
@@ -2715,27 +2717,27 @@ void __30__VCAVFoundationCapture_stop___block_invoke(uint64_t a1)
 
   else if (VRTraceGetErrorLogLevelForModule() >= 5)
   {
-    v5 = VRTraceErrorLogLevelToCSTR();
-    v6 = *MEMORY[0x1E6986650];
+    v7 = VRTraceErrorLogLevelToCSTR();
+    v8 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 40);
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 361);
-      LODWORD(v8) = *(v8 + 362);
-      v10 = 136316418;
-      v11 = v5;
-      v12 = 2080;
-      v13 = "[VCAVFoundationCapture stop:]_block_invoke";
-      v14 = 1024;
-      v15 = 1686;
+      v9 = *(a1 + 40);
+      v10 = *(a1 + 32);
+      v11 = *(v10 + 361);
+      LODWORD(v10) = *(v10 + 362);
+      v12 = 136316418;
+      v13 = v7;
+      v14 = 2080;
+      v15 = "[VCAVFoundationCapture stop:]_block_invoke";
       v16 = 1024;
-      v17 = v7;
+      v17 = 1686;
       v18 = 1024;
       v19 = v9;
       v20 = 1024;
-      v21 = v8;
-      _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d preview already stopped! shouldStopPreview=%d _isPreviewing=%d _isCapturing=%d", &v10, 0x2Eu);
+      v21 = v11;
+      v22 = 1024;
+      v23 = v10;
+      _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d preview already stopped! shouldStopPreview=%d _isPreviewing=%d _isCapturing=%d", &v12, 0x2Eu);
     }
   }
 }
@@ -2935,7 +2937,8 @@ void __41__VCAVFoundationCapture_isPreviewRunning__block_invoke(uint64_t a1)
     if ([[(AVCaptureDeviceInput *)self->_videoDeviceInput device] lockForConfiguration:&v18])
     {
       memset(v17, 170, sizeof(v17));
-      [(VCAVFoundationCapture *)self frameDurationForVideoDeviceFormat:[[(AVCaptureDeviceInput *)self->_videoDeviceInput device] activeFormat] frameRate:v4];
+      [[(AVCaptureDeviceInput *)self->_videoDeviceInput device] activeFormat];
+      objc_msgSend_frameDurationForVideoDeviceFormat_frameRate_(self);
       if (v17[12])
       {
         activeFrameRate = self->_activeFrameRate;
@@ -3050,7 +3053,7 @@ void __41__VCAVFoundationCapture_isPreviewRunning__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __38__VCAVFoundationCapture_setFrameRate___block_invoke(uint64_t a1)
+void *__38__VCAVFoundationCapture_setFrameRate___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) getMaxAllowedFrameRate:*(a1 + 48)];
   result = [*(a1 + 32) setFrameRateInternal:? forceSourceFrameRateDidChange:?];
@@ -3219,7 +3222,7 @@ uint64_t __38__VCAVFoundationCapture_setFrameRate___block_invoke(uint64_t a1)
   captureDevice = self->_captureDevice;
   if (captureDevice)
   {
-    [(AVCaptureDevice *)captureDevice activeVideoMinFrameDuration];
+    objc_msgSend_activeVideoMinFrameDuration(captureDevice, a2);
     Seconds = CMTimeGetSeconds(&v5);
     if (Seconds <= 0.0)
     {
@@ -3840,7 +3843,7 @@ void __53__VCAVFoundationCapture_setCaptureSIFRFormatEnabled___block_invoke(uint
   return v2;
 }
 
-uint64_t __47__VCAVFoundationCapture_isCenterStageSupported__block_invoke(uint64_t a1, void *a2)
+void *__47__VCAVFoundationCapture_isCenterStageSupported__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCenterStageSupported];
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -3865,7 +3868,7 @@ uint64_t __47__VCAVFoundationCapture_isCenterStageSupported__block_invoke(uint64
   return v2;
 }
 
-uint64_t __48__VCAVFoundationCapture_isPortraitModeSupported__block_invoke(uint64_t a1, void *a2)
+void *__48__VCAVFoundationCapture_isPortraitModeSupported__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isPortraitEffectSupported];
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -3890,7 +3893,7 @@ uint64_t __48__VCAVFoundationCapture_isPortraitModeSupported__block_invoke(uint6
   return v2;
 }
 
-uint64_t __47__VCAVFoundationCapture_isStudioLightSupported__block_invoke(uint64_t a1, void *a2)
+void *__47__VCAVFoundationCapture_isStudioLightSupported__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isStudioLightSupported];
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -3915,7 +3918,7 @@ uint64_t __47__VCAVFoundationCapture_isStudioLightSupported__block_invoke(uint64
   return v2;
 }
 
-uint64_t __44__VCAVFoundationCapture_isReactionSupported__block_invoke(uint64_t a1, void *a2)
+void *__44__VCAVFoundationCapture_isReactionSupported__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 reactionEffectsSupported];
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -3940,7 +3943,7 @@ uint64_t __44__VCAVFoundationCapture_isReactionSupported__block_invoke(uint64_t 
   return v2;
 }
 
-uint64_t __57__VCAVFoundationCapture_isBackgroundReplacementSupported__block_invoke(uint64_t a1, void *a2)
+void *__57__VCAVFoundationCapture_isBackgroundReplacementSupported__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isBackgroundReplacementSupported];
   *(*(*(a1 + 32) + 8) + 24) |= result;
@@ -4199,20 +4202,20 @@ uint64_t __57__VCAVFoundationCapture_isBackgroundReplacementSupported__block_inv
   dispatch_sync(captureSessionQueue, block);
 }
 
-void __54__VCAVFoundationCapture_collectCaptureFrameRateStats___block_invoke(uint64_t a1)
+void __54__VCAVFoundationCapture_collectCaptureFrameRateStats___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 362) & 1) != 0 || (*(v2 + 361))
+  v3 = *(a1 + 32);
+  if (*(v3 + 362) & 1) != 0 || (*(v3 + 361))
   {
-    v3 = micro();
-    *(*(a1 + 32) + 320) = v3 - *(*(a1 + 32) + 312) + *(*(a1 + 32) + 320);
-    *(*(a1 + 32) + 312) = v3;
-    v2 = *(a1 + 32);
+    v4 = micro(a1, a2);
+    *(*(a1 + 32) + 320) = v4 - *(*(a1 + 32) + 312) + *(*(a1 + 32) + 320);
+    *(*(a1 + 32) + 312) = v4;
+    v3 = *(a1 + 32);
   }
 
-  if (*(v2 + 320) >= 2.0)
+  if (*(v3 + 320) >= 2.0)
   {
-    CFDictionaryAddValue(*(a1 + 40), @"CAMFC", [MEMORY[0x1E696AD98] numberWithInt:*(v2 + 308)]);
+    CFDictionaryAddValue(*(a1 + 40), @"CAMFC", [MEMORY[0x1E696AD98] numberWithInt:*(v3 + 308)]);
     CFDictionaryAddValue(*(a1 + 40), @"CAMDUR", [MEMORY[0x1E696AD98] numberWithDouble:*(*(a1 + 32) + 320)]);
     *(*(a1 + 32) + 308) = 0;
     *(*(a1 + 32) + 320) = 0;
@@ -4241,7 +4244,7 @@ void __54__VCAVFoundationCapture_collectCaptureFrameRateStats___block_invoke(uin
   return v5;
 }
 
-uint64_t __58__VCAVFoundationCapture_cameraSupportsFormatWidth_height___block_invoke(uint64_t a1)
+void *__58__VCAVFoundationCapture_cameraSupportsFormatWidth_height___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) cameraFormatForWidth:*(a1 + 48) height:*(a1 + 52)];
   *(*(*(a1 + 40) + 8) + 24) = result != 0;
@@ -4582,10 +4585,10 @@ void *__101__VCAVFoundationCapture_frameBecameAvailableCount_figBufferQueueEmpty
   return v4;
 }
 
-uint64_t __40__VCAVFoundationCapture_setOrientation___block_invoke(uint64_t result)
+void *__40__VCAVFoundationCapture_setOrientation___block_invoke(void *result)
 {
   v19 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 252) != *(result + 48))
+  if (*(result[4] + 252) != *(result + 12))
   {
     v1 = result;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -4594,7 +4597,7 @@ uint64_t __40__VCAVFoundationCapture_setOrientation___block_invoke(uint64_t resu
       v3 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(v1 + 48);
+        v4 = *(v1 + 12);
         v11 = 136315906;
         v12 = v2;
         v13 = 2080;
@@ -4607,10 +4610,10 @@ uint64_t __40__VCAVFoundationCapture_setOrientation___block_invoke(uint64_t resu
       }
     }
 
-    v5 = *(v1 + 32);
+    v5 = v1[4];
     v6 = *(v5 + 368);
-    [v5 updateDeviceOrientationMatchesReceiver:*(v1 + 48) remoteDeviceOrientation:*(v5 + 452)];
-    v7 = *(v1 + 32);
+    [v5 updateDeviceOrientationMatchesReceiver:*(v1 + 12) remoteDeviceOrientation:*(v5 + 452)];
+    v7 = v1[4];
     if (v7[368] != v6 && [v7 isCaptureFullBleedPreferred])
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -4629,13 +4632,13 @@ uint64_t __40__VCAVFoundationCapture_setOrientation___block_invoke(uint64_t resu
         }
       }
 
-      *(*(v1 + 32) + 260) = 1;
-      *(*(*(v1 + 40) + 8) + 24) = 0;
+      *(v1[4] + 260) = 1;
+      *(*(v1[5] + 8) + 24) = 0;
     }
 
-    *(*(v1 + 32) + 256) = *(*(v1 + 32) + 252);
-    *(*(v1 + 32) + 252) = *(v1 + 48);
-    v10 = *(v1 + 32);
+    *(v1[4] + 256) = *(v1[4] + 252);
+    *(v1[4] + 252) = *(v1 + 12);
+    v10 = v1[4];
     if ((*(v10 + 261) & 1) == 0)
     {
       result = [v10 isCaptureFullBleedPreferred];
@@ -4644,7 +4647,7 @@ uint64_t __40__VCAVFoundationCapture_setOrientation___block_invoke(uint64_t resu
         return result;
       }
 
-      v10 = *(v1 + 32);
+      v10 = v1[4];
     }
 
     return [v10 setVideoDeviceToWidth:*(v10 + 328) height:*(v10 + 336) frameRate:*(v10 + 296)];
@@ -4666,7 +4669,7 @@ uint64_t __40__VCAVFoundationCapture_setOrientation___block_invoke(uint64_t resu
   dispatch_sync(captureSessionQueue, block);
 }
 
-uint64_t __52__VCAVFoundationCapture_setRemoteDeviceOrientation___block_invoke(uint64_t a1)
+void *__52__VCAVFoundationCapture_setRemoteDeviceOrientation___block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 452) = *(a1 + 40);
   [*(a1 + 32) updateDeviceOrientationMatchesReceiver:*(*(a1 + 32) + 252) remoteDeviceOrientation:*(*(a1 + 32) + 452)];
@@ -5352,7 +5355,8 @@ LABEL_8:
   }
 
   memset(&v17[1], 170, sizeof(CMTime));
-  [(VCAVFoundationCapture *)self frameDurationForVideoDeviceFormat:[[(AVCaptureDeviceInput *)self->_videoDeviceInput device] activeFormat] frameRate:self->_deviceMinFrameRate];
+  [[(AVCaptureDeviceInput *)self->_videoDeviceInput device] activeFormat];
+  objc_msgSend_frameDurationForVideoDeviceFormat_frameRate_(self);
   time1 = v17[1];
   v17[0] = **&MEMORY[0x1E6960C70];
   v6 = CMTimeCompare(&time1, v17);
@@ -5688,7 +5692,7 @@ LABEL_8:
       v13 = self->_captureDevice;
       if (v13)
       {
-        [(AVCaptureDevice *)v13 activeDepthDataMinFrameDuration];
+        objc_msgSend_activeDepthDataMinFrameDuration(v13);
       }
 
       else
@@ -6180,7 +6184,7 @@ LABEL_26:
 
             if (v13)
             {
-              [v13 startTime];
+              objc_msgSend_startTime(v13);
               if (v18)
               {
                 goto LABEL_14;
@@ -6193,7 +6197,7 @@ LABEL_26:
               if (v18)
               {
 LABEL_14:
-                [v18 startTime];
+                objc_msgSend_startTime(v18);
                 goto LABEL_17;
               }
             }
@@ -6859,7 +6863,7 @@ LABEL_27:
   memset(&v37, 170, sizeof(v37));
   if (self)
   {
-    [(VCAVFoundationCapture *)self frameDurationForVideoDeviceFormat:format frameRate:*&active];
+    objc_msgSend_frameDurationForVideoDeviceFormat_frameRate_(self, a2, format, *&active);
   }
 
   else
@@ -6870,7 +6874,7 @@ LABEL_27:
   device = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
   if (device)
   {
-    [(AVCaptureDevice *)device activeVideoMinFrameDuration];
+    objc_msgSend_activeVideoMinFrameDuration(device);
   }
 
   else
@@ -6889,7 +6893,7 @@ LABEL_27:
     device2 = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
     if (device2)
     {
-      [(AVCaptureDevice *)device2 activeVideoMaxFrameDuration];
+      objc_msgSend_activeVideoMaxFrameDuration(device2);
     }
 
     else
@@ -6913,7 +6917,7 @@ LABEL_27:
         device3 = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
         if (device3)
         {
-          [(AVCaptureDevice *)device3 activeVideoMinFrameDuration];
+          objc_msgSend_activeVideoMinFrameDuration(device3);
           v12 = v35;
         }
 
@@ -6925,7 +6929,7 @@ LABEL_27:
         device4 = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
         if (device4)
         {
-          [(AVCaptureDevice *)device4 activeVideoMinFrameDuration];
+          objc_msgSend_activeVideoMinFrameDuration(device4);
           v16 = v34;
         }
 
@@ -6937,7 +6941,7 @@ LABEL_27:
         device5 = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
         if (device5)
         {
-          [(AVCaptureDevice *)device5 activeVideoMaxFrameDuration];
+          objc_msgSend_activeVideoMaxFrameDuration(device5);
           v18 = v33;
         }
 
@@ -6949,7 +6953,7 @@ LABEL_27:
         device6 = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
         if (device6)
         {
-          [(AVCaptureDevice *)device6 activeVideoMaxFrameDuration];
+          objc_msgSend_activeVideoMaxFrameDuration(device6);
           v20 = v32;
         }
 
@@ -6983,7 +6987,7 @@ LABEL_27:
       device7 = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
       if (device7)
       {
-        [(AVCaptureDevice *)device7 activeVideoMinFrameDuration];
+        objc_msgSend_activeVideoMinFrameDuration(device7);
         v14 = v31;
       }
 
@@ -6995,7 +6999,7 @@ LABEL_27:
       device8 = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
       if (device8)
       {
-        [(AVCaptureDevice *)device8 activeVideoMinFrameDuration];
+        objc_msgSend_activeVideoMinFrameDuration(device8);
         v23 = v30;
       }
 
@@ -7007,7 +7011,7 @@ LABEL_27:
       device9 = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
       if (device9)
       {
-        [(AVCaptureDevice *)device9 activeVideoMaxFrameDuration];
+        objc_msgSend_activeVideoMaxFrameDuration(device9);
         v25 = v29;
       }
 
@@ -7019,7 +7023,7 @@ LABEL_27:
       device10 = [(AVCaptureDeviceInput *)self->_videoDeviceInput device];
       if (device10)
       {
-        [(AVCaptureDevice *)device10 activeVideoMaxFrameDuration];
+        objc_msgSend_activeVideoMaxFrameDuration(device10);
         v27 = v28;
       }
 
@@ -7348,7 +7352,7 @@ void __104__VCAVFoundationCapture_updateVideoCaptureAspectRatioWithRequestResolu
 
   v51 = v12;
   memset(v53, 170, sizeof(v53));
-  [(VCAVFoundationCapture *)self frameDurationForVideoDeviceFormat:v14 frameRate:v17];
+  objc_msgSend_frameDurationForVideoDeviceFormat_frameRate_(self);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
     v20 = VRTraceErrorLogLevelToCSTR();
@@ -7741,59 +7745,35 @@ LABEL_16:
 
 - (id)cameraFormatForWidthWithList:(int)list height:(int)height frameRate:(int)rate formatList:(id)formatList
 {
-  v7 = *&rate;
-  v69 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   obj = objc_alloc_init(MEMORY[0x1E695DF70]);
   v11 = objc_alloc_init(MEMORY[0x1E695DF70]);
   listCopy = list;
   heightCopy = height;
+  v63 = 0u;
+  v64 = 0u;
+  v12 = list / height;
   v65 = 0u;
   v66 = 0u;
-  v12 = list / height;
-  v67 = 0u;
-  v68 = 0u;
-  v13 = [formatList countByEnumeratingWithState:&v65 objects:v64 count:16];
+  v13 = [formatList countByEnumeratingWithState:&v63 objects:v62 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v66;
+    v15 = *v64;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v66 != v15)
+        if (*v64 != v15)
         {
           objc_enumerationMutation(formatList);
         }
 
-        v17 = *(*(&v65 + 1) + 8 * i);
+        v17 = *(*(&v63 + 1) + 8 * i);
         if ([(VCAVFoundationCapture *)self hasRequiredAttributes:v17])
         {
-          if (!v7)
+          if (!rate || (memset(buf, 170, sizeof(buf)), objc_msgSend_frameDurationForVideoDeviceFormat_frameRate_(self), (buf[12] & 1) != 0))
           {
-            goto LABEL_13;
-          }
-
-          memset(buf, 170, sizeof(buf));
-          v18 = v7;
-          if (self->_effectsApplied)
-          {
-            lastClientRequestedFrameRate = self->_lastClientRequestedFrameRate;
-            if (lastClientRequestedFrameRate <= v7)
-            {
-              v18 = v7;
-            }
-
-            else
-            {
-              v18 = lastClientRequestedFrameRate;
-            }
-          }
-
-          [(VCAVFoundationCapture *)self frameDurationForVideoDeviceFormat:v17 frameRate:v18];
-          if (buf[12])
-          {
-LABEL_13:
             Dimensions = CMVideoFormatDescriptionGetDimensions([v17 formatDescription]);
             if (Dimensions.width == listCopy && Dimensions.height == height)
             {
@@ -7805,44 +7785,44 @@ LABEL_13:
         }
       }
 
-      v14 = [formatList countByEnumeratingWithState:&v65 objects:v64 count:16];
+      v14 = [formatList countByEnumeratingWithState:&v63 objects:v62 count:16];
     }
 
     while (v14);
   }
 
-  v51 = -1431655766;
-  *&v49[1] = v12;
-  v49[0] = self;
-  v50 = v7;
+  v49 = -1431655766;
+  *&v47[1] = v12;
+  v47[0] = self;
+  rateCopy = rate;
   if ([v11 count])
   {
-    [v11 sortUsingFunction:_VCAVFoundationCapture_compare context:v49];
+    [v11 sortUsingFunction:_VCAVFoundationCapture_compare context:v47];
     firstObject = [v11 firstObject];
     if (VRTraceGetErrorLogLevelForModule() >= 8)
     {
-      v23 = VRTraceErrorLogLevelToCSTR();
-      v24 = *MEMORY[0x1E6986650];
-      v25 = *MEMORY[0x1E6986650];
+      v21 = VRTraceErrorLogLevelToCSTR();
+      v22 = *MEMORY[0x1E6986650];
+      v23 = *MEMORY[0x1E6986650];
       if (*MEMORY[0x1E6986640] == 1)
       {
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          *&buf[4] = v23;
+          *&buf[4] = v21;
           *&buf[12] = 2080;
           *&buf[14] = "[VCAVFoundationCapture cameraFormatForWidthWithList:height:frameRate:formatList:]";
           *&buf[22] = 1024;
-          v53 = 3460;
-          v54 = 2112;
-          *v55 = v11;
-          v26 = " [%s] %s:%d matchFormats = %@";
-LABEL_51:
-          _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, v26, buf, 0x26u);
+          v51 = 3460;
+          v52 = 2112;
+          *v53 = v11;
+          v24 = " [%s] %s:%d matchFormats = %@";
+LABEL_47:
+          _os_log_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_DEFAULT, v24, buf, 0x26u);
         }
       }
 
-      else if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      else if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         [VCAVFoundationCapture cameraFormatForWidthWithList:height:frameRate:formatList:];
       }
@@ -7851,100 +7831,100 @@ LABEL_51:
 
   else
   {
-    v43 = v11;
-    [obj sortUsingFunction:_VCAVFoundationCapture_compare context:v49];
-    v62 = 0u;
-    v63 = 0u;
+    v41 = v11;
+    [obj sortUsingFunction:_VCAVFoundationCapture_compare context:v47];
     v60 = 0u;
     v61 = 0u;
-    v27 = [obj countByEnumeratingWithState:&v60 objects:v59 count:16];
-    if (v27)
+    v58 = 0u;
+    v59 = 0u;
+    v25 = [obj countByEnumeratingWithState:&v58 objects:v57 count:16];
+    if (v25)
     {
-      v28 = v27;
+      v26 = v25;
+      v27 = 0;
+      v28 = 0;
       v29 = 0;
-      v30 = 0;
-      v31 = 0;
-      v45 = *v61;
-      v32 = v12;
+      v43 = *v59;
+      v30 = v12;
       do
       {
-        v33 = 0;
-        firstObject = v29;
-        v34 = v30;
+        v31 = 0;
+        firstObject = v27;
+        v32 = v28;
         do
         {
-          if (*v61 != v45)
+          if (*v59 != v43)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v60 + 1) + 8 * v33);
-          v30 = _VCAVFoundationCapture_effectiveResolution(v29, v32);
+          v27 = *(*(&v58 + 1) + 8 * v31);
+          v28 = _VCAVFoundationCapture_effectiveResolution(v27, v30);
           if (VRTraceGetErrorLogLevelForModule() >= 8)
           {
-            v44 = VRTraceErrorLogLevelToCSTR();
-            v35 = *MEMORY[0x1E6986650];
-            v36 = *MEMORY[0x1E6986650];
+            v42 = VRTraceErrorLogLevelToCSTR();
+            v33 = *MEMORY[0x1E6986650];
+            v34 = *MEMORY[0x1E6986650];
             if (*MEMORY[0x1E6986640] == 1)
             {
-              if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136316162;
-                *&buf[4] = v44;
+                *&buf[4] = v42;
                 *&buf[12] = 2080;
                 *&buf[14] = "[VCAVFoundationCapture cameraFormatForWidthWithList:height:frameRate:formatList:]";
                 *&buf[22] = 1024;
-                v53 = 3467;
-                v54 = 2112;
-                *v55 = v29;
-                *&v55[8] = 1024;
-                *v56 = v30 == v34;
-                _os_log_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d format %@. sameTierToPrevious = %d", buf, 0x2Cu);
+                v51 = 3467;
+                v52 = 2112;
+                *v53 = v27;
+                *&v53[8] = 1024;
+                *v54 = v28 == v32;
+                _os_log_impl(&dword_1DB56E000, v33, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d format %@. sameTierToPrevious = %d", buf, 0x2Cu);
               }
             }
 
-            else if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+            else if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136316162;
-              *&buf[4] = v44;
+              *&buf[4] = v42;
               *&buf[12] = 2080;
               *&buf[14] = "[VCAVFoundationCapture cameraFormatForWidthWithList:height:frameRate:formatList:]";
               *&buf[22] = 1024;
-              v53 = 3467;
-              v54 = 2112;
-              *v55 = v29;
-              *&v55[8] = 1024;
-              *v56 = v30 == v34;
-              _os_log_debug_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEBUG, " [%s] %s:%d format %@. sameTierToPrevious = %d", buf, 0x2Cu);
+              v51 = 3467;
+              v52 = 2112;
+              *v53 = v27;
+              *&v53[8] = 1024;
+              *v54 = v28 == v32;
+              _os_log_debug_impl(&dword_1DB56E000, v33, OS_LOG_TYPE_DEBUG, " [%s] %s:%d format %@. sameTierToPrevious = %d", buf, 0x2Cu);
             }
           }
 
-          if (v30 == v34)
+          if (v28 == v32)
           {
-            v29 = firstObject;
+            v27 = firstObject;
           }
 
           else
           {
-            v37 = v31 >= heightCopy * listCopy;
-            v31 = v30;
-            if (v37)
+            v35 = v29 >= heightCopy * listCopy;
+            v29 = v28;
+            if (v35)
             {
-              goto LABEL_47;
+              goto LABEL_43;
             }
           }
 
-          ++v33;
-          firstObject = v29;
-          v34 = v30;
+          ++v31;
+          firstObject = v27;
+          v32 = v28;
         }
 
-        while (v28 != v33);
-        firstObject = v29;
-        v28 = [obj countByEnumeratingWithState:&v60 objects:v59 count:16];
+        while (v26 != v31);
+        firstObject = v27;
+        v26 = [obj countByEnumeratingWithState:&v58 objects:v57 count:16];
       }
 
-      while (v28);
+      while (v26);
     }
 
     else
@@ -7952,64 +7932,64 @@ LABEL_51:
       firstObject = 0;
     }
 
-LABEL_47:
+LABEL_43:
     if (VRTraceGetErrorLogLevelForModule() < 8)
     {
-      v11 = v43;
-      goto LABEL_55;
+      v11 = v41;
+      goto LABEL_51;
     }
 
-    v38 = VRTraceErrorLogLevelToCSTR();
-    v24 = *MEMORY[0x1E6986650];
-    v11 = v43;
-    v39 = *MEMORY[0x1E6986650];
+    v36 = VRTraceErrorLogLevelToCSTR();
+    v22 = *MEMORY[0x1E6986650];
+    v11 = v41;
+    v37 = *MEMORY[0x1E6986650];
     if (*MEMORY[0x1E6986640] == 1)
     {
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        *&buf[4] = v38;
+        *&buf[4] = v36;
         *&buf[12] = 2080;
         *&buf[14] = "[VCAVFoundationCapture cameraFormatForWidthWithList:height:frameRate:formatList:]";
         *&buf[22] = 1024;
-        v53 = 3478;
-        v54 = 2112;
-        *v55 = obj;
-        v26 = " [%s] %s:%d sortedFormats = %@";
-        goto LABEL_51;
+        v51 = 3478;
+        v52 = 2112;
+        *v53 = obj;
+        v24 = " [%s] %s:%d sortedFormats = %@";
+        goto LABEL_47;
       }
     }
 
-    else if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
       [VCAVFoundationCapture cameraFormatForWidthWithList:height:frameRate:formatList:];
     }
   }
 
-LABEL_55:
+LABEL_51:
 
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ AVCaptureDeviceFormat-cameraFormatForWidth");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v40 = VRTraceErrorLogLevelToCSTR();
-    v41 = *MEMORY[0x1E6986650];
+    v38 = VRTraceErrorLogLevelToCSTR();
+    v39 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136316674;
-      *&buf[4] = v40;
+      *&buf[4] = v38;
       *&buf[12] = 2080;
       *&buf[14] = "[VCAVFoundationCapture cameraFormatForWidthWithList:height:frameRate:formatList:]";
       *&buf[22] = 1024;
-      v53 = 3483;
-      v54 = 1024;
-      *v55 = listCopy;
-      *&v55[4] = 1024;
-      *&v55[6] = heightCopy;
-      *v56 = 1024;
-      *&v56[2] = v7;
-      v57 = 2112;
-      v58 = firstObject;
-      _os_log_impl(&dword_1DB56E000, v41, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ AVCaptureDeviceFormat-cameraFormatForWidth width=%d height=%d frameRate=%d cameraFormat=%@", buf, 0x38u);
+      v51 = 3483;
+      v52 = 1024;
+      *v53 = listCopy;
+      *&v53[4] = 1024;
+      *&v53[6] = heightCopy;
+      *v54 = 1024;
+      *&v54[2] = rate;
+      v55 = 2112;
+      v56 = firstObject;
+      _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ AVCaptureDeviceFormat-cameraFormatForWidth width=%d height=%d frameRate=%d cameraFormat=%@", buf, 0x38u);
     }
   }
 
@@ -8123,8 +8103,8 @@ LABEL_3:
     v17 = v16;
     [v13 maxFrameRate];
     v19 = v18;
-    [v13 minFrameDuration];
-    [v13 maxFrameDuration];
+    objc_msgSend_minFrameDuration(v13);
+    objc_msgSend_maxFrameDuration(v13);
     return [VCAVFoundationCapture frameDurationForFrameRateRangeWithMinFrameRate:v22 maxFrameRate:&v21 minFrameDuration:v5 maxFrameDuration:v17 desiredFrameRate:v19];
   }
 

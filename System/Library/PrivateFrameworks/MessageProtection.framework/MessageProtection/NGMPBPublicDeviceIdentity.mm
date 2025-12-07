@@ -50,11 +50,10 @@
     [NGMPBPublicDeviceIdentity writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteDataField();
   if (*&self->_has)
   {
-    tetraVersion = self->_tetraVersion;
     PBDataWriterWriteUint32Field();
   }
 }

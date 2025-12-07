@@ -35,89 +35,88 @@ void __75__PBBridgeAssetsReachabilityMonitor_checkServerReachabilityWithCompleti
   v24 = 0;
   v2 = ASServerURLForAssetType();
   v3 = 0;
+  v4 = v3;
   if (v3)
   {
-    v4 = pbb_setup_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pbb_setup_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v26 = v3;
-      v5 = "Asset Server Lookup Failed with Error (%@): Returning Vacuously True";
-      v6 = v4;
-      v7 = 12;
+      v26 = v4;
+      v6 = "Asset Server Lookup Failed with Error (%@): Returning Vacuously True";
+      v7 = v5;
+      v8 = 12;
 LABEL_14:
-      _os_log_impl(&dword_25DE64000, v6, OS_LOG_TYPE_DEFAULT, v5, buf, v7);
+      _os_log_impl(&dword_25DE64000, v7, OS_LOG_TYPE_DEFAULT, v6, buf, v8);
     }
   }
 
   else
   {
-    v8 = *MEMORY[0x277CBECE8];
-    v9 = [v2 host];
-    v10 = SCNetworkReachabilityCreateWithName(v8, [v9 UTF8String]);
+    v9 = *MEMORY[0x277CBECE8];
+    v10 = [v2 host];
+    v11 = SCNetworkReachabilityCreateWithName(v9, [v10 UTF8String]);
 
-    if (v10)
+    if (v11)
     {
       flags = 0;
-      if (SCNetworkReachabilityGetFlags(v10, &flags))
+      if (SCNetworkReachabilityGetFlags(v11, &flags))
       {
-        v11 = flags;
-        v12 = pbb_mobileasset_log();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v12 = flags;
+        v13 = pbb_mobileasset_log();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = [v2 host];
+          v14 = [v2 host];
           *buf = 138412546;
-          v26 = v13;
+          v26 = v14;
           v27 = 1024;
-          v28 = (v11 >> 1) & 1;
-          _os_log_impl(&dword_25DE64000, v12, OS_LOG_TYPE_DEFAULT, "Network Reachable (%@): %d", buf, 0x12u);
+          v28 = (v12 >> 1) & 1;
+          _os_log_impl(&dword_25DE64000, v13, OS_LOG_TYPE_DEFAULT, "Network Reachable (%@): %d", buf, 0x12u);
         }
 
-        CFRelease(v10);
-        if ((v11 & 2) != 0)
+        CFRelease(v11);
+        if ((v12 & 2) != 0)
         {
-          v14 = [objc_alloc(MEMORY[0x277CCAD20]) initWithURL:v2 cachePolicy:1 timeoutInterval:1.0];
-          v15 = MEMORY[0x277CCAD30];
-          v16 = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
-          v17 = [v15 sessionWithConfiguration:v16];
+          v15 = [objc_alloc(MEMORY[0x277CCAD20]) initWithURL:v2 cachePolicy:1 timeoutInterval:1.0];
+          v16 = MEMORY[0x277CCAD30];
+          v17 = [MEMORY[0x277CCAD38] defaultSessionConfiguration];
+          v18 = [v16 sessionWithConfiguration:v17];
           v21[0] = MEMORY[0x277D85DD0];
           v21[1] = 3221225472;
           v21[2] = __75__PBBridgeAssetsReachabilityMonitor_checkServerReachabilityWithCompletion___block_invoke_284;
           v21[3] = &unk_2799F4490;
           v22 = *(a1 + 32);
-          v18 = [v17 dataTaskWithRequest:v14 completionHandler:v21];
+          v19 = [v18 dataTaskWithRequest:v15 completionHandler:v21];
 
-          [v18 resume];
+          [v19 resume];
           goto LABEL_17;
         }
       }
 
       else
       {
-        CFRelease(v10);
+        CFRelease(v11);
       }
     }
 
-    v4 = pbb_mobileasset_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pbb_mobileasset_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v5 = "Network Unreachable: Returning Vacuously True";
-      v6 = v4;
-      v7 = 2;
+      v6 = "Network Unreachable: Returning Vacuously True";
+      v7 = v5;
+      v8 = 2;
       goto LABEL_14;
     }
   }
 
-  v19 = *(a1 + 32);
-  if (v19)
+  v20 = *(a1 + 32);
+  if (v20)
   {
-    (*(v19 + 16))(v19, 1);
+    (*(v20 + 16))(v20, 1);
   }
 
 LABEL_17:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __75__PBBridgeAssetsReachabilityMonitor_checkServerReachabilityWithCompletion___block_invoke_284(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)

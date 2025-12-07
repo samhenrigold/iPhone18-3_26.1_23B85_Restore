@@ -3023,23 +3023,8 @@ LABEL_46:
 
       if (v25)
       {
-        if (type == 2)
+        if (type == 2 && (+[ACCUserDefaults sharedDefaults](ACCUserDefaults, "sharedDefaults"), v26 = objc_claimAutoreleasedReturnValue(), v27 = [v26 BOOLForKey:@"SkipGaugeSignatureCheck"], v26, (v27 & 1) != 0) || (objc_msgSend(rCopy, "signature"), v28 = objc_claimAutoreleasedReturnValue(), v29 = -[NSObject verifyNonceSignature:nonce:signature:](v20, "verifyNonceSignature:nonce:signature:", challenge, v25, v28), v28, (v29 & 1) != 0))
         {
-          v26 = +[ACCUserDefaults sharedDefaults];
-          v27 = [v26 BOOLForKey:@"SkipGaugeSignatureCheck"];
-
-          if (v27)
-          {
-            goto LABEL_28;
-          }
-        }
-
-        signature = [rCopy signature];
-        v29 = [v20 verifyNonceSignature:challenge nonce:v25 signature:signature];
-
-        if (v29)
-        {
-LABEL_28:
           v30 = [challenge objectForKey:@"LeafCertData"];
           [rCopy setCertificate:v30];
 
@@ -3787,7 +3772,7 @@ void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completio
   }
 
   memset(buf, 170, sizeof(buf));
-  v14 = 0;
+  v16 = 0;
   v8 = +[MSUDataAccessor sharedDataAccessor];
   v9 = [v8 copyPathForPersonalizedData:2 error:0];
 
@@ -3797,28 +3782,28 @@ void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completio
     v11 = v10;
     if (!v10 || Img4DecodeInitManifest([v10 bytes], objc_msgSend(v10, "length"), buf))
     {
-      v12 = 0;
+      v14 = 0;
     }
 
-    else if (Img4DecodeGetBooleanFromSection(buf, 0, 1684104054, &v14))
+    else if (Img4DecodeGetBooleanFromSection(buf, 0, 1684104054, &v16, v12, v13))
     {
-      v12 = 0;
       v14 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v12 = v14;
+      v14 = v16;
     }
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
     v11 = 0;
   }
 
-  _authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics__disableAuth = v12;
+  _authenticateModuleWithChallenge_completionHandler_moduleType_updateRegistry_updateUIProperty_logToAnalytics__disableAuth = v14;
 }
 
 - (void)_authenticateModuleWithChallenge:completionHandler:moduleType:updateRegistry:updateUIProperty:logToAnalytics:.cold.3()
@@ -3880,6 +3865,13 @@ void __138__ACCHWComponentAuthService__authenticateModuleWithChallenge_completio
   mach_error_string(a1);
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+}
+
+- (void)_verifyModuleCertificate:(uint64_t)a3 forModuleType:(uint64_t)a4 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LOWORD(v8) = 2112;
+  *(&v8 + 2) = a1;
+  OUTLINED_FUNCTION_1(&_mh_execute_header, a2, a3, "(moduleType=%d) Failure: componentType:%@", a5, a6, a7, a8, 0x104000202, v8, WORD4(v8));
 }
 
 - (void)_verifyModuleCertificate:forModuleType:.cold.4()

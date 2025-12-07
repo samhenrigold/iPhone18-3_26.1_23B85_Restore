@@ -17,11 +17,11 @@
   sub_2186C66AC();
   selfCopy = self;
   v5 = sub_219BF6F74();
-  sub_219BF6214();
-  sub_219BE5314();
+  v6 = sub_219BF6214();
+  sub_219BE5314("AudioAutoClosePlayerHandler: CarPlay session did disconnect", 59, 2, &dword_2186C1000, v5, v6, MEMORY[0x277D84F90]);
 
   *(swift_allocObject() + 16) = selfCopy;
-  v6 = selfCopy;
+  v7 = selfCopy;
   sub_219BE3494();
 }
 

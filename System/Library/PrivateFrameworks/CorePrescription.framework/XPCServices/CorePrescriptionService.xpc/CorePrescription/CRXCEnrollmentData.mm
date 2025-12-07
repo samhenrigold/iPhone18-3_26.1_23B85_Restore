@@ -12,51 +12,50 @@
 
 - (CRXCEnrollmentData)initWithAccPayload:(id)payload enrollmentName:(id)name issueDate:(id)date calibrationDataLeft:(id)left calibrationDataRight:(id)right
 {
-  v35[1] = self;
+  v36[1] = self;
   v12 = sub_100080D98();
-  v13 = *(*(v12 - 8) + 64);
-  __chkstk_darwin(v12 - 8);
-  v15 = v35 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v12 - 8, v13, v14);
+  v16 = v36 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   payloadCopy = payload;
   dateCopy = date;
   nameCopy = name;
   leftCopy = left;
-  v35[0] = right;
+  v36[0] = right;
   rightCopy = right;
-  v21 = sub_100080CF8();
-  v23 = v22;
+  v22 = sub_100080CF8();
+  v24 = v23;
 
   if (nameCopy)
   {
-    v24 = sub_1000812B8();
-    v26 = v25;
+    v25 = sub_1000812B8();
+    v27 = v26;
   }
 
   else
   {
-    v24 = 0;
-    v26 = 0;
+    v25 = 0;
+    v27 = 0;
   }
 
   sub_100080D78();
 
   if (!leftCopy)
   {
-    v27 = 0;
-    v29 = 0;
+    v28 = 0;
+    v30 = 0;
     if (rightCopy)
     {
       goto LABEL_6;
     }
 
 LABEL_8:
-    v30 = 0;
-    v32 = 0;
+    v31 = 0;
+    v33 = 0;
     goto LABEL_9;
   }
 
-  v27 = sub_1000812B8();
-  v29 = v28;
+  v28 = sub_1000812B8();
+  v30 = v29;
 
   if (!rightCopy)
   {
@@ -64,67 +63,66 @@ LABEL_8:
   }
 
 LABEL_6:
-  v30 = sub_1000812B8();
-  v32 = v31;
+  v31 = sub_1000812B8();
+  v33 = v32;
 
 LABEL_9:
-  v33 = sub_10005D728(v21, v23, v24, v26, v15, v27, v29, v30, v32);
-  sub_100006A34(v21, v23);
-  return v33;
+  v34 = sub_10005D728(v22, v24, v25, v27, v16, v28, v30, v31, v33);
+  sub_100006A34(v22, v24);
+  return v34;
 }
 
 - (CRXCEnrollmentData)initWithAccPayloadLeft:(id)left accPayloadRight:(id)right enrollmentName:(id)name issueDate:(id)date calibrationDataLeft:(id)dataLeft calibrationDataRight:(id)dataRight
 {
   selfCopy = self;
   v14 = sub_100080D98();
-  v15 = *(*(v14 - 8) + 64);
-  __chkstk_darwin(v14 - 8);
-  v17 = v41 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14 - 8, v15, v16);
+  v18 = v42 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   leftCopy = left;
   rightCopy = right;
   dateCopy = date;
   nameCopy = name;
-  v41[1] = dataLeft;
+  v42[1] = dataLeft;
   dataLeftCopy = dataLeft;
-  v41[2] = dataRight;
+  v42[2] = dataRight;
   dataRightCopy = dataRight;
-  v24 = sub_100080CF8();
-  v43 = v25;
+  v25 = sub_100080CF8();
+  v44 = v26;
 
-  v26 = sub_100080CF8();
-  v28 = v27;
+  v27 = sub_100080CF8();
+  v29 = v28;
 
   if (nameCopy)
   {
-    v29 = sub_1000812B8();
-    v42 = v30;
+    v30 = sub_1000812B8();
+    v43 = v31;
   }
 
   else
   {
-    v29 = 0;
-    v42 = 0;
+    v30 = 0;
+    v43 = 0;
   }
 
   sub_100080D78();
 
   if (!dataLeftCopy)
   {
-    v31 = 0;
-    v33 = 0;
+    v32 = 0;
+    v34 = 0;
     if (dataRightCopy)
     {
       goto LABEL_6;
     }
 
 LABEL_8:
-    v34 = 0;
-    v36 = 0;
+    v35 = 0;
+    v37 = 0;
     goto LABEL_9;
   }
 
-  v31 = sub_1000812B8();
-  v33 = v32;
+  v32 = sub_1000812B8();
+  v34 = v33;
 
   if (!dataRightCopy)
   {
@@ -132,26 +130,25 @@ LABEL_8:
   }
 
 LABEL_6:
-  v34 = sub_1000812B8();
-  v36 = v35;
+  v35 = sub_1000812B8();
+  v37 = v36;
 
 LABEL_9:
-  v40 = v34;
-  v37 = v43;
-  v38 = sub_10005D888(v24, v43, v26, v28, v29, v42, v17, v31, v33, v40, v36);
-  sub_100006A34(v26, v28);
-  sub_100006A34(v24, v37);
-  return v38;
+  v41 = v35;
+  v38 = v44;
+  v39 = sub_10005D888(v25, v44, v27, v29, v30, v43, v18, v32, v34, v41, v37);
+  sub_100006A34(v27, v29);
+  sub_100006A34(v25, v38);
+  return v39;
 }
 
 - (CRXCEnrollmentData)initWithAccPayload:(id)payload accPayloadLeft:(id)left accPayloadRight:(id)right enrollmentName:(id)name issueDate:(id)date calibrationDataLeft:(id)dataLeft calibrationDataRight:(id)dataRight
 {
   v16 = sub_100080D98();
-  v67 = *(v16 - 8);
-  v68 = v16;
-  v17 = *(v67 + 64);
-  __chkstk_darwin(v16);
-  v19 = &v61 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = *(v16 - 8);
+  v69 = v16;
+  __chkstk_darwin(v16, v17, v18);
+  v20 = &v62 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (payload)
   {
     leftCopy = left;
@@ -161,9 +158,9 @@ LABEL_9:
     dataLeftCopy = dataLeft;
     dataRightCopy = dataRight;
     payloadCopy = payload;
-    v27 = sub_100080CF8();
-    v65 = v28;
-    v66 = v27;
+    v28 = sub_100080CF8();
+    v66 = v29;
+    v67 = v28;
 
     if (left)
     {
@@ -179,14 +176,14 @@ LABEL_9:
     dateCopy2 = date;
     dataLeftCopy2 = dataLeft;
     dataRightCopy2 = dataRight;
-    v65 = 0xF000000000000000;
-    v66 = 0;
+    v66 = 0xF000000000000000;
+    v67 = 0;
     if (left)
     {
 LABEL_3:
-      v29 = sub_100080CF8();
-      v63 = v30;
-      v64 = v29;
+      v30 = sub_100080CF8();
+      v64 = v31;
+      v65 = v30;
 
       if (right)
       {
@@ -194,8 +191,8 @@ LABEL_3:
       }
 
 LABEL_8:
-      v62 = 0;
-      v32 = 0xF000000000000000;
+      v63 = 0;
+      v33 = 0xF000000000000000;
       if (name)
       {
         goto LABEL_5;
@@ -205,49 +202,49 @@ LABEL_8:
     }
   }
 
-  v63 = 0xF000000000000000;
-  v64 = 0;
+  v64 = 0xF000000000000000;
+  v65 = 0;
   if (!right)
   {
     goto LABEL_8;
   }
 
 LABEL_4:
-  v62 = sub_100080CF8();
-  v32 = v31;
+  v63 = sub_100080CF8();
+  v33 = v32;
 
   if (name)
   {
 LABEL_5:
-    v33 = sub_1000812B8();
-    v35 = v34;
+    v34 = sub_1000812B8();
+    v36 = v35;
 
     goto LABEL_10;
   }
 
 LABEL_9:
-  v33 = 0;
-  v35 = 0;
+  v34 = 0;
+  v36 = 0;
 LABEL_10:
   sub_100080D78();
 
   if (!dataLeft)
   {
-    v42 = 0;
-    v44 = 0;
+    v43 = 0;
+    v45 = 0;
     if (dataRight)
     {
       goto LABEL_12;
     }
 
 LABEL_14:
-    v45 = 0;
-    v47 = 0;
+    v46 = 0;
+    v48 = 0;
     goto LABEL_15;
   }
 
-  v42 = sub_1000812B8();
-  v44 = v43;
+  v43 = sub_1000812B8();
+  v45 = v44;
 
   if (!dataRight)
   {
@@ -255,39 +252,39 @@ LABEL_14:
   }
 
 LABEL_12:
-  v45 = sub_1000812B8();
-  v47 = v46;
+  v46 = sub_1000812B8();
+  v48 = v47;
 
 LABEL_15:
-  v48 = (self + OBJC_IVAR___CRXCEnrollmentData_accPayload);
-  v49 = v65;
-  *v48 = v66;
-  v48[1] = v49;
-  v50 = (self + OBJC_IVAR___CRXCEnrollmentData_accPayloadLeft);
-  v51 = v63;
-  *v50 = v64;
-  v50[1] = v51;
-  v52 = (self + OBJC_IVAR___CRXCEnrollmentData_accPayloadRight);
-  *v52 = v62;
-  v52[1] = v32;
-  v53 = (self + OBJC_IVAR___CRXCEnrollmentData_enrollmentName);
-  *v53 = v33;
-  v53[1] = v35;
-  v55 = v67;
-  v54 = v68;
-  (*(v67 + 16))(self + OBJC_IVAR___CRXCEnrollmentData_issueDate, v19, v68);
-  v56 = (self + OBJC_IVAR___CRXCEnrollmentData_calibrationDataLeft);
-  *v56 = v42;
-  v56[1] = v44;
-  v57 = (self + OBJC_IVAR___CRXCEnrollmentData_calibrationDataRight);
-  *v57 = v45;
-  v57[1] = v47;
-  v58 = type metadata accessor for CRXCEnrollmentData();
-  v69.receiver = self;
-  v69.super_class = v58;
-  v59 = [(CRXCEnrollmentData *)&v69 init];
-  (*(v55 + 8))(v19, v54);
-  return v59;
+  v49 = (self + OBJC_IVAR___CRXCEnrollmentData_accPayload);
+  v50 = v66;
+  *v49 = v67;
+  v49[1] = v50;
+  v51 = (self + OBJC_IVAR___CRXCEnrollmentData_accPayloadLeft);
+  v52 = v64;
+  *v51 = v65;
+  v51[1] = v52;
+  v53 = (self + OBJC_IVAR___CRXCEnrollmentData_accPayloadRight);
+  *v53 = v63;
+  v53[1] = v33;
+  v54 = (self + OBJC_IVAR___CRXCEnrollmentData_enrollmentName);
+  *v54 = v34;
+  v54[1] = v36;
+  v56 = v68;
+  v55 = v69;
+  (*(v68 + 16))(self + OBJC_IVAR___CRXCEnrollmentData_issueDate, v20, v69);
+  v57 = (self + OBJC_IVAR___CRXCEnrollmentData_calibrationDataLeft);
+  *v57 = v43;
+  v57[1] = v45;
+  v58 = (self + OBJC_IVAR___CRXCEnrollmentData_calibrationDataRight);
+  *v58 = v46;
+  v58[1] = v48;
+  v59 = type metadata accessor for CRXCEnrollmentData(0);
+  v70.receiver = self;
+  v70.super_class = v59;
+  v60 = [(CRXCEnrollmentData *)&v70 init];
+  (*(v56 + 8))(v20, v55);
+  return v60;
 }
 
 - (BOOL)isEqual:(id)equal

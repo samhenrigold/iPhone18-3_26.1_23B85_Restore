@@ -33,7 +33,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: flushMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1002EDEC8();
+  v9 = sub_1002EDEC8(PersonalizationManager);
   sub_1002EE080(v9, @"User request", blockCopy);
 }
 
@@ -99,7 +99,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: getPersonalizationEventsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1002EDEC8();
+  v9 = sub_1002EDEC8(PersonalizationManager);
   sub_1002EE160(v9, blockCopy);
 }
 
@@ -119,7 +119,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: recordMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1002EDEC8();
+  v9 = sub_1002EDEC8(PersonalizationManager);
   sub_1002EE998(v9, blockCopy);
 }
 
@@ -139,7 +139,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: recordLaunchesWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1002EDEC8();
+  v9 = sub_1002EDEC8(PersonalizationManager);
   sub_1002EE484(v9, blockCopy);
 }
 
@@ -205,7 +205,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: resetActorIDWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1002EDEC8();
+  v9 = sub_1002EDEC8(PersonalizationManager);
   sub_1002EED00(v9, blockCopy);
 }
 
@@ -225,7 +225,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] resetMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1002EDEC8();
+  v9 = sub_1002EDEC8(PersonalizationManager);
   sub_1002EEE9C(v9, blockCopy);
 }
 
@@ -245,7 +245,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@]: sendMetricsWithCompletionBlock for client: %{public}@", &v10, 0x16u);
   }
 
-  v9 = sub_1002EDEC8();
+  v9 = sub_1002EDEC8(PersonalizationManager);
   sub_1002EF0F0(v9, blockCopy);
 }
 
@@ -300,7 +300,7 @@
   if (block)
   {
     blockCopy = block;
-    v4 = sub_1003D4840();
+    v4 = sub_1003D4840(AppDefaultsManager);
     (*(block + 2))(blockCopy, v4, 0);
   }
 }

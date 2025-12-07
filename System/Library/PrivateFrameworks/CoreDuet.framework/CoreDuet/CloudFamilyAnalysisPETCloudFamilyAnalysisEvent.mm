@@ -67,7 +67,6 @@
   }
 
   PBDataWriterWriteStringField();
-  batch = self->_batch;
   PBDataWriterWriteInt32Field();
   if (!self->_contactEvents)
   {
@@ -160,18 +159,28 @@
   v6 = *(fromCopy + 3);
   if (contactEvents)
   {
-    if (v6)
+    if (!v6)
     {
-      [(CloudFamilyAnalysisPETContactEvents *)contactEvents mergeFrom:?];
+      goto LABEL_11;
     }
+
+    contactEvents = [(CloudFamilyAnalysisPETContactEvents *)contactEvents mergeFrom:?];
   }
 
-  else if (v6)
+  else
   {
-    [(CloudFamilyAnalysisPETCloudFamilyAnalysisEvent *)self setContactEvents:?];
+    if (!v6)
+    {
+      goto LABEL_11;
+    }
+
+    contactEvents = [(CloudFamilyAnalysisPETCloudFamilyAnalysisEvent *)self setContactEvents:?];
   }
 
-  MEMORY[0x1EEE66BB8]();
+  fromCopy = v7;
+LABEL_11:
+
+  MEMORY[0x1EEE66BB8](contactEvents, fromCopy);
 }
 
 @end

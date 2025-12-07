@@ -65,14 +65,14 @@ void __47__LSDatabaseBlockingFetchServer_sharedInstance__block_invoke(uint64_t a
   dispatch_sync(queue, block);
 }
 
-uint64_t __56__LSDatabaseBlockingFetchServer_startRunningIfNecessary__block_invoke(uint64_t result)
+void *__56__LSDatabaseBlockingFetchServer_startRunningIfNecessary__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if ((*(v1 + 24) & 1) == 0)
   {
     v2 = result;
     result = [*(v1 + 16) resume];
-    *(*(v2 + 32) + 24) = 1;
+    *(v2[4] + 24) = 1;
   }
 
   return result;
@@ -82,8 +82,7 @@ uint64_t __56__LSDatabaseBlockingFetchServer_startRunningIfNecessary__block_invo
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  [connectionCopy _setQueue:self->_queue];
-  v8 = LSDatabaseBlockingFetchInterface();
+  v8 = LSDatabaseBlockingFetchInterface([connectionCopy _setQueue:self->_queue]);
   [connectionCopy setExportedInterface:v8];
 
   v9 = [[LSDatabaseBlockingFetchClient alloc] initWithXPCConnection:connectionCopy];

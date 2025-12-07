@@ -3248,8 +3248,7 @@ LABEL_51:
 {
   tapCopy = tap;
   v4 = +[PKStatisticsManager sharedStatisticsManager];
-  [MEMORY[0x1E69DCD58] preferredTapAction];
-  [PKStatisticsManager recordPencilAction:v4 doubleTap:?];
+  -[PKStatisticsManager recordPencilAction:doubleTap:](v4, [MEMORY[0x1E69DCD58] preferredTapAction], 1);
 
   delegate = [(PKPaletteView *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -3270,8 +3269,7 @@ LABEL_51:
   if (_os_feature_enabled_impl() && ![squeezeCopy _phase])
   {
     v7 = +[PKStatisticsManager sharedStatisticsManager];
-    [MEMORY[0x1E69DCD58] preferredSqueezeAction];
-    [PKStatisticsManager recordPencilAction:v7 doubleTap:?];
+    -[PKStatisticsManager recordPencilAction:doubleTap:](v7, [MEMORY[0x1E69DCD58] preferredSqueezeAction], 0);
 
     -[PKDrawingPaletteView _performPencilInteraction:preferredAction:](self, "_performPencilInteraction:preferredAction:", interactionCopy, [MEMORY[0x1E69DCD58] preferredSqueezeAction]);
   }

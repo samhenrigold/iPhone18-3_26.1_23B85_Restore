@@ -16,11 +16,11 @@
   if (v12)
   {
     objc_storeStrong(&v12->_aggregationState, state);
-    v14 = [dataCopy copy];
+    v14 = objc_msgSend_copy(dataCopy);
     consumedSensorData = v13->_consumedSensorData;
     v13->_consumedSensorData = v14;
 
-    v16 = [handlerCopy copy];
+    v16 = objc_msgSend_copy(handlerCopy);
     persistenceHandler = v13->_persistenceHandler;
     v13->_persistenceHandler = v16;
   }

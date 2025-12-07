@@ -762,112 +762,113 @@ LABEL_54:
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_notification_management(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [ATXMissedNotificationRanking initWithProto:];
+        [ATXMissedNotificationRanking initWithProto:?];
       }
 
       selfCopy = 0;
       goto LABEL_25;
     }
 
-    v43 = protoCopy;
-    v5 = protoCopy;
-    derivedData = [v5 derivedData];
+    v46 = protoCopy;
+    v6 = protoCopy;
+    derivedData = [v6 derivedData];
 
     if (derivedData)
     {
-      derivedData2 = [v5 derivedData];
+      derivedData2 = [v6 derivedData];
       objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
+      v9 = objc_opt_isKindOfClass();
 
-      if (isKindOfClass)
+      if (v9)
       {
-        v9 = [ATXUserNotificationDerivedData alloc];
-        derivedData3 = [v5 derivedData];
-        v11 = [(ATXUserNotificationDerivedData *)v9 initWithProto:derivedData3];
+        v11 = [ATXUserNotificationDerivedData alloc];
+        derivedData3 = [v6 derivedData];
+        v13 = [(ATXUserNotificationDerivedData *)v11 initWithProto:derivedData3];
 
 LABEL_14:
-        v14 = objc_alloc(MEMORY[0x1E696AFB0]);
-        uuid = [v5 uuid];
-        v41 = [v14 initWithUUIDString:uuid];
-        [v5 timestamp];
-        v16 = v15;
-        title = [v5 title];
-        subtitle = [v5 subtitle];
-        body = [v5 body];
-        badge = [v5 badge];
-        userInfo = [v5 userInfo];
-        bundleID = [v5 bundleID];
-        threadID = [v5 threadID];
-        categoryID = [v5 categoryID];
-        sectionID = [v5 sectionID];
-        contactIDs = [v5 contactIDs];
-        rawIdentifiers = [v5 rawIdentifiers];
-        LOBYTE(v32) = [v5 isGroupMessage];
-        v20 = [(ATXUserNotification *)self initFromNotificationData:v41 timestamp:title title:subtitle subtitle:body body:badge badge:userInfo userInfo:v16 bundleID:bundleID threadID:threadID categoryID:categoryID sectionID:sectionID contactIDs:contactIDs rawIdentifiers:rawIdentifiers isGroupMessage:v32 derivedData:v11 urgency:[v5 urgency]];
+        v16 = objc_alloc(MEMORY[0x1E696AFB0]);
+        uuid = [v6 uuid];
+        v44 = [v16 initWithUUIDString:uuid];
+        [v6 timestamp];
+        v18 = v17;
+        title = [v6 title];
+        subtitle = [v6 subtitle];
+        body = [v6 body];
+        badge = [v6 badge];
+        userInfo = [v6 userInfo];
+        bundleID = [v6 bundleID];
+        threadID = [v6 threadID];
+        categoryID = [v6 categoryID];
+        sectionID = [v6 sectionID];
+        contactIDs = [v6 contactIDs];
+        rawIdentifiers = [v6 rawIdentifiers];
+        LOBYTE(v35) = [v6 isGroupMessage];
+        v22 = [(ATXUserNotification *)self initFromNotificationData:v44 timestamp:title title:subtitle subtitle:body body:badge badge:userInfo userInfo:v18 bundleID:bundleID threadID:threadID categoryID:categoryID sectionID:sectionID contactIDs:contactIDs rawIdentifiers:rawIdentifiers isGroupMessage:v35 derivedData:v13 urgency:[v6 urgency]];
 
-        [v20 setIsMessage:{-[NSObject isMessage](v5, "isMessage")}];
-        summary = [v5 summary];
-        [v20 setSummary:summary];
+        [v22 setIsMessage:{-[NSObject isMessage](v6, "isMessage")}];
+        summary = [v6 summary];
+        [v22 setSummary:summary];
 
-        [v20 setIsSummarized:{-[NSObject isSummarized](v5, "isSummarized")}];
-        [v20 setIsPartOfStack:{-[NSObject isPartOfStack](v5, "isPartOfStack")}];
-        [v20 setIsStackSummary:{-[NSObject isStackSummary](v5, "isStackSummary")}];
-        [v20 setPositionInStack:{-[NSObject positionInStack](v5, "positionInStack")}];
-        [v20 setNumberOfNotificationsInStack:{-[NSObject numberOfNotificationsInStack](v5, "numberOfNotificationsInStack")}];
-        [v20 setAttachmentType:{-[NSObject attachmentType](v5, "attachmentType")}];
-        [v5 appSpecifiedScore];
-        [v20 setAppSpecifiedScore:?];
-        [v20 setPriorityStatus:{-[NSObject priorityStatus](v5, "priorityStatus")}];
-        [v20 setSummaryStatus:{-[NSObject summaryStatus](v5, "summaryStatus")}];
-        [v20 setIsPriorityNotificationEnabled:{-[NSObject isPriorityNotificationEnabled](v5, "isPriorityNotificationEnabled")}];
-        [v20 setIsNotificationSummaryEnabled:{-[NSObject isNotificationSummaryEnabled](v5, "isNotificationSummaryEnabled")}];
-        sharedEngagementTracker = [v5 sharedEngagementTracker];
+        [v22 setIsSummarized:{-[NSObject isSummarized](v6, "isSummarized")}];
+        [v22 setIsPartOfStack:{-[NSObject isPartOfStack](v6, "isPartOfStack")}];
+        [v22 setIsStackSummary:{-[NSObject isStackSummary](v6, "isStackSummary")}];
+        [v22 setPositionInStack:{-[NSObject positionInStack](v6, "positionInStack")}];
+        [v22 setNumberOfNotificationsInStack:{-[NSObject numberOfNotificationsInStack](v6, "numberOfNotificationsInStack")}];
+        [v22 setAttachmentType:{-[NSObject attachmentType](v6, "attachmentType")}];
+        [v6 appSpecifiedScore];
+        [v22 setAppSpecifiedScore:?];
+        [v22 setPriorityStatus:{-[NSObject priorityStatus](v6, "priorityStatus")}];
+        [v22 setSummaryStatus:{-[NSObject summaryStatus](v6, "summaryStatus")}];
+        [v22 setIsPriorityNotificationEnabled:{-[NSObject isPriorityNotificationEnabled](v6, "isPriorityNotificationEnabled")}];
+        [v22 setIsNotificationSummaryEnabled:{-[NSObject isNotificationSummaryEnabled](v6, "isNotificationSummaryEnabled")}];
+        sharedEngagementTracker = [v6 sharedEngagementTracker];
 
         if (sharedEngagementTracker)
         {
-          sharedEngagementTracker2 = [v5 sharedEngagementTracker];
+          sharedEngagementTracker2 = [v6 sharedEngagementTracker];
           objc_opt_class();
-          v24 = objc_opt_isKindOfClass();
+          v26 = objc_opt_isKindOfClass();
 
-          if (v24)
+          if (v26)
           {
-            v25 = [ATXSharedDigestEngagementTrackingMetrics alloc];
-            sharedEngagementTracker3 = [v5 sharedEngagementTracker];
-            v27 = [(ATXSharedDigestEngagementTrackingMetrics *)v25 initWithProto:sharedEngagementTracker3];
-            [v20 setDigestEngagementTrackingMetrics:v27];
+            v28 = [ATXSharedDigestEngagementTrackingMetrics alloc];
+            sharedEngagementTracker3 = [v6 sharedEngagementTracker];
+            v30 = [(ATXSharedDigestEngagementTrackingMetrics *)v28 initWithProto:sharedEngagementTracker3];
+            [v22 setDigestEngagementTrackingMetrics:v30];
           }
 
           else
           {
-            sharedEngagementTracker3 = __atxlog_handle_notification_management();
+            sharedEngagementTracker3 = __atxlog_handle_notification_management(v27);
             if (os_log_type_enabled(sharedEngagementTracker3, OS_LOG_TYPE_FAULT))
             {
-              [ATXMissedNotificationRanking initWithProto:];
+              [ATXMissedNotificationRanking initWithProto:v22];
             }
           }
         }
 
-        if ([v5 hasRecordTimestamp])
+        if ([v6 hasRecordTimestamp])
         {
-          v28 = MEMORY[0x1E695DF00];
-          [v5 recordTimestamp];
-          v29 = [v28 dateWithTimeIntervalSinceReferenceDate:?];
-          [v20 setRecordDate:v29];
+          v31 = MEMORY[0x1E695DF00];
+          [v6 recordTimestamp];
+          v32 = [v31 dateWithTimeIntervalSinceReferenceDate:?];
+          [v22 setRecordDate:v32];
         }
 
-        protoCopy = v43;
-        if ([v5 hasNotificationID])
+        protoCopy = v46;
+        if ([v6 hasNotificationID])
         {
-          notificationID = [v5 notificationID];
-          [v20 setNotificationID:notificationID];
+          notificationID = [v6 notificationID];
+          [v22 setNotificationID:notificationID];
         }
 
-        self = v20;
+        self = v22;
 
         selfCopy = self;
 LABEL_25:
@@ -875,14 +876,14 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v13 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v15 = __atxlog_handle_notification_management(v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
-        [ATXMissedNotificationRanking initWithProto:];
+        [ATXMissedNotificationRanking initWithProto:?];
       }
     }
 
-    v11 = 0;
+    v13 = 0;
     goto LABEL_14;
   }
 

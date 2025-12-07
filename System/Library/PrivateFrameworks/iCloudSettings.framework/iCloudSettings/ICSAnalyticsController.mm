@@ -40,14 +40,16 @@
 
 - (void)sendDriveCellularToggleEventWithActionType:(int64_t)type enabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  ICSAnalyticsController.sendDriveCellularToggleEvent(actionType:enabled:)(type, enabled);
+  ICSAnalyticsController.sendDriveCellularToggleEvent(actionType:enabled:)(type, enabledCopy);
 }
 
 - (void)sendDriveUnlimitedCellularToggleEventWithActionType:(int64_t)type enabled:(BOOL)enabled
 {
+  enabledCopy = enabled;
   selfCopy = self;
-  ICSAnalyticsController.sendDriveUnlimitedCellularToggleEvent(actionType:enabled:)(type, enabled);
+  ICSAnalyticsController.sendDriveUnlimitedCellularToggleEvent(actionType:enabled:)(type, enabledCopy);
 }
 
 @end

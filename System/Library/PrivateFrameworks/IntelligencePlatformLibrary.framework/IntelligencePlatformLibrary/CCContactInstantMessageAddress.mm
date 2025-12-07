@@ -219,7 +219,6 @@ LABEL_29:
 
           v26 = objc_opt_class();
           v25 = NSStringFromClass(v26);
-          v27 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
 LABEL_28:
 
@@ -248,22 +247,21 @@ LABEL_28:
 LABEL_36:
   if (!*&v6[*v9])
   {
-    v31 = 1;
+    v29 = 1;
     goto LABEL_40;
   }
 
 LABEL_37:
-  v28 = objc_opt_class();
-  v10 = NSStringFromClass(v28);
-  v29 = *&v6[*v9];
-  v30 = CCInvalidBufferErrorForMessage();
+  v27 = objc_opt_class();
+  v10 = NSStringFromClass(v27);
+  v28 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_38:
-  v31 = 0;
+  v29 = 0;
 LABEL_40:
 
-  return v31;
+  return v29;
 }
 
 - (CCContactInstantMessageAddress)initWithLabel:(id)label username:(id)username serviceName:(id)name error:(id *)error

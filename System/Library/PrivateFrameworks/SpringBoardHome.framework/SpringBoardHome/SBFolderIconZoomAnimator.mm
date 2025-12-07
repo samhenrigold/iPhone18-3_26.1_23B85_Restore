@@ -204,9 +204,9 @@
   [(SBScaleIconZoomAnimator *)self zoomScaleDimension];
   v12 = _SBScaleIconZoomAnimatorCameraPositionToScaleModelPointToTargetPoint(v4, v6, v8, v10, v11);
   v14 = v13;
-  [targetIconContainerView bounds];
+  objc_msgSend_bounds(targetIconContainerView);
   v16 = v12 / v15;
-  [targetIconContainerView bounds];
+  objc_msgSend_bounds(targetIconContainerView);
   [(SBFolderIconZoomAnimator *)self _setupMatchMoveWithDockWithTargetIconCenter:v4 targetIconAnchor:v6, v16, v14 / v17];
 }
 
@@ -248,20 +248,20 @@
     v20 = v19;
     v22 = v21;
 
-    [v5 bounds];
+    objc_msgSend_bounds(v5);
     v24 = v20 + v23 * -0.5;
-    [targetIconContainerView bounds];
+    objc_msgSend_bounds(targetIconContainerView);
     v26 = v24 + v25 * -0.5;
-    [v5 bounds];
+    objc_msgSend_bounds(v5);
     v28 = v22 + v27 * -0.5;
-    [targetIconContainerView bounds];
+    objc_msgSend_bounds(targetIconContainerView);
     v30 = v28 + v29 * -0.5;
     [_outermostLayer2 anchorPoint];
     v32 = v31;
     v34 = v33;
-    [targetIconContainerView bounds];
+    objc_msgSend_bounds(targetIconContainerView);
     v36 = -(v26 - v35 * (v32 + -0.5));
-    [targetIconContainerView bounds];
+    objc_msgSend_bounds(targetIconContainerView);
     v38 = -(v30 - v37 * (v34 + -0.5));
     [(SBScaleIconZoomAnimator *)self targetIconCenter];
     v40 = v39 - v22;
@@ -362,7 +362,7 @@
       [v6 setSourceLayer:_outermostLayer];
 
       window = [v5 window];
-      [window bounds];
+      objc_msgSend_bounds(window);
       v10 = v9;
       v12 = v11;
       v14 = v13;

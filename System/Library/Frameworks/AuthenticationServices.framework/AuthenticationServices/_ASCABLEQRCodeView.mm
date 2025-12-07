@@ -14,11 +14,11 @@
 
 - (_ASCABLEQRCodeView)initWithMessage:(id)message
 {
-  v66[14] = *MEMORY[0x1E69E9840];
+  v65[14] = *MEMORY[0x1E69E9840];
   messageCopy = message;
-  v65.receiver = self;
-  v65.super_class = _ASCABLEQRCodeView;
-  v5 = [(_ASCABLEQRCodeView *)&v65 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+  v64.receiver = self;
+  v64.super_class = _ASCABLEQRCodeView;
+  v5 = [(_ASCABLEQRCodeView *)&v64 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   if (v5)
   {
     v6 = [messageCopy copy];
@@ -38,7 +38,7 @@
 
     v12 = *MEMORY[0x1E69796E8];
     [(UIView *)v5->_platterView layer];
-    v13 = v64 = messageCopy;
+    v13 = v63 = messageCopy;
     [v13 setCornerCurve:v12];
 
     [(_ASCABLEQRCodeView *)v5 addSubview:v5->_platterView];
@@ -54,73 +54,72 @@
 
     [(_ASCABLEQRCodeBadgeView *)v5->_badgeView setTranslatesAutoresizingMaskIntoConstraints:0];
     [(_ASCABLEQRCodeView *)v5 addSubview:v5->_badgeView];
-    v48 = MEMORY[0x1E696ACD8];
+    v47 = MEMORY[0x1E696ACD8];
     leadingAnchor = [(UIView *)v5->_platterView leadingAnchor];
     leadingAnchor2 = [(_ASCABLEQRCodeView *)v5 leadingAnchor];
-    v61 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v66[0] = v61;
+    v60 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v65[0] = v60;
     trailingAnchor = [(UIView *)v5->_platterView trailingAnchor];
     trailingAnchor2 = [(_ASCABLEQRCodeView *)v5 trailingAnchor];
-    v58 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v66[1] = v58;
+    v57 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v65[1] = v57;
     topAnchor = [(UIView *)v5->_platterView topAnchor];
     topAnchor2 = [(_ASCABLEQRCodeView *)v5 topAnchor];
-    v55 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v66[2] = v55;
+    v54 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v65[2] = v54;
     bottomAnchor = [(UIView *)v5->_platterView bottomAnchor];
     bottomAnchor2 = [(_ASCABLEQRCodeView *)v5 bottomAnchor];
-    v52 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v66[3] = v52;
+    v51 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+    v65[3] = v51;
     leadingAnchor3 = [(_ASCABLEQRCodeImageView *)v5->_imageView leadingAnchor];
     leadingAnchor4 = [(UIView *)v5->_platterView leadingAnchor];
-    v49 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:10.0];
-    v66[4] = v49;
+    v48 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:10.0];
+    v65[4] = v48;
     trailingAnchor3 = [(UIView *)v5->_platterView trailingAnchor];
     trailingAnchor4 = [(_ASCABLEQRCodeImageView *)v5->_imageView trailingAnchor];
-    v45 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:10.0];
-    v66[5] = v45;
+    v44 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:10.0];
+    v65[5] = v44;
     topAnchor3 = [(_ASCABLEQRCodeImageView *)v5->_imageView topAnchor];
     topAnchor4 = [(UIView *)v5->_platterView topAnchor];
-    v42 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:10.0];
-    v66[6] = v42;
+    v41 = [topAnchor3 constraintEqualToAnchor:topAnchor4 constant:10.0];
+    v65[6] = v41;
     bottomAnchor3 = [(UIView *)v5->_platterView bottomAnchor];
     bottomAnchor4 = [(_ASCABLEQRCodeImageView *)v5->_imageView bottomAnchor];
-    v39 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:10.0];
-    v66[7] = v39;
+    v38 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4 constant:10.0];
+    v65[7] = v38;
     widthAnchor = [(_ASCABLEQRCodeBadgeView *)v5->_badgeView widthAnchor];
     widthAnchor2 = [(_ASCABLEQRCodeImageView *)v5->_imageView widthAnchor];
-    v36 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:0.3];
-    v66[8] = v36;
+    v35 = [widthAnchor constraintEqualToAnchor:widthAnchor2 multiplier:0.3];
+    v65[8] = v35;
     heightAnchor = [(_ASCABLEQRCodeBadgeView *)v5->_badgeView heightAnchor];
     heightAnchor2 = [(_ASCABLEQRCodeImageView *)v5->_imageView heightAnchor];
-    v33 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.3];
-    v66[9] = v33;
+    v32 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.3];
+    v65[9] = v32;
     centerXAnchor = [(_ASCABLEQRCodeBadgeView *)v5->_badgeView centerXAnchor];
     centerXAnchor2 = [(_ASCABLEQRCodeImageView *)v5->_imageView centerXAnchor];
-    v30 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v66[10] = v30;
+    v29 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v65[10] = v29;
     centerYAnchor = [(_ASCABLEQRCodeBadgeView *)v5->_badgeView centerYAnchor];
     centerYAnchor2 = [(_ASCABLEQRCodeImageView *)v5->_imageView centerYAnchor];
     v20 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v66[11] = v20;
+    v65[11] = v20;
     heightAnchor3 = [(_ASCABLEQRCodeView *)v5 heightAnchor];
     [(_ASCABLEQRCodeView *)v5 _edgeLength];
     v22 = [heightAnchor3 constraintEqualToConstant:?];
-    v66[12] = v22;
+    v65[12] = v22;
     widthAnchor3 = [(_ASCABLEQRCodeView *)v5 widthAnchor];
     heightAnchor4 = [(_ASCABLEQRCodeView *)v5 heightAnchor];
     v25 = [widthAnchor3 constraintEqualToAnchor:heightAnchor4];
-    v66[13] = v25;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:14];
-    [v48 activateConstraints:v26];
+    v65[13] = v25;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:14];
+    [v47 activateConstraints:v26];
 
-    messageCopy = v64;
+    messageCopy = v63;
     [(_ASCABLEQRCodeView *)v5 _updatePlatterBorderStyle];
     [(_ASCABLEQRCodeView *)v5 _updateQRCodeImage];
     v27 = v5;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

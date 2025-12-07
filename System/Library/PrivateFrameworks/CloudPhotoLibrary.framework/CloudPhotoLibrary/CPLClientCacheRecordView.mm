@@ -103,36 +103,34 @@
 
 - (id)synthesizedRecord
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   cloudRecord = self->_cloudRecord;
   idMapping = self->_idMapping;
-  v13 = 0;
-  v6 = [(CPLRecordChange *)cloudRecord translateToClientChangeUsingIDMapping:idMapping error:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [(CPLRecordChange *)cloudRecord translateToClientChangeUsingIDMapping:idMapping error:&v12];
+  v7 = v12;
   if (!v6)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v9 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v7;
-        _os_log_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_ERROR, "Failed to remap cloud record to local record: %@", buf, 0xCu);
+        v14 = v7;
+        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_ERROR, "Failed to remap cloud record to local record: %@", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStorageViews.m"];
-    [currentHandler handleFailureInMethod:a2 object:self file:v12 lineNumber:242 description:{@"Failed to remap cloud record to local record: %@", v7}];
+    v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Storage/CPLEngineStorageViews.m"];
+    [currentHandler handleFailureInMethod:a2 object:self file:v11 lineNumber:242 description:{@"Failed to remap cloud record to local record: %@", v7}];
 
     abort();
   }
 
   [v6 setRecordChangeData:0];
   [v6 setSharingRecordChangeData:0];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

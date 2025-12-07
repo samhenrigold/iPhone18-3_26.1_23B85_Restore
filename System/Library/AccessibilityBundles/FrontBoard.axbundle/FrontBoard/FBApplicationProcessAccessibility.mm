@@ -24,10 +24,10 @@
 - (BOOL)_setSceneLifecycleState:(unsigned __int8)state
 {
   stateCopy = state;
-  v19[3] = *MEMORY[0x29EDCA608];
-  v17.receiver = self;
-  v17.super_class = FBApplicationProcessAccessibility;
-  v5 = [(FBApplicationProcessAccessibility *)&v17 _setSceneLifecycleState:?];
+  v18[3] = *MEMORY[0x29EDCA608];
+  v16.receiver = self;
+  v16.super_class = FBApplicationProcessAccessibility;
+  v5 = [(FBApplicationProcessAccessibility *)&v16 _setSceneLifecycleState:?];
   if (stateCopy == 2)
   {
     if (_AXSApplicationAccessibilityEnabled() && [(FBApplicationProcessAccessibility *)self _accessibilityWasJustLaunched])
@@ -54,15 +54,15 @@
 
         if (bundleIdentifier2)
         {
-          v18[0] = @"bundleID";
+          v17[0] = @"bundleID";
           bundleIdentifier3 = [(FBApplicationProcessAccessibility *)selfCopy bundleIdentifier];
-          v19[0] = bundleIdentifier3;
-          v19[1] = v8;
-          v18[1] = @"displayName";
-          v18[2] = @"pid";
+          v18[0] = bundleIdentifier3;
+          v18[1] = v8;
+          v17[1] = @"displayName";
+          v17[2] = @"pid";
           v13 = [MEMORY[0x29EDBA070] numberWithInt:v10];
-          v19[2] = v13;
-          v14 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+          v18[2] = v13;
+          v14 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
           UIAccessibilityPostNotification(0x1388u, v14);
         }
       }
@@ -71,7 +71,6 @@
     [(FBApplicationProcessAccessibility *)self _accessibilitySetWasJustLaunched:0];
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v5;
 }
 

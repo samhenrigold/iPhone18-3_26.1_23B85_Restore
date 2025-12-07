@@ -168,19 +168,19 @@ uint64_t __31__DMEnvironment_sharedInstance__block_invoke()
 
 - (BOOL)deviceModeIsSharediPad
 {
-  v3 = MKBUserTypeDeviceMode();
-  _DMLogFunc(v2, 7, @"MKBUserTypeDeviceMode returned error %@ result %@");
-  v4 = [v3 objectForKeyedSubscript:{*MEMORY[0x277D28AD0], 0, v3}];
-  v5 = [v4 isEqualToString:*MEMORY[0x277D28AE0]];
+  v11 = MKBUserTypeDeviceMode();
+  _DMLogFunc(v2, 7, @"MKBUserTypeDeviceMode returned error %@ result %@", v3, v4, v5, v6, v7, 0);
+  v8 = [v11 objectForKeyedSubscript:*MEMORY[0x277D28AD0]];
+  v9 = [v8 isEqualToString:*MEMORY[0x277D28AE0]];
 
-  return v5;
+  return v9;
 }
 
 - (BOOL)userSessionIsLoginWindow
 {
   IsLoginWindow = MKBUserSessionIsLoginWindow();
-  v5 = [MEMORY[0x277CCABB0] numberWithBool:IsLoginWindow];
-  _DMLogFunc(v2, 7, @"MKBUserSessionIsLoginWindow returned error %@ result %@");
+  v10 = [MEMORY[0x277CCABB0] numberWithBool:IsLoginWindow];
+  _DMLogFunc(v2, 7, @"MKBUserSessionIsLoginWindow returned error %@ result %@", v4, v5, v6, v7, v8, 0);
 
   return IsLoginWindow;
 }
@@ -333,80 +333,81 @@ uint64_t __31__DMEnvironment_sharedInstance__block_invoke()
 - (void)setContext:(id)context
 {
   propertyList = context;
-  _DMLogFunc(v3, 7, @"Setting context to %@");
-  v4 = getpwnam("mobile");
-  if (!v4)
+  _DMLogFunc(v3, 7, @"Setting context to %@", v4, v5, v6, v7, v8, propertyList);
+  v9 = getpwnam("mobile");
+  if (!v9)
   {
-    v11 = @"Couldn't get user info for the mobile user";
+    v32 = @"Couldn't get user info for the mobile user";
 LABEL_16:
-    _DMLogFunc(v3, 3, v11);
+    _DMLogFunc(v3, 3, v32, v10, v11, v12, v13, v14, v44);
     goto LABEL_23;
   }
 
-  v5 = v4;
+  v15 = v9;
   if (DMContextPath_onceToken != -1)
   {
     [DMEnvironment(DMContext) context];
   }
 
-  v6 = CFURLCreateWithFileSystemPath(0, DMContextPath_retval, kCFURLPOSIXPathStyle, 0);
-  if (!v6)
+  v16 = CFURLCreateWithFileSystemPath(0, DMContextPath_retval, kCFURLPOSIXPathStyle, 0);
+  if (!v16)
   {
     if (DMContextPath_onceToken != -1)
     {
       [DMEnvironment(DMContext) context];
     }
 
-    v11 = @"Couldn't create a URL for the path %@";
+    v44 = DMContextPath_retval;
+    v32 = @"Couldn't create a URL for the path %@";
     goto LABEL_16;
   }
 
-  v7 = v6;
-  v8 = CFWriteStreamCreateWithFile(0, v6);
-  if (v8)
+  v17 = v16;
+  v18 = CFWriteStreamCreateWithFile(0, v16);
+  if (v18)
   {
-    v9 = v8;
-    if (CFWriteStreamOpen(v8))
+    v19 = v18;
+    if (CFWriteStreamOpen(v18))
     {
-      if (!CFPropertyListWrite(propertyList, v9, kCFPropertyListBinaryFormat_v1_0, 0, 0))
+      if (!CFPropertyListWrite(propertyList, v19, kCFPropertyListBinaryFormat_v1_0, 0, 0))
       {
-        _DMLogFunc(v3, 3, @"Error writing context property list to stream.");
+        _DMLogFunc(v3, 3, @"Error writing context property list to stream.", v20, v21, v22, v23, v24, v44);
       }
 
-      if (chown("/var/mobile/Library/Preferences/com.apple.DataMigration.plist", v5->pw_uid, v5->pw_gid))
+      if (chown("/var/mobile/Library/Preferences/com.apple.DataMigration.plist", v15->pw_uid, v15->pw_gid))
       {
-        v10 = __error();
-        strerror(*v10);
-        _DMLogFunc(v3, 3, @"Couldn't chown the preferences file to the mobile user: %s");
+        v25 = __error();
+        v26 = strerror(*v25);
+        _DMLogFunc(v3, 3, @"Couldn't chown the preferences file to the mobile user: %s", v27, v28, v29, v30, v31, v26);
       }
 
-      CFWriteStreamClose(v9);
+      CFWriteStreamClose(v19);
     }
 
     else
     {
-      v12 = CFWriteStreamCopyError(v9);
-      _DMLogFunc(v3, 3, @"Couldn't open the stream at %@: %@");
-      if (v12)
+      v38 = CFWriteStreamCopyError(v19);
+      _DMLogFunc(v3, 3, @"Couldn't open the stream at %@: %@", v39, v40, v41, v42, v43, v17);
+      if (v38)
       {
-        CFRelease(v12);
+        CFRelease(v38);
       }
     }
   }
 
   else
   {
-    v9 = CFWriteStreamCopyError(0);
-    _DMLogFunc(v3, 3, @"Couldn't create a stream for the file at %@: %@");
-    if (!v9)
+    v19 = CFWriteStreamCopyError(0);
+    _DMLogFunc(v3, 3, @"Couldn't create a stream for the file at %@: %@", v33, v34, v35, v36, v37, v17);
+    if (!v19)
     {
       goto LABEL_22;
     }
   }
 
-  CFRelease(v9);
+  CFRelease(v19);
 LABEL_22:
-  CFRelease(v7);
+  CFRelease(v17);
 LABEL_23:
 }
 
@@ -419,13 +420,15 @@ LABEL_23:
 
   if (unlink(DMContextPathCStr_retval))
   {
-    v3 = [MEMORY[0x277CCABB0] numberWithInt:*__error()];
+    v8 = [MEMORY[0x277CCABB0] numberWithInt:*__error()];
+    v14 = v8;
     if (DMContextPathCStr_onceToken != -1)
     {
       [DMEnvironment(DMContext) clearContext];
+      v8 = v14;
     }
 
-    _DMLogFunc(v2, 3, @"clearContext failed with errno %@ for path '%s'");
+    _DMLogFunc(v2, 3, @"clearContext failed with errno %@ for path '%s'", v9, v10, v11, v12, v13, v8);
   }
 
   else
@@ -435,7 +438,7 @@ LABEL_23:
       [DMEnvironment(DMContext) clearContext];
     }
 
-    _DMLogFunc(v2, 7, @"clearContext succeeded for path '%s'");
+    _DMLogFunc(v2, 7, @"clearContext succeeded for path '%s'", v3, v4, v5, v6, v7, DMContextPathCStr_retval);
   }
 }
 

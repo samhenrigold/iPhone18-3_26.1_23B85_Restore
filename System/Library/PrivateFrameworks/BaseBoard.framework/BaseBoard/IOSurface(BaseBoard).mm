@@ -10,7 +10,7 @@
   v81 = *MEMORY[0x1E69E9840];
   if (!a5)
   {
-    v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"options"];
+    v41 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", a4, @"options"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       v42 = NSStringFromSelector(a2);
@@ -39,7 +39,7 @@
 
   if ((a3 & 0x8000000000000000) != 0)
   {
-    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"in_width >= 0"];
+    v46 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", a4, @"in_width >= 0"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
       v47 = NSStringFromSelector(a2);
@@ -228,7 +228,7 @@ LABEL_12:
     v2 = v4;
     if (v4)
     {
-      objc_storeStrong(&v4->_surface, self);
+      objc_storeStrong(v4 + 1, self);
     }
   }
 

@@ -57,13 +57,13 @@
 
 - (void)activatePlanPendingTransfer:(id)transfer
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   transferCopy = transfer;
   getLogger = [(PSUIPlanPendingTransferActivationButtonSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[PSUIPlanPendingTransferActivationButtonSpecifier activatePlanPendingTransfer:]";
+    v25 = "[PSUIPlanPendingTransferActivationButtonSpecifier activatePlanPendingTransfer:]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -78,31 +78,29 @@
   v12 = MEMORY[0x277D750F8];
   v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v14 = [v13 localizedStringForKey:@"OK_BUTTON" value:&stru_287733598 table:@"Cellular"];
-  v19 = MEMORY[0x277D85DD0];
-  v20 = 3221225472;
-  v21 = __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingTransfer___block_invoke;
-  v22 = &unk_279BAA160;
+  v18 = MEMORY[0x277D85DD0];
+  v19 = 3221225472;
+  v20 = __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingTransfer___block_invoke;
+  v21 = &unk_279BAA160;
   selfCopy = self;
-  v24 = transferCopy;
+  v23 = transferCopy;
   v15 = transferCopy;
-  v16 = [v12 actionWithTitle:v14 style:2 handler:&v19];
+  v16 = [v12 actionWithTitle:v14 style:2 handler:&v18];
 
-  [v11 addAction:{v16, v19, v20, v21, v22, selfCopy}];
+  [v11 addAction:{v16, v18, v19, v20, v21, selfCopy}];
   hostController = [(PSUIPlanPendingTransferActivationButtonSpecifier *)self hostController];
   [hostController presentViewController:v11 animated:1 completion:0];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingTransfer___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) plan];
     *buf = 138412290;
-    v12 = v3;
+    v11 = v3;
     _os_log_impl(&dword_2658DE000, v2, OS_LOG_TYPE_DEFAULT, "Triggered activation of pending transfer item: %@", buf, 0xCu);
   }
 
@@ -110,26 +108,24 @@ void __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingT
   v4 = *(a1 + 40);
   v6 = *(v5 + 264);
   v7 = *(v5 + 248);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingTransfer___block_invoke_27;
-  v9[3] = &unk_279BAAA68;
-  v9[4] = v5;
-  v10 = v4;
-  [v6 activatePlanPendingTransfer:v7 completion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingTransfer___block_invoke_27;
+  v8[3] = &unk_279BAAA68;
+  v8[4] = v5;
+  v9 = v4;
+  [v6 activatePlanPendingTransfer:v7 completion:v8];
 }
 
 void __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingTransfer___block_invoke_27(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = v6;
+    v22 = v6;
     _os_log_impl(&dword_2658DE000, v7, OS_LOG_TYPE_DEFAULT, "activate pending plan callback with error: %@", buf, 0xCu);
   }
 
@@ -148,10 +144,10 @@ void __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingT
 
     else
     {
-      v20 = *MEMORY[0x277D49548];
+      v19 = *MEMORY[0x277D49548];
       v10 = [MEMORY[0x277CCABB0] numberWithInteger:3];
-      v21 = v10;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v20 = v10;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
 
       v11 = [MEMORY[0x277D49530] flowWithOptions:v9];
       v12 = *(a1 + 32);
@@ -162,29 +158,27 @@ void __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingT
       v15 = *(a1 + 32);
       v14 = *(a1 + 40);
       v16 = *(v15 + 272);
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingTransfer___block_invoke_31;
-      v18[3] = &unk_279BAAA40;
-      v18[4] = v15;
-      v19 = v14;
-      [v16 firstViewController:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingTransfer___block_invoke_31;
+      v17[3] = &unk_279BAAA40;
+      v17[4] = v15;
+      v18 = v14;
+      [v16 firstViewController:v17];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingTransfer___block_invoke_31(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) getLogger];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = objc_opt_class();
-    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "present %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = objc_opt_class();
+    _os_log_impl(&dword_2658DE000, v4, OS_LOG_TYPE_DEFAULT, "present %@", &v10, 0xCu);
   }
 
   [*(a1 + 40) setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FF38]];
@@ -197,8 +191,6 @@ void __80__PSUIPlanPendingTransferActivationButtonSpecifier_activatePlanPendingT
   v8 = objc_loadWeakRetained((*(a1 + 32) + 240));
   v9 = [v8 topViewController];
   [v9 presentViewController:v5 animated:1 completion:0];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showSpinner:(BOOL)spinner

@@ -9,34 +9,34 @@
 
 + (unint64_t)_getElementSizeFromShape:(id)shape
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   shapeCopy = shape;
   v4 = shapeCopy;
   if (shapeCopy)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
-    v5 = [shapeCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
+    v5 = [shapeCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v13;
+      v7 = *v12;
       v8 = 1;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v13 != v7)
+          if (*v12 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 *= [*(*(&v12 + 1) + 8 * i) unsignedLongValue];
+          v8 *= [*(*(&v11 + 1) + 8 * i) unsignedLongValue];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v6);
@@ -53,7 +53,6 @@
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -118,7 +117,7 @@
 
 + (int64_t)getRankOfTensor:(id)tensor
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   tensorCopy = tensor;
   v4 = tensorCopy;
   if (tensorCopy)
@@ -142,30 +141,19 @@
         objc_opt_class();
         v9 = objc_opt_isKindOfClass();
 
-        if ((v9 & 1) == 0)
-        {
-          goto LABEL_9;
-        }
-
-        firstObject4 = [v4 firstObject];
-        v10FirstObject = [firstObject4 firstObject];
-        objc_opt_class();
-        v12 = objc_opt_isKindOfClass();
-
-        if (v12)
+        if (v9 & 1) != 0 && ([v4 firstObject], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "firstObject"), v11 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), v12 = objc_opt_isKindOfClass(), v11, v10, (v12))
         {
           firstObject = 2;
         }
 
         else
         {
-LABEL_9:
           v13 = CSLogContextFacilityCoreSpeech;
           if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
           {
-            v16 = 136315138;
-            v17 = "+[CSFModelComputeBackendUtils getRankOfTensor:]";
-            _os_log_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_DEFAULT, "%s No support for tensor with rank > 2", &v16, 0xCu);
+            v15 = 136315138;
+            v16 = "+[CSFModelComputeBackendUtils getRankOfTensor:]";
+            _os_log_impl(&dword_1DDA4B000, v13, OS_LOG_TYPE_DEFAULT, "%s No support for tensor with rank > 2", &v15, 0xCu);
           }
 
           firstObject = -1;
@@ -179,13 +167,12 @@ LABEL_9:
     firstObject = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return firstObject;
 }
 
 + (id)getShapeWithTensors:(id)tensors
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   tensorsCopy = tensors;
   v4 = tensorsCopy;
   if (!tensorsCopy)
@@ -200,8 +187,8 @@ LABEL_9:
   if (isKindOfClass)
   {
     v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
-    v23[0] = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
 LABEL_9:
 
     goto LABEL_13;
@@ -247,16 +234,14 @@ LABEL_9:
   v18 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v21 = 136315138;
-    v22 = "+[CSFModelComputeBackendUtils getShapeWithTensors:]";
-    _os_log_error_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_ERROR, "%s input tensor not valid, rank > 3 tensor is not supported", &v21, 0xCu);
+    v20 = 136315138;
+    v21 = "+[CSFModelComputeBackendUtils getShapeWithTensors:]";
+    _os_log_error_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_ERROR, "%s input tensor not valid, rank > 3 tensor is not supported", &v20, 0xCu);
   }
 
 LABEL_12:
   v8 = 0;
 LABEL_13:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

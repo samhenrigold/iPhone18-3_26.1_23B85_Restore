@@ -103,7 +103,7 @@ void __50__CNContactPhotoView_dropInteraction_performDrop___block_invoke(uint64_
   if (a3)
   {
     v7 = [a3 localizedDescription];
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPhotoView.m", 964, 3, @"Unable to copy data for avatar photo drop operation: %@", v8, v9, v10, v11, v7);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPhotoView.m", 964, 3u, @"Unable to copy data for avatar photo drop operation: %@", v8, v9, v10, v11, v7);
   }
 
   else
@@ -773,17 +773,17 @@ LABEL_8:
   if (self->_pendingEditContact)
   {
     v20[0] = self->_pendingEditContact;
-    contacts2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
 LABEL_5:
-    v7 = contacts2;
+    v7 = v5;
     goto LABEL_6;
   }
 
-  contacts = [(CNContactPhotoView *)self contacts];
+  v6 = objc_msgSend_contacts(self, a2);
 
-  if (contacts)
+  if (v6)
   {
-    contacts2 = [(CNContactPhotoView *)self contacts];
+    v5 = objc_msgSend_contacts(self);
     goto LABEL_5;
   }
 
@@ -805,8 +805,8 @@ LABEL_6:
 
   else
   {
-    contacts3 = [avatarView contacts];
-    v15 = [contacts3 isEqualToArray:v7];
+    v14 = objc_msgSend_contacts(avatarView);
+    v15 = [v14 isEqualToArray:v7];
 
     avatarView2 = [(CNContactPhotoView *)self avatarView];
     avatarView3 = avatarView2;
@@ -1349,13 +1349,13 @@ LABEL_10:
 
 - (id)contact
 {
-  contacts = [(CNContactPhotoView *)self contacts];
-  v4 = [contacts count];
+  v3 = objc_msgSend_contacts(self, a2);
+  v4 = [v3 count];
 
   if (v4 == 1)
   {
-    contacts2 = [(CNContactPhotoView *)self contacts];
-    firstObject = [contacts2 firstObject];
+    v5 = objc_msgSend_contacts(self);
+    firstObject = [v5 firstObject];
   }
 
   else

@@ -28,7 +28,7 @@
 
 - (void)start:(id *)start
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   nfSession = [(MIBUNFCReaderSession *)self nfSession];
 
   if (nfSession)
@@ -57,16 +57,16 @@
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v18 = __Block_byref_object_copy__0;
-    v19 = __Block_byref_object_dispose__0;
-    v20 = 0;
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __30__MIBUNFCReaderSession_start___block_invoke_22;
-    v16[3] = &unk_2798E6758;
-    v16[4] = self;
-    v16[5] = buf;
-    v10 = _Block_copy(v16);
+    v17 = __Block_byref_object_copy__0;
+    v18 = __Block_byref_object_dispose__0;
+    v19 = 0;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __30__MIBUNFCReaderSession_start___block_invoke_22;
+    v15[3] = &unk_2798E6758;
+    v15[4] = self;
+    v15[5] = buf;
+    v10 = _Block_copy(v15);
     mEMORY[0x277D2C848] = [MEMORY[0x277D2C848] sharedHardwareManagerWithNoUI];
     v12 = [mEMORY[0x277D2C848] startReaderSession:v10];
     [(MIBUNFCReaderSession *)self setNfSession:v12];
@@ -82,8 +82,6 @@
 
     _Block_object_dispose(buf, 8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __30__MIBUNFCReaderSession_start___block_invoke()
@@ -104,7 +102,7 @@ void __30__MIBUNFCReaderSession_start___block_invoke()
 
 void __30__MIBUNFCReaderSession_start___block_invoke_22(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -127,9 +125,9 @@ void __30__MIBUNFCReaderSession_start___block_invoke_22(uint64_t a1, void *a2, v
       v10 = v7;
       v11 = [v9 stringWithFormat:@"Session started"];
       *buf = 138543618;
-      v26 = v8;
-      v27 = 2114;
-      v28 = v11;
+      v25 = v8;
+      v26 = 2114;
+      v27 = v11;
       _os_log_impl(&dword_259ABF000, v10, OS_LOG_TYPE_DEFAULT, "Device %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -157,9 +155,9 @@ void __30__MIBUNFCReaderSession_start___block_invoke_22(uint64_t a1, void *a2, v
         v20 = v17;
         v21 = [v19 stringWithFormat:@"Reader is polling for tags"];
         *buf = 138543618;
-        v26 = v18;
-        v27 = 2114;
-        v28 = v21;
+        v25 = v18;
+        v26 = 2114;
+        v27 = v21;
         _os_log_impl(&dword_259ABF000, v20, OS_LOG_TYPE_DEFAULT, "Device %{public}@: %{public}@", buf, 0x16u);
       }
     }
@@ -178,8 +176,6 @@ void __30__MIBUNFCReaderSession_start___block_invoke_22(uint64_t a1, void *a2, v
       }
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __30__MIBUNFCReaderSession_start___block_invoke_2()
@@ -301,7 +297,7 @@ void __38__MIBUNFCReaderSession_disconnectTag___block_invoke()
 
 - (void)end
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (MIBUOnceToken != -1)
   {
     [MIBUNFCReaderSession end];
@@ -313,17 +309,15 @@ void __38__MIBUNFCReaderSession_disconnectTag___block_invoke()
     v4 = MEMORY[0x277CCACA8];
     v5 = v3;
     v6 = [v4 stringWithFormat:@"Ending session"];
-    v9 = 138543618;
+    v8 = 138543618;
     selfCopy = self;
-    v11 = 2114;
-    v12 = v6;
-    _os_log_impl(&dword_259ABF000, v5, OS_LOG_TYPE_DEFAULT, "Device %{public}@: %{public}@", &v9, 0x16u);
+    v10 = 2114;
+    v11 = v6;
+    _os_log_impl(&dword_259ABF000, v5, OS_LOG_TYPE_DEFAULT, "Device %{public}@: %{public}@", &v8, 0x16u);
   }
 
   nfSession = [(MIBUNFCReaderSession *)self nfSession];
   [nfSession endSession];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __27__MIBUNFCReaderSession_end__block_invoke()
@@ -344,17 +338,17 @@ void __27__MIBUNFCReaderSession_end__block_invoke()
 
 - (id)sendCommand:(id)command withError:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   serializedPayload = [commandCopy serializedPayload];
   v12 = serializedPayload;
   if (!commandCopy)
   {
-    v38 = 0;
-    safeAssignError(&v38, 0x80000000, 0, @"nil command to send", v8, v9, v10, v11, v34);
-    v27 = v38;
+    v37 = 0;
+    safeAssignError(&v37, 0x80000000, 0, @"nil command to send", v8, v9, v10, v11, v33);
+    v26 = v37;
 LABEL_16:
-    v22 = v27;
+    v22 = v26;
     v23 = 0;
     v21 = 0;
     goto LABEL_9;
@@ -362,9 +356,9 @@ LABEL_16:
 
   if (!serializedPayload)
   {
-    v37 = 0;
-    safeAssignError(&v37, 0x80000000, 0, @"nil payload to send", v8, v9, v10, v11, v34);
-    v27 = v37;
+    v36 = 0;
+    safeAssignError(&v36, 0x80000000, 0, @"nil payload to send", v8, v9, v10, v11, v33);
+    v26 = v36;
     goto LABEL_16;
   }
 
@@ -383,26 +377,26 @@ LABEL_16:
     v18 = [v14 stringWithFormat:@"Sending command %ld with apdu %@", code, apdu];
     *buf = 138543618;
     selfCopy = self;
-    v41 = 2114;
-    v42 = v18;
+    v40 = 2114;
+    v41 = v18;
     _os_log_impl(&dword_259ABF000, v15, OS_LOG_TYPE_DEFAULT, "Device %{public}@: %{public}@", buf, 0x16u);
   }
 
   readerSession = [(MIBUNFCReaderSession *)self readerSession];
   apdu2 = [commandCopy apdu];
-  v36 = 0;
-  v21 = [readerSession transceive:apdu2 error:&v36];
-  v22 = v36;
+  v35 = 0;
+  v21 = [readerSession transceive:apdu2 error:&v35];
+  v22 = v35;
 
   v23 = [objc_alloc(objc_msgSend(commandCopy "getResponseClass"))];
   if (!v23)
   {
-    v35 = v22;
+    v34 = v22;
     code2 = [commandCopy code];
-    safeAssignError(&v35, 2147483650, 0, @"Failed to deserialize NFC response for command: %ld", v29, v30, v31, v32, code2);
-    v33 = v35;
+    safeAssignError(&v34, 2147483650, 0, @"Failed to deserialize NFC response for command: %ld", v28, v29, v30, v31, code2);
+    v32 = v34;
 
-    v22 = v33;
+    v22 = v32;
   }
 
 LABEL_9:
@@ -411,8 +405,6 @@ LABEL_9:
     v24 = v22;
     *error = v22;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
@@ -435,7 +427,7 @@ void __46__MIBUNFCReaderSession_sendCommand_withError___block_invoke()
 
 - (void)readerSession:(id)session didDetectTags:(id)tags
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   tagsCopy = tags;
   if ([tagsCopy count])
   {
@@ -455,17 +447,17 @@ void __46__MIBUNFCReaderSession_sendCommand_withError___block_invoke()
       v11 = [v7 stringWithFormat:@"Trying to connect to tag: %@", v10];
       *buf = 138543618;
       selfCopy3 = self;
-      v31 = 2114;
-      v32 = v11;
+      v30 = 2114;
+      v31 = v11;
       _os_log_impl(&dword_259ABF000, v8, OS_LOG_TYPE_DEFAULT, "Device %{public}@: %{public}@", buf, 0x16u);
     }
 
     readerSession = [(MIBUNFCReaderSession *)self readerSession];
     tags2 = [(MIBUNFCReaderSession *)self tags];
     v14 = [tags2 objectAtIndex:0];
-    v28 = 0;
-    v15 = [readerSession connectTag:v14 error:&v28];
-    v16 = v28;
+    v27 = 0;
+    v15 = [readerSession connectTag:v14 error:&v27];
+    v16 = v27;
 
     if (v15)
     {
@@ -482,8 +474,8 @@ void __46__MIBUNFCReaderSession_sendCommand_withError___block_invoke()
         v20 = [v18 stringWithFormat:@"Connected to tag successfully"];
         *buf = 138543618;
         selfCopy3 = self;
-        v31 = 2114;
-        v32 = v20;
+        v30 = 2114;
+        v31 = v20;
         _os_log_impl(&dword_259ABF000, v19, OS_LOG_TYPE_DEFAULT, "Device %{public}@: %{public}@", buf, 0x16u);
       }
     }
@@ -518,8 +510,8 @@ void __46__MIBUNFCReaderSession_sendCommand_withError___block_invoke()
       v24 = [v22 stringWithFormat:@"No tags available to connect to"];
       *buf = 138543618;
       selfCopy3 = self;
-      v31 = 2114;
-      v32 = v24;
+      v30 = 2114;
+      v31 = v24;
       _os_log_impl(&dword_259ABF000, v23, OS_LOG_TYPE_DEFAULT, "Device %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -528,8 +520,6 @@ void __46__MIBUNFCReaderSession_sendCommand_withError___block_invoke()
 
   connectSem = [(MIBUNFCReaderSession *)self connectSem];
   dispatch_semaphore_signal(connectSem);
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __52__MIBUNFCReaderSession_readerSession_didDetectTags___block_invoke()
@@ -598,7 +588,7 @@ void __52__MIBUNFCReaderSession_readerSession_didDetectTags___block_invoke_89()
 
 void __30__MIBUNFCReaderSession_start___block_invoke_22_cold_1(char a1, uint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ((a1 & 1) == 0)
   {
     dispatch_once(&MIBUOnceToken, &__block_literal_global_24_0);
@@ -607,61 +597,50 @@ void __30__MIBUNFCReaderSession_start___block_invoke_22_cold_1(char a1, uint64_t
   v5 = MIBUConnObj;
   if (os_log_type_enabled(MIBUConnObj, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a2 + 32);
-    v8 = MEMORY[0x277CCACA8];
-    v9 = v5;
-    v10 = [v8 stringWithFormat:@"Failed to start NFReader session"];
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v10;
-    _os_log_error_impl(&dword_259ABF000, v9, OS_LOG_TYPE_ERROR, "Device Error %{public}@: %{public}@", &v11, 0x16u);
+    v6 = *(a2 + 32);
+    v7 = MEMORY[0x277CCACA8];
+    v8 = v5;
+    v9 = [v7 stringWithFormat:@"Failed to start NFReader session"];
+    v10 = 138543618;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_error_impl(&dword_259ABF000, v8, OS_LOG_TYPE_ERROR, "Device Error %{public}@: %{public}@", &v10, 0x16u);
   }
 
   objc_storeStrong((*(*(a2 + 40) + 8) + 40), a3);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __30__MIBUNFCReaderSession_start___block_invoke_22_cold_4(uint64_t *a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = MEMORY[0x277CCACA8];
   v5 = *(*(*a2 + 8) + 40);
   v6 = a3;
   v7 = [v4 stringWithFormat:@"Failed to start polling : %@", v5];
   *buf = 138543618;
-  v10 = v3;
+  v9 = v3;
   OUTLINED_FUNCTION_1_4();
   _os_log_error_impl(&dword_259ABF000, v6, OS_LOG_TYPE_ERROR, "Device Error %{public}@: %{public}@", buf, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectTag:(uint64_t)a3 .cold.2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   v5 = a2;
-  v14 = a3;
-  v6 = [v4 stringWithFormat:@"Failed to disconnect : %@"];
+  v6 = [v4 stringWithFormat:@"Failed to disconnect : %@", a3];
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_3(&dword_259ABF000, v7, v8, "Device Error %{public}@: %{public}@", v9, v10, v11, v12, v14, v15, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_3(&dword_259ABF000, v7, v8, "Device Error %{public}@: %{public}@", v9, v10, v11, v12, v13, v14);
 }
 
 - (void)readerSession:(uint64_t)a3 didDetectTags:.cold.3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   v5 = a2;
-  v14 = a3;
-  v6 = [v4 stringWithFormat:@"Error encountered when connecting to tag: %@"];
+  v6 = [v4 stringWithFormat:@"Error encountered when connecting to tag: %@", a3];
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_2_3(&dword_259ABF000, v7, v8, "Device Error %{public}@: %{public}@", v9, v10, v11, v12, v14, v15, 2u);
-
-  v13 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_3(&dword_259ABF000, v7, v8, "Device Error %{public}@: %{public}@", v9, v10, v11, v12, v13, v14);
 }
 
 @end

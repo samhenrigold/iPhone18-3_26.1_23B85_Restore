@@ -1,10 +1,10 @@
 void *ldap_connection_create_with_hostname(const __CFString *a1, int a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  _fill_cstring_from_cfstring(&v7, a1, 0);
-  v3 = v7;
-  snprintf(__str, 0x100uLL, "com.apple.AppleLDAP.%s.%hu", v7, a2);
+  v8 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  _fill_cstring_from_cfstring(&v6, a1, 0);
+  v3 = v6;
+  snprintf(__str, 0x100uLL, "com.apple.AppleLDAP.%s.%hu", v6, a2);
   result = _ldap_connection_create(__str);
   result[33] = v3;
   *(result + 136) = a2;
@@ -19,7 +19,6 @@ void *ldap_connection_create_with_hostname(const __CFString *a1, int a2)
   }
 
   *(result + 72) |= v5;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -58,7 +57,7 @@ LABEL_7:
 
 void *_ldap_connection_create(const char *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = ldap_connection_obj_alloc(312);
   if (!v2)
   {
@@ -86,28 +85,27 @@ void *_ldap_connection_create(const char *a1)
   v3[12] = v3 + 11;
   v3[29] = v3 + 28;
   v3[20] = 0;
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 void *ldap_connection_create_with_socket(int a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v11 = 16;
+  v32 = *MEMORY[0x277D85DE8];
+  v10 = 16;
   if (a1 == -1)
   {
-    goto LABEL_8;
+    return 0;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0;
+  v29 = 0u;
   v26 = 0u;
-  if (getpeername(a1, &v25, &v11))
+  v27 = 0u;
+  v24 = 0;
+  v25 = 0u;
+  if (getpeername(a1, &v24, &v10))
   {
     snprintf(__str, 0x100uLL, "com.apple.AppleLDAP.sock#%d", a1);
     v2 = _ldap_connection_create(__str);
@@ -116,39 +114,37 @@ void *ldap_connection_create_with_socket(int a1)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *__s1 = 134218240;
-      v21 = v2;
-      v22 = 1024;
-      v23 = a1;
+      v20 = v2;
+      v21 = 1024;
+      v22 = a1;
       v3 = MEMORY[0x277D86220];
       v4 = "connection: %p, socket: %d";
       v5 = __s1;
       v6 = 18;
 LABEL_12:
       _os_log_impl(&dword_240C91000, v3, OS_LOG_TYPE_INFO, v4, v5, v6);
-      goto LABEL_13;
+      return v2;
     }
 
-    goto LABEL_13;
+    return v2;
   }
 
-  if (v25.sa_family != 2)
+  if (v24.sa_family != 2)
   {
-    if (v25.sa_family == 30)
+    if (v24.sa_family == 30)
     {
-      v7 = &v25.sa_data[6];
+      v7 = &v24.sa_data[6];
       goto LABEL_10;
     }
 
-LABEL_8:
-    v2 = 0;
-    goto LABEL_13;
+    return 0;
   }
 
-  v7 = &v25.sa_data[2];
+  v7 = &v24.sa_data[2];
 LABEL_10:
-  inet_ntop(v25.sa_family, v7, __s1, 0x2Eu);
-  v8 = *v25.sa_data;
-  snprintf(__str, 0x100uLL, "com.apple.AppleLDAP.%s.%hu", __s1, *v25.sa_data);
+  inet_ntop(v24.sa_family, v7, __s1, 0x2Eu);
+  v8 = *v24.sa_data;
+  snprintf(__str, 0x100uLL, "com.apple.AppleLDAP.%s.%hu", __s1, *v24.sa_data);
   v2 = _ldap_connection_create(__str);
   v2[33] = strdup(__s1);
   *(v2 + 136) = v8;
@@ -157,13 +153,13 @@ LABEL_10:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 134218754;
-    v13 = v2;
-    v14 = 1024;
-    v15 = a1;
-    v16 = 1040;
-    v17 = v11;
-    v18 = 2098;
-    v19 = &v25;
+    v12 = v2;
+    v13 = 1024;
+    v14 = a1;
+    v15 = 1040;
+    v16 = v10;
+    v17 = 2098;
+    v18 = &v24;
     v3 = MEMORY[0x277D86220];
     v4 = "connection: %p, socket: %d, address: %{public,network:sockaddr}.*P";
     v5 = buf;
@@ -171,67 +167,63 @@ LABEL_10:
     goto LABEL_12;
   }
 
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 void *ldap_connection_create_with_socket_and_hostname(int a1, const __CFString *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v13 = 16;
+  v30 = *MEMORY[0x277D85DE8];
+  v12 = 16;
   if (a1 == -1)
   {
-    goto LABEL_10;
+    return 0;
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0;
+  v27 = 0u;
   v24 = 0u;
-  v12 = 0;
-  _fill_cstring_from_cfstring(&v12, a2, 0);
-  if (getpeername(a1, &v23, &v13))
+  v25 = 0u;
+  v22 = 0;
+  v23 = 0u;
+  v11 = 0;
+  _fill_cstring_from_cfstring(&v11, a2, 0);
+  if (getpeername(a1, &v22, &v12))
   {
     snprintf(__str, 0x100uLL, "com.apple.AppleLDAP.sock#%d", a1);
     v3 = _ldap_connection_create(__str);
     *(v3 + 69) = a1;
-    v4 = v12;
-    v3[33] = v12;
+    v4 = v11;
+    v3[33] = v11;
     *(v3 + 72) |= 0x1000u;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 134218498;
-      v15 = v3;
-      v16 = 1024;
-      v17 = a1;
-      v18 = 2082;
-      *v19 = v4;
+      v14 = v3;
+      v15 = 1024;
+      v16 = a1;
+      v17 = 2082;
+      *v18 = v4;
       v5 = MEMORY[0x277D86220];
       v6 = "connection: %p, socket: %d, hostname: %{public}s";
       v7 = 28;
 LABEL_9:
       _os_log_impl(&dword_240C91000, v5, OS_LOG_TYPE_INFO, v6, buf, v7);
-      goto LABEL_11;
+      return v3;
     }
 
-    goto LABEL_11;
+    return v3;
   }
 
-  if (v23.sa_family != 30 && v23.sa_family != 2)
+  if (v22.sa_family != 30 && v22.sa_family != 2)
   {
-LABEL_10:
-    v3 = 0;
-    goto LABEL_11;
+    return 0;
   }
 
-  v8 = *v23.sa_data;
-  v9 = v12;
-  snprintf(__str, 0x100uLL, "com.apple.AppleLDAP.%s.%hu", v12, *v23.sa_data);
+  v8 = *v22.sa_data;
+  v9 = v11;
+  snprintf(__str, 0x100uLL, "com.apple.AppleLDAP.%s.%hu", v11, *v22.sa_data);
   v3 = _ldap_connection_create(__str);
   v3[33] = v9;
   *(v3 + 136) = v8;
@@ -240,23 +232,21 @@ LABEL_10:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 134219010;
-    v15 = v3;
-    v16 = 1024;
-    v17 = a1;
-    v18 = 1040;
-    *v19 = v13;
-    *&v19[4] = 2098;
-    *&v19[6] = &v23;
-    v20 = 2082;
-    v21 = v9;
+    v14 = v3;
+    v15 = 1024;
+    v16 = a1;
+    v17 = 1040;
+    *v18 = v12;
+    *&v18[4] = 2098;
+    *&v18[6] = &v22;
+    v19 = 2082;
+    v20 = v9;
     v5 = MEMORY[0x277D86220];
     v6 = "connection: %p, socket: %d, address: %{public,network:sockaddr}.*P, hostname: %{public}s";
     v7 = 44;
     goto LABEL_9;
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -428,7 +418,7 @@ void _o_ldap_connection_cancel_all_operations(uint64_t a1)
   dispatch_assert_queue_V2(*(a1 + 64));
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    _o_ldap_connection_cancel_all_operations_cold_1(a1);
+    _o_ldap_connection_cancel_all_operations_cold_1();
   }
 
   for (i = *(a1 + 72); i; i = *(a1 + 72))
@@ -519,26 +509,25 @@ uint64_t ldap_connection_set_no_cellular(uint64_t a1, int a2)
 
 uint64_t _ldap_validate_offline(uint64_t result)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(result + 305) != 1)
   {
-    v3 = *(result + 305);
-    v2 = result;
+    v2 = *(result + 305);
+    v1 = result;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 134218496;
-      v5 = v2;
-      v6 = 1024;
-      v7 = v3;
-      v8 = 1024;
-      v9 = 1;
+      v4 = v1;
+      v5 = 1024;
+      v6 = v2;
+      v7 = 1024;
+      v8 = 1;
       _os_log_error_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "connection: %p, invalid state: %{AppleLDAPTypes:state}hhd (expected %{AppleLDAPTypes:state}hhd)", buf, 0x18u);
     }
 
     __break(1u);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -670,7 +659,7 @@ _DWORD *_a_clear_failed_hosts(uint64_t a1, int a2)
       if (result[11] == a2)
       {
         v7 = *(result + 1);
-        v8 = (v6 + 8);
+        v8 = v6 + 2;
         if (!v6)
         {
           v8 = v5;
@@ -750,7 +739,7 @@ void *ldap_connection_set_disconnect_handler(uint64_t a1, const void *a2)
   return result;
 }
 
-atomic_ullong *ldap_connection_retrieve_record(_DWORD *a1, int a2, const __CFString *a3, const __CFArray *a4, uint64_t a5)
+atomic_ullong *ldap_connection_retrieve_record(_DWORD *a1, uint64_t a2, const __CFString *a3, const __CFArray *a4, uint64_t a5)
 {
   v5 = 0;
   v25[0] = 0;
@@ -795,7 +784,7 @@ atomic_ullong *ldap_connection_retrieve_record(_DWORD *a1, int a2, const __CFStr
   return v5;
 }
 
-uint64_t _ldap_set_attributes(uint64_t result, CFArrayRef theArray)
+CFIndex _ldap_set_attributes(CFIndex result, CFArrayRef theArray)
 {
   v2 = result;
   if (!theArray)
@@ -831,8 +820,9 @@ LABEL_8:
   return result;
 }
 
-uint64_t _ldap_operation_query_create(void *a1, _DWORD *a2, int a3, const void *a4, const void *a5)
+uint64_t _ldap_operation_query_create(void *a1, _DWORD *a2, uint64_t a3, const void *a4, const void *a5)
 {
+  v6 = a3;
   v8 = _ldap_base_operation_create(a1, 144, 1024, _dispose_query, a5);
   v9 = v8;
   if (v8)
@@ -844,9 +834,9 @@ uint64_t _ldap_operation_query_create(void *a1, _DWORD *a2, int a3, const void *
         *(v9 + 104) = _Block_copy(a4);
       }
 
-      if (a3)
+      if (v6)
       {
-        _start_query_timer(v9, a3);
+        _start_query_timer(v9, v6);
       }
     }
 
@@ -868,12 +858,11 @@ CFTypeRef __ldap_connection_retrieve_record_block_invoke(uint64_t a1, int a2, CF
 
 void __ldap_connection_retrieve_record_block_invoke_2(uint64_t a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
-  v3 = *(*(*(a1 + 40) + 8) + 24);
-  if (v3)
+  v2 = *(*(*(a1 + 40) + 8) + 24);
+  if (v2)
   {
-    CFRelease(v3);
+    CFRelease(v2);
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
 }
@@ -912,7 +901,7 @@ atomic_ullong *_enqueue_operation(uint64_t a1, atomic_ullong *a2)
   return v2;
 }
 
-atomic_ullong *ldap_connection_query_create(void *a1, int a2, unsigned int a3, const __CFString *a4, const __CFString *a5, const __CFArray *a6, unsigned int a7, int a8, const void *a9, const void *a10)
+atomic_ullong *ldap_connection_query_create(void *a1, uint64_t a2, unsigned int a3, const __CFString *a4, __CFString *a5, const __CFArray *a6, unsigned int a7, int a8, const void *a9, const void *a10)
 {
   v14 = a2;
   v15 = a1;
@@ -1086,7 +1075,7 @@ uint64_t ldap_operation_query_remaining(uint64_t a1)
   }
 }
 
-uint64_t ldap_operation_query_page(uint64_t a1, int a2, unsigned int a3)
+uint64_t ldap_operation_query_page(uint64_t a1, uint64_t a2, unsigned int a3)
 {
   v3 = *(a1 + 40);
   v4 = 10013;
@@ -1101,6 +1090,7 @@ uint64_t ldap_operation_query_page(uint64_t a1, int a2, unsigned int a3)
 
       else
       {
+        v7 = a2;
         v8 = *(a1 + 32);
         v25 = 0;
         v26 = 0;
@@ -1166,9 +1156,9 @@ uint64_t ldap_operation_query_page(uint64_t a1, int a2, unsigned int a3)
             }
 
             atomic_fetch_and((a1 + 40), 0xFFFFFFFFFFFFFFFALL);
-            if (a2)
+            if (v7)
             {
-              _start_query_timer(a1, a2);
+              _start_query_timer(a1, v7);
             }
 
             if (_enqueue_operation(v8, a1))
@@ -1300,7 +1290,7 @@ void _o_ldap_operation_cancel_internal(atomic_ullong *a1)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        _o_ldap_operation_cancel_internal_cold_1(v2, v3);
+        _o_ldap_operation_cancel_internal_cold_1();
       }
 
       dispatch_barrier_sync_f(*(v2 + 64), a1, _o_abandon_operation);
@@ -1627,7 +1617,7 @@ const void *ldap_operation_copy_error_string(uint64_t a1)
 
 void ___state_set_block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = v2[305];
   v4 = *(a1 + 40);
@@ -1638,40 +1628,44 @@ void ___state_set_block_invoke(uint64_t a1)
     {
       v5 = *(a1 + 40);
       *buf = 134218496;
-      v12 = v2;
-      v13 = 1024;
-      v14 = v3;
-      v15 = 1024;
-      v16 = v5;
+      v11 = v2;
+      v12 = 1024;
+      v13 = v3;
+      v14 = 1024;
+      v15 = v5;
       _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "connection: %p, oldState: %{AppleLDAPTypes:state}hhd, newState: %{AppleLDAPTypes:state}hhd", buf, 0x18u);
       v2 = *(a1 + 32);
       LOBYTE(v3) = v2[305];
     }
 
-    switch(v3)
+    if (v3 == 9)
     {
-      case 9u:
-        goto LABEL_9;
-      case 7u:
-        ldap_connection_retain(v2);
-        v6 = *(a1 + 32);
-        v7 = *(v6 + 56);
-        v8 = *(v6 + 8);
-        block[0] = MEMORY[0x277D85DD0];
-        block[1] = 0x40000000;
-        block[2] = ___state_set_block_invoke_62;
-        block[3] = &__block_descriptor_tmp_63;
-        block[4] = v6;
-        dispatch_group_notify(v7, v8, block);
-        break;
-      case 1u:
 LABEL_9:
-        _s_next_state(v2);
-        break;
+      _s_next_state(v2);
+      return;
     }
-  }
 
-  v9 = *MEMORY[0x277D85DE8];
+    if (v3 != 7)
+    {
+      if (v3 != 1)
+      {
+        return;
+      }
+
+      goto LABEL_9;
+    }
+
+    ldap_connection_retain(v2);
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 56);
+    v8 = *(v6 + 8);
+    block[0] = MEMORY[0x277D85DD0];
+    block[1] = 0x40000000;
+    block[2] = ___state_set_block_invoke_62;
+    block[3] = &__block_descriptor_tmp_63;
+    block[4] = v6;
+    dispatch_group_notify(v7, v8, block);
+  }
 }
 
 uint64_t _valid_state(unsigned int a1, int a2)
@@ -2098,7 +2092,7 @@ void ___state_set_block_invoke_62(uint64_t a1)
 
 void _o_start_connection(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1 + 64));
   if (*(a1 + 120))
   {
@@ -2113,71 +2107,66 @@ void _o_start_connection(uint64_t a1)
   v2 = *(a1 + 288);
   if ((v2 & 0x400) != 0)
   {
-    v6 = *(a1 + 264);
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
   if ((v2 & 0x800) != 0)
   {
-LABEL_30:
+LABEL_29:
     dispatch_barrier_sync_f(*(a1 + 8), a1, _s_next_state);
-    goto LABEL_31;
+    return;
   }
 
   if ((v2 & 0x1000) != 0)
   {
     if (*(a1 + 276) != -1)
     {
-      v11 = *(a1 + 208);
       v5 = tcp_connection_create_with_connected_fd();
       *(a1 + 120) = v5;
       *(a1 + 276) = -1;
-      goto LABEL_12;
+      goto LABEL_11;
     }
 
     if (!*(a1 + 264))
     {
-      goto LABEL_30;
+      goto LABEL_29;
     }
 
-LABEL_11:
-    v7 = bswap32(*(a1 + 272));
-    v8 = *(a1 + 208);
+LABEL_10:
     v5 = tcp_connection_create();
     *(a1 + 120) = v5;
-LABEL_12:
+LABEL_11:
     v4 = v5;
-    goto LABEL_13;
+    goto LABEL_12;
   }
 
   if ((*(a1 + 288) & 0x6000) != 0x4000)
   {
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
   v3 = socket(1, 1, 0);
-  v16 = 0;
-  memset(v15.sa_data, 0, 96);
-  v14 = 1;
-  v15.sa_family = 1;
-  v15.sa_len = strlen(*(a1 + 264)) + 98;
+  v9 = 0;
+  memset(v8.sa_data, 0, 96);
+  v7 = 1;
+  v8.sa_family = 1;
+  v8.sa_len = strlen(*(a1 + 264)) + 98;
   __strlcpy_chk();
-  setsockopt(v3, 0xFFFF, 4130, &v14, 4u);
-  if (connect(v3, &v15, v15.sa_len) || ioctl(v3, 0x8004667EuLL, &v14) == -1 || (v13 = *(a1 + 208), v5 = tcp_connection_create_with_connected_fd(), *(a1 + 120) = v5, (v4 = v5) == 0))
+  setsockopt(v3, 0xFFFF, 4130, &v7, 4u);
+  if (connect(v3, &v8, v8.sa_len) || ioctl(v3, 0x8004667EuLL, &v7) == -1 || (v5 = tcp_connection_create_with_connected_fd(), *(a1 + 120) = v5, (v4 = v5) == 0))
   {
     close(v3);
     v4 = 0;
     v5 = *(a1 + 120);
   }
 
-LABEL_13:
+LABEL_12:
   if (v5)
   {
     if ((*(a1 + 289) & 0x40) == 0)
     {
       tcp_connection_copy_parameters();
       nw_parameters_set_is_non_app_initiated();
-      v9 = *(a1 + 120);
     }
 
     tcp_connection_allow_client_socket_access();
@@ -2185,17 +2174,17 @@ LABEL_13:
 
   if (!v4)
   {
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
-  v10 = *(a1 + 288);
-  if ((v10 & 0x1000) == 0)
+  v6 = *(a1 + 288);
+  if ((v6 & 0x1000) == 0)
   {
     tcp_connection_set_indefinite();
-    v10 = *(a1 + 288);
+    v6 = *(a1 + 288);
   }
 
-  if ((v10 & 0x200) != 0)
+  if ((v6 & 0x200) != 0)
   {
     tcp_connection_set_no_cellular();
   }
@@ -2212,55 +2201,51 @@ LABEL_13:
 
   tcp_connection_set_event_handler();
   tcp_connection_start();
-LABEL_31:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void _o_initiate_tls_handshake(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1 + 64));
   if (*(a1 + 272) == 636)
   {
-    v2 = *MEMORY[0x277D85DE8];
 
     _o_negotiate_ssl(a1);
   }
 
   else
   {
-    v14 = 0u;
-    v15 = 0u;
     v12 = 0u;
     v13 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v7 = 0u;
-    DWORD2(v7) = 19;
-    v8 = 22;
-    v9 = strdup("1.3.6.1.4.1.1466.20037");
+    v8 = 0u;
+    v9 = 0u;
+    v5 = 0u;
+    DWORD2(v5) = 19;
+    v6 = 22;
+    v7 = strdup("1.3.6.1.4.1.1466.20037");
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v17 = a1;
+      v15 = a1;
       _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "connection: %p, TLS: send EXOP", buf, 0xCu);
     }
 
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 0x40000000;
-    v6[2] = ___o_initiate_tls_handshake_block_invoke;
-    v6[3] = &__block_descriptor_tmp_69;
-    v6[4] = a1;
-    v3 = _ldap_base_operation_create(a1, 104, 512, _dispose_simple, v6);
-    v4 = _ldap_operation_simple_init(v3, &v7);
-    if (!_enqueue_operation_with_release(a1, v4))
+    v4[0] = MEMORY[0x277D85DD0];
+    v4[1] = 0x40000000;
+    v4[2] = ___o_initiate_tls_handshake_block_invoke;
+    v4[3] = &__block_descriptor_tmp_69;
+    v4[4] = a1;
+    v2 = _ldap_base_operation_create(a1, 104, 512, _dispose_simple, v4);
+    v3 = _ldap_operation_simple_init(v2, &v5);
+    if (!_enqueue_operation_with_release(a1, v3))
     {
       *(a1 + 292) = 10003;
       dispatch_barrier_sync_f(*(a1 + 8), a1, _s_next_state);
     }
 
-    free_LDAPMessage(&v7);
-    v5 = *MEMORY[0x277D85DE8];
+    free_LDAPMessage(&v5);
   }
 }
 
@@ -2431,13 +2416,13 @@ void ___o_start_connection_block_invoke(uint64_t a1, int a2)
   }
 }
 
-void ___o_initiate_tls_handshake_block_invoke(uint64_t a1, uint64_t a2, int a3)
+void ___o_initiate_tls_handshake_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ___o_initiate_tls_handshake_block_invoke_cold_1(a1);
+      ___o_initiate_tls_handshake_block_invoke_cold_1();
     }
 
     v4 = *(a1 + 32);
@@ -2696,17 +2681,16 @@ uint64_t _secure_write(uint64_t a1, void *buffer, size_t *a3)
   }
 
   dispatch_data_create(buffer, *a3, 0, 0);
-  v4 = *(a1 + 120);
   tcp_connection_write();
   return 0;
 }
 
 void ___o_negotiate_ssl_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  memset(v11, 0, sizeof(v11));
-  v12 = 0;
+  memset(v8, 0, sizeof(v8));
+  v9 = 0;
   do
   {
     v3 = SSLHandshake(*(v2 + 128));
@@ -2717,41 +2701,40 @@ void ___o_negotiate_ssl_block_invoke(uint64_t a1)
   if (v3)
   {
     _os_assumes_log();
-    v6 = *(v2 + 208);
+    v4 = *(v2 + 208);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 0x40000000;
     block[2] = ___tls_handshake_loop_block_invoke;
     block[3] = &__block_descriptor_tmp_83;
     block[4] = v2;
-    dispatch_barrier_sync(v6, block);
-    v7 = *(v2 + 120);
+    dispatch_barrier_sync(v4, block);
     tcp_connection_get_remote();
-    v8 = *(v2 + 288);
-    if ((v8 & 3) != 0)
+    v5 = *(v2 + 288);
+    if ((v5 & 3) != 0)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 134219010;
         *&buf[4] = v2;
         *&buf[12] = 1040;
-        *&buf[14] = LOBYTE(v11[0]);
+        *&buf[14] = LOBYTE(v8[0]);
         *&buf[18] = 2098;
-        *&buf[20] = v11;
+        *&buf[20] = v8;
         *&buf[28] = 1024;
         *&buf[30] = v3;
         *&buf[34] = 1024;
-        *&buf[36] = v8;
+        *&buf[36] = v5;
         _os_log_error_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "connection: %p, address: %{public,network:sockaddr}.*P, error: %{AppleLDAPTypes:errSSL}d, flags: %{AppleLDAPTypes:flags}d", buf, 0x28u);
       }
 
-      v9 = *(v2 + 208);
+      v6 = *(v2 + 208);
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 0x40000000;
       *&buf[16] = ___fail_host_block_invoke;
       *&buf[24] = &__block_descriptor_tmp_84;
       *&buf[32] = v2;
-      v14 = 10003;
-      dispatch_barrier_sync(v9, buf);
+      v11 = 10003;
+      dispatch_barrier_sync(v6, buf);
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -2759,13 +2742,13 @@ void ___o_negotiate_ssl_block_invoke(uint64_t a1)
       *buf = 134219010;
       *&buf[4] = v2;
       *&buf[12] = 1040;
-      *&buf[14] = LOBYTE(v11[0]);
+      *&buf[14] = LOBYTE(v8[0]);
       *&buf[18] = 2098;
-      *&buf[20] = v11;
+      *&buf[20] = v8;
       *&buf[28] = 1024;
       *&buf[30] = v3;
       *&buf[34] = 1024;
-      *&buf[36] = v8;
+      *&buf[36] = v5;
       _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "connection: %p, TLS: auto, address: %{public,network:sockaddr}.*P, error: %{AppleLDAPTypes:errSSL}d, flags: %{AppleLDAPTypes:flags}d", buf, 0x28u);
     }
   }
@@ -2775,7 +2758,6 @@ void ___o_negotiate_ssl_block_invoke(uint64_t a1)
     *(v2 + 292) = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v4 = *(v2 + 120);
       tcp_connection_get_remote();
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
@@ -2786,7 +2768,6 @@ void ___o_negotiate_ssl_block_invoke(uint64_t a1)
 
   dispatch_barrier_sync_f(*(v2 + 8), v2, _s_next_state);
   ldap_connection_release(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ___secure_read_block_invoke(uint64_t a1)
@@ -2872,38 +2853,38 @@ uint64_t _schedule_read(uint64_t result)
 {
   if (result && (*(result + 288) & 0xC0) != 0 && (atomic_fetch_or((result + 288), 8u) & 8) == 0)
   {
-    v1 = *(result + 120);
     return tcp_connection_read();
   }
 
   return result;
 }
 
-void ___schedule_read_block_invoke(uint64_t a1, NSObject *concat, int a3)
+void ___schedule_read_block_invoke(uint64_t a1, NSObject *concat, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v3 = a3;
+  v16 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 32);
   dispatch_assert_queue_V2(*(v5 + 208));
   atomic_fetch_and((v5 + 288), 0xFFFFFFF7);
-  if (a3)
+  if (v3)
   {
-    if (a3 == 57 || a3 == 54)
+    if (v3 == 57 || v3 == 54)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 134218240;
-        *&v13[4] = v5;
-        *&v13[12] = 1024;
-        *&v13[14] = a3;
-        _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "connection: %p, error: %{errno}d", v13, 0x12u);
+        *v12 = 134218240;
+        *&v12[4] = v5;
+        *&v12[12] = 1024;
+        *&v12[14] = v3;
+        _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "connection: %p, error: %{errno}d", v12, 0x12u);
       }
 
       v6 = *(v5 + 8);
-      *v13 = MEMORY[0x277D85DD0];
-      *&v13[8] = 0x40000000;
-      *&v13[16] = ___state_set_block_invoke;
-      v14 = &__block_descriptor_tmp_64;
-      v15 = v5;
+      *v12 = MEMORY[0x277D85DD0];
+      *&v12[8] = 0x40000000;
+      *&v12[16] = ___state_set_block_invoke;
+      v13 = &__block_descriptor_tmp_64;
+      v14 = v5;
       v7 = 11;
     }
 
@@ -2915,16 +2896,16 @@ void ___schedule_read_block_invoke(uint64_t a1, NSObject *concat, int a3)
       }
 
       v6 = *(v5 + 8);
-      *v13 = MEMORY[0x277D85DD0];
-      *&v13[8] = 0x40000000;
-      *&v13[16] = ___state_set_block_invoke;
-      v14 = &__block_descriptor_tmp_64;
-      v15 = v5;
+      *v12 = MEMORY[0x277D85DD0];
+      *&v12[8] = 0x40000000;
+      *&v12[16] = ___state_set_block_invoke;
+      v13 = &__block_descriptor_tmp_64;
+      v14 = v5;
       v7 = 8;
     }
 
-    LOBYTE(v16) = v7;
-    dispatch_barrier_sync(v6, v13);
+    LOBYTE(v15) = v7;
+    dispatch_barrier_sync(v6, v12);
   }
 
   else
@@ -2950,16 +2931,14 @@ void ___schedule_read_block_invoke(uint64_t a1, NSObject *concat, int a3)
     ldap_connection_retain(v5);
     v10 = *(v5 + 56);
     v11 = *(v5 + 64);
-    *v13 = MEMORY[0x277D85DD0];
-    *&v13[8] = 0x40000000;
-    *&v13[16] = ___ldap_async_function_block_invoke;
-    v14 = &__block_descriptor_tmp_65;
-    v15 = _o_process_buffer;
-    v16 = v5;
-    dispatch_group_async(v10, v11, v13);
+    *v12 = MEMORY[0x277D85DD0];
+    *&v12[8] = 0x40000000;
+    *&v12[16] = ___ldap_async_function_block_invoke;
+    v13 = &__block_descriptor_tmp_65;
+    v14 = _o_process_buffer;
+    v15 = v5;
+    dispatch_group_async(v10, v11, v12);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void _o_process_buffer(uint64_t a1)
@@ -3236,37 +3215,37 @@ uint64_t ___o_process_buffer_block_invoke_2(uint64_t result)
 unint64_t _o_ldap_receive_messages(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v5 = a1;
-  v95 = *MEMORY[0x277D85DE8];
+  v93 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1 + 64));
   v6 = 0;
   if (!a3)
   {
-    goto LABEL_100;
+    return v6;
   }
 
   v7 = *MEMORY[0x277CBECE8];
-  v75 = *MEMORY[0x277CBECE8];
+  v73 = *MEMORY[0x277CBECE8];
   while (1)
   {
-    v83 = 0u;
-    v84 = 0u;
     v81 = 0u;
     v82 = 0u;
     v79 = 0u;
     v80 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v76 = 0;
-    v8 = decode_LDAPMessage(a2 + v6, a3 - v6, &v77, &v76);
+    v75 = 0u;
+    v76 = 0u;
+    v74 = 0;
+    v8 = decode_LDAPMessage(a2 + v6, a3 - v6, &v75, &v74);
     if (v8)
     {
       break;
     }
 
-    v9 = v76;
+    v9 = v74;
     dispatch_assert_queue_V2(*(v5 + 64));
-    v10 = v77;
-    if (!v77)
+    v10 = v75;
+    if (!v75)
     {
       goto LABEL_77;
     }
@@ -3308,22 +3287,21 @@ unint64_t _o_ldap_receive_messages(uint64_t a1, uint64_t a2, unint64_t a3)
       if (v14)
       {
         os_retain(v14);
-        v15 = *(v11 + 48);
-        v74 = voucher_adopt();
+        v72 = voucher_adopt();
       }
 
       else
       {
-        v74 = 0;
+        v72 = 0;
       }
 
-      if (SDWORD2(v77) > 10)
+      if (SDWORD2(v75) > 10)
       {
-        if (SDWORD2(v77) > 16)
+        if (SDWORD2(v75) > 16)
         {
-          if (DWORD2(v77) != 17 && DWORD2(v77) != 20)
+          if (DWORD2(v75) != 17 && DWORD2(v75) != 20)
           {
-            if (DWORD2(v77) != 21)
+            if (DWORD2(v75) != 21)
             {
               goto LABEL_54;
             }
@@ -3332,93 +3310,93 @@ unint64_t _o_ldap_receive_messages(uint64_t a1, uint64_t a2, unint64_t a3)
           }
         }
 
-        else if (DWORD2(v77) != 11 && DWORD2(v77) != 13 && DWORD2(v77) != 15)
+        else if (DWORD2(v75) != 11 && DWORD2(v75) != 13 && DWORD2(v75) != 15)
         {
           goto LABEL_54;
         }
 
 LABEL_70:
-        *(v11 + 64) = CFStringCreateWithBytes(v7, v80, *(&v79 + 1), 0x8000100u, 0);
-        v43 = v78;
-        v44 = v5;
-        v45 = v11;
+        *(v11 + 64) = CFStringCreateWithBytes(v7, v78, *(&v77 + 1), 0x8000100u, 0);
+        v42 = v76;
+        v43 = v5;
+        v44 = v11;
       }
 
       else
       {
-        if (SDWORD2(v77) <= 5)
+        if (SDWORD2(v75) <= 5)
         {
-          if (!DWORD2(v77))
+          if (!DWORD2(v75))
           {
             goto LABEL_72;
           }
 
-          if (DWORD2(v77) != 2)
+          if (DWORD2(v75) != 2)
           {
-            if (DWORD2(v77) == 5)
+            if (DWORD2(v75) == 5)
             {
-              v68 = v5;
-              v16 = v79;
-              v71 = *(&v79 + 1);
+              v66 = v5;
+              v15 = v77;
+              v69 = *(&v77 + 1);
               dispatch_assert_queue_V2(*(*(v11 + 32) + 64));
-              v73 = v16;
-              theDict = CFDictionaryCreateMutable(v7, v16, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+              v71 = v15;
+              theDict = CFDictionaryCreateMutable(v7, v15, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
               if (!theDict)
               {
                 _ldap_connection_create_cold_1();
               }
 
-              v17 = CFStringCreateWithBytes(v7, *(&v78 + 1), v78, 0x8000100u, 0);
-              if (!v17)
+              v16 = CFStringCreateWithBytes(v7, *(&v76 + 1), v76, 0x8000100u, 0);
+              if (!v16)
               {
                 _ldap_connection_create_cold_1();
               }
 
-              v18 = v17;
-              v69 = v9;
-              v66 = a2;
-              v67 = a3;
+              v17 = v16;
+              v67 = v9;
+              v64 = a2;
+              v65 = a3;
               Mutable = CFArrayCreateMutable(v7, 1, MEMORY[0x277CBF128]);
               if (!Mutable)
               {
                 _ldap_connection_create_cold_1();
               }
 
-              v20 = Mutable;
-              CFArrayAppendValue(Mutable, v18);
-              CFDictionarySetValue(theDict, @"dn", v20);
-              CFRelease(v18);
-              CFRelease(v20);
-              if (v16)
+              v19 = Mutable;
+              CFArrayAppendValue(Mutable, v17);
+              CFDictionarySetValue(theDict, @"dn", v19);
+              CFRelease(v17);
+              CFRelease(v19);
+              if (v15)
               {
-                v21 = 0;
+                v20 = 0;
                 do
                 {
-                  v22 = v71 + 32 * v21;
-                  v23 = CFStringCreateWithBytes(v7, *(v22 + 8), *v22, 0x8000100u, 0);
-                  if (v23)
+                  v21 = v69 + 32 * v20;
+                  v22 = CFStringCreateWithBytes(v7, *(v21 + 8), *v21, 0x8000100u, 0);
+                  if (v22)
                   {
-                    v24 = v23;
-                    v25 = CFArrayCreateMutable(v7, *(v22 + 16), MEMORY[0x277CBF128]);
-                    if (!v25)
+                    v23 = v22;
+                    v24 = CFArrayCreateMutable(v7, *(v21 + 16), MEMORY[0x277CBF128]);
+                    if (!v24)
                     {
                       _ldap_connection_create_cold_1();
                     }
 
-                    v26 = v25;
-                    if (*(v22 + 16))
+                    v25 = v24;
+                    if (*(v21 + 16))
                     {
+                      v26 = 0;
                       v27 = 0;
-                      v28 = 0;
                       do
                       {
-                        v29 = *(v22 + 24) + v27;
-                        v30 = CFStringCreateWithBytes(v7, *(v29 + 8), *v29, 0x8000100u, 0);
-                        if (v30 || (v30 = CFDataCreate(v7, *(v29 + 8), *v29)) != 0)
+                        v28 = *(v21 + 24) + v26;
+                        v29 = CFStringCreateWithBytes(v7, *(v28 + 8), *v28, 0x8000100u, 0);
+                        if (v29 || (v29 = CFDataCreate(v7, *(v28 + 8), *v28)) != 0)
                         {
-                          v31 = v30;
-                          CFArrayAppendValue(v26, v30);
-                          CFRelease(v31);
+                          v30 = v29;
+                          CFArrayAppendValue(v25, v29);
+                          CFRelease(v30);
                         }
 
                         else
@@ -3426,17 +3404,17 @@ LABEL_70:
                           _os_assumes_log();
                         }
 
-                        ++v28;
-                        v27 += 16;
-                        v7 = v75;
+                        ++v27;
+                        v26 += 16;
+                        v7 = v73;
                       }
 
-                      while (v28 < *(v22 + 16));
+                      while (v27 < *(v21 + 16));
                     }
 
-                    CFDictionarySetValue(theDict, v24, v26);
-                    CFRelease(v26);
-                    CFRelease(v24);
+                    CFDictionarySetValue(theDict, v23, v25);
+                    CFRelease(v25);
+                    CFRelease(v23);
                   }
 
                   else
@@ -3444,94 +3422,94 @@ LABEL_70:
                     _os_assumes_log();
                   }
 
-                  ++v21;
+                  ++v20;
                 }
 
-                while (v21 != v73);
+                while (v20 != v71);
               }
 
-              v48 = atomic_fetch_add((v11 + 136), 1u) + 1;
-              v49 = v48 == 50 || v48 % 100 == 0;
-              if (v49 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+              v47 = atomic_fetch_add((v11 + 136), 1u) + 1;
+              v48 = v47 == 50 || v47 % 100 == 0;
+              if (v48 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
               {
-                v58 = *(v11 + 32);
-                v59 = *(v11 + 80);
-                v60 = *(v11 + 136);
+                v57 = *(v11 + 32);
+                v58 = *(v11 + 80);
+                v59 = *(v11 + 136);
                 *buf = 134218496;
-                *&buf[4] = v58;
+                *&buf[4] = v57;
+                v89 = 1024;
+                v90 = v58;
                 v91 = 1024;
                 v92 = v59;
-                v93 = 1024;
-                v94 = v60;
                 _os_log_debug_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "connection: %p, ldap msgid: %u, received results: %d - status", buf, 0x18u);
               }
 
               ldap_operation_retain(v11);
-              v50 = *(v11 + 32);
-              v52 = *(v50 + 24);
-              v51 = *(v50 + 32);
+              v49 = *(v11 + 32);
+              v51 = *(v49 + 24);
+              v50 = *(v49 + 32);
               block[0] = MEMORY[0x277D85DD0];
               block[1] = 0x40000000;
               block[2] = ___o_query_result_block_invoke;
-              v86 = &__block_descriptor_tmp_82;
-              v87 = v11;
-              v88 = v11;
-              v89 = theDict;
-              dispatch_group_async(v51, v52, block);
-              a3 = v67;
-              v5 = v68;
-              a2 = v66;
-              v9 = v69;
+              v84 = &__block_descriptor_tmp_82;
+              v85 = v11;
+              v86 = v11;
+              v87 = theDict;
+              dispatch_group_async(v50, v51, block);
+              a3 = v65;
+              v5 = v66;
+              a2 = v64;
+              v9 = v67;
               goto LABEL_72;
             }
 
 LABEL_54:
             _os_assumes_log();
 LABEL_72:
-            v46 = *(v11 + 64);
-            if (v46)
+            v45 = *(v11 + 64);
+            if (v45)
             {
-              *(v5 + 296) = v46;
-              CFRetain(v46);
+              *(v5 + 296) = v45;
+              CFRetain(v45);
             }
 
-            if (v74)
+            if (v72)
             {
-              v47 = voucher_adopt();
-              os_release(v47);
+              v46 = voucher_adopt();
+              os_release(v46);
             }
 
             goto LABEL_76;
           }
 
-          v40 = *(v5 + 136);
-          if (v40)
+          v39 = *(v5 + 136);
+          if (v39)
           {
-            free(v40);
+            free(v39);
             *(v5 + 136) = 0;
           }
 
-          if (v81)
+          if (v79)
           {
-            v41 = *v81;
-            *(v5 + 144) = *v81;
-            v42 = malloc_type_malloc(v41 + 1, 0x7D2E3290uLL);
-            *(v5 + 136) = v42;
-            memcpy(v42, *(v81 + 8), *(v5 + 144));
+            v40 = *v79;
+            *(v5 + 144) = *v79;
+            v41 = malloc_type_malloc(v40 + 1, 0x7D2E3290uLL);
+            *(v5 + 136) = v41;
+            memcpy(v41, *(v79 + 8), *(v5 + 144));
             *(*(v5 + 136) + *(v5 + 144)) = 0;
           }
 
           goto LABEL_70;
         }
 
-        if (DWORD2(v77) != 6)
+        if (DWORD2(v75) != 6)
         {
-          if (DWORD2(v77) == 7)
+          if (DWORD2(v75) == 7)
           {
             goto LABEL_72;
           }
 
-          if (DWORD2(v77) != 9)
+          if (DWORD2(v75) != 9)
           {
             goto LABEL_54;
           }
@@ -3539,111 +3517,111 @@ LABEL_72:
           goto LABEL_70;
         }
 
-        v32 = a2;
-        v33 = a3;
-        v34 = *(&v84 + 1);
-        if (!*(&v84 + 1) || v78)
+        v31 = a2;
+        v32 = a3;
+        v33 = *(&v82 + 1);
+        if (!*(&v82 + 1) || v76)
         {
           goto LABEL_94;
         }
 
-        v35 = *(v11 + 120);
-        v70 = v9;
-        if (v35)
+        v34 = *(v11 + 120);
+        v68 = v9;
+        if (v34)
         {
-          free(v35);
+          free(v34);
           *(v11 + 120) = 0;
-          v34 = *(&v84 + 1);
+          v33 = *(&v82 + 1);
         }
 
-        v36 = *v34;
-        if (v36)
+        v35 = *v33;
+        if (v35)
         {
-          v37 = 0;
-          for (i = 0; i < v36; ++i)
+          v36 = 0;
+          for (i = 0; i < v35; ++i)
           {
-            if (!strncmp(*(*(v34 + 1) + v37 + 8), "1.2.840.113556.1.4.319", *(*(v34 + 1) + v37)))
+            if (!strncmp(*(*(v33 + 1) + v36 + 8), "1.2.840.113556.1.4.319", *(*(v33 + 1) + v36)))
             {
               memset(block, 0, sizeof(block));
               *buf = 0;
-              v39 = *(*(v34 + 1) + v37 + 24);
-              if (!decode_PagedSearchControlValue(v39[1], *v39, block, buf))
+              v38 = *(*(v33 + 1) + v36 + 24);
+              if (!decode_PagedSearchControlValue(v38[1], *v38, block, buf))
               {
-                v53 = v5;
-                v54 = block[1];
+                v52 = v5;
+                v53 = block[1];
                 if (block[1])
                 {
                   *(v11 + 140) = block[0];
-                  v55 = malloc_type_malloc(v54, 0x28332B54uLL);
-                  *(v11 + 120) = v55;
-                  *(v11 + 128) = v54;
-                  memcpy(v55, block[2], v54);
+                  v54 = malloc_type_malloc(v53, 0x28332B54uLL);
+                  *(v11 + 120) = v54;
+                  *(v11 + 128) = v53;
+                  memcpy(v54, block[2], v53);
                 }
 
                 free_PagedSearchControlValue(block);
-                v5 = v53;
+                v5 = v52;
                 break;
               }
 
-              v34 = *(&v84 + 1);
-              v36 = **(&v84 + 1);
+              v33 = *(&v82 + 1);
+              v35 = **(&v82 + 1);
             }
 
-            v37 += 32;
+            v36 += 32;
           }
         }
 
-        v9 = v70;
+        v9 = v68;
         if (*(v11 + 120))
         {
-          a3 = v33;
-          a2 = v32;
+          a3 = v32;
+          a2 = v31;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
           {
-            v61 = *(v11 + 80);
-            v62 = *(v11 + 136);
-            v63 = *(v11 + 140);
+            v60 = *(v11 + 80);
+            v61 = *(v11 + 136);
+            v62 = *(v11 + 140);
             LODWORD(block[0]) = 134218752;
             *(block + 4) = v5;
             WORD2(block[1]) = 1024;
-            *(&block[1] + 6) = v61;
+            *(&block[1] + 6) = v60;
             WORD1(block[2]) = 1024;
-            HIDWORD(block[2]) = v62;
-            LOWORD(v86) = 1024;
-            *(&v86 + 2) = v63;
+            HIDWORD(block[2]) = v61;
+            LOWORD(v84) = 1024;
+            *(&v84 + 2) = v62;
             _os_log_debug_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "connection: %p, ldap msgid: %u, delivered: %d, approx. remaining: %u", block, 0x1Eu);
           }
 
-          v44 = v5;
-          v45 = v11;
-          v43 = 10010;
+          v43 = v5;
+          v44 = v11;
+          v42 = 10010;
         }
 
         else
         {
 LABEL_94:
-          a3 = v33;
-          a2 = v32;
+          a3 = v32;
+          a2 = v31;
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
-            v56 = *(v11 + 80);
-            v57 = *(v11 + 136);
+            v55 = *(v11 + 80);
+            v56 = *(v11 + 136);
             LODWORD(block[0]) = 134218496;
             *(block + 4) = v5;
             WORD2(block[1]) = 1024;
-            *(&block[1] + 6) = v56;
+            *(&block[1] + 6) = v55;
             WORD1(block[2]) = 1024;
-            HIDWORD(block[2]) = v57;
+            HIDWORD(block[2]) = v56;
             _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "connection: %p, ldap msgid: %u, delivered: %d", block, 0x18u);
           }
 
-          v44 = v5;
-          v45 = v11;
-          v43 = 0;
+          v43 = v5;
+          v44 = v11;
+          v42 = 0;
         }
       }
 
-      _o_operation_complete(v44, v45, v43);
+      _o_operation_complete(v43, v44, v42);
       goto LABEL_72;
     }
 
@@ -3652,10 +3630,10 @@ LABEL_76:
     ldap_operation_release(v11);
 LABEL_77:
     v6 += v9;
-    free_LDAPMessage(&v77);
+    free_LDAPMessage(&v75);
     if (v6 >= a3)
     {
-      goto LABEL_100;
+      return v6;
     }
   }
 
@@ -3664,8 +3642,6 @@ LABEL_77:
     _o_ldap_receive_messages_cold_5();
   }
 
-LABEL_100:
-  v64 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3722,29 +3698,28 @@ void _o_operation_complete(uint64_t a1, uint64_t a2, int a3)
           if (v14)
           {
             os_retain(v14);
-            v15 = *(a2 + 48);
-            v16 = voucher_adopt();
+            v15 = voucher_adopt();
           }
 
           else
           {
-            v16 = 0;
+            v15 = 0;
           }
 
-          v18 = *(a1 + 24);
-          v17 = *(a1 + 32);
+          v17 = *(a1 + 24);
+          v16 = *(a1 + 32);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 0x40000000;
           block[2] = ___o_operation_complete_block_invoke;
           block[3] = &__block_descriptor_tmp_78;
-          v21 = a3;
+          v20 = a3;
           block[4] = a1;
           block[5] = a2;
-          dispatch_group_async(v17, v18, block);
-          if (v16)
+          dispatch_group_async(v16, v17, block);
+          if (v15)
           {
-            v19 = voucher_adopt();
-            os_release(v19);
+            v18 = voucher_adopt();
+            os_release(v18);
           }
         }
 
@@ -3762,7 +3737,7 @@ void _o_operation_complete(uint64_t a1, uint64_t a2, int a3)
 
 void ___o_operation_complete_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   if (v2)
   {
@@ -3776,27 +3751,25 @@ void ___o_operation_complete_block_invoke(uint64_t a1)
 
   if (!v3 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 40) + 80);
-    v8 = 134218496;
+    v4 = *(a1 + 32);
+    v5 = *(*(a1 + 40) + 80);
+    v6 = 134218496;
+    v7 = v4;
+    v8 = 1024;
     v9 = v5;
     v10 = 1024;
-    v11 = v6;
-    v12 = 1024;
-    v13 = v2;
-    _os_log_error_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "connection: %p, ldap msgid: %u, error: %{AppleLDAPTypes:ldap_error_t}d", &v8, 0x18u);
-    v7 = *(a1 + 48);
+    v11 = v2;
+    _os_log_error_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "connection: %p, ldap msgid: %u, error: %{AppleLDAPTypes:ldap_error_t}d", &v6, 0x18u);
   }
 
   (*(*(*(a1 + 40) + 24) + 16))();
   dispatch_group_leave(*(*(a1 + 32) + 56));
   ldap_operation_release(*(a1 + 40));
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void _o_ldap_wakeup(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1 + 64));
   if (*(a1 + 112) <= 99)
   {
@@ -3825,11 +3798,11 @@ void _o_ldap_wakeup(uint64_t a1)
         v8 = *(v2 + 80);
         v9 = *(v2 + 96);
         *buf = 134218496;
-        v22 = a1;
-        v23 = 1024;
-        v24 = v8;
-        v25 = 1024;
-        v26 = v9;
+        v18 = a1;
+        v19 = 1024;
+        v20 = v8;
+        v21 = 1024;
+        v22 = v9;
         _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "connection: %p, ldap msgid: %d, send data size: %d", buf, 0x18u);
       }
 
@@ -3842,15 +3815,15 @@ void _o_ldap_wakeup(uint64_t a1)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
           {
-            v19 = *(v2 + 80);
+            v15 = *(v2 + 80);
             *buf = 134218752;
-            v22 = a1;
+            v18 = a1;
+            v19 = 1024;
+            v20 = v15;
+            v21 = 1024;
+            v22 = processed;
             v23 = 1024;
-            v24 = v19;
-            v25 = 1024;
-            v26 = processed;
-            v27 = 1024;
-            v28 = v11;
+            v24 = v11;
             _os_log_error_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "connection: %p, ldap msgid: %d, SSL processed: %d, SSL error: %{AppleLDAPTypes:errSSL}d", buf, 0x1Eu);
           }
 
@@ -3879,26 +3852,22 @@ LABEL_17:
         }
 
         ldap_operation_retain(v2);
-        v15 = *(a1 + 120);
-        v16 = *(v2 + 88);
-        v17 = *(v2 + 96);
         tcp_connection_write_buffer();
       }
 
       _schedule_read(a1);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-void ___o_ldap_wakeup_block_invoke(uint64_t a1, int a2)
+void ___o_ldap_wakeup_block_invoke(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ___o_ldap_wakeup_block_invoke_cold_1(a1);
+      ___o_ldap_wakeup_block_invoke_cold_1();
     }
 
     goto LABEL_4;
@@ -3915,7 +3884,7 @@ LABEL_4:
     v7[2] = ___o_ldap_wakeup_block_invoke_79;
     v7[3] = &__block_descriptor_tmp_80;
     v7[4] = v4;
-    v8 = a2;
+    v8 = v2;
     dispatch_barrier_async(v5, v7);
     return;
   }
@@ -3933,13 +3902,11 @@ void ___o_ldap_wakeup_block_invoke_79(uint64_t a1)
 
 void ___o_query_result_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 48);
   (*(*(*(a1 + 32) + 104) + 16))();
   CFRelease(*(a1 + 48));
-  v4 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  ldap_operation_release(v4);
+  ldap_operation_release(v2);
 }
 
 void ___tls_handshake_loop_block_invoke(uint64_t a1)
@@ -3955,10 +3922,10 @@ void ___tls_handshake_loop_block_invoke(uint64_t a1)
 
 void ___fail_host_block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 120))
   {
-    memset(v13, 0, 28);
+    memset(v12, 0, 28);
     if (tcp_connection_get_remote())
     {
       v2 = *(a1 + 32) + 224;
@@ -3970,19 +3937,19 @@ void ___fail_host_block_invoke(uint64_t a1)
           break;
         }
 
-        if (*(v2 + 16) == *&v13[0] && *(v2 + 24) == *(&v13[0] + 1) && *(v2 + 32) == *&v13[1] && *(v2 + 40) == DWORD2(v13[1]))
+        if (*(v2 + 16) == *&v12[0] && *(v2 + 24) == *(&v12[0] + 1) && *(v2 + 32) == *&v12[1] && *(v2 + 40) == DWORD2(v12[1]))
         {
           *(v2 + 44) = *(a1 + 40);
           *(v2 + 48) = time(0) + 60;
-          goto LABEL_22;
+          return;
         }
       }
 
       v6 = malloc_type_calloc(1uLL, 0x38uLL, 0x10A0040C46062B5uLL);
       *(v6 + 11) = *(a1 + 40);
       *(v6 + 6) = time(0) + 60;
-      *(v6 + 1) = v13[0];
-      *(v6 + 28) = *(v13 + 12);
+      *(v6 + 1) = v12[0];
+      *(v6 + 28) = *(v12 + 12);
       v7 = *(*(a1 + 32) + 224);
       *v6 = v7;
       v8 = *(a1 + 32);
@@ -4004,20 +3971,17 @@ void ___fail_host_block_invoke(uint64_t a1)
         v10 = *(a1 + 32);
         v11 = *(a1 + 40);
         *buf = 134218754;
-        v15 = v10;
-        v16 = 1024;
-        v17 = v11;
-        v18 = 1040;
-        v19 = LOBYTE(v13[0]);
-        v20 = 2098;
-        v21 = v13;
+        v14 = v10;
+        v15 = 1024;
+        v16 = v11;
+        v17 = 1040;
+        v18 = LOBYTE(v12[0]);
+        v19 = 2098;
+        v20 = v12;
         _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "failed connection: %p, error: %{AppleLDAPTypes:ldap_error_t}d, addres: %{public,network:sockaddr}.*P", buf, 0x22u);
       }
     }
   }
-
-LABEL_22:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void ___o_read_rootdse_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
@@ -4523,102 +4487,102 @@ char *_ldap_sasl_fill(uint64_t a1, const __CFString *a2, CFDictionaryRef theDict
   return result;
 }
 
-void ___o_ldap_crammd5_auth_block_invoke(uint64_t a1, uint64_t a2, int a3)
+void ___o_ldap_crammd5_auth_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_ldap_continue_sasl(*(a1 + 32), a3))
   {
     Value = CFDictionaryGetValue(*(a1 + 40), LDAP_MECHANISM_OPTION_RECORD_DN);
     v5 = CFDictionaryGetValue(*(a1 + 40), LDAP_MECHANISM_OPTION_PASSWORD);
-    v22 = 0;
-    v6 = *(*(a1 + 32) + 136);
-    _cstr_from_cfstring(v5, &v22);
-    v7 = heim_cram_md5_create();
-    if (v7)
+    v21 = 0;
+    _cstr_from_cfstring(v5, &v21);
+    v6 = heim_cram_md5_create();
+    if (v6)
     {
-      v8 = v7;
-      v21 = 0;
-      v9 = _cstr_from_cfstring(Value, &v21);
-      v10 = _short_username_from_dn(v9);
+      v7 = v6;
       v20 = 0;
-      v11 = asprintf(&v20, "%s %s", v10, v8);
-      if (v11 == -1)
+      v8 = _cstr_from_cfstring(Value, &v20);
+      v9 = _short_username_from_dn(v8);
+      v19 = 0;
+      v10 = asprintf(&v19, "%s %s", v9, v7);
+      if (v10 == -1)
       {
-        v17 = 0;
+        v16 = 0;
       }
 
       else
       {
-        v12 = v11;
-        v13 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
-        memset(v19, 0, sizeof(v19));
-        v14 = v20;
-        *v13 = v12;
-        v13[1] = v14;
-        _ldap_sasl_fill(v19, @"CRAM-MD5", *(a1 + 40), v13);
-        v15 = *(a1 + 32);
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 0x40000000;
-        v18[2] = ___o_ldap_crammd5_auth_block_invoke_2;
-        v18[3] = &__block_descriptor_tmp_95;
-        v18[4] = v15;
-        v16 = _ldap_base_operation_create(v15, 104, 512, _dispose_simple, v18);
-        v17 = _ldap_operation_simple_init(v16, v19);
-        free_LDAPMessage(v19);
+        v11 = v10;
+        v12 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
+        memset(v18, 0, sizeof(v18));
+        v13 = v19;
+        *v12 = v11;
+        v12[1] = v13;
+        _ldap_sasl_fill(v18, @"CRAM-MD5", *(a1 + 40), v12);
+        v14 = *(a1 + 32);
+        v17[0] = MEMORY[0x277D85DD0];
+        v17[1] = 0x40000000;
+        v17[2] = ___o_ldap_crammd5_auth_block_invoke_2;
+        v17[3] = &__block_descriptor_tmp_95;
+        v17[4] = v14;
+        v15 = _ldap_base_operation_create(v14, 104, 512, _dispose_simple, v17);
+        v16 = _ldap_operation_simple_init(v15, v18);
+        free_LDAPMessage(v18);
       }
 
-      if (v21)
+      if (v20)
       {
-        free(v21);
+        free(v20);
       }
 
-      if (v10)
+      if (v9)
       {
-        free(v10);
+        free(v9);
       }
 
-      free(v8);
+      free(v7);
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
     }
 
-    if (v22)
+    if (v21)
     {
-      free(v22);
-      v22 = 0;
+      free(v21);
+      v21 = 0;
     }
 
-    if (!_enqueue_operation_with_release(*(a1 + 32), v17))
+    if (!_enqueue_operation_with_release(*(a1 + 32), v16))
     {
       _ldap_next_authmechanism(*(a1 + 32));
     }
   }
 }
 
-BOOL _ldap_continue_sasl(void *context, int a2)
+uint64_t _ldap_continue_sasl(void *context, uint64_t a2)
 {
+  v2 = a2;
   v4 = a2 == 0;
   if (!a2)
   {
 LABEL_8:
-    *(context + 73) = a2;
+    *(context + 73) = v2;
     dispatch_barrier_sync_f(context[1], context, _s_next_state);
     return v4;
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    _ldap_continue_sasl_cold_1(context);
+    _ldap_continue_sasl_cold_1();
   }
 
   result = 0;
-  if (a2 <= 47)
+  if (v2 <= 47)
   {
-    if (a2 != 7)
+    if (v2 != 7)
     {
-      if (a2 != 14)
+      if (v2 != 14)
       {
         return result;
       }
@@ -4632,11 +4596,11 @@ LABEL_8:
     }
   }
 
-  else if (a2 != 48)
+  else if (v2 != 48)
   {
-    if (a2 != 80)
+    if (v2 != 80)
     {
-      if (a2 != 49)
+      if (v2 != 49)
       {
         return result;
       }
@@ -4649,65 +4613,64 @@ LABEL_8:
     return 0;
   }
 
-  *(context + 73) = a2;
+  *(context + 73) = v2;
   _ldap_next_authmechanism(context);
   return 0;
 }
 
-void ___o_ldap_digestmd5_auth_block_invoke(uint64_t a1, uint64_t a2, int a3)
+void ___o_ldap_digestmd5_auth_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_ldap_continue_sasl(*(a1 + 32), a3))
   {
+    v25 = 0;
     v26 = 0;
-    v27 = 0;
     v5 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v18[0] = 0;
-    v28 = 0;
+    v17[0] = 0;
+    v27 = 0;
     v6 = heim_digest_create();
     if (v6)
     {
       Value = CFDictionaryGetValue(v4, LDAP_MECHANISM_OPTION_RECORD_DN);
       v8 = CFDictionaryGetValue(v4, LDAP_MECHANISM_OPTION_PASSWORD);
-      v9 = *(v5 + 136);
       if (heim_digest_parse_challenge())
       {
-        v10 = 0;
+        v9 = 0;
       }
 
       else
       {
-        v11 = _cstr_from_cfstring(Value, &v28);
-        v10 = _short_username_from_dn(v11);
+        v10 = _cstr_from_cfstring(Value, &v27);
+        v9 = _short_username_from_dn(v10);
         if ((*(v5 + 289) & 0x14) != 0 && *(v5 + 264))
         {
-          asprintf(v18, "ldap/%s", *(v5 + 264));
+          asprintf(v17, "ldap/%s", *(v5 + 264));
         }
 
         heim_digest_set_key();
         heim_digest_set_key();
-        _cstr_from_cfstring(v8, &v27);
+        _cstr_from_cfstring(v8, &v26);
         heim_digest_set_key();
-        if (v27)
+        if (v26)
         {
-          free(v27);
+          free(v26);
         }
       }
 
-      if (v28)
+      if (v27)
       {
-        free(v28);
+        free(v27);
       }
 
-      if (v10)
+      if (v9)
       {
-        free(v10);
+        free(v9);
       }
     }
 
-    if (v18[0])
+    if (v17[0])
     {
-      free(v18[0]);
+      free(v17[0]);
     }
 
     if (v6)
@@ -4715,32 +4678,32 @@ void ___o_ldap_digestmd5_auth_block_invoke(uint64_t a1, uint64_t a2, int a3)
       response = heim_digest_create_response();
       if (response)
       {
-        v13 = response;
-        v14 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
-        v24 = 0u;
-        v25 = 0u;
+        v12 = response;
+        v13 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
         v23 = 0u;
-        v21 = 0u;
+        v24 = 0u;
         v22 = 0u;
-        v19 = 0u;
         v20 = 0u;
-        *v18 = 0u;
-        v14[1] = v13;
-        *v14 = strlen(v13);
-        _ldap_sasl_fill(v18, @"DIGEST-MD5", *(a1 + 40), v14);
-        v15 = *(a1 + 32);
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 0x40000000;
-        v17[2] = ___o_ldap_digestmd5_auth_block_invoke_2;
-        v17[3] = &__block_descriptor_tmp_97;
-        v17[4] = v15;
-        v17[5] = v26;
-        v17[6] = v6;
-        v16 = _ldap_base_operation_create(v15, 104, 512, _dispose_simple, v17);
-        v6 = _ldap_operation_simple_init(v16, v18);
-        *v14 = 0;
-        v14[1] = 0;
-        free_LDAPMessage(v18);
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
+        *v17 = 0u;
+        v13[1] = v12;
+        *v13 = strlen(v12);
+        _ldap_sasl_fill(v17, @"DIGEST-MD5", *(a1 + 40), v13);
+        v14 = *(a1 + 32);
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 0x40000000;
+        v16[2] = ___o_ldap_digestmd5_auth_block_invoke_2;
+        v16[3] = &__block_descriptor_tmp_97;
+        v16[4] = v14;
+        v16[5] = v25;
+        v16[6] = v6;
+        v15 = _ldap_base_operation_create(v14, 104, 512, _dispose_simple, v16);
+        v6 = _ldap_operation_simple_init(v15, v17);
+        *v13 = 0;
+        v13[1] = 0;
+        free_LDAPMessage(v17);
       }
 
       else
@@ -4757,7 +4720,7 @@ void ___o_ldap_digestmd5_auth_block_invoke(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-uint64_t ___o_ldap_digestmd5_auth_block_invoke_2(uint64_t a1, uint64_t a2, int a3)
+uint64_t ___o_ldap_digestmd5_auth_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
@@ -4765,7 +4728,7 @@ uint64_t ___o_ldap_digestmd5_auth_block_invoke_2(uint64_t a1, uint64_t a2, int a
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        ___o_ldap_digestmd5_auth_block_invoke_2_cold_1(a1);
+        ___o_ldap_digestmd5_auth_block_invoke_2_cold_1();
       }
 
       v5 = *(a1 + 32);
@@ -4774,7 +4737,7 @@ uint64_t ___o_ldap_digestmd5_auth_block_invoke_2(uint64_t a1, uint64_t a2, int a
         v6 = 7;
 LABEL_13:
         _ldap_continue_sasl(v5, v6);
-        goto LABEL_16;
+        return heim_digest_release();
       }
     }
 
@@ -4792,29 +4755,24 @@ LABEL_13:
   if (!strcmp(*(v8 + 136), *(a1 + 40)))
   {
     *(v8 + 292) = 0;
-    v11 = *(v8 + 8);
-    v10 = v8;
+    v10 = *(v8 + 8);
+    v9 = v8;
   }
 
   else
   {
-    memset(v14, 0, sizeof(v14));
-    v15 = 0;
-    v9 = *(v8 + 120);
     tcp_connection_get_remote();
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      ___o_ldap_digestmd5_auth_block_invoke_2_cold_2((a1 + 32), v14);
+      ___o_ldap_digestmd5_auth_block_invoke_2_cold_2();
     }
 
-    v10 = *v7;
-    *(v10 + 292) = 10004;
-    v11 = *(v10 + 8);
+    v9 = *v7;
+    *(v9 + 292) = 10004;
+    v10 = *(v9 + 8);
   }
 
-  dispatch_barrier_sync_f(v11, v10, _s_next_state);
-LABEL_16:
-  v12 = *(a1 + 48);
+  dispatch_barrier_sync_f(v10, v9, _s_next_state);
   return heim_digest_release();
 }
 
@@ -4901,7 +4859,7 @@ LABEL_10:
   return free_LDAPMessage(&v13);
 }
 
-void ___o_ldap_gssapi_negotiate_block_invoke(uint64_t a1, uint64_t a2, int a3)
+void ___o_ldap_gssapi_negotiate_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_ldap_continue_sasl(*(a1 + 32), a3))
   {
@@ -4957,12 +4915,12 @@ uint64_t ___o_ldap_gssapi_negotiate_block_invoke_2(uint64_t a1)
   v2 = *(a1 + 32);
   v1 = *(a1 + 40);
   v3 = *(v2 + 136);
-  v5[0] = *(v2 + 144);
-  v5[1] = v3;
-  return _o_ldap_gssapi_negotiate(v2, v1, v5);
+  v5.length = *(v2 + 144);
+  v5.value = v3;
+  return _o_ldap_gssapi_negotiate(v2, v1, &v5);
 }
 
-void ___o_ldap_gssapi_negotiate_block_invoke_3(uint64_t a1, uint64_t a2, int a3)
+void ___o_ldap_gssapi_negotiate_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_ldap_continue_sasl(*(a1 + 32), a3))
   {
@@ -5085,29 +5043,8 @@ LABEL_20:
   v11 = v10;
 LABEL_22:
   *v8 = v11;
-  if (gss_wrap(&minor_status, v2[1], v9, *(v1 + 192), &output_message_buffer, 0, &v20))
+  if (gss_wrap(&minor_status, v2[1], v9, *(v1 + 192), &output_message_buffer, 0, &v20) || (v12 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL), memset(v19, 0, sizeof(v19)), v13 = v20.value, *v12 = v20.length, v12[1] = v13, _ldap_sasl_fill(v19, @"GSSAPI", *v2, v12), v18[0] = MEMORY[0x277D85DD0], v18[1] = 0x40000000, v18[2] = ___o_ldap_gssapi_security_block_invoke, v18[3] = &__block_descriptor_tmp_110, v18[4] = v1, v18[5] = v2, v14 = _ldap_base_operation_create(v1, 104, 512, _dispose_simple, v18), v15 = _ldap_operation_simple_init(v14, v19), free_LDAPMessage(v19), !_enqueue_operation_with_release(v1, v15)))
   {
-    goto LABEL_24;
-  }
-
-  v12 = malloc_type_malloc(0x10uLL, 0x108004057E67DB5uLL);
-  memset(v19, 0, sizeof(v19));
-  v13 = v20.value;
-  *v12 = v20.length;
-  v12[1] = v13;
-  _ldap_sasl_fill(v19, @"GSSAPI", *v2, v12);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 0x40000000;
-  v18[2] = ___o_ldap_gssapi_security_block_invoke;
-  v18[3] = &__block_descriptor_tmp_110;
-  v18[4] = v1;
-  v18[5] = v2;
-  v14 = _ldap_base_operation_create(v1, 104, 512, _dispose_simple, v18);
-  v15 = _ldap_operation_simple_init(v14, v19);
-  free_LDAPMessage(v19);
-  if (!_enqueue_operation_with_release(v1, v15))
-  {
-LABEL_24:
     v5 = 7;
     goto LABEL_25;
   }
@@ -5117,14 +5054,13 @@ LABEL_24:
 
 void ___o_ldap_gssapi_security_block_invoke(uint64_t a1, uint64_t a2, int a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   if (a3)
   {
     v5 = *(a1 + 40);
     *(v4 + 292) = 7;
     _free_ldap_gss_context(v5);
-    v6 = *MEMORY[0x277D85DE8];
 
     _ldap_next_authmechanism(v4);
   }
@@ -5133,30 +5069,29 @@ void ___o_ldap_gssapi_security_block_invoke(uint64_t a1, uint64_t a2, int a3)
   {
     if ((*(v4 + 288) & 0x30) != 0)
     {
-      v7 = *(v4 + 208);
-      v12[0] = MEMORY[0x277D85DD0];
-      v12[1] = 0x40000000;
-      v12[2] = ___o_ldap_gssapi_security_block_invoke_2;
-      v12[3] = &__block_descriptor_tmp_109;
-      v8 = *(a1 + 40);
-      v12[4] = v4;
-      v12[5] = v8;
-      dispatch_barrier_sync(v7, v12);
+      v6 = *(v4 + 208);
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 0x40000000;
+      v10[2] = ___o_ldap_gssapi_security_block_invoke_2;
+      v10[3] = &__block_descriptor_tmp_109;
+      v7 = *(a1 + 40);
+      v10[4] = v4;
+      v10[5] = v7;
+      dispatch_barrier_sync(v6, v10);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v9 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 134217984;
-      v14 = v9;
+      v12 = v8;
       _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "connection: %p, GSSAPI: negotiated", buf, 0xCu);
     }
 
     _free_ldap_gss_context(*(a1 + 40));
-    v10 = *(a1 + 32);
-    *(v10 + 292) = 0;
-    dispatch_barrier_sync_f(*(v10 + 8), v10, _s_next_state);
-    v11 = *MEMORY[0x277D85DE8];
+    v9 = *(a1 + 32);
+    *(v9 + 292) = 0;
+    dispatch_barrier_sync_f(*(v9 + 8), v9, _s_next_state);
   }
 }
 
@@ -5167,7 +5102,7 @@ uint64_t ___o_ldap_gssapi_security_block_invoke_2(uint64_t result)
   return result;
 }
 
-void ___o_ldap_srp_auth_block_invoke(uint64_t a1, uint64_t a2, int a3)
+void ___o_ldap_srp_auth_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_ldap_continue_sasl(*(a1 + 32), a3))
   {
@@ -5248,7 +5183,7 @@ void ___o_ldap_srp_auth_block_invoke(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-void ___o_ldap_srp_auth_block_invoke_2(uint64_t a1, uint64_t a2, int a3)
+void ___o_ldap_srp_auth_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_ldap_continue_sasl(*(a1 + 32), a3))
   {
@@ -5314,7 +5249,7 @@ void ___o_ldap_srp_auth_block_invoke_2(uint64_t a1, uint64_t a2, int a3)
   }
 }
 
-void ___o_ldap_srp_auth_block_invoke_3(uint64_t a1, uint64_t a2, int a3)
+void ___o_ldap_srp_auth_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v10 = 0;
   v9 = 0;
@@ -5350,7 +5285,7 @@ void _o_disconnected(NSObject **a1, atomic_ullong **a2, int a3)
   v6 = *a2;
   if (*a2)
   {
-    v7 = (a2 + 1);
+    v7 = a2 + 1;
     do
     {
       v9 = v6[1];
@@ -5397,7 +5332,6 @@ void ___o_disconnect_cleanup_block_invoke(uint64_t a1)
   v3 = v2[35];
   if (v3)
   {
-    v4 = *(a1 + 40);
     (*(v3 + 16))();
     v2 = *(a1 + 32);
   }
@@ -5407,33 +5341,31 @@ void ___o_disconnect_cleanup_block_invoke(uint64_t a1)
 
 void ___o_disconnected_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 48);
   (*(*(*(a1 + 32) + 24) + 16))();
   dispatch_group_leave(*(*(a1 + 40) + 56));
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  ldap_operation_release(v3);
+  ldap_operation_release(v2);
 }
 
 void ___report_connect_status_block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v32 = 0u;
-  memset(v33, 0, sizeof(v33));
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
+  v31 = *MEMORY[0x277D85DE8];
   v29 = 0u;
-  v26 = 0u;
+  memset(v30, 0, sizeof(v30));
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  v22 = 0u;
+  v26 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   *cStr = 0u;
-  v2 = *(*(a1 + 40) + 120);
   if (tcp_connection_get_hostname())
   {
     *(*(*(a1 + 32) + 8) + 24) = CFStringCreateWithCString(*MEMORY[0x277CBECE8], cStr, 0x8000100u);
@@ -5441,29 +5373,26 @@ void ___report_connect_status_block_invoke(uint64_t a1)
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    memset(v7, 0, sizeof(v7));
-    v8 = 0;
-    v3 = *(*(a1 + 40) + 120);
+    memset(v4, 0, sizeof(v4));
+    v5 = 0;
     tcp_connection_get_remote();
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v4 = *(a1 + 40);
-      v5 = *(v4 + 288);
+      v2 = *(a1 + 40);
+      v3 = *(v2 + 288);
       *buf = 134219010;
-      v10 = v4;
-      v11 = 2082;
-      v12 = cStr;
-      v13 = 1040;
-      v14 = LOBYTE(v7[0]);
-      v15 = 2098;
-      v16 = v7;
-      v17 = 1024;
-      v18 = v5;
+      v7 = v2;
+      v8 = 2082;
+      v9 = cStr;
+      v10 = 1040;
+      v11 = LOBYTE(v4[0]);
+      v12 = 2098;
+      v13 = v4;
+      v14 = 1024;
+      v15 = v3;
       _os_log_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "connection: %p, host: %{public}s, address: %{public,network:sockaddr}.*P, flags: %{AppleLDAPTypes:flags}d", buf, 0x2Cu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void _o_abandon_operation(uint64_t a1)
@@ -5643,7 +5572,7 @@ void ___o_ldap_chained_operation_next_block_invoke(uint64_t a1, uint64_t a2, int
   dispatch_group_async(v10, v11, v12);
 }
 
-uint64_t _start_filter(int *a1, unsigned __int8 *a2)
+unsigned __int8 *_start_filter(int *a1, unsigned __int8 *a2)
 {
   v2 = *a2;
   v3 = -1;
@@ -5662,7 +5591,7 @@ uint64_t _start_filter(int *a1, unsigned __int8 *a2)
         return _parse_simple_filter(a1, a2, 1);
       }
 
-      return (a2 + 1);
+      return a2 + 1;
     }
   }
 
@@ -5691,7 +5620,7 @@ LABEL_12:
 uint64_t _parse_simple_filter(uint64_t a1, unsigned __int8 *a2, int a3)
 {
   v6 = 0;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   while (1)
   {
     while (1)
@@ -5704,9 +5633,7 @@ uint64_t _parse_simple_filter(uint64_t a1, unsigned __int8 *a2, int a3)
 
       if (a2 == -1)
       {
-LABEL_37:
-        result = -1;
-        goto LABEL_39;
+        return -1;
       }
 
       ++a2;
@@ -5716,30 +5643,26 @@ LABEL_37:
     {
       if (a3)
       {
-        result = -1;
+        return -1;
       }
 
       else
       {
-        result = (a2 - 1);
+        return (a2 - 1);
       }
-
-      goto LABEL_39;
     }
 
     if (v7 == 41)
     {
       if (a3)
       {
-        result = (a2 + 1);
+        return (a2 + 1);
       }
 
       else
       {
-        result = -1;
+        return -1;
       }
-
-      goto LABEL_39;
     }
 
     if (v7 != 40)
@@ -5753,10 +5676,10 @@ LABEL_37:
     *v9 = 0u;
     *(v9 + 1) = 0u;
     *(v9 + 2) = 0u;
-    result = _start_filter();
+    result = _start_filter(v9, a2 + 1);
     if (result == -1)
     {
-      goto LABEL_39;
+      return result;
     }
 
     a2 = result;
@@ -5784,14 +5707,14 @@ LABEL_37:
 
       if (!v7 || v7 == 41)
       {
-        goto LABEL_39;
+        return result;
       }
 
 LABEL_34:
-      v17[v11++] = v7;
+      v16[v11++] = v7;
       if (v11 > 0x7F)
       {
-        goto LABEL_37;
+        return -1;
       }
 
       goto LABEL_35;
@@ -5807,7 +5730,7 @@ LABEL_34:
 LABEL_35:
     if (a2 == -1)
     {
-      goto LABEL_37;
+      return -1;
     }
 
     v13 = *++a2;
@@ -5848,11 +5771,8 @@ LABEL_35:
   v14 = 1;
 LABEL_38:
   *a1 = v15;
-  v17[v11] = 0;
-  result = _parse_rh_exp(a1, &a2[v12], v17, v14, a3);
-LABEL_39:
-  v16 = *MEMORY[0x277D85DE8];
-  return result;
+  v16[v11] = 0;
+  return _parse_rh_exp(a1, &a2[v12], v16, v14, a3);
 }
 
 uint64_t _parse_compound_filter(uint64_t a1, unsigned __int8 *a2)
@@ -5883,7 +5803,7 @@ LABEL_7:
     *v7 = 0u;
     *(v7 + 1) = 0u;
     *(v7 + 2) = 0u;
-    result = _start_filter();
+    result = _start_filter(v7, a2 + 1);
     if (result == -1)
     {
       return result;
@@ -6270,49 +6190,43 @@ uint64_t conditional_realloc(void **a1, _DWORD *a2, size_t size)
   return result;
 }
 
-uint64_t srp_encode(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, unsigned int *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+double srp_encode(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, unsigned int *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  if (!a1 || !a4 || !a5)
+  if (a1 && a4 && a5)
   {
-    v14 = "Bad parameter";
-LABEL_9:
-    SETERROR(a1, v14, a3, a4, a5, a6, a7, a8, v20);
-    result = 4294967289;
-    goto LABEL_10;
-  }
+    v11 = (a1 + 888);
+    if (conditional_realloc((a1 + 888), (a1 + 912), (a3 + 84)))
+    {
+      return result;
+    }
 
-  v11 = (a1 + 888);
-  result = conditional_realloc((a1 + 888), (a1 + 912), (a3 + 84));
-  if (!result)
-  {
     *a5 = 4;
     if ((*(a1 + 360) & 2) != 0)
     {
-      v13 = *(a1 + 888);
       *a5 += chacha20_poly1305_encrypt();
       if ((*(a1 + 360) & 2) != 0)
       {
-        v16 = *v11;
-        v17 = chacha20_poly1305_final();
-        result = 0;
-        v18 = *a5 + v17;
-        *a5 = v18;
-        *(*v11 + v18) = v21;
-        v19 = *a5;
+        v14 = *a5 + chacha20_poly1305_final();
+        *a5 = v14;
+        result = *&v16;
+        *(*v11 + v14) = v16;
+        v15 = *a5;
         *a5 += 16;
-        **v11 = bswap32(v19 + 12);
+        **v11 = bswap32(v15 + 12);
         *a4 = *v11;
-        goto LABEL_10;
+        return result;
       }
     }
 
-    v14 = "confidentiality integrity layer required";
-    goto LABEL_9;
+    v13 = "confidentiality integrity layer required";
   }
 
-LABEL_10:
-  v15 = *MEMORY[0x277D85DE8];
+  else
+  {
+    v13 = "Bad parameter";
+  }
+
+  SETERROR(a1, v13, a3, a4, a5, a6, a7, a8);
   return result;
 }
 
@@ -6325,33 +6239,26 @@ uint64_t srp_decode(uint64_t a1, char *a2, unsigned int a3, void *a4, unsigned i
 
 uint64_t srp_decode_packet(uint64_t a1, uint64_t a2, size_t a3, void *a4, _DWORD *a5)
 {
-  v7 = a3;
-  v25 = *MEMORY[0x277D85DE8];
-  v10 = (a1 + 904);
+  v8 = (a1 + 904);
   result = conditional_realloc((a1 + 904), (a1 + 928), a3);
   if (!result)
   {
     if ((*(a1 + 360) & 2) != 0)
     {
-      v24 = *(a2 + v7 - 16);
-      v18 = *(a1 + 904);
-      v19 = chacha20_poly1305_decrypt();
-      *a5 = v19;
-      v20 = *(a1 + 904) + v19;
-      v21 = chacha20_poly1305_verify();
+      *a5 = chacha20_poly1305_decrypt();
+      v16 = chacha20_poly1305_verify();
       result = 0;
-      *a5 += v21;
-      *a4 = *v10;
+      *a5 += v16;
+      *a4 = *v8;
     }
 
     else
     {
-      SETERROR(a1, "confidentiality integrity layer required", v12, v13, v14, v15, v16, v17, v23);
-      result = 4294967289;
+      SETERROR(a1, "confidentiality integrity layer required", v10, v11, v12, v13, v14, v15);
+      return 4294967289;
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6401,17 +6308,18 @@ uint64_t cc_get_digestbyname(const char *a1)
   }
 }
 
-void SETERROR(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void SETERROR(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  v11 = 0;
-  vasprintf(&v11, a2, &a9);
-  v10 = *(a1 + 968);
-  if (v10)
+  va_start(va, a8);
+  v10 = 0;
+  vasprintf(&v10, a2, va);
+  v9 = *(a1 + 968);
+  if (v9)
   {
-    free(v10);
+    free(v9);
   }
 
-  *(a1 + 968) = v11;
+  *(a1 + 968) = v10;
 }
 
 uint64_t srp_client_mech_new(void *a1, const char *a2, const char *a3, const char *a4)
@@ -6434,9 +6342,9 @@ uint64_t srp_client_mech_new(void *a1, const char *a2, const char *a3, const cha
   return result;
 }
 
-uint64_t srp_client_mech_step(uint64_t a1, unsigned int *a2, uint64_t a3, void *a4, _DWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t srp_client_mech_step(int *a1, unsigned int *a2, uint64_t a3, void *a4, _DWORD *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   *a4 = 0;
   *a5 = 0;
   v9 = *a1;
@@ -6450,75 +6358,66 @@ uint64_t srp_client_mech_step(uint64_t a1, unsigned int *a2, uint64_t a3, void *
         {
           v12 = "Invalid input to first step of SRP";
 LABEL_6:
-          SETERROR(a1, v12, a3, a4, a5, a6, a7, a8, derivedKeyLen);
-          v13 = 4294967291;
-          goto LABEL_42;
+          SETERROR(a1, v12, a3, a4, a5, a6, a7, a8);
+          return 4294967291;
         }
 
         *derivedKey = 0;
-        v96 = *(a1 + 224);
-        Buffer = MakeBuffer((a1 + 344), (a1 + 352), derivedKey, "%s%s%s%o", a5, a6, a7, a8, *(a1 + 216));
+        Buffer = MakeBuffer(a1 + 43, a1 + 88, derivedKey, "%s%s%s%o", a5, a6, a7, a8, *(a1 + 27));
         *a5 = *derivedKey;
         if (Buffer)
         {
 LABEL_30:
           v13 = Buffer;
-          v52 = *MEMORY[0x277D85DF8];
-          v53 = "Error making output buffer\n";
-          v54 = 27;
+          v44 = *MEMORY[0x277D85DF8];
+          v45 = "Error making output buffer\n";
+          v46 = 27;
 LABEL_31:
-          fwrite(v53, v54, 1uLL, v52);
-          goto LABEL_42;
+          fwrite(v45, v46, 1uLL, v44);
+          return v13;
         }
 
-        *a4 = *(a1 + 344);
-        v58 = 2;
+        *a4 = *(a1 + 43);
+        v50 = 2;
 LABEL_37:
-        *a1 = v58;
-        v13 = 1;
-        goto LABEL_42;
+        *a1 = v50;
+        return 1;
       }
 
       fprintf(*MEMORY[0x277D85DF8], "Invalid SRP client step %d\n", v9);
-LABEL_34:
-      v13 = 0xFFFFFFFFLL;
-      goto LABEL_42;
+      return 0xFFFFFFFFLL;
     }
 
-    v14 = (a1 + 24);
-    LOBYTE(v101) = 0;
-    v15 = (a1 + 56);
-    v16 = UnBuffer(a1, a2, a3, "%c%m%m%o%m%q%s", a5, a6, a7, a8, &v101);
-    if (v16)
+    LOBYTE(v78) = 0;
+    v14 = UnBuffer(a1, a2, a3, "%c%m%m%o%m%q%s", a5, a6, a7, a8, &v78, a1 + 6, a1 + 8, a1 + 80, a1 + 78, a1 + 14, a1 + 82, a1 + 64);
+    if (v14)
     {
-      v13 = v16;
-      SETERROR(a1, "Error UnBuffering input in step 2", v17, v18, v19, v20, v21, v22, derivedKeyLen);
-      goto LABEL_42;
+      v13 = v14;
+      SETERROR(a1, "Error UnBuffering input in step 2", v15, v16, v17, v18, v19, v20);
+      return v13;
     }
 
-    v31 = *v14;
-    v32 = *(a1 + 32);
-    v33 = ccz_write_uint_size();
-    v34 = malloc_type_malloc(v33, 0x859AEC5CuLL);
+    v29 = ccz_write_uint_size();
+    v30 = malloc_type_malloc(v29, 0x859AEC5CuLL);
     ccz_write_uint();
     if (ccz_write_uint_size() != 1)
     {
       goto LABEL_32;
     }
 
-    BYTE4(v101) = 0;
+    BYTE4(v78) = 0;
     ccz_write_uint();
-    v35 = SBYTE4(v101);
+    v31 = SBYTE4(v78);
     set_ccsrp_groups();
-    v36 = &qword_27E519080;
-    v37 = 4;
-    while (v33 != *(v36 - 4) >> 3 || memcmp(v34, *(v36 - 2), v33) || *(v36 - 1) != v35)
+    v32 = &qword_27E519080;
+    v33 = 4;
+    while (v29 != *(v32 - 4) >> 3 || memcmp(v30, *(v32 - 2), v29) || *(v32 - 1) != v31)
     {
-      v36 += 5;
-      if (!--v37)
+      v32 += 5;
+      if (!--v33)
       {
-        v38 = 0;
-        if (!v34)
+        v34 = 0;
+        if (!v30)
         {
           goto LABEL_20;
         }
@@ -6527,221 +6426,203 @@ LABEL_34:
       }
     }
 
-    *(a1 + 40) = *v36;
-    v38 = 1;
-    if (v34)
+    *(a1 + 5) = *v32;
+    v34 = 1;
+    if (v30)
     {
 LABEL_19:
-      free(v34);
+      free(v30);
     }
 
 LABEL_20:
-    if (v38)
+    if (v34)
     {
-      v39 = *v15;
-      if (ccz_cmpi() < 1 || (v40 = *v14, (ccz_cmp() & 0x80000000) == 0))
+      if (ccz_cmpi() < 1 || (ccz_cmp() & 0x80000000) == 0)
       {
         v12 = "Illegal value for 'B'";
         goto LABEL_6;
       }
 
-      memset(v99, 0, sizeof(v99));
-      v61 = ParseOptions(a1, *(a1 + 256), v99, 0);
-      if (v61)
+      memset(v76, 0, sizeof(v76));
+      v52 = ParseOptions(a1, *(a1 + 32), v76, 0);
+      if (v52)
       {
-        v13 = v61;
-        v52 = *MEMORY[0x277D85DF8];
-        v53 = "Error parsing SRP server options\n";
-        v54 = 33;
+        v13 = v52;
+        v44 = *MEMORY[0x277D85DF8];
+        v45 = "Error parsing SRP server options\n";
+        v46 = 33;
         goto LABEL_31;
       }
 
-      ClientOpts = CreateClientOpts(a1, v99, a1 + 264);
+      ClientOpts = CreateClientOpts(a1, v76, (a1 + 66));
       if (ClientOpts)
       {
         v13 = ClientOpts;
-        v52 = *MEMORY[0x277D85DF8];
-        v53 = "Error creating client options\n";
-        v54 = 30;
+        v44 = *MEMORY[0x277D85DF8];
+        v45 = "Error creating client options\n";
+        v46 = 30;
         goto LABEL_31;
       }
 
-      v63 = OptionsToString((a1 + 264), (a1 + 248));
-      if (v63)
+      v54 = OptionsToString(a1 + 66, a1 + 31);
+      if (v54)
       {
-        v13 = v63;
-        v52 = *MEMORY[0x277D85DF8];
-        v53 = "Error converting client options to an option string\n";
-        v54 = 52;
+        v13 = v54;
+        v44 = *MEMORY[0x277D85DF8];
+        v45 = "Error converting client options to an option string\n";
+        v46 = 52;
         goto LABEL_31;
       }
 
-      if (SetMDA((a1 + 264), a1))
+      if (SetMDA(a1 + 66, a1))
       {
-        v50 = "Error setting MDA";
+        v42 = "Error setting MDA";
         goto LABEL_28;
       }
 
-      v64 = *(a1 + 40);
-      v65 = ccdh_ccn_size();
-      *(a1 + 8) = malloc_type_malloc(48 * ((4 * (**(a1 + 336) + v65) + 95) / 0x30uLL), 0x400A2AC0F1uLL);
-      v66 = *(a1 + 336);
-      v67 = *(a1 + 40);
+      v55 = ccdh_ccn_size();
+      *(a1 + 1) = malloc_type_malloc(48 * ((4 * (**(a1 + 42) + v55) + 95) / 0x30uLL), 0x400A2AC0F1uLL);
       ccsrp_ctx_init();
-      v68 = 8 * MEMORY[0x245CCEDB0](*(*(a1 + 8) + 8));
-      v69 = malloc_type_malloc(v68, 0x461D5B05uLL);
-      bzero(v69, v68);
-      v70 = *(a1 + 8);
-      v71 = *(a1 + 16);
+      v56 = 8 * MEMORY[0x245CCEDB0](*(*(a1 + 1) + 8));
+      v57 = malloc_type_malloc(v56, 0x461D5B05uLL);
+      bzero(v57, v56);
       started = ccsrp_client_start_authentication();
       if (started)
       {
-        SETERROR(a1, "ccsrp_client_start_authentication failed: %d", v73, v74, v75, v76, v77, v78, started);
-        goto LABEL_34;
+        SETERROR(a1, "ccsrp_client_start_authentication failed: %d", v59, v60, v61, v62, v63, v64, started);
+        return 0xFFFFFFFFLL;
       }
 
-      v79 = *(a1 + 64);
       ccz_read_uint();
-      free(v69);
-      v80 = 8 * MEMORY[0x245CCEDB0](*(*(a1 + 8) + 8));
-      v81 = malloc_type_malloc(v80, 0xB80FC3AFuLL);
-      bzero(v81, v80);
-      v82 = *(a1 + 56);
+      free(v57);
+      v65 = 8 * MEMORY[0x245CCEDB0](*(*(a1 + 1) + 8));
+      v66 = malloc_type_malloc(v65, 0xB80FC3AFuLL);
+      bzero(v66, v65);
       ccz_write_uint();
-      v83 = strlen(*(a1 + 232));
-      if (!CCKeyDerivationPBKDF(2u, *(a1 + 232), v83, *(a1 + 312), *(a1 + 320), 5u, *(a1 + 328), derivedKey, 0x80uLL))
+      v67 = strlen(*(a1 + 29));
+      if (!CCKeyDerivationPBKDF(2u, *(a1 + 29), v67, *(a1 + 39), *(a1 + 40), 5u, a1[82], derivedKey, 0x80uLL))
       {
-        v84 = *(a1 + 8);
-        *(a1 + 208) = ccsrp_get_session_key_length();
-        v85 = *(a1 + 8);
-        v87 = *(a1 + 312);
-        v86 = *(a1 + 320);
+        *(a1 + 26) = ccsrp_get_session_key_length();
         v13 = ccsrp_client_process_challenge();
-        free(v81);
+        free(v66);
         if (v13)
         {
-          v52 = *MEMORY[0x277D85DF8];
-          v53 = "Error creating M1\n";
-          v54 = 18;
+          v44 = *MEMORY[0x277D85DF8];
+          v45 = "Error creating M1\n";
+          v46 = 18;
           goto LABEL_31;
         }
 
-        Bytes = CCRandomGenerateBytes((a1 + 296), 0x10uLL);
+        Bytes = CCRandomGenerateBytes(a1 + 74, 0x10uLL);
         if (Bytes)
         {
-          SETERROR(a1, "Error reading random bytes for cIV: %d", v89, v90, v91, v92, v93, v94, Bytes);
-          v13 = 4294967286;
-          goto LABEL_42;
+          SETERROR(a1, "Error reading random bytes for cIV: %d", v69, v70, v71, v72, v73, v74, Bytes);
+          return 4294967286;
         }
 
-        v102 = 0;
-        v98 = *(a1 + 248);
-        v97 = *(a1 + 208);
-        Buffer = MakeBuffer((a1 + 344), (a1 + 352), &v102, "%m%o%s%o", v91, v92, v93, v94, *(a1 + 64));
-        *a5 = v102;
+        v79 = 0;
+        Buffer = MakeBuffer(a1 + 43, a1 + 88, &v79, "%m%o%s%o", v71, v72, v73, v74, *(a1 + 8));
+        *a5 = v79;
         if (Buffer)
         {
           goto LABEL_30;
         }
 
-        *a4 = *(a1 + 344);
-        v58 = 3;
+        *a4 = *(a1 + 43);
+        v50 = 3;
         goto LABEL_37;
       }
 
-      v55 = *MEMORY[0x277D85DF8];
-      v56 = "Error hashing client password\n";
-      v57 = 30;
+      v47 = *MEMORY[0x277D85DF8];
+      v48 = "Error hashing client password\n";
+      v49 = 30;
     }
 
     else
     {
 LABEL_32:
-      v55 = *MEMORY[0x277D85DF8];
-      v56 = "Values of 'N' and 'g' are not recommended\n";
-      v57 = 42;
+      v47 = *MEMORY[0x277D85DF8];
+      v48 = "Values of 'N' and 'g' are not recommended\n";
+      v49 = 42;
     }
 
-    fwrite(v56, v57, 1uLL, v55);
-    goto LABEL_34;
+    fwrite(v48, v49, 1uLL, v47);
+    return 0xFFFFFFFFLL;
   }
 
-  v102 = 0;
+  v79 = 0;
   *derivedKey = 0;
-  *&v99[0] = 0;
-  v101 = 0;
-  v100 = 0;
-  v23 = UnBuffer(a1, a2, a3, "%-o%-o%s%u", a5, a6, a7, a8, &v101 + 4);
-  if (v23)
+  *&v76[0] = 0;
+  v78 = 0;
+  v77 = 0;
+  v21 = UnBuffer(a1, a2, a3, "%-o%-o%s%u", a5, a6, a7, a8, &v78 + 4, derivedKey, &v78, v76, &v79, &v77);
+  if (v21)
   {
-    v13 = v23;
-    v30 = "Error UnBuffering input in step 3";
+    v13 = v21;
+    v28 = "Error UnBuffering input in step 3";
 LABEL_39:
-    SETERROR(a1, v30, v24, v25, v26, v27, v28, v29, derivedKeyLen);
+    SETERROR(a1, v28, v22, v23, v24, v25, v26, v27);
     goto LABEL_40;
   }
 
-  v41 = HIDWORD(v101);
-  v42 = *(a1 + 8);
-  if (ccsrp_get_session_key_length() != v41)
+  v35 = HIDWORD(v78);
+  if (ccsrp_get_session_key_length() != v35)
   {
     v13 = 4294967286;
-    v30 = "SRP Server M2 length wrong";
+    v28 = "SRP Server M2 length wrong";
     goto LABEL_39;
   }
 
-  v43 = *(a1 + 8);
   if (!ccsrp_client_verify_session())
   {
     v13 = 4294967286;
-    v30 = "SRP Server spoof detected. M2 incorrect";
+    v28 = "SRP Server spoof detected. M2 incorrect";
     goto LABEL_39;
   }
 
-  if (LayerInit(a1 + 264, a1))
+  if (LayerInit((a1 + 66), a1, *&v76[0], (a1 + 74)))
   {
-    v50 = "Error initializing security layer";
+    v42 = "Error initializing security layer";
 LABEL_28:
-    SETERROR(a1, v50, v44, v45, v46, v47, v48, v49, derivedKeyLen);
-    goto LABEL_34;
+    SETERROR(a1, v42, v36, v37, v38, v39, v40, v41, derivedKeyLen);
+    return 0xFFFFFFFFLL;
   }
 
   v13 = 0;
 LABEL_40:
-  if (v102)
+  if (v79)
   {
-    free(v102);
+    free(v79);
   }
 
-LABEL_42:
-  v59 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
-uint64_t UnBuffer(uint64_t a1, unsigned int *a2, uint64_t a3, unsigned __int8 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t UnBuffer(uint64_t a1, unsigned int *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   if (!a2 || a3 <= 3)
   {
-    v41 = a3;
-    v39 = "Buffer is not big enough to be SRP buffer: %d\n";
+    v35 = a3;
+    v33 = "Buffer is not big enough to be SRP buffer: %d\n";
     goto LABEL_62;
   }
 
-  v10 = bswap32(*a2);
-  if (v10 != a3 - 4)
+  v9 = bswap32(*a2);
+  if (v9 != a3 - 4)
   {
-    v39 = "SRP Buffer isn't of the right length\n";
+    v33 = "SRP Buffer isn't of the right length\n";
 LABEL_62:
-    v40 = a1;
+    v34 = a1;
 LABEL_63:
-    SETERROR(v40, v39, a3, a4, a5, a6, a7, a8, v41);
+    SETERROR(v34, v33, a3, a4, a5, a6, a7, a8, v35);
     return 4294967291;
   }
 
-  v11 = (a2 + 1);
-  v42 = &a9;
-  v12 = "Buffer is not big enough to be SRP MPI\n";
-  v13 = "Buffer is not big enough to be SRP os\n";
+  v10 = (a2 + 1);
+  va_copy(v36, va);
+  v11 = "Buffer is not big enough to be SRP MPI\n";
+  v12 = "Buffer is not big enough to be SRP os\n";
   while (1)
   {
     result = *a4;
@@ -6755,156 +6636,152 @@ LABEL_63:
       goto LABEL_60;
     }
 
-    if (*v11 != result)
+    if (*v10 != result)
     {
       goto LABEL_59;
     }
 
-    v11 = (v11 + 1);
-    --v10;
+    v10 = (v10 + 1);
+    --v9;
 LABEL_43:
     ++a4;
   }
 
-  v15 = a4[1];
-  if (v15 == 45)
+  v14 = *(a4 + 1);
+  if (v14 == 45)
   {
-    v16 = 2;
+    v15 = 2;
   }
 
   else
   {
-    v16 = 1;
+    v15 = 1;
   }
 
-  if (v15 == 45)
+  if (v14 == 45)
   {
-    v17 = a4 + 2;
+    v16 = a4 + 2;
   }
 
   else
   {
-    v17 = a4 + 1;
+    v16 = a4 + 1;
   }
 
-  HIDWORD(v19) = a4[v16] - 99;
-  LODWORD(v19) = HIDWORD(v19);
-  v18 = v19 >> 1;
-  if (v18 > 6)
+  HIDWORD(v18) = a4[v15] - 99;
+  LODWORD(v18) = HIDWORD(v18);
+  v17 = v18 >> 1;
+  if (v17 > 6)
   {
-    switch(v18)
+    switch(v17)
     {
       case 7:
-        if (v10 < 8)
+        if (v9 < 8)
         {
-          v12 = "Buffer is not big enough to be SRP uint64_t\n";
+          v11 = "Buffer is not big enough to be SRP uint64_t\n";
           goto LABEL_58;
         }
 
-        v27 = v42++;
-        **v27 = bswap64(*v11);
-        LODWORD(v20) = 8;
+        v26 = va_arg(v36, void *);
+        *v26 = bswap64(*v10);
+        LODWORD(v19) = 8;
         goto LABEL_34;
       case 8:
-        v22 = v10 - 2;
-        if (v10 < 2)
+        v21 = v9 - 2;
+        if (v9 < 2)
         {
-          v12 = "Buffer is not big enough to be SRP UTF8\n";
+          v11 = "Buffer is not big enough to be SRP UTF8\n";
           goto LABEL_58;
         }
 
-        v33 = *v11;
-        v11 = (v11 + 2);
-        v34 = bswap32(v33);
-        if (v22 < HIWORD(v34))
+        v28 = *v10;
+        v10 = (v10 + 2);
+        v29 = bswap32(v28);
+        if (v21 < HIWORD(v29))
         {
-          v12 = "Not enough data for this SRP UTF8\n";
+          v11 = "Not enough data for this SRP UTF8\n";
           goto LABEL_57;
         }
 
-        v20 = HIWORD(v34);
-        v35 = v42++;
-        v36 = *v35;
-        v37 = malloc_type_malloc((v20 + 1), 0x100004077774924uLL);
-        *v36 = v37;
-        if (!v37)
+        v19 = HIWORD(v29);
+        v30 = va_arg(v36, void *);
+        v31 = malloc_type_malloc((v19 + 1), 0x100004077774924uLL);
+        *v30 = v31;
+        if (!v31)
         {
           goto LABEL_48;
         }
 
-        memcpy(v37, v11, v20);
-        *(*v36 + v20) = 0;
+        memcpy(v31, v10, v19);
+        *(*v30 + v19) = 0;
         goto LABEL_42;
       case 9:
-        if (v10 < 4)
+        if (v9 < 4)
         {
-          v12 = "Buffer is not big enough to be SRP uint\n";
+          v11 = "Buffer is not big enough to be SRP uint\n";
           goto LABEL_58;
         }
 
-        v25 = v42++;
-        **v25 = bswap32(*v11) >> 16;
-        LODWORD(v20) = 4;
+        v24 = va_arg(v36, unsigned int *);
+        *v24 = bswap32(*v10) >> 16;
+        LODWORD(v19) = 4;
         goto LABEL_34;
     }
 
     goto LABEL_32;
   }
 
-  if (!v18)
+  if (!v17)
   {
-    if (!v10)
+    if (!v9)
     {
-      v13 = "Buffer is not big enough to be SRP char\n";
+      v12 = "Buffer is not big enough to be SRP char\n";
 LABEL_52:
-      v40 = a1;
-      v39 = v13;
+      v34 = a1;
+      v33 = v12;
       goto LABEL_63;
     }
 
-    v26 = v42++;
-    **v26 = *v11;
+    v25 = va_arg(v36, _BYTE *);
+    *v25 = *v10;
 LABEL_33:
-    LODWORD(v20) = 1;
+    LODWORD(v19) = 1;
 LABEL_34:
-    v22 = v10;
+    v21 = v9;
 LABEL_42:
-    v11 = (v11 + v20);
-    v10 = v22 - v20;
-    a4 = v17;
+    v10 = (v10 + v19);
+    v9 = v21 - v19;
+    a4 = v16;
     goto LABEL_43;
   }
 
-  if (v18 == 5)
+  if (v17 == 5)
   {
-    v22 = v10 - 2;
-    if (v10 < 2)
+    v21 = v9 - 2;
+    if (v9 < 2)
     {
       goto LABEL_58;
     }
 
-    v28 = bswap32(*v11);
-    if (v22 < HIWORD(v28))
+    v27 = bswap32(*v10);
+    if (v21 < HIWORD(v27))
     {
-      v12 = "Not enough data for this SRP MPI\n";
+      v11 = "Not enough data for this SRP MPI\n";
       goto LABEL_57;
     }
 
-    LODWORD(v20) = HIWORD(v28);
-    v11 = (v11 + 2);
-    v29 = v42++;
-    v30 = *v29;
-    v31 = **v29;
+    LODWORD(v19) = HIWORD(v27);
+    v10 = (v10 + 2);
+    v36 += 8;
     ccz_zero();
-    v32 = *v30;
     ccz_read_uint();
     goto LABEL_42;
   }
 
-  if (v18 != 6)
+  if (v17 != 6)
   {
 LABEL_32:
-    if (*v11 != a4[v16])
+    if (*v10 != a4[v15])
     {
       goto LABEL_59;
     }
@@ -6912,55 +6789,55 @@ LABEL_32:
     goto LABEL_33;
   }
 
-  if (!v10)
+  if (!v9)
   {
     goto LABEL_52;
   }
 
-  v21 = *v11;
-  v11 = (v11 + 1);
-  v20 = v21;
-  v22 = v10 - 1;
-  if (v10 - 1 >= v21)
+  v20 = *v10;
+  v10 = (v10 + 1);
+  v19 = v20;
+  v21 = v9 - 1;
+  if (v9 - 1 >= v20)
   {
-    **v42 = v20;
-    v23 = (v42 + 1);
-    v42 += 2;
-    v24 = *v23;
-    if (v15 == 45)
+    **v36 = v19;
+    v22 = (v36 + 8);
+    v36 += 16;
+    v23 = *v22;
+    if (v14 == 45)
     {
-      *v24 = v11;
+      *v23 = v10;
     }
 
     else
     {
-      v38 = malloc_type_malloc(v20, 0x100004077774924uLL);
-      *v24 = v38;
-      if (!v38)
+      v32 = malloc_type_malloc(v19, 0x100004077774924uLL);
+      *v23 = v32;
+      if (!v32)
       {
 LABEL_48:
         result = 4294967294;
-        v10 = v22;
+        v9 = v21;
         goto LABEL_60;
       }
 
-      memcpy(v38, v11, v20);
+      memcpy(v32, v10, v19);
     }
 
     goto LABEL_42;
   }
 
-  v12 = "Not enough data for this SRP os\n";
+  v11 = "Not enough data for this SRP os\n";
 LABEL_57:
-  v10 = v22;
+  v9 = v21;
 LABEL_58:
-  SETERROR(a1, v12, a3, a4, a5, a6, a7, a8, v41);
+  SETERROR(a1, v11, a3, a4, a5, a6, a7, a8);
 LABEL_59:
   result = 4294967291;
 LABEL_60:
-  if (v10)
+  if (v9)
   {
-    v39 = "Extra data in SRP buffer\n";
+    v33 = "Extra data in SRP buffer\n";
     goto LABEL_62;
   }
 
@@ -6971,7 +6848,7 @@ uint64_t MakeBuffer(void **a1, _DWORD *a2, int64_t *a3, _BYTE *a4, uint64_t a5, 
 {
   v9 = a4;
   v13 = 0;
-  v47 = &a9;
+  v43 = &a9;
   for (i = a4; *i == 37; ++i)
   {
     v15 = *++i;
@@ -6982,25 +6859,25 @@ uint64_t MakeBuffer(void **a1, _DWORD *a2, int64_t *a3, _BYTE *a4, uint64_t a5, 
     {
       if (v16 == 7)
       {
-        ++v47;
+        ++v43;
         v13 += 8;
         continue;
       }
 
       if (v16 == 8)
       {
-        v23 = v47++;
-        v22 = strlen(*v23);
-        if (v22 >= 0x10000)
+        v21 = v43++;
+        v20 = strlen(*v21);
+        if (v20 >= 0x10000)
         {
-          v42 = *MEMORY[0x277D85DF8];
-          v43 = "String too long to create utf8 string\n";
-          v44 = 38;
+          v38 = *MEMORY[0x277D85DF8];
+          v39 = "String too long to create utf8 string\n";
+          v40 = 38;
           goto LABEL_47;
         }
 
 LABEL_21:
-        v13 += v22 + 2;
+        v13 += v20 + 2;
         continue;
       }
 
@@ -7009,7 +6886,7 @@ LABEL_21:
         goto LABEL_4;
       }
 
-      ++v47;
+      ++v43;
       v13 += 4;
     }
 
@@ -7017,29 +6894,28 @@ LABEL_21:
     {
       if (!v16)
       {
-        ++v47;
+        ++v43;
         goto LABEL_4;
       }
 
       if (v16 == 5)
       {
-        v20 = v47++;
-        v21 = *v20;
-        v22 = ccz_write_uint_size();
-        if (v22 >= 0x10000)
+        ++v43;
+        v20 = ccz_write_uint_size();
+        if (v20 >= 0x10000)
         {
-          v42 = *MEMORY[0x277D85DF8];
-          v43 = "String too long to create mpi string\n";
-          v44 = 37;
+          v38 = *MEMORY[0x277D85DF8];
+          v39 = "String too long to create mpi string\n";
+          v40 = 37;
 LABEL_47:
-          fwrite(v43, v44, 1uLL, v42);
-          v25 = 0;
+          fwrite(v39, v40, 1uLL, v38);
+          v23 = 0;
           result = 0xFFFFFFFFLL;
 LABEL_48:
-          v45 = *a1;
-          v46 = v25 - *a1;
-          *a3 = v46;
-          *v45 = bswap32(v46 - 4);
+          v41 = *a1;
+          v42 = v23 - *a1;
+          *a3 = v42;
+          *v41 = bswap32(v42 - 4);
           return result;
         }
 
@@ -7051,19 +6927,19 @@ LABEL_48:
         goto LABEL_4;
       }
 
-      v18 = v47;
-      v48 = v47 + 1;
+      v18 = v43;
+      v44 = v43 + 1;
       v19 = *v18;
       if (v19 >= 0x100)
       {
-        v42 = *MEMORY[0x277D85DF8];
-        v43 = "String too long to create os string\n";
-        v44 = 36;
+        v38 = *MEMORY[0x277D85DF8];
+        v39 = "String too long to create os string\n";
+        v40 = 36;
         goto LABEL_47;
       }
 
       v13 += v19 + 1;
-      v47 = (v48 + 1);
+      v43 = v44 + 1;
     }
 
 LABEL_5:
@@ -7086,12 +6962,12 @@ LABEL_4:
   result = conditional_realloc(a1, a2, (v13 + 4));
   if (!result)
   {
-    v25 = *a1 + 4;
-    v49 = &a9;
+    v23 = *a1 + 4;
+    v45 = &a9;
     while (1)
     {
-      v26 = *v9;
-      if (v26 != 37)
+      v24 = *v9;
+      if (v24 != 37)
       {
         if (!*v9)
         {
@@ -7102,81 +6978,80 @@ LABEL_4:
         goto LABEL_28;
       }
 
-      v28 = *++v9;
-      LOBYTE(v26) = v28;
-      HIDWORD(v30) = v28 - 99;
-      LODWORD(v30) = v28 - 99;
-      v29 = v30 >> 1;
-      if (v29 > 6)
+      v26 = *++v9;
+      LOBYTE(v24) = v26;
+      HIDWORD(v28) = v26 - 99;
+      LODWORD(v28) = v26 - 99;
+      v27 = v28 >> 1;
+      if (v27 > 6)
       {
-        if (v29 == 7)
+        if (v27 == 7)
         {
-          v36 = v49++;
-          *v25 = bswap64(*v36);
-          v27 = 8;
+          v34 = v45++;
+          *v23 = bswap64(*v34);
+          v25 = 8;
           goto LABEL_29;
         }
 
-        if (v29 == 8)
+        if (v27 == 8)
         {
-          v40 = v49++;
-          v41 = *v40;
-          v39 = strlen(*v40);
-          *v25 = bswap32(v39) >> 16;
-          memcpy(v25 + 2, v41, v39);
+          v36 = v45++;
+          v37 = *v36;
+          v35 = strlen(*v36);
+          *v23 = bswap32(v35) >> 16;
+          memcpy(v23 + 2, v37, v35);
           goto LABEL_43;
         }
 
-        if (v29 != 9)
+        if (v27 != 9)
         {
           goto LABEL_28;
         }
 
-        v34 = v49++;
-        *v25 = bswap32(*v34);
-        v27 = 4;
+        v32 = v45++;
+        *v23 = bswap32(*v32);
+        v25 = 4;
       }
 
       else
       {
-        if (!v29)
+        if (!v27)
         {
-          v35 = v49++;
-          v26 = *v35;
+          v33 = v45++;
+          v24 = *v33;
 LABEL_28:
-          *v25 = v26;
-          v27 = 1;
+          *v23 = v24;
+          v25 = 1;
           goto LABEL_29;
         }
 
-        if (v29 == 5)
+        if (v27 == 5)
         {
-          v37 = v49++;
-          v38 = *v37;
-          v39 = ccz_write_uint_size();
+          ++v45;
+          v35 = ccz_write_uint_size();
           ccz_write_uint();
-          *v25 = bswap32(v39) >> 16;
+          *v23 = bswap32(v35) >> 16;
 LABEL_43:
-          v27 = v39 + 2;
+          v25 = v35 + 2;
           goto LABEL_29;
         }
 
-        if (v29 != 6)
+        if (v27 != 6)
         {
           goto LABEL_28;
         }
 
-        v31 = v49;
-        v32 = *v49;
-        v49 += 2;
-        v33 = v31[1];
-        *v25 = v32;
-        memcpy(v25 + 1, v33, v32);
-        v27 = v32 + 1;
+        v29 = v45;
+        v30 = *v45;
+        v45 += 2;
+        v31 = v29[1];
+        *v23 = v30;
+        memcpy(v23 + 1, v31, v30);
+        v25 = v30 + 1;
       }
 
 LABEL_29:
-      v25 += v27;
+      v23 += v25;
       ++v9;
     }
   }
@@ -7472,7 +7347,7 @@ uint64_t ParseOptions(uint64_t a1, char *__s, int *a3, char a4)
             a3[2] = 0;
             v45 = "Multiple SRP Confidentiality+Integrity options given";
 LABEL_59:
-            SETERROR(a1, v45, v25, v26, v27, v28, v29, v30, v47);
+            SETERROR(a1, v45, v25, v26, v27, v28, v29, v30);
 LABEL_60:
             v17 = 0xFFFFFFFFLL;
             goto LABEL_61;
@@ -7521,7 +7396,7 @@ LABEL_61:
         *(a3 + 3) = v36;
         if (v36 > 0x7FFFFFFB)
         {
-          SETERROR(a1, "SRP Maxbuffersize %lu too big (> %u)", v37, v38, v39, v40, v41, v42, v36);
+          SETERROR(a1, "SRP Maxbuffersize %lu too big (> %u)", v37, v38, v39, v40, v41, v42, v36, 2147483643);
           goto LABEL_57;
         }
       }
@@ -7584,42 +7459,42 @@ uint64_t SetMDA(_DWORD *a1, uint64_t a2)
   return result;
 }
 
-uint64_t LayerInit(uint64_t a1, uint64_t a2)
+uint64_t LayerInit(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(a1 + 24);
+  v6 = *(a1 + 24);
   if (*(a1 + 4))
   {
     *(a2 + 360) |= 1u;
-    v5 = *(a1 + 8);
-    if (!v5)
+    v7 = *(a1 + 8);
+    if (!v7)
     {
-      v5 = 1;
+      v7 = 1;
       *(a1 + 8) = 1;
     }
   }
 
   else
   {
-    v5 = *(a1 + 8);
-    if (!v5)
+    v7 = *(a1 + 8);
+    if (!v7)
     {
       goto LABEL_10;
     }
   }
 
   *(a2 + 360) |= 2u;
-  if (v5 == 1)
+  if (v7 == 1)
   {
     if (strcasecmp("ChaCha20-Poly1305", "ChaCha20-Poly1305"))
     {
-      v6 = *MEMORY[0x277D85DF8];
-      v7 = "Unsupported SRP confidentiality+integrity layer option, not ChaCha20-Poly1305\n";
+      v8 = *MEMORY[0x277D85DF8];
+      v9 = "Unsupported SRP confidentiality+integrity layer option, not ChaCha20-Poly1305\n";
 LABEL_13:
-      v8 = 78;
+      v10 = 78;
       goto LABEL_14;
     }
 
-    LODWORD(v4) = v4 - 16;
+    LODWORD(v6) = v6 - 16;
     chacha20_poly1305_init_64x64();
     chacha20_poly1305_init_64x64();
 LABEL_10:
@@ -7629,20 +7504,20 @@ LABEL_10:
       *(a2 + 936) = 0u;
       *(a2 + 952) = 0u;
       *(a2 + 936) = 4;
-      *(a2 + 964) = v4 - 4;
+      *(a2 + 964) = v6 - 4;
       return result;
     }
 
-    v6 = *MEMORY[0x277D85DF8];
-    v7 = "Unable to find SRP KDF layer option, kdf=SALTED-SHA512-PBKDF2 option required\n";
+    v8 = *MEMORY[0x277D85DF8];
+    v9 = "Unable to find SRP KDF layer option, kdf=SALTED-SHA512-PBKDF2 option required\n";
     goto LABEL_13;
   }
 
-  v6 = *MEMORY[0x277D85DF8];
-  v7 = "Unable to find SRP confidentiality+integrity layer option\n";
-  v8 = 58;
+  v8 = *MEMORY[0x277D85DF8];
+  v9 = "Unable to find SRP confidentiality+integrity layer option\n";
+  v10 = 58;
 LABEL_14:
-  fwrite(v7, v8, 1uLL, v6);
+  fwrite(v9, v10, 1uLL, v8);
   return 0xFFFFFFFFLL;
 }
 
@@ -7688,119 +7563,86 @@ void _ldap_connection_create_cold_1()
   __break(1u);
 }
 
-void _o_ldap_connection_cancel_all_operations_cold_1(uint64_t a1)
+void _o_ldap_connection_cancel_all_operations_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 112);
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  v5 = 2048;
-  v6 = v2;
-  _os_log_debug_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "connection: %p, cancel operation count: %ld", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = 2048;
+  v3 = v0;
+  _os_log_debug_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "connection: %p, cancel operation count: %ld", v1, 0x16u);
 }
 
 void ldap_connection_query_create_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void _o_ldap_operation_cancel_internal_cold_1(uint64_t a1, uint64_t a2)
+void _o_ldap_operation_cancel_internal_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(a2 + 80);
-  OUTLINED_FUNCTION_1();
-  v6 = 1024;
-  v7 = v3;
-  _os_log_debug_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "abandon connection: %p, ldap msgid: %d", v5, 0x12u);
   v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1();
+  v2 = 1024;
+  v3 = v0;
+  _os_log_debug_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "abandon connection: %p, ldap msgid: %d", v1, 0x12u);
 }
 
-void ___o_initiate_tls_handshake_block_invoke_cold_1(uint64_t a1)
+void ___o_initiate_tls_handshake_block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void ___o_negotiate_ssl_block_invoke_cold_1()
 {
-  v2 = *MEMORY[0x277D85DE8];
+  v1 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "connection: %p, TLS: negotiated", v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_240C91000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "connection: %p, TLS: negotiated", v0, 0xCu);
 }
 
 void ___schedule_read_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _o_ldap_receive_messages_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ___o_ldap_wakeup_block_invoke_cold_1(uint64_t a1)
+void ___o_ldap_wakeup_block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 40);
-  v2 = *(*(a1 + 32) + 80);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x18u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
-void _ldap_continue_sasl_cold_1(uint64_t a1)
+void _ldap_continue_sasl_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 168);
-  if (v1)
-  {
-    v2 = *(v1 + 8);
-  }
-
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x1Cu);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
-void ___o_ldap_digestmd5_auth_block_invoke_2_cold_1(uint64_t a1)
+void ___o_ldap_digestmd5_auth_block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void ___o_ldap_digestmd5_auth_block_invoke_2_cold_2(uint64_t *a1, unsigned __int8 *a2)
+void ___o_ldap_digestmd5_auth_block_invoke_2_cold_2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = *a1;
-  v3 = *a2;
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }

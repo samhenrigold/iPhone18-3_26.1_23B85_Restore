@@ -28,15 +28,14 @@
 
 + (id)internalErrorWithMessage:(id)message
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = [POError alloc];
-  v9 = *MEMORY[0x277CCA450];
-  v10[0] = messageCopy;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = *MEMORY[0x277CCA450];
+  v9[0] = messageCopy;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   v6 = [(POError *)v4 initWithDomain:@"com.apple.PlatformSSO" code:-1000 userInfo:v5];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

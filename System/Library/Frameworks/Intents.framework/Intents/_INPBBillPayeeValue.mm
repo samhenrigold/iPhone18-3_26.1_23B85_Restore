@@ -212,7 +212,6 @@ LABEL_23:
 
   if (accountNumber)
   {
-    accountNumber = self->_accountNumber;
     PBDataWriterWriteStringField();
   }
 
@@ -234,13 +233,13 @@ LABEL_23:
 
   valueMetadata = [(_INPBBillPayeeValue *)self valueMetadata];
 
-  v11 = toCopy;
+  v10 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBBillPayeeValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v11 = toCopy;
+    v10 = toCopy;
   }
 }
 

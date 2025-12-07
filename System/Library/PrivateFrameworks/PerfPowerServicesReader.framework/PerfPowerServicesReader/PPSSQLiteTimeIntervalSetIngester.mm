@@ -92,27 +92,25 @@ LABEL_11:
 
 - (void)setResponse:(id)response forKey:(id)key timeWindow:(id)window
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   responseCopy = response;
   keyCopy = key;
   windowCopy = window;
-  v15[0] = responseCopy;
+  v14[0] = responseCopy;
   null = windowCopy;
   if (!windowCopy)
   {
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v15[1] = null;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[1] = null;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   if (!windowCopy)
   {
   }
 
   responseCache = [(PPSSQLiteTimeIntervalSetIngester *)self responseCache];
   [responseCache setObject:v12 forKey:keyCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)parseDataForRequest:(id)request outError:(id *)error
@@ -137,7 +135,7 @@ LABEL_11:
 
 - (id)_computeIntervalSetMapForRequest:(id)request outError:(id *)error
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   subsystem = [requestCopy subsystem];
   category = [requestCopy category];
@@ -150,18 +148,18 @@ LABEL_11:
   filepath = [(PPSSQLiteTimeIntervalSetIngester *)self filepath];
   v14 = [PPSOffDeviceIngesterUtilities dataSourceForFilepath:filepath subsystem:subsystem category:category];
 
-  v77 = v14;
-  v73 = valueFilter;
+  v76 = v14;
+  v72 = valueFilter;
   v15 = [objc_opt_class() _stringForSourceName:v14 metrics:v10 predicate:valueFilter];
-  v81 = timeFilter;
+  v80 = timeFilter;
   if ([(PPSSQLiteTimeIntervalSetIngester *)self shouldUseCache])
   {
-    v80 = [(PPSSQLiteTimeIntervalSetIngester *)self responseForKey:v15 withinTimeWindow:timeFilter];
+    v79 = [(PPSSQLiteTimeIntervalSetIngester *)self responseForKey:v15 withinTimeWindow:timeFilter];
   }
 
   else
   {
-    v80 = 0;
+    v79 = 0;
   }
 
   firstObject = [v10 firstObject];
@@ -178,24 +176,24 @@ LABEL_11:
   v18 = firstObject2;
 
   filepath2 = [(PPSSQLiteTimeIntervalSetIngester *)self filepath];
-  v76 = subsystem;
-  v78 = [PPSOffDeviceIngesterUtilities metricDefinitionForFilepath:filepath2 subsystem:subsystem category:category metricName:v18];
+  v75 = subsystem;
+  v77 = [PPSOffDeviceIngesterUtilities metricDefinitionForFilepath:filepath2 subsystem:subsystem category:category metricName:v18];
 
   context = objc_autoreleasePoolPush();
   filepath3 = [(PPSSQLiteTimeIntervalSetIngester *)self filepath];
   v21 = [PPSDataIngesterRegistry dataIngesterForFilepath:filepath3 requestType:0];
 
-  v74 = v10;
-  v75 = category;
-  v72 = v15;
-  v79 = v18;
-  if (v81)
+  v73 = v10;
+  v74 = category;
+  v71 = v15;
+  v78 = v18;
+  if (v80)
   {
-    startDate = [v81 startDate];
+    startDate = [v80 startDate];
     [startDate timeIntervalSince1970];
     v24 = v23 + -10800.0;
 
-    endDate = [v81 endDate];
+    endDate = [v80 endDate];
     [endDate timeIntervalSince1970];
     v27 = v26 + 10800.0;
 
@@ -215,30 +213,30 @@ LABEL_11:
   v34 = [v31 setWithArray:allObjects2];
   v35 = [v34 mutableCopy];
 
-  v86 = 0u;
-  v87 = 0u;
-  v84 = 0u;
   v85 = 0u;
+  v86 = 0u;
+  v83 = 0u;
+  v84 = 0u;
   dimensions = [requestCopy dimensions];
-  v37 = [dimensions countByEnumeratingWithState:&v84 objects:v90 count:16];
+  v37 = [dimensions countByEnumeratingWithState:&v83 objects:v89 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v85;
+    v39 = *v84;
     do
     {
       for (i = 0; i != v38; ++i)
       {
-        if (*v85 != v39)
+        if (*v84 != v39)
         {
           objc_enumerationMutation(dimensions);
         }
 
-        groupBy = [*(*(&v84 + 1) + 8 * i) groupBy];
+        groupBy = [*(*(&v83 + 1) + 8 * i) groupBy];
         [v35 addObject:groupBy];
       }
 
-      v38 = [dimensions countByEnumeratingWithState:&v84 objects:v90 count:16];
+      v38 = [dimensions countByEnumeratingWithState:&v83 objects:v89 count:16];
     }
 
     while (v38);
@@ -246,7 +244,7 @@ LABEL_11:
 
   v42 = [PPSTimeSeriesRequest alloc];
   predicate = [requestCopy predicate];
-  v68 = v30;
+  v67 = v30;
   v44 = [(PPSTimeSeriesRequest *)v42 initWithMetrics:v35 predicate:predicate timeFilter:v30];
 
   shouldUseCache = [v21 shouldUseCache];
@@ -266,46 +264,46 @@ LABEL_11:
 
     if (v49)
     {
-      v67 = [[PPSTimeIntervalSetGenerator alloc] initWithFilepath:self->_filepath settings:0 directionality:[PPSDataIngesterCommonUtilities directionalityForMetricDefinition:v78]];
-      v82[0] = MEMORY[0x277D85DD0];
-      v82[1] = 3221225472;
-      v82[2] = __78__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetMapForRequest_outError___block_invoke;
-      v82[3] = &unk_279A11798;
-      v50 = v79;
-      v83 = v50;
-      v70 = MEMORY[0x25F8B0940](v82);
-      if ([v78 auxiliaryType] == 2)
+      v66 = [[PPSTimeIntervalSetGenerator alloc] initWithFilepath:self->_filepath settings:0 directionality:[PPSDataIngesterCommonUtilities directionalityForMetricDefinition:v77]];
+      v81[0] = MEMORY[0x277D85DD0];
+      v81[1] = 3221225472;
+      v81[2] = __78__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetMapForRequest_outError___block_invoke;
+      v81[3] = &unk_279A11798;
+      v50 = v78;
+      v82 = v50;
+      v69 = MEMORY[0x25F8B0940](v81);
+      if ([v77 auxiliaryType] == 2)
       {
-        v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_Dynamic.%@", v77, v50];
+        v51 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@_Dynamic.%@", v76, v50];
 
-        v79 = v51;
+        v78 = v51;
       }
 
       else
       {
-        v79 = v50;
+        v78 = v50;
       }
 
       dimensions3 = [requestCopy dimensions];
-      v54 = v67;
-      v56 = [(PPSTimeIntervalSetGenerator *)v67 intervalSetMapForTimeSeries:v46 withGroupingDimensions:dimensions3 withIntervalStartCheckBlock:0 intervalEndCheckBlock:0 payloadBlock:v70 coalescePolicy:0];
+      v54 = v66;
+      v56 = [(PPSTimeIntervalSetGenerator *)v66 intervalSetMapForTimeSeries:v46 withGroupingDimensions:dimensions3 withIntervalStartCheckBlock:0 intervalEndCheckBlock:0 payloadBlock:v69 coalescePolicy:0];
 
-      if (v81)
+      if (v80)
       {
         v57 = [(PPSSQLiteTimeIntervalSetIngester *)self filterIntervalSetMap:v56 withTimeFilter:?];
 
         v56 = v57;
       }
 
-      v80 = v56;
+      v79 = v56;
     }
 
     else
     {
       v52 = MEMORY[0x277CCA9B8];
-      v88 = *MEMORY[0x277CCA470];
-      v89 = @"No grouping dimensions provided for interval set map request.";
-      v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+      v87 = *MEMORY[0x277CCA470];
+      v88 = @"No grouping dimensions provided for interval set map request.";
+      v53 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
       *error = [v52 errorWithDomain:@"com.apple.PerfPowerServicesReader" code:0 userInfo:v53];
       v54 = v53;
     }
@@ -314,39 +312,37 @@ LABEL_11:
   objc_autoreleasePoolPop(context);
   if (v47)
   {
-    v59 = v75;
-    v58 = v76;
-    v61 = v72;
-    v60 = v73;
-    v62 = v80;
-    if (v80 && [(PPSSQLiteTimeIntervalSetIngester *)self shouldUseCache])
+    v59 = v74;
+    v58 = v75;
+    v61 = v71;
+    v60 = v72;
+    v62 = v79;
+    if (v79 && [(PPSSQLiteTimeIntervalSetIngester *)self shouldUseCache])
     {
-      [(PPSSQLiteTimeIntervalSetIngester *)self setResponse:v80 forKey:v72 timeWindow:v81];
+      [(PPSSQLiteTimeIntervalSetIngester *)self setResponse:v79 forKey:v71 timeWindow:v80];
     }
 
-    v63 = [v80 copy];
-    v64 = v74;
+    v63 = [v79 copy];
+    v64 = v73;
   }
 
   else
   {
     v63 = 0;
-    v59 = v75;
-    v58 = v76;
-    v60 = v73;
-    v64 = v74;
-    v61 = v72;
-    v62 = v80;
+    v59 = v74;
+    v58 = v75;
+    v60 = v72;
+    v64 = v73;
+    v61 = v71;
+    v62 = v79;
   }
-
-  v65 = *MEMORY[0x277D85DE8];
 
   return v63;
 }
 
 id __78__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetMapForRequest_outError___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [a4 valueForKey:@"__directionality"];
@@ -366,17 +362,15 @@ id __78__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetMapForRequest_outEr
   v13 = v12;
   if (v12)
   {
-    v17 = *(a1 + 32);
-    v18[0] = v12;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *(a1 + 32);
+    v17[0] = v12;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   }
 
   else
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -546,7 +540,7 @@ id __78__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetMapForRequest_outEr
 
 id __75__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetForRequest_outError___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = [a4 valueForKey:@"__directionality"];
@@ -566,9 +560,9 @@ id __75__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetForRequest_outError
   v13 = v12;
   if (v12)
   {
-    v17 = *(*(*(a1 + 32) + 8) + 40);
-    v18[0] = v12;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v16 = *(*(*(a1 + 32) + 8) + 40);
+    v17[0] = v12;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   }
 
   else
@@ -576,14 +570,12 @@ id __75__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetForRequest_outError
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (id)_filterIntervalSet:(id)set withTimeInterval:(id)interval
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   setCopy = set;
   intervalCopy = interval;
   if (intervalCopy)
@@ -601,27 +593,27 @@ id __75__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetForRequest_outError
       if (objc_opt_isKindOfClass())
       {
         v7 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(setCopy, "count")}];
+        v21 = 0u;
         v22 = 0u;
         v23 = 0u;
         v24 = 0u;
-        v25 = 0u;
-        v20 = setCopy;
+        v19 = setCopy;
         v8 = setCopy;
-        v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v23;
+          v11 = *v22;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v23 != v11)
+              if (*v22 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v22 + 1) + 8 * i);
+              v13 = *(*(&v21 + 1) + 8 * i);
               v14 = objc_autoreleasePoolPush();
               v15 = objc_opt_class();
               v16 = [v8 objectForKeyedSubscript:v13];
@@ -631,13 +623,13 @@ id __75__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetForRequest_outError
               objc_autoreleasePoolPop(v14);
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
           }
 
           while (v10);
         }
 
-        setCopy = v20;
+        setCopy = v19;
       }
 
       else
@@ -652,40 +644,38 @@ id __75__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetForRequest_outError
     v7 = setCopy;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 + (id)_stringForSourceName:(id)name metrics:(id)metrics predicate:(id)predicate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   metricsCopy = metrics;
   predicateCopy = predicate;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v10 = [metricsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v10 = [metricsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(metricsCopy);
         }
 
-        v12 ^= (v12 << 6) + 2654435769u + (v12 >> 2) + [*(*(&v19 + 1) + 8 * i) hash];
+        v12 ^= (v12 << 6) + 2654435769u + (v12 >> 2) + [*(*(&v18 + 1) + 8 * i) hash];
       }
 
-      v11 = [metricsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v11 = [metricsCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
@@ -698,8 +688,6 @@ id __75__PPSSQLiteTimeIntervalSetIngester__computeIntervalSetForRequest_outError
 
   v15 = [predicateCopy hash];
   v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@::%lu", nameCopy, ((v12 << 6) + 2654435769u + (v12 >> 2) + v15) ^ v12];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

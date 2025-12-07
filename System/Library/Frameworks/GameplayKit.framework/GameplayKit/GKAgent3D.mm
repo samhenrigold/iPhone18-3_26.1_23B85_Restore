@@ -5,6 +5,7 @@
 - (vector_float3)position;
 - (vector_float3)velocity;
 - (void)applyBrakingForce:(float)force deltaTime:(double)time;
+- (void)applySteeringForce:(double)force deltaTime:;
 - (void)encodeWithCoder:(id)coder;
 - (void)setPosition:(vector_float3)position;
 - (void)setRightHanded:(BOOL)rightHanded;
@@ -275,6 +276,17 @@
       [delegate6 agentDidUpdate:self];
     }
   }
+}
+
+- (void)applySteeringForce:(double)force deltaTime:
+{
+  v4 = v3;
+  v7 = *&force;
+  vehicle = [(GKAgent *)self vehicle];
+  v6 = v7;
+  v8 = *v7.n128_u64;
+  v6.n128_f32[0] = v4;
+  OpenSteer::SimpleVehicle::applySteeringForce(vehicle, &v8, v6);
 }
 
 - (void)applyBrakingForce:(float)force deltaTime:(double)time

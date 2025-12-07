@@ -18,6 +18,7 @@
 - (void)stopAllSharing;
 - (void)stopSelectedSharing;
 - (void)stopSharingSources:(id)sources alertLabel:(id)label alertDetail:(id)detail completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -105,6 +106,19 @@
   [(DSBlockingPermissionsDetailController *)self _setUpLinkButton];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = DSBlockingPermissionsDetailController;
+  [(OBBaseWelcomeController *)&v5 viewDidAppear:appear];
+  cachedFetchError = [(DSBlockingPermissionsDetailController *)self cachedFetchError];
+  if (cachedFetchError)
+  {
+    [(DSBlockingPermissionsDetailController *)self _presentAlertForError:cachedFetchError];
+    [(DSBlockingPermissionsDetailController *)self setCachedFetchError:0];
+  }
+}
+
 - (void)presentFetchError:(id)error
 {
   errorCopy = error;
@@ -184,57 +198,55 @@
 
 id __54__DSBlockingPermissionsDetailController_postAnalytics__block_invoke(uint64_t a1)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = @"entrypoint";
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = @"entrypoint";
   v2 = [MEMORY[0x277CCAC38] processInfo];
   v3 = [v2 processName];
-  v14[0] = v3;
-  v14[1] = MEMORY[0x277CBEC38];
-  v13[1] = @"presentedViewController";
-  v13[2] = @"numSourcesStoppedSharing";
+  v13[0] = v3;
+  v13[1] = MEMORY[0x277CBEC38];
+  v12[1] = @"presentedViewController";
+  v12[2] = @"numSourcesStoppedSharing";
   v4 = MEMORY[0x277CCABB0];
   v5 = [*(a1 + 32) unsharedSources];
   v6 = [v4 numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
-  v14[2] = v6;
-  v13[3] = @"fetchErrorCode";
+  v13[2] = v6;
+  v12[3] = @"fetchErrorCode";
   v7 = MEMORY[0x277CCABB0];
   v8 = [*(a1 + 32) cachedFetchError];
   v9 = [v7 numberWithInteger:{objc_msgSend(v8, "code")}];
-  v14[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }
 
 - (void)stopSelectedSharing
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   tableView = [(OBTableWelcomeController *)self tableView];
   indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
 
   array = [MEMORY[0x277CBEB18] array];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = indexPathsForSelectedRows;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = [(DSBlockingPermissionsDetailController *)self sourceNameForIndexPath:*(*(&v17 + 1) + 8 * v9)];
+        v10 = [(DSBlockingPermissionsDetailController *)self sourceNameForIndexPath:*(*(&v16 + 1) + 8 * v9)];
         if (v10)
         {
           [array addObject:v10];
@@ -244,7 +256,7 @@ id __54__DSBlockingPermissionsDetailController_postAnalytics__block_invoke(uint6
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -253,45 +265,43 @@ id __54__DSBlockingPermissionsDetailController_postAnalytics__block_invoke(uint6
   v11 = [(DSBlockingPermissionsDetailController *)self alertTextForSources:array];
   v12 = DSUILocStringForKey(@"STOP_SHARING_MULTIPLE_BY_PERSON_ALERT_LABEL");
   objc_initWeak(&location, self);
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __60__DSBlockingPermissionsDetailController_stopSelectedSharing__block_invoke;
-  v14[3] = &unk_278F75230;
-  objc_copyWeak(&v15, &location);
-  [(DSBlockingPermissionsDetailController *)self stopSharingSources:array alertLabel:v12 alertDetail:v11 completion:v14];
-  objc_destroyWeak(&v15);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __60__DSBlockingPermissionsDetailController_stopSelectedSharing__block_invoke;
+  v13[3] = &unk_278F75230;
+  objc_copyWeak(&v14, &location);
+  [(DSBlockingPermissionsDetailController *)self stopSharingSources:array alertLabel:v12 alertDetail:v11 completion:v13];
+  objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __60__DSBlockingPermissionsDetailController_stopSelectedSharing__block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = [WeakRetained tableView];
   v3 = [v2 indexPathsForSelectedRows];
 
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         v9 = [WeakRetained tableView];
         [v9 deselectRowAtIndexPath:v8 animated:0];
 
@@ -299,7 +309,7 @@ void __60__DSBlockingPermissionsDetailController_stopSelectedSharing__block_invo
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -313,16 +323,14 @@ void __60__DSBlockingPermissionsDetailController_stopSelectedSharing__block_invo
   {
     [WeakRetained next];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAllSharing
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   sortedSourceNames = [(DSBlockingPermissionsDetailController *)self sortedSourceNames];
-  v29 = [sortedSourceNames copy];
+  v28 = [sortedSourceNames copy];
 
   person = [(DSBlockingPermissionsDetailController *)self person];
   displayName = [person displayName];
@@ -342,48 +350,47 @@ void __60__DSBlockingPermissionsDetailController_stopSelectedSharing__block_invo
     termsOfAddress2 = MEMORY[0x277CBEBF8];
   }
 
-  v28 = DSUILocStringForKey(@"STOP_ALL_SHARING_BY_PEOPLE_ALERT_LABEL");
+  v27 = DSUILocStringForKey(@"STOP_ALL_SHARING_BY_PEOPLE_ALERT_LABEL");
   v12 = objc_alloc(MEMORY[0x277CCA898]);
   v13 = DSUILocAttributedStringForKey(@"STOP_ALL_SHARING_BY_PEOPLE_ALERT_DETAIL");
   v14 = *MEMORY[0x277CCA290];
-  v37 = termsOfAddress2;
-  v38 = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
-  v39[0] = v15;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+  v36 = termsOfAddress2;
+  v37 = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+  v38[0] = v15;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
   v17 = [v12 initWithFormat:v13 options:0 locale:0 context:v16, displayName, displayName, displayName];
 
   string = [v17 string];
-  if ([v29 containsObject:*MEMORY[0x277D05450]])
+  if ([v28 containsObject:*MEMORY[0x277D05450]])
   {
     v19 = objc_alloc(MEMORY[0x277CCA898]);
     v20 = DSUILocAttributedStringForKey(@"FIND_MY_NOTIFICATION_WARNING_SPECIFIC");
-    v34 = termsOfAddress2;
-    v35 = v14;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
-    v36 = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v33 = termsOfAddress2;
+    v34 = v14;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+    v35 = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
     v23 = [v19 initWithFormat:v20 options:0 locale:0 context:v22, displayName];
 
-    v33[0] = string;
+    v32[0] = string;
     string2 = [v23 string];
-    v33[1] = string2;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+    v32[1] = string2;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
     v26 = [v25 componentsJoinedByString:@" "];
 
     string = v26;
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __55__DSBlockingPermissionsDetailController_stopAllSharing__block_invoke;
-  v30[3] = &unk_278F75230;
-  objc_copyWeak(&v31, &location);
-  [(DSBlockingPermissionsDetailController *)self stopSharingSources:v29 alertLabel:v28 alertDetail:string completion:v30];
-  objc_destroyWeak(&v31);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __55__DSBlockingPermissionsDetailController_stopAllSharing__block_invoke;
+  v29[3] = &unk_278F75230;
+  objc_copyWeak(&v30, &location);
+  [(DSBlockingPermissionsDetailController *)self stopSharingSources:v28 alertLabel:v27 alertDetail:string completion:v29];
+  objc_destroyWeak(&v30);
 
   objc_destroyWeak(&location);
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __55__DSBlockingPermissionsDetailController_stopAllSharing__block_invoke(uint64_t a1)
@@ -525,7 +532,7 @@ uint64_t __94__DSBlockingPermissionsDetailController_stopSharingSources_alertLab
 
 - (void)sharingStoppedForSourceNames:(id)names error:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   namesCopy = names;
   errorCopy = error;
   if (errorCopy)
@@ -533,15 +540,15 @@ uint64_t __94__DSBlockingPermissionsDetailController_stopSharingSources_alertLab
     v8 = DSLog_17;
     if (os_log_type_enabled(DSLog_17, OS_LOG_TYPE_ERROR))
     {
-      v13 = v8;
+      v12 = v8;
       person = [(DSBlockingPermissionsDetailController *)self person];
-      v15 = 138543874;
-      v16 = person;
-      v17 = 2114;
-      v18 = namesCopy;
-      v19 = 2114;
-      v20 = errorCopy;
-      _os_log_error_impl(&dword_248C7E000, v13, OS_LOG_TYPE_ERROR, "Failed to stop sharing %{public}@ from %{public}@ because %{public}@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = person;
+      v16 = 2114;
+      v17 = namesCopy;
+      v18 = 2114;
+      v19 = errorCopy;
+      _os_log_error_impl(&dword_248C7E000, v12, OS_LOG_TYPE_ERROR, "Failed to stop sharing %{public}@ from %{public}@ because %{public}@", &v14, 0x20u);
     }
 
     permissionsDelegate = [MEMORY[0x277D75110] ds_alertControllerWithStopSharingError:errorCopy];
@@ -566,8 +573,6 @@ uint64_t __94__DSBlockingPermissionsDetailController_stopSharingSources_alertLab
       [person3 addObjectsFromArray:namesCopy];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateButtons
@@ -680,24 +685,23 @@ uint64_t __94__DSBlockingPermissionsDetailController_stopSharingSources_alertLab
 
 - (void)_stopFindMyPushNextPane
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
-  v12[0] = *MEMORY[0x277D05450];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = *MEMORY[0x277D05450];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   permissions = [(DSBlockingPermissionsDetailController *)self permissions];
   person = [(DSBlockingPermissionsDetailController *)self person];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __64__DSBlockingPermissionsDetailController__stopFindMyPushNextPane__block_invoke;
-  v8[3] = &unk_278F75FA0;
-  objc_copyWeak(&v10, &location);
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __64__DSBlockingPermissionsDetailController__stopFindMyPushNextPane__block_invoke;
+  v7[3] = &unk_278F75FA0;
+  objc_copyWeak(&v9, &location);
   v6 = v3;
-  v9 = v6;
-  [permissions stopSharingSources:v6 withPerson:person completion:v8];
+  v8 = v6;
+  [permissions stopSharingSources:v6 withPerson:person completion:v7];
 
-  objc_destroyWeak(&v10);
+  objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __64__DSBlockingPermissionsDetailController__stopFindMyPushNextPane__block_invoke(uint64_t a1, void *a2)
@@ -892,11 +896,10 @@ void __64__DSBlockingPermissionsDetailController__stopFindMyPushNextPane__block_
 
 void __64__DSBlockingPermissionsDetailController__stopFindMyPushNextPane__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "stopFindMyPushNextPane: error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "stopFindMyPushNextPane: error %@", &v2, 0xCu);
 }
 
 @end

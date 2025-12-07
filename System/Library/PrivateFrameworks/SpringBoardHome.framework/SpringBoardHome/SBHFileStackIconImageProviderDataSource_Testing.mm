@@ -69,21 +69,20 @@
 - (id)fileStackIconImageProvider:(id)provider iconImageWithInfo:(SBIconImageInfo *)info traitCollection:(id)collection options:(unint64_t)options forFileStackIcon:(id)icon
 {
   imageNames = self->_imageNames;
-  indexImage = self->_indexImage;
   infoCopy = info;
-  v11 = [(NSArray *)imageNames objectAtIndex:indexImage];
-  v12 = [(NSArray *)self->_imageColors objectAtIndex:self->_indexColor];
-  v13 = self->_indexImage + 1;
-  self->_indexImage = v13 % [(NSArray *)self->_imageNames count];
-  v14 = self->_indexColor + 1;
-  self->_indexColor = v14 % [(NSArray *)self->_imageColors count];
-  v15 = [MEMORY[0x1E69DCAB8] systemImageNamed:v11 compatibleWithTraitCollection:infoCopy];
+  v10 = objc_msgSend_objectAtIndex_(imageNames);
+  v11 = objc_msgSend_objectAtIndex_(self->_imageColors);
+  v12 = self->_indexImage + 1;
+  self->_indexImage = v12 % [(NSArray *)self->_imageNames count];
+  v13 = self->_indexColor + 1;
+  self->_indexColor = v13 % [(NSArray *)self->_imageColors count];
+  v14 = [MEMORY[0x1E69DCAB8] systemImageNamed:v10 compatibleWithTraitCollection:infoCopy];
 
-  v16 = [v15 imageWithRenderingMode:1];
+  v15 = [v14 imageWithRenderingMode:1];
 
-  v17 = [v16 imageWithTintColor:v12];
+  v16 = [v15 imageWithTintColor:v11];
 
-  return v17;
+  return v16;
 }
 
 - (void)startSimulatePeriodicImageUpdate

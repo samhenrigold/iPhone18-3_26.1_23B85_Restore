@@ -42,68 +42,64 @@ void __33__HREAutoArriveHomeTemplate_init__block_invoke_2()
 
 - (id)_lazy_actionMap
 {
-  v31[5] = *MEMORY[0x277D85DE8];
-  v30[0] = *MEMORY[0x277CD0EA0];
+  v30[5] = *MEMORY[0x277D85DE8];
+  v29[0] = *MEMORY[0x277CD0EA0];
   v2 = *MEMORY[0x277CCF788];
-  v28[0] = *MEMORY[0x277CCF9F0];
-  v28[1] = v2;
-  v29[0] = MEMORY[0x277CBEC38];
-  v29[1] = &unk_28665D958;
+  v27[0] = *MEMORY[0x277CCF9F0];
+  v27[1] = v2;
+  v28[0] = MEMORY[0x277CBEC38];
+  v28[1] = &unk_28665D958;
   v3 = *MEMORY[0x277CCFA30];
-  v28[2] = *MEMORY[0x277CCF8D8];
-  v28[3] = v3;
-  v29[2] = &unk_28665D970;
-  v29[3] = &unk_28665D970;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
-  v19 = [HRECharacteristicActionMap characteristicActionMap:v20];
-  v31[0] = v19;
-  v30[1] = *MEMORY[0x277CD0E30];
-  v26 = *MEMORY[0x277CCFB50];
-  v27 = &unk_28665D988;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
-  v17 = [HRECharacteristicActionMap characteristicActionMap:v18];
-  v31[1] = v17;
-  v30[2] = *MEMORY[0x277CD0E58];
-  v24 = *MEMORY[0x277CCFB08];
-  v25 = &unk_28665D9A0;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v27[2] = *MEMORY[0x277CCF8D8];
+  v27[3] = v3;
+  v28[2] = &unk_28665D970;
+  v28[3] = &unk_28665D970;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
+  v18 = [HRECharacteristicActionMap characteristicActionMap:v19];
+  v30[0] = v18;
+  v29[1] = *MEMORY[0x277CD0E30];
+  v25 = *MEMORY[0x277CCFB50];
+  v26 = &unk_28665D988;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  v16 = [HRECharacteristicActionMap characteristicActionMap:v17];
+  v30[1] = v16;
+  v29[2] = *MEMORY[0x277CD0E58];
+  v23 = *MEMORY[0x277CCFB08];
+  v24 = &unk_28665D9A0;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
   v5 = [HRECharacteristicActionMap characteristicActionMap:v4];
-  v31[2] = v5;
-  v30[3] = *MEMORY[0x277CD0ED8];
-  v22 = *MEMORY[0x277CCFB60];
-  v23 = &unk_28665D9B8;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+  v30[2] = v5;
+  v29[3] = *MEMORY[0x277CD0ED8];
+  v21 = *MEMORY[0x277CCFB60];
+  v22 = &unk_28665D9B8;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
   v7 = [HRECharacteristicActionMap characteristicActionMap:v6];
-  v31[3] = v7;
+  v30[3] = v7;
   v8 = HREMatterRVCType();
-  v30[4] = v8;
+  v29[4] = v8;
   v9 = [HREMatterCommandActionMap alloc];
   v10 = +[HREMatterCommandMap pauseCleaning];
-  v21[0] = v10;
+  v20[0] = v10;
   v11 = +[HREMatterCommandMap goHome];
-  v21[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
   v13 = [(HREMatterCommandActionMap *)v9 initWithCommands:v12];
-  v31[4] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:5];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v30[4] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:5];
 
   return v14;
 }
 
 - (id)_lazy_allowedVariance
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   v2 = [HREActionRangeVarianceRule rangeVarianceWithType:*MEMORY[0x277CCF788] min:1];
   v3 = [HRECharacteristicActionVarianceRule anyVarianceRuleForCharacteristicType:*MEMORY[0x277CCF8D8], v2];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [HRECharacteristicActionVarianceRule anyVarianceRuleForCharacteristicType:*MEMORY[0x277CCFA30]];
-  v9[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
+  v8[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
   v6 = [HREActionVarianceCollection varianceRuleCollectionWithRules:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

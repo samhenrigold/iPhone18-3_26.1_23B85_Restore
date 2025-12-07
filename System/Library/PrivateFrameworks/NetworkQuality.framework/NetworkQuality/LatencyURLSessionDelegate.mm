@@ -80,11 +80,11 @@
   if (errorCopy)
   {
     objc_storeStrong(&self->_error, error);
-    netqual_log_init();
-    v8 = os_log_netqual;
+    netqual_log_init(v8, v9);
+    v10 = os_log_netqual;
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
     {
-      [(LatencyURLSessionDelegate *)errorCopy URLSession:v8 didBecomeInvalidWithError:?];
+      [(LatencyURLSessionDelegate *)errorCopy URLSession:v10 didBecomeInvalidWithError:?];
     }
   }
 
@@ -137,38 +137,35 @@
 
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   taskCopy = task;
   requestCopy = request;
   handlerCopy = handler;
-  netqual_log_init();
-  v13 = os_log_netqual;
+  netqual_log_init(handlerCopy, v13);
+  v14 = os_log_netqual;
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
   {
-    [LatencyURLSessionDelegate URLSession:v13 task:requestCopy willPerformHTTPRedirection:taskCopy newRequest:? completionHandler:?];
+    [LatencyURLSessionDelegate URLSession:v14 task:requestCopy willPerformHTTPRedirection:taskCopy newRequest:? completionHandler:?];
   }
 
-  v14 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v20 = *MEMORY[0x277CCA450];
-  v21[0] = @"Unexpected redirect on latency measuring connection";
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
-  v16 = [v14 initWithDomain:@"NetworkQualityErrorDomain" code:1003 userInfo:v15];
+  v15 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v19 = *MEMORY[0x277CCA450];
+  v20[0] = @"Unexpected redirect on latency measuring connection";
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v17 = [v15 initWithDomain:@"NetworkQualityErrorDomain" code:1003 userInfo:v16];
   error = self->_error;
-  self->_error = v16;
+  self->_error = v17;
 
   handlerCopy[2](handlerCopy, 0);
   if (!self->_canceled)
   {
-    v18 = self->_error;
     (*(self->_completionHandler + 2))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (int)didFinishCollectingMetrics:(id)metrics task:(id)task
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v77[1] = *MEMORY[0x277D85DE8];
   metricsCopy = metrics;
   taskCopy = task;
   mutableURLSessionMetrics = [(NetworkQualityExecutionsResult *)self->_results mutableURLSessionMetrics];
@@ -200,21 +197,22 @@
   }
 
   [v9 addObject:metricsCopy];
-  if ([metricsCopy redirectCount])
+  redirectCount = [metricsCopy redirectCount];
+  if (redirectCount)
   {
-    netqual_log_init();
+    netqual_log_init(redirectCount, v16);
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
     {
       [LatencyURLSessionDelegate didFinishCollectingMetrics:task:];
     }
 
-    v15 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v73 = *MEMORY[0x277CCA450];
-    v74[0] = @"Unexpected redirect when collecting metrics";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:&v73 count:1];
-    v17 = [v15 initWithDomain:@"NetworkQualityErrorDomain" code:1002 userInfo:v16];
+    v17 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v76 = *MEMORY[0x277CCA450];
+    v77[0] = @"Unexpected redirect when collecting metrics";
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:&v76 count:1];
+    v19 = [v17 initWithDomain:@"NetworkQualityErrorDomain" code:1002 userInfo:v18];
     error = self->_error;
-    self->_error = v17;
+    self->_error = v19;
 
     if (self->_canceled)
     {
@@ -225,39 +223,39 @@
   }
 
   transactionMetrics2 = [metricsCopy transactionMetrics];
-  v21 = [transactionMetrics2 count];
+  v22 = [transactionMetrics2 count];
 
-  if (v21)
+  if (v22)
   {
     if (self->_canceled)
     {
       goto LABEL_14;
     }
 
-    v54 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
+    v56 = 0u;
     transactionMetrics3 = [metricsCopy transactionMetrics];
-    v35 = [transactionMetrics3 countByEnumeratingWithState:&v52 objects:v70 count:16];
-    if (v35)
+    v36 = [transactionMetrics3 countByEnumeratingWithState:&v55 objects:v73 count:16];
+    if (v36)
     {
-      v36 = v35;
-      v51 = taskCopy;
-      v22 = 0;
-      v37 = *v53;
+      v37 = v36;
+      v54 = taskCopy;
+      v25 = 0;
+      v38 = *v56;
       while (2)
       {
-        v38 = 0;
-        v50 = v22 + v36;
+        v39 = 0;
+        v53 = v25 + v37;
         do
         {
-          if (*v53 != v37)
+          if (*v56 != v38)
           {
             objc_enumerationMutation(transactionMetrics3);
           }
 
-          response = [*(*(&v52 + 1) + 8 * v38) response];
+          response = [*(*(&v55 + 1) + 8 * v39) response];
           statusCode = [response statusCode];
 
           if (statusCode == 200)
@@ -266,14 +264,14 @@
             goto LABEL_31;
           }
 
-          ++v22;
-          ++v38;
+          ++v25;
+          ++v39;
         }
 
-        while (v36 != v38);
-        v36 = [transactionMetrics3 countByEnumeratingWithState:&v52 objects:v70 count:16];
-        v22 = v50;
-        if (v36)
+        while (v37 != v39);
+        v37 = [transactionMetrics3 countByEnumeratingWithState:&v55 objects:v73 count:16];
+        v25 = v53;
+        if (v37)
         {
           continue;
         }
@@ -281,7 +279,7 @@
         break;
       }
 
-      taskCopy = v51;
+      taskCopy = v54;
     }
 
     else
@@ -289,83 +287,80 @@
       statusCode = 0;
     }
 
-    netqual_log_init();
-    v41 = os_log_netqual;
+    netqual_log_init(v42, v43);
+    v44 = os_log_netqual;
     if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
     {
-      v47 = v41;
+      v50 = v44;
       transactionMetrics4 = [metricsCopy transactionMetrics];
       firstObject2 = [transactionMetrics4 firstObject];
       *buf = 136316418;
-      v59 = "[LatencyURLSessionDelegate didFinishCollectingMetrics:task:]";
-      v60 = 1024;
-      v61 = 250;
-      v62 = 2048;
-      v63 = statusCode;
-      v64 = 2112;
-      v65 = taskCopy;
-      v66 = 2112;
-      v67 = metricsCopy;
-      v68 = 2112;
-      v69 = firstObject2;
-      _os_log_error_impl(&dword_25B962000, v47, OS_LOG_TYPE_ERROR, "%s:%u - This should not happen - response status code is %ld on task %@ metrics %@ tMet %@", buf, 0x3Au);
+      v62 = "[LatencyURLSessionDelegate didFinishCollectingMetrics:task:]";
+      v63 = 1024;
+      v64 = 250;
+      v65 = 2048;
+      v66 = statusCode;
+      v67 = 2112;
+      v68 = taskCopy;
+      v69 = 2112;
+      v70 = metricsCopy;
+      v71 = 2112;
+      v72 = firstObject2;
+      _os_log_error_impl(&dword_25B962000, v50, OS_LOG_TYPE_ERROR, "%s:%u - This should not happen - response status code is %ld on task %@ metrics %@ tMet %@", buf, 0x3Au);
     }
 
-    v42 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v56[0] = *MEMORY[0x277CCA450];
-    v56[1] = @"statusCode";
-    v57[0] = @"Incorrect response status code on latency measuring connection";
-    v43 = [MEMORY[0x277CCABB0] numberWithInteger:statusCode];
-    v57[1] = v43;
-    v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
-    v45 = [v42 initWithDomain:@"NetworkQualityErrorDomain" code:1003 userInfo:v44];
-    v46 = self->_error;
-    self->_error = v45;
+    v45 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v59[0] = *MEMORY[0x277CCA450];
+    v59[1] = @"statusCode";
+    v60[0] = @"Incorrect response status code on latency measuring connection";
+    v46 = [MEMORY[0x277CCABB0] numberWithInteger:statusCode];
+    v60[1] = v46;
+    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
+    v48 = [v45 initWithDomain:@"NetworkQualityErrorDomain" code:1003 userInfo:v47];
+    v49 = self->_error;
+    self->_error = v48;
 
 LABEL_11:
-    v19 = self->_error;
     (*(self->_completionHandler + 2))();
 LABEL_14:
-    v22 = -1;
+    v25 = -1;
     goto LABEL_15;
   }
 
-  netqual_log_init();
-  v25 = os_log_netqual;
+  netqual_log_init(v23, v24);
+  v27 = os_log_netqual;
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_ERROR))
   {
-    [(LatencyURLSessionDelegate *)self didFinishCollectingMetrics:taskCopy task:v25];
+    [(LatencyURLSessionDelegate *)self didFinishCollectingMetrics:taskCopy task:v27];
   }
 
-  v51 = taskCopy;
-  v26 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v27 = *MEMORY[0x277CCA450];
-  v72[0] = @"Unexpected number of transactionMetrics";
-  v71[0] = v27;
-  v71[1] = @"count";
-  v28 = [MEMORY[0x277CCABB0] numberWithInteger:0];
-  v72[1] = v28;
-  v71[2] = @"canceled";
-  v29 = [MEMORY[0x277CCABB0] numberWithBool:self->_canceled];
-  v72[2] = v29;
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:3];
-  v31 = [v26 initWithDomain:@"NetworkQualityErrorDomain" code:1002 userInfo:v30];
-  v32 = self->_error;
-  self->_error = v31;
+  v54 = taskCopy;
+  v28 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v29 = *MEMORY[0x277CCA450];
+  v75[0] = @"Unexpected number of transactionMetrics";
+  v74[0] = v29;
+  v74[1] = @"count";
+  v30 = [MEMORY[0x277CCABB0] numberWithInteger:0];
+  v75[1] = v30;
+  v74[2] = @"canceled";
+  v31 = [MEMORY[0x277CCABB0] numberWithBool:self->_canceled];
+  v75[2] = v31;
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:3];
+  v33 = [v28 initWithDomain:@"NetworkQualityErrorDomain" code:1002 userInfo:v32];
+  v34 = self->_error;
+  self->_error = v33;
 
   if (!self->_canceled)
   {
-    v33 = self->_error;
     (*(self->_completionHandler + 2))();
   }
 
-  v22 = -1;
+  v25 = -1;
 LABEL_31:
-  taskCopy = v51;
+  taskCopy = v54;
 LABEL_15:
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v22;
+  return v25;
 }
 
 - (void)dealloc
@@ -377,7 +372,7 @@ LABEL_15:
 
 - (void)cancelWithCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   self->_canceled = 1;
   v4 = MEMORY[0x25F873620](handler, a2);
   cancelCompletionHandler = self->_cancelCompletionHandler;
@@ -388,31 +383,31 @@ LABEL_15:
 
   if ([(NSMutableArray *)self->_sessions count])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v7 = self->_sessions;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(*(&v15 + 1) + 8 * v11++) invalidateAndCancel];
+          [*(*(&v14 + 1) + 8 * v11++) invalidateAndCancel];
         }
 
         while (v9 != v11);
-        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -429,68 +424,60 @@ LABEL_15:
     block[4] = self;
     dispatch_async(underlyingQueue, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(void *)a3 didBecomeInvalidWithError:.cold.1(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 16);
   v5 = a3;
   [v4 count];
-  v8[0] = 136315906;
+  v7[0] = 136315906;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  v9 = a1;
-  v10 = 2048;
-  v11 = v6;
-  _os_log_error_impl(&dword_25B962000, v5, OS_LOG_TYPE_ERROR, "%s:%u - session completed with error: %@, count: %lu", v8, 0x26u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = a1;
+  v9 = 2048;
+  v10 = v6;
+  _os_log_error_impl(&dword_25B962000, v5, OS_LOG_TYPE_ERROR, "%s:%u - session completed with error: %@, count: %lu", v7, 0x26u);
 }
 
 - (void)URLSession:(void *)a3 task:willPerformHTTPRedirection:newRequest:completionHandler:.cold.1(void *a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = [a2 URL];
   v7 = [a3 originalRequest];
   v8 = [v7 URL];
-  v12[0] = 136315906;
+  v11[0] = 136315906;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  v13 = v6;
-  v14 = v9;
-  v15 = v10;
-  _os_log_error_impl(&dword_25B962000, v5, OS_LOG_TYPE_ERROR, "%s:%u - Unexpected redirect to %@ for %@", v12, 0x26u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = v6;
+  v13 = v9;
+  v14 = v10;
+  _os_log_error_impl(&dword_25B962000, v5, OS_LOG_TYPE_ERROR, "%s:%u - Unexpected redirect to %@ for %@", v11, 0x26u);
 }
 
 - (void)didFinishCollectingMetrics:task:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_2(&dword_25B962000, v0, v1, "%s:%u - This should not happen - redirects should be caught by willPerformHTTPRedirection on task %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_25B962000, v0, v1, "%s:%u - This should not happen - redirects should be caught by willPerformHTTPRedirection on task %@", v2, v3, v4, v5, v6);
 }
 
 - (void)didFinishCollectingMetrics:(os_log_t)log task:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 160);
-  v5 = 136315906;
-  v6 = "[LatencyURLSessionDelegate didFinishCollectingMetrics:task:]";
-  v7 = 1024;
-  v8 = 213;
-  v9 = 1024;
-  v10 = v3;
-  v11 = 2112;
-  v12 = a2;
-  _os_log_error_impl(&dword_25B962000, log, OS_LOG_TYPE_ERROR, "%s:%u - Unexpected number of transactionMetrics | cancelled=%d on task %@", &v5, 0x22u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315906;
+  v5 = "[LatencyURLSessionDelegate didFinishCollectingMetrics:task:]";
+  v6 = 1024;
+  v7 = 213;
+  v8 = 1024;
+  v9 = v3;
+  v10 = 2112;
+  v11 = a2;
+  _os_log_error_impl(&dword_25B962000, log, OS_LOG_TYPE_ERROR, "%s:%u - Unexpected number of transactionMetrics | cancelled=%d on task %@", &v4, 0x22u);
 }
 
 @end

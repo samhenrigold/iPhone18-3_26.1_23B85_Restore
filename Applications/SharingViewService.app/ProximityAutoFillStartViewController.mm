@@ -23,7 +23,7 @@
   viewCopy = view;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillStartViewController handleTapOutsideView:]", 30, "Dismissing on tap outside view\n");
   }
 
   [self->super.super._mainController ensureStoppedWithDismiss:1 reason:1];
@@ -34,7 +34,7 @@
   buttonCopy = button;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillStartViewController handleReportBugButton:]", 30, "File radar button tapped in start view controller");
   }
 
   [self->super.super._mainController fileRadar:0];
@@ -45,7 +45,7 @@
   pressedCopy = pressed;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillStartViewController handleMainButtonPressed:]", 30, "Start button pressed\n");
   }
 
   containerView = [(SVSBaseViewController *)self containerView];
@@ -79,7 +79,7 @@
   pressedCopy = pressed;
   if (dword_1001BEC30 <= 30 && (dword_1001BEC30 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEC30, "[ProximityAutoFillStartViewController handleDismissButtonPressed:]", 30, "Start Dismiss button pressed\n");
   }
 
   [self->super.super._mainController ensureStoppedWithDismiss:1 reason:5];

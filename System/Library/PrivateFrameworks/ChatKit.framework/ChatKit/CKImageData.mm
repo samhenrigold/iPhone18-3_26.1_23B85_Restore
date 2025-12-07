@@ -169,32 +169,32 @@
 
   v17 = v8 * fmax(ceil(v14 * v16) / v16, ceil(v15 * v16) / v16);
   uTIType = [(CKImageData *)self UTIType];
-  if (!UTTypeConformsTo(uTIType, *MEMORY[0x1E6963808]) || [(CKImageData *)self count]> 1 || ([(CKImageData *)self data], (ThumbnailWithImageSourceAtIndexForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(v17)) == 0))
+  if (!UTTypeConformsTo(uTIType, *MEMORY[0x1E6963808]) || [(CKImageData *)self count]> 1 || (v19 = [(CKImageData *)self data], (ThumbnailWithImageSourceAtIndexForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(v19, v20, v17)) == 0))
   {
     ThumbnailWithImageSourceAtIndexForMaxDimension = _CreateThumbnailWithImageSourceAtIndexForMaxDimension(self->_imageSource, 0, v17);
   }
 
-  v20 = CKCreateSquareCroppedImageRef(ThumbnailWithImageSourceAtIndexForMaxDimension);
+  v22 = CKCreateSquareCroppedImageRef(ThumbnailWithImageSourceAtIndexForMaxDimension);
   CFRelease(ThumbnailWithImageSourceAtIndexForMaxDimension);
-  if (v20)
+  if (v22)
   {
-    v21 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v20 scale:0 orientation:v8];
-    CFRelease(v20);
+    v23 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v22 scale:0 orientation:v8];
+    CFRelease(v22);
   }
 
   else
   {
-    v21 = 0;
+    v23 = 0;
   }
 
-  return v21;
+  return v23;
 }
 
 - (id)thumbnailsFitToSize:(CGSize)size maxCount:(unint64_t)count
 {
   height = size.height;
   width = size.width;
-  v27 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v8 = [(CKImageData *)self count];
   v9 = v8;
   v10 = 1.0;
@@ -247,13 +247,13 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218752;
-        v20 = v9;
-        v21 = 2048;
+        v26 = v9;
+        v27 = 2048;
         countCopy2 = count;
-        v23 = 2048;
-        v24 = v10;
-        v25 = 2048;
-        v26 = [v13 count];
+        v29 = 2048;
+        v30 = v10;
+        v31 = 2048;
+        v32 = [v13 count];
         _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_DEBUG, "GIF wanted %ld frames (> max allowed (%ld)). Used increment %f to generate %ld frames.", buf, 0x2Au);
       }
     }
@@ -261,7 +261,7 @@
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
       [v13 count];
-      _CKLog();
+      _CKLog(4u, @"GIF wanted %ld frames (> max allowed (%ld)). Used increment %f to generate %ld frames.", v18, v19, v20, v21, v22, v23, v9);
     }
   }
 
@@ -291,7 +291,7 @@
 {
   height = size.height;
   width = size.width;
-  v27 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v8 = [(CKImageData *)self count];
   v9 = v8;
   v10 = 1.0;
@@ -344,13 +344,13 @@
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134218752;
-        v20 = v9;
-        v21 = 2048;
+        v26 = v9;
+        v27 = 2048;
         countCopy2 = count;
-        v23 = 2048;
-        v24 = v10;
-        v25 = 2048;
-        v26 = [v13 count];
+        v29 = 2048;
+        v30 = v10;
+        v31 = 2048;
+        v32 = [v13 count];
         _os_log_impl(&dword_19020E000, v17, OS_LOG_TYPE_DEBUG, "GIF wanted %ld frames (> max allowed (%ld)). Used increment %f to generate %ld frames.", buf, 0x2Au);
       }
     }
@@ -358,7 +358,7 @@
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
       [v13 count];
-      _CKLog();
+      _CKLog(4u, @"GIF wanted %ld frames (> max allowed (%ld)). Used increment %f to generate %ld frames.", v18, v19, v20, v21, v22, v23, v9);
     }
   }
 
@@ -407,7 +407,7 @@
 
 - (id)durationsWithMaxCount:(unint64_t)count
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   uTIType = [(CKImageData *)self UTIType];
   IsSupportedAnimatedImage = IMUTTypeIsSupportedAnimatedImage();
 
@@ -438,18 +438,18 @@
       v12 = 0;
       v13 = *MEMORY[0x1E696DB70];
       key = *MEMORY[0x1E696DB80];
-      v43 = *MEMORY[0x1E696DB68];
+      v49 = *MEMORY[0x1E696DB68];
       v14 = *MEMORY[0x1E696DEB0];
-      v47 = *MEMORY[0x1E696D3D0];
-      v42 = *MEMORY[0x1E696D3C0];
+      v53 = *MEMORY[0x1E696D3D0];
+      v48 = *MEMORY[0x1E696D3C0];
       v15 = *MEMORY[0x1E696DD20];
-      v46 = *MEMORY[0x1E696DD30];
-      v41 = *MEMORY[0x1E696DD18];
+      v52 = *MEMORY[0x1E696DD30];
+      v47 = *MEMORY[0x1E696DD18];
       v16 = *MEMORY[0x1E696DFA8];
-      v45 = *MEMORY[0x1E696DFB0];
+      v51 = *MEMORY[0x1E696DFB0];
       v17 = 0.0;
       v18 = 0.0;
-      v40 = *MEMORY[0x1E696DFA0];
+      v46 = *MEMORY[0x1E696DFA0];
       do
       {
         if (v8 + v18 <= v12)
@@ -472,7 +472,7 @@
           if (Value)
           {
             v25 = CFDictionaryGetValue(Value, key);
-            if (v25 || (v25 = CFDictionaryGetValue(v24, v43)) != 0)
+            if (v25 || (v25 = CFDictionaryGetValue(v24, v49)) != 0)
             {
               CFNumberGetValue(v25, kCFNumberFloatType, &valuePtr);
             }
@@ -482,8 +482,8 @@
           v27 = v26;
           if (v26)
           {
-            v28 = CFDictionaryGetValue(v26, v47);
-            if (v28 || (v28 = CFDictionaryGetValue(v27, v42)) != 0)
+            v28 = CFDictionaryGetValue(v26, v53);
+            if (v28 || (v28 = CFDictionaryGetValue(v27, v48)) != 0)
             {
               CFNumberGetValue(v28, kCFNumberFloatType, &valuePtr);
             }
@@ -493,8 +493,8 @@
           v30 = v29;
           if (v29)
           {
-            v31 = CFDictionaryGetValue(v29, v46);
-            if (v31 || (v31 = CFDictionaryGetValue(v30, v41)) != 0)
+            v31 = CFDictionaryGetValue(v29, v52);
+            if (v31 || (v31 = CFDictionaryGetValue(v30, v47)) != 0)
             {
               CFNumberGetValue(v31, kCFNumberFloatType, &valuePtr);
             }
@@ -504,8 +504,8 @@
           v33 = v32;
           if (v32)
           {
-            v34 = CFDictionaryGetValue(v32, v45);
-            if (v34 || (v34 = CFDictionaryGetValue(v33, v40)) != 0)
+            v34 = CFDictionaryGetValue(v32, v51);
+            if (v34 || (v34 = CFDictionaryGetValue(v33, v46)) != 0)
             {
               CFNumberGetValue(v34, kCFNumberFloatType, &valuePtr);
             }
@@ -549,13 +549,13 @@
         {
           v38 = [v11 count];
           *&valuePtr = 3.8523e-34;
-          v50 = v7;
-          v51 = 2048;
+          v56 = v7;
+          v57 = 2048;
           countCopy2 = count;
-          v53 = 2048;
-          v54 = v8;
-          v55 = 2048;
-          v56 = v38;
+          v59 = 2048;
+          v60 = v8;
+          v61 = 2048;
+          v62 = v38;
           _os_log_impl(&dword_19020E000, v37, OS_LOG_TYPE_DEBUG, "GIF wanted %ld durations (> max allowed (%ld)). Used increment %f to generate %ld durations.", &valuePtr, 0x2Au);
         }
       }
@@ -563,7 +563,7 @@
       if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
       {
         [v11 count];
-        _CKLog();
+        _CKLog(4u, @"GIF wanted %ld durations (> max allowed (%ld)). Used increment %f to generate %ld durations.", v39, v40, v41, v42, v43, v44, v7);
       }
     }
   }
@@ -788,12 +788,12 @@ LABEL_20:
     }
 
     [(CKImageData *)self sizeForImageSource:self->_imageSource index:index];
-    if (v23 <= v24)
+    if (v25 <= v26)
     {
-      v23 = v24;
+      v25 = v26;
     }
 
-    if (v23 >= v16)
+    if (v25 >= v16)
     {
       goto LABEL_15;
     }
@@ -803,15 +803,15 @@ LABEL_20:
 
   else
   {
-    [(CKImageData *)self data];
-    ThumbnailFromHEICSWithMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(v16);
+    data = [(CKImageData *)self data];
+    ThumbnailFromHEICSWithMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(data, v23, v16);
   }
 
   ThumbnailWithImageSourceAtIndexForMaxDimension = ThumbnailFromHEICSWithMaxDimension;
   if (ThumbnailFromHEICSWithMaxDimension)
   {
 LABEL_16:
-    v26 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:ThumbnailWithImageSourceAtIndexForMaxDimension scale:0 orientation:v10];
+    v28 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:ThumbnailWithImageSourceAtIndexForMaxDimension scale:0 orientation:v10];
     CFRelease(ThumbnailWithImageSourceAtIndexForMaxDimension);
     goto LABEL_18;
   }
@@ -823,10 +823,10 @@ LABEL_15:
     goto LABEL_16;
   }
 
-  v26 = 0;
+  v28 = 0;
 LABEL_18:
 
-  return v26;
+  return v28;
 }
 
 - (CGSize)sizeForImageSource:(CGImageSource *)source index:(unint64_t)index
@@ -880,7 +880,7 @@ LABEL_18:
 
   v15 = fmax(v13, v14);
   v16 = v10 * fmax(round(v10 * (v11 * v15)) / v10, round(v10 * (v12 * v15)) / v10);
-  if (!index && (v20 = [(CKImageData *)self UTIType], UTTypeConformsTo(v20, *MEMORY[0x1E6963808])) && [(CKImageData *)self count]<= 1 && ([(CKImageData *)self data], (ThumbnailWithJPEGForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(v16)) != 0) || (ThumbnailWithJPEGForMaxDimension = _CreateThumbnailWithImageSourceAtIndexForMaxDimension(self->_imageSource, index, v16)) != 0)
+  if (!index && (v20 = [(CKImageData *)self UTIType], UTTypeConformsTo(v20, *MEMORY[0x1E6963808])) && [(CKImageData *)self count]<= 1 && (v21 = [(CKImageData *)self data], (ThumbnailWithJPEGForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(v21, v22, v16)) != 0) || (ThumbnailWithJPEGForMaxDimension = _CreateThumbnailWithImageSourceAtIndexForMaxDimension(self->_imageSource, index, v16)) != 0)
   {
     v18 = ThumbnailWithJPEGForMaxDimension;
     v19 = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:ThumbnailWithJPEGForMaxDimension scale:0 orientation:v10];

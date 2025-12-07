@@ -482,8 +482,8 @@ LABEL_20:
     [symbolStyle setTextOpacity:0.35];
   }
 
-  geometry = [v10 geometry];
-  [(UIKBRenderFactory_Car *)self _customizeGeometry:geometry forKey:keyCopy contents:v28 onKeyplane:keyplaneCopy];
+  v42 = objc_msgSend_geometry(v10);
+  [(UIKBRenderFactory_Car *)self _customizeGeometry:v42 forKey:keyCopy contents:v28 onKeyplane:keyplaneCopy];
 
   return v10;
 }

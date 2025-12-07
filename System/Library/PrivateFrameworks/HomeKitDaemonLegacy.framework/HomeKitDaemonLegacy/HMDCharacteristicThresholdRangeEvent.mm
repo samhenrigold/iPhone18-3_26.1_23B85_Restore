@@ -35,7 +35,7 @@
 
 - (void)_transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -45,9 +45,9 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     v14 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v14;
-    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v28, 0xCu);
+    v27 = 138543362;
+    v28 = v14;
+    _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Handling transaction updated", &v27, 0xCu);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -88,8 +88,6 @@
 
     [messageCopy respondWithSuccess];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelObjectWithChangeType:(unint64_t)type
@@ -164,7 +162,7 @@
 
 - (BOOL)_evaluateNewValue:(id)value
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   characteristic = [(HMDCharacteristicEventBase *)self characteristic];
   previousValue = [characteristic previousValue];
@@ -194,7 +192,7 @@
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v30 = v14;
+        v29 = v14;
         _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@The value hasn't changed from previous value, ignoring", buf, 0xCu);
       }
 
@@ -212,35 +210,34 @@ LABEL_10:
   {
     v18 = HMFGetLogIdentifier();
     HMFBooleanToString();
-    v19 = v27 = v7;
+    v19 = v26 = v7;
     characteristic3 = [(HMDCharacteristicEventBase *)selfCopy2 characteristic];
     value = [characteristic3 value];
     [(HMDCharacteristicThresholdRangeEvent *)selfCopy2 min];
-    v21 = v28 = v15;
+    v21 = v27 = v15;
     v22 = [(HMDCharacteristicThresholdRangeEvent *)selfCopy2 max];
     characteristic4 = [(HMDCharacteristicEventBase *)selfCopy2 characteristic];
     *buf = 138544898;
-    v30 = v18;
-    v31 = 2112;
-    v32 = v19;
-    v33 = 2112;
-    v34 = previousValue;
-    v35 = 2112;
-    v36 = value;
-    v37 = 2112;
-    v38 = v21;
-    v39 = 2112;
-    v40 = v22;
-    v41 = 2112;
-    v42 = characteristic4;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v19;
+    v32 = 2112;
+    v33 = previousValue;
+    v34 = 2112;
+    v35 = value;
+    v36 = 2112;
+    v37 = v21;
+    v38 = 2112;
+    v39 = v22;
+    v40 = 2112;
+    v41 = characteristic4;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Evaluated event, should fire (did enter range): %@, previous value: %@, current value: %@, min: %@, max: %@, %@", buf, 0x48u);
 
-    v15 = v28;
-    v7 = v27;
+    v15 = v27;
+    v7 = v26;
   }
 
   objc_autoreleasePoolPop(v15);
-  v24 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -341,7 +338,7 @@ void __61__HMDCharacteristicThresholdRangeEvent__handleUpdateRequest___block_inv
     [v8 setObject:v5 forKeyedSubscript:*MEMORY[0x277CD2198]];
 
     v6 = *(a1 + 32);
-    v7 = [v8 copy];
+    v7 = objc_msgSend_copy(v8);
     [v6 respondWithPayload:v7];
   }
 }
@@ -381,7 +378,7 @@ void __61__HMDCharacteristicThresholdRangeEvent__handleUpdateRequest___block_inv
     [v5 setObject:v9 forKeyedSubscript:*MEMORY[0x277CD2198]];
   }
 
-  v10 = [v5 copy];
+  v10 = objc_msgSend_copy(v5);
 
   return v10;
 }
@@ -433,12 +430,11 @@ void __61__HMDCharacteristicThresholdRangeEvent__handleUpdateRequest___block_inv
 
 uint64_t __51__HMDCharacteristicThresholdRangeEvent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_108791;
-  logCategory__hmf_once_v1_108791 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_108791;
+  logCategory__hmf_once_v1_108791 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

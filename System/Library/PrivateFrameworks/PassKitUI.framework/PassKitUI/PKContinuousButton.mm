@@ -165,7 +165,7 @@ LABEL_10:
   return v5;
 }
 
-uint64_t __44__PKContinuousButton_initWithConfiguration___block_invoke(uint64_t a1, void *a2)
+void *__44__PKContinuousButton_initWithConfiguration___block_invoke(uint64_t a1, void *a2)
 {
   if (a2[98])
   {

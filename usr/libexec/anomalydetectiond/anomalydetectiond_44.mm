@@ -91,7 +91,7 @@ float CMMsl::KappaTriggerClustersResult::KappaTriggerClustersResult(uint64_t a1,
   return result;
 }
 
-CMMsl *CMMsl::KappaTriggerClustersResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaTriggerClustersResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -2389,7 +2389,7 @@ uint64_t CMMsl::KappaTriggerDebug::KappaTriggerDebug(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-CMMsl *CMMsl::KappaTriggerDebug::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaTriggerDebug::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3740,38 +3740,32 @@ LABEL_4:
   }
 
 LABEL_10:
-  v6 = *(this + 1);
-  v7 = *(this + 2);
+  v6 = PBHashBytes();
+  v7 = PBHashBytes();
   v8 = PBHashBytes();
-  v9 = *(this + 7);
-  v10 = *(this + 8);
-  v11 = PBHashBytes();
-  v12 = *(this + 4);
-  v13 = *(this + 5);
-  v14 = PBHashBytes();
-  v15 = *(this + 60);
-  if ((v15 & 0x80) != 0)
+  v9 = *(this + 60);
+  if ((v9 & 0x80) != 0)
   {
-    v16 = *(this + 116);
+    v10 = *(this + 116);
     if ((*(this + 60) & 0x100) != 0)
     {
 LABEL_12:
-      v17 = *(this + 117);
-      if ((v15 & 4) != 0)
+      v11 = *(this + 117);
+      if ((v9 & 4) != 0)
       {
         goto LABEL_13;
       }
 
 LABEL_24:
-      v19 = 0;
-      if ((v15 & 8) != 0)
+      v13 = 0;
+      if ((v9 & 8) != 0)
       {
         goto LABEL_16;
       }
 
 LABEL_25:
-      v21 = 0;
-      if ((v15 & 0x40) != 0)
+      v15 = 0;
+      if ((v9 & 0x40) != 0)
       {
         goto LABEL_19;
       }
@@ -3782,78 +3776,78 @@ LABEL_25:
 
   else
   {
-    v16 = 0;
+    v10 = 0;
     if ((*(this + 60) & 0x100) != 0)
     {
       goto LABEL_12;
     }
   }
 
-  v17 = 0;
-  if ((v15 & 4) == 0)
+  v11 = 0;
+  if ((v9 & 4) == 0)
   {
     goto LABEL_24;
   }
 
 LABEL_13:
-  v18 = *(this + 24);
-  v19 = LODWORD(v18);
-  if (v18 == 0.0)
+  v12 = *(this + 24);
+  v13 = LODWORD(v12);
+  if (v12 == 0.0)
   {
-    v19 = 0;
+    v13 = 0;
   }
 
-  if ((v15 & 8) == 0)
+  if ((v9 & 8) == 0)
   {
     goto LABEL_25;
   }
 
 LABEL_16:
-  v20 = *(this + 25);
-  v21 = LODWORD(v20);
-  if (v20 == 0.0)
+  v14 = *(this + 25);
+  v15 = LODWORD(v14);
+  if (v14 == 0.0)
   {
-    v21 = 0;
+    v15 = 0;
   }
 
-  if ((v15 & 0x40) != 0)
+  if ((v9 & 0x40) != 0)
   {
 LABEL_19:
-    v22 = *(this + 28);
-    if ((v15 & 0x20) != 0)
+    v16 = *(this + 28);
+    if ((v9 & 0x20) != 0)
     {
       goto LABEL_20;
     }
 
 LABEL_27:
-    v23 = 0;
-    if ((v15 & 0x10) != 0)
+    v17 = 0;
+    if ((v9 & 0x10) != 0)
     {
       goto LABEL_21;
     }
 
 LABEL_28:
-    v24 = 0;
-    return v4 ^ v3 ^ v5 ^ v8 ^ v11 ^ v14 ^ v16 ^ v17 ^ v19 ^ v21 ^ v22 ^ v23 ^ v24;
+    v18 = 0;
+    return v4 ^ v3 ^ v5 ^ v6 ^ v7 ^ v8 ^ v10 ^ v11 ^ v13 ^ v15 ^ v16 ^ v17 ^ v18;
   }
 
 LABEL_26:
-  v22 = 0;
-  if ((v15 & 0x20) == 0)
+  v16 = 0;
+  if ((v9 & 0x20) == 0)
   {
     goto LABEL_27;
   }
 
 LABEL_20:
-  v23 = *(this + 27);
-  if ((v15 & 0x10) == 0)
+  v17 = *(this + 27);
+  if ((v9 & 0x10) == 0)
   {
     goto LABEL_28;
   }
 
 LABEL_21:
-  v24 = *(this + 26);
-  return v4 ^ v3 ^ v5 ^ v8 ^ v11 ^ v14 ^ v16 ^ v17 ^ v19 ^ v21 ^ v22 ^ v23 ^ v24;
+  v18 = *(this + 26);
+  return v4 ^ v3 ^ v5 ^ v6 ^ v7 ^ v8 ^ v10 ^ v11 ^ v13 ^ v15 ^ v16 ^ v17 ^ v18;
 }
 
 void CMMsl::KappaZgDetected::~KappaZgDetected(CMMsl::KappaZgDetected *this)
@@ -4885,7 +4879,7 @@ float CMMsl::KappaZgResult::KappaZgResult(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::KappaZgResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::KappaZgResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -9855,4 +9849,35 @@ uint64_t CMMsl::KeyboardMotionTrackpad::writeTo(uint64_t this, PB::Writer *a2)
   }
 
   return this;
+}
+
+uint64_t CMMsl::KeyboardMotionTrackpad::hash_value(CMMsl::KeyboardMotionTrackpad *this)
+{
+  if (*(this + 20))
+  {
+    v1 = *(this + 1);
+    if (v1 == 0.0)
+    {
+      v1 = 0.0;
+    }
+
+    if ((*(this + 20) & 2) != 0)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_7:
+    v2 = 0;
+    return v2 ^ *&v1;
+  }
+
+  v1 = 0.0;
+  if ((*(this + 20) & 2) == 0)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_3:
+  v2 = *(this + 16);
+  return v2 ^ *&v1;
 }

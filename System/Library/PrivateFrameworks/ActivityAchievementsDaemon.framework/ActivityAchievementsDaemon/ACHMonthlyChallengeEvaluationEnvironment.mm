@@ -35,28 +35,27 @@
 
 - (id)valueForUndefinedKey:(id)key
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v4 = ACHLogMonthlyChallenges();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = keyCopy;
-    _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "Monthly Challenge Evaluation environment asked for key it doesn't support: %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = keyCopy;
+    _os_log_impl(&dword_221DDC000, v4, OS_LOG_TYPE_DEFAULT, "Monthly Challenge Evaluation environment asked for key it doesn't support: %{public}@", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (double)longestMoveStreakInCurrentMonth
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dataSource = [(ACHMonthlyChallengeEvaluationEnvironment *)self dataSource];
   dateComponentInterval = [(ACHMonthlyChallengeEvaluationEnvironment *)self dateComponentInterval];
-  v10 = 0;
-  v5 = [dataSource longestStreakOfType:0 duringDateComponentInterval:dateComponentInterval error:&v10];
-  v6 = v10;
+  v9 = 0;
+  v5 = [dataSource longestStreakOfType:0 duringDateComponentInterval:dateComponentInterval error:&v9];
+  v6 = v9;
 
   if (v6)
   {
@@ -64,12 +63,11 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = v6;
+      v11 = v6;
       _os_log_impl(&dword_221DDC000, v7, OS_LOG_TYPE_DEFAULT, "Error fetching longestMoveStreakInCurrentMonth value: %@", buf, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -154,7 +152,7 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
 
 - (id)numberOfDaysWithCaloriesBurnedOver:(id)over
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   overCopy = over;
   dataSource = [(ACHMonthlyChallengeEvaluationEnvironment *)self dataSource];
   [overCopy doubleValue];
@@ -162,10 +160,10 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
 
   dateComponentInterval = [(ACHMonthlyChallengeEvaluationEnvironment *)self dateComponentInterval];
   calendar = [(ACHMonthlyChallengeEvaluationEnvironment *)self calendar];
-  v17 = 0;
-  [dataSource numberOfDaysWithCaloriesBurnedOver:dateComponentInterval forDateComponentInterval:calendar calendar:&v17 error:v7];
+  v16 = 0;
+  [dataSource numberOfDaysWithCaloriesBurnedOver:dateComponentInterval forDateComponentInterval:calendar calendar:&v16 error:v7];
   v11 = v10;
-  v12 = v17;
+  v12 = v16;
 
   if (v12)
   {
@@ -173,21 +171,19 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_221DDC000, v13, OS_LOG_TYPE_DEFAULT, "Error fetching value for ACHMonthlyChallengeTypeDailyEnergyBurnTarget challenge: %@", buf, 0xCu);
     }
   }
 
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)numberOfDaysWithExerciseMinutesOver:(id)over
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   overCopy = over;
   dataSource = [(ACHMonthlyChallengeEvaluationEnvironment *)self dataSource];
   [overCopy doubleValue];
@@ -195,10 +191,10 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
 
   dateComponentInterval = [(ACHMonthlyChallengeEvaluationEnvironment *)self dateComponentInterval];
   calendar = [(ACHMonthlyChallengeEvaluationEnvironment *)self calendar];
-  v17 = 0;
-  [dataSource numberOfDaysWithExerciseMinutesOver:dateComponentInterval forDateComponentInterval:calendar calendar:&v17 error:v7];
+  v16 = 0;
+  [dataSource numberOfDaysWithExerciseMinutesOver:dateComponentInterval forDateComponentInterval:calendar calendar:&v16 error:v7];
   v11 = v10;
-  v12 = v17;
+  v12 = v16;
 
   if (v12)
   {
@@ -206,21 +202,19 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_221DDC000, v13, OS_LOG_TYPE_DEFAULT, "Error fetching value for ACHMonthlyChallengeTypeDailyExerciseMinutesTarget challenge: %@", buf, 0xCu);
     }
   }
 
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)numberOfDaysWithDistanceOver:(id)over
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   overCopy = over;
   dataSource = [(ACHMonthlyChallengeEvaluationEnvironment *)self dataSource];
   [overCopy doubleValue];
@@ -228,10 +222,10 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
 
   dateComponentInterval = [(ACHMonthlyChallengeEvaluationEnvironment *)self dateComponentInterval];
   calendar = [(ACHMonthlyChallengeEvaluationEnvironment *)self calendar];
-  v17 = 0;
-  [dataSource numberOfDaysWithDistanceOver:dateComponentInterval forDateComponentInterval:calendar calendar:&v17 error:v7];
+  v16 = 0;
+  [dataSource numberOfDaysWithDistanceOver:dateComponentInterval forDateComponentInterval:calendar calendar:&v16 error:v7];
   v11 = v10;
-  v12 = v17;
+  v12 = v16;
 
   if (v12)
   {
@@ -239,21 +233,19 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_221DDC000, v13, OS_LOG_TYPE_DEFAULT, "Error fetching value for ACHMonthlyChallengeTypeDailyDistanceTarget challenge: %@", buf, 0xCu);
     }
   }
 
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)numberOfDaysWithAppleMoveTimeOver:(id)over
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   overCopy = over;
   dataSource = [(ACHMonthlyChallengeEvaluationEnvironment *)self dataSource];
   [overCopy doubleValue];
@@ -261,10 +253,10 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
 
   dateComponentInterval = [(ACHMonthlyChallengeEvaluationEnvironment *)self dateComponentInterval];
   calendar = [(ACHMonthlyChallengeEvaluationEnvironment *)self calendar];
-  v17 = 0;
-  [dataSource numberOfDaysWithAppleMoveTimeOver:dateComponentInterval forDateComponentInterval:calendar calendar:&v17 error:v7];
+  v16 = 0;
+  [dataSource numberOfDaysWithAppleMoveTimeOver:dateComponentInterval forDateComponentInterval:calendar calendar:&v16 error:v7];
   v11 = v10;
-  v12 = v17;
+  v12 = v16;
 
   if (v12)
   {
@@ -272,28 +264,26 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v12;
+      v18 = v12;
       _os_log_impl(&dword_221DDC000, v13, OS_LOG_TYPE_DEFAULT, "Error fetching value for ACHMonthlyChallengeTypeDailyAppleMoveTimeTarget challenge: %@", buf, 0xCu);
     }
   }
 
   v14 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (double)_valueForMonthlyChallengeType:(unint64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dataSource = [(ACHMonthlyChallengeEvaluationEnvironment *)self dataSource];
   dateComponentInterval = [(ACHMonthlyChallengeEvaluationEnvironment *)self dateComponentInterval];
   calendar = [(ACHMonthlyChallengeEvaluationEnvironment *)self calendar];
-  v14 = 0;
-  [dataSource valueForMonthlyChallengeType:type forDateComponentInterval:dateComponentInterval calendar:calendar error:&v14];
+  v13 = 0;
+  [dataSource valueForMonthlyChallengeType:type forDateComponentInterval:dateComponentInterval calendar:calendar error:&v13];
   v9 = v8;
-  v10 = v14;
+  v10 = v13;
 
   if (v10)
   {
@@ -302,13 +292,12 @@ void __80__ACHMonthlyChallengeEvaluationEnvironment_eligibleSpecificWorkoutChall
     {
       *buf = 134218242;
       typeCopy = type;
-      v17 = 2112;
-      v18 = v10;
+      v16 = 2112;
+      v17 = v10;
       _os_log_impl(&dword_221DDC000, v11, OS_LOG_TYPE_DEFAULT, "Error fetching value for monthly challenge type %lu: %@", buf, 0x16u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

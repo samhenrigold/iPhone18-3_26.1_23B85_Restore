@@ -33,48 +33,47 @@
 
 + (FCFeedRange)feedRangeWithTop:(id)top bottom:(id)bottom
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   bottomCopy = bottom;
   topCopy = top;
   order = [topCopy order];
   if (order < [bottomCopy order] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"inverted feed range"];
-    v12 = 136315906;
-    v13 = "+[FCFeedRange feedRangeWithTop:bottom:]";
-    v14 = 2080;
-    v15 = "FCFeedRange.m";
-    v16 = 1024;
-    v17 = 26;
-    v18 = 2114;
-    v19 = v11;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"inverted feed range"];
+    v11 = 136315906;
+    v12 = "+[FCFeedRange feedRangeWithTop:bottom:]";
+    v13 = 2080;
+    v14 = "FCFeedRange.m";
+    v15 = 1024;
+    v16 = 26;
+    v17 = 2114;
+    v18 = v10;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
   }
 
   v8 = objc_alloc_init(FCFeedRange);
   [(FCFeedRange *)v8 setTop:topCopy];
 
   [(FCFeedRange *)v8 setBottom:bottomCopy];
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 + (FCFeedRange)feedRangeWithMaxOrder:(unint64_t)order minOrder:(unint64_t)minOrder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (order < minOrder && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"inverted feed range"];
-    v12 = 136315906;
-    v13 = "+[FCFeedRange feedRangeWithMaxOrder:minOrder:]";
-    v14 = 2080;
-    v15 = "FCFeedRange.m";
-    v16 = 1024;
-    v17 = 36;
-    v18 = 2114;
-    v19 = v11;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"inverted feed range"];
+    v11 = 136315906;
+    v12 = "+[FCFeedRange feedRangeWithMaxOrder:minOrder:]";
+    v13 = 2080;
+    v14 = "FCFeedRange.m";
+    v15 = 1024;
+    v16 = 36;
+    v17 = 2114;
+    v18 = v10;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
   }
 
   v6 = objc_alloc_init(FCFeedRange);
@@ -83,8 +82,6 @@
 
   v8 = [FCFeedCursor cursorForOrder:minOrder];
   [(FCFeedRange *)v6 setBottom:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -457,19 +454,19 @@
 
 - (id)feedRangeByIntersectingWithRange:(id)range
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   if (!rangeCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "range != nil"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "range != nil"];
     *buf = 136315906;
-    v23 = "[FCFeedRange feedRangeByIntersectingWithRange:]";
-    v24 = 2080;
-    v25 = "FCFeedRange.m";
-    v26 = 1024;
-    v27 = 189;
-    v28 = 2114;
-    v29 = v21;
+    v22 = "[FCFeedRange feedRangeByIntersectingWithRange:]";
+    v23 = 2080;
+    v24 = "FCFeedRange.m";
+    v25 = 1024;
+    v26 = 189;
+    v27 = 2114;
+    v28 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -519,26 +516,24 @@
   v17 = [FCFeedCursor cursorForOrder:v15];
   v18 = [FCFeedRange feedRangeWithTop:v16 bottom:v17];
 
-  v19 = *MEMORY[0x1E69E9840];
-
   return v18;
 }
 
 - (id)feedRangeByUnioningWithRange:(id)range
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   if (!rangeCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "range != nil"];
+    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "range != nil"];
     *buf = 136315906;
-    v22 = "[FCFeedRange feedRangeByUnioningWithRange:]";
-    v23 = 2080;
-    v24 = "FCFeedRange.m";
-    v25 = 1024;
-    v26 = 201;
-    v27 = 2114;
-    v28 = v20;
+    v21 = "[FCFeedRange feedRangeByUnioningWithRange:]";
+    v22 = 2080;
+    v23 = "FCFeedRange.m";
+    v24 = 1024;
+    v25 = 201;
+    v26 = 2114;
+    v27 = v19;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -577,8 +572,6 @@
   v15 = [FCFeedCursor cursorForOrder:v9];
   v16 = [FCFeedCursor cursorForOrder:v14];
   v17 = [FCFeedRange feedRangeWithTop:v15 bottom:v16];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

@@ -211,50 +211,50 @@
 
 - (BOOL)render:(id *)render
 {
-  v155 = *MEMORY[0x1E69E9840];
+  v154 = *MEMORY[0x1E69E9840];
   v4 = [(NURenderJob *)self renderer:render];
   if (!v4)
   {
-    v114 = NUAssertLogger_24860();
-    if (os_log_type_enabled(v114, OS_LOG_TYPE_ERROR))
+    v113 = NUAssertLogger_24860();
+    if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
     {
-      v115 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing renderer"];
+      v114 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing renderer"];
       *buf = 138543362;
-      *&buf[4] = v115;
-      _os_log_error_impl(&dword_1C7694000, v114, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
+      *&buf[4] = v114;
+      _os_log_error_impl(&dword_1C7694000, v113, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
     }
 
     callStackSymbols = MEMORY[0x1E69B38E8];
     specific = dispatch_get_specific(*MEMORY[0x1E69B38E8]);
-    v118 = NUAssertLogger_24860();
-    v119 = os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
+    v117 = NUAssertLogger_24860();
+    v118 = os_log_type_enabled(v117, OS_LOG_TYPE_ERROR);
     if (specific)
     {
-      if (v119)
+      if (v118)
       {
-        v132 = dispatch_get_specific(*callStackSymbols);
-        v133 = MEMORY[0x1E696AF00];
-        v134 = v132;
-        callStackSymbols = [v133 callStackSymbols];
-        v135 = [callStackSymbols componentsJoinedByString:@"\n"];
+        v131 = dispatch_get_specific(*callStackSymbols);
+        v132 = MEMORY[0x1E696AF00];
+        v133 = v131;
+        callStackSymbols = [v132 callStackSymbols];
+        v134 = [callStackSymbols componentsJoinedByString:@"\n"];
         *buf = 138543618;
-        *&buf[4] = v132;
+        *&buf[4] = v131;
         *&buf[12] = 2114;
-        *&buf[14] = v135;
-        _os_log_error_impl(&dword_1C7694000, v118, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
+        *&buf[14] = v134;
+        _os_log_error_impl(&dword_1C7694000, v117, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
       }
     }
 
-    else if (v119)
+    else if (v118)
     {
       callStackSymbols2 = [MEMORY[0x1E696AF00] callStackSymbols];
       callStackSymbols = [callStackSymbols2 componentsJoinedByString:@"\n"];
       *buf = 138543362;
       *&buf[4] = callStackSymbols;
-      _os_log_error_impl(&dword_1C7694000, v118, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
+      _os_log_error_impl(&dword_1C7694000, v117, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
     }
 
-    v124 = _NUAssertFailHandler();
+    v123 = _NUAssertFailHandler();
     goto LABEL_28;
   }
 
@@ -262,49 +262,49 @@
   layout = [(_PIPosterInactiveFrameLayoutJob *)self layout];
   if (!layout)
   {
-    v121 = NUAssertLogger_24860();
-    if (os_log_type_enabled(v121, OS_LOG_TYPE_ERROR))
+    v120 = NUAssertLogger_24860();
+    if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
     {
-      v122 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing poster layout"];
+      v121 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing poster layout"];
       *buf = 138543362;
-      *&buf[4] = v122;
-      _os_log_error_impl(&dword_1C7694000, v121, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
+      *&buf[4] = v121;
+      _os_log_error_impl(&dword_1C7694000, v120, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
     }
 
     callStackSymbols = MEMORY[0x1E69B38E8];
-    v123 = dispatch_get_specific(*MEMORY[0x1E69B38E8]);
-    v118 = NUAssertLogger_24860();
-    v124 = os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
-    if (!v123)
+    v122 = dispatch_get_specific(*MEMORY[0x1E69B38E8]);
+    v117 = NUAssertLogger_24860();
+    v123 = os_log_type_enabled(v117, OS_LOG_TYPE_ERROR);
+    if (!v122)
     {
-      if (v124)
+      if (v123)
       {
         callStackSymbols3 = [MEMORY[0x1E696AF00] callStackSymbols];
         callStackSymbols = [callStackSymbols3 componentsJoinedByString:@"\n"];
         *buf = 138543362;
         *&buf[4] = callStackSymbols;
-        _os_log_error_impl(&dword_1C7694000, v118, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
+        _os_log_error_impl(&dword_1C7694000, v117, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
       }
 
 LABEL_30:
 
-      v129 = _NUAssertFailHandler();
+      v128 = _NUAssertFailHandler();
       goto LABEL_31;
     }
 
 LABEL_28:
-    if (v124)
+    if (v123)
     {
-      v136 = dispatch_get_specific(*callStackSymbols);
-      v137 = MEMORY[0x1E696AF00];
-      v138 = v136;
-      callStackSymbols = [v137 callStackSymbols];
-      v139 = [callStackSymbols componentsJoinedByString:@"\n"];
+      v135 = dispatch_get_specific(*callStackSymbols);
+      v136 = MEMORY[0x1E696AF00];
+      v137 = v135;
+      callStackSymbols = [v136 callStackSymbols];
+      v138 = [callStackSymbols componentsJoinedByString:@"\n"];
       *buf = 138543618;
-      *&buf[4] = v136;
+      *&buf[4] = v135;
       *&buf[12] = 2114;
-      *&buf[14] = v139;
-      _os_log_error_impl(&dword_1C7694000, v118, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
+      *&buf[14] = v138;
+      _os_log_error_impl(&dword_1C7694000, v117, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
     }
 
     goto LABEL_30;
@@ -314,46 +314,46 @@ LABEL_28:
   matteImage = [(_PIPosterInactiveFrameLayoutJob *)self matteImage];
   if (!matteImage)
   {
-    v126 = NUAssertLogger_24860();
-    if (os_log_type_enabled(v126, OS_LOG_TYPE_ERROR))
+    v125 = NUAssertLogger_24860();
+    if (os_log_type_enabled(v125, OS_LOG_TYPE_ERROR))
     {
-      v127 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing matte image"];
+      v126 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Missing matte image"];
       *buf = 138543362;
-      *&buf[4] = v127;
-      _os_log_error_impl(&dword_1C7694000, v126, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
+      *&buf[4] = v126;
+      _os_log_error_impl(&dword_1C7694000, v125, OS_LOG_TYPE_ERROR, "Fail: %{public}@", buf, 0xCu);
     }
 
     callStackSymbols = MEMORY[0x1E69B38E8];
-    v128 = dispatch_get_specific(*MEMORY[0x1E69B38E8]);
-    v118 = NUAssertLogger_24860();
-    v129 = os_log_type_enabled(v118, OS_LOG_TYPE_ERROR);
-    if (!v128)
+    v127 = dispatch_get_specific(*MEMORY[0x1E69B38E8]);
+    v117 = NUAssertLogger_24860();
+    v128 = os_log_type_enabled(v117, OS_LOG_TYPE_ERROR);
+    if (!v127)
     {
-      if (v129)
+      if (v128)
       {
         callStackSymbols4 = [MEMORY[0x1E696AF00] callStackSymbols];
-        v131 = [callStackSymbols4 componentsJoinedByString:@"\n"];
+        v130 = [callStackSymbols4 componentsJoinedByString:@"\n"];
         *buf = 138543362;
-        *&buf[4] = v131;
-        _os_log_error_impl(&dword_1C7694000, v118, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
+        *&buf[4] = v130;
+        _os_log_error_impl(&dword_1C7694000, v117, OS_LOG_TYPE_ERROR, "Trace:\n%{public}@", buf, 0xCu);
       }
 
       goto LABEL_33;
     }
 
 LABEL_31:
-    if (v129)
+    if (v128)
     {
-      v140 = dispatch_get_specific(*callStackSymbols);
-      v141 = MEMORY[0x1E696AF00];
-      v142 = v140;
-      callStackSymbols5 = [v141 callStackSymbols];
-      v144 = [callStackSymbols5 componentsJoinedByString:@"\n"];
+      v139 = dispatch_get_specific(*callStackSymbols);
+      v140 = MEMORY[0x1E696AF00];
+      v141 = v139;
+      callStackSymbols5 = [v140 callStackSymbols];
+      v143 = [callStackSymbols5 componentsJoinedByString:@"\n"];
       *buf = 138543618;
-      *&buf[4] = v140;
+      *&buf[4] = v139;
       *&buf[12] = 2114;
-      *&buf[14] = v144;
-      _os_log_error_impl(&dword_1C7694000, v118, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
+      *&buf[14] = v143;
+      _os_log_error_impl(&dword_1C7694000, v117, OS_LOG_TYPE_ERROR, "job: %{public}@\nTrace:\n%{public}@", buf, 0x16u);
     }
 
 LABEL_33:
@@ -363,7 +363,7 @@ LABEL_33:
 
   v9 = matteImage;
   v10 = objc_alloc(MEMORY[0x1E69B3A78]);
-  [v9 extent];
+  objc_msgSend_extent(v9);
   v11 = NUPixelSizeFromCGSize();
   v13 = [v10 initWithTargetPixelSize:{v11, v12}];
   [v7 imageSize];
@@ -386,31 +386,31 @@ LABEL_33:
 
   layout4 = [(_PIPosterInactiveFrameLayoutJob *)self layout];
   [layout4 visibleFrame];
-  v157.origin.x = v34;
-  v157.origin.y = v35;
-  v157.size.width = v36;
-  v157.size.height = v37;
-  v156.origin.x = 0.0;
-  v156.origin.y = 0.0;
-  v156.size.width = v30;
-  v156.size.height = v32;
-  v38 = CGRectContainsRect(v156, v157);
+  v156.origin.x = v34;
+  v156.origin.y = v35;
+  v156.size.width = v36;
+  v156.size.height = v37;
+  v155.origin.x = 0.0;
+  v155.origin.y = 0.0;
+  v155.size.width = v30;
+  v155.size.height = v32;
+  CGRectContainsRect(v155, v156);
 
+  v152 = 0u;
   v153 = 0u;
-  v154 = 0u;
   memset(buf, 0, sizeof(buf));
-  [v9 extent];
-  v40 = v39;
-  v42 = v41;
+  objc_msgSend_extent(v9);
+  v39 = v38;
+  v41 = v40;
   layoutConfiguration = [(_PIPosterInactiveFrameLayoutJob *)self layoutConfiguration];
   context = [v5 context];
-  [PISegmentationHelper computeInactiveFrameWithVisibleFrame:0 imageSize:!v38 canUpdateVisibleRect:v9 considerHeadroom:layoutConfiguration segmentationMatte:context layoutConfiguration:v21 context:v23, v25, v27, v40, v42];
+  objc_msgSend_computeInactiveFrameWithVisibleFrame_imageSize_canUpdateVisibleRect_considerHeadroom_segmentationMatte_layoutConfiguration_context_(PISegmentationHelper, v21, v23, v25, v27, v39, v41);
 
   [(_PIPosterInactiveFrameLayoutJob *)self setInactiveRect:v18 * 0.0, v18 * 0.0, v18 * 0.0, v18 * 0.0];
   layout5 = [(_PIPosterInactiveFrameLayoutJob *)self layout];
   LOBYTE(layoutConfiguration) = [layout5 isUsingHeadroom];
   layout6 = [(_PIPosterInactiveFrameLayoutJob *)self layout];
-  v47 = layout6;
+  v46 = layout6;
   if (layoutConfiguration)
   {
     [layout6 extendedImageSize];
@@ -421,8 +421,8 @@ LABEL_33:
     [layout6 imageSize];
   }
 
+  v49 = v47;
   v50 = v48;
-  v51 = v49;
 
   if ([(PFPosterOrientedLayout *)self->_layout layoutVariant]== 2)
   {
@@ -430,61 +430,61 @@ LABEL_33:
     segmentationItem = [layoutInactiveFrameRequest segmentationItem];
     regions = [segmentationItem regions];
     [regions acceptableCropRect];
-    v145 = v51;
-    v146 = v50;
-    v56 = v55;
-    v58 = v57;
-    v60 = v59;
-    v62 = v61;
+    v144 = v50;
+    v145 = v49;
+    v55 = v54;
+    v57 = v56;
+    v59 = v58;
+    v61 = v60;
     layout7 = [(_PIPosterInactiveFrameLayoutJob *)self layout];
     [layout7 imageSize];
-    v65 = v64;
+    v64 = v63;
     [(_PIPosterInactiveFrameLayoutJob *)self layout];
-    v66 = v151 = v13;
-    [v66 imageSize];
-    v67 = v56 * v65 + 0.0;
-    v69 = v58 * v68 + 0.0;
-    v149 = v69;
-    v150 = v67;
-    v147 = v62 * v68;
-    v148 = v60 * v65;
+    v65 = v150 = v13;
+    [v65 imageSize];
+    v66 = v55 * v64 + 0.0;
+    v68 = v57 * v67 + 0.0;
+    v148 = v68;
+    v149 = v66;
+    v146 = v61 * v67;
+    v147 = v59 * v64;
 
-    v70 = MEMORY[0x1E69C07A8];
+    v69 = MEMORY[0x1E69C07A8];
     layout8 = [(_PIPosterInactiveFrameLayoutJob *)self layout];
     [layout8 visibleFrame];
-    v73 = v72;
-    v75 = v74;
-    v77 = v76;
-    v79 = v78;
+    v72 = v71;
+    v74 = v73;
+    v76 = v75;
+    v78 = v77;
     layoutConfiguration2 = [(_PIPosterInactiveFrameLayoutJob *)self layoutConfiguration];
     layoutInactiveFrameRequest2 = [(_PIPosterInactiveFrameLayoutJob *)self layoutInactiveFrameRequest];
     segmentationItem2 = [layoutInactiveFrameRequest2 segmentationItem];
-    [v70 adaptiveFrameForVisibleFrame:layoutConfiguration2 essentialRect:objc_msgSend(segmentationItem2 originalImageSize:"classification") layoutConfiguration:v73 classification:v75 maxClockStretchOverride:{v77, v79, v67, v69, v148, v147, v146, v145, 0x3FF0000000000000}];
+    [v69 adaptiveFrameForVisibleFrame:layoutConfiguration2 essentialRect:objc_msgSend(segmentationItem2 originalImageSize:"classification") layoutConfiguration:v72 classification:v74 maxClockStretchOverride:{v76, v78, v66, v68, v147, v146, v145, v144, 0x3FF0000000000000}];
 
-    v13 = v151;
-    v83 = MEMORY[0x1E69C07A8];
+    v13 = v150;
+    v82 = MEMORY[0x1E69C07A8];
     [(PFPosterOrientedLayout *)self->_layout visibleFrame];
-    [v83 topFrameForVisibleRect:? adaptiveRect:?];
-    v85 = v84;
-    v87 = v86;
-    v89 = v88;
-    v91 = v90;
-    v92 = MEMORY[0x1E69C07A8];
+    [v82 topFrameForVisibleRect:? adaptiveRect:?];
+    v84 = v83;
+    v86 = v85;
+    v88 = v87;
+    v90 = v89;
+    v91 = MEMORY[0x1E69C07A8];
     layoutConfiguration3 = [(_PIPosterInactiveFrameLayoutJob *)self layoutConfiguration];
     [layoutConfiguration3 unsafeRect];
-    v95 = v94;
-    v97 = v96;
-    v99 = v98;
-    v101 = v100;
+    v94 = v93;
+    v96 = v95;
+    v98 = v97;
+    v100 = v99;
     layout9 = [(_PIPosterInactiveFrameLayoutJob *)self layout];
     [layout9 imageSize];
-    [v92 computeInactiveAvoidingRectForVisibleRect:0 acceptableFrame:0 unsafeRect:v85 imageSize:v87 considerHeadroom:v89 newVisibleRect:{v91, v150, v149, v148, v147, v95, v97, v99, v101, v103, v104}];
-    v106 = v105;
-    v108 = v107;
-    v110 = v109;
-    v112 = v111;
+    [v91 computeInactiveAvoidingRectForVisibleRect:0 acceptableFrame:0 unsafeRect:v84 imageSize:v86 considerHeadroom:v88 newVisibleRect:{v90, v149, v148, v147, v146, v94, v96, v98, v100, v102, v103}];
+    v105 = v104;
+    v107 = v106;
+    v109 = v108;
+    v111 = v110;
 
-    [(_PIPosterInactiveFrameLayoutJob *)self setAdaptiveInactiveRect:v106, v108, v110, v112];
+    [(_PIPosterInactiveFrameLayoutJob *)self setAdaptiveInactiveRect:v105, v107, v109, v111];
   }
 
   return 1;

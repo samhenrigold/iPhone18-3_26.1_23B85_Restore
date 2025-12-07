@@ -22,7 +22,7 @@
 - (void)loadView
 {
   selfCopy = self;
-  sub_10058740C();
+  sub_10058740C(selfCopy, v2);
 }
 
 - (void)viewDidLoad

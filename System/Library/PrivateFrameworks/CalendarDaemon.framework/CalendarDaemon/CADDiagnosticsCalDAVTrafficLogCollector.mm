@@ -13,37 +13,37 @@
 
 - (void)determineExpectedOutputFiles:(id)files
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   v5 = [(CADDiagnosticsCalDAVTrafficLogCollector *)self findAllLogFiles:filesCopy];
   [filesCopy log:{@"Found %lu traffic logs", objc_msgSend(v5, "count")}];
-  v20 = v5;
+  v19 = v5;
   v6 = [(CADDiagnosticsCalDAVTrafficLogCollector *)self _filteredLogsFromAllLogs:v5 context:filesCopy];
   [filesCopy log:{@"Including %lu traffic logs", objc_msgSend(v6, "count")}];
   selfCopy = self;
   objc_storeStrong(&self->_orderedInputURLs, v6);
   v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       v12 = 0;
       do
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        lastPathComponent = [*(*(&v22 + 1) + 8 * v12) lastPathComponent];
+        lastPathComponent = [*(*(&v21 + 1) + 8 * v12) lastPathComponent];
         if ([filesCopy redactLogs])
         {
           pathExtension = [lastPathComponent pathExtension];
@@ -65,7 +65,7 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
@@ -73,56 +73,54 @@
 
   orderedOutputURLs = selfCopy->_orderedOutputURLs;
   selfCopy->_orderedOutputURLs = v7;
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)findAllLogFiles:(id)files
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   filesCopy = files;
   v4 = DACustomLogDirectory();
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v25 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtPath:v4 error:&v25];
-  v7 = v25;
+  v24 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtPath:v4 error:&v24];
+  v7 = v24;
 
   if (!v6)
   {
     [filesCopy logError:{@"Unable to find traffic logs: %@", v7}];
   }
 
-  v18 = v7;
-  v19 = v4;
+  v17 = v7;
+  v18 = v4;
   v8 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4 isDirectory:1];
-  v20 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         if ([objc_opt_class() _shouldIncludeLogWithFilename:v14])
         {
           v15 = [v8 URLByAppendingPathComponent:v14];
           if (v15)
           {
             [filesCopy log:{@"Found log file %@", v14}];
-            [v20 addObject:v15];
+            [v19 addObject:v15];
           }
 
           else
@@ -137,15 +135,13 @@
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v11);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 + (BOOL)_shouldIncludeLogWithFilename:(id)filename
@@ -302,34 +298,34 @@ LABEL_7:
 
 - (id)parseFilenameDates:(id)dates context:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
   contextCopy = context;
-  v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = objc_alloc_init(MEMORY[0x277CCA968]);
   [v6 setDateStyle:1];
-  v23 = v6;
+  v22 = v6;
   [v6 setDateFormat:@"yyyy_MM_dd_HH_mm_ssZZZ"];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = datesCopy;
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         lastPathComponent = [v11 lastPathComponent];
         v13 = [lastPathComponent rangeOfString:@".log"];
         v14 = [lastPathComponent rangeOfString:@"_"];
@@ -341,11 +337,11 @@ LABEL_7:
         else
         {
           v17 = [lastPathComponent substringWithRange:{v14 + 1, v13 + ~v14}];
-          v18 = [v23 dateFromString:v17];
+          v18 = [v22 dateFromString:v17];
           v19 = v18;
           if (v18)
           {
-            [v22 setObject:v18 forKeyedSubscript:v11];
+            [v21 setObject:v18 forKeyedSubscript:v11];
           }
 
           else
@@ -355,44 +351,42 @@ LABEL_7:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 - (void)collect:(id)collect
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   collectCopy = collect;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = self->_orderedInputURLs;
-  v5 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       v9 = 0;
-      v19 = v6;
+      v18 = v6;
       do
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * v9);
+        v10 = *(*(&v21 + 1) + 8 * v9);
         v11 = [(NSArray *)self->_orderedOutputURLs objectAtIndexedSubscript:v7];
         if ([collectCopy redactLogs])
         {
@@ -407,16 +401,16 @@ LABEL_7:
           v12 = v8;
           selfCopy = self;
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-          v21 = 0;
-          v15 = [defaultManager copyItemAtURL:v10 toURL:v11 error:&v21];
-          v16 = v21;
+          v20 = 0;
+          v15 = [defaultManager copyItemAtURL:v10 toURL:v11 error:&v20];
+          v16 = v20;
 
           if (v15)
           {
 
             self = selfCopy;
             v8 = v12;
-            v6 = v19;
+            v6 = v18;
 LABEL_11:
             [collectCopy setStatus:2 forFile:v11];
             goto LABEL_13;
@@ -426,7 +420,7 @@ LABEL_11:
 
           self = selfCopy;
           v8 = v12;
-          v6 = v19;
+          v6 = v18;
         }
 
 LABEL_13:
@@ -442,15 +436,13 @@ LABEL_13:
       }
 
       while (v6 != v9);
-      v6 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v6 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v6);
   }
 
 LABEL_16:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

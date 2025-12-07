@@ -5,9 +5,10 @@
 
 uint64_t __54__NSString_SCROBrailleAdditions___illegalCharacterSet__block_invoke()
 {
-  _illegalCharacterSet___illegalCharacterSet = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"\r\n\t"];
+  v0 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"\r\n\t"];
+  _illegalCharacterSet___illegalCharacterSet = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 void __53__NSString_SCROBrailleAdditions___legalWhiteSpaceSet__block_invoke(uint64_t a1)

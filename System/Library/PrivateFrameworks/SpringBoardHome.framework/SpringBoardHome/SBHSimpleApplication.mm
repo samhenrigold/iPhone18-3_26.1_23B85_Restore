@@ -24,11 +24,12 @@
 - (SBHSimpleApplication)initWithBundleIdentifier:(id)identifier allowPlaceholder:(BOOL)placeholder
 {
   placeholderCopy = placeholder;
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v12 = 0;
-  v7 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:placeholderCopy error:&v12];
-  v8 = v12;
+  v13 = 0;
+  v7 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:identifierCopy allowPlaceholder:placeholderCopy error:&v13];
+  v8 = v13;
+  v9 = v8;
   if (v7)
   {
     self = [(SBHSimpleApplication *)self initWithApplicationRecord:v7];
@@ -37,14 +38,14 @@
 
   else
   {
-    v10 = SBLogIcon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SBLogIcon(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v14 = identifierCopy;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "Error creating SBHSimpleApplication with '%@': %@", buf, 0x16u);
+      v15 = identifierCopy;
+      v16 = 2112;
+      v17 = v9;
+      _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "Error creating SBHSimpleApplication with '%@': %@", buf, 0x16u);
     }
 
     selfCopy = 0;
@@ -348,16 +349,16 @@ void __51__SBHSimpleApplication_badgeNumberOrStringForIcon___block_invoke(uint64
   return v3;
 }
 
-uint64_t __41__SBHSimpleApplication_homeScreenService__block_invoke(uint64_t a1)
+uint64_t __41__SBHSimpleApplication_homeScreenService__block_invoke()
 {
-  result = SBHIsRunningInSpringBoard(a1);
+  result = SBHIsRunningInSpringBoard();
   if ((result & 1) == 0)
   {
-    v2 = objc_alloc_init(MEMORY[0x1E69D4240]);
-    v3 = homeScreenService__homeScreenService;
-    homeScreenService__homeScreenService = v2;
+    v1 = objc_alloc_init(MEMORY[0x1E69D4240]);
+    v2 = homeScreenService__homeScreenService;
+    homeScreenService__homeScreenService = v1;
 
-    return MEMORY[0x1EEE66BB8](v2, v3);
+    return MEMORY[0x1EEE66BB8](v1, v2);
   }
 
   return result;

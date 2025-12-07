@@ -92,18 +92,18 @@ void __58__SBHWidgetAddSheetAnimationController_animateTransition___block_invoke
   v67 = portaledShadowedWidgetView;
   if (v18)
   {
-    [contentView bounds];
+    objc_msgSend_bounds(contentView);
     UIRectGetCenter();
     [containerView2 convertPoint:contentView fromView:?];
     self->_fromPoint.x = v29;
     self->_fromPoint.y = v30;
-    [containerView bounds];
+    objc_msgSend_bounds(containerView);
     v32 = v31;
     v34 = v33;
     v36 = v35;
     v38 = v37;
     view = [v6 view];
-    [view bounds];
+    objc_msgSend_bounds(view);
     v41 = v40;
     v43 = v42;
     v45 = v44;
@@ -114,7 +114,7 @@ void __58__SBHWidgetAddSheetAnimationController_animateTransition___block_invoke
     v50 = v49;
     v52 = v51;
 
-    [containerView2 bounds];
+    objc_msgSend_bounds(containerView2);
     v26 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v50, 0.0, v52, v53}];
     [(UIView *)v26 setClipsToBounds:1];
     [(UIView *)v26 setUserInteractionEnabled:0];
@@ -192,7 +192,7 @@ void __58__SBHWidgetAddSheetAnimationController_animateTransition___block_invoke
 
 void __75__SBHWidgetAddSheetAnimationController_interruptibleAnimatorForTransition___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) bounds];
+  objc_msgSend_bounds(*(a1 + 32));
   UIRectGetCenter();
   [*(a1 + 40) setCenter:?];
   block[0] = MEMORY[0x1E69E9820];
@@ -264,58 +264,58 @@ uint64_t __75__SBHWidgetAddSheetAnimationController_interruptibleAnimatorForTran
   return [v4 setShadowSupplementalTransform:&v7];
 }
 
-void __75__SBHWidgetAddSheetAnimationController_interruptibleAnimatorForTransition___block_invoke_4(uint64_t a1)
+void __75__SBHWidgetAddSheetAnimationController_interruptibleAnimatorForTransition___block_invoke_4(uint64_t a1, const char *a2)
 {
-  v21 = 0u;
   v22 = 0u;
-  v20 = 0u;
-  v2 = *(a1 + 32);
-  if (v2)
+  v23 = 0u;
+  v21 = 0u;
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 wrapperViewTransform];
+    objc_msgSend_wrapperViewTransform(v3, a2);
   }
 
-  v3 = *(a1 + 40);
-  v12 = v20;
+  v4 = *(a1 + 40);
   v13 = v21;
   v14 = v22;
-  [v3 setTransform:&v12];
-  v4 = *(a1 + 48);
-  v10 = *(MEMORY[0x1E695EFD0] + 16);
-  v12 = *MEMORY[0x1E695EFD0];
-  v11 = v12;
-  v13 = v10;
-  v14 = *(MEMORY[0x1E695EFD0] + 32);
-  v9 = v14;
-  [v4 setContentTransform:&v12];
+  v15 = v23;
+  [v4 setTransform:&v13];
   v5 = *(a1 + 48);
-  v12 = v11;
-  v13 = v10;
-  v14 = v9;
-  [v5 setShadowSupplementalTransform:&v12];
-  v6 = [*(a1 + 32) widgetWrapperViewController];
-  v7 = [v6 wrapperView];
+  v11 = *(MEMORY[0x1E695EFD0] + 16);
+  v13 = *MEMORY[0x1E695EFD0];
+  v12 = v13;
+  v14 = v11;
+  v15 = *(MEMORY[0x1E695EFD0] + 32);
+  v10 = v15;
+  [v5 setContentTransform:&v13];
+  v6 = *(a1 + 48);
+  v13 = v12;
+  v14 = v11;
+  v15 = v10;
+  [v6 setShadowSupplementalTransform:&v13];
+  v7 = [*(a1 + 32) widgetWrapperViewController];
+  v8 = [v7 wrapperView];
 
-  v8 = *(a1 + 48);
-  if (v7)
+  v9 = *(a1 + 48);
+  if (v8)
   {
-    [v7 hoverTransform];
+    objc_msgSend_hoverTransform(v8);
   }
 
   else
   {
-    v18 = 0u;
     v19 = 0u;
-    v16 = 0u;
+    v20 = 0u;
     v17 = 0u;
-    v14 = 0u;
+    v18 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
+    v14 = 0u;
   }
 
-  [v8 setTransform3D:&v12];
-  [*(a1 + 48) setPerspectiveEnabled:{objc_msgSend(v7, "isHoverAnimationEnabled")}];
+  [v9 setTransform3D:&v13];
+  [*(a1 + 48) setPerspectiveEnabled:{objc_msgSend(v8, "isHoverAnimationEnabled")}];
 }
 
 uint64_t __75__SBHWidgetAddSheetAnimationController_interruptibleAnimatorForTransition___block_invoke_5(uint64_t a1)

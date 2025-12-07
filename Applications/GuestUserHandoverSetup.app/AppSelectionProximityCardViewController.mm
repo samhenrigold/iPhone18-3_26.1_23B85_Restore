@@ -24,7 +24,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_100013484();
+  sub_100013484(selfCopy);
 }
 
 - (_TtC22GuestUserHandoverSetup39AppSelectionProximityCardViewController)initWithContentView:(id)view
@@ -47,17 +47,16 @@
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
   isa = IndexPath._bridgeToObjectiveC()().super.isa;
   [viewCopy deselectRowAtIndexPath:isa animated:1];
 
-  sub_100013FD4(v10);
-  (*(v7 + 8))(v10, v6);
+  sub_100013FD4(v9);
+  (*(v7 + 8))(v9, v6);
 }
 
 @end

@@ -18,10 +18,10 @@
 
 - (REUpNextHeaderView)initWithFrame:(CGRect)frame
 {
-  v26[3] = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = REUpNextHeaderView;
-  v3 = [(REUpNextHeaderView *)&v25 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v25[3] = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = REUpNextHeaderView;
+  v3 = [(REUpNextHeaderView *)&v24 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_alloc(MEMORY[0x277D756B8]);
@@ -47,21 +47,20 @@
     leadingAnchor = [(UILabel *)v3->_label leadingAnchor];
     leadingAnchor2 = [(REUpNextHeaderView *)v3 leadingAnchor];
     v14 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:*&kActiveLayout_0_3];
-    v26[0] = v14;
+    v25[0] = v14;
     trailingAnchor = [(UILabel *)v3->_label trailingAnchor];
     trailingAnchor2 = [(REUpNextHeaderView *)v3 trailingAnchor];
     v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-*&kActiveLayout_0_3];
-    v26[1] = v17;
+    v25[1] = v17;
     lastBaselineAnchor = [(UILabel *)v3->_label lastBaselineAnchor];
     bottomAnchor = [(REUpNextHeaderView *)v3 bottomAnchor];
     v20 = [lastBaselineAnchor constraintEqualToAnchor:bottomAnchor constant:-*&kActiveLayout_1_3];
-    v26[2] = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:3];
+    v25[2] = v20;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
 
     [MEMORY[0x277CCAAD0] activateConstraints:v21];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

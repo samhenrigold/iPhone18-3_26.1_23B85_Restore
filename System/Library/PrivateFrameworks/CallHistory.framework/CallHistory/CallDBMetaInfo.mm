@@ -1,4 +1,5 @@
 @interface CallDBMetaInfo
+- (BOOL)validateInfo:(BOOL)info;
 - (CallDBMetaInfo)initWithURL:(id)l;
 - (int64_t)readDatabaseVersion:(BOOL)version;
 - (void)reset;
@@ -102,6 +103,30 @@
   }
 }
 
+- (BOOL)validateInfo:(BOOL)info
+{
+  infoCopy = info;
+  defaultManager = [MEMORY[0x1E696AC08] defaultManager];
+  p_dbInfoPrefFile = &self->_dbInfoPrefFile;
+  path = [(NSURL *)self->_dbInfoPrefFile path];
+  v8 = [defaultManager isReadableFileAtPath:path];
+
+  if (v8)
+  {
+    return [(CallDBMetaInfo *)self readDatabaseVersion:infoCopy]== 42;
+  }
+
+  v10 = +[CHLogServer sharedInstance];
+  v11 = [v10 logHandleForDomain:"ch.calldbm"];
+
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  {
+    [(CallDBMetaInfo *)p_dbInfoPrefFile validateInfo:v11, v12, v13, v14, v15, v16, v17];
+  }
+
+  return 0;
+}
+
 - (void)reset
 {
   v3 = MEMORY[0x1E695DF20];
@@ -131,17 +156,16 @@
 
 - (void)writeDatabaseVersion:(uint64_t)a3 isTemp:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1C3E90000, a1, a3, "Failed to synchronize preference domain: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"com.apple.callhistory.databaseInfo.plist";
+  OUTLINED_FUNCTION_0_1(&dword_1C3E90000, a1, a3, "Failed to synchronize preference domain: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)validateInfo:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_0_1(&dword_1C3E90000, a2, a3, "File at path: %{public}@ is not readable", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_1(&dword_1C3E90000, a2, a3, "File at path: %{public}@ is not readable", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

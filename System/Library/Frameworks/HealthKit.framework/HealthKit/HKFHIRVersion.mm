@@ -59,29 +59,30 @@
 + (id)versionFromVersionString:(id)string
 {
   stringCopy = string;
-  v10 = 0;
-  v4 = [HKFHIRVersion versionFromVersionString:stringCopy error:&v10];
-  v5 = v10;
+  v12 = 0;
+  v4 = [HKFHIRVersion versionFromVersionString:stringCopy error:&v12];
+  v5 = v12;
+  v7 = v5;
   if (v4)
   {
-    v6 = v4;
+    v8 = v4;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v7 = HKLogHealthRecords;
+    _HKInitializeLogging(v5, v6);
+    v9 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      [(HKFHIRVersion *)v5 versionFromVersionString:v7];
+      [(HKFHIRVersion *)v7 versionFromVersionString:v9];
     }
 
-    v6 = [[HKFHIRVersion alloc] initWithInvalidVersionString:stringCopy];
+    v8 = [[HKFHIRVersion alloc] initWithInvalidVersionString:stringCopy];
   }
 
-  v8 = v6;
+  v10 = v8;
 
-  return v8;
+  return v10;
 }
 
 + (HKFHIRVersion)versionFromVersionString:(NSString *)versionString error:(NSError *)errorOut
@@ -289,11 +290,10 @@ LABEL_12:
 
 + (void)versionFromVersionString:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Unable to parse: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Unable to parse: %{public}@", &v2, 0xCu);
 }
 
 @end

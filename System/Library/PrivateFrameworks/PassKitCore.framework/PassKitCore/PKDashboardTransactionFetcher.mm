@@ -1187,9 +1187,9 @@ void __98__PKDashboardTransactionFetcher__addCashbackTransactions_synchronous_cu
             v21 = v20;
             if (v20)
             {
-              v22 = [(__CFString *)v20 isEqualToString:@"Daily Cash"];
+              isEqualToString = objc_msgSend_isEqualToString_(v20);
 
-              if (v22)
+              if (isEqualToString)
               {
 LABEL_18:
 
@@ -1204,7 +1204,7 @@ LABEL_18:
 
               else
               {
-                v23 = [(__CFString *)v24 isEqualToString:?];
+                v23 = objc_msgSend_isEqualToString_(v24);
               }
             }
 
@@ -1963,14 +1963,15 @@ uint64_t __132__PKDashboardTransactionFetcher__processPaymentPassTransactionsWit
   v10 = *v24;
   do
   {
-    for (i = 0; i != v9; ++i)
+    v11 = 0;
+    do
     {
       if (*v24 != v10)
       {
         objc_enumerationMutation(v6Fees);
       }
 
-      currencyAmount = [*(*(&v23 + 1) + 8 * i) currencyAmount];
+      currencyAmount = [*(*(&v23 + 1) + 8 * v11) currencyAmount];
       currency = [currencyAmount currency];
       v14 = currencyCode;
       v15 = currency;
@@ -1993,16 +1994,19 @@ LABEL_14:
         goto LABEL_14;
       }
 
-      v17 = [v14 isEqualToString:v15];
+      isEqualToString = objc_msgSend_isEqualToString_(v14);
 
-      if (v17)
+      if (isEqualToString)
       {
         goto LABEL_12;
       }
 
 LABEL_15:
+
+      ++v11;
     }
 
+    while (v9 != v11);
     v9 = [v6Fees countByEnumeratingWithState:&v23 objects:v27 count:16];
   }
 
@@ -2269,9 +2273,9 @@ LABEL_5:
 
   if (v8 && v9)
   {
-    v12 = [v8 isEqualToString:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (v12)
+    if (isEqualToString)
     {
       goto LABEL_13;
     }
@@ -2299,9 +2303,9 @@ LABEL_13:
     goto LABEL_15;
   }
 
-  v16 = [(NSString *)v14 isEqualToString:v15];
+  v16 = objc_msgSend_isEqualToString_(v14);
 
-  if (!v16)
+  if ((v16 & 1) == 0)
   {
     goto LABEL_15;
   }

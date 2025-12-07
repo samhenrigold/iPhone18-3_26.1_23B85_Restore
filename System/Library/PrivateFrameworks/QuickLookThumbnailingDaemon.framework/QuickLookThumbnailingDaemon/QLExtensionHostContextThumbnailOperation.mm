@@ -46,10 +46,9 @@
 
 - (void)main
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   if ([(QLExtensionHostContextThumbnailOperation *)self isCancelled])
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [(QLExtensionHostContextThumbnailOperation *)self finishWithReply:0 error:0];
   }
@@ -64,48 +63,45 @@
 
     if (urlWrapper)
     {
-      v7 = MEMORY[0x277CCA9E0];
+      v6 = MEMORY[0x277CCA9E0];
       item3 = [self->_completionHandler item];
       fileURL = [item3 fileURL];
-      v10 = [v7 readingIntentWithURL:fileURL options:1];
+      v9 = [v6 readingIntentWithURL:fileURL options:1];
 
       objc_initWeak(&location, self);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __48__QLExtensionHostContextThumbnailOperation_main__block_invoke;
       block[3] = &unk_279ADD410;
-      objc_copyWeak(&v25, &location);
-      v11 = dispatch_block_create(0, block);
-      [(QLExtensionHostContextThumbnailOperation *)self setTimeoutBlock:v11];
+      objc_copyWeak(&v22, &location);
+      v10 = dispatch_block_create(0, block);
+      [(QLExtensionHostContextThumbnailOperation *)self setTimeoutBlock:v10];
 
-      v12 = dispatch_time(0, 20000000000);
+      v11 = dispatch_time(0, 20000000000);
       coordinationQueue = [(QLExtensionHostContextThumbnailOperation *)self coordinationQueue];
       underlyingQueue = [coordinationQueue underlyingQueue];
       timeoutBlock = [(QLExtensionHostContextThumbnailOperation *)self timeoutBlock];
-      dispatch_after(v12, underlyingQueue, timeoutBlock);
+      dispatch_after(v11, underlyingQueue, timeoutBlock);
 
       coordinator = [(QLExtensionHostContextThumbnailOperation *)self coordinator];
-      v27[0] = v10;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+      v24[0] = v9;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
       coordinationQueue2 = [(QLExtensionHostContextThumbnailOperation *)self coordinationQueue];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __48__QLExtensionHostContextThumbnailOperation_main__block_invoke_7;
-      v22[3] = &unk_279ADD438;
-      v22[4] = self;
-      v19 = v10;
-      v23 = v19;
-      [coordinator coordinateAccessWithIntents:v17 queue:coordinationQueue2 byAccessor:v22];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __48__QLExtensionHostContextThumbnailOperation_main__block_invoke_7;
+      v19[3] = &unk_279ADD438;
+      v19[4] = self;
+      v18 = v9;
+      v20 = v18;
+      [coordinator coordinateAccessWithIntents:v16 queue:coordinationQueue2 byAccessor:v19];
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v22);
       objc_destroyWeak(&location);
-
-      v20 = *MEMORY[0x277D85DE8];
     }
 
     else
     {
-      v21 = *MEMORY[0x277D85DE8];
 
       [(QLExtensionHostContextThumbnailOperation *)self generate];
     }
@@ -167,11 +163,10 @@ void __48__QLExtensionHostContextThumbnailOperation_main__block_invoke_7(uint64_
 
 - (void)generate
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "Failed to acquire assertion : %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2615D3000, a2, OS_LOG_TYPE_ERROR, "Failed to acquire assertion : %@", &v2, 0xCu);
 }
 
 void __52__QLExtensionHostContextThumbnailOperation_generate__block_invoke(uint64_t a1)
@@ -231,7 +226,7 @@ void __52__QLExtensionHostContextThumbnailOperation_generate__block_invoke_35(ui
 
 void __52__QLExtensionHostContextThumbnailOperation_generate__block_invoke_36(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) timeoutBlock];
@@ -250,17 +245,16 @@ void __52__QLExtensionHostContextThumbnailOperation_generate__block_invoke_36(ui
   {
     v11 = *(*(a1 + 32) + 288);
     v12 = [v5 debugDescription];
-    v14 = 138412802;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&dword_2615D3000, v10, OS_LOG_TYPE_INFO, "Thumbnail extension generated thumbnail for %@: reply = %@, error = %@", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v12;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_2615D3000, v10, OS_LOG_TYPE_INFO, "Thumbnail extension generated thumbnail for %@: reply = %@, error = %@", &v13, 0x20u);
   }
 
   [*(a1 + 32) finishWithReply:v5 error:v6];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithReply:(id)reply error:(id)error
@@ -280,13 +274,13 @@ void __52__QLExtensionHostContextThumbnailOperation_generate__block_invoke_36(ui
 
 - (void)finish
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = _log_4();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     completionHandler = self->_completionHandler;
     *buf = 138412290;
-    v17 = completionHandler;
+    v16 = completionHandler;
     _os_log_impl(&dword_2615D3000, v3, OS_LOG_TYPE_INFO, "Operation did finish for %@", buf, 0xCu);
   }
 
@@ -327,45 +321,35 @@ void __52__QLExtensionHostContextThumbnailOperation_generate__block_invoke_36(ui
   timeoutBlock = self->_timeoutBlock;
   self->_timeoutBlock = 0;
 
-  v15.receiver = self;
-  v15.super_class = QLExtensionHostContextThumbnailOperation;
-  [(QLAsynchronousOperation *)&v15 finish];
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = QLExtensionHostContextThumbnailOperation;
+  [(QLAsynchronousOperation *)&v14 finish];
 }
 
 void __48__QLExtensionHostContextThumbnailOperation_main__block_invoke_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained request];
-  v9 = [v2 item];
+  v8 = [v2 item];
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __52__QLExtensionHostContextThumbnailOperation_generate__block_invoke_cold_1(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v8 = [WeakRetained request];
+  v7 = [WeakRetained request];
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __52__QLExtensionHostContextThumbnailOperation_generate__block_invoke_cold_2(id *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(a1);
   v2 = [WeakRetained process];
   [v2 rbs_pid];
   OUTLINED_FUNCTION_0_3();
   _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

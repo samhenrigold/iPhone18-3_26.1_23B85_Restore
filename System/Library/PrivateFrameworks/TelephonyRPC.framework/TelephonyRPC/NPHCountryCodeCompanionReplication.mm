@@ -40,15 +40,15 @@
 
 - (void)_updateAndBroadcastCodeWithKey:(id)key usingFunction:(void *)function
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   v7 = (function)();
   CFPreferencesSetAppValue(keyCopy, v7, @"com.apple.mobilephone");
   CFPreferencesAppSynchronize(@"com.apple.mobilephone");
   npsManager = self->_npsManager;
   v9 = MEMORY[0x277CBEB98];
-  v13[0] = keyCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = keyCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v11 = [v9 setWithArray:v10];
   [(NPSManager *)npsManager synchronizeUserDefaultsDomain:@"com.apple.mobilephone" keys:v11];
 
@@ -56,8 +56,6 @@
   {
     CFRelease(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

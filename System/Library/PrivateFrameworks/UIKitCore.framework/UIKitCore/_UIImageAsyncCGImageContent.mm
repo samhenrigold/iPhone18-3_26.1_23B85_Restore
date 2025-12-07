@@ -71,15 +71,15 @@
       v16 = v15;
       if (v14 == v15)
       {
-        v12 = 1;
+        isEqual = 1;
       }
 
       else
       {
-        v12 = 0;
+        isEqual = 0;
         if (v14 && v15)
         {
-          v12 = [v14 isEqual:v15];
+          isEqual = objc_msgSend_isEqual_(v14);
         }
       }
     }
@@ -88,16 +88,16 @@
     {
       v18.receiver = self;
       v18.super_class = _UIImageAsyncCGImageContent;
-      v12 = [(_UIImageCGImageContent *)&v18 isEqual:v5];
+      isEqual = [(_UIImageCGImageContent *)&v18 isEqual:v5];
     }
   }
 
   else
   {
-    v12 = 0;
+    isEqual = 0;
   }
 
-  return v12;
+  return isEqual;
 }
 
 - (unint64_t)hash

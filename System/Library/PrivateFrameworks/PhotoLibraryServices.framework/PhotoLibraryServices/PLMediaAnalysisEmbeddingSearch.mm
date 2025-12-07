@@ -25,7 +25,7 @@
     }
 
 LABEL_6:
-    v11 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v9, "count")}];
+    v11 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v9)];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
     v13[2] = __86__PLMediaAnalysisEmbeddingSearch_fetchEmbeddingsWithAssetUUIDs_photoLibraryURL_error___block_invoke;
@@ -94,12 +94,12 @@ void __86__PLMediaAnalysisEmbeddingSearch_fetchEmbeddingsWithAssetUUIDs_photoLib
   [defaultOptions setResultLimit:{objc_msgSend(optionsCopy, "resultLimit")}];
   assetUUIDsForPrefilter = [optionsCopy assetUUIDsForPrefilter];
   [defaultOptions setAssetUUIDs:assetUUIDsForPrefilter];
-  if ([assetUUIDsForPrefilter count])
+  if (objc_msgSend_count(assetUUIDsForPrefilter))
   {
     v13 = PLBackendGetLog();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [assetUUIDsForPrefilter count];
+      v14 = objc_msgSend_count(assetUUIDsForPrefilter);
       LODWORD(buf) = 134217984;
       *(&buf + 4) = v14;
       _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEFAULT, "[PLMediaAnalysisEmbeddingSearch] Using %lu assets for prefiltering", &buf, 0xCu);
@@ -152,7 +152,7 @@ void __86__PLMediaAnalysisEmbeddingSearch_fetchEmbeddingsWithAssetUUIDs_photoLib
     goto LABEL_34;
   }
 
-  v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v38, "count")}];
+  v44 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v38)];
   v53 = 0u;
   v54 = 0u;
   v51 = 0u;
@@ -176,7 +176,7 @@ void __86__PLMediaAnalysisEmbeddingSearch_fetchEmbeddingsWithAssetUUIDs_photoLib
 
         v46 = v19;
         v21 = *(*(&v51 + 1) + 8 * v19);
-        v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v21, "count")}];
+        v22 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(v21)];
         v49 = 0u;
         v50 = 0u;
         v47 = 0u;

@@ -102,25 +102,23 @@
 
 void __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke(uint64_t a1)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D0AD60];
-  v9[0] = *MEMORY[0x277D0AC40];
+  v8[0] = *MEMORY[0x277D0AC40];
   v3 = [MEMORY[0x277CBEBC0] URLWithString:@"diags://"];
-  v9[1] = *MEMORY[0x277D0AC58];
-  v10[0] = v3;
-  v10[1] = MEMORY[0x277CBEC38];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v8[1] = *MEMORY[0x277D0AC58];
+  v9[0] = v3;
+  v9[1] = MEMORY[0x277CBEC38];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   v5 = [v2 optionsWithDictionary:v4];
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_2;
-  v8[3] = &unk_27A66ED90;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_2;
+  v7[3] = &unk_27A66ED90;
   v6 = *(a1 + 32);
-  v8[4] = *(a1 + 40);
-  [v6 openApplication:@"com.apple.Diagnostics" withOptions:v5 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[4] = *(a1 + 40);
+  [v6 openApplication:@"com.apple.Diagnostics" withOptions:v5 completion:v7];
 }
 
 void __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -140,19 +138,19 @@ void __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_2(uint64_t a1, 
   dispatch_async(v7, block);
 }
 
-uint64_t __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_3(uint64_t a1)
+uint64_t __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = (a1 + 32);
   if (*(a1 + 32) || !*(a1 + 40))
   {
-    v3 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_3_cold_2(v2, v3);
+      __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_3_cold_2(v3, v4);
     }
 
     [*(a1 + 48) setDiagsProcess:0];
-    v4 = 2;
+    v5 = 2;
   }
 
   else
@@ -160,13 +158,13 @@ uint64_t __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_3(uint64_t 
     [*(a1 + 48) setDiagsProcess:?];
     [*(a1 + 48) setIsDiagsRunning:1];
     [*(a1 + 48) _initProcessMonitor];
-    v6 = [*(a1 + 48) xpcConnection];
-    if (v6)
+    v7 = [*(a1 + 48) xpcConnection];
+    if (v7)
     {
 
 LABEL_10:
-      v4 = 0;
-      return [*(a1 + 48) diagnosticsAppLaunchedWithResult:v4];
+      v5 = 0;
+      return [*(a1 + 48) diagnosticsAppLaunchedWithResult:v5];
     }
 
     if ([*(a1 + 48) _establishConnection])
@@ -174,27 +172,27 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    v7 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_3_cold_1();
     }
 
-    v4 = 1;
+    v5 = 1;
   }
 
-  return [*(a1 + 48) diagnosticsAppLaunchedWithResult:v4];
+  return [*(a1 + 48) diagnosticsAppLaunchedWithResult:v5];
 }
 
 - (void)diagnosticsExitingForReason:(int64_t)reason
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = DiagnosticLogHandleForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     reasonCopy = reason;
-    _os_log_impl(&dword_275BB3000, v5, OS_LOG_TYPE_DEFAULT, "Diagnostics app is exiting for %ld", &v9, 0xCu);
+    _os_log_impl(&dword_275BB3000, v5, OS_LOG_TYPE_DEFAULT, "Diagnostics app is exiting for %ld", &v8, 0xCu);
   }
 
   [(DADiagnosticsLauncher *)self setIsDiagsRunning:0];
@@ -206,13 +204,11 @@ LABEL_10:
     delegate2 = [(DADiagnosticsLauncher *)self delegate];
     [delegate2 diagnosticsAppDidExitWithReason:reason];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_establishConnection
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.diagnostics.launcher-service" options:4096];
   v4 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2884C15B8];
   [v3 setRemoteObjectInterface:v4];
@@ -220,35 +216,35 @@ LABEL_10:
   [v3 setExportedInterface:v5];
   [v3 setExportedObject:self];
   [v3 activate];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__0;
-  v24 = __Block_byref_object_dispose__0;
-  v25 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__0;
+  v23 = __Block_byref_object_dispose__0;
+  v24 = 0;
   objc_initWeak(&location, self);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __45__DADiagnosticsLauncher__establishConnection__block_invoke;
-  v17[3] = &unk_27A66EBD8;
-  v17[4] = &v20;
-  objc_copyWeak(&v18, &location);
-  v6 = [v3 synchronousRemoteObjectProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __45__DADiagnosticsLauncher__establishConnection__block_invoke;
+  v16[3] = &unk_27A66EBD8;
+  v16[4] = &v19;
+  objc_copyWeak(&v17, &location);
+  v6 = [v3 synchronousRemoteObjectProxyWithErrorHandler:v16];
   if (v6)
   {
     *buf = 0;
-    v27 = buf;
-    v28 = 0x3032000000;
-    v29 = __Block_byref_object_copy__0;
-    v30 = __Block_byref_object_dispose__0;
-    v31 = dispatch_semaphore_create(0);
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __45__DADiagnosticsLauncher__establishConnection__block_invoke_65;
-    v16[3] = &unk_27A66EC00;
-    v16[4] = buf;
-    [v6 ping:v16];
-    v7 = *(v27 + 5);
+    v26 = buf;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__0;
+    v29 = __Block_byref_object_dispose__0;
+    v30 = dispatch_semaphore_create(0);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __45__DADiagnosticsLauncher__establishConnection__block_invoke_65;
+    v15[3] = &unk_27A66EC00;
+    v15[4] = buf;
+    [v6 ping:v15];
+    v7 = *(v26 + 5);
     v8 = dispatch_time(0, 2000000000);
     v9 = dispatch_semaphore_wait(v7, v8);
     v10 = v9 == 0;
@@ -275,18 +271,17 @@ LABEL_10:
     v12 = DiagnosticLogHandleForCategory();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v21[5] localizedDescription];
+      localizedDescription = [v20[5] localizedDescription];
       [(DADiagnosticsLauncher *)localizedDescription _establishConnection];
     }
 
     v10 = 0;
   }
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v19, 8);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -322,23 +317,21 @@ void __45__DADiagnosticsLauncher__establishConnection__block_invoke(uint64_t a1,
 
 void __44__DADiagnosticsLauncher__initProcessMonitor__block_invoke(void *a1, void *a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v8[0] = a1[4];
+  v7[1] = *MEMORY[0x277D85DE8];
+  v7[0] = a1[4];
   v3 = MEMORY[0x277CBEA60];
   v4 = a2;
-  v5 = [v3 arrayWithObjects:v8 count:1];
+  v5 = [v3 arrayWithObjects:v7 count:1];
   [v4 setPredicates:v5];
 
   [v4 setStateDescriptor:a1[5]];
   [v4 setEvents:1];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __44__DADiagnosticsLauncher__initProcessMonitor__block_invoke_2;
-  v7[3] = &unk_27A66EDE0;
-  v7[4] = a1[6];
-  [v4 setUpdateHandler:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __44__DADiagnosticsLauncher__initProcessMonitor__block_invoke_2;
+  v6[3] = &unk_27A66EDE0;
+  v6[4] = a1[6];
+  [v4 setUpdateHandler:v6];
 }
 
 void __44__DADiagnosticsLauncher__initProcessMonitor__block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -410,13 +403,11 @@ void __44__DADiagnosticsLauncher__initProcessMonitor__block_invoke_2(uint64_t a1
 
 void __42__DADiagnosticsLauncher_launchDiagnostics__block_invoke_3_cold_2(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [*a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_275BB3000, a2, OS_LOG_TYPE_ERROR, "Failed to launch Diagnostics with error: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_275BB3000, a2, OS_LOG_TYPE_ERROR, "Failed to launch Diagnostics with error: %@", &v4, 0xCu);
 }
 
 - (void)_establishConnection

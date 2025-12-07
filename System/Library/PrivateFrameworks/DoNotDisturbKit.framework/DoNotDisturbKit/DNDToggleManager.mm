@@ -58,15 +58,15 @@
 
 - (BOOL)toggleToTargetState:(unint64_t)state error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = DNDLogToggleManager;
   if (os_log_type_enabled(DNDLogToggleManager, OS_LOG_TYPE_DEFAULT))
   {
     v8 = v7;
     v9 = DNDStringFromToggleTargetState(state);
-    v16 = 138543362;
-    v17 = v9;
-    _os_log_impl(&dword_249121000, v8, OS_LOG_TYPE_DEFAULT, "Toggling DND: targetState=%{public}@", &v16, 0xCu);
+    v15 = 138543362;
+    v16 = v9;
+    _os_log_impl(&dword_249121000, v8, OS_LOG_TYPE_DEFAULT, "Toggling DND: targetState=%{public}@", &v15, 0xCu);
   }
 
   if (!state)
@@ -87,31 +87,30 @@
     {
       v12 = v11;
       v13 = DNDStringFromToggleTargetState(state);
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2114;
-      v19 = v10;
-      _os_log_impl(&dword_249121000, v12, OS_LOG_TYPE_DEFAULT, "Resolved target state: targetState=%{public}@, currentState=%{public}@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2114;
+      v18 = v10;
+      _os_log_impl(&dword_249121000, v12, OS_LOG_TYPE_DEFAULT, "Resolved target state: targetState=%{public}@, currentState=%{public}@", &v15, 0x16u);
     }
   }
 
   if (state == 1)
   {
-    result = [(DNDToggleManager *)self _toggleDNDOffReturningError:error];
+    return [(DNDToggleManager *)self _toggleDNDOffReturningError:error];
   }
 
-  else
+  if (state == 2)
   {
-    result = state == 2 && [(DNDToggleManager *)self _toggleDNDOnReturningError:error];
+    return [(DNDToggleManager *)self _toggleDNDOnReturningError:error];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)_toggleDNDOnReturningError:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = DNDLogToggleManager;
   if (os_log_type_enabled(DNDLogToggleManager, OS_LOG_TYPE_DEFAULT))
   {
@@ -127,16 +126,16 @@
   [v6 setLifetime:v8];
 
   modeAssertionService = self->_modeAssertionService;
-  v16 = 0;
-  v10 = [(DNDModeAssertionService *)modeAssertionService takeModeAssertionWithDetails:v6 error:&v16];
-  v11 = v16;
+  v15 = 0;
+  v10 = [(DNDModeAssertionService *)modeAssertionService takeModeAssertionWithDetails:v6 error:&v15];
+  v11 = v15;
   v12 = DNDLogToggleManager;
   if (v10)
   {
     if (os_log_type_enabled(DNDLogToggleManager, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v18 = v10;
+      v17 = v10;
       _os_log_impl(&dword_249121000, v12, OS_LOG_TYPE_DEFAULT, "Successfully took toggle assertion; assertion=%{public}@", buf, 0xCu);
       if (!error)
       {
@@ -175,7 +174,6 @@ LABEL_9:
 
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v10 != 0;
 }
 
@@ -241,20 +239,18 @@ LABEL_11:
 
 - (void)_toggleDNDOnReturningError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_249121000, a2, OS_LOG_TYPE_ERROR, "Unable to take toggle assertion; error=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_249121000, a2, OS_LOG_TYPE_ERROR, "Unable to take toggle assertion; error=%{public}@", &v2, 0xCu);
 }
 
 - (void)_toggleDNDOffReturningError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_249121000, a2, OS_LOG_TYPE_ERROR, "Unable to invalidate all assertions; error=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_249121000, a2, OS_LOG_TYPE_ERROR, "Unable to invalidate all assertions; error=%{public}@", &v2, 0xCu);
 }
 
 @end

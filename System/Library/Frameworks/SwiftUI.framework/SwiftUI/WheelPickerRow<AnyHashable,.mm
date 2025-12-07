@@ -9,10 +9,10 @@
   if (!lazy cache variable for type metadata for [WheelPickerRow<AnyHashable, Subview>])
   {
     type metadata accessor for WheelPickerRow<AnyHashable, Subview>();
-    v0 = type metadata accessor for Array();
-    if (!v1)
+    v1 = type metadata accessor for Array();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [WheelPickerRow<AnyHashable, Subview>]);
+      atomic_store(v1, &lazy cache variable for type metadata for [WheelPickerRow<AnyHashable, Subview>]);
     }
   }
 }

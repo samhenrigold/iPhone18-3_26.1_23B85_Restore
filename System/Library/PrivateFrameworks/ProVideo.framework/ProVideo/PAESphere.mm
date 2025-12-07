@@ -75,13 +75,13 @@
     return v9 != 0;
   }
 
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
-  [(PAESharedDefaultBase *)self getInversePixelTransformForImage:output];
+  objc_msgSend_getPixelTransformForImage_(self);
+  objc_msgSend_getInversePixelTransformForImage_(self);
   __asm { FMOV            V0.2D, #0.5 }
 
   v23 = _Q0;
   [v9 getXValue:&v23 YValue:&v23 + 8 fromParm:1 atFxTime:info->var0.var1];
-  [(PAESharedDefaultBase *)self convertRelativeToImageCoordinates:&v23 withImage:input];
+  objc_msgSend_convertRelativeToImageCoordinates_withImage_(self);
   v23 = v22;
   PCMatrix44Tmpl<double>::rightTranslate(v25, *&v22, *(&v22 + 1), 0.0);
   v16.f64[0] = -*&v23;
@@ -92,7 +92,7 @@
   {
     if (input)
     {
-      [input heliumRef];
+      objc_msgSend_heliumRef(input, *&v22);
     }
 
     else

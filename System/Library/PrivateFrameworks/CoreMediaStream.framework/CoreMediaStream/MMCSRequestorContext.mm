@@ -1,4 +1,5 @@
 @interface MMCSRequestorContext
++ (id)contextWithEngine:(id)engine type:(int)type;
 - (MMCSEngine)engine;
 - (MMCSRequestorContext)initWithEngine:(id)engine type:(int)type;
 - (void)dealloc;
@@ -49,6 +50,15 @@
   }
 
   return v8;
+}
+
++ (id)contextWithEngine:(id)engine type:(int)type
+{
+  v4 = *&type;
+  engineCopy = engine;
+  v6 = [[MMCSRequestorContext alloc] initWithEngine:engineCopy type:v4];
+
+  return v6;
 }
 
 @end

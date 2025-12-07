@@ -7,13 +7,6 @@
 
 - (void)dealloc
 {
-  queue = self->queue;
-  if (queue)
-  {
-    providerID = queue->client->providerID;
-    queueID = queue->queueID;
-  }
-
   kdebug_trace();
   readerInterface = self->readerInterface;
   if (readerInterface)
@@ -32,9 +25,9 @@
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = __IOGCFastPathReader;
-    [(__IOGCFastPathReader *)&v8 dealloc];
+    v5.receiver = self;
+    v5.super_class = __IOGCFastPathReader;
+    [(__IOGCFastPathReader *)&v5 dealloc];
   }
 
   kdebug_trace();

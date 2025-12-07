@@ -35,7 +35,7 @@
 - (void)startObservationIfNeeded
 {
   selfCopy = self;
-  sub_10034B8A8();
+  sub_10034B8A8(selfCopy);
 }
 
 - (MRDIntelligentRoutingLockScreenRoutingProvider)init

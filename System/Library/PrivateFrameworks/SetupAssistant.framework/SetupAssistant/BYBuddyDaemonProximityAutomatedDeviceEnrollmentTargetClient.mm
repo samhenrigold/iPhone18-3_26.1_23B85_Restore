@@ -107,32 +107,28 @@
 
 void __87__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_connectionToMachService___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = _BYLoggingFacility();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = _BYLoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Connection to %{public}@ invalidated", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Connection to %{public}@ invalidated", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __87__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_connectionToMachService___block_invoke_77(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = _BYLoggingFacility();
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = _BYLoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 138543362;
-    v6 = v3;
-    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Connection to %{public}@ interrupted", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v3;
+    _os_log_impl(&dword_1B862F000, v2, OS_LOG_TYPE_DEFAULT, "Connection to %{public}@ interrupted", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginAdvertisingProximityAutomatedDeviceEnrollment
@@ -206,31 +202,30 @@ void __71__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_shutdown_
 
 - (void)displayProximityPinCode:(id)code
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   codeCopy = code;
-  v6 = _BYLoggingFacility();
+  v6 = _BYLoggingFacility(codeCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   connectionQueue = [(BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient *)self connectionQueue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __87__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_displayProximityPinCode___block_invoke;
-  v11[3] = &unk_1E7D027F8;
-  objc_copyWeak(&v13, buf);
-  v12 = codeCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __87__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_displayProximityPinCode___block_invoke;
+  v10[3] = &unk_1E7D027F8;
+  objc_copyWeak(&v12, buf);
+  v11 = codeCopy;
   v9 = codeCopy;
-  dispatch_async(connectionQueue, v11);
+  dispatch_async(connectionQueue, v10);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __87__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_displayProximityPinCode___block_invoke(uint64_t a1)
@@ -242,31 +237,30 @@ void __87__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_displayPr
 
 - (void)dismissProximityPinCodeWithError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v6 = _BYLoggingFacility();
+  v6 = _BYLoggingFacility(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   connectionQueue = [(BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient *)self connectionQueue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __96__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_dismissProximityPinCodeWithError___block_invoke;
-  v11[3] = &unk_1E7D027F8;
-  objc_copyWeak(&v13, buf);
-  v12 = errorCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __96__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_dismissProximityPinCodeWithError___block_invoke;
+  v10[3] = &unk_1E7D027F8;
+  objc_copyWeak(&v12, buf);
+  v11 = errorCopy;
   v9 = errorCopy;
-  dispatch_async(connectionQueue, v11);
+  dispatch_async(connectionQueue, v10);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __96__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_dismissProximityPinCodeWithError___block_invoke(uint64_t a1)
@@ -278,31 +272,30 @@ void __96__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_dismissPr
 
 - (void)configuratorPairingSuccessfulWithViewModel:(id)model
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   modelCopy = model;
-  v6 = _BYLoggingFacility();
+  v6 = _BYLoggingFacility(modelCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   connectionQueue = [(BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient *)self connectionQueue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __106__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_configuratorPairingSuccessfulWithViewModel___block_invoke;
-  v11[3] = &unk_1E7D027F8;
-  objc_copyWeak(&v13, buf);
-  v12 = modelCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __106__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_configuratorPairingSuccessfulWithViewModel___block_invoke;
+  v10[3] = &unk_1E7D027F8;
+  objc_copyWeak(&v12, buf);
+  v11 = modelCopy;
   v9 = modelCopy;
-  dispatch_async(connectionQueue, v11);
+  dispatch_async(connectionQueue, v10);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __106__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_configuratorPairingSuccessfulWithViewModel___block_invoke(uint64_t a1)
@@ -314,31 +307,30 @@ void __106__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_configur
 
 - (void)enrollmentHasStatusUpdateWithViewModel:(id)model
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   modelCopy = model;
-  v6 = _BYLoggingFacility();
+  v6 = _BYLoggingFacility(modelCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   connectionQueue = [(BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient *)self connectionQueue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __102__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_enrollmentHasStatusUpdateWithViewModel___block_invoke;
-  v11[3] = &unk_1E7D027F8;
-  objc_copyWeak(&v13, buf);
-  v12 = modelCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __102__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_enrollmentHasStatusUpdateWithViewModel___block_invoke;
+  v10[3] = &unk_1E7D027F8;
+  objc_copyWeak(&v12, buf);
+  v11 = modelCopy;
   v9 = modelCopy;
-  dispatch_async(connectionQueue, v11);
+  dispatch_async(connectionQueue, v10);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __102__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_enrollmentHasStatusUpdateWithViewModel___block_invoke(uint64_t a1)
@@ -350,31 +342,30 @@ void __102__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_enrollme
 
 - (void)fetchActivationStateWithCompletion:(id)completion
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v6 = _BYLoggingFacility();
+  v6 = _BYLoggingFacility(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
   connectionQueue = [(BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient *)self connectionQueue];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __98__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_fetchActivationStateWithCompletion___block_invoke;
-  v11[3] = &unk_1E7D02820;
-  objc_copyWeak(&v13, buf);
-  v12 = completionCopy;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __98__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_fetchActivationStateWithCompletion___block_invoke;
+  v10[3] = &unk_1E7D02820;
+  objc_copyWeak(&v12, buf);
+  v11 = completionCopy;
   v9 = completionCopy;
-  dispatch_async(connectionQueue, v11);
+  dispatch_async(connectionQueue, v10);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(buf);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __98__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_fetchActivationStateWithCompletion___block_invoke(uint64_t a1)
@@ -386,30 +377,29 @@ void __98__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_fetchActi
 
 - (void)activateUsingWiFiWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v6 = _BYLoggingFacility();
+  v6 = _BYLoggingFacility(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __95__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_activateUsingWiFiWithCompletion___block_invoke;
-  v10[3] = &unk_1E7D02820;
-  objc_copyWeak(&v12, buf);
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __95__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_activateUsingWiFiWithCompletion___block_invoke;
+  v9[3] = &unk_1E7D02820;
+  objc_copyWeak(&v11, buf);
+  v10 = completionCopy;
   v8 = completionCopy;
-  dispatch_async(MEMORY[0x1E69E96A0], v10);
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __95__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_activateUsingWiFiWithCompletion___block_invoke(uint64_t a1)
@@ -421,30 +411,29 @@ void __95__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_activateU
 
 - (void)enrollmentCompleteWithViewModel:(id)model
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   modelCopy = model;
-  v6 = _BYLoggingFacility();
+  v6 = _BYLoggingFacility(modelCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v14 = v7;
+    v13 = v7;
     _os_log_impl(&dword_1B862F000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   objc_initWeak(buf, self);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __95__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_enrollmentCompleteWithViewModel___block_invoke;
-  v10[3] = &unk_1E7D027F8;
-  objc_copyWeak(&v12, buf);
-  v11 = modelCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __95__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_enrollmentCompleteWithViewModel___block_invoke;
+  v9[3] = &unk_1E7D027F8;
+  objc_copyWeak(&v11, buf);
+  v10 = modelCopy;
   v8 = modelCopy;
-  dispatch_async(MEMORY[0x1E69E96A0], v10);
+  dispatch_async(MEMORY[0x1E69E96A0], v9);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(buf);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __95__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_enrollmentCompleteWithViewModel___block_invoke(uint64_t a1)
@@ -456,13 +445,13 @@ void __95__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_enrollmen
 
 - (void)displayShutdownUI
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v4 = _BYLoggingFacility();
+  v11 = *MEMORY[0x1E69E9840];
+  v4 = _BYLoggingFacility(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_1B862F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
@@ -472,12 +461,11 @@ void __95__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_enrollmen
   block[1] = 3221225472;
   block[2] = __80__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_displayShutdownUI__block_invoke;
   block[3] = &unk_1E7D027D0;
-  objc_copyWeak(&v9, buf);
+  objc_copyWeak(&v8, buf);
   dispatch_async(connectionQueue, block);
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(buf);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __80__BYBuddyDaemonProximityAutomatedDeviceEnrollmentTargetClient_displayShutdownUI__block_invoke(uint64_t a1)

@@ -14,6 +14,8 @@
 - (void)dealloc;
 - (void)setContactsSortOrder:(id)order specifier:(id)specifier;
 - (void)setPersonNameOrder:(id)order specifier:(id)specifier;
+- (void)synchronizeContactsSettings:(BOOL)settings;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NCABSettingsPairedController
@@ -69,6 +71,24 @@
   [(NCABSettingsPairedController *)&v5 dealloc];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = NCABSettingsPairedController;
+  [(NCABSettingsPairedController *)&v12 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"CONTACTS" table:@"NanoContactsBridgeSettingsPaired" locale:v5 bundleURL:bundleURL];
+
+  bundleIdentifier = [v3 bundleIdentifier];
+  bundleIdentifier2 = [v3 bundleIdentifier];
+  v10 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v11 = [NSURL URLWithString:v10];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v11];
+}
+
 - (id)mirroredApplicationGroupSpecifiers
 {
   v3 = [NSBundle bundleForClass:objc_opt_class()];
@@ -76,30 +96,29 @@
   v5 = [v3 pathForResource:@"NanoContactsBridgeSettingsPaired" ofType:@"plist"];
   v6 = [v4 initWithContentsOfFile:v5];
 
-  v18 = v3;
+  v17 = v3;
   v7 = SpecifiersFromPlist();
   v8 = [v7 count];
   if (v8 >= 1)
   {
-    v9 = NSPersonNameDefaultDisplayNameOrderKey;
-    v10 = v8 + 1;
+    v9 = v8 + 1;
     do
     {
-      v11 = [v7 objectAtIndex:v10 - 2];
-      identifier = [v11 identifier];
-      v13 = [identifier isEqualToString:@"contactsSortOrder"];
-      v14 = &OBJC_IVAR___NCABSettingsPairedController__contactsSortOrderSpecifier;
-      if ((v13 & 1) != 0 || (v15 = [identifier isEqualToString:v9], v14 = &OBJC_IVAR___NCABSettingsPairedController__personNameOrderSpecifier, v15))
+      v10 = [v7 objectAtIndex:v9 - 2];
+      identifier = [v10 identifier];
+      v12 = objc_msgSend_isEqualToString_(identifier);
+      v13 = &OBJC_IVAR___NCABSettingsPairedController__contactsSortOrderSpecifier;
+      if ((v12 & 1) != 0 || (v14 = objc_msgSend_isEqualToString_(identifier), v13 = &OBJC_IVAR___NCABSettingsPairedController__personNameOrderSpecifier, v14))
       {
-        v16 = *v14;
-        objc_storeStrong(&self->BPSNotificationAppController_opaque[v16], v11);
-        objc_storeWeak((*&self->BPSNotificationAppController_opaque[v16] + OBJC_IVAR___PSSpecifier_target), self);
+        v15 = *v13;
+        objc_storeStrong(&self->BPSNotificationAppController_opaque[v15], v10);
+        objc_storeWeak((*&self->BPSNotificationAppController_opaque[v15] + OBJC_IVAR___PSSpecifier_target), self);
       }
 
-      --v10;
+      --v9;
     }
 
-    while (v10 > 1);
+    while (v9 > 1);
   }
 
   return v7;
@@ -108,96 +127,99 @@
 - (id)localizedMirroringDetailFooter
 {
   SortOrdering = ABPersonGetSortOrdering();
-  v3 = NanoContactsSettingsPairedBundle();
-  v4 = v3;
-  if (SortOrdering)
+  v3 = SortOrdering;
+  v4 = NanoContactsSettingsPairedBundle(SortOrdering);
+  v5 = v4;
+  if (v3)
   {
-    v5 = @"LAST";
+    v6 = @"LAST";
   }
 
   else
   {
-    v5 = @"FIRST";
+    v6 = @"FIRST";
   }
 
-  v6 = [v3 localizedStringForKey:v5 value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+  v7 = [v4 localizedStringForKey:v6 value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
 
-  if (+[NSPersonNameComponentsFormatter _defaultDisplayNameOrder]== &dword_0 + 1)
+  v8 = +[NSPersonNameComponentsFormatter _defaultDisplayNameOrder];
+  if (v8 == &dword_0 + 1)
   {
-    v7 = @"FIRST";
+    v9 = @"FIRST";
   }
 
   else
   {
-    v7 = @"LAST";
+    v9 = @"LAST";
   }
 
-  v8 = NanoContactsSettingsPairedBundle();
-  v9 = [v8 localizedStringForKey:v7 value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+  v10 = NanoContactsSettingsPairedBundle(v8);
+  v11 = [v10 localizedStringForKey:v9 value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
 
-  v10 = NanoContactsSettingsPairedBundle();
-  v11 = [v10 localizedStringForKey:@"SETTING_DESCRIPTION_LINE_FORMAT_WITH_COLON" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-  v12 = NanoContactsSettingsPairedBundle();
-  v13 = [v12 localizedStringForKey:@"Sort Order" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-  v14 = [NSMutableString stringWithFormat:v11, v13, v6];
+  v13 = NanoContactsSettingsPairedBundle(v12);
+  v14 = [v13 localizedStringForKey:@"SETTING_DESCRIPTION_LINE_FORMAT_WITH_COLON" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+  v15 = NanoContactsSettingsPairedBundle(v14);
+  v16 = [v15 localizedStringForKey:@"Sort Order" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+  v17 = [NSMutableString stringWithFormat:v14, v16, v7];
 
-  v15 = NanoContactsSettingsPairedBundle();
-  v16 = [v15 localizedStringForKey:@"SETTING_DESCRIPTION_LINE_FORMAT_WITH_COLON" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-  v17 = NanoContactsSettingsPairedBundle();
-  v18 = [v17 localizedStringForKey:@"Display Order" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-  [v14 appendFormat:v16, v18, v9];
+  v19 = NanoContactsSettingsPairedBundle(v18);
+  v20 = [v19 localizedStringForKey:@"SETTING_DESCRIPTION_LINE_FORMAT_WITH_COLON" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+  v21 = NanoContactsSettingsPairedBundle(v20);
+  v22 = [v21 localizedStringForKey:@"Display Order" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+  [v17 appendFormat:v20, v22, v11];
 
   if (+[NSPersonNameComponentsFormatter _shortNameIsEnabled])
   {
-    v19 = +[NSPersonNameComponentsFormatter _defaultShortNameFormat];
-    v20 = NanoContactsSettingsPairedBundle();
-    v21 = v20;
-    if ((v19 - 1) > 3)
+    v23 = +[NSPersonNameComponentsFormatter _defaultShortNameFormat];
+    v24 = NanoContactsSettingsPairedBundle(v23);
+    v25 = v24;
+    if ((v23 - 1) > 3)
     {
-      v22 = @"SHORT_NAME_FORMAT_FIRST_ONLY";
+      v26 = @"SHORT_NAME_FORMAT_FIRST_ONLY";
     }
 
     else
     {
-      v22 = *(&off_8330 + (v19 - 1));
+      v26 = *(&off_8330 + (v23 - 1));
     }
 
-    v23 = [v20 localizedStringForKey:v22 value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    v27 = [v24 localizedStringForKey:v26 value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
 
-    v24 = NanoContactsSettingsPairedBundle();
-    v25 = [v24 localizedStringForKey:@"SETTING_DESCRIPTION_LINE_FORMAT_WITH_COLON" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-    v26 = NanoContactsSettingsPairedBundle();
-    v27 = [v26 localizedStringForKey:@"Short Name" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-    [v14 appendFormat:v25, v27, v23];
+    v29 = NanoContactsSettingsPairedBundle(v28);
+    v30 = [v29 localizedStringForKey:@"SETTING_DESCRIPTION_LINE_FORMAT_WITH_COLON" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    v31 = NanoContactsSettingsPairedBundle(v30);
+    v32 = [v31 localizedStringForKey:@"Short Name" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+    [v17 appendFormat:v30, v32, v27];
   }
 
-  v28 = +[NSPersonNameComponentsFormatter _shouldPreferNicknames];
-  v29 = NanoContactsSettingsPairedBundle();
-  v30 = v29;
-  if (v28)
+  v33 = +[NSPersonNameComponentsFormatter _shouldPreferNicknames];
+  v34 = v33;
+  v35 = NanoContactsSettingsPairedBundle(v33);
+  v36 = v35;
+  if (v34)
   {
-    v31 = @"ON";
+    v37 = @"ON";
   }
 
   else
   {
-    v31 = @"OFF";
+    v37 = @"OFF";
   }
 
-  v32 = [v29 localizedStringForKey:v31 value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+  v38 = [v35 localizedStringForKey:v37 value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
 
-  v33 = NanoContactsSettingsPairedBundle();
-  v34 = [v33 localizedStringForKey:@"SETTING_DESCRIPTION_LINE_FORMAT_WITH_COLON" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-  v35 = NanoContactsSettingsPairedBundle();
-  v36 = [v35 localizedStringForKey:@"Prefer Nicknames" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
-  [v14 appendFormat:v34, v36, v32];
+  v40 = NanoContactsSettingsPairedBundle(v39);
+  v41 = [v40 localizedStringForKey:@"SETTING_DESCRIPTION_LINE_FORMAT_WITH_COLON" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+  v42 = NanoContactsSettingsPairedBundle(v41);
+  v43 = [v42 localizedStringForKey:@"Prefer Nicknames" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
+  [v17 appendFormat:v41, v43, v38];
 
-  return v14;
+  return v17;
 }
 
 - (id)localizedPaneTitle
 {
-  v2 = NanoContactsSettingsPairedBundle();
+  v2 = NanoContactsSettingsPairedBundle(self);
   v3 = [v2 localizedStringForKey:@"CONTACTS" value:&stru_8450 table:@"NanoContactsBridgeSettingsPaired"];
 
   return v3;
@@ -251,6 +273,42 @@
 {
   v5 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [order integerValue]);
   [(NCABSettingsPairedController *)self _setValue:v5 forKey:NSPersonNameDefaultDisplayNameOrderKey inDomainAccessor:self->_foundationDomainAccessor syncWithClient:1];
+}
+
+- (void)synchronizeContactsSettings:(BOOL)settings
+{
+  settingsCopy = settings;
+  peoplePickerKeys = [objc_opt_class() peoplePickerKeys];
+  foundationKeys = [objc_opt_class() foundationKeys];
+  syncManager = self->_syncManager;
+  if (settingsCopy)
+  {
+    domain = [(NPSDomainAccessor *)self->_peoplePickerDomainAccessor domain];
+    [(NPSManager *)syncManager synchronizeNanoDomain:domain keys:peoplePickerKeys];
+
+    if (!self->_activePairedWatchRequiresLegacyKeys)
+    {
+      v8 = self->_syncManager;
+      domain2 = [(NPSDomainAccessor *)self->_foundationDomainAccessor domain];
+      [(NPSManager *)v8 synchronizeNanoDomain:domain2 keys:foundationKeys];
+    }
+  }
+
+  else
+  {
+    [(NPSManager *)self->_syncManager synchronizeUserDefaultsDomain:@"com.apple.PeoplePicker" keys:peoplePickerKeys];
+    if (!self->_activePairedWatchRequiresLegacyKeys)
+    {
+      [(NPSManager *)self->_syncManager synchronizeUserDefaultsDomain:NSPersonNameDefaultNamePreferencesDomain keys:foundationKeys];
+    }
+  }
+
+  if (self->_activePairedWatchRequiresLegacyKeys)
+  {
+    v10 = objc_opt_class();
+    v11 = [(NCABSettingsPairedController *)self foundationKeysAndValuesUsingDomainAccessor:settingsCopy];
+    [v10 mapFoundationPreferenceKeysAndValues:v11 toLegacyDomainAccessor:self->_peoplePickerDomainAccessor withSyncManager:self->_syncManager];
+  }
 }
 
 + (id)peoplePickerKeys

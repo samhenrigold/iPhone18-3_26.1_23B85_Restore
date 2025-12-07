@@ -5,6 +5,8 @@
 - (BOOL)isTypeOfService:(id)service ofServiceType:(int)type;
 - (BOOL)shouldResetAttachAPN;
 - (EdgeSettingsController)init;
+- (id)_APNDictionaryForServiceFromSC:(int)c;
+- (id)_blankAPNDictionaryWithTypeMask:(int)mask;
 - (id)_getAPNDictinaryForService:(int)service;
 - (id)_getMMSObjectForKey:(id)key;
 - (id)attachAPNSettings;
@@ -20,13 +22,12 @@
 - (void)_updateKey:(id)key toValue:(id)value forServiceType:(int)type;
 - (void)applicationDidResume;
 - (void)applicationWillSuspend;
-- (void)attachAPNSettings;
 - (void)commitAPNsSettings;
 - (void)commitAttachAPNSettings;
 - (void)dealloc;
 - (void)didChangeDeviceManagementSettings:(id)settings;
-- (void)getGSMASettingsUIControl;
 - (void)initAPNCacheDictionaries;
+- (void)initDictionaryForUIApn:(id *)apn forServiceType:(int)type;
 - (void)loadCurrentAPNs;
 - (void)resetAPNsDictionaries;
 - (void)resetAllConfiguredSettings;
@@ -40,6 +41,7 @@
 - (void)showCarrierSettingsEraseAlert:(BOOL)alert;
 - (void)specifiers;
 - (void)uploadSettingsOnCT:(id)t;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation EdgeSettingsController
@@ -622,10 +624,59 @@ LABEL_6:
 
 - (void)initAPNCacheDictionaries
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v0, "getUIConfiguredApns failed: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  v10 = 0;
+  v3 = [(CoreTelephonyClient *)[(EdgeSettingsController *)self coreTelephonyClient] getUIConfiguredApns:[(EdgeSettingsController *)self context] error:&v10];
+  if (v10)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [EdgeSettingsController initAPNCacheDictionaries];
+    }
+  }
+
+  else if (v3)
+  {
+    v4 = [v3 valueForKey:@"apns"];
+    if (v4)
+    {
+      v5 = v4;
+      v6 = [v4 count];
+      if (v6)
+      {
+        v7 = v6;
+        for (i = 0; i != v7; ++i)
+        {
+          v9 = [v5 objectAtIndex:i];
+          if ([(EdgeSettingsController *)self isTypeOfService:v9 ofServiceType:1])
+          {
+            self->_internetSettingsDictionary = [v9 mutableCopy];
+          }
+
+          if ([(EdgeSettingsController *)self isTypeOfService:v9 ofServiceType:2])
+          {
+            self->_vvmSettingsDictionary = [v9 mutableCopy];
+          }
+
+          if ([(EdgeSettingsController *)self isTypeOfService:v9 ofServiceType:4])
+          {
+            self->_mmsSettingsDictionary = [v9 mutableCopy];
+          }
+
+          if ([(EdgeSettingsController *)self isTypeOfService:v9 ofServiceType:0x20000])
+          {
+            self->_imsSettingsDictionary = [v9 mutableCopy];
+          }
+
+          if ([(EdgeSettingsController *)self isTypeOfService:v9 ofServiceType:48])
+          {
+            self->_tetheringSettingsDictionary = [v9 mutableCopy];
+          }
+        }
+      }
+    }
+  }
+
+  self->_cacheInitialized = 1;
 }
 
 + (id)makeUIApnBasedOn:(id)on
@@ -640,6 +691,25 @@ LABEL_6:
   }
 
   return v4;
+}
+
+- (void)initDictionaryForUIApn:(id *)apn forServiceType:(int)type
+{
+  v4 = *&type;
+  v7 = [objc_opt_class() makeUIApnBasedOn:{-[EdgeSettingsController _APNDictionaryForServiceFromSC:](self, "_APNDictionaryForServiceFromSC:", *&type)}];
+  *apn = v7;
+  if (v7)
+  {
+    v8 = v7;
+    v9 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+
+    [v8 setObject:v9 forKey:@"type-mask"];
+  }
+
+  else
+  {
+    *apn = [(EdgeSettingsController *)self _blankAPNDictionaryWithTypeMask:v4];
+  }
 }
 
 - (void)_updateKey:(id)key toValue:(id)value forServiceType:(int)type
@@ -784,6 +854,54 @@ LABEL_20:
   return [(EdgeSettingsController *)self _APNDictionaryForServiceFromSC:?];
 }
 
+- (id)_APNDictionaryForServiceFromSC:(int)c
+{
+  v3 = *&c;
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  currectSet = [(EdgeSettingsController *)self currectSet];
+  result = [(NSArray *)currectSet countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (result)
+  {
+    v7 = result;
+    v8 = *v12;
+    while (2)
+    {
+      v9 = 0;
+      do
+      {
+        if (*v12 != v8)
+        {
+          objc_enumerationMutation(currectSet);
+        }
+
+        v10 = *(*(&v11 + 1) + 8 * v9);
+        if ([(EdgeSettingsController *)self isTypeOfService:v10 ofServiceType:v3])
+        {
+          return v10;
+        }
+
+        v9 = v9 + 1;
+      }
+
+      while (v7 != v9);
+      result = [(NSArray *)currectSet countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = result;
+      if (result)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  return result;
+}
+
 - (BOOL)_isAPNDictionaryBlank:(id)blank
 {
   if ((![blank objectForKey:@"apn"] || (v4 = objc_msgSend(objc_msgSend(blank, "objectForKey:", @"apn"), "isEqual:", &stru_284EE8C10)) != 0) && (!objc_msgSend(blank, "objectForKey:", @"username") || (v4 = objc_msgSend(objc_msgSend(blank, "objectForKey:", @"username"), "isEqual:", &stru_284EE8C10)) != 0))
@@ -819,6 +937,18 @@ void __45__EdgeSettingsController_uploadSettingsOnCT___block_invoke(uint64_t a1,
       __45__EdgeSettingsController_uploadSettingsOnCT___block_invoke_cold_1();
     }
   }
+}
+
+- (id)_blankAPNDictionaryWithTypeMask:(int)mask
+{
+  v3 = *&mask;
+  v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  [v4 setObject:&stru_284EE8C10 forKey:@"apn"];
+  [v4 setObject:&stru_284EE8C10 forKey:@"username"];
+  [v4 setObject:&stru_284EE8C10 forKey:@"password"];
+  [v4 setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInt:", v3), @"type-mask"}];
+
+  return v4;
 }
 
 - (void)commitAPNsSettings
@@ -931,10 +1061,15 @@ void __45__EdgeSettingsController_uploadSettingsOnCT___block_invoke(uint64_t a1,
 
 - (void)loadCurrentAPNs
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v0, "getConfiguredApns failed: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = 0;
+  [(EdgeSettingsController *)self setCurrectSet:[(CoreTelephonyClient *)[(EdgeSettingsController *)self coreTelephonyClient] getConfiguredApns:[(EdgeSettingsController *)self context] error:&v2]];
+  if (v2)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [EdgeSettingsController loadCurrentAPNs];
+    }
+  }
 }
 
 - (void)resetAttachAPNSettings
@@ -980,10 +1115,21 @@ void __45__EdgeSettingsController_uploadSettingsOnCT___block_invoke(uint64_t a1,
 
 - (void)commitAttachAPNSettings
 {
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v0, "modifyAttachApnSettings failed with %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  if (([(NSMutableDictionary *)self->_newAttachAPNDict isEqualToDictionary:self->_lastAttachAPNDict]& 1) == 0)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      [EdgeSettingsController commitAttachAPNSettings];
+    }
+
+    if ([(CoreTelephonyClient *)[(EdgeSettingsController *)self coreTelephonyClient] context:[(EdgeSettingsController *)self context] modifyAttachApnSettings:self->_newAttachAPNDict])
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        [EdgeSettingsController commitAttachAPNSettings];
+      }
+    }
+  }
 }
 
 - (BOOL)shouldResetAttachAPN
@@ -994,6 +1140,16 @@ void __45__EdgeSettingsController_uploadSettingsOnCT___block_invoke(uint64_t a1,
   }
 
   return 0;
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(EdgeSettingsController *)self commitAttachAPNSettings];
+  [(EdgeSettingsController *)self commitAPNsSettings];
+  v5.receiver = self;
+  v5.super_class = EdgeSettingsController;
+  [(EdgeSettingsController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (void)applicationWillSuspend
@@ -1038,7 +1194,7 @@ void __45__EdgeSettingsController_uploadSettingsOnCT___block_invoke(uint64_t a1,
   [(EdgeSettingsController *)self presentViewController:v7 animated:1 completion:0];
 }
 
-uint64_t __56__EdgeSettingsController_showCarrierSettingsEraseAlert___block_invoke(uint64_t a1)
+void *__56__EdgeSettingsController_showCarrierSettingsEraseAlert___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "coreTelephonyClient")];
   if (result)
@@ -1056,21 +1212,21 @@ uint64_t __56__EdgeSettingsController_showCarrierSettingsEraseAlert___block_invo
 
 - (id)getDefaultSettings:(id)settings
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   getGSMASettingsUIControl = [(EdgeSettingsController *)self getGSMASettingsUIControl];
   v5 = getGSMASettingsUIControl;
   if (getGSMASettingsUIControl == 1)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v13 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
-    v14 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v26;
+      v16 = *v25;
       v17 = *MEMORY[0x277D3FF38];
       v18 = MEMORY[0x277CBEC38];
       v19 = MEMORY[0x277CBEC28];
@@ -1078,12 +1234,12 @@ uint64_t __56__EdgeSettingsController_showCarrierSettingsEraseAlert___block_invo
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v26 != v16)
+          if (*v25 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v21 = *(*(&v25 + 1) + 8 * i);
+          v21 = *(*(&v24 + 1) + 8 * i);
           if ([v21 identifier] == @"GSMA_SETTING")
           {
             v22 = v18;
@@ -1102,7 +1258,7 @@ uint64_t __56__EdgeSettingsController_showCarrierSettingsEraseAlert___block_invo
           [v21 setProperty:v22 forKey:v17];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v15);
@@ -1111,40 +1267,38 @@ uint64_t __56__EdgeSettingsController_showCarrierSettingsEraseAlert___block_invo
 
   else if (getGSMASettingsUIControl == 2)
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v6 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
-    v7 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v30;
+      v9 = *v29;
       v10 = *MEMORY[0x277D3FF38];
       v11 = MEMORY[0x277CBEC38];
       do
       {
         for (j = 0; j != v8; ++j)
         {
-          if (*v30 != v9)
+          if (*v29 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v29 + 1) + 8 * j) setProperty:v11 forKey:v10];
+          [*(*(&v28 + 1) + 8 * j) setProperty:v11 forKey:v10];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v8);
     }
   }
 
-  result = [MEMORY[0x277CCABB0] numberWithBool:v5 == 1];
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  return [MEMORY[0x277CCABB0] numberWithBool:v5 == 1];
 }
 
 - (void)setDefaultSettings:(id)settings specifier:(id)specifier
@@ -1205,61 +1359,11 @@ uint64_t __56__EdgeSettingsController_showCarrierSettingsEraseAlert___block_invo
   [(EdgeSettingsController *)&v5 dealloc];
 }
 
-void __52__EdgeSettingsController_resetAllConfiguredSettings__block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v0, "resetAllUIConfiguredApns failed: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __52__EdgeSettingsController_resetAllConfiguredSettings__block_invoke_43_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v0, "modifyAttachApnSettings failed: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)resetCarrierSettings:.cold.1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v0, "loadGSMASettings failed: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)specifiers
 {
-  v8 = *MEMORY[0x277D85DE8];
   [self context];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v1, "EdgeSettingsController context: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)getGSMASettingsUIControl
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v0, "Unexpected value retrieved via getGSMAUIControlSetting: %ld", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __45__EdgeSettingsController_uploadSettingsOnCT___block_invoke_cold_1()
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v0, "setUIConfiguredApns failed: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)attachAPNSettings
-{
-  v7 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v0, "getAttachApnSettings failed: %@", v1, v2, v3, v4, v6);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0(&dword_23C13C000, MEMORY[0x277D86220], v1, "EdgeSettingsController context: %@", v2, v3, v4, v5);
 }
 
 @end

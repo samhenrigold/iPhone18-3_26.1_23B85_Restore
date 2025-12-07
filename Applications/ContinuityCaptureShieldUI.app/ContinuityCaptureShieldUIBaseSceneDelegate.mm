@@ -12,7 +12,7 @@
   sceneCopy = scene;
   sessionCopy = session;
   optionsCopy = options;
-  v11 = sub_100006DC0();
+  v11 = sub_100006DC0(optionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = [sceneCopy description];
@@ -90,51 +90,51 @@
 
     if (v14)
     {
-      v27 = 0;
-      v15 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v14 error:&v27];
-      v16 = v27;
-      v17 = sub_100006DC0();
-      v18 = v17;
-      if (!v15 || v16)
+      v28 = 0;
+      v16 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:v14 error:&v28];
+      v17 = v28;
+      v18 = sub_100006DC0(v17);
+      v19 = v18;
+      if (!v16 || v17)
       {
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v19 = 136315906;
-          v20 = "[ContinuityCaptureShieldUIBaseSceneDelegate scene:openURLContexts:]";
-          v21 = 2048;
+          v20 = 136315906;
+          v21 = "[ContinuityCaptureShieldUIBaseSceneDelegate scene:openURLContexts:]";
+          v22 = 2048;
           selfCopy2 = self;
-          v23 = 2112;
-          v24 = firstObject;
-          v25 = 2112;
-          v26 = v16;
-          _os_log_error_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%s: <%p> Launching ShieldUI via URL without a valid URL payload for the launchUIConfiguration: %@ error: %@", &v19, 0x2Au);
+          v24 = 2112;
+          v25 = firstObject;
+          v26 = 2112;
+          v27 = v17;
+          _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%s: <%p> Launching ShieldUI via URL without a valid URL payload for the launchUIConfiguration: %@ error: %@", &v20, 0x2Au);
         }
       }
 
       else
       {
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 136315650;
-          v20 = "[ContinuityCaptureShieldUIBaseSceneDelegate scene:openURLContexts:]";
-          v21 = 2048;
+          v20 = 136315650;
+          v21 = "[ContinuityCaptureShieldUIBaseSceneDelegate scene:openURLContexts:]";
+          v22 = 2048;
           selfCopy2 = self;
-          v23 = 2112;
-          v24 = v15;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "%s: <%p> Launching ShieldUI with launchUIConfiguration: %@", &v19, 0x20u);
+          v24 = 2112;
+          v25 = v16;
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "%s: <%p> Launching ShieldUI with launchUIConfiguration: %@", &v20, 0x20u);
         }
 
-        v18 = +[CMContinuityCaptureUIStateTracker sharedInstance];
-        [v18 setUIConfiguration:v15];
+        v19 = +[CMContinuityCaptureUIStateTracker sharedInstance];
+        [v19 setUIConfiguration:v16];
       }
     }
 
     else
     {
-      v16 = sub_100006DC0();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = sub_100006DC0(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_10000A9A4(self, firstObject, v16);
+        sub_10000A9A4(self, firstObject, v17);
       }
     }
   }
@@ -143,7 +143,7 @@
 - (void)sceneDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  v5 = sub_100006DC0();
+  v5 = sub_100006DC0(disconnectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315650;

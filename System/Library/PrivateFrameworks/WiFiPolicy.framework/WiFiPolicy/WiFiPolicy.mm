@@ -6,20 +6,20 @@ void sub_2332DB164(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void gloria::TileId::FromLatLng(gloria::TileId *this@<X0>, double *a2@<X1>, const double *a3@<X2>, uint64_t a4@<X8>)
+void gloria::TileId::FromLatLng(gloria::TileId *this@<X0>, double *a2@<X1>, const double *a3@<X2>, uint64_t a5@<X8>)
 {
-  gloria::TileCoordinate::FromLatLng(this, a2, a3, &v8);
-  gloria::MortonUtils::XYToQuadId(v8.i64[0], v8.i64[1]);
+  gloria::TileCoordinate::FromLatLng(v8, this, a2, a3);
+  gloria::MortonUtils::XYToQuadId(v8[0], v8[1]);
   v6 = v9;
-  *a4 = v7;
-  *(a4 + 8) = v6;
+  *a5 = v7;
+  *(a5 + 8) = v6;
 }
 
 long double gloria::TileId::ToBBOX(gloria::TileId *this)
 {
-  gloria::TileId::ToXYZ(this, &v11);
-  v1 = v11.i64[1] + 1;
-  v2 = v11.u64[1] * 6.28318531;
+  gloria::TileId::ToXYZ(&v11, this);
+  v1 = v12 + 1;
+  v2 = v12 * 6.28318531;
   v3 = ldexp(1.0, __e);
   v4 = 3.14159265 - v2 / v3;
   v5 = exp(v4);
@@ -31,7 +31,7 @@ long double gloria::TileId::ToBBOX(gloria::TileId *this)
   return v7;
 }
 
-int8x16_t gloria::TileId::ToXYZ@<Q0>(gloria::TileId *this@<X0>, int8x16_t *a2@<X8>)
+int8x16_t gloria::TileId::ToXYZ@<Q0>(uint64_t *__return_ptr a1@<X8>, gloria::TileId *this@<X0>)
 {
   v2 = *(this + 8);
   v3.i64[0] = *this & 0x1111111111111111 | ((*this & 0x5555555555555555uLL) >> 1) & 0x3333333333333333;
@@ -52,26 +52,26 @@ int8x16_t gloria::TileId::ToXYZ@<Q0>(gloria::TileId *this@<X0>, int8x16_t *a2@<X
   v9.i64[0] = 0xFFFFLL;
   v9.i64[1] = 0xFFFFLL;
   result = vorrq_s8(v10, vandq_s8(v8, v9));
-  *a2 = result;
-  a2[1].i8[0] = v2;
+  *a1 = result;
+  *(a1 + 16) = v2;
   return result;
 }
 
 void gloria::TileId::Neighbors(gloria::TileId *this@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
 {
-  gloria::TileId::ToXYZ(this, &v21);
+  gloria::TileId::ToXYZ(&v21, this);
   a3[2] = 0;
   a3[1] = 0;
   *a3 = a3 + 1;
   v6 = ldexp(1.0, *(this + 8));
-  v7 = v21.i64[0] - a2;
-  v8 = v21.i64[0] + a2;
+  v7 = v21 - a2;
+  v8 = v21 + a2;
   if (v7 <= v8)
   {
     v9 = v6;
     v10 = a2;
-    v11 = (v21.i64[1] - a2) & ~((v21.i64[1] - a2) >> 63);
-    v12 = v21.i64[1] + v10;
+    v11 = (v22 - a2) & ~((v22 - a2) >> 63);
+    v12 = v22 + v10;
     if (v6 - 1 >= v12)
     {
       v13 = v12;
@@ -99,7 +99,7 @@ void gloria::TileId::Neighbors(gloria::TileId *this@<X0>, unsigned int a2@<W1>, 
           gloria::MortonUtils::XYToQuadId(v15, v14 % v9);
           v19 = v17;
           v20 = v16;
-          std::__tree<gloria::TileId>::__emplace_unique_key_args<gloria::TileId,gloria::TileId const&>(a3, &v19);
+          std::__tree<gloria::TileId>::__emplace_unique_key_args<gloria::TileId,gloria::TileId const&>(a3, &v19, &v19);
           ++v14;
         }
 
@@ -145,48 +145,48 @@ uint64_t gloria::TileId::TileId(uint64_t this, unint64_t a2)
   return this;
 }
 
-void *std::__tree<gloria::TileId>::__emplace_unique_key_args<gloria::TileId,gloria::TileId const&>(uint64_t a1, unint64_t *a2)
+void *std::__tree<gloria::TileId>::__emplace_unique_key_args<gloria::TileId,gloria::TileId const&>(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t *std::__tree<gloria::TileId>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<gloria::TileId>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -212,12 +212,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -231,22 +231,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -280,13 +280,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -339,29 +339,29 @@ void std::__tree<gloria::TileId>::destroy(uint64_t a1, void *a2)
   }
 }
 
-int8x16_t gloria::TileCoordinate::FromLatLng@<Q0>(gloria::TileCoordinate *this@<X0>, double *a2@<X1>, const double *a3@<X2>, int8x16_t *a4@<X8>)
+int8x16_t gloria::TileCoordinate::FromLatLng@<Q0>(uint64_t *__return_ptr a1@<X8>, gloria::TileCoordinate *this@<X0>, double *a3@<X1>, const double *a4@<X2>)
 {
-  v14 = (fmin(fmax(*a2, -180.0), 180.0) + 180.0) / 360.0;
-  v7 = sin(fmin(fmax(*this, -85.0511288), 85.0511288) * 3.14159265 / 180.0);
-  v8 = log((v7 + 1.0) / (1.0 - v7));
-  v9 = *a3;
-  v10.f64[0] = v14;
-  v10.f64[1] = v8 / -12.5663706 + 0.5;
-  v11 = vcvtq_u64_f64(vrndmq_f64(vmulq_n_f64(v10, (1 << *a3))));
-  v12 = vdupq_n_s64((1 << *a3) - 1);
-  result = vbslq_s8(vcgtq_u64(v11, v12), v12, v11);
-  *a4 = result;
-  a4[1].i8[0] = v9;
+  v13 = (fmin(fmax(*a3, -180.0), 180.0) + 180.0) / 360.0;
+  v6 = sin(fmin(fmax(*this, -85.0511288), 85.0511288) * 3.14159265 / 180.0);
+  v7 = log((v6 + 1.0) / (1.0 - v6));
+  v8 = *a4;
+  v9.f64[0] = v13;
+  v9.f64[1] = v7 / -12.5663706 + 0.5;
+  v10 = vcvtq_u64_f64(vrndmq_f64(vmulq_n_f64(v9, (1 << *a4))));
+  v11 = vdupq_n_s64((1 << *a4) - 1);
+  result = vbslq_s8(vcgtq_u64(v10, v11), v11, v10);
+  *a1 = result;
+  *(a1 + 16) = v8;
   return result;
 }
 
-long double _TBGloriaBoundingBoxFromLocation(double a1, double a2, char a3)
+long double _TBGloriaBoundingBoxFromLocation(double a1, double a2, char a3, uint64_t a4, uint64_t a5, const unsigned __int8 *a6)
 {
-  v6 = a2;
-  v7 = a1;
-  v5 = a3;
-  gloria::TileId::FromLatLng(&v7, &v6, &v5, v4);
-  return gloria::TileId::ToBBOX(v4);
+  v9 = a2;
+  v10 = a1;
+  v8 = a3;
+  gloria::TileId::FromLatLng(&v10, &v9, &v8, v7);
+  return gloria::TileId::ToBBOX(v7);
 }
 
 double gloria::MortonUtils::XYToQuadId(gloria::MortonUtils *this, uint64_t a2)
@@ -489,20 +489,20 @@ void __WiFiManagerLocationManagerVisitCallback(void *a1, uint64_t a2)
 
   else
   {
-    NSLog(&cfstr_SCallbackconte.isa, "__WiFiManagerLocationManagerVisitCallback");
+    NSLog(&cfstr_SCallbackconte.isa, a2, "__WiFiManagerLocationManagerVisitCallback");
   }
 }
 
-void sub_2332E9AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2332E9AF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2332EA078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2332EA078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -534,14 +534,13 @@ void *TBMacAddressFromString(void *result)
 
 uint64_t _createLexiconWithLocale(void *a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v5 = *MEMORY[0x277D23170];
-  v6[0] = v1;
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = *MEMORY[0x277D23170];
+  v5[0] = v1;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   v2 = LXLexiconCreate();
 
-  v3 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -572,9 +571,16 @@ void sub_2332F0AF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2332F1E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_2332F1E64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2332F28B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, ...)
+{
+  va_start(va, a38);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -612,88 +618,86 @@ id WiFiUsageFaultReasonStringMap(unint64_t a1)
 
 void __WiFiUsageFaultReasonStringMap_block_invoke()
 {
-  v4[38] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_2848B9680;
-  v3[1] = &unk_2848B9698;
-  v4[0] = @"kWiFiUsageFaultReasonUnknown";
-  v4[1] = @"kWiFiUsageFaultReasonSymptomLowRssiDnsFailure";
-  v3[2] = &unk_2848B96B0;
-  v3[3] = &unk_2848B96C8;
-  v4[2] = @"kWiFiUsageFaultReasonSymptomLowRssiArpFailure";
-  v4[3] = @"kWiFiUsageFaultReasonSymptomLowRssiDataStall";
-  v3[4] = &unk_2848B96E0;
-  v3[5] = &unk_2848B96F8;
-  v4[4] = @"kWiFiUsageFaultReasonSymptomLowRssiShortFlow";
-  v4[5] = @"kWiFiUsageFaultReasonSymptomLowRssiRTTFailure";
-  v3[6] = &unk_2848B9710;
-  v3[7] = &unk_2848B9728;
-  v4[6] = @"kWiFiUsageFaultReasonDatapathStall";
-  v4[7] = @"kWiFiUsageFaultReasonWatchdogReset";
-  v3[8] = &unk_2848B9740;
-  v3[9] = &unk_2848B9758;
-  v4[8] = @"kWiFiUsageFaultReasonSsidBlocklisted";
-  v4[9] = @"kWiFiUsageFaultReasonBssidBlocklisted";
-  v3[10] = &unk_2848B9770;
-  v3[11] = &unk_2848B9788;
-  v4[10] = @"kWiFiUsageFaultReasonSlowWiFiAP";
-  v4[11] = @"kWiFiUsageFaultReasonPrivateMACFallback";
-  v3[12] = &unk_2848B97A0;
-  v3[13] = &unk_2848B97B8;
-  v4[12] = @"kWiFiUsageFaultReasonDelayedAutoJoin";
-  v4[13] = @"kWiFiUsageFaultReasonDhcpFailure";
-  v3[14] = &unk_2848B97D0;
-  v3[15] = &unk_2848B97E8;
-  v4[14] = @"kWiFiUsageFaultReasonLinkTestLocalCheckFailed";
-  v4[15] = @"kWiFiUsageFaultReasonLinkTestInternetCheckFailed";
-  v3[16] = &unk_2848B9800;
-  v3[17] = &unk_2848B9818;
-  v4[16] = @"kWiFiUsageFaultReasonLinkTestDNSCheckFailed";
-  v4[17] = @"kWiFiUsageFaultReasonArpFailure";
-  v3[18] = &unk_2848B9830;
-  v3[19] = &unk_2848B9848;
-  v4[18] = @"kWiFiUsageFaultReasonSlowWiFiDnsFailure";
-  v4[19] = @"kWiFiUsageFaultReasonSlowWiFiDUT";
-  v3[20] = &unk_2848B9860;
-  v3[21] = &unk_2848B9878;
-  v4[20] = @"kWiFiUsageFaultReasonUserOverridesCellularOutranking";
-  v4[21] = @"kWiFiUsageFaultReasonFirmwareTrap";
-  v3[22] = &unk_2848B9890;
-  v3[23] = &unk_2848B98A8;
-  v4[22] = @"kWiFiUsageFaultReasonSleepPowerBudgetExceeded";
-  v4[23] = @"kWiFiUsageFaultReasonLowPowerBudgetExceeded";
-  v3[24] = &unk_2848B98C0;
-  v3[25] = &unk_2848B98D8;
-  v4[24] = @"kWiFiUsageFaultReasonDextCrashed";
-  v4[25] = @"kWiFiUsageFaultReasonSiriTimedOut";
-  v3[26] = &unk_2848B98F0;
-  v3[27] = &unk_2848B9908;
-  v4[26] = @"kWiFiUsageFaultReasonApsdTimedOut";
-  v4[27] = @"kWiFiUsageFaultReasonBrokenBackhaulLinkFailed";
-  v3[28] = &unk_2848B9920;
-  v3[29] = &unk_2848B9938;
-  v4[28] = @"kWiFiUsageFaultReasonLinkTestSiriTCPCheckFailed";
-  v4[29] = @"kWiFiUsageFaultReasonLinkTestSiriTLSCheckFailed";
-  v3[30] = &unk_2848B9950;
-  v3[31] = &unk_2848B9968;
-  v4[30] = @"kWiFiUsageFaultReasonAirplayConnectionStall";
-  v4[31] = @"kWiFiUsageFaultReasonAirplayBufferedAudioUnderrun";
-  v3[32] = &unk_2848B9980;
-  v3[33] = &unk_2848B9998;
-  v4[32] = @"kWiFiUsageFaultReasonAirplayRealtimeAudioUnderrun";
-  v4[33] = @"kWiFiUsageFaultReasonHomeKitFault";
-  v3[34] = &unk_2848B99B0;
-  v3[35] = &unk_2848B99C8;
-  v4[34] = @"kWiFiUsageFaultReasonMTBFEvent";
-  v4[35] = @"kWiFiUsageFaultReasonPrimarySetFailure";
-  v3[36] = &unk_2848B99E0;
-  v3[37] = &unk_2848B99F8;
-  v4[36] = @"kWiFiUsageFaultReasonRxDataStallEvent";
-  v4[37] = @"kWiFiUsageFaultReasonPHClientInfoFetchFailure";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:38];
+  v3[38] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_2848B9680;
+  v2[1] = &unk_2848B9698;
+  v3[0] = @"kWiFiUsageFaultReasonUnknown";
+  v3[1] = @"kWiFiUsageFaultReasonSymptomLowRssiDnsFailure";
+  v2[2] = &unk_2848B96B0;
+  v2[3] = &unk_2848B96C8;
+  v3[2] = @"kWiFiUsageFaultReasonSymptomLowRssiArpFailure";
+  v3[3] = @"kWiFiUsageFaultReasonSymptomLowRssiDataStall";
+  v2[4] = &unk_2848B96E0;
+  v2[5] = &unk_2848B96F8;
+  v3[4] = @"kWiFiUsageFaultReasonSymptomLowRssiShortFlow";
+  v3[5] = @"kWiFiUsageFaultReasonSymptomLowRssiRTTFailure";
+  v2[6] = &unk_2848B9710;
+  v2[7] = &unk_2848B9728;
+  v3[6] = @"kWiFiUsageFaultReasonDatapathStall";
+  v3[7] = @"kWiFiUsageFaultReasonWatchdogReset";
+  v2[8] = &unk_2848B9740;
+  v2[9] = &unk_2848B9758;
+  v3[8] = @"kWiFiUsageFaultReasonSsidBlocklisted";
+  v3[9] = @"kWiFiUsageFaultReasonBssidBlocklisted";
+  v2[10] = &unk_2848B9770;
+  v2[11] = &unk_2848B9788;
+  v3[10] = @"kWiFiUsageFaultReasonSlowWiFiAP";
+  v3[11] = @"kWiFiUsageFaultReasonPrivateMACFallback";
+  v2[12] = &unk_2848B97A0;
+  v2[13] = &unk_2848B97B8;
+  v3[12] = @"kWiFiUsageFaultReasonDelayedAutoJoin";
+  v3[13] = @"kWiFiUsageFaultReasonDhcpFailure";
+  v2[14] = &unk_2848B97D0;
+  v2[15] = &unk_2848B97E8;
+  v3[14] = @"kWiFiUsageFaultReasonLinkTestLocalCheckFailed";
+  v3[15] = @"kWiFiUsageFaultReasonLinkTestInternetCheckFailed";
+  v2[16] = &unk_2848B9800;
+  v2[17] = &unk_2848B9818;
+  v3[16] = @"kWiFiUsageFaultReasonLinkTestDNSCheckFailed";
+  v3[17] = @"kWiFiUsageFaultReasonArpFailure";
+  v2[18] = &unk_2848B9830;
+  v2[19] = &unk_2848B9848;
+  v3[18] = @"kWiFiUsageFaultReasonSlowWiFiDnsFailure";
+  v3[19] = @"kWiFiUsageFaultReasonSlowWiFiDUT";
+  v2[20] = &unk_2848B9860;
+  v2[21] = &unk_2848B9878;
+  v3[20] = @"kWiFiUsageFaultReasonUserOverridesCellularOutranking";
+  v3[21] = @"kWiFiUsageFaultReasonFirmwareTrap";
+  v2[22] = &unk_2848B9890;
+  v2[23] = &unk_2848B98A8;
+  v3[22] = @"kWiFiUsageFaultReasonSleepPowerBudgetExceeded";
+  v3[23] = @"kWiFiUsageFaultReasonLowPowerBudgetExceeded";
+  v2[24] = &unk_2848B98C0;
+  v2[25] = &unk_2848B98D8;
+  v3[24] = @"kWiFiUsageFaultReasonDextCrashed";
+  v3[25] = @"kWiFiUsageFaultReasonSiriTimedOut";
+  v2[26] = &unk_2848B98F0;
+  v2[27] = &unk_2848B9908;
+  v3[26] = @"kWiFiUsageFaultReasonApsdTimedOut";
+  v3[27] = @"kWiFiUsageFaultReasonBrokenBackhaulLinkFailed";
+  v2[28] = &unk_2848B9920;
+  v2[29] = &unk_2848B9938;
+  v3[28] = @"kWiFiUsageFaultReasonLinkTestSiriTCPCheckFailed";
+  v3[29] = @"kWiFiUsageFaultReasonLinkTestSiriTLSCheckFailed";
+  v2[30] = &unk_2848B9950;
+  v2[31] = &unk_2848B9968;
+  v3[30] = @"kWiFiUsageFaultReasonAirplayConnectionStall";
+  v3[31] = @"kWiFiUsageFaultReasonAirplayBufferedAudioUnderrun";
+  v2[32] = &unk_2848B9980;
+  v2[33] = &unk_2848B9998;
+  v3[32] = @"kWiFiUsageFaultReasonAirplayRealtimeAudioUnderrun";
+  v3[33] = @"kWiFiUsageFaultReasonHomeKitFault";
+  v2[34] = &unk_2848B99B0;
+  v2[35] = &unk_2848B99C8;
+  v3[34] = @"kWiFiUsageFaultReasonMTBFEvent";
+  v3[35] = @"kWiFiUsageFaultReasonPrimarySetFailure";
+  v2[36] = &unk_2848B99E0;
+  v2[37] = &unk_2848B99F8;
+  v3[36] = @"kWiFiUsageFaultReasonRxDataStallEvent";
+  v3[37] = @"kWiFiUsageFaultReasonPHClientInfoFetchFailure";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:38];
   v1 = gWiFiUsageFaultReasonStringMap;
   gWiFiUsageFaultReasonStringMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 id WiFiFaultHandlingLimitsStringMap(uint64_t a1)
@@ -712,22 +716,20 @@ id WiFiFaultHandlingLimitsStringMap(uint64_t a1)
 
 void __WiFiFaultHandlingLimitsStringMap_block_invoke()
 {
-  v4[5] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_2848B9A10;
-  v3[1] = &unk_2848B9A28;
-  v4[0] = @"WiFiFaultHandlingNotIgnored";
-  v4[1] = @"WiFiFaultHandlingLimitedRateLastFaultIndication";
-  v3[2] = &unk_2848B9A40;
-  v3[3] = &unk_2848B9A58;
-  v4[2] = @"WiFiFaultHandlingLimitedLinkOrPrimaryNotSet";
-  v4[3] = @"WiFiFaultHandlingLimitedRateMinBrokenLinkDetectedInterval";
-  v3[4] = &unk_2848B9A70;
-  v4[4] = @"WiFiFaultHandlingLimitedRecoveryDisabled";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:5];
+  v3[5] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_2848B9A10;
+  v2[1] = &unk_2848B9A28;
+  v3[0] = @"WiFiFaultHandlingNotIgnored";
+  v3[1] = @"WiFiFaultHandlingLimitedRateLastFaultIndication";
+  v2[2] = &unk_2848B9A40;
+  v2[3] = &unk_2848B9A58;
+  v3[2] = @"WiFiFaultHandlingLimitedLinkOrPrimaryNotSet";
+  v3[3] = @"WiFiFaultHandlingLimitedRateMinBrokenLinkDetectedInterval";
+  v2[4] = &unk_2848B9A70;
+  v3[4] = @"WiFiFaultHandlingLimitedRecoveryDisabled";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:5];
   v1 = gWiFiFaultHandlingLimitsStringMap;
   gWiFiFaultHandlingLimitsStringMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void sub_2332F3610(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -737,16 +739,16 @@ void sub_2332F3610(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2332F4AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2332F4AAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233308DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_233308DA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -849,32 +851,34 @@ uint64_t WiFiUsageConnectionQualityRecordConvertDisconnectReasonToGEOReason(uint
   return result;
 }
 
-void sub_23330DF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23330DF08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23330F078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30)
+void sub_23330F078(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  _Block_object_dispose(&a30, 8);
-  _Block_object_dispose((v30 - 168), 8);
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v29 - 168), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233315A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_233315A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23331718C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_23331718C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v32 - 120), 8);
-  objc_sync_exit(v31);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v31 - 120), 8);
+  objc_sync_exit(v30);
   _Unwind_Resume(a1);
 }
 
@@ -917,45 +921,41 @@ void *__getBiomeLibrarySymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t BiomeLibraryLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!BiomeLibraryLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __BiomeLibraryLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_2789C75E0;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __BiomeLibraryLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_2789C75E0;
+    v5 = 0;
     BiomeLibraryLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = BiomeLibraryLibraryCore_frameworkLibrary;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!BiomeLibraryLibraryCore_frameworkLibrary)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __BiomeLibraryLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BiomeLibraryLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -971,7 +971,7 @@ WiFiUsageLQMMLOSample *__getBMDeviceWiFiClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getBMDeviceWiFiClass_block_invoke_cold_1();
+    __getBMDeviceWiFiClass_block_invoke_cold_1();
     return [(WiFiUsageLQMMLOSample *)v3 initWith:v4 andDuration:v5, v6];
   }
 
@@ -999,9 +999,9 @@ void sub_23331D5A8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23331D7C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23331D7C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1020,9 +1020,9 @@ void sub_23331DC80(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23331DE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23331DE98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1041,9 +1041,9 @@ void sub_23331E358(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_23331E570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23331E570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1076,23 +1076,23 @@ void sub_23331F4E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_233320F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_233320F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2333241D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2333241D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23332441C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23332441C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1106,15 +1106,23 @@ void sub_233325350(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint8_t buf)
+void sub_233327944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0xCu);
+void OUTLINED_FUNCTION_1_1(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
+{
+  va_start(va, a10);
+
+  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void WFLoggerTimerTmoCallBack(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if (a1)
   {
@@ -1126,7 +1134,7 @@ void WFLoggerTimerTmoCallBack(uint64_t a1)
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446210;
-          v7 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v3, "UTF8String")), "UTF8String"];
+          v6 = [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v3, "UTF8String")), "UTF8String"];
           _os_log_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}s", buf, 0xCu);
         }
 
@@ -1153,18 +1161,17 @@ void WFLoggerTimerTmoCallBack(uint64_t a1)
   }
 
   objc_autoreleasePoolPop(v2);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint8_t buf)
+void OUTLINED_FUNCTION_3_0(void *a1, NSObject *a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va, a12);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &buf, 0xCu);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t OUTLINED_FUNCTION_4_0()
 {
-  v3 = *(v1 + 3240);
 
   return [v0 UTF8String];
 }
@@ -1200,9 +1207,9 @@ void *gloria::operator<<(void *a1, uint64_t a2)
 void gloria::TileId::FromXYZ(gloria::TileId *this@<X0>, uint64_t a2@<X8>)
 {
   gloria::MortonUtils::XYToQuadId(*this, *(this + 1));
-  v5 = *(this + 16);
-  *a2 = v6;
-  *(a2 + 8) = v5;
+  v4 = *(this + 16);
+  *a2 = v5;
+  *(a2 + 8) = v4;
 }
 
 void gloria::TileId::Children(gloria::TileId *this@<X0>, char a2@<W1>, uint64_t *a3@<X8>)
@@ -1242,20 +1249,20 @@ void sub_23332FA04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<gloria::TileId>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<gloria::TileId>::resize(uint64_t *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 4;
+  v2 = (result[1] - *result) >> 4;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 16 * a2;
+      result[1] = *result + 16 * a2;
     }
   }
 
   else
   {
-    std::vector<gloria::TileId>::__append(a1, a2 - v2);
+    std::vector<gloria::TileId>::__append(result, a2 - v2);
   }
 }
 
@@ -1309,48 +1316,48 @@ unsigned int gloria::TileId::Reach(gloria::TileId *this, unsigned int a2)
   }
 }
 
-uint64_t gloria::TileBoundingBox::ToWKT(gloria::TileBoundingBox *this)
+uint64_t *gloria::TileBoundingBox::ToWKT(gloria::TileBoundingBox *this)
 {
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v20);
-  *(&v22[0].__locale_ + *(v20 - 24)) = 8;
-  v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, "POLYGON( ", 9);
-  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "(", 1);
-  v4 = MEMORY[0x23839D800](v3, *(this + 3));
-  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " ", 1);
-  v6 = MEMORY[0x23839D800](v5, *(this + 1));
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ", ", 2);
-  v8 = MEMORY[0x23839D800](v7, *(this + 3));
-  v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " ", 1);
-  v10 = MEMORY[0x23839D800](v9, *this);
-  v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, ", ", 2);
-  v12 = MEMORY[0x23839D800](v11, *(this + 2));
-  v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, " ", 1);
-  v14 = MEMORY[0x23839D800](v13, *this);
-  v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ", ", 2);
-  v16 = MEMORY[0x23839D800](v15, *(this + 2));
-  v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " ", 1);
-  v18 = MEMORY[0x23839D800](v17, *(this + 1));
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "))", 2);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v21);
+  *(&v23[0].__locale_ + *(v21 - 24)) = 8;
+  v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v21, "POLYGON( ", 9);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, "(", 1);
+  v5 = MEMORY[0x23839D800](v4, *(this + 3));
+  v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, " ", 1);
+  v7 = MEMORY[0x23839D800](v6, *(this + 1));
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ", ", 2);
+  v9 = MEMORY[0x23839D800](v8, *(this + 3));
+  v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " ", 1);
+  v11 = MEMORY[0x23839D800](v10, *this);
+  v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, ", ", 2);
+  v13 = MEMORY[0x23839D800](v12, *(this + 2));
+  v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, " ", 1);
+  v15 = MEMORY[0x23839D800](v14, *this);
+  v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, ", ", 2);
+  v17 = MEMORY[0x23839D800](v16, *(this + 2));
+  v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " ", 1);
+  v19 = MEMORY[0x23839D800](v18, *(this + 1));
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "))", 2);
   std::stringbuf::str();
-  v20 = *MEMORY[0x277D82828];
-  *(&v20 + *(v20 - 24)) = *(MEMORY[0x277D82828] + 24);
-  v21 = MEMORY[0x277D82878] + 16;
-  if (v23 < 0)
+  v21 = *MEMORY[0x277D82828];
+  *(&v21 + *(v21 - 24)) = *(MEMORY[0x277D82828] + 24);
+  v22 = MEMORY[0x277D82878] + 16;
+  if (v24 < 0)
   {
-    operator delete(v22[7].__locale_);
+    operator delete(v23[7].__locale_);
   }
 
-  v21 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v22);
+  v22 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v23);
   std::ostream::~ostream();
-  return MEMORY[0x23839D880](&v24);
+  return MEMORY[0x23839D880](&v25);
 }
 
-void sub_23332FD80(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23332FD80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x277D82828]);
-  MEMORY[0x23839D880](v2 + 112);
+  MEMORY[0x23839D880](v3 + 112);
   _Unwind_Resume(a1);
 }
 
@@ -1404,16 +1411,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x277D82680]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1436,9 +1443,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_233330180(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_233330180(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x23839D7E0](&a10);
+  MEMORY[0x23839D7E0](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -1773,63 +1780,63 @@ void sub_233337F54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2333427FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2333427FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233342BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_233342BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233342DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_233342DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2333430EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2333430EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233343514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_233343514(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2333439DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2333439DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_233343EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_233343EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2333446C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2333446C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t isDisplayOff()
+BOOL isDisplayOff()
 {
   out_token = -1;
   if (notify_register_check("com.apple.iokit.hid.displayStatus", &out_token))
@@ -1856,31 +1863,18 @@ uint64_t isDisplayOff()
   return v0;
 }
 
-void sub_233344BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_233344BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t OUTLINED_FUNCTION_2_1@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void OUTLINED_FUNCTION_1_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(*result + 72);
-  return result;
-}
+  va_start(va, a8);
 
-uint64_t *OUTLINED_FUNCTION_4_1@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-void OUTLINED_FUNCTION_1_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void __destructor_8_s48_s56(uint64_t a1)
@@ -1888,13 +1882,14 @@ void __destructor_8_s48_s56(uint64_t a1)
   v2 = *(a1 + 56);
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-__CFString *_labelDescription(unint64_t a1)
+__CFString *_labelDescription(unint64_t a1, uint64_t a2)
 {
   if (a1 >= 0xC)
   {
@@ -1911,9 +1906,9 @@ void sub_233366D9C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2333673AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2333673AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1926,14 +1921,12 @@ void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4)
 
 id OUTLINED_FUNCTION_10()
 {
-  v3 = *(v1 + 3240);
 
   return v0;
 }
 
 id OUTLINED_FUNCTION_11()
 {
-  v3 = *(v1 + 3240);
 
   return v0;
 }
@@ -1947,21 +1940,19 @@ uint64_t OUTLINED_FUNCTION_13(uint64_t result, float a2)
 
 id OUTLINED_FUNCTION_15()
 {
-  v3 = *(v1 + 3240);
 
   return v0;
 }
 
 id OUTLINED_FUNCTION_16()
 {
-  v3 = *(v1 + 3240);
 
   return v0;
 }
 
-void sub_233372970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_233372970(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1980,17 +1971,18 @@ void sub_233375494(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_233375AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_233375AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_0_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_23337AF24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location)
@@ -2012,7 +2004,7 @@ void WiFiWalletUtilAddPassFromURL(uint64_t a1, void *a2)
 
 void WiFiWalletUtilAddPass(void *a1, void *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = v4;
@@ -2021,15 +2013,15 @@ void WiFiWalletUtilAddPass(void *a1, void *a2)
     v6 = objc_alloc_init(MEMORY[0x277D37FC8]);
     if (v6)
     {
-      v12[0] = v3;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __WiFiWalletUtilAddPass_block_invoke;
-      v9[3] = &unk_2789C85A8;
-      v11 = v5;
-      v10 = v3;
-      [v6 addPasses:v7 withCompletionHandler:v9];
+      v11[0] = v3;
+      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+      v8[0] = MEMORY[0x277D85DD0];
+      v8[1] = 3221225472;
+      v8[2] = __WiFiWalletUtilAddPass_block_invoke;
+      v8[3] = &unk_2789C85A8;
+      v10 = v5;
+      v9 = v3;
+      [v6 addPasses:v7 withCompletionHandler:v8];
     }
 
     else
@@ -2042,8 +2034,6 @@ void WiFiWalletUtilAddPass(void *a1, void *a2)
   {
     (*(v4 + 2))(v4, 0, -1);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _WiFiWalletUtilRemovePassMatching(void *a1, void *a2, void *a3, void *a4)
@@ -2129,31 +2119,31 @@ id WiFiWalletSignedDataForRawPass(void *a1, void *a2, void *a3, void *a4)
   v12 = MEMORY[0x277CBEBC0];
   v13 = NSTemporaryDirectory();
   [v13 stringByAppendingPathComponent:@"PassBeingSigned.raw"];
-  v14 = v106 = v10;
+  v14 = v105 = v10;
   v15 = [v12 fileURLWithPath:v14];
 
-  v10 = v106;
+  v10 = v105;
   [v11 removeItemAtURL:v15 error:0];
-  v117 = 0;
-  v104 = v11;
-  v105 = v15;
-  [v11 copyItemAtURL:v7 toURL:v15 error:&v117];
-  v16 = v117;
+  v116 = 0;
+  v103 = v11;
+  v104 = v15;
+  [v11 copyItemAtURL:v7 toURL:v15 error:&v116];
+  v16 = v116;
   v17 = v16;
-  if (v106 && !v16)
+  if (v105 && !v16)
   {
-    v116 = 0;
-    v18 = v106;
-    v19 = [v105 URLByAppendingPathComponent:@"pass.json" isDirectory:0];
-    v20 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v19 options:0 error:&v116];
+    v115 = 0;
+    v18 = v105;
+    v19 = [v104 URLByAppendingPathComponent:@"pass.json" isDirectory:0];
+    v20 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v19 options:0 error:&v115];
     if (v20)
     {
       v21 = v20;
-      v99 = v8;
-      v102 = v9;
-      v118[0] = 0;
-      v22 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v20 options:1 error:v118];
-      v23 = v118[0];
+      v98 = v8;
+      v101 = v9;
+      v117[0] = 0;
+      v22 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v20 options:1 error:v117];
+      v23 = v117[0];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -2169,20 +2159,20 @@ id WiFiWalletSignedDataForRawPass(void *a1, void *a2, void *a3, void *a4)
         else
         {
           items[0] = @"wifiAccess";
-          *&v119 = v18;
-          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v119 forKeys:items count:1];
+          *&v118 = v18;
+          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v118 forKeys:items count:1];
         }
 
         [v24 setObject:v27 forKey:@"semantics"];
 
-        v125 = v23;
-        v30 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v24 options:1 error:&v125];
-        v29 = v125;
+        v124 = v23;
+        v30 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v24 options:1 error:&v124];
+        v29 = v124;
 
         if (v29)
         {
           v31 = v29;
-          v116 = v29;
+          v115 = v29;
         }
 
         else
@@ -2193,17 +2183,17 @@ id WiFiWalletSignedDataForRawPass(void *a1, void *a2, void *a3, void *a4)
 
       else
       {
-        v116 = _ErrorWithCodeAndDescription(0, @"Invalid pass data.");
+        v115 = _ErrorWithCodeAndDescription(0, @"Invalid pass data.");
         v29 = v23;
         v30 = v21;
       }
 
-      v8 = v99;
-      v9 = v102;
+      v8 = v98;
+      v9 = v101;
     }
 
-    v17 = v116;
-    v10 = v106;
+    v17 = v115;
+    v10 = v105;
   }
 
   if (v17)
@@ -2212,88 +2202,88 @@ id WiFiWalletSignedDataForRawPass(void *a1, void *a2, void *a3, void *a4)
     goto LABEL_64;
   }
 
-  v103 = v9;
+  v102 = v9;
   v32 = MEMORY[0x277CBEB38];
-  v33 = v105;
-  v107 = objc_alloc_init(v32);
+  v33 = v104;
+  v106 = objc_alloc_init(v32);
   v34 = [MEMORY[0x277CCAA00] defaultManager];
   v35 = [v33 URLByStandardizingPath];
-  v97 = v33;
+  v96 = v33;
 
-  v98 = v34;
-  v110 = v35;
+  v97 = v34;
+  v109 = v35;
   v36 = [v34 enumeratorAtURL:v35 includingPropertiesForKeys:0 options:0 errorHandler:0];
+  v118 = 0u;
   v119 = 0u;
   v120 = 0u;
   v121 = 0u;
-  v122 = 0u;
-  v37 = [v36 countByEnumeratingWithState:&v119 objects:v118 count:16];
+  v37 = [v36 countByEnumeratingWithState:&v118 objects:v117 count:16];
   if (v37)
   {
     v38 = v37;
-    v100 = v8;
-    v96 = v7;
+    v99 = v8;
+    v95 = v7;
     v39 = 0;
-    v40 = *v120;
+    v40 = *v119;
     v41 = *MEMORY[0x277CBE8A8];
-    v108 = *MEMORY[0x277CBE8A8];
-    v109 = v36;
+    v107 = *MEMORY[0x277CBE8A8];
+    v108 = v36;
     do
     {
       for (i = 0; i != v38; ++i)
       {
-        if (*v120 != v40)
+        if (*v119 != v40)
         {
           objc_enumerationMutation(v36);
         }
 
         if (!v39)
         {
-          v43 = *(*(&v119 + 1) + 8 * i);
-          v125 = 0;
+          v43 = *(*(&v118 + 1) + 8 * i);
+          v124 = 0;
           items[0] = 0;
-          v44 = [v43 getResourceValue:items forKey:v41 error:&v125];
+          v44 = [v43 getResourceValue:items forKey:v41 error:&v124];
           v45 = items[0];
-          v39 = v125;
+          v39 = v124;
           if (v44 && [(__CFArray *)v45 BOOLValue])
           {
             v46 = [v43 URLByStandardizingPath];
-            v112 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v46];
-            v47 = [v112 SHA1Hash];
-            v114 = [v47 hexEncoding];
+            v111 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v46];
+            v47 = [v111 SHA1Hash];
+            v113 = [v47 hexEncoding];
 
-            v48 = [v110 pathComponents];
+            v48 = [v109 pathComponents];
             v49 = [v46 pathComponents];
             v50 = [v48 count];
             v51 = [v49 subarrayWithRange:{v50, objc_msgSend(v49, "count") - v50}];
             v52 = [MEMORY[0x277CCACA8] pathWithComponents:v51];
             if (v52)
             {
-              [v107 setObject:v114 forKeyedSubscript:v52];
+              [v106 setObject:v113 forKeyedSubscript:v52];
             }
 
-            v41 = v108;
-            v36 = v109;
+            v41 = v107;
+            v36 = v108;
           }
         }
       }
 
-      v38 = [v36 countByEnumeratingWithState:&v119 objects:v118 count:16];
+      v38 = [v36 countByEnumeratingWithState:&v118 objects:v117 count:16];
     }
 
     while (v38);
-    v7 = v96;
-    v8 = v100;
+    v7 = v95;
+    v8 = v99;
     if (v39)
     {
       goto LABEL_36;
     }
   }
 
-  v53 = [v110 URLByAppendingPathComponent:@"manifest.json"];
-  v124 = 0;
-  v54 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v107 options:1 error:&v124];
-  v39 = v124;
+  v53 = [v109 URLByAppendingPathComponent:@"manifest.json"];
+  v123 = 0;
+  v54 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v106 options:1 error:&v123];
+  v39 = v123;
   if (v39)
   {
 
@@ -2306,20 +2296,20 @@ LABEL_36:
 
 LABEL_38:
   v56 = v39;
-  v9 = v103;
+  v9 = v102;
   if (v56)
   {
     v17 = v56;
     v28 = 0;
 LABEL_40:
-    v10 = v106;
+    v10 = v105;
     goto LABEL_64;
   }
 
-  v57 = v97;
+  v57 = v96;
   v58 = v8;
-  v59 = v103;
-  v10 = v106;
+  v59 = v102;
+  v10 = v105;
   if (!v59 || !v58 || !v57)
   {
     v73 = _ErrorWithCodeAndDescription(0, @"Missing required signature parameters.");
@@ -2327,8 +2317,8 @@ LABEL_40:
     goto LABEL_62;
   }
 
-  v113 = [v57 URLByAppendingPathComponent:@"manifest.json"];
-  v115 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:?];
+  v112 = [v57 URLByAppendingPathComponent:@"manifest.json"];
+  v114 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:?];
   v60 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v58];
   v61 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:v59];
   v62 = v61;
@@ -2337,24 +2327,24 @@ LABEL_40:
     v63 = *MEMORY[0x277CBECE8];
     v64 = SecCertificateCreateWithData(*MEMORY[0x277CBECE8], v61);
     items[0] = 0;
-    v124 = *MEMORY[0x277CDC270];
-    v125 = @"apple123";
-    v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v125 forKeys:&v124 count:1];
-    v65 = SecPKCS12Import(v60, v111, items);
+    v123 = *MEMORY[0x277CDC270];
+    v124 = @"apple123";
+    v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v124 forKeys:&v123 count:1];
+    v65 = SecPKCS12Import(v60, v110, items);
     if (v64 && !v65 && CFArrayGetCount(items[0]) == 1)
     {
-      v101 = v8;
+      v100 = v8;
       ValueAtIndex = CFArrayGetValueAtIndex(items[0], 0);
       CFDictionaryGetValue(ValueAtIndex, *MEMORY[0x277CDC278]);
       v67 = *MEMORY[0x277CDC1D8];
-      v118[0] = *MEMORY[0x277CBED28];
+      v117[0] = *MEMORY[0x277CBED28];
       v68 = *MEMORY[0x277CDC1A8];
-      *&v119 = v67;
-      *(&v119 + 1) = v68;
-      v123 = v64;
-      v69 = [MEMORY[0x277CBEA60] arrayWithObjects:&v123 count:1];
-      v118[1] = v69;
-      v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v118 forKeys:&v119 count:2];
+      *&v118 = v67;
+      *(&v118 + 1) = v68;
+      v122 = v64;
+      v69 = [MEMORY[0x277CBEA60] arrayWithObjects:&v122 count:1];
+      v117[1] = v69;
+      v70 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:&v118 count:2];
 
       Mutable = CFDataCreateMutable(v63, 0);
       v72 = SecCMSCreateSignedData();
@@ -2377,7 +2367,7 @@ LABEL_40:
         CFRelease(Mutable);
       }
 
-      v8 = v101;
+      v8 = v100;
     }
 
     else
@@ -2393,7 +2383,7 @@ LABEL_40:
     CFRelease(v64);
 LABEL_60:
 
-    v10 = v106;
+    v10 = v105;
     goto LABEL_61;
   }
 
@@ -2405,54 +2395,54 @@ LABEL_62:
   v79 = v73;
   if (!v79)
   {
-    v82 = v8;
-    v83 = v7;
-    v84 = v57;
+    v81 = v8;
+    v82 = v7;
+    v83 = v57;
     BOMCopierNew();
-    *&v119 = @"createPKZip";
-    v118[0] = MEMORY[0x277CBEC38];
-    v85 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v118 forKeys:&v119 count:1];
-    v86 = [MEMORY[0x277CCAD78] UUID];
-    v87 = [v86 UUIDString];
-    v88 = [v87 stringByAppendingPathExtension:@"pkpass"];
+    *&v118 = @"createPKZip";
+    v117[0] = MEMORY[0x277CBEC38];
+    v84 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:&v118 count:1];
+    v85 = [MEMORY[0x277CCAD78] UUID];
+    v86 = [v85 UUIDString];
+    v87 = [v86 stringByAppendingPathExtension:@"pkpass"];
 
-    v89 = NSTemporaryDirectory();
-    v90 = [v89 stringByAppendingPathComponent:v88];
+    v88 = NSTemporaryDirectory();
+    v89 = [v88 stringByAppendingPathComponent:v87];
 
-    v91 = [v84 path];
+    v90 = [v83 path];
 
-    v92 = [MEMORY[0x277CCAA00] defaultManager];
-    [v91 fileSystemRepresentation];
+    v91 = [MEMORY[0x277CCAA00] defaultManager];
     [v90 fileSystemRepresentation];
-    v93 = BOMCopierCopyWithOptions();
-    if (v93)
+    [v89 fileSystemRepresentation];
+    v92 = BOMCopierCopyWithOptions();
+    if (v92)
     {
-      v94 = _ErrorWithCodeAndDescription(v93, @"Error zipping pass.");
-      v95 = v94;
+      v93 = _ErrorWithCodeAndDescription(v92, @"Error zipping pass.");
+      v94 = v93;
       v28 = 0;
     }
 
     else
     {
-      v28 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v90];
-      v94 = 0;
+      v28 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v89];
+      v93 = 0;
     }
 
-    [v92 removeItemAtPath:v90 error:0];
+    [v91 removeItemAtPath:v89 error:0];
     BOMCopierFree();
 
-    v17 = v94;
-    v7 = v83;
-    v8 = v82;
-    v9 = v103;
+    v17 = v93;
+    v7 = v82;
+    v8 = v81;
+    v9 = v102;
     goto LABEL_40;
   }
 
   v17 = v79;
   v28 = 0;
-  v9 = v103;
+  v9 = v102;
 LABEL_64:
-  [v104 removeItemAtURL:v105 error:0];
+  [v103 removeItemAtURL:v104 error:0];
 
   if (v17)
   {
@@ -2461,23 +2451,19 @@ LABEL_64:
 
 LABEL_66:
 
-  v80 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 id _ErrorWithCodeAndDescription(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCA9B8];
-  v10 = *MEMORY[0x277CCA450];
-  v11[0] = a2;
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = a2;
   v4 = MEMORY[0x277CBEAC0];
   v5 = a2;
-  v6 = [v4 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v6 = [v4 dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v3 errorWithDomain:@"com.apple.wallet.server" code:a1 userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -2492,34 +2478,29 @@ void sub_233380434(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_233386310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_233386310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __softlink__BiomeLibrary_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return __getBMDeviceWiFiClass_block_invoke_cold_1(v0);
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  return __getBMDeviceWiFiClass_block_invoke_cold_1();
 }
 
 void WFLoggerTimerTmoCallBack_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v1 = [a1 stringWithFormat:@"%s: _dispatchQueue is null", "WFLoggerTimerTmoCallBack"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v2 = MEMORY[0x277CCACA8];
-    v9 = [v1 UTF8String];
-    [objc_msgSend(v2 stringWithFormat:@"[WiFiPolicy] %s", "UTF8String"];
+    [objc_msgSend(MEMORY[0x277CCACA8] stringWithFormat:@"[WiFiPolicy] %s", objc_msgSend(v1, "UTF8String")), "UTF8String"];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v3, "%{public}s", v4, v5, v6, v7, v9, v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v2, "%{public}s", v3, v4, v5, v6, v7, v8);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void WFLoggerTimerTmoCallBack_cold_2()
@@ -2527,52 +2508,41 @@ void WFLoggerTimerTmoCallBack_cold_2()
   [OUTLINED_FUNCTION_1_2(*MEMORY[0x277D85DE8]) stringWithFormat:@"%s: _ctxt is null", "WFLoggerTimerTmoCallBack"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v7 = OUTLINED_FUNCTION_4_0();
-    [objc_msgSend(v0 stringWithFormat:@"[WiFiPolicy] %s", "UTF8String"];
+    [objc_msgSend(v0 stringWithFormat:@"[WiFiPolicy] %s", OUTLINED_FUNCTION_4_0()), "UTF8String"];
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v1, "%{public}s", v2, v3, v4, v5, v7, v8, v9);
+    OUTLINED_FUNCTION_1_1(&dword_2332D7000, MEMORY[0x277D86220], v1, "%{public}s", v2, v3, v4, v5, v6, v7);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void isDisplayOff_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _WiFiWalletSourcePassContainsWiFiSemantics(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1 && ([v1 semantics], v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v4 = [v2 semantics];
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       v8 = *MEMORY[0x277D38788];
       while (2)
       {
         v9 = 0;
         do
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          if ([*(*(&v13 + 1) + 8 * v9) isEqualToString:v8])
+          if ([*(*(&v12 + 1) + 8 * v9) isEqualToString:v8])
           {
             v10 = 1;
             goto LABEL_13;
@@ -2582,7 +2552,7 @@ uint64_t _WiFiWalletSourcePassContainsWiFiSemantics(void *a1)
         }
 
         while (v6 != v9);
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           continue;
@@ -2601,7 +2571,6 @@ LABEL_13:
     v10 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

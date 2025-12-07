@@ -128,46 +128,45 @@
 
 - (void)dealloc
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (!self->_lock_invalidated)
   {
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"dealloced without invalidating"];
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"dealloced without invalidating"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v6 = NSStringFromSelector(a2);
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v5 = NSStringFromSelector(a2);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 138544642;
-      v12 = v6;
-      v13 = 2114;
-      v14 = v8;
-      v15 = 2048;
+      v11 = v5;
+      v12 = 2114;
+      v13 = v7;
+      v14 = 2048;
       selfCopy = self;
-      v17 = 2114;
-      v18 = @"BSServiceInitiatingConnectionMultiplexer.m";
-      v19 = 1024;
-      v20 = 108;
-      v21 = 2114;
-      v22 = v5;
+      v16 = 2114;
+      v17 = @"BSServiceInitiatingConnectionMultiplexer.m";
+      v18 = 1024;
+      v19 = 108;
+      v20 = 2114;
+      v21 = v4;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v9 = v5;
-    [v5 UTF8String];
+    v8 = v4;
+    [v4 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A8612A4);
   }
 
-  v10.receiver = self;
-  v10.super_class = BSServiceInitiatingConnectionMultiplexer;
-  [(BSServiceInitiatingConnectionMultiplexer *)&v10 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = BSServiceInitiatingConnectionMultiplexer;
+  [(BSServiceInitiatingConnectionMultiplexer *)&v9 dealloc];
 }
 
 - (uint64_t)newConnectionWithEndpoint:(uint64_t)endpoint
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!endpoint)
@@ -179,33 +178,33 @@
   v5 = v3;
   if (!v5)
   {
-    v26 = MEMORY[0x1E696AEC0];
-    v27 = objc_opt_class();
-    v28 = NSStringFromClass(v27);
-    v29 = [v26 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"endpoint", v28];
+    v25 = MEMORY[0x1E696AEC0];
+    v26 = objc_opt_class();
+    v27 = NSStringFromClass(v26);
+    v28 = [v25 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"endpoint", v27];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v30 = NSStringFromSelector(sel_newConnectionWithEndpoint_);
-      v31 = objc_opt_class();
-      v32 = NSStringFromClass(v31);
+      v29 = NSStringFromSelector(sel_newConnectionWithEndpoint_);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
       *buf = 138544642;
-      v66 = v30;
-      v67 = 2114;
-      v68 = v32;
-      v69 = 2048;
+      v65 = v29;
+      v66 = 2114;
+      v67 = v31;
+      v68 = 2048;
       endpointCopy5 = endpoint;
-      v71 = 2114;
-      v72 = @"BSServiceInitiatingConnectionMultiplexer.m";
-      v73 = 1024;
-      v74 = 114;
-      v75 = 2114;
-      v76 = v29;
+      v70 = 2114;
+      v71 = @"BSServiceInitiatingConnectionMultiplexer.m";
+      v72 = 1024;
+      v73 = 114;
+      v74 = 2114;
+      v75 = v28;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v33 = v29;
-    [v29 UTF8String];
+    v32 = v28;
+    [v28 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A861824);
@@ -214,40 +213,40 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v34 = MEMORY[0x1E696AEC0];
+    v33 = MEMORY[0x1E696AEC0];
     classForCoder = [v5 classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v36 = NSStringFromClass(classForCoder);
-    v37 = objc_opt_class();
-    v38 = NSStringFromClass(v37);
-    v39 = [v34 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"endpoint", v36, v38];
+    v35 = NSStringFromClass(classForCoder);
+    v36 = objc_opt_class();
+    v37 = NSStringFromClass(v36);
+    v38 = [v33 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"endpoint", v35, v37];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v40 = NSStringFromSelector(sel_newConnectionWithEndpoint_);
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
+      v39 = NSStringFromSelector(sel_newConnectionWithEndpoint_);
+      v40 = objc_opt_class();
+      v41 = NSStringFromClass(v40);
       *buf = 138544642;
-      v66 = v40;
-      v67 = 2114;
-      v68 = v42;
-      v69 = 2048;
+      v65 = v39;
+      v66 = 2114;
+      v67 = v41;
+      v68 = 2048;
       endpointCopy5 = endpoint;
-      v71 = 2114;
-      v72 = @"BSServiceInitiatingConnectionMultiplexer.m";
-      v73 = 1024;
-      v74 = 114;
-      v75 = 2114;
-      v76 = v39;
+      v70 = 2114;
+      v71 = @"BSServiceInitiatingConnectionMultiplexer.m";
+      v72 = 1024;
+      v73 = 114;
+      v74 = 2114;
+      v75 = v38;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v43 = v39;
-    [v39 UTF8String];
+    v42 = v38;
+    [v38 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A86196CLL);
@@ -257,29 +256,29 @@
   os_unfair_lock_lock((endpoint + 16));
   if (*(endpoint + 20) == 1)
   {
-    v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"attempt to create an outgoing connection after invalidation"];
+    v43 = [MEMORY[0x1E696AEC0] stringWithFormat:@"attempt to create an outgoing connection after invalidation"];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v45 = NSStringFromSelector(sel_newConnectionWithEndpoint_);
-      v46 = objc_opt_class();
-      v47 = NSStringFromClass(v46);
+      v44 = NSStringFromSelector(sel_newConnectionWithEndpoint_);
+      v45 = objc_opt_class();
+      v46 = NSStringFromClass(v45);
       *buf = 138544642;
-      v66 = v45;
-      v67 = 2114;
-      v68 = v47;
-      v69 = 2048;
+      v65 = v44;
+      v66 = 2114;
+      v67 = v46;
+      v68 = 2048;
       endpointCopy5 = endpoint;
-      v71 = 2114;
-      v72 = @"BSServiceInitiatingConnectionMultiplexer.m";
-      v73 = 1024;
-      v74 = 119;
-      v75 = 2114;
-      v76 = v44;
+      v70 = 2114;
+      v71 = @"BSServiceInitiatingConnectionMultiplexer.m";
+      v72 = 1024;
+      v73 = 119;
+      v74 = 2114;
+      v75 = v43;
       _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v48 = v44;
-    [v44 UTF8String];
+    v47 = v43;
+    [v43 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x19A861A64);
@@ -292,9 +291,9 @@
       v11 = BSServiceLog();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v25 = v5[4];
+        v24 = v5[4];
         *buf = 138543362;
-        v66 = v25;
+        v65 = v24;
         _os_log_error_impl(&dword_19A821000, v11, OS_LOG_TYPE_ERROR, "cannot create outgoing root connection from an endpoint that is no longer valid (%{public}@)", buf, 0xCu);
       }
     }
@@ -313,9 +312,9 @@
       loggingProem = [(BSXPCServiceConnection *)v7 loggingProem];
       v10 = v5[4];
       *buf = 138543618;
-      v66 = loggingProem;
-      v67 = 2114;
-      v68 = v10;
+      v65 = loggingProem;
+      v66 = 2114;
+      v67 = v10;
       _os_log_impl(&dword_19A821000, v8, OS_LOG_TYPE_INFO, "found existing rootConnection %{public}@ by endpoint (%{public}@)", buf, 0x16u);
     }
   }
@@ -326,29 +325,29 @@
     os_unfair_lock_assert_owner((endpoint + 16));
     if (*(endpoint + 20) == 1)
     {
-      v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"attempt to create an outgoing connection after invalidation"];
+      v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"attempt to create an outgoing connection after invalidation"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v50 = NSStringFromSelector(sel__lock_newRootConnectionWithEndpoint_);
-        v51 = objc_opt_class();
-        v52 = NSStringFromClass(v51);
+        v49 = NSStringFromSelector(sel__lock_newRootConnectionWithEndpoint_);
+        v50 = objc_opt_class();
+        v51 = NSStringFromClass(v50);
         *buf = 138544642;
-        v66 = v50;
-        v67 = 2114;
-        v68 = v52;
-        v69 = 2048;
+        v65 = v49;
+        v66 = 2114;
+        v67 = v51;
+        v68 = 2048;
         endpointCopy5 = endpoint;
-        v71 = 2114;
-        v72 = @"BSServiceInitiatingConnectionMultiplexer.m";
-        v73 = 1024;
-        v74 = 151;
-        v75 = 2114;
-        v76 = v49;
+        v70 = 2114;
+        v71 = @"BSServiceInitiatingConnectionMultiplexer.m";
+        v72 = 1024;
+        v73 = 151;
+        v74 = 2114;
+        v75 = v48;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v53 = v49;
-      [v49 UTF8String];
+      v52 = v48;
+      [v48 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A861B5CLL);
@@ -357,32 +356,32 @@
     v14 = [*(endpoint + 8) objectForKey:v13];
     if (v14)
     {
-      v54 = MEMORY[0x1E696AEC0];
-      v55 = v13[4];
-      v56 = [v54 stringWithFormat:@"attempt to create a redundant outgoing connection for endpoint %@ : existing=%@", v55, v14];
+      v53 = MEMORY[0x1E696AEC0];
+      v54 = v13[4];
+      v55 = [v53 stringWithFormat:@"attempt to create a redundant outgoing connection for endpoint %@ : existing=%@", v54, v14];
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v57 = NSStringFromSelector(sel__lock_newRootConnectionWithEndpoint_);
-        v58 = objc_opt_class();
-        v59 = NSStringFromClass(v58);
+        v56 = NSStringFromSelector(sel__lock_newRootConnectionWithEndpoint_);
+        v57 = objc_opt_class();
+        v58 = NSStringFromClass(v57);
         *buf = 138544642;
-        v66 = v57;
-        v67 = 2114;
-        v68 = v59;
-        v69 = 2048;
+        v65 = v56;
+        v66 = 2114;
+        v67 = v58;
+        v68 = 2048;
         endpointCopy5 = endpoint;
-        v71 = 2114;
-        v72 = @"BSServiceInitiatingConnectionMultiplexer.m";
-        v73 = 1024;
-        v74 = 153;
-        v75 = 2114;
-        v76 = v56;
+        v70 = 2114;
+        v71 = @"BSServiceInitiatingConnectionMultiplexer.m";
+        v72 = 1024;
+        v73 = 153;
+        v74 = 2114;
+        v75 = v55;
         _os_log_error_impl(&dword_19A821000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v60 = v56;
-      [v56 UTF8String];
+      v59 = v55;
+      [v55 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x19A861C6CLL);
@@ -397,7 +396,7 @@
       {
         v22 = v13[4];
         *buf = 138543362;
-        v66 = v22;
+        v65 = v22;
         _os_log_impl(&dword_19A821000, v21, OS_LOG_TYPE_INFO, "failed to create outgoing root connection for endpoint=%{public}@", buf, 0xCu);
       }
 
@@ -406,21 +405,21 @@
     }
 
     v16 = [(BSXPCServiceConnection *)v15 defaultNameWithClientLoggingProem:0 as:?];
-    v61[0] = MEMORY[0x1E69E9820];
-    v61[1] = 3221225472;
-    v61[2] = __80__BSServiceInitiatingConnectionMultiplexer__lock_newRootConnectionWithEndpoint___block_invoke;
-    v61[3] = &unk_1E7520DD0;
+    v60[0] = MEMORY[0x1E69E9820];
+    v60[1] = 3221225472;
+    v60[2] = __80__BSServiceInitiatingConnectionMultiplexer__lock_newRootConnectionWithEndpoint___block_invoke;
+    v60[3] = &unk_1E7520DD0;
     v17 = v16;
-    v62 = v17;
+    v61 = v17;
     endpointCopy6 = endpoint;
     v18 = v13;
-    v64 = v18;
-    [(BSXPCServiceConnection *)v7 configure:v61];
+    v63 = v18;
+    [(BSXPCServiceConnection *)v7 configure:v60];
     v19 = BSServiceLog();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v66 = v17;
+      v65 = v17;
       _os_log_impl(&dword_19A821000, v19, OS_LOG_TYPE_INFO, "created outgoing root connection %{public}@", buf, 0xCu);
     }
 
@@ -441,7 +440,6 @@ LABEL_27:
 
 LABEL_28:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -521,21 +519,19 @@ void __80__BSServiceInitiatingConnectionMultiplexer__lock_newRootConnectionWithE
 
 void __80__BSServiceInitiatingConnectionMultiplexer__lock_newRootConnectionWithEndpoint___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [(BSXPCServiceConnection *)v3 auditToken];
   v5 = BSServiceLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v6;
-    v10 = 1024;
-    v11 = [v4 pid];
-    _os_log_impl(&dword_19A821000, v5, OS_LOG_TYPE_DEFAULT, "Activated outgoing root connection %{public}@ to %d", &v8, 0x12u);
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 1024;
+    v10 = [v4 pid];
+    _os_log_impl(&dword_19A821000, v5, OS_LOG_TYPE_DEFAULT, "Activated outgoing root connection %{public}@ to %d", &v7, 0x12u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __80__BSServiceInitiatingConnectionMultiplexer__lock_newRootConnectionWithEndpoint___block_invoke_65(uint64_t a1, void *a2, int a3)
@@ -579,7 +575,7 @@ void __80__BSServiceInitiatingConnectionMultiplexer__lock_newRootConnectionWithE
 
 void __80__BSServiceInitiatingConnectionMultiplexer__lock_newRootConnectionWithEndpoint___block_invoke_4(void *a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = BSServiceLog();
@@ -587,11 +583,11 @@ void __80__BSServiceInitiatingConnectionMultiplexer__lock_newRootConnectionWithE
   {
     v8 = a1[4];
     v9 = [v6 succinctDescription];
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2114;
-    v14 = v9;
-    _os_log_impl(&dword_19A821000, v7, OS_LOG_TYPE_DEFAULT, "Error on outgoing root connection %{public}@: %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_19A821000, v7, OS_LOG_TYPE_DEFAULT, "Error on outgoing root connection %{public}@: %{public}@", &v10, 0x16u);
   }
 
   os_unfair_lock_lock((a1[5] + 16));
@@ -606,8 +602,6 @@ void __80__BSServiceInitiatingConnectionMultiplexer__lock_newRootConnectionWithE
     os_unfair_lock_unlock((a1[5] + 16));
     [v5 invalidate];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)debugDescriptionWithMultilinePrefix:(uint64_t)prefix

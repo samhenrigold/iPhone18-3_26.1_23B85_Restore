@@ -225,8 +225,8 @@
     menuConfiguration = [(_UIContextMenuUIController *)self menuConfiguration];
     sourcePreview2 = [menuConfiguration sourcePreview];
     menuConfiguration2 = [(_UIContextMenuUIController *)self menuConfiguration];
-    menu = [menuConfiguration2 menu];
-    v16 = (*(containerViewProviderWithEntity + 16))(containerViewProviderWithEntity, containerView2, sourcePreview2, menu, 0);
+    v15 = objc_msgSend_menu(menuConfiguration2);
+    v16 = (*(containerViewProviderWithEntity + 16))(containerViewProviderWithEntity, containerView2, sourcePreview2, v15, 0);
   }
 
   else
@@ -239,8 +239,8 @@
     menuConfiguration = [(_UIContextMenuUIController *)self menuConfiguration];
     sourcePreview2 = [menuConfiguration sourcePreview];
     menuConfiguration2 = [(_UIContextMenuUIController *)self menuConfiguration];
-    menu = [menuConfiguration2 menu];
-    v16 = (*(containerViewProvider + 16))(containerViewProvider, containerView2, sourcePreview2, menu);
+    v15 = objc_msgSend_menu(menuConfiguration2);
+    v16 = (*(containerViewProvider + 16))(containerViewProvider, containerView2, sourcePreview2, v15);
   }
 
   v17 = v16;
@@ -257,13 +257,13 @@ LABEL_9:
 
   [containerView2 addSubview:platterContainerView];
   menuConfiguration3 = [(_UIContextMenuUIController *)self menuConfiguration];
-  menu2 = [menuConfiguration3 menu];
+  v21 = objc_msgSend_menu(menuConfiguration3);
 
-  if (([menu2 metadata] & 0x1000000) != 0)
+  if (([v21 metadata] & 0x1000000) != 0)
   {
-    [(_UIContextMenuUIController *)self _createMenuViewIfNecessaryForMenu:menu2];
+    [(_UIContextMenuUIController *)self _createMenuViewIfNecessaryForMenu:v21];
     menuView = [(_UIContextMenuUIController *)self menuView];
-    [menuView displayMenu:menu2 updateType:0 alongsideAnimations:0];
+    [menuView displayMenu:v21 updateType:0 alongsideAnimations:0];
   }
 
   v23 = [_UIContextMenuPanController alloc];
@@ -750,7 +750,7 @@ LABEL_5:
     else
     {
       memset(&location, 0, sizeof(location));
-      [v13 transform];
+      objc_msgSend_transform(v13);
       [v43[5] bounds];
       Width = CGRectGetWidth(v49);
       collapsedPreview = [v43[5] collapsedPreview];
@@ -811,7 +811,7 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  _targetedLiftPreview = [v8 preview];
+  _targetedLiftPreview = objc_msgSend_preview(v8);
   if (!_targetedLiftPreview)
   {
     goto LABEL_6;
@@ -857,7 +857,7 @@ LABEL_12:
 LABEL_13:
   if (_duiPreview)
   {
-    [_duiPreview liftTransform];
+    objc_msgSend_liftTransform(_duiPreview);
     v22 = v58;
     v21 = v59;
     v24 = v60;
@@ -1139,7 +1139,7 @@ LABEL_4:
     v14 = v13;
 
     v15 = [UIPreviewTarget alloc];
-    [v3 transform];
+    objc_msgSend_transform(v3);
     v16 = [(UIPreviewTarget *)v15 initWithContainer:window center:&v18 transform:v12, v14];
     v5 = [collapsedPreview retargetedPreviewWithTarget:v16];
   }
@@ -1502,7 +1502,7 @@ LABEL_11:
     v9 = menuStyle2;
     if (menuStyle2)
     {
-      [menuStyle2 _preferredAnchor];
+      objc_msgSend__preferredAnchor(menuStyle2);
     }
 
     else
@@ -1531,7 +1531,7 @@ LABEL_11:
     v15 = v14;
     if (v11)
     {
-      [(_UIContextMenuLayoutArbiterOutput *)v11 preview];
+      objc_msgSend_preview(v11);
       v17 = *(&v105 + 1);
       v16 = v105;
       v19 = *(&v106 + 1);
@@ -1567,7 +1567,7 @@ LABEL_11:
 
     if (v11)
     {
-      [(_UIContextMenuLayoutArbiterOutput *)v11 preview];
+      objc_msgSend_preview(v11);
     }
 
     else
@@ -1593,7 +1593,7 @@ LABEL_11:
 
   if (v11)
   {
-    [(_UIContextMenuLayoutArbiterOutput *)v11 menu];
+    objc_msgSend_menu(v11);
     v27 = *(&v92 + 1);
     v28 = *&v93;
   }
@@ -1617,7 +1617,7 @@ LABEL_11:
 
   if (v11)
   {
-    [(_UIContextMenuLayoutArbiterOutput *)v11 menu];
+    objc_msgSend_menu(v11);
     v30 = *(&v82 + 1);
     v31 = *&v82;
   }
@@ -1648,11 +1648,11 @@ LABEL_11:
   v37 = platterPanController;
   if (v11)
   {
-    [(_UIContextMenuLayoutArbiterOutput *)v11 preview];
+    objc_msgSend_preview(v11);
     [v37 setOriginalPlatterCenter:v75];
-    [(_UIContextMenuLayoutArbiterOutput *)v11 menu];
+    objc_msgSend_menu(v11);
     [v37 setOriginalMenuCenter:v67];
-    [(_UIContextMenuLayoutArbiterOutput *)v11 anchor];
+    objc_msgSend_anchor(v11);
   }
 
   else
@@ -1703,7 +1703,7 @@ LABEL_11:
 
     if (v11)
     {
-      [(_UIContextMenuLayoutArbiterOutput *)v11 menu];
+      objc_msgSend_menu(v11);
     }
 
     else
@@ -1745,7 +1745,7 @@ LABEL_11:
 
   if (v11)
   {
-    [(_UIContextMenuLayoutArbiterOutput *)v11 anchor];
+    objc_msgSend_anchor(v11);
     v48 = v50;
   }
 
@@ -1780,7 +1780,7 @@ LABEL_11:
     v9 = menuStyle2;
     if (menuStyle2)
     {
-      [menuStyle2 _preferredAnchor];
+      objc_msgSend__preferredAnchor(menuStyle2);
     }
 
     else
@@ -1814,7 +1814,7 @@ LABEL_11:
   v16 = menuStyle5;
   if (menuStyle5)
   {
-    [menuStyle5 _preferredAnchor];
+    objc_msgSend__preferredAnchor(menuStyle5);
   }
 
   else
@@ -1843,8 +1843,8 @@ LABEL_11:
   if ([menuView hierarchyStyle] == 2)
   {
     menuConfiguration2 = [(_UIContextMenuUIController *)self menuConfiguration];
-    menu = [menuConfiguration2 menu];
-    v22 = ([menu metadata] >> 16) & 1;
+    v21 = objc_msgSend_menu(menuConfiguration2);
+    v22 = ([v21 metadata] >> 16) & 1;
   }
 
   else
@@ -1853,16 +1853,16 @@ LABEL_11:
   }
 
   menuConfiguration3 = [(_UIContextMenuUIController *)self menuConfiguration];
-  menu2 = [menuConfiguration3 menu];
-  metadata = [menu2 metadata];
+  v24 = objc_msgSend_menu(menuConfiguration3);
+  metadata = [v24 metadata];
 
   menuConfiguration4 = [(_UIContextMenuUIController *)self menuConfiguration];
-  menu3 = [menuConfiguration4 menu];
-  v28 = [menu3 metadata] >> 32;
+  v27 = objc_msgSend_menu(menuConfiguration4);
+  v28 = [v27 metadata] >> 32;
 
   menuConfiguration5 = [(_UIContextMenuUIController *)self menuConfiguration];
-  menu4 = [menuConfiguration5 menu];
-  if (([menu4 options] & 0x100) != 0)
+  v30 = objc_msgSend_menu(menuConfiguration5);
+  if (([v30 options] & 0x100) != 0)
   {
     if (_UIApplicationProcessIsSpringBoard() & 1) != 0 || (_UIApplicationProcessIsUIKitester())
     {
@@ -1893,7 +1893,7 @@ LABEL_11:
   Height = CGRectGetHeight(v99);
   if (v11)
   {
-    [v11 preferredAnchor];
+    objc_msgSend_preferredAnchor(v11);
     if (*(&v84 + 1) == 2)
     {
       v40 = 0;
@@ -1901,7 +1901,7 @@ LABEL_11:
 
     else
     {
-      [v11 preferredAnchor];
+      objc_msgSend_preferredAnchor(v11);
       v40 = *(&v81 + 1) != 8;
     }
   }
@@ -2104,7 +2104,7 @@ LABEL_11:
     v8 = menuStyle;
     if (menuStyle)
     {
-      [menuStyle _preferredAnchor];
+      objc_msgSend__preferredAnchor(menuStyle);
       if (v11 == 1)
       {
         [(_UIContextMenuUIController *)self _updateActionsViewReversesOrderForAttachment:1];
@@ -2354,7 +2354,7 @@ LABEL_11:
       [_dragContainerView center];
       v24 = v23;
       v26 = v25;
-      [_destinationPlatterView targetTransform];
+      objc_msgSend_targetTransform(_destinationPlatterView);
       CATransform3DGetAffineTransform(&v42, &v41);
       v27 = [(UIPreviewTarget *)v21 initWithContainer:superview2 center:&v42 transform:v24, v26];
 
@@ -2362,18 +2362,18 @@ LABEL_11:
       v29 = +[UIColor clearColor];
       [v28 setBackgroundColor:v29];
 
-      preview = [_destinationPlatterView preview];
-      outline = [preview outline];
+      v30 = objc_msgSend_preview(_destinationPlatterView);
+      outline = [v30 outline];
       [v28 setVisiblePath:outline];
 
-      preview2 = [_destinationPlatterView preview];
-      shadowPath = [preview2 shadowPath];
+      v32 = objc_msgSend_preview(_destinationPlatterView);
+      shadowPath = [v32 shadowPath];
       [v28 setShadowPath:shadowPath];
 
       [v28 setAppliesShadow:1];
       v34 = [[UITargetedPreview alloc] initWithView:_destinationPlatterView parameters:v28 target:v27];
-      preview3 = [_destinationPlatterView preview];
-      previewMode = [preview3 previewMode];
+      v35 = objc_msgSend_preview(_destinationPlatterView);
+      previewMode = [v35 previewMode];
 
       if (previewMode == 4)
       {

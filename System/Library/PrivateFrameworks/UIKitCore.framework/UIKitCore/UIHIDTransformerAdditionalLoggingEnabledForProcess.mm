@@ -6,7 +6,7 @@
 void ___UIHIDTransformerAdditionalLoggingEnabledForProcess_block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  _MergedGlobals_1259 = [v0 isEqualToString:@"com.apple.PointerUI.pointeruid"];
+  _MergedGlobals_1259 = objc_msgSend_isEqualToString_(v0);
 }
 
 @end

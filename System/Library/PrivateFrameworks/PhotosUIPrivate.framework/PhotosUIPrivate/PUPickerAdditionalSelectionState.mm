@@ -51,8 +51,9 @@
 
 - (void)setShouldIncludeLocation:(BOOL)location
 {
+  locationCopy = location;
   selfCopy = self;
-  sub_1B38224CC();
+  sub_1B38224CC(locationCopy);
 }
 
 - (BOOL)shouldIncludeCaption
@@ -65,8 +66,9 @@
 
 - (void)setShouldIncludeCaption:(BOOL)caption
 {
+  captionCopy = caption;
   selfCopy = self;
-  sub_1B3822A9C();
+  sub_1B3822A9C(captionCopy);
 }
 
 - (NSNumber)downscalingTargetDimension

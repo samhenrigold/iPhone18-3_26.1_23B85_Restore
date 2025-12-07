@@ -104,10 +104,12 @@ LABEL_5:
 
 - (BOOL)markedTextContainsPoint:(CGPoint)point
 {
+  y = point.y;
+  x = point.x;
   selfCopy = self;
-  v4 = sub_1007A1554();
+  v6 = sub_1007A1554(x, y);
 
-  return v4 & 1;
+  return v6 & 1;
 }
 
 - (id)selectionRectsFor:(id)for
@@ -121,7 +123,7 @@ LABEL_5:
     swift_once();
   }
 
-  v10[3] = sub_1005B981C(&unk_101A001E0);
+  v10[3] = sub_1005B981C(&unk_101A001E0, " y#");
   v10[0] = v4;
 
   sub_1007A22B0(selfCopy, v4, &v9);
@@ -156,7 +158,7 @@ LABEL_5:
 
   if (v3)
   {
-    sub_100006370(0, &qword_101A287B0);
+    sub_100006370(0, &qword_101A287B0, off_10182F780);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -190,7 +192,7 @@ LABEL_5:
 
   selfCopy = self;
   CRLWPLayout.layoutSearch(for:options:hit:completionBlock:)(v11, v13, options, sub_1007AB830, v14, v10, v15);
-  sub_1000C1014(v10);
+  sub_1000C1014(v10, v15);
 }
 
 - (void)layoutSearchForSpellingErrorsWithHitBlock:(id)block stop:(BOOL *)stop
@@ -477,7 +479,7 @@ LABEL_7:
   selfCopy = self;
   CRLWPLayout.renderingOverrides.getter();
 
-  sub_100006370(0, &qword_1019FFE60);
+  sub_100006370(0, &qword_1019FFE60, off_10182F9E0);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

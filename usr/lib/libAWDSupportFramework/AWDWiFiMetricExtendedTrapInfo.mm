@@ -251,191 +251,176 @@
 {
   if (*&self->_has)
   {
-    sequence = self->_sequence;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_signatures.count)
   {
-    v5 = 0;
+    v4 = 0;
     do
     {
-      v6 = self->_signatures.list[v5];
       PBDataWriterWriteUint32Field();
-      ++v5;
+      ++v4;
     }
 
-    while (v5 < self->_signatures.count);
+    while (v4 < self->_signatures.count);
   }
 
   if (self->_stackTraces.count)
   {
-    v7 = 0;
+    v5 = 0;
     do
     {
-      v8 = self->_stackTraces.list[v7];
       PBDataWriterWriteUint32Field();
-      ++v7;
+      ++v5;
     }
 
-    while (v7 < self->_stackTraces.count);
+    while (v5 < self->_stackTraces.count);
   }
 
   if (self->_ucodeErrors.count)
   {
-    v9 = 0;
+    v6 = 0;
     do
     {
-      v10 = self->_ucodeErrors.list[v9];
       PBDataWriterWriteUint32Field();
-      ++v9;
+      ++v6;
     }
 
-    while (v9 < self->_ucodeErrors.count);
+    while (v6 < self->_ucodeErrors.count);
   }
 
   if (self->_memoryDumps.count)
   {
-    v11 = 0;
+    v7 = 0;
     do
     {
-      v12 = self->_memoryDumps.list[v11];
       PBDataWriterWriteUint32Field();
-      ++v11;
+      ++v7;
     }
 
-    while (v11 < self->_memoryDumps.count);
+    while (v7 < self->_memoryDumps.count);
   }
 
   if (self->_deepSleeps.count)
   {
-    v13 = 0;
+    v8 = 0;
     do
     {
-      v14 = self->_deepSleeps.list[v13];
       PBDataWriterWriteUint32Field();
-      ++v13;
+      ++v8;
     }
 
-    while (v13 < self->_deepSleeps.count);
+    while (v8 < self->_deepSleeps.count);
   }
 
   if (self->_psmWDs.count)
   {
-    v15 = 0;
+    v9 = 0;
     do
     {
-      v16 = self->_psmWDs.list[v15];
       PBDataWriterWriteUint32Field();
-      ++v15;
+      ++v9;
     }
 
-    while (v15 < self->_psmWDs.count);
+    while (v9 < self->_psmWDs.count);
   }
 
   if (self->_phys.count)
   {
-    v17 = 0;
+    v10 = 0;
     do
     {
-      v18 = self->_phys.list[v17];
       PBDataWriterWriteUint32Field();
-      ++v17;
+      ++v10;
     }
 
-    while (v17 < self->_phys.count);
+    while (v10 < self->_phys.count);
   }
 
   if (self->_bus.count)
   {
-    v19 = 0;
+    v11 = 0;
     do
     {
-      v20 = self->_bus.list[v19];
       PBDataWriterWriteUint32Field();
-      ++v19;
+      ++v11;
     }
 
-    while (v19 < self->_bus.count);
+    while (v11 < self->_bus.count);
   }
 
   if (self->_macs.count)
   {
-    v21 = 0;
+    v12 = 0;
     do
     {
-      v22 = self->_macs.list[v21];
       PBDataWriterWriteUint32Field();
-      ++v21;
+      ++v12;
     }
 
-    while (v21 < self->_macs.count);
+    while (v12 < self->_macs.count);
   }
 
   if (self->_backplanes.count)
   {
-    v23 = 0;
+    v13 = 0;
     do
     {
-      v24 = self->_backplanes.list[v23];
       PBDataWriterWriteUint32Field();
-      ++v23;
+      ++v13;
     }
 
-    while (v23 < self->_backplanes.count);
+    while (v13 < self->_backplanes.count);
   }
 
   if (self->_pcieQueueStates.count)
   {
-    v25 = 0;
+    v14 = 0;
     do
     {
-      v26 = self->_pcieQueueStates.list[v25];
       PBDataWriterWriteUint32Field();
-      ++v25;
+      ++v14;
     }
 
-    while (v25 < self->_pcieQueueStates.count);
+    while (v14 < self->_pcieQueueStates.count);
   }
 
   if (self->_wlcStates.count)
   {
-    v27 = 0;
+    v15 = 0;
     do
     {
-      v28 = self->_wlcStates.list[v27];
       PBDataWriterWriteUint32Field();
-      ++v27;
+      ++v15;
     }
 
-    while (v27 < self->_wlcStates.count);
+    while (v15 < self->_wlcStates.count);
   }
 
   if (self->_macEnabs.count)
   {
-    v29 = 0;
+    v16 = 0;
     do
     {
-      v30 = self->_macEnabs.list[v29];
       PBDataWriterWriteUint32Field();
-      ++v29;
+      ++v16;
     }
 
-    while (v29 < self->_macEnabs.count);
+    while (v16 < self->_macEnabs.count);
   }
 
   p_phyTxErrThreshs = &self->_phyTxErrThreshs;
   if (p_phyTxErrThreshs->count)
   {
-    v32 = 0;
+    v18 = 0;
     do
     {
-      v33 = p_phyTxErrThreshs->list[v32];
       PBDataWriterWriteUint32Field();
-      ++v32;
+      ++v18;
     }
 
-    while (v32 < p_phyTxErrThreshs->count);
+    while (v18 < p_phyTxErrThreshs->count);
   }
 }
 
@@ -678,7 +663,6 @@
     return 0;
   }
 
-  v5 = *(equal + 348);
   if (*&self->_has)
   {
     if ((*(equal + 348) & 1) == 0 || self->_sequence != *(equal + 86))

@@ -8,7 +8,7 @@
 
 - (id)debugInformationForHolidayName:(id)name assetUUID:(id)d
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dCopy = d;
   infoNode = [(PGGraph *)self->_graph infoNode];
@@ -16,31 +16,31 @@
   if (locale)
   {
     v10 = [objc_alloc(MEMORY[0x277D276D8]) initWithLocale:locale];
+    v87 = 0u;
     v88 = 0u;
     v89 = 0u;
     v90 = 0u;
-    v91 = 0u;
     eventRules = [v10 eventRules];
-    v12 = [eventRules countByEnumeratingWithState:&v88 objects:v95 count:16];
+    v12 = [eventRules countByEnumeratingWithState:&v87 objects:v94 count:16];
     if (v12)
     {
       v13 = v12;
-      v84 = v10;
-      v85 = locale;
-      v86 = infoNode;
-      v83 = dCopy;
-      v14 = *v89;
+      v83 = v10;
+      v84 = locale;
+      v85 = infoNode;
+      v82 = dCopy;
+      v14 = *v88;
       v15 = MEMORY[0x277CBEC10];
 LABEL_4:
       v16 = 0;
       while (1)
       {
-        if (*v89 != v14)
+        if (*v88 != v14)
         {
           objc_enumerationMutation(eventRules);
         }
 
-        v17 = *(*(&v88 + 1) + 8 * v16);
+        v17 = *(*(&v87 + 1) + 8 * v16);
         name = [v17 name];
         v19 = [name isEqualToString:nameCopy];
 
@@ -51,17 +51,17 @@ LABEL_4:
 
         if (v13 == ++v16)
         {
-          v13 = [eventRules countByEnumeratingWithState:&v88 objects:v95 count:16];
+          v13 = [eventRules countByEnumeratingWithState:&v87 objects:v94 count:16];
           if (v13)
           {
             goto LABEL_4;
           }
 
           v20 = eventRules;
-          dCopy = v83;
-          v10 = v84;
-          locale = v85;
-          infoNode = v86;
+          dCopy = v82;
+          v10 = v83;
+          locale = v84;
+          infoNode = v85;
           goto LABEL_31;
         }
       }
@@ -71,89 +71,89 @@ LABEL_4:
       if (!v20)
       {
         v15 = MEMORY[0x277CBEC10];
-        dCopy = v83;
-        v10 = v84;
-        locale = v85;
-        infoNode = v86;
+        dCopy = v82;
+        v10 = v83;
+        locale = v84;
+        infoNode = v85;
         goto LABEL_32;
       }
 
       librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
       v22 = MEMORY[0x277CD97A8];
-      dCopy = v83;
-      v94 = v83;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v94 count:1];
+      dCopy = v82;
+      v93 = v82;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v93 count:1];
       v24 = [v22 fetchAssetsWithUUIDs:v23 options:librarySpecificFetchOptions];
       firstObject = [v24 firstObject];
 
       v26 = firstObject;
-      v10 = v84;
+      v10 = v83;
       if (firstObject)
       {
         v27 = [MEMORY[0x277CD97B8] fetchAssetCollectionsContainingAsset:firstObject withType:3 options:librarySpecificFetchOptions];
         firstObject2 = [v27 firstObject];
 
-        v81 = firstObject2;
+        v80 = firstObject2;
         if (firstObject2)
         {
-          v82 = [(PGGraph *)self->_graph momentNodeForMoment:firstObject2];
-          if (v82)
+          v81 = [(PGGraph *)self->_graph momentNodeForMoment:firstObject2];
+          if (v81)
           {
-            collection = [v82 collection];
+            collection = [v81 collection];
             [collection sceneNodes];
-            v30 = v73 = v26;
+            v30 = v72 = v26;
             [v30 sceneNames];
-            v31 = v74 = librarySpecificFetchOptions;
+            v31 = v73 = librarySpecificFetchOptions;
             allObjects = [v31 allObjects];
 
-            v80 = [allObjects componentsJoinedByString:{@", "}];
-            collection2 = [v82 collection];
+            v79 = [allObjects componentsJoinedByString:{@", "}];
+            collection2 = [v81 collection];
             addressNodes = [collection2 addressNodes];
             countryNodes = [addressNodes countryNodes];
             names = [countryNodes names];
 
-            v79 = [names componentsJoinedByString:{@", "}];
-            countryCode = [v85 countryCode];
+            v78 = [names componentsJoinedByString:{@", "}];
+            countryCode = [v84 countryCode];
             requiredTraits = [v20 requiredTraits];
             defaultScenesWithImportanceString = [requiredTraits defaultScenesWithImportanceString];
 
-            v87 = 0;
-            v69 = [MEMORY[0x277CCAAA0] dataWithJSONObject:defaultScenesWithImportanceString options:0 error:&v87];
-            v70 = v87;
-            v78 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v69 encoding:4];
+            v86 = 0;
+            v68 = [MEMORY[0x277CCAAA0] dataWithJSONObject:defaultScenesWithImportanceString options:0 error:&v86];
+            v69 = v86;
+            v77 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v68 encoding:4];
             explicitlySupportedCountryCodes = [v20 explicitlySupportedCountryCodes];
-            v77 = [explicitlySupportedCountryCodes componentsJoinedByString:{@", "}];
-            v37 = [PGGraphIngestHolidayProcessorHelper keyboardLanguageCodesForInfoNode:v86 holidayService:v84];
-            v66 = [v37 componentsJoinedByString:{@", "}];
+            v76 = [explicitlySupportedCountryCodes componentsJoinedByString:{@", "}];
+            v37 = [PGGraphIngestHolidayProcessorHelper keyboardLanguageCodesForInfoNode:v85 holidayService:v83];
+            v65 = [v37 componentsJoinedByString:{@", "}];
             v38 = objc_alloc_init(PGGraphIngestHolidayProcessorHelper);
-            v76 = [(PGGraphIngestHolidayProcessorHelper *)v38 holidayCalendarEventRuleTraitsForMomentNode:v82];
-            v59 = [(PGGraphIngestHolidayProcessorHelper *)v38 momentTraitsMatchesHolidayTraits:v20 momentNode:v82 loggingConnection:MEMORY[0x277D86220]];
-            collection3 = [v82 collection];
+            v75 = [(PGGraphIngestHolidayProcessorHelper *)v38 holidayCalendarEventRuleTraitsForMomentNode:v81];
+            v58 = [(PGGraphIngestHolidayProcessorHelper *)v38 momentTraitsMatchesHolidayTraits:v20 momentNode:v81 loggingConnection:MEMORY[0x277D86220]];
+            collection3 = [v81 collection];
             dateNodes = [collection3 dateNodes];
             anyNode = [dateNodes anyNode];
             localDate = [anyNode localDate];
 
-            v62 = objc_alloc_init(PGHolidayClassifier);
-            v63 = v38;
-            v67 = names;
-            v64 = v37;
+            v61 = objc_alloc_init(PGHolidayClassifier);
+            v62 = v38;
+            v66 = names;
+            v63 = v37;
             [(PGGraphIngestHolidayProcessorHelper *)v38 dateScoreForEventRule:v20 localeCountryCode:countryCode momentCountryCodes:names keyboardLanguageCodes:v37 momentDate:localDate];
             v43 = v42;
-            [(PGGraphIngestHolidayProcessorHelper *)v38 sceneScoreForEventRule:v20 localeCountryCode:countryCode momentCountryCodes:names keyboardLanguageCodes:v37 momentNode:v82];
+            [(PGGraphIngestHolidayProcessorHelper *)v38 sceneScoreForEventRule:v20 localeCountryCode:countryCode momentCountryCodes:names keyboardLanguageCodes:v37 momentNode:v81];
             v45 = v44;
             [(PGGraphIngestHolidayProcessorHelper *)v38 locationScoreForEventRule:v20 localeCountryCode:countryCode momentCountryCodes:names keyboardLanguageCodes:v37];
             v47 = v46;
-            v48 = [(PGHolidayClassifier *)v62 isCelebratingForDateScore:v43 sceneScore:v45 locationScore:v46];
-            v92[0] = @"momentSceneNames";
-            v92[1] = @"momentCountryCodes";
-            v93[0] = v80;
-            v93[1] = v79;
-            v93[2] = countryCode;
-            v92[2] = @"localeCountryCode";
-            v92[3] = @"momentTraits";
-            v49 = [v76 description];
-            v61 = v49;
-            if (v59)
+            v48 = [(PGHolidayClassifier *)v61 isCelebratingForDateScore:v43 sceneScore:v45 locationScore:v46];
+            v91[0] = @"momentSceneNames";
+            v91[1] = @"momentCountryCodes";
+            v92[0] = v79;
+            v92[1] = v78;
+            v92[2] = countryCode;
+            v91[2] = @"localeCountryCode";
+            v91[3] = @"momentTraits";
+            v49 = [v75 description];
+            v60 = v49;
+            if (v58)
             {
               v50 = @"YES";
             }
@@ -163,14 +163,14 @@ LABEL_4:
               v50 = @"NO";
             }
 
-            v93[3] = v49;
-            v93[4] = v50;
-            v92[4] = @"allRequiredRulesApplyForMomentNode";
-            v92[5] = @"holidaySceneCriteria";
-            v93[5] = v78;
-            v93[6] = v77;
-            v92[6] = @"holidayCriteriaSupportedCountryCodes";
-            v92[7] = @"isCelebrating";
+            v92[3] = v49;
+            v92[4] = v50;
+            v91[4] = @"allRequiredRulesApplyForMomentNode";
+            v91[5] = @"holidaySceneCriteria";
+            v92[5] = v77;
+            v92[6] = v76;
+            v91[6] = @"holidayCriteriaSupportedCountryCodes";
+            v91[7] = @"isCelebrating";
             if (v48)
             {
               v51 = @"YES";
@@ -181,27 +181,27 @@ LABEL_4:
               v51 = @"NO";
             }
 
-            v93[7] = v51;
-            v92[8] = @"dateScore";
-            v60 = [MEMORY[0x277CCABB0] numberWithDouble:v43];
-            stringValue = [v60 stringValue];
-            v93[8] = stringValue;
-            v92[9] = @"sceneScore";
+            v92[7] = v51;
+            v91[8] = @"dateScore";
+            v59 = [MEMORY[0x277CCABB0] numberWithDouble:v43];
+            stringValue = [v59 stringValue];
+            v92[8] = stringValue;
+            v91[9] = @"sceneScore";
             v53 = [MEMORY[0x277CCABB0] numberWithDouble:v45];
             stringValue2 = [v53 stringValue];
-            v93[9] = stringValue2;
-            v92[10] = @"locationScore";
+            v92[9] = stringValue2;
+            v91[10] = @"locationScore";
             v55 = [MEMORY[0x277CCABB0] numberWithDouble:v47];
             stringValue3 = [v55 stringValue];
-            v92[11] = @"keyboardLanguageCodes";
-            v93[10] = stringValue3;
-            v93[11] = v66;
-            v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:12];
+            v91[11] = @"keyboardLanguageCodes";
+            v92[10] = stringValue3;
+            v92[11] = v65;
+            v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:12];
 
-            librarySpecificFetchOptions = v74;
-            v26 = v73;
+            librarySpecificFetchOptions = v73;
+            v26 = v72;
 
-            v10 = v84;
+            v10 = v83;
           }
 
           else
@@ -215,15 +215,15 @@ LABEL_4:
           v15 = MEMORY[0x277CBEC10];
         }
 
-        locale = v85;
-        infoNode = v86;
+        locale = v84;
+        infoNode = v85;
       }
 
       else
       {
         v15 = MEMORY[0x277CBEC10];
-        locale = v85;
-        infoNode = v86;
+        locale = v84;
+        infoNode = v85;
       }
     }
 
@@ -243,20 +243,18 @@ LABEL_32:
     v15 = MEMORY[0x277CBEC10];
   }
 
-  v57 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
 - (unsigned)predictedQuestionStateForAssetUUID:(id)d holidayName:(id)name
 {
-  v43[1] = *MEMORY[0x277D85DE8];
+  v42[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
   librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
   v9 = MEMORY[0x277CD97A8];
-  v43[0] = dCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
+  v42[0] = dCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
   v11 = [v9 fetchAssetsWithUUIDs:v10 options:librarySpecificFetchOptions];
   firstObject = [v11 firstObject];
 
@@ -281,31 +279,31 @@ LABEL_32:
           locale = [infoNode locale];
           if (locale)
           {
-            v27 = objc_alloc_init(PGGraphIngestHolidayProcessorHelper);
-            v29 = [objc_alloc(MEMORY[0x277D276D8]) initWithLocale:locale];
-            v26 = [PGGraphIngestHolidayProcessorHelper keyboardLanguageCodesForInfoNode:infoNode holidayService:v29];
-            v39 = 0;
-            v40 = &v39;
-            v41 = 0x2020000000;
-            v42 = 3;
+            v26 = objc_alloc_init(PGGraphIngestHolidayProcessorHelper);
+            v28 = [objc_alloc(MEMORY[0x277D276D8]) initWithLocale:locale];
+            v25 = [PGGraphIngestHolidayProcessorHelper keyboardLanguageCodesForInfoNode:infoNode holidayService:v28];
+            v38 = 0;
+            v39 = &v38;
+            v40 = 0x2020000000;
+            v41 = 3;
             v21 = [MEMORY[0x277CBEB98] setWithObject:nameCopy];
-            v32[0] = MEMORY[0x277D85DD0];
-            v32[1] = 3221225472;
-            v32[2] = __91__PGPhotosChallengeHolidayAlgorithmWrapper_predictedQuestionStateForAssetUUID_holidayName___block_invoke;
-            v32[3] = &unk_278880528;
-            v25 = v27;
-            v33 = v25;
-            v34 = locale;
-            v28 = v26;
-            v35 = v28;
+            v31[0] = MEMORY[0x277D85DD0];
+            v31[1] = 3221225472;
+            v31[2] = __91__PGPhotosChallengeHolidayAlgorithmWrapper_predictedQuestionStateForAssetUUID_holidayName___block_invoke;
+            v31[3] = &unk_278880528;
+            v24 = v26;
+            v32 = v24;
+            v33 = locale;
+            v27 = v25;
+            v34 = v27;
             selfCopy = self;
-            v37 = v16;
-            v38 = &v39;
-            [v29 enumerateEventRulesWithNames:v21 betweenLocalDate:localStartDate andLocalDate:v19 usingBlock:v32];
+            v36 = v16;
+            v37 = &v38;
+            [v28 enumerateEventRulesWithNames:v21 betweenLocalDate:localStartDate andLocalDate:v19 usingBlock:v31];
             v22 = v21;
-            v20 = *(v40 + 12);
+            v20 = *(v39 + 12);
 
-            _Block_object_dispose(&v39, 8);
+            _Block_object_dispose(&v38, 8);
           }
         }
       }
@@ -327,7 +325,6 @@ LABEL_32:
     v20 = 1;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

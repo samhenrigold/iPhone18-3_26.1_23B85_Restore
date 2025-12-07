@@ -491,7 +491,7 @@ uint64_t sub_8054(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "NMCUICloudNotificationAccountDataSource");
   }
 
   qword_22870 = *(*(*(a1 + 32) + 8) + 24);
@@ -504,7 +504,7 @@ uint64_t sub_80FC()
   v1 = sub_8178(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -536,7 +536,6 @@ uint64_t sub_8178(uint64_t a1)
 
 uint64_t sub_822C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_22878 = result;
   return result;
@@ -550,7 +549,7 @@ uint64_t sub_82C0(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "NMCUISpecifierController");
   }
 
   qword_22880 = *(*(*(a1 + 32) + 8) + 24);
@@ -865,7 +864,6 @@ void sub_DAC4(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   *(v14 - 108) = a2;
   objc_destroyWeak(location);
   objc_destroyWeak((v14 - 96));
-  v15 = *(v14 - 104);
   JUMPOUT(0xDB08);
 }
 
@@ -1108,7 +1106,7 @@ uint64_t sub_FA30(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "NMCUICloudNotificationAccountDataSource");
   }
 
   qword_22888 = *(*(*(a1 + 32) + 8) + 24);
@@ -1121,7 +1119,7 @@ uint64_t sub_FAD8()
   v1 = sub_FB54(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -1153,7 +1151,6 @@ uint64_t sub_FB54(uint64_t a1)
 
 uint64_t sub_FC08(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_22890 = result;
   return result;
@@ -1167,7 +1164,7 @@ uint64_t sub_FC9C(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "NMCUICloudNotificationOnboardingViewController");
   }
 
   qword_22898 = *(*(*(a1 + 32) + 8) + 24);
@@ -1219,7 +1216,7 @@ uint64_t sub_10584(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "NMCUIAccount");
   }
 
   qword_228A0 = *(*(*(a1 + 32) + 8) + 24);
@@ -1232,7 +1229,7 @@ uint64_t sub_1062C()
   v1 = sub_106A8(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -1264,7 +1261,6 @@ uint64_t sub_106A8(uint64_t a1)
 
 uint64_t sub_1075C(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_228A8 = result;
   return result;
@@ -1346,7 +1342,7 @@ uint64_t sub_110F4(uint64_t a1)
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "NMCUIAccount");
   }
 
   qword_228B0 = *(*(*(a1 + 32) + 8) + 24);
@@ -1359,7 +1355,7 @@ uint64_t sub_1119C()
   v1 = sub_11218(&v2);
   if (!v1)
   {
-    abort_report_np();
+    abort_report_np("%s", v2);
   }
 
   if (v2)
@@ -1391,7 +1387,6 @@ uint64_t sub_11218(uint64_t a1)
 
 uint64_t sub_112CC(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_228B8 = result;
   return result;

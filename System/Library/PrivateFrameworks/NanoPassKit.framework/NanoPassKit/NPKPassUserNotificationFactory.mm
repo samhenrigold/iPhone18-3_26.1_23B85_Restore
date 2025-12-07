@@ -23,7 +23,7 @@
 
 - (id)passNotificationWithType:(unint64_t)type passUniqueID:(id)d
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(NPKPassUserNotificationFactory *)self dataSource];
   v8 = [(NPKUserNotificationExpressModeEnabled *)dataSource passWithUniqueID:dCopy];
@@ -32,16 +32,16 @@
   {
     if (type < 2)
     {
-      v9 = [NPKUserNotificationExpressModeEnabled alloc];
-      v10 = v8;
-      v11 = 0;
+      v10 = [NPKUserNotificationExpressModeEnabled alloc];
+      v11 = v8;
+      v12 = 0;
     }
 
     else if (type == 2)
     {
-      v9 = [NPKUserNotificationExpressModeEnabled alloc];
-      v10 = v8;
-      v11 = 1;
+      v10 = [NPKUserNotificationExpressModeEnabled alloc];
+      v11 = v8;
+      v12 = 1;
     }
 
     else
@@ -51,27 +51,27 @@
         goto LABEL_14;
       }
 
-      v9 = [NPKUserNotificationExpressModeEnabled alloc];
-      v10 = v8;
-      v11 = 2;
+      v10 = [NPKUserNotificationExpressModeEnabled alloc];
+      v11 = v8;
+      v12 = 2;
     }
 
-    dataSource = [(NPKUserNotificationExpressModeEnabled *)v9 initWithPass:v10 expressNotificationType:v11];
+    dataSource = [(NPKUserNotificationExpressModeEnabled *)v10 initWithPass:v11 expressNotificationType:v12];
   }
 
   else
   {
-    v12 = pk_General_log();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = pk_General_log(v9);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v13)
+    if (v14)
     {
-      v14 = pk_General_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = pk_General_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412290;
-        v18 = dCopy;
-        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Warning: Fail to find pass for notification with uniqueID:%@", &v17, 0xCu);
+        v18 = 138412290;
+        v19 = dCopy;
+        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Warning: Fail to find pass for notification with uniqueID:%@", &v18, 0xCu);
       }
     }
 
@@ -79,8 +79,6 @@
   }
 
 LABEL_14:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dataSource;
 }

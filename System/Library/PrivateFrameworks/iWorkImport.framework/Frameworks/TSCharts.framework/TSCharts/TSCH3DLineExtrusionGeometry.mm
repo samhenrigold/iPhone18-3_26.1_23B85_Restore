@@ -277,7 +277,7 @@ LABEL_17:
   v52 = 0;
   v53 = 0.0;
 LABEL_18:
-  result = objc_msgSend_spineDirectionBias(self, v10, *&v48, *&v49, *&v51);
+  result = objc_msgSend_spineDirectionBias(self, *&v48, *&v49, *&v51);
   v67 = vmul_f32(v52, v81);
   v68 = v53 * v82;
   v69 = (COERCE_FLOAT(vmul_f32(v67, v67).i32[1]) + (v67.f32[0] * v67.f32[0])) + (v68 * v68);
@@ -318,24 +318,24 @@ LABEL_18:
 - (tmat4x4<float>)matrixAtXPosition:(SEL)position returningXRangeInfo:(float)info
 {
   result = objc_msgSend_spine(self, position, *&info, v5, v6);
-  v14 = 0;
-  v15 = 0xAAAAAAAAAAAAAAABLL * ((*&result->value[0].var2.var0 - *&result->value[0].var0.var0) >> 2) - 1;
-  v16 = v15 & ~(v15 >> 63);
-  v17 = (*&result->value[0].var0.var0 + 12);
+  v13 = 0;
+  v14 = 0xAAAAAAAAAAAAAAABLL * ((*&result->value[0].var2.var0 - *&result->value[0].var0.var0) >> 2) - 1;
+  v15 = v14 & ~(v14 >> 63);
+  v16 = (*&result->value[0].var0.var0 + 12);
   while (1)
   {
-    v18 = v14;
-    if (v16 == v14)
+    v17 = v13;
+    if (v15 == v13)
     {
       break;
     }
 
-    ++v14;
-    v19 = *v17;
-    v17 += 3;
-    if (v19 >= info)
+    ++v13;
+    v18 = *v16;
+    v16 += 3;
+    if (v18 >= info)
     {
-      v16 = v18;
+      v15 = v17;
       break;
     }
   }
@@ -355,261 +355,261 @@ LABEL_18:
   *&retstr->value[3].var1.var0 = 0;
   *&retstr->value[2].var3.var0 = 0;
   retstr->value[3].var3.var0 = 1.0;
-  if (v18 < v15)
+  if (v17 < v14)
   {
-    v20 = *&result->value[0].var0.var0 + 12 * v16;
-    v21 = v16 + 1;
-    v82 = *(v20 + 12);
-    v22 = v82 - *v20;
-    v23 = 0.0;
-    if (v22 > 0.0)
+    v19 = *&result->value[0].var0.var0 + 12 * v15;
+    v20 = v15 + 1;
+    v80 = *(v19 + 12);
+    v21 = v80 - *v19;
+    v22 = 0.0;
+    if (v21 > 0.0)
     {
-      v23 = (info - *v20) / v22;
+      v22 = (info - *v19) / v21;
     }
 
-    v86 = v23;
-    v85 = *v20;
-    v24 = *(v20 + 16);
-    v83 = *(v20 + 4);
-    v25 = vsub_f32(*&v24, *&v83);
-    objc_msgSend_p_rotationMatrixForCrossSectionIndex_(self, v12, v24, v83, v13);
-    result = objc_msgSend_p_rotationMatrixForCrossSectionIndex_(self, v26, v27, v28, v29, v21);
-    v30 = (v96 - v100) - v104;
-    v31 = (v96 + v100) + v104;
-    v32 = v30 > v31;
-    if (v30 > v31)
+    v84 = v22;
+    v83 = *v19;
+    v23 = *(v19 + 16);
+    v81 = *(v19 + 4);
+    v24 = vsub_f32(*&v23, *&v81);
+    objc_msgSend_p_rotationMatrixForCrossSectionIndex_(self, v23, v81, v12);
+    result = objc_msgSend_p_rotationMatrixForCrossSectionIndex_(self, v25, v26, v27);
+    v28 = (v94 - v98) - v102;
+    v29 = (v94 + v98) + v102;
+    v30 = v28 > v29;
+    if (v28 > v29)
     {
-      v31 = (v96 - v100) - v104;
+      v29 = (v94 - v98) - v102;
     }
 
-    if (((v100 - v96) - v104) > v31)
+    if (((v98 - v94) - v102) > v29)
     {
-      v31 = (v100 - v96) - v104;
-      v32 = 2;
+      v29 = (v98 - v94) - v102;
+      v30 = 2;
     }
 
-    if (((v104 - v96) - v100) > v31)
+    if (((v102 - v94) - v98) > v29)
     {
-      v31 = (v104 - v96) - v100;
-      v32 = 3;
+      v29 = (v102 - v94) - v98;
+      v30 = 3;
     }
 
-    v33 = sqrtf(v31 + 1.0) * 0.5;
-    v34 = 0.25 / v33;
-    if (v32 > 1)
+    v31 = sqrtf(v29 + 1.0) * 0.5;
+    v32 = 0.25 / v31;
+    if (v30 > 1)
     {
-      if (v32 != 2)
+      if (v30 != 2)
       {
-        v38 = v33;
-        v33 = v34 * (v97 - v99);
-        v35 = v34 * (v102 + v98);
-        v36 = v34 * (v101 + v103);
+        v36 = v31;
+        v31 = v32 * (v95 - v97);
+        v33 = v32 * (v100 + v96);
+        v34 = v32 * (v99 + v101);
 LABEL_24:
-        v39 = v85;
-        v40 = v86;
-        v41 = vmul_n_f32(v25, v86);
-        v42 = (v87 - v91) - v95;
-        v43 = (v87 + v91) + v95;
-        v44 = v42 > v43;
-        if (v42 > v43)
+        v37 = v83;
+        v38 = v84;
+        v39 = vmul_n_f32(v24, v84);
+        v40 = (v85 - v89) - v93;
+        v41 = (v85 + v89) + v93;
+        v42 = v40 > v41;
+        if (v40 > v41)
         {
-          v43 = (v87 - v91) - v95;
+          v41 = (v85 - v89) - v93;
         }
 
-        if (((v91 - v87) - v95) > v43)
+        if (((v89 - v85) - v93) > v41)
         {
-          v43 = (v91 - v87) - v95;
-          v44 = 2;
+          v41 = (v89 - v85) - v93;
+          v42 = 2;
         }
 
-        if (((v95 - v87) - v91) > v43)
+        if (((v93 - v85) - v89) > v41)
         {
-          v43 = (v95 - v87) - v91;
-          v44 = 3;
+          v41 = (v93 - v85) - v89;
+          v42 = 3;
         }
 
-        v45 = sqrtf(v43 + 1.0) * 0.5;
-        v46 = 0.25 / v45;
-        if (v44 > 1)
+        v43 = sqrtf(v41 + 1.0) * 0.5;
+        v44 = 0.25 / v43;
+        if (v42 > 1)
         {
-          if (v44 != 2)
+          if (v42 != 2)
           {
-            v50 = v45;
-            v45 = v46 * (v88 - v90);
-            v47 = v46 * (v93 + v89);
-            v48 = v46 * (v92 + v94);
+            v48 = v43;
+            v43 = v44 * (v86 - v88);
+            v45 = v44 * (v91 + v87);
+            v46 = v44 * (v90 + v92);
             goto LABEL_38;
           }
 
-          v48 = v45;
-          v45 = v46 * (v93 - v89);
-          v47 = v46 * (v88 + v90);
-          v49 = v92 + v94;
+          v46 = v43;
+          v43 = v44 * (v91 - v87);
+          v45 = v44 * (v86 + v88);
+          v47 = v90 + v92;
         }
 
-        else if (v44)
+        else if (v42)
         {
-          v47 = v45;
-          v45 = v46 * (v92 - v94);
-          v48 = v46 * (v88 + v90);
-          v49 = v93 + v89;
+          v45 = v43;
+          v43 = v44 * (v90 - v92);
+          v46 = v44 * (v86 + v88);
+          v47 = v91 + v87;
         }
 
         else
         {
-          v47 = v46 * (v92 - v94);
-          v48 = v46 * (v93 - v89);
-          v49 = v88 - v90;
+          v45 = v44 * (v90 - v92);
+          v46 = v44 * (v91 - v87);
+          v47 = v86 - v88;
         }
 
-        v50 = v46 * v49;
+        v48 = v44 * v47;
 LABEL_38:
-        v51 = v85 + (v22 * v86);
-        v52 = vadd_f32(*&v83, v41);
-        if (v86 > 0.0)
+        v49 = v83 + (v21 * v84);
+        v50 = vadd_f32(*&v81, v39);
+        if (v84 > 0.0)
         {
-          if (v86 >= 1.0)
+          if (v84 >= 1.0)
           {
-            v36 = v48;
-            v35 = v47;
-            v38 = v50;
+            v34 = v46;
             v33 = v45;
+            v36 = v48;
+            v31 = v43;
           }
 
           else
           {
-            v53 = (((v36 * v48) + (v35 * v47)) + (v38 * v50)) + (v33 * v45);
-            v54 = -v53;
-            if (v53 >= 0.0)
+            v51 = (((v34 * v46) + (v33 * v45)) + (v36 * v48)) + (v31 * v43);
+            v52 = -v51;
+            if (v51 >= 0.0)
             {
-              v54 = (((v36 * v48) + (v35 * v47)) + (v38 * v50)) + (v33 * v45);
+              v52 = (((v34 * v46) + (v33 * v45)) + (v36 * v48)) + (v31 * v43);
             }
 
-            if ((1.0 - v54) >= 0.0000001)
+            if ((1.0 - v52) >= 0.0000001)
             {
-              v81 = v85 + (v22 * v86);
-              v80 = v52;
-              v78 = v48;
-              v79 = v47;
-              v76 = (((v36 * v48) + (v35 * v47)) + (v38 * v50)) + (v33 * v45);
-              v77 = v50;
-              v56 = acosf(v54);
-              v84 = sinf(v56);
-              v57 = sinf((1.0 - v86) * v56);
-              v58 = v86 * v56;
-              v55 = v57 / v84;
-              v59 = sinf(v58);
-              v53 = v76;
-              v50 = v77;
-              v48 = v78;
-              v47 = v79;
-              v52 = v80;
-              v51 = v81;
-              v39 = v85;
-              v40 = v59 / v84;
+              v79 = v83 + (v21 * v84);
+              v78 = v50;
+              v76 = v46;
+              v77 = v45;
+              v74 = (((v34 * v46) + (v33 * v45)) + (v36 * v48)) + (v31 * v43);
+              v75 = v48;
+              v54 = acosf(v52);
+              v82 = sinf(v54);
+              v55 = sinf((1.0 - v84) * v54);
+              v56 = v84 * v54;
+              v53 = v55 / v82;
+              v57 = sinf(v56);
+              v51 = v74;
+              v48 = v75;
+              v46 = v76;
+              v45 = v77;
+              v50 = v78;
+              v49 = v79;
+              v37 = v83;
+              v38 = v57 / v82;
             }
 
             else
             {
-              v55 = 1.0 - v86;
+              v53 = 1.0 - v84;
             }
 
-            v60 = -v40;
-            if (v53 >= 0.0)
+            v58 = -v38;
+            if (v51 >= 0.0)
             {
-              v60 = v40;
+              v58 = v38;
             }
 
-            v61 = v45 * v60;
-            v62 = v47 * v60;
-            v63 = v48 * v60;
-            v64 = v50 * v60;
-            v65 = (v35 * v55) + v62;
-            v66 = (v36 * v55) + v63;
-            v67 = (v38 * v55) + v64;
-            v68 = (v33 * v55) + v61;
-            v69 = sqrtf((((v66 * v66) + (v65 * v65)) + (v67 * v67)) + (v68 * v68));
-            if (v69 <= 0.0)
+            v59 = v43 * v58;
+            v60 = v45 * v58;
+            v61 = v46 * v58;
+            v62 = v48 * v58;
+            v63 = (v33 * v53) + v60;
+            v64 = (v34 * v53) + v61;
+            v65 = (v36 * v53) + v62;
+            v66 = (v31 * v53) + v59;
+            v67 = sqrtf((((v64 * v64) + (v63 * v63)) + (v65 * v65)) + (v66 * v66));
+            if (v67 <= 0.0)
             {
-              v33 = 1.0;
+              v31 = 1.0;
+              v34 = 0.0;
+              v33 = 0.0;
               v36 = 0.0;
-              v35 = 0.0;
-              v38 = 0.0;
             }
 
             else
             {
-              v70 = 1.0 / v69;
-              v33 = v68 * v70;
-              v35 = v65 * v70;
-              v36 = v66 * v70;
-              v38 = v67 * v70;
+              v68 = 1.0 / v67;
+              v31 = v66 * v68;
+              v33 = v63 * v68;
+              v34 = v64 * v68;
+              v36 = v65 * v68;
             }
           }
         }
 
-        v71 = ((v35 * -2.0) * v35) + 1.0;
-        retstr->value[0].var0.var0 = (((v36 * -2.0) * v36) + 1.0) + ((v38 * -2.0) * v38);
-        retstr->value[0].var1.var0 = (v38 * (v33 + v33)) + ((v35 + v35) * v36);
-        retstr->value[0].var2.var0 = (v36 * (v33 * -2.0)) + ((v35 + v35) * v38);
+        v69 = ((v33 * -2.0) * v33) + 1.0;
+        retstr->value[0].var0.var0 = (((v34 * -2.0) * v34) + 1.0) + ((v36 * -2.0) * v36);
+        retstr->value[0].var1.var0 = (v36 * (v31 + v31)) + ((v33 + v33) * v34);
+        retstr->value[0].var2.var0 = (v34 * (v31 * -2.0)) + ((v33 + v33) * v36);
         retstr->value[0].var3.var0 = 0.0;
-        retstr->value[1].var0.var0 = (v38 * (v33 * -2.0)) + ((v35 + v35) * v36);
-        retstr->value[1].var1.var0 = v71 + ((v38 * -2.0) * v38);
-        retstr->value[1].var2.var0 = (v35 * (v33 + v33)) + ((v36 + v36) * v38);
+        retstr->value[1].var0.var0 = (v36 * (v31 * -2.0)) + ((v33 + v33) * v34);
+        retstr->value[1].var1.var0 = v69 + ((v36 * -2.0) * v36);
+        retstr->value[1].var2.var0 = (v33 * (v31 + v31)) + ((v34 + v34) * v36);
         retstr->value[1].var3.var0 = 0.0;
-        retstr->value[2].var0.var0 = (v36 * (v33 + v33)) + ((v35 + v35) * v38);
-        retstr->value[2].var1.var0 = (v35 * (v33 * -2.0)) + ((v36 + v36) * v38);
-        retstr->value[2].var2.var0 = v71 + ((v36 * -2.0) * v36);
+        retstr->value[2].var0.var0 = (v34 * (v31 + v31)) + ((v33 + v33) * v36);
+        retstr->value[2].var1.var0 = (v33 * (v31 * -2.0)) + ((v34 + v34) * v36);
+        retstr->value[2].var2.var0 = v69 + ((v34 * -2.0) * v34);
         retstr->value[2].var3.var0 = 0.0;
-        retstr->value[3].var0.var0 = v51;
-        *&retstr->value[3].var1.var0 = v52;
+        retstr->value[3].var0.var0 = v49;
+        *&retstr->value[3].var1.var0 = v50;
         retstr->value[3].var3.var0 = 1.0;
         if (a5)
         {
-          v72 = -v96;
-          if (v96 >= 0.0)
+          v70 = -v94;
+          if (v94 >= 0.0)
           {
-            v72 = v96;
+            v70 = v94;
           }
 
-          v73 = 1.25 / ((10.0 + 20.0) * 0.5);
-          v74 = v39 + (((v72 * 0.5) * -0.2) * v73);
-          v75 = -v87;
-          if (v87 >= 0.0)
+          v71 = 1.25 / ((10.0 + 20.0) * 0.5);
+          v72 = v37 + (((v70 * 0.5) * -0.2) * v71);
+          v73 = -v85;
+          if (v85 >= 0.0)
           {
-            v75 = v87;
+            v73 = v85;
           }
 
-          *a5 = v74;
-          *(a5 + 1) = v82 + (((v75 * 0.5) * 0.2) * v73);
-          *(a5 + 8) = v21 == v15;
+          *a5 = v72;
+          *(a5 + 1) = v80 + (((v73 * 0.5) * 0.2) * v71);
+          *(a5 + 8) = v20 == v14;
         }
 
         return result;
       }
 
-      v36 = v33;
-      v33 = v34 * (v102 - v98);
-      v35 = v34 * (v97 + v99);
-      v37 = v101 + v103;
+      v34 = v31;
+      v31 = v32 * (v100 - v96);
+      v33 = v32 * (v95 + v97);
+      v35 = v99 + v101;
     }
 
-    else if (v32)
+    else if (v30)
     {
-      v35 = v33;
-      v33 = v34 * (v101 - v103);
-      v36 = v34 * (v97 + v99);
-      v37 = v102 + v98;
+      v33 = v31;
+      v31 = v32 * (v99 - v101);
+      v34 = v32 * (v95 + v97);
+      v35 = v100 + v96;
     }
 
     else
     {
-      v35 = v34 * (v101 - v103);
-      v36 = v34 * (v102 - v98);
-      v37 = v97 - v99;
+      v33 = v32 * (v99 - v101);
+      v34 = v32 * (v100 - v96);
+      v35 = v95 - v97;
     }
 
-    v38 = v34 * v37;
+    v36 = v32 * v35;
     goto LABEL_24;
   }
 

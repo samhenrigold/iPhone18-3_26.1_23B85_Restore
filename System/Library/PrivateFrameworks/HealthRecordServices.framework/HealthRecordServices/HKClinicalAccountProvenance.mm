@@ -262,17 +262,15 @@ LABEL_19:
 
 - (void)type
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_2519FE000, selfCopy, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ has no valid provenance type assigned", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_2519FE000, selfCopy, OS_LOG_TYPE_ERROR, "%{public}@ %{public}@ has no valid provenance type assigned", &v6, 0x16u);
 }
 
 @end

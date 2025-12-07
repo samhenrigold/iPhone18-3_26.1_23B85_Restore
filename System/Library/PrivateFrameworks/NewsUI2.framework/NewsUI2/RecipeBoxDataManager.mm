@@ -10,7 +10,7 @@
   ObjectType = swift_getObjectType();
   sub_218718690(self + OBJC_IVAR____TtC7NewsUI220RecipeBoxDataManager_recipeBox, v7);
   __swift_project_boxed_opaque_existential_1(v7, v7[3]);
-  sub_21871474C(&qword_27CC16CF8, v4, type metadata accessor for RecipeBoxDataManager);
+  sub_21871474C(&qword_27CC16CF8, v4, type metadata accessor for RecipeBoxDataManager, &unk_219C62B68);
   selfCopy = self;
   sub_219BED2B4();
 

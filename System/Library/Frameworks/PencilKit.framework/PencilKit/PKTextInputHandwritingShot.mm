@@ -701,7 +701,7 @@ LABEL_21:
 
       if ([(PKTextInputHandwritingShot *)self cursorIsWeakAtStart])
       {
-        v39 = ![(PKTextInputHandwritingShot *)self writingIsActiveAtStart];
+        v39 = [(PKTextInputHandwritingShot *)self writingIsActiveAtStart]^ 1;
       }
 
       else
@@ -2059,7 +2059,7 @@ LABEL_27:
     v96 = v50;
     v51 = contentLength - 1;
     v52 = 20;
-    if (v40 == contentLength - 1 && v42 == v51)
+    if (v40 == (contentLength - 1) && v42 == v51)
     {
       v53 = v71;
       if (maxY == v51)
@@ -2138,7 +2138,7 @@ LABEL_27:
       [(PKTextInputElementContent *)v13 enumerateBoundsForCharactersInRange:v58 inCoordinateSpace:v57 + 1 reverse:coordinateSpace block:1, v83];
       v59 = v94[3];
       v82[0] = MEMORY[0x1E69E9820];
-      if (v52 >= (contentLength - v59))
+      if (v52 >= contentLength - v59)
       {
         v60 = contentLength - v59;
       }
@@ -2256,7 +2256,7 @@ LABEL_27:
   return result;
 }
 
-id *__106__PKTextInputHandwritingShot__editingGestureCorrectableRangeForStrokeBounds_InInputTarget_elementContent___block_invoke(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
+id *__106__PKTextInputHandwritingShot__editingGestureCorrectableRangeForStrokeBounds_InInputTarget_elementContent___block_invoke(void *a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
   MidX = CGRectGetMidX(*&a2);
   v13.origin.x = a2;
@@ -2264,13 +2264,13 @@ id *__106__PKTextInputHandwritingShot__editingGestureCorrectableRangeForStrokeBo
   v13.size.width = a4;
   v13.size.height = a5;
   MidY = CGRectGetMidY(v13);
-  result = *(a1 + 32);
+  result = a1[4];
   if (result)
   {
     result = [(PKTextInputElementContent *)result characterIndexClosestToPoint:0 inCoordinateSpace:1 forInsertingText:MidX adjustForLastCharacter:MidY];
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = result == (*(a1 + 56) - 1);
+  *(*(a1[6] + 8) + 24) = result == (a1[7] - 1);
   return result;
 }
 

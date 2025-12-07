@@ -22,32 +22,32 @@
 
 - (void)addDocumentResourceInfo:(id)info
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   v7 = objc_msgSend_tags(infoCopy, v5, v6);
   if (objc_msgSend_count(v7, v8, v9))
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    v38 = v7;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v37 = v7;
     v11 = v7;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v39, v43, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v38, v42, 16);
     if (v13)
     {
       v15 = v13;
-      v16 = *v40;
+      v16 = *v39;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v40 != v16)
+          if (*v39 != v16)
           {
             objc_enumerationMutation(v11);
           }
 
-          v18 = *(*(&v39 + 1) + 8 * i);
+          v18 = *(*(&v38 + 1) + 8 * i);
           v19 = objc_msgSend_objectForKeyedSubscript_(self->_tagsToDocumentResourceInfosDictionary, v14, v18);
           if (v19)
           {
@@ -73,13 +73,13 @@
           }
         }
 
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v39, v43, 16);
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v38, v42, 16);
       }
 
       while (v15);
     }
 
-    v7 = v38;
+    v7 = v37;
   }
 
   else
@@ -112,8 +112,6 @@
     v36 = self->_documentResourceInfos;
     self->_documentResourceInfos = v35;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)allTags
@@ -134,45 +132,45 @@
 
 - (id)minimumTagsWithPreferredTags:(id)tags
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   tagsCopy = tags;
   v6 = objc_msgSend_count(self->_tagsToDocumentResourceInfosDictionary, v4, v5);
   if (v6)
   {
     v8 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v7, v6);
+    v64 = 0u;
     v65 = 0u;
     v66 = 0u;
     v67 = 0u;
-    v68 = 0u;
     selfCopy = self;
     obj = self->_tagsToDocumentResourceInfosDictionary;
-    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v65, v69, 16);
+    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v10, &v64, v68, 16);
     if (v11)
     {
       v14 = v11;
-      v15 = *v66;
+      v15 = *v65;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v66 != v15)
+          if (*v65 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v65 + 1) + 8 * i);
+          v17 = *(*(&v64 + 1) + 8 * i);
           v18 = objc_msgSend_count(v8, v12, v13);
-          v62[0] = MEMORY[0x277D85DD0];
-          v62[1] = 3221225472;
-          v62[2] = sub_276A7BADC;
-          v62[3] = &unk_27A6E5A88;
-          v63 = tagsCopy;
-          v64 = selfCopy;
-          v20 = objc_msgSend_indexOfObject_inSortedRange_options_usingComparator_(v8, v19, v17, 0, v18, 1024, v62);
+          v61[0] = MEMORY[0x277D85DD0];
+          v61[1] = 3221225472;
+          v61[2] = sub_276A7BADC;
+          v61[3] = &unk_27A6E5A88;
+          v62 = tagsCopy;
+          v63 = selfCopy;
+          v20 = objc_msgSend_indexOfObject_inSortedRange_options_usingComparator_(v8, v19, v17, 0, v18, 1024, v61);
           objc_msgSend_insertObject_atIndex_(v8, v21, v17, v20);
         }
 
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v65, v69, 16);
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v12, &v64, v68, 16);
       }
 
       while (v14);
@@ -224,8 +222,6 @@ LABEL_17:
   {
     v55 = 0;
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 
   return v55;
 }

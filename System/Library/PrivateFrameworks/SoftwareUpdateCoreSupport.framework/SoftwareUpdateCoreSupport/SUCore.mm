@@ -172,29 +172,27 @@ uint64_t __20__SUCore_sharedCore__block_invoke()
 
 + (id)beginTransactionWithName:(id)name
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = [SUCore sharedSUCoreDomainAppending:name];
   v4 = +[SUCoreLog sharedLogger];
   oslog = [v4 oslog];
 
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = v3;
-    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[TRANSACTION] BEGIN with domain %{public}@", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v3;
+    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[TRANSACTION] BEGIN with domain %{public}@", &v8, 0xCu);
   }
 
   [v3 UTF8String];
   v6 = os_transaction_create();
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (void)endTransaction:(id)transaction withName:(id)name
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   v6 = [SUCore sharedSUCoreDomainAppending:name];
   v7 = +[SUCoreLog sharedLogger];
@@ -209,14 +207,12 @@ uint64_t __20__SUCore_sharedCore__block_invoke()
       v9 = @"NULL";
     }
 
-    v11 = 138543618;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v9;
-    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[TRANSACTION] END   with domain %{public}@ (transaction=%{public}@)", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v9;
+    _os_log_impl(&dword_1E0F71000, oslog, OS_LOG_TYPE_DEFAULT, "[TRANSACTION] END   with domain %{public}@ (transaction=%{public}@)", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)sharedSUCoreDomainAppending:(id)appending
@@ -442,35 +438,8 @@ uint64_t __20__SUCore_sharedCore__block_invoke()
   v12 = v7;
   while (v12 | v11)
   {
-    if (!v12)
+    if (!v12 || !v11 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ([v12 domain], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "domain"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqualToString:", v14), v14, v13, !v15) || (v16 = objc_msgSend(v12, "code"), v16 != objc_msgSend(v11, "code")))
     {
-      goto LABEL_11;
-    }
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_11;
-    }
-
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_11;
-    }
-
-    domain = [v12 domain];
-    domain2 = [v11 domain];
-    v15 = [domain isEqualToString:domain2];
-
-    if (!v15 || (v16 = [v12 code], v16 != objc_msgSend(v11, "code")))
-    {
-LABEL_11:
       v21 = 0;
       goto LABEL_12;
     }

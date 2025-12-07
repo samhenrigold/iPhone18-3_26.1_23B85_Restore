@@ -13,7 +13,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_EF380();
+  sub_EF380(selfCopy);
 }
 
 - (void)layoutSubviews
@@ -25,21 +25,22 @@
 - (BOOL)isHighlighted
 {
   selfCopy = self;
-  v3 = sub_EF850();
+  v3 = sub_EF850(selfCopy);
 
   return v3 & 1;
 }
 
 - (void)setHighlighted:(BOOL)highlighted
 {
+  highlightedCopy = highlighted;
   selfCopy = self;
-  sub_EF8D8(highlighted);
+  sub_EF8D8(highlightedCopy);
 }
 
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_EFC48();
+  sub_EFC48(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

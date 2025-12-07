@@ -205,106 +205,102 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v5 = self->_models;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v33;
+    v8 = *v29;
     do
     {
       v9 = 0;
       do
       {
-        if (*v33 != v8)
+        if (*v29 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v32 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v32 objects:v38 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v7);
-  }
-
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v11 = self->_apMappings;
-  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
-  if (v12)
-  {
-    v13 = v12;
-    v14 = *v29;
-    do
-    {
-      v15 = 0;
-      do
-      {
-        if (*v29 != v14)
-        {
-          objc_enumerationMutation(v11);
-        }
-
-        v16 = *(*(&v28 + 1) + 8 * v15);
-        PBDataWriterWriteSubmessage();
-        v15 = v15 + 1;
-      }
-
-      while (v13 != v15);
-      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v28 objects:v37 count:16];
-    }
-
-    while (v13);
-  }
-
-  if (*&self->_has)
-  {
-    singlePoiMuid = self->_singlePoiMuid;
-    PBDataWriterWriteUint64Field();
   }
 
   v26 = 0u;
   v27 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v18 = self->_hashedApMappings;
-  v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
-  if (v19)
+  v10 = self->_apMappings;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
+  if (v11)
   {
-    v20 = v19;
-    v21 = *v25;
+    v12 = v11;
+    v13 = *v25;
     do
     {
-      v22 = 0;
+      v14 = 0;
       do
       {
-        if (*v25 != v21)
+        if (*v25 != v13)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v10);
         }
 
-        v23 = *(*(&v24 + 1) + 8 * v22);
         PBDataWriterWriteSubmessage();
-        v22 = v22 + 1;
+        ++v14;
       }
 
-      while (v20 != v22);
-      v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v24 objects:v36 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v24 objects:v33 count:16];
     }
 
-    while (v20);
+    while (v12);
+  }
+
+  if (*&self->_has)
+  {
+    PBDataWriterWriteUint64Field();
+  }
+
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v15 = self->_hashedApMappings;
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v21;
+    do
+    {
+      v19 = 0;
+      do
+      {
+        if (*v21 != v18)
+        {
+          objc_enumerationMutation(v15);
+        }
+
+        PBDataWriterWriteSubmessage();
+        ++v19;
+      }
+
+      while (v17 != v19);
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v20 objects:v32 count:16];
+    }
+
+    while (v17);
   }
 
   if (self->_hashSalt)
@@ -514,7 +510,6 @@
     }
   }
 
-  v7 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_singlePoiMuid != *(equalCopy + 1))
@@ -526,7 +521,7 @@
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
@@ -539,17 +534,17 @@ LABEL_15:
   hashSalt = self->_hashSalt;
   if (hashSalt | *(equalCopy + 3))
   {
-    v10 = [(NSData *)hashSalt isEqual:?];
+    v9 = [(NSData *)hashSalt isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

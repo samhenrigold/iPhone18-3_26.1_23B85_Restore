@@ -35,16 +35,17 @@
   v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider23ArcadeSubscribePageView_dismissActionBlock);
   if (v5)
   {
+    v6 = *&selfCopy->style[OBJC_IVAR____TtC18ASMessagesProvider23ArcadeSubscribePageView_dismissActionBlock];
 
-    v5(v6);
-    sub_F704(v5);
+    v5(v7);
+    sub_F704(v5, v6);
 
-    sub_BEB8(v6);
+    sub_BEB8(v7);
   }
 
   else
   {
-    sub_BEB8(v6);
+    sub_BEB8(v7);
   }
 }
 

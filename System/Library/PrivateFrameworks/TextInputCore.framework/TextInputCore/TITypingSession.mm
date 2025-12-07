@@ -9,20 +9,25 @@
 - (_NSRange)safeRangeFromRange:(_NSRange)range fromArray:(id)array;
 - (double)calibratedCurrentTimestamp;
 - (id)committedWordDeletionWithDocumentState:(id)state keyboardState:(id)keyboardState;
+- (id)createContextChangeEventWithClass:(Class)class documentState:(id)state keyboardState:(id)keyboardState extendsPriorWord:(BOOL)word inWord:(id)inWord inWordRange:(_NSRange)range selectionLocation:(unint64_t)location;
 - (id)currentInputsInRange:(_NSRange)range;
 - (id)currentLayoutsInRange:(_NSRange)range;
 - (id)currentTouchesInRange:(_NSRange)range;
 - (id)keyStringWithCode:(int64_t)code fromLayoutIndex:(id)index;
 - (id)uncommittedWordDeletionFromInputsWithRange:(_NSRange)range;
+- (id)uncommittedWordEntryFromInputsWithRange:(_NSRange)range documentState:(id)state cancelled:(BOOL)cancelled;
 - (void)acceptingCandidateWithTrigger:(id)trigger;
 - (void)addDrawInputWithSyllableCount:(unint64_t)count keyboardState:(id)state;
 - (void)addKeyInput:(id)input keyboardState:(id)state;
 - (void)addTouchEvent:(id)event;
+- (void)candidateAccepted:(id)accepted withInput:(id)input documentState:(id)state inputContext:(id)context inputStem:(id)stem predictionBarHit:(BOOL)hit useCandidateSelection:(BOOL)selection candidateIndex:(int64_t)self0 keyboardState:(id)self1;
 - (void)candidatesOffered:(id)offered keyboardState:(id)state;
 - (void)changingContextWithTrigger:(id)trigger;
+- (void)contextDidChange:(id)change wordDelete:(BOOL)delete cursorMoved:(BOOL)moved extendsPriorWord:(BOOL)word inWord:(id)inWord range:(_NSRange)range selectionLocation:(unint64_t)location keyboardState:(id)self0;
 - (void)encodeWithCoder:(id)coder;
 - (void)endSessionWithTimestamp:(id)timestamp;
 - (void)handleUncommittedWord;
+- (void)initContextChangeEvent:(id)event withDocumentState:(id)state keyboardState:(id)keyboardState extendsPriorWord:(BOOL)word inWord:(id)inWord inWordRange:(_NSRange)range selectionLocation:(unint64_t)location;
 - (void)insertUncommittedUserAction:(id)action;
 - (void)layoutDidChange:(id)change keyboardState:(id)state;
 - (void)removeInputsAndTouchesWithRange:(_NSRange)range;
@@ -40,44 +45,38 @@
 
 - (double)calibratedCurrentTimestamp
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   timeCalibrationTouch = self->_timeCalibrationTouch;
   Current = CFAbsoluteTimeGetCurrent();
   v5 = Current;
-  if (timeCalibrationTouch)
+  if (!timeCalibrationTouch)
   {
-    calibratedTimeBase = self->_calibratedTimeBase;
-    if (TICanLogMessageAtLevel_onceToken != -1)
-    {
-      dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
-    }
-
-    v7 = v5 - calibratedTimeBase;
-    if (TICanLogMessageAtLevel_logLevel)
-    {
-      v8 = TIOSLogFacility();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
-      {
-        v12 = MEMORY[0x277CCACA8];
-        [(TIKeyboardTouchEvent *)self->_timeCalibrationTouch timestamp];
-        v14 = [v12 stringWithFormat:@"%s calibrated timestamp %lf", "-[TITypingSession calibratedCurrentTimestamp]", v7 + v13];
-        *buf = 138412290;
-        v16 = v14;
-        _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-      }
-    }
-
-    [(TIKeyboardTouchEvent *)self->_timeCalibrationTouch timestamp];
-    result = v7 + v9;
+    return -Current;
   }
 
-  else
+  calibratedTimeBase = self->_calibratedTimeBase;
+  if (TICanLogMessageAtLevel_onceToken != -1)
   {
-    result = -Current;
+    dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v7 = v5 - calibratedTimeBase;
+  if (TICanLogMessageAtLevel_logLevel)
+  {
+    v8 = TIOSLogFacility();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      v11 = MEMORY[0x277CCACA8];
+      [(TIKeyboardTouchEvent *)self->_timeCalibrationTouch timestamp];
+      v13 = [v11 stringWithFormat:@"%s calibrated timestamp %lf", "-[TITypingSession calibratedCurrentTimestamp]", v7 + v12];
+      *buf = 138412290;
+      v15 = v13;
+      _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+    }
+  }
+
+  [(TIKeyboardTouchEvent *)self->_timeCalibrationTouch timestamp];
+  return v7 + v9;
 }
 
 - (_NSRange)safeRangeFromRange:(_NSRange)range fromArray:(id)array
@@ -499,6 +498,79 @@ LABEL_14:
   return v3;
 }
 
+- (id)uncommittedWordEntryFromInputsWithRange:(_NSRange)range documentState:(id)state cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  length = range.length;
+  location = range.location;
+  stateCopy = state;
+  if (location == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v11 = objc_alloc_init(TIWordEntry);
+    v10 = v11;
+    if (stateCopy)
+    {
+      [(TIUserAction *)v11 setDocumentState:stateCopy];
+    }
+
+    else
+    {
+      v12 = [(NSMutableArray *)self->_cachedKeyboardStates objectAtIndexedSubscript:location];
+      documentState = [v12 documentState];
+      [(TIUserAction *)v10 setDocumentState:documentState];
+    }
+
+    v14 = location + length;
+    v15 = [(NSMutableArray *)self->_cachedKeyboardStates objectAtIndexedSubscript:location + length];
+    [(TIUserAction *)v10 setKeyboardState:v15];
+
+    v16 = 2 * length;
+    v17 = [(TITypingSession *)self currentInputsInRange:location, length];
+    [(TIWordEntry *)v10 setAllKeyboardInputsM:v17];
+
+    v18 = [(TITypingSession *)self currentTouchesInRange:2 * location, v16];
+    [(TIWordEntry *)v10 setAllTouchesM:v18];
+
+    v19 = [(TITypingSession *)self currentLayoutsInRange:2 * location, v16];
+    [(TIWordEntry *)v10 setTouchLayoutsM:v19];
+
+    v20 = v14 - 1;
+    if (v20 < [(NSMutableArray *)self->_cachedCandidatesOffered count])
+    {
+      v21 = MEMORY[0x277CBEB18];
+      v22 = [(NSMutableArray *)self->_cachedCandidatesOffered objectAtIndexedSubscript:v20];
+      v23 = [v21 arrayWithObject:v22];
+      [(TIWordEntry *)v10 setCandidatesOfferedM:v23];
+    }
+
+    v24 = [MEMORY[0x277D6F3D8] candidateWithCandidate:&stru_283FDFAF8 forInput:&stru_283FDFAF8];
+    [(TIWordEntry *)v10 setAcceptedCandidate:v24];
+
+    [(TIWordEntry *)v10 setAcceptedString:&stru_283FDFAF8];
+    allTouches = [(TIWordEntry *)v10 allTouches];
+    firstObject = [allTouches firstObject];
+    [firstObject timestamp];
+    [(TIUserAction *)v10 setStartTime:?];
+
+    allTouches2 = [(TIWordEntry *)v10 allTouches];
+    lastObject = [allTouches2 lastObject];
+    [lastObject timestamp];
+    [(TIUserAction *)v10 setEndTime:?];
+
+    [(TITypingSession *)self calibratedCurrentTimestamp];
+    [(TIUserAction *)v10 setOccurenceTime:?];
+    [(TIWordEntry *)v10 setCancelled:cancelledCopy];
+    [(TIWordEntry *)v10 setOrigin:4];
+  }
+
+  return v10;
+}
+
 - (void)handleUncommittedWord
 {
   if (!self->_currentWord)
@@ -599,7 +671,7 @@ LABEL_7:
 
 - (void)setClientID:(id)d keyboardState:(id)state
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   dCopy = d;
   stateCopy = state;
   if (IXACanLogMessageAtLevel())
@@ -609,7 +681,7 @@ LABEL_7:
     {
       dCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CI clientID: '%@'", "-[TITypingSession setClientID:keyboardState:]", dCopy];
       *buf = 138412290;
-      v12 = dCopy;
+      v11 = dCopy;
       _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -624,13 +696,249 @@ LABEL_7:
     [(TITypingSession *)self setApplicationID:dCopy];
     [(TITypingSession *)self updateCachedStateBeforeFirstInputWithKeyboardState:stateCopy];
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)initContextChangeEvent:(id)event withDocumentState:(id)state keyboardState:(id)keyboardState extendsPriorWord:(BOOL)word inWord:(id)inWord inWordRange:(_NSRange)range selectionLocation:(unint64_t)location
+{
+  wordCopy = word;
+  inWordCopy = inWord;
+  stateCopy = state;
+  eventCopy = event;
+  [eventCopy setDocumentState:stateCopy];
+  selectedText = [stateCopy selectedText];
+
+  [eventCopy setIsSelection:{objc_msgSend(selectedText, "length") != 0}];
+  [eventCopy setExtendsPriorWord:wordCopy];
+  [eventCopy setInWordRange:{range.location, range.length}];
+  [eventCopy setInWord:inWordCopy];
+
+  [eventCopy setSelectionLocation:location];
+  [(TITypingSession *)self calibratedCurrentTimestamp];
+  [eventCopy setOccurenceTime:?];
+}
+
+- (id)createContextChangeEventWithClass:(Class)class documentState:(id)state keyboardState:(id)keyboardState extendsPriorWord:(BOOL)word inWord:(id)inWord inWordRange:(_NSRange)range selectionLocation:(unint64_t)location
+{
+  wordCopy = word;
+  inWordCopy = inWord;
+  keyboardStateCopy = keyboardState;
+  stateCopy = state;
+  v17 = [[class alloc] initWithTIKeyboardState:keyboardStateCopy];
+  [(TITypingSession *)self initContextChangeEvent:v17 withDocumentState:stateCopy keyboardState:keyboardStateCopy extendsPriorWord:wordCopy inWord:inWordCopy inWordRange:range.location selectionLocation:range.length, location];
+
+  return v17;
+}
+
+- (void)contextDidChange:(id)change wordDelete:(BOOL)delete cursorMoved:(BOOL)moved extendsPriorWord:(BOOL)word inWord:(id)inWord range:(_NSRange)range selectionLocation:(unint64_t)location keyboardState:(id)self0
+{
+  wordCopy = word;
+  movedCopy = moved;
+  deleteCopy = delete;
+  v63 = *MEMORY[0x277D85DE8];
+  changeCopy = change;
+  inWordCopy = inWord;
+  stateCopy = state;
+  if (IXACanLogMessageAtLevel())
+  {
+    v18 = IXASessionEventsLogFacility();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      wordCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CC trigger: %@ wordDelete: %d cursorMoved: %d extendsPriorWord: %d", "-[TITypingSession contextDidChange:wordDelete:cursorMoved:extendsPriorWord:inWord:range:selectionLocation:keyboardState:]", self->_contextChangeTrigger, deleteCopy, movedCopy, wordCopy];
+      *buf = 138412290;
+      *&buf[4] = wordCopy;
+      _os_log_debug_impl(&dword_22CA55000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+    }
+  }
+
+  if (([stateCopy secureTextEntry] & 1) == 0 && !-[TITypingSession didReceiveSecureFieldEvent](self, "didReceiveSecureFieldEvent"))
+  {
+    contextChangeTrigger = [(TITypingSession *)self contextChangeTrigger];
+    v20 = *MEMORY[0x277D6F5E8];
+
+    v21 = MEMORY[0x277D6F5F8];
+    if (contextChangeTrigger == v20)
+    {
+      lastInput = [(TITypingSession *)self lastInput];
+      isBackspace = [lastInput isBackspace];
+
+      if (isBackspace)
+      {
+        lastInput2 = [(TITypingSession *)self lastInput];
+        [lastInput2 setRapidDelete:1];
+      }
+    }
+
+    else if ([(TITypingSession *)self fromLegacyRecording])
+    {
+      lastInput3 = [(TITypingSession *)self lastInput];
+      if ([lastInput3 isBackspace])
+      {
+        lastInput4 = [(TITypingSession *)self lastInput];
+        if ([lastInput4 isRapidDelete])
+        {
+        }
+
+        else
+        {
+          v58 = [(TITypingSession *)self testForRapidDeleteContextChange:stateCopy];
+
+          if (!v58)
+          {
+LABEL_20:
+            if (deleteCopy)
+            {
+              goto LABEL_21;
+            }
+
+            [(TITypingSession *)self setContextChangeTrigger:*MEMORY[0x277D6F5F0]];
+            goto LABEL_25;
+          }
+
+          lastInput3 = [(TITypingSession *)self lastInput];
+          [lastInput3 setRapidDelete:1];
+        }
+      }
+
+      goto LABEL_20;
+    }
+
+    if (deleteCopy)
+    {
+LABEL_21:
+      *buf = 0uLL;
+      v61[0] = 0;
+      v61[1] = 0;
+      v60[0] = 0;
+      v60[1] = 0;
+      currentWord = [(TITypingSession *)self currentWord];
+      allKeyboardInputs = [currentWord allKeyboardInputs];
+      [(TITypingSession *)self resolveInputs:allKeyboardInputs cancelledTextRange:buf leadingBackspaceRange:v61 trailingTextRange:v60];
+
+      if (*buf != 0x7FFFFFFFFFFFFFFFLL)
+      {
+        v30 = [(TITypingSession *)self uncommittedWordEntryFromInputsWithRange:*buf documentState:0 cancelled:1];
+        [(TITypingSession *)self insertUncommittedUserAction:v30];
+
+        [(TITypingSession *)self removeInputsAndTouchesWithRange:*buf];
+      }
+
+      v31 = [(TITypingSession *)self committedWordDeletionWithDocumentState:changeCopy keyboardState:stateCopy];
+      userActionHistory = [(TITypingSession *)self userActionHistory];
+      [userActionHistory addObject:v31];
+
+      [(TITypingSession *)self setLastDeletion:v31];
+      [(TITypingSession *)self setIncludeInputToLastDeletion:1];
+      [(TITypingSession *)self resetCurrentWord];
+
+      goto LABEL_44;
+    }
+
+LABEL_25:
+    lastInput5 = [(TITypingSession *)self lastInput];
+    isBackspace2 = [lastInput5 isBackspace];
+
+    if (isBackspace2)
+    {
+LABEL_44:
+      objc_storeStrong(&self->_contextChangeTrigger, *v21);
+      goto LABEL_45;
+    }
+
+    userActionHistory2 = [(TITypingSession *)self userActionHistory];
+    v59 = wordCopy;
+    if ([userActionHistory2 count])
+    {
+
+LABEL_32:
+      contextChangeTrigger2 = [(TITypingSession *)self contextChangeTrigger];
+      isEqualToString = objc_msgSend_isEqualToString_(contextChangeTrigger2);
+
+      if (isEqualToString)
+      {
+        v43 = [TIGainFocusEvent alloc];
+        locale = [(TITypingSession *)self locale];
+        location = [(TIGainFocusEvent *)v43 initWithTIKeyboardState:stateCopy andLocale:locale];
+
+        [(TITypingSession *)self initContextChangeEvent:location withDocumentState:changeCopy keyboardState:stateCopy extendsPriorWord:v59 inWord:inWordCopy inWordRange:range.location selectionLocation:range.length, location];
+        v21 = MEMORY[0x277D6F5F8];
+      }
+
+      else
+      {
+        contextChangeTrigger3 = [(TITypingSession *)self contextChangeTrigger];
+        v47 = objc_msgSend_isEqualToString_(contextChangeTrigger3);
+
+        v21 = MEMORY[0x277D6F5F8];
+        if (!v47)
+        {
+          contextChangeTrigger4 = [(TITypingSession *)self contextChangeTrigger];
+          v49 = objc_msgSend_isEqualToString_(contextChangeTrigger4);
+
+          if (!v49)
+          {
+            contextChangeTrigger5 = [(TITypingSession *)self contextChangeTrigger];
+            v51 = objc_msgSend_isEqualToString_(contextChangeTrigger5);
+
+            if (!v51)
+            {
+              contextChangeTrigger6 = [(TITypingSession *)self contextChangeTrigger];
+              v53 = objc_msgSend_isEqualToString_(contextChangeTrigger6);
+
+              if (!v53)
+              {
+                contextChangeTrigger7 = [(TITypingSession *)self contextChangeTrigger];
+                v55 = objc_msgSend_isEqualToString_(contextChangeTrigger7);
+
+                if (!v55)
+                {
+                  contextChangeTrigger8 = [(TITypingSession *)self contextChangeTrigger];
+                  objc_msgSend_isEqualToString_(contextChangeTrigger8);
+                }
+              }
+            }
+          }
+        }
+
+        location = [(TITypingSession *)self createContextChangeEventWithClass:objc_opt_class() documentState:changeCopy keyboardState:stateCopy extendsPriorWord:v59 inWord:inWordCopy inWordRange:range.location selectionLocation:range.length, location];
+      }
+
+      userActionHistory3 = [(TITypingSession *)self userActionHistory];
+      [userActionHistory3 addObject:location];
+
+      goto LABEL_44;
+    }
+
+    v36 = MEMORY[0x277D6F5D0];
+    contextChangeTrigger9 = [(TITypingSession *)self contextChangeTrigger];
+    if (objc_msgSend_isEqualToString_(contextChangeTrigger9))
+    {
+
+      v38 = v36;
+    }
+
+    else
+    {
+      contextChangeTrigger10 = [(TITypingSession *)self contextChangeTrigger];
+      v40 = objc_msgSend_isEqualToString_(contextChangeTrigger10);
+
+      v38 = v36;
+      if (!v40)
+      {
+        goto LABEL_32;
+      }
+    }
+
+    [(TITypingSession *)self setContextChangeTrigger:*v38];
+    goto LABEL_32;
+  }
+
+  [(TITypingSession *)self setDidReceiveSecureFieldEvent:1];
+LABEL_45:
 }
 
 - (void)changingContextWithTrigger:(id)trigger
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   if (IXACanLogMessageAtLevel())
   {
@@ -639,15 +947,13 @@ LABEL_7:
     {
       triggerCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TC trigger: %@", "-[TITypingSession changingContextWithTrigger:]", triggerCopy];
       *buf = 138412290;
-      v10 = triggerCopy;
+      v9 = triggerCopy;
       _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
   contextChangeTrigger = self->_contextChangeTrigger;
   self->_contextChangeTrigger = triggerCopy;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)keyStringWithCode:(int64_t)code fromLayoutIndex:(id)index
@@ -695,9 +1001,988 @@ uint64_t __53__TITypingSession_keyStringWithCode_fromLayoutIndex___block_invoke(
   return result;
 }
 
-void __152__TITypingSession_candidateAccepted_withInput_documentState_inputContext_inputStem_predictionBarHit_useCandidateSelection_candidateIndex_keyboardState___block_invoke(uint64_t a1, void *a2, unint64_t a3)
+- (void)candidateAccepted:(id)accepted withInput:(id)input documentState:(id)state inputContext:(id)context inputStem:(id)stem predictionBarHit:(BOOL)hit useCandidateSelection:(BOOL)selection candidateIndex:(int64_t)self0 keyboardState:(id)self1
 {
-  v93 = *MEMORY[0x277D85DE8];
+  hitCopy = hit;
+  v349 = *MEMORY[0x277D85DE8];
+  acceptedCopy = accepted;
+  inputCopy = input;
+  stateCopy = state;
+  contextCopy = context;
+  stemCopy = stem;
+  keyboardStateCopy = keyboardState;
+  if (self->_currentWord)
+  {
+    buf = 0uLL;
+    v342[0] = 0;
+    v342[1] = 0;
+    v341[0] = 0;
+    v341[1] = 0;
+    currentWord = [(TITypingSession *)self currentWord];
+    allKeyboardInputs = [currentWord allKeyboardInputs];
+    [(TITypingSession *)self resolveInputs:allKeyboardInputs cancelledTextRange:&buf leadingBackspaceRange:v342 trailingTextRange:v341];
+
+    if (buf != 0x7FFFFFFFFFFFFFFFLL && v342[0] != 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v22 = [TITypingSession uncommittedWordEntryFromInputsWithRange:"uncommittedWordEntryFromInputsWithRange:documentState:cancelled:" documentState:? cancelled:?];
+      [(TITypingSession *)self insertUncommittedUserAction:v22];
+
+      [(TITypingSession *)self removeInputsAndTouchesWithRange:buf];
+    }
+  }
+
+  v328 = keyboardStateCopy;
+  lastWord = [(TITypingSession *)self lastWord];
+  if (lastWord)
+  {
+    v24 = lastWord;
+    userActionHistory = [(TITypingSession *)self userActionHistory];
+    lastObject = [userActionHistory lastObject];
+    lastWord2 = [(TITypingSession *)self lastWord];
+
+    if (lastObject == lastWord2)
+    {
+      lastWord3 = [(TITypingSession *)self lastWord];
+      v39 = [lastWord3 wordEntryType] & 0xE0;
+
+      if (v39)
+      {
+        lastWord4 = [(TITypingSession *)self lastWord];
+        acceptedString = [lastWord4 acceptedString];
+        candidate = [acceptedCopy candidate];
+        isEqualToString = objc_msgSend_isEqualToString_(acceptedString);
+
+        if (isEqualToString)
+        {
+          [(TITypingSession *)self setCandidateAcceptedTrigger:*MEMORY[0x277D6F5A8]];
+          v28 = inputCopy;
+          v35 = v328;
+          goto LABEL_20;
+        }
+      }
+    }
+  }
+
+  v28 = inputCopy;
+  if (IXACanLogMessageAtLevel())
+  {
+    v29 = IXASessionEventsLogFacility();
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    {
+      v113 = MEMORY[0x277CCACA8];
+      candidateAcceptedTrigger = self->_candidateAcceptedTrigger;
+      candidate2 = [acceptedCopy candidate];
+      input = [acceptedCopy input];
+      hitCopy = [v113 stringWithFormat:@"%s CA trigger: %@ candidate: %@ input: %@ predictionBarHit: %d", "-[TITypingSession candidateAccepted:withInput:documentState:inputContext:inputStem:predictionBarHit:useCandidateSelection:candidateIndex:keyboardState:]", candidateAcceptedTrigger, candidate2, input, hitCopy];
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = hitCopy;
+      _os_log_debug_impl(&dword_22CA55000, v29, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
+    }
+  }
+
+  candidateAcceptedTrigger = [(TITypingSession *)self candidateAcceptedTrigger];
+  v31 = objc_msgSend_isEqualToString_(candidateAcceptedTrigger);
+
+  if (v31)
+  {
+    v32 = 1;
+  }
+
+  else
+  {
+    candidateAcceptedTrigger2 = [(TITypingSession *)self candidateAcceptedTrigger];
+    v34 = objc_msgSend_isEqualToString_(candidateAcceptedTrigger2);
+
+    v32 = hitCopy & ~v34;
+  }
+
+  v35 = v328;
+  [(TITypingSession *)self setCandidatesAccepted:[(TITypingSession *)self candidatesAccepted]+ 1];
+  v36 = MEMORY[0x277D6F320];
+  candidate3 = [acceptedCopy candidate];
+  LODWORD(v36) = [v36 hasNonWhitespaceNonPunctuationText:candidate3];
+
+  if (v36)
+  {
+    [(TITypingSession *)self setCandidatesAcceptedWithText:[(TITypingSession *)self candidatesAcceptedWithText]+ 1];
+  }
+
+  if (([v328 secureTextEntry] & 1) != 0 || -[TITypingSession didReceiveSecureFieldEvent](self, "didReceiveSecureFieldEvent"))
+  {
+    [(TITypingSession *)self setDidReceiveSecureFieldEvent:1];
+    [(TITypingSession *)self resetCurrentWord];
+LABEL_19:
+    [(TITypingSession *)self setCandidateAcceptedTrigger:*MEMORY[0x277D6F5A8]];
+    goto LABEL_20;
+  }
+
+  if (v32)
+  {
+    if (self->_currentWord)
+    {
+      goto LABEL_28;
+    }
+
+    lastWord5 = [(TITypingSession *)self lastWord];
+    acceptedCandidate = [lastWord5 acceptedCandidate];
+    lastWord6 = [(TITypingSession *)self lastWord];
+    [lastWord6 setOriginalCandidate:acceptedCandidate];
+
+    lastWord7 = [(TITypingSession *)self lastWord];
+    acceptedString2 = [lastWord7 acceptedString];
+    lastWord8 = [(TITypingSession *)self lastWord];
+    [lastWord8 setOriginalAcceptedString:acceptedString2];
+
+    lastWord9 = [(TITypingSession *)self lastWord];
+    [lastWord9 setAcceptedCandidate:acceptedCopy];
+
+    candidate4 = [acceptedCopy candidate];
+    whitespaceCharacterSet = [MEMORY[0x277CCA900] whitespaceCharacterSet];
+    v53 = [candidate4 stringByTrimmingCharactersInSet:whitespaceCharacterSet];
+    lastWord10 = [(TITypingSession *)self lastWord];
+    [lastWord10 setAcceptedString:v53];
+
+    lastWord11 = [(TITypingSession *)self lastWord];
+    [lastWord11 setWordEntryType:4];
+
+    lastWord12 = [(TITypingSession *)self lastWord];
+    [lastWord12 setWordEntryType:{objc_msgSend(lastWord12, "wordEntryType") | 8}];
+  }
+
+  if (!self->_currentWord)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_28:
+  [(TITypingSession *)self calibratedCurrentTimestamp];
+  [(TIUserAction *)self->_currentWord setOccurenceTime:?];
+  [(TIUserAction *)self->_currentWord setKeyboardState:v328];
+  contextBeforeInput = [stateCopy contextBeforeInput];
+  candidatesOffered = [(TIWordEntry *)self->_currentWord candidatesOffered];
+  v58 = [candidatesOffered count];
+
+  v317 = stateCopy;
+  if (v58 < 1)
+  {
+    autocorrection = 0;
+  }
+
+  else
+  {
+    candidatesOffered2 = [(TIWordEntry *)self->_currentWord candidatesOffered];
+    v60 = [candidatesOffered2 objectAtIndex:(v58 - 1)];
+    corrections = [v60 corrections];
+    autocorrection = [corrections autocorrection];
+
+    if (![acceptedCopy sourceMask])
+    {
+      candidate5 = [autocorrection candidate];
+      candidate6 = [acceptedCopy candidate];
+      if (objc_msgSend_isEqualToString_(candidate6))
+      {
+        v65 = autocorrection;
+
+        acceptedCopy = v65;
+      }
+    }
+  }
+
+  candidate7 = [acceptedCopy candidate];
+  v316 = autocorrection;
+  candidate8 = [autocorrection candidate];
+  locale = [(TITypingSession *)self locale];
+  v69 = [candidate7 smartQuoteInsensitiveStringEquivalent:candidate8 forLocale:locale];
+
+  isAutocorrection = [acceptedCopy isAutocorrection];
+  if ((isAutocorrection & 1) == 0)
+  {
+    candidate7 = [(TITypingSession *)self candidateAcceptedTrigger];
+    if (!objc_msgSend_isEqualToString_(candidate7))
+    {
+      goto LABEL_44;
+    }
+  }
+
+  if (v32 & 1 | ((v69 & 1) == 0) || ([acceptedCopy isContinuousPathConversion] & 1) != 0)
+  {
+    if (isAutocorrection)
+    {
+      goto LABEL_45;
+    }
+
+LABEL_44:
+
+    goto LABEL_45;
+  }
+
+  isToucanInlineCompletionCandidate = [acceptedCopy isToucanInlineCompletionCandidate];
+  if ((isAutocorrection & 1) == 0)
+  {
+  }
+
+  if ((isToucanInlineCompletionCandidate & 1) == 0)
+  {
+    candidate7 = [(TITypingSession *)self currentWord];
+    [candidate7 setWordEntryType:{objc_msgSend(candidate7, "wordEntryType") | 1}];
+    goto LABEL_44;
+  }
+
+LABEL_45:
+  if ([acceptedCopy isCompletionCandidate])
+  {
+    currentWord2 = [(TITypingSession *)self currentWord];
+    [currentWord2 setWordEntryType:{objc_msgSend(currentWord2, "wordEntryType") | 2}];
+  }
+
+  if (v32)
+  {
+    currentWord3 = [(TITypingSession *)self currentWord];
+    [currentWord3 setWordEntryType:{objc_msgSend(currentWord3, "wordEntryType") | 4}];
+
+    currentWord4 = [(TITypingSession *)self currentWord];
+    [currentWord4 setWordEntryType:{objc_msgSend(currentWord4, "wordEntryType") | 0x10}];
+  }
+
+  candidateAcceptedTrigger3 = [(TITypingSession *)self candidateAcceptedTrigger];
+  v76 = objc_msgSend_isEqualToString_(candidateAcceptedTrigger3);
+
+  if (v76)
+  {
+    currentWord5 = [(TITypingSession *)self currentWord];
+    [currentWord5 setWordEntryType:{objc_msgSend(currentWord5, "wordEntryType") | 0x20}];
+  }
+
+  candidateAcceptedTrigger4 = [(TITypingSession *)self candidateAcceptedTrigger];
+  v79 = objc_msgSend_isEqualToString_(candidateAcceptedTrigger4);
+
+  if (v79)
+  {
+    currentWord6 = [(TITypingSession *)self currentWord];
+    [currentWord6 setWordEntryType:{objc_msgSend(currentWord6, "wordEntryType") | 0x40}];
+  }
+
+  candidateAcceptedTrigger5 = [(TITypingSession *)self candidateAcceptedTrigger];
+  v82 = objc_msgSend_isEqualToString_(candidateAcceptedTrigger5);
+
+  if (v82)
+  {
+    currentWord7 = [(TITypingSession *)self currentWord];
+    [currentWord7 setWordEntryType:{objc_msgSend(currentWord7, "wordEntryType") | 0x80}];
+  }
+
+  if ([acceptedCopy isToucanInlineCompletionCandidate])
+  {
+    currentWord8 = [(TITypingSession *)self currentWord];
+    [currentWord8 setWordEntryType:{objc_msgSend(currentWord8, "wordEntryType") | 0x100}];
+  }
+
+  v85 = ([acceptedCopy usageTrackingMask] >> 18) & 1;
+  currentWord9 = [(TITypingSession *)self currentWord];
+  [currentWord9 setIsMultilingual:v85];
+
+  v87 = ([acceptedCopy sourceMask] >> 5) & 1;
+  currentWord10 = [(TITypingSession *)self currentWord];
+  [currentWord10 setIsOOV:v87];
+
+  if (([acceptedCopy sourceMask] & 0x8000) != 0)
+  {
+    v89 = 1;
+  }
+
+  else
+  {
+    v89 = ([acceptedCopy sourceMask] >> 17) & 1;
+  }
+
+  currentWord11 = [(TITypingSession *)self currentWord];
+  [currentWord11 setIsFromStaticLexicon:v89];
+
+  v91 = ([acceptedCopy usageTrackingMask] >> 17) & 1;
+  currentWord12 = [(TITypingSession *)self currentWord];
+  [currentWord12 setIsContinuousPathCompletion:v91];
+
+  acceptedCopy = acceptedCopy;
+  v93 = objc_msgSend_string(inputCopy);
+  LODWORD(currentWord12) = [v93 endsInPunctuation];
+
+  if (currentWord12 && !selection)
+  {
+    lastWord13 = [(TITypingSession *)self lastWord];
+    acceptedCandidate2 = [lastWord13 acceptedCandidate];
+    if ([acceptedCandidate2 isContinuousPathConversion])
+    {
+      v96 = objc_msgSend_string(inputCopy);
+      v97 = objc_msgSend_isEqualToString_(v96);
+
+      if ((v97 & 1) == 0)
+      {
+        whitespaceAndNewlineCharacterSet = [MEMORY[0x277CCA900] whitespaceAndNewlineCharacterSet];
+        v99 = [contextBeforeInput componentsSeparatedByCharactersInSet:whitespaceAndNewlineCharacterSet];
+        lastObject2 = [v99 lastObject];
+
+        candidate9 = [acceptedCopy candidate];
+        if (candidate9)
+        {
+          v102 = candidate9;
+          candidate10 = [acceptedCopy candidate];
+          v104 = objc_msgSend_isEqualToString_(lastObject2);
+
+          if ((v104 & 1) == 0)
+          {
+            contextBeforeInput2 = [v317 contextBeforeInput];
+            candidate11 = [acceptedCopy candidate];
+            v107 = [contextBeforeInput2 stringByAppendingString:candidate11];
+
+            contextBeforeInput = v107;
+          }
+        }
+
+        v108 = objc_alloc(MEMORY[0x277D6F3D8]);
+        v109 = objc_msgSend_string(inputCopy);
+        v110 = objc_msgSend_string(inputCopy);
+        v321 = [v108 initWithCandidate:v109 forInput:v110];
+
+        currentWord13 = [(TITypingSession *)self currentWord];
+        [currentWord13 setIsPunctuationEntryFollowingAWord:1];
+
+        goto LABEL_74;
+      }
+    }
+
+    else
+    {
+    }
+
+    lastObject2 = objc_msgSend_string(inputCopy);
+    if ([lastObject2 isEqual:@" "])
+    {
+      v321 = acceptedCopy;
+LABEL_74:
+
+      goto LABEL_75;
+    }
+
+    isToucanInlineCompletionCandidate2 = [acceptedCopy isToucanInlineCompletionCandidate];
+
+    if ((isToucanInlineCompletionCandidate2 & 1) == 0)
+    {
+      candidate12 = [acceptedCopy candidate];
+      v119 = objc_msgSend_string(inputCopy);
+      v120 = [candidate12 stringByAppendingString:v119];
+      v321 = [acceptedCopy candidateByReplacingWithCandidate:v120];
+
+      lastObject2 = [(TITypingSession *)self currentWord];
+      [lastObject2 setIsPunctuationEntryFollowingAWord:1];
+      goto LABEL_74;
+    }
+  }
+
+  v321 = acceptedCopy;
+LABEL_75:
+  isContinuousPathConversion = [acceptedCopy isContinuousPathConversion];
+  if (inputCopy)
+  {
+    if ((isContinuousPathConversion & 1) == 0)
+    {
+      v122 = objc_msgSend_string(inputCopy);
+      _containsEmoji = [v122 _containsEmoji];
+
+      if ((_containsEmoji & 1) == 0)
+      {
+        [(TITypingSession *)self setIncludeInputToLastWord:1];
+        currentWord14 = [(TITypingSession *)self currentWord];
+        [currentWord14 setInputTriggeredTextAccepted:inputCopy];
+      }
+    }
+  }
+
+  candidate13 = [v321 candidate];
+  currentWord15 = [(TITypingSession *)self currentWord];
+  [currentWord15 setAcceptedString:candidate13];
+
+  if ([acceptedCopy isContinuousPathConversion] && !selection)
+  {
+    currentWord16 = [(TITypingSession *)self currentWord];
+    acceptedString3 = [currentWord16 acceptedString];
+    whitespaceCharacterSet2 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
+    v130 = [acceptedString3 stringByTrimmingCharactersInSet:whitespaceCharacterSet2];
+    currentWord17 = [(TITypingSession *)self currentWord];
+    [currentWord17 setAcceptedString:v130];
+
+    v35 = v328;
+  }
+
+  currentWord18 = [(TITypingSession *)self currentWord];
+  [currentWord18 setAcceptedCandidate:v321];
+
+  currentWord19 = [(TITypingSession *)self currentWord];
+  [currentWord19 setInputContext:contextCopy];
+
+  currentWord20 = [(TITypingSession *)self currentWord];
+  [currentWord20 setInputStem:stemCopy];
+
+  currentWord21 = [(TITypingSession *)self currentWord];
+  allTouches = [currentWord21 allTouches];
+  lastObject3 = [allTouches lastObject];
+  [lastObject3 timestamp];
+  v139 = v138;
+  currentWord22 = [(TITypingSession *)self currentWord];
+  [currentWord22 setEndTime:v139];
+
+  currentWord23 = [(TITypingSession *)self currentWord];
+  allTouches2 = [currentWord23 allTouches];
+  firstObject = [allTouches2 firstObject];
+  [firstObject timestamp];
+  v145 = v144;
+  currentWord24 = [(TITypingSession *)self currentWord];
+  [currentWord24 setStartTime:v145];
+
+  currentWord25 = [(TITypingSession *)self currentWord];
+  [currentWord25 setKeyboardState:v35];
+
+  candidate14 = [v321 candidate];
+  v149 = [candidate14 length];
+
+  if (v149 && !selection)
+  {
+    contextBeforeInput3 = [v317 contextBeforeInput];
+    if ([contextBeforeInput3 hasSuffix:stemCopy])
+    {
+    }
+
+    else
+    {
+      contextBeforeInput4 = [v317 contextBeforeInput];
+      candidate15 = [v321 candidate];
+      v153 = [contextBeforeInput4 hasSuffix:candidate15];
+
+      if (!v153)
+      {
+        goto LABEL_90;
+      }
+    }
+
+    contextBeforeInput5 = [v317 contextBeforeInput];
+    v155 = [contextBeforeInput5 length];
+    candidate16 = [v321 candidate];
+    v157 = v155 - [candidate16 length];
+
+    if ((v157 & 0x8000000000000000) == 0)
+    {
+      contextBeforeInput6 = [v317 contextBeforeInput];
+      v159 = [contextBeforeInput6 substringToIndex:v157];
+
+      contextBeforeInput = v159;
+    }
+  }
+
+LABEL_90:
+  if (v317)
+  {
+    v160 = objc_alloc(MEMORY[0x277D6F350]);
+    markedText = [v317 markedText];
+    selectedText = [v317 selectedText];
+    contextAfterInput = [v317 contextAfterInput];
+    selectedRangeInMarkedText = [v317 selectedRangeInMarkedText];
+    v166 = [v160 initWithContextBefore:contextBeforeInput markedText:markedText selectedText:selectedText contextAfter:contextAfterInput selectedRangeInMarkedText:{selectedRangeInMarkedText, v165}];
+    currentWord26 = [(TITypingSession *)self currentWord];
+    [currentWord26 setDocumentState:v166];
+
+    v35 = v328;
+  }
+
+  if (selection)
+  {
+    currentWord27 = [(TITypingSession *)self currentWord];
+    [currentWord27 setCandidateIndex:index];
+  }
+
+  currentWord28 = [(TITypingSession *)self currentWord];
+  acceptedCandidate3 = [currentWord28 acceptedCandidate];
+  isContinuousPathConversion2 = [acceptedCandidate3 isContinuousPathConversion];
+
+  if (isContinuousPathConversion2)
+  {
+    currentWord29 = [(TITypingSession *)self currentWord];
+    allTouchesM = [currentWord29 allTouchesM];
+    if ([allTouchesM count])
+    {
+      currentWord30 = [(TITypingSession *)self currentWord];
+      allTouchesM2 = [currentWord30 allTouchesM];
+      v176 = [allTouchesM2 objectAtIndexedSubscript:0];
+      stage = [v176 stage];
+
+      v35 = v328;
+      if (stage != 1)
+      {
+        goto LABEL_109;
+      }
+    }
+
+    else
+    {
+    }
+
+    touchesHistory = [(TITypingSession *)self touchesHistory];
+    v179 = MEMORY[0x277CCABB0];
+    touchEvent = [inputCopy touchEvent];
+    v181 = [v179 numberWithInteger:{objc_msgSend(touchEvent, "pathIndex")}];
+    v182 = [touchesHistory objectForKey:v181];
+
+    if ([v182 count])
+    {
+      currentWord31 = [(TITypingSession *)self currentWord];
+      allTouchesM3 = [currentWord31 allTouchesM];
+      [allTouchesM3 removeAllObjects];
+
+      v340 = 0u;
+      v338 = 0u;
+      v339 = 0u;
+      v337 = 0u;
+      v185 = v182;
+      v186 = [v185 countByEnumeratingWithState:&v337 objects:v348 count:16];
+      if (v186)
+      {
+        v187 = v186;
+        v188 = *v338;
+        do
+        {
+          for (i = 0; i != v187; ++i)
+          {
+            if (*v338 != v188)
+            {
+              objc_enumerationMutation(v185);
+            }
+
+            v190 = *(*(&v337 + 1) + 8 * i);
+            currentWord32 = [(TITypingSession *)self currentWord];
+            touch = [v190 touch];
+            [currentWord32 addTouchEvent:touch withLayoutId:{objc_msgSend(v190, "layoutId")}];
+
+            lastWord14 = [(TITypingSession *)self lastWord];
+            allTouchesM4 = [lastWord14 allTouchesM];
+            touch2 = [v190 touch];
+            [allTouchesM4 removeObject:touch2];
+          }
+
+          v187 = [v185 countByEnumeratingWithState:&v337 objects:v348 count:16];
+        }
+
+        while (v187);
+      }
+
+      v28 = inputCopy;
+      v35 = v328;
+    }
+  }
+
+LABEL_109:
+  if (IXACanLogMessageAtLevel())
+  {
+    v196 = IXASessionDetailsLogFacility();
+    if (os_log_type_enabled(v196, OS_LOG_TYPE_DEBUG))
+    {
+      v253 = MEMORY[0x277CCACA8];
+      currentWord33 = [(TITypingSession *)self currentWord];
+      v255 = wordEntryDetailForLog(currentWord33, 0);
+      v255 = [v253 stringWithFormat:@"%s %@", "-[TITypingSession candidateAccepted:withInput:documentState:inputContext:inputStem:predictionBarHit:useCandidateSelection:candidateIndex:keyboardState:]", v255];
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = v255;
+      _os_log_debug_impl(&dword_22CA55000, v196, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
+    }
+  }
+
+  currentWord34 = [(TITypingSession *)self currentWord];
+  acceptedCandidate4 = [currentWord34 acceptedCandidate];
+  isToucanInlineCompletionCandidate3 = [acceptedCandidate4 isToucanInlineCompletionCandidate];
+
+  if (!isToucanInlineCompletionCandidate3)
+  {
+    goto LABEL_172;
+  }
+
+  currentWord35 = [(TITypingSession *)self currentWord];
+  allKeyboardInputs2 = [currentWord35 allKeyboardInputs];
+  v202 = [allKeyboardInputs2 count];
+
+  if (!v202)
+  {
+    currentWord36 = [(TITypingSession *)self currentWord];
+    acceptedCandidate5 = [currentWord36 acceptedCandidate];
+
+    input2 = [acceptedCandidate5 input];
+    if ([input2 endsInWhitespace])
+    {
+      candidate17 = [acceptedCandidate5 candidate];
+      input3 = [acceptedCandidate5 input];
+      v208 = [candidate17 hasPrefix:input3];
+
+      if (!v208)
+      {
+LABEL_119:
+
+        goto LABEL_120;
+      }
+
+      currentWord37 = [(TITypingSession *)self currentWord];
+      documentState = [currentWord37 documentState];
+      candidate18 = [acceptedCandidate5 candidate];
+      input4 = [acceptedCandidate5 input];
+      v212 = [candidate18 substringToIndex:{objc_msgSend(input4, "length")}];
+      v213 = [documentState documentStateAfterInsertingText:v212];
+      currentWord38 = [(TITypingSession *)self currentWord];
+      [currentWord38 setDocumentState:v213];
+
+      v35 = v328;
+      candidate19 = [acceptedCandidate5 candidate];
+      input5 = [acceptedCandidate5 input];
+      v217 = [candidate19 substringFromIndex:{objc_msgSend(input5, "length")}];
+      currentWord39 = [(TITypingSession *)self currentWord];
+      [currentWord39 setAcceptedString:v217];
+
+      input2 = [(TITypingSession *)self currentWord];
+      acceptedString4 = [input2 acceptedString];
+      v220 = [acceptedCandidate5 candidateByReplacingWithCandidate:acceptedString4 input:&stru_283FDFAF8 rawInput:&stru_283FDFAF8];
+      currentWord40 = [(TITypingSession *)self currentWord];
+      [currentWord40 setAcceptedCandidate:v220];
+    }
+
+    goto LABEL_119;
+  }
+
+LABEL_120:
+  currentWord41 = [(TITypingSession *)self currentWord];
+  acceptedString5 = [currentWord41 acceptedString];
+  v224 = [acceptedString5 componentsSeparatedByString:@" "];
+
+  if ([v224 count] >= 2)
+  {
+    if (!v28)
+    {
+      v252 = 0;
+      v325 = 0;
+      goto LABEL_165;
+    }
+
+    currentWord42 = [(TITypingSession *)self currentWord];
+    allTouchesM5 = [currentWord42 allTouchesM];
+    if ([allTouchesM5 count] < 3)
+    {
+      v252 = 0;
+      v325 = 0;
+    }
+
+    else
+    {
+      v311 = v224;
+      currentWord43 = [(TITypingSession *)self currentWord];
+      [currentWord43 touchLayoutsM];
+      v229 = v228 = allTouchesM5;
+      v324 = [v229 count];
+      currentWord44 = [(TITypingSession *)self currentWord];
+      allTouchesM6 = [currentWord44 allTouchesM];
+      v232 = [allTouchesM6 count];
+
+      if (v324 != v232)
+      {
+        v252 = 0;
+        v325 = 0;
+        v35 = v328;
+        v224 = v311;
+        goto LABEL_165;
+      }
+
+      v233 = 0x277CCA000uLL;
+      indexSet = [MEMORY[0x277CCAB58] indexSet];
+      indexSet2 = [MEMORY[0x277CCAB58] indexSet];
+      currentWord45 = [(TITypingSession *)self currentWord];
+      allTouchesM7 = [currentWord45 allTouchesM];
+      v236 = [allTouchesM7 count];
+
+      v237 = (v236 - 1);
+      if (v236 - 1 < 0)
+      {
+        v250 = 0;
+        v251 = 0;
+        v313 = 0;
+        v307 = 0;
+      }
+
+      else
+      {
+        v307 = 0;
+        v313 = 0;
+        pathIndex2 = -1;
+        pathIndex = -1;
+        do
+        {
+          currentWord46 = [(TITypingSession *)self currentWord];
+          allTouchesM8 = [currentWord46 allTouchesM];
+          v242 = [allTouchesM8 objectAtIndexedSubscript:v237];
+
+          currentWord47 = [(TITypingSession *)self currentWord];
+          touchLayoutsM = [currentWord47 touchLayoutsM];
+          v245 = [touchLayoutsM objectAtIndexedSubscript:v237];
+
+          if ([v242 pathIndex] == pathIndex)
+          {
+            [indexSet addIndex:v237];
+            if (![v242 stage])
+            {
+              if (!v313)
+              {
+                v313 = -[TITypingSession keyStringWithCode:fromLayoutIndex:](self, "keyStringWithCode:fromLayoutIndex:", [v242 forcedKeyCode], v245);
+              }
+
+              pathIndex = -2;
+            }
+          }
+
+          else if ([v242 pathIndex] == pathIndex2)
+          {
+            [indexSet2 addIndex:v237];
+            if (![v242 stage])
+            {
+              if (!v307)
+              {
+                v307 = -[TITypingSession keyStringWithCode:fromLayoutIndex:](self, "keyStringWithCode:fromLayoutIndex:", [v242 forcedKeyCode], v245);
+              }
+
+              pathIndex2 = -2;
+            }
+          }
+
+          else if (pathIndex == -1)
+          {
+            if ([v242 stage] == 2)
+            {
+              [indexSet addIndex:v237];
+              pathIndex = [v242 pathIndex];
+              v247 = -[TITypingSession keyStringWithCode:fromLayoutIndex:](self, "keyStringWithCode:fromLayoutIndex:", [v242 forcedKeyCode], v245);
+
+              v313 = v247;
+            }
+
+            else
+            {
+              pathIndex = -3;
+            }
+          }
+
+          else if (pathIndex2 == -1)
+          {
+            if ([v242 stage] == 2)
+            {
+              [indexSet2 addIndex:v237];
+              pathIndex2 = [v242 pathIndex];
+              v246 = -[TITypingSession keyStringWithCode:fromLayoutIndex:](self, "keyStringWithCode:fromLayoutIndex:", [v242 forcedKeyCode], v245);
+
+              v307 = v246;
+            }
+
+            else
+            {
+              pathIndex2 = -3;
+            }
+          }
+
+          if ((pathIndex2 + 1) >= 0xFFFFFFFFFFFFFFFELL && (pathIndex + 1) >= 0xFFFFFFFFFFFFFFFELL)
+          {
+            break;
+          }
+        }
+
+        while (v237-- > 0);
+        v250 = pathIndex == -2;
+        v251 = pathIndex2 == -2;
+        v233 = 0x277CCA000;
+      }
+
+      indexSet3 = [*(v233 + 2904) indexSet];
+      v35 = v328;
+      v224 = v311;
+      if (v250)
+      {
+        v258 = objc_msgSend_string(v28);
+        v259 = objc_msgSend_isEqualToString_(v313);
+
+        if (v259)
+        {
+          [indexSet3 addIndexes:indexSet];
+          if (v251)
+          {
+            if (objc_msgSend_isEqualToString_(v307))
+            {
+              [indexSet3 addIndexes:indexSet2];
+            }
+          }
+        }
+      }
+
+      if ([indexSet3 count])
+      {
+        currentWord48 = [(TITypingSession *)self currentWord];
+        allTouchesM9 = [currentWord48 allTouchesM];
+        v252 = [allTouchesM9 objectsAtIndexes:indexSet3];
+
+        currentWord49 = [(TITypingSession *)self currentWord];
+        touchLayoutsM2 = [currentWord49 touchLayoutsM];
+        v325 = [touchLayoutsM2 objectsAtIndexes:indexSet3];
+
+        currentWord50 = [(TITypingSession *)self currentWord];
+        allTouchesM10 = [currentWord50 allTouchesM];
+        [allTouchesM10 removeObjectsAtIndexes:indexSet3];
+
+        currentWord51 = [(TITypingSession *)self currentWord];
+        touchLayoutsM3 = [currentWord51 touchLayoutsM];
+        [touchLayoutsM3 removeObjectsAtIndexes:indexSet3];
+      }
+
+      else
+      {
+        v252 = 0;
+        v325 = 0;
+      }
+
+      currentWord42 = indexSet;
+
+      allTouchesM5 = indexSet2;
+    }
+
+LABEL_165:
+    currentWord52 = [(TITypingSession *)self currentWord];
+    acceptedCandidate6 = [currentWord52 acceptedCandidate];
+
+    currentWord53 = [(TITypingSession *)self currentWord];
+    keyboardState = [currentWord53 keyboardState];
+
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v344 = 0x3032000000;
+    v345 = __Block_byref_object_copy__23396;
+    v346 = __Block_byref_object_dispose__23397;
+    currentWord54 = [(TITypingSession *)self currentWord];
+    documentState2 = [currentWord54 documentState];
+
+    currentWord55 = [(TITypingSession *)self currentWord];
+    [currentWord55 endTime];
+    v275 = v274;
+
+    v329[0] = MEMORY[0x277D85DD0];
+    v329[1] = 3221225472;
+    v329[2] = __152__TITypingSession_candidateAccepted_withInput_documentState_inputContext_inputStem_predictionBarHit_useCandidateSelection_candidateIndex_keyboardState___block_invoke;
+    v329[3] = &unk_2787335D0;
+    v320 = acceptedCandidate6;
+    v330 = v320;
+    p_buf = &buf;
+    v314 = keyboardState;
+    v331 = v314;
+    selfCopy = self;
+    v333 = v224;
+    v334 = v35;
+    v336 = v275;
+    [v333 enumerateObjectsUsingBlock:v329];
+    v276 = v252;
+    v277 = v325;
+    if (v252 && v325)
+    {
+      v278 = [v252 mutableCopy];
+      currentWord56 = [(TITypingSession *)self currentWord];
+      [currentWord56 setAllTouchesM:v278];
+
+      v280 = [v325 mutableCopy];
+      currentWord57 = [(TITypingSession *)self currentWord];
+      [currentWord57 setTouchLayoutsM:v280];
+    }
+
+    v282 = objc_msgSend_string(v28);
+    v283 = [v282 endsInPunctuation] & !selection;
+
+    if (v283 == 1)
+    {
+      currentWord58 = [(TITypingSession *)self currentWord];
+      acceptedCandidate7 = [currentWord58 acceptedCandidate];
+      currentWord59 = [(TITypingSession *)self currentWord];
+      [currentWord59 acceptedCandidate];
+      v285 = v312 = v224;
+      candidate20 = [v285 candidate];
+      v287 = objc_msgSend_string(v28);
+      [candidate20 stringByAppendingString:v287];
+      v288 = v315 = v276;
+      v289 = [acceptedCandidate7 candidateByReplacingWithCandidate:v288];
+      currentWord60 = [(TITypingSession *)self currentWord];
+      [currentWord60 setAcceptedCandidate:v289];
+
+      v35 = v328;
+      v224 = v312;
+
+      currentWord61 = [(TITypingSession *)self currentWord];
+      acceptedCandidate8 = [currentWord61 acceptedCandidate];
+      candidate21 = [acceptedCandidate8 candidate];
+      currentWord62 = [(TITypingSession *)self currentWord];
+      [currentWord62 setAcceptedString:candidate21];
+
+      v277 = v325;
+      v276 = v315;
+
+      currentWord63 = [(TITypingSession *)self currentWord];
+      [currentWord63 setIsPunctuationEntryFollowingAWord:1];
+    }
+
+    _Block_object_dispose(&buf, 8);
+  }
+
+LABEL_172:
+  currentWord64 = [(TITypingSession *)self currentWord];
+  [currentWord64 setOrigin:4];
+
+  userActionHistory2 = [(TITypingSession *)self userActionHistory];
+  currentWord65 = [(TITypingSession *)self currentWord];
+  [userActionHistory2 addObject:currentWord65];
+
+  stateCopy = v317;
+  if (IXACanLogMessageAtLevel())
+  {
+    v299 = IXASessionDetailsLogFacility();
+    if (os_log_type_enabled(v299, OS_LOG_TYPE_DEBUG))
+    {
+      v302 = MEMORY[0x277CCACA8];
+      currentWord66 = [(TITypingSession *)self currentWord];
+      v304 = wordEntryDetailForLog(currentWord66, 3);
+      v304 = [v302 stringWithFormat:@"%s %@", "-[TITypingSession candidateAccepted:withInput:documentState:inputContext:inputStem:predictionBarHit:useCandidateSelection:candidateIndex:keyboardState:]", v304];
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = v304;
+      _os_log_debug_impl(&dword_22CA55000, v299, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
+
+      stateCopy = v317;
+    }
+  }
+
+  if (IXACanLogMessageAtLevel())
+  {
+    v300 = IXASessionDetailsLogFacility();
+    if (os_log_type_enabled(v300, OS_LOG_TYPE_DEBUG))
+    {
+      v306 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s CA detail ----------------", "-[TITypingSession candidateAccepted:withInput:documentState:inputContext:inputStem:predictionBarHit:useCandidateSelection:candidateIndex:keyboardState:]"];
+      LODWORD(buf) = 138412290;
+      *(&buf + 4) = v306;
+      _os_log_debug_impl(&dword_22CA55000, v300, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
+    }
+  }
+
+  currentWord67 = [(TITypingSession *)self currentWord];
+  [(TITypingSession *)self setLastWord:currentWord67];
+
+  [(TITypingSession *)self resetCurrentWord];
+  [(TITypingSession *)self setCandidateAcceptedTrigger:*MEMORY[0x277D6F5A8]];
+
+LABEL_20:
+}
+
+void __152__TITypingSession_candidateAccepted_withInput_documentState_inputContext_inputStem_predictionBarHit_useCandidateSelection_candidateIndex_keyboardState___block_invoke(uint64_t a1, void *a2, char *a3)
+{
+  v92 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if (a3)
   {
@@ -826,7 +2111,7 @@ void __152__TITypingSession_candidateAccepted_withInput_documentState_inputConte
         v29 = wordEntryDetailForLog(v6, 2);
         v30 = [v28 stringWithFormat:@"%s %@", "-[TITypingSession candidateAccepted:withInput:documentState:inputContext:inputStem:predictionBarHit:useCandidateSelection:candidateIndex:keyboardState:]_block_invoke", v29];
         *buf = 138412290;
-        v92 = v30;
+        v91 = v30;
 LABEL_13:
         _os_log_debug_impl(&dword_22CA55000, v27, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
 
@@ -914,11 +2199,11 @@ LABEL_13:
       v27 = IXASessionDetailsLogFacility();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        v90 = MEMORY[0x277CCACA8];
+        v89 = MEMORY[0x277CCACA8];
         v29 = wordEntryDetailForLog(v6, 1);
-        v30 = [v90 stringWithFormat:@"%s %@", "-[TITypingSession candidateAccepted:withInput:documentState:inputContext:inputStem:predictionBarHit:useCandidateSelection:candidateIndex:keyboardState:]_block_invoke", v29];
+        v30 = [v89 stringWithFormat:@"%s %@", "-[TITypingSession candidateAccepted:withInput:documentState:inputContext:inputStem:predictionBarHit:useCandidateSelection:candidateIndex:keyboardState:]_block_invoke", v29];
         *buf = 138412290;
-        v92 = v30;
+        v91 = v30;
         goto LABEL_13;
       }
 
@@ -927,12 +2212,11 @@ LABEL_8:
   }
 
 LABEL_11:
-  v89 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acceptingCandidateWithTrigger:(id)trigger
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   triggerCopy = trigger;
   if (IXACanLogMessageAtLevel())
   {
@@ -941,20 +2225,18 @@ LABEL_11:
     {
       triggerCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TA trigger: %@", "-[TITypingSession acceptingCandidateWithTrigger:]", triggerCopy];
       *buf = 138412290;
-      v10 = triggerCopy;
+      v9 = triggerCopy;
       _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
   candidateAcceptedTrigger = self->_candidateAcceptedTrigger;
   self->_candidateAcceptedTrigger = triggerCopy;
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)candidatesOffered:(id)offered keyboardState:(id)state
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   offeredCopy = offered;
   stateCopy = state;
   if (IXACanLogMessageAtLevel())
@@ -962,13 +2244,13 @@ LABEL_11:
     v8 = IXASessionEventsLogFacility();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v14 = MEMORY[0x277CCACA8];
+      v13 = MEMORY[0x277CCACA8];
       corrections = [offeredCopy corrections];
       autocorrection = [corrections autocorrection];
       predictions = [offeredCopy predictions];
-      v18 = [v14 stringWithFormat:@"%s CO autocorrection: %@ predictions: %@", "-[TITypingSession candidatesOffered:keyboardState:]", autocorrection, predictions];
+      v17 = [v13 stringWithFormat:@"%s CO autocorrection: %@ predictions: %@", "-[TITypingSession candidatesOffered:keyboardState:]", autocorrection, predictions];
       *buf = 138412290;
-      v20 = v18;
+      v19 = v17;
       _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -1001,13 +2283,11 @@ LABEL_11:
 
   [(TITypingSession *)self setDidReceiveSecureFieldEvent:1];
 LABEL_12:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutDidChange:(id)change keyboardState:(id)state
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   stateCopy = state;
   if (IXACanLogMessageAtLevel())
@@ -1015,9 +2295,9 @@ LABEL_12:
     v8 = IXASessionEventsLogFacility();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s LC firstKeyString: '%s'", "-[TITypingSession layoutDidChange:keyboardState:]", objc_msgSend(changeCopy, "firstKeyString")];
+      v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s LC firstKeyString: '%s'", "-[TITypingSession layoutDidChange:keyboardState:]", objc_msgSend(changeCopy, "firstKeyString")];
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v14;
+      *(&buf + 4) = v13;
       _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
     }
   }
@@ -1031,42 +2311,40 @@ LABEL_12:
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v24 = 0x2020000000;
-    v25 = 1;
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
-    v22 = -1;
+    v23 = 0x2020000000;
+    v24 = 1;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
+    v21 = -1;
     layouts = [(TITypingSession *)self layouts];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __49__TITypingSession_layoutDidChange_keyboardState___block_invoke;
-    v15[3] = &unk_2787335A8;
-    v11 = changeCopy;
-    v16 = v11;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __49__TITypingSession_layoutDidChange_keyboardState___block_invoke;
+    v14[3] = &unk_2787335A8;
+    v10 = changeCopy;
+    v15 = v10;
     p_buf = &buf;
-    v18 = &v19;
-    [layouts enumerateObjectsUsingBlock:v15];
+    v17 = &v18;
+    [layouts enumerateObjectsUsingBlock:v14];
 
     if (*(*(&buf + 1) + 24) == 1)
     {
-      [(NSMutableArray *)self->_layouts addObject:v11];
+      [(NSMutableArray *)self->_layouts addObject:v10];
       layouts2 = [(TITypingSession *)self layouts];
-      v13 = [layouts2 count];
-      v20[3] = v13 - 1;
+      v12 = [layouts2 count];
+      v19[3] = v12 - 1;
     }
 
-    [(TITypingSession *)self setCurrentLayoutID:v20[3]];
+    [(TITypingSession *)self setCurrentLayoutID:v19[3]];
     [(TITypingSession *)self updateCachedStateBeforeFirstInputWithKeyboardState:stateCopy];
 
-    _Block_object_dispose(&v19, 8);
+    _Block_object_dispose(&v18, 8);
     _Block_object_dispose(&buf, 8);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__TITypingSession_layoutDidChange_keyboardState___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__49__TITypingSession_layoutDidChange_keyboardState___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) isEqual:a2];
   if (result)
@@ -1081,7 +2359,7 @@ uint64_t __49__TITypingSession_layoutDidChange_keyboardState___block_invoke(uint
 
 - (void)addTouchEvent:(id)event
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if (IXACanLogMessageAtLevel())
   {
@@ -1090,7 +2368,7 @@ uint64_t __49__TITypingSession_layoutDidChange_keyboardState___block_invoke(uint
     {
       eventCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s TO touch: %@", "-[TITypingSession addTouchEvent:]", eventCopy];
       *buf = 138412290;
-      v49 = eventCopy;
+      v48 = eventCopy;
       _os_log_debug_impl(&dword_22CA55000, v6, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -1101,26 +2379,26 @@ uint64_t __49__TITypingSession_layoutDidChange_keyboardState___block_invoke(uint
     {
       objc_storeStrong(&self->_timeCalibrationTouch, event);
       self->_calibratedTimeBase = CFAbsoluteTimeGetCurrent();
+      v41 = 0u;
       v42 = 0u;
       v43 = 0u;
       v44 = 0u;
-      v45 = 0u;
       v7 = self->_userActionHistory;
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v41 objects:v46 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v43;
+        v10 = *v42;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v43 != v10)
+            if (*v42 != v10)
             {
               objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v42 + 1) + 8 * i);
+            v12 = *(*(&v41 + 1) + 8 * i);
             [eventCopy timestamp];
             v14 = v13;
             calibratedTimeBase = self->_calibratedTimeBase;
@@ -1128,7 +2406,7 @@ uint64_t __49__TITypingSession_layoutDidChange_keyboardState___block_invoke(uint
             [v12 setOccurenceTime:v14 - (calibratedTimeBase + v16)];
           }
 
-          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v42 objects:v47 count:16];
+          v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v41 objects:v46 count:16];
         }
 
         while (v9);
@@ -1145,11 +2423,11 @@ uint64_t __49__TITypingSession_layoutDidChange_keyboardState___block_invoke(uint
       v17 = TIOSLogFacility();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
-        v34 = MEMORY[0x277CCACA8];
+        v33 = MEMORY[0x277CCACA8];
         [eventCopy timestamp];
-        v36 = [v34 stringWithFormat:@"%s touch %lf", "-[TITypingSession addTouchEvent:]", v35];
+        v35 = [v33 stringWithFormat:@"%s touch %lf", "-[TITypingSession addTouchEvent:]", v34];
         *buf = 138412290;
-        v49 = v36;
+        v48 = v35;
         _os_log_debug_impl(&dword_22CA55000, v17, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -1171,37 +2449,37 @@ uint64_t __49__TITypingSession_layoutDidChange_keyboardState___block_invoke(uint
     [v21 addObject:v18];
     if ([eventCopy stage] == 2)
     {
-      v40 = 0u;
-      v41 = 0u;
-      v38 = 0u;
       v39 = 0u;
+      v40 = 0u;
+      v37 = 0u;
+      v38 = 0u;
       touchesHistory2 = v21;
-      v24 = [touchesHistory2 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v24 = [touchesHistory2 countByEnumeratingWithState:&v37 objects:v45 count:16];
       if (v24)
       {
         v25 = v24;
-        v37 = v18;
-        v26 = *v39;
+        v36 = v18;
+        v26 = *v38;
         do
         {
           for (j = 0; j != v25; ++j)
           {
-            if (*v39 != v26)
+            if (*v38 != v26)
             {
               objc_enumerationMutation(touchesHistory2);
             }
 
-            v28 = *(*(&v38 + 1) + 8 * j);
+            v28 = *(*(&v37 + 1) + 8 * j);
             currentWord = [(TITypingSession *)self currentWord];
             touch = [v28 touch];
             [currentWord addTouchEvent:touch withLayoutId:{objc_msgSend(v28, "layoutId")}];
           }
 
-          v25 = [touchesHistory2 countByEnumeratingWithState:&v38 objects:v46 count:16];
+          v25 = [touchesHistory2 countByEnumeratingWithState:&v37 objects:v45 count:16];
         }
 
         while (v25);
-        v18 = v37;
+        v18 = v36;
       }
     }
 
@@ -1223,8 +2501,6 @@ LABEL_35:
   }
 
 LABEL_36:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDrawInputWithSyllableCount:(unint64_t)count keyboardState:(id)state
@@ -1247,7 +2523,7 @@ LABEL_36:
 
 - (void)addKeyInput:(id)input keyboardState:(id)state
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   stateCopy = state;
   if (IXACanLogMessageAtLevel())
@@ -1257,7 +2533,7 @@ LABEL_36:
     {
       inputCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s KI input: %@", "-[TITypingSession addKeyInput:keyboardState:]", inputCopy];
       *buf = 138412290;
-      v18 = inputCopy;
+      v17 = inputCopy;
       _os_log_debug_impl(&dword_22CA55000, v8, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
@@ -1313,8 +2589,6 @@ LABEL_36:
 
     [(TITypingSession *)selfCopy2 setSavedDeleteInputKeyboardState:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)testForRapidDeleteContextChange:(id)change
@@ -1351,7 +2625,7 @@ LABEL_17:
         v17 = contextAfterInput4;
         contextAfterInput5 = [documentState2 contextAfterInput];
         contextAfterInput6 = [documentState contextAfterInput];
-        v12 = [contextAfterInput5 isEqualToString:contextAfterInput6] ^ 1;
+        v12 = objc_msgSend_isEqualToString_(contextAfterInput5) ^ 1;
 
         if (!contextAfterInput3)
         {
@@ -1369,7 +2643,7 @@ LABEL_12:
           if ((v12 & 1) == 0)
           {
             contextBeforeInput = [documentState contextBeforeInput];
-            if (!contextBeforeInput || (v21 = contextBeforeInput, [documentState contextBeforeInput], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "isEqualToString:", &stru_283FDFAF8), v22, v21, v23))
+            if (!contextBeforeInput || (v21 = contextBeforeInput, [documentState contextBeforeInput], v22 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v22), v22, v21, isEqualToString))
             {
               contextBeforeInput2 = [documentState2 contextBeforeInput];
               v13 = [contextBeforeInput2 length] > 1;

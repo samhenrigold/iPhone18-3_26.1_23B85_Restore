@@ -365,7 +365,7 @@
             {
               v50.a = v30 + 0.5;
               v50.b = v27 + 0.5;
-              sub_1001024A4(&v58, &v50.a);
+              sub_1001024A4(&v58, &v50.a, &v50);
             }
 
             v30 = v30 + 1.0;
@@ -530,7 +530,7 @@
           {
             *&v60 = v13 + 0.5;
             *(&v60 + 1) = v10 + 0.5;
-            sub_1001024A4(&v57, &v60);
+            sub_1001024A4(&v57, &v60, &v60);
             v11 = 1;
           }
         }
@@ -1148,9 +1148,9 @@ LABEL_14:
       sub_101327A4C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a line when there is no current point.", v6, v7, v8, v9, v10, v11, v12, "[CRLBezierPath lineToPoint:]");
-    v13 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath lineToPoint:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:587 isFatal:1 description:"Unable to add a line when there is no current point."];
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v13, v14);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a line when there is no current point.", "[CRLBezierPath lineToPoint:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 587);
+    v6 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath lineToPoint:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:587 isFatal:1 description:"Unable to add a line when there is no current point."];
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v6, v7);
     abort();
   }
 
@@ -1181,9 +1181,9 @@ LABEL_14:
       sub_101327A4C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a curve when there is no current point.", v11, v12, v13, v14, v15, v16, v17, "[CRLBezierPath curveToPoint:controlPoint:]");
-    v18 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath curveToPoint:controlPoint:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:593 isFatal:1 description:"Unable to add a curve when there is no current point."];
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v18, v19);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a curve when there is no current point.", "[CRLBezierPath curveToPoint:controlPoint:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 593);
+    v11 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath curveToPoint:controlPoint:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:593 isFatal:1 description:"Unable to add a curve when there is no current point."];
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v11, v12);
     abort();
   }
 
@@ -1218,9 +1218,9 @@ LABEL_14:
       sub_101327A4C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a curve when there is no current point.", v12, v13, v14, v15, v16, v17, v18, "[CRLBezierPath curveToPoint:controlPoint1:controlPoint2:]");
-    v19 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath curveToPoint:controlPoint1:controlPoint2:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:607 isFatal:1 description:"Unable to add a curve when there is no current point."];
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v19, v20);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a curve when there is no current point.", "[CRLBezierPath curveToPoint:controlPoint1:controlPoint2:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 607);
+    v12 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath curveToPoint:controlPoint1:controlPoint2:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:607 isFatal:1 description:"Unable to add a curve when there is no current point."];
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v12, v13);
     abort();
   }
 
@@ -2427,16 +2427,16 @@ LABEL_19:
         if (v6 == v12 && v13 >= 4)
         {
           [(CRLBezierPath *)self bounds];
-          x = v32.origin.x;
-          y = v32.origin.y;
-          width = v32.size.width;
-          height = v32.size.height;
-          MaxX = CGRectGetMaxX(v32);
-          v33.origin.x = x;
-          v33.origin.y = y;
-          v33.size.width = width;
-          v33.size.height = height;
-          MaxY = CGRectGetMaxY(v33);
+          x = v31.origin.x;
+          y = v31.origin.y;
+          width = v31.size.width;
+          height = v31.size.height;
+          MaxX = CGRectGetMaxX(v31);
+          v32.origin.x = x;
+          v32.origin.y = y;
+          v32.size.width = width;
+          v32.size.height = height;
+          MaxY = CGRectGetMaxY(v32);
           v20 = 0;
           v21 = v29;
           while (1)
@@ -2458,11 +2458,11 @@ LABEL_19:
             if (v20 > v10)
             {
               v23 = 0;
-              v24 = &v30;
+              v24 = v29 + 1;
               v25 = 1;
               while (1)
               {
-                v26 = &v29[16 * (v25 % (v10 + 1))];
+                v26 = &v29[v25 % (v10 + 1)];
                 v27 = vabdd_f64(*v26, *(v24 - 1));
                 if (v27 > 0.01 != vabdd_f64(v26[1], *v24) <= 0.01 || v25 != 1 && ((v23 ^ (v27 > 0.01)) & 1) == 0)
                 {
@@ -2592,9 +2592,9 @@ LABEL_12:
       sub_101327A4C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Can not get the current point of an empty path.", v6, v7, v8, v9, v10, v11, v12, "[CRLBezierPath currentPoint]");
-    v13 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath currentPoint]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1520 isFatal:1 description:"Can not get the current point of an empty path."];
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v13, v14);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Can not get the current point of an empty path.", "[CRLBezierPath currentPoint]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1520);
+    v6 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath currentPoint]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1520 isFatal:1 description:"Can not get the current point of an empty path."];
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v6, v7);
     abort();
   }
 
@@ -2626,9 +2626,9 @@ LABEL_12:
       sub_101327A4C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Can not determine control point bounds for an empty path.", v23, v24, v25, v26, v27, v28, v29, "[CRLBezierPath controlPointBounds]");
-    v30 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath controlPointBounds]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1529 isFatal:1 description:"Can not determine control point bounds for an empty path."];
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v30, v31);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Can not determine control point bounds for an empty path.", "[CRLBezierPath controlPointBounds]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1529);
+    v23 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath controlPointBounds]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1529 isFatal:1 description:"Can not determine control point bounds for an empty path."];
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v23, v24);
     abort();
   }
 
@@ -2923,10 +2923,9 @@ LABEL_12:
       sub_101327A4C();
     }
 
-    v19 = self->sfr_elementCount;
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", v10, v11, v12, v13, v14, v15, v16, "[CRLBezierPath calculateLengthOfElement:]");
-    v17 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath calculateLengthOfElement:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1722 isFatal:1 description:"Given index (%zd) must be within bounds [0, %zd].", element, self->sfr_elementCount, 1722, element, v19);
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v17, v18);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", "[CRLBezierPath calculateLengthOfElement:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1722, element, self->sfr_elementCount);
+    v10 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath calculateLengthOfElement:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1722 isFatal:1 description:"Given index (%zd) must be within bounds [0, %zd].", element, self->sfr_elementCount);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v10, v11);
     abort();
   }
 
@@ -2947,9 +2946,9 @@ LABEL_12:
 
   if (v3 == 2)
   {
-    v20 = 0.0;
-    sub_1001A7838(buf, &v20);
-    return v20;
+    v12 = 0.0;
+    sub_1001A7838(buf, &v12);
+    return v12;
   }
 
   else
@@ -3007,17 +3006,17 @@ LABEL_12:
     {
       sfr_elementCount = self->sfr_elementCount;
       *buf = 67110402;
-      v20 = v6;
-      v21 = 2082;
-      v22 = "[CRLBezierPath lengthOfElement:]";
-      v23 = 2082;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
-      v25 = 1024;
-      v26 = 1775;
-      v27 = 2048;
+      v12 = v6;
+      v13 = 2082;
+      v14 = "[CRLBezierPath lengthOfElement:]";
+      v15 = 2082;
+      v16 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
+      v17 = 1024;
+      v18 = 1775;
+      v19 = 2048;
       elementCopy = element;
-      v29 = 2048;
-      v30 = sfr_elementCount;
+      v21 = 2048;
+      v22 = sfr_elementCount;
       _os_log_error_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", buf, 0x36u);
       if (qword_101AD5A10 != -1)
       {
@@ -3030,10 +3029,9 @@ LABEL_12:
       sub_101327A4C();
     }
 
-    v18 = self->sfr_elementCount;
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", v9, v10, v11, v12, v13, v14, v15, "[CRLBezierPath lengthOfElement:]");
-    v16 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath lengthOfElement:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1775 isFatal:1 description:"Given index (%zd) must be within bounds [0, %zd].", element, self->sfr_elementCount, 1775, element, v18);
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v16, v17);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", "[CRLBezierPath lengthOfElement:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1775, element, self->sfr_elementCount);
+    v9 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath lengthOfElement:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1775 isFatal:1 description:"Given index (%zd) must be within bounds [0, %zd].", element, self->sfr_elementCount);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v9, v10);
     abort();
   }
 
@@ -3066,9 +3064,9 @@ LABEL_12:
       sub_101327A4C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must not be negative.", v11, v12, v13, v14, v15, v16, v17, "[CRLBezierPath lengthToElement:]");
-    elementCopy = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath lengthToElement:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1785 isFatal:1 description:"Given index (%zd) must not be negative.", elementCopy, "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1785, elementCopy];
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(elementCopy, v19);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must not be negative.", "[CRLBezierPath lengthToElement:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1785, elementCopy);
+    elementCopy = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath lengthToElement:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1785 isFatal:1 description:"Given index (%zd) must not be negative.", elementCopy];
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(elementCopy, v12);
     abort();
   }
 
@@ -3085,17 +3083,17 @@ LABEL_12:
     {
       sfr_elementCount = self->sfr_elementCount;
       *buf = 67110402;
-      v21 = v8;
-      v22 = 2082;
-      v23 = "[CRLBezierPath lengthToElement:]";
-      v24 = 2082;
-      v25 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
-      v26 = 1024;
-      v27 = 1788;
-      v28 = 2048;
-      v29 = elementCopy;
-      v30 = 2048;
-      v31 = sfr_elementCount;
+      v14 = v8;
+      v15 = 2082;
+      v16 = "[CRLBezierPath lengthToElement:]";
+      v17 = 2082;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
+      v19 = 1024;
+      v20 = 1788;
+      v21 = 2048;
+      v22 = elementCopy;
+      v23 = 2048;
+      v24 = sfr_elementCount;
       _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Given index (%zd) must not be greater than or equal to max element (%zd)", buf, 0x36u);
       if (qword_101AD5A10 != -1)
       {
@@ -3157,17 +3155,17 @@ LABEL_12:
     {
       sfr_elementCount = self->sfr_elementCount;
       *buf = 67110402;
-      v49 = v11;
-      v50 = 2082;
-      v51 = "[CRLBezierPath elementAtIndex:associatedPoints:]";
-      v52 = 2082;
-      v53 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
-      v54 = 1024;
-      v55 = 1816;
-      v56 = 2048;
-      indexCopy2 = index;
-      v58 = 2048;
-      v59 = sfr_elementCount;
+      v31 = v11;
+      v32 = 2082;
+      v33 = "[CRLBezierPath elementAtIndex:associatedPoints:]";
+      v34 = 2082;
+      v35 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
+      v36 = 1024;
+      v37 = 1816;
+      v38 = 2048;
+      indexCopy3 = index;
+      v40 = 2048;
+      v41 = sfr_elementCount;
       _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", buf, 0x36u);
       if (qword_101AD5A10 != -1)
       {
@@ -3180,9 +3178,14 @@ LABEL_12:
       sub_101327A4C();
     }
 
-    v46 = self->sfr_elementCount;
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", v14, v15, v16, v17, v18, v19, v20, "[CRLBezierPath elementAtIndex:associatedPoints:]");
-    v21 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath elementAtIndex:associatedPoints:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1816 isFatal:1 description:"Given index (%zd) must be within bounds [0, %zd].", index, self->sfr_elementCount, 1816, index, v46);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", "[CRLBezierPath elementAtIndex:associatedPoints:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1816, index, self->sfr_elementCount);
+    v14 = [NSString stringWithUTF8String:"[CRLBezierPath elementAtIndex:associatedPoints:]"];
+    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"];
+    indexCopy2 = index;
+    v29 = self->sfr_elementCount;
+    v16 = "Given index (%zd) must be within bounds [0, %zd).";
+    v17 = v14;
+    v18 = 1816;
     goto LABEL_18;
   }
 
@@ -3199,29 +3202,29 @@ LABEL_8:
     v5 = *v4 >> 4;
     if (v5 >= self->sfr_extraSegmentCount)
     {
-      v26 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v24 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_1013286B4();
       }
 
-      v27 = off_1019EDA68;
+      v25 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
         sfr_extraSegmentCount = self->sfr_extraSegmentCount;
         *buf = 67110402;
-        v49 = v26;
-        v50 = 2082;
-        v51 = "[CRLBezierPath elementAtIndex:associatedPoints:]";
-        v52 = 2082;
-        v53 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
-        v54 = 1024;
-        v55 = 1822;
-        v56 = 2048;
-        indexCopy2 = index;
-        v58 = 2048;
-        v59 = sfr_extraSegmentCount;
-        _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Extra index (%zd) must be within extra segment bounds [0, %zd).", buf, 0x36u);
+        v31 = v24;
+        v32 = 2082;
+        v33 = "[CRLBezierPath elementAtIndex:associatedPoints:]";
+        v34 = 2082;
+        v35 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
+        v36 = 1024;
+        v37 = 1822;
+        v38 = 2048;
+        indexCopy3 = index;
+        v40 = 2048;
+        v41 = sfr_extraSegmentCount;
+        _os_log_error_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Extra index (%zd) must be within extra segment bounds [0, %zd).", buf, 0x36u);
         if (qword_101AD5A10 != -1)
         {
           sub_1013286C8();
@@ -3233,46 +3236,48 @@ LABEL_8:
         sub_101327A4C();
       }
 
-      v47 = self->sfr_extraSegmentCount;
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Extra index (%zd) must be within extra segment bounds [0, %zd).", v29, v30, v31, v32, v33, v34, v35, "[CRLBezierPath elementAtIndex:associatedPoints:]");
-      v21 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath elementAtIndex:associatedPoints:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1822 isFatal:1 description:"Extra index (%zd) must be within extra segment bounds [0, %zd].", index, self->sfr_extraSegmentCount, 1822, index, v47);
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Extra index (%zd) must be within extra segment bounds [0, %zd).", "[CRLBezierPath elementAtIndex:associatedPoints:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1822, index, self->sfr_extraSegmentCount);
+      v19 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath elementAtIndex:associatedPoints:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1822 isFatal:1 description:"Extra index (%zd) must be within extra segment bounds [0, %zd].", index, self->sfr_extraSegmentCount);
+LABEL_19:
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v19, *&v20);
+      abort();
     }
 
-    else
+    sfr_extraSegments = self->sfr_extraSegments;
+    if (sfr_extraSegments)
     {
-      sfr_extraSegments = self->sfr_extraSegments;
-      if (sfr_extraSegments)
-      {
-        v7 = &sfr_extraSegments[32 * v5];
-        *points = *v7;
-        points[1] = v7[1];
-        points += 2;
-        goto LABEL_8;
-      }
-
-      +[CRLAssertionHandler _atomicIncrementAssertCount];
-      if (qword_101AD5A10 != -1)
-      {
-        sub_1013286F0();
-      }
-
-      if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
-      {
-        sub_101328704();
-      }
-
-      if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
-      {
-        sub_101327A4C();
-      }
-
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Missing extra segments.", v36, v37, v38, v39, v40, v41, v42, "[CRLBezierPath elementAtIndex:associatedPoints:]");
-      v21 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath elementAtIndex:associatedPoints:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1824 isFatal:1 description:"Missing extra segments.", v43, "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1824, v44, v45];
+      v7 = &sfr_extraSegments[32 * v5];
+      *points = *v7;
+      points[1] = v7[1];
+      points += 2;
+      goto LABEL_8;
     }
 
+    +[CRLAssertionHandler _atomicIncrementAssertCount];
+    if (qword_101AD5A10 != -1)
+    {
+      sub_1013286F0();
+    }
+
+    if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
+    {
+      sub_101328704();
+    }
+
+    if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
+    {
+      sub_101327A4C();
+    }
+
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Missing extra segments.", "[CRLBezierPath elementAtIndex:associatedPoints:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1824);
+    v27 = [NSString stringWithUTF8String:"[CRLBezierPath elementAtIndex:associatedPoints:]"];
+    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"];
+    v16 = "Missing extra segments.";
+    v17 = v27;
+    v18 = 1824;
 LABEL_18:
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v21, *&v22);
-    abort();
+    v19 = [CRLAssertionHandler handleFailureInFunction:v17 file:v15 lineNumber:v18 isFatal:1 description:v16, indexCopy2, v29];
+    goto LABEL_19;
   }
 
   return *v4 & 0xFLL;
@@ -3369,17 +3374,17 @@ LABEL_14:
     {
       sfr_elementCount = self->sfr_elementCount;
       *buf = 67110402;
-      v24 = v10;
-      v25 = 2082;
-      v26 = "[CRLBezierPath elementAtIndex:allPoints:]";
-      v27 = 2082;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
-      v29 = 1024;
-      v30 = 1869;
-      v31 = 2048;
+      v16 = v10;
+      v17 = 2082;
+      v18 = "[CRLBezierPath elementAtIndex:allPoints:]";
+      v19 = 2082;
+      v20 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
+      v21 = 1024;
+      v22 = 1869;
+      v23 = 2048;
       indexCopy = index;
-      v33 = 2048;
-      v34 = sfr_elementCount;
+      v25 = 2048;
+      v26 = sfr_elementCount;
       _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", buf, 0x36u);
       if (qword_101AD5A10 != -1)
       {
@@ -3392,10 +3397,9 @@ LABEL_14:
       sub_101327A4C();
     }
 
-    v22 = self->sfr_elementCount;
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", v13, v14, v15, v16, v17, v18, v19, "[CRLBezierPath elementAtIndex:allPoints:]");
-    v20 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath elementAtIndex:allPoints:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1869 isFatal:1 description:"Given index (%zd) must be within bounds [0, %zd].", index, self->sfr_elementCount, 1869, index, v22);
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v20, v21);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", "[CRLBezierPath elementAtIndex:allPoints:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1869, index, self->sfr_elementCount);
+    v13 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath elementAtIndex:allPoints:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1869 isFatal:1 description:"Given index (%zd) must be within bounds [0, %zd].", index, self->sfr_elementCount);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v13, v14);
     abort();
   }
 
@@ -3446,17 +3450,17 @@ LABEL_14:
     {
       sfr_elementCount = self->sfr_elementCount;
       *buf = 67110402;
-      v24 = v10;
-      v25 = 2082;
-      v26 = "[CRLBezierPath setAssociatedPoints:atIndex:]";
-      v27 = 2082;
-      v28 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
-      v29 = 1024;
-      v30 = 1895;
-      v31 = 2048;
+      v16 = v10;
+      v17 = 2082;
+      v18 = "[CRLBezierPath setAssociatedPoints:atIndex:]";
+      v19 = 2082;
+      v20 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m";
+      v21 = 1024;
+      v22 = 1895;
+      v23 = 2048;
       indexCopy = index;
-      v33 = 2048;
-      v34 = sfr_elementCount;
+      v25 = 2048;
+      v26 = sfr_elementCount;
       _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", buf, 0x36u);
       if (qword_101AD5A10 != -1)
       {
@@ -3469,10 +3473,9 @@ LABEL_14:
       sub_101327A4C();
     }
 
-    v22 = self->sfr_elementCount;
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", v13, v14, v15, v16, v17, v18, v19, "[CRLBezierPath setAssociatedPoints:atIndex:]");
-    v20 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath setAssociatedPoints:atIndex:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1895 isFatal:1 description:"Given index (%zd) must be within bounds [0, %zd].", index, self->sfr_elementCount, 1895, index, v22);
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v20, v21);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Given index (%zd) must be within bounds [0, %zd).", "[CRLBezierPath setAssociatedPoints:atIndex:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 1895, index, self->sfr_elementCount);
+    v13 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath setAssociatedPoints:atIndex:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:1895 isFatal:1 description:"Given index (%zd) must be within bounds [0, %zd].", index, self->sfr_elementCount);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v13, v14);
     abort();
   }
 
@@ -3644,10 +3647,10 @@ LABEL_14:
     v12 = location;
     do
     {
-      v25 = xmmword_1014629F0;
-      v26 = xmmword_1014629F0;
-      v27 = xmmword_1014629F0;
-      v13 = [path elementAtIndex:v12 associatedPoints:&v25];
+      v18 = xmmword_1014629F0;
+      v19 = xmmword_1014629F0;
+      v20 = xmmword_1014629F0;
+      v13 = [path elementAtIndex:v12 associatedPoints:&v18];
       if (v13 > 1)
       {
         if (v13 == 2)
@@ -3670,9 +3673,9 @@ LABEL_14:
               sub_101327A4C();
             }
 
-            sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a curve when there is no current point.", v16, v17, v18, v19, v20, v21, v22, "[CRLBezierPath p_appendPointsInRange:fromBezierPath:countingSubpaths:]");
-            v23 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath p_appendPointsInRange:fromBezierPath:countingSubpaths:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:2019 isFatal:1 description:"Unable to add a curve when there is no current point."];
-            SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v23, v24);
+            sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Unable to add a curve when there is no current point.", "[CRLBezierPath p_appendPointsInRange:fromBezierPath:countingSubpaths:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 2019);
+            v16 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath p_appendPointsInRange:fromBezierPath:countingSubpaths:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:2019 isFatal:1 description:"Unable to add a curve when there is no current point."];
+            SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v16, v17);
             abort();
           }
 
@@ -3696,7 +3699,7 @@ LABEL_14:
             v15 = NAN;
           }
 
-          [(CRLBezierPath *)self _deviceCurveToPoint:v27 controlPoint1:v25 controlPoint2:v26 elementLength:v15];
+          [(CRLBezierPath *)self _deviceCurveToPoint:v20 controlPoint1:v18 controlPoint2:v19 elementLength:v15];
         }
 
         else if (v13 == 3)
@@ -3709,14 +3712,14 @@ LABEL_14:
       {
         if (v13 == 1)
         {
-          [(CRLBezierPath *)self lineToPoint:v25];
+          [(CRLBezierPath *)self lineToPoint:v18];
         }
       }
 
       else
       {
         ++*subpaths;
-        [(CRLBezierPath *)self moveToPoint:v25];
+        [(CRLBezierPath *)self moveToPoint:v18];
       }
 
       ++v12;
@@ -3911,10 +3914,10 @@ LABEL_14:
       sub_101327A4C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d angle1 should not be infinte or NaN (%f)", v22, v23, v24, v25, v26, v27, v28, "[CRLBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]");
-    v29 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:2175 isFatal:1 description:"angle1 should not be infinte or NaN (%f)", *&angle, "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 2175, *&angle];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d angle1 should not be infinte or NaN (%f)", "[CRLBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 2175, *&angle);
+    v22 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:2175 isFatal:1 description:"angle1 should not be infinte or NaN (%f)", *&angle];
 LABEL_37:
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v29, *&v30);
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v22, *&v23);
     abort();
   }
 
@@ -3936,8 +3939,8 @@ LABEL_37:
       sub_101327A4C();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d angle2 should not be infinte or NaN (%f)", v32, v33, v34, v35, v36, v37, v38, "[CRLBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]");
-    v29 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:2176 isFatal:1 description:"angle2 should not be infinte or NaN (%f)", *&endAngle, "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 2176, *&endAngle];
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d angle2 should not be infinte or NaN (%f)", "[CRLBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 2176, *&endAngle);
+    v22 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath appendBezierPathWithArcWithCenter:radius:startAngle:endAngle:clockwise:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:2176 isFatal:1 description:"angle2 should not be infinte or NaN (%f)", *&endAngle];
     goto LABEL_37;
   }
 
@@ -4463,12 +4466,12 @@ LABEL_30:
         sub_101327A4C();
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_elementLength)", v28, v29, v30, v31, v32, v33, v34, "[CRLBezierPath(CRLBezierPathDevicePrimitives) _addPathSegment:point:]");
-      v35 = [NSString stringWithUTF8String:"[CRLBezierPath(CRLBezierPathDevicePrimitives) _addPathSegment:point:]"];
-      v24 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"];
-      v25 = "sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_elementLength)";
-      v26 = v35;
-      v27 = 2577;
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_elementLength)", "[CRLBezierPath(CRLBezierPathDevicePrimitives) _addPathSegment:point:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 2577);
+      v21 = [NSString stringWithUTF8String:"[CRLBezierPath(CRLBezierPathDevicePrimitives) _addPathSegment:point:]"];
+      v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"];
+      v18 = "sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_elementLength)";
+      v19 = v21;
+      v20 = 2577;
     }
 
     else
@@ -4489,16 +4492,16 @@ LABEL_30:
         sub_101327A4C();
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_head)", v16, v17, v18, v19, v20, v21, v22, "[CRLBezierPath(CRLBezierPathDevicePrimitives) _addPathSegment:point:]");
-      v23 = [NSString stringWithUTF8String:"[CRLBezierPath(CRLBezierPathDevicePrimitives) _addPathSegment:point:]"];
-      v24 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"];
-      v25 = "sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_head)";
-      v26 = v23;
-      v27 = 2568;
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_head)", "[CRLBezierPath(CRLBezierPathDevicePrimitives) _addPathSegment:point:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 2568);
+      v16 = [NSString stringWithUTF8String:"[CRLBezierPath(CRLBezierPathDevicePrimitives) _addPathSegment:point:]"];
+      v17 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"];
+      v18 = "sfr_head could not NSZoneRealloc. No memory (when reallocing sfr_head)";
+      v19 = v16;
+      v20 = 2568;
     }
 
-    v36 = [CRLAssertionHandler handleFailureInFunction:v26 file:v24 lineNumber:v27 isFatal:1 description:v25];
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v36, v37);
+    v22 = [CRLAssertionHandler handleFailureInFunction:v19 file:v17 lineNumber:v20 isFatal:1 description:v18];
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v22, v23);
     abort();
   }
 
@@ -4586,9 +4589,9 @@ LABEL_7:
         sub_101327A4C();
       }
 
-      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d sfr_extraSegments could not NSZoneRealloc. No memory", v18, v19, v20, v21, v22, v23, v24, "[CRLBezierPath(CRLBezierPathDevicePrimitives) _deviceCurveToPoint:controlPoint1:controlPoint2:elementLength:]");
-      v25 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath(CRLBezierPathDevicePrimitives) _deviceCurveToPoint:controlPoint1:controlPoint2:elementLength:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:2642 isFatal:1 description:"sfr_extraSegments could not NSZoneRealloc. No memory"];
-      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v25, v26);
+      sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d sfr_extraSegments could not NSZoneRealloc. No memory", "[CRLBezierPath(CRLBezierPathDevicePrimitives) _deviceCurveToPoint:controlPoint1:controlPoint2:elementLength:]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m", 2642);
+      v18 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLBezierPath(CRLBezierPathDevicePrimitives) _deviceCurveToPoint:controlPoint1:controlPoint2:elementLength:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/CRLBezierPath.m"] lineNumber:2642 isFatal:1 description:"sfr_extraSegments could not NSZoneRealloc. No memory"];
+      SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v18, v19);
       abort();
     }
 
@@ -6096,7 +6099,7 @@ LABEL_37:
       v103 = xmmword_1014629F0;
       v104 = xmmword_1014629F0;
       v105 = xmmword_1014629F0;
-      sub_100404958(&v106, &v102, 0.0, v40);
+      sub_100404958(0.0, v40, &v106, &v102);
       [v101 curveToPoint:v105 controlPoint1:v103 controlPoint2:v104];
     }
   }
@@ -6300,7 +6303,7 @@ LABEL_89:
         v103 = xmmword_1014629F0;
         v104 = xmmword_1014629F0;
         v105 = xmmword_1014629F0;
-        sub_100404958(&v106, &v102, v60, 1.0);
+        sub_100404958(v60, 1.0, &v106, &v102);
         [v101 curveToPoint:v105 controlPoint1:v103 controlPoint2:v104];
       }
 
@@ -7020,8 +7023,8 @@ LABEL_25:
         v27 = [pathCopy elementAtIndex:v15 - 1 allPoints:buf];
         if (v27 == 1)
         {
-          y = *&buf[24];
           x = *&buf[16];
+          y = *&buf[24];
         }
 
         else if (v27)
@@ -9533,7 +9536,7 @@ LABEL_13:
     {
       if (v20 == 2)
       {
-        sub_100404958(&v36, &v28, tCopy, 1.0);
+        sub_100404958(tCopy, 1.0, &v36, &v28);
         if (!move)
         {
           [(CRLBezierPath *)self moveToPoint:v28, v29];
@@ -9588,7 +9591,7 @@ LABEL_59:
           {
             if (v25 == 2)
             {
-              sub_100404958(&v36, &v28, 0.0, a7);
+              sub_100404958(0.0, a7, &v36, &v28);
 LABEL_66:
               [(CRLBezierPath *)self curveToPoint:v34 controlPoint1:v35 controlPoint2:v30, v31, v32, v33, *&tCopy];
               goto LABEL_67;
@@ -9684,7 +9687,7 @@ LABEL_55:
 
   if (v19 == 2)
   {
-    sub_100404958(&v36, &v28, tCopy, a7);
+    sub_100404958(tCopy, a7, &v36, &v28);
     if (!move)
     {
       [(CRLBezierPath *)self moveToPoint:v28, v29];
@@ -10773,7 +10776,7 @@ LABEL_29:
 
       if (v28 > 0.0 && v28 < 1.0)
       {
-        sub_100404958(&v89, &v81, 0.0, v28);
+        sub_100404958(0.0, v28, &v89, &v81);
         v32 = v16 + v82;
         if (v12)
         {
@@ -10806,7 +10809,7 @@ LABEL_29:
 
       if (v27 > 0.0 && v27 < 1.0)
       {
-        sub_100404958(&v89, &v81, v28, v27);
+        sub_100404958(v28, v27, &v89, &v81);
         v41 = v16 + v82;
         if (v12)
         {
@@ -10831,12 +10834,12 @@ LABEL_29:
           v16 = v5;
         }
 
-        sub_100404958(&v89, &v81, v27, 1.0);
+        sub_100404958(v27, 1.0, &v89, &v81);
       }
 
       else
       {
-        sub_100404958(&v89, &v81, v28, 1.0);
+        sub_100404958(v28, 1.0, &v89, &v81);
         if (v12)
         {
           [v3 moveToPoint:{v81, v16 + v82}];
@@ -10984,7 +10987,7 @@ LABEL_60:
 
             if (v63 > 0.0 && v63 < 1.0)
             {
-              sub_100404958(&v89, &v81, v63, 1.0);
+              sub_100404958(v63, 1.0, &v89, &v81);
               v69 = v51 + v88;
               if (v9)
               {
@@ -11017,7 +11020,7 @@ LABEL_60:
 
             if (v62 > 0.0 && v62 < 1.0)
             {
-              sub_100404958(&v89, &v81, v62, v63);
+              sub_100404958(v62, v63, &v89, &v81);
               v78 = v51 + v88;
               if (v9)
               {
@@ -11042,13 +11045,13 @@ LABEL_60:
                 v51 = v5;
               }
 
-              sub_100404958(&v89, &v81, 0.0, v62);
+              sub_100404958(0.0, v62, &v89, &v81);
               v45 = 9.0;
             }
 
             else
             {
-              sub_100404958(&v89, &v81, 0.0, v63);
+              sub_100404958(0.0, v63, &v89, &v81);
               if (v9)
               {
                 [v3 moveToPoint:{v87, v51 + v88}];

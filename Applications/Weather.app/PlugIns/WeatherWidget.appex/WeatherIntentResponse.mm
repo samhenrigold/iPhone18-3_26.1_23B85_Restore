@@ -8,15 +8,15 @@
 {
   if (name)
   {
-    v3 = sub_1000EBDD4();
+    v4 = sub_1000EBDD4();
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  return WeatherIntentResponse.init(propertiesByName:)(v3);
+  return WeatherIntentResponse.init(propertiesByName:)(v4, v3);
 }
 
 @end

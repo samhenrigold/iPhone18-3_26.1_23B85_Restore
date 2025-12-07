@@ -163,7 +163,7 @@
 - (id)_transportRecordZoneID
 {
   v2 = [IDSCKRecordZoneID alloc];
-  v3 = sub_1A7BDB988();
+  v3 = sub_1A7BDB988(v2);
   v4 = [(IDSCKRecordZoneID *)v2 initWithZoneName:@"TransportZone" ownerName:v3];
 
   return v4;
@@ -187,8 +187,8 @@
   }
 
   v9 = [IDSCKRecordZoneID alloc];
-  v10 = sub_1A7BDB8F4();
-  v11 = sub_1A7BDB988();
+  v10 = sub_1A7BDB8F4(v9);
+  v11 = sub_1A7BDB988(v10);
   v12 = [(IDSCKRecordZoneID *)v9 initWithZoneName:v10 ownerName:v11];
 
   v13 = objc_alloc_init(IDSCKFetchRecordZoneChangesOptions);

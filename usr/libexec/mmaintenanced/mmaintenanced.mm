@@ -66,7 +66,7 @@ time_t get_uptime_bucket(void)
   return (v4 - v3) / 3600 - v0;
 }
 
-uint64_t device_supports_embedded_swap(void)
+uint64_t device_supports_embedded_swap(uint64_t a1, uint64_t a2)
 {
   if (device_supports_embedded_swap(void)::swap_all_apps_once != -1)
   {
@@ -233,49 +233,49 @@ void log_memory_usage_by_priority(uint64_t a1)
 {
   if (a1)
   {
-    bzero(v15, 0x698uLL);
-    v2 = *(a1 + 192);
-    if (v2)
+    bzero(v16, 0x698uLL);
+    v3 = *(a1 + 192);
+    if (v3)
     {
-      v3 = (a1 + 288);
+      v4 = (a1 + 288);
       do
       {
-        v4 = *(v3 - 12);
-        if ((v4 - 100) <= 0x6E)
+        v5 = *(v4 - 12);
+        if ((v5 - 100) <= 0x6E)
         {
-          v15[v4] += *v3;
+          v16[v5] += *v4;
         }
 
-        v3 += 36;
-        --v2;
+        v4 += 36;
+        --v3;
       }
 
-      while (v2);
+      while (v3);
     }
 
     for (i = 100; i != 211; ++i)
     {
-      v6 = v15[i];
-      if (v6)
+      v7 = v16[i];
+      if (v7)
       {
-        util::stringprintf("memory_usage.band%d", __p, i);
-        v7 = log_handle;
+        util::stringprintf(__p, "memory_usage.band%d", v2, i);
+        v8 = log_handle;
         if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = __p;
-          if (v10 < 0)
+          v9 = __p;
+          if (v11 < 0)
           {
-            v8 = __p[0];
+            v9 = __p[0];
           }
 
           *buf = 136315394;
-          v12 = v8;
-          v13 = 2048;
-          v14 = vm_kernel_page_size * v6;
-          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: %lld", buf, 0x16u);
+          v13 = v9;
+          v14 = 2048;
+          v15 = vm_kernel_page_size * v7;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%s: %lld", buf, 0x16u);
         }
 
-        if (v10 < 0)
+        if (v11 < 0)
         {
           operator delete(__p[0]);
         }
@@ -544,14 +544,14 @@ void check_kernel_high_water_mark_log(void)
 {
   if (access("/var/mobile/Library/Logs/khwm.log", 6) != -1)
   {
-    stat("/var/mobile/Library/Logs/khwm.log", &v4);
-    v3 = 0;
+    stat("/var/mobile/Library/Logs/khwm.log", &v5);
+    v4 = 0;
     v0 = fopen("/var/mobile/Library/Logs/khwm.log", "r");
     if (v0)
     {
       v1 = v0;
-      fscanf(v0, "Wired Memory Pages: %llu", &v3);
-      util::stringprintf("Kernel memory has exceeded its limits.\n", &v2);
+      fscanf(v0, "Wired Memory Pages: %llu", &v4);
+      util::stringprintf(&v3, "Kernel memory has exceeded its limits.\n", v2);
       fseek(v1, 0, 2);
       ftell(v1);
       rewind(v1);
@@ -605,14 +605,8 @@ BOOL write_sysstatus_should_check_file(void)
   return 1;
 }
 
-void write_system_memory_reset_log(uint64_t *a1, void *a2)
+void write_system_memory_reset_log(uint64_t *a1)
 {
-  if (*(a1 + 23) < 0)
-  {
-    v2 = *a1;
-  }
-
-  v3 = a2[1] - *a2;
   if ((WriteSystemMemoryResetReportWithPids() & 1) == 0 && os_log_type_enabled(system_hwm_log, OS_LOG_TYPE_ERROR))
   {
     write_system_memory_reset_log();
@@ -627,7 +621,6 @@ void get_largest_pids(uint64_t a1@<X0>, int a2@<W1>, std::vector<int> *a3@<X8>)
   std::vector<int>::reserve(a3, a2);
   if (a1)
   {
-    v4 = 8 * *(a1 + 192);
     operator new[]();
   }
 
@@ -655,7 +648,6 @@ void std::vector<int>::reserve(std::vector<int> *this, std::vector<int>::size_ty
   {
     if (!(__n >> 62))
     {
-      v2 = this->__end_ - this->__begin_;
       std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(this, __n);
     }
 
@@ -892,15 +884,15 @@ uint64_t check_user_reclaimable_eval(uint64_t a1, int a2)
   report_system_hwm_state();
   if (user_reclaimable_limit <= 0)
   {
-    v10 = system_hwm_log;
-    v8 = 0;
+    v11 = system_hwm_log;
+    v9 = 0;
     if (!os_log_type_enabled(system_hwm_log, OS_LOG_TYPE_DEFAULT))
     {
-      return v8;
+      return v9;
     }
 
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "No user reclaimable limit defined, skipping", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "No user reclaimable limit defined, skipping", buf, 2u);
     return 0;
   }
 
@@ -909,21 +901,21 @@ uint64_t check_user_reclaimable_eval(uint64_t a1, int a2)
   if (os_log_type_enabled(system_hwm_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v21 = v4;
+    v23 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Current UserReclaimable: %lld%%", buf, 0xCu);
   }
 
   v6 = user_reclaimable_limit;
   if (v4 >= user_reclaimable_limit)
   {
-    v11 = system_hwm_log;
+    v12 = system_hwm_log;
     if (os_log_type_enabled(system_hwm_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v21 = v4;
-      v22 = 2048;
-      v23 = v6;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "User reclaimable limit not crossed; user reclaimable current: %llu%%. User reclaimable minimum: %llu%%", buf, 0x16u);
+      v23 = v4;
+      v24 = 2048;
+      v25 = v6;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "User reclaimable limit not crossed; user reclaimable current: %llu%%. User reclaimable minimum: %llu%%", buf, 0x16u);
       v6 = user_reclaimable_limit;
     }
 
@@ -937,59 +929,59 @@ uint64_t check_user_reclaimable_eval(uint64_t a1, int a2)
     if (os_log_type_enabled(system_hwm_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v21 = v4;
-      v22 = 2048;
-      v23 = v6;
+      v23 = v4;
+      v24 = 2048;
+      v25 = v6;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Manually invoked userspace reboot, skipping checks. User reclaimable current: %llu%%. User reclaimable minimum: %llu%%", buf, 0x16u);
       v6 = user_reclaimable_limit;
     }
 
-    util::stringprintf("[Manually invoked] User reclaimable memory dropped below the limit. User reclaimable current: %llu%%. User reclaimable minimum: %llu%%", v18, v4, v6);
-    v8 = perform_user_reboot(v18, a1, v4, user_reclaimable_limit);
-    if (v19 < 0)
+    util::stringprintf(v20, "[Manually invoked] User reclaimable memory dropped below the limit. User reclaimable current: %llu%%. User reclaimable minimum: %llu%%", v8, v4, v6);
+    v9 = perform_user_reboot(v20, a1, v4, user_reclaimable_limit);
+    if (v21 < 0)
     {
-      v9 = v18[0];
+      v10 = v20[0];
 LABEL_22:
-      operator delete(v9);
-      return v8;
+      operator delete(v10);
+      return v9;
     }
 
-    return v8;
+    return v9;
   }
 
-  v13 = can_perform_user_reboot();
-  v14 = system_hwm_log;
-  v15 = os_log_type_enabled(system_hwm_log, OS_LOG_TYPE_DEFAULT);
-  if ((v13 & 1) == 0)
+  v14 = can_perform_user_reboot();
+  v15 = system_hwm_log;
+  v16 = os_log_type_enabled(system_hwm_log, OS_LOG_TYPE_DEFAULT);
+  if ((v14 & 1) == 0)
   {
-    if (v15)
+    if (v16)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Cannot perform userspace reboot, skipping", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Cannot perform userspace reboot, skipping", buf, 2u);
     }
 
     write_user_hwm_eval_state(0, v4, user_reclaimable_limit);
     return 0;
   }
 
-  if (v15)
+  if (v16)
   {
     *buf = 134218240;
-    v21 = v4;
-    v22 = 2048;
-    v23 = user_reclaimable_limit;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "User reclaimable memory dropped below the limit, userspace rebooting the device. User reclaimable current: %llu%%. User reclaimable minimum: %llu%%", buf, 0x16u);
+    v23 = v4;
+    v24 = 2048;
+    v25 = user_reclaimable_limit;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "User reclaimable memory dropped below the limit, userspace rebooting the device. User reclaimable current: %llu%%. User reclaimable minimum: %llu%%", buf, 0x16u);
   }
 
-  util::stringprintf("User reclaimable memory dropped below the limit. User reclaimable current: %llu%%. User reclaimable minimum: %llu%%", __p, v4, user_reclaimable_limit);
-  v8 = perform_user_reboot(__p, a1, v4, user_reclaimable_limit);
-  if (v17 < 0)
+  util::stringprintf(__p, "User reclaimable memory dropped below the limit. User reclaimable current: %llu%%. User reclaimable minimum: %llu%%", v17, v4, user_reclaimable_limit);
+  v9 = perform_user_reboot(__p, a1, v4, user_reclaimable_limit);
+  if (v19 < 0)
   {
-    v9 = __p[0];
+    v10 = __p[0];
     goto LABEL_22;
   }
 
-  return v8;
+  return v9;
 }
 
 void sub_100003378(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
@@ -1002,197 +994,196 @@ void sub_100003378(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t user_reclaimable_current(uint64_t a1)
+unint64_t user_reclaimable_current(uint64_t a1)
 {
-  v42 = 4;
-  v43 = 0;
   v41 = 4;
+  v42 = 0;
+  v40 = 4;
   if (!a1)
   {
     return -1;
   }
 
   v1 = a1;
-  if (sysctlbyname("kern.memorystatus_level", &v43 + 4, &v42, 0, 0) || sysctlbyname("kern.memorystatus_available_pages", &v43, &v41, 0, 0))
+  if (sysctlbyname("kern.memorystatus_level", &v42 + 4, &v41, 0, 0) || sysctlbyname("kern.memorystatus_available_pages", &v42, &v40, 0, 0))
   {
     return -1;
   }
 
   v4 = *(v1 + 192);
-  v5 = v43 / HIDWORD(v43);
+  v5 = v42 / HIDWORD(v42);
   if (v4)
   {
-    v30 = v43 / HIDWORD(v43);
+    v29 = v42 / HIDWORD(v42);
     v6 = 0;
+    v33 = 0;
     v34 = 0;
-    v35 = 0;
-    v40 = 0;
+    v39 = 0;
     v7 = 0;
     v8 = 0;
-    v32 = 0;
+    v31 = 0;
     v9 = 0;
     v10 = v1 + 204;
     v11 = (v1 + 368);
-    v33 = v1;
+    v32 = v1;
     do
     {
-      v38 = v7;
+      v37 = v7;
       v12 = *(v11 - 6) - *(v11 - 2) + *(v11 - 4);
       v13 = *(v11 - 31);
       v14 = *(v11 - 7) - *(v11 - 3) + *(v11 - 1) + *(v11 - 5) + *v11;
-      v15 = *(v11 - 42);
-      neural_nofootprint_pages = get_neural_nofootprint_pages();
-      v17 = neural_nofootprint_pages;
-      v18 = *(v11 - 32);
-      v36 = v14;
-      if (v18 >= 101)
+      neural_nofootprint_pages = get_neural_nofootprint_pages(*(v11 - 42));
+      v16 = neural_nofootprint_pages;
+      v17 = *(v11 - 32);
+      v35 = v14;
+      if (v17 >= 101)
       {
         if ((v13 & 2) != 0)
         {
-          v19 = 0;
+          v18 = 0;
         }
 
         else
         {
-          v19 = v12;
+          v18 = v12;
         }
       }
 
       else
       {
-        v34 += v14;
+        v33 += v14;
         if ((v13 & 2) != 0)
         {
-          v19 = 0;
+          v18 = 0;
         }
 
         else
         {
-          v19 = v12;
+          v18 = v12;
         }
 
-        v35 += v19;
+        v34 += v18;
         if (neural_nofootprint_pages >= 1)
         {
           log = system_hwm_log;
           if (os_log_type_enabled(system_hwm_log, OS_LOG_TYPE_DEBUG))
           {
-            v21 = *(v11 - 42);
+            v20 = *(v11 - 42);
             *buf = 136315906;
-            *v45 = v10;
-            *&v45[8] = 1024;
-            *v46 = v21;
-            *&v46[4] = 1024;
-            *&v46[6] = v18;
-            *v47 = 2048;
-            *&v47[2] = v17;
+            *v44 = v10;
+            *&v44[8] = 1024;
+            *v45 = v20;
+            *&v45[4] = 1024;
+            *&v45[6] = v17;
+            *v46 = 2048;
+            *&v46[2] = v16;
             _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s pid(%d) jetsam priority(%d) | neural_nofootprint_pages = %llu", buf, 0x22u);
           }
 
-          v32 += v17;
+          v31 += v16;
         }
       }
 
       v11 += 36;
-      v8 += v17;
-      v40 += v36;
+      v8 += v16;
+      v39 += v35;
       if ((v13 & 2) != 0)
       {
-        v20 = v12;
+        v19 = v12;
       }
 
       else
       {
-        v20 = 0;
+        v19 = 0;
       }
 
-      v9 += v20;
-      v7 = v19 + v38;
+      v9 += v19;
+      v7 = v18 + v37;
       ++v6;
-      v1 = v33;
+      v1 = v32;
       v10 += 288;
     }
 
-    while (*(v33 + 192) > v6);
+    while (*(v32 + 192) > v6);
     if (v7)
     {
-      v39 = v19 + v38;
-      v4 = v35 * *(v33 + 60) / v7;
+      v38 = v18 + v37;
+      v4 = v34 * *(v32 + 60) / v7;
     }
 
     else
     {
-      v39 = 0;
+      v38 = 0;
       v4 = 0;
     }
 
-    v5 = v30;
-    v22 = v34;
-    v37 = v9;
-    v23 = v32;
+    v5 = v29;
+    v21 = v33;
+    v36 = v9;
+    v22 = v31;
   }
 
   else
   {
-    v22 = 0;
-    v35 = 0;
-    v37 = 0;
+    v21 = 0;
+    v34 = 0;
+    v36 = 0;
+    v38 = 0;
     v39 = 0;
-    v40 = 0;
     v8 = 0;
-    v23 = 0;
+    v22 = 0;
   }
 
-  v24 = v4;
-  v25 = v22 + v23 + v4 + v43;
-  v26 = system_hwm_log;
-  v2 = v25 / v5;
+  v23 = v4;
+  v24 = v21 + v22 + v4 + v42;
+  v25 = system_hwm_log;
+  v2 = v24 / v5;
   if (os_log_type_enabled(system_hwm_log, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    *v45 = v2 - (v25 - v23) / v5;
+    *v44 = v2 - (v24 - v22) / v5;
+    *&v44[8] = 2048;
+    *v45 = v22;
     *&v45[8] = 2048;
-    *v46 = v23;
-    *&v46[8] = 2048;
-    *v47 = v8;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "neural reclaimable impact: %llu | neural reclaimable pages = %llu neural total pages = %llu", buf, 0x20u);
-    v26 = system_hwm_log;
+    *v46 = v8;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "neural reclaimable impact: %llu | neural reclaimable pages = %llu neural total pages = %llu", buf, 0x20u);
+    v25 = system_hwm_log;
   }
 
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = *(v1 + 56);
-    v28 = *(v1 + 60);
-    v29 = *(v1 + 80);
+    v26 = *(v1 + 56);
+    v27 = *(v1 + 60);
+    v28 = *(v1 + 80);
     *buf = 67112448;
-    *v45 = v27;
-    *&v45[4] = 1024;
-    *&v45[6] = v28;
-    *v46 = 2048;
-    *&v46[2] = v29;
-    *v47 = 1024;
-    *&v47[2] = HIDWORD(v43);
-    *&v47[6] = 1024;
-    *&v47[8] = v43;
-    v48 = 1024;
-    v49 = v5;
-    v50 = 2048;
-    v51 = v22;
-    v52 = 2048;
-    v53 = v35;
-    v54 = 2048;
-    v55 = v40 - v22;
-    v56 = 2048;
-    v57 = v39 - v35;
-    v58 = 2048;
-    v59 = v37;
-    v60 = 2048;
-    v61 = v24;
-    v62 = 2048;
-    v63 = v25;
-    v64 = 2048;
-    v65 = v25 / v5;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "pressure: vmstat anonymous %u compressor %u in_compressor %llu, jetsam level %u available %u p_p_l %u,\n<= FG uncompressed %llu compressed %llu, > FG uncompressed %llu compressed %llu, frozen %llu,\nest reclaimable %llu total_user %llu levels %lld", buf, 0x7Au);
+    *v44 = v26;
+    *&v44[4] = 1024;
+    *&v44[6] = v27;
+    *v45 = 2048;
+    *&v45[2] = v28;
+    *v46 = 1024;
+    *&v46[2] = HIDWORD(v42);
+    *&v46[6] = 1024;
+    *&v46[8] = v42;
+    v47 = 1024;
+    v48 = v5;
+    v49 = 2048;
+    v50 = v21;
+    v51 = 2048;
+    v52 = v34;
+    v53 = 2048;
+    v54 = v39 - v21;
+    v55 = 2048;
+    v56 = v38 - v34;
+    v57 = 2048;
+    v58 = v36;
+    v59 = 2048;
+    v60 = v23;
+    v61 = 2048;
+    v62 = v24;
+    v63 = 2048;
+    v64 = v24 / v5;
+    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "pressure: vmstat anonymous %u compressor %u in_compressor %llu, jetsam level %u available %u p_p_l %u,\n<= FG uncompressed %llu compressed %llu, > FG uncompressed %llu compressed %llu, frozen %llu,\nest reclaimable %llu total_user %llu levels %lld", buf, 0x7Au);
   }
 
   return v2;
@@ -1231,7 +1222,7 @@ uint64_t perform_user_reboot(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4
   }
 
   get_largest_pids(a2, 10, &__p);
-  write_system_memory_reset_log(a1, &__p);
+  write_system_memory_reset_log(a1);
   if (__p.__begin_)
   {
     __p.__end_ = __p.__begin_;
@@ -1309,14 +1300,16 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<int>>(uint64_t a1, un
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void rearm_exc_resource_implementation(int a1)
+void rearm_exc_resource_implementation(uint64_t a1)
 {
+  v1 = a1;
   v2 = log_handle;
   if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
   {
@@ -1324,13 +1317,13 @@ void rearm_exc_resource_implementation(int a1)
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Re-arming EXC_RESOURCE memory limits", v5, 2u);
   }
 
-  if ((a1 & 0x80000000) == 0)
+  if ((v1 & 0x80000000) == 0)
   {
     v3 = log_handle;
     if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
     {
       v5[0] = 67109120;
-      v5[1] = a1;
+      v5[1] = v1;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Re-arming for pid %d", v5, 8u);
     }
   }
@@ -1534,9 +1527,10 @@ uint64_t memory_error_mach_port_init(void)
 
 void ___Z27memory_error_mach_port_initv_block_invoke(uint64_t a1)
 {
-  if (mach_msg_server_once(memory_error_notification_server, 0x1000u, *(a1 + 32), 50331648))
+  v1 = mach_msg_server_once(memory_error_notification_server, 0x1000u, *(a1 + 32), 50331648);
+  if (v1)
   {
-    ___Z27memory_error_mach_port_initv_block_invoke_cold_1();
+    ___Z27memory_error_mach_port_initv_block_invoke_cold_1(v1);
   }
 }
 
@@ -1584,7 +1578,7 @@ void __main_block_invoke_16(id a1)
 
 void __main_block_invoke_2(id a1)
 {
-  if (device_supports_embedded_swap())
+  if (device_supports_embedded_swap(a1, v1))
   {
     if (os_log_type_enabled(compressor_log, OS_LOG_TYPE_ERROR))
     {
@@ -1618,20 +1612,20 @@ void __main_block_invoke_32(id a1, void *a2)
   string = xpc_dictionary_get_string(a2, _xpc_event_key_name);
   if (!strcmp(string, "com.apple.trial.NamespaceUpdate.FREEZER_POLICIES"))
   {
-    v7 = kr_experiments_log;
+    v6 = kr_experiments_log;
     if (os_log_type_enabled(kr_experiments_log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Device experiment state has been updated", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Device experiment state has been updated", buf, 2u);
     }
 
     if ((KRExperimentsHandleUpdate() & 1) == 0)
     {
-      v8 = kr_experiments_log;
+      v7 = kr_experiments_log;
       if (os_log_type_enabled(kr_experiments_log, OS_LOG_TYPE_DEFAULT))
       {
-        *v15 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "New experiment state can not be applied. Scheduling deferred application.", v15, 2u);
+        *v13 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "New experiment state can not be applied. Scheduling deferred application.", v13, 2u);
       }
 
       schedule_kr_experiments_destructive_update(&__block_literal_global_42);
@@ -1640,11 +1634,11 @@ void __main_block_invoke_32(id a1, void *a2)
 
   else if (!strcmp(string, "com.apple.trial.NamespaceUpdate.COREOS_FAST_PREWARMING"))
   {
-    v9 = log_handle;
+    v8 = log_handle;
     if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Received notification of prewarming experiment update", v14, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Received notification of prewarming experiment update", v12, 2u);
     }
 
     PrewarmingExperimentUpdated();
@@ -1652,28 +1646,26 @@ void __main_block_invoke_32(id a1, void *a2)
 
   else if (!strcmp(string, "com.apple.trial.NamespaceUpdate.COREOS_GMPOWER_VM_TUNING_PAGE_SHORTAGE_THRESHOLDS"))
   {
-    v10 = log_handle;
-    v11 = os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT);
-    if (v11)
+    v9 = log_handle;
+    if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Received notification of idle reaper trial update", v13, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Received notification of idle reaper trial update", v11, 2u);
     }
 
-    register_for_idle_reaper_trial(v11);
+    register_for_idle_reaper_trial();
   }
 
   else if (!strcmp(string, "com.apple.trial.NamespaceUpdate.COREOS_VM_OBJECT_COPY_DELAYED_NO_WAIT"))
   {
     v5 = log_handle;
-    v6 = os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT);
-    if (v6)
+    if (os_log_type_enabled(log_handle, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received notification of vm-object-copy-delayed-no-wait trial update", v12, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received notification of vm-object-copy-delayed-no-wait trial update", v10, 2u);
     }
 
-    register_for_vm_trial(v6);
+    register_for_vm_trial();
   }
 
   if (v3)
@@ -1694,9 +1686,9 @@ void sub_100004B1C(_Unwind_Exception *exception_object)
 
 void __main_block_invoke_46(id a1)
 {
-  v1 = report_jetsam_kill_count_telemetry(a1);
+  report_jetsam_kill_count_telemetry();
 
-  report_idle_reaper_telemetry(v1);
+  report_idle_reaper_telemetry();
 }
 
 void __main_block_invoke_2_50(id a1)
@@ -2054,7 +2046,7 @@ LABEL_73:
   }
 }
 
-void sub_100005324(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, void *a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_100005324(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, void *a12, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   util_ext::XPCObject::~XPCObject(&__p);
   util_ext::XPCObject::~XPCObject(&a12);
@@ -2082,54 +2074,55 @@ void ___ZL22mmaintenanced_shutdownN8util_ext13XPCDictionaryE_block_invoke(id a1)
   exit(0);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t read_jetsam_properties(void)
 {
   if (access("/System/Library/LaunchDaemons/com.apple.jetsamproperties.NonUI.plist", 0))
   {
-    LOBYTE(v23[0]) = 0;
-    v22 = 32;
-    if (sysctlbyname("hw.jetsam_properties_product_type", v23, &v22, 0, 0))
+    LOBYTE(v25[0]) = 0;
+    v24 = 32;
+    if (sysctlbyname("hw.jetsam_properties_product_type", v25, &v24, 0, 0))
     {
-      std::string::basic_string[abi:ne200100]<0>(v16, "");
+      std::string::basic_string[abi:ne200100]<0>(v18, "");
     }
 
     else
     {
-      util::stringprintf("%s.%s.plist", __p, "/AppleInternal/Library/LaunchDaemons/com.apple.jetsamproperties", v23);
-      if (v21 >= 0)
+      util::stringprintf(__p, "%s.%s.plist", v0, "/AppleInternal/Library/LaunchDaemons/com.apple.jetsamproperties", v25);
+      if (v23 >= 0)
       {
-        v0 = __p;
+        v1 = __p;
       }
 
       else
       {
-        v0 = __p[0];
+        v1 = __p[0];
       }
 
-      if (!access(v0, 0))
+      if (!access(v1, 0))
       {
         goto LABEL_17;
       }
 
-      util::stringprintf("%s.%s.plist", object, "/System/Library/LaunchDaemons/com.apple.jetsamproperties", v23);
-      if (SHIBYTE(v21) < 0)
+      util::stringprintf(object, "%s.%s.plist", v2, "/System/Library/LaunchDaemons/com.apple.jetsamproperties", v25);
+      if (SHIBYTE(v23) < 0)
       {
         operator delete(__p[0]);
       }
 
       *__p = *object;
-      v21 = v19;
-      v1 = v19 >= 0 ? __p : object[0];
-      if (access(v1, 0))
+      v23 = v21;
+      v3 = v21 >= 0 ? __p : object[0];
+      if (access(v3, 0))
       {
-        std::string::basic_string[abi:ne200100]<0>(v16, "");
-        if (SHIBYTE(v21) < 0)
+        std::string::basic_string[abi:ne200100]<0>(v18, "");
+        if (SHIBYTE(v23) < 0)
         {
           operator delete(__p[0]);
         }
@@ -2138,124 +2131,124 @@ uint64_t read_jetsam_properties(void)
       else
       {
 LABEL_17:
-        *v16 = *__p;
-        v17 = v21;
+        *v18 = *__p;
+        v19 = v23;
       }
     }
   }
 
   else
   {
-    std::string::basic_string[abi:ne200100]<0>(v16, "/System/Library/LaunchDaemons/com.apple.jetsamproperties.NonUI.plist");
+    std::string::basic_string[abi:ne200100]<0>(v18, "/System/Library/LaunchDaemons/com.apple.jetsamproperties.NonUI.plist");
   }
 
-  if (v17 >= 0)
+  if (v19 >= 0)
   {
-    v2 = v16;
+    v4 = v18;
   }
 
   else
   {
-    v2 = v16[0];
+    v4 = v18[0];
   }
 
-  util::MappedFile::MappedFile(v23, v2);
-  if (!v23[1] || v23[0])
+  util::MappedFile::MappedFile(v25, v4);
+  if (!v25[1] || v25[0])
   {
-    v4 = xpc_create_from_plist();
-    __p[0] = v4;
-    if (v4 && xpc_get_type(v4) == &_xpc_type_dictionary)
+    v6 = xpc_create_from_plist();
+    __p[0] = v6;
+    if (v6 && xpc_get_type(v6) == &_xpc_type_dictionary)
     {
       value = xpc_dictionary_get_value(__p[0], "Version4");
-      v22 = value;
+      v24 = value;
       if (value)
       {
         xpc_retain(value);
-        v6 = v22;
+        v8 = v24;
       }
 
       else
       {
-        v6 = 0;
+        v8 = 0;
       }
 
-      object[0] = v6;
-      v22 = 0;
-      util_ext::XPCObject::~XPCObject(&v22);
+      object[0] = v8;
+      v24 = 0;
+      util_ext::XPCObject::~XPCObject(&v24);
       if (object[0] && xpc_get_type(object[0]) == &_xpc_type_dictionary)
       {
-        v7 = xpc_dictionary_get_value(object[0], "System");
-        xdict = v7;
-        if (v7)
+        v9 = xpc_dictionary_get_value(object[0], "System");
+        xdict = v9;
+        if (v9)
         {
-          xpc_retain(v7);
-          v8 = xdict;
+          xpc_retain(v9);
+          v10 = xdict;
         }
 
         else
         {
-          v8 = 0;
+          v10 = 0;
         }
 
-        v22 = v8;
+        v24 = v10;
         xdict = 0;
         util_ext::XPCObject::~XPCObject(&xdict);
-        if (v22 && xpc_get_type(v22) == &_xpc_type_dictionary)
+        if (v24 && xpc_get_type(v24) == &_xpc_type_dictionary)
         {
-          v9 = xpc_dictionary_get_value(v22, "Override");
-          v14 = v9;
-          if (v9)
+          v11 = xpc_dictionary_get_value(v24, "Override");
+          v16 = v11;
+          if (v11)
           {
-            xpc_retain(v9);
-            v10 = v14;
+            xpc_retain(v11);
+            v12 = v16;
           }
 
           else
           {
-            v10 = 0;
+            v12 = 0;
           }
 
-          v14 = 0;
-          xdict = v10;
-          util_ext::XPCObject::~XPCObject(&v14);
+          v16 = 0;
+          xdict = v12;
+          util_ext::XPCObject::~XPCObject(&v16);
           if (xdict && xpc_get_type(xdict) == &_xpc_type_dictionary)
           {
-            v11 = xpc_dictionary_get_value(xdict, "Global");
-            v3 = v11;
-            v13 = v11;
-            if (v11)
+            v13 = xpc_dictionary_get_value(xdict, "Global");
+            v5 = v13;
+            v15 = v13;
+            if (v13)
             {
-              xpc_retain(v11);
-              v13 = 0;
-              v14 = v3;
-              util_ext::XPCObject::~XPCObject(&v13);
-              if (xpc_get_type(v3) == &_xpc_type_dictionary)
+              xpc_retain(v13);
+              v15 = 0;
+              v16 = v5;
+              util_ext::XPCObject::~XPCObject(&v15);
+              if (xpc_get_type(v5) == &_xpc_type_dictionary)
               {
-                user_reclaimable_limit = xpc_dictionary_get_int64(v14, "UserReclaimableLimit");
-                kernel_high_water_limit = xpc_dictionary_get_int64(v14, "KernelHighWaterMark");
-                dark_boot_system_ui_hard_limit = xpc_dictionary_get_int64(v14, "DarkBootSystemUIHardLimit");
-                v3 = 1;
+                user_reclaimable_limit = xpc_dictionary_get_int64(v16, "UserReclaimableLimit");
+                kernel_high_water_limit = xpc_dictionary_get_int64(v16, "KernelHighWaterMark");
+                dark_boot_system_ui_hard_limit = xpc_dictionary_get_int64(v16, "DarkBootSystemUIHardLimit");
+                v5 = 1;
               }
 
               else
               {
-                v3 = 0;
+                v5 = 0;
               }
             }
 
             else
             {
-              v13 = 0;
-              v14 = 0;
-              util_ext::XPCObject::~XPCObject(&v13);
+              v15 = 0;
+              v16 = 0;
+              util_ext::XPCObject::~XPCObject(&v15);
             }
 
-            util_ext::XPCObject::~XPCObject(&v14);
+            util_ext::XPCObject::~XPCObject(&v16);
           }
 
           else
           {
-            v3 = 0;
+            v5 = 0;
           }
 
           util_ext::XPCObject::~XPCObject(&xdict);
@@ -2263,15 +2256,15 @@ LABEL_17:
 
         else
         {
-          v3 = 0;
+          v5 = 0;
         }
 
-        util_ext::XPCObject::~XPCObject(&v22);
+        util_ext::XPCObject::~XPCObject(&v24);
       }
 
       else
       {
-        v3 = 0;
+        v5 = 0;
       }
 
       util_ext::XPCObject::~XPCObject(object);
@@ -2279,7 +2272,7 @@ LABEL_17:
 
     else
     {
-      v3 = 0;
+      v5 = 0;
     }
 
     util_ext::XPCObject::~XPCObject(__p);
@@ -2287,16 +2280,16 @@ LABEL_17:
 
   else
   {
-    v3 = 0;
+    v5 = 0;
   }
 
-  util::MappedFile::~MappedFile(v23);
-  if (SHIBYTE(v17) < 0)
+  util::MappedFile::~MappedFile(v25);
+  if (SHIBYTE(v19) < 0)
   {
-    operator delete(v16[0]);
+    operator delete(v18[0]);
   }
 
-  return v3;
+  return v5;
 }
 
 void sub_100005844(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *__p, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -2315,7 +2308,7 @@ void sub_100005844(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2329,13 +2322,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -2583,7 +2576,7 @@ void sub_100005E84(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -2596,14 +2589,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char const*,char const*>(_BYT
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -2625,7 +2618,7 @@ uint64_t get_named_bytes_by_regex(uint64_t a1, unsigned int a2, uint64_t a3)
     __p.__ready_ = 0;
     __p.__position_start_ = 0;
     memset(&__p, 0, 41);
-    v8 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a3, v5, &v5[v7], &__p, 4160);
+    v8 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a3, v5, &v5[v7], &__p, 0x1040u);
     if (v8 && __p.__suffix_.matched)
     {
       v8 = 0;
@@ -2717,7 +2710,7 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -2761,7 +2754,7 @@ LABEL_19:
       do
       {
         std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0);
+        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0);
         begin = this->__matches_.__begin_;
         end = this->__matches_.__end_;
         if (v13)
@@ -2777,7 +2770,7 @@ LABEL_19:
 
     v12 = &this->__unmatched_;
     std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0))
+    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0))
     {
       begin = this->__matches_.__begin_;
       end = this->__matches_.__end_;
@@ -3374,6 +3367,13 @@ LABEL_71:
   return v49;
 }
 
+void sub_100007230(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  std::deque<std::__state<char>>::~deque[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
 {
   v52 = 0;
@@ -3614,10 +3614,10 @@ void sub_100007700(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(a1, a2);
   }
@@ -3649,7 +3649,7 @@ uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, u
     result = v3 + 96;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -3717,21 +3717,21 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)16
   std::regex_error::regex_error(exception, __re_err_unknown);
 }
 
-uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
   if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
   {
     std::vector<int>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 5) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 5);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 5) >= 0x155555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) >= 0x155555555555555)
   {
     v6 = 0x2AAAAAAAAAAAAAALL;
   }
@@ -3774,14 +3774,14 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   *(v7 + 85) = *(a2 + 85);
   *(v7 + 80) = v9;
   *&v18 = 96 * v2 + 96;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 96 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::__state<char>>,std::__state<char>*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -3790,9 +3790,9 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   return v15;
 }
 
-void sub_100007ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100007ABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::__state<char>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -3815,29 +3815,29 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::_
     v6 = a2;
     do
     {
-      v7 = *(v6 + 1);
+      v7 = *(v6 + 16);
       *a4 = *v6;
       *(a4 + 16) = v7;
       *(a4 + 40) = 0;
       *(a4 + 48) = 0;
       *(a4 + 32) = 0;
-      *(a4 + 32) = *(v6 + 2);
-      *(a4 + 48) = v6[6];
-      v6[4] = 0;
-      v6[5] = 0;
-      v6[6] = 0;
+      *(a4 + 32) = *(v6 + 32);
+      *(a4 + 48) = *(v6 + 48);
+      *(v6 + 32) = 0;
+      *(v6 + 40) = 0;
+      *(v6 + 48) = 0;
       *(a4 + 56) = 0;
       *(a4 + 64) = 0;
       *(a4 + 72) = 0;
-      *(a4 + 56) = *(v6 + 7);
-      *(a4 + 72) = v6[9];
-      v6[7] = 0;
-      v6[8] = 0;
-      v6[9] = 0;
-      v8 = v6[10];
+      *(a4 + 56) = *(v6 + 56);
+      *(a4 + 72) = *(v6 + 72);
+      *(v6 + 56) = 0;
+      *(v6 + 64) = 0;
+      *(v6 + 72) = 0;
+      v8 = *(v6 + 80);
       *(a4 + 85) = *(v6 + 85);
       *(a4 + 80) = v8;
-      v6 += 12;
+      v6 += 96;
       a4 += 96;
     }
 
@@ -4066,7 +4066,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned lo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4088,7 +4088,7 @@ void sub_100008024(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -4098,7 +4098,7 @@ void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_
   std::vector<int>::__throw_length_error[abi:ne200100]();
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4120,7 +4120,7 @@ void sub_1000080E4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -4156,50 +4156,49 @@ void std::vector<std::__state<char>>::__destroy_vector::operator()[abi:ne200100]
   }
 }
 
-__n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 42 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 42 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<std::__state<char>>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x2A)) + 96 * (v8 % 0x2A);
-  v10 = *(a2 + 16);
-  *v9 = *a2;
-  *(v9 + 16) = v10;
-  *(v9 + 40) = 0;
-  *(v9 + 48) = 0;
-  *(v9 + 32) = 0;
-  *(v9 + 32) = *(a2 + 32);
-  *(v9 + 48) = *(a2 + 48);
+  v8 = *(v5 + 8 * (v7 / 0x2A)) + 96 * (v7 % 0x2A);
+  v9 = *(a2 + 16);
+  *v8 = *a2;
+  *(v8 + 16) = v9;
+  *(v8 + 40) = 0;
+  *(v8 + 48) = 0;
+  *(v8 + 32) = 0;
+  *(v8 + 32) = *(a2 + 32);
+  *(v8 + 48) = *(a2 + 48);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  *(v9 + 56) = 0;
-  *(v9 + 64) = 0;
-  *(v9 + 72) = 0;
+  *(v8 + 56) = 0;
+  *(v8 + 64) = 0;
+  *(v8 + 72) = 0;
   result = *(a2 + 56);
-  *(v9 + 56) = result;
-  *(v9 + 72) = *(a2 + 72);
+  *(v8 + 56) = result;
+  *(v8 + 72) = *(a2 + 72);
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
   *(a2 + 72) = 0;
-  v12 = *(a2 + 80);
-  *(v9 + 85) = *(a2 + 85);
-  *(v9 + 80) = v12;
-  ++*(a1 + 40);
+  v11 = *(a2 + 80);
+  *(v8 + 85) = *(a2 + 85);
+  *(v8 + 80) = v11;
+  ++a1[5];
   return result;
 }
 
@@ -4261,19 +4260,19 @@ int64x2_t std::deque<std::__state<char>>::push_front(int64x2_t *a1, uint64_t a2)
   return result;
 }
 
-void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
+void std::deque<std::__state<char>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2A;
   v3 = v1 - 42;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -4281,25 +4280,25 @@ void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v9);
 }
 
 void sub_1000085C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -4313,27 +4312,26 @@ void sub_1000085C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -4342,28 +4340,26 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -4376,52 +4372,50 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_back<std::__state<char> *>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_back<std::__state<char> *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -4430,28 +4424,26 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_front<std::__state<char> *&>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_front<std::__state<char> *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -4464,29 +4456,28 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(uint64_t a1, unint64_t a2)
@@ -4538,10 +4529,10 @@ uint64_t std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:ne200100]
   return v7 ^ 1u;
 }
 
-const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
+void std::deque<std::__state<char>>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -4553,15 +4544,15 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
     v4 = 42 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x2A)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x2A)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -4569,24 +4560,24 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 42;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v11);
+  a1[4] = (v5 + 42);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v10);
 }
 
 void sub_100008D00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -4697,7 +4688,7 @@ uint64_t std::__split_buffer<std::__state<char> *,std::allocator<std::__state<ch
   return a1;
 }
 
-_BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(void *a1, uint64_t a2, __int128 *a3, unint64_t a4)
+char *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -4746,7 +4737,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
     {
       *result = *v5;
       result[16] = *(v5 + 16);
-      v5 += 24;
+      v5 = (v5 + 24);
       result += 24;
     }
 
@@ -4762,7 +4753,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
       {
         *result = *v5;
         result[16] = *(v5 + 16);
-        v5 += 24;
+        v5 = (v5 + 24);
         result += 24;
       }
 
@@ -4796,7 +4787,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
   return result;
 }
 
-char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -4881,7 +4872,8 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
       v15 = v11;
       do
       {
-        v16 = *v12++;
+        v16 = *v12;
+        v12 += 2;
         *v11 = v16;
         v11 += 16;
         v15 += 16;
@@ -4896,15 +4888,15 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
   return result;
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, const char *a2, int a3)
+void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, char *a2, int a3)
 {
-  v5 = std::regex_traits<char>::regex_traits(a1);
-  LODWORD(v5[1].__loc_.__locale_) = a3;
-  *(&v5[1].__loc_.__locale_ + 4) = 0u;
-  *(&v5[1].__col_ + 4) = 0u;
-  HIDWORD(v5[2].__ct_) = 0;
-  strlen(a2);
-  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>();
+  v6 = std::regex_traits<char>::regex_traits(a1);
+  LODWORD(v6[1].__loc_.__locale_) = a3;
+  *(&v6[1].__loc_.__locale_ + 4) = 0u;
+  *(&v6[1].__col_ + 4) = 0u;
+  HIDWORD(v6[2].__ct_) = 0;
+  v7 = strlen(a2);
+  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(a1, a2, &a2[v7]);
 }
 
 void sub_100009224(_Unwind_Exception *a1)
@@ -5018,7 +5010,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, a2, a3);
@@ -5032,7 +5024,7 @@ LABEL_8:
   while (v8 != a3 && *v8 == 124)
   {
     v9 = a1->__end_;
-    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, (v8 + 1), a3);
+    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, v8 + 1, a3);
     if (v10 == v8 + 1)
     {
       goto LABEL_8;
@@ -5105,7 +5097,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<ch
   return v8;
 }
 
-std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *__s, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, unsigned __int8 *__s, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = memchr(__s, 10, a3 - __s);
@@ -5127,7 +5119,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
   std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, __s, v8);
   if (v8 != a3)
   {
-    v8 = (v8 + 1);
+    ++v8;
   }
 
   while (v8 != a3)
@@ -5158,7 +5150,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
 
     else
     {
-      v8 = (&v10->__traits_.__loc_.__locale_ + 1);
+      v8 = v10 + 1;
     }
   }
 
@@ -5973,38 +5965,37 @@ void std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a
 
 void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
 {
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(&v23, 0, 17);
+  memset(&v22, 0, 17);
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   memset(&__p, 0, sizeof(__p));
   v4 = (*(a1 + 44) + 1);
   v5 = *(a2 + 16);
-  v19.first = *(a2 + 24);
-  v19.second = v19.first;
-  v19.matched = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v19);
+  v18.first = *(a2 + 24);
+  v18.second = v18.first;
+  v18.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v18);
+  v19 = v5;
   v20 = v5;
-  v21 = v5;
-  v22 = 0;
-  v23 = v19;
-  v25 = v5;
-  v24 = 1;
-  v6 = *(a2 + 88) & 0xFFF;
-  v7 = *(a2 + 16);
-  if (v7 == *(a2 + 8))
+  v21 = 0;
+  v22 = v18;
+  v24 = v5;
+  v23 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
   {
-    v8 = *(a2 + 92);
+    v7 = *(a2 + 92);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v7))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
@@ -6015,8 +6006,8 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
   begin = __p.__begin_;
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  if (v10 < 2)
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v9 < 2)
   {
 LABEL_10:
     if (!begin)
@@ -6027,21 +6018,21 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  v12 = *(a2 + 32);
-  v13 = 2;
-  v14 = 1;
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
   do
   {
-    v15 = &begin[v14];
-    v16 = v12 + 24 * v11;
-    *v16 = v15->std::pair<const char *, const char *>;
-    *(v16 + 16) = v15->matched;
-    v14 = v13;
-    ++v11;
+    v14 = &begin[v13];
+    v15 = v11 + 24 * v10;
+    *v15 = v14->std::pair<const char *, const char *>;
+    *(v15 + 16) = v14->matched;
+    v13 = v12;
+    ++v10;
   }
 
-  while (v10 > v13++);
+  while (v9 > v12++);
 LABEL_11:
   __p.__end_ = begin;
   operator delete(begin);
@@ -6928,7 +6919,6 @@ uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t re
     if (*(a2 + 24) - v5 >= v4)
     {
       v7 = result;
-      v8 = *(v3 + 8) != *v3;
       if (v4 < 1)
       {
 LABEL_10:
@@ -6938,17 +6928,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v9 = 0;
+      v8 = 0;
       while (1)
       {
-        v10 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v9));
-        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v9));
-        if (v10 != result)
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
         {
           break;
         }
 
-        if (v4 == ++v9)
+        if (v4 == ++v8)
         {
           v5 = *(a2 + 16);
           goto LABEL_10;
@@ -7279,7 +7269,7 @@ LABEL_24:
     {
       v13 = 0;
       v14 = 0;
-      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12[v13].first.__r_.__value_.__r.__words, &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v13].second.__r_.__value_.__l.__data_) >= 1)
+      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v12[v13], &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v13].second) >= 1)
       {
         ++v14;
         v12 = this->__ranges_.__begin_;
@@ -7535,7 +7525,7 @@ LABEL_87:
   {
     v47 = 0;
     v48 = 0;
-    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v33[v47].first.__r_.__value_.__r.__words, &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v47].second.__r_.__value_.__l.__data_) >= 1)
+    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v33[v47], &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v47].second) >= 1)
     {
       ++v48;
       v33 = this->__ranges_.__begin_;
@@ -7845,7 +7835,7 @@ void sub_10000D8D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -7855,7 +7845,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -7868,12 +7858,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -8095,7 +8085,7 @@ void sub_10000DC24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -8266,7 +8256,7 @@ LABEL_28:
         {
           v20 = v30;
 LABEL_46:
-          std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v6, *v20, *(v20 + 1));
+          std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v6, *v20, v20[1]);
           goto LABEL_47;
         }
 
@@ -9198,11 +9188,11 @@ LABEL_74:
   }
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -9547,14 +9537,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](ui
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(v4 + 40) = *(a2 + 5);
     *(v4 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v8 = v4 + 48;
   }

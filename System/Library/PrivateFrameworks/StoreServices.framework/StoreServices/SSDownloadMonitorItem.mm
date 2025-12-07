@@ -17,13 +17,13 @@
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    objc_opt_class();
-    self->_clientIdentifier = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
+    v5 = objc_opt_class();
+    self->_clientIdentifier = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v5);
     self->_itemState = xpc_dictionary_get_int64(encoding, "1");
-    objc_opt_class();
-    self->_statusString = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2");
-    objc_opt_class();
-    self->_representativeTitle = SSXPCDictionaryCopyCFObjectWithClass(encoding, "3");
+    v6 = objc_opt_class();
+    self->_statusString = SSXPCDictionaryCopyCFObjectWithClass(encoding, "2", v6);
+    v7 = objc_opt_class();
+    self->_representativeTitle = SSXPCDictionaryCopyCFObjectWithClass(encoding, "3", v7);
     self->_totalNumberOfItems = xpc_dictionary_get_int64(encoding, "4");
     self->_transferTypes = xpc_dictionary_get_int64(encoding, "5");
   }

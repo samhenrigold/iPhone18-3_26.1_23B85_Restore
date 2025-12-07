@@ -220,34 +220,33 @@ LABEL_3:
 
 - (BOOL)tsu_containsKindOfClass:(Class)class
 {
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   selfCopy = self;
-  v4 = [(NSSet *)selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSSet *)selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          v9 = 1;
+          v8 = 1;
           goto LABEL_11;
         }
       }
 
-      v5 = [(NSSet *)selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSSet *)selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -257,10 +256,10 @@ LABEL_3:
     }
   }
 
-  v9 = 0;
+  v8 = 0;
 LABEL_11:
 
-  return v9;
+  return v8;
 }
 
 - (id)tsu_sortedArray
@@ -371,34 +370,33 @@ LABEL_11:
 
 - (BOOL)tsu_isHomogeneousForClass:(Class)class
 {
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   selfCopy = self;
-  v4 = [(NSSet *)selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [(NSSet *)selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v9 = 0;
+          v8 = 0;
           goto LABEL_11;
         }
       }
 
-      v5 = [(NSSet *)selfCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [(NSSet *)selfCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -408,10 +406,10 @@ LABEL_11:
     }
   }
 
-  v9 = 1;
+  v8 = 1;
 LABEL_11:
 
-  return v9;
+  return v8;
 }
 
 - (id)tsu_onlyObject

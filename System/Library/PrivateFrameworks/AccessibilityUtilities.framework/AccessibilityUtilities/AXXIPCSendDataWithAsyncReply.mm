@@ -42,7 +42,7 @@ void ____AXXIPCSendDataWithAsyncReply_block_invoke_cold_1(mach_error_t a1)
 {
   mach_error_string(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_18B15E000, v1, v2, "async reply to message failed: %{public}s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_0_5(&dword_18B15E000, v1, v2, "async reply to message failed: %{public}s", v3, v4, v5, v6);
 }
 
 @end

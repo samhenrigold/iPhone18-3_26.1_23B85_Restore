@@ -2781,7 +2781,7 @@ uint64_t NeuralNetEspressoV2::process(uint64_t a1, uint64_t a2)
     atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  NeuralNetEspressoV2::GetOutput<float>(&v21.__r_.__value_.__l.__data_, a1, v6, (a1 + 112));
+  NeuralNetEspressoV2::GetOutput<float>(&v21, a1, v6, (a1 + 112));
   v8 = *(a1 + 352);
   if (v8)
   {
@@ -2991,7 +2991,7 @@ void sub_1DDEB2920(_Unwind_Exception *a1, uint64_t a2, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t NeuralNetEspressoV2::GetOutput<float>(void **a1, uint64_t a2, E5RT::ExecutionStreamOperation *this, uint64_t *a4)
+uint64_t NeuralNetEspressoV2::GetOutput<float>(uint64_t *a1, uint64_t a2, E5RT::ExecutionStreamOperation *this, uint64_t *a4)
 {
   v30 = *MEMORY[0x1E69E9840];
   OutputPorts = E5RT::ExecutionStreamOperation::GetOutputPorts(this);
@@ -5476,7 +5476,7 @@ LABEL_43:
     std::vector<std::complex<float>>::__throw_length_error[abi:ne200100]();
   }
 
-  v32 = MEMORY[0x1EEE9AC00](v30);
+  MEMORY[0x1EEE9AC00](v30);
   v33 = (v142 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
   v146 = (v29 + 32);
   v29[32] = 0;
@@ -5489,9 +5489,9 @@ LABEL_43:
     v145 = v34 + 40;
     v37 = v34 + 64;
     v38 = v34 + 88;
-    v32.n128_u64[0] = 136315650;
+    *&v32 = 136315650;
     v143 = v32;
-    v32.n128_u64[0] = 136315906;
+    *&v32 = 136315906;
     v144 = v32;
     while (1)
     {
@@ -5610,7 +5610,7 @@ LABEL_43:
               v61 = *v52;
             }
 
-            *buf = v143.n128_u32[0];
+            *buf = v143;
             *&buf[4] = "NeuralNetImpl.cpp";
             *&buf[12] = 1024;
             *&buf[14] = 1630;
@@ -5670,7 +5670,7 @@ LABEL_81:
               v70 = *v52;
             }
 
-            *buf = v143.n128_u32[0];
+            *buf = v143;
             *&buf[4] = "NeuralNetImpl.cpp";
             *&buf[12] = 1024;
             *&buf[14] = 1634;
@@ -5730,7 +5730,7 @@ LABEL_103:
               v79 = *v52;
             }
 
-            *buf = v143.n128_u32[0];
+            *buf = v143;
             *&buf[4] = "NeuralNetImpl.cpp";
             *&buf[12] = 1024;
             *&buf[14] = 1638;
@@ -5772,7 +5772,7 @@ LABEL_132:
               v52 = *v52;
             }
 
-            *buf = v144.n128_u32[0];
+            *buf = v144;
             *&buf[4] = "NeuralNetImpl.cpp";
             *&buf[12] = 1024;
             *&buf[14] = 1656;
@@ -8922,17 +8922,17 @@ AUSM::RoomCongruence::RoomConfiguration *AUSM::RoomCongruence::RoomConfiguration
   *(this + 3) = 0;
   *(this + 4) = 0;
   *(this + 5) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 24, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 3, *(a2 + 3), *(a2 + 4), (*(a2 + 4) - *(a2 + 3)) >> 2);
   v4 = *(a2 + 6);
   *(this + 7) = 0;
   *(this + 6) = v4;
   *(this + 8) = 0;
   *(this + 9) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 56, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 7, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 2);
   *(this + 10) = 0;
   *(this + 11) = 0;
   *(this + 12) = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 80, *(a2 + 10), *(a2 + 11), (*(a2 + 11) - *(a2 + 10)) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(this + 10, *(a2 + 10), *(a2 + 11), (*(a2 + 11) - *(a2 + 10)) >> 2);
   return this;
 }
 

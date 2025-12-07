@@ -7,11 +7,11 @@
 - (BKSHIDEventAuthenticationMessage)initWithXPCDictionary:(id)dictionary;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
-- (id)_calculateSignatureWithHMACContext:(uint64_t)context;
-- (id)_dataProtobufEncoded;
+- (id)_calculateSignatureWithHMACContext:(id *)context;
 - (id)_init;
 - (id)_protobufDecodedMessageFromData:(uint64_t)data;
 - (unint64_t)hash;
+- (void)_dataProtobufEncoded;
 - (void)appendDescriptionToFormatter:(id)formatter;
 - (void)encodeWithBSXPCCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
@@ -39,31 +39,33 @@
 
 uint64_t __50__BKSHIDEventAuthenticationMessage_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_9350 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_9352];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_9350;
+  protobufSchema_schema_9350 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __50__BKSHIDEventAuthenticationMessage_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_signature"];
-  [v2 addField:"_hitTestInformationFromStartEvent"];
-  [v2 addField:"_hitTestInformationFromEndEvent"];
-  [v2 addField:"_originIdentifier"];
-  [v2 addField:"_timestamp"];
-  [v2 addField:"_context"];
-  [v2 addField:"_secureNameStatus"];
-  [v2 addField:"_eventType"];
-  [v2 addField:"_targetSlotID"];
-  [v2 addField:"_targetContextID"];
-  [v2 addField:"_versionedPID"];
-  [v2 addField:"_registrantEntitled"];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
 }
 
 - (id)_init
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -73,46 +75,45 @@ void __50__BKSHIDEventAuthenticationMessage_protobufSchema__block_invoke_2(uint6
       v3 = objc_opt_class();
       if (v3 != objc_opt_class())
       {
-        v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDEventAuthenticationMessage cannot be subclassed"];
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          v6 = NSStringFromSelector(sel__init);
-          v7 = objc_opt_class();
-          v8 = NSStringFromClass(v7);
+          v5 = NSStringFromSelector(sel__init);
+          v6 = objc_opt_class();
+          v7 = NSStringFromClass(v6);
           *buf = 138544642;
-          v11 = v6;
-          v12 = 2114;
-          v13 = v8;
-          v14 = 2048;
-          v15 = v1;
-          v16 = 2114;
-          v17 = @"BKSHIDEventAuthenticationMessage.m";
-          v18 = 1024;
-          v19 = 122;
-          v20 = 2114;
-          v21 = v5;
+          v10 = v5;
+          v11 = 2114;
+          v12 = v7;
+          v13 = 2048;
+          v14 = v1;
+          v15 = 2114;
+          v16 = @"BKSHIDEventAuthenticationMessage.m";
+          v17 = 1024;
+          v18 = 122;
+          v19 = 2114;
+          v20 = v4;
           _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
         }
 
-        [v5 UTF8String];
+        [v4 UTF8String];
         _bs_set_crash_log_message();
         __break(0);
         JUMPOUT(0x1863964C4);
       }
     }
 
-    v9.receiver = v1;
-    v9.super_class = BKSHIDEventAuthenticationMessage;
-    result = objc_msgSendSuper2(&v9, sel_init);
+    v8.receiver = v1;
+    v8.super_class = BKSHIDEventAuthenticationMessage;
+    return objc_msgSendSuper2(&v8, sel_init);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 + (BKSHIDEventAuthenticationMessage)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot allocate one of these"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -143,43 +144,42 @@ void __50__BKSHIDEventAuthenticationMessage_protobufSchema__block_invoke_2(uint6
 {
   coderCopy = coder;
   _dataProtobufEncoded = [(BKSHIDEventAuthenticationMessage *)self _dataProtobufEncoded];
-  [coderCopy encodeObject:_dataProtobufEncoded forKey:@"backboarddSelfData"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
-- (id)_dataProtobufEncoded
+- (void)_dataProtobufEncoded
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (self)
   {
-    v11 = 0;
-    v2 = [MEMORY[0x1E698E750] encodeObject:self error:&v11];
-    v3 = v11;
+    v2 = [MEMORY[0x1E698E750] encodeObject:? error:?];
+    v3 = 0;
     v4 = [v2 copy];
 
     if (!v4)
     {
-      v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"auth message encode error: %@", v3];
+      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:v3];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v8 = NSStringFromSelector(sel__dataProtobufEncoded);
-        v9 = objc_opt_class();
-        v10 = NSStringFromClass(v9);
+        v7 = NSStringFromSelector(sel__dataProtobufEncoded);
+        v8 = objc_opt_class();
+        v9 = NSStringFromClass(v8);
         *buf = 138544642;
-        v13 = v8;
-        v14 = 2114;
-        v15 = v10;
-        v16 = 2048;
+        v11 = v7;
+        v12 = 2114;
+        v13 = v9;
+        v14 = 2048;
         selfCopy = self;
-        v18 = 2114;
-        v19 = @"BKSHIDEventAuthenticationMessage.m";
-        v20 = 1024;
-        v21 = 351;
-        v22 = 2114;
-        v23 = v7;
+        v16 = 2114;
+        v17 = @"BKSHIDEventAuthenticationMessage.m";
+        v18 = 1024;
+        v19 = 351;
+        v20 = 2114;
+        v21 = v6;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v7 UTF8String];
+      [v6 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x186396BA4);
@@ -191,15 +191,14 @@ void __50__BKSHIDEventAuthenticationMessage_protobufSchema__block_invoke_2(uint6
     v4 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (BKSHIDEventAuthenticationMessage)initWithBSXPCCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"backboarddSelfData"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
 
   v6 = [(BKSHIDEventAuthenticationMessage *)self _protobufDecodedMessageFromData:v5];
 
@@ -208,52 +207,51 @@ void __50__BKSHIDEventAuthenticationMessage_protobufSchema__block_invoke_2(uint6
 
 - (id)_protobufDecodedMessageFromData:(uint64_t)data
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (data)
   {
     if (v3)
     {
-      v10 = 0;
-      v5 = [MEMORY[0x1E698E750] decodeObjectOfClass:objc_opt_class() fromData:v3 error:&v10];
-      v6 = v10;
-      if (v5)
+      v5 = MEMORY[0x1E698E750];
+      objc_opt_class();
+      v6 = [v5 decodeObjectOfClass:? fromData:? error:?];
+      v7 = 0;
+      if (v6)
       {
 LABEL_10:
 
         goto LABEL_11;
       }
 
-      v7 = BKLogEventDelivery();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = BKLogEventDelivery();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v12 = v6;
-        _os_log_error_impl(&dword_186345000, v7, OS_LOG_TYPE_ERROR, "auth message protobuf decode failure: %{public}@", buf, 0xCu);
+        v11 = v7;
+        _os_log_error_impl(&dword_186345000, v8, OS_LOG_TYPE_ERROR, "auth message protobuf decode failure: %{public}@", buf, 0xCu);
       }
     }
 
     else
     {
-      v6 = BKLogEventDelivery();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = BKLogEventDelivery();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_186345000, v6, OS_LOG_TYPE_ERROR, "auth message data decode failure", buf, 2u);
+        _os_log_error_impl(&dword_186345000, v7, OS_LOG_TYPE_ERROR, "auth message data decode failure", buf, 2u);
       }
     }
 
-    v5 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithXPCDictionary:(id)dictionary
@@ -275,13 +273,14 @@ LABEL_11:
 {
   coderCopy = coder;
   _dataProtobufEncoded = [(BKSHIDEventAuthenticationMessage *)self _dataProtobufEncoded];
-  [coderCopy encodeObject:_dataProtobufEncoded forKey:@"backboarddSelfData"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (BKSHIDEventAuthenticationMessage)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"backboarddSelfData"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
 
   v6 = [(BKSHIDEventAuthenticationMessage *)self _protobufDecodedMessageFromData:v5];
 
@@ -291,50 +290,35 @@ LABEL_11:
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  originIdentifier = self->_originIdentifier;
-  if (originIdentifier == 0xC181BADB23D8497BLL)
-  {
-    v5 = @"originIdentifier (backboardd)";
-    v6 = formatterCopy;
-    originIdentifier = 0xC181BADB23D8497BLL;
-  }
+  v4 = [formatterCopy appendUInt64:? withName:? format:?];
+  v5 = [formatterCopy appendUInt64:? withName:? format:?];
+  v6 = NSStringFromBSVersionedPID();
+  [formatterCopy appendString:? withName:?];
 
-  else
-  {
-    v5 = @"originIdentifier";
-    v6 = formatterCopy;
-  }
+  v7 = NSStringFromBKSHIDEventSecureNameStatus(self->_secureNameStatus);
+  [formatterCopy appendString:? withName:?];
 
-  v7 = [v6 appendUInt64:originIdentifier withName:v5 format:1];
-  v8 = [formatterCopy appendUInt64:self->_context withName:@"context" format:1];
-  versionedPID = self->_versionedPID;
-  v10 = NSStringFromBSVersionedPID();
-  [formatterCopy appendString:v10 withName:@"pid"];
-
-  v11 = NSStringFromBKSHIDEventSecureNameStatus(self->_secureNameStatus);
-  [formatterCopy appendString:v11 withName:@"secureNameStatus"];
-
-  v12 = [formatterCopy appendBool:self->_registrantEntitled withName:@"registrantEntitled"];
-  eventType = self->_eventType;
-  [formatterCopy appendString:IOHIDEventTypeGetName() withName:@"eventType"];
-  v14 = [formatterCopy appendUInt64:self->_targetSlotID withName:@"targetSlotID" format:1];
-  v15 = [formatterCopy appendUInt64:self->_targetContextID withName:@"targetContextID" format:1];
-  v16 = [formatterCopy appendObject:self->_hitTestInformationFromStartEvent withName:@"hitTestInformationFromStartEvent" skipIfNil:1];
-  v17 = [formatterCopy appendObject:self->_hitTestInformationFromEndEvent withName:@"hitTestInformationFromEndEvent" skipIfNil:1];
+  v8 = [formatterCopy appendBool:? withName:?];
+  IOHIDEventTypeGetName();
+  [formatterCopy appendString:? withName:?];
+  v9 = [formatterCopy appendUInt64:? withName:? format:?];
+  v10 = [formatterCopy appendUInt64:? withName:? format:?];
+  v11 = [formatterCopy appendObject:? withName:? skipIfNil:?];
+  v12 = [formatterCopy appendObject:? withName:? skipIfNil:?];
 }
 
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
   objc_opt_class();
-  v9 = (objc_opt_isKindOfClass() & 1) != 0 && self->_eventType == equalCopy[4] && self->_targetSlotID == equalCopy[5] && self->_targetContextID == equalCopy[6] && (hitTestInformationFromStartEvent = self->_hitTestInformationFromStartEvent, v6 = *(equalCopy + 4), BSEqualObjects()) && (hitTestInformationFromEndEvent = self->_hitTestInformationFromEndEvent, v8 = *(equalCopy + 5), BSEqualObjects()) && self->_timestamp == *(equalCopy + 6) && self->_context == *(equalCopy + 8) && self->_secureNameStatus == *(equalCopy + 9) && self->_registrantEntitled == *(equalCopy + 80) && self->_versionedPID == *(equalCopy + 1) && self->_originIdentifier == *(equalCopy + 7);
+  v5 = (objc_opt_isKindOfClass() & 1) != 0 && self->_eventType == equalCopy[4] && self->_targetSlotID == equalCopy[5] && self->_targetContextID == equalCopy[6] && BSEqualObjects() && BSEqualObjects() && self->_timestamp == *(equalCopy + 6) && self->_context == *(equalCopy + 8) && self->_secureNameStatus == *(equalCopy + 9) && self->_registrantEntitled == *(equalCopy + 80) && self->_versionedPID == *(equalCopy + 1) && self->_originIdentifier == *(equalCopy + 7);
 
-  return v9;
+  return v5;
 }
 
 - (unint64_t)hash
 {
-  v2 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:self->_timestamp];
+  v2 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:?];
   v3 = [v2 hash];
 
   return v3;
@@ -344,13 +328,9 @@ LABEL_11:
 {
   v3 = objc_alloc_init(MEMORY[0x1E698E688]);
   v7 = MEMORY[0x1E69E9820];
-  v8 = 3221225472;
-  v9 = __47__BKSHIDEventAuthenticationMessage_description__block_invoke;
-  v10 = &unk_1E6F47C78;
-  selfCopy = self;
-  v12 = v3;
+  v8 = v3;
   v4 = v3;
-  [v4 appendProem:self block:&v7];
+  [v4 appendProem:v7 block:{3221225472, __47__BKSHIDEventAuthenticationMessage_description__block_invoke, &unk_1E6F47C78, self}];
   v5 = [v4 description];
 
   return v5;
@@ -358,7 +338,7 @@ LABEL_11:
 
 - (BKSHIDEventAuthenticationMessage)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot allocate one of these"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -385,27 +365,25 @@ LABEL_11:
   JUMPOUT(0x1863974ACLL);
 }
 
-- (id)_calculateSignatureWithHMACContext:(uint64_t)context
+- (id)_calculateSignatureWithHMACContext:(id *)context
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (context)
   {
     contextCopy = context;
-    CCHmacUpdate(ctx, (context + 48), 8uLL);
+    CCHmacUpdate(ctx, context + 6, 8uLL);
     CCHmacUpdate(ctx, contextCopy + 8, 8uLL);
     CCHmacUpdate(ctx, contextCopy + 2, 4uLL);
     CCHmacUpdate(ctx, contextCopy + 20, 4uLL);
     CCHmacUpdate(ctx, contextCopy + 3, 4uLL);
-    [contextCopy[4] _updateCCHmacContext:ctx];
-    [contextCopy[5] _updateCCHmacContext:ctx];
+    [contextCopy[4] _updateCCHmacContext:?];
+    [contextCopy[5] _updateCCHmacContext:?];
     CCHmacUpdate(ctx, contextCopy + 1, 8uLL);
     CCHmacUpdate(ctx, contextCopy + 9, 8uLL);
     CCHmacUpdate(ctx, contextCopy + 10, 1uLL);
     CCHmacFinal(ctx, macOut);
-    context = [MEMORY[0x1E695DEF0] dataWithBytes:macOut length:32];
+    context = [MEMORY[0x1E695DEF0] dataWithBytes:? length:?];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return context;
 }

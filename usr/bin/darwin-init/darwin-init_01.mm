@@ -62,12 +62,12 @@ void sub_100017254()
     v41 = v56;
     v52 = type metadata accessor for KnoxServiceClient.ClientError();
     v27 = swift_allocObject();
-    sub_10001AA40(0, &qword_1004A7840);
+    sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
     static DispatchQoS.userInitiated.getter();
-    v55 = &_swiftEmptyArrayStorage;
-    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-    sub_1000039E8(&unk_1004A7850);
-    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+    v55 = _swiftEmptyArrayStorage;
+    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
+    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
     v40 = v20;
     dispatch thunk of SetAlgebra.init<A>(_:)();
     isa = v44[13].isa;
@@ -93,7 +93,7 @@ void sub_100017254()
     *(v27 + 72) = v35;
     *(v27 + 80) = 0;
     *(v27 + 88) = v32;
-    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
     v36 = swift_allocError();
     *v37 = v27;
     swift_getErrorValue();
@@ -121,67 +121,67 @@ Swift::Int sub_100017948(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_1000179C4(uint64_t a1, uint64_t a2)
 {
-  v35 = a1;
-  v36 = a2;
-  v33 = type metadata accessor for DispatchQoS.QoSClass();
+  v36 = a1;
+  v37 = a2;
+  v34 = type metadata accessor for DispatchQoS.QoSClass();
+  v32 = *(v34 - 8);
+  __chkstk_darwin(v34);
+  v4 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v33 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
   v31 = *(v33 - 8);
   __chkstk_darwin(v33);
-  v4 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v30 = *(v32 - 8);
-  __chkstk_darwin(v32);
-  v29 = &v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for OS_dispatch_queue.Attributes();
   __chkstk_darwin(v6);
   v7 = type metadata accessor for DispatchQoS();
   __chkstk_darwin(v7 - 8);
   v8 = OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_wasCancelled;
   swift_beginAccess();
-  v34 = v2;
+  v35 = v2;
   *(v2 + v8) = 1;
 
   sub_100014ED0();
 
-  v27 = 0x8000000100429AF0;
-  v28 = type metadata accessor for KnoxServiceClient.ClientError();
+  v28 = 0x8000000100429AF0;
+  v29 = type metadata accessor for KnoxServiceClient.ClientError();
   v9 = swift_allocObject();
-  sub_10001AA40(0, &qword_1004A7840);
-  v26 = "hivePointer.swift";
+  sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
+  v27 = "hivePointer.swift";
   static DispatchQoS.userInitiated.getter();
-  v37 = &_swiftEmptyArrayStorage;
-  sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_1000039E8(&unk_1004A7850);
-  sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+  v38 = _swiftEmptyArrayStorage;
+  sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_1000039E8(&unk_1004A7850, &qword_100376280);
+  sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v30 + 104))(v29, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v32);
-  v10 = v31;
-  v11 = v33;
-  (*(v31 + 104))(v4, enum case for DispatchQoS.QoSClass.default(_:), v33);
+  (*(v31 + 104))(v30, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v33);
+  v10 = v32;
+  v11 = v34;
+  (*(v32 + 104))(v4, enum case for DispatchQoS.QoSClass.default(_:), v34);
   static OS_dispatch_queue.global(qos:)();
   (*(v10 + 8))(v4, v11);
   v12 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   *(v9 + 16) = 0x72286C65636E6163;
   *(v9 + 24) = 0xEF293A6E6F736165;
   *(v9 + 32) = 0xD000000000000065;
-  v13 = v27;
+  v13 = v28;
   *(v9 + 56) = 5;
   *(v9 + 40) = v13;
   *(v9 + 48) = 352;
-  v14 = v36;
-  *(v9 + 64) = v35;
+  v14 = v37;
+  *(v9 + 64) = v36;
   *(v9 + 72) = v14;
   *(v9 + 80) = 0;
   *(v9 + 88) = v12;
-  sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+  sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
   v15 = swift_allocError();
   *v16 = v9;
   swift_getErrorValue();
 
   v17 = Error.localizedDescription.getter();
-  v18 = v34;
+  v18 = v35;
   sub_100036D50(v15, v17, v19);
 
-  sub_1000039E8(&unk_1004A7370);
+  sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
   v20 = swift_allocObject();
   *(v20 + 16) = xmmword_100376A40;
   v21 = [v18 description];
@@ -192,10 +192,10 @@ void sub_1000179C4(uint64_t a1, uint64_t a2)
   *(v20 + 64) = sub_10001A9EC();
   *(v20 + 32) = v22;
   *(v20 + 40) = v24;
-  sub_10001AA40(0, &qword_1004A7380);
+  sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
   v25 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v26 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Cancelled %{public}s", 20, 2, &_mh_execute_header, v25, v26, v20);
 }
 
 void **sub_100017F5C()
@@ -241,7 +241,7 @@ uint64_t sub_100018058(uint64_t a1)
 uint64_t sub_1000180C8()
 {
   v1 = v0;
-  v2 = sub_1000039E8(&qword_1004A6D30);
+  v2 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
   __chkstk_darwin(v2 - 8);
   v4 = &v19[-v3];
   v5 = type metadata accessor for URL();
@@ -256,10 +256,10 @@ uint64_t sub_1000180C8()
 
   v10 = OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputArchiveURL;
   swift_beginAccess();
-  sub_100013E54(v1 + v10, v4, &qword_1004A6D30);
+  sub_100013E54(v1 + v10, v4, &qword_1004A6D30, &unk_100376820);
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    return sub_100013F2C(v4, &qword_1004A6D30);
+    return sub_100013F2C(v4, &qword_1004A6D30, &unk_100376820);
   }
 
   (*(v6 + 32))(v8, v4, v5);
@@ -302,14 +302,14 @@ uint64_t sub_1000183C8(char a1)
 
 uint64_t sub_1000184A8()
 {
-  sub_100013F2C(v0 + OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputDirectoryURL, &qword_1004A6D30);
-  sub_100013F2C(v0 + OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputArchiveURL, &qword_1004A6D30);
+  sub_100013F2C(v0 + OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputDirectoryURL, &qword_1004A6D30, &unk_100376820);
+  sub_100013F2C(v0 + OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputArchiveURL, &qword_1004A6D30, &unk_100376820);
 }
 
 id ExtractTask.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for ExtractTask();
+  v2.super_class = type metadata accessor for ExtractTask(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -335,7 +335,7 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
   v14 = *(v13 - 8);
   __chkstk_darwin(v13);
   v129 = &v108 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_1000039E8(&qword_1004A6D30);
+  v16 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
   v17 = __chkstk_darwin(v16 - 8);
   v109 = &v108 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = __chkstk_darwin(v17);
@@ -363,7 +363,7 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
   v126 = a3;
   v33 = *&a3[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_space];
   v34 = *&a3[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_space + 8];
-  v35 = objc_allocWithZone(type metadata accessor for ExtractTask());
+  v35 = objc_allocWithZone(type metadata accessor for ExtractTask(0));
   (v29)(&v35[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputDirectoryURL], 1, 1, v13);
   v132 = v13;
   v120 = v29;
@@ -398,7 +398,7 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
 
   else
   {
-    v43 = &_swiftEmptyArrayStorage;
+    v43 = _swiftEmptyArrayStorage;
   }
 
   if (v130)
@@ -408,7 +408,7 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
 
   else
   {
-    v44 = &_swiftEmptyArrayStorage;
+    v44 = _swiftEmptyArrayStorage;
   }
 
   type metadata accessor for AEAUtils.FilePathRegexFilter();
@@ -426,7 +426,7 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
 
   *(v45 + 16) = v43;
   *&v35[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_filter] = v45;
-  *&v35[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_trimingPrefixes] = &_swiftEmptyArrayStorage;
+  *&v35[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_trimingPrefixes] = _swiftEmptyArrayStorage;
   v46 = v39;
   v47 = sub_10003D38C(v46);
   v125 = v46;
@@ -456,34 +456,34 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
   v56[1] = v55;
 
   v57 = v122;
-  sub_100013E54(v134, v122, &qword_1004A6D30);
+  sub_100013E54(v134, v122, &qword_1004A6D30, &unk_100376820);
   v59 = v132;
   v58 = v133;
   v60 = *(v133 + 48);
   if (v60(v57, 1, v132) == 1)
   {
     v130 = v48;
-    sub_100013F2C(v57, &qword_1004A6D30);
+    sub_100013F2C(v57, &qword_1004A6D30, &unk_100376820);
     v61 = v131;
     v62 = v109;
-    sub_100013E54(v131, v109, &qword_1004A6D30);
+    sub_100013E54(v131, v109, &qword_1004A6D30, &unk_100376820);
     v63 = v60(v62, 1, v59);
     v64 = v129;
     if (v63 == 1)
     {
-      sub_100013F2C(v62, &qword_1004A6D30);
+      sub_100013F2C(v62, &qword_1004A6D30, &unk_100376820);
       v123 = 0x8000000100429A70;
       v122 = 0x8000000100429AF0;
       v124 = 0x8000000100429B60;
       v129 = type metadata accessor for KnoxServiceClient.ClientError();
       v65 = swift_allocObject();
-      v120 = sub_10001AA40(0, &qword_1004A7840);
+      v120 = sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
       v121 = "hivePointer.swift";
       static DispatchQoS.userInitiated.getter();
-      v135 = &_swiftEmptyArrayStorage;
-      sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-      sub_1000039E8(&unk_1004A7850);
-      sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+      v135 = _swiftEmptyArrayStorage;
+      sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+      sub_1000039E8(&unk_1004A7850, &qword_100376280);
+      sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
       v59 = v132;
       dispatch thunk of SetAlgebra.init<A>(_:)();
       (*(v111 + 104))(v114, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v112);
@@ -507,7 +507,7 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
       *(v65 + 72) = v72;
       *(v65 + 80) = 0;
       *(v65 + 88) = v69;
-      sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+      sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
       v73 = swift_allocError();
       *v74 = v65;
       swift_getErrorValue();
@@ -517,8 +517,8 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
       sub_100036D50(v73, v75, v76);
       v77 = v125;
 
-      sub_100013F2C(v131, &qword_1004A6D30);
-      sub_100013F2C(v134, &qword_1004A6D30);
+      sub_100013F2C(v131, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v134, &qword_1004A6D30, &unk_100376820);
 
       v78 = v133;
       goto LABEL_18;
@@ -532,7 +532,7 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
     v82 = OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputArchiveURL;
     v48 = v130;
     swift_beginAccess();
-    sub_10001F8D8(v81, &v48[v82], &qword_1004A6D30);
+    sub_10001F8D8(v81, &v48[v82], &qword_1004A6D30, &unk_100376820);
     swift_endAccess();
   }
 
@@ -545,7 +545,7 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
     (v120)(v79, 0, 1, v59);
     v80 = OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputDirectoryURL;
     swift_beginAccess();
-    sub_10001F8D8(v79, &v48[v80], &qword_1004A6D30);
+    sub_10001F8D8(v79, &v48[v80], &qword_1004A6D30, &unk_100376820);
     swift_endAccess();
     v78 = v58;
     v61 = v131;
@@ -556,8 +556,8 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
     v77 = v125;
 
     (*(v78 + 8))(v64, v59);
-    sub_100013F2C(v61, &qword_1004A6D30);
-    sub_100013F2C(v134, &qword_1004A6D30);
+    sub_100013F2C(v61, &qword_1004A6D30, &unk_100376820);
+    sub_100013F2C(v134, &qword_1004A6D30, &unk_100376820);
   }
 
   else
@@ -567,13 +567,13 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
     v123 = 0x8000000100429BD0;
     v124 = type metadata accessor for KnoxServiceClient.ClientError();
     v83 = swift_allocObject();
-    sub_10001AA40(0, &qword_1004A7840);
+    sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
     v120 = "hivePointer.swift";
     static DispatchQoS.userInitiated.getter();
-    v135 = &_swiftEmptyArrayStorage;
-    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-    sub_1000039E8(&unk_1004A7850);
-    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+    v135 = _swiftEmptyArrayStorage;
+    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
+    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
     v59 = v132;
     dispatch thunk of SetAlgebra.init<A>(_:)();
     (*(v111 + 104))(v114, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v112);
@@ -599,7 +599,7 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
     *(v83 + 72) = v91;
     *(v83 + 80) = 0;
     *(v83 + 88) = v88;
-    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
     v92 = swift_allocError();
     *v93 = v83;
     swift_getErrorValue();
@@ -610,8 +610,8 @@ char *_s16KnoxClientPublic11ExtractTaskC6client18outputDirectoryURL7pointer19inc
     v77 = v125;
 
     (*(v78 + 8))(v129, v59);
-    sub_100013F2C(v131, &qword_1004A6D30);
-    sub_100013F2C(v134, &qword_1004A6D30);
+    sub_100013F2C(v131, &qword_1004A6D30, &unk_100376820);
+    sub_100013F2C(v134, &qword_1004A6D30, &unk_100376820);
     v48 = v130;
   }
 
@@ -671,7 +671,7 @@ char *sub_100019890(void *a1, char *a2, uint64_t a3, void *a4, uint64_t a5, void
   v19 = *(v18 - 8);
   __chkstk_darwin(v18);
   v123 = &v104 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = sub_1000039E8(&qword_1004A6D30);
+  v21 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
   v22 = __chkstk_darwin(v21 - 8);
   v24 = &v104 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
   v25 = __chkstk_darwin(v22);
@@ -692,7 +692,7 @@ char *sub_100019890(void *a1, char *a2, uint64_t a3, void *a4, uint64_t a5, void
   v34(v31, a2, v18);
   v124 = v31;
   (v32)(v31, 0, 1, v18);
-  v35 = objc_allocWithZone(type metadata accessor for ExtractTask());
+  v35 = objc_allocWithZone(type metadata accessor for ExtractTask(0));
   (v32)(&v35[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputDirectoryURL], 1, 1, v18);
   v125 = v18;
   (v32)(&v35[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputArchiveURL], 1, 1, v18);
@@ -725,7 +725,7 @@ char *sub_100019890(void *a1, char *a2, uint64_t a3, void *a4, uint64_t a5, void
 
   else
   {
-    v43 = &_swiftEmptyArrayStorage;
+    v43 = _swiftEmptyArrayStorage;
   }
 
   if (v120)
@@ -735,7 +735,7 @@ char *sub_100019890(void *a1, char *a2, uint64_t a3, void *a4, uint64_t a5, void
 
   else
   {
-    v44 = &_swiftEmptyArrayStorage;
+    v44 = _swiftEmptyArrayStorage;
   }
 
   type metadata accessor for AEAUtils.FilePathRegexFilter();
@@ -786,7 +786,7 @@ char *sub_100019890(void *a1, char *a2, uint64_t a3, void *a4, uint64_t a5, void
   v119 = v57;
 
   v58 = v118;
-  sub_100013E54(v127, v118, &qword_1004A6D30);
+  sub_100013E54(v127, v118, &qword_1004A6D30, &unk_100376820);
   v59 = v125;
   v60 = v126;
   v61 = *(v126 + 48);
@@ -799,7 +799,7 @@ char *sub_100019890(void *a1, char *a2, uint64_t a3, void *a4, uint64_t a5, void
     (v32)(v77, 0, 1, v59);
     v78 = OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputDirectoryURL;
     swift_beginAccess();
-    sub_10001F8D8(v77, &v49[v78], &qword_1004A6D30);
+    sub_10001F8D8(v77, &v49[v78], &qword_1004A6D30, &unk_100376820);
     swift_endAccess();
     v62 = v124;
     if ((URL.isFileURL.getter() & 1) == 0)
@@ -810,13 +810,13 @@ LABEL_16:
       v117 = 0x8000000100429BD0;
       v118 = type metadata accessor for KnoxServiceClient.ClientError();
       v81 = swift_allocObject();
-      sub_10001AA40(0, &qword_1004A7840);
+      sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
       v105 = "hivePointer.swift";
       static DispatchQoS.userInitiated.getter();
-      v131 = &_swiftEmptyArrayStorage;
-      sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-      sub_1000039E8(&unk_1004A7850);
-      sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+      v131 = _swiftEmptyArrayStorage;
+      sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+      sub_1000039E8(&unk_1004A7850, &qword_100376280);
+      sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
       dispatch thunk of SetAlgebra.init<A>(_:)();
       (*(v107 + 104))(v111, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v108);
       v82 = v113;
@@ -839,7 +839,7 @@ LABEL_16:
       *(v81 + 72) = v87;
       *(v81 + 80) = 0;
       *(v81 + 88) = v85;
-      sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+      sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
       v88 = swift_allocError();
       *v89 = v81;
       swift_getErrorValue();
@@ -850,8 +850,8 @@ LABEL_16:
       v75 = v120;
 
       (*(v60 + 8))(v123, v59);
-      sub_100013F2C(v124, &qword_1004A6D30);
-      sub_100013F2C(v127, &qword_1004A6D30);
+      sub_100013F2C(v124, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v127, &qword_1004A6D30, &unk_100376820);
 
       goto LABEL_17;
     }
@@ -860,16 +860,16 @@ LABEL_14:
     v75 = v120;
 
     (*(v60 + 8))(v76, v59);
-    sub_100013F2C(v62, &qword_1004A6D30);
-    sub_100013F2C(v127, &qword_1004A6D30);
+    sub_100013F2C(v62, &qword_1004A6D30, &unk_100376820);
+    sub_100013F2C(v127, &qword_1004A6D30, &unk_100376820);
     goto LABEL_17;
   }
 
   v104 = v49;
-  sub_100013F2C(v58, &qword_1004A6D30);
+  sub_100013F2C(v58, &qword_1004A6D30, &unk_100376820);
   v62 = v124;
   v63 = v105;
-  sub_100013E54(v124, v105, &qword_1004A6D30);
+  sub_100013E54(v124, v105, &qword_1004A6D30, &unk_100376820);
   if (v61(v63, 1, v59) != 1)
   {
     v60 = v126;
@@ -881,7 +881,7 @@ LABEL_14:
     v80 = OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputArchiveURL;
     v49 = v104;
     swift_beginAccess();
-    sub_10001F8D8(v79, &v49[v80], &qword_1004A6D30);
+    sub_10001F8D8(v79, &v49[v80], &qword_1004A6D30, &unk_100376820);
     swift_endAccess();
     if ((URL.isFileURL.getter() & 1) == 0)
     {
@@ -891,19 +891,19 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  sub_100013F2C(v63, &qword_1004A6D30);
+  sub_100013F2C(v63, &qword_1004A6D30, &unk_100376820);
   v116 = 0x8000000100429A70;
   v117 = 0x8000000100429AF0;
   v118 = 0x8000000100429B60;
   v123 = type metadata accessor for KnoxServiceClient.ClientError();
   v64 = swift_allocObject();
-  sub_10001AA40(0, &qword_1004A7840);
+  sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
   v115 = "hivePointer.swift";
   static DispatchQoS.userInitiated.getter();
-  v131 = &_swiftEmptyArrayStorage;
-  sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_1000039E8(&unk_1004A7850);
-  sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+  v131 = _swiftEmptyArrayStorage;
+  sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_1000039E8(&unk_1004A7850, &qword_100376280);
+  sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (*(v107 + 104))(v111, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v108);
   v65 = v113;
@@ -926,7 +926,7 @@ LABEL_14:
   *(v64 + 72) = v70;
   *(v64 + 80) = 0;
   *(v64 + 88) = v68;
-  sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+  sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
   v71 = swift_allocError();
   *v72 = v64;
   swift_getErrorValue();
@@ -936,8 +936,8 @@ LABEL_14:
   sub_100036D50(v71, v73, v74);
   v75 = v120;
 
-  sub_100013F2C(v62, &qword_1004A6D30);
-  sub_100013F2C(v127, &qword_1004A6D30);
+  sub_100013F2C(v62, &qword_1004A6D30, &unk_100376820);
+  sub_100013F2C(v127, &qword_1004A6D30, &unk_100376820);
 
   v60 = v126;
 LABEL_17:
@@ -987,7 +987,7 @@ unint64_t sub_10001A9EC()
   return result;
 }
 
-uint64_t sub_10001AA40(uint64_t a1, unint64_t *a2)
+uint64_t sub_10001AA40(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -1007,7 +1007,7 @@ void **sub_10001AA88()
   v310 = *(v312 - 8);
   __chkstk_darwin(v312);
   v311 = &v298 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v3 = sub_1000039E8(&qword_1004A73C0);
+  v3 = sub_1000039E8(&qword_1004A73C0, &unk_100376A70);
   __chkstk_darwin(v3 - 8);
   v320 = &v298 - v4;
   v331 = type metadata accessor for DispatchQoS.QoSClass();
@@ -1024,7 +1024,7 @@ void **sub_10001AA88()
   v10 = type metadata accessor for DispatchQoS();
   __chkstk_darwin(v10 - 8);
   v336 = (&v298 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = sub_1000039E8(&qword_1004A6D30);
+  v12 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
   v13 = __chkstk_darwin(v12 - 8);
   v317 = &v298 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = __chkstk_darwin(v13);
@@ -1106,8 +1106,8 @@ void **sub_10001AA88()
   *(v55 + 24) = countAndFlagsBits;
   *(v55 + 32) = object;
   v56 = swift_allocObject();
-  *(v56 + 16) = sub_10001F858;
-  *(v56 + 24) = v55;
+  *(v56 + 2) = sub_10001F858;
+  *(v56 + 3) = v55;
   v355 = sub_10001F874;
   v356 = v56;
   aBlock = _NSConcreteStackBlock;
@@ -1139,7 +1139,7 @@ void **sub_10001AA88()
     v62 = *&v59[v61];
     if (!v62)
     {
-      sub_1000CEF18(v321, *&v59[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_digest], *&v59[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_digest + 8], *&v59[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_space], *&v59[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_space + 8], 0);
+      sub_1000CEF18(v321, *&v59[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_digest], *&v59[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_digest + 8], *&v59[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_space], *&v59[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_space + 8], 0, 60.0);
       v111 = v110;
       v304 = v6;
       v112 = *&v59[OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_randomAccessStreams];
@@ -1161,7 +1161,7 @@ void **sub_10001AA88()
       v326 = v115;
       if (v120 == 1)
       {
-        sub_100013F2C(v116, &qword_1004A6D30);
+        sub_100013F2C(v116, &qword_1004A6D30, &unk_100376820);
         v340 = 0x8000000100429E70;
         v341 = 0x8000000100429EB0;
         v347 = 0;
@@ -1182,12 +1182,12 @@ void **sub_10001AA88()
         v324 = v348;
         v339 = type metadata accessor for KnoxServiceClient.ClientError();
         v125 = swift_allocObject();
-        sub_10001AA40(0, &qword_1004A7840);
+        sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
         static DispatchQoS.userInitiated.getter();
-        v347 = &_swiftEmptyArrayStorage;
-        sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-        sub_1000039E8(&unk_1004A7850);
-        sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+        v347 = _swiftEmptyArrayStorage;
+        sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+        sub_1000039E8(&unk_1004A7850, &qword_100376280);
+        sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
         dispatch thunk of SetAlgebra.init<A>(_:)();
         (*(v335 + 13))(v333, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v304);
         v126 = v330;
@@ -1210,7 +1210,7 @@ void **sub_10001AA88()
         *(v125 + 72) = v132;
         *(v125 + 80) = 0;
         *(v125 + 88) = v129;
-        sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+        sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
         v58 = swift_allocError();
         *v133 = v125;
         swift_willThrow();
@@ -1234,23 +1234,23 @@ void **sub_10001AA88()
         v137 = swift_allocObject();
         *(v137 + OBJC_IVAR____TtC16KnoxClientPublic30KnoxRandomAccessDownloadStream_pos) = 0;
         v309 = OBJC_IVAR____TtC16KnoxClientPublic30KnoxRandomAccessDownloadStream_synchronizationQueue;
-        sub_10001AA40(0, &qword_1004A7840);
+        sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
         v308 = " a valid URL instance from ";
         static DispatchQoS.default.getter();
-        v347 = &_swiftEmptyArrayStorage;
-        sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
+        v347 = _swiftEmptyArrayStorage;
+        sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
         v339 = 0;
-        sub_1000039E8(&unk_1004A7850);
-        sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+        sub_1000039E8(&unk_1004A7850, &qword_100376280);
+        sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
         dispatch thunk of SetAlgebra.init<A>(_:)();
         v138 = *(v335 + 13);
-        v300 = enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:);
+        HIDWORD(v300) = enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:);
         v301 = v138;
         v138(v333);
         v139 = v330;
         v140 = *(v330 + 104);
         v141 = v329;
-        v302 = enum case for DispatchQoS.QoSClass.default(_:);
+        HIDWORD(v302) = enum case for DispatchQoS.QoSClass.default(_:);
         v142 = v331;
         v303 = v140;
         v140(v329);
@@ -1337,7 +1337,7 @@ void **sub_10001AA88()
   v68 = v341;
   if (v67(v20, 1, v341) == 1)
   {
-    sub_100013F2C(v20, &qword_1004A6D30);
+    sub_100013F2C(v20, &qword_1004A6D30, &unk_100376820);
     v340 = 0x8000000100429E70;
     v341 = 0x8000000100429EB0;
     v347 = 0;
@@ -1358,12 +1358,12 @@ void **sub_10001AA88()
     v326 = v348;
     v337 = type metadata accessor for KnoxServiceClient.ClientError();
     v73 = swift_allocObject();
-    sub_10001AA40(0, &qword_1004A7840);
+    sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
     static DispatchQoS.userInitiated.getter();
-    v347 = &_swiftEmptyArrayStorage;
-    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-    sub_1000039E8(&unk_1004A7850);
-    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+    v347 = _swiftEmptyArrayStorage;
+    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
+    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
     dispatch thunk of SetAlgebra.init<A>(_:)();
     (*(v335 + 13))(v333, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v6);
     v74 = v330;
@@ -1386,7 +1386,7 @@ void **sub_10001AA88()
     *(v73 + 72) = v80;
     *(v73 + 80) = 0;
     *(v73 + 88) = v77;
-    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
     v58 = swift_allocError();
     *v81 = v73;
     swift_willThrow();
@@ -1404,7 +1404,7 @@ LABEL_11:
 
     aBlock = v58;
     swift_errorRetain();
-    sub_1000039E8(&qword_1004AB0A0);
+    sub_1000039E8(&qword_1004AB0A0, &unk_100377120);
     type metadata accessor for KnoxServiceClient.ClientError();
     if (swift_dynamicCast())
     {
@@ -1429,8 +1429,8 @@ LABEL_17:
       *(v55 + 16) = isEscapingClosureAtFileLocation;
       *(v55 + 24) = 1;
       v56 = swift_allocObject();
-      *(v56 + 16) = sub_10001F8CC;
-      *(v56 + 24) = v55;
+      *(v56 + 2) = sub_10001F8CC;
+      *(v56 + 3) = v55;
       v355 = sub_10001FA40;
       v356 = v56;
       aBlock = _NSConcreteStackBlock;
@@ -1500,18 +1500,18 @@ LABEL_45:
           v323 = v344;
           v325 = type metadata accessor for KnoxServiceClient.ClientError();
           v247 = swift_allocObject();
-          v321 = sub_10001AA40(0, &qword_1004A7840);
+          v321 = sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
           v322 = "hivePointer.swift";
           static DispatchQoS.userInitiated.getter();
-          v343 = &_swiftEmptyArrayStorage;
-          sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-          sub_1000039E8(&unk_1004A7850);
-          sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+          v343 = _swiftEmptyArrayStorage;
+          sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+          sub_1000039E8(&unk_1004A7850, &qword_100376280);
+          sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
           dispatch thunk of SetAlgebra.init<A>(_:)();
-          v301(v333, v300, v304);
+          v301(v333, HIDWORD(v300), v304);
           v248 = v329;
           v249 = v331;
-          v303(v329, v302, v331);
+          v303(v329, HIDWORD(v302), v331);
           static OS_dispatch_queue.global(qos:)();
           v335 = v201;
           (v308)(v248, v249);
@@ -1528,7 +1528,7 @@ LABEL_45:
           *(v247 + 72) = v252;
           *(v247 + 80) = 0;
           *(v247 + 88) = v250;
-          sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+          sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
           v58 = swift_allocError();
           *v253 = v247;
           swift_willThrow();
@@ -1568,18 +1568,18 @@ LABEL_45:
           v323 = v352;
           v325 = type metadata accessor for KnoxServiceClient.ClientError();
           v231 = swift_allocObject();
-          v321 = sub_10001AA40(0, &qword_1004A7840);
+          v321 = sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
           v322 = "hivePointer.swift";
           static DispatchQoS.userInitiated.getter();
-          aBlock = &_swiftEmptyArrayStorage;
-          sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-          sub_1000039E8(&unk_1004A7850);
-          sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+          aBlock = _swiftEmptyArrayStorage;
+          sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+          sub_1000039E8(&unk_1004A7850, &qword_100376280);
+          sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
           dispatch thunk of SetAlgebra.init<A>(_:)();
-          v301(v333, v300, v304);
+          v301(v333, HIDWORD(v300), v304);
           v232 = v329;
           v233 = v331;
-          v303(v329, v302, v331);
+          v303(v329, HIDWORD(v302), v331);
           static OS_dispatch_queue.global(qos:)();
           v335 = v222;
           (v308)(v232, v233);
@@ -1596,7 +1596,7 @@ LABEL_45:
           *(v231 + 72) = v236;
           *(v231 + 80) = 0;
           *(v231 + 88) = v234;
-          sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+          sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
           v58 = swift_allocError();
           *v237 = v231;
           swift_willThrow();
@@ -1676,23 +1676,23 @@ LABEL_59:
   v84 = swift_allocObject();
   *(v84 + OBJC_IVAR____TtC16KnoxClientPublic30KnoxRandomAccessDownloadStream_pos) = 0;
   v306 = OBJC_IVAR____TtC16KnoxClientPublic30KnoxRandomAccessDownloadStream_synchronizationQueue;
-  sub_10001AA40(0, &qword_1004A7840);
+  sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
   v305 = " a valid URL instance from ";
   static DispatchQoS.default.getter();
-  v347 = &_swiftEmptyArrayStorage;
-  sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_1000039E8(&unk_1004A7850);
-  sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+  v347 = _swiftEmptyArrayStorage;
+  sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_1000039E8(&unk_1004A7850, &qword_100376280);
+  sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   v85 = *(v335 + 13);
-  v300 = enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:);
+  HIDWORD(v300) = enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:);
   v301 = v85;
   v85(v333);
   v86 = v330;
   v87 = *(v330 + 104);
   v304 = v6;
   v88 = v329;
-  v302 = enum case for DispatchQoS.QoSClass.default(_:);
+  HIDWORD(v302) = enum case for DispatchQoS.QoSClass.default(_:);
   v89 = v331;
   v303 = v87;
   v87(v329);
@@ -1768,19 +1768,19 @@ LABEL_25:
     v340 = 0x8000000100429F80;
     v341 = type metadata accessor for KnoxServiceClient.ClientError();
     v185 = swift_allocObject();
-    sub_10001AA40(0, &qword_1004A7840);
+    sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
     v335 = "hivePointer.swift";
     static DispatchQoS.userInitiated.getter();
-    aBlock = &_swiftEmptyArrayStorage;
-    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-    sub_1000039E8(&unk_1004A7850);
-    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+    aBlock = _swiftEmptyArrayStorage;
+    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
+    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
     v1 = v350;
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    v301(v333, v300, v304);
+    v301(v333, HIDWORD(v300), v304);
     v191 = v329;
     v192 = v331;
-    v303(v329, v302, v331);
+    v303(v329, HIDWORD(v302), v331);
     static OS_dispatch_queue.global(qos:)();
     (v308)(v191, v192);
     v188 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
@@ -1803,19 +1803,19 @@ LABEL_32:
     v340 = 0x8000000100429FC0;
     v341 = type metadata accessor for KnoxServiceClient.ClientError();
     v185 = swift_allocObject();
-    sub_10001AA40(0, &qword_1004A7840);
+    sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
     v335 = "hivePointer.swift";
     static DispatchQoS.userInitiated.getter();
-    aBlock = &_swiftEmptyArrayStorage;
-    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-    sub_1000039E8(&unk_1004A7850);
-    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+    aBlock = _swiftEmptyArrayStorage;
+    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
+    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
     v1 = v350;
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    v301(v333, v300, v304);
+    v301(v333, HIDWORD(v300), v304);
     v195 = v329;
     v196 = v331;
-    v303(v329, v302, v331);
+    v303(v329, HIDWORD(v302), v331);
     static OS_dispatch_queue.global(qos:)();
     (v308)(v195, v196);
     v188 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
@@ -1839,13 +1839,13 @@ LABEL_32:
   (*(*(v174 - 8) + 56))(v173, 0, 1, v174);
   v175 = OBJC_IVAR____TtCC16KnoxClientPublic8KnoxTask11TaskMetrics_startTime;
   swift_beginAccess();
-  sub_10001F8D8(v173, v172 + v175, &qword_1004A73C0);
+  sub_10001F8D8(v173, v172 + v175, &qword_1004A73C0, &unk_100376A70);
   swift_endAccess();
   v176 = OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputDirectoryURL;
   swift_beginAccess();
   v177 = &v171[v176];
   v178 = v319;
-  sub_100013E54(v177, v319, &qword_1004A6D30);
+  sub_100013E54(v177, v319, &qword_1004A6D30, &unk_100376820);
   v179 = v341;
   v180 = v299;
   if (v299(v178, 1, v341) != 1)
@@ -1928,33 +1928,33 @@ LABEL_53:
     goto LABEL_11;
   }
 
-  sub_100013F2C(v178, &qword_1004A6D30);
+  sub_100013F2C(v178, &qword_1004A6D30, &unk_100376820);
   v181 = OBJC_IVAR____TtC16KnoxClientPublic11ExtractTask_outputArchiveURL;
   swift_beginAccess();
   v182 = &v338[v181];
   v183 = v338;
   v184 = v317;
-  sub_100013E54(v182, v317, &qword_1004A6D30);
+  sub_100013E54(v182, v317, &qword_1004A6D30, &unk_100376820);
   if (v180(v184, 1, v179) == 1)
   {
-    sub_100013F2C(v184, &qword_1004A6D30);
+    sub_100013F2C(v184, &qword_1004A6D30, &unk_100376820);
     v339 = 0x8000000100429AF0;
     v340 = 0x8000000100429BD0;
     v341 = type metadata accessor for KnoxServiceClient.ClientError();
     v185 = swift_allocObject();
-    sub_10001AA40(0, &qword_1004A7840);
+    sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
     v335 = "hivePointer.swift";
     static DispatchQoS.userInitiated.getter();
-    aBlock = &_swiftEmptyArrayStorage;
-    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-    sub_1000039E8(&unk_1004A7850);
-    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+    aBlock = _swiftEmptyArrayStorage;
+    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
+    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
     v1 = v350;
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    v301(v333, v300, v304);
+    v301(v333, HIDWORD(v300), v304);
     v186 = v329;
     v187 = v331;
-    v303(v329, v302, v331);
+    v303(v329, HIDWORD(v302), v331);
     static OS_dispatch_queue.global(qos:)();
     (v308)(v186, v187);
     v188 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
@@ -1972,7 +1972,7 @@ LABEL_33:
     *(v185 + 72) = v340;
     *(v185 + 80) = 0;
     *(v185 + 88) = v188;
-    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
     v58 = swift_allocError();
     *v198 = v185;
     swift_willThrow();
@@ -1991,19 +1991,19 @@ LABEL_34:
     v334 = 0x8000000100429FF0;
     v339 = type metadata accessor for KnoxServiceClient.ClientError();
     v261 = swift_allocObject();
-    v324 = sub_10001AA40(0, &qword_1004A7840);
+    v324 = sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
     v325 = "hivePointer.swift";
     static DispatchQoS.userInitiated.getter();
-    aBlock = &_swiftEmptyArrayStorage;
-    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-    sub_1000039E8(&unk_1004A7850);
-    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+    aBlock = _swiftEmptyArrayStorage;
+    sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
+    sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
     v1 = v350;
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    v301(v333, v300, v304);
+    v301(v333, HIDWORD(v300), v304);
     v262 = v329;
     v263 = v331;
-    v303(v329, v302, v331);
+    v303(v329, HIDWORD(v302), v331);
     static OS_dispatch_queue.global(qos:)();
     (v308)(v262, v263);
     v264 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
@@ -2018,7 +2018,7 @@ LABEL_34:
     *(v261 + 72) = v334;
     *(v261 + 80) = 0;
     *(v261 + 88) = v264;
-    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
     v58 = swift_allocError();
     *v266 = v261;
     swift_willThrow();
@@ -2088,10 +2088,10 @@ LABEL_71:
         __chkstk_darwin(v335);
         v296 = v58;
         v297 = v280;
-        aBlock = &_swiftEmptyArrayStorage;
-        sub_10001F95C(&qword_1004A6F98, &type metadata accessor for ArchiveFlags);
-        sub_1000039E8(&qword_1004A6FA0);
-        sub_10001F9A4(&qword_1004A6FA8, &qword_1004A6FA0);
+        aBlock = _swiftEmptyArrayStorage;
+        sub_10001F95C(&qword_1004A6F98, &type metadata accessor for ArchiveFlags, &protocol conformance descriptor for ArchiveFlags);
+        sub_1000039E8(&qword_1004A6FA0, &qword_100376B60);
+        sub_10001F9A4(&qword_1004A6FA8, &qword_1004A6FA0, &qword_100376B60);
         dispatch thunk of SetAlgebra.init<A>(_:)();
         v291 = v339;
         static ArchiveByteStream.withDecompressionStream<A>(readingFrom:flags:threadCount:_:)();
@@ -2135,18 +2135,18 @@ LABEL_71:
         v334 = 0x800000010042A0F0;
         v339 = type metadata accessor for KnoxServiceClient.ClientError();
         v284 = swift_allocObject();
-        sub_10001AA40(0, &qword_1004A7840);
+        sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
         v320 = "hivePointer.swift";
         static DispatchQoS.userInitiated.getter();
-        aBlock = &_swiftEmptyArrayStorage;
-        sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-        sub_1000039E8(&unk_1004A7850);
-        sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850);
+        aBlock = _swiftEmptyArrayStorage;
+        sub_10001F95C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+        sub_1000039E8(&unk_1004A7850, &qword_100376280);
+        sub_10001F9A4(&qword_1004A6B70, &unk_1004A7850, &qword_100376280);
         dispatch thunk of SetAlgebra.init<A>(_:)();
-        v301(v333, v300, v304);
+        v301(v333, HIDWORD(v300), v304);
         v285 = v329;
         v286 = v331;
-        v303(v329, v302, v331);
+        v303(v329, HIDWORD(v302), v331);
         static OS_dispatch_queue.global(qos:)();
         (v308)(v285, v286);
         v287 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
@@ -2161,7 +2161,7 @@ LABEL_71:
         *(v284 + 72) = v334;
         *(v284 + 80) = 0;
         *(v284 + 88) = v287;
-        sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+        sub_10001F95C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
         v289 = swift_allocError();
         *v290 = v284;
         v339 = v289;
@@ -2255,7 +2255,7 @@ uint64_t sub_10001EF10@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X3>, uint64_t a3@<X
   v4 = *a1;
   v5 = *a2;
   swift_beginAccess();
-  return sub_100013E54(v4 + v5, a3, &qword_1004A6D30);
+  return sub_100013E54(v4 + v5, a3, &qword_1004A6D30, &unk_100376820);
 }
 
 uint64_t sub_10001EF98@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
@@ -2313,24 +2313,24 @@ uint64_t sub_10001F168(char *a1, uint64_t *a2)
   return result;
 }
 
-void sub_10001F1C4()
+void sub_10001F1C4(uint64_t a1)
 {
-  sub_10001F778();
-  if (v0 <= 0x3F)
+  sub_10001F778(319);
+  if (v1 <= 0x3F)
   {
     swift_updateClassMetadata2();
   }
 }
 
-void sub_10001F778()
+void sub_10001F778(uint64_t a1)
 {
   if (!qword_1004A6E28)
   {
     type metadata accessor for URL();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1004A6E28);
+      atomic_store(v1, &qword_1004A6E28);
     }
   }
 }
@@ -2347,11 +2347,11 @@ uint64_t sub_10001F818()
   return _swift_deallocObject(v0, 40, 7);
 }
 
-uint64_t sub_10001F87C(uint64_t a1, uint64_t a2)
+uint64_t sub_10001F87C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a2 + 40);
+  v4 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
+  *(a1 + 40) = v4;
 }
 
 uint64_t sub_10001F894()
@@ -2360,14 +2360,14 @@ uint64_t sub_10001F894()
   return _swift_deallocObject(v0, 25, 7);
 }
 
-uint64_t sub_10001F8D8(uint64_t a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_10001F8D8(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = sub_1000039E8(a3);
-  (*(*(v5 - 8) + 40))(a2, a1, v5);
+  v6 = sub_1000039E8(a3, a4);
+  (*(*(v6 - 8) + 40))(a2, a1, v6);
   return a2;
 }
 
-uint64_t sub_10001F95C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10001F95C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2380,12 +2380,12 @@ uint64_t sub_10001F95C(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_10001F9A4(unint64_t *a1, uint64_t *a2)
+uint64_t sub_10001F9A4(unint64_t *a1, uint64_t *a2, uint64_t *a3)
 {
   result = *a1;
   if (!result)
   {
-    sub_100003A94(a2);
+    sub_100003A94(a2, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -2402,12 +2402,12 @@ uint64_t mTLSAuth.certificatePath.getter()
 
 uint64_t KeychainItem.server.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = v1 + *(type metadata accessor for KeychainItem() + 20);
+  v3 = v1 + *(type metadata accessor for KeychainItem(0) + 20);
 
   return sub_10001FB20(v3, a1);
 }
 
-uint64_t type metadata accessor for KeychainItem()
+uint64_t type metadata accessor for KeychainItem(uint64_t a1)
 {
   result = qword_1004A7008;
   if (!qword_1004A7008)
@@ -2420,28 +2420,28 @@ uint64_t type metadata accessor for KeychainItem()
 
 uint64_t sub_10001FB20(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1000039E8(&qword_1004A6D30);
+  v4 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t KeychainItem.accountName.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for KeychainItem() + 24));
+  v1 = *(v0 + *(type metadata accessor for KeychainItem(0) + 24));
 
   return v1;
 }
 
 uint64_t KeychainItem.securityDomain.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for KeychainItem() + 28));
+  v1 = *(v0 + *(type metadata accessor for KeychainItem(0) + 28));
 
   return v1;
 }
 
 id KeychainItem.authToken.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for KeychainItem() + 32));
+  v1 = *(v0 + *(type metadata accessor for KeychainItem(0) + 32));
 
   return v1;
 }
@@ -2461,7 +2461,7 @@ uint64_t sub_10001FC58(uint64_t a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = sub_1000039E8(&qword_1004A6D30);
+    v8 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 20);
 
@@ -2479,7 +2479,7 @@ uint64_t sub_10001FD28(uint64_t result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = sub_1000039E8(&qword_1004A6D30);
+    v7 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 20);
 
@@ -2489,13 +2489,13 @@ uint64_t sub_10001FD28(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_10001FDD8()
+void sub_10001FDD8(uint64_t a1)
 {
-  sub_10001F778();
-  if (v0 <= 0x3F)
+  sub_10001F778(319);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for AuthToken();
-    if (v1 <= 0x3F)
+    type metadata accessor for AuthToken(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -2504,7 +2504,7 @@ void sub_10001FDD8()
 
 void sub_10001FE90(void *a1, uint64_t a2)
 {
-  sub_1000039E8(&unk_1004A7370);
+  sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100376BB0;
   v5 = [a1 description];
@@ -2520,19 +2520,19 @@ void sub_10001FE90(void *a1, uint64_t a2)
   *(v4 + 64) = v9;
   *(v4 + 72) = a2;
   sub_1000202EC();
-  v10 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v11 = static OS_os_log.default.getter();
+  v10 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Task %{public}s did recieve page number %{public}i", 50, 2, &_mh_execute_header, v11, v10, v4);
 }
 
-uint64_t KnoxDelegateSimple.__allocating_init(from:)(uint64_t a1)
+uint64_t KnoxDelegateSimple.__allocating_init(from:)(void *a1)
 {
   v2 = swift_allocObject();
   sub_100003C3C(a1);
   return v2;
 }
 
-uint64_t sub_100020040@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_100020040@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_100003C3C(a1);
   type metadata accessor for KnoxDelegateSimple();
@@ -2556,7 +2556,7 @@ void sub_100020080(void *a1, uint64_t a2)
     v3 = 0x726F727265206F6ELL;
   }
 
-  sub_1000039E8(&unk_1004A7370);
+  sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
   v6 = swift_allocObject();
   *(v6 + 16) = xmmword_100376BB0;
   v7 = [a1 description];
@@ -2574,13 +2574,13 @@ void sub_100020080(void *a1, uint64_t a2)
   *(v6 + 80) = v5;
   sub_1000202EC();
   v12 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v13 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Task %{public}s did complete with %{public}f", 44, 2, &_mh_execute_header, v12, v13, v6);
 }
 
 void sub_1000201C8(void *a1, float a2)
 {
-  sub_1000039E8(&unk_1004A7370);
+  sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_100376BB0;
   v5 = [a1 description];
@@ -2595,9 +2595,9 @@ void sub_1000201C8(void *a1, float a2)
   *(v4 + 104) = &protocol witness table for Float;
   *(v4 + 72) = a2;
   sub_1000202EC();
-  v9 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v10 = static OS_os_log.default.getter();
+  v9 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Task %{public}s did progress to %{public}f", 42, 2, &_mh_execute_header, v10, v9, v4);
 }
 
 unint64_t sub_1000202EC()
@@ -2613,7 +2613,7 @@ unint64_t sub_1000202EC()
   return result;
 }
 
-id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name:permissions:retention:space:updatedAt:uuid:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, __int128 *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
+char *GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name:permissions:retention:space:updatedAt:uuid:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, __int128 *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char *a13)
 {
   v14 = v13;
   v107 = a8;
@@ -2631,7 +2631,7 @@ id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name
   v128 = *(v101 - 8);
   __chkstk_darwin(v101);
   v112 = &v93 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = sub_1000039E8(&qword_1004A6D30);
+  v18 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
   v19 = __chkstk_darwin(v18 - 8);
   v96 = &v93 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   v21 = __chkstk_darwin(v19);
@@ -2642,7 +2642,7 @@ id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name
   v125 = &v93 - v26;
   __chkstk_darwin(v25);
   v28 = &v93 - v27;
-  v29 = sub_1000039E8(&qword_1004A73C0);
+  v29 = sub_1000039E8(&qword_1004A73C0, &unk_100376A70);
   v30 = __chkstk_darwin(v29 - 8);
   v124 = &v93 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
   v32 = __chkstk_darwin(v30);
@@ -2671,17 +2671,17 @@ id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name
   v121 = v38;
   v45(v43, v47, v38);
   v49 = v45;
-  sub_100013E54(v119, v37, &qword_1004A73C0);
-  sub_100013E54(v117, v28, &qword_1004A6D30);
+  sub_100013E54(v119, v37, &qword_1004A73C0, &unk_100376A70);
+  sub_100013E54(v117, v28, &qword_1004A6D30, &unk_100376820);
   v50 = v120;
-  sub_100013E54(v116, v120, &qword_1004A73C0);
+  sub_100013E54(v116, v120, &qword_1004A73C0, &unk_100376A70);
   v113 = v43;
   v49(v126, v43, v48);
   v51 = v118;
-  sub_100013E54(v122, v118, &qword_1004A73C0);
+  sub_100013E54(v122, v118, &qword_1004A73C0, &unk_100376A70);
   v114 = v28;
-  sub_100013E54(v28, v125, &qword_1004A6D30);
-  sub_100013E54(v50, v124, &qword_1004A73C0);
+  sub_100013E54(v28, v125, &qword_1004A6D30, &unk_100376820);
+  sub_100013E54(v50, v124, &qword_1004A73C0, &unk_100376A70);
   v53 = v128 + 56;
   v52 = *(v128 + 56);
   *&v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_decryptionComponents] = 0;
@@ -2690,7 +2690,7 @@ id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name
   v52(&v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_downloadURL], 1, 1, v101);
   *&v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer____lazy_storage___jsonEncoder] = 0;
   v49(&v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_createdAt], v126, v121);
-  sub_100013E54(v51, &v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_deletedAt], &qword_1004A73C0);
+  sub_100013E54(v51, &v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_deletedAt], &qword_1004A73C0, &unk_100376A70);
   v56 = v100;
   v57 = v55;
   v95 = v53;
@@ -2704,7 +2704,7 @@ id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name
   v59 = &v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_name];
   v60 = v104;
   *v59 = v103;
-  *(v59 + 1) = v60;
+  v59[1] = v60;
   v61 = &v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_permissions];
   v62 = v97;
   *v61 = v98;
@@ -2715,7 +2715,7 @@ id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name
   v64 = &v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_space];
   v65 = v106;
   *v64 = v105;
-  *(v64 + 1) = v65;
+  v64[1] = v65;
   v66 = *(swift_getObjectType() + 184);
   v67 = v58;
   v68 = v63;
@@ -2725,37 +2725,37 @@ id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name
   *v71 = v69;
   v71[1] = v72;
   v73 = v124;
-  sub_100013E54(v124, &v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_updatedAt], &qword_1004A73C0);
+  sub_100013E54(v124, &v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_updatedAt], &qword_1004A73C0, &unk_100376A70);
   v74 = &v44[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_uuid];
   v75 = v115;
   *v74 = v110;
-  *(v74 + 1) = v75;
+  v74[1] = v75;
   v76 = type metadata accessor for KnoxPointer(0);
   v127.receiver = v44;
   v127.super_class = v76;
   v77 = v125;
   v115 = objc_msgSendSuper2(&v127, "init");
   v78 = v108;
-  sub_100013E54(v77, v108, &qword_1004A6D30);
+  sub_100013E54(v77, v108, &qword_1004A6D30, &unk_100376820);
   v79 = v78;
   if ((*(v128 + 48))(v78, 1, v70) == 1)
   {
 
-    sub_100013F2C(v116, &qword_1004A73C0);
-    sub_100013F2C(v117, &qword_1004A6D30);
-    sub_100013F2C(v119, &qword_1004A73C0);
+    sub_100013F2C(v116, &qword_1004A73C0, &unk_100376A70);
+    sub_100013F2C(v117, &qword_1004A6D30, &unk_100376820);
+    sub_100013F2C(v119, &qword_1004A73C0, &unk_100376A70);
     v80 = *(v109 + 8);
     v81 = v121;
     v80(v111, v121);
-    sub_100013F2C(v73, &qword_1004A73C0);
-    sub_100013F2C(v77, &qword_1004A6D30);
-    sub_100013F2C(v118, &qword_1004A73C0);
+    sub_100013F2C(v73, &qword_1004A73C0, &unk_100376A70);
+    sub_100013F2C(v77, &qword_1004A6D30, &unk_100376820);
+    sub_100013F2C(v118, &qword_1004A73C0, &unk_100376A70);
     v80(v126, v81);
-    sub_100013F2C(v120, &qword_1004A73C0);
-    sub_100013F2C(v114, &qword_1004A6D30);
-    sub_100013F2C(v122, &qword_1004A73C0);
+    sub_100013F2C(v120, &qword_1004A73C0, &unk_100376A70);
+    sub_100013F2C(v114, &qword_1004A6D30, &unk_100376820);
+    sub_100013F2C(v122, &qword_1004A73C0, &unk_100376A70);
     v80(v113, v81);
-    sub_100013F2C(v79, &qword_1004A6D30);
+    sub_100013F2C(v79, &qword_1004A6D30, &unk_100376820);
     return v115;
   }
 
@@ -2772,39 +2772,39 @@ id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name
     {
       v86 = v115;
 
-      sub_100013F2C(v84, &qword_1004A73C0);
-      sub_100013F2C(v83, &qword_1004A6D30);
-      sub_100013F2C(v119, &qword_1004A73C0);
+      sub_100013F2C(v84, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v83, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v119, &qword_1004A73C0, &unk_100376A70);
       v87 = *(v109 + 8);
       v88 = v121;
       v87(v111, v121);
       (*(v128 + 8))(v112, v70);
-      sub_100013F2C(v124, &qword_1004A73C0);
-      sub_100013F2C(v125, &qword_1004A6D30);
-      sub_100013F2C(v118, &qword_1004A73C0);
+      sub_100013F2C(v124, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v125, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v118, &qword_1004A73C0, &unk_100376A70);
       v87(v126, v88);
-      sub_100013F2C(v120, &qword_1004A73C0);
-      sub_100013F2C(v114, &qword_1004A6D30);
-      sub_100013F2C(v122, &qword_1004A73C0);
+      sub_100013F2C(v120, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v114, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v122, &qword_1004A73C0, &unk_100376A70);
       v87(v113, v88);
     }
 
     else
     {
-      sub_100013F2C(v84, &qword_1004A73C0);
-      sub_100013F2C(v83, &qword_1004A6D30);
-      sub_100013F2C(v119, &qword_1004A73C0);
+      sub_100013F2C(v84, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v83, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v119, &qword_1004A73C0, &unk_100376A70);
       v89 = *(v109 + 8);
       v90 = v121;
       v89(v111, v121);
       (*(v128 + 8))(v112, v57);
-      sub_100013F2C(v124, &qword_1004A73C0);
-      sub_100013F2C(v125, &qword_1004A6D30);
-      sub_100013F2C(v118, &qword_1004A73C0);
+      sub_100013F2C(v124, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v125, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v118, &qword_1004A73C0, &unk_100376A70);
       v89(v126, v90);
-      sub_100013F2C(v120, &qword_1004A73C0);
-      sub_100013F2C(v114, &qword_1004A6D30);
-      sub_100013F2C(v122, &qword_1004A73C0);
+      sub_100013F2C(v120, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v114, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v122, &qword_1004A73C0, &unk_100376A70);
       v89(v113, v90);
       v91 = v96;
       v94(v96, 0, 1, v57);
@@ -2819,7 +2819,7 @@ id GenericFilePointer.__allocating_init(createdAt:deletedAt:file:knoxServer:name
   }
 }
 
-id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:retention:space:updatedAt:uuid:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, __int128 *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13)
+char *GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:retention:space:updatedAt:uuid:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, __int128 *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char *a13)
 {
   v100 = a8;
   v97 = a6;
@@ -2836,7 +2836,7 @@ id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:
   v121 = *(v94 - 8);
   __chkstk_darwin(v94);
   v104 = v87 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = sub_1000039E8(&qword_1004A6D30);
+  v16 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
   v17 = __chkstk_darwin(v16 - 8);
   v88 = v87 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = __chkstk_darwin(v17);
@@ -2847,7 +2847,7 @@ id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:
   v117 = v87 - v24;
   __chkstk_darwin(v23);
   v26 = v87 - v25;
-  v27 = sub_1000039E8(&qword_1004A73C0);
+  v27 = sub_1000039E8(&qword_1004A73C0, &unk_100376A70);
   v28 = __chkstk_darwin(v27 - 8);
   v116 = v87 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
   v30 = __chkstk_darwin(v28);
@@ -2870,17 +2870,17 @@ id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:
   v90 = v43;
   v106 = a1;
   v42(v87 - v40, a1, v36);
-  sub_100013E54(v112, v35, &qword_1004A73C0);
-  sub_100013E54(v113, v26, &qword_1004A6D30);
+  sub_100013E54(v112, v35, &qword_1004A73C0, &unk_100376A70);
+  sub_100013E54(v113, v26, &qword_1004A6D30, &unk_100376820);
   v44 = v114;
-  sub_100013E54(v111, v114, &qword_1004A73C0);
+  sub_100013E54(v111, v114, &qword_1004A73C0, &unk_100376A70);
   v107 = v41;
   v42(v118, v41, v36);
   v108 = v35;
-  sub_100013E54(v35, v119, &qword_1004A73C0);
+  sub_100013E54(v35, v119, &qword_1004A73C0, &unk_100376A70);
   v109 = v26;
-  sub_100013E54(v26, v117, &qword_1004A6D30);
-  sub_100013E54(v44, v116, &qword_1004A73C0);
+  sub_100013E54(v26, v117, &qword_1004A6D30, &unk_100376820);
+  sub_100013E54(v44, v116, &qword_1004A73C0, &unk_100376A70);
   v45 = v121 + 56;
   v46 = *(v121 + 56);
   v47 = v89;
@@ -2891,7 +2891,7 @@ id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:
   *&v47[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer____lazy_storage___jsonEncoder] = 0;
   v102 = v36;
   v42(&v47[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_createdAt], v118, v36);
-  sub_100013E54(v119, &v47[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_deletedAt], &qword_1004A73C0);
+  sub_100013E54(v119, &v47[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_deletedAt], &qword_1004A73C0, &unk_100376A70);
   v50 = v93;
   v51 = v49;
   v87[1] = v45;
@@ -2905,7 +2905,7 @@ id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:
   v53 = &v47[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_name];
   v54 = v97;
   *v53 = v96;
-  *(v53 + 1) = v54;
+  v53[1] = v54;
   v55 = &v47[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_permissions];
   v56 = v90;
   *v55 = v91;
@@ -2916,7 +2916,7 @@ id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:
   v58 = &v47[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_space];
   v59 = v99;
   *v58 = v98;
-  *(v58 + 1) = v59;
+  v58[1] = v59;
   v60 = v47;
   v61 = *(swift_getObjectType() + 184);
   v62 = v52;
@@ -2927,36 +2927,36 @@ id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:
   *v66 = v64;
   v66[1] = v67;
   v68 = v116;
-  sub_100013E54(v116, &v60[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_updatedAt], &qword_1004A73C0);
+  sub_100013E54(v116, &v60[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_updatedAt], &qword_1004A73C0, &unk_100376A70);
   v69 = &v60[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_uuid];
   v70 = v110;
   *v69 = v103;
-  *(v69 + 1) = v70;
+  v69[1] = v70;
   v71 = type metadata accessor for KnoxPointer(0);
   v120.receiver = v60;
   v120.super_class = v71;
   v72 = v117;
   v110 = objc_msgSendSuper2(&v120, "init");
   v73 = v101;
-  sub_100013E54(v72, v101, &qword_1004A6D30);
+  sub_100013E54(v72, v101, &qword_1004A6D30, &unk_100376820);
   if ((*(v121 + 48))(v73, 1, v51) == 1)
   {
 
-    sub_100013F2C(v111, &qword_1004A73C0);
-    sub_100013F2C(v113, &qword_1004A6D30);
-    sub_100013F2C(v112, &qword_1004A73C0);
+    sub_100013F2C(v111, &qword_1004A73C0, &unk_100376A70);
+    sub_100013F2C(v113, &qword_1004A6D30, &unk_100376820);
+    sub_100013F2C(v112, &qword_1004A73C0, &unk_100376A70);
     v74 = *(v105 + 8);
     v75 = v102;
     v74(v106, v102);
-    sub_100013F2C(v68, &qword_1004A73C0);
-    sub_100013F2C(v72, &qword_1004A6D30);
-    sub_100013F2C(v119, &qword_1004A73C0);
+    sub_100013F2C(v68, &qword_1004A73C0, &unk_100376A70);
+    sub_100013F2C(v72, &qword_1004A6D30, &unk_100376820);
+    sub_100013F2C(v119, &qword_1004A73C0, &unk_100376A70);
     v74(v118, v75);
-    sub_100013F2C(v114, &qword_1004A73C0);
-    sub_100013F2C(v109, &qword_1004A6D30);
-    sub_100013F2C(v108, &qword_1004A73C0);
+    sub_100013F2C(v114, &qword_1004A73C0, &unk_100376A70);
+    sub_100013F2C(v109, &qword_1004A6D30, &unk_100376820);
+    sub_100013F2C(v108, &qword_1004A73C0, &unk_100376A70);
     v74(v107, v75);
-    sub_100013F2C(v73, &qword_1004A6D30);
+    sub_100013F2C(v73, &qword_1004A6D30, &unk_100376820);
     return v110;
   }
 
@@ -2973,39 +2973,39 @@ id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:
     {
       v80 = v110;
 
-      sub_100013F2C(v77, &qword_1004A73C0);
-      sub_100013F2C(v113, &qword_1004A6D30);
-      sub_100013F2C(v78, &qword_1004A73C0);
+      sub_100013F2C(v77, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v113, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v78, &qword_1004A73C0, &unk_100376A70);
       v81 = *(v105 + 8);
       v82 = v102;
       v81(v106, v102);
       (*(v121 + 8))(v104, v65);
-      sub_100013F2C(v116, &qword_1004A73C0);
-      sub_100013F2C(v117, &qword_1004A6D30);
-      sub_100013F2C(v119, &qword_1004A73C0);
+      sub_100013F2C(v116, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v117, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v119, &qword_1004A73C0, &unk_100376A70);
       v81(v118, v82);
-      sub_100013F2C(v114, &qword_1004A73C0);
-      sub_100013F2C(v109, &qword_1004A6D30);
-      sub_100013F2C(v108, &qword_1004A73C0);
+      sub_100013F2C(v114, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v109, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v108, &qword_1004A73C0, &unk_100376A70);
       v81(v107, v82);
     }
 
     else
     {
-      sub_100013F2C(v77, &qword_1004A73C0);
-      sub_100013F2C(v113, &qword_1004A6D30);
-      sub_100013F2C(v78, &qword_1004A73C0);
+      sub_100013F2C(v77, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v113, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v78, &qword_1004A73C0, &unk_100376A70);
       v83 = *(v105 + 8);
       v84 = v102;
       v83(v106, v102);
       (*(v121 + 8))(v104, v51);
-      sub_100013F2C(v116, &qword_1004A73C0);
-      sub_100013F2C(v117, &qword_1004A6D30);
-      sub_100013F2C(v119, &qword_1004A73C0);
+      sub_100013F2C(v116, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v117, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v119, &qword_1004A73C0, &unk_100376A70);
       v83(v118, v84);
-      sub_100013F2C(v114, &qword_1004A73C0);
-      sub_100013F2C(v109, &qword_1004A6D30);
-      sub_100013F2C(v108, &qword_1004A73C0);
+      sub_100013F2C(v114, &qword_1004A73C0, &unk_100376A70);
+      sub_100013F2C(v109, &qword_1004A6D30, &unk_100376820);
+      sub_100013F2C(v108, &qword_1004A73C0, &unk_100376A70);
       v83(v107, v84);
       v85 = v88;
       (v87[0])(v88, 0, 1, v51);
@@ -3023,11 +3023,11 @@ id GenericFilePointer.init(createdAt:deletedAt:file:knoxServer:name:permissions:
 id GenericFilePointer.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for GenericFilePointer();
+  v2.super_class = type metadata accessor for GenericFilePointer(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for GenericFilePointer()
+uint64_t type metadata accessor for GenericFilePointer(uint64_t a1)
 {
   result = qword_1004A7130;
   if (!qword_1004A7130)
@@ -3038,7 +3038,7 @@ uint64_t type metadata accessor for GenericFilePointer()
   return result;
 }
 
-unint64_t *sub_100021BB0(uint64_t a1, uint64_t a2)
+unint64_t *sub_100021BB0(uint64_t a1, uint64_t *a2)
 {
   v19 = a2;
   v18 = type metadata accessor for URLQueryItem();
@@ -3046,11 +3046,11 @@ unint64_t *sub_100021BB0(uint64_t a1, uint64_t a2)
   __chkstk_darwin(v18);
   v6 = v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *(a1 + 16);
-  v8 = &_swiftEmptyArrayStorage;
+  v8 = _swiftEmptyArrayStorage;
   if (v7)
   {
     v17[1] = v2;
-    v20 = &_swiftEmptyArrayStorage;
+    v20 = _swiftEmptyArrayStorage;
     sub_10000E0A8(0, v7, 0);
     v8 = v20;
     v9 = (a1 + 40);
@@ -3075,7 +3075,7 @@ unint64_t *sub_100021BB0(uint64_t a1, uint64_t a2)
       v14 = v8[3];
       if (v15 >= v14 >> 1)
       {
-        sub_10000E0A8(v14 > 1, v15 + 1, 1);
+        sub_10000E0A8((v14 > 1), v15 + 1, 1);
         v8 = v20;
       }
 
@@ -3104,7 +3104,7 @@ uint64_t sub_100021E68()
 {
   v1 = v0;
   v22.receiver = v0;
-  v22.super_class = type metadata accessor for PointersTask();
+  v22.super_class = type metadata accessor for PointersTask(0);
   v2 = objc_msgSendSuper2(&v22, "description");
   v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
 
@@ -3153,7 +3153,7 @@ uint64_t sub_100021E68()
   return v21;
 }
 
-uint64_t type metadata accessor for PointersTask()
+uint64_t type metadata accessor for PointersTask(uint64_t a1)
 {
   result = qword_1004A71A0;
   if (!qword_1004A71A0)
@@ -3261,7 +3261,7 @@ uint64_t sub_10002268C(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uin
 
 uint64_t sub_100022740(uint64_t a1, uint64_t *a2)
 {
-  sub_100013E54(a1, v6, &qword_1004A7158);
+  sub_100013E54(a1, v6, &qword_1004A7158, &unk_100376CA0);
   v3 = *a2;
   v4 = OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_timeFilter;
   swift_beginAccess();
@@ -3273,7 +3273,7 @@ uint64_t sub_1000227B4@<X0>(uint64_t a1@<X8>)
 {
   v3 = OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_timeFilter;
   swift_beginAccess();
-  return sub_100013E54(v1 + v3, a1, &qword_1004A7158);
+  return sub_100013E54(v1 + v3, a1, &qword_1004A7158, &unk_100376CA0);
 }
 
 uint64_t sub_10002281C(uint64_t a1)
@@ -3286,7 +3286,7 @@ uint64_t sub_10002281C(uint64_t a1)
 
 uint64_t sub_10002287C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1000039E8(&qword_1004A7158);
+  v4 = sub_1000039E8(&qword_1004A7158, &unk_100376CA0);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
@@ -3295,7 +3295,7 @@ char *PointersTask.__allocating_init(client:pointerClass:space:type:matching:tim
 {
   v11 = v10;
   v18 = objc_allocWithZone(v11);
-  *&v18[OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_pointers] = &_swiftEmptyArrayStorage;
+  *&v18[OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_pointers] = _swiftEmptyArrayStorage;
   v19 = &v18[OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_timeFilter];
   *v19 = 0u;
   *(v19 + 1) = 0u;
@@ -3303,10 +3303,10 @@ char *PointersTask.__allocating_init(client:pointerClass:space:type:matching:tim
   *&v18[OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_pointerClass] = a2;
   v20 = &v18[OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_space];
   *v20 = a3;
-  v20[1] = a4;
+  *(v20 + 1) = a4;
   v21 = &v18[OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_type];
   *v21 = a5;
-  v21[1] = a6;
+  *(v21 + 1) = a6;
   *&v18[OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_matching] = a7;
   v22 = &v18[OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_finalHandler];
   *v22 = a9;
@@ -3342,7 +3342,7 @@ char *PointersTask.__allocating_init(client:pointerClass:space:type:matching:tim
   v33._object = v32;
   String.append(_:)(v33);
 
-  sub_100013F2C(a8, &qword_1004A7158);
+  sub_100013F2C(a8, &qword_1004A7158, &unk_100376CA0);
   v34 = &v25[OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_name];
   swift_beginAccess();
   *v34 = 0x737265746E696F50;
@@ -3353,7 +3353,7 @@ char *PointersTask.__allocating_init(client:pointerClass:space:type:matching:tim
 
 char *PointersTask.init(client:pointerClass:space:type:matching:timeFilter:completionHandler:)(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
-  *(v10 + OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_pointers) = &_swiftEmptyArrayStorage;
+  *(v10 + OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_pointers) = _swiftEmptyArrayStorage;
   v17 = v10 + OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_timeFilter;
   *v17 = 0u;
   *(v17 + 16) = 0u;
@@ -3400,7 +3400,7 @@ char *PointersTask.init(client:pointerClass:space:type:matching:timeFilter:compl
   v31._object = v30;
   String.append(_:)(v31);
 
-  sub_100013F2C(a8, &qword_1004A7158);
+  sub_100013F2C(a8, &qword_1004A7158, &unk_100376CA0);
   v32 = &v23[OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_name];
   swift_beginAccess();
   *v32 = 0x737265746E696F50;
@@ -3411,7 +3411,7 @@ char *PointersTask.init(client:pointerClass:space:type:matching:timeFilter:compl
 
 uint64_t sub_100022E68(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1000039E8(&qword_1004A7158);
+  v4 = sub_1000039E8(&qword_1004A7158, &unk_100376CA0);
   (*(*(v4 - 8) + 24))(a2, a1, v4);
   return a2;
 }
@@ -3419,80 +3419,80 @@ uint64_t sub_100022E68(uint64_t a1, uint64_t a2)
 void sub_100022ED8(uint64_t a1@<X8>)
 {
   v2 = v1;
-  v194 = a1;
-  v216 = type metadata accessor for URLQueryItem();
-  v214 = *(v216 - 8);
-  v3 = __chkstk_darwin(v216);
-  v217 = v179 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v196 = a1;
+  v218 = type metadata accessor for URLQueryItem();
+  v216 = *(v218 - 8);
+  v3 = __chkstk_darwin(v218);
+  v219 = v181 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = __chkstk_darwin(v3);
-  v213 = v179 - v6;
+  v215 = v181 - v6;
   v7 = __chkstk_darwin(v5);
-  v215 = v179 - v8;
+  v217 = v181 - v8;
   __chkstk_darwin(v7);
-  v212 = v179 - v9;
-  v10 = sub_1000039E8(&qword_1004A7160);
+  v214 = v181 - v9;
+  v10 = sub_1000039E8(&qword_1004A7160, &unk_100378C70);
   __chkstk_darwin(v10 - 8);
-  v209 = (v179 - v11);
-  v206 = type metadata accessor for URLComponents();
+  v211 = (v181 - v11);
+  v208 = type metadata accessor for URLComponents();
+  v207 = *(v208 - 8);
+  __chkstk_darwin(v208);
+  v213 = v181 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v206 = type metadata accessor for DispatchQoS.QoSClass();
   v205 = *(v206 - 8);
   __chkstk_darwin(v206);
-  v211 = v179 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v204 = type metadata accessor for DispatchQoS.QoSClass();
-  v203 = *(v204 - 8);
-  __chkstk_darwin(v204);
-  v201 = v179 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v199 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v198 = *(v199 - 8);
+  v203 = v181 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v201 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v200 = *(v201 - 8);
+  __chkstk_darwin(v201);
+  v204 = v181 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v199 = type metadata accessor for OS_dispatch_queue.Attributes();
   __chkstk_darwin(v199);
-  v202 = v179 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v197 = type metadata accessor for OS_dispatch_queue.Attributes();
-  __chkstk_darwin(v197);
-  v200 = v179 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v202 = v181 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = type metadata accessor for DispatchQoS();
   __chkstk_darwin(v16 - 8);
-  v207 = v179 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v193 = type metadata accessor for URLRequest();
-  v192 = *(v193 - 8);
-  v18 = __chkstk_darwin(v193);
-  v188 = v179 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v209 = v181 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v195 = type metadata accessor for URLRequest();
+  v194 = *(v195 - 8);
+  v18 = __chkstk_darwin(v195);
+  v190 = v181 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v18);
-  v21 = v179 - v20;
-  v22 = sub_1000039E8(&qword_1004A6D30);
+  v21 = v181 - v20;
+  v22 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
   v23 = __chkstk_darwin(v22 - 8);
-  v191 = v179 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v193 = v181 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v23);
-  v26 = v179 - v25;
+  v26 = v181 - v25;
   v27 = type metadata accessor for URL();
   v28 = *(v27 - 8);
   v29 = __chkstk_darwin(v27);
-  v187 = v179 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v189 = v181 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
   v31 = __chkstk_darwin(v29);
-  v208 = (v179 - v32);
+  v210 = (v181 - v32);
   __chkstk_darwin(v31);
-  v34 = v179 - v33;
+  v34 = v181 - v33;
   v35 = OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_nextPageURL;
   swift_beginAccess();
-  sub_100013E54(v2 + v35, v26, &qword_1004A6D30);
+  sub_100013E54(v2 + v35, v26, &qword_1004A6D30, &unk_100376820);
   v36 = *(v28 + 48);
-  v190 = v28 + 48;
-  v189 = v36;
+  v192 = v28 + 48;
+  v191 = v36;
   if (v36(v26, 1, v27) == 1)
   {
-    v185 = v28;
-    v186 = v27;
-    sub_100013F2C(v26, &qword_1004A6D30);
+    v187 = v28;
+    v188 = v27;
+    sub_100013F2C(v26, &qword_1004A6D30, &unk_100376820);
     v37 = OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_matching;
     swift_beginAccess();
     v38 = *(v2 + v37);
-    v224 = v38;
+    v226 = v38;
     v39 = *(v38 + 16);
 
     v40 = v2;
     if (v39)
     {
       v41 = sub_100013364(0x657461647075, 0xE600000000000000);
-      v42 = v212;
-      v43 = v209;
+      v42 = v214;
+      v43 = v211;
       if ((v44 & 1) != 0 && *(v38 + 16))
       {
         v45 = (*(v38 + 56) + 16 * v41);
@@ -3507,86 +3507,86 @@ void sub_100022ED8(uint64_t a1@<X8>)
           v52 = v50[1];
           v53 = objc_allocWithZone(type metadata accessor for KnoxUpdate());
 
-          v195 = v46;
+          v197 = v46;
           v54 = v52;
           v55 = v51;
-          v196 = KnoxUpdate.init(identifier:)(v46, v47);
-          v56 = &v196[OBJC_IVAR____TtC16KnoxClientPublic10KnoxUpdate_train];
-          if ((*&v196[OBJC_IVAR____TtC16KnoxClientPublic10KnoxUpdate_train] != v51 || *&v196[OBJC_IVAR____TtC16KnoxClientPublic10KnoxUpdate_train + 8] != v54) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+          v198 = KnoxUpdate.init(identifier:)(v46, v47);
+          v56 = &v198[OBJC_IVAR____TtC16KnoxClientPublic10KnoxUpdate_train];
+          if ((*&v198[OBJC_IVAR____TtC16KnoxClientPublic10KnoxUpdate_train] != v51 || *&v198[OBJC_IVAR____TtC16KnoxClientPublic10KnoxUpdate_train + 8] != v54) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
           {
-            v217 = 0x800000010042A320;
-            v220 = 0;
-            v221 = 0xE000000000000000;
+            v219 = 0x800000010042A320;
+            v222 = 0;
+            v223 = 0xE000000000000000;
             _StringGuts.grow(_:)(109);
-            v162._countAndFlagsBits = 0xD00000000000001BLL;
-            v162._object = 0x800000010042A450;
-            String.append(_:)(v162);
-            v163._countAndFlagsBits = v51;
-            v163._object = v54;
-            String.append(_:)(v163);
-
-            v164._countAndFlagsBits = 0xD000000000000012;
-            v164._object = 0x800000010042A470;
+            v164._countAndFlagsBits = 0xD00000000000001BLL;
+            v164._object = 0x800000010042A450;
             String.append(_:)(v164);
-            v166 = *v56;
-            v165 = v56[1];
+            v165._countAndFlagsBits = v51;
+            v165._object = v54;
+            String.append(_:)(v165);
 
-            v167._countAndFlagsBits = v166;
-            v167._object = v165;
-            String.append(_:)(v167);
+            v166._countAndFlagsBits = 0xD000000000000012;
+            v166._object = 0x800000010042A470;
+            String.append(_:)(v166);
+            v168 = *v56;
+            v167 = v56[1];
 
-            v168._countAndFlagsBits = 0x27206D6F72662027;
-            v168._object = 0xE800000000000000;
-            String.append(_:)(v168);
-            v169._countAndFlagsBits = v195;
-            v169._object = v47;
+            v169._countAndFlagsBits = v168;
+            v169._object = v167;
             String.append(_:)(v169);
 
-            v170._countAndFlagsBits = 0xD000000000000032;
-            v170._object = 0x800000010042A490;
+            v170._countAndFlagsBits = 0x27206D6F72662027;
+            v170._object = 0xE800000000000000;
             String.append(_:)(v170);
-            v215 = v220;
-            v214 = v221;
-            v216 = type metadata accessor for KnoxServiceClient.ClientError();
-            v171 = swift_allocObject();
-            sub_10001AA40(0, &qword_1004A7840);
-            v213 = "hivePointer.swift";
+            v171._countAndFlagsBits = v197;
+            v171._object = v47;
+            String.append(_:)(v171);
+
+            v172._countAndFlagsBits = 0xD000000000000032;
+            v172._object = 0x800000010042A490;
+            String.append(_:)(v172);
+            v217 = v222;
+            v216 = v223;
+            v218 = type metadata accessor for KnoxServiceClient.ClientError();
+            v173 = swift_allocObject();
+            sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
+            v215 = "hivePointer.swift";
             static DispatchQoS.userInitiated.getter();
-            v220 = &_swiftEmptyArrayStorage;
-            sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-            sub_1000039E8(&unk_1004A7850);
-            sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+            v222 = _swiftEmptyArrayStorage;
+            sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+            sub_1000039E8(&unk_1004A7850, &qword_100376280);
+            sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
             dispatch thunk of SetAlgebra.init<A>(_:)();
-            (*(v198 + 104))(v202, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v199);
-            v172 = v203;
-            v173 = v201;
-            v174 = v204;
-            (*(v203 + 104))(v201, enum case for DispatchQoS.QoSClass.default(_:), v204);
+            (*(v200 + 104))(v204, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v201);
+            v174 = v205;
+            v175 = v203;
+            v176 = v206;
+            (*(v205 + 104))(v203, enum case for DispatchQoS.QoSClass.default(_:), v206);
             static OS_dispatch_queue.global(qos:)();
-            (*(v172 + 8))(v173, v174);
-            v175 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-            strcpy((v171 + 16), "urlRequest()");
-            *(v171 + 29) = 0;
-            *(v171 + 30) = -5120;
-            *(v171 + 32) = 0xD000000000000066;
-            v176 = v217;
-            *(v171 + 56) = 4;
-            *(v171 + 40) = v176;
-            *(v171 + 48) = 102;
-            v177 = v214;
-            *(v171 + 64) = v215;
-            *(v171 + 72) = v177;
-            *(v171 + 80) = 0;
-            *(v171 + 88) = v175;
-            sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+            (*(v174 + 8))(v175, v176);
+            v177 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+            strcpy((v173 + 16), "urlRequest()");
+            *(v173 + 29) = 0;
+            *(v173 + 30) = -5120;
+            *(v173 + 32) = 0xD000000000000066;
+            v178 = v219;
+            *(v173 + 56) = 4;
+            *(v173 + 40) = v178;
+            *(v173 + 48) = 102;
+            v179 = v216;
+            *(v173 + 64) = v217;
+            *(v173 + 72) = v179;
+            *(v173 + 80) = 0;
+            *(v173 + 88) = v177;
+            sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
             swift_allocError();
-            *v178 = v171;
+            *v180 = v173;
             swift_willThrow();
 
             return;
           }
 
-          sub_1000039E8(&unk_1004A7370);
+          sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
           v57 = swift_allocObject();
           *(v57 + 16) = xmmword_100376BB0;
           *(v57 + 56) = &type metadata for String;
@@ -3595,141 +3595,142 @@ void sub_100022ED8(uint64_t a1@<X8>)
           *(v57 + 40) = v54;
           *(v57 + 96) = &type metadata for String;
           *(v57 + 104) = v58;
-          v59 = v195;
+          v59 = v197;
           *(v57 + 64) = v58;
           *(v57 + 72) = v59;
           *(v57 + 80) = v47;
-          sub_10001AA40(0, &qword_1004A7380);
+          sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
           v60 = static OS_os_log.default.getter();
-          static os_log_type_t.default.getter();
-          os_log(_:dso:log:type:_:)();
+          v61 = static os_log_type_t.default.getter();
+          os_log(_:dso:log:type:_:)("Dropping 'train=%{public}s' from query dictionary because we also have 'update=%{public}s'", 90, 2, &_mh_execute_header, v60, v61, v57);
 
           sub_100026B4C(0x6E69617274, 0xE500000000000000);
 
-          v38 = v224;
-          if (!*(v224 + 16))
+          v38 = v226;
+          if (!*(v226 + 16))
           {
 LABEL_19:
-            v72 = (v40 + OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_type);
+            v73 = (v40 + OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_type);
             swift_beginAccess();
-            v73 = *v72;
-            v74 = v72[1];
+            v74 = *v73;
+            v75 = v73[1];
 
             isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-            v220 = v38;
-            sub_100026BFC(v73, v74, 1701869940, 0xE400000000000000, isUniquelyReferenced_nonNull_native);
-            v184 = v220;
-            v224 = v220;
-            v209 = v40;
-            v76 = *(v40 + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client);
-            v77 = v185;
-            v78 = *(v185 + 16);
-            v195 = OBJC_IVAR____TtC16KnoxClientPublic17KnoxServiceClient_knoxHostURL;
-            v79 = v208;
-            v80 = v186;
-            v196 = v78;
-            (v78)(v208, v76 + OBJC_IVAR____TtC16KnoxClientPublic17KnoxServiceClient_knoxHostURL, v186);
+            v222 = v38;
+            sub_100026BFC(v74, v75, 1701869940, 0xE400000000000000, isUniquelyReferenced_nonNull_native);
+            v186 = v222;
+            v226 = v222;
+            v211 = v40;
+            v77 = *(v40 + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client);
+            v78 = v187;
+            v79 = *(v187 + 16);
+            v197 = OBJC_IVAR____TtC16KnoxClientPublic17KnoxServiceClient_knoxHostURL;
+            v80 = v210;
+            v81 = v188;
+            v198 = v79;
+            (v79)(v210, v77 + OBJC_IVAR____TtC16KnoxClientPublic17KnoxServiceClient_knoxHostURL, v188);
             URLComponents.init(url:resolvingAgainstBaseURL:)();
-            v82 = *(v77 + 8);
-            v81 = v77 + 8;
-            v183 = v82;
-            v82(v79, v80);
-            v83 = v205;
-            v84 = v206;
-            if ((*(v205 + 48))(v43, 1, v206) == 1)
+            v83 = *(v78 + 8);
+            v82 = v78 + 8;
+            v185 = v83;
+            v83(v80, v81);
+            v84 = v207;
+            v85 = v208;
+            if ((*(v207 + 48))(v43, 1, v208) == 1)
             {
-              sub_100013F2C(v43, &qword_1004A7160);
-              v217 = 0x800000010042A320;
-              v220 = 0;
-              v221 = 0xE000000000000000;
+              sub_100013F2C(v43, &qword_1004A7160, &unk_100378C70);
+              v219 = 0x800000010042A320;
+              v222 = 0;
+              v223 = 0xE000000000000000;
               _StringGuts.grow(_:)(42);
 
-              v220 = 0xD000000000000028;
-              v221 = 0x800000010042A390;
-              (v196)(v79, v195 + v76, v80);
-              v85 = URL.description.getter();
-              v87 = v86;
-              v183(v79, v80);
-              v88._countAndFlagsBits = v85;
-              v88._object = v87;
-              String.append(_:)(v88);
+              v222 = 0xD000000000000028;
+              v223 = 0x800000010042A390;
+              (v198)(v80, v197 + v77, v81);
+              v86 = URL.description.getter();
+              v88 = v87;
+              v185(v80, v81);
+              v89._countAndFlagsBits = v86;
+              v89._object = v88;
+              String.append(_:)(v89);
 
-              v215 = v220;
-              v214 = v221;
-              v216 = type metadata accessor for KnoxServiceClient.ClientError();
-              v89 = swift_allocObject();
-              sub_10001AA40(0, &qword_1004A7840);
-              v213 = "hivePointer.swift";
+              v217 = v222;
+              v216 = v223;
+              v218 = type metadata accessor for KnoxServiceClient.ClientError();
+              v90 = swift_allocObject();
+              sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
+              v215 = "hivePointer.swift";
               static DispatchQoS.userInitiated.getter();
-              v220 = &_swiftEmptyArrayStorage;
-              sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-              sub_1000039E8(&unk_1004A7850);
-              sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+              v222 = _swiftEmptyArrayStorage;
+              sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+              sub_1000039E8(&unk_1004A7850, &qword_100376280);
+              sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
               dispatch thunk of SetAlgebra.init<A>(_:)();
-              (*(v198 + 104))(v202, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v199);
-              v90 = v203;
-              v91 = v201;
-              v92 = v204;
-              (*(v203 + 104))(v201, enum case for DispatchQoS.QoSClass.default(_:), v204);
+              (*(v200 + 104))(v204, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v201);
+              v91 = v205;
+              v92 = v203;
+              v93 = v206;
+              (*(v205 + 104))(v203, enum case for DispatchQoS.QoSClass.default(_:), v206);
               static OS_dispatch_queue.global(qos:)();
-              (*(v90 + 8))(v91, v92);
-              v93 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-              strcpy((v89 + 16), "urlRequest()");
-              *(v89 + 29) = 0;
-              *(v89 + 30) = -5120;
-              *(v89 + 32) = 0xD000000000000066;
-              v94 = v217;
-              *(v89 + 56) = 14;
-              *(v89 + 40) = v94;
-              *(v89 + 48) = 122;
-              v95 = v214;
-              *(v89 + 64) = v215;
-              *(v89 + 72) = v95;
-              *(v89 + 80) = 0;
-              *(v89 + 88) = v93;
-              sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+              (*(v91 + 8))(v92, v93);
+              v94 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+              strcpy((v90 + 16), "urlRequest()");
+              *(v90 + 29) = 0;
+              *(v90 + 30) = -5120;
+              *(v90 + 32) = 0xD000000000000066;
+              v95 = v219;
+              *(v90 + 56) = 14;
+              *(v90 + 40) = v95;
+              *(v90 + 48) = 122;
+              v96 = v216;
+              *(v90 + 64) = v217;
+              *(v90 + 72) = v96;
+              *(v90 + 80) = 0;
+              *(v90 + 88) = v94;
+              sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
               swift_allocError();
-              *v96 = v89;
+              *v97 = v90;
               swift_willThrow();
 LABEL_58:
 
               return;
             }
 
-            v182 = v76;
-            v181 = v81;
-            v97 = v211;
-            (*(v83 + 32))(v211, v43, v84);
-            v220 = 0;
-            v221 = 0xE000000000000000;
+            v184 = v77;
+            v183 = v82;
+            v98 = v213;
+            (*(v84 + 32))(v213, v43, v85);
+            v222 = 0;
+            v223 = 0xE000000000000000;
             _StringGuts.grow(_:)(19);
 
-            v220 = 0x2F7365636170732FLL;
-            v221 = 0xE800000000000000;
-            v98 = v209;
-            v99 = (v209 + OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_space);
+            v222 = 0x2F7365636170732FLL;
+            v223 = 0xE800000000000000;
+            v99 = v211;
+            v100 = (v211 + OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_space);
             swift_beginAccess();
-            v100 = *v99;
-            v101 = v99[1];
+            v101 = *v100;
+            v102 = v100[1];
 
-            v102._countAndFlagsBits = v100;
-            v102._object = v101;
-            String.append(_:)(v102);
-
-            v103._countAndFlagsBits = 0x7265746E696F702FLL;
-            v103._object = 0xE900000000000073;
+            v103._countAndFlagsBits = v101;
+            v103._object = v102;
             String.append(_:)(v103);
-            v104 = v97;
+
+            v104._countAndFlagsBits = 0x7265746E696F702FLL;
+            v104._object = 0xE900000000000073;
+            String.append(_:)(v104);
+            v105 = v98;
             URLComponents.path.setter();
-            v105 = v184;
-            v106 = *(v184 + 16);
-            if (v106)
+            v106 = v186;
+            v107 = *(v186 + 16);
+            if (v107)
             {
-              v107 = sub_1000117A8(*(v184 + 16), 0);
-              v108 = sub_1000138F8(&v220, v107 + 4, v106, v105);
+              v108 = sub_1000117A8(*(v186 + 16), 0);
+              v109 = sub_1000138F8(&v222, v108 + 4, v107, v106);
+              v110 = v222;
               swift_retain_n();
-              sub_100014344();
-              if (v108 != v106)
+              sub_100014344(v110);
+              if (v109 != v107)
               {
                 __break(1u);
 LABEL_61:
@@ -3738,269 +3739,269 @@ LABEL_61:
                 return;
               }
 
-              v42 = v212;
-              v98 = v209;
+              v42 = v214;
+              v99 = v211;
             }
 
             else
             {
 
-              v107 = &_swiftEmptyArrayStorage;
+              v108 = _swiftEmptyArrayStorage;
             }
 
-            v109 = v210;
-            v220 = v107;
-            sub_10000EB7C(&v220);
-            if (!v109)
+            v111 = v212;
+            v222 = v108;
+            sub_10000EB7C(&v222);
+            if (!v111)
             {
 
-              sub_100021BB0(v220, &v224);
-              v180 = 0;
+              sub_100021BB0(v222, &v226);
+              v182 = 0;
 
               URLComponents.queryItems.setter();
-              v110 = OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_timeFilter;
+              v112 = OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_timeFilter;
               swift_beginAccess();
-              sub_100013E54(v98 + v110, &v218, &qword_1004A7158);
-              if (v219)
+              sub_100013E54(v99 + v112, &v220, &qword_1004A7158, &unk_100376CA0);
+              if (v221)
               {
-                sub_100003C88(&v218, &v220);
-                v111 = v222;
-                v112 = v223;
-                sub_10000E2A8(&v220, v222);
-                v113 = (*(v112 + 8))(v111, v112);
-                v114 = *(v113 + 16);
-                if (v114)
+                sub_100003C88(&v220, &v222);
+                v113 = v224;
+                v114 = v225;
+                sub_10000E2A8(&v222, v224);
+                v115 = (*(v114 + 8))(v113, v114);
+                v116 = *(v115 + 16);
+                if (v116)
                 {
-                  v115 = *(v214 + 2);
-                  v116 = ((v214[80] + 32) & ~v214[80]);
-                  v179[1] = v113;
-                  v196 = v116;
-                  v117 = &v116[v113];
-                  v118 = *(v214 + 9);
-                  v195 = (v214 + 32);
-                  v208 = (v214 + 8);
-                  v119 = v216;
-                  v210 = v115;
-                  v120 = v104;
-                  v209 = v118;
+                  v117 = *(v216 + 2);
+                  v118 = ((v216[80] + 32) & ~v216[80]);
+                  v181[1] = v115;
+                  v198 = v118;
+                  v119 = &v118[v115];
+                  v120 = *(v216 + 9);
+                  v197 = (v216 + 32);
+                  v210 = (v216 + 8);
+                  v121 = v218;
+                  v212 = v117;
+                  v122 = v105;
+                  v211 = v120;
                   do
                   {
-                    v122 = v115;
-                    (v115)(v42, v117, v119);
-                    v124 = URLComponents.queryItems.modify();
-                    if (*v123)
+                    v124 = v117;
+                    (v117)(v42, v119, v121);
+                    v126 = URLComponents.queryItems.modify();
+                    if (*v125)
                     {
-                      v125 = v123;
-                      (v122)(v215, v42, v119);
-                      v126 = *v125;
-                      v127 = swift_isUniquelyReferenced_nonNull_native();
-                      *v125 = v126;
-                      if ((v127 & 1) == 0)
+                      v127 = v125;
+                      (v124)(v217, v42, v121);
+                      v128 = *v127;
+                      v129 = swift_isUniquelyReferenced_nonNull_native();
+                      *v127 = v128;
+                      if ((v129 & 1) == 0)
                       {
-                        v126 = sub_100011B58(0, *(v126 + 16) + 1, 1, v126);
-                        *v125 = v126;
+                        v128 = sub_100011B58(0, v128[2] + 1, 1, v128);
+                        *v127 = v128;
                       }
 
-                      v121 = v209;
-                      v129 = *(v126 + 16);
-                      v128 = *(v126 + 24);
-                      if (v129 >= v128 >> 1)
+                      v123 = v211;
+                      v131 = v128[2];
+                      v130 = v128[3];
+                      if (v131 >= v130 >> 1)
                       {
-                        v126 = sub_100011B58(v128 > 1, v129 + 1, 1, v126);
-                        *v125 = v126;
+                        v128 = sub_100011B58((v130 > 1), v131 + 1, 1, v128);
+                        *v127 = v128;
                       }
 
-                      *(v126 + 16) = v129 + 1;
-                      v119 = v216;
-                      (*v195)(&v196[v126 + v129 * v121], v215, v216);
-                      v124(&v218, 0);
-                      v120 = v211;
-                      v42 = v212;
+                      v128[2] = v131 + 1;
+                      v121 = v218;
+                      (*v197)(&v198[v128 + v131 * v123], v217, v218);
+                      v126(&v220, 0);
+                      v122 = v213;
+                      v42 = v214;
                     }
 
                     else
                     {
-                      v124(&v218, 0);
-                      v121 = v209;
+                      v126(&v220, 0);
+                      v123 = v211;
                     }
 
-                    (*v208)(v42, v119);
-                    v117 = v121 + v117;
-                    --v114;
-                    v115 = v210;
+                    (*v210)(v42, v121);
+                    v119 = v123 + v119;
+                    --v116;
+                    v117 = v212;
                   }
 
-                  while (v114);
+                  while (v116);
                 }
 
                 else
                 {
 
-                  v119 = v216;
-                  v120 = v104;
+                  v121 = v218;
+                  v122 = v105;
                 }
 
-                sub_100003C3C(&v220);
-                v130 = v183;
+                sub_100003C3C(&v222);
+                v132 = v185;
               }
 
               else
               {
-                sub_100013F2C(&v218, &qword_1004A7158);
-                v119 = v216;
-                v130 = v183;
-                v120 = v104;
+                sub_100013F2C(&v220, &qword_1004A7158, &unk_100376CA0);
+                v121 = v218;
+                v132 = v185;
+                v122 = v105;
               }
 
-              v131 = URLComponents.queryItems.getter();
-              if (v131)
+              v133 = URLComponents.queryItems.getter();
+              if (v133)
               {
-                v132 = *(v131 + 16);
-                if (v132)
+                v134 = *(v133 + 16);
+                if (v134)
                 {
-                  *&v218 = &_swiftEmptyArrayStorage;
-                  v133 = v131;
-                  sub_10000E0A8(0, v132, 0);
-                  v134 = v218;
-                  v215 = *(v214 + 2);
-                  v135 = (v214[80] + 32) & ~v214[80];
-                  v196 = v133;
-                  v212 = v135;
-                  v136 = &v133[v135];
-                  v210 = *(v214 + 9);
-                  v209 = (v214 + 8);
-                  v214 += 16;
-                  v208 = (v214 + 16);
+                  *&v220 = _swiftEmptyArrayStorage;
+                  v135 = v133;
+                  sub_10000E0A8(0, v134, 0);
+                  v136 = v220;
+                  v217 = *(v216 + 2);
+                  v137 = (v216[80] + 32) & ~v216[80];
+                  v198 = v135;
+                  v214 = v137;
+                  v138 = &v135[v137];
+                  v212 = *(v216 + 9);
+                  v211 = (v216 + 8);
+                  v216 += 16;
+                  v210 = (v216 + 16);
                   do
                   {
-                    (v215)(v217, v136, v119);
+                    (v217)(v219, v138, v121);
                     URLQueryItem.name.getter();
-                    v137 = URLQueryItem.value.getter();
-                    if (v138)
+                    v139 = URLQueryItem.value.getter();
+                    if (v140)
                     {
-                      v220 = v137;
-                      v221 = v138;
+                      v222 = v139;
+                      v223 = v140;
                       if (qword_1004A6A70 != -1)
                       {
                         swift_once();
                       }
 
-                      v139 = type metadata accessor for CharacterSet();
-                      sub_1000270B4(v139, qword_1004A7140);
+                      v141 = type metadata accessor for CharacterSet();
+                      sub_1000270B4(v141, qword_1004A7140);
                       sub_10000B080();
                       StringProtocol.addingPercentEncoding(withAllowedCharacters:)();
                     }
 
-                    v140 = v213;
+                    v142 = v215;
                     URLQueryItem.init(name:value:)();
 
-                    v141 = v216;
-                    (*v209)(v217, v216);
-                    *&v218 = v134;
-                    v143 = *(v134 + 16);
-                    v142 = *(v134 + 24);
-                    if (v143 >= v142 >> 1)
+                    v143 = v218;
+                    (*v211)(v219, v218);
+                    *&v220 = v136;
+                    v145 = *(v136 + 16);
+                    v144 = *(v136 + 24);
+                    if (v145 >= v144 >> 1)
                     {
-                      sub_10000E0A8(v142 > 1, v143 + 1, 1);
-                      v134 = v218;
+                      sub_10000E0A8((v144 > 1), v145 + 1, 1);
+                      v136 = v220;
                     }
 
-                    *(v134 + 16) = v143 + 1;
-                    v144 = v210;
-                    (*v208)(&v212[v134 + v143 * v210], v140, v141);
-                    v136 = &v144[v136];
-                    --v132;
-                    v119 = v141;
+                    *(v136 + 16) = v145 + 1;
+                    v146 = v212;
+                    (*v210)(&v214[v136 + v145 * v212], v142, v143);
+                    v138 = &v146[v138];
+                    --v134;
+                    v121 = v143;
                   }
 
-                  while (v132);
+                  while (v134);
 
-                  v120 = v211;
-                  v130 = v183;
+                  v122 = v213;
+                  v132 = v185;
                 }
 
                 else
                 {
 
-                  v120 = v211;
+                  v122 = v213;
                 }
               }
 
               URLComponents.percentEncodedQueryItems.setter();
-              v145 = v191;
+              v147 = v193;
               URLComponents.url.getter();
-              v146 = v186;
-              if (v189(v145, 1, v186) == 1)
+              v148 = v188;
+              if (v191(v147, 1, v188) == 1)
               {
-                sub_100013F2C(v145, &qword_1004A6D30);
-                v217 = 0x800000010042A320;
-                v220 = 0;
-                v221 = 0xE000000000000000;
+                sub_100013F2C(v147, &qword_1004A6D30, &unk_100376820);
+                v219 = 0x800000010042A320;
+                v222 = 0;
+                v223 = 0xE000000000000000;
                 _StringGuts.grow(_:)(41);
 
-                v220 = 0xD000000000000026;
-                v221 = 0x800000010042A3C0;
-                v147._countAndFlagsBits = URLComponents.description.getter();
-                String.append(_:)(v147);
+                v222 = 0xD000000000000026;
+                v223 = 0x800000010042A3C0;
+                v149._countAndFlagsBits = URLComponents.description.getter();
+                String.append(_:)(v149);
 
-                v148._countAndFlagsBits = 39;
-                v148._object = 0xE100000000000000;
-                String.append(_:)(v148);
-                v215 = v220;
-                v214 = v221;
-                v216 = type metadata accessor for KnoxServiceClient.ClientError();
-                v149 = swift_allocObject();
-                sub_10001AA40(0, &qword_1004A7840);
-                v213 = "hivePointer.swift";
+                v150._countAndFlagsBits = 39;
+                v150._object = 0xE100000000000000;
+                String.append(_:)(v150);
+                v217 = v222;
+                v216 = v223;
+                v218 = type metadata accessor for KnoxServiceClient.ClientError();
+                v151 = swift_allocObject();
+                sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
+                v215 = "hivePointer.swift";
                 static DispatchQoS.userInitiated.getter();
-                v220 = &_swiftEmptyArrayStorage;
-                sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-                sub_1000039E8(&unk_1004A7850);
-                v150 = v205;
-                sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+                v222 = _swiftEmptyArrayStorage;
+                sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+                sub_1000039E8(&unk_1004A7850, &qword_100376280);
+                v152 = v207;
+                sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
                 dispatch thunk of SetAlgebra.init<A>(_:)();
-                (*(v198 + 104))(v202, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v199);
-                v151 = v203;
-                v152 = v201;
-                v153 = v204;
-                (*(v203 + 104))(v201, enum case for DispatchQoS.QoSClass.default(_:), v204);
+                (*(v200 + 104))(v204, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v201);
+                v153 = v205;
+                v154 = v203;
+                v155 = v206;
+                (*(v205 + 104))(v203, enum case for DispatchQoS.QoSClass.default(_:), v206);
                 static OS_dispatch_queue.global(qos:)();
-                (*(v151 + 8))(v152, v153);
-                v154 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-                strcpy((v149 + 16), "urlRequest()");
-                *(v149 + 29) = 0;
-                *(v149 + 30) = -5120;
-                *(v149 + 32) = 0xD000000000000066;
-                v155 = v217;
-                *(v149 + 56) = 14;
-                *(v149 + 40) = v155;
-                *(v149 + 48) = 139;
-                v156 = v214;
-                *(v149 + 64) = v215;
-                *(v149 + 72) = v156;
-                *(v149 + 80) = 0;
-                *(v149 + 88) = v154;
-                sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+                (*(v153 + 8))(v154, v155);
+                v156 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+                strcpy((v151 + 16), "urlRequest()");
+                *(v151 + 29) = 0;
+                *(v151 + 30) = -5120;
+                *(v151 + 32) = 0xD000000000000066;
+                v157 = v219;
+                *(v151 + 56) = 14;
+                *(v151 + 40) = v157;
+                *(v151 + 48) = 139;
+                v158 = v216;
+                *(v151 + 64) = v217;
+                *(v151 + 72) = v158;
+                *(v151 + 80) = 0;
+                *(v151 + 88) = v156;
+                sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
                 swift_allocError();
-                *v157 = v149;
+                *v159 = v151;
                 swift_willThrow();
-                (*(v150 + 8))(v211, v206);
+                (*(v152 + 8))(v213, v208);
               }
 
               else
               {
-                v158 = v120;
-                v159 = v187;
-                (*(v185 + 32))(v187, v145, v146);
-                LOBYTE(v220) = 1;
-                v160 = v188;
-                v161 = v180;
-                sub_10005ADB0(v159, 0, 1, v188);
-                v130(v159, v146);
-                (*(v205 + 8))(v158, v206);
-                if (!v161)
+                v160 = v122;
+                v161 = v189;
+                (*(v187 + 32))(v189, v147, v148);
+                LOBYTE(v222) = 1;
+                v162 = v190;
+                v163 = v182;
+                sub_10005ADB0(v161, 0, 1, v190);
+                v132(v161, v148);
+                (*(v207 + 8))(v160, v208);
+                if (!v163)
                 {
-                  (*(v192 + 32))(v194, v160, v193);
+                  (*(v194 + 32))(v196, v162, v195);
                 }
               }
 
@@ -4023,46 +4024,46 @@ LABEL_61:
 LABEL_15:
 
         sub_100013364(1701869940, 0xE400000000000000);
-        v63 = v62;
+        v64 = v63;
 
-        if (v63)
+        if (v64)
         {
-          v215 = 0x800000010042A320;
-          v216 = 0x800000010042A3F0;
-          v217 = type metadata accessor for KnoxServiceClient.ClientError();
-          v64 = swift_allocObject();
-          sub_10001AA40(0, &qword_1004A7840);
-          v214 = "hivePointer.swift";
+          v217 = 0x800000010042A320;
+          v218 = 0x800000010042A3F0;
+          v219 = type metadata accessor for KnoxServiceClient.ClientError();
+          v65 = swift_allocObject();
+          sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
+          v216 = "hivePointer.swift";
           static DispatchQoS.userInitiated.getter();
-          v220 = &_swiftEmptyArrayStorage;
-          sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-          sub_1000039E8(&unk_1004A7850);
-          sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+          v222 = _swiftEmptyArrayStorage;
+          sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+          sub_1000039E8(&unk_1004A7850, &qword_100376280);
+          sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
           dispatch thunk of SetAlgebra.init<A>(_:)();
-          (*(v198 + 104))(v202, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v199);
-          v65 = v203;
-          v66 = v201;
-          v67 = v204;
-          (*(v203 + 104))(v201, enum case for DispatchQoS.QoSClass.default(_:), v204);
+          (*(v200 + 104))(v204, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v201);
+          v66 = v205;
+          v67 = v203;
+          v68 = v206;
+          (*(v205 + 104))(v203, enum case for DispatchQoS.QoSClass.default(_:), v206);
           static OS_dispatch_queue.global(qos:)();
-          (*(v65 + 8))(v66, v67);
-          v68 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-          strcpy((v64 + 16), "urlRequest()");
-          *(v64 + 29) = 0;
-          *(v64 + 30) = -5120;
-          *(v64 + 32) = 0xD000000000000066;
-          v69 = v215;
-          *(v64 + 56) = 4;
-          *(v64 + 40) = v69;
-          *(v64 + 48) = 114;
-          v70 = v216;
-          *(v64 + 64) = 0xD000000000000056;
-          *(v64 + 72) = v70;
-          *(v64 + 80) = 0;
-          *(v64 + 88) = v68;
-          sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+          (*(v66 + 8))(v67, v68);
+          v69 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+          strcpy((v65 + 16), "urlRequest()");
+          *(v65 + 29) = 0;
+          *(v65 + 30) = -5120;
+          *(v65 + 32) = 0xD000000000000066;
+          v70 = v217;
+          *(v65 + 56) = 4;
+          *(v65 + 40) = v70;
+          *(v65 + 48) = 114;
+          v71 = v218;
+          *(v65 + 64) = 0xD000000000000056;
+          *(v65 + 72) = v71;
+          *(v65 + 80) = 0;
+          *(v65 + 88) = v69;
+          sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
           swift_allocError();
-          *v71 = v64;
+          *v72 = v65;
           swift_willThrow();
 
           return;
@@ -4074,8 +4075,8 @@ LABEL_15:
 
     else
     {
-      v42 = v212;
-      v43 = v209;
+      v42 = v214;
+      v43 = v211;
     }
 
     if (!*(v38 + 16))
@@ -4087,17 +4088,17 @@ LABEL_15:
   }
 
   (*(v28 + 32))(v34, v26, v27);
-  LOBYTE(v220) = 1;
-  v61 = v210;
+  LOBYTE(v222) = 1;
+  v62 = v212;
   sub_10005ADB0(v34, 0, 1, v21);
   (*(v28 + 8))(v34, v27);
-  if (!v61)
+  if (!v62)
   {
-    (*(v192 + 32))(v194, v21, v193);
+    (*(v194 + 32))(v196, v21, v195);
   }
 }
 
-uint64_t sub_100025034(uint64_t a1, __int128 *a2)
+void *sub_100025034(void *a1, __int128 *a2)
 {
   v121 = a2;
   v3 = v2;
@@ -4152,8 +4153,8 @@ uint64_t sub_100025034(uint64_t a1, __int128 *a2)
     {
       if (v40 == 2)
       {
-        v42 = *(v26 + 16);
-        v41 = *(v26 + 24);
+        v42 = v26[2];
+        v41 = v26[3];
         v31 = v41 - v42;
         if (__OFSUB__(v41, v42))
         {
@@ -4163,13 +4164,13 @@ LABEL_12:
           {
 
             (*(v31 + 96))(v29, v11);
-            v43 = sub_1000039E8(&qword_1004A7168);
+            v43 = sub_1000039E8(&qword_1004A7168, &unk_100376CB0);
             (*(v119 + 32))(v107, v29 + *(v43 + 48), v120);
             v44 = DecodingError.Context.codingPath.getter();
             v45 = *(v44 + 16);
             if (v45)
             {
-              v129 = &_swiftEmptyArrayStorage;
+              v129 = _swiftEmptyArrayStorage;
               sub_10000DFF4(0, v45, 0);
               v46 = v129;
               v47 = v44 + 32;
@@ -4203,12 +4204,12 @@ LABEL_12:
             else
             {
 
-              v46 = &_swiftEmptyArrayStorage;
+              v46 = _swiftEmptyArrayStorage;
             }
 
             aBlock = v46;
-            sub_1000039E8(&qword_1004A6B48);
-            sub_10000E720(&qword_1004A6B50, &qword_1004A6B48);
+            sub_1000039E8(&qword_1004A6B48, &unk_100376810);
+            sub_10000E720(&qword_1004A6B50, &qword_1004A6B48, &unk_100376810, &protocol conformance descriptor for [A]);
             v85 = BidirectionalCollection<>.joined(separator:)();
             v87 = v86;
 
@@ -4329,7 +4330,7 @@ LABEL_26:
         {
 
           (*(v31 + 96))(v29, v11);
-          v64 = *(sub_1000039E8(&qword_1004A7170) + 48);
+          v64 = *(sub_1000039E8(&qword_1004A7170, &qword_100376CC0) + 48);
           sub_100003C88(v29, &aBlock);
           v65 = v119;
           v66 = v29 + v64;
@@ -4370,7 +4371,7 @@ LABEL_26:
           v76 = *(v75 + 16);
           if (v76)
           {
-            v129 = &_swiftEmptyArrayStorage;
+            v129 = _swiftEmptyArrayStorage;
             sub_10000DFF4(0, v76, 0);
             v77 = v129;
             v78 = v75 + 32;
@@ -4404,12 +4405,12 @@ LABEL_26:
           else
           {
 
-            v77 = &_swiftEmptyArrayStorage;
+            v77 = _swiftEmptyArrayStorage;
           }
 
           aBlock = v77;
-          sub_1000039E8(&qword_1004A6B48);
-          sub_10000E720(&qword_1004A6B50, &qword_1004A6B48);
+          sub_1000039E8(&qword_1004A6B48, &unk_100376810);
+          sub_10000E720(&qword_1004A6B50, &qword_1004A6B48, &unk_100376810, &protocol conformance descriptor for [A]);
           v85 = BidirectionalCollection<>.joined(separator:)();
           v87 = v105;
 
@@ -4436,7 +4437,7 @@ LABEL_47:
   (*(v21 + 8))(v23, v20);
   v131 = v28;
   swift_errorRetain();
-  sub_1000039E8(&qword_1004AB0A0);
+  sub_1000039E8(&qword_1004AB0A0, &unk_100377120);
   if (!swift_dynamicCast())
   {
     goto LABEL_40;
@@ -4451,7 +4452,7 @@ LABEL_47:
   }
 
   (*(v31 + 96))(v29, v11);
-  v33 = sub_1000039E8(&qword_1004A7168);
+  v33 = sub_1000039E8(&qword_1004A7168, &unk_100376CB0);
   v35 = v119;
   v34 = v120;
   v36 = v108;
@@ -4466,13 +4467,13 @@ LABEL_38:
   v119 = 0x800000010042A530;
   v120 = type metadata accessor for KnoxServiceClient.ClientError();
   v96 = swift_allocObject();
-  sub_10001AA40(0, &qword_1004A7840);
+  sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
   v109 = "hivePointer.swift";
   static DispatchQoS.userInitiated.getter();
-  aBlock = &_swiftEmptyArrayStorage;
-  sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_1000039E8(&unk_1004A7850);
-  sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+  aBlock = _swiftEmptyArrayStorage;
+  sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_1000039E8(&unk_1004A7850, &qword_100376280);
+  sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (*(v112 + 104))(v114, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v113);
   v98 = v115;
@@ -4495,13 +4496,13 @@ LABEL_38:
   *(v96 + 72) = v103;
   *(v96 + 80) = 0;
   *(v96 + 88) = v100;
-  sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+  sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
   swift_allocError();
   *v104 = v96;
   return swift_willThrow();
 }
 
-uint64_t sub_100026118(unint64_t a1, void (*a2)(uint64_t, void, unint64_t))
+uint64_t sub_100026118(unint64_t a1, uint64_t (*a2)(uint64_t, void, uint64_t))
 {
   if (a1 >> 62)
   {
@@ -4537,7 +4538,7 @@ LABEL_13:
   }
 
 LABEL_5:
-  sub_100026FCC(result);
+  sub_100026FCC(result, 1);
   v9 = *v2;
   v10 = *v2 & 0xFFFFFFFFFFFFFF8;
   a2(v10 + 8 * *(v10 + 0x10) + 32, (*(v10 + 0x18) >> 1) - *(v10 + 0x10), a1);
@@ -4571,7 +4572,7 @@ LABEL_15:
   return result;
 }
 
-uint64_t sub_100026210()
+char *sub_100026210()
 {
   v1 = v0;
   ObjectType = swift_getObjectType();
@@ -4596,15 +4597,15 @@ uint64_t sub_100026210()
     v46 = 0x800000010042A550;
     v47 = type metadata accessor for KnoxServiceClient.ClientError();
     v27 = swift_allocObject();
-    v43 = sub_10001AA40(0, &qword_1004A7840);
+    v43 = sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
     v44 = "hivePointer.swift";
     static DispatchQoS.userInitiated.getter();
-    aBlock[0] = &_swiftEmptyArrayStorage;
-    v41[1] = sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
+    aBlock[0] = _swiftEmptyArrayStorage;
+    v41[1] = sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
     v42 = v3;
-    sub_1000039E8(&unk_1004A7850);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
     v28 = v4;
-    sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+    sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
     dispatch thunk of SetAlgebra.init<A>(_:)();
     (*(v48 + 104))(v9, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v49);
     v29 = v42;
@@ -4623,7 +4624,7 @@ uint64_t sub_100026210()
     *(v27 + 72) = v46;
     *(v27 + 80) = 0;
     *(v27 + 88) = v30;
-    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
     v32 = swift_allocError();
     *v33 = v27;
     swift_getErrorValue();
@@ -4693,13 +4694,13 @@ uint64_t sub_100026210()
 uint64_t sub_1000269E8()
 {
 
-  return sub_100013F2C(v0 + OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_timeFilter, &qword_1004A7158);
+  return sub_100013F2C(v0 + OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_timeFilter, &qword_1004A7158, &unk_100376CA0);
 }
 
 id PointersTask.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for PointersTask();
+  v2.super_class = type metadata accessor for PointersTask(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -4835,9 +4836,10 @@ LABEL_8:
   }
 }
 
-uint64_t sub_100026E9C(int a1, uint64_t a2, uint64_t a3, char a4)
+uint64_t sub_100026E9C(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
 {
   v5 = v4;
+  v9 = a1;
   v10 = *v4;
   result = sub_100013364(a2, a3);
   v13 = v10[2];
@@ -4877,27 +4879,27 @@ LABEL_8:
   v21 = *v5;
   if (v17)
   {
-    *(v21[7] + 4 * result) = a1;
+    *(v21[7] + 4 * result) = v9;
   }
 
   else
   {
-    sub_10005D5E8(result, a2, a3, a1, v21);
+    sub_10005D5E8(result, a2, a3, v9, v21);
   }
 
   return result;
 }
 
-uint64_t sub_100026FCC(uint64_t a1)
+uint64_t sub_100026FCC(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
+  *v2 = v4;
   if (result)
   {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
     {
-      if (a1 <= *((v3 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (a1 <= *((v4 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         return result;
       }
@@ -4906,7 +4908,7 @@ uint64_t sub_100026FCC(uint64_t a1)
     }
   }
 
-  else if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+  else if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
   {
     goto LABEL_9;
   }
@@ -4914,11 +4916,11 @@ uint64_t sub_100026FCC(uint64_t a1)
   _CocoaArrayWrapper.endIndex.getter();
 LABEL_9:
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-  *v1 = result;
+  *v2 = result;
   return result;
 }
 
-uint64_t sub_10002706C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_10002706C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4947,11 +4949,11 @@ uint64_t sub_1000270EC()
   return _swift_deallocObject(v0, 32, 7);
 }
 
-uint64_t sub_10002712C(uint64_t a1, uint64_t a2)
+uint64_t sub_10002712C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a2 + 40);
+  v4 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
+  *(a1 + 40) = v4;
 }
 
 uint64_t sub_100027144()
@@ -5001,7 +5003,7 @@ uint64_t sub_10002739C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
   v3 = *a1;
   v4 = OBJC_IVAR____TtC16KnoxClientPublic12PointersTask_timeFilter;
   swift_beginAccess();
-  return sub_100013E54(v3 + v4, a2, &qword_1004A7158);
+  return sub_100013E54(v3 + v4, a2, &qword_1004A7158, &unk_100376CA0);
 }
 
 uint64_t sub_100027938(uint64_t a1, uint64_t a2)
@@ -6531,10 +6533,10 @@ uint64_t sub_100028E64()
   v3 = *(v2 - 8);
   __chkstk_darwin(v2);
   v5 = v48 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = sub_1000039E8(&qword_1004A73C0);
+  v6 = sub_1000039E8(&qword_1004A73C0, &unk_100376A70);
   __chkstk_darwin(v6 - 8);
   v8 = v48 - v7;
-  v9 = type metadata accessor for DownloadTask();
+  v9 = type metadata accessor for DownloadTask(0);
   v53.receiver = v0;
   v53.super_class = v9;
   v10 = objc_msgSendSuper2(&v53, "description");
@@ -6585,10 +6587,10 @@ uint64_t sub_100028E64()
   v21 = *&v1[OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_taskMetrics];
   v22 = OBJC_IVAR____TtCC16KnoxClientPublic8KnoxTask11TaskMetrics_startTime;
   swift_beginAccess();
-  sub_100013E54(v21 + v22, v8, &qword_1004A73C0);
+  sub_100013E54(v21 + v22, v8, &qword_1004A73C0, &unk_100376A70);
   if ((*(v3 + 48))(v8, 1, v2))
   {
-    sub_100013F2C(v8, &qword_1004A73C0);
+    sub_100013F2C(v8, &qword_1004A73C0, &unk_100376A70);
     v23 = 0xE400000000000000;
     v24 = 1701736270;
   }
@@ -6596,7 +6598,7 @@ uint64_t sub_100028E64()
   else
   {
     (*(v3 + 16))(v5, v8, v2);
-    sub_100013F2C(v8, &qword_1004A73C0);
+    sub_100013F2C(v8, &qword_1004A73C0, &unk_100376A70);
     v25 = Date.description.getter();
     v23 = v26;
     (*(v3 + 8))(v5, v2);
@@ -6660,7 +6662,7 @@ uint64_t sub_100028E64()
   return v51;
 }
 
-uint64_t type metadata accessor for DownloadTask()
+uint64_t type metadata accessor for DownloadTask(uint64_t a1)
 {
   result = qword_1004A7220;
   if (!qword_1004A7220)
@@ -6869,13 +6871,13 @@ char *DownloadTask.init(client:destinationFileURL:pointer:downloadType:)(void *a
   *(v4 + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__subTasksUsed) = 0;
   *(v4 + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_wasCancelled) = 0;
   v74 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_syncronizationQueue;
-  v13 = sub_10001AA40(0, &qword_1004A7840);
+  v13 = sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
   v70 = ", activeSubTasks=";
   static DispatchQoS.userInitiated.getter();
-  v82 = &_swiftEmptyArrayStorage;
-  v14 = sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-  v15 = sub_1000039E8(&unk_1004A7850);
-  v16 = sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+  v82 = _swiftEmptyArrayStorage;
+  v14 = sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  v15 = sub_1000039E8(&unk_1004A7850, &qword_100376280);
+  v16 = sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
   v65 = v15;
   v64 = v16;
   v67 = v10;
@@ -6903,7 +6905,7 @@ char *DownloadTask.init(client:destinationFileURL:pointer:downloadType:)(void *a
   v23 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   v24 = v71;
   *(v5 + v74) = v23;
-  *(v5 + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_subTasks) = &_swiftEmptyArrayStorage;
+  *(v5 + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_subTasks) = _swiftEmptyArrayStorage;
   v25 = v5 + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream;
   *v25 = 0u;
   *(v25 + 16) = 0u;
@@ -6965,7 +6967,7 @@ char *DownloadTask.init(client:destinationFileURL:pointer:downloadType:)(void *a
     v44 = swift_allocObject();
     v54[1] = "hivePointer.swift";
     static DispatchQoS.userInitiated.getter();
-    v81 = &_swiftEmptyArrayStorage;
+    v81 = _swiftEmptyArrayStorage;
     dispatch thunk of SetAlgebra.init<A>(_:)();
     v62(v77, v63, v75);
     v45 = v76;
@@ -6987,7 +6989,7 @@ char *DownloadTask.init(client:destinationFileURL:pointer:downloadType:)(void *a
     *(v44 + 72) = v50;
     *(v44 + 80) = 0;
     *(v44 + 88) = v47;
-    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
     v51 = swift_allocError();
     *v52 = v44;
 
@@ -7004,11 +7006,11 @@ uint64_t sub_10002A7AC(char a1)
   v2 = v1;
   v4 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream;
   swift_beginAccess();
-  sub_100013E54(&v2[v4], aBlock, &qword_1004A71D8);
+  sub_100013E54(&v2[v4], aBlock, &qword_1004A71D8, &unk_100376D50);
   if (v18)
   {
     sub_100003B20(aBlock, v14);
-    sub_100013F2C(aBlock, &qword_1004A71D8);
+    sub_100013F2C(aBlock, &qword_1004A71D8, &unk_100376D50);
     v5 = v15;
     v6 = v16;
     sub_10000E2A8(v14, v15);
@@ -7018,7 +7020,7 @@ uint64_t sub_10002A7AC(char a1)
 
   else
   {
-    sub_100013F2C(aBlock, &qword_1004A71D8);
+    sub_100013F2C(aBlock, &qword_1004A71D8, &unk_100376D50);
   }
 
   v7 = *&v2[OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_syncronizationQueue];
@@ -7059,16 +7061,16 @@ uint64_t (*sub_10002AAB4(uint64_t a1))(uint64_t a1)
 
 void sub_10002AB74(uint64_t a1, unint64_t a2)
 {
-  v67 = a1;
-  v68 = a2;
-  v70 = type metadata accessor for DispatchQoS.QoSClass();
-  v66 = *(v70 - 8);
-  __chkstk_darwin(v70);
-  v64 = v60 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v65 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v63 = *(v65 - 8);
-  __chkstk_darwin(v65);
-  v62 = v60 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v71 = a1;
+  v72 = a2;
+  v74 = type metadata accessor for DispatchQoS.QoSClass();
+  v70 = *(v74 - 8);
+  __chkstk_darwin(v74);
+  v68 = v64 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v69 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v67 = *(v69 - 8);
+  __chkstk_darwin(v69);
+  v66 = v64 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v5 = type metadata accessor for OS_dispatch_queue.Attributes();
   __chkstk_darwin(v5);
   v6 = type metadata accessor for DispatchQoS();
@@ -7076,33 +7078,33 @@ void sub_10002AB74(uint64_t a1, unint64_t a2)
   v7 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_wasCancelled;
   swift_beginAccess();
   v2[v7] = 1;
-  v61 = 0x800000010042A6A0;
-  v69 = type metadata accessor for KnoxServiceClient.ClientError();
+  v65 = 0x800000010042A6A0;
+  v73 = type metadata accessor for KnoxServiceClient.ClientError();
   v8 = swift_allocObject();
-  sub_10001AA40(0, &qword_1004A7840);
-  v60[1] = "hivePointer.swift";
+  sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
+  v64[1] = "hivePointer.swift";
   static DispatchQoS.userInitiated.getter();
-  aBlock[0] = &_swiftEmptyArrayStorage;
-  sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-  sub_1000039E8(&unk_1004A7850);
+  aBlock[0] = _swiftEmptyArrayStorage;
+  sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  sub_1000039E8(&unk_1004A7850, &qword_100376280);
   v9 = v2;
-  sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+  sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v63[13](v62, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v65);
-  v10 = v66;
-  v11 = v64;
-  v12 = v70;
-  (*(v66 + 104))(v64, enum case for DispatchQoS.QoSClass.default(_:), v70);
+  v67[13](v66, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v69);
+  v10 = v70;
+  v11 = v68;
+  v12 = v74;
+  (*(v70 + 104))(v68, enum case for DispatchQoS.QoSClass.default(_:), v74);
   static OS_dispatch_queue.global(qos:)();
   v13 = *(v10 + 8);
-  v14 = v67;
+  v14 = v71;
   v13(v11, v12);
-  v15 = v68;
+  v15 = v72;
   v16 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   *(v8 + 16) = 0x72286C65636E6163;
   *(v8 + 24) = 0xEF293A6E6F736165;
   *(v8 + 32) = 0xD000000000000066;
-  v17 = v61;
+  v17 = v65;
   *(v8 + 56) = 5;
   *(v8 + 40) = v17;
   *(v8 + 48) = 145;
@@ -7111,16 +7113,16 @@ void sub_10002AB74(uint64_t a1, unint64_t a2)
   *(v8 + 72) = v15;
   *(v8 + 80) = 0;
   *(v8 + 88) = v16;
-  v70 = v8;
+  v74 = v8;
   v19 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream;
   swift_beginAccess();
-  sub_100013E54(&v2[v19], &v75, &qword_1004A71D8);
-  if (v76)
+  sub_100013E54(&v2[v19], &v79, &qword_1004A71D8, &unk_100376D50);
+  if (v80)
   {
-    sub_100003C88(&v75, aBlock);
-    v20 = v72;
-    v21 = v73;
-    sub_10000E2A8(aBlock, v72);
+    sub_100003C88(&v79, aBlock);
+    v20 = v76;
+    v21 = v77;
+    sub_10000E2A8(aBlock, v76);
     v22 = *(v21 + 3);
 
     v22(v18, v15, v20, v21);
@@ -7130,23 +7132,23 @@ void sub_10002AB74(uint64_t a1, unint64_t a2)
   else
   {
 
-    sub_100013F2C(&v75, &qword_1004A71D8);
+    sub_100013F2C(&v79, &qword_1004A71D8, &unk_100376D50);
   }
 
-  *&v75 = &_swiftEmptyArrayStorage;
+  *&v79 = _swiftEmptyArrayStorage;
   v23 = *&v2[OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_syncronizationQueue];
   v24 = swift_allocObject();
-  *(v24 + 16) = &v75;
+  *(v24 + 16) = &v79;
   *(v24 + 24) = v9;
   v25 = swift_allocObject();
   *(v25 + 16) = sub_100030D54;
   *(v25 + 24) = v24;
-  v73 = sub_10001FA40;
-  v74 = v25;
+  v77 = sub_10001FA40;
+  v78 = v25;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_10003885C;
-  v72 = &unk_10047C628;
+  v76 = &unk_10047C628;
   v26 = _Block_copy(aBlock);
   v27 = v9;
 
@@ -7159,9 +7161,9 @@ void sub_10002AB74(uint64_t a1, unint64_t a2)
     __break(1u);
   }
 
-  else if (!(v75 >> 62))
+  else if (!(v79 >> 62))
   {
-    v28 = *((v75 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v28 = *((v79 & 0xFFFFFFFFFFFFFF8) + 0x10);
     goto LABEL_7;
   }
 
@@ -7170,127 +7172,127 @@ LABEL_7:
   v29 = &unk_100376000;
   if (v28 < 1)
   {
-    sub_10001AA40(0, &qword_1004A7380);
-    v51 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
+    v53 = static OS_os_log.default.getter();
+    v54 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("There are no subTasks to be interrupted.", 40, 2, &_mh_execute_header, v53, v54, _swiftEmptyArrayStorage);
 
     goto LABEL_22;
   }
 
-  v66 = sub_1000039E8(&unk_1004A7370);
+  v70 = sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
   v30 = swift_allocObject();
-  v65 = xmmword_100376A40;
+  v69 = xmmword_100376A40;
   *(v30 + 16) = xmmword_100376A40;
-  if (v75 >> 62)
+  if (v79 >> 62)
   {
     v31 = _CocoaArrayWrapper.endIndex.getter();
   }
 
   else
   {
-    v31 = *((v75 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v31 = *((v79 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
   *(v30 + 56) = &type metadata for Int;
   *(v30 + 64) = &protocol witness table for Int;
   *(v30 + 32) = v31;
-  v32 = sub_10001AA40(0, &qword_1004A7380);
+  v32 = sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
   v33 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v34 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("There are %{public}i subTasks that may need to be interrupted.", 62, 2, &_mh_execute_header, v33, v34, v30);
 
-  v34 = v75;
-  if (!(v75 >> 62))
+  v35 = v79;
+  if (!(v79 >> 62))
   {
-    v35 = *((v75 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v35)
+    v36 = *((v79 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v36)
     {
       goto LABEL_12;
     }
 
 LABEL_22:
-    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
-    v52 = swift_allocError();
-    *v53 = v70;
+    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
+    v55 = swift_allocError();
+    *v56 = v74;
 
-    sub_10002D004(v52);
+    sub_10002D004(v55);
 
-    sub_1000039E8(&unk_1004A7370);
-    v54 = swift_allocObject();
-    *(v54 + 16) = v29[164];
-    v55 = [v27 description];
-    v56 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v58 = v57;
+    sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
+    v57 = swift_allocObject();
+    *(v57 + 16) = v29[164];
+    v58 = [v27 description];
+    v59 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v61 = v60;
 
-    *(v54 + 56) = &type metadata for String;
-    *(v54 + 64) = sub_10001A9EC();
-    *(v54 + 32) = v56;
-    *(v54 + 40) = v58;
-    sub_10001AA40(0, &qword_1004A7380);
-    v59 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    *(v57 + 56) = &type metadata for String;
+    *(v57 + 64) = sub_10001A9EC();
+    *(v57 + 32) = v59;
+    *(v57 + 40) = v61;
+    sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
+    v62 = static OS_os_log.default.getter();
+    v63 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Cancelled %{public}s", 20, 2, &_mh_execute_header, v62, v63, v57);
 
     return;
   }
 
-  v35 = _CocoaArrayWrapper.endIndex.getter();
-  if (!v35)
+  v36 = _CocoaArrayWrapper.endIndex.getter();
+  if (!v36)
   {
     goto LABEL_22;
   }
 
 LABEL_12:
-  if (v35 >= 1)
+  if (v36 >= 1)
   {
-    v67 = v32;
-    v63 = v27;
-    v64 = v24;
-    v68 = v34 & 0xC000000000000001;
+    v71 = v32;
+    v67 = v27;
+    v68 = v24;
+    v72 = v35 & 0xC000000000000001;
 
-    for (i = 0; i != v35; ++i)
+    for (i = 0; i != v36; ++i)
     {
-      if (v68)
+      if (v72)
       {
-        v37 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+        v38 = specialized _ArrayBuffer._getElementSlowPath(_:)();
       }
 
       else
       {
-        v37 = *(v34 + 8 * i + 32);
+        v38 = *(v35 + 8 * i + 32);
       }
 
-      v38 = v37;
-      sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
-      v39 = swift_allocError();
-      *v40 = v70;
-      v41 = *((swift_isaMask & *v38) + 0x410);
-      v42 = v38;
+      v39 = v38;
+      sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
+      v40 = swift_allocError();
+      *v41 = v74;
+      v42 = *((swift_isaMask & *v39) + 0x410);
+      v43 = v39;
 
-      v41(v39);
+      v42(v40);
 
-      v44 = (*((swift_isaMask & *v42) + 0x2D0))(v43);
+      v45 = (*((swift_isaMask & *v43) + 0x2D0))(v44);
 
-      if (v44)
+      if (v45)
       {
-        static os_log_type_t.error.getter();
-        v45 = swift_allocObject();
-        *(v45 + 16) = v65;
-        v46 = [v42 description];
-        v47 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v49 = v48;
+        v46 = static os_log_type_t.error.getter();
+        v47 = swift_allocObject();
+        *(v47 + 16) = v69;
+        v48 = [v43 description];
+        v49 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v51 = v50;
 
-        *(v45 + 56) = &type metadata for String;
-        *(v45 + 64) = sub_10001A9EC();
-        *(v45 + 32) = v47;
-        *(v45 + 40) = v49;
-        v50 = static OS_os_log.default.getter();
-        os_log(_:dso:log:_:_:)();
+        *(v47 + 56) = &type metadata for String;
+        *(v47 + 64) = sub_10001A9EC();
+        *(v47 + 32) = v49;
+        *(v47 + 40) = v51;
+        v52 = static OS_os_log.default.getter();
+        os_log(_:dso:log:_:_:)(v46, &_mh_execute_header, v52, "Interrupted %{public}s", 22, 2, v47);
       }
     }
 
-    v27 = v63;
+    v27 = v67;
     v29 = &unk_100376000;
     goto LABEL_22;
   }
@@ -7298,48 +7300,48 @@ LABEL_12:
   __break(1u);
 }
 
-uint64_t sub_10002B6FC(void *a1, uint64_t a2)
+uint64_t sub_10002B6FC(uint64_t *a1, uint64_t a2)
 {
   v4 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_subTasks;
   swift_beginAccess();
   *a1 = *(a2 + v4);
 }
 
-uint64_t sub_10002B764()
+NSObject *sub_10002B764()
 {
   v1 = v0;
   ObjectType = swift_getObjectType();
-  v2 = sub_1000039E8(&qword_1004A6D30);
+  v2 = sub_1000039E8(&qword_1004A6D30, &unk_100376820);
   __chkstk_darwin(v2 - 8);
-  v4 = &v96 - v3;
-  v109 = type metadata accessor for URL();
-  v110 = *(v109 - 8);
-  v5 = __chkstk_darwin(v109);
-  v97 = &v96 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = &v97 - v3;
+  v110 = type metadata accessor for URL();
+  v111 = *(v110 - 8);
+  v5 = __chkstk_darwin(v110);
+  v98 = &v97 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v5);
-  v8 = &v96 - v7;
-  v108 = type metadata accessor for DispatchQoS.QoSClass();
-  v107 = *(v108 - 8);
-  __chkstk_darwin(v108);
-  v106 = &v96 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v102 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v101 = *(v102 - 8);
-  __chkstk_darwin(v102);
-  v105 = &v96 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v100 = type metadata accessor for OS_dispatch_queue.Attributes();
-  __chkstk_darwin(v100);
-  v104 = &v96 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v97 - v7;
+  v109 = type metadata accessor for DispatchQoS.QoSClass();
+  v108 = *(v109 - 8);
+  __chkstk_darwin(v109);
+  v107 = &v97 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v103 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v102 = *(v103 - 8);
+  __chkstk_darwin(v103);
+  v106 = &v97 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v101 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v101);
+  v105 = &v97 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for DispatchQoS();
   __chkstk_darwin(v12 - 8);
-  v103 = &v96 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v104 = &v97 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = type metadata accessor for UUID();
   v15 = *(v14 - 8);
   v16 = __chkstk_darwin(v14);
-  v18 = &v96 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = &v97 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = *&v0[OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client];
   (*((swift_isaMask & *v19) + 0x1E8))(&aBlock, v16);
-  object = v118;
-  if (v118)
+  object = v119;
+  if (v119)
   {
     countAndFlagsBits = aBlock;
   }
@@ -7350,12 +7352,12 @@ uint64_t sub_10002B764()
     v22 = UUID.uuidString.getter();
     v24 = v23;
     (*(v15 + 8))(v18, v14);
-    v115 = v22;
-    v116 = v24;
-    v113 = 45;
-    v114 = 0xE100000000000000;
-    v111 = 0;
-    v112 = 0xE000000000000000;
+    v116 = v22;
+    v117 = v24;
+    v114 = 45;
+    v115 = 0xE100000000000000;
+    v112 = 0;
+    v113 = 0xE000000000000000;
     sub_10000B080();
     StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
 
@@ -7372,12 +7374,12 @@ uint64_t sub_10002B764()
   v28 = swift_allocObject();
   *(v28 + 16) = sub_10001F858;
   *(v28 + 24) = v27;
-  v121 = sub_10001FA40;
-  v122 = v28;
+  v122 = sub_10001FA40;
+  v123 = v28;
   aBlock = _NSConcreteStackBlock;
-  v118 = 1107296256;
-  v119 = sub_10003885C;
-  v120 = &unk_10047C6A0;
+  v119 = 1107296256;
+  v120 = sub_10003885C;
+  v121 = &unk_10047C6A0;
   v29 = _Block_copy(&aBlock);
   v30 = v1;
 
@@ -7391,7 +7393,7 @@ uint64_t sub_10002B764()
     goto LABEL_24;
   }
 
-  v99 = v8;
+  v100 = v8;
   v33 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_pointer;
   swift_beginAccess();
   v34 = *(&v30->isa + v33);
@@ -7411,193 +7413,194 @@ uint64_t sub_10002B764()
     v41 = v39[1];
     v43 = *&v38[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_space];
     v42 = *&v38[OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_space + 8];
-    v44 = v38;
+    v44 = *(&v30->isa + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_timeoutSeconds);
+    v45 = v38;
 
-    sub_1000CEF18(v19, v40, v41, v43, v42, v30);
-    v81 = v80;
+    sub_1000CEF18(v19, v40, v41, v43, v42, v30, v44);
+    v82 = v81;
 
-    (*((swift_isaMask & *v44) + 0xF8))(v81);
+    (*((swift_isaMask & *v45) + 0xF8))(v82);
   }
 
-  v45 = *(&v30->isa + v33);
-  v46 = *((swift_isaMask & *v45) + 0xF0);
-  v47 = v45;
-  v48 = v46();
+  v46 = *(&v30->isa + v33);
+  v47 = *((swift_isaMask & *v46) + 0xF0);
+  v48 = v46;
+  v49 = v47();
 
-  if (!v48)
+  if (!v49)
   {
     goto LABEL_21;
   }
 
-  v49 = OBJC_IVAR____TtC16KnoxClientPublic25ImageDecryptionComponents_encryption;
-  if (*(*&v48[OBJC_IVAR____TtC16KnoxClientPublic25ImageDecryptionComponents_encryption] + OBJC_IVAR____TtCC16KnoxClientPublic25ImageDecryptionComponents10Encryption_kms) > 2u)
+  v50 = OBJC_IVAR____TtC16KnoxClientPublic25ImageDecryptionComponents_encryption;
+  if (*(*&v49[OBJC_IVAR____TtC16KnoxClientPublic25ImageDecryptionComponents_encryption] + OBJC_IVAR____TtCC16KnoxClientPublic25ImageDecryptionComponents10Encryption_kms) > 2u)
   {
   }
 
   else
   {
-    v50 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v51 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v50 & 1) == 0)
+    if ((v51 & 1) == 0)
     {
       goto LABEL_14;
     }
   }
 
-  v51 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_downloadType;
+  v52 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_downloadType;
   swift_beginAccess();
-  if ((*(&v30->isa + v51) & 1) == 0)
+  if ((*(&v30->isa + v52) & 1) == 0)
   {
     ObjectType = 0x800000010042A6A0;
-    v99 = 0x800000010042A820;
-    v109 = type metadata accessor for KnoxServiceClient.ClientError();
-    v59 = swift_allocObject();
-    sub_10001AA40(0, &qword_1004A7840);
-    v97 = "hivePointer.swift";
-    v110 = v48;
+    v100 = 0x800000010042A820;
+    v110 = type metadata accessor for KnoxServiceClient.ClientError();
+    v60 = swift_allocObject();
+    sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
+    v98 = "hivePointer.swift";
+    v111 = v49;
     static DispatchQoS.userInitiated.getter();
-    v115 = &_swiftEmptyArrayStorage;
-    sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-    sub_1000039E8(&unk_1004A7850);
-    sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+    v116 = _swiftEmptyArrayStorage;
+    sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
+    sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    (*(v101 + 104))(v105, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v102);
-    v72 = v107;
-    v73 = v106;
-    v74 = v108;
-    (*(v107 + 104))(v106, enum case for DispatchQoS.QoSClass.default(_:), v108);
+    (*(v102 + 104))(v106, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v103);
+    v73 = v108;
+    v74 = v107;
+    v75 = v109;
+    (*(v108 + 104))(v107, enum case for DispatchQoS.QoSClass.default(_:), v109);
     static OS_dispatch_queue.global(qos:)();
-    (*(v72 + 8))(v73, v74);
-    v75 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-    *(v59 + 16) = 0x2865747563657865;
-    *(v59 + 24) = 0xE900000000000029;
-    *(v59 + 32) = 0xD000000000000066;
-    v76 = ObjectType;
-    *(v59 + 56) = 14;
-    *(v59 + 40) = v76;
-    *(v59 + 48) = 199;
-    *(v59 + 64) = 0xD00000000000003BLL;
-    *(v59 + 72) = v99;
-    *(v59 + 80) = 0;
-    *(v59 + 88) = v75;
-    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    (*(v73 + 8))(v74, v75);
+    v76 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+    *(v60 + 16) = 0x2865747563657865;
+    *(v60 + 24) = 0xE900000000000029;
+    *(v60 + 32) = 0xD000000000000066;
+    v77 = ObjectType;
+    *(v60 + 56) = 14;
+    *(v60 + 40) = v77;
+    *(v60 + 48) = 199;
+    *(v60 + 64) = 0xD00000000000003BLL;
+    *(v60 + 72) = v100;
+    *(v60 + 80) = 0;
+    *(v60 + 88) = v76;
+    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
     goto LABEL_18;
   }
 
 LABEL_14:
-  v52 = OBJC_IVAR____TtC16KnoxClientPublic25ImageDecryptionComponents_location;
+  v53 = OBJC_IVAR____TtC16KnoxClientPublic25ImageDecryptionComponents_location;
 
   URL.init(string:)();
 
-  v53 = v110;
-  v54 = v109;
-  if ((v110[6])(v4, 1, v109) == 1)
+  v54 = v111;
+  v55 = v110;
+  if ((v111[6])(v4, 1, v110) == 1)
   {
-    sub_100013F2C(v4, &qword_1004A6D30);
-    v109 = 0x800000010042A6A0;
-    v115 = 0;
-    v116 = 0xE000000000000000;
+    sub_100013F2C(v4, &qword_1004A6D30, &unk_100376820);
+    v110 = 0x800000010042A6A0;
+    v116 = 0;
+    v117 = 0xE000000000000000;
     _StringGuts.grow(_:)(35);
 
-    v115 = 0xD000000000000021;
-    v116 = 0x800000010042A7F0;
-    v55 = (*&v48[v52] + OBJC_IVAR____TtCC16KnoxClientPublic25ImageDecryptionComponents8Location_uri);
-    v56 = *v55;
-    v57 = v55[1];
+    v116 = 0xD000000000000021;
+    v117 = 0x800000010042A7F0;
+    v56 = (*&v49[v53] + OBJC_IVAR____TtCC16KnoxClientPublic25ImageDecryptionComponents8Location_uri);
+    v57 = *v56;
+    v58 = v56[1];
 
-    v58._countAndFlagsBits = v56;
-    v58._object = v57;
-    String.append(_:)(v58);
+    v59._countAndFlagsBits = v57;
+    v59._object = v58;
+    String.append(_:)(v59);
 
-    ObjectType = v115;
-    v97 = v116;
-    v99 = type metadata accessor for KnoxServiceClient.ClientError();
-    v59 = swift_allocObject();
-    sub_10001AA40(0, &qword_1004A7840);
-    v96 = "hivePointer.swift";
-    v110 = v48;
+    ObjectType = v116;
+    v98 = v117;
+    v100 = type metadata accessor for KnoxServiceClient.ClientError();
+    v60 = swift_allocObject();
+    sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
+    v97 = "hivePointer.swift";
+    v111 = v49;
     static DispatchQoS.userInitiated.getter();
-    v115 = &_swiftEmptyArrayStorage;
-    sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-    sub_1000039E8(&unk_1004A7850);
-    sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+    v116 = _swiftEmptyArrayStorage;
+    sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+    sub_1000039E8(&unk_1004A7850, &qword_100376280);
+    sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    (*(v101 + 104))(v105, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v102);
-    v60 = v107;
-    v61 = v106;
-    v62 = v108;
-    (*(v107 + 104))(v106, enum case for DispatchQoS.QoSClass.default(_:), v108);
+    (*(v102 + 104))(v106, enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:), v103);
+    v61 = v108;
+    v62 = v107;
+    v63 = v109;
+    (*(v108 + 104))(v107, enum case for DispatchQoS.QoSClass.default(_:), v109);
     static OS_dispatch_queue.global(qos:)();
-    (*(v60 + 8))(v61, v62);
-    v63 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-    *(v59 + 16) = 0x2865747563657865;
-    *(v59 + 24) = 0xE900000000000029;
-    *(v59 + 32) = 0xD000000000000066;
-    v64 = v109;
-    *(v59 + 56) = 14;
-    *(v59 + 40) = v64;
-    *(v59 + 48) = 206;
-    v65 = v97;
-    *(v59 + 64) = ObjectType;
-    *(v59 + 72) = v65;
-    *(v59 + 80) = 0;
-    *(v59 + 88) = v63;
-    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    (*(v61 + 8))(v62, v63);
+    v64 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+    *(v60 + 16) = 0x2865747563657865;
+    *(v60 + 24) = 0xE900000000000029;
+    *(v60 + 32) = 0xD000000000000066;
+    v65 = v110;
+    *(v60 + 56) = 14;
+    *(v60 + 40) = v65;
+    *(v60 + 48) = 206;
+    v66 = v98;
+    *(v60 + 64) = ObjectType;
+    *(v60 + 72) = v66;
+    *(v60 + 80) = 0;
+    *(v60 + 88) = v64;
+    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
 LABEL_18:
-    v77 = swift_allocError();
-    *v78 = v59;
+    v78 = swift_allocError();
+    *v79 = v60;
 
-    sub_10002D004(v77);
+    sub_10002D004(v78);
 
-    v79 = v30;
+    v80 = v30;
 
     return v30;
   }
 
-  v53[4](v99, v4, v54);
-  v66 = swift_allocObject();
-  swift_unknownObjectWeakInit();
+  v54[4](v100, v4, v55);
   v67 = swift_allocObject();
-  v68 = ObjectType;
-  *(v67 + 16) = v66;
-  *(v67 + 24) = v68;
-  v69 = (*&v48[v49] + OBJC_IVAR____TtCC16KnoxClientPublic25ImageDecryptionComponents10Encryption_key);
-  v71 = *v69;
-  v70 = v69[1];
+  swift_unknownObjectWeakInit();
+  v68 = swift_allocObject();
+  v69 = ObjectType;
+  *(v68 + 16) = v67;
+  *(v68 + 24) = v69;
+  v70 = (*&v49[v50] + OBJC_IVAR____TtCC16KnoxClientPublic25ImageDecryptionComponents10Encryption_key);
+  v72 = *v70;
+  v71 = v70[1];
 
-  v82 = sub_100060488(v71, v70);
+  v83 = sub_100060488(v72, v71);
 
-  v83 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-  *(v83 + 16) = 32;
-  v115 = v82;
-  sub_1000039E8(&qword_1004A71E0);
-  sub_10000E720(&qword_1004A71E8, &qword_1004A71E0);
+  v84 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+  *(v84 + 16) = 32;
+  v116 = v83;
+  sub_1000039E8(&qword_1004A71E0, &qword_100376D60);
+  sub_10000E720(&qword_1004A71E8, &qword_1004A71E0, &qword_100376D60, &protocol conformance descriptor for <A> [A]);
   result = DataProtocol.copyBytes<A>(to:)();
-  v84 = *(v82 + 2);
-  if (v84 <= 0x20)
+  v85 = *(v83 + 2);
+  if (v85 <= 0x20)
   {
-    *(v83 + 16) = v84;
+    *(v84 + 16) = v85;
 
-    v85 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_destinationFileURL;
+    v86 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_destinationFileURL;
     swift_beginAccess();
-    v86 = v110;
-    v87 = v97;
-    v88 = v109;
-    v110[2](v97, v30 + v85, v109);
-    v89 = URL.path.getter();
-    v91 = v90;
-    v107 = v86[1];
-    (v107)(v87, v88);
-    v92 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_decryptionThreadCount;
+    v87 = v111;
+    v88 = v98;
+    v89 = v110;
+    v111[2](v98, v30 + v86, v110);
+    v90 = URL.path.getter();
+    v92 = v91;
+    v108 = v87[1];
+    (v108)(v88, v89);
+    v93 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_decryptionThreadCount;
     swift_beginAccess();
-    v93 = *(&v30->isa + v92);
-    v94 = v99;
-    v108 = v91;
-    sub_10002F984(v99, v89, v91, v48, v83, sub_100030DDC, v67, v93);
-    (v107)(v94, v88);
+    v94 = *(&v30->isa + v93);
+    v95 = v100;
+    v109 = v92;
+    sub_10002F984(v100, v90, v92, v49, v84, sub_100030DDC, v68, v94);
+    (v108)(v95, v89);
 
 LABEL_21:
-    v95 = v30;
+    v96 = v30;
     return v30;
   }
 
@@ -7607,39 +7610,39 @@ LABEL_24:
   return result;
 }
 
-void sub_10002CA44(char *a1)
+void sub_10002CA44(char *a1, uint64_t a2)
 {
-  sub_1000039E8(&unk_1004A7370);
-  v2 = swift_allocObject();
-  *(v2 + 16) = xmmword_100376A40;
-  v3 = [a1 description];
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
+  sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_100376A40;
+  v4 = [a1 description];
+  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = v6;
 
-  *(v2 + 56) = &type metadata for String;
-  *(v2 + 64) = sub_10001A9EC();
-  *(v2 + 32) = v4;
-  *(v2 + 40) = v6;
-  sub_10001AA40(0, &qword_1004A7380);
-  v7 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  *(v3 + 56) = &type metadata for String;
+  *(v3 + 64) = sub_10001A9EC();
+  *(v3 + 32) = v5;
+  *(v3 + 40) = v7;
+  sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
+  v8 = static OS_os_log.default.getter();
+  v9 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("DownloadSubTask finished: %{public}s", 36, 2, &_mh_execute_header, v8, v9, v3);
 
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v9 = Strong;
+    v11 = Strong;
     __chkstk_darwin(Strong);
-    sub_1000039E8(&qword_1004A72D0);
+    sub_1000039E8(&qword_1004A72D0, &qword_100376EB8);
     OS_dispatch_queue.sync<A>(execute:)();
-    v10 = v30;
-    v11 = *&v9[OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_taskMetrics];
-    if (v30 >> 60 == 15)
+    v12 = v32;
+    v13 = *&v11[OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_taskMetrics];
+    if (v32 >> 60 == 15)
     {
 
       OS_dispatch_queue.sync<A>(execute:)();
-      v12 = OBJC_IVAR____TtCC16KnoxClientPublic8KnoxTask11TaskMetrics_syncronizationQueue;
+      v14 = OBJC_IVAR____TtCC16KnoxClientPublic8KnoxTask11TaskMetrics_syncronizationQueue;
       OS_dispatch_queue.sync<A>(execute:)();
       if (__OFADD__(aBlock, aBlock))
       {
@@ -7649,26 +7652,26 @@ LABEL_22:
         goto LABEL_23;
       }
 
-      v13 = *(v11 + v12);
-      v10 = swift_allocObject();
-      *(v10 + 16) = 2 * aBlock;
-      *(v10 + 24) = v11;
-      v14 = swift_allocObject();
-      *(v14 + 16) = sub_100027124;
-      *(v14 + 24) = v10;
-      v33 = sub_10001FA40;
-      v34 = v14;
+      v15 = *(v13 + v14);
+      v12 = swift_allocObject();
+      *(v12 + 16) = 2 * aBlock;
+      *(v12 + 24) = v13;
+      v16 = swift_allocObject();
+      *(v16 + 16) = sub_100027124;
+      *(v16 + 24) = v12;
+      v35 = sub_10001FA40;
+      v36 = v16;
       aBlock = _NSConcreteStackBlock;
-      v30 = 1107296256;
-      v31 = sub_10003885C;
-      v32 = &unk_10047CC00;
-      v15 = _Block_copy(&aBlock);
+      v32 = 1107296256;
+      v33 = sub_10003885C;
+      v34 = &unk_10047CC00;
+      v17 = _Block_copy(&aBlock);
 
-      dispatch_sync(v13, v15);
-      _Block_release(v15);
-      LOBYTE(v13) = swift_isEscapingClosureAtFileLocation();
+      dispatch_sync(v15, v17);
+      _Block_release(v17);
+      LOBYTE(v15) = swift_isEscapingClosureAtFileLocation();
 
-      if ((v13 & 1) == 0)
+      if ((v15 & 1) == 0)
       {
         goto LABEL_17;
       }
@@ -7676,34 +7679,34 @@ LABEL_22:
       __break(1u);
     }
 
-    v16 = aBlock;
-    v17 = v10 >> 62;
-    if ((v10 >> 62) <= 1)
+    v18 = aBlock;
+    v19 = v12 >> 62;
+    if ((v12 >> 62) <= 1)
     {
-      if (!v17)
+      if (!v19)
       {
-        v18 = BYTE6(v10);
+        v20 = BYTE6(v12);
         goto LABEL_16;
       }
 
 LABEL_13:
-      if (__OFSUB__(HIDWORD(v16), v16))
+      if (__OFSUB__(HIDWORD(v18), v18))
       {
 LABEL_23:
         __break(1u);
         return;
       }
 
-      v18 = HIDWORD(v16) - v16;
+      v20 = HIDWORD(v18) - v18;
       goto LABEL_16;
     }
 
-    if (v17 == 2)
+    if (v19 == 2)
     {
-      v20 = *(aBlock + 16);
-      v19 = *(aBlock + 24);
-      v18 = v19 - v20;
-      if (__OFSUB__(v19, v20))
+      v22 = *(aBlock + 16);
+      v21 = *(aBlock + 24);
+      v20 = v21 - v22;
+      if (__OFSUB__(v21, v22))
       {
         __break(1u);
         goto LABEL_13;
@@ -7712,45 +7715,45 @@ LABEL_23:
 
     else
     {
-      v18 = 0;
+      v20 = 0;
     }
 
 LABEL_16:
-    v21 = *(v11 + OBJC_IVAR____TtCC16KnoxClientPublic8KnoxTask11TaskMetrics_syncronizationQueue);
-    v22 = swift_allocObject();
-    *(v22 + 16) = v18;
-    *(v22 + 24) = v11;
-    v23 = swift_allocObject();
-    *(v23 + 16) = sub_100031D1C;
-    *(v23 + 24) = v22;
-    v33 = sub_10001FA40;
-    v34 = v23;
+    v23 = *(v13 + OBJC_IVAR____TtCC16KnoxClientPublic8KnoxTask11TaskMetrics_syncronizationQueue);
+    v24 = swift_allocObject();
+    *(v24 + 16) = v20;
+    *(v24 + 24) = v13;
+    v25 = swift_allocObject();
+    *(v25 + 16) = sub_100031D1C;
+    *(v25 + 24) = v24;
+    v35 = sub_10001FA40;
+    v36 = v25;
     aBlock = _NSConcreteStackBlock;
-    v30 = 1107296256;
-    v31 = sub_10003885C;
-    v32 = &unk_10047CC78;
-    v24 = _Block_copy(&aBlock);
+    v32 = 1107296256;
+    v33 = sub_10003885C;
+    v34 = &unk_10047CC78;
+    v26 = _Block_copy(&aBlock);
     swift_retain_n();
 
-    dispatch_sync(v21, v24);
-    _Block_release(v24);
-    LOBYTE(v21) = swift_isEscapingClosureAtFileLocation();
+    dispatch_sync(v23, v26);
+    _Block_release(v26);
+    LOBYTE(v23) = swift_isEscapingClosureAtFileLocation();
 
-    sub_100031914(v16, v10);
-    if ((v21 & 1) == 0)
+    sub_100031914(v18, v12);
+    if ((v23 & 1) == 0)
     {
 LABEL_17:
-      v25 = OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_lastError;
+      v27 = OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_lastError;
       swift_beginAccess();
-      v26 = *&a1[v25];
-      if (v26)
+      v28 = *&a1[v27];
+      if (v28)
       {
         type metadata accessor for KnoxServiceClient.ClientError();
-        sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
-        v27 = swift_allocError();
-        *v28 = v26;
+        sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
+        v29 = swift_allocError();
+        *v30 = v28;
         swift_retain_n();
-        sub_10002D004(v27);
+        sub_10002D004(v29);
       }
 
       else
@@ -7769,7 +7772,7 @@ uint64_t sub_10002D004(uint64_t a1)
   v2 = v1;
   v4 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream;
   swift_beginAccess();
-  sub_100013E54(v2 + v4, &v12, &qword_1004A71D8);
+  sub_100013E54(v2 + v4, &v12, &qword_1004A71D8, &unk_100376D50);
   if (v13)
   {
     sub_100003C88(&v12, v14);
@@ -7790,7 +7793,7 @@ uint64_t sub_10002D004(uint64_t a1)
 
   else
   {
-    sub_100013F2C(&v12, &qword_1004A71D8);
+    sub_100013F2C(&v12, &qword_1004A71D8, &unk_100376D50);
   }
 
   swift_getErrorValue();
@@ -7825,14 +7828,14 @@ uint64_t sub_10002D264()
 
   v6 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream;
   swift_beginAccess();
-  sub_100013E54(v1 + v6, v13, &qword_1004A71D8);
+  sub_100013E54(v1 + v6, v13, &qword_1004A71D8, &unk_100376D50);
   if (!v14)
   {
-    return sub_100013F2C(v13, &qword_1004A71D8);
+    return sub_100013F2C(v13, &qword_1004A71D8, &unk_100376D50);
   }
 
   sub_100003B20(v13, v10);
-  sub_100013F2C(v13, &qword_1004A71D8);
+  sub_100013F2C(v13, &qword_1004A71D8, &unk_100376D50);
   v7 = v11;
   v8 = v12;
   sub_10000E2A8(v10, v11);
@@ -7861,26 +7864,26 @@ uint64_t sub_10002D518()
   return swift_deallocClassInstance();
 }
 
-uint64_t sub_10002D550@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, char *a4@<X8>)
+uint64_t sub_10002D550@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, char *a4@<X8>, uint64_t a5@<X3>)
 {
-  v5 = (result + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData);
-  v6 = *(result + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData + 8);
-  if (v6 >> 60 == 15)
+  v6 = (result + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData);
+  v7 = *(result + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData + 8);
+  if (v7 >> 60 == 15)
   {
-    v7 = *v5;
-    *v5 = a2;
-    v5[1] = a3;
-    sub_1000318C0(a2, a3);
-    result = sub_100031914(v7, v6);
-    v8 = 1;
+    v8 = *v6;
+    *v6 = a2;
+    v6[1] = a3;
+    sub_1000318C0(a2, a3, a3, a5);
+    result = sub_100031914(v8, v7);
+    v9 = 1;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  *a4 = v8;
+  *a4 = v9;
   return result;
 }
 
@@ -7888,12 +7891,12 @@ void sub_10002D5CC()
 {
   v1 = v0;
   v2 = *&v0[OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_syncronizationQueue];
-  sub_1000039E8(&qword_1004A72D0);
+  sub_1000039E8(&qword_1004A72D0, &qword_100376EB8);
   OS_dispatch_queue.sync<A>(execute:)();
   v4 = aBlock;
-  v3 = v29;
-  sub_1000039E8(&unk_1004A7370);
-  if (v29 >> 60 == 15)
+  v3 = v31;
+  sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
+  if (v31 >> 60 == 15)
   {
     v5 = swift_allocObject();
     *(v5 + 16) = xmmword_100376A40;
@@ -7905,30 +7908,30 @@ void sub_10002D5CC()
     *(v5 + 64) = sub_10001A9EC();
     *(v5 + 32) = v7;
     *(v5 + 40) = v9;
-    sub_10001AA40(0, &qword_1004A7380);
+    sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
     v10 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v11 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("No cached data for %{public}s", 29, 2, &_mh_execute_header, v10, v11, v5);
 
     return;
   }
 
-  v11 = swift_allocObject();
-  *(v11 + 16) = xmmword_100376BB0;
-  v12 = v3 >> 62;
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_100376BB0;
+  v13 = v3 >> 62;
   if ((v3 >> 62) > 1)
   {
-    if (v12 != 2)
+    if (v13 != 2)
     {
-      v13 = 0;
+      v14 = 0;
       goto LABEL_13;
     }
 
-    v15 = *(v4 + 16);
-    v14 = *(v4 + 24);
-    v16 = __OFSUB__(v14, v15);
-    v13 = v14 - v15;
-    if (!v16)
+    v16 = *(v4 + 16);
+    v15 = *(v4 + 24);
+    v17 = __OFSUB__(v15, v16);
+    v14 = v15 - v16;
+    if (!v17)
     {
       goto LABEL_13;
     }
@@ -7936,54 +7939,54 @@ void sub_10002D5CC()
     __break(1u);
   }
 
-  else if (!v12)
+  else if (!v13)
   {
-    v13 = BYTE6(v3);
+    v14 = BYTE6(v3);
     goto LABEL_13;
   }
 
-  LODWORD(v13) = HIDWORD(v4) - v4;
+  LODWORD(v14) = HIDWORD(v4) - v4;
   if (__OFSUB__(HIDWORD(v4), v4))
   {
     goto LABEL_15;
   }
 
-  v13 = v13;
+  v14 = v14;
 LABEL_13:
-  *(v11 + 56) = &type metadata for Int;
-  *(v11 + 64) = &protocol witness table for Int;
-  *(v11 + 32) = v13;
-  v17 = v11;
-  v18 = [v0 description];
-  v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v21 = v20;
+  *(v12 + 56) = &type metadata for Int;
+  *(v12 + 64) = &protocol witness table for Int;
+  *(v12 + 32) = v14;
+  v18 = v12;
+  v19 = [v0 description];
+  v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v22 = v21;
 
-  v17[12] = &type metadata for String;
-  v17[13] = sub_10001A9EC();
-  v17[9] = v19;
-  v17[10] = v21;
-  sub_10001AA40(0, &qword_1004A7380);
-  v22 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v18[12] = &type metadata for String;
+  v18[13] = sub_10001A9EC();
+  v18[9] = v20;
+  v18[10] = v22;
+  sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
+  v23 = static OS_os_log.default.getter();
+  v24 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Clearing %{public}i bytes of cached data for %{public}s", 55, 2, &_mh_execute_header, v23, v24, v18);
 
-  v23 = swift_allocObject();
-  *(v23 + 16) = v1;
-  *(v23 + 24) = xmmword_100376D40;
-  v24 = swift_allocObject();
-  *(v24 + 16) = sub_100031B00;
-  *(v24 + 24) = v23;
-  v32 = sub_10001FA40;
-  v33 = v24;
+  v25 = swift_allocObject();
+  *(v25 + 16) = v1;
+  *(v25 + 24) = xmmword_100376D40;
+  v26 = swift_allocObject();
+  *(v26 + 16) = sub_100031B00;
+  *(v26 + 24) = v25;
+  v34 = sub_10001FA40;
+  v35 = v26;
   aBlock = _NSConcreteStackBlock;
-  v29 = 1107296256;
-  v30 = sub_10003885C;
-  v31 = &unk_10047CB88;
-  v25 = _Block_copy(&aBlock);
-  v26 = v1;
+  v31 = 1107296256;
+  v32 = sub_10003885C;
+  v33 = &unk_10047CB88;
+  v27 = _Block_copy(&aBlock);
+  v28 = v1;
 
-  dispatch_sync(v2, v25);
-  _Block_release(v25);
+  dispatch_sync(v2, v27);
+  _Block_release(v27);
   isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
   sub_100031914(v4, v3);
@@ -8074,7 +8077,7 @@ LABEL_20:
   v36(v117, v35, v119);
   v109 = v24;
   v115(v120, a1, v121);
-  v40 = objc_allocWithZone(type metadata accessor for DownloadSubTask());
+  v40 = objc_allocWithZone(type metadata accessor for DownloadSubTask(0));
   swift_unknownObjectWeakInit();
   *&v40[OBJC_IVAR____TtC16KnoxClientPublic15DownloadSubTask_size] = v116;
   *&v40[OBJC_IVAR____TtC16KnoxClientPublic15DownloadSubTask_offset] = a2;
@@ -8123,7 +8126,7 @@ LABEL_20:
   v50 = &v40[OBJC_IVAR____TtC16KnoxClientPublic15DownloadSubTask_dataTaskFinishedCallback];
   v51 = v111;
   *v50 = v110;
-  *(v50 + 1) = v51;
+  v50[1] = v51;
   v115(&v40[OBJC_IVAR____TtC16KnoxClientPublic15DownloadSubTask_signedURL], v120, v121);
   v52 = *&v43[OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client];
 
@@ -8152,7 +8155,7 @@ LABEL_20:
   v63._countAndFlagsBits = 10272;
   v63._object = 0xE200000000000000;
   String.append(_:)(v63);
-  v129 = v116;
+  v129[0] = v116;
   v64._countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
   String.append(_:)(v64);
 
@@ -8179,7 +8182,7 @@ LABEL_20:
 
   __chkstk_darwin(v76);
   *(&v109 - 2) = v43;
-  sub_1000039E8(&qword_1004A72D8);
+  sub_1000039E8(&qword_1004A72D8, &qword_100376EC0);
   OS_dispatch_queue.sync<A>(execute:)();
   v116 = 0;
   v77 = v127;
@@ -8329,110 +8332,110 @@ LABEL_25:
   __break(1u);
 }
 
-uint64_t sub_10002E780(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+void *sub_10002E780(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
   v7 = v5;
-  v119 = a4;
-  v120 = a5;
-  v117 = a2;
-  v118 = a3;
-  v133 = a1;
-  v127 = type metadata accessor for Date();
-  v8 = *(v127 - 8);
-  v9 = __chkstk_darwin(v127);
-  v116 = &v111 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v122 = a4;
+  v123 = a5;
+  v120 = a2;
+  v121 = a3;
+  v136 = a1;
+  v130 = type metadata accessor for Date();
+  v8 = *(v130 - 8);
+  v9 = __chkstk_darwin(v130);
+  v119 = &v114 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   __chkstk_darwin(v9);
-  v130 = &v111 - v11;
-  v126 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_syncronizationQueue;
+  v133 = &v114 - v11;
+  v129 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_syncronizationQueue;
   v12 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_decryptionThreadCount;
   v13 = &v5[OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_pointer];
   v14 = *&v5[OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_syncronizationQueue];
-  v114 = OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_taskMetrics;
-  v121 = OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client;
-  v129 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream;
+  v117 = OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_taskMetrics;
+  v124 = OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client;
+  v132 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream;
   swift_beginAccess();
-  v125 = v13;
+  v128 = v13;
   swift_beginAccess();
-  v115 = v12;
+  v118 = v12;
   swift_beginAccess();
-  v134 = v7;
-  v132 = v14;
+  v137 = v7;
+  v135 = v14;
   result = OS_dispatch_queue.sync<A>(execute:)();
   v16 = v6;
-  if (v135)
+  if (v138)
   {
     return result;
   }
 
-  v124 = (v8 + 8);
-  v128 = &v137;
-  v111 = xmmword_100376A40;
-  v113 = xmmword_100376250;
-  v112 = xmmword_100376260;
+  v127 = (v8 + 8);
+  v131 = &v140;
+  v114 = xmmword_100376A40;
+  v116 = xmmword_100376250;
+  v115 = xmmword_100376260;
   while (1)
   {
-    v35 = v133[3];
-    v36 = v133[4];
-    sub_10000E2A8(v133, v35);
-    v37 = (*(v36 + 40))(v35, v36);
+    v36 = v136[3];
+    v37 = v136[4];
+    sub_10000E2A8(v136, v36);
+    v38 = (*(v37 + 40))(v36, v37);
     if (v16)
     {
-      static os_log_type_t.error.getter();
-      sub_1000039E8(&unk_1004A7370);
-      v101 = swift_allocObject();
-      *(v101 + 16) = xmmword_100376BB0;
-      v102 = v133[3];
-      v103 = v133[4];
-      sub_10000E2A8(v133, v102);
-      v104 = (*(v103 + 8))(v102, v103);
-      v106 = v105;
-      *(v101 + 56) = &type metadata for String;
-      v107 = sub_10001A9EC();
-      *(v101 + 64) = v107;
-      *(v101 + 32) = v104;
-      *(v101 + 40) = v106;
+      v103 = static os_log_type_t.error.getter();
+      sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
+      v104 = swift_allocObject();
+      *(v104 + 16) = xmmword_100376BB0;
+      v105 = v136[3];
+      v106 = v136[4];
+      sub_10000E2A8(v136, v105);
+      v107 = (*(v106 + 8))(v105, v106);
+      v109 = v108;
+      *(v104 + 56) = &type metadata for String;
+      v110 = sub_10001A9EC();
+      *(v104 + 64) = v110;
+      *(v104 + 32) = v107;
+      *(v104 + 40) = v109;
       swift_getErrorValue();
-      v108 = Error.localizedDescription.getter();
-      *(v101 + 96) = &type metadata for String;
-      *(v101 + 104) = v107;
-      *(v101 + 72) = v108;
-      *(v101 + 80) = v109;
-      sub_10001AA40(0, &qword_1004A7380);
-      v110 = static OS_os_log.default.getter();
-      os_log(_:dso:log:_:_:)();
+      v111 = Error.localizedDescription.getter();
+      *(v104 + 96) = &type metadata for String;
+      *(v104 + 104) = v110;
+      *(v104 + 72) = v111;
+      *(v104 + 80) = v112;
+      sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
+      v113 = static OS_os_log.default.getter();
+      os_log(_:dso:log:_:_:)(v103, &_mh_execute_header, v113, "Failed in getRange() on stream: %{public}s, %{public}s", 54, 2, v104);
 
       return swift_willThrow();
     }
 
-    v40 = v37;
     v41 = v38;
-    if ((v39 & 1) == 0)
+    v42 = v39;
+    if ((v40 & 1) == 0)
     {
       break;
     }
 
-    if (v37 | v38)
+    if (v38 | v39)
     {
-      v42 = swift_allocObject();
-      *(v42 + 16) = v7;
-      *(v42 + 24) = 1;
       v43 = swift_allocObject();
-      *(v43 + 16) = sub_10001F9F8;
-      *(v43 + 24) = v42;
-      v139 = sub_10001FA40;
-      v140 = v43;
-      v135 = _NSConcreteStackBlock;
-      v136 = 1107296256;
-      v137 = sub_10003885C;
-      v138 = &unk_10047C8B8;
-      v44 = _Block_copy(&v135);
-      v45 = v7;
+      *(v43 + 16) = v7;
+      *(v43 + 24) = 1;
+      v44 = swift_allocObject();
+      *(v44 + 16) = sub_10001F9F8;
+      *(v44 + 24) = v43;
+      v142 = sub_10001FA40;
+      v143 = v44;
+      v138 = _NSConcreteStackBlock;
+      v139 = 1107296256;
+      v140 = sub_10003885C;
+      v141 = &unk_10047C8B8;
+      v45 = _Block_copy(&v138);
+      v46 = v7;
 
-      dispatch_sync(v132, v44);
-      _Block_release(v44);
-      LOBYTE(v44) = swift_isEscapingClosureAtFileLocation();
+      dispatch_sync(v135, v45);
+      _Block_release(v45);
+      LOBYTE(v45) = swift_isEscapingClosureAtFileLocation();
 
-      if (v44)
+      if (v45)
       {
         __break(1u);
 LABEL_62:
@@ -8453,123 +8456,123 @@ LABEL_69:
         __break(1u);
       }
 
-      sub_100013E54(&v7[v129], &v135, &qword_1004A71D8);
-      if (v138)
+      sub_100013E54(&v7[v132], &v138, &qword_1004A71D8, &unk_100376D50);
+      if (v141)
       {
-        sub_100003B20(&v135, &v141);
-        sub_100013F2C(&v135, &qword_1004A71D8);
-        v46 = v142;
-        v47 = v143;
-        sub_10000E2A8(&v141, v142);
-        (*(v47 + 32))(v46, v47);
-        sub_100003C3C(&v141);
+        sub_100003B20(&v138, &v144);
+        sub_100013F2C(&v138, &qword_1004A71D8, &unk_100376D50);
+        v47 = v145;
+        v48 = v146;
+        sub_10000E2A8(&v144, v145);
+        (*(v48 + 32))(v47, v48);
+        sub_100003C3C(&v144);
       }
 
       else
       {
-        sub_100013F2C(&v135, &qword_1004A71D8);
+        sub_100013F2C(&v138, &qword_1004A71D8, &unk_100376D50);
       }
 
-      v78 = swift_allocObject();
-      *(v78 + 16) = v45;
-      *(v78 + 24) = 1;
-      v79 = swift_allocObject();
-      *(v79 + 16) = sub_100031D18;
-      *(v79 + 24) = v78;
-      v139 = sub_10001FA40;
-      v140 = v79;
-      v135 = _NSConcreteStackBlock;
-      v136 = 1107296256;
-      v137 = sub_10003885C;
-      v138 = &unk_10047C930;
-      v80 = _Block_copy(&v135);
-      v81 = v45;
+      v80 = swift_allocObject();
+      *(v80 + 16) = v46;
+      *(v80 + 24) = 1;
+      v81 = swift_allocObject();
+      *(v81 + 16) = sub_100031D18;
+      *(v81 + 24) = v80;
+      v142 = sub_10001FA40;
+      v143 = v81;
+      v138 = _NSConcreteStackBlock;
+      v139 = 1107296256;
+      v140 = sub_10003885C;
+      v141 = &unk_10047C930;
+      v82 = _Block_copy(&v138);
+      v83 = v46;
 
-      dispatch_sync(v132, v80);
-      _Block_release(v80);
-      LOBYTE(v80) = swift_isEscapingClosureAtFileLocation();
+      dispatch_sync(v135, v82);
+      _Block_release(v82);
+      LOBYTE(v82) = swift_isEscapingClosureAtFileLocation();
 
-      if (v80)
+      if (v82)
       {
         goto LABEL_62;
       }
 
-      sub_100003B20(*&v7[v121] + OBJC_IVAR____TtC16KnoxClientPublic17KnoxServiceClient_delegate, &v135);
-      v82 = v138;
-      v83 = v139;
-      sub_10000E2A8(&v135, v138);
-      (*(v83 + 2))(v81, 0, v82, v83);
-      sub_100003C3C(&v135);
-      v84 = v133[3];
-      v85 = v133[4];
-      sub_10000E2A8(v133, v84);
-      v34 = (*(v85 + 32))(v84, v85);
+      sub_100003B20(*&v7[v124] + OBJC_IVAR____TtC16KnoxClientPublic17KnoxServiceClient_delegate, &v138);
+      v84 = v141;
+      v85 = v142;
+      sub_10000E2A8(&v138, v141);
+      (*(v85 + 2))(v83, 0, v84, v85);
+      sub_100003C3C(&v138);
+      v86 = v136[3];
+      v87 = v136[4];
+      sub_10000E2A8(v136, v86);
+      v35 = (*(v87 + 32))(v86, v87);
     }
 
     else
     {
-      v34 = usleep(0x186A0u);
+      v35 = usleep(0x186A0u);
     }
 
 LABEL_4:
-    __chkstk_darwin(v34);
-    *(&v111 - 2) = v7;
+    __chkstk_darwin(v35);
+    *(&v114 - 2) = v7;
     result = OS_dispatch_queue.sync<A>(execute:)();
-    if (v135)
+    if (v138)
     {
       return result;
     }
   }
 
-  __chkstk_darwin(v37);
-  *(&v111 - 2) = v7;
-  sub_1000039E8(&qword_1004A72D0);
+  __chkstk_darwin(v38);
+  *(&v114 - 2) = v7;
+  sub_1000039E8(&qword_1004A72D0, &qword_100376EB8);
   OS_dispatch_queue.sync<A>(execute:)();
-  v131 = v136;
-  if (v136 >> 60 == 15)
+  v134 = v139;
+  if (v139 >> 60 == 15)
   {
-    v131 = v41;
-    v48 = *&v7[v115];
-    v49 = Date.init()();
-    v122 = v48;
-    __chkstk_darwin(v49);
-    *(&v111 - 2) = v7;
-    v50 = v7;
+    v134 = v42;
+    v49 = *&v7[v118];
+    v50 = Date.init()();
+    v125 = v49;
+    __chkstk_darwin(v50);
+    *(&v114 - 2) = v7;
+    v51 = v7;
     while (1)
     {
       OS_dispatch_queue.sync<A>(execute:)();
-      if (v135 < v48)
+      if (v138 < v49)
       {
         break;
       }
 
-      v51 = usleep(0x186A0u);
-      __chkstk_darwin(v51);
-      *(&v111 - 2) = v7;
+      v52 = usleep(0x186A0u);
+      __chkstk_darwin(v52);
+      *(&v114 - 2) = v7;
     }
 
-    v17 = v116;
+    v17 = v119;
     Date.init()();
     Date.timeIntervalSince(_:)();
-    v123 = *v124;
-    v123(v17, v127);
-    sub_10002D98C(v117, v131, v40, v118, v133, v119, v120);
+    v126 = *v127;
+    v126(v17, v130);
+    sub_10002D98C(v120, v134, v41, v121, v136, v122, v123);
     v19 = v18;
-    v131 = v18;
-    sub_1000039E8(&unk_1004A7370);
+    v134 = v18;
+    sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
     v20 = swift_allocObject();
-    *(v20 + 16) = v113;
+    *(v20 + 16) = v116;
     __chkstk_darwin(v20);
-    *(&v111 - 2) = v7;
+    *(&v114 - 2) = v7;
     OS_dispatch_queue.sync<A>(execute:)();
-    v21 = v135;
+    v21 = v138;
     *(v20 + 56) = &type metadata for Int;
     *(v20 + 64) = &protocol witness table for Int;
     *(v20 + 32) = v21;
     *(v20 + 96) = &type metadata for Int32;
     *(v20 + 104) = &protocol witness table for Int32;
-    *(v20 + 72) = v122;
-    v22 = (*v125 + OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_name);
+    *(v20 + 72) = v125;
+    v22 = (*v128 + OBJC_IVAR____TtC16KnoxClientPublic11KnoxPointer_name);
     v24 = *v22;
     v23 = v22[1];
     *(v20 + 136) = &type metadata for String;
@@ -8583,240 +8586,240 @@ LABEL_4:
     *(v20 + 184) = v25;
     *(v20 + 152) = v26;
     *(v20 + 160) = v27;
-    v135 = 0;
-    v136 = 0xE000000000000000;
+    v138 = 0;
+    v139 = 0xE000000000000000;
 
     Double.write<A>(to:)();
-    v28 = v135;
-    v29 = v136;
+    v28 = v138;
+    v29 = v139;
     *(v20 + 216) = &type metadata for String;
     *(v20 + 224) = v25;
     *(v20 + 192) = v28;
     *(v20 + 200) = v29;
-    v135 = 0;
-    v136 = 0xE000000000000000;
+    v138 = 0;
+    v139 = 0xE000000000000000;
     sub_10003BB24();
     Float.write<A>(to:)();
     v30._countAndFlagsBits = 0x6365732F424D20;
     v30._object = 0xE700000000000000;
     String.append(_:)(v30);
-    v31 = v135;
-    v32 = v136;
+    v31 = v138;
+    v32 = v139;
     *(v20 + 256) = &type metadata for String;
     *(v20 + 264) = v25;
     *(v20 + 232) = v31;
     *(v20 + 240) = v32;
-    sub_10001AA40(0, &qword_1004A7380);
+    sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
     v33 = static OS_os_log.default.getter();
-    static os_log_type_t.default.getter();
-    os_log(_:dso:log:type:_:)();
+    v34 = static os_log_type_t.default.getter();
+    os_log(_:dso:log:type:_:)("Spawned SubTask %{public}i/%{public}i for %{public}s range: %{public}s after waiting: %{public}s seconds (%{public}s)", 117, 2, &_mh_execute_header, v33, v34, v20);
 
-    v34 = (v123)(v130, v127);
-    v7 = v50;
+    v35 = (v126)(v133, v130);
+    v7 = v51;
     goto LABEL_4;
   }
 
-  v52 = v135;
-  sub_1000039E8(&unk_1004A7370);
-  v53 = swift_allocObject();
-  *(v53 + 16) = v112;
-  *(v53 + 56) = &type metadata for Int;
-  *(v53 + 64) = &protocol witness table for Int;
-  *(v53 + 72) = v41;
-  *(v53 + 32) = v40;
-  *(v53 + 96) = &type metadata for Int;
-  *(v53 + 104) = &protocol witness table for Int;
-  if (__OFSUB__(v40, 1))
+  v53 = v138;
+  sub_1000039E8(&unk_1004A7370, &qword_100376BC0);
+  v54 = swift_allocObject();
+  *(v54 + 16) = v115;
+  *(v54 + 56) = &type metadata for Int;
+  *(v54 + 64) = &protocol witness table for Int;
+  *(v54 + 72) = v42;
+  *(v54 + 32) = v41;
+  *(v54 + 96) = &type metadata for Int;
+  *(v54 + 104) = &protocol witness table for Int;
+  if (__OFSUB__(v41, 1))
   {
     goto LABEL_63;
   }
 
-  v123 = 0;
-  *(v53 + 136) = &type metadata for Int;
-  *(v53 + 144) = &protocol witness table for Int;
-  *(v53 + 112) = v40 - 1;
-  v54 = v53;
-  v55 = [*v125 description];
-  v56 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v58 = v57;
+  v126 = 0;
+  *(v54 + 136) = &type metadata for Int;
+  *(v54 + 144) = &protocol witness table for Int;
+  *(v54 + 112) = v41 - 1;
+  v55 = v54;
+  v56 = [*v128 description];
+  v57 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v59 = v58;
 
-  v54[22] = &type metadata for String;
-  v54[23] = sub_10001A9EC();
-  v54[19] = v56;
-  v54[20] = v58;
-  sub_10001AA40(0, &qword_1004A7380);
-  v59 = static OS_os_log.default.getter();
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v55[22] = &type metadata for String;
+  v55[23] = sub_10001A9EC();
+  v55[19] = v57;
+  v55[20] = v59;
+  sub_10001AA40(0, &qword_1004A7380, OS_os_log_ptr);
+  v60 = static OS_os_log.default.getter();
+  v61 = static os_log_type_t.default.getter();
+  os_log(_:dso:log:type:_:)("Decrypting cached data: %{public}i bytes (%{public}i-%{public}i) for pointer=%{public}s", 87, 2, &_mh_execute_header, v60, v61, v55);
 
-  if (__OFADD__(v41, v40))
+  if (__OFADD__(v42, v41))
   {
     goto LABEL_64;
   }
 
-  if (&v41[v40] < v41)
+  if (&v42[v41] < v42)
   {
     goto LABEL_65;
   }
 
-  v60 = Data._Representation.subscript.getter();
-  v62 = v60;
-  v63 = v61;
-  v64 = v61 >> 62;
-  if ((v61 >> 62) <= 1)
+  v62 = Data._Representation.subscript.getter();
+  v64 = v62;
+  v65 = v63;
+  v66 = v63 >> 62;
+  if ((v63 >> 62) <= 1)
   {
-    if (!v64)
+    if (!v66)
     {
-      *&v141 = v60;
-      WORD4(v141) = v61;
-      BYTE10(v141) = BYTE2(v61);
-      BYTE11(v141) = BYTE3(v61);
-      BYTE12(v141) = BYTE4(v61);
-      BYTE13(v141) = BYTE5(v61);
-      result = sub_100013E54(&v7[v129], &v135, &qword_1004A71D8);
-      v65 = v138;
-      if (!v138)
+      *&v144 = v62;
+      WORD4(v144) = v63;
+      BYTE10(v144) = BYTE2(v63);
+      BYTE11(v144) = BYTE3(v63);
+      BYTE12(v144) = BYTE4(v63);
+      BYTE13(v144) = BYTE5(v63);
+      result = sub_100013E54(&v7[v132], &v138, &qword_1004A71D8, &unk_100376D50);
+      v67 = v141;
+      if (!v141)
       {
         goto LABEL_71;
       }
 
-      v66 = v139;
-      sub_10000E2A8(&v135, v138);
-      v67 = *(v66 + 6);
-      v68 = (&v141 + BYTE6(v63));
-      v69 = v41;
+      v68 = v142;
+      sub_10000E2A8(&v138, v141);
+      v69 = *(v68 + 6);
+      v70 = (&v144 + BYTE6(v65));
+      v71 = v42;
       goto LABEL_48;
     }
 
-    v122 = v52;
-    v75 = (v60 >> 32) - v60;
-    if (v60 >> 32 < v60)
+    v125 = v53;
+    v77 = (v62 >> 32) - v62;
+    if (v62 >> 32 < v62)
     {
       goto LABEL_66;
     }
 
-    v72 = __DataStorage._bytes.getter();
-    if (v72)
+    v74 = __DataStorage._bytes.getter();
+    if (v74)
     {
-      v86 = __DataStorage._offset.getter();
-      if (__OFSUB__(v62, v86))
+      v88 = __DataStorage._offset.getter();
+      if (__OFSUB__(v64, v88))
       {
         goto LABEL_69;
       }
 
-      v72 += v62 - v86;
+      v74 += v64 - v88;
     }
 
-    v76 = __DataStorage._length.getter();
-    result = sub_100013E54(&v7[v129], &v135, &qword_1004A71D8);
-    v77 = v138;
-    if (!v138)
+    v78 = __DataStorage._length.getter();
+    result = sub_100013E54(&v7[v132], &v138, &qword_1004A71D8, &unk_100376D50);
+    v79 = v141;
+    if (!v141)
     {
       goto LABEL_72;
     }
 
 LABEL_38:
-    if (v76 >= v75)
+    if (v78 >= v77)
     {
-      v87 = v75;
+      v89 = v77;
     }
 
     else
     {
-      v87 = v76;
+      v89 = v78;
     }
 
-    v88 = v87 + v72;
-    if (v72)
+    v90 = v89 + v74;
+    if (v74)
     {
-      v89 = v88;
+      v91 = v90;
     }
 
     else
     {
-      v89 = 0;
+      v91 = 0;
     }
 
-    v90 = v139;
-    sub_10000E2A8(&v135, v77);
-    v91 = v123;
-    (*(v90 + 6))(v72, v89, v41, v77, v90);
-    v16 = v91;
-    if (!v91)
+    v92 = v142;
+    sub_10000E2A8(&v138, v79);
+    v93 = v126;
+    (*(v92 + 6))(v74, v91, v42, v79, v92);
+    v16 = v93;
+    if (!v93)
     {
-      sub_100003C3C(&v135);
-      sub_100031928(v62, v63);
+      sub_100003C3C(&v138);
+      sub_100031928(v64, v65);
 LABEL_56:
-      v100 = v122;
+      v102 = v125;
 LABEL_57:
-      v34 = sub_100031914(v100, v131);
+      v35 = sub_100031914(v102, v134);
       goto LABEL_4;
     }
 
 LABEL_50:
-    sub_100003C3C(&v135);
-    sub_100031928(v62, v63);
-    v93 = v16;
+    sub_100003C3C(&v138);
+    sub_100031928(v64, v65);
+    v95 = v16;
     v16 = 0;
-    sub_100013E54(&v7[v129], &v141, &qword_1004A71D8);
-    if (v142)
+    sub_100013E54(&v7[v132], &v144, &qword_1004A71D8, &unk_100376D50);
+    if (v145)
     {
-      sub_100003C88(&v141, &v135);
-      v94 = v138;
-      v95 = v139;
-      sub_10000E2A8(&v135, v138);
-      if (((*(v95 + 2))(v94, v95) & 1) == 0)
+      sub_100003C88(&v144, &v138);
+      v96 = v141;
+      v97 = v142;
+      sub_10000E2A8(&v138, v141);
+      if (((*(v97 + 2))(v96, v97) & 1) == 0)
       {
-        v96 = v139;
-        sub_10000E2A8(&v135, v138);
+        v98 = v142;
+        sub_10000E2A8(&v138, v141);
         swift_getErrorValue();
-        v97 = Error.localizedDescription.getter();
-        (*(v96 + 3))(v97);
+        v99 = Error.localizedDescription.getter();
+        (*(v98 + 3))(v99);
       }
 
-      sub_100003C3C(&v135);
+      sub_100003C3C(&v138);
     }
 
     else
     {
-      sub_100013F2C(&v141, &qword_1004A71D8);
+      sub_100013F2C(&v144, &qword_1004A71D8, &unk_100376D50);
     }
 
     swift_getErrorValue();
-    v98 = Error.localizedDescription.getter();
-    sub_100036D50(v93, v98, v99);
+    v100 = Error.localizedDescription.getter();
+    sub_100036D50(v95, v100, v101);
 
     goto LABEL_56;
   }
 
-  if (v64 == 2)
+  if (v66 == 2)
   {
-    v122 = v52;
-    v70 = *(v60 + 16);
-    v71 = *(v60 + 24);
-    v72 = __DataStorage._bytes.getter();
-    if (v72)
+    v125 = v53;
+    v72 = *(v62 + 16);
+    v73 = *(v62 + 24);
+    v74 = __DataStorage._bytes.getter();
+    if (v74)
     {
-      v73 = __DataStorage._offset.getter();
-      if (__OFSUB__(v70, v73))
+      v75 = __DataStorage._offset.getter();
+      if (__OFSUB__(v72, v75))
       {
         goto LABEL_68;
       }
 
-      v72 += v70 - v73;
+      v74 += v72 - v75;
     }
 
-    v74 = __OFSUB__(v71, v70);
-    v75 = v71 - v70;
-    if (v74)
+    v76 = __OFSUB__(v73, v72);
+    v77 = v73 - v72;
+    if (v76)
     {
       goto LABEL_67;
     }
 
-    v76 = __DataStorage._length.getter();
-    result = sub_100013E54(&v7[v129], &v135, &qword_1004A71D8);
-    v77 = v138;
-    if (!v138)
+    v78 = __DataStorage._length.getter();
+    result = sub_100013E54(&v7[v132], &v138, &qword_1004A71D8, &unk_100376D50);
+    v79 = v141;
+    if (!v141)
     {
       goto LABEL_73;
     }
@@ -8824,30 +8827,30 @@ LABEL_50:
     goto LABEL_38;
   }
 
-  *(&v141 + 6) = 0;
-  *&v141 = 0;
-  result = sub_100013E54(&v7[v129], &v135, &qword_1004A71D8);
-  v65 = v138;
-  if (v138)
+  *(&v144 + 6) = 0;
+  *&v144 = 0;
+  result = sub_100013E54(&v7[v132], &v138, &qword_1004A71D8, &unk_100376D50);
+  v67 = v141;
+  if (v141)
   {
-    v66 = v139;
-    sub_10000E2A8(&v135, v138);
-    v67 = *(v66 + 6);
-    v68 = &v141;
-    v69 = v41;
+    v68 = v142;
+    sub_10000E2A8(&v138, v141);
+    v69 = *(v68 + 6);
+    v70 = &v144;
+    v71 = v42;
 LABEL_48:
-    v92 = v123;
-    v67(&v141, v68, v69, v65, v66);
-    v16 = v92;
-    if (!v92)
+    v94 = v126;
+    v69(&v144, v70, v71, v67, v68);
+    v16 = v94;
+    if (!v94)
     {
-      sub_100003C3C(&v135);
-      sub_100031928(v62, v63);
-      v100 = v52;
+      sub_100003C3C(&v138);
+      sub_100031928(v64, v65);
+      v102 = v53;
       goto LABEL_57;
     }
 
-    v122 = v52;
+    v125 = v53;
     goto LABEL_50;
   }
 
@@ -8861,304 +8864,305 @@ LABEL_73:
   return result;
 }
 
-uint64_t sub_10002F984(char *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_10002F984(char *a1, void *a2, unint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v9 = v8;
-  v106 = a8;
-  v105 = a5;
-  v111 = a4;
-  v113 = a3;
-  v118 = a2;
-  v107 = a1;
+  v107 = a8;
+  v106 = a5;
+  v112 = a4;
+  v114 = a3;
+  v119 = a2;
+  v108 = a1;
   v12 = type metadata accessor for DispatchQoS.QoSClass();
-  v119 = *(v12 - 8);
+  v120 = *(v12 - 8);
   __chkstk_darwin(v12);
-  v14 = v86 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = v87 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v15 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v117 = *(v15 - 8);
+  v118 = *(v15 - 8);
   __chkstk_darwin(v15);
-  v17 = v86 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v116 = type metadata accessor for OS_dispatch_queue.Attributes();
-  __chkstk_darwin(v116);
-  v115 = v86 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = v87 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v117 = type metadata accessor for OS_dispatch_queue.Attributes();
+  __chkstk_darwin(v117);
+  v116 = v87 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   v19 = type metadata accessor for DispatchQoS();
   __chkstk_darwin(v19 - 8);
-  v114 = v86 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v115 = v87 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
   v21 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v22 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_downloadType;
   swift_beginAccess();
   v23 = *(v9 + v22) == 1;
-  v108 = a6;
+  v109 = a6;
   if (v23)
   {
     v24 = a7;
     v25 = *(v9 + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client);
     v26 = objc_opt_self();
     v27 = v25;
-    v28 = v113;
+    v28 = v114;
 
     v29 = [v26 ephemeralSessionConfiguration];
     v30 = [objc_opt_self() sessionWithConfiguration:v29];
 
     v31 = type metadata accessor for KnoxRawDownloadToFileAsync();
     swift_allocObject();
-    v32 = v111;
-    v33 = v112;
-    v34 = sub_1000AD270(v27, v118, v28, v32, sub_100031B54, v21, v30);
+    v32 = v112;
+    v33 = v113;
+    v34 = sub_1000AD270(v27, v119, v28, v32, sub_100031B54, v21, v30);
     if (v33)
     {
     }
 
-    v103 = v9;
-    v123 = v31;
-    v124 = &off_100481EB8;
-    *&v122 = v34;
-    sub_100003C88(&v122, v125);
+    v104 = v9;
+    v124 = v31;
+    v125 = &off_100481EB8;
+    *&v123 = v34;
+    sub_100003C88(&v123, v126);
 LABEL_13:
-    v66 = v108;
-    sub_100003B20(v125, &v122);
-    v67 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream;
-    v68 = v103;
+    v67 = v109;
+    sub_100003B20(v126, &v123);
+    v68 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream;
+    v69 = v104;
     swift_beginAccess();
-    sub_100031BAC(&v122, v68 + v67);
+    sub_100031BAC(&v123, v69 + v68);
     swift_endAccess();
-    v69 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_networkServiceType;
+    v70 = OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_networkServiceType;
     swift_beginAccess();
-    v70 = sub_100037198(*(v68 + v69));
-    v71 = *(v68 + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_session);
-    *(v68 + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_session) = v70;
-    v72 = v70;
+    v71 = sub_100037198(*(v69 + v70));
+    v72 = *(v69 + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_session);
+    *(v69 + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_session) = v71;
+    v73 = v71;
 
-    sub_10002E780(v125, v107, v72, v66, v24);
-    sub_100003C3C(v125);
+    sub_10002E780(v126, v108, v73, v67, v24);
+    sub_100003C3C(v126);
   }
 
-  v87 = a7;
-  v103 = v9;
-  v89 = *(v9 + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client);
+  v88 = a7;
+  v104 = v9;
+  v90 = *(v9 + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client);
   v35 = objc_opt_self();
-  v104 = v21;
+  v105 = v21;
 
   v36 = [v35 ephemeralSessionConfiguration];
   v37 = [objc_opt_self() sessionWithConfiguration:v36];
-  v110 = v14;
+  v111 = v14;
   v38 = v17;
-  v90 = v37;
+  v91 = v37;
 
-  v92 = type metadata accessor for KnoxAEADecryptToFileAsync();
+  v93 = type metadata accessor for KnoxAEADecryptToFileAsync();
   v39 = swift_allocObject();
-  v101 = v15;
+  v102 = v15;
   v40 = v39;
   *(v39 + 16) = 0xD0000000000000C0;
   *(v39 + 24) = 0x800000010042AB90;
-  v109 = sub_10001AA40(0, &qword_1004A7840);
+  v110 = sub_10001AA40(0, &qword_1004A7840, OS_dispatch_queue_ptr);
   v41 = v12;
-  v91 = "load. File path:";
+  v92 = "load. File path:";
   static DispatchQoS.userInitiated.getter();
-  v120 = &_swiftEmptyArrayStorage;
-  v99 = sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes);
-  v98 = sub_1000039E8(&unk_1004A7850);
-  v97 = sub_10000E720(&qword_1004A6B70, &unk_1004A7850);
+  v121 = _swiftEmptyArrayStorage;
+  v100 = sub_10002706C(&unk_1004A6B60, &type metadata accessor for OS_dispatch_queue.Attributes, &protocol conformance descriptor for OS_dispatch_queue.Attributes);
+  v99 = sub_1000039E8(&unk_1004A7850, &qword_100376280);
+  v98 = sub_10000E720(&qword_1004A6B70, &unk_1004A7850, &qword_100376280, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v96 = enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:);
-  v42 = v117 + 104;
-  v95 = *(v117 + 104);
-  v100 = v38;
-  v95(v38);
-  v94 = enum case for DispatchQoS.QoSClass.default(_:);
-  v43 = v119;
-  v44 = v119 + 104;
-  v93 = *(v119 + 104);
-  v45 = v110;
-  v102 = v41;
-  v93(v110);
+  v97 = enum case for OS_dispatch_queue.AutoreleaseFrequency.inherit(_:);
+  v42 = v118 + 104;
+  v96 = *(v118 + 104);
+  v101 = v38;
+  v96(v38);
+  v95 = enum case for DispatchQoS.QoSClass.default(_:);
+  v43 = v120;
+  v44 = v120 + 104;
+  v94 = *(v120 + 104);
+  v45 = v111;
+  v103 = v41;
+  v94(v111);
   static OS_dispatch_queue.global(qos:)();
   v46 = v43 + 8;
   v47 = *(v43 + 8);
-  v119 = v46;
+  v120 = v46;
   v47(v45, v41);
   *(v40 + 4) = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   *(v40 + 5) = 0;
   *(v40 + 6) = 0xE000000000000000;
   *(v40 + 9) = 0;
-  v91 = v40;
-  v48 = v90;
-  *(v40 + 11) = v90;
+  v92 = v40;
+  v48 = v91;
+  *(v40 + 11) = v91;
   type metadata accessor for KnoxAEADecryptToFileAsync.CallbackWrapper();
   v49 = swift_allocObject();
   *(v49 + 88) = 0;
   *(v49 + 64) = 0;
   *(v49 + 72) = 0;
   *(v49 + 92) = 1;
-  v88 = "FileAsync-synchronizationQueue";
+  v89 = "FileAsync-synchronizationQueue";
 
-  v90 = v48;
+  v91 = v48;
   static DispatchQoS.userInitiated.getter();
-  v120 = &_swiftEmptyArrayStorage;
+  v121 = _swiftEmptyArrayStorage;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v117 = v42;
-  (v95)(v100, v96, v101);
-  v50 = v110;
-  v51 = v102;
-  v86[1] = v44;
-  (v93)(v110, v94, v102);
+  v118 = v42;
+  (v96)(v101, v97, v102);
+  v50 = v111;
+  v51 = v103;
+  v87[1] = v44;
+  (v94)(v111, v95, v103);
   static OS_dispatch_queue.global(qos:)();
-  v86[0] = v47;
+  v87[0] = v47;
   v47(v50, v51);
   *(v49 + 96) = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
   *(v49 + 104) = 0;
-  v52 = v89;
-  *(v49 + 80) = v89;
-  v53 = v111;
-  *(v49 + 16) = v111;
-  *(v49 + 48) = sub_1000039E8(&qword_1004A72E0);
-  v54 = sub_10000E720(&qword_1004A72E8, &qword_1004A72E0);
-  *(v49 + 24) = v105;
+  v52 = v90;
+  *(v49 + 80) = v90;
+  v53 = v112;
+  *(v49 + 16) = v112;
+  *(v49 + 48) = sub_1000039E8(&qword_1004A72E0, &qword_100376EC8);
+  v54 = sub_10000E720(&qword_1004A72E8, &qword_1004A72E0, &qword_100376EC8, &protocol conformance descriptor for <A> ContiguousArray<A>);
+  *(v49 + 24) = v106;
   v55 = *(v49 + 64);
+  v56 = *(v49 + 72);
   *(v49 + 56) = v54;
   *(v49 + 64) = sub_100031B54;
-  *(v49 + 72) = v104;
+  *(v49 + 72) = v105;
 
-  v56 = v53;
-  v57 = v52;
+  v57 = v53;
+  v58 = v52;
 
-  sub_100031B5C(v55);
+  sub_100031B5C(v55, v56);
 
-  v59 = v106;
-  __chkstk_darwin(v58);
-  v86[-6] = v49;
-  v86[-5] = 0x1000000;
-  v86[-4] = v59 << 24;
-  v86[-3] = 0x400000000000000;
-  LODWORD(v86[-2]) = v59;
-  v60 = v112;
+  v60 = v107;
+  __chkstk_darwin(v59);
+  v87[-6] = v49;
+  v87[-5] = 0x1000000;
+  v87[-4] = v60 << 24;
+  v87[-3] = 0x400000000000000;
+  LODWORD(v87[-2]) = v60;
   v61 = v113;
-  if ((v113 & 0x1000000000000000) == 0)
+  v62 = v114;
+  if ((v114 & 0x1000000000000000) == 0)
   {
-    if ((v113 & 0x2000000000000000) != 0)
+    if ((v114 & 0x2000000000000000) != 0)
     {
-      v120 = v118;
-      v121 = v113 & 0xFFFFFFFFFFFFFFLL;
+      v121 = v119;
+      v122 = v114 & 0xFFFFFFFFFFFFFFLL;
 
-      v62 = &v120;
+      v63 = &v121;
       goto LABEL_10;
     }
 
-    if ((v118 & 0x1000000000000000) != 0)
+    if ((v119 & 0x1000000000000000) != 0)
     {
 
-      v62 = ((v61 & 0xFFFFFFFFFFFFFFFLL) + 32);
+      v63 = ((v62 & 0xFFFFFFFFFFFFFFFLL) + 32);
 LABEL_10:
-      v63 = AEADecryptToFileChunkAsyncStreamOpen(v62, v49, sub_1000913A8, sub_1000913F0, 0x1000000uLL, v59 << 24, 0x400000000000000uLL, v59);
+      v64 = AEADecryptToFileChunkAsyncStreamOpen(v63, v49, sub_1000913A8, sub_1000913F0, 0x1000000uLL, v60 << 24, 0x400000000000000uLL, v60);
 
       goto LABEL_11;
     }
   }
 
-  sub_1000039E8(&unk_1004A72F0);
+  sub_1000039E8(&unk_1004A72F0, &qword_100376ED0);
   _StringGuts._slowWithCString<A>(_:)();
-  if (v60)
+  if (v61)
   {
 
-    v85 = v91;
+    v86 = v92;
 
     result = swift_deallocPartialClassInstance();
     __break(1u);
     return result;
   }
 
-  v63 = v125[7];
+  v64 = v126[7];
 LABEL_11:
-  v64 = v92;
+  v65 = v93;
 
-  if (v63)
+  if (v64)
   {
 
-    v65 = v91;
-    *(v91 + 9) = v63;
-    *(v65 + 10) = v49;
-    *(v65 + 7) = v118;
-    *(v65 + 8) = v61;
-    v123 = v64;
-    v124 = &off_100480F48;
-    *&v122 = v65;
-    sub_100003C88(&v122, v125);
+    v66 = v92;
+    *(v92 + 9) = v64;
+    *(v66 + 10) = v49;
+    *(v66 + 7) = v119;
+    *(v66 + 8) = v62;
+    v124 = v65;
+    v125 = &off_100480F48;
+    *&v123 = v66;
+    sub_100003C88(&v123, v126);
 
-    v24 = v87;
+    v24 = v88;
     goto LABEL_13;
   }
 
-  sub_1000039E8(&unk_1004A73A0);
+  sub_1000039E8(&unk_1004A73A0, &qword_100376F70);
   OS_dispatch_queue.sync<A>(execute:)();
-  v74 = v118;
-  if (!v120)
+  v75 = v119;
+  if (!v121)
   {
-    v111 = 0x800000010042ACC0;
-    v112 = 0x800000010042AD30;
-    v120 = 0;
-    v121 = 0xE000000000000000;
+    v112 = 0x800000010042ACC0;
+    v113 = 0x800000010042AD30;
+    v121 = 0;
+    v122 = 0xE000000000000000;
     _StringGuts.grow(_:)(43);
 
-    v120 = 0xD000000000000029;
-    v121 = 0x800000010042ADA0;
-    v75._countAndFlagsBits = v74;
-    v75._object = v61;
-    String.append(_:)(v75);
-    v113 = v120;
-    v108 = v121;
-    v118 = type metadata accessor for KnoxServiceClient.ClientError();
-    v76 = swift_allocObject();
-    v107 = "hivePointer.swift";
+    v121 = 0xD000000000000029;
+    v122 = 0x800000010042ADA0;
+    v76._countAndFlagsBits = v75;
+    v76._object = v62;
+    String.append(_:)(v76);
+    v114 = v121;
+    v109 = v122;
+    v119 = type metadata accessor for KnoxServiceClient.ClientError();
+    v77 = swift_allocObject();
+    v108 = "hivePointer.swift";
     static DispatchQoS.userInitiated.getter();
-    v120 = &_swiftEmptyArrayStorage;
+    v121 = _swiftEmptyArrayStorage;
     dispatch thunk of SetAlgebra.init<A>(_:)();
-    (v95)(v100, v96, v101);
-    v77 = v110;
-    v78 = v102;
-    (v93)(v110, v94, v102);
+    (v96)(v101, v97, v102);
+    v78 = v111;
+    v79 = v103;
+    (v94)(v111, v95, v103);
     static OS_dispatch_queue.global(qos:)();
-    (v86[0])(v77, v78);
-    v79 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-    v80 = v111;
-    *(v76 + 16) = 0xD000000000000063;
-    *(v76 + 24) = v80;
+    (v87[0])(v78, v79);
+    v80 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
     v81 = v112;
-    *(v76 + 32) = 0xD00000000000006ELL;
-    *(v76 + 40) = v81;
-    *(v76 + 56) = 10;
-    *(v76 + 48) = 557;
-    v82 = v108;
-    *(v76 + 64) = v113;
-    *(v76 + 72) = v82;
-    *(v76 + 80) = 0;
-    *(v76 + 88) = v79;
-    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError);
+    *(v77 + 16) = 0xD000000000000063;
+    *(v77 + 24) = v81;
+    v82 = v113;
+    *(v77 + 32) = 0xD00000000000006ELL;
+    *(v77 + 40) = v82;
+    *(v77 + 56) = 10;
+    *(v77 + 48) = 557;
+    v83 = v109;
+    *(v77 + 64) = v114;
+    *(v77 + 72) = v83;
+    *(v77 + 80) = 0;
+    *(v77 + 88) = v80;
+    sub_10002706C(&unk_1004A7860, type metadata accessor for KnoxServiceClient.ClientError, &protocol conformance descriptor for KnoxServiceClient.ClientError);
     swift_allocError();
-    *v83 = v76;
+    *v84 = v77;
   }
 
   swift_willThrow();
 
-  v84 = v91;
+  v85 = v92;
 
   return swift_deallocPartialClassInstance();
 }
 
-uint64_t sub_10003084C(float a1)
+uint64_t sub_10003084C(uint64_t a1, float a2)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   if (result)
   {
-    v3 = result;
-    sub_100003B20(*(result + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client) + OBJC_IVAR____TtC16KnoxClientPublic17KnoxServiceClient_delegate, v6);
-    v4 = v7;
+    v4 = result;
+    sub_100003B20(*(result + OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_client) + OBJC_IVAR____TtC16KnoxClientPublic17KnoxServiceClient_delegate, v7);
     v5 = v8;
-    sub_10000E2A8(v6, v7);
-    (*(v5 + 8))(v3, v4, v5, a1);
+    v6 = v9;
+    sub_10000E2A8(v7, v8);
+    (*(v6 + 8))(v4, v5, v6, a2);
 
-    sub_100003C3C(v6);
+    sub_100003C3C(v7);
     return 1;
   }
 
@@ -9186,7 +9190,7 @@ uint64_t sub_100030A40()
   v2 = type metadata accessor for URL();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
-  sub_100013F2C(v0 + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream, &qword_1004A71D8);
+  sub_100013F2C(v0 + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask_asyncStream, &qword_1004A71D8, &unk_100376D50);
   v3 = *(v0 + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData);
   v4 = *(v0 + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData + 8);
 
@@ -9196,7 +9200,7 @@ uint64_t sub_100030A40()
 id DownloadTask.__deallocating_deinit()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for DownloadTask();
+  v2.super_class = type metadata accessor for DownloadTask(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
@@ -9206,11 +9210,11 @@ uint64_t sub_100030CCC()
   return _swift_deallocObject(v0, 25, 7);
 }
 
-uint64_t sub_100030D04(uint64_t a1, uint64_t a2)
+uint64_t sub_100030D04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = *(a2 + 40);
+  v4 = *(a2 + 40);
   *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
+  *(a1 + 40) = v4;
 }
 
 uint64_t sub_100030D1C()
@@ -9311,10 +9315,10 @@ uint64_t sub_100031094@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-uint64_t sub_100031100()
+uint64_t sub_100031100(uint64_t a1)
 {
   result = type metadata accessor for URL();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -9484,46 +9488,46 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_1000318C0(uint64_t a1, unint64_t a2)
+uint64_t sub_1000318C0(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v5;
     }
   }
 }
 
-uint64_t sub_100031914(uint64_t a1, unint64_t a2)
+uint64_t sub_100031914(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_100031928(a1, a2);
+    return sub_100031928(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t sub_100031928(uint64_t a1, unint64_t a2)
+uint64_t sub_100031928(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t sub_100031994(uint64_t a1, unint64_t a2)
+uint64_t sub_100031994(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 >> 60 != 15)
   {
-    return sub_1000318C0(a1, a2);
+    return sub_1000318C0(result, a2, a3, a4);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t sub_1000319C8()
@@ -9555,21 +9559,21 @@ uint64_t sub_100031AB0()
   return _swift_deallocObject(v0, 40, 7);
 }
 
-uint64_t sub_100031B00()
+uint64_t sub_100031B00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v1 = v0[3];
-  v2 = v0[4];
-  v3 = (v0[2] + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData);
-  v4 = *v3;
-  v5 = v3[1];
-  *v3 = v1;
-  v3[1] = v2;
-  sub_100031994(v1, v2);
+  v5 = v4[3];
+  v6 = v4[4];
+  v7 = (v4[2] + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData);
+  v8 = *v7;
+  v9 = v7[1];
+  *v7 = v5;
+  v7[1] = v6;
+  sub_100031994(v5, v6, a3, a4);
 
-  return sub_100031914(v4, v5);
+  return sub_100031914(v8, v9);
 }
 
-uint64_t sub_100031B5C(uint64_t result)
+uint64_t sub_100031B5C(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -9580,19 +9584,19 @@ uint64_t sub_100031B5C(uint64_t result)
 
 uint64_t sub_100031BAC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1000039E8(&qword_1004A71D8);
+  v4 = sub_1000039E8(&qword_1004A71D8, &unk_100376D50);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
-uint64_t sub_100031C1C@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_100031C1C@<X0>(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t *a3@<X8>)
 {
-  v2 = (*(v1 + 16) + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData);
-  v3 = *v2;
-  v4 = v2[1];
-  *a1 = *v2;
-  a1[1] = v4;
-  return sub_100031994(v3, v4);
+  v4 = (*(v3 + 16) + OBJC_IVAR____TtC16KnoxClientPublic12DownloadTask__fullFileData);
+  v5 = *v4;
+  v6 = v4[1];
+  *a3 = *v4;
+  a3[1] = v6;
+  return sub_100031994(v5, v6, a1, a2);
 }
 
 uint64_t sub_100031C5C()
@@ -9601,7 +9605,7 @@ uint64_t sub_100031C5C()
   return _swift_deallocObject(v0, 32, 7);
 }
 
-id KnoxTask.init(client:)(void *a1)
+char *KnoxTask.init(client:)(void *a1)
 {
   v2 = sub_10003D38C(a1);
 
@@ -9750,7 +9754,7 @@ uint64_t sub_1000324E4@<X0>(uint64_t a1@<X8>)
 {
   v3 = OBJC_IVAR____TtC16KnoxClientPublic8KnoxTask_nextPageURL;
   swift_beginAccess();
-  return sub_100013E54(v1 + v3, a1, &qword_1004A6D30);
+  return sub_100013E54(v1 + v3, a1, &qword_1004A6D30, &unk_100376820);
 }
 
 uint64_t sub_100032564(char a1)

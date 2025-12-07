@@ -400,7 +400,7 @@ LABEL_28:
     _accessibilityNonQuantizedBatteryLevel = [(UIStatusBarBatteryItemViewAccessibility *)selfCopy _accessibilityNonQuantizedBatteryLevel];
     if (_accessibilityNonQuantizedBatteryLevel != *(v15 + 2104))
     {
-      [UIStatusBarBatteryItemViewAccessibility _accessibilitySetNonQuantizedBatteryLevel:selfCopy];
+      [(UIStatusBarBatteryItemViewAccessibility *)selfCopy _accessibilitySetNonQuantizedBatteryLevel:?];
       [(UIStatusBarBatteryItemViewAccessibility *)selfCopy _axSetCapacityDirty:?];
     }
   }
@@ -410,7 +410,7 @@ LABEL_28:
   return v6 & 1;
 }
 
-uint64_t __68__UIStatusBarBatteryItemViewAccessibility_updateForNewData_actions___block_invoke(uint64_t a1)
+void *__68__UIStatusBarBatteryItemViewAccessibility_updateForNewData_actions___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) rawData];
   *(*(*(a1 + 40) + 8) + 24) = result;

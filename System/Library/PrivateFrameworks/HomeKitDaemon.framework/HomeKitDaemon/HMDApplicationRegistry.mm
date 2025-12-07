@@ -26,71 +26,69 @@
 
 - (void)applicationsDidInstall:(id)install
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __49__HMDApplicationRegistry_applicationsDidInstall___block_invoke;
-  v13[3] = &unk_27867CEC8;
-  v13[4] = self;
-  v3 = [install na_map:v13];
+  v14 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __49__HMDApplicationRegistry_applicationsDidInstall___block_invoke;
+  v12[3] = &unk_27867CEC8;
+  v12[4] = self;
+  v3 = [install na_map:v12];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        logAndPostNotification(@"HMDApplicationInstalledNotification", *(*(&v9 + 1) + 8 * v7++), 0);
+        logAndPostNotification(@"HMDApplicationInstalledNotification", *(*(&v8 + 1) + 8 * v7++), 0);
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)applicationsDidUninstall:(id)uninstall
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   uninstallCopy = uninstall;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(uninstallCopy, "count")}];
   os_unfair_lock_lock_with_options();
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v6 = uninstallCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v7)
   {
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = __HMDApplicationRegistryApplicationInfoForApplicationProxy(self, *(*(&v20 + 1) + 8 * v9));
+        v10 = __HMDApplicationRegistryApplicationInfoForApplicationProxy(self, *(*(&v19 + 1) + 8 * v9));
         if (v10)
         {
           [(NSMutableSet *)self->_applications removeObject:v10];
@@ -101,43 +99,41 @@
       }
 
       while (v7 != v9);
-      v7 = [v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v11 = v5;
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v15 objects:v23 count:16];
   if (v12)
   {
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        logAndPostNotification(@"HMDApplicationUninstalledNotification", *(*(&v16 + 1) + 8 * v14++), 0);
+        logAndPostNotification(@"HMDApplicationUninstalledNotification", *(*(&v15 + 1) + 8 * v14++), 0);
       }
 
       while (v12 != v14);
-      v12 = [v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)applicationInfoForBundleIdentifier:(id)identifier
@@ -260,10 +256,9 @@
 
 void __37__HMDApplicationRegistry_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_173885;
-  logCategory__hmf_once_v4_173885 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_173885;
+  logCategory__hmf_once_v4_173885 = v0;
 }
 
 void __40__HMDApplicationRegistry_sharedRegistry__block_invoke()

@@ -346,13 +346,13 @@ void __97__PXExitSharedLibraryActionPerformer__beginExitWithExitAssistantViewCon
   [v4 addActionWithTitle:v6 style:2 action:v7];
 }
 
-void __97__PXExitSharedLibraryActionPerformer__beginExitWithExitAssistantViewController_dismissalHandler___block_invoke_2()
+void __97__PXExitSharedLibraryActionPerformer__beginExitWithExitAssistantViewController_dismissalHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v0 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1A3C1C000, v0, OS_LOG_TYPE_DEFAULT, "Exit assistant confirmation alert cancelled by the user", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "Exit assistant confirmation alert cancelled by the user", v3, 2u);
   }
 }
 

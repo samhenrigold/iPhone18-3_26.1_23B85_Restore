@@ -91,7 +91,7 @@
   dispatch_async(v4, block);
 }
 
-void __58__SBEventObserverRegistry_postEventToInterestedObservers___block_invoke()
+void __58__SBEventObserverRegistry_postEventToInterestedObservers___block_invoke(uint64_t a1)
 {
   DarwinNotificationFromEvent = __SBSEventObserverGetDarwinNotificationFromEvent();
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();

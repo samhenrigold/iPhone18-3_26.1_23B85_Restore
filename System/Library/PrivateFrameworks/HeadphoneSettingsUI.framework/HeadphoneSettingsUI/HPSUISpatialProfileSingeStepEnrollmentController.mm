@@ -1781,16 +1781,16 @@ void __63__HPSUISpatialProfileSingeStepEnrollmentController_moveToStep___block_i
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __79__HPSUISpatialProfileSingeStepEnrollmentController_bluetoothDidBecomeAvailable__block_invoke(uint64_t result)
+void *__79__HPSUISpatialProfileSingeStepEnrollmentController_bluetoothDidBecomeAvailable__block_invoke(void *result)
 {
   v9 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 1128) == 1)
+  if (*(result[4] + 1128) == 1)
   {
     v1 = result;
     v2 = os_log_create("com.apple.connectedAudio", "HeadphoneCommonUIKit");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v1 + 32);
+      v3 = v1[4];
       v4 = *(v3 + 1206);
       v5 = [*(v3 + 1280) available];
       v6[0] = 67109376;
@@ -1800,7 +1800,7 @@ uint64_t __79__HPSUISpatialProfileSingeStepEnrollmentController_bluetoothDidBeco
       _os_log_impl(&dword_1AC1C3000, v2, OS_LOG_TYPE_DEFAULT, "Spatial Profile: bluetoothDidBecomeAvailable -> stopWelcomeSpinner, _enrollmentReady %d [_btManager available] %d", v6, 0xEu);
     }
 
-    return [*(v1 + 32) stopWelcomeSpinner];
+    return [v1[4] stopWelcomeSpinner];
   }
 
   return result;

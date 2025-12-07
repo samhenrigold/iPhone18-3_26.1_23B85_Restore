@@ -574,37 +574,37 @@ LABEL_12:
 - (void)_addURLCompletions:(id)completions toListing:(id)listing isCFSearch:(BOOL)search
 {
   searchCopy = search;
-  v53 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   completionsCopy = completions;
   listingCopy = listing;
   rewrittenQuery = self->_rewrittenQuery;
   if (rewrittenQuery)
   {
     queryString = [(WBSCompletionQuery *)rewrittenQuery queryString];
-    v45 = 0u;
-    v46 = 0u;
     v47 = 0u;
     v48 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v12 = completionsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v45 objects:v52 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v47 objects:v54 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v46;
+      v15 = *v48;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v46 != v15)
+          if (*v48 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          sfSearchResultValue = [*(*(&v45 + 1) + 8 * i) sfSearchResultValue];
+          sfSearchResultValue = [*(*(&v47 + 1) + 8 * i) sfSearchResultValue];
           [sfSearchResultValue setCorrectedQuery:queryString];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v45 objects:v52 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v47 objects:v54 count:16];
       }
 
       while (v14);
@@ -622,15 +622,15 @@ LABEL_12:
 
   v22 = [MEMORY[0x277D4A030] filterOutUnlikelyMatchesFromTopHits:completionsCopy forQuery:query searchProvider:activeSearchEngine];
 
-  [(CompletionList *)self _searchForURLTopHits:v22 intoTopHits:v18];
-  v23 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v23 = [(CompletionList *)self _searchForURLTopHits:v22 intoTopHits:v18];
+  v25 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v23, v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
-    v24 = v23;
-    v25 = [v18 count];
+    v26 = v25;
+    v27 = [v18 count];
     *buf = 134217984;
-    v51 = v25;
-    _os_log_impl(&dword_215819000, v24, OS_LOG_TYPE_INFO, "Number of local TopHits: %lu", buf, 0xCu);
+    v53 = v27;
+    _os_log_impl(&dword_215819000, v26, OS_LOG_TYPE_INFO, "Number of local TopHits: %lu", buf, 0xCu);
   }
 
   if (![v18 count] && self->_tryParsecRewritesIfNoTopHit)
@@ -639,64 +639,64 @@ LABEL_12:
     parsecSearchSession = [(UniversalSearchCompletionProvider *)self->_universalSearchProvider parsecSearchSession];
     rewrittenQueryStringFromParsec = [parsecSearchSession rewrittenQueryStringFromParsec];
 
-    v28 = [objc_alloc(MEMORY[0x277D49ED8]) initWithQueryString:rewrittenQueryStringFromParsec];
-    v29 = self->_rewrittenQuery;
-    self->_rewrittenQuery = v28;
+    v30 = [objc_alloc(MEMORY[0x277D49ED8]) initWithQueryString:rewrittenQueryStringFromParsec];
+    v31 = self->_rewrittenQuery;
+    self->_rewrittenQuery = v30;
 
     effectiveProfileIdentifier = [WeakRetained effectiveProfileIdentifier];
     [(WBSCompletionQuery *)self->_rewrittenQuery setProfileIdentifierToFilterResults:effectiveProfileIdentifier];
 
     [(WBSCompletionQuery *)self->_rewrittenQuery setTriggerEvent:18];
-    v31 = [self->_URLCompletionProvider completionsForQuery:self->_rewrittenQuery isCFSearch:searchCopy];
+    v33 = [self->_URLCompletionProvider completionsForQuery:self->_rewrittenQuery isCFSearch:searchCopy];
 
-    if (!v31)
+    if (!v33)
     {
       [listingCopy setNeedsParsecDatabaseQueryRewrite];
       goto LABEL_28;
     }
 
-    v40 = WeakRetained;
-    v32 = [MEMORY[0x277D4A030] filterOutUnlikelyMatchesBeforeTopHitPromotionFromMatches:v31 forQuery:self->_rewrittenQuery searchProvider:activeSearchEngine];
+    v42 = WeakRetained;
+    v34 = [MEMORY[0x277D4A030] filterOutUnlikelyMatchesBeforeTopHitPromotionFromMatches:v33 forQuery:self->_rewrittenQuery searchProvider:activeSearchEngine];
 
-    [(CompletionList *)self _searchForURLTopHits:v32 intoTopHits:v18];
+    [(CompletionList *)self _searchForURLTopHits:v34 intoTopHits:v18];
+    v45 = 0u;
+    v46 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v22 = v32;
-    v33 = [v22 countByEnumeratingWithState:&v41 objects:v49 count:16];
-    if (v33)
+    v22 = v34;
+    v35 = [v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
+    if (v35)
     {
-      v34 = v33;
-      v35 = *v42;
+      v36 = v35;
+      v37 = *v44;
       do
       {
-        for (j = 0; j != v34; ++j)
+        for (j = 0; j != v36; ++j)
         {
-          if (*v42 != v35)
+          if (*v44 != v37)
           {
             objc_enumerationMutation(v22);
           }
 
-          sfSearchResultValue2 = [*(*(&v41 + 1) + 8 * j) sfSearchResultValue];
+          sfSearchResultValue2 = [*(*(&v43 + 1) + 8 * j) sfSearchResultValue];
           [sfSearchResultValue2 setCorrectedQuery:rewrittenQueryStringFromParsec];
         }
 
-        v34 = [v22 countByEnumeratingWithState:&v41 objects:v49 count:16];
+        v36 = [v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
       }
 
-      while (v34);
+      while (v36);
     }
 
-    WeakRetained = v40;
+    WeakRetained = v42;
   }
 
-  v38 = [v18 count];
-  if (v38)
+  v40 = [v18 count];
+  if (v40)
   {
-    v39 = [v22 subarrayWithRange:{v38, objc_msgSend(v22, "count") - v38}];
+    v41 = [v22 subarrayWithRange:{v40, objc_msgSend(v22, "count") - v40}];
 
-    v22 = v39;
+    v22 = v41;
   }
 
   [listingCopy setURLCompletionMatches:v22];
@@ -709,13 +709,14 @@ LABEL_28:
 - (void)_addUniversalSearchCompletions:(id)completions toCompletionListing:(id)listing delaySiriSuggestedSite:(BOOL)site
 {
   siteCopy = site;
-  v117 = *MEMORY[0x277D85DE8];
+  v127 = *MEMORY[0x277D85DE8];
   completionsCopy = completions;
   listingCopy = listing;
-  if ([MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled])
+  isSearchEvaluationLoggingEnabled = [MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled];
+  if (isSearchEvaluationLoggingEnabled)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(isSearchEvaluationLoggingEnabled, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [CompletionList _addUniversalSearchCompletions:toCompletionListing:delaySiriSuggestedSite:];
     }
@@ -728,61 +729,61 @@ LABEL_28:
   if ([completionsCopy count])
   {
     topHits = [listingCopy topHits];
-    v92 = listingCopy;
+    v102 = listingCopy;
     topHitAddresses = [listingCopy topHitAddresses];
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
     array3 = [MEMORY[0x277CBEB18] array];
     firstObject = [topHits firstObject];
-    v103 = [(CompletionList *)self _isPegasusMapsCompositeResult:completionsCopy];
-    v109 = 0u;
-    v110 = 0u;
-    v111 = 0u;
-    v112 = 0u;
-    v90 = completionsCopy;
+    v113 = [(CompletionList *)self _isPegasusMapsCompositeResult:completionsCopy];
+    v119 = 0u;
+    v120 = 0u;
+    v121 = 0u;
+    v122 = 0u;
+    v100 = completionsCopy;
     obj = completionsCopy;
-    v14 = [obj countByEnumeratingWithState:&v109 objects:v116 count:16];
-    v95 = topHits;
-    v98 = topHitAddresses;
-    v99 = firstObject;
-    if (!v14)
+    v16 = [obj countByEnumeratingWithState:&v119 objects:v126 count:16];
+    v105 = topHits;
+    v108 = topHitAddresses;
+    v109 = firstObject;
+    if (!v16)
     {
-      v93 = 0;
+      v103 = 0;
       goto LABEL_70;
     }
 
-    v15 = v14;
-    v93 = 0;
-    v16 = 0;
-    v17 = 0;
-    v102 = *v110;
+    v17 = v16;
+    v103 = 0;
+    v18 = 0;
+    v19 = 0;
+    v112 = *v120;
     while (1)
     {
-      v18 = 0;
+      v20 = 0;
       do
       {
-        if (*v110 != v102)
+        if (*v120 != v112)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v109 + 1) + 8 * v18);
-        if (v103 || [*(*(&v109 + 1) + 8 * v18) placement] == 2)
+        v21 = *(*(&v119 + 1) + 8 * v20);
+        if (v113 || [*(*(&v119 + 1) + 8 * v20) placement] == 2)
         {
           goto LABEL_45;
         }
 
-        resultType = [v19 resultType];
-        v21 = WBSIsEqual();
+        resultType = [v21 resultType];
+        v23 = WBSIsEqual();
 
-        if (!v21)
+        if (!v23)
         {
           goto LABEL_44;
         }
 
         siriSuggestedSitesURLStringsToIgnore = self->_siriSuggestedSitesURLStringsToIgnore;
-        v23 = [v19 url];
-        absoluteString = [v23 absoluteString];
+        v25 = [v21 url];
+        absoluteString = [v25 absoluteString];
         LODWORD(siriSuggestedSitesURLStringsToIgnore) = [(NSSet *)siriSuggestedSitesURLStringsToIgnore containsObject:absoluteString];
 
         if (siriSuggestedSitesURLStringsToIgnore)
@@ -824,27 +825,27 @@ LABEL_19:
 
             if (shouldHideIgnoredSiriSuggestedSites)
             {
-              v33 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+              v37 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v35, v36);
+              if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
               {
-                v34 = v33;
-                v35 = [v19 url];
-                absoluteString2 = [v35 absoluteString];
+                v38 = v37;
+                v39 = [v21 url];
+                absoluteString2 = [v39 absoluteString];
                 *buf = 138739971;
-                v115 = absoluteString2;
-                _os_log_impl(&dword_215819000, v34, OS_LOG_TYPE_INFO, "Hiding repeatedly ignored Siri suggested site: %{sensitive}@", buf, 0xCu);
+                v125 = absoluteString2;
+                _os_log_impl(&dword_215819000, v38, OS_LOG_TYPE_INFO, "Hiding repeatedly ignored Siri suggested site: %{sensitive}@", buf, 0xCu);
               }
 
-              v37 = objc_alloc_init(MEMORY[0x277D4C5B8]);
-              [v37 setHideReason:1];
-              [v19 setSafariAttributes:v37];
-              v38 = v19;
+              v41 = objc_alloc_init(MEMORY[0x277D4C5B8]);
+              [v41 setHideReason:1];
+              [v21 setSafariAttributes:v41];
+              v42 = v21;
 
-              v93 = v38;
-              topHits = v95;
+              v103 = v42;
+              topHits = v105;
 LABEL_43:
-              topHitAddresses = v98;
-              firstObject = v99;
+              topHitAddresses = v108;
+              firstObject = v109;
               goto LABEL_59;
             }
           }
@@ -856,22 +857,22 @@ LABEL_43:
 
         if ([(CompletionList *)self _supportsPrefixNavigationalIntent])
         {
-          topHits = v95;
-          firstObject = v99;
+          topHits = v105;
+          firstObject = v109;
           if (!siteCopy)
           {
-            topHitAddresses = v98;
+            topHitAddresses = v108;
             goto LABEL_45;
           }
 
-          [v92 setServerCompletionDidMatchFirstSearchSuggestionFrom3rdParty:0];
-          if ([v92 isAwaitingSearchProvider])
+          [v102 setServerCompletionDidMatchFirstSearchSuggestionFrom3rdParty:0];
+          if ([v102 isAwaitingSearchProvider])
           {
-            if (self->_previousServerCompletion && self->_previousPrefixNavigationalIntent && ([v19 serverCompletion], v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "isEqualToString:", self->_previousServerCompletion), v39, v40))
+            if (self->_previousServerCompletion && self->_previousPrefixNavigationalIntent && ([v21 serverCompletion], v43 = objc_claimAutoreleasedReturnValue(), v44 = objc_msgSend(v43, "isEqualToString:", self->_previousServerCompletion), v43, v44))
             {
-              [v92 setPrefixNavigationalIntent:self->_previousPrefixNavigationalIntent];
-              v41 = 1;
-              [v92 setServerCompletionDidMatchFirstSearchSuggestionFrom3rdParty:1];
+              [v102 setPrefixNavigationalIntent:self->_previousPrefixNavigationalIntent];
+              v45 = 1;
+              [v102 setServerCompletionDidMatchFirstSearchSuggestionFrom3rdParty:1];
               previousPrefixNavigationalIntent = self->_previousPrefixNavigationalIntent;
               if (previousPrefixNavigationalIntent)
               {
@@ -882,58 +883,58 @@ LABEL_43:
 
                 if (integerValue >= integerValue2)
                 {
-                  v41 = 1;
-                  topHits = v95;
+                  v45 = 1;
+                  topHits = v105;
                 }
 
                 else
                 {
-                  v47 = *location;
+                  v51 = *location;
                   *location = 0;
 
-                  v48 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-                  topHits = v95;
-                  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+                  v54 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v52, v53);
+                  topHits = v105;
+                  if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
                   {
-                    v49 = v48;
-                    v50 = [v19 url];
-                    absoluteString3 = [v50 absoluteString];
+                    v55 = v54;
+                    v56 = [v21 url];
+                    absoluteString3 = [v56 absoluteString];
                     *buf = 138739971;
-                    v115 = absoluteString3;
-                    _os_log_impl(&dword_215819000, v49, OS_LOG_TYPE_INFO, "Hiding Siri Suggested Site due to query having navigational intent: %{sensitive}@", buf, 0xCu);
+                    v125 = absoluteString3;
+                    _os_log_impl(&dword_215819000, v55, OS_LOG_TYPE_INFO, "Hiding Siri Suggested Site due to query having navigational intent: %{sensitive}@", buf, 0xCu);
                   }
 
-                  v52 = objc_alloc_init(MEMORY[0x277D4C5B8]);
-                  [v52 setHideReason:2];
-                  [v19 setSafariAttributes:v52];
-                  v53 = v19;
+                  v58 = objc_alloc_init(MEMORY[0x277D4C5B8]);
+                  [v58 setHideReason:2];
+                  [v21 setSafariAttributes:v58];
+                  v59 = v21;
 
-                  v41 = 0;
-                  v93 = v53;
+                  v45 = 0;
+                  v103 = v59;
                 }
               }
             }
 
             else
             {
-              objc_storeStrong(location, v19);
+              objc_storeStrong(location, v21);
               shouldForceSuppressionOfSiriSuggestedSite = self->_shouldForceSuppressionOfSiriSuggestedSite;
               if (!shouldForceSuppressionOfSiriSuggestedSite)
               {
                 shouldForceSuppressionOfSiriSuggestedSite = self->_previousPrefixNavigationalIntent != 0;
               }
 
-              v41 = !shouldForceSuppressionOfSiriSuggestedSite;
+              v45 = !shouldForceSuppressionOfSiriSuggestedSite;
               self->_shouldForceSuppressionOfSiriSuggestedSite = 0;
             }
 
-            topHitAddresses = v98;
-            firstObject = v99;
-            serverCompletion = [v19 serverCompletion];
+            topHitAddresses = v108;
+            firstObject = v109;
+            serverCompletion = [v21 serverCompletion];
             previousServerCompletion = self->_previousServerCompletion;
             self->_previousServerCompletion = serverCompletion;
 
-            if (!v41)
+            if (!v45)
             {
               goto LABEL_59;
             }
@@ -941,147 +942,147 @@ LABEL_43:
             goto LABEL_45;
           }
 
-          searchSuggestions = [v92 searchSuggestions];
+          searchSuggestions = [v102 searchSuggestions];
           firstObject3 = [searchSuggestions firstObject];
-          v56 = [(CompletionList *)self _navigationalIntentShouldBlockSearchResult:v19 givenFirstSearchSuggestion:firstObject3 completionListing:v92];
+          v62 = [(CompletionList *)self _navigationalIntentShouldBlockSearchResult:v21 givenFirstSearchSuggestion:firstObject3 completionListing:v102];
 
-          if (v56)
+          if (v62)
           {
-            v57 = *location;
+            v63 = *location;
             *location = 0;
 
-            v58 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-            if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+            v66 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v64, v65);
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
             {
-              v59 = v58;
-              v60 = [v19 url];
-              absoluteString4 = [v60 absoluteString];
+              v67 = v66;
+              v68 = [v21 url];
+              absoluteString4 = [v68 absoluteString];
               *buf = 138739971;
-              v115 = absoluteString4;
-              _os_log_impl(&dword_215819000, v59, OS_LOG_TYPE_INFO, "Hiding Siri Suggested Site due to query having navigational intent: %{sensitive}@", buf, 0xCu);
+              v125 = absoluteString4;
+              _os_log_impl(&dword_215819000, v67, OS_LOG_TYPE_INFO, "Hiding Siri Suggested Site due to query having navigational intent: %{sensitive}@", buf, 0xCu);
             }
 
-            v62 = objc_alloc_init(MEMORY[0x277D4C5B8]);
-            [v62 setHideReason:2];
-            [v19 setSafariAttributes:v62];
-            v63 = v19;
+            v70 = objc_alloc_init(MEMORY[0x277D4C5B8]);
+            [v70 setHideReason:2];
+            [v21 setSafariAttributes:v70];
+            v71 = v21;
 
-            v93 = v63;
+            v103 = v71;
             goto LABEL_43;
           }
         }
 
         else
         {
-          topHits = v95;
+          topHits = v105;
         }
 
 LABEL_44:
-        topHitAddresses = v98;
-        firstObject = v99;
+        topHitAddresses = v108;
+        firstObject = v109;
 LABEL_45:
-        [v19 setQueryId:{-[WBSCompletionQuery queryID](self->_query, "queryID")}];
-        if (![topHits count] && objc_msgSend(v19, "topHit") && v17 <= 1)
+        [v21 setQueryId:{-[WBSCompletionQuery queryID](self->_query, "queryID")}];
+        if (![topHits count] && objc_msgSend(v21, "topHit") && v19 <= 1)
         {
           selfCopy2 = self;
-          v67 = v19;
-          v68 = array3;
+          v75 = v21;
+          v76 = array3;
 LABEL_58:
-          [(CompletionList *)selfCopy2 _addResult:v67 intoGroup:v68 unlessHiddenBy:topHitAddresses topHit:firstObject];
-          ++v17;
+          [(CompletionList *)selfCopy2 _addResult:v75 intoGroup:v76 unlessHiddenBy:topHitAddresses topHit:firstObject];
+          ++v19;
           goto LABEL_59;
         }
 
-        if ([v19 placement] != 2 && v17 <= 1)
+        if ([v21 placement] != 2 && v19 <= 1)
         {
           selfCopy2 = self;
-          v67 = v19;
-          v68 = array;
+          v75 = v21;
+          v76 = array;
           goto LABEL_58;
         }
 
-        if (v16 <= 1)
+        if (v18 <= 1)
         {
-          [(CompletionList *)self _addResult:v19 intoGroup:array2 unlessHiddenBy:topHitAddresses topHit:firstObject];
-          ++v16;
+          [(CompletionList *)self _addResult:v21 intoGroup:array2 unlessHiddenBy:topHitAddresses topHit:firstObject];
+          ++v18;
         }
 
 LABEL_59:
-        ++v18;
+        ++v20;
       }
 
-      while (v15 != v18);
-      v72 = [obj countByEnumeratingWithState:&v109 objects:v116 count:16];
-      v15 = v72;
-      if (!v72)
+      while (v17 != v20);
+      v80 = [obj countByEnumeratingWithState:&v119 objects:v126 count:16];
+      v17 = v80;
+      if (!v80)
       {
 LABEL_70:
 
-        listingCopy = v92;
-        v73 = v93;
-        [v92 setHiddenSiriSuggestedSite:v93];
+        listingCopy = v102;
+        v81 = v103;
+        [v102 setHiddenSiriSuggestedSite:v103];
         if (![topHits count] && objc_msgSend(array3, "count"))
         {
-          [v92 setParsecTopHits:array3];
+          [v102 setParsecTopHits:array3];
         }
 
-        calculationResultItem = [v92 calculationResultItem];
-        v75 = calculationResultItem;
-        completionsCopy = v90;
-        if (!calculationResultItem || ([calculationResultItem calculationResult], v76 = objc_claimAutoreleasedReturnValue(), v77 = objc_msgSend(v76, "isCurrencyConversion"), v76, (v77 & 1) == 0))
+        calculationResultItem = [v102 calculationResultItem];
+        v83 = calculationResultItem;
+        completionsCopy = v100;
+        if (!calculationResultItem || ([calculationResultItem calculationResult], v84 = objc_claimAutoreleasedReturnValue(), v85 = objc_msgSend(v84, "isCurrencyConversion"), v84, (v85 & 1) == 0))
         {
-          [v92 setTopParsecResults:array];
+          [v102 setTopParsecResults:array];
         }
 
         if ([MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled])
         {
-          v104 = v75;
+          v114 = v83;
           string = [MEMORY[0x277CCAB68] string];
-          v105 = 0u;
-          v106 = 0u;
-          v107 = 0u;
-          v108 = 0u;
-          v79 = array;
-          v80 = [v79 countByEnumeratingWithState:&v105 objects:v113 count:16];
-          if (v80)
+          v115 = 0u;
+          v116 = 0u;
+          v117 = 0u;
+          v118 = 0u;
+          v87 = array;
+          v88 = [v87 countByEnumeratingWithState:&v115 objects:v123 count:16];
+          if (v88)
           {
-            v81 = v80;
-            v82 = *v106;
+            v89 = v88;
+            v90 = *v116;
             do
             {
-              for (i = 0; i != v81; ++i)
+              for (i = 0; i != v89; ++i)
               {
-                if (*v106 != v82)
+                if (*v116 != v90)
                 {
-                  objc_enumerationMutation(v79);
+                  objc_enumerationMutation(v87);
                 }
 
-                v84 = *(*(&v105 + 1) + 8 * i);
-                uuidString = [v84 uuidString];
-                v86 = [v84 url];
-                absoluteString5 = [v86 absoluteString];
+                v92 = *(*(&v115 + 1) + 8 * i);
+                uuidString = [v92 uuidString];
+                v94 = [v92 url];
+                absoluteString5 = [v94 absoluteString];
                 safari_urlHashesOfComponents = [absoluteString5 safari_urlHashesOfComponents];
                 [string appendFormat:@" %@ <%@>, ", uuidString, safari_urlHashesOfComponents];
               }
 
-              v81 = [v79 countByEnumeratingWithState:&v105 objects:v113 count:16];
+              v89 = [v87 countByEnumeratingWithState:&v115 objects:v123 count:16];
             }
 
-            while (v81);
+            while (v89);
           }
 
-          v89 = WBS_LOG_CHANNEL_PREFIXParsec();
-          if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+          v99 = WBS_LOG_CHANNEL_PREFIXParsec(v97, v98);
+          if (os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG))
           {
-            [CompletionList _addUniversalSearchCompletions:string toCompletionListing:v89 delaySiriSuggestedSite:?];
+            [CompletionList _addUniversalSearchCompletions:string toCompletionListing:v99 delaySiriSuggestedSite:?];
           }
 
-          completionsCopy = v90;
-          listingCopy = v92;
-          v73 = v93;
-          topHits = v95;
-          topHitAddresses = v98;
-          v75 = v104;
+          completionsCopy = v100;
+          listingCopy = v102;
+          v81 = v103;
+          topHits = v105;
+          topHitAddresses = v108;
+          v83 = v114;
         }
 
         [listingCopy setBottomParsecResults:array2];
@@ -1094,7 +1095,7 @@ LABEL_70:
 
 - (void)_addSearchProviderSuggestions:(id)suggestions toListing:(id)listing
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   listingCopy = listing;
   queryString = [(WBSCompletionQuery *)self->_query queryString];
@@ -1106,9 +1107,9 @@ LABEL_70:
 
     if (!v11)
     {
-      v42[0] = self->_delayedSiriSuggestedSite;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
-      [(CompletionList *)self _addUniversalSearchCompletions:v17 toCompletionListing:listingCopy delaySiriSuggestedSite:0];
+      v44[0] = self->_delayedSiriSuggestedSite;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
+      [(CompletionList *)self _addUniversalSearchCompletions:v19 toCompletionListing:listingCopy delaySiriSuggestedSite:0];
 LABEL_8:
 
       goto LABEL_9;
@@ -1116,21 +1117,21 @@ LABEL_8:
 
     if (self->_delayedSiriSuggestedSite)
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v14 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v13 = self->_delayedSiriSuggestedSite;
-        v14 = v12;
-        v15 = [(SFSearchResult *)v13 url];
-        absoluteString = [v15 absoluteString];
+        v15 = self->_delayedSiriSuggestedSite;
+        v16 = v14;
+        v17 = [(SFSearchResult *)v15 url];
+        absoluteString = [v17 absoluteString];
         *buf = 138739971;
-        v41 = absoluteString;
-        _os_log_impl(&dword_215819000, v14, OS_LOG_TYPE_INFO, "Hiding Siri Suggested Site due to query having navigational intent: %{sensitive}@", buf, 0xCu);
+        v43 = absoluteString;
+        _os_log_impl(&dword_215819000, v16, OS_LOG_TYPE_INFO, "Hiding Siri Suggested Site due to query having navigational intent: %{sensitive}@", buf, 0xCu);
       }
 
-      v17 = objc_alloc_init(MEMORY[0x277D4C5B8]);
-      [v17 setHideReason:2];
-      [(SFSearchResult *)self->_delayedSiriSuggestedSite setSafariAttributes:v17];
+      v19 = objc_alloc_init(MEMORY[0x277D4C5B8]);
+      [v19 setHideReason:2];
+      [(SFSearchResult *)self->_delayedSiriSuggestedSite setSafariAttributes:v19];
       [listingCopy setHiddenSiriSuggestedSite:self->_delayedSiriSuggestedSite];
       goto LABEL_8;
     }
@@ -1144,8 +1145,8 @@ LABEL_9:
 
   if (self->_showingRecentSearches || self->_inputTypeOfStringToComplete != 1 && [queryString length])
   {
-    v21 = [(CompletionProvider *)self->_quickWebsiteSearchProvider completionsForQuery:self->_query];
-    firstObject3 = [v21 firstObject];
+    v23 = [(CompletionProvider *)self->_quickWebsiteSearchProvider completionsForQuery:self->_query];
+    firstObject3 = [v23 firstObject];
     [listingCopy setQuickWebsiteSearchItem:firstObject3];
 
     if (self->_showingRecentSearches)
@@ -1157,37 +1158,37 @@ LABEL_9:
     {
       [(CompletionList *)self _recentSearchesForQuery:self->_query];
     }
-    v23 = ;
-    v24 = objc_opt_class();
+    v25 = ;
+    v26 = objc_opt_class();
     queryID = [(WBSCompletionQuery *)self->_query queryID];
     topHits = [listingCopy topHits];
     WeakRetained = objc_loadWeakRetained(&self->_browserController);
-    v28 = [v24 _completionsByMergingRecentSearches:v23 withSuggestions:suggestionsCopy andLiteralSearch:queryString queryID:queryID topHits:topHits forPrivateBrowsing:{objc_msgSend(WeakRetained, "isPrivateBrowsingEnabled")}];
+    v30 = [v26 _completionsByMergingRecentSearches:v25 withSuggestions:suggestionsCopy andLiteralSearch:queryString queryID:queryID topHits:topHits forPrivateBrowsing:{objc_msgSend(WeakRetained, "isPrivateBrowsingEnabled")}];
 
-    v38 = queryString;
-    v39 = suggestionsCopy;
+    v40 = queryString;
+    v41 = suggestionsCopy;
     if ([suggestionsCopy count])
     {
-      v29 = 3;
+      v31 = 3;
     }
 
     else
     {
-      v29 = [v23 count] != 0;
+      v31 = [v25 count] != 0;
     }
 
-    v37 = v29;
-    v30 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
-    if ([v28 count])
+    v39 = v31;
+    v32 = [MEMORY[0x277CBEB18] arrayWithCapacity:3];
+    if ([v30 count])
     {
-      v31 = 0;
+      v33 = 0;
       do
       {
-        v32 = [v28 objectAtIndex:v31];
-        if ([v32 goesToURL])
+        v34 = [v30 objectAtIndex:v33];
+        if ([v34 goesToURL])
         {
-          [v28 removeObjectAtIndex:v31];
-          string = [v32 string];
+          [v30 removeObjectAtIndex:v33];
+          string = [v34 string];
           topHitAddresses = [listingCopy topHitAddresses];
           if ([(CompletionList *)self _urlString:string isProbablyContainedIn:topHitAddresses])
           {
@@ -1195,45 +1196,45 @@ LABEL_9:
 
           else
           {
-            v35 = [v30 count];
+            v37 = [v32 count];
 
-            if (v35 <= 2)
+            if (v37 <= 2)
             {
-              [v30 addObject:v32];
+              [v32 addObject:v34];
             }
           }
         }
 
         else
         {
-          ++v31;
+          ++v33;
         }
       }
 
-      while (v31 < [v28 count]);
+      while (v33 < [v30 count]);
     }
 
-    [listingCopy setSuggestedSites:v30];
+    [listingCopy setSuggestedSites:v32];
     if (self->_showingRecentSearches)
     {
-      v36 = v23;
+      v38 = v25;
     }
 
     else
     {
-      v36 = v28;
+      v38 = v30;
     }
 
-    [listingCopy setSearchSuggestions:v36 fromSource:v37];
+    [listingCopy setSearchSuggestions:v38 fromSource:v39];
 
-    queryString = v38;
-    suggestionsCopy = v39;
+    queryString = v40;
+    suggestionsCopy = v41;
   }
 }
 
 - (id)_listingForQuery:(id)query
 {
-  v46[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   queryCopy = query;
   WeakRetained = objc_loadWeakRetained(&self->_browserController);
   searchParameters = [MEMORY[0x277D4A030] searchParameters];
@@ -1302,12 +1303,13 @@ LABEL_9:
   }
 
   isAwaitingCompletionDatabase = [(CompletionGroupListing *)v9 isAwaitingCompletionDatabase];
-  if ([MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled])
+  isSearchEvaluationLoggingEnabled = [MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled];
+  if (isSearchEvaluationLoggingEnabled)
   {
-    v21 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v23 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(isSearchEvaluationLoggingEnabled, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
-      [(CompletionList *)!isAwaitingCompletionDatabase _listingForQuery:v21];
+      [(CompletionList *)!isAwaitingCompletionDatabase _listingForQuery:v23];
     }
   }
 
@@ -1316,38 +1318,39 @@ LABEL_9:
     universalSearchProvider = self->_universalSearchProvider;
     if (universalSearchProvider)
     {
-      v23 = self->_parsecSearchSession != 0;
+      v25 = self->_parsecSearchSession != 0;
     }
 
     else
     {
-      v23 = 0;
+      v25 = 0;
     }
 
-    v24 = [(UniversalSearchCompletionProvider *)universalSearchProvider completionsForQuery:queryCopy];
-    if ([MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled])
+    v26 = [(UniversalSearchCompletionProvider *)universalSearchProvider completionsForQuery:queryCopy];
+    isSearchEvaluationLoggingEnabled2 = [MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled];
+    if (isSearchEvaluationLoggingEnabled2)
     {
-      v25 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v29 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(isSearchEvaluationLoggingEnabled2, v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
-        [(CompletionList *)v23 _listingForQuery:v25, v24];
+        [(CompletionList *)v25 _listingForQuery:v29, v26];
       }
     }
 
-    if (v24)
+    if (v26)
     {
-      v26 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v26 = v23;
+      v30 = v25;
     }
 
-    if ((v26 & 1) == 0)
+    if ((v30 & 1) == 0)
     {
       [(CompletionGroupListing *)v9 markParsecResultsReceived];
-      [(CompletionList *)self _addUniversalSearchCompletions:v24 toCompletionListing:v9 delaySiriSuggestedSite:[(CompletionGroupListing *)v9 isAwaitingSearchProvider]];
+      [(CompletionList *)self _addUniversalSearchCompletions:v26 toCompletionListing:v9 delaySiriSuggestedSite:[(CompletionGroupListing *)v9 isAwaitingSearchProvider]];
     }
   }
 
@@ -1362,8 +1365,8 @@ LABEL_9:
 
     [(CompletionGroupListing *)v9 markTabCompletionReceived];
     topHits = [(CompletionGroupListing *)v9 topHits];
-    v28 = [(CompletionList *)self _bestTabCompletionItemWithTopHits:topHits];
-    [(CompletionGroupListing *)v9 setTabCompletionMatch:v28];
+    v32 = [(CompletionList *)self _bestTabCompletionItemWithTopHits:topHits];
+    [(CompletionGroupListing *)v9 setTabCompletionMatch:v32];
   }
 
 LABEL_41:
@@ -1372,45 +1375,45 @@ LABEL_41:
     _shouldFetchSearchSuggestions = [(CompletionList *)self _shouldFetchSearchSuggestions];
     if (_shouldFetchSearchSuggestions && self->_shouldIncludeNetworkedSearchSuggestions)
     {
-      v30 = [(CompletionProvider *)self->_suggestionProvider completionsForQuery:queryCopy];
+      v34 = [(CompletionProvider *)self->_suggestionProvider completionsForQuery:queryCopy];
     }
 
     else
-    {
-      v30 = 0;
-    }
-
-    v31 = [v30 count];
-    v32 = !_shouldFetchSearchSuggestions;
-    if (v31)
-    {
-      v32 = 1;
-    }
-
-    if ((v32 & 1) != 0 || ![(CompletionList *)self _canUseOfflineSearchSuggestions])
     {
       v34 = 0;
     }
 
+    v35 = [v34 count];
+    v36 = !_shouldFetchSearchSuggestions;
+    if (v35)
+    {
+      v36 = 1;
+    }
+
+    if ((v36 & 1) != 0 || ![(CompletionList *)self _canUseOfflineSearchSuggestions])
+    {
+      v38 = 0;
+    }
+
     else
     {
-      v33 = [self->_offlineSearchSuggestionsCompletionProvider completionsForQuery:queryCopy];
+      v37 = [self->_offlineSearchSuggestionsCompletionProvider completionsForQuery:queryCopy];
 
-      v34 = 1;
-      v30 = v33;
+      v38 = 1;
+      v34 = v37;
     }
 
-    if (v30)
+    if (v34)
     {
-      v35 = 0;
+      v39 = 0;
     }
 
     else
     {
-      v35 = _shouldFetchSearchSuggestions;
+      v39 = _shouldFetchSearchSuggestions;
     }
 
-    if (v35 && ![(CompletionProvider *)self->_suggestionProvider isFailing]|| [(CompletionGroupListing *)v9 isAwaitingParsec])
+    if (v39 && ![(CompletionProvider *)self->_suggestionProvider isFailing]|| [(CompletionGroupListing *)v9 isAwaitingParsec])
     {
       listingOnDisplay = self->_listingOnDisplay;
       if (v9 != listingOnDisplay)
@@ -1418,59 +1421,59 @@ LABEL_41:
         searchSuggestions = [(CompletionGroupListing *)listingOnDisplay searchSuggestions];
         if (![searchSuggestions count])
         {
-          v38 = -[SearchSuggestion initWithUserTypedQuery:forPrivateBrowsing:]([SearchSuggestion alloc], "initWithUserTypedQuery:forPrivateBrowsing:", queryCopy, [WeakRetained isPrivateBrowsingEnabled]);
-          v46[0] = v38;
-          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
+          v42 = -[SearchSuggestion initWithUserTypedQuery:forPrivateBrowsing:]([SearchSuggestion alloc], "initWithUserTypedQuery:forPrivateBrowsing:", queryCopy, [WeakRetained isPrivateBrowsingEnabled]);
+          v50[0] = v42;
+          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:1];
 
-          searchSuggestions = v39;
+          searchSuggestions = v43;
         }
 
         if ([(CompletionGroupListing *)self->_listingOnDisplay searchSuggestionsSource]== 1)
         {
-          v40 = 1;
+          v44 = 1;
         }
 
         else
         {
-          v43 = self->_listingOnDisplay;
-          if (v43 && (![(CompletionGroupListing *)v43 isAwaitingSearchProvider]|| [(CompletionGroupListing *)self->_listingOnDisplay searchSuggestionsSource]))
+          v47 = self->_listingOnDisplay;
+          if (v47 && (![(CompletionGroupListing *)v47 isAwaitingSearchProvider]|| [(CompletionGroupListing *)self->_listingOnDisplay searchSuggestionsSource]))
           {
-            v40 = 2;
+            v44 = 2;
           }
 
           else
           {
-            v40 = 0;
+            v44 = 0;
           }
         }
 
         suggestedSites = [(CompletionGroupListing *)self->_listingOnDisplay suggestedSites];
         [(CompletionGroupListing *)v9 setSuggestedSites:suggestedSites];
 
-        [(CompletionGroupListing *)v9 setSearchSuggestions:searchSuggestions fromSource:v40];
+        [(CompletionGroupListing *)v9 setSearchSuggestions:searchSuggestions fromSource:v44];
       }
     }
 
     else
     {
-      if (!v34 || !self->_shouldIncludeNetworkedSearchSuggestions || [(CompletionProvider *)self->_suggestionProvider isFailing])
+      if (!v38 || !self->_shouldIncludeNetworkedSearchSuggestions || [(CompletionProvider *)self->_suggestionProvider isFailing])
       {
         suggestionProvider = self->_suggestionProvider;
         if (suggestionProvider)
         {
-          v42 = ![(CompletionProvider *)suggestionProvider isFailing];
+          v46 = ![(CompletionProvider *)suggestionProvider isFailing];
         }
 
         else
         {
-          LOBYTE(v42) = 0;
+          LOBYTE(v46) = 0;
         }
 
-        self->_haveReceivedNetworkedSuggestions = v42;
+        self->_haveReceivedNetworkedSuggestions = v46;
         [(CompletionGroupListing *)v9 markSearchResultsReceived];
       }
 
-      [(CompletionList *)self _addSearchProviderSuggestions:v30 toListing:v9];
+      [(CompletionList *)self _addSearchProviderSuggestions:v34 toListing:v9];
     }
   }
 
@@ -2481,7 +2484,7 @@ LABEL_24:
 
 - (void)setQuery:(id)query
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   v6 = queryCopy;
   if (self->_query != queryCopy)
@@ -2535,12 +2538,12 @@ LABEL_24:
     tabController = [WeakRetained tabController];
     activeProfileIdentifier = [tabController activeProfileIdentifier];
     queryString4 = [(WBSCompletionQuery *)v6 queryString];
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __27__CompletionList_setQuery___block_invoke;
-    v41[3] = &unk_2781DC2B0;
-    objc_copyWeak(&v42, &location);
-    [mEMORY[0x277D49F90] getIgnoredSiriSuggestedSitesURLStringsInProfile:activeProfileIdentifier withQuery:queryString4 completionHandler:v41];
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __27__CompletionList_setQuery___block_invoke;
+    v43[3] = &unk_2781DC2B0;
+    objc_copyWeak(&v44, &location);
+    [mEMORY[0x277D49F90] getIgnoredSiriSuggestedSitesURLStringsInProfile:activeProfileIdentifier withQuery:queryString4 completionHandler:v43];
 
     listingOnDisplay = self->_listingOnDisplay;
     v24 = (!listingOnDisplay || [(CompletionGroupListing *)listingOnDisplay isEmpty]) && !self->_executingVoiceSearch;
@@ -2571,38 +2574,38 @@ LABEL_24:
 
     if (integerValue < *MEMORY[0x277D4A2E0] || integerValue > *MEMORY[0x277D4A2E8])
     {
-      v35 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      v36 = os_log_type_enabled(v35, OS_LOG_TYPE_ERROR);
-      v34 = *MEMORY[0x277D4A2A8];
-      if (v36)
+      v37 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(v34, v35);
+      v38 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
+      v36 = *MEMORY[0x277D4A2A8];
+      if (v38)
       {
         universalSearchProvider = self->_universalSearchProvider;
         *buf = 134218498;
-        v45 = integerValue;
-        v46 = 2048;
-        v47 = v34;
-        v48 = 2112;
-        v49 = universalSearchProvider;
-        _os_log_error_impl(&dword_215819000, v35, OS_LOG_TYPE_ERROR, "Parsec returned an invalid minRenderTimeout value of %lu ms. Using default value of %lu ms. _universalSearchProvider is %@", buf, 0x20u);
+        v47 = integerValue;
+        v48 = 2048;
+        v49 = v36;
+        v50 = 2112;
+        v51 = universalSearchProvider;
+        _os_log_error_impl(&dword_215819000, v37, OS_LOG_TYPE_ERROR, "Parsec returned an invalid minRenderTimeout value of %lu ms. Using default value of %lu ms. _universalSearchProvider is %@", buf, 0x20u);
       }
     }
 
     else
     {
-      v34 = integerValue;
+      v36 = integerValue;
     }
 
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __27__CompletionList_setQuery___block_invoke_99;
-    v40[3] = &unk_2781DC2D8;
-    v40[4] = self;
-    v40[5] = v34;
-    v37 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:0 repeats:v40 block:v34 / 1000.0];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __27__CompletionList_setQuery___block_invoke_99;
+    v42[3] = &unk_2781DC2D8;
+    v42[4] = self;
+    v42[5] = v36;
+    v39 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:0 repeats:v42 block:v36 / 1000.0];
     parsecTimeout = self->_parsecTimeout;
-    self->_parsecTimeout = v37;
+    self->_parsecTimeout = v39;
 
-    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(&location);
   }
 
@@ -2645,7 +2648,7 @@ void __27__CompletionList_setQuery___block_invoke_2(uint64_t a1)
   }
 }
 
-uint64_t __27__CompletionList_setQuery___block_invoke_99(uint64_t a1)
+void *__27__CompletionList_setQuery___block_invoke_99(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(v2 + 112);
@@ -2654,10 +2657,10 @@ uint64_t __27__CompletionList_setQuery___block_invoke_99(uint64_t a1)
   result = [*(*(a1 + 32) + 96) isAwaitingParsec];
   if (result)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(result, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __27__CompletionList_setQuery___block_invoke_99_cold_1(a1, v5);
+      __27__CompletionList_setQuery___block_invoke_99_cold_1(a1, v6);
     }
 
     [*(*(a1 + 32) + 96) markParsecResultsReceived];
@@ -3912,26 +3915,26 @@ void __34__CompletionList__requestFavicons__block_invoke_2(uint64_t a1, void *a2
       v8 = [*(a1 + 32) originalURLString];
       if ([v8 length])
       {
-        v9 = *(WeakRetained + 37);
-        v10 = [*(a1 + 32) originalURLString];
-        [v9 setObject:v7 forKey:v10];
+        v10 = *(WeakRetained + 37);
+        v11 = [*(a1 + 32) originalURLString];
+        [v10 setObject:v7 forKey:v11];
       }
 
       else
       {
-        v11 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v12 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v9);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           __34__CompletionList__requestFavicons__block_invoke_2_cold_1();
         }
       }
 
-      v12 = [WeakRetained _indexPathForEquivalentCompletionItem:*(a1 + 32)];
-      v13 = v12;
-      if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0 && v12)
+      v13 = [WeakRetained _indexPathForEquivalentCompletionItem:*(a1 + 32)];
+      v14 = v13;
+      if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0 && v13)
       {
-        v14 = objc_loadWeakRetained(WeakRetained + 32);
-        [v14 completionList:WeakRetained didFetchFavicon:v7 forRowAtIndexPath:v13];
+        v15 = objc_loadWeakRetained(WeakRetained + 32);
+        [v15 completionList:WeakRetained didFetchFavicon:v7 forRowAtIndexPath:v14];
       }
     }
   }
@@ -4093,20 +4096,21 @@ uint64_t __43__CompletionList_cacheIconForParsecResult___block_invoke_2(uint64_t
 {
   dataCopy = data;
   stringCopy = string;
+  v9 = stringCopy;
   if (dataCopy)
   {
-    v8 = [objc_alloc(MEMORY[0x277D755B8]) initWithData:dataCopy];
-    if (v8)
+    v11 = [objc_alloc(MEMORY[0x277D755B8]) initWithData:dataCopy];
+    if (v11)
     {
-      [(NSCache *)self->_parsecIconCache setObject:v8 forKey:stringCopy];
+      [(NSCache *)self->_parsecIconCache setObject:v11 forKey:v9];
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       [WeakRetained completionListDidFetchParsecIcon:self];
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v14 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(0, v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         [CompletionList _cacheImageFromData:forURLString:];
       }
@@ -4115,8 +4119,8 @@ uint64_t __43__CompletionList_cacheIconForParsecResult___block_invoke_2(uint64_t
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(stringCopy, v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [CompletionList _cacheImageFromData:forURLString:];
     }
@@ -4289,35 +4293,35 @@ LABEL_9:
 
 void __57__CompletionList_recordIgnoredSiriSuggestedSitesWithURL___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) safari_arrayByAddingObjectsFromArrayIfNotDuplicates:*(a1 + 40)];
   if (([*(a1 + 48) _isPegasusMapsCompositeResult:v2] & 1) == 0)
   {
+    v33 = 0u;
+    v34 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = v2;
+    v29 = v2;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v29 objects:v39 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v31 objects:v41 count:16];
     if (!v4)
     {
       goto LABEL_15;
     }
 
     v5 = v4;
-    v6 = *v30;
-    v28 = v3;
+    v6 = *v32;
+    v30 = v3;
     while (1)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v30 != v6)
+        if (*v32 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * i);
+        v8 = *(*(&v31 + 1) + 8 * i);
         v9 = [v8 resultType];
         if (WBSIsEqual())
         {
@@ -4329,47 +4333,47 @@ void __57__CompletionList_recordIgnoredSiriSuggestedSitesWithURL___block_invoke(
             continue;
           }
 
-          v12 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+          v14 = WBS_LOG_CHANNEL_PREFIXSiriSuggestedSites(v12, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
-            v13 = v12;
-            v14 = [v8 url];
-            v15 = [v14 absoluteString];
-            v16 = *(a1 + 64);
-            v17 = *(a1 + 72);
+            v15 = v14;
+            v16 = [v8 url];
+            v17 = [v16 absoluteString];
+            v18 = *(a1 + 64);
+            v19 = *(a1 + 72);
             *buf = 138740483;
-            v34 = v15;
-            v35 = 2117;
-            v36 = v16;
+            v36 = v17;
             v37 = 2117;
-            v38 = v17;
-            _os_log_impl(&dword_215819000, v13, OS_LOG_TYPE_INFO, "Recording an ignored Siri suggested site with URL: %{sensitive}@ profile: %{sensitive}@ query: %{sensitive}@.", buf, 0x20u);
+            v38 = v18;
+            v39 = 2117;
+            v40 = v19;
+            _os_log_impl(&dword_215819000, v15, OS_LOG_TYPE_INFO, "Recording an ignored Siri suggested site with URL: %{sensitive}@ profile: %{sensitive}@ query: %{sensitive}@.", buf, 0x20u);
           }
 
           v9 = [MEMORY[0x277D49F90] sharedController];
-          v18 = [v8 url];
-          v19 = [v18 absoluteString];
-          v20 = *(a1 + 64);
-          v21 = *(a1 + 72);
-          v22 = [*(a1 + 56) absoluteString];
-          [v9 addIgnoredSiriSuggestedSiteWithURLString:v19 inProfile:v20 withQuery:v21 visitedURLString:v22];
+          v20 = [v8 url];
+          v21 = [v20 absoluteString];
+          v22 = *(a1 + 64);
+          v23 = *(a1 + 72);
+          v24 = [*(a1 + 56) absoluteString];
+          [v9 addIgnoredSiriSuggestedSiteWithURLString:v21 inProfile:v22 withQuery:v23 visitedURLString:v24];
 
-          v3 = v28;
+          v3 = v30;
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v31 objects:v41 count:16];
       if (!v5)
       {
 LABEL_15:
 
-        v23 = [MEMORY[0x277D49F90] sharedController];
-        v25 = *(a1 + 64);
-        v24 = *(a1 + 72);
-        v26 = [*(a1 + 56) absoluteString];
-        [v23 updateTimestampsOfIgnoredSiriSuggestedSitesInProfile:v25 query:v24 visitedURLString:v26];
+        v25 = [MEMORY[0x277D49F90] sharedController];
+        v27 = *(a1 + 64);
+        v26 = *(a1 + 72);
+        v28 = [*(a1 + 56) absoluteString];
+        [v25 updateTimestampsOfIgnoredSiriSuggestedSitesInProfile:v27 query:v26 visitedURLString:v28];
 
-        v2 = v27;
+        v2 = v29;
         break;
       }
     }

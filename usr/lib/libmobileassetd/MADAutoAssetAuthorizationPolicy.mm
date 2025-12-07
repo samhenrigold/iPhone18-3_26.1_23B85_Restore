@@ -254,29 +254,29 @@ LABEL_10:
 
       if (autoAssetEntries)
       {
-        v54 = queueCopy;
-        v55 = v8;
-        v56 = messageCopy;
+        v56 = queueCopy;
+        v57 = v8;
+        v58 = messageCopy;
+        v71 = 0u;
+        v72 = 0u;
         v69 = 0u;
         v70 = 0u;
-        v67 = 0u;
-        v68 = 0u;
         autoAssetEntries2 = [v14 autoAssetEntries];
-        v17 = [autoAssetEntries2 countByEnumeratingWithState:&v67 objects:v77 count:16];
+        v17 = [autoAssetEntries2 countByEnumeratingWithState:&v69 objects:v79 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v68;
+          v19 = *v70;
           do
           {
             for (i = 0; i != v18; i = i + 1)
             {
-              if (*v68 != v19)
+              if (*v70 != v19)
               {
                 objc_enumerationMutation(autoAssetEntries2);
               }
 
-              v21 = *(*(&v67 + 1) + 8 * i);
+              v21 = *(*(&v69 + 1) + 8 * i);
               assetSelector = [v21 assetSelector];
               assetType3 = [assetSelector assetType];
 
@@ -288,53 +288,53 @@ LABEL_10:
               }
             }
 
-            v18 = [autoAssetEntries2 countByEnumeratingWithState:&v67 objects:v77 count:16];
+            v18 = [autoAssetEntries2 countByEnumeratingWithState:&v69 objects:v79 count:16];
           }
 
           while (v18);
         }
 
+        v67 = 0u;
+        v68 = 0u;
         v65 = 0u;
         v66 = 0u;
-        v63 = 0u;
-        v64 = 0u;
-        v53 = v14;
+        v55 = v14;
         obj = [v14 entriesWhenTargeting];
-        v26 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+        v26 = [obj countByEnumeratingWithState:&v65 objects:v78 count:16];
         if (v26)
         {
           v27 = v26;
-          v58 = *v64;
+          v60 = *v66;
           do
           {
             for (j = 0; j != v27; j = j + 1)
             {
-              if (*v64 != v58)
+              if (*v66 != v60)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v29 = *(*(&v63 + 1) + 8 * j);
-              v59 = 0u;
-              v60 = 0u;
+              v29 = *(*(&v65 + 1) + 8 * j);
               v61 = 0u;
               v62 = 0u;
+              v63 = 0u;
+              v64 = 0u;
               autoAssetEntries3 = [v29 autoAssetEntries];
-              v31 = [autoAssetEntries3 countByEnumeratingWithState:&v59 objects:v75 count:16];
+              v31 = [autoAssetEntries3 countByEnumeratingWithState:&v61 objects:v77 count:16];
               if (v31)
               {
                 v32 = v31;
-                v33 = *v60;
+                v33 = *v62;
                 do
                 {
                   for (k = 0; k != v32; k = k + 1)
                   {
-                    if (*v60 != v33)
+                    if (*v62 != v33)
                     {
                       objc_enumerationMutation(autoAssetEntries3);
                     }
 
-                    v35 = *(*(&v59 + 1) + 8 * k);
+                    v35 = *(*(&v61 + 1) + 8 * k);
                     assetSelector3 = [v35 assetSelector];
                     assetType5 = [assetSelector3 assetType];
 
@@ -346,23 +346,23 @@ LABEL_10:
                     }
                   }
 
-                  v32 = [autoAssetEntries3 countByEnumeratingWithState:&v59 objects:v75 count:16];
+                  v32 = [autoAssetEntries3 countByEnumeratingWithState:&v61 objects:v77 count:16];
                 }
 
                 while (v32);
               }
             }
 
-            v27 = [obj countByEnumeratingWithState:&v63 objects:v76 count:16];
+            v27 = [obj countByEnumeratingWithState:&v65 objects:v78 count:16];
           }
 
           while (v27);
         }
 
-        v8 = v55;
-        messageCopy = v56;
-        queueCopy = v54;
-        v14 = v53;
+        v8 = v57;
+        messageCopy = v58;
+        queueCopy = v56;
+        v14 = v55;
       }
 
       clientDomainName = [v14 clientDomainName];
@@ -393,9 +393,9 @@ LABEL_10:
     {
       summary = [messageCopy summary];
       *buf = 138543618;
-      v72 = v6;
-      v73 = 2114;
-      v74 = summary;
+      v74 = v6;
+      v75 = 2114;
+      v76 = summary;
       _os_log_impl(&dword_0, v46, OS_LOG_TYPE_DEFAULT, "{MADAutoAssetAuthorizationPolicy}(authorizationAssetTypeFromMessage) Found multiple asset types: %{public}@, for message: %{public}@", buf, 0x16u);
     }
   }
@@ -403,17 +403,17 @@ LABEL_10:
   allObjects = [v6 allObjects];
   firstObject = [allObjects firstObject];
 
-  if (_MAPreferencesIsVerboseLoggingEnabled())
+  if (_MAPreferencesIsVerboseLoggingEnabled(v50, v51))
   {
-    v50 = _MADLog(@"Auto");
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    v52 = _MADLog(@"Auto");
+    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
     {
       summary2 = [messageCopy summary];
       *buf = 138543618;
-      v72 = firstObject;
-      v73 = 2114;
-      v74 = summary2;
-      _os_log_impl(&dword_0, v50, OS_LOG_TYPE_DEFAULT, "{MADAutoAssetAuthorizationPolicy}(authorizationAssetTypeFromMessage) Found asset type: %{public}@, for message: %{public}@", buf, 0x16u);
+      v74 = firstObject;
+      v75 = 2114;
+      v76 = summary2;
+      _os_log_impl(&dword_0, v52, OS_LOG_TYPE_DEFAULT, "{MADAutoAssetAuthorizationPolicy}(authorizationAssetTypeFromMessage) Found asset type: %{public}@, for message: %{public}@", buf, 0x16u);
     }
   }
 

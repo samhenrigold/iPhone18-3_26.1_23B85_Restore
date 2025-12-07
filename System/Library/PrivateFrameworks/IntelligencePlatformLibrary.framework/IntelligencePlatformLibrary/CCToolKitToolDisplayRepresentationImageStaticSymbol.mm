@@ -270,7 +270,6 @@ LABEL_29:
 
           v27 = objc_opt_class();
           v26 = NSStringFromClass(v27);
-          v28 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
 LABEL_28:
 
@@ -299,22 +298,21 @@ LABEL_28:
 LABEL_36:
   if (!*&v6[*v9])
   {
-    v32 = 1;
+    v30 = 1;
     goto LABEL_40;
   }
 
 LABEL_37:
-  v29 = objc_opt_class();
-  v10 = NSStringFromClass(v29);
-  v30 = *&v6[*v9];
-  v31 = CCInvalidBufferErrorForMessage();
+  v28 = objc_opt_class();
+  v10 = NSStringFromClass(v28);
+  v29 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_38:
-  v32 = 0;
+  v30 = 0;
 LABEL_40:
 
-  return v32;
+  return v30;
 }
 
 - (CCToolKitToolDisplayRepresentationImageStaticSymbol)initWithName:(id)name tintColorData:(id)data configurationData:(id)configurationData error:(id *)error

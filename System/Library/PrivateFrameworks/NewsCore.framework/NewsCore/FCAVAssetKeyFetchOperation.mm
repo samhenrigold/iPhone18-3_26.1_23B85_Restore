@@ -9,7 +9,7 @@
 
 - (void)performOperation
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = FCOperationLog;
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -27,48 +27,46 @@
     v6 = keyURI;
     absoluteString = [(NSURL *)v6 absoluteString];
     *buf = 138543618;
-    v24 = shortOperationDescription;
-    v25 = 2114;
-    v26 = absoluteString;
+    v23 = shortOperationDescription;
+    v24 = 2114;
+    v25 = absoluteString;
     _os_log_impl(&dword_1B63EF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ will fetch AV content key for %{public}@", buf, 0x16u);
   }
 
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke;
-  v22[3] = &unk_1E7C396C0;
-  v22[4] = self;
-  v8 = [MEMORY[0x1E69B68F8] firstly:v22];
-  v9 = zalgo();
   v21[0] = MEMORY[0x1E69E9820];
   v21[1] = 3221225472;
-  v21[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke_2;
-  v21[3] = &unk_1E7C40270;
+  v21[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke;
+  v21[3] = &unk_1E7C396C0;
   v21[4] = self;
-  v10 = [v8 thenOn:v9 then:v21];
-  v11 = zalgo();
+  v8 = [MEMORY[0x1E69B68F8] firstly:v21];
+  v9 = zalgo();
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
-  v20[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke_3;
+  v20[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke_2;
   v20[3] = &unk_1E7C40270;
   v20[4] = self;
-  v12 = [v10 thenOn:v11 then:v20];
-  v13 = zalgo();
+  v10 = [v8 thenOn:v9 then:v20];
+  v11 = zalgo();
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
-  v19[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke_4;
+  v19[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke_3;
   v19[3] = &unk_1E7C40270;
   v19[4] = self;
-  v14 = [v12 thenOn:v13 then:v19];
-  v15 = zalgo();
+  v12 = [v10 thenOn:v11 then:v19];
+  v13 = zalgo();
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke_5;
-  v18[3] = &unk_1E7C36E50;
+  v18[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke_4;
+  v18[3] = &unk_1E7C40270;
   v18[4] = self;
-  v16 = [v14 errorOn:v15 error:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v14 = [v12 thenOn:v13 then:v18];
+  v15 = zalgo();
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke_5;
+  v17[3] = &unk_1E7C36E50;
+  v17[4] = self;
+  v16 = [v14 errorOn:v15 error:v17];
 }
 
 id __46__FCAVAssetKeyFetchOperation_performOperation__block_invoke(uint64_t a1)
@@ -406,28 +404,28 @@ void __77__FCAVAssetKeyFetchOperation__promiseContentKeyForKeyRequest_keyURI_spc
 
 void __77__FCAVAssetKeyFetchOperation__promiseContentKeyForKeyRequest_keyURI_spcData___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if (v8)
   {
-    v22[1] = MEMORY[0x1E69E9820];
-    v22[2] = 3221225472;
-    v22[3] = __77__FCAVAssetKeyFetchOperation__promiseContentKeyForKeyRequest_keyURI_spcData___block_invoke_3;
-    v22[4] = &unk_1E7C37778;
-    v24 = *(a1 + 56);
-    v23 = v8;
-    v24[2](v24, v23);
+    v21[1] = MEMORY[0x1E69E9820];
+    v21[2] = 3221225472;
+    v21[3] = __77__FCAVAssetKeyFetchOperation__promiseContentKeyForKeyRequest_keyURI_spcData___block_invoke_3;
+    v21[4] = &unk_1E7C37778;
+    v23 = *(a1 + 56);
+    v22 = v8;
+    v23[2](v23, v22);
 
-    v9 = v24;
+    v9 = v23;
   }
 
   else
   {
     v10 = *(a1 + 32);
-    v22[0] = 0;
-    v11 = [v10 persistableContentKeyFromKeyVendorResponse:a2 options:0 error:v22];
-    v9 = v22[0];
+    v21[0] = 0;
+    v11 = [v10 persistableContentKeyFromKeyVendorResponse:a2 options:0 error:v21];
+    v9 = v21[0];
     if (v11)
     {
       v12 = *(a1 + 40);
@@ -449,14 +447,14 @@ void __77__FCAVAssetKeyFetchOperation__promiseContentKeyForKeyRequest_keyURI_spc
       v17 = FCAVAssetLog;
       if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
       {
-        v19 = *(a1 + 48);
-        v20 = v17;
-        v21 = [v19 absoluteString];
+        v18 = *(a1 + 48);
+        v19 = v17;
+        v20 = [v18 absoluteString];
         *buf = 138543618;
-        v26 = v21;
-        v27 = 2114;
-        v28 = v9;
-        _os_log_error_impl(&dword_1B63EF000, v20, OS_LOG_TYPE_ERROR, "failed to generate persistable AV content key for %{public}@ with error: %{public}@", buf, 0x16u);
+        v25 = v20;
+        v26 = 2114;
+        v27 = v9;
+        _os_log_error_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_ERROR, "failed to generate persistable AV content key for %{public}@ with error: %{public}@", buf, 0x16u);
       }
 
       v16 = *(*(a1 + 56) + 16);
@@ -464,8 +462,6 @@ void __77__FCAVAssetKeyFetchOperation__promiseContentKeyForKeyRequest_keyURI_spc
 
     v16();
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

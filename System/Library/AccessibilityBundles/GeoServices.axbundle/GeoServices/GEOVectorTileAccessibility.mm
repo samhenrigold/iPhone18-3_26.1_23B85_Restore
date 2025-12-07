@@ -50,7 +50,7 @@
   }
 }
 
-uint64_t __66__GEOVectorTileAccessibility_enumerateVisibleBuildingsUsingBlock___block_invoke(uint64_t a1)
+void *__66__GEOVectorTileAccessibility_enumerateVisibleBuildingsUsingBlock___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) buildingFootprints];
   v3 = *(*(a1 + 40) + 8);

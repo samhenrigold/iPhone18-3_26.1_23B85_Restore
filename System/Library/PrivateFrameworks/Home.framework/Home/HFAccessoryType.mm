@@ -23,9 +23,9 @@
     dispatch_once(&qword_280E02448, &__block_literal_global_28);
   }
 
-  v0 = _MergedGlobals_29;
+  v1 = _MergedGlobals_29;
 
-  return v0;
+  return v1;
 }
 
 uint64_t __25__HFAccessoryType__cache__block_invoke()
@@ -65,7 +65,7 @@ uint64_t __25__HFAccessoryType__cache__block_invoke()
 
   else
   {
-    v8 = +[HFAccessoryType _cache];
+    v8 = +[(HFAccessoryType *)self];
     v9 = [v8 objectForKey:typeCopy];
     v10 = v9;
     if (v9)
@@ -91,9 +91,8 @@ uint64_t __25__HFAccessoryType__cache__block_invoke()
 HFCategoryAccessoryType *__32__HFAccessoryType_categoryType___block_invoke(uint64_t a1)
 {
   v2 = [[HFCategoryAccessoryType alloc] initWithCategoryType:*(a1 + 32)];
-  v3 = *(a1 + 40);
-  v4 = +[HFAccessoryType _cache];
-  [v4 setObject:v2 forKey:*(a1 + 32)];
+  v3 = +[(HFAccessoryType *)*(a1];
+  [v3 setObject:v2 forKey:*(a1 + 32)];
 
   return v2;
 }
@@ -129,7 +128,7 @@ HFCategoryAccessoryType *__32__HFAccessoryType_categoryType___block_invoke(uint6
     }
   }
 
-  v11 = +[HFAccessoryType _cache];
+  v11 = +[(HFAccessoryType *)self];
   v12 = [v11 objectForKey:v8];
   v13 = v12;
   if (v12)
@@ -156,9 +155,8 @@ HFCategoryAccessoryType *__32__HFAccessoryType_categoryType___block_invoke(uint6
 HFServiceAccessoryType *__39__HFAccessoryType_serviceType_subtype___block_invoke(void *a1)
 {
   v2 = [[HFServiceAccessoryType alloc] initWithServiceType:a1[4] subtype:a1[5]];
-  v3 = a1[7];
-  v4 = +[HFAccessoryType _cache];
-  [v4 setObject:v2 forKey:a1[6]];
+  v3 = +[(HFAccessoryType *)a1[7]];
+  [v3 setObject:v2 forKey:a1[6]];
 
   return v2;
 }
@@ -187,7 +185,7 @@ HFServiceAccessoryType *__39__HFAccessoryType_serviceType_subtype___block_invoke
 {
   typeCopy = type;
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"matterDeviceType-%i", objc_msgSend(typeCopy, "intValue")];
-  v6 = +[HFAccessoryType _cache];
+  v6 = +[(HFAccessoryType *)self];
   v7 = [v6 objectForKey:v5];
   v8 = v7;
   if (v7)
@@ -213,9 +211,8 @@ HFServiceAccessoryType *__39__HFAccessoryType_serviceType_subtype___block_invoke
 HFMatterDeviceAccessoryType *__36__HFAccessoryType_matterDeviceType___block_invoke(void *a1)
 {
   v2 = [[HFMatterDeviceAccessoryType alloc] initWithDeviceType:a1[4]];
-  v3 = a1[6];
-  v4 = +[HFAccessoryType _cache];
-  [v4 setObject:v2 forKey:a1[5]];
+  v3 = +[(HFAccessoryType *)a1[6]];
+  [v3 setObject:v2 forKey:a1[5]];
 
   return v2;
 }
@@ -266,87 +263,85 @@ void __34__HFAccessoryType_mediaSystemType__block_invoke_2()
 
 void __50__HFAccessoryType__accessoryCategoryToServiceType__block_invoke_2()
 {
-  v33[23] = *MEMORY[0x277D85DE8];
+  v32[23] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CD0E60];
   v1 = *MEMORY[0x277CCE848];
-  v32[0] = *MEMORY[0x277CCE840];
-  v32[1] = v1;
+  v31[0] = *MEMORY[0x277CCE840];
+  v31[1] = v1;
   v2 = *MEMORY[0x277CD0E68];
-  v33[0] = v0;
-  v33[1] = v2;
+  v32[0] = v0;
+  v32[1] = v2;
   v3 = *MEMORY[0x277CCE858];
-  v32[2] = *MEMORY[0x277CCE850];
-  v32[3] = v3;
-  v33[2] = v0;
-  v33[3] = v2;
+  v31[2] = *MEMORY[0x277CCE850];
+  v31[3] = v3;
+  v32[2] = v0;
+  v32[3] = v2;
   v4 = *MEMORY[0x277CD0DD8];
   v5 = *MEMORY[0x277CCE888];
-  v32[4] = *MEMORY[0x277CCE868];
-  v32[5] = v5;
+  v31[4] = *MEMORY[0x277CCE868];
+  v31[5] = v5;
   v6 = *MEMORY[0x277CD0E30];
-  v33[4] = v4;
-  v33[5] = v6;
+  v32[4] = v4;
+  v32[5] = v6;
   v7 = *MEMORY[0x277CD0EB0];
   v8 = *MEMORY[0x277CCE898];
-  v32[6] = *MEMORY[0x277CCE890];
-  v32[7] = v8;
+  v31[6] = *MEMORY[0x277CCE890];
+  v31[7] = v8;
   v9 = *MEMORY[0x277CD0E40];
-  v33[6] = v7;
-  v33[7] = v9;
+  v32[6] = v7;
+  v32[7] = v9;
   v10 = *MEMORY[0x277CD0E48];
   v11 = *MEMORY[0x277CCE8C0];
-  v32[8] = *MEMORY[0x277CCE8A0];
-  v32[9] = v11;
+  v31[8] = *MEMORY[0x277CCE8A0];
+  v31[9] = v11;
   v12 = *MEMORY[0x277CD0EA0];
-  v33[8] = v10;
-  v33[9] = v12;
+  v32[8] = v10;
+  v32[9] = v12;
   v13 = *MEMORY[0x277CD0ED0];
   v14 = *MEMORY[0x277CCE8D8];
-  v32[10] = *MEMORY[0x277CCE8D0];
-  v32[11] = v14;
+  v31[10] = *MEMORY[0x277CCE8D0];
+  v31[11] = v14;
   v15 = *MEMORY[0x277CD0F00];
-  v33[10] = v13;
-  v33[11] = v15;
+  v32[10] = v13;
+  v32[11] = v15;
   v16 = *MEMORY[0x277CD0ED8];
   v17 = *MEMORY[0x277CCE8F8];
-  v32[12] = *MEMORY[0x277CCE8E8];
-  v32[13] = v17;
+  v31[12] = *MEMORY[0x277CCE8E8];
+  v31[13] = v17;
   v18 = *MEMORY[0x277CD0F38];
-  v33[12] = v16;
-  v33[13] = v18;
+  v32[12] = v16;
+  v32[13] = v18;
   v19 = *MEMORY[0x277CD0EF0];
   v20 = *MEMORY[0x277CCE908];
-  v32[14] = *MEMORY[0x277CCE900];
-  v32[15] = v20;
+  v31[14] = *MEMORY[0x277CCE900];
+  v31[15] = v20;
   v21 = *MEMORY[0x277CD0E80];
-  v33[14] = v19;
-  v33[15] = v21;
+  v32[14] = v19;
+  v32[15] = v21;
   v22 = *MEMORY[0x277CD0F08];
   v23 = *MEMORY[0x277CCE920];
-  v32[16] = *MEMORY[0x277CCE910];
-  v32[17] = v23;
+  v31[16] = *MEMORY[0x277CCE910];
+  v31[17] = v23;
   v24 = *MEMORY[0x277CD0F20];
-  v33[16] = v22;
-  v33[17] = v24;
+  v32[16] = v22;
+  v32[17] = v24;
   v25 = *MEMORY[0x277CCE938];
-  v32[18] = *MEMORY[0x277CCE930];
-  v32[19] = v25;
-  v33[18] = v24;
-  v33[19] = v24;
+  v31[18] = *MEMORY[0x277CCE930];
+  v31[19] = v25;
+  v32[18] = v24;
+  v32[19] = v24;
   v26 = *MEMORY[0x277CD0F30];
   v27 = *MEMORY[0x277CCE958];
-  v32[20] = *MEMORY[0x277CCE940];
-  v32[21] = v27;
+  v31[20] = *MEMORY[0x277CCE940];
+  v31[21] = v27;
   v28 = *MEMORY[0x277CD0F58];
-  v33[20] = v26;
-  v33[21] = v28;
-  v32[22] = *MEMORY[0x277CCE960];
-  v33[22] = *MEMORY[0x277CD0F60];
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:23];
+  v32[20] = v26;
+  v32[21] = v28;
+  v31[22] = *MEMORY[0x277CCE960];
+  v32[22] = *MEMORY[0x277CD0F60];
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:23];
   v30 = qword_280E02468;
   qword_280E02468 = v29;
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)filterAccessoryRepresentableObjects:(id)objects

@@ -35,19 +35,19 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5.receiver = self;
-  v5.super_class = type metadata accessor for FloatingTabBarController();
-  v4 = v5.receiver;
-  [(FloatingTabBarController *)&v5 viewWillAppear:appearCopy];
-  sub_2187D4FB8();
-  sub_2187D518C();
-  sub_2187D5310();
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for FloatingTabBarController(0);
+  v4 = v8.receiver;
+  v5 = [(FloatingTabBarController *)&v8 viewWillAppear:appearCopy];
+  v6 = sub_2187D4FB8(v5);
+  v7 = sub_2187D518C(v6);
+  sub_2187D5310(v7);
 }
 
 - (void)viewWillLayoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FloatingTabBarController();
+  v3.super_class = type metadata accessor for FloatingTabBarController(0);
   v2 = v3.receiver;
   [(FloatingTabBarController *)&v3 viewWillLayoutSubviews];
   sub_2187DB3D8();
@@ -56,7 +56,7 @@
 - (void)didReceiveMemoryWarning
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for FloatingTabBarController();
+  v3.super_class = type metadata accessor for FloatingTabBarController(0);
   v2 = v3.receiver;
   [(FloatingTabBarController *)&v3 didReceiveMemoryWarning];
 
@@ -243,7 +243,7 @@
   if (viewControllers)
   {
     v11 = viewControllers;
-    sub_2186C6148(0, &qword_280E8E480);
+    sub_2186C6148(0, &qword_280E8E480, 0x277D75D28);
     v12 = sub_219BF5924();
 
     v13 = sub_218E659B0(viewControllerCopy, v12);
@@ -251,7 +251,7 @@
 
     if ((v15 & 1) == 0 && selectedIndex == v13)
     {
-      type metadata accessor for FloatingTabBarNavigationController();
+      type metadata accessor for FloatingTabBarNavigationController(0);
       v16 = swift_dynamicCastClass();
       if (v16)
       {
@@ -293,7 +293,7 @@
     swift_unknownObjectRelease();
   }
 
-  sub_2186C6148(0, &qword_27CC14B38);
+  sub_2186C6148(0, &qword_27CC14B38, 0x277D75470);
   v16 = sub_219BF5904();
 
   return v16;
@@ -330,7 +330,7 @@
 
   if (v3)
   {
-    sub_2186C6148(0, &qword_280E8E798);
+    sub_2186C6148(0, &qword_280E8E798, 0x277D75650);
     v4 = sub_219BF5904();
   }
 

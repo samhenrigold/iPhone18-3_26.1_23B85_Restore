@@ -128,9 +128,9 @@
 
 - (void)layoutSubviews
 {
-  v39.receiver = self;
-  v39.super_class = PKSoftwareUpdateTableView;
-  [(PKSoftwareUpdateTableView *)&v39 layoutSubviews];
+  v53.receiver = self;
+  v53.super_class = PKSoftwareUpdateTableView;
+  [(PKSoftwareUpdateTableView *)&v53 layoutSubviews];
   safeAreaLayoutGuide = [(PKSoftwareUpdateTableView *)self safeAreaLayoutGuide];
   [safeAreaLayoutGuide layoutFrame];
   v5 = v4;
@@ -146,41 +146,50 @@
   [(UIScrollView *)self->_scrollView setFrame:v5, v7, v9, v11];
   titleLabel = self->_titleLabel;
   [(PKSoftwareUpdateTableView *)self bounds];
-  PKFloatRoundToPixel();
+  v19.n128_u64[0] = 5.0;
+  v20.n128_f64[0] = v18 * 3.0 / 5.0;
+  PKFloatRoundToPixel(v20, v19);
   [(UILabel *)titleLabel pkui_sizeThatFits:1 forceWordWrap:?];
-  v19 = v18;
-  v21 = v20;
+  v22 = v21;
+  v24 = v23;
   [font _bodyLeading];
-  v23 = v9 - v16;
-  if (v21 > v22 + v22)
+  v27 = v9 - v16;
+  if (v24 > v25.n128_f64[0] + v25.n128_f64[0])
   {
     [(UILabel *)self->_titleLabel pkui_sizeThatFits:1 forceWordWrap:v9 - v16, 1.79769313e308];
-    v19 = v24;
-    v21 = v25;
+    v22 = v25.n128_f64[0];
+    v24 = v26.n128_f64[0];
   }
 
-  v26 = self->_titleLabel;
-  PKFloatRoundToPixel();
-  v28 = v27;
+  v28 = self->_titleLabel;
+  v25.n128_f64[0] = (v9 - v22) * 0.5;
+  PKFloatRoundToPixel(v25, v26);
+  v30 = v29;
   [font ascender];
-  PKFloatRoundToPixel();
-  [(UILabel *)v26 setFrame:v28, v29, v19, v21];
-  [(UITextView *)self->_messageView sizeThatFits:v23, 1.79769313e308];
-  v31 = v30;
-  v33 = v32;
-  messageView = self->_messageView;
-  PKFloatRoundToPixel();
+  v31.n128_u64[0] = 0x4057600000000000;
+  v33.n128_f64[0] = 93.5 - v32;
+  PKFloatRoundToPixel(v33, v31);
+  [(UILabel *)v28 setFrame:v30, v34, v22, v24];
+  [(UITextView *)self->_messageView sizeThatFits:v27, 1.79769313e308];
   v36 = v35;
+  v38 = v37.n128_f64[0];
+  messageView = self->_messageView;
+  v40.n128_f64[0] = (v9 - v35) * 0.5;
+  PKFloatRoundToPixel(v40, v37);
+  v42 = v41;
   [(UILabel *)self->_titleLabel frame];
-  CGRectGetMaxY(v40);
+  MaxY = CGRectGetMaxY(v54);
   [font descender];
+  v45 = MaxY - v44;
   [font _bodyLeading];
+  v47 = v45 + v46;
   [font ascender];
-  PKFloatRoundToPixel();
-  [(UITextView *)messageView setFrame:v36, v37, v31, v33];
+  v49.n128_f64[0] = v47 - v48;
+  PKFloatRoundToPixel(v49, v50);
+  [(UITextView *)messageView setFrame:v42, v51, v36, v38];
   scrollView = self->_scrollView;
   [(UITextView *)self->_messageView frame];
-  [(UIScrollView *)scrollView setContentSize:v9, CGRectGetMaxY(v41)];
+  [(UIScrollView *)scrollView setContentSize:v9, CGRectGetMaxY(v55)];
 }
 
 - (id)_messageAttributedStringWithTextColor:(id)color

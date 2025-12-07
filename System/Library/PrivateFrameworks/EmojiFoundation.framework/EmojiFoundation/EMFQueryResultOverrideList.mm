@@ -14,17 +14,18 @@
 - (EMFQueryResultOverrideList)initWithOverrideListURL:(id)l
 {
   lCopy = l;
-  if (lCopy && (v12.receiver = self, v12.super_class = EMFQueryResultOverrideList, (self = [(EMFQueryResultOverrideList *)&v12 init]) != 0))
+  if (lCopy && (v13.receiver = self, v13.super_class = EMFQueryResultOverrideList, (self = [(EMFQueryResultOverrideList *)&v13 init]) != 0))
   {
-    v11 = 0;
-    v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:lCopy error:&v11];
-    v7 = v11;
+    v12 = 0;
+    v6 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:lCopy error:&v12];
+    v7 = v12;
+    v8 = v7;
     if (v7)
     {
-      v8 = emf_logging_get_default_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = emf_logging_get_default_log(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(EMFQueryResultOverrideList *)lCopy initWithOverrideListURL:v7, v8];
+        [(EMFQueryResultOverrideList *)lCopy initWithOverrideListURL:v8, v9];
       }
 
       selfCopy = 0;

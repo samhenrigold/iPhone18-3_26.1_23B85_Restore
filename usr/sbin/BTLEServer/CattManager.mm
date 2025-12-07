@@ -9,6 +9,7 @@
 - (void)centralManager:(id)manager didFailToConnectPeripheral:(id)peripheral error:(id)error;
 - (void)centralManagerDidUpdateState:(id)state;
 - (void)connectPeripheral:(id)peripheral;
+- (void)disconnectPeripheral:(id)peripheral force:(BOOL)force;
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
 - (void)peripheral:(id)peripheral didDiscoverDescriptorsForCharacteristic:(id)characteristic error:(id)error;
 - (void)peripheral:(id)peripheral didDiscoverServices:(id)services;
@@ -195,6 +196,43 @@
 
     centralManager2 = [(CattManager *)self centralManager];
     [centralManager2 connectPeripheral:peripheralCopy options:0];
+  }
+}
+
+- (void)disconnectPeripheral:(id)peripheral force:(BOOL)force
+{
+  forceCopy = force;
+  peripheralCopy = peripheral;
+  centralManager = [(CattManager *)self centralManager];
+  if ([centralManager state] == 5)
+  {
+    state = [peripheralCopy state];
+
+    if (state)
+    {
+      v9 = qword_1000DDBC8;
+      if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+      {
+        v10 = v9;
+        name = [peripheralCopy name];
+        *buf = 138412290;
+        v19 = name;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Disconnecting CATT peripheral %@...", buf, 0xCu);
+      }
+
+      centralManager2 = [(CattManager *)self centralManager];
+      cBCancelPeripheralConnectionOptionForce = [NSNumber numberWithBool:forceCopy, CBCancelPeripheralConnectionOptionForce];
+      v17 = cBCancelPeripheralConnectionOptionForce;
+      v14 = [NSDictionary dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+      [centralManager2 cancelPeripheralConnection:peripheralCopy options:v14];
+
+      clientServiceManagerMap = [(CattManager *)self clientServiceManagerMap];
+      [clientServiceManagerMap removeObjectForKey:peripheralCopy];
+    }
+  }
+
+  else
+  {
   }
 }
 

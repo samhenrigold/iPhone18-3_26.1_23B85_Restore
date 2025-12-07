@@ -40,18 +40,18 @@ void __35__PXStoryTransitionWipe_wasStopped__block_invoke(uint64_t a1, void *a2)
 
 - (void)timeDidChange
 {
-  [(PXStoryAnimation *)self time];
+  objc_msgSend_time(self, a2);
   time = v3;
   CMTimeGetSeconds(&time);
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   time = v3;
   CMTimeGetSeconds(&time);
   PXClamp();
 }
 
-void __38__PXStoryTransitionWipe_timeDidChange__block_invoke(uint64_t a1, void *a2, double *a3, double *a4)
+void __38__PXStoryTransitionWipe_timeDidChange__block_invoke(uint64_t a1, void *a2, double *a3, double *a4, uint64_t a5, uint64_t a6)
 {
-  v6 = a2;
+  v8 = a2;
   if ((a3[4] != INFINITY || a3[5] != INFINITY || a3[6] != INFINITY || a3[7] != INFINITY || a3[8] != INFINITY || a3[9] != INFINITY || a3[10] != INFINITY || a3[11] != INFINITY || a3[12] != INFINITY || a3[13] != INFINITY || a3[14] != INFINITY || a3[15] != INFINITY) && (a4[4] != INFINITY || a4[5] != INFINITY || a4[6] != INFINITY || a4[7] != INFINITY || a4[8] != INFINITY || a4[9] != INFINITY || a4[10] != INFINITY || a4[11] != INFINITY || a4[12] != INFINITY || a4[13] != INFINITY || a4[14] != INFINITY || a4[15] != INFINITY))
   {
     PXFloatByLinearlyInterpolatingFloats();
@@ -70,7 +70,7 @@ void __38__PXStoryTransitionWipe_timeDidChange__block_invoke(uint64_t a1, void *
 
   if (configurationCopy)
   {
-    [configurationCopy duration];
+    objc_msgSend_duration(configurationCopy);
   }
 
   else

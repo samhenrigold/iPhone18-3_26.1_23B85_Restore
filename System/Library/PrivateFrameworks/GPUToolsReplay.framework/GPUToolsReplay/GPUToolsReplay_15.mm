@@ -99,7 +99,7 @@ LABEL_10:
     v48 = 305;
     __p[3] = &unk_2860BB528;
     LOBYTE(v46) = 0;
-    v12 = sub_24D79714C(__p, 305);
+    v12 = sub_24D79714C(__p, 305, &v46);
     v13 = *(a2 + 8);
     if (v13)
     {
@@ -323,30 +323,31 @@ LABEL_10:
   return a1;
 }
 
-uint64_t sub_24D846148(uint64_t a1)
+void *sub_24D846148(void *a1)
 {
-  v2 = a1 + 0x8000;
+  v2 = a1 + 4096;
   *a1 = &unk_2860BB500;
-  if (*(a1 + 200))
+  v3 = a1[25];
+  if (v3)
   {
-    v3 = sub_24D7CFC0C();
-    MEMORY[0x2530332C0](v3, 0x10B0C40146BE95CLL);
-    *(a1 + 200) = 0;
+    v4 = sub_24D7CFC0C(v3);
+    MEMORY[0x2530332C0](v4, 0x10B0C40146BE95CLL);
+    a1[25] = 0;
   }
 
-  v4 = *(v2 + 88);
-  if (v4)
+  v5 = v2[11];
+  if (v5)
   {
-    *(v2 + 96) = v4;
-    operator delete(v4);
+    v2[12] = v5;
+    operator delete(v5);
   }
 
-  v6 = (a1 + 208);
-  std::vector<std::vector<std::pair<unsigned int,unsigned int>>>::__destroy_vector::operator()[abi:nn200100](&v6);
+  v7 = (a1 + 26);
+  std::vector<std::vector<std::pair<unsigned int,unsigned int>>>::__destroy_vector::operator()[abi:nn200100](&v7);
   return a1;
 }
 
-void sub_24D8461D8(uint64_t a1)
+void sub_24D8461D8(void *a1)
 {
   sub_24D846148(a1);
 
@@ -1895,373 +1896,377 @@ uint64_t sub_24D846210(int a1, char *__s1)
 void sub_24D848394(uint64_t a1)
 {
   sub_24D8496CC(a1, 0, 0);
-  sub_24D8496CC(a1, 0, 1u);
-  sub_24D8496CC(a1, 0, 2u);
-  sub_24D8496CC(a1, 0, 3u);
-  sub_24D8496CC(a1, 0, 4u);
-  sub_24D8496CC(a1, 0, 5u);
-  sub_24D8496CC(a1, 0, 6u);
-  sub_24D8496CC(a1, 0, 7u);
-  sub_24D8496CC(a1, 0, 8u);
-  sub_24D8496CC(a1, 0, 9u);
-  sub_24D8496CC(a1, 0, 0xAu);
-  sub_24D8496CC(a1, 0, 0xBu);
-  sub_24D8496CC(a1, 0, 0xCu);
-  sub_24D8496CC(a1, 0, 0xDu);
-  sub_24D8496CC(a1, 0, 0xEu);
-  sub_24D8496CC(a1, 0, 0xFu);
-  sub_24D8496CC(a1, 0, 0x10u);
-  sub_24D8496CC(a1, 0, 0x11u);
-  sub_24D8496CC(a1, 0, 0x12u);
-  sub_24D8496CC(a1, 0, 0x13u);
-  sub_24D8496CC(a1, 0, 0x14u);
-  sub_24D8496CC(a1, 0, 0x15u);
-  sub_24D8496CC(a1, 1u, 0x16u);
-  sub_24D8496CC(a1, 1u, 0x17u);
-  sub_24D8496CC(a1, 1u, 0x18u);
-  sub_24D8496CC(a1, 1u, 0x19u);
-  sub_24D8496CC(a1, 1u, 0x1Au);
-  sub_24D8496CC(a1, 1u, 0x1Bu);
-  sub_24D8496CC(a1, 1u, 0x1Cu);
-  sub_24D8496CC(a1, 1u, 0x1Du);
-  sub_24D8496CC(a1, 1u, 0x1Eu);
-  sub_24D8496CC(a1, 1u, 0x1Fu);
-  sub_24D8496CC(a1, 1u, 0x20u);
-  sub_24D8496CC(a1, 1u, 0x21u);
-  sub_24D8496CC(a1, 1u, 0x22u);
-  sub_24D8496CC(a1, 1u, 0x23u);
-  sub_24D8496CC(a1, 2u, 0x24u);
-  sub_24D8496CC(a1, 2u, 0x25u);
-  sub_24D8496CC(a1, 2u, 0x26u);
-  sub_24D8496CC(a1, 2u, 0x27u);
-  sub_24D8496CC(a1, 2u, 0x28u);
-  sub_24D8496CC(a1, 2u, 0x29u);
-  sub_24D8496CC(a1, 2u, 0x2Au);
-  sub_24D8496CC(a1, 2u, 0x2Bu);
-  sub_24D8496CC(a1, 2u, 0x2Cu);
-  sub_24D8496CC(a1, 2u, 0x2Du);
-  sub_24D8496CC(a1, 2u, 0x2Eu);
-  sub_24D8496CC(a1, 2u, 0x2Fu);
-  sub_24D8496CC(a1, 2u, 0x30u);
-  sub_24D8496CC(a1, 2u, 0x31u);
-  sub_24D8496CC(a1, 2u, 0x32u);
-  sub_24D8496CC(a1, 2u, 0x33u);
-  sub_24D8496CC(a1, 2u, 0x34u);
-  sub_24D8496CC(a1, 2u, 0x35u);
-  sub_24D8496CC(a1, 2u, 0x36u);
-  sub_24D8496CC(a1, 2u, 0x37u);
-  sub_24D8496CC(a1, 3u, 0x38u);
-  sub_24D8496CC(a1, 3u, 0x39u);
-  sub_24D8496CC(a1, 3u, 0x3Au);
-  sub_24D8496CC(a1, 3u, 0x3Bu);
-  sub_24D8496CC(a1, 3u, 0x3Cu);
-  sub_24D8496CC(a1, 3u, 0x3Du);
-  sub_24D8496CC(a1, 3u, 0x3Eu);
-  sub_24D8496CC(a1, 3u, 0x3Fu);
-  sub_24D8496CC(a1, 3u, 0x40u);
-  sub_24D8496CC(a1, 3u, 0x41u);
-  sub_24D8496CC(a1, 3u, 0x42u);
-  sub_24D8496CC(a1, 3u, 0x43u);
-  sub_24D8496CC(a1, 3u, 0x44u);
-  sub_24D8496CC(a1, 3u, 0x45u);
-  sub_24D8496CC(a1, 3u, 0x46u);
-  sub_24D8496CC(a1, 3u, 0x47u);
-  sub_24D8496CC(a1, 3u, 0x48u);
-  sub_24D8496CC(a1, 3u, 0x49u);
-  sub_24D8496CC(a1, 3u, 0x4Au);
-  sub_24D8496CC(a1, 3u, 0x4Bu);
-  sub_24D8496CC(a1, 3u, 0x4Cu);
-  sub_24D8496CC(a1, 3u, 0x4Du);
-  sub_24D8496CC(a1, 3u, 0x4Eu);
-  sub_24D8496CC(a1, 4u, 0x4Fu);
-  sub_24D8496CC(a1, 4u, 0x50u);
-  sub_24D8496CC(a1, 4u, 0x51u);
-  sub_24D8496CC(a1, 4u, 0x52u);
-  sub_24D8496CC(a1, 4u, 0x53u);
-  sub_24D8496CC(a1, 4u, 0x54u);
-  sub_24D8496CC(a1, 4u, 0x55u);
-  sub_24D8496CC(a1, 4u, 0x56u);
-  sub_24D8496CC(a1, 4u, 0x57u);
-  sub_24D8496CC(a1, 4u, 0x58u);
-  sub_24D8496CC(a1, 4u, 0x59u);
-  sub_24D8496CC(a1, 4u, 0x5Au);
-  sub_24D8496CC(a1, 4u, 0x5Bu);
-  sub_24D8496CC(a1, 4u, 0x5Cu);
-  sub_24D8496CC(a1, 4u, 0x5Du);
-  sub_24D8496CC(a1, 4u, 0x5Eu);
-  sub_24D8496CC(a1, 4u, 0x5Fu);
-  sub_24D8496CC(a1, 4u, 0x60u);
-  sub_24D8496CC(a1, 5u, 0x61u);
-  sub_24D8496CC(a1, 5u, 0x62u);
-  sub_24D8496CC(a1, 5u, 0x63u);
-  sub_24D8496CC(a1, 5u, 0x64u);
-  sub_24D8496CC(a1, 5u, 0x65u);
-  sub_24D8496CC(a1, 5u, 0x66u);
-  sub_24D8496CC(a1, 5u, 0x67u);
-  sub_24D8496CC(a1, 5u, 0x68u);
-  sub_24D8496CC(a1, 5u, 0x69u);
-  sub_24D8496CC(a1, 6u, 0x6Au);
-  sub_24D8496CC(a1, 6u, 0x6Bu);
-  sub_24D8496CC(a1, 6u, 0x6Cu);
-  sub_24D8496CC(a1, 6u, 0x6Du);
-  sub_24D8496CC(a1, 6u, 0x6Eu);
-  sub_24D8496CC(a1, 6u, 0x6Fu);
-  sub_24D8496CC(a1, 6u, 0x70u);
-  sub_24D8496CC(a1, 6u, 0x71u);
-  sub_24D8496CC(a1, 6u, 0x72u);
-  sub_24D8496CC(a1, 6u, 0x73u);
-  sub_24D8496CC(a1, 7u, 0x74u);
-  sub_24D8496CC(a1, 7u, 0x75u);
-  sub_24D8496CC(a1, 7u, 0x76u);
-  sub_24D8496CC(a1, 7u, 0x77u);
-  sub_24D8496CC(a1, 7u, 0x78u);
-  sub_24D8496CC(a1, 7u, 0x79u);
-  sub_24D8496CC(a1, 7u, 0x7Au);
-  sub_24D8496CC(a1, 7u, 0x7Bu);
-  sub_24D8496CC(a1, 7u, 0x7Cu);
-  sub_24D8496CC(a1, 7u, 0x7Du);
-  sub_24D8496CC(a1, 7u, 0x7Eu);
-  sub_24D8496CC(a1, 7u, 0x7Fu);
-  sub_24D8496CC(a1, 7u, 0x80u);
-  sub_24D8496CC(a1, 7u, 0x81u);
-  sub_24D8496CC(a1, 7u, 0x82u);
-  sub_24D8496CC(a1, 7u, 0x83u);
-  sub_24D8496CC(a1, 8u, 0x84u);
-  sub_24D8496CC(a1, 8u, 0x85u);
-  sub_24D8496CC(a1, 8u, 0x86u);
-  sub_24D8496CC(a1, 8u, 0x87u);
-  sub_24D8496CC(a1, 8u, 0x88u);
-  sub_24D8496CC(a1, 8u, 0x89u);
-  sub_24D8496CC(a1, 8u, 0x8Au);
-  sub_24D8496CC(a1, 8u, 0x8Bu);
-  sub_24D8496CC(a1, 8u, 0x8Cu);
-  sub_24D8496CC(a1, 8u, 0x8Du);
-  sub_24D8496CC(a1, 8u, 0x8Eu);
-  sub_24D8496CC(a1, 8u, 0x8Fu);
-  sub_24D8496CC(a1, 8u, 0x90u);
-  sub_24D8496CC(a1, 8u, 0x91u);
-  sub_24D8496CC(a1, 8u, 0x92u);
-  sub_24D8496CC(a1, 9u, 0x93u);
-  sub_24D8496CC(a1, 9u, 0x94u);
-  sub_24D8496CC(a1, 9u, 0x95u);
-  sub_24D8496CC(a1, 9u, 0x96u);
-  sub_24D8496CC(a1, 9u, 0x97u);
-  sub_24D8496CC(a1, 9u, 0x98u);
-  sub_24D8496CC(a1, 0xAu, 0x99u);
-  sub_24D8496CC(a1, 0xAu, 0x9Au);
-  sub_24D8496CC(a1, 0xAu, 0x9Bu);
-  sub_24D8496CC(a1, 0xAu, 0x9Cu);
-  sub_24D8496CC(a1, 0xAu, 0x9Du);
-  sub_24D8496CC(a1, 0xAu, 0x9Eu);
-  sub_24D8496CC(a1, 0xAu, 0x9Fu);
-  sub_24D8496CC(a1, 0xAu, 0xA0u);
-  sub_24D8496CC(a1, 0xAu, 0xA1u);
-  sub_24D8496CC(a1, 0xAu, 0xA2u);
-  sub_24D8496CC(a1, 0xAu, 0xA3u);
-  sub_24D8496CC(a1, 0xAu, 0xA4u);
-  sub_24D8496CC(a1, 0xAu, 0xA5u);
-  sub_24D8496CC(a1, 0xAu, 0xA6u);
-  sub_24D8496CC(a1, 0xAu, 0xA7u);
-  sub_24D8496CC(a1, 0xAu, 0xA8u);
-  sub_24D8496CC(a1, 0xBu, 0xA9u);
-  sub_24D8496CC(a1, 0xBu, 0xAAu);
-  sub_24D8496CC(a1, 0xBu, 0xABu);
-  sub_24D8496CC(a1, 0xBu, 0xACu);
-  sub_24D8496CC(a1, 0xBu, 0xADu);
-  sub_24D8496CC(a1, 0xBu, 0xAEu);
-  sub_24D8496CC(a1, 0xBu, 0xAFu);
-  sub_24D8496CC(a1, 0xBu, 0xB0u);
-  sub_24D8496CC(a1, 0xBu, 0xB1u);
-  sub_24D8496CC(a1, 0xBu, 0xB2u);
-  sub_24D8496CC(a1, 0xBu, 0xB3u);
-  sub_24D8496CC(a1, 0xBu, 0xB4u);
-  sub_24D8496CC(a1, 0xBu, 0xB5u);
-  sub_24D8496CC(a1, 0xBu, 0xB6u);
-  sub_24D8496CC(a1, 0xBu, 0xB7u);
-  sub_24D8496CC(a1, 0xBu, 0xB8u);
-  sub_24D8496CC(a1, 0xCu, 0xB9u);
-  sub_24D8496CC(a1, 0xCu, 0xBAu);
-  sub_24D8496CC(a1, 0xCu, 0xBBu);
-  sub_24D8496CC(a1, 0xCu, 0xBCu);
-  sub_24D8496CC(a1, 0xCu, 0xBDu);
-  sub_24D8496CC(a1, 0xCu, 0xBEu);
-  sub_24D8496CC(a1, 0xCu, 0xBFu);
-  sub_24D8496CC(a1, 0xDu, 0xC0u);
-  sub_24D8496CC(a1, 0xDu, 0xC1u);
-  sub_24D8496CC(a1, 0xDu, 0xC2u);
-  sub_24D8496CC(a1, 0xDu, 0xC3u);
-  sub_24D8496CC(a1, 0xDu, 0xC4u);
-  sub_24D8496CC(a1, 0xDu, 0xC5u);
-  sub_24D8496CC(a1, 0xDu, 0xC6u);
-  sub_24D8496CC(a1, 0xDu, 0xC7u);
-  sub_24D8496CC(a1, 0xDu, 0xC8u);
-  sub_24D8496CC(a1, 0xDu, 0xC9u);
-  sub_24D8496CC(a1, 0xDu, 0xCAu);
-  sub_24D8496CC(a1, 0xEu, 0xCBu);
-  sub_24D8496CC(a1, 0xEu, 0xCCu);
-  sub_24D8496CC(a1, 0xEu, 0xCDu);
-  sub_24D8496CC(a1, 0xEu, 0xCEu);
-  sub_24D8496CC(a1, 0xEu, 0xCFu);
-  sub_24D8496CC(a1, 0xEu, 0xD0u);
-  sub_24D8496CC(a1, 0xEu, 0xD1u);
-  sub_24D8496CC(a1, 0xEu, 0xD2u);
-  sub_24D8496CC(a1, 0xEu, 0xD3u);
-  sub_24D8496CC(a1, 0xEu, 0xD4u);
-  sub_24D8496CC(a1, 0xEu, 0xD5u);
-  sub_24D8496CC(a1, 0xEu, 0xD6u);
-  sub_24D8496CC(a1, 0xEu, 0xD7u);
-  sub_24D8496CC(a1, 0xFu, 0xD8u);
-  sub_24D8496CC(a1, 0xFu, 0xD9u);
-  sub_24D8496CC(a1, 0xFu, 0xDAu);
-  sub_24D8496CC(a1, 0xFu, 0xDBu);
-  sub_24D8496CC(a1, 0xFu, 0xDCu);
-  sub_24D8496CC(a1, 0xFu, 0xDDu);
-  sub_24D8496CC(a1, 0xFu, 0xDEu);
-  sub_24D8496CC(a1, 0xFu, 0xDFu);
-  sub_24D8496CC(a1, 0xFu, 0xE0u);
-  sub_24D8496CC(a1, 0xFu, 0xE1u);
-  sub_24D8496CC(a1, 0xFu, 0xE2u);
-  sub_24D8496CC(a1, 0xFu, 0xE3u);
-  sub_24D8496CC(a1, 0xFu, 0xE4u);
-  sub_24D8496CC(a1, 0xFu, 0xE5u);
-  sub_24D8496CC(a1, 0x10u, 0xE6u);
-  sub_24D8496CC(a1, 0x10u, 0xE7u);
-  sub_24D8496CC(a1, 0x10u, 0xE8u);
-  sub_24D8496CC(a1, 0x10u, 0xE9u);
-  sub_24D8496CC(a1, 0x10u, 0xEAu);
-  sub_24D8496CC(a1, 0x10u, 0xEBu);
-  sub_24D8496CC(a1, 0x10u, 0xECu);
-  sub_24D8496CC(a1, 0x10u, 0xEDu);
-  sub_24D8496CC(a1, 0x10u, 0xEEu);
-  sub_24D8496CC(a1, 0x10u, 0xEFu);
-  sub_24D8496CC(a1, 0x10u, 0xF0u);
-  sub_24D8496CC(a1, 0x10u, 0xF1u);
-  sub_24D8496CC(a1, 0x10u, 0xF2u);
-  sub_24D8496CC(a1, 0x10u, 0xF3u);
-  sub_24D8496CC(a1, 0x10u, 0xF4u);
-  sub_24D8496CC(a1, 0x10u, 0xF5u);
-  sub_24D8496CC(a1, 0x11u, 0xF6u);
-  sub_24D8496CC(a1, 0x11u, 0xF7u);
-  sub_24D8496CC(a1, 0x11u, 0xF8u);
-  sub_24D8496CC(a1, 0x12u, 0xF9u);
-  sub_24D8496CC(a1, 0x12u, 0xFAu);
-  sub_24D8496CC(a1, 0x12u, 0xFBu);
-  sub_24D8496CC(a1, 0x12u, 0xFCu);
-  sub_24D8496CC(a1, 0x12u, 0xFDu);
-  sub_24D8496CC(a1, 0x12u, 0xFEu);
-  sub_24D8496CC(a1, 0x12u, 0xFFu);
-  sub_24D8496CC(a1, 0x12u, 0x100u);
-  sub_24D8496CC(a1, 0x12u, 0x101u);
-  sub_24D8496CC(a1, 0x12u, 0x102u);
-  sub_24D8496CC(a1, 0x12u, 0x103u);
-  sub_24D8496CC(a1, 0x12u, 0x104u);
-  sub_24D8496CC(a1, 0x12u, 0x105u);
-  sub_24D8496CC(a1, 0x12u, 0x106u);
-  sub_24D8496CC(a1, 0x12u, 0x107u);
-  sub_24D8496CC(a1, 0x12u, 0x108u);
-  sub_24D8496CC(a1, 0x12u, 0x109u);
-  sub_24D8496CC(a1, 0x12u, 0x10Au);
-  sub_24D8496CC(a1, 0x12u, 0x10Bu);
-  sub_24D8496CC(a1, 0x12u, 0x10Cu);
-  sub_24D8496CC(a1, 0x12u, 0x10Du);
-  sub_24D8496CC(a1, 0x12u, 0x10Eu);
-  sub_24D8496CC(a1, 0x13u, 0x10Fu);
-  sub_24D8496CC(a1, 0x13u, 0x110u);
-  sub_24D8496CC(a1, 0x13u, 0x111u);
-  sub_24D8496CC(a1, 0x13u, 0x112u);
-  sub_24D8496CC(a1, 0x13u, 0x113u);
-  sub_24D8496CC(a1, 0x13u, 0x114u);
-  sub_24D8496CC(a1, 0x13u, 0x115u);
-  sub_24D8496CC(a1, 0x13u, 0x116u);
-  sub_24D8496CC(a1, 0x13u, 0x117u);
-  sub_24D8496CC(a1, 0x13u, 0x118u);
-  sub_24D8496CC(a1, 0x14u, 0x119u);
-  sub_24D8496CC(a1, 0x14u, 0x11Au);
-  sub_24D8496CC(a1, 0x14u, 0x11Bu);
-  sub_24D8496CC(a1, 0x14u, 0x11Cu);
-  sub_24D8496CC(a1, 0x14u, 0x11Du);
-  sub_24D8496CC(a1, 0x14u, 0x11Eu);
-  sub_24D8496CC(a1, 0x14u, 0x11Fu);
-  sub_24D8496CC(a1, 0x14u, 0x120u);
-  sub_24D8496CC(a1, 0x14u, 0x121u);
-  sub_24D8496CC(a1, 0x15u, 0x122u);
-  sub_24D8496CC(a1, 0x15u, 0x123u);
-  sub_24D8496CC(a1, 0x15u, 0x124u);
-  sub_24D8496CC(a1, 0x15u, 0x125u);
-  sub_24D8496CC(a1, 0x15u, 0x126u);
-  sub_24D8496CC(a1, 0x15u, 0x127u);
-  sub_24D8496CC(a1, 0x15u, 0x128u);
-  sub_24D8496CC(a1, 0x15u, 0x129u);
-  sub_24D8496CC(a1, 0x15u, 0x12Au);
-  sub_24D8496CC(a1, 0x15u, 0x12Bu);
-  sub_24D8496CC(a1, 0x15u, 0x12Cu);
-  sub_24D8496CC(a1, 0x15u, 0x12Du);
-  sub_24D8496CC(a1, 0x15u, 0x12Eu);
-  sub_24D8496CC(a1, 0x15u, 0x12Fu);
+  sub_24D8496CC(a1, 0, 1);
+  sub_24D8496CC(a1, 0, 2);
+  sub_24D8496CC(a1, 0, 3);
+  sub_24D8496CC(a1, 0, 4);
+  sub_24D8496CC(a1, 0, 5);
+  sub_24D8496CC(a1, 0, 6);
+  sub_24D8496CC(a1, 0, 7);
+  sub_24D8496CC(a1, 0, 8);
+  sub_24D8496CC(a1, 0, 9);
+  sub_24D8496CC(a1, 0, 10);
+  sub_24D8496CC(a1, 0, 11);
+  sub_24D8496CC(a1, 0, 12);
+  sub_24D8496CC(a1, 0, 13);
+  sub_24D8496CC(a1, 0, 14);
+  sub_24D8496CC(a1, 0, 15);
+  sub_24D8496CC(a1, 0, 16);
+  sub_24D8496CC(a1, 0, 17);
+  sub_24D8496CC(a1, 0, 18);
+  sub_24D8496CC(a1, 0, 19);
+  sub_24D8496CC(a1, 0, 20);
+  sub_24D8496CC(a1, 0, 21);
+  sub_24D8496CC(a1, 1u, 22);
+  sub_24D8496CC(a1, 1u, 23);
+  sub_24D8496CC(a1, 1u, 24);
+  sub_24D8496CC(a1, 1u, 25);
+  sub_24D8496CC(a1, 1u, 26);
+  sub_24D8496CC(a1, 1u, 27);
+  sub_24D8496CC(a1, 1u, 28);
+  sub_24D8496CC(a1, 1u, 29);
+  sub_24D8496CC(a1, 1u, 30);
+  sub_24D8496CC(a1, 1u, 31);
+  sub_24D8496CC(a1, 1u, 32);
+  sub_24D8496CC(a1, 1u, 33);
+  sub_24D8496CC(a1, 1u, 34);
+  sub_24D8496CC(a1, 1u, 35);
+  sub_24D8496CC(a1, 2u, 36);
+  sub_24D8496CC(a1, 2u, 37);
+  sub_24D8496CC(a1, 2u, 38);
+  sub_24D8496CC(a1, 2u, 39);
+  sub_24D8496CC(a1, 2u, 40);
+  sub_24D8496CC(a1, 2u, 41);
+  sub_24D8496CC(a1, 2u, 42);
+  sub_24D8496CC(a1, 2u, 43);
+  sub_24D8496CC(a1, 2u, 44);
+  sub_24D8496CC(a1, 2u, 45);
+  sub_24D8496CC(a1, 2u, 46);
+  sub_24D8496CC(a1, 2u, 47);
+  sub_24D8496CC(a1, 2u, 48);
+  sub_24D8496CC(a1, 2u, 49);
+  sub_24D8496CC(a1, 2u, 50);
+  sub_24D8496CC(a1, 2u, 51);
+  sub_24D8496CC(a1, 2u, 52);
+  sub_24D8496CC(a1, 2u, 53);
+  sub_24D8496CC(a1, 2u, 54);
+  sub_24D8496CC(a1, 2u, 55);
+  sub_24D8496CC(a1, 3u, 56);
+  sub_24D8496CC(a1, 3u, 57);
+  sub_24D8496CC(a1, 3u, 58);
+  sub_24D8496CC(a1, 3u, 59);
+  sub_24D8496CC(a1, 3u, 60);
+  sub_24D8496CC(a1, 3u, 61);
+  sub_24D8496CC(a1, 3u, 62);
+  sub_24D8496CC(a1, 3u, 63);
+  sub_24D8496CC(a1, 3u, 64);
+  sub_24D8496CC(a1, 3u, 65);
+  sub_24D8496CC(a1, 3u, 66);
+  sub_24D8496CC(a1, 3u, 67);
+  sub_24D8496CC(a1, 3u, 68);
+  sub_24D8496CC(a1, 3u, 69);
+  sub_24D8496CC(a1, 3u, 70);
+  sub_24D8496CC(a1, 3u, 71);
+  sub_24D8496CC(a1, 3u, 72);
+  sub_24D8496CC(a1, 3u, 73);
+  sub_24D8496CC(a1, 3u, 74);
+  sub_24D8496CC(a1, 3u, 75);
+  sub_24D8496CC(a1, 3u, 76);
+  sub_24D8496CC(a1, 3u, 77);
+  sub_24D8496CC(a1, 3u, 78);
+  sub_24D8496CC(a1, 4u, 79);
+  sub_24D8496CC(a1, 4u, 80);
+  sub_24D8496CC(a1, 4u, 81);
+  sub_24D8496CC(a1, 4u, 82);
+  sub_24D8496CC(a1, 4u, 83);
+  sub_24D8496CC(a1, 4u, 84);
+  sub_24D8496CC(a1, 4u, 85);
+  sub_24D8496CC(a1, 4u, 86);
+  sub_24D8496CC(a1, 4u, 87);
+  sub_24D8496CC(a1, 4u, 88);
+  sub_24D8496CC(a1, 4u, 89);
+  sub_24D8496CC(a1, 4u, 90);
+  sub_24D8496CC(a1, 4u, 91);
+  sub_24D8496CC(a1, 4u, 92);
+  sub_24D8496CC(a1, 4u, 93);
+  sub_24D8496CC(a1, 4u, 94);
+  sub_24D8496CC(a1, 4u, 95);
+  sub_24D8496CC(a1, 4u, 96);
+  sub_24D8496CC(a1, 5u, 97);
+  sub_24D8496CC(a1, 5u, 98);
+  sub_24D8496CC(a1, 5u, 99);
+  sub_24D8496CC(a1, 5u, 100);
+  sub_24D8496CC(a1, 5u, 101);
+  sub_24D8496CC(a1, 5u, 102);
+  sub_24D8496CC(a1, 5u, 103);
+  sub_24D8496CC(a1, 5u, 104);
+  sub_24D8496CC(a1, 5u, 105);
+  sub_24D8496CC(a1, 6u, 106);
+  sub_24D8496CC(a1, 6u, 107);
+  sub_24D8496CC(a1, 6u, 108);
+  sub_24D8496CC(a1, 6u, 109);
+  sub_24D8496CC(a1, 6u, 110);
+  sub_24D8496CC(a1, 6u, 111);
+  sub_24D8496CC(a1, 6u, 112);
+  sub_24D8496CC(a1, 6u, 113);
+  sub_24D8496CC(a1, 6u, 114);
+  sub_24D8496CC(a1, 6u, 115);
+  sub_24D8496CC(a1, 7u, 116);
+  sub_24D8496CC(a1, 7u, 117);
+  sub_24D8496CC(a1, 7u, 118);
+  sub_24D8496CC(a1, 7u, 119);
+  sub_24D8496CC(a1, 7u, 120);
+  sub_24D8496CC(a1, 7u, 121);
+  sub_24D8496CC(a1, 7u, 122);
+  sub_24D8496CC(a1, 7u, 123);
+  sub_24D8496CC(a1, 7u, 124);
+  sub_24D8496CC(a1, 7u, 125);
+  sub_24D8496CC(a1, 7u, 126);
+  sub_24D8496CC(a1, 7u, 127);
+  sub_24D8496CC(a1, 7u, 128);
+  sub_24D8496CC(a1, 7u, 129);
+  sub_24D8496CC(a1, 7u, 130);
+  sub_24D8496CC(a1, 7u, 131);
+  sub_24D8496CC(a1, 8u, 132);
+  sub_24D8496CC(a1, 8u, 133);
+  sub_24D8496CC(a1, 8u, 134);
+  sub_24D8496CC(a1, 8u, 135);
+  sub_24D8496CC(a1, 8u, 136);
+  sub_24D8496CC(a1, 8u, 137);
+  sub_24D8496CC(a1, 8u, 138);
+  sub_24D8496CC(a1, 8u, 139);
+  sub_24D8496CC(a1, 8u, 140);
+  sub_24D8496CC(a1, 8u, 141);
+  sub_24D8496CC(a1, 8u, 142);
+  sub_24D8496CC(a1, 8u, 143);
+  sub_24D8496CC(a1, 8u, 144);
+  sub_24D8496CC(a1, 8u, 145);
+  sub_24D8496CC(a1, 8u, 146);
+  sub_24D8496CC(a1, 9u, 147);
+  sub_24D8496CC(a1, 9u, 148);
+  sub_24D8496CC(a1, 9u, 149);
+  sub_24D8496CC(a1, 9u, 150);
+  sub_24D8496CC(a1, 9u, 151);
+  sub_24D8496CC(a1, 9u, 152);
+  sub_24D8496CC(a1, 0xAu, 153);
+  sub_24D8496CC(a1, 0xAu, 154);
+  sub_24D8496CC(a1, 0xAu, 155);
+  sub_24D8496CC(a1, 0xAu, 156);
+  sub_24D8496CC(a1, 0xAu, 157);
+  sub_24D8496CC(a1, 0xAu, 158);
+  sub_24D8496CC(a1, 0xAu, 159);
+  sub_24D8496CC(a1, 0xAu, 160);
+  sub_24D8496CC(a1, 0xAu, 161);
+  sub_24D8496CC(a1, 0xAu, 162);
+  sub_24D8496CC(a1, 0xAu, 163);
+  sub_24D8496CC(a1, 0xAu, 164);
+  sub_24D8496CC(a1, 0xAu, 165);
+  sub_24D8496CC(a1, 0xAu, 166);
+  sub_24D8496CC(a1, 0xAu, 167);
+  sub_24D8496CC(a1, 0xAu, 168);
+  sub_24D8496CC(a1, 0xBu, 169);
+  sub_24D8496CC(a1, 0xBu, 170);
+  sub_24D8496CC(a1, 0xBu, 171);
+  sub_24D8496CC(a1, 0xBu, 172);
+  sub_24D8496CC(a1, 0xBu, 173);
+  sub_24D8496CC(a1, 0xBu, 174);
+  sub_24D8496CC(a1, 0xBu, 175);
+  sub_24D8496CC(a1, 0xBu, 176);
+  sub_24D8496CC(a1, 0xBu, 177);
+  sub_24D8496CC(a1, 0xBu, 178);
+  sub_24D8496CC(a1, 0xBu, 179);
+  sub_24D8496CC(a1, 0xBu, 180);
+  sub_24D8496CC(a1, 0xBu, 181);
+  sub_24D8496CC(a1, 0xBu, 182);
+  sub_24D8496CC(a1, 0xBu, 183);
+  sub_24D8496CC(a1, 0xBu, 184);
+  sub_24D8496CC(a1, 0xCu, 185);
+  sub_24D8496CC(a1, 0xCu, 186);
+  sub_24D8496CC(a1, 0xCu, 187);
+  sub_24D8496CC(a1, 0xCu, 188);
+  sub_24D8496CC(a1, 0xCu, 189);
+  sub_24D8496CC(a1, 0xCu, 190);
+  sub_24D8496CC(a1, 0xCu, 191);
+  sub_24D8496CC(a1, 0xDu, 192);
+  sub_24D8496CC(a1, 0xDu, 193);
+  sub_24D8496CC(a1, 0xDu, 194);
+  sub_24D8496CC(a1, 0xDu, 195);
+  sub_24D8496CC(a1, 0xDu, 196);
+  sub_24D8496CC(a1, 0xDu, 197);
+  sub_24D8496CC(a1, 0xDu, 198);
+  sub_24D8496CC(a1, 0xDu, 199);
+  sub_24D8496CC(a1, 0xDu, 200);
+  sub_24D8496CC(a1, 0xDu, 201);
+  sub_24D8496CC(a1, 0xDu, 202);
+  sub_24D8496CC(a1, 0xEu, 203);
+  sub_24D8496CC(a1, 0xEu, 204);
+  sub_24D8496CC(a1, 0xEu, 205);
+  sub_24D8496CC(a1, 0xEu, 206);
+  sub_24D8496CC(a1, 0xEu, 207);
+  sub_24D8496CC(a1, 0xEu, 208);
+  sub_24D8496CC(a1, 0xEu, 209);
+  sub_24D8496CC(a1, 0xEu, 210);
+  sub_24D8496CC(a1, 0xEu, 211);
+  sub_24D8496CC(a1, 0xEu, 212);
+  sub_24D8496CC(a1, 0xEu, 213);
+  sub_24D8496CC(a1, 0xEu, 214);
+  sub_24D8496CC(a1, 0xEu, 215);
+  sub_24D8496CC(a1, 0xFu, 216);
+  sub_24D8496CC(a1, 0xFu, 217);
+  sub_24D8496CC(a1, 0xFu, 218);
+  sub_24D8496CC(a1, 0xFu, 219);
+  sub_24D8496CC(a1, 0xFu, 220);
+  sub_24D8496CC(a1, 0xFu, 221);
+  sub_24D8496CC(a1, 0xFu, 222);
+  sub_24D8496CC(a1, 0xFu, 223);
+  sub_24D8496CC(a1, 0xFu, 224);
+  sub_24D8496CC(a1, 0xFu, 225);
+  sub_24D8496CC(a1, 0xFu, 226);
+  sub_24D8496CC(a1, 0xFu, 227);
+  sub_24D8496CC(a1, 0xFu, 228);
+  sub_24D8496CC(a1, 0xFu, 229);
+  sub_24D8496CC(a1, 0x10u, 230);
+  sub_24D8496CC(a1, 0x10u, 231);
+  sub_24D8496CC(a1, 0x10u, 232);
+  sub_24D8496CC(a1, 0x10u, 233);
+  sub_24D8496CC(a1, 0x10u, 234);
+  sub_24D8496CC(a1, 0x10u, 235);
+  sub_24D8496CC(a1, 0x10u, 236);
+  sub_24D8496CC(a1, 0x10u, 237);
+  sub_24D8496CC(a1, 0x10u, 238);
+  sub_24D8496CC(a1, 0x10u, 239);
+  sub_24D8496CC(a1, 0x10u, 240);
+  sub_24D8496CC(a1, 0x10u, 241);
+  sub_24D8496CC(a1, 0x10u, 242);
+  sub_24D8496CC(a1, 0x10u, 243);
+  sub_24D8496CC(a1, 0x10u, 244);
+  sub_24D8496CC(a1, 0x10u, 245);
+  sub_24D8496CC(a1, 0x11u, 246);
+  sub_24D8496CC(a1, 0x11u, 247);
+  sub_24D8496CC(a1, 0x11u, 248);
+  sub_24D8496CC(a1, 0x12u, 249);
+  sub_24D8496CC(a1, 0x12u, 250);
+  sub_24D8496CC(a1, 0x12u, 251);
+  sub_24D8496CC(a1, 0x12u, 252);
+  sub_24D8496CC(a1, 0x12u, 253);
+  sub_24D8496CC(a1, 0x12u, 254);
+  sub_24D8496CC(a1, 0x12u, 255);
+  sub_24D8496CC(a1, 0x12u, 256);
+  sub_24D8496CC(a1, 0x12u, 257);
+  sub_24D8496CC(a1, 0x12u, 258);
+  sub_24D8496CC(a1, 0x12u, 259);
+  sub_24D8496CC(a1, 0x12u, 260);
+  sub_24D8496CC(a1, 0x12u, 261);
+  sub_24D8496CC(a1, 0x12u, 262);
+  sub_24D8496CC(a1, 0x12u, 263);
+  sub_24D8496CC(a1, 0x12u, 264);
+  sub_24D8496CC(a1, 0x12u, 265);
+  sub_24D8496CC(a1, 0x12u, 266);
+  sub_24D8496CC(a1, 0x12u, 267);
+  sub_24D8496CC(a1, 0x12u, 268);
+  sub_24D8496CC(a1, 0x12u, 269);
+  sub_24D8496CC(a1, 0x12u, 270);
+  sub_24D8496CC(a1, 0x13u, 271);
+  sub_24D8496CC(a1, 0x13u, 272);
+  sub_24D8496CC(a1, 0x13u, 273);
+  sub_24D8496CC(a1, 0x13u, 274);
+  sub_24D8496CC(a1, 0x13u, 275);
+  sub_24D8496CC(a1, 0x13u, 276);
+  sub_24D8496CC(a1, 0x13u, 277);
+  sub_24D8496CC(a1, 0x13u, 278);
+  sub_24D8496CC(a1, 0x13u, 279);
+  sub_24D8496CC(a1, 0x13u, 280);
+  sub_24D8496CC(a1, 0x14u, 281);
+  sub_24D8496CC(a1, 0x14u, 282);
+  sub_24D8496CC(a1, 0x14u, 283);
+  sub_24D8496CC(a1, 0x14u, 284);
+  sub_24D8496CC(a1, 0x14u, 285);
+  sub_24D8496CC(a1, 0x14u, 286);
+  sub_24D8496CC(a1, 0x14u, 287);
+  sub_24D8496CC(a1, 0x14u, 288);
+  sub_24D8496CC(a1, 0x14u, 289);
+  sub_24D8496CC(a1, 0x15u, 290);
+  sub_24D8496CC(a1, 0x15u, 291);
+  sub_24D8496CC(a1, 0x15u, 292);
+  sub_24D8496CC(a1, 0x15u, 293);
+  sub_24D8496CC(a1, 0x15u, 294);
+  sub_24D8496CC(a1, 0x15u, 295);
+  sub_24D8496CC(a1, 0x15u, 296);
+  sub_24D8496CC(a1, 0x15u, 297);
+  sub_24D8496CC(a1, 0x15u, 298);
+  sub_24D8496CC(a1, 0x15u, 299);
+  sub_24D8496CC(a1, 0x15u, 300);
+  sub_24D8496CC(a1, 0x15u, 301);
+  sub_24D8496CC(a1, 0x15u, 302);
+  sub_24D8496CC(a1, 0x15u, 303);
 
-  sub_24D8496CC(a1, 0x15u, 0x130u);
+  sub_24D8496CC(a1, 0x15u, 304);
 }
 
-void sub_24D8496CC(uint64_t a1, unsigned int a2, unsigned int a3)
+void sub_24D8496CC(uint64_t a1, unsigned int a2, uint64_t a3)
 {
-  if (*(*a1 + 32) - 3) <= 0xFFFFFFFD && ((*(**(a1 + 8) + ((a3 >> 3) & 0x1FFFFFF8)) >> a3))
+  if ((*(*a1 + 32) - 3) <= 0xFFFFFFFD)
   {
-    v6 = sub_24D849804(*(a1 + 16), a3);
-    v7 = (**(a1 + 24) + 24 * a2);
-    v9 = v7[1];
-    v8 = v7[2];
-    if (v9 >= v8)
+    v3 = a3;
+    if ((*(**(a1 + 8) + ((a3 >> 3) & 0x1FFFFFF8)) >> a3))
     {
-      v11 = *v7;
-      v12 = v9 - *v7;
-      v13 = v12 >> 3;
-      v14 = (v12 >> 3) + 1;
-      if (v14 >> 61)
+      v6 = sub_24D849804(*(a1 + 16), a3);
+      v7 = (**(a1 + 24) + 24 * a2);
+      v9 = v7[1];
+      v8 = v7[2];
+      if (v9 >= v8)
       {
-        std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+        v11 = *v7;
+        v12 = v9 - *v7;
+        v13 = v12 >> 3;
+        v14 = (v12 >> 3) + 1;
+        if (v14 >> 61)
+        {
+          std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
+        }
+
+        v15 = v8 - v11;
+        if (v15 >> 2 > v14)
+        {
+          v14 = v15 >> 2;
+        }
+
+        v16 = v15 >= 0x7FFFFFFFFFFFFFF8;
+        v17 = 0x1FFFFFFFFFFFFFFFLL;
+        if (!v16)
+        {
+          v17 = v14;
+        }
+
+        if (v17)
+        {
+          sub_24D7658EC(v7, v17);
+        }
+
+        v18 = (8 * v13);
+        *v18 = v3;
+        v18[1] = v6;
+        v10 = 8 * v13 + 8;
+        memcpy(0, v11, v12);
+        v19 = *v7;
+        *v7 = 0;
+        v7[1] = v10;
+        v7[2] = 0;
+        if (v19)
+        {
+          operator delete(v19);
+        }
       }
 
-      v15 = v8 - v11;
-      if (v15 >> 2 > v14)
+      else
       {
-        v14 = v15 >> 2;
+        *v9 = v3;
+        *(v9 + 1) = v6;
+        v10 = (v9 + 8);
       }
 
-      v16 = v15 >= 0x7FFFFFFFFFFFFFF8;
-      v17 = 0x1FFFFFFFFFFFFFFFLL;
-      if (!v16)
-      {
-        v17 = v14;
-      }
-
-      if (v17)
-      {
-        sub_24D7658EC(v7, v17);
-      }
-
-      v18 = (8 * v13);
-      *v18 = a3;
-      v18[1] = v6;
-      v10 = 8 * v13 + 8;
-      memcpy(0, v11, v12);
-      v19 = *v7;
-      *v7 = 0;
       v7[1] = v10;
-      v7[2] = 0;
-      if (v19)
-      {
-        operator delete(v19);
-      }
     }
-
-    else
-    {
-      *v9 = a3;
-      v9[1] = v6;
-      v10 = (v9 + 2);
-    }
-
-    v7[1] = v10;
   }
 }
 
@@ -8354,9 +8359,9 @@ void sub_24D849B50(int a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void sub_24D850E18(int a1, uint64_t a2, int8x8_t a3)
+void sub_24D850E18(uint64_t result, uint64_t a2, int8x8_t a3)
 {
-  switch(a1)
+  switch(result)
   {
     case 0:
       if ((*(*a2 + 40) - 3) <= 0xFFFFFFFD)

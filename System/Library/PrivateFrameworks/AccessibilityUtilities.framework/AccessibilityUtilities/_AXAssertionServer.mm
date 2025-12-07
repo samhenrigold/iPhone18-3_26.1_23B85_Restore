@@ -54,15 +54,10 @@
 
   if ([v9 containsObject:clientCopy])
   {
-    v16 = typeCopy;
-    v17 = v9;
-    v14 = @"Trying to add assertion holder ID:(%@) with type:(%@), but that ID is already in the holders list: (%@). Something is out of wack";
-    v15 = clientCopy;
-    LOBYTE(v13) = 1;
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Trying to add assertion holder ID:(%@) with type:(%@), but that ID is already in the holders list: (%@). Something is out of wack");
   }
 
-  [v9 addObject:{clientCopy, v13, v14, v15, v16, v17}];
+  [v9 addObject:clientCopy];
   if (!v8)
   {
     assertionWasAcquiredHandler = [(_AXAssertionServer *)self assertionWasAcquiredHandler];
@@ -84,7 +79,7 @@
 
   if (([v8 containsObject:clientCopy] & 1) == 0)
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Trying to remove assertion holder ID:(%@) with type:(%@), but that ID is not in the holders list: (%@). Something is out of wack");
     goto LABEL_6;
   }
 

@@ -33,7 +33,7 @@ void __29___CDPSimpleModel_loadModel___block_invoke(uint64_t a1, void *a2)
 
 void __29___CDPSimpleModel_loadModel___block_invoke_2(uint64_t a1)
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v51[1] = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 16);
   if (v2)
   {
@@ -44,9 +44,9 @@ void __29___CDPSimpleModel_loadModel___block_invoke_2(uint64_t a1)
     }
 
     v3 = MEMORY[0x1E696ABC0];
-    v49 = *MEMORY[0x1E696A578];
-    v50 = @"Too many interactions as input.";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v48 = *MEMORY[0x1E696A578];
+    v49 = @"Too many interactions as input.";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
     v5 = v3;
     v6 = 1;
   }
@@ -54,9 +54,9 @@ void __29___CDPSimpleModel_loadModel___block_invoke_2(uint64_t a1)
   else
   {
     v7 = MEMORY[0x1E696ABC0];
-    v51 = *MEMORY[0x1E696A578];
-    v52[0] = @"No past interactions with the specified seed";
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+    v50 = *MEMORY[0x1E696A578];
+    v51[0] = @"No past interactions with the specified seed";
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
     v5 = v7;
     v6 = 0;
   }
@@ -71,29 +71,29 @@ LABEL_7:
     *(*(a1 + 32) + 72) = malloc_type_calloc(*(*(a1 + 32) + 16), 8uLL, 0x100004000313F17uLL);
     *(*(a1 + 32) + 80) = malloc_type_calloc(*(*(a1 + 32) + 16), 4uLL, 0x100004052888210uLL);
     v11 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:256];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v12 = *(a1 + 40);
-    v13 = [v12 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v44;
+      v15 = *v43;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v44 != v15)
+          if (*v43 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [v11 addObjectsFromArray:*(*(&v43 + 1) + 8 * i)];
+          [v11 addObjectsFromArray:*(*(&v42 + 1) + 8 * i)];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v14);
@@ -105,17 +105,17 @@ LABEL_7:
     v20 = *(v19 + 104);
     *(v19 + 104) = v18;
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v21 = *(a1 + 40);
-    v22 = [v21 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v38 objects:v46 count:16];
     if (v22)
     {
       v23 = v22;
       v24 = 0;
-      v25 = *v40;
+      v25 = *v39;
       do
       {
         v26 = 0;
@@ -123,17 +123,17 @@ LABEL_7:
         v24 += v23;
         do
         {
-          if (*v40 != v25)
+          if (*v39 != v25)
           {
             objc_enumerationMutation(v21);
           }
 
-          *(*(*(a1 + 32) + 64) + v27) = [*(a1 + 32) _newIdsForPeople:*(*(&v39 + 1) + 8 * v26++) length:{*(*(a1 + 32) + 72) + v27, v39}];
+          *(*(*(a1 + 32) + 64) + v27) = [*(a1 + 32) _newIdsForPeople:*(*(&v38 + 1) + 8 * v26++) length:{*(*(a1 + 32) + 72) + v27, v38}];
           v27 += 8;
         }
 
         while (v23 != v26);
-        v23 = [v21 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v38 objects:v46 count:16];
       }
 
       while (v23);
@@ -204,8 +204,6 @@ LABEL_7:
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 @end

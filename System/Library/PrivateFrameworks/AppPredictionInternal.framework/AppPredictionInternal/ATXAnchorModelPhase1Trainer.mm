@@ -63,329 +63,327 @@
 
 - (id)selectedPredictionCandidates
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   uniqueCandidateIdsThatOccurredAfterAnchor = [(ATXAnchorModelPhase1Trainer *)self uniqueCandidateIdsThatOccurredAfterAnchor];
-  v5 = __atxlog_handle_anchor();
+  v5 = __atxlog_handle_anchor(uniqueCandidateIdsThatOccurredAfterAnchor);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Phase 1: Starting training...", buf, 2u);
   }
 
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
-  v71 = 0u;
+  v77 = 0u;
+  v78 = 0u;
+  v75 = 0u;
+  v76 = 0u;
   v6 = uniqueCandidateIdsThatOccurredAfterAnchor;
-  v68 = [v6 countByEnumeratingWithState:&v70 objects:v77 count:16];
-  if (v68)
+  v73 = [v6 countByEnumeratingWithState:&v75 objects:v82 count:16];
+  if (v73)
   {
-    v7 = *v71;
-    v8 = 0x278592000uLL;
-    v66 = *v71;
+    v7 = *v76;
+    v71 = *v76;
     do
     {
-      v9 = 0;
+      v8 = 0;
       do
       {
-        if (*v71 != v7)
+        if (*v76 != v7)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v70 + 1) + 8 * v9);
-        v11 = objc_autoreleasePoolPush();
-        if ([(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
+        v9 = *(*(&v75 + 1) + 8 * v8);
+        v10 = objc_autoreleasePoolPush();
+        didDefer = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+        if (didDefer)
         {
-          v59 = __atxlog_handle_anchor();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+          v65 = __atxlog_handle_anchor(didDefer);
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
           {
             anchor = self->_anchor;
             *buf = 138412290;
-            v76 = anchor;
-            _os_log_impl(&dword_2263AA000, v59, OS_LOG_TYPE_DEFAULT, "Phase 1: Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.", buf, 0xCu);
+            v81 = anchor;
+            _os_log_impl(&dword_2263AA000, v65, OS_LOG_TYPE_DEFAULT, "Phase 1: Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.", buf, 0xCu);
           }
 
+          goto LABEL_58;
+        }
+
+        v12 = objc_opt_new();
+        v13 = [(ATXAnchorModelPhase1Trainer *)self candidateSatisfiesAllThresholds:v9 trainingResult:v12];
+        if ((v13 & 1) == 0)
+        {
+          v31 = __atxlog_handle_anchor(v13);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412290;
+            v81 = v9;
+            _os_log_impl(&dword_2263AA000, v31, OS_LOG_TYPE_DEFAULT, "Phase 1: ❌ (NO) Candidate: %@ rejected in Phase 1.", buf, 0xCu);
+          }
+
+          goto LABEL_17;
+        }
+
+        v74 = v12;
+        didDefer2 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+        v15 = didDefer2;
+        v16 = __atxlog_handle_anchor(didDefer2);
+        v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+        if (v15)
+        {
+          if (v17)
+          {
+LABEL_56:
+            v68 = self->_anchor;
+            *buf = 138412290;
+            v81 = v68;
+            _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.", buf, 0xCu);
+          }
+
+LABEL_57:
+
+          v65 = v74;
+LABEL_58:
+
+          objc_autoreleasePoolPop(v10);
           goto LABEL_59;
         }
 
-        v12 = *(v8 + 3936);
-        v13 = objc_opt_new();
-        if ([(ATXAnchorModelPhase1Trainer *)self candidateSatisfiesAllThresholds:v10 trainingResult:v13])
-        {
-          v69 = v13;
-          didDefer = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
-          v15 = __atxlog_handle_anchor();
-          v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-          if (didDefer)
-          {
-            if (v16)
-            {
-LABEL_57:
-              v62 = self->_anchor;
-              *buf = 138412290;
-              v76 = v62;
-              _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.", buf, 0xCu);
-            }
-
-LABEL_58:
-
-            v59 = v69;
-LABEL_59:
-
-            objc_autoreleasePoolPop(v11);
-            goto LABEL_60;
-          }
-
-          if (v16)
-          {
-            *buf = 138412290;
-            v76 = v10;
-            _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate: %@ satisfies all thresholds.", buf, 0xCu);
-          }
-
-          v17 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper candidateTypeForCandidateId:v10];
-          v18 = [v17 isEqualToString:@"app"];
-
-          storeWrapper = self->_storeWrapper;
-          if (v18)
-          {
-            v67 = v11;
-            v20 = objc_opt_new();
-            v65 = [(ATXAnchorModelDataStoreWrapperProtocol *)storeWrapper appLaunchDuetEventFromCandidateId:v10 date:v20];
-
-            v21 = objc_opt_new();
-            v74 = v65;
-            v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v74 count:1];
-            v23 = objc_opt_new();
-            v24 = [v21 historyForAppLaunchDuetEvents:v22 anchorOccurrenceDate:v23];
-            [v24 objectAtIndexedSubscript:0];
-            selfCopy = self;
-            v26 = v6;
-            v28 = v27 = v3;
-            [v69 setLaunchHistory:v28];
-
-            v3 = v27;
-            v6 = v26;
-            self = selfCopy;
-
-            v29 = v65;
-            goto LABEL_28;
-          }
-
-          v31 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper candidateTypeForCandidateId:v10];
-          v32 = [v31 isEqualToString:@"action"];
-
-          v33 = self->_storeWrapper;
-          v13 = v69;
-          if (v32)
-          {
-            v34 = objc_opt_new();
-            v35 = [(ATXAnchorModelDataStoreWrapperProtocol *)v33 appIntentDuetEventFromCandidateId:v10 date:v34];
-
-            if (v35)
-            {
-              v29 = v35;
-              v67 = v11;
-              v21 = objc_opt_new();
-              v22 = objc_opt_new();
-              v36 = [v21 historyForActionUUIDWithAppIntentDuetEvent:v29 anchorOccurrenceDate:v22];
-LABEL_27:
-              v23 = v36;
-              [v69 setLaunchHistory:v36];
-LABEL_28:
-
-              v11 = v67;
-LABEL_29:
-              didDefer2 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
-              v15 = __atxlog_handle_anchor();
-              v48 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-              if (didDefer2)
-              {
-                if (v48)
-                {
-                  goto LABEL_57;
-                }
-
-                goto LABEL_58;
-              }
-
-              if (v48)
-              {
-                *buf = 138412290;
-                v76 = v10;
-                _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Phase 1: ✅ (YES) Candidate: %@ selected to pass Phase 1.", buf, 0xCu);
-              }
-
-              v13 = v69;
-              [v69 setCandidateId:v10];
-              v49 = self->_storeWrapper;
-              anchorTypeString = [(ATXAnchor *)self->_anchor anchorTypeString];
-              anchorEventIdentifier = [(ATXAnchor *)self->_anchor anchorEventIdentifier];
-              [(ATXAnchorModelDataStoreWrapperProtocol *)v49 assignMetricsForTrainingResult:v69 anchorType:anchorTypeString anchorEventIdentifier:anchorEventIdentifier candidateId:v10];
-
-              [v3 addObject:v69];
-              v7 = v66;
-LABEL_33:
-              v8 = 0x278592000;
-              goto LABEL_34;
-            }
-
-            v52 = __atxlog_handle_anchor();
-            v7 = v66;
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
-            {
-              *buf = 138412290;
-              v76 = v10;
-              v53 = v52;
-              v54 = "Skipping candidate because we were unable to access the DuetEvent for the candidate. candidateId: %@";
-              goto LABEL_42;
-            }
-          }
-
-          else
-          {
-            v37 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper candidateTypeForCandidateId:v10];
-            v38 = [v37 isEqualToString:@"mode"];
-
-            v39 = self->_storeWrapper;
-            if (v38)
-            {
-              v40 = objc_opt_new();
-              v41 = [(ATXAnchorModelDataStoreWrapperProtocol *)v39 modeBiomeEventFromCandidateId:v10 date:v40];
-
-              if (v41)
-              {
-                v29 = v41;
-                v67 = v11;
-                v21 = objc_opt_new();
-                v22 = objc_opt_new();
-                v36 = [v21 historyForModeChangeEvent:v29 anchorOccurrenceDate:v22];
-                goto LABEL_27;
-              }
-
-              v52 = __atxlog_handle_anchor();
-              v7 = v66;
-              if (!os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
-              {
-                goto LABEL_43;
-              }
-            }
-
-            else
-            {
-              v42 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper candidateTypeForCandidateId:v10];
-              v43 = [v42 isEqualToString:@"linkaction"];
-
-              if (!v43)
-              {
-                goto LABEL_29;
-              }
-
-              v44 = self->_storeWrapper;
-              v45 = objc_opt_new();
-              v46 = [(ATXAnchorModelDataStoreWrapperProtocol *)v44 linkActionBiomeEventFromCandidateId:v10 date:v45];
-
-              if (v46)
-              {
-                v29 = v46;
-                v67 = v11;
-                v21 = objc_opt_new();
-                v22 = objc_opt_new();
-                v36 = [v21 historyForLinkActionChangeEvent:v29 anchorOccurrenceDate:v22];
-                goto LABEL_27;
-              }
-
-              v52 = __atxlog_handle_anchor();
-              v7 = v66;
-              if (!os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
-              {
-                goto LABEL_43;
-              }
-            }
-
-            *buf = 138412290;
-            v76 = v10;
-            v53 = v52;
-            v54 = "Skipping candidate because we were unable to access the BMStoreEvent for the candidate. candidateId: %@";
-LABEL_42:
-            _os_log_impl(&dword_2263AA000, v53, OS_LOG_TYPE_DEFAULT, v54, buf, 0xCu);
-          }
-
-LABEL_43:
-
-          goto LABEL_33;
-        }
-
-        v30 = __atxlog_handle_anchor();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        if (v17)
         {
           *buf = 138412290;
-          v76 = v10;
-          _os_log_impl(&dword_2263AA000, v30, OS_LOG_TYPE_DEFAULT, "Phase 1: ❌ (NO) Candidate: %@ rejected in Phase 1.", buf, 0xCu);
+          v81 = v9;
+          _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate: %@ satisfies all thresholds.", buf, 0xCu);
         }
 
-LABEL_34:
-        objc_autoreleasePoolPop(v11);
-        ++v9;
+        v18 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper candidateTypeForCandidateId:v9];
+        v19 = [v18 isEqualToString:@"app"];
+
+        storeWrapper = self->_storeWrapper;
+        if (v19)
+        {
+          v72 = v10;
+          v21 = objc_opt_new();
+          v70 = [(ATXAnchorModelDataStoreWrapperProtocol *)storeWrapper appLaunchDuetEventFromCandidateId:v9 date:v21];
+
+          v22 = objc_opt_new();
+          v79 = v70;
+          v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
+          v24 = objc_opt_new();
+          v25 = [v22 historyForAppLaunchDuetEvents:v23 anchorOccurrenceDate:v24];
+          [v25 objectAtIndexedSubscript:0];
+          selfCopy = self;
+          v27 = v6;
+          v29 = v28 = v3;
+          [v74 setLaunchHistory:v29];
+
+          v3 = v28;
+          v6 = v27;
+          self = selfCopy;
+
+          v30 = v70;
+LABEL_28:
+
+          v10 = v72;
+          goto LABEL_29;
+        }
+
+        v32 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper candidateTypeForCandidateId:v9];
+        v33 = [v32 isEqualToString:@"action"];
+
+        v34 = self->_storeWrapper;
+        v12 = v74;
+        if (v33)
+        {
+          v35 = objc_opt_new();
+          v36 = [(ATXAnchorModelDataStoreWrapperProtocol *)v34 appIntentDuetEventFromCandidateId:v9 date:v35];
+
+          if (!v36)
+          {
+            v31 = __atxlog_handle_anchor(v37);
+            v7 = v71;
+            if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_17;
+            }
+
+            *buf = 138412290;
+            v81 = v9;
+            v57 = v31;
+            v58 = "Skipping candidate because we were unable to access the DuetEvent for the candidate. candidateId: %@";
+LABEL_41:
+            _os_log_impl(&dword_2263AA000, v57, OS_LOG_TYPE_DEFAULT, v58, buf, 0xCu);
+            goto LABEL_17;
+          }
+
+          v30 = v36;
+          v72 = v10;
+          v22 = objc_opt_new();
+          v23 = objc_opt_new();
+          v38 = [v22 historyForActionUUIDWithAppIntentDuetEvent:v30 anchorOccurrenceDate:v23];
+          goto LABEL_27;
+        }
+
+        v39 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper candidateTypeForCandidateId:v9];
+        v40 = [v39 isEqualToString:@"mode"];
+
+        v41 = self->_storeWrapper;
+        if (v40)
+        {
+          v42 = objc_opt_new();
+          v43 = [(ATXAnchorModelDataStoreWrapperProtocol *)v41 modeBiomeEventFromCandidateId:v9 date:v42];
+
+          if (!v43)
+          {
+            v31 = __atxlog_handle_anchor(v44);
+            v7 = v71;
+            if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_17;
+            }
+
+LABEL_40:
+            *buf = 138412290;
+            v81 = v9;
+            v57 = v31;
+            v58 = "Skipping candidate because we were unable to access the BMStoreEvent for the candidate. candidateId: %@";
+            goto LABEL_41;
+          }
+
+          v30 = v43;
+          v72 = v10;
+          v22 = objc_opt_new();
+          v23 = objc_opt_new();
+          v38 = [v22 historyForModeChangeEvent:v30 anchorOccurrenceDate:v23];
+          goto LABEL_27;
+        }
+
+        v45 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper candidateTypeForCandidateId:v9];
+        v46 = [v45 isEqualToString:@"linkaction"];
+
+        if (v46)
+        {
+          v47 = self->_storeWrapper;
+          v48 = objc_opt_new();
+          v49 = [(ATXAnchorModelDataStoreWrapperProtocol *)v47 linkActionBiomeEventFromCandidateId:v9 date:v48];
+
+          if (!v49)
+          {
+            v31 = __atxlog_handle_anchor(v50);
+            v7 = v71;
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_40;
+            }
+
+LABEL_17:
+
+            goto LABEL_33;
+          }
+
+          v30 = v49;
+          v72 = v10;
+          v22 = objc_opt_new();
+          v23 = objc_opt_new();
+          v38 = [v22 historyForLinkActionChangeEvent:v30 anchorOccurrenceDate:v23];
+LABEL_27:
+          v24 = v38;
+          [v74 setLaunchHistory:v38];
+          goto LABEL_28;
+        }
+
+LABEL_29:
+        didDefer3 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+        v52 = didDefer3;
+        v16 = __atxlog_handle_anchor(didDefer3);
+        v53 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+        if (v52)
+        {
+          if (v53)
+          {
+            goto LABEL_56;
+          }
+
+          goto LABEL_57;
+        }
+
+        if (v53)
+        {
+          *buf = 138412290;
+          v81 = v9;
+          _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Phase 1: ✅ (YES) Candidate: %@ selected to pass Phase 1.", buf, 0xCu);
+        }
+
+        v12 = v74;
+        [v74 setCandidateId:v9];
+        v54 = self->_storeWrapper;
+        anchorTypeString = [(ATXAnchor *)self->_anchor anchorTypeString];
+        anchorEventIdentifier = [(ATXAnchor *)self->_anchor anchorEventIdentifier];
+        [(ATXAnchorModelDataStoreWrapperProtocol *)v54 assignMetricsForTrainingResult:v74 anchorType:anchorTypeString anchorEventIdentifier:anchorEventIdentifier candidateId:v9];
+
+        [v3 addObject:v74];
+        v7 = v71;
+LABEL_33:
+
+        objc_autoreleasePoolPop(v10);
+        ++v8;
       }
 
-      while (v68 != v9);
-      v55 = [v6 countByEnumeratingWithState:&v70 objects:v77 count:16];
-      v68 = v55;
+      while (v73 != v8);
+      v59 = [v6 countByEnumeratingWithState:&v75 objects:v82 count:16];
+      v73 = v59;
     }
 
-    while (v55);
+    while (v59);
   }
 
-  v56 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+  v61 = __atxlog_handle_anchor(v60);
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_2263AA000, v56, OS_LOG_TYPE_DEFAULT, "Phase 1: Done training.", buf, 2u);
+    _os_log_impl(&dword_2263AA000, v61, OS_LOG_TYPE_DEFAULT, "Phase 1: Done training.", buf, 2u);
   }
 
-  if ([(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
+  didDefer4 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+  if (didDefer4)
   {
-    v57 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+    v63 = __atxlog_handle_anchor(didDefer4);
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
     {
-      v58 = self->_anchor;
+      v64 = self->_anchor;
       *buf = 138412290;
-      v76 = v58;
-      _os_log_impl(&dword_2263AA000, v57, OS_LOG_TYPE_DEFAULT, "Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.", buf, 0xCu);
+      v81 = v64;
+      _os_log_impl(&dword_2263AA000, v63, OS_LOG_TYPE_DEFAULT, "Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.", buf, 0xCu);
     }
 
-LABEL_60:
-    v61 = MEMORY[0x277CBEBF8];
+LABEL_59:
+    v67 = MEMORY[0x277CBEBF8];
   }
 
   else
   {
     [(ATXAnchorModelPhase1Trainer *)self _logPredictionsFilteredDuringPhase1WithCandidateIdsToConsider:v6 selectedCandidates:v3];
-    v61 = v3;
+    v67 = v3;
   }
 
-  v63 = *MEMORY[0x277D85DE8];
-
-  return v61;
+  return v67;
 }
 
 - (BOOL)candidateSatisfiesAllThresholds:(id)thresholds trainingResult:(id)result
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   thresholdsCopy = thresholds;
   resultCopy = result;
   v8 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper numUniqueAnchorOccurrencesWithUniqueCandidateOccurrenceForCandidate:thresholdsCopy anchor:self->_anchor];
-  if (![(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
+  didDefer = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+  if (!didDefer)
   {
-    [resultCopy setNumUniqueAnchorOccurrencesWithUniqueCandidateOccurrence:v8];
-    v11 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_anchor([resultCopy setNumUniqueAnchorOccurrencesWithUniqueCandidateOccurrence:v8]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v47) = 0;
-      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated unique anchor occurrences", &v47, 2u);
+      LOWORD(v56) = 0;
+      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated unique anchor occurrences", &v56, 2u);
     }
 
     if (![(ATXAnchorModelPhase1Trainer *)self candidateUniqueAnchorOccurrencesIsAtLeastMinimum:[(ATXAnchorModelHyperParameters *)self->_hyperParameters minUniqueAnchorOccurrencesForAnchorForPhase1] candidateId:thresholdsCopy trainingResult:resultCopy])
@@ -393,102 +391,104 @@ LABEL_60:
       goto LABEL_34;
     }
 
-    if ([(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
+    didDefer2 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+    if (didDefer2)
     {
-      v9 = __atxlog_handle_anchor();
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __atxlog_handle_anchor(didDefer2);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_5;
       }
 
       anchor = self->_anchor;
-      v47 = 138412290;
-      v48 = anchor;
+      v56 = 138412290;
+      v57 = anchor;
       goto LABEL_4;
     }
 
     [(ATXAnchorModelPhase1Trainer *)self classConditionalProbabilityOfAnchorForCandidate:thresholdsCopy];
-    v14 = v13;
-    [resultCopy setClassConditionalProbability:?];
-    v15 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = v15;
+    v17 = __atxlog_handle_anchor([resultCopy setClassConditionalProbability:?]);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v47) = 0;
-      _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated class conditional probability", &v47, 2u);
+      LOWORD(v56) = 0;
+      _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated class conditional probability", &v56, 2u);
     }
 
-    if ([(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
+    didDefer3 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+    if (didDefer3)
     {
-      v9 = __atxlog_handle_anchor();
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __atxlog_handle_anchor(didDefer3);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_5;
       }
 
-      v16 = self->_anchor;
-      v47 = 138412290;
-      v48 = v16;
+      v19 = self->_anchor;
+      v56 = 138412290;
+      v57 = v19;
       goto LABEL_4;
     }
 
     [(ATXAnchorModelPhase1Trainer *)self posteriorProbabilityConditionedOnAnchorForCandidate:thresholdsCopy];
-    v18 = v17;
-    [resultCopy setPosteriorProbability:?];
-    v19 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = v20;
+    v22 = __atxlog_handle_anchor([resultCopy setPosteriorProbability:?]);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v47) = 0;
-      _os_log_impl(&dword_2263AA000, v19, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated posterior probability", &v47, 2u);
+      LOWORD(v56) = 0;
+      _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated posterior probability", &v56, 2u);
     }
 
-    if ([(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
+    didDefer4 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+    if (didDefer4)
     {
-      v9 = __atxlog_handle_anchor();
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __atxlog_handle_anchor(didDefer4);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_5;
       }
 
-      v20 = self->_anchor;
-      v47 = 138412290;
-      v48 = v20;
+      v24 = self->_anchor;
+      v56 = 138412290;
+      v57 = v24;
       goto LABEL_4;
     }
 
     [(ATXAnchorModelHyperParameters *)self->_hyperParameters minClassConditionalProbabilityForCandidateForPhase1];
     if (![(ATXAnchorModelPhase1Trainer *)self classConditionalProbabilityOfAnchorIsAtLeastMinimum:thresholdsCopy candidateId:resultCopy trainingResult:?])
     {
-      [(ATXAnchorModelHyperParameters *)self->_hyperParameters minPosteriorProbabilityToIgnoreClassConditionalProbabilityForCandidateForPhase1];
-      if (v18 <= v21)
+      minPosteriorProbabilityToIgnoreClassConditionalProbabilityForCandidateForPhase1 = [(ATXAnchorModelHyperParameters *)self->_hyperParameters minPosteriorProbabilityToIgnoreClassConditionalProbabilityForCandidateForPhase1];
+      if (v21 <= v26)
       {
         goto LABEL_34;
       }
 
-      v22 = __atxlog_handle_anchor();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v27 = __atxlog_handle_anchor(minPosteriorProbabilityToIgnoreClassConditionalProbabilityForCandidateForPhase1);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         [(ATXAnchorModelHyperParameters *)self->_hyperParameters minPosteriorProbabilityToIgnoreClassConditionalProbabilityForCandidateForPhase1];
-        v47 = 138412802;
-        v48 = thresholdsCopy;
-        v49 = 2048;
-        v50 = v18;
-        v51 = 2048;
-        v52 = v23;
-        _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate %@ posterior probability (%.2f) is high enough to proceed even though the class conditional probability requirement is not met. High threshold: %.2f", &v47, 0x20u);
+        v56 = 138412802;
+        v57 = thresholdsCopy;
+        v58 = 2048;
+        v59 = v21;
+        v60 = 2048;
+        v61 = v28;
+        _os_log_impl(&dword_2263AA000, v27, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate %@ posterior probability (%.2f) is high enough to proceed even though the class conditional probability requirement is not met. High threshold: %.2f", &v56, 0x20u);
       }
     }
 
-    if ([(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
+    didDefer5 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+    if (didDefer5)
     {
-      v9 = __atxlog_handle_anchor();
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __atxlog_handle_anchor(didDefer5);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_5;
       }
 
-      v24 = self->_anchor;
-      v47 = 138412290;
-      v48 = v24;
+      v30 = self->_anchor;
+      v56 = 138412290;
+      v57 = v30;
       goto LABEL_4;
     }
 
@@ -498,140 +498,140 @@ LABEL_60:
       goto LABEL_34;
     }
 
-    if ([(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
+    didDefer6 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+    if (didDefer6)
     {
-      v9 = __atxlog_handle_anchor();
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-      {
-        goto LABEL_5;
-      }
-
-      v25 = self->_anchor;
-      v47 = 138412290;
-      v48 = v25;
-      goto LABEL_4;
-    }
-
-    [(ATXAnchorModelPhase1Trainer *)self standardDeviationOfSecondsAfterAnchorForFirstOccurrenceOfCandidateId:thresholdsCopy];
-    v30 = v29;
-    [resultCopy setStandardDeviationOfOffsetFromAnchor:?];
-    v31 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v47) = 0;
-      _os_log_impl(&dword_2263AA000, v31, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated standard deviation of offset from anchor", &v47, 2u);
-    }
-
-    if ([(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
-    {
-      v9 = __atxlog_handle_anchor();
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __atxlog_handle_anchor(didDefer6);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_5;
       }
 
       v32 = self->_anchor;
-      v47 = 138412290;
-      v48 = v32;
+      v56 = 138412290;
+      v57 = v32;
       goto LABEL_4;
     }
 
-    [(ATXAnchorModelPhase1Trainer *)self anchorPopularityForCandidate:thresholdsCopy];
-    v34 = v33;
-    [resultCopy setAnchorPopularity:?];
-    v35 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    [(ATXAnchorModelPhase1Trainer *)self standardDeviationOfSecondsAfterAnchorForFirstOccurrenceOfCandidateId:thresholdsCopy];
+    v36 = v35;
+    v37 = __atxlog_handle_anchor([resultCopy setStandardDeviationOfOffsetFromAnchor:?]);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v47) = 0;
-      _os_log_impl(&dword_2263AA000, v35, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated anchor popularity", &v47, 2u);
+      LOWORD(v56) = 0;
+      _os_log_impl(&dword_2263AA000, v37, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated standard deviation of offset from anchor", &v56, 2u);
     }
 
-    if ([(ATXBackgroundActivityProtocol *)self->_runningTask didDefer])
+    didDefer7 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+    if (didDefer7)
     {
-      v9 = __atxlog_handle_anchor();
-      if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = __atxlog_handle_anchor(didDefer7);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_5;
       }
 
-      v36 = self->_anchor;
-      v47 = 138412290;
-      v48 = v36;
+      v39 = self->_anchor;
+      v56 = 138412290;
+      v57 = v39;
+      goto LABEL_4;
+    }
+
+    [(ATXAnchorModelPhase1Trainer *)self anchorPopularityForCandidate:thresholdsCopy];
+    v41 = v40;
+    v42 = __atxlog_handle_anchor([resultCopy setAnchorPopularity:?]);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v56) = 0;
+      _os_log_impl(&dword_2263AA000, v42, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated anchor popularity", &v56, 2u);
+    }
+
+    didDefer8 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+    if (didDefer8)
+    {
+      v10 = __atxlog_handle_anchor(didDefer8);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_5;
+      }
+
+      v44 = self->_anchor;
+      v56 = 138412290;
+      v57 = v44;
       goto LABEL_4;
     }
 
     [(ATXAnchorModelPhase1Trainer *)self globalPopularityForCandidate:thresholdsCopy];
-    v38 = v37;
-    [resultCopy setGlobalPopularity:?];
-    v39 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v46 = v45;
+    v47 = __atxlog_handle_anchor([resultCopy setGlobalPopularity:?]);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v47) = 0;
-      _os_log_impl(&dword_2263AA000, v39, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated global popularity", &v47, 2u);
+      LOWORD(v56) = 0;
+      _os_log_impl(&dword_2263AA000, v47, OS_LOG_TYPE_DEFAULT, "Phase 1: calculated global popularity", &v56, 2u);
     }
 
-    didDefer = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
-    v41 = __atxlog_handle_anchor();
-    v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
-    if (didDefer)
+    didDefer9 = [(ATXBackgroundActivityProtocol *)self->_runningTask didDefer];
+    v49 = didDefer9;
+    v50 = __atxlog_handle_anchor(didDefer9);
+    v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT);
+    if (v49)
     {
-      if (v42)
+      if (v51)
       {
-        v43 = self->_anchor;
-        v47 = 138412290;
-        v48 = v43;
-        v44 = "Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.";
-        v45 = v41;
-        v46 = 12;
+        v52 = self->_anchor;
+        v56 = 138412290;
+        v57 = v52;
+        v53 = "Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.";
+        v54 = v50;
+        v55 = 12;
 LABEL_53:
-        _os_log_impl(&dword_2263AA000, v45, OS_LOG_TYPE_DEFAULT, v44, &v47, v46);
+        _os_log_impl(&dword_2263AA000, v54, OS_LOG_TYPE_DEFAULT, v53, &v56, v55);
       }
     }
 
-    else if (v42)
+    else if (v51)
     {
-      v47 = 138413826;
-      v48 = thresholdsCopy;
-      v49 = 2048;
-      v50 = *&v8;
-      v51 = 2048;
-      v52 = v14;
-      v53 = 2048;
-      v54 = v18;
-      v55 = 2048;
-      v56 = v30;
-      v57 = 2048;
-      v58 = v34;
-      v59 = 2048;
-      v60 = v38;
-      v44 = "Phase 1: Candidate %@ unique anchor occurrence count: %ld, class-conditional probability: %.2f, posterior probability: %.2f, standard deviation in offset from anchor: %.2f, anchorProbability: %.2f, globalPopularity: %.2f";
-      v45 = v41;
-      v46 = 72;
+      v56 = 138413826;
+      v57 = thresholdsCopy;
+      v58 = 2048;
+      v59 = *&v8;
+      v60 = 2048;
+      v61 = v16;
+      v62 = 2048;
+      v63 = v21;
+      v64 = 2048;
+      v65 = v36;
+      v66 = 2048;
+      v67 = v41;
+      v68 = 2048;
+      v69 = v46;
+      v53 = "Phase 1: Candidate %@ unique anchor occurrence count: %ld, class-conditional probability: %.2f, posterior probability: %.2f, standard deviation in offset from anchor: %.2f, anchorProbability: %.2f, globalPopularity: %.2f";
+      v54 = v50;
+      v55 = 72;
       goto LABEL_53;
     }
 
-    v26 = didDefer ^ 1;
+    v33 = v49 ^ 1;
     goto LABEL_35;
   }
 
-  v9 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = __atxlog_handle_anchor(didDefer);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = self->_anchor;
-    v47 = 138412290;
-    v48 = v10;
+    v11 = self->_anchor;
+    v56 = 138412290;
+    v57 = v11;
 LABEL_4:
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_DEFAULT, "Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.", &v47, 0xCu);
+    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Deferring training of additional anchors in the middle of training anchor model for anchor %@ because XPC activity asked for deferral. Not going to process any other anchors for now.", &v56, 0xCu);
   }
 
 LABEL_5:
 
 LABEL_34:
-  v26 = 0;
+  v33 = 0;
 LABEL_35:
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v26;
+  return v33;
 }
 
 - (BOOL)candidateUniqueAnchorOccurrencesIsAtLeastMinimum:(int64_t)minimum candidateId:(id)id trainingResult:(id)result
@@ -640,10 +640,11 @@ LABEL_35:
   idCopy = id;
   resultCopy = result;
   numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence = [resultCopy numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence];
+  v10 = numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence;
   if (numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence < minimum)
   {
-    v10 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_anchor(numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138412802;
       v14 = idCopy;
@@ -651,12 +652,11 @@ LABEL_35:
       minimumCopy = minimum;
       v17 = 2048;
       numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence2 = [resultCopy numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence];
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate %@ failed unique anchor occurrence count requirement. Req: %ld, Actual: %ld", &v13, 0x20u);
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate %@ failed unique anchor occurrence count requirement. Req: %ld, Actual: %ld", &v13, 0x20u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return numUniqueAnchorOccurrencesWithUniqueCandidateOccurrence >= minimum;
+  return v10 >= minimum;
 }
 
 - (BOOL)classConditionalProbabilityOfAnchorIsAtLeastMinimum:(double)minimum candidateId:(id)id trainingResult:(id)result
@@ -664,12 +664,12 @@ LABEL_35:
   v21 = *MEMORY[0x277D85DE8];
   idCopy = id;
   resultCopy = result;
-  [resultCopy classConditionalProbability];
-  v10 = v9;
-  if (v9 < minimum)
+  classConditionalProbability = [resultCopy classConditionalProbability];
+  v11 = v10;
+  if (v10 < minimum)
   {
-    v11 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_anchor(classConditionalProbability);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       [resultCopy classConditionalProbability];
       v15 = 138412802;
@@ -677,18 +677,17 @@ LABEL_35:
       v17 = 2048;
       minimumCopy = minimum;
       v19 = 2048;
-      v20 = v12;
-      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate %@ failed class conditional probability requirement. Req: %.2f, Actual: %.2f", &v15, 0x20u);
+      v20 = v13;
+      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate %@ failed class conditional probability requirement. Req: %.2f, Actual: %.2f", &v15, 0x20u);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v10 >= minimum;
+  return v11 >= minimum;
 }
 
 - (double)classConditionalProbabilityOfAnchorForCandidate:(id)candidate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   v5 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper numCandidateOccurrencesInAnchorContextForCandidate:candidateCopy anchor:self->_anchor];
   v6 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper numCandidateOccurrencesInAllContextsForCandidate:candidateCopy];
@@ -703,21 +702,20 @@ LABEL_35:
     v8 = 0.0;
   }
 
-  v9 = __atxlog_handle_anchor();
+  v9 = __atxlog_handle_anchor(v6);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v12 = 138413058;
-    v13 = candidateCopy;
-    v14 = 2048;
-    v15 = v5;
-    v16 = 2048;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v8;
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "Phase 1: Candidate: %@. anchorContextCount = %ld, allContextCount = %ld ==> p(anchor | candidate) = %.3f", &v12, 0x2Au);
+    v11 = 138413058;
+    v12 = candidateCopy;
+    v13 = 2048;
+    v14 = v5;
+    v15 = 2048;
+    v16 = v7;
+    v17 = 2048;
+    v18 = v8;
+    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "Phase 1: Candidate: %@. anchorContextCount = %ld, allContextCount = %ld ==> p(anchor | candidate) = %.3f", &v11, 0x2Au);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -726,12 +724,12 @@ LABEL_35:
   v21 = *MEMORY[0x277D85DE8];
   idCopy = id;
   resultCopy = result;
-  [resultCopy posteriorProbability];
-  v10 = v9;
-  if (v9 < minimum)
+  posteriorProbability = [resultCopy posteriorProbability];
+  v11 = v10;
+  if (v10 < minimum)
   {
-    v11 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_anchor(posteriorProbability);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       [resultCopy posteriorProbability];
       v15 = 138412802;
@@ -739,18 +737,17 @@ LABEL_35:
       v17 = 2048;
       minimumCopy = minimum;
       v19 = 2048;
-      v20 = v12;
-      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate %@ failed posterior probability requirement. Req: %.2f, Actual: %.2f", &v15, 0x20u);
+      v20 = v13;
+      _os_log_impl(&dword_2263AA000, v12, OS_LOG_TYPE_DEFAULT, "Phase 1: Candidate %@ failed posterior probability requirement. Req: %.2f, Actual: %.2f", &v15, 0x20u);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-  return v10 >= minimum;
+  return v11 >= minimum;
 }
 
 - (double)posteriorProbabilityConditionedOnAnchorForCandidate:(id)candidate
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   v5 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper numUniqueAnchorOccurrencesForCandidate:candidateCopy anchor:self->_anchor];
   v6 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper numUniqueAnchorOccurrencesForAnchor:self->_anchor candidateId:candidateCopy];
@@ -765,21 +762,20 @@ LABEL_35:
     v8 = 0.0;
   }
 
-  v9 = __atxlog_handle_anchor();
+  v9 = __atxlog_handle_anchor(v6);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v12 = 138413058;
-    v13 = candidateCopy;
-    v14 = 2048;
-    v15 = v5;
-    v16 = 2048;
-    v17 = v7;
-    v18 = 2048;
-    v19 = v8;
-    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "Phase 1: Candidate: %@. uniqueOccurrencesInAnchorContext = %ld, uniqueAnchorOccurrences = %ld ==> p(candidate | anchor) = %.3f", &v12, 0x2Au);
+    v11 = 138413058;
+    v12 = candidateCopy;
+    v13 = 2048;
+    v14 = v5;
+    v15 = 2048;
+    v16 = v7;
+    v17 = 2048;
+    v18 = v8;
+    _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "Phase 1: Candidate: %@. uniqueOccurrencesInAnchorContext = %ld, uniqueAnchorOccurrences = %ld ==> p(candidate | anchor) = %.3f", &v11, 0x2Au);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -794,14 +790,14 @@ LABEL_35:
 
 - (double)standardDeviationOfNumbers:(id)numbers
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   numbersCopy = numbers;
   if ([numbersCopy count])
   {
     v4 = MEMORY[0x277CCA9C0];
     v5 = [MEMORY[0x277CCA9C0] expressionForConstantValue:numbersCopy];
-    v13[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
     v7 = [v4 expressionForFunction:@"stddev:" arguments:v6];
 
     v8 = [v7 expressionValueWithObject:0 context:0];
@@ -814,7 +810,6 @@ LABEL_35:
     v10 = 0.0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -822,7 +817,7 @@ LABEL_35:
 {
   p_anchor = &self->_anchor;
   v3 = [(ATXAnchorModelDataStoreWrapperProtocol *)self->_storeWrapper uniqueCandidateIdsThatOccurredAfterAnchor:self->_anchor];
-  v4 = __atxlog_handle_anchor();
+  v4 = __atxlog_handle_anchor(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(ATXAnchorModelPhase1Trainer *)p_anchor uniqueCandidateIdsThatOccurredAfterAnchor];
@@ -842,16 +837,16 @@ LABEL_35:
 
   if (v8)
   {
-    v9 = v5 / v8;
+    v10 = v5 / v8;
   }
 
   else
   {
-    v9 = 0.0;
+    v10 = 0.0;
   }
 
-  v10 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = __atxlog_handle_anchor(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v13 = 138413058;
     v14 = candidateCopy;
@@ -860,12 +855,11 @@ LABEL_35:
     v17 = 2048;
     v18 = v8;
     v19 = 2048;
-    v20 = v9;
-    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_INFO, "Phase 1: Candidate: %@. occurencesInAnchorContextForCandidate = %ld, occurencesInAnchorContextForAllCandidatesOfSameType = %ld ==> anchorProbability = %.3f", &v13, 0x2Au);
+    v20 = v10;
+    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "Phase 1: Candidate: %@. occurencesInAnchorContextForCandidate = %ld, occurencesInAnchorContextForAllCandidatesOfSameType = %ld ==> anchorProbability = %.3f", &v13, 0x2Au);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (double)globalPopularityForCandidate:(id)candidate
@@ -879,16 +873,16 @@ LABEL_35:
 
   if (v8)
   {
-    v9 = v5 / v8;
+    v10 = v5 / v8;
   }
 
   else
   {
-    v9 = 0.0;
+    v10 = 0.0;
   }
 
-  v10 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v11 = __atxlog_handle_anchor(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v13 = 138413058;
     v14 = candidateCopy;
@@ -897,12 +891,11 @@ LABEL_35:
     v17 = 2048;
     v18 = v8;
     v19 = 2048;
-    v20 = v9;
-    _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_INFO, "Phase 1: Candidate: %@. occurencesInAllContextsForCandidate = %ld, occurencesInAllContextsForCandidatesOfSameType = %ld ==> globalPopularity = %.3f", &v13, 0x2Au);
+    v20 = v10;
+    _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "Phase 1: Candidate: %@. occurencesInAllContextsForCandidate = %ld, occurencesInAllContextsForCandidatesOfSameType = %ld ==> globalPopularity = %.3f", &v13, 0x2Au);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v10;
 }
 
 - (void)_logPredictionsFilteredDuringPhase1WithCandidateIdsToConsider:(id)consider selectedCandidates:(id)candidates
@@ -924,8 +917,7 @@ LABEL_35:
   abGroup = [(ATXAnchorModelHyperParameters *)self->_hyperParameters abGroup];
   [v8 setAbGroup:abGroup];
 
-  [(ATXPETEventTracker2Protocol *)self->_tracker logMessage:v8];
-  v13 = __atxlog_handle_metrics();
+  v13 = __atxlog_handle_metrics([(ATXPETEventTracker2Protocol *)self->_tracker logMessage:v8]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [(ATXAnchorModelPhase1Trainer *)self _logPredictionsFilteredDuringPhase1WithCandidateIdsToConsider:v8 selectedCandidates:v13];
@@ -934,38 +926,35 @@ LABEL_35:
 
 - (void)uniqueCandidateIdsThatOccurredAfterAnchor
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *self;
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "Phase 1: Unique candidates found after anchor (%@): %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_2263AA000, log, OS_LOG_TYPE_DEBUG, "Phase 1: Unique candidates found after anchor (%@): %@", &v4, 0x16u);
 }
 
 - (void)_logPredictionsFilteredDuringPhase1WithCandidateIdsToConsider:(NSObject *)a3 selectedCandidates:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a2 numStartingCandidates];
   v8 = [a2 numEndingCandidates];
   v9 = [a2 anchorType];
   v10 = [a2 abGroup];
-  v12 = 138413314;
-  v13 = v6;
-  v14 = 1024;
-  v15 = v7;
-  v16 = 1024;
-  v17 = v8;
-  v18 = 2112;
-  v19 = v9;
-  v20 = 2112;
-  v21 = v10;
-  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBAnchorModelPhaseFilterTracker for phase 1 with starting candidates: %u ending candidates: %u, anchorType: %@ abGroup: %@", &v12, 0x2Cu);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = 138413314;
+  v12 = v6;
+  v13 = 1024;
+  v14 = v7;
+  v15 = 1024;
+  v16 = v8;
+  v17 = 2112;
+  v18 = v9;
+  v19 = 2112;
+  v20 = v10;
+  _os_log_debug_impl(&dword_2263AA000, a3, OS_LOG_TYPE_DEBUG, "LOGGED: %@ - ATXMPBAnchorModelPhaseFilterTracker for phase 1 with starting candidates: %u ending candidates: %u, anchorType: %@ abGroup: %@", &v11, 0x2Cu);
 }
 
 @end

@@ -15,6 +15,7 @@
 - (double)_adjustedIndexForScaleForIndex:(double)index withCardSize:(double)size contentOffset:(double)offset contentSize:(double)contentSize contentInsets:(uint64_t)insets switcherViewBounds:(unint64_t)bounds;
 - (double)_cardCornerRadiusInSwitcher;
 - (double)_distanceFromPreviousCardForCardAtIndex:(unint64_t)index;
+- (double)_frameWithScaleAppliedForIndex:(double)index withCardSize:(double)size contentOffset:(double)offset contentSize:(double)contentSize contentInsets:(double)insets switcherViewBounds:(uint64_t)bounds;
 - (double)_scaleForScaleAdjustedIndex:(double)index;
 - (double)dimmingAlphaForLayoutRole:(int64_t)role inAppLayout:(id)layout;
 - (double)distanceToLeadingEdgeOfLeadingCardFromTrailingEdgeOfScreenWithVisibleIndexToStartSearch:(unint64_t)search;
@@ -36,13 +37,12 @@
 - (id)neighboringAppLayoutsForFocusedAppLayout:(id)layout;
 - (id)scrollViewAttributes;
 - (id)visibleAppLayouts;
-- (uint64_t)_frameForIndex:(double)index withCardSize:(double)size scale:(double)scale adjustedIndexForScale:(double)forScale contentOffset:(double)offset contentSize:(double)contentSize contentInsets:(double)insets switcherViewBounds:(double)self0;
-- (uint64_t)_frameWithScaleAppliedForIndex:(double)index withCardSize:(double)size contentOffset:(double)offset contentSize:(double)contentSize contentInsets:(double)insets switcherViewBounds:(uint64_t)bounds;
 - (unint64_t)_indexForContentOffset:(CGPoint)offset;
 - (unint64_t)_numberOfItems;
 - (unint64_t)indexToScrollToAfterRemovingIndex:(unint64_t)index;
 - (unint64_t)transactionCompletionOptions;
 - (void)_applyPrototypeSettings;
+- (void)_frameForIndex:(double)index withCardSize:(double)size scale:(double)scale adjustedIndexForScale:(double)forScale contentOffset:(double)offset contentSize:(double)contentSize contentInsets:(double)insets switcherViewBounds:(double)self0;
 - (void)didMoveToParentModifier:(id)modifier;
 @end
 
@@ -162,7 +162,7 @@ LABEL_16:
 
   [v6 setRetainsSiri:{-[SBDeckFloatingSwitcherModifier isSystemAssistantExperiencePersistentSiriEnabled](self, "isSystemAssistantExperiencePersistentSiriEnabled")}];
   v7 = [[SBPerformTransitionSwitcherEventResponse alloc] initWithTransitionRequest:v6 gestureInitiated:0];
-  v8 = SBAppendSwitcherModifierResponse(v7, v5);
+  v8 = SBAppendSwitcherModifierResponse();
 
   return v8;
 }
@@ -222,7 +222,7 @@ LABEL_16:
 - (id)handleTransitionEvent:(id)event
 {
   eventCopy = event;
-  if ([eventCopy toFloatingSwitcherVisible] && (objc_msgSend(eventCopy, "fromFloatingSwitcherVisible") & 1) == 0)
+  if ([eventCopy toFloatingSwitcherVisible] && (objc_msgSend_fromFloatingSwitcherVisible(eventCopy) & 1) == 0)
   {
     self->_previousContentOffset = SBInvalidPoint;
     self->_isScrollingForward = 1;
@@ -907,7 +907,7 @@ LABEL_8:
   return result;
 }
 
-- (uint64_t)_frameForIndex:(double)index withCardSize:(double)size scale:(double)scale adjustedIndexForScale:(double)forScale contentOffset:(double)offset contentSize:(double)contentSize contentInsets:(double)insets switcherViewBounds:(double)self0
+- (void)_frameForIndex:(double)index withCardSize:(double)size scale:(double)scale adjustedIndexForScale:(double)forScale contentOffset:(double)offset contentSize:(double)contentSize contentInsets:(double)insets switcherViewBounds:(double)self0
 {
   isRTLEnabled = [self isRTLEnabled];
   forScaleCopy = contentSize - a16 - forScale;
@@ -916,22 +916,22 @@ LABEL_8:
     forScaleCopy = forScale;
   }
 
-  v33 = forScaleCopy;
-  v28 = *&kDeckFloatingSwitcherCardScale;
+  v27 = forScaleCopy;
+  v22 = *&kDeckFloatingSwitcherCardScale;
   SBRectWithSize();
   SBUnintegralizedRectCenteredAboutPoint();
-  v30 = a2 * ((v28 - size) * 0.5) * scale + v29 - v33;
+  v24 = a2 * ((v22 - size) * 0.5) * scale + v23 - v27;
   if (a11 <= a13)
   {
-    v31 = a11;
+    v25 = a11;
   }
 
   else
   {
-    v31 = a13;
+    v25 = a13;
   }
 
-  if (v31 - a2 * (1.0 - size) * 0.5 + *&kDeckFloatingLeadingEdgeRubberbandingRange - v30 > 0.0)
+  if (v25 - a2 * (1.0 - size) * 0.5 + *&kDeckFloatingLeadingEdgeRubberbandingRange - v24 > 0.0)
   {
     BSUIConstrainValueWithRubberBand();
   }
@@ -944,12 +944,12 @@ LABEL_8:
   isRTLEnabled = [self isRTLEnabled];
   if (a13 <= a15)
   {
-    v25 = a13;
+    v23 = a13;
   }
 
   else
   {
-    v25 = a15;
+    v23 = a15;
   }
 
   sizeCopy = contentSize - a18 - size;
@@ -958,7 +958,7 @@ LABEL_8:
     sizeCopy = size;
   }
 
-  return bounds - (contentSize - a18 - (a13 + a15) - (sizeCopy - (a13 + v25))) / (*&kDeckFloatingCardSpacing + a2 * *&kDeckFloatingSwitcherCardScale);
+  return bounds - (contentSize - a18 - (a13 + a15) - (sizeCopy - (a13 + v23))) / (*&kDeckFloatingCardSpacing + a2 * *&kDeckFloatingSwitcherCardScale);
 }
 
 - (double)_scaleForScaleAdjustedIndex:(double)index
@@ -1055,14 +1055,15 @@ LABEL_8:
   }
 }
 
-- (uint64_t)_frameWithScaleAppliedForIndex:(double)index withCardSize:(double)size contentOffset:(double)offset contentSize:(double)contentSize contentInsets:(double)insets switcherViewBounds:(uint64_t)bounds
+- (double)_frameWithScaleAppliedForIndex:(double)index withCardSize:(double)size contentOffset:(double)offset contentSize:(double)contentSize contentInsets:(double)insets switcherViewBounds:(uint64_t)bounds
 {
-  [self _adjustedIndexForScaleForIndex:a15 withCardSize:a16 contentOffset:a17 contentSize:a18 contentInsets:a19 switcherViewBounds:{a20, a21, a22}];
+  [self _adjustedIndexForScaleForIndex:a9 withCardSize:a10 contentOffset:a11 contentSize:a12 contentInsets:a13 switcherViewBounds:{a14, a15, a16, a17, a18, a19, a20, a21, a22}];
   v25 = v24;
   [self _scaleForScaleAdjustedIndex:?];
   [self _frameForIndex:a9 withCardSize:a2 scale:index adjustedIndexForScale:v26 contentOffset:v25 contentSize:size contentInsets:offset switcherViewBounds:{contentSize, insets, a15, a16, a17, a18, a19, a20, a21, a22}];
 
-  return SBTransformedRectWithScale();
+  SBTransformedRectWithScale();
+  return result;
 }
 
 - (unint64_t)_numberOfItems

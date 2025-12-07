@@ -23,22 +23,20 @@
 
 + (id)actionsWithURL:(id)l result:(__DDResult *)result context:(id)context
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   contextCopy = context;
   if ([self isAvailable])
   {
     v10 = [(DDAction *)DDEventsAction actionWithURL:lCopy result:result context:contextCopy];
-    v14[0] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   }
 
   else
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -65,14 +63,14 @@
 
 - (id)makeURL
 {
-  v22[6] = *MEMORY[0x277D85DE8];
-  v22[0] = @"EventTitle";
-  v22[1] = @"SelectedText";
-  v22[2] = @"ReferenceDate";
-  v22[3] = @"SpecialURL";
-  v22[4] = @"CoreSpotlightUniqueIdentifier";
-  v22[5] = @"DocumentLanguage";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:6];
+  v21[6] = *MEMORY[0x277D85DE8];
+  v21[0] = @"EventTitle";
+  v21[1] = @"SelectedText";
+  v21[2] = @"ReferenceDate";
+  v21[3] = @"SpecialURL";
+  v21[4] = @"CoreSpotlightUniqueIdentifier";
+  v21[5] = @"DocumentLanguage";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:6];
   context = [(DDAction *)self context];
   v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v3, "count") + 1}];
   v6 = beginDateOfEventResults([(DDAction *)self associatedResults], context, 0, 0, 0);
@@ -81,39 +79,37 @@
     [v5 setObject:v6 forKeyedSubscript:@"event-start-date"];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
-        v13 = [context objectForKeyedSubscript:{v12, v17}];
+        v12 = *(*(&v16 + 1) + 8 * i);
+        v13 = [context objectForKeyedSubscript:{v12, v16}];
         [v5 setObject:v13 forKeyedSubscript:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
 
   v14 = [MEMORY[0x277CFB450] urlForRSVPDataDetectorsWithContext:v5];
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

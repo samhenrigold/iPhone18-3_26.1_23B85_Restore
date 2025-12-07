@@ -3,7 +3,7 @@
 
 @implementation WKUserContentExtensionStore
 
-void __111___WKUserContentExtensionStore_compileContentExtensionForIdentifier_encodedContentExtension_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void __111___WKUserContentExtensionStore_compileContentExtensionForIdentifier_encodedContentExtension_completionHandler___block_invoke(uint64_t a1, uint64_t a2, const NSError *a3)
 {
   if (a2)
   {

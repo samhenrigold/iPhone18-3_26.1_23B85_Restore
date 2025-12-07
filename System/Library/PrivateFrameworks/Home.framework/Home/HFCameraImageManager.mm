@@ -151,7 +151,7 @@ void __37__HFCameraImageManager_sharedManager__block_invoke()
 
 - (id)faceCropForClip:(id)clip atOffset:(double)offset
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v7 = [clipCopy hf_faceCropNameAtOffset:offset];
   if (v7)
@@ -160,9 +160,9 @@ void __37__HFCameraImageManager_sharedManager__block_invoke()
     v9 = HFLogForCategory(0x15uLL);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = v8;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Requesting cached face crop using key:%@.", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = v8;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Requesting cached face crop using key:%@.", &v15, 0xCu);
     }
 
     imageCache = [(HFCameraImageManager *)self imageCache];
@@ -176,83 +176,78 @@ void __37__HFCameraImageManager_sharedManager__block_invoke()
     {
       uniqueIdentifier = [clipCopy uniqueIdentifier];
       uUIDString = [uniqueIdentifier UUIDString];
-      v16 = 138412546;
-      v17 = uUIDString;
-      v18 = 2048;
+      v15 = 138412546;
+      v16 = uUIDString;
+      v17 = 2048;
       offsetCopy = offset;
-      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Failed to find name for UUID:%@ at offset:%.2f.", &v16, 0x16u);
+      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Failed to find name for UUID:%@ at offset:%.2f.", &v15, 0x16u);
     }
 
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)faceCropForPersonName:(id)name
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = [HFCameraImageCache faceCropKeyForPersonName:name];
   v5 = HFLogForCategory(0x15uLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v4;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Requesting cached face crop using key:%@.", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v4;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Requesting cached face crop using key:%@.", &v9, 0xCu);
   }
 
   imageCache = [(HFCameraImageManager *)self imageCache];
   v7 = [imageCache imageForKey:v4];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)faceCropImagesForClip:(id)clip atOffset:(double)offset
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   array = [MEMORY[0x277CBEB18] array];
   v8 = [clipCopy hf_faceCropNamesAtOffset:offset];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke;
-  v19 = &unk_277DF3258;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke;
+  v18 = &unk_277DF3258;
   selfCopy = self;
   v9 = array;
-  v21 = v9;
-  [v8 enumerateObjectsUsingBlock:&v16];
+  v20 = v9;
+  [v8 enumerateObjectsUsingBlock:&v15];
   v10 = HFLogForCategory(0x15uLL);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     uniqueIdentifier = [clipCopy uniqueIdentifier];
     *buf = 138412546;
-    v23 = v9;
-    v24 = 2112;
-    v25 = uniqueIdentifier;
+    v22 = v9;
+    v23 = 2112;
+    v24 = uniqueIdentifier;
     _os_log_debug_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEBUG, "Returning faceCropImages:%@ for clipUUID:%@", buf, 0x16u);
   }
 
-  v11 = v21;
+  v11 = v20;
   v12 = v9;
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [HFCameraImageCache faceCropKeyForPersonName:a2];
   v4 = HFLogForCategory(0x15uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Requesting cached face crop using key:%@.", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Requesting cached face crop using key:%@.", &v7, 0xCu);
   }
 
   v5 = [*(a1 + 32) imageCache];
@@ -262,13 +257,11 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
   {
     [*(a1 + 40) addObject:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cachedPosterFrameImageForClip:(id)clip offset:(double)offset requestor:(id)requestor
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   requestorCopy = requestor;
   clipCopy = clip;
   [(HFCameraImageManager *)self _timeScaleAdjustedOffset:offset];
@@ -288,11 +281,11 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
   {
     if (v19)
     {
-      v23 = 138412546;
-      v24 = v15;
-      v25 = 2112;
-      v26 = requestorCopy;
-      _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Poster Frame hit for key:%@ requester:%@", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = v15;
+      v24 = 2112;
+      v25 = requestorCopy;
+      _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Poster Frame hit for key:%@ requester:%@", &v22, 0x16u);
     }
 
     v20 = v17;
@@ -302,22 +295,20 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
   {
     if (v19)
     {
-      v23 = 138412546;
-      v24 = v15;
-      v25 = 2112;
-      v26 = requestorCopy;
-      _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Poster Frame miss for key:%@ requestor:%@", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = v15;
+      v24 = 2112;
+      v25 = requestorCopy;
+      _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Poster Frame miss for key:%@ requestor:%@", &v22, 0x16u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (id)representativeImageForClip:(id)clip
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v5 = [(HFCameraImageManager *)self heroFrameImageForClip:clipCopy];
   if (v5)
@@ -327,9 +318,9 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
     {
       uniqueIdentifier = [clipCopy uniqueIdentifier];
       uUIDString = [uniqueIdentifier UUIDString];
-      v13 = 138412290;
-      v14 = uUIDString;
-      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Image cache hit for representative image (Hero frame) for UUID:%@.", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = uUIDString;
+      _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Image cache hit for representative image (Hero frame) for UUID:%@.", &v12, 0xCu);
     }
 
     v9 = v5;
@@ -342,14 +333,12 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
 
   v10 = v9;
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)firstPosterFrameImageForClip:(id)clip
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   uniqueIdentifier = [clip uniqueIdentifier];
   uUIDString = [uniqueIdentifier UUIDString];
   v6 = [HFCameraImageCache posterFrameKeyForCameraClipIdentifierString:uUIDString withOffset:0.0];
@@ -363,9 +352,9 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
   {
     if (v10)
     {
-      v14 = 138412290;
-      v15 = v6;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Image cache hit for first poster frame image for key:%@.", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v6;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Image cache hit for first poster frame image for key:%@.", &v13, 0xCu);
     }
 
     v11 = v8;
@@ -375,13 +364,11 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
   {
     if (v10)
     {
-      v14 = 138412290;
-      v15 = v6;
-      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Image cache miss for first poster frame image for key:%@.", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v6;
+      _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, "Image cache miss for first poster frame image for key:%@.", &v13, 0xCu);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -404,7 +391,7 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
 
 - (void)addFaceCropImageObserver:(id)observer forClip:(id)clip usingSignificantEvent:(id)event
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   clipCopy = clip;
   eventCopy = event;
@@ -430,9 +417,9 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v43 = observerCopy;
-          v44 = 2112;
-          v45 = v14;
+          v42 = observerCopy;
+          v43 = 2112;
+          v44 = v14;
           _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "Face crop request is pending. Adding observer:%@ for key:%@", buf, 0x16u);
         }
 
@@ -446,9 +433,9 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v43 = v14;
-          v44 = 2112;
-          v45 = observerCopy;
+          v42 = v14;
+          v43 = 2112;
+          v44 = observerCopy;
           _os_log_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_DEFAULT, "Face crop request failed for key:%@. Unable to add observer:%@", buf, 0x16u);
         }
 
@@ -474,9 +461,9 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v43 = observerCopy;
-        v44 = 2112;
-        v45 = v14;
+        v42 = observerCopy;
+        v43 = 2112;
+        v44 = v14;
         _os_log_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_DEFAULT, "Face crop request initiated. Adding observer:%@ for key:%@", buf, 0x16u);
       }
 
@@ -484,16 +471,16 @@ void __55__HFCameraImageManager_faceCropImagesForClip_atOffset___block_invoke(ui
     }
 
     v27 = dispatch_get_global_queue(0, 0);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v31[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_15;
-    v31[3] = &unk_277DF3280;
-    v31[4] = self;
-    v32 = eventCopy;
-    v33 = clipCopy;
-    v34 = v14;
-    v35 = v18;
-    dispatch_async(v27, v31);
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_15;
+    v30[3] = &unk_277DF3280;
+    v30[4] = self;
+    v31 = eventCopy;
+    v32 = clipCopy;
+    v33 = v14;
+    v34 = v18;
+    dispatch_async(v27, v30);
 
 LABEL_20:
     goto LABEL_21;
@@ -503,7 +490,7 @@ LABEL_20:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v43 = v14;
+    v42 = v14;
     _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Found face crop in cache for key:%@.", buf, 0xCu);
   }
 
@@ -511,17 +498,15 @@ LABEL_20:
   block[1] = 3221225472;
   block[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke;
   block[3] = &unk_277DF3280;
-  v37 = observerCopy;
+  v36 = observerCopy;
   selfCopy = self;
-  v39 = v16;
-  v40 = clipCopy;
-  v41 = eventCopy;
+  v38 = v16;
+  v39 = clipCopy;
+  v40 = eventCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  v18 = v37;
+  v18 = v36;
 LABEL_21:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke(uint64_t a1)
@@ -540,7 +525,7 @@ void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignifican
 {
   v2 = [a1[4] cameraProfile];
   v3 = [v2 accessory];
-  v4 = [v3 home];
+  v4 = objc_msgSend_home(v3);
 
   v5 = [a1[5] faceClassification];
   v6 = [v5 personManagerUUID];
@@ -576,7 +561,7 @@ void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignifican
 
 void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_2(id *a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 8);
@@ -585,11 +570,11 @@ void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignifican
     v8 = HFLogForCategory(0x15uLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v18 = a1[4];
+      v17 = a1[4];
       *buf = 138412546;
-      v34 = v18;
-      v35 = 2112;
-      v36 = v6;
+      v33 = v17;
+      v34 = 2112;
+      v35 = v6;
       _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Unable to add face crop for key:%@ - error:%@", buf, 0x16u);
     }
 
@@ -598,8 +583,8 @@ void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignifican
     block[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_17;
     block[3] = &unk_277DF32A8;
     block[4] = WeakRetained;
-    v31 = a1[4];
-    v32 = a1[5];
+    v30 = a1[4];
+    v31 = a1[5];
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
 
@@ -614,18 +599,18 @@ void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignifican
     {
       v13 = [v11 dataRepresentation];
       v14 = [objc_alloc(MEMORY[0x277D755B8]) initWithData:v13];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_2_25;
-      v20[3] = &unk_277DF32F8;
-      v21 = v14;
-      v22 = a1[5];
-      v23 = WeakRetained;
-      v24 = a1[6];
-      v25 = a1[4];
-      v26 = a1[7];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_2_25;
+      v19[3] = &unk_277DF32F8;
+      v20 = v14;
+      v21 = a1[5];
+      v22 = WeakRetained;
+      v23 = a1[6];
+      v24 = a1[4];
+      v25 = a1[7];
       v15 = v14;
-      dispatch_async(MEMORY[0x277D85CD0], v20);
+      dispatch_async(MEMORY[0x277D85CD0], v19);
     }
 
     else
@@ -633,26 +618,24 @@ void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignifican
       v16 = HFLogForCategory(0x15uLL);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v19 = a1[4];
+        v18 = a1[4];
         *buf = 138412546;
-        v34 = v19;
-        v35 = 2112;
-        v36 = 0;
+        v33 = v18;
+        v34 = 2112;
+        v35 = 0;
         _os_log_error_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_ERROR, "Unable to add face crop for key:%@ - error:%@", buf, 0x16u);
       }
 
-      v27[0] = MEMORY[0x277D85DD0];
-      v27[1] = 3221225472;
-      v27[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_23;
-      v27[3] = &unk_277DF32A8;
-      v27[4] = WeakRetained;
-      v28 = a1[4];
-      v29 = a1[5];
-      dispatch_async(MEMORY[0x277D85CD0], v27);
+      v26[0] = MEMORY[0x277D85DD0];
+      v26[1] = 3221225472;
+      v26[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_23;
+      v26[3] = &unk_277DF32A8;
+      v26[4] = WeakRetained;
+      v27 = a1[4];
+      v28 = a1[5];
+      dispatch_async(MEMORY[0x277D85CD0], v26);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_2_18(uint64_t a1, void *a2, void *a3)
@@ -727,7 +710,7 @@ LABEL_15:
 
 void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_2_25(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = HFLogForCategory(0x15uLL);
   v4 = v3;
@@ -737,7 +720,7 @@ void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignifican
     {
       v5 = *(a1 + 40);
       *buf = 138412290;
-      v16 = v5;
+      v15 = v5;
       _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Caching face crop for key:%@ and notifying observers.", buf, 0xCu);
     }
 
@@ -747,32 +730,30 @@ void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignifican
     v7 = [*(a1 + 48) requestedFaceCropCache];
     [v7 setObject:&unk_282523370 forKeyedSubscript:*(a1 + 40)];
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_28;
-    v11[3] = &unk_277DF32D0;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_28;
+    v10[3] = &unk_277DF32D0;
     v8 = *(a1 + 56);
-    v11[4] = *(a1 + 48);
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 64);
-    v14 = *(a1 + 72);
-    [v8 enumerateObjectsUsingBlock:v11];
+    v10[4] = *(a1 + 48);
+    v11 = *(a1 + 32);
+    v12 = *(a1 + 64);
+    v13 = *(a1 + 72);
+    [v8 enumerateObjectsUsingBlock:v10];
   }
 
   else
   {
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 40);
+      v9 = *(a1 + 40);
       *buf = 138412290;
-      v16 = v10;
+      v15 = v9;
       _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failure to generate image for face crop for key:%@.", buf, 0xCu);
     }
 
     [*(a1 + 48) failedToFindFaceCropForClip:*(a1 + 64) withKey:*(a1 + 40)];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __79__HFCameraImageManager_addFaceCropImageObserver_forClip_usingSignificantEvent___block_invoke_28(void *a1, void *a2)
@@ -832,7 +813,7 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
 
 - (void)removeFaceCropImageObserver:(id)observer forPersonName:(id)name
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   v7 = [HFCameraImageCache faceCropKeyForPersonName:name];
   imageObservers = [(HFCameraImageManager *)self imageObservers];
@@ -843,11 +824,11 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
     v10 = HFLogForCategory(0x15uLL);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412546;
-      v15 = observerCopy;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Remove face crop observer:%@ for key:%@.", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = observerCopy;
+      v15 = 2112;
+      v16 = v7;
+      _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Remove face crop observer:%@ for key:%@.", &v13, 0x16u);
     }
 
     [v9 removeObject:observerCopy];
@@ -858,21 +839,19 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
     v11 = HFLogForCategory(0x15uLL);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = v7;
-      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "All face crop observers have been removed for key:%@.", &v14, 0xCu);
+      v13 = 138412290;
+      v14 = v7;
+      _os_log_impl(&dword_20D9BF000, v11, OS_LOG_TYPE_DEFAULT, "All face crop observers have been removed for key:%@.", &v13, 0xCu);
     }
 
     imageObservers2 = [(HFCameraImageManager *)self imageObservers];
     [imageObservers2 removeObjectForKey:v7];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addHeroFrameImageObserver:(id)observer forClip:(id)clip
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   clipCopy = clip;
   if (!+[HFCameraUtilities shouldDisableHeroFrameDownloads])
@@ -906,7 +885,7 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
       if (v19)
       {
         *buf = 138412290;
-        v44 = v15;
+        v43 = v15;
         _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Found hero frame in cache for key:%@.", buf, 0xCu);
       }
 
@@ -914,13 +893,13 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
       block[1] = 3221225472;
       block[2] = __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke;
       block[3] = &unk_277DF3398;
-      v39 = observerCopy;
+      v38 = observerCopy;
       selfCopy2 = self;
-      v41 = v17;
-      v42 = clipCopy;
+      v40 = v17;
+      v41 = clipCopy;
       dispatch_async(MEMORY[0x277D85CD0], block);
 
-      v20 = v39;
+      v20 = v38;
       goto LABEL_30;
     }
 
@@ -928,11 +907,11 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
     {
       cameraProfile = [(HFCameraImageManager *)self cameraProfile];
       *buf = 138412802;
-      v44 = observerCopy;
-      v45 = 2112;
-      v46 = v15;
-      v47 = 2112;
-      v48 = cameraProfile;
+      v43 = observerCopy;
+      v44 = 2112;
+      v45 = v15;
+      v46 = 2112;
+      v47 = cameraProfile;
       _os_log_impl(&dword_20D9BF000, v18, OS_LOG_TYPE_DEFAULT, "Adding observer:%@ for hero frame key:%@ with profile:%@", buf, 0x20u);
     }
 
@@ -948,9 +927,9 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v44 = observerCopy;
-          v45 = 2112;
-          v46 = v15;
+          v43 = observerCopy;
+          v44 = 2112;
+          v45 = v15;
           _os_log_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_DEFAULT, "Hero frame request is pending. Adding observer:%@ for key:%@", buf, 0x16u);
         }
 
@@ -964,9 +943,9 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
         if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v44 = v15;
-          v45 = 2112;
-          v46 = observerCopy;
+          v43 = v15;
+          v44 = 2112;
+          v45 = observerCopy;
           _os_log_impl(&dword_20D9BF000, v28, OS_LOG_TYPE_DEFAULT, "Hero frame request failed for key:%@. Unable to add observer:%@", buf, 0x16u);
         }
 
@@ -981,9 +960,9 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v44 = observerCopy;
-        v45 = 2112;
-        v46 = v15;
+        v43 = observerCopy;
+        v44 = 2112;
+        v45 = v15;
         _os_log_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_DEFAULT, "Hero frame request initiated. Adding observer:%@ for key:%@", buf, 0x16u);
       }
 
@@ -996,15 +975,15 @@ void __60__HFCameraImageManager_failedToFindFaceCropForClip_withKey___block_invo
     cameraProfile2 = [(HFCameraImageManager *)self cameraProfile];
     clipManager = [cameraProfile2 clipManager];
     uniqueIdentifier2 = [clipCopy uniqueIdentifier];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke_36;
-    v33[3] = &unk_277DF33E8;
-    v34 = v15;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke_36;
+    v32[3] = &unk_277DF33E8;
+    v33 = v15;
     selfCopy3 = self;
-    v36 = clipCopy;
-    v37 = v20;
-    [clipManager fetchHeroFrameDataRepresentationForClipWithUUID:uniqueIdentifier2 completion:v33];
+    v35 = clipCopy;
+    v36 = v20;
+    [clipManager fetchHeroFrameDataRepresentationForClipWithUUID:uniqueIdentifier2 completion:v32];
 
 LABEL_29:
 LABEL_30:
@@ -1017,7 +996,7 @@ LABEL_30:
   {
     uniqueIdentifier3 = [clipCopy uniqueIdentifier];
     *buf = 138412290;
-    v44 = uniqueIdentifier3;
+    v43 = uniqueIdentifier3;
     _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Hero frame downloads disabled for clip:%@.", buf, 0xCu);
   }
 
@@ -1027,13 +1006,11 @@ LABEL_30:
 LABEL_13:
   [v10 manager:selfCopy4 failedToFindHeroFrameforClip:v12];
 LABEL_31:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke_36(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1041,13 +1018,13 @@ void __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke
     v7 = HFLogForCategory(0x15uLL);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v16 = *(a1 + 32);
+      v15 = *(a1 + 32);
       *buf = 138412802;
-      v25 = v16;
-      v26 = 2112;
-      v27 = v5;
-      v28 = 2112;
-      v29 = v6;
+      v24 = v15;
+      v25 = 2112;
+      v26 = v5;
+      v27 = 2112;
+      v28 = v6;
       _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "Unable to add hero frame for key:%@ - data:%@ error:%@", buf, 0x20u);
     }
 
@@ -1066,9 +1043,9 @@ void __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke
         v11 = *(a1 + 32);
         v12 = *(a1 + 56);
         *buf = 138412546;
-        v25 = v11;
-        v26 = 2112;
-        v27 = v12;
+        v24 = v11;
+        v25 = 2112;
+        v26 = v12;
         _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Caching hero frame for key:%@ and notifying observers:%@.", buf, 0x16u);
       }
 
@@ -1079,12 +1056,12 @@ void __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke
       block[1] = 3221225472;
       block[2] = __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke_37;
       block[3] = &unk_277DF3280;
-      v18 = *(a1 + 32);
-      v14 = v18.i64[0];
-      v20 = vextq_s8(v18, v18, 8uLL);
-      v21 = *(a1 + 56);
-      v22 = v8;
-      v23 = *(a1 + 48);
+      v17 = *(a1 + 32);
+      v14 = v17.i64[0];
+      v19 = vextq_s8(v17, v17, 8uLL);
+      v20 = *(a1 + 56);
+      v21 = v8;
+      v22 = *(a1 + 48);
       dispatch_async(MEMORY[0x277D85CD0], block);
     }
 
@@ -1092,21 +1069,19 @@ void __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke
     {
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v17 = *(a1 + 32);
+        v16 = *(a1 + 32);
         *buf = 138412802;
-        v25 = v17;
-        v26 = 2112;
-        v27 = v5;
-        v28 = 2112;
-        v29 = 0;
+        v24 = v16;
+        v25 = 2112;
+        v26 = v5;
+        v27 = 2112;
+        v28 = 0;
         _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Failure to generate image for hero frame for key:%@ - data:%@ error:%@", buf, 0x20u);
       }
 
       [*(a1 + 40) failToFindHeroFrameForClip:*(a1 + 48)];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __58__HFCameraImageManager_addHeroFrameImageObserver_forClip___block_invoke_37(uint64_t a1)
@@ -1175,7 +1150,7 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
 
 - (void)removeHeroFrameImageObserver:(id)observer forClip:(id)clip
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   uniqueIdentifier = [clip uniqueIdentifier];
   uUIDString = [uniqueIdentifier UUIDString];
@@ -1190,11 +1165,11 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
   {
     if (v13)
     {
-      v17 = 138412546;
-      v18 = observerCopy;
-      v19 = 2112;
-      v20 = v9;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Remove hero frame observer:%@ for key:%@.", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = observerCopy;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Remove hero frame observer:%@ for key:%@.", &v16, 0x16u);
     }
 
     [v11 removeObject:observerCopy];
@@ -1204,11 +1179,11 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
   {
     if (v13)
     {
-      v17 = 138412546;
-      v18 = observerCopy;
-      v19 = 2112;
-      v20 = v9;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Already removed hero frame observer:%@ for key:%@.", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = observerCopy;
+      v18 = 2112;
+      v19 = v9;
+      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Already removed hero frame observer:%@ for key:%@.", &v16, 0x16u);
     }
   }
 
@@ -1217,16 +1192,14 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
     v14 = HFLogForCategory(0x15uLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412290;
-      v18 = v9;
-      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "All hero frame observers have been removed for key:%@.", &v17, 0xCu);
+      v16 = 138412290;
+      v17 = v9;
+      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "All hero frame observers have been removed for key:%@.", &v16, 0xCu);
     }
 
     imageObservers2 = [(HFCameraImageManager *)self imageObservers];
     [imageObservers2 removeObjectForKey:v9];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (HFCameraPosterFrameProvider)cameraPosterFrameProvider
@@ -1257,7 +1230,7 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
 
 - (void)addPosterFrameImageObserver:(id)observer forClip:(id)clip atOffset:(double)offset
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   clipCopy = clip;
   uniqueIdentifier = [clipCopy uniqueIdentifier];
@@ -1273,13 +1246,13 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
     v16 = HFLogForCategory(0x15uLL);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134218498;
+      v18 = 134218498;
       offsetCopy = offset;
-      v21 = 2112;
-      v22 = v13;
-      v23 = 2112;
-      v24 = observerCopy;
-      _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Found image in cache at offset:%.0f from key:%@ observer:%@", &v19, 0x20u);
+      v20 = 2112;
+      v21 = v13;
+      v22 = 2112;
+      v23 = observerCopy;
+      _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "Found image in cache at offset:%.0f from key:%@ observer:%@", &v18, 0x20u);
     }
 
     v17 = observerCopy;
@@ -1293,13 +1266,11 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
   {
     [(HFCameraImageManager *)self generatePosterFrameImageForClip:clipCopy atOffset:observerCopy observer:offset];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePosterFrameImageObserver:(id)observer forClip:(id)clip atOffset:(double)offset
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   clipCopy = clip;
   v10 = [(HFCameraImageManager *)self keyForClip:clipCopy timeOffset:offset];
@@ -1313,13 +1284,13 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
     {
       uniqueIdentifier = [clipCopy uniqueIdentifier];
       uUIDString = [uniqueIdentifier UUIDString];
-      v21 = 138412802;
-      v22 = observerCopy;
-      v23 = 2112;
+      v20 = 138412802;
+      v21 = observerCopy;
+      v22 = 2112;
       offsetCopy2 = *&uUIDString;
-      v25 = 2048;
+      v24 = 2048;
       offsetCopy = offset;
-      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Remove observer:%@ for clip:%@ at offset:%.0f", &v21, 0x20u);
+      _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Remove observer:%@ for clip:%@ at offset:%.0f", &v20, 0x20u);
     }
 
     [v12 removeObject:observerCopy];
@@ -1332,23 +1303,21 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
     {
       uniqueIdentifier2 = [clipCopy uniqueIdentifier];
       uUIDString2 = [uniqueIdentifier2 UUIDString];
-      v21 = 138412546;
-      v22 = uUIDString2;
-      v23 = 2048;
+      v20 = 138412546;
+      v21 = uUIDString2;
+      v22 = 2048;
       offsetCopy2 = offset;
-      _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "All observers have been removed for clip:%@ at offset:%.0f", &v21, 0x16u);
+      _os_log_impl(&dword_20D9BF000, v16, OS_LOG_TYPE_DEFAULT, "All observers have been removed for clip:%@ at offset:%.0f", &v20, 0x16u);
     }
 
     imageObservers2 = [(HFCameraImageManager *)self imageObservers];
     [imageObservers2 removeObjectForKey:v10];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDemoPosterFrameImageObserver:(id)observer forClip:(id)clip atOffset:(double)offset
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   clipCopy = clip;
   v10 = [(HFCameraImageManager *)self cachedPosterFrameImageForClip:clipCopy offset:self requestor:offset];
@@ -1367,11 +1336,11 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [clipCopy uniqueIdentifier];
-      v18 = 138412546;
-      v19 = uniqueIdentifier;
-      v20 = 1024;
-      v21 = 1;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Requesting addition to generation observers for clip:%@ for count:%d.", &v18, 0x12u);
+      v17 = 138412546;
+      v18 = uniqueIdentifier;
+      v19 = 1024;
+      v20 = 1;
+      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "Requesting addition to generation observers for clip:%@ for count:%d.", &v17, 0x12u);
     }
 
     [(HFCameraImageManager *)self _timeScaleAdjustedOffset:offset];
@@ -1388,28 +1357,26 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
 
     [v15 addObject:observerCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)generateImageUsingAsset:(id)asset clip:(id)clip offset:(double)offset
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   clipCopy = clip;
   v10 = [MEMORY[0x277CE6408] assetImageGeneratorWithAsset:assetCopy];
-  CMTimeMake(&v22, 1, 1);
-  buf = v22;
-  [v10 setRequestedTimeToleranceBefore:&buf];
   CMTimeMake(&v21, 1, 1);
   buf = v21;
+  [v10 setRequestedTimeToleranceBefore:&buf];
+  CMTimeMake(&v20, 1, 1);
+  buf = v20;
   [v10 setRequestedTimeToleranceAfter:&buf];
   [(HFCameraImageManager *)self posterFrameSize];
   [v10 setMaximumSize:?];
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  memset(&v20, 0, sizeof(v20));
-  CMTimeMakeWithSeconds(&v20, offset, 1);
-  buf = v20;
+  memset(&v19, 0, sizeof(v19));
+  CMTimeMakeWithSeconds(&v19, offset, 1);
+  buf = v19;
   v12 = [MEMORY[0x277CCAE60] valueWithCMTime:&buf];
   [v11 addObject:v12];
   v13 = HFLogForCategory(0x15uLL);
@@ -1421,30 +1388,28 @@ void __51__HFCameraImageManager_failToFindHeroFrameForClip___block_invoke_2(uint
     LOWORD(buf.flags) = 2112;
     *(&buf.flags + 2) = v11;
     HIWORD(buf.epoch) = 2112;
-    v24 = assetCopy;
+    v23 = assetCopy;
     _os_log_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_DEFAULT, "Generating 1 image for key:%@ with timeValues:%@ using asset:%@.", &buf, 0x20u);
   }
 
   objc_initWeak(&buf, self);
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invoke;
-  v17[3] = &unk_277DF3460;
-  objc_copyWeak(v19, &buf);
-  v19[1] = *&offset;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invoke;
+  v16[3] = &unk_277DF3460;
+  objc_copyWeak(v18, &buf);
+  v18[1] = *&offset;
   v15 = clipCopy;
-  v18 = v15;
-  [v10 generateCGImagesAsynchronouslyForTimes:v11 completionHandler:v17];
+  v17 = v15;
+  [v10 generateCGImagesAsynchronouslyForTimes:v11 completionHandler:v16];
 
-  objc_destroyWeak(v19);
+  objc_destroyWeak(v18);
   objc_destroyWeak(&buf);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invoke(uint64_t a1, CMTime *a2, uint64_t a3, CMTime *a4, uint64_t a5, void *a6)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v11 = a6;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (a5)
@@ -1455,15 +1420,15 @@ void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invo
       time = *a2;
       Seconds = CMTimeGetSeconds(&time);
       time = *a4;
-      v26 = CMTimeGetSeconds(&time);
+      v25 = CMTimeGetSeconds(&time);
       LODWORD(time.value) = 134218754;
       *(&time.value + 4) = Seconds;
       LOWORD(time.flags) = 2048;
-      *(&time.flags + 2) = v26;
+      *(&time.flags + 2) = v25;
       HIWORD(time.epoch) = 2048;
-      v34 = a5;
-      v35 = 2112;
-      v36 = v11;
+      v33 = a5;
+      v34 = 2112;
+      v35 = v11;
       _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Failure to generate thumbnail with requested time:%.0f, actual time:%.0f result:%ld, error:%@", &time, 0x2Au);
     }
 
@@ -1474,22 +1439,22 @@ LABEL_5:
 
   if (!a3)
   {
-    v24 = HFLogForCategory(0x15uLL);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = HFLogForCategory(0x15uLL);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       time = *a2;
-      v27 = CMTimeGetSeconds(&time);
+      v26 = CMTimeGetSeconds(&time);
       time = *a4;
-      v28 = CMTimeGetSeconds(&time);
+      v27 = CMTimeGetSeconds(&time);
       LODWORD(time.value) = 134218754;
-      *(&time.value + 4) = v27;
+      *(&time.value + 4) = v26;
       LOWORD(time.flags) = 2048;
-      *(&time.flags + 2) = v28;
+      *(&time.flags + 2) = v27;
       HIWORD(time.epoch) = 2048;
-      v34 = 0;
-      v35 = 2112;
-      v36 = v11;
-      _os_log_error_impl(&dword_20D9BF000, v24, OS_LOG_TYPE_ERROR, "Failure to generate thumbnail after file download with requested time:%.0f, actual time:%.0f result:%ld, error:%@", &time, 0x2Au);
+      v33 = 0;
+      v34 = 2112;
+      v35 = v11;
+      _os_log_error_impl(&dword_20D9BF000, v23, OS_LOG_TYPE_ERROR, "Failure to generate thumbnail after file download with requested time:%.0f, actual time:%.0f result:%ld, error:%@", &time, 0x2Au);
     }
 
     goto LABEL_5;
@@ -1510,31 +1475,29 @@ LABEL_5:
     LOWORD(time.flags) = 2048;
     *(&time.flags + 2) = v17;
     HIWORD(time.epoch) = 2048;
-    v34 = 0;
-    v35 = 2112;
-    v36 = v11;
-    v37 = 2112;
-    v38 = v19;
-    v39 = 2048;
-    v40 = v20;
+    v33 = 0;
+    v34 = 2112;
+    v35 = v11;
+    v36 = 2112;
+    v37 = v19;
+    v38 = 2048;
+    v39 = v20;
     _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Finished image generation with requested time:%.0f, actual time:%.0f result:%ld, error:%@, key:%@-%.0f", &time, 0x3Eu);
   }
 
   [WeakRetained _addPosterFrameImage:v14 forClip:*(a1 + 32) withOffset:*(a1 + 48)];
 LABEL_10:
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invoke_47;
-  v29[3] = &unk_277DF3438;
-  v29[4] = WeakRetained;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invoke_47;
+  v28[3] = &unk_277DF3438;
+  v28[4] = WeakRetained;
   v21 = *(a1 + 32);
-  v32 = *(a1 + 48);
-  v30 = v21;
-  v31 = v14;
+  v31 = *(a1 + 48);
+  v29 = v21;
+  v30 = v14;
   v22 = v14;
-  dispatch_async(MEMORY[0x277D85CD0], v29);
-
-  v23 = *MEMORY[0x277D85DE8];
+  dispatch_async(MEMORY[0x277D85CD0], v28);
 }
 
 void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invoke_47(uint64_t a1)
@@ -1566,20 +1529,20 @@ void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invo
 
 void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invoke_2(double *a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x15uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 5);
     v6 = *(a1 + 4) != 0;
-    v11[0] = 67109634;
-    v11[1] = v6;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Image generation completed:%{BOOL}d for key:%@ notifying observer %@", v11, 0x1Cu);
+    v10[0] = 67109634;
+    v10[1] = v6;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Image generation completed:%{BOOL}d for key:%@ notifying observer %@", v10, 0x1Cu);
   }
 
   v7 = *(a1 + 4);
@@ -1594,8 +1557,6 @@ void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invo
   {
     [v3 manager:v9 failedToGenerateImageAtOffset:*(a1 + 7) forClip:v8];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVideoSize:(CGSize)size
@@ -1619,7 +1580,7 @@ void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invo
 
 - (void)generatePosterFrameImageForClip:(id)clip atOffset:(double)offset observer:(id)observer
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   observerCopy = observer;
   if (clipCopy && (-[HFCameraImageManager cameraProfile](self, "cameraProfile"), v10 = objc_claimAutoreleasedReturnValue(), [v10 clipManager], v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v11))
@@ -1635,9 +1596,9 @@ void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invo
       if (v16)
       {
         *buf = 138412546;
-        v36 = v12;
-        v37 = 2112;
-        v38 = observerCopy;
+        v35 = v12;
+        v36 = 2112;
+        v37 = observerCopy;
         _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Image generation previously requested for key:%@. Adding observer:%@.", buf, 0x16u);
       }
 
@@ -1649,9 +1610,9 @@ void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invo
       if (v16)
       {
         *buf = 138412546;
-        v36 = v12;
-        v37 = 2112;
-        v38 = observerCopy;
+        v35 = v12;
+        v36 = 2112;
+        v37 = observerCopy;
         _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Image generation requested for key:%@. Adding observer:%@.", buf, 0x16u);
       }
 
@@ -1691,24 +1652,24 @@ void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invo
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v36 = v22;
-          v37 = 2112;
-          v38 = v12;
-          v39 = 2112;
-          v40 = observerCopy;
+          v35 = v22;
+          v36 = 2112;
+          v37 = v12;
+          v38 = 2112;
+          v39 = observerCopy;
           _os_log_impl(&dword_20D9BF000, v30, OS_LOG_TYPE_DEFAULT, "Missing timelapse clip. Don't generate image for clipPosition:%@ request using key:%@ for observer:%@", buf, 0x20u);
         }
 
         if ([v14 count])
         {
-          v32[0] = MEMORY[0x277D85DD0];
-          v32[1] = 3221225472;
-          v32[2] = __74__HFCameraImageManager_generatePosterFrameImageForClip_atOffset_observer___block_invoke;
-          v32[3] = &unk_277DF3488;
-          v32[4] = self;
+          v31[0] = MEMORY[0x277D85DD0];
+          v31[1] = 3221225472;
+          v31[2] = __74__HFCameraImageManager_generatePosterFrameImageForClip_atOffset_observer___block_invoke;
+          v31[3] = &unk_277DF3488;
+          v31[4] = self;
           offsetCopy = offset;
-          v33 = clipCopy;
-          [v14 enumerateObjectsUsingBlock:v32];
+          v32 = clipCopy;
+          [v14 enumerateObjectsUsingBlock:v31];
         }
 
         generationObservers3 = [(HFCameraImageManager *)self generationObservers];
@@ -1725,14 +1686,12 @@ void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invo
       cameraProfile = [(HFCameraImageManager *)self cameraProfile];
       clipManager = [cameraProfile clipManager];
       *buf = 138412546;
-      v36 = clipCopy;
-      v37 = 2112;
-      v38 = clipManager;
+      v35 = clipCopy;
+      v36 = 2112;
+      v37 = clipManager;
       _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "Unable to generate missing poster frame for invalid clip/clipManager parameters: (%@,%@).", buf, 0x16u);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (id)keyForClip:(id)clip timeOffset:(double)offset
@@ -1777,49 +1736,49 @@ void __60__HFCameraImageManager_generateImageUsingAsset_clip_offset___block_invo
 
 void __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___block_invoke(uint64_t a1)
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   v3 = *MEMORY[0x277CBE8A8];
-  v37[0] = *MEMORY[0x277CBE7C0];
-  v37[1] = v3;
-  v22 = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
-  v20 = a1;
-  v21 = v2;
+  v36[0] = *MEMORY[0x277CBE7C0];
+  v36[1] = v3;
+  v21 = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+  v19 = a1;
+  v20 = v2;
   [v2 enumeratorAtURL:*(a1 + 32) includingPropertiesForKeys:v4 options:22 errorHandler:&__block_literal_global_58];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  obj = v29 = 0u;
-  v5 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+  obj = v28 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v27;
+    v7 = *v26;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v27 != v7)
+        if (*v26 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v26 + 1) + 8 * i);
-        v25 = 0;
-        v10 = [v9 resourceValuesForKeys:v4 error:&v25];
-        v11 = v25;
+        v9 = *(*(&v25 + 1) + 8 * i);
+        v24 = 0;
+        v10 = [v9 resourceValuesForKeys:v4 error:&v24];
+        v11 = v24;
         if (![v10 count])
         {
           v12 = HFLogForCategory(0x15uLL);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315650;
-            v31 = "+[HFCameraImageManager purgeVideoFilesAtURL:completionHandler:]_block_invoke";
-            v32 = 2112;
-            v33 = v4;
-            v34 = 2112;
-            v35 = v11;
+            v30 = "+[HFCameraImageManager purgeVideoFilesAtURL:completionHandler:]_block_invoke";
+            v31 = 2112;
+            v32 = v4;
+            v33 = 2112;
+            v34 = v11;
             _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "%s: missing resource values for keys: %@; error: %@", buf, 0x20u);
           }
 
@@ -1828,7 +1787,7 @@ void __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___block_i
 
         if (!+[HFUtilities isInternalTest](HFUtilities, "isInternalTest") && (+[HFCameraUtilities shouldPurgeVideoFileCache](HFCameraUtilities, "shouldPurgeVideoFileCache") || +[HFCameraUtilities disableFullQualityVideoCaching]) || [HFCameraUtilities compareCreationDateOfFileAtURL:v9 toDaysFromNow:-10]== -1)
         {
-          v12 = [v10 objectForKeyedSubscript:v22];
+          v12 = [v10 objectForKeyedSubscript:v21];
           if ([v12 BOOLValue])
           {
             v13 = [HFCameraUtilities isMP4FileAtURL:v9];
@@ -1838,9 +1797,9 @@ void __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___block_i
               goto LABEL_22;
             }
 
-            v24 = v11;
-            v14 = [v21 removeItemAtURL:v9 error:&v24];
-            v15 = v24;
+            v23 = v11;
+            v14 = [v20 removeItemAtURL:v9 error:&v23];
+            v15 = v23;
 
             if ((v14 & 1) == 0)
             {
@@ -1849,11 +1808,11 @@ void __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___block_i
               {
                 v16 = [v9 path];
                 *buf = 136315650;
-                v31 = "+[HFCameraImageManager purgeVideoFilesAtURL:completionHandler:]_block_invoke";
-                v32 = 2112;
-                v33 = v15;
-                v34 = 2112;
-                v35 = v16;
+                v30 = "+[HFCameraImageManager purgeVideoFilesAtURL:completionHandler:]_block_invoke";
+                v31 = 2112;
+                v32 = v15;
+                v33 = 2112;
+                v34 = v16;
                 _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "%s: %@; %@", buf, 0x20u);
               }
 
@@ -1872,7 +1831,7 @@ LABEL_19:
 LABEL_22:
       }
 
-      v6 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v6 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
     }
 
     while (v6);
@@ -1885,34 +1844,31 @@ LABEL_22:
     _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Purged cached video files.", buf, 2u);
   }
 
-  v18 = *(v20 + 40);
+  v18 = *(v19 + 40);
   if (v18)
   {
     (*(v18 + 16))();
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   v6 = HFLogForCategory(0x15uLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v9 = [v4 path];
-    v10 = 136315650;
-    v11 = "+[HFCameraImageManager purgeVideoFilesAtURL:completionHandler:]_block_invoke_2";
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%s: %@; %@", &v10, 0x20u);
+    v8 = [v4 path];
+    v9 = 136315650;
+    v10 = "+[HFCameraImageManager purgeVideoFilesAtURL:completionHandler:]_block_invoke_2";
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v8;
+    _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%s: %@; %@", &v9, 0x20u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1931,7 +1887,7 @@ uint64_t __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___blo
 
 - (void)_addPosterFrameImage:(id)image forClip:(id)clip withOffset:(double)offset
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   clipCopy = clip;
   v10 = clipCopy;
@@ -1945,9 +1901,9 @@ uint64_t __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___blo
     v15 = HFLogForCategory(0x15uLL);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v14;
-      _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Adding poster frame image for key:%@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v14;
+      _os_log_impl(&dword_20D9BF000, v15, OS_LOG_TYPE_DEFAULT, "Adding poster frame image for key:%@", &v17, 0xCu);
     }
 
     imageCache = [(HFCameraImageManager *)self imageCache];
@@ -1959,13 +1915,11 @@ uint64_t __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___blo
     v14 = HFLogForCategory(0x15uLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v10;
-      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Poster frames already generated for clip:%@", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v10;
+      _os_log_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_DEFAULT, "Poster frames already generated for clip:%@", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)executionEnvironmentDidEnterBackground:(id)background
@@ -1983,23 +1937,23 @@ uint64_t __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___blo
 
 - (void)generateDemoPosterFramesForAsset:(id)asset forClip:(id)clip
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   clipCopy = clip;
   if (clipCopy && (-[HFCameraImageManager cameraProfile](self, "cameraProfile"), v8 = objc_claimAutoreleasedReturnValue(), [v8 clipManager], v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v9))
   {
     v10 = [MEMORY[0x277CE6408] assetImageGeneratorWithAsset:assetCopy];
-    v34 = **&MEMORY[0x277CC08F0];
-    v26 = *&v34.value;
-    epoch = v34.epoch;
-    [v10 setRequestedTimeToleranceBefore:&v34];
-    *&v34.value = v26;
-    v34.epoch = epoch;
-    [v10 setRequestedTimeToleranceAfter:&v34];
+    v33 = **&MEMORY[0x277CC08F0];
+    v25 = *&v33.value;
+    epoch = v33.epoch;
+    [v10 setRequestedTimeToleranceBefore:&v33];
+    *&v33.value = v25;
+    v33.epoch = epoch;
+    [v10 setRequestedTimeToleranceAfter:&v33];
     [(HFCameraImageManager *)self posterFrameSize];
     [v10 setMaximumSize:?];
     v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    [clipCopy duration];
+    objc_msgSend_duration(clipCopy);
     if (v13 <= 0.0)
     {
       LODWORD(v14) = 0;
@@ -2011,13 +1965,13 @@ uint64_t __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___blo
       v15 = 0.0;
       do
       {
-        memset(&v34, 0, sizeof(v34));
-        CMTimeMakeWithSeconds(&v34, v15, 1);
-        location = v34;
+        memset(&v33, 0, sizeof(v33));
+        CMTimeMakeWithSeconds(&v33, v15, 1);
+        location = v33;
         v16 = [MEMORY[0x277CCAE60] valueWithCMTime:&location];
         [v12 addObject:v16];
 
-        [clipCopy duration];
+        objc_msgSend_duration(clipCopy);
         v18 = v17;
         v15 = ++v14;
       }
@@ -2030,33 +1984,33 @@ uint64_t __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___blo
     {
       v22 = [v12 count];
       uniqueIdentifier = [clipCopy uniqueIdentifier];
-      LODWORD(v34.value) = 134218242;
-      *(&v34.value + 4) = v22;
-      LOWORD(v34.flags) = 2112;
-      *(&v34.flags + 2) = uniqueIdentifier;
-      _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "Started generating images (%lu) for key:%@", &v34, 0x16u);
+      LODWORD(v33.value) = 134218242;
+      *(&v33.value + 4) = v22;
+      LOWORD(v33.flags) = 2112;
+      *(&v33.flags + 2) = uniqueIdentifier;
+      _os_log_impl(&dword_20D9BF000, v21, OS_LOG_TYPE_DEFAULT, "Started generating images (%lu) for key:%@", &v33, 0x16u);
     }
 
-    v34.value = 0;
-    *&v34.timescale = &v34;
-    v34.epoch = 0x2020000000;
-    v35 = 0;
+    v33.value = 0;
+    *&v33.timescale = &v33;
+    v33.epoch = 0x2020000000;
+    v34 = 0;
     objc_initWeak(&location, self);
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __65__HFCameraImageManager_generateDemoPosterFramesForAsset_forClip___block_invoke;
-    v27[3] = &unk_277DF34F8;
-    objc_copyWeak(&v31, &location);
-    v28 = clipCopy;
-    v30 = &v34;
-    v32 = v14;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __65__HFCameraImageManager_generateDemoPosterFramesForAsset_forClip___block_invoke;
+    v26[3] = &unk_277DF34F8;
+    objc_copyWeak(&v30, &location);
+    v27 = clipCopy;
+    v29 = &v33;
+    v31 = v14;
     v24 = v12;
-    v29 = v24;
-    [v10 generateCGImagesAsynchronouslyForTimes:v24 completionHandler:v27];
+    v28 = v24;
+    [v10 generateCGImagesAsynchronouslyForTimes:v24 completionHandler:v26];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(&location);
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v33, 8);
   }
 
   else
@@ -2066,20 +2020,18 @@ uint64_t __63__HFCameraImageManager_purgeVideoFilesAtURL_completionHandler___blo
     {
       cameraProfile = [(HFCameraImageManager *)self cameraProfile];
       clipManager = [cameraProfile clipManager];
-      LODWORD(v34.value) = 138412546;
-      *(&v34.value + 4) = clipCopy;
-      LOWORD(v34.flags) = 2112;
-      *(&v34.flags + 2) = clipManager;
-      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Invalid demo mode configuration. Unable to generate poster frames for invalid clip:%@ clipManager:%@", &v34, 0x16u);
+      LODWORD(v33.value) = 138412546;
+      *(&v33.value + 4) = clipCopy;
+      LOWORD(v33.flags) = 2112;
+      *(&v33.flags + 2) = clipManager;
+      _os_log_error_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_ERROR, "Invalid demo mode configuration. Unable to generate poster frames for invalid clip:%@ clipManager:%@", &v33, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HFCameraImageManager_generateDemoPosterFramesForAsset_forClip___block_invoke(uint64_t a1, CMTime *a2, uint64_t a3, CMTime *a4, uint64_t a5, void *a6)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v11 = a6;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (a5)
@@ -2087,19 +2039,19 @@ void __65__HFCameraImageManager_generateDemoPosterFramesForAsset_forClip___block
     v13 = HFLogForCategory(0x21uLL);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v32 = *a2;
-      Seconds = CMTimeGetSeconds(&v32);
-      v32 = *a4;
-      v15 = CMTimeGetSeconds(&v32);
-      LODWORD(v32.value) = 134218754;
-      *(&v32.value + 4) = Seconds;
-      LOWORD(v32.flags) = 2048;
-      *(&v32.flags + 2) = v15;
-      HIWORD(v32.epoch) = 2048;
-      v33 = *&a5;
-      v34 = 2112;
-      v35 = *&v11;
-      _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Failure to generate thumbnail with requested time:%.0f, actual time:%.0f result:%ld, error:%@", &v32, 0x2Au);
+      v31 = *a2;
+      Seconds = CMTimeGetSeconds(&v31);
+      v31 = *a4;
+      v15 = CMTimeGetSeconds(&v31);
+      LODWORD(v31.value) = 134218754;
+      *(&v31.value + 4) = Seconds;
+      LOWORD(v31.flags) = 2048;
+      *(&v31.flags + 2) = v15;
+      HIWORD(v31.epoch) = 2048;
+      v32 = a5;
+      v33 = 2112;
+      v34 = *&v11;
+      _os_log_error_impl(&dword_20D9BF000, v13, OS_LOG_TYPE_ERROR, "Failure to generate thumbnail with requested time:%.0f, actual time:%.0f result:%ld, error:%@", &v31, 0x2Au);
     }
   }
 
@@ -2108,8 +2060,8 @@ void __65__HFCameraImageManager_generateDemoPosterFramesForAsset_forClip___block
     v13 = [MEMORY[0x277D755B8] imageWithCGImage:a3];
     if (a3)
     {
-      v32 = *a2;
-      v16 = CMTimeGetSeconds(&v32);
+      v31 = *a2;
+      v16 = CMTimeGetSeconds(&v31);
       v17 = HFLogForCategory(0x21uLL);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
@@ -2117,25 +2069,25 @@ void __65__HFCameraImageManager_generateDemoPosterFramesForAsset_forClip___block
         v19 = v18;
         [v13 size];
         v21 = v20;
-        v32 = *a4;
-        v22 = CMTimeGetSeconds(&v32);
+        v31 = *a4;
+        v22 = CMTimeGetSeconds(&v31);
         v23 = [*(a1 + 32) uniqueIdentifier];
         v24 = [v23 UUIDString];
-        LODWORD(v32.value) = 134219522;
-        *(&v32.value + 4) = v19;
-        LOWORD(v32.flags) = 2048;
-        *(&v32.flags + 2) = v21;
-        HIWORD(v32.epoch) = 2048;
-        v33 = v16;
-        v34 = 2048;
-        v35 = v22;
-        v36 = 2048;
-        v37 = 0;
-        v38 = 2112;
-        v39 = v11;
-        v40 = 2112;
-        v41 = v24;
-        _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Finished image generation with image {%.0f, %.0f}, requested time:%.0f, actual time:%.0f result:%ld, error:%@, key:%@", &v32, 0x48u);
+        LODWORD(v31.value) = 134219522;
+        *(&v31.value + 4) = v19;
+        LOWORD(v31.flags) = 2048;
+        *(&v31.flags + 2) = v21;
+        HIWORD(v31.epoch) = 2048;
+        v32 = *&v16;
+        v33 = 2048;
+        v34 = v22;
+        v35 = 2048;
+        v36 = 0;
+        v37 = 2112;
+        v38 = v11;
+        v39 = 2112;
+        v40 = v24;
+        _os_log_impl(&dword_20D9BF000, v17, OS_LOG_TYPE_DEFAULT, "Finished image generation with image {%.0f, %.0f}, requested time:%.0f, actual time:%.0f result:%ld, error:%@, key:%@", &v31, 0x48u);
       }
 
       [WeakRetained _addPosterFrameImage:v13 forClip:*(a1 + 32) withOffset:v16];
@@ -2147,19 +2099,19 @@ void __65__HFCameraImageManager_generateDemoPosterFramesForAsset_forClip___block
       v25 = HFLogForCategory(0x21uLL);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        v32 = *a2;
-        v30 = CMTimeGetSeconds(&v32);
-        v32 = *a4;
-        v31 = CMTimeGetSeconds(&v32);
-        LODWORD(v32.value) = 134218754;
-        *(&v32.value + 4) = v30;
-        LOWORD(v32.flags) = 2048;
-        *(&v32.flags + 2) = v31;
-        HIWORD(v32.epoch) = 2048;
-        v33 = 0.0;
-        v34 = 2112;
-        v35 = *&v11;
-        _os_log_error_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_ERROR, "Failure to generate thumbnail after generation succeeded with requested time:%.0f, actual time:%.0f result:%ld, error:%@", &v32, 0x2Au);
+        v31 = *a2;
+        v29 = CMTimeGetSeconds(&v31);
+        v31 = *a4;
+        v30 = CMTimeGetSeconds(&v31);
+        LODWORD(v31.value) = 134218754;
+        *(&v31.value + 4) = v29;
+        LOWORD(v31.flags) = 2048;
+        *(&v31.flags + 2) = v30;
+        HIWORD(v31.epoch) = 2048;
+        v32 = 0;
+        v33 = 2112;
+        v34 = *&v11;
+        _os_log_error_impl(&dword_20D9BF000, v25, OS_LOG_TYPE_ERROR, "Failure to generate thumbnail after generation succeeded with requested time:%.0f, actual time:%.0f result:%ld, error:%@", &v31, 0x2Au);
       }
     }
   }
@@ -2171,15 +2123,13 @@ void __65__HFCameraImageManager_generateDemoPosterFramesForAsset_forClip___block
     {
       v27 = [*(a1 + 40) count];
       v28 = [*(a1 + 32) uniqueIdentifier];
-      LODWORD(v32.value) = 134218242;
-      *(&v32.value + 4) = v27;
-      LOWORD(v32.flags) = 2112;
-      *(&v32.flags + 2) = v28;
-      _os_log_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_DEFAULT, "Finished generating images (%lu) for key:%@", &v32, 0x16u);
+      LODWORD(v31.value) = 134218242;
+      *(&v31.value + 4) = v27;
+      LOWORD(v31.flags) = 2112;
+      *(&v31.flags + 2) = v28;
+      _os_log_impl(&dword_20D9BF000, v26, OS_LOG_TYPE_DEFAULT, "Finished generating images (%lu) for key:%@", &v31, 0x16u);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateDemoObserversForImage:(id)image forClip:(id)clip withOffset:(double)offset
@@ -2228,20 +2178,20 @@ void __72__HFCameraImageManager__updateDemoObserversForImage_forClip_withOffset_
 
 void __72__HFCameraImageManager__updateDemoObserversForImage_forClip_withOffset___block_invoke_2(double *a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x21uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 5);
     v6 = *(a1 + 4) != 0;
-    v11[0] = 67109634;
-    v11[1] = v6;
-    v12 = 2112;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Image generation completed:%{BOOL}d for key:%@ notifying observer %@", v11, 0x1Cu);
+    v10[0] = 67109634;
+    v10[1] = v6;
+    v11 = 2112;
+    v12 = v5;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "Image generation completed:%{BOOL}d for key:%@ notifying observer %@", v10, 0x1Cu);
   }
 
   v7 = *(a1 + 4);
@@ -2256,8 +2206,6 @@ void __72__HFCameraImageManager__updateDemoObserversForImage_forClip_withOffset_
   {
     [v3 manager:v9 failedToGenerateImageAtOffset:*(a1 + 7) forClip:v8];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 + (id)clipIdentifierStringFromDate:(id)date
@@ -2353,22 +2301,20 @@ uint64_t __53__HFCameraImageManager_clipIdentifierStringFromDate___block_invoke(
 
 - (void)failedToDownloadVideoFileForClip:(id)clip
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   v4 = HFLogForCategory(0x15uLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = clipCopy;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Error fetching clip: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = clipCopy;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Error fetching clip: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateImagesForForTimelapseClip:(id)clip atLocation:(id)location
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   clipCopy = clip;
   locationCopy = location;
   uniqueIdentifier = [clipCopy uniqueIdentifier];
@@ -2383,28 +2329,28 @@ uint64_t __53__HFCameraImageManager_clipIdentifierStringFromDate___block_invoke(
     offsetsForFile2 = [(HFCameraImageManager *)self offsetsForFile];
     [offsetsForFile2 removeObjectForKey:uUIDString];
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
-    v22 = v12;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v21 = v12;
     obj = v12;
-    v14 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v14 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v30;
+      v16 = *v29;
       v17 = MEMORY[0x277D85CD0];
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          [*(*(&v29 + 1) + 8 * i) doubleValue];
+          [*(*(&v28 + 1) + 8 * i) doubleValue];
           [(HFCameraImageManager *)self _timeScaleAdjustedOffset:?];
           v20 = v19;
           objc_initWeak(&location, self);
@@ -2412,26 +2358,24 @@ uint64_t __53__HFCameraImageManager_clipIdentifierStringFromDate___block_invoke(
           block[1] = 3221225472;
           block[2] = __70__HFCameraImageManager__generateImagesForForTimelapseClip_atLocation___block_invoke;
           block[3] = &unk_277DF3540;
-          objc_copyWeak(v27, &location);
-          v25 = locationCopy;
-          v26 = clipCopy;
-          v27[1] = v20;
+          objc_copyWeak(v26, &location);
+          v24 = locationCopy;
+          v25 = clipCopy;
+          v26[1] = v20;
           dispatch_async(v17, block);
 
-          objc_destroyWeak(v27);
+          objc_destroyWeak(v26);
           objc_destroyWeak(&location);
         }
 
-        v15 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v15 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v15);
     }
 
-    v12 = v22;
+    v12 = v21;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __70__HFCameraImageManager__generateImagesForForTimelapseClip_atLocation___block_invoke(uint64_t a1)

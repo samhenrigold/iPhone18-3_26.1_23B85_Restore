@@ -7,7 +7,7 @@
 
 - (id)contextMenuInteraction:configurationForMenuAtLocation:
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIContextMenuConfiguration);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIContextMenuConfiguration, 0x277D753B0);
   v4 = swift_allocObject();
   swift_unknownObjectWeakInit();
   v5 = UIContextMenuConfiguration.init(identifier:previewProvider:actionProvider:)(0, 0, 0, partial apply for closure #1 in contextMenuInteraction(_:configurationForMenuAtLocation:) in DOCDebugMenuButton #1 in DOCFullDocumentManagerViewController.presentDebugMenu(), v4);

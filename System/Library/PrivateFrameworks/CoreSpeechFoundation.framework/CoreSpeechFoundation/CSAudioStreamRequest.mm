@@ -131,8 +131,6 @@
   {
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
@@ -213,14 +211,14 @@
 
 + (id)requestForSpeexRecordSettingsWithContext:(id)context
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v4 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "+[CSAudioStreamRequest requestForSpeexRecordSettingsWithContext:]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "+[CSAudioStreamRequest requestForSpeexRecordSettingsWithContext:]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v9, 0xCu);
   }
 
   v5 = objc_alloc_init(CSAudioStreamRequest);
@@ -233,21 +231,19 @@
   v7 = [contextCopy copy];
   [(CSAudioStreamRequest *)v5 setRecordContext:v7];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)requestForOpusRecordSettingsWithContext:(id)context
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v4 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "+[CSAudioStreamRequest requestForOpusRecordSettingsWithContext:]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "+[CSAudioStreamRequest requestForOpusRecordSettingsWithContext:]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v9, 0xCu);
   }
 
   v5 = objc_alloc_init(CSAudioStreamRequest);
@@ -261,21 +257,19 @@
   v7 = [contextCopy copy];
   [(CSAudioStreamRequest *)v5 setRecordContext:v7];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)requestForLpcmRecordSettingsWithContext:(id)context
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v4 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "+[CSAudioStreamRequest requestForLpcmRecordSettingsWithContext:]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "+[CSAudioStreamRequest requestForLpcmRecordSettingsWithContext:]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v9, 0xCu);
   }
 
   v5 = objc_alloc_init(CSAudioStreamRequest);
@@ -289,21 +283,19 @@
   v7 = [contextCopy copy];
   [(CSAudioStreamRequest *)v5 setRecordContext:v7];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)defaultRequestWithContext:(id)context
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v4 = CSLogCategoryAudio;
   if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "+[CSAudioStreamRequest defaultRequestWithContext:]";
-    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "+[CSAudioStreamRequest defaultRequestWithContext:]";
+    _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v10, 0xCu);
   }
 
   v5 = objc_alloc_init(CSAudioStreamRequest);
@@ -324,8 +316,6 @@
     v8 = [contextCopy copy];
     [(CSAudioStreamRequest *)v5 setRecordContext:v8];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

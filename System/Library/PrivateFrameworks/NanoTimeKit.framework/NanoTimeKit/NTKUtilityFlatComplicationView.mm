@@ -289,7 +289,7 @@ LABEL_13:
       v21 = v27;
       device = [(NTKUtilityComplicationView *)self device];
       ___LayoutConstants_block_invoke_70(device, v31);
-      v10 = NTKUtilityComplicationCurvedPointInside(interior, v15, v17, v19, v28, v29, v21, v22, v24, v32, v33, v34, v35);
+      v10 = NTKUtilityComplicationCurvedPointInside(interior, v15, v17, v19, v28, v29, v21, v22, v24, *&v31[38], *&v31[39], *&v31[40], *&v31[41]);
     }
   }
 
@@ -302,10 +302,10 @@ LABEL_13:
     if (isKindOfClass)
     {
       [(NTKUtilityFlatComplicationView *)self bounds];
-      v38 = CGRectInset(v37, 0.0, -20.0);
-      v36.x = x;
-      v36.y = y;
-      v13 = CGRectContainsPoint(v38, v36);
+      v34 = CGRectInset(v33, 0.0, -20.0);
+      v32.x = x;
+      v32.y = y;
+      v13 = CGRectContainsPoint(v34, v32);
     }
 
     else
@@ -458,7 +458,7 @@ LABEL_12:
 
       else
       {
-        ___LayoutConstants_block_invoke_70(device2, &v13);
+        ___LayoutConstants_block_invoke_70(device2, v13);
         v10 = &v14;
       }
 

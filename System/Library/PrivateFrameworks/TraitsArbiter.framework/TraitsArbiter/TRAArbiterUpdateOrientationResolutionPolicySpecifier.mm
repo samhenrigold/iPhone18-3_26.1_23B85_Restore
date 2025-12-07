@@ -24,28 +24,28 @@
 
 - (void)updateStageParticipantsResolutionPolicies:(id)policies context:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   policiesCopy = policies;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [policiesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [policiesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(policiesCopy);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         WeakRetained = objc_loadWeakRetained(&self->_participantsUniqueIdentifiers);
         uniqueIdentifier = [v10 uniqueIdentifier];
         v13 = [WeakRetained containsObject:uniqueIdentifier];
@@ -61,13 +61,11 @@
       }
 
       while (v7 != v9);
-      v7 = [policiesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [policiesCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)participantsUniqueIdentifiers

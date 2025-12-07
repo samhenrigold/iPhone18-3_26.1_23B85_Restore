@@ -134,7 +134,8 @@ LABEL_21:
             objc_enumerationMutation(v18);
           }
 
-          if ([@"com.apple.quicktime.full-frame-rate-playback-intent" isEqualToString:{objc_msgSend(*(*(&v27 + 1) + 8 * v23), "objectForKeyedSubscript:", v22)}])
+          [*(*(&v27 + 1) + 8 * v23) objectForKeyedSubscript:v22];
+          if (objc_msgSend_isEqualToString_(@"com.apple.quicktime.full-frame-rate-playback-intent"))
           {
             break;
           }
@@ -181,11 +182,11 @@ LABEL_27:
   }
 
   v8 = v7;
-  v168 = 0;
   v169 = 0;
-  FigCaptureMetadataGetManufacturerAndMarketingName(buffer, 0, &v169, &v168);
-  self->_cameraManufacturer = v169;
-  self->_cameraModelName = v168;
+  v170 = 0;
+  FigCaptureMetadataGetManufacturerAndMarketingName(buffer, 0, &v170, &v169);
+  self->_cameraManufacturer = v170;
+  self->_cameraModelName = v169;
   self->_isoSpeedRating = [objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B3B0), "intValue"}];
   ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
   if (ImageBuffer)
@@ -216,7 +217,7 @@ LABEL_27:
   [v14 floatValue];
   v17 = v16;
   v18 = [info objectForKeyedSubscript:*off_1E7989E48];
-  v155 = *off_1E7989F30;
+  v156 = *off_1E7989F30;
   v19 = [info objectForKeyedSubscript:?];
   v20 = [v19 count];
   v21 = 0;
@@ -233,218 +234,218 @@ LABEL_27:
     v30 = [v18 objectForKeyedSubscript:*off_1E798AA58];
     [objc_msgSend(v30 objectForKeyedSubscript:{v24), "doubleValue"}];
     v32 = v31;
-    [objc_msgSend(v30 objectForKeyedSubscript:{v27), "doubleValue"}];
-    if (v26 <= 0.0 || v29 <= 0.0 || v32 <= 0.0 || (v34 = v33, v33 <= 0.0))
+    v33 = [objc_msgSend(v30 objectForKeyedSubscript:{v27), "doubleValue"}];
+    if (v26 <= 0.0 || v29 <= 0.0 || v32 <= 0.0 || (v35 = v34, v34 <= 0.0))
     {
-      [BWMovieLevelMetadataForProResRaw updateMetadataFromSampleBuffer:withCameraInfo:];
+      [BWMovieLevelMetadataForProResRaw updateMetadataFromSampleBuffer:v33 withCameraInfo:?];
     }
 
     else
     {
-      v35 = BWDNGColorCalibrations(v19, 1);
-      if (v35)
+      v36 = BWDNGColorCalibrations(v19, 1);
+      if (v36)
       {
-        v36 = v35;
-        if ([v35 count] == 2)
+        v37 = v36;
+        if ([v36 count] == 2)
         {
-          v37 = [v36 objectAtIndexedSubscript:0];
-          if ([v37 count] == 2)
+          v38 = [v37 objectAtIndexedSubscript:0];
+          if ([v38 count] == 2)
           {
-            v38 = [v36 objectAtIndexedSubscript:1];
-            if ([v38 count] == 2)
+            v39 = [v37 objectAtIndexedSubscript:1];
+            if ([v39 count] == 2)
             {
-              v39 = [v38 objectAtIndexedSubscript:0];
-              if ([v39 count] == 9)
+              v40 = [v39 objectAtIndexedSubscript:0];
+              if ([v40 count] == 9)
               {
-                v154 = v8;
-                v40 = [v38 objectAtIndexedSubscript:1];
-                if ([v40 count] == 9)
+                v155 = v8;
+                v41 = [v39 objectAtIndexedSubscript:1];
+                if ([v41 count] == 9)
                 {
-                  v41 = [objc_msgSend(v37 objectAtIndexedSubscript:{0), "integerValue"}];
-                  v42 = [objc_msgSend(v37 objectAtIndexedSubscript:{1), "integerValue"}];
-                  if (v41 < v42)
+                  v42 = [objc_msgSend(v38 objectAtIndexedSubscript:{0), "integerValue"}];
+                  v43 = [objc_msgSend(v38 objectAtIndexedSubscript:{1), "integerValue"}];
+                  if (v42 < v43)
                   {
                     infoCopy = info;
                     bufferCopy = buffer;
-                    v43 = v13;
-                    v44 = 1.0 / v26 / v13;
-                    v45 = v17;
-                    v46 = 1.0 / v29 / v17;
-                    v160 = v45;
-                    v161 = v43;
-                    v47 = 1.0 / v32 / v43;
-                    v48 = 1.0 / v34 / v45;
-                    v49 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:24];
-                    *&v175 = [MEMORY[0x1E696AD98] numberWithDouble:v44];
-                    *(&v175 + 1) = [MEMORY[0x1E696AD98] numberWithDouble:v46];
-                    [v49 setObject:objc_msgSend(MEMORY[0x1E695DEC8] forKeyedSubscript:{"arrayWithObjects:count:", &v175, 2), &unk_1F2243EA0}];
-                    *&size.width = [MEMORY[0x1E696AD98] numberWithDouble:v47];
-                    *&size.height = [MEMORY[0x1E696AD98] numberWithDouble:v48];
-                    v163 = v49;
-                    [v49 setObject:objc_msgSend(MEMORY[0x1E695DEC8] forKeyedSubscript:{"arrayWithObjects:count:", &size, 2), &unk_1F2243EB8}];
-                    v50 = 0;
-                    v162 = v42;
-                    v157 = 1.0 / v41 - 1.0 / v42;
-                    v158 = 1.0 / v41;
-                    v159 = v41;
+                    v44 = v13;
+                    v45 = 1.0 / v26 / v13;
+                    v46 = v17;
+                    v47 = 1.0 / v29 / v17;
+                    v161 = v46;
+                    v162 = v44;
+                    v48 = 1.0 / v32 / v44;
+                    v49 = 1.0 / v35 / v46;
+                    v50 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:24];
+                    *&v176 = [MEMORY[0x1E696AD98] numberWithDouble:v45];
+                    *(&v176 + 1) = [MEMORY[0x1E696AD98] numberWithDouble:v47];
+                    [v50 setObject:objc_msgSend(MEMORY[0x1E695DEC8] forKeyedSubscript:{"arrayWithObjects:count:", &v176, 2), &unk_1F2243EA0}];
+                    *&size.width = [MEMORY[0x1E696AD98] numberWithDouble:v48];
+                    *&size.height = [MEMORY[0x1E696AD98] numberWithDouble:v49];
+                    v164 = v50;
+                    [v50 setObject:objc_msgSend(MEMORY[0x1E695DEC8] forKeyedSubscript:{"arrayWithObjects:count:", &size, 2), &unk_1F2243EB8}];
+                    v51 = 0;
+                    v163 = v43;
+                    v158 = 1.0 / v42 - 1.0 / v43;
+                    v159 = 1.0 / v42;
+                    v160 = v42;
                     do
                     {
-                      v51 = prrmu_createWhiteBalanceFactorsFromCalibrations_wbFactorCCTs[v50];
-                      if (v50 < 4 || v50 - 13 <= 8)
+                      v52 = prrmu_createWhiteBalanceFactorsFromCalibrations_wbFactorCCTs[v51];
+                      if (v51 < 4 || v51 - 13 <= 8)
                       {
-                        v52 = 0;
-                        if (1000000.0 / v51 <= 600.0)
+                        v53 = 0;
+                        if (1000000.0 / v52 <= 600.0)
                         {
-                          v53 = 1000000.0 / v51;
+                          v54 = 1000000.0 / v52;
                         }
 
                         else
                         {
-                          v53 = 600.0;
+                          v54 = 600.0;
                         }
 
-                        v54 = 30;
+                        v55 = 30;
                         do
                         {
-                          if (v53 >= kBWProResRawPlanckianLocus[6 * ((v54 + v52) >> 1)])
+                          if (v54 >= kBWProResRawPlanckianLocus[6 * ((v55 + v53) >> 1)])
                           {
-                            v52 = (v54 + v52) >> 1;
+                            v53 = (v55 + v53) >> 1;
                           }
 
                           else
                           {
-                            v54 = (v54 + v52) >> 1;
+                            v55 = (v55 + v53) >> 1;
                           }
                         }
 
-                        while (v54 - v52 > 1);
-                        v55 = &kBWProResRawPlanckianLocus[6 * v52];
-                        v57 = *v55;
-                        v56 = v55[1];
-                        v58 = &kBWProResRawPlanckianLocus[6 * v54];
-                        v59 = v58[1];
-                        v60 = v55[2];
-                        v166 = *v58;
-                        v167 = v58[2];
-                        v61 = v55[4];
-                        v62 = v55[5];
-                        v164 = v58[4];
-                        v165 = v58[5];
+                        while (v55 - v53 > 1);
+                        v56 = &kBWProResRawPlanckianLocus[6 * v53];
+                        v58 = *v56;
+                        v57 = v56[1];
+                        v59 = &kBWProResRawPlanckianLocus[6 * v55];
+                        v60 = v59[1];
+                        v61 = v56[2];
+                        v167 = *v59;
+                        v168 = v59[2];
+                        v62 = v56[4];
+                        v63 = v56[5];
+                        v165 = v59[4];
+                        v166 = v59[5];
                         array = [MEMORY[0x1E695DF70] array];
-                        v64 = v39;
-                        if (v51 > v41)
+                        v65 = v40;
+                        if (v52 > v42)
                         {
-                          v64 = v40;
-                          if (v51 < v162)
+                          v65 = v41;
+                          if (v52 < v163)
                           {
-                            v65 = array;
+                            v66 = array;
                             for (i = 0; i != 9; ++i)
                             {
-                              v67 = MEMORY[0x1E696AD98];
-                              [objc_msgSend(v39 objectAtIndexedSubscript:{i), "doubleValue"}];
-                              v69 = v68;
+                              v68 = MEMORY[0x1E696AD98];
                               [objc_msgSend(v40 objectAtIndexedSubscript:{i), "doubleValue"}];
-                              [v65 setObject:objc_msgSend(v67 atIndexedSubscript:{"numberWithDouble:", v69 + (v158 + -1.0 / v51) / v157 * (v70 - v69)), i}];
+                              v70 = v69;
+                              [objc_msgSend(v41 objectAtIndexedSubscript:{i), "doubleValue"}];
+                              [v66 setObject:objc_msgSend(v68 atIndexedSubscript:{"numberWithDouble:", v70 + (v159 + -1.0 / v52) / v158 * (v71 - v70)), i}];
                             }
 
-                            v64 = v65;
-                            v41 = v159;
+                            v65 = v66;
+                            v42 = v160;
                           }
                         }
 
-                        v71 = (v53 - v57) / (v166 - v57);
-                        v72 = v56 + v71 * (v59 - v56);
-                        v73 = v60 + v71 * (v167 - v60);
-                        v74 = v61 + v71 * (v164 - v61);
-                        v75 = v62 + v71 * (v165 - v62);
-                        v76 = sqrt(v75 * v75 + v74 * v74);
-                        v77 = v72 + v74 / v76 * 0.0;
-                        v78 = v73 + v75 / v76 * 0.0;
-                        v79 = v77 + v78 * -4.0 + 2.0;
-                        v80 = v77 * 1.5 / v79;
-                        v81 = v78 / v79;
-                        v82 = v80 / v81;
-                        v83 = (1.0 - (v80 + v81)) / v81;
-                        [objc_msgSend(v64 objectAtIndexedSubscript:{0), "doubleValue"}];
-                        v85 = v84;
-                        [objc_msgSend(v64 objectAtIndexedSubscript:{1), "doubleValue"}];
-                        v87 = v86 + v85 * v82;
-                        [objc_msgSend(v64 objectAtIndexedSubscript:{2), "doubleValue"}];
-                        v89 = v87 + v88 * v83;
-                        [objc_msgSend(v64 objectAtIndexedSubscript:{3), "doubleValue"}];
-                        v91 = v90;
-                        [objc_msgSend(v64 objectAtIndexedSubscript:{4), "doubleValue"}];
-                        v93 = v92;
-                        [objc_msgSend(v64 objectAtIndexedSubscript:{5), "doubleValue"}];
-                        v95 = v94;
-                        [objc_msgSend(v64 objectAtIndexedSubscript:{6), "doubleValue"}];
-                        v97 = v96;
-                        [objc_msgSend(v64 objectAtIndexedSubscript:{7), "doubleValue"}];
-                        v99 = v98;
-                        [objc_msgSend(v64 objectAtIndexedSubscript:{8), "doubleValue"}];
-                        if (v89 > 0.0)
+                        v72 = (v54 - v58) / (v167 - v58);
+                        v73 = v57 + v72 * (v60 - v57);
+                        v74 = v61 + v72 * (v168 - v61);
+                        v75 = v62 + v72 * (v165 - v62);
+                        v76 = v63 + v72 * (v166 - v63);
+                        v77 = sqrt(v76 * v76 + v75 * v75);
+                        v78 = v73 + v75 / v77 * 0.0;
+                        v79 = v74 + v76 / v77 * 0.0;
+                        v80 = v78 + v79 * -4.0 + 2.0;
+                        v81 = v78 * 1.5 / v80;
+                        v82 = v79 / v80;
+                        v83 = v81 / v82;
+                        v84 = (1.0 - (v81 + v82)) / v82;
+                        [objc_msgSend(v65 objectAtIndexedSubscript:{0), "doubleValue"}];
+                        v86 = v85;
+                        [objc_msgSend(v65 objectAtIndexedSubscript:{1), "doubleValue"}];
+                        v88 = v87 + v86 * v83;
+                        [objc_msgSend(v65 objectAtIndexedSubscript:{2), "doubleValue"}];
+                        v90 = v88 + v89 * v84;
+                        [objc_msgSend(v65 objectAtIndexedSubscript:{3), "doubleValue"}];
+                        v92 = v91;
+                        [objc_msgSend(v65 objectAtIndexedSubscript:{4), "doubleValue"}];
+                        v94 = v93;
+                        [objc_msgSend(v65 objectAtIndexedSubscript:{5), "doubleValue"}];
+                        v96 = v95;
+                        [objc_msgSend(v65 objectAtIndexedSubscript:{6), "doubleValue"}];
+                        v98 = v97;
+                        [objc_msgSend(v65 objectAtIndexedSubscript:{7), "doubleValue"}];
+                        v100 = v99;
+                        [objc_msgSend(v65 objectAtIndexedSubscript:{8), "doubleValue"}];
+                        if (v90 > 0.0)
                         {
-                          v101 = v93 + v91 * v82 + v95 * v83;
-                          if (v101 > 0.0)
+                          v102 = v94 + v92 * v83 + v96 * v84;
+                          if (v102 > 0.0)
                           {
-                            v102 = v99 + v97 * v82 + v100 * v83;
-                            if (v102 > 0.0)
+                            v103 = v100 + v98 * v83 + v101 * v84;
+                            if (v103 > 0.0)
                             {
-                              v103 = v101 / v102 / v160;
-                              v174[0] = [MEMORY[0x1E696AD98] numberWithDouble:v101 / v89 / v161];
-                              v174[1] = [MEMORY[0x1E696AD98] numberWithDouble:v103];
-                              v104 = [MEMORY[0x1E695DEC8] arrayWithObjects:v174 count:2];
-                              [v163 setObject:v104 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v51)}];
+                              v104 = v102 / v103 / v161;
+                              v175[0] = [MEMORY[0x1E696AD98] numberWithDouble:v102 / v90 / v162];
+                              v175[1] = [MEMORY[0x1E696AD98] numberWithDouble:v104];
+                              v105 = [MEMORY[0x1E695DEC8] arrayWithObjects:v175 count:2];
+                              [v164 setObject:v105 forKeyedSubscript:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v52)}];
                             }
                           }
                         }
                       }
 
-                      ++v50;
+                      ++v51;
                     }
 
-                    while (v50 != 22);
-                    v105 = [objc_msgSend(v163 "allKeys")];
-                    v106 = [v105 count];
-                    v107 = v106;
-                    if (v106 < 3uLL)
+                    while (v51 != 22);
+                    v106 = [objc_msgSend(v164 "allKeys")];
+                    v107 = [v106 count];
+                    v108 = v107;
+                    if (v107 < 3uLL)
                     {
                       [BWMovieLevelMetadataForProResRaw updateMetadataFromSampleBuffer:withCameraInfo:];
                       v21 = 0;
                       buffer = bufferCopy;
-                      v8 = v154;
+                      v8 = v155;
                     }
 
                     else
                     {
-                      v108 = v106;
+                      v109 = v107;
                       v21 = objc_alloc_init(MEMORY[0x1E695DF88]);
-                      v173 = bswap32(v108) >> 16;
+                      v174 = bswap32(v109) >> 16;
+                      [(NSData *)v21 appendBytes:&v174 length:2];
+                      v173 = 256;
                       [(NSData *)v21 appendBytes:&v173 length:2];
-                      v172 = 256;
-                      [(NSData *)v21 appendBytes:&v172 length:2];
-                      v109 = 0;
+                      v110 = 0;
                       buffer = bufferCopy;
-                      v8 = v154;
+                      v8 = v155;
                       do
                       {
-                        v110 = [v105 objectAtIndexedSubscript:v109];
-                        unsignedIntValue = [v110 unsignedIntValue];
-                        v112 = [v163 objectForKeyedSubscript:v110];
-                        [objc_msgSend(v112 objectAtIndexedSubscript:{0), "floatValue"}];
-                        v114 = v113;
-                        [objc_msgSend(v112 objectAtIndexedSubscript:{1), "floatValue"}];
-                        v116 = v115;
-                        v178[0] = bswap32(unsignedIntValue);
-                        [(NSData *)v21 appendBytes:v178 length:4];
-                        v171 = bswap32(v114);
+                        v111 = [v106 objectAtIndexedSubscript:v110];
+                        unsignedIntValue = [v111 unsignedIntValue];
+                        v113 = [v164 objectForKeyedSubscript:v111];
+                        [objc_msgSend(v113 objectAtIndexedSubscript:{0), "floatValue"}];
+                        v115 = v114;
+                        [objc_msgSend(v113 objectAtIndexedSubscript:{1), "floatValue"}];
+                        v117 = v116;
+                        v179[0] = bswap32(unsignedIntValue);
+                        [(NSData *)v21 appendBytes:v179 length:4];
+                        v172 = bswap32(v115);
+                        [(NSData *)v21 appendBytes:&v172 length:4];
+                        v171 = bswap32(v117);
                         [(NSData *)v21 appendBytes:&v171 length:4];
-                        v170 = bswap32(v116);
-                        [(NSData *)v21 appendBytes:&v170 length:4];
-                        ++v109;
+                        ++v110;
                       }
 
-                      while (v107 != v109);
+                      while (v108 != v110);
                     }
 
                     info = infoCopy;
@@ -458,7 +459,7 @@ LABEL_27:
                 }
 
                 v21 = 0;
-                v8 = v154;
+                v8 = v155;
                 goto LABEL_50;
               }
 
@@ -494,110 +495,110 @@ LABEL_27:
 
 LABEL_50:
   self->_whiteBalanceFactors = v21;
-  v117 = v155;
-  v118 = [info objectForKeyedSubscript:v155];
-  if ([v118 count] == 2 && (v119 = getColorTranslationMatrixFromCalibration(v118, 0, 2800)) != 0)
+  v118 = v156;
+  v119 = [info objectForKeyedSubscript:v156];
+  if ([v119 count] == 2 && (v120 = getColorTranslationMatrixFromCalibration(v119, 0, 2800)) != 0)
   {
-    v149 = v119;
-    ColorTranslationMatrixFromCalibration = getColorTranslationMatrixFromCalibration(v118, 1u, 6500);
+    v150 = v120;
+    ColorTranslationMatrixFromCalibration = getColorTranslationMatrixFromCalibration(v119, 1u, 6500);
     if (ColorTranslationMatrixFromCalibration)
     {
-      v151 = ColorTranslationMatrixFromCalibration;
-      v120 = objc_alloc_init(MEMORY[0x1E695DF88]);
-      LOWORD(v175) = 1024;
-      [(NSData *)v120 appendBytes:&v175 length:2];
+      v152 = ColorTranslationMatrixFromCalibration;
+      v121 = objc_alloc_init(MEMORY[0x1E695DF88]);
+      LOWORD(v176) = 1024;
+      [(NSData *)v121 appendBytes:&v176 length:2];
       LOWORD(size.width) = 256;
-      [(NSData *)v120 appendBytes:&size length:2];
-      writeMatrixArrayRefDataEntry(0x7D0u, v149, v120);
-      writeMatrixArrayRefDataEntry(0xAF0u, v149, v120);
-      writeMatrixArrayRefDataEntry(0x1964u, v151, v120);
-      writeMatrixArrayRefDataEntry(0x3A98u, v151, v120);
+      [(NSData *)v121 appendBytes:&size length:2];
+      writeMatrixArrayRefDataEntry(0x7D0u, v150, v121);
+      writeMatrixArrayRefDataEntry(0xAF0u, v150, v121);
+      writeMatrixArrayRefDataEntry(0x1964u, v152, v121);
+      writeMatrixArrayRefDataEntry(0x3A98u, v152, v121);
     }
 
     else
     {
-      v120 = 0;
+      v121 = 0;
     }
 
-    v117 = v155;
+    v118 = v156;
   }
 
   else
   {
-    v120 = 0;
+    v121 = 0;
   }
 
-  self->_colorTranslationMatrices = v120;
-  v121 = [info objectForKeyedSubscript:v117];
-  if ([v121 count] == 2)
+  self->_colorTranslationMatrices = v121;
+  v122 = [info objectForKeyedSubscript:v118];
+  if ([v122 count] == 2)
   {
-    v122 = BWDNGColorCalibrations(v121, 1);
-    if (v122)
+    v123 = BWDNGColorCalibrations(v122, 1);
+    if (v123)
     {
-      v123 = v122;
-      if ([v122 count] == 2)
+      v124 = v123;
+      if ([v123 count] == 2)
       {
-        v124 = [v123 objectAtIndexedSubscript:0];
-        if ([v124 count] == 2)
+        v125 = [v124 objectAtIndexedSubscript:0];
+        if ([v125 count] == 2)
         {
-          v125 = [v123 objectAtIndexedSubscript:1];
-          if ([v125 count] == 2)
+          v126 = [v124 objectAtIndexedSubscript:1];
+          if ([v126 count] == 2)
           {
-            v126 = [v125 objectAtIndexedSubscript:0];
-            if ([v126 count] == 9)
+            v127 = [v126 objectAtIndexedSubscript:0];
+            if ([v127 count] == 9)
             {
-              v127 = [v125 objectAtIndexedSubscript:1];
-              if ([v127 count] == 9)
+              v128 = [v126 objectAtIndexedSubscript:1];
+              if ([v128 count] == 9)
               {
-                v128 = [objc_msgSend(v124 objectAtIndexedSubscript:{0), "integerValue"}];
-                v129 = [objc_msgSend(v124 objectAtIndexedSubscript:{1), "integerValue"}];
-                v130 = v129;
-                if (v128 < v129)
+                v129 = [objc_msgSend(v125 objectAtIndexedSubscript:{0), "integerValue"}];
+                v130 = [objc_msgSend(v125 objectAtIndexedSubscript:{1), "integerValue"}];
+                v131 = v130;
+                if (v129 < v130)
                 {
-                  v131 = v8;
+                  v132 = v8;
                   bufferCopy2 = buffer;
                   infoCopy2 = info;
-                  if (v128 <= 0x7D0)
+                  if (v129 <= 0x7D0)
                   {
-                    v134 = 2;
+                    v135 = 2;
                   }
 
                   else
                   {
-                    v134 = 3;
+                    v135 = 3;
                   }
 
-                  v135 = v129 >> 3;
-                  if (v129 >> 3 >= 0x753)
+                  v136 = v130 >> 3;
+                  if (v130 >> 3 >= 0x753)
                   {
-                    v136 = v134;
+                    v137 = v135;
                   }
 
                   else
                   {
-                    v136 = v134 + 1;
+                    v137 = v135 + 1;
                   }
 
-                  v137 = objc_alloc_init(MEMORY[0x1E695DF88]);
-                  LOWORD(v175) = v136 << 8;
-                  [(NSData *)v137 appendBytes:&v175 length:2];
+                  v138 = objc_alloc_init(MEMORY[0x1E695DF88]);
+                  LOWORD(v176) = v137 << 8;
+                  [(NSData *)v138 appendBytes:&v176 length:2];
                   LOWORD(size.width) = 256;
-                  [(NSData *)v137 appendBytes:&size length:2];
-                  if (v128 >= 0x7D1)
+                  [(NSData *)v138 appendBytes:&size length:2];
+                  if (v129 >= 0x7D1)
                   {
-                    writeMatrixArrayRefDataEntry(0x7D0u, v126, v137);
+                    writeMatrixArrayRefDataEntry(0x7D0u, v127, v138);
                   }
 
-                  writeMatrixArrayRefDataEntry(v128, v126, v137);
-                  writeMatrixArrayRefDataEntry(v130, v127, v137);
-                  if (v135 <= 0x752)
+                  writeMatrixArrayRefDataEntry(v129, v127, v138);
+                  writeMatrixArrayRefDataEntry(v131, v128, v138);
+                  if (v136 <= 0x752)
                   {
-                    writeMatrixArrayRefDataEntry(0x3A98u, v127, v137);
+                    writeMatrixArrayRefDataEntry(0x3A98u, v128, v138);
                   }
 
                   info = infoCopy2;
                   buffer = bufferCopy2;
-                  v8 = v131;
+                  v8 = v132;
                   self = selfCopy;
                   goto LABEL_72;
                 }
@@ -639,62 +640,62 @@ LABEL_50:
     }
   }
 
-  v137 = 0;
+  v138 = 0;
 LABEL_72:
-  self->_cctAndTintColorMatrices = v137;
-  v174[0] = 0;
-  v138 = [objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B540), "isEqualToString:", *off_1E798A0C0}];
-  v139 = [info objectForKeyedSubscript:*off_1E7989EE0];
-  if (v138)
+  self->_cctAndTintColorMatrices = v138;
+  v175[0] = 0;
+  isEqualToString = objc_msgSend_isEqualToString_([v8 objectForKeyedSubscript:*off_1E798B540]);
+  v140 = [info objectForKeyedSubscript:*off_1E7989EE0];
+  if (isEqualToString)
   {
     CMILSCOISAdaptation_extrapolateV2LSCTable();
-    v139 = v174[0];
+    v140 = v175[0];
   }
 
   else
   {
-    v174[0] = v139;
+    v175[0] = v140;
   }
 
-  self->_lscGains = [v139 copy];
+  self->_lscGains = [v140 copy];
   [objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B2A8), "doubleValue"}];
-  v141 = v140;
+  v142 = v141;
   [objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B210), "doubleValue"}];
-  self->_currentFrameRate = v142;
-  if (v142 > 0.0)
+  self->_currentFrameRate = v143;
+  if (v143 > 0.0)
   {
-    self->_shutterSpeedAngle = v141 / (1.0 / v142) * 360.0;
+    self->_shutterSpeedAngle = v142 / (1.0 / v143) * 360.0;
   }
 
-  self->_exposureTime = v141;
+  self->_exposureTime = v142;
   self->_whiteBalanceCCT = [objc_msgSend(v8 objectForKeyedSubscript:{*off_1E798B1D0), "intValue"}];
-  v143 = [CMGetAttachment(buffer @"VideoStabilizationMethod"];
-  if (v143)
+  v144 = [CMGetAttachment(buffer @"VideoStabilizationMethod"];
+  if (v144)
   {
-    v144 = objc_alloc_init(MEMORY[0x1E695DF88]);
-    v145 = v144;
-    if (v144)
+    v145 = objc_alloc_init(MEMORY[0x1E695DF88]);
+    v146 = v145;
+    if (v145)
     {
-      LOBYTE(v171) = 1;
-      [(NSData *)v144 appendBytes:&v171 length:1];
-      v178[0] = bswap32(v143);
-      [(NSData *)v145 appendBytes:v178 length:4];
-      v146 = CMGetAttachment(buffer, @"VideoStabilizationGeneratedTransformsOutputDimensionsOverride", 0);
+      LOBYTE(v172) = 1;
+      [(NSData *)v145 appendBytes:&v172 length:1];
+      v179[0] = bswap32(v144);
+      [(NSData *)v146 appendBytes:v179 length:4];
+      v147 = CMGetAttachment(buffer, @"VideoStabilizationGeneratedTransformsOutputDimensionsOverride", 0);
       size = *MEMORY[0x1E695F060];
-      CGSizeMakeWithDictionaryRepresentation(v146, &size);
-      v147 = *(MEMORY[0x1E695F058] + 16);
-      v175 = *MEMORY[0x1E695F058];
-      v176 = v147;
+      CGSizeMakeWithDictionaryRepresentation(v147, &size);
+      v148 = *(MEMORY[0x1E695F058] + 16);
+      v176 = *MEMORY[0x1E695F058];
+      v177 = v148;
       FigCFDictionaryGetCGRectIfPresent();
-      v148 = ((*(&v176 + 1) - size.height) * 0.5);
-      v178[0] = bswap32(((*&v176 - size.width) * 0.5));
-      [(NSData *)v145 appendBytes:v178 length:4];
-      v178[0] = bswap32(v148);
-      [(NSData *)v145 appendBytes:v178 length:4];
-      v178[0] = bswap32(size.width);
-      [(NSData *)v145 appendBytes:v178 length:4];
-      v178[0] = bswap32(size.height);
-      [(NSData *)v145 appendBytes:v178 length:4];
+      v149 = ((*(&v177 + 1) - size.height) * 0.5);
+      v179[0] = bswap32(((*&v177 - size.width) * 0.5));
+      [(NSData *)v146 appendBytes:v179 length:4];
+      v179[0] = bswap32(v149);
+      [(NSData *)v146 appendBytes:v179 length:4];
+      v179[0] = bswap32(size.width);
+      [(NSData *)v146 appendBytes:v179 length:4];
+      v179[0] = bswap32(size.height);
+      [(NSData *)v146 appendBytes:v179 length:4];
     }
 
     else
@@ -705,10 +706,10 @@ LABEL_72:
 
   else
   {
-    v145 = 0;
+    v146 = 0;
   }
 
-  self->_stabilizationInfo = v145;
+  self->_stabilizationInfo = v146;
   self->_isMetadataValid = 1;
 }
 

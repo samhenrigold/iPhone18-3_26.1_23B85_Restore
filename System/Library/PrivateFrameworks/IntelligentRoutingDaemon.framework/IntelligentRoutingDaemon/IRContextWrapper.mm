@@ -3,6 +3,7 @@
 - (IRContextWrapper)initWithName:(id)name andDefaultClassification:(int64_t)classification andCandidates:(id)candidates;
 - (IRContextWrapper)initWithName:(id)name defaultClassification:(int64_t)classification;
 - (IRPolicyInspection)policyInspection;
+- (void)addCandidate:(id)candidate logOrderOfExecution:(BOOL)execution;
 @end
 
 @implementation IRContextWrapper
@@ -50,6 +51,18 @@ void __72__IRContextWrapper_initWithName_andDefaultClassification_andCandidates_
   v2 = *(a1 + 32);
   v3 = [IRCandidateDO candidateFromCandidateDO:a2];
   [v2 addCandidate:v3 logOrderOfExecution:0];
+}
+
+- (void)addCandidate:(id)candidate logOrderOfExecution:(BOOL)execution
+{
+  executionCopy = execution;
+  candidates = self->_candidates;
+  candidateCopy = candidate;
+  v10 = [[IRCandidateWrapper alloc] initWithCandidate:candidateCopy andDefaultClassification:self->_defaultClassification logOrderOfExecution:executionCopy];
+
+  v8 = [(NSSet *)candidates setByAddingObject:v10];
+  v9 = self->_candidates;
+  self->_candidates = v8;
 }
 
 - (IRContext)context

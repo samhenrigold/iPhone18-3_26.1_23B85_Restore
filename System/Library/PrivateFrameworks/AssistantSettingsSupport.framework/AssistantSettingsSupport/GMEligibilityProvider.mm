@@ -75,10 +75,9 @@
 
 - (_TtP24AssistantSettingsSupport29GMSpecifierControllerProcotol_)gmSpecifierController
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC24AssistantSettingsSupport21GMEligibilityProvider_gmSpecifierController);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)deviceSupported

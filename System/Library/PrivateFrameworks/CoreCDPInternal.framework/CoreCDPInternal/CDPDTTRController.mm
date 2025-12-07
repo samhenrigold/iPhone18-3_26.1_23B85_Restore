@@ -75,7 +75,7 @@
 
 void __51__CDPDTTRController_requestTTRIfSupportedForEvent___block_invoke(id *a1, void *a2)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   v4 = [a1[4] eventName];
@@ -105,7 +105,7 @@ void __51__CDPDTTRController_requestTTRIfSupportedForEvent___block_invoke(id *a1
 
   if (v9)
   {
-    v29 = v6;
+    v28 = v6;
     objc_opt_class();
     v10 = [v3 objectForKeyedSubscript:@"componentInfo"];
     if (objc_opt_isKindOfClass())
@@ -130,7 +130,7 @@ void __51__CDPDTTRController_requestTTRIfSupportedForEvent___block_invoke(id *a1
       v13 = 0;
     }
 
-    v30 = v3;
+    v29 = v3;
 
     objc_opt_class();
     v14 = [v13 objectForKeyedSubscript:@"cn"];
@@ -144,7 +144,7 @@ void __51__CDPDTTRController_requestTTRIfSupportedForEvent___block_invoke(id *a1
       v15 = 0;
     }
 
-    v28 = v11;
+    v27 = v11;
 
     objc_opt_class();
     v16 = [v13 objectForKeyedSubscript:@"cv"];
@@ -196,24 +196,22 @@ void __51__CDPDTTRController_requestTTRIfSupportedForEvent___block_invoke(id *a1
       v25 = _AKLogSystem();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        v27 = [a1[4] eventName];
+        v26 = [a1[4] eventName];
         *buf = 138413058;
-        v32 = v27;
-        v33 = 2112;
-        v34 = v9;
-        v35 = 2112;
-        v36 = v15;
-        v37 = 2112;
-        v38 = v17;
+        v31 = v26;
+        v32 = 2112;
+        v33 = v9;
+        v34 = 2112;
+        v35 = v15;
+        v36 = 2112;
+        v37 = v17;
         _os_log_debug_impl(&dword_24510B000, v25, OS_LOG_TYPE_DEBUG, "Unable to send TTR for event %@. Component ID - %@, name - %@, version - %@", buf, 0x2Au);
       }
     }
 
-    v6 = v29;
-    v3 = v30;
+    v6 = v28;
+    v3 = v29;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performTTRForRequest:(id)request completion:(id)completion
@@ -277,9 +275,9 @@ LABEL_7:
 
 - (id)_normalizedTTRErrorForEvent:(id)event
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v45[2] = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v40 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v37 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = 0x277CCA000uLL;
   objc_opt_class();
   v5 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277CE4598]];
@@ -298,12 +296,12 @@ LABEL_7:
   v8 = [eventCopy objectForKeyedSubscript:*MEMORY[0x277CE45A0]];
   if (objc_opt_isKindOfClass())
   {
-    v38 = v8;
+    v35 = v8;
   }
 
   else
   {
-    v38 = 0;
+    v35 = 0;
   }
 
   objc_opt_class();
@@ -319,21 +317,21 @@ LABEL_7:
   }
 
   integerValue = [v10 integerValue];
-  v37 = v6;
-  if (v6 && v38)
+  v34 = v6;
+  if (v6 && v35)
   {
-    v47[0] = @"ec";
+    v44[0] = @"ec";
     stringValue = [v6 stringValue];
-    v47[1] = @"ed";
-    v48[0] = stringValue;
-    v48[1] = v38;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
-    [v40 addEntriesFromDictionary:v13];
+    v44[1] = @"ed";
+    v45[0] = stringValue;
+    v45[1] = v35;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
+    [v37 addEntriesFromDictionary:v13];
 
     v14 = *MEMORY[0x277CE45E0];
     v15 = *MEMORY[0x277CE45E8];
     v16 = 1;
-    v39 = eventCopy;
+    v36 = eventCopy;
     do
     {
       if (integerValue < v16)
@@ -343,81 +341,77 @@ LABEL_7:
 
       v17 = [*(v7 + 3240) stringWithFormat:@"%@%u", v14, v16];
       v18 = [*(v7 + 3240) stringWithFormat:@"%@%u", v15, v16];
-      v19 = *(v4 + 2992);
       objc_opt_class();
-      v44 = v17;
-      v20 = [eventCopy objectForKeyedSubscript:v17];
+      v41 = v17;
+      v19 = [eventCopy objectForKeyedSubscript:v17];
       if (objc_opt_isKindOfClass())
       {
-        v21 = v20;
+        v20 = v19;
       }
 
       else
       {
-        v21 = 0;
+        v20 = 0;
       }
 
-      v22 = *(v7 + 3240);
       objc_opt_class();
-      v43 = v18;
-      v23 = [eventCopy objectForKeyedSubscript:v18];
+      v40 = v18;
+      v21 = [eventCopy objectForKeyedSubscript:v18];
       if (objc_opt_isKindOfClass())
       {
-        v24 = v23;
+        v22 = v21;
       }
 
       else
       {
-        v24 = 0;
+        v22 = 0;
       }
 
-      if (v21)
+      if (v20)
       {
-        v25 = v24 == 0;
+        v23 = v22 == 0;
       }
 
       else
       {
-        v25 = 1;
+        v23 = 1;
       }
 
-      v26 = !v25;
-      v42 = v26;
-      if (!v25)
+      v24 = !v23;
+      v39 = v24;
+      if (!v23)
       {
-        v41 = [*(v7 + 3240) stringWithFormat:@"uec%lu", v16];
-        v27 = [*(v7 + 3240) stringWithFormat:@"ued%lu", v16];
-        v45[0] = v41;
-        stringValue2 = [v21 stringValue];
-        v45[1] = v27;
-        v46[0] = stringValue2;
-        v46[1] = v24;
-        [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:2];
-        v29 = v16;
-        v30 = v15;
-        v31 = v14;
-        v32 = integerValue;
-        v34 = v33 = v4;
-        [v40 addEntriesFromDictionary:v34];
+        v38 = [*(v7 + 3240) stringWithFormat:@"uec%lu", v16];
+        v25 = [*(v7 + 3240) stringWithFormat:@"ued%lu", v16];
+        v42[0] = v38;
+        stringValue2 = [v20 stringValue];
+        v42[1] = v25;
+        v43[0] = stringValue2;
+        v43[1] = v22;
+        [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:2];
+        v27 = v16;
+        v28 = v15;
+        v29 = v14;
+        v30 = integerValue;
+        v32 = v31 = v4;
+        [v37 addEntriesFromDictionary:v32];
 
-        v4 = v33;
-        integerValue = v32;
-        v14 = v31;
-        v15 = v30;
+        v4 = v31;
+        integerValue = v30;
+        v14 = v29;
+        v15 = v28;
 
-        eventCopy = v39;
+        eventCopy = v36;
         v7 = 0x277CCA000;
 
-        v16 = (v29 + 1);
+        v16 = (v27 + 1);
       }
     }
 
-    while ((v42 & 1) != 0);
+    while ((v39 & 1) != 0);
   }
 
-  v35 = *MEMORY[0x277D85DE8];
-
-  return v40;
+  return v37;
 }
 
 - (void)_triggerTTRForEvent:(id)event componentName:(id)name componentVersion:(id)version componentID:(id)d additionalDeviceTypes:(id)types fullDiagnostic:(BOOL)diagnostic
@@ -451,22 +445,20 @@ LABEL_7:
 
 void __121__CDPDTTRController__triggerTTRForEvent_componentName_componentVersion_componentID_additionalDeviceTypes_fullDiagnostic___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _CDPLogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = [*(a1 + 32) eventName];
-    v9 = 138412802;
-    v10 = v8;
-    v11 = 1024;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    _os_log_debug_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEBUG, "TTR filed for event - %@ with status - %d and error - %@", &v9, 0x1Cu);
+    v7 = [*(a1 + 32) eventName];
+    v8 = 138412802;
+    v9 = v7;
+    v10 = 1024;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    _os_log_debug_impl(&dword_24510B000, v6, OS_LOG_TYPE_DEBUG, "TTR filed for event - %@ with status - %d and error - %@", &v8, 0x1Cu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_ttrInfoForEvent:(id)event forTTRConfigSupportedErrors:(id)errors
@@ -590,24 +582,21 @@ uint64_t __74__CDPDTTRController__ttrInfoForEventErrorDict_inTTRConfigSupportedE
 
 - (void)_ttrInfoForEvent:(void *)a1 forTTRConfigSupportedErrors:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 eventName];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Missing ttr configs for event - %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_24510B000, a2, OS_LOG_TYPE_DEBUG, "Missing ttr configs for event - %@", &v4, 0xCu);
 }
 
 - (void)_isTTREnabledForDict:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "ttr-cfgs normalized mid drift ttrFrequency - %ld and  randomNumber - %ld", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "ttr-cfgs normalized mid drift ttrFrequency - %ld and  randomNumber - %ld", &v3, 0x16u);
 }
 
 @end

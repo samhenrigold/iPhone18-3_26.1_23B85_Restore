@@ -54,6 +54,7 @@
 - (void)handleClientDisconnection:(id)disconnection;
 - (void)handoffCancelInternalWithHandoffType:(unint64_t)type;
 - (void)handoffCompleteInternalWithHandoffType:(unint64_t)type;
+- (void)handoffSetDeviceAsStereoLeader:(BOOL)leader withOptions:(id)options;
 - (void)handoffStartInternalWithHandoffType:(unint64_t)type;
 - (void)handoffStartWithArtworkColors:(id)colors handoffType:(unint64_t)type;
 - (void)handoffStartWithArtworkColorsInternal:(id)internal handoffType:(unint64_t)type;
@@ -70,6 +71,8 @@
 - (void)isDeviceStereoFollowerInternal:(id)internal;
 - (void)obliterate:(id)obliterate;
 - (void)obliterateInternal:(id)internal;
+- (void)playTone:(unsigned int)tone;
+- (void)playToneInternal:(unsigned int)internal;
 - (void)proximityHandoffCancelled;
 - (void)proximityHandoffCompleted;
 - (void)proximityHandoffInactive;
@@ -90,6 +93,10 @@
 - (void)sendButtonCommandInternal:(id)internal;
 - (void)sendLEDCommand:(id)command;
 - (void)sendLEDCommandInternal:(id)internal;
+- (void)setBootSpinner:(BOOL)spinner;
+- (void)setBootSpinnerInternal:(BOOL)internal;
+- (void)setDeviceAsStereoLeader:(BOOL)leader withOptions:(id)options;
+- (void)setDeviceAsStereoLeaderInternal:(BOOL)internal withOptions:(id)options;
 - (void)setFeatureFlags:(id)flags;
 - (void)setFeatureFlagsInternal:(id)internal;
 - (void)setHomeUpdateState:(int64_t)state;
@@ -103,10 +110,16 @@
 - (void)setUserDefaultsInternal:(id)internal withValue:(id)value;
 - (void)setVolume:(float)volume;
 - (void)setVolumeInternal:(float)internal;
+- (void)setWifiEnabled:(BOOL)enabled;
+- (void)setWifiEnabledInternal:(BOOL)internal;
 - (void)siriSay:(id)say;
 - (void)siriSayInternal:(id)internal;
+- (void)stopTone:(unsigned int)tone;
+- (void)stopToneInternal:(unsigned int)internal;
 - (void)suScanForSoftwareUpdate;
 - (void)suScanForSoftwareUpdateInternal;
+- (void)sysdiagnoseHasStarted:(BOOL)started;
+- (void)sysdiagnoseHasStartedInternal:(BOOL)internal;
 - (void)triggerWiFiCoreCapture:(id)capture;
 - (void)triggerWiFiCoreCaptureInternal:(id)internal;
 @end
@@ -267,11 +280,26 @@
   [sysdiagnoseDelegate createSysdiagnose:v7];
 }
 
+- (void)sysdiagnoseHasStartedInternal:(BOOL)internal
+{
+  internalCopy = internal;
+  sysdiagnoseDelegate = [(SBSServer *)self sysdiagnoseDelegate];
+  [sysdiagnoseDelegate sysdiagnoseHasStarted:internalCopy];
+}
+
 - (void)isDeviceStereoFollowerInternal:(id)internal
 {
   internalCopy = internal;
   stereoLeaderDelegate = [(SBSServer *)self stereoLeaderDelegate];
   [stereoLeaderDelegate isDeviceStereoFollower:internalCopy];
+}
+
+- (void)setDeviceAsStereoLeaderInternal:(BOOL)internal withOptions:(id)options
+{
+  internalCopy = internal;
+  optionsCopy = options;
+  stereoLeaderDelegate = [(SBSServer *)self stereoLeaderDelegate];
+  [stereoLeaderDelegate setDeviceAsStereoLeader:internalCopy withOptions:optionsCopy];
 }
 
 - (void)suScanForSoftwareUpdateInternal
@@ -329,6 +357,20 @@
 {
   debugInfoDelegate = [(SBSServer *)self debugInfoDelegate];
   [debugInfoDelegate disassociateCurrentNetwork];
+}
+
+- (void)setWifiEnabledInternal:(BOOL)internal
+{
+  internalCopy = internal;
+  debugInfoDelegate = [(SBSServer *)self debugInfoDelegate];
+  [debugInfoDelegate setWifiEnabled:internalCopy];
+}
+
+- (void)setBootSpinnerInternal:(BOOL)internal
+{
+  internalCopy = internal;
+  debugInfoDelegate = [(SBSServer *)self debugInfoDelegate];
+  [debugInfoDelegate setBootSpinner:internalCopy];
 }
 
 - (void)clearHomeSWUpdateInternal
@@ -400,6 +442,20 @@
     debugInfoDelegate = [(SBSServer *)self debugInfoDelegate];
     [debugInfoDelegate getUserDefaults:internalCopy];
   }
+}
+
+- (void)stopToneInternal:(unsigned int)internal
+{
+  v3 = *&internal;
+  debugInfoDelegate = [(SBSServer *)self debugInfoDelegate];
+  [debugInfoDelegate stopTone:v3];
+}
+
+- (void)playToneInternal:(unsigned int)internal
+{
+  v3 = *&internal;
+  debugInfoDelegate = [(SBSServer *)self debugInfoDelegate];
+  [debugInfoDelegate playTone:v3];
 }
 
 - (void)setTuningInfoOnBoxInternal:(id)internal at:(id)at withValue:(float)value
@@ -575,23 +631,21 @@
 
 - (id)_processNameForPID:(int)d
 {
-  v11 = *MEMORY[0x277D85DE8];
-  memset(v10, 0, 512);
-  v6 = 648;
-  *v7 = 0xE00000001;
-  v8 = 1;
+  v10 = *MEMORY[0x277D85DE8];
+  memset(v9, 0, 512);
+  v5 = 648;
+  *v6 = 0xE00000001;
+  v7 = 1;
   dCopy = d;
-  if (sysctl(v7, 4u, v10, &v6, 0, 0) < 0)
+  if (sysctl(v6, 4u, v9, &v5, 0, 0) < 0)
   {
     v3 = 0;
   }
 
   else
   {
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v10[15] + 3];
+    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:&v9[15] + 3];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -609,29 +663,29 @@
 
 - (void)_findConnectionAndSetClientType:(unint64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   currentConnection = [MEMORY[0x277CCAE80] currentConnection];
   v6 = self->_clients;
   objc_sync_enter(v6);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = self->_clients;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         connection = [v11 connection];
         v13 = connection == currentConnection;
 
@@ -641,14 +695,13 @@
         }
       }
 
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   objc_sync_exit(v6);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPowerEstimateForInterval:(float)interval reply:(id)reply
@@ -673,28 +726,28 @@
 
 - (void)proximityHandoffUpdating
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = self->_clients;
   objc_sync_enter(v3);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_clients;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 clientType] == 5)
         {
           connection = [v8 connection];
@@ -705,7 +758,7 @@
         }
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -718,33 +771,32 @@
 LABEL_11:
 
   objc_sync_exit(v3);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)proximityHandoffStarted
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = self->_clients;
   objc_sync_enter(v3);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_clients;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 clientType] == 5)
         {
           connection = [v8 connection];
@@ -755,7 +807,7 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -768,33 +820,32 @@ LABEL_11:
 LABEL_11:
 
   objc_sync_exit(v3);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)proximityHandoffInactive
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = self->_clients;
   objc_sync_enter(v3);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_clients;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 clientType] == 5)
         {
           connection = [v8 connection];
@@ -805,7 +856,7 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -818,33 +869,32 @@ LABEL_11:
 LABEL_11:
 
   objc_sync_exit(v3);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)proximityHandoffCompleted
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = self->_clients;
   objc_sync_enter(v3);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_clients;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 clientType] == 5)
         {
           connection = [v8 connection];
@@ -855,7 +905,7 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -868,33 +918,32 @@ LABEL_11:
 LABEL_11:
 
   objc_sync_exit(v3);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)proximityHandoffCancelled
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = self->_clients;
   objc_sync_enter(v3);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_clients;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 clientType] == 5)
         {
           connection = [v8 connection];
@@ -905,7 +954,7 @@ LABEL_11:
         }
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v5)
       {
         continue;
@@ -918,7 +967,26 @@ LABEL_11:
 LABEL_11:
 
   objc_sync_exit(v3);
-  v11 = *MEMORY[0x277D85DE8];
+}
+
+- (void)handoffSetDeviceAsStereoLeader:(BOOL)leader withOptions:(id)options
+{
+  leaderCopy = leader;
+  v14 = *MEMORY[0x277D85DE8];
+  optionsCopy = options;
+  v7 = [(SBSServer *)self _gatherXPCClientInfo:optionsCopy];
+  v8 = _SBSLoggingFacility();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = [MEMORY[0x277CCABB0] numberWithBool:leaderCopy];
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 2112;
+    v13 = v7;
+    _os_log_impl(&dword_26B246000, v8, OS_LOG_TYPE_DEFAULT, "handoffSetDeviceAsStereoLeader = [%@] options received from external process info - %@", &v10, 0x16u);
+  }
+
+  [(SBSServer *)self setDeviceAsStereoLeaderInternal:leaderCopy withOptions:optionsCopy];
 }
 
 - (void)handoffStartWithArtworkColors:(id)colors handoffType:(unint64_t)type
@@ -939,7 +1007,7 @@ LABEL_11:
 
 - (void)fetchLatestEvents:(int64_t)events completionHandler:(id)handler
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if ([(SBSServer *)self _hasEntitlement:@"com.apple.debuginfo.soundboard"])
   {
@@ -952,13 +1020,11 @@ LABEL_11:
     v8 = _SBSLoggingFacility();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[SBSServer fetchLatestEvents:completionHandler:]";
-      _os_log_error_impl(&dword_26B246000, v8, OS_LOG_TYPE_ERROR, "Trying to call %s without entitlement", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SBSServer fetchLatestEvents:completionHandler:]";
+      _os_log_error_impl(&dword_26B246000, v8, OS_LOG_TYPE_ERROR, "Trying to call %s without entitlement", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)render:(id)render
@@ -1052,7 +1118,7 @@ LABEL_11:
 
 - (void)requestDeferredReboot
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = [(SBSServer *)self _hasEntitlement:@"com.apple.soundboard.system"];
   v4 = _SBSLoggingFacility();
   v5 = v4;
@@ -1061,11 +1127,11 @@ LABEL_11:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [(SBSServer *)self _gatherXPCClientInfo:0];
-      v8 = 136315394;
-      v9 = "[SBSServer requestDeferredReboot]";
-      v10 = 2112;
-      v11 = v6;
-      _os_log_impl(&dword_26B246000, v5, OS_LOG_TYPE_DEFAULT, "In %s Client Info..%@", &v8, 0x16u);
+      v7 = 136315394;
+      v8 = "[SBSServer requestDeferredReboot]";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_impl(&dword_26B246000, v5, OS_LOG_TYPE_DEFAULT, "In %s Client Info..%@", &v7, 0x16u);
     }
 
     [(SBSServer *)self requestDeferredRebootInternal];
@@ -1075,12 +1141,10 @@ LABEL_11:
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v8) = 0;
-      _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Missing required entitlement for requestDeferredReboot", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Missing required entitlement for requestDeferredReboot", &v7, 2u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reboot:(id)reboot
@@ -1192,6 +1256,27 @@ LABEL_11:
   }
 }
 
+- (void)sysdiagnoseHasStarted:(BOOL)started
+{
+  startedCopy = started;
+  if ([(SBSServer *)self _hasEntitlement:@"com.apple.soundboard.sysdiagnose"])
+  {
+    [(SBSServer *)self _findConnectionAndSetClientType:2];
+
+    [(SBSServer *)self sysdiagnoseHasStartedInternal:startedCopy];
+  }
+
+  else
+  {
+    v5 = _SBSLoggingFacility();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Missing Entitlement for sysdiagnose", v6, 2u);
+    }
+  }
+}
+
 - (void)isDeviceStereoFollower:(id)follower
 {
   followerCopy = follower;
@@ -1208,6 +1293,37 @@ LABEL_11:
     {
       *v6 = 0;
       _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Trying to call isDeviceStereoFollower without entitlement", v6, 2u);
+    }
+  }
+}
+
+- (void)setDeviceAsStereoLeader:(BOOL)leader withOptions:(id)options
+{
+  leaderCopy = leader;
+  v11 = *MEMORY[0x277D85DE8];
+  optionsCopy = options;
+  if ([(SBSServer *)self _hasEntitlement:@"com.apple.stereoleader.soundboard"])
+  {
+    [(SBSServer *)self _findConnectionAndSetClientType:1];
+    v7 = [(SBSServer *)self _gatherXPCClientInfo:optionsCopy];
+    v8 = _SBSLoggingFacility();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_26B246000, v8, OS_LOG_TYPE_DEFAULT, "Received setDeviceAsStereoLeader process info - %@", &v9, 0xCu);
+    }
+
+    [(SBSServer *)self setDeviceAsStereoLeaderInternal:leaderCopy withOptions:v7];
+  }
+
+  else
+  {
+    v7 = _SBSLoggingFacility();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v9) = 0;
+      _os_log_error_impl(&dword_26B246000, v7, OS_LOG_TYPE_ERROR, "Trying to call setDeviceAsStereoLeader without entitlement", &v9, 2u);
     }
   }
 }
@@ -1361,6 +1477,46 @@ LABEL_11:
     {
       *v4 = 0;
       _os_log_error_impl(&dword_26B246000, v3, OS_LOG_TYPE_ERROR, "Trying to call sendButton without entitlement", v4, 2u);
+    }
+  }
+}
+
+- (void)setWifiEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(SBSServer *)self _hasEntitlement:@"com.apple.debuginfo.soundboard"])
+  {
+
+    [(SBSServer *)self setWifiEnabledInternal:enabledCopy];
+  }
+
+  else
+  {
+    v5 = _SBSLoggingFacility();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Trying to call sendButton without entitlement", v6, 2u);
+    }
+  }
+}
+
+- (void)setBootSpinner:(BOOL)spinner
+{
+  spinnerCopy = spinner;
+  if ([(SBSServer *)self _hasEntitlement:@"com.apple.debuginfo.soundboard"])
+  {
+
+    [(SBSServer *)self setBootSpinnerInternal:spinnerCopy];
+  }
+
+  else
+  {
+    v5 = _SBSLoggingFacility();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *v6 = 0;
+      _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Trying to call sendButton without entitlement", v6, 2u);
     }
   }
 }
@@ -1575,6 +1731,50 @@ LABEL_11:
   }
 }
 
+- (void)stopTone:(unsigned int)tone
+{
+  v3 = *&tone;
+  v8 = *MEMORY[0x277D85DE8];
+  if ([(SBSServer *)self _hasEntitlement:@"com.apple.debuginfo.soundboard"])
+  {
+
+    [(SBSServer *)self stopToneInternal:v3];
+  }
+
+  else
+  {
+    v5 = _SBSLoggingFacility();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      v6 = 138412290;
+      v7 = @"com.apple.debuginfo.soundboard";
+      _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Trying to call stopTone without entitlement %@", &v6, 0xCu);
+    }
+  }
+}
+
+- (void)playTone:(unsigned int)tone
+{
+  v3 = *&tone;
+  v8 = *MEMORY[0x277D85DE8];
+  if ([(SBSServer *)self _hasEntitlement:@"com.apple.debuginfo.soundboard"])
+  {
+
+    [(SBSServer *)self playToneInternal:v3];
+  }
+
+  else
+  {
+    v5 = _SBSLoggingFacility();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      v6 = 138412290;
+      v7 = @"com.apple.debuginfo.soundboard";
+      _os_log_error_impl(&dword_26B246000, v5, OS_LOG_TYPE_ERROR, "Trying to call playTone without entitlement %@", &v6, 0xCu);
+    }
+  }
+}
+
 - (void)setTuningInfoOnBox:(id)box at:(id)at withValue:(float)value
 {
   boxCopy = box;
@@ -1711,37 +1911,37 @@ LABEL_11:
 
 - (void)handleClientDisconnection:(id)disconnection
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   disconnectionCopy = disconnection;
   v5 = _SBSLoggingFacility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = disconnectionCopy;
+    v25 = disconnectionCopy;
     _os_log_impl(&dword_26B246000, v5, OS_LOG_TYPE_DEFAULT, "Client with connection %@ is disconnecting.", buf, 0xCu);
   }
 
   v6 = self->_clients;
   objc_sync_enter(v6);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = self->_clients;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
-    v9 = *v21;
+    v9 = *v20;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         connection = [v11 connection];
         v13 = connection == disconnectionCopy;
 
@@ -1764,7 +1964,7 @@ LABEL_11:
         }
       }
 
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v8)
       {
         continue;
@@ -1781,7 +1981,7 @@ LABEL_16:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = v14;
+    v25 = v14;
     _os_log_impl(&dword_26B246000, v18, OS_LOG_TYPE_DEFAULT, "Client object found: %@", buf, 0xCu);
   }
 
@@ -1791,8 +1991,6 @@ LABEL_16:
   }
 
   objc_sync_exit(v6);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection

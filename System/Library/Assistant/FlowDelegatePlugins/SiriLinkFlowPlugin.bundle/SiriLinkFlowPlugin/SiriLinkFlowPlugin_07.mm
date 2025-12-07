@@ -1,4490 +1,16 @@
-void _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF3126LL5event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo49FLOWLINKSchemaFLOWLINKEntityDisambiguationContextC_Tt1g5(uint64_t a1, int a2)
-{
-  v92 = a1;
-  v3 = type metadata accessor for UUID();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = v80 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __chkstk_darwin(v6);
-  v11 = v80 - v10;
-  __chkstk_darwin(v9);
-  v13 = v80 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = __chkstk_darwin(v14 - 8);
-  v18 = v80 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __chkstk_darwin(v16);
-  v21 = v80 - v20;
-  __chkstk_darwin(v19);
-  v23 = v80 - v22;
-  v24 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKClientEvent) init];
-  if (v24)
-  {
-    v93 = v24;
-    v25 = [objc_allocWithZone(FLOWSchemaFLOWEventMetadata) init];
-    if (v25)
-    {
-      v88 = v4;
-      v89 = v3;
-      v86 = a2;
-      v90 = v23;
-      v91 = v25;
-      ObjectType = swift_getObjectType();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo49FLOWLINKSchemaFLOWLINKEntityDisambiguationContextCmMd, &_sSo49FLOWLINKSchemaFLOWLINKEntityDisambiguationContextCmMR);
-      v87 = String.init<A>(describing:)();
-      v27 = v26;
-      type metadata accessor for SiriEnvironment();
-      static SiriEnvironment.default.getter();
-      SiriEnvironment.flowTask.getter();
-
-      v28 = dispatch thunk of FlowTaskProvider.id.getter();
-      v30 = v29;
-
-      if (v30)
-      {
-        v31 = v90;
-        v85 = v28;
-        UUID.init(uuidString:)();
-        outlined init with copy of UUID?(v31, v21);
-        v32 = v89;
-        if (__swift_getEnumTagSinglePayload(v21, 1, v89) == 1)
-        {
-          v33 = v30;
-          outlined destroy of UUID?(v21);
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v34 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v34, static Logger.voiceCommands);
-
-          v35 = Logger.logObject.getter();
-          v36 = static os_log_type_t.error.getter();
-
-          if (os_log_type_enabled(v35, v36))
-          {
-            v37 = swift_slowAlloc();
-            ObjectType = swift_slowAlloc();
-            *v37 = 136315394;
-            v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v85, v33, &ObjectType);
-
-            *(v37 + 4) = v38;
-            *(v37 + 12) = 2080;
-            v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v87, v27, &ObjectType);
-
-            *(v37 + 14) = v39;
-            _os_log_impl(&dword_0, v35, v36, "#SLF SELF Log, current taskId: %s, is not a valid UUID String, cannot emit %s", v37, 0x16u);
-            swift_arrayDestroy();
-          }
-
-          else
-          {
-          }
-
-          v60 = v31;
-        }
-
-        else
-        {
-          v84 = v30;
-          v47 = v88;
-          v48 = v32;
-          v81 = *(v88 + 32);
-          v82 = v88 + 32;
-          v81(v13, v21, v32);
-          v49 = static InstrumentationUtils.createFlowId()();
-          if (v49)
-          {
-            v50 = v49;
-
-            v51 = type metadata accessor for SISchemaUUID();
-            v52 = *(v47 + 16);
-            v83 = v13;
-            v53 = v13;
-            v54 = v48;
-            v80[0] = v52;
-            v52(v11, v53, v48);
-            v80[1] = v51;
-            v55 = SISchemaUUID.__allocating_init(nsuuid:)(v11);
-            v56 = v91;
-            [v91 setTaskId:v55];
-
-            v87 = v50;
-            [v56 setFlowId:v50];
-            static SiriEnvironment.default.getter();
-            SiriEnvironment.currentRequest.getter();
-
-            CurrentRequest.resultCandidateId.getter();
-            v58 = v57;
-
-            if (v58)
-            {
-
-              UUID.init(uuidString:)();
-
-              if (__swift_getEnumTagSinglePayload(v18, 1, v54) == 1)
-              {
-                outlined destroy of UUID?(v18);
-                v59 = v91;
-              }
-
-              else
-              {
-                v81(v8, v18, v54);
-                (v80[0])(v11, v8, v54);
-                v72 = SISchemaUUID.__allocating_init(nsuuid:)(v11);
-                v59 = v91;
-                [v91 setTrpId:v72];
-
-                (*(v88 + 8))(v8, v54);
-              }
-
-              v70 = v90;
-              v71 = v83;
-              v69 = String._bridgeToObjectiveC()();
-            }
-
-            else
-            {
-              v69 = 0;
-              v70 = v90;
-              v59 = v91;
-              v71 = v83;
-            }
-
-            [v59 setResultCandidateId:v69];
-
-            [v93 setEventMetadata:v59];
-            objc_opt_self();
-            v73 = v92;
-            v74 = swift_dynamicCastObjCClass();
-            v75 = v88;
-            v76 = v86;
-            v77 = v85;
-            if (v74)
-            {
-              [v93 setLinkActionContext:v74];
-            }
-
-            else
-            {
-              [v93 setEntityDisambiguationContext:v73];
-            }
-
-            v78 = [objc_opt_self() sharedStream];
-            [v78 emitMessage:v93];
-            swift_unknownObjectRelease();
-            v79 = v87;
-            if (v76)
-            {
-              static InstrumentationUtils.emitLinkFlowRequestLink(taskId:flowId:)(v77, v84, v87);
-            }
-
-            (*(v75 + 8))(v71, v89);
-            v60 = v70;
-          }
-
-          else
-          {
-
-            if (one-time initialization token for voiceCommands != -1)
-            {
-              swift_once();
-            }
-
-            v61 = type metadata accessor for Logger();
-            __swift_project_value_buffer(v61, static Logger.voiceCommands);
-
-            v62 = Logger.logObject.getter();
-            v63 = static os_log_type_t.error.getter();
-
-            v64 = os_log_type_enabled(v62, v63);
-            v65 = v90;
-            if (v64)
-            {
-              v66 = swift_slowAlloc();
-              v67 = swift_slowAlloc();
-              ObjectType = v67;
-              *v66 = 136315138;
-              v68 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v87, v27, &ObjectType);
-
-              *(v66 + 4) = v68;
-              _os_log_impl(&dword_0, v62, v63, "#SLF SELF Log, current flowId is not a valid UUID String, cannot emit %s", v66, 0xCu);
-              __swift_destroy_boxed_opaque_existential_1Tm(v67);
-            }
-
-            else
-            {
-            }
-
-            (*(v88 + 8))(v13, v89);
-            v60 = v65;
-          }
-        }
-
-        outlined destroy of UUID?(v60);
-      }
-
-      else
-      {
-        if (one-time initialization token for voiceCommands != -1)
-        {
-          swift_once();
-        }
-
-        v41 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v41, static Logger.voiceCommands);
-
-        v42 = Logger.logObject.getter();
-        v43 = static os_log_type_t.error.getter();
-
-        if (os_log_type_enabled(v42, v43))
-        {
-          v44 = swift_slowAlloc();
-          v45 = swift_slowAlloc();
-          ObjectType = v45;
-          *v44 = 136315138;
-          v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v87, v27, &ObjectType);
-
-          *(v44 + 4) = v46;
-          _os_log_impl(&dword_0, v42, v43, "#SLF SELF Log, current taskId is nil, cannot emit %s", v44, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1Tm(v45);
-        }
-
-        else
-        {
-        }
-      }
-    }
-
-    else
-    {
-      v40 = v93;
-    }
-  }
-}
-
-void _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF3126LL5event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo49FLOWLINKSchemaFLOWLINKActionPromptForValueContextC_Tt1g5(uint64_t a1, int a2)
-{
-  v99 = a1;
-  v3 = type metadata accessor for UUID();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v86 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __chkstk_darwin(v6);
-  v11 = &v86 - v10;
-  __chkstk_darwin(v9);
-  v13 = &v86 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = __chkstk_darwin(v14 - 8);
-  v18 = &v86 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __chkstk_darwin(v16);
-  v21 = &v86 - v20;
-  __chkstk_darwin(v19);
-  v23 = &v86 - v22;
-  v24 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKClientEvent) init];
-  if (v24)
-  {
-    v96 = a2;
-    v100 = v24;
-    v25 = [objc_allocWithZone(FLOWSchemaFLOWEventMetadata) init];
-    if (v25)
-    {
-      v97 = v25;
-      v98 = v23;
-      v94 = v13;
-      v95 = v4;
-      ObjectType = swift_getObjectType();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo49FLOWLINKSchemaFLOWLINKActionPromptForValueContextCmMd, &_sSo49FLOWLINKSchemaFLOWLINKActionPromptForValueContextCmMR);
-      v26 = String.init<A>(describing:)();
-      v28 = v27;
-      type metadata accessor for SiriEnvironment();
-      static SiriEnvironment.default.getter();
-      SiriEnvironment.flowTask.getter();
-
-      v29 = dispatch thunk of FlowTaskProvider.id.getter();
-      v31 = v30;
-
-      if (v31)
-      {
-        v92 = v26;
-        v32 = v28;
-        v33 = v3;
-        v34 = v98;
-        UUID.init(uuidString:)();
-        outlined init with copy of UUID?(v34, v21);
-        if (__swift_getEnumTagSinglePayload(v21, 1, v33) == 1)
-        {
-          v35 = v29;
-          outlined destroy of UUID?(v21);
-          v36 = v32;
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v37 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v37, static Logger.voiceCommands);
-
-          v38 = Logger.logObject.getter();
-          v39 = static os_log_type_t.error.getter();
-
-          if (os_log_type_enabled(v38, v39))
-          {
-            v40 = swift_slowAlloc();
-            ObjectType = swift_slowAlloc();
-            *v40 = 136315394;
-            v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v31, &ObjectType);
-
-            *(v40 + 4) = v41;
-            *(v40 + 12) = 2080;
-            v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v92, v36, &ObjectType);
-
-            *(v40 + 14) = v42;
-            _os_log_impl(&dword_0, v38, v39, "#SLF SELF Log, current taskId: %s, is not a valid UUID String, cannot emit %s", v40, 0x16u);
-            swift_arrayDestroy();
-          }
-
-          else
-          {
-          }
-        }
-
-        else
-        {
-          v90 = v29;
-          v91 = v31;
-          v51 = v94;
-          v50 = v95;
-          v89 = *(v95 + 32);
-          v89(v94, v21, v33);
-          v52 = static InstrumentationUtils.createFlowId()();
-          v93 = v33;
-          v53 = v32;
-          if (v52)
-          {
-            v54 = v52;
-
-            v55 = type metadata accessor for SISchemaUUID();
-            v87 = *(v50 + 16);
-            v87(v11, v51, v93);
-            v88 = v55;
-            v56 = SISchemaUUID.__allocating_init(nsuuid:)(v11);
-            v57 = v97;
-            [v97 setTaskId:v56];
-
-            v92 = v54;
-            [v57 setFlowId:v54];
-            static SiriEnvironment.default.getter();
-            SiriEnvironment.currentRequest.getter();
-
-            CurrentRequest.resultCandidateId.getter();
-            v59 = v58;
-
-            if (v59)
-            {
-
-              UUID.init(uuidString:)();
-
-              if (__swift_getEnumTagSinglePayload(v18, 1, v93) == 1)
-              {
-                v60 = v93;
-                outlined destroy of UUID?(v18);
-                v61 = v97;
-                v62 = v98;
-                v63 = v95;
-              }
-
-              else
-              {
-                v75 = v93;
-                v89(v8, v18, v93);
-                v87(v11, v8, v75);
-                v76 = SISchemaUUID.__allocating_init(nsuuid:)(v11);
-                v61 = v97;
-                [v97 setTrpId:v76];
-
-                v63 = v95;
-                v60 = v75;
-                (*(v95 + 8))(v8, v75);
-                v62 = v98;
-              }
-
-              v74 = v91;
-              v73 = String._bridgeToObjectiveC()();
-            }
-
-            else
-            {
-              v60 = v93;
-              v73 = 0;
-              v61 = v97;
-              v62 = v98;
-              v63 = v95;
-              v74 = v91;
-            }
-
-            [v61 setResultCandidateId:v73];
-
-            [v100 setEventMetadata:v61];
-            objc_opt_self();
-            v77 = v99;
-            v78 = swift_dynamicCastObjCClass();
-            v79 = v94;
-            if (v78)
-            {
-              [v100 setLinkActionContext:v78];
-            }
-
-            else
-            {
-              objc_opt_self();
-              v80 = swift_dynamicCastObjCClass();
-              if (v80)
-              {
-                [v100 setEntityDisambiguationContext:v80];
-              }
-
-              else
-              {
-                objc_opt_self();
-                v82 = swift_dynamicCastObjCClass();
-                if (v82)
-                {
-                  [v100 setActionConversionContext:v82];
-                }
-
-                else
-                {
-                  objc_opt_self();
-                  v83 = swift_dynamicCastObjCClass();
-                  if (v83)
-                  {
-                    [v100 setActionExecutionContext:v83];
-                  }
-
-                  else
-                  {
-                    [v100 setActionPromptForValueContext:v77];
-                  }
-                }
-              }
-            }
-
-            v84 = [objc_opt_self() sharedStream];
-            [v84 emitMessage:v100];
-            swift_unknownObjectRelease();
-            v85 = v92;
-            if (v96)
-            {
-              static InstrumentationUtils.emitLinkFlowRequestLink(taskId:flowId:)(v90, v74, v92);
-            }
-
-            (*(v63 + 8))(v79, v60);
-            v81 = v62;
-            goto LABEL_44;
-          }
-
-          v64 = v93;
-
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v65 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v65, static Logger.voiceCommands);
-
-          v66 = Logger.logObject.getter();
-          v67 = static os_log_type_t.error.getter();
-
-          v68 = os_log_type_enabled(v66, v67);
-          v69 = v97;
-          if (v68)
-          {
-            v70 = swift_slowAlloc();
-            v71 = swift_slowAlloc();
-            ObjectType = v71;
-            *v70 = 136315138;
-            v72 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v92, v53, &ObjectType);
-
-            *(v70 + 4) = v72;
-            _os_log_impl(&dword_0, v66, v67, "#SLF SELF Log, current flowId is not a valid UUID String, cannot emit %s", v70, 0xCu);
-            __swift_destroy_boxed_opaque_existential_1Tm(v71);
-          }
-
-          else
-          {
-          }
-
-          (*(v95 + 8))(v94, v64);
-        }
-
-        v81 = v98;
-LABEL_44:
-        outlined destroy of UUID?(v81);
-        return;
-      }
-
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        swift_once();
-      }
-
-      v44 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v44, static Logger.voiceCommands);
-
-      v45 = Logger.logObject.getter();
-      v46 = static os_log_type_t.error.getter();
-
-      if (os_log_type_enabled(v45, v46))
-      {
-        v47 = swift_slowAlloc();
-        v48 = swift_slowAlloc();
-        ObjectType = v48;
-        *v47 = 136315138;
-        v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v28, &ObjectType);
-
-        *(v47 + 4) = v49;
-        _os_log_impl(&dword_0, v45, v46, "#SLF SELF Log, current taskId is nil, cannot emit %s", v47, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v48);
-      }
-
-      else
-      {
-      }
-    }
-
-    else
-    {
-      v43 = v100;
-    }
-  }
-}
-
-void _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF3126LL5event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo58FLOWLINKSchemaFLOWLINKActionParameterDisambiguationContextC_Tt1g5(uint64_t a1, int a2)
-{
-  v101 = a1;
-  v100 = type metadata accessor for UUID();
-  v3 = *(v100 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v100);
-  v7 = v90 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v5);
-  v10 = v90 - v9;
-  __chkstk_darwin(v8);
-  v12 = v90 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = __chkstk_darwin(v13 - 8);
-  v17 = v90 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __chkstk_darwin(v15);
-  v20 = v90 - v19;
-  __chkstk_darwin(v18);
-  v22 = v90 - v21;
-  v23 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKClientEvent) init];
-  if (v23)
-  {
-    v98 = a2;
-    v102 = v23;
-    v24 = [objc_allocWithZone(FLOWSchemaFLOWEventMetadata) init];
-    if (v24)
-    {
-      v25 = v24;
-      v96 = v12;
-      v97 = v3;
-      v99 = v22;
-      ObjectType = swift_getObjectType();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo58FLOWLINKSchemaFLOWLINKActionParameterDisambiguationContextCmMd, &_sSo58FLOWLINKSchemaFLOWLINKActionParameterDisambiguationContextCmMR);
-      v26 = String.init<A>(describing:)();
-      v28 = v27;
-      type metadata accessor for SiriEnvironment();
-      static SiriEnvironment.default.getter();
-      SiriEnvironment.flowTask.getter();
-
-      v29 = dispatch thunk of FlowTaskProvider.id.getter();
-      v31 = v30;
-
-      if (v31)
-      {
-        v95 = v26;
-        v32 = v99;
-        UUID.init(uuidString:)();
-        outlined init with copy of UUID?(v32, v20);
-        v33 = v100;
-        if (__swift_getEnumTagSinglePayload(v20, 1, v100) == 1)
-        {
-          v34 = v29;
-          outlined destroy of UUID?(v20);
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v35 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v35, static Logger.voiceCommands);
-
-          v36 = Logger.logObject.getter();
-          v37 = static os_log_type_t.error.getter();
-
-          if (os_log_type_enabled(v36, v37))
-          {
-            v38 = swift_slowAlloc();
-            ObjectType = swift_slowAlloc();
-            *v38 = 136315394;
-            v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v31, &ObjectType);
-            v40 = v25;
-            v41 = v39;
-
-            *(v38 + 4) = v41;
-            *(v38 + 12) = 2080;
-            v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v95, v28, &ObjectType);
-
-            *(v38 + 14) = v42;
-            _os_log_impl(&dword_0, v36, v37, "#SLF SELF Log, current taskId: %s, is not a valid UUID String, cannot emit %s", v38, 0x16u);
-            swift_arrayDestroy();
-          }
-
-          else
-          {
-          }
-        }
-
-        else
-        {
-          v92 = v29;
-          v93 = v31;
-          v94 = v25;
-          v54 = v96;
-          v53 = v97;
-          v55 = v97 + 32;
-          v91 = *(v97 + 32);
-          v91(v96, v20, v33);
-          v56 = static InstrumentationUtils.createFlowId()();
-          if (v56)
-          {
-            v57 = v56;
-            v90[1] = v55;
-
-            v58 = type metadata accessor for SISchemaUUID();
-            v59 = *(v53 + 16);
-            v59(v10, v54, v33);
-            v90[2] = v58;
-            v60 = SISchemaUUID.__allocating_init(nsuuid:)(v10);
-            v61 = v94;
-            [v94 setTaskId:v60];
-
-            v95 = v57;
-            [v61 setFlowId:v57];
-            static SiriEnvironment.default.getter();
-            SiriEnvironment.currentRequest.getter();
-
-            CurrentRequest.resultCandidateId.getter();
-            v63 = v62;
-
-            if (v63)
-            {
-
-              UUID.init(uuidString:)();
-
-              v64 = v33;
-              if (__swift_getEnumTagSinglePayload(v17, 1, v33) == 1)
-              {
-                outlined destroy of UUID?(v17);
-                v65 = v94;
-                v66 = v99;
-                v67 = v97;
-              }
-
-              else
-              {
-                v91(v7, v17, v33);
-                v59(v10, v7, v33);
-                v79 = SISchemaUUID.__allocating_init(nsuuid:)(v10);
-                v65 = v94;
-                [v94 setTrpId:v79];
-
-                v67 = v97;
-                (*(v97 + 8))(v7, v33);
-                v66 = v99;
-              }
-
-              v78 = v93;
-              v77 = String._bridgeToObjectiveC()();
-            }
-
-            else
-            {
-              v77 = 0;
-              v78 = v93;
-              v65 = v94;
-              v66 = v99;
-              v67 = v97;
-              v64 = v33;
-            }
-
-            [v65 setResultCandidateId:v77];
-
-            [v102 setEventMetadata:v65];
-            objc_opt_self();
-            v80 = v101;
-            v81 = swift_dynamicCastObjCClass();
-            v82 = v96;
-            if (v81)
-            {
-              [v102 setLinkActionContext:v81];
-            }
-
-            else
-            {
-              objc_opt_self();
-              v83 = swift_dynamicCastObjCClass();
-              if (v83)
-              {
-                [v102 setEntityDisambiguationContext:v83];
-              }
-
-              else
-              {
-                objc_opt_self();
-                v85 = swift_dynamicCastObjCClass();
-                if (v85)
-                {
-                  [v102 setActionConversionContext:v85];
-                }
-
-                else
-                {
-                  objc_opt_self();
-                  v86 = swift_dynamicCastObjCClass();
-                  if (v86)
-                  {
-                    [v102 setActionExecutionContext:v86];
-                  }
-
-                  else
-                  {
-                    objc_opt_self();
-                    v87 = swift_dynamicCastObjCClass();
-                    if (v87)
-                    {
-                      [v102 setActionPromptForValueContext:v87];
-                    }
-
-                    else
-                    {
-                      [v102 setActionParameterDisambiguationContext:v80];
-                    }
-                  }
-                }
-              }
-            }
-
-            v88 = [objc_opt_self() sharedStream];
-            [v88 emitMessage:v102];
-            swift_unknownObjectRelease();
-            v89 = v95;
-            if (v98)
-            {
-              static InstrumentationUtils.emitLinkFlowRequestLink(taskId:flowId:)(v92, v78, v95);
-            }
-
-            (*(v67 + 8))(v82, v64);
-            v84 = v66;
-            goto LABEL_45;
-          }
-
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v68 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v68, static Logger.voiceCommands);
-
-          v69 = Logger.logObject.getter();
-          v70 = static os_log_type_t.error.getter();
-
-          v71 = os_log_type_enabled(v69, v70);
-          v72 = v94;
-          v73 = v100;
-          if (v71)
-          {
-            v74 = swift_slowAlloc();
-            v75 = swift_slowAlloc();
-            ObjectType = v75;
-            *v74 = 136315138;
-            v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v95, v28, &ObjectType);
-
-            *(v74 + 4) = v76;
-            _os_log_impl(&dword_0, v69, v70, "#SLF SELF Log, current flowId is not a valid UUID String, cannot emit %s", v74, 0xCu);
-            __swift_destroy_boxed_opaque_existential_1Tm(v75);
-          }
-
-          else
-          {
-          }
-
-          (*(v97 + 8))(v96, v73);
-        }
-
-        v84 = v99;
-LABEL_45:
-        outlined destroy of UUID?(v84);
-        return;
-      }
-
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        swift_once();
-      }
-
-      v44 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v44, static Logger.voiceCommands);
-
-      v45 = Logger.logObject.getter();
-      v46 = static os_log_type_t.error.getter();
-
-      if (os_log_type_enabled(v45, v46))
-      {
-        v47 = swift_slowAlloc();
-        v48 = swift_slowAlloc();
-        v49 = v26;
-        v50 = v48;
-        ObjectType = v48;
-        *v47 = 136315138;
-        v51 = v25;
-        v52 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v28, &ObjectType);
-
-        *(v47 + 4) = v52;
-        _os_log_impl(&dword_0, v45, v46, "#SLF SELF Log, current taskId is nil, cannot emit %s", v47, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v50);
-      }
-
-      else
-      {
-      }
-    }
-
-    else
-    {
-      v43 = v102;
-    }
-  }
-}
-
-void _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF3126LL5event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo56FLOWLINKSchemaFLOWLINKActionParameterConfirmationContextC_Tt1g5(uint64_t a1, int a2)
-{
-  v102 = a1;
-  v101 = type metadata accessor for UUID();
-  v3 = *(v101 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v101);
-  v7 = v91 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v5);
-  v10 = v91 - v9;
-  __chkstk_darwin(v8);
-  v12 = v91 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = __chkstk_darwin(v13 - 8);
-  v17 = v91 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __chkstk_darwin(v15);
-  v20 = v91 - v19;
-  __chkstk_darwin(v18);
-  v22 = v91 - v21;
-  v23 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKClientEvent) init];
-  if (v23)
-  {
-    v99 = a2;
-    v103 = v23;
-    v24 = [objc_allocWithZone(FLOWSchemaFLOWEventMetadata) init];
-    if (v24)
-    {
-      v25 = v24;
-      v97 = v12;
-      v98 = v3;
-      v100 = v22;
-      ObjectType = swift_getObjectType();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo56FLOWLINKSchemaFLOWLINKActionParameterConfirmationContextCmMd, &_sSo56FLOWLINKSchemaFLOWLINKActionParameterConfirmationContextCmMR);
-      v26 = String.init<A>(describing:)();
-      v28 = v27;
-      type metadata accessor for SiriEnvironment();
-      static SiriEnvironment.default.getter();
-      SiriEnvironment.flowTask.getter();
-
-      v29 = dispatch thunk of FlowTaskProvider.id.getter();
-      v31 = v30;
-
-      if (v31)
-      {
-        v96 = v26;
-        v32 = v100;
-        UUID.init(uuidString:)();
-        outlined init with copy of UUID?(v32, v20);
-        v33 = v101;
-        if (__swift_getEnumTagSinglePayload(v20, 1, v101) == 1)
-        {
-          v34 = v29;
-          outlined destroy of UUID?(v20);
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v35 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v35, static Logger.voiceCommands);
-
-          v36 = Logger.logObject.getter();
-          v37 = static os_log_type_t.error.getter();
-
-          if (os_log_type_enabled(v36, v37))
-          {
-            v38 = swift_slowAlloc();
-            ObjectType = swift_slowAlloc();
-            *v38 = 136315394;
-            v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v31, &ObjectType);
-            v40 = v25;
-            v41 = v39;
-
-            *(v38 + 4) = v41;
-            *(v38 + 12) = 2080;
-            v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v96, v28, &ObjectType);
-
-            *(v38 + 14) = v42;
-            _os_log_impl(&dword_0, v36, v37, "#SLF SELF Log, current taskId: %s, is not a valid UUID String, cannot emit %s", v38, 0x16u);
-            swift_arrayDestroy();
-          }
-
-          else
-          {
-          }
-        }
-
-        else
-        {
-          v93 = v29;
-          v94 = v31;
-          v95 = v25;
-          v54 = v97;
-          v53 = v98;
-          v55 = v98 + 32;
-          v92 = *(v98 + 32);
-          v92(v97, v20, v33);
-          v56 = static InstrumentationUtils.createFlowId()();
-          if (v56)
-          {
-            v57 = v56;
-            v91[1] = v55;
-
-            v58 = type metadata accessor for SISchemaUUID();
-            v59 = *(v53 + 16);
-            v59(v10, v54, v33);
-            v91[2] = v58;
-            v60 = SISchemaUUID.__allocating_init(nsuuid:)(v10);
-            v61 = v95;
-            [v95 setTaskId:v60];
-
-            v96 = v57;
-            [v61 setFlowId:v57];
-            static SiriEnvironment.default.getter();
-            SiriEnvironment.currentRequest.getter();
-
-            CurrentRequest.resultCandidateId.getter();
-            v63 = v62;
-
-            if (v63)
-            {
-
-              UUID.init(uuidString:)();
-
-              v64 = v33;
-              if (__swift_getEnumTagSinglePayload(v17, 1, v33) == 1)
-              {
-                outlined destroy of UUID?(v17);
-                v65 = v95;
-                v66 = v100;
-                v67 = v98;
-              }
-
-              else
-              {
-                v92(v7, v17, v33);
-                v59(v10, v7, v33);
-                v79 = SISchemaUUID.__allocating_init(nsuuid:)(v10);
-                v65 = v95;
-                [v95 setTrpId:v79];
-
-                v67 = v98;
-                (*(v98 + 8))(v7, v33);
-                v66 = v100;
-              }
-
-              v78 = v94;
-              v77 = String._bridgeToObjectiveC()();
-            }
-
-            else
-            {
-              v77 = 0;
-              v78 = v94;
-              v65 = v95;
-              v66 = v100;
-              v67 = v98;
-              v64 = v33;
-            }
-
-            [v65 setResultCandidateId:v77];
-
-            [v103 setEventMetadata:v65];
-            objc_opt_self();
-            v80 = v102;
-            v81 = swift_dynamicCastObjCClass();
-            v82 = v97;
-            if (v81)
-            {
-              [v103 setLinkActionContext:v81];
-            }
-
-            else
-            {
-              objc_opt_self();
-              v83 = swift_dynamicCastObjCClass();
-              if (v83)
-              {
-                [v103 setEntityDisambiguationContext:v83];
-              }
-
-              else
-              {
-                objc_opt_self();
-                v85 = swift_dynamicCastObjCClass();
-                if (v85)
-                {
-                  [v103 setActionConversionContext:v85];
-                }
-
-                else
-                {
-                  objc_opt_self();
-                  v86 = swift_dynamicCastObjCClass();
-                  if (v86)
-                  {
-                    [v103 setActionExecutionContext:v86];
-                  }
-
-                  else
-                  {
-                    objc_opt_self();
-                    v87 = swift_dynamicCastObjCClass();
-                    if (v87)
-                    {
-                      [v103 setActionPromptForValueContext:v87];
-                    }
-
-                    else
-                    {
-                      objc_opt_self();
-                      v88 = swift_dynamicCastObjCClass();
-                      if (v88)
-                      {
-                        [v103 setActionParameterDisambiguationContext:v88];
-                      }
-
-                      else
-                      {
-                        [v103 setActionParameterConfirmationContext:v80];
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            v89 = [objc_opt_self() sharedStream];
-            [v89 emitMessage:v103];
-            swift_unknownObjectRelease();
-            v90 = v96;
-            if (v99)
-            {
-              static InstrumentationUtils.emitLinkFlowRequestLink(taskId:flowId:)(v93, v78, v96);
-            }
-
-            (*(v67 + 8))(v82, v64);
-            v84 = v66;
-            goto LABEL_47;
-          }
-
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v68 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v68, static Logger.voiceCommands);
-
-          v69 = Logger.logObject.getter();
-          v70 = static os_log_type_t.error.getter();
-
-          v71 = os_log_type_enabled(v69, v70);
-          v72 = v95;
-          v73 = v101;
-          if (v71)
-          {
-            v74 = swift_slowAlloc();
-            v75 = swift_slowAlloc();
-            ObjectType = v75;
-            *v74 = 136315138;
-            v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v96, v28, &ObjectType);
-
-            *(v74 + 4) = v76;
-            _os_log_impl(&dword_0, v69, v70, "#SLF SELF Log, current flowId is not a valid UUID String, cannot emit %s", v74, 0xCu);
-            __swift_destroy_boxed_opaque_existential_1Tm(v75);
-          }
-
-          else
-          {
-          }
-
-          (*(v98 + 8))(v97, v73);
-        }
-
-        v84 = v100;
-LABEL_47:
-        outlined destroy of UUID?(v84);
-        return;
-      }
-
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        swift_once();
-      }
-
-      v44 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v44, static Logger.voiceCommands);
-
-      v45 = Logger.logObject.getter();
-      v46 = static os_log_type_t.error.getter();
-
-      if (os_log_type_enabled(v45, v46))
-      {
-        v47 = swift_slowAlloc();
-        v48 = swift_slowAlloc();
-        v49 = v26;
-        v50 = v48;
-        ObjectType = v48;
-        *v47 = 136315138;
-        v51 = v25;
-        v52 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v28, &ObjectType);
-
-        *(v47 + 4) = v52;
-        _os_log_impl(&dword_0, v45, v46, "#SLF SELF Log, current taskId is nil, cannot emit %s", v47, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v50);
-      }
-
-      else
-      {
-      }
-    }
-
-    else
-    {
-      v43 = v103;
-    }
-  }
-}
-
-void _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF3126LL5event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo47FLOWLINKSchemaFLOWLINKActionConfirmationContextC_Tt1g5(uint64_t a1, int a2)
-{
-  v103 = a1;
-  v102 = type metadata accessor for UUID();
-  v3 = *(v102 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v102);
-  v7 = v92 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __chkstk_darwin(v5);
-  v10 = v92 - v9;
-  __chkstk_darwin(v8);
-  v12 = v92 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = __chkstk_darwin(v13 - 8);
-  v17 = v92 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = __chkstk_darwin(v15);
-  v20 = v92 - v19;
-  __chkstk_darwin(v18);
-  v22 = v92 - v21;
-  v23 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKClientEvent) init];
-  if (v23)
-  {
-    v100 = a2;
-    v104 = v23;
-    v24 = [objc_allocWithZone(FLOWSchemaFLOWEventMetadata) init];
-    if (v24)
-    {
-      v25 = v24;
-      v98 = v12;
-      v99 = v3;
-      v101 = v22;
-      ObjectType = swift_getObjectType();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo47FLOWLINKSchemaFLOWLINKActionConfirmationContextCmMd, &_sSo47FLOWLINKSchemaFLOWLINKActionConfirmationContextCmMR);
-      v26 = String.init<A>(describing:)();
-      v28 = v27;
-      type metadata accessor for SiriEnvironment();
-      static SiriEnvironment.default.getter();
-      SiriEnvironment.flowTask.getter();
-
-      v29 = dispatch thunk of FlowTaskProvider.id.getter();
-      v31 = v30;
-
-      if (v31)
-      {
-        v97 = v26;
-        v32 = v101;
-        UUID.init(uuidString:)();
-        outlined init with copy of UUID?(v32, v20);
-        v33 = v102;
-        if (__swift_getEnumTagSinglePayload(v20, 1, v102) == 1)
-        {
-          v34 = v29;
-          outlined destroy of UUID?(v20);
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v35 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v35, static Logger.voiceCommands);
-
-          v36 = Logger.logObject.getter();
-          v37 = static os_log_type_t.error.getter();
-
-          if (os_log_type_enabled(v36, v37))
-          {
-            v38 = swift_slowAlloc();
-            ObjectType = swift_slowAlloc();
-            *v38 = 136315394;
-            v39 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v31, &ObjectType);
-            v40 = v25;
-            v41 = v39;
-
-            *(v38 + 4) = v41;
-            *(v38 + 12) = 2080;
-            v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v97, v28, &ObjectType);
-
-            *(v38 + 14) = v42;
-            _os_log_impl(&dword_0, v36, v37, "#SLF SELF Log, current taskId: %s, is not a valid UUID String, cannot emit %s", v38, 0x16u);
-            swift_arrayDestroy();
-          }
-
-          else
-          {
-          }
-        }
-
-        else
-        {
-          v94 = v29;
-          v95 = v31;
-          v96 = v25;
-          v54 = v98;
-          v53 = v99;
-          v55 = v99 + 32;
-          v93 = *(v99 + 32);
-          v93(v98, v20, v33);
-          v56 = static InstrumentationUtils.createFlowId()();
-          if (v56)
-          {
-            v57 = v56;
-            v92[1] = v55;
-
-            v58 = type metadata accessor for SISchemaUUID();
-            v59 = *(v53 + 16);
-            v59(v10, v54, v33);
-            v92[2] = v58;
-            v60 = SISchemaUUID.__allocating_init(nsuuid:)(v10);
-            v61 = v96;
-            [v96 setTaskId:v60];
-
-            v97 = v57;
-            [v61 setFlowId:v57];
-            static SiriEnvironment.default.getter();
-            SiriEnvironment.currentRequest.getter();
-
-            CurrentRequest.resultCandidateId.getter();
-            v63 = v62;
-
-            if (v63)
-            {
-
-              UUID.init(uuidString:)();
-
-              v64 = v33;
-              if (__swift_getEnumTagSinglePayload(v17, 1, v33) == 1)
-              {
-                outlined destroy of UUID?(v17);
-                v65 = v96;
-                v66 = v101;
-                v67 = v99;
-              }
-
-              else
-              {
-                v93(v7, v17, v33);
-                v59(v10, v7, v33);
-                v79 = SISchemaUUID.__allocating_init(nsuuid:)(v10);
-                v65 = v96;
-                [v96 setTrpId:v79];
-
-                v67 = v99;
-                (*(v99 + 8))(v7, v33);
-                v66 = v101;
-              }
-
-              v78 = v95;
-              v77 = String._bridgeToObjectiveC()();
-            }
-
-            else
-            {
-              v77 = 0;
-              v78 = v95;
-              v65 = v96;
-              v66 = v101;
-              v67 = v99;
-              v64 = v33;
-            }
-
-            [v65 setResultCandidateId:v77];
-
-            [v104 setEventMetadata:v65];
-            objc_opt_self();
-            v80 = v103;
-            v81 = swift_dynamicCastObjCClass();
-            v82 = v98;
-            if (v81)
-            {
-              [v104 setLinkActionContext:v81];
-            }
-
-            else
-            {
-              objc_opt_self();
-              v83 = swift_dynamicCastObjCClass();
-              if (v83)
-              {
-                [v104 setEntityDisambiguationContext:v83];
-              }
-
-              else
-              {
-                objc_opt_self();
-                v85 = swift_dynamicCastObjCClass();
-                if (v85)
-                {
-                  [v104 setActionConversionContext:v85];
-                }
-
-                else
-                {
-                  objc_opt_self();
-                  v86 = swift_dynamicCastObjCClass();
-                  if (v86)
-                  {
-                    [v104 setActionExecutionContext:v86];
-                  }
-
-                  else
-                  {
-                    objc_opt_self();
-                    v87 = swift_dynamicCastObjCClass();
-                    if (v87)
-                    {
-                      [v104 setActionPromptForValueContext:v87];
-                    }
-
-                    else
-                    {
-                      objc_opt_self();
-                      v88 = swift_dynamicCastObjCClass();
-                      if (v88)
-                      {
-                        [v104 setActionParameterDisambiguationContext:v88];
-                      }
-
-                      else
-                      {
-                        objc_opt_self();
-                        v89 = swift_dynamicCastObjCClass();
-                        if (v89)
-                        {
-                          [v104 setActionParameterConfirmationContext:v89];
-                        }
-
-                        else
-                        {
-                          [v104 setActionConfirmationContext:v80];
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            v90 = [objc_opt_self() sharedStream];
-            [v90 emitMessage:v104];
-            swift_unknownObjectRelease();
-            v91 = v97;
-            if (v100)
-            {
-              static InstrumentationUtils.emitLinkFlowRequestLink(taskId:flowId:)(v94, v78, v97);
-            }
-
-            (*(v67 + 8))(v82, v64);
-            v84 = v66;
-            goto LABEL_49;
-          }
-
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v68 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v68, static Logger.voiceCommands);
-
-          v69 = Logger.logObject.getter();
-          v70 = static os_log_type_t.error.getter();
-
-          v71 = os_log_type_enabled(v69, v70);
-          v72 = v96;
-          v73 = v102;
-          if (v71)
-          {
-            v74 = swift_slowAlloc();
-            v75 = swift_slowAlloc();
-            ObjectType = v75;
-            *v74 = 136315138;
-            v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v97, v28, &ObjectType);
-
-            *(v74 + 4) = v76;
-            _os_log_impl(&dword_0, v69, v70, "#SLF SELF Log, current flowId is not a valid UUID String, cannot emit %s", v74, 0xCu);
-            __swift_destroy_boxed_opaque_existential_1Tm(v75);
-          }
-
-          else
-          {
-          }
-
-          (*(v99 + 8))(v98, v73);
-        }
-
-        v84 = v101;
-LABEL_49:
-        outlined destroy of UUID?(v84);
-        return;
-      }
-
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        swift_once();
-      }
-
-      v44 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v44, static Logger.voiceCommands);
-
-      v45 = Logger.logObject.getter();
-      v46 = static os_log_type_t.error.getter();
-
-      if (os_log_type_enabled(v45, v46))
-      {
-        v47 = swift_slowAlloc();
-        v48 = swift_slowAlloc();
-        v49 = v26;
-        v50 = v48;
-        ObjectType = v48;
-        *v47 = 136315138;
-        v51 = v25;
-        v52 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v28, &ObjectType);
-
-        *(v47 + 4) = v52;
-        _os_log_impl(&dword_0, v45, v46, "#SLF SELF Log, current taskId is nil, cannot emit %s", v47, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v50);
-      }
-
-      else
-      {
-      }
-    }
-
-    else
-    {
-      v43 = v104;
-    }
-  }
-}
-
-void _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF3126LL5event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo60FLOWLINKSchemaFLOWLINKAppShortcutFirstRunConfirmationContextC_Tt1g5(uint64_t a1, int a2)
-{
-  v104 = a1;
-  v3 = type metadata accessor for UUID();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = __chkstk_darwin(v3);
-  v8 = &v93 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __chkstk_darwin(v6);
-  v11 = &v93 - v10;
-  __chkstk_darwin(v9);
-  v13 = &v93 - v12;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = __chkstk_darwin(v14 - 8);
-  v18 = &v93 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __chkstk_darwin(v16);
-  v21 = &v93 - v20;
-  __chkstk_darwin(v19);
-  v23 = &v93 - v22;
-  v24 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKClientEvent) init];
-  if (v24)
-  {
-    v101 = a2;
-    v105 = v24;
-    v25 = [objc_allocWithZone(FLOWSchemaFLOWEventMetadata) init];
-    if (v25)
-    {
-      v26 = v25;
-      v99 = v13;
-      v100 = v4;
-      v103 = v23;
-      ObjectType = swift_getObjectType();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo60FLOWLINKSchemaFLOWLINKAppShortcutFirstRunConfirmationContextCmMd, &_sSo60FLOWLINKSchemaFLOWLINKAppShortcutFirstRunConfirmationContextCmMR);
-      v98 = String.init<A>(describing:)();
-      v28 = v27;
-      type metadata accessor for SiriEnvironment();
-      static SiriEnvironment.default.getter();
-      SiriEnvironment.flowTask.getter();
-
-      v29 = dispatch thunk of FlowTaskProvider.id.getter();
-      v31 = v30;
-
-      if (v31)
-      {
-        v102 = v3;
-        v32 = v103;
-        UUID.init(uuidString:)();
-        v33 = v32;
-        v34 = v102;
-        outlined init with copy of UUID?(v33, v21);
-        if (__swift_getEnumTagSinglePayload(v21, 1, v34) == 1)
-        {
-          v35 = v29;
-          outlined destroy of UUID?(v21);
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v36 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v36, static Logger.voiceCommands);
-
-          v37 = Logger.logObject.getter();
-          v38 = static os_log_type_t.error.getter();
-
-          if (os_log_type_enabled(v37, v38))
-          {
-            v39 = swift_slowAlloc();
-            ObjectType = swift_slowAlloc();
-            *v39 = 136315394;
-            v40 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v31, &ObjectType);
-            v41 = v26;
-            v42 = v40;
-
-            *(v39 + 4) = v42;
-            *(v39 + 12) = 2080;
-            v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v98, v28, &ObjectType);
-
-            *(v39 + 14) = v43;
-            _os_log_impl(&dword_0, v37, v38, "#SLF SELF Log, current taskId: %s, is not a valid UUID String, cannot emit %s", v39, 0x16u);
-            swift_arrayDestroy();
-          }
-
-          else
-          {
-          }
-        }
-
-        else
-        {
-          v95 = v29;
-          v96 = v31;
-          v97 = v26;
-          v53 = v99;
-          v52 = v100;
-          v94 = *(v100 + 32);
-          v94(v99, v21, v34);
-          v54 = static InstrumentationUtils.createFlowId()();
-          if (v54)
-          {
-            v55 = v54;
-
-            v56 = type metadata accessor for SISchemaUUID();
-            v57 = *(v52 + 16);
-            v57(v11, v53, v102);
-            v93 = v56;
-            v58 = SISchemaUUID.__allocating_init(nsuuid:)(v11);
-            v59 = v97;
-            [v97 setTaskId:v58];
-
-            v98 = v55;
-            [v59 setFlowId:v55];
-            static SiriEnvironment.default.getter();
-            SiriEnvironment.currentRequest.getter();
-
-            CurrentRequest.resultCandidateId.getter();
-            v61 = v60;
-
-            if (v61)
-            {
-
-              UUID.init(uuidString:)();
-
-              if (__swift_getEnumTagSinglePayload(v18, 1, v102) == 1)
-              {
-                outlined destroy of UUID?(v18);
-                v63 = v96;
-                v62 = v97;
-                v65 = v102;
-                v64 = v103;
-                v66 = v100;
-              }
-
-              else
-              {
-                v65 = v102;
-                v94(v8, v18, v102);
-                v57(v11, v8, v65);
-                v77 = SISchemaUUID.__allocating_init(nsuuid:)(v11);
-                v62 = v97;
-                [v97 setTrpId:v77];
-
-                v66 = v100;
-                (*(v100 + 8))(v8, v65);
-                v64 = v103;
-                v63 = v96;
-              }
-
-              v76 = String._bridgeToObjectiveC()();
-            }
-
-            else
-            {
-              v76 = 0;
-              v63 = v96;
-              v62 = v97;
-              v65 = v102;
-              v64 = v103;
-              v66 = v100;
-            }
-
-            [v62 setResultCandidateId:v76];
-
-            [v105 setEventMetadata:v62];
-            objc_opt_self();
-            v78 = swift_dynamicCastObjCClass();
-            v79 = v99;
-            if (v78)
-            {
-              [v105 setLinkActionContext:v78];
-            }
-
-            else
-            {
-              objc_opt_self();
-              v80 = swift_dynamicCastObjCClass();
-              if (v80)
-              {
-                [v105 setEntityDisambiguationContext:v80];
-              }
-
-              else
-              {
-                objc_opt_self();
-                v82 = swift_dynamicCastObjCClass();
-                if (v82)
-                {
-                  [v105 setActionConversionContext:v82];
-                }
-
-                else
-                {
-                  objc_opt_self();
-                  v83 = swift_dynamicCastObjCClass();
-                  if (v83)
-                  {
-                    [v105 setActionExecutionContext:v83];
-                  }
-
-                  else
-                  {
-                    objc_opt_self();
-                    v84 = swift_dynamicCastObjCClass();
-                    if (v84)
-                    {
-                      [v105 setActionPromptForValueContext:v84];
-                    }
-
-                    else
-                    {
-                      objc_opt_self();
-                      v85 = swift_dynamicCastObjCClass();
-                      if (v85)
-                      {
-                        [v105 setActionParameterDisambiguationContext:v85];
-                      }
-
-                      else
-                      {
-                        objc_opt_self();
-                        v86 = swift_dynamicCastObjCClass();
-                        if (v86)
-                        {
-                          [v105 setActionParameterConfirmationContext:v86];
-                        }
-
-                        else
-                        {
-                          objc_opt_self();
-                          v87 = swift_dynamicCastObjCClass();
-                          if (v87)
-                          {
-                            [v105 setActionConfirmationContext:v87];
-                          }
-
-                          else
-                          {
-                            objc_opt_self();
-                            v90 = swift_dynamicCastObjCClass();
-                            if (v90)
-                            {
-                              [v105 setAutoShortcutTemplateUsed:v90];
-                            }
-
-                            else
-                            {
-                              objc_opt_self();
-                              v91 = swift_dynamicCastObjCClass();
-                              if (v91)
-                              {
-                                [v105 setLinkActionTier1:v91];
-                              }
-
-                              else
-                              {
-                                objc_opt_self();
-                                v92 = swift_dynamicCastObjCClass();
-                                if (v92)
-                                {
-                                  [v105 setActionParameterUpdated:v92];
-                                }
-
-                                else
-                                {
-                                  [v105 setAppShortcutFirstRunConfirmationContext:v104];
-                                }
-                              }
-                            }
-
-                            v63 = v96;
-                            v62 = v97;
-                            v65 = v102;
-                            v64 = v103;
-                            v79 = v99;
-                            v66 = v100;
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-
-            v88 = [objc_opt_self() sharedStream];
-            [v88 emitMessage:v105];
-            swift_unknownObjectRelease();
-            v89 = v98;
-            if (v101)
-            {
-              static InstrumentationUtils.emitLinkFlowRequestLink(taskId:flowId:)(v95, v63, v98);
-            }
-
-            (*(v66 + 8))(v79, v65);
-            v81 = v64;
-            goto LABEL_51;
-          }
-
-          v67 = v102;
-
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v68 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v68, static Logger.voiceCommands);
-
-          v69 = Logger.logObject.getter();
-          v70 = static os_log_type_t.error.getter();
-
-          v71 = os_log_type_enabled(v69, v70);
-          v72 = v97;
-          if (v71)
-          {
-            v73 = swift_slowAlloc();
-            v74 = swift_slowAlloc();
-            ObjectType = v74;
-            *v73 = 136315138;
-            v75 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v98, v28, &ObjectType);
-
-            *(v73 + 4) = v75;
-            _os_log_impl(&dword_0, v69, v70, "#SLF SELF Log, current flowId is not a valid UUID String, cannot emit %s", v73, 0xCu);
-            __swift_destroy_boxed_opaque_existential_1Tm(v74);
-          }
-
-          else
-          {
-          }
-
-          (*(v100 + 8))(v99, v67);
-        }
-
-        v81 = v103;
-LABEL_51:
-        outlined destroy of UUID?(v81);
-        return;
-      }
-
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        swift_once();
-      }
-
-      v45 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v45, static Logger.voiceCommands);
-
-      v46 = Logger.logObject.getter();
-      v47 = static os_log_type_t.error.getter();
-
-      if (os_log_type_enabled(v46, v47))
-      {
-        v48 = swift_slowAlloc();
-        v49 = swift_slowAlloc();
-        ObjectType = v49;
-        *v48 = 136315138;
-        v50 = v26;
-        v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v98, v28, &ObjectType);
-
-        *(v48 + 4) = v51;
-        _os_log_impl(&dword_0, v46, v47, "#SLF SELF Log, current taskId is nil, cannot emit %s", v48, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v49);
-      }
-
-      else
-      {
-      }
-    }
-
-    else
-    {
-      v44 = v105;
-    }
-  }
-}
-
-id static InstrumentationUtils.createFlowId()()
-{
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v1 = *(*(v0 - 8) + 64);
-  __chkstk_darwin(v0 - 8);
-  v3 = &v31 - v2;
-  v4 = type metadata accessor for UUID();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v4);
-  v9 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __chkstk_darwin(v7);
-  v12 = &v31 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v31 - v13;
-  static InstrumentationUtils.createFlowUUID()(v3);
-  if (__swift_getEnumTagSinglePayload(v3, 1, v4) == 1)
-  {
-    outlined destroy of UUID?(v3);
-    if (one-time initialization token for voiceCommands != -1)
-    {
-      swift_once();
-    }
-
-    v15 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v15, static Logger.voiceCommands);
-    v16 = Logger.logObject.getter();
-    v17 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v16, v17))
-    {
-      v18 = swift_slowAlloc();
-      *v18 = 0;
-      _os_log_impl(&dword_0, v16, v17, "#SLF SELF Log, invalid executionRequestId string, cannot derive flowId form it", v18, 2u);
-    }
-
-    return 0;
-  }
-
-  else
-  {
-    (*(v5 + 32))(v14, v3, v4);
-    if (one-time initialization token for voiceCommands != -1)
-    {
-      swift_once();
-    }
-
-    v20 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v20, static Logger.voiceCommands);
-    v35 = *(v5 + 16);
-    v35(v12, v14, v4);
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v21, v22))
-    {
-      v23 = swift_slowAlloc();
-      v31 = v23;
-      v33 = swift_slowAlloc();
-      v36 = v33;
-      *v23 = 136315138;
-      v32 = v22;
-      v24 = UUID.uuidString.getter();
-      v34 = v9;
-      v26 = v25;
-      v27 = *(v5 + 8);
-      v27(v12, v4);
-      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v26, &v36);
-      v9 = v34;
-
-      v29 = v31;
-      *(v31 + 1) = v28;
-      _os_log_impl(&dword_0, v21, v32, "#SLF SELF Log, created flowId: %s", v29, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v33);
-    }
-
-    else
-    {
-
-      v27 = *(v5 + 8);
-      v27(v12, v4);
-    }
-
-    type metadata accessor for SISchemaUUID();
-    v35(v9, v14, v4);
-    v19 = SISchemaUUID.__allocating_init(nsuuid:)(v9);
-    v27(v14, v4);
-  }
-
-  return v19;
-}
-
-void static InstrumentationUtils.emitLinkFlowRequestLink(taskId:flowId:)(uint64_t a1, unint64_t a2, NSObject *a3)
-{
-  v61 = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = __chkstk_darwin(v5 - 8);
-  v9 = &v56 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v56 - v10;
-  v12 = type metadata accessor for UUID();
-  v60 = *(v12 - 8);
-  v13 = *(v60 + 64);
-  v14 = __chkstk_darwin(v12);
-  v16 = &v56 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __chkstk_darwin(v14);
-  v19 = &v56 - v18;
-  __chkstk_darwin(v17);
-  v21 = &v56 - v20;
-  v22 = [objc_allocWithZone(SISchemaRequestLink) init];
-  if (v22)
-  {
-    v23 = v22;
-    v59 = a1;
-    v62 = [objc_allocWithZone(SISchemaRequestLinkInfo) init];
-    if (v62)
-    {
-      v24 = [objc_allocWithZone(SISchemaRequestLinkInfo) init];
-      if (v24)
-      {
-        v58 = v24;
-        v25 = v62;
-        [v62 setComponent:3];
-        [v25 setUuid:v61];
-        static InstrumentationUtils.getOrchestrationRequestId()(v11);
-        if (__swift_getEnumTagSinglePayload(v11, 1, v12) == 1)
-        {
-          outlined destroy of UUID?(v11);
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v26 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v26, static Logger.voiceCommands);
-          v27 = Logger.logObject.getter();
-          v28 = static os_log_type_t.error.getter();
-          if (os_log_type_enabled(v27, v28))
-          {
-            v29 = swift_slowAlloc();
-            *v29 = 0;
-            _os_log_impl(&dword_0, v27, v28, "#SLF SELF Log - current executionRequestId is not a valid UUID String, cannot emit request link info", v29, 2u);
-          }
-        }
-
-        else
-        {
-          v35 = v60;
-          (*(v60 + 32))(v21, v11, v12);
-          v36 = v58;
-          [v58 setComponent:1];
-          type metadata accessor for SISchemaUUID();
-          v57 = *(v35 + 16);
-          v57(v19, v21, v12);
-          v37 = SISchemaUUID.__allocating_init(nsuuid:)(v19);
-          [v36 setUuid:v37];
-
-          [v23 setSource:v62];
-          [v23 setTarget:v36];
-          if (one-time initialization token for voiceCommands != -1)
-          {
-            swift_once();
-          }
-
-          v38 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v38, static Logger.voiceCommands);
-          v57(v16, v21, v12);
-
-          v39 = v61;
-          v40 = Logger.logObject.getter();
-          v41 = static os_log_type_t.debug.getter();
-
-          if (os_log_type_enabled(v40, v41))
-          {
-            LODWORD(v57) = v41;
-            v61 = v40;
-            v42 = swift_slowAlloc();
-            v56 = swift_slowAlloc();
-            v63 = v56;
-            *v42 = 136315650;
-            *(v42 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v59, a2, &v63);
-            *(v42 + 12) = 2080;
-            SISchemaUUID.asUUID()();
-            EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v9, 1, v12);
-            v44 = v60;
-            if (EnumTagSinglePayload == 1)
-            {
-              outlined destroy of UUID?(v9);
-              v45 = 0;
-              v46 = 0xE000000000000000;
-            }
-
-            else
-            {
-              v45 = UUID.uuidString.getter();
-              v46 = v48;
-              (*(v44 + 8))(v9, v12);
-            }
-
-            v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v46, &v63);
-
-            *(v42 + 14) = v49;
-            *(v42 + 22) = 2080;
-            lazy protocol witness table accessor for type UUID and conformance UUID();
-            v50 = dispatch thunk of CustomStringConvertible.description.getter();
-            v52 = v51;
-            v47 = *(v44 + 8);
-            v47(v16, v12);
-            v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v50, v52, &v63);
-
-            *(v42 + 24) = v53;
-            v54 = v61;
-            _os_log_impl(&dword_0, v61, v57, "#SLF SELF Log - emitting RequestLink for taskId: %s, flowId:%s, executionRequestId: %s", v42, 0x20u);
-            swift_arrayDestroy();
-          }
-
-          else
-          {
-
-            v47 = *(v60 + 8);
-            v47(v16, v12);
-          }
-
-          v55 = v62;
-          [objc_msgSend(objc_opt_self() "sharedStream")];
-
-          swift_unknownObjectRelease();
-          v47(v21, v12);
-        }
-
-        return;
-      }
-
-      v23 = v62;
-    }
-
-    a1 = v59;
-  }
-
-  if (one-time initialization token for voiceCommands != -1)
-  {
-    swift_once();
-  }
-
-  v30 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v30, static Logger.voiceCommands);
-
-  v62 = Logger.logObject.getter();
-  v31 = static os_log_type_t.error.getter();
-
-  if (os_log_type_enabled(v62, v31))
-  {
-    v32 = swift_slowAlloc();
-    v33 = swift_slowAlloc();
-    v63 = v33;
-    *v32 = 136315138;
-    *(v32 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v63);
-    _os_log_impl(&dword_0, v62, v31, "#SLF SELF Log - unable to create request link info for SELF for taskId: %s", v32, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v33);
-  }
-
-  else
-  {
-    v34 = v62;
-  }
-}
-
-void static InstrumentationUtils.createFlowUUID()(uint64_t a1@<X8>)
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v6 = OUTLINED_FUNCTION_14(v5);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v66[-v9];
-  v11 = type metadata accessor for UUID();
-  v12 = OUTLINED_FUNCTION_7_1(v11);
-  v14 = v13;
-  v16 = *(v15 + 64);
-  __chkstk_darwin(v12);
-  OUTLINED_FUNCTION_50_0();
-  v19 = v17 - v18;
-  __chkstk_darwin(v20);
-  OUTLINED_FUNCTION_34_7();
-  __chkstk_darwin(v21);
-  OUTLINED_FUNCTION_44_4();
-  v23 = __chkstk_darwin(v22);
-  v25 = &v66[-v24];
-  __chkstk_darwin(v23);
-  OUTLINED_FUNCTION_33_4();
-  static InstrumentationUtils.getOrchestrationRequestId()(v10);
-  v26 = OUTLINED_FUNCTION_14_12();
-  if (__swift_getEnumTagSinglePayload(v26, v27, v11) == 1)
-  {
-    outlined destroy of UUID?(v10);
-    if (one-time initialization token for voiceCommands != -1)
-    {
-      OUTLINED_FUNCTION_0();
-    }
-
-    v28 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_59(v28, static Logger.voiceCommands);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v29, v30))
-    {
-      v31 = swift_slowAlloc();
-      *v31 = 0;
-      _os_log_impl(&dword_0, v29, v30, "#SLF SELF Log, invalid executionRequestId string, cannot derive flowId form it", v31, 2u);
-      OUTLINED_FUNCTION_15_0();
-    }
-
-LABEL_7:
-    v32 = 1;
-    goto LABEL_19;
-  }
-
-  v70 = *(v14 + 32);
-  v71 = (v14 + 32);
-  v70(v1, v10, v11);
-  v33 = objc_opt_self();
-  isa = UUID._bridgeToObjectiveC()().super.isa;
-  v35 = [v33 derivedIdentifierForComponentName:3 fromSourceIdentifier:isa];
-
-  if (!v35)
-  {
-    if (one-time initialization token for voiceCommands != -1)
-    {
-      OUTLINED_FUNCTION_0();
-    }
-
-    v52 = type metadata accessor for Logger();
-    OUTLINED_FUNCTION_59(v52, static Logger.voiceCommands);
-    (*(v14 + 16))(v19, v1, v11);
-    v53 = Logger.logObject.getter();
-    v54 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v53, v54))
-    {
-      v55 = OUTLINED_FUNCTION_48();
-      v71 = OUTLINED_FUNCTION_85();
-      v72 = v71;
-      *v55 = 136315138;
-      lazy protocol witness table accessor for type UUID and conformance UUID();
-      v56 = dispatch thunk of CustomStringConvertible.description.getter();
-      v69 = a1;
-      v58 = v57;
-      v59 = *(v14 + 8);
-      v59(v19, v11);
-      v60 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v56, v58, &v72);
-      a1 = v69;
-
-      *(v55 + 4) = v60;
-      _os_log_impl(&dword_0, v53, v54, "#SLF SELF Log, failed to created from: %s", v55, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v71);
-      OUTLINED_FUNCTION_15_0();
-      OUTLINED_FUNCTION_15_0();
-
-      v61 = OUTLINED_FUNCTION_20_4();
-      (v59)(v61);
-    }
-
-    else
-    {
-
-      v64 = *(v14 + 8);
-      v64(v19, v11);
-      v65 = OUTLINED_FUNCTION_20_4();
-      (v64)(v65);
-    }
-
-    goto LABEL_7;
-  }
-
-  static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-
-  if (one-time initialization token for voiceCommands != -1)
-  {
-    OUTLINED_FUNCTION_0();
-  }
-
-  v36 = type metadata accessor for Logger();
-  OUTLINED_FUNCTION_59(v36, static Logger.voiceCommands);
-  v37 = *(v14 + 16);
-  v37(v3, v25, v11);
-  v37(v2, v1, v11);
-  v38 = Logger.logObject.getter();
-  v39 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v38, v39))
-  {
-    v40 = OUTLINED_FUNCTION_25_5();
-    v69 = a1;
-    v41 = v40;
-    v68 = OUTLINED_FUNCTION_20_6();
-    v72 = v68;
-    *v41 = 136315394;
-    v42 = UUID.uuidString.getter();
-    v67 = v39;
-    v44 = v43;
-    v45 = *(v14 + 8);
-    v45(v3, v11);
-    v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v44, &v72);
-
-    *(v41 + 4) = v46;
-    *(v41 + 12) = 2080;
-    v47 = UUID.uuidString.getter();
-    v49 = v48;
-    v45(v2, v11);
-    v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, &v72);
-
-    *(v41 + 14) = v50;
-    _os_log_impl(&dword_0, v38, v67, "#SLF SELF Log, created flowId: %s orchestrationId: %s", v41, 0x16u);
-    swift_arrayDestroy();
-    OUTLINED_FUNCTION_15_0();
-    a1 = v69;
-    OUTLINED_FUNCTION_15_0();
-
-    v51 = OUTLINED_FUNCTION_20_4();
-    (v45)(v51);
-  }
-
-  else
-  {
-
-    v62 = *(v14 + 8);
-    v62(v2, v11);
-    v62(v3, v11);
-    v63 = OUTLINED_FUNCTION_20_4();
-    (v62)(v63);
-  }
-
-  v70(a1, v25, v11);
-  v32 = 0;
-LABEL_19:
-  __swift_storeEnumTagSinglePayload(a1, v32, 1, v11);
-  OUTLINED_FUNCTION_42();
-}
-
-uint64_t static InstrumentationUtils.getOrchestrationRequestId()@<X0>(uint64_t a1@<X8>)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v21 - v4;
-  type metadata accessor for SiriEnvironment();
-  static SiriEnvironment.default.getter();
-  SiriEnvironment.currentRequest.getter();
-
-  CurrentRequest.executionRequestId.getter();
-  v7 = v6;
-
-  if (v7)
-  {
-    static InstrumentationUtils.createUUID(id:)(v5);
-
-    v8 = type metadata accessor for UUID();
-    if (__swift_getEnumTagSinglePayload(v5, 1, v8) == 1)
-    {
-      outlined destroy of UUID?(v5);
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        swift_once();
-      }
-
-      v9 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v9, static Logger.voiceCommands);
-      v10 = Logger.logObject.getter();
-      v11 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v10, v11))
-      {
-        v12 = swift_slowAlloc();
-        *v12 = 0;
-        _os_log_impl(&dword_0, v10, v11, "#SLF SELF Log, invalid executionRequestId string, cannot derive flowId form it", v12, 2u);
-      }
-
-      v13 = a1;
-      v14 = 1;
-    }
-
-    else
-    {
-      (*(*(v8 - 8) + 32))(a1, v5, v8);
-      v13 = a1;
-      v14 = 0;
-    }
-
-    return __swift_storeEnumTagSinglePayload(v13, v14, 1, v8);
-  }
-
-  else
-  {
-    if (one-time initialization token for voiceCommands != -1)
-    {
-      swift_once();
-    }
-
-    v15 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v15, static Logger.voiceCommands);
-    v16 = Logger.logObject.getter();
-    v17 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v16, v17))
-    {
-      v18 = swift_slowAlloc();
-      *v18 = 0;
-      _os_log_impl(&dword_0, v16, v17, "#SLF SELF Log, invalid executionRequestId, cannot derive flowId form it", v18, 2u);
-    }
-
-    v19 = type metadata accessor for UUID();
-
-    return __swift_storeEnumTagSinglePayload(a1, 1, 1, v19);
-  }
-}
-
-void static InstrumentationUtils.emitLinkFlowStartedInstrumentation(targetBundle:action:)()
-{
-  v1 = type metadata accessor for UUID();
-  v2 = OUTLINED_FUNCTION_14(v1);
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v2);
-  v6 = &v32 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = OUTLINED_FUNCTION_32_10(objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionContext));
-  if (!v7)
-  {
-LABEL_12:
-    OUTLINED_FUNCTION_42();
-    return;
-  }
-
-  v35 = v7;
-  v8 = [objc_allocWithZone(FLOWLINKSchemaFLOWLinkActionStarted) *(v0 + 2304)];
-  if (v8)
-  {
-    v33 = v8;
-    v34 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionTier1) *(v0 + 2304)];
-    if (v34)
-    {
-      v9 = LNAction.asSELFAction()();
-      if (v9)
-      {
-        v10 = v9;
-        v11 = OUTLINED_FUNCTION_20_4();
-        outlined bridged method (mbgnn) of @objc FLOWLINKSchemaFLOWLINKActionTier1.appBundleId.setter(v11, v12, v34);
-        type metadata accessor for SISchemaUUID();
-        UUID.init()();
-        v13 = SISchemaUUID.__allocating_init(nsuuid:)(v6);
-        [v34 setLinkId:v13];
-        [v10 setLinkId:v13];
-        [v33 setCurrentAction:v10];
-        [v35 setStartedOrChanged:v33];
-        if (one-time initialization token for voiceCommands != -1)
-        {
-          OUTLINED_FUNCTION_0();
-        }
-
-        v14 = type metadata accessor for Logger();
-        OUTLINED_FUNCTION_59(v14, static Logger.voiceCommands);
-        v15 = v35;
-        v16 = v33;
-        v17 = Logger.logObject.getter();
-        v18 = static os_log_type_t.debug.getter();
-
-        if (os_log_type_enabled(v17, v18))
-        {
-          v19 = OUTLINED_FUNCTION_25_5();
-          v35 = v13;
-          v20 = v19;
-          v37 = OUTLINED_FUNCTION_20_6();
-          *v20 = 136315394;
-          ObjectType = swift_getObjectType();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo35FLOWLINKSchemaFLOWLINKActionContextCmMd, &_sSo35FLOWLINKSchemaFLOWLINKActionContextCmMR);
-          v21 = String.init<A>(describing:)();
-          v23 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v37);
-
-          *(v20 + 4) = v23;
-          *(v20 + 12) = 2080;
-          ObjectType = swift_getObjectType();
-          __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo35FLOWLINKSchemaFLOWLinkActionStartedCmMd, &_sSo35FLOWLINKSchemaFLOWLinkActionStartedCmMR);
-          v24 = String.init<A>(describing:)();
-          v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, &v37);
-
-          *(v20 + 14) = v26;
-          _os_log_impl(&dword_0, v17, v18, "#SLF SELF emitting contextEvent: %s event: %s", v20, 0x16u);
-          swift_arrayDestroy();
-          OUTLINED_FUNCTION_15_0();
-          v13 = v35;
-          OUTLINED_FUNCTION_15_0();
-        }
-
-        _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF31265event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo35FLOWLINKSchemaFLOWLINKActionContextC_Tt1g5(v15, 0);
-        v27 = Logger.logObject.getter();
-        v28 = static os_log_type_t.debug.getter();
-        if (os_log_type_enabled(v27, v28))
-        {
-          v29 = swift_slowAlloc();
-          *v29 = 0;
-          _os_log_impl(&dword_0, v27, v28, "#SLF SELF emitting tier 1", v29, 2u);
-          OUTLINED_FUNCTION_15_0();
-        }
-
-        _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF31265event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo33FLOWLINKSchemaFLOWLINKActionTier1C_Tt1g5(v34, 0);
-        goto LABEL_12;
-      }
-    }
-
-    else
-    {
-    }
-  }
-
-  OUTLINED_FUNCTION_42();
-}
-
-void static InstrumentationUtils.emitActionConversionStartedInstrumentation(parseUUID:)(uint64_t a1)
-{
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v6 = OUTLINED_FUNCTION_14(v5);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v35 - v9;
-  v11 = type metadata accessor for UUID();
-  v12 = OUTLINED_FUNCTION_7_1(v11);
-  v14 = v13;
-  v16 = *(v15 + 64);
-  __chkstk_darwin(v12);
-  OUTLINED_FUNCTION_50_0();
-  OUTLINED_FUNCTION_34_7();
-  __chkstk_darwin(v17);
-  OUTLINED_FUNCTION_33_4();
-  v18 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionConversionContext) init];
-  if (v18)
-  {
-    v36 = v18;
-    v19 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionConversionStarted) init];
-    if (v19)
-    {
-      v20 = v19;
-      outlined init with copy of UUID?(a1, v10);
-      if (__swift_getEnumTagSinglePayload(v10, 1, v11) == 1)
-      {
-        outlined destroy of UUID?(v10);
-      }
-
-      else
-      {
-        (*(v14 + 32))(v1, v10, v11);
-        type metadata accessor for SISchemaUUID();
-        (*(v14 + 16))(v2, v1, v11);
-        v22 = SISchemaUUID.__allocating_init(nsuuid:)(v2);
-        [v20 setParseHypothesisId:v22];
-
-        (*(v14 + 8))(v1, v11);
-      }
-
-      [v36 setStartedOrChanged:v20];
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        OUTLINED_FUNCTION_0();
-      }
-
-      v23 = type metadata accessor for Logger();
-      OUTLINED_FUNCTION_59(v23, static Logger.voiceCommands);
-      v24 = v36;
-      v25 = v20;
-      v26 = Logger.logObject.getter();
-      static os_log_type_t.debug.getter();
-
-      if (OUTLINED_FUNCTION_85_1())
-      {
-        OUTLINED_FUNCTION_25_5();
-        v38 = OUTLINED_FUNCTION_5_14();
-        v37 = OUTLINED_FUNCTION_27_8(4.8151e-34);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo45FLOWLINKSchemaFLOWLINKActionConversionContextCmMd, &_sSo45FLOWLINKSchemaFLOWLINKActionConversionContextCmMR);
-        v27 = String.init<A>(describing:)();
-        getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v27, v28, &v38);
-        OUTLINED_FUNCTION_18_12();
-        v37 = OUTLINED_FUNCTION_2_23();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo45FLOWLINKSchemaFLOWLINKActionConversionStartedCmMd, &_sSo45FLOWLINKSchemaFLOWLINKActionConversionStartedCmMR);
-        v29 = String.init<A>(describing:)();
-        getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v30, &v38);
-        OUTLINED_FUNCTION_18_12();
-        *(a1 + 14) = v3;
-        OUTLINED_FUNCTION_1_27(&dword_0, v31, v32, "#SLF SELF emitting contextEvent: %s event: %s");
-        OUTLINED_FUNCTION_6_15();
-        OUTLINED_FUNCTION_11_0();
-        OUTLINED_FUNCTION_19_0();
-      }
-
-      v33 = OUTLINED_FUNCTION_19_8();
-      _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF31265event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo45FLOWLINKSchemaFLOWLINKActionConversionContextC_Tt1g5(v33, v34);
-    }
-
-    else
-    {
-      v21 = v36;
-    }
-  }
-}
-
-void static InstrumentationUtils.emitEntityDisambiguationEndedInstrumentation()()
-{
-  v1 = OUTLINED_FUNCTION_32_10(objc_allocWithZone(FLOWLINKSchemaFLOWLINKEntityDisambiguationContext));
-  if (v1)
-  {
-    v5 = v1;
-    v2 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKEntityDisambiguationEnded) *(v0 + 2304)];
-    if (v2)
-    {
-      v3 = v2;
-      [v2 setExists:1];
-      [v5 setEnded:v3];
-      _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF31265event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo49FLOWLINKSchemaFLOWLINKEntityDisambiguationContextC_Tt1g5(v5, 0);
-
-      v4 = v3;
-    }
-
-    else
-    {
-      v4 = v5;
-    }
-  }
-}
-
-void static InstrumentationUtils.emitPromptForValueStartedInstrumentation(parameterName:)(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, id a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
-{
-  OUTLINED_FUNCTION_38_5();
-  OUTLINED_FUNCTION_45_3();
-  v27 = OUTLINED_FUNCTION_32_10(objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionPromptForValueContext));
-  if (!v27)
-  {
-LABEL_17:
-    OUTLINED_FUNCTION_10_17();
-    return;
-  }
-
-  v54 = v27;
-  v28 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionPromptForValueStarted) *(v24 + 2304)];
-  if (v28)
-  {
-    v53 = v28;
-    v29 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionParameter) *(v24 + 2304)];
-    if (v29)
-    {
-      v30 = v29;
-      if (v25)
-      {
-        v31 = OUTLINED_FUNCTION_17_14();
-        outlined bridged method (mbgnn) of @objc FLOWLINKSchemaFLOWLINKActionParameter.name.setter(v31, v32, v33);
-      }
-
-      else
-      {
-        OUTLINED_FUNCTION_9_15();
-      }
-
-      [v53 setParameter:v30];
-      [v54 setStartedOrChanged:v53];
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        OUTLINED_FUNCTION_0();
-      }
-
-      v36 = type metadata accessor for Logger();
-      OUTLINED_FUNCTION_59(v36, static Logger.voiceCommands);
-      v37 = v54;
-      v38 = v53;
-      v39 = Logger.logObject.getter();
-      static os_log_type_t.debug.getter();
-
-      if (OUTLINED_FUNCTION_48_5())
-      {
-        v40 = OUTLINED_FUNCTION_25_5();
-        OUTLINED_FUNCTION_20_6();
-        OUTLINED_FUNCTION_42_5();
-        OUTLINED_FUNCTION_47_2(4.8151e-34);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo49FLOWLINKSchemaFLOWLINKActionPromptForValueContextCmMd, &_sSo49FLOWLINKSchemaFLOWLINKActionPromptForValueContextCmMR);
-        v41 = OUTLINED_FUNCTION_21_9();
-        OUTLINED_FUNCTION_39_7(v41, v42, v43, v44, v45);
-        OUTLINED_FUNCTION_36_5();
-        OUTLINED_FUNCTION_13_14();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo49FLOWLINKSchemaFLOWLINKActionPromptForValueStartedCmMd, &_sSo49FLOWLINKSchemaFLOWLINKActionPromptForValueStartedCmMR);
-        v46 = OUTLINED_FUNCTION_21_9();
-        OUTLINED_FUNCTION_39_7(v46, v47, v48, v49, v50);
-        OUTLINED_FUNCTION_36_5();
-        *(v40 + 14) = v26;
-        OUTLINED_FUNCTION_12_14(&dword_0, v51, v52, "#SLF SELF emitting contextEvent: %s event: %s");
-        OUTLINED_FUNCTION_31_3();
-        OUTLINED_FUNCTION_15_0();
-        OUTLINED_FUNCTION_11_0();
-      }
-
-      _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF31265event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo49FLOWLINKSchemaFLOWLINKActionPromptForValueContextC_Tt1g5(v37, 1);
-      goto LABEL_17;
-    }
-  }
-
-  OUTLINED_FUNCTION_10_17();
-}
-
-void static InstrumentationUtils.emitActionParameterDisambiguationStartedInstrumentation(parameterName:)(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, id a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
-{
-  OUTLINED_FUNCTION_38_5();
-  OUTLINED_FUNCTION_45_3();
-  v27 = OUTLINED_FUNCTION_32_10(objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionParameterDisambiguationContext));
-  if (!v27)
-  {
-LABEL_17:
-    OUTLINED_FUNCTION_10_17();
-    return;
-  }
-
-  v54 = v27;
-  v28 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionParameterDisambiguationStarted) *(v24 + 2304)];
-  if (v28)
-  {
-    v53 = v28;
-    v29 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionParameter) *(v24 + 2304)];
-    if (v29)
-    {
-      v30 = v29;
-      if (v25)
-      {
-        v31 = OUTLINED_FUNCTION_17_14();
-        outlined bridged method (mbgnn) of @objc FLOWLINKSchemaFLOWLINKActionParameter.name.setter(v31, v32, v33);
-      }
-
-      else
-      {
-        OUTLINED_FUNCTION_9_15();
-      }
-
-      [v53 setParameter:v30];
-      [v54 setStartedOrChanged:v53];
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        OUTLINED_FUNCTION_0();
-      }
-
-      v36 = type metadata accessor for Logger();
-      OUTLINED_FUNCTION_59(v36, static Logger.voiceCommands);
-      v37 = v54;
-      v38 = v53;
-      v39 = Logger.logObject.getter();
-      static os_log_type_t.debug.getter();
-
-      if (OUTLINED_FUNCTION_48_5())
-      {
-        v40 = OUTLINED_FUNCTION_25_5();
-        OUTLINED_FUNCTION_20_6();
-        OUTLINED_FUNCTION_42_5();
-        OUTLINED_FUNCTION_47_2(4.8151e-34);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo58FLOWLINKSchemaFLOWLINKActionParameterDisambiguationContextCmMd, &_sSo58FLOWLINKSchemaFLOWLINKActionParameterDisambiguationContextCmMR);
-        v41 = OUTLINED_FUNCTION_21_9();
-        OUTLINED_FUNCTION_39_7(v41, v42, v43, v44, v45);
-        OUTLINED_FUNCTION_36_5();
-        OUTLINED_FUNCTION_13_14();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo58FLOWLINKSchemaFLOWLINKActionParameterDisambiguationStartedCmMd, &_sSo58FLOWLINKSchemaFLOWLINKActionParameterDisambiguationStartedCmMR);
-        v46 = OUTLINED_FUNCTION_21_9();
-        OUTLINED_FUNCTION_39_7(v46, v47, v48, v49, v50);
-        OUTLINED_FUNCTION_36_5();
-        *(v40 + 14) = v26;
-        OUTLINED_FUNCTION_12_14(&dword_0, v51, v52, "#SLF SELF emitting contextEvent: %s event: %s");
-        OUTLINED_FUNCTION_31_3();
-        OUTLINED_FUNCTION_15_0();
-        OUTLINED_FUNCTION_11_0();
-      }
-
-      _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF31265event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo58FLOWLINKSchemaFLOWLINKActionParameterDisambiguationContextC_Tt1g5(v37, 1);
-      goto LABEL_17;
-    }
-  }
-
-  OUTLINED_FUNCTION_10_17();
-}
-
-void static InstrumentationUtils.emitActionParameterConfirmationStartedInstrumentation(parameterName:)(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, id a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
-{
-  OUTLINED_FUNCTION_38_5();
-  OUTLINED_FUNCTION_45_3();
-  v27 = OUTLINED_FUNCTION_32_10(objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionParameterConfirmationContext));
-  if (!v27)
-  {
-LABEL_17:
-    OUTLINED_FUNCTION_10_17();
-    return;
-  }
-
-  v54 = v27;
-  v28 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionParameterConfirmationStarted) *(v24 + 2304)];
-  if (v28)
-  {
-    v53 = v28;
-    v29 = [objc_allocWithZone(FLOWLINKSchemaFLOWLINKActionParameter) *(v24 + 2304)];
-    if (v29)
-    {
-      v30 = v29;
-      if (v25)
-      {
-        v31 = OUTLINED_FUNCTION_17_14();
-        outlined bridged method (mbgnn) of @objc FLOWLINKSchemaFLOWLINKActionParameter.name.setter(v31, v32, v33);
-      }
-
-      else
-      {
-        OUTLINED_FUNCTION_9_15();
-      }
-
-      [v53 setParameter:v30];
-      [v54 setStartedOrChanged:v53];
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        OUTLINED_FUNCTION_0();
-      }
-
-      v36 = type metadata accessor for Logger();
-      OUTLINED_FUNCTION_59(v36, static Logger.voiceCommands);
-      v37 = v54;
-      v38 = v53;
-      v39 = Logger.logObject.getter();
-      static os_log_type_t.debug.getter();
-
-      if (OUTLINED_FUNCTION_48_5())
-      {
-        v40 = OUTLINED_FUNCTION_25_5();
-        OUTLINED_FUNCTION_20_6();
-        OUTLINED_FUNCTION_42_5();
-        OUTLINED_FUNCTION_47_2(4.8151e-34);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo56FLOWLINKSchemaFLOWLINKActionParameterConfirmationContextCmMd, &_sSo56FLOWLINKSchemaFLOWLINKActionParameterConfirmationContextCmMR);
-        v41 = OUTLINED_FUNCTION_21_9();
-        OUTLINED_FUNCTION_39_7(v41, v42, v43, v44, v45);
-        OUTLINED_FUNCTION_36_5();
-        OUTLINED_FUNCTION_13_14();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo56FLOWLINKSchemaFLOWLINKActionParameterConfirmationStartedCmMd, &_sSo56FLOWLINKSchemaFLOWLINKActionParameterConfirmationStartedCmMR);
-        v46 = OUTLINED_FUNCTION_21_9();
-        OUTLINED_FUNCTION_39_7(v46, v47, v48, v49, v50);
-        OUTLINED_FUNCTION_36_5();
-        *(v40 + 14) = v26;
-        OUTLINED_FUNCTION_12_14(&dword_0, v51, v52, "#SLF SELF emitting contextEvent: %s event: %s");
-        OUTLINED_FUNCTION_31_3();
-        OUTLINED_FUNCTION_15_0();
-        OUTLINED_FUNCTION_11_0();
-      }
-
-      _s18SiriLinkFlowPlugin20InstrumentationUtilsO04emitbcE033_4B7DCD361232BDB55F45721261AF31265event0g7RequestB0yx_SbtSo08SISchemaE7MessageCRbzlFZSo56FLOWLINKSchemaFLOWLINKActionParameterConfirmationContextC_Tt1g5(v37, 1);
-      goto LABEL_17;
-    }
-  }
-
-  OUTLINED_FUNCTION_10_17();
-}
-
-uint64_t static InstrumentationUtils.createUUID(id:)@<X0>(uint64_t a1@<X8>)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
-  v5 = &v13 - v4;
-  UUID.init(uuidString:)();
-  v6 = type metadata accessor for UUID();
-  if (__swift_getEnumTagSinglePayload(v5, 1, v6) == 1)
-  {
-    outlined destroy of UUID?(v5);
-    if (one-time initialization token for voiceCommands != -1)
-    {
-      swift_once();
-    }
-
-    v7 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v7, static Logger.voiceCommands);
-    v8 = Logger.logObject.getter();
-    v9 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v8, v9))
-    {
-      v10 = swift_slowAlloc();
-      *v10 = 0;
-      _os_log_impl(&dword_0, v8, v9, "#SLF SELF Log - invalid string, cannot derive uuid", v10, 2u);
-    }
-
-    v11 = 1;
-  }
-
-  else
-  {
-    (*(*(v6 - 8) + 32))(a1, v5, v6);
-    v11 = 0;
-  }
-
-  return __swift_storeEnumTagSinglePayload(a1, v11, 1, v6);
-}
-
-void outlined bridged method (mbgnn) of @objc FLOWLINKSchemaFLOWLINKAutoShortcutTemplateUsed.autoshortcutTemplate.setter(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = String._bridgeToObjectiveC()();
-  [a3 setAutoshortcutTemplate:v4];
-}
-
-void outlined bridged method (mbgnn) of @objc FLOWLINKSchemaFLOWLINKAppShortcutGeneralizedExecutionUsed.appShortcutId.setter(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = String._bridgeToObjectiveC()();
-  [a3 setAppShortcutId:v4];
-}
-
-unint64_t lazy protocol witness table accessor for type UUID and conformance UUID()
-{
-  result = lazy protocol witness table cache variable for type UUID and conformance UUID;
-  if (!lazy protocol witness table cache variable for type UUID and conformance UUID)
-  {
-    type metadata accessor for UUID();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type UUID and conformance UUID);
-  }
-
-  return result;
-}
-
-void outlined bridged method (mbgnn) of @objc FLOWLINKSchemaFLOWLINKActionTier1.appBundleId.setter(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = String._bridgeToObjectiveC()();
-  [a3 setAppBundleId:v4];
-}
-
-unint64_t type metadata accessor for SISchemaUUID()
-{
-  result = lazy cache variable for type metadata for SISchemaUUID;
-  if (!lazy cache variable for type metadata for SISchemaUUID)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &lazy cache variable for type metadata for SISchemaUUID);
-  }
-
-  return result;
-}
-
-void outlined bridged method (mbgnn) of @objc FLOWLINKSchemaFLOWLINKActionParameter.name.setter(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = String._bridgeToObjectiveC()();
-  [a3 setName:v4];
-}
-
-void OUTLINED_FUNCTION_1_27(void *a1, uint64_t a2, uint64_t a3, const char *a4)
-{
-
-  _os_log_impl(a1, v4, v5, a4, v6, 0x16u);
-}
-
-uint64_t OUTLINED_FUNCTION_2_23()
-{
-  *(v0 + 4) = v1;
-  *(v0 + 12) = 2080;
-
-  return swift_getObjectType();
-}
-
-uint64_t OUTLINED_FUNCTION_5_14()
-{
-
-  return swift_slowAlloc();
-}
-
-uint64_t OUTLINED_FUNCTION_6_15()
-{
-
-  return swift_arrayDestroy();
-}
-
-id OUTLINED_FUNCTION_7_14(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
-{
-  __swift_project_value_buffer(a1, a2);
-
-  return a10;
-}
-
-void OUTLINED_FUNCTION_9_15()
-{
-
-  outlined bridged method (mbnn) of @objc FLOWLINKSchemaFLOWLINKActionParameter.name.setter(0x6E776F6E6B6E75, 0xE700000000000000, v0);
-}
-
-void OUTLINED_FUNCTION_12_14(void *a1, uint64_t a2, uint64_t a3, const char *a4)
-{
-
-  _os_log_impl(a1, v4, v5, a4, v6, 0x16u);
-}
-
-uint64_t OUTLINED_FUNCTION_13_14()
-{
-  *(v0 + 4) = v1;
-  *(v0 + 12) = 2080;
-
-  return swift_getObjectType();
-}
-
-uint64_t OUTLINED_FUNCTION_21_9()
-{
-
-  return String.init<A>(describing:)();
-}
-
-uint64_t OUTLINED_FUNCTION_23_10(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-
-  return getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, va);
-}
-
-uint64_t OUTLINED_FUNCTION_25_5()
-{
-
-  return swift_slowAlloc();
-}
-
-id OUTLINED_FUNCTION_26_11(int a1, const char *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
-{
-
-  return [a10 a2];
-}
-
-uint64_t OUTLINED_FUNCTION_27_8(float a1)
-{
-  *v1 = a1;
-
-  return swift_getObjectType();
-}
-
-uint64_t OUTLINED_FUNCTION_29_9()
-{
-
-  return Logger.logObject.getter();
-}
-
-uint64_t OUTLINED_FUNCTION_31_3()
-{
-
-  return swift_arrayDestroy();
-}
-
-id OUTLINED_FUNCTION_32_10(void *a1)
-{
-
-  return [a1 init];
-}
-
-id OUTLINED_FUNCTION_35_6(void *a1)
-{
-
-  return [a1 init];
-}
-
-uint64_t OUTLINED_FUNCTION_36_5()
-{
-}
-
-uint64_t OUTLINED_FUNCTION_37_6()
-{
-
-  return swift_dynamicCastObjCClass();
-}
-
-uint64_t OUTLINED_FUNCTION_39_7(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-
-  return getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, va);
-}
-
-void OUTLINED_FUNCTION_46_5(void *a1, uint64_t a2, uint64_t a3, const char *a4)
-{
-
-  _os_log_impl(a1, v4, v5, a4, v6, 0xCu);
-}
-
-uint64_t OUTLINED_FUNCTION_47_2(float a1)
-{
-  *v1 = a1;
-
-  return swift_getObjectType();
-}
-
-BOOL OUTLINED_FUNCTION_48_5()
-{
-
-  return os_log_type_enabled(v0, v1);
-}
-
-uint64_t OUTLINED_FUNCTION_49_2()
-{
-  v2 = *(v0 - 104);
-
-  return swift_dynamicCastObjCClass();
-}
-
-void LNActionMetadata.firstParameterMetadata(from:)(void *a1)
-{
-  v2 = [v1 parameters];
-  type metadata accessor for LNActionParameterMetadata();
-  v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-
-  v4 = specialized Array.count.getter(v3);
-  for (i = 0; ; ++i)
-  {
-    if (v4 == i)
-    {
-      goto LABEL_19;
-    }
-
-    if ((v3 & 0xC000000000000001) != 0)
-    {
-      v6 = specialized _ArrayBuffer._getElementSlowPath(_:)();
-    }
-
-    else
-    {
-      if (i >= *(&dword_10 + (v3 & 0xFFFFFFFFFFFFFF8)))
-      {
-        goto LABEL_21;
-      }
-
-      v6 = *(v3 + 8 * i + 32);
-    }
-
-    v7 = v6;
-    if (__OFADD__(i, 1))
-    {
-      break;
-    }
-
-    v8 = outlined bridged method (pb) of @objc INIntentSlotDescription.name.getter(v6);
-    v10 = v9;
-    v11 = [a1 parameterName];
-    v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v14 = v13;
-
-    if (v10)
-    {
-      if (v8 == v12 && v10 == v14)
-      {
-
-LABEL_19:
-
-        return;
-      }
-
-      v16 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-      if (v16)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    else
-    {
-    }
-  }
-
-  __break(1u);
-LABEL_21:
-  __break(1u);
-}
-
-unint64_t type metadata accessor for LNActionParameterMetadata()
-{
-  result = lazy cache variable for type metadata for LNActionParameterMetadata;
-  if (!lazy cache variable for type metadata for LNActionParameterMetadata)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &lazy cache variable for type metadata for LNActionParameterMetadata);
-  }
-
-  return result;
-}
-
-uint64_t ListShortcutsFlow.__allocating_init(deviceState:aceServiceInvoker:catWrapper:)(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  v6 = swift_allocObject();
-  ListShortcutsFlow.init(deviceState:aceServiceInvoker:catWrapper:)(a1, a2, a3);
-  return v6;
-}
-
-uint64_t ListShortcutsFlow.init(deviceState:aceServiceInvoker:catWrapper:)(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  v4 = v3;
-  outlined init with copy of DeviceState(a2, v3 + 16);
-  outlined init with copy of DeviceState(a1, v3 + 56);
-  *(v3 + 104) = a3;
-  v8 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-
-  dispatch thunk of DeviceState.isTextToSpeechEnabled.getter();
-  v9 = type metadata accessor for ViewFactory();
-  v10 = *(v9 + 48);
-  v11 = *(v9 + 52);
-  swift_allocObject();
-  v12 = ViewFactory.init(ttsEnabled:)();
-
-  __swift_destroy_boxed_opaque_existential_1Tm(a2);
-  *(v4 + 96) = v12;
-  __swift_destroy_boxed_opaque_existential_1Tm(a1);
-  return v4;
-}
-
-uint64_t ListShortcutsFlow.on(input:)(uint64_t a1)
-{
-  v43 = type metadata accessor for Input();
-  v2 = OUTLINED_FUNCTION_7_1(v43);
-  v41 = v3;
-  v5 = *(v4 + 64);
-  __chkstk_darwin(v2);
-  OUTLINED_FUNCTION_3();
-  v42 = v7 - v6;
-  v8 = type metadata accessor for VoiceCommandsNLIntent(0);
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8);
-  OUTLINED_FUNCTION_3();
-  v12 = v11 - v10;
-  v13 = type metadata accessor for Parse();
-  v14 = OUTLINED_FUNCTION_7_1(v13);
-  v16 = v15;
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v14);
-  OUTLINED_FUNCTION_3();
-  v21 = v20 - v19;
-  v22 = type metadata accessor for NLIntent();
-  v23 = OUTLINED_FUNCTION_7_1(v22);
-  v25 = v24;
-  v27 = *(v26 + 64);
-  __chkstk_darwin(v23);
-  OUTLINED_FUNCTION_3();
-  v30 = v29 - v28;
-  Input.parse.getter();
-  if ((*(v16 + 88))(v21, v13) == enum case for Parse.NLv3IntentOnly(_:))
-  {
-    (*(v16 + 96))(v21, v13);
-    (*(v25 + 32))(v30, v21, v22);
-    (*(v25 + 16))(v12, v30, v22);
-    if (one-time initialization token for voiceCommandVerbNode != -1)
-    {
-      swift_once();
-    }
-
-    lazy protocol witness table accessor for type VoiceCommandsNLIntent and conformance VoiceCommandsNLIntent(&lazy protocol witness table cache variable for type VoiceCommandsNLIntent and conformance VoiceCommandsNLIntent, 255, type metadata accessor for VoiceCommandsNLIntent);
-    IntentNodeTraversable.value<A>(forNode:)();
-    if (v45 == 3)
-    {
-      outlined destroy of VoiceCommandsNLIntent(v12);
-      (*(v25 + 8))(v30, v22);
-      return 1;
-    }
-
-    if (one-time initialization token for voiceCommands != -1)
-    {
-      swift_once();
-    }
-
-    v32 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v32, static Logger.voiceCommands);
-    (*(v41 + 16))(v42, a1, v43);
-    v33 = Logger.logObject.getter();
-    v34 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v33, v34))
-    {
-      v39 = swift_slowAlloc();
-      v40 = swift_slowAlloc();
-      v44 = v40;
-      *v39 = 136315138;
-      lazy protocol witness table accessor for type VoiceCommandsNLIntent and conformance VoiceCommandsNLIntent(&lazy protocol witness table cache variable for type Input and conformance Input, 255, &type metadata accessor for Input);
-      v35 = dispatch thunk of CustomStringConvertible.description.getter();
-      v37 = v36;
-      (*(v41 + 8))(v42, v43);
-      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v37, &v44);
-
-      *(v39 + 4) = v38;
-      _os_log_impl(&dword_0, v33, v34, "Received NLV3 intent that is not list shortcuts intent: %s", v39, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v40);
-    }
-
-    else
-    {
-
-      (*(v41 + 8))(v42, v43);
-    }
-
-    outlined destroy of VoiceCommandsNLIntent(v12);
-    (*(v25 + 8))(v30, v22);
-  }
-
-  else
-  {
-    (*(v16 + 8))(v21, v13);
-  }
-
-  return 0;
-}
-
-uint64_t ListShortcutsFlow.execute(completion:)()
-{
-  type metadata accessor for ListShortcutsFlow();
-  lazy protocol witness table accessor for type VoiceCommandsNLIntent and conformance VoiceCommandsNLIntent(&lazy protocol witness table cache variable for type ListShortcutsFlow and conformance ListShortcutsFlow, v0, type metadata accessor for ListShortcutsFlow);
-  return Flow.deferToExecuteAsync(_:)();
-}
-
-uint64_t ListShortcutsFlow.execute()()
-{
-  OUTLINED_FUNCTION_8_0();
-  v1[2] = v2;
-  v1[3] = v0;
-  v3 = type metadata accessor for TemplatingResult();
-  v1[4] = v3;
-  OUTLINED_FUNCTION_5_0(v3);
-  v1[5] = v4;
-  v6 = *(v5 + 64);
-  v1[6] = OUTLINED_FUNCTION_28();
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v7, v8, v9);
-}
-
-{
-  v1 = v0[3];
-  v2 = type metadata accessor for ViewFactory();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
-  swift_allocObject();
-  v0[7] = ViewFactory.init(ttsEnabled:)();
-  v5 = *(**(v1 + 104) + class metadata base offset for ListShortcutsCATs + 8);
-  v10 = (v5 + *v5);
-  v6 = v5[1];
-  v7 = swift_task_alloc();
-  v0[8] = v7;
-  *v7 = v0;
-  v7[1] = ListShortcutsFlow.execute();
-  v8 = v0[6];
-
-  return v10(v8);
-}
-
-{
-  OUTLINED_FUNCTION_8_0();
-  OUTLINED_FUNCTION_9_0();
-  v3 = *(v2 + 64);
-  v4 = *v1;
-  OUTLINED_FUNCTION_2_0();
-  *v5 = v4;
-  *(v6 + 72) = v0;
-
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v7, v8, v9);
-}
-
-{
-  v1 = v0[6];
-  v2 = v0[7];
-  v3 = v0[3];
-  dispatch thunk of ViewFactory.makeUtteranceViews(template:listenAfterSpeaking:canUseServerTTS:)();
-  type metadata accessor for SiriKitAceViewBuilder();
-  dispatch thunk of static SiriKitAceViewBuilder.makeBuilder(deviceState:)();
-  v0[10] = dispatch thunk of SiriKitAceViewBuilder.withUtteranceViews(utteranceViews:)();
-
-  v0[11] = [objc_allocWithZone(SAUIAddViews) init];
-  v4 = swift_task_alloc();
-  v0[12] = v4;
-  *v4 = v0;
-  v4[1] = ListShortcutsFlow.execute();
-  v5 = v0[3];
-
-  return ListShortcutsFlow.buildAceViews(aceViewBuilder:)();
-}
-
-{
-  OUTLINED_FUNCTION_8_0();
-  OUTLINED_FUNCTION_9_0();
-  v2 = v1;
-  v3 = *(v1 + 96);
-  v9 = *v0;
-  *(v2 + 104) = v4;
-
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v5, v6, v7);
-}
-
-{
-  v1 = *(v0 + 24);
-  outlined bridged method (mbnn) of @objc SAUIAddViews.views.setter(*(v0 + 104), *(v0 + 88));
-  v3 = v1[5];
-  v2 = v1[6];
-  __swift_project_boxed_opaque_existential_1(v1 + 2, v3);
-  v4 = async function pointer to AceServiceInvokerAsync.submit<A>(_:)[1];
-  v5 = swift_task_alloc();
-  *(v0 + 112) = v5;
-  v6 = type metadata accessor for SABaseCommand();
-  *v5 = v0;
-  v5[1] = ListShortcutsFlow.execute();
-  v7 = *(v0 + 88);
-
-  return AceServiceInvokerAsync.submit<A>(_:)(v7, v3, v6, v2);
-}
-
-{
-  OUTLINED_FUNCTION_8_0();
-  v3 = v2;
-  OUTLINED_FUNCTION_9_0();
-  v5 = *(v4 + 112);
-  v6 = *v1;
-  OUTLINED_FUNCTION_2_0();
-  *v7 = v6;
-
-  if (v0)
-  {
-  }
-
-  else
-  {
-  }
-
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v8, v9, v10);
-}
-
-{
-  v1 = v0[10];
-  v2 = v0[11];
-  v4 = v0[6];
-  v3 = v0[7];
-  v5 = v0[4];
-  v6 = v0[5];
-  v7 = v0[2];
-  static ExecuteResponse.complete()();
-
-  (*(v6 + 8))(v4, v5);
-
-  v8 = v0[1];
-
-  return v8();
-}
-
-{
-  return _swift_unexpectedError(*(v0 + 72), "SiriLinkFlowPlugin/ListShortcutsFlow.swift", 42, 1, 51);
-}
-
-uint64_t ListShortcutsFlow.buildAceViews(aceViewBuilder:)()
-{
-  OUTLINED_FUNCTION_8_0();
-  v1[2] = v2;
-  v1[3] = v0;
-  v3 = type metadata accessor for TemplatingText();
-  v1[4] = v3;
-  OUTLINED_FUNCTION_5_0(v3);
-  v1[5] = v4;
-  v6 = *(v5 + 64);
-  v1[6] = OUTLINED_FUNCTION_28();
-  v7 = type metadata accessor for TemplatingSection();
-  v1[7] = v7;
-  OUTLINED_FUNCTION_5_0(v7);
-  v1[8] = v8;
-  v10 = *(v9 + 64);
-  v1[9] = OUTLINED_FUNCTION_28();
-  v11 = type metadata accessor for TemplatingResult();
-  v1[10] = v11;
-  OUTLINED_FUNCTION_5_0(v11);
-  v1[11] = v12;
-  v14 = *(v13 + 64);
-  v1[12] = OUTLINED_FUNCTION_28();
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v15, v16, v17);
-}
-
-{
-  v1 = v0[3];
-  v2 = v1[11];
-  __swift_project_boxed_opaque_existential_1(v1 + 7, v1[10]);
-  if (dispatch thunk of DeviceState.isPhone.getter())
-  {
-    v3 = *(v0[3] + 104);
-    v4 = v1[10];
-    v5 = v1[11];
-    __swift_project_boxed_opaque_existential_1(v1 + 7, v4);
-    v6 = DeviceState.asSiriKitDeviceState()(v4, v5);
-    v0[13] = v6;
-    v17 = (*v3 + class metadata base offset for ListShortcutsCATs);
-    v18 = (*v17 + **v17);
-    v7 = (*v17)[1];
-    v8 = swift_task_alloc();
-    v0[14] = v8;
-    *v8 = v0;
-    v8[1] = ListShortcutsFlow.buildAceViews(aceViewBuilder:);
-    v9 = v0[12];
-
-    return v18(v9, v6);
-  }
-
-  else
-  {
-    v11 = v0[2];
-    v12 = dispatch thunk of SiriKitAceViewBuilder.build()();
-    v13 = v0[12];
-    v14 = v0[9];
-    v15 = v0[6];
-
-    v16 = v0[1];
-
-    return v16(v12);
-  }
-}
-
-{
-  OUTLINED_FUNCTION_8_0();
-  OUTLINED_FUNCTION_9_0();
-  v3 = v2;
-  v4 = *(v2 + 112);
-  v5 = *v1;
-  OUTLINED_FUNCTION_2_0();
-  *v6 = v5;
-  *(v3 + 120) = v0;
-
-  if (!v0)
-  {
-    v7 = *(v3 + 104);
-  }
-
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v8, v9, v10);
-}
-
-{
-  v1 = v0[12];
-  v2 = [objc_allocWithZone(SAAppsLaunchApp) init];
-  v3 = String._bridgeToObjectiveC()();
-  [v2 setLaunchId:v3];
-
-  v4 = [objc_allocWithZone(SAUIButton) init];
-  result = TemplatingResult.sections.getter();
-  if (*(result + 16))
-  {
-    v6 = v0[9];
-    v24 = v0[10];
-    v25 = v0[12];
-    v8 = v0[7];
-    v7 = v0[8];
-    v9 = v0[5];
-    v10 = v0[6];
-    v11 = v0[4];
-    v22 = v0[2];
-    v23 = v0[11];
-    (*(v7 + 16))(v6, result + ((*(v7 + 80) + 32) & ~*(v7 + 80)), v8);
-
-    TemplatingSection.content.getter();
-    (*(v7 + 8))(v6, v8);
-    v12 = TemplatingText.text.getter();
-    v14 = v13;
-    (*(v9 + 8))(v10, v11);
-    outlined bridged method (mbnn) of @objc SAUIButton.text.setter(v12, v14, v4);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-    v15 = swift_allocObject();
-    *(v15 + 16) = xmmword_216010;
-    *(v15 + 32) = v2;
-    v16 = v2;
-    outlined bridged method (mbnn) of @objc SAUIButton.commands.setter(v15, v4);
-    dispatch thunk of SiriKitAceViewBuilder.addButton(button:)();
-    v17 = dispatch thunk of SiriKitAceViewBuilder.build()();
-
-    (*(v23 + 8))(v25, v24);
-    v18 = v0[12];
-    v19 = v0[9];
-    v20 = v0[6];
-
-    v21 = v0[1];
-
-    return v21(v17);
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-{
-  OUTLINED_FUNCTION_8_0();
-  v1 = *(v0 + 120);
-  v2 = *(v0 + 104);
-
-  return _swift_unexpectedError(v1, "SiriLinkFlowPlugin/ListShortcutsFlow.swift", 42, 1, 71);
-}
-
-uint64_t *ListShortcutsFlow.deinit()
-{
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 7);
-  v1 = v0[12];
-
-  v2 = v0[13];
-
-  return v0;
-}
-
-uint64_t ListShortcutsFlow.__deallocating_deinit()
-{
-  ListShortcutsFlow.deinit();
-
-  return swift_deallocClassInstance();
-}
-
-void (*protocol witness for SiriEnvironmentLocating.siriEnvironment.modify in conformance ListShortcutsFlow(void *a1))(void *a1)
-{
-  v3 = __swift_coroFrameAllocStub(0x28uLL);
-  *a1 = v3;
-  v4 = *v1;
-  v3[4] = SiriEnvironmentLocating<>.siriEnvironment.modify();
-  return protocol witness for SiriEnvironmentLocating.siriEnvironment.modify in conformance WFExecuteCustomIntentFlow;
-}
-
-uint64_t protocol witness for Flow.execute() in conformance ListShortcutsFlow(uint64_t a1)
-{
-  v4 = *(**v1 + 136);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = protocol witness for Flow.execute() in conformance ListShortcutsFlow;
-
-  return v8(a1);
-}
-
-uint64_t protocol witness for Flow.execute() in conformance ListShortcutsFlow()
-{
-  OUTLINED_FUNCTION_8_0();
-  OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 16);
-  v3 = *v0;
-  OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
-
-  v5 = *(v3 + 8);
-
-  return v5();
-}
-
-uint64_t protocol witness for Flow.exitValue.getter in conformance ListShortcutsFlow(uint64_t a1, uint64_t a2)
-{
-  v3 = type metadata accessor for ListShortcutsFlow();
-
-  return Flow<>.exitValue.getter(v3, a2);
-}
-
-uint64_t lazy protocol witness table accessor for type VoiceCommandsNLIntent and conformance VoiceCommandsNLIntent(unint64_t *a1, uint64_t a2, void (*a3)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a3(a2);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t INIntentSlotValueType.getIntentSlotValue(userDialogAct:locale:locationResolver:locationProvider:dateTimeResolver:contactResolver:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v8[13] = a7;
-  v8[14] = a8;
-  v8[11] = a5;
-  v8[12] = a6;
-  v8[9] = a3;
-  v8[10] = a4;
-  v8[7] = a1;
-  v8[8] = a2;
-  v9 = type metadata accessor for Locale();
-  v8[15] = v9;
-  OUTLINED_FUNCTION_5_0(v9);
-  v8[16] = v10;
-  v12 = *(v11 + 64);
-  v8[17] = OUTLINED_FUNCTION_28();
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriInference14RecommendationOyAA8LocationVGSgMd, &_s13SiriInference14RecommendationOyAA8LocationVGSgMR);
-  OUTLINED_FUNCTION_14(v13);
-  v15 = *(v14 + 64);
-  v8[18] = OUTLINED_FUNCTION_28();
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriInference14RecommendationOyAA8LocationVGMd, &_s13SiriInference14RecommendationOyAA8LocationVGMR);
-  v8[19] = v16;
-  OUTLINED_FUNCTION_5_0(v16);
-  v8[20] = v17;
-  v19 = *(v18 + 64);
-  v8[21] = OUTLINED_FUNCTION_28();
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
-  OUTLINED_FUNCTION_14(v20);
-  v22 = *(v21 + 64);
-  v8[22] = OUTLINED_FUNCTION_28();
-  v23 = type metadata accessor for Siri_Nlu_External_UserDialogAct.DateTimeHydrator();
-  v8[23] = v23;
-  OUTLINED_FUNCTION_14(v23);
-  v25 = *(v24 + 64);
-  v8[24] = OUTLINED_FUNCTION_28();
-  v26 = type metadata accessor for TimeZone();
-  v8[25] = v26;
-  OUTLINED_FUNCTION_5_0(v26);
-  v8[26] = v27;
-  v29 = *(v28 + 64) + 15;
-  v8[27] = swift_task_alloc();
-  v8[28] = swift_task_alloc();
-  v8[29] = swift_task_alloc();
-  v30 = type metadata accessor for Calendar();
-  v8[30] = v30;
-  OUTLINED_FUNCTION_5_0(v30);
-  v8[31] = v31;
-  v33 = *(v32 + 64) + 15;
-  v8[32] = swift_task_alloc();
-  v8[33] = swift_task_alloc();
-  v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-  OUTLINED_FUNCTION_14(v34);
-  v36 = *(v35 + 64);
-  v8[34] = OUTLINED_FUNCTION_28();
-  v37 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  OUTLINED_FUNCTION_14(v37);
-  v39 = *(v38 + 64);
-  v8[35] = OUTLINED_FUNCTION_28();
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v40, v41, v42);
-}
-
-uint64_t INIntentSlotValueType.getIntentSlotValue(userDialogAct:locale:locationResolver:locationProvider:dateTimeResolver:contactResolver:)()
-{
-  v2 = v1;
-  v3 = v1[14];
-  switch(v3)
-  {
-    case 10:
-      v30 = v1[8];
-      v10 = Siri_Nlu_External_UserDialogAct.personValue(contactResolver:locale:)(v1[13], v1[9]);
-      v11 = v1[7];
-      if (!v10)
-      {
-        goto LABEL_55;
-      }
-
-      v12 = &lazy cache variable for type metadata for INPerson;
-      v13 = INPerson_ptr;
-      goto LABEL_23;
-    case 11:
-    case 12:
-    case 13:
-    case 15:
-    case 17:
-    case 18:
-    case 20:
-    case 22:
-    case 23:
-    case 25:
-    case 28:
-    case 29:
-    case 31:
-    case 33:
-    case 34:
-    case 35:
-    case 37:
-      goto LABEL_8;
-    case 14:
-      v27 = v1[33];
-      v28 = v1[29];
-      v29 = v1[8];
-      static Calendar.current.getter();
-      static TimeZone.current.getter();
-      if (!Siri_Nlu_External_UserDialogAct.userDialogTask.getter())
-      {
-        goto LABEL_54;
-      }
-
-      static UsoTask_CodegenConverter.convert(task:)();
-
-      if (!v1[5])
-      {
-        v97 = OUTLINED_FUNCTION_3_19();
-        v98(v97);
-        v99 = OUTLINED_FUNCTION_15_13();
-        v100(v99);
-        outlined destroy of Siri_Nlu_External_UserDialogAct?((v1 + 2), &_sypSgMd, &_sypSgMR);
-LABEL_58:
-        v101 = v1[34];
-        v102 = type metadata accessor for DateComponents();
-        __swift_storeEnumTagSinglePayload(v101, 1, 1, v102);
-        EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v101, 1, v102);
-        v104 = v1[34];
-        v58 = v1[7];
-        if (EnumTagSinglePayload == 1)
-        {
-          v59 = &_s10Foundation14DateComponentsVSgMd;
-          v60 = &_s10Foundation14DateComponentsVSgMR;
-          v61 = v1[34];
-          goto LABEL_60;
-        }
-
-        *(v58 + 24) = v102;
-        __swift_allocate_boxed_opaque_existential_1(v58);
-        OUTLINED_FUNCTION_21_2(v102);
-        v96 = *(v105 + 32);
-LABEL_62:
-        v96();
-LABEL_63:
-        v107 = v2[34];
-        v106 = v2[35];
-        v109 = v2[32];
-        v108 = v2[33];
-        OUTLINED_FUNCTION_12_15();
-
-        OUTLINED_FUNCTION_6_7();
-        OUTLINED_FUNCTION_10_18();
-
-        __asm { BRAA            X1, X16 }
-      }
-
-      type metadata accessor for UsoTask_execute_common_VoiceCommand();
-      if ((swift_dynamicCast() & 1) == 0 || (v77 = v1[6], v78 = dispatch thunk of Uso_VerbTemplate_ReferenceVoiceCommandPayload.payload.getter(), , !v78) || (v79 = dispatch thunk of UsoEntity_common_VoiceCommandPayload.dateTime.getter(), , !v79))
-      {
-LABEL_54:
-        v91 = OUTLINED_FUNCTION_3_19();
-        v92(v91);
-        v93 = OUTLINED_FUNCTION_15_13();
-        v94(v93);
-        goto LABEL_58;
-      }
-
-      v80 = v1[31];
-      v114 = v1[30];
-      v115 = v1[33];
-      v81 = v1[29];
-      v82 = v1[26];
-      v116 = v2[25];
-      v117 = v81;
-      v83 = v2[23];
-      v84 = v2[24];
-      v85 = v2[16];
-      v86 = v2[11];
-      v87 = v2[12];
-      v112 = v2[9];
-      v113 = v2[15];
-      v2[36] = UsoEntity_common_DateTime.toDateTime(recurrencePattern:)();
-
-      outlined init with copy of DeviceState(v87, v84);
-      outlined init with copy of DeviceState(v86, v84 + 40);
-      (*(v85 + 16))(v84 + v83[6], v112, v113);
-      (*(v80 + 16))(v84 + v83[7], v115, v114);
-      (*(v82 + 16))(v84 + v83[8], v117, v116);
-      v88 = swift_task_alloc();
-      v2[37] = v88;
-      *v88 = v2;
-      v88[1] = INIntentSlotValueType.getIntentSlotValue(userDialogAct:locale:locationResolver:locationProvider:dateTimeResolver:contactResolver:);
-      v89 = v2[24];
-      OUTLINED_FUNCTION_10_18();
-
-      return Siri_Nlu_External_UserDialogAct.DateTimeHydrator.hydrate(dateTime:)();
-    case 16:
-      v33 = v1[32];
-      v34 = v1[28];
-      static Calendar.current.getter();
-      static TimeZone.current.getter();
-      v35 = swift_task_alloc();
-      v1[40] = v35;
-      *v35 = v1;
-      v35[1] = INIntentSlotValueType.getIntentSlotValue(userDialogAct:locale:locationResolver:locationProvider:dateTimeResolver:contactResolver:);
-      v36 = v1[32];
-      v37 = v1[28];
-      v38 = v1[22];
-      v40 = v1[11];
-      v39 = v1[12];
-      v42 = v1[8];
-      v41 = v1[9];
-      OUTLINED_FUNCTION_10_18();
-
-      return Siri_Nlu_External_UserDialogAct.dateIntervalValue(dateTimeResolving:locationProviding:locale:calendar:timeZone:)();
-    case 19:
-      OUTLINED_FUNCTION_2_24();
-      v19 = &lazy cache variable for type metadata for NSUnitLength;
-      v20 = NSUnitLength_ptr;
-      goto LABEL_37;
-    case 21:
-    case 26:
-      v4 = v1[8];
-      v5 = Siri_Nlu_External_UserDialogAct.doubleValue.getter();
-      v6 = v1[7];
-      if (v7)
-      {
-        goto LABEL_43;
-      }
-
-      v8 = &type metadata for Double;
-      goto LABEL_26;
-    case 24:
-      v31 = v1[8];
-      v5 = Siri_Nlu_External_UserDialogAct.intValue.getter();
-      v6 = v1[7];
-      if (v32)
-      {
-        goto LABEL_43;
-      }
-
-      v8 = &type metadata for Int64;
-LABEL_26:
-      *(v6 + 24) = v8;
-      *v6 = v5;
-      goto LABEL_63;
-    case 27:
-      v45 = v1[27];
-      static TimeZone.current.getter();
-      v46 = swift_task_alloc();
-      v1[42] = v46;
-      *v46 = v1;
-      v46[1] = INIntentSlotValueType.getIntentSlotValue(userDialogAct:locale:locationResolver:locationProvider:dateTimeResolver:contactResolver:);
-      v47 = v1[27];
-      v48 = v1[18];
-      v49 = v1[10];
-      v50 = v1[11];
-      v52 = v1[8];
-      v51 = v1[9];
-      OUTLINED_FUNCTION_10_18();
-
-      return Siri_Nlu_External_UserDialogAct.getLocationRecommendation(locationResolving:locationProviding:locale:timeZone:)();
-    case 30:
-      v21 = v1[8];
-      goto LABEL_16;
-    case 32:
-      OUTLINED_FUNCTION_2_24();
-      v19 = &lazy cache variable for type metadata for NSUnitTemperature;
-      v20 = NSUnitTemperature_ptr;
-      goto LABEL_37;
-    case 36:
-      v54 = v1[8];
-      Siri_Nlu_External_UserDialogAct.urlValue.getter(v1[35]);
-      v55 = v1[35];
-      v56 = type metadata accessor for URL();
-      v57 = OUTLINED_FUNCTION_21_10(v56);
-      v58 = v1[7];
-      if (v57 == 1)
-      {
-        v59 = &_s10Foundation3URLVSgMd;
-        v60 = &_s10Foundation3URLVSgMR;
-        v61 = v55;
-LABEL_60:
-        outlined destroy of Siri_Nlu_External_UserDialogAct?(v61, v59, v60);
-        *v58 = 0u;
-        *(v58 + 16) = 0u;
-        goto LABEL_63;
-      }
-
-      *(v58 + 24) = v0;
-      __swift_allocate_boxed_opaque_existential_1(v58);
-      OUTLINED_FUNCTION_21_2(v0);
-      v96 = *(v95 + 32);
-      goto LABEL_62;
-    case 38:
-      OUTLINED_FUNCTION_2_24();
-      v19 = &lazy cache variable for type metadata for NSUnitMass;
-      v20 = NSUnitMass_ptr;
-      goto LABEL_37;
-    case 39:
-      OUTLINED_FUNCTION_2_24();
-      v19 = &lazy cache variable for type metadata for NSUnitVolume;
-      v20 = NSUnitVolume_ptr;
-      goto LABEL_37;
-    case 40:
-      OUTLINED_FUNCTION_2_24();
-      v19 = &lazy cache variable for type metadata for NSUnitSpeed;
-      v20 = NSUnitSpeed_ptr;
-LABEL_37:
-      type metadata accessor for NSError(0, v19, v20);
-      v62 = v1[2];
-      v63 = OUTLINED_FUNCTION_12_12();
-      v64(v63);
-      v26 = NSDimension.init(forLocale:)();
-      goto LABEL_38;
-    case 41:
-      v24 = v1[8];
-      v25 = v1[9];
-      v26 = [objc_opt_self() kilowattHours];
-LABEL_38:
-      v65 = Siri_Nlu_External_UserDialogAct.measurementValue(locale:)();
-      v68 = v67;
-      if (v67 == -1)
-      {
-        v73 = v1[7];
-
-        *v73 = 0u;
-        v73[1] = 0u;
-      }
-
-      else
-      {
-        v69 = v65;
-        v70 = v1[7];
-        if (v67)
-        {
-          v71 = v66;
-          v72 = [objc_allocWithZone(NSMeasurement) initWithDoubleValue:v66 unit:*&v65];
-          outlined consume of ParsedMeasurement?(v69, v71, v68);
-          v70[3] = type metadata accessor for NSError(0, &lazy cache variable for type metadata for NSMeasurement, NSMeasurement_ptr);
-
-          *v70 = v72;
-        }
-
-        else
-        {
-          v76 = [objc_allocWithZone(NSMeasurement) initWithDoubleValue:v26 unit:*&v65];
-          v70[3] = type metadata accessor for NSError(0, &lazy cache variable for type metadata for NSMeasurement, NSMeasurement_ptr);
-
-          *v70 = v76;
-        }
-      }
-
-      goto LABEL_63;
-    default:
-      if (v3 == 1)
-      {
-        v74 = v1[8];
-        v75 = Siri_Nlu_External_UserDialogAct.BOOLValue.getter();
-        v6 = v1[7];
-        if (v75 != 2)
-        {
-          *(v6 + 24) = &type metadata for Bool;
-          *v6 = v75 & 1;
-          goto LABEL_63;
-        }
-      }
-
-      else
-      {
-        if (v3 == 53)
-        {
-          v9 = v1[8];
-          v10 = Siri_Nlu_External_UserDialogAct.currencyValue(locale:)(v1[9]);
-          v11 = v1[7];
-          if (v10)
-          {
-            v12 = &lazy cache variable for type metadata for INCurrencyAmount;
-            v13 = INCurrencyAmount_ptr;
-LABEL_23:
-            *(v11 + 24) = type metadata accessor for NSError(0, v12, v13);
-            *v11 = v10;
-          }
-
-          else
-          {
-LABEL_55:
-            *v11 = 0u;
-            *(v11 + 16) = 0u;
-          }
-
-          goto LABEL_63;
-        }
-
-LABEL_8:
-        if (one-time initialization token for voiceCommands != -1)
-        {
-          OUTLINED_FUNCTION_0();
-        }
-
-        v14 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v14, static Logger.voiceCommands);
-        v15 = Logger.logObject.getter();
-        v16 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v15, v16))
-        {
-          v17 = swift_slowAlloc();
-          *v17 = 0;
-          _os_log_impl(&dword_0, v15, v16, "SiriLinkFlow does not yet support converting this parameter type from NLv4 parses.", v17, 2u);
-        }
-
-        v18 = v1[8];
-
-LABEL_16:
-        v22 = Siri_Nlu_External_UserDialogAct.stringValue.getter();
-        v6 = v1[7];
-        if (v23)
-        {
-          *(v6 + 24) = &type metadata for String;
-          *v6 = v22;
-          *(v6 + 8) = v23;
-          goto LABEL_63;
-        }
-      }
-
-LABEL_43:
-      *v6 = 0u;
-      *(v6 + 16) = 0u;
-      goto LABEL_63;
-  }
-}
-
-{
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_0();
-  *v4 = v3;
-  v6 = *(v5 + 296);
-  *v4 = *v1;
-  *(v3 + 304) = v7;
-  *(v3 + 312) = v0;
-
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v8, v9, v10);
-}
-
-{
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_0();
-  *v4 = v3;
-  v5 = v2[40];
-  *v4 = *v1;
-  *(v3 + 328) = v0;
-
-  v6 = v2[32];
-  v7 = v2[31];
-  v8 = v2[30];
-  (*(v2[26] + 8))(v2[28], v2[25]);
-  (*(v7 + 8))(v6, v8);
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v9, v10, v11);
-}
-
-{
-  v2 = *v1;
-  OUTLINED_FUNCTION_3_0();
-  *v4 = v3;
-  v6 = *(v5 + 336);
-  v7 = *v1;
-  OUTLINED_FUNCTION_3_0();
-  *v8 = v7;
-  *(v9 + 344) = v0;
-
-  OUTLINED_FUNCTION_11_1();
-
-  return _swift_task_switch(v10, v11, v12);
-}
-
-uint64_t INIntentSlotValueType.getIntentSlotValue(userDialogAct:locale:locationResolver:locationProvider:dateTimeResolver:contactResolver:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
-{
-  OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_30();
-  v15 = v14[36];
-  if (v14[38])
-  {
-    v16 = v14[34];
-    a11 = v14[33];
-    v17 = v14[30];
-    v18 = v14[31];
-    v19 = v14[29];
-    v21 = v14[25];
-    v20 = v14[26];
-    v22 = v14[24];
-
-    dispatch thunk of DateTime.dateComponents.getter();
-
-    outlined destroy of Siri_Nlu_External_UserDialogAct.DateTimeHydrator(v22);
-    (*(v20 + 8))(v19, v21);
-    (*(v18 + 8))(a11, v17);
-    v23 = 0;
-  }
-
-  else
-  {
-    v24 = v14[33];
-    v25 = v14[30];
-    v26 = v14[31];
-    v27 = v14[29];
-    v28 = v14[25];
-    v29 = v14[26];
-    v30 = v14[24];
-    v31 = v14[36];
-
-    outlined destroy of Siri_Nlu_External_UserDialogAct.DateTimeHydrator(v30);
-    (*(v29 + 8))(v27, v28);
-    v32 = *(v26 + 8);
-    v33 = OUTLINED_FUNCTION_12_12();
-    v34(v33);
-    v23 = 1;
-  }
-
-  v35 = v14[34];
-  v36 = type metadata accessor for DateComponents();
-  __swift_storeEnumTagSinglePayload(v35, v23, 1, v36);
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v35, 1, v36);
-  v38 = v14[34];
-  v39 = v14[7];
-  if (EnumTagSinglePayload == 1)
-  {
-    outlined destroy of Siri_Nlu_External_UserDialogAct?(v14[34], &_s10Foundation14DateComponentsVSgMd, &_s10Foundation14DateComponentsVSgMR);
-    *v39 = 0u;
-    *(v39 + 16) = 0u;
-  }
-
-  else
-  {
-    *(v39 + 24) = v36;
-    __swift_allocate_boxed_opaque_existential_1(v39);
-    OUTLINED_FUNCTION_21_2(v36);
-    (*(v40 + 32))();
-  }
-
-  OUTLINED_FUNCTION_1_28();
-
-  OUTLINED_FUNCTION_6_7();
-  OUTLINED_FUNCTION_6_1();
-
-  return v42(v41, v42, v43, v44, v45, v46, v47, v48, a9, a10, a11, a12, a13, a14);
-}
-
-{
-  OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_30();
-  v15 = v14[36];
-  v16 = v14[33];
-  v17 = v14[30];
-  v18 = v14[31];
-  v19 = v14[29];
-  v20 = v14[25];
-  v21 = v14[26];
-  v22 = v14[24];
-
-  outlined destroy of Siri_Nlu_External_UserDialogAct.DateTimeHydrator(v22);
-  (*(v21 + 8))(v19, v20);
-  (*(v18 + 8))(v16, v17);
-  v23 = v14[39];
-  OUTLINED_FUNCTION_0_20();
-
-  OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_6_1();
-
-  return v25(v24, v25, v26, v27, v28, v29, v30, v31, a9, a10, a11, a12, a13, a14);
-}
-
-{
-  OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_30();
-  v16 = *(v15 + 176);
-  v17 = type metadata accessor for DateInterval();
-  v18 = OUTLINED_FUNCTION_21_10(v17);
-  v19 = *(v15 + 56);
-  if (v18 == 1)
-  {
-    outlined destroy of Siri_Nlu_External_UserDialogAct?(v16, &_s10Foundation12DateIntervalVSgMd, &_s10Foundation12DateIntervalVSgMR);
-    *v19 = 0u;
-    *(v19 + 16) = 0u;
-  }
-
-  else
-  {
-    *(v19 + 24) = v14;
-    __swift_allocate_boxed_opaque_existential_1(v19);
-    OUTLINED_FUNCTION_21_2(v14);
-    (*(v20 + 32))();
-  }
-
-  OUTLINED_FUNCTION_1_28();
-
-  OUTLINED_FUNCTION_6_7();
-  OUTLINED_FUNCTION_6_1();
-
-  return v22(v21, v22, v23, v24, v25, v26, v27, v28, a9, a10, a11, a12, a13, a14);
-}
-
-{
-  OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_30();
-  v16 = v14[18];
-  v15 = v14[19];
-  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v16, 1, v15);
-  v19 = v14[26];
-  v18 = v14[27];
-  v20 = v14[25];
-  if (EnumTagSinglePayload == 1)
-  {
-    v21 = *(v19 + 8);
-    v22 = OUTLINED_FUNCTION_12_12();
-    v23(v22);
-    outlined destroy of Siri_Nlu_External_UserDialogAct?(v16, &_s13SiriInference14RecommendationOyAA8LocationVGSgMd, &_s13SiriInference14RecommendationOyAA8LocationVGSgMR);
-  }
-
-  else
-  {
-    v25 = v14[20];
-    v24 = v14[21];
-    (*(v25 + 32))(v24, v16, v15);
-    v26 = static InputUtils.getPlacemark(_:)();
-    (*(v25 + 8))(v24, v15);
-    v27 = *(v19 + 8);
-    v28 = OUTLINED_FUNCTION_12_12();
-    v29(v28);
-    if (v26)
-    {
-      v30 = v14[7];
-      v30[3] = type metadata accessor for NSError(0, &lazy cache variable for type metadata for CLPlacemark, CLPlacemark_ptr);
-      *v30 = v26;
-      goto LABEL_6;
-    }
-  }
-
-  v31 = v14[7];
-  *v31 = 0u;
-  v31[1] = 0u;
-LABEL_6:
-  OUTLINED_FUNCTION_1_28();
-
-  OUTLINED_FUNCTION_6_7();
-  OUTLINED_FUNCTION_6_1();
-
-  return v33(v32, v33, v34, v35, v36, v37, v38, v39, a9, a10, a11, a12, a13, a14);
-}
-
-{
-  OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_30();
-  (*(v14[26] + 8))(v14[27], v14[25]);
-  v15 = v14[43];
-  OUTLINED_FUNCTION_0_20();
-
-  OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_6_1();
-
-  return v17(v16, v17, v18, v19, v20, v21, v22, v23, a9, a10, a11, a12, a13, a14);
-}
-
-{
-  OUTLINED_FUNCTION_21_1();
-  OUTLINED_FUNCTION_30();
-  v15 = *(v14 + 328);
-  OUTLINED_FUNCTION_0_20();
-
-  OUTLINED_FUNCTION_6_0();
-  OUTLINED_FUNCTION_6_1();
-
-  return v17(v16, v17, v18, v19, v20, v21, v22, v23, a9, a10, a11, a12, a13, a14);
-}
-
-uint64_t INIntentSlotValueType.toUsoTaskBuilder()(uint64_t a1)
-{
-  switch(a1)
-  {
-    case 10:
-      type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-      OUTLINED_FUNCTION_1_5();
-      result = static UsoTaskBuilder_execute_common_VoiceCommand.personTaskBuilder(value:)();
-      break;
-    case 14:
-      type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-      result = static UsoTaskBuilder_execute_common_VoiceCommand.dateTaskBuilder()();
-      break;
-    case 16:
-      type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-      result = static UsoTaskBuilder_execute_common_VoiceCommand.dateIntervalTaskBuilder()();
-      break;
-    case 19:
-    case 32:
-    case 38:
-    case 39:
-    case 40:
-    case 41:
-      type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-      result = static UsoTaskBuilder_execute_common_VoiceCommand.unitTaskBuilder(value:symbol:unitName:)(0, 1, 0, 0, 0, 0);
-      break;
-    case 21:
-    case 24:
-    case 26:
-      type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-      result = static UsoTaskBuilder_execute_common_VoiceCommand.numberTaskBuilder()();
-      break;
-    case 27:
-      type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-      result = static UsoTaskBuilder_execute_common_VoiceCommand.placemarkTaskBuilder()();
-      break;
-    case 30:
-      goto LABEL_10;
-    case 36:
-      type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-      OUTLINED_FUNCTION_1_5();
-      result = static UsoTaskBuilder_execute_common_VoiceCommand.urlTaskBuilder(value:)();
-      break;
-    default:
-      if (one-time initialization token for voiceCommands != -1)
-      {
-        OUTLINED_FUNCTION_0();
-      }
-
-      v3 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v3, static Logger.voiceCommands);
-      v4 = Logger.logObject.getter();
-      v5 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v4, v5))
-      {
-        v6 = swift_slowAlloc();
-        *v6 = 134217984;
-        *(v6 + 4) = a1;
-        _os_log_impl(&dword_0, v4, v5, "SiriLinkFlow does not yet support providing NLV4 context for parameter type: %ld.", v6, 0xCu);
-      }
-
-LABEL_10:
-      type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-      OUTLINED_FUNCTION_1_5();
-      result = static UsoTaskBuilder_execute_common_VoiceCommand.stringTaskBuilder(value:)();
-      break;
-  }
-
-  return result;
-}
-
 uint64_t outlined destroy of Siri_Nlu_External_UserDialogAct.DateTimeHydrator(uint64_t a1)
 {
-  v2 = type metadata accessor for Siri_Nlu_External_UserDialogAct.DateTimeHydrator();
+  v2 = type metadata accessor for Siri_Nlu_External_UserDialogAct.DateTimeHydrator(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t OUTLINED_FUNCTION_0_20()
 {
-  v3 = v0[34];
-  v2 = v0[35];
-  v5 = v0[32];
-  v4 = v0[33];
-  v7 = v0[28];
-  v6 = v0[29];
-  v8 = v0[27];
-  v9 = v0[24];
-  v10 = v0[21];
-  v11 = v0[22];
-  v13 = v0[18];
-  v14 = v0[17];
 }
 
 uint64_t OUTLINED_FUNCTION_1_28()
 {
-  v3 = v0[34];
-  v2 = v0[35];
-  v5 = v0[32];
-  v4 = v0[33];
-  v7 = v0[28];
-  v6 = v0[29];
-  v8 = v0[27];
-  v9 = v0[24];
-  v11 = v0[21];
-  v10 = v0[22];
-  v13 = v0[18];
-  v14 = v0[17];
-}
-
-void OUTLINED_FUNCTION_2_24()
-{
-  v2 = v0[16];
-  v1 = v0[17];
-  v3 = v0[15];
-  v5 = v0[8];
-  v4 = v0[9];
-}
-
-uint64_t OUTLINED_FUNCTION_3_19()
-{
-  v1 = v0[33];
-  v2 = v0[30];
-  v3 = v0[31];
-  result = v0[29];
-  v5 = v0[25];
-  v6 = *(v0[26] + 8);
-  return result;
-}
-
-void OUTLINED_FUNCTION_12_15()
-{
-  v2 = v0[28];
-  v1 = v0[29];
-  v3 = v0[27];
-  v4 = v0;
-  v5 = v0[24];
-  v7 = v4[21];
-  v6 = v4[22];
-  v8 = v4[17];
-  v9 = v4[18];
 }
 
 uint64_t OUTLINED_FUNCTION_21_10(uint64_t a1)
@@ -4495,7 +21,7 @@ uint64_t OUTLINED_FUNCTION_21_10(uint64_t a1)
 
 void *specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
 {
-  return specialized _arrayForceCast<A, B>(_:)(a1, &type metadata for WFChooseFromListDisambiguationItem, &protocol witness table for WFChooseFromListDisambiguationItem);
+  return specialized _arrayForceCast<A, B>(_:)(a1, &type metadata for WFChooseFromListDisambiguationItem, &protocol witness table for WFChooseFromListDisambiguationItem, &unk_29B5B0);
 }
 
 {
@@ -4541,10 +67,9 @@ void *specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
   if (v1)
   {
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v3 = (a1 + 32);
+    v3 = a1 + 32;
     do
     {
-      v7 = *v3;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, &_sSDySSypGMR);
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys11AnyHashableVypGMd, &_sSDys11AnyHashableVypGMR);
@@ -4557,8 +82,8 @@ void *specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
       }
 
       _swiftEmptyArrayStorage[2] = v5 + 1;
-      _swiftEmptyArrayStorage[v5 + 4] = v8;
-      ++v3;
+      _swiftEmptyArrayStorage[v5 + 4] = v7;
+      v3 += 8;
       --v1;
     }
 
@@ -4569,63 +94,63 @@ void *specialized _arrayForceCast<A, B>(_:)(uint64_t a1)
 }
 
 {
-  return specialized _arrayForceCast<A, B>(_:)(a1, &type metadata for ShortcutsLinkDisambiguationItem, &protocol witness table for ShortcutsLinkDisambiguationItem);
+  return specialized _arrayForceCast<A, B>(_:)(a1, &type metadata for ShortcutsLinkDisambiguationItem, &protocol witness table for ShortcutsLinkDisambiguationItem, &unk_29B5D8);
 }
 
-void *specialized _arrayForceCast<A, B>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+void *specialized _arrayForceCast<A, B>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a1 + 16);
-  v4 = _swiftEmptyArrayStorage;
-  if (v3)
+  v4 = *(a1 + 16);
+  v5 = _swiftEmptyArrayStorage;
+  if (v4)
   {
-    v26 = _swiftEmptyArrayStorage;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
-    v4 = _swiftEmptyArrayStorage;
-    v6 = (a1 + 80);
+    v27 = _swiftEmptyArrayStorage;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0);
+    v5 = _swiftEmptyArrayStorage;
+    v7 = (a1 + 80);
     do
     {
-      v7 = *(v6 - 5);
-      v8 = *(v6 - 3);
-      v20 = *(v6 - 4);
-      v21 = *(v6 - 6);
-      v9 = *(v6 - 2);
-      v10 = *(v6 - 1);
-      v11 = *v6;
-      v26 = v4;
-      v12 = v4[2];
-      v13 = v4[3];
-      v22 = v12 + 1;
+      v8 = *(v7 - 5);
+      v9 = *(v7 - 3);
+      v21 = *(v7 - 4);
+      v22 = *(v7 - 6);
+      v10 = *(v7 - 2);
+      v11 = *(v7 - 1);
+      v12 = *v7;
+      v27 = v5;
+      v13 = v5[2];
+      v14 = v5[3];
+      v23 = v13 + 1;
 
-      v14 = v9;
+      v15 = v10;
 
-      v15 = v11;
-      if (v12 >= v13 >> 1)
+      v16 = v12;
+      if (v13 >= v14 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v22, 1);
-        v4 = v26;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v14 > 1), v23, 1);
+        v5 = v27;
       }
 
-      v6 += 7;
-      v24 = a2;
-      v25 = a3;
-      v16 = swift_allocObject();
-      *&v23 = v16;
-      v16[2] = v21;
-      v16[3] = v7;
-      v16[4] = v20;
-      v16[5] = v8;
-      v16[6] = v9;
-      v16[7] = v10;
-      v16[8] = v15;
-      v4[2] = v22;
-      outlined init with take of AceServiceInvokerAsync(&v23, &v4[5 * v12 + 4]);
-      --v3;
+      v7 += 7;
+      v25 = a2;
+      v26 = a3;
+      v17 = swift_allocObject();
+      *&v24 = v17;
+      v17[2] = v22;
+      v17[3] = v8;
+      v17[4] = v21;
+      v17[5] = v9;
+      v17[6] = v10;
+      v17[7] = v11;
+      v17[8] = v16;
+      v5[2] = v23;
+      outlined init with take of AceServiceInvokerAsync(&v24, &v5[5 * v13 + 4]);
+      --v4;
     }
 
-    while (v3);
+    while (v4);
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t CustomIntentNLContextProvider.__allocating_init(deviceState:)(__int128 *a1)
@@ -4646,52 +171,39 @@ uint64_t CustomIntentNLContextProvider.makeNeedsValueContextFor(intent:parameter
   v5[31] = v6;
   OUTLINED_FUNCTION_5_0(v6);
   v5[32] = v7;
-  v9 = *(v8 + 64) + 15;
   v5[33] = swift_task_alloc();
 
-  return _swift_task_switch(CustomIntentNLContextProvider.makeNeedsValueContextFor(intent:parameter:), 0, 0);
+  return _swift_task_switch(CustomIntentNLContextProvider.makeNeedsValueContextFor(intent:parameter:));
 }
 
 id CustomIntentNLContextProvider.makeNeedsValueContextFor(intent:parameter:)()
 {
-  v1 = *(v0 + 216);
   if (INIntent.isBooleanParameter(parameterName:)(*(v0 + 224)))
   {
-    v2 = *(v0 + 264);
-    v3 = *(v0 + 232);
-    v4 = *(v0 + 240);
-    v5 = *(v0 + 216);
-    v6 = *(v0 + 224);
     VoiceCommandNLContextProvider.makeContextForBoolNeedsValuePrompt(intent:parameter:)();
   }
 
   else
   {
-    v21 = *(v0 + 224);
-    v22 = *(v0 + 232);
-    v23 = [*(v0 + 216) _codableDescription];
-    v24 = outlined bridged method (mbgnn) of @objc INCodableDescription.attribute(byName:)(v21, v22, v23);
+    v16 = *(v0 + 224);
+    v17 = *(v0 + 232);
+    v18 = [*(v0 + 216) _codableDescription];
+    v19 = outlined bridged method (mbgnn) of @objc INCodableDescription.attribute(byName:)(v16, v17, v18);
 
-    if (!v24)
+    if (!v19)
     {
-      v26 = *(v0 + 240);
-      v27 = *(v0 + 208);
       type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-      v28 = static UsoTaskBuilder_execute_common_VoiceCommand.stringTaskBuilder(value:)();
-      VoiceCommandNLContextProvider.makeContextForNeedsValue(taskBuilder:)(v28);
+      v20 = static UsoTaskBuilder_execute_common_VoiceCommand.stringTaskBuilder(value:)(0, 0);
+      VoiceCommandNLContextProvider.makeContextForNeedsValue(taskBuilder:)(v20);
 
       goto LABEL_8;
     }
 
-    CustomIntentNLContextProvider.intentCodableAttributeToUsoTaskBuilder(attribute:)(v24);
-    v25 = *(v0 + 264);
-    v31 = *(v0 + 240);
+    CustomIntentNLContextProvider.intentCodableAttributeToUsoTaskBuilder(attribute:)(v19);
 
-    VoiceCommandNLContextProvider.makeContextForNeedsValue(taskBuilder:)(v32);
+    VoiceCommandNLContextProvider.makeContextForNeedsValue(taskBuilder:)(v22);
 
-    v33 = INCodableAttribute.requiresDictationPrompt()();
-    v34 = *(v0 + 264);
-    if (v33)
+    if (INCodableAttribute.requiresDictationPrompt()())
     {
       OUTLINED_FUNCTION_4_22();
       NLContextUpdate.dictationPromptTargetDomain.setter();
@@ -4708,51 +220,50 @@ id CustomIntentNLContextProvider.makeNeedsValueContextFor(intent:parameter:)()
     }
   }
 
-  v8 = *(v0 + 224);
-  v7 = *(v0 + 232);
-  v9 = *(v0 + 216);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v10 = OUTLINED_FUNCTION_64();
-  *(v10 + 16) = xmmword_216010;
-  v11 = INIntent.bundleId.getter();
-  *(v0 + 112) = v9;
+  v2 = *(v0 + 224);
+  v1 = *(v0 + 232);
+  v3 = *(v0 + 216);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v5 = OUTLINED_FUNCTION_64(v4);
+  *(v5 + 16) = xmmword_216010;
+  v6 = INIntent.bundleId.getter();
+  *(v0 + 112) = v3;
   *(v0 + 120) = 0;
-  *(v0 + 128) = v11;
-  *(v0 + 136) = v12;
-  *(v0 + 144) = v8;
-  *(v0 + 152) = v7;
+  *(v0 + 128) = v6;
+  *(v0 + 136) = v7;
+  *(v0 + 144) = v2;
+  *(v0 + 152) = v1;
   *(v0 + 168) = 0;
   *(v0 + 176) = 0;
   *(v0 + 160) = 0;
   OUTLINED_FUNCTION_1_29();
 
-  v13 = v9;
+  v8 = v3;
   CustomIntentStateAttachment.asDictionary()();
   objc_allocWithZone(SABaseAceObject);
 
-  result = @nonobjc SABaseAceObject.init(dictionary:)(v14);
+  result = @nonobjc SABaseAceObject.init(dictionary:)(v9);
   if (!result)
   {
     __break(1u);
     return result;
   }
 
-  v16 = result;
-  v18 = *(v0 + 256);
-  v17 = *(v0 + 264);
-  v19 = *(v0 + 248);
-  v20 = *(v0 + 208);
+  v11 = result;
+  v13 = *(v0 + 256);
+  v12 = *(v0 + 264);
+  v14 = *(v0 + 248);
+  v15 = *(v0 + 208);
   outlined destroy of CustomIntentStateAttachment(v0 + 112);
 
-  *(v10 + 32) = v16;
+  *(v5 + 32) = v11;
   NLContextUpdate.conversationStateAttachments.setter();
-  (*(v18 + 32))(v20, v17, v19);
+  (*(v13 + 32))(v15, v12, v14);
 LABEL_8:
-  v29 = *(v0 + 264);
 
-  v30 = *(v0 + 8);
+  v21 = *(v0 + 8);
 
-  return v30();
+  return v21();
 }
 
 id static CustomIntentNLContextProvider.attributeForParameter(intent:parameter:)(void *a1, uint64_t a2, uint64_t a3)
@@ -4771,7 +282,7 @@ uint64_t CustomIntentNLContextProvider.intentCodableAttributeToUsoTaskBuilder(at
   {
 LABEL_2:
     type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-    return static UsoTaskBuilder_execute_common_VoiceCommand.stringTaskBuilder(value:)();
+    return static UsoTaskBuilder_execute_common_VoiceCommand.stringTaskBuilder(value:)(0, 0);
   }
 
   objc_opt_self();
@@ -4841,152 +352,142 @@ uint64_t CustomIntentNLContextProvider.makeNeedsDisambiguationContextFor(intent:
   v7[38] = v8;
   OUTLINED_FUNCTION_5_0(v8);
   v7[39] = v9;
-  v11 = *(v10 + 64) + 15;
   v7[40] = swift_task_alloc();
-  v12 = type metadata accessor for NLContextUpdate();
-  v7[41] = v12;
-  OUTLINED_FUNCTION_5_0(v12);
-  v7[42] = v13;
-  v15 = *(v14 + 64) + 15;
+  v10 = type metadata accessor for NLContextUpdate();
+  v7[41] = v10;
+  OUTLINED_FUNCTION_5_0(v10);
+  v7[42] = v11;
   v7[43] = swift_task_alloc();
 
-  return _swift_task_switch(CustomIntentNLContextProvider.makeNeedsDisambiguationContextFor(intent:parameter:resolutionResult:disambiguationItems:), 0, 0);
+  return _swift_task_switch(CustomIntentNLContextProvider.makeNeedsDisambiguationContextFor(intent:parameter:resolutionResult:disambiguationItems:));
 }
 
 id CustomIntentNLContextProvider.makeNeedsDisambiguationContextFor(intent:parameter:resolutionResult:disambiguationItems:)()
 {
-  v1 = *(v0 + 344);
-  v2 = *(v0 + 296);
-  v4 = *(v0 + 264);
-  v3 = *(v0 + 272);
-  v5 = *(v0 + 256);
-  v6 = specialized _arrayForceCast<A, B>(_:)(*(v0 + 288));
-  VoiceCommandNLContextProvider.makeContextForDisambiguation(items:)(v6);
+  v2 = *(v0 + 264);
+  v1 = *(v0 + 272);
+  v3 = *(v0 + 256);
+  v4 = specialized _arrayForceCast<A, B>(_:)(*(v0 + 288));
+  VoiceCommandNLContextProvider.makeContextForDisambiguation(items:)(v4);
 
-  v7 = [v5 _codableDescription];
-  v8 = outlined bridged method (mbgnn) of @objc INCodableDescription.attribute(byName:)(v4, v3, v7);
+  v5 = [v3 _codableDescription];
+  v6 = outlined bridged method (mbgnn) of @objc INCodableDescription.attribute(byName:)(v2, v1, v5);
 
-  if (v8)
+  if (v6)
   {
-    v9 = *(v0 + 344);
-    v11 = *(v0 + 312);
-    v10 = *(v0 + 320);
-    v12 = *(v0 + 296);
-    v37 = *(v0 + 304);
-    v13 = *(v0 + 272);
-    v35 = v8;
-    v36 = *(v0 + 280);
-    v15 = *(v0 + 256);
-    v14 = *(v0 + 264);
+    v8 = *(v0 + 312);
+    v7 = *(v0 + 320);
+    v9 = *(v0 + 296);
+    v30 = *(v0 + 304);
+    v10 = *(v0 + 272);
+    v29 = v6;
+    v12 = *(v0 + 256);
+    v11 = *(v0 + 264);
     INCodableAttribute.disambiguationPromptTargets()();
     NLContextUpdate.weightedPromptResponseTargets.setter();
-    v16 = v12[6];
-    __swift_project_boxed_opaque_existential_1(v12 + 2, v12[5]);
+    __swift_project_boxed_opaque_existential_1((v9 + 16), *(v9 + 40));
     dispatch thunk of DeviceState.siriLocale.getter();
-    INIntentResolutionResult.getDisplayHints(intent:parameter:locale:shouldIncludeOrdinalReference:)(v15, v14, v13, v10, 1);
-    (*(v11 + 8))(v10, v37);
+    INIntentResolutionResult.getDisplayHints(intent:parameter:locale:shouldIncludeOrdinalReference:)(v12, v11, v10, v7, 1);
+    (*(v8 + 8))(v7, v30);
     NLContextUpdate.displayHints.setter();
-    v17 = INIntentResolutionResult.safeJSONDictionaryRepresentation(for:parameterName:)(v15);
-    specialized Dictionary.subscript.getter(0x6F697463656C6573, 0xEE00736D6574496ELL, v17, (v0 + 208));
+    v13 = INIntentResolutionResult.safeJSONDictionaryRepresentation(for:parameterName:)(v12);
+    specialized Dictionary.subscript.getter(v13, (v0 + 208), 0x6F697463656C6573, 0xEE00736D6574496ELL);
 
     if (*(v0 + 232))
     {
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySDys11AnyHashableVypGGMd, &_sSaySDys11AnyHashableVypGGMR);
-      v18 = swift_dynamicCast();
-      v19 = *(v0 + 240);
-      if (v18)
+      if (swift_dynamicCast())
       {
-        v20 = *(v0 + 240);
+        v14 = *(v0 + 240);
       }
 
       else
       {
-        v20 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
       outlined destroy of String?(v0 + 208, &_sypSgMd, &_sypSgMR);
-      v20 = 0;
+      v14 = 0;
     }
 
-    v22 = *(v0 + 264);
-    v21 = *(v0 + 272);
-    v23 = *(v0 + 256);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-    v24 = OUTLINED_FUNCTION_64();
-    *(v24 + 16) = xmmword_216010;
-    v25 = INIntent.bundleId.getter();
-    *(v0 + 112) = v23;
+    v16 = *(v0 + 264);
+    v15 = *(v0 + 272);
+    v17 = *(v0 + 256);
+    v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+    v19 = OUTLINED_FUNCTION_64(v18);
+    *(v19 + 16) = xmmword_216010;
+    v20 = INIntent.bundleId.getter();
+    *(v0 + 112) = v17;
     *(v0 + 120) = 0;
-    *(v0 + 128) = v25;
-    *(v0 + 136) = v26;
-    *(v0 + 144) = v22;
-    *(v0 + 152) = v21;
+    *(v0 + 128) = v20;
+    *(v0 + 136) = v21;
+    *(v0 + 144) = v16;
+    *(v0 + 152) = v15;
     *(v0 + 168) = 0;
     *(v0 + 176) = 0;
-    *(v0 + 160) = v20;
+    *(v0 + 160) = v14;
     OUTLINED_FUNCTION_1_29();
 
-    v27 = v23;
+    v22 = v17;
     CustomIntentStateAttachment.asDictionary()();
     objc_allocWithZone(SABaseAceObject);
 
-    result = @nonobjc SABaseAceObject.init(dictionary:)(v28);
+    result = @nonobjc SABaseAceObject.init(dictionary:)(v23);
     if (!result)
     {
       __break(1u);
       return result;
     }
 
-    v30 = result;
-    v31 = *(v0 + 344);
+    v25 = result;
     outlined destroy of CustomIntentStateAttachment(v0 + 112);
 
-    *(v24 + 32) = v30;
+    *(v19 + 32) = v25;
     NLContextUpdate.conversationStateAttachments.setter();
   }
 
-  v32 = *(v0 + 328);
-  v33 = *(v0 + 248);
-  (*(*(v0 + 336) + 32))(v33, *(v0 + 344), v32);
-  __swift_storeEnumTagSinglePayload(v33, 0, 1, v32);
+  v26 = *(v0 + 328);
+  v27 = *(v0 + 248);
+  (*(*(v0 + 336) + 32))(v27, *(v0 + 344), v26);
+  __swift_storeEnumTagSinglePayload(v27, 0, 1, v26);
 
-  v34 = *(v0 + 8);
+  v28 = *(v0 + 8);
 
-  return v34();
+  return v28();
 }
 
 id CustomIntentNLContextProvider.makeNeedsConfirmationContextFor(intent:parameter:resolutionResult:)(void *a1, uint64_t a2, uint64_t a3)
 {
   VoiceCommandNLContextProvider.makeContextForConfirmation(acceptLabel:denyLabel:acceptAlternatives:denyAlternatives:)();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v6 = OUTLINED_FUNCTION_64();
-  *(v6 + 16) = xmmword_216010;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v7 = OUTLINED_FUNCTION_64(v6);
+  *(v7 + 16) = xmmword_216010;
   __src[0] = a1;
   LOBYTE(__src[1]) = 1;
   __src[2] = INIntent.bundleId.getter();
-  __src[3] = v7;
+  __src[3] = v8;
   __src[4] = a2;
   __src[5] = a3;
   memset(&__src[6], 0, 24);
   LOBYTE(__src[9]) = 1;
   __src[10] = 0;
   LOBYTE(__src[11]) = 1;
-  memcpy(v13, __src, sizeof(v13));
+  memcpy(v14, __src, sizeof(v14));
 
-  v8 = a1;
+  v9 = a1;
   CustomIntentStateAttachment.asDictionary()();
-  v9 = objc_allocWithZone(SABaseAceObject);
+  v10 = objc_allocWithZone(SABaseAceObject);
 
-  result = @nonobjc SABaseAceObject.init(dictionary:)(v10);
+  result = @nonobjc SABaseAceObject.init(dictionary:)(v11);
   if (result)
   {
-    v12 = result;
+    v13 = result;
     outlined destroy of CustomIntentStateAttachment(__src);
 
-    *(v6 + 32) = v12;
+    *(v7 + 32) = v13;
     return NLContextUpdate.conversationStateAttachments.setter();
   }
 
@@ -4998,33 +499,28 @@ id CustomIntentNLContextProvider.makeNeedsConfirmationContextFor(intent:paramete
   return result;
 }
 
-uint64_t CustomIntentNLContextProvider.makeContextForConfirmIntent(intent:confirmIntentResponse:acceptLabel:denyLabel:)(void *a1, void *a2, uint64_t a3, uint64_t a4)
+uint64_t CustomIntentNLContextProvider.makeContextForConfirmIntent(intent:confirmIntentResponse:acceptLabel:denyLabel:)(void *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow13SemanticValueVSgMd, &_s11SiriKitFlow13SemanticValueVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  __chkstk_darwin(v8 - 8);
-  v49 = &v47 - v10;
-  v55 = type metadata accessor for DisplayHint();
-  v11 = OUTLINED_FUNCTION_7_1(v55);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow13SemanticValueVSgMd, &_s11SiriKitFlow13SemanticValueVSgMR);
+  __chkstk_darwin(v10 - 8);
+  v43 = &v41 - v11;
+  v49 = type metadata accessor for DisplayHint();
+  OUTLINED_FUNCTION_7_1();
   v13 = v12;
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v11);
+  __chkstk_darwin(v14);
   OUTLINED_FUNCTION_3();
-  v53 = v17 - v16;
-  v54 = type metadata accessor for SemanticValue();
-  v18 = OUTLINED_FUNCTION_7_1(v54);
-  v52 = v19;
-  v21 = *(v20 + 64);
-  v22 = __chkstk_darwin(v18);
-  v48 = &v47 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v22);
-  v25 = &v47 - v24;
-  v50 = a3;
-  v51 = a4;
+  v47 = v16 - v15;
+  v48 = type metadata accessor for SemanticValue();
+  OUTLINED_FUNCTION_7_1();
+  v46 = v17;
+  v19 = __chkstk_darwin(v18);
+  v42 = &v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v19);
+  v22 = &v41 - v21;
+  v44 = a3;
+  v45 = a4;
   VoiceCommandNLContextProvider.makeContextForConfirmation(acceptLabel:denyLabel:acceptAlternatives:denyAlternatives:)();
-  v26 = type metadata accessor for MachineUtteranceBuilder();
-  v27 = *(v26 + 48);
-  v28 = *(v26 + 52);
+  type metadata accessor for MachineUtteranceBuilder();
   swift_allocObject();
   MachineUtteranceBuilder.init()();
   INIntent.category()();
@@ -5033,14 +529,14 @@ uint64_t CustomIntentNLContextProvider.makeContextForConfirmIntent(intent:confir
   dispatch thunk of MachineUtteranceBuilder.build()();
 
   NLContextUpdate.nlInput.setter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v29 = OUTLINED_FUNCTION_64();
-  *(v29 + 16) = xmmword_216010;
-  v30 = INIntent.bundleId.getter();
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v24 = OUTLINED_FUNCTION_64(v23);
+  *(v24 + 16) = xmmword_216010;
+  v25 = INIntent.bundleId.getter();
   __src[0] = a1;
   LOBYTE(__src[1]) = 1;
-  __src[2] = v30;
-  __src[3] = v31;
+  __src[2] = v25;
+  __src[3] = v26;
   memset(&__src[4], 0, 24);
   __src[7] = a2;
   __src[8] = 0;
@@ -5048,48 +544,47 @@ uint64_t CustomIntentNLContextProvider.makeContextForConfirmIntent(intent:confir
   __src[10] = 0;
   LOBYTE(__src[11]) = 1;
   memcpy(__dst, __src, sizeof(__dst));
-  v32 = a2;
+  v27 = a2;
   a1;
   CustomIntentStateAttachment.asDictionary()();
-  v33 = objc_allocWithZone(SABaseAceObject);
+  v28 = objc_allocWithZone(SABaseAceObject);
 
-  result = @nonobjc SABaseAceObject.init(dictionary:)(v34);
+  result = @nonobjc SABaseAceObject.init(dictionary:)(v29);
   if (result)
   {
-    v36 = result;
+    v31 = result;
     outlined destroy of CustomIntentStateAttachment(__src);
 
-    *(v29 + 32) = v36;
+    *(v24 + 32) = v31;
     NLContextUpdate.conversationStateAttachments.setter();
-    v37 = INIntent.verb()();
+    v32 = INIntent.verb()();
 
-    v38 = (v37._object >> 56) & 0xF;
-    if ((v37._object & 0x2000000000000000) == 0)
+    v33 = (v32._object >> 56) & 0xF;
+    if ((v32._object & 0x2000000000000000) == 0)
     {
-      v38 = v37._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+      v33 = v32._countAndFlagsBits & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v38)
+    if (v33)
     {
 
       SemanticValue.init(string:label:)();
-      v39 = v54;
-      __swift_storeEnumTagSinglePayload(v49, 1, 1, v54);
-      v40 = v52;
-      (*(v52 + 16))(v48, v25, v39);
-      v41 = v53;
+      v34 = v48;
+      __swift_storeEnumTagSinglePayload(v43, 1, 1, v48);
+      v35 = v46;
+      (*(v46 + 16))(v42, v22, v34);
+      v36 = v47;
       DisplayHint.init(idValue:displayValue:)();
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriKitFlow11DisplayHintVGMd, &_ss23_ContiguousArrayStorageCy11SiriKitFlow11DisplayHintVGMR);
-      v42 = *(v13 + 72);
-      v43 = (*(v13 + 80) + 32) & ~*(v13 + 80);
-      v44 = swift_allocObject();
-      *(v44 + 16) = xmmword_216850;
-      v45 = v44 + v43;
-      v46 = v55;
-      (*(v13 + 16))(v45, v41, v55);
+      v37 = (*(v13 + 80) + 32) & ~*(v13 + 80);
+      v38 = swift_allocObject();
+      *(v38 + 16) = xmmword_216850;
+      v39 = v38 + v37;
+      v40 = v49;
+      (*(v13 + 16))(v39, v36, v49);
       NLContextUpdate.displayHints.setter();
-      (*(v13 + 8))(v41, v46);
-      return (*(v40 + 8))(v25, v39);
+      (*(v13 + 8))(v36, v40);
+      return (*(v35 + 8))(v22, v34);
     }
   }
 
@@ -5105,164 +600,164 @@ id CustomIntentNLContextProvider.makeContextForPagination(intent:parameterName:d
 {
   v7 = v6;
   v13 = type metadata accessor for NLContextUpdate();
-  v14 = OUTLINED_FUNCTION_7_1(v13);
-  v16 = *(v15 + 64);
+  OUTLINED_FUNCTION_7_1();
   __chkstk_darwin(v14);
   OUTLINED_FUNCTION_3();
-  v19 = (v18 - v17);
+  v17 = (v16 - v15);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow22PaginatedItemContainerVy0a4LinkC6Plugin026CustomIntentDisambiguationE0VGMd, &_s11SiriKitFlow22PaginatedItemContainerVy0a4LinkC6Plugin026CustomIntentDisambiguationE0VGMR);
-  v78 = a6;
-  v20 = PaginatedItemContainer.items.getter();
-  v21 = specialized _arrayForceCast<A, B>(_:)(v20);
+  v73 = a6;
+  v18 = PaginatedItemContainer.items.getter();
+  v19 = specialized _arrayForceCast<A, B>(_:)(v18);
 
-  v81 = v7;
-  VoiceCommandNLContextProvider.makeContextForDisambiguation(items:)(v21);
+  v76 = v7;
+  VoiceCommandNLContextProvider.makeContextForDisambiguation(items:)(v19);
 
   NLContextUpdate.weightedPromptResponseOptions.setter();
   NLContextUpdate.dictationPromptTargetNodes.setter();
   NLContextUpdate.dictationPromptAbortValues.setter();
-  v77 = a1;
-  v22 = [a1 _codableDescription];
-  v75 = a2;
-  v76 = a3;
-  v23 = outlined bridged method (mbgnn) of @objc INCodableDescription.attribute(byName:)(a2, a3, v22);
+  v72 = a1;
+  v20 = [a1 _codableDescription];
+  v70 = a2;
+  v71 = a3;
+  v21 = outlined bridged method (mbgnn) of @objc INCodableDescription.attribute(byName:)(a2, a3, v20);
 
-  if (!v23)
+  if (!v21)
   {
     goto LABEL_10;
   }
 
-  if (!a4 || (v24 = a5) == 0)
+  if (!a4 || (v22 = a5) == 0)
   {
 
 LABEL_10:
-    v30 = OUTLINED_FUNCTION_5_15();
-    return v31(v30);
+    v28 = OUTLINED_FUNCTION_5_15();
+    return v29(v28);
   }
 
-  v72 = v19;
-  v73 = a4;
-  v71 = v23;
-  v74 = v13;
-  v25 = v78;
-  v26 = PaginatedItemContainer.getCurrentPageIndex()();
-  v27 = PaginatedItemContainer.pageSize.getter();
-  v28 = v26 * v27;
-  if ((v26 * v27) >> 64 != (v26 * v27) >> 63)
+  v67 = v17;
+  v68 = a4;
+  v66 = v21;
+  v69 = v13;
+  v23 = v73;
+  v24 = PaginatedItemContainer.getCurrentPageIndex()();
+  v25 = PaginatedItemContainer.pageSize.getter();
+  v26 = v24 * v25;
+  if ((v24 * v25) >> 64 != (v24 * v25) >> 63)
   {
     goto LABEL_56;
   }
 
-  v19 = *(PaginatedItemContainer.page.getter() + 16);
+  v17 = *(PaginatedItemContainer.page.getter() + 16);
 
-  v80 = v19;
-  v29 = v19 + v28;
-  v25 = v74;
-  if (__OFADD__(v28, v19))
+  v75 = v17;
+  v27 = v17 + v26;
+  v23 = v69;
+  if (__OFADD__(v26, v17))
   {
     goto LABEL_57;
   }
 
-  v19 = v72;
-  if (*(a4 + 16) < v29 || *(a5 + 16) < v29)
+  v17 = v67;
+  if (*(a4 + 16) < v27 || *(a5 + 16) < v27)
   {
 
-    v30 = OUTLINED_FUNCTION_5_15();
-    return v31(v30);
+    v28 = OUTLINED_FUNCTION_5_15();
+    return v29(v28);
   }
 
-  if (v29 < v28)
+  if (v27 < v26)
   {
     goto LABEL_58;
   }
 
-  v19 = specialized Array.subscript.getter(v28, v29, a5);
-  v25 = v33;
-  v28 = v34;
-  v24 = v35;
-  if (v35)
+  specialized Array.subscript.getter(v26, v27, a5);
+  v17 = v31;
+  v23 = v32;
+  v26 = v33;
+  v22 = v34;
+  if (v34)
   {
     type metadata accessor for __ContiguousArrayStorageBase();
     swift_unknownObjectRetain_n();
-    v38 = swift_dynamicCastClass();
-    if (!v38)
+    v37 = swift_dynamicCastClass();
+    if (!v37)
     {
       swift_unknownObjectRelease();
-      v38 = _swiftEmptyArrayStorage;
+      v37 = _swiftEmptyArrayStorage;
     }
 
-    v39 = v38[2];
+    v38 = v37[2];
 
-    if (__OFSUB__(v24 >> 1, v28))
+    if (__OFSUB__(v22 >> 1, v26))
     {
       goto LABEL_59;
     }
 
-    if (v39 != (v24 >> 1) - v28)
+    if (v38 != (v22 >> 1) - v26)
     {
       goto LABEL_60;
     }
 
-    v37 = swift_dynamicCastClass();
+    v36 = swift_dynamicCastClass();
     swift_unknownObjectRelease();
-    if (v37)
+    if (v36)
     {
       goto LABEL_22;
     }
 
-    v37 = _swiftEmptyArrayStorage;
+    v36 = _swiftEmptyArrayStorage;
     goto LABEL_21;
   }
 
   while (1)
   {
-    specialized _copyCollectionToContiguousArray<A>(_:)(v19, v25, v28, v24);
-    v37 = v36;
+    specialized _copyCollectionToContiguousArray<A>(_:)(v17, v23, v26, v22);
+    v36 = v35;
 LABEL_21:
     swift_unknownObjectRelease();
 LABEL_22:
-    v28 = v37[2];
-    v19 = _swiftEmptyArrayStorage;
-    if (!v28)
+    v26 = v36[2];
+    v17 = _swiftEmptyArrayStorage;
+    if (!v26)
     {
       break;
     }
 
     __dst[0] = _swiftEmptyArrayStorage;
 
-    v25 = __dst;
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v28, 0);
-    v40 = 0;
-    v19 = __dst[0];
-    v41 = v37[2];
-    while (v41 != v40)
+    v23 = __dst;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v26, 0);
+    v39 = 0;
+    v17 = __dst[0];
+    v40 = v36[2];
+    while (v40 != v39)
     {
-      if (v40 >= v37[2])
+      if (v39 >= v36[2])
       {
         goto LABEL_53;
       }
 
-      v42 = v37;
-      v43 = v37[v40 + 4];
+      v41 = v36;
+      v42 = v36[v39 + 4];
 
-      v25 = v81;
-      v44 = CustomIntentNLContextProvider.getOrdinalReference(index:count:selectionItem:)(v40, v80, v43);
+      v23 = v76;
+      v43 = CustomIntentNLContextProvider.getOrdinalReference(index:count:selectionItem:)(v39, v75, v42);
 
-      __dst[0] = v19;
-      v24 = v19[2];
-      v45 = v19[3];
-      if (v24 >= v45 >> 1)
+      __dst[0] = v17;
+      v22 = v17[2];
+      v44 = v17[3];
+      if (v22 >= v44 >> 1)
       {
-        v25 = __dst;
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v45 > 1), v24 + 1, 1);
-        v19 = __dst[0];
+        v23 = __dst;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v44 > 1), v22 + 1, 1);
+        v17 = __dst[0];
       }
 
-      v19[2] = v24 + 1;
-      v19[v24 + 4] = v44;
-      ++v40;
-      v37 = v42;
-      if (v28 == v40)
+      v17[2] = v22 + 1;
+      v17[v22 + 4] = v43;
+      ++v39;
+      v36 = v41;
+      if (v26 == v39)
       {
 
         goto LABEL_30;
@@ -5290,12 +785,12 @@ LABEL_60:
   }
 
 LABEL_30:
-  v46 = 0;
-  v47 = v19[2];
-  v48 = _swiftEmptyArrayStorage;
-  while (v47 != v46)
+  v45 = 0;
+  v46 = v17[2];
+  v47 = _swiftEmptyArrayStorage;
+  while (v46 != v45)
   {
-    if (v46 >= v19[2])
+    if (v45 >= v17[2])
     {
       __break(1u);
 LABEL_50:
@@ -5305,93 +800,88 @@ LABEL_51:
       goto LABEL_52;
     }
 
-    v49 = &v19[v46];
-    v28 = v49[4];
-    v25 = *(v28 + 16);
-    v24 = v48[2];
-    v50 = v25 + v24;
-    if (__OFADD__(v24, v25))
+    v26 = v17[v45 + 4];
+    v23 = *(v26 + 16);
+    v22 = v47[2];
+    v48 = v23 + v22;
+    if (__OFADD__(v22, v23))
     {
       goto LABEL_50;
     }
 
-    v51 = v49[4];
-
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    if (!isUniquelyReferenced_nonNull_native || v50 > v48[3] >> 1)
+    if (!isUniquelyReferenced_nonNull_native || v48 > v47[3] >> 1)
     {
-      if (v24 <= v50)
+      if (v22 <= v48)
       {
-        v53 = v25 + v24;
+        v50 = v23 + v22;
       }
 
       else
       {
-        v53 = v24;
+        v50 = v22;
       }
 
-      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v53, 1, v48);
-      v48 = v54;
+      specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v50, 1, v47);
+      v47 = v51;
     }
 
-    if (*(v28 + 16))
+    if (*(v26 + 16))
     {
-      v24 = v48[2];
-      v55 = (v48[3] >> 1) - v24;
-      v56 = *(type metadata accessor for DisplayHint() - 8);
-      if (v55 < v25)
+      v22 = v47[2];
+      v52 = (v47[3] >> 1) - v22;
+      type metadata accessor for DisplayHint();
+      if (v52 < v23)
       {
         goto LABEL_54;
       }
 
-      v57 = (*(v56 + 80) + 32) & ~*(v56 + 80);
-      v58 = *(v56 + 72);
       swift_arrayInitWithCopy();
 
-      if (v25)
+      if (v23)
       {
-        v59 = v48[2];
-        v60 = __OFADD__(v59, v25);
-        v61 = v25 + v59;
-        if (v60)
+        v53 = v47[2];
+        v54 = __OFADD__(v53, v23);
+        v55 = v23 + v53;
+        if (v54)
         {
           goto LABEL_55;
         }
 
-        v48[2] = v61;
+        v47[2] = v55;
       }
     }
 
     else
     {
 
-      if (v25)
+      if (v23)
       {
         goto LABEL_51;
       }
     }
 
-    ++v46;
+    ++v45;
   }
 
-  __dst[0] = v73;
+  __dst[0] = v68;
 
-  specialized Array.append<A>(contentsOf:)(v48);
+  specialized Array.append<A>(contentsOf:)(v47);
   NLContextUpdate.displayHints.setter();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v62 = OUTLINED_FUNCTION_64();
-  *(v62 + 16) = xmmword_216010;
-  v63 = INIntent.bundleId.getter();
-  v65 = v64;
-  v66 = specialized _arrayForceCast<A, B>(_:)(v37);
+  v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+  v57 = OUTLINED_FUNCTION_64(v56);
+  *(v57 + 16) = xmmword_216010;
+  v58 = INIntent.bundleId.getter();
+  v60 = v59;
+  v61 = specialized _arrayForceCast<A, B>(_:)(v36);
 
-  __src[0] = v77;
+  __src[0] = v72;
   LOBYTE(__src[1]) = 0;
-  __src[2] = v63;
-  __src[3] = v65;
-  __src[4] = v75;
-  __src[5] = v76;
-  __src[6] = v66;
+  __src[2] = v58;
+  __src[3] = v60;
+  __src[4] = v70;
+  __src[5] = v71;
+  __src[6] = v61;
   __src[7] = 0;
   __src[8] = PaginatedItemContainer.pageSize.getter();
   LOBYTE(__src[9]) = 0;
@@ -5399,17 +889,17 @@ LABEL_51:
   LOBYTE(__src[11]) = 0;
   memcpy(__dst, __src, 0x59uLL);
 
-  v67 = v77;
+  v62 = v72;
   CustomIntentStateAttachment.asDictionary()();
-  v68 = objc_allocWithZone(SABaseAceObject);
+  v63 = objc_allocWithZone(SABaseAceObject);
 
-  result = @nonobjc SABaseAceObject.init(dictionary:)(v69);
+  result = @nonobjc SABaseAceObject.init(dictionary:)(v64);
   if (result)
   {
-    v70 = result;
+    v65 = result;
     outlined destroy of CustomIntentStateAttachment(__src);
 
-    *(v62 + 32) = v70;
+    *(v57 + 32) = v65;
     NLContextUpdate.conversationStateAttachments.setter();
     INCodableAttribute.disambiguationPromptTargets()();
     NLContextUpdate.weightedPromptResponseTargets.setter();
@@ -5422,9 +912,9 @@ LABEL_51:
   return result;
 }
 
-unint64_t specialized Array.subscript.getter(unint64_t result, uint64_t a2, uint64_t a3)
+void specialized Array.subscript.getter(unint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if ((result & 0x8000000000000000) != 0)
+  if ((a1 & 0x8000000000000000) != 0)
   {
     __break(1u);
 LABEL_9:
@@ -5433,137 +923,129 @@ LABEL_9:
   }
 
   v3 = *(a3 + 16);
-  if (v3 < result || v3 < a2)
+  if (v3 < a1 || v3 < a2)
   {
     goto LABEL_9;
   }
 
   if ((a2 & 0x8000000000000000) == 0)
   {
+
+    return;
   }
 
 LABEL_10:
   __break(1u);
-  return result;
 }
 
 void *CustomIntentNLContextProvider.getOrdinalReference(index:count:selectionItem:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = type metadata accessor for SemanticValue();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v16[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v9 = &v15[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   if (!*(a3 + 16))
   {
     return _swiftEmptyArrayStorage;
   }
 
-  v11 = specialized __RawDictionaryStorage.find<A>(_:)(0x65756C6176, 0xE500000000000000);
-  if ((v12 & 1) == 0)
+  v10 = specialized __RawDictionaryStorage.find<A>(_:)(0x65756C6176, 0xE500000000000000);
+  if ((v11 & 1) == 0)
   {
     return _swiftEmptyArrayStorage;
   }
 
-  outlined init with copy of Any(*(a3 + 56) + 32 * v11, v17);
-  outlined init with take of Any(v17, v18);
+  outlined init with copy of Any(*(a3 + 56) + 32 * v10, v16);
+  outlined init with take of Any(v16, v17);
   type metadata accessor for NSError(0, &lazy cache variable for type metadata for INIntentResolutionResult, INIntentResolutionResult_ptr);
-  static INIntentResolutionResult.makeAsIdString(input:)(v18);
+  static INIntentResolutionResult.makeAsIdString(input:)(v17);
   SemanticValue.init(string:label:)();
-  v13 = static INIntentResolutionResult.inferOrdinalDisplayValues(index:count:)(a1, a2);
-  __chkstk_darwin(v13);
-  *&v16[-16] = v10;
-  v14 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySSG_11SiriKitFlow11DisplayHintVs5NeverOTg5(partial apply for closure #1 in static INIntentResolutionResult.makeOrdinalDisplayHints(idValue:index:count:), &v16[-32], v13);
+  v12 = static INIntentResolutionResult.inferOrdinalDisplayValues(index:count:)(a1, a2);
+  __chkstk_darwin(v12);
+  *&v15[-16] = v9;
+  v13 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySSG_11SiriKitFlow11DisplayHintVs5NeverOTg5(partial apply for closure #1 in static INIntentResolutionResult.makeOrdinalDisplayHints(idValue:index:count:), &v15[-32], v12);
 
-  __swift_destroy_boxed_opaque_existential_1Tm(v18);
-  (*(v7 + 8))(v10, v6);
-  return v14;
+  __swift_destroy_boxed_opaque_existential_1Tm(v17);
+  (*(v7 + 8))(v9, v6);
+  return v13;
 }
 
 uint64_t CustomIntentNLContextProvider.makeContextForSmartPrompt()()
 {
   v0 = type metadata accessor for Siri_Nlu_External_SystemDialogAct();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
   OUTLINED_FUNCTION_3();
-  v5 = v4 - v3;
+  v4 = v3 - v2;
   NLContextUpdate.init()();
   OUTLINED_FUNCTION_4_22();
   NLContextUpdate.weightedPromptTargetDomain.setter();
   NLContextUpdate.currentDomainName.setter();
   NLContextUpdate.weightedPromptStrict.setter();
-  CustomIntentNLContextProvider.buildSDAForSmartPrompt()(v5);
+  CustomIntentNLContextProvider.buildSDAForSmartPrompt()(v4);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriNLUTypes0D29_Nlu_External_SystemDialogActVGMd, &_ss23_ContiguousArrayStorageCy12SiriNLUTypes0D29_Nlu_External_SystemDialogActVGMR);
-  v6 = *(v1 + 72);
-  v7 = (*(v1 + 80) + 32) & ~*(v1 + 80);
-  v8 = swift_allocObject();
-  *(v8 + 16) = xmmword_216850;
-  (*(v1 + 16))(v8 + v7, v5, v0);
+  v5 = (*(v1 + 80) + 32) & ~*(v1 + 80);
+  v6 = swift_allocObject();
+  *(v6 + 16) = xmmword_216850;
+  (*(v1 + 16))(v6 + v5, v4, v0);
   NLContextUpdate.nluSystemDialogActs.setter();
-  return (*(v1 + 8))(v5, v0);
+  return (*(v1 + 8))(v4, v0);
 }
 
 uint64_t CustomIntentNLContextProvider.buildSDAForSmartPrompt()@<X0>(uint64_t a1@<X8>)
 {
-  v40 = a1;
-  v41 = type metadata accessor for Siri_Nlu_External_SystemOffered();
-  v39 = *(v41 - 8);
-  v1 = *(v39 + 64);
-  v2 = __chkstk_darwin(v41);
-  v38 = &v32 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v2);
-  v37 = &v32 - v4;
-  v36 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
-  v32 = *(v36 - 8);
-  v5 = *(v32 + 64);
-  v6 = __chkstk_darwin(v36);
-  v35 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v9 = &v32 - v8;
-  v10 = type metadata accessor for Siri_Nlu_External_UsoGraph();
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8);
-  v12 = type metadata accessor for Siri_Nlu_External_UserStatedTask();
-  v13 = *(v12 - 8);
-  v14 = v13;
-  v33 = v12;
-  v34 = v13;
-  v15 = *(v13 + 64);
-  v16 = __chkstk_darwin(v12);
-  v18 = &v32 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v16);
-  v20 = &v32 - v19;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology41UsoEntity_common_VoiceCommandConfirmationC13DefinedValuesOSgMd, _s12SiriOntology41UsoEntity_common_VoiceCommandConfirmationC13DefinedValuesOSgMR);
-  v22 = *(*(v21 - 8) + 64);
-  __chkstk_darwin(v21 - 8);
-  v24 = &v32 - v23;
+  v34 = a1;
+  v35 = type metadata accessor for Siri_Nlu_External_SystemOffered();
+  v33 = *(v35 - 8);
+  v1 = __chkstk_darwin(v35);
+  v32 = &v26 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v1);
+  v31 = &v26 - v3;
+  v30 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
+  v26 = *(v30 - 8);
+  v4 = __chkstk_darwin(v30);
+  v29 = &v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v4);
+  v7 = &v26 - v6;
+  v8 = type metadata accessor for Siri_Nlu_External_UsoGraph();
+  __chkstk_darwin(v8 - 8);
+  v9 = type metadata accessor for Siri_Nlu_External_UserStatedTask();
+  v10 = *(v9 - 8);
+  v27 = v9;
+  v28 = v10;
+  v11 = __chkstk_darwin(v9);
+  v13 = &v26 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v15 = &v26 - v14;
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology41UsoEntity_common_VoiceCommandConfirmationC13DefinedValuesOSgMd, _s12SiriOntology41UsoEntity_common_VoiceCommandConfirmationC13DefinedValuesOSgMR);
+  __chkstk_darwin(v16 - 8);
+  v18 = &v26 - v17;
   type metadata accessor for UsoTaskBuilder_execute_common_VoiceCommand();
-  v25 = type metadata accessor for UsoEntity_common_VoiceCommandConfirmation.DefinedValues();
-  __swift_storeEnumTagSinglePayload(v24, 1, 1, v25);
-  static UsoTaskBuilder_execute_common_VoiceCommand.smartPromptTaskBuilder(value:)(v24);
-  outlined destroy of String?(v24, &_s12SiriOntology41UsoEntity_common_VoiceCommandConfirmationC13DefinedValuesOSgMd, _s12SiriOntology41UsoEntity_common_VoiceCommandConfirmationC13DefinedValuesOSgMR);
+  v19 = type metadata accessor for UsoEntity_common_VoiceCommandConfirmation.DefinedValues();
+  __swift_storeEnumTagSinglePayload(v18, 1, 1, v19);
+  static UsoTaskBuilder_execute_common_VoiceCommand.smartPromptTaskBuilder(value:)(v18);
+  outlined destroy of String?(v18, &_s12SiriOntology41UsoEntity_common_VoiceCommandConfirmationC13DefinedValuesOSgMd, _s12SiriOntology41UsoEntity_common_VoiceCommandConfirmationC13DefinedValuesOSgMR);
   Siri_Nlu_External_UserStatedTask.init()();
   UsoTaskBuilder.asUsoGraph()();
   Siri_Nlu_External_UserStatedTask.task.setter();
   Siri_Nlu_External_UserDialogAct.init()();
-  (*(v14 + 16))(v18, v20, v12);
+  (*(v10 + 16))(v13, v15, v9);
   Siri_Nlu_External_UserDialogAct.userStatedTask.setter();
-  v26 = v37;
+  v20 = v31;
   Siri_Nlu_External_SystemOffered.init()();
-  v27 = v32;
-  v28 = v36;
-  (*(v32 + 16))(v35, v9, v36);
+  v21 = v26;
+  v22 = v30;
+  (*(v26 + 16))(v29, v7, v30);
   Siri_Nlu_External_SystemOffered.offeredAct.setter();
   Siri_Nlu_External_SystemDialogAct.init()();
-  v29 = v39;
-  v30 = v41;
-  (*(v39 + 16))(v38, v26, v41);
+  v23 = v33;
+  v24 = v35;
+  (*(v33 + 16))(v32, v20, v35);
   Siri_Nlu_External_SystemDialogAct.offered.setter();
 
-  (*(v29 + 8))(v26, v30);
-  (*(v27 + 8))(v9, v28);
-  return (*(v34 + 8))(v20, v33);
+  (*(v23 + 8))(v20, v24);
+  (*(v21 + 8))(v7, v22);
+  return (*(v28 + 8))(v15, v27);
 }
 
 uint64_t WorkflowHomePodSnippetProvider.__deallocating_deinit()
@@ -5707,9 +1189,10 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t 
   }
 
   v6 = a2(*(a1 + 16), 0);
-  v7 = a3(&v9, v6 + 32, v3, a1);
+  v7 = a3(&v10, v6 + 32, v3, a1);
+  v8 = v10;
 
-  outlined consume of Set<String>.Iterator._Variant();
+  outlined consume of Set<String>.Iterator._Variant(v8);
   if (v7 != v3)
   {
     __break(1u);
@@ -5826,22 +1309,12 @@ LABEL_19:
 
 uint64_t objectdestroyTm()
 {
-  v1 = *(v0 + 24);
 
-  v2 = *(v0 + 40);
-
-  v3 = *(v0 + 56);
-
-  return _swift_deallocObject(v0, 72, 7);
+  return _swift_deallocObject(v0);
 }
 
 uint64_t sub_AFE04()
 {
-  v1 = *(v0 + 24);
-
-  v2 = *(v0 + 40);
-
-  v3 = *(v0 + 56);
 
   if (*(v0 + 96))
   {
@@ -5850,10 +1323,9 @@ uint64_t sub_AFE04()
 
   else
   {
-    v4 = *(v0 + 72);
   }
 
-  return _swift_deallocObject(v0, 97, 7);
+  return _swift_deallocObject(v0);
 }
 
 void *OUTLINED_FUNCTION_1_29()
@@ -5869,7 +1341,7 @@ uint64_t static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton
 {
   OUTLINED_FUNCTION_8_0();
   v0[14] = v1;
-  v0[15] = v16;
+  v0[15] = v12;
   v0[12] = v2;
   v0[13] = v3;
   v0[10] = v4;
@@ -5877,13 +1349,11 @@ uint64_t static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton
   v0[8] = v6;
   v0[9] = v7;
   v0[7] = v8;
-  v9 = type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(0);
-  v0[16] = v9;
-  v10 = *(*(v9 - 8) + 64) + 15;
+  v0[16] = type metadata accessor for WorkflowDataModels.CustomIntentErrorModel(0);
   v0[17] = swift_task_alloc();
-  v11 = OUTLINED_FUNCTION_4();
+  v9 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v11, v12, v13);
+  return _swift_task_switch(v9);
 }
 
 {
@@ -5893,71 +1363,62 @@ uint64_t static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton
   v5 = v4;
   OUTLINED_FUNCTION_3_0();
   *v6 = v5;
-  v8 = *(v7 + 144);
-  v9 = *v1;
+  v7 = *v1;
   OUTLINED_FUNCTION_2_0();
-  *v10 = v9;
+  *v8 = v7;
 
   if (v0)
   {
-    v11 = *(v5 + 136);
 
-    v12 = *(v9 + 8);
+    v9 = *(v7 + 8);
 
-    return v12();
+    return v9();
   }
 
   else
   {
     *(v5 + 152) = v3;
 
-    return _swift_task_switch(static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:), 0, 0);
+    return _swift_task_switch(static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:));
   }
 }
 
 {
-  v1 = v0[19];
-  v3 = v0[16];
-  v2 = v0[17];
-  v4 = v0[15];
-  v5 = v0[10];
-  v6 = v0[11];
-  v8 = v0[8];
-  v7 = v0[9];
+  v1 = v0[17];
+  v2 = v0[15];
+  v3 = v0[11];
   type metadata accessor for SAIntentGroupLaunchAppWithIntent();
-  v9 = static SAIntentGroupLaunchAppWithIntent.launchAppWithIntent(app:intent:intentResponse:)();
-  v0[20] = v9;
-  v10 = dispatch thunk of LabelExecutionResult.subscript.getter();
-  v12 = v11;
-  v13 = *(v3 + 20);
-  v14 = v9;
+  v4 = static SAIntentGroupLaunchAppWithIntent.launchAppWithIntent(app:intent:intentResponse:)();
+  v0[20] = v4;
+  v5 = dispatch thunk of LabelExecutionResult.subscript.getter();
+  v7 = v6;
+  v8 = v4;
   CodableAceObject.init(wrappedValue:)();
-  *v2 = v10;
-  v2[1] = v12;
-  v15 = v4[3];
-  v16 = v4[4];
-  __swift_project_boxed_opaque_existential_1(v4, v15);
+  *v1 = v5;
+  v1[1] = v7;
+  v9 = v2[3];
+  v10 = v2[4];
+  __swift_project_boxed_opaque_existential_1(v2, v9);
   v0[5] = type metadata accessor for WorkflowDataModels(0);
   v0[6] = lazy protocol witness table accessor for type WorkflowDataModels and conformance WorkflowDataModels();
   boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v0 + 2);
-  outlined init with copy of WorkflowDataModels.CustomIntentErrorModel(v2, boxed_opaque_existential_1);
+  outlined init with copy of WorkflowDataModels.CustomIntentErrorModel(v1, boxed_opaque_existential_1);
   swift_storeEnumTagMultiPayload();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v18 = swift_allocObject();
-  v0[21] = v18;
-  *(v18 + 16) = xmmword_216010;
-  *(v18 + 32) = v6;
-  v19 = async function pointer to dispatch thunk of ResponseGenerating.makeResponseOutput(conversationModel:dialog:outputGenerationManifest:)[1];
-  v20 = v6;
+  v12 = swift_allocObject();
+  v0[21] = v12;
+  *(v12 + 16) = xmmword_216010;
+  *(v12 + 32) = v3;
+  v13 = v3;
   swift_task_alloc();
   OUTLINED_FUNCTION_20_0();
-  v0[22] = v21;
-  *v21 = v22;
-  v21[1] = static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:);
-  v23 = v0[14];
-  v24 = v0[7];
+  v0[22] = v14;
+  *v14 = v15;
+  v14[1] = static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:);
+  v16 = v0[14];
+  v17 = v0[7];
 
-  return dispatch thunk of ResponseGenerating.makeResponseOutput(conversationModel:dialog:outputGenerationManifest:)(v24, v0 + 2, v18, v23, v15, v16);
+  return dispatch thunk of ResponseGenerating.makeResponseOutput(conversationModel:dialog:outputGenerationManifest:)(v17, v0 + 2, v12, v16, v9, v10);
 }
 
 {
@@ -5966,91 +1427,76 @@ uint64_t static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton
   v2 = v1;
   OUTLINED_FUNCTION_3_0();
   *v3 = v2;
-  v5 = *(v4 + 176);
-  v6 = *(v4 + 168);
-  v7 = *v0;
+  v4 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v8 = v7;
+  *v5 = v4;
 
   __swift_destroy_boxed_opaque_existential_1Tm((v2 + 16));
-  v9 = OUTLINED_FUNCTION_4();
+  v6 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v9, v10, v11);
+  return _swift_task_switch(v6);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = v0[19];
-  v2 = v0[20];
-  v3 = v0[17];
+  v1 = *(v0 + 160);
+  v2 = *(v0 + 136);
 
-  outlined destroy of WorkflowDataModels.CustomIntentErrorModel(v3);
-  v4 = v0[17];
+  outlined destroy of WorkflowDataModels.CustomIntentErrorModel(v2);
 
   OUTLINED_FUNCTION_6_0();
 
-  return v5();
+  return v3();
 }
 
 {
   OUTLINED_FUNCTION_12_0();
   v1 = *v0;
-  v2 = *(*v0 + 192);
-  v3 = *(*v0 + 184);
-  v4 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v5 = v4;
+  *v2 = v1;
 
-  v6 = *(v1 + 136);
+  v3 = *(v1 + 8);
 
-  v7 = *(v4 + 8);
-
-  return v7();
+  return v3();
 }
 
 uint64_t static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
-  v13 = *(v12 + 96);
-  v14 = v13[4];
-  __swift_project_boxed_opaque_existential_1(v13, v13[3]);
+  __swift_project_boxed_opaque_existential_1(*(v12 + 96), *(*(v12 + 96) + 24));
   if (dispatch thunk of DeviceState.isHomePod.getter())
   {
-    v15 = *(v12 + 120);
-    v16 = *(v12 + 88);
-    v17 = v15[3];
-    v18 = v15[4];
-    __swift_project_boxed_opaque_existential_1(v15, v17);
+    v13 = *(v12 + 120);
+    v14 = *(v12 + 88);
+    v15 = v13[3];
+    v16 = v13[4];
+    __swift_project_boxed_opaque_existential_1(v13, v15);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-    v19 = swift_allocObject();
-    *(v12 + 184) = v19;
-    *(v19 + 16) = xmmword_216010;
-    *(v19 + 32) = v16;
-    v20 = async function pointer to dispatch thunk of ResponseGenerating.makeResponseOutput(dialog:outputGenerationManifest:)[1];
-    v21 = v16;
+    v17 = swift_allocObject();
+    *(v12 + 184) = v17;
+    *(v17 + 16) = xmmword_216010;
+    *(v17 + 32) = v14;
+    v18 = v14;
     swift_task_alloc();
     OUTLINED_FUNCTION_20_0();
-    *(v12 + 192) = v25;
-    *v25 = v26;
-    v25[1] = static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:);
-    v27 = *(v12 + 112);
-    v28 = *(v12 + 56);
+    *(v12 + 192) = v22;
+    *v22 = v23;
+    v22[1] = static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:);
+    v24 = *(v12 + 112);
+    v25 = *(v12 + 56);
 
-    return dispatch thunk of ResponseGenerating.makeResponseOutput(dialog:outputGenerationManifest:)(v28, v19, v27, v17, v18, v22, v23, v24, a9, a10, a11, a12);
+    return dispatch thunk of ResponseGenerating.makeResponseOutput(dialog:outputGenerationManifest:)(v25, v17, v24, v15, v16, v19, v20, v21, a9, a10, a11, a12);
   }
 
   else
   {
-    v29 = *(**(v12 + 104) + 232);
-    v35 = (v29 + *v29);
-    v30 = v29[1];
-    v31 = swift_task_alloc();
-    *(v12 + 144) = v31;
-    *v31 = v12;
-    v31[1] = static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:);
-    v32 = *(v12 + 104);
-    v33 = *(v12 + 64);
+    v29 = (*(**(v12 + 104) + 232) + **(**(v12 + 104) + 232));
+    v26 = swift_task_alloc();
+    *(v12 + 144) = v26;
+    *v26 = v12;
+    v26[1] = static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:);
+    v27 = *(v12 + 64);
 
-    return v35(v33);
+    return v29(v27);
   }
 }
 
@@ -6067,37 +1513,27 @@ unint64_t type metadata accessor for SAIntentGroupLaunchAppWithIntent()
   return result;
 }
 
-void *CustomIntentResponseGenerator.init(voiceCommandName:siriEnvironment:deviceState:catWrapper:catWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:continueInAppCATWrapperSimple:responseFactory:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void *CustomIntentResponseGenerator.init(voiceCommandName:siriEnvironment:deviceState:catWrapper:catWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:continueInAppCATWrapperSimple:responseFactory:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
   OUTLINED_FUNCTION_21_5(a1, a2, a3, a4, a5, a6, a7, a8);
   v11 = a10[3];
   v12 = a10[4];
   __swift_mutable_project_boxed_opaque_existential_1(a10, v11);
   OUTLINED_FUNCTION_13_1();
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v15);
+  __chkstk_darwin(v13);
   OUTLINED_FUNCTION_3();
-  v18 = v17 - v16;
-  v20 = (*(v19 + 16))(v17 - v16);
-  v28 = OUTLINED_FUNCTION_8_19(v20, v21, v22, v23, v24, v25, v26, v27, a9, v18, v10, v11, v12);
+  v16 = v15 - v14;
+  v18 = (*(v17 + 16))(v15 - v14);
+  v26 = OUTLINED_FUNCTION_8_19(v18, v19, v20, v21, v22, v23, v24, v25, a9, v16, v10, v11, v12);
   __swift_destroy_boxed_opaque_existential_1Tm(a10);
-  return v28;
+  return v26;
 }
 
-uint64_t *CustomIntentResponseGenerator.deinit()
+void *CustomIntentResponseGenerator.deinit()
 {
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-  v1 = v0[7];
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
 
-  v2 = v0[8];
-
-  v3 = v0[9];
-
-  v4 = v0[11];
-
-  v5 = v0[12];
-
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 13);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 104));
   return v0;
 }
 
@@ -6112,35 +1548,29 @@ uint64_t CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentRespon
   v1[14] = *v0;
   v6 = type metadata accessor for DialogPhase();
   v1[15] = v6;
-  v7 = *(v6 - 8);
-  v1[16] = v7;
-  v8 = *(v7 + 64) + 15;
+  v1[16] = *(v6 - 8);
   v1[17] = swift_task_alloc();
   v1[18] = swift_task_alloc();
-  v9 = type metadata accessor for OutputGenerationManifest();
-  v1[19] = v9;
-  v10 = *(v9 - 8);
-  v1[20] = v10;
-  v11 = *(v10 + 64) + 15;
+  v7 = type metadata accessor for OutputGenerationManifest();
+  v1[19] = v7;
+  v1[20] = *(v7 - 8);
   v1[21] = swift_task_alloc();
-  v12 = OUTLINED_FUNCTION_4();
+  v8 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v12, v13, v14);
+  return _swift_task_switch(v8);
 }
 
 {
   OUTLINED_FUNCTION_12_0();
   v1 = *(v0[13] + 56);
   v0[22] = v1;
-  v2 = *(*v1 + 168);
-  v6 = (v2 + *v2);
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  v0[23] = v4;
-  *v4 = v0;
-  v4[1] = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
+  v4 = (*(*v1 + 168) + **(*v1 + 168));
+  v2 = swift_task_alloc();
+  v0[23] = v2;
+  *v2 = v0;
+  v2[1] = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
 
-  return v6();
+  return v4();
 }
 
 {
@@ -6149,118 +1579,99 @@ uint64_t CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentRespon
   v3 = v2;
   OUTLINED_FUNCTION_3_0();
   *v4 = v3;
-  v6 = *(v5 + 184);
   *v4 = *v1;
-  v3[24] = v7;
+  *(v3 + 192) = v5;
 
   if (v0)
   {
-    v8 = v3[21];
-    v11 = v3 + 17;
-    v9 = v3[17];
-    v10 = v11[1];
 
     OUTLINED_FUNCTION_6_0();
 
-    return v12();
+    return v6();
   }
 
   else
   {
 
-    return _swift_task_switch(CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:), 0, 0);
+    return _swift_task_switch(CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:));
   }
 }
 
 {
   v1 = v0[24];
-  v2 = v0[21];
-  v4 = v0[17];
-  v3 = v0[18];
-  v6 = v0[15];
-  v5 = v0[16];
-  v7 = v0[13];
-  v39 = v0[11];
-  v41 = v0[10];
+  v3 = v0[17];
+  v2 = v0[18];
+  v5 = v0[15];
+  v4 = v0[16];
+  v6 = v0[13];
+  v25 = v0[11];
   static DialogPhase.completion.getter();
-  v8 = [v1 catId];
+  v7 = [v1 catId];
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
-  (*(v5 + 16))(v4, v3, v6);
+  (*(v4 + 16))(v3, v2, v5);
   OutputGenerationManifest.init(dialogPhase:_:)();
   OutputGenerationManifest.responseViewId.setter();
-  (*(v5 + 8))(v3, v6);
+  (*(v4 + 8))(v2, v5);
   OutputGenerationManifest.listenAfterSpeaking.setter();
-  (*(*v7 + 160))(v39);
+  (*(*v6 + 160))(v25);
   OutputGenerationManifest.canUseServerTTS.setter();
   type metadata accessor for AppNameResolver();
   swift_initStackObject();
-  v9 = static SAAppInfoFactory.createAppInfo(app:)();
-  v10 = AppNameResolver.resolveAppNameWithAppInfo(appInfo:)(v9);
-  v12 = v11;
+  v8 = static SAAppInfoFactory.createAppInfo(app:)();
+  v9 = AppNameResolver.resolveAppNameWithAppInfo(appInfo:)(v8);
+  v11 = v10;
 
-  if ((v12 & 0x2000000000000000) != 0)
+  if ((v11 & 0x2000000000000000) != 0)
   {
-    v13 = HIBYTE(v12) & 0xF;
+    v12 = HIBYTE(v11) & 0xF;
   }
 
   else
   {
-    v13 = v10 & 0xFFFFFFFFFFFFLL;
+    v12 = v9 & 0xFFFFFFFFFFFFLL;
   }
 
   OUTLINED_FUNCTION_19_9();
-  if ((dispatch thunk of DeviceState.isPhone.getter() & 1) != 0 || (OUTLINED_FUNCTION_19_9(), (dispatch thunk of DeviceState.isPad.getter())) && v13)
+  if ((dispatch thunk of DeviceState.isPhone.getter() & 1) != 0 || (OUTLINED_FUNCTION_19_9(), (dispatch thunk of DeviceState.isPad.getter())) && v12)
   {
-    v14 = type metadata accessor for ResponseFactory();
-    v15 = *(v14 + 48);
-    v16 = *(v14 + 52);
+    v13 = type metadata accessor for ResponseFactory();
     swift_allocObject();
-    v17 = ResponseFactory.init()();
-    v0[5] = v14;
+    v14 = ResponseFactory.init()();
+    v0[5] = v13;
     v0[6] = &protocol witness table for ResponseFactory;
-    v0[2] = v17;
+    v0[2] = v14;
     swift_task_alloc();
     OUTLINED_FUNCTION_20_0();
-    v0[25] = v18;
-    *v18 = v19;
-    v18[1] = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
-    v20 = v0[24];
-    v22 = v0[21];
-    v21 = v0[22];
-    v23 = v0[11];
-    v24 = v0[12];
-    v25 = v0[9];
-    v26 = v0[10];
+    v0[25] = v15;
+    *v15 = v16;
+    v15[1] = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
 
     return static CustomIntentResponseGenerator.processPunchoutWithDialogAndButton(app:intent:intentResponse:dialogResult:deviceState:dialogTemplating:outputManifest:responseFactory:)();
   }
 
   else
   {
-    v28 = v0[24];
-    v29 = type metadata accessor for ResponseFactory();
-    v30 = *(v29 + 48);
-    v31 = *(v29 + 52);
+    v18 = v0[24];
+    type metadata accessor for ResponseFactory();
     swift_allocObject();
     v0[27] = ResponseFactory.init()();
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-    v32 = swift_allocObject();
-    v0[28] = v32;
-    *(v32 + 16) = xmmword_216010;
-    *(v32 + 32) = v28;
-    v33 = *(&async function pointer to dispatch thunk of ResponseFactory.makeResponseOutput(dialog:outputGenerationManifest:) + 1);
-    v42 = (&async function pointer to dispatch thunk of ResponseFactory.makeResponseOutput(dialog:outputGenerationManifest:) + async function pointer to dispatch thunk of ResponseFactory.makeResponseOutput(dialog:outputGenerationManifest:));
-    v34 = v28;
+    v19 = swift_allocObject();
+    v0[28] = v19;
+    *(v19 + 16) = xmmword_216010;
+    *(v19 + 32) = v18;
+    v27 = (&async function pointer to dispatch thunk of ResponseFactory.makeResponseOutput(dialog:outputGenerationManifest:) + async function pointer to dispatch thunk of ResponseFactory.makeResponseOutput(dialog:outputGenerationManifest:));
+    v20 = v18;
     swift_task_alloc();
     OUTLINED_FUNCTION_20_0();
-    v0[29] = v35;
-    *v35 = v36;
-    v35[1] = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
-    v37 = v0[21];
-    v38 = v0[9];
+    v0[29] = v21;
+    *v21 = v22;
+    v21[1] = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
+    v23 = v0[21];
+    v24 = v0[9];
 
-    return v42(v38, v32, v37);
+    return v27(v24, v19, v23);
   }
 }
 
@@ -6270,53 +1681,47 @@ uint64_t CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentRespon
   v3 = v2;
   OUTLINED_FUNCTION_3_0();
   *v4 = v3;
-  v6 = *(v5 + 200);
-  v7 = *v1;
+  v5 = *v1;
   OUTLINED_FUNCTION_2_0();
-  *v8 = v7;
+  *v6 = v5;
   *(v3 + 208) = v0;
 
   __swift_destroy_boxed_opaque_existential_1Tm((v3 + 16));
   if (v0)
   {
-    v9 = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
+    v7 = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
   }
 
   else
   {
-    v9 = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
+    v7 = CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentResponse:);
   }
 
-  return _swift_task_switch(v9, 0, 0);
+  return _swift_task_switch(v7);
 }
 
 {
   v2 = *(v0 + 160);
   v1 = *(v0 + 168);
-  v4 = *(v0 + 144);
   v3 = *(v0 + 152);
-  v5 = *(v0 + 136);
 
   (*(v2 + 8))(v1, v3);
 
   OUTLINED_FUNCTION_6_0();
 
-  return v6();
+  return v4();
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = v1[29];
-  v3 = v1[28];
-  v4 = v1[27];
-  v5 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v6 = v5;
+  *v2 = v1;
 
-  v7 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v7, v8, v9);
+  return _swift_task_switch(v3);
 }
 
 {
@@ -6326,14 +1731,10 @@ uint64_t CustomIntentResponseGenerator.makeErrorResponse(app:intent:intentRespon
   v3 = *(v0 + 152);
 
   (*(v2 + 8))(v1, v3);
-  v4 = *(v0 + 208);
-  v5 = *(v0 + 168);
-  v7 = *(v0 + 136);
-  v6 = *(v0 + 144);
 
   OUTLINED_FUNCTION_6_0();
 
-  return v8();
+  return v4();
 }
 
 uint64_t CustomIntentResponseGenerator.makeDomainFlowActivity(activityType:intent:)()
@@ -6341,19 +1742,16 @@ uint64_t CustomIntentResponseGenerator.makeDomainFlowActivity(activityType:inten
   OUTLINED_FUNCTION_10_19();
   type metadata accessor for ActivityType();
   OUTLINED_FUNCTION_13_1();
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v5);
+  __chkstk_darwin(v3);
   OUTLINED_FUNCTION_3();
-  v8 = v7 - v6;
-  (*(v9 + 16))(v7 - v6, v2);
-  v10 = CustomIntentResponseGenerator.shortcutsActionsFromIntent(intent:)(v0);
-  v11 = *(v1 + 72);
-  v12 = type metadata accessor for ShortcutsFlowActivity();
-  v13 = *(v12 + 48);
-  v14 = *(v12 + 52);
+  v6 = v5 - v4;
+  (*(v7 + 16))(v5 - v4, v2);
+  v8 = CustomIntentResponseGenerator.shortcutsActionsFromIntent(intent:)(v0);
+  v9 = *(v1 + 72);
+  type metadata accessor for ShortcutsFlowActivity(0);
   swift_allocObject();
 
-  return ShortcutsFlowActivity.init(activityType:underlyingActions:siriEnvironment:)(v8, v10, v11);
+  return ShortcutsFlowActivity.init(activityType:underlyingActions:siriEnvironment:)(v6, v8, v9);
 }
 
 void *CustomIntentResponseGenerator.shortcutsActionsFromIntent(intent:)(void *a1)
@@ -6389,15 +1787,7 @@ void *CustomIntentResponseGenerator.shortcutsActionsFromIntent(intent:)(void *a1
   return v7;
 }
 
-uint64_t CustomIntentResponseGenerator.voiceCommandName.getter()
-{
-  v1 = *(v0 + 80);
-  v2 = *(v0 + 88);
-
-  return OUTLINED_FUNCTION_22();
-}
-
-void *CustomIntentResponseGenerator.__allocating_init(voiceCommandName:siriEnvironment:deviceState:catWrapper:catWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:continueInAppCATWrapperSimple:responseFactory:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void *CustomIntentResponseGenerator.__allocating_init(voiceCommandName:siriEnvironment:deviceState:catWrapper:catWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:continueInAppCATWrapperSimple:responseFactory:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10)
 {
   OUTLINED_FUNCTION_21_5(a1, a2, a3, a4, a5, a6, a7, a8);
   v10 = swift_allocObject();
@@ -6405,14 +1795,13 @@ void *CustomIntentResponseGenerator.__allocating_init(voiceCommandName:siriEnvir
   v12 = a10[4];
   __swift_mutable_project_boxed_opaque_existential_1(a10, v11);
   OUTLINED_FUNCTION_13_1();
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v15);
+  __chkstk_darwin(v13);
   OUTLINED_FUNCTION_3();
-  v18 = v17 - v16;
-  v20 = (*(v19 + 16))(v17 - v16);
-  v28 = OUTLINED_FUNCTION_8_19(v20, v21, v22, v23, v24, v25, v26, v27, a9, v18, v10, v11, v12);
+  v16 = v15 - v14;
+  v18 = (*(v17 + 16))(v15 - v14);
+  v26 = OUTLINED_FUNCTION_8_19(v18, v19, v20, v21, v22, v23, v24, v25, a9, v16, v10, v11, v12);
   __swift_destroy_boxed_opaque_existential_1Tm(a10);
-  return v28;
+  return v26;
 }
 
 uint64_t ShortcutsFlowActivity.__allocating_init(activityType:underlyingActions:siriEnvironment:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6444,11 +1833,11 @@ Swift::Int WorkflowDialogTemplatingError.hashValue.getter(char a1)
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CustomIntentResponseGenerator.CustomIntentResponseGeneratorErrors()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CustomIntentResponseGenerator.CustomIntentResponseGeneratorErrors(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  WorkflowDialogTemplatingError.hash(into:)(v3, v1);
+  WorkflowDialogTemplatingError.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -6462,7 +1851,6 @@ uint64_t CustomIntentResponseGenerator.__deallocating_deinit()
 uint64_t ShortcutsAction.appId.setter()
 {
   OUTLINED_FUNCTION_10_19();
-  v3 = v1[1];
 
   *v1 = v2;
   v1[1] = v0;
@@ -6472,7 +1860,6 @@ uint64_t ShortcutsAction.appId.setter()
 uint64_t ShortcutsAction.intentCategory.setter()
 {
   OUTLINED_FUNCTION_10_19();
-  v3 = *(v1 + 24);
 
   *(v1 + 16) = v2;
   *(v1 + 24) = v0;
@@ -6482,7 +1869,6 @@ uint64_t ShortcutsAction.intentCategory.setter()
 uint64_t ShortcutsAction.intentName.setter()
 {
   OUTLINED_FUNCTION_10_19();
-  v3 = *(v1 + 40);
 
   *(v1 + 32) = v2;
   *(v1 + 40) = v0;
@@ -6572,41 +1958,34 @@ uint64_t ShortcutsAction.encode(to:)(void *a1)
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy18SiriLinkFlowPlugin15ShortcutsActionV10CodingKeys33_949AFA5D1C3E271C634B275408B2B1FELLOGMd, &_ss22KeyedEncodingContainerVy18SiriLinkFlowPlugin15ShortcutsActionV10CodingKeys33_949AFA5D1C3E271C634B275408B2B1FELLOGMR);
   OUTLINED_FUNCTION_13_1();
   v7 = v6;
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v10);
-  v12 = &v21[-v11];
-  v13 = a1[4];
+  __chkstk_darwin(v8);
+  v10 = &v15[-v9];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type ShortcutsAction.CodingKeys and conformance ShortcutsAction.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v14 = *v3;
-  v15 = v3[1];
-  v21[15] = 0;
-  OUTLINED_FUNCTION_12_16();
+  v11 = *v3;
+  v15[15] = 0;
+  OUTLINED_FUNCTION_12_16(v11);
   if (!v2)
   {
-    v16 = v3[2];
-    v17 = v3[3];
-    v21[14] = 1;
-    OUTLINED_FUNCTION_12_16();
-    v18 = v3[4];
-    v19 = v3[5];
-    v21[13] = 2;
-    OUTLINED_FUNCTION_12_16();
+    v12 = v3[2];
+    v15[14] = 1;
+    OUTLINED_FUNCTION_12_16(v12);
+    v13 = v3[4];
+    v15[13] = 2;
+    OUTLINED_FUNCTION_12_16(v13);
   }
 
-  return (*(v7 + 8))(v12, v5);
+  return (*(v7 + 8))(v10, v5);
 }
 
-uint64_t ShortcutsAction.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t ShortcutsAction.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy18SiriLinkFlowPlugin15ShortcutsActionV10CodingKeys33_949AFA5D1C3E271C634B275408B2B1FELLOGMd, &_ss22KeyedDecodingContainerVy18SiriLinkFlowPlugin15ShortcutsActionV10CodingKeys33_949AFA5D1C3E271C634B275408B2B1FELLOGMR);
   OUTLINED_FUNCTION_13_1();
   v7 = v6;
-  v9 = *(v8 + 64);
-  __chkstk_darwin(v10);
-  v12 = &v24 - v11;
-  v13 = a1[4];
+  __chkstk_darwin(v8);
+  v10 = &v21 - v9;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type ShortcutsAction.CodingKeys and conformance ShortcutsAction.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -6615,30 +1994,30 @@ uint64_t ShortcutsAction.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
     return __swift_destroy_boxed_opaque_existential_1Tm(a1);
   }
 
-  v30 = 0;
+  v27 = 0;
+  v11 = KeyedDecodingContainer.decode(_:forKey:)();
+  v24 = v12;
+  v26 = 1;
+  v22 = KeyedDecodingContainer.decode(_:forKey:)();
+  v23 = v13;
+  v25 = 2;
   v14 = KeyedDecodingContainer.decode(_:forKey:)();
-  v27 = v15;
-  v29 = 1;
-  v25 = KeyedDecodingContainer.decode(_:forKey:)();
-  v26 = v16;
-  v28 = 2;
-  v17 = KeyedDecodingContainer.decode(_:forKey:)();
-  v18 = v12;
-  v20 = v19;
-  (*(v7 + 8))(v18, v5);
+  v15 = v10;
+  v17 = v16;
+  (*(v7 + 8))(v15, v5);
   result = __swift_destroy_boxed_opaque_existential_1Tm(a1);
-  v22 = v27;
-  *a2 = v14;
-  a2[1] = v22;
-  v23 = v26;
-  a2[2] = v25;
-  a2[3] = v23;
-  a2[4] = v17;
-  a2[5] = v20;
+  v19 = v24;
+  *a2 = v11;
+  a2[1] = v19;
+  v20 = v23;
+  a2[2] = v22;
+  a2[3] = v20;
+  a2[4] = v14;
+  a2[5] = v17;
   return result;
 }
 
-double protocol witness for Decodable.init(from:) in conformance ShortcutsAction@<D0>(uint64_t *a1@<X0>, _OWORD *a2@<X8>)
+double protocol witness for Decodable.init(from:) in conformance ShortcutsAction@<D0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
   ShortcutsAction.init(from:)(a1, v6);
   if (!v2)
@@ -6653,26 +2032,24 @@ double protocol witness for Decodable.init(from:) in conformance ShortcutsAction
   return result;
 }
 
-uint64_t key path setter for ShortcutsFlowActivity.underlyingActions : ShortcutsFlowActivity(uint64_t *a1, void **a2)
+uint64_t key path setter for ShortcutsFlowActivity.underlyingActions : ShortcutsFlowActivity(void *a1, void **a2)
 {
-  v2 = *a1;
-  v3 = *(**a2 + class metadata base offset for ShortcutsFlowActivity + 16);
+  v2 = *(**a2 + class metadata base offset for ShortcutsFlowActivity + 16);
 
-  return v3(v4);
+  return v2(v3);
 }
 
-uint64_t ShortcutsFlowActivity.underlyingActions.getter()
+double ShortcutsFlowActivity.underlyingActions.getter()
 {
-  v1 = direct field offset for ShortcutsFlowActivity.underlyingActions;
   swift_beginAccess();
-  v2 = *(v0 + v1);
+
+  return result;
 }
 
 uint64_t ShortcutsFlowActivity.underlyingActions.setter(uint64_t a1)
 {
   v3 = direct field offset for ShortcutsFlowActivity.underlyingActions;
   swift_beginAccess();
-  v4 = *(v1 + v3);
   *(v1 + v3) = a1;
 }
 
@@ -6680,9 +2057,8 @@ uint64_t ShortcutsFlowActivity.init(activityType:underlyingActions:siriEnvironme
 {
   OUTLINED_FUNCTION_10_19();
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
+  v9 = &v15 - v8;
   *(v4 + direct field offset for ShortcutsFlowActivity.underlyingActions) = _swiftEmptyArrayStorage;
   ActivityType.rawValue.getter();
   if (a3)
@@ -6693,30 +2069,29 @@ uint64_t ShortcutsFlowActivity.init(activityType:underlyingActions:siriEnvironme
 
     dispatch thunk of FlowTaskProvider.creationTime.getter();
 
-    v11 = type metadata accessor for Date();
-    if (__swift_getEnumTagSinglePayload(v10, 1, v11) == 1)
+    v10 = type metadata accessor for Date();
+    if (__swift_getEnumTagSinglePayload(v9, 1, v10) == 1)
     {
-      outlined destroy of Date?(v10);
+      outlined destroy of Date?(v9);
     }
 
     else
     {
       Date.timeIntervalSince1970.getter();
-      OUTLINED_FUNCTION_21_2(v11);
-      (*(v12 + 8))(v10, v11);
+      OUTLINED_FUNCTION_21_2();
+      (*(v11 + 8))(v9, v10);
     }
   }
 
   DefaultFlowActivity.init(activityName:activityType:activityStartTime:)();
   OUTLINED_FUNCTION_14_13();
 
-  v13 = type metadata accessor for ActivityType();
-  OUTLINED_FUNCTION_21_2(v13);
-  (*(v14 + 8))(v5);
-  v15 = direct field offset for ShortcutsFlowActivity.underlyingActions;
+  type metadata accessor for ActivityType();
+  OUTLINED_FUNCTION_21_2();
+  (*(v12 + 8))(v5);
+  v13 = direct field offset for ShortcutsFlowActivity.underlyingActions;
   swift_beginAccess();
-  v16 = *(v4 + v15);
-  *(v4 + v15) = v3;
+  *(v4 + v13) = v3;
 
   return v4;
 }
@@ -6729,7 +2104,7 @@ uint64_t ShortcutsFlowActivity.__allocating_init(from:)()
   return ShortcutsFlowActivity.init(from:)(v0);
 }
 
-uint64_t ShortcutsFlowActivity.init(from:)(uint64_t *a1)
+uint64_t ShortcutsFlowActivity.init(from:)(void *a1)
 {
   *(v1 + direct field offset for ShortcutsFlowActivity.underlyingActions) = _swiftEmptyArrayStorage;
   outlined init with copy of DeviceState(a1, v5);
@@ -6741,24 +2116,23 @@ uint64_t ShortcutsFlowActivity.init(from:)(uint64_t *a1)
 uint64_t ShortcutsFlowActivity.deinit()
 {
   v0 = DefaultFlowActivity.deinit();
-  v1 = *(v0 + direct field offset for ShortcutsFlowActivity.underlyingActions);
 
   return v0;
 }
 
 uint64_t ShortcutsFlowActivity.__deallocating_deinit()
 {
-  v0 = *(DefaultFlowActivity.deinit() + direct field offset for ShortcutsFlowActivity.underlyingActions);
+  DefaultFlowActivity.deinit();
 
   return swift_deallocClassInstance();
 }
 
-void *specialized CustomIntentResponseGenerator.init(voiceCommandName:siriEnvironment:deviceState:catWrapper:catWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:continueInAppCATWrapperSimple:responseFactory:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13)
+void *specialized CustomIntentResponseGenerator.init(voiceCommandName:siriEnvironment:deviceState:catWrapper:catWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:continueInAppCATWrapperSimple:responseFactory:)(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13)
 {
   v30[3] = a12;
   v30[4] = a13;
   __swift_allocate_boxed_opaque_existential_1(v30);
-  OUTLINED_FUNCTION_21_2(a12);
+  OUTLINED_FUNCTION_21_2();
   (*(v19 + 32))();
   a11[10] = a1;
   a11[11] = a2;
@@ -6801,7 +2175,7 @@ void *specialized CustomIntentResponseGenerator.init(voiceCommandName:siriEnviro
   return a11;
 }
 
-uint64_t type metadata accessor for ShortcutsFlowActivity()
+uint64_t type metadata accessor for ShortcutsFlowActivity(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ShortcutsFlowActivity;
   if (!type metadata singleton initialization cache for ShortcutsFlowActivity)
@@ -7078,17 +2452,10 @@ void *OUTLINED_FUNCTION_8_19(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
   return specialized CustomIntentResponseGenerator.init(voiceCommandName:siriEnvironment:deviceState:catWrapper:catWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:continueInAppCATWrapperSimple:responseFactory:)(v16, v15, v14, v13, v19, v20, v21, v22, a9, a10, a11, a12, a13);
 }
 
-uint64_t OUTLINED_FUNCTION_12_16()
+uint64_t OUTLINED_FUNCTION_12_16(uint64_t a1)
 {
 
   return KeyedEncodingContainer.encode(_:forKey:)();
-}
-
-uint64_t OUTLINED_FUNCTION_15_14()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  return v0;
 }
 
 uint64_t OUTLINED_FUNCTION_19_9()
@@ -7203,68 +2570,65 @@ LABEL_27:
 INPerson __swiftcall Contact.toINPerson()()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s13SiriInference13ContactHandleVSgMd, &_s13SiriInference13ContactHandleVSgMR);
-  v1 = *(*(v0 - 8) + 64);
   __chkstk_darwin(v0 - 8);
-  v38 = v37 - v2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
-  v4 = *(*(v3 - 8) + 64);
-  __chkstk_darwin(v3 - 8);
-  v6 = v37 - v5;
-  v7 = type metadata accessor for PersonNameComponents();
-  v39 = *(v7 - 8);
-  v8 = *(v39 + 64);
-  __chkstk_darwin(v7);
-  v10 = v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = Contact.namePrefix.getter();
-  v37[5] = v12;
-  v37[6] = v11;
-  v13 = Contact.givenName.getter();
-  v37[3] = v14;
-  v37[4] = v13;
-  v15 = Contact.middleName.getter();
-  v37[1] = v16;
-  v37[2] = v15;
+  v35 = v34 - v1;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation20PersonNameComponentsVSgMd, &_s10Foundation20PersonNameComponentsVSgMR);
+  __chkstk_darwin(v2 - 8);
+  v4 = v34 - v3;
+  v5 = type metadata accessor for PersonNameComponents();
+  v36 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v7 = v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = Contact.namePrefix.getter();
+  v34[5] = v9;
+  v34[6] = v8;
+  v10 = Contact.givenName.getter();
+  v34[3] = v11;
+  v34[4] = v10;
+  v12 = Contact.middleName.getter();
+  v34[1] = v13;
+  v34[2] = v12;
   Contact.familyName.getter();
   Contact.nameSuffix.getter();
   Contact.nickname.getter();
-  v40 = v7;
-  __swift_storeEnumTagSinglePayload(v6, 1, 1, v7);
-  v17 = v6;
-  v18 = v38;
-  v19 = v10;
+  v37 = v5;
+  __swift_storeEnumTagSinglePayload(v4, 1, 1, v5);
+  v14 = v4;
+  v15 = v35;
+  v16 = v7;
   PersonNameComponents.init(namePrefix:givenName:middleName:familyName:nameSuffix:nickname:phoneticRepresentation:)();
-  v20 = Contact.handles.getter();
-  specialized Collection.first.getter(v20, v18);
+  v17 = Contact.handles.getter();
+  specialized Collection.first.getter(v17, v15);
 
-  v21 = type metadata accessor for ContactHandle();
-  if (__swift_getEnumTagSinglePayload(v18, 1, v21) == 1)
+  v18 = type metadata accessor for ContactHandle();
+  if (__swift_getEnumTagSinglePayload(v15, 1, v18) == 1)
   {
-    outlined destroy of ContactHandle?(v18);
-    v22 = 0;
-    v23 = 0;
+    outlined destroy of ContactHandle?(v15);
+    v19 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v22 = ContactHandle.value.getter();
-    v23 = v24;
-    (*(*(v21 - 8) + 8))(v18, v21);
+    v19 = ContactHandle.value.getter();
+    v20 = v21;
+    (*(*(v18 - 8) + 8))(v15, v18);
   }
 
-  v25 = objc_allocWithZone(INPersonHandle);
-  v26 = @nonobjc INPersonHandle.init(value:type:)(v22, v23, 0);
-  v27 = v39;
-  v28 = v17;
-  v29 = v17;
-  v30 = v40;
-  (*(v39 + 16))(v29, v19, v40);
-  __swift_storeEnumTagSinglePayload(v28, 0, 1, v30);
-  v31 = Contact.id.getter();
-  v33 = v32;
-  v34 = objc_allocWithZone(INPerson);
-  v35 = @nonobjc INPerson.init(personHandle:nameComponents:displayName:image:contactIdentifier:customIdentifier:)(v26, v28, 0, 0, 0, v31, v33, 0, 0);
-  (*(v27 + 8))(v19, v30);
-  return v35;
+  v22 = objc_allocWithZone(INPersonHandle);
+  v23 = @nonobjc INPersonHandle.init(value:type:)(v19, v20, 0);
+  v24 = v36;
+  v25 = v14;
+  v26 = v14;
+  v27 = v37;
+  (*(v36 + 16))(v26, v16, v37);
+  __swift_storeEnumTagSinglePayload(v25, 0, 1, v27);
+  v28 = Contact.id.getter();
+  v30 = v29;
+  v31 = objc_allocWithZone(INPerson);
+  v32 = @nonobjc INPerson.init(personHandle:nameComponents:displayName:image:contactIdentifier:customIdentifier:)(v23, v25, 0, 0, 0, v28, v30, 0, 0);
+  (*(v24 + 8))(v16, v27);
+  return v32;
 }
 
 uint64_t outlined destroy of ContactHandle?(uint64_t a1)
@@ -7351,7 +2715,7 @@ uint64_t DeviceState.asSiriKitDeviceState()(uint64_t a1, uint64_t a2)
   return SirikitDeviceState.__allocating_init(from:)();
 }
 
-uint64_t DeviceState.asWFSiriRunSource()()
+uint64_t DeviceState.asWFSiriRunSource()(uint64_t a1, uint64_t a2)
 {
   if (dispatch thunk of DeviceState.isHomePod.getter())
   {
@@ -7376,7 +2740,7 @@ uint64_t DeviceState.asWFSiriRunSource()()
   }
 }
 
-uint64_t DeviceState.currentDevice.getter()
+uint64_t DeviceState.currentDevice.getter(uint64_t a1, uint64_t a2)
 {
   if (dispatch thunk of DeviceState.isHomePod.getter())
   {
@@ -7423,16 +2787,14 @@ void *LinkActionDialogTemplating.__allocating_init(deviceState:runLinkActionCatW
 {
   OUTLINED_FUNCTION_71_1();
   swift_allocObject();
-  v1 = v0[4];
   __swift_mutable_project_boxed_opaque_existential_1(v0, v0[3]);
   OUTLINED_FUNCTION_79_1();
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v4);
-  v6 = OUTLINED_FUNCTION_51_1(v5, v18);
-  v8 = v7(v6);
-  v16 = OUTLINED_FUNCTION_54_3(v8, v9, v10, v11, v12, v13, v14, v15, v19);
+  __chkstk_darwin(v1);
+  v3 = OUTLINED_FUNCTION_51_1(v2, v15);
+  v5 = v4(v3);
+  v13 = OUTLINED_FUNCTION_54_3(v5, v6, v7, v8, v9, v10, v11, v12, v16);
   __swift_destroy_boxed_opaque_existential_1Tm(v0);
-  return v16;
+  return v13;
 }
 
 uint64_t LinkActionDialogTemplating.makeNeedsDisambiguationTitle(customPrompt:items:)()
@@ -7441,11 +2803,10 @@ uint64_t LinkActionDialogTemplating.makeNeedsDisambiguationTitle(customPrompt:it
   OUTLINED_FUNCTION_45_2(v1, v2);
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v3);
-  v5 = *(v4 + 64);
   *(v0 + 40) = OUTLINED_FUNCTION_28();
-  v6 = OUTLINED_FUNCTION_4();
+  v4 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v6, v7, v8);
+  return _swift_task_switch(v4);
 }
 
 {
@@ -7466,58 +2827,40 @@ uint64_t LinkActionDialogTemplating.makeNeedsDisambiguationTitle(customPrompt:it
 
   else
   {
-    v6 = v0[5];
     type metadata accessor for SpeakableString();
-    v7 = OUTLINED_FUNCTION_7_15();
-    __swift_storeEnumTagSinglePayload(v7, v8, v9, v10);
-    if (v0[3])
-    {
-      v11 = v0[3];
-    }
+    v6 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
 
-    v12 = *(*v0[6] + class metadata base offset for RunLinkActionCATsSimple + 96);
+    v10 = swift_task_alloc();
+    v11 = OUTLINED_FUNCTION_85_2(v10);
+    *v11 = v12;
+    v13 = OUTLINED_FUNCTION_27_9(v11);
 
-    v19 = v12 + *v12;
-    v13 = v12[1];
-    v14 = swift_task_alloc();
-    v15 = OUTLINED_FUNCTION_85_2(v14);
-    *v15 = v16;
-    v17 = OUTLINED_FUNCTION_27_9(v15);
-
-    return v18(v17);
+    return v14(v13);
   }
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 56);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
   OUTLINED_FUNCTION_15_2();
-  if (*(v0 + 24))
-  {
-    v1 = *(v0 + 24);
-  }
 
-  v2 = *(**(v0 + 48) + class metadata base offset for RunLinkActionCATsSimple + 96);
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_85_2(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_27_9(v1);
 
-  v10 = v2 + *v2;
-  v3 = v2[1];
-  v4 = swift_task_alloc();
-  v5 = OUTLINED_FUNCTION_85_2(v4);
-  *v5 = v6;
-  v7 = OUTLINED_FUNCTION_27_9(v5);
-
-  return v8(v7);
+  return v4(v3);
 }
 
 {
@@ -7526,45 +2869,34 @@ uint64_t LinkActionDialogTemplating.makeNeedsDisambiguationTitle(customPrompt:it
   v2 = *v1;
   OUTLINED_FUNCTION_4_1();
   *v4 = v3;
-  v5 = v2[8];
-  v6 = *v1;
   *v4 = *v1;
   *(v3 + 72) = v0;
 
-  v7 = v2[5];
-  if (v2[3])
-  {
-    v8 = v2[3];
-  }
-
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v2[5], &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v2 + 40), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   if (v0)
   {
     OUTLINED_FUNCTION_11_1();
     OUTLINED_FUNCTION_87();
 
-    return _swift_task_switch(v9, v10, v11);
+    return _swift_task_switch(v5);
   }
 
   else
   {
 
-    v13 = v6[1];
     OUTLINED_FUNCTION_87();
 
-    return v16(v14, v15, v16, v17, v18, v19, v20, v21);
+    return v9(v7, v8, v9, v10, v11, v12, v13, v14);
   }
 }
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = *(v0 + 40);
 
   OUTLINED_FUNCTION_6_0();
-  v3 = *(v0 + 72);
 
-  return v2();
+  return v0();
 }
 
 uint64_t LinkActionDialogTemplating.makeParameterPromptDialog(parameterName:customPrompt:actionMetadata:)()
@@ -7577,25 +2909,23 @@ uint64_t LinkActionDialogTemplating.makeParameterPromptDialog(parameterName:cust
   v1[4] = v5;
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v6);
-  v8 = *(v7 + 64);
   v1[9] = OUTLINED_FUNCTION_27();
   v1[10] = swift_task_alloc();
-  v9 = OUTLINED_FUNCTION_4();
+  v7 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v9, v10, v11);
+  return _swift_task_switch(v7);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 96);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
@@ -7604,39 +2934,35 @@ uint64_t LinkActionDialogTemplating.makeParameterPromptDialog(parameterName:cust
   v4 = *v1;
   OUTLINED_FUNCTION_4_1();
   *v6 = v5;
-  v7 = v4[13];
-  v8 = *v1;
+  v7 = *v1;
   *v6 = *v1;
-  v5[14] = v0;
+  *(v5 + 112) = v0;
 
-  v9 = v4[10];
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v4[9], &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v9, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  v8 = *(v4 + 80);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v4 + 72), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v8, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   if (v0)
   {
     OUTLINED_FUNCTION_11_1();
 
-    return _swift_task_switch(v10, v11, v12);
+    return _swift_task_switch(v9);
   }
 
   else
   {
 
-    v13 = v8[1];
+    v10 = *(v7 + 8);
 
-    return v13(v3);
+    return v10(v3);
   }
 }
 
 {
   OUTLINED_FUNCTION_8_0();
-  v2 = v0[9];
-  v1 = v0[10];
 
   OUTLINED_FUNCTION_6_0();
-  v4 = v0[14];
 
-  return v3();
+  return v0();
 }
 
 uint64_t LinkActionDialogTemplating.makeParameterPromptDialog(parameterName:customPrompt:actionMetadata:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -7652,102 +2978,91 @@ uint64_t LinkActionDialogTemplating.makeParameterPromptDialog(parameterName:cust
     v14[12] = v17;
     *v17 = v18;
     v17[1] = LinkActionDialogTemplating.makeParameterPromptDialog(parameterName:customPrompt:actionMetadata:);
-    v19 = v14[10];
     OUTLINED_FUNCTION_6_1();
 
-    return LNDialog.asSpeakableString.getter(v20);
+    return LNDialog.asSpeakableString.getter(v19);
   }
 
   else
   {
-    v23 = v14[10];
-    v24 = type metadata accessor for SpeakableString();
-    v25 = OUTLINED_FUNCTION_7_15();
-    __swift_storeEnumTagSinglePayload(v25, v26, v27, v24);
-    v28 = v14[11];
-    v29 = v14[9];
-    v30 = v14[7];
-    v32 = v14[4];
-    v31 = v14[5];
+    v22 = type metadata accessor for SpeakableString();
+    v23 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v23, v24, v25, v22);
+    v26 = v14[7];
+    v28 = v14[4];
+    v27 = v14[5];
 
-    OUTLINED_FUNCTION_74_1();
+    OUTLINED_FUNCTION_74_1(v28, v27);
     OUTLINED_FUNCTION_45_4();
-    v33 = [v30 systemProtocols];
-    OUTLINED_FUNCTION_93_0();
-    OUTLINED_FUNCTION_66_1();
+    v29 = [v26 systemProtocols];
+    v30 = OUTLINED_FUNCTION_93_0();
+    OUTLINED_FUNCTION_66_1(v30);
 
-    v34 = objc_opt_self();
-    v35 = OUTLINED_FUNCTION_44_5([v34 searchSystemProtocol]);
-    OUTLINED_FUNCTION_34_8(v35);
+    v31 = objc_opt_self();
+    v32 = OUTLINED_FUNCTION_44_5([v31 searchSystemProtocol]);
+    OUTLINED_FUNCTION_34_8(v32);
     OUTLINED_FUNCTION_92_0();
 
-    v36 = [v30 systemProtocols];
-    OUTLINED_FUNCTION_91();
+    OUTLINED_FUNCTION_91([v26 systemProtocols]);
 
-    v37 = OUTLINED_FUNCTION_43_4([v34 deleteEntitySystemProtocol]);
-    OUTLINED_FUNCTION_35_7(v37);
+    v33 = OUTLINED_FUNCTION_43_4([v31 deleteEntitySystemProtocol]);
+    OUTLINED_FUNCTION_35_7(v33);
     OUTLINED_FUNCTION_90_0();
 
     OUTLINED_FUNCTION_61_0();
-    v39 = *(v38 + class metadata base offset for RunLinkActionCATsSimple + 112);
     OUTLINED_FUNCTION_6_17();
-    v54 = v40 + *v40;
-    v42 = *(v41 + 4);
-    v43 = swift_task_alloc();
-    v44 = OUTLINED_FUNCTION_31_4(v43);
-    *v44 = v45;
-    OUTLINED_FUNCTION_26_12(v44);
+    v46 = v34 + *v34;
+    v35 = swift_task_alloc();
+    v36 = OUTLINED_FUNCTION_31_4(v35);
+    *v36 = v37;
+    OUTLINED_FUNCTION_26_12(v36);
     OUTLINED_FUNCTION_6_1();
 
-    return v50(v46, v47, v48, v49, v50, v51, v52, v53, a9, v54, a11, a12, a13, a14);
+    return v42(v38, v39, v40, v41, v42, v43, v44, v45, a9, v46, a11, a12, a13, a14);
   }
 }
 
 {
   OUTLINED_FUNCTION_21_1();
   OUTLINED_FUNCTION_30();
-  v16 = v14[11];
-  v17 = v14[9];
-  v18 = v14[7];
-  v20 = v14[4];
-  v19 = v14[5];
+  v16 = v14[9];
+  v17 = v14[7];
+  v19 = v14[4];
+  v18 = v14[5];
 
-  OUTLINED_FUNCTION_74_1();
+  OUTLINED_FUNCTION_74_1(v19, v18);
   type metadata accessor for SpeakableString();
   OUTLINED_FUNCTION_27_7();
   OUTLINED_FUNCTION_49_3();
-  __swift_storeEnumTagSinglePayload(v21, v22, v23, v24);
-  v25 = [v18 systemProtocols];
-  OUTLINED_FUNCTION_93_0();
-  OUTLINED_FUNCTION_66_1();
+  __swift_storeEnumTagSinglePayload(v20, v21, v22, v23);
+  v24 = [v17 systemProtocols];
+  v25 = OUTLINED_FUNCTION_93_0();
+  OUTLINED_FUNCTION_66_1(v25);
 
   v26 = objc_opt_self();
   v27 = OUTLINED_FUNCTION_44_5([v26 searchSystemProtocol]);
   OUTLINED_FUNCTION_34_8(v27);
   OUTLINED_FUNCTION_92_0();
 
-  v28 = [v18 systemProtocols];
-  OUTLINED_FUNCTION_91();
+  OUTLINED_FUNCTION_91([v17 systemProtocols]);
 
-  v29 = OUTLINED_FUNCTION_43_4([v26 deleteEntitySystemProtocol]);
-  OUTLINED_FUNCTION_35_7(v29);
+  v28 = OUTLINED_FUNCTION_43_4([v26 deleteEntitySystemProtocol]);
+  OUTLINED_FUNCTION_35_7(v28);
   OUTLINED_FUNCTION_90_0();
 
   OUTLINED_FUNCTION_61_0();
-  v31 = *(v30 + class metadata base offset for RunLinkActionCATsSimple + 112);
   OUTLINED_FUNCTION_6_17();
-  v47 = v32 + *v32;
-  v34 = *(v33 + 4);
-  v35 = swift_task_alloc();
-  v36 = OUTLINED_FUNCTION_31_4(v35);
-  *v36 = v37;
-  OUTLINED_FUNCTION_26_12(v36);
+  v42 = v29 + *v29;
+  v30 = swift_task_alloc();
+  v31 = OUTLINED_FUNCTION_31_4(v30);
+  *v31 = v32;
+  OUTLINED_FUNCTION_26_12(v31);
   OUTLINED_FUNCTION_6_1();
 
-  return v42(v38, v39, v40, v41, v42, v43, v44, v45, a9, v47, a11, a12, a13, a14);
+  return v37(v33, v34, v35, v36, v37, v38, v39, v40, a9, v42, a11, a12, a13, a14);
 }
 
-BOOL specialized Sequence.contains(where:)(uint64_t (*a1)(void *), uint64_t a2, uint64_t a3)
+BOOL specialized Sequence.contains(where:)(uint64_t (*a1)(void *, __n128), uint64_t a2, uint64_t a3)
 {
   v5 = (a3 + 40);
   v6 = *(a3 + 16) + 1;
@@ -7762,7 +3077,7 @@ BOOL specialized Sequence.contains(where:)(uint64_t (*a1)(void *), uint64_t a2, 
     v11[0] = *(v5 - 1);
     v11[1] = v7;
 
-    v8 = a1(v11);
+    v8 = (a1)(v11);
     if (v3)
     {
 
@@ -7863,28 +3178,25 @@ uint64_t LinkActionDialogTemplating.unsupportedOnPlatform()()
 {
   *(v1 + 16) = v0;
   v2 = OUTLINED_FUNCTION_4();
-  return _swift_task_switch(v2, v3, v4);
+  return _swift_task_switch(v2);
 }
 
 {
   OUTLINED_FUNCTION_15_2();
   v1 = v0[2];
-  v2 = v1[8];
-  v3 = v1[5];
-  v4 = v1[6];
-  __swift_project_boxed_opaque_existential_1(v1 + 2, v3);
-  v5 = DeviceState.asSiriKitDeviceState()(v3, v4);
-  v0[3] = v5;
-  v6 = *(*v2 + class metadata base offset for RunLinkActionCATsSimple + 144);
+  v2 = v1[5];
+  v3 = v1[6];
+  __swift_project_boxed_opaque_existential_1(v1 + 2, v2);
+  v4 = DeviceState.asSiriKitDeviceState()(v2, v3);
+  v0[3] = v4;
   OUTLINED_FUNCTION_2_26();
-  v12 = (v7 + *v7);
-  v9 = *(v8 + 4);
-  v10 = swift_task_alloc();
-  v0[4] = v10;
-  *v10 = v0;
-  v10[1] = LinkActionDialogTemplating.unsupportedOnPlatform();
+  v8 = (v5 + *v5);
+  v6 = swift_task_alloc();
+  v0[4] = v6;
+  *v6 = v0;
+  v6[1] = LinkActionDialogTemplating.unsupportedOnPlatform();
 
-  return v12(v5);
+  return v8(v4);
 }
 
 {
@@ -7893,37 +3205,33 @@ uint64_t LinkActionDialogTemplating.unsupportedOnPlatform()()
   v4 = v3;
   OUTLINED_FUNCTION_4_1();
   *v5 = v4;
-  v7 = *(v6 + 32);
-  v8 = *v2;
+  v6 = *v2;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
+  *v7 = v6;
   *(v4 + 40) = v0;
 
   if (v0)
   {
     OUTLINED_FUNCTION_18_0();
 
-    return _swift_task_switch(v10, v11, v12);
+    return _swift_task_switch(v8);
   }
 
   else
   {
-    v13 = *(v4 + 24);
 
-    v14 = *(v8 + 8);
+    v9 = *(v6 + 8);
 
-    return v14(v1);
+    return v9(v1);
   }
 }
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = *(v0 + 24);
 
   OUTLINED_FUNCTION_6_0();
-  v3 = *(v0 + 40);
 
-  return v2();
+  return v0();
 }
 
 uint64_t LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:parameterValue:)()
@@ -7932,109 +3240,88 @@ uint64_t LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:
   OUTLINED_FUNCTION_45_2(v1, v2);
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v3);
-  v5 = *(v4 + 64);
   v0[5] = OUTLINED_FUNCTION_27();
   v0[6] = swift_task_alloc();
-  v6 = type metadata accessor for Locale();
-  v0[7] = v6;
-  OUTLINED_FUNCTION_5_0(v6);
-  v0[8] = v7;
-  v9 = *(v8 + 64);
+  v4 = type metadata accessor for Locale();
+  v0[7] = v4;
+  OUTLINED_FUNCTION_5_0(v4);
+  v0[8] = v5;
   v0[9] = OUTLINED_FUNCTION_28();
-  v10 = OUTLINED_FUNCTION_4();
+  v6 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v10, v11, v12);
+  return _swift_task_switch(v6);
 }
 
 {
   OUTLINED_FUNCTION_24_1();
-  v2 = *(v0 + 64);
-  v1 = *(v0 + 72);
-  v3 = *(v0 + 56);
-  v4 = *(v0 + 32);
-  v5 = *(v0 + 16);
-  v6 = v4[6];
-  __swift_project_boxed_opaque_existential_1(v4 + 2, v4[5]);
+  v1 = *(v0 + 16);
+  __swift_project_boxed_opaque_existential_1((*(v0 + 32) + 16), *(*(v0 + 32) + 40));
   OUTLINED_FUNCTION_56_1();
   dispatch thunk of DeviceState.siriLocale.getter();
   *(v0 + 80) = Locale.identifier.getter();
-  *(v0 + 88) = v7;
-  v8 = *(v2 + 8);
-  v9 = OUTLINED_FUNCTION_9_3();
-  v10(v9);
-  if (!v5)
+  *(v0 + 88) = v2;
+  v3 = OUTLINED_FUNCTION_9_3();
+  v4(v3);
+  if (!v1)
   {
-    v18 = *(v0 + 48);
-    v19 = type metadata accessor for SpeakableString();
-    __swift_storeEnumTagSinglePayload(v18, 1, 1, v19);
-    v20 = [*(v0 + 24) displayRepresentation];
-    v21 = *(v0 + 88);
-    if (v20)
+    v10 = *(v0 + 48);
+    v11 = type metadata accessor for SpeakableString();
+    __swift_storeEnumTagSinglePayload(v10, 1, 1, v11);
+    v12 = [*(v0 + 24) displayRepresentation];
+    if (v12)
     {
-      v22 = v20;
-      v23 = *(v0 + 80);
-      v24 = *(v0 + 40);
-      v25 = [v20 title];
+      v13 = v12;
+      v14 = [v12 title];
 
-      v26 = String._bridgeToObjectiveC()();
+      v15 = String._bridgeToObjectiveC()();
 
-      v27 = [v25 localizedStringForLocaleIdentifier:v26];
+      v16 = [v14 localizedStringForLocaleIdentifier:v15];
 
       static String._unconditionallyBridgeFromObjectiveC(_:)();
-      OUTLINED_FUNCTION_56_1();
-      OUTLINED_FUNCTION_74_1();
-      v28 = 0;
+      v17 = OUTLINED_FUNCTION_56_1();
+      OUTLINED_FUNCTION_74_1(v17, v18);
+      v19 = 0;
     }
 
     else
     {
-      v29 = *(v0 + 88);
 
-      v28 = 1;
+      v19 = 1;
     }
 
-    v30 = *(v0 + 32);
-    __swift_storeEnumTagSinglePayload(*(v0 + 40), v28, 1, v19);
-    v31 = *(v30 + 64);
+    __swift_storeEnumTagSinglePayload(*(v0 + 40), v19, 1, v11);
     OUTLINED_FUNCTION_18_4();
-    v33 = *(v32 + class metadata base offset for RunLinkActionCATsSimple + 128);
     OUTLINED_FUNCTION_2_26();
-    v43 = v34 + *v34;
-    v36 = *(v35 + 4);
-    v37 = swift_task_alloc();
-    v38 = OUTLINED_FUNCTION_31_4(v37);
-    *v38 = v39;
-    v38[1] = LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:parameterValue:);
-    v40 = *(v0 + 40);
+    v20 = swift_task_alloc();
+    v21 = OUTLINED_FUNCTION_31_4(v20);
+    *v21 = v22;
+    v21[1] = LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:parameterValue:);
     OUTLINED_FUNCTION_73(*(v0 + 48));
     OUTLINED_FUNCTION_103();
 
     __asm { BRAA            X2, X16 }
   }
 
-  v11 = *(v0 + 16);
   swift_task_alloc();
   OUTLINED_FUNCTION_20_0();
-  *(v0 + 96) = v12;
-  *v12 = v13;
-  v12[1] = LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:parameterValue:);
-  v14 = *(v0 + 48);
+  *(v0 + 96) = v5;
+  *v5 = v6;
+  v5[1] = LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:parameterValue:);
   OUTLINED_FUNCTION_103();
 
-  return LNDialog.asSpeakableString.getter(v15);
+  return LNDialog.asSpeakableString.getter(v7);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 96);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
@@ -8043,10 +3330,9 @@ uint64_t LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:
   v4 = v3;
   OUTLINED_FUNCTION_4_1();
   *v5 = v4;
-  v7 = *(v6 + 104);
-  v8 = *v2;
+  v6 = *v2;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
+  *v7 = v6;
   *(v4 + 112) = v0;
 
   if (!v0)
@@ -8056,88 +3342,71 @@ uint64_t LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:
 
   OUTLINED_FUNCTION_18_0();
 
-  return _swift_task_switch(v10, v11, v12);
+  return _swift_task_switch(v8);
 }
 
 {
   OUTLINED_FUNCTION_88();
   OUTLINED_FUNCTION_15_2();
-  v1 = v0[9];
-  v3 = v0[5];
-  v2 = v0[6];
-  v4 = OUTLINED_FUNCTION_20_1();
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v4, v5, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v2, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  v1 = *(v0 + 48);
+  v2 = OUTLINED_FUNCTION_20_1();
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v2, v3, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v1, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_6();
-  v6 = v0[15];
   OUTLINED_FUNCTION_87();
 
-  return v9(v7, v8, v9, v10, v11, v12, v13, v14);
+  return v6(v4, v5, v6, v7, v8, v9, v10, v11);
 }
 
 {
   OUTLINED_FUNCTION_88();
   OUTLINED_FUNCTION_15_2();
-  v1 = v0[9];
-  v3 = v0[5];
-  v2 = v0[6];
-  v4 = OUTLINED_FUNCTION_20_1();
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v4, v5, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v2, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  v1 = *(v0 + 48);
+  v2 = OUTLINED_FUNCTION_20_1();
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v2, v3, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v1, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_0();
-  v6 = v0[14];
   OUTLINED_FUNCTION_87();
 
-  return v8(v7, v8, v9, v10, v11, v12, v13, v14);
+  return v5(v4, v5, v6, v7, v8, v9, v10, v11);
 }
 
 void LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:parameterValue:)()
 {
   OUTLINED_FUNCTION_14_0();
   v1 = [*(v0 + 24) displayRepresentation];
-  v2 = *(v0 + 88);
   if (v1)
   {
-    v3 = v1;
-    v4 = *(v0 + 80);
-    v5 = *(v0 + 40);
-    v6 = [v1 title];
+    v2 = v1;
+    v3 = [v1 title];
 
-    v7 = String._bridgeToObjectiveC()();
+    v4 = String._bridgeToObjectiveC()();
 
-    v8 = [v6 localizedStringForLocaleIdentifier:v7];
+    v5 = [v3 localizedStringForLocaleIdentifier:v4];
 
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    OUTLINED_FUNCTION_20_1();
-    OUTLINED_FUNCTION_74_1();
-    v9 = 0;
+    v6 = OUTLINED_FUNCTION_20_1();
+    OUTLINED_FUNCTION_74_1(v6, v7);
+    v8 = 0;
   }
 
   else
   {
-    v10 = *(v0 + 88);
 
-    v9 = 1;
+    v8 = 1;
   }
 
-  v12 = *(v0 + 32);
-  v11 = *(v0 + 40);
   type metadata accessor for SpeakableString();
-  v13 = OUTLINED_FUNCTION_27_7();
-  __swift_storeEnumTagSinglePayload(v13, v9, 1, v14);
-  v15 = *(v12 + 64);
+  v9 = OUTLINED_FUNCTION_27_7();
+  __swift_storeEnumTagSinglePayload(v9, v8, 1, v10);
   OUTLINED_FUNCTION_18_4();
-  v17 = *(v16 + class metadata base offset for RunLinkActionCATsSimple + 128);
   OUTLINED_FUNCTION_2_26();
-  v27 = v18 + *v18;
-  v20 = *(v19 + 4);
-  v21 = swift_task_alloc();
-  v22 = OUTLINED_FUNCTION_31_4(v21);
-  *v22 = v23;
-  v22[1] = LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:parameterValue:);
-  v24 = *(v0 + 40);
+  v11 = swift_task_alloc();
+  v12 = OUTLINED_FUNCTION_31_4(v11);
+  *v12 = v13;
+  v12[1] = LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:parameterValue:);
   OUTLINED_FUNCTION_73(*(v0 + 48));
   OUTLINED_FUNCTION_49_0();
 
@@ -8147,16 +3416,14 @@ void LinkActionDialogTemplating.makeParameterValueConfirmation(customPrompt:para
 void *LinkActionDialogTemplating.init(deviceState:runLinkActionCatWrapper:runLinkActionCatWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:linkActionPatterns:)()
 {
   OUTLINED_FUNCTION_71_1();
-  v2 = *(v1 + 32);
   __swift_mutable_project_boxed_opaque_existential_1(v1, *(v1 + 24));
   OUTLINED_FUNCTION_79_1();
-  v4 = *(v3 + 64);
-  __chkstk_darwin(v5);
-  v7 = OUTLINED_FUNCTION_51_1(v6, v19);
-  v9 = v8(v7);
-  v17 = OUTLINED_FUNCTION_54_3(v9, v10, v11, v12, v13, v14, v15, v16, v20);
+  __chkstk_darwin(v2);
+  v4 = OUTLINED_FUNCTION_51_1(v3, v16);
+  v6 = v5(v4);
+  v14 = OUTLINED_FUNCTION_54_3(v6, v7, v8, v9, v10, v11, v12, v13, v17);
   __swift_destroy_boxed_opaque_existential_1Tm(v0);
-  return v17;
+  return v14;
 }
 
 uint64_t LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customResponse:useSonicStatus:)()
@@ -8167,50 +3434,41 @@ uint64_t LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customRes
   *(v1 + 72) = v0;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v4);
-  v6 = *(v5 + 64);
   *(v1 + 80) = OUTLINED_FUNCTION_28();
-  v7 = OUTLINED_FUNCTION_4();
+  v5 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v7, v8, v9);
+  return _swift_task_switch(v5);
 }
 
 {
   OUTLINED_FUNCTION_14_0();
   if (!*(v0 + 64))
   {
-    v7 = *(v0 + 80);
     type metadata accessor for SpeakableString();
-    v8 = OUTLINED_FUNCTION_7_15();
-    __swift_storeEnumTagSinglePayload(v8, v9, v10, v11);
-    v12 = *(v0 + 80);
-    v13 = *(v0 + 136);
-    v14 = OUTLINED_FUNCTION_11_13(*(v0 + 72));
-    *(v0 + 96) = v14;
-    v15 = OUTLINED_FUNCTION_65_1(v14);
-    if (v13)
+    v6 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+    v10 = *(v0 + 136);
+    v11 = OUTLINED_FUNCTION_11_13(*(v0 + 72));
+    *(v0 + 96) = v11;
+    OUTLINED_FUNCTION_65_1(v11);
+    if (v10)
     {
-      v16 = *(v15 + 24);
       OUTLINED_FUNCTION_6_17();
-      v32 = v17 + *v17;
-      v19 = *(v18 + 4);
-      v20 = swift_task_alloc();
-      v21 = OUTLINED_FUNCTION_31_4(v20);
-      *v21 = v22;
-      OUTLINED_FUNCTION_37_7(v21);
+      v12 = swift_task_alloc();
+      v13 = OUTLINED_FUNCTION_31_4(v12);
+      *v13 = v14;
+      OUTLINED_FUNCTION_37_7(v13);
       OUTLINED_FUNCTION_4_23();
       OUTLINED_FUNCTION_82_2();
 
       __asm { BRAA            X5, X16 }
     }
 
-    v25 = *(v15 + 16);
     OUTLINED_FUNCTION_6_17();
-    v33 = v26 + *v26;
-    v28 = *(v27 + 4);
-    v29 = swift_task_alloc();
-    *(v0 + 120) = v29;
-    *v29 = v0;
-    OUTLINED_FUNCTION_40_3(v29);
+    v17 = swift_task_alloc();
+    *(v0 + 120) = v17;
+    *v17 = v0;
+    OUTLINED_FUNCTION_40_3(v17);
     OUTLINED_FUNCTION_4_23();
     OUTLINED_FUNCTION_82_2();
 
@@ -8222,23 +3480,21 @@ uint64_t LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customRes
   *(v0 + 88) = v1;
   *v1 = v2;
   v1[1] = LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customResponse:useSonicStatus:);
-  v3 = *(v0 + 80);
   OUTLINED_FUNCTION_82_2();
 
-  return LNDialog.asSpeakableString.getter(v4);
+  return LNDialog.asSpeakableString.getter(v3);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 88);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
@@ -8250,20 +3506,18 @@ uint64_t LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customRes
   v3[2] = v1;
   v3[3] = v5;
   v3[4] = v0;
-  v7 = *(v6 + 104);
-  v8 = *v1;
+  v6 = *v1;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
+  *v7 = v6;
   v3[14] = v0;
 
   if (!v0)
   {
-    v10 = v3[12];
   }
 
   OUTLINED_FUNCTION_11_1();
 
-  return _swift_task_switch(v11, v12, v13);
+  return _swift_task_switch(v8);
 }
 
 {
@@ -8285,20 +3539,18 @@ uint64_t LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customRes
   v3[5] = v1;
   v3[6] = v5;
   v3[7] = v0;
-  v7 = *(v6 + 120);
-  v8 = *v1;
+  v6 = *v1;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
+  *v7 = v6;
   v3[16] = v0;
 
   if (!v0)
   {
-    v10 = v3[12];
   }
 
   OUTLINED_FUNCTION_11_1();
 
-  return _swift_task_switch(v11, v12, v13);
+  return _swift_task_switch(v8);
 }
 
 {
@@ -8313,62 +3565,51 @@ uint64_t LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customRes
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = v0[14];
-  v2 = v0[12];
-  v3 = v0[10];
+  v1 = *(v0 + 80);
 
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v3, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v1, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_0();
 
-  return v4();
+  return v2();
 }
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = v0[16];
-  v2 = v0[12];
-  v3 = v0[10];
+  v1 = *(v0 + 80);
 
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v3, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v1, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_0();
 
-  return v4();
+  return v2();
 }
 
 void LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customResponse:useSonicStatus:)()
 {
   OUTLINED_FUNCTION_14_0();
-  v1 = *(v0 + 80);
-  v2 = *(v0 + 136);
-  v3 = OUTLINED_FUNCTION_11_13(*(v0 + 72));
-  *(v0 + 96) = v3;
-  v4 = OUTLINED_FUNCTION_65_1(v3);
-  if (v2 == 1)
+  v1 = *(v0 + 136);
+  v2 = OUTLINED_FUNCTION_11_13(*(v0 + 72));
+  *(v0 + 96) = v2;
+  OUTLINED_FUNCTION_65_1(v2);
+  if (v1 == 1)
   {
-    v5 = *(v4 + 24);
     OUTLINED_FUNCTION_6_17();
-    v21 = v6 + *v6;
-    v8 = *(v7 + 4);
-    v9 = swift_task_alloc();
-    v10 = OUTLINED_FUNCTION_31_4(v9);
-    *v10 = v11;
-    OUTLINED_FUNCTION_37_7(v10);
+    v3 = swift_task_alloc();
+    v4 = OUTLINED_FUNCTION_31_4(v3);
+    *v4 = v5;
+    OUTLINED_FUNCTION_37_7(v4);
     OUTLINED_FUNCTION_4_23();
     OUTLINED_FUNCTION_82_2();
 
     __asm { BRAA            X5, X16 }
   }
 
-  v14 = *(v4 + 16);
   OUTLINED_FUNCTION_6_17();
-  v22 = v15 + *v15;
-  v17 = *(v16 + 4);
-  v18 = swift_task_alloc();
-  *(v0 + 120) = v18;
-  *v18 = v0;
-  OUTLINED_FUNCTION_40_3(v18);
+  v8 = swift_task_alloc();
+  *(v0 + 120) = v8;
+  *v8 = v0;
+  OUTLINED_FUNCTION_40_3(v8);
   OUTLINED_FUNCTION_4_23();
   OUTLINED_FUNCTION_82_2();
 
@@ -8382,32 +3623,27 @@ uint64_t LinkActionDialogTemplating.makeActionConfirmationPattern_preRFv2(custom
   v1[3] = v0;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v3);
-  v5 = *(v4 + 64);
   v1[4] = OUTLINED_FUNCTION_28();
-  v6 = OUTLINED_FUNCTION_4();
+  v4 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v6, v7, v8);
+  return _swift_task_switch(v4);
 }
 
 {
   OUTLINED_FUNCTION_14_0();
-  if (!*(v0 + 16))
+  if (!v0[2])
   {
-    v6 = *(v0 + 32);
     type metadata accessor for SpeakableString();
-    v7 = OUTLINED_FUNCTION_7_15();
-    __swift_storeEnumTagSinglePayload(v7, v8, v9, v10);
-    v11 = *(v0 + 32);
-    v12 = OUTLINED_FUNCTION_11_13(*(v0 + 24));
-    *(v0 + 48) = v12;
-    v13 = *(OUTLINED_FUNCTION_65_1(v12) + 8);
+    v6 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+    v10 = OUTLINED_FUNCTION_11_13(v0[3]);
+    v0[6] = v10;
+    OUTLINED_FUNCTION_65_1(v10);
     OUTLINED_FUNCTION_2_26();
-    v22 = v14 + *v14;
-    v16 = *(v15 + 4);
-    v17 = swift_task_alloc();
-    v18 = OUTLINED_FUNCTION_76_2(v17);
-    *v18 = v19;
-    OUTLINED_FUNCTION_39_8(v18);
+    v11 = swift_task_alloc();
+    v12 = OUTLINED_FUNCTION_76_2(v11);
+    *v12 = v13;
+    OUTLINED_FUNCTION_39_8(v12);
     OUTLINED_FUNCTION_4_23();
     OUTLINED_FUNCTION_49_0();
 
@@ -8416,7 +3652,7 @@ uint64_t LinkActionDialogTemplating.makeActionConfirmationPattern_preRFv2(custom
 
   swift_task_alloc();
   OUTLINED_FUNCTION_20_0();
-  *(v0 + 40) = v1;
+  v0[5] = v1;
   *v1 = v2;
   OUTLINED_FUNCTION_73_2(v1);
   OUTLINED_FUNCTION_49_0();
@@ -8427,14 +3663,13 @@ uint64_t LinkActionDialogTemplating.makeActionConfirmationPattern_preRFv2(custom
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 40);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
@@ -8443,21 +3678,19 @@ uint64_t LinkActionDialogTemplating.makeActionConfirmationPattern_preRFv2(custom
   v4 = v3;
   OUTLINED_FUNCTION_4_1();
   *v5 = v4;
-  v7 = *(v6 + 56);
-  v8 = *v2;
+  v6 = *v2;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
-  v4[8] = v0;
+  *v7 = v6;
+  *(v4 + 64) = v0;
 
   if (!v0)
   {
-    v10 = v4[6];
-    v4[9] = v1;
+    *(v4 + 72) = v1;
   }
 
   OUTLINED_FUNCTION_18_0();
 
-  return _swift_task_switch(v11, v12, v13);
+  return _swift_task_switch(v8);
 }
 
 {
@@ -8472,31 +3705,26 @@ uint64_t LinkActionDialogTemplating.makeActionConfirmationPattern_preRFv2(custom
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = v0[6];
-  v2 = v0[4];
+  v1 = *(v0 + 32);
 
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v2, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v1, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_0();
-  v4 = v0[8];
 
-  return v3();
+  return v2();
 }
 
 void LinkActionDialogTemplating.makeActionConfirmationPattern_preRFv2(customResponse:)()
 {
   OUTLINED_FUNCTION_14_0();
-  v1 = *(v0 + 32);
-  v2 = OUTLINED_FUNCTION_11_13(*(v0 + 24));
-  *(v0 + 48) = v2;
-  v3 = *(OUTLINED_FUNCTION_65_1(v2) + 8);
+  v1 = OUTLINED_FUNCTION_11_13(*(v0 + 24));
+  *(v0 + 48) = v1;
+  OUTLINED_FUNCTION_65_1(v1);
   OUTLINED_FUNCTION_2_26();
-  v12 = v4 + *v4;
-  v6 = *(v5 + 4);
-  v7 = swift_task_alloc();
-  v8 = OUTLINED_FUNCTION_76_2(v7);
-  *v8 = v9;
-  OUTLINED_FUNCTION_39_8(v8);
+  v2 = swift_task_alloc();
+  v3 = OUTLINED_FUNCTION_76_2(v2);
+  *v3 = v4;
+  OUTLINED_FUNCTION_39_8(v3);
   OUTLINED_FUNCTION_4_23();
   OUTLINED_FUNCTION_49_0();
 
@@ -8508,56 +3736,49 @@ uint64_t LinkActionDialogTemplating.makeContinueInAppPattern(customResponse:)()
   OUTLINED_FUNCTION_8_0();
   v1 = type metadata accessor for CATOption();
   OUTLINED_FUNCTION_14(v1);
-  v3 = *(v2 + 64);
   v0[2] = OUTLINED_FUNCTION_28();
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  OUTLINED_FUNCTION_14(v4);
-  v6 = *(v5 + 64);
-  v7 = OUTLINED_FUNCTION_28();
-  v0[3] = v7;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_14(v2);
+  v3 = OUTLINED_FUNCTION_28();
+  v0[3] = v3;
   swift_task_alloc();
   OUTLINED_FUNCTION_20_0();
-  v0[4] = v8;
-  *v8 = v9;
-  v8[1] = LinkActionDialogTemplating.makeContinueInAppPattern(customResponse:);
+  v0[4] = v4;
+  *v4 = v5;
+  v4[1] = LinkActionDialogTemplating.makeContinueInAppPattern(customResponse:);
 
-  return LNDialog.asSpeakableString.getter(v7);
+  return LNDialog.asSpeakableString.getter(v3);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 32);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
   OUTLINED_FUNCTION_15_2();
-  v1 = v0[2];
-  v2 = v0[3];
+  v1 = v0[3];
   type metadata accessor for RunLinkActionCATPatternsExecutor(0);
   static CATOption.defaultMode.getter();
-  v3 = CATWrapper.__allocating_init(options:globals:)();
-  v0[5] = v3;
-  v4 = swift_task_alloc();
-  v0[6] = v4;
-  *(v4 + 16) = v2;
-  v5 = *(*v3 + class metadata base offset for RunLinkActionCATPatternsExecutor + 48);
+  v0[5] = CATWrapper.__allocating_init(options:globals:)();
+  v2 = swift_task_alloc();
+  v0[6] = v2;
+  *(v2 + 16) = v1;
   OUTLINED_FUNCTION_2_26();
-  v13 = (v6 + *v6);
-  v8 = *(v7 + 4);
-  v9 = swift_task_alloc();
-  v10 = OUTLINED_FUNCTION_76_2(v9);
-  *v10 = v11;
-  v10[1] = LinkActionDialogTemplating.makeContinueInAppPattern(customResponse:);
+  v8 = (v3 + *v3);
+  v4 = swift_task_alloc();
+  v5 = OUTLINED_FUNCTION_76_2(v4);
+  *v5 = v6;
+  v5[1] = LinkActionDialogTemplating.makeContinueInAppPattern(customResponse:);
 
-  return (v13)(0, partial apply for closure #1 in LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customResponse:useSonicStatus:), v4);
+  return (v8)(0, partial apply for closure #1 in LinkActionDialogTemplating.makeActionPerformedPattern_preRFv2(customResponse:useSonicStatus:), v2);
 }
 
 {
@@ -8566,49 +3787,41 @@ uint64_t LinkActionDialogTemplating.makeContinueInAppPattern(customResponse:)()
   v4 = v3;
   OUTLINED_FUNCTION_4_1();
   *v5 = v4;
-  v7 = *(v6 + 56);
-  v8 = *v2;
+  v6 = *v2;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
-  v4[8] = v0;
+  *v7 = v6;
+  *(v4 + 64) = v0;
 
   if (!v0)
   {
-    v10 = v4[5];
-    v11 = v4[6];
 
-    v4[9] = v1;
+    *(v4 + 72) = v1;
   }
 
   OUTLINED_FUNCTION_18_0();
 
-  return _swift_task_switch(v12, v13, v14);
+  return _swift_task_switch(v8);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = v0[2];
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v0[3], &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v0 + 24), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_6();
-  v3 = v0[9];
+  v2 = *(v0 + 72);
 
-  return v2(v3);
+  return v1(v2);
 }
 
 {
   OUTLINED_FUNCTION_12_0();
-  v1 = v0[5];
-  v2 = v0[6];
-  v4 = v0[2];
-  v3 = v0[3];
+  v1 = *(v0 + 24);
 
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v3, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v1, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_0();
-  v6 = v0[8];
 
-  return v5();
+  return v2();
 }
 
 uint64_t LinkActionDialogTemplating.makeParameterPromptDialog_preRFv2(parameterName:customPrompt:actionMetadata:)()
@@ -8622,25 +3835,23 @@ uint64_t LinkActionDialogTemplating.makeParameterPromptDialog_preRFv2(parameterN
   v1[5] = v6;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v7);
-  v9 = *(v8 + 64);
   v1[10] = OUTLINED_FUNCTION_27();
   v1[11] = swift_task_alloc();
-  v10 = OUTLINED_FUNCTION_4();
+  v8 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v10, v11, v12);
+  return _swift_task_switch(v8);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 104);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
@@ -8649,41 +3860,35 @@ uint64_t LinkActionDialogTemplating.makeParameterPromptDialog_preRFv2(parameterN
   v2 = *v1;
   OUTLINED_FUNCTION_4_1();
   *v4 = v3;
-  v5 = v2[14];
-  v6 = *v1;
   *v4 = *v1;
-  v3[15] = v0;
+  *(v3 + 120) = v0;
 
-  v7 = v2[11];
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v2[10], &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v7, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  v5 = *(v2 + 88);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v2 + 80), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v5, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   if (v0)
   {
     OUTLINED_FUNCTION_11_1();
     OUTLINED_FUNCTION_87();
 
-    return _swift_task_switch(v8, v9, v10);
+    return _swift_task_switch(v6);
   }
 
   else
   {
 
-    v12 = v6[1];
     OUTLINED_FUNCTION_87();
 
-    return v14(v13, v14, v15, v16, v17, v18, v19, v20);
+    return v9(v8, v9, v10, v11, v12, v13, v14, v15);
   }
 }
 
 {
   OUTLINED_FUNCTION_8_0();
-  v2 = v0[10];
-  v1 = v0[11];
 
   OUTLINED_FUNCTION_6_0();
-  v4 = v0[15];
 
-  return v3();
+  return v0();
 }
 
 uint64_t LinkActionDialogTemplating.makeParameterPromptDialog_preRFv2(parameterName:customPrompt:actionMetadata:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
@@ -8705,93 +3910,83 @@ uint64_t LinkActionDialogTemplating.makeParameterPromptDialog_preRFv2(parameterN
 
   else
   {
-    v23 = v14[11];
-    v24 = type metadata accessor for SpeakableString();
-    v25 = OUTLINED_FUNCTION_7_15();
-    __swift_storeEnumTagSinglePayload(v25, v26, v27, v24);
-    v28 = v14[12];
-    v29 = v14[10];
-    v30 = v14[8];
-    v32 = v14[5];
-    v31 = v14[6];
+    v23 = type metadata accessor for SpeakableString();
+    v24 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v24, v25, v26, v23);
+    v27 = v14[8];
+    v29 = v14[5];
+    v28 = v14[6];
 
-    OUTLINED_FUNCTION_74_1();
+    OUTLINED_FUNCTION_74_1(v29, v28);
     OUTLINED_FUNCTION_45_4();
-    v33 = [v30 systemProtocols];
-    OUTLINED_FUNCTION_93_0();
-    OUTLINED_FUNCTION_66_1();
+    v30 = [v27 systemProtocols];
+    v31 = OUTLINED_FUNCTION_93_0();
+    OUTLINED_FUNCTION_66_1(v31);
 
-    v34 = objc_opt_self();
-    v35 = OUTLINED_FUNCTION_44_5([v34 searchSystemProtocol]);
-    OUTLINED_FUNCTION_33_5(v35);
+    v32 = objc_opt_self();
+    v33 = OUTLINED_FUNCTION_44_5([v32 searchSystemProtocol]);
+    OUTLINED_FUNCTION_33_5(v33);
     OUTLINED_FUNCTION_92_0();
 
-    v36 = [v30 systemProtocols];
-    OUTLINED_FUNCTION_91();
+    OUTLINED_FUNCTION_91([v27 systemProtocols]);
 
-    v37 = OUTLINED_FUNCTION_43_4([v34 deleteEntitySystemProtocol]);
-    OUTLINED_FUNCTION_35_7(v37);
+    v34 = OUTLINED_FUNCTION_43_4([v32 deleteEntitySystemProtocol]);
+    OUTLINED_FUNCTION_35_7(v34);
     OUTLINED_FUNCTION_90_0();
 
     OUTLINED_FUNCTION_61_0();
-    v39 = *(v38 + class metadata base offset for RunLinkActionCATs + 56);
     OUTLINED_FUNCTION_6_17();
-    v53 = v40 + *v40;
-    v42 = *(v41 + 4);
+    v46 = v35 + *v35;
     swift_task_alloc();
     OUTLINED_FUNCTION_20_0();
-    v14[14] = v43;
-    *v43 = v44;
-    OUTLINED_FUNCTION_25_6(v43);
+    v14[14] = v36;
+    *v36 = v37;
+    OUTLINED_FUNCTION_25_6(v36);
     OUTLINED_FUNCTION_6_1();
 
-    return v50(v45, v46, v47, v48, v49, v50, v51, v52, a9, v53, a11, a12, a13, a14);
+    return v43(v38, v39, v40, v41, v42, v43, v44, v45, a9, v46, a11, a12, a13, a14);
   }
 }
 
 {
   OUTLINED_FUNCTION_21_1();
   OUTLINED_FUNCTION_30();
-  v16 = v14[12];
-  v17 = v14[10];
-  v18 = v14[8];
-  v20 = v14[5];
-  v19 = v14[6];
+  v16 = v14[10];
+  v17 = v14[8];
+  v19 = v14[5];
+  v18 = v14[6];
 
-  OUTLINED_FUNCTION_74_1();
+  OUTLINED_FUNCTION_74_1(v19, v18);
   type metadata accessor for SpeakableString();
   OUTLINED_FUNCTION_27_7();
   OUTLINED_FUNCTION_49_3();
-  __swift_storeEnumTagSinglePayload(v21, v22, v23, v24);
-  v25 = [v18 systemProtocols];
-  OUTLINED_FUNCTION_93_0();
-  OUTLINED_FUNCTION_66_1();
+  __swift_storeEnumTagSinglePayload(v20, v21, v22, v23);
+  v24 = [v17 systemProtocols];
+  v25 = OUTLINED_FUNCTION_93_0();
+  OUTLINED_FUNCTION_66_1(v25);
 
   v26 = objc_opt_self();
   v27 = OUTLINED_FUNCTION_44_5([v26 searchSystemProtocol]);
   OUTLINED_FUNCTION_33_5(v27);
   OUTLINED_FUNCTION_92_0();
 
-  v28 = [v18 systemProtocols];
-  OUTLINED_FUNCTION_91();
+  OUTLINED_FUNCTION_91([v17 systemProtocols]);
 
-  v29 = OUTLINED_FUNCTION_43_4([v26 deleteEntitySystemProtocol]);
-  OUTLINED_FUNCTION_35_7(v29);
+  v28 = OUTLINED_FUNCTION_43_4([v26 deleteEntitySystemProtocol]);
+  OUTLINED_FUNCTION_35_7(v28);
   OUTLINED_FUNCTION_90_0();
 
   OUTLINED_FUNCTION_61_0();
-  v31 = *(v30 + class metadata base offset for RunLinkActionCATs + 56);
   OUTLINED_FUNCTION_6_17();
-  v46 = v32 + *v32;
-  v34 = *(v33 + 4);
+  v41 = v29 + *v29;
   swift_task_alloc();
   OUTLINED_FUNCTION_20_0();
-  v14[14] = v35;
-  *v35 = v36;
-  OUTLINED_FUNCTION_25_6(v35);
+  v14[14] = v30;
+  *v30 = v31;
+  OUTLINED_FUNCTION_25_6(v30);
   OUTLINED_FUNCTION_6_1();
 
-  return v42(v37, v38, v39, v40, v41, v42, v43, v44, a9, v46, a11, a12, a13, a14);
+  return v37(v32, v33, v34, v35, v36, v37, v38, v39, a9, v41, a11, a12, a13, a14);
 }
 
 uint64_t LinkActionDialogTemplating.makeParameterValueDisambiguationPattern_preRFv2(customPrompt:items:)()
@@ -8800,32 +3995,27 @@ uint64_t LinkActionDialogTemplating.makeParameterValueDisambiguationPattern_preR
   OUTLINED_FUNCTION_45_2(v1, v2);
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v3);
-  v5 = *(v4 + 64);
   *(v0 + 40) = OUTLINED_FUNCTION_28();
-  v6 = OUTLINED_FUNCTION_4();
+  v4 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v6, v7, v8);
+  return _swift_task_switch(v4);
 }
 
 {
   OUTLINED_FUNCTION_14_0();
-  if (!*(v0 + 16))
+  if (!v0[2])
   {
-    v7 = *(v0 + 40);
     type metadata accessor for SpeakableString();
-    v8 = OUTLINED_FUNCTION_7_15();
-    __swift_storeEnumTagSinglePayload(v8, v9, v10, v11);
-    v12 = *(v0 + 40);
-    v13 = OUTLINED_FUNCTION_11_13(*(v0 + 32));
-    *(v0 + 56) = v13;
-    v14 = *(OUTLINED_FUNCTION_65_1(v13) + 72);
+    v6 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+    v10 = OUTLINED_FUNCTION_11_13(v0[4]);
+    v0[7] = v10;
+    OUTLINED_FUNCTION_65_1(v10);
     OUTLINED_FUNCTION_2_26();
-    v23 = v15 + *v15;
-    v17 = *(v16 + 4);
-    v18 = swift_task_alloc();
-    v19 = OUTLINED_FUNCTION_85_2(v18);
-    *v19 = v20;
-    OUTLINED_FUNCTION_17_15(v19);
+    v11 = swift_task_alloc();
+    v12 = OUTLINED_FUNCTION_85_2(v11);
+    *v12 = v13;
+    OUTLINED_FUNCTION_17_15(v12);
     OUTLINED_FUNCTION_49_0();
 
     __asm { BRAA            X6, X16 }
@@ -8833,26 +4023,24 @@ uint64_t LinkActionDialogTemplating.makeParameterValueDisambiguationPattern_preR
 
   swift_task_alloc();
   OUTLINED_FUNCTION_20_0();
-  *(v0 + 48) = v1;
+  v0[6] = v1;
   *v1 = v2;
   v1[1] = LinkActionDialogTemplating.makeParameterValueDisambiguationPattern_preRFv2(customPrompt:items:);
-  v3 = *(v0 + 40);
   OUTLINED_FUNCTION_49_0();
 
-  return LNDialog.asSpeakableString.getter(v4);
+  return LNDialog.asSpeakableString.getter(v3);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 48);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
@@ -8861,21 +4049,19 @@ uint64_t LinkActionDialogTemplating.makeParameterValueDisambiguationPattern_preR
   v4 = v3;
   OUTLINED_FUNCTION_4_1();
   *v5 = v4;
-  v7 = *(v6 + 64);
-  v8 = *v2;
+  v6 = *v2;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
-  v4[9] = v0;
+  *v7 = v6;
+  *(v4 + 72) = v0;
 
   if (!v0)
   {
-    v10 = v4[7];
-    v4[10] = v1;
+    *(v4 + 80) = v1;
   }
 
   OUTLINED_FUNCTION_18_0();
 
-  return _swift_task_switch(v11, v12, v13);
+  return _swift_task_switch(v8);
 }
 
 {
@@ -8890,31 +4076,26 @@ uint64_t LinkActionDialogTemplating.makeParameterValueDisambiguationPattern_preR
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = v0[7];
-  v2 = v0[5];
+  v1 = *(v0 + 40);
 
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v2, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v1, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_0();
-  v4 = v0[9];
 
-  return v3();
+  return v2();
 }
 
 void LinkActionDialogTemplating.makeParameterValueDisambiguationPattern_preRFv2(customPrompt:items:)()
 {
   OUTLINED_FUNCTION_14_0();
-  v1 = *(v0 + 40);
-  v2 = OUTLINED_FUNCTION_11_13(*(v0 + 32));
-  *(v0 + 56) = v2;
-  v3 = *(OUTLINED_FUNCTION_65_1(v2) + 72);
+  v1 = OUTLINED_FUNCTION_11_13(*(v0 + 32));
+  *(v0 + 56) = v1;
+  OUTLINED_FUNCTION_65_1(v1);
   OUTLINED_FUNCTION_2_26();
-  v12 = v4 + *v4;
-  v6 = *(v5 + 4);
-  v7 = swift_task_alloc();
-  v8 = OUTLINED_FUNCTION_85_2(v7);
-  *v8 = v9;
-  OUTLINED_FUNCTION_17_15(v8);
+  v2 = swift_task_alloc();
+  v3 = OUTLINED_FUNCTION_85_2(v2);
+  *v3 = v4;
+  OUTLINED_FUNCTION_17_15(v3);
   OUTLINED_FUNCTION_49_0();
 
   __asm { BRAA            X6, X16 }
@@ -8928,70 +4109,60 @@ uint64_t LinkActionDialogTemplating.makeParameterValueConfirmationPattern_preRFv
   v0[5] = v3;
   OUTLINED_FUNCTION_5_0(v3);
   v0[6] = v4;
-  v6 = *(v5 + 64);
   v0[7] = OUTLINED_FUNCTION_28();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  OUTLINED_FUNCTION_14(v7);
-  v9 = *(v8 + 64);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_14(v5);
   v0[8] = OUTLINED_FUNCTION_28();
-  v10 = OUTLINED_FUNCTION_4();
+  v6 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v10, v11, v12);
+  return _swift_task_switch(v6);
 }
 
 {
   OUTLINED_FUNCTION_24_1();
-  if (!*(v1 + 16))
+  if (!*(v0 + 16))
   {
-    v9 = *(v1 + 64);
     type metadata accessor for SpeakableString();
-    v10 = OUTLINED_FUNCTION_7_15();
-    __swift_storeEnumTagSinglePayload(v10, v11, v12, v13);
-    v14 = [*(v1 + 24) displayRepresentation];
-    v15 = v14;
-    if (v14)
+    v7 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v7, v8, v9, v10);
+    v11 = [*(v0 + 24) displayRepresentation];
+    v12 = v11;
+    if (v11)
     {
-      v17 = *(v1 + 48);
-      v16 = *(v1 + 56);
-      v19 = *(v1 + 32);
-      v18 = *(v1 + 40);
-      v20 = [v14 title];
+      v13 = *(v0 + 48);
+      v14 = *(v0 + 32);
+      v15 = [v11 title];
 
-      v21 = v19[6];
-      __swift_project_boxed_opaque_existential_1(v19 + 2, v19[5]);
+      __swift_project_boxed_opaque_existential_1((v14 + 16), *(v14 + 40));
       OUTLINED_FUNCTION_13_5();
       dispatch thunk of DeviceState.siriLocale.getter();
       Locale.identifier.getter();
-      v22 = *(v17 + 8);
-      v2 = v17 + 8;
-      v23 = OUTLINED_FUNCTION_20_1();
-      v24(v23);
-      v25 = String._bridgeToObjectiveC()();
+      v1 = v13 + 8;
+      v16 = OUTLINED_FUNCTION_20_1();
+      v17(v16);
+      v18 = String._bridgeToObjectiveC()();
 
-      v0 = [v20 localizedStringForLocaleIdentifier:v25];
+      v19 = [v15 localizedStringForLocaleIdentifier:v18];
 
-      v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v27 = v26;
+      v12 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v21 = v20;
     }
 
     else
     {
-      v27 = 0;
+      v21 = 0;
     }
 
-    v28 = OUTLINED_FUNCTION_75_1();
-    *(v1 + 88) = v28;
-    v28[2] = v2;
-    v28[3] = v15;
-    v28[4] = v27;
-    v29 = v0[8];
+    v22 = OUTLINED_FUNCTION_75_1();
+    *(v0 + 88) = v22;
+    v22[2] = v1;
+    v22[3] = v12;
+    v22[4] = v21;
     OUTLINED_FUNCTION_6_17();
-    v36 = v30 + *v30;
-    v32 = *(v31 + 4);
-    v33 = swift_task_alloc();
-    *(v1 + 96) = v33;
-    *v33 = v1;
-    OUTLINED_FUNCTION_38_6(v33);
+    v23 = swift_task_alloc();
+    *(v0 + 96) = v23;
+    *v23 = v0;
+    OUTLINED_FUNCTION_38_6(v23);
     OUTLINED_FUNCTION_60_2();
     OUTLINED_FUNCTION_78();
 
@@ -9000,26 +4171,24 @@ uint64_t LinkActionDialogTemplating.makeParameterValueConfirmationPattern_preRFv
 
   swift_task_alloc();
   OUTLINED_FUNCTION_20_0();
-  *(v1 + 72) = v3;
-  *v3 = v4;
-  v3[1] = LinkActionDialogTemplating.makeParameterValueConfirmationPattern_preRFv2(customPrompt:parameterValue:);
-  v5 = *(v1 + 64);
+  *(v0 + 72) = v2;
+  *v2 = v3;
+  v2[1] = LinkActionDialogTemplating.makeParameterValueConfirmationPattern_preRFv2(customPrompt:parameterValue:);
   OUTLINED_FUNCTION_78();
 
-  return LNDialog.asSpeakableString.getter(v6);
+  return LNDialog.asSpeakableString.getter(v4);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 72);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
@@ -9028,98 +4197,83 @@ uint64_t LinkActionDialogTemplating.makeParameterValueConfirmationPattern_preRFv
   v4 = v3;
   OUTLINED_FUNCTION_4_1();
   *v5 = v4;
-  v7 = *(v6 + 96);
-  v8 = *v2;
+  v6 = *v2;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
-  v4[13] = v0;
+  *v7 = v6;
+  *(v4 + 104) = v0;
 
   if (!v0)
   {
-    v10 = v4[10];
-    v11 = v4[11];
-    v4[14] = v1;
+    *(v4 + 112) = v1;
   }
 
   OUTLINED_FUNCTION_11_1();
 
-  return _swift_task_switch(v12, v13, v14);
+  return _swift_task_switch(v8);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = v0[7];
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v0[8], &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v0 + 64), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_6();
-  v3 = v0[14];
+  v2 = *(v0 + 112);
 
-  return v2(v3);
+  return v1(v2);
 }
 
 {
   OUTLINED_FUNCTION_12_0();
-  v1 = v0[10];
-  v2 = v0[11];
-  v4 = v0[7];
-  v3 = v0[8];
+  v1 = *(v0 + 64);
 
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v3, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v1, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_0();
-  v6 = v0[13];
 
-  return v5();
+  return v2();
 }
 
 void LinkActionDialogTemplating.makeParameterValueConfirmationPattern_preRFv2(customPrompt:parameterValue:)()
 {
   OUTLINED_FUNCTION_24_1();
-  v3 = [*(v1 + 24) displayRepresentation];
-  v4 = v3;
-  if (v3)
+  v2 = [*(v0 + 24) displayRepresentation];
+  v3 = v2;
+  if (v2)
   {
-    v6 = *(v1 + 48);
-    v5 = *(v1 + 56);
-    v8 = *(v1 + 32);
-    v7 = *(v1 + 40);
-    v9 = [v3 title];
+    v4 = *(v0 + 48);
+    v5 = *(v0 + 32);
+    v6 = [v2 title];
 
-    v10 = v8[6];
-    __swift_project_boxed_opaque_existential_1(v8 + 2, v8[5]);
+    __swift_project_boxed_opaque_existential_1((v5 + 16), *(v5 + 40));
     OUTLINED_FUNCTION_13_5();
     dispatch thunk of DeviceState.siriLocale.getter();
     Locale.identifier.getter();
-    v11 = *(v6 + 8);
-    v2 = v6 + 8;
-    v12 = OUTLINED_FUNCTION_20_1();
-    v13(v12);
-    v14 = String._bridgeToObjectiveC()();
+    v1 = v4 + 8;
+    v7 = OUTLINED_FUNCTION_20_1();
+    v8(v7);
+    v9 = String._bridgeToObjectiveC()();
 
-    v0 = [v9 localizedStringForLocaleIdentifier:v14];
+    v10 = [v6 localizedStringForLocaleIdentifier:v9];
 
-    v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v16 = v15;
+    v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v12 = v11;
   }
 
   else
   {
-    v16 = 0;
+    v12 = 0;
   }
 
-  v17 = OUTLINED_FUNCTION_75_1();
-  *(v1 + 88) = v17;
-  v17[2] = v2;
-  v17[3] = v4;
-  v17[4] = v16;
-  v18 = v0[8];
+  v13 = OUTLINED_FUNCTION_75_1();
+  *(v0 + 88) = v13;
+  v13[2] = v1;
+  v13[3] = v3;
+  v13[4] = v12;
   OUTLINED_FUNCTION_6_17();
-  v25 = v19 + *v19;
-  v21 = *(v20 + 4);
-  v22 = swift_task_alloc();
-  *(v1 + 96) = v22;
-  *v22 = v1;
-  OUTLINED_FUNCTION_38_6(v22);
+  v14 = swift_task_alloc();
+  *(v0 + 96) = v14;
+  *v14 = v0;
+  OUTLINED_FUNCTION_38_6(v14);
   OUTLINED_FUNCTION_60_2();
   OUTLINED_FUNCTION_78();
 
@@ -9129,43 +4283,41 @@ void LinkActionDialogTemplating.makeParameterValueConfirmationPattern_preRFv2(cu
 uint64_t closure #1 in LinkActionDialogTemplating.makeParameterValueConfirmationPattern_preRFv2(customPrompt:parameterValue:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v15 - v9;
+  v9 = &v14 - v8;
   outlined assign with copy of SpeakableString?(a2, a1);
   if (a4)
   {
 
     SpeakableString.init(print:speak:)();
-    v11 = type metadata accessor for SpeakableString();
-    v12 = 0;
+    v10 = type metadata accessor for SpeakableString();
+    v11 = 0;
   }
 
   else
   {
-    v11 = type metadata accessor for SpeakableString();
-    v12 = 1;
+    v10 = type metadata accessor for SpeakableString();
+    v11 = 1;
   }
 
-  __swift_storeEnumTagSinglePayload(v10, v12, 1, v11);
-  v13 = type metadata accessor for RunLinkActionParameterConfirmationParameters(0);
-  return outlined assign with take of SpeakableString?(v10, a1 + *(v13 + 24));
+  __swift_storeEnumTagSinglePayload(v9, v11, 1, v10);
+  v12 = type metadata accessor for RunLinkActionParameterConfirmationParameters(0);
+  return outlined assign with take of SpeakableString?(v9, a1 + *(v12 + 24));
 }
 
-uint64_t LinkActionDialogTemplating.extractDialogAndParamDetails(from:)(uint64_t a1)
+uint64_t LinkActionDialogTemplating.extractDialogAndParamDetails(from:)(uint64_t a1, uint64_t a2)
 {
-  v2 = v1;
-  v4 = type metadata accessor for Locale();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
-  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = v2;
+  v5 = type metadata accessor for Locale();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getErrorValue();
   v9 = dispatch thunk of Error._code.getter();
   if (v9 == 2005)
   {
+    v14 = 1;
     v15 = 1;
-    v16 = 1;
     goto LABEL_15;
   }
 
@@ -9176,14 +4328,13 @@ uint64_t LinkActionDialogTemplating.extractDialogAndParamDetails(from:)(uint64_t
 
     if (v11)
     {
-      v12 = v2[6];
-      __swift_project_boxed_opaque_existential_1(v2 + 2, v2[5]);
+      __swift_project_boxed_opaque_existential_1((v3 + 16), *(v3 + 40));
       dispatch thunk of DeviceState.siriLocale.getter();
       Locale.identifier.getter();
-      (*(v5 + 8))(v8, v4);
-      v13 = String._bridgeToObjectiveC()();
+      (*(v6 + 8))(v8, v5);
+      v12 = String._bridgeToObjectiveC()();
 
-      v14 = [v11 localizedStringForLocaleIdentifier:v13];
+      v13 = [v11 localizedStringForLocaleIdentifier:v12];
 
       static String._unconditionallyBridgeFromObjectiveC(_:)();
       goto LABEL_7;
@@ -9194,20 +4345,20 @@ uint64_t LinkActionDialogTemplating.extractDialogAndParamDetails(from:)(uint64_t
       swift_once();
     }
 
-    v17 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v17, static Logger.voiceCommands);
-    v18 = Logger.logObject.getter();
-    v19 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v18, v19))
+    v16 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v16, static Logger.voiceCommands);
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v17, v18))
     {
-      v20 = swift_slowAlloc();
-      *v20 = 0;
-      _os_log_impl(&dword_0, v18, v19, "#LinkActionDialogTemplating could not create error dialog from .localizedStringResource error.", v20, 2u);
+      v19 = swift_slowAlloc();
+      *v19 = 0;
+      _os_log_impl(&dword_0, v17, v18, "#LinkActionDialogTemplating could not create error dialog from .localizedStringResource error.", v19, 2u);
     }
 
 LABEL_14:
-    v16 = 0;
-    v15 = 1;
+    v15 = 0;
+    v14 = 1;
     goto LABEL_15;
   }
 
@@ -9220,12 +4371,12 @@ LABEL_14:
   Error.localizedDescription.getter();
 LABEL_7:
   SpeakableString.init(print:speak:)();
+  v14 = 0;
   v15 = 0;
-  v16 = 0;
 LABEL_15:
-  v21 = type metadata accessor for SpeakableString();
-  __swift_storeEnumTagSinglePayload(a1, v15, 1, v21);
-  return v16;
+  v20 = type metadata accessor for SpeakableString();
+  __swift_storeEnumTagSinglePayload(a1, v14, 1, v20);
+  return v15;
 }
 
 uint64_t LinkActionDialogTemplating.makeFailureHandlingIntentDialog(error:)()
@@ -9235,31 +4386,25 @@ uint64_t LinkActionDialogTemplating.makeFailureHandlingIntentDialog(error:)()
   v1[3] = v0;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v3);
-  v5 = *(v4 + 64);
   v1[4] = OUTLINED_FUNCTION_28();
-  v6 = OUTLINED_FUNCTION_4();
+  v4 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v6, v7, v8);
+  return _swift_task_switch(v4);
 }
 
 {
   OUTLINED_FUNCTION_12_0();
-  v1 = v0[3];
-  v2 = v0[2];
-  LinkActionDialogTemplating.extractDialogAndParamDetails(from:)(v0[4]);
-  v3 = *(v1 + 64);
+  LinkActionDialogTemplating.extractDialogAndParamDetails(from:)(v0[4], v0[2]);
   OUTLINED_FUNCTION_18_4();
-  v5 = *(v4 + class metadata base offset for RunLinkActionCATsSimple + 80);
   OUTLINED_FUNCTION_6_17();
-  v12 = (v6 + *v6);
-  v8 = *(v7 + 4);
-  v9 = swift_task_alloc();
-  v0[5] = v9;
-  *v9 = v0;
-  v9[1] = LinkActionDialogTemplating.makeFailureHandlingIntentDialog(error:);
-  v10 = OUTLINED_FUNCTION_73(v0[4]);
+  v5 = (v1 + *v1);
+  v2 = swift_task_alloc();
+  v0[5] = v2;
+  *v2 = v0;
+  v2[1] = LinkActionDialogTemplating.makeFailureHandlingIntentDialog(error:);
+  v3 = OUTLINED_FUNCTION_73(v0[4]);
 
-  return v12(v10);
+  return v5(v3);
 }
 
 {
@@ -9268,10 +4413,9 @@ uint64_t LinkActionDialogTemplating.makeFailureHandlingIntentDialog(error:)()
   v4 = v3;
   OUTLINED_FUNCTION_4_1();
   *v5 = v4;
-  v7 = *(v6 + 40);
-  v8 = *v2;
+  v6 = *v2;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
+  *v7 = v6;
   *(v4 + 48) = v0;
 
   if (!v0)
@@ -9281,7 +4425,7 @@ uint64_t LinkActionDialogTemplating.makeFailureHandlingIntentDialog(error:)()
 
   OUTLINED_FUNCTION_18_0();
 
-  return _swift_task_switch(v10, v11, v12);
+  return _swift_task_switch(v8);
 }
 
 {
@@ -9299,7 +4443,6 @@ uint64_t LinkActionDialogTemplating.makeFailureHandlingIntentDialog(error:)()
   outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v0 + 32), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_0();
-  v2 = *(v0 + 48);
 
   return v1();
 }
@@ -9310,32 +4453,27 @@ uint64_t LinkActionDialogTemplating.makeGenericError()()
   *(v1 + 16) = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v2);
-  v4 = *(v3 + 64);
   *(v1 + 24) = OUTLINED_FUNCTION_28();
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
   OUTLINED_FUNCTION_12_0();
-  v1 = v0[3];
-  v2 = *(v0[2] + 64);
   type metadata accessor for SpeakableString();
-  v3 = OUTLINED_FUNCTION_27_7();
-  __swift_storeEnumTagSinglePayload(v3, 1, 1, v4);
+  v1 = OUTLINED_FUNCTION_27_7();
+  __swift_storeEnumTagSinglePayload(v1, 1, 1, v2);
   OUTLINED_FUNCTION_61_0();
-  v6 = *(v5 + class metadata base offset for RunLinkActionCATsSimple + 80);
   OUTLINED_FUNCTION_6_17();
-  v13 = (v7 + *v7);
-  v9 = *(v8 + 4);
-  v10 = swift_task_alloc();
-  v0[4] = v10;
-  *v10 = v0;
-  v10[1] = LinkActionDialogTemplating.makeGenericError();
-  v11 = OUTLINED_FUNCTION_73(v0[3]);
+  v7 = (v3 + *v3);
+  v4 = swift_task_alloc();
+  *(v0 + 32) = v4;
+  *v4 = v0;
+  v4[1] = LinkActionDialogTemplating.makeGenericError();
+  v5 = OUTLINED_FUNCTION_73(*(v0 + 24));
 
-  return (v13)(v11, 0);
+  return (v7)(v5, 0);
 }
 
 {
@@ -9344,8 +4482,7 @@ uint64_t LinkActionDialogTemplating.makeGenericError()()
   v4 = *v1;
   OUTLINED_FUNCTION_4_1();
   *v6 = v5;
-  v7 = *(v4 + 32);
-  v8 = *v1;
+  v7 = *v1;
   *v6 = *v1;
   *(v5 + 40) = v0;
 
@@ -9354,26 +4491,24 @@ uint64_t LinkActionDialogTemplating.makeGenericError()()
   {
     OUTLINED_FUNCTION_11_1();
 
-    return _swift_task_switch(v9, v10, v11);
+    return _swift_task_switch(v8);
   }
 
   else
   {
 
-    v12 = *(v8 + 8);
+    v9 = *(v7 + 8);
 
-    return v12(v3);
+    return v9(v3);
   }
 }
 
 {
   OUTLINED_FUNCTION_8_0();
-  v1 = *(v0 + 24);
 
   OUTLINED_FUNCTION_6_0();
-  v3 = *(v0 + 40);
 
-  return v2();
+  return v0();
 }
 
 uint64_t LinkActionDialogTemplating.makeFailureHandlingIntentDialog_preRFv2(error:)()
@@ -9382,33 +4517,27 @@ uint64_t LinkActionDialogTemplating.makeFailureHandlingIntentDialog_preRFv2(erro
   OUTLINED_FUNCTION_45_2(v1, v2);
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   OUTLINED_FUNCTION_14(v3);
-  v5 = *(v4 + 64);
   *(v0 + 40) = OUTLINED_FUNCTION_28();
-  v6 = OUTLINED_FUNCTION_4();
+  v4 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v6, v7, v8);
+  return _swift_task_switch(v4);
 }
 
 {
   OUTLINED_FUNCTION_12_0();
-  v1 = v0[4];
-  v2 = v0[3];
-  v3 = LinkActionDialogTemplating.extractDialogAndParamDetails(from:)(v0[5]);
-  v4 = *(v1 + 56);
+  v1 = LinkActionDialogTemplating.extractDialogAndParamDetails(from:)(v0[5], v0[3]);
   OUTLINED_FUNCTION_18_4();
-  v6 = *(v5 + class metadata base offset for RunLinkActionCATs + 40);
   OUTLINED_FUNCTION_6_17();
-  v15 = (v7 + *v7);
-  v9 = *(v8 + 4);
+  v8 = (v2 + *v2);
   swift_task_alloc();
   OUTLINED_FUNCTION_20_0();
-  v0[6] = v10;
-  *v10 = v11;
-  v10[1] = LinkActionDialogTemplating.makeFailureHandlingIntentDialog_preRFv2(error:);
-  v12 = v0[5];
-  v13 = v0[2];
+  v0[6] = v3;
+  *v3 = v4;
+  v3[1] = LinkActionDialogTemplating.makeFailureHandlingIntentDialog_preRFv2(error:);
+  v5 = v0[5];
+  v6 = v0[2];
 
-  return (v15)(v13, v12, v3 & 1);
+  return (v8)(v6, v5, v1 & 1);
 }
 
 {
@@ -9416,15 +4545,14 @@ uint64_t LinkActionDialogTemplating.makeFailureHandlingIntentDialog_preRFv2(erro
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_3_0();
   *v3 = v2;
-  v5 = *(v4 + 48);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_2_0();
-  *v7 = v6;
-  *(v8 + 56) = v0;
+  *v5 = v4;
+  *(v6 + 56) = v0;
 
   OUTLINED_FUNCTION_11_1();
 
-  return _swift_task_switch(v9, v10, v11);
+  return _swift_task_switch(v7);
 }
 
 {
@@ -9441,7 +4569,6 @@ uint64_t LinkActionDialogTemplating.makeFailureHandlingIntentDialog_preRFv2(erro
   outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v0 + 40), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
   OUTLINED_FUNCTION_6_0();
-  v2 = *(v0 + 56);
 
   return v1();
 }
@@ -9454,25 +4581,21 @@ uint64_t LinkActionDialogTemplating.makeNeedsDisambiguationTitle_preRFv2(customP
   v0[5] = v3;
   OUTLINED_FUNCTION_5_0(v3);
   v0[6] = v4;
-  v6 = *(v5 + 64);
   v0[7] = OUTLINED_FUNCTION_28();
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
-  OUTLINED_FUNCTION_14(v7);
-  v9 = *(v8 + 64);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
+  OUTLINED_FUNCTION_14(v5);
   v0[8] = OUTLINED_FUNCTION_28();
-  v10 = type metadata accessor for TemplatingResult();
-  v0[9] = v10;
-  OUTLINED_FUNCTION_5_0(v10);
-  v0[10] = v11;
-  v13 = *(v12 + 64);
+  v6 = type metadata accessor for TemplatingResult();
+  v0[9] = v6;
+  OUTLINED_FUNCTION_5_0(v6);
+  v0[10] = v7;
   v0[11] = OUTLINED_FUNCTION_28();
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-  OUTLINED_FUNCTION_14(v14);
-  v16 = *(v15 + 64);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_14(v8);
   v0[12] = OUTLINED_FUNCTION_28();
-  v17 = OUTLINED_FUNCTION_4();
+  v9 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v17, v18, v19);
+  return _swift_task_switch(v9);
 }
 
 {
@@ -9490,52 +4613,44 @@ uint64_t LinkActionDialogTemplating.makeNeedsDisambiguationTitle_preRFv2(customP
 
   else
   {
-    v6 = v0[12];
     type metadata accessor for SpeakableString();
-    v7 = OUTLINED_FUNCTION_7_15();
-    __swift_storeEnumTagSinglePayload(v7, v8, v9, v10);
-    OUTLINED_FUNCTION_19_10(v0[4]);
-    v12 = *(v11 + class metadata base offset for RunLinkActionCATs + 48);
+    v6 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v6, v7, v8, v9);
+    OUTLINED_FUNCTION_19_10();
     OUTLINED_FUNCTION_2_26();
-    v20 = v13 + *v13;
-    v15 = *(v14 + 4);
     swift_task_alloc();
     OUTLINED_FUNCTION_20_0();
-    v0[14] = v16;
-    *v16 = v17;
-    v18 = OUTLINED_FUNCTION_28_6(v16);
+    v0[14] = v10;
+    *v10 = v11;
+    v12 = OUTLINED_FUNCTION_28_6(v10);
 
-    return v19(v18);
+    return v13(v12);
   }
 }
 
 {
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_9_0();
-  v2 = *(v1 + 104);
-  v3 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_2_0();
-  *v4 = v3;
+  *v2 = v1;
 
-  v5 = OUTLINED_FUNCTION_4();
+  v3 = OUTLINED_FUNCTION_4();
 
-  return _swift_task_switch(v5, v6, v7);
+  return _swift_task_switch(v3);
 }
 
 {
   OUTLINED_FUNCTION_12_0();
-  OUTLINED_FUNCTION_19_10(*(v0 + 32));
-  v2 = *(v1 + class metadata base offset for RunLinkActionCATs + 48);
+  OUTLINED_FUNCTION_19_10();
   OUTLINED_FUNCTION_2_26();
-  v11 = v3 + *v3;
-  v5 = *(v4 + 4);
   swift_task_alloc();
   OUTLINED_FUNCTION_20_0();
-  *(v0 + 112) = v6;
-  *v6 = v7;
-  v8 = OUTLINED_FUNCTION_28_6(v6);
+  *(v0 + 112) = v1;
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_28_6(v1);
 
-  return v9(v8);
+  return v4(v3);
 }
 
 {
@@ -9543,48 +4658,51 @@ uint64_t LinkActionDialogTemplating.makeNeedsDisambiguationTitle_preRFv2(customP
   OUTLINED_FUNCTION_9_0();
   OUTLINED_FUNCTION_3_0();
   *v3 = v2;
-  v5 = *(v4 + 112);
-  v6 = *v1;
+  v4 = *v1;
   OUTLINED_FUNCTION_2_0();
-  *v7 = v6;
-  *(v8 + 120) = v0;
+  *v5 = v4;
+  *(v6 + 120) = v0;
 
   OUTLINED_FUNCTION_11_1();
 
-  return _swift_task_switch(v9, v10, v11);
+  return _swift_task_switch(v7);
 }
 
 {
-  v43 = v1;
-  v2 = v1[11];
-  v3 = v1[8];
-  v4 = TemplatingResult.sections.getter();
-  specialized Collection.first.getter(v4, v3);
+  OUTLINED_FUNCTION_12_0();
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v0 + 96), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
 
-  v5 = type metadata accessor for TemplatingSection();
-  OUTLINED_FUNCTION_96(v5);
-  if (v6)
+  OUTLINED_FUNCTION_6_0();
+
+  return v1();
+}
+
+uint64_t LinkActionDialogTemplating.makeNeedsDisambiguationTitle_preRFv2(customPrompt:items:)(uint64_t a1)
+{
+  v32 = v1;
+  v2 = v1[8];
+  v3 = TemplatingResult.sections.getter();
+  specialized Collection.first.getter(v3, v2);
+
+  v4 = type metadata accessor for TemplatingSection();
+  OUTLINED_FUNCTION_96(v4);
+  if (v5)
   {
-    outlined destroy of Siri_Nlu_External_UserDialogAct?(v4, &_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
-    v14 = 0;
-    v16 = 0;
+    outlined destroy of Siri_Nlu_External_UserDialogAct?(v3, &_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
+    v8 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v8 = v1[6];
-    v7 = v1[7];
-    v9 = v1[5];
     TemplatingSection.content.getter();
-    OUTLINED_FUNCTION_21_2(v0);
-    v11 = *(v10 + 8);
-    v12 = OUTLINED_FUNCTION_22_4();
-    v13(v12);
-    v14 = TemplatingText.text.getter();
-    v16 = v15;
-    v17 = *(v8 + 8);
-    v18 = OUTLINED_FUNCTION_56_1();
-    v19(v18);
+    OUTLINED_FUNCTION_21_2();
+    v6 = OUTLINED_FUNCTION_22_4();
+    v7(v6);
+    v8 = TemplatingText.text.getter();
+    v10 = v9;
+    v11 = OUTLINED_FUNCTION_56_1();
+    v12(v11);
   }
 
   if (one-time initialization token for voiceCommands != -1)
@@ -9592,77 +4710,59 @@ uint64_t LinkActionDialogTemplating.makeNeedsDisambiguationTitle_preRFv2(customP
     swift_once();
   }
 
-  v20 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v20, static Logger.voiceCommands);
+  v13 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v13, static Logger.voiceCommands);
 
-  v21 = Logger.logObject.getter();
-  v22 = static os_log_type_t.debug.getter();
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.debug.getter();
 
-  v23 = os_log_type_enabled(v21, v22);
-  v25 = v1[11];
-  v24 = v1[12];
-  v27 = v1[9];
-  v26 = v1[10];
-  if (v23)
+  v16 = os_log_type_enabled(v14, v15);
+  v18 = v1[11];
+  v17 = v1[12];
+  v20 = v1[9];
+  v19 = v1[10];
+  if (v16)
   {
-    v41 = v1[9];
-    v28 = swift_slowAlloc();
-    v29 = swift_slowAlloc();
-    v42 = v29;
-    *v28 = 136315138;
-    v39 = v25;
-    v40 = v24;
-    v30 = v14;
-    if (v16)
+    v30 = v1[9];
+    v21 = swift_slowAlloc();
+    v22 = swift_slowAlloc();
+    v31 = v22;
+    *v21 = 136315138;
+    v28 = v18;
+    v29 = v17;
+    v23 = v8;
+    if (v10)
     {
-      v31 = v16;
+      v24 = v10;
     }
 
     else
     {
-      v14 = 0x2D6C696E2DLL;
-      v31 = 0xE500000000000000;
+      v8 = 0x2D6C696E2DLL;
+      v24 = 0xE500000000000000;
     }
 
-    v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v31, &v42);
+    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v24, &v31);
 
-    *(v28 + 4) = v32;
-    _os_log_impl(&dword_0, v21, v22, "#LinkActionDialogTemplating makeNeedsDisambiguationTitle (pre-RF2.0) needsDisambiguationText=%s", v28, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v29);
+    *(v21 + 4) = v25;
+    _os_log_impl(&dword_0, v14, v15, "#LinkActionDialogTemplating makeNeedsDisambiguationTitle (pre-RF2.0) needsDisambiguationText=%s", v21, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v22);
 
-    (*(v26 + 8))(v39, v41);
-    outlined destroy of Siri_Nlu_External_UserDialogAct?(v40, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+    (*(v19 + 8))(v28, v30);
+    outlined destroy of Siri_Nlu_External_UserDialogAct?(v29, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
   }
 
   else
   {
 
-    (*(v26 + 8))(v25, v27);
-    outlined destroy of Siri_Nlu_External_UserDialogAct?(v24, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-    v30 = v14;
+    (*(v19 + 8))(v18, v20);
+    outlined destroy of Siri_Nlu_External_UserDialogAct?(v17, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+    v23 = v8;
   }
-
-  v34 = v1[11];
-  v33 = v1[12];
-  v36 = v1[7];
-  v35 = v1[8];
 
   OUTLINED_FUNCTION_12_7();
 
-  return v37(v30, v16);
-}
-
-{
-  OUTLINED_FUNCTION_12_0();
-  v1 = v0[11];
-  v3 = v0[7];
-  v2 = v0[8];
-  outlined destroy of Siri_Nlu_External_UserDialogAct?(v0[12], &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
-
-  OUTLINED_FUNCTION_6_0();
-  v5 = v0[15];
-
-  return v4();
+  return v26(v23, v10);
 }
 
 uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActionName:)()
@@ -9674,12 +4774,11 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
   v1[4] = v3;
   OUTLINED_FUNCTION_5_0(v3);
   v1[5] = v4;
-  v6 = *(v5 + 64);
   v1[6] = OUTLINED_FUNCTION_28();
-  v7 = swift_task_alloc();
-  v8 = OUTLINED_FUNCTION_76_2(v7);
-  *v8 = v9;
-  v8[1] = LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActionName:);
+  v5 = swift_task_alloc();
+  v6 = OUTLINED_FUNCTION_76_2(v5);
+  *v6 = v7;
+  v6[1] = LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActionName:);
 
   return LinkActionDialogTemplating.makeConfirmationButtonLabel(confirmationVerb:)();
 }
@@ -9690,28 +4789,25 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
   v3 = v2;
   OUTLINED_FUNCTION_4_1();
   *v4 = v3;
-  v6 = *(v5 + 56);
-  v7 = *v1;
+  v5 = *v1;
   *v4 = *v1;
-  v3[8] = v8;
-  v3[9] = v9;
+  v3[8] = v6;
+  v3[9] = v7;
 
   if (v0)
   {
-    v10 = v3[6];
 
-    v11 = *(v7 + 8);
+    v8 = *(v5 + 8);
 
-    return v11();
+    return v8();
   }
 
   else
   {
-    v13 = async function pointer to static LabelTemplates.cancel()[1];
-    v14 = swift_task_alloc();
-    v3[10] = v14;
-    *v14 = v7;
-    v14[1] = LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActionName:);
+    v10 = swift_task_alloc();
+    v3[10] = v10;
+    *v10 = v5;
+    v10[1] = LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActionName:);
 
     return static LabelTemplates.cancel()();
   }
@@ -9723,28 +4819,24 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
   v3 = v2;
   OUTLINED_FUNCTION_4_1();
   *v4 = v3;
-  v6 = *(v5 + 80);
-  v7 = *v1;
+  v5 = *v1;
   *v4 = *v1;
-  v3[11] = v8;
-  v3[12] = v9;
+  *(v3 + 88) = v6;
+  *(v3 + 96) = v7;
 
   if (v0)
   {
-    v10 = v3[9];
 
-    v11 = v3[6];
+    v8 = *(v5 + 8);
 
-    v12 = *(v7 + 8);
-
-    return v12();
+    return v8();
   }
 
   else
   {
     OUTLINED_FUNCTION_18_0();
 
-    return _swift_task_switch(v14, v15, v16);
+    return _swift_task_switch(v10);
   }
 }
 
@@ -9757,15 +4849,13 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
   v7 = v6;
   OUTLINED_FUNCTION_4_1();
   *v8 = v7;
-  v10 = *(v9 + 104);
-  v11 = *v1;
+  v9 = *v1;
   OUTLINED_FUNCTION_2_0();
-  *v12 = v11;
+  *v10 = v9;
   v7[14] = v0;
 
   if (v0)
   {
-    v13 = v7[12];
   }
 
   else
@@ -9777,21 +4867,15 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
   OUTLINED_FUNCTION_11_1();
   OUTLINED_FUNCTION_87();
 
-  return _swift_task_switch(v14, v15, v16);
+  return _swift_task_switch(v11);
 }
 
 {
   OUTLINED_FUNCTION_12_0();
 
-  v1 = *(v0 + 120);
-  v2 = *(v0 + 128);
-  v4 = *(v0 + 88);
-  v3 = *(v0 + 96);
-  v5 = *(v0 + 48);
+  v1 = OUTLINED_FUNCTION_57_3();
 
-  v6 = OUTLINED_FUNCTION_57_3();
-
-  return v7(v6);
+  return v2(v1);
 }
 
 {
@@ -9803,15 +4887,13 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
   v7 = v6;
   OUTLINED_FUNCTION_4_1();
   *v8 = v7;
-  v10 = *(v9 + 136);
-  v11 = *v1;
+  v9 = *v1;
   OUTLINED_FUNCTION_2_0();
-  *v12 = v11;
+  *v10 = v9;
   v7[18] = v0;
 
   if (v0)
   {
-    v13 = v7[12];
   }
 
   else
@@ -9823,21 +4905,15 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
   OUTLINED_FUNCTION_11_1();
   OUTLINED_FUNCTION_87();
 
-  return _swift_task_switch(v14, v15, v16);
+  return _swift_task_switch(v11);
 }
 
 {
   OUTLINED_FUNCTION_12_0();
 
-  v1 = *(v0 + 152);
-  v2 = *(v0 + 160);
-  v4 = *(v0 + 88);
-  v3 = *(v0 + 96);
-  v5 = *(v0 + 48);
+  v1 = OUTLINED_FUNCTION_57_3();
 
-  v6 = OUTLINED_FUNCTION_57_3();
-
-  return v7(v6);
+  return v2(v1);
 }
 
 {
@@ -9846,24 +4922,20 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
   v3 = v2;
   OUTLINED_FUNCTION_4_1();
   *v4 = v3;
-  v6 = *(v5 + 176);
-  v7 = *(v5 + 168);
-  v8 = *v1;
+  v5 = *v1;
   OUTLINED_FUNCTION_2_0();
-  *v9 = v8;
-  v3[23] = v10;
-  v3[24] = v11;
+  *v6 = v5;
+  v3[23] = v7;
+  v3[24] = v8;
   v3[25] = v0;
 
   if (v0)
   {
-    v12 = v3[12];
-    v13 = v3[9];
   }
 
   OUTLINED_FUNCTION_11_1();
 
-  return _swift_task_switch(v14, v15, v16);
+  return _swift_task_switch(v9);
 }
 
 {
@@ -9874,7 +4946,6 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
   {
     v2 = *(v0 + 192);
     v3 = (v0 + 184);
-    v4 = *(v0 + 72);
   }
 
   else
@@ -9883,45 +4954,4978 @@ uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActio
     v3 = (v0 + 64);
   }
 
-  v6 = *(v0 + 88);
-  v5 = *(v0 + 96);
-  v7 = *v3;
-  v8 = *(v0 + 48);
+  v5 = *(v0 + 88);
+  v4 = *(v0 + 96);
+  v6 = *v3;
 
-  v9 = *(v0 + 8);
+  v7 = *(v0 + 8);
 
-  return v9(v7, v2, v6, v5);
+  return v7(v6, v2, v5, v4);
 }
 
 {
   OUTLINED_FUNCTION_8_0();
 
-  v1 = *(v0 + 112);
-  v2 = *(v0 + 48);
+  OUTLINED_FUNCTION_6_0();
+
+  return v1();
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+
+  OUTLINED_FUNCTION_6_0();
+
+  return v1();
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+
+  OUTLINED_FUNCTION_6_0();
+
+  return v1();
+}
+
+uint64_t LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActionName:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_23_1();
+  OUTLINED_FUNCTION_14_0();
+  v11 = v10[2];
+  if (!v11)
+  {
+LABEL_19:
+
+    OUTLINED_FUNCTION_25_2();
+
+    return v38(v33, v34, v35, v36, v37, v38, v39, v40, a9, a10);
+  }
+
+  v12 = v11;
+  v13 = [v12 type];
+  if (!v13)
+  {
+
+    v24 = swift_task_alloc();
+    v10[17] = v24;
+    *v24 = v10;
+    v24[1] = LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActionName:);
+    OUTLINED_FUNCTION_73(0x65756E69746E6F63);
+    goto LABEL_10;
+  }
+
+  if (v13 == &dword_0 + 2)
+  {
+    v18 = v10[5];
+    v17 = v10[6];
+    v19 = v10[4];
+    __swift_project_boxed_opaque_existential_1((v10[3] + 16), *(v10[3] + 40));
+    OUTLINED_FUNCTION_56_1();
+    dispatch thunk of DeviceState.siriLocale.getter();
+    Locale.identifier.getter();
+    (*(v18 + 8))(v17, v19);
+    v20 = [v12 acceptLabel];
+    if (v20)
+    {
+      v21 = v20;
+
+      v22 = String._bridgeToObjectiveC()();
+      v23 = [v21 localizedStringForLocaleIdentifier:v22];
+
+      static String._unconditionallyBridgeFromObjectiveC(_:)();
+    }
+
+    v29 = [v12 denyLabel];
+    if (v29)
+    {
+      v30 = v29;
+
+      v31 = String._bridgeToObjectiveC()();
+
+      v32 = [v30 localizedStringForLocaleIdentifier:v31];
+
+      static String._unconditionallyBridgeFromObjectiveC(_:)();
+    }
+
+    else
+    {
+    }
+
+    goto LABEL_19;
+  }
+
+  if (v13 == &dword_0 + 1)
+  {
+
+    v14 = swift_task_alloc();
+    v15 = OUTLINED_FUNCTION_31_4(v14);
+    *v15 = v16;
+    v15[1] = LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActionName:);
+    OUTLINED_FUNCTION_73(0x7472617473);
+LABEL_10:
+    OUTLINED_FUNCTION_25_2();
+
+    return LinkActionDialogTemplating.makeConfirmationButtonLabel(confirmationVerb:)();
+  }
+
+  v10[21] = LNConfirmationActionName.toIntentVerb()()._object;
+  v27 = swift_task_alloc();
+  v10[22] = v27;
+  *v27 = v10;
+  v27[1] = LinkActionDialogTemplating.makeConfirmAndCancelButton(confirmationActionName:);
+  OUTLINED_FUNCTION_25_2();
+
+  return LinkActionDialogTemplating.makeConfirmationButtonLabelForCategory(verb:)();
+}
+
+uint64_t LinkActionDialogTemplating.makeConfirmationButtonLabel(confirmationVerb:)()
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_46_6(v1, v2);
+  v3 = type metadata accessor for TemplatingText();
+  v0[5] = v3;
+  OUTLINED_FUNCTION_5_0(v3);
+  v0[6] = v4;
+  v0[7] = OUTLINED_FUNCTION_28();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
+  OUTLINED_FUNCTION_14(v5);
+  v0[8] = OUTLINED_FUNCTION_28();
+  v6 = type metadata accessor for TemplatingResult();
+  v0[9] = v6;
+  OUTLINED_FUNCTION_5_0(v6);
+  v0[10] = v7;
+  v0[11] = OUTLINED_FUNCTION_28();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_14(v8);
+  v0[12] = OUTLINED_FUNCTION_27();
+  v0[13] = swift_task_alloc();
+  v9 = type metadata accessor for RFFeatureFlags.ResponseFramework();
+  v0[14] = v9;
+  OUTLINED_FUNCTION_5_0(v9);
+  v0[15] = v10;
+  v0[16] = OUTLINED_FUNCTION_28();
+  v11 = type metadata accessor for SpeakableString();
+  v0[17] = v11;
+  OUTLINED_FUNCTION_5_0(v11);
+  v0[18] = v12;
+  v0[19] = OUTLINED_FUNCTION_28();
+  v13 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v13);
+}
+
+{
+  OUTLINED_FUNCTION_88();
+  OUTLINED_FUNCTION_15_2();
+  v3 = v2;
+  v4 = *v1;
+  v5 = *v1;
+  OUTLINED_FUNCTION_2_0();
+  *v6 = v5;
+  *v6 = *v1;
+  *(v5 + 168) = v0;
+
+  v7 = *(v4 + 104);
+  if (!v0)
+  {
+    *(v5 + 176) = v3;
+  }
+
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v7, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_11_1();
+  OUTLINED_FUNCTION_87();
+
+  return _swift_task_switch(v8);
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_3_0();
+  *v3 = v2;
+  v5 = *(v4 + 96);
+  v6 = *v1;
+  OUTLINED_FUNCTION_2_0();
+  *v7 = v6;
+  *(v8 + 192) = v0;
+
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v5, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_11_1();
+
+  return _swift_task_switch(v9);
+}
+
+void LinkActionDialogTemplating.makeConfirmationButtonLabel(confirmationVerb:)()
+{
+  OUTLINED_FUNCTION_24_1();
+  v1 = v0[18];
+  v3 = v0[15];
+  v2 = v0[16];
+  v4 = v0[14];
+  v6 = v0[2];
+  v5 = v0[3];
+
+  OUTLINED_FUNCTION_74_1(v6, v5);
+  (*(v3 + 104))(v2, enum case for RFFeatureFlags.ResponseFramework._SMART(_:), v4);
+  v7 = RFFeatureFlags.ResponseFramework.isEnabled.getter();
+  v8 = OUTLINED_FUNCTION_9_3();
+  v9(v8);
+  v10 = *(v1 + 16);
+  v11 = v0[19];
+  if (v7)
+  {
+    v10(v0[13], v11, v0[17]);
+    OUTLINED_FUNCTION_45_4();
+    OUTLINED_FUNCTION_61_0();
+    OUTLINED_FUNCTION_2_26();
+    v12 = swift_task_alloc();
+    v0[20] = v12;
+    *v12 = v0;
+    v12[1] = LinkActionDialogTemplating.makeConfirmationButtonLabel(confirmationVerb:);
+    OUTLINED_FUNCTION_73(v0[13]);
+    OUTLINED_FUNCTION_103();
+
+    __asm { BRAA            X1, X16 }
+  }
+
+  v10(v0[12], v11, v0[17]);
+  OUTLINED_FUNCTION_45_4();
+  OUTLINED_FUNCTION_61_0();
+  OUTLINED_FUNCTION_2_26();
+  swift_task_alloc();
+  OUTLINED_FUNCTION_20_0();
+  v0[23] = v15;
+  *v15 = v16;
+  v15[1] = LinkActionDialogTemplating.makeConfirmationButtonLabel(confirmationVerb:);
+  OUTLINED_FUNCTION_103();
+
+  __asm { BRAA            X2, X16 }
+}
+
+uint64_t LinkActionDialogTemplating.makeConfirmationButtonLabel(confirmationVerb:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_37_0();
+  OUTLINED_FUNCTION_24_1();
+  dispatch thunk of LabelExecutionResult.subscript.getter();
+
+  v13 = *(v12 + 152);
+  OUTLINED_FUNCTION_81_1();
+  v14(v13);
+
+  OUTLINED_FUNCTION_12_7();
+  OUTLINED_FUNCTION_9_3();
+  OUTLINED_FUNCTION_27_0();
+
+  return v18(v15, v16, v17, v18, v19, v20, v21, v22, a9, a10, a11, a12);
+}
+
+{
+  OUTLINED_FUNCTION_37_0();
+  OUTLINED_FUNCTION_24_1();
+  v13 = v12[8];
+  v14 = TemplatingResult.sections.getter();
+  specialized Collection.first.getter(v14, v13);
+
+  v15 = type metadata accessor for TemplatingSection();
+  OUTLINED_FUNCTION_96(v15);
+  if (v16)
+  {
+    outlined destroy of Siri_Nlu_External_UserDialogAct?(v14, &_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
+  }
+
+  else
+  {
+    TemplatingSection.content.getter();
+    OUTLINED_FUNCTION_21_2();
+    v17 = OUTLINED_FUNCTION_22_4();
+    v18(v17);
+    TemplatingText.text.getter();
+    v19 = OUTLINED_FUNCTION_20_1();
+    v20(v19);
+  }
+
+  (*(v12[10] + 8))(v12[11], v12[9]);
+  v21 = v12[19];
+  OUTLINED_FUNCTION_81_1();
+  v22(v21);
+
+  OUTLINED_FUNCTION_12_7();
+  OUTLINED_FUNCTION_22_4();
+  OUTLINED_FUNCTION_27_0();
+
+  return v26(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10, a11, a12);
+}
+
+uint64_t LinkActionDialogTemplating.makeConfirmationButtonLabel(confirmationVerb:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_23_1();
+  OUTLINED_FUNCTION_14_0();
+  v10 = OUTLINED_FUNCTION_59_4();
+  v11(v10);
+
+  OUTLINED_FUNCTION_6_0();
+  OUTLINED_FUNCTION_25_2();
+
+  return v13(v12, v13, v14, v15, v16, v17, v18, v19, a9, a10);
+}
+
+{
+  OUTLINED_FUNCTION_23_1();
+  OUTLINED_FUNCTION_14_0();
+  v10 = OUTLINED_FUNCTION_59_4();
+  v11(v10);
+
+  OUTLINED_FUNCTION_6_0();
+  OUTLINED_FUNCTION_25_2();
+
+  return v13(v12, v13, v14, v15, v16, v17, v18, v19, a9, a10);
+}
+
+uint64_t LinkActionDialogTemplating.makeConfirmationButtonLabelForCategory(verb:)()
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_46_6(v1, v2);
+  v3 = type metadata accessor for TemplatingText();
+  v0[5] = v3;
+  OUTLINED_FUNCTION_5_0(v3);
+  v0[6] = v4;
+  v0[7] = OUTLINED_FUNCTION_28();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
+  OUTLINED_FUNCTION_14(v5);
+  v0[8] = OUTLINED_FUNCTION_28();
+  v6 = type metadata accessor for TemplatingResult();
+  v0[9] = v6;
+  OUTLINED_FUNCTION_5_0(v6);
+  v0[10] = v7;
+  v0[11] = OUTLINED_FUNCTION_28();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_14(v8);
+  v0[12] = OUTLINED_FUNCTION_27();
+  v0[13] = swift_task_alloc();
+  v9 = type metadata accessor for RFFeatureFlags.ResponseFramework();
+  v0[14] = v9;
+  OUTLINED_FUNCTION_5_0(v9);
+  v0[15] = v10;
+  v0[16] = OUTLINED_FUNCTION_28();
+  v11 = type metadata accessor for SpeakableString();
+  v0[17] = v11;
+  OUTLINED_FUNCTION_5_0(v11);
+  v0[18] = v12;
+  v0[19] = OUTLINED_FUNCTION_28();
+  v13 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v13);
+}
+
+{
+  OUTLINED_FUNCTION_15_2();
+  v3 = v2;
+  v4 = *v1;
+  v5 = *v1;
+  OUTLINED_FUNCTION_2_0();
+  *v6 = v5;
+  *v6 = *v1;
+  *(v5 + 176) = v0;
+
+  v7 = *(v4 + 104);
+  if (!v0)
+  {
+    *(v5 + 184) = v3;
+  }
+
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v7, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+
+  OUTLINED_FUNCTION_11_1();
+
+  return _swift_task_switch(v8);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_3_0();
+  *v3 = v2;
+  v5 = *(v4 + 96);
+  v6 = *v1;
+  OUTLINED_FUNCTION_2_0();
+  *v7 = v6;
+  *(v8 + 200) = v0;
+
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(v5, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+
+  OUTLINED_FUNCTION_11_1();
+
+  return _swift_task_switch(v9);
+}
+
+uint64_t LinkActionDialogTemplating.makeConfirmationButtonLabelForCategory(verb:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+{
+  OUTLINED_FUNCTION_21_1();
+  OUTLINED_FUNCTION_30();
+  v15 = v14[18];
+  v17 = v14[15];
+  v16 = v14[16];
+  v18 = v14[14];
+  v19 = v14[3];
+  v20 = v14[2];
+  __swift_project_boxed_opaque_existential_1((v14[4] + 16), *(v14[4] + 40));
+  v21 = OUTLINED_FUNCTION_22_4();
+  v14[20] = DeviceState.asSiriKitDeviceState()(v21, v22);
+
+  OUTLINED_FUNCTION_74_1(v20, v19);
+  (*(v17 + 104))(v16, enum case for RFFeatureFlags.ResponseFramework._SMART(_:), v18);
+  v23 = RFFeatureFlags.ResponseFramework.isEnabled.getter();
+  v24 = OUTLINED_FUNCTION_56_1();
+  v25(v24);
+  v26 = *(v15 + 16);
+  v27 = v14[19];
+  v28 = v14[17];
+  v29 = v14[4];
+  if (v23)
+  {
+    v30 = *(v29 + 80);
+    v26(v14[13], v27, v14[17]);
+    OUTLINED_FUNCTION_49_3();
+    __swift_storeEnumTagSinglePayload(v31, v32, v33, v28);
+    v34 = *(*v30 + class metadata base offset for RunVoiceCommandCATsSimple + 232);
+    v62 = *v30 + class metadata base offset for RunVoiceCommandCATsSimple + 232;
+
+    v60 = v34 + *v34;
+    v35 = swift_task_alloc();
+    v14[21] = v35;
+    *v35 = v14;
+    v35[1] = LinkActionDialogTemplating.makeConfirmationButtonLabelForCategory(verb:);
+    OUTLINED_FUNCTION_6_1();
+
+    return v38(v36, v37, v38, v39, v40, v41, v42, v43, a9, v60, v62, a12, a13, a14);
+  }
+
+  else
+  {
+    v45 = *(v29 + 72);
+    v26(v14[12], v27, v14[17]);
+    OUTLINED_FUNCTION_49_3();
+    __swift_storeEnumTagSinglePayload(v46, v47, v48, v28);
+    v49 = *(*v45 + class metadata base offset for RunVoiceCommandCATs + 112);
+    v63 = *v45 + class metadata base offset for RunVoiceCommandCATs + 112;
+
+    v61 = v49 + *v49;
+    swift_task_alloc();
+    OUTLINED_FUNCTION_20_0();
+    v14[24] = v50;
+    *v50 = v51;
+    v50[1] = LinkActionDialogTemplating.makeConfirmationButtonLabelForCategory(verb:);
+    OUTLINED_FUNCTION_6_1();
+
+    return v55(v52, v53, v54, v55, v56, v57, v58, v59, a9, v61, v63, a12, a13, a14);
+  }
+}
+
+{
+  OUTLINED_FUNCTION_21_1();
+  OUTLINED_FUNCTION_30();
+  v15 = v14[8];
+  v16 = TemplatingResult.sections.getter();
+  specialized Collection.first.getter(v16, v15);
+
+  v17 = type metadata accessor for TemplatingSection();
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v15, 1, v17);
+  v19 = v14[19];
+  v20 = v14[17];
+  v21 = v14[18];
+  v22 = v14[8];
+  if (EnumTagSinglePayload == 1)
+  {
+
+    v23 = OUTLINED_FUNCTION_13_5();
+    v24(v23);
+    (*(v21 + 8))(v19, v20);
+    outlined destroy of Siri_Nlu_External_UserDialogAct?(v22, &_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
+  }
+
+  else
+  {
+    a10 = v14[19];
+    a11 = v14[17];
+    v25 = v14[6];
+    v26 = v14[7];
+    a9 = v14[5];
+    TemplatingSection.content.getter();
+    OUTLINED_FUNCTION_21_2();
+    (*(v27 + 8))(v22, v17);
+    TemplatingText.text.getter();
+
+    (*(v25 + 8))(v26, a9);
+    v28 = OUTLINED_FUNCTION_13_5();
+    v29(v28);
+    (*(v21 + 8))(a10, a11);
+  }
+
+  OUTLINED_FUNCTION_12_7();
+  OUTLINED_FUNCTION_6_1();
+
+  return v33(v30, v31, v32, v33, v34, v35, v36, v37, a9, a10, a11, a12, a13, a14);
+}
+
+uint64_t LinkActionDialogTemplating.makeConfirmationButtonLabelForCategory(verb:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  OUTLINED_FUNCTION_23_1();
+  OUTLINED_FUNCTION_14_0();
+  *(v10 + 208) = 2;
+  dispatch thunk of LabelExecutionResult.subscript.getter();
+
+  v11 = OUTLINED_FUNCTION_20_1();
+  v12(v11);
+
+  OUTLINED_FUNCTION_12_7();
+  OUTLINED_FUNCTION_13_5();
+  OUTLINED_FUNCTION_25_2();
+
+  return v16(v13, v14, v15, v16, v17, v18, v19, v20, a9, a10);
+}
+
+uint64_t LinkActionDialogTemplating.makeConfirmationButtonLabelForCategory(verb:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_37_0();
+  OUTLINED_FUNCTION_24_1();
+  OUTLINED_FUNCTION_67_1();
+  v12 = OUTLINED_FUNCTION_9_3();
+  v13(v12);
+
+  OUTLINED_FUNCTION_6_0();
+  OUTLINED_FUNCTION_27_0();
+
+  return v15(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10, a11, a12);
+}
+
+{
+  OUTLINED_FUNCTION_37_0();
+  OUTLINED_FUNCTION_24_1();
+  OUTLINED_FUNCTION_67_1();
+  v12 = OUTLINED_FUNCTION_9_3();
+  v13(v12);
+
+  OUTLINED_FUNCTION_6_0();
+  OUTLINED_FUNCTION_27_0();
+
+  return v15(v14, v15, v16, v17, v18, v19, v20, v21, a9, a10, a11, a12);
+}
+
+uint64_t LinkActionDialogTemplating.makeContinueButton()()
+{
+  OUTLINED_FUNCTION_8_0();
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = LinkActionDialogTemplating.makeContinueButton();
+  OUTLINED_FUNCTION_73(0x65756E69746E6F63);
+
+  return LinkActionDialogTemplating.makeConfirmationButtonLabel(confirmationVerb:)();
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  v4 = v3;
+  OUTLINED_FUNCTION_18_3();
+  v5 = *v2;
+  OUTLINED_FUNCTION_2_0();
+  *v6 = v5;
+
+  OUTLINED_FUNCTION_12_7();
+  if (!v0)
+  {
+    v7 = v1;
+    v8 = v4;
+  }
+
+  return v9(v7, v8);
+}
+
+uint64_t LinkActionDialogTemplating.actionPerformedDialog(customPrompt:)()
+{
+  OUTLINED_FUNCTION_8_0();
+  v1[2] = v2;
+  v1[3] = v0;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_14(v3);
+  v1[4] = OUTLINED_FUNCTION_28();
+  v4 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v4);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  if (*(v0 + 16))
+  {
+    swift_task_alloc();
+    OUTLINED_FUNCTION_20_0();
+    *(v0 + 40) = v1;
+    *v1 = v2;
+    v3 = OUTLINED_FUNCTION_73_2(v1);
+
+    return LNDialog.asSpeakableString.getter(v3);
+  }
+
+  else
+  {
+    type metadata accessor for SpeakableString();
+    v5 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
+    OUTLINED_FUNCTION_24_10();
+    OUTLINED_FUNCTION_2_26();
+    v9 = swift_task_alloc();
+    v10 = OUTLINED_FUNCTION_57_1(v9);
+    *v10 = v11;
+    v12 = OUTLINED_FUNCTION_10_20(v10);
+
+    return v13(v12);
+  }
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_2_0();
+  *v2 = v1;
+
+  v3 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v3);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  OUTLINED_FUNCTION_24_10();
+  OUTLINED_FUNCTION_2_26();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_57_1(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_10_20(v1);
+
+  return v4(v3);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  OUTLINED_FUNCTION_18_3();
+  v4 = v3;
+  OUTLINED_FUNCTION_4_1();
+  *v5 = v4;
+  v6 = *v2;
+  OUTLINED_FUNCTION_2_0();
+  *v7 = v6;
+  *(v4 + 56) = v0;
+
+  if (!v0)
+  {
+    *(v4 + 64) = v1;
+  }
+
+  OUTLINED_FUNCTION_18_0();
+
+  return _swift_task_switch(v8);
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v0 + 32), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+
+  OUTLINED_FUNCTION_6_6();
+  v2 = *(v0 + 64);
+
+  return v1(v2);
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v0 + 32), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+
+  OUTLINED_FUNCTION_6_0();
+
+  return v1();
+}
+
+uint64_t LinkActionDialogTemplating.actionPerformedDialog_preRFv2(customPrompt:)()
+{
+  OUTLINED_FUNCTION_8_0();
+  v1[2] = v2;
+  v1[3] = v0;
+  v3 = type metadata accessor for TemplatingText();
+  v1[4] = v3;
+  OUTLINED_FUNCTION_5_0(v3);
+  v1[5] = v4;
+  v1[6] = OUTLINED_FUNCTION_28();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
+  OUTLINED_FUNCTION_14(v5);
+  v1[7] = OUTLINED_FUNCTION_28();
+  v6 = type metadata accessor for TemplatingResult();
+  v1[8] = v6;
+  OUTLINED_FUNCTION_5_0(v6);
+  v1[9] = v7;
+  v1[10] = OUTLINED_FUNCTION_28();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_14(v8);
+  v1[11] = OUTLINED_FUNCTION_28();
+  v9 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v9);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  if (*(v0 + 16))
+  {
+    swift_task_alloc();
+    OUTLINED_FUNCTION_20_0();
+    *(v0 + 96) = v1;
+    *v1 = v2;
+    v3 = OUTLINED_FUNCTION_72_2(v1);
+
+    return LNDialog.asSpeakableString.getter(v3);
+  }
+
+  else
+  {
+    type metadata accessor for SpeakableString();
+    v5 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
+    OUTLINED_FUNCTION_19_10();
+    OUTLINED_FUNCTION_2_26();
+    v9 = swift_task_alloc();
+    v10 = OUTLINED_FUNCTION_18_14(v9);
+    *v10 = v11;
+    v12 = OUTLINED_FUNCTION_23_11(v10);
+
+    return v13(v12);
+  }
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_2_0();
+  *v2 = v1;
+
+  v3 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v3);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  OUTLINED_FUNCTION_19_10();
+  OUTLINED_FUNCTION_2_26();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_18_14(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_23_11(v1);
+
+  return v4(v3);
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_3_0();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_2_0();
+  *v5 = v4;
+  *(v6 + 112) = v0;
+
+  OUTLINED_FUNCTION_11_1();
+
+  return _swift_task_switch(v7);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  outlined destroy of Siri_Nlu_External_UserDialogAct?(*(v0 + 88), &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+
+  OUTLINED_FUNCTION_6_0();
+
+  return v1();
+}
+
+uint64_t LinkActionDialogTemplating.actionPerformedDialog_preRFv2(customPrompt:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
+{
+  OUTLINED_FUNCTION_37_0();
+  OUTLINED_FUNCTION_24_1();
+  v13 = v12[7];
+  v14 = TemplatingResult.sections.getter();
+  specialized Collection.first.getter(v14, v13);
+
+  v15 = type metadata accessor for TemplatingSection();
+  EnumTagSinglePayload = __swift_getEnumTagSinglePayload(v13, 1, v15);
+  v17 = v12[11];
+  v18 = v12[7];
+  if (EnumTagSinglePayload == 1)
+  {
+    v19 = OUTLINED_FUNCTION_56_1();
+    v20(v19);
+    outlined destroy of Siri_Nlu_External_UserDialogAct?(v17, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+    outlined destroy of Siri_Nlu_External_UserDialogAct?(v18, &_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
+  }
+
+  else
+  {
+    v22 = v12[5];
+    v21 = v12[6];
+    v23 = v12[4];
+    TemplatingSection.content.getter();
+    OUTLINED_FUNCTION_21_2();
+    (*(v24 + 8))(v18, v15);
+    TemplatingText.text.getter();
+    (*(v22 + 8))(v21, v23);
+    v25 = OUTLINED_FUNCTION_56_1();
+    v26(v25);
+    outlined destroy of Siri_Nlu_External_UserDialogAct?(v17, &_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  }
+
+  OUTLINED_FUNCTION_12_7();
+  OUTLINED_FUNCTION_27_0();
+
+  return v30(v27, v28, v29, v30, v31, v32, v33, v34, a9, a10, a11, a12);
+}
+
+uint64_t LinkActionDialogTemplating.actionConfirmationHeader(customDialog:)()
+{
+  OUTLINED_FUNCTION_8_0();
+  v1[2] = v2;
+  v1[3] = v0;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_14(v3);
+  v1[4] = OUTLINED_FUNCTION_28();
+  v4 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v4);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  if (*(v0 + 16))
+  {
+    swift_task_alloc();
+    OUTLINED_FUNCTION_20_0();
+    *(v0 + 40) = v1;
+    *v1 = v2;
+    v3 = OUTLINED_FUNCTION_73_2(v1);
+
+    return LNDialog.asSpeakableString.getter(v3);
+  }
+
+  else
+  {
+    type metadata accessor for SpeakableString();
+    v5 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
+    OUTLINED_FUNCTION_24_10();
+    OUTLINED_FUNCTION_2_26();
+    v9 = swift_task_alloc();
+    v10 = OUTLINED_FUNCTION_57_1(v9);
+    *v10 = v11;
+    v12 = OUTLINED_FUNCTION_10_20(v10);
+
+    return v13(v12);
+  }
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_2_0();
+  *v2 = v1;
+
+  v3 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v3);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  OUTLINED_FUNCTION_24_10();
+  OUTLINED_FUNCTION_2_26();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_57_1(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_10_20(v1);
+
+  return v4(v3);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  OUTLINED_FUNCTION_18_3();
+  v4 = v3;
+  OUTLINED_FUNCTION_4_1();
+  *v5 = v4;
+  v6 = *v2;
+  OUTLINED_FUNCTION_2_0();
+  *v7 = v6;
+  *(v4 + 56) = v0;
+
+  if (!v0)
+  {
+    *(v4 + 64) = v1;
+  }
+
+  OUTLINED_FUNCTION_18_0();
+
+  return _swift_task_switch(v8);
+}
+
+uint64_t LinkActionDialogTemplating.actionConfirmationHeader_preRFv2(customDialog:)()
+{
+  OUTLINED_FUNCTION_8_0();
+  v1[2] = v2;
+  v1[3] = v0;
+  v3 = type metadata accessor for TemplatingText();
+  v1[4] = v3;
+  OUTLINED_FUNCTION_5_0(v3);
+  v1[5] = v4;
+  v1[6] = OUTLINED_FUNCTION_28();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow17TemplatingSectionVSgMd, &_s11SiriKitFlow17TemplatingSectionVSgMR);
+  OUTLINED_FUNCTION_14(v5);
+  v1[7] = OUTLINED_FUNCTION_28();
+  v6 = type metadata accessor for TemplatingResult();
+  v1[8] = v6;
+  OUTLINED_FUNCTION_5_0(v6);
+  v1[9] = v7;
+  v1[10] = OUTLINED_FUNCTION_28();
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  OUTLINED_FUNCTION_14(v8);
+  v1[11] = OUTLINED_FUNCTION_28();
+  v9 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v9);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  if (*(v0 + 16))
+  {
+    swift_task_alloc();
+    OUTLINED_FUNCTION_20_0();
+    *(v0 + 96) = v1;
+    *v1 = v2;
+    v3 = OUTLINED_FUNCTION_72_2(v1);
+
+    return LNDialog.asSpeakableString.getter(v3);
+  }
+
+  else
+  {
+    type metadata accessor for SpeakableString();
+    v5 = OUTLINED_FUNCTION_7_15();
+    __swift_storeEnumTagSinglePayload(v5, v6, v7, v8);
+    OUTLINED_FUNCTION_19_10();
+    OUTLINED_FUNCTION_2_26();
+    v9 = swift_task_alloc();
+    v10 = OUTLINED_FUNCTION_18_14(v9);
+    *v10 = v11;
+    v12 = OUTLINED_FUNCTION_23_11(v10);
+
+    return v13(v12);
+  }
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_2_0();
+  *v2 = v1;
+
+  v3 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v3);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  OUTLINED_FUNCTION_19_10();
+  OUTLINED_FUNCTION_2_26();
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_18_14(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_23_11(v1);
+
+  return v4(v3);
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_3_0();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_2_0();
+  *v5 = v4;
+  *(v6 + 112) = v0;
+
+  OUTLINED_FUNCTION_11_1();
+
+  return _swift_task_switch(v7);
+}
+
+void *LinkActionDialogTemplating.deinit()
+{
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
+
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 88));
+  return v0;
+}
+
+uint64_t LinkActionDialogTemplating.__deallocating_deinit()
+{
+  LinkActionDialogTemplating.deinit();
+
+  return swift_deallocClassInstance();
+}
+
+void *specialized LinkActionDialogTemplating.init(deviceState:runLinkActionCatWrapper:runLinkActionCatWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:linkActionPatterns:)(__int128 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9)
+{
+  a7[14] = a8;
+  a7[15] = a9;
+  __swift_allocate_boxed_opaque_existential_1(a7 + 11);
+  OUTLINED_FUNCTION_21_2();
+  (*(v15 + 32))();
+  outlined init with take of Output(a1, (a7 + 2));
+  a7[7] = a2;
+  a7[8] = a3;
+  a7[9] = a4;
+  a7[10] = a5;
+  return a7;
+}
+
+uint64_t outlined assign with copy of SpeakableString?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  (*(*(v4 - 8) + 24))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined assign with take of SpeakableString?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s16SiriDialogEngine15SpeakableStringVSgMd, &_s16SiriDialogEngine15SpeakableStringVSgMR);
+  (*(*(v4 - 8) + 40))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t OUTLINED_FUNCTION_11_13@<X0>(uint64_t a1@<X8>)
+{
+  __swift_project_boxed_opaque_existential_1((a1 + 88), *(a1 + 112));
+
+  return swift_task_alloc();
+}
+
+void OUTLINED_FUNCTION_33_5(uint64_t a1)
+{
+  *(a1 + 16) = v1;
+
+  specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, a1, v2);
+}
+
+void OUTLINED_FUNCTION_34_8(uint64_t a1)
+{
+  *(a1 + 16) = v1;
+
+  specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), a1, v2);
+}
+
+void OUTLINED_FUNCTION_35_7(uint64_t a1)
+{
+  *(a1 + 16) = v2;
+
+  specialized Sequence.contains(where:)(closure #1 in Sequence<>.contains(_:)specialized partial apply, a1, v1);
+}
+
+uint64_t OUTLINED_FUNCTION_43_4(uint64_t a1)
+{
+  *(v1 + 24) = a1;
+
+  return swift_task_alloc();
+}
+
+uint64_t OUTLINED_FUNCTION_44_5(uint64_t a1)
+{
+  *(v1 + 16) = a1;
+
+  return swift_task_alloc();
+}
+
+uint64_t OUTLINED_FUNCTION_45_4()
+{
+
+  return __swift_storeEnumTagSinglePayload(v1, 0, 1, v0);
+}
+
+uint64_t OUTLINED_FUNCTION_46_6(uint64_t a1, uint64_t a2)
+{
+  v3[3] = a2;
+  v3[4] = v2;
+  v3[2] = a1;
+  return 0;
+}
+
+void *OUTLINED_FUNCTION_54_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+
+  return specialized LinkActionDialogTemplating.init(deviceState:runLinkActionCatWrapper:runLinkActionCatWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:linkActionPatterns:)(v14, v13, v12, v11, v10, v16, v9, v15, a9);
+}
+
+uint64_t OUTLINED_FUNCTION_66_1(uint64_t a1)
+{
+
+  return static Array._unconditionallyBridgeFromObjectiveC(_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_67_1()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_74_1(uint64_t a1, uint64_t a2)
+{
+
+  return SpeakableString.init(print:speak:)();
+}
+
+uint64_t OUTLINED_FUNCTION_75_1()
+{
+  *(v0 + 80) = v1;
+  __swift_project_boxed_opaque_existential_1((*(v0 + 32) + 88), *(*(v0 + 32) + 112));
+
+  return swift_task_alloc();
+}
+
+uint64_t OUTLINED_FUNCTION_90_0()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_91(uint64_t a1)
+{
+
+  return static Array._unconditionallyBridgeFromObjectiveC(_:)();
+}
+
+uint64_t OUTLINED_FUNCTION_92_0()
+{
+}
+
+unint64_t OUTLINED_FUNCTION_93_0()
+{
+
+  return type metadata accessor for LNSystemProtocol();
+}
+
+uint64_t CustomIntentExecutionFlow.__allocating_init(runner:intent:voiceCommandName:deviceIdiom:deviceState:aceServiceInvoker:appPolicyHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  v17 = swift_allocObject();
+  CustomIntentExecutionFlow.init(runner:intent:voiceCommandName:deviceIdiom:deviceState:aceServiceInvoker:appPolicyHandler:)(a1, a2, a3, a4, a5, a6 & 1, a7, a8, a9, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, vars0);
+  return v17;
+}
+
+void CustomIntentExecutionFlow.state.didset()
+{
+  v1 = v0;
+  v2 = type metadata accessor for CustomIntentExecutionFlow.State(0);
+  __chkstk_darwin(v2);
+  v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (one-time initialization token for voiceCommands != -1)
+  {
+    swift_once();
+  }
+
+  v5 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v5, static Logger.voiceCommands);
+
+  v15 = Logger.logObject.getter();
+  v6 = static os_log_type_t.debug.getter();
+
+  if (os_log_type_enabled(v15, v6))
+  {
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    v16 = v8;
+    *v7 = 136315138;
+    v9 = OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_state;
+    swift_beginAccess();
+    outlined init with copy of CustomIntentExecutionFlow.State(v1 + v9, v4);
+    v10 = String.init<A>(describing:)();
+    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v16);
+
+    *(v7 + 4) = v12;
+    _os_log_impl(&dword_0, v15, v6, "#CustomIntentExecutionFlow transitioned to state=%s", v7, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v8);
+  }
+
+  else
+  {
+    v13 = v15;
+  }
+}
+
+uint64_t CustomIntentExecutionFlow.state.setter(uint64_t a1)
+{
+  v3 = OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_state;
+  swift_beginAccess();
+  outlined assign with copy of CustomIntentExecutionFlow.State(a1, v1 + v3);
+  swift_endAccess();
+  CustomIntentExecutionFlow.state.didset();
+  return outlined destroy of CustomIntentExecutionFlow.State(a1);
+}
+
+uint64_t CustomIntentExecutionFlow.exitValue.getter@<X0>(uint64_t a1@<X8>)
+{
+  type metadata accessor for CustomIntentExecutionFlow.State(0);
+  OUTLINED_FUNCTION_7();
+  __chkstk_darwin(v3);
+  OUTLINED_FUNCTION_3();
+  v6 = v5 - v4;
+  v7 = OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_state;
+  swift_beginAccess();
+  outlined init with copy of CustomIntentExecutionFlow.State(v1 + v7, v6);
+  OUTLINED_FUNCTION_95();
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  switch(EnumCaseMultiPayload)
+  {
+    case 7:
+      v12 = &enum case for RCHFlowResult.cancelled<A, B>(_:);
+      goto LABEL_7;
+    case 3:
+      v11 = *(v6 + 8);
+      *a1 = *v6;
+      *(a1 + 8) = v11;
+      v12 = &enum case for RCHFlowResult.error<A, B>(_:);
+LABEL_7:
+      v13 = *v12;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMd, &_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMR);
+      OUTLINED_FUNCTION_7();
+      return (*(v14 + 104))(a1, v13);
+    case 2:
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMd, &_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMR);
+      OUTLINED_FUNCTION_7();
+      return (*(v9 + 32))(a1, v6);
+    default:
+      v15 = lazy protocol witness table accessor for type RunVoiceShortcutFlowErrors and conformance RunVoiceShortcutFlowErrors();
+      v16 = OUTLINED_FUNCTION_16_6(&type metadata for RunVoiceShortcutFlowErrors, v15);
+      *v17 = 0;
+      *a1 = v16;
+      *(a1 + 8) = 0;
+      v18 = enum case for RCHFlowResult.error<A, B>(_:);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMd, &_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMR);
+      OUTLINED_FUNCTION_7();
+      (*(v19 + 104))(a1, v18);
+      return outlined destroy of CustomIntentExecutionFlow.State(v6);
+  }
+}
+
+void CustomIntentExecutionFlow.init(runner:intent:voiceCommandName:deviceIdiom:deviceState:aceServiceInvoker:appPolicyHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21)
+{
+  OUTLINED_FUNCTION_40_0();
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
+  v28 = v27;
+  v30 = v29;
+  v32 = v31;
+  v34 = v33;
+  v36 = v35;
+  v69 = v37;
+  type metadata accessor for UUID();
+  OUTLINED_FUNCTION_7_1();
+  v67 = v39;
+  v68 = v38;
+  __chkstk_darwin(v38);
+  OUTLINED_FUNCTION_3();
+  v42 = v41 - v40;
+  v43 = OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_input;
+  v44 = type metadata accessor for Input();
+  v45 = v22 + v43;
+  v46 = v26;
+  __swift_storeEnumTagSinglePayload(v45, 1, 1, v44);
+  v22[13] = v34;
+  v22[14] = v32;
+  v70 = v36;
+  outlined init with copy of DeviceState(v36, (v22 + 15));
+  outlined init with copy of DeviceState(v26, (v22 + 3));
+  outlined init with copy of DeviceState(v24, (v22 + 8));
+  if (v28)
+  {
+    v47 = v26[3];
+    v48 = v26[4];
+    __swift_project_boxed_opaque_existential_1(v26, v47);
+    v30 = DeviceState.currentDevice.getter(v47, v48);
+  }
+
+  v22[2] = v30;
+  *(v22 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_appBlockedByScreentime) = 0;
+  outlined init with copy of DeviceState(a21, v22 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_appPolicyHandler);
+  if (v69)
+  {
+    v49 = v69;
+    v50 = [v49 _metadata];
+    v51 = v50;
+    if (!v50)
+    {
+      v52 = [objc_allocWithZone(_INPBIntentMetadata) init];
+      if (!v52)
+      {
+        v51 = 0;
+        goto LABEL_8;
+      }
+
+      v51 = v52;
+    }
+
+    v53 = v50;
+    UUID.init()();
+    v54 = UUID.uuidString.getter();
+    v56 = v55;
+    (*(v67 + 8))(v42, v68);
+    outlined bridged method (mbnn) of @objc _INPBIntentMetadata.intentId.setter(v54, v56, v51);
+
+LABEL_8:
+    [v49 _setMetadata:v51];
+
+    *(v22 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_state) = v69;
+    goto LABEL_10;
+  }
+
+  *(v22 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_state) = 0;
+LABEL_10:
+  type metadata accessor for CustomIntentExecutionFlow.State(0);
+  swift_storeEnumTagMultiPayload();
+  if (one-time initialization token for voiceCommands != -1)
+  {
+    OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+  }
+
+  v57 = type metadata accessor for Logger();
+  OUTLINED_FUNCTION_59(v57, static Logger.voiceCommands);
+  v58 = v69;
+  v59 = Logger.logObject.getter();
+  v60 = static os_log_type_t.debug.getter();
+
+  if (os_log_type_enabled(v59, v60))
+  {
+    v61 = swift_slowAlloc();
+    v62 = swift_slowAlloc();
+    v71 = v62;
+    *v61 = 136315138;
+    if (v69 && (v63 = outlined bridged method (pb) of @objc INIntent.identifier.getter(v58, &selRef_identifier), v64))
+    {
+      v65 = v64;
+    }
+
+    else
+    {
+
+      v65 = 0xE500000000000000;
+      v63 = 0x7974706D65;
+    }
+
+    v66 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v63, v65, &v71);
+
+    *(v61 + 4) = v66;
+    _os_log_impl(&dword_0, v59, v60, "intent id: %s", v61, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v62);
+    OUTLINED_FUNCTION_15_0(v62);
+    OUTLINED_FUNCTION_15_0(v61);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1Tm(a21);
+  __swift_destroy_boxed_opaque_existential_1Tm(v24);
+  __swift_destroy_boxed_opaque_existential_1Tm(v70);
+  __swift_destroy_boxed_opaque_existential_1Tm(v46);
+  OUTLINED_FUNCTION_42();
+}
+
+uint64_t outlined init with copy of CustomIntentExecutionFlow.State(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for CustomIntentExecutionFlow.State(0);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined destroy of CustomIntentExecutionFlow.State(uint64_t a1)
+{
+  v2 = type metadata accessor for CustomIntentExecutionFlow.State(0);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+void CustomIntentExecutionFlow.on(input:)()
+{
+  OUTLINED_FUNCTION_40_0();
+  v1 = v0;
+  v3 = v2;
+  v84 = type metadata accessor for CustomIntentExecutionFlow.State(0);
+  OUTLINED_FUNCTION_7();
+  __chkstk_darwin(v4);
+  OUTLINED_FUNCTION_50_0();
+  v81 = v5 - v6;
+  __chkstk_darwin(v7);
+  v9 = &v79 - v8;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMd, &_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMR);
+  OUTLINED_FUNCTION_7_1();
+  v82 = v11;
+  v83 = v10;
+  __chkstk_darwin(v10);
+  OUTLINED_FUNCTION_50_0();
+  v80 = (v12 - v13);
+  __chkstk_darwin(v14);
+  v16 = &v79 - v15;
+  type metadata accessor for Parse.DirectInvocation();
+  OUTLINED_FUNCTION_7_1();
+  v85 = v17;
+  v86 = v18;
+  __chkstk_darwin(v17);
+  OUTLINED_FUNCTION_3();
+  v21 = v20 - v19;
+  type metadata accessor for Parse();
+  OUTLINED_FUNCTION_7_1();
+  __chkstk_darwin(v22);
+  OUTLINED_FUNCTION_3();
+  v25 = v24 - v23;
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow5InputVSgMd, &_s11SiriKitFlow5InputVSgMR);
+  __chkstk_darwin(v26 - 8);
+  v28 = &v79 - v27;
+  v29 = type metadata accessor for Input();
+  OUTLINED_FUNCTION_7();
+  (*(v30 + 16))(v28, v3, v29);
+  __swift_storeEnumTagSinglePayload(v28, 0, 1, v29);
+  v31 = OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_input;
+  swift_beginAccess();
+  outlined assign with take of Input?(v28, v1 + v31);
+  swift_endAccess();
+  Input.parse.getter();
+  v32 = OUTLINED_FUNCTION_62();
+  v34 = v33(v32);
+  if (v34 == enum case for Parse.NLv3IntentPlusServerConversion(_:))
+  {
+    v35 = OUTLINED_FUNCTION_62();
+    v36(v35);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology8NLIntentV_0A7KitFlow5ParseO16ServerConversionCtMd, &_s12SiriOntology8NLIntentV_0A7KitFlow5ParseO16ServerConversionCtMR);
+    v37 = Parse.ServerConversion.siriKitIntent.getter();
+    v38 = [v37 _type];
+
+    if (v38 == &dword_0 + 2)
+    {
+      v39 = Parse.ServerConversion.siriKitIntent.getter();
+      CustomIntentExecutionFlow.processCustomIntentConversionResult(conversionResult:)(v39, 0);
+    }
+
+    type metadata accessor for NLIntent();
+    OUTLINED_FUNCTION_7();
+    (*(v40 + 8))(v25);
+  }
+
+  else
+  {
+    if (v34 != enum case for Parse.directInvocation(_:))
+    {
+      v48 = OUTLINED_FUNCTION_62();
+      v50(v48, v49);
+      goto LABEL_21;
+    }
+
+    v41 = OUTLINED_FUNCTION_62();
+    v42(v41);
+    v44 = v85;
+    v43 = v86;
+    (*(v86 + 32))(v21, v25, v85);
+    if (Parse.DirectInvocation.identifier.getter() == 0xD00000000000003BLL && 0x8000000000230BC0 == v45)
+    {
+    }
+
+    else
+    {
+      v47 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+      if ((v47 & 1) == 0)
+      {
+        (*(v43 + 8))(v21, v44);
+        goto LABEL_21;
+      }
+    }
+
+    if (one-time initialization token for voiceCommands != -1)
+    {
+      OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+    }
+
+    v51 = type metadata accessor for Logger();
+    v52 = __swift_project_value_buffer(v51, static Logger.voiceCommands);
+    v53 = Logger.logObject.getter();
+    v54 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v53, v54))
+    {
+      v55 = OUTLINED_FUNCTION_52();
+      *v55 = 0;
+      _os_log_impl(&dword_0, v53, v54, "CustomIntentExecutionFlow on input: direct Invocation done button", v55, 2u);
+      OUTLINED_FUNCTION_15_0(v55);
+    }
+
+    v56 = OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_state;
+    swift_beginAccess();
+    outlined init with copy of CustomIntentExecutionFlow.State(v1 + v56, v9);
+    if (swift_getEnumCaseMultiPayload() == 5)
+    {
+      v58 = v82;
+      v57 = v83;
+      (*(v82 + 32))(v16, v9, v83);
+      (*(v58 + 16))(v81, v16, v57);
+      swift_storeEnumTagMultiPayload();
+      OUTLINED_FUNCTION_30_8();
+      (*(v58 + 8))(v16, v57);
+      (*(v43 + 8))(v21, v44);
+    }
+
+    else
+    {
+      outlined destroy of CustomIntentExecutionFlow.State(v9);
+      v59 = Parse.DirectInvocation.userData.getter();
+      if (v59 && (static ShortcutDoneButtonConverter.toShortcutDoneButton(userData:)(v59, &v87), , (v60 = v88) != 0))
+      {
+        v62 = v89;
+        v61 = v90;
+        v91 = v87;
+        v63 = v52;
+        v64 = Logger.logObject.getter();
+        v65 = static os_log_type_t.debug.getter();
+        if (OUTLINED_FUNCTION_17_11(v65))
+        {
+          v66 = v62;
+          v67 = OUTLINED_FUNCTION_52();
+          *v67 = 0;
+          _os_log_impl(&dword_0, v64, v63, "CustomIntentExecutionFlow creating exit value with done button.", v67, 2u);
+          v68 = v67;
+          v62 = v66;
+          OUTLINED_FUNCTION_15_0(v68);
+        }
+
+        v69 = v80;
+        *v80 = v61;
+        v69[1] = v60;
+        v69[2] = v62;
+        v71 = v82;
+        v70 = v83;
+        (*(v82 + 104))(v69, enum case for RCHFlowResult.complete<A, B>(_:), v83);
+        (*(v71 + 16))(v81, v69, v70);
+        swift_storeEnumTagMultiPayload();
+
+        v72 = v60;
+        v73 = v62;
+        OUTLINED_FUNCTION_30_8();
+        v92 = v91;
+        outlined destroy of Any?(&v92, &_sSSSgMd, &_sSSSgMR);
+
+        (*(v71 + 8))(v69, v70);
+        (*(v86 + 8))(v21);
+      }
+
+      else
+      {
+        v74 = Logger.logObject.getter();
+        v75 = static os_log_type_t.debug.getter();
+        if (OUTLINED_FUNCTION_17_11(v75))
+        {
+          v76 = OUTLINED_FUNCTION_52();
+          *v76 = 0;
+          OUTLINED_FUNCTION_25(&dword_0, v77, v78, "CustomIntentExecutionFlow on input: incorrect state for done button");
+          OUTLINED_FUNCTION_15_0(v76);
+        }
+
+        (*(v86 + 8))(v21);
+      }
+    }
+  }
+
+LABEL_21:
+  OUTLINED_FUNCTION_42();
+}
+
+uint64_t CustomIntentExecutionFlow.execute()()
+{
+  OUTLINED_FUNCTION_8_0();
+  v1[18] = v2;
+  v1[19] = v0;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMd, &_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMR);
+  v1[20] = v3;
+  v1[21] = *(v3 - 8);
+  v1[22] = swift_task_alloc();
+  v1[23] = swift_task_alloc();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow14RCHFlowFactoryVy0a4LinkC6Plugin012CustomIntentD8StrategyCGMd, &_s11SiriKitFlow14RCHFlowFactoryVy0a4LinkC6Plugin012CustomIntentD8StrategyCGMR);
+  v1[24] = v4;
+  v1[25] = *(v4 - 8);
+  v1[26] = swift_task_alloc();
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo8INIntentCSo0G8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo8INIntentCSo0G8ResponseCGMR);
+  v1[27] = swift_task_alloc();
+  v1[28] = type metadata accessor for CustomIntentExecutionFlow.State(0);
+  v1[29] = swift_task_alloc();
+  v1[30] = swift_task_alloc();
+
+  return _swift_task_switch(CustomIntentExecutionFlow.execute());
+}
+
+{
+  v100 = v0;
+  v1 = *(v0 + 240);
+  v2 = *(v0 + 152);
+  v3 = OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_state;
+  swift_beginAccess();
+  outlined init with copy of CustomIntentExecutionFlow.State(v2 + v3, v1);
+  switch(swift_getEnumCaseMultiPayload())
+  {
+    case 0u:
+      v4 = *(v0 + 232);
+      v5 = **(v0 + 240);
+      v6 = *(v0 + 152);
+      if (!v5)
+      {
+        v89 = lazy protocol witness table accessor for type RunVoiceShortcutFlowErrors and conformance RunVoiceShortcutFlowErrors();
+        v90 = OUTLINED_FUNCTION_16_6(&type metadata for RunVoiceShortcutFlowErrors, v89);
+        *v91 = 0;
+        *v4 = v90;
+        *(v4 + 8) = 0;
+        swift_storeEnumTagMultiPayload();
+        OUTLINED_FUNCTION_30_8();
+        static ExecuteResponse.complete()();
+        goto LABEL_40;
+      }
+
+      *v4 = v5;
+      swift_storeEnumTagMultiPayload();
+      v7 = v5;
+      OUTLINED_FUNCTION_30_8();
+      outlined init with copy of DeviceState(v6 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_appPolicyHandler, v0 + 56);
+      v8 = outlined bridged method (pb) of @objc INIntent.identifier.getter(v7, &selRef_launchId);
+      if (v9)
+      {
+        v10 = v8;
+      }
+
+      else
+      {
+        v10 = 0xD000000000000013;
+      }
+
+      if (v9)
+      {
+        v11 = v9;
+      }
+
+      else
+      {
+        v11 = 0x800000000022F740;
+      }
+
+      v12 = type metadata accessor for VoiceCommandsScreentimeCheckFlowStrategy();
+      v13 = swift_allocObject();
+      outlined init with take of AceServiceInvokerAsync((v0 + 56), v13 + 16);
+      *(v13 + 56) = v10;
+      *(v13 + 64) = v11;
+      v98 = v12;
+      v99 = lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type VoiceCommandsScreentimeCheckFlowStrategy and conformance VoiceCommandsScreentimeCheckFlowStrategy, type metadata accessor for VoiceCommandsScreentimeCheckFlowStrategy, &protocol conformance descriptor for VoiceCommandsScreentimeCheckFlowStrategy);
+      *&v97 = v13;
+
+      static OutputPublisherFactory.makeOutputPublisherAsync()();
+      v14 = type metadata accessor for ScreentimeCheckFlow();
+      OUTLINED_FUNCTION_66(v14);
+      *(v0 + 136) = ScreentimeCheckFlow.init(strategy:outputPublisher:)();
+      v15 = swift_allocObject();
+      *(v15 + 16) = partial apply for implicit closure #3 in implicit closure #2 in CustomIntentExecutionFlow.execute();
+      *(v15 + 24) = v6;
+
+      static ExecuteResponse.ongoing<A>(next:childCompletion:)();
+
+      goto LABEL_16;
+    case 1u:
+      v38 = *(v0 + 152);
+      v39 = **(v0 + 240);
+      if (*(v38 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_appBlockedByScreentime) == 1)
+      {
+        static ExecuteResponse.complete()();
+      }
+
+      else
+      {
+        v68 = v38[13];
+        v69 = v38[14];
+        v70 = v38[2];
+        type metadata accessor for CustomIntentExecutionFlow(0);
+        OUTLINED_FUNCTION_1_30();
+        lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(v71, v72, &protocol conformance descriptor for CustomIntentExecutionFlow);
+        v73 = SiriEnvironmentLocating<>.siriEnvironment.getter();
+        _s11SiriKitFlow08RCHChildC14ProducersAsyncV0a4LinkC6PluginE16forCustomIntents16voiceCommandName12originDevice6runner15siriEnvironment11deviceStateACySo8INIntentCSo0V8ResponseCGSSSg_So13INDeviceIdiomVAD0A15WorkflowRunning_p0A9Utilities0aS0CAA0pU0_ptFZAL_ANTt5g5(v68, v69, v70, (v38 + 15), v73, v38 + 3);
+
+        v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC7FactoryCySo8INIntentCSo0F8ResponseCGMd, &_s11SiriKitFlow08RCHChildC7FactoryCySo8INIntentCSo0F8ResponseCGMR);
+        OUTLINED_FUNCTION_66(v74);
+        RCHChildFlowFactory.init(producers:)();
+        type metadata accessor for App();
+        outlined bridged method (pb) of @objc INIntent.identifier.getter(v39, &selRef_launchId);
+        App.__allocating_init(appIdentifier:)();
+        if (one-time initialization token for voiceCommands != -1)
+        {
+          OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+        }
+
+        v75 = type metadata accessor for Logger();
+        OUTLINED_FUNCTION_59(v75, static Logger.voiceCommands);
+        v76 = v39;
+        v77 = Logger.logObject.getter();
+        v78 = static os_log_type_t.debug.getter();
+
+        if (os_log_type_enabled(v77, v78))
+        {
+          v79 = swift_slowAlloc();
+          v80 = swift_slowAlloc();
+          *&v95[0] = v80;
+          *v79 = 136315138;
+          v81 = outlined bridged method (pb) of @objc INIntent.identifier.getter(v76, &selRef_intentId);
+          if (v82)
+          {
+            v83 = v82;
+          }
+
+          else
+          {
+            v81 = 0x7974706D65;
+            v83 = 0xE500000000000000;
+          }
+
+          v84 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v83, v95);
+
+          *(v79 + 4) = v84;
+          _os_log_impl(&dword_0, v77, v78, "CustomIntentExecutionFlow intent id: %s", v79, 0xCu);
+          __swift_destroy_boxed_opaque_existential_1Tm(v80);
+          OUTLINED_FUNCTION_15_0(v80);
+          OUTLINED_FUNCTION_15_0(v79);
+        }
+
+        v85 = *(v0 + 200);
+        v86 = *(v0 + 208);
+        v87 = *(v0 + 192);
+        type metadata accessor for CustomIntentRCHFlowStrategy();
+        v88 = v76;
+        static Device.current.getter();
+        *(v0 + 128) = CustomIntentRCHFlowStrategy.__allocating_init(intent:deviceState:)(v88, v95);
+        lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentRCHFlowStrategy and conformance CustomIntentRCHFlowStrategy, type metadata accessor for CustomIntentRCHFlowStrategy, &protocol conformance descriptor for CustomIntentRCHFlowStrategy);
+
+        RCHFlowFactory.init(strategy:childFlowFactory:)();
+        RCHFlowFactory.makeRCHFlowWithResolvedApp(_:intent:)();
+
+        static ExecuteResponse.ongoing<A>(next:childCompletion:)();
+
+        (*(v85 + 8))(v86, v87);
+      }
+
+      goto LABEL_40;
+    case 4u:
+      v17 = *(v0 + 240);
+      v18 = *(v0 + 184);
+      v19 = *(v0 + 160);
+      v20 = *(v0 + 168);
+      v22 = *v17;
+      v21 = *(v17 + 8);
+      v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8INIntentC6intent_So0A8ResponseC0bC011SiriKitFlow13RCHFlowResultOyAbEG9exitValuetMd, &_sSo8INIntentC6intent_So0A8ResponseC0bC011SiriKitFlow13RCHFlowResultOyAbEG9exitValuetMR);
+      (*(v20 + 32))(v18, v17 + *(v23 + 64), v19);
+      if (one-time initialization token for voiceCommands != -1)
+      {
+        OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+      }
+
+      v24 = type metadata accessor for Logger();
+      OUTLINED_FUNCTION_59(v24, static Logger.voiceCommands);
+      v25 = Logger.logObject.getter();
+      static os_log_type_t.debug.getter();
+      OUTLINED_FUNCTION_12_17();
+      if (os_log_type_enabled(v25, v26))
+      {
+        v27 = OUTLINED_FUNCTION_52();
+        *v27 = 0;
+        OUTLINED_FUNCTION_40(&dword_0, v28, v29, "Pushing Reading Flow to handle customIntents handle dialog");
+        OUTLINED_FUNCTION_15_0(v27);
+      }
+
+      v30 = *(v0 + 232);
+      v31 = *(v0 + 184);
+      v33 = *(v0 + 160);
+      v32 = *(v0 + 168);
+      v34 = *(v0 + 152);
+
+      v94 = v21;
+      CustomIntentExecutionFlow.getReadItems(intent:intentResponse:)();
+
+      v96 = 0;
+      memset(v95, 0, sizeof(v95));
+      outlined init with copy of DeviceState(v34 + 24, v0 + 16);
+      static OutputPublisherFactory.makeOutputPublisher()();
+      type metadata accessor for RunCustomIntentReadingDelegate();
+      swift_allocObject();
+      RunCustomIntentReadingDelegate.init(templater:deviceState:outputPublisher:)(v95, (v0 + 16), &v97);
+      v35 = type metadata accessor for PaginatedConversationFlowSource();
+      OUTLINED_FUNCTION_66(v35);
+      lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate, type metadata accessor for RunCustomIntentReadingDelegate, &protocol conformance descriptor for RunCustomIntentReadingDelegate);
+
+      PaginatedConversationFlowSource.init<A>(items:delegate:)();
+      v36 = type metadata accessor for ReadingFlow();
+      OUTLINED_FUNCTION_66(v36);
+
+      v37 = ReadingFlow.init(source:)();
+      (*(v32 + 16))(v30, v31, v33);
+      swift_storeEnumTagMultiPayload();
+      CustomIntentExecutionFlow.state.setter(v30);
+      *(v0 + 120) = v37;
+      static ExecuteResponse.complete<A>(next:)();
+
+      (*(v32 + 8))(v31, v33);
+LABEL_16:
+
+      goto LABEL_40;
+    case 5u:
+      if (one-time initialization token for voiceCommands != -1)
+      {
+        OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+      }
+
+      v40 = type metadata accessor for Logger();
+      OUTLINED_FUNCTION_59(v40, static Logger.voiceCommands);
+      v41 = Logger.logObject.getter();
+      v42 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v41, v42))
+      {
+        v43 = OUTLINED_FUNCTION_52();
+        *v43 = 0;
+        _os_log_impl(&dword_0, v41, v42, "CustomIntentExecutionFlow waiting for done.", v43, 2u);
+        OUTLINED_FUNCTION_15_0(v43);
+      }
+
+      v44 = *(v0 + 240);
+      v45 = *(v0 + 160);
+      v46 = *(v0 + 168);
+
+      static ExecuteResponse.ongoing(requireInput:)();
+      (*(v46 + 8))(v44, v45);
+      goto LABEL_40;
+    case 6u:
+      (*(*(v0 + 168) + 32))(*(v0 + 176), *(v0 + 240), *(v0 + 160));
+      if (one-time initialization token for voiceCommands != -1)
+      {
+        OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+      }
+
+      v47 = type metadata accessor for Logger();
+      *(v0 + 248) = __swift_project_value_buffer(v47, static Logger.voiceCommands);
+      v48 = Logger.logObject.getter();
+      v49 = static os_log_type_t.debug.getter();
+      if (OUTLINED_FUNCTION_17_11(v49))
+      {
+        v50 = OUTLINED_FUNCTION_52();
+        *v50 = 0;
+        OUTLINED_FUNCTION_25(&dword_0, v51, v52, "CustomIntentExecutionFlow user pressed done, showing empty snippet");
+        OUTLINED_FUNCTION_15_0(v50);
+      }
+
+      v53 = *(v0 + 232);
+      v55 = *(v0 + 168);
+      v54 = *(v0 + 176);
+      v56 = *(v0 + 152);
+      v57 = *(v0 + 160);
+
+      v58 = [objc_allocWithZone(SAUIAssistantUtteranceView) init];
+      v59 = [objc_allocWithZone(SAUIAddViews) init];
+      *(v0 + 256) = v59;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
+      v60 = swift_allocObject();
+      *(v60 + 16) = xmmword_216010;
+      *(v60 + 32) = v58;
+      v61 = v58;
+      outlined bridged method (mbnn) of @objc SAUIAddViews.views.setter(v60, v59);
+      v62 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      outlined bridged method (mbnn) of @objc SAUIAddViews.dialogPhase.setter(v62, v63, v59);
+
+      (*(v55 + 16))(v53, v54, v57);
+      swift_storeEnumTagMultiPayload();
+      CustomIntentExecutionFlow.state.setter(v53);
+      v64 = v56[11];
+      v65 = v56[12];
+      __swift_project_boxed_opaque_existential_1(v56 + 8, v64);
+      v66 = swift_task_alloc();
+      *(v0 + 264) = v66;
+      v67 = type metadata accessor for NSError(0, &lazy cache variable for type metadata for SABaseCommand, SABaseCommand_ptr);
+      *v66 = v0;
+      v66[1] = CustomIntentExecutionFlow.execute();
+
+      return AceServiceInvokerAsync.submit<A>(_:)(v59, v64, v67, v65);
+    default:
+      v16 = *(v0 + 240);
+      static ExecuteResponse.complete()();
+      outlined destroy of CustomIntentExecutionFlow.State(v16);
+LABEL_40:
+      OUTLINED_FUNCTION_16_16();
+
+      OUTLINED_FUNCTION_6_0();
+
+      return v92();
+  }
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_2_0();
+  *v5 = v4;
+  *(v6 + 272) = v0;
+
+  if (v0)
+  {
+    v7 = CustomIntentExecutionFlow.execute();
+  }
+
+  else
+  {
+
+    v7 = CustomIntentExecutionFlow.execute();
+  }
+
+  return _swift_task_switch(v7);
+}
+
+{
+  if (one-time initialization token for shared != -1)
+  {
+    swift_once();
+  }
+
+  v3 = static WFDialogState.shared;
+  v4 = (*(*static WFDialogState.shared + 248))();
+  OUTLINED_FUNCTION_22_9(v4);
+
+  (*(v2 + 8))(v3, v0);
+  OUTLINED_FUNCTION_16_16();
+
+  OUTLINED_FUNCTION_6_0();
+
+  return v5();
+}
+
+uint64_t CustomIntentExecutionFlow.execute()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v7 = Logger.logObject.getter();
+  static os_log_type_t.debug.getter();
+  OUTLINED_FUNCTION_12_17();
+  v9 = os_log_type_enabled(v7, v8);
+  v10 = *(v5 + 272);
+  if (v9)
+  {
+    v6 = OUTLINED_FUNCTION_52();
+    *v6 = 0;
+    OUTLINED_FUNCTION_40(&dword_0, v11, v12, "CustomIntentExecutionFlow error submitting empty dialog");
+    OUTLINED_FUNCTION_15_0(v6);
+  }
+
+  OUTLINED_FUNCTION_22_9(v13);
+  (*(v6 + 8))(v7, v10);
+  OUTLINED_FUNCTION_16_16();
+
+  OUTLINED_FUNCTION_6_0();
+
+  return v14();
+}
+
+uint64_t _s11SiriKitFlow08RCHChildC14ProducersAsyncV0a4LinkC6PluginE16forCustomIntents16voiceCommandName12originDevice6runner15siriEnvironment11deviceStateACySo8INIntentCSo0V8ResponseCGSSSg_So13INDeviceIdiomVAD0A15WorkflowRunning_p0A9Utilities0aS0CAA0pU0_ptFZAL_ANTt5g5(uint64_t a1, uint64_t a2, void x2_0, uint64_t a3, uint64_t a4, void *a5)
+{
+  v9 = type metadata accessor for CATOption();
+  __chkstk_darwin(v9 - 8);
+  type metadata accessor for NSError(0, &lazy cache variable for type metadata for INIntent, INIntent_ptr);
+  type metadata accessor for NSError(0, &lazy cache variable for type metadata for INIntentResponse, INIntentResponse_ptr);
+  RCHChildFlowProducersAsync.init()();
+  type metadata accessor for ModeInfoProvider();
+  swift_allocObject();
+  v43 = ModeInfoProvider.init()();
+  outlined init with copy of DeviceState(a5, &v54);
+  type metadata accessor for RunCustomIntentCATs(0);
+  static CATOption.defaultMode.getter();
+  v10 = CATWrapper.__allocating_init(options:globals:)();
+  type metadata accessor for RunCustomIntentCATsSimple(0);
+  static CATOption.defaultMode.getter();
+  v11 = CATWrapperSimple.__allocating_init(options:globals:)();
+  type metadata accessor for CustomIntentNeedsValueFlowStrategy();
+  swift_allocObject();
+  *&v54 = CustomIntentNeedsValueFlowStrategy.init(deviceState:catWrapper:catWrapperSimple:)(&v54, v10, v11);
+  lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentNeedsValueFlowStrategy and conformance CustomIntentNeedsValueFlowStrategy, type metadata accessor for CustomIntentNeedsValueFlowStrategy, &protocol conformance descriptor for CustomIntentNeedsValueFlowStrategy);
+  static RCHChildFlowFactoryHelper.makeNeedsValueFlowProducer<A>(strategy:)();
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo8INIntentCSo0G8ResponseCGMd, &_s11SiriKitFlow08RCHChildC14ProducersAsyncVySo8INIntentCSo0G8ResponseCGMR);
+  RCHChildFlowProducersAsync.needsValueFlowProducer.setter();
+  v41 = a5;
+  outlined init with copy of DeviceState(a5, &v54);
+  static CATOption.defaultMode.getter();
+  v40 = CATWrapper.__allocating_init(options:globals:)();
+  static CATOption.defaultMode.getter();
+  v39 = CATWrapperSimple.__allocating_init(options:globals:)();
+  type metadata accessor for RunVoiceCommandCATs(0);
+  static CATOption.defaultMode.getter();
+  v38 = CATWrapper.__allocating_init(options:globals:)();
+  type metadata accessor for RunVoiceCommandCATsSimple(0);
+  static CATOption.defaultMode.getter();
+  v37 = CATWrapperSimple.__allocating_init(options:globals:)();
+  v12 = type metadata accessor for ResponseFactory();
+  swift_allocObject();
+  v13 = ResponseFactory.init()();
+  type metadata accessor for CustomIntentNeedsConfirmationFlowStrategy(0);
+  v14 = swift_allocObject();
+  v15 = (v14 + OBJC_IVAR____TtC18SiriLinkFlowPlugin41CustomIntentNeedsConfirmationFlowStrategy_voiceCommandName);
+  *v15 = a1;
+  v15[1] = a2;
+  outlined init with copy of DeviceState(&v54, v14 + OBJC_IVAR____TtC18SiriLinkFlowPlugin41CustomIntentNeedsConfirmationFlowStrategy_deviceState);
+  v16 = OBJC_IVAR____TtC18SiriLinkFlowPlugin41CustomIntentNeedsConfirmationFlowStrategy_confirmationState;
+  v17 = enum case for SiriKitConfirmationState.unset(_:);
+  v18 = type metadata accessor for SiriKitConfirmationState();
+  (*(*(v18 - 8) + 104))(v14 + v16, v17, v18);
+  outlined init with copy of DeviceState(&v54, v53);
+  memset(v51, 0, sizeof(v51));
+  v52 = 0;
+  type metadata accessor for ContinueInAppCATWrapperSimple(0);
+  swift_allocObject();
+  outlined init with copy of DeviceState?(v51, v50);
+
+  v19 = SiriKitFlowCATWrapperSimple.init(deviceState:)(v50);
+  outlined destroy of Any?(v51, &_s11SiriKitFlow11DeviceState_pSgMd, &_s11SiriKitFlow11DeviceState_pSgMR);
+  type metadata accessor for CustomIntentNeedsConfirmIntentResponseGenerator();
+  v20 = swift_allocObject();
+  outlined init with copy of DeviceState(v53, v51);
+  v50[3] = v12;
+  v50[4] = &protocol witness table for ResponseFactory;
+  v42 = v12;
+  v50[0] = v13;
+  v44 = a1;
+  v20[10] = a1;
+  v20[11] = a2;
+  outlined init with copy of DeviceState(v51, (v20 + 2));
+  v20[9] = a4;
+  v20[12] = v19;
+  outlined init with copy of DeviceState(v50, (v20 + 13));
+  outlined init with copy of DeviceState(v51, v49);
+  v21 = one-time initialization token for shared;
+
+  if (v21 != -1)
+  {
+    swift_once();
+  }
+
+  v22 = static WFDialogState.shared;
+
+  __swift_destroy_boxed_opaque_existential_1Tm(v50);
+  v23 = type metadata accessor for AppNameResolver();
+  v24 = swift_allocObject();
+  type metadata accessor for CustomIntentsDialogTemplating();
+  v25 = swift_allocObject();
+  v47 = v23;
+  v48 = &protocol witness table for AppNameResolver;
+
+  *&v46 = v24;
+  __swift_destroy_boxed_opaque_existential_1Tm(v53);
+  __swift_destroy_boxed_opaque_existential_1Tm(&v54);
+  *(v25 + 56) = v22;
+  outlined init with take of AceServiceInvokerAsync(v49, v25 + 16);
+  *(v25 + 64) = 0;
+  *(v25 + 72) = 1;
+  *(v25 + 80) = v40;
+  *(v25 + 88) = v39;
+  *(v25 + 96) = v38;
+  *(v25 + 104) = v37;
+  outlined init with take of AceServiceInvokerAsync(&v46, v25 + 112);
+  v20[7] = v25;
+  v26 = v20[9];
+  type metadata accessor for CustomIntentSnippetProvider();
+  swift_allocObject();
+  v20[8] = CustomIntentSnippetProvider.init(voiceCommandName:templatingService:deviceState:siriEnvironment:)(v44, a2, v25, v51, v26);
+  *(v14 + OBJC_IVAR____TtC18SiriLinkFlowPlugin41CustomIntentNeedsConfirmationFlowStrategy_responseGenerator) = v20;
+  *&v54 = v14;
+  lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentNeedsConfirmationFlowStrategy and conformance CustomIntentNeedsConfirmationFlowStrategy, type metadata accessor for CustomIntentNeedsConfirmationFlowStrategy, &protocol conformance descriptor for CustomIntentNeedsConfirmationFlowStrategy);
+
+  static RCHChildFlowFactoryHelper.makeNeedsConfirmationFlowProducer<A>(strategy:)();
+
+  RCHChildFlowProducersAsync.needsConfirmationFlowProducer.setter();
+  outlined init with copy of DeviceState(v41, &v54);
+
+  static CATOption.defaultMode.getter();
+  v27 = CATWrapperSimple.__allocating_init(options:globals:)();
+  type metadata accessor for CustomIntentNeedsDisambiguationFlowStrategy();
+  v28 = swift_allocObject();
+
+  *&v54 = specialized CustomIntentNeedsDisambiguationFlowStrategy.init(voiceCommandName:deviceState:modeInfoProvider:siriEnvironment:runCustomIntentCatWrapperSimple:)(v44, a2, &v54, v43, a4, v27, v28);
+  lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentNeedsDisambiguationFlowStrategy and conformance CustomIntentNeedsDisambiguationFlowStrategy, type metadata accessor for CustomIntentNeedsDisambiguationFlowStrategy, &protocol conformance descriptor for CustomIntentNeedsDisambiguationFlowStrategy);
+  static RCHChildFlowFactoryHelper.makeNeedsDisambiguationFlowProducer<A>(strategy:)();
+
+  RCHChildFlowProducersAsync.needsDisambiguationFlowProducer.setter();
+  outlined init with copy of DeviceState(v41, &v54);
+  type metadata accessor for CustomIntentUnsupportedValueFlowStrategy();
+  swift_allocObject();
+  *&v54 = CustomIntentUnsupportedValueFlowStrategy.init(deviceState:)(&v54);
+  lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentUnsupportedValueFlowStrategy and conformance CustomIntentUnsupportedValueFlowStrategy, type metadata accessor for CustomIntentUnsupportedValueFlowStrategy, &protocol conformance descriptor for CustomIntentUnsupportedValueFlowStrategy);
+  static RCHChildFlowFactoryHelper.makeUnsupportedValueAndPromptFlowProducer<A>(strategy:)();
+
+  RCHChildFlowProducersAsync.unsupportedValueFlowProducer.setter();
+  outlined init with copy of DeviceState(v41, &v54);
+  type metadata accessor for CustomIntentConfirmIntentFlowStrategy(0);
+  swift_allocObject();
+
+  *&v54 = CustomIntentConfirmIntentFlowStrategy.init(voiceCommandName:siriEnvironment:deviceState:)(v44, a2, a4, &v54);
+  lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentConfirmIntentFlowStrategy and conformance CustomIntentConfirmIntentFlowStrategy, type metadata accessor for CustomIntentConfirmIntentFlowStrategy, &protocol conformance descriptor for CustomIntentConfirmIntentFlowStrategy);
+  static RCHChildFlowFactoryHelper.makeConditionalConfirmIntentFlowProducer<A>(strategy:_:)();
+
+  RCHChildFlowProducersAsync.confirmIntentFlowProducer.setter();
+  outlined init with copy of DeviceState(v41, &v54);
+  type metadata accessor for CustomIntentHandleIntentFlowStrategy();
+  swift_allocObject();
+
+  *&v54 = CustomIntentHandleIntentFlowStrategy.init(voiceCommandName:siriEnvironment:deviceState:)(v44, a2, a4, &v54);
+  lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentHandleIntentFlowStrategy and conformance CustomIntentHandleIntentFlowStrategy, type metadata accessor for CustomIntentHandleIntentFlowStrategy, &protocol conformance descriptor for CustomIntentHandleIntentFlowStrategy);
+  static RCHChildFlowFactoryHelper.makeHandleIntentFlowProducer<A>(strategy:)();
+
+  RCHChildFlowProducersAsync.handleIntentFlowProducer.setter();
+  __swift_project_boxed_opaque_existential_1(v41, v41[3]);
+  if (dispatch thunk of DeviceState.isHomePod.getter())
+  {
+    outlined init with copy of DeviceState(a3, &v54);
+    outlined init with copy of DeviceState(v41, v53);
+    type metadata accessor for CustomIntentContinueInAppWithDialogStrategy();
+    swift_allocObject();
+    *&v54 = CustomIntentContinueInAppWithDialogStrategy.init(runner:deviceState:)(&v54, v53);
+    lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentContinueInAppWithDialogStrategy and conformance CustomIntentContinueInAppWithDialogStrategy, type metadata accessor for CustomIntentContinueInAppWithDialogStrategy, &protocol conformance descriptor for CustomIntentContinueInAppWithDialogStrategy);
+    static RCHChildFlowFactoryHelper.makeContinueInAppFlowWithHandoffToCompanionProducer<A>(strategy:)();
+
+    v29 = v42;
+  }
+
+  else
+  {
+    outlined init with copy of DeviceState(v41, &v54);
+    memset(v53, 0, sizeof(v53));
+    swift_allocObject();
+    outlined init with copy of DeviceState?(v53, v51);
+
+    v30 = SiriKitFlowCATWrapperSimple.init(deviceState:)(v51);
+    outlined destroy of Any?(v53, &_s11SiriKitFlow11DeviceState_pSgMd, &_s11SiriKitFlow11DeviceState_pSgMR);
+    v29 = v42;
+    swift_allocObject();
+    v31 = ResponseFactory.init()();
+    type metadata accessor for CustomIntentContinueInAppFlowStrategy();
+    v32 = swift_allocObject();
+
+    *&v54 = specialized CustomIntentContinueInAppFlowStrategy.init(voiceCommandName:siriEnvironment:deviceState:continueInAppCATWrapperSimple:responseFactory:)(v44, a2, a4, &v54, v30, v31, v32);
+    lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentContinueInAppFlowStrategy and conformance CustomIntentContinueInAppFlowStrategy, type metadata accessor for CustomIntentContinueInAppFlowStrategy, &protocol conformance descriptor for CustomIntentContinueInAppFlowStrategy);
+    static RCHChildFlowFactoryHelper.makeContinueInAppFlowWithAutomaticPunchOutProducer<A>(strategy:)();
+  }
+
+  RCHChildFlowProducersAsync.continueInAppFlowProducer.setter();
+  outlined init with copy of DeviceState(v41, &v54);
+  swift_allocObject();
+  v33 = ResponseFactory.init()();
+  type metadata accessor for CustomIntentTCCFlowStrategy();
+  v34 = swift_allocObject();
+  v34[10] = &type metadata for EnableTCCLabelsProvider;
+  v34[11] = &protocol witness table for EnableTCCLabelsProvider;
+  v34[15] = v29;
+  v34[16] = &protocol witness table for ResponseFactory;
+  v34[12] = v33;
+  outlined init with take of AceServiceInvokerAsync(&v54, (v34 + 2));
+  *&v54 = v34;
+  lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(&lazy protocol witness table cache variable for type CustomIntentTCCFlowStrategy and conformance CustomIntentTCCFlowStrategy, type metadata accessor for CustomIntentTCCFlowStrategy, &protocol conformance descriptor for CustomIntentTCCFlowStrategy);
+  static RCHChildFlowFactoryHelper.makeRequestTCCAcceptanceFlow<A, B>(strategy:)();
+
+  RCHChildFlowProducersAsync.requestTCCAcceptanceFlowProducer.setter();
+}
+
+uint64_t CustomIntentExecutionFlow.execute(completion:)(uint64_t a1, uint64_t a2)
+{
+  type metadata accessor for CustomIntentExecutionFlow(0);
+  OUTLINED_FUNCTION_1_30();
+  lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(v2, v3, &protocol conformance descriptor for CustomIntentExecutionFlow);
+  return Flow.deferToExecuteAsync(_:)();
+}
+
+uint64_t CustomIntentExecutionFlow.isReadRequest(intent:intentResponse:deviceState:)(uint64_t a1, uint64_t a2, void *a3)
+{
+  v4 = type metadata accessor for InteractionType();
+  OUTLINED_FUNCTION_7_1();
+  v6 = v5;
+  __chkstk_darwin(v7);
+  OUTLINED_FUNCTION_50_0();
+  v10 = (v8 - v9);
+  __chkstk_darwin(v11);
+  v13 = &v18 - v12;
+  CustomIntentExecutionFlow.getReadItems(intent:intentResponse:)();
+  v15 = *(v14 + 16);
+
+  if (v15)
+  {
+    OUTLINED_FUNCTION_4_24();
+    if (dispatch thunk of DeviceState.isWatch.getter() & 1) != 0 || (OUTLINED_FUNCTION_4_24(), (dispatch thunk of DeviceState.isCarPlay.getter()) || (OUTLINED_FUNCTION_4_24(), (dispatch thunk of DeviceState.isHomePod.getter()) || (OUTLINED_FUNCTION_4_24(), (dispatch thunk of DeviceState.isEyesFree.getter()))
+    {
+      LOBYTE(v15) = 1;
+    }
+
+    else
+    {
+      __swift_project_boxed_opaque_existential_1(a3, a3[3]);
+      dispatch thunk of DeviceState.interactionType.getter();
+      (*(v6 + 104))(v10, enum case for InteractionType.dialogDriven(_:), v4);
+      LOBYTE(v15) = specialized == infix<A>(_:_:)();
+      v17 = *(v6 + 8);
+      v17(v10, v4);
+      v17(v13, v4);
+    }
+  }
+
+  return v15 & 1;
+}
+
+void CustomIntentExecutionFlow.getReadItems(intent:intentResponse:)()
+{
+  OUTLINED_FUNCTION_40_0();
+  if (!v1)
+  {
+    goto LABEL_24;
+  }
+
+  v2 = v0;
+  v3 = v1;
+  v4 = outlined bridged method (pb) of @objc INIntentResponse.propertiesByName.getter(v3);
+  if (!v4)
+  {
+
+LABEL_24:
+    OUTLINED_FUNCTION_42();
+    return;
+  }
+
+  v5 = v4;
+  v6 = [v2 typeName];
+  v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v9 = v8;
+
+  v10._countAndFlagsBits = v7;
+  v10._object = v9;
+  v23 = v3;
+  v11 = INIntentResponse.localizedResponseTemplate(intentName:)(v10);
+
+  type metadata accessor for CATSpeakableString();
+  v24 = static CATSpeakableString.getPropertiesInTemplateString(templateString:)(v11._countAndFlagsBits, v11._object);
+
+  v12 = 0;
+  v13 = 1 << *(v5 + 32);
+  v14 = -1;
+  if (v13 < 64)
+  {
+    v14 = ~(-1 << v13);
+  }
+
+  v15 = v14 & *(v5 + 64);
+  v16 = (v13 + 63) >> 6;
+LABEL_6:
+  if (!v15)
+  {
+    goto LABEL_8;
+  }
+
+  do
+  {
+    v17 = v12;
+LABEL_12:
+    v18 = __clz(__rbit64(v15));
+    v15 &= v15 - 1;
+    v19 = v18 | (v17 << 6);
+    outlined init with copy of AnyHashable(*(v5 + 48) + 40 * v19, v26);
+    outlined init with copy of Any(*(v5 + 56) + 32 * v19, v25);
+    *v28 = v26[0];
+    *&v28[16] = v26[1];
+    *&v28[32] = v27;
+    outlined init with take of Any(v25, &v28[40]);
+LABEL_13:
+    memcpy(v29, v28, 0x48uLL);
+    if (!*(&v29[1] + 1))
+    {
+
+      goto LABEL_24;
+    }
+
+    outlined init with take of Any((&v29[2] + 8), v26);
+    *v28 = v29[0];
+    *&v28[16] = v29[1];
+    *&v28[32] = *&v29[2];
+    v20 = swift_dynamicCast();
+    if (v20)
+    {
+      *v28 = v25[0];
+      __chkstk_darwin(v20);
+      v22[2] = v28;
+      v21 = specialized Sequence.contains(where:)(partial apply for specialized closure #1 in Sequence<>.contains(_:), v22, v24);
+
+      if (v21)
+      {
+        __swift_destroy_boxed_opaque_existential_1Tm(v26);
+        goto LABEL_6;
+      }
+
+      outlined init with take of Any(v26, v28);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+      if (swift_dynamicCast())
+      {
+
+        goto LABEL_24;
+      }
+
+      goto LABEL_6;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
+  }
+
+  while (v15);
+LABEL_8:
+  while (1)
+  {
+    v17 = v12 + 1;
+    if (__OFADD__(v12, 1))
+    {
+      break;
+    }
+
+    if (v17 >= v16)
+    {
+      v15 = 0;
+      memset(v28, 0, sizeof(v28));
+      goto LABEL_13;
+    }
+
+    v15 = *(v5 + 64 + 8 * v17);
+    ++v12;
+    if (v15)
+    {
+      v12 = v17;
+      goto LABEL_12;
+    }
+  }
+
+  __break(1u);
+}
+
+uint64_t CustomIntentExecutionFlow.processCustomIntentConversionResult(conversionResult:)(void *a1, char a2)
+{
+  type metadata accessor for CustomIntentExecutionFlow.State(0);
+  OUTLINED_FUNCTION_7();
+  __chkstk_darwin(v4);
+  OUTLINED_FUNCTION_3();
+  v7 = (v6 - v5);
+  if (a2)
+  {
+    *v7 = a1;
+    OUTLINED_FUNCTION_21_11();
+    swift_errorRetain();
+  }
+
+  else
+  {
+    outlined bridged method (pb) of @objc INIntent.identifier.getter(a1, &selRef_launchId);
+    if (v8)
+    {
+    }
+
+    else
+    {
+      if (one-time initialization token for voiceCommands != -1)
+      {
+        OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+      }
+
+      v9 = type metadata accessor for Logger();
+      OUTLINED_FUNCTION_59(v9, static Logger.voiceCommands);
+      v10 = static os_log_type_t.debug.getter();
+      v11 = Logger.logObject.getter();
+      if (os_log_type_enabled(v11, v10))
+      {
+        v12 = OUTLINED_FUNCTION_52();
+        *v12 = 0;
+        _os_log_impl(&dword_0, v11, v10, "No launchId found in INIntent", v12, 2u);
+        OUTLINED_FUNCTION_15_0(v12);
+      }
+
+      v13 = lazy protocol witness table accessor for type RunVoiceShortcutFlowErrors and conformance RunVoiceShortcutFlowErrors();
+      v14 = OUTLINED_FUNCTION_16_6(&type metadata for RunVoiceShortcutFlowErrors, v13);
+      *v15 = 0;
+      *v7 = v14;
+      OUTLINED_FUNCTION_21_11();
+      CustomIntentExecutionFlow.state.setter(v7);
+    }
+
+    *v7 = a1;
+    swift_storeEnumTagMultiPayload();
+    outlined copy of Result<INIntent, Error>(a1, 0);
+  }
+
+  return CustomIntentExecutionFlow.state.setter(v7);
+}
+
+void CustomIntentExecutionFlow.processCustomIntentExecutionResult(executionResult:)()
+{
+  OUTLINED_FUNCTION_40_0();
+  v1 = v0;
+  v3 = v2;
+  type metadata accessor for CustomIntentExecutionFlow.State(0);
+  OUTLINED_FUNCTION_7();
+  __chkstk_darwin(v4);
+  OUTLINED_FUNCTION_3();
+  v7 = (v6 - v5);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMd, &_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMR);
+  OUTLINED_FUNCTION_7_1();
+  v10 = v9;
+  __chkstk_darwin(v11);
+  v13 = (&v47 - v12);
+  v14 = *(v10 + 16);
+  v14(&v47 - v12, v3, v8);
+  v15 = OUTLINED_FUNCTION_18_15();
+  v17 = v16(v15);
+  if (v17 == enum case for RCHFlowResult.complete<A, B>(_:))
+  {
+    v18 = OUTLINED_FUNCTION_18_15();
+    v19(v18);
+    v20 = v13[1];
+    v21 = v13[2];
+
+    v22 = v21;
+    LOBYTE(v21) = CustomIntentExecutionFlow.isReadRequest(intent:intentResponse:deviceState:)(v20, v21, (v1 + 24));
+
+    if (v21)
+    {
+      v23 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_sSo8INIntentC6intent_So0A8ResponseC0bC011SiriKitFlow13RCHFlowResultOyAbEG9exitValuetMd, &_sSo8INIntentC6intent_So0A8ResponseC0bC011SiriKitFlow13RCHFlowResultOyAbEG9exitValuetMR) + 64);
+      *v7 = v20;
+      v7[1] = v22;
+      v14(v7 + v23, v3, v8);
+      OUTLINED_FUNCTION_95();
+      swift_storeEnumTagMultiPayload();
+      v24 = v22;
+      v25 = v20;
+      OUTLINED_FUNCTION_13_15();
+    }
+
+    else
+    {
+      if ([v22 _intentResponseCode] == &dword_4)
+      {
+        type metadata accessor for CustomIntentExecutionFlow(0);
+        OUTLINED_FUNCTION_1_30();
+        lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(v29, v30, &protocol conformance descriptor for CustomIntentExecutionFlow);
+        SiriEnvironmentLocating<>.siriEnvironment.getter();
+        v31 = static CustomIntentExecutionFlow.isSkippingWaitForDone(intent:deviceState:siriEnvironment:)(v20, v1 + 24);
+        v48 = v20;
+        v32 = v31;
+
+        if (v32)
+        {
+          v33 = OUTLINED_FUNCTION_9_16();
+          (v14)(v33);
+          OUTLINED_FUNCTION_95();
+        }
+
+        else
+        {
+          if (one-time initialization token for voiceCommands != -1)
+          {
+            OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+          }
+
+          v40 = type metadata accessor for Logger();
+          OUTLINED_FUNCTION_59(v40, static Logger.voiceCommands);
+          v41 = Logger.logObject.getter();
+          v42 = static os_log_type_t.debug.getter();
+          if (os_log_type_enabled(v41, v42))
+          {
+            v43 = OUTLINED_FUNCTION_52();
+            *v43 = 0;
+            v44 = v42;
+            v45 = v43;
+            _os_log_impl(&dword_0, v41, v44, "CustomIntentExecutionFlow setting state to wait for done.", v43, 2u);
+            OUTLINED_FUNCTION_15_0(v45);
+          }
+
+          v46 = OUTLINED_FUNCTION_9_16();
+          (v14)(v46);
+          OUTLINED_FUNCTION_95();
+        }
+
+        swift_storeEnumTagMultiPayload();
+        OUTLINED_FUNCTION_13_15();
+      }
+
+      else
+      {
+        v34 = OUTLINED_FUNCTION_9_16();
+        (v14)(v34);
+        OUTLINED_FUNCTION_95();
+        swift_storeEnumTagMultiPayload();
+        OUTLINED_FUNCTION_13_15();
+      }
+    }
+  }
+
+  else if (v17 == enum case for RCHFlowResult.error<A, B>(_:))
+  {
+    v26 = OUTLINED_FUNCTION_18_15();
+    v27(v26);
+    v28 = *(v13 + 8);
+    *v7 = *v13;
+    *(v7 + 8) = v28;
+    OUTLINED_FUNCTION_95();
+    swift_storeEnumTagMultiPayload();
+    swift_errorRetain();
+    OUTLINED_FUNCTION_13_15();
+  }
+
+  else if (v17 == enum case for RCHFlowResult.cancelled<A, B>(_:))
+  {
+    OUTLINED_FUNCTION_95();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_13_15();
+  }
+
+  else
+  {
+    v35 = lazy protocol witness table accessor for type RunVoiceShortcutFlowErrors and conformance RunVoiceShortcutFlowErrors();
+    v36 = OUTLINED_FUNCTION_16_6(&type metadata for RunVoiceShortcutFlowErrors, v35);
+    *v37 = 0;
+    *v7 = v36;
+    *(v7 + 8) = 0;
+    OUTLINED_FUNCTION_95();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_13_15();
+    v38 = OUTLINED_FUNCTION_18_15();
+    v39(v38);
+  }
+
+  OUTLINED_FUNCTION_42();
+}
+
+uint64_t static CustomIntentExecutionFlow.isSkippingWaitForDone(intent:deviceState:siriEnvironment:)(void *a1, uint64_t a2)
+{
+  v4 = [a1 typeName];
+  v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = v6;
+
+  if (v5 == 0xD000000000000051 && 0x80000000002309D0 == v7)
+  {
+    goto LABEL_20;
+  }
+
+  v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v9)
+  {
+    goto LABEL_21;
+  }
+
+  v10 = [a1 typeName];
+  v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v13 = v12;
+
+  if (v11 == 0xD00000000000005ALL && 0x8000000000232480 == v13)
+  {
+LABEL_20:
+  }
+
+  else
+  {
+    v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if ((v15 & 1) == 0 && !INIntent.shouldSupressIntentResponseDialog()())
+    {
+      type metadata accessor for CustomIntentsDialogTemplating();
+      if ((static CustomIntentsDialogTemplating.isShortcutsInternalCustomIntent(intent:)(a1) & 1) == 0)
+      {
+        v16 = [a1 _metadata];
+        if (v16)
+        {
+          v17 = v16;
+          v18 = [v16 showsWhenRun];
+
+          if (v18)
+          {
+            type metadata accessor for CustomIntentSnippetProvider();
+            if (static CustomIntentSnippetProvider.isDoneButtonEligible(deviceState:intent:siriEnvironment:)(a2, a1))
+            {
+              if (one-time initialization token for voiceCommands != -1)
+              {
+                OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+              }
+
+              v19 = type metadata accessor for Logger();
+              OUTLINED_FUNCTION_59(v19, static Logger.voiceCommands);
+              v20 = Logger.logObject.getter();
+              static os_log_type_t.debug.getter();
+              OUTLINED_FUNCTION_12_17();
+              if (!os_log_type_enabled(v20, v21))
+              {
+                v25 = 0;
+                goto LABEL_32;
+              }
+
+              v22 = OUTLINED_FUNCTION_52();
+              *v22 = 0;
+              OUTLINED_FUNCTION_27_10(&dword_0, v23, v24, "#CustomIntentExecutionFlow isSkippingWaitForDone - will wait for done; button present");
+              v25 = 0;
+              goto LABEL_26;
+            }
+          }
+        }
+      }
+
+      if (one-time initialization token for voiceCommands != -1)
+      {
+        OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+      }
+
+      v31 = type metadata accessor for Logger();
+      OUTLINED_FUNCTION_59(v31, static Logger.voiceCommands);
+      v20 = Logger.logObject.getter();
+      static os_log_type_t.debug.getter();
+      OUTLINED_FUNCTION_12_17();
+      if (os_log_type_enabled(v20, v32))
+      {
+        v22 = OUTLINED_FUNCTION_52();
+        *v22 = 0;
+        v30 = "#CustomIntentExecutionFlow isSkippingWaitForDone - skipping wait for done";
+        goto LABEL_25;
+      }
+
+LABEL_31:
+      v25 = 1;
+      goto LABEL_32;
+    }
+  }
+
+LABEL_21:
+  if (one-time initialization token for voiceCommands != -1)
+  {
+    OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+  }
+
+  v26 = type metadata accessor for Logger();
+  OUTLINED_FUNCTION_59(v26, static Logger.voiceCommands);
+  v20 = Logger.logObject.getter();
+  static os_log_type_t.debug.getter();
+  OUTLINED_FUNCTION_12_17();
+  if (!os_log_type_enabled(v20, v27))
+  {
+    goto LABEL_31;
+  }
+
+  v22 = OUTLINED_FUNCTION_52();
+  *v22 = 0;
+  v30 = "#CustomIntentExecutionFlow isSkippingWaitForDone - skipping wait for done due to smart prompt";
+LABEL_25:
+  OUTLINED_FUNCTION_27_10(&dword_0, v28, v29, v30);
+  v25 = 1;
+LABEL_26:
+  OUTLINED_FUNCTION_15_0(v22);
+LABEL_32:
+
+  return v25;
+}
+
+uint64_t CustomIntentExecutionFlow.processScreentimeCheckCompletion(guardFlowResult:)(char a1)
+{
+  result = static GuardFlowResult.== infix(_:_:)();
+  if (result)
+  {
+    *(v1 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_appBlockedByScreentime) = 1;
+  }
+
+  return result;
+}
+
+void *CustomIntentExecutionFlow.deinit()
+{
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 3);
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 8);
+
+  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 15);
+  outlined destroy of CustomIntentExecutionFlow.State(v0 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_state);
+  outlined destroy of Any?(v0 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_input, &_s11SiriKitFlow5InputVSgMd, &_s11SiriKitFlow5InputVSgMR);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + OBJC_IVAR____TtC18SiriLinkFlowPlugin25CustomIntentExecutionFlow_appPolicyHandler));
+  return v0;
+}
+
+uint64_t CustomIntentExecutionFlow.__deallocating_deinit()
+{
+  CustomIntentExecutionFlow.deinit();
+
+  return swift_deallocClassInstance();
+}
+
+void (*protocol witness for SiriEnvironmentLocating.siriEnvironment.modify in conformance CustomIntentExecutionFlow(void *a1))(void *a1)
+{
+  v2 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v2;
+  v2[4] = SiriEnvironmentLocating<>.siriEnvironment.modify();
+  return protocol witness for SiriEnvironmentLocating.siriEnvironment.modify in conformance WFExecuteCustomIntentFlow;
+}
+
+uint64_t protocol witness for Flow.onAsync(input:) in conformance CustomIntentExecutionFlow(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for Flow.onAsync(input:) in conformance CustomIntentExecutionFlow;
+
+  return Flow.onAsync(input:)(a1, a2, a3);
+}
+
+uint64_t protocol witness for Flow.onAsync(input:) in conformance CustomIntentExecutionFlow()
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = v1;
+  v3 = *v0;
+  OUTLINED_FUNCTION_2_0();
+  *v4 = v3;
+
+  v5 = *(v3 + 8);
+
+  return v5(v2);
+}
+
+uint64_t protocol witness for Flow.execute() in conformance CustomIntentExecutionFlow(uint64_t a1)
+{
+  v6 = (*(**v1 + 272) + **(**v1 + 272));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = protocol witness for Flow.execute() in conformance CustomIntentExecutionFlow;
+
+  return v6(a1);
+}
+
+uint64_t protocol witness for Flow.execute() in conformance CustomIntentExecutionFlow()
+{
+  OUTLINED_FUNCTION_8_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_2_0();
+  *v2 = v1;
 
   OUTLINED_FUNCTION_6_0();
 
   return v3();
 }
 
+void outlined bridged method (mbnn) of @objc _INPBIntentMetadata.intentId.setter(uint64_t a1, uint64_t a2, void *a3)
+{
+  v4 = String._bridgeToObjectiveC()();
+
+  [a3 setIntentId:v4];
+}
+
+uint64_t outlined assign with take of Input?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow5InputVSgMd, &_s11SiriKitFlow5InputVSgMR);
+  (*(*(v4 - 8) + 40))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t lazy protocol witness table accessor for type RunCustomIntentReadingDelegate and conformance RunCustomIntentReadingDelegate(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t outlined bridged method (pb) of @objc INIntent.identifier.getter(void *a1, SEL *a2)
+{
+  v2 = [a1 *a2];
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = v2;
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+
+  return v4;
+}
+
+uint64_t sub_C25E8()
+{
+
+  return _swift_deallocObject(v0);
+}
+
+void type metadata completion function for CustomIntentExecutionFlow(uint64_t a1)
+{
+  type metadata accessor for CustomIntentExecutionFlow.State(319);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for Input?(319);
+    if (v2 <= 0x3F)
+    {
+      swift_updateClassMetadata2();
+    }
+  }
+}
+
+void type metadata accessor for Input?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for Input?)
+  {
+    type metadata accessor for Input();
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for Input?);
+    }
+  }
+}
+
+uint64_t type metadata completion function for CustomIntentExecutionFlow.State(uint64_t a1)
+{
+  type metadata accessor for (intent: INIntent?)(319, &lazy cache variable for type metadata for (intent: INIntent?), type metadata accessor for INIntent?);
+  v2 = v1;
+  if (v3 <= 0x3F)
+  {
+    type metadata accessor for (intent: INIntent)();
+    v2 = v4;
+    if (v5 <= 0x3F)
+    {
+      type metadata accessor for (intent: INIntent?)(319, &lazy cache variable for type metadata for (exitValue: RCHFlowResult<INIntent, INIntentResponse>), type metadata accessor for RCHFlowResult<INIntent, INIntentResponse>);
+      v2 = v6;
+      if (v7 <= 0x3F)
+      {
+        type metadata accessor for (innerError: Error, handled: Bool)(319);
+        if (v9 > 0x3F)
+        {
+          return v8;
+        }
+
+        type metadata accessor for (intent: INIntent, intentResponse: INIntentResponse, exitValue: RCHFlowResult<INIntent, INIntentResponse>)(319);
+        if (v10 > 0x3F)
+        {
+          return v8;
+        }
+
+        else
+        {
+          swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+          return 0;
+        }
+      }
+    }
+  }
+
+  return v2;
+}
+
+void type metadata accessor for INIntent?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for INIntent?)
+  {
+    type metadata accessor for NSError(255, &lazy cache variable for type metadata for INIntent, INIntent_ptr);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for INIntent?);
+    }
+  }
+}
+
+void type metadata accessor for (intent: INIntent)()
+{
+  if (!lazy cache variable for type metadata for (intent: INIntent))
+  {
+    v0 = type metadata accessor for NSError(0, &lazy cache variable for type metadata for INIntent, INIntent_ptr);
+    if (!v1)
+    {
+      atomic_store(v0, &lazy cache variable for type metadata for (intent: INIntent));
+    }
+  }
+}
+
+void type metadata accessor for (intent: INIntent?)(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void))
+{
+  if (!*a2)
+  {
+    v4 = a3(0);
+    if (!v5)
+    {
+      atomic_store(v4, a2);
+    }
+  }
+}
+
+void type metadata accessor for RCHFlowResult<INIntent, INIntentResponse>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for RCHFlowResult<INIntent, INIntentResponse>)
+  {
+    type metadata accessor for NSError(255, &lazy cache variable for type metadata for INIntent, INIntent_ptr);
+    type metadata accessor for NSError(255, &lazy cache variable for type metadata for INIntentResponse, INIntentResponse_ptr);
+    v1 = type metadata accessor for RCHFlowResult();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for RCHFlowResult<INIntent, INIntentResponse>);
+    }
+  }
+}
+
+void type metadata accessor for (innerError: Error, handled: Bool)(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for (innerError: Error, handled: Bool))
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+    if (!v2)
+    {
+      atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (innerError: Error, handled: Bool));
+    }
+  }
+}
+
+void type metadata accessor for (intent: INIntent, intentResponse: INIntentResponse, exitValue: RCHFlowResult<INIntent, INIntentResponse>)(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for (intent: INIntent, intentResponse: INIntentResponse, exitValue: RCHFlowResult<INIntent, INIntentResponse>))
+  {
+    type metadata accessor for NSError(255, &lazy cache variable for type metadata for INIntent, INIntent_ptr);
+    type metadata accessor for NSError(255, &lazy cache variable for type metadata for INIntentResponse, INIntentResponse_ptr);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMd, &_s11SiriKitFlow13RCHFlowResultOySo8INIntentCSo0F8ResponseCGMR);
+    TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
+    if (!v2)
+    {
+      atomic_store(TupleTypeMetadata3, &lazy cache variable for type metadata for (intent: INIntent, intentResponse: INIntentResponse, exitValue: RCHFlowResult<INIntent, INIntentResponse>));
+    }
+  }
+}
+
+uint64_t outlined init with copy of DeviceState?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow11DeviceState_pSgMd, &_s11SiriKitFlow11DeviceState_pSgMR);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+id outlined copy of Result<INIntent, Error>(void *a1, char a2)
+{
+  if (a2)
+  {
+    return swift_errorRetain();
+  }
+
+  else
+  {
+    return a1;
+  }
+}
+
+uint64_t outlined assign with copy of CustomIntentExecutionFlow.State(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for CustomIntentExecutionFlow.State(0);
+  (*(*(v4 - 8) + 24))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t OUTLINED_FUNCTION_4_24()
+{
+  v1 = v0[3];
+  __swift_project_boxed_opaque_existential_1(v0, v1);
+  return v1;
+}
+
+uint64_t OUTLINED_FUNCTION_13_15()
+{
+
+  return CustomIntentExecutionFlow.state.setter(v0);
+}
+
+uint64_t OUTLINED_FUNCTION_16_16()
+{
+}
+
+uint64_t OUTLINED_FUNCTION_21_11()
+{
+  *(v0 + 8) = 0;
+
+  return swift_storeEnumTagMultiPayload();
+}
+
+uint64_t OUTLINED_FUNCTION_22_9(uint64_t a1)
+{
+
+  return static ExecuteResponse.complete()();
+}
+
+void OUTLINED_FUNCTION_27_10(void *a1, uint64_t a2, uint64_t a3, const char *a4)
+{
+
+  _os_log_impl(a1, v4, v6, a4, v5, 2u);
+}
+
+uint64_t OUTLINED_FUNCTION_30_8()
+{
+
+  return CustomIntentExecutionFlow.state.setter(v0);
+}
+
+void static ShortcutDoneButtonConverter.toShortcutDoneButton(userData:)(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+{
+  if (!*(a1 + 16))
+  {
+    goto LABEL_25;
+  }
+
+  v4 = specialized __RawDictionaryStorage.find<A>(_:)(0x614E746E65746E69, 0xEA0000000000656DLL);
+  if ((v5 & 1) == 0)
+  {
+    goto LABEL_25;
+  }
+
+  v6 = outlined init with copy of Any(*(a1 + 56) + 32 * v4, &v77);
+  if ((OUTLINED_FUNCTION_0_22(v6, v7, v8, &type metadata for String, v9, v10) & 1) == 0)
+  {
+    goto LABEL_25;
+  }
+
+  v16 = specialized Dictionary.subscript.getter(a1, &v77, 0x6144746E65746E69, 0xEA00000000006174);
+  if (!v78)
+  {
+
+LABEL_24:
+    outlined destroy of Any?(&v77);
+    goto LABEL_25;
+  }
+
+  if ((OUTLINED_FUNCTION_0_22(v11, v12, v13, &type metadata for Data, v14, v15, v16) & 1) == 0)
+  {
+
+LABEL_25:
+    OUTLINED_FUNCTION_5_16();
+    v19 = 0;
+    goto LABEL_26;
+  }
+
+  v17 = String._bridgeToObjectiveC()();
+
+  OUTLINED_FUNCTION_1_31();
+  isa = Data._bridgeToObjectiveC()().super.isa;
+  v19 = INIntentCreate();
+
+  if (!v19)
+  {
+    v51 = OUTLINED_FUNCTION_1_31();
+    outlined consume of Data._Representation(v51, v52);
+    OUTLINED_FUNCTION_5_16();
+LABEL_26:
+    v34 = 0;
+LABEL_27:
+    v41 = 0;
+    goto LABEL_28;
+  }
+
+  v25 = OUTLINED_FUNCTION_2_27("intentResponseName", v67, v69, v71, v74, v77);
+  if (!v78)
+  {
+    v53 = OUTLINED_FUNCTION_1_31();
+    outlined consume of Data._Representation(v53, v54);
+LABEL_23:
+
+    goto LABEL_24;
+  }
+
+  if ((OUTLINED_FUNCTION_0_22(v20, v21, v22, &type metadata for String, v23, v24, v25) & 1) == 0)
+  {
+    v55 = OUTLINED_FUNCTION_1_31();
+    outlined consume of Data._Representation(v55, v56);
+LABEL_30:
+
+    goto LABEL_25;
+  }
+
+  v31 = OUTLINED_FUNCTION_2_27("intentResponseData", v68, v70, v72, v75, v77);
+  if (!v78)
+  {
+    v57 = OUTLINED_FUNCTION_1_31();
+    outlined consume of Data._Representation(v57, v58);
+
+    goto LABEL_23;
+  }
+
+  if ((OUTLINED_FUNCTION_0_22(v26, v27, v28, &type metadata for Data, v29, v30, v31) & 1) == 0)
+  {
+    v59 = OUTLINED_FUNCTION_1_31();
+    outlined consume of Data._Representation(v59, v60);
+
+    goto LABEL_30;
+  }
+
+  v32 = String._bridgeToObjectiveC()();
+
+  v33 = Data._bridgeToObjectiveC()().super.isa;
+  v34 = INIntentResponseCreate();
+
+  if (!v34)
+  {
+    v61 = OUTLINED_FUNCTION_1_31();
+    outlined consume of Data._Representation(v61, v62);
+
+    outlined consume of Data._Representation(v73, v76);
+    OUTLINED_FUNCTION_5_16();
+    v19 = 0;
+    goto LABEL_27;
+  }
+
+  v40 = specialized Dictionary.subscript.getter(a1, &v77, 0x6449707061, 0xE500000000000000);
+  if (!v78)
+  {
+    v63 = OUTLINED_FUNCTION_1_31();
+    outlined consume of Data._Representation(v63, v64);
+
+    outlined consume of Data._Representation(v73, v76);
+    goto LABEL_24;
+  }
+
+  if ((OUTLINED_FUNCTION_0_22(v35, v36, v37, &type metadata for String, v38, v39, v40) & 1) == 0)
+  {
+    v65 = OUTLINED_FUNCTION_1_31();
+    outlined consume of Data._Representation(v65, v66);
+
+    outlined consume of Data._Representation(v73, v76);
+    goto LABEL_25;
+  }
+
+  type metadata accessor for App();
+  v41 = App.__allocating_init(appIdentifier:)();
+  specialized Dictionary.subscript.getter(a1, &v77, 0x776F6C666B726F77, 0xEC000000656D614ELL);
+  v42 = OUTLINED_FUNCTION_1_31();
+  outlined consume of Data._Representation(v42, v43);
+  v44 = outlined consume of Data._Representation(v73, v76);
+  if (!v78)
+  {
+    outlined destroy of Any?(&v77);
+    goto LABEL_35;
+  }
+
+  if ((OUTLINED_FUNCTION_0_22(v44, v45, v46, &type metadata for String, v47, v48) & 1) == 0)
+  {
+LABEL_35:
+    OUTLINED_FUNCTION_5_16();
+    goto LABEL_28;
+  }
+
+  v49 = v73;
+  v50 = v76;
+LABEL_28:
+  *a2 = v49;
+  a2[1] = v50;
+  a2[2] = v19;
+  a2[3] = v34;
+  a2[4] = v41;
+}
+
+id static ShortcutDoneButtonConverter.toUserData(shortcutDoneButton:)(__int128 *a1)
+{
+  v2 = Dictionary.init(dictionaryLiteral:)();
+  v10 = v2;
+  v92 = *a1;
+  if (*(&v92 + 1))
+  {
+    *(&v91 + 1) = &type metadata for String;
+    OUTLINED_FUNCTION_4_25(v2, v3, v4, v5, v6, v7, v8, v9, v85, v86, v87, v88, v89, v92);
+    outlined init with copy of String?(&v92, &v85);
+    swift_isUniquelyReferenced_nonNull_native();
+    OUTLINED_FUNCTION_6_18();
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(&v87, 0x776F6C666B726F77, 0xEC000000656D614ELL);
+    v10 = v85;
+  }
+
+  v12 = *(a1 + 2);
+  v11 = *(a1 + 3);
+  v13 = outlined bridged method (ob) of @objc PBCodable.data.getter([v12 backingStore]);
+  if (v14 >> 60 != 15)
+  {
+    v15 = v13;
+    v16 = v14;
+    v17 = [v12 typeName];
+    v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v20 = v19;
+
+    *(&v91 + 1) = &type metadata for String;
+    *&v90 = v18;
+    *(&v90 + 1) = v20;
+    OUTLINED_FUNCTION_4_25(v21, v22, v23, v24, v25, v26, v27, v28, v85, v86, v87, v88, v89, v90);
+    swift_isUniquelyReferenced_nonNull_native();
+    OUTLINED_FUNCTION_6_18();
+    v29 = specialized _NativeDictionary.setValue(_:forKey:isUnique:)(&v87, 0x614E746E65746E69, 0xEA0000000000656DLL);
+    v30 = v85;
+    *(&v91 + 1) = &type metadata for Data;
+    *&v90 = v15;
+    *(&v90 + 1) = v16;
+    OUTLINED_FUNCTION_4_25(v29, v31, v32, v33, v34, v35, v36, v37, v85, v86, v87, v88, v89, v90);
+    swift_isUniquelyReferenced_nonNull_native();
+    v85 = v30;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(&v87, 0x6144746E65746E69, 0xEA00000000006174);
+    v10 = v85;
+  }
+
+  result = [v11 backingStore];
+  if (result)
+  {
+    v39 = outlined bridged method (ob) of @objc PBCodable.data.getter(result);
+    if (v40 >> 60 != 15)
+    {
+      v41 = v39;
+      v42 = v40;
+      v43 = [v12 typeName];
+      v44 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v46 = v45;
+
+      *&v90 = v44;
+      *(&v90 + 1) = v46;
+
+      v47._countAndFlagsBits = 0x65736E6F70736552;
+      v47._object = 0xE800000000000000;
+      String.append(_:)(v47);
+
+      *(&v91 + 1) = &type metadata for String;
+      OUTLINED_FUNCTION_4_25(v48, v49, v50, v51, v52, v53, v54, v55, v85, v86, v87, v88, v89, v90);
+      swift_isUniquelyReferenced_nonNull_native();
+      OUTLINED_FUNCTION_6_18();
+      v60 = OUTLINED_FUNCTION_3_20(v56, v57, v58, v59);
+      v61 = v85;
+      *(&v91 + 1) = &type metadata for Data;
+      *&v90 = v41;
+      *(&v90 + 1) = v42;
+      OUTLINED_FUNCTION_4_25(v60, v62, v63, v64, v65, v66, v67, v68, v85, v86, v87, v88, v89, v90);
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      v85 = v61;
+      OUTLINED_FUNCTION_3_20(isUniquelyReferenced_nonNull_native, v70, v71, isUniquelyReferenced_nonNull_native);
+      v10 = v85;
+    }
+
+    v72 = App.appIdentifier.getter();
+    if (v73)
+    {
+      *(&v91 + 1) = &type metadata for String;
+      *&v90 = v72;
+      *(&v90 + 1) = v73;
+      OUTLINED_FUNCTION_4_25(v72, v73, v74, v75, v76, v77, v78, v79, v85, v86, v87, v88, v89, v90);
+      swift_isUniquelyReferenced_nonNull_native();
+      OUTLINED_FUNCTION_6_18();
+      specialized _NativeDictionary.setValue(_:forKey:isUnique:)(&v87, 0x6449707061, 0xE500000000000000);
+      return v85;
+    }
+
+    else
+    {
+      v80 = specialized __RawDictionaryStorage.find<A>(_:)(0x6449707061, 0xE500000000000000);
+      if (v81)
+      {
+        v82 = v80;
+        v83 = swift_isUniquelyReferenced_nonNull_native();
+        *&v87 = v10;
+        v84 = *(v10 + 24);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVySSypGMd, &_ss17_NativeDictionaryVySSypGMR);
+        _NativeDictionary.ensureUnique(isUnique:capacity:)(v83, v84);
+        v10 = v87;
+
+        outlined init with take of Any((*(v10 + 56) + 32 * v82), &v90);
+        _NativeDictionary._delete(at:)();
+      }
+
+      else
+      {
+        v90 = 0u;
+        v91 = 0u;
+      }
+
+      outlined destroy of Any?(&v90);
+    }
+
+    return v10;
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t outlined bridged method (ob) of @objc PBCodable.data.getter(void *a1)
+{
+  v2 = [a1 data];
+
+  if (!v2)
+  {
+    return 0;
+  }
+
+  v3 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+
+  return v3;
+}
+
+uint64_t getEnumTagSinglePayload for ShortcutDoneButton(uint64_t a1, int a2)
+{
+  if (a2)
+  {
+    if (a2 < 0 && *(a1 + 40))
+    {
+      LODWORD(v2) = *a1 + 0x7FFFFFFF;
+    }
+
+    else
+    {
+      v2 = *(a1 + 16);
+      if (v2 >= 0xFFFFFFFF)
+      {
+        LODWORD(v2) = -1;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for ShortcutDoneButton(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0u;
+    *(result + 24) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 40) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 16) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 40) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_0_22(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+{
+
+  return swift_dynamicCast();
+}
+
+double OUTLINED_FUNCTION_2_27@<D0>(uint64_t x8_0@<X8>, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __int128 a13)
+{
+
+  return specialized Dictionary.subscript.getter(v14, &a13, 0xD000000000000012, (x8_0 - 32) | 0x8000000000000000);
+}
+
+_OWORD *OUTLINED_FUNCTION_3_20(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+{
+  va_start(va, a4);
+
+  return specialized _NativeDictionary.setValue(_:forKey:isUnique:)(va, 0xD000000000000012, v4 | 0x8000000000000000);
+}
+
+_OWORD *OUTLINED_FUNCTION_4_25(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, uint64_t a12, uint64_t a13, __int128 a14)
+{
+
+  return outlined init with take of Any(&a14, &a11);
+}
+
+uint64_t LinkActivityManager.__allocating_init(bundleId:)(uint64_t a1, uint64_t a2)
+{
+  swift_allocObject();
+  v4 = OUTLINED_FUNCTION_3_21();
+  LinkActivityManager.init(bundleId:)(v4, a2);
+  return v2;
+}
+
+void *LinkActivityManager.init(bundleId:)(uint64_t a1, uint64_t a2)
+{
+  v2[2] = _swiftEmptyArrayStorage;
+  v2[3] = 0;
+  type metadata accessor for LinkActivityManager.AtomicSessionResult();
+  v5 = swift_allocObject();
+  swift_defaultActor_initialize();
+  *(v5 + 112) = _swiftEmptyArrayStorage;
+  v2[4] = v5;
+  v2[5] = a1;
+  v2[6] = a2;
+  LinkActivityManager.fetchCurrentSessionOrCreateNewAssertion()();
+  return v2;
+}
+
+uint64_t LinkActivityManager.sessionIDString()()
 {
   OUTLINED_FUNCTION_8_0();
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = LinkActivityManager.sessionIDString();
 
-  v1 = *(v0 + 144);
-  v2 = *(v0 + 48);
-
-  OUTLINED_FUNCTION_6_0();
-
-  return v3();
+  return LinkActivityManager.sessionID()();
 }
 
 {
   OUTLINED_FUNCTION_8_0();
+  v2 = v1;
+  v4 = v3;
+  v7 = *v0;
 
-  v1 = *(v0 + 200);
-  v2 = *(v0 + 48);
+  v5 = *(v7 + 8);
+
+  return v5(v4, v2);
+}
+
+void LinkActivityManager.fetchCurrentSessionOrCreateNewAssertion()()
+{
+  v1 = type metadata accessor for ActivityDescriptor();
+  OUTLINED_FUNCTION_7_1();
+  v52 = v2;
+  __chkstk_darwin(v3);
+  v5 = &v48 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ActivityKit17ProcessDescriptorVSgMd, &_s11ActivityKit17ProcessDescriptorVSgMR);
+  __chkstk_darwin(v6 - 8);
+  v8 = &v48 - v7;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11ActivityKit0A14AttributesTypeVSgMd, &_s11ActivityKit0A14AttributesTypeVSgMR);
+  __chkstk_darwin(v9 - 8);
+  v11 = &v48 - v10;
+  v12 = type metadata accessor for ActivityPredicate();
+  OUTLINED_FUNCTION_7_1();
+  v14 = v13;
+  __chkstk_darwin(v15);
+  v17 = &v48 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for ActivityCenter();
+  static ActivityCenter.shared.getter();
+  v18 = type metadata accessor for ActivityAttributesType();
+  __swift_storeEnumTagSinglePayload(v11, 1, 1, v18);
+  v49 = v0;
+
+  ProcessDescriptor.init(identifier:)();
+  v19 = type metadata accessor for ProcessDescriptor();
+  __swift_storeEnumTagSinglePayload(v8, 0, 1, v19);
+  ActivityPredicate.init(attributesType:owner:)();
+  v20 = dispatch thunk of ActivityCenter.descriptors(matching:)();
+  v21 = v52;
+  v53 = v1;
+  (*(v14 + 8))(v17, v12);
+
+  v22 = *(v20 + 16);
+  if (v22)
+  {
+    v54 = _swiftEmptyArrayStorage;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v22, 0);
+    v23 = v53;
+    v24 = v54;
+    v26 = v21[2];
+    v25 = (v21 + 2);
+    v27 = v25[64];
+    v48 = v20;
+    v28 = v20 + ((v27 + 32) & ~v27);
+    v51 = *(v25 + 7);
+    v52 = v26;
+    v50 = (v25 - 8);
+    do
+    {
+      (v52)(v5, v28, v23);
+      v29 = ActivityDescriptor.id.getter();
+      v23 = v53;
+      v30 = v29;
+      v32 = v31;
+      (*v50)(v5, v53);
+      v54 = v24;
+      v34 = v24[2];
+      v33 = v24[3];
+      if (v34 >= v33 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v33 > 1, v34 + 1, 1);
+        v23 = v53;
+        v24 = v54;
+      }
+
+      v24[2] = v34 + 1;
+      v35 = &v24[2 * v34];
+      v35[4] = v30;
+      v35[5] = v32;
+      v28 += v51;
+      --v22;
+    }
+
+    while (v22);
+
+    if (one-time initialization token for voiceCommands != -1)
+    {
+      OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+    }
+
+    v36 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v36, static Logger.voiceCommands);
+    OUTLINED_FUNCTION_3_21();
+
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.debug.getter();
+
+    if (os_log_type_enabled(v37, v38))
+    {
+      v39 = swift_slowAlloc();
+      v40 = swift_slowAlloc();
+      v54 = v40;
+      *v39 = 136315138;
+      v41 = Array.description.getter();
+      v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v42, &v54);
+
+      *(v39 + 4) = v43;
+      _os_log_impl(&dword_0, v37, v38, "LinkActivityManager: Fetched current session: %s", v39, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v40);
+      OUTLINED_FUNCTION_15_0(v40);
+      OUTLINED_FUNCTION_15_0(v39);
+    }
+
+    *(v49 + 16) = v24;
+  }
+
+  else
+  {
+
+    if (one-time initialization token for voiceCommands != -1)
+    {
+      OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+    }
+
+    v44 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v44, static Logger.voiceCommands);
+    v45 = Logger.logObject.getter();
+    v46 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v45, v46))
+    {
+      v47 = swift_slowAlloc();
+      *v47 = 0;
+      _os_log_impl(&dword_0, v45, v46, "LinkActivityManager: no current session, taking assertion...", v47, 2u);
+      OUTLINED_FUNCTION_15_0(v47);
+    }
+
+    LinkActivityManager.takeSessionAssertion()();
+  }
+}
+
+uint64_t LinkActivityManager.sessionID()()
+{
+  *(v1 + 16) = v0;
+  return _swift_task_switch(LinkActivityManager.sessionID());
+}
+
+{
+  v17 = v0;
+  v1 = *(v0 + 16);
+  if (*(*(v1 + 16) + 16))
+  {
+    if (one-time initialization token for voiceCommands != -1)
+    {
+      OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+    }
+
+    v2 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v2, static Logger.voiceCommands);
+    OUTLINED_FUNCTION_3_21();
+
+    v3 = Logger.logObject.getter();
+    v4 = static os_log_type_t.debug.getter();
+
+    if (os_log_type_enabled(v3, v4))
+    {
+      v5 = swift_slowAlloc();
+      v6 = swift_slowAlloc();
+      v16 = v6;
+      *v5 = 136315138;
+
+      v7 = Array.description.getter();
+      v9 = v8;
+
+      v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v9, &v16);
+
+      *(v5 + 4) = v10;
+      OUTLINED_FUNCTION_6_19(&dword_0, v11, v12, "LinkActivityManager: Returning one of active session IDs in: %s");
+      __swift_destroy_boxed_opaque_existential_1Tm(v6);
+      OUTLINED_FUNCTION_15_0(v6);
+      OUTLINED_FUNCTION_15_0(v5);
+    }
+
+    if (*(*(v1 + 16) + 16))
+    {
+    }
+
+    v13 = OUTLINED_FUNCTION_4_26();
+
+    return v14(v13);
+  }
+
+  else
+  {
+    *(v0 + 24) = *(v1 + 32);
+
+    return _swift_task_switch(LinkActivityManager.sessionID());
+  }
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  *(v0 + 32) = *(*(v0 + 24) + 112);
+
+  return _swift_task_switch(LinkActivityManager.sessionID());
+}
+
+{
+  v15 = v0;
+  if (one-time initialization token for voiceCommands != -1)
+  {
+    OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+  }
+
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Logger.voiceCommands);
+  OUTLINED_FUNCTION_3_21();
+
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.debug.getter();
+
+  if (os_log_type_enabled(v2, v3))
+  {
+    v4 = swift_slowAlloc();
+    v5 = swift_slowAlloc();
+    v14 = v5;
+    *v4 = 136315138;
+    v6 = Array.description.getter();
+    v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v7, &v14);
+
+    *(v4 + 4) = v8;
+    OUTLINED_FUNCTION_6_19(&dword_0, v9, v10, "LinkActivityManager: Returning one of assertion session IDs in: %s");
+    __swift_destroy_boxed_opaque_existential_1Tm(v5);
+    OUTLINED_FUNCTION_15_0(v5);
+    OUTLINED_FUNCTION_15_0(v4);
+  }
+
+  if (*(*(v0 + 32) + 16))
+  {
+  }
+
+  v11 = OUTLINED_FUNCTION_4_26();
+
+  return v12(v11);
+}
+
+void LinkActivityManager.takeSessionAssertion()()
+{
+  v1 = v0;
+  type metadata accessor for SNAAssertionTarget();
+  v2 = *(v0 + 40);
+  v3 = *(v0 + 48);
+
+  v5 = SNAAssertionTarget.__allocating_init(bundleIdentifier:)(v2, v3, v4);
+  v6 = swift_allocObject();
+  swift_weakInit();
+  v7 = objc_allocWithZone(SNAAssertion);
+  v8 = @nonobjc SNAAssertion.init(explanation:target:invalidateOnSessionRequest:invalidationHandler:)(0xD000000000000036, 0x80000000002326D0, v5, 1, partial apply for closure #1 in LinkActivityManager.takeSessionAssertion(), v6);
+  v9 = *(v1 + 24);
+  *(v1 + 24) = v8;
+}
+
+id SNAAssertionTarget.__allocating_init(bundleIdentifier:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3 = objc_allocWithZone(swift_getObjCClassFromMetadata());
+  v4 = String._bridgeToObjectiveC()();
+
+  v5 = [v3 initWithBundleIdentifier:v4];
+
+  return v5;
+}
+
+uint64_t closure #1 in LinkActivityManager.takeSessionAssertion()(void *a1, uint64_t a2, uint64_t a3)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  __chkstk_darwin(v5 - 8);
+  v7 = v36 - v6;
+  if (one-time initialization token for voiceCommands != -1)
+  {
+    swift_once();
+  }
+
+  v8 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v8, static Logger.voiceCommands);
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v9, v10))
+  {
+    v11 = swift_slowAlloc();
+    *v11 = 0;
+    _os_log_impl(&dword_0, v9, v10, "Got assertion", v11, 2u);
+  }
+
+  if (a2)
+  {
+    swift_errorRetain();
+
+    v12 = Logger.logObject.getter();
+    v13 = static os_log_type_t.error.getter();
+
+    if (os_log_type_enabled(v12, v13))
+    {
+      v36[0] = a1;
+      v14 = swift_slowAlloc();
+      v37[0] = swift_slowAlloc();
+      *v14 = 136315394;
+      swift_beginAccess();
+      Strong = swift_weakLoadStrong();
+      if (Strong)
+      {
+        v17 = *(Strong + 40);
+        v16 = *(Strong + 48);
+      }
+
+      else
+      {
+        v17 = 0x7974706D65;
+        v16 = 0xE500000000000000;
+      }
+
+      v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v16, v37);
+
+      *(v14 + 4) = v25;
+      *(v14 + 12) = 2080;
+      v36[1] = a2;
+      swift_errorRetain();
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+      v26 = String.init<A>(describing:)();
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v27, v37);
+
+      *(v14 + 14) = v28;
+      _os_log_impl(&dword_0, v12, v13, "Failed to take an assertion for app %s with error: %s", v14, 0x16u);
+      swift_arrayDestroy();
+
+      a1 = v36[0];
+    }
+
+    else
+    {
+    }
+  }
+
+  else
+  {
+
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.debug.getter();
+
+    if (os_log_type_enabled(v18, v19))
+    {
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
+      v37[0] = v21;
+      *v20 = 136315138;
+      swift_beginAccess();
+      v22 = swift_weakLoadStrong();
+      if (v22)
+      {
+        v24 = *(v22 + 40);
+        v23 = *(v22 + 48);
+      }
+
+      else
+      {
+        v24 = 0x7974706D65;
+        v23 = 0xE500000000000000;
+      }
+
+      v29 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v23, v37);
+
+      *(v20 + 4) = v29;
+      _os_log_impl(&dword_0, v18, v19, "Took SessionKit assertion for app: %s", v20, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v21);
+    }
+  }
+
+  swift_beginAccess();
+  v30 = swift_weakLoadStrong();
+  if (v30)
+  {
+    v31 = *(v30 + 32);
+  }
+
+  else
+  {
+    v31 = 0;
+  }
+
+  v32 = type metadata accessor for TaskPriority();
+  __swift_storeEnumTagSinglePayload(v7, 1, 1, v32);
+  v33 = swift_allocObject();
+  v33[2] = 0;
+  v33[3] = 0;
+  v33[4] = v31;
+  v33[5] = a1;
+  v34 = a1;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCytSg_Tt2g5(0, 0);
+}
+
+uint64_t closure #1 in closure #1 in LinkActivityManager.takeSessionAssertion()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v5[3] = a4;
+  v5[4] = a5;
+  v5[2] = a1;
+  return _swift_task_switch(closure #1 in closure #1 in LinkActivityManager.takeSessionAssertion());
+}
+
+uint64_t closure #1 in closure #1 in LinkActivityManager.takeSessionAssertion()()
+{
+  OUTLINED_FUNCTION_8_0();
+  if (*(v0 + 24))
+  {
+    v1 = [*(v0 + 32) sessionIdentifiers];
+    *(v0 + 40) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+    return _swift_task_switch(closure #1 in closure #1 in LinkActivityManager.takeSessionAssertion());
+  }
+
+  else
+  {
+    **(v0 + 16) = 1;
+    v2 = *(v0 + 8);
+
+    return v2();
+  }
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  *(*(v0 + 24) + 112) = *(v0 + 40);
+
+  return _swift_task_switch(closure #1 in closure #1 in LinkActivityManager.takeSessionAssertion());
+}
+
+{
+  **(v0 + 16) = *(v0 + 24) == 0;
+  return (*(v0 + 8))();
+}
+
+uint64_t LinkActivityManager.AtomicSessionResult.__deallocating_deinit()
+{
+
+  swift_defaultActor_destroy();
+
+  return _swift_defaultActor_deallocate(v0);
+}
+
+uint64_t LinkActivityManager.deinit()
+{
+  v1 = *(v0 + 24);
+  if (v1)
+  {
+    [v1 invalidate];
+  }
+
+  return v0;
+}
+
+uint64_t LinkActivityManager.__deallocating_deinit()
+{
+  LinkActivityManager.deinit();
+
+  return swift_deallocClassInstance();
+}
+
+unint64_t type metadata accessor for SNAAssertionTarget()
+{
+  result = lazy cache variable for type metadata for SNAAssertionTarget;
+  if (!lazy cache variable for type metadata for SNAAssertionTarget)
+  {
+    objc_opt_self();
+    result = swift_getObjCClassMetadata();
+    atomic_store(result, &lazy cache variable for type metadata for SNAAssertionTarget);
+  }
+
+  return result;
+}
+
+uint64_t sub_C4CA0()
+{
+  swift_weakDestroy();
+
+  return _swift_deallocObject(v0);
+}
+
+id @nonobjc SNAAssertion.init(explanation:target:invalidateOnSessionRequest:invalidationHandler:)(uint64_t a1, uint64_t a2, void *a3, char a4, uint64_t a5, uint64_t a6)
+{
+  v7 = v6;
+  v12 = String._bridgeToObjectiveC()();
+
+  if (a5)
+  {
+    v16[4] = a5;
+    v16[5] = a6;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 1107296256;
+    v16[2] = thunk for @escaping @callee_guaranteed @Sendable (@guaranteed CATResult, @guaranteed Error?) -> ();
+    v16[3] = &block_descriptor_6;
+    v13 = _Block_copy(v16);
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  v14 = [v7 initWithExplanation:v12 target:a3 invalidateOnSessionRequest:a4 & 1 invalidationHandler:v13];
+  _Block_release(v13);
+
+  return v14;
+}
+
+uint64_t block_copy_helper_6(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+}
+
+uint64_t sub_C4DFC()
+{
+  swift_unknownObjectRelease();
+
+  return _swift_deallocObject(v0);
+}
+
+uint64_t partial apply for closure #1 in closure #1 in LinkActivityManager.takeSessionAssertion()(uint64_t a1)
+{
+  v4 = v1[2];
+  v5 = v1[3];
+  v7 = v1[4];
+  v6 = v1[5];
+  v8 = swift_task_alloc();
+  *(v2 + 16) = v8;
+  *v8 = v2;
+  v8[1] = protocol witness for ScreentimeCheckFlowStrategyAsync.makeAppRestrictedByScreentimeResponse() in conformance WFScreentimeCheckFlowStrategy;
+
+  return closure #1 in closure #1 in LinkActivityManager.takeSessionAssertion()(a1, v4, v5, v7, v6);
+}
+
+void OUTLINED_FUNCTION_6_19(void *a1, uint64_t a2, uint64_t a3, const char *a4)
+{
+
+  _os_log_impl(a1, v5, v4, a4, v6, 0xCu);
+}
+
+Swift::String __swiftcall LNConfirmationActionName.toIntentVerb()()
+{
+  v1 = [v0 type] - 3;
+  v2 = 0xE200000000000000;
+  v3 = 28516;
+  switch(v1)
+  {
+    case 0uLL:
+      break;
+    case 1uLL:
+      v2 = 0xE300000000000000;
+      v3 = 7239026;
+      break;
+    case 2uLL:
+      v3 = 28519;
+      break;
+    case 3uLL:
+      v2 = 0xE400000000000000;
+      v3 = 2003134838;
+      break;
+    case 4uLL:
+      v2 = 0xE400000000000000;
+      v3 = 1852141679;
+      break;
+    case 5uLL:
+      v2 = 0xE500000000000000;
+      v3 = 0x726564726FLL;
+      break;
+    case 6uLL:
+      v2 = 0xE400000000000000;
+      v3 = 1802465122;
+      break;
+    case 7uLL:
+      v2 = 0xE300000000000000;
+      v5 = 24944;
+      goto LABEL_27;
+    case 8uLL:
+      v2 = 0xE300000000000000;
+      v5 = 30050;
+LABEL_27:
+      v3 = v5 | 0x790000u;
+      break;
+    case 9uLL:
+      v2 = 0xE700000000000000;
+      v3 = 0x74736575716572;
+      break;
+    case 0xAuLL:
+      v2 = 0xEF6E6F6974616769;
+      v3 = 0x76616E7472617473;
+      break;
+    case 0xBuLL:
+      v2 = 0xE500000000000000;
+      v3 = 0x6572616873;
+      break;
+    case 0xCuLL:
+      v2 = 0xE400000000000000;
+      v3 = 1953722224;
+      break;
+    case 0xDuLL:
+      v2 = 0xE400000000000000;
+      v3 = 1684956531;
+      break;
+    case 0xEuLL:
+      v2 = 0xE600000000000000;
+      v3 = 0x657461657263;
+      break;
+    case 0xFuLL:
+      v2 = 0xE300000000000000;
+      v3 = 6579297;
+      break;
+    case 0x10uLL:
+      v2 = 0xE600000000000000;
+      v3 = 0x686372616573;
+      break;
+    case 0x11uLL:
+      v3 = 1684957542;
+      v2 = 0xE400000000000000;
+      break;
+    case 0x12uLL:
+      v2 = 0xE600000000000000;
+      v3 = 0x7265746C6966;
+      break;
+    case 0x13uLL:
+      v2 = 0xE600000000000000;
+      v3 = 0x656C67676F74;
+      break;
+    case 0x14uLL:
+      v2 = 0xE700000000000000;
+      v4 = 0x6F206E727574;
+      goto LABEL_19;
+    case 0x15uLL:
+      v2 = 0xE800000000000000;
+      v3 = 0x66666F206E727574;
+      break;
+    case 0x16uLL:
+      v3 = 7628147;
+      v2 = 0xE300000000000000;
+      break;
+    case 0x17uLL:
+      v2 = 0xE800000000000000;
+      v3 = 0x64616F6C6E776F64;
+      break;
+    case 0x18uLL:
+      v2 = 0xE300000000000000;
+      v3 = 7628135;
+      break;
+    case 0x19uLL:
+      v2 = 0xE700000000000000;
+      v4 = 0x696B63656863;
+LABEL_19:
+      v3 = v4 & 0xFFFFFFFFFFFFLL | 0x6E000000000000;
+      break;
+    case 0x1AuLL:
+      v2 = 0xE300000000000000;
+      v3 = 6778732;
+      break;
+    case 0x1BuLL:
+      v2 = 0xE700000000000000;
+      v3 = 0x61746164646461;
+      break;
+    case 0x1CuLL:
+      v2 = 0xE400000000000000;
+      v3 = 1819042147;
+      break;
+    case 0x1DuLL:
+      v2 = 0xE400000000000000;
+      v3 = 2036427888;
+      break;
+    case 0x1EuLL:
+      v2 = 0xEA0000000000646ELL;
+      v3 = 0x756F732079616C70;
+      break;
+    default:
+      v3 = 0;
+      v2 = 0xE000000000000000;
+      break;
+  }
+
+  result._object = v2;
+  result._countAndFlagsBits = v3;
+  return result;
+}
+
+uint64_t WFRunVoiceShortcutFlow.__allocating_init(deviceState:appPolicyHandler:)(uint64_t a1, uint64_t a2)
+{
+  v3 = swift_allocObject();
+  __swift_mutable_project_boxed_opaque_existential_1(a2, *(a2 + 24));
+  OUTLINED_FUNCTION_34_9();
+  __chkstk_darwin(v4);
+  OUTLINED_FUNCTION_3();
+  v6 = OUTLINED_FUNCTION_20_7(v5);
+  v7(v6);
+  OUTLINED_FUNCTION_40_4();
+  v8 = OUTLINED_FUNCTION_1_18();
+  __swift_destroy_boxed_opaque_existential_1Tm(v8);
+  return v3;
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance WFRunVoiceShortcutFlowError(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *, uint64_t))
+{
+  v6 = *v4;
+  Hasher.init(_seed:)();
+  a4(v8, v6);
+  return Hasher._finalize()();
+}
+
+uint64_t ShortcutIdentification.getIdentifyingName(vcClient:)()
+{
+  OUTLINED_FUNCTION_15_2();
+  v3 = v2[3];
+  v4 = v2[4];
+  v5 = __swift_project_boxed_opaque_existential_1(v2, v3);
+  v6 = swift_task_alloc();
+  *(v1 + 16) = v6;
+  *v6 = v1;
+  v6[1] = ShortcutIdentification.getIdentifyingName(vcClient:);
+
+  return specialized ShortcutIdentification.getIdentifyingName(vcClient:)(v5, v0, v3, v4);
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  v2 = v1;
+  OUTLINED_FUNCTION_9_0();
+  v3 = *v0;
+  OUTLINED_FUNCTION_2_0();
+  *v4 = v3;
+
+  v5 = OUTLINED_FUNCTION_18_16();
+
+  return v6(v5, v2);
+}
+
+uint64_t WFRunVoiceShortcutFlow.init(deviceState:appPolicyHandler:)(uint64_t a1, uint64_t a2)
+{
+  __swift_mutable_project_boxed_opaque_existential_1(a2, *(a2 + 24));
+  OUTLINED_FUNCTION_34_9();
+  __chkstk_darwin(v3);
+  OUTLINED_FUNCTION_3();
+  v5 = OUTLINED_FUNCTION_20_7(v4);
+  v6(v5);
+  OUTLINED_FUNCTION_40_4();
+  v7 = OUTLINED_FUNCTION_1_18();
+  __swift_destroy_boxed_opaque_existential_1Tm(v7);
+  return v2;
+}
+
+uint64_t WFRunVoiceShortcutFlow.on(input:)(uint64_t a1)
+{
+  v103 = type metadata accessor for VoiceCommandsNLIntent(0);
+  OUTLINED_FUNCTION_7();
+  __chkstk_darwin(v2);
+  OUTLINED_FUNCTION_4_27();
+  v102 = v3;
+  OUTLINED_FUNCTION_22_10();
+  v4 = type metadata accessor for NLIntent();
+  OUTLINED_FUNCTION_7_1();
+  v111 = v5;
+  __chkstk_darwin(v6);
+  OUTLINED_FUNCTION_4_27();
+  v110 = v7;
+  v8 = OUTLINED_FUNCTION_22_10();
+  v9 = type metadata accessor for WFRunVoiceShortcutFlow.State(v8);
+  OUTLINED_FUNCTION_7();
+  __chkstk_darwin(v10);
+  OUTLINED_FUNCTION_3();
+  v13 = (v12 - v11);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s18SiriLinkFlowPlugin16VoiceCommandTaskOSgMd, &_s18SiriLinkFlowPlugin16VoiceCommandTaskOSgMR);
+  v15 = OUTLINED_FUNCTION_14(v14);
+  __chkstk_darwin(v15);
+  v100 = v92 - v16;
+  v17 = OUTLINED_FUNCTION_22_10();
+  v101 = type metadata accessor for ShortcutIdentification(v17);
+  OUTLINED_FUNCTION_7();
+  __chkstk_darwin(v18);
+  OUTLINED_FUNCTION_4_27();
+  v93 = v19;
+  OUTLINED_FUNCTION_22_10();
+  v97 = type metadata accessor for Siri_Nlu_External_UserParse();
+  OUTLINED_FUNCTION_7_1();
+  v95 = v20;
+  __chkstk_darwin(v21);
+  OUTLINED_FUNCTION_4_27();
+  v94 = v22;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMd, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMR);
+  v24 = OUTLINED_FUNCTION_14(v23);
+  v25 = __chkstk_darwin(v24);
+  v99 = v92 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v25);
+  v107 = v92 - v27;
+  OUTLINED_FUNCTION_22_10();
+  v98 = type metadata accessor for USOParse();
+  OUTLINED_FUNCTION_7_1();
+  v108 = v28;
+  __chkstk_darwin(v29);
+  OUTLINED_FUNCTION_4_27();
+  v96 = v30;
+  OUTLINED_FUNCTION_22_10();
+  type metadata accessor for Parse();
+  OUTLINED_FUNCTION_7_1();
+  v105 = v32;
+  v106 = v31;
+  __chkstk_darwin(v31);
+  OUTLINED_FUNCTION_4_27();
+  v112 = v33;
+  OUTLINED_FUNCTION_22_10();
+  v34 = type metadata accessor for Input();
+  OUTLINED_FUNCTION_7_1();
+  v36 = v35;
+  __chkstk_darwin(v37);
+  OUTLINED_FUNCTION_3();
+  v40 = v39 - v38;
+  if (one-time initialization token for voiceCommands != -1)
+  {
+    OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+  }
+
+  v41 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v41, static Logger.voiceCommands);
+  v42 = *(v36 + 16);
+  v109 = a1;
+  v42(v40, a1, v34);
+  v43 = Logger.logObject.getter();
+  v44 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v43, v44))
+  {
+    v45 = OUTLINED_FUNCTION_48();
+    v46 = OUTLINED_FUNCTION_85();
+    v92[0] = v4;
+    v47 = v46;
+    v113 = v46;
+    *v45 = 136315138;
+    v48 = Input.description.getter();
+    v92[1] = v9;
+    v49 = v13;
+    v51 = v50;
+    (*(v36 + 8))(v40, v34);
+    v52 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v51, &v113);
+    v13 = v49;
+
+    *(v45 + 4) = v52;
+    _os_log_impl(&dword_0, v43, v44, "#WFRunVoiceShortcutFlow on input: %s", v45, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v47);
+    v53 = v47;
+    v4 = v92[0];
+    OUTLINED_FUNCTION_15_0(v53);
+    OUTLINED_FUNCTION_15_0(v45);
+  }
+
+  else
+  {
+
+    (*(v36 + 8))(v40, v34);
+  }
+
+  v54 = v112;
+  Input.parse.getter();
+  v56 = v105;
+  v55 = v106;
+  v57 = (*(v105 + 88))(v54, v106);
+  v59 = v110;
+  v58 = v111;
+  v61 = v107;
+  v60 = v108;
+  if (v57 == enum case for Parse.NLv3IntentOnly(_:))
+  {
+    (*(v56 + 96))(v54, v55);
+    (*(v58 + 32))(v59, v54, v4);
+    v62 = v102;
+    (*(v58 + 16))(v102, v59, v4);
+    if (one-time initialization token for voiceCommandNameNode != -1)
+    {
+      swift_once();
+    }
+
+    _s18SiriLinkFlowPlugin21VoiceCommandsNLIntentVAC0A8Ontology21IntentNodeTraversableAAWlTm_0(&lazy protocol witness table cache variable for type VoiceCommandsNLIntent and conformance VoiceCommandsNLIntent, type metadata accessor for VoiceCommandsNLIntent, &protocol conformance descriptor for VoiceCommandsNLIntent);
+    IntentNodeTraversable.value<A>(forNode:)();
+    outlined destroy of VoiceCommandsNLIntent(v62, type metadata accessor for VoiceCommandsNLIntent);
+    (*(v58 + 8))(v59, v4);
+    v63 = v114;
+    if (v114)
+    {
+      *v13 = v113;
+      v13[1] = v63;
+      swift_storeEnumTagMultiPayload();
+    }
+
+    swift_storeEnumTagMultiPayload();
+    v80 = OBJC_IVAR____TtC18SiriLinkFlowPlugin22WFRunVoiceShortcutFlow_state;
+    v81 = v104;
+    OUTLINED_FUNCTION_57_0(v104 + OBJC_IVAR____TtC18SiriLinkFlowPlugin22WFRunVoiceShortcutFlow_state, &v113);
+    v82 = v81 + v80;
+    v83 = v13;
+    goto LABEL_16;
+  }
+
+  if (v57 == enum case for Parse.uso(_:))
+  {
+    v111 = v13;
+    v64 = v112;
+    v65 = OUTLINED_FUNCTION_22();
+    v66(v65);
+    v67 = v96;
+    v68 = v98;
+    (*(v60 + 32))(v96, v64, v98);
+    v69 = v94;
+    USOParse.userParse.getter();
+    v70 = Siri_Nlu_External_UserParse.userDialogActs.getter();
+    (*(v95 + 8))(v69, v97);
+    specialized Collection.first.getter(v70, v61);
+
+    v71 = v99;
+    outlined init with copy of Siri_Nlu_External_UserDialogAct?(v61, v99, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMd, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMR);
+    v72 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
+    if (OUTLINED_FUNCTION_37_8() == 1)
+    {
+      outlined destroy of Any?(v61, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMd, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMR);
+      (*(v60 + 8))(v67, v68);
+      outlined destroy of Any?(v71, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMd, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMR);
+      v73 = type metadata accessor for VoiceCommandTask(0);
+      v74 = v100;
+      __swift_storeEnumTagSinglePayload(v100, 1, 1, v73);
+LABEL_18:
+      outlined destroy of Any?(v74, &_s18SiriLinkFlowPlugin16VoiceCommandTaskOSgMd, &_s18SiriLinkFlowPlugin16VoiceCommandTaskOSgMR);
+      return 0;
+    }
+
+    v85 = v100;
+    Siri_Nlu_External_UserDialogAct.convertToVoiceCommandTask()(v100);
+    outlined destroy of Any?(v61, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMd, &_s12SiriNLUTypes0A27_Nlu_External_UserDialogActVSgMR);
+    (*(v60 + 8))(v67, v68);
+    v74 = v85;
+    (*(*(v72 - 8) + 8))(v71, v72);
+    v86 = type metadata accessor for VoiceCommandTask(0);
+    if (__swift_getEnumTagSinglePayload(v85, 1, v86) == 1)
+    {
+      goto LABEL_18;
+    }
+
+    OUTLINED_FUNCTION_22_4();
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      v87 = v93;
+      _s18SiriLinkFlowPlugin22ShortcutIdentificationOWObTm_0(v85, v93, type metadata accessor for ShortcutIdentification);
+      v88 = v87;
+      v89 = v111;
+      _s18SiriLinkFlowPlugin22ShortcutIdentificationOWObTm_0(v88, v111, type metadata accessor for ShortcutIdentification);
+      swift_storeEnumTagMultiPayload();
+      v90 = OBJC_IVAR____TtC18SiriLinkFlowPlugin22WFRunVoiceShortcutFlow_state;
+      v91 = v104;
+      OUTLINED_FUNCTION_57_0(v104 + OBJC_IVAR____TtC18SiriLinkFlowPlugin22WFRunVoiceShortcutFlow_state, &v113);
+      v82 = v91 + v90;
+      v83 = v89;
+LABEL_16:
+      outlined assign with take of WFRunVoiceShortcutFlow.State(v83, v82);
+      swift_endAccess();
+      return 1;
+    }
+
+    outlined destroy of VoiceCommandsNLIntent(v85, type metadata accessor for VoiceCommandTask);
+  }
+
+  else
+  {
+    v75 = lazy protocol witness table accessor for type WFRunVoiceShortcutFlowError and conformance WFRunVoiceShortcutFlowError();
+    v76 = OUTLINED_FUNCTION_16_6(&type metadata for WFRunVoiceShortcutFlowError, v75);
+    *v77 = 0;
+    *v13 = v76;
+    swift_storeEnumTagMultiPayload();
+    v78 = OBJC_IVAR____TtC18SiriLinkFlowPlugin22WFRunVoiceShortcutFlow_state;
+    v79 = v104;
+    OUTLINED_FUNCTION_57_0(v104 + OBJC_IVAR____TtC18SiriLinkFlowPlugin22WFRunVoiceShortcutFlow_state, &v113);
+    outlined assign with take of WFRunVoiceShortcutFlow.State(v13, v79 + v78);
+    swift_endAccess();
+    (*(v56 + 8))(v112, v55);
+  }
+
+  return 0;
+}
+
+uint64_t WFRunVoiceShortcutFlow.execute()()
+{
+  OUTLINED_FUNCTION_8_0();
+  v1[124] = v0;
+  v1[123] = v2;
+  v3 = type metadata accessor for WorkflowRunnerFlow.State(0);
+  v1[125] = v3;
+  OUTLINED_FUNCTION_14(v3);
+  v1[126] = OUTLINED_FUNCTION_28();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy18SiriLinkFlowPlugin0A19WorkflowRunnerEventOGMd, &_sScSy18SiriLinkFlowPlugin0A19WorkflowRunnerEventOGMR);
+  v1[127] = v4;
+  OUTLINED_FUNCTION_5_0(v4);
+  v1[128] = v5;
+  v1[129] = OUTLINED_FUNCTION_28();
+  v6 = type metadata accessor for DateTimeResolver();
+  v1[130] = v6;
+  OUTLINED_FUNCTION_5_0(v6);
+  v1[131] = v7;
+  v1[132] = OUTLINED_FUNCTION_28();
+  v8 = type metadata accessor for CATOption();
+  OUTLINED_FUNCTION_14(v8);
+  v1[133] = OUTLINED_FUNCTION_28();
+  v9 = type metadata accessor for ShortcutIdentification(0);
+  OUTLINED_FUNCTION_14(v9);
+  v1[134] = OUTLINED_FUNCTION_28();
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
+  OUTLINED_FUNCTION_14(v10);
+  v1[135] = swift_task_alloc();
+  v1[136] = swift_task_alloc();
+  v1[137] = swift_task_alloc();
+  v1[138] = swift_task_alloc();
+  v11 = type metadata accessor for WFRunVoiceShortcutFlow.State(0);
+  v1[139] = v11;
+  OUTLINED_FUNCTION_14(v11);
+  v1[140] = swift_task_alloc();
+  v1[141] = swift_task_alloc();
+  v12 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v12);
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_3_3();
+  *v2 = v1;
+  *v2 = *v0;
+  *(v1 + 1160) = v3;
+  *(v1 + 1168) = v4;
+
+  v5 = OUTLINED_FUNCTION_4();
+
+  return _swift_task_switch(v5);
+}
+
+{
+  v1 = *(v0 + 1168);
+  if (v1)
+  {
+    if (one-time initialization token for voiceCommands != -1)
+    {
+      OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+    }
+
+    v2 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v2, static Logger.voiceCommands);
+    v3 = Logger.logObject.getter();
+    v4 = static os_log_type_t.debug.getter();
+    if (OUTLINED_FUNCTION_50(v4))
+    {
+      v5 = swift_slowAlloc();
+      *v5 = 0;
+      OUTLINED_FUNCTION_26(&dword_0, v6, v7, "#WFRunVoiceShortcutFlow has shortcut name, moving onto WorkflowRunnerFlow");
+      OUTLINED_FUNCTION_15_0(v5);
+    }
+
+    v8 = *(v0 + 1160);
+
+    *(v0 + 16) = v8;
+    *(v0 + 24) = v1;
+    *(v0 + 80) = 0;
+    *(v0 + 208) = 0u;
+    *(v0 + 224) = 0u;
+    *(v0 + 240) = 0;
+    if (one-time initialization token for shared != -1)
+    {
+      swift_once();
+    }
+
+    v9 = *(v0 + 1056);
+    v10 = *(v0 + 1048);
+    v11 = *(v0 + 1040);
+    v12 = static WFDialogState.shared;
+    static AceService.currentAsync.getter();
+    static Device.current.getter();
+    static OutputPublisherFactory.makeOutputPublisherAsync()();
+    v13 = type metadata accessor for RunCustomIntentCATs(0);
+    OUTLINED_FUNCTION_51_2(v13);
+    OUTLINED_FUNCTION_76_0();
+    v61 = CATWrapper.__allocating_init(options:globals:)();
+    type metadata accessor for RunVoiceCommandCATs(0);
+    static CATOption.defaultMode.getter();
+    OUTLINED_FUNCTION_76_0();
+    v63 = CATWrapper.__allocating_init(options:globals:)();
+    v56 = type metadata accessor for RunVoiceCommandCATsSimple(0);
+    static CATOption.defaultMode.getter();
+    OUTLINED_FUNCTION_76_0();
+    v14 = CATWrapperSimple.__allocating_init(options:globals:)();
+    v15 = type metadata accessor for WorkflowRunnerCATPatternsExecutor(0);
+    OUTLINED_FUNCTION_51_2(v15);
+    OUTLINED_FUNCTION_76_0();
+    v59 = CATWrapper.__allocating_init(options:globals:)();
+    static AceService.currentAsync.getter();
+    v16 = type metadata accessor for LocationProvider();
+    v17 = swift_allocObject();
+    *(v17 + 16) = 0x3FA999999999999ALL;
+    outlined init with take of AceServiceInvokerAsync((v0 + 88), v17 + 24);
+    DateTimeResolver.init()();
+    v60 = type metadata accessor for WorkflowRunnerFlow(0);
+    v18 = objc_allocWithZone(v60);
+    *(v0 + 672) = v16;
+    *(v0 + 680) = &protocol witness table for LocationProvider;
+    *(v0 + 648) = v17;
+    *(v0 + 712) = &type metadata for DefaultTCCTemplatesCATWrapper;
+    *(v0 + 720) = &protocol witness table for DefaultTCCTemplatesCATWrapper;
+    *(v0 + 752) = v11;
+    *(v0 + 760) = &protocol witness table for DateTimeResolver;
+    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1((v0 + 728));
+    (*(v10 + 16))(boxed_opaque_existential_1, v9, v11);
+    *(v0 + 152) = &type metadata for DefaultLinkHandlingFlowFactory;
+    *(v0 + 160) = &protocol witness table for DefaultLinkHandlingFlowFactory;
+    memcpy(&v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_workflowRunnerInput], (v0 + 16), 0x41uLL);
+    outlined init with copy of DeviceState(v0 + 248, &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_aceServiceInvoker]);
+    outlined init with copy of DeviceState(v0 + 288, &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_deviceState]);
+    *&v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_dialogState] = v12;
+    outlined init with copy of DeviceState(v0 + 328, &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_outputPublisher]);
+    outlined init with copy of DeviceState(v0 + 648, &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_locationProvider]);
+    outlined init with copy of DeviceState(v0 + 728, &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_dateTimeResolver]);
+    outlined init with copy of DeviceState(v0 + 128, &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_linkHandlingFlowFactory]);
+    *&v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_runVoiceCommandsCatWrapperSimple] = v14;
+    v20 = &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_locationGuardFlowProvider];
+    *v20 = closure #1 in variable initialization expression of static SLFLocationAccessGuardProvider.makeGuardFlow;
+    v20[1] = 0;
+    outlined init with copy of DeviceState(v0 + 688, &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_tccTemplatesCATWrapper]);
+    outlined init with copy of DeviceState(v0 + 288, v0 + 568);
+    type metadata accessor for RunLinkActionCATs(0);
+
+    v58 = v12;
+
+    v62 = v14;
+
+    static CATOption.defaultMode.getter();
+    OUTLINED_FUNCTION_76_0();
+    v21 = CATWrapper.__allocating_init(options:globals:)();
+    v22 = type metadata accessor for RunLinkActionCATsSimple(0);
+    OUTLINED_FUNCTION_51_2(v22);
+    OUTLINED_FUNCTION_76_0();
+    v23 = CATWrapperSimple.__allocating_init(options:globals:)();
+    static CATOption.defaultMode.getter();
+    OUTLINED_FUNCTION_76_0();
+    v24 = CATWrapper.__allocating_init(options:globals:)();
+    static CATOption.defaultMode.getter();
+    OUTLINED_FUNCTION_76_0();
+    v25 = CATWrapperSimple.__allocating_init(options:globals:)();
+    v26 = type metadata accessor for RunLinkActionCATPatternsExecutor(0);
+    OUTLINED_FUNCTION_51_2(v26);
+    OUTLINED_FUNCTION_76_0();
+    v27 = CATWrapper.__allocating_init(options:globals:)();
+    type metadata accessor for LinkActionDialogTemplating();
+    v28 = swift_allocObject();
+    v28[14] = v56;
+    v28[15] = &protocol witness table for RunLinkActionCATPatternsExecutor;
+    v28[11] = v27;
+    outlined init with take of AceServiceInvokerAsync((v0 + 568), (v28 + 2));
+    v28[7] = v21;
+    v28[8] = v23;
+    v28[9] = v24;
+    v28[10] = v25;
+    *&v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_linkActionDialogTemplate] = v28;
+    outlined init with copy of Siri_Nlu_External_UserDialogAct?(v0 + 208, v0 + 488, &_s18SiriLinkFlowPlugin0A15WorkflowRunning_pSgMd, &_s18SiriLinkFlowPlugin0A15WorkflowRunning_pSgMR);
+    if (*(v0 + 512))
+    {
+      outlined init with take of AceServiceInvokerAsync((v0 + 488), v0 + 528);
+      outlined init with take of AceServiceInvokerAsync((v0 + 528), &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_workflowRunner]);
+    }
+
+    else
+    {
+      outlined destroy of Any?(v0 + 488, &_s18SiriLinkFlowPlugin0A15WorkflowRunning_pSgMd, &_s18SiriLinkFlowPlugin0A15WorkflowRunning_pSgMR);
+      outlined init with copy of DeviceState(v0 + 288, v0 + 448);
+      outlined init with copy of DeviceState(v0 + 248, v0 + 408);
+      v37 = type metadata accessor for SiriWorkflowRunner();
+      swift_allocObject();
+
+      v38 = SiriWorkflowRunner.init(workflowRunnerInput:deviceState:aceServiceInvoker:)((v0 + 16), (v0 + 448), (v0 + 408));
+      v39 = &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_workflowRunner];
+      *(v39 + 3) = v37;
+      *(v39 + 4) = &protocol witness table for SiriWorkflowRunner;
+      *v39 = v38;
+    }
+
+    v54 = *(v0 + 1040);
+    v55 = *(v0 + 1056);
+    v40 = *(v0 + 1032);
+    v51 = *(v0 + 1016);
+    v52 = *(v0 + 1024);
+    v50 = *(v0 + 1008);
+    v53 = *(v0 + 1048);
+    v57 = *(v0 + 1072);
+    outlined init with copy of DeviceState(v0 + 288, v0 + 368);
+    type metadata accessor for WorkflowRunnerCATs(0);
+
+    static CATOption.defaultMode.getter();
+    v41 = CATWrapper.__allocating_init(options:globals:)();
+    type metadata accessor for WorkflowRunnerCATsSimple(0);
+    static CATOption.defaultMode.getter();
+    v42 = CATWrapperSimple.__allocating_init(options:globals:)();
+    type metadata accessor for RunCustomIntentCATsSimple(0);
+    static CATOption.defaultMode.getter();
+    v43 = CATWrapperSimple.__allocating_init(options:globals:)();
+    type metadata accessor for WorkflowDialogTemplating();
+    swift_allocObject();
+    *&v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_dialogTemplating] = WorkflowDialogTemplating.init(deviceState:dialogState:workflowCatWrapper:workflowCatWrapperSimple:runCustomCatWrapper:runCustomCatWrapperSimple:runVoiceCommandsCatWrapper:runVoiceCommandsCatWrapperSimple:catPatternsExecutor:)(v0 + 368, v58, v41, v42, v61, v43, v63, v62, v59);
+    outlined init with copy of DeviceState(&v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_workflowRunner], v0 + 768);
+    v44 = *(v0 + 792);
+    v45 = *(v0 + 800);
+    __swift_project_boxed_opaque_existential_1((v0 + 768), v44);
+    (*(v45 + 8))(v44, v45);
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 768));
+    AsyncStream.makeAsyncIterator()();
+    (*(v52 + 8))(v40, v51);
+    swift_storeEnumTagMultiPayload();
+    _s18SiriLinkFlowPlugin22ShortcutIdentificationOWObTm_0(v50, &v18[OBJC_IVAR____TtC18SiriLinkFlowPlugin18WorkflowRunnerFlow_state], type metadata accessor for WorkflowRunnerFlow.State);
+    *(v0 + 944) = v18;
+    *(v0 + 952) = v60;
+    v46 = objc_msgSendSuper2((v0 + 944), "init");
+
+    (*(v53 + 8))(v55, v54);
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 328));
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 288));
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 248));
+    outlined destroy of Any?(v0 + 208, &_s18SiriLinkFlowPlugin0A15WorkflowRunning_pSgMd, &_s18SiriLinkFlowPlugin0A15WorkflowRunning_pSgMR);
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 128));
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 728));
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 688));
+    __swift_destroy_boxed_opaque_existential_1Tm((v0 + 648));
+    *(v0 + 968) = v46;
+    _s18SiriLinkFlowPlugin21VoiceCommandsNLIntentVAC0A8Ontology21IntentNodeTraversableAAWlTm_0(&lazy protocol witness table cache variable for type WorkflowRunnerFlow and conformance WorkflowRunnerFlow, type metadata accessor for WorkflowRunnerFlow, &protocol conformance descriptor for WorkflowRunnerFlow);
+    static ExecuteResponse.complete<A>(next:)();
+    OUTLINED_FUNCTION_2_28();
+    outlined destroy of VoiceCommandsNLIntent(v57, v47);
+  }
+
+  else
+  {
+    v29 = *(v0 + 1136);
+    v30 = *(v0 + 1120);
+    v31 = *(v0 + 1072);
+    v32 = *(v0 + 992);
+    v33 = lazy protocol witness table accessor for type WFRunVoiceShortcutFlowError and conformance WFRunVoiceShortcutFlowError();
+    v34 = OUTLINED_FUNCTION_16_6(&type metadata for WFRunVoiceShortcutFlowError, v33);
+    *v35 = 4;
+    *v30 = v34;
+    OUTLINED_FUNCTION_22_4();
+    swift_storeEnumTagMultiPayload();
+    OUTLINED_FUNCTION_57_0(v32 + v29, v0 + 808);
+    outlined assign with take of WFRunVoiceShortcutFlow.State(v30, v32 + v29);
+    swift_endAccess();
+    static ExecuteResponse.complete()();
+    OUTLINED_FUNCTION_2_28();
+    outlined destroy of VoiceCommandsNLIntent(v31, v36);
+  }
+
+  OUTLINED_FUNCTION_1_32();
 
   OUTLINED_FUNCTION_6_0();
 
-  return v3();
+  return v48();
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_3_3();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_2_0();
+  *v5 = v4;
+  *(v6 + 1184) = v0;
+
+  OUTLINED_FUNCTION_11_1();
+
+  return _swift_task_switch(v7);
+}
+
+{
+  OUTLINED_FUNCTION_12_0();
+  static OutputPublisherFactory.makeOutputPublisherAsync()();
+  v1 = v0[24];
+  v2 = v0[25];
+  __swift_project_boxed_opaque_existential_1(v0 + 21, v1);
+  swift_task_alloc();
+  OUTLINED_FUNCTION_20_0();
+  v0[149] = v3;
+  *v3 = v4;
+  v3[1] = WFRunVoiceShortcutFlow.execute();
+
+  return dispatch thunk of OutputPublisherAsync.publish(output:)(v0 + 76, v1, v2);
+}
+
+{
+  OUTLINED_FUNCTION_8_0();
+  OUTLINED_FUNCTION_9_0();
+  OUTLINED_FUNCTION_3_3();
+  *v3 = v2;
+  v4 = *v1;
+  OUTLINED_FUNCTION_2_0();
+  *v5 = v4;
+  *(v6 + 1200) = v0;
+
+  OUTLINED_FUNCTION_11_1();
+
+  return _swift_task_switch(v7);
+}
+
+void WFRunVoiceShortcutFlow.execute()()
+{
+  v73 = v0;
+  v1 = v0[141];
+  v2 = v0[124];
+  v3 = OBJC_IVAR____TtC18SiriLinkFlowPlugin22WFRunVoiceShortcutFlow_state;
+  v0[142] = OBJC_IVAR____TtC18SiriLinkFlowPlugin22WFRunVoiceShortcutFlow_state;
+  swift_beginAccess();
+  outlined init with copy of WFRunVoiceShortcutFlow.State(v2 + v3, v1, type metadata accessor for WFRunVoiceShortcutFlow.State);
+  OUTLINED_FUNCTION_22_4();
+  switch(swift_getEnumCaseMultiPayload())
+  {
+    case 1u:
+      _s18SiriLinkFlowPlugin22ShortcutIdentificationOWObTm_0(v0[141], v0[134], type metadata accessor for ShortcutIdentification);
+      type metadata accessor for VoiceShortcutClientWrapper();
+      v0[143] = swift_initStackObject();
+      v27 = swift_task_alloc();
+      v0[144] = v27;
+      *v27 = v0;
+      v27[1] = WFRunVoiceShortcutFlow.execute();
+      OUTLINED_FUNCTION_58();
+
+      __asm { BR              X2 }
+
+      return;
+    case 2u:
+      if (one-time initialization token for voiceCommands != -1)
+      {
+        OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+      }
+
+      v11 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v11, static Logger.voiceCommands);
+      OUTLINED_FUNCTION_1_18();
+      swift_errorRetain();
+      v12 = Logger.logObject.getter();
+      v13 = static os_log_type_t.debug.getter();
+
+      if (os_log_type_enabled(v12, v13))
+      {
+        v14 = OUTLINED_FUNCTION_48();
+        v15 = OUTLINED_FUNCTION_85();
+        v72 = v15;
+        *v14 = 136315138;
+        swift_getErrorValue();
+        v16 = Error.localizedDescription.getter();
+        v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v17, &v72);
+
+        *(v14 + 4) = v18;
+        _os_log_impl(&dword_0, v12, v13, "#WFRunVoiceShortcutFlo in error state, error: %s", v14, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1Tm(v15);
+        OUTLINED_FUNCTION_15_0(v15);
+        OUTLINED_FUNCTION_15_0(v14);
+      }
+
+      static ExecuteResponse.complete()();
+
+      break;
+    case 3u:
+      if (one-time initialization token for voiceCommands != -1)
+      {
+        OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+      }
+
+      v19 = v0[138];
+      v20 = v0[137];
+      v21 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v21, static Logger.voiceCommands);
+      OUTLINED_FUNCTION_42_6();
+      v23 = v22;
+      (*(v22 + 16))(v19);
+      OUTLINED_FUNCTION_49_3();
+      __swift_storeEnumTagSinglePayload(v24, v25, v26, v21);
+      outlined init with copy of Siri_Nlu_External_UserDialogAct?(v19, v20, &_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
+      if (OUTLINED_FUNCTION_37_8() == 1)
+      {
+        outlined destroy of Any?(v0[137], &_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
+      }
+
+      else
+      {
+        v46 = Logger.logObject.getter();
+        v47 = static os_log_type_t.error.getter();
+        if (OUTLINED_FUNCTION_50(v47))
+        {
+          v48 = OUTLINED_FUNCTION_85();
+          v49 = swift_slowAlloc();
+          v72 = v49;
+          *v48 = 136315650;
+          v50 = StaticString.description.getter();
+          v52 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v50, v51, &v72);
+
+          *(v48 + 4) = v52;
+          *(v48 + 12) = 2048;
+          *(v48 + 24) = OUTLINED_FUNCTION_27_11(105, v68, v69, v70, v71);
+          OUTLINED_FUNCTION_44_6();
+          _os_log_impl(v53, v54, v55, v56, v48, 0x20u);
+          swift_arrayDestroy();
+          OUTLINED_FUNCTION_15_0(v49);
+          OUTLINED_FUNCTION_15_0(v48);
+        }
+
+        (*(v23 + 8))(v0[137], v21);
+      }
+
+      goto LABEL_36;
+    case 4u:
+      swift_task_alloc();
+      OUTLINED_FUNCTION_20_0();
+      v0[147] = v8;
+      *v8 = v9;
+      v8[1] = WFRunVoiceShortcutFlow.execute();
+      OUTLINED_FUNCTION_58();
+
+      WFRunVoiceShortcutFlow.makeOutputForPromptForShortcutName()();
+      return;
+    case 5u:
+      if (one-time initialization token for voiceCommands != -1)
+      {
+        OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+      }
+
+      v30 = v0[136];
+      v31 = v0[135];
+      v32 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v32, static Logger.voiceCommands);
+      OUTLINED_FUNCTION_42_6();
+      v34 = v33;
+      (*(v33 + 16))(v30);
+      OUTLINED_FUNCTION_49_3();
+      __swift_storeEnumTagSinglePayload(v35, v36, v37, v32);
+      outlined init with copy of Siri_Nlu_External_UserDialogAct?(v30, v31, &_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
+      if (OUTLINED_FUNCTION_37_8() == 1)
+      {
+        outlined destroy of Any?(v0[135], &_s2os6LoggerVSgMd, &_s2os6LoggerVSgMR);
+      }
+
+      else
+      {
+        v57 = Logger.logObject.getter();
+        v58 = static os_log_type_t.error.getter();
+        if (OUTLINED_FUNCTION_50(v58))
+        {
+          v59 = OUTLINED_FUNCTION_85();
+          v60 = swift_slowAlloc();
+          v72 = v60;
+          *v59 = 136315650;
+          v61 = StaticString.description.getter();
+          v63 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v61, v62, &v72);
+
+          *(v59 + 4) = v63;
+          *(v59 + 12) = 2048;
+          *(v59 + 24) = OUTLINED_FUNCTION_27_11(128, v68, v69, v70, v71);
+          OUTLINED_FUNCTION_44_6();
+          _os_log_impl(v64, v65, v66, v67, v59, 0x20u);
+          swift_arrayDestroy();
+          OUTLINED_FUNCTION_15_0(v60);
+          OUTLINED_FUNCTION_15_0(v59);
+        }
+
+        (*(v34 + 8))(v0[135], v32);
+      }
+
+LABEL_36:
+      static SiriKitLifecycle._logCrashToEventBus(_:)();
+      _assertionFailure(_:_:file:line:flags:)();
+      OUTLINED_FUNCTION_58();
+      return;
+    case 6u:
+      if (one-time initialization token for voiceCommands != -1)
+      {
+        OUTLINED_FUNCTION_0(&one-time initialization token for voiceCommands);
+      }
+
+      v38 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v38, static Logger.voiceCommands);
+      v39 = Logger.logObject.getter();
+      v40 = static os_log_type_t.debug.getter();
+      if (OUTLINED_FUNCTION_50(v40))
+      {
+        v41 = swift_slowAlloc();
+        *v41 = 0;
+        OUTLINED_FUNCTION_26(&dword_0, v42, v43, "#WFRunVoiceShortcutFlow completed, exiting");
+        OUTLINED_FUNCTION_15_0(v41);
+      }
+
+      static ExecuteResponse.complete()();
+      break;
+    default:
+      v4 = v0[141];
+      v5 = v0[124];
+      v0[122] = WFRunVoiceShortcutFlow.makeGuardFlows()();
+      v6 = swift_allocObject();
+      *(v6 + 16) = partial apply for implicit closure #2 in implicit closure #1 in WFRunVoiceShortcutFlow.execute();
+      *(v6 + 24) = v5;
+      type metadata accessor for GuardFlow();
+
+      static ExecuteResponse.ongoing<A>(next:childCompletion:)();
+
+      OUTLINED_FUNCTION_2_28();
+      outlined destroy of VoiceCommandsNLIntent(v4, v7);
+      break;
+  }
+
+  OUTLINED_FUNCTION_1_32();
+
+  OUTLINED_FUNCTION_6_0();
+  OUTLINED_FUNCTION_58();
+
+  __asm { BRAA            X1, X16 }
 }

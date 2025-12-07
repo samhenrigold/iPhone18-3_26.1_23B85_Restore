@@ -1,8 +1,10 @@
 @interface TSSMutablePropertySet
 - (TSSMutablePropertySet)init;
+- (TSSMutablePropertySet)initWithFirstProperty:(int)property argumentList:(char *)list;
 - (TSSMutablePropertySet)initWithPropertySet:(id)set;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)addProperties:(id)properties;
+- (void)addProperty:(int)property;
 - (void)intersectPropertySet:(id)set;
 - (void)removeProperties:(id)properties;
 @end
@@ -17,6 +19,16 @@
   v5 = [(TSSPropertySet *)&v7 initWithIndexSet:v4];
 
   return v5;
+}
+
+- (TSSMutablePropertySet)initWithFirstProperty:(int)property argumentList:(char *)list
+{
+  v5 = *&property;
+  v7 = objc_opt_class();
+  v9 = objc_msgSend_p_mutableIndexSetWithFirstProperty_argumentList_(v7, v8, v5, list);
+  v11 = objc_msgSend_initWithIndexSet_(self, v10, v9);
+
+  return v11;
 }
 
 - (TSSMutablePropertySet)initWithPropertySet:(id)set
@@ -53,6 +65,24 @@
   v9 = objc_msgSend_initWithIndexSet_(v4, v8, v7);
 
   return v9;
+}
+
+- (void)addProperty:(int)property
+{
+  v3 = *&property;
+  if (!sub_276CB65F8(*&property))
+  {
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "[TSSMutablePropertySet addProperty:]");
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/styles/TSSPropertySet.m");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v10, v7, v9, 287, 0, "Invalid property value %u passed to [TSSPropertySet addProperty:]", v3);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12);
+  }
+
+  mIndexSet = self->super.mIndexSet;
+
+  objc_msgSend_addIndex_(mIndexSet, v5, v3);
 }
 
 - (void)addProperties:(id)properties

@@ -106,11 +106,11 @@ LABEL_29:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B39B064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B39B064(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -192,9 +192,9 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B39BDE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B39BDE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -208,22 +208,22 @@ void sub_25B39CC18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 Class __getPUConnectionClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!PairedUnlockLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __PairedUnlockLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_279946C18;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __PairedUnlockLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_279946C18;
+    v6 = 0;
     PairedUnlockLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (PairedUnlockLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -231,7 +231,7 @@ Class __getPUConnectionClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -246,17 +246,13 @@ LABEL_4:
   }
 
   getPUConnectionClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __PairedUnlockLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PairedUnlockLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -512,16 +508,16 @@ id NPKSemanticsForMetadataEvent(void *a1)
 
   else if (!v3)
   {
-    v4 = pk_General_log();
+    v4 = pk_General_log(0);
     v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
     if (v5)
     {
-      v6 = pk_General_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_General_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Entry metadata type PKPassUpcomingPassInformationEntryTypeGeneric not handled. returning nil semantics", v8, 2u);
+        *v9 = 0;
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Entry metadata type PKPassUpcomingPassInformationEntryTypeGeneric not handled. returning nil semantics", v9, 2u);
       }
     }
 
@@ -669,9 +665,9 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B3A0660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B3A0660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1847,12 +1843,13 @@ __CFString *NSStringFromNPKTransactionContextStatus(unint64_t a1)
   return v2;
 }
 
-void sub_25B3AB8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_25B3AB8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a23, 8);
   _Block_object_dispose(&a27, 8);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1863,23 +1860,30 @@ void sub_25B3AC318(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25B3B09EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25B3B09EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3B3094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_25B3B23A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a16);
+  va_start(va, a28);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3B3F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B3B3094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a7);
+  va_start(va, a23);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25B3B3F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1891,9 +1895,9 @@ void sub_25B3B4610(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25B3B629C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B3B629C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4528,7 +4532,7 @@ LABEL_23:
   return [a2 hasError] ^ 1;
 }
 
-id NPKCurrentQueueLabel()
+char *NPKCurrentQueueLabel()
 {
   label = dispatch_queue_get_label(0);
   if (label)
@@ -4853,23 +4857,23 @@ void sub_25B3CD3F0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25B3CD9E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B3CD9E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3CDE7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B3CDE7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3CE214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B3CE214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5525,9 +5529,16 @@ LABEL_45:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B3D49B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B3D4168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  va_start(va, a7);
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_25B3D49B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6442,10 +6453,11 @@ LABEL_15:
   return [a2 hasError] ^ 1;
 }
 
-void sub_25B3DB718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, char a42, uint64_t a43, uint64_t a44, uint64_t a45, char a46)
+void sub_25B3DB718(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
 {
+  va_start(va, a45);
   _Block_object_dispose(&a42, 8);
-  _Block_object_dispose(&a46, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6495,22 +6507,22 @@ LABEL_9:
 
 Class __getPKPaymentAuthorizationControllerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!PassKitUILibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __PassKitUILibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2799474E8;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __PassKitUILibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2799474E8;
+    v6 = 0;
     PassKitUILibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (PassKitUILibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -6518,7 +6530,7 @@ Class __getPKPaymentAuthorizationControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -6533,17 +6545,13 @@ LABEL_4:
   }
 
   getPKPaymentAuthorizationControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __PassKitUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   PassKitUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7159,16 +7167,16 @@ uint64_t NPKQuickPaymentSessionTypeForPass(void *a1)
 
   else
   {
-    v5 = pk_Payment_log();
+    v5 = pk_Payment_log(v2);
     v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
-      v7 = pk_Payment_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = pk_Payment_log(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: given pass is nil, can't determine expected session type", v9, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: given pass is nil, can't determine expected session type", v10, 2u);
       }
     }
 
@@ -7178,58 +7186,59 @@ uint64_t NPKQuickPaymentSessionTypeForPass(void *a1)
   return v4;
 }
 
-void sub_25B3E1484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B3E1484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3E44B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25B3E44B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3E5390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_25B3E5390(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
-  _Block_object_dispose(&a41, 8);
-  _Block_object_dispose((v41 - 208), 8);
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v40 - 208), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3E5CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_25B3E5CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 128), 8);
+  _Block_object_dispose((v18 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3E6098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B3E6098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3E61B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25B3E61B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_25B3E81CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_25B3E81CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7625,28 +7634,28 @@ id NPKTestInAppPaymentSummaryItems(void *a1)
 
 id NPKTestInAppPaymentRequest()
 {
-  v17[5] = *MEMORY[0x277D85DE8];
+  v16[5] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277D380B8]);
   [v0 setMerchantIdentifier:@"merchant.com.apple.syndrome"];
   [v0 setCountryCode:@"US"];
   [v0 setCurrencyCode:@"USD"];
   v1 = *MEMORY[0x277D38898];
-  v17[0] = *MEMORY[0x277D388B0];
-  v17[1] = v1;
+  v16[0] = *MEMORY[0x277D388B0];
+  v16[1] = v1;
   v2 = *MEMORY[0x277D38890];
-  v17[2] = *MEMORY[0x277D38878];
-  v17[3] = v2;
-  v17[4] = *MEMORY[0x277D38880];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:5];
+  v16[2] = *MEMORY[0x277D38878];
+  v16[3] = v2;
+  v16[4] = *MEMORY[0x277D38880];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:5];
   [v0 setSupportedNetworks:v3];
 
   [v0 setMerchantCapabilities:15];
   v4 = MEMORY[0x277CBEB98];
   v5 = *MEMORY[0x277D385A8];
-  v16[0] = *MEMORY[0x277D385B8];
-  v16[1] = v5;
-  v16[2] = *MEMORY[0x277D38598];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+  v15[0] = *MEMORY[0x277D385B8];
+  v15[1] = v5;
+  v15[2] = *MEMORY[0x277D38598];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
   v7 = [v4 setWithArray:v6];
   [v0 setRequiredShippingContactFields:v7];
 
@@ -7663,8 +7672,6 @@ id NPKTestInAppPaymentRequest()
   v12 = [v11 firstObject];
   v13 = NPKTestInAppPaymentSummaryItems(v12);
   [v0 setPaymentSummaryItems:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v0;
 }
@@ -7717,28 +7724,28 @@ id inAppShippingContact()
 
 id NPKTestRecurringPaymentRequest()
 {
-  v25[5] = *MEMORY[0x277D85DE8];
+  v24[5] = *MEMORY[0x277D85DE8];
   v0 = objc_alloc_init(MEMORY[0x277D380B8]);
   [v0 setMerchantIdentifier:@"merchant.com.apple.syndrome"];
   [v0 setCountryCode:@"US"];
   [v0 setCurrencyCode:@"USD"];
   v1 = *MEMORY[0x277D38898];
-  v25[0] = *MEMORY[0x277D388B0];
-  v25[1] = v1;
+  v24[0] = *MEMORY[0x277D388B0];
+  v24[1] = v1;
   v2 = *MEMORY[0x277D38890];
-  v25[2] = *MEMORY[0x277D38878];
-  v25[3] = v2;
-  v25[4] = *MEMORY[0x277D38880];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:5];
+  v24[2] = *MEMORY[0x277D38878];
+  v24[3] = v2;
+  v24[4] = *MEMORY[0x277D38880];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:5];
   [v0 setSupportedNetworks:v3];
 
   [v0 setMerchantCapabilities:15];
   v4 = MEMORY[0x277CBEB98];
   v5 = *MEMORY[0x277D385A8];
-  v24[0] = *MEMORY[0x277D385B8];
-  v24[1] = v5;
-  v24[2] = *MEMORY[0x277D38598];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:3];
+  v23[0] = *MEMORY[0x277D385B8];
+  v23[1] = v5;
+  v23[2] = *MEMORY[0x277D38598];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
   v7 = [v4 setWithArray:v6];
   [v0 setRequiredShippingContactFields:v7];
 
@@ -7772,8 +7779,6 @@ id NPKTestRecurringPaymentRequest()
   v20 = [v19 firstObject];
   v21 = NPKTestInAppPaymentSummaryItems(v20);
   [v0 setPaymentSummaryItems:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v0;
 }
@@ -8878,16 +8883,15 @@ void NPKStoreLargePassDataSegmentForChangeUUID(void *a1, void *a2, uint64_t a3)
   v5 = a1;
   v6 = a2;
   v7 = _PathToPassSegmentForChangeUUID(v6, a3);
-  [v5 writeToFile:v7 atomically:1];
-  v8 = pk_Sync_log();
+  v8 = pk_Sync_log([v5 writeToFile:v7 atomically:1]);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Sync_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Sync_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [v5 npkDescription];
+      v12 = [v5 npkDescription];
       v13 = 138413058;
       v14 = v7;
       v15 = 2112;
@@ -8895,12 +8899,10 @@ void NPKStoreLargePassDataSegmentForChangeUUID(void *a1, void *a2, uint64_t a3)
       v17 = 1024;
       v18 = a3;
       v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Wrote pass data segment\n\tFile path: %@\n\tChange UUID: %@\n\tsegment index: %u\n\tdata: %@", &v13, 0x26u);
+      v20 = v12;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Wrote pass data segment\n\tFile path: %@\n\tChange UUID: %@\n\tsegment index: %u\n\tdata: %@", &v13, 0x26u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id _PathToPassSegmentForChangeUUID(void *a1, uint64_t a2)
@@ -8917,7 +8919,7 @@ id _PathToPassSegmentForChangeUUID(void *a1, uint64_t a2)
 
 id NPKDataForLargePassWithChangeUUID(void *a1, uint64_t a2)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [MEMORY[0x277CCAA00] defaultManager];
   v5 = MEMORY[0x277CCACA8];
@@ -8933,13 +8935,14 @@ id NPKDataForLargePassWithChangeUUID(void *a1, uint64_t a2)
   if (v10)
   {
     v11 = v10;
-    v34 = v4;
+    v39 = v4;
     if (!a2)
     {
 LABEL_10:
       [v11 closeFile];
-      v21 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v9 options:1 error:0];
-      v4 = v34;
+      v24 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v9 options:1 error:0];
+      v25 = v24;
+      v4 = v39;
       goto LABEL_21;
     }
 
@@ -8951,24 +8954,24 @@ LABEL_10:
       v15 = _PathToPassSegmentForChangeUUID(v14, v12);
       v16 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v15 options:1 error:0];
 
-      v17 = pk_Sync_log();
-      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+      v18 = pk_Sync_log(v17);
+      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
-      if (v18)
+      if (v19)
       {
-        v19 = pk_Sync_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v21 = pk_Sync_log(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = [v16 npkDescription];
+          v22 = [v16 npkDescription];
           *buf = 138413058;
-          v36 = v15;
-          v37 = 2112;
-          *v38 = v3;
-          *&v38[8] = 1024;
-          *&v38[10] = v12;
-          v39 = 2112;
-          v40 = v20;
-          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Got pass data segment segment\n\tFile path: %@\n\tChange UUID: %@\n\tsegment index: %u\n\tdata: %@", buf, 0x26u);
+          v41 = v15;
+          v42 = 2112;
+          *v43 = v3;
+          *&v43[8] = 1024;
+          *&v43[10] = v12;
+          v44 = 2112;
+          v45 = v22;
+          _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: Got pass data segment segment\n\tFile path: %@\n\tChange UUID: %@\n\tsegment index: %u\n\tdata: %@", buf, 0x26u);
         }
       }
 
@@ -8986,112 +8989,110 @@ LABEL_10:
       }
     }
 
-    v25 = pk_Sync_log();
-    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+    v29 = pk_Sync_log(v23);
+    v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
 
-    if (v26)
+    if (v30)
     {
-      v27 = pk_Sync_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v32 = pk_Sync_log(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v36 = v3;
-        v37 = 1024;
-        *v38 = v12;
-        _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Warning: Missing segment for large pass; unable to return full data\n\tChange UUID: %@\n\tsegment index: %u", buf, 0x12u);
+        v41 = v3;
+        v42 = 1024;
+        *v43 = v12;
+        _os_log_impl(&dword_25B300000, v32, OS_LOG_TYPE_DEFAULT, "Warning: Missing segment for large pass; unable to return full data\n\tChange UUID: %@\n\tsegment index: %u", buf, 0x12u);
       }
     }
 
     [v11 closeFile];
 
-    v4 = v34;
-    [v34 removeItemAtPath:v9 error:0];
+    v4 = v39;
+    [v39 removeItemAtPath:v9 error:0];
     objc_autoreleasePoolPop(v13);
   }
 
   else
   {
-    v22 = pk_Sync_log();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+    v26 = pk_Sync_log(0);
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
 
-    if (v23)
+    if (v27)
     {
-      v24 = pk_Sync_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v28 = pk_Sync_log(v24);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v36 = v3;
-        v37 = 2112;
-        *v38 = v9;
-        _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Warning: Unable to get file handle for large pass; unable to return full data\n\tChange UUID: %@\n\tpath: %@", buf, 0x16u);
+        v41 = v3;
+        v42 = 2112;
+        *v43 = v9;
+        _os_log_impl(&dword_25B300000, v28, OS_LOG_TYPE_DEFAULT, "Warning: Unable to get file handle for large pass; unable to return full data\n\tChange UUID: %@\n\tpath: %@", buf, 0x16u);
       }
     }
   }
 
   v11 = 0;
-  v21 = 0;
+  v25 = 0;
 LABEL_21:
-  v28 = pk_Sync_log();
-  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+  v33 = pk_Sync_log(v24);
+  v34 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
 
-  if (v29)
+  if (v34)
   {
-    v30 = pk_Sync_log();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v36 = pk_Sync_log(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = [v21 npkDescription];
+      v37 = [v25 npkDescription];
       *buf = 138412802;
-      v36 = v3;
-      v37 = 1024;
-      *v38 = a2;
-      *&v38[4] = 2112;
-      *&v38[6] = v31;
-      _os_log_impl(&dword_25B300000, v30, OS_LOG_TYPE_DEFAULT, "Warning: Returning data for large pass\n\tChange UUID: %@\n\tNumber of segments: %u\n\tdata: %@", buf, 0x1Cu);
+      v41 = v3;
+      v42 = 1024;
+      *v43 = a2;
+      *&v43[4] = 2112;
+      *&v43[6] = v37;
+      _os_log_impl(&dword_25B300000, v36, OS_LOG_TYPE_DEFAULT, "Warning: Returning data for large pass\n\tChange UUID: %@\n\tNumber of segments: %u\n\tdata: %@", buf, 0x1Cu);
     }
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v25;
 }
 
 id NPKSegmentsForLargePassDataNoCopy(void *a1, unint64_t a2)
 {
-  *&v30[5] = *MEMORY[0x277D85DE8];
+  *&v33[5] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [MEMORY[0x277CBEB18] array];
   v5 = [v3 length];
   if (v5 <= a2)
   {
-    v21 = pk_Sync_log();
-    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    v24 = pk_Sync_log(v5);
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
 
     if (v3)
     {
-      if (v22)
+      if (v25)
       {
-        v23 = pk_Sync_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v27 = pk_Sync_log(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v24 = [v3 npkDescription];
+          v28 = [v3 npkDescription];
           *buf = 67109378;
-          v30[0] = a2;
-          LOWORD(v30[1]) = 2112;
-          *(&v30[1] + 2) = v24;
-          _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Warning: No need to split pass data into segments\n\tMaximum segment length: %u\n\tdata: %@", buf, 0x12u);
+          v33[0] = a2;
+          LOWORD(v33[1]) = 2112;
+          *(&v33[1] + 2) = v28;
+          _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Warning: No need to split pass data into segments\n\tMaximum segment length: %u\n\tdata: %@", buf, 0x12u);
         }
       }
 
       [v4 addObject:v3];
     }
 
-    else if (v22)
+    else if (v25)
     {
-      v25 = pk_Sync_log();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v29 = pk_Sync_log(v26);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Warning: Unable to split nil pass data into segments!", buf, 2u);
+        _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_DEFAULT, "Warning: Unable to split nil pass data into segments!", buf, 2u);
       }
     }
   }
@@ -9099,69 +9100,68 @@ id NPKSegmentsForLargePassDataNoCopy(void *a1, unint64_t a2)
   else
   {
     v6 = v5;
-    v7 = pk_Sync_log();
+    v7 = pk_Sync_log(v5);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
     if (v8)
     {
-      v10 = pk_Sync_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = pk_Sync_log(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [v3 npkDescription];
+        v12 = [v3 npkDescription];
         *buf = 67109378;
-        v30[0] = a2;
-        LOWORD(v30[1]) = 2112;
-        *(&v30[1] + 2) = v11;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Splitting pass data into segments\n\tMaximum segment length: %u\n\tdata: %@", buf, 0x12u);
+        v33[0] = a2;
+        LOWORD(v33[1]) = 2112;
+        *(&v33[1] + 2) = v12;
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Splitting pass data into segments\n\tMaximum segment length: %u\n\tdata: %@", buf, 0x12u);
       }
     }
 
-    v12 = 0;
-    *&v9 = 138412290;
-    v28 = v9;
-    v13 = v6;
+    v13 = 0;
+    *&v10 = 138412290;
+    v31 = v10;
+    v14 = v6;
     do
     {
-      v14 = v13 - a2;
-      if (v13 >= a2)
+      v15 = v14 - a2;
+      if (v14 >= a2)
       {
-        v15 = a2;
+        v16 = a2;
       }
 
       else
       {
-        v15 = v13;
+        v16 = v14;
       }
 
-      v16 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:objc_msgSend(v3 length:"bytes") + v12 freeWhenDone:{v15, 0}];
-      if (v16)
+      v17 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:objc_msgSend(v3 length:"bytes") + v13 freeWhenDone:{v16, 0}];
+      v18 = v17;
+      if (v17)
       {
-        v17 = pk_Sync_log();
-        v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+        v19 = pk_Sync_log(v17);
+        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-        if (v18)
+        if (v20)
         {
-          v19 = pk_Sync_log();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v22 = pk_Sync_log(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = [v16 npkDescription];
-            *buf = v28;
-            *v30 = v20;
-            _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Adding pass data segment\n\tdata: %@", buf, 0xCu);
+            v23 = [v18 npkDescription];
+            *buf = v31;
+            *v33 = v23;
+            _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: Adding pass data segment\n\tdata: %@", buf, 0xCu);
           }
         }
 
-        [v4 addObject:{v16, v28}];
+        [v4 addObject:{v18, v31}];
       }
 
-      v12 += a2;
-      v13 = v14;
+      v13 += a2;
+      v14 = v15;
     }
 
-    while (v12 < v6);
+    while (v13 < v6);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

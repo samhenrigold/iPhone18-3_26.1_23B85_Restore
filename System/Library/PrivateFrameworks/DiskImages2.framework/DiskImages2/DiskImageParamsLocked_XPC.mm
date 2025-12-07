@@ -1,5 +1,6 @@
 @interface DiskImageParamsLocked_XPC
 - (DiskImageParamsLocked_XPC)initWithBackendXPC:(id)c;
+- (unique_ptr<const)getImageInfoWithExtra:(BOOL)extra error:(id *)error;
 @end
 
 @implementation DiskImageParamsLocked_XPC
@@ -16,6 +17,13 @@
   }
 
   return v5;
+}
+
+- (unique_ptr<const)getImageInfoWithExtra:(BOOL)extra error:(id *)error
+{
+  [(DiskImageParamsXPC *)self backendXPC:extra];
+  [objc_claimAutoreleasedReturnValue() cryptoHeader];
+  operator new();
 }
 
 @end

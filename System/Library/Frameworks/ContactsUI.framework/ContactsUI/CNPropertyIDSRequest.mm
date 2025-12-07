@@ -138,7 +138,7 @@ LABEL_19:
   {
     allKeys = [dictionary allKeys];
     v24 = [allKeys componentsJoinedByString:{@", "}];
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 126, 6, @"Querying IDS for handles: [%@]", v25, v26, v27, v28, v24);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 126, 6u, @"Querying IDS for handles: [%@]", v25, v26, v27, v28, v24);
 
     objc_initWeak(&location, self);
     v55[0] = MEMORY[0x1E69E9820];
@@ -152,7 +152,7 @@ LABEL_19:
     [(CNPropertyIDSRequest *)self setIdQueryResultHandler:v55];
     allKeys2 = [v29 allKeys];
     v31 = [allKeys2 componentsJoinedByString:{@", "}];
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 193, 6, @"Querying IDS for handles: [%@]", v32, v33, v34, v35, v31);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 193, 6u, @"Querying IDS for handles: [%@]", v32, v33, v34, v35, v31);
 
     sharedInstance = [getIDSIDQueryControllerClass_23071() sharedInstance];
     allKeys3 = [v29 allKeys];
@@ -164,7 +164,7 @@ LABEL_19:
 
     if ((v42 & 1) == 0)
     {
-      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 202, 6, @"Failed to query IDS for handles", v43, v44, v45, v46, v51);
+      _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 202, 6u, @"Failed to query IDS for handles", v43, v44, v45, v46, v51);
     }
 
     objc_destroyWeak(&v57);
@@ -180,7 +180,7 @@ void __50__CNPropertyIDSRequest__requestStatusOnMainQueue___block_invoke(uint64_
   if (([WeakRetained cancelled] & 1) == 0)
   {
     v5 = [v3 count];
-    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 132, 6, @"Received %u IDS responses", v6, v7, v8, v9, v5);
+    _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 132, 6u, @"Received %u IDS responses", v6, v7, v8, v9, v5);
     v40 = [MEMORY[0x1E695DF70] array];
     v39 = [MEMORY[0x1E695DF70] array];
     v45 = 0u;
@@ -215,7 +215,7 @@ void __50__CNPropertyIDSRequest__requestStatusOnMainQueue___block_invoke(uint64_
             if (v19 == 1)
             {
               v20 = [WeakRetained service];
-              _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 142, 6, @"%@: IDS %@ valid", v21, v22, v23, v24, v20);
+              _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 142, 6u, @"%@: IDS %@ valid", v21, v22, v23, v24, v20);
 
               [v40 addObject:v15];
             }
@@ -233,14 +233,14 @@ void __50__CNPropertyIDSRequest__requestStatusOnMainQueue___block_invoke(uint64_
               v36 = v31;
               if (v29 == 2)
               {
-                _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 145, 6, @"%@: IDS %@ invalid", v32, v33, v34, v35, v31);
+                _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 145, 6u, @"%@: IDS %@ invalid", v32, v33, v34, v35, v31);
 
                 [v39 addObject:v15];
               }
 
               else
               {
-                _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 148, 6, @"%@: IDS %@ unknown", v32, v33, v34, v35, v31);
+                _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNPropertyIDSRequest.m", 148, 6u, @"%@: IDS %@ unknown", v32, v33, v34, v35, v31);
               }
 
               v3 = v27;

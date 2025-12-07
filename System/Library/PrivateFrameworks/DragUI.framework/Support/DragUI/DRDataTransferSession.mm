@@ -15,6 +15,7 @@
 - (void)dataTransferMonitorBeganTransfers:(id)transfers;
 - (void)dataTransferMonitorFinishedTransfers:(id)transfers;
 - (void)setDataProviderEndpoint:(id)endpoint auditToken:(id *)token;
+- (void)setDestinationIsAnotherDevice:(BOOL)device;
 - (void)setSourceItemCollection:(id)collection;
 - (void)startSendingDelegateCallbacks;
 @end
@@ -34,7 +35,7 @@
   {
     objc_storeStrong(&v14->_sourceItemCollection, collection);
     [(PBItemCollection *)v15->_sourceItemCollection setDataProviderEndpoint:endpointCopy];
-    [(PBItemCollection *)v15->_sourceItemCollection establishConnectionToDataProviderCompletionBlock:&stru_100055150];
+    objc_msgSend_establishConnectionToDataProviderCompletionBlock_(v15->_sourceItemCollection);
     v16 = [DRProcessInfo alloc];
     v17 = *&token->var0[4];
     v29[0] = *token->var0;
@@ -111,6 +112,13 @@
   destinationProcessInfo = self->_destinationProcessInfo;
   self->_destinationProcessInfo = 0;
 
+  destinationItemCollection = self->_destinationItemCollection;
+  self->_destinationItemCollection = 0;
+}
+
+- (void)setDestinationIsAnotherDevice:(BOOL)device
+{
+  [(DRProcessInfo *)self->_destinationProcessInfo setIsAnotherDevice:device];
   destinationItemCollection = self->_destinationItemCollection;
   self->_destinationItemCollection = 0;
 }
@@ -241,21 +249,8 @@
     sub_100030000();
   }
 
-  if (![destinationCopy isAppleProcess] || objc_msgSend(destinationCopy, "isAnotherDevice"))
+  if (![destinationCopy isAppleProcess] || objc_msgSend(destinationCopy, "isAnotherDevice")) && (v8 = qword_1000635A0, objc_msgSend(allowedCopy, "typeIdentifier"), v9 = objc_claimAutoreleasedReturnValue(), LOBYTE(v8) = objc_msgSend(v8, "containsObject:", v9), v9, (v8) || self->_filter && (v10 = (-[PBItemCollection originatorDataOwner](self->_sourceItemCollection, "originatorDataOwner") & 0xFFFFFFFFFFFFFFFELL) == 2, filter = self->_filter, objc_msgSend(allowedCopy, "typeIdentifier"), v12 = objc_claimAutoreleasedReturnValue(), LODWORD(v10) = filter[2](filter, v12, v10, self->_sourceProcessInfo, destinationCopy), v12, !v10))
   {
-    v8 = qword_1000635A0;
-    typeIdentifier = [allowedCopy typeIdentifier];
-    LOBYTE(v8) = [v8 containsObject:typeIdentifier];
-
-    if (v8)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  if (self->_filter && (v10 = (-[PBItemCollection originatorDataOwner](self->_sourceItemCollection, "originatorDataOwner") & 0xFFFFFFFFFFFFFFFELL) == 2, filter = self->_filter, [allowedCopy typeIdentifier], v12 = objc_claimAutoreleasedReturnValue(), LODWORD(v10) = filter[2](filter, v12, v10, self->_sourceProcessInfo, destinationCopy), v12, !v10))
-  {
-LABEL_11:
     v15 = 0;
   }
 
@@ -398,42 +393,42 @@ LABEL_15:
   itemCopy = item;
   identifierCopy = identifier;
   handlerCopy = handler;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = sub_100010FF0;
-  v29 = sub_100011000;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_100010FF0;
+  v30 = sub_100011000;
+  v31 = 0;
   v11 = DRLogTarget();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     uUID = [itemCopy UUID];
     *buf = 138412546;
-    v32 = uUID;
-    v33 = 2112;
-    v34 = identifierCopy;
+    v33 = uUID;
+    v34 = 2112;
+    v35 = identifierCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Registering request for item UUID %@, type: %@", buf, 0x16u);
   }
 
-  v13 = sub_100011008();
+  v14 = sub_100011008(v13);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10001104C;
   block[3] = &unk_100055258;
-  v20 = itemCopy;
-  v21 = identifierCopy;
-  v23 = handlerCopy;
-  v24 = &v25;
+  v21 = itemCopy;
+  v22 = identifierCopy;
+  v24 = handlerCopy;
+  v25 = &v26;
   selfCopy = self;
-  v14 = handlerCopy;
-  v15 = identifierCopy;
-  v16 = itemCopy;
-  dispatch_sync(v13, block);
+  v15 = handlerCopy;
+  v16 = identifierCopy;
+  v17 = itemCopy;
+  dispatch_sync(v14, block);
 
-  v17 = v26[5];
-  _Block_object_dispose(&v25, 8);
+  v18 = v27[5];
+  _Block_object_dispose(&v26, 8);
 
-  return v17;
+  return v18;
 }
 
 - (void)_transferQueue_scheduleNextTransfer
@@ -452,27 +447,27 @@ LABEL_15:
 
   if (byte_1000635E8 == 1)
   {
-    v4 = sub_100012200();
+    v5 = sub_100012200(v4);
   }
 
   else
   {
-    v4 = 3;
+    v5 = 3;
   }
 
-  if ([(NSMutableArray *)self->_transferQueue_requestsInProgress count]>= v4)
+  if ([(NSMutableArray *)self->_transferQueue_requestsInProgress count]>= v5)
   {
-    v7 = DRLogTarget();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = DRLogTarget();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v23 = [(NSMutableArray *)self->_transferQueue_requestsInProgress count];
+      v25 = [(NSMutableArray *)self->_transferQueue_requestsInProgress count];
       *buf = 134217984;
-      v39 = v23;
-      v24 = "There are already %lu requests in progress. Not scheduling any more.";
-      v25 = v7;
-      v26 = 12;
+      v41 = v25;
+      v26 = "There are already %lu requests in progress. Not scheduling any more.";
+      v27 = v8;
+      v28 = 12;
 LABEL_32:
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, v24, buf, v26);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, v26, buf, v28);
     }
 
 LABEL_33:
@@ -480,117 +475,118 @@ LABEL_33:
     return;
   }
 
-  v5 = (v4 - [(NSMutableArray *)self->_transferQueue_requestsInProgress count]);
-  if (v5 > [(NSMutableArray *)self->_transferQueue_requestsQueue count])
+  v6 = (v5 - [(NSMutableArray *)self->_transferQueue_requestsInProgress count]);
+  if (v6 > [(NSMutableArray *)self->_transferQueue_requestsQueue count])
   {
-    v5 = [(NSMutableArray *)self->_transferQueue_requestsQueue count];
+    v6 = [(NSMutableArray *)self->_transferQueue_requestsQueue count];
   }
 
-  v6 = DRLogTarget();
-  v7 = v6;
-  if (!v5)
+  v7 = DRLogTarget();
+  v8 = v7;
+  if (!v6)
   {
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v24 = "Nothing to transfer.";
-      v25 = v7;
-      v26 = 2;
+      v26 = "Nothing to transfer.";
+      v27 = v8;
+      v28 = 2;
       goto LABEL_32;
     }
 
     goto LABEL_33;
   }
 
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v39 = v5;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Scheduling %lu items...", buf, 0xCu);
+    v41 = v6;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Scheduling %lu items...", buf, 0xCu);
   }
 
   do
   {
-    v8 = [(NSMutableArray *)self->_transferQueue_requestsQueue objectAtIndex:0];
+    v9 = [(NSMutableArray *)self->_transferQueue_requestsQueue objectAtIndex:0];
     [(NSMutableArray *)self->_transferQueue_requestsQueue removeObjectAtIndex:0];
-    typeIdentifier = [v8 typeIdentifier];
-    sourceItem = [v8 sourceItem];
+    typeIdentifier = [v9 typeIdentifier];
+    sourceItem = [v9 sourceItem];
     uUID = [sourceItem UUID];
 
-    sourceItem2 = [v8 sourceItem];
-    v13 = [sourceItem2 representationConformingToType:typeIdentifier];
+    sourceItem2 = [v9 sourceItem];
+    v14 = [sourceItem2 representationConformingToType:typeIdentifier];
 
-    v14 = DRLogTarget();
-    v15 = v14;
-    if (v13)
+    v15 = DRLogTarget();
+    v16 = v15;
+    if (v14)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v39 = typeIdentifier;
-        v40 = 2112;
-        v41 = uUID;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Scheduling load for type %@ from item UUID %@", buf, 0x16u);
+        v41 = typeIdentifier;
+        v42 = 2112;
+        v43 = uUID;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Scheduling load for type %@ from item UUID %@", buf, 0x16u);
       }
 
-      [(NSMutableArray *)self->_transferQueue_requestsInProgress addObject:v8];
-      v33[0] = _NSConcreteStackBlock;
-      v33[1] = 3221225472;
-      v33[2] = sub_100011684;
-      v33[3] = &unk_100055280;
-      v34 = typeIdentifier;
-      v35 = uUID;
-      v16 = v8;
-      v36 = v16;
+      [(NSMutableArray *)self->_transferQueue_requestsInProgress addObject:v9];
+      v35[0] = _NSConcreteStackBlock;
+      v35[1] = 3221225472;
+      v35[2] = sub_100011684;
+      v35[3] = &unk_100055280;
+      v36 = typeIdentifier;
+      v37 = uUID;
+      v17 = v9;
+      v38 = v17;
       selfCopy = self;
-      v17 = objc_retainBlock(v33);
+      v18 = objc_retainBlock(v35);
+      v19 = v18;
       if (qword_1000635E0 != -1)
       {
         sub_10003008C();
       }
 
-      if (byte_1000635E8 == 1 && (v21 = sub_1000123A4(), v21 >= 1.0))
+      if (byte_1000635E8 == 1 && (v23 = sub_1000123A4(v18), v23 >= 1.0))
       {
-        v22 = v21;
-        v18 = [NSProgress discreteProgressWithTotalUnitCount:100];
-        v28 = [NSProgress discreteProgressWithTotalUnitCount:vcvtpd_s64_f64(v22 + v22)];
-        v30[0] = _NSConcreteStackBlock;
-        v30[1] = 3221225472;
-        v30[2] = sub_100011880;
-        v30[3] = &unk_1000552D0;
-        v31 = v28;
-        v32 = v17;
-        v29 = v28;
-        v27 = [v13 loadWithCompletionHandler:v30];
-        [v18 addChild:v27 withPendingUnitCount:10];
-        [v18 addChild:v29 withPendingUnitCount:90];
+        v24 = v23;
+        v20 = [NSProgress discreteProgressWithTotalUnitCount:100];
+        v30 = [NSProgress discreteProgressWithTotalUnitCount:vcvtpd_s64_f64(v24 + v24)];
+        v32[0] = _NSConcreteStackBlock;
+        v32[1] = 3221225472;
+        v32[2] = sub_100011880;
+        v32[3] = &unk_1000552D0;
+        v33 = v30;
+        v34 = v19;
+        v31 = v30;
+        v29 = [v14 loadWithCompletionHandler:v32];
+        [v20 addChild:v29 withPendingUnitCount:10];
+        [v20 addChild:v31 withPendingUnitCount:90];
       }
 
       else
       {
-        v18 = [v13 loadWithCompletionHandler:v17];
+        v20 = [v14 loadWithCompletionHandler:v19];
       }
 
-      progress = [v16 progress];
-      [progress addChild:v18 withPendingUnitCount:100];
+      progress = [v17 progress];
+      [progress addChild:v20 withPendingUnitCount:100];
 
-      v15 = v34;
+      v16 = v36;
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      typeIdentifier2 = [v8 typeIdentifier];
+      typeIdentifier2 = [v9 typeIdentifier];
       *buf = 138412546;
-      v39 = typeIdentifier2;
-      v40 = 2112;
-      v41 = uUID;
-      _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Could not find representation for type %@ in item UUID %@", buf, 0x16u);
+      v41 = typeIdentifier2;
+      v42 = 2112;
+      v43 = uUID;
+      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Could not find representation for type %@ in item UUID %@", buf, 0x16u);
     }
 
-    --v5;
+    --v6;
   }
 
-  while (v5);
+  while (v6);
 }
 
 - (void)_transferQueue_sendDelegateCallbacksIfNeeded
@@ -639,7 +635,7 @@ LABEL_33:
 
 - (void)startSendingDelegateCallbacks
 {
-  v3 = sub_100011008();
+  v3 = sub_100011008(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100011DE8;
@@ -650,7 +646,7 @@ LABEL_33:
 
 - (void)dataTransferMonitorBeganTransfers:(id)transfers
 {
-  v4 = sub_100011008();
+  v4 = sub_100011008(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100011ED4;
@@ -661,7 +657,7 @@ LABEL_33:
 
 - (void)dataTransferMonitorFinishedTransfers:(id)transfers
 {
-  v4 = sub_100011008();
+  v4 = sub_100011008(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100011F70;
@@ -673,7 +669,7 @@ LABEL_33:
 - (void)setDataProviderEndpoint:(id)endpoint auditToken:(id *)token
 {
   [(PBItemCollection *)self->_sourceItemCollection setDataProviderEndpoint:endpoint];
-  [(PBItemCollection *)self->_sourceItemCollection establishConnectionToDataProviderCompletionBlock:&stru_1000552F0];
+  objc_msgSend_establishConnectionToDataProviderCompletionBlock_(self->_sourceItemCollection);
   v6 = [DRProcessInfo alloc];
   v7 = *&token->var0[4];
   v10[0] = *token->var0;

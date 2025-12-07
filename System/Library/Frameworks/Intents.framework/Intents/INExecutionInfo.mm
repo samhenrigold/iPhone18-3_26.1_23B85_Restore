@@ -9,24 +9,24 @@
 
 - (LSApplicationRecord)_applicationRecord
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   launchableAppBundleId = [(INExecutionInfo *)self launchableAppBundleId];
   if ([launchableAppBundleId length])
   {
-    v8 = 0;
-    v3 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:launchableAppBundleId allowPlaceholder:0 error:&v8];
-    v4 = v8;
+    v7 = 0;
+    v3 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:launchableAppBundleId allowPlaceholder:0 error:&v7];
+    v4 = v7;
     if (v4)
     {
       v5 = INSiriLogContextIntents;
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v10 = "[INExecutionInfo _applicationRecord]";
-        v11 = 2112;
-        v12 = launchableAppBundleId;
-        v13 = 2112;
-        v14 = v4;
+        v9 = "[INExecutionInfo _applicationRecord]";
+        v10 = 2112;
+        v11 = launchableAppBundleId;
+        v12 = 2112;
+        v13 = v4;
         _os_log_error_impl(&dword_18E991000, v5, OS_LOG_TYPE_ERROR, "%s Unable to create application record for %@: %@", buf, 0x20u);
       }
     }
@@ -36,8 +36,6 @@
   {
     v3 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

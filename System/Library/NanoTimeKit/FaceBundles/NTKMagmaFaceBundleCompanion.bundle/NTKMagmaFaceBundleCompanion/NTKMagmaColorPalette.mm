@@ -60,7 +60,6 @@
 - (void)setBackgroundStyle:(unint64_t)style
 {
   self->_backgroundStyle = style;
-  cachedIdentifier = self->_cachedIdentifier;
   self->_cachedIdentifier = 0;
   _objc_release_x1();
 }

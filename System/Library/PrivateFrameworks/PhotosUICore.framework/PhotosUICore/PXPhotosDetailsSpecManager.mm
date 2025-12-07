@@ -8,7 +8,7 @@
 - (id)createSpec
 {
   extendedTraitCollection = [(PXFeatureSpecManager *)self extendedTraitCollection];
-  v4 = [[PXPhotosDetailsSpec alloc] initWithExtendedTraitCollection:extendedTraitCollection options:[(PXFeatureSpecManager *)self options] detailsOptions:[(PXPhotosDetailsSpecManager *)self detailsOptions]];
+  v4 = [[PXPhotosDetailsSpec alloc] initWithExtendedTraitCollection:extendedTraitCollection options:objc_msgSend_options(self) detailsOptions:[(PXPhotosDetailsSpecManager *)self detailsOptions]];
 
   return v4;
 }

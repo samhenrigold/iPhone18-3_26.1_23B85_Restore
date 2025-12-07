@@ -11,9 +11,9 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  v7 = objc_msgSend_copy(self->_indexPath, v5, v6);
-  v8 = v4[1];
-  v4[1] = v7;
+  v9 = objc_msgSend_copy(self->_indexPath, v5, v6, v8, v7);
+  v10 = v4[1];
+  v4[1] = v9;
 
   *(v4 + 1) = self->_size;
   size = self->_frame.size;

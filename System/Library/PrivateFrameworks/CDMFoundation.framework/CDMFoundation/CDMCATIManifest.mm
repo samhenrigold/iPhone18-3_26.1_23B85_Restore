@@ -17,27 +17,27 @@
 
 - (BOOL)validateManifest
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E695DEC8] arrayWithObjects:{@"locale", @"date", @"GUID", @"version", 0}];
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
-  v3 = v15 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v13 = 0u;
+  v3 = v14 = 0u;
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v4)
   {
-    v5 = *v15;
+    v5 = *v14;
     v6 = 1;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [(NSDictionary *)self->_manifest objectForKey:v8];
         v10 = v9 == 0;
 
@@ -47,9 +47,9 @@
           if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v19 = "[CDMCATIManifest validateManifest]";
-            v20 = 2112;
-            v21 = v8;
+            v18 = "[CDMCATIManifest validateManifest]";
+            v19 = 2112;
+            v20 = v8;
             _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s [WARN]: CATI manifest is invalid. Missing field: %@", buf, 0x16u);
           }
 
@@ -57,7 +57,7 @@
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v4);
@@ -68,7 +68,6 @@
     v6 = 1;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
@@ -167,34 +166,34 @@
 
 - (void)getWeightsAndOverridesAtIntentKeyFromManifest:(id)manifest
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v85 = *MEMORY[0x1E69E9840];
   manifestCopy = manifest;
-  v65 = [manifestCopy objectForKey:@"intents"];
-  v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v70 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v67 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v64 = [manifestCopy objectForKey:@"intents"];
   v68 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v72 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
+  v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v66 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v67 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v71 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v78 = 0u;
-  obj = v65;
-  v3 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
+  obj = v64;
+  v3 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
   if (v3)
   {
-    v75 = *v78;
+    v74 = *v77;
     do
     {
-      v76 = v3;
-      for (i = 0; i != v76; ++i)
+      v75 = v3;
+      for (i = 0; i != v75; ++i)
       {
-        if (*v78 != v75)
+        if (*v77 != v74)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v77 + 1) + 8 * i);
+        v5 = *(*(&v76 + 1) + 8 * i);
         v6 = objc_alloc_init(MEMORY[0x1E695DF70]);
         v7 = [v5 objectForKey:@"modelType"];
         if (v7)
@@ -209,9 +208,9 @@
             if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
             {
               *buf = 136315394;
-              v82 = "[CDMCATIManifest getWeightsAndOverridesAtIntentKeyFromManifest:]";
-              v83 = 2112;
-              v84 = v5;
+              v81 = "[CDMCATIManifest getWeightsAndOverridesAtIntentKeyFromManifest:]";
+              v82 = 2112;
+              v83 = v5;
               _os_log_impl(&dword_1DC287000, v9, OS_LOG_TYPE_INFO, "%s [WARN]: The modelType key exists but it is not castable to an Array, so the model type is invalid for intent object: %@", buf, 0x16u);
             }
 
@@ -241,9 +240,9 @@
             }
 
             *buf = 136315394;
-            v82 = "[CDMCATIManifest getWeightsAndOverridesAtIntentKeyFromManifest:]";
-            v83 = 2112;
-            v84 = v5;
+            v81 = "[CDMCATIManifest getWeightsAndOverridesAtIntentKeyFromManifest:]";
+            v82 = 2112;
+            v83 = v5;
             v17 = v16;
             v18 = "%s [WARN]: The modelType value is not castable to NSNumber, ignoring intent: %@";
             goto LABEL_20;
@@ -263,9 +262,9 @@
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v82 = "[CDMCATIManifest getWeightsAndOverridesAtIntentKeyFromManifest:]";
-            v83 = 2112;
-            v84 = v5;
+            v81 = "[CDMCATIManifest getWeightsAndOverridesAtIntentKeyFromManifest:]";
+            v82 = 2112;
+            v83 = v5;
             v17 = v16;
             v18 = "%s [WARN]: The modelType value is neither invocation nor multiturn, ignoring intent: %@";
 LABEL_20:
@@ -293,9 +292,9 @@ LABEL_21:
             guid8 = v23;
             if (v23 && ([v23 componentsSeparatedByString:@"."], v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "objectAtIndexedSubscript:", 0), v26 = objc_claimAutoreleasedReturnValue(), v25, v26))
             {
-              v71 = [[CDMCATIIntent alloc] initWithGuid:v26 intentName:v26 ensemble:@"invocation"];
-              guid = [(CDMCATIIntent *)v71 guid];
-              [v72 setObject:v71 forKey:guid];
+              v70 = [[CDMCATIIntent alloc] initWithGuid:v26 intentName:v26 ensemble:@"invocation"];
+              guid = [(CDMCATIIntent *)v70 guid];
+              [v71 setObject:v70 forKey:guid];
 
               v28 = [MEMORY[0x1E696AD98] numberWithInteger:0];
               v29 = [v6 containsObject:v28];
@@ -304,14 +303,14 @@ LABEL_21:
               {
                 if ([(CDMCATIIntent *)v22 length])
                 {
-                  guid2 = [(CDMCATIIntent *)v71 guid];
-                  [v69 addObject:guid2];
+                  guid2 = [(CDMCATIIntent *)v70 guid];
+                  [v68 addObject:guid2];
                 }
 
                 if ([guid8 length])
                 {
-                  guid3 = [(CDMCATIIntent *)v71 guid];
-                  [v70 addObject:guid3];
+                  guid3 = [(CDMCATIIntent *)v70 guid];
+                  [v69 addObject:guid3];
                 }
               }
             }
@@ -322,9 +321,9 @@ LABEL_21:
               if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315394;
-                v82 = "[CDMCATIManifest getWeightsAndOverridesAtIntentKeyFromManifest:]";
-                v83 = 2112;
-                v84 = v5;
+                v81 = "[CDMCATIManifest getWeightsAndOverridesAtIntentKeyFromManifest:]";
+                v82 = 2112;
+                v83 = v5;
                 _os_log_impl(&dword_1DC287000, v26, OS_LOG_TYPE_INFO, "%s There are no positive overrides for %@, skipping.", buf, 0x16u);
               }
             }
@@ -341,7 +340,7 @@ LABEL_47:
             v22 = [(CDMCATIIntent *)v32 initWithGuid:v33 intentName:v34 ensemble:v35];
 
             guid4 = [(CDMCATIIntent *)v22 guid];
-            [v72 setObject:v22 forKey:guid4];
+            [v71 setObject:v22 forKey:guid4];
 
             v37 = [v5 objectForKey:@"weights"];
             bOOLValue = [v37 BOOLValue];
@@ -357,13 +356,13 @@ LABEL_47:
               if (bOOLValue)
               {
                 guid5 = [(CDMCATIIntent *)v22 guid];
-                [v69 addObject:guid5];
+                [v68 addObject:guid5];
               }
 
               if (bOOLValue2)
               {
                 guid6 = [(CDMCATIIntent *)v22 guid];
-                [v70 addObject:guid6];
+                [v69 addObject:guid6];
               }
             }
 
@@ -375,13 +374,13 @@ LABEL_47:
               if (bOOLValue)
               {
                 guid7 = [(CDMCATIIntent *)v22 guid];
-                [v67 addObject:guid7];
+                [v66 addObject:guid7];
               }
 
               if (bOOLValue2)
               {
                 guid8 = [(CDMCATIIntent *)v22 guid];
-                [v68 addObject:guid8];
+                [v67 addObject:guid8];
                 goto LABEL_47;
               }
             }
@@ -391,40 +390,38 @@ LABEL_47:
 LABEL_49:
       }
 
-      v3 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
+      v3 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
     }
 
     while (v3);
   }
 
-  v48 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v72];
+  v48 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v71];
   intentLookup = self->_intentLookup;
   self->_intentLookup = v48;
 
   v50 = objc_alloc(MEMORY[0x1E695DF20]);
-  v51 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v69];
+  v51 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v68];
   v52 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-  v53 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v67];
+  v53 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v66];
   v54 = [MEMORY[0x1E696AD98] numberWithInteger:1];
-  v55 = [v50 initWithObjectsAndKeys:{v51, v52, v53, v54, 0, v65}];
+  v55 = [v50 initWithObjectsAndKeys:{v51, v52, v53, v54, 0, v64}];
   weights = self->_weights;
   self->_weights = v55;
 
   v57 = objc_alloc(MEMORY[0x1E695DF20]);
-  v58 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v70];
+  v58 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v69];
   v59 = [MEMORY[0x1E696AD98] numberWithInteger:0];
-  v60 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v68];
+  v60 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:v67];
   v61 = [MEMORY[0x1E696AD98] numberWithInteger:1];
   v62 = [v57 initWithObjectsAndKeys:{v58, v59, v60, v61, 0}];
   positiveOverrides = self->_positiveOverrides;
   self->_positiveOverrides = v62;
-
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 - (void)extractWeightsAndOverridesFromManifest:(id)manifest
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   manifestCopy = manifest;
   v5 = [manifestCopy objectForKey:@"intents"];
   if (v5 && ([manifestCopy objectForKey:@"intents"], v6 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v6, v5, (isKindOfClass & 1) != 0))
@@ -440,9 +437,9 @@ LABEL_49:
         v11 = CDMOSLoggerForCategory(0);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v16 = 136315138;
-          v17 = "[CDMCATIManifest extractWeightsAndOverridesFromManifest:]";
-          _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s Intents key present in manifest and contains guids.", &v16, 0xCu);
+          v15 = 136315138;
+          v16 = "[CDMCATIManifest extractWeightsAndOverridesFromManifest:]";
+          _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s Intents key present in manifest and contains guids.", &v15, 0xCu);
         }
 
         v12 = 0;
@@ -454,9 +451,9 @@ LABEL_49:
         v12 = 1;
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          v16 = 136315138;
-          v17 = "[CDMCATIManifest extractWeightsAndOverridesFromManifest:]";
-          _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s Intents key present in manifest, but no guids. This is an older version of assets", &v16, 0xCu);
+          v15 = 136315138;
+          v16 = "[CDMCATIManifest extractWeightsAndOverridesFromManifest:]";
+          _os_log_impl(&dword_1DC287000, v11, OS_LOG_TYPE_INFO, "%s Intents key present in manifest, but no guids. This is an older version of assets", &v15, 0xCu);
         }
       }
 
@@ -469,9 +466,9 @@ LABEL_49:
       v14 = CDMOSLoggerForCategory(0);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v16 = 136315138;
-        v17 = "[CDMCATIManifest extractWeightsAndOverridesFromManifest:]";
-        _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Intents key present in manifest, but it's an empty array. Using legacy keys to get weights and overrides.", &v16, 0xCu);
+        v15 = 136315138;
+        v16 = "[CDMCATIManifest extractWeightsAndOverridesFromManifest:]";
+        _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: Intents key present in manifest, but it's an empty array. Using legacy keys to get weights and overrides.", &v15, 0xCu);
       }
 
       self->_isPreGuidVersion = 1;
@@ -484,21 +481,19 @@ LABEL_49:
     v13 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v16 = 136315138;
-      v17 = "[CDMCATIManifest extractWeightsAndOverridesFromManifest:]";
-      _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: No intents key in manifest. Using legacy keys to get weights and overrides.", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[CDMCATIManifest extractWeightsAndOverridesFromManifest:]";
+      _os_log_impl(&dword_1DC287000, v13, OS_LOG_TYPE_INFO, "%s [WARN]: No intents key in manifest. Using legacy keys to get weights and overrides.", &v15, 0xCu);
     }
 
     self->_isPreGuidVersion = 1;
     [(CDMCATIManifest *)self getWeightsAndOverridesWithLegacyKeysFromManifest:manifestCopy];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (int)getUsoElementId:(id)id
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   idCopy = id;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -511,24 +506,23 @@ LABEL_49:
     v5 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315394;
-      v10 = "[CDMCATIManifest getUsoElementId:]";
-      v11 = 2112;
-      v12 = objc_opt_class();
-      v6 = v12;
-      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: CATI manifest does not contain a valid uso element id key. Current value type: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[CDMCATIManifest getUsoElementId:]";
+      v10 = 2112;
+      v11 = objc_opt_class();
+      v6 = v11;
+      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: CATI manifest does not contain a valid uso element id key. Current value type: %@", &v8, 0x16u);
     }
 
     intValue = -1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return intValue;
 }
 
 - (int)getExpectedPositiveUtterancesValue:(id)value
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -541,24 +535,23 @@ LABEL_49:
     v5 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315394;
-      v10 = "[CDMCATIManifest getExpectedPositiveUtterancesValue:]";
-      v11 = 2112;
-      v12 = objc_opt_class();
-      v6 = v12;
-      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: CATI manifest does not contain a valid expected number of positive utterances key. Current value type: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "[CDMCATIManifest getExpectedPositiveUtterancesValue:]";
+      v10 = 2112;
+      v11 = objc_opt_class();
+      v6 = v11;
+      _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s [WARN]: CATI manifest does not contain a valid expected number of positive utterances key. Current value type: %@", &v8, 0x16u);
     }
 
     intValue = -1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return intValue;
 }
 
 - (float)getMultiturnThresholdValue:(id)value
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -572,24 +565,23 @@ LABEL_49:
     v6 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[CDMCATIManifest getMultiturnThresholdValue:]";
-      v12 = 2112;
-      v13 = objc_opt_class();
-      v7 = v13;
-      _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s [WARN]: CATI manifest does not contain a valid multiturn confidence threshold key.Current value type: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[CDMCATIManifest getMultiturnThresholdValue:]";
+      v11 = 2112;
+      v12 = objc_opt_class();
+      v7 = v12;
+      _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s [WARN]: CATI manifest does not contain a valid multiturn confidence threshold key.Current value type: %@", &v9, 0x16u);
     }
 
     v5 = 0.7;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (float)getThresholdValue:(id)value
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -603,24 +595,23 @@ LABEL_49:
     v6 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[CDMCATIManifest getThresholdValue:]";
-      v12 = 2112;
-      v13 = objc_opt_class();
-      v7 = v13;
-      _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s [WARN]: CATI manifest does not contain a valid confidence threshold key. Current value type: %@", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[CDMCATIManifest getThresholdValue:]";
+      v11 = 2112;
+      v12 = objc_opt_class();
+      v7 = v12;
+      _os_log_impl(&dword_1DC287000, v6, OS_LOG_TYPE_INFO, "%s [WARN]: CATI manifest does not contain a valid confidence threshold key. Current value type: %@", &v9, 0x16u);
     }
 
     v5 = 0.9;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)readCatiManifest:(id)manifest
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   manifestCopy = manifest;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v6 = [defaultManager fileExistsAtPath:manifestCopy];
@@ -630,9 +621,9 @@ LABEL_49:
     v7 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:manifestCopy];
     if (v7)
     {
-      v13 = 0;
-      v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v13];
-      v9 = v13;
+      v12 = 0;
+      v8 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v7 options:0 error:&v12];
+      v9 = v12;
       if (v8)
       {
         v10 = [v8 objectForKey:@"cati-manifest"];
@@ -646,9 +637,9 @@ LABEL_49:
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v15 = "[CDMCATIManifest readCatiManifest:]";
-          v16 = 2112;
-          v17 = v9;
+          v14 = "[CDMCATIManifest readCatiManifest:]";
+          v15 = 2112;
+          v16 = v9;
           _os_log_error_impl(&dword_1DC287000, p_super, OS_LOG_TYPE_ERROR, "%s [ERR]: Error parsing JSON: %@", buf, 0x16u);
         }
       }
@@ -660,9 +651,9 @@ LABEL_49:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v15 = "[CDMCATIManifest readCatiManifest:]";
-        v16 = 2112;
-        v17 = manifestCopy;
+        v14 = "[CDMCATIManifest readCatiManifest:]";
+        v15 = 2112;
+        v16 = manifestCopy;
         _os_log_error_impl(&dword_1DC287000, v9, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI manifest data could not be read at %@", buf, 0x16u);
       }
     }
@@ -674,23 +665,21 @@ LABEL_49:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "[CDMCATIManifest readCatiManifest:]";
-      v16 = 2112;
-      v17 = manifestCopy;
+      v14 = "[CDMCATIManifest readCatiManifest:]";
+      v15 = 2112;
+      v16 = manifestCopy;
       _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: CATI manifest file not found at %@", buf, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (CDMCATIManifest)initWithPath:(id)path
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v63 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v45.receiver = self;
-  v45.super_class = CDMCATIManifest;
-  v5 = [(CDMCATIManifest *)&v45 init];
+  v44.receiver = self;
+  v44.super_class = CDMCATIManifest;
+  v5 = [(CDMCATIManifest *)&v44 init];
   v6 = v5;
   if (!v5)
   {
@@ -809,37 +798,36 @@ LABEL_18:
   v34 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
-    v37 = v6->_locale;
-    v38 = v6->_date;
-    v39 = v6->_GUID;
-    v40 = v6->_version;
+    v36 = v6->_locale;
+    v37 = v6->_date;
+    v38 = v6->_GUID;
+    v39 = v6->_version;
     usoElementId = v6->_usoElementId;
-    v42 = v6->_usoEntity;
-    v43 = v6->_usoVerb;
-    v44 = v6->_usoEdge;
+    v41 = v6->_usoEntity;
+    v42 = v6->_usoVerb;
+    v43 = v6->_usoEdge;
     *buf = 136317186;
-    v47 = "[CDMCATIManifest initWithPath:]";
-    v48 = 2112;
-    v49 = v37;
-    v50 = 2112;
-    v51 = v38;
-    v52 = 2112;
-    v53 = v39;
-    v54 = 2112;
-    v55 = v40;
-    v56 = 2112;
-    v57 = v42;
-    v58 = 1024;
-    v59 = usoElementId;
-    v60 = 2112;
-    v61 = v43;
-    v62 = 2112;
-    v63 = v44;
+    v46 = "[CDMCATIManifest initWithPath:]";
+    v47 = 2112;
+    v48 = v36;
+    v49 = 2112;
+    v50 = v37;
+    v51 = 2112;
+    v52 = v38;
+    v53 = 2112;
+    v54 = v39;
+    v55 = 2112;
+    v56 = v41;
+    v57 = 1024;
+    v58 = usoElementId;
+    v59 = 2112;
+    v60 = v42;
+    v61 = 2112;
+    v62 = v43;
     _os_log_debug_impl(&dword_1DC287000, v34, OS_LOG_TYPE_DEBUG, "%s CATI manifest locale: %@, date: %@, GUID: %@, version: %@, uso entity: %@, usoElementId: %d, usoVerb: %@, usoEdge: %@", buf, 0x58u);
   }
 
 LABEL_22:
-  v35 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

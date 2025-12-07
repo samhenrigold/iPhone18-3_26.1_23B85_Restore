@@ -81,21 +81,20 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = equalCopy[1];
-    identifier = self->_identifier;
-    v7 = equalCopy;
-    LODWORD(v5) = [v5 isEqualToString:identifier];
-    v8 = v7[2];
+    v4 = equalCopy[1];
+    v5 = equalCopy;
+    LODWORD(v4) = objc_msgSend_isEqualToString_(v4);
+    v6 = v5[2];
 
-    v9 = v5 & [v8 isEqual:self->_actionsByContext];
+    v7 = v4 & objc_msgSend_isEqual_(v6);
   }
 
   else
   {
-    LOBYTE(v9) = 0;
+    LOBYTE(v7) = 0;
   }
 
-  return v9;
+  return v7;
 }
 
 - (NSArray)actionsForContext:(UIUserNotificationActionContext)context

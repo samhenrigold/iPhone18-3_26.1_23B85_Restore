@@ -86,7 +86,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Attribute cache read failed: MTRDeviceController was already disposed");
       }
 
       v23 = [MEMORY[0x277CCA9B8] errorWithDomain:@"MTRErrorDomain" code:1 userInfo:0];
@@ -132,7 +132,7 @@
 
       if (sub_2393D5398(1u))
       {
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "Error: No attribute cache available to read from");
       }
 
       xpcConnection = [MEMORY[0x277CCA9B8] errorWithDomain:@"MTRErrorDomain" code:1 userInfo:0];

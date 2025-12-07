@@ -42,8 +42,8 @@
   identifiersCopy = identifiers;
   if (identifiers)
   {
-    sub_1000054A4(0, &qword_1006C1730);
-    sub_100005B0C(&qword_1006C0750, &qword_1006C1730);
+    sub_1000054A4(0, &qword_1006C1730, NSObject_ptr);
+    sub_100005B0C(&qword_1006C0750, &qword_1006C1730, NSObject_ptr);
     identifiersCopy = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -69,8 +69,8 @@
   identifiersCopy = identifiers;
   if (identifiers)
   {
-    sub_1000054A4(0, &qword_1006C1730);
-    sub_100005B0C(&qword_1006C0750, &qword_1006C1730);
+    sub_1000054A4(0, &qword_1006C1730, NSObject_ptr);
+    sub_100005B0C(&qword_1006C0750, &qword_1006C1730, NSObject_ptr);
     identifiersCopy = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -116,8 +116,8 @@
   identifiersCopy = identifiers;
   if (identifiers)
   {
-    sub_1000054A4(0, &qword_1006C1730);
-    sub_100005B0C(&qword_1006C0750, &qword_1006C1730);
+    sub_1000054A4(0, &qword_1006C1730, NSObject_ptr);
+    sub_100005B0C(&qword_1006C0750, &qword_1006C1730, NSObject_ptr);
     identifiersCopy = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
@@ -144,8 +144,8 @@
   identifiersCopy = identifiers;
   if (identifiers)
   {
-    sub_1000054A4(0, &qword_1006C1730);
-    sub_100005B0C(&qword_1006C0750, &qword_1006C1730);
+    sub_1000054A4(0, &qword_1006C1730, NSObject_ptr);
+    sub_100005B0C(&qword_1006C0750, &qword_1006C1730, NSObject_ptr);
     identifiersCopy = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

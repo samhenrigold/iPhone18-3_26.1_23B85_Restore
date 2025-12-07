@@ -129,16 +129,16 @@ void sub_3528(uint64_t a1, uint64_t a2)
   [v4 setContentTransform:v6];
 }
 
-id sub_424C()
+id sub_424C(uint64_t a1)
 {
   if (qword_12010 != -1)
   {
     sub_6020();
   }
 
-  v1 = qword_12008;
+  v2 = qword_12008;
 
-  return v1;
+  return v2;
 }
 
 double sub_4290(float a1, float32x4_t a2)
@@ -158,11 +158,11 @@ double sub_4290(float a1, float32x4_t a2)
 
 double sub_438C(float32x4_t _Q0)
 {
-  _S3 = _Q0.u32[1];
-  _S5 = _Q0.u32[2];
+  _S3 = _Q0.i32[1];
+  _S5 = _Q0.i32[2];
   __asm { FMLS            S2, S5, V0.S[2] }
 
-  _S7 = _Q0.u32[3];
+  _S7 = _Q0.i32[3];
   __asm { FMLA            S2, S7, V0.S[3] }
 
   v10 = vmuls_lane_f32(_Q0.f32[2], _Q0, 3);
@@ -187,31 +187,28 @@ void sub_5F70(id a1)
   _objc_release_x1();
 }
 
-void sub_6034(uint64_t a1)
+void sub_6034()
 {
-  v1 = *(a1 + 16);
-  v3[0] = 138412802;
+  v1[0] = 138412802;
   sub_5FCC();
-  v4 = 0;
-  _os_log_fault_impl(&dword_0, v2, OS_LOG_TYPE_FAULT, "Failed to create %@ shader for device %@ due to error: %@", v3, 0x20u);
+  v2 = 0;
+  _os_log_fault_impl(&dword_0, v0, OS_LOG_TYPE_FAULT, "Failed to create %@ shader for device %@ due to error: %@", v1, 0x20u);
 }
 
-void sub_60C4(uint64_t *a1)
+void sub_60C4()
 {
-  v1 = *a1;
-  v3[0] = 138412802;
+  v1[0] = 138412802;
   sub_5FCC();
-  v4 = 0;
-  _os_log_fault_impl(&dword_0, v2, OS_LOG_TYPE_FAULT, "Failed to create %@ State for device %@ due to error: %@", v3, 0x20u);
+  v2 = 0;
+  _os_log_fault_impl(&dword_0, v0, OS_LOG_TYPE_FAULT, "Failed to create %@ State for device %@ due to error: %@", v1, 0x20u);
 }
 
-void sub_614C(uint64_t *a1)
+void sub_614C()
 {
-  v1 = *a1;
-  v4[0] = 138412802;
+  v2[0] = 138412802;
   sub_5FCC();
-  v5 = v2;
-  _os_log_fault_impl(&dword_0, v3, OS_LOG_TYPE_FAULT, "Failed to create %@ texture for device %@ due to error: %@", v4, 0x20u);
+  v3 = v0;
+  _os_log_fault_impl(&dword_0, v1, OS_LOG_TYPE_FAULT, "Failed to create %@ texture for device %@ due to error: %@", v2, 0x20u);
 }
 
 __float2 __sincosf_stret(float a1)

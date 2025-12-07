@@ -69,18 +69,18 @@
     }
 
 LABEL_10:
-    [PSCVDataBufferResource serialize:buff:time:buff_size:];
+    [PSCVDataBufferResource serialize:serializeCopy buff:v10 time:? buff_size:?];
   }
 
-  v10 = [serializeCopy length];
-  if (v10 + 16 >= buff_size)
+  serializeCopy = [serializeCopy length];
+  if (serializeCopy + 16 >= buff_size)
   {
     goto LABEL_10;
   }
 
-  *buff = v10;
+  *buff = serializeCopy;
   *(buff + 1) = time;
-  if (v10)
+  if (serializeCopy)
   {
     [v11 getBytes:buff + 20 length:{objc_msgSend(v11, "length")}];
   }
@@ -90,58 +90,56 @@ LABEL_7:
 
 - (id)deserialize:(char *)deserialize timeStamp:(unint64_t *)stamp
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v6 = _polarisdLogSharedInstance();
+  v25 = *MEMORY[0x277D85DE8];
+  v6 = _polarisdLogSharedInstance(self, a2);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v17 = 134217984;
+    v21 = 134217984;
     deserializeCopy = deserialize;
-    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "Deserializing from mem(%p)!!!\n", &v17, 0xCu);
+    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_ERROR, "Deserializing from mem(%p)!!!\n", &v21, 0xCu);
   }
 
-  v7 = _polarisdLogSharedInstance();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v9 = _polarisdLogSharedInstance(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v8 = *deserialize;
-    v17 = 134217984;
-    deserializeCopy = v8;
-    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "Deserialized: len %lul \n", &v17, 0xCu);
+    v10 = *deserialize;
+    v21 = 134217984;
+    deserializeCopy = v10;
+    _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "Deserialized: len %lul \n", &v21, 0xCu);
   }
 
   *stamp = *(deserialize + 1);
-  v9 = _polarisdLogSharedInstance();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v13 = _polarisdLogSharedInstance(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v10 = *stamp;
-    v17 = 134217984;
-    deserializeCopy = v10;
-    _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "Deserialized: timeStamp %llul \n", &v17, 0xCu);
+    v14 = *stamp;
+    v21 = 134217984;
+    deserializeCopy = v14;
+    _os_log_impl(&dword_25EA3A000, v13, OS_LOG_TYPE_ERROR, "Deserialized: timeStamp %llul \n", &v21, 0xCu);
   }
 
   if (*deserialize)
   {
-    v11 = [MEMORY[0x277CBEA90] dataWithBytes:deserialize + 20 length:?];
-    v12 = _polarisdLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = [MEMORY[0x277CBEA90] dataWithBytes:deserialize + 20 length:?];
+    v17 = _polarisdLogSharedInstance(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v13 = [v11 length];
-      v14 = *stamp;
-      v17 = 134218240;
-      deserializeCopy = v13;
-      v19 = 2048;
-      v20 = v14;
-      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, "Deserialized: %lul @%llu.....\n", &v17, 0x16u);
+      v18 = [v15 length];
+      v19 = *stamp;
+      v21 = 134218240;
+      deserializeCopy = v18;
+      v23 = 2048;
+      v24 = v19;
+      _os_log_impl(&dword_25EA3A000, v17, OS_LOG_TYPE_ERROR, "Deserialized: %lul @%llu.....\n", &v21, 0x16u);
     }
   }
 
   else
   {
-    v11 = 0;
+    v15 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v15;
 }
 
 - (void)copyCVDataBufferWithInput:(__CVBuffer *)input output:(__CVBuffer *)output
@@ -154,127 +152,113 @@ LABEL_7:
       IOSurface = CVDataBufferGetIOSurface();
       if (IOSurface)
       {
-        v6 = IOSurface;
-        v7 = CVDataBufferGetIOSurface();
-        if (v7)
+        v7 = IOSurface;
+        v8 = CVDataBufferGetIOSurface();
+        if (v8)
         {
-          v8 = v7;
+          v10 = v8;
+          IOSurfaceLock(v8, 0, 0);
+          BaseAddress = IOSurfaceGetBaseAddress(v10);
           IOSurfaceLock(v7, 0, 0);
-          BaseAddress = IOSurfaceGetBaseAddress(v8);
-          IOSurfaceLock(v6, 0, 0);
-          v10 = IOSurfaceGetBaseAddress(v6);
-          memcpy(BaseAddress, v10, DataSize);
-          IOSurfaceUnlock(v6, 0, 0);
+          v12 = IOSurfaceGetBaseAddress(v7);
+          memcpy(BaseAddress, v12, DataSize);
+          IOSurfaceUnlock(v7, 0, 0);
 
-          IOSurfaceUnlock(v8, 0, 0);
+          IOSurfaceUnlock(v10, 0, 0);
         }
 
         else
         {
-          [PSCVDataBufferResource copyCVDataBufferWithInput:output:];
+          [PSCVDataBufferResource copyCVDataBufferWithInput:v9 output:?];
         }
       }
 
       else
       {
-        [PSCVDataBufferResource copyCVDataBufferWithInput:output:];
+        [PSCVDataBufferResource copyCVDataBufferWithInput:v6 output:?];
       }
     }
 
     else
     {
-      [PSCVDataBufferResource copyCVDataBufferWithInput:output:];
+      [PSCVDataBufferResource copyCVDataBufferWithInput:a2 output:?];
     }
   }
 
   else
   {
-    [PSCVDataBufferResource copyCVDataBufferWithInput:output:];
+    [PSCVDataBufferResource copyCVDataBufferWithInput:a2 output:?];
   }
 }
 
 - (void)writeDataBuffer:(__CVBuffer *)buffer metadata:(id)metadata time:(id *)time view_index:(int *)view_index
 {
-  writer = self->_writer;
   metadataCopy = metadata;
-  v12 = ps_buffer_get_write_buffers();
-  v13 = *(v12 + 8);
-  v14 = *(v12 + 40);
-  **(v12 + 104) = 1;
-  [(PSCVDataBufferResource *)self copyCVDataBufferWithInput:buffer output:v13];
-  v16 = *time;
-  [(PSCVDataBufferResource *)self serialize:metadataCopy buff:v14 time:CMClockConvertHostTimeToSystemUnits(&v16) buff_size:90112];
+  v11 = ps_buffer_get_write_buffers();
+  v12 = *(v11 + 8);
+  v13 = *(v11 + 40);
+  **(v11 + 104) = 1;
+  [(PSCVDataBufferResource *)self copyCVDataBufferWithInput:buffer output:v12];
+  v14 = *time;
+  [(PSCVDataBufferResource *)self serialize:metadataCopy buff:v13 time:CMClockConvertHostTimeToSystemUnits(&v14) buff_size:90112];
 
-  v15 = self->_writer;
   *view_index = ps_buffer_release_write_buffers();
 }
 
-- (void)serialize:buff:time:buff_size:.cold.1()
+- (void)serialize:(uint64_t)a1 buff:(uint64_t)a2 time:buff_size:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v1 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_1_1(v1))
+  v3 = _polarisdLogSharedInstance(a1, a2);
+  if (OUTLINED_FUNCTION_1_1(v3))
   {
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v4, v5, v6, v7, v8, 2u);
   }
 
   abort();
 }
 
-- (void)copyCVDataBufferWithInput:output:.cold.1()
+- (void)copyCVDataBufferWithInput:(uint64_t)a1 output:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_1_1(v1))
+  v3 = _polarisdLogSharedInstance(a1, a2);
+  if (OUTLINED_FUNCTION_1_1(v3))
   {
     OUTLINED_FUNCTION_0_3();
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
+    _os_log_impl(v4, v5, v6, v7, v8, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (void)copyCVDataBufferWithInput:output:.cold.2()
+- (void)copyCVDataBufferWithInput:(uint64_t)a1 output:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_1_1(v1))
+  v3 = _polarisdLogSharedInstance(a1, a2);
+  if (OUTLINED_FUNCTION_1_1(v3))
   {
     OUTLINED_FUNCTION_0_3();
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
+    _os_log_impl(v4, v5, v6, v7, v8, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (void)copyCVDataBufferWithInput:output:.cold.3()
+- (void)copyCVDataBufferWithInput:(uint64_t)a1 output:(uint64_t)a2 .cold.3(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_1_1(v1))
+  v3 = _polarisdLogSharedInstance(a1, a2);
+  if (OUTLINED_FUNCTION_1_1(v3))
   {
     OUTLINED_FUNCTION_0_3();
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
+    _os_log_impl(v4, v5, v6, v7, v8, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-- (void)copyCVDataBufferWithInput:output:.cold.4()
+- (void)copyCVDataBufferWithInput:(uint64_t)a1 output:(uint64_t)a2 .cold.4(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_1_1(v1))
+  v3 = _polarisdLogSharedInstance(a1, a2);
+  if (OUTLINED_FUNCTION_1_1(v3))
   {
     OUTLINED_FUNCTION_0_3();
     OUTLINED_FUNCTION_0_0();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x12u);
+    _os_log_impl(v4, v5, v6, v7, v8, 0x12u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

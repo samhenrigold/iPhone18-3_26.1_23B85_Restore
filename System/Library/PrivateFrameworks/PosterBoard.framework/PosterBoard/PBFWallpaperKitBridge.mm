@@ -55,80 +55,80 @@ void __38__PBFWallpaperKitBridge_defaultBridge__block_invoke()
 
   if (v3)
   {
-    v4 = objc_alloc_init(MEMORY[0x277D37C70]);
-    v5 = [v4 lockScreenWallpaperConfigurationIncludingValuesForTypes:0];
-    wallpaperType = [v5 wallpaperType];
-    v7 = PBFLogMigration();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-    v9 = wallpaperType == 4;
-    if (v9)
+    v5 = objc_alloc_init(MEMORY[0x277D37C70]);
+    v6 = [v5 lockScreenWallpaperConfigurationIncludingValuesForTypes:0];
+    wallpaperType = [v6 wallpaperType];
+    v8 = PBFLogMigration(wallpaperType);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v10 = wallpaperType == 4;
+    if (v10)
     {
-      if (v8)
+      if (v9)
       {
-        v14 = 0;
-        v10 = "(shouldInstallCollectionsPosterAsDefaultLockScreenWallpaper) Color is set, we migrated, and there's no existing wallpaper - returning YES.";
-        v11 = &v14;
+        v15 = 0;
+        v11 = "(shouldInstallCollectionsPosterAsDefaultLockScreenWallpaper) Color is set, we migrated, and there's no existing wallpaper - returning YES.";
+        v12 = &v15;
 LABEL_11:
-        _os_log_impl(&dword_21B526000, v7, OS_LOG_TYPE_DEFAULT, v10, v11, 2u);
+        _os_log_impl(&dword_21B526000, v8, OS_LOG_TYPE_DEFAULT, v11, v12, 2u);
       }
     }
 
-    else if (v8)
+    else if (v9)
     {
-      v13 = 0;
-      v10 = "(shouldInstallCollectionsPosterAsDefaultLockScreenWallpaper) A preference has been set, going with legacy wallpaper -- returning NO";
-      v11 = &v13;
+      v14 = 0;
+      v11 = "(shouldInstallCollectionsPosterAsDefaultLockScreenWallpaper) A preference has been set, going with legacy wallpaper -- returning NO";
+      v12 = &v14;
       goto LABEL_11;
     }
 
     goto LABEL_13;
   }
 
-  v4 = PBFLogMigration();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v5 = PBFLogMigration(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    [(PBFWallpaperKitBridge *)v4 shouldInstallHeroPosterAsDefaultLockScreenWallpaper];
+    [(PBFWallpaperKitBridge *)v5 shouldInstallHeroPosterAsDefaultLockScreenWallpaper];
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_13:
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)dataMigratorDeterminedLegacyWallpaperMigrationRequired
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = PBFLogMigration();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = PBFLogMigration(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&dword_21B526000, v2, OS_LOG_TYPE_DEFAULT, "(dataMigratorDeterminedLegacyWallpaperMigrationRequired) Detecting if we need to do a data update", &v11, 2u);
+    LOWORD(v12) = 0;
+    _os_log_impl(&dword_21B526000, v2, OS_LOG_TYPE_DEFAULT, "(dataMigratorDeterminedLegacyWallpaperMigrationRequired) Detecting if we need to do a data update", &v12, 2u);
   }
 
   v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.springboard"];
   v4 = [v3 objectForKey:@"SBLegacyWallpaperMigrationNeeded"];
-  v5 = PBFLogMigration();
+  v5 = PBFLogMigration(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = v4;
-    _os_log_impl(&dword_21B526000, v5, OS_LOG_TYPE_DEFAULT, "(dataMigratorDeterminedLegacyWallpaperMigrationRequired) springBoardIndicatedDataStoreMigrationNeeded: (%{public}@)", &v11, 0xCu);
+    v12 = 138543362;
+    v13 = v4;
+    _os_log_impl(&dword_21B526000, v5, OS_LOG_TYPE_DEFAULT, "(dataMigratorDeterminedLegacyWallpaperMigrationRequired) springBoardIndicatedDataStoreMigrationNeeded: (%{public}@)", &v12, 0xCu);
   }
 
-  if (v4 && (objc_opt_self(), v6 = objc_claimAutoreleasedReturnValue(), isKindOfClass = objc_opt_isKindOfClass(), v6, (isKindOfClass & 1) != 0))
+  if (v4 && (objc_opt_self(), v7 = objc_claimAutoreleasedReturnValue(), isKindOfClass = objc_opt_isKindOfClass(), v7, (isKindOfClass & 1) != 0))
   {
     bOOLValue = [v4 BOOLValue];
   }
 
   else
   {
-    v9 = PBFLogMigration();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = PBFLogMigration(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
-      v12 = v4;
-      _os_log_impl(&dword_21B526000, v9, OS_LOG_TYPE_DEFAULT, "(dataMigratorDeterminedLegacyWallpaperMigrationRequired) springBoardIndicatedDataStoreMigrationNeeded was invalid (%{public}@); nothing to do.", &v11, 0xCu);
+      v12 = 138543362;
+      v13 = v4;
+      _os_log_impl(&dword_21B526000, v10, OS_LOG_TYPE_DEFAULT, "(dataMigratorDeterminedLegacyWallpaperMigrationRequired) springBoardIndicatedDataStoreMigrationNeeded was invalid (%{public}@); nothing to do.", &v12, 0xCu);
     }
 
     bOOLValue = 0;

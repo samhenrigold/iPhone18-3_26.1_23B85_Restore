@@ -61,10 +61,10 @@
 
 - (void)decidePolicyForGeolocationRequestFromOrigin:(const void *)origin requestingURL:(id)l view:(id)view listener:(id)m_buffer
 {
-  v11 = WTF::fastMalloc(0x28);
-  *v11 = 0u;
-  *(v11 + 16) = 0u;
-  *(v11 + 32) = 0;
+  v12 = WTF::fastMalloc(v6, 0x28);
+  *v12 = 0u;
+  *(v12 + 1) = 0u;
+  v12[4] = 0;
   viewCopy = [l isFileURL];
   if (!viewCopy)
   {
@@ -74,12 +74,12 @@
       goto LABEL_60;
     }
 
-    v14 = (origin + 8);
+    v15 = (origin + 8);
     goto LABEL_6;
   }
 
   viewCopy = [l path];
-  v35 = viewCopy;
+  v36 = viewCopy;
   if (viewCopy)
   {
     goto LABEL_10;
@@ -87,16 +87,16 @@
 
   while (1)
   {
-    v17 = v35;
-    v35 = 0;
-    v18 = *v11;
-    *v11 = v17;
-    if (v18)
+    v18 = v36;
+    v36 = 0;
+    v19 = *v12;
+    *v12 = v18;
+    if (v19)
     {
 
-      v19 = v35;
-      v35 = 0;
-      if (v19)
+      v20 = v36;
+      v36 = 0;
+      if (v20)
       {
       }
     }
@@ -106,9 +106,9 @@
       viewCopy = l;
     }
 
-    v20 = *(v11 + 16);
-    *(v11 + 16) = l;
-    if (v20)
+    v21 = v12[2];
+    v12[2] = l;
+    if (v21)
     {
 
       if (!view)
@@ -127,9 +127,9 @@ LABEL_20:
     }
 
 LABEL_21:
-    v21 = *(v11 + 24);
-    *(v11 + 24) = view;
-    if (v21)
+    v22 = v12[3];
+    v12[3] = view;
+    if (v22)
     {
     }
 
@@ -138,9 +138,9 @@ LABEL_21:
       viewCopy = m_buffer;
     }
 
-    v22 = *(v11 + 32);
-    *(v11 + 32) = m_buffer;
-    if (v22)
+    v23 = v12[4];
+    v12[4] = m_buffer;
+    if (v23)
     {
     }
 
@@ -175,40 +175,40 @@ LABEL_21:
     }
 
     view = m_capacity;
-    v25 = (m_capacity >> 2) + m_capacity;
-    if (v25 >= 0x1FFFFFFF)
+    v26 = (m_capacity >> 2) + m_capacity;
+    if (v26 >= 0x1FFFFFFF)
     {
       __break(0xC471u);
       return;
     }
 
     m_buffer = self->_challenges.m_buffer.m_buffer;
-    if (v25 <= 0xF)
+    if (v26 <= 0xF)
     {
-      v25 = 15;
+      v26 = 15;
     }
 
-    l = (v25 + 1);
-    viewCopy = WTF::fastMalloc((8 * (v25 + 1)));
+    l = (v26 + 1);
+    viewCopy = WTF::fastMalloc(v26, (8 * (v26 + 1)));
     self->_challenges.m_buffer.m_capacity = l;
     self->_challenges.m_buffer.m_buffer = viewCopy;
     m_end = self->_challenges.m_start;
-    v26 = self->_challenges.m_end;
-    v27 = v26 - m_end;
-    if (v26 < m_end)
+    v27 = self->_challenges.m_end;
+    v28 = v27 - m_end;
+    if (v27 < m_end)
     {
-      if (v26 <= view)
+      if (v27 <= view)
       {
-        viewCopy = memcpy(viewCopy, m_buffer, 8 * v26);
+        viewCopy = memcpy(viewCopy, m_buffer, 8 * v27);
         m_end = self->_challenges.m_start;
-        v28 = view - m_end;
+        v29 = view - m_end;
         if (view >= m_end)
         {
-          v29 = self->_challenges.m_buffer.m_capacity;
-          if (v29 >= v28)
+          v30 = self->_challenges.m_buffer.m_capacity;
+          if (v30 >= v29)
           {
-            view = (v29 - (view - m_end));
-            viewCopy = memcpy(self->_challenges.m_buffer.m_buffer + 8 * view, m_buffer + 8 * m_end, 8 * v28);
+            view = (v30 - (view - m_end));
+            viewCopy = memcpy(self->_challenges.m_buffer.m_buffer + 8 * view, m_buffer + 8 * m_end, 8 * v29);
             self->_challenges.m_start = view;
             if (!m_buffer)
             {
@@ -228,12 +228,12 @@ LABEL_21:
       goto LABEL_59;
     }
 
-    if (v27 == -1)
+    if (v28 == -1)
     {
       break;
     }
 
-    if (view - m_end >= v27)
+    if (view - m_end >= v28)
     {
       goto LABEL_49;
     }
@@ -246,29 +246,29 @@ LABEL_60:
       mpark::throw_bad_variant_access(viewCopy);
     }
 
-    v14 = MEMORY[0x1E696EBA8];
+    v15 = MEMORY[0x1E696EBA8];
 LABEL_6:
-    v15 = *v14;
-    if (!*v14)
+    v16 = *v15;
+    if (!*v15)
     {
       viewCopy = &stru_1F1147748;
-      v35 = &stru_1F1147748;
+      v36 = &stru_1F1147748;
 LABEL_10:
       viewCopy = viewCopy;
       continue;
     }
 
-    atomic_fetch_add_explicit(v15, 2u, memory_order_relaxed);
-    viewCopy = MEMORY[0x19EB00B70](&v35, v15);
-    if (atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v16, 2u, memory_order_relaxed);
+    viewCopy = MEMORY[0x19EB00B70](&v36, v16);
+    if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      viewCopy = WTF::StringImpl::destroy(v15, v16);
+      viewCopy = WTF::StringImpl::destroy(v16, v17);
     }
   }
 
-  v27 = view - m_end;
+  v28 = view - m_end;
 LABEL_49:
-  viewCopy = memcpy(&viewCopy->isa + m_end, m_buffer + 8 * m_end, 8 * v27);
+  viewCopy = memcpy(&viewCopy->isa + m_end, m_buffer + 8 * m_end, 8 * v28);
   if (!m_buffer)
   {
     goto LABEL_53;
@@ -281,32 +281,32 @@ LABEL_50:
     self->_challenges.m_buffer.m_capacity = 0;
   }
 
-  viewCopy = WTF::fastFree(m_buffer, v30);
+  viewCopy = WTF::fastFree(m_buffer, v31);
 LABEL_53:
   m_end = self->_challenges.m_end;
 LABEL_54:
-  v31 = self->_challenges.m_buffer.m_capacity;
-  if (m_end >= v31)
+  v32 = self->_challenges.m_buffer.m_capacity;
+  if (m_end >= v32)
   {
     goto LABEL_59;
   }
 
-  v32 = self->_challenges.m_buffer.m_buffer;
-  v34 = 0;
-  v32[m_end] = v11;
-  if (m_end == v31 - 1)
+  v33 = self->_challenges.m_buffer.m_buffer;
+  v35 = 0;
+  v33[m_end] = v12;
+  if (m_end == v32 - 1)
   {
-    v33 = 0;
+    v34 = 0;
   }
 
   else
   {
-    v33 = m_end + 1;
+    v34 = m_end + 1;
   }
 
-  self->_challenges.m_end = v33;
+  self->_challenges.m_end = v34;
   [(WKWebGeolocationPolicyDecider *)self _executeNextChallenge];
-  std::unique_ptr<PermissionRequest>::reset[abi:sn200100](&v34, 0);
+  std::unique_ptr<PermissionRequest>::reset[abi:sn200100](&v35, 0);
 }
 
 - (void)_executeNextChallenge
@@ -547,7 +547,7 @@ LABEL_38:
           WTF::StringImpl::destroy(v38, v36);
         }
 
-        WebKit::createUIAlertController(v15, v28, &v55);
+        WebKit::createUIAlertController(&v55, v15, v28);
         v39 = MEMORY[0x1E69DC648];
         v40 = v56;
         location = 0;

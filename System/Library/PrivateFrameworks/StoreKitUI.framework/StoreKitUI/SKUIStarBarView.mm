@@ -136,129 +136,129 @@ LABEL_8:
 
 - (void)drawRect:(CGRect)rect
 {
-  [(SKUIStarBarView *)self bounds:rect.origin.x];
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
+  v4 = [(SKUIStarBarView *)self bounds:rect.origin.x];
+  v6 = v5;
+  v8 = v7;
+  v10 = v9;
+  v12 = v11;
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v4, v13);
   emptyColor = self->_emptyColor;
   if (emptyColor)
   {
-    v14 = emptyColor;
+    v16 = emptyColor;
   }
 
   else
   {
-    v14 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.05];
+    v16 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.05];
   }
 
-  v47 = v14;
+  v50 = v16;
   filledColor = self->_filledColor;
   if (filledColor)
   {
-    v16 = filledColor;
+    v18 = filledColor;
   }
 
   else
   {
-    v16 = [MEMORY[0x277D75348] colorWithWhite:0.517647059 alpha:1.0];
+    v18 = [MEMORY[0x277D75348] colorWithWhite:0.517647059 alpha:1.0];
   }
 
-  v17 = v16;
+  v20 = v18;
   if (!self->_emptyStarImage)
   {
-    v18 = MEMORY[0x277D755B8];
-    v19 = SKUIBundle();
-    v20 = [v18 imageNamed:@"SmallStarFull" inBundle:v19];
+    v21 = MEMORY[0x277D755B8];
+    v22 = SKUIBundle(v18, v19);
+    v23 = [v21 imageNamed:@"SmallStarFull" inBundle:v22];
 
-    v21 = [v20 _flatImageWithColor:v47];
+    v24 = [v23 _flatImageWithColor:v50];
     emptyStarImage = self->_emptyStarImage;
-    self->_emptyStarImage = v21;
+    self->_emptyStarImage = v24;
 
-    v23 = [v20 _flatImageWithColor:v17];
+    v26 = [v23 _flatImageWithColor:v20];
     filledStarImage = self->_filledStarImage;
-    self->_filledStarImage = v23;
+    self->_filledStarImage = v26;
   }
 
-  v25 = 0.0;
+  v28 = 0.0;
   if (ShouldReverseLayoutDirection)
   {
-    v49.origin.x = v5;
-    v49.origin.y = v7;
-    v49.size.width = v9;
-    v49.size.height = v11;
-    Width = CGRectGetWidth(v49);
+    v52.origin.x = v6;
+    v52.origin.y = v8;
+    v52.size.width = v10;
+    v52.size.height = v12;
+    Width = CGRectGetWidth(v52);
     [(UIImage *)self->_emptyStarImage size];
-    v25 = Width - v27;
+    v28 = Width - v30;
   }
 
-  v28 = -5;
+  v31 = -5;
   do
   {
-    v29 = self->_emptyStarImage;
-    if (v28 + 6 > 5 - self->_numberOfStars)
+    v32 = self->_emptyStarImage;
+    if (v31 + 6 > 5 - self->_numberOfStars)
     {
-      v30 = self->_filledStarImage;
+      v33 = self->_filledStarImage;
 
-      v29 = v30;
+      v32 = v33;
     }
 
-    [(UIImage *)v29 size];
-    v32 = v31;
-    *&v31 = (v11 - v33) * 0.5;
-    [(UIImage *)v29 drawAtPoint:v25, floorf(*&v31)];
-    v34 = __CFADD__(v28++, 1);
-    v35 = v25 - v32;
-    if (v34)
+    [(UIImage *)v32 size];
+    v35 = v34;
+    *&v34 = (v12 - v36) * 0.5;
+    [(UIImage *)v32 drawAtPoint:v28, floorf(*&v34)];
+    v37 = __CFADD__(v31++, 1);
+    v38 = v28 - v35;
+    if (v37)
     {
-      v35 = v25;
+      v38 = v28;
     }
 
     if (ShouldReverseLayoutDirection)
     {
-      v25 = v35;
+      v28 = v38;
     }
 
     else
     {
-      v25 = v25 + v32;
+      v28 = v28 + v35;
     }
   }
 
-  while (v28);
-  v36 = 0.0;
+  while (v31);
+  v39 = 0.0;
   if (ShouldReverseLayoutDirection)
   {
-    v37 = v25 + -9.0;
+    v40 = v28 + -9.0;
   }
 
   else
   {
-    v36 = v25 + 9.0;
-    v37 = v9 - (v25 + 9.0);
+    v39 = v28 + 9.0;
+    v40 = v10 - (v28 + 9.0);
   }
 
-  v38 = (v11 + -2.0) * 0.5;
-  v39 = floorf(v38);
-  v40 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:v36 cornerRadius:{v39, v37, 2.0, 2.0}];
-  [(UIColor *)v47 set];
-  [v40 fill];
+  v41 = (v12 + -2.0) * 0.5;
+  v42 = floorf(v41);
+  v43 = [MEMORY[0x277D75208] bezierPathWithRoundedRect:v39 cornerRadius:{v42, v40, 2.0, 2.0}];
+  [(UIColor *)v50 set];
+  [v43 fill];
   CurrentContext = UIGraphicsGetCurrentContext();
   CGContextSaveGState(CurrentContext);
   value = self->_value;
-  v43 = v25 + -9.0 - (v25 + -9.0) * value;
+  v46 = v28 + -9.0 - (v28 + -9.0) * value;
   if (!ShouldReverseLayoutDirection)
   {
-    v43 = v25 + 9.0;
+    v46 = v28 + 9.0;
   }
 
-  v44 = v37 * value;
-  v45 = 2.0;
-  v46 = v39;
-  CGContextClipToRect(CurrentContext, *&v43);
-  [(UIColor *)v17 set];
-  [v40 fill];
+  v47 = v40 * value;
+  v48 = 2.0;
+  v49 = v42;
+  CGContextClipToRect(CurrentContext, *&v46);
+  [(UIColor *)v20 set];
+  [v43 fill];
   CGContextRestoreGState(CurrentContext);
 }
 

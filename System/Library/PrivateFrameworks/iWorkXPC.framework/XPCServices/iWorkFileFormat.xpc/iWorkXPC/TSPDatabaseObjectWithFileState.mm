@@ -1,8 +1,31 @@
 @interface TSPDatabaseObjectWithFileState
+- (TSPDatabaseObjectWithFileState)initWithIdentifier:(int64_t)identifier classType:(int)type fileState:(id)state packageURL:(id)l;
 - (id)fileURL;
 @end
 
 @implementation TSPDatabaseObjectWithFileState
+
+- (TSPDatabaseObjectWithFileState)initWithIdentifier:(int64_t)identifier classType:(int)type fileState:(id)state packageURL:(id)l
+{
+  v7 = *&type;
+  stateCopy = state;
+  lCopy = l;
+  v18.receiver = self;
+  v18.super_class = TSPDatabaseObjectWithFileState;
+  v12 = [(TSPDatabaseObject *)&v18 initWithIdentifier:identifier classType:v7];
+  if (v12)
+  {
+    v13 = [stateCopy copy];
+    fileState = v12->_fileState;
+    v12->_fileState = v13;
+
+    v15 = [lCopy copy];
+    packageURL = v12->_packageURL;
+    v12->_packageURL = v15;
+  }
+
+  return v12;
+}
 
 - (id)fileURL
 {

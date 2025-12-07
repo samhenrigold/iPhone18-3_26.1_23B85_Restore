@@ -40,7 +40,7 @@
   if (focusFramesOptions)
   {
     v6 = focusFramesOptions;
-    [focusFramesOptions maximumRackFocusPullTime];
+    objc_msgSend_maximumRackFocusPullTime(focusFramesOptions);
     focusFramesOptions = v6;
   }
 

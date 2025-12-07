@@ -3,7 +3,7 @@
 
 @implementation NSTextRunStorage
 
-uint64_t __33___NSTextRunStorage_contentRange__block_invoke_3(uint64_t a1, uint64_t a2)
+char *__33___NSTextRunStorage_contentRange__block_invoke_3(uint64_t a1, uint64_t a2)
 {
   result = [*(*(a1 + 32) + 16) count];
   if (result)
@@ -25,8 +25,8 @@ uint64_t __33___NSTextRunStorage_contentRange__block_invoke_3(uint64_t a1, uint6
         }
       }
 
-      v6 = v13 + v12;
-      if (v13 + v12 >= v5)
+      v6 = &v12[v13];
+      if (&v12[v13] >= v5)
       {
         return result;
       }
@@ -36,8 +36,8 @@ uint64_t __33___NSTextRunStorage_contentRange__block_invoke_3(uint64_t a1, uint6
     if (v13)
     {
       v9 = v12;
-      v10 = v13 + v12;
-      if (v13 + v12 < v5)
+      v10 = &v12[v13];
+      if (&v12[v13] < v5)
       {
         v12 = v5;
         v13 = 0;
@@ -59,7 +59,7 @@ uint64_t __33___NSTextRunStorage_contentRange__block_invoke_3(uint64_t a1, uint6
           }
         }
 
-        v8 = v12 - v9 + v13;
+        v8 = &v12[v13 - v9];
       }
 
 LABEL_16:
@@ -208,7 +208,7 @@ NSCountableTextLocation *__69___NSTextRunStorage_enumerateObjectsFromLocation_op
   return result;
 }
 
-NSUInteger __40___NSTextRunStorage_setObject_forRange___block_invoke(uint64_t a1, uint64_t a2)
+void *__40___NSTextRunStorage_setObject_forRange___block_invoke(uint64_t a1, uint64_t a2)
 {
   v3 = OUTLINED_FUNCTION_2_3(a1, a2);
   v5 = v4;
@@ -246,7 +246,7 @@ NSUInteger __40___NSTextRunStorage_setObject_forRange___block_invoke(uint64_t a1
   return result;
 }
 
-NSUInteger __53___NSTextRunStorage_invalidateElementsInRange_delta___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__53___NSTextRunStorage_invalidateElementsInRange_delta___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v3 = OUTLINED_FUNCTION_2_3(a1, a2);
   v5 = v4;

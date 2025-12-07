@@ -510,55 +510,50 @@ BOOL __102__HDFeatureAvailabilityStoreServer_remote_earliestDateLowestOnboarding
 
 - (void)remote_startObservingChangesWithCompletion:(id)completion
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = HKLogInfrastructure();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registering for extension changes", &v7, 0xCu);
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Registering for extension changes", &v6, 0xCu);
   }
 
   [(HDFeatureAvailabilityExtension *)self->_extension registerObserver:self queue:self->_queue];
   completionCopy[2](completionCopy, 1, 0);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_stopObservingChanges
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = HKLogInfrastructure();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
+    v4 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unregistering for extension changes", &v5, 0xCu);
+    _os_log_impl(&dword_228986000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] Unregistering for extension changes", &v4, 0xCu);
   }
 
   [(HDFeatureAvailabilityExtension *)self->_extension unregisterObserver:self];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:(id)completion
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogInfrastructure();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying client of onboarding completion update", &v7, 0xCu);
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying client of onboarding completion update", &v6, 0xCu);
   }
 
   _clientRemoteObjectProxy = [(HDFeatureAvailabilityStoreServer *)self _clientRemoteObjectProxy];
   [_clientRemoteObjectProxy client_featureAvailabilityExtensionDidUpdateOnboardingCompletion];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_clientRemoteObjectProxy
@@ -580,71 +575,67 @@ BOOL __102__HDFeatureAvailabilityStoreServer_remote_earliestDateLowestOnboarding
 
 - (void)featureAvailabilityProvidingDidUpdateSettings:(id)settings
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogInfrastructure();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying client of settings update", &v7, 0xCu);
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying client of settings update", &v6, 0xCu);
   }
 
   _clientRemoteObjectProxy = [(HDFeatureAvailabilityStoreServer *)self _clientRemoteObjectProxy];
   [_clientRemoteObjectProxy client_featureAvailabilityProvidingDidUpdateSettings];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityExtensionOnboardingCompletionDataDidBecomeAvailable:(id)available
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogInfrastructure();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying client of onboarding completion data becoming available", &v7, 0xCu);
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Notifying client of onboarding completion data becoming available", &v6, 0xCu);
   }
 
   _clientRemoteObjectProxy = [(HDFeatureAvailabilityStoreServer *)self _clientRemoteObjectProxy];
   [_clientRemoteObjectProxy client_featureAvailabilityExtensionDidUpdateOnboardingCompletion];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createTaskServerWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate error:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dCopy = d;
   configurationCopy = configuration;
   clientCopy = client;
   delegateCopy = delegate;
-  v41 = clientCopy;
+  v40 = clientCopy;
   profile = [clientCopy profile];
   v15 = [profile profileExtensionsConformingToProtocol:&unk_283D71258];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v16 = v15;
-  v17 = [v16 countByEnumeratingWithState:&v43 objects:v53 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v42 objects:v52 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v44;
+    v19 = *v43;
 LABEL_3:
     v20 = 0;
     while (1)
     {
-      if (*v44 != v19)
+      if (*v43 != v19)
       {
         objc_enumerationMutation(v16);
       }
 
-      v21 = *(*(&v43 + 1) + 8 * v20);
+      v21 = *(*(&v42 + 1) + 8 * v20);
       featureIdentifier = [configurationCopy featureIdentifier];
       v23 = [v21 featureAvailabilityExtensionForFeatureIdentifier:featureIdentifier];
 
@@ -655,7 +646,7 @@ LABEL_3:
 
       if (v18 == ++v20)
       {
-        v18 = [v16 countByEnumeratingWithState:&v43 objects:v53 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v42 objects:v52 count:16];
         if (v18)
         {
           goto LABEL_3;
@@ -665,20 +656,20 @@ LABEL_3:
       }
     }
 
-    v30 = v41;
+    v30 = v40;
     v29 = dCopy;
-    v32 = [(HDStandardTaskServer *)[HDFeatureAvailabilityStoreServer alloc] initWithUUID:dCopy configuration:configurationCopy client:v41 delegate:delegateCopy];
+    v32 = [(HDStandardTaskServer *)[HDFeatureAvailabilityStoreServer alloc] initWithUUID:dCopy configuration:configurationCopy client:v40 delegate:delegateCopy];
     _HKInitializeLogging();
     v33 = HKLogInfrastructure();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       featureIdentifier2 = [configurationCopy featureIdentifier];
       *buf = 138543874;
-      v48 = v32;
-      v49 = 2114;
-      v50 = v23;
-      v51 = 2114;
-      v52 = featureIdentifier2;
+      v47 = v32;
+      v48 = 2114;
+      v49 = v23;
+      v50 = 2114;
+      v51 = featureIdentifier2;
       _os_log_impl(&dword_228986000, v33, OS_LOG_TYPE_DEFAULT, "[%{public}@] Using profile extension %{public}@ for feature %{public}@", buf, 0x20u);
     }
 
@@ -708,7 +699,7 @@ LABEL_9:
     queue = v27;
     if (v27)
     {
-      v30 = v41;
+      v30 = v40;
       v29 = dCopy;
       if (error)
       {
@@ -730,14 +721,12 @@ LABEL_9:
     {
       v32 = 0;
       v36 = 0;
-      v30 = v41;
+      v30 = v40;
       v29 = dCopy;
     }
 
 LABEL_19:
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -749,45 +738,16 @@ LABEL_19:
   entitlements = [clientCopy entitlements];
   v10 = [entitlements hasEntitlement:*MEMORY[0x277CCBEC8]];
 
-  if (v10)
+  if (v10 & 1) != 0 || ([clientCopy entitlements], v11 = objc_claimAutoreleasedReturnValue(), v12 = *MEMORY[0x277CCBED0], objc_msgSend(configurationCopy, "featureIdentifier"), v13 = objc_claimAutoreleasedReturnValue(), LOBYTE(v12) = objc_msgSend(v11, "arrayEntitlement:containsString:", v12, v13), v13, v11, (v12) || (objc_msgSend(clientCopy, "entitlements"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v14, "hasEntitlement:", *MEMORY[0x277CCBEB8]), v14, (v15) || (objc_msgSend(clientCopy, "entitlements"), v16 = objc_claimAutoreleasedReturnValue(), v17 = *MEMORY[0x277CCBEC0], objc_msgSend(configurationCopy, "featureIdentifier"), v18 = objc_claimAutoreleasedReturnValue(), LOBYTE(v17) = objc_msgSend(v16, "arrayEntitlement:containsString:", v17, v18), v18, v16, (v17))
   {
-    goto LABEL_5;
-  }
-
-  entitlements2 = [clientCopy entitlements];
-  v12 = *MEMORY[0x277CCBED0];
-  featureIdentifier = [configurationCopy featureIdentifier];
-  LOBYTE(v12) = [entitlements2 arrayEntitlement:v12 containsString:featureIdentifier];
-
-  if (v12)
-  {
-    goto LABEL_5;
-  }
-
-  entitlements3 = [clientCopy entitlements];
-  v15 = [entitlements3 hasEntitlement:*MEMORY[0x277CCBEB8]];
-
-  if (v15)
-  {
-    goto LABEL_5;
-  }
-
-  entitlements4 = [clientCopy entitlements];
-  v17 = *MEMORY[0x277CCBEC0];
-  featureIdentifier2 = [configurationCopy featureIdentifier];
-  LOBYTE(v17) = [entitlements4 arrayEntitlement:v17 containsString:featureIdentifier2];
-
-  if (v17)
-  {
-LABEL_5:
     v19 = 1;
   }
 
   else
   {
     v21 = MEMORY[0x277CCA9B8];
-    featureIdentifier3 = [configurationCopy featureIdentifier];
-    v23 = [v21 hk_error:4 format:{@"Unauthorized access to availability of feature %@", featureIdentifier3}];
+    featureIdentifier = [configurationCopy featureIdentifier];
+    v23 = [v21 hk_error:4 format:{@"Unauthorized access to availability of feature %@", featureIdentifier}];
     if (v23)
     {
       if (error)

@@ -1,9 +1,27 @@
 @interface CCMutableToolKitToolToolDefinitionVersion1FlagsRepeatedEnum
 + (id)new;
 - (CCMutableToolKitToolToolDefinitionVersion1FlagsRepeatedEnum)init;
+- (void)appendEnumValue:(unsigned int)value;
+- (void)appendRawEnumValue:(unsigned int)value;
 @end
 
 @implementation CCMutableToolKitToolToolDefinitionVersion1FlagsRepeatedEnum
+
+- (void)appendEnumValue:(unsigned int)value
+{
+  v3 = *&value;
+  values = [(CCRepeatedFieldValue *)self values];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+  [values addObject:v4];
+}
+
+- (void)appendRawEnumValue:(unsigned int)value
+{
+  v3 = *&value;
+  values = [(CCRepeatedFieldValue *)self values];
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+  [values addObject:v4];
+}
 
 - (CCMutableToolKitToolToolDefinitionVersion1FlagsRepeatedEnum)init
 {

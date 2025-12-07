@@ -32,10 +32,9 @@
 
 - (void)serialize64:(unint64_t)serialize64
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v4[0] = __ROR8__(serialize64, 32);
-  self->super._intRegion = _appendToBuffer(self->super._intRegion, &self->super._intRegCapacity, &self->super._cursor, v4, 8uLL);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[1] = *MEMORY[0x1E69E9840];
+  v3[0] = __ROR8__(serialize64, 32);
+  self->super._intRegion = _appendToBuffer(self->super._intRegion, &self->super._intRegCapacity, &self->super._cursor, v3, 8uLL);
 }
 
 - (unsigned)serializeString:(id)string
@@ -55,7 +54,7 @@
   if (bytes)
   {
     bytesCopy = bytes;
-    v6 = std::__hash_table<std::__hash_value_type<char const*,unsigned int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,unsigned int>,cstring_callbacks,cstring_callbacks,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,unsigned int>,cstring_callbacks,cstring_callbacks,true>,std::allocator<std::__hash_value_type<char const*,unsigned int>>>::__emplace_unique_key_args<char const*,char const*,unsigned int &>(&self->_internMap.__table_.__bucket_list_.__ptr_, &bytesCopy);
+    v6 = std::__hash_table<std::__hash_value_type<char const*,unsigned int>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,unsigned int>,cstring_callbacks,cstring_callbacks,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,unsigned int>,cstring_callbacks,cstring_callbacks,true>,std::allocator<std::__hash_value_type<char const*,unsigned int>>>::__emplace_unique_key_args<char const*,char const*,unsigned int &>(&self->_internMap.__table_.__bucket_list_.__ptr_, &bytesCopy, &bytesCopy, &self->_internCursor);
     v7 = v6;
     if (v8)
     {

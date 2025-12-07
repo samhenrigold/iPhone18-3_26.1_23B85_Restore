@@ -124,8 +124,6 @@
 
     [(SUSSoftwareUpdateUpdateOptionsCell *)selfCopy _addActivityIndicatorFor:selfCopy->_secondaryButton, v3];
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setPrimaryButtonActionHandler:(id)handler
@@ -356,8 +354,6 @@ id __92__SUSSoftwareUpdateUpdateOptionsCell_contextMenuInteraction_configuration
     objc_storeStrong(&v45, 0);
     objc_storeStrong(v46, 0);
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_configurePrimaryButton
@@ -513,7 +509,6 @@ void __63__SUSSoftwareUpdateUpdateOptionsCell__configureSecondaryButton__block_i
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureStackViewMargin

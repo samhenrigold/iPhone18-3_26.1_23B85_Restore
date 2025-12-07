@@ -10,6 +10,7 @@
 - (void)_sendPresenceReport:(unint64_t)report;
 - (void)_sendPresenceUpdateToResident:(id)resident;
 - (void)_sendPresenceUpdateToResidentForUser:(id)user presenceAuthStatus:(id)status authChanging:(BOOL)changing reason:(id)reason;
+- (void)_sendPresenceUpdateToResidentForUser:(id)user presenceAuthStatus:(id)status authChanging:(BOOL)changing reason:(id)reason fmfStatus:(id)fmfStatus;
 - (void)_startRefreshTimer;
 - (void)_updatePresenceComputeStatus:(id)status;
 - (void)accountAvailabilityChanged:(id)changed;
@@ -34,7 +35,7 @@
 
 - (void)handleDidLeaveHomeNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   home = [(HMDHomePresenceBase *)self home];
   workQueue = [(HMDHomePresenceBase *)self workQueue];
@@ -58,19 +59,17 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v11;
+      v14 = v11;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@home or workQueue unexpectedly nil -- likely called before configure", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDidArriveHomeNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   home = [(HMDHomePresenceBase *)self home];
   workQueue = [(HMDHomePresenceBase *)self workQueue];
@@ -94,19 +93,17 @@
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v15 = v11;
+      v14 = v11;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@home or workQueue unexpectedly nil -- likely called before configure", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didEndFeedSession:(id)session
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   currentFeedSession = [(HMDUserPresenceFeeder *)self currentFeedSession];
 
@@ -119,11 +116,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v11;
-      v27 = 2112;
-      v28 = sessionCopy;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@%@ is complete", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v11;
+      v26 = 2112;
+      v27 = sessionCopy;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@%@ is complete", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -144,11 +141,11 @@
     {
       v22 = HMFGetLogIdentifier();
       lastSentFeed = [(HMDUserPresenceFeeder *)v20 lastSentFeed];
-      v25 = 138543618;
-      v26 = v22;
-      v27 = 2112;
-      v28 = lastSentFeed;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Updating last sent feed to %@", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v22;
+      v26 = 2112;
+      v27 = lastSentFeed;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Updating last sent feed to %@", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -160,22 +157,20 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v25 = 138543618;
-      v26 = v10;
-      v27 = 2112;
-      v28 = sessionCopy;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@%@ is not tracked", &v25, 0x16u);
+      v24 = 138543618;
+      v25 = v10;
+      v26 = 2112;
+      v27 = sessionCopy;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@%@ is not tracked", &v24, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleLocationAuthorizationChangedNotification:(id)notification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo hmf_numberForKey:@"HMLocationAuthorizationKey"];
@@ -190,11 +185,11 @@
     {
       v10 = HMFGetLogIdentifier();
       v11 = HMLocationAuthorizationAsString();
-      v17 = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Latest Location Authorization is %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v11;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Latest Location Authorization is %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -209,20 +204,18 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v15;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@No location authorization key in the message", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@No location authorization key in the message", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updatePresenceComputeStatus:(id)status
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   home = [(HMDHomePresenceBase *)self home];
   presenceComputeStatus = [home presenceComputeStatus];
@@ -237,11 +230,11 @@
     {
       v11 = HMFGetLogIdentifier();
       presenceComputeStatus2 = [home presenceComputeStatus];
-      v30 = 138543618;
-      v31 = v11;
-      v32 = 2112;
-      v33 = presenceComputeStatus2;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Presence compute status is not changing from %@", &v30, 0x16u);
+      v29 = 138543618;
+      v30 = v11;
+      v31 = 2112;
+      v32 = presenceComputeStatus2;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Presence compute status is not changing from %@", &v29, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -262,13 +255,13 @@
     {
       v21 = HMFGetLogIdentifier();
       presenceComputeStatus3 = [home presenceComputeStatus];
-      v30 = 138543874;
-      v31 = v21;
-      v32 = 2112;
-      v33 = presenceComputeStatus3;
-      v34 = 2112;
-      v35 = statusCopy;
-      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Presence compute status is changing from %@ to %@", &v30, 0x20u);
+      v29 = 138543874;
+      v30 = v21;
+      v31 = 2112;
+      v32 = presenceComputeStatus3;
+      v33 = 2112;
+      v34 = statusCopy;
+      _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Presence compute status is changing from %@ to %@", &v29, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
@@ -284,13 +277,11 @@
     [v28 add:v17 withMessage:v24];
     [v28 run];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_sendPresenceAuthStatusForUser:(id)user presenceAuthStatus:(id)status presenceRegionStatus:(id)regionStatus presenceComputeStatus:(id)computeStatus reason:(id)reason
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   userCopy = user;
   statusCopy = status;
   regionStatusCopy = regionStatus;
@@ -310,9 +301,9 @@
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v84 = v29;
-      v85 = 2112;
-      v86 = 0;
+      v83 = v29;
+      v84 = 2112;
+      v85 = 0;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Primary resident device %@ is not set, not notifying", buf, 0x16u);
     }
 
@@ -331,9 +322,9 @@
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v84 = v35;
-      v85 = 2112;
-      v86 = device;
+      v83 = v35;
+      v84 = 2112;
+      v85 = device;
       _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Primary resident device %@ is not capable of presence status, not notifying", buf, 0x16u);
     }
 
@@ -345,7 +336,7 @@ LABEL_13:
     goto LABEL_36;
   }
 
-  v80 = device;
+  v79 = device;
   v19 = +[HMDLostModeManager sharedManager];
   isLost = [v19 isLost];
 
@@ -358,21 +349,21 @@ LABEL_13:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v84 = v24;
+      v83 = v24;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Device Lost. Not sending presence feed", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
     v25 = [MEMORY[0x277CCA9B8] hmErrorWithCode:23];
 LABEL_35:
-    device = v80;
+    device = v79;
     goto LABEL_36;
   }
 
   currentFeedSession = [(HMDUserPresenceFeeder *)self currentFeedSession];
 
-  v78 = regionStatusCopy;
-  v79 = statusCopy;
+  v77 = regionStatusCopy;
+  v78 = statusCopy;
   if (!currentFeedSession)
   {
 LABEL_26:
@@ -392,21 +383,21 @@ LABEL_26:
           v62 = HMFGetLogIdentifier();
           lastSentFeed2 = [(HMDUserPresenceFeeder *)selfCopy4 lastSentFeed];
           *buf = 138543874;
-          v84 = v62;
-          v85 = 2112;
-          v86 = lastSentFeed2;
-          v87 = 2112;
-          v88 = v56;
+          v83 = v62;
+          v84 = 2112;
+          v85 = lastSentFeed2;
+          v86 = 2112;
+          v87 = v56;
           _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_INFO, "%{public}@Last feed %@ is same as the new feed %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v59);
         v25 = 0;
-        statusCopy = v79;
+        statusCopy = v78;
         goto LABEL_35;
       }
 
-      statusCopy = v79;
+      statusCopy = v78;
     }
 
     v64 = [HMDUserPresenceFeedSession alloc];
@@ -425,11 +416,11 @@ LABEL_26:
       v73 = HMFGetLogIdentifier();
       currentFeedSession2 = [(HMDUserPresenceFeeder *)selfCopy5 currentFeedSession];
       *buf = 138543874;
-      v84 = v73;
-      v85 = 2112;
-      v86 = currentFeedSession2;
-      v87 = 2112;
-      v88 = computeStatusCopy;
+      v83 = v73;
+      v84 = 2112;
+      v85 = currentFeedSession2;
+      v86 = 2112;
+      v87 = computeStatusCopy;
       _os_log_impl(&dword_229538000, v72, OS_LOG_TYPE_INFO, "%{public}@Created new feed session %@ with new computed status : %@", buf, 0x20u);
     }
 
@@ -438,8 +429,8 @@ LABEL_26:
     [currentFeedSession3 send];
 
     v25 = 0;
-    regionStatusCopy = v78;
-    statusCopy = v79;
+    regionStatusCopy = v77;
+    statusCopy = v78;
     goto LABEL_35;
   }
 
@@ -451,12 +442,12 @@ LABEL_26:
     v40 = HMFGetLogIdentifier();
     currentFeedSession4 = [(HMDUserPresenceFeeder *)selfCopy6 currentFeedSession];
     *buf = 138543618;
-    v84 = v40;
-    v85 = 2112;
-    v86 = currentFeedSession4;
+    v83 = v40;
+    v84 = 2112;
+    v85 = currentFeedSession4;
     _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_INFO, "%{public}@There is currently %@ active", buf, 0x16u);
 
-    regionStatusCopy = v78;
+    regionStatusCopy = v77;
   }
 
   objc_autoreleasePoolPop(v37);
@@ -472,7 +463,7 @@ LABEL_26:
   presenceRegionStatus = [currentFeedSession6 presenceRegionStatus];
   v46 = HMFEqualObjects();
 
-  regionStatusCopy = v78;
+  regionStatusCopy = v77;
   if (!v46)
   {
 LABEL_23:
@@ -483,44 +474,42 @@ LABEL_23:
     {
       v55 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v84 = v55;
-      v85 = 2112;
-      v86 = v79;
-      v87 = 2112;
-      v88 = regionStatusCopy;
-      v89 = 2112;
-      v90 = v80;
+      v83 = v55;
+      v84 = 2112;
+      v85 = v78;
+      v86 = 2112;
+      v87 = regionStatusCopy;
+      v88 = 2112;
+      v89 = v79;
       _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_INFO, "%{public}@Current feed session is different than newer one. [presenceAuth = %@], [presenceRegion : %@], [resident: %@]", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v52);
-    statusCopy = v79;
+    statusCopy = v78;
     goto LABEL_26;
   }
 
   v47 = objc_autoreleasePoolPush();
   v48 = selfCopy6;
   v49 = HMFGetOSLogHandle();
-  device = v80;
+  device = v79;
   if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
   {
     v50 = HMFGetLogIdentifier();
     currentFeedSession7 = [(HMDUserPresenceFeeder *)v48 currentFeedSession];
     *buf = 138543618;
-    v84 = v50;
-    v85 = 2112;
-    v86 = currentFeedSession7;
+    v83 = v50;
+    v84 = 2112;
+    v85 = currentFeedSession7;
     _os_log_impl(&dword_229538000, v49, OS_LOG_TYPE_INFO, "%{public}@Current feed session %@ already contains same auth and region status, ignoring", buf, 0x16u);
 
-    regionStatusCopy = v78;
+    regionStatusCopy = v77;
   }
 
   objc_autoreleasePoolPop(v47);
   v25 = 0;
-  statusCopy = v79;
+  statusCopy = v78;
 LABEL_36:
-
-  v76 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -528,7 +517,7 @@ LABEL_36:
 - (BOOL)_updatePresenceToResidentForUser:(id)user presenceAuthStatus:(id)status authChanging:(BOOL)changing reason:(id)reason fmfStatus:(id)fmfStatus
 {
   changingCopy = changing;
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   userCopy = user;
   reasonCopy = reason;
   fmfStatusCopy = fmfStatus;
@@ -556,7 +545,7 @@ LABEL_36:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v80 = v30;
+      v79 = v30;
       _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@FMF Device status is unknown, cannot send report", buf, 0xCu);
     }
 
@@ -575,7 +564,7 @@ LABEL_41:
 LABEL_45:
         v62 = fmfStatusCopy;
         v63 = v13;
-        v64 = [(HMDUserPresenceFeeder *)self _sendPresenceAuthStatusForUser:userCopy presenceAuthStatus:v13 presenceRegionStatus:v15 presenceComputeStatus:v16 reason:reasonCopy, v77];
+        v64 = [(HMDUserPresenceFeeder *)self _sendPresenceAuthStatusForUser:userCopy presenceAuthStatus:v13 presenceRegionStatus:v15 presenceComputeStatus:v16 reason:reasonCopy, v76];
         if (v16)
         {
           [(HMDUserPresenceFeeder *)self _updatePresenceComputeStatus:v16];
@@ -589,13 +578,13 @@ LABEL_45:
           HMFGetLogIdentifier();
           v69 = v68 = userCopy;
           *buf = 138544130;
-          v80 = v69;
-          v81 = 2112;
-          v82 = v68;
-          v83 = 2112;
-          v84 = v63;
-          v85 = 2112;
-          v86 = v64;
+          v79 = v69;
+          v80 = 2112;
+          v81 = v68;
+          v82 = 2112;
+          v83 = v63;
+          v84 = 2112;
+          v85 = v64;
           _os_log_impl(&dword_229538000, v67, OS_LOG_TYPE_INFO, "%{public}@Sending status update of presence for user: %@, auth: %@ resulted in %@", buf, 0x2Au);
 
           userCopy = v68;
@@ -609,21 +598,21 @@ LABEL_45:
         goto LABEL_50;
       }
 
-      v72 = objc_autoreleasePoolPush();
+      v71 = objc_autoreleasePoolPush();
       selfCopy3 = self;
-      v74 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+      v73 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
       {
         HMFGetLogIdentifier();
-        v76 = v75 = userCopy;
+        v75 = v74 = userCopy;
         *buf = 138543362;
-        v80 = v76;
-        _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_INFO, "%{public}@Presence region status is still unknown, bailing out as a later update will be sent", buf, 0xCu);
+        v79 = v75;
+        _os_log_impl(&dword_229538000, v73, OS_LOG_TYPE_INFO, "%{public}@Presence region status is still unknown, bailing out as a later update will be sent", buf, 0xCu);
 
-        userCopy = v75;
+        userCopy = v74;
       }
 
-      objc_autoreleasePoolPop(v72);
+      objc_autoreleasePoolPop(v71);
 LABEL_29:
       v44 = 0;
       goto LABEL_50;
@@ -637,7 +626,7 @@ LABEL_29:
       HMFGetLogIdentifier();
       v21 = v20 = userCopy;
       *buf = 138543362;
-      v80 = v21;
+      v79 = v21;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@There is an FMF device, but this device is not the FMF device", buf, 0xCu);
 
       userCopy = v20;
@@ -656,7 +645,7 @@ LABEL_29:
           HMFGetLogIdentifier();
           v26 = v25 = userCopy;
           *buf = 138543362;
-          v80 = v26;
+          v79 = v26;
           _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Presence-auth is changing to authorized", buf, 0xCu);
 
           userCopy = v25;
@@ -683,7 +672,7 @@ LABEL_29:
       HMFGetLogIdentifier();
       v49 = v48 = userCopy;
       *buf = 138543362;
-      v80 = v49;
+      v79 = v49;
       _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_INFO, "%{public}@There is an FMF device, but this device is not the FMF device. Presence-auth is authorized, the FMF device will send the message.", buf, 0xCu);
 
       userCopy = v48;
@@ -695,7 +684,7 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v77 = fmfStatusCopy;
+  v76 = fmfStatusCopy;
   if ([v13 value] != 1)
   {
     v50 = v13;
@@ -706,7 +695,7 @@ LABEL_28:
     {
       v54 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v80 = v54;
+      v79 = v54;
       _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_DEFAULT, "%{public}@We do not have presence authorization for this user.", buf, 0xCu);
     }
 
@@ -728,9 +717,9 @@ LABEL_28:
     HMLocationAuthorizationAsString();
     v39 = v38 = v13;
     *buf = 138543618;
-    v80 = v37;
-    v81 = 2112;
-    v82 = v39;
+    v79 = v37;
+    v80 = 2112;
+    v81 = v39;
     _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_INFO, "%{public}@Current Location Authorization : %@", buf, 0x16u);
 
     v13 = v38;
@@ -751,16 +740,16 @@ LABEL_38:
       HMFGetLogIdentifier();
       v61 = v60 = userCopy;
       *buf = 138543618;
-      v80 = v61;
-      v81 = 2112;
-      v82 = v16;
+      v79 = v61;
+      v80 = 2112;
+      v81 = v16;
       _os_log_impl(&dword_229538000, v59, OS_LOG_TYPE_INFO, "%{public}@This is the FMF device. Presence compute status : %@", buf, 0x16u);
 
       userCopy = v60;
     }
 
     objc_autoreleasePoolPop(v57);
-    fmfStatusCopy = v77;
+    fmfStatusCopy = v76;
     v13 = v50;
     goto LABEL_41;
   }
@@ -771,7 +760,7 @@ LABEL_38:
     v55 = MEMORY[0x277CD1F08];
     v56 = 2;
 LABEL_37:
-    v16 = [v55 computeWithValue:{v56, v77}];
+    v16 = [v55 computeWithValue:{v56, v76}];
     v15 = 0;
     goto LABEL_38;
   }
@@ -783,22 +772,63 @@ LABEL_37:
   {
     v43 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v80 = v43;
+    v79 = v43;
     _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@Looks like we are still waiting for location authorization status from Core Location. Till we determine that let's not send the presence update.", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v40);
   v44 = 0;
-  fmfStatusCopy = v77;
+  fmfStatusCopy = v76;
 LABEL_50:
 
-  v70 = *MEMORY[0x277D85DE8];
   return v44;
+}
+
+- (void)_sendPresenceUpdateToResidentForUser:(id)user presenceAuthStatus:(id)status authChanging:(BOOL)changing reason:(id)reason fmfStatus:(id)fmfStatus
+{
+  changingCopy = changing;
+  v30 = *MEMORY[0x277D85DE8];
+  userCopy = user;
+  statusCopy = status;
+  reasonCopy = reason;
+  fmfStatusCopy = fmfStatus;
+  v16 = [(HMDUserPresenceFeeder *)self _updatePresenceToResidentForUser:userCopy presenceAuthStatus:statusCopy authChanging:changingCopy reason:reasonCopy fmfStatus:fmfStatusCopy];
+  v17 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v19 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    v20 = HMFGetLogIdentifier();
+    v21 = HMFBooleanToString();
+    v26 = 138543618;
+    v27 = v20;
+    v28 = 2112;
+    v29 = v21;
+    _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Presence update to resident ended in success: %@", &v26, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v17);
+  if (!v16)
+  {
+    v22 = objc_autoreleasePoolPush();
+    v23 = selfCopy;
+    v24 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    {
+      v25 = HMFGetLogIdentifier();
+      v26 = 138543362;
+      v27 = v25;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Resetting current feed session as the presence update to resident did not go through", &v26, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v22);
+    [(HMDUserPresenceFeeder *)v23 setCurrentFeedSession:0];
+  }
 }
 
 - (void)_sendPresenceUpdateToResidentForUser:(id)user presenceAuthStatus:(id)status authChanging:(BOOL)changing reason:(id)reason
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   userCopy = user;
   statusCopy = status;
   reasonCopy = reason;
@@ -809,11 +839,11 @@ LABEL_50:
   {
     v16 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v31 = v16;
-    v32 = 2112;
-    v33 = userCopy;
-    v34 = 2112;
-    v35 = statusCopy;
+    v30 = v16;
+    v31 = 2112;
+    v32 = userCopy;
+    v33 = 2112;
+    v34 = statusCopy;
     _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Status update of presence for user: %@, auth: %@", buf, 0x20u);
   }
 
@@ -823,16 +853,16 @@ LABEL_50:
     home = [(HMDHomePresenceBase *)selfCopy home];
     homeManager = [home homeManager];
     fmfHandler = [homeManager fmfHandler];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __101__HMDUserPresenceFeeder__sendPresenceUpdateToResidentForUser_presenceAuthStatus_authChanging_reason___block_invoke;
-    v25[3] = &unk_278674238;
-    v25[4] = selfCopy;
-    v26 = userCopy;
-    v27 = statusCopy;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __101__HMDUserPresenceFeeder__sendPresenceUpdateToResidentForUser_presenceAuthStatus_authChanging_reason___block_invoke;
+    v24[3] = &unk_278674238;
+    v24[4] = selfCopy;
+    v25 = userCopy;
+    v26 = statusCopy;
     changingCopy = changing;
-    v28 = reasonCopy;
-    [fmfHandler queryFMFStatusWithCompletion:v25];
+    v27 = reasonCopy;
+    [fmfHandler queryFMFStatusWithCompletion:v24];
   }
 
   else
@@ -844,14 +874,12 @@ LABEL_50:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v23;
+      v30 = v23;
       _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Cannot send the presence update as the user is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HMDUserPresenceFeeder__sendPresenceUpdateToResidentForUser_presenceAuthStatus_authChanging_reason___block_invoke(uint64_t a1, void *a2)
@@ -875,7 +903,7 @@ void __101__HMDUserPresenceFeeder__sendPresenceUpdateToResidentForUser_presenceA
 
 uint64_t __101__HMDUserPresenceFeeder__sendPresenceUpdateToResidentForUser_presenceAuthStatus_authChanging_reason___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -883,17 +911,15 @@ uint64_t __101__HMDUserPresenceFeeder__sendPresenceUpdateToResidentForUser_prese
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@FMF Device Status is %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@FMF Device Status is %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _sendPresenceUpdateToResidentForUser:*(a1 + 48) presenceAuthStatus:*(a1 + 56) authChanging:*(a1 + 72) reason:*(a1 + 64) fmfStatus:*(a1 + 40)];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendPresenceUpdateToResidentForUser:*(a1 + 48) presenceAuthStatus:*(a1 + 56) authChanging:*(a1 + 72) reason:*(a1 + 64) fmfStatus:*(a1 + 40)];
 }
 
 - (void)_sendPresenceUpdateToResident:(id)resident
@@ -925,27 +951,25 @@ uint64_t __101__HMDUserPresenceFeeder__sendPresenceUpdateToResidentForUser_prese
 
 uint64_t __40__HMDUserPresenceFeeder_residentChanged__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Trying to send report after resident changed", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Trying to send report after resident changed", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _sendPresenceReport:8];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendPresenceReport:8];
 }
 
 - (void)sendInitialPresenceUpdate
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomePresenceBase *)self workQueue];
 
   if (workQueue)
@@ -968,19 +992,17 @@ uint64_t __40__HMDUserPresenceFeeder_residentChanged__block_invoke(uint64_t a1)
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v8;
+      v11 = v8;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Could not send the initial presence as the presence feeder is not yet configured.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__HMDUserPresenceFeeder_sendInitialPresenceUpdate__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -989,22 +1011,20 @@ uint64_t __50__HMDUserPresenceFeeder_sendInitialPresenceUpdate__block_invoke(uin
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 32) home];
     v7 = [v6 currentUser];
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2112;
-    v13 = v7;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Sending the initial presence report for %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2112;
+    v12 = v7;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Sending the initial presence report for %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _sendPresenceReport:3];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendPresenceReport:3];
 }
 
 - (void)_handlePrivilegeUpdate:(id)update
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   userInfo = [updateCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"kUserUUIDKey"];
@@ -1025,13 +1045,13 @@ uint64_t __50__HMDUserPresenceFeeder_sendInitialPresenceUpdate__block_invoke(uin
   if (v8)
   {
     workQueue = [(HMDHomePresenceBase *)self workQueue];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __48__HMDUserPresenceFeeder__handlePrivilegeUpdate___block_invoke;
-    v15[3] = &unk_27868A750;
-    v15[4] = self;
-    v15[5] = v8;
-    dispatch_async(workQueue, v15);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __48__HMDUserPresenceFeeder__handlePrivilegeUpdate___block_invoke;
+    v14[3] = &unk_27868A750;
+    v14[4] = self;
+    v14[5] = v8;
+    dispatch_async(workQueue, v14);
   }
 
   else
@@ -1043,60 +1063,55 @@ uint64_t __50__HMDUserPresenceFeeder_sendInitialPresenceUpdate__block_invoke(uin
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v13;
+      v16 = v13;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@User privilege changed but the userInfo does not have the required key inside it.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDUserPresenceFeeder__handlePrivilegeUpdate___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) home];
   v3 = [v2 currentUser];
   v4 = [v3 uuid];
-  v5 = *(a1 + 40);
-  v6 = HMFEqualObjects();
+  v5 = HMFEqualObjects();
 
-  v7 = objc_autoreleasePoolPush();
-  v8 = *(a1 + 32);
-  v9 = HMFGetOSLogHandle();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_INFO);
-  if (v6)
+  v6 = objc_autoreleasePoolPush();
+  v7 = *(a1 + 32);
+  v8 = HMFGetOSLogHandle();
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
+  if (v5)
   {
-    if (v10)
+    if (v9)
     {
-      v11 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@User privilege changed: Updating presence map", &v15, 0xCu);
+      v10 = HMFGetLogIdentifier();
+      v13 = 138543362;
+      v14 = v10;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@User privilege changed: Updating presence map", &v13, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v6);
     [*(a1 + 32) _sendPresenceReport:12];
   }
 
   else
   {
-    if (v10)
+    if (v9)
     {
-      v12 = HMFGetLogIdentifier();
-      v13 = *(a1 + 40);
-      v15 = 138543618;
+      v11 = HMFGetLogIdentifier();
+      v12 = *(a1 + 40);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
       v16 = v12;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Not going to update the presence for [%@] as it is not the current user in the home", &v15, 0x16u);
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Not going to update the presence for [%@] as it is not the current user in the home", &v13, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v7);
+    objc_autoreleasePoolPop(v6);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleResidentDeviceConfirmed:(id)confirmed
@@ -1125,22 +1140,20 @@ void __48__HMDUserPresenceFeeder__handlePrivilegeUpdate___block_invoke(uint64_t 
 
 uint64_t __44__HMDUserPresenceFeeder_presenceAuthChanged__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Trying to send report after presence auth changed", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Trying to send report after presence auth changed", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _sendPresenceReport:9];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendPresenceReport:9];
 }
 
 - (void)presenceAuthStatusChangedForUser:(id)user presenceAuthStatus:(id)status
@@ -1192,7 +1205,7 @@ void __77__HMDUserPresenceFeeder_presenceAuthStatusChangedForUser_presenceAuthSt
 
 uint64_t __54__HMDUserPresenceFeeder_handleTimerFiredNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1200,22 +1213,20 @@ uint64_t __54__HMDUserPresenceFeeder_handleTimerFiredNotification___block_invoke
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Timer fired with ID: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Timer fired with ID: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _sendPresenceReport:7];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendPresenceReport:7];
 }
 
 - (void)_startRefreshTimer
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   timerID = [(HMDUserPresenceFeeder *)self timerID];
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -1224,9 +1235,9 @@ uint64_t __54__HMDUserPresenceFeeder_handleTimerFiredNotification___block_invoke
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v24 = v7;
-    v25 = 2112;
-    v26 = timerID;
+    v23 = v7;
+    v24 = 2112;
+    v25 = timerID;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting the refresh timer with ID: %@", buf, 0x16u);
   }
 
@@ -1243,9 +1254,9 @@ uint64_t __54__HMDUserPresenceFeeder_handleTimerFiredNotification___block_invoke
   v13 = [currentCalendar dateFromComponents:dateComponents];
 
   v14 = +[HMDBackgroundTaskManager sharedManager];
-  v22 = 0;
-  v15 = [v14 scheduleTaskWithIdentifier:timerID fireDate:v13 onObserver:selfCopy selector:sel_handleTimerFiredNotification_ error:&v22];
-  v16 = v22;
+  v21 = 0;
+  v15 = [v14 scheduleTaskWithIdentifier:timerID fireDate:v13 onObserver:selfCopy selector:sel_handleTimerFiredNotification_ error:&v21];
+  v16 = v21;
 
   if ((v15 & 1) == 0)
   {
@@ -1256,23 +1267,21 @@ uint64_t __54__HMDUserPresenceFeeder_handleTimerFiredNotification___block_invoke
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v24 = v20;
-      v25 = 2112;
-      v26 = timerID;
-      v27 = 2112;
-      v28 = v16;
+      v23 = v20;
+      v24 = 2112;
+      v25 = timerID;
+      v26 = 2112;
+      v27 = v16;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Failed to start timer %@ with error %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPresenceRegionStatus:(unint64_t)status
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -1281,13 +1290,13 @@ uint64_t __54__HMDUserPresenceFeeder_handleTimerFiredNotification___block_invoke
     v8 = HMFGetLogIdentifier();
     v9 = HMDUserPresenceRegionStatusAsString(selfCopy->_presenceRegionStatus);
     v10 = HMDUserPresenceRegionStatusAsString(status);
-    v15 = 138543874;
-    v16 = v8;
-    v17 = 2112;
-    v18 = v9;
-    v19 = 2112;
-    v20 = v10;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating presence status from %@ to %@", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v8;
+    v16 = 2112;
+    v17 = v9;
+    v18 = 2112;
+    v19 = v10;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updating presence status from %@ to %@", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -1314,8 +1323,6 @@ uint64_t __54__HMDUserPresenceFeeder_handleTimerFiredNotification___block_invoke
 
   v13 = [HMDUserPresenceUpdateReason reasonWithValue:v12];
   [(HMDUserPresenceFeeder *)selfCopy _sendPresenceUpdateToResident:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeDataLoadedNotification:(id)notification
@@ -1331,22 +1338,20 @@ uint64_t __54__HMDUserPresenceFeeder_handleTimerFiredNotification___block_invoke
 
 uint64_t __58__HMDUserPresenceFeeder_handleHomeDataLoadedNotification___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Received home data loaded notification, sending presence report", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Received home data loaded notification, sending presence report", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _sendPresenceReport:3];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendPresenceReport:3];
 }
 
 - (void)homeDataProcessed
@@ -1362,22 +1367,20 @@ uint64_t __58__HMDUserPresenceFeeder_handleHomeDataLoadedNotification___block_in
 
 uint64_t __42__HMDUserPresenceFeeder_homeDataProcessed__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Home data has been processed, trying to send presence report", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Home data has been processed, trying to send presence report", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _sendPresenceReport:11];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _sendPresenceReport:11];
 }
 
 - (void)fmfStatusUpdateNotification:(id)notification
@@ -1396,7 +1399,7 @@ uint64_t __42__HMDUserPresenceFeeder_homeDataProcessed__block_invoke(uint64_t a1
 
 void __53__HMDUserPresenceFeeder_fmfStatusUpdateNotification___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [HMDFMF fmfStatusWithDict:v2];
 
@@ -1406,22 +1409,20 @@ void __53__HMDUserPresenceFeeder_fmfStatusUpdateNotification___block_invoke(uint
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received FMF status update notification with %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received FMF status update notification with %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 40) _sendPresenceReport:4];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchCKAccountStatusAndSendPresenceReport
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDHomePresenceBase *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1434,7 +1435,7 @@ void __53__HMDUserPresenceFeeder_fmfStatusUpdateNotification___block_invoke(uint
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v13 = v7;
+      v12 = v7;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@CK Account fetch status already in progress. Not calling it again.", buf, 0xCu);
     }
 
@@ -1446,23 +1447,21 @@ void __53__HMDUserPresenceFeeder_fmfStatusUpdateNotification___block_invoke(uint
     [(HMDUserPresenceFeeder *)self setIsAccountStatusFetchInProgress:1];
     objc_initWeak(buf, self);
     v8 = getCKContainer();
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __66__HMDUserPresenceFeeder_fetchCKAccountStatusAndSendPresenceReport__block_invoke;
-    v10[3] = &unk_278674210;
-    objc_copyWeak(&v11, buf);
-    [v8 accountStatusWithCompletionHandler:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __66__HMDUserPresenceFeeder_fetchCKAccountStatusAndSendPresenceReport__block_invoke;
+    v9[3] = &unk_278674210;
+    objc_copyWeak(&v10, buf);
+    [v8 accountStatusWithCompletionHandler:v9];
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v10);
     objc_destroyWeak(buf);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void __66__HMDUserPresenceFeeder_fetchCKAccountStatusAndSendPresenceReport__block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __66__HMDUserPresenceFeeder_fetchCKAccountStatusAndSendPresenceReport__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v7 = objc_autoreleasePoolPush();
@@ -1472,13 +1471,13 @@ void __66__HMDUserPresenceFeeder_fetchCKAccountStatusAndSendPresenceReport__bloc
   {
     v10 = HMFGetLogIdentifier();
     v11 = [MEMORY[0x277CCABB0] numberWithInteger:a2];
-    v22 = 138543874;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v11;
-    v26 = 2112;
-    v27 = v5;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@CK accountStatus completed with %@, %@", &v22, 0x20u);
+    v21 = 138543874;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v11;
+    v25 = 2112;
+    v26 = v5;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@CK accountStatus completed with %@, %@", &v21, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -1493,11 +1492,11 @@ void __66__HMDUserPresenceFeeder_fetchCKAccountStatusAndSendPresenceReport__bloc
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         v15 = HMFGetLogIdentifier();
-        v22 = 138543618;
-        v23 = v15;
-        v24 = 2112;
-        v25 = v5;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@CK accountStatus failed with error: %@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v15;
+        v23 = 2112;
+        v24 = v5;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@CK accountStatus failed with error: %@", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -1513,19 +1512,17 @@ void __66__HMDUserPresenceFeeder_fetchCKAccountStatusAndSendPresenceReport__bloc
       {
         v19 = HMFGetLogIdentifier();
         v20 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v17, "ckAccountStatus")}];
-        v22 = 138543618;
-        v23 = v19;
-        v24 = 2112;
-        v25 = v20;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Updating the CK account status to %@. Sending the presence report", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v19;
+        v23 = 2112;
+        v24 = v20;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Updating the CK account status to %@. Sending the presence report", &v21, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
       [v17 _sendPresenceReport:10];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)accountAvailabilityChanged:(id)changed
@@ -1593,7 +1590,7 @@ void __66__HMDUserPresenceFeeder_fetchCKAccountStatusAndSendPresenceReport__bloc
   }
 }
 
-uint64_t __53__HMDUserPresenceFeeder_configure_messageDispatcher___block_invoke(uint64_t a1)
+void *__53__HMDUserPresenceFeeder_configure_messageDispatcher___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) presenceRegionStatus];
   if (!result)
@@ -1665,10 +1662,9 @@ uint64_t __53__HMDUserPresenceFeeder_configure_messageDispatcher___block_invoke(
 
 void __36__HMDUserPresenceFeeder_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v52;
-  logCategory__hmf_once_v52 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v52;
+  logCategory__hmf_once_v52 = v0;
 }
 
 @end

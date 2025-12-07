@@ -178,25 +178,23 @@
   v6 = 0;
   v7 = *(*(field + 1) + 30);
   valueSet = self->_valueSet;
-  values = self->_values;
-  v10 = 1;
+  v9 = 1;
   do
   {
-    v11 = v10;
+    v10 = v9;
     if (valueSet[v4])
     {
       ++v5;
-      v12 = GPBComputeBoolSize(1);
-      v13 = values[v4];
-      v14 = sub_1003211A4(v7) + v12;
-      v6 += v14 + GPBComputeRawVarint32SizeForInteger(v14);
+      v11 = GPBComputeBoolSize(1);
+      v12 = sub_1003211A4(v7) + v11;
+      v6 += v12 + GPBComputeRawVarint32SizeForInteger(v12);
     }
 
-    v10 = 0;
+    v9 = 0;
     v4 = 1;
   }
 
-  while ((v11 & 1) != 0);
+  while ((v10 & 1) != 0);
   return v6 + GPBComputeWireFormatTagSize(*(*(field + 1) + 16), 15) * v5;
 }
 
@@ -217,7 +215,6 @@
     {
       [stream writeInt32NoTag:Tag];
       v15 = GPBComputeBoolSize(1);
-      v16 = values[v10];
       [stream writeInt32NoTag:sub_1003211A4(v7) + v15];
       [stream writeBool:1 value:v9 & 1];
       sub_10032131C(stream, v7, values[v10]);

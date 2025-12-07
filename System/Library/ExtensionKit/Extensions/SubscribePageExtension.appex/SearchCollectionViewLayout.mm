@@ -43,22 +43,25 @@
 
 - (id)layoutAttributesForElementsInRect:(CGRect)rect
 {
+  height = rect.size.height;
+  width = rect.size.width;
+  y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  v5 = sub_100463AFC(x);
+  v8 = sub_100463AFC(x, y, width, height);
 
-  if (v5)
+  if (v8)
   {
-    sub_100016C60(0, &qword_100923730);
-    v6.super.isa = sub_100753294().super.isa;
+    sub_100016C60(0, &qword_100923730, UICollectionViewLayoutAttributes_ptr);
+    v9.super.isa = sub_100753294().super.isa;
   }
 
   else
   {
-    v6.super.isa = 0;
+    v9.super.isa = 0;
   }
 
-  return v6.super.isa;
+  return v9.super.isa;
 }
 
 - (id)layoutAttributesForItemAtIndexPath:(id)path

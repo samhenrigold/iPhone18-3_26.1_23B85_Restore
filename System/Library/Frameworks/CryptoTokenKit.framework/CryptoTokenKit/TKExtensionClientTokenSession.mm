@@ -192,17 +192,21 @@ void __84__TKExtensionClientTokenSession_ensureSessionWithClient_connectionIdent
       if (lastUsedRegisteredTokenID)
       {
         v12 = wasPINCredentialProvidedByPINUI;
-        if (([lastUsedRegisteredTokenID isEqual:dCopy] & 1) == 0 && (v12 || !-[TKExtensionClientTokenSession wasPINCredentialInitiallySet](self, "wasPINCredentialInitiallySet")))
+        v13 = [lastUsedRegisteredTokenID isEqual:dCopy];
+        if ((v13 & 1) == 0)
         {
-          v13 = TK_LOG_client_0();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          if (v12 || (v13 = [(TKExtensionClientTokenSession *)self wasPINCredentialInitiallySet], (v13 & 1) == 0))
           {
-            [TKExtensionClientTokenSession _clearCredentialIfNeededForTokenID:v13 inContext:?];
-          }
+            v14 = TK_LOG_client_0(v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+            {
+              [TKExtensionClientTokenSession _clearCredentialIfNeededForTokenID:v14 inContext:?];
+            }
 
-          [v8 setCredential:0 type:-3];
-          [(TKExtensionClientTokenSession *)self setLastUsedRegisteredTokenID:0];
-          [(TKExtensionClientTokenSession *)self setWasPINCredentialProvidedByPINUI:0];
+            [v8 setCredential:0 type:-3];
+            [(TKExtensionClientTokenSession *)self setLastUsedRegisteredTokenID:0];
+            [(TKExtensionClientTokenSession *)self setWasPINCredentialProvidedByPINUI:0];
+          }
         }
       }
     }
@@ -247,10 +251,10 @@ void __84__TKExtensionClientTokenSession_ensureSessionWithClient_connectionIdent
 
             if (v14)
             {
-              v15 = TK_LOG_client_0();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+              v16 = TK_LOG_client_0(v15);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
               {
-                [TKExtensionClientTokenSession handleErrorForRegisteredSmartcards:smartcardsCopy forToken:v15];
+                [TKExtensionClientTokenSession handleErrorForRegisteredSmartcards:smartcardsCopy forToken:v16];
               }
 
               lAContext4 = [(TKClientTokenSession *)self LAContext];
@@ -347,12 +351,12 @@ id __64__TKExtensionClientTokenSession_withError_accessControl_invoke___block_in
 LABEL_23:
       if (a4)
       {
-        v27 = v12;
+        v28 = v12;
         *a4 = v12;
       }
 
 LABEL_25:
-      v28 = v10;
+      v29 = v10;
       goto LABEL_35;
     }
 
@@ -384,12 +388,13 @@ LABEL_25:
     v20 = [v19 objectForKeyedSubscript:@"operation"];
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v29 = TK_LOG_client_0();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+      v30 = TK_LOG_client_0(isKindOfClass);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
       {
-        [TKSEPClientTokenObject withError:v12 invoke:v29];
+        [TKSEPClientTokenObject withError:v12 invoke:v30];
       }
 
       if (a4)
@@ -406,7 +411,6 @@ LABEL_35:
 
     if ([*(a1 + 32) _testing_AuthenticateInternally])
     {
-      v21 = *(a1 + 72);
       v22 = SecAccessControlCopyData();
       v23 = [*(a1 + 32) evaluateAccessControl:v22 forOperation:v20 error:a4];
 
@@ -442,8 +446,8 @@ LABEL_35:
   }
 
   while (v9);
-  v26 = TK_LOG_client_0();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
+  v27 = TK_LOG_client_0(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
   {
     v32 = [*(a1 + 32) token];
     v33 = [v32 tokenID];
@@ -454,7 +458,7 @@ LABEL_35:
     v39 = v34;
     v40 = 2114;
     v41 = v20;
-    _os_log_fault_impl(&dword_1DF413000, v26, OS_LOG_TYPE_FAULT, "authentication failed repeatedly: tkid=%{public}@, ac=%{public}@, op=%{public}@", buf, 0x20u);
+    _os_log_fault_impl(&dword_1DF413000, v27, OS_LOG_TYPE_FAULT, "authentication failed repeatedly: tkid=%{public}@, ac=%{public}@, op=%{public}@", buf, 0x20u);
   }
 
   if (a4)
@@ -470,8 +474,6 @@ LABEL_35:
 
   v8 = v20;
 LABEL_36:
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -874,108 +876,106 @@ id __48__TKExtensionClientTokenSession_advertisedItems__block_invoke(uint64_t a1
 
 - (id)itemsOfClass:(id)class
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   classCopy = class;
-  v19 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v18 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   selfCopy = self;
   advertisedItems = [(TKExtensionClientTokenSession *)self advertisedItems];
-  v7 = [advertisedItems countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [advertisedItems countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     v10 = *MEMORY[0x1E697AFF8];
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(advertisedItems);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * i);
+        v12 = *(*(&v19 + 1) + 8 * i);
         v13 = [v12 objectForKeyedSubscript:v10];
         v14 = [v13 isEqual:classCopy];
 
         if (v14)
         {
           v15 = [[TKClientTokenAdvertisedItem alloc] initWithSession:selfCopy keychainAttributes:v12 secRef:0];
-          [v19 addObject:v15];
+          [v18 addObject:v15];
         }
       }
 
-      v8 = [advertisedItems countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [advertisedItems countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
-  v16 = [v19 copy];
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = [v18 copy];
 
   return v16;
 }
 
 - (id)identities
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v24 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v45 = *MEMORY[0x1E69E9840];
+  v23 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v39 = 0u;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
   selfCopy = self;
   obj = [(TKExtensionClientTokenSession *)self keys];
-  v31 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
-  if (v31)
+  v29 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
+  if (v29)
   {
-    v30 = *v42;
-    v35 = *MEMORY[0x1E697AE60];
-    v34 = *MEMORY[0x1E697AC40];
-    v28 = *MEMORY[0x1E697B010];
-    v26 = *MEMORY[0x1E697ADC8];
-    v27 = *MEMORY[0x1E697AFF8];
-    v25 = *MEMORY[0x1E695E480];
+    v28 = *v40;
+    v33 = *MEMORY[0x1E697AE60];
+    v32 = *MEMORY[0x1E697AC40];
+    v26 = *MEMORY[0x1E697B010];
+    v24 = *MEMORY[0x1E697ADC8];
+    v25 = *MEMORY[0x1E697AFF8];
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v42 != v30)
+        if (*v40 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v36 = *(*(&v41 + 1) + 8 * i);
+        v34 = *(*(&v39 + 1) + 8 * i);
+        v35 = 0u;
+        v36 = 0u;
         v37 = 0u;
         v38 = 0u;
-        v39 = 0u;
-        v40 = 0u;
         certificates = [(TKExtensionClientTokenSession *)selfCopy certificates];
-        v5 = [certificates countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v5 = [certificates countByEnumeratingWithState:&v35 objects:v43 count:16];
         if (v5)
         {
           v6 = v5;
-          v33 = i;
-          v7 = *v38;
+          v31 = i;
+          v7 = *v36;
 LABEL_8:
           v8 = 0;
           while (1)
           {
-            if (*v38 != v7)
+            if (*v36 != v7)
             {
               objc_enumerationMutation(certificates);
             }
 
-            v9 = *(*(&v37 + 1) + 8 * v8);
+            v9 = *(*(&v35 + 1) + 8 * v8);
             keychainAttributes = [v9 keychainAttributes];
-            v11 = [keychainAttributes objectForKeyedSubscript:v35];
-            keychainAttributes2 = [v36 keychainAttributes];
-            v13 = [keychainAttributes2 objectForKeyedSubscript:v34];
+            v11 = [keychainAttributes objectForKeyedSubscript:v33];
+            keychainAttributes2 = [v34 keychainAttributes];
+            v13 = [keychainAttributes2 objectForKeyedSubscript:v32];
             v14 = [v11 isEqual:v13];
 
             if (v14)
@@ -985,42 +985,42 @@ LABEL_8:
 
             if (v6 == ++v8)
             {
-              v6 = [certificates countByEnumeratingWithState:&v37 objects:v45 count:16];
+              v6 = [certificates countByEnumeratingWithState:&v35 objects:v43 count:16];
               if (v6)
               {
                 goto LABEL_8;
               }
 
               v15 = certificates;
-              i = v33;
+              i = v31;
               goto LABEL_23;
             }
           }
 
           v15 = v9;
 
-          i = v33;
+          i = v31;
           if (!v15)
           {
             continue;
           }
 
-          keychainAttributes3 = [v36 keychainAttributes];
+          keychainAttributes3 = [v34 keychainAttributes];
           v17 = [keychainAttributes3 mutableCopy];
 
-          [v17 setObject:v28 forKeyedSubscript:v27];
+          [v17 setObject:v26 forKeyedSubscript:v25];
           localizedName = [v15 localizedName];
-          [v17 setObject:localizedName forKeyedSubscript:v26];
+          [v17 setObject:localizedName forKeyedSubscript:v24];
 
-          if ([v36 keyRef] && objc_msgSend(v15, "certificateRef"))
+          if ([v34 keyRef] && objc_msgSend(v15, "certificateRef"))
           {
             [v15 certificateRef];
-            [v36 keyRef];
+            [v34 keyRef];
             v19 = SecIdentityCreate();
             if (v19)
             {
               v20 = [[TKClientTokenAdvertisedItem alloc] initWithSession:selfCopy keychainAttributes:v17 secRef:v19];
-              [v24 addObject:v20];
+              [v23 addObject:v20];
             }
           }
         }
@@ -1033,14 +1033,13 @@ LABEL_8:
 LABEL_23:
       }
 
-      v31 = [obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v29 = [obj countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
-    while (v31);
+    while (v29);
   }
 
-  v21 = [v24 copy];
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = [v23 copy];
 
   return v21;
 }
@@ -1085,11 +1084,10 @@ id __41__TKExtensionClientTokenSession_slotName__block_invoke(uint64_t a1, void 
 
 - (void)handleErrorForRegisteredSmartcards:(uint64_t)a1 forToken:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Deleting set PIN credential due to auth error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1DF413000, a2, OS_LOG_TYPE_DEBUG, "Deleting set PIN credential due to auth error: %@", &v2, 0xCu);
 }
 
 @end

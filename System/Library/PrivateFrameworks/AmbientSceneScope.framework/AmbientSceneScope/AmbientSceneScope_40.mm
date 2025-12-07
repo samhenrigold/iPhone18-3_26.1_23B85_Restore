@@ -1,305 +1,34 @@
-uint64_t sub_23F2487A8(uint64_t a1)
-{
-  v2 = *(a1 + 72);
-  if (!v2)
-  {
-    goto LABEL_17;
-  }
-
-  if (*(a1 + 92))
-  {
-    v3 = *(a1 + 88) == 0;
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  v4 = *(a1 + 96);
-  if (v3)
-  {
-    v4 = 0;
-  }
-
-  if (v4 * (*(a1 + 108) >> 1) != -1)
-  {
-    goto LABEL_16;
-  }
-
-  sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
-  if (byte_27E3961A0 == 1)
-  {
-    if (byte_27E3961A8 != 1)
-    {
-      goto LABEL_15;
-    }
-
-    v5 = qword_27E396178;
-    v6 = unk_27E396180;
-    if (qword_27E396178 == unk_27E396180)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  else
-  {
-    v5 = qword_27E396178;
-    v6 = unk_27E396180;
-    if (qword_27E396178 == unk_27E396180)
-    {
-      goto LABEL_18;
-    }
-  }
-
-  do
-  {
-    (*v5)(*(v5 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-    v5 += 16;
-  }
-
-  while (v5 != v6);
-  if ((byte_27E3961A0 & 1) == 0)
-  {
-LABEL_18:
-    abort();
-  }
-
-LABEL_15:
-  qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-  v2 = *(a1 + 72);
-  if (v2)
-  {
-LABEL_16:
-    free(v2);
-  }
-
-LABEL_17:
-  *(a1 + 72) = 0;
-  return a1;
-}
-
-void sub_23F248910(uint64_t a1)
-{
-  v2 = *(a1 + 72);
-  if (!v2)
-  {
-    goto LABEL_17;
-  }
-
-  if (*(a1 + 92))
-  {
-    v3 = *(a1 + 88) == 0;
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  v4 = *(a1 + 96);
-  if (v3)
-  {
-    v4 = 0;
-  }
-
-  if (v4 * (*(a1 + 108) >> 1) != -1)
-  {
-LABEL_16:
-    free(v2);
-LABEL_17:
-    *(a1 + 72) = 0;
-
-    JUMPOUT(0x245CACD00);
-  }
-
-  sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
-  if (byte_27E3961A0 == 1)
-  {
-    if (byte_27E3961A8 != 1)
-    {
-      goto LABEL_15;
-    }
-
-    v5 = qword_27E396178;
-    v6 = unk_27E396180;
-    if (qword_27E396178 == unk_27E396180)
-    {
-      goto LABEL_15;
-    }
-  }
-
-  else
-  {
-    v5 = qword_27E396178;
-    v6 = unk_27E396180;
-    if (qword_27E396178 == unk_27E396180)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  do
-  {
-    (*v5)(*(v5 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-    v5 += 16;
-  }
-
-  while (v5 != v6);
-  if (byte_27E3961A0)
-  {
-LABEL_15:
-    qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-    v2 = *(a1 + 72);
-    if (!v2)
-    {
-      goto LABEL_17;
-    }
-
-    goto LABEL_16;
-  }
-
-LABEL_20:
-  abort();
-}
-
-void sub_23F248B54(uint64_t a1, char **lpsrc)
-{
-  v30 = *MEMORY[0x277D85DE8];
-  v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851857C0, 0);
-  if (!v6)
-  {
-    (*(v4 + 9))(&v24, lpsrc, 39);
-    v9 = *(v24 + 16);
-    v8 = *(v24 + 32);
-    v22[0] = *v24;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v24 = 0;
-    MEMORY[0x245CACD00]();
-    v10 = *(a1 + 72);
-    if (*(a1 + 36))
-    {
-      v11 = *(a1 + 32) == 0;
-    }
-
-    else
-    {
-      v11 = 1;
-    }
-
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
-    {
-      v12 = 0;
-    }
-
-    LODWORD(v24) = 4;
-    *(&v24 + 4) = v12;
-    v14 = v12;
-    v15 = v24;
-    v16 = HIDWORD(v12);
-    LODWORD(v24) = 1;
-    *(&v24 + 4) = v13;
-    v17 = v24;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
-    {
-      goto LABEL_19;
-    }
-
-    v21 = v10;
-    sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
-    if (byte_27E3961A0 == 1)
-    {
-      if (byte_27E3961A8 != 1 || (v19 = qword_27E396178, v18 = unk_27E396180, qword_27E396178 == unk_27E396180))
-      {
-LABEL_18:
-        qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
-LABEL_19:
-        *&v24 = v10;
-        *(&v24 + 1) = v15;
-        v25 = v16;
-        v26 = v17;
-        v27 = HIDWORD(v13);
-        v28 = v14;
-        v29 = v13;
-        v23[0] = v22;
-        v23[1] = &v24;
-        sub_23F1F70F8(v23);
-        v20 = *MEMORY[0x277D85DE8];
-        return;
-      }
-    }
-
-    else
-    {
-      v19 = qword_27E396178;
-      v18 = unk_27E396180;
-      if (qword_27E396178 == unk_27E396180)
-      {
-        goto LABEL_20;
-      }
-    }
-
-    do
-    {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
-    }
-
-    while (v19 != v18);
-    if (byte_27E3961A0)
-    {
-      goto LABEL_18;
-    }
-
-LABEL_20:
-    abort();
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_23F270F20(a1 + 8, v6 + 2);
-}
-
 void sub_23F248E44(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 39)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -309,8 +38,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -319,13 +48,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -338,7 +67,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -348,8 +77,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -358,13 +87,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -375,37 +104,35 @@ LABEL_9:
 
 void sub_23F249144(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 39)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -415,8 +142,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -425,13 +152,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -444,7 +171,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -454,8 +181,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -464,13 +191,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -507,80 +234,78 @@ void sub_23F249480(uint64_t a1)
   JUMPOUT(0x245CACD00);
 }
 
-void sub_23F249594(uint64_t a1, char **lpsrc)
+void sub_23F249594(uint64_t a1, uint64_t *lpsrc)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *lpsrc;
-  v5 = **lpsrc;
-  v6 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851857D8, 0);
-  if (!v6)
+  v5 = __dynamic_cast(lpsrc, &unk_28518B5C0, &unk_2851857D8, 0);
+  if (!v5)
   {
-    (*(v4 + 9))(&v23, lpsrc, 40);
-    v9 = *(v23 + 16);
-    v8 = *(v23 + 32);
-    v22[0] = *v23;
-    v22[1] = v9;
-    v22[2] = v8;
-    *&v23 = 0;
+    (*(v4 + 72))(&v20, lpsrc, 40);
+    v7 = *(v20 + 16);
+    v6 = *(v20 + 32);
+    v19[0] = *v20;
+    v19[1] = v7;
+    v19[2] = v6;
+    *&v20 = 0;
     MEMORY[0x245CACD00]();
-    v10 = *(a1 + 72);
+    v8 = *(a1 + 72);
     if (*(a1 + 36))
     {
-      v11 = *(a1 + 32) == 0;
+      v9 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v11 = 1;
+      v9 = 1;
     }
 
-    v12 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    if (v11)
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    if (v9)
     {
-      v12 = 0;
+      v10 = 0;
     }
 
-    LODWORD(v23) = 4;
-    *(&v23 + 4) = v12;
-    v14 = v12;
-    v15 = v23;
-    v16 = HIDWORD(v12);
-    LODWORD(v23) = 1;
-    *(&v23 + 4) = v13;
-    v17 = v23;
-    if (HIDWORD(v13) * HIDWORD(v12) != -1)
+    LODWORD(v20) = 4;
+    *(&v20 + 4) = v10;
+    v12 = v10;
+    v13 = v20;
+    v14 = HIDWORD(v10);
+    LODWORD(v20) = 1;
+    *(&v20 + 4) = v11;
+    v15 = v20;
+    if (HIDWORD(v11) * HIDWORD(v10) != -1)
     {
       goto LABEL_19;
     }
 
-    v21 = v10;
+    v18 = v8;
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v19 = qword_27E396178, v18 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v17 = qword_27E396178, v16 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_18:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v10 = v21;
+        v8 = v18;
 LABEL_19:
-        *&v23 = v10;
-        *(&v23 + 1) = v15;
-        v24 = v16;
-        v25 = v17;
-        v26 = HIDWORD(v13);
-        v27 = v14;
-        v28 = v13;
-        sub_23F1DFAEC(v22, &v23);
-        v20 = *MEMORY[0x277D85DE8];
+        *&v20 = v8;
+        *(&v20 + 1) = v13;
+        v21 = v14;
+        v22 = v15;
+        v23 = HIDWORD(v11);
+        v24 = v12;
+        v25 = v11;
+        sub_23F1DFAEC(v19, &v20);
         return;
       }
     }
 
     else
     {
-      v19 = qword_27E396178;
-      v18 = unk_27E396180;
+      v17 = qword_27E396178;
+      v16 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_20;
@@ -589,11 +314,11 @@ LABEL_19:
 
     do
     {
-      (*v19)(*(v19 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v19 += 16;
+      (*v17)(*(v17 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v17 += 16;
     }
 
-    while (v19 != v18);
+    while (v17 != v16);
     if (byte_27E3961A0)
     {
       goto LABEL_18;
@@ -603,44 +328,40 @@ LABEL_20:
     abort();
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
-  sub_23F271B7C(a1 + 8, v6 + 2);
+  sub_23F271B7C(a1 + 8, v5 + 2);
 }
 
 void sub_23F24987C(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 40)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -650,8 +371,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -660,13 +381,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -679,7 +400,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 78, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -689,8 +410,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -699,13 +420,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -716,37 +437,35 @@ LABEL_9:
 
 void sub_23F249B7C(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (a2 == 40)
   {
 LABEL_10:
     if (*(a1 + 36))
     {
-      v7 = *(a1 + 32) == 0;
+      v8 = *(a1 + 32) == 0;
     }
 
     else
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = *(a1 + 32);
-    if (v7)
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      HIDWORD(v8) = 0;
+      HIDWORD(v9) = 0;
     }
 
-    if (HIDWORD(*(a1 + 40)) * HIDWORD(v8) != -1)
+    if (HIDWORD(*(a1 + 40)) * HIDWORD(v9) != -1)
     {
 LABEL_24:
       operator new();
     }
 
-    v13 = *(a1 + 72);
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v9 = qword_27E396178, v10 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v10 = qword_27E396178, v11 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_23:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
@@ -756,8 +475,8 @@ LABEL_23:
 
     else
     {
-      v9 = qword_27E396178;
-      v10 = unk_27E396180;
+      v10 = qword_27E396178;
+      v11 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_25;
@@ -766,13 +485,13 @@ LABEL_23:
 
     do
     {
-      v12 = *v9;
-      v11 = *(v9 + 8);
-      v9 += 16;
-      v12(v11, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v13 = *v10;
+      v12 = *(v10 + 8);
+      v10 += 16;
+      v13(v12, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
     }
 
-    while (v9 != v10);
+    while (v10 != v11);
     if (byte_27E3961A0)
     {
       goto LABEL_23;
@@ -785,7 +504,7 @@ LABEL_25:
   sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/src/ImageStorage.cpp", 84, "F == format", 0xBuLL, &unk_23F3091D6, 0, sub_23F303DA4);
   if (byte_27E3961A0 == 1)
   {
-    if (byte_27E3961A8 != 1 || (v3 = qword_27E396178, v4 = unk_27E396180, qword_27E396178 == unk_27E396180))
+    if (byte_27E3961A8 != 1 || (v4 = qword_27E396178, v5 = unk_27E396180, qword_27E396178 == unk_27E396180))
     {
 LABEL_9:
       qword_27E396190(*algn_27E396198, "F == format", 11, &unk_23F3091D6, 0);
@@ -795,8 +514,8 @@ LABEL_9:
 
   else
   {
-    v3 = qword_27E396178;
-    v4 = unk_27E396180;
+    v4 = qword_27E396178;
+    v5 = unk_27E396180;
     if (qword_27E396178 == unk_27E396180)
     {
       goto LABEL_25;
@@ -805,13 +524,13 @@ LABEL_9:
 
   do
   {
-    v6 = *v3;
-    v5 = *(v3 + 8);
-    v3 += 16;
-    v6(v5, "F == format", 11, &unk_23F3091D6, 0);
+    v7 = *v4;
+    v6 = *(v4 + 8);
+    v4 += 16;
+    v7(v6, "F == format", 11, &unk_23F3091D6, 0);
   }
 
-  while (v3 != v4);
+  while (v4 != v5);
   if ((byte_27E3961A0 & 1) == 0)
   {
     goto LABEL_25;
@@ -1218,7 +937,7 @@ void sub_23F24A1C8(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 
 void sub_23F24A300(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -1340,12 +1059,11 @@ void sub_23F24A300(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_23F24A4D8@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -1368,13 +1086,13 @@ double sub_23F24A4D8@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 
   v5 = 2 * (v4 != 0);
   LODWORD(v6) = v5 * v4;
-  *v26 = 2;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 2;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -1394,19 +1112,19 @@ double sub_23F24A4D8@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 & 0x1FFFFFFFFLL | ((v6 >> 1) << 33);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -1427,7 +1145,7 @@ double sub_23F24A4D8@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -1438,7 +1156,7 @@ double sub_23F24A4D8@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -1449,28 +1167,27 @@ double sub_23F24A4D8@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_23F26D0A4(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_23F26D0A4(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_285188740;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_23F24A678(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -1601,12 +1318,11 @@ void sub_23F24A678(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_23F24A848@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -1623,8 +1339,8 @@ double sub_23F24A848@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v4 = 0;
   }
 
-  *v26 = 3;
-  *&v26[4] = v4;
+  *v25 = 3;
+  *&v25[4] = v4;
   if (v4)
   {
     v5 = 3;
@@ -1636,13 +1352,13 @@ double sub_23F24A848@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   LODWORD(v6) = v5 * v4;
-  *v26 = 3;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 3;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -1662,19 +1378,19 @@ double sub_23F24A848@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 | (v6 << 32);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -1695,7 +1411,7 @@ double sub_23F24A848@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -1706,7 +1422,7 @@ double sub_23F24A848@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -1717,28 +1433,27 @@ double sub_23F24A848@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_23F26D0A4(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_23F26D0A4(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_285188940;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_23F24A9E4(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -1860,12 +1575,11 @@ void sub_23F24A9E4(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_23F24ABBC@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -1884,13 +1598,13 @@ double sub_23F24ABBC@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 
   v5 = 4 * (v4 != 0);
   LODWORD(v6) = v5 * v4;
-  *v26 = 4;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 4;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -1910,19 +1624,19 @@ double sub_23F24ABBC@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 & 0x3FFFFFFFFLL | ((v6 >> 2) << 34);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -1943,7 +1657,7 @@ double sub_23F24ABBC@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -1954,7 +1668,7 @@ double sub_23F24ABBC@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -1965,28 +1679,27 @@ double sub_23F24ABBC@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_23F26D0A4(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_23F26D0A4(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_285188B40;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_23F24AD60(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -2117,12 +1830,11 @@ void sub_23F24AD60(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_23F24AF30@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -2139,8 +1851,8 @@ double sub_23F24AF30@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v4 = 0;
   }
 
-  *v26 = 3;
-  *&v26[4] = v4;
+  *v25 = 3;
+  *&v25[4] = v4;
   if (v4)
   {
     v5 = 3;
@@ -2152,13 +1864,13 @@ double sub_23F24AF30@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   LODWORD(v6) = v5 * v4;
-  *v26 = 3;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 3;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -2178,19 +1890,19 @@ double sub_23F24AF30@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 | (v6 << 32);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -2211,7 +1923,7 @@ double sub_23F24AF30@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -2222,7 +1934,7 @@ double sub_23F24AF30@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -2233,28 +1945,27 @@ double sub_23F24AF30@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_23F26D0A4(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_23F26D0A4(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_285188D40;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_23F24B0CC(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -2385,12 +2096,11 @@ void sub_23F24B0CC(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_23F24B29C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -2407,8 +2117,8 @@ double sub_23F24B29C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v4 = 0;
   }
 
-  *v26 = 3;
-  *&v26[4] = v4;
+  *v25 = 3;
+  *&v25[4] = v4;
   if (v4)
   {
     v5 = 3;
@@ -2420,13 +2130,13 @@ double sub_23F24B29C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   LODWORD(v6) = v5 * v4;
-  *v26 = 3;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 3;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -2446,19 +2156,19 @@ double sub_23F24B29C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 | (v6 << 32);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -2479,7 +2189,7 @@ double sub_23F24B29C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -2490,7 +2200,7 @@ double sub_23F24B29C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -2501,28 +2211,27 @@ double sub_23F24B29C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_23F26D0A4(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_23F26D0A4(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_285185098;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_23F24B438(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -2644,12 +2353,11 @@ void sub_23F24B438(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_23F24B610@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -2668,13 +2376,13 @@ double sub_23F24B610@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 
   v5 = 4 * (v4 != 0);
   LODWORD(v6) = v5 * v4;
-  *v26 = 4;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 4;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -2694,19 +2402,19 @@ double sub_23F24B610@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 & 0x3FFFFFFFFLL | ((v6 >> 2) << 34);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -2727,7 +2435,7 @@ double sub_23F24B610@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -2738,7 +2446,7 @@ double sub_23F24B610@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -2749,28 +2457,27 @@ double sub_23F24B610@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_23F26D0A4(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_23F26D0A4(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_285188EC0;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_23F24B7B4(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -2892,12 +2599,11 @@ void sub_23F24B7B4(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_23F24B98C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -2916,13 +2622,13 @@ double sub_23F24B98C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 
   v5 = 4 * (v4 != 0);
   LODWORD(v6) = v5 * v4;
-  *v26 = 4;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 4;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -2942,19 +2648,19 @@ double sub_23F24B98C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 & 0x3FFFFFFFFLL | ((v6 >> 2) << 34);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -2975,7 +2681,7 @@ double sub_23F24B98C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -2986,7 +2692,7 @@ double sub_23F24B98C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -2997,28 +2703,27 @@ double sub_23F24B98C@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_23F26D0A4(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_23F26D0A4(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_285185318;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_23F24BB30(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -3140,12 +2845,11 @@ void sub_23F24BB30(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_23F24BD08@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -3164,13 +2868,13 @@ double sub_23F24BD08@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 
   v5 = 4 * (v4 != 0);
   LODWORD(v6) = v5 * v4;
-  *v26 = 4;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 4;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -3190,19 +2894,19 @@ double sub_23F24BD08@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 & 0x3FFFFFFFFLL | ((v6 >> 2) << 34);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -3223,7 +2927,7 @@ double sub_23F24BD08@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -3234,7 +2938,7 @@ double sub_23F24BD08@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -3245,28 +2949,27 @@ double sub_23F24BD08@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_23F26D0A4(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_23F26D0A4(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_285189040;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
 void sub_23F24BEAC(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -3388,12 +3091,11 @@ void sub_23F24BEAC(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   *(a2 + 96) = v13;
   *(a2 + 100) = v11;
   *(a2 + 108) = v8;
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 double sub_23F24C084@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (a1[1])
   {
     v3 = *a1 == 0;
@@ -3412,13 +3114,13 @@ double sub_23F24C084@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
 
   v5 = 4 * (v4 != 0);
   LODWORD(v6) = v5 * v4;
-  *v26 = 4;
-  *&v26[4] = v4;
-  v7 = *v26;
+  *v25 = 4;
+  *&v25[4] = v4;
+  v7 = *v25;
   v8 = HIDWORD(v4);
-  if (HIDWORD(*v26))
+  if (HIDWORD(*v25))
   {
-    v9 = *v26 == 0;
+    v9 = *v25 == 0;
   }
 
   else
@@ -3438,19 +3140,19 @@ double sub_23F24C084@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
   }
 
   v11 = v5 & 0x3FFFFFFFFLL | ((v6 >> 2) << 34);
-  *v26 = 1;
-  *&v26[4] = v11;
-  v12 = *v26;
-  *v26 = v7;
-  *&v26[8] = HIDWORD(v4);
-  *&v26[12] = v12;
-  *&v26[20] = v6;
-  *&v26[24] = v4;
-  *&v27 = v11;
-  BYTE8(v27) = 0;
-  BYTE4(v28) = 0;
-  v24 = v12;
-  v25 = v6;
+  *v25 = 1;
+  *&v25[4] = v11;
+  v12 = *v25;
+  *v25 = v7;
+  *&v25[8] = HIDWORD(v4);
+  *&v25[12] = v12;
+  *&v25[20] = v6;
+  *&v25[24] = v4;
+  *&v26 = v11;
+  BYTE8(v26) = 0;
+  BYTE4(v27) = 0;
+  v23 = v12;
+  v24 = v6;
   if (v8)
   {
     v13 = v10;
@@ -3471,7 +3173,7 @@ double sub_23F24C084@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v14 = v7;
   }
 
-  v22 = v14;
+  v21 = v14;
   if (v10)
   {
     v15 = 0;
@@ -3482,7 +3184,7 @@ double sub_23F24C084@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v15 = v8;
   }
 
-  v23 = v15;
+  v22 = v15;
   if (((2 * v6) & (2 * v6 - 1)) != 0)
   {
     v16 = 2;
@@ -3493,46 +3195,45 @@ double sub_23F24C084@<D0>(_DWORD *a1@<X1>, uint64_t a2@<X8>)
     v16 = 2 * v6;
   }
 
-  sub_23F26D0A4(v29, &v22, &v24, 1, 0, 0, v16);
-  v17 = *&v26[16];
-  *(a2 + 8) = *v26;
+  sub_23F26D0A4(v28, &v21, &v23, 1, 0, 0, v16);
+  v17 = *&v25[16];
+  *(a2 + 8) = *v25;
   *a2 = &unk_285185598;
   *(a2 + 24) = v17;
-  *(a2 + 40) = v27;
-  v18 = v29[0];
-  *(a2 + 56) = v28;
+  *(a2 + 40) = v26;
+  v18 = v28[0];
+  *(a2 + 56) = v27;
   *(a2 + 64) = v18;
-  v19 = v29[2];
-  *(a2 + 72) = v29[1];
+  v19 = v28[2];
+  *(a2 + 72) = v28[1];
   *(a2 + 80) = v19;
-  *(a2 + 104) = v31;
-  result = *&v30;
-  *(a2 + 88) = v30;
-  v21 = *MEMORY[0x277D85DE8];
+  *(a2 + 104) = v30;
+  result = *&v29;
+  *(a2 + 88) = v29;
   return result;
 }
 
-uint64_t sub_23F24C228(uint64_t result, char **a2)
+char **sub_23F24C228(char **result, char **a2)
 {
-  if (*(result + 20) == 1 && *(a2 + 5) == 1)
+  if (*(result + 5) == 1 && *(a2 + 5) == 1)
   {
-    v21 = *(result + 24);
+    v21 = *(result + 6);
     v22 = *(a2 + 6);
-    v23 = *(result + 8);
+    v23 = *(result + 2);
     if (v21 == v22 && v21 == v23)
     {
-      v42 = *(result + 28);
+      v42 = *(result + 7);
       v43 = *(a2 + 7);
-      v44 = *(result + 12);
+      v44 = *(result + 3);
       v45 = (v44 * v21);
       if (v42 == v43 && v42 == v45)
       {
-        if (!(*(result + 16) * v42))
+        if (!(*(result + 4) * v42))
         {
           return result;
         }
 
-        v46 = 2 * (*(result + 16) * v42);
+        v46 = 2 * (*(result + 4) * v42);
         v47 = *a2;
         v48 = *result;
         v49 = v47;
@@ -3540,7 +3241,7 @@ uint64_t sub_23F24C228(uint64_t result, char **a2)
 
       else
       {
-        v50 = *(result + 16);
+        v50 = *(result + 4);
         if (v21)
         {
           v51 = v44 == 0;
@@ -3592,8 +3293,8 @@ uint64_t sub_23F24C228(uint64_t result, char **a2)
 
     else
     {
-      v26 = *(result + 12);
-      v25 = *(result + 16);
+      v26 = *(result + 3);
+      v25 = *(result + 4);
       if (v23)
       {
         v27 = v26 == 0;
@@ -3619,7 +3320,7 @@ uint64_t sub_23F24C228(uint64_t result, char **a2)
       if (v25 != 1)
       {
         v36 = *(a2 + 7);
-        v37 = *(result + 28);
+        v37 = *(result + 7);
         if (v26 == 1)
         {
           v58 = 2 * v37;
@@ -3680,9 +3381,9 @@ uint64_t sub_23F24C228(uint64_t result, char **a2)
     return memmove(v49, v48, v46);
   }
 
-  v3 = *(result + 12);
-  v4 = *(result + 16);
-  if (*(result + 8))
+  v3 = *(result + 3);
+  v4 = *(result + 4);
+  if (*(result + 2))
   {
     v5 = v3 == 0;
   }
@@ -3697,22 +3398,22 @@ uint64_t sub_23F24C228(uint64_t result, char **a2)
     v7 = v3 - 1;
     v8 = *result;
     v9 = *a2;
-    v10 = 2 * *(result + 24);
+    v10 = 2 * *(result + 6);
     v11 = 2 * *(a2 + 6);
     v12 = v4 - 1;
     if (v12)
     {
       v13 = *(a2 + 7);
-      v14 = *(result + 28);
+      v14 = *(result + 7);
       if (!v7)
       {
         do
         {
           *v9 = *v8;
-          v9[1] = *(v8 + 1);
-          v9[2] = *(v8 + 2);
-          v9[3] = *(v8 + 3);
-          v8 += 2 * v14;
+          v9[1] = v8[1];
+          v9[2] = v8[2];
+          v9[3] = v8[3];
+          v8 += v14;
           v9 += v13;
           --v12;
         }
@@ -3723,8 +3424,8 @@ uint64_t sub_23F24C228(uint64_t result, char **a2)
 
       v15 = 0;
       v16 = v9 + 2;
-      result = 2 * v13;
-      v17 = v8 + 4;
+      result = (2 * v13);
+      v17 = v8 + 2;
       do
       {
         v18 = v17;
@@ -3746,10 +3447,10 @@ uint64_t sub_23F24C228(uint64_t result, char **a2)
         *(v19 - 1) = *(v18 - 1);
         *v19 = *v18;
         v19[1] = v18[1];
-        v8 += 2 * v14;
+        v8 += v14;
         v9 += v13;
         ++v15;
-        v16 = (v16 + result);
+        v16 = (result + v16);
         v17 += v14;
       }
 
@@ -3760,19 +3461,19 @@ uint64_t sub_23F24C228(uint64_t result, char **a2)
     {
 LABEL_58:
       *v9 = *v8;
-      v9[1] = *(v8 + 1);
-      v9[2] = *(v8 + 2);
-      v9[3] = *(v8 + 3);
+      v9[1] = v8[1];
+      v9[2] = v8[2];
+      v9[3] = v8[3];
       return result;
     }
 
     do
     {
       *v9 = *v8;
-      v9[1] = *(v8 + 1);
-      v9[2] = *(v8 + 2);
-      v9[3] = *(v8 + 3);
-      v8 += v10;
+      v9[1] = v8[1];
+      v9[2] = v8[2];
+      v9[3] = v8[3];
+      v8 = (v8 + v10);
       v9 = (v9 + v11);
       --v7;
     }
@@ -3784,27 +3485,27 @@ LABEL_58:
   return result;
 }
 
-uint64_t sub_23F24C5E0(uint64_t result, char **a2)
+char **sub_23F24C5E0(char **result, char **a2)
 {
-  if (*(result + 20) == 1 && *(a2 + 5) == 1)
+  if (*(result + 5) == 1 && *(a2 + 5) == 1)
   {
-    v21 = *(result + 24);
+    v21 = *(result + 6);
     v22 = *(a2 + 6);
-    v23 = *(result + 8);
+    v23 = *(result + 2);
     if (v21 == v22 && v21 == v23)
     {
-      v42 = *(result + 28);
+      v42 = *(result + 7);
       v43 = *(a2 + 7);
-      v44 = *(result + 12);
+      v44 = *(result + 3);
       v45 = (v44 * v21);
       if (v42 == v43 && v42 == v45)
       {
-        if (!(*(result + 16) * v42))
+        if (!(*(result + 4) * v42))
         {
           return result;
         }
 
-        v46 = 4 * (*(result + 16) * v42);
+        v46 = 4 * (*(result + 4) * v42);
         v47 = *a2;
         v48 = *result;
         v49 = v47;
@@ -3812,7 +3513,7 @@ uint64_t sub_23F24C5E0(uint64_t result, char **a2)
 
       else
       {
-        v50 = *(result + 16);
+        v50 = *(result + 4);
         if (v21)
         {
           v51 = v44 == 0;
@@ -3864,8 +3565,8 @@ uint64_t sub_23F24C5E0(uint64_t result, char **a2)
 
     else
     {
-      v26 = *(result + 12);
-      v25 = *(result + 16);
+      v26 = *(result + 3);
+      v25 = *(result + 4);
       if (v23)
       {
         v27 = v26 == 0;
@@ -3891,7 +3592,7 @@ uint64_t sub_23F24C5E0(uint64_t result, char **a2)
       if (v25 != 1)
       {
         v36 = *(a2 + 7);
-        v37 = *(result + 28);
+        v37 = *(result + 7);
         if (v26 == 1)
         {
           v58 = 4 * v37;
@@ -3952,9 +3653,9 @@ uint64_t sub_23F24C5E0(uint64_t result, char **a2)
     return memmove(v49, v48, v46);
   }
 
-  v3 = *(result + 12);
-  v4 = *(result + 16);
-  if (*(result + 8))
+  v3 = *(result + 3);
+  v4 = *(result + 4);
+  if (*(result + 2))
   {
     v5 = v3 == 0;
   }
@@ -3969,22 +3670,22 @@ uint64_t sub_23F24C5E0(uint64_t result, char **a2)
     v7 = v3 - 1;
     v8 = *result;
     v9 = *a2;
-    v10 = 4 * *(result + 24);
+    v10 = 4 * *(result + 6);
     v11 = 4 * *(a2 + 6);
     v12 = v4 - 1;
     if (v12)
     {
       v13 = *(a2 + 7);
-      v14 = *(result + 28);
+      v14 = *(result + 7);
       if (!v7)
       {
         do
         {
           *v9 = *v8;
-          v9[1] = *(v8 + 1);
-          v9[2] = *(v8 + 2);
-          v9[3] = *(v8 + 3);
-          v8 += 4 * v14;
+          v9[1] = v8[1];
+          v9[2] = v8[2];
+          v9[3] = v8[3];
+          v8 += v14;
           v9 += v13;
           --v12;
         }
@@ -3995,8 +3696,8 @@ uint64_t sub_23F24C5E0(uint64_t result, char **a2)
 
       v15 = 0;
       v16 = v9 + 2;
-      result = 4 * v13;
-      v17 = v8 + 8;
+      result = (4 * v13);
+      v17 = v8 + 2;
       do
       {
         v18 = v17;
@@ -4018,10 +3719,10 @@ uint64_t sub_23F24C5E0(uint64_t result, char **a2)
         *(v19 - 1) = *(v18 - 1);
         *v19 = *v18;
         v19[1] = v18[1];
-        v8 += 4 * v14;
+        v8 += v14;
         v9 += v13;
         ++v15;
-        v16 = (v16 + result);
+        v16 = (result + v16);
         v17 += v14;
       }
 
@@ -4032,19 +3733,19 @@ uint64_t sub_23F24C5E0(uint64_t result, char **a2)
     {
 LABEL_58:
       *v9 = *v8;
-      v9[1] = *(v8 + 1);
-      v9[2] = *(v8 + 2);
-      v9[3] = *(v8 + 3);
+      v9[1] = v8[1];
+      v9[2] = v8[2];
+      v9[3] = v8[3];
       return result;
     }
 
     do
     {
       *v9 = *v8;
-      v9[1] = *(v8 + 1);
-      v9[2] = *(v8 + 2);
-      v9[3] = *(v8 + 3);
-      v8 += v10;
+      v9[1] = v8[1];
+      v9[2] = v8[2];
+      v9[3] = v8[3];
+      v8 = (v8 + v10);
       v9 = (v9 + v11);
       --v7;
     }
@@ -4087,42 +3788,41 @@ uint64_t sub_23F24C998(uint64_t a1, uint64_t a2)
     v8 = 1;
   }
 
-  v9 = *(a2 + 24);
-  v10 = *(a2 + 32);
+  v9 = *(a2 + 32);
   if (v8)
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v11 = *(a2 + 24);
+    v10 = *(a2 + 24);
   }
 
-  v12 = HIDWORD(v11);
-  v13 = HIDWORD(v10);
-  v14 = (HIDWORD(v11) * HIDWORD(v10));
-  if (v14 == -1)
+  v11 = HIDWORD(v10);
+  v12 = HIDWORD(v9);
+  v13 = (HIDWORD(v10) * HIDWORD(v9));
+  if (v13 == -1)
   {
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
-    v41 = v10;
-    v42 = (HIDWORD(v11) * HIDWORD(v10));
+    v40 = v9;
+    v41 = (HIDWORD(v10) * HIDWORD(v9));
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v15 = qword_27E396178, v16 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v14 = qword_27E396178, v15 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_18:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        LODWORD(v10) = v41;
-        v14 = v42;
+        LODWORD(v9) = v40;
+        v13 = v41;
         goto LABEL_19;
       }
     }
 
     else
     {
-      v15 = qword_27E396178;
-      v16 = unk_27E396180;
+      v14 = qword_27E396178;
+      v15 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_63;
@@ -4131,11 +3831,11 @@ LABEL_18:
 
     do
     {
-      (*v15)(*(v15 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v15 += 16;
+      (*v14)(*(v14 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 += 16;
     }
 
-    while (v15 != v16);
+    while (v14 != v15);
     if ((byte_27E3961A0 & 1) == 0)
     {
       goto LABEL_63;
@@ -4145,67 +3845,67 @@ LABEL_18:
   }
 
 LABEL_19:
-  v17 = v11;
-  if (v12)
+  v16 = v10;
+  if (v11)
   {
-    v18 = v11 == 0;
+    v17 = v10 == 0;
   }
 
   else
   {
-    v18 = 1;
+    v17 = 1;
   }
 
-  if (v18)
+  if (v17)
   {
     return a1;
   }
 
-  v19 = *(a1 + 8);
-  v20 = *(a1 + 32);
+  v18 = *(a1 + 8);
+  v19 = *(a1 + 32);
   if (*(a1 + 28))
   {
-    v21 = *(a1 + 24) == 0;
+    v20 = *(a1 + 24) == 0;
   }
 
   else
   {
-    v21 = 1;
+    v20 = 1;
   }
 
-  if (v21)
+  if (v20)
   {
-    v22 = 0;
+    v21 = 0;
   }
 
   else
   {
-    v22 = *(a1 + 28);
+    v21 = *(a1 + 28);
   }
 
-  v43 = *(a1 + 32);
-  v23 = HIDWORD(v20);
-  if (v22 * HIDWORD(v20) == -1)
+  v42 = *(a1 + 32);
+  v22 = HIDWORD(v19);
+  if (v21 * HIDWORD(v19) == -1)
   {
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
-    v37 = v11;
-    v39 = HIDWORD(v11);
+    v36 = v10;
+    v38 = HIDWORD(v10);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v24 = qword_27E396178, v25 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v23 = qword_27E396178, v24 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_37:
-        qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v37, v39);
-        LODWORD(v11) = v38;
-        v12 = v40;
+        qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v36, v38);
+        LODWORD(v10) = v37;
+        v11 = v39;
         goto LABEL_38;
       }
     }
 
     else
     {
-      v24 = qword_27E396178;
-      v25 = unk_27E396180;
+      v23 = qword_27E396178;
+      v24 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_63;
@@ -4214,11 +3914,11 @@ LABEL_37:
 
     do
     {
-      (*v24)(*(v24 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v24 += 16;
+      (*v23)(*(v23 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v23 += 16;
     }
 
-    while (v24 != v25);
+    while (v23 != v24);
     if (byte_27E3961A0)
     {
       goto LABEL_37;
@@ -4229,106 +3929,106 @@ LABEL_63:
   }
 
 LABEL_38:
-  if (v10 != 1 || v43 != 1)
+  if (v9 != 1 || v42 != 1)
   {
-    if (!v11)
+    if (!v10)
     {
       return a1;
     }
 
+    v28 = v10 - 1;
     v29 = v11 - 1;
-    v30 = v12 - 1;
-    if (v12 != 1)
+    if (v11 != 1)
     {
-      if (v11 != 1)
+      if (v10 != 1)
       {
-        v31 = 0;
+        v30 = 0;
         do
         {
-          v32 = v11 - 1;
-          v33 = v7;
-          v34 = v19;
+          v31 = v10 - 1;
+          v32 = v7;
+          v33 = v18;
           do
           {
-            *v34 = *v33;
-            v33 += v10;
-            v34 += v43;
-            --v32;
+            *v33 = *v32;
+            v32 += v9;
+            v33 += v42;
+            --v31;
           }
 
-          while (v32);
-          *v34 = *v33;
-          v7 += v13;
-          v19 += v23;
-          ++v31;
+          while (v31);
+          *v33 = *v32;
+          v7 += v12;
+          v18 += v22;
+          ++v30;
         }
 
-        while (v31 != v30);
+        while (v30 != v29);
         goto LABEL_54;
       }
 
       do
       {
-        *v19 = *v7;
-        v7 += v13;
-        v19 += v23;
-        --v30;
+        *v18 = *v7;
+        v7 += v12;
+        v18 += v22;
+        --v29;
       }
 
-      while (v30);
+      while (v29);
     }
 
-    if (v11 == 1)
+    if (v10 == 1)
     {
 LABEL_55:
-      *v19 = *v7;
+      *v18 = *v7;
       return a1;
     }
 
     do
     {
 LABEL_54:
-      *v19 = *v7;
-      v7 += v10;
-      v19 += v43;
-      --v29;
+      *v18 = *v7;
+      v7 += v9;
+      v18 += v42;
+      --v28;
     }
 
-    while (v29);
+    while (v28);
     goto LABEL_55;
   }
 
-  if (v13 == v11 && v13 == v23)
+  if (v12 == v10 && v12 == v22)
   {
-    if (v14)
+    if (v13)
     {
-      v26 = v19;
-      v27 = v7;
-      v28 = v14;
+      v25 = v18;
+      v26 = v7;
+      v27 = v13;
 LABEL_61:
-      memmove(v26, v27, v28);
+      memmove(v25, v26, v27);
     }
   }
 
-  else if (v11)
+  else if (v10)
   {
-    if (v12 != 1)
+    if (v11 != 1)
     {
-      v35 = v12 - 1;
+      v34 = v11 - 1;
       do
       {
-        memmove(v19, v7, v17);
-        v7 += v13;
-        v19 += v23;
-        --v35;
+        memmove(v18, v7, v16);
+        v7 += v12;
+        v18 += v22;
+        --v34;
       }
 
-      while (v35);
+      while (v34);
     }
 
-    v26 = v19;
-    v27 = v7;
-    v28 = v17;
+    v25 = v18;
+    v26 = v7;
+    v27 = v16;
     goto LABEL_61;
   }
 
@@ -4366,39 +4066,38 @@ uint64_t sub_23F24CDCC(uint64_t a1, uint64_t a2)
     v8 = 1;
   }
 
-  v9 = *(a2 + 24);
-  v10 = *(a2 + 32);
+  v9 = *(a2 + 32);
   if (v8)
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v11 = *(a2 + 24);
+    v10 = *(a2 + 24);
   }
 
-  v12 = HIDWORD(v11);
-  v13 = v10 >> 33;
-  v14 = HIDWORD(v11) * (v10 >> 33);
-  if (v14 == -1)
+  v11 = HIDWORD(v10);
+  v12 = v9 >> 33;
+  v13 = HIDWORD(v10) * (v9 >> 33);
+  if (v13 == -1)
   {
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v15 = qword_27E396178, v16 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v14 = qword_27E396178, v15 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_18:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v14 = HIDWORD(v11) * (v10 >> 33);
+        v13 = HIDWORD(v10) * (v9 >> 33);
         goto LABEL_19;
       }
     }
 
     else
     {
-      v15 = qword_27E396178;
-      v16 = unk_27E396180;
+      v14 = qword_27E396178;
+      v15 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_66;
@@ -4407,11 +4106,11 @@ LABEL_18:
 
     do
     {
-      (*v15)(*(v15 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v15 += 16;
+      (*v14)(*(v14 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 += 16;
     }
 
-    while (v15 != v16);
+    while (v14 != v15);
     if ((byte_27E3961A0 & 1) == 0)
     {
       goto LABEL_66;
@@ -4421,50 +4120,50 @@ LABEL_18:
   }
 
 LABEL_19:
-  if (v12)
+  if (v11)
   {
-    v17 = v11 == 0;
+    v16 = v10 == 0;
   }
 
   else
   {
-    v17 = 1;
+    v16 = 1;
   }
 
-  if (v17)
+  if (v16)
   {
     return a1;
   }
 
-  v18 = *(a1 + 8);
-  v19 = *(a1 + 32);
+  v17 = *(a1 + 8);
+  v18 = *(a1 + 32);
   if (*(a1 + 28))
   {
-    v20 = *(a1 + 24) == 0;
+    v19 = *(a1 + 24) == 0;
   }
 
   else
   {
-    v20 = 1;
+    v19 = 1;
   }
 
-  if (v20)
+  if (v19)
   {
-    v21 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v21 = *(a1 + 28);
+    v20 = *(a1 + 28);
   }
 
-  v41 = *(a1 + 32);
-  v22 = v19 >> 33;
-  if (v21 * (v19 >> 33) == -1)
+  v40 = *(a1 + 32);
+  v21 = v18 >> 33;
+  if (v20 * (v18 >> 33) == -1)
   {
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
-    v40 = v22;
-    v42 = v14;
+    v39 = v21;
+    v41 = v13;
     if (byte_27E3961A0 == 1)
     {
       if (byte_27E3961A8 != 1)
@@ -4472,8 +4171,8 @@ LABEL_19:
         goto LABEL_38;
       }
 
-      v24 = qword_27E396178;
-      v23 = unk_27E396180;
+      v23 = qword_27E396178;
+      v22 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_38;
@@ -4482,28 +4181,28 @@ LABEL_19:
 
     else
     {
-      v24 = qword_27E396178;
-      v23 = unk_27E396180;
+      v23 = qword_27E396178;
+      v22 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_66;
       }
     }
 
-    v39 = v10 >> 33;
+    v38 = v9 >> 33;
     do
     {
-      (*v24)(*(v24 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v24 += 16;
+      (*v23)(*(v23 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v23 += 16;
     }
 
-    while (v24 != v23);
+    while (v23 != v22);
     if (byte_27E3961A0)
     {
 LABEL_38:
-      qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v39);
-      v14 = v42;
-      v22 = v40;
+      qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v38);
+      v13 = v41;
+      v21 = v39;
       goto LABEL_39;
     }
 
@@ -4512,115 +4211,115 @@ LABEL_66:
   }
 
 LABEL_39:
-  v25 = v41 & 0xFFFFFFFE;
-  if ((v10 & 0xFFFFFFFE) != 2 || v25 != 2)
+  v24 = v40 & 0xFFFFFFFE;
+  if ((v9 & 0xFFFFFFFE) != 2 || v24 != 2)
   {
-    if (!v11)
+    if (!v10)
     {
       return a1;
     }
 
-    v26 = v11 - 1;
-    v27 = HIDWORD(v11) - 1;
-    if (HIDWORD(v11) == 1)
+    v25 = v10 - 1;
+    v26 = HIDWORD(v10) - 1;
+    if (HIDWORD(v10) == 1)
     {
-      if (v11 == 1)
+      if (v10 == 1)
       {
 LABEL_64:
-        *v18 = *v7;
+        *v17 = *v7;
         return a1;
       }
 
-      v29 = v10 >> 1;
+      v28 = v9 >> 1;
     }
 
     else
     {
-      if (v11 == 1)
+      if (v10 == 1)
       {
         do
         {
-          *v18 = *v7;
-          v7 += v13;
-          v18 += v22;
-          --v27;
+          *v17 = *v7;
+          v7 += v12;
+          v17 += v21;
+          --v26;
         }
 
-        while (v27);
+        while (v26);
         goto LABEL_64;
       }
 
-      v28 = 0;
-      v29 = v10 >> 1;
+      v27 = 0;
+      v28 = v9 >> 1;
       do
       {
-        v30 = v18;
-        v31 = v7;
-        v32 = v11 - 1;
+        v29 = v17;
+        v30 = v7;
+        v31 = v10 - 1;
         do
         {
-          *v30 = *v31;
-          v31 = (v31 + (v10 & 0xFFFFFFFE));
-          v30 = (v30 + v25);
-          --v32;
+          *v29 = *v30;
+          v30 = (v30 + (v9 & 0xFFFFFFFE));
+          v29 = (v29 + v24);
+          --v31;
         }
 
-        while (v32);
-        *v30 = *v31;
-        v7 += v13;
-        v18 += v22;
-        ++v28;
+        while (v31);
+        *v29 = *v30;
+        v7 += v12;
+        v17 += v21;
+        ++v27;
       }
 
-      while (v28 != v27);
+      while (v27 != v26);
     }
 
     do
     {
-      *v18 = *v7;
-      v7 += v29;
-      v18 = (v18 + v25);
-      --v26;
+      *v17 = *v7;
+      v7 += v28;
+      v17 = (v17 + v24);
+      --v25;
     }
 
-    while (v26);
+    while (v25);
     goto LABEL_64;
   }
 
-  if (v13 == v22 && v13 == v11)
+  if (v12 == v21 && v12 == v10)
   {
-    if (v14)
+    if (v13)
     {
-      memmove(v18, v7, 2 * v14);
+      memmove(v17, v7, 2 * v13);
     }
   }
 
-  else if (v11)
+  else if (v10)
   {
-    if (v12 == 1)
+    if (v11 == 1)
     {
-      v33 = 2 * v11;
+      v32 = 2 * v10;
     }
 
     else
     {
-      v34 = v10 >> 33;
-      v33 = 2 * v11;
-      v35 = HIDWORD(v11) - 1;
-      v36 = 2 * v34;
-      v37 = 2 * v22;
+      v33 = v9 >> 33;
+      v32 = 2 * v10;
+      v34 = HIDWORD(v10) - 1;
+      v35 = 2 * v33;
+      v36 = 2 * v21;
       do
       {
-        memmove(v18, v7, 2 * v11);
-        v7 = (v7 + v36);
-        v18 = (v18 + v37);
-        --v35;
+        memmove(v17, v7, 2 * v10);
+        v7 = (v7 + v35);
+        v17 = (v17 + v36);
+        --v34;
       }
 
-      while (v35);
+      while (v34);
     }
 
-    memmove(v18, v7, v33);
+    memmove(v17, v7, v32);
   }
 
   return a1;
@@ -4978,39 +4677,38 @@ uint64_t sub_23F24D788(uint64_t a1, uint64_t a2)
     v8 = 1;
   }
 
-  v9 = *(a2 + 24);
-  v10 = *(a2 + 32);
+  v9 = *(a2 + 32);
   if (v8)
   {
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v11 = *(a2 + 24);
+    v10 = *(a2 + 24);
   }
 
-  v12 = HIDWORD(v11);
-  v13 = v10 >> 34;
-  v14 = HIDWORD(v11) * (v10 >> 34);
-  if (v14 == -1)
+  v11 = HIDWORD(v10);
+  v12 = v9 >> 34;
+  v13 = HIDWORD(v10) * (v9 >> 34);
+  if (v13 == -1)
   {
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
     if (byte_27E3961A0 == 1)
     {
-      if (byte_27E3961A8 != 1 || (v15 = qword_27E396178, v16 = unk_27E396180, qword_27E396178 == unk_27E396180))
+      if (byte_27E3961A8 != 1 || (v14 = qword_27E396178, v15 = unk_27E396180, qword_27E396178 == unk_27E396180))
       {
 LABEL_18:
         qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-        v14 = HIDWORD(v11) * (v10 >> 34);
+        v13 = HIDWORD(v10) * (v9 >> 34);
         goto LABEL_19;
       }
     }
 
     else
     {
-      v15 = qword_27E396178;
-      v16 = unk_27E396180;
+      v14 = qword_27E396178;
+      v15 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_66;
@@ -5019,11 +4717,11 @@ LABEL_18:
 
     do
     {
-      (*v15)(*(v15 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v15 += 16;
+      (*v14)(*(v14 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v14 += 16;
     }
 
-    while (v15 != v16);
+    while (v14 != v15);
     if ((byte_27E3961A0 & 1) == 0)
     {
       goto LABEL_66;
@@ -5033,50 +4731,50 @@ LABEL_18:
   }
 
 LABEL_19:
-  if (v12)
+  if (v11)
   {
-    v17 = v11 == 0;
+    v16 = v10 == 0;
   }
 
   else
   {
-    v17 = 1;
+    v16 = 1;
   }
 
-  if (v17)
+  if (v16)
   {
     return a1;
   }
 
-  v18 = *(a1 + 8);
-  v19 = *(a1 + 32);
+  v17 = *(a1 + 8);
+  v18 = *(a1 + 32);
   if (*(a1 + 28))
   {
-    v20 = *(a1 + 24) == 0;
+    v19 = *(a1 + 24) == 0;
   }
 
   else
   {
-    v20 = 1;
+    v19 = 1;
   }
 
-  if (v20)
+  if (v19)
   {
-    v21 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v21 = *(a1 + 28);
+    v20 = *(a1 + 28);
   }
 
-  v41 = *(a1 + 32);
-  v22 = v19 >> 34;
-  if (v21 * (v19 >> 34) == -1)
+  v40 = *(a1 + 32);
+  v21 = v18 >> 34;
+  if (v20 * (v18 >> 34) == -1)
   {
     sub_23F3034A8("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Essentials/Array/include/Essentials/Array/ArrayView.h", 983, "total_size < std::numeric_limits<uint32_t>::max()", 0x31uLL, "Given data block is too big to be represented by uint32_t indexed ArrayView", 0x4BuLL, sub_23F303DA4);
-    v40 = v22;
-    v42 = v14;
+    v39 = v21;
+    v41 = v13;
     if (byte_27E3961A0 == 1)
     {
       if (byte_27E3961A8 != 1)
@@ -5084,8 +4782,8 @@ LABEL_19:
         goto LABEL_38;
       }
 
-      v24 = qword_27E396178;
-      v23 = unk_27E396180;
+      v23 = qword_27E396178;
+      v22 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_38;
@@ -5094,28 +4792,28 @@ LABEL_19:
 
     else
     {
-      v24 = qword_27E396178;
-      v23 = unk_27E396180;
+      v23 = qword_27E396178;
+      v22 = unk_27E396180;
       if (qword_27E396178 == unk_27E396180)
       {
         goto LABEL_66;
       }
     }
 
-    v39 = v10 >> 34;
+    v38 = v9 >> 34;
     do
     {
-      (*v24)(*(v24 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
-      v24 += 16;
+      (*v23)(*(v23 + 8), "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75);
+      v23 += 16;
     }
 
-    while (v24 != v23);
+    while (v23 != v22);
     if (byte_27E3961A0)
     {
 LABEL_38:
-      qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v39);
-      v14 = v42;
-      v22 = v40;
+      qword_27E396190(*algn_27E396198, "total_size < std::numeric_limits<uint32_t>::max()", 49, "Given data block is too big to be represented by uint32_t indexed ArrayView", 75, v38);
+      v13 = v41;
+      v21 = v39;
       goto LABEL_39;
     }
 
@@ -5124,115 +4822,115 @@ LABEL_66:
   }
 
 LABEL_39:
-  v25 = v41 & 0xFFFFFFFC;
-  if ((v10 & 0xFFFFFFFC) != 4 || v25 != 4)
+  v24 = v40 & 0xFFFFFFFC;
+  if ((v9 & 0xFFFFFFFC) != 4 || v24 != 4)
   {
-    if (!v11)
+    if (!v10)
     {
       return a1;
     }
 
-    v26 = v11 - 1;
-    v27 = HIDWORD(v11) - 1;
-    if (HIDWORD(v11) == 1)
+    v25 = v10 - 1;
+    v26 = HIDWORD(v10) - 1;
+    if (HIDWORD(v10) == 1)
     {
-      if (v11 == 1)
+      if (v10 == 1)
       {
 LABEL_64:
-        *v18 = *v7;
+        *v17 = *v7;
         return a1;
       }
 
-      v29 = v10 >> 2;
+      v28 = v9 >> 2;
     }
 
     else
     {
-      if (v11 == 1)
+      if (v10 == 1)
       {
         do
         {
-          *v18 = *v7;
-          v7 += v13;
-          v18 += v22;
-          --v27;
+          *v17 = *v7;
+          v7 += v12;
+          v17 += v21;
+          --v26;
         }
 
-        while (v27);
+        while (v26);
         goto LABEL_64;
       }
 
-      v28 = 0;
-      v29 = v10 >> 2;
+      v27 = 0;
+      v28 = v9 >> 2;
       do
       {
-        v30 = v18;
-        v31 = v7;
-        v32 = v11 - 1;
+        v29 = v17;
+        v30 = v7;
+        v31 = v10 - 1;
         do
         {
-          *v30 = *v31;
-          v31 = (v31 + (v10 & 0xFFFFFFFC));
-          v30 = (v30 + v25);
-          --v32;
+          *v29 = *v30;
+          v30 = (v30 + (v9 & 0xFFFFFFFC));
+          v29 = (v29 + v24);
+          --v31;
         }
 
-        while (v32);
-        *v30 = *v31;
-        v7 += v13;
-        v18 += v22;
-        ++v28;
+        while (v31);
+        *v29 = *v30;
+        v7 += v12;
+        v17 += v21;
+        ++v27;
       }
 
-      while (v28 != v27);
+      while (v27 != v26);
     }
 
     do
     {
-      *v18 = *v7;
-      v7 += v29;
-      v18 = (v18 + v25);
-      --v26;
+      *v17 = *v7;
+      v7 += v28;
+      v17 = (v17 + v24);
+      --v25;
     }
 
-    while (v26);
+    while (v25);
     goto LABEL_64;
   }
 
-  if (v13 == v22 && v13 == v11)
+  if (v12 == v21 && v12 == v10)
   {
-    if (v14)
+    if (v13)
     {
-      memmove(v18, v7, 4 * v14);
+      memmove(v17, v7, 4 * v13);
     }
   }
 
-  else if (v11)
+  else if (v10)
   {
-    if (v12 == 1)
+    if (v11 == 1)
     {
-      v33 = 4 * v11;
+      v32 = 4 * v10;
     }
 
     else
     {
-      v34 = v10 >> 34;
-      v33 = 4 * v11;
-      v35 = HIDWORD(v11) - 1;
-      v36 = 4 * v34;
-      v37 = 4 * v22;
+      v33 = v9 >> 34;
+      v32 = 4 * v10;
+      v34 = HIDWORD(v10) - 1;
+      v35 = 4 * v33;
+      v36 = 4 * v21;
       do
       {
-        memmove(v18, v7, 4 * v11);
-        v7 = (v7 + v36);
-        v18 = (v18 + v37);
-        --v35;
+        memmove(v17, v7, 4 * v10);
+        v7 = (v7 + v35);
+        v17 = (v17 + v36);
+        --v34;
       }
 
-      while (v35);
+      while (v34);
     }
 
-    memmove(v18, v7, v33);
+    memmove(v17, v7, v32);
   }
 
   return a1;
@@ -7413,11 +7111,11 @@ void sub_23F264898(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
+void sub_23F2648FC(void x0_0, int a1, unint64_t a2)
 {
   v156 = *MEMORY[0x277D85DE8];
-  v135 = a3;
-  switch(a2)
+  v135 = a2;
+  switch(a1)
   {
     case 1:
       *v149 = &unk_2851792E0;
@@ -7428,9 +7126,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       sub_23F249FA8(&v135, &v141);
       operator new();
     case 3:
-      if (a3)
+      if (a2)
       {
-        v87 = HIDWORD(a3) == 0;
+        v87 = HIDWORD(a2) == 0;
       }
 
       else
@@ -7446,7 +7144,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v89 = a3;
+        v89 = a2;
       }
 
       v90 = 0;
@@ -7518,9 +7216,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 7:
       v136 = &unk_2851898A8;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v31 = a3 == 0;
+        v31 = a2 == 0;
       }
 
       else
@@ -7535,7 +7233,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v32 = a3;
+        v32 = a2;
       }
 
       v33 = 2 * (v32 != 0);
@@ -7664,9 +7362,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 11:
       v136 = &unk_285189EA8;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v93 = a3 == 0;
+        v93 = a2 == 0;
       }
 
       else
@@ -7681,7 +7379,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v94 = a3;
+        v94 = a2;
       }
 
       *&v149[4] = v94;
@@ -7821,9 +7519,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 15:
       v136 = &unk_28518A4A8;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v107 = a3 == 0;
+        v107 = a2 == 0;
       }
 
       else
@@ -7838,7 +7536,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v108 = a3;
+        v108 = a2;
       }
 
       v109 = 4 * (v108 != 0);
@@ -7967,9 +7665,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 19:
       v136 = &unk_28518AAA8;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v17 = a3 == 0;
+        v17 = a2 == 0;
       }
 
       else
@@ -7984,7 +7682,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v18 = a3;
+        v18 = a2;
       }
 
       *&v149[4] = v18;
@@ -8124,9 +7822,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 23:
       v136 = &unk_285185E68;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v121 = a3 == 0;
+        v121 = a2 == 0;
       }
 
       else
@@ -8141,7 +7839,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v122 = a3;
+        v122 = a2;
       }
 
       *&v149[4] = v122;
@@ -8281,9 +7979,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 27:
       v136 = &unk_28518AF28;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v3 = a3 == 0;
+        v3 = a2 == 0;
       }
 
       else
@@ -8298,7 +7996,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v4 = a3;
+        v4 = a2;
       }
 
       v5 = 4 * (v4 != 0);
@@ -8427,9 +8125,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 31:
       v136 = &unk_2851865E8;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v59 = a3 == 0;
+        v59 = a2 == 0;
       }
 
       else
@@ -8444,7 +8142,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v60 = a3;
+        v60 = a2;
       }
 
       v61 = 4 * (v60 != 0);
@@ -8573,9 +8271,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 35:
       v136 = &unk_28518B3A8;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v73 = a3 == 0;
+        v73 = a2 == 0;
       }
 
       else
@@ -8590,7 +8288,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v74 = a3;
+        v74 = a2;
       }
 
       v75 = 4 * (v74 != 0);
@@ -8719,9 +8417,9 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       operator new();
     case 39:
       v136 = &unk_285186D68;
-      if (HIDWORD(a3))
+      if (HIDWORD(a2))
       {
-        v45 = a3 == 0;
+        v45 = a2 == 0;
       }
 
       else
@@ -8736,7 +8434,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
 
       else
       {
-        v46 = a3;
+        v46 = a2;
       }
 
       v47 = 4 * (v46 != 0);
@@ -8847,7 +8545,7 @@ void sub_23F2648FC(uint64_t a1, int a2, unint64_t a3)
       v147 = v154;
       operator new();
     default:
-      sub_23F3033AC("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/FormatAlgorithm.h", 523, &unk_23F3091D6, 0, "Runtime format not in given Formats list", 0x28uLL, sub_23F303DA4);
+      sub_23F3033AC("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/FormatAlgorithm.h", 523, &unk_23F3091D6, 0, "Runtime format not in given Formats list", 0x28uLL, sub_23F303DA4, v135);
       abort();
   }
 }
@@ -8863,17 +8561,17 @@ void sub_23F266F30(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
+void sub_23F267290(uint64_t *a1, int a2, _DWORD *a3, double a4)
 {
   v541 = *MEMORY[0x277D85DE8];
-  switch(a3)
+  switch(a2)
   {
     case 1:
       v529 = &unk_2851792E0;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v4 = *a4 == 0;
+        v4 = *a3 == 0;
       }
 
       else
@@ -8881,7 +8579,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v4 = 1;
       }
 
-      v5 = *a4;
+      v5 = *a3;
       if (v4)
       {
         v5 = 0;
@@ -8929,9 +8627,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 2:
       v529 = &unk_28517DF28;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v383 = *a4 == 0;
+        v383 = *a3 == 0;
       }
 
       else
@@ -8939,7 +8637,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v383 = 1;
       }
 
-      v384 = *a4;
+      v384 = *a3;
       if (v383)
       {
         v384 = 0;
@@ -8987,9 +8685,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 3:
       v529 = &unk_2851859E8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v378 = *a4 == 0;
+        v378 = *a3 == 0;
       }
 
       else
@@ -8997,7 +8695,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v378 = 1;
       }
 
-      v379 = *a4;
+      v379 = *a3;
       if (v378)
       {
         v379 = 0;
@@ -9045,9 +8743,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 4:
       v529 = &unk_285185B68;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v233 = *a4 == 0;
+        v233 = *a3 == 0;
       }
 
       else
@@ -9055,7 +8753,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v233 = 1;
       }
 
-      v234 = *a4;
+      v234 = *a3;
       if (v233)
       {
         v234 = 0;
@@ -9103,9 +8801,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 5:
       v529 = &unk_2851895A8;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v336 = *a4 == 0;
+        v336 = *a3 == 0;
       }
 
       else
@@ -9113,7 +8811,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v336 = 1;
       }
 
-      v337 = *a4;
+      v337 = *a3;
       if (v336)
       {
         v337 = 0;
@@ -9207,9 +8905,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 6:
       v529 = &unk_285189728;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v219 = *a4 == 0;
+        v219 = *a3 == 0;
       }
 
       else
@@ -9224,7 +8922,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v220 = *a4;
+        v220 = *a3;
       }
 
       v221 = 2 * (v220 != 0);
@@ -9315,9 +9013,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 7:
       v529 = &unk_2851898A8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v149 = *a4 == 0;
+        v149 = *a3 == 0;
       }
 
       else
@@ -9332,7 +9030,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v150 = *a4;
+        v150 = *a3;
       }
 
       v151 = 2 * (v150 != 0);
@@ -9423,9 +9121,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 8:
       v529 = &unk_285189A28;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v364 = *a4 == 0;
+        v364 = *a3 == 0;
       }
 
       else
@@ -9433,7 +9131,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v364 = 1;
       }
 
-      v365 = *a4;
+      v365 = *a3;
       if (v364)
       {
         v365 = 0;
@@ -9522,14 +9220,14 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v377 = 4 * v367;
       }
 
-      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v377, a1);
+      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v377, a4);
       operator new();
     case 9:
       v529 = &unk_285189BA8;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v322 = *a4 == 0;
+        v322 = *a3 == 0;
       }
 
       else
@@ -9537,7 +9235,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v322 = 1;
       }
 
-      v323 = *a4;
+      v323 = *a3;
       if (v322)
       {
         v323 = 0;
@@ -9642,9 +9340,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 10:
       v529 = &unk_285189D28;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v416 = *a4 == 0;
+        v416 = *a3 == 0;
       }
 
       else
@@ -9652,7 +9350,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v416 = 1;
       }
 
-      v417 = *a4;
+      v417 = *a3;
       if (v416)
       {
         v417 = 0;
@@ -9757,9 +9455,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 11:
       v529 = &unk_285189EA8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v402 = *a4 == 0;
+        v402 = *a3 == 0;
       }
 
       else
@@ -9767,7 +9465,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v402 = 1;
       }
 
-      v403 = *a4;
+      v403 = *a3;
       if (v402)
       {
         v403 = 0;
@@ -9872,9 +9570,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 12:
       v529 = &unk_28518A028;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v51 = *a4 == 0;
+        v51 = *a3 == 0;
       }
 
       else
@@ -9882,7 +9580,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v51 = 1;
       }
 
-      v52 = *a4;
+      v52 = *a3;
       if (v51)
       {
         v52 = 0;
@@ -9982,14 +9680,14 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v64 = 4 * v54;
       }
 
-      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v64, a1);
+      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v64, a4);
       operator new();
     case 13:
       v529 = &unk_28518A1A8;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v107 = *a4 == 0;
+        v107 = *a3 == 0;
       }
 
       else
@@ -9997,7 +9695,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v107 = 1;
       }
 
-      v108 = *a4;
+      v108 = *a3;
       if (v107)
       {
         v108 = 0;
@@ -10091,9 +9789,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 14:
       v529 = &unk_28518A328;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v93 = *a4 == 0;
+        v93 = *a3 == 0;
       }
 
       else
@@ -10101,7 +9799,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v93 = 1;
       }
 
-      v94 = *a4;
+      v94 = *a3;
       if (v93)
       {
         v94 = 0;
@@ -10195,9 +9893,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 15:
       v529 = &unk_28518A4A8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v472 = *a4 == 0;
+        v472 = *a3 == 0;
       }
 
       else
@@ -10205,7 +9903,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v472 = 1;
       }
 
-      v473 = *a4;
+      v473 = *a3;
       if (v472)
       {
         v473 = 0;
@@ -10299,9 +9997,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 16:
       v529 = &unk_28518A628;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v350 = *a4 == 0;
+        v350 = *a3 == 0;
       }
 
       else
@@ -10316,7 +10014,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v351 = *a4;
+        v351 = *a3;
       }
 
       v352 = 4 * (v351 != 0);
@@ -10402,14 +10100,14 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v363 = 4 * v353;
       }
 
-      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v363, a1);
+      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v363, a4);
       operator new();
     case 17:
       v529 = &unk_28518A7A8;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v486 = *a4 == 0;
+        v486 = *a3 == 0;
       }
 
       else
@@ -10417,7 +10115,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v486 = 1;
       }
 
-      v487 = *a4;
+      v487 = *a3;
       if (v486)
       {
         v487 = 0;
@@ -10522,9 +10220,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 18:
       v529 = &unk_28518A928;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v135 = *a4 == 0;
+        v135 = *a3 == 0;
       }
 
       else
@@ -10532,7 +10230,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v135 = 1;
       }
 
-      v136 = *a4;
+      v136 = *a3;
       if (v135)
       {
         v136 = 0;
@@ -10637,9 +10335,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 19:
       v529 = &unk_28518AAA8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v23 = *a4 == 0;
+        v23 = *a3 == 0;
       }
 
       else
@@ -10647,7 +10345,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v23 = 1;
       }
 
-      v24 = *a4;
+      v24 = *a3;
       if (v23)
       {
         v24 = 0;
@@ -10752,9 +10450,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 20:
       v529 = &unk_28518AC28;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v444 = *a4 == 0;
+        v444 = *a3 == 0;
       }
 
       else
@@ -10762,7 +10460,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v444 = 1;
       }
 
-      v445 = *a4;
+      v445 = *a3;
       if (v444)
       {
         v445 = 0;
@@ -10862,14 +10560,14 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v457 = 4 * v447;
       }
 
-      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v457, a1);
+      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v457, a4);
       operator new();
     case 21:
       v529 = &unk_28517D860;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v514 = *a4 == 0;
+        v514 = *a3 == 0;
       }
 
       else
@@ -10877,7 +10575,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v514 = 1;
       }
 
-      v515 = *a4;
+      v515 = *a3;
       if (v514)
       {
         v515 = 0;
@@ -10982,9 +10680,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 22:
       v529 = &unk_285185CE8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v177 = *a4 == 0;
+        v177 = *a3 == 0;
       }
 
       else
@@ -10992,7 +10690,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v177 = 1;
       }
 
-      v178 = *a4;
+      v178 = *a3;
       if (v177)
       {
         v178 = 0;
@@ -11097,9 +10795,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 23:
       v529 = &unk_285185E68;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v500 = *a4 == 0;
+        v500 = *a3 == 0;
       }
 
       else
@@ -11107,7 +10805,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v500 = 1;
       }
 
-      v501 = *a4;
+      v501 = *a3;
       if (v500)
       {
         v501 = 0;
@@ -11212,9 +10910,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 24:
       v529 = &unk_285185FE8;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v79 = *a4 == 0;
+        v79 = *a3 == 0;
       }
 
       else
@@ -11222,7 +10920,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v79 = 1;
       }
 
-      v80 = *a4;
+      v80 = *a3;
       if (v79)
       {
         v80 = 0;
@@ -11322,14 +11020,14 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v92 = 4 * v82;
       }
 
-      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v92, a1);
+      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v92, a4);
       operator new();
     case 25:
       v529 = &unk_285186168;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v37 = *a4 == 0;
+        v37 = *a3 == 0;
       }
 
       else
@@ -11337,7 +11035,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v37 = 1;
       }
 
-      v38 = *a4;
+      v38 = *a3;
       if (v37)
       {
         v38 = 0;
@@ -11431,9 +11129,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 26:
       v529 = &unk_28518ADA8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v191 = *a4 == 0;
+        v191 = *a3 == 0;
       }
 
       else
@@ -11441,7 +11139,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v191 = 1;
       }
 
-      v192 = *a4;
+      v192 = *a3;
       if (v191)
       {
         v192 = 0;
@@ -11535,9 +11233,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 27:
       v529 = &unk_28518AF28;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v9 = *a4 == 0;
+        v9 = *a3 == 0;
       }
 
       else
@@ -11545,7 +11243,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v9 = 1;
       }
 
-      v10 = *a4;
+      v10 = *a3;
       if (v9)
       {
         v10 = 0;
@@ -11639,9 +11337,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 28:
       v529 = &unk_28518B0A8;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v238 = *a4 == 0;
+        v238 = *a3 == 0;
       }
 
       else
@@ -11656,7 +11354,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v239 = *a4;
+        v239 = *a3;
       }
 
       v240 = 4 * (v239 != 0);
@@ -11742,14 +11440,14 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v251 = 4 * v241;
       }
 
-      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v251, a1);
+      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v251, a4);
       operator new();
     case 29:
       v529 = &unk_2851862E8;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v65 = *a4 == 0;
+        v65 = *a3 == 0;
       }
 
       else
@@ -11757,7 +11455,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v65 = 1;
       }
 
-      v66 = *a4;
+      v66 = *a3;
       if (v65)
       {
         v66 = 0;
@@ -11851,9 +11549,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 30:
       v529 = &unk_285186468;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v280 = *a4 == 0;
+        v280 = *a3 == 0;
       }
 
       else
@@ -11861,7 +11559,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v280 = 1;
       }
 
-      v281 = *a4;
+      v281 = *a3;
       if (v280)
       {
         v281 = 0;
@@ -11955,9 +11653,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 31:
       v529 = &unk_2851865E8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v205 = *a4 == 0;
+        v205 = *a3 == 0;
       }
 
       else
@@ -11965,7 +11663,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v205 = 1;
       }
 
-      v206 = *a4;
+      v206 = *a3;
       if (v205)
       {
         v206 = 0;
@@ -12059,9 +11757,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 32:
       v529 = &unk_285186768;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v308 = *a4 == 0;
+        v308 = *a3 == 0;
       }
 
       else
@@ -12076,7 +11774,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v309 = *a4;
+        v309 = *a3;
       }
 
       v310 = 4 * (v309 != 0);
@@ -12162,14 +11860,14 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v321 = 4 * v311;
       }
 
-      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v321, a1);
+      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v321, a4);
       operator new();
     case 33:
       v529 = &unk_2851868E8;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v430 = *a4 == 0;
+        v430 = *a3 == 0;
       }
 
       else
@@ -12177,7 +11875,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v430 = 1;
       }
 
-      v431 = *a4;
+      v431 = *a3;
       if (v430)
       {
         v431 = 0;
@@ -12271,9 +11969,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 34:
       v529 = &unk_28518B228;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v294 = *a4 == 0;
+        v294 = *a3 == 0;
       }
 
       else
@@ -12281,7 +11979,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v294 = 1;
       }
 
-      v295 = *a4;
+      v295 = *a3;
       if (v294)
       {
         v295 = 0;
@@ -12375,9 +12073,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 35:
       v529 = &unk_28518B3A8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v266 = *a4 == 0;
+        v266 = *a3 == 0;
       }
 
       else
@@ -12385,7 +12083,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v266 = 1;
       }
 
-      v267 = *a4;
+      v267 = *a3;
       if (v266)
       {
         v267 = 0;
@@ -12479,9 +12177,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 36:
       v529 = &unk_28518B528;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v252 = *a4 == 0;
+        v252 = *a3 == 0;
       }
 
       else
@@ -12496,7 +12194,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v253 = *a4;
+        v253 = *a3;
       }
 
       v254 = 4 * (v253 != 0);
@@ -12582,14 +12280,14 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v265 = 4 * v255;
       }
 
-      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v265, a1);
+      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v265, a4);
       operator new();
     case 37:
       v529 = &unk_285186A68;
       LOBYTE(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v388 = *a4 == 0;
+        v388 = *a3 == 0;
       }
 
       else
@@ -12597,7 +12295,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v388 = 1;
       }
 
-      v389 = *a4;
+      v389 = *a3;
       if (v388)
       {
         v389 = 0;
@@ -12691,9 +12389,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 38:
       v529 = &unk_285186BE8;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v458 = *a4 == 0;
+        v458 = *a3 == 0;
       }
 
       else
@@ -12701,7 +12399,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v458 = 1;
       }
 
-      v459 = *a4;
+      v459 = *a3;
       if (v458)
       {
         v459 = 0;
@@ -12795,9 +12493,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 39:
       v529 = &unk_285186D68;
       LOWORD(v528) = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v163 = *a4 == 0;
+        v163 = *a3 == 0;
       }
 
       else
@@ -12805,7 +12503,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v163 = 1;
       }
 
-      v164 = *a4;
+      v164 = *a3;
       if (v163)
       {
         v164 = 0;
@@ -12899,9 +12597,9 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
     case 40:
       v529 = &unk_285186EE8;
       v528 = 0;
-      if (a4[1])
+      if (a3[1])
       {
-        v121 = *a4 == 0;
+        v121 = *a3 == 0;
       }
 
       else
@@ -12916,7 +12614,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
 
       else
       {
-        v122 = *a4;
+        v122 = *a3;
       }
 
       v123 = 4 * (v122 != 0);
@@ -13002,7 +12700,7 @@ void sub_23F267290(int32x2_t a1, uint64_t a2, int a3, _DWORD *a4)
         v134 = 4 * v124;
       }
 
-      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v134, a1);
+      sub_23F26D800(&v540, &v530, &v532, 1, &v528, 1, v134, a4);
       operator new();
     default:
       sub_23F3033AC("/Library/Caches/com.apple.xbs/Sources/AmbientSceneScope/library/Kit/Image/include/Kit/Image/FormatAlgorithm.h", 523, &unk_23F3091D6, 0, "Runtime format not in given Formats list", 0x28uLL, sub_23F303DA4);

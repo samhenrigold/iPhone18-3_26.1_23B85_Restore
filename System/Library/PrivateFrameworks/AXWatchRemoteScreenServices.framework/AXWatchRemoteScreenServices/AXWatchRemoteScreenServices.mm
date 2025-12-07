@@ -4,21 +4,12 @@ uint64_t sub_23D6BAC48()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t sub_23D6BACBC@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t sub_23D6BACBC@<X0>(uint64_t *a2@<X8>)
 {
-  v3 = *a1;
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
   *a2 = result;
   return result;
-}
-
-uint64_t sub_23D6BAD18(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  swift_beginAccess();
-  return swift_unknownObjectWeakAssign();
 }
 
 uint64_t sub_23D6BAD7C()
@@ -115,9 +106,9 @@ id getBluetoothManagerClass()
   return v1;
 }
 
-void sub_23D6BB0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D6BB0CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -154,9 +145,9 @@ uint64_t AXDeviceRemoteScreenIsWifiOn()
   return v3;
 }
 
-void sub_23D6BB210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D6BB210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -188,9 +179,9 @@ double AXDisplayCornerRadiusWithMargin(double a1)
   return fmax(v2(@"DeviceCornerRadius", 0.0) - a1, 13.0);
 }
 
-void sub_23D6BB308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D6BB308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -271,22 +262,22 @@ uint64_t AXIsCrownOrientationOnRightSide()
 
 Class __getBluetoothManagerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!BluetoothManagerLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __BluetoothManagerLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_278BE0B08;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __BluetoothManagerLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_278BE0B08;
+    v6 = 0;
     BluetoothManagerLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (BluetoothManagerLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -294,7 +285,7 @@ Class __getBluetoothManagerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -309,38 +300,34 @@ LABEL_4:
   }
 
   getBluetoothManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __BluetoothManagerLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   BluetoothManagerLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getWFClientClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!WiFiKitLibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __WiFiKitLibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_278BE0B40;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __WiFiKitLibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_278BE0B40;
+    v6 = 0;
     WiFiKitLibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (WiFiKitLibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -348,7 +335,7 @@ Class __getWFClientClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -363,54 +350,50 @@ LABEL_4:
   }
 
   getWFClientClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __WiFiKitLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   WiFiKitLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void *__getMGGetFloat32AnswerSymbolLoc_block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x2020000000;
+  v14 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x2020000000;
   v2 = libMobileGestaltLibraryCore_frameworkLibrary;
-  v12 = libMobileGestaltLibraryCore_frameworkLibrary;
+  v11 = libMobileGestaltLibraryCore_frameworkLibrary;
   if (!libMobileGestaltLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __libMobileGestaltLibraryCore_block_invoke;
-    v6[4] = &unk_278BE0B78;
-    v7 = &v9;
-    v8 = v6;
-    v13 = xmmword_278BE0B58;
-    v14 = 0;
-    v10[3] = _sl_dlopen();
-    libMobileGestaltLibraryCore_frameworkLibrary = *(v7[1] + 24);
-    v2 = v10[3];
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __libMobileGestaltLibraryCore_block_invoke;
+    v5[4] = &unk_278BE0B78;
+    v6 = &v8;
+    v7 = v5;
+    v12 = xmmword_278BE0B58;
+    v13 = 0;
+    v9[3] = _sl_dlopen();
+    libMobileGestaltLibraryCore_frameworkLibrary = *(v6[1] + 24);
+    v2 = v9[3];
   }
 
-  _Block_object_dispose(&v9, 8);
-  v3 = v6[0];
+  _Block_object_dispose(&v8, 8);
+  v3 = v5[0];
   if (!v2)
   {
-    v3 = abort_report_np();
+    v3 = abort_report_np("%s", v5[0]);
     __break(1u);
     goto LABEL_7;
   }
 
-  if (v6[0])
+  if (v5[0])
   {
 LABEL_7:
     free(v3);
@@ -419,25 +402,21 @@ LABEL_7:
   result = dlsym(v2, "MGGetFloat32Answer");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getMGGetFloat32AnswerSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_23D6BBAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23D6BBAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t __libMobileGestaltLibraryCore_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
   result = _sl_dlopen();
   *(*(*(a1 + 32) + 8) + 24) = result;
   libMobileGestaltLibraryCore_frameworkLibrary = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -487,14 +466,11 @@ void type metadata accessor for AXAction()
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -565,6 +541,18 @@ id AXDeviceRemoteScreenService.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
+Swift::Bool __swiftcall AXDeviceRemoteScreenService.npsSetTwiceEnabled(_:)(Swift::Bool a1)
+{
+  v2 = a1;
+  sub_23D6BC208(v1 + OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_serviceImpl, v6);
+  v3 = v7;
+  v4 = v8;
+  __swift_project_boxed_opaque_existential_1(v6, v7);
+  (*(v4 + 24))(v2, v3, v4);
+  __swift_destroy_boxed_opaque_existential_1(v6);
+  return 1;
+}
+
 uint64_t sub_23D6BC208(uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 24);
@@ -584,41 +572,41 @@ void *__swift_project_boxed_opaque_existential_1(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 Swift::Bool __swiftcall AXDeviceRemoteScreenService.startTwiceRemoteScreen()()
 {
-  v1 = *&v0[OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_twiceEnabledEvent];
-  v2 = *&v0[OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_twiceEnabledEvent + 8];
-  v3 = sub_23D6C6058();
-  v4 = swift_allocObject();
-  *(v4 + 16) = v0;
-  v12 = sub_23D6BC510;
-  v13 = v4;
+  v1 = sub_23D6C6058();
+  v2 = swift_allocObject();
+  *(v2 + 16) = v0;
+  v10 = sub_23D6BC510;
+  v11 = v2;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_23D6BC530;
-  v11 = &block_descriptor;
-  v5 = _Block_copy(aBlock);
-  v6 = v0;
+  v9 = &block_descriptor;
+  v3 = _Block_copy(aBlock);
+  v4 = v0;
 
   AnalyticsSendEventLazy();
-  _Block_release(v5);
+  _Block_release(v3);
 
-  sub_23D6BC208(&v6[OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_serviceImpl], aBlock);
-  v7 = v11;
-  v8 = v12;
-  __swift_project_boxed_opaque_existential_1(aBlock, v11);
-  (*(v8 + 1))(v7, v8);
+  sub_23D6BC208(v4 + OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_serviceImpl, aBlock);
+  v5 = v9;
+  v6 = v10;
+  __swift_project_boxed_opaque_existential_1(aBlock, v9);
+  (*(v6 + 1))(v5, v6);
   __swift_destroy_boxed_opaque_existential_1(aBlock);
   return 1;
 }
@@ -626,22 +614,21 @@ Swift::Bool __swiftcall AXDeviceRemoteScreenService.startTwiceRemoteScreen()()
 id sub_23D6BC530(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v4 = v1(v3);
+  v3 = v1(v2);
 
-  if (v4)
+  if (v3)
   {
     sub_23D6BC9E4(0, &unk_2814FB9C0, 0x277D82BB8);
-    v5 = sub_23D6C6028();
+    v4 = sub_23D6C6028();
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -653,48 +640,46 @@ uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
 
 Swift::Bool __swiftcall AXDeviceRemoteScreenService.stopTwiceRemoteScreen()()
 {
-  v1 = *&v0[OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_twiceEnabledEvent];
-  v2 = *&v0[OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_twiceEnabledEvent + 8];
-  v3 = sub_23D6C6058();
-  v4 = swift_allocObject();
-  *(v4 + 16) = v0;
-  v12 = sub_23D6BC844;
-  v13 = v4;
+  v1 = sub_23D6C6058();
+  v2 = swift_allocObject();
+  *(v2 + 16) = v0;
+  v10 = sub_23D6BC844;
+  v11 = v2;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_23D6BC530;
-  v11 = &block_descriptor_6;
-  v5 = _Block_copy(aBlock);
-  v6 = v0;
+  v9 = &block_descriptor_6;
+  v3 = _Block_copy(aBlock);
+  v4 = v0;
 
   AnalyticsSendEventLazy();
-  _Block_release(v5);
+  _Block_release(v3);
 
-  sub_23D6BC208(&v6[OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_serviceImpl], aBlock);
-  v7 = v11;
-  v8 = v12;
-  __swift_project_boxed_opaque_existential_1(aBlock, v11);
-  (*(v8 + 2))(v7, v8);
+  sub_23D6BC208(v4 + OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_serviceImpl, aBlock);
+  v5 = v9;
+  v6 = v10;
+  __swift_project_boxed_opaque_existential_1(aBlock, v9);
+  (*(v6 + 2))(v5, v6);
   __swift_destroy_boxed_opaque_existential_1(aBlock);
   return 1;
 }
 
-unint64_t sub_23D6BC76C(uint64_t a1)
+unint64_t sub_23D6BC76C(uint64_t a1, uint64_t a2)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1A68, &unk_23D6C6E10);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_23D6C6D70;
-  v3 = *(a1 + OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_twiceEnabledKey);
-  v4 = *(a1 + OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_twiceEnabledKey + 8);
-  *(inited + 32) = v3;
-  *(inited + 40) = v4;
+  v4 = *(a1 + OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_twiceEnabledKey);
+  v5 = *(a1 + OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_twiceEnabledKey + 8);
+  *(inited + 32) = v4;
+  *(inited + 40) = v5;
   sub_23D6BC9E4(0, &qword_27E2E1A70, 0x277CCABB0);
 
   *(inited + 48) = sub_23D6C6178();
-  v5 = sub_23D6C1F98(inited);
+  v6 = sub_23D6C1F98(inited);
   swift_setDeallocating();
   sub_23D6BC97C(inited + 32);
-  return v5;
+  return v6;
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -702,7 +687,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -717,12 +701,11 @@ uint64_t sub_23D6BC97C(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_23D6BC9E4(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_23D6BC9E4(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -763,11 +746,11 @@ uint64_t sub_23D6BCAD4()
   return sub_23D6C62D8();
 }
 
-uint64_t sub_23D6BCB4C()
+uint64_t sub_23D6BCB4C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_23D6C62B8();
-  MEMORY[0x23EEE8430](v1 + 1);
+  MEMORY[0x23EEE8430](v2 + 1);
   return sub_23D6C62D8();
 }
 
@@ -952,7 +935,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t sub_23D6BCD88()
+uint64_t sub_23D6BCD88(uint64_t a1)
 {
   sub_23D6C6208();
   MEMORY[0x23EEE8200](0xD000000000000013, 0x800000023D6C7BB0);
@@ -963,7 +946,6 @@ uint64_t sub_23D6BCD88()
 
 uint64_t sub_23D6BCE28()
 {
-  v1 = *v0;
   sub_23D6C6208();
   MEMORY[0x23EEE8200](0xD000000000000013, 0x800000023D6C7BB0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1B18, &qword_23D6C70B8);
@@ -971,36 +953,36 @@ uint64_t sub_23D6BCE28()
   return 0;
 }
 
-uint64_t sub_23D6BCEEC(uint64_t result, void *a2, void (*a3)(void *, uint64_t))
+uint64_t sub_23D6BCEEC(uint64_t result, void *a2, void (*a3)(void *, uint64_t), uint64_t a4)
 {
   if (a3)
   {
     if (a2)
     {
-      sub_23D6BE194(a3);
-      v5 = a2;
+      sub_23D6BE194(a3, a4);
+      v7 = a2;
       a3(a2, 1);
 
-      return sub_23D6BE1A4(a3);
+      return sub_23D6BE1A4(a3, a4);
     }
 
     else
     {
-      v6 = result;
+      v8 = result;
       if (result)
       {
 
-        v7 = v6;
+        v9 = v8;
       }
 
       else
       {
-        sub_23D6BE194(a3);
-        v7 = sub_23D6C209C(MEMORY[0x277D84F90]);
+        sub_23D6BE194(a3, a4);
+        v9 = sub_23D6C209C(MEMORY[0x277D84F90]);
       }
 
-      a3(v7, 0);
-      sub_23D6BE1A4(a3);
+      a3(v9, 0);
+      sub_23D6BE1A4(a3, a4);
     }
   }
 
@@ -1009,20 +991,19 @@ uint64_t sub_23D6BCEEC(uint64_t result, void *a2, void (*a3)(void *, uint64_t))
 
 uint64_t sub_23D6BCFF8(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
   if (a2)
   {
-    v6 = sub_23D6C6038();
+    v5 = sub_23D6C6038();
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = a3;
-  v5(v6, a3);
+  v6 = a3;
+  v4(v5, a3);
 }
 
 void sub_23D6BD0A4()
@@ -1031,40 +1012,39 @@ void sub_23D6BD0A4()
   v2 = *(v0 + OBJC_IVAR____TtC27AXWatchRemoteScreenServices37AXWatchRemoteScreenServiceAXUIService__client);
   if (v2)
   {
-    v3 = *(v0 + OBJC_IVAR____TtC27AXWatchRemoteScreenServices37AXWatchRemoteScreenServiceAXUIService__client);
-LABEL_7:
-    v14 = v2;
-    return;
+    goto LABEL_6;
   }
 
-  v4 = v0;
-  v5 = [objc_opt_self() processInfo];
-  [v5 processIdentifier];
+  v3 = v0;
+  v4 = [objc_opt_self() processInfo];
+  [v4 processIdentifier];
 
-  v6 = sub_23D6C6258();
-  MEMORY[0x23EEE8200](v6);
+  v5 = sub_23D6C6258();
+  MEMORY[0x23EEE8200](v5);
 
-  v7 = objc_allocWithZone(MEMORY[0x277CE7748]);
+  v6 = objc_allocWithZone(MEMORY[0x277CE7748]);
+  v7 = sub_23D6C6058();
+
   v8 = sub_23D6C6058();
+  v9 = [v6 initWithIdentifier:v7 serviceBundleName:v8];
 
-  v9 = sub_23D6C6058();
-  v10 = [v7 initWithIdentifier:v8 serviceBundleName:v9];
+  v10 = *(v3 + v1);
+  *(v3 + v1) = v9;
+  v11 = v9;
 
-  v11 = *(v4 + v1);
-  *(v4 + v1) = v10;
-  v12 = v10;
+  if (v11)
+  {
+    [v11 setDelegate_];
+  }
 
+  v12 = *(v3 + v1);
   if (v12)
   {
-    [v12 setDelegate_];
-  }
-
-  v13 = *(v4 + v1);
-  if (v13)
-  {
-    v13;
+    v12;
     v2 = 0;
-    goto LABEL_7;
+LABEL_6:
+    v13 = v2;
+    return;
   }
 
   __break(1u);
@@ -1296,11 +1276,11 @@ LABEL_10:
   sub_23D6BE1B4(a1, 1);
 }
 
-id sub_23D6BDD08()
+id sub_23D6BDD08(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for AXWatchRemoteScreenServiceAXUIService();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for AXWatchRemoteScreenServiceAXUIService();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 void sub_23D6BDDDC(void *a1)
@@ -1404,7 +1384,7 @@ uint64_t block_copy_helper_0(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_23D6BE194(uint64_t result)
+uint64_t sub_23D6BE194(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1413,7 +1393,7 @@ uint64_t sub_23D6BE194(uint64_t result)
   return result;
 }
 
-uint64_t sub_23D6BE1A4(uint64_t result)
+uint64_t sub_23D6BE1A4(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -1449,7 +1429,6 @@ uint64_t objectdestroyTm()
 {
   if (*(v0 + 16))
   {
-    v1 = *(v0 + 24);
   }
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
@@ -1664,7 +1643,7 @@ LABEL_41:
   return v13 & 1;
 }
 
-uint64_t sub_23D6BE560()
+uint64_t sub_23D6BE560(uint64_t a1, unsigned __int8 a2)
 {
   sub_23D6C62B8();
   sub_23D6C6088();
@@ -1688,11 +1667,11 @@ uint64_t sub_23D6BE718()
   return sub_23D6C62D8();
 }
 
-uint64_t sub_23D6BE78C()
+uint64_t sub_23D6BE78C(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_23D6C62B8();
-  MEMORY[0x23EEE8430](v1);
+  MEMORY[0x23EEE8430](v2);
   return sub_23D6C62D8();
 }
 
@@ -1851,11 +1830,8 @@ AXWatchRemoteScreenServices::AXTwiceCompanionState_optional __swiftcall AXTwiceC
   return result;
 }
 
-uint64_t sub_23D6BEC9C()
+uint64_t sub_23D6BEC9C(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   sub_23D6C6088();
 }
 
@@ -2571,14 +2547,14 @@ id static AXTwiceRemoteScreenMessenger.sharedInstance.getter()
   return v1;
 }
 
-uint64_t AXTwiceRemoteScreenMessenger.delegate.setter()
+uint64_t AXTwiceRemoteScreenMessenger.delegate.setter(uint64_t a1)
 {
   swift_beginAccess();
   swift_unknownObjectWeakAssign();
   return swift_unknownObjectRelease();
 }
 
-void (*AXTwiceRemoteScreenMessenger.delegate.modify(uint64_t *a1))(uint64_t a1, char a2)
+void (*AXTwiceRemoteScreenMessenger.delegate.modify(uint64_t *a1))(void **a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -2600,15 +2576,12 @@ void (*AXTwiceRemoteScreenMessenger.delegate.modify(uint64_t *a1))(uint64_t a1, 
   return sub_23D6BFBA0;
 }
 
-void sub_23D6BFBA0(uint64_t a1, char a2)
+void sub_23D6BFBA0(void **a1, char a2)
 {
   v3 = *a1;
-  v4 = *(*a1 + 24);
-  v5 = *(*a1 + 32) + *(*a1 + 40);
   swift_unknownObjectWeakAssign();
   if (a2)
   {
-    v6 = v3[3];
     swift_unknownObjectRelease();
     swift_endAccess();
   }
@@ -2746,26 +2719,25 @@ LABEL_7:
       }
 
       v7 = 0;
-      v8 = *MEMORY[0x277CE6A60];
       while (v7 < *(v4 + 16))
       {
-        v9 = *(v4 + 32 + 8 * v7);
-        v10 = sub_23D6C6068();
-        v12 = v11;
-        if (*(v9 + 16) && (v13 = v10, , v14 = sub_23D6C1C08(v13, v12), v16 = v15, , (v16 & 1) != 0))
+        v8 = *(v4 + 32 + 8 * v7);
+        v9 = sub_23D6C6068();
+        v11 = v10;
+        if (*(v8 + 16) && (v12 = v9, , v13 = sub_23D6C1C08(v12, v11), v15 = v14, , (v15 & 1) != 0))
         {
-          v17 = (*(v9 + 56) + 16 * v14);
-          v19 = *v17;
-          v18 = v17[1];
+          v16 = (*(v8 + 56) + 16 * v13);
+          v18 = *v16;
+          v17 = v16[1];
 
           if (qword_2814FB9E0 != -1)
           {
             swift_once();
           }
 
-          v20 = _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC22isPairedGizmoSupported8deviceIDSbSS_tF_0();
+          v19 = _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC22isPairedGizmoSupported8deviceIDSbSS_tF_0(v18, v17);
 
-          if (v20)
+          if (v19)
           {
             v6 = 1;
             goto LABEL_7;
@@ -2798,14 +2770,13 @@ LABEL_9:
 uint64_t sub_23D6C029C(uint64_t a1)
 {
   v2 = *(a1 + 16);
-  v10 = MEMORY[0x277D84F90];
+  v9 = MEMORY[0x277D84F90];
   sub_23D6C1E44(0, v2, 0);
-  v3 = v10;
+  v3 = v9;
   if (v2)
   {
-    for (i = (a1 + 32); ; ++i)
+    for (i = a1 + 32; ; i += 8)
     {
-      v9 = *i;
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1B50, &qword_23D6C74B0);
       __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1D00, &qword_23D6C75E8);
@@ -2814,15 +2785,15 @@ uint64_t sub_23D6C029C(uint64_t a1)
         break;
       }
 
-      v6 = *(v10 + 16);
-      v5 = *(v10 + 24);
+      v6 = *(v9 + 16);
+      v5 = *(v9 + 24);
       if (v6 >= v5 >> 1)
       {
         sub_23D6C1E44((v5 > 1), v6 + 1, 1);
       }
 
-      *(v10 + 16) = v6 + 1;
-      *(v10 + 8 * v6 + 32) = v8;
+      *(v9 + 16) = v6 + 1;
+      *(v9 + 8 * v6 + 32) = v8;
       if (!--v2)
       {
         return v3;
@@ -2835,13 +2806,13 @@ uint64_t sub_23D6C029C(uint64_t a1)
   return v3;
 }
 
-void AXTwiceRemoteScreenMessenger.sendData(_:)()
+void AXTwiceRemoteScreenMessenger.sendData(_:)(uint64_t a1, uint64_t a2)
 {
-  v0 = [objc_opt_self() sharedInstance];
-  if (v0)
+  v2 = [objc_opt_self() sharedInstance];
+  if (v2)
   {
-    v1 = v0;
-    v2 = sub_23D6C5F68();
+    v3 = v2;
+    v4 = sub_23D6C5F68();
   }
 
   else
@@ -2882,46 +2853,43 @@ uint64_t sub_23D6C0488(uint64_t a1)
   while (v5)
   {
 LABEL_15:
-    v13 = __clz(__rbit64(v5)) | (v9 << 6);
-    v14 = (*(a1 + 48) + 16 * v13);
-    v15 = v14[1];
-    v16 = *(*(a1 + 56) + 8 * v13);
-    *&v33[0] = *v14;
-    *(&v33[0] + 1) = v15;
+    v13 = (*(a1 + 48) + 16 * (__clz(__rbit64(v5)) | (v9 << 6)));
+    v14 = v13[1];
+    *&v30[0] = *v13;
+    *(&v30[0] + 1) = v14;
 
     swift_dynamicCast();
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1B50, &qword_23D6C74B0);
     swift_dynamicCast();
-    v29 = v25;
-    v30 = v26;
-    v31 = v27;
-    sub_23D6C2ACC(&v28, v32);
-    v25 = v29;
-    v26 = v30;
-    v27 = v31;
-    sub_23D6C2ACC(v32, v33);
-    v17 = *(v2 + 40);
+    v26 = v22;
+    v27 = v23;
+    v28 = v24;
+    sub_23D6C2ACC(&v25, v29);
+    v22 = v26;
+    v23 = v27;
+    v24 = v28;
+    sub_23D6C2ACC(v29, v30);
     result = sub_23D6C61C8();
-    v18 = -1 << *(v2 + 32);
-    v19 = result & ~v18;
-    v20 = v19 >> 6;
-    if (((-1 << v19) & ~*(v7 + 8 * (v19 >> 6))) == 0)
+    v15 = -1 << *(v2 + 32);
+    v16 = result & ~v15;
+    v17 = v16 >> 6;
+    if (((-1 << v16) & ~*(v7 + 8 * (v16 >> 6))) == 0)
     {
-      v21 = 0;
-      v22 = (63 - v18) >> 6;
-      while (++v20 != v22 || (v21 & 1) == 0)
+      v18 = 0;
+      v19 = (63 - v15) >> 6;
+      while (++v17 != v19 || (v18 & 1) == 0)
       {
-        v23 = v20 == v22;
-        if (v20 == v22)
+        v20 = v17 == v19;
+        if (v17 == v19)
         {
-          v20 = 0;
+          v17 = 0;
         }
 
-        v21 |= v23;
-        v24 = *(v7 + 8 * v20);
-        if (v24 != -1)
+        v18 |= v20;
+        v21 = *(v7 + 8 * v17);
+        if (v21 != -1)
         {
-          v10 = __clz(__rbit64(~v24)) + (v20 << 6);
+          v10 = __clz(__rbit64(~v21)) + (v17 << 6);
           goto LABEL_9;
         }
       }
@@ -2929,15 +2897,15 @@ LABEL_15:
       goto LABEL_26;
     }
 
-    v10 = __clz(__rbit64((-1 << v19) & ~*(v7 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
+    v10 = __clz(__rbit64((-1 << v16) & ~*(v7 + 8 * (v16 >> 6)))) | v16 & 0x7FFFFFFFFFFFFFC0;
 LABEL_9:
     v5 &= v5 - 1;
     *(v7 + ((v10 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v10;
     v11 = *(v2 + 48) + 40 * v10;
-    *v11 = v25;
-    *(v11 + 16) = v26;
-    *(v11 + 32) = v27;
-    result = sub_23D6C2ACC(v33, (*(v2 + 56) + 32 * v10));
+    *v11 = v22;
+    *(v11 + 16) = v23;
+    *(v11 + 32) = v24;
+    result = sub_23D6C2ACC(v30, (*(v2 + 56) + 32 * v10));
     ++*(v2 + 16);
   }
 
@@ -3002,62 +2970,59 @@ unint64_t sub_23D6C0754(uint64_t a1)
 LABEL_10:
   while (1)
   {
-    v14 = v8 + 1;
+    v11 = v8 + 1;
     if (__OFADD__(v8, 1))
     {
       break;
     }
 
-    if (v14 >= v6)
+    if (v11 >= v6)
     {
 
       return v2;
     }
 
-    v5 = *(a1 + 64 + 8 * v14);
+    v5 = *(a1 + 64 + 8 * v11);
     ++v8;
     if (v5)
     {
       while (1)
       {
-        v15 = __clz(__rbit64(v5)) | (v14 << 6);
-        sub_23D6C2ADC(*(a1 + 48) + 40 * v15, v27);
-        sub_23D6C2870(*(a1 + 56) + 32 * v15, v28 + 8);
-        v25[0] = v28[0];
-        v25[1] = v28[1];
-        v26 = v29;
-        v24[0] = v27[0];
-        v24[1] = v27[1];
-        sub_23D6C2ADC(v24, v23);
+        v12 = __clz(__rbit64(v5)) | (v11 << 6);
+        sub_23D6C2ADC(*(a1 + 48) + 40 * v12, v24);
+        sub_23D6C2870(*(a1 + 56) + 32 * v12, v25 + 8);
+        v22[0] = v25[0];
+        v22[1] = v25[1];
+        v23 = v26;
+        v21[0] = v24[0];
+        v21[1] = v24[1];
+        sub_23D6C2ADC(v21, v20);
         if (!swift_dynamicCast())
         {
-          sub_23D6C2B38(v24, &qword_27E2E1CF0, &qword_23D6C75D8);
+          sub_23D6C2B38(v21, &qword_27E2E1CF0, &qword_23D6C75D8);
 
           goto LABEL_23;
         }
 
-        sub_23D6C2870(v25 + 8, v23);
-        sub_23D6C2B38(v24, &qword_27E2E1CF0, &qword_23D6C75D8);
+        sub_23D6C2870(v22 + 8, v20);
+        sub_23D6C2B38(v21, &qword_27E2E1CF0, &qword_23D6C75D8);
         if ((swift_dynamicCast() & 1) == 0)
         {
           break;
         }
 
         v5 &= v5 - 1;
-        result = sub_23D6C1C08(v21, v22);
-        if (v16)
+        result = sub_23D6C1C08(v18, v19);
+        if (v13)
         {
           v9 = (v2[6] + 16 * result);
-          v10 = v9[1];
-          *v9 = v21;
-          v9[1] = v22;
-          v11 = result;
+          *v9 = v18;
+          v9[1] = v19;
+          v10 = result;
 
-          v12 = v2[7];
-          v13 = *(v12 + 8 * v11);
-          *(v12 + 8 * v11) = v21;
+          *(v2[7] + 8 * v10) = v18;
           result = swift_unknownObjectRelease();
-          v8 = v14;
+          v8 = v11;
           if (!v5)
           {
             goto LABEL_10;
@@ -3072,20 +3037,20 @@ LABEL_10:
           }
 
           *(v2 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-          v17 = (v2[6] + 16 * result);
-          *v17 = v21;
-          v17[1] = v22;
-          *(v2[7] + 8 * result) = v21;
-          v18 = v2[2];
-          v19 = __OFADD__(v18, 1);
-          v20 = v18 + 1;
-          if (v19)
+          v14 = (v2[6] + 16 * result);
+          *v14 = v18;
+          v14[1] = v19;
+          *(v2[7] + 8 * result) = v18;
+          v15 = v2[2];
+          v16 = __OFADD__(v15, 1);
+          v17 = v15 + 1;
+          if (v16)
           {
             goto LABEL_27;
           }
 
-          v2[2] = v20;
-          v8 = v14;
+          v2[2] = v17;
+          v8 = v11;
           if (!v5)
           {
             goto LABEL_10;
@@ -3093,7 +3058,7 @@ LABEL_10:
         }
 
 LABEL_9:
-        v14 = v8;
+        v11 = v8;
       }
 
 LABEL_23:
@@ -3112,22 +3077,21 @@ LABEL_27:
 
 Swift::Void __swiftcall AXTwiceRemoteScreenMessenger.receiveMessage(_:)(Swift::OpaquePointer a1)
 {
-  v2 = *MEMORY[0x277CE6A70];
-  v26 = sub_23D6C6068();
+  v23 = sub_23D6C6068();
   sub_23D6C61E8();
   if (!*(a1._rawValue + 2))
   {
     goto LABEL_14;
   }
 
-  v3 = sub_23D6C1C80(v29);
-  if ((v4 & 1) == 0)
+  v2 = sub_23D6C1C80(v26);
+  if ((v3 & 1) == 0)
   {
     goto LABEL_14;
   }
 
-  sub_23D6C2870(*(a1._rawValue + 7) + 32 * v3, v30);
-  sub_23D6C281C(v29);
+  sub_23D6C2870(*(a1._rawValue + 7) + 32 * v2, v27);
+  sub_23D6C281C(v26);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1B50, &qword_23D6C74B0);
   if ((swift_dynamicCast() & 1) == 0)
   {
@@ -3135,16 +3099,16 @@ Swift::Void __swiftcall AXTwiceRemoteScreenMessenger.receiveMessage(_:)(Swift::O
   }
 
   sub_23D6C61E8();
-  if (!*(v26 + 16) || (v5 = sub_23D6C1C80(v29), (v6 & 1) == 0))
+  if (!*(v23 + 16) || (v4 = sub_23D6C1C80(v26), (v5 & 1) == 0))
   {
 
 LABEL_14:
-    sub_23D6C281C(v29);
+    sub_23D6C281C(v26);
     goto LABEL_15;
   }
 
-  sub_23D6C2870(*(v26 + 56) + 32 * v5, v30);
-  sub_23D6C281C(v29);
+  sub_23D6C2870(*(v23 + 56) + 32 * v4, v27);
+  sub_23D6C281C(v26);
 
   if (swift_dynamicCast())
   {
@@ -3153,37 +3117,37 @@ LABEL_14:
       swift_once();
     }
 
-    v7 = sub_23D6C6018();
-    __swift_project_value_buffer(v7, qword_2814FB9F8);
+    v6 = sub_23D6C6018();
+    __swift_project_value_buffer(v6, qword_2814FB9F8);
 
-    v8 = sub_23D6C5FF8();
-    v9 = sub_23D6C6158();
+    v7 = sub_23D6C5FF8();
+    v8 = sub_23D6C6158();
 
-    if (os_log_type_enabled(v8, v9))
+    if (os_log_type_enabled(v7, v8))
     {
+      v9 = swift_slowAlloc();
       v10 = swift_slowAlloc();
-      v11 = swift_slowAlloc();
-      v29[0] = v11;
-      *v10 = 136315138;
-      v12 = sub_23D6C6048();
-      v14 = sub_23D6C16D4(v12, v13, v29);
+      v26[0] = v10;
+      *v9 = 136315138;
+      v11 = sub_23D6C6048();
+      v13 = sub_23D6C16D4(v11, v12, v26);
 
-      *(v10 + 4) = v14;
-      _os_log_impl(&dword_23D6B9000, v8, v9, "[TWICE] Receive message: %s", v10, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1(v11);
-      MEMORY[0x23EEE8960](v11, -1, -1);
+      *(v9 + 4) = v13;
+      _os_log_impl(&dword_23D6B9000, v7, v8, "[TWICE] Receive message: %s", v9, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1(v10);
       MEMORY[0x23EEE8960](v10, -1, -1);
+      MEMORY[0x23EEE8960](v9, -1, -1);
     }
 
     swift_beginAccess();
     Strong = swift_unknownObjectWeakLoadStrong();
     if (Strong)
     {
-      v16 = Strong;
-      v17 = sub_23D6C6028();
+      v15 = Strong;
+      v16 = sub_23D6C6028();
 
 LABEL_25:
-      [v16 twiceRemoteScreenReceiveMessage_];
+      [v15 twiceRemoteScreenReceiveMessage_];
 
       swift_unknownObjectRelease();
       return;
@@ -3193,25 +3157,23 @@ LABEL_25:
   }
 
 LABEL_15:
-  v18 = *MEMORY[0x277CE6A50];
-  v27 = sub_23D6C6068();
-  v28 = v19;
+  v24 = sub_23D6C6068();
+  v25 = v17;
   sub_23D6C61E8();
-  if (!*(a1._rawValue + 2) || (v20 = sub_23D6C1C80(v29), (v21 & 1) == 0))
+  if (!*(a1._rawValue + 2) || (v18 = sub_23D6C1C80(v26), (v19 & 1) == 0))
   {
-    sub_23D6C281C(v29);
+    sub_23D6C281C(v26);
 LABEL_20:
-    v22 = *MEMORY[0x277CE6A68];
     sub_23D6C6068();
     sub_23D6C61E8();
-    if (!*(a1._rawValue + 2) || (v23 = sub_23D6C1C80(v29), (v24 & 1) == 0))
+    if (!*(a1._rawValue + 2) || (v20 = sub_23D6C1C80(v26), (v21 & 1) == 0))
     {
-      sub_23D6C281C(v29);
+      sub_23D6C281C(v26);
       return;
     }
 
-    sub_23D6C2870(*(a1._rawValue + 7) + 32 * v23, v30);
-    sub_23D6C281C(v29);
+    sub_23D6C2870(*(a1._rawValue + 7) + 32 * v20, v27);
+    sub_23D6C281C(v26);
     if (!swift_dynamicCast())
     {
       return;
@@ -3220,21 +3182,21 @@ LABEL_20:
     goto LABEL_23;
   }
 
-  sub_23D6C2870(*(a1._rawValue + 7) + 32 * v20, v30);
-  sub_23D6C281C(v29);
+  sub_23D6C2870(*(a1._rawValue + 7) + 32 * v18, v27);
+  sub_23D6C281C(v26);
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_20;
   }
 
-  sub_23D6C28CC(v27, v28);
+  sub_23D6C28CC(v24, v25);
 LABEL_23:
   swift_beginAccess();
-  v25 = swift_unknownObjectWeakLoadStrong();
-  if (v25)
+  v22 = swift_unknownObjectWeakLoadStrong();
+  if (v22)
   {
-    v16 = v25;
-    v17 = sub_23D6C6028();
+    v15 = v22;
+    v16 = sub_23D6C6028();
     goto LABEL_25;
   }
 }
@@ -3269,16 +3231,16 @@ Swift::Void __swiftcall AXTwiceRemoteScreenMessenger.connectedDevicesDidChange(_
   {
     v5 = swift_slowAlloc();
     v6 = swift_slowAlloc();
-    v18[0] = v6;
+    v17[0] = v6;
     *v5 = 136315394;
-    *(v5 + 4) = sub_23D6C16D4(0xD00000000000001DLL, 0x800000023D6C7F50, v18);
+    *(v5 + 4) = sub_23D6C16D4(0xD00000000000001DLL, 0x800000023D6C7F50, v17);
     *(v5 + 12) = 2080;
     if (rawValue)
     {
 
       v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1B50, &qword_23D6C74B0);
       v8 = MEMORY[0x23EEE8290](rawValue, v7);
-      v10 = sub_23D6C16D4(v8, v9, v18);
+      v10 = sub_23D6C16D4(v8, v9, v17);
 
       *(v5 + 14) = v10;
       _os_log_impl(&dword_23D6B9000, v3, v4, "[TWICE] %s %s", v5, 0x16u);
@@ -3317,16 +3279,15 @@ LABEL_7:
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1B70, &qword_23D6C74D0);
     v14 = swift_initStackObject();
     *(v14 + 16) = xmmword_23D6C6D70;
-    v15 = *MEMORY[0x277CE6A70];
-    v18[0] = sub_23D6C6068();
-    v18[1] = v16;
+    v17[0] = sub_23D6C6068();
+    v17[1] = v15;
     sub_23D6C61E8();
     *(v14 + 96) = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1B78, &qword_23D6C74D8);
     *(v14 + 72) = v13;
-    v17 = sub_23D6C209C(v14);
+    v16 = sub_23D6C209C(v14);
     swift_setDeallocating();
     sub_23D6C2B38(v14 + 32, &unk_27E2E1B80, &qword_23D6C74E0);
-    AXTwiceRemoteScreenMessenger.receiveMessage(_:)(v17);
+    AXTwiceRemoteScreenMessenger.receiveMessage(_:)(v16);
   }
 }
 
@@ -3361,7 +3322,7 @@ Swift::Void __swiftcall AXTwiceRemoteScreenMessenger.serverConnectionWasInterrup
   }
 }
 
-uint64_t sub_23D6C16D4(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_23D6C16D4(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_23D6C17A0(v11, 0, 0, 1, a1, a2);
@@ -3459,16 +3420,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_23D6C18AC(uint64_t a1, unint64_t a2)
+void *sub_23D6C18AC(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_23D6C18F8(a1, a2);
+  v3 = sub_23D6C18F8(a1, a2);
   sub_23D6C1A28(&unk_284FB5B60);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_23D6C18F8(uint64_t a1, unint64_t a2)
+void *sub_23D6C18F8(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -3565,7 +3524,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -3579,15 +3537,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_23D6C1B14(result, v12, 1, v3);
+  result = sub_23D6C1B14(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -3602,15 +3560,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -3619,12 +3577,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -3708,21 +3666,18 @@ char *sub_23D6C1B14(char *result, int64_t a2, char a3, char *a4)
 
 unint64_t sub_23D6C1C08(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_23D6C62B8();
   sub_23D6C6088();
-  v6 = sub_23D6C62D8();
+  v4 = sub_23D6C62D8();
 
-  return sub_23D6C1CC4(a1, a2, v6);
+  return sub_23D6C1CC4(a1, a2, v4);
 }
 
 unint64_t sub_23D6C1C80(uint64_t a1)
 {
-  v2 = v1;
-  v4 = *(v2 + 40);
-  v5 = sub_23D6C61C8();
+  v2 = sub_23D6C61C8();
 
-  return sub_23D6C1D7C(a1, v5);
+  return sub_23D6C1D7C(a1, v2);
 }
 
 unint64_t sub_23D6C1CC4(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3780,7 +3735,7 @@ unint64_t sub_23D6C1D7C(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-void *sub_23D6C1E44(void *a1, int64_t a2, char a3)
+void *sub_23D6C1E44(void *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_23D6C1E64(a1, a2, a3, *v3);
   *v3 = result;
@@ -4243,13 +4198,13 @@ uint64_t sub_23D6C2870(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_23D6C28CC(uint64_t a1, unint64_t a2)
+uint64_t sub_23D6C28CC(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -4414,7 +4369,6 @@ id static AXDeviceRemoteScreenUtil.sharedInstance.getter()
 uint64_t AXDeviceRemoteScreenUtil.caSessionIntervalEvent.getter()
 {
   v1 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalEvent);
-  v2 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalEvent + 8);
 
   return v1;
 }
@@ -4422,7 +4376,6 @@ uint64_t AXDeviceRemoteScreenUtil.caSessionIntervalEvent.getter()
 uint64_t AXDeviceRemoteScreenUtil.caSessionIntervalKey.getter()
 {
   v1 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalKey);
-  v2 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalKey + 8);
 
   return v1;
 }
@@ -4430,7 +4383,6 @@ uint64_t AXDeviceRemoteScreenUtil.caSessionIntervalKey.getter()
 uint64_t AXDeviceRemoteScreenUtil.caErrorEvent.getter()
 {
   v1 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorEvent);
-  v2 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorEvent + 8);
 
   return v1;
 }
@@ -4438,7 +4390,6 @@ uint64_t AXDeviceRemoteScreenUtil.caErrorEvent.getter()
 uint64_t AXDeviceRemoteScreenUtil.caErrorKey.getter()
 {
   v1 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorKey);
-  v2 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorKey + 8);
 
   return v1;
 }
@@ -4446,26 +4397,21 @@ uint64_t AXDeviceRemoteScreenUtil.caErrorKey.getter()
 uint64_t AXDeviceRemoteScreenUtil.caInactiveEvent.getter()
 {
   v1 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caInactiveEvent);
-  v2 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caInactiveEvent + 8);
 
   return v1;
 }
 
 id sub_23D6C2F00(uint64_t a1, uint64_t a2, void *a3)
 {
-  v3 = (a1 + *a3);
-  v4 = *v3;
-  v5 = v3[1];
 
-  v6 = sub_23D6C6058();
+  v3 = sub_23D6C6058();
 
-  return v6;
+  return v3;
 }
 
 uint64_t AXDeviceRemoteScreenUtil.caInactiveKey.getter()
 {
   v1 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caInactiveKey);
-  v2 = *(v0 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caInactiveKey + 8);
 
   return v1;
 }
@@ -4477,7 +4423,7 @@ uint64_t sub_23D6C2FA0()
   return sub_23D6C62D8();
 }
 
-uint64_t sub_23D6C300C()
+uint64_t sub_23D6C300C(uint64_t a1)
 {
   sub_23D6C62B8();
   MEMORY[0x23EEE8430](0);
@@ -4519,58 +4465,16 @@ void AXDeviceRemoteScreenUtil.logSessionInterval(beforeDate:afterDate:)()
   v3 = v2;
   sub_23D6C5F78();
   v5 = v3 - v4;
-  v6 = *&v0[OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalEvent];
-  v7 = *&v0[OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalEvent + 8];
-  v8 = sub_23D6C6058();
-  v9 = swift_allocObject();
-  *(v9 + 16) = v1;
-  *(v9 + 24) = v5;
-  v12[4] = sub_23D6C5CEC;
-  v12[5] = v9;
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 1107296256;
-  v12[2] = sub_23D6BC530;
-  v12[3] = &block_descriptor_1;
-  v10 = _Block_copy(v12);
-  v11 = v1;
-
-  AnalyticsSendEventLazy();
-  _Block_release(v10);
-}
-
-unint64_t sub_23D6C360C(uint64_t a1)
-{
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1A68, &unk_23D6C6E10);
-  inited = swift_initStackObject();
-  *(inited + 16) = xmmword_23D6C6D70;
-  v3 = *(a1 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalKey + 8);
-  *(inited + 32) = *(a1 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalKey);
-  *(inited + 40) = v3;
-
-  *(inited + 48) = sub_23D6C6138();
-  v4 = sub_23D6C1F98(inited);
-  swift_setDeallocating();
-  sub_23D6C2B38(inited + 32, &qword_27E2E1A78, &qword_23D6C7710);
-  return v4;
-}
-
-Swift::Void __swiftcall AXDeviceRemoteScreenUtil.logSessionError(errorName:)(Swift::String errorName)
-{
-  object = errorName._object;
-  countAndFlagsBits = errorName._countAndFlagsBits;
-  v4 = *&v1[OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorEvent];
-  v5 = *&v1[OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorEvent + 8];
   v6 = sub_23D6C6058();
   v7 = swift_allocObject();
-  v7[2] = v1;
-  v7[3] = countAndFlagsBits;
-  v7[4] = object;
-  v10[4] = sub_23D6C5D10;
+  *(v7 + 16) = v1;
+  *(v7 + 24) = v5;
+  v10[4] = sub_23D6C5CEC;
   v10[5] = v7;
   v10[0] = MEMORY[0x277D85DD0];
   v10[1] = 1107296256;
   v10[2] = sub_23D6BC530;
-  v10[3] = &block_descriptor_6_0;
+  v10[3] = &block_descriptor_1;
   v8 = _Block_copy(v10);
   v9 = v1;
 
@@ -4578,40 +4482,76 @@ Swift::Void __swiftcall AXDeviceRemoteScreenUtil.logSessionError(errorName:)(Swi
   _Block_release(v8);
 }
 
-unint64_t sub_23D6C39E8(uint64_t a1)
+unint64_t sub_23D6C360C(uint64_t a1, double a2)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1A68, &unk_23D6C6E10);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_23D6C6D70;
-  v3 = *(a1 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorKey + 8);
-  *(inited + 32) = *(a1 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorKey);
-  *(inited + 40) = v3;
+  v4 = *(a1 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalKey + 8);
+  *(inited + 32) = *(a1 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caSessionIntervalKey);
+  *(inited + 40) = v4;
 
-  *(inited + 48) = sub_23D6C6058();
-  v4 = sub_23D6C1F98(inited);
+  *(inited + 48) = sub_23D6C6138();
+  v5 = sub_23D6C1F98(inited);
   swift_setDeallocating();
   sub_23D6C2B38(inited + 32, &qword_27E2E1A78, &qword_23D6C7710);
-  return v4;
+  return v5;
+}
+
+Swift::Void __swiftcall AXDeviceRemoteScreenUtil.logSessionError(errorName:)(Swift::String errorName)
+{
+  object = errorName._object;
+  countAndFlagsBits = errorName._countAndFlagsBits;
+  v4 = sub_23D6C6058();
+  v5 = swift_allocObject();
+  v5[2] = v1;
+  v5[3] = countAndFlagsBits;
+  v5[4] = object;
+  v8[4] = sub_23D6C5D10;
+  v8[5] = v5;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 1107296256;
+  v8[2] = sub_23D6BC530;
+  v8[3] = &block_descriptor_6_0;
+  v6 = _Block_copy(v8);
+  v7 = v1;
+
+  AnalyticsSendEventLazy();
+  _Block_release(v6);
+}
+
+unint64_t sub_23D6C39E8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1A68, &unk_23D6C6E10);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_23D6C6D70;
+  v5 = *(a1 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorKey + 8);
+  *(inited + 32) = *(a1 + OBJC_IVAR___AXDeviceRemoteScreenUtil_caErrorKey);
+  *(inited + 40) = v5;
+
+  *(inited + 48) = sub_23D6C6058();
+  v6 = sub_23D6C1F98(inited);
+  swift_setDeallocating();
+  sub_23D6C2B38(inited + 32, &qword_27E2E1A78, &qword_23D6C7710);
+  return v6;
 }
 
 Swift::Void __swiftcall AXDeviceRemoteScreenUtil.logInactiveSession()()
 {
-  v1 = *&v0[OBJC_IVAR___AXDeviceRemoteScreenUtil_caInactiveEvent];
-  v2 = *&v0[OBJC_IVAR___AXDeviceRemoteScreenUtil_caInactiveEvent + 8];
-  v3 = sub_23D6C6058();
-  v4 = swift_allocObject();
-  *(v4 + 16) = v0;
-  v7[4] = sub_23D6C5D1C;
-  v7[5] = v4;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 1107296256;
-  v7[2] = sub_23D6BC530;
-  v7[3] = &block_descriptor_12;
-  v5 = _Block_copy(v7);
-  v6 = v0;
+  v1 = sub_23D6C6058();
+  v2 = swift_allocObject();
+  *(v2 + 16) = v0;
+  v5[4] = sub_23D6C5D1C;
+  v5[5] = v2;
+  v5[0] = MEMORY[0x277D85DD0];
+  v5[1] = 1107296256;
+  v5[2] = sub_23D6BC530;
+  v5[3] = &block_descriptor_12;
+  v3 = _Block_copy(v5);
+  v4 = v0;
 
   AnalyticsSendEventLazy();
-  _Block_release(v5);
+  _Block_release(v3);
 }
 
 unint64_t sub_23D6C3CB4(uint64_t a1)
@@ -4700,7 +4640,7 @@ unsigned __int8 *sub_23D6C4100(uint64_t a1, uint64_t a2, uint64_t a3)
   v6 = result;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = sub_23D6C468C();
+    v6 = sub_23D6C468C(result, v5);
     v35 = v34;
 
     v5 = v35;
@@ -5201,22 +5141,35 @@ LABEL_132:
   return result;
 }
 
-uint64_t sub_23D6C468C()
+uint64_t sub_23D6C468C(uint64_t a1, unint64_t a2)
 {
-  v0 = sub_23D6C6108();
-  v4 = sub_23D6C470C(v0, v1, v2, v3);
+  v2 = sub_23D6C6108();
+  v6 = sub_23D6C470C(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t sub_23D6C470C(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = sub_23D6C6198();
+    if (!v9 || (v10 = v9, v11 = sub_23D6C408C(v9, 0), v12 = sub_23D6C4864(v14, (v11 + 4), v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = sub_23D6C6078();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return sub_23D6C6078();
     }
 
@@ -5224,32 +5177,8 @@ uint64_t sub_23D6C470C(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = sub_23D6C6198();
-  if (!v9)
-  {
-    v11 = MEMORY[0x277D84F90];
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = sub_23D6C408C(v9, 0);
-  v12 = sub_23D6C4864(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = sub_23D6C6078();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   sub_23D6C6218();
 LABEL_4:
 
@@ -5418,7 +5347,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t sub_23D6C4A84(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t sub_23D6C4A84(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -5451,27 +5380,26 @@ uint64_t sub_23D6C4A84(unint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC22isPairedGizmoSupported8deviceIDSbSS_tF_0()
+uint64_t _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC22isPairedGizmoSupported8deviceIDSbSS_tF_0(uint64_t a1, uint64_t a2)
 {
-  v0 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1D68, &qword_23D6C7718) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x28223BE20])();
-  v2 = &v21 - v1;
-  v3 = sub_23D6C5FD8();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = (MEMORY[0x28223BE20])();
-  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v21 - v9;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E2E1D68, &qword_23D6C7718);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v22 - v3;
+  v5 = sub_23D6C5FD8();
+  v6 = *(v5 - 8);
+  v7 = MEMORY[0x28223BE20](v5);
+  v9 = &v22 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v11 = &v22 - v10;
   sub_23D6C5FA8();
-  if ((*(v4 + 48))(v2, 1, v3) == 1)
+  if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    sub_23D6C2B38(v2, &qword_27E2E1D68, &qword_23D6C7718);
+    sub_23D6C2B38(v4, &qword_27E2E1D68, &qword_23D6C7718);
   }
 
   else
   {
-    (*(v4 + 32))(v10, v2, v3);
+    (*(v6 + 32))(v11, v4, v5);
     result = [objc_opt_self() sharedInstance];
     if (!result)
     {
@@ -5479,23 +5407,23 @@ uint64_t _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC22isPairedGizmoSupport
       return result;
     }
 
-    v12 = result;
-    v13 = sub_23D6C5FB8();
-    v14 = [v12 deviceForBluetoothID_];
+    v13 = result;
+    v14 = sub_23D6C5FB8();
+    v15 = [v13 deviceForBluetoothID_];
 
-    if (v14)
+    if (v15)
     {
-      v15 = AX_NRDEVICECAPABILITY_MULTIBAND_WIFI();
+      v16 = AX_NRDEVICECAPABILITY_MULTIBAND_WIFI();
       sub_23D6C5FC8();
 
-      v16 = sub_23D6C5FB8();
-      v17 = *(v4 + 8);
-      v17(v8, v3);
-      v18 = [v14 supportsCapability_];
+      v17 = sub_23D6C5FB8();
+      v18 = *(v6 + 8);
+      v18(v9, v5);
+      v19 = [v15 supportsCapability_];
 
-      if (v18)
+      if (v19)
       {
-        if ([v14 valueForProperty_])
+        if ([v15 valueForProperty_])
         {
           sub_23D6C61B8();
           swift_unknownObjectRelease();
@@ -5503,41 +5431,41 @@ uint64_t _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC22isPairedGizmoSupport
 
         else
         {
-          v23 = 0u;
           v24 = 0u;
+          v25 = 0u;
         }
 
-        v25[0] = v23;
-        v25[1] = v24;
-        if (*(&v24 + 1))
+        v26[0] = v24;
+        v26[1] = v25;
+        if (*(&v25 + 1))
         {
           sub_23D6C5E44();
           if (swift_dynamicCast())
           {
-            v19 = v22;
-            v20 = [v22 BOOLValue];
+            v20 = v23;
+            v21 = [v23 BOOLValue];
 
-            v17(v10, v3);
-            return (v20 & 1) == 0;
+            v18(v11, v5);
+            return (v21 & 1) == 0;
           }
         }
 
         else
         {
 
-          sub_23D6C2B38(v25, &qword_27E2E1B20, &qword_23D6C70C0);
+          sub_23D6C2B38(v26, &qword_27E2E1B20, &qword_23D6C70C0);
         }
 
-        v17(v10, v3);
+        v18(v11, v5);
         return 1;
       }
 
-      v17(v10, v3);
+      v18(v11, v5);
     }
 
     else
     {
-      (*(v4 + 8))(v10, v3);
+      (*(v6 + 8))(v11, v5);
     }
   }
 
@@ -5556,17 +5484,17 @@ unint64_t sub_23D6C4E9C()
   return result;
 }
 
-uint64_t _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC20localizedStingString3keyS2S_tF_0()
+uint64_t _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC20localizedStingString3keyS2S_tF_0(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for AXDeviceRemoteScreenUtil();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v1 = [objc_opt_self() bundleForClass_];
-  v2 = sub_23D6C6058();
-  v3 = sub_23D6C6058();
-  v4 = [v1 localizedStringForKey:v2 value:0 table:v3];
+  v3 = [objc_opt_self() bundleForClass_];
+  v4 = sub_23D6C6058();
+  v5 = sub_23D6C6058();
+  v6 = [v3 localizedStringForKey:v4 value:0 table:v5];
 
-  v5 = sub_23D6C6068();
-  return v5;
+  v7 = sub_23D6C6068();
+  return v7;
 }
 
 unsigned __int8 *sub_23D6C4FD0()
@@ -5992,41 +5920,40 @@ uint64_t _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC28isPairedGizmoHasStin
 {
   v0 = sub_23D6C5FD8();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   MEMORY[0x28223BE20](v0);
-  v4 = &v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_23D6C4FD0();
-  if (!v5)
+  v3 = &v17 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_23D6C4FD0();
+  if (!v4)
   {
     if (qword_2814FB9F0 != -1)
     {
       swift_once();
     }
 
-    v15 = sub_23D6C6018();
-    __swift_project_value_buffer(v15, qword_2814FB9F8);
-    v6 = sub_23D6C5FF8();
-    v16 = sub_23D6C6158();
-    if (os_log_type_enabled(v6, v16))
+    v14 = sub_23D6C6018();
+    __swift_project_value_buffer(v14, qword_2814FB9F8);
+    v5 = sub_23D6C5FF8();
+    v15 = sub_23D6C6158();
+    if (os_log_type_enabled(v5, v15))
     {
-      v17 = swift_slowAlloc();
-      *v17 = 0;
-      _os_log_impl(&dword_23D6B9000, v6, v16, "[TWICE] currentPairedGizmo is nil", v17, 2u);
-      MEMORY[0x23EEE8960](v17, -1, -1);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&dword_23D6B9000, v5, v15, "[TWICE] currentPairedGizmo is nil", v16, 2u);
+      MEMORY[0x23EEE8960](v16, -1, -1);
     }
 
     goto LABEL_12;
   }
 
-  v6 = v5;
-  v7 = AX_NRDEVICECAPABILITY_STING();
+  v5 = v4;
+  v6 = AX_NRDEVICECAPABILITY_STING();
   sub_23D6C5FC8();
 
-  v8 = sub_23D6C5FB8();
-  (*(v1 + 8))(v4, v0);
-  v9 = [v6 supportsCapability:v8];
+  v7 = sub_23D6C5FB8();
+  (*(v1 + 8))(v3, v0);
+  v8 = [v5 supportsCapability:v7];
 
-  if (!v9)
+  if (!v8)
   {
 LABEL_12:
 
@@ -6038,16 +5965,16 @@ LABEL_12:
     swift_once();
   }
 
-  v10 = sub_23D6C6018();
-  __swift_project_value_buffer(v10, qword_2814FB9F8);
-  v11 = sub_23D6C5FF8();
-  v12 = sub_23D6C6158();
-  if (os_log_type_enabled(v11, v12))
+  v9 = sub_23D6C6018();
+  __swift_project_value_buffer(v9, qword_2814FB9F8);
+  v10 = sub_23D6C5FF8();
+  v11 = sub_23D6C6158();
+  if (os_log_type_enabled(v10, v11))
   {
-    v13 = swift_slowAlloc();
-    *v13 = 0;
-    _os_log_impl(&dword_23D6B9000, v11, v12, "[TWICE] currentPairedGizmo is sting supported", v13, 2u);
-    MEMORY[0x23EEE8960](v13, -1, -1);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&dword_23D6B9000, v10, v11, "[TWICE] currentPairedGizmo is sting supported", v12, 2u);
+    MEMORY[0x23EEE8960](v12, -1, -1);
   }
 
   return 1;
@@ -6057,57 +5984,56 @@ uint64_t _s27AXWatchRemoteScreenServices08AXDevicebC4UtilC22isPairedGizmoSupport
 {
   v0 = sub_23D6C5FD8();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   MEMORY[0x28223BE20](v0);
-  v4 = &v22 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_23D6C4FD0();
-  if (!v5)
+  v3 = &v21 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_23D6C4FD0();
+  if (!v4)
   {
     if (qword_2814FB9F0 != -1)
     {
       swift_once();
     }
 
-    v15 = sub_23D6C6018();
-    __swift_project_value_buffer(v15, qword_2814FB9F8);
-    v6 = sub_23D6C5FF8();
-    v16 = sub_23D6C6158();
-    if (os_log_type_enabled(v6, v16))
+    v14 = sub_23D6C6018();
+    __swift_project_value_buffer(v14, qword_2814FB9F8);
+    v5 = sub_23D6C5FF8();
+    v15 = sub_23D6C6158();
+    if (os_log_type_enabled(v5, v15))
     {
-      v17 = swift_slowAlloc();
-      *v17 = 0;
-      _os_log_impl(&dword_23D6B9000, v6, v16, "[TWICE] currentPairedGizmo is nil", v17, 2u);
-      MEMORY[0x23EEE8960](v17, -1, -1);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&dword_23D6B9000, v5, v15, "[TWICE] currentPairedGizmo is nil", v16, 2u);
+      MEMORY[0x23EEE8960](v16, -1, -1);
     }
 
     goto LABEL_17;
   }
 
-  v6 = v5;
-  v7 = AX_NRDEVICECAPABILITY_MULTIBAND_WIFI();
+  v5 = v4;
+  v6 = AX_NRDEVICECAPABILITY_MULTIBAND_WIFI();
   sub_23D6C5FC8();
 
-  v8 = sub_23D6C5FB8();
-  (*(v1 + 8))(v4, v0);
-  v9 = [v6 supportsCapability:v8];
+  v7 = sub_23D6C5FB8();
+  (*(v1 + 8))(v3, v0);
+  v8 = [v5 supportsCapability:v7];
 
-  if (!v9)
+  if (!v8)
   {
     if (qword_2814FB9F0 != -1)
     {
       swift_once();
     }
 
-    v18 = sub_23D6C6018();
-    __swift_project_value_buffer(v18, qword_2814FB9F8);
-    v19 = sub_23D6C5FF8();
-    v20 = sub_23D6C6158();
-    if (os_log_type_enabled(v19, v20))
+    v17 = sub_23D6C6018();
+    __swift_project_value_buffer(v17, qword_2814FB9F8);
+    v18 = sub_23D6C5FF8();
+    v19 = sub_23D6C6158();
+    if (os_log_type_enabled(v18, v19))
     {
-      v21 = swift_slowAlloc();
-      *v21 = 0;
-      _os_log_impl(&dword_23D6B9000, v19, v20, "[TWICE] currentPairedGizmo is NOT multiband wifi", v21, 2u);
-      MEMORY[0x23EEE8960](v21, -1, -1);
+      v20 = swift_slowAlloc();
+      *v20 = 0;
+      _os_log_impl(&dword_23D6B9000, v18, v19, "[TWICE] currentPairedGizmo is NOT multiband wifi", v20, 2u);
+      MEMORY[0x23EEE8960](v20, -1, -1);
     }
 
 LABEL_17:
@@ -6119,16 +6045,16 @@ LABEL_17:
     swift_once();
   }
 
-  v10 = sub_23D6C6018();
-  __swift_project_value_buffer(v10, qword_2814FB9F8);
-  v11 = sub_23D6C5FF8();
-  v12 = sub_23D6C6158();
-  if (os_log_type_enabled(v11, v12))
+  v9 = sub_23D6C6018();
+  __swift_project_value_buffer(v9, qword_2814FB9F8);
+  v10 = sub_23D6C5FF8();
+  v11 = sub_23D6C6158();
+  if (os_log_type_enabled(v10, v11))
   {
-    v13 = swift_slowAlloc();
-    *v13 = 0;
-    _os_log_impl(&dword_23D6B9000, v11, v12, "[TWICE] currentPairedGizmo is TWICE supported", v13, 2u);
-    MEMORY[0x23EEE8960](v13, -1, -1);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&dword_23D6B9000, v10, v11, "[TWICE] currentPairedGizmo is TWICE supported", v12, 2u);
+    MEMORY[0x23EEE8960](v12, -1, -1);
   }
 
   return 1;
@@ -6200,13 +6126,6 @@ uint64_t block_copy_helper_1(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-unint64_t sub_23D6C5D10()
-{
-  v1 = v0[3];
-  v2 = v0[4];
-  return sub_23D6C39E8(v0[2]);
-}
-
 unint64_t sub_23D6C5D5C()
 {
   result = qword_27E2E1D58;
@@ -6221,7 +6140,6 @@ unint64_t sub_23D6C5D5C()
 
 uint64_t objectdestroy_2Tm()
 {
-  v1 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -6253,7 +6171,7 @@ unint64_t sub_23D6C5E44()
 
 void AXDisplayCornerRadiusWithMargin_cold_1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   __getBluetoothManagerClass_block_invoke_cold_1();
 }

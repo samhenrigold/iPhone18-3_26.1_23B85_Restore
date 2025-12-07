@@ -1156,7 +1156,7 @@ id __32__OKDocument_readFromURL_error___block_invoke(uint64_t a1)
   return v13;
 }
 
-uint64_t __77__OKDocument_retainedPosterImageForFileURL_withResolution_coordinateReading___block_invoke(uint64_t a1)
+uint64_t __77__OKDocument_retainedPosterImageForFileURL_withResolution_coordinateReading___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = OFCGImageCreateWithURL();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1478,7 +1478,7 @@ LABEL_7:
   return [(OKPresentation *)self->_presentation mediaItemForURL:v16];
 }
 
-uint64_t __65__OKDocument_importResourceURL_opaque_force_progressBlock_error___block_invoke(uint64_t a1, void *a2)
+void *__65__OKDocument_importResourceURL_opaque_force_progressBlock_error___block_invoke(uint64_t a1, void *a2)
 {
   if (([a2 isCancelled] & 1) != 0 || objc_msgSend(a2, "error"))
   {
@@ -2198,13 +2198,13 @@ uint64_t __68__OKDocument_prepareMediaURLs_force_colorSpace_progressBlock_error_
   return array;
 }
 
-void __34__OKDocument_importedResourceURLs__block_invoke(uint64_t a1)
+void __34__OKDocument_importedResourceURLs__block_invoke(void *a1)
 {
   v18 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CCAA00]);
   v3 = *MEMORY[0x277CBE8E8];
   v4 = *MEMORY[0x277CBE868];
-  v5 = [v2 enumeratorAtURL:*(a1 + 32) includingPropertiesForKeys:objc_msgSend(MEMORY[0x277CBEA60] options:"arrayWithObjects:" errorHandler:{*MEMORY[0x277CBE8E8], *MEMORY[0x277CBE868], 0), 5, 0}];
+  v5 = [v2 enumeratorAtURL:a1[4] includingPropertiesForKeys:objc_msgSend(MEMORY[0x277CBEA60] options:"arrayWithObjects:" errorHandler:{*MEMORY[0x277CBE8E8], *MEMORY[0x277CBE868], 0), 5, 0}];
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
@@ -2231,7 +2231,7 @@ void __34__OKDocument_importedResourceURLs__block_invoke(uint64_t a1)
         {
           v11 = 0;
           [v10 getResourceValue:&v11 forKey:v3 error:0];
-          [*(a1 + 40) addObject:{objc_msgSend(objc_opt_class(), "_importedResourceURLWithHash:", objc_msgSend(v11, "lastPathComponent"))}];
+          [a1[5] addObject:{objc_msgSend(objc_opt_class(), "_importedResourceURLWithHash:", objc_msgSend(v11, "lastPathComponent"))}];
         }
 
         ++v9;
@@ -2283,7 +2283,7 @@ void __34__OKDocument_importedResourceURLs__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __52__OKDocument__thumbnailForImportedResourceURL_size___block_invoke(uint64_t a1)
+uint64_t __52__OKDocument__thumbnailForImportedResourceURL_size___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = OFCGImageCreateWithURL();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2330,7 +2330,7 @@ uint64_t __52__OKDocument__thumbnailForImportedResourceURL_size___block_invoke(u
   return v6;
 }
 
-uint64_t __56__OKDocument__thumbnailFromMediaForImportedResourceURL___block_invoke(uint64_t a1)
+void *__56__OKDocument__thumbnailFromMediaForImportedResourceURL___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ([*(a1 + 32) intValue] == 2)
   {
@@ -2396,7 +2396,7 @@ LABEL_5:
   return v8;
 }
 
-uint64_t __61__OKDocument__thumbnailFromMediaForImportedResourceURL_size___block_invoke(uint64_t a1)
+void *__61__OKDocument__thumbnailFromMediaForImportedResourceURL_size___block_invoke(uint64_t a1, uint64_t a2)
 {
   if ([*(a1 + 32) intValue] == 2)
   {
@@ -2560,7 +2560,7 @@ void __63__OKDocument__saveThumbnailToDisk_forImportedResourceURL_size___block_i
   return v4;
 }
 
-uint64_t __47__OKDocument__thumbnailForImportedResourceURL___block_invoke(uint64_t a1)
+uint64_t __47__OKDocument__thumbnailForImportedResourceURL___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = OFCGImageCreateWithURL();
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -2635,7 +2635,7 @@ id __46__OKDocument__metadataForImportedResourceURL___block_invoke(uint64_t a1, 
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __46__OKDocument__didEnterBackgroundNotification___block_invoke(uint64_t a1)
+void *__46__OKDocument__didEnterBackgroundNotification___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x277D75128] "sharedApplication")];
   if (!result)
@@ -2697,7 +2697,7 @@ uint64_t __46__OKDocument__didEnterBackgroundNotification___block_invoke_3(uint6
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __41__OKDocument__willTerminateNotification___block_invoke(uint64_t a1)
+void *__41__OKDocument__willTerminateNotification___block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(MEMORY[0x277D75128] "sharedApplication")];
   if (!result)

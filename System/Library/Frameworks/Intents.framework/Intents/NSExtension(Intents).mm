@@ -17,7 +17,7 @@
 
 - (BOOL)_intents_extensionSupportsAtLeastOneSiriIntent
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v2 = 0;
   if (INThisProcessCanMapLSDatabase(0))
   {
@@ -29,8 +29,8 @@
     if (v6)
     {
       compatibilityObject = [v6 compatibilityObject];
-      v12[0] = compatibilityObject;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+      v11[0] = compatibilityObject;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
       v9 = _INSupportedIntentsByExtensions(1, v8, 0);
     }
 
@@ -42,7 +42,6 @@
     v2 = [v9 count] != 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -58,25 +57,23 @@
 
 + (void)_findAppsWithAnyIntentsExtensionCheckingSiriEnabledUseFilter:()Intents completion:
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v6 = a4;
   if (v6)
   {
-    v14 = *MEMORY[0x1E696A2F8];
-    v15[0] = @"com.apple.intents-service";
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A2F8];
+    v14[0] = @"com.apple.intents-service";
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v8 = MEMORY[0x1E696ABD0];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __96__NSExtension_Intents___findAppsWithAnyIntentsExtensionCheckingSiriEnabledUseFilter_completion___block_invoke;
-    v10[3] = &unk_1E7285408;
-    v12 = a3;
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __96__NSExtension_Intents___findAppsWithAnyIntentsExtensionCheckingSiriEnabledUseFilter_completion___block_invoke;
+    v9[3] = &unk_1E7285408;
+    v11 = a3;
     selfCopy = self;
-    v11 = v6;
-    [v8 extensionsWithMatchingAttributes:v7 completion:v10];
+    v10 = v6;
+    [v8 extensionsWithMatchingAttributes:v7 completion:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_intents_findSiriEntitledAppsContainingAnIntentsExtensionWithCompletion:()Intents
@@ -105,22 +102,22 @@
 
 + (id)_extensionMatchingDictionaryForIntentClassNames:()Intents extensionPointName:launchId:
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   v9 = a5;
-  v18[0] = *MEMORY[0x1E696A2F8];
-  v18[1] = @"IntentsSupported";
-  v19[0] = v8;
-  v19[1] = v7;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v17[0] = *MEMORY[0x1E696A2F8];
+  v17[1] = @"IntentsSupported";
+  v18[0] = v8;
+  v18[1] = v7;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v11 = [v10 mutableCopy];
 
   if (v9)
   {
-    v17 = 0;
-    INExtractAppInfoFromSiriLaunchId(v9, 0, &v17);
-    v12 = v17;
+    v16 = 0;
+    INExtractAppInfoFromSiriLaunchId(v9, 0, &v16);
+    v12 = v16;
     if (v12)
     {
       v13 = v12;
@@ -129,8 +126,6 @@
   }
 
   v14 = [v11 copy];
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -154,7 +149,7 @@
 
 + (void)_matchSnippetExtensionsWithExtensionPointName:()Intents completion:
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v7)
@@ -162,13 +157,13 @@
     if (v6)
     {
       v8 = *MEMORY[0x1E696A2F8];
-      v14[1] = @"IntentsSupported";
-      v15[0] = v6;
-      v13 = @"SiriUISnippetExtensionIntent";
-      v14[0] = v8;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
-      v15[1] = v9;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+      v13[1] = @"IntentsSupported";
+      v14[0] = v6;
+      v12 = @"SiriUISnippetExtensionIntent";
+      v13[0] = v8;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+      v14[1] = v9;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
       [self _matchExtensionsWithAttributes:v10 extensionPointName:v6 requireTrustCheck:1 completion:v7];
     }
@@ -179,13 +174,11 @@
       v7[2](v7, 0, v11);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_matchExtensionsForIntent:()Intents extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v14 = a3;
   v15 = a4;
   v16 = a8;
@@ -195,7 +188,7 @@
     {
       if (v15)
       {
-        v36 = a5;
+        v35 = a5;
         v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
         extensionBundleId = [v14 extensionBundleId];
         if (extensionBundleId)
@@ -203,8 +196,8 @@
           [v17 addObject:extensionBundleId];
         }
 
-        v38 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.SiriViewService"];
-        if ([v38 BOOLForKey:@"kEnableEnhancedSiriUI"])
+        v37 = [objc_alloc(MEMORY[0x1E695E000]) initWithSuiteName:@"com.apple.SiriViewService"];
+        if ([v37 BOOLForKey:@"kEnableEnhancedSiriUI"])
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -213,7 +206,7 @@
             if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
             {
               *buf = 136315138;
-              v50 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]";
+              v49 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]";
               _os_log_impl(&dword_18E991000, v19, OS_LOG_TYPE_INFO, "%s Setting UIExtensionBundleID to MessagesAssistantUIExtension", buf, 0xCu);
             }
 
@@ -227,41 +220,41 @@
           [v17 insertObject:_uiExtensionBundleId atIndex:0];
         }
 
-        v37 = _uiExtensionBundleId;
+        v36 = _uiExtensionBundleId;
         if ([v17 count])
         {
           v21 = INSiriLogContextIntents;
           if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
           {
             *buf = 136315394;
-            v50 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]";
-            v51 = 2112;
-            v52 = v17;
+            v49 = "+[NSExtension(Intents) _matchExtensionsForIntent:extensionPointName:shouldCheckForSiriEnabled:shouldIgnoreLaunchId:requireTrustCheck:completion:]";
+            v50 = 2112;
+            v51 = v17;
             _os_log_impl(&dword_18E991000, v21, OS_LOG_TYPE_INFO, "%s Considering possible extension bundle id candidates for direct lookup: %@", buf, 0x16u);
           }
 
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = __145__NSExtension_Intents___matchExtensionsForIntent_extensionPointName_shouldCheckForSiriEnabled_shouldIgnoreLaunchId_requireTrustCheck_completion___block_invoke;
-          v44[3] = &unk_1E7285388;
-          v45 = v17;
-          v47 = v16;
-          v46 = v14;
-          [v45 enumerateObjectsUsingBlock:v44];
+          v43[0] = MEMORY[0x1E69E9820];
+          v43[1] = 3221225472;
+          v43[2] = __145__NSExtension_Intents___matchExtensionsForIntent_extensionPointName_shouldCheckForSiriEnabled_shouldIgnoreLaunchId_requireTrustCheck_completion___block_invoke;
+          v43[3] = &unk_1E7285388;
+          v44 = v17;
+          v46 = v16;
+          v45 = v14;
+          [v44 enumerateObjectsUsingBlock:v43];
 
-          _className = v45;
+          _className = v44;
         }
 
         else
         {
           _intents_launchIdForCurrentPlatform = [v14 _intents_launchIdForCurrentPlatform];
           _className = [v14 _className];
-          v35 = a7;
+          v34 = a7;
           v26 = extensionBundleId;
           v27 = v17;
           v28 = [_intents_launchIdForCurrentPlatform hasPrefix:@"com.apple.shortcuts"] | a6;
-          v48 = _className;
-          v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
+          v47 = _className;
+          v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
           v30 = v28 == 0;
           v17 = v27;
           extensionBundleId = v26;
@@ -277,16 +270,16 @@
 
           v32 = [self _extensionMatchingDictionaryForIntentClassNames:v29 extensionPointName:v15 launchId:v31];
 
-          v39[0] = MEMORY[0x1E69E9820];
-          v39[1] = 3221225472;
-          v39[2] = __145__NSExtension_Intents___matchExtensionsForIntent_extensionPointName_shouldCheckForSiriEnabled_shouldIgnoreLaunchId_requireTrustCheck_completion___block_invoke_43;
-          v39[3] = &unk_1E72853B0;
-          v43 = v36;
-          v40 = _intents_launchIdForCurrentPlatform;
+          v38[0] = MEMORY[0x1E69E9820];
+          v38[1] = 3221225472;
+          v38[2] = __145__NSExtension_Intents___matchExtensionsForIntent_extensionPointName_shouldCheckForSiriEnabled_shouldIgnoreLaunchId_requireTrustCheck_completion___block_invoke_43;
+          v38[3] = &unk_1E72853B0;
+          v42 = v35;
+          v39 = _intents_launchIdForCurrentPlatform;
           selfCopy = self;
-          v41 = v16;
+          v40 = v16;
           v33 = _intents_launchIdForCurrentPlatform;
-          [self _matchExtensionsWithAttributes:v32 extensionPointName:v15 requireTrustCheck:v35 completion:v39];
+          [self _matchExtensionsWithAttributes:v32 extensionPointName:v15 requireTrustCheck:v34 completion:v38];
         }
 
         goto LABEL_26;
@@ -306,8 +299,6 @@
     (*(v16 + 2))(v16, 0, v17);
 LABEL_26:
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_intents_matchSiriUISnippetExtensionsWithCompletion:()Intents

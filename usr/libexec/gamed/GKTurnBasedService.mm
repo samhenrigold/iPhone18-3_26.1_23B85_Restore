@@ -43,7 +43,7 @@
   v18 = 0u;
   v19 = 0u;
   obj = indexesCopy;
-  v7 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
+  v7 = [obj countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
@@ -58,16 +58,16 @@
         }
 
         v11 = *(*(&v16 + 1) + 8 * i);
-        v20[1] = @"turn-timeout";
-        v21[0] = v11;
-        v20[0] = @"next-turn-on-slot";
+        v21 = @"turn-timeout";
+        v22 = v11;
+        v20 = @"next-turn-on-slot";
         v12 = [NSNumber _gkServerTimeInterval:timeout];
-        v21[1] = v12;
-        v13 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:2];
+        v23 = v12;
+        v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
         [v6 addObject:v13];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
+      v8 = [obj countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v8);
@@ -90,7 +90,7 @@
   if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v95 = requestCopy;
+    v109 = requestCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "TBGame - createTurnBasedGameForMatchRequest, matchRequest = %@", buf, 0xCu);
   }
 
@@ -106,7 +106,7 @@
     v76 = 0uLL;
     v77 = 0uLL;
     obj = [requestCopy recipients];
-    v13 = [obj countByEnumeratingWithState:&v76 objects:v93 count:16];
+    v13 = [obj countByEnumeratingWithState:&v76 objects:v107 count:16];
     if (v13)
     {
       v14 = v13;
@@ -128,18 +128,18 @@
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v91[0] = v17;
+            v103 = v17;
             v20 = v19;
             hostPlayerInternal = [v20 hostPlayerInternal];
             [hostPlayerInternal playerID];
             v23 = v22 = v17;
-            v92[0] = v23;
-            v91[1] = @"guest-id";
+            v105 = v23;
+            v104 = @"guest-id";
             [v20 guestIdentifier];
             v24 = v10;
             v26 = v25 = v16;
-            v92[1] = v26;
-            v27 = [NSDictionary dictionaryWithObjects:v92 forKeys:v91 count:2];
+            v106 = v26;
+            v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
             v16 = v25;
             v10 = v24;
@@ -156,17 +156,17 @@ LABEL_16:
           if (v28 || ([v60 inviteMessage], (v28 = objc_claimAutoreleasedReturnValue()) != 0))
           {
             v20 = v28;
-            v89[0] = v17;
-            v89[1] = @"invite-message";
-            v90[0] = hostPlayerInternal;
-            v90[1] = v28;
-            v27 = [NSDictionary dictionaryWithObjects:v90 forKeys:v89 count:2];
+            v99 = v17;
+            v100 = @"invite-message";
+            v101 = hostPlayerInternal;
+            v102 = v28;
+            v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
             goto LABEL_16;
           }
 
-          v87 = v17;
-          v88 = hostPlayerInternal;
-          v27 = [NSDictionary dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+          v97 = v17;
+          v98 = hostPlayerInternal;
+          v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 LABEL_17:
 
           [v10 addObject:v27];
@@ -174,7 +174,7 @@ LABEL_17:
         }
 
         while (v14 != v18);
-        v29 = [obj countByEnumeratingWithState:&v76 objects:v93 count:16];
+        v29 = [obj countByEnumeratingWithState:&v76 objects:v107 count:16];
         v14 = v29;
       }
 
@@ -189,7 +189,7 @@ LABEL_17:
     v72 = 0uLL;
     v73 = 0uLL;
     obj = [requestCopy recipientPlayerIDs];
-    v30 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
+    v30 = [obj countByEnumeratingWithState:&v72 objects:v96 count:16];
     if (v30)
     {
       v31 = v30;
@@ -210,18 +210,18 @@ LABEL_17:
           if (v36 || ([v32 inviteMessage], (v36 = objc_claimAutoreleasedReturnValue()) != 0))
           {
             v37 = v36;
-            v84[0] = @"player-id";
-            v84[1] = @"invite-message";
-            v85[0] = v35;
-            v85[1] = v36;
-            v38 = [NSDictionary dictionaryWithObjects:v85 forKeys:v84 count:2];
+            v92 = @"player-id";
+            v93 = @"invite-message";
+            v94 = v35;
+            v95 = v36;
+            v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
           }
 
           else
           {
-            v82 = @"player-id";
-            v83 = v35;
-            v38 = [NSDictionary dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+            v90 = @"player-id";
+            v91 = v35;
+            v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
           }
 
           [v10 addObject:v38];
@@ -230,7 +230,7 @@ LABEL_17:
         }
 
         while (v31 != v34);
-        v39 = [obj countByEnumeratingWithState:&v72 objects:v86 count:16];
+        v39 = [obj countByEnumeratingWithState:&v72 objects:v96 count:16];
         v31 = v39;
       }
 
@@ -238,16 +238,16 @@ LABEL_17:
     }
   }
 
-  v80[0] = @"bucket-id";
+  v80 = @"bucket-id";
   v40 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [v60 playerGroup]);
-  v81[0] = v40;
-  v80[1] = @"min-players";
+  v85 = v40;
+  v81 = @"min-players";
   v41 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [v60 maxPlayers]);
-  v81[1] = v41;
-  v80[2] = @"max-players";
+  v86 = v41;
+  v82 = @"max-players";
   v42 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [v60 maxPlayers]);
-  v81[2] = v42;
-  v80[3] = @"player-attributes";
+  v87 = v42;
+  v83 = @"player-attributes";
   playerAttributes = [v60 playerAttributes];
   if (playerAttributes)
   {
@@ -260,10 +260,10 @@ LABEL_17:
   }
 
   v45 = [NSString stringWithFormat:@"%#.8x", v44];
-  v80[4] = @"invites";
-  v81[3] = v45;
-  v81[4] = v10;
-  v46 = [NSDictionary dictionaryWithObjects:v81 forKeys:v80 count:5];
+  v84 = @"invites";
+  v88 = v45;
+  v89 = v10;
+  v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   v47 = [NSMutableDictionary dictionaryWithDictionary:v46];
 
   if ([v60 isPreloadedMatch])
@@ -441,11 +441,11 @@ LABEL_17:
   [v18 setObject:platformCopy forKeyedSubscript:@"platform"];
   if (dCopy && versionCopy | bundleVersionCopy)
   {
-    v33[0] = @"bundle-id";
-    v33[1] = @"bundle-version";
-    v34[0] = dCopy;
-    v34[1] = versionCopy;
-    v19 = [NSDictionary dictionaryWithObjects:v34 forKeys:v33 count:2];
+    v33 = @"bundle-id";
+    v34 = @"bundle-version";
+    v35 = dCopy;
+    v36 = versionCopy;
+    v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     v20 = [NSMutableDictionary dictionaryWithDictionary:v19];
 
     if (bundleVersionCopy)
@@ -1015,7 +1015,7 @@ LABEL_15:
   v28 = 0u;
   v29 = 0u;
   v10 = valuesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v11)
   {
     v12 = v11;
@@ -1050,7 +1050,7 @@ LABEL_15:
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v12);
@@ -1059,12 +1059,12 @@ LABEL_15:
   if ([v9 count])
   {
     v21 = dCopy;
-    v30[0] = @"session-id";
-    v30[1] = @"players";
-    v31[0] = dCopy;
+    v30 = @"session-id";
+    v31 = @"players";
+    v32 = dCopy;
     allValues = [v9 allValues];
-    v31[1] = allValues;
-    v23 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:2];
+    v33 = allValues;
+    v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   }
 
   else
@@ -1250,18 +1250,18 @@ LABEL_15:
 
 - (void)cancelExchange:(id)exchange withMessage:(id)message match:(id)match handler:(id)handler
 {
-  v17[0] = @"session-id";
+  v17 = @"session-id";
   handlerCopy = handler;
   matchCopy = match;
   messageCopy = message;
   exchangeCopy = exchange;
   matchID = [matchCopy matchID];
-  v18[0] = matchID;
-  v18[1] = exchangeCopy;
-  v17[1] = @"request-id";
-  v17[2] = @"notification-message";
-  v18[2] = messageCopy;
-  v15 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:3];
+  v20 = matchID;
+  v21 = exchangeCopy;
+  v18 = @"request-id";
+  v19 = @"notification-message";
+  v22 = messageCopy;
+  v15 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
   matchID2 = [matchCopy matchID];
 
@@ -1273,24 +1273,24 @@ LABEL_15:
   exchangeCopy = exchange;
   messageCopy = message;
   dataCopy = data;
-  v21[0] = @"session-id";
+  v21 = @"session-id";
   handlerCopy = handler;
   matchCopy = match;
   matchID = [matchCopy matchID];
-  v22[0] = matchID;
-  v22[1] = exchangeCopy;
-  v21[1] = @"request-id";
-  v21[2] = @"notification-message";
-  v22[2] = messageCopy;
-  v21[3] = @"data";
+  v25 = matchID;
+  v26 = exchangeCopy;
+  v22 = @"request-id";
+  v23 = @"notification-message";
+  v27 = messageCopy;
+  v24 = @"data";
   v18 = dataCopy;
   if (!dataCopy)
   {
     v18 = +[NSData data];
   }
 
-  v22[3] = v18;
-  v19 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:4];
+  v28 = v18;
+  v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   if (!dataCopy)
   {
   }
@@ -1379,15 +1379,15 @@ LABEL_15:
   v15 = [(GKService *)self transactionGroupWithName:v14];
 
   v16 = +[GKDataRequestManager sharedManager];
-  v34[0] = @"session-id";
+  v34 = @"session-id";
   matchID = [matchCopy matchID];
 
-  v35[0] = matchID;
-  v35[1] = messageCopy;
-  v34[1] = @"localized-message";
-  v34[2] = @"participants";
-  v35[2] = participantsCopy;
-  v34[3] = @"push-token";
+  v38 = matchID;
+  v39 = messageCopy;
+  v35 = @"localized-message";
+  v36 = @"participants";
+  v40 = participantsCopy;
+  v37 = @"push-token";
   pushToken = [v16 pushToken];
   v19 = pushToken;
   if (!pushToken)
@@ -1395,8 +1395,8 @@ LABEL_15:
     v19 = +[NSData data];
   }
 
-  v35[3] = v19;
-  v20 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:4];
+  v41 = v19;
+  v20 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   if (!pushToken)
   {
   }

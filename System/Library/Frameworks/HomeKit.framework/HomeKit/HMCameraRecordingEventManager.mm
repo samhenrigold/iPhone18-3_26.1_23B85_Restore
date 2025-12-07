@@ -11,6 +11,7 @@
 - (void)fetchCountOfAllEventsWithCompletion:(id)completion;
 - (void)fetchCountOfEventsWithDateInterval:(id)interval completion:(id)completion;
 - (void)fetchEventsWithDateInterval:(id)interval limit:(unint64_t)limit shouldOrderAscending:(BOOL)ascending completion:(id)completion;
+- (void)fetchEventsWithDateInterval:(id)interval quality:(int64_t)quality limit:(unint64_t)limit shouldOrderAscending:(BOOL)ascending completion:(id)completion;
 - (void)notifyObserversOfUpdatedEvents:(id)events removedEventsWithUUIDs:(id)ds;
 - (void)performCloudPullWithCompletion:(id)completion;
 - (void)reachabilityEventManager:(id)manager didRemoveReachabilityEventsWithUUIDs:(id)ds;
@@ -22,7 +23,7 @@
 
 - (void)reachabilityEventManager:(id)manager didRemoveReachabilityEventsWithUUIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   dsCopy = ds;
   v8 = objc_autoreleasePoolPush();
@@ -31,23 +32,21 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2048;
-    v17 = [dsCopy count];
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received %lu removed reachability event UUIDs", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2048;
+    v16 = [dsCopy count];
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received %lu removed reachability event UUIDs", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [MEMORY[0x1E695DFD8] set];
   [(HMCameraRecordingEventManager *)selfCopy notifyObserversOfUpdatedEvents:v12 removedEventsWithUUIDs:dsCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reachabilityEventManager:(id)manager didUpdateReachabilityEvents:(id)events
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   eventsCopy = events;
   v8 = objc_autoreleasePoolPush();
@@ -56,23 +55,21 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2048;
-    v17 = [eventsCopy count];
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received %lu updated reachability events", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2048;
+    v16 = [eventsCopy count];
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received %lu updated reachability events", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [MEMORY[0x1E695DFD8] set];
   [(HMCameraRecordingEventManager *)selfCopy notifyObserversOfUpdatedEvents:eventsCopy removedEventsWithUUIDs:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clipManager:(id)manager didRemoveClipsWithUUIDs:(id)ds
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   dsCopy = ds;
   v8 = objc_autoreleasePoolPush();
@@ -81,23 +78,21 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2048;
-    v17 = [dsCopy count];
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received %lu removed clip UUIDs", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2048;
+    v16 = [dsCopy count];
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received %lu removed clip UUIDs", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [MEMORY[0x1E695DFD8] set];
   [(HMCameraRecordingEventManager *)selfCopy notifyObserversOfUpdatedEvents:v12 removedEventsWithUUIDs:dsCopy];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clipManager:(id)manager didUpdateClips:(id)clips
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
   clipsCopy = clips;
   v8 = objc_autoreleasePoolPush();
@@ -106,69 +101,65 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2048;
-    v17 = [clipsCopy count];
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received %lu updated clips", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2048;
+    v16 = [clipsCopy count];
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Received %lu updated clips", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
   v12 = [MEMORY[0x1E695DFD8] set];
   [(HMCameraRecordingEventManager *)selfCopy notifyObserversOfUpdatedEvents:clipsCopy removedEventsWithUUIDs:v12];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyObserversOfUpdatedEvents:(id)events removedEventsWithUUIDs:(id)ds
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   dsCopy = ds;
   os_unfair_lock_lock_with_options();
   v8 = [(NSMapTable *)self->_delegateCallersByObservers copy];
   os_unfair_lock_unlock(&self->_lock);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   obj = [v8 keyEnumerator];
-  v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         v13 = [v8 objectForKey:v12];
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __87__HMCameraRecordingEventManager_notifyObserversOfUpdatedEvents_removedEventsWithUUIDs___block_invoke;
-        v16[3] = &unk_1E754DE30;
-        v17 = eventsCopy;
-        v18 = v12;
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __87__HMCameraRecordingEventManager_notifyObserversOfUpdatedEvents_removedEventsWithUUIDs___block_invoke;
+        v15[3] = &unk_1E754DE30;
+        v16 = eventsCopy;
+        v17 = v12;
         selfCopy = self;
-        v20 = dsCopy;
-        [v13 invokeBlock:v16];
+        v19 = dsCopy;
+        [v13 invokeBlock:v15];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __87__HMCameraRecordingEventManager_notifyObserversOfUpdatedEvents_removedEventsWithUUIDs___block_invoke(uint64_t a1)
+void *__87__HMCameraRecordingEventManager_notifyObserversOfUpdatedEvents_removedEventsWithUUIDs___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) count])
   {
@@ -264,7 +255,7 @@ LABEL_16:
 
 - (void)deleteAllEventsWithCompletionHandler:(id)handler
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -273,22 +264,20 @@ LABEL_16:
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Deleting all recording events", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   clipManager = [(HMCameraRecordingEventManager *)selfCopy clipManager];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __70__HMCameraRecordingEventManager_deleteAllEventsWithCompletionHandler___block_invoke;
-  v12[3] = &unk_1E754D870;
-  v12[4] = selfCopy;
-  v13 = handlerCopy;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __70__HMCameraRecordingEventManager_deleteAllEventsWithCompletionHandler___block_invoke;
+  v11[3] = &unk_1E754D870;
+  v11[4] = selfCopy;
+  v12 = handlerCopy;
   v10 = handlerCopy;
-  [clipManager deleteAllClipsWithCompletionHandler:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [clipManager deleteAllClipsWithCompletionHandler:v11];
 }
 
 void __70__HMCameraRecordingEventManager_deleteAllEventsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -339,7 +328,7 @@ void __70__HMCameraRecordingEventManager_deleteAllEventsWithCompletionHandler___
 
 - (void)fetchCountOfEventsWithDateInterval:(id)interval completion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   completionCopy = completion;
   v8 = [objc_alloc(MEMORY[0x1E69A29C0]) initWithName:@"Fetch count of recording events with date interval"];
@@ -352,35 +341,33 @@ void __70__HMCameraRecordingEventManager_deleteAllEventsWithCompletionHandler___
     identifier = [v8 identifier];
     shortDescription = [identifier shortDescription];
     *buf = 138543874;
-    v25 = v12;
-    v26 = 2114;
-    v27 = shortDescription;
-    v28 = 2112;
-    v29 = intervalCopy;
+    v24 = v12;
+    v25 = 2114;
+    v26 = shortDescription;
+    v27 = 2112;
+    v28 = intervalCopy;
     _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetching count of recording events with date interval %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
   clipManager = [(HMCameraRecordingEventManager *)selfCopy clipManager];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_completion___block_invoke;
-  v20[3] = &unk_1E7547AB8;
-  v20[4] = selfCopy;
-  v21 = v8;
-  v22 = intervalCopy;
-  v23 = completionCopy;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_completion___block_invoke;
+  v19[3] = &unk_1E7547AB8;
+  v19[4] = selfCopy;
+  v20 = v8;
+  v21 = intervalCopy;
+  v22 = completionCopy;
   v16 = intervalCopy;
   v17 = v8;
   v18 = completionCopy;
-  [clipManager fetchCountOfClipsWithDateInterval:v16 completion:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [clipManager fetchCountOfClipsWithDateInterval:v16 completion:v19];
 }
 
 void __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -394,26 +381,26 @@ void __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_comp
       v11 = [*(a1 + 40) identifier];
       v12 = [v11 shortDescription];
       *buf = 138543874;
-      v23 = v10;
-      v24 = 2114;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v5;
+      v22 = v10;
+      v23 = 2114;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v5;
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched count of %@ clips", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
     v13 = [*(a1 + 32) reachabilityEventManager];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_completion___block_invoke_22;
-    v18[3] = &unk_1E7547AB8;
-    v18[4] = *(a1 + 32);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_completion___block_invoke_22;
+    v17[3] = &unk_1E7547AB8;
+    v17[4] = *(a1 + 32);
     v14 = *(a1 + 48);
-    v21 = *(a1 + 56);
-    v19 = *(a1 + 40);
-    v20 = v5;
-    [v13 fetchCountOfEventsWithDateInterval:v14 completion:v18];
+    v20 = *(a1 + 56);
+    v18 = *(a1 + 40);
+    v19 = v5;
+    [v13 fetchCountOfEventsWithDateInterval:v14 completion:v17];
   }
 
   else
@@ -422,13 +409,11 @@ void __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_comp
     v16 = [v15 delegateCaller];
     [v16 callCompletion:*(a1 + 56) obj:0 error:v6];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_completion___block_invoke_22(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -441,13 +426,13 @@ void __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_comp
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) identifier];
       v12 = [v11 shortDescription];
-      v22 = 138543874;
-      v23 = v10;
-      v24 = 2114;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v5;
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched count of %@ reachability events", &v22, 0x20u);
+      v21 = 138543874;
+      v22 = v10;
+      v23 = 2114;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v5;
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched count of %@ reachability events", &v21, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -466,8 +451,6 @@ void __79__HMCameraRecordingEventManager_fetchCountOfEventsWithDateInterval_comp
     v20 = [v19 delegateCaller];
     [v20 callCompletion:*(a1 + 56) obj:0 error:v6];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchAllEventsWithCompletion:(id)completion
@@ -506,9 +489,67 @@ void __62__HMCameraRecordingEventManager_fetchAllEventsWithCompletion___block_in
   }
 }
 
+- (void)fetchEventsWithDateInterval:(id)interval quality:(int64_t)quality limit:(unint64_t)limit shouldOrderAscending:(BOOL)ascending completion:(id)completion
+{
+  ascendingCopy = ascending;
+  v48 = *MEMORY[0x1E69E9840];
+  intervalCopy = interval;
+  completionCopy = completion;
+  v13 = [objc_alloc(MEMORY[0x1E69A29C0]) initWithName:@"Fetch recording events with date interval"];
+  v14 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v16 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+  {
+    HMFGetLogIdentifier();
+    limitCopy = limit;
+    v17 = ascendingCopy;
+    v19 = v18 = quality;
+    [v13 identifier];
+    v20 = v27 = v14;
+    shortDescription = [v20 shortDescription];
+    v22 = HMStringFromCameraClipQuality(v18);
+    *buf = 138544642;
+    v37 = v19;
+    v38 = 2114;
+    v39 = shortDescription;
+    v40 = 2112;
+    v41 = intervalCopy;
+    v42 = 2112;
+    v43 = v22;
+    v44 = 2048;
+    v45 = limitCopy;
+    v46 = 1024;
+    v47 = v17;
+    _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetching recording events with date interval: %@ quality: %@ limit: %lu shouldOrderAscending: %d", buf, 0x3Au);
+
+    v14 = v27;
+    quality = v18;
+    ascendingCopy = v17;
+    limit = limitCopy;
+  }
+
+  objc_autoreleasePoolPop(v14);
+  clipManager = [(HMCameraRecordingEventManager *)selfCopy clipManager];
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_limit_shouldOrderAscending_completion___block_invoke;
+  v30[3] = &unk_1E7547A90;
+  v30[4] = selfCopy;
+  v31 = v13;
+  v32 = intervalCopy;
+  v33 = completionCopy;
+  limitCopy2 = limit;
+  v35 = ascendingCopy;
+  v24 = intervalCopy;
+  v25 = v13;
+  v26 = completionCopy;
+  [clipManager fetchClipsWithDateInterval:v24 quality:quality limit:limit shouldOrderAscending:ascendingCopy completion:v30];
+}
+
 void __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_limit_shouldOrderAscending_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -522,11 +563,11 @@ void __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_li
       v11 = [*(a1 + 40) identifier];
       v12 = [v11 shortDescription];
       *buf = 138543874;
-      v29 = v10;
-      v30 = 2114;
-      v31 = v12;
-      v32 = 2048;
-      v33 = [v5 count];
+      v28 = v10;
+      v29 = 2114;
+      v30 = v12;
+      v31 = 2048;
+      v32 = [v5 count];
       _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched %lu clips", buf, 0x20u);
     }
 
@@ -534,20 +575,20 @@ void __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_li
     v13 = [*(a1 + 32) reachabilityEventManager];
     v14 = *(a1 + 64);
     v15 = *(a1 + 72);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_limit_shouldOrderAscending_completion___block_invoke_14;
-    v22[3] = &unk_1E7547A90;
-    v22[4] = *(a1 + 32);
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_limit_shouldOrderAscending_completion___block_invoke_14;
+    v21[3] = &unk_1E7547A90;
+    v21[4] = *(a1 + 32);
     v16 = *(a1 + 48);
-    v25 = *(a1 + 56);
-    v23 = *(a1 + 40);
+    v24 = *(a1 + 56);
+    v22 = *(a1 + 40);
     v17 = v5;
     v18 = *(a1 + 64);
-    v24 = v17;
-    v26 = v18;
-    v27 = *(a1 + 72);
-    [v13 fetchEventsWithDateInterval:v16 limit:v14 shouldOrderAscending:v15 completion:v22];
+    v23 = v17;
+    v25 = v18;
+    v26 = *(a1 + 72);
+    [v13 fetchEventsWithDateInterval:v16 limit:v14 shouldOrderAscending:v15 completion:v21];
   }
 
   else
@@ -556,13 +597,11 @@ void __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_li
     v20 = [v19 delegateCaller];
     [v20 callCompletion:*(a1 + 56) obj:0 error:v6];
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_limit_shouldOrderAscending_completion___block_invoke_14(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -575,13 +614,13 @@ void __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_li
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) identifier];
       v12 = [v11 shortDescription];
-      v17 = 138543874;
-      v18 = v10;
-      v19 = 2114;
-      v20 = v12;
-      v21 = 2048;
-      v22 = [v5 count];
-      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched %lu reachability events", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v10;
+      v18 = 2114;
+      v19 = v12;
+      v20 = 2048;
+      v21 = [v5 count];
+      _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Successfully fetched %lu reachability events", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -597,14 +636,12 @@ void __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_li
     v14 = [v13 delegateCaller];
     [v14 callCompletion:*(a1 + 56) obj:0 error:v6];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchEventsWithDateInterval:(id)interval limit:(unint64_t)limit shouldOrderAscending:(BOOL)ascending completion:(id)completion
 {
   ascendingCopy = ascending;
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   intervalCopy = interval;
   completionCopy = completion;
   v12 = [objc_alloc(MEMORY[0x1E69A29C0]) initWithName:@"Fetch recording events with date interval"];
@@ -619,30 +656,28 @@ void __107__HMCameraRecordingEventManager_fetchEventsWithDateInterval_quality_li
     v19 = ascendingCopy;
     v20 = shortDescription;
     *buf = 138544386;
-    v28 = v16;
-    v29 = 2114;
-    v30 = shortDescription;
-    v31 = 2112;
-    v32 = intervalCopy;
-    v33 = 2048;
+    v27 = v16;
+    v28 = 2114;
+    v29 = shortDescription;
+    v30 = 2112;
+    v31 = intervalCopy;
+    v32 = 2048;
     limitCopy = limit;
-    v35 = 1024;
-    v36 = v19;
+    v34 = 1024;
+    v35 = v19;
     _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Fetching recording events with date interval: %@ limit: %lu shouldOrderAscending: %d", buf, 0x30u);
   }
 
   objc_autoreleasePoolPop(v13);
   context = [(HMCameraRecordingEventManager *)selfCopy context];
   delegateCaller = [context delegateCaller];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __99__HMCameraRecordingEventManager_fetchEventsWithDateInterval_limit_shouldOrderAscending_completion___block_invoke;
-  v25[3] = &unk_1E754E430;
-  v26 = completionCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __99__HMCameraRecordingEventManager_fetchEventsWithDateInterval_limit_shouldOrderAscending_completion___block_invoke;
+  v24[3] = &unk_1E754E430;
+  v25 = completionCopy;
   v23 = completionCopy;
-  [delegateCaller invokeBlock:v25];
-
-  v24 = *MEMORY[0x1E69E9840];
+  [delegateCaller invokeBlock:v24];
 }
 
 void __99__HMCameraRecordingEventManager_fetchEventsWithDateInterval_limit_shouldOrderAscending_completion___block_invoke(uint64_t a1)
@@ -653,7 +688,7 @@ void __99__HMCameraRecordingEventManager_fetchEventsWithDateInterval_limit_shoul
 
 - (void)performCloudPullWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -661,16 +696,14 @@ void __99__HMCameraRecordingEventManager_fetchEventsWithDateInterval_limit_shoul
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Performing cloud pull", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Performing cloud pull", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   clipManager = [(HMCameraRecordingEventManager *)selfCopy clipManager];
   [clipManager performCloudPullWithCompletion:completionCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObserver:(id)observer
@@ -789,12 +822,11 @@ LABEL_9:
 
 uint64_t __44__HMCameraRecordingEventManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v17;
-  logCategory__hmf_once_v17 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v17;
+  logCategory__hmf_once_v17 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

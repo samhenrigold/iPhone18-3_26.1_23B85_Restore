@@ -20,7 +20,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20BB56338();
+  sub_20BB56338(selfCopy);
 }
 
 - (_TtC9SeymourUI24MiniPlayerViewController)initWithNibName:(id)name bundle:(id)bundle

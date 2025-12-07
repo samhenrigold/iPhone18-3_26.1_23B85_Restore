@@ -13,6 +13,7 @@
 - (id)_indexPathForPendingInvitation:(id)invitation;
 - (id)_pendingInvitationIdentifiers;
 - (id)closeBarButtonItem;
+- (id)finishPresentation:(id)presentation animated:(BOOL)animated;
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (id)tableView:(id)view targetIndexPathForMoveFromRowAtIndexPath:(id)path toProposedIndexPath:(id)indexPath;
 - (id)tableView:(id)view viewForFooterInSection:(int64_t)section;
@@ -33,10 +34,13 @@
 - (void)invitationCell:(id)cell didRespondToInvitationWithResponse:(unint64_t)response;
 - (void)invitationResponseController:(id)controller stateDidChange:(unint64_t)change;
 - (void)invitationViewControllerDidDecideLaterInvitation:(id)invitation error:(id)error;
+- (void)switchCell:(id)cell didTurnOn:(BOOL)on;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath;
 - (void)updateLocationSensingAvailability;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HOLocationListViewController
@@ -232,6 +236,38 @@ LABEL_7:
 
   v18 = sub_1000391E8(@"HOLocationListTitle");
   [(HOLocationListViewController *)self setTitle:v18];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[HOLocationListViewController-viewWillAppear]", buf, 2u);
+  }
+
+  v6.receiver = self;
+  v6.super_class = HOLocationListViewController;
+  [(HOLocationListViewController *)&v6 viewWillAppear:appearCopy];
+  [(HOLocationListViewController *)self setTableViewReady:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[HOLocationListViewController-viewDidDisappear]", buf, 2u);
+  }
+
+  v6.receiver = self;
+  v6.super_class = HOLocationListViewController;
+  [(HOLocationListViewController *)&v6 viewDidDisappear:disappearCopy];
+  [(HOLocationListViewController *)self setTableViewReady:0];
 }
 
 - (void)doneButtonPressed:(id)pressed
@@ -519,32 +555,13 @@ LABEL_20:
 {
   pathCopy = path;
   v6 = -[HOLocationListViewController _identifierForSection:](self, "_identifierForSection:", [pathCopy section]);
-  if (![v6 isEqualToString:@"HOLocationListLocationsSectionIdentifier"])
-  {
-    goto LABEL_5;
-  }
-
-  v7 = [pathCopy row];
-  homes = [(HOLocationListViewController *)self homes];
-  v9 = [homes count];
-
-  if (v7 >= v9)
-  {
-    goto LABEL_5;
-  }
-
-  homes2 = [(HOLocationListViewController *)self homes];
-  v11 = [homes2 objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
-
-  LOBYTE(homes2) = [v11 hf_shouldBlockCurrentUserFromHomeForRoarUpgrade];
-  if (homes2)
+  if ([v6 isEqualToString:@"HOLocationListLocationsSectionIdentifier"] && (v7 = objc_msgSend(pathCopy, "row"), -[HOLocationListViewController homes](self, "homes"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), v8, v7 < v9) && (-[HOLocationListViewController homes](self, "homes"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "objectAtIndexedSubscript:", objc_msgSend(pathCopy, "row")), v11 = objc_claimAutoreleasedReturnValue(), v10, LOBYTE(v10) = objc_msgSend(v11, "hf_shouldBlockCurrentUserFromHomeForRoarUpgrade"), v11, (v10 & 1) != 0))
   {
     v12 = 0;
   }
 
   else
   {
-LABEL_5:
     v12 = pathCopy;
   }
 
@@ -1008,6 +1025,14 @@ LABEL_21:
   [(HOLocationListViewController *)self presentViewController:v6 animated:1 completion:0];
 }
 
+- (id)finishPresentation:(id)presentation animated:(BOOL)animated
+{
+  v5 = [(HOLocationListViewController *)self delegate:presentation];
+  [v5 locationListViewControllerDidFinish:self];
+
+  return +[NAFuture futureWithNoResult];
+}
+
 - (void)addLocationViewController:(id)controller didFinishWithHome:(id)home
 {
   controllerCopy = controller;
@@ -1031,6 +1056,15 @@ LABEL_21:
   }
 
   [(HOLocationListViewController *)self dismissViewControllerAnimated:1 completion:0];
+}
+
+- (void)switchCell:(id)cell didTurnOn:(BOOL)on
+{
+  onCopy = on;
+  v6 = +[HFHomeKitDispatcher sharedDispatcher];
+  [v6 setSelectedHomeFollowsLocation:onCopy];
+
+  [HFAnalytics sendSwitchCellToggleEventForItem:0 isOn:onCopy title:@"HOLocationListHomeSensingTitle" fromSourceViewController:self];
 }
 
 - (void)invitationCell:(id)cell didRespondToInvitationWithResponse:(unint64_t)response

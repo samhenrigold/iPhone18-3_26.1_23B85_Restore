@@ -195,12 +195,12 @@
 {
   dCopy = d;
   dispatch_assert_queue_not_V2(self->_isolationQueue);
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = sub_10001EB00;
-  v43 = sub_10001EB10;
-  v44 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = sub_10001EB00;
+  v41 = sub_10001EB10;
+  v42 = 0;
   if (dCopy)
   {
     selectedRouteID = [NSUUID _maps_UUIDWithData:dCopy];
@@ -212,43 +212,44 @@
       block[2] = sub_10001F728;
       block[3] = &unk_1000856D0;
       block[4] = self;
-      block[5] = &v39;
+      block[5] = &v37;
       dispatch_sync(isolationQueue, block);
       goto LABEL_5;
     }
 
-    v29 = sub_100053324();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v27 = sub_100053324(0);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v47 = dCopy;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Asked for start navigation details, but route ID is malformed (%@)", buf, 0xCu);
+      v45 = dCopy;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Asked for start navigation details, but route ID is malformed (%@)", buf, 0xCu);
     }
   }
 
   else
   {
     v7 = self->_isolationQueue;
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_10001F778;
-    v37[3] = &unk_1000856D0;
-    v37[4] = self;
-    v37[5] = &v39;
-    dispatch_sync(v7, v37);
-    selectedRouteID = [v40[5] selectedRouteID];
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_10001F778;
+    v35[3] = &unk_1000856D0;
+    v35[4] = self;
+    v35[5] = &v37;
+    dispatch_sync(v7, v35);
+    selectedRouteID = [v38[5] selectedRouteID];
     if (selectedRouteID)
     {
 LABEL_5:
-      routes = [v40[5] routes];
-      v32 = _NSConcreteStackBlock;
-      v33 = 3221225472;
-      v34 = sub_10001F7C8;
-      v35 = &unk_100085E10;
+      routes = [v38[5] routes];
+      v30 = _NSConcreteStackBlock;
+      v31 = 3221225472;
+      v32 = sub_10001F7C8;
+      v33 = &unk_100085E10;
       v9 = selectedRouteID;
-      v36 = v9;
-      v10 = [routes indexOfObjectPassingTest:&v32];
-      if (v10 >= [routes count])
+      v34 = v9;
+      v10 = [routes indexOfObjectPassingTest:&v30];
+      v11 = [routes count];
+      if (v10 >= v11)
       {
         v12 = 0;
       }
@@ -259,16 +260,16 @@ LABEL_5:
         v12 = v11;
         if (v10 != 0x7FFFFFFFFFFFFFFFLL && v11)
         {
-          v13 = sub_100053324();
+          v13 = sub_100053324(v11);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v47 = v9;
+            v45 = v9;
             _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Generating start navigation details for route ID %@", buf, 0xCu);
           }
 
           v14 = objc_alloc_init(MNStartNavigationDetails);
-          if ([v12 transportType] == 1)
+          if ([(__CFString *)v12 transportType]== 1)
           {
             v15 = 2;
           }
@@ -280,45 +281,44 @@ LABEL_5:
 
           [v14 setNavigationType:v15];
           [v14 setGuidanceType:0];
-          v45 = v12;
-          v16 = [NSArray arrayWithObjects:&v45 count:1];
+          v43 = v12;
+          v16 = [NSArray arrayWithObjects:&v43 count:1];
           [v14 setRoutes:v16];
 
           [v14 setSelectedRouteIndex:0];
-          routeAttributes = [v12 routeAttributes];
+          routeAttributes = [(__CFString *)v12 routeAttributes];
           [v14 setRouteAttributes:routeAttributes];
 
-          v18 = NavigationConfig_TraceRecordingEnabled[1];
           BOOL = GEOConfigGetBOOL();
-          v20 = +[GEOPlatform sharedPlatform];
-          isInternalInstall = [v20 isInternalInstall];
+          v19 = +[GEOPlatform sharedPlatform];
+          isInternalInstall = [v19 isInternalInstall];
 
           if (isInternalInstall)
           {
-            v22 = NavigationConfig_SimulationEnabled[1];
-            if (GEOConfigGetBOOL())
+            simulationType = GEOConfigGetBOOL();
+            if (simulationType)
             {
-              v23 = NavigationConfig_SimulationType[1];
               [v14 setSimulationType:GEOConfigGetInteger()];
-              LOBYTE(BOOL) = ([v14 simulationType] == -1) | BOOL;
+              simulationType = [v14 simulationType];
+              LOBYTE(BOOL) = (simulationType == -1) | BOOL;
             }
 
-            v24 = sub_100053324();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+            v22 = sub_100053324(simulationType);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
             {
-              v25 = @"NO";
+              v23 = @"NO";
               if (BOOL)
               {
-                v25 = @"YES";
+                v23 = @"YES";
               }
 
-              v26 = v25;
-              simulationType = [v14 simulationType];
+              v24 = v23;
+              simulationType2 = [v14 simulationType];
               *buf = 138412546;
-              v47 = v26;
-              v48 = 1024;
-              LODWORD(v49) = simulationType;
-              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Internal only: shouldRecordTrace: %@, simulationType: %d", buf, 0x12u);
+              v45 = v24;
+              v46 = 1024;
+              LODWORD(v47) = simulationType2;
+              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Internal only: shouldRecordTrace: %@, simulationType: %d", buf, 0x12u);
             }
 
             if ((BOOL & 1) == 0)
@@ -332,7 +332,7 @@ LABEL_5:
             goto LABEL_27;
           }
 
-          traceRecordingData = [v40[5] traceRecordingData];
+          traceRecordingData = [v38[5] traceRecordingData];
           [v14 setTraceRecordingData:traceRecordingData];
 LABEL_26:
 
@@ -341,13 +341,13 @@ LABEL_27:
         }
       }
 
-      traceRecordingData = sub_100053324();
+      traceRecordingData = sub_100053324(v11);
       if (os_log_type_enabled(traceRecordingData, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218242;
-        v47 = v10;
-        v48 = 2112;
-        v49 = v9;
+        v45 = v10;
+        v46 = 2112;
+        v47 = v9;
         _os_log_impl(&_mh_execute_header, traceRecordingData, OS_LOG_TYPE_ERROR, "Asked for start navigation details, but route not found (index: %lu, routeID: %@)", buf, 0x16u);
       }
 
@@ -355,18 +355,18 @@ LABEL_27:
       goto LABEL_26;
     }
 
-    v30 = sub_100053324();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v28 = sub_100053324(0);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Asked for start navigation details, but there isn't a selected route to default to", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Asked for start navigation details, but there isn't a selected route to default to", buf, 2u);
     }
   }
 
   v9 = 0;
   v14 = 0;
 LABEL_35:
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v37, 8);
 
   return v14;
 }
@@ -411,13 +411,14 @@ LABEL_35:
     v12 = 0;
   }
 
-  if ([companionRoutes count])
+  v13 = [companionRoutes count];
+  if (v13)
   {
-    v13 = sub_100053324();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = sub_100053324(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Connection needs sync: sending latest preview routes", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Connection needs sync: sending latest preview routes", v15, 2u);
     }
 
     [(NMCRoutePlanningController *)self _sendPreviewRoutes:companionRoutes atIndexes:0 error:0 companionRouteContext:v7 includeSyntheticRoute:1];
@@ -447,20 +448,21 @@ LABEL_35:
 {
   dispatch_assert_queue_V2(self->_isolationQueue);
   v3 = self->_routePlanningSession;
+  v4 = v3;
   if (v3)
   {
-    v4 = sub_100053324();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = sub_100053324(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      request = [(NanoRoutePlanningSession *)v3 request];
+      request = [(NanoRoutePlanningSession *)v4 request];
       companionRouteContext = [request companionRouteContext];
       simpleDescription = [companionRouteContext simpleDescription];
-      v8 = 138412290;
-      v9 = simpleDescription;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Clearing existing route planning session (context: %@)", &v8, 0xCu);
+      v9 = 138412290;
+      v10 = simpleDescription;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Clearing existing route planning session (context: %@)", &v9, 0xCu);
     }
 
-    [(NanoRoutePlanningSession *)v3 invalidate];
+    [(NanoRoutePlanningSession *)v4 invalidate];
   }
 }
 
@@ -508,37 +510,39 @@ LABEL_35:
   v6 = [userInfo objectForKeyedSubscript:BKSApplicationStateKey];
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     unsignedIntValue = [v6 unsignedIntValue];
-    v8 = sub_100053324();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = unsignedIntValue;
+    v10 = sub_100053324(unsignedIntValue);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v12 = 136315394;
-      v13 = "[NMCRoutePlanningController mapsApplicationStateDidChange:]";
-      v14 = 2048;
-      v15 = unsignedIntValue;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s %lu", &v12, 0x16u);
+      v14 = 136315394;
+      v15 = "[NMCRoutePlanningController mapsApplicationStateDidChange:]";
+      v16 = 2048;
+      v17 = v9;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s %lu", &v14, 0x16u);
     }
 
-    v9 = (unsignedIntValue == 0) | unsignedIntValue;
-    if (v9)
+    v11 = (v9 == 0) | v9;
+    if (v11)
     {
       [(NMCRoutePlanningController *)self clearPreviewRoutesIfNeeded];
     }
 
-    [(GEOTransitRouteUpdater *)self->_transitRouteUpdater setActive:v9 & self->_sendAllUpdates & 1];
+    [(GEOTransitRouteUpdater *)self->_transitRouteUpdater setActive:v11 & self->_sendAllUpdates & 1];
   }
 
   else
   {
-    v10 = sub_100053324();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_100053324(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       userInfo2 = [changeCopy userInfo];
-      v12 = 138543362;
-      v13 = userInfo2;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Unknown userInfo format: %{public}@", &v12, 0xCu);
+      v14 = 138543362;
+      v15 = userInfo2;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Unknown userInfo format: %{public}@", &v14, 0xCu);
     }
   }
 }
@@ -546,12 +550,12 @@ LABEL_35:
 - (void)_prepareTransitRouteUpdaterIfNeeded
 {
   dispatch_assert_queue_V2(self->_isolationQueue);
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_100020344;
-  v30[3] = &unk_100084F10;
-  v30[4] = self;
-  v3 = objc_retainBlock(v30);
+  v32[0] = _NSConcreteStackBlock;
+  v32[1] = 3221225472;
+  v32[2] = sub_100020344;
+  v32[3] = &unk_100084F10;
+  v32[4] = self;
+  v3 = objc_retainBlock(v32);
   v4 = self->_routePlanningSession;
   request = [(NanoRoutePlanningSession *)v4 request];
   v6 = request;
@@ -560,31 +564,31 @@ LABEL_35:
     response = [(NanoRoutePlanningSession *)v4 response];
     if ([response numberOfRoutes] && objc_msgSend(response, "routeOrigin") == 1)
     {
-      v24 = response;
-      v25 = v4;
+      v26 = response;
+      v27 = v4;
       routes = [response routes];
       v9 = [[NSMutableSet alloc] initWithCapacity:{objc_msgSend(routes, "count")}];
-      v26 = 0u;
-      v27 = 0u;
       v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v10 = routes;
-      v11 = [v10 countByEnumeratingWithState:&v26 objects:v33 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v27;
+        v13 = *v29;
         v14 = 0.0;
         do
         {
           for (i = 0; i != v12; i = i + 1)
           {
-            if (*v27 != v13)
+            if (*v29 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v16 = *(*(&v26 + 1) + 8 * i);
+            v16 = *(*(&v28 + 1) + 8 * i);
             transitRouteUpdateRequest = [v16 transitRouteUpdateRequest];
             if (transitRouteUpdateRequest)
             {
@@ -598,7 +602,7 @@ LABEL_35:
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v26 objects:v33 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v28 objects:v35 count:16];
         }
 
         while (v12);
@@ -609,36 +613,37 @@ LABEL_35:
         v14 = 0.0;
       }
 
-      if ([v9 count])
+      v19 = [v9 count];
+      if (v19)
       {
-        v19 = sub_100053324();
-        response = v24;
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        v20 = sub_100053324(v19);
+        response = v26;
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
-          v20 = [v9 count];
+          v21 = [v9 count];
           *buf = 134217984;
-          v32 = v20;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Starting transit route updater for %lu transit routes", buf, 0xCu);
+          v34 = v21;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "Starting transit route updater for %lu transit routes", buf, 0xCu);
         }
 
         if (!self->_transitRouteUpdater)
         {
-          v21 = [[GEOTransitRouteUpdater alloc] initWithDelegate:self andInitialTTL:v14];
+          v23 = [[GEOTransitRouteUpdater alloc] initWithDelegate:self andInitialTTL:v14];
           transitRouteUpdater = self->_transitRouteUpdater;
-          self->_transitRouteUpdater = v21;
+          self->_transitRouteUpdater = v23;
         }
 
-        v4 = v25;
-        v23 = self->_sendAllUpdates && !sub_100014134();
-        [(GEOTransitRouteUpdater *)self->_transitRouteUpdater setActive:v23];
+        v4 = v27;
+        v25 = self->_sendAllUpdates && !sub_100014134(v22);
+        [(GEOTransitRouteUpdater *)self->_transitRouteUpdater setActive:v25];
         [(GEOTransitRouteUpdater *)self->_transitRouteUpdater setRequests:v9];
       }
 
       else
       {
         (v3[2])(v3);
-        response = v24;
-        v4 = v25;
+        response = v26;
+        v4 = v27;
       }
     }
 
@@ -732,13 +737,13 @@ LABEL_35:
   dispatch_assert_queue_V2(self->_isolationQueue);
   if (self->_currentSessionInputOrigin != origin)
   {
-    v5 = sub_100053324();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = sub_100053324(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v6 = sub_1000134A4(origin);
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Switching current session input origin to %@", &v7, 0xCu);
+      v7 = sub_1000134A4(origin);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Switching current session input origin to %@", &v8, 0xCu);
     }
 
     self->_currentSessionInputOrigin = origin;
@@ -762,7 +767,7 @@ LABEL_35:
   v13[3] = &unk_100084F38;
   objc_copyWeak(&v14, &location);
   v5 = objc_retainBlock(v13);
-  v6 = sub_100053324();
+  v6 = sub_100053324(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *v12 = 0;
@@ -789,67 +794,72 @@ LABEL_35:
     switch(type)
     {
       case 306:
-        v16 = [messageCopy argumentForTag:5];
-        v6 = v16;
-        if (v16 && ([(NMReply *)v16 hasBoolValue]& 1) != 0)
+        hasBoolValue = [messageCopy argumentForTag:5];
+        v6 = hasBoolValue;
+        if (hasBoolValue)
         {
-          self->_sendAllUpdates = [(NMReply *)v6 BOOLValue];
-          v17 = sub_100053324();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          hasBoolValue = [hasBoolValue hasBoolValue];
+          if (hasBoolValue)
           {
+            bOOLValue = [(NMReply *)v6 BOOLValue];
+            self->_sendAllUpdates = bOOLValue;
+            v19 = sub_100053324(bOOLValue);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+            {
+              if (self->_sendAllUpdates)
+              {
+                v20 = "YES";
+              }
+
+              else
+              {
+                v20 = "NO";
+              }
+
+              *buf = 136315138;
+              v55 = v20;
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Setting _sendAllUpdates to %s", buf, 0xCu);
+            }
+
             if (self->_sendAllUpdates)
             {
-              v18 = "YES";
-            }
-
-            else
-            {
-              v18 = "NO";
-            }
-
-            *buf = 136315138;
-            v50 = v18;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Setting _sendAllUpdates to %s", buf, 0xCu);
-          }
-
-          if (self->_sendAllUpdates)
-          {
-            routePlanningSession = self->_routePlanningSession;
-            if (routePlanningSession)
-            {
-              response = [(NanoRoutePlanningSession *)routePlanningSession response];
-              routeIDs = [response routeIDs];
-              v45[0] = _NSConcreteStackBlock;
-              v45[1] = 3221225472;
-              v45[2] = sub_100022404;
-              v45[3] = &unk_100085E88;
-              v22 = response;
-              v46 = v22;
-              v23 = sub_1000282B8(routeIDs, v45);
-
-              if ([v23 count])
+              routePlanningSession = self->_routePlanningSession;
+              if (routePlanningSession)
               {
-                request = [(NanoRoutePlanningSession *)self->_routePlanningSession request];
-                companionRouteContext = [request companionRouteContext];
+                response = [(NanoRoutePlanningSession *)routePlanningSession response];
+                routeIDs = [response routeIDs];
+                v50[0] = _NSConcreteStackBlock;
+                v50[1] = 3221225472;
+                v50[2] = sub_100022404;
+                v50[3] = &unk_100085E88;
+                v24 = response;
+                v51 = v24;
+                v25 = sub_1000282B8(routeIDs, v50);
 
-                v26 = sub_100053324();
-                if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+                if ([v25 count])
                 {
-                  *buf = 138412290;
-                  v50 = companionRouteContext;
-                  _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Sending all received route updates in session (context: %@)", buf, 0xCu);
-                }
+                  request = [(NanoRoutePlanningSession *)self->_routePlanningSession request];
+                  companionRouteContext = [request companionRouteContext];
 
-                [(NMCRoutePlanningController *)self _sendRouteUpdates:v23 context:companionRouteContext];
+                  v29 = sub_100053324(v28);
+                  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+                  {
+                    *buf = 138412290;
+                    v55 = companionRouteContext;
+                    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "Sending all received route updates in session (context: %@)", buf, 0xCu);
+                  }
+
+                  [(NMCRoutePlanningController *)self _sendRouteUpdates:v25 context:companionRouteContext];
+                }
               }
             }
-          }
 
-          [(NMCRoutePlanningController *)self _prepareTransitRouteUpdaterIfNeeded];
-          goto LABEL_316;
+            [(NMCRoutePlanningController *)self _prepareTransitRouteUpdaterIfNeeded];
+            goto LABEL_316;
+          }
         }
 
-        companionRouteContext2 = sub_100053324();
+        companionRouteContext2 = sub_100053324(hasBoolValue);
         if (os_log_type_enabled(companionRouteContext2, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
@@ -861,12 +871,12 @@ LABEL_35:
         v6 = +[MapsCompanionDaemonIPCInterface sharedInterface];
         if (([(NMReply *)v6 canReceiveMessages]& 1) != 0)
         {
-          v47[0] = _NSConcreteStackBlock;
-          v47[1] = 3221225472;
-          v47[2] = sub_1000223F4;
-          v47[3] = &unk_100085E60;
-          v48 = v6;
-          sub_100013C38(@"com.apple.Maps.launchFromGizmo.DISMISS_NAV_SAFETY_ALERT", v47);
+          v52[0] = _NSConcreteStackBlock;
+          v52[1] = 3221225472;
+          v52[2] = sub_1000223F4;
+          v52[3] = &unk_100085E60;
+          v53 = v6;
+          sub_100013C38(@"com.apple.Maps.launchFromGizmo.DISMISS_NAV_SAFETY_ALERT", v52);
 
 LABEL_316:
           goto LABEL_317;
@@ -913,324 +923,328 @@ LABEL_314:
     {
       v11 = [[GEOCompanionRouteContext alloc] initWithData:dataValue];
       v12 = v11;
-      if (companionRouteContext2 && [v11 isStaleComparedToContext:companionRouteContext2])
+      if (companionRouteContext2)
       {
-        v13 = sub_100053324();
-        if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v13 = [v11 isStaleComparedToContext:companionRouteContext2];
+        if (v13)
         {
+          v14 = sub_100053324(v13);
+          if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+          {
 LABEL_209:
 
-          goto LABEL_306;
-        }
+            goto LABEL_306;
+          }
 
-        type2 = [messageCopy type];
-        if (type2 > 202)
-        {
-          if (type2 <= 400)
+          type2 = [messageCopy type];
+          if (type2 > 202)
           {
-            if (type2 <= 205)
+            if (type2 <= 400)
             {
-              if (type2 == 203)
+              if (type2 <= 205)
               {
-                v15 = @"FAILED_TO_UPDATE_LOCATION";
-              }
+                if (type2 == 203)
+                {
+                  v16 = @"FAILED_TO_UPDATE_LOCATION";
+                }
 
-              else if (type2 == 204)
-              {
-                v15 = @"DID_PAUSE_LOCATION_UPDATES";
+                else if (type2 == 204)
+                {
+                  v16 = @"DID_PAUSE_LOCATION_UPDATES";
+                }
+
+                else
+                {
+                  v16 = @"DID_RESUME_LOCATION_UPDATES";
+                }
               }
 
               else
               {
-                v15 = @"DID_RESUME_LOCATION_UPDATES";
+                switch(type2)
+                {
+                  case 300:
+                    v16 = @"UPDATE_NAV_ROUTE_DETAILS";
+                    break;
+                  case 301:
+                    v16 = @"UPDATE_NAV_ROUTE_STATUS";
+                    break;
+                  case 302:
+                    v16 = @"START_NAV";
+                    break;
+                  case 303:
+                    v16 = @"STOP_NAV";
+                    break;
+                  case 304:
+                    v16 = @"PREVIEW_NAV";
+                    break;
+                  case 305:
+                    v16 = @"CLEAR_NAV_PREVIEW";
+                    break;
+                  case 306:
+                    v16 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+                    break;
+                  case 307:
+                    v16 = @"DISMISS_NAV_SAFETY_ALERT";
+                    break;
+                  case 308:
+                    v16 = @"AVAILABLE_ROUTE";
+                    break;
+                  case 309:
+                    v16 = @"SELECTED_ROUTE";
+                    break;
+                  case 310:
+                    v16 = @"REQUEST_NAVIGATION_UPDATE";
+                    break;
+                  case 311:
+                    v16 = @"UPDATE_NAV_ROUTE_UPDATE";
+                    break;
+                  case 312:
+                    v16 = @"AVAILABLE_ROUTE_UPDATE";
+                    break;
+                  case 313:
+                    v16 = @"PAUSE_NAV";
+                    break;
+                  case 314:
+                    v16 = @"RESUME_NAV";
+                    break;
+                  case 315:
+                    v16 = @"SET_DISPLAYED_STEP";
+                    break;
+                  default:
+                    if (type2 != 206)
+                    {
+                      goto LABEL_168;
+                    }
+
+                    v16 = @"APPLY_LOCATION_AUTHORIZATION";
+                    break;
+                }
               }
+
+              goto LABEL_208;
             }
 
-            else
+            if (type2 > 599)
             {
+              if (type2 > 1499)
+              {
+                if (type2 == 1500)
+                {
+                  v16 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+                  goto LABEL_208;
+                }
+
+                if (type2 == 1501)
+                {
+                  v16 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+                  goto LABEL_208;
+                }
+              }
+
+              else
+              {
+                if (type2 == 600)
+                {
+                  v16 = @"FETCH_ROUTE_GENIUS";
+                  goto LABEL_208;
+                }
+
+                if (type2 == 1000)
+                {
+                  v16 = @"PING";
+                  goto LABEL_208;
+                }
+              }
+
+              goto LABEL_168;
+            }
+
+            if (type2 > 500)
+            {
+              if (type2 == 501)
+              {
+                v16 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+                goto LABEL_208;
+              }
+
+              if (type2 == 502)
+              {
+                v16 = @"SERVICE_REQUEST";
+                goto LABEL_208;
+              }
+
+              goto LABEL_168;
+            }
+
+            if (type2 == 401)
+            {
+              v16 = @"OPEN_URL";
+              goto LABEL_208;
+            }
+
+            if (type2 != 500)
+            {
+              goto LABEL_168;
+            }
+
+            v16 = @"PLACE_DATA_MUID_LOOKUP";
+          }
+
+          else
+          {
+            if (type2 <= 99)
+            {
+              if (type2 > 3)
+              {
+                switch(type2)
+                {
+                  case '2':
+                    v16 = @"START_INITIAL_SYNC";
+                    break;
+                  case '3':
+                    v16 = @"FETCH_CURRENT_COUNTRY_CODE";
+                    break;
+                  case '4':
+                    v16 = @"FETCH_EXPERIMENTS_CONFIG";
+                    break;
+                  case '5':
+                    v16 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+                    break;
+                  case '6':
+                    v16 = @"SYNC_UP_NEXT_ITEMS";
+                    break;
+                  case '7':
+                    v16 = @"REQUEST_UP_NEXT_ITEMS";
+                    break;
+                  case '8':
+                    v16 = @"SYNC_CONFIG_STORE";
+                    break;
+                  case '9':
+                    v16 = @"CHECKIN_WITH_CONFIG_STORE";
+                    break;
+                  case ':':
+                    v16 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+                    break;
+                  case ';':
+                    v16 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+                    break;
+                  case '<':
+                    v16 = @"SYNC_SUBSCRIPTION_INFO";
+                    break;
+                  case '=':
+                    v16 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+                    break;
+                  case '>':
+                    goto LABEL_168;
+                  case '?':
+                    v16 = @"UPDATE_SUBSCRIPTION_STATE";
+                    break;
+                  case '@':
+                    v16 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+                    break;
+                  case 'A':
+                    v16 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+                    break;
+                  case 'B':
+                    v16 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+                    break;
+                  case 'C':
+                    v16 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+                    break;
+                  default:
+                    if (type2 != 4)
+                    {
+                      goto LABEL_168;
+                    }
+
+                    v16 = @"FETCHED_TILE";
+                    break;
+                }
+
+                goto LABEL_208;
+              }
+
               switch(type2)
               {
-                case 300:
-                  v15 = @"UPDATE_NAV_ROUTE_DETAILS";
-                  break;
-                case 301:
-                  v15 = @"UPDATE_NAV_ROUTE_STATUS";
-                  break;
-                case 302:
-                  v15 = @"START_NAV";
-                  break;
-                case 303:
-                  v15 = @"STOP_NAV";
-                  break;
-                case 304:
-                  v15 = @"PREVIEW_NAV";
-                  break;
-                case 305:
-                  v15 = @"CLEAR_NAV_PREVIEW";
-                  break;
-                case 306:
-                  v15 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
-                  break;
-                case 307:
-                  v15 = @"DISMISS_NAV_SAFETY_ALERT";
-                  break;
-                case 308:
-                  v15 = @"AVAILABLE_ROUTE";
-                  break;
-                case 309:
-                  v15 = @"SELECTED_ROUTE";
-                  break;
-                case 310:
-                  v15 = @"REQUEST_NAVIGATION_UPDATE";
-                  break;
-                case 311:
-                  v15 = @"UPDATE_NAV_ROUTE_UPDATE";
-                  break;
-                case 312:
-                  v15 = @"AVAILABLE_ROUTE_UPDATE";
-                  break;
-                case 313:
-                  v15 = @"PAUSE_NAV";
-                  break;
-                case 314:
-                  v15 = @"RESUME_NAV";
-                  break;
-                case 315:
-                  v15 = @"SET_DISPLAYED_STEP";
-                  break;
-                default:
-                  if (type2 != 206)
-                  {
-                    goto LABEL_168;
-                  }
-
-                  v15 = @"APPLY_LOCATION_AUTHORIZATION";
-                  break;
+                case 1:
+                  v16 = @"FETCH_TILES";
+                  goto LABEL_208;
+                case 2:
+                  v16 = @"CANCEL_TILES";
+                  goto LABEL_208;
+                case 3:
+                  v16 = @"REPORT_CORRUPT_TILE";
+                  goto LABEL_208;
               }
-            }
-
-            goto LABEL_208;
-          }
-
-          if (type2 > 599)
-          {
-            if (type2 > 1499)
-            {
-              if (type2 == 1500)
-              {
-                v15 = @"DEBUG_FETCH_CONFIGURATION_INFO";
-                goto LABEL_208;
-              }
-
-              if (type2 == 1501)
-              {
-                v15 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
-                goto LABEL_208;
-              }
-            }
-
-            else
-            {
-              if (type2 == 600)
-              {
-                v15 = @"FETCH_ROUTE_GENIUS";
-                goto LABEL_208;
-              }
-
-              if (type2 == 1000)
-              {
-                v15 = @"PING";
-                goto LABEL_208;
-              }
-            }
-
-            goto LABEL_168;
-          }
-
-          if (type2 > 500)
-          {
-            if (type2 == 501)
-            {
-              v15 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
-              goto LABEL_208;
-            }
-
-            if (type2 == 502)
-            {
-              v15 = @"SERVICE_REQUEST";
-              goto LABEL_208;
-            }
-
-            goto LABEL_168;
-          }
-
-          if (type2 == 401)
-          {
-            v15 = @"OPEN_URL";
-            goto LABEL_208;
-          }
-
-          if (type2 != 500)
-          {
-            goto LABEL_168;
-          }
-
-          v15 = @"PLACE_DATA_MUID_LOOKUP";
-        }
-
-        else
-        {
-          if (type2 <= 99)
-          {
-            if (type2 > 3)
-            {
-              switch(type2)
-              {
-                case '2':
-                  v15 = @"START_INITIAL_SYNC";
-                  break;
-                case '3':
-                  v15 = @"FETCH_CURRENT_COUNTRY_CODE";
-                  break;
-                case '4':
-                  v15 = @"FETCH_EXPERIMENTS_CONFIG";
-                  break;
-                case '5':
-                  v15 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
-                  break;
-                case '6':
-                  v15 = @"SYNC_UP_NEXT_ITEMS";
-                  break;
-                case '7':
-                  v15 = @"REQUEST_UP_NEXT_ITEMS";
-                  break;
-                case '8':
-                  v15 = @"SYNC_CONFIG_STORE";
-                  break;
-                case '9':
-                  v15 = @"CHECKIN_WITH_CONFIG_STORE";
-                  break;
-                case ':':
-                  v15 = @"REQUEST_ANALYTIC_IDENTIFIERS";
-                  break;
-                case ';':
-                  v15 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
-                  break;
-                case '<':
-                  v15 = @"SYNC_SUBSCRIPTION_INFO";
-                  break;
-                case '=':
-                  v15 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
-                  break;
-                case '>':
-                  goto LABEL_168;
-                case '?':
-                  v15 = @"UPDATE_SUBSCRIPTION_STATE";
-                  break;
-                case '@':
-                  v15 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
-                  break;
-                case 'A':
-                  v15 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
-                  break;
-                case 'B':
-                  v15 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
-                  break;
-                case 'C':
-                  v15 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
-                  break;
-                default:
-                  if (type2 != 4)
-                  {
-                    goto LABEL_168;
-                  }
-
-                  v15 = @"FETCHED_TILE";
-                  break;
-              }
-
-              goto LABEL_208;
-            }
-
-            switch(type2)
-            {
-              case 1:
-                v15 = @"FETCH_TILES";
-                goto LABEL_208;
-              case 2:
-                v15 = @"CANCEL_TILES";
-                goto LABEL_208;
-              case 3:
-                v15 = @"REPORT_CORRUPT_TILE";
-                goto LABEL_208;
-            }
 
 LABEL_168:
-            v15 = [NSString stringWithFormat:@"(unknown: %i)", type2];
-            goto LABEL_208;
-          }
-
-          if (type2 <= 102)
-          {
-            if (type2 == 100)
-            {
-              v15 = @"CHECKIN_WITH_TILE_GROUP";
+              v16 = [NSString stringWithFormat:@"(unknown: %i)", type2];
+              goto LABEL_208;
             }
 
-            else if (type2 == 101)
+            if (type2 <= 102)
             {
-              v15 = @"FORCE_UPDATE_MANIFEST";
+              if (type2 == 100)
+              {
+                v16 = @"CHECKIN_WITH_TILE_GROUP";
+              }
+
+              else if (type2 == 101)
+              {
+                v16 = @"FORCE_UPDATE_MANIFEST";
+              }
+
+              else
+              {
+                v16 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+              }
+
+              goto LABEL_208;
             }
 
-            else
+            if (type2 > 200)
             {
-              v15 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+              if (type2 == 201)
+              {
+                v16 = @"STOP_LOCATION_UPDATE";
+              }
+
+              else
+              {
+                v16 = @"UPDATED_LOCATION";
+              }
+
+              goto LABEL_208;
             }
 
-            goto LABEL_208;
-          }
-
-          if (type2 > 200)
-          {
-            if (type2 == 201)
+            if (type2 == 103)
             {
-              v15 = @"STOP_LOCATION_UPDATE";
+              v16 = @"FETCH_RESOURCE";
+              goto LABEL_208;
             }
 
-            else
+            if (type2 != 200)
             {
-              v15 = @"UPDATED_LOCATION";
+              goto LABEL_168;
             }
 
-            goto LABEL_208;
+            v16 = @"START_LOCATION_UPDATE";
           }
-
-          if (type2 == 103)
-          {
-            v15 = @"FETCH_RESOURCE";
-            goto LABEL_208;
-          }
-
-          if (type2 != 200)
-          {
-            goto LABEL_168;
-          }
-
-          v15 = @"START_LOCATION_UPDATE";
-        }
 
 LABEL_208:
-        simpleDescription = [companionRouteContext2 simpleDescription];
-        simpleDescription2 = [v12 simpleDescription];
-        *buf = 138412802;
-        v50 = v15;
-        v51 = 2112;
-        v52 = simpleDescription;
-        v53 = 2112;
-        v54 = simpleDescription2;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Ignoring %@ message; incoming route context is old (current:%@, incoming:%@)", buf, 0x20u);
+          simpleDescription = [companionRouteContext2 simpleDescription];
+          simpleDescription2 = [v12 simpleDescription];
+          *buf = 138412802;
+          v55 = v16;
+          v56 = 2112;
+          v57 = simpleDescription;
+          v58 = 2112;
+          v59 = simpleDescription2;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Ignoring %@ message; incoming route context is old (current:%@, incoming:%@)", buf, 0x20u);
 
-        goto LABEL_209;
+          goto LABEL_209;
+        }
       }
 
       goto LABEL_309;
@@ -1242,11 +1256,12 @@ LABEL_208:
     }
 
     origin = [companionRouteContext2 origin];
-    v12 = sub_100053324();
-    v29 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
-    if (origin == 2)
+    v32 = origin;
+    v12 = sub_100053324(origin);
+    v33 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+    if (v32 == 2)
     {
-      if (!v29)
+      if (!v33)
       {
 LABEL_306:
 
@@ -1263,17 +1278,17 @@ LABEL_306:
           {
             if (type3 == 203)
             {
-              v32 = @"FAILED_TO_UPDATE_LOCATION";
+              v36 = @"FAILED_TO_UPDATE_LOCATION";
             }
 
             else if (type3 == 204)
             {
-              v32 = @"DID_PAUSE_LOCATION_UPDATES";
+              v36 = @"DID_PAUSE_LOCATION_UPDATES";
             }
 
             else
             {
-              v32 = @"DID_RESUME_LOCATION_UPDATES";
+              v36 = @"DID_RESUME_LOCATION_UPDATES";
             }
           }
 
@@ -1282,52 +1297,52 @@ LABEL_306:
             switch(type3)
             {
               case 300:
-                v32 = @"UPDATE_NAV_ROUTE_DETAILS";
+                v36 = @"UPDATE_NAV_ROUTE_DETAILS";
                 break;
               case 301:
-                v32 = @"UPDATE_NAV_ROUTE_STATUS";
+                v36 = @"UPDATE_NAV_ROUTE_STATUS";
                 break;
               case 302:
-                v32 = @"START_NAV";
+                v36 = @"START_NAV";
                 break;
               case 303:
-                v32 = @"STOP_NAV";
+                v36 = @"STOP_NAV";
                 break;
               case 304:
-                v32 = @"PREVIEW_NAV";
+                v36 = @"PREVIEW_NAV";
                 break;
               case 305:
-                v32 = @"CLEAR_NAV_PREVIEW";
+                v36 = @"CLEAR_NAV_PREVIEW";
                 break;
               case 306:
-                v32 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+                v36 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
                 break;
               case 307:
-                v32 = @"DISMISS_NAV_SAFETY_ALERT";
+                v36 = @"DISMISS_NAV_SAFETY_ALERT";
                 break;
               case 308:
-                v32 = @"AVAILABLE_ROUTE";
+                v36 = @"AVAILABLE_ROUTE";
                 break;
               case 309:
-                v32 = @"SELECTED_ROUTE";
+                v36 = @"SELECTED_ROUTE";
                 break;
               case 310:
-                v32 = @"REQUEST_NAVIGATION_UPDATE";
+                v36 = @"REQUEST_NAVIGATION_UPDATE";
                 break;
               case 311:
-                v32 = @"UPDATE_NAV_ROUTE_UPDATE";
+                v36 = @"UPDATE_NAV_ROUTE_UPDATE";
                 break;
               case 312:
-                v32 = @"AVAILABLE_ROUTE_UPDATE";
+                v36 = @"AVAILABLE_ROUTE_UPDATE";
                 break;
               case 313:
-                v32 = @"PAUSE_NAV";
+                v36 = @"PAUSE_NAV";
                 break;
               case 314:
-                v32 = @"RESUME_NAV";
+                v36 = @"RESUME_NAV";
                 break;
               case 315:
-                v32 = @"SET_DISPLAYED_STEP";
+                v36 = @"SET_DISPLAYED_STEP";
                 break;
               default:
                 if (type3 != 206)
@@ -1335,7 +1350,7 @@ LABEL_306:
                   goto LABEL_224;
                 }
 
-                v32 = @"APPLY_LOCATION_AUTHORIZATION";
+                v36 = @"APPLY_LOCATION_AUTHORIZATION";
                 break;
             }
           }
@@ -1349,13 +1364,13 @@ LABEL_306:
           {
             if (type3 == 1500)
             {
-              v32 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+              v36 = @"DEBUG_FETCH_CONFIGURATION_INFO";
               goto LABEL_305;
             }
 
             if (type3 == 1501)
             {
-              v32 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+              v36 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
               goto LABEL_305;
             }
           }
@@ -1364,13 +1379,13 @@ LABEL_306:
           {
             if (type3 == 600)
             {
-              v32 = @"FETCH_ROUTE_GENIUS";
+              v36 = @"FETCH_ROUTE_GENIUS";
               goto LABEL_305;
             }
 
             if (type3 == 1000)
             {
-              v32 = @"PING";
+              v36 = @"PING";
               goto LABEL_305;
             }
           }
@@ -1382,13 +1397,13 @@ LABEL_306:
         {
           if (type3 == 501)
           {
-            v32 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+            v36 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
             goto LABEL_305;
           }
 
           if (type3 == 502)
           {
-            v32 = @"SERVICE_REQUEST";
+            v36 = @"SERVICE_REQUEST";
             goto LABEL_305;
           }
 
@@ -1397,7 +1412,7 @@ LABEL_306:
 
         if (type3 == 401)
         {
-          v32 = @"OPEN_URL";
+          v36 = @"OPEN_URL";
           goto LABEL_305;
         }
 
@@ -1406,7 +1421,7 @@ LABEL_306:
           goto LABEL_224;
         }
 
-        v32 = @"PLACE_DATA_MUID_LOOKUP";
+        v36 = @"PLACE_DATA_MUID_LOOKUP";
       }
 
       else
@@ -1418,57 +1433,57 @@ LABEL_306:
             switch(type3)
             {
               case '2':
-                v32 = @"START_INITIAL_SYNC";
+                v36 = @"START_INITIAL_SYNC";
                 break;
               case '3':
-                v32 = @"FETCH_CURRENT_COUNTRY_CODE";
+                v36 = @"FETCH_CURRENT_COUNTRY_CODE";
                 break;
               case '4':
-                v32 = @"FETCH_EXPERIMENTS_CONFIG";
+                v36 = @"FETCH_EXPERIMENTS_CONFIG";
                 break;
               case '5':
-                v32 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+                v36 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
                 break;
               case '6':
-                v32 = @"SYNC_UP_NEXT_ITEMS";
+                v36 = @"SYNC_UP_NEXT_ITEMS";
                 break;
               case '7':
-                v32 = @"REQUEST_UP_NEXT_ITEMS";
+                v36 = @"REQUEST_UP_NEXT_ITEMS";
                 break;
               case '8':
-                v32 = @"SYNC_CONFIG_STORE";
+                v36 = @"SYNC_CONFIG_STORE";
                 break;
               case '9':
-                v32 = @"CHECKIN_WITH_CONFIG_STORE";
+                v36 = @"CHECKIN_WITH_CONFIG_STORE";
                 break;
               case ':':
-                v32 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+                v36 = @"REQUEST_ANALYTIC_IDENTIFIERS";
                 break;
               case ';':
-                v32 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+                v36 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
                 break;
               case '<':
-                v32 = @"SYNC_SUBSCRIPTION_INFO";
+                v36 = @"SYNC_SUBSCRIPTION_INFO";
                 break;
               case '=':
-                v32 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+                v36 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
                 break;
               case '>':
                 goto LABEL_224;
               case '?':
-                v32 = @"UPDATE_SUBSCRIPTION_STATE";
+                v36 = @"UPDATE_SUBSCRIPTION_STATE";
                 break;
               case '@':
-                v32 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+                v36 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
                 break;
               case 'A':
-                v32 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+                v36 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
                 break;
               case 'B':
-                v32 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+                v36 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
                 break;
               case 'C':
-                v32 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+                v36 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
                 break;
               default:
                 if (type3 != 4)
@@ -1476,7 +1491,7 @@ LABEL_306:
                   goto LABEL_224;
                 }
 
-                v32 = @"FETCHED_TILE";
+                v36 = @"FETCHED_TILE";
                 break;
             }
 
@@ -1486,18 +1501,18 @@ LABEL_306:
           switch(type3)
           {
             case 1:
-              v32 = @"FETCH_TILES";
+              v36 = @"FETCH_TILES";
               goto LABEL_305;
             case 2:
-              v32 = @"CANCEL_TILES";
+              v36 = @"CANCEL_TILES";
               goto LABEL_305;
             case 3:
-              v32 = @"REPORT_CORRUPT_TILE";
+              v36 = @"REPORT_CORRUPT_TILE";
               goto LABEL_305;
           }
 
 LABEL_224:
-          v32 = [NSString stringWithFormat:@"(unknown: %i)", type3];
+          v36 = [NSString stringWithFormat:@"(unknown: %i)", type3];
           goto LABEL_305;
         }
 
@@ -1505,17 +1520,17 @@ LABEL_224:
         {
           if (type3 == 100)
           {
-            v32 = @"CHECKIN_WITH_TILE_GROUP";
+            v36 = @"CHECKIN_WITH_TILE_GROUP";
           }
 
           else if (type3 == 101)
           {
-            v32 = @"FORCE_UPDATE_MANIFEST";
+            v36 = @"FORCE_UPDATE_MANIFEST";
           }
 
           else
           {
-            v32 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+            v36 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
           }
 
           goto LABEL_305;
@@ -1525,12 +1540,12 @@ LABEL_224:
         {
           if (type3 == 201)
           {
-            v32 = @"STOP_LOCATION_UPDATE";
+            v36 = @"STOP_LOCATION_UPDATE";
           }
 
           else
           {
-            v32 = @"UPDATED_LOCATION";
+            v36 = @"UPDATED_LOCATION";
           }
 
           goto LABEL_305;
@@ -1538,7 +1553,7 @@ LABEL_224:
 
         if (type3 == 103)
         {
-          v32 = @"FETCH_RESOURCE";
+          v36 = @"FETCH_RESOURCE";
           goto LABEL_305;
         }
 
@@ -1547,20 +1562,20 @@ LABEL_224:
           goto LABEL_224;
         }
 
-        v32 = @"START_LOCATION_UPDATE";
+        v36 = @"START_LOCATION_UPDATE";
       }
 
 LABEL_305:
       *buf = 138412546;
-      v50 = simpleDescription3;
-      v51 = 2112;
-      v52 = v32;
+      v55 = simpleDescription3;
+      v56 = 2112;
+      v57 = v36;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Was told to clear nav preview without a context and our current context is from companion (%@); dropping (%@) message", buf, 0x16u);
 
       goto LABEL_306;
     }
 
-    if (!v29)
+    if (!v33)
     {
 LABEL_309:
 
@@ -1568,7 +1583,7 @@ LABEL_310:
       snapshot = self->_snapshot;
       self->_snapshot = 0;
 
-      v39 = self->_routePlanningSession;
+      v43 = self->_routePlanningSession;
       self->_routePlanningSession = 0;
 
       if (v6)
@@ -1578,13 +1593,13 @@ LABEL_310:
         lastInvalidatedCompanionRouteContext = self->_lastInvalidatedCompanionRouteContext;
         self->_lastInvalidatedCompanionRouteContext = companionRouteContext3;
 
-        v43 = sub_100053324();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+        v48 = sub_100053324(v47);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
         {
           simpleDescription4 = [(GEOCompanionRouteContext *)self->_lastInvalidatedCompanionRouteContext simpleDescription];
           *buf = 138412290;
-          v50 = simpleDescription4;
-          _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "Will clear route planning locally and notify Maps (context: %@)", buf, 0xCu);
+          v55 = simpleDescription4;
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Will clear route planning locally and notify Maps (context: %@)", buf, 0xCu);
         }
 
         [(NMReply *)v6 unregisterObserver:self];
@@ -1605,17 +1620,17 @@ LABEL_310:
         {
           if (type4 == 203)
           {
-            v35 = @"FAILED_TO_UPDATE_LOCATION";
+            v39 = @"FAILED_TO_UPDATE_LOCATION";
           }
 
           else if (type4 == 204)
           {
-            v35 = @"DID_PAUSE_LOCATION_UPDATES";
+            v39 = @"DID_PAUSE_LOCATION_UPDATES";
           }
 
           else
           {
-            v35 = @"DID_RESUME_LOCATION_UPDATES";
+            v39 = @"DID_RESUME_LOCATION_UPDATES";
           }
         }
 
@@ -1624,52 +1639,52 @@ LABEL_310:
           switch(type4)
           {
             case 300:
-              v35 = @"UPDATE_NAV_ROUTE_DETAILS";
+              v39 = @"UPDATE_NAV_ROUTE_DETAILS";
               break;
             case 301:
-              v35 = @"UPDATE_NAV_ROUTE_STATUS";
+              v39 = @"UPDATE_NAV_ROUTE_STATUS";
               break;
             case 302:
-              v35 = @"START_NAV";
+              v39 = @"START_NAV";
               break;
             case 303:
-              v35 = @"STOP_NAV";
+              v39 = @"STOP_NAV";
               break;
             case 304:
-              v35 = @"PREVIEW_NAV";
+              v39 = @"PREVIEW_NAV";
               break;
             case 305:
-              v35 = @"CLEAR_NAV_PREVIEW";
+              v39 = @"CLEAR_NAV_PREVIEW";
               break;
             case 306:
-              v35 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
+              v39 = @"SET_WANTS_ALL_NAV_STATUS_UPDATES";
               break;
             case 307:
-              v35 = @"DISMISS_NAV_SAFETY_ALERT";
+              v39 = @"DISMISS_NAV_SAFETY_ALERT";
               break;
             case 308:
-              v35 = @"AVAILABLE_ROUTE";
+              v39 = @"AVAILABLE_ROUTE";
               break;
             case 309:
-              v35 = @"SELECTED_ROUTE";
+              v39 = @"SELECTED_ROUTE";
               break;
             case 310:
-              v35 = @"REQUEST_NAVIGATION_UPDATE";
+              v39 = @"REQUEST_NAVIGATION_UPDATE";
               break;
             case 311:
-              v35 = @"UPDATE_NAV_ROUTE_UPDATE";
+              v39 = @"UPDATE_NAV_ROUTE_UPDATE";
               break;
             case 312:
-              v35 = @"AVAILABLE_ROUTE_UPDATE";
+              v39 = @"AVAILABLE_ROUTE_UPDATE";
               break;
             case 313:
-              v35 = @"PAUSE_NAV";
+              v39 = @"PAUSE_NAV";
               break;
             case 314:
-              v35 = @"RESUME_NAV";
+              v39 = @"RESUME_NAV";
               break;
             case 315:
-              v35 = @"SET_DISPLAYED_STEP";
+              v39 = @"SET_DISPLAYED_STEP";
               break;
             default:
               if (type4 != 206)
@@ -1677,7 +1692,7 @@ LABEL_310:
                 goto LABEL_227;
               }
 
-              v35 = @"APPLY_LOCATION_AUTHORIZATION";
+              v39 = @"APPLY_LOCATION_AUTHORIZATION";
               break;
           }
         }
@@ -1691,13 +1706,13 @@ LABEL_310:
         {
           if (type4 == 1500)
           {
-            v35 = @"DEBUG_FETCH_CONFIGURATION_INFO";
+            v39 = @"DEBUG_FETCH_CONFIGURATION_INFO";
             goto LABEL_308;
           }
 
           if (type4 == 1501)
           {
-            v35 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
+            v39 = @"DEBUG_FETCH_DIAGNOSTICS_STRING";
             goto LABEL_308;
           }
         }
@@ -1706,13 +1721,13 @@ LABEL_310:
         {
           if (type4 == 600)
           {
-            v35 = @"FETCH_ROUTE_GENIUS";
+            v39 = @"FETCH_ROUTE_GENIUS";
             goto LABEL_308;
           }
 
           if (type4 == 1000)
           {
-            v35 = @"PING";
+            v39 = @"PING";
             goto LABEL_308;
           }
         }
@@ -1724,13 +1739,13 @@ LABEL_310:
       {
         if (type4 == 501)
         {
-          v35 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
+          v39 = @"PLACE_DATA_IDENTIFIER_LOOKUP";
           goto LABEL_308;
         }
 
         if (type4 == 502)
         {
-          v35 = @"SERVICE_REQUEST";
+          v39 = @"SERVICE_REQUEST";
           goto LABEL_308;
         }
 
@@ -1739,7 +1754,7 @@ LABEL_310:
 
       if (type4 == 401)
       {
-        v35 = @"OPEN_URL";
+        v39 = @"OPEN_URL";
         goto LABEL_308;
       }
 
@@ -1748,7 +1763,7 @@ LABEL_310:
         goto LABEL_227;
       }
 
-      v35 = @"PLACE_DATA_MUID_LOOKUP";
+      v39 = @"PLACE_DATA_MUID_LOOKUP";
     }
 
     else
@@ -1760,57 +1775,57 @@ LABEL_310:
           switch(type4)
           {
             case '2':
-              v35 = @"START_INITIAL_SYNC";
+              v39 = @"START_INITIAL_SYNC";
               break;
             case '3':
-              v35 = @"FETCH_CURRENT_COUNTRY_CODE";
+              v39 = @"FETCH_CURRENT_COUNTRY_CODE";
               break;
             case '4':
-              v35 = @"FETCH_EXPERIMENTS_CONFIG";
+              v39 = @"FETCH_EXPERIMENTS_CONFIG";
               break;
             case '5':
-              v35 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
+              v39 = @"DID_CHANGE_EXPERIMENTS_CONFIG";
               break;
             case '6':
-              v35 = @"SYNC_UP_NEXT_ITEMS";
+              v39 = @"SYNC_UP_NEXT_ITEMS";
               break;
             case '7':
-              v35 = @"REQUEST_UP_NEXT_ITEMS";
+              v39 = @"REQUEST_UP_NEXT_ITEMS";
               break;
             case '8':
-              v35 = @"SYNC_CONFIG_STORE";
+              v39 = @"SYNC_CONFIG_STORE";
               break;
             case '9':
-              v35 = @"CHECKIN_WITH_CONFIG_STORE";
+              v39 = @"CHECKIN_WITH_CONFIG_STORE";
               break;
             case ':':
-              v35 = @"REQUEST_ANALYTIC_IDENTIFIERS";
+              v39 = @"REQUEST_ANALYTIC_IDENTIFIERS";
               break;
             case ';':
-              v35 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
+              v39 = @"CHECKIN_WITH_SUBSCRIPTION_INFO";
               break;
             case '<':
-              v35 = @"SYNC_SUBSCRIPTION_INFO";
+              v39 = @"SYNC_SUBSCRIPTION_INFO";
               break;
             case '=':
-              v35 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
+              v39 = @"SET_OBSERVED_SUBSCRIPTION_IDENTIFIERS";
               break;
             case '>':
               goto LABEL_227;
             case '?':
-              v35 = @"UPDATE_SUBSCRIPTION_STATE";
+              v39 = @"UPDATE_SUBSCRIPTION_STATE";
               break;
             case '@':
-              v35 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
+              v39 = @"START_STOP_SUBSCRIPTION_DOWNLOAD";
               break;
             case 'A':
-              v35 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
+              v39 = @"CHECKIN_WITH_SUBSCRIPTION_STATE_SUMMARY";
               break;
             case 'B':
-              v35 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
+              v39 = @"SET_SUBSCRIPTION_STATE_SUMMARY";
               break;
             case 'C':
-              v35 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
+              v39 = @"SET_SUBSCRIPTION_SHOULD_SYNC";
               break;
             default:
               if (type4 != 4)
@@ -1818,7 +1833,7 @@ LABEL_310:
                 goto LABEL_227;
               }
 
-              v35 = @"FETCHED_TILE";
+              v39 = @"FETCHED_TILE";
               break;
           }
 
@@ -1828,18 +1843,18 @@ LABEL_310:
         switch(type4)
         {
           case 1:
-            v35 = @"FETCH_TILES";
+            v39 = @"FETCH_TILES";
             goto LABEL_308;
           case 2:
-            v35 = @"CANCEL_TILES";
+            v39 = @"CANCEL_TILES";
             goto LABEL_308;
           case 3:
-            v35 = @"REPORT_CORRUPT_TILE";
+            v39 = @"REPORT_CORRUPT_TILE";
             goto LABEL_308;
         }
 
 LABEL_227:
-        v35 = [NSString stringWithFormat:@"(unknown: %i)", type4];
+        v39 = [NSString stringWithFormat:@"(unknown: %i)", type4];
         goto LABEL_308;
       }
 
@@ -1847,17 +1862,17 @@ LABEL_227:
       {
         if (type4 == 100)
         {
-          v35 = @"CHECKIN_WITH_TILE_GROUP";
+          v39 = @"CHECKIN_WITH_TILE_GROUP";
         }
 
         else if (type4 == 101)
         {
-          v35 = @"FORCE_UPDATE_MANIFEST";
+          v39 = @"FORCE_UPDATE_MANIFEST";
         }
 
         else
         {
-          v35 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
+          v39 = @"DID_CHANGE_ACTIVE_TILE_GROUP";
         }
 
         goto LABEL_308;
@@ -1867,12 +1882,12 @@ LABEL_227:
       {
         if (type4 == 201)
         {
-          v35 = @"STOP_LOCATION_UPDATE";
+          v39 = @"STOP_LOCATION_UPDATE";
         }
 
         else
         {
-          v35 = @"UPDATED_LOCATION";
+          v39 = @"UPDATED_LOCATION";
         }
 
         goto LABEL_308;
@@ -1880,7 +1895,7 @@ LABEL_227:
 
       if (type4 == 103)
       {
-        v35 = @"FETCH_RESOURCE";
+        v39 = @"FETCH_RESOURCE";
         goto LABEL_308;
       }
 
@@ -1889,14 +1904,14 @@ LABEL_227:
         goto LABEL_227;
       }
 
-      v35 = @"START_LOCATION_UPDATE";
+      v39 = @"START_LOCATION_UPDATE";
     }
 
 LABEL_308:
     *buf = 138412546;
-    v50 = simpleDescription5;
-    v51 = 2112;
-    v52 = v35;
+    v55 = simpleDescription5;
+    v56 = 2112;
+    v57 = v39;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Was told to clear nav preview without a context but our current context is from gizmo (%@); allowing (%@) message to be sent to Maps", buf, 0x16u);
 
     goto LABEL_309;
@@ -1957,14 +1972,14 @@ LABEL_6:
     {
       v15 = 0;
 LABEL_13:
-      v78 = v15;
+      v80 = v15;
       if (![dataListValues count] && !v14 && !v15)
       {
-        v81 = NSLocalizedDescriptionKey;
-        v82 = NSLocalizedFailureReasonErrorKey;
+        v83 = NSLocalizedDescriptionKey;
+        v84 = NSLocalizedFailureReasonErrorKey;
         *buf = @"The destination was invalid";
         *&buf[8] = @"The destination was invalid";
-        v20 = [NSDictionary dictionaryWithObjects:buf forKeys:&v81 count:2];
+        v20 = [NSDictionary dictionaryWithObjects:buf forKeys:&v83 count:2];
         v19 = [NSError errorWithDomain:@"com.apple.nanomapscd" code:4 userInfo:v20];
 
         v21 = objc_alloc_init(NMReply);
@@ -1974,13 +1989,13 @@ LABEL_13:
         [v23 sendReply:v21 forMessage:messageCopy options:0];
 LABEL_70:
 
-        v18 = v78;
+        v18 = v80;
         goto LABEL_71;
       }
 
       if ([dataListValues count])
       {
-        v76 = sub_1000282B8(dataListValues, &stru_100085EC8);
+        v78 = sub_1000282B8(dataListValues, &stru_100085EC8);
       }
 
       else
@@ -2005,46 +2020,46 @@ LABEL_70:
           [NanoDirectionWaypoint directionWaypointForCurrentLocation:0];
         }
         v25 = ;
-        v80[0] = v24;
-        v80[1] = v25;
-        v76 = [NSArray arrayWithObjects:v80 count:2];
+        v82[0] = v24;
+        v82[1] = v25;
+        v78 = [NSArray arrayWithObjects:v82 count:2];
       }
 
       v26 = [messageCopy argumentForTag:406];
       dataValue3 = [v26 dataValue];
 
       v28 = [(NMReply *)dataValue3 length];
-      v69 = dataValue3;
+      v71 = dataValue3;
       if (v28)
       {
         v28 = [[GEOCompanionRouteContext alloc] initWithData:dataValue3];
       }
 
-      v75 = v28;
+      v77 = v28;
       v29 = [messageCopy argumentForTag:407];
-      v72 = v29;
+      v74 = v29;
       if (v29)
       {
         [v29 doubleValue];
-        v77 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+        v79 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
       }
 
       else
       {
-        v77 = 0;
+        v79 = 0;
       }
 
       v30 = [messageCopy argumentForTag:408];
-      v71 = v30;
+      v73 = v30;
       if (v30)
       {
         [v30 doubleValue];
-        v70 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
+        v72 = [NSDate dateWithTimeIntervalSinceReferenceDate:?];
       }
 
       else
       {
-        v70 = 0;
+        v72 = 0;
       }
 
       v31 = [messageCopy argumentForTag:413];
@@ -2052,7 +2067,21 @@ LABEL_70:
 
       if (dataValue4)
       {
-        v67 = [[GEOAutomobileOptions alloc] initWithData:dataValue4];
+        v69 = [[GEOAutomobileOptions alloc] initWithData:dataValue4];
+      }
+
+      else
+      {
+        v69 = 0;
+      }
+
+      v33 = [messageCopy argumentForTag:414];
+      dataValue5 = [v33 dataValue];
+
+      v68 = dataValue5;
+      if (dataValue5)
+      {
+        v67 = [[GEOTransitOptions alloc] initWithData:dataValue5];
       }
 
       else
@@ -2060,45 +2089,31 @@ LABEL_70:
         v67 = 0;
       }
 
-      v33 = [messageCopy argumentForTag:414];
-      dataValue5 = [v33 dataValue];
-
-      v66 = dataValue5;
-      if (dataValue5)
-      {
-        v65 = [[GEOTransitOptions alloc] initWithData:dataValue5];
-      }
-
-      else
-      {
-        v65 = 0;
-      }
-
       v35 = [messageCopy argumentForTag:415];
       dataValue6 = [v35 dataValue];
 
       if (dataValue6)
       {
-        v64 = [[GEOWalkingOptions alloc] initWithData:dataValue6];
+        v66 = [[GEOWalkingOptions alloc] initWithData:dataValue6];
       }
 
       else
       {
-        v64 = 0;
+        v66 = 0;
       }
 
       v37 = [messageCopy argumentForTag:416];
       dataValue7 = [v37 dataValue];
 
-      v68 = dataValue4;
+      v70 = dataValue4;
       if (dataValue7)
       {
-        v63 = [[GEOCyclingOptions alloc] initWithData:dataValue7];
+        v65 = [[GEOCyclingOptions alloc] initWithData:dataValue7];
       }
 
       else
       {
-        v63 = 0;
+        v65 = 0;
       }
 
       v39 = [[NMCRPCGizmoPreviewState alloc] initWithMessage:messageCopy];
@@ -2108,12 +2123,12 @@ LABEL_70:
       v41 = [messageCopy argumentForTag:400];
       intValue = [v41 intValue];
 
-      v74 = dataValue;
+      v76 = dataValue;
       if (intValue <= 3)
       {
         if (intValue == 2)
         {
-          v43 = 2;
+          v44 = 2;
           goto LABEL_56;
         }
       }
@@ -2123,25 +2138,25 @@ LABEL_70:
         switch(intValue)
         {
           case 4:
-            v43 = 1;
+            v44 = 1;
             goto LABEL_56;
           case 8:
-            v43 = 3;
+            v44 = 3;
             goto LABEL_56;
           case 0xFFFFFFFLL:
-            v43 = 4;
+            v44 = 4;
 LABEL_56:
-            v73 = v14;
-            v44 = sub_100053324();
-            if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+            v75 = v14;
+            v45 = sub_100053324(v43);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
             {
-              v45 = *(&off_100085FF0 + v43);
-              simpleDescription = [v75 simpleDescription];
+              v46 = *(&off_100085FF0 + v44);
+              simpleDescription = [v77 simpleDescription];
               *buf = 138412546;
-              *&buf[4] = v45;
+              *&buf[4] = v46;
               *&buf[12] = 2112;
               *&buf[14] = simpleDescription;
-              _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "Will preview directions (transportType:%@, context:%@)", buf, 0x16u);
+              _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_INFO, "Will preview directions (transportType:%@, context:%@)", buf, 0x16u);
             }
 
             routePlanningSession = self->_routePlanningSession;
@@ -2150,67 +2165,67 @@ LABEL_56:
               request = [(NanoRoutePlanningSession *)routePlanningSession request];
               companionRouteContext = [request companionRouteContext];
 
-              v50 = sub_100053324();
-              if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
+              v52 = sub_100053324(v51);
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
               {
                 simpleDescription2 = [companionRouteContext simpleDescription];
                 *buf = 138412290;
                 *&buf[4] = simpleDescription2;
-                _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "Invalidating existing route planning session (context, %@)", buf, 0xCu);
+                _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_INFO, "Invalidating existing route planning session (context, %@)", buf, 0xCu);
               }
 
               lastInvalidatedCompanionRouteContext = self->_lastInvalidatedCompanionRouteContext;
               self->_lastInvalidatedCompanionRouteContext = companionRouteContext;
-              v53 = companionRouteContext;
+              v55 = companionRouteContext;
 
               [(NanoRoutePlanningSession *)self->_routePlanningSession unregisterObserver:self];
               [(NanoRoutePlanningSession *)self->_routePlanningSession invalidate];
               snapshot = self->_snapshot;
               self->_snapshot = 0;
 
-              v55 = self->_routePlanningSession;
+              v57 = self->_routePlanningSession;
               self->_routePlanningSession = 0;
             }
 
-            v56 = +[GEOMapService sharedService];
-            defaultTraits = [v56 defaultTraits];
-            v22 = v75;
-            v58 = [NanoRoutePlanningRequest requestWithWaypoints:v76 viaTransportType:v43 traits:defaultTraits companionRouteContext:v75];
+            v58 = +[GEOMapService sharedService];
+            defaultTraits = [v58 defaultTraits];
+            v22 = v77;
+            v60 = [NanoRoutePlanningRequest requestWithWaypoints:v78 viaTransportType:v44 traits:defaultTraits companionRouteContext:v77];
 
-            if (v77 || v70 || v67 || v65 || v64 || v63)
+            if (v79 || v72 || v69 || v67 || v66 || v65)
             {
-              v59 = [v58 mutableCopy];
-              [v59 setDepartureDate:v77];
-              [v59 setArrivalDate:v70];
-              [v59 setAutomobileOptions:v67];
-              [v59 setTransitOptions:v65];
-              [v59 setWalkingOptions:v64];
-              [v59 setCyclingOptions:v63];
-              v60 = [v59 copy];
+              v61 = [v60 mutableCopy];
+              [v61 setDepartureDate:v79];
+              [v61 setArrivalDate:v72];
+              [v61 setAutomobileOptions:v69];
+              [v61 setTransitOptions:v67];
+              [v61 setWalkingOptions:v66];
+              [v61 setCyclingOptions:v65];
+              v62 = [v61 copy];
 
-              v22 = v75;
-              v58 = v60;
+              v22 = v77;
+              v60 = v62;
             }
 
-            v14 = v73;
-            dataValue = v74;
+            v14 = v75;
+            dataValue = v76;
             [(NMCRoutePlanningController *)self _setCurrentSessionInputOrigin:3];
-            v61 = objc_alloc_init(NanoRoutePlanningSession);
-            v62 = self->_routePlanningSession;
-            self->_routePlanningSession = v61;
+            v63 = objc_alloc_init(NanoRoutePlanningSession);
+            v64 = self->_routePlanningSession;
+            self->_routePlanningSession = v63;
 
             [(NanoRoutePlanningSession *)self->_routePlanningSession setShouldBroadcast:1];
             [(NanoRoutePlanningSession *)self->_routePlanningSession registerObserver:self];
-            [(NanoRoutePlanningSession *)self->_routePlanningSession processRequest:v58];
+            [(NanoRoutePlanningSession *)self->_routePlanningSession processRequest:v60];
 
-            v19 = v76;
-            v23 = v72;
-            v21 = v69;
+            v19 = v78;
+            v23 = v74;
+            v21 = v71;
             goto LABEL_70;
         }
       }
 
-      v43 = 0;
+      v44 = 0;
       goto LABEL_56;
     }
 
@@ -2219,11 +2234,11 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v81 = NSLocalizedDescriptionKey;
-  v82 = NSLocalizedFailureReasonErrorKey;
+  v83 = NSLocalizedDescriptionKey;
+  v84 = NSLocalizedFailureReasonErrorKey;
   *buf = @"No destination was provided";
   *&buf[8] = @"No destination was provided";
-  v17 = [NSDictionary dictionaryWithObjects:buf forKeys:&v81 count:2];
+  v17 = [NSDictionary dictionaryWithObjects:buf forKeys:&v83 count:2];
   dataValue2 = [NSError errorWithDomain:@"com.apple.nanomapscd" code:3 userInfo:v17];
 
   v14 = objc_alloc_init(NMReply);
@@ -2239,7 +2254,7 @@ LABEL_71:
   loadingCopy = loading;
   dispatch_assert_queue_V2(self->_isolationQueue);
   request = [loadingCopy request];
-  v6 = sub_100053324();
+  v6 = sub_100053324(request);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     companionRouteContext = [request companionRouteContext];
@@ -2266,15 +2281,15 @@ LABEL_71:
   responseCopy = response;
   identifiersCopy = identifiers;
   dispatch_assert_queue_V2(self->_isolationQueue);
-  v8 = sub_100053324();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_100053324(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     request = [responseCopy request];
     companionRouteContext = [request companionRouteContext];
     simpleDescription = [companionRouteContext simpleDescription];
     *buf = 138412290;
-    v33 = simpleDescription;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Notifying NanoMaps: did receive routes (context:%@)", buf, 0xCu);
+    v35 = simpleDescription;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Notifying NanoMaps: did receive routes (context:%@)", buf, 0xCu);
   }
 
   gizmoPreviewState = self->_gizmoPreviewState;
@@ -2282,15 +2297,15 @@ LABEL_71:
   {
     message = [(NMCRPCGizmoPreviewState *)gizmoPreviewState message];
     hasShownNavModeAdvisory = [(NMCRPCGizmoPreviewState *)self->_gizmoPreviewState hasShownNavModeAdvisory];
-    v15 = self->_gizmoPreviewState;
+    v16 = self->_gizmoPreviewState;
     self->_gizmoPreviewState = 0;
 
     response = [responseCopy response];
     lastError = [response lastError];
-    v18 = [(NMCRoutePlanningController *)self _replyForMessage:message withSafetyWarning:hasShownNavModeAdvisory << 63 >> 63 error:lastError];
+    v19 = [(NMCRoutePlanningController *)self _replyForMessage:message withSafetyWarning:hasShownNavModeAdvisory << 63 >> 63 error:lastError];
 
-    v19 = +[NMCGizmoConnection sharedInstance];
-    [v19 sendReply:v18 forMessage:message options:0];
+    v20 = +[NMCGizmoConnection sharedInstance];
+    [v20 sendReply:v19 forMessage:message options:0];
   }
 
   response2 = [responseCopy response];
@@ -2301,43 +2316,44 @@ LABEL_71:
     if (identifiersCopy)
     {
       sub_1000282B8(identifiersCopy, &stru_100085F08);
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 3221225472;
-      v30[2] = sub_10002339C;
-      request2 = v30[3] = &unk_100085F30;
-      v31 = request2;
-      v23 = [companionRoutes indexesOfObjectsPassingTest:v30];
-      v24 = [v23 count];
-      if (v24 == [companionRoutes count])
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_10002339C;
+      request2 = v32[3] = &unk_100085F30;
+      v33 = request2;
+      v24 = [companionRoutes indexesOfObjectsPassingTest:v32];
+      v25 = [v24 count];
+      v26 = [companionRoutes count];
+      if (v25 == v26)
       {
 
-        v23 = 0;
+        v24 = 0;
       }
 
       else
       {
-        v25 = sub_100053324();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        v27 = sub_100053324(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          v26 = [v23 count];
-          v27 = [companionRoutes count];
+          v28 = [v24 count];
+          v29 = [companionRoutes count];
           *buf = 134218240;
-          v33 = v26;
-          v34 = 2048;
-          v35 = v27;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Filtered %lu to %lu companion routes to send", buf, 0x16u);
+          v35 = v28;
+          v36 = 2048;
+          v37 = v29;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Filtered %lu to %lu companion routes to send", buf, 0x16u);
         }
 
-        if (![v23 count])
+        if (![v24 count])
         {
-          v29 = sub_100053324();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          v31 = sub_100053324(0);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "No routes to send after filtering, bailing", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "No routes to send after filtering, bailing", buf, 2u);
           }
 
-          companionRouteContext2 = v31;
+          companionRouteContext2 = v33;
           goto LABEL_15;
         }
       }
@@ -2345,12 +2361,12 @@ LABEL_71:
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
 
     request2 = [responseCopy request];
     companionRouteContext2 = [request2 companionRouteContext];
-    [(NMCRoutePlanningController *)self _sendPreviewRoutes:companionRoutes atIndexes:v23 error:0 companionRouteContext:companionRouteContext2 includeSyntheticRoute:0];
+    [(NMCRoutePlanningController *)self _sendPreviewRoutes:companionRoutes atIndexes:v24 error:0 companionRouteContext:companionRouteContext2 includeSyntheticRoute:0];
 LABEL_15:
   }
 }
@@ -2367,7 +2383,7 @@ LABEL_15:
   v17 = v16[3] = &unk_100085E88;
   v8 = v17;
   v9 = sub_1000282B8(routesCopy, v16);
-  v10 = sub_100053324();
+  v10 = sub_100053324(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     request = [sessionCopy request];
@@ -2394,23 +2410,23 @@ LABEL_15:
   selectedRoute = [routeCopy selectedRoute];
   v8 = [routes indexOfObject:selectedRoute];
 
-  v9 = sub_100053324();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = sub_100053324(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     request = [routeCopy request];
     companionRouteContext = [request companionRouteContext];
     simpleDescription = [companionRouteContext simpleDescription];
-    v21 = 134218242;
-    v22 = v8;
-    v23 = 2112;
-    v24 = simpleDescription;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Notifying NanoMaps: did select route (index:%lu, context:%@)", &v21, 0x16u);
+    v22 = 134218242;
+    v23 = v8;
+    v24 = 2112;
+    v25 = simpleDescription;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Notifying NanoMaps: did select route (index:%lu, context:%@)", &v22, 0x16u);
   }
 
-  v13 = +[NMCGizmoConnection sharedInstance];
-  v14 = [v13 canSendMessageWithType:309];
+  v14 = +[NMCGizmoConnection sharedInstance];
+  v15 = [v14 canSendMessageWithType:309];
 
-  if (v14)
+  if (v15)
   {
     request2 = [routeCopy request];
     companionRouteContext2 = [request2 companionRouteContext];
@@ -2434,34 +2450,34 @@ LABEL_15:
 {
   failCopy = fail;
   dispatch_assert_queue_V2(self->_isolationQueue);
-  v5 = sub_100053324();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = sub_100053324(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     response = [failCopy response];
     lastError = [response lastError];
     request = [failCopy request];
     companionRouteContext = [request companionRouteContext];
     simpleDescription = [companionRouteContext simpleDescription];
-    v22 = 138412546;
-    v23 = lastError;
-    v24 = 2112;
-    v25 = simpleDescription;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Notifying NanoMaps: session failed with error: %@ (context:%@)", &v22, 0x16u);
+    v23 = 138412546;
+    v24 = lastError;
+    v25 = 2112;
+    v26 = simpleDescription;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Notifying NanoMaps: session failed with error: %@ (context:%@)", &v23, 0x16u);
   }
 
   gizmoPreviewState = self->_gizmoPreviewState;
   if (gizmoPreviewState)
   {
     message = [(NMCRPCGizmoPreviewState *)gizmoPreviewState message];
-    v13 = self->_gizmoPreviewState;
+    v14 = self->_gizmoPreviewState;
     self->_gizmoPreviewState = 0;
 
     response2 = [failCopy response];
     lastError2 = [response2 lastError];
-    v16 = [(NMCRoutePlanningController *)self _replyForMessage:message withSafetyWarning:-1 error:lastError2];
+    v17 = [(NMCRoutePlanningController *)self _replyForMessage:message withSafetyWarning:-1 error:lastError2];
 
-    v17 = +[NMCGizmoConnection sharedInstance];
-    [v17 sendReply:v16 forMessage:message options:0];
+    v18 = +[NMCGizmoConnection sharedInstance];
+    [v18 sendReply:v17 forMessage:message options:0];
   }
 
   response3 = [failCopy response];
@@ -2475,15 +2491,15 @@ LABEL_15:
 {
   invalidateCopy = invalidate;
   dispatch_assert_queue_V2(self->_isolationQueue);
-  v5 = sub_100053324();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = sub_100053324(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     request = [invalidateCopy request];
     companionRouteContext = [request companionRouteContext];
     simpleDescription = [companionRouteContext simpleDescription];
-    v12 = 138412290;
-    v13 = simpleDescription;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Notifying NanoMaps: session invalidated (context:%@)", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = simpleDescription;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Notifying NanoMaps: session invalidated (context:%@)", &v13, 0xCu);
   }
 
   request2 = [invalidateCopy request];
@@ -2505,9 +2521,9 @@ LABEL_15:
 
   if ((v17 & 1) == 0)
   {
-    v21 = +[NMCNavigationProxy sharedInstance];
+    v22 = +[NMCNavigationProxy sharedInstance];
     firstObject = [routesCopy firstObject];
-    [v21 _legacy_sendPreviewRouteDetails:firstObject context:contextCopy];
+    [v22 _legacy_sendPreviewRouteDetails:firstObject context:contextCopy];
 
     goto LABEL_26;
   }
@@ -2526,56 +2542,56 @@ LABEL_15:
     goto LABEL_9;
   }
 
-  v23 = sub_100053324();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v24 = sub_100053324(v21);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "Gizmo does not support transport type of first route, sending error instead", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Gizmo does not support transport type of first route, sending error instead", buf, 2u);
   }
 
-  v61[0] = NSLocalizedDescriptionKey;
-  v61[1] = NSLocalizedFailureReasonErrorKey;
+  v63[0] = NSLocalizedDescriptionKey;
+  v63[1] = NSLocalizedFailureReasonErrorKey;
   *buf = @"Transport type not supported";
   *&buf[8] = @"Transport type not supported";
-  v24 = [NSDictionary dictionaryWithObjects:buf forKeys:v61 count:2];
-  v25 = [NSError errorWithDomain:@"com.apple.nanomapscd" code:7 userInfo:v24];
+  v25 = [NSDictionary dictionaryWithObjects:buf forKeys:v63 count:2];
+  v26 = [NSError errorWithDomain:@"com.apple.nanomapscd" code:7 userInfo:v25];
 
-  errorCopy = v25;
+  errorCopy = v26;
   if (contextCopy)
   {
 LABEL_9:
-    v26 = +[NMCGizmoConnection sharedInstance];
-    v59 = @"NMSendMessageOptionTimeout";
-    v60 = &off_10008C768;
-    v27 = [NSDictionary dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+    v27 = +[NMCGizmoConnection sharedInstance];
+    v61 = @"NMSendMessageOptionTimeout";
+    v62 = &off_10008C768;
+    v28 = [NSDictionary dictionaryWithObjects:&v62 forKeys:&v61 count:1];
     data = [contextCopy data];
-    [v26 cancelAllMessagesOfType:308];
-    [v26 cancelAllMessagesOfType:312];
+    [v27 cancelAllMessagesOfType:308];
+    v30 = [v27 cancelAllMessagesOfType:312];
     if (errorCopy)
     {
-      v29 = sub_100053324();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+      v31 = sub_100053324(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "Will send no-routes+error to gizmo", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "Will send no-routes+error to gizmo", buf, 2u);
       }
 
-      v30 = [(NMCRoutePlanningController *)self _messageForNoRoutesWithError:errorCopy routeContextData:data];
-      [v26 sendMessage:v30 options:v27];
+      v32 = [(NMCRoutePlanningController *)self _messageForNoRoutesWithError:errorCopy routeContextData:data];
+      [v27 sendMessage:v32 options:v28];
     }
 
     else
     {
-      v31 = [routesCopy count];
-      v32 = v31;
+      v33 = [routesCopy count];
+      v34 = v33;
       if (routeCopy)
       {
-        v47 = v31;
-        v48 = data;
-        v49 = v27;
+        v49 = v33;
+        v50 = data;
+        v51 = v28;
         firstObject3 = [routesCopy firstObject];
-        v34 = sub_100053324();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+        v36 = sub_100053324(firstObject3);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
         {
           composedOrigin = [firstObject3 composedOrigin];
           composedDestination = [firstObject3 composedDestination];
@@ -2583,67 +2599,67 @@ LABEL_9:
           *&buf[4] = firstObject3;
           *&buf[12] = 2112;
           *&buf[14] = composedOrigin;
-          v57 = 2112;
-          v58 = composedDestination;
-          _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "Will send synthetic route ahead of full routes: %@, origin: %@, destination: %@", buf, 0x20u);
+          v59 = 2112;
+          v60 = composedDestination;
+          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEBUG, "Will send synthetic route ahead of full routes: %@, origin: %@, destination: %@", buf, 0x20u);
         }
 
         [firstObject3 waypoints];
-        v37 = firstObject3;
-        v38 = v46 = firstObject3;
-        transportType = [v37 transportType];
-        destinationName = [v37 destinationName];
-        v41 = [GEOCompanionRouteDetails syntheticRouteDetailsWithWaypoints:v38 transportType:transportType destinationName:destinationName];
+        v39 = firstObject3;
+        v40 = v48 = firstObject3;
+        transportType = [v39 transportType];
+        destinationName = [v39 destinationName];
+        v43 = [GEOCompanionRouteDetails syntheticRouteDetailsWithWaypoints:v40 transportType:transportType destinationName:destinationName];
 
-        data2 = [v41 data];
-        v43 = -[NMCRoutePlanningController _messageForRouteDetailsData:index:count:routeContextData:](self, "_messageForRouteDetailsData:index:count:routeContextData:", data2, 0, [routesCopy count], v48);
+        data2 = [v43 data];
+        v45 = -[NMCRoutePlanningController _messageForRouteDetailsData:index:count:routeContextData:](self, "_messageForRouteDetailsData:index:count:routeContextData:", data2, 0, [routesCopy count], v50);
 
-        [v43 setPriority:300];
-        v27 = v49;
-        [v26 sendMessage:v43 options:v49];
+        [v45 setPriority:300];
+        v28 = v51;
+        [v27 sendMessage:v45 options:v51];
 
-        data = v48;
-        v32 = v47;
+        data = v50;
+        v34 = v49;
       }
 
-      v44 = sub_100053324();
-      v45 = os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG);
+      v46 = sub_100053324(v33);
+      v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG);
       if (indexesCopy)
       {
-        if (v45)
+        if (v47)
         {
           *buf = 138412546;
           *&buf[4] = indexesCopy;
           *&buf[12] = 2048;
-          *&buf[14] = v32;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEBUG, "Will send routes %@ to gizmo (out of all %lu)", buf, 0x16u);
+          *&buf[14] = v34;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEBUG, "Will send routes %@ to gizmo (out of all %lu)", buf, 0x16u);
         }
       }
 
       else
       {
-        if (v45)
+        if (v47)
         {
           *buf = 134217984;
-          *&buf[4] = v32;
-          _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEBUG, "Will send %lu routes to gizmo", buf, 0xCu);
+          *&buf[4] = v34;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEBUG, "Will send %lu routes to gizmo", buf, 0xCu);
         }
 
-        indexesCopy = [NSIndexSet indexSetWithIndexesInRange:0, v32];
+        indexesCopy = [NSIndexSet indexSetWithIndexesInRange:0, v34];
       }
 
-      v50[0] = _NSConcreteStackBlock;
-      v50[1] = 3221225472;
-      v50[2] = sub_1000241C8;
-      v50[3] = &unk_100085F58;
-      v50[4] = self;
-      v55 = v32;
-      v51 = data;
+      v52[0] = _NSConcreteStackBlock;
+      v52[1] = 3221225472;
+      v52[2] = sub_1000241C8;
+      v52[3] = &unk_100085F58;
+      v52[4] = self;
+      v57 = v34;
+      v53 = data;
       indexesCopy = indexesCopy;
-      v52 = indexesCopy;
-      v53 = v26;
-      v54 = v27;
-      [routesCopy enumerateObjectsAtIndexes:indexesCopy options:0 usingBlock:v50];
+      v54 = indexesCopy;
+      v55 = v27;
+      v56 = v28;
+      [routesCopy enumerateObjectsAtIndexes:indexesCopy options:0 usingBlock:v52];
     }
   }
 
@@ -2905,8 +2921,7 @@ LABEL_26:
   dispatch_assert_queue_V2(self->_isolationQueue);
   if (connectionCopy)
   {
-    [(NSMutableSet *)self->_connections removeObject:connectionCopy];
-    v8 = sub_100053324();
+    v8 = sub_100053324([(NSMutableSet *)self->_connections removeObject:connectionCopy]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = [(NSMutableSet *)self->_connections count];
@@ -2935,7 +2950,7 @@ LABEL_26:
 {
   dispatch_assert_queue_V2(self->_isolationQueue);
   v3 = +[NSXPCConnection currentConnection];
-  v4 = sub_100053324();
+  v4 = sub_100053324(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = 138412290;
@@ -2952,14 +2967,14 @@ LABEL_26:
   isolationQueue = self->_isolationQueue;
   handlerCopy = handler;
   dispatch_assert_queue_V2(isolationQueue);
-  v9 = sub_100053324();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = sub_100053324(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     companionRouteContext = [requestCopy companionRouteContext];
     simpleDescription = [companionRouteContext simpleDescription];
-    v12 = 138412290;
-    v13 = simpleDescription;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Anticipate request with context: %@", &v12, 0xCu);
+    v13 = 138412290;
+    v14 = simpleDescription;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Anticipate request with context: %@", &v13, 0xCu);
   }
 
   [(NMCRoutePlanningController *)self _updateRoutePlanningRequest:requestCopy withResponse:0 completionHandler:handlerCopy];
@@ -2972,14 +2987,14 @@ LABEL_26:
   handlerCopy = handler;
   responseCopy = response;
   dispatch_assert_queue_V2(isolationQueue);
-  v12 = sub_100053324();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = sub_100053324(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     companionRouteContext = [requestCopy companionRouteContext];
     simpleDescription = [companionRouteContext simpleDescription];
-    v15 = 138412290;
-    v16 = simpleDescription;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "updateRoutePlanningRequest:, Update request/response with context: %@", &v15, 0xCu);
+    v16 = 138412290;
+    v17 = simpleDescription;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "updateRoutePlanningRequest:, Update request/response with context: %@", &v16, 0xCu);
   }
 
   [(NMCRoutePlanningController *)self _updateRoutePlanningRequest:requestCopy withResponse:responseCopy completionHandler:handlerCopy];
@@ -3003,56 +3018,57 @@ LABEL_26:
 
   v16 = lastInvalidatedCompanionRouteContext;
 
-  if ([companionRouteContext isStaleComparedToContext:v16])
+  v17 = [companionRouteContext isStaleComparedToContext:v16];
+  if (v17)
   {
-    v17 = sub_100053324();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v18 = sub_100053324(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       simpleDescription = [(GEOCompanionRouteContext *)v16 simpleDescription];
       simpleDescription2 = [companionRouteContext simpleDescription];
       *buf = 138412546;
-      v28 = simpleDescription;
-      v29 = 2112;
-      v30 = simpleDescription2;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "updatePreviewRoutes: incoming route context is old (current:%@, incoming:%@)", buf, 0x16u);
+      v29 = simpleDescription;
+      v30 = 2112;
+      v31 = simpleDescription2;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "updatePreviewRoutes: incoming route context is old (current:%@, incoming:%@)", buf, 0x16u);
     }
   }
 
   else
   {
-    v26 = responseCopy;
-    if (!v16 || [(GEOCompanionRouteContext *)v16 isStaleComparedToContext:companionRouteContext])
+    v27 = responseCopy;
+    if (!v16 || (v17 = [(GEOCompanionRouteContext *)v16 isStaleComparedToContext:companionRouteContext], v17))
     {
-      v20 = sub_100053324();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v21 = sub_100053324(v17);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         simpleDescription3 = [(GEOCompanionRouteContext *)v16 simpleDescription];
         simpleDescription4 = [companionRouteContext simpleDescription];
         *buf = 138412546;
-        v28 = simpleDescription3;
-        v29 = 2112;
-        v30 = simpleDescription4;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "updatePreviewRoutes: incoming context is newer, create new session (current:%@, incoming:%@)", buf, 0x16u);
+        v29 = simpleDescription3;
+        v30 = 2112;
+        v31 = simpleDescription4;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "updatePreviewRoutes: incoming context is newer, create new session (current:%@, incoming:%@)", buf, 0x16u);
       }
 
       objc_storeStrong(&self->_lastInvalidatedCompanionRouteContext, lastInvalidatedCompanionRouteContext);
       [(NanoRoutePlanningSession *)v12 unregisterObserver:self];
       [(NanoRoutePlanningSession *)v12 invalidate];
-      v23 = objc_alloc_init(NanoRoutePlanningSession);
-      [(NanoRoutePlanningSession *)v23 setShouldBroadcast:1];
-      [(NanoRoutePlanningSession *)v23 setNextClass:objc_opt_class() forSessionState:3];
-      [(NanoRoutePlanningSession *)v23 setNextClass:objc_opt_class() forSessionState:4];
-      [(NanoRoutePlanningSession *)v23 registerObserver:self];
+      v24 = objc_alloc_init(NanoRoutePlanningSession);
+      [(NanoRoutePlanningSession *)v24 setShouldBroadcast:1];
+      [(NanoRoutePlanningSession *)v24 setNextClass:objc_opt_class() forSessionState:3];
+      [(NanoRoutePlanningSession *)v24 setNextClass:objc_opt_class() forSessionState:4];
+      [(NanoRoutePlanningSession *)v24 registerObserver:self];
       routePlanningSession = self->_routePlanningSession;
-      self->_routePlanningSession = v23;
+      self->_routePlanningSession = v24;
     }
 
-    v25 = self->_routePlanningSession;
+    v26 = self->_routePlanningSession;
 
     [(NMCRoutePlanningController *)self _setCurrentSessionInputOrigin:1];
-    [(NanoRoutePlanningSession *)v25 updateWithRequest:requestCopy response:v26];
-    v12 = v25;
-    responseCopy = v26;
+    [(NanoRoutePlanningSession *)v26 updateWithRequest:requestCopy response:v27];
+    v12 = v26;
+    responseCopy = v27;
   }
 
   handlerCopy[2](handlerCopy);
@@ -3078,38 +3094,39 @@ LABEL_26:
 
     v16 = lastInvalidatedCompanionRouteContext;
 
-    if ([companionRouteContext isStaleComparedToContext:v16])
+    v17 = [companionRouteContext isStaleComparedToContext:v16];
+    if (v17)
     {
-      v17 = sub_100053324();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      v18 = sub_100053324(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
         simpleDescription = [(GEOCompanionRouteContext *)v16 simpleDescription];
         simpleDescription2 = [companionRouteContext simpleDescription];
         *buf = 138412546;
-        v24 = simpleDescription;
-        v25 = 2112;
-        v26 = simpleDescription2;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "failRoutePlanningRequest: incoming context is old (current:%@, incoming:%@)", buf, 0x16u);
+        v25 = simpleDescription;
+        v26 = 2112;
+        v27 = simpleDescription2;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "failRoutePlanningRequest: incoming context is old (current:%@, incoming:%@)", buf, 0x16u);
       }
     }
 
-    else if (v16 && ![(GEOCompanionRouteContext *)v16 isStaleComparedToContext:companionRouteContext])
+    else if (v16 && (v17 = [(GEOCompanionRouteContext *)v16 isStaleComparedToContext:companionRouteContext], !v17))
     {
       [(NanoRoutePlanningSession *)v12 updateWithRequest:requestCopy response:responseCopy];
     }
 
     else
     {
-      v20 = sub_100053324();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      v21 = sub_100053324(v17);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         simpleDescription3 = [(GEOCompanionRouteContext *)v16 simpleDescription];
         [companionRouteContext simpleDescription];
         *buf = 138412546;
-        v24 = simpleDescription3;
-        v26 = v25 = 2112;
-        v21 = v26;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "failRoutePlanningRequest: incoming context is newer, invalidate current session and ignore incoming (current:%@, incoming:%@)", buf, 0x16u);
+        v25 = simpleDescription3;
+        v27 = v26 = 2112;
+        v22 = v27;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "failRoutePlanningRequest: incoming context is newer, invalidate current session and ignore incoming (current:%@, incoming:%@)", buf, 0x16u);
       }
 
       objc_storeStrong(&self->_lastInvalidatedCompanionRouteContext, lastInvalidatedCompanionRouteContext);
@@ -3155,18 +3172,19 @@ LABEL_26:
 
   v12 = lastInvalidatedCompanionRouteContext;
 
-  if ([contextCopy isStaleComparedToContext:v12])
+  v13 = [contextCopy isStaleComparedToContext:v12];
+  if (v13)
   {
-    v13 = sub_100053324();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v14 = sub_100053324(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       simpleDescription = [(GEOCompanionRouteContext *)v12 simpleDescription];
       simpleDescription2 = [contextCopy simpleDescription];
       *buf = 138412546;
-      v27 = simpleDescription;
-      v28 = 2112;
-      v29 = simpleDescription2;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "clearRoutePlanningRequest: incoming context is old (current:%@, incoming:%@)", buf, 0x16u);
+      v29 = simpleDescription;
+      v30 = 2112;
+      v31 = simpleDescription2;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "clearRoutePlanningRequest: incoming context is old (current:%@, incoming:%@)", buf, 0x16u);
     }
 
 LABEL_12:
@@ -3174,18 +3192,18 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (!v12 || [(GEOCompanionRouteContext *)v12 isStaleComparedToContext:contextCopy])
+  if (!v12 || (v13 = [(GEOCompanionRouteContext *)v12 isStaleComparedToContext:contextCopy], v13))
   {
-    v16 = sub_100053324();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v17 = sub_100053324(v13);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       simpleDescription3 = [(GEOCompanionRouteContext *)v12 simpleDescription];
       simpleDescription4 = [contextCopy simpleDescription];
       *buf = 138412546;
-      v27 = simpleDescription3;
-      v28 = 2112;
-      v29 = simpleDescription4;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "clearRoutePlanningRequest: incoming context is newer, invalidate current session and ignore incoming (current:%@, incoming:%@)", buf, 0x16u);
+      v29 = simpleDescription3;
+      v30 = 2112;
+      v31 = simpleDescription4;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "clearRoutePlanningRequest: incoming context is newer, invalidate current session and ignore incoming (current:%@, incoming:%@)", buf, 0x16u);
     }
 
     [(NanoRoutePlanningSession *)v8 unregisterObserver:self];
@@ -3193,30 +3211,30 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v19 = self->_routePlanningSession;
+  v20 = self->_routePlanningSession;
   snapshot = self->_snapshot;
   self->_snapshot = 0;
 
   routePlanningSession = self->_routePlanningSession;
   self->_routePlanningSession = 0;
 
-  if (v19)
+  if (v20)
   {
-    v22 = sub_100053324();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v24 = sub_100053324(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      request2 = [(NanoRoutePlanningSession *)v19 request];
+      request2 = [(NanoRoutePlanningSession *)v20 request];
       companionRouteContext2 = [request2 companionRouteContext];
       simpleDescription5 = [companionRouteContext2 simpleDescription];
       *buf = 138412290;
-      v27 = simpleDescription5;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Maps asked us to clear route planning (context:%@)", buf, 0xCu);
+      v29 = simpleDescription5;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "Maps asked us to clear route planning (context:%@)", buf, 0xCu);
     }
 
     objc_storeStrong(&self->_lastInvalidatedCompanionRouteContext, lastInvalidatedCompanionRouteContext);
-    [(NanoRoutePlanningSession *)v19 unregisterObserver:self];
-    [(NanoRoutePlanningSession *)v19 invalidate];
-    [(NMCRoutePlanningController *)self _notifyNanoMapsRoutePlanningSessionDidInvalidate:v19];
+    [(NanoRoutePlanningSession *)v20 unregisterObserver:self];
+    [(NanoRoutePlanningSession *)v20 invalidate];
+    [(NMCRoutePlanningController *)self _notifyNanoMapsRoutePlanningSessionDidInvalidate:v20];
   }
 
   handlerCopy[2](handlerCopy);
@@ -3264,7 +3282,7 @@ LABEL_13:
   {
     request = [loadingCopy request];
     companionRouteContext = [request companionRouteContext];
-    v9 = sub_100053324();
+    v9 = sub_100053324(companionRouteContext);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       simpleDescription = [companionRouteContext simpleDescription];
@@ -3295,7 +3313,7 @@ LABEL_13:
     request = [responseCopy request];
     response = [responseCopy response];
     companionRouteContext = [request companionRouteContext];
-    v10 = sub_100053324();
+    v10 = sub_100053324(companionRouteContext);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       simpleDescription = [companionRouteContext simpleDescription];
@@ -3328,7 +3346,7 @@ LABEL_13:
   _maps_data = [uniqueRouteID _maps_data];
 
   companionRouteContext = [request companionRouteContext];
-  v11 = sub_100053324();
+  v11 = sub_100053324(companionRouteContext);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     simpleDescription = [companionRouteContext simpleDescription];
@@ -3362,7 +3380,7 @@ LABEL_13:
     request = [failCopy request];
     response = [failCopy response];
     companionRouteContext = [request companionRouteContext];
-    v10 = sub_100053324();
+    v10 = sub_100053324(companionRouteContext);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       lastError = [response lastError];
@@ -3395,22 +3413,22 @@ LABEL_13:
 
   companionRouteContext = [request companionRouteContext];
 
-  v8 = sub_100053324();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = sub_100053324(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     simpleDescription = [companionRouteContext simpleDescription];
     *buf = 138412290;
-    v14 = simpleDescription;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Notifying Maps: session invalidated (context:%@)", buf, 0xCu);
+    v15 = simpleDescription;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Notifying Maps: session invalidated (context:%@)", buf, 0xCu);
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100026B1C;
-  v11[3] = &unk_100085FA8;
-  v12 = companionRouteContext;
-  v10 = companionRouteContext;
-  [(NMCRoutePlanningController *)self _enumerateMapsConnectionsUnderAssertionNamed:@"com.apple.Maps.launchFromGizmo.preview.clear" usingBlock:v11];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100026B1C;
+  v12[3] = &unk_100085FA8;
+  v13 = companionRouteContext;
+  v11 = companionRouteContext;
+  [(NMCRoutePlanningController *)self _enumerateMapsConnectionsUnderAssertionNamed:@"com.apple.Maps.launchFromGizmo.preview.clear" usingBlock:v12];
 }
 
 @end

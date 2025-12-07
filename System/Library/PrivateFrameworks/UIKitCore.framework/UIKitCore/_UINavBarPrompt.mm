@@ -143,7 +143,7 @@
 
   else
   {
-    +[UIColor blackColor];
+    objc_msgSend_blackColor(UIColor);
   }
   v17 = ;
   v18 = [textAttributes objectForKey:*off_1E70EC920];

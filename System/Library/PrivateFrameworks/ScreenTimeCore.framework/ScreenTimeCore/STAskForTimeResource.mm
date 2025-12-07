@@ -60,19 +60,18 @@
 
 void __95__STAskForTimeResource_initWithResourceIdentifier_resourceDisplayName_usageType_changeHandler___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = +[STLog ask];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_1B831F000, v3, OS_LOG_TYPE_DEFAULT, "Received callback for ask for time resource %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v4;
+    _os_log_impl(&dword_1B831F000, v3, OS_LOG_TYPE_DEFAULT, "Received callback for ask for time resource %{public}@", &v5, 0xCu);
   }
 
   [WeakRetained checkRequestForAdditionalTimeWithResponseHandler:*(a1 + 40)];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -85,7 +84,7 @@ void __95__STAskForTimeResource_initWithResourceIdentifier_resourceDisplayName_u
 
 - (void)requestAdditionalTime:(double)time completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = +[STLog ask];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -100,15 +99,13 @@ void __95__STAskForTimeResource_initWithResourceIdentifier_resourceDisplayName_u
   [request setTimeRequested:v9];
 
   askForTimeClient = [(STAskForTimeResource *)self askForTimeClient];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __64__STAskForTimeResource_requestAdditionalTime_completionHandler___block_invoke;
-  v13[3] = &unk_1E7CE6CE8;
-  v14 = handlerCopy;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __64__STAskForTimeResource_requestAdditionalTime_completionHandler___block_invoke;
+  v12[3] = &unk_1E7CE6CE8;
+  v13 = handlerCopy;
   v11 = handlerCopy;
-  [askForTimeClient sendAskForTimeRequest:request completionHandler:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  [askForTimeClient sendAskForTimeRequest:request completionHandler:v12];
 }
 
 void __64__STAskForTimeResource_requestAdditionalTime_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -139,14 +136,14 @@ void __64__STAskForTimeResource_requestAdditionalTime_completionHandler___block_
 
 - (void)approveAdditionalTime:(double)time completionHandler:(id)handler
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = +[STLog ask];
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
+    v10 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1B831F000, v7, OS_LOG_TYPE_DEFAULT, "Requesting additional time %@", &v11, 0xCu);
+    _os_log_impl(&dword_1B831F000, v7, OS_LOG_TYPE_DEFAULT, "Requesting additional time %@", &v10, 0xCu);
   }
 
   request = [(STAskForTimeResource *)self request];
@@ -154,26 +151,23 @@ void __64__STAskForTimeResource_requestAdditionalTime_completionHandler___block_
   [request setTimeRequested:v9];
 
   [(STAskForTimeResource *)self _approveExceptionForRequest:request withCompletionHandler:handlerCopy];
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)approveOneMoreMinuteWithCompletionHandler:(id)handler
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = +[STLog ask];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
+    v7 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1B831F000, v5, OS_LOG_TYPE_DEFAULT, "Requesting one more minute %@", &v8, 0xCu);
+    _os_log_impl(&dword_1B831F000, v5, OS_LOG_TYPE_DEFAULT, "Requesting one more minute %@", &v7, 0xCu);
   }
 
   request = [(STAskForTimeResource *)self request];
   [request setOneMoreMinute:1];
   [(STAskForTimeResource *)self _approveExceptionForRequest:request withCompletionHandler:handlerCopy];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_approveExceptionForRequest:(id)request withCompletionHandler:(id)handler
@@ -256,20 +250,18 @@ void __74__STAskForTimeResource__approveExceptionForRequest_withCompletionHandle
 
 void __64__STAskForTimeResource_requestAdditionalTime_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Send ask for time request failed: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Send ask for time request failed: %{public}@", &v2, 0xCu);
 }
 
 void __74__STAskForTimeResource__approveExceptionForRequest_withCompletionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Approval for more time failed: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "Approval for more time failed: %{public}@", &v2, 0xCu);
 }
 
 @end

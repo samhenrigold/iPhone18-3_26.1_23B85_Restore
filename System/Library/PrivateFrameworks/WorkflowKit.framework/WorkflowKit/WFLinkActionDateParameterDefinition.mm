@@ -48,7 +48,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (value)
   {
@@ -89,26 +89,24 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v22 = 136315650;
-      v23 = "[WFLinkActionDateParameterDefinition parameterStateFromLinkValue:]";
-      v24 = 2114;
-      v25 = value;
-      v26 = 2114;
-      v27 = valueType2;
+      v21 = 136315650;
+      v22 = "[WFLinkActionDateParameterDefinition parameterStateFromLinkValue:]";
+      v23 = 2114;
+      v24 = value;
+      v25 = 2114;
+      v26 = valueType2;
     }
   }
 
   v17 = 0;
 LABEL_11:
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v17;
 }
 
 - (id)dateFromStringValue:(id)value error:(id *)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v6 = [MEMORY[0x1E6996DC0] datesInString:valueCopy error:error];
   firstObject = [v6 firstObject];
@@ -119,17 +117,15 @@ LABEL_11:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = *error;
-      v12 = 136315650;
-      v13 = "[WFLinkActionDateParameterDefinition dateFromStringValue:error:]";
-      v14 = 2112;
-      v15 = valueCopy;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Unable to get date for parameter value: %@, error: %@", &v12, 0x20u);
+      v11 = 136315650;
+      v12 = "[WFLinkActionDateParameterDefinition dateFromStringValue:error:]";
+      v13 = 2112;
+      v14 = valueCopy;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Unable to get date for parameter value: %@, error: %@", &v11, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }

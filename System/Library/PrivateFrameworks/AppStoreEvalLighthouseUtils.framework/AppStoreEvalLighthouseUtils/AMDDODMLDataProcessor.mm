@@ -170,7 +170,6 @@
 
   MEMORY[0x277D82BD8](obj);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)getElementInCoreDictionary:(id)dictionary
@@ -254,7 +253,6 @@
   }
 
   MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -539,7 +537,6 @@ LABEL_9:
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -558,72 +555,10 @@ LABEL_9:
   v91 = [location[0] objectForKey:Ending];
   v90 = [location[0] objectForKey:StartingLikeOtherArray];
   v89 = [location[0] objectForKey:EndingLikeOtherArray];
-  if (!v90)
+  if (!v90 || ((v88 = -[NSMutableDictionary objectForKey:](selfCopy->_coreDictionary, "objectForKey:", v90), v87 = [location[0] objectForKey:StartingLikeOtherArrayMultiplier], v86 = objc_msgSend(location[0], "objectForKey:", StartingLikeOtherArrayOffset), v88) && v87 && v86 ? (v7 = objc_msgSend(MEMORY[0x277CCABB0], "numberWithLong:", objc_msgSend(v88, "count") * objc_msgSend(v87, "longValue") + objc_msgSend(v86, "longValue")), v8 = v92, v92 = v7, MEMORY[0x277D82BD8](v8), v85 = 0) : (v5 = objc_alloc(MEMORY[0x277CCA9B8]), v50 = objc_msgSend(v5, "initWithDomain:code:userInfo:", v93, 47, 0), v6 = v50, *errorCopy = v50, v97 = 0, v85 = 1), objc_storeStrong(&v86, 0), objc_storeStrong(&v87, 0), objc_storeStrong(&v88, 0), !v85))
   {
-    goto LABEL_75;
-  }
-
-  v88 = [(NSMutableDictionary *)selfCopy->_coreDictionary objectForKey:v90];
-  v87 = [location[0] objectForKey:StartingLikeOtherArrayMultiplier];
-  v86 = [location[0] objectForKey:StartingLikeOtherArrayOffset];
-  if (v88 && v87 && v86)
-  {
-    v7 = [MEMORY[0x277CCABB0] numberWithLong:{objc_msgSend(v88, "count") * objc_msgSend(v87, "longValue") + objc_msgSend(v86, "longValue")}];
-    v8 = v92;
-    v92 = v7;
-    MEMORY[0x277D82BD8](v8);
-    v85 = 0;
-  }
-
-  else
-  {
-    v5 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v50 = [v5 initWithDomain:v93 code:47 userInfo:0];
-    v6 = v50;
-    *errorCopy = v50;
-    v97 = 0;
-    v85 = 1;
-  }
-
-  objc_storeStrong(&v86, 0);
-  objc_storeStrong(&v87, 0);
-  objc_storeStrong(&v88, 0);
-  if (!v85)
-  {
-LABEL_75:
-    if (!v89)
+    if (!v89 || ((v84 = -[NSMutableDictionary objectForKey:](selfCopy->_coreDictionary, "objectForKey:", v89), v83 = [location[0] objectForKey:EndingLikeOtherArrayMultiplier], v82 = objc_msgSend(location[0], "objectForKey:", EndingLikeOtherArrayOffset), v84) && v83 && v82 ? (v11 = objc_msgSend(MEMORY[0x277CCABB0], "numberWithLong:", objc_msgSend(v84, "count") * objc_msgSend(v83, "longValue") + objc_msgSend(v82, "longValue")), v12 = v91, v91 = v11, MEMORY[0x277D82BD8](v12), v85 = 0) : (v9 = objc_alloc(MEMORY[0x277CCA9B8]), v49 = objc_msgSend(v9, "initWithDomain:code:userInfo:", v93, 146, 0), v10 = v49, *errorCopy = v49, v97 = 0, v85 = 1), objc_storeStrong(&v82, 0), objc_storeStrong(&v83, 0), objc_storeStrong(&v84, 0), !v85))
     {
-      goto LABEL_15;
-    }
-
-    v84 = [(NSMutableDictionary *)selfCopy->_coreDictionary objectForKey:v89];
-    v83 = [location[0] objectForKey:EndingLikeOtherArrayMultiplier];
-    v82 = [location[0] objectForKey:EndingLikeOtherArrayOffset];
-    if (v84 && v83 && v82)
-    {
-      v11 = [MEMORY[0x277CCABB0] numberWithLong:{objc_msgSend(v84, "count") * objc_msgSend(v83, "longValue") + objc_msgSend(v82, "longValue")}];
-      v12 = v91;
-      v91 = v11;
-      MEMORY[0x277D82BD8](v12);
-      v85 = 0;
-    }
-
-    else
-    {
-      v9 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v49 = [v9 initWithDomain:v93 code:146 userInfo:0];
-      v10 = v49;
-      *errorCopy = v49;
-      v97 = 0;
-      v85 = 1;
-    }
-
-    objc_storeStrong(&v82, 0);
-    objc_storeStrong(&v83, 0);
-    objc_storeStrong(&v84, 0);
-    if (!v85)
-    {
-LABEL_15:
       v81 = [location[0] objectForKey:InsideLoop];
       for (i = [v92 intValue]; ; ++i)
       {
@@ -903,7 +838,6 @@ LABEL_69:
   objc_storeStrong(&v92, 0);
   objc_storeStrong(&v93, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v24 = v97;
 
   return v24;
@@ -1719,7 +1653,6 @@ LABEL_84:
   objc_storeStrong(&v113, 0);
   objc_storeStrong(&v114, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v25 = v118;
 
   return v25;
@@ -2362,7 +2295,6 @@ LABEL_96:
   objc_storeStrong(&v126, 0);
   objc_storeStrong(&v127, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v37 = v131;
 
   return v37;
@@ -3085,7 +3017,6 @@ LABEL_100:
   objc_storeStrong(&v110, 0);
   objc_storeStrong(&v111, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v19 = v115;
 
   return v19;
@@ -3217,7 +3148,6 @@ LABEL_22:
   objc_storeStrong(&v39, 0);
   objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v13 = v44;
 
   return v13;
@@ -3236,39 +3166,8 @@ LABEL_22:
   v25 = [location[0] objectForKey:FinalLength];
   v24 = [location[0] objectForKey:OutputArray];
   v23 = [location[0] objectForKey:FinalLengthLikeOtherArray];
-  if (!v23)
+  if (!v23 || ((v22 = -[NSMutableDictionary objectForKey:](selfCopy->_coreDictionary, "objectForKey:", v23), v21 = [location[0] objectForKey:FinalLengthLikeOtherArrayMultiplier], v20 = objc_msgSend(location[0], "objectForKey:", FinalLengthLikeOtherArrayOffset), v22) && v21 && v20 ? (v7 = objc_msgSend(MEMORY[0x277CCABB0], "numberWithLong:", objc_msgSend(v22, "count") * objc_msgSend(v21, "longValue") + objc_msgSend(v20, "longValue")), v8 = v25, v25 = v7, MEMORY[0x277D82BD8](v8), v19 = 0) : (v5 = objc_alloc(MEMORY[0x277CCA9B8]), v14 = objc_msgSend(v5, "initWithDomain:code:userInfo:", v27, 42, 0), v6 = v14, *errorCopy = v14, v31 = 0, v19 = 1), objc_storeStrong(&v20, 0), objc_storeStrong(&v21, 0), objc_storeStrong(&v22, 0), !v19))
   {
-    goto LABEL_10;
-  }
-
-  v22 = [(NSMutableDictionary *)selfCopy->_coreDictionary objectForKey:v23];
-  v21 = [location[0] objectForKey:FinalLengthLikeOtherArrayMultiplier];
-  v20 = [location[0] objectForKey:FinalLengthLikeOtherArrayOffset];
-  if (v22 && v21 && v20)
-  {
-    v7 = [MEMORY[0x277CCABB0] numberWithLong:{objc_msgSend(v22, "count") * objc_msgSend(v21, "longValue") + objc_msgSend(v20, "longValue")}];
-    v8 = v25;
-    v25 = v7;
-    MEMORY[0x277D82BD8](v8);
-    v19 = 0;
-  }
-
-  else
-  {
-    v5 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v14 = [v5 initWithDomain:v27 code:42 userInfo:0];
-    v6 = v14;
-    *errorCopy = v14;
-    v31 = 0;
-    v19 = 1;
-  }
-
-  objc_storeStrong(&v20, 0);
-  objc_storeStrong(&v21, 0);
-  objc_storeStrong(&v22, 0);
-  if (!v19)
-  {
-LABEL_10:
     if (v24 && v25 && v26)
     {
       v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -3355,39 +3254,8 @@ LABEL_10:
   v37 = [location[0] objectForKey:PadEnd];
   v36 = [location[0] objectForKey:FinalLength];
   v35 = [location[0] objectForKey:FinalLengthLikeOtherArray];
-  if (!v35)
+  if (!v35 || ((v34 = -[NSMutableDictionary objectForKey:](selfCopy->_coreDictionary, "objectForKey:", v35), v33 = [location[0] objectForKey:FinalLengthLikeOtherArrayMultiplier], v32 = objc_msgSend(location[0], "objectForKey:", FinalLengthLikeOtherArrayOffset), v34) && v33 && v32 ? (v7 = objc_msgSend(MEMORY[0x277CCABB0], "numberWithLong:", objc_msgSend(v34, "count") * objc_msgSend(v33, "longValue") + objc_msgSend(v32, "longValue")), v8 = v36, v36 = v7, MEMORY[0x277D82BD8](v8), v31 = 0) : (v5 = objc_alloc(MEMORY[0x277CCA9B8]), v22 = objc_msgSend(v5, "initWithDomain:code:userInfo:", v41, 43, 0), v6 = v22, *errorCopy = v22, v45 = 0, v31 = 1), objc_storeStrong(&v32, 0), objc_storeStrong(&v33, 0), objc_storeStrong(&v34, 0), !v31))
   {
-    goto LABEL_12;
-  }
-
-  v34 = [(NSMutableDictionary *)selfCopy->_coreDictionary objectForKey:v35];
-  v33 = [location[0] objectForKey:FinalLengthLikeOtherArrayMultiplier];
-  v32 = [location[0] objectForKey:FinalLengthLikeOtherArrayOffset];
-  if (v34 && v33 && v32)
-  {
-    v7 = [MEMORY[0x277CCABB0] numberWithLong:{objc_msgSend(v34, "count") * objc_msgSend(v33, "longValue") + objc_msgSend(v32, "longValue")}];
-    v8 = v36;
-    v36 = v7;
-    MEMORY[0x277D82BD8](v8);
-    v31 = 0;
-  }
-
-  else
-  {
-    v5 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v22 = [v5 initWithDomain:v41 code:43 userInfo:0];
-    v6 = v22;
-    *errorCopy = v22;
-    v45 = 0;
-    v31 = 1;
-  }
-
-  objc_storeStrong(&v32, 0);
-  objc_storeStrong(&v33, 0);
-  objc_storeStrong(&v34, 0);
-  if (!v31)
-  {
-LABEL_12:
     if (v40 && v39 && v38 && v37 && v36)
     {
       if ([v37 isEqual:&unk_285210FE0] & 1) != 0 || (objc_msgSend(v37, "isEqual:", &unk_285210FC8))
@@ -3902,7 +3770,6 @@ LABEL_78:
   objc_storeStrong(&v114, 0);
   objc_storeStrong(&v115, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v22 = v119;
 
   return v22;
@@ -4544,7 +4411,6 @@ LABEL_121:
   objc_storeStrong(&v136, 0);
   objc_storeStrong(&v137, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v37 = v142;
 
   return v37;
@@ -4564,39 +4430,8 @@ LABEL_121:
   v45 = [location[0] objectForKey:Mapping];
   v44 = [location[0] objectForKey:NumNegSamps];
   v43 = [location[0] objectForKey:NumNegSampsLikeOtherArray];
-  if (!v43)
+  if (!v43 || ((v42 = -[NSMutableDictionary objectForKey:](selfCopy->_coreDictionary, "objectForKey:", v43), v41 = [location[0] objectForKey:NumNegSampsLikeOtherArrayMultiplier], v40 = objc_msgSend(location[0], "objectForKey:", NumNegSampsLikeOtherArrayOffset), v42) && v41 && v40 ? (v7 = objc_msgSend(MEMORY[0x277CCABB0], "numberWithLong:", objc_msgSend(v42, "count") * objc_msgSend(v41, "longValue") + objc_msgSend(v40, "longValue")), v8 = v44, v44 = v7, MEMORY[0x277D82BD8](v8), v39 = 0) : (v5 = objc_alloc(MEMORY[0x277CCA9B8]), v26 = objc_msgSend(v5, "initWithDomain:code:userInfo:", v47, 46, 0), v6 = v26, *errorCopy = v26, v51 = 0, v39 = 1), objc_storeStrong(&v40, 0), objc_storeStrong(&v41, 0), objc_storeStrong(&v42, 0), !v39))
   {
-    goto LABEL_10;
-  }
-
-  v42 = [(NSMutableDictionary *)selfCopy->_coreDictionary objectForKey:v43];
-  v41 = [location[0] objectForKey:NumNegSampsLikeOtherArrayMultiplier];
-  v40 = [location[0] objectForKey:NumNegSampsLikeOtherArrayOffset];
-  if (v42 && v41 && v40)
-  {
-    v7 = [MEMORY[0x277CCABB0] numberWithLong:{objc_msgSend(v42, "count") * objc_msgSend(v41, "longValue") + objc_msgSend(v40, "longValue")}];
-    v8 = v44;
-    v44 = v7;
-    MEMORY[0x277D82BD8](v8);
-    v39 = 0;
-  }
-
-  else
-  {
-    v5 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v26 = [v5 initWithDomain:v47 code:46 userInfo:0];
-    v6 = v26;
-    *errorCopy = v26;
-    v51 = 0;
-    v39 = 1;
-  }
-
-  objc_storeStrong(&v40, 0);
-  objc_storeStrong(&v41, 0);
-  objc_storeStrong(&v42, 0);
-  if (!v39)
-  {
-LABEL_10:
     if (v46 && v45 && v44)
     {
       v38 = [(AMDDODMLAttachmentProcessor *)selfCopy->_attachmentsProcessor negSampleArrayForKey:v45];
@@ -4683,7 +4518,6 @@ LABEL_10:
   objc_storeStrong(&v46, 0);
   objc_storeStrong(&v47, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v15 = v51;
 
   return v15;
@@ -5140,7 +4974,6 @@ LABEL_78:
   objc_storeStrong(&v120, 0);
   objc_storeStrong(&v121, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v22 = v125;
 
   return v22;
@@ -5178,72 +5011,10 @@ uint64_t __53__AMDDODMLDataProcessor_sortArray_error_errorDomain___block_invoke(
   v38 = [location[0] objectForKey:OutputArray];
   v37 = [location[0] objectForKey:StartingLikeOtherArray];
   v36 = [location[0] objectForKey:EndingLikeOtherArray];
-  if (!v37)
+  if (!v37 || ((v35 = -[NSMutableDictionary objectForKey:](selfCopy->_coreDictionary, "objectForKey:", v37), v34 = [location[0] objectForKey:StartingLikeOtherArrayMultiplier], v33 = objc_msgSend(location[0], "objectForKey:", StartingLikeOtherArrayOffset), v35) && v34 && v33 ? (v7 = objc_msgSend(MEMORY[0x277CCABB0], "numberWithLong:", objc_msgSend(v35, "count") * objc_msgSend(v34, "longValue") + objc_msgSend(v33, "longValue")), v8 = v41, v41 = v7, MEMORY[0x277D82BD8](v8), v32 = 0) : (v5 = objc_alloc(MEMORY[0x277CCA9B8]), v23 = objc_msgSend(v5, "initWithDomain:code:userInfo:", v42, 47, 0), v6 = v23, *errorCopy = v23, v46 = 0, v32 = 1), objc_storeStrong(&v33, 0), objc_storeStrong(&v34, 0), objc_storeStrong(&v35, 0), !v32))
   {
-    goto LABEL_36;
-  }
-
-  v35 = [(NSMutableDictionary *)selfCopy->_coreDictionary objectForKey:v37];
-  v34 = [location[0] objectForKey:StartingLikeOtherArrayMultiplier];
-  v33 = [location[0] objectForKey:StartingLikeOtherArrayOffset];
-  if (v35 && v34 && v33)
-  {
-    v7 = [MEMORY[0x277CCABB0] numberWithLong:{objc_msgSend(v35, "count") * objc_msgSend(v34, "longValue") + objc_msgSend(v33, "longValue")}];
-    v8 = v41;
-    v41 = v7;
-    MEMORY[0x277D82BD8](v8);
-    v32 = 0;
-  }
-
-  else
-  {
-    v5 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v23 = [v5 initWithDomain:v42 code:47 userInfo:0];
-    v6 = v23;
-    *errorCopy = v23;
-    v46 = 0;
-    v32 = 1;
-  }
-
-  objc_storeStrong(&v33, 0);
-  objc_storeStrong(&v34, 0);
-  objc_storeStrong(&v35, 0);
-  if (!v32)
-  {
-LABEL_36:
-    if (!v36)
+    if (!v36 || ((v31 = -[NSMutableDictionary objectForKey:](selfCopy->_coreDictionary, "objectForKey:", v36), v30 = [location[0] objectForKey:EndingLikeOtherArrayMultiplier], v29 = objc_msgSend(location[0], "objectForKey:", EndingLikeOtherArrayOffset), v31) && v30 && v29 ? (v11 = objc_msgSend(MEMORY[0x277CCABB0], "numberWithLong:", objc_msgSend(v31, "count") * objc_msgSend(v30, "longValue") + objc_msgSend(v29, "longValue")), v12 = v40, v40 = v11, MEMORY[0x277D82BD8](v12), v32 = 0) : (v9 = objc_alloc(MEMORY[0x277CCA9B8]), v22 = objc_msgSend(v9, "initWithDomain:code:userInfo:", v42, 47, 0), v10 = v22, *errorCopy = v22, v46 = 0, v32 = 1), objc_storeStrong(&v29, 0), objc_storeStrong(&v30, 0), objc_storeStrong(&v31, 0), !v32))
     {
-      goto LABEL_18;
-    }
-
-    v31 = [(NSMutableDictionary *)selfCopy->_coreDictionary objectForKey:v36];
-    v30 = [location[0] objectForKey:EndingLikeOtherArrayMultiplier];
-    v29 = [location[0] objectForKey:EndingLikeOtherArrayOffset];
-    if (v31 && v30 && v29)
-    {
-      v11 = [MEMORY[0x277CCABB0] numberWithLong:{objc_msgSend(v31, "count") * objc_msgSend(v30, "longValue") + objc_msgSend(v29, "longValue")}];
-      v12 = v40;
-      v40 = v11;
-      MEMORY[0x277D82BD8](v12);
-      v32 = 0;
-    }
-
-    else
-    {
-      v9 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = [v9 initWithDomain:v42 code:47 userInfo:0];
-      v10 = v22;
-      *errorCopy = v22;
-      v46 = 0;
-      v32 = 1;
-    }
-
-    objc_storeStrong(&v29, 0);
-    objc_storeStrong(&v30, 0);
-    objc_storeStrong(&v31, 0);
-    if (!v32)
-    {
-LABEL_18:
       if (v39 && v38 && v41 && v40)
       {
         v28 = [(NSMutableDictionary *)selfCopy->_coreDictionary objectForKey:v39];
@@ -5609,7 +5380,6 @@ LABEL_42:
   objc_storeStrong(&v68, 0);
   objc_storeStrong(&v69, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v17 = v73;
 
   return v17;

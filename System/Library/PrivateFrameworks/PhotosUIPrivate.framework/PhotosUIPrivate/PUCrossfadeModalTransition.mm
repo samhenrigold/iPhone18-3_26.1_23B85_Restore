@@ -17,7 +17,7 @@
   [containerView insertSubview:view aboveSubview:view2];
   [view setAlpha:0.0];
   v8 = MEMORY[0x1E69DD250];
-  [(PUViewControllerTransition *)self duration];
+  objc_msgSend_duration(self);
   v10 = v9;
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
@@ -64,7 +64,7 @@ uint64_t __54__PUCrossfadeModalTransition_animateDismissTransition__block_invoke
   [containerView insertSubview:view aboveSubview:view2];
   [containerView addSubview:v9];
   v10 = MEMORY[0x1E69DD250];
-  [(PUViewControllerTransition *)self duration];
+  objc_msgSend_duration(self);
   v12 = v11;
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;

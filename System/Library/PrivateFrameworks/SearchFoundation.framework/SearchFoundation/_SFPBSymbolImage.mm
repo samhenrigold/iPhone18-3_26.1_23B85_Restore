@@ -355,9 +355,7 @@ LABEL_14:
 
 - (void)setSymbolName:(id)name
 {
-  v4 = [name copy];
-  symbolName = self->_symbolName;
-  self->_symbolName = v4;
+  self->_symbolName = [name copy];
 
   MEMORY[0x1EEE66BB8]();
 }

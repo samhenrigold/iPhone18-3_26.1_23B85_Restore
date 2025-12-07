@@ -6,10 +6,6 @@
 - (CGColorSpace)cgColorSpace;
 - (GSAsset)init;
 - (GSAsset)initWithFile:(id)file forDevice:(id)device error:(id *)error;
-- (__n128)defaultIntrinsics;
-- (__n128)defaultViewMatrix;
-- (__n128)modelMatrix;
-- (apple3dgs)transform:(float32x4_t)transform error:(float32x4_t)error;
 - (id).cxx_construct;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -18,11 +14,14 @@
 - (uint64_t)setDefaultIntrinsics:(__n128)intrinsics;
 - (uint64_t)setDefaultViewMatrix:(__n128)matrix;
 - (uint64_t)setModelMatrix:(__n128)matrix;
+- (uint64_t)transform:(__n128)transform error:(__n128)error;
 - (void)setAlphas:(id)alphas;
 - (void)setAlphas:(id)alphas withFormat:(unint64_t)format stride:(unint64_t)stride offset:(unint64_t)offset;
 - (void)setCgColorSpace:(CGColorSpace *)space;
+- (void)setColorSpace:(unsigned int)space;
 - (void)setCoords:(id)coords;
 - (void)setCoords:(id)coords withFormat:(unint64_t)format stride:(unint64_t)stride offset:(unint64_t)offset;
+- (void)setCurrentFrame:(unsigned int)frame;
 - (void)setFeatures:(id)features;
 - (void)setFeatures:(id)features withFormat:(unint64_t)format stride:(unint64_t)stride offset:(unint64_t)offset;
 - (void)setImpl:(shared_ptr<apple3dgs::Asset>)impl;
@@ -44,7 +43,7 @@
 
 - (GSAsset)initWithFile:(id)file forDevice:(id)device error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   deviceCopy = device;
   v10 = [(GSAsset *)self init];
@@ -56,7 +55,7 @@
 
   [(GSAsset *)v10 setPath:stringByRemovingPercentEncoding];
   uTF8String = [stringByRemovingPercentEncoding UTF8String];
-  memset(&v28, 0, sizeof(v28));
+  memset(&v27, 0, sizeof(v27));
   v13 = (uTF8String - 1);
   do
   {
@@ -65,8 +64,8 @@
   }
 
   while (v14);
-  std::string::append[abi:ne200100]<char const*,0>(&v28.__pn_, uTF8String, v13);
-  v15 = std::__fs::filesystem::path::__extension(&v28);
+  std::string::append[abi:ne200100]<char const*,0>(&v27.__pn_, uTF8String, v13);
+  v15 = std::__fs::filesystem::path::__extension(&v27);
   if (v15.__size_ > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
@@ -85,7 +84,7 @@
 
   __dst[0].__r_.__value_.__s.__data_[v15.__size_] = 0;
   *__p = *&__dst[0].__r_.__value_.__l.__data_;
-  *&v26 = *(&__dst[0].__r_.__value_.__l + 2);
+  *&v25 = *(&__dst[0].__r_.__value_.__l + 2);
   memset(__dst, 0, 24);
   std::string::append[abi:ne200100]<char const*,0>(__dst, ".ply", "");
   if ((__dst[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -112,7 +111,7 @@
   if (SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__dst[0].__r_.__value_.__l.__data_);
-    if ((SBYTE7(v26) & 0x80000000) == 0)
+    if ((SBYTE7(v25) & 0x80000000) == 0)
     {
 LABEL_19:
       if (v17)
@@ -124,7 +123,7 @@ LABEL_19:
     }
   }
 
-  else if ((SBYTE7(v26) & 0x80000000) == 0)
+  else if ((SBYTE7(v25) & 0x80000000) == 0)
   {
     goto LABEL_19;
   }
@@ -133,7 +132,7 @@ LABEL_19:
   if (v17)
   {
 LABEL_20:
-    v18 = std::__fs::filesystem::path::__extension(&v28);
+    v18 = std::__fs::filesystem::path::__extension(&v27);
     if (v18.__size_ > 0x7FFFFFFFFFFFFFF7)
     {
       std::string::__throw_length_error[abi:ne200100]();
@@ -152,7 +151,7 @@ LABEL_20:
 
     __dst[0].__r_.__value_.__s.__data_[v18.__size_] = 0;
     *__p = *&__dst[0].__r_.__value_.__l.__data_;
-    *&v26 = *(&__dst[0].__r_.__value_.__l + 2);
+    *&v25 = *(&__dst[0].__r_.__value_.__l + 2);
     memset(__dst, 0, 24);
     std::string::append[abi:ne200100]<char const*,0>(__dst, ".tv", "");
     if ((__dst[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -179,7 +178,7 @@ LABEL_20:
     if (SHIBYTE(__dst[0].__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__dst[0].__r_.__value_.__l.__data_);
-      if ((SBYTE7(v26) & 0x80000000) == 0)
+      if ((SBYTE7(v25) & 0x80000000) == 0)
       {
 LABEL_38:
         if (v20)
@@ -189,10 +188,10 @@ LABEL_38:
 
 LABEL_42:
         *__p = xmmword_247477B70;
-        v26 = xmmword_247477B80;
-        v27 = 27;
-        apple3dgs::loadTv(&v28, 0, deviceCopy, error, __dst);
-        if (v30)
+        v25 = xmmword_247477B80;
+        v26 = 27;
+        apple3dgs::loadTv(&v27, 0, deviceCopy, error, __dst);
+        if (v29)
         {
           goto LABEL_43;
         }
@@ -201,7 +200,7 @@ LABEL_42:
       }
     }
 
-    else if ((SBYTE7(v26) & 0x80000000) == 0)
+    else if ((SBYTE7(v25) & 0x80000000) == 0)
     {
       goto LABEL_38;
     }
@@ -217,14 +216,14 @@ LABEL_42:
 
 LABEL_26:
   *__p = xmmword_247477B70;
-  v26 = xmmword_247477B80;
-  v27 = 27;
-  apple3dgs::loadPly(&v28, deviceCopy, error, __dst);
-  if (v30)
+  v25 = xmmword_247477B80;
+  v26 = 27;
+  apple3dgs::loadPly(&v27, deviceCopy, error, __dst);
+  if (v29)
   {
 LABEL_43:
     apple3dgs::Asset::operator=(v10->_impl.__ptr_, __dst);
-    if (v30 == 1)
+    if (v29 == 1)
     {
       apple3dgs::Asset::~Asset(__dst);
     }
@@ -232,7 +231,7 @@ LABEL_43:
     apple3dgs::Asset::ComputeCovariance(v10->_impl.__ptr_, 0, error);
     apple3dgs::Asset::ComputeCentroid(v10->_impl.__ptr_, v21);
     v22 = v10;
-    if (SHIBYTE(v28.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v27.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
       goto LABEL_48;
     }
@@ -242,15 +241,14 @@ LABEL_43:
 
 LABEL_47:
   v22 = 0;
-  if (SHIBYTE(v28.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v27.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
 LABEL_48:
-    operator delete(v28.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v27.__pn_.__r_.__value_.__l.__data_);
   }
 
 LABEL_49:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -313,9 +311,9 @@ LABEL_49:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(GSAsset);
-  [(GSAsset *)self impl];
+  objc_msgSend_impl(self);
   v5 = v11;
-  [(GSAsset *)v4 impl];
+  objc_msgSend_impl(v4);
   apple3dgs::Asset::operator=(v9, v5);
   v6 = v10;
   if (v10 && !atomic_fetch_add(&v10->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
@@ -337,7 +335,7 @@ LABEL_49:
 
 - (BOOL)writeToURL:(id)l error:(id *)error
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (error)
   {
@@ -364,7 +362,7 @@ LABEL_49:
   }
 
   v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"Gaussian params are invalid."];
-  v15 = _gs_log();
+  v15 = _gs_log(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     LODWORD(__p.__r_.__value_.__l.__data_) = 138412290;
@@ -374,9 +372,9 @@ LABEL_49:
 
   v16 = MEMORY[0x277CCA9B8];
   v18 = apple3dgs::ErrorDomain(v17);
-  v25 = *MEMORY[0x277CCA450];
-  v26[0] = v14;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+  v24 = *MEMORY[0x277CCA450];
+  v25[0] = v14;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
   v20 = [v16 errorWithDomain:v18 code:-3 userInfo:v19];
 
   objc_autoreleasePoolPop(v7);
@@ -386,11 +384,10 @@ LABEL_49:
     *error = v20;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
-- (apple3dgs)transform:(float32x4_t)transform error:(float32x4_t)error
+- (uint64_t)transform:(__n128)transform error:(__n128)error
 {
   v7 = *(self + 136);
   v9[0] = a2;
@@ -490,12 +487,12 @@ LABEL_12:
 - (id)descriptionJSON
 {
   [*(self->_impl.__ptr_ + 15) UUIDString];
-  v5 = 0;
-  v6 = 0;
+  v6[0] = 0;
+  v7 = 0;
   v3 = [objc_claimAutoreleasedReturnValue() cStringUsingEncoding:4];
-  LOBYTE(v4[0]) = 0;
-  v4[1] = 0;
-  nlohmann::json_abi_v3_11_2::detail::external_constructor<(nlohmann::json_abi_v3_11_2::detail::value_t)3>::construct<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,char const*,0>(v4);
+  v4[0] = 0;
+  v5 = 0;
+  nlohmann::json_abi_v3_11_2::detail::external_constructor<(nlohmann::json_abi_v3_11_2::detail::value_t)3>::construct<nlohmann::json_abi_v3_11_2::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::json_abi_v3_11_2::adl_serializer,std::vector<unsigned char>,void>,char const*,0>(v4, &v3);
 }
 
 - (void)setCoords:(id)coords
@@ -663,16 +660,6 @@ LABEL_12:
   return result;
 }
 
-- (__n128)modelMatrix
-{
-  v1 = *(self + 136);
-  result = *(v1 + 400);
-  v3 = *(v1 + 416);
-  v4 = *(v1 + 432);
-  v5 = *(v1 + 448);
-  return result;
-}
-
 - (uint64_t)setDefaultViewMatrix:(__n128)matrix
 {
   v5 = *(result + 136);
@@ -680,16 +667,6 @@ LABEL_12:
   v5[22] = matrix;
   v5[23] = a4;
   v5[24] = a5;
-  return result;
-}
-
-- (__n128)defaultViewMatrix
-{
-  v1 = *(self + 136);
-  result = *(v1 + 336);
-  v3 = *(v1 + 352);
-  v4 = *(v1 + 368);
-  v5 = *(v1 + 384);
   return result;
 }
 
@@ -702,13 +679,11 @@ LABEL_12:
   return result;
 }
 
-- (__n128)defaultIntrinsics
+- (void)setColorSpace:(unsigned int)space
 {
-  v1 = *(self + 136);
-  result = *(v1 + 464);
-  v3 = *(v1 + 480);
-  v4 = *(v1 + 496);
-  return result;
+  SRGBGamutWithTransferFunction = apple3dgs::CGColorSpaceCreateSRGBGamutWithTransferFunction(*&space);
+
+  [(GSAsset *)self setCgColorSpace:SRGBGamutWithTransferFunction];
 }
 
 - (void)setCgColorSpace:(CGColorSpace *)space
@@ -735,6 +710,18 @@ LABEL_12:
   }
 
   return result;
+}
+
+- (void)setCurrentFrame:(unsigned int)frame
+{
+  if (*(self->_impl.__ptr_ + 152) != frame)
+  {
+    v3 = *&frame;
+    path = [(GSAsset *)self path];
+    [(GSAsset *)self updateAtTimestepWithTVFile:path atTimestep:v3 error:0];
+
+    *(self->_impl.__ptr_ + 152) = v3;
+  }
 }
 
 - (shared_ptr<apple3dgs::Asset>)impl

@@ -40,7 +40,7 @@
       v13->_accel.x = v20;
       v13->_accel.y = v21;
       v13->_accel.z = v22;
-      [sample timestamp];
+      objc_msgSend_timestamp(sample);
       v24 = timestamp - v23;
     }
 

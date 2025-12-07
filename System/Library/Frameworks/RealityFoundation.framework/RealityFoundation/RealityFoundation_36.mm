@@ -1,5133 +1,3 @@
-uint64_t CustomMaterial.ResourceStorage.subscript.getter()
-{
-  v1 = *v0;
-  dispatch thunk of AnyKeyPath._storedInlineOffset.getter();
-  if ((v2 & 1) != 0 || (TextureAssetAtOffset = REDirectParameterResourcesGetTextureAssetAtOffset()) == 0)
-  {
-    v6 = specialized static __ServiceLocator.shared.getter();
-    swift_beginAccess();
-    outlined init with copy of __REAssetService(v6 + 120, v8);
-    v5 = closure #1 in static TextureResource.builtinTexture(named:)(v8);
-    __swift_destroy_boxed_opaque_existential_1(v8);
-  }
-
-  else
-  {
-    v4 = TextureAssetAtOffset;
-    type metadata accessor for TextureResource();
-    v5 = swift_allocObject();
-    *(v5 + 16) = v4;
-    *(v5 + 24) = 0;
-    RERetain();
-    REAssetSetSwiftObject();
-  }
-
-  return v5;
-}
-
-uint64_t CustomMaterial.ResourceStorage.subscript.setter(uint64_t a1)
-{
-  v2 = v1;
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v8 = &v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v27 - v10;
-  if (one-time initialization token for supportsMutableUniformsResources != -1)
-  {
-    swift_once();
-  }
-
-  swift_beginAccess();
-  if (static CustomMaterial.supportsMutableUniformsResources)
-  {
-    dispatch thunk of AnyKeyPath._storedInlineOffset.getter();
-    if (v12)
-    {
-      Logger.init()();
-
-      v13 = Logger.logObject.getter();
-      v14 = static os_log_type_t.error.getter();
-
-      if (os_log_type_enabled(v13, v14))
-      {
-        v15 = swift_slowAlloc();
-        v16 = swift_slowAlloc();
-        *v15 = 136315138;
-        v28 = v13;
-        v29 = v16;
-        v17 = AnyKeyPath.debugDescription.getter();
-        v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v29);
-
-        *(v15 + 4) = v19;
-        v20 = v28;
-        _os_log_impl(&dword_1C1358000, v28, v14, "Attempted to assign texture to invalid key path %s", v15, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v16);
-        MEMORY[0x1C6902A30](v16, -1, -1);
-        MEMORY[0x1C6902A30](v15, -1, -1);
-      }
-
-      else
-      {
-      }
-
-      return (*(v5 + 8))(v8, v4);
-    }
-
-    else
-    {
-      v24 = *v2;
-      v25 = *(a1 + 16);
-      REDirectParameterResourcesSetTextureAssetAtOffset();
-    }
-  }
-
-  else
-  {
-    Logger.init()();
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v21, v22))
-    {
-      v23 = swift_slowAlloc();
-      *v23 = 0;
-      _os_log_impl(&dword_1C1358000, v21, v22, "CustomMaterial: Resource storage in withMutableUniforms is not supported on this device. Requires Tier 2 Argument Buffer support.", v23, 2u);
-      MEMORY[0x1C6902A30](v23, -1, -1);
-    }
-
-    else
-    {
-    }
-
-    return (*(v5 + 8))(v11, v4);
-  }
-}
-
-uint64_t (*CustomMaterial.ResourceStorage.subscript.modify(uint64_t *a1, uint64_t a2, uint64_t a3))(uint64_t *a1, char a2)
-{
-  a1[2] = a3;
-  a1[3] = v3;
-  a1[1] = a2;
-  v5 = *v3;
-  *a1 = CustomMaterial.ResourceStorage.subscript.getter();
-  return CustomMaterial.ResourceStorage.subscript.modify;
-}
-
-uint64_t CustomMaterial.ResourceStorage.subscript.modify(uint64_t *a1, char a2)
-{
-  v4 = *a1;
-  v5 = a1[1];
-
-  v6 = a1[3];
-  if ((a2 & 1) == 0)
-  {
-    return CustomMaterial.ResourceStorage.subscript.setter(v4);
-  }
-
-  CustomMaterial.ResourceStorage.subscript.setter(v7);
-}
-
-{
-  return CustomMaterial.ResourceStorage.subscript.modify(a1, a2, CustomMaterial.ResourceStorage.subscript.setter);
-}
-
-{
-  return CustomMaterial.ResourceStorage.subscript.modify(a1, a2, CustomMaterial.ResourceStorage.subscript.setter);
-}
-
-uint64_t (*CustomMaterial.ResourceStorage.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint64_t *a1, char a2)
-{
-  a1[2] = a3;
-  a1[3] = v3;
-  a1[1] = a2;
-  v5 = *v3;
-  *a1 = CustomMaterial.ResourceStorage.subscript.getter(a2);
-  return CustomMaterial.ResourceStorage.subscript.modify;
-}
-
-{
-  a1[2] = a3;
-  a1[3] = v3;
-  a1[1] = a2;
-  v5 = *v3;
-  *a1 = CustomMaterial.ResourceStorage.subscript.getter(a2);
-  return CustomMaterial.ResourceStorage.subscript.modify;
-}
-
-void CustomMaterial.ResourceStorage.subscript.getter()
-{
-  v1 = *v0;
-  dispatch thunk of AnyKeyPath._storedInlineOffset.getter();
-  if ((v2 & 1) == 0)
-  {
-    v3 = REDirectParameterResourcesGetBufferAtOffset();
-    if (v3)
-    {
-      v4 = v3;
-      type metadata accessor for LowLevelBuffer();
-      swift_allocObject();
-      LowLevelBuffer.init(coreBuffer:)(v4);
-    }
-  }
-}
-
-void CustomMaterial.ResourceStorage.subscript.setter(uint64_t a1)
-{
-  v2 = v1;
-  v4 = type metadata accessor for Logger();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v26 - v10;
-  if (one-time initialization token for supportsMutableUniformsResources != -1)
-  {
-    swift_once();
-  }
-
-  swift_beginAccess();
-  if (static CustomMaterial.supportsMutableUniformsResources)
-  {
-    dispatch thunk of AnyKeyPath._storedInlineOffset.getter();
-    if (v12)
-    {
-      Logger.init()();
-
-      v13 = Logger.logObject.getter();
-      v14 = static os_log_type_t.error.getter();
-
-      if (os_log_type_enabled(v13, v14))
-      {
-        v15 = swift_slowAlloc();
-        v16 = swift_slowAlloc();
-        *v15 = 136315138;
-        v27 = v13;
-        v28 = v16;
-        v17 = AnyKeyPath.debugDescription.getter();
-        v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v28);
-
-        *(v15 + 4) = v19;
-        v20 = v27;
-        _os_log_impl(&dword_1C1358000, v27, v14, "Attempted to assign buffer to invalid key path %s", v15, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1(v16);
-        MEMORY[0x1C6902A30](v16, -1, -1);
-        MEMORY[0x1C6902A30](v15, -1, -1);
-      }
-
-      else
-      {
-      }
-
-      (*(v5 + 8))(v8, v4);
-    }
-
-    else
-    {
-      v24 = *v2;
-      if (a1)
-      {
-        v25 = *(a1 + 16);
-      }
-
-      else
-      {
-        v25 = 0;
-      }
-
-      REDirectParameterResourcesSetBufferAtOffset();
-    }
-  }
-
-  else
-  {
-    Logger.init()();
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v21, v22))
-    {
-      v23 = swift_slowAlloc();
-      *v23 = 0;
-      _os_log_impl(&dword_1C1358000, v21, v22, "CustomMaterial: Resource storage in withMutableUniforms is not supported on this device. Requires Tier 2 Argument Buffer support.", v23, 2u);
-      MEMORY[0x1C6902A30](v23, -1, -1);
-    }
-
-    else
-    {
-    }
-
-    (*(v5 + 8))(v11, v4);
-  }
-}
-
-uint64_t CustomMaterial.ResourceStorage.subscript.modify(uint64_t *a1, char a2, void (*a3)(uint64_t, uint64_t))
-{
-  v4 = a1[3];
-  v5 = *a1;
-  v6 = a1[1];
-  if (a2)
-  {
-    v7 = *a1;
-
-    a3(v5, v6);
-  }
-
-  else
-  {
-    v9 = a1[1];
-
-    return (a3)(v5, v6);
-  }
-}
-
-void CustomMaterial.withMutableUniforms<A>(ofType:stage:_:)(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v9 = *(*(a5 - 8) + 64);
-  if (*a2 == 1)
-  {
-    DirectUniformsState.convertToUniqueWithSurfSize(size:)(v9);
-    MEMORY[0x1EEE9AC00](v10);
-    v13 = a5;
-    v14 = a1;
-    v15 = a3;
-    v16 = a4;
-    v18 = a5;
-    v19 = partial apply for closure #1 in CustomMaterial.withMutableUniforms<A>(ofType:stage:_:);
-    v20 = v12;
-    specialized DirectUniformsState.withUniqueSurfaceBytes(byteSize:_:)(partial apply for closure #1 in DirectUniformsState.withUniqueSurfaceBytes<A>(_:), v17);
-  }
-
-  else
-  {
-    DirectUniformsState.convertToUniqueWithGeomSize(size:)(v9);
-    MEMORY[0x1EEE9AC00](v11);
-    v13 = a5;
-    v14 = a1;
-    v15 = a3;
-    v16 = a4;
-    v18 = a5;
-    v19 = partial apply for closure #2 in CustomMaterial.withMutableUniforms<A>(ofType:stage:_:);
-    v20 = v12;
-    specialized DirectUniformsState.withUniqueGeometryBytes(byteSize:_:)(partial apply for closure #1 in DirectUniformsState.withUniqueSurfaceBytes<A>(_:), v17);
-  }
-}
-
-void CustomMaterial.withMutableUniforms<A>(ofType:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  DirectUniformsState.convertToSharedWithSize(size:)(*(*(a4 - 8) + 64));
-  v8[2] = a4;
-  v8[3] = a1;
-  v8[4] = a2;
-  v8[5] = a3;
-  v10 = a4;
-  v11 = partial apply for closure #1 in CustomMaterial.withMutableUniforms<A>(ofType:_:);
-  v12 = v8;
-  specialized DirectUniformsState.withSharedBytes(byteSize:_:)(partial apply for closure #1 in DirectUniformsState.withSharedBytes<A>(_:), v9);
-}
-
-uint64_t closure #1 in CustomMaterial.withMutableUniforms<A>(ofType:stage:_:)(uint64_t a1, uint64_t a2, id *a3, uint64_t a4, uint64_t (*a5)(uint64_t, id *), uint64_t a6, uint64_t a7)
-{
-  if (a1)
-  {
-    v9 = *(*(a7 - 8) + 72);
-    if (v9)
-    {
-      if (a2 - a1 != 0x8000000000000000 || v9 != -1)
-      {
-        goto LABEL_5;
-      }
-    }
-
-    else
-    {
-      __break(1u);
-    }
-
-    __break(1u);
-    goto LABEL_9;
-  }
-
-LABEL_5:
-  v10 = UnsafeMutableBufferPointer.baseAddress.getter();
-  if (v10)
-  {
-    return a5(v10, a3);
-  }
-
-LABEL_9:
-
-  _StringGuts.grow(_:)(49);
-
-  v12 = _typeName(_:qualified:)();
-  MEMORY[0x1C68F3410](v12);
-
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-uint64_t (*static CustomMaterial.supportsMutableUniformsResources.modify())()
-{
-  if (one-time initialization token for supportsMutableUniformsResources != -1)
-  {
-    swift_once();
-  }
-
-  swift_beginAccess();
-  return static __RKEntityInteractionsComponent.registration.modify;
-}
-
-uint64_t one-time initialization function for supportsMutableUniformsResources(uint64_t a1, BOOL *a2)
-{
-  v3 = specialized static __ServiceLocator.shared.getter();
-  swift_beginAccess();
-  result = outlined init with copy of [String : String](v3 + 40, &v9, &_s10RealityKit15__RenderService_pSgMd, &_s10RealityKit15__RenderService_pSgMR);
-  if (v10)
-  {
-    outlined init with take of ForceEffectBase(&v9, v11);
-    v5 = v12;
-    v6 = v13;
-    __swift_project_boxed_opaque_existential_1(v11, v12);
-    v7 = (*(v6 + 8))(v5, v6);
-    __swift_destroy_boxed_opaque_existential_1(v11);
-    v8 = [v7 argumentBuffersSupport];
-    result = swift_unknownObjectRelease();
-    *a2 = v8 != 0;
-  }
-
-  else
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-uint64_t static CustomMaterial.supportsMutableUniformsResources.getter(void *a1, unsigned __int8 *a2)
-{
-  if (*a1 != -1)
-  {
-    swift_once();
-  }
-
-  swift_beginAccess();
-  return *a2;
-}
-
-uint64_t static CustomMaterial.supportsMutableUniformsResources.setter(char a1, void *a2, _BYTE *a3)
-{
-  if (*a2 != -1)
-  {
-    swift_once();
-  }
-
-  result = swift_beginAccess();
-  *a3 = a1 & 1;
-  return result;
-}
-
-uint64_t (*static CustomMaterial._proto_withMutableUniformsResourcesSupported.modify())()
-{
-  if (one-time initialization token for _proto_withMutableUniformsResourcesSupported != -1)
-  {
-    swift_once();
-  }
-
-  swift_beginAccess();
-  return static __RKSimulationSceneCoordinator.shared.modify;
-}
-
-unint64_t lazy protocol witness table accessor for type CustomMaterial.CustomParameterError and conformance CustomMaterial.CustomParameterError()
-{
-  result = lazy protocol witness table cache variable for type CustomMaterial.CustomParameterError and conformance CustomMaterial.CustomParameterError;
-  if (!lazy protocol witness table cache variable for type CustomMaterial.CustomParameterError and conformance CustomMaterial.CustomParameterError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CustomMaterial.CustomParameterError and conformance CustomMaterial.CustomParameterError);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type CustomMaterial.CustomParameterError and conformance CustomMaterial.CustomParameterError;
-  if (!lazy protocol witness table cache variable for type CustomMaterial.CustomParameterError and conformance CustomMaterial.CustomParameterError)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CustomMaterial.CustomParameterError and conformance CustomMaterial.CustomParameterError);
-  }
-
-  return result;
-}
-
-uint64_t outlined destroy of MaterialParameters.Value?(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation18MaterialParametersV5ValueOSgMd, &_s17RealityFoundation18MaterialParametersV5ValueOSgMR);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(uint64_t *a1, void (*a2)(uint64_t, uint64_t, uint64_t), uint64_t a3, uint64_t a4)
-{
-  v29 = *MEMORY[0x1E69E9840];
-  v8 = *a1;
-  v7 = a1[1];
-  v9 = v7 >> 62;
-  if ((v7 >> 62) <= 1)
-  {
-    if (v9)
-    {
-      outlined copy of Data._Representation(v8, v7);
-      outlined consume of Data._Representation(v8, v7);
-      *&v28 = v8;
-      *(&v28 + 1) = v7 & 0x3FFFFFFFFFFFFFFFLL;
-      *a1 = xmmword_1C18A2C50;
-      outlined consume of Data._Representation(0, 0xC000000000000000);
-      specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(&v28, a2, a3, a4);
-      v10 = v28;
-      v11 = *(&v28 + 1) | 0x4000000000000000;
-    }
-
-    else
-    {
-      outlined consume of Data._Representation(v8, v7);
-      *&v28 = v8;
-      WORD4(v28) = v7;
-      BYTE10(v28) = BYTE2(v7);
-      BYTE11(v28) = BYTE3(v7);
-      BYTE12(v28) = BYTE4(v7);
-      BYTE13(v28) = BYTE5(v7);
-      BYTE14(v28) = BYTE6(v7);
-      a2(&v28, &v28 + BYTE6(v7), a4);
-      v10 = v28;
-      v11 = DWORD2(v28) | ((WORD6(v28) | (BYTE14(v28) << 16)) << 32);
-    }
-
-    *a1 = v10;
-    a1[1] = v11;
-    goto LABEL_15;
-  }
-
-  if (v9 != 2)
-  {
-    *(&v28 + 7) = 0;
-    *&v28 = 0;
-    a2(&v28, &v28, a4);
-LABEL_15:
-    v24 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  outlined consume of Data._Representation(v8, v7);
-  *&v28 = v8;
-  *(&v28 + 1) = v7 & 0x3FFFFFFFFFFFFFFFLL;
-  *a1 = xmmword_1C18A2C50;
-  outlined consume of Data._Representation(0, 0xC000000000000000);
-  Data.LargeSlice.ensureUniqueReference()();
-  v13 = *(&v28 + 1);
-  v14 = *(v28 + 16);
-  v15 = *(v28 + 24);
-  v16 = __DataStorage._bytes.getter();
-  if (v16)
-  {
-    v17 = v16;
-    v18 = __DataStorage._offset.getter();
-    v19 = v14 - v18;
-    if (__OFSUB__(v14, v18))
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v20 = __OFSUB__(v15, v14);
-      v21 = v15 - v14;
-      if (!v20)
-      {
-        v22 = MEMORY[0x1C68F2040]();
-        if (v22 >= v21)
-        {
-          v23 = v21;
-        }
-
-        else
-        {
-          v23 = v22;
-        }
-
-        a2(v17 + v19, v17 + v19 + v23, a4);
-        *a1 = v28;
-        a1[1] = v13 | 0x8000000000000000;
-        goto LABEL_15;
-      }
-    }
-
-    __break(1u);
-  }
-
-  __break(1u);
-}
-
-void specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(int *a1, void (*a2)(uint64_t, uint64_t, uint64_t), uint64_t a3, uint64_t a4)
-{
-  Data.InlineSlice.ensureUniqueReference()();
-  v7 = *a1;
-  v8 = a1[1];
-  if (v8 < v7)
-  {
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  v17 = a2;
-  v9 = *(a1 + 1);
-
-  v10 = __DataStorage._bytes.getter();
-  if (!v10)
-  {
-LABEL_10:
-    __break(1u);
-    return;
-  }
-
-  v11 = v10;
-  v12 = __DataStorage._offset.getter();
-  v13 = v7 - v12;
-  if (__OFSUB__(v7, v12))
-  {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  v14 = v8 - v7;
-  v15 = MEMORY[0x1C68F2040]();
-  if (v15 >= v14)
-  {
-    v16 = v14;
-  }
-
-  else
-  {
-    v16 = v15;
-  }
-
-  v17(v11 + v13, v11 + v13 + v16, a4);
-}
-
-unint64_t lazy protocol witness table accessor for type CustomShaderStage and conformance CustomShaderStage()
-{
-  result = lazy protocol witness table cache variable for type CustomShaderStage and conformance CustomShaderStage;
-  if (!lazy protocol witness table cache variable for type CustomShaderStage and conformance CustomShaderStage)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type CustomShaderStage and conformance CustomShaderStage);
-  }
-
-  return result;
-}
-
-uint64_t get_enum_tag_for_layout_string_10Foundation4DataV15_RepresentationO(uint64_t a1)
-{
-  v1 = *(a1 + 8) >> 62;
-  if (v1 == 3)
-  {
-    return (*a1 + 3);
-  }
-
-  else
-  {
-    return v1;
-  }
-}
-
-uint64_t get_enum_tag_for_layout_string_17RealityFoundation19DirectUniformsStateO(uint64_t a1)
-{
-  if (((*(a1 + 32) >> 60) & 2) != 0)
-  {
-    return (*a1 + 2);
-  }
-
-  else
-  {
-    return (*(a1 + 32) >> 60) & 3;
-  }
-}
-
-uint64_t getEnumTagSinglePayload for DirectUniformsState(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0xE && *(a1 + 48))
-  {
-    return (*a1 + 14);
-  }
-
-  v3 = ((*(a1 + 32) >> 60) & 3 | (*(a1 + 8) >> 58) & 0xC) ^ 0xF;
-  if (v3 >= 0xD)
-  {
-    v3 = -1;
-  }
-
-  return v3 + 1;
-}
-
-uint64_t storeEnumTagSinglePayload for DirectUniformsState(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xD)
-  {
-    *(result + 40) = 0;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *result = a2 - 14;
-    if (a3 >= 0xE)
-    {
-      *(result + 48) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xE)
-    {
-      *(result + 48) = 0;
-    }
-
-    if (a2)
-    {
-      *result = 0;
-      *(result + 8) = ((-a2 >> 2) & 3) << 60;
-      *(result + 16) = 0;
-      *(result + 24) = 0;
-      *(result + 32) = (((-a2 >> 2) & 3 | (4 * (-a2 & 0xF))) << 58) & 0x3000000000000000;
-      *(result + 40) = 0;
-    }
-  }
-
-  return result;
-}
-
-void *destructiveInjectEnumTag for DirectUniformsState(void *result, uint64_t a2)
-{
-  if (a2 < 2)
-  {
-    v2 = result[4] & 0xCFFFFFFFFFFFFFFFLL | (a2 << 60);
-    result[1] &= 0xCFFFFFFFFFFFFFFFLL;
-    result[4] = v2;
-  }
-
-  else
-  {
-    *result = (a2 - 2);
-    result[1] = 0;
-    result[2] = 0;
-    result[3] = 0;
-    *(result + 2) = xmmword_1C18A9570;
-  }
-
-  return result;
-}
-
-void **assignWithTake for CustomMaterial.ResourceStorage(void **a1, void **a2)
-{
-  v3 = *a1;
-  *a1 = *a2;
-
-  return a1;
-}
-
-void specialized DirectUniformsState.withSharedBytes(byteSize:_:)(void (*a1)(uint64_t, uint64_t, uint64_t), uint64_t a2)
-{
-  v3 = v2[4];
-  if ((v3 & 0x3000000000000000) != 0)
-  {
-    _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-  }
-
-  else
-  {
-    v7 = v2[1];
-    v6 = v2[2];
-    v8 = *v2;
-    v9 = v2[3];
-    v10 = v2[5];
-    outlined copy of Data._Representation(*v2, v7);
-    v11 = v6;
-    outlined consume of DirectUniformsState(v8, v7, v6, v9, v3, v10);
-    v25 = v8;
-    v26 = v7;
-    v27 = v11;
-    *v2 = 0u;
-    *(v2 + 1) = 0u;
-    *(v2 + 2) = xmmword_1C18A9570;
-    if ((swift_isUniquelyReferenced_nonNull() & 1) == 0)
-    {
-      v12 = REDirectParameterResourcesCopy();
-
-      v27 = v12;
-      v11 = v12;
-    }
-
-    v13 = *v2;
-    v14 = v2[1];
-    v15 = v2[2];
-    v16 = v2[3];
-    v17 = v2[4];
-    v18 = v2[5];
-    v24 = v11;
-    v19 = v11;
-    specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(&v25, a1, a2, &v24);
-    outlined consume of DirectUniformsState(v13, v14, v15, v16, v17, v18);
-
-    v20 = v25;
-    v21 = v26;
-    v22 = v27;
-    *v2 = v25;
-    v2[1] = v21;
-    v2[2] = v22;
-    v2[4] = 0;
-    v2[5] = 0;
-    v2[3] = 0;
-    outlined copy of Data._Representation(v20, v21);
-    v23 = v22;
-    outlined consume of Data._Representation(v20, v21);
-  }
-}
-
-void specialized DirectUniformsState.withUniqueGeometryBytes(byteSize:_:)(void (*a1)(uint64_t, uint64_t, uint64_t), uint64_t a2)
-{
-  v3 = v2[4];
-  if ((v3 & 0x3000000000000000) == 0x1000000000000000)
-  {
-    v5 = v2[5];
-    v7 = v2[2];
-    v6 = v2[3];
-    v9 = *v2;
-    v8 = v2[1];
-    outlined copy of Data._Representation(*v2, v8);
-    v10 = v7;
-    outlined copy of Data._Representation(v6, v3 & 0xCFFFFFFFFFFFFFFFLL);
-    v11 = v5;
-    v24 = v6;
-    v25 = v5;
-    outlined consume of DirectUniformsState(v9, v8, v7, v6, v3, v5);
-    v28 = v9;
-    v29 = v8;
-    v30 = v10;
-    *v2 = 0u;
-    *(v2 + 1) = 0u;
-    *(v2 + 2) = xmmword_1C18A9570;
-    if ((swift_isUniquelyReferenced_nonNull() & 1) == 0)
-    {
-      v12 = REDirectParameterResourcesCopy();
-
-      v30 = v12;
-      v10 = v12;
-    }
-
-    v13 = *v2;
-    v14 = v2[1];
-    v16 = v2[2];
-    v15 = v2[3];
-    v17 = v2[4];
-    v18 = v2[5];
-    v27 = v10;
-    v19 = v10;
-    specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(&v28, a1, a2, &v27);
-    outlined consume of DirectUniformsState(v13, v14, v16, v15, v17, v18);
-
-    v20 = v28;
-    v21 = v29;
-    v22 = v30;
-    *v2 = v28;
-    v2[1] = v21;
-    v2[2] = v22;
-    v2[3] = v24;
-    v2[4] = v3;
-    v2[5] = v25;
-    outlined copy of Data._Representation(v20, v21);
-    v26 = v22;
-    outlined consume of Data._Representation(v20, v21);
-  }
-
-  else
-  {
-    _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-  }
-}
-
-void specialized DirectUniformsState.withUniqueSurfaceBytes(byteSize:_:)(void (*a1)(uint64_t, uint64_t, uint64_t), uint64_t a2)
-{
-  v3 = v2[4];
-  if ((v3 & 0x3000000000000000) == 0x1000000000000000)
-  {
-    v5 = *v2;
-    v6 = v2[1];
-    v7 = v2[5];
-    v9 = v2[2];
-    v8 = v2[3];
-    outlined copy of Data._Representation(*v2, v6);
-    v10 = v9;
-    outlined copy of Data._Representation(v8, v3 & 0xCFFFFFFFFFFFFFFFLL);
-    v11 = v7;
-    v27 = v6;
-    v28 = v5;
-    v26 = v9;
-    outlined consume of DirectUniformsState(v5, v6, v9, v8, v3, v7);
-    v31 = v8;
-    v32 = v3 & 0xCFFFFFFFFFFFFFFFLL;
-    v33 = v11;
-    *v2 = 0u;
-    *(v2 + 1) = 0u;
-    *(v2 + 2) = xmmword_1C18A9570;
-    v12 = a2;
-    if ((swift_isUniquelyReferenced_nonNull() & 1) == 0)
-    {
-      v13 = REDirectParameterResourcesCopy();
-
-      v33 = v13;
-      v11 = v13;
-    }
-
-    v14 = *v2;
-    v15 = v2[1];
-    v17 = v2[2];
-    v16 = v2[3];
-    v18 = v2[4];
-    v19 = v2[5];
-    v30 = v11;
-    v20 = v11;
-    specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(&v31, a1, v12, &v30);
-    outlined consume of DirectUniformsState(v14, v15, v17, v16, v18, v19);
-
-    v21 = v31;
-    v22 = v32;
-    v23 = v33;
-    v24 = v32 | 0x1000000000000000;
-    *v2 = v28;
-    v2[1] = v27;
-    v2[2] = v26;
-    v2[3] = v21;
-    v2[4] = v24;
-    v2[5] = v23;
-    outlined copy of Data._Representation(v21, v22);
-    v29 = v23;
-    outlined consume of Data._Representation(v21, v22);
-  }
-
-  else
-  {
-    _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-  }
-}
-
-void partial apply for closure #1 in DirectUniformsState.withSharedBytes<A>(_:)(uint64_t a1, uint64_t a2, id *a3)
-{
-  v7 = *(v3 + 24);
-  v6 = *(v3 + 32);
-  v10 = *a3;
-  v8 = v10;
-  v7(a1, a2, &v10);
-  v9 = v10;
-}
-
-uint64_t __RKLightTrigger.__allocating_init()()
-{
-  result = swift_allocObject();
-  *(result + 16) = 0;
-  *(result + 18) = 0;
-  return result;
-}
-
-uint64_t __RKLightTrigger.init()()
-{
-  result = v0;
-  *(v0 + 16) = 0;
-  *(v0 + 18) = 0;
-  return result;
-}
-
-double TextComponent.size.getter()
-{
-  result = *v0;
-  v2 = *(v0 + 8);
-  return result;
-}
-
-void TextComponent.size.setter(double a1, double a2)
-{
-  if (a1 > 2048.0)
-  {
-    a1 = 2048.0;
-  }
-
-  if (a2 > 2048.0)
-  {
-    a2 = 2048.0;
-  }
-
-  *v2 = a1;
-  v2[1] = a2;
-}
-
-int8x16_t (*TextComponent.size.modify(uint64_t a1))(uint64_t a1)
-{
-  *(a1 + 16) = v1;
-  *a1 = *v1;
-  return TextComponent.size.modify;
-}
-
-int8x16_t TextComponent.size.modify(uint64_t a1)
-{
-  v1 = vdupq_n_s64(0x40A0000000000000uLL);
-  result = vbslq_s8(vcgtq_f64(*a1, v1), v1, *a1);
-  **(a1 + 16) = result;
-  return result;
-}
-
-uint64_t TextComponent.text.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = v1 + *(type metadata accessor for TextComponent() + 20);
-
-  return outlined init with copy of AttributedString?(v3, a1);
-}
-
-uint64_t type metadata accessor for TextComponent()
-{
-  result = type metadata singleton initialization cache for TextComponent;
-  if (!type metadata singleton initialization cache for TextComponent)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t outlined init with copy of AttributedString?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t TextComponent.text.setter(uint64_t a1)
-{
-  v3 = v1 + *(type metadata accessor for TextComponent() + 20);
-
-  return outlined assign with take of AttributedString?(a1, v3);
-}
-
-uint64_t outlined assign with take of AttributedString?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
-  (*(*(v4 - 8) + 40))(a2, a1, v4);
-  return a2;
-}
-
-void *TextComponent.backgroundColor.getter()
-{
-  v1 = *(v0 + *(type metadata accessor for TextComponent() + 24));
-  v2 = v1;
-  return v1;
-}
-
-void TextComponent.backgroundColor.setter(uint64_t a1)
-{
-  v3 = *(type metadata accessor for TextComponent() + 24);
-
-  *(v1 + v3) = a1;
-}
-
-uint64_t TextComponent.cornerRadius.setter(float a1)
-{
-  result = type metadata accessor for TextComponent();
-  *(v1 + *(result + 28)) = a1;
-  return result;
-}
-
-float TextComponent.coreEdgeInsets.getter()
-{
-  v1 = v0 + *(type metadata accessor for TextComponent() + 32);
-  result = *v1;
-  v3 = *(v1 + 4);
-  v4 = *(v1 + 8);
-  v5 = *(v1 + 12);
-  return result;
-}
-
-uint64_t TextComponent.coreEdgeInsets.setter(float a1, float a2, float a3, float a4)
-{
-  result = type metadata accessor for TextComponent();
-  v10 = (v4 + *(result + 32));
-  *v10 = a1;
-  v10[1] = a2;
-  v10[2] = a3;
-  v10[3] = a4;
-  return result;
-}
-
-uint64_t TextComponent.init()@<X0>(char *a1@<X8>)
-{
-  v2 = type metadata accessor for TextComponent();
-  *a1 = 0;
-  *(a1 + 1) = 0;
-  v3 = v2[5];
-  v4 = type metadata accessor for AttributedString();
-  result = (*(*(v4 - 8) + 56))(&a1[v3], 1, 1, v4);
-  *&a1[v2[6]] = 0;
-  *&a1[v2[7]] = 0;
-  v6 = &a1[v2[8]];
-  *v6 = 0;
-  *(v6 + 1) = 0;
-  return result;
-}
-
-uint64_t static TextComponent.__fromCore(_:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v34 = a2;
-  v3 = type metadata accessor for AttributedString();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = &v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for TextComponent();
-  v9 = (v8 - 8);
-  v10 = *(*(v8 - 8) + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = (&v31 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = *a1;
-  *v13 = 0.0;
-  v13[1] = 0.0;
-  v15 = v9[7];
-  v16 = *(v4 + 56);
-  v16(v13 + v15, 1, 1, v3, v11);
-  v32 = v9[8];
-  *(v13 + v32) = 0.0;
-  v33 = v9[9];
-  *(v13 + v33) = 0;
-  v17 = v13 + v9[10];
-  *v17 = 0;
-  *(v17 + 1) = 0;
-  RETextComponentGetSize();
-  if (v18 > 2048.0)
-  {
-    v18 = 2048.0;
-  }
-
-  if (v19 > 2048.0)
-  {
-    v19 = 2048.0;
-  }
-
-  *v13 = v18;
-  v13[1] = v19;
-  v20 = RETextComponentGetAttributedString();
-  AttributedString.init(_:)();
-  outlined destroy of BodyTrackingComponent?(v13 + v15, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
-  (*(v4 + 16))(v13 + v15, v7, v3);
-  (v16)(v13 + v15, 0, 1, v3);
-  v21 = RETextComponentGetBackgroundColor();
-  *(v13 + v32) = v21;
-  RETextComponentGetCornerRadius();
-  *(v13 + v33) = v22;
-  v23 = MEMORY[0x1C68FF080](v14);
-  v25 = v24;
-  v27 = v26;
-  v29 = v28;
-
-  (*(v4 + 8))(v7, v3);
-  *v17 = v23;
-  *(v17 + 1) = v25;
-  *(v17 + 2) = v27;
-  *(v17 + 3) = v29;
-  outlined init with copy of TextComponent(v13, v34);
-  return outlined destroy of TextComponent(v13);
-}
-
-uint64_t outlined init with copy of TextComponent(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for TextComponent();
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined destroy of TextComponent(uint64_t a1)
-{
-  v2 = type metadata accessor for TextComponent();
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t TextComponent.__toCore(_:)(uint64_t *a1)
-{
-  v2 = v1;
-  v4 = type metadata accessor for TextComponent();
-  v5 = *(*(v4 - 1) + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &aBlock - v10;
-  v12 = type metadata accessor for AttributedString();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &aBlock - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *a1;
-  v18 = *v2;
-  v19 = v2[1];
-  RETextComponentSetSize();
-  outlined init with copy of AttributedString?(v2 + v4[5], v11);
-  v20 = *(v13 + 48);
-  if (v20(v11, 1, v12) == 1)
-  {
-    AttributedString.init(stringLiteral:)();
-    if (v20(v11, 1, v12) != 1)
-    {
-      outlined destroy of BodyTrackingComponent?(v11, &_s10Foundation16AttributedStringVSgMd, &_s10Foundation16AttributedStringVSgMR);
-    }
-  }
-
-  else
-  {
-    (*(v13 + 32))(v16, v11, v12);
-  }
-
-  type metadata accessor for NSAttributedString();
-  v21 = NSAttributedString.init(_:)();
-  MEMORY[0x1C68FF0A0](v17, v21);
-  v22 = *(v2 + v4[6]);
-  if (v22)
-  {
-    GenericGray = *(v2 + v4[6]);
-  }
-
-  else
-  {
-    GenericGray = CGColorCreateGenericGray(1.0, 0.0);
-    v22 = 0;
-  }
-
-  v24 = v22;
-  MEMORY[0x1C68FF0B0](v17, GenericGray);
-
-  v25 = *(v2 + v4[7]);
-  RETextComponentSetCornerRadius();
-  v26 = (v2 + v4[8]);
-  v27 = *v26;
-  v28 = v26[1];
-  v29 = v26[2];
-  v30 = v26[3];
-  RETextComponentSetEdgeInsets();
-  outlined init with copy of TextComponent(v2, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation19TextComponentRender_pMd, &_s17RealityFoundation19TextComponentRender_pMR);
-  if (swift_dynamicCast())
-  {
-    outlined init with take of ForceEffectBase(&aBlock, v38);
-    __swift_project_boxed_opaque_existential_1(v38, v38[3]);
-    swift_getDynamicType();
-    v36 = (*(v38[4] + 8))();
-    v37 = v31;
-    *&aBlock = MEMORY[0x1E69E9820];
-    *(&aBlock + 1) = 1107296256;
-    *&v35 = thunk for @escaping @callee_guaranteed (@guaranteed CGContextRef, @guaranteed CFAttributedStringRef, @unowned CGRect, @guaranteed CGColorRef, @unowned CGSize) -> ();
-    *(&v35 + 1) = &block_descriptor_23;
-    v32 = _Block_copy(&aBlock);
-
-    RETextComponentSetRenderBlock();
-    _Block_release(v32);
-
-    return __swift_destroy_boxed_opaque_existential_1(v38);
-  }
-
-  else
-  {
-
-    v36 = 0;
-    aBlock = 0u;
-    v35 = 0u;
-    return outlined destroy of BodyTrackingComponent?(&aBlock, &_s17RealityFoundation19TextComponentRender_pSgMd, &_s17RealityFoundation19TextComponentRender_pSgMR);
-  }
-}
-
-unint64_t type metadata accessor for NSAttributedString()
-{
-  result = lazy cache variable for type metadata for NSAttributedString;
-  if (!lazy cache variable for type metadata for NSAttributedString)
-  {
-    objc_opt_self();
-    result = swift_getObjCClassMetadata();
-    atomic_store(result, &lazy cache variable for type metadata for NSAttributedString);
-  }
-
-  return result;
-}
-
-void thunk for @escaping @callee_guaranteed (@guaranteed CGContextRef, @guaranteed CFAttributedStringRef, @unowned CGRect, @guaranteed CGColorRef, @unowned CGSize) -> ()(uint64_t a1, void *a2, void *a3, void *a4, double a5, double a6, double a7, double a8, double a9, double a10)
-{
-  v20 = *(a1 + 32);
-  v19 = *(a1 + 40);
-
-  v23 = a2;
-  v21 = a3;
-  v22 = a4;
-  v20(v23, v21, v22, a5, a6, a7, a8, a9, a10);
-}
-
-uint64_t block_copy_helper_23(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  *(a1 + 32) = *(a2 + 32);
-  *(a1 + 40) = v2;
-}
-
-void type metadata completion function for TextComponent()
-{
-  type metadata accessor for CGSize(319);
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for AttributedString?(319, &lazy cache variable for type metadata for AttributedString?, MEMORY[0x1E6968848]);
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for AttributedString?(319, &lazy cache variable for type metadata for CGColorRef?, type metadata accessor for CGColorRef);
-      if (v2 <= 0x3F)
-      {
-        type metadata accessor for RETextEdgeInsets(319);
-        if (v3 <= 0x3F)
-        {
-          swift_cvw_initStructMetadataWithLayoutString();
-        }
-      }
-    }
-  }
-}
-
-void type metadata accessor for AttributedString?(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
-{
-  if (!*a2)
-  {
-    a3(255);
-    v4 = type metadata accessor for Optional();
-    if (!v5)
-    {
-      atomic_store(v4, a2);
-    }
-  }
-}
-
-Swift::Void __swiftcall AudioGeneratorController.play()()
-{
-  v1 = v0;
-  swift_beginAccess();
-  if (swift_weakLoadStrong() && (v2 = specialized HasHierarchy.parent.getter(), , v2))
-  {
-
-    if (!*(v0 + 72))
-    {
-LABEL_4:
-      static os_log_type_t.error.getter();
-      type metadata accessor for OS_os_log();
-      v3 = static OS_os_log.default.getter();
-      os_log(_:dso:log:_:_:)();
-
-      return;
-    }
-  }
-
-  else
-  {
-    static os_log_type_t.info.getter();
-    type metadata accessor for OS_os_log();
-    v4 = static OS_os_log.default.getter();
-    os_log(_:dso:log:_:_:)();
-
-    if (!*(v1 + 72))
-    {
-      goto LABEL_4;
-    }
-  }
-
-  v5 = *(v1 + 24);
-  REAudioPlayerComponentPlayToken();
-  RENetworkMarkComponentDirty();
-}
-
-uint64_t AudioGeneratorController.configuration.getter@<X0>(void *a1@<X8>)
-{
-  v3 = v1[7];
-  v2 = v1[8];
-  *a1 = v1[6];
-  a1[1] = v3;
-  a1[2] = v2;
-}
-
-uint64_t AudioGeneratorController.init(generatorRenderHandler:configuration:entity:)(uint64_t a1, uint64_t a2, int *a3, uint64_t a4)
-{
-  v5 = v4;
-  v9 = *a3;
-  v10 = a3[1];
-  v11 = *(a3 + 1);
-  v12 = *(a3 + 2);
-  swift_weakInit();
-  *(v5 + 64) = v12;
-  *(v5 + 72) = 0;
-  *(v5 + 32) = a1;
-  *(v5 + 40) = a2;
-  *(v5 + 48) = v9;
-  *(v5 + 52) = v10;
-  *(v5 + 56) = v11;
-  swift_beginAccess();
-  swift_weakAssign();
-  v13 = *(a4 + 16);
-
-  REAudioPlayerComponentGetComponentType();
-  *(v5 + 24) = REEntityGetOrAddComponentByClass();
-  RERetain();
-  v22[0] = v9;
-  v22[1] = v10;
-  v23 = v11;
-  v24 = v12;
-  type metadata accessor for AudioGeneratorResource();
-  swift_allocObject();
-
-  v14 = v25;
-  v15 = AudioGeneratorResource.init(configuration:renderHandler:)(v22, a1, a2);
-  if (v14)
-  {
-
-    swift_weakDestroy();
-    v16 = *(v5 + 40);
-
-    v17 = *(v5 + 64);
-
-    type metadata accessor for AudioGeneratorController();
-    swift_deallocPartialClassInstance();
-  }
-
-  else
-  {
-    *(v5 + 80) = v15;
-    v18 = *(v5 + 24);
-    v19 = *(v15 + 24);
-    *(v5 + 72) = REAudioPlayerComponentPrepareAsset();
-    v20 = *(v5 + 24);
-    RENetworkMarkComponentDirty();
-  }
-
-  return v5;
-}
-
-void *AudioGeneratorController.deinit()
-{
-  MEMORY[0x1C68F7360](v0[3], v0[9]);
-  MEMORY[0x1C68F7170](v0[3], v0[9]);
-  v1 = v0[3];
-  RENetworkMarkComponentDirty();
-  v2 = v0[3];
-  RERelease();
-  swift_weakDestroy();
-  v3 = v0[5];
-
-  v4 = v0[8];
-
-  v5 = v0[10];
-
-  return v0;
-}
-
-uint64_t AudioGeneratorController.__deallocating_deinit()
-{
-  MEMORY[0x1C68F7360](v0[3], v0[9]);
-  MEMORY[0x1C68F7170](v0[3], v0[9]);
-  v1 = v0[3];
-  RENetworkMarkComponentDirty();
-  v2 = v0[3];
-  RERelease();
-  swift_weakDestroy();
-  v3 = v0[5];
-
-  v4 = v0[8];
-
-  v5 = v0[10];
-
-  return swift_deallocClassInstance();
-}
-
-double AudioGeneratorController.gain.getter()
-{
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 72);
-  REAudioPlayerComponentGetDecibelGainForToken();
-  return v3;
-}
-
-uint64_t key path setter for AudioGeneratorController.gain : AudioGeneratorController(double *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  v4 = *(*a2 + 24);
-  v5 = *(*a2 + 72);
-  REAudioPlayerComponentGetDecibelGainForToken();
-  v7 = v6;
-  v8 = *(v3 + 72);
-  result = REAudioPlayerComponentSetDecibelGainForToken();
-  if (v2 != v7)
-  {
-
-    return RENetworkMarkComponentDirty();
-  }
-
-  return result;
-}
-
-uint64_t AudioGeneratorController.gain.setter(double a1)
-{
-  v3 = *(v1 + 24);
-  v4 = *(v1 + 72);
-  REAudioPlayerComponentGetDecibelGainForToken();
-  v6 = v5;
-  v7 = *(v1 + 72);
-  result = REAudioPlayerComponentSetDecibelGainForToken();
-  if (v6 != a1)
-  {
-
-    return RENetworkMarkComponentDirty();
-  }
-
-  return result;
-}
-
-uint64_t (*AudioGeneratorController.gain.modify(uint64_t a1))(uint64_t a1)
-{
-  v3 = *(v1 + 24);
-  *(a1 + 8) = v1;
-  *(a1 + 16) = v3;
-  v4 = *(v1 + 72);
-  REAudioPlayerComponentGetDecibelGainForToken();
-  *a1 = v5;
-  return AudioGeneratorController.gain.modify;
-}
-
-uint64_t AudioGeneratorController.gain.modify(uint64_t a1)
-{
-  v2 = *(a1 + 8);
-  v1 = *(a1 + 16);
-  v3 = *a1;
-  v4 = *(v2 + 72);
-  REAudioPlayerComponentGetDecibelGainForToken();
-  v6 = v5;
-  v7 = *(v2 + 72);
-  result = REAudioPlayerComponentSetDecibelGainForToken();
-  if (v3 != v6)
-  {
-
-    return RENetworkMarkComponentDirty();
-  }
-
-  return result;
-}
-
-Swift::Void __swiftcall AudioGeneratorController.stop()()
-{
-  MEMORY[0x1C68F7360](*(v0 + 24), *(v0 + 72));
-
-  RENetworkMarkComponentDirty();
-}
-
-uint64_t SceneEvents.AnchoredStateChanged.anchor.getter()
-{
-  v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
-}
-
-uint64_t AudioEvents.PlaybackCompleted.playbackController.setter(uint64_t a1)
-{
-  v3 = *v1;
-
-  *v1 = a1;
-  return result;
-}
-
-uint64_t SynchronizationEvents.OwnershipRequest.accept.getter()
-{
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
-
-  return v1;
-}
-
-uint64_t ComponentEvents.WillRemove.componentType.getter()
-{
-  result = *(v0 + 8);
-  v2 = *(v0 + 16);
-  return result;
-}
-
-float ManipulationEvents.WillBegin.pivotPoint.getter()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 20);
-  v3 = *(v0 + 24);
-  v4 = *(v0 + 28);
-  return result;
-}
-
-uint64_t ManipulationEvents.WillBegin.shouldReject.getter()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-
-  return v1;
-}
-
-uint64_t ManipulationEvents.WillBegin.init(entity:inputDevices:pivotPoint:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, float a4@<S0>, float a5@<S1>, float a6@<S2>, float a7@<S3>)
-{
-  *a3 = result;
-  *(a3 + 8) = a2;
-  *(a3 + 16) = a4;
-  *(a3 + 20) = a5;
-  *(a3 + 24) = a6;
-  *(a3 + 28) = a7;
-  *(a3 + 32) = destructiveProjectEnumData for __RKEntityInteractionsComponent.Registration.RegistrationError;
-  *(a3 + 40) = 0;
-  return result;
-}
-
-float ManipulationEvents.DidUpdateTransform.pivotPoint.getter()
-{
-  result = *(v0 + 16);
-  v2 = *(v0 + 20);
-  v3 = *(v0 + 24);
-  v4 = *(v0 + 28);
-  return result;
-}
-
-uint64_t ManipulationEvents.DidUpdateTransform.init(entity:inputDevices:pivotPoint:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, float a4@<S0>, float a5@<S1>, float a6@<S2>, float a7@<S3>)
-{
-  *a3 = result;
-  *(a3 + 8) = a2;
-  *(a3 + 16) = a4;
-  *(a3 + 20) = a5;
-  *(a3 + 24) = a6;
-  *(a3 + 28) = a7;
-  return result;
-}
-
-__n128 ManipulationEvents.DidReachMovementThreshold.inputDevice.getter@<Q0>(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 64);
-  *a1 = *(v1 + 16);
-  result = *(v1 + 32);
-  v4 = *(v1 + 48);
-  *(a1 + 16) = result;
-  *(a1 + 32) = v4;
-  *(a1 + 48) = v2;
-  return result;
-}
-
-__n128 ManipulationEvents.DidReachMovementThreshold.init(entity:inputDevice:)@<Q0>(unint64_t a1@<X0>, __n128 *a2@<X1>, __n128 *a3@<X8>)
-{
-  v3 = a2->n128_u16[0];
-  v4 = a2[3].n128_i8[0];
-  a3->n128_u64[0] = a1;
-  a3[1].n128_u16[0] = v3;
-  result = a2[1];
-  v6 = a2[2];
-  a3[2] = result;
-  a3[3] = v6;
-  a3[4].n128_u8[0] = v4;
-  return result;
-}
-
-uint64_t ManipulationEvents.WillRelease.init(entity:inputDevices:wasCancelled:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X8>)
-{
-  *a4 = result;
-  *(a4 + 8) = a2;
-  *(a4 + 16) = a3;
-  return result;
-}
-
-uint64_t ManipulationEvents.DidHandOff.init(entity:oldInputDevices:newInputDevices:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
-{
-  *a4 = result;
-  a4[1] = a2;
-  a4[2] = a3;
-  return result;
-}
-
-RealityFoundation::VideoPlayerEvents::ContentTypeDidChange::ContentType_optional __swiftcall VideoPlayerEvents.ContentTypeDidChange.ContentType.init(rawValue:)(RealityFoundation::VideoPlayerEvents::ContentTypeDidChange::ContentType_optional rawValue)
-{
-  if (rawValue.value == RealityFoundation_VideoPlayerEvents_ContentTypeDidChange_ContentType_mono)
-  {
-    v2 = 1;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if (rawValue.value == RealityFoundation_VideoPlayerEvents_ContentTypeDidChange_ContentType_invalid)
-  {
-    v2 = 0;
-  }
-
-  *v1 = v2;
-  return rawValue;
-}
-
-_BYTE *protocol witness for RawRepresentable.init(rawValue:) in conformance VideoPlayerEvents.ContentTypeDidChange.ContentType@<X0>(_BYTE *result@<X0>, char *a2@<X8>)
-{
-  if (*result == 1)
-  {
-    v2 = 1;
-  }
-
-  else
-  {
-    v2 = 2;
-  }
-
-  if (*result)
-  {
-    v3 = v2;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  *a2 = v3;
-  return result;
-}
-
-uint64_t Scene.subscribe<A>(to:on:componentType:rootEntity:matching:_:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X7>, uint64_t *a6@<X8>, uint64_t a7, ValueMetadata *a8, uint64_t a9)
-{
-  if (a8 == &type metadata for SynchronizationEvents.OwnershipRequest)
-  {
-    Scene.eventService.getter(v24);
-    v15 = v25;
-    v16 = v26;
-    __swift_project_boxed_opaque_existential_1(v24, v25);
-    type metadata accessor for REOwnershipRequestEvent(0);
-    EventService.publisher<A>(for:on:)(v17, a1, v15, v17, v16);
-    v18 = swift_allocObject();
-    swift_weakInit();
-    v19 = swift_allocObject();
-    v19[2] = &type metadata for SynchronizationEvents.OwnershipRequest;
-    v19[3] = a9;
-    v19[4] = v18;
-    v19[5] = a5;
-    v19[6] = a7;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REOwnershipRequestEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGMR);
-    v21 = Publisher<>.sink(receiveValue:)();
-
-    __swift_destroy_boxed_opaque_existential_1(v24);
-  }
-
-  else
-  {
-    if (a8 == &type metadata for SceneEvents.Update || a8 == &type metadata for SceneEvents.Render)
-    {
-      Scene.publisher<A>(for:on:componentType:rootEntity:matching:)(a8, a1, a2, a3, 0, a8, v24, a9);
-      v12 = swift_allocObject();
-      swift_weakInit();
-      v13 = swift_allocObject();
-      v13[2] = a8;
-      v13[3] = a9;
-      v13[4] = v12;
-      v13[5] = a5;
-      v13[6] = a7;
-      type metadata accessor for Scene.Publisher();
-
-      swift_getWitnessTable();
-      v21 = Publisher<>.sink(receiveValue:)();
-    }
-
-    else
-    {
-      Scene.publisher<A>(for:on:componentType:rootEntity:matching:)(a8, a1, a2, a3, a4, a8, v24, a9);
-      v20 = swift_allocObject();
-      v20[2] = a8;
-      v20[3] = a9;
-      v20[4] = a5;
-      v20[5] = a7;
-      type metadata accessor for Scene.Publisher();
-
-      swift_getWitnessTable();
-      v21 = Publisher<>.sink(receiveValue:)();
-    }
-  }
-
-  result = type metadata accessor for AnyCancellable();
-  v23 = MEMORY[0x1E695BF08];
-  a6[3] = result;
-  a6[4] = v23;
-  *a6 = v21;
-  return result;
-}
-
-uint64_t outlined init with copy of SynchronizationPeerID?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit21SynchronizationPeerID_pSgMd, &_s10RealityKit21SynchronizationPeerID_pSgMR);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t closure #1 in Scene.subscribe<A>(to:on:componentType:rootEntity:matching:_:)(uint64_t a1, uint64_t a2, void (*a3)(char *), uint64_t a4, uint64_t a5)
-{
-  v8 = *(a5 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *v12;
-  v13 = v12[1];
-  v30 = v12[2];
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    v16 = result;
-    swift_beginAccess();
-    if (!*(v16 + 224))
-    {
-    }
-
-    v29 = v8;
-    v27 = a4;
-    v28 = a3;
-    v17 = *(v16 + 232);
-    ObjectType = swift_getObjectType();
-    v31[0] = v13;
-    v19 = *(v17 + 32);
-    swift_unknownObjectRetain();
-    v19(&v32, v31, ObjectType, v17);
-    if (!v33)
-    {
-
-      swift_unknownObjectRelease();
-      return outlined destroy of BodyTrackingComponent?(&v32, &_s10RealityKit21SynchronizationPeerID_pSgMd, &_s10RealityKit21SynchronizationPeerID_pSgMR);
-    }
-
-    outlined init with take of ForceEffectBase(&v32, v36);
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation10MutableBoxCySbGMd, &_s17RealityFoundation10MutableBoxCySbGMR);
-    result = swift_allocObject();
-    *(result + 16) = 0;
-    if (v14)
-    {
-      v20 = result;
-      v21 = REEntityGetSwiftObject();
-      v22 = v29;
-      if (v21)
-      {
-        type metadata accessor for Entity();
-        v23 = swift_dynamicCastClassUnconditional();
-        goto LABEL_7;
-      }
-
-      result = REEntityIsBeingDestroyed();
-      if ((result & 1) == 0)
-      {
-        v25 = specialized static Entity.entityInfoType(_:)();
-        if (v25)
-        {
-          v24 = (*(v25 + 232))();
-          v26 = *(v24 + 16);
-
-          v22 = v29;
-          MEMORY[0x1C68F9740](v26, 0);
-          *(v24 + 16) = v14;
-          MEMORY[0x1C68F9740](v14, v24);
-
-LABEL_13:
-          outlined init with copy of __REAssetService(v36, &v32 + 8);
-          *&v32 = v24;
-          v34 = partial apply for closure #1 in closure #1 in Scene.subscribe<A>(to:on:componentType:rootEntity:matching:_:);
-          v35 = v20;
-          outlined init with copy of SynchronizationEvents.OwnershipRequest(&v32, v31);
-
-          swift_dynamicCast();
-          v28(v11);
-          result = (*(v22 + 8))(v11, a5);
-          if (v30)
-          {
-            *v30 = *(v20 + 16);
-
-            swift_unknownObjectRelease();
-
-            outlined destroy of SynchronizationEvents.OwnershipRequest(&v32);
-            return __swift_destroy_boxed_opaque_existential_1(v36);
-          }
-
-LABEL_19:
-          __break(1u);
-          return result;
-        }
-
-        v23 = makeEntity(for:)(v14);
-LABEL_7:
-        v24 = v23;
-        goto LABEL_13;
-      }
-
-      __break(1u);
-    }
-
-    __break(1u);
-    goto LABEL_19;
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in Scene.subscribe<A>(to:on:componentType:rootEntity:matching:_:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t))
-{
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (result)
-  {
-    v6 = *(result + 16);
-    if (RESceneIsFromActiveRealityRendererSceneGroup())
-    {
-      a3(a1);
-    }
-  }
-
-  return result;
-}
-
-uint64_t Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X7>, void *a7@<X8>, uint64_t a8)
-{
-  v615 = a6;
-  v558 = a4;
-  v556 = a3;
-  v613 = a2;
-  v616 = a7;
-  v617 = a1;
-  v566 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVG0E10Foundation0lK6EventsO0lmn3DidO0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVG0E10Foundation0lK6EventsO0lmn3DidO0VGMR);
-  v565 = *(v566 - 8);
-  v9 = *(v565 + 64);
-  MEMORY[0x1EEE9AC00](v566);
-  v564 = &v504 - v10;
-  v563 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVG0E10Foundation0lK6EventsO0lmN9DidChangeVGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVG0E10Foundation0lK6EventsO0lmN9DidChangeVGMR);
-  v562 = *(v563 - 8);
-  v11 = *(v562 + 64);
-  MEMORY[0x1EEE9AC00](v563);
-  v561 = &v504 - v12;
-  v560 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerViewingModeChangedEventVG0E10Foundation05VideoK6EventsO0lM9DidChangeVGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerViewingModeChangedEventVG0E10Foundation05VideoK6EventsO0lM9DidChangeVGMR);
-  v559 = *(v560 - 8);
-  v13 = *(v559 + 64);
-  MEMORY[0x1EEE9AC00](v560);
-  v557 = &v504 - v14;
-  v555 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So34REVideoPlayerVideoSizeChangedEventVG0E10Foundation0lK6EventsO0lM9DidChangeVGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So34REVideoPlayerVideoSizeChangedEventVG0E10Foundation0lK6EventsO0lM9DidChangeVGMR);
-  v554 = *(v555 - 8);
-  v15 = *(v554 + 64);
-  MEMORY[0x1EEE9AC00](v555);
-  v553 = &v504 - v16;
-  v552 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerContentTypeChangedEventVG0E10Foundation05VideoK6EventsO0lM9DidChangeVGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerContentTypeChangedEventVG0E10Foundation05VideoK6EventsO0lM9DidChangeVGMR);
-  v551 = *(v552 - 8);
-  v17 = *(v551 + 64);
-  MEMORY[0x1EEE9AC00](v552);
-  v550 = &v504 - v18;
-  v549 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So25REComponentDidChangeEventVG0E10Foundation15ComponentEventsO0kL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So25REComponentDidChangeEventVG0E10Foundation15ComponentEventsO0kL0VGMR);
-  v548 = *(v549 - 8);
-  v19 = *(v548 + 64);
-  MEMORY[0x1EEE9AC00](v549);
-  v547 = &v504 - v20;
-  v546 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So26REComponentWillRemoveEventVG0E10Foundation15ComponentEventsO0kL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So26REComponentWillRemoveEventVG0E10Foundation15ComponentEventsO0kL0VGMR);
-  v545 = *(v546 - 8);
-  v21 = *(v545 + 64);
-  MEMORY[0x1EEE9AC00](v546);
-  v544 = &v504 - v22;
-  v543 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So30REComponentWillDeactivateEventVG0E10Foundation15ComponentEventsO0kL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So30REComponentWillDeactivateEventVG0E10Foundation15ComponentEventsO0kL0VGMR);
-  v542 = *(v543 - 8);
-  v23 = *(v542 + 64);
-  MEMORY[0x1EEE9AC00](v543);
-  v541 = &v504 - v24;
-  v540 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So27REComponentDidActivateEventVG0E10Foundation15ComponentEventsO0kL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So27REComponentDidActivateEventVG0E10Foundation15ComponentEventsO0kL0VGMR);
-  v539 = *(v540 - 8);
-  v25 = *(v539 + 64);
-  MEMORY[0x1EEE9AC00](v540);
-  v538 = &v504 - v26;
-  v537 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So22REComponentDidAddEventVG0E10Foundation15ComponentEventsO0kL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So22REComponentDidAddEventVG0E10Foundation15ComponentEventsO0kL0VGMR);
-  v536 = *(v537 - 8);
-  v27 = *(v536 + 64);
-  MEMORY[0x1EEE9AC00](v537);
-  v535 = &v504 - v28;
-  v531 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29REAudioPlayerDidCompleteEventVGAF11AudioEventsO17PlaybackCompletedVGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29REAudioPlayerDidCompleteEventVGAF11AudioEventsO17PlaybackCompletedVGMR);
-  v530 = *(v531 - 8);
-  v29 = *(v530 + 64);
-  MEMORY[0x1EEE9AC00](v531);
-  v529 = &v504 - v30;
-  v534 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So23REOwnershipChangedEventVGAF21SynchronizationEventsO09OwnershipK0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So23REOwnershipChangedEventVGAF21SynchronizationEventsO09OwnershipK0VGMR);
-  v533 = *(v534 - 8);
-  v31 = *(v533 + 64);
-  MEMORY[0x1EEE9AC00](v534);
-  v532 = &v504 - v32;
-  v528 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So24REOwnershipResponseEventVGAF21SynchronizationEventsO09OwnershipK0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So24REOwnershipResponseEventVGAF21SynchronizationEventsO09OwnershipK0VGMR);
-  v527 = *(v528 - 8);
-  v33 = *(v527 + 64);
-  MEMORY[0x1EEE9AC00](v528);
-  v526 = &v504 - v34;
-  v525 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGAF21SynchronizationEventsO09OwnershipK0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGAF21SynchronizationEventsO09OwnershipK0VGMR);
-  v524 = *(v525 - 8);
-  v35 = *(v524 + 64);
-  MEMORY[0x1EEE9AC00](v525);
-  v523 = &v504 - v36;
-  v522 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So27REMotionStateDidChangeEventVG0E10Foundation06MotionK6EventsO0lM0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So27REMotionStateDidChangeEventVG0E10Foundation06MotionK6EventsO0lM0VGMR);
-  v521 = *(v522 - 8);
-  v37 = *(v521 + 64);
-  MEMORY[0x1EEE9AC00](v522);
-  v520 = &v504 - v38;
-  v519 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So31REEntityPhysicsDidSimulateEventVG0E10Foundation0K16SimulationEventsO0lM0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So31REEntityPhysicsDidSimulateEventVG0E10Foundation0K16SimulationEventsO0lM0VGMR);
-  v518 = *(v519 - 8);
-  v39 = *(v518 + 64);
-  MEMORY[0x1EEE9AC00](v519);
-  v517 = &v504 - v40;
-  v516 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So32REEntityPhysicsWillSimulateEventVG0E10Foundation0K16SimulationEventsO0lM0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So32REEntityPhysicsWillSimulateEventVG0E10Foundation0K16SimulationEventsO0lM0VGMR);
-  v515 = *(v516 - 8);
-  v41 = *(v515 + 64);
-  MEMORY[0x1EEE9AC00](v516);
-  v514 = &v504 - v42;
-  v513 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So23RECollisionDidStopEventVGAF15CollisionEventsO5EndedVGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So23RECollisionDidStopEventVGAF15CollisionEventsO5EndedVGMR);
-  v512 = *(v513 - 8);
-  v43 = *(v512 + 64);
-  MEMORY[0x1EEE9AC00](v513);
-  v511 = &v504 - v44;
-  v510 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So27RECollisionDidUpdateEventExVGAF15CollisionEventsO7UpdatedVGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So27RECollisionDidUpdateEventExVGAF15CollisionEventsO7UpdatedVGMR);
-  v509 = *(v510 - 8);
-  v45 = *(v509 + 64);
-  MEMORY[0x1EEE9AC00](v510);
-  v508 = &v504 - v46;
-  v507 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So26RECollisionDidStartEventExVGAF15CollisionEventsO5BeganVGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So26RECollisionDidStartEventExVGAF15CollisionEventsO5BeganVGMR);
-  v506 = *(v507 - 8);
-  v47 = *(v506 + 64);
-  MEMORY[0x1EEE9AC00](v507);
-  v505 = &v504 - v48;
-  v569 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So26REAnimationHasStartedEventVGAF15AnimationEventsO0E10FoundationE08PlaybackL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So26REAnimationHasStartedEventVGAF15AnimationEventsO0E10FoundationE08PlaybackL0VGMR);
-  v568 = *(v569 - 8);
-  v49 = *(v568 + 64);
-  MEMORY[0x1EEE9AC00](v569);
-  v567 = &v504 - v50;
-  v572 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGAF15AnimationEventsO08PlaybackL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGAF15AnimationEventsO08PlaybackL0VGMR);
-  v571 = *(v572 - 8);
-  v51 = *(v571 + 64);
-  MEMORY[0x1EEE9AC00](v572);
-  v570 = &v504 - v52;
-  v575 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So25REAnimationHasLoopedEventVGAF15AnimationEventsO08PlaybackL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So25REAnimationHasLoopedEventVGAF15AnimationEventsO08PlaybackL0VGMR);
-  v574 = *(v575 - 8);
-  v53 = *(v574 + 64);
-  MEMORY[0x1EEE9AC00](v575);
-  v573 = &v504 - v54;
-  v578 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGAF15AnimationEventsO08PlaybackL0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGAF15AnimationEventsO08PlaybackL0VGMR);
-  v577 = *(v578 - 8);
-  v55 = *(v577 + 64);
-  MEMORY[0x1EEE9AC00](v578);
-  v576 = &v504 - v56;
-  v581 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So42REAnimationSkeletalPoseUpdateCompleteEventVGAF15AnimationEventsO0E10FoundationE0klmN0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So42REAnimationSkeletalPoseUpdateCompleteEventVGAF15AnimationEventsO0E10FoundationE0klmN0VGMR);
-  v580 = *(v581 - 8);
-  v57 = *(v580 + 64);
-  MEMORY[0x1EEE9AC00](v581);
-  v579 = &v504 - v58;
-  v584 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidReparentEventVGAF0G6EventsO0E10FoundationE0lmK0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidReparentEventVGAF0G6EventsO0E10FoundationE0lmK0VGMR);
-  v583 = *(v584 - 8);
-  v59 = *(v583 + 64);
-  MEMORY[0x1EEE9AC00](v584);
-  v582 = &v504 - v60;
-  v587 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So28RESceneEntityWillRemoveEventVGAF0G6EventsO0E10FoundationE0lmK0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So28RESceneEntityWillRemoveEventVGAF0G6EventsO0E10FoundationE0lmK0VGMR);
-  v586 = *(v587 - 8);
-  v61 = *(v586 + 64);
-  MEMORY[0x1EEE9AC00](v587);
-  v585 = &v504 - v62;
-  v590 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So32RESceneEntityWillDeactivateEventVGAF0G6EventsO0E10FoundationE0lmK0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So32RESceneEntityWillDeactivateEventVGAF0G6EventsO0E10FoundationE0lmK0VGMR);
-  v589 = *(v590 - 8);
-  v63 = *(v589 + 64);
-  MEMORY[0x1EEE9AC00](v590);
-  v588 = &v504 - v64;
-  v593 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidActivateEventVGAF0G6EventsO0E10FoundationE0lmK0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidActivateEventVGAF0G6EventsO0E10FoundationE0lmK0VGMR);
-  v592 = *(v593 - 8);
-  v65 = *(v592 + 64);
-  MEMORY[0x1EEE9AC00](v593);
-  v591 = &v504 - v66;
-  v596 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So24RESceneEntityDidAddEventVGAF0G6EventsO0E10FoundationE0lmK0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So24RESceneEntityDidAddEventVGAF0G6EventsO0E10FoundationE0lmK0VGMR);
-  v595 = *(v596 - 8);
-  v67 = *(v595 + 64);
-  MEMORY[0x1EEE9AC00](v596);
-  v594 = &v504 - v68;
-  v599 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So33REAnchorStateDidFailToAnchorEventVG0E10Foundation0oK6EventsO0lmnO0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So33REAnchorStateDidFailToAnchorEventVG0E10Foundation0oK6EventsO0lmnO0VGMR);
-  v598 = *(v599 - 8);
-  v69 = *(v598 + 64);
-  MEMORY[0x1EEE9AC00](v599);
-  v597 = &v504 - v70;
-  v602 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So30REAnchorStateWillUnanchorEventVG0E10Foundation06AnchorK6EventsO0lM0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So30REAnchorStateWillUnanchorEventVG0E10Foundation06AnchorK6EventsO0lM0VGMR);
-  v601 = *(v602 - 8);
-  v71 = *(v601 + 64);
-  MEMORY[0x1EEE9AC00](v602);
-  v600 = &v504 - v72;
-  v605 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So27REAnchorStateDidAnchorEventVG0E10Foundation0mK6EventsO0lM0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So27REAnchorStateDidAnchorEventVG0E10Foundation0mK6EventsO0lM0VGMR);
-  v604 = *(v605 - 8);
-  v73 = *(v604 + 64);
-  MEMORY[0x1EEE9AC00](v605);
-  v603 = &v504 - v74;
-  v608 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So32RESceneAnchoredStateChangedEventVGAF0G6EventsO0klM0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So32RESceneAnchoredStateChangedEventVGAF0G6EventsO0klM0VGMR);
-  v607 = *(v608 - 8);
-  v75 = *(v607 + 64);
-  MEMORY[0x1EEE9AC00](v608);
-  v606 = &v504 - v76;
-  v611 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So21REEngineDoRenderEventVGAF0G6EventsO0L0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So21REEngineDoRenderEventVGAF0G6EventsO0L0VGMR);
-  v610 = *(v611 - 8);
-  v77 = *(v610 + 64);
-  MEMORY[0x1EEE9AC00](v611);
-  v79 = &v504 - ((v78 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v80);
-  v82 = &v504 - v81;
-  v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGAF0G6EventsO0L0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGAF0G6EventsO0L0VGMR);
-  v612 = *(v83 - 8);
-  v84 = *(v612 + 64);
-  MEMORY[0x1EEE9AC00](v83);
-  v86 = &v504 - ((v85 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v87);
-  v89 = &v504 - v88;
-  v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGAF06EnginelM0VGMd, &_s7Combine10PublishersO10CompactMapVy_10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGAF06EnginelM0VGMR);
-  v91 = *(v90 - 8);
-  v92 = *(v91 + 64);
-  MEMORY[0x1EEE9AC00](v90);
-  v94 = &v504 - ((v93 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v95);
-  v97 = &v504 - v96;
-  if (a5)
-  {
-    v609 = *(a5 + 16);
-  }
-
-  else
-  {
-    v609 = 0;
-  }
-
-  v614 = a8;
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.engineEventService.getter(&v624);
-    v98 = v626;
-    if (v626)
-    {
-      v99 = v627;
-      __swift_project_boxed_opaque_existential_1(&v624, v626);
-      type metadata accessor for REEngineDoUpdateEvent(0);
-      EventService.publisher<A>(for:on:)(v100, v613, v98, v100, v99);
-      v101 = *(&v619 + 1);
-      v98 = v619;
-      v102 = v620;
-      __swift_destroy_boxed_opaque_existential_1(&v624);
-    }
-
-    else
-    {
-      outlined destroy of BodyTrackingComponent?(&v624, &_s17RealityFoundation12EventService_pSgMd, &_s17RealityFoundation12EventService_pSgMR);
-      v101 = 0;
-      v102 = 0;
-    }
-
-    swift_allocObject();
-    swift_weakInit();
-    if (v102)
-    {
-      *&v624 = v98;
-      *(&v624 + 1) = v101;
-      v625 = v102;
-
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGMR);
-      lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REEngineDoUpdateEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGMR);
-      Publisher.compactMap<A>(_:)();
-
-      v108 = *(v91 + 32);
-      v108(v97, v94, v90);
-      v109 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So21REEngineDoUpdateEventVGAH06EnginemN0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So21REEngineDoUpdateEventVGAH06EnginemN0VGGMR);
-      v110 = *(v109 + 48);
-      v111 = *(v109 + 52);
-      v112 = swift_allocObject();
-      v108(&v112[*(*v112 + *MEMORY[0x1E695BEE8] + 16)], v97, v90);
-    }
-
-    else
-    {
-
-      v112 = 0;
-    }
-
-    *&v624 = v112;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA17EngineUpdateEventVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA17EngineUpdateEventVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.engineEventService.getter(&v624);
-    v103 = v626;
-    if (v626)
-    {
-      v104 = v627;
-      __swift_project_boxed_opaque_existential_1(&v624, v626);
-      type metadata accessor for REEngineDoUpdateEvent(0);
-      EventService.publisher<A>(for:on:)(v105, v613, v103, v105, v104);
-      v107 = *(&v619 + 1);
-      v106 = v619;
-      v103 = v620;
-      __swift_destroy_boxed_opaque_existential_1(&v624);
-    }
-
-    else
-    {
-      outlined destroy of BodyTrackingComponent?(&v624, &_s17RealityFoundation12EventService_pSgMd, &_s17RealityFoundation12EventService_pSgMR);
-      v106 = 0;
-      v107 = 0;
-    }
-
-    swift_allocObject();
-    swift_weakInit();
-    if (v103)
-    {
-      *&v624 = v106;
-      *(&v624 + 1) = v107;
-      v625 = v103;
-
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGMR);
-      lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REEngineDoUpdateEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoUpdateEventVGMR);
-      Publisher.compactMap<A>(_:)();
-
-      v120 = *(v612 + 32);
-      v120(v89, v86, v83);
-      v121 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So21REEngineDoUpdateEventVGAH0I6EventsO0M0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So21REEngineDoUpdateEventVGAH0I6EventsO0M0VGGMR);
-      v122 = *(v121 + 48);
-      v123 = *(v121 + 52);
-      v103 = swift_allocObject();
-      v120(v103 + *(*v103 + *MEMORY[0x1E695BEE8] + 16), v89, v83);
-    }
-
-    else
-    {
-    }
-
-    *&v624 = v103;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO6UpdateVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO6UpdateVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.engineEventService.getter(&v624);
-    v115 = v626;
-    if (v626)
-    {
-      v116 = v627;
-      __swift_project_boxed_opaque_existential_1(&v624, v626);
-      type metadata accessor for REEngineDoRenderEvent(0);
-      EventService.publisher<A>(for:on:)(v117, v613, v115, v117, v116);
-      v119 = *(&v619 + 1);
-      v118 = v619;
-      v115 = v620;
-      __swift_destroy_boxed_opaque_existential_1(&v624);
-    }
-
-    else
-    {
-      outlined destroy of BodyTrackingComponent?(&v624, &_s17RealityFoundation12EventService_pSgMd, &_s17RealityFoundation12EventService_pSgMR);
-      v118 = 0;
-      v119 = 0;
-    }
-
-    swift_allocObject();
-    swift_weakInit();
-    if (v115)
-    {
-      *&v624 = v118;
-      *(&v624 + 1) = v119;
-      v625 = v115;
-
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoRenderEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoRenderEventVGMR);
-      lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REEngineDoRenderEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoRenderEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So21REEngineDoRenderEventVGMR);
-      Publisher.compactMap<A>(_:)();
-
-      v134 = *(v610 + 32);
-      v135 = v611;
-      v134(v82, v79, v611);
-      v136 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So21REEngineDoRenderEventVGAH0I6EventsO0M0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So21REEngineDoRenderEventVGAH0I6EventsO0M0VGGMR);
-      v137 = *(v136 + 48);
-      v138 = *(v136 + 52);
-      v115 = swift_allocObject();
-      v134(v115 + *(*v115 + *MEMORY[0x1E695BEE8] + 16), v82, v135);
-    }
-
-    else
-    {
-    }
-
-    *&v624 = v115;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO6RenderVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO6RenderVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v124 = v626;
-    v125 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for RESceneAnchoredStateChangedEvent(0);
-    EventService.publisher<A>(for:on:)(v126, v613, v124, v126, v125);
-    v127 = v619;
-    v128 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v127;
-    v625 = v128;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So32RESceneAnchoredStateChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So32RESceneAnchoredStateChangedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<RESceneAnchoredStateChangedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So32RESceneAnchoredStateChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So32RESceneAnchoredStateChangedEventVGMR);
-    v129 = v606;
-    Publisher.compactMap<A>(_:)();
-
-    v130 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So32RESceneAnchoredStateChangedEventVGAH0I6EventsO0lmN0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So32RESceneAnchoredStateChangedEventVGAH0I6EventsO0lmN0VGGMR);
-    v131 = *(v130 + 48);
-    v132 = *(v130 + 52);
-    v133 = swift_allocObject();
-    (*(v607 + 32))(&v133[*(*v133 + *MEMORY[0x1E695BEE8] + 16)], v129, v608);
-    *&v624 = v133;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO20AnchoredStateChangedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO20AnchoredStateChangedVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v140 = v626;
-    v141 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REAnchorStateDidAnchorEvent(0);
-    EventService.publisher<A>(for:on:)(v142, v613, v140, v142, v141);
-    v143 = v619;
-    v144 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v143;
-    v625 = v144;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So27REAnchorStateDidAnchorEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So27REAnchorStateDidAnchorEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnchorStateDidAnchorEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So27REAnchorStateDidAnchorEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So27REAnchorStateDidAnchorEventVGMR);
-    v145 = v603;
-    Publisher.compactMap<A>(_:)();
-
-    v146 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So27REAnchorStateDidAnchorEventVG0G10Foundation0nL6EventsO0mN0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So27REAnchorStateDidAnchorEventVG0G10Foundation0nL6EventsO0mN0VGGMR);
-    v147 = *(v146 + 48);
-    v148 = *(v146 + 52);
-    v149 = swift_allocObject();
-    (*(v604 + 32))(&v149[*(*v149 + *MEMORY[0x1E695BEE8] + 16)], v145, v605);
-    *&v624 = v149;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17AnchorStateEventsO03DidF0VGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17AnchorStateEventsO03DidF0VGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v150 = v626;
-    v151 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REAnchorStateWillUnanchorEvent(0);
-    EventService.publisher<A>(for:on:)(v152, v613, v150, v152, v151);
-    v153 = v619;
-    v154 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v153;
-    v625 = v154;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So30REAnchorStateWillUnanchorEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So30REAnchorStateWillUnanchorEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnchorStateWillUnanchorEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So30REAnchorStateWillUnanchorEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So30REAnchorStateWillUnanchorEventVGMR);
-    v155 = v600;
-    Publisher.compactMap<A>(_:)();
-
-    v156 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So30REAnchorStateWillUnanchorEventVG0G10Foundation06AnchorL6EventsO0mN0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So30REAnchorStateWillUnanchorEventVG0G10Foundation06AnchorL6EventsO0mN0VGGMR);
-    v157 = *(v156 + 48);
-    v158 = *(v156 + 52);
-    v159 = swift_allocObject();
-    (*(v601 + 32))(&v159[*(*v159 + *MEMORY[0x1E695BEE8] + 16)], v155, v602);
-    *&v624 = v159;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17AnchorStateEventsO12WillUnanchorVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17AnchorStateEventsO12WillUnanchorVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v160 = v626;
-    v161 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REAnchorStateDidFailToAnchorEvent(0);
-    EventService.publisher<A>(for:on:)(v162, v613, v160, v162, v161);
-    v163 = v619;
-    v164 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v163;
-    v625 = v164;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So33REAnchorStateDidFailToAnchorEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So33REAnchorStateDidFailToAnchorEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnchorStateDidFailToAnchorEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So33REAnchorStateDidFailToAnchorEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So33REAnchorStateDidFailToAnchorEventVGMR);
-    v165 = v597;
-    Publisher.compactMap<A>(_:)();
-
-    v166 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So33REAnchorStateDidFailToAnchorEventVG0G10Foundation0pL6EventsO0mnoP0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So33REAnchorStateDidFailToAnchorEventVG0G10Foundation0pL6EventsO0mnoP0VGGMR);
-    v167 = *(v166 + 48);
-    v168 = *(v166 + 52);
-    v169 = swift_allocObject();
-    (*(v598 + 32))(&v169[*(*v169 + *MEMORY[0x1E695BEE8] + 16)], v165, v599);
-    *&v624 = v169;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17AnchorStateEventsO09DidFailToF0VGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17AnchorStateEventsO09DidFailToF0VGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v170 = v626;
-    v171 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for RESceneEntityDidAddEvent(0);
-    EventService.publisher<A>(for:on:)(v172, v613, v170, v172, v171);
-    v173 = v619;
-    v174 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v173;
-    v625 = v174;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So24RESceneEntityDidAddEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So24RESceneEntityDidAddEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<RESceneEntityDidAddEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So24RESceneEntityDidAddEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So24RESceneEntityDidAddEventVGMR);
-    v175 = v594;
-    Publisher.compactMap<A>(_:)();
-
-    v176 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So24RESceneEntityDidAddEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So24RESceneEntityDidAddEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMR);
-    v177 = *(v176 + 48);
-    v178 = *(v176 + 52);
-    v179 = swift_allocObject();
-    (*(v595 + 32))(&v179[*(*v179 + *MEMORY[0x1E695BEE8] + 16)], v175, v596);
-    *&v624 = v179;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE12DidAddEntityVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE12DidAddEntityVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v180 = v626;
-    v181 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for RESceneEntityDidActivateEvent(0);
-    EventService.publisher<A>(for:on:)(v182, v613, v180, v182, v181);
-    v183 = v619;
-    v184 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v183;
-    v625 = v184;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidActivateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidActivateEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<RESceneEntityDidActivateEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidActivateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidActivateEventVGMR);
-    v185 = v591;
-    Publisher.compactMap<A>(_:)();
-
-    v186 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29RESceneEntityDidActivateEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29RESceneEntityDidActivateEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMR);
-    v187 = *(v186 + 48);
-    v188 = *(v186 + 52);
-    v189 = swift_allocObject();
-    (*(v592 + 32))(&v189[*(*v189 + *MEMORY[0x1E695BEE8] + 16)], v185, v593);
-    *&v624 = v189;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE17DidActivateEntityVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE17DidActivateEntityVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v190 = v626;
-    v191 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for RESceneEntityWillDeactivateEvent(0);
-    EventService.publisher<A>(for:on:)(v192, v613, v190, v192, v191);
-    v193 = v619;
-    v194 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v193;
-    v625 = v194;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So32RESceneEntityWillDeactivateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So32RESceneEntityWillDeactivateEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<RESceneEntityWillDeactivateEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So32RESceneEntityWillDeactivateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So32RESceneEntityWillDeactivateEventVGMR);
-    v195 = v588;
-    Publisher.compactMap<A>(_:)();
-
-    v196 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So32RESceneEntityWillDeactivateEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So32RESceneEntityWillDeactivateEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMR);
-    v197 = *(v196 + 48);
-    v198 = *(v196 + 52);
-    v199 = swift_allocObject();
-    (*(v589 + 32))(&v199[*(*v199 + *MEMORY[0x1E695BEE8] + 16)], v195, v590);
-    *&v624 = v199;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE20WillDeactivateEntityVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE20WillDeactivateEntityVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v200 = v626;
-    v201 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for RESceneEntityWillRemoveEvent(0);
-    EventService.publisher<A>(for:on:)(v202, v613, v200, v202, v201);
-    v203 = v619;
-    v204 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v203;
-    v625 = v204;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So28RESceneEntityWillRemoveEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So28RESceneEntityWillRemoveEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<RESceneEntityWillRemoveEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So28RESceneEntityWillRemoveEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So28RESceneEntityWillRemoveEventVGMR);
-    v205 = v585;
-    Publisher.compactMap<A>(_:)();
-
-    v206 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So28RESceneEntityWillRemoveEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So28RESceneEntityWillRemoveEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMR);
-    v207 = *(v206 + 48);
-    v208 = *(v206 + 52);
-    v209 = swift_allocObject();
-    (*(v586 + 32))(&v209[*(*v209 + *MEMORY[0x1E695BEE8] + 16)], v205, v587);
-    *&v624 = v209;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE16WillRemoveEntityVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE16WillRemoveEntityVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v210 = v626;
-    v211 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for RESceneEntityDidReparentEvent(0);
-    EventService.publisher<A>(for:on:)(v212, v613, v210, v212, v211);
-    v213 = v619;
-    v214 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v213;
-    v625 = v214;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidReparentEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidReparentEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<RESceneEntityDidReparentEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidReparentEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29RESceneEntityDidReparentEventVGMR);
-    v215 = v582;
-    Publisher.compactMap<A>(_:)();
-
-    v216 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29RESceneEntityDidReparentEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29RESceneEntityDidReparentEventVGAH0I6EventsO0G10FoundationE0mnL0VGGMR);
-    v217 = *(v216 + 48);
-    v218 = *(v216 + 52);
-    v219 = swift_allocObject();
-    (*(v583 + 32))(&v219[*(*v219 + *MEMORY[0x1E695BEE8] + 16)], v215, v584);
-    *&v624 = v219;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE17DidReparentEntityVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA0C6EventsO0A10FoundationE17DidReparentEntityVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v220 = v626;
-    v221 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REAnimationSkeletalPoseUpdateCompleteEvent(0);
-    EventService.publisher<A>(for:on:)(v222, v613, v220, v222, v221);
-    v223 = v619;
-    v224 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v223;
-    v625 = v224;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So42REAnimationSkeletalPoseUpdateCompleteEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So42REAnimationSkeletalPoseUpdateCompleteEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnimationSkeletalPoseUpdateCompleteEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So42REAnimationSkeletalPoseUpdateCompleteEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So42REAnimationSkeletalPoseUpdateCompleteEventVGMR);
-    v225 = v579;
-    Publisher.compactMap<A>(_:)();
-
-    v226 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So42REAnimationSkeletalPoseUpdateCompleteEventVGAH15AnimationEventsO0G10FoundationE0lmnO0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So42REAnimationSkeletalPoseUpdateCompleteEventVGAH15AnimationEventsO0G10FoundationE0lmnO0VGGMR);
-    v227 = *(v226 + 48);
-    v228 = *(v226 + 52);
-    v229 = swift_allocObject();
-    (*(v580 + 32))(&v229[*(*v229 + *MEMORY[0x1E695BEE8] + 16)], v225, v581);
-    *&v624 = v229;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO0A10FoundationE26SkeletalPoseUpdateCompleteVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO0A10FoundationE26SkeletalPoseUpdateCompleteVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v230 = v626;
-    v231 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REAnimationHasCompletedEvent(0);
-    EventService.publisher<A>(for:on:)(v232, v613, v230, v232, v231);
-    v233 = v619;
-    v234 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v233;
-    v625 = v234;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnimationHasCompletedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So28REAnimationHasCompletedEventVGMR);
-    v235 = v576;
-    Publisher.compactMap<A>(_:)();
-
-    v236 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So28REAnimationHasCompletedEventVGAH15AnimationEventsO08PlaybackM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So28REAnimationHasCompletedEventVGAH15AnimationEventsO08PlaybackM0VGGMR);
-    v237 = *(v236 + 48);
-    v238 = *(v236 + 52);
-    v239 = swift_allocObject();
-    (*(v577 + 32))(&v239[*(*v239 + *MEMORY[0x1E695BEE8] + 16)], v235, v578);
-    *&v624 = v239;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO17PlaybackCompletedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO17PlaybackCompletedVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v240 = v626;
-    v241 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REAnimationHasLoopedEvent(0);
-    EventService.publisher<A>(for:on:)(v242, v613, v240, v242, v241);
-    v243 = v619;
-    v244 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v243;
-    v625 = v244;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So25REAnimationHasLoopedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So25REAnimationHasLoopedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnimationHasLoopedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So25REAnimationHasLoopedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So25REAnimationHasLoopedEventVGMR);
-    v245 = v573;
-    Publisher.compactMap<A>(_:)();
-
-    v246 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So25REAnimationHasLoopedEventVGAH15AnimationEventsO08PlaybackM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So25REAnimationHasLoopedEventVGAH15AnimationEventsO08PlaybackM0VGGMR);
-    v247 = *(v246 + 48);
-    v248 = *(v246 + 52);
-    v249 = swift_allocObject();
-    (*(v574 + 32))(&v249[*(*v249 + *MEMORY[0x1E695BEE8] + 16)], v245, v575);
-    *&v624 = v249;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO14PlaybackLoopedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO14PlaybackLoopedVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v250 = v626;
-    v251 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REAnimationHasTerminatedEvent(0);
-    EventService.publisher<A>(for:on:)(v252, v613, v250, v252, v251);
-    v253 = v619;
-    v254 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v253;
-    v625 = v254;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnimationHasTerminatedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29REAnimationHasTerminatedEventVGMR);
-    v255 = v570;
-    Publisher.compactMap<A>(_:)();
-
-    v256 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29REAnimationHasTerminatedEventVGAH15AnimationEventsO08PlaybackM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29REAnimationHasTerminatedEventVGAH15AnimationEventsO08PlaybackM0VGGMR);
-    v257 = *(v256 + 48);
-    v258 = *(v256 + 52);
-    v259 = swift_allocObject();
-    (*(v571 + 32))(&v259[*(*v259 + *MEMORY[0x1E695BEE8] + 16)], v255, v572);
-    *&v624 = v259;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO18PlaybackTerminatedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO18PlaybackTerminatedVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v260 = v626;
-    v261 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REAnimationHasStartedEvent(0);
-    EventService.publisher<A>(for:on:)(v262, v613, v260, v262, v261);
-    v263 = v619;
-    v264 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v263;
-    v625 = v264;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So26REAnimationHasStartedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So26REAnimationHasStartedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAnimationHasStartedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So26REAnimationHasStartedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So26REAnimationHasStartedEventVGMR);
-    v265 = v567;
-    Publisher.compactMap<A>(_:)();
-
-    v266 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So26REAnimationHasStartedEventVGAH15AnimationEventsO0G10FoundationE08PlaybackM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So26REAnimationHasStartedEventVGAH15AnimationEventsO0G10FoundationE08PlaybackM0VGGMR);
-    v267 = *(v266 + 48);
-    v268 = *(v266 + 52);
-    v269 = swift_allocObject();
-    (*(v568 + 32))(&v269[*(*v269 + *MEMORY[0x1E695BEE8] + 16)], v265, v569);
-    *&v624 = v269;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO0A10FoundationE15PlaybackStartedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA15AnimationEventsO0A10FoundationE15PlaybackStartedVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v270 = v626;
-    v271 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for RECollisionDidStartEventEx(0);
-    EventService.publisher<A>(for:on:)(v272, v613, v270, v272, v271);
-    v273 = v619;
-    v274 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v273;
-    v625 = v274;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So26RECollisionDidStartEventExVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So26RECollisionDidStartEventExVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<RECollisionDidStartEventEx> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So26RECollisionDidStartEventExVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So26RECollisionDidStartEventExVGMR);
-    v275 = v505;
-    Publisher.compactMap<A>(_:)();
-
-    v276 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So26RECollisionDidStartEventExVGAH15CollisionEventsO5BeganVGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So26RECollisionDidStartEventExVGAH15CollisionEventsO5BeganVGGMR);
-    v277 = *(v276 + 48);
-    v278 = *(v276 + 52);
-    v279 = swift_allocObject();
-    (*(v506 + 32))(&v279[*(*v279 + *MEMORY[0x1E695BEE8] + 16)], v275, v507);
-    *&v624 = v279;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA15CollisionEventsO5BeganVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA15CollisionEventsO5BeganVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v280 = v626;
-    v281 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for RECollisionDidUpdateEventEx(0);
-    EventService.publisher<A>(for:on:)(v282, v613, v280, v282, v281);
-    v283 = v619;
-    v284 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v283;
-    v625 = v284;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So27RECollisionDidUpdateEventExVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So27RECollisionDidUpdateEventExVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<RECollisionDidUpdateEventEx> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So27RECollisionDidUpdateEventExVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So27RECollisionDidUpdateEventExVGMR);
-    v285 = v508;
-    Publisher.compactMap<A>(_:)();
-
-    v286 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So27RECollisionDidUpdateEventExVGAH15CollisionEventsO7UpdatedVGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So27RECollisionDidUpdateEventExVGAH15CollisionEventsO7UpdatedVGGMR);
-    v287 = *(v286 + 48);
-    v288 = *(v286 + 52);
-    v289 = swift_allocObject();
-    (*(v509 + 32))(&v289[*(*v289 + *MEMORY[0x1E695BEE8] + 16)], v285, v510);
-    *&v624 = v289;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA15CollisionEventsO7UpdatedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA15CollisionEventsO7UpdatedVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v290 = v626;
-    v291 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for RECollisionDidStopEvent(0);
-    EventService.publisher<A>(for:on:)(v292, v613, v290, v292, v291);
-    v293 = v619;
-    v294 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v293;
-    v625 = v294;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So23RECollisionDidStopEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So23RECollisionDidStopEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<RECollisionDidStopEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So23RECollisionDidStopEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So23RECollisionDidStopEventVGMR);
-    v295 = v511;
-    Publisher.compactMap<A>(_:)();
-
-    v296 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So23RECollisionDidStopEventVGAH15CollisionEventsO5EndedVGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So23RECollisionDidStopEventVGAH15CollisionEventsO5EndedVGGMR);
-    v297 = *(v296 + 48);
-    v298 = *(v296 + 52);
-    v299 = swift_allocObject();
-    (*(v512 + 32))(&v299[*(*v299 + *MEMORY[0x1E695BEE8] + 16)], v295, v513);
-    *&v624 = v299;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA15CollisionEventsO5EndedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA15CollisionEventsO5EndedVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v300 = v626;
-    v301 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REEntityPhysicsWillSimulateEvent(0);
-    EventService.publisher<A>(for:on:)(v302, v613, v300, v302, v301);
-    v303 = v619;
-    v304 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v303;
-    v625 = v304;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So32REEntityPhysicsWillSimulateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So32REEntityPhysicsWillSimulateEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REEntityPhysicsWillSimulateEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So32REEntityPhysicsWillSimulateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So32REEntityPhysicsWillSimulateEventVGMR);
-    v305 = v514;
-    Publisher.compactMap<A>(_:)();
-
-    v306 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So32REEntityPhysicsWillSimulateEventVG0G10Foundation0L16SimulationEventsO0mN0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So32REEntityPhysicsWillSimulateEventVG0G10Foundation0L16SimulationEventsO0mN0VGGMR);
-    v307 = *(v306 + 48);
-    v308 = *(v306 + 52);
-    v309 = swift_allocObject();
-    (*(v515 + 32))(&v309[*(*v309 + *MEMORY[0x1E695BEE8] + 16)], v305, v516);
-    *&v624 = v309;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation23PhysicsSimulationEventsO12WillSimulateVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation23PhysicsSimulationEventsO12WillSimulateVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v310 = v626;
-    v311 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REEntityPhysicsDidSimulateEvent(0);
-    EventService.publisher<A>(for:on:)(v312, v613, v310, v312, v311);
-    v313 = v619;
-    v314 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v313;
-    v625 = v314;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So31REEntityPhysicsDidSimulateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So31REEntityPhysicsDidSimulateEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REEntityPhysicsDidSimulateEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So31REEntityPhysicsDidSimulateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So31REEntityPhysicsDidSimulateEventVGMR);
-    v315 = v517;
-    Publisher.compactMap<A>(_:)();
-
-    v316 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So31REEntityPhysicsDidSimulateEventVG0G10Foundation0L16SimulationEventsO0mN0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So31REEntityPhysicsDidSimulateEventVG0G10Foundation0L16SimulationEventsO0mN0VGGMR);
-    v317 = *(v316 + 48);
-    v318 = *(v316 + 52);
-    v319 = swift_allocObject();
-    (*(v518 + 32))(&v319[*(*v319 + *MEMORY[0x1E695BEE8] + 16)], v315, v519);
-    *&v624 = v319;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation23PhysicsSimulationEventsO11DidSimulateVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation23PhysicsSimulationEventsO11DidSimulateVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v320 = v626;
-    v321 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REMotionStateDidChangeEvent(0);
-    EventService.publisher<A>(for:on:)(v322, v613, v320, v322, v321);
-    v323 = v619;
-    v324 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v323;
-    v625 = v324;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So27REMotionStateDidChangeEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So27REMotionStateDidChangeEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REMotionStateDidChangeEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So27REMotionStateDidChangeEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So27REMotionStateDidChangeEventVGMR);
-    v325 = v520;
-    Publisher.compactMap<A>(_:)();
-
-    v326 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So27REMotionStateDidChangeEventVG0G10Foundation06MotionL6EventsO0mN0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So27REMotionStateDidChangeEventVG0G10Foundation06MotionL6EventsO0mN0VGGMR);
-    v327 = *(v326 + 48);
-    v328 = *(v326 + 52);
-    v329 = swift_allocObject();
-    (*(v521 + 32))(&v329[*(*v329 + *MEMORY[0x1E695BEE8] + 16)], v325, v522);
-    *&v624 = v329;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17MotionStateEventsO9DidChangeVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17MotionStateEventsO9DidChangeVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v330 = v626;
-    v331 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REOwnershipRequestEvent(0);
-    EventService.publisher<A>(for:on:)(v332, v613, v330, v332, v331);
-    v333 = v619;
-    v334 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    static os_log_type_t.info.getter();
-    type metadata accessor for OS_os_log();
-    v335 = static OS_os_log.default.getter();
-    os_log(_:dso:log:_:_:)();
-
-    swift_allocObject();
-    swift_weakInit();
-    v624 = v333;
-    v625 = v334;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REOwnershipRequestEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipRequestEventVGMR);
-    v336 = v523;
-    Publisher.compactMap<A>(_:)();
-
-    v337 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So23REOwnershipRequestEventVGAH21SynchronizationEventsO09OwnershipL0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So23REOwnershipRequestEventVGAH21SynchronizationEventsO09OwnershipL0VGGMR);
-    v338 = *(v337 + 48);
-    v339 = *(v337 + 52);
-    v340 = swift_allocObject();
-    (*(v524 + 32))(&v340[*(*v340 + *MEMORY[0x1E695BEE8] + 16)], v336, v525);
-    *&v624 = v340;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA21SynchronizationEventsO16OwnershipRequestVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA21SynchronizationEventsO16OwnershipRequestVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v341 = v626;
-    v342 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REOwnershipResponseEvent(0);
-    EventService.publisher<A>(for:on:)(v343, v613, v341, v343, v342);
-    v344 = v619;
-    v345 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    static os_log_type_t.info.getter();
-    type metadata accessor for OS_os_log();
-    v346 = static OS_os_log.default.getter();
-    os_log(_:dso:log:_:_:)();
-
-    swift_allocObject();
-    swift_weakInit();
-    v624 = v344;
-    v625 = v345;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So24REOwnershipResponseEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So24REOwnershipResponseEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REOwnershipResponseEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So24REOwnershipResponseEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So24REOwnershipResponseEventVGMR);
-    v347 = v526;
-    Publisher.compactMap<A>(_:)();
-
-    v348 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So24REOwnershipResponseEventVGAH21SynchronizationEventsO09OwnershipL0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So24REOwnershipResponseEventVGAH21SynchronizationEventsO09OwnershipL0VGGMR);
-    v349 = *(v348 + 48);
-    v350 = *(v348 + 52);
-    v351 = swift_allocObject();
-    (*(v527 + 32))(&v351[*(*v351 + *MEMORY[0x1E695BEE8] + 16)], v347, v528);
-    *&v624 = v351;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA21SynchronizationEventsO17OwnershipResponseVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA21SynchronizationEventsO17OwnershipResponseVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v352 = v626;
-    v353 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REOwnershipChangedEvent(0);
-    EventService.publisher<A>(for:on:)(v354, v613, v352, v354, v353);
-    v355 = v619;
-    v356 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    static os_log_type_t.info.getter();
-    type metadata accessor for OS_os_log();
-    v357 = static OS_os_log.default.getter();
-    os_log(_:dso:log:_:_:)();
-
-    swift_allocObject();
-    swift_weakInit();
-    v624 = v355;
-    v625 = v356;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipChangedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REOwnershipChangedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So23REOwnershipChangedEventVGMR);
-    v358 = v532;
-    Publisher.compactMap<A>(_:)();
-
-    v359 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So23REOwnershipChangedEventVGAH21SynchronizationEventsO09OwnershipL0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So23REOwnershipChangedEventVGAH21SynchronizationEventsO09OwnershipL0VGGMR);
-    v360 = *(v359 + 48);
-    v361 = *(v359 + 52);
-    v362 = swift_allocObject();
-    (*(v533 + 32))(&v362[*(*v362 + *MEMORY[0x1E695BEE8] + 16)], v358, v534);
-    *&v624 = v362;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA21SynchronizationEventsO16OwnershipChangedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA21SynchronizationEventsO16OwnershipChangedVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v363 = v626;
-    v364 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REAudioPlayerDidCompleteEvent(0);
-    EventService.publisher<A>(for:on:)(v365, v613, v363, v365, v364);
-    v366 = v619;
-    v367 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v366;
-    v625 = v367;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So29REAudioPlayerDidCompleteEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29REAudioPlayerDidCompleteEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REAudioPlayerDidCompleteEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So29REAudioPlayerDidCompleteEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So29REAudioPlayerDidCompleteEventVGMR);
-    v368 = v529;
-    Publisher.compactMap<A>(_:)();
-
-    v369 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29REAudioPlayerDidCompleteEventVGAH11AudioEventsO17PlaybackCompletedVGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So29REAudioPlayerDidCompleteEventVGAH11AudioEventsO17PlaybackCompletedVGGMR);
-    v370 = *(v369 + 48);
-    v371 = *(v369 + 52);
-    v372 = swift_allocObject();
-    (*(v530 + 32))(&v372[*(*v372 + *MEMORY[0x1E695BEE8] + 16)], v368, v531);
-    *&v624 = v372;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_AA11AudioEventsO17PlaybackCompletedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_AA11AudioEventsO17PlaybackCompletedVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v373 = v626;
-    v374 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REComponentDidAddEvent(0);
-    (*(v374 + 8))(&v619, v375, v613, v556, v558, v375, v373, v374);
-    v376 = v619;
-    v377 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v376;
-    v625 = v377;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So22REComponentDidAddEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So22REComponentDidAddEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REComponentDidAddEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So22REComponentDidAddEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So22REComponentDidAddEventVGMR);
-    v378 = v535;
-    Publisher.compactMap<A>(_:)();
-
-    v379 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So22REComponentDidAddEventVG0G10Foundation15ComponentEventsO0lM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So22REComponentDidAddEventVG0G10Foundation15ComponentEventsO0lM0VGGMR);
-    v380 = *(v379 + 48);
-    v381 = *(v379 + 52);
-    v382 = swift_allocObject();
-    (*(v536 + 32))(&v382[*(*v382 + *MEMORY[0x1E695BEE8] + 16)], v378, v537);
-    *&v624 = v382;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO6DidAddVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO6DidAddVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v383 = v626;
-    v384 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REComponentDidActivateEvent(0);
-    (*(v384 + 8))(&v619, v385, v613, v556, v558, v385, v383, v384);
-    v386 = v619;
-    v387 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v386;
-    v625 = v387;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So27REComponentDidActivateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So27REComponentDidActivateEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REComponentDidActivateEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So27REComponentDidActivateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So27REComponentDidActivateEventVGMR);
-    v388 = v538;
-    Publisher.compactMap<A>(_:)();
-
-    v389 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So27REComponentDidActivateEventVG0G10Foundation15ComponentEventsO0lM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So27REComponentDidActivateEventVG0G10Foundation15ComponentEventsO0lM0VGGMR);
-    v390 = *(v389 + 48);
-    v391 = *(v389 + 52);
-    v392 = swift_allocObject();
-    (*(v539 + 32))(&v392[*(*v392 + *MEMORY[0x1E695BEE8] + 16)], v388, v540);
-    *&v624 = v392;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO11DidActivateVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO11DidActivateVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v393 = v626;
-    v394 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REComponentWillDeactivateEvent(0);
-    (*(v394 + 8))(&v619, v395, v613, v556, v558, v395, v393, v394);
-    v396 = v619;
-    v397 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v396;
-    v625 = v397;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So30REComponentWillDeactivateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So30REComponentWillDeactivateEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REComponentWillDeactivateEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So30REComponentWillDeactivateEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So30REComponentWillDeactivateEventVGMR);
-    v398 = v541;
-    Publisher.compactMap<A>(_:)();
-
-    v399 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So30REComponentWillDeactivateEventVG0G10Foundation15ComponentEventsO0lM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So30REComponentWillDeactivateEventVG0G10Foundation15ComponentEventsO0lM0VGGMR);
-    v400 = *(v399 + 48);
-    v401 = *(v399 + 52);
-    v402 = swift_allocObject();
-    (*(v542 + 32))(&v402[*(*v402 + *MEMORY[0x1E695BEE8] + 16)], v398, v543);
-    *&v624 = v402;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO14WillDeactivateVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO14WillDeactivateVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v403 = v626;
-    v404 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REComponentWillRemoveEvent(0);
-    (*(v404 + 8))(&v619, v405, v613, v556, v558, v405, v403, v404);
-    v406 = v619;
-    v407 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v406;
-    v625 = v407;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So26REComponentWillRemoveEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So26REComponentWillRemoveEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REComponentWillRemoveEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So26REComponentWillRemoveEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So26REComponentWillRemoveEventVGMR);
-    v408 = v544;
-    Publisher.compactMap<A>(_:)();
-
-    v409 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So26REComponentWillRemoveEventVG0G10Foundation15ComponentEventsO0lM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So26REComponentWillRemoveEventVG0G10Foundation15ComponentEventsO0lM0VGGMR);
-    v410 = *(v409 + 48);
-    v411 = *(v409 + 52);
-    v412 = swift_allocObject();
-    (*(v545 + 32))(&v412[*(*v412 + *MEMORY[0x1E695BEE8] + 16)], v408, v546);
-    *&v624 = v412;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO10WillRemoveVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO10WillRemoveVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v413 = v626;
-    v414 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REComponentDidChangeEvent(0);
-    (*(v414 + 8))(&v619, v415, v613, v556, v558, v415, v413, v414);
-    v416 = v619;
-    v417 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    *(swift_allocObject() + 16) = v609;
-    v624 = v416;
-    v625 = v417;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So25REComponentDidChangeEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So25REComponentDidChangeEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REComponentDidChangeEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So25REComponentDidChangeEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So25REComponentDidChangeEventVGMR);
-    v418 = v547;
-    Publisher.compactMap<A>(_:)();
-
-    v419 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So25REComponentDidChangeEventVG0G10Foundation15ComponentEventsO0lM0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So25REComponentDidChangeEventVG0G10Foundation15ComponentEventsO0lM0VGGMR);
-    v420 = *(v419 + 48);
-    v421 = *(v419 + 52);
-    v422 = swift_allocObject();
-    (*(v548 + 32))(&v422[*(*v422 + *MEMORY[0x1E695BEE8] + 16)], v418, v549);
-    *&v624 = v422;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO9DidChangeVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation15ComponentEventsO9DidChangeVGMR;
-    goto LABEL_30;
-  }
-
-  if (swift_conformsToProtocol2() && v617)
-  {
-    Scene.eventService.getter(&v624);
-    v423 = v626;
-    v424 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    v425 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation26AccessibilityActivateEvent_pMd, &_s17RealityFoundation26AccessibilityActivateEvent_pMR);
-    v621 = 0;
-    v619 = 0u;
-    v620 = 0u;
-    EventService.publisher<A>(for:on:)(v425, &v619, v423, v425, v424);
-    outlined destroy of BodyTrackingComponent?(&v619, &_s10RealityKit11EventSource_pSgMd, &_s10RealityKit11EventSource_pSgMR);
-    v618 = v622;
-    v426 = v623;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v618;
-    v625 = v426;
-    v427 = swift_allocObject();
-    v428 = v614;
-    *(v427 + 16) = v615;
-    *(v427 + 24) = v428;
-    v429 = partial apply for closure #33 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:);
-LABEL_103:
-    result = Scene.Publisher.init<A>(corePublisher:transform:)(&v624, v429, &v619);
-    *v616 = v619;
-    return result;
-  }
-
-  if (swift_conformsToProtocol2() && v617)
-  {
-    Scene.eventService.getter(&v624);
-    v430 = v626;
-    v431 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    v432 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation27AccessibilityIncrementEvent_pMd, &_s17RealityFoundation27AccessibilityIncrementEvent_pMR);
-    v621 = 0;
-    v619 = 0u;
-    v620 = 0u;
-    EventService.publisher<A>(for:on:)(v432, &v619, v430, v432, v431);
-    outlined destroy of BodyTrackingComponent?(&v619, &_s10RealityKit11EventSource_pSgMd, &_s10RealityKit11EventSource_pSgMR);
-    v618 = v622;
-    v433 = v623;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v618;
-    v625 = v433;
-    v434 = swift_allocObject();
-    v435 = v614;
-    *(v434 + 16) = v615;
-    *(v434 + 24) = v435;
-    v429 = partial apply for closure #34 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:);
-    goto LABEL_103;
-  }
-
-  if (swift_conformsToProtocol2() && v617)
-  {
-    Scene.eventService.getter(&v624);
-    v436 = v626;
-    v437 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    v438 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation27AccessibilityDecrementEvent_pMd, &_s17RealityFoundation27AccessibilityDecrementEvent_pMR);
-    v621 = 0;
-    v619 = 0u;
-    v620 = 0u;
-    EventService.publisher<A>(for:on:)(v438, &v619, v436, v438, v437);
-    outlined destroy of BodyTrackingComponent?(&v619, &_s10RealityKit11EventSource_pSgMd, &_s10RealityKit11EventSource_pSgMR);
-    v618 = v622;
-    v439 = v623;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v618;
-    v625 = v439;
-    v440 = swift_allocObject();
-    v441 = v614;
-    *(v440 + 16) = v615;
-    *(v440 + 24) = v441;
-    v429 = partial apply for closure #35 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:);
-    goto LABEL_103;
-  }
-
-  if (swift_conformsToProtocol2() && v617)
-  {
-    Scene.eventService.getter(&v624);
-    v442 = v626;
-    v443 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    v444 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation30AccessibilityCustomActionEvent_pMd, &_s17RealityFoundation30AccessibilityCustomActionEvent_pMR);
-    v621 = 0;
-    v619 = 0u;
-    v620 = 0u;
-    EventService.publisher<A>(for:on:)(v444, &v619, v442, v444, v443);
-    outlined destroy of BodyTrackingComponent?(&v619, &_s10RealityKit11EventSource_pSgMd, &_s10RealityKit11EventSource_pSgMR);
-    v618 = v622;
-    v445 = v623;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v618;
-    v625 = v445;
-    v446 = swift_allocObject();
-    v447 = v614;
-    *(v446 + 16) = v615;
-    *(v446 + 24) = v447;
-    v429 = partial apply for closure #36 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:);
-    goto LABEL_103;
-  }
-
-  if (swift_conformsToProtocol2() && v617)
-  {
-    Scene.eventService.getter(&v624);
-    v448 = v626;
-    v449 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    v450 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation33AccessibilityRotorNavigationEvent_pMd, &_s17RealityFoundation33AccessibilityRotorNavigationEvent_pMR);
-    v621 = 0;
-    v619 = 0u;
-    v620 = 0u;
-    EventService.publisher<A>(for:on:)(v450, &v619, v448, v450, v449);
-    outlined destroy of BodyTrackingComponent?(&v619, &_s10RealityKit11EventSource_pSgMd, &_s10RealityKit11EventSource_pSgMR);
-    v618 = v622;
-    v451 = v623;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v618;
-    v625 = v451;
-    v452 = swift_allocObject();
-    v453 = v614;
-    *(v452 + 16) = v615;
-    *(v452 + 24) = v453;
-    v429 = partial apply for closure #37 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:);
-    goto LABEL_103;
-  }
-
-  if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v454 = v626;
-    v455 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REVideoPlayerContentTypeChangedEvent(0);
-    EventService.publisher<A>(for:on:)(v456, v613, v454, v456, v455);
-    v457 = v619;
-    v458 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v457;
-    v625 = v458;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerContentTypeChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerContentTypeChangedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REVideoPlayerContentTypeChangedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerContentTypeChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerContentTypeChangedEventVGMR);
-    v459 = v550;
-    Publisher.compactMap<A>(_:)();
-
-    v460 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So36REVideoPlayerContentTypeChangedEventVG0G10Foundation05VideoL6EventsO0mN9DidChangeVGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So36REVideoPlayerContentTypeChangedEventVG0G10Foundation05VideoL6EventsO0mN9DidChangeVGGMR);
-    v461 = *(v460 + 48);
-    v462 = *(v460 + 52);
-    v463 = swift_allocObject();
-    (*(v551 + 32))(&v463[*(*v463 + *MEMORY[0x1E695BEE8] + 16)], v459, v552);
-    *&v624 = v463;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO20ContentTypeDidChangeVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO20ContentTypeDidChangeVGMR;
-  }
-
-  else if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v464 = v626;
-    v465 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REVideoPlayerVideoSizeChangedEvent(0);
-    EventService.publisher<A>(for:on:)(v466, v613, v464, v466, v465);
-    v467 = v619;
-    v468 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v467;
-    v625 = v468;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So34REVideoPlayerVideoSizeChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So34REVideoPlayerVideoSizeChangedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REVideoPlayerVideoSizeChangedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So34REVideoPlayerVideoSizeChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So34REVideoPlayerVideoSizeChangedEventVGMR);
-    v469 = v553;
-    Publisher.compactMap<A>(_:)();
-
-    v470 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So34REVideoPlayerVideoSizeChangedEventVG0G10Foundation0mL6EventsO0mN9DidChangeVGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So34REVideoPlayerVideoSizeChangedEventVG0G10Foundation0mL6EventsO0mN9DidChangeVGGMR);
-    v471 = *(v470 + 48);
-    v472 = *(v470 + 52);
-    v473 = swift_allocObject();
-    (*(v554 + 32))(&v473[*(*v473 + *MEMORY[0x1E695BEE8] + 16)], v469, v555);
-    *&v624 = v473;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO0F13SizeDidChangeVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO0F13SizeDidChangeVGMR;
-  }
-
-  else if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v474 = v626;
-    v475 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REVideoPlayerViewingModeChangedEvent(0);
-    EventService.publisher<A>(for:on:)(v476, v613, v474, v476, v475);
-    v477 = v619;
-    v478 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v477;
-    v625 = v478;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerViewingModeChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerViewingModeChangedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REVideoPlayerViewingModeChangedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerViewingModeChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So36REVideoPlayerViewingModeChangedEventVGMR);
-    v479 = v557;
-    Publisher.compactMap<A>(_:)();
-
-    v480 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So36REVideoPlayerViewingModeChangedEventVG0G10Foundation05VideoL6EventsO0mN9DidChangeVGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So36REVideoPlayerViewingModeChangedEventVG0G10Foundation05VideoL6EventsO0mN9DidChangeVGGMR);
-    v481 = *(v480 + 48);
-    v482 = *(v480 + 52);
-    v483 = swift_allocObject();
-    (*(v559 + 32))(&v483[*(*v483 + *MEMORY[0x1E695BEE8] + 16)], v479, v560);
-    *&v624 = v483;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO20ViewingModeDidChangeVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO20ViewingModeDidChangeVGMR;
-  }
-
-  else if (swift_dynamicCastMetatype())
-  {
-    Scene.eventService.getter(&v624);
-    v484 = v626;
-    v485 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REVideoPlayerVideoReceiverEndpointChangedEvent(0);
-    EventService.publisher<A>(for:on:)(v486, v613, v484, v486, v485);
-    v487 = v619;
-    v488 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v487;
-    v625 = v488;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVGMR);
-    v489 = v561;
-    Publisher.compactMap<A>(_:)();
-
-    v490 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So46REVideoPlayerVideoReceiverEndpointChangedEventVG0G10Foundation0mL6EventsO0mnO9DidChangeVGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So46REVideoPlayerVideoReceiverEndpointChangedEventVG0G10Foundation0mL6EventsO0mnO9DidChangeVGGMR);
-    v491 = *(v490 + 48);
-    v492 = *(v490 + 52);
-    v493 = swift_allocObject();
-    (*(v562 + 32))(&v493[*(*v493 + *MEMORY[0x1E695BEE8] + 16)], v489, v563);
-    *&v624 = v493;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO0F25ReceiverEndpointDidChangeVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO0F25ReceiverEndpointDidChangeVGMR;
-  }
-
-  else
-  {
-    if (!swift_dynamicCastMetatype())
-    {
-      result = _assertionFailure(_:_:file:line:flags:)();
-      __break(1u);
-      return result;
-    }
-
-    Scene.eventService.getter(&v624);
-    v494 = v626;
-    v495 = v627;
-    __swift_project_boxed_opaque_existential_1(&v624, v626);
-    type metadata accessor for REVideoPlayerVideoReceiverEndpointChangedEvent(0);
-    EventService.publisher<A>(for:on:)(v496, v613, v494, v496, v495);
-    v497 = v619;
-    v498 = v620;
-    __swift_destroy_boxed_opaque_existential_1(&v624);
-    v624 = v497;
-    v625 = v498;
-
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVGMR);
-    lazy protocol witness table accessor for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>(&lazy protocol witness table cache variable for type Scene.CorePublisher<REVideoPlayerVideoReceiverEndpointChangedEvent> and conformance Scene.CorePublisher<A>, &_s10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVGMd, &_s10RealityKit5SceneC13CorePublisherVy_So46REVideoPlayerVideoReceiverEndpointChangedEventVGMR);
-    v499 = v564;
-    Publisher.compactMap<A>(_:)();
-
-    v500 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So46REVideoPlayerVideoReceiverEndpointChangedEventVG0G10Foundation0mL6EventsO0mno3DidP0VGGMd, &_s7Combine12PublisherBoxCyAA10PublishersO10CompactMapVy_10RealityKit5SceneC04CoreB0Vy_So46REVideoPlayerVideoReceiverEndpointChangedEventVG0G10Foundation0mL6EventsO0mno3DidP0VGGMR);
-    v501 = *(v500 + 48);
-    v502 = *(v500 + 52);
-    v503 = swift_allocObject();
-    (*(v565 + 32))(&v503[*(*v503 + *MEMORY[0x1E695BEE8] + 16)], v499, v566);
-    *&v624 = v503;
-    v113 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO0F26ReceiverEndpointDidChangedVGMd;
-    v114 = &_s10RealityKit5SceneC9PublisherVy_0A10Foundation17VideoPlayerEventsO0F26ReceiverEndpointDidChangedVGMR;
-  }
-
-LABEL_30:
-  __swift_instantiateConcreteTypeFromMangledNameV2(v113, v114);
-  type metadata accessor for Scene.Publisher();
-  return swift_dynamicCast();
-}
-
-uint64_t closure #1 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  v5 = result;
-  if (result)
-  {
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  *a2 = v3;
-  *(a2 + 4) = v5 == 0;
-  return result;
-}
-
-uint64_t Scene.Publisher.init<A>(corePublisher:transform:)@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  v18 = a2;
-  v19 = a3;
-  type metadata accessor for Scene.CorePublisher();
-  swift_getWitnessTable();
-  v4 = type metadata accessor for Publishers.CompactMap();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v18 - v10;
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v18 - v13;
-  v15 = *(a1 + 2);
-  if (v15)
-  {
-    v20 = *a1;
-    v21 = v15;
-    Publisher.compactMap<A>(_:)();
-
-    (*(v5 + 32))(v14, v11, v4);
-    (*(v5 + 16))(v8, v14, v4);
-    swift_getWitnessTable();
-    v16 = AnyPublisher.init<A>(_:)();
-
-    result = (*(v5 + 8))(v14, v4);
-  }
-
-  else
-  {
-
-    v16 = 0;
-  }
-
-  *v19 = v16;
-  return result;
-}
-
-uint64_t closure #2 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(float *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  v5 = v3;
-  if (!result)
-  {
-    v5 = 0.0;
-  }
-
-  *a2 = result;
-  *(a2 + 8) = v5;
-  return result;
-}
-
-uint64_t closure #3 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t *a1@<X8>)
-{
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  *a1 = result;
-  return result;
-}
-
-uint64_t closure #4 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v4 = *a1;
-  v5 = *(a1 + 8);
-  result = REEntityIsNonHiddenAndInHierarchy();
-  if ((result & 1) == 0)
-  {
-    goto LABEL_14;
-  }
-
-  if (REEntityGetSwiftObject())
-  {
-    type metadata accessor for Entity();
-    v7 = swift_dynamicCastClassUnconditional();
-    goto LABEL_4;
-  }
-
-  if ((REEntityIsBeingDestroyed() & 1) == 0)
-  {
-    v8 = specialized static Entity.entityInfoType(_:)();
-    if (v8)
-    {
-      v2 = (*(v8 + 232))();
-      v9 = v2[2];
-
-      MEMORY[0x1C68F9740](v9, 0);
-      v2[2] = v4;
-      MEMORY[0x1C68F9740](v4, v2);
-
-LABEL_8:
-      v10 = *v2;
-      result = swift_conformsToProtocol2();
-      if (result)
-      {
-        *a2 = v5;
-        a2[1] = v2;
-        a2[2] = result;
-        return result;
-      }
-
-      if (one-time initialization token for ecsCoreLogger == -1)
-      {
-        goto LABEL_11;
-      }
-
-      goto LABEL_17;
-    }
-
-    v7 = makeEntity(for:)(v4);
-LABEL_4:
-    v2 = v7;
-    goto LABEL_8;
-  }
-
-  __break(1u);
-LABEL_17:
-  swift_once();
-LABEL_11:
-  v11 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v11, ecsCoreLogger);
-  swift_retain_n();
-  v12 = Logger.logObject.getter();
-  v13 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v12, v13))
-  {
-    v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v22 = v15;
-    *v14 = 136315394;
-    v16 = v2[2];
-    REEntityGetName();
-    v17 = String.init(cString:)();
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v22);
-
-    *(v14 + 4) = v19;
-    *(v14 + 12) = 2048;
-    v20 = v2[2];
-    LocalId = REEntityGetLocalId();
-
-    *(v14 + 14) = LocalId;
-
-    _os_log_impl(&dword_1C1358000, v12, v13, "AnchoredStateChanged event was not delivered because '%s' (%llx) does not conform to HasAnchoring", v14, 0x16u);
-    __swift_destroy_boxed_opaque_existential_1(v15);
-    MEMORY[0x1C6902A30](v15, -1, -1);
-    MEMORY[0x1C6902A30](v14, -1, -1);
-  }
-
-  else
-  {
-  }
-
-LABEL_14:
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return result;
-}
-
-uint64_t closure #5 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  v4 = *(a1 + 8);
-  if (!REEntityIsNonHiddenAndInHierarchy())
-  {
-    result = 0;
-    v6 = 0;
-LABEL_13:
-    *a2 = result;
-    *(a2 + 8) = v6;
-    return result;
-  }
-
-  if (!REEntityGetSwiftObject())
-  {
-    if (REEntityIsBeingDestroyed())
-    {
-      __break(1u);
-      goto LABEL_15;
-    }
-
-    v7 = specialized static Entity.entityInfoType(_:)();
-    if (v7)
-    {
-      v8 = (*(v7 + 232))();
-      v9 = *(v8 + 16);
-
-      MEMORY[0x1C68F9740](v9, 0);
-      *(v8 + 16) = v3;
-      MEMORY[0x1C68F9740](v3, v8);
-
-      result = v8;
-      if (v4)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    else
-    {
-      result = makeEntity(for:)(v3);
-      if (v4)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-  type metadata accessor for Entity();
-  result = swift_dynamicCastClassUnconditional();
-  if (!v4)
-  {
-LABEL_9:
-    v6 = 0;
-    goto LABEL_13;
-  }
-
-LABEL_11:
-  if (v4 == 1)
-  {
-    v6 = 1;
-    goto LABEL_13;
-  }
-
-LABEL_15:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #6 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  v4 = *(a1 + 8);
-  if (!REEntityIsNonHiddenAndInHierarchy())
-  {
-    result = 0;
-    v6 = 0;
-LABEL_13:
-    *a2 = result;
-    *(a2 + 8) = v6;
-    return result;
-  }
-
-  if (!REEntityGetSwiftObject())
-  {
-    if (REEntityIsBeingDestroyed())
-    {
-      __break(1u);
-      goto LABEL_15;
-    }
-
-    v7 = specialized static Entity.entityInfoType(_:)();
-    if (v7)
-    {
-      v8 = (*(v7 + 232))();
-      v9 = *(v8 + 16);
-
-      MEMORY[0x1C68F9740](v9, 0);
-      *(v8 + 16) = v3;
-      MEMORY[0x1C68F9740](v3, v8);
-
-      result = v8;
-      if (v4)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    else
-    {
-      result = makeEntity(for:)(v3);
-      if (v4)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    goto LABEL_9;
-  }
-
-  type metadata accessor for Entity();
-  result = swift_dynamicCastClassUnconditional();
-  if (!v4)
-  {
-LABEL_9:
-    v6 = 0;
-    goto LABEL_13;
-  }
-
-LABEL_11:
-  if (v4 == 1)
-  {
-    v6 = 1;
-    goto LABEL_13;
-  }
-
-LABEL_15:
-  result = _assertionFailure(_:_:file:line:flags:)();
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #7 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  v4 = *(a1 + 8);
-  if (!REEntityIsNonHiddenAndInHierarchy())
-  {
-    result = 0;
-    LOBYTE(v6) = 0;
-LABEL_10:
-    *a2 = result;
-    *(a2 + 8) = v6;
-    return result;
-  }
-
-  if (REEntityGetSwiftObject())
-  {
-    type metadata accessor for Entity();
-    result = swift_dynamicCastClassUnconditional();
-    if (v4 >= 4)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_9;
-  }
-
-  result = REEntityIsBeingDestroyed();
-  if ((result & 1) == 0)
-  {
-    v7 = specialized static Entity.entityInfoType(_:)();
-    if (v7)
-    {
-      v8 = (*(v7 + 232))();
-      v9 = *(v8 + 16);
-
-      MEMORY[0x1C68F9740](v9, 0);
-      *(v8 + 16) = v3;
-      MEMORY[0x1C68F9740](v3, v8);
-
-      result = v8;
-      if (v4 < 4)
-      {
-LABEL_9:
-        v6 = 0x2010003u >> (8 * v4);
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      result = makeEntity(for:)(v3);
-      if (v4 < 4)
-      {
-        goto LABEL_9;
-      }
-    }
-
-LABEL_12:
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #8 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
-{
-  v3 = *a1;
-  if (!REEntityIsNonHiddenAndInHierarchy())
-  {
-    result = 0;
-    goto LABEL_5;
-  }
-
-  if (REEntityGetSwiftObject())
-  {
-    type metadata accessor for Entity();
-    result = swift_dynamicCastClassUnconditional();
-LABEL_5:
-    *a2 = result;
-    return result;
-  }
-
-  result = REEntityIsBeingDestroyed();
-  if ((result & 1) == 0)
-  {
-    v5 = specialized static Entity.entityInfoType(_:)();
-    if (v5)
-    {
-      v6 = (*(v5 + 232))();
-      v7 = *(v6 + 16);
-
-      MEMORY[0x1C68F9740](v7, 0);
-      *(v6 + 16) = v3;
-      MEMORY[0x1C68F9740](v3, v6);
-
-      result = v6;
-    }
-
-    else
-    {
-      result = makeEntity(for:)(v3);
-    }
-
-    goto LABEL_5;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #12 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
-{
-  v4 = *a1;
-  v3 = a1[1];
-  result = REEntityIsNonHiddenAndInHierarchy();
-  if ((result & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  if (v4)
-  {
-    if (REEntityGetSwiftObject())
-    {
-      type metadata accessor for Entity();
-      v6 = swift_dynamicCastClassUnconditional();
-    }
-
-    else
-    {
-      result = REEntityIsBeingDestroyed();
-      if (result)
-      {
-        goto LABEL_22;
-      }
-
-      v8 = specialized static Entity.entityInfoType(_:)();
-      if (v8)
-      {
-        v7 = (*(v8 + 232))();
-        v9 = *(v7 + 16);
-
-        MEMORY[0x1C68F9740](v9, 0);
-        *(v7 + 16) = v4;
-        MEMORY[0x1C68F9740](v4, v7);
-
-LABEL_10:
-        v10 = *(v7 + 16);
-        if (REIsEntityHidden())
-        {
-
-LABEL_12:
-          *a2 = 0;
-          a2[1] = 0;
-          return result;
-        }
-
-        goto LABEL_13;
-      }
-
-      v6 = makeEntity(for:)(v4);
-    }
-
-    v7 = v6;
-    goto LABEL_10;
-  }
-
-  v7 = 0;
-LABEL_13:
-  if (REEntityGetSwiftObject())
-  {
-    type metadata accessor for Entity();
-    result = swift_dynamicCastClassUnconditional();
-LABEL_19:
-    *a2 = result;
-    a2[1] = v7;
-    return result;
-  }
-
-  result = REEntityIsBeingDestroyed();
-  if ((result & 1) == 0)
-  {
-    v11 = specialized static Entity.entityInfoType(_:)();
-    if (v11)
-    {
-      v12 = (*(v11 + 232))();
-      v13 = *(v12 + 16);
-
-      MEMORY[0x1C68F9740](v13, 0);
-      *(v12 + 16) = v3;
-      MEMORY[0x1C68F9740](v3, v12);
-
-      result = v12;
-    }
-
-    else
-    {
-      result = makeEntity(for:)(v3);
-    }
-
-    goto LABEL_19;
-  }
-
-  __break(1u);
-LABEL_22:
-  __break(1u);
-  return result;
-}
-
-uint64_t *closure #14 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X8>)
-{
-  v2 = *result;
-  if (*result)
-  {
-    v4 = result[1];
-    v5 = *result;
-    result = REEntityIsNonHiddenAndInHierarchy();
-    if (!result)
-    {
-      v8 = 0;
-LABEL_11:
-      *a2 = v8;
-      return result;
-    }
-
-    if (REEntityGetSwiftObject())
-    {
-      type metadata accessor for Entity();
-      v6 = swift_dynamicCastClassUnconditional();
-      goto LABEL_5;
-    }
-
-    result = REEntityIsBeingDestroyed();
-    if ((result & 1) == 0)
-    {
-      v9 = specialized static Entity.entityInfoType(_:)();
-      if (v9)
-      {
-        v7 = (*(v9 + 232))();
-        v10 = *(v7 + 16);
-
-        MEMORY[0x1C68F9740](v10, 0);
-        *(v7 + 16) = v2;
-        MEMORY[0x1C68F9740](v2, v7);
-
-        goto LABEL_10;
-      }
-
-      v6 = makeEntity(for:)(v2);
-LABEL_5:
-      v7 = v6;
-LABEL_10:
-      type metadata accessor for AnimationPlaybackController();
-      v8 = swift_allocObject();
-      *(v8 + 40) = 0;
-      swift_weakInit();
-      *(v8 + 16) = v4;
-      swift_weakAssign();
-      v11 = *(v7 + 16);
-      *(v8 + 32) = REEntityGetLocalId();
-      Hasher.init(_seed:)();
-      MEMORY[0x1C68F4C10](*(v7 + 16));
-      *(v8 + 24) = Hasher._finalize()();
-
-      goto LABEL_11;
-    }
-
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t *closure #17 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t *result@<X0>, uint64_t *a2@<X8>)
-{
-  v2 = *result;
-  if (*result)
-  {
-    v4 = result[1];
-    v5 = *result;
-    if (REEntityGetSwiftObject())
-    {
-      type metadata accessor for Entity();
-      v6 = swift_dynamicCastClassUnconditional();
-      goto LABEL_4;
-    }
-
-    result = REEntityIsBeingDestroyed();
-    if ((result & 1) == 0)
-    {
-      v8 = specialized static Entity.entityInfoType(_:)();
-      if (v8)
-      {
-        v7 = (*(v8 + 232))();
-        v9 = *(v7 + 16);
-
-        MEMORY[0x1C68F9740](v9, 0);
-        *(v7 + 16) = v2;
-        MEMORY[0x1C68F9740](v2, v7);
-
-        goto LABEL_8;
-      }
-
-      v6 = makeEntity(for:)(v2);
-LABEL_4:
-      v7 = v6;
-LABEL_8:
-      type metadata accessor for AnimationPlaybackController();
-      v10 = swift_allocObject();
-      *(v10 + 40) = 0;
-      swift_weakInit();
-      *(v10 + 16) = v4;
-      swift_weakAssign();
-      v11 = *(v7 + 16);
-      *(v10 + 32) = REEntityGetLocalId();
-      Hasher.init(_seed:)();
-      MEMORY[0x1C68F4C10](*(v7 + 16));
-      *(v10 + 24) = Hasher._finalize()();
-
-      *a2 = v10;
-      return result;
-    }
-
-    __break(1u);
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #18 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  if (!*result)
-  {
-    goto LABEL_42;
-  }
-
-  v3 = *(result + 8);
-  v4 = *(result + 16);
-  v5 = *result;
-  result = RECollisionObjectGetUserData();
-  if (result < 0)
-  {
-    __break(1u);
-    goto LABEL_37;
-  }
-
-  v6 = result;
-  if (!result)
-  {
-LABEL_37:
-    __break(1u);
-LABEL_38:
-    __break(1u);
-    goto LABEL_39;
-  }
-
-  if (!v3)
-  {
-LABEL_43:
-    __break(1u);
-    return result;
-  }
-
-  result = RECollisionObjectGetUserData();
-  if (result < 0)
-  {
-    goto LABEL_38;
-  }
-
-  v7 = result;
-  if (!result)
-  {
-LABEL_39:
-    __break(1u);
-    goto LABEL_40;
-  }
-
-  if (REEntityGetSwiftObject())
-  {
-    type metadata accessor for Entity();
-    v8 = swift_dynamicCastClassUnconditional();
-LABEL_9:
-    v9 = v8;
-    goto LABEL_13;
-  }
-
-  result = REEntityIsBeingDestroyed();
-  if (result)
-  {
-LABEL_40:
-    __break(1u);
-LABEL_41:
-    __break(1u);
-LABEL_42:
-    __break(1u);
-    goto LABEL_43;
-  }
-
-  v10 = specialized static Entity.entityInfoType(_:)();
-  if (!v10)
-  {
-    v8 = makeEntity(for:)(v6);
-    goto LABEL_9;
-  }
-
-  v9 = (*(v10 + 232))();
-  v11 = *(v9 + 16);
-
-  MEMORY[0x1C68F9740](v11, 0);
-  *(v9 + 16) = v6;
-  MEMORY[0x1C68F9740](v6, v9);
-
-LABEL_13:
-  if (REEntityGetSwiftObject())
-  {
-    type metadata accessor for Entity();
-    v12 = swift_dynamicCastClassUnconditional();
-    goto LABEL_15;
-  }
-
-  result = REEntityIsBeingDestroyed();
-  if (result)
-  {
-    goto LABEL_41;
-  }
-
-  v14 = specialized static Entity.entityInfoType(_:)();
-  if (v14)
-  {
-    v13 = (*(v14 + 232))();
-    v15 = *(v13 + 16);
-
-    MEMORY[0x1C68F9740](v15, 0);
-    *(v13 + 16) = v7;
-    MEMORY[0x1C68F9740](v7, v13);
-
-    goto LABEL_19;
-  }
-
-  v12 = makeEntity(for:)(v7);
-LABEL_15:
-  v13 = v12;
-LABEL_19:
-  v16 = *(v9 + 16);
-  SceneNullable = REEntityGetSceneNullable();
-  if (!SceneNullable)
-  {
-    goto LABEL_25;
-  }
-
-  v18 = SceneNullable;
-  v19 = RESceneGetSwiftObject();
-  type metadata accessor for Scene();
-  if (v19)
-  {
-    swift_dynamicCastClassUnconditional();
-  }
-
-  else
-  {
-    swift_allocObject();
-    Scene.init(coreScene:)(v18);
-  }
-
-  v20 = Scene.physicsOrigin.getter();
-
-  if (v20)
-  {
-
-    v38 = *&zmmword_1C1887630[48];
-    v42 = *&zmmword_1C1887630[32];
-    v40 = *&zmmword_1C1887630[16];
-    v44 = *zmmword_1C1887630;
-  }
-
-  else
-  {
-LABEL_25:
-    v21 = specialized static PhysicsSimulationComponent.nearestSimulationEntity(for:)(v9);
-    *v22.i64 = _s10RealityKit12HasTransformPAAE16conversionMatrix4from2toSo13simd_float4x4aqd__Sg_qd_0_SgtAA6EntityCRbd__ALRbd_0_r0_lFZAL_A2LTt1g5(v21, 0);
-    v42 = v23;
-    v44 = v22;
-    v38 = v25;
-    v40 = v24;
-  }
-
-  v26 = *(v9 + 16);
-
-  if (!REEntityGetComponent())
-  {
-
-    goto LABEL_30;
-  }
-
-  CollisionComponent.init(_:)(&v45);
-
-  v27 = v46;
-
-  if ((v27 & 4) == 0)
-  {
-LABEL_30:
-    v29 = MEMORY[0x1E69E7CC0];
-    goto LABEL_31;
-  }
-
-  v28 = REContactSetNeedsSwap();
-  v29 = specialized static Scene.copyContacts(from:swapContacts:sceneFromPhysics:)(v44, v40, v42, v38, v4, v28);
-LABEL_31:
-  REContactSetGetAveragePosition();
-  *&v31 = simd_float4x4.transform(position:)(v30, v44, v40, v42, v38);
-  v39 = v31;
-  REContactSetGetTotalImpulse();
-  v43 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v44, v32.f32[0]), v40, *v32.f32, 1), v42, v32, 2);
-  v33 = vmulq_f32(v43, v43);
-  v33.f32[0] = sqrtf(v33.f32[2] + vaddv_f32(*v33.f32));
-  if (v33.f32[0] <= 0.00000011921)
-  {
-    v33.f32[0] = 0.00000011921;
-  }
-
-  v41 = *v33.f32;
-  v34 = vmulq_f32(v44, v44);
-  v35 = sqrtf(v34.f32[2] + vaddv_f32(*v34.f32));
-  result = REContactSetGetMaxPenetrationDepth();
-  *&v36 = vdiv_f32(*v43.f32, vdup_lane_s32(v41, 0));
-  *(&v36 + 2) = v43.f32[2] / *v41.i32;
-  HIDWORD(v36) = 0;
-  *a2 = v9;
-  *(a2 + 8) = v13;
-  *(a2 + 16) = v39;
-  *(a2 + 32) = v41.i32[0];
-  *(a2 + 48) = v36;
-  *(a2 + 64) = v35 * v37;
-  *(a2 + 72) = v29;
-  return result;
-}
-
-uint64_t closure #20 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
-{
-  result = *a1;
-  if (!result)
-  {
-    goto LABEL_27;
-  }
-
-  v5 = a1[1];
-  result = RECollisionObjectGetUserData();
-  if (result < 0)
-  {
-    __break(1u);
-    goto LABEL_22;
-  }
-
-  v6 = result;
-  if (!result)
-  {
-LABEL_22:
-    __break(1u);
-    goto LABEL_23;
-  }
-
-  if (v5)
-  {
-    result = RECollisionObjectGetUserData();
-    if ((result & 0x8000000000000000) == 0)
-    {
-      v7 = result;
-      if (result)
-      {
-        if (REEntityGetSwiftObject())
-        {
-          type metadata accessor for Entity();
-          v8 = swift_dynamicCastClassUnconditional();
-          goto LABEL_9;
-        }
-
-        result = REEntityIsBeingDestroyed();
-        if ((result & 1) == 0)
-        {
-          v10 = specialized static Entity.entityInfoType(_:)();
-          if (v10)
-          {
-            v9 = (*(v10 + 232))();
-            v11 = *(v9 + 16);
-
-            MEMORY[0x1C68F9740](v11, 0);
-            *(v9 + 16) = v6;
-            MEMORY[0x1C68F9740](v6, v9);
-
-            goto LABEL_13;
-          }
-
-          v8 = makeEntity(for:)(v6);
-LABEL_9:
-          v9 = v8;
-LABEL_13:
-          if (REEntityGetSwiftObject())
-          {
-            type metadata accessor for Entity();
-            result = swift_dynamicCastClassUnconditional();
-LABEL_20:
-            *a2 = v9;
-            a2[1] = result;
-            return result;
-          }
-
-          result = REEntityIsBeingDestroyed();
-          if ((result & 1) == 0)
-          {
-            v12 = specialized static Entity.entityInfoType(_:)();
-            if (v12)
-            {
-              v13 = (*(v12 + 232))();
-              v14 = *(v13 + 16);
-
-              MEMORY[0x1C68F9740](v14, 0);
-              *(v13 + 16) = v7;
-              MEMORY[0x1C68F9740](v7, v13);
-
-              result = v13;
-            }
-
-            else
-            {
-              result = makeEntity(for:)(v7);
-            }
-
-            goto LABEL_20;
-          }
-
-          goto LABEL_26;
-        }
-
-LABEL_25:
-        __break(1u);
-LABEL_26:
-        __break(1u);
-LABEL_27:
-        __break(1u);
-        goto LABEL_28;
-      }
-
-LABEL_24:
-      __break(1u);
-      goto LABEL_25;
-    }
-
-LABEL_23:
-    __break(1u);
-    goto LABEL_24;
-  }
-
-LABEL_28:
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #21 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  v4 = *(a1 + 8);
-  if (!v4)
-  {
-    type metadata accessor for Entity();
-    swift_allocObject();
-    result = Entity.init()();
-    v7 = result;
-    v9 = 0;
-LABEL_10:
-    *a2 = v3;
-    *(a2 + 8) = v7;
-    *(a2 + 16) = v9;
-    return result;
-  }
-
-  v5 = *(a1 + 8);
-  if (REEntityGetSwiftObject())
-  {
-    type metadata accessor for Entity();
-    v6 = swift_dynamicCastClassUnconditional();
-    goto LABEL_4;
-  }
-
-  result = REEntityIsBeingDestroyed();
-  if ((result & 1) == 0)
-  {
-    v10 = specialized static Entity.entityInfoType(_:)();
-    if (v10)
-    {
-      v7 = (*(v10 + 232))();
-      v11 = *(v7 + 16);
-
-      MEMORY[0x1C68F9740](v11, 0);
-      *(v7 + 16) = v4;
-      MEMORY[0x1C68F9740](v4, v7);
-
-      goto LABEL_9;
-    }
-
-    v6 = makeEntity(for:)(v4);
-LABEL_4:
-    v7 = v6;
-LABEL_9:
-
-    v9 = v7;
-    goto LABEL_10;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #23 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  result = *a1;
-  if (!result)
-  {
-LABEL_11:
-    __break(1u);
-    goto LABEL_12;
-  }
-
-  v5 = *(a1 + 8);
-  result = RERigidBodyGetEntity();
-  if (result)
-  {
-    v6 = result;
-    if (REEntityGetSwiftObject())
-    {
-      type metadata accessor for Entity();
-      result = swift_dynamicCastClassUnconditional();
-LABEL_9:
-      *a2 = result;
-      *(a2 + 8) = v5;
-      return result;
-    }
-
-    result = REEntityIsBeingDestroyed();
-    if ((result & 1) == 0)
-    {
-      v7 = specialized static Entity.entityInfoType(_:)();
-      if (v7)
-      {
-        v8 = (*(v7 + 232))();
-        v9 = *(v8 + 16);
-
-        MEMORY[0x1C68F9740](v9, 0);
-        *(v8 + 16) = v6;
-        MEMORY[0x1C68F9740](v6, v8);
-
-        result = v8;
-      }
-
-      else
-      {
-        result = makeEntity(for:)(v6);
-      }
-
-      goto LABEL_9;
-    }
-
-    __break(1u);
-    goto LABEL_11;
-  }
-
-LABEL_12:
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #24 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (!result)
-  {
-    goto LABEL_8;
-  }
-
-  v6 = result;
-  swift_beginAccess();
-  if (!*(v6 + 224))
-  {
-
-LABEL_8:
-    *(a2 + 32) = 0u;
-    *(a2 + 48) = 0u;
-    *a2 = 0u;
-    *(a2 + 16) = 0u;
-    return result;
-  }
-
-  v7 = *(v6 + 232);
-  v8 = *(v6 + 224);
-  ObjectType = swift_getObjectType();
-  v16 = v4;
-  v10 = *(v7 + 32);
-  swift_unknownObjectRetain();
-  v10(&v17, &v16, ObjectType, v7);
-  if (!v18)
-  {
-LABEL_17:
-    outlined destroy of BodyTrackingComponent?(&v17, &_s10RealityKit21SynchronizationPeerID_pSgMd, &_s10RealityKit21SynchronizationPeerID_pSgMR);
-    result = _assertionFailure(_:_:file:line:flags:)();
-    __break(1u);
-    return result;
-  }
-
-  outlined init with take of ForceEffectBase(&v17, v19);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s17RealityFoundation10MutableBoxCySbGMd, &_s17RealityFoundation10MutableBoxCySbGMR);
-  v11 = swift_allocObject();
-  *(v11 + 16) = 0;
-  if (!v3)
-  {
-LABEL_16:
-    __break(1u);
-    goto LABEL_17;
-  }
-
-  v12 = v11;
-  if (!REEntityGetSwiftObject())
-  {
-    if ((REEntityIsBeingDestroyed() & 1) == 0)
-    {
-      v14 = specialized static Entity.entityInfoType(_:)();
-      if (v14)
-      {
-        v13 = (*(v14 + 232))();
-        v15 = *(v13 + 16);
-
-        MEMORY[0x1C68F9740](v15, 0);
-        *(v13 + 16) = v3;
-        MEMORY[0x1C68F9740](v3, v13);
-
-        swift_unknownObjectRelease();
-      }
-
-      else
-      {
-        v13 = makeEntity(for:)(v3);
-
-        swift_unknownObjectRelease();
-      }
-
-      goto LABEL_13;
-    }
-
-    __break(1u);
-    goto LABEL_16;
-  }
-
-  swift_unknownObjectRelease();
-  type metadata accessor for Entity();
-  v13 = swift_dynamicCastClassUnconditional();
-LABEL_13:
-  result = outlined init with take of ForceEffectBase(v19, a2 + 8);
-  *a2 = v13;
-  *(a2 + 48) = partial apply for closure #1 in closure #24 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:);
-  *(a2 + 56) = v12;
-  return result;
-}
-
-uint64_t closure #25 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (!result)
-  {
-    goto LABEL_6;
-  }
-
-  v7 = result;
-  swift_beginAccess();
-  if (!*(v7 + 224))
-  {
-
-LABEL_6:
-    *(a2 + 48) = 0;
-    *(a2 + 16) = 0u;
-    *(a2 + 32) = 0u;
-    *a2 = 0u;
-    return result;
-  }
-
-  v8 = *(v7 + 232);
-  v9 = *(v7 + 224);
-  ObjectType = swift_getObjectType();
-  v17 = v4;
-  v11 = *(v8 + 32);
-  swift_unknownObjectRetain();
-  v11(v18, &v17, ObjectType, v8);
-  if (v5 <= 1)
-  {
-    static os_log_type_t.info.getter();
-    type metadata accessor for OS_os_log();
-    v12 = static OS_os_log.default.getter();
-    os_log(_:dso:log:_:_:)();
-
-    if (v3)
-    {
-      goto LABEL_8;
-    }
-
-LABEL_14:
-    __break(1u);
-    goto LABEL_15;
-  }
-
-  LOBYTE(v5) = 1;
-  if (!v3)
-  {
-    goto LABEL_14;
-  }
-
-LABEL_8:
-  if (REEntityGetSwiftObject())
-  {
-
-    swift_unknownObjectRelease();
-    type metadata accessor for Entity();
-    result = swift_dynamicCastClassUnconditional();
-LABEL_17:
-    *a2 = result;
-    v16 = v18[1];
-    *(a2 + 8) = v18[0];
-    *(a2 + 24) = v16;
-    *(a2 + 40) = v19;
-    *(a2 + 48) = v5;
-    return result;
-  }
-
-  result = REEntityIsBeingDestroyed();
-  if ((result & 1) == 0)
-  {
-    v13 = specialized static Entity.entityInfoType(_:)();
-    if (v13)
-    {
-      v14 = (*(v13 + 232))(v13);
-      v15 = *(v14 + 16);
-
-      MEMORY[0x1C68F9740](v15, 0);
-      *(v14 + 16) = v3;
-      MEMORY[0x1C68F9740](v3, v14);
-
-      swift_unknownObjectRelease();
-
-LABEL_16:
-      result = v14;
-      goto LABEL_17;
-    }
-
-LABEL_15:
-    v14 = makeEntity(for:)(v3);
-
-    swift_unknownObjectRelease();
-    goto LABEL_16;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #26 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
-{
-  v3 = *a1;
-  v4 = a1[1];
-  swift_beginAccess();
-  result = swift_weakLoadStrong();
-  if (!result)
-  {
-    goto LABEL_7;
-  }
-
-  v6 = result;
-  swift_beginAccess();
-  if (!*(v6 + 224))
-  {
-
-LABEL_7:
-    *(a2 + 16) = 0u;
-    *(a2 + 32) = 0u;
-    *a2 = 0u;
-    return result;
-  }
-
-  v7 = *(v6 + 232);
-  v8 = *(v6 + 224);
-  ObjectType = swift_getObjectType();
-  v15 = v4;
-  v10 = *(v7 + 32);
-  swift_unknownObjectRetain();
-  result = v10(v16, &v15, ObjectType, v7);
-  if (!v3)
-  {
-    goto LABEL_16;
-  }
-
-  if (!REEntityGetSwiftObject())
-  {
-    result = REEntityIsBeingDestroyed();
-    if ((result & 1) == 0)
-    {
-      v11 = specialized static Entity.entityInfoType(_:)();
-      if (v11)
-      {
-        v12 = (*(v11 + 232))(v11);
-        v13 = *(v12 + 16);
-
-        MEMORY[0x1C68F9740](v13, 0);
-        *(v12 + 16) = v3;
-        MEMORY[0x1C68F9740](v3, v12);
-
-        swift_unknownObjectRelease();
-      }
-
-      else
-      {
-        v12 = makeEntity(for:)(v3);
-
-        swift_unknownObjectRelease();
-      }
-
-      result = v12;
-      goto LABEL_13;
-    }
-
-    __break(1u);
-LABEL_16:
-    __break(1u);
-    return result;
-  }
-
-  swift_unknownObjectRelease();
-  type metadata accessor for Entity();
-  result = swift_dynamicCastClassUnconditional();
-LABEL_13:
-  *a2 = result;
-  v14 = v16[1];
-  *(a2 + 8) = v16[0];
-  *(a2 + 24) = v14;
-  *(a2 + 40) = v17;
-  return result;
-}
-
-void closure #27 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
-{
-  v3 = specialized static AudioPlaybackController.audioPlaybackControllerForToken(token:)(*a1);
-  if (!v3)
-  {
-    static os_log_type_t.error.getter();
-    type metadata accessor for OS_os_log();
-    v4 = static OS_os_log.default.getter();
-    os_log(_:dso:log:_:_:)();
-  }
-
-  *a2 = v3;
-}
-
-uint64_t closure #28 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
-{
-  v3 = *a1;
-  result = specialized static Scene.getPublicComponentType(_:)(a1[1]);
-  if (!result || (v6 = result, v7 = v5, result = REEntityIsNonHiddenAndInHierarchy(), !result))
-  {
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
-    return result;
-  }
-
-  if (REEntityGetSwiftObject())
-  {
-    type metadata accessor for Entity();
-    result = swift_dynamicCastClassUnconditional();
-LABEL_10:
-    *a2 = result;
-    a2[1] = v6;
-    a2[2] = v7;
-    return result;
-  }
-
-  result = REEntityIsBeingDestroyed();
-  if ((result & 1) == 0)
-  {
-    v8 = specialized static Entity.entityInfoType(_:)();
-    if (v8)
-    {
-      v9 = (*(v8 + 232))();
-      v10 = *(v9 + 16);
-
-      MEMORY[0x1C68F9740](v10, 0);
-      *(v9 + 16) = v3;
-      MEMORY[0x1C68F9740](v3, v9);
-
-      result = v9;
-    }
-
-    else
-    {
-      result = makeEntity(for:)(v3);
-    }
-
-    goto LABEL_10;
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t closure #33 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X3>, uint64_t *a4@<X4>, uint64_t a5@<X8>)
-{
-  outlined init with copy of __REAssetService(a1, v11);
-  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  v9 = swift_dynamicCast();
-  return (*(*(a2 - 8) + 56))(a5, v9 ^ 1u, 1, a2);
-}
-
-unsigned __int8 *closure #38 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<X0>(unsigned __int8 *result@<X0>, _WORD *a2@<X8>)
-{
-  v2 = result[1];
-  if (v2 > 1)
-  {
-    __break(1u);
-    goto LABEL_8;
-  }
-
-  v3 = *result;
-  if (v3 > 1)
-  {
-LABEL_8:
-    __break(1u);
-    return result;
-  }
-
-  if (v3)
-  {
-    v4 = 256;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  *a2 = v4 | v2;
-  return result;
-}
-
-__n128 closure #39 in Scene.publisher<A>(for:on:componentType:rootEntity:matching:)@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
-{
-  result = *a1;
-  *a2 = *a1;
-  a2[1].n128_u8[0] = 0;
-  return result;
-}
-
-uint64_t Scene.Publisher.receive<A>(subscriber:)(uint64_t a1, uint64_t a2)
-{
-  if (*v2)
-  {
-    v5 = *v2;
-    v3 = *(a2 + 16);
-    type metadata accessor for AnyPublisher();
-    swift_getWitnessTable();
-    return Publisher.subscribe<A>(_:)();
-  }
-
-  return result;
-}
-
-uint64_t Scene.CorePublisher.init(dispatcher:sourceObject:componentType:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
-{
-  a4[1] = a3;
-  a4[2] = result;
-  *a4 = a2;
-  return result;
-}
-
-uint64_t Scene.CorePublisher.receive<A>(subscriber:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(a3 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](a1);
-  v9 = v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(v10 + 16);
-  v12 = type metadata accessor for Scene.CorePublisher.Inner();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v12);
-  v17 = v19 - v16;
-  v19[1] = *(v3 + 16);
-  (*(v6 + 16))(v9, a1, a3, v15);
-  (*(v6 + 32))(v17, v9, a3);
-  type metadata accessor for REEventDispatcher();
-
-  swift_getWitnessTable();
-  swift_getWitnessTable();
-  Publisher.subscribe<A>(_:)();
-  (*(v13 + 8))(v17, v12);
-}
-
-uint64_t Scene.CorePublisher.Inner.combineIdentifier.getter(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  v2 = *(*(a1 + 32) + 8);
-  return dispatch thunk of CustomCombineIdentifierConvertible.combineIdentifier.getter();
-}
-
-uint64_t Scene.CorePublisher.Inner.receive(subscription:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  v2 = *(a2 + 32);
-  return dispatch thunk of Subscriber.receive(subscription:)();
-}
-
-uint64_t Scene.CorePublisher.Inner.receive(_:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  v2 = *(a2 + 32);
-  return dispatch thunk of Subscriber.receive(_:)();
-}
-
-uint64_t Scene.CorePublisher.Inner.receive(completion:)(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  v2 = *(a2 + 32);
-  return dispatch thunk of Subscriber.receive(completion:)();
-}
-
-unint64_t lazy protocol witness table accessor for type SynchronizationEvents.OwnershipResponse.Response and conformance SynchronizationEvents.OwnershipResponse.Response()
-{
-  result = lazy protocol witness table cache variable for type SynchronizationEvents.OwnershipResponse.Response and conformance SynchronizationEvents.OwnershipResponse.Response;
-  if (!lazy protocol witness table cache variable for type SynchronizationEvents.OwnershipResponse.Response and conformance SynchronizationEvents.OwnershipResponse.Response)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SynchronizationEvents.OwnershipResponse.Response and conformance SynchronizationEvents.OwnershipResponse.Response);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type VideoPlayerEvents.ContentTypeDidChange.ContentType and conformance VideoPlayerEvents.ContentTypeDidChange.ContentType()
-{
-  result = lazy protocol witness table cache variable for type VideoPlayerEvents.ContentTypeDidChange.ContentType and conformance VideoPlayerEvents.ContentTypeDidChange.ContentType;
-  if (!lazy protocol witness table cache variable for type VideoPlayerEvents.ContentTypeDidChange.ContentType and conformance VideoPlayerEvents.ContentTypeDidChange.ContentType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type VideoPlayerEvents.ContentTypeDidChange.ContentType and conformance VideoPlayerEvents.ContentTypeDidChange.ContentType);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AnchorStateEvents.DidAnchor.Reason and conformance AnchorStateEvents.DidAnchor.Reason()
-{
-  result = lazy protocol witness table cache variable for type AnchorStateEvents.DidAnchor.Reason and conformance AnchorStateEvents.DidAnchor.Reason;
-  if (!lazy protocol witness table cache variable for type AnchorStateEvents.DidAnchor.Reason and conformance AnchorStateEvents.DidAnchor.Reason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AnchorStateEvents.DidAnchor.Reason and conformance AnchorStateEvents.DidAnchor.Reason);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AnchorStateEvents.WillUnanchor.Reason and conformance AnchorStateEvents.WillUnanchor.Reason()
-{
-  result = lazy protocol witness table cache variable for type AnchorStateEvents.WillUnanchor.Reason and conformance AnchorStateEvents.WillUnanchor.Reason;
-  if (!lazy protocol witness table cache variable for type AnchorStateEvents.WillUnanchor.Reason and conformance AnchorStateEvents.WillUnanchor.Reason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AnchorStateEvents.WillUnanchor.Reason and conformance AnchorStateEvents.WillUnanchor.Reason);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AnchorStateEvents.DidFailToAnchor.Reason and conformance AnchorStateEvents.DidFailToAnchor.Reason()
-{
-  result = lazy protocol witness table cache variable for type AnchorStateEvents.DidFailToAnchor.Reason and conformance AnchorStateEvents.DidFailToAnchor.Reason;
-  if (!lazy protocol witness table cache variable for type AnchorStateEvents.DidFailToAnchor.Reason and conformance AnchorStateEvents.DidFailToAnchor.Reason)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AnchorStateEvents.DidFailToAnchor.Reason and conformance AnchorStateEvents.DidFailToAnchor.Reason);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type SceneEvents.TrackingStateUpdate.State and conformance SceneEvents.TrackingStateUpdate.State()
-{
-  result = lazy protocol witness table cache variable for type SceneEvents.TrackingStateUpdate.State and conformance SceneEvents.TrackingStateUpdate.State;
-  if (!lazy protocol witness table cache variable for type SceneEvents.TrackingStateUpdate.State and conformance SceneEvents.TrackingStateUpdate.State)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SceneEvents.TrackingStateUpdate.State and conformance SceneEvents.TrackingStateUpdate.State);
-  }
-
-  return result;
-}
-
-__n128 __swift_memcpy68_16(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-  result = *(a2 + 16);
-  v3 = *(a2 + 32);
-  v4 = *(a2 + 48);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 32) = v3;
-  *(a1 + 48) = v4;
-  *(a1 + 16) = result;
-  return result;
-}
-
 uint64_t getEnumTagSinglePayload for Contact(uint64_t a1, int a2)
 {
   if (a2 && *(a1 + 68))
@@ -5377,13 +247,8 @@ LABEL_8:
   return result;
 }
 
-uint64_t destroy for ManipulationEvents.WillBegin(uint64_t *a1)
+uint64_t destroy for ManipulationEvents.WillBegin(uint64_t a1)
 {
-  v2 = *a1;
-
-  v3 = a1[1];
-
-  v4 = a1[5];
 }
 
 uint64_t initializeWithCopy for ManipulationEvents.WillBegin(uint64_t a1, uint64_t a2)
@@ -5399,38 +264,31 @@ uint64_t initializeWithCopy for ManipulationEvents.WillBegin(uint64_t a1, uint64
   return a1;
 }
 
-uint64_t *assignWithCopy for ManipulationEvents.WillBegin(uint64_t *a1, uint64_t *a2)
+void *assignWithCopy for ManipulationEvents.WillBegin(void *a1, void *a2)
 {
-  v4 = *a1;
   *a1 = *a2;
 
-  v5 = a1[1];
   a1[1] = a2[1];
 
-  v6 = a2[3];
+  v4 = a2[3];
   a1[2] = a2[2];
-  a1[3] = v6;
-  v8 = a2[4];
-  v7 = a2[5];
-  v9 = a1[5];
-  a1[4] = v8;
-  a1[5] = v7;
+  a1[3] = v4;
+  v5 = a2[5];
+  a1[4] = a2[4];
+  a1[5] = v5;
 
   return a1;
 }
 
-uint64_t *assignWithTake for ManipulationEvents.WillBegin(uint64_t *a1, uint64_t a2)
+uint64_t assignWithTake for ManipulationEvents.WillBegin(uint64_t a1, uint64_t a2)
 {
-  v4 = *a1;
 
-  v5 = a1[1];
   *a1 = *a2;
 
-  v6 = *(a2 + 24);
-  a1[2] = *(a2 + 16);
-  a1[3] = v6;
-  v7 = a1[5];
-  *(a1 + 2) = *(a2 + 32);
+  v4 = *(a2 + 24);
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = v4;
+  *(a1 + 32) = *(a2 + 32);
 
   return a1;
 }
@@ -5448,11 +306,10 @@ __n128 __swift_memcpy65_16(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t destroy for ManipulationEvents.DidUpdateTransform(uint64_t *a1)
+double destroy for ManipulationEvents.DidUpdateTransform(uint64_t a1)
 {
-  v2 = *a1;
 
-  v3 = a1[1];
+  return result;
 }
 
 uint64_t initializeWithCopy for ManipulationEvents.DidUpdateTransform(uint64_t a1, uint64_t a2)
@@ -5465,30 +322,26 @@ uint64_t initializeWithCopy for ManipulationEvents.DidUpdateTransform(uint64_t a
   return a1;
 }
 
-uint64_t *assignWithCopy for ManipulationEvents.DidUpdateTransform(uint64_t *a1, uint64_t *a2)
+void *assignWithCopy for ManipulationEvents.DidUpdateTransform(void *a1, void *a2)
 {
-  v4 = *a1;
   *a1 = *a2;
 
-  v5 = a1[1];
   a1[1] = a2[1];
 
-  v6 = a2[3];
+  v4 = a2[3];
   a1[2] = a2[2];
-  a1[3] = v6;
+  a1[3] = v4;
   return a1;
 }
 
-uint64_t *assignWithTake for ManipulationEvents.DidUpdateTransform(uint64_t *a1, uint64_t a2)
+uint64_t assignWithTake for ManipulationEvents.DidUpdateTransform(uint64_t a1, uint64_t a2)
 {
-  v4 = *a1;
 
-  v5 = a1[1];
   *a1 = *a2;
 
-  v6 = *(a2 + 24);
-  a1[2] = *(a2 + 16);
-  a1[3] = v6;
+  v4 = *(a2 + 24);
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = v4;
   return a1;
 }
 
@@ -6140,14 +993,14 @@ LABEL_20:
   return result;
 }
 
-uint64_t type metadata instantiation function for Scene.Publisher()
+uint64_t type metadata instantiation function for Scene.Publisher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t type metadata instantiation function for Scene.CorePublisher()
+uint64_t type metadata instantiation function for Scene.CorePublisher(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -6156,9 +1009,8 @@ uint64_t type metadata instantiation function for Scene.CorePublisher()
 
 uint64_t type metadata completion function for Scene.CorePublisher.Inner(uint64_t a1)
 {
-  v1 = *(a1 + 24);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -6436,7 +1288,7 @@ LABEL_28:
   return v18();
 }
 
-char *specialized static Scene.copyContacts(from:swapContacts:sceneFromPhysics:)(float32x4_t a1, float32x4_t a2, float32x4_t a3, float32x4_t a4, uint64_t a5, char a6)
+char *specialized static Scene.copyContacts(from:swapContacts:sceneFromPhysics:)(uint64_t a1, char a2, float32x4_t a3, float32x4_t a4, float32x4_t a5, float32x4_t a6)
 {
   v7 = REContactSetCount();
   result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7 & ~(v7 >> 63), 0, MEMORY[0x1E69E7CC0]);
@@ -6450,13 +1302,13 @@ char *specialized static Scene.copyContacts(from:swapContacts:sceneFromPhysics:)
     v9 = result;
     if (v7)
     {
-      v60.columns[0] = a1;
+      v60.columns[0] = a3;
       v60.columns[0].i32[3] = 0;
-      v10 = vmulq_f32(a1, a1);
+      v10 = vmulq_f32(a3, a3);
       v11 = sqrtf(v10.f32[2] + vaddv_f32(*v10.f32));
-      v60.columns[2] = a3;
+      v60.columns[2] = a5;
       v60.columns[2].i32[3] = 0;
-      v60.columns[1] = a2;
+      v60.columns[1] = a4;
       v60.columns[1].i32[3] = 0;
       v61 = __invert_f3(v60);
       v12 = 0;
@@ -6471,7 +1323,7 @@ char *specialized static Scene.copyContacts(from:swapContacts:sceneFromPhysics:)
       v49 = v14;
       do
       {
-        if (a6)
+        if (a2)
         {
           REContactSetGetPositionBWorld();
           v16 = v15;
@@ -6509,7 +1361,7 @@ char *specialized static Scene.copyContacts(from:swapContacts:sceneFromPhysics:)
         }
 
         REContactSetGetPenetrationDepth();
-        v31 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a1, v52.f32[0]), a2, *v52.f32, 1), a3, v52, 2);
+        v31 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(a3, v52.f32[0]), a4, *v52.f32, 1), a5, v52, 2);
         v32 = vmulq_f32(v31, v31);
         v33 = sqrtf(v32.f32[2] + vaddv_f32(*v32.f32));
         if (v33 > 0.00000011921)
@@ -6522,8 +1374,8 @@ char *specialized static Scene.copyContacts(from:swapContacts:sceneFromPhysics:)
           *v30.i32 = 0.00000011921;
         }
 
-        v35 = *(v9 + 2);
-        v34 = *(v9 + 3);
+        v35 = *(v9 + 16);
+        v34 = *(v9 + 24);
         if (v35 >= v34 >> 1)
         {
           v41 = v29;
@@ -6536,7 +1388,7 @@ char *specialized static Scene.copyContacts(from:swapContacts:sceneFromPhysics:)
           v9 = v42;
         }
 
-        v36 = vaddq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a1, *&v59 + (v29 * v58.f32[0])), a2, *(&v59 + 1) + vmuls_lane_f32(v29, *v58.f32, 1)), a3, *(&v59 + 2) + vmuls_lane_f32(v29, v58, 2)), a4);
+        v36 = vaddq_f32(vmlaq_n_f32(vmlaq_n_f32(vmulq_n_f32(a3, *&v59 + (v29 * v58.f32[0])), a4, *(&v59 + 1) + vmuls_lane_f32(v29, *v58.f32, 1)), a5, *(&v59 + 2) + vmuls_lane_f32(v29, v58, 2)), a6);
         *&v37 = vdivq_f32(v36, vdupq_laneq_s32(v36, 3)).u64[0];
         *(&v37 + 2) = v36.f32[2] / v36.f32[3];
         HIDWORD(v37) = 0;
@@ -6546,13 +1398,13 @@ char *specialized static Scene.copyContacts(from:swapContacts:sceneFromPhysics:)
         *&v39 = vdiv_f32(*v31.f32, vdup_lane_s32(v30, 0));
         *(&v39 + 2) = v31.f32[2] / *v30.i32;
         HIDWORD(v39) = 0;
-        *(v9 + 2) = v35 + 1;
-        v40 = &v9[80 * v35];
-        *(v40 + 2) = v37;
-        *(v40 + 3) = v38;
-        *(v40 + 16) = v30.i32[0];
-        *(v40 + 5) = v39;
-        *(v40 + 24) = v11 * v29;
+        *(v9 + 16) = v35 + 1;
+        v40 = v9 + 80 * v35;
+        *(v40 + 32) = v37;
+        *(v40 + 48) = v38;
+        *(v40 + 64) = v30.i32[0];
+        *(v40 + 80) = v39;
+        *(v40 + 96) = v11 * v29;
       }
 
       while (v7 != v12);
@@ -6577,8 +1429,8 @@ uint64_t lazy protocol witness table accessor for type Scene.CorePublisher<REVid
   result = *a1;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
-    result = swift_getWitnessTable();
+    v5 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
+    result = swift_getWitnessTable(protocol conformance descriptor for Scene.CorePublisher<A>, v5);
     atomic_store(result, a1);
   }
 
@@ -6589,24 +1441,23 @@ uint64_t specialized static Scene.getPublicComponentType(_:)(uint64_t a1)
 {
   v2 = specialized static __ServiceLocator.shared.getter();
   swift_beginAccess();
-  outlined init with copy of __REAssetService(v2 + 80, v19);
+  outlined init with copy of __REAssetService(v2 + 80, v16);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit14__SceneService_pMd, &_s10RealityKit14__SceneService_pMR);
   type metadata accessor for SceneManager();
   swift_dynamicCast();
   swift_beginAccess();
-  v3 = *(v18 + 16);
+  v3 = *(v15 + 16);
   swift_beginAccess();
   v4 = *(v3 + 24);
   if (*(v4 + 16) && (v5 = specialized __RawDictionaryStorage.find<A>(_:)(a1), (v6 & 1) != 0))
   {
     v7 = *(v4 + 56) + 80 * v5;
-    v9 = *(v7 + 16);
-    v8 = *(v7 + 24);
-    v10 = *(v7 + 48);
+    v8 = *(v7 + 16);
+    v9 = *(v7 + 48);
 
-    if (v10 == 2)
+    if (v9 == 2)
     {
-      return v9;
+      return v8;
     }
   }
 
@@ -6618,27 +1469,25 @@ uint64_t specialized static Scene.getPublicComponentType(_:)(uint64_t a1)
     }
 
     swift_beginAccess();
-    v11 = static SceneManager.handlesToCustomComponentTypes;
-    if (*(static SceneManager.handlesToCustomComponentTypes + 16) && (v12 = specialized __RawDictionaryStorage.find<A>(_:)(a1), (v13 & 1) != 0))
+    v10 = static SceneManager.handlesToCustomComponentTypes;
+    if (*(static SceneManager.handlesToCustomComponentTypes + 16) && (v11 = specialized __RawDictionaryStorage.find<A>(_:)(a1), (v12 & 1) != 0))
     {
-      v14 = (*(v11 + 56) + 16 * v12);
-      v9 = *v14;
-      v15 = v14[1];
+      v8 = *(*(v10 + 56) + 16 * v11);
       swift_endAccess();
 
       if (swift_conformsToProtocol2())
       {
-        v16 = v9 == 0;
+        v13 = v8 == 0;
       }
 
       else
       {
-        v16 = 1;
+        v13 = 1;
       }
 
-      if (v16)
+      if (v13)
       {
-        return v9;
+        return v8;
       }
     }
 
@@ -6651,26 +1500,8 @@ uint64_t specialized static Scene.getPublicComponentType(_:)(uint64_t a1)
   return 0;
 }
 
-uint64_t partial apply for closure #3 in Scene.subscribe<A>(to:on:componentType:rootEntity:matching:_:)()
-{
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
-  return v1();
-}
-
-uint64_t partial apply for closure #2 in Scene.subscribe<A>(to:on:componentType:rootEntity:matching:_:)(uint64_t a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  v4 = *(v1 + 48);
-  return closure #2 in Scene.subscribe<A>(to:on:componentType:rootEntity:matching:_:)(a1, *(v1 + 32), *(v1 + 40));
-}
-
 uint64_t objectdestroy_502Tm()
 {
-  v1 = *(v0 + 32);
-
-  v2 = *(v0 + 48);
 
   return MEMORY[0x1EEE6BDD0](v0, 56, 7);
 }
@@ -6732,67 +1563,65 @@ LABEL_8:
   return result;
 }
 
-uint64_t static __REAssetBundle.__init(url:assetService:materialDefinition:with:)@<X0>(void *a1@<X1>, char *a2@<X3>, uint64_t *a3@<X8>)
+uint64_t static __REAssetBundle.__init(url:assetService:materialDefinition:with:)@<X0>(char *a2@<X1>, char *a4@<X3>, uint64_t *x8_0@<X8>)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  v6 = *a2;
-  v26 = 0u;
-  memset(v27, 0, sizeof(v27));
-  v24 = 0u;
+  v34 = *MEMORY[0x1E69E9840];
+  v8 = *a4;
+  v27 = 0u;
+  memset(v28, 0, sizeof(v28));
   v25 = 0u;
-  v23 = 0u;
-  v28 = 1;
-  v29 = 0;
-  v31 = 0;
-  v32 = 0;
+  v26 = 0u;
+  v24 = 0u;
+  v29 = 1;
   v30 = 0;
-  v22[0] = v6;
-  v7 = a1[3];
-  v8 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v7);
-  (*(v8 + 32))(v7, v8);
+  v32 = 0;
+  v33 = 0;
+  v31 = 0;
+  v23[0] = v8;
+  v9 = *(a2 + 3);
+  v10 = *(a2 + 4);
+  __swift_project_boxed_opaque_existential_1(a2, v9);
+  (*(v10 + 32))(v9, v10);
   ServiceLocatorForLegacyAPIWorkaround = _REAssetManagerGetServiceLocatorForLegacyAPIWorkaround();
-  v10 = a1[3];
-  v11 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v10);
-  (*(v11 + 32))(v10, v11);
-  URL._bridgeToObjectiveC()(v12);
-  v14 = v13;
-  v15 = RERealityFileMountFileAtURL();
+  v12 = *(a2 + 3);
+  v13 = *(a2 + 4);
+  __swift_project_boxed_opaque_existential_1(a2, v12);
+  (*(v13 + 32))(v12, v13);
+  URL._bridgeToObjectiveC()(v14);
+  v16 = v15;
+  v17 = RERealityFileMountFileAtURL();
 
-  if (v15)
+  if (v17)
   {
-    static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v15, a1, ServiceLocatorForLegacyAPIWorkaround, v22, a3);
-    v16 = a1[3];
-    v17 = a1[4];
-    __swift_project_boxed_opaque_existential_1(a1, v16);
-    (*(v17 + 32))(v16, v17);
+    static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v17, a2, ServiceLocatorForLegacyAPIWorkaround, v23, x8_0);
+    v18 = *(a2 + 3);
+    v19 = *(a2 + 4);
+    __swift_project_boxed_opaque_existential_1(a2, v18);
+    (*(v19 + 32))(v18, v19);
     RERealityFileUnmount();
   }
 
   else
   {
     specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(0);
-    if (!v3)
+    if (!v5)
     {
       _StringGuts.grow(_:)(34);
 
-      v18 = URL.path.getter();
-      MEMORY[0x1C68F3410](v18);
+      v20 = URL.path.getter();
+      MEMORY[0x1C68F3410](v20);
 
       MEMORY[0x1C68F3410](46, 0xE100000000000000);
       lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
       swift_allocError();
-      *v19 = 0xD00000000000001FLL;
-      *(v19 + 8) = 0x80000001C18E1F00;
-      *(v19 + 16) = 4;
+      *v21 = 0xD00000000000001FLL;
+      *(v21 + 8) = 0x80000001C18E1F00;
+      *(v21 + 16) = 4;
       swift_willThrow();
     }
   }
 
-  result = outlined destroy of __REAssetBundle.LoadOptions(v22);
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return outlined destroy of __REAssetBundle.LoadOptions(v23);
 }
 
 uint64_t specialized Sequence.compactMap<A>(_:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -6812,7 +1641,7 @@ uint64_t specialized Sequence.compactMap<A>(_:)(uint64_t result, uint64_t a2, ui
       while (a4 != v7)
       {
         v13 = v7;
-        result = v8(&v12, &v13);
+        result = v8(&v12, &v13, a2);
         if (v4)
         {
 
@@ -6858,7 +1687,7 @@ uint64_t specialized Sequence.compactMap<A>(_:)(uint64_t result, uint64_t a2, ui
 
 uint64_t specialized Sequence.compactMap<A>(_:)(void (*a1)(uint64_t *__return_ptr, uint64_t *), uint64_t a2, unint64_t a3)
 {
-  v16 = MEMORY[0x1E69E7CC0];
+  v15 = MEMORY[0x1E69E7CC0];
   if (a3 >> 62)
   {
 LABEL_19:
@@ -6910,24 +1739,23 @@ LABEL_16:
           }
         }
 
-        v15 = v7;
-        a1(&v14, &v15);
+        v14 = v7;
+        a1(&v13, &v14);
         if (v3)
         {
           goto LABEL_16;
         }
 
-        if (v14)
+        if (v13)
         {
           MEMORY[0x1C68F3650](v9);
-          if (*((v16 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v16 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          if (*((v15 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v15 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
-            v12 = *((v16 & 0xFFFFFFFFFFFFFF8) + 0x10);
             specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
           }
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-          v11 = v16;
+          v11 = v15;
         }
 
         ++v6;
@@ -6946,7 +1774,7 @@ LABEL_16:
   return sub_1C136AB94(a1, a2, a3);
 }
 
-void *specialized Sequence.compactMap<A>(_:)(void (*a1)(__int128 *__return_ptr, uint64_t *), uint64_t a2, uint64_t a3)
+void *specialized Sequence.compactMap<A>(_:)(void (*a1)(__int128 *__return_ptr, uint64_t *, uint64_t), uint64_t a2, uint64_t a3)
 {
   v4 = *(a3 + 16);
   if (!v4)
@@ -6959,7 +1787,7 @@ void *specialized Sequence.compactMap<A>(_:)(void (*a1)(__int128 *__return_ptr, 
   while (1)
   {
     v18 = *v6;
-    a1(&v16, &v18);
+    a1(&v16, &v18, a2);
     if (v3)
     {
       break;
@@ -7000,7 +1828,7 @@ void *specialized Sequence.compactMap<A>(_:)(void (*a1)(__int128 *__return_ptr, 
   return v7;
 }
 
-uint64_t __REAssetBundle.sceneAsset(for:)(uint64_t a1)
+void __REAssetBundle.sceneAsset(for:)(uint64_t a1)
 {
   v2 = *(v1 + 56);
   if ((v2 & 0xC000000000000001) != 0)
@@ -7031,38 +1859,38 @@ uint64_t __REAssetBundle.sceneAsset(for:)(uint64_t a1)
     v6 = v2;
   }
 
-  v11 = 0;
-  v12 = (v4 + 64) >> 6;
+  v10 = 0;
+  v11 = (v4 + 64) >> 6;
   if ((v6 & 0x8000000000000000) != 0)
   {
     goto LABEL_14;
   }
 
 LABEL_8:
-  v13 = v11;
-  v14 = v5;
-  v15 = v11;
+  v12 = v10;
+  v13 = v5;
+  v14 = v10;
   if (v5)
   {
 LABEL_12:
-    v16 = (v14 - 1) & v14;
-    v17 = (v15 << 9) | (8 * __clz(__rbit64(v14)));
-    v18 = *(*(v6 + 48) + v17);
-    v19 = *(*(v6 + 56) + v17);
+    v15 = (v13 - 1) & v13;
+    v16 = (v14 << 9) | (8 * __clz(__rbit64(v13)));
+    v17 = *(*(v6 + 48) + v16);
+    v18 = *(*(v6 + 56) + v16);
 
-    if (v18)
+    if (v17)
     {
       do
       {
-        v20 = MEMORY[0x1C68FDE40](*(v19 + 16), *(a1 + 16));
+        v19 = MEMORY[0x1C68FDE40](*(v18 + 16), *(a1 + 16));
 
-        if (v20)
+        if (v19)
         {
           break;
         }
 
-        v11 = v15;
-        v5 = v16;
+        v10 = v14;
+        v5 = v15;
         if ((v6 & 0x8000000000000000) == 0)
         {
           goto LABEL_8;
@@ -7071,47 +1899,43 @@ LABEL_12:
 LABEL_14:
         if (!__CocoaDictionary.Iterator.next()())
         {
-          goto LABEL_19;
+          break;
         }
 
         type metadata accessor for __REAsset();
         swift_dynamicCast();
-        v18 = v22;
         type metadata accessor for RESceneDescriptor();
         swift_dynamicCast();
-        v19 = v22;
-        v15 = v11;
-        v16 = v5;
+        v18 = v21;
+        v14 = v10;
+        v15 = v5;
       }
 
-      while (v22);
+      while (v21);
     }
 
-LABEL_20:
+LABEL_19:
     outlined consume of [String : AnimationResource].Iterator._Variant();
-    return v18;
   }
 
   else
   {
     while (1)
     {
-      v15 = v13 + 1;
-      if (__OFADD__(v13, 1))
+      v14 = v12 + 1;
+      if (__OFADD__(v12, 1))
       {
         break;
       }
 
-      if (v15 >= v12)
+      if (v14 >= v11)
       {
-LABEL_19:
-        v18 = 0;
-        goto LABEL_20;
+        goto LABEL_19;
       }
 
-      v14 = *(v3 + 8 * v15);
-      ++v13;
-      if (v14)
+      v13 = *(v3 + 8 * v14);
+      ++v12;
+      if (v13)
       {
         goto LABEL_12;
       }
@@ -7119,50 +1943,37 @@ LABEL_19:
 
     __break(1u);
   }
-
-  return result;
 }
 
-uint64_t __REAssetBundle.mainSceneAsset.getter()
+void __REAssetBundle.mainSceneAsset.getter()
 {
   v1 = *(v0 + 8);
-  if (!(v1 >> 62))
+  if (v1 >> 62)
   {
-    result = *((v1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (!result)
+    if (!__CocoaSet.count.getter())
     {
-      return result;
-    }
-
-    goto LABEL_3;
-  }
-
-  if (v1 < 0)
-  {
-    v4 = *(v0 + 8);
-  }
-
-  result = __CocoaSet.count.getter();
-  if (result)
-  {
-LABEL_3:
-    if ((v1 & 0xC000000000000001) != 0)
-    {
-      return MEMORY[0x1C68F41F0](0, v1);
-    }
-
-    else if (*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
-    {
-      v3 = *(v1 + 32);
-    }
-
-    else
-    {
-      __break(1u);
+      return;
     }
   }
 
-  return result;
+  else if (!*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+    return;
+  }
+
+  if ((v1 & 0xC000000000000001) != 0)
+  {
+    MEMORY[0x1C68F41F0](0, v1);
+  }
+
+  else if (*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+  }
+
+  else
+  {
+    __break(1u);
+  }
 }
 
 double __REAssetBundle.LoadOptions.init(queueOptions:)@<D0>(char *a1@<X0>, uint64_t a2@<X8>)
@@ -7186,136 +1997,133 @@ double __REAssetBundle.LoadOptions.init(queueOptions:)@<D0>(char *a1@<X0>, uint6
 
 uint64_t __REAssetBundle.init(bundle:entryName:serviceLocator:_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, unsigned __int8 *a5@<X4>, uint64_t *a6@<X8>)
 {
-  v48 = a2;
-  v46 = a6;
-  v56 = *MEMORY[0x1E69E9840];
+  v46 = a2;
+  v44 = a6;
+  v54 = *MEMORY[0x1E69E9840];
   v10 = type metadata accessor for DispatchPredicate();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = (&v44 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v13 = (&v42 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
   swift_beginAccess();
-  outlined init with copy of __REAssetService(a4 + 120, v53);
-  v15 = v54;
-  v16 = v55;
-  __swift_project_boxed_opaque_existential_1(v53, v54);
-  v52[0] = *a5;
-  __REAssetService.dispatchPredicate(for:)(v52, v15, v16, v14);
-  __swift_destroy_boxed_opaque_existential_1(v53);
-  LOBYTE(v15) = _dispatchPreconditionTest(_:)();
-  (*(v11 + 8))(v14, v10);
-  if ((v15 & 1) == 0)
+  outlined init with copy of __REAssetService(a4 + 120, v51);
+  v14 = v52;
+  v15 = v53;
+  __swift_project_boxed_opaque_existential_1(v51, v52);
+  v50[0] = *a5;
+  __REAssetService.dispatchPredicate(for:)(v50, v14, v15, v13);
+  __swift_destroy_boxed_opaque_existential_1(v51);
+  LOBYTE(v14) = _dispatchPreconditionTest(_:)();
+  (*(v11 + 8))(v13, v10);
+  if ((v14 & 1) == 0)
   {
     __break(1u);
   }
 
-  outlined init with copy of __REAssetService(a4 + 120, v53);
+  outlined init with copy of __REAssetService(a4 + 120, v51);
   swift_beginAccess();
-  v17 = *(a4 + 16);
-  v51 = 0;
-  v18 = [a1 bundleIdentifier];
-  if (!v18)
+  v16 = *(a4 + 16);
+  v49 = 0;
+  v17 = [a1 bundleIdentifier];
+  if (!v17)
   {
 
-    v31 = [a1 bundlePath];
-    v32 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v34 = v33;
+    v30 = [a1 bundlePath];
+    v31 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v33 = v32;
 
     lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
     swift_allocError();
-    *v35 = v32;
-    *(v35 + 8) = v34;
-    *(v35 + 16) = 3;
+    *v34 = v31;
+    *(v34 + 8) = v33;
+    *(v34 + 16) = 3;
     swift_willThrow();
 LABEL_8:
 
     goto LABEL_16;
   }
 
-  v45 = a5;
-  v19 = v18;
-  v20 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v22 = v21;
+  v43 = a5;
+  v18 = v17;
+  v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v21 = v20;
 
-  v23 = v54;
-  v24 = v55;
-  __swift_project_boxed_opaque_existential_1(v53, v54);
-  (*(v24 + 32))(v23, v24);
+  v22 = v52;
+  v23 = v53;
+  __swift_project_boxed_opaque_existential_1(v51, v52);
+  (*(v23 + 32))(v22, v23);
   String.utf8CString.getter();
   String.utf8CString.getter();
-  v25 = RERealityFileMountFileInBundle();
+  v24 = RERealityFileMountFileInBundle();
 
-  if (v25)
+  if (v24)
   {
 
-    a5 = v45;
-    v26 = *(v45 + 15);
-    if (v26)
+    a5 = v43;
+    v25 = *(v43 + 15);
+    if (v25)
     {
       MajorVersionNumber = RERealityFileGetMajorVersionNumber();
-      v28 = v26 + OBJC_IVAR____TtCE17RealityFoundationC10RealityKit6Entity14LoadStatistics_type;
-      *v28 = MajorVersionNumber;
-      *(v28 + 8) = 1;
+      v27 = v25 + OBJC_IVAR____TtCE17RealityFoundationC10RealityKit6Entity14LoadStatistics_type;
+      *v27 = MajorVersionNumber;
+      *(v27 + 8) = 1;
     }
 
-    static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v25, v53, v17, a5, v46);
-    v29 = v54;
-    v30 = v55;
-    __swift_project_boxed_opaque_existential_1(v53, v54);
-    (*(v30 + 32))(v29, v30);
+    static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v24, v51, v16, a5, v44);
+    v28 = v52;
+    v29 = v53;
+    __swift_project_boxed_opaque_existential_1(v51, v52);
+    (*(v29 + 32))(v28, v29);
     RERealityFileUnmount();
     goto LABEL_8;
   }
 
-  v36 = v47;
-  specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(v51);
-  if (v36)
+  v35 = v45;
+  specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(v49);
+  if (v35)
   {
   }
 
   else
   {
-    v37 = v51;
-    if (v51)
+    v36 = v49;
+    if (v49)
     {
       type metadata accessor for CFErrorRef(0);
-      _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type CFErrorRef and conformance CFErrorRef, type metadata accessor for CFErrorRef);
+      _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type CFErrorRef and conformance CFErrorRef, type metadata accessor for CFErrorRef, MEMORY[0x1E6969E70]);
       swift_allocError();
-      *v38 = v37;
+      *v37 = v36;
     }
 
     else
     {
-      v49 = 0;
-      v50 = 0xE000000000000000;
+      v47 = 0;
+      v48 = 0xE000000000000000;
       _StringGuts.grow(_:)(48);
 
-      v49 = 0xD00000000000001FLL;
-      v50 = 0x80000001C18E1F00;
-      MEMORY[0x1C68F3410](v48, a3);
+      v47 = 0xD00000000000001FLL;
+      v48 = 0x80000001C18E1F00;
+      MEMORY[0x1C68F3410](v46, a3);
 
       MEMORY[0x1C68F3410](0x646E7542206E6920, 0xEC000000203A656CLL);
-      MEMORY[0x1C68F3410](v20, v22);
+      MEMORY[0x1C68F3410](v19, v21);
 
       MEMORY[0x1C68F3410](46, 0xE100000000000000);
-      v39 = v49;
-      v40 = v50;
+      v38 = v47;
+      v39 = v48;
       lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
       swift_allocError();
-      *v41 = v39;
-      *(v41 + 8) = v40;
-      *(v41 + 16) = 4;
+      *v40 = v38;
+      *(v40 + 8) = v39;
+      *(v40 + 16) = 4;
     }
 
     swift_willThrow();
   }
 
-  a5 = v45;
+  a5 = v43;
 LABEL_16:
   outlined destroy of __REAssetBundle.LoadOptions(a5);
-  result = __swift_destroy_boxed_opaque_existential_1(v53);
-  v43 = *MEMORY[0x1E69E9840];
-  return result;
+  return __swift_destroy_boxed_opaque_existential_1(v51);
 }
 
 uint64_t one-time initialization function for __sdkBundleVersion()
@@ -7359,7 +2167,7 @@ uint64_t one-time initialization function for defaultRealityFileVersionForWriteP
   return result;
 }
 
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAssetBundle.Header.VersionInfo.CodingKeys()
+unint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAssetBundle.Header.VersionInfo.CodingKeys()
 {
   v1 = 0xD000000000000010;
   if (*v0 != 1)
@@ -7378,10 +2186,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAs
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.Header.VersionInfo.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.Header.VersionInfo.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized __REAssetBundle.Header.VersionInfo.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized __REAssetBundle.Header.VersionInfo.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -7403,76 +2211,73 @@ uint64_t __REAssetBundle.Header.VersionInfo.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV6HeaderV11VersionInfoV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV6HeaderV11VersionInfoV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = v15 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v10 = v1[2];
-  v15[3] = v1[3];
-  v15[4] = v10;
-  v11 = v1[4];
-  v15[1] = v1[5];
-  v15[2] = v11;
-  v12 = a1[4];
+  v6 = v11 - v5;
+  v7 = v1[2];
+  v11[3] = v1[3];
+  v11[4] = v7;
+  v8 = v1[4];
+  v11[1] = v1[5];
+  v11[2] = v8;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v18 = 0;
-  v13 = v15[5];
+  v14 = 0;
+  v9 = v11[5];
   KeyedEncodingContainer.encode(_:forKey:)();
-  if (v13)
+  if (v9)
   {
-    return (*(v4 + 8))(v7, v3);
+    return (*(v4 + 8))(v6, v3);
   }
 
-  v17 = 1;
+  v13 = 1;
   KeyedEncodingContainer.encode(_:forKey:)();
-  v16 = 2;
+  v12 = 2;
   KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-  return (*(v4 + 8))(v7, v3);
+  return (*(v4 + 8))(v6, v3);
 }
 
-uint64_t __REAssetBundle.Header.VersionInfo.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void __REAssetBundle.Header.VersionInfo.init(from:)(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV6HeaderV11VersionInfoV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV6HeaderV11VersionInfoV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v21 - v8;
-  v10 = a1[4];
+  v8 = &v18 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v27 = 0;
-  v11 = KeyedDecodingContainer.decode(_:forKey:)();
-  v13 = v12;
-  v24 = v11;
-  v26 = 1;
-  v22 = KeyedDecodingContainer.decode(_:forKey:)();
-  v23 = v14;
-  v25 = 2;
-  v15 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  v17 = v16;
-  v18 = v15;
-  (*(v6 + 8))(v9, v5);
-  v19 = v23;
-  *a2 = v24;
-  a2[1] = v13;
-  a2[2] = v22;
-  a2[3] = v19;
-  a2[4] = v18;
-  a2[5] = v17;
+  else
+  {
+    v24 = 0;
+    v9 = KeyedDecodingContainer.decode(_:forKey:)();
+    v11 = v10;
+    v21 = v9;
+    v23 = 1;
+    v19 = KeyedDecodingContainer.decode(_:forKey:)();
+    v20 = v12;
+    v22 = 2;
+    v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    v15 = v14;
+    v16 = v13;
+    (*(v6 + 8))(v8, v5);
+    v17 = v20;
+    *a2 = v21;
+    a2[1] = v11;
+    a2[2] = v19;
+    a2[3] = v17;
+    a2[4] = v16;
+    a2[5] = v15;
 
-  __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
+  }
 }
 
-uint64_t __REAssetBundle.Header.versionInfo.getter@<X0>(void *a1@<X8>)
+double __REAssetBundle.Header.versionInfo.getter@<D0>(void *a1@<X8>)
 {
   v2 = v1[1];
   v3 = v1[2];
@@ -7485,21 +2290,20 @@ uint64_t __REAssetBundle.Header.versionInfo.getter@<X0>(void *a1@<X8>)
   a1[3] = v4;
   a1[4] = v6;
   a1[5] = v5;
+
+  return result;
 }
 
 __n128 __REAssetBundle.Header.versionInfo.setter(__int128 *a1)
 {
-  v8 = a1[1];
-  v9 = *a1;
+  v5 = a1[1];
+  v6 = *a1;
   v2 = *(a1 + 4);
   v3 = *(a1 + 5);
-  v4 = *(v1 + 8);
-  v5 = *(v1 + 24);
-  v6 = *(v1 + 40);
 
-  result = v8;
-  *v1 = v9;
-  *(v1 + 16) = v8;
+  result = v5;
+  *v1 = v6;
+  *(v1 + 16) = v5;
   *(v1 + 32) = v2;
   *(v1 + 40) = v3;
   return result;
@@ -7509,50 +2313,46 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAs
 {
   if (*v0)
   {
-    result = 0x69737265566E696DLL;
+    return 0x69737265566E696DLL;
   }
 
   else
   {
-    result = 0x496E6F6973726576;
+    return 0x496E6F6973726576;
   }
-
-  *v0;
-  return result;
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.Header.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+void protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.Header.CodingKeys(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
   v6 = a1 == 0x496E6F6973726576 && a2 == 0xEB000000006F666ELL;
   if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
 
-    v8 = 0;
+    v7 = 0;
   }
 
   else if (a1 == 0x69737265566E696DLL && a2 == 0xEA00000000006E6FLL)
   {
 
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v9)
+    if (v8)
     {
-      v8 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v8 = 2;
+      v7 = 2;
     }
   }
 
-  *a3 = v8;
-  return result;
+  *a3 = v7;
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance __REAssetBundle.Header.CodingKeys(uint64_t a1)
@@ -7572,88 +2372,87 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 uint64_t __REAssetBundle.Header.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV6HeaderV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV6HeaderV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
-  v20 = *(v3 - 8);
-  v4 = *(v20 + 64);
+  v18 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = &v15 - v5;
-  v7 = *v1;
-  v8 = v1[1];
-  v9 = v1[3];
-  v17 = v1[2];
-  v18 = v7;
-  v10 = v1[4];
-  v11 = v1[5];
-  v15 = v1[6];
-  v16 = v10;
-  v12 = a1[4];
+  v5 = &v13 - v4;
+  v6 = *v1;
+  v7 = v1[1];
+  v8 = v1[3];
+  v15 = v1[2];
+  v16 = v6;
+  v9 = v1[4];
+  v10 = v1[5];
+  v13 = v1[6];
+  v14 = v9;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys();
 
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v21 = v18;
+  v19 = v16;
+  v20 = v7;
+  v21 = v15;
   v22 = v8;
-  v23 = v17;
-  v24 = v9;
-  v25 = v16;
-  v26 = v11;
-  v27 = 0;
+  v23 = v14;
+  v24 = v10;
+  v25 = 0;
   lazy protocol witness table accessor for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo();
-  v13 = v19;
+  v11 = v17;
   KeyedEncodingContainer.encode<A>(_:forKey:)();
 
-  if (!v13)
+  if (!v11)
   {
-    LOBYTE(v21) = 1;
+    LOBYTE(v19) = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  return (*(v20 + 8))(v6, v3);
+  return (*(v18 + 8))(v5, v3);
 }
 
-uint64_t __REAssetBundle.Header.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void __REAssetBundle.Header.init(from:)(void *a1@<X0>, void *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV6HeaderV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV6HeaderV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v17 - v8;
+  v8 = &v14 - v7;
   if (one-time initialization token for minimumWritingFormatVersion != -1)
   {
     swift_once();
   }
 
-  v10 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  v27 = 0;
-  lazy protocol witness table accessor for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo();
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v19 = v21;
-  v20 = v22;
-  v11 = v24;
-  v12 = v26;
-  v17 = v25;
-  v18 = v23;
-  LOBYTE(v21) = 1;
-  v13 = KeyedDecodingContainer.decode(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v14 = v20;
-  *a2 = v19;
-  a2[1] = v14;
-  v15 = v17;
-  a2[2] = v18;
-  a2[3] = v11;
-  a2[4] = v15;
-  a2[5] = v12;
-  a2[6] = v13;
+  else
+  {
+    v24 = 0;
+    lazy protocol witness table accessor for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo();
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v16 = v18;
+    v17 = v19;
+    v9 = v21;
+    v10 = v23;
+    v14 = v22;
+    v15 = v20;
+    LOBYTE(v18) = 1;
+    v11 = KeyedDecodingContainer.decode(_:forKey:)();
+    (*(v6 + 8))(v8, v5);
+    v12 = v17;
+    *a2 = v16;
+    a2[1] = v12;
+    v13 = v14;
+    a2[2] = v15;
+    a2[3] = v9;
+    a2[4] = v13;
+    a2[5] = v10;
+    a2[6] = v11;
 
-  __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
+  }
 }
 
 RealityKit::__REAssetIdentifier_optional __swiftcall __REAssetBundle.mainSceneIdentifier()()
@@ -7700,7 +2499,6 @@ BOOL protocol witness for static Equatable.== infix(_:_:) in conformance __REAss
 uint64_t __REAssetBundle.ExportOptions.AssetRemapping.rawAssetPath.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -7708,7 +2506,6 @@ uint64_t __REAssetBundle.ExportOptions.AssetRemapping.rawAssetPath.getter()
 uint64_t __REAssetBundle.ExportOptions.AssetRemapping.replacementName.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
@@ -7719,13 +2516,6 @@ RealityKit::__REAssetBundle::ExportOptions::AssetRemapping __swiftcall __REAsset
   v2[1] = replacement;
   result.replacementName = replacement;
   result.rawAssetPath = rawAssetPath;
-  return result;
-}
-
-uint64_t __REAssetBundle.ExportOptions.compressionLevel.getter()
-{
-  result = *(v0 + 8);
-  v2 = *(v0 + 16);
   return result;
 }
 
@@ -7775,27 +2565,17 @@ uint64_t __REAssetBundle.ExportOptions.deploymentTarget.getter@<X0>(uint64_t a1@
 
 __n128 __REAssetBundle.ExportOptions.deploymentTarget.setter(__n128 *a1)
 {
-  v10 = *a1;
+  v7 = *a1;
   v2 = a1[1].n128_u64[0];
   v3 = a1[1].n128_u32[2];
-  v5 = *(v1 + 64);
   v4 = v1 + 64;
-  v6 = a1[1].n128_u8[12];
-  v7 = *(v4 - 8);
-  v8 = v5 | (*(v4 + 4) << 32);
+  v5 = a1[1].n128_u8[12];
   outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(*(v4 - 24), *(v4 - 16));
-  result = v10;
-  *(v4 - 24) = v10;
+  result = v7;
+  *(v4 - 24) = v7;
   *(v4 - 8) = v2;
-  *(v4 + 4) = v6;
+  *(v4 + 4) = v5;
   *v4 = v3;
-  return result;
-}
-
-uint64_t __REAssetBundle.ExportOptions.versionOverride.getter()
-{
-  result = *(v0 + 72);
-  v2 = *(v0 + 80);
   return result;
 }
 
@@ -7803,38 +2583,6 @@ uint64_t __REAssetBundle.ExportOptions.versionOverride.setter(uint64_t result, c
 {
   *(v2 + 72) = result;
   *(v2 + 80) = a2 & 1;
-  return result;
-}
-
-uint64_t __REAssetBundle.ExportOptions.configurationSetNames.setter(uint64_t a1)
-{
-  v3 = *(v1 + 88);
-
-  *(v1 + 88) = a1;
-  return result;
-}
-
-uint64_t __REAssetBundle.ExportOptions.defaultConfigurationNames.setter(uint64_t a1)
-{
-  v3 = *(v1 + 96);
-
-  *(v1 + 96) = a1;
-  return result;
-}
-
-uint64_t __REAssetBundle.ExportOptions.sceneNamesToConfigurationSpecifications.setter(uint64_t a1)
-{
-  v3 = *(v1 + 104);
-
-  *(v1 + 104) = a1;
-  return result;
-}
-
-uint64_t __REAssetBundle.ExportOptions.assetsRemapping.setter(uint64_t a1)
-{
-  v3 = *(v1 + 112);
-
-  *(v1 + 112) = a1;
   return result;
 }
 
@@ -7861,30 +2609,30 @@ double __REAssetBundle.ExportOptions.init(queueOptions:)@<D0>(char *a1@<X0>, uin
   return result;
 }
 
-uint64_t __REAssetBundle.ExportOptions.getVersioningDetails()()
+uint64_t __REAssetBundle.ExportOptions.getVersioningDetails()(__n128 a1)
 {
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 72);
-  v3 = *(v0 + 80);
-  if (v1 == 5)
+  v2 = *(v1 + 48);
+  v3 = *(v1 + 72);
+  v4 = *(v1 + 80);
+  if (v2 == 5)
   {
     VersionFromDeploymentTarget = 0;
-    if (*(v0 + 80))
+    if (*(v1 + 80))
     {
       return VersionFromDeploymentTarget;
     }
 
-LABEL_20:
-    VersionFromDeploymentTarget = v2;
-    if (!v2)
+LABEL_19:
+    VersionFromDeploymentTarget = v3;
+    if (!v3)
     {
       lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
       swift_allocError();
-      *v11 = 0;
-      *(v11 + 8) = 0;
-      v12 = 1;
-LABEL_23:
-      *(v11 + 16) = v12;
+      *v10 = 0;
+      *(v10 + 8) = 0;
+      v11 = 1;
+LABEL_22:
+      *(v10 + 16) = v11;
       swift_willThrow();
       return VersionFromDeploymentTarget;
     }
@@ -7892,30 +2640,29 @@ LABEL_23:
     return VersionFromDeploymentTarget;
   }
 
-  v5 = *(v0 + 40);
-  v6 = *(v0 + 56);
-  v7 = *(v0 + 64) | (*(v0 + 68) << 32);
-  if (v1 > 1)
+  v6 = *(v1 + 40);
+  v7 = *(v1 + 64) | (*(v1 + 68) << 32);
+  if (v2 > 1)
   {
-    if (v1 == 2)
+    if (v2 == 2)
     {
-      v8 = *(v0 + 40);
+      v8 = *(v1 + 40);
       v9 = 2;
     }
 
     else
     {
-      if (v1 != 3)
+      if (v2 != 3)
       {
-        if (v1 == 4)
+        if (v2 == 4)
         {
-          outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v5, 4uLL);
+          outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v6, 4uLL);
         }
 
         goto LABEL_16;
       }
 
-      v8 = *(v0 + 40);
+      v8 = *(v1 + 40);
       v9 = 3;
     }
 
@@ -7923,64 +2670,60 @@ LABEL_23:
     goto LABEL_16;
   }
 
-  if (v1)
+  if (v2)
   {
-    if (v1 == 1)
+    if (v2 == 1)
     {
-      outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v5, 1uLL);
+      outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v6, 1uLL);
     }
   }
 
   else
   {
-    outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v5, 0);
+    outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v6, 0);
   }
 
 LABEL_16:
   String.utf8CString.getter();
-  outlined copy of __REAssetBundle.ExportOptions.DeploymentTarget?(v5, v1);
-  outlined copy of __REAssetBundle.ExportOptions.DeploymentTarget?(v5, v1);
+  outlined copy of __REAssetBundle.ExportOptions.DeploymentTarget?(v6, v2);
+  outlined copy of __REAssetBundle.ExportOptions.DeploymentTarget?(v6, v2);
 
   VersionFromDeploymentTarget = RERealityFileWriterGetVersionFromDeploymentTarget();
 
-  if ((v7 & 0x100000000) != 0)
+  if ((v7 & 0x100000000) != 0 && v2 >= 5)
   {
-    if (v1 >= 5)
-    {
-      lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
-      swift_allocError();
-      *v11 = v5;
-      *(v11 + 8) = v1;
-      v12 = 2;
-      goto LABEL_23;
-    }
-
-    v10 = dword_1C18B8D00[v1];
+    lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
+    swift_allocError();
+    *v10 = v6;
+    *(v10 + 8) = v2;
+    v11 = 2;
+    goto LABEL_22;
   }
 
-  outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v5, v1);
-  if ((v3 & 1) == 0)
+  outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v6, v2);
+  if ((v4 & 1) == 0)
   {
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   return VersionFromDeploymentTarget;
 }
 
-uint64_t __REAssetBundle.LoadOptions.materialDefinition.getter@<X0>(uint64_t a1@<X8>)
+double __REAssetBundle.LoadOptions.materialDefinition.getter@<D0>(uint64_t a1@<X8>)
 {
   *a1 = *(v1 + 8);
   *(a1 + 8) = *(v1 + 16);
+
+  return result;
 }
 
 __n128 __REAssetBundle.LoadOptions.materialDefinition.setter(__n128 *a1)
 {
-  v5 = *a1;
+  v4 = *a1;
   v2 = a1[1].n128_u64[0];
-  v3 = *(v1 + 16);
 
-  result = v5;
-  *(v1 + 8) = v5;
+  result = v4;
+  *(v1 + 8) = v4;
   *(v1 + 24) = v2;
   return result;
 }
@@ -7988,21 +2731,18 @@ __n128 __REAssetBundle.LoadOptions.materialDefinition.setter(__n128 *a1)
 uint64_t __REAssetBundle.LoadOptions.aliasName.getter()
 {
   v1 = *(v0 + 80);
-  v2 = *(v0 + 88);
 
   return v1;
 }
 
-uint64_t __REAssetBundle.LoadOptions.aliasName.setter(uint64_t a1, uint64_t a2)
+void __REAssetBundle.LoadOptions.aliasName.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 88);
 
   *(v2 + 80) = a1;
   *(v2 + 88) = a2;
-  return result;
 }
 
-uint64_t __REAssetBundle.LoadOptions.contentRequest.getter@<X0>(uint64_t *a1@<X8>)
+double __REAssetBundle.LoadOptions.contentRequest.getter@<D0>(uint64_t *a1@<X8>)
 {
   v2 = *(v1 + 104);
   v3 = *(v1 + 112);
@@ -8011,14 +2751,13 @@ uint64_t __REAssetBundle.LoadOptions.contentRequest.getter@<X0>(uint64_t *a1@<X8
   return outlined copy of __REAssetBundle.LoadOptions.ContentRequest(v2, v3);
 }
 
-uint64_t __REAssetBundle.LoadOptions.contentRequest.setter(uint64_t *a1)
+void __REAssetBundle.LoadOptions.contentRequest.setter(uint64_t *a1)
 {
   v2 = *a1;
   v3 = a1[1];
-  result = outlined consume of __REAssetBundle.LoadOptions.ContentRequest(*(v1 + 104), *(v1 + 112));
+  outlined consume of __REAssetBundle.LoadOptions.ContentRequest(*(v1 + 104), *(v1 + 112));
   *(v1 + 104) = v2;
   *(v1 + 112) = v3;
-  return result;
 }
 
 uint64_t __REAssetBundle.__MaterialDefinitionOverride.init(materialDefinition:serviceLocator:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
@@ -8031,75 +2770,69 @@ uint64_t __REAssetBundle.__MaterialDefinitionOverride.init(materialDefinition:se
 
 uint64_t __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v13[1] = a4;
+  v11[1] = a4;
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0J20CompatibilityVariantV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0J20CompatibilityVariantV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = v13 - v9;
-  v11 = a1[4];
+  v9 = v11 - v8;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v15 = 0;
+  v13 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (!v4)
   {
-    v14 = 1;
+    v12 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
   }
 
-  return (*(v7 + 8))(v10, v6);
+  return (*(v7 + 8))(v9, v6);
 }
 
 uint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys()
 {
   if (*v0)
   {
-    result = 0x656D614E656C6966;
+    return 0x656D614E656C6966;
   }
 
   else
   {
-    result = 0x6E6F6973726576;
+    return 0x6E6F6973726576;
   }
-
-  *v0;
-  return result;
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+void protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
   v6 = a1 == 0x6E6F6973726576 && a2 == 0xE700000000000000;
   if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
 
-    v8 = 0;
+    v7 = 0;
   }
 
   else if (a1 == 0x656D614E656C6966 && a2 == 0xE800000000000000)
   {
 
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v9)
+    if (v8)
     {
-      v8 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v8 = 2;
+      v7 = 2;
     }
   }
 
-  *a3 = v8;
-  return result;
+  *a3 = v7;
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys(uint64_t a1)
@@ -8116,14 +2849,14 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x1EEE6BB78](a1, v2);
 }
 
-uint64_t protocol witness for Decodable.init(from:) in conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for Decodable.init(from:) in conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant@<X0>(uint64_t *a1@<X8>, void *a2@<X0>)
 {
-  result = specialized __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.init(from:)(a1);
+  result = specialized __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
-    a2[1] = v5;
-    a2[2] = v6;
+    *a1 = result;
+    a1[1] = v5;
+    a1[2] = v6;
   }
 
   return result;
@@ -8154,10 +2887,10 @@ unint64_t protocol witness for CodingKey.stringValue.getter in conformance __REA
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8180,152 +2913,136 @@ uint64_t __REAssetBundle.AssetMap.SceneDescriptor.encode(to:)(void *a1)
   v3 = v1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v18[-v8];
-  v10 = a1[4];
+  v8 = &v11[-v7];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11 = *v3;
-  v12 = v3[1];
-  v22 = 0;
+  v15 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (!v2)
   {
-    v14 = v3[2];
-    v15 = v3[3];
-    v21 = 1;
+    v14 = 1;
     KeyedEncodingContainer.encode(_:forKey:)();
-    v16 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor();
-    v17 = *(v16 + 24);
-    v20 = 2;
+    v10 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(0);
+    v13 = 2;
     type metadata accessor for UUID();
-    _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
+    _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695B0]);
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    v19 = *(v3 + *(v16 + 28));
-    v18[15] = 3;
+    v12 = *(v3 + *(v10 + 28));
+    v11[15] = 3;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0G20CompatibilityVariantVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0G20CompatibilityVariantVGMR);
-    lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant] and conformance <A> [A], lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant);
+    lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant] and conformance <A> [A], lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant, MEMORY[0x1E69E6300]);
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
   }
 
-  return (*(v6 + 8))(v9, v5);
+  return (*(v6 + 8))(v8, v5);
 }
 
-uint64_t __REAssetBundle.AssetMap.SceneDescriptor.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t __REAssetBundle.AssetMap.SceneDescriptor.init(from:)@<X0>(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v29 = a2;
+  v24 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = v28 - v5;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
-  v30 = *(v7 - 8);
-  v31 = v7;
-  v8 = *(v30 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = v28 - v9;
-  v11 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor();
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v14 = (v28 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = *(v15 + 24);
-  v17 = type metadata accessor for UUID();
-  v18 = *(*(v17 - 8) + 56);
-  v34 = v16;
-  v19 = v14;
-  v18(v14 + v16, 1, 1, v17);
-  v20 = a1[4];
+  v5 = v23 - v4;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
+  v25 = *(v6 - 8);
+  v26 = v6;
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = v23 - v7;
+  v9 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = (v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v13 = *(v12 + 24);
+  v14 = type metadata accessor for UUID();
+  v15 = *(*(v14 - 8) + 56);
+  v29 = v13;
+  v15(v11 + v13, 1, 1, v14);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys();
-  v32 = v10;
-  v21 = v33;
+  v27 = v8;
+  v16 = v28;
   dispatch thunk of Decoder.container<A>(keyedBy:)();
-  if (v21)
+  if (v16)
   {
     __swift_destroy_boxed_opaque_existential_1(a1);
-    return outlined destroy of BodyTrackingComponent?(v19 + v34, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    return outlined destroy of BodyTrackingComponent?(v11 + v29, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   }
 
   else
   {
-    v33 = v11;
-    v22 = v30;
-    v23 = v31;
-    v39 = 0;
-    *v19 = KeyedDecodingContainer.decode(_:forKey:)();
-    v19[1] = v24;
-    v28[2] = v24;
-    v38 = 1;
-    v19[2] = KeyedDecodingContainer.decode(_:forKey:)();
-    v19[3] = v25;
-    v37 = 2;
-    _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8]);
-    v28[1] = 0;
+    v28 = v9;
+    v17 = v25;
+    v18 = v26;
+    v34 = 0;
+    *v11 = KeyedDecodingContainer.decode(_:forKey:)();
+    v11[1] = v19;
+    v23[2] = v19;
+    v33 = 1;
+    v11[2] = KeyedDecodingContainer.decode(_:forKey:)();
+    v11[3] = v20;
+    v32 = 2;
+    _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695D0]);
+    v23[1] = 0;
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    outlined assign with take of Any?(v6, v19 + v34, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    outlined assign with take of Any?(v5, v11 + v29, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0G20CompatibilityVariantVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0G20CompatibilityVariantVGMR);
-    v36 = 3;
-    lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant] and conformance <A> [A], lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant);
+    v31 = 3;
+    lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant] and conformance <A> [A], lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant, MEMORY[0x1E69E6330]);
     KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-    v26 = *(v33 + 28);
-    (*(v22 + 8))(v32, v23);
-    *(v19 + v26) = v35;
-    outlined init with copy of __REAssetBundle.AssetMap.SceneDescriptor(v19, v29);
+    v21 = *(v28 + 28);
+    (*(v17 + 8))(v27, v18);
+    *(v11 + v21) = v30;
+    outlined init with copy of __REAssetBundle.AssetMap.SceneDescriptor(v11, v24);
     __swift_destroy_boxed_opaque_existential_1(a1);
-    return outlined destroy of __REAssetBundle.AssetMap.SceneDescriptor(v19);
+    return outlined destroy of __REAssetBundle.AssetMap.SceneDescriptor(v11);
   }
 }
 
-unint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys()
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys()
 {
   if (*v0)
   {
-    result = 0xD000000000000014;
+    return 0xD000000000000014;
   }
 
   else
   {
-    result = 0x656D614E656C6966;
+    return 0x656D614E656C6966;
   }
-
-  *v0;
-  return result;
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+void protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
   v6 = a1 == 0x656D614E656C6966 && a2 == 0xE900000000000073;
   if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
 
-    v8 = 0;
+    v7 = 0;
   }
 
   else if (a1 == 0xD000000000000014 && 0x80000001C18E8FF0 == a2)
   {
 
-    v8 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if (v9)
+    if (v8)
     {
-      v8 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v8 = 2;
+      v7 = 2;
     }
   }
 
-  *a3 = v8;
-  return result;
+  *a3 = v7;
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys(uint64_t a1)
@@ -8346,84 +3063,67 @@ uint64_t __REAssetBundle.AssetMap.AssetDescriptor.encode(to:)(void *a1)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV0H10DescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV0H10DescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v12 - v7;
-  v9 = *v1;
-  v12 = v1[1];
-  v10 = a1[4];
+  v7 = &v10 - v6;
+  v8 = *v1;
+  v10 = v1[1];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys();
 
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v14 = v9;
-  v13 = 0;
+  v12 = v8;
+  v11 = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-  lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
+  lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A], MEMORY[0x1E69E6160], MEMORY[0x1E69E6300]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
 
   if (!v2)
   {
-    v14 = v12;
-    v13 = 1;
+    v12 = v10;
+    v11 = 1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
-    lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A]);
+    lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A], MEMORY[0x1E69E6538], MEMORY[0x1E69E6300]);
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
-uint64_t __REAssetBundle.AssetMap.AssetDescriptor.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void __REAssetBundle.AssetMap.AssetDescriptor.init(from:)(void *a1@<X0>, void *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV0H10DescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV0H10DescriptorV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v14 - v8;
-  v10 = a1[4];
+  v8 = &v11 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-  v15 = 0;
-  lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A]);
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v11 = v16;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
-  v15 = 1;
-  lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A]);
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  v12 = v16;
-  *a2 = v11;
-  a2[1] = v12;
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+    v12 = 0;
+    lazy protocol witness table accessor for type [String] and conformance <A> [A](&lazy protocol witness table cache variable for type [String] and conformance <A> [A], MEMORY[0x1E69E6190], MEMORY[0x1E69E6330]);
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v9 = v13;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
+    v12 = 1;
+    lazy protocol witness table accessor for type [Int] and conformance <A> [A](&lazy protocol witness table cache variable for type [Int] and conformance <A> [A], MEMORY[0x1E69E6560], MEMORY[0x1E69E6330]);
+    KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
+    (*(v6 + 8))(v8, v5);
+    v10 = v13;
+    *a2 = v9;
+    a2[1] = v10;
 
-  __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
+  }
 }
 
-uint64_t __REAssetBundle.AssetMap.scenes.setter(uint64_t a1)
-{
-  v3 = *v1;
-
-  *v1 = a1;
-  return result;
-}
-
-uint64_t __REAssetBundle.AssetMap.assets.setter(uint64_t a1)
-{
-  v3 = *(v1 + 8);
-
-  *(v1 + 8) = a1;
-  return result;
-}
-
-uint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAssetBundle.AssetMap.CodingKeys()
+unint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAssetBundle.AssetMap.CodingKeys()
 {
   v1 = 0x737465737361;
   if (*v0 != 1)
@@ -8442,10 +3142,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance __REAs
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.AssetMap.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance __REAssetBundle.AssetMap.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized __REAssetBundle.AssetMap.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized __REAssetBundle.AssetMap.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -8467,82 +3167,81 @@ uint64_t __REAssetBundle.AssetMap.encode(to:)(void *a1)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedEncodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = v12 - v7;
-  v9 = *v1;
-  v13 = v1[1];
-  v12[3] = *(v1 + 16);
-  v10 = a1[4];
+  v7 = v10 - v6;
+  v8 = *v1;
+  v11 = v1[1];
+  v10[3] = *(v1 + 16);
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys();
 
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v15 = v9;
-  v14 = 0;
+  v13 = v8;
+  v12 = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorVGMR);
-  lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.SceneDescriptor] and conformance <A> [A], &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor and conformance __REAssetBundle.AssetMap.SceneDescriptor);
+  lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.SceneDescriptor] and conformance <A> [A], &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor and conformance __REAssetBundle.AssetMap.SceneDescriptor, protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor, MEMORY[0x1E69E6300]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
 
   if (!v2)
   {
-    v15 = v13;
-    v14 = 1;
+    v13 = v11;
+    v12 = 1;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV0E10DescriptorVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV0E10DescriptorVGMR);
-    lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.AssetDescriptor] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.AssetDescriptor] and conformance <A> [A], lazy protocol witness table accessor for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor);
+    lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.AssetDescriptor] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.AssetDescriptor] and conformance <A> [A], lazy protocol witness table accessor for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor, MEMORY[0x1E69E6300]);
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
-    LOBYTE(v15) = 2;
+    LOBYTE(v13) = 2;
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
   }
 
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
-uint64_t __REAssetBundle.AssetMap.init(from:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void __REAssetBundle.AssetMap.init(from:)(void *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v15 - v8;
-  v10 = a1[4];
+  v8 = &v12 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v2)
   {
-    return __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorVGMR);
-  v16 = 0;
-  lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.SceneDescriptor] and conformance <A> [A], &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor and conformance __REAssetBundle.AssetMap.SceneDescriptor);
-  KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v11 = v17;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV0E10DescriptorVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV0E10DescriptorVGMR);
-  v16 = 1;
-  lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.AssetDescriptor] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.AssetDescriptor] and conformance <A> [A], lazy protocol witness table accessor for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor);
-  KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
-  v12 = v17;
-  LOBYTE(v17) = 2;
-  v13 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
-  (*(v6 + 8))(v9, v5);
-  *a2 = v11;
-  *(a2 + 8) = v12;
-  *(a2 + 16) = v13;
+  else
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorVGMR);
+    v13 = 0;
+    lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.SceneDescriptor] and conformance <A> [A], &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor and conformance __REAssetBundle.AssetMap.SceneDescriptor, protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor, MEMORY[0x1E69E6330]);
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    v9 = v14;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV0E10DescriptorVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV0E10DescriptorVGMR);
+    v13 = 1;
+    lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.AssetDescriptor] and conformance <A> [A](&lazy protocol witness table cache variable for type [__REAssetBundle.AssetMap.AssetDescriptor] and conformance <A> [A], lazy protocol witness table accessor for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor, MEMORY[0x1E69E6330]);
+    KeyedDecodingContainer.decodeIfPresent<A>(_:forKey:)();
+    v10 = v14;
+    LOBYTE(v14) = 2;
+    v11 = KeyedDecodingContainer.decodeIfPresent(_:forKey:)();
+    (*(v6 + 8))(v8, v5);
+    *a2 = v9;
+    *(a2 + 8) = v10;
+    *(a2 + 16) = v11;
 
-  __swift_destroy_boxed_opaque_existential_1(a1);
+    __swift_destroy_boxed_opaque_existential_1(a1);
+  }
 }
 
-uint64_t static __REAssetBundle.__init(sceneAssets:assetService:)@<X0>(uint64_t a1@<X1>, uint64_t *a2@<X8>)
+uint64_t static __REAssetBundle.__init(sceneAssets:assetService:)@<X0>(uint64_t a2@<X1>, uint64_t *x8_0@<X8>)
 {
-  outlined init with copy of __REAssetService(a1, v6);
-  v3 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10RealityKit9__REAssetC_0C10Foundation17RESceneDescriptorCTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  outlined init with copy of __REAssetService(a2, v7);
+  v4 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10RealityKit9__REAssetC_0C10Foundation17RESceneDescriptorCTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
 
-  return __REAssetBundle.init(sceneAssets:assetService:assetMapSceneDescriptorsByAsset:header:)(v4, v6, v3, 0, a2);
+  return __REAssetBundle.init(sceneAssets:assetService:assetMapSceneDescriptorsByAsset:header:)(v5, v7, v4, 0, x8_0);
 }
 
-uint64_t __REAssetBundle.init(sceneAssets:assetService:assetMapSceneDescriptorsByAsset:header:)@<X0>(unint64_t a1@<X0>, uint64_t *a2@<X1>, Swift::Int a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+uint64_t __REAssetBundle.init(sceneAssets:assetService:assetMapSceneDescriptorsByAsset:header:)@<X0>(unint64_t a1@<X0>, void *a2@<X1>, Swift::Int a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
   v7 = a2;
   if (!a4)
@@ -8550,7 +3249,7 @@ uint64_t __REAssetBundle.init(sceneAssets:assetService:assetMapSceneDescriptorsB
     v5 = a2;
     if (one-time initialization token for __sdkBundleVersion != -1)
     {
-      goto LABEL_62;
+      goto LABEL_61;
     }
 
     goto LABEL_4;
@@ -8560,220 +3259,220 @@ uint64_t __REAssetBundle.init(sceneAssets:assetService:assetMapSceneDescriptorsB
   while (2)
   {
     type metadata accessor for RERealityFileHeader();
-    v12 = swift_allocObject();
-    *(v12 + 16) = v10;
-    *a5 = v12;
+    v11 = swift_allocObject();
+    *(v11 + 16) = v10;
+    *a5 = v11;
     a5[1] = a1;
     outlined init with copy of __REAssetService(v7, (a5 + 2));
     if ((a3 & 0xC000000000000001) == 0)
     {
-      v13 = *(a3 + 16);
+      v12 = *(a3 + 16);
 
       if (!(a1 >> 62))
       {
-        goto LABEL_14;
+        goto LABEL_13;
       }
 
-LABEL_52:
-      if (v13 != __CocoaSet.count.getter())
+LABEL_51:
+      if (v12 != __CocoaSet.count.getter())
       {
-        v14 = __CocoaSet.count.getter();
-        if (v14)
+        v13 = __CocoaSet.count.getter();
+        if (v13)
         {
-          goto LABEL_16;
+          goto LABEL_15;
         }
       }
 
-LABEL_54:
+LABEL_53:
 
-LABEL_56:
+LABEL_55:
       result = __swift_destroy_boxed_opaque_existential_1(v7);
       a5[7] = a3;
       return result;
     }
 
-    v13 = __CocoaSet.count.getter();
+    v12 = __CocoaSet.count.getter();
 
     if (a1 >> 62)
     {
-      goto LABEL_52;
+      goto LABEL_51;
     }
 
-LABEL_14:
-    v14 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
-    if (v13 == v14 || !v14)
+LABEL_13:
+    v13 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v12 == v13 || !v13)
     {
-      goto LABEL_54;
+      goto LABEL_53;
     }
 
-LABEL_16:
-    v39 = v7;
-    v40 = a5;
-    v15 = 0;
-    v41 = a1 & 0xFFFFFFFFFFFFFF8;
-    v42 = a1 & 0xC000000000000001;
-    while (v42)
+LABEL_15:
+    v36 = v7;
+    v37 = a5;
+    v14 = 0;
+    v38 = a1 & 0xFFFFFFFFFFFFFF8;
+    v39 = a1 & 0xC000000000000001;
+    while (v39)
     {
-      v5 = MEMORY[0x1C68F41F0](v15, a1);
-      a5 = (v15 + 1);
-      if (__OFADD__(v15, 1))
+      v5 = MEMORY[0x1C68F41F0](v14, a1);
+      a5 = (v14 + 1);
+      if (__OFADD__(v14, 1))
       {
-        goto LABEL_57;
+        goto LABEL_56;
       }
 
-LABEL_26:
+LABEL_25:
       if ((a3 & 0xC000000000000001) != 0)
       {
 
-        v18 = __CocoaDictionary.lookup(_:)();
+        v15 = __CocoaDictionary.lookup(_:)();
 
-        if (v18)
+        if (v15)
         {
           type metadata accessor for RESceneDescriptor();
           swift_dynamicCast();
-          if (v43)
+          if (v40)
           {
-            goto LABEL_33;
+            goto LABEL_32;
           }
         }
       }
 
       else if (*(a3 + 16))
       {
-        v19 = specialized __RawDictionaryStorage.find<A>(_:)(v5);
-        if (v20)
+        v16 = specialized __RawDictionaryStorage.find<A>(_:)();
+        if (v17)
         {
-          v21 = *(*(a3 + 56) + 8 * v19);
+          v18 = *(*(a3 + 56) + 8 * v16);
 
-          if (v21)
+          if (v18)
           {
-LABEL_33:
+LABEL_32:
 
-            goto LABEL_19;
+            goto LABEL_18;
           }
         }
       }
 
-      v22 = RESceneDescriptorCreateFromParams();
+      v19 = RESceneDescriptorCreateFromParams();
       type metadata accessor for RESceneDescriptor();
-      v23 = swift_allocObject();
-      *(v23 + 16) = v22;
+      v20 = swift_allocObject();
+      *(v20 + 16) = v19;
       if ((a3 & 0xC000000000000001) != 0)
       {
         if (a3 < 0)
         {
-          v24 = a3;
+          v21 = a3;
         }
 
         else
         {
-          v24 = a3 & 0xFFFFFFFFFFFFFF8;
+          v21 = a3 & 0xFFFFFFFFFFFFFF8;
         }
 
-        v25 = __CocoaSet.count.getter();
-        if (__OFADD__(v25, 1))
+        v22 = __CocoaSet.count.getter();
+        if (__OFADD__(v22, 1))
         {
-          goto LABEL_59;
+          goto LABEL_58;
         }
 
-        a3 = _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfC10RealityKit9__REAssetC_0E10Foundation17RESceneDescriptorCTt1g5(v24, v25 + 1);
+        a3 = _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfC10RealityKit9__REAssetC_0E10Foundation17RESceneDescriptorCTt1g5(v21, v22 + 1);
       }
 
-      v26 = a1;
+      v23 = a1;
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v43 = a3;
-      v29 = specialized __RawDictionaryStorage.find<A>(_:)(v5);
-      v30 = *(a3 + 16);
-      v31 = (v28 & 1) == 0;
-      v32 = v30 + v31;
-      if (__OFADD__(v30, v31))
+      v40 = a3;
+      v26 = specialized __RawDictionaryStorage.find<A>(_:)();
+      v27 = *(a3 + 16);
+      v28 = (v25 & 1) == 0;
+      v29 = v27 + v28;
+      if (__OFADD__(v27, v28))
       {
-        goto LABEL_58;
+        goto LABEL_57;
       }
 
-      a1 = v28;
-      if (*(a3 + 24) >= v32)
+      a1 = v25;
+      if (*(a3 + 24) >= v29)
       {
         if (isUniquelyReferenced_nonNull_native)
         {
-          a3 = v43;
-          if ((v28 & 1) == 0)
+          a3 = v40;
+          if ((v25 & 1) == 0)
           {
-            goto LABEL_47;
+            goto LABEL_46;
           }
         }
 
         else
         {
           specialized _NativeDictionary.copy()();
-          a3 = v43;
+          a3 = v40;
           if ((a1 & 1) == 0)
           {
-            goto LABEL_47;
+            goto LABEL_46;
           }
         }
       }
 
       else
       {
-        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v32, isUniquelyReferenced_nonNull_native);
-        v33 = specialized __RawDictionaryStorage.find<A>(_:)(v5);
-        if ((a1 & 1) != (v34 & 1))
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v29, isUniquelyReferenced_nonNull_native);
+        v30 = specialized __RawDictionaryStorage.find<A>(_:)();
+        if ((a1 & 1) != (v31 & 1))
         {
-          goto LABEL_65;
+          goto LABEL_64;
         }
 
-        v29 = v33;
-        a3 = v43;
+        v26 = v30;
+        a3 = v40;
         if ((a1 & 1) == 0)
         {
-LABEL_47:
-          *(a3 + 8 * (v29 >> 6) + 64) |= 1 << v29;
-          *(*(a3 + 48) + 8 * v29) = v5;
-          *(*(a3 + 56) + 8 * v29) = v23;
-          v35 = *(a3 + 16);
-          v36 = __OFADD__(v35, 1);
-          v37 = v35 + 1;
-          if (v36)
+LABEL_46:
+          *(a3 + 8 * (v26 >> 6) + 64) |= 1 << v26;
+          *(*(a3 + 48) + 8 * v26) = v5;
+          *(*(a3 + 56) + 8 * v26) = v20;
+          v32 = *(a3 + 16);
+          v33 = __OFADD__(v32, 1);
+          v34 = v32 + 1;
+          if (v33)
           {
-            goto LABEL_61;
+            goto LABEL_60;
           }
 
-          *(a3 + 16) = v37;
-          goto LABEL_18;
+          *(a3 + 16) = v34;
+          goto LABEL_17;
         }
       }
 
-      v16 = *(a3 + 56);
-      v17 = *(v16 + 8 * v29);
-      *(v16 + 8 * v29) = v23;
+      *(*(a3 + 56) + 8 * v26) = v20;
 
+LABEL_17:
+      a1 = v23;
 LABEL_18:
-      a1 = v26;
-LABEL_19:
-      ++v15;
-      if (a5 == v14)
+      ++v14;
+      if (a5 == v13)
       {
 
-        v7 = v39;
-        a5 = v40;
-        goto LABEL_56;
+        v7 = v36;
+        a5 = v37;
+        goto LABEL_55;
       }
     }
 
-    if (v15 >= *(v41 + 16))
+    if (v14 >= *(v38 + 16))
     {
-      goto LABEL_60;
+      goto LABEL_59;
     }
 
-    v5 = *(a1 + 8 * v15 + 32);
+    v5 = *(a1 + 8 * v14 + 32);
 
-    a5 = (v15 + 1);
-    if (!__OFADD__(v15, 1))
+    a5 = (v14 + 1);
+    if (!__OFADD__(v14, 1))
     {
-      goto LABEL_26;
+      goto LABEL_25;
     }
 
+LABEL_56:
+    __break(1u);
 LABEL_57:
     __break(1u);
 LABEL_58:
@@ -8783,19 +3482,12 @@ LABEL_59:
 LABEL_60:
     __break(1u);
 LABEL_61:
-    __break(1u);
-LABEL_62:
     swift_once();
 LABEL_4:
-    __REAssetBundle.ExportOptions.PlatformOS.init(rawValue:)(5459817, 0xE300000000000000, &v43);
-    if (v44 >= 6)
+    __REAssetBundle.ExportOptions.PlatformOS.init(rawValue:)(5459817, 0xE300000000000000, &v40);
+    if (v41 >= 6)
     {
-      outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v43, v44);
-    }
-
-    else
-    {
-      v11 = dword_1C18B8D14[v44];
+      outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(v40, v41);
     }
 
     if (one-time initialization token for minimumWritingFormatVersion != -1)
@@ -8822,7 +3514,7 @@ LABEL_4:
   }
 
   __break(1u);
-LABEL_65:
+LABEL_64:
   type metadata accessor for __REAsset();
   result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
   __break(1u);
@@ -8831,132 +3523,124 @@ LABEL_65:
 
 uint64_t static __REAssetBundle.__init(sceneAssets:assetService:assetMapSceneDescriptorsByAsset:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v71 = a2;
-  v72 = a4;
-  v73 = a1;
+  v61 = a2;
+  v62 = a4;
+  v63 = a1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v71 - v7;
-  v85 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor();
-  v76 = *(v85 - 8);
-  v9 = *(v76 + 64);
-  MEMORY[0x1EEE9AC00](v85);
-  v11 = (&v71 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v12);
-  v75 = &v71 - v13;
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetSgMd, &_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v14 - 8);
-  v17 = (&v71 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = (&v71 - v19);
-  v21 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10RealityKit9__REAssetC_0C10Foundation17RESceneDescriptorCTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  v22 = *(a3 + 64);
-  v80 = a3 + 64;
-  v23 = 1 << *(a3 + 32);
-  v24 = -1;
-  if (v23 < 64)
+  v7 = &v61 - v6;
+  v75 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(0);
+  v66 = *(v75 - 8);
+  MEMORY[0x1EEE9AC00](v75);
+  v9 = &v61 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v65 = &v61 - v11;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetSgMd, &_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetSgMR);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = (&v61 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = (&v61 - v16);
+  v18 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC10RealityKit9__REAssetC_0C10Foundation17RESceneDescriptorCTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  v19 = *(a3 + 64);
+  v70 = a3 + 64;
+  v20 = 1 << *(a3 + 32);
+  v21 = -1;
+  if (v20 < 64)
   {
-    v24 = ~(-1 << v23);
+    v21 = ~(-1 << v20);
   }
 
-  v25 = v24 & v22;
-  v74 = (v23 + 63) >> 6;
-  v77 = a3;
+  v22 = v21 & v19;
+  v64 = (v20 + 63) >> 6;
+  v67 = a3;
 
-  v26 = 0;
-  v78 = v17;
-  v79 = v8;
-  v81 = v20;
-  v82 = v11;
-  while (v25)
+  v23 = 0;
+  v68 = v14;
+  v69 = v7;
+  v71 = v17;
+  v72 = v9;
+  while (v22)
   {
-    v29 = v26;
+    v24 = v23;
 LABEL_16:
-    v32 = __clz(__rbit64(v25));
-    v25 &= v25 - 1;
-    v33 = v32 | (v29 << 6);
-    v34 = *(*(v77 + 48) + 8 * v33);
-    v35 = v75;
-    outlined init with copy of __REAssetBundle.AssetMap.SceneDescriptor(*(v77 + 56) + *(v76 + 72) * v33, v75);
-    v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMd, &_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMR);
-    v37 = *(v36 + 48);
-    *v17 = v34;
-    outlined init with take of __REAssetBundle.AssetMap.SceneDescriptor(v35, v17 + v37);
-    (*(*(v36 - 8) + 56))(v17, 0, 1, v36);
+    v27 = __clz(__rbit64(v22));
+    v22 &= v22 - 1;
+    v28 = v27 | (v24 << 6);
+    v29 = *(*(v67 + 48) + 8 * v28);
+    v30 = v65;
+    outlined init with copy of __REAssetBundle.AssetMap.SceneDescriptor(*(v67 + 56) + *(v66 + 72) * v28, v65);
+    v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMd, &_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMR);
+    v32 = *(v31 + 48);
+    *v14 = v29;
+    outlined init with take of __REAssetBundle.AssetMap.SceneDescriptor(v30, v14 + v32);
+    (*(*(v31 - 8) + 56))(v14, 0, 1, v31);
 
-    v20 = v81;
-    v11 = v82;
+    v17 = v71;
+    v9 = v72;
 LABEL_17:
-    outlined init with take of (key: __REAsset, value: __REAssetBundle.AssetMap.SceneDescriptor)?(v17, v20);
-    v38 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMd, &_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMR);
-    if ((*(*(v38 - 8) + 48))(v20, 1, v38) == 1)
+    outlined init with take of (key: __REAsset, value: __REAssetBundle.AssetMap.SceneDescriptor)?(v14, v17);
+    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMd, &_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMR);
+    if ((*(*(v33 - 8) + 48))(v17, 1, v33) == 1)
     {
 
-      outlined init with copy of __REAssetService(v71, v87);
+      outlined init with copy of __REAssetService(v61, v77);
 
-      return __REAssetBundle.init(sceneAssets:assetService:assetMapSceneDescriptorsByAsset:header:)(v69, v87, v21, 0, v72);
+      return __REAssetBundle.init(sceneAssets:assetService:assetMapSceneDescriptorsByAsset:header:)(v59, v77, v18, 0, v62);
     }
 
-    v86 = *v20;
-    outlined init with take of __REAssetBundle.AssetMap.SceneDescriptor(v20 + *(v38 + 48), v11);
-    v39 = v11;
-    v41 = *v11;
-    v40 = v11[1];
-    v42 = v39[2];
-    v83 = v39[3];
-    v84 = v42;
-    v43 = v79;
-    outlined init with copy of [String : String](v39 + *(v85 + 24), v79, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-    v44 = type metadata accessor for UUID();
-    v45 = *(v44 - 8);
-    if ((*(v45 + 48))(v43, 1, v44) == 1)
+    v76 = *v17;
+    outlined init with take of __REAssetBundle.AssetMap.SceneDescriptor(v17 + *(v33 + 48), v9);
+    v34 = *(v9 + 2);
+    v73 = *(v9 + 3);
+    v74 = v34;
+    v35 = v69;
+    outlined init with copy of [String : String](&v9[*(v75 + 24)], v69, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+    v36 = type metadata accessor for UUID();
+    v37 = *(v36 - 8);
+    if ((*(v37 + 48))(v35, 1, v36) == 1)
     {
-      outlined destroy of BodyTrackingComponent?(v43, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      outlined destroy of BodyTrackingComponent?(v35, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
     }
 
     else
     {
       UUID.uuidString.getter();
-      (*(v45 + 8))(v43, v44);
+      (*(v37 + 8))(v35, v36);
     }
 
     String.utf8CString.getter();
     String.utf8CString.getter();
     String.utf8CString.getter();
 
-    v46 = RESceneDescriptorCreateFromParams();
+    v38 = RESceneDescriptorCreateFromParams();
 
-    v11 = v82;
-    v47 = *(v82 + *(v85 + 28));
-    v17 = v78;
-    if (v47)
+    v9 = v72;
+    v39 = *&v72[*(v75 + 28)];
+    v14 = v68;
+    if (v39)
     {
-      v48 = *(v47 + 16);
-      if (v48)
+      v40 = *(v39 + 16);
+      if (v40)
       {
-        v49 = (v47 + 48);
+        v41 = v39 + 48;
         while (1)
         {
-          v50 = *(v49 - 2);
-          if (v50 < 0xFFFFFFFF80000000)
+          v42 = *(v41 - 16);
+          if (v42 < 0xFFFFFFFF80000000)
           {
             break;
           }
 
-          if (v50 > 0x7FFFFFFF)
+          if (v42 > 0x7FFFFFFF)
           {
             goto LABEL_46;
           }
 
-          v51 = *(v49 - 1);
-          v52 = *v49;
           String.utf8CString.getter();
           RESceneDescriptorAddSceneCompatibilityVariant();
 
-          v49 += 3;
-          if (!--v48)
+          v41 += 24;
+          if (!--v40)
           {
             goto LABEL_27;
           }
@@ -8971,54 +3655,54 @@ LABEL_46:
 
 LABEL_27:
     type metadata accessor for RESceneDescriptor();
-    v53 = swift_allocObject();
-    *(v53 + 16) = v46;
-    if ((v21 & 0xC000000000000001) != 0)
+    v43 = swift_allocObject();
+    *(v43 + 16) = v38;
+    if ((v18 & 0xC000000000000001) != 0)
     {
-      if (v21 < 0)
+      if (v18 < 0)
       {
-        v54 = v21;
+        v44 = v18;
       }
 
       else
       {
-        v54 = v21 & 0xFFFFFFFFFFFFFF8;
+        v44 = v18 & 0xFFFFFFFFFFFFFF8;
       }
 
-      v55 = __CocoaSet.count.getter();
-      if (__OFADD__(v55, 1))
+      v45 = __CocoaSet.count.getter();
+      if (__OFADD__(v45, 1))
       {
         goto LABEL_49;
       }
 
-      v21 = _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfC10RealityKit9__REAssetC_0E10Foundation17RESceneDescriptorCTt1g5(v54, v55 + 1);
+      v18 = _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfC10RealityKit9__REAssetC_0E10Foundation17RESceneDescriptorCTt1g5(v44, v45 + 1);
     }
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v87[0] = v21;
-    v57 = specialized __RawDictionaryStorage.find<A>(_:)();
-    v59 = *(v21 + 16);
-    v60 = (v58 & 1) == 0;
-    v61 = __OFADD__(v59, v60);
-    v62 = v59 + v60;
-    if (v61)
+    v77[0] = v18;
+    v47 = specialized __RawDictionaryStorage.find<A>(_:)();
+    v49 = *(v18 + 16);
+    v50 = (v48 & 1) == 0;
+    v51 = __OFADD__(v49, v50);
+    v52 = v49 + v50;
+    if (v51)
     {
       goto LABEL_48;
     }
 
-    v63 = v58;
-    if (*(v21 + 24) < v62)
+    v53 = v48;
+    if (*(v18 + 24) < v52)
     {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v62, isUniquelyReferenced_nonNull_native);
-      v57 = specialized __RawDictionaryStorage.find<A>(_:)();
-      if ((v63 & 1) != (v64 & 1))
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v52, isUniquelyReferenced_nonNull_native);
+      v47 = specialized __RawDictionaryStorage.find<A>(_:)();
+      if ((v53 & 1) != (v54 & 1))
       {
         goto LABEL_51;
       }
 
 LABEL_38:
-      v21 = v87[0];
-      if (v63)
+      v18 = v77[0];
+      if (v53)
       {
         goto LABEL_4;
       }
@@ -9031,71 +3715,69 @@ LABEL_38:
       goto LABEL_38;
     }
 
-    v68 = v57;
+    v58 = v47;
     specialized _NativeDictionary.copy()();
-    v57 = v68;
-    v21 = v87[0];
-    if (v63)
+    v47 = v58;
+    v18 = v77[0];
+    if (v53)
     {
 LABEL_4:
-      v27 = *(v21 + 56);
-      v28 = *(v27 + 8 * v57);
-      *(v27 + 8 * v57) = v53;
+      *(*(v18 + 56) + 8 * v47) = v43;
 
       goto LABEL_5;
     }
 
 LABEL_39:
-    *(v21 + 8 * (v57 >> 6) + 64) |= 1 << v57;
-    *(*(v21 + 48) + 8 * v57) = v86;
-    *(*(v21 + 56) + 8 * v57) = v53;
-    v65 = *(v21 + 16);
-    v61 = __OFADD__(v65, 1);
-    v66 = v65 + 1;
-    if (v61)
+    *(v18 + 8 * (v47 >> 6) + 64) |= 1 << v47;
+    *(*(v18 + 48) + 8 * v47) = v76;
+    *(*(v18 + 56) + 8 * v47) = v43;
+    v55 = *(v18 + 16);
+    v51 = __OFADD__(v55, 1);
+    v56 = v55 + 1;
+    if (v51)
     {
       goto LABEL_50;
     }
 
-    *(v21 + 16) = v66;
+    *(v18 + 16) = v56;
 LABEL_5:
-    outlined destroy of __REAssetBundle.AssetMap.SceneDescriptor(v11);
-    v20 = v81;
+    outlined destroy of __REAssetBundle.AssetMap.SceneDescriptor(v9);
+    v17 = v71;
   }
 
-  if (v74 <= v26 + 1)
+  if (v64 <= v23 + 1)
   {
-    v30 = v26 + 1;
+    v25 = v23 + 1;
   }
 
   else
   {
-    v30 = v74;
+    v25 = v64;
   }
 
-  v31 = v30 - 1;
+  v26 = v25 - 1;
   while (1)
   {
-    v29 = v26 + 1;
-    if (__OFADD__(v26, 1))
+    v24 = v23 + 1;
+    if (__OFADD__(v23, 1))
     {
       break;
     }
 
-    if (v29 >= v74)
+    if (v24 >= v64)
     {
-      v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMd, &_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMR);
-      (*(*(v67 - 8) + 56))(v17, 1, 1, v67);
-      v25 = 0;
-      v26 = v31;
+      v57 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMd, &_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetMR);
+      (*(*(v57 - 8) + 56))(v14, 1, 1, v57);
+      v22 = 0;
+      v23 = v26;
       goto LABEL_17;
     }
 
-    v25 = *(v80 + 8 * v29);
-    ++v26;
-    if (v25)
+    v22 = *(v70 + 8 * v24);
+    ++v23;
+    if (v22)
     {
-      v26 = v29;
+      v23 = v24;
       goto LABEL_16;
     }
   }
@@ -9115,28 +3797,28 @@ LABEL_51:
   return result;
 }
 
-uint64_t __REAssetBundle.init(url:assetService:with:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, char *a3@<X2>, uint64_t *a4@<X8>)
+uint64_t __REAssetBundle.init(url:assetService:with:)@<X0>(uint64_t a1@<X0>, char *a2@<X1>, char *a3@<X2>, uint64_t *a4@<X8>)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v8 = *a3;
-  v29 = 0u;
-  memset(v30, 0, sizeof(v30));
-  v27 = 0u;
   v28 = 0u;
+  memset(v29, 0, sizeof(v29));
   v26 = 0u;
-  v31 = 1;
-  v32 = 0;
-  v34 = 0;
-  v35 = 0;
+  v27 = 0u;
+  v25 = 0u;
+  v30 = 1;
+  v31 = 0;
   v33 = 0;
-  v25[0] = v8;
-  v9 = a2[3];
-  v10 = a2[4];
+  v34 = 0;
+  v32 = 0;
+  v24[0] = v8;
+  v9 = *(a2 + 3);
+  v10 = *(a2 + 4);
   __swift_project_boxed_opaque_existential_1(a2, v9);
   (*(v10 + 32))(v9, v10);
   ServiceLocatorForLegacyAPIWorkaround = _REAssetManagerGetServiceLocatorForLegacyAPIWorkaround();
-  v12 = a2[3];
-  v13 = a2[4];
+  v12 = *(a2 + 3);
+  v13 = *(a2 + 4);
   __swift_project_boxed_opaque_existential_1(a2, v12);
   (*(v13 + 32))(v12, v13);
   URL._bridgeToObjectiveC()(v14);
@@ -9145,9 +3827,9 @@ uint64_t __REAssetBundle.init(url:assetService:with:)@<X0>(uint64_t a1@<X0>, uin
 
   if (v17)
   {
-    static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v17, a2, ServiceLocatorForLegacyAPIWorkaround, v25, a4);
-    v18 = a2[3];
-    v19 = a2[4];
+    static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v17, a2, ServiceLocatorForLegacyAPIWorkaround, v24, a4);
+    v18 = *(a2 + 3);
+    v19 = *(a2 + 4);
     __swift_project_boxed_opaque_existential_1(a2, v18);
     (*(v19 + 32))(v18, v19);
     RERealityFileUnmount();
@@ -9175,26 +3857,23 @@ uint64_t __REAssetBundle.init(url:assetService:with:)@<X0>(uint64_t a1@<X0>, uin
 
   v22 = type metadata accessor for URL();
   (*(*(v22 - 8) + 8))(a1, v22);
-  outlined destroy of __REAssetBundle.LoadOptions(v25);
-  result = __swift_destroy_boxed_opaque_existential_1(a2);
-  v24 = *MEMORY[0x1E69E9840];
-  return result;
+  outlined destroy of __REAssetBundle.LoadOptions(v24);
+  return __swift_destroy_boxed_opaque_existential_1(a2);
 }
 
-void static __REAssetBundle.__init(url:assetService:_:)(void *a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
+void static __REAssetBundle.__init(url:assetService:_:)(char *a2@<X1>, void *a3@<X2>, uint64_t *x8_0@<X8>)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  v6 = a1[3];
-  v7 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v6);
-  (*(v7 + 32))(v6, v7);
+  v7 = *(a2 + 3);
+  v8 = *(a2 + 4);
+  __swift_project_boxed_opaque_existential_1(a2, v7);
+  (*(v8 + 32))(v7, v8);
   ServiceLocatorForLegacyAPIWorkaround = _REAssetManagerGetServiceLocatorForLegacyAPIWorkaround();
-  v9 = ServiceLocatorForLegacyAPIWorkaround;
-  if (!*(a2 + 88))
+  v10 = ServiceLocatorForLegacyAPIWorkaround;
+  if (!a3[11])
   {
-    v17 = a1[3];
-    v18 = a1[4];
-    __swift_project_boxed_opaque_existential_1(a1, v17);
+    v17 = *(a2 + 3);
+    v18 = *(a2 + 4);
+    __swift_project_boxed_opaque_existential_1(a2, v17);
     (*(v18 + 32))(v17, v18);
     URL._bridgeToObjectiveC()(v19);
     v21 = v20;
@@ -9206,9 +3885,9 @@ void static __REAssetBundle.__init(url:assetService:_:)(void *a1@<X1>, uint64_t 
     }
 
     specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(0);
-    if (v3)
+    if (v4)
     {
-      goto LABEL_13;
+      return;
     }
 
 LABEL_12:
@@ -9224,14 +3903,13 @@ LABEL_12:
     *(v28 + 8) = 0x80000001C18E1F00;
     *(v28 + 16) = 4;
     swift_willThrow();
-    goto LABEL_13;
+    return;
   }
 
-  v30 = ServiceLocatorForLegacyAPIWorkaround;
-  v10 = *(a2 + 80);
-  v11 = a1[3];
-  v12 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v11);
+  v29 = ServiceLocatorForLegacyAPIWorkaround;
+  v11 = *(a2 + 3);
+  v12 = *(a2 + 4);
+  __swift_project_boxed_opaque_existential_1(a2, v11);
   (*(v12 + 32))(v11, v12);
   URL._bridgeToObjectiveC()(v13);
   v15 = v14;
@@ -9241,17 +3919,17 @@ LABEL_12:
   if (!v16)
   {
     specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(0);
-    if (v3)
+    if (v4)
     {
-      goto LABEL_13;
+      return;
     }
 
     goto LABEL_12;
   }
 
-  v9 = v30;
+  v10 = v29;
 LABEL_5:
-  v22 = *(a2 + 120);
+  v22 = a3[15];
   if (v22)
   {
     MajorVersionNumber = RERealityFileGetMajorVersionNumber();
@@ -9260,28 +3938,26 @@ LABEL_5:
     *(v24 + 8) = 1;
   }
 
-  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v16, a1, v9, a2, a3);
-  v25 = a1[3];
-  v26 = a1[4];
-  __swift_project_boxed_opaque_existential_1(a1, v25);
+  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v16, a2, v10, a3, x8_0);
+  v25 = *(a2 + 3);
+  v26 = *(a2 + 4);
+  __swift_project_boxed_opaque_existential_1(a2, v25);
   (*(v26 + 32))(v25, v26);
   RERealityFileUnmount();
-LABEL_13:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t static __REAssetBundle.__init(url:serviceLocator:_:)@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
+uint64_t static __REAssetBundle.__init(url:serviceLocator:_:)@<X0>(uint64_t a2@<X1>, void *a3@<X2>, uint64_t *x8_0@<X8>)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   swift_beginAccess();
-  outlined init with copy of __REAssetService(a1 + 120, v30);
+  outlined init with copy of __REAssetService(a2 + 120, v29);
   swift_beginAccess();
-  v7 = *(a1 + 16);
-  if (!*(a2 + 88))
+  v8 = *(a2 + 16);
+  if (!a3[11])
   {
-    v15 = v31;
-    v16 = v32;
-    __swift_project_boxed_opaque_existential_1(v30, v31);
+    v15 = v30;
+    v16 = v31;
+    __swift_project_boxed_opaque_existential_1(v29, v30);
     (*(v16 + 32))(v15, v16);
     URL._bridgeToObjectiveC()(v17);
     v19 = v18;
@@ -9293,9 +3969,9 @@ uint64_t static __REAssetBundle.__init(url:serviceLocator:_:)@<X0>(uint64_t a1@<
     }
 
     specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(0);
-    if (v3)
+    if (v4)
     {
-      goto LABEL_13;
+      return __swift_destroy_boxed_opaque_existential_1(v29);
     }
 
 LABEL_12:
@@ -9311,14 +3987,13 @@ LABEL_12:
     *(v26 + 8) = 0x80000001C18E1F00;
     *(v26 + 16) = 4;
     swift_willThrow();
-    goto LABEL_13;
+    return __swift_destroy_boxed_opaque_existential_1(v29);
   }
 
-  v29 = *(a1 + 16);
-  v8 = *(a2 + 80);
-  v10 = v31;
-  v9 = v32;
-  __swift_project_boxed_opaque_existential_1(v30, v31);
+  v28 = *(a2 + 16);
+  v10 = v30;
+  v9 = v31;
+  __swift_project_boxed_opaque_existential_1(v29, v30);
   (*(v9 + 32))(v10, v9);
   URL._bridgeToObjectiveC()(v11);
   v13 = v12;
@@ -9328,17 +4003,17 @@ LABEL_12:
   if (!v14)
   {
     specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(0);
-    if (v3)
+    if (v4)
     {
-      goto LABEL_13;
+      return __swift_destroy_boxed_opaque_existential_1(v29);
     }
 
     goto LABEL_12;
   }
 
-  v7 = v29;
+  v8 = v28;
 LABEL_5:
-  v20 = *(a2 + 120);
+  v20 = a3[15];
   if (v20)
   {
     MajorVersionNumber = RERealityFileGetMajorVersionNumber();
@@ -9347,52 +4022,45 @@ LABEL_5:
     *(v22 + 8) = 1;
   }
 
-  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v14, v30, v7, a2, a3);
-  v23 = v31;
-  v24 = v32;
-  __swift_project_boxed_opaque_existential_1(v30, v31);
+  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v14, v29, v8, a3, x8_0);
+  v23 = v30;
+  v24 = v31;
+  __swift_project_boxed_opaque_existential_1(v29, v30);
   (*(v24 + 32))(v23, v24);
   RERealityFileUnmount();
-LABEL_13:
-  result = __swift_destroy_boxed_opaque_existential_1(v30);
-  v28 = *MEMORY[0x1E69E9840];
-  return result;
+  return __swift_destroy_boxed_opaque_existential_1(v29);
 }
 
-uint64_t static __REAssetBundle.__init(bundle:entryName:assetService:_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
+void static __REAssetBundle.__init(bundle:entryName:assetService:_:)(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char *a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v12 = a4[3];
-  v13 = a4[4];
+  v12 = *(a4 + 3);
+  v13 = *(a4 + 4);
   __swift_project_boxed_opaque_existential_1(a4, v12);
   (*(v13 + 32))(v12, v13);
   ServiceLocatorForLegacyAPIWorkaround = _REAssetManagerGetServiceLocatorForLegacyAPIWorkaround();
   v15 = [a1 bundleIdentifier];
   if (!v15)
   {
-    v29 = [a1 bundlePath];
-    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v32 = v31;
+    v28 = [a1 bundlePath];
+    v29 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v31 = v30;
 
     lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
     swift_allocError();
-    *v33 = v30;
-    *(v33 + 8) = v32;
-    v34 = 3;
-LABEL_7:
-    *(v33 + 16) = v34;
-    result = swift_willThrow();
-    goto LABEL_10;
+    *v32 = v29;
+    *(v32 + 8) = v31;
+    v33 = 3;
+    goto LABEL_7;
   }
 
-  v36 = ServiceLocatorForLegacyAPIWorkaround;
-  v37 = a5;
+  v34 = ServiceLocatorForLegacyAPIWorkaround;
+  v35 = a5;
   v16 = v15;
   v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v19 = v18;
 
-  v21 = a4[3];
-  v20 = a4[4];
+  v21 = *(a4 + 3);
+  v20 = *(a4 + 4);
   __swift_project_boxed_opaque_existential_1(a4, v21);
   (*(v20 + 32))(v21, v20);
   String.utf8CString.getter();
@@ -9405,7 +4073,7 @@ LABEL_7:
     if (v6)
     {
 
-      goto LABEL_10;
+      return;
     }
 
     _StringGuts.grow(_:)(48);
@@ -9417,13 +4085,16 @@ LABEL_7:
     MEMORY[0x1C68F3410](46, 0xE100000000000000);
     lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
     swift_allocError();
-    *v33 = 0xD00000000000001FLL;
-    *(v33 + 8) = 0x80000001C18E1F00;
-    v34 = 4;
-    goto LABEL_7;
+    *v32 = 0xD00000000000001FLL;
+    *(v32 + 8) = 0x80000001C18E1F00;
+    v33 = 4;
+LABEL_7:
+    *(v32 + 16) = v33;
+    swift_willThrow();
+    return;
   }
 
-  v23 = *(v37 + 120);
+  v23 = *(v35 + 120);
   if (v23)
   {
     MajorVersionNumber = RERealityFileGetMajorVersionNumber();
@@ -9432,22 +4103,19 @@ LABEL_7:
     *(v25 + 8) = 1;
   }
 
-  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v22, a4, v36, v37, a6);
-  v26 = a4[3];
-  v27 = a4[4];
+  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v22, a4, v34, v35, a6);
+  v26 = *(a4 + 3);
+  v27 = *(a4 + 4);
   __swift_project_boxed_opaque_existential_1(a4, v26);
   (*(v27 + 32))(v26, v27);
-  result = RERealityFileUnmount();
-LABEL_10:
-  v35 = *MEMORY[0x1E69E9840];
-  return result;
+  RERealityFileUnmount();
 }
 
 uint64_t static __REAssetBundle.__init(bundle:entryName:serviceLocator:_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   swift_beginAccess();
-  outlined init with copy of __REAssetService(a4 + 120, v37);
+  outlined init with copy of __REAssetService(a4 + 120, v36);
   swift_beginAccess();
   v13 = *(a4 + 16);
   v14 = [a1 bundleIdentifier];
@@ -9464,18 +4132,18 @@ uint64_t static __REAssetBundle.__init(bundle:entryName:serviceLocator:_:)@<X0>(
     *(v31 + 16) = 3;
 LABEL_7:
     swift_willThrow();
-    goto LABEL_10;
+    return __swift_destroy_boxed_opaque_existential_1(v36);
   }
 
-  v35 = v13;
-  v36 = a6;
+  v34 = v13;
+  v35 = a6;
   v15 = v14;
   v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v18 = v17;
 
-  v19 = v38;
-  v20 = v39;
-  __swift_project_boxed_opaque_existential_1(v37, v38);
+  v19 = v37;
+  v20 = v38;
+  __swift_project_boxed_opaque_existential_1(v36, v37);
   (*(v20 + 32))(v19, v20);
   String.utf8CString.getter();
   String.utf8CString.getter();
@@ -9487,7 +4155,7 @@ LABEL_7:
     if (v6)
     {
 
-      goto LABEL_10;
+      return __swift_destroy_boxed_opaque_existential_1(v36);
     }
 
     _StringGuts.grow(_:)(48);
@@ -9499,9 +4167,9 @@ LABEL_7:
     MEMORY[0x1C68F3410](46, 0xE100000000000000);
     lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
     swift_allocError();
-    *v34 = 0xD00000000000001FLL;
-    *(v34 + 8) = 0x80000001C18E1F00;
-    *(v34 + 16) = 4;
+    *v33 = 0xD00000000000001FLL;
+    *(v33 + 8) = 0x80000001C18E1F00;
+    *(v33 + 16) = 4;
     goto LABEL_7;
   }
 
@@ -9514,251 +4182,241 @@ LABEL_7:
     *(v24 + 8) = 1;
   }
 
-  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v21, v37, v35, a5, v36);
-  v25 = v38;
-  v26 = v39;
-  __swift_project_boxed_opaque_existential_1(v37, v38);
+  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v21, v36, v34, a5, v35);
+  v25 = v37;
+  v26 = v38;
+  __swift_project_boxed_opaque_existential_1(v36, v37);
   (*(v26 + 32))(v25, v26);
   RERealityFileUnmount();
-LABEL_10:
-  result = __swift_destroy_boxed_opaque_existential_1(v37);
-  v33 = *MEMORY[0x1E69E9840];
-  return result;
+  return __swift_destroy_boxed_opaque_existential_1(v36);
 }
 
-uint64_t __REAssetBundle.init(url:assetService:downsamplingStrategy:with:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, unsigned __int8 *a4@<X3>, _OWORD *a5@<X8>)
+uint64_t __REAssetBundle.init(url:assetService:downsamplingStrategy:with:)@<X0>(uint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X2>, char *a4@<X3>, _OWORD *a5@<X8>)
 {
-  v47 = a5;
-  v61 = *MEMORY[0x1E69E9840];
+  v45 = a5;
+  v59 = *MEMORY[0x1E69E9840];
   v9 = type metadata accessor for DispatchPredicate();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = (&v46 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = *a4;
-  v15 = a2[3];
-  v16 = a2[4];
-  __swift_project_boxed_opaque_existential_1(a2, v15);
-  v53[0] = v14;
-  __REAssetService.dispatchPredicate(for:)(v53, v15, v16, v13);
-  LOBYTE(v15) = _dispatchPreconditionTest(_:)();
-  (*(v10 + 8))(v13, v9);
-  if ((v15 & 1) == 0)
+  v12 = (&v44 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v13 = *a4;
+  v14 = *(a2 + 3);
+  v15 = *(a2 + 4);
+  __swift_project_boxed_opaque_existential_1(a2, v14);
+  v51[0] = v13;
+  __REAssetService.dispatchPredicate(for:)(v51, v14, v15, v12);
+  LOBYTE(v14) = _dispatchPreconditionTest(_:)();
+  (*(v10 + 8))(v12, v9);
+  if ((v14 & 1) == 0)
   {
     __break(1u);
   }
 
-  memset(v55, 0, sizeof(v55));
-  v54 = 0u;
-  v56 = 1;
+  memset(v53, 0, sizeof(v53));
+  v52 = 0u;
+  v54 = 1;
+  v55 = 0;
   v57 = 0;
-  v59 = 0;
-  v60 = 0;
   v58 = 0;
-  v53[0] = v14;
-  outlined assign with copy of __DownsamplingStrategy?(a3, &v55[8]);
-  v17 = a2[3];
-  v18 = a2[4];
-  __swift_project_boxed_opaque_existential_1(a2, v17);
-  (*(v18 + 32))(v17, v18);
+  v56 = 0;
+  v51[0] = v13;
+  outlined assign with copy of __DownsamplingStrategy?(a3, &v53[8]);
+  v16 = *(a2 + 3);
+  v17 = *(a2 + 4);
+  __swift_project_boxed_opaque_existential_1(a2, v16);
+  (*(v17 + 32))(v16, v17);
   ServiceLocatorForLegacyAPIWorkaround = _REAssetManagerGetServiceLocatorForLegacyAPIWorkaround();
-  v51 = 0;
-  v20 = a2[3];
-  v21 = a2[4];
-  __swift_project_boxed_opaque_existential_1(a2, v20);
-  (*(v21 + 32))(v20, v21);
-  URL._bridgeToObjectiveC()(v22);
-  v24 = v23;
-  v25 = RERealityFileMountFileAtURL();
+  v49 = 0;
+  v19 = *(a2 + 3);
+  v20 = *(a2 + 4);
+  __swift_project_boxed_opaque_existential_1(a2, v19);
+  (*(v20 + 32))(v19, v20);
+  URL._bridgeToObjectiveC()(v21);
+  v23 = v22;
+  v24 = RERealityFileMountFileAtURL();
 
-  v26 = a3;
-  if (!v25)
+  v25 = a3;
+  if (!v24)
   {
-    v30 = v48;
-    specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(v51);
-    if (!v30)
+    v29 = v46;
+    specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(v49);
+    if (!v29)
     {
-      v37 = v51;
-      if (v51)
+      v36 = v49;
+      if (v49)
       {
         type metadata accessor for CFErrorRef(0);
-        _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type CFErrorRef and conformance CFErrorRef, type metadata accessor for CFErrorRef);
+        _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type CFErrorRef and conformance CFErrorRef, type metadata accessor for CFErrorRef, MEMORY[0x1E6969E70]);
         swift_allocError();
-        *v38 = v37;
+        *v37 = v36;
       }
 
       else
       {
-        v49 = 0;
-        v50 = 0xE000000000000000;
+        v47 = 0;
+        v48 = 0xE000000000000000;
         _StringGuts.grow(_:)(34);
 
-        v49 = 0xD00000000000001FLL;
-        v50 = 0x80000001C18E1F00;
-        v39 = URL.path.getter();
-        MEMORY[0x1C68F3410](v39);
+        v47 = 0xD00000000000001FLL;
+        v48 = 0x80000001C18E1F00;
+        v38 = URL.path.getter();
+        MEMORY[0x1C68F3410](v38);
 
         MEMORY[0x1C68F3410](46, 0xE100000000000000);
-        v40 = v49;
-        v41 = v50;
+        v39 = v47;
+        v40 = v48;
         lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
         swift_allocError();
-        *v42 = v40;
-        *(v42 + 8) = v41;
-        *(v42 + 16) = 4;
+        *v41 = v39;
+        *(v41 + 8) = v40;
+        *(v41 + 16) = 4;
       }
 
       swift_willThrow();
-      v26 = a3;
+      v25 = a3;
     }
 
     goto LABEL_12;
   }
 
-  v27 = v48;
-  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v25, a2, ServiceLocatorForLegacyAPIWorkaround, v53, v52);
-  if (v27)
+  v26 = v46;
+  static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v24, a2, ServiceLocatorForLegacyAPIWorkaround, v51, v50);
+  if (v26)
   {
-    v28 = a2[3];
-    v29 = a2[4];
-    __swift_project_boxed_opaque_existential_1(a2, v28);
-    (*(v29 + 32))(v28, v29);
+    v27 = *(a2 + 3);
+    v28 = *(a2 + 4);
+    __swift_project_boxed_opaque_existential_1(a2, v27);
+    (*(v28 + 32))(v27, v28);
     RERealityFileUnmount();
 LABEL_12:
-    outlined destroy of BodyTrackingComponent?(v26, &_s10RealityKit22__DownsamplingStrategy_pSgMd, &_s10RealityKit22__DownsamplingStrategy_pSgMR);
-    v43 = type metadata accessor for URL();
-    (*(*(v43 - 8) + 8))(a1, v43);
+    outlined destroy of BodyTrackingComponent?(v25, &_s10RealityKit22__DownsamplingStrategy_pSgMd, &_s10RealityKit22__DownsamplingStrategy_pSgMR);
+    v42 = type metadata accessor for URL();
+    (*(*(v42 - 8) + 8))(a1, v42);
     goto LABEL_13;
   }
 
-  v31 = a2[3];
-  v32 = a2[4];
-  __swift_project_boxed_opaque_existential_1(a2, v31);
-  (*(v32 + 32))(v31, v32);
+  v30 = *(a2 + 3);
+  v31 = *(a2 + 4);
+  __swift_project_boxed_opaque_existential_1(a2, v30);
+  (*(v31 + 32))(v30, v31);
   RERealityFileUnmount();
   outlined destroy of BodyTrackingComponent?(a3, &_s10RealityKit22__DownsamplingStrategy_pSgMd, &_s10RealityKit22__DownsamplingStrategy_pSgMR);
-  v33 = type metadata accessor for URL();
-  (*(*(v33 - 8) + 8))(a1, v33);
-  v34 = v52[1];
-  v35 = v47;
-  *v47 = v52[0];
-  v35[1] = v34;
-  v36 = v52[3];
-  v35[2] = v52[2];
-  v35[3] = v36;
+  v32 = type metadata accessor for URL();
+  (*(*(v32 - 8) + 8))(a1, v32);
+  v33 = v50[1];
+  v34 = v45;
+  *v45 = v50[0];
+  v34[1] = v33;
+  v35 = v50[3];
+  v34[2] = v50[2];
+  v34[3] = v35;
 LABEL_13:
-  outlined destroy of __REAssetBundle.LoadOptions(v53);
-  result = __swift_destroy_boxed_opaque_existential_1(a2);
-  v45 = *MEMORY[0x1E69E9840];
-  return result;
+  outlined destroy of __REAssetBundle.LoadOptions(v51);
+  return __swift_destroy_boxed_opaque_existential_1(a2);
 }
 
 uint64_t __REAssetService.dispatchPredicate(for:)@<X0>(unsigned __int8 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   v5 = *a1;
   __REAssetService.asManager.getter(a2, a3);
-  v7 = *(v6 + 88);
-  v8 = REAssetManagerGetEngineQueue();
+  v6 = REAssetManagerGetEngineQueue();
 
-  *a4 = v8;
-  v9 = type metadata accessor for DispatchPredicate();
-  v10 = *(*(v9 - 8) + 104);
-  v11 = MEMORY[0x1E69E8020];
+  *a4 = v6;
+  v7 = type metadata accessor for DispatchPredicate();
+  v8 = *(*(v7 - 8) + 104);
+  v9 = MEMORY[0x1E69E8020];
   if (v5 != 2)
   {
-    v11 = MEMORY[0x1E69E8018];
+    v9 = MEMORY[0x1E69E8018];
   }
 
-  v12 = *v11;
+  v10 = *v9;
 
-  return v10(a4, v12, v9);
+  return v8(a4, v10, v7);
 }
 
 uint64_t static __REAssetBundle.load(url:assetService:materialDefinition:completionHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v31 = a4;
-  v32 = a5;
-  v28 = a2;
-  v29 = a1;
-  v33 = type metadata accessor for DispatchWorkItemFlags();
-  v36 = *(v33 - 8);
-  v5 = *(v36 + 64);
-  MEMORY[0x1EEE9AC00](v33);
-  v7 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for DispatchQoS();
-  v34 = *(v8 - 8);
-  v35 = v8;
-  v9 = *(v34 + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v28 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for URL();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = type metadata accessor for DispatchQoS.QoSClass();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v19 = &v28 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v28 = a4;
+  v29 = a5;
+  v25 = a2;
+  v26 = a1;
+  v30 = type metadata accessor for DispatchWorkItemFlags();
+  v33 = *(v30 - 8);
+  MEMORY[0x1EEE9AC00](v30);
+  v6 = &v25 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for DispatchQoS();
+  v31 = *(v7 - 8);
+  v32 = v7;
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for URL();
+  v11 = *(v10 - 8);
+  v12 = *(v11 + 64);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = type metadata accessor for DispatchQoS.QoSClass();
+  v14 = *(v13 - 8);
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
-  (*(v16 + 104))(v19, *MEMORY[0x1E69E7F98], v15);
-  v30 = static OS_dispatch_queue.global(qos:)();
-  (*(v16 + 8))(v19, v15);
-  outlined init with copy of __REAssetService(v28, v39);
-  (*(v13 + 16))(&v28 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0), v29, v12);
-  v20 = (*(v13 + 80) + 56) & ~*(v13 + 80);
-  v21 = swift_allocObject();
-  outlined init with take of ForceEffectBase(v39, v21 + 16);
-  (*(v13 + 32))(v21 + v20, &v28 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0), v12);
-  v22 = (v21 + ((v14 + v20 + 7) & 0xFFFFFFFFFFFFFFF8));
-  v23 = v32;
-  *v22 = v31;
-  v22[1] = v23;
+  (*(v14 + 104))(v16, *MEMORY[0x1E69E7F98], v13);
+  v27 = static OS_dispatch_queue.global(qos:)();
+  (*(v14 + 8))(v16, v13);
+  outlined init with copy of __REAssetService(v25, v36);
+  (*(v11 + 16))(&v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v26, v10);
+  v17 = (*(v11 + 80) + 56) & ~*(v11 + 80);
+  v18 = swift_allocObject();
+  outlined init with take of ForceEffectBase(v36, v18 + 16);
+  (*(v11 + 32))(v18 + v17, &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v10);
+  v19 = (v18 + ((v12 + v17 + 7) & 0xFFFFFFFFFFFFFFF8));
+  v20 = v29;
+  *v19 = v28;
+  v19[1] = v20;
   aBlock[4] = partial apply for closure #1 in static __REAssetBundle.load(url:assetService:materialDefinition:completionHandler:);
-  aBlock[5] = v21;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_24;
-  v24 = _Block_copy(aBlock);
+  v21 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v37 = MEMORY[0x1E69E7CC0];
-  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60]);
+  v34 = MEMORY[0x1E69E7CC0];
+  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  v25 = v33;
+  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x1E69E6328]);
+  v22 = v30;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v26 = v30;
-  MEMORY[0x1C68F3CA0](0, v11, v7, v24);
-  _Block_release(v24);
+  v23 = v27;
+  MEMORY[0x1C68F3CA0](0, v9, v6, v21);
+  _Block_release(v21);
 
-  (*(v36 + 8))(v7, v25);
-  (*(v34 + 8))(v11, v35);
+  (*(v33 + 8))(v6, v22);
+  (*(v31 + 8))(v9, v32);
 }
 
-uint64_t closure #1 in static __REAssetBundle.load(url:assetService:materialDefinition:completionHandler:)(void *a1, uint64_t a2, void (*a3)(void **))
+uint64_t closure #1 in static __REAssetBundle.load(url:assetService:materialDefinition:completionHandler:)(char *a1, uint64_t a2, void (*a3)(uint64_t *))
 {
-  v37 = *MEMORY[0x1E69E9840];
-  memset(v31, 0, sizeof(v31));
-  v30 = 0u;
+  v36 = *MEMORY[0x1E69E9840];
+  memset(v30, 0, sizeof(v30));
   v29 = 0u;
   v28 = 0u;
   v27 = 0u;
-  v32 = 1;
-  v33 = 0;
-  v35 = 0;
-  v36 = 0;
+  v26 = 0u;
+  v31 = 1;
+  v32 = 0;
   v34 = 0;
-  LOBYTE(v26) = 1;
-  v5 = a1[3];
-  v6 = a1[4];
+  v35 = 0;
+  v33 = 0;
+  LOBYTE(v25) = 1;
+  v5 = *(a1 + 3);
+  v6 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v5);
   (*(v6 + 32))(v5, v6);
   ServiceLocatorForLegacyAPIWorkaround = _REAssetManagerGetServiceLocatorForLegacyAPIWorkaround();
-  v24 = 0;
-  v8 = a1[3];
-  v9 = a1[4];
+  v23 = 0;
+  v8 = *(a1 + 3);
+  v9 = *(a1 + 4);
   __swift_project_boxed_opaque_existential_1(a1, v8);
   (*(v9 + 32))(v8, v9);
   URL._bridgeToObjectiveC()(v10);
@@ -9767,27 +4425,25 @@ uint64_t closure #1 in static __REAssetBundle.load(url:assetService:materialDefi
 
   if (v13)
   {
-    static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v13, a1, ServiceLocatorForLegacyAPIWorkaround, &v26, v25);
-    v14 = a1[3];
-    v15 = a1[4];
+    static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v13, a1, ServiceLocatorForLegacyAPIWorkaround, &v25, v24);
+    v14 = *(a1 + 3);
+    v15 = *(a1 + 4);
     __swift_project_boxed_opaque_existential_1(a1, v14);
     (*(v15 + 32))(v14, v15);
     RERealityFileUnmount();
-    outlined init with copy of __REAssetBundle(v25, v22);
-    v23 = 0;
-    a3(v22);
-    outlined destroy of BodyTrackingComponent?(v22, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMd, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMR);
-    outlined destroy of __REAssetBundle(v25);
-    result = outlined destroy of __REAssetBundle.LoadOptions(&v26);
+    outlined init with copy of __REAssetBundle(v24, &v21);
+    v22 = 0;
+    a3(&v21);
+    outlined destroy of BodyTrackingComponent?(&v21, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMd, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMR);
+    outlined destroy of __REAssetBundle(v24);
+    return outlined destroy of __REAssetBundle.LoadOptions(&v25);
   }
 
   else
   {
-    specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(v24);
+    specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(v23);
     _StringGuts.grow(_:)(34);
 
-    v22[0] = 0xD00000000000001FLL;
-    v22[1] = 0x80000001C18E1F00;
     v17 = URL.path.getter();
     MEMORY[0x1C68F3410](v17);
 
@@ -9798,79 +4454,5726 @@ uint64_t closure #1 in static __REAssetBundle.load(url:assetService:materialDefi
     *(v19 + 8) = 0x80000001C18E1F00;
     *(v19 + 16) = 4;
     swift_willThrow();
-    outlined destroy of __REAssetBundle.LoadOptions(&v26);
-    v26 = v18;
-    BYTE8(v30) = 1;
+    outlined destroy of __REAssetBundle.LoadOptions(&v25);
+    v25 = v18;
+    BYTE8(v29) = 1;
     v20 = v18;
-    a3(&v26);
+    a3(&v25);
 
-    result = outlined destroy of BodyTrackingComponent?(&v26, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMd, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMR);
+    return outlined destroy of BodyTrackingComponent?(&v25, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMd, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMR);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t static __REAssetBundle.load(url:serviceLocator:completionHandler:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v32 = a3;
-  v33 = a4;
-  v31 = a2;
-  v29 = a1;
-  v34 = type metadata accessor for DispatchWorkItemFlags();
-  v37 = *(v34 - 8);
-  v4 = *(v37 + 64);
-  MEMORY[0x1EEE9AC00](v34);
-  v6 = &v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for DispatchQoS();
-  v35 = *(v7 - 8);
-  v36 = v7;
-  v8 = *(v35 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v29 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for URL();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v14 = type metadata accessor for DispatchQoS.QoSClass();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = &v29 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = a3;
+  v30 = a4;
+  v28 = a2;
+  v26 = a1;
+  v31 = type metadata accessor for DispatchWorkItemFlags();
+  v34 = *(v31 - 8);
+  MEMORY[0x1EEE9AC00](v31);
+  v5 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for DispatchQoS();
+  v32 = *(v6 - 8);
+  v33 = v6;
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for URL();
+  v10 = *(v9 - 8);
+  v11 = *(v10 + 64);
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = type metadata accessor for DispatchQoS.QoSClass();
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
-  (*(v15 + 104))(v18, *MEMORY[0x1E69E7F98], v14);
-  v30 = static OS_dispatch_queue.global(qos:)();
-  (*(v15 + 8))(v18, v14);
-  (*(v12 + 16))(&v29 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v29, v11);
-  v19 = (*(v12 + 80) + 16) & ~*(v12 + 80);
-  v20 = (v13 + v19 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v21 = swift_allocObject();
-  (*(v12 + 32))(v21 + v19, &v29 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v11);
-  v22 = v32;
-  *(v21 + v20) = v31;
-  v23 = (v21 + ((v20 + 15) & 0xFFFFFFFFFFFFFFF8));
-  v24 = v33;
-  *v23 = v22;
-  v23[1] = v24;
+  (*(v13 + 104))(v15, *MEMORY[0x1E69E7F98], v12);
+  v27 = static OS_dispatch_queue.global(qos:)();
+  (*(v13 + 8))(v15, v12);
+  (*(v10 + 16))(&v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v26, v9);
+  v16 = (*(v10 + 80) + 16) & ~*(v10 + 80);
+  v17 = (v11 + v16 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v18 = swift_allocObject();
+  (*(v10 + 32))(v18 + v16, &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v9);
+  v19 = v29;
+  *(v18 + v17) = v28;
+  v20 = (v18 + ((v17 + 15) & 0xFFFFFFFFFFFFFFF8));
+  v21 = v30;
+  *v20 = v19;
+  v20[1] = v21;
   aBlock[4] = partial apply for closure #1 in static __REAssetBundle.load(url:serviceLocator:completionHandler:);
-  aBlock[5] = v21;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
   aBlock[3] = &block_descriptor_16;
-  v25 = _Block_copy(aBlock);
+  v22 = _Block_copy(aBlock);
 
   static DispatchQoS.unspecified.getter();
-  v38 = MEMORY[0x1E69E7CC0];
-  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60]);
+  v35 = MEMORY[0x1E69E7CC0];
+  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  v26 = v34;
+  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x1E69E6328]);
+  v23 = v31;
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  v27 = v30;
-  MEMORY[0x1C68F3CA0](0, v10, v6, v25);
-  _Block_release(v25);
+  v24 = v27;
+  MEMORY[0x1C68F3CA0](0, v8, v5, v22);
+  _Block_release(v22);
 
-  (*(v37 + 8))(v6, v26);
-  (*(v35 + 8))(v10, v36);
+  (*(v34 + 8))(v5, v23);
+  (*(v32 + 8))(v8, v33);
+}
+
+uint64_t closure #1 in static __REAssetBundle.load(url:serviceLocator:completionHandler:)(uint64_t a1, uint64_t a2, void (*a3)(void **), uint64_t a4)
+{
+  v44[1] = a4;
+  v45 = a3;
+  v71 = *MEMORY[0x1E69E9840];
+  v6 = type metadata accessor for DispatchPredicate();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = (v44 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10 = type metadata accessor for URL();
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = v44 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v64 = 0u;
+  memset(v65, 0, sizeof(v65));
+  v62 = 0u;
+  v63 = 0u;
+  v61 = 0u;
+  v66 = 1;
+  v67 = 0;
+  v69 = 0;
+  v70 = 0;
+  v68 = 0;
+  LOBYTE(v60) = 1;
+  v14 = *(v11 + 16);
+  v44[0] = v15;
+  v14(v13, a1);
+  outlined init with copy of __REAssetBundle.LoadOptions(&v60, v56);
+  swift_beginAccess();
+  outlined init with copy of __REAssetService(a2 + 120, &v52);
+  v16 = *(&v53 + 1);
+  v17 = v54;
+  __swift_project_boxed_opaque_existential_1(&v52, *(&v53 + 1));
+  LOBYTE(v49[0]) = v56[0];
+  __REAssetService.dispatchPredicate(for:)(v49, v16, v17, v9);
+  __swift_destroy_boxed_opaque_existential_1(&v52);
+  LOBYTE(v16) = _dispatchPreconditionTest(_:)();
+  (*(v7 + 8))(v9, v6);
+  if ((v16 & 1) == 0)
+  {
+    __break(1u);
+  }
+
+  outlined init with copy of __REAssetService(a2 + 120, v49);
+  swift_beginAccess();
+  v18 = *(a2 + 16);
+  v48 = 0;
+  if (v57)
+  {
+    v20 = v50;
+    v19 = v51;
+    __swift_project_boxed_opaque_existential_1(v49, v50);
+    (*(v19 + 32))(v20, v19);
+    URL._bridgeToObjectiveC()(v21);
+    v23 = v22;
+    String.utf8CString.getter();
+    v24 = RERealityFileMountFileAtURLWithAliasName();
+
+    if (v24)
+    {
+LABEL_4:
+      v25 = v58;
+      if (v58)
+      {
+        MajorVersionNumber = RERealityFileGetMajorVersionNumber();
+        v27 = v25 + OBJC_IVAR____TtCE17RealityFoundationC10RealityKit6Entity14LoadStatistics_type;
+        *v27 = MajorVersionNumber;
+        *(v27 + 8) = 1;
+      }
+
+      static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v24, v49, v18, v56, &v52);
+      v33 = v50;
+      v34 = v51;
+      __swift_project_boxed_opaque_existential_1(v49, v50);
+      (*(v34 + 32))(v33, v34);
+      RERealityFileUnmount();
+      __swift_destroy_boxed_opaque_existential_1(v49);
+      outlined destroy of __REAssetBundle.LoadOptions(v56);
+      (*(v11 + 8))(v13, v44[0]);
+      v59[0] = v52;
+      v59[1] = v53;
+      v59[2] = v54;
+      v59[3] = v55;
+      outlined init with copy of __REAssetBundle(v59, v56);
+      v56[64] = 0;
+      v45(v56);
+      outlined destroy of BodyTrackingComponent?(v56, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMd, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMR);
+      outlined destroy of __REAssetBundle(v59);
+      return outlined destroy of __REAssetBundle.LoadOptions(&v60);
+    }
+  }
+
+  else
+  {
+    v28 = v50;
+    v29 = v51;
+    __swift_project_boxed_opaque_existential_1(v49, v50);
+    (*(v29 + 32))(v28, v29);
+    URL._bridgeToObjectiveC()(v30);
+    v32 = v31;
+    v24 = RERealityFileMountFileAtURL();
+
+    if (v24)
+    {
+      goto LABEL_4;
+    }
+  }
+
+  specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(v48);
+  v36 = v48;
+  if (v48)
+  {
+    type metadata accessor for CFErrorRef(0);
+    _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type CFErrorRef and conformance CFErrorRef, type metadata accessor for CFErrorRef, MEMORY[0x1E6969E70]);
+    v37 = swift_allocError();
+    *v38 = v36;
+  }
+
+  else
+  {
+    v46 = 0;
+    v47 = 0xE000000000000000;
+    _StringGuts.grow(_:)(34);
+
+    v46 = 0xD00000000000001FLL;
+    v47 = 0x80000001C18E1F00;
+    v39 = URL.path.getter();
+    MEMORY[0x1C68F3410](v39);
+
+    MEMORY[0x1C68F3410](46, 0xE100000000000000);
+    v40 = v46;
+    v41 = v47;
+    lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
+    v37 = swift_allocError();
+    *v42 = v40;
+    *(v42 + 8) = v41;
+    *(v42 + 16) = 4;
+  }
+
+  swift_willThrow();
+  __swift_destroy_boxed_opaque_existential_1(v49);
+  outlined destroy of __REAssetBundle.LoadOptions(v56);
+  (*(v11 + 8))(v13, v44[0]);
+  outlined destroy of __REAssetBundle.LoadOptions(&v60);
+  v60 = v37;
+  BYTE8(v64) = 1;
+  v43 = v37;
+  v45(&v60);
+
+  return outlined destroy of BodyTrackingComponent?(&v60, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMd, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMR);
+}
+
+uint64_t static __REAssetBundle.load(bundle:entryName:assetService:completionHandler:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v27 = a5;
+  v28 = a6;
+  v25 = a4;
+  v26 = a2;
+  v8 = type metadata accessor for DispatchWorkItemFlags();
+  v31 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v25 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for DispatchQoS();
+  v29 = *(v11 - 8);
+  v30 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v25 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for DispatchQoS.QoSClass();
+  v15 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = &v25 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
+  (*(v15 + 104))(v17, *MEMORY[0x1E69E7F98], v14);
+  v18 = static OS_dispatch_queue.global(qos:)();
+  (*(v15 + 8))(v17, v14);
+  outlined init with copy of __REAssetService(v25, v34);
+  v19 = swift_allocObject();
+  outlined init with take of ForceEffectBase(v34, (v19 + 2));
+  v21 = v26;
+  v20 = v27;
+  v19[7] = a1;
+  v19[8] = v21;
+  v19[9] = a3;
+  v19[10] = v20;
+  v19[11] = v28;
+  aBlock[4] = partial apply for closure #1 in static __REAssetBundle.load(bundle:entryName:assetService:completionHandler:);
+  aBlock[5] = v19;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+  aBlock[3] = &block_descriptor_22;
+  v22 = _Block_copy(aBlock);
+  v23 = a1;
+
+  static DispatchQoS.unspecified.getter();
+  v32 = MEMORY[0x1E69E7CC0];
+  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x1E69E6328]);
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  MEMORY[0x1C68F3CA0](0, v13, v10, v22);
+  _Block_release(v22);
+
+  (*(v31 + 8))(v10, v8);
+  (*(v29 + 8))(v13, v30);
+}
+
+uint64_t closure #1 in static __REAssetBundle.load(bundle:entryName:assetService:completionHandler:)(char *a1, void *a2, uint64_t a3, uint64_t a4, void (*a5)(uint64_t *))
+{
+  v48 = *MEMORY[0x1E69E9840];
+  memset(v42, 0, sizeof(v42));
+  v41 = 0u;
+  v40 = 0u;
+  v39 = 0u;
+  v38 = 0u;
+  v43 = 1;
+  v44 = 0;
+  v46 = 0;
+  v47 = 0;
+  v45 = 0;
+  LOBYTE(v37) = 1;
+  v10 = *(a1 + 3);
+  v11 = *(a1 + 4);
+  __swift_project_boxed_opaque_existential_1(a1, v10);
+  (*(v11 + 32))(v10, v11);
+  ServiceLocatorForLegacyAPIWorkaround = _REAssetManagerGetServiceLocatorForLegacyAPIWorkaround();
+  v35 = 0;
+  v13 = [a2 bundleIdentifier];
+  if (v13)
+  {
+    v32 = a5;
+    v14 = v13;
+    v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v17 = v16;
+
+    v18 = *(a1 + 3);
+    v19 = *(a1 + 4);
+    __swift_project_boxed_opaque_existential_1(a1, v18);
+    (*(v19 + 32))(v18, v19);
+    String.utf8CString.getter();
+    String.utf8CString.getter();
+    v20 = RERealityFileMountFileInBundle();
+
+    if (v20)
+    {
+
+      static __REAssetBundle.__init_REKit2(realityFile:assetService:coreServiceLocator:_:)(v20, a1, ServiceLocatorForLegacyAPIWorkaround, &v37, v36);
+      v28 = *(a1 + 3);
+      v29 = *(a1 + 4);
+      __swift_project_boxed_opaque_existential_1(a1, v28);
+      (*(v29 + 32))(v28, v29);
+      RERealityFileUnmount();
+      outlined init with copy of __REAssetBundle(v36, &v33);
+      v34 = 0;
+      v32(&v33);
+      outlined destroy of BodyTrackingComponent?(&v33, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMd, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMR);
+      outlined destroy of __REAssetBundle(v36);
+      return outlined destroy of __REAssetBundle.LoadOptions(&v37);
+    }
+
+    specialized static __REAssetBundle.checkForUnsupportedVersion(_:)(v35);
+    _StringGuts.grow(_:)(48);
+
+    MEMORY[0x1C68F3410](a3, a4);
+    MEMORY[0x1C68F3410](0x646E7542206E6920, 0xEC000000203A656CLL);
+    MEMORY[0x1C68F3410](v15, v17);
+
+    MEMORY[0x1C68F3410](46, 0xE100000000000000);
+    lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
+    v25 = swift_allocError();
+    *v31 = 0xD00000000000001FLL;
+    *(v31 + 8) = 0x80000001C18E1F00;
+    *(v31 + 16) = 4;
+    a5 = v32;
+    swift_willThrow();
+  }
+
+  else
+  {
+    v21 = [a2 bundlePath];
+    v22 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v24 = v23;
+
+    lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
+    v25 = swift_allocError();
+    *v26 = v22;
+    *(v26 + 8) = v24;
+    *(v26 + 16) = 3;
+    swift_willThrow();
+  }
+
+  outlined destroy of __REAssetBundle.LoadOptions(&v37);
+  v37 = v25;
+  BYTE8(v41) = 1;
+  v27 = v25;
+  a5(&v37);
+
+  return outlined destroy of BodyTrackingComponent?(&v37, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMd, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMR);
+}
+
+uint64_t static __REAssetBundle.load(bundle:entryName:serviceLocator:completionHandler:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v28 = a5;
+  v29 = a6;
+  v26 = a2;
+  v27 = a4;
+  v8 = type metadata accessor for DispatchWorkItemFlags();
+  v32 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v26 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for DispatchQoS();
+  v30 = *(v11 - 8);
+  v31 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v26 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for DispatchQoS.QoSClass();
+  v15 = *(v14 - 8);
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = &v26 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
+  (*(v15 + 104))(v17, *MEMORY[0x1E69E7F98], v14);
+  v18 = static OS_dispatch_queue.global(qos:)();
+  (*(v15 + 8))(v17, v14);
+  v19 = swift_allocObject();
+  v20 = v26;
+  v21 = v27;
+  v19[2] = a1;
+  v19[3] = v20;
+  v19[4] = a3;
+  v19[5] = v21;
+  v22 = v29;
+  v19[6] = v28;
+  v19[7] = v22;
+  aBlock[4] = partial apply for closure #1 in static __REAssetBundle.load(bundle:entryName:serviceLocator:completionHandler:);
+  aBlock[5] = v19;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+  aBlock[3] = &block_descriptor_28_0;
+  v23 = _Block_copy(aBlock);
+  v24 = a1;
+
+  static DispatchQoS.unspecified.getter();
+  v33 = MEMORY[0x1E69E7CC0];
+  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x1E69E6328]);
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  MEMORY[0x1C68F3CA0](0, v13, v10, v23);
+  _Block_release(v23);
+
+  (*(v32 + 8))(v10, v8);
+  (*(v30 + 8))(v13, v31);
+}
+
+uint64_t closure #1 in static __REAssetBundle.load(bundle:entryName:serviceLocator:completionHandler:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(unsigned __int8 *))
+{
+  memset(v19, 0, sizeof(v19));
+  v18 = 0u;
+  v17 = 0u;
+  v16 = 0u;
+  v15 = 0u;
+  v20 = 1;
+  v21 = 0;
+  v23 = 0;
+  v24 = 0;
+  v22 = 0;
+  LOBYTE(v14) = 1;
+  outlined init with copy of __REAssetBundle.LoadOptions(&v14, v12);
+  v10 = a1;
+
+  __REAssetBundle.init(bundle:entryName:serviceLocator:_:)(v10, a2, a3, a4, v12, v13);
+  outlined init with copy of __REAssetBundle(v13, v12);
+  v12[64] = 0;
+  a5(v12);
+  outlined destroy of BodyTrackingComponent?(v12, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMd, &_ss6ResultOy10RealityKit15__REAssetBundleVs5Error_pGMR);
+  outlined destroy of __REAssetBundle(v13);
+  return outlined destroy of __REAssetBundle.LoadOptions(&v14);
+}
+
+void *__REAssetBundle.sceneDescriptors.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x1EEE9AC00](v1 - 8);
+  v47 = v45 - v2;
+  v3 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(0);
+  v52 = *(v3 - 8);
+  v53 = v3;
+  MEMORY[0x1EEE9AC00](v3);
+  object = v45 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = v45 - v7;
+  v9 = *(v0 + 8);
+  v59 = v0;
+  v10 = specialized Sequence.compactMap<A>(_:)(partial apply for closure #1 in __REAssetBundle.getSceneDescriptors(), v58, v9);
+  v11 = v10;
+  if (v10 >> 62)
+  {
+    goto LABEL_38;
+  }
+
+  for (i = *((v10 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = __CocoaSet.count.getter())
+  {
+    v13 = 0;
+    v51 = v11 & 0xC000000000000001;
+    v45[1] = v11 + 32;
+    v46 = v11 & 0xFFFFFFFFFFFFFF8;
+    v14 = MEMORY[0x1E69E7CC0];
+    v49 = v11;
+    v50 = object;
+    v48 = i;
+    while (v51)
+    {
+      v15 = MEMORY[0x1C68F41F0](v13, v11);
+      v16 = __OFADD__(v13, 1);
+      v17 = v13 + 1;
+      if (v16)
+      {
+        goto LABEL_35;
+      }
+
+LABEL_10:
+      v56 = v17;
+      v54 = v15;
+      RERealityFileAssetDescriptorGetFilename();
+      object = String.init(cString:)();
+      v11 = v18;
+      v19 = v53;
+      v20 = *(v53 + 24);
+      v21 = type metadata accessor for UUID();
+      (*(*(v21 - 8) + 56))(&v8[v20], 1, 1, v21);
+      *v8 = object;
+      *(v8 + 1) = v11;
+      *(v8 + 2) = 0;
+      *(v8 + 3) = 0xE000000000000000;
+      v22 = *(v19 + 28);
+      *&v8[v22] = 0;
+      if (RESceneDescriptorGetSceneName())
+      {
+        *(v8 + 2) = String.init(cString:)();
+        *(v8 + 3) = v23;
+      }
+
+      RESceneDescriptorGetSceneIdentifier();
+      v24 = String.init(cString:)();
+      v26 = HIBYTE(v25) & 0xF;
+      if ((v25 & 0x2000000000000000) == 0)
+      {
+        v26 = v24 & 0xFFFFFFFFFFFFLL;
+      }
+
+      v55 = v14;
+      if (v26)
+      {
+        object = String.init(cString:)(*&v24)._object;
+        v11 = v47;
+        UUID.init(uuidString:)();
+
+        outlined assign with take of Any?(v11, &v8[v20], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      }
+
+      else
+      {
+      }
+
+      SceneCompatibilityVariantCount = RESceneDescriptorGetSceneCompatibilityVariantCount();
+      if (SceneCompatibilityVariantCount < 0)
+      {
+        goto LABEL_36;
+      }
+
+      v28 = SceneCompatibilityVariantCount;
+      if (SceneCompatibilityVariantCount)
+      {
+        v29 = 0;
+        v57 = SceneCompatibilityVariantCount;
+        do
+        {
+          if (RESceneDescriptorGetSceneCompatibilityVariantAtIndex())
+          {
+            Version = RESceneCompatibilityVariantGetVersion();
+            RESceneCompatibilityVariantGetFileName();
+            v31 = String.init(cString:)();
+            v33 = v32;
+            v34 = *&v8[v22];
+            if (v34)
+            {
+              v35 = v31;
+              v36 = v8;
+              if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+              {
+                v34 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v34 + 2) + 1, 1, v34);
+              }
+
+              v38 = *(v34 + 2);
+              v37 = *(v34 + 3);
+              if (v38 >= v37 >> 1)
+              {
+                v34 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v37 > 1), v38 + 1, 1, v34);
+              }
+
+              *(v34 + 2) = v38 + 1;
+              v39 = &v34[24 * v38];
+              *(v39 + 4) = Version;
+              *(v39 + 5) = v35;
+              *(v39 + 6) = v33;
+              v8 = v36;
+              *&v36[v22] = v34;
+              v28 = v57;
+            }
+
+            else
+            {
+            }
+          }
+
+          ++v29;
+        }
+
+        while (v28 != v29);
+      }
+
+      v40 = v50;
+      outlined init with copy of __REAssetBundle.AssetMap.SceneDescriptor(v8, v50);
+      v14 = v55;
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v14[2] + 1, 1, v14);
+      }
+
+      v41 = v48;
+      v43 = v14[2];
+      v42 = v14[3];
+      object = (v43 + 1);
+      if (v43 >= v42 >> 1)
+      {
+        v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v42 > 1), v43 + 1, 1, v14);
+      }
+
+      v14[2] = object;
+      outlined init with take of __REAssetBundle.AssetMap.SceneDescriptor(v40, v14 + ((*(v52 + 80) + 32) & ~*(v52 + 80)) + *(v52 + 72) * v43);
+      outlined destroy of __REAssetBundle.AssetMap.SceneDescriptor(v8);
+      v13 = v56;
+      v11 = v49;
+      if (v56 == v41)
+      {
+        goto LABEL_40;
+      }
+    }
+
+    if (v13 >= *(v46 + 16))
+    {
+      goto LABEL_37;
+    }
+
+    v16 = __OFADD__(v13, 1);
+    v17 = v13 + 1;
+    if (!v16)
+    {
+      goto LABEL_10;
+    }
+
+LABEL_35:
+    __break(1u);
+LABEL_36:
+    __break(1u);
+LABEL_37:
+    __break(1u);
+LABEL_38:
+    ;
+  }
+
+  v14 = MEMORY[0x1E69E7CC0];
+LABEL_40:
+
+  return v14;
+}
+
+Swift::String __swiftcall String.init(cString:)(Swift::String cString)
+{
+  if ((cString._object & 0x1000000000000000) == 0 && ((cString._object & 0x2000000000000000) != 0 || (cString._countAndFlagsBits & 0x1000000000000000) != 0))
+  {
+    v1 = String.init(cString:)();
+    v3 = v2;
+  }
+
+  else
+  {
+    _StringGuts._slowWithCString<A>(_:)();
+
+    v1 = v7;
+    v3 = v8;
+  }
+
+  v4 = v1;
+  v5 = v3;
+  result._object = v5;
+  result._countAndFlagsBits = v4;
+  return result;
+}
+
+void closure #1 in __REAssetBundle.getSceneDescriptors()(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  specialized Dictionary.subscript.getter(*a1, *(a2 + 56));
+  v5 = v4;
+  if (!v4)
+  {
+    v6 = static os_log_type_t.debug.getter();
+    type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_os_log, 0x1E69E9BF8);
+    v7 = static OS_os_log.default.getter();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7CVarArg_pGMd, &_ss23_ContiguousArrayStorageCys7CVarArg_pGMR);
+    v8 = swift_allocObject();
+    *(v8 + 16) = xmmword_1C1887600;
+    type metadata accessor for __REAsset();
+    _print_unlocked<A, B>(_:_:)();
+    *(v8 + 56) = MEMORY[0x1E69E6158];
+    *(v8 + 64) = lazy protocol witness table accessor for type String and conformance String();
+    *(v8 + 32) = 0;
+    *(v8 + 40) = 0xE000000000000000;
+    os_log(_:dso:log:_:_:)(v6, &dword_1C1358000, v7, "%s does not match any descriptor", v9);
+  }
+
+  *a3 = v5;
+}
+
+uint64_t __REAssetBundle.sceneAsset(for:)(uint64_t *a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x1EEE9AC00](v2 - 8);
+  v4 = v18 - v3;
+  v5 = a1[2];
+  v18[1] = a1[3];
+  v18[2] = v5;
+  v6 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(0);
+  outlined init with copy of [String : String](a1 + *(v6 + 24), v4, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v7 = type metadata accessor for UUID();
+  v8 = *(v7 - 8);
+  if ((*(v8 + 48))(v4, 1, v7) == 1)
+  {
+    outlined destroy of BodyTrackingComponent?(v4, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  }
+
+  else
+  {
+    UUID.uuidString.getter();
+    (*(v8 + 8))(v4, v7);
+  }
+
+  String.utf8CString.getter();
+  String.utf8CString.getter();
+  String.utf8CString.getter();
+
+  v9 = RESceneDescriptorCreateFromParams();
+
+  v11 = *(a1 + *(v6 + 28));
+  if (v11 && (v12 = *(v11 + 16)) != 0)
+  {
+    v13 = v11 + 48;
+    while (1)
+    {
+      v14 = *(v13 - 16);
+      if (v14 < 0xFFFFFFFF80000000)
+      {
+        break;
+      }
+
+      if (v14 > 0x7FFFFFFF)
+      {
+        goto LABEL_12;
+      }
+
+      String.utf8CString.getter();
+      RESceneDescriptorAddSceneCompatibilityVariant();
+
+      v13 += 24;
+      if (!--v12)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    __break(1u);
+LABEL_12:
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_10:
+    type metadata accessor for RESceneDescriptor();
+    inited = swift_initStackObject();
+    *(inited + 16) = v9;
+    __REAssetBundle.sceneAsset(for:)(inited);
+    v17 = v16;
+    swift_setDeallocating();
+    RERelease();
+    return v17;
+  }
+
+  return result;
+}
+
+double one-time initialization function for temporaryURL()
+{
+  v0 = type metadata accessor for URL();
+  __swift_allocate_value_buffer(v0, static __REAssetBundle.temporaryURL);
+  v1 = __swift_project_value_buffer(v0, static __REAssetBundle.temporaryURL);
+  return closure #1 in variable initialization expression of static __REAssetBundle.temporaryURL(v1);
+}
+
+double closure #1 in variable initialization expression of static __REAssetBundle.temporaryURL@<D0>(char *a1@<X8>)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v2 = type metadata accessor for UUID();
+  v31 = *(v2 - 8);
+  v32 = v2;
+  MEMORY[0x1EEE9AC00](v2);
+  v4 = &v31 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v31 - v10;
+  v12 = objc_opt_self();
+  v13 = [v12 defaultManager];
+  v33._countAndFlagsBits = 0;
+  v14 = [v13 URLForDirectory:13 inDomain:1 appropriateForURL:0 create:1 error:&v33];
+
+  countAndFlagsBits = v33._countAndFlagsBits;
+  if (v14)
+  {
+    static URL._unconditionallyBridgeFromObjectiveC(_:)();
+    v16 = countAndFlagsBits;
+
+    v17 = *(v6 + 32);
+    v17(v11, v8, v5);
+    (*(v6 + 56))(v11, 0, 1, v5);
+    v17(a1, v11, v5);
+  }
+
+  else
+  {
+    v18 = v33._countAndFlagsBits;
+    v19 = _convertNSErrorToError(_:)();
+
+    swift_willThrow();
+    (*(v6 + 56))(v11, 1, 1, v5);
+    v20 = [v12 defaultManager];
+    v21 = [v20 temporaryDirectory];
+
+    static URL._unconditionallyBridgeFromObjectiveC(_:)();
+    if ((*(v6 + 48))(v11, 1, v5) != 1)
+    {
+      outlined destroy of BodyTrackingComponent?(v11, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    }
+  }
+
+  v22 = [objc_opt_self() mainBundle];
+  v23 = [v22 bundleIdentifier];
+
+  if (v23)
+  {
+    v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v26 = v25;
+
+    v27._countAndFlagsBits = v24;
+    v27._object = v26;
+    URL.appendPathComponent(_:)(v27);
+  }
+
+  v33._countAndFlagsBits = 0;
+  v33._object = 0xE000000000000000;
+  _StringGuts.grow(_:)(30);
+
+  v33._countAndFlagsBits = 0xD00000000000001CLL;
+  v33._object = 0x80000001C18E9120;
+  UUID.init()();
+  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695E0]);
+  v28 = v32;
+  v29 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1C68F3410](v29);
+
+  (*(v31 + 8))(v4, v28);
+  URL.appendPathComponent(_:)(v33);
+
+  return result;
+}
+
+uint64_t static __REAssetBundle.temporaryURL.getter@<X0>(uint64_t a1@<X8>)
+{
+  if (one-time initialization token for temporaryURL != -1)
+  {
+    swift_once();
+  }
+
+  v2 = type metadata accessor for URL();
+  v3 = __swift_project_value_buffer(v2, static __REAssetBundle.temporaryURL);
+  v4 = *(*(v2 - 8) + 16);
+
+  return v4(a1, v3, v2);
+}
+
+uint64_t __REAssetBundle.__write(to:fromEngineQueue:)(uint64_t a1, char a2)
+{
+  v16 = 0;
+  v15 = 1;
+  v14 = 1;
+  if (a2)
+  {
+    v2 = 2;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  LOBYTE(v6) = v2;
+  *(&v6 + 1) = 1;
+  LOBYTE(v7) = 0;
+  v8 = 0;
+  *v9 = 16777217;
+  *&v9[8] = xmmword_1C18B7B50;
+  v10 = 0;
+  BYTE4(v11) = 0;
+  LODWORD(v11) = 0;
+  v12 = 0;
+  v13[0] = 1;
+  *&v13[1] = 0;
+  memset(&v13[8], 0, 32);
+  *&v13[40] = 1;
+  v13[42] = 3;
+  v4[4] = v11;
+  v4[5] = *v13;
+  v5[0] = *&v13[16];
+  *(v5 + 11) = *&v13[27];
+  v4[0] = v6;
+  v4[1] = v7;
+  v4[2] = *v9;
+  v4[3] = 5uLL;
+  __REAssetBundle.writeWithCPlusPlus(to:with:)(a1, v4);
+  return outlined destroy of __REAssetBundle.ExportOptions(&v6);
+}
+
+uint64_t __REAssetBundle.write(to:with:)(uint64_t a1, __int128 *a2)
+{
+  v2 = a2[5];
+  v6[4] = a2[4];
+  v6[5] = v2;
+  v7[0] = a2[6];
+  *(v7 + 11) = *(a2 + 107);
+  v3 = a2[1];
+  v6[0] = *a2;
+  v6[1] = v3;
+  v4 = a2[3];
+  v6[2] = a2[2];
+  v6[3] = v4;
+  return __REAssetBundle.writeWithCPlusPlus(to:with:)(a1, v6);
+}
+
+uint64_t __REAssetBundle.__write(to:with:compressionLevel:progress:)(uint64_t a1, char *a2, uint64_t a3, char a4, void *a5)
+{
+  v6 = *a2;
+  v12 = 1;
+  v11 = 1;
+  LOBYTE(v13) = v6;
+  *(&v13 + 1) = a3;
+  LOBYTE(v14) = a4 & 1;
+  *(&v14 + 1) = a5;
+  *v15 = 16777217;
+  *&v15[8] = xmmword_1C18B7B50;
+  v16 = 0;
+  BYTE4(v17) = 0;
+  LODWORD(v17) = 0;
+  v18 = 0;
+  v19[0] = 1;
+  *&v19[1] = 0;
+  memset(&v19[8], 0, 32);
+  *&v19[40] = 1;
+  v19[42] = 3;
+  v9[4] = v17;
+  v9[5] = *v19;
+  v10[0] = *&v19[16];
+  *(v10 + 11) = *&v19[27];
+  v9[2] = *v15;
+  v9[3] = 5uLL;
+  v9[0] = v13;
+  v9[1] = v14;
+  v7 = a5;
+  __REAssetBundle.writeWithCPlusPlus(to:with:)(a1, v9);
+  return outlined destroy of __REAssetBundle.ExportOptions(&v13);
+}
+
+uint64_t __REAssetBundle.__write(to:completionHandler:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v28 = a2;
+  v29 = a3;
+  v26 = a1;
+  v30 = type metadata accessor for DispatchWorkItemFlags();
+  v33 = *(v30 - 8);
+  MEMORY[0x1EEE9AC00](v30);
+  v4 = v25 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for DispatchQoS();
+  v31 = *(v5 - 8);
+  v32 = v5;
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for URL();
+  v9 = *(v8 - 8);
+  v10 = *(v9 + 64);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = type metadata accessor for DispatchQoS.QoSClass();
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
+  (*(v12 + 104))(v14, *MEMORY[0x1E69E7F98], v11);
+  v27 = static OS_dispatch_queue.global(qos:)();
+  (*(v12 + 8))(v14, v11);
+  outlined init with copy of __REAssetBundle(v25[1], v36);
+  (*(v9 + 16))(v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v26, v8);
+  v15 = (*(v9 + 80) + 80) & ~*(v9 + 80);
+  v16 = swift_allocObject();
+  v17 = v36[1];
+  *(v16 + 1) = v36[0];
+  *(v16 + 2) = v17;
+  v18 = v36[3];
+  *(v16 + 3) = v36[2];
+  *(v16 + 4) = v18;
+  (*(v9 + 32))(&v16[v15], v25 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v8);
+  v19 = &v16[(v10 + v15 + 7) & 0xFFFFFFFFFFFFFFF8];
+  v20 = v29;
+  *v19 = v28;
+  v19[1] = v20;
+  aBlock[4] = partial apply for closure #1 in __REAssetBundle.__write(to:completionHandler:);
+  aBlock[5] = v16;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+  aBlock[3] = &block_descriptor_34_0;
+  v21 = _Block_copy(aBlock);
+
+  static DispatchQoS.unspecified.getter();
+  v34 = MEMORY[0x1E69E7CC0];
+  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x1E69E6328]);
+  v22 = v30;
+  dispatch thunk of SetAlgebra.init<A>(_:)();
+  v23 = v27;
+  MEMORY[0x1C68F3CA0](0, v7, v4, v21);
+  _Block_release(v21);
+
+  (*(v33 + 8))(v4, v22);
+  (*(v31 + 8))(v7, v32);
+}
+
+uint64_t closure #1 in __REAssetBundle.__write(to:completionHandler:)(uint64_t a1, uint64_t a2, void (*a3)(void))
+{
+  v8 = 1;
+  v7 = 1;
+  LOBYTE(v9) = 1;
+  *(&v9 + 1) = 1;
+  LOBYTE(v10) = 0;
+  v11 = 0;
+  *v12 = 16777217;
+  *&v12[8] = xmmword_1C18B7B50;
+  v13 = 0;
+  BYTE4(v14) = 0;
+  LODWORD(v14) = 0;
+  v15 = 0;
+  v16[0] = 1;
+  *&v16[1] = 0;
+  memset(&v16[8], 0, 32);
+  *&v16[40] = 1;
+  v16[42] = 3;
+  v5[4] = v14;
+  v5[5] = *v16;
+  v6[0] = *&v16[16];
+  *(v6 + 11) = *&v16[27];
+  v5[2] = *v12;
+  v5[3] = 5uLL;
+  v5[0] = v9;
+  v5[1] = v10;
+  __REAssetBundle.writeWithCPlusPlus(to:with:)(a2, v5);
+  a3(0);
+  return outlined destroy of __REAssetBundle.ExportOptions(&v9);
+}
+
+unint64_t __RealityFileError.debugDescription.getter()
+{
+  v1 = *v0;
+  v2 = *(v0 + 8);
+  v3 = *(v0 + 16);
+  if (v3 <= 2)
+  {
+    if (!*(v0 + 16))
+    {
+      _StringGuts.grow(_:)(42);
+
+      v8 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x1C68F3410](v8);
+
+      MEMORY[0x1C68F3410](0xD000000000000013, 0x80000001C18E8F40);
+      _StringGuts.grow(_:)(33);
+
+      if (one-time initialization token for maximumReadingFormatVersion != -1)
+      {
+        swift_once();
+      }
+
+      v9 = dispatch thunk of CustomStringConvertible.description.getter();
+      MEMORY[0x1C68F3410](v9);
+
+      MEMORY[0x1C68F3410](10542, 0xE200000000000000);
+      v14 = 0xD000000000000015;
+
+      MEMORY[0x1C68F3410](0xD00000000000001DLL, 0x80000001C18E8F60);
+
+      return v14;
+    }
+
+    if (v3 == 1)
+    {
+      _StringGuts.grow(_:)(36);
+      v4 = dispatch thunk of CustomStringConvertible.description.getter();
+
+      v14 = v4;
+      MEMORY[0x1C68F3410](0xD00000000000001FLL, 0x80000001C18E8E30);
+      type metadata accessor for RERealityFileMajorVersion(0);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo25RERealityFileMajorVersionVmMd, &_sSo25RERealityFileMajorVersionVmMR);
+      v5 = String.init<A>(describing:)();
+      MEMORY[0x1C68F3410](v5);
+
+      v6 = 46;
+      v7 = 0xE100000000000000;
+LABEL_14:
+      MEMORY[0x1C68F3410](v6, v7);
+      return v14;
+    }
+
+    v14 = 0;
+    _StringGuts.grow(_:)(36);
+    MEMORY[0x1C68F3410](39, 0xE100000000000000);
+    _print_unlocked<A, B>(_:_:)();
+    v10 = "ve a bundleIdentifier.";
+    v6 = 0xD000000000000021;
+LABEL_13:
+    v7 = v10 | 0x8000000000000000;
+    goto LABEL_14;
+  }
+
+  if (v3 == 3)
+  {
+    v14 = 0;
+    _StringGuts.grow(_:)(96);
+    MEMORY[0x1C68F3410](0xD000000000000028, 0x80000001C18E8D90);
+    MEMORY[0x1C68F3410](v1, v2);
+    v10 = "ality file from bundle '";
+    v6 = 0xD000000000000036;
+    goto LABEL_13;
+  }
+
+  if (v3 == 4)
+  {
+  }
+
+  else if (v1 > 2)
+  {
+    if (v1 ^ 4 | v2)
+    {
+      v13 = 0xD000000000000019;
+    }
+
+    else
+    {
+      v13 = 0xD000000000000012;
+    }
+
+    if (v1 ^ 3 | v2)
+    {
+      return v13;
+    }
+
+    else
+    {
+      return 0xD000000000000023;
+    }
+  }
+
+  else
+  {
+    if (v1 ^ 1 | v2)
+    {
+      v12 = 0xD000000000000013;
+    }
+
+    else
+    {
+      v12 = 0xD000000000000011;
+    }
+
+    if (v1 | v2)
+    {
+      return v12;
+    }
+
+    else
+    {
+      return 0xD000000000000011;
+    }
+  }
+
+  return v1;
+}
+
+uint64_t LocalizedRealityFileError.errorDescription.getter()
+{
+  _StringGuts.grow(_:)(84);
+  MEMORY[0x1C68F3410](0xD000000000000051, 0x80000001C18E91B0);
+  v0 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1C68F3410](v0);
+
+  MEMORY[0x1C68F3410](46, 0xE100000000000000);
+  return 0;
+}
+
+unint64_t SerializationError.description.getter(uint64_t a1, uint64_t a2, char a3)
+{
+  if (!a3)
+  {
+    _StringGuts.grow(_:)(39);
+
+    v6 = 0xD000000000000011;
+    MEMORY[0x1C68F3410](a1, a2);
+    MEMORY[0x1C68F3410](0xD000000000000014, 0x80000001C18E90D0);
+    return v6;
+  }
+
+  if (a3 == 1)
+  {
+    _print_unlocked<A, B>(_:_:)();
+    MEMORY[0x1C68F3410](0, 0xE000000000000000);
+
+    MEMORY[0x1C68F3410](a1, a2);
+    v6 = 0xD000000000000068;
+
+    MEMORY[0x1C68F3410](8250, 0xE200000000000000);
+
+    return v6;
+  }
+
+  return 0xD00000000000002FLL;
+}
+
+uint64_t __Archiving.Operation.__deallocating_deinit()
+{
+  MEMORY[0x1C6901D90](*(v0 + 16));
+
+  return swift_deallocClassInstance();
+}
+
+void __Archiving.Operation.archive(to:)()
+{
+  URL._bridgeToObjectiveC()(*MEMORY[0x1E69E9840]);
+  v1 = v0;
+  v2 = _REArchiveOperationArchiveToURL();
+
+  if ((v2 & 1) == 0)
+  {
+    lazy protocol witness table accessor for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError();
+    swift_allocError();
+    *v3 = 1;
+    swift_willThrow();
+  }
+}
+
+void __Archiving.Operation.unarchive(to:withReport:)(uint64_t a1, uint64_t a2)
+{
+  v3 = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
+  v14[0] = 0;
+  if (a2)
+  {
+    v5 = *(v2 + 16);
+    URL._bridgeToObjectiveC()(v3);
+    v7 = v6;
+    v8 = MEMORY[0x1C6901DF0](v5, v6, a2, v14);
+  }
+
+  else
+  {
+    URL._bridgeToObjectiveC()(v3);
+    v7 = v9;
+    v8 = _REArchiveOperationUnarchiveToURL();
+  }
+
+  v10 = v8;
+
+  if ((v10 & 1) == 0)
+  {
+    v11 = v14[0];
+    if (v14[0])
+    {
+      type metadata accessor for CFErrorRef(0);
+      _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type CFErrorRef and conformance CFErrorRef, type metadata accessor for CFErrorRef, MEMORY[0x1E6969E70]);
+      swift_allocError();
+      *v12 = v11;
+    }
+
+    else
+    {
+      lazy protocol witness table accessor for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError();
+      swift_allocError();
+      *v13 = 0;
+    }
+
+    swift_willThrow();
+  }
+}
+
+uint64_t static __Archiving.archivePackage(source:destination:envelopeVersion:compressionLevel:progress:)(uint64_t a1, uint64_t a2, unsigned __int8 *a3, uint64_t a4, uint64_t a5, void *a6)
+{
+  v23[0] = a2;
+  v9 = type metadata accessor for URL();
+  v10 = *(v9 - 8);
+  v11 = MEMORY[0x1EEE9AC00](v9);
+  v13 = v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = a3[1];
+  (*(v10 + 16))(v13, a1, v9, v11);
+  type metadata accessor for __Archiving.Operation();
+  inited = swift_initStackObject();
+  URL._bridgeToObjectiveC()(v16);
+  v18 = v17;
+  v19 = _REArchiveOperationCreateWithURL();
+
+  (*(v10 + 8))(v13, v9);
+  *(inited + 16) = v19;
+  _REArchiveOperationSetArchiveCompressionLevel();
+  _REArchiveOperationSetStreamCompression();
+  if (v14)
+  {
+    REArchiveGetDefaultEnvelopeVersion();
+    if ((_REArchiveOperationSetEnvelopeVersion() & 1) == 0)
+    {
+LABEL_3:
+      lazy protocol witness table accessor for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError();
+      swift_allocError();
+      *v20 = 1;
+      swift_willThrow();
+    }
+  }
+
+  else if ((_REArchiveOperationSetEnvelopeVersion() & 1) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  if (a6)
+  {
+    objc_storeStrong(v19, a6);
+  }
+
+  v21 = v23[5];
+  __Archiving.Operation.archive(to:)();
+  if (!v21)
+  {
+    swift_setDeallocating();
+    return MEMORY[0x1C6901D90](v19);
+  }
+}
+
+uint64_t static __Archiving.unarchivePackage(source:destination:)(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for URL();
+  v5 = *(v4 - 8);
+  v6 = MEMORY[0x1EEE9AC00](v4);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v5 + 16))(v8, a1, v4, v6);
+  type metadata accessor for __Archiving.Operation();
+  inited = swift_initStackObject();
+  URL._bridgeToObjectiveC()(v10);
+  v12 = v11;
+  v13 = _REArchiveOperationCreateWithURL();
+
+  (*(v5 + 8))(v8, v4);
+  *(inited + 16) = v13;
+  _REArchiveOperationSetStreamCompression();
+  __Archiving.Operation.unarchive(to:withReport:)(a2, 0);
+  swift_setDeallocating();
+  return MEMORY[0x1C6901D90](v13);
+}
+
+uint64_t static __Archiving.unarchivePackage(source:destination:withReport:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = type metadata accessor for URL();
+  v7 = *(v6 - 8);
+  v8 = MEMORY[0x1EEE9AC00](v6);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v7 + 16))(v10, a1, v6, v8);
+  type metadata accessor for __Archiving.Operation();
+  inited = swift_initStackObject();
+  URL._bridgeToObjectiveC()(v12);
+  v14 = v13;
+  v15 = _REArchiveOperationCreateWithURL();
+
+  (*(v7 + 8))(v10, v6);
+  *(inited + 16) = v15;
+  _REArchiveOperationSetStreamCompression();
+  __Archiving.Operation.unarchive(to:withReport:)(a2, a3);
+  swift_setDeallocating();
+  return MEMORY[0x1C6901D90](v15);
+}
+
+Swift::Int __Archiving.ArchivingError.hashValue.getter()
+{
+  v1 = *v0;
+  Hasher.init(_seed:)();
+  MEMORY[0x1C68F4C10](v1);
+  return Hasher._finalize()();
+}
+
+uint64_t __REAssetManager.waitForLoadRequest(_:with:)(uint64_t a1, unsigned __int8 *a2)
+{
+  v3 = type metadata accessor for DispatchPredicate();
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v7 = (&v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = *a2;
+  if (v8 == 2)
+  {
+    if (!REAssetLoadRequestGetState())
+    {
+      REAssetLoadRequestWaitForCompletion();
+    }
+  }
+
+  else if (v8)
+  {
+    v9 = v5;
+    *v7 = REAssetManagerGetEngineQueue();
+    (*(v4 + 104))(v7, *MEMORY[0x1E69E8018], v9);
+    v10 = _dispatchPreconditionTest(_:)();
+    result = (*(v4 + 8))(v7, v9);
+    if ((v10 & 1) == 0)
+    {
+      __break(1u);
+      return result;
+    }
+
+    if (!REAssetLoadRequestGetState())
+    {
+      REAssetLoadRequestWaitForCompletionFromOtherQueue();
+    }
+  }
+
+  else if (REAssetLoadRequestGetState() != 1)
+  {
+    lazy protocol witness table accessor for type SerializationError and conformance SerializationError();
+    swift_allocError();
+    *v15 = 0xD00000000000001ALL;
+    *(v15 + 8) = 0x80000001C18E9170;
+    v16 = 1;
+    goto LABEL_14;
+  }
+
+  result = REAssetLoadRequestGetState();
+  if (result == 1)
+  {
+    return result;
+  }
+
+  RequestCopyError = REAssetLoadRequestCopyError();
+  if (!RequestCopyError)
+  {
+    lazy protocol witness table accessor for type __RealityFileError and conformance __RealityFileError();
+    swift_allocError();
+    *v15 = 0xD00000000000001BLL;
+    *(v15 + 8) = 0x80000001C18E9190;
+    v16 = 4;
+LABEL_14:
+    *(v15 + 16) = v16;
+    return swift_willThrow();
+  }
+
+  v13 = RequestCopyError;
+  type metadata accessor for CFErrorRef(0);
+  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type CFErrorRef and conformance CFErrorRef, type metadata accessor for CFErrorRef, MEMORY[0x1E6969E70]);
+  swift_allocError();
+  *v14 = v13;
+  return swift_willThrow();
+}
+
+double __REAssetService.asManager.getter(uint64_t a1, uint64_t a2)
+{
+  v2 = (*(a2 + 32))(a1);
+  type metadata accessor for __REAssetManager();
+  v3 = swift_allocObject();
+  result = 0.0;
+  *(v3 + 16) = 0u;
+  *(v3 + 32) = 0u;
+  *(v3 + 48) = 0u;
+  *(v3 + 64) = 0u;
+  *(v3 + 80) = 2;
+  *(v3 + 96) = 514;
+  *(v3 + 88) = v2;
+  return result;
+}
+
+void __REAssetService.performOnEngineQueue<A>(with:_:)(unsigned __int8 *a1, void (*a2)(uint64_t), uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v27[1] = a5;
+  v27[2] = a3;
+  v28 = a2;
+  v11 = type metadata accessor for DispatchPredicate();
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = (v27 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = *a1;
+  if (v15 == 2)
+  {
+    __REAssetService.asManager.getter(a4, a6);
+    v16 = REAssetManagerGetEngineQueue();
+
+    *v14 = v16;
+    (*(v12 + 104))(v14, *MEMORY[0x1E69E8020], v11);
+    v17 = _dispatchPreconditionTest(_:)();
+    v18 = (*(v12 + 8))(v14, v11);
+    if (v17)
+    {
+      v28(v18);
+      return;
+    }
+
+    __break(1u);
+LABEL_10:
+    __break(1u);
+    return;
+  }
+
+  if (v15)
+  {
+    v27[0] = v7;
+    __REAssetService.asManager.getter(a4, a6);
+    v19 = REAssetManagerGetEngineQueue();
+
+    *v14 = v19;
+    (*(v12 + 104))(v14, *MEMORY[0x1E69E8018], v11);
+    LOBYTE(v19) = _dispatchPreconditionTest(_:)();
+    (*(v12 + 8))(v14, v11);
+    if (v19)
+    {
+      __REAssetService.asManager.getter(a4, a6);
+      v20 = REAssetManagerGetEngineQueue();
+
+      OS_dispatch_queue.sync<A>(execute:)();
+
+      return;
+    }
+
+    goto LABEL_10;
+  }
+
+  v21 = [objc_opt_self() callStackSymbols];
+  v22 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+  v29 = v22;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+  lazy protocol witness table accessor for type SIMD3<Float> and conformance SIMD3<A>(&lazy protocol witness table cache variable for type [String] and conformance [A], &_sSaySSGMd, &_sSaySSGMR, MEMORY[0x1E69E6310]);
+  v23 = BidirectionalCollection<>.joined(separator:)();
+  v25 = v24;
+
+  lazy protocol witness table accessor for type SerializationError and conformance SerializationError();
+  swift_allocError();
+  *v26 = v23;
+  *(v26 + 8) = v25;
+  *(v26 + 16) = 1;
+  swift_willThrow();
+}
+
+uint64_t implicit closure #1 in String.init(cString:)@<X0>(uint64_t *a2@<X8>)
+{
+  result = String.init(cString:)();
+  *a2 = result;
+  a2[1] = v4;
+  return result;
+}
+
+Swift::Int _ss17_NativeDictionaryV_8capacityAByxq_Gs07__CocoaB0Vn_SitcfC10RealityKit9__REAssetC_0E10Foundation17RESceneDescriptorCTt1g5(uint64_t a1, uint64_t a2)
+{
+  if (a2)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10RealityKit9__REAssetC0C10Foundation17RESceneDescriptorCGMd, &_ss18_DictionaryStorageCy10RealityKit9__REAssetC0C10Foundation17RESceneDescriptorCGMR);
+    v2 = static _DictionaryStorage.convert(_:capacity:)();
+    v16 = v2;
+    __CocoaDictionary.makeIterator()();
+    if (__CocoaDictionary.Iterator.next()())
+    {
+      type metadata accessor for __REAsset();
+      do
+      {
+        swift_dynamicCast();
+        type metadata accessor for RESceneDescriptor();
+        swift_dynamicCast();
+        v9 = *(v2 + 16);
+        if (*(v2 + 24) <= v9)
+        {
+          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v9 + 1, 1);
+        }
+
+        v2 = v16;
+        Hasher.init(_seed:)();
+        MEMORY[0x1C68F4C10](*(v15 + 16));
+        result = Hasher._finalize()();
+        v4 = v16 + 64;
+        v5 = -1 << *(v16 + 32);
+        v6 = result & ~v5;
+        v7 = v6 >> 6;
+        if (((-1 << v6) & ~*(v16 + 64 + 8 * (v6 >> 6))) != 0)
+        {
+          v8 = __clz(__rbit64((-1 << v6) & ~*(v16 + 64 + 8 * (v6 >> 6)))) | v6 & 0x7FFFFFFFFFFFFFC0;
+        }
+
+        else
+        {
+          v10 = 0;
+          v11 = (63 - v5) >> 6;
+          do
+          {
+            if (++v7 == v11 && (v10 & 1) != 0)
+            {
+              __break(1u);
+              return result;
+            }
+
+            v12 = v7 == v11;
+            if (v7 == v11)
+            {
+              v7 = 0;
+            }
+
+            v10 |= v12;
+            v13 = *(v4 + 8 * v7);
+          }
+
+          while (v13 == -1);
+          v8 = __clz(__rbit64(~v13)) + (v7 << 6);
+        }
+
+        *(v4 + ((v8 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v8;
+        *(*(v16 + 48) + 8 * v8) = v15;
+        *(*(v16 + 56) + 8 * v8) = v14;
+        ++*(v16 + 16);
+      }
+
+      while (__CocoaDictionary.Iterator.next()());
+    }
+  }
+
+  else
+  {
+    swift_unknownObjectRelease();
+    return MEMORY[0x1E69E7CC8];
+  }
+
+  return v2;
+}
+
+BOOL specialized static __REAssetBundle.AssetMap.SceneDescriptor.== infix(_:_:)(void *a1, void *a2)
+{
+  v4 = type metadata accessor for UUID();
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v25 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v25 - v12;
+  if (*a1 != *a2 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (a1[2] != a2[2] || a1[3] != a2[3]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v25 = v7;
+  v26 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(0);
+  v14 = *(v26 + 24);
+  v15 = *(v11 + 48);
+  outlined init with copy of [String : String](a1 + v14, v13, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  outlined init with copy of [String : String](a2 + v14, &v13[v15], &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) == 1)
+  {
+    if (v16(&v13[v15], 1, v4) == 1)
+    {
+      outlined destroy of BodyTrackingComponent?(v13, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+      goto LABEL_14;
+    }
+
+LABEL_11:
+    outlined destroy of BodyTrackingComponent?(v13, &_s10Foundation4UUIDVSg_ADtMd, &_s10Foundation4UUIDVSg_ADtMR);
+    return 0;
+  }
+
+  outlined init with copy of [String : String](v13, v10, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  if (v16(&v13[v15], 1, v4) == 1)
+  {
+    (*(v5 + 8))(v10, v4);
+    goto LABEL_11;
+  }
+
+  v18 = &v13[v15];
+  v19 = v25;
+  (*(v5 + 32))(v25, v18, v4);
+  _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(&lazy protocol witness table cache variable for type UUID and conformance UUID, MEMORY[0x1E69695A8], MEMORY[0x1E69695C8]);
+  v20 = dispatch thunk of static Equatable.== infix(_:_:)();
+  v21 = *(v5 + 8);
+  v21(v19, v4);
+  v21(v10, v4);
+  outlined destroy of BodyTrackingComponent?(v13, &_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
+  if ((v20 & 1) == 0)
+  {
+    return 0;
+  }
+
+LABEL_14:
+  v22 = *(v26 + 28);
+  v23 = *(a1 + v22);
+  v24 = *(a2 + v22);
+  if (v23)
+  {
+    return v24 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0H20CompatibilityVariantV_Tt1g5(v23, v24) & 1) != 0;
+  }
+
+  return !v24;
+}
+
+uint64_t specialized __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.init(from:)(void *a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0J20CompatibilityVariantV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMd, &_ss22KeyedDecodingContainerVy10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0J20CompatibilityVariantV10CodingKeys33_C8F7F657726B51B2BB46A431F0E79785LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v9[-v5];
+  v7 = a1[3];
+  __swift_project_boxed_opaque_existential_1(a1, v7);
+  lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (!v1)
+  {
+    v9[15] = 0;
+    v7 = KeyedDecodingContainer.decode(_:forKey:)();
+    v9[14] = 1;
+    KeyedDecodingContainer.decode(_:forKey:)();
+    (*(v4 + 8))(v6, v3);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1(a1);
+  return v7;
+}
+
+uint64_t specialized __REAssetBundle.Header.VersionInfo.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v3 = a1 == 25705 && a2 == 0xE200000000000000;
+  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0xD000000000000010 && 0x80000001C18E8FB0 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0x6C506E696769726FLL && a2 == 0xEE006D726F667461)
+  {
+
+    return 2;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v6)
+    {
+      return 2;
+    }
+
+    else
+    {
+      return 3;
+    }
+  }
+}
+
+uint64_t specialized __REAssetBundle.AssetMap.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x73656E656373 && a2 == 0xE600000000000000;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x737465737361 && a2 == 0xE600000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0xD000000000000021 && 0x80000001C18E9010 == a2)
+  {
+
+    return 2;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v6)
+    {
+      return 2;
+    }
+
+    else
+    {
+      return 3;
+    }
+  }
+}
+
+uint64_t specialized __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v4 = a1 == 0x656D614E656C6966 && a2 == 0xE800000000000000;
+  if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x6D614E656E656373 && a2 == 0xE900000000000065 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0x656449656E656373 && a2 == 0xEF7265696669746ELL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 2;
+  }
+
+  else if (a1 == 0xD00000000000001ALL && 0x80000001C18E8FD0 == a2)
+  {
+
+    return 3;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v6)
+    {
+      return 3;
+    }
+
+    else
+    {
+      return 4;
+    }
+  }
+}
+
+uint64_t specialized static __REAssetBundle.frameworkVersion(key:)(uint64_t a1, uint64_t a2)
+{
+  if (one-time initialization token for realityFoundation != -1)
+  {
+    swift_once();
+  }
+
+  v4 = [static NSBundle.realityFoundation infoDictionary];
+  if (!v4)
+  {
+    return 12589;
+  }
+
+  v5 = v4;
+  v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+
+  if (!*(v6 + 16))
+  {
+    goto LABEL_10;
+  }
+
+  v7 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+  if ((v8 & 1) == 0)
+  {
+    goto LABEL_10;
+  }
+
+  outlined init with copy of Any(*(v6 + 56) + 32 * v7, v13);
+
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+    return 12589;
+  }
+
+  result = v11;
+  v10 = HIBYTE(v12) & 0xF;
+  if ((v12 & 0x2000000000000000) == 0)
+  {
+    v10 = v11 & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (!v10)
+  {
+LABEL_10:
+
+    return 12589;
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.VersionInfo.CodingKeys, &unk_1F410C050, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.VersionInfo.CodingKeys, &unk_1F410C050, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.VersionInfo.CodingKeys, &unk_1F410C050, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.VersionInfo.CodingKeys, &unk_1F410C050, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo.CodingKeys and conformance __REAssetBundle.Header.VersionInfo.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.CodingKeys, &unk_1F410BFC0, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.CodingKeys, &unk_1F410BFC0, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.CodingKeys, &unk_1F410BFC0, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.CodingKeys, &unk_1F410BFC0, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.CodingKeys and conformance __REAssetBundle.Header.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo()
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.VersionInfo, &type metadata for __REAssetBundle.Header.VersionInfo, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.Header.VersionInfo, &type metadata for __REAssetBundle.Header.VersionInfo, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.Header.VersionInfo and conformance __REAssetBundle.Header.VersionInfo);
+  }
+
+  return result;
+}
+
+uint64_t outlined copy of __REAssetBundle.ExportOptions.DeploymentTarget?(uint64_t a1, unint64_t a2)
+{
+  if (a2 != 5)
+  {
+    return outlined copy of __REAssetBundle.ExportOptions.PlatformOS(a1, a2);
+  }
+
+  return a1;
+}
+
+double outlined consume of __REAssetBundle.ExportOptions.DeploymentTarget?(uint64_t a1, unint64_t a2)
+{
+  if (a2 != 5)
+  {
+    return outlined consume of __REAssetBundle.ExportOptions.PlatformOS(a1, a2);
+  }
+
+  return result;
+}
+
+double outlined consume of __REAssetBundle.ExportOptions.PlatformOS(uint64_t a1, unint64_t a2)
+{
+  if (a2 >= 5)
+  {
+  }
+
+  return result;
+}
+
+double outlined copy of __REAssetBundle.LoadOptions.ContentRequest(uint64_t a1, unint64_t a2)
+{
+  if (a2 >= 2)
+  {
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys, &unk_1F410BF30, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys, &unk_1F410BF30, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys, &unk_1F410BF30, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys, &unk_1F410BF30, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.CodingKeys);
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for __REAssetBundle.AssetMap.SceneDescriptor;
+  if (!type metadata singleton initialization cache for __REAssetBundle.AssetMap.SceneDescriptor)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant()
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant, &type metadata for __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant, &type metadata for __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant] and conformance <A> [A](unint64_t *a1, uint64_t (*a2)(void), const char *a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    v7 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0G20CompatibilityVariantVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0G20CompatibilityVariantVGMR);
+    v8 = a2();
+    result = swift_getWitnessTable(a3, v7, &v8);
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t outlined init with copy of __REAssetBundle.AssetMap.SceneDescriptor(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(0);
+  (*(*(v4 - 8) + 16))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined destroy of __REAssetBundle.AssetMap.SceneDescriptor(uint64_t a1)
+{
+  v2 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(0);
+  (*(*(v2 - 8) + 8))(a1, v2);
+  return a1;
+}
+
+unint64_t lazy protocol witness table accessor for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys, &unk_1F410BE20, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys, &unk_1F410BE20, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys, &unk_1F410BE20, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys, &unk_1F410BE20, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys and conformance __REAssetBundle.AssetMap.AssetDescriptor.CodingKeys);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type [Int] and conformance <A> [A](unint64_t *a1, uint64_t a2, const char *a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    v7 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySiGMd, &_sSaySiGMR);
+    v8 = a2;
+    result = swift_getWitnessTable(a3, v7, &v8);
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.CodingKeys, &unk_1F410BD90, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.CodingKeys, &unk_1F410BD90, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.CodingKeys, &unk_1F410BD90, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.CodingKeys, &unk_1F410BD90, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.CodingKeys and conformance __REAssetBundle.AssetMap.CodingKeys);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.SceneDescriptor] and conformance <A> [A](unint64_t *a1, unint64_t *a2, const char *a3, const char *a4)
+{
+  result = *a1;
+  if (!result)
+  {
+    v9 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorVGMR);
+    v10 = _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(a2, type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor, a3);
+    result = swift_getWitnessTable(a4, v9, &v10);
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor()
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.AssetDescriptor, &type metadata for __REAssetBundle.AssetMap.AssetDescriptor, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.AssetDescriptor, &type metadata for __REAssetBundle.AssetMap.AssetDescriptor, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.AssetDescriptor and conformance __REAssetBundle.AssetMap.AssetDescriptor);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type [__REAssetBundle.AssetMap.AssetDescriptor] and conformance <A> [A](unint64_t *a1, uint64_t (*a2)(void), const char *a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    v7 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV0E10DescriptorVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV0E10DescriptorVGMR);
+    v8 = a2();
+    result = swift_getWitnessTable(a3, v7, &v8);
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t outlined init with take of __REAssetBundle.AssetMap.SceneDescriptor(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for __REAssetBundle.AssetMap.SceneDescriptor(0);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined init with take of (key: __REAsset, value: __REAssetBundle.AssetMap.SceneDescriptor)?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetSgMd, &_s10RealityKit9__REAssetC3key_AA02__C6BundleV8AssetMapV15SceneDescriptorV5valuetSgMR);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined assign with copy of __DownsamplingStrategy?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit22__DownsamplingStrategy_pSgMd, &_s10RealityKit22__DownsamplingStrategy_pSgMR);
+  (*(*(v4 - 8) + 24))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t partial apply for closure #1 in static __REAssetBundle.load(url:assetService:materialDefinition:completionHandler:)()
+{
+  v1 = *(type metadata accessor for URL() - 8);
+  v2 = (*(v1 + 80) + 56) & ~*(v1 + 80);
+  v3 = *(v0 + ((*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8));
+
+  return closure #1 in static __REAssetBundle.load(url:assetService:materialDefinition:completionHandler:)((v0 + 16), v0 + v2, v3);
+}
+
+double block_copy_helper_24(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+
+  return result;
+}
+
+uint64_t partial apply for closure #1 in static __REAssetBundle.load(url:serviceLocator:completionHandler:)()
+{
+  v1 = *(type metadata accessor for URL() - 8);
+  v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
+  v3 = (*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v4 = *(v0 + v3);
+  v5 = v0 + ((v3 + 15) & 0xFFFFFFFFFFFFFFF8);
+  v6 = *v5;
+  v7 = *(v5 + 8);
+
+  return closure #1 in static __REAssetBundle.load(url:serviceLocator:completionHandler:)(v0 + v2, v4, v6, v7);
+}
+
+uint64_t partial apply for closure #1 in __REAssetBundle.__write(to:completionHandler:)()
+{
+  v1 = *(type metadata accessor for URL() - 8);
+  v2 = (*(v1 + 80) + 80) & ~*(v1 + 80);
+  v3 = *(v0 + ((*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8));
+
+  return closure #1 in __REAssetBundle.__write(to:completionHandler:)(v0 + 16, v0 + v2, v3);
+}
+
+unint64_t lazy protocol witness table accessor for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError()
+{
+  result = lazy protocol witness table cache variable for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError;
+  if (!lazy protocol witness table cache variable for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __Archiving.ArchivingError, &type metadata for __Archiving.ArchivingError, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError;
+  if (!lazy protocol witness table cache variable for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __Archiving.ArchivingError, &type metadata for __Archiving.ArchivingError, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __Archiving.ArchivingError and conformance __Archiving.ArchivingError);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for __REAssetBundle.Header(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 56))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for __REAssetBundle.Header(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 56) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 56) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for __REAssetBundle.QueueOptions(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xFE)
+  {
+    goto LABEL_20;
+  }
+
+  v2 = a2 + 2;
+  if (a2 + 2 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if (v2 >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  if (v2 >= 0x100)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if (v4 <= 1)
+  {
+    if (!v4)
+    {
+      goto LABEL_20;
+    }
+
+    v5 = a1[1];
+    if (!a1[1])
+    {
+      goto LABEL_20;
+    }
+
+    return (*a1 | (v5 << 8)) - 2;
+  }
+
+  if (v4 == 2)
+  {
+    v5 = *(a1 + 1);
+    if (*(a1 + 1))
+    {
+      return (*a1 | (v5 << 8)) - 2;
+    }
+  }
+
+  else
+  {
+    v5 = *(a1 + 1);
+    if (v5)
+    {
+      return (*a1 | (v5 << 8)) - 2;
+    }
+  }
+
+LABEL_20:
+  v7 = *a1;
+  v8 = v7 >= 2;
+  v9 = (v7 + 2147483646) & 0x7FFFFFFF;
+  if (!v8)
+  {
+    v9 = -1;
+  }
+
+  if (v9 + 1 >= 2)
+  {
+    return v9;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t storeEnumTagSinglePayload for __REAssetBundle.QueueOptions(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  v3 = a3 + 2;
+  if (a3 + 2 >= 0xFFFF00)
+  {
+    v4 = 4;
+  }
+
+  else
+  {
+    v4 = 2;
+  }
+
+  if (v3 >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  if (v3 >= 0x100)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a3 < 0xFE)
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFD)
+  {
+    v6 = ((a2 - 254) >> 8) + 1;
+    *result = a2 + 2;
+    if (v5 > 1)
+    {
+      if (v5 == 2)
+      {
+        *(result + 1) = v6;
+      }
+
+      else
+      {
+        *(result + 1) = v6;
+      }
+    }
+
+    else if (v5)
+    {
+      *(result + 1) = v6;
+    }
+
+    return result;
+  }
+
+  if (v5 > 1)
+  {
+    if (v5 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_22;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v5)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_22:
+    *result = a2 + 2;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_22;
+  }
+
+  return result;
+}
+
+uint64_t get_enum_tag_for_layout_string_10RealityKit15__REAssetBundleV13ExportOptionsV16DeploymentTargetVSg(uint64_t a1)
+{
+  v1 = *(a1 + 8);
+  if (v1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v1) = -1;
+  }
+
+  v2 = v1 - 5;
+  if (v2 < 0)
+  {
+    v2 = -1;
+  }
+
+  return (v2 + 1);
+}
+
+__n128 __swift_memcpy123_8(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  v3 = a2[1];
+  v4 = a2[3];
+  *(a1 + 32) = a2[2];
+  *(a1 + 48) = v4;
+  *a1 = v2;
+  *(a1 + 16) = v3;
+  result = a2[4];
+  v6 = a2[5];
+  v7 = a2[6];
+  *(a1 + 107) = *(a2 + 107);
+  *(a1 + 80) = v6;
+  *(a1 + 96) = v7;
+  *(a1 + 64) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for __REAssetBundle.ExportOptions(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0x7FFFFFFF && *(a1 + 123))
+  {
+    return (*a1 + 0x7FFFFFFF);
+  }
+
+  v3 = *(a1 + 24);
+  if (v3 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 - 1;
+  if (v4 < 0)
+  {
+    v4 = -1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for __REAssetBundle.ExportOptions(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFE)
+  {
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 122) = 0;
+    *(result + 120) = 0;
+    *result = a2 - 0x7FFFFFFF;
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 123) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 123) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 24) = a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t get_enum_tag_for_layout_string_10RealityKit22__DownsamplingStrategy_pSg(uint64_t a1)
+{
+  v1 = *(a1 + 24);
+  if (v1 >= 0xFFFFFFFF)
+  {
+    LODWORD(v1) = -1;
+  }
+
+  return (v1 + 1);
+}
+
+__n128 __swift_memcpy128_8(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  v3 = a2[1];
+  v4 = a2[3];
+  *(a1 + 32) = a2[2];
+  *(a1 + 48) = v4;
+  *a1 = v2;
+  *(a1 + 16) = v3;
+  result = a2[4];
+  v6 = a2[5];
+  v7 = a2[7];
+  *(a1 + 96) = a2[6];
+  *(a1 + 112) = v7;
+  *(a1 + 64) = result;
+  *(a1 + 80) = v6;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for __REAssetBundle.LoadOptions(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0x7FFFFFFF && *(a1 + 128))
+  {
+    return (*a1 + 0x7FFFFFFF);
+  }
+
+  v3 = *(a1 + 16);
+  if (v3 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 - 1;
+  if (v4 < 0)
+  {
+    v4 = -1;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for __REAssetBundle.LoadOptions(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFE)
+  {
+    *(result + 120) = 0;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 - 0x7FFFFFFF;
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 128) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFF)
+    {
+      *(result + 128) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 16) = a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for __REAssetBundle.LoadOptions.ContentRequest(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0x7FFFFFFE && *(a1 + 16))
+  {
+    return (*a1 + 2147483646);
+  }
+
+  v3 = *(a1 + 8);
+  if (v3 >= 0xFFFFFFFF)
+  {
+    LODWORD(v3) = -1;
+  }
+
+  v4 = v3 + 1;
+  v5 = v3 - 1;
+  if (v4 >= 3)
+  {
+    return v5;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t storeEnumTagSinglePayload for __REAssetBundle.LoadOptions.ContentRequest(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0x7FFFFFFD)
+  {
+    *result = 0;
+    *(result + 8) = 0;
+    *result = a2 - 2147483646;
+    if (a3 >= 0x7FFFFFFE)
+    {
+      *(result + 16) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0x7FFFFFFE)
+    {
+      *(result + 16) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 8) = a2 + 1;
+    }
+  }
+
+  return result;
+}
+
+void *destructiveInjectEnumTag for __REAssetBundle.LoadOptions.ContentRequest(void *result, int a2)
+{
+  if (a2 < 0)
+  {
+    *result = a2 & 0x7FFFFFFF;
+    result[1] = 0;
+  }
+
+  else if (a2)
+  {
+    result[1] = (a2 - 1);
+  }
+
+  return result;
+}
+
+void type metadata completion function for __REAssetBundle.AssetMap.SceneDescriptor(uint64_t a1)
+{
+  type metadata accessor for UUID?(319);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant]?(319);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void type metadata accessor for UUID?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for UUID?)
+  {
+    type metadata accessor for UUID();
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for UUID?);
+    }
+  }
+}
+
+void type metadata accessor for [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant]?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant]?)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0G20CompatibilityVariantVGMd, &_sSay10RealityKit15__REAssetBundleV8AssetMapV15SceneDescriptorV0G20CompatibilityVariantVGMR);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for [__REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant]?);
+    }
+  }
+}
+
+uint64_t get_enum_tag_for_layout_string_10RealityKit02__A9FileErrorO(uint64_t a1)
+{
+  if ((*(a1 + 16) & 7u) <= 4)
+  {
+    return *(a1 + 16) & 7;
+  }
+
+  else
+  {
+    return (*a1 + 5);
+  }
+}
+
+uint64_t getEnumTagSinglePayload for __AssetBundleEnvelopeVersion(unsigned __int16 *a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v2 = a2 + 0xFFFF;
+  if ((a2 + 0xFFFF) <= 0xFFFEFFFF)
+  {
+    v3 = 2;
+  }
+
+  else
+  {
+    v3 = 4;
+  }
+
+  if (v2 < 0xFF0000)
+  {
+    v3 = 1;
+  }
+
+  if (v2 >= 0x10000)
+  {
+    v4 = v3;
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  if (v4 <= 1)
+  {
+    if (!v4)
+    {
+      return v4;
+    }
+
+    v4 = *(a1 + 2);
+    if (!*(a1 + 2))
+    {
+      return v4;
+    }
+
+    return (*a1 | (v4 << 16)) - 0xFFFF;
+  }
+
+  if (v4 == 2)
+  {
+    v4 = a1[1];
+    if (!a1[1])
+    {
+      return v4;
+    }
+
+    return (*a1 | (v4 << 16)) - 0xFFFF;
+  }
+
+  v4 = *(a1 + 1);
+  if (v4)
+  {
+    return (*a1 | (v4 << 16)) - 0xFFFF;
+  }
+
+  return v4;
+}
+
+_WORD *storeEnumTagSinglePayload for __AssetBundleEnvelopeVersion(_WORD *result, int a2, int a3)
+{
+  v3 = a3 + 0xFFFF;
+  if ((a3 + 0xFFFF) <= 0xFFFEFFFF)
+  {
+    v4 = 2;
+  }
+
+  else
+  {
+    v4 = 4;
+  }
+
+  if (v3 < 0xFF0000)
+  {
+    v4 = 1;
+  }
+
+  if (v3 >= 0x10000)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (!a3)
+  {
+    v5 = 0;
+  }
+
+  if (a2)
+  {
+    v6 = ((a2 - 1) >> 16) + 1;
+    *result = a2 - 1;
+    if (v5 > 1)
+    {
+      if (v5 == 2)
+      {
+        result[1] = v6;
+      }
+
+      else
+      {
+        *(result + 1) = v6;
+      }
+    }
+
+    else if (v5)
+    {
+      *(result + 2) = v6;
+    }
+  }
+
+  else if (v5 > 1)
+  {
+    if (v5 == 2)
+    {
+      result[1] = 0;
+    }
+
+    else
+    {
+      *(result + 1) = 0;
+    }
+  }
+
+  else if (v5)
+  {
+    *(result + 2) = 0;
+  }
+
+  return result;
+}
+
+uint64_t getEnumTag for __AssetBundleEnvelopeVersion(unsigned __int8 *a1)
+{
+  if (a1[1])
+  {
+    return (*a1 | (a1[1] << 8)) - 255;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+_BYTE *destructiveInjectEnumTag for __AssetBundleEnvelopeVersion(_BYTE *result, int a2)
+{
+  if (a2)
+  {
+    *result = a2 - 1;
+    result[1] = ((a2 - 1) >> 8) + 1;
+  }
+
+  else
+  {
+    result[1] = 0;
+  }
+
+  return result;
+}
+
+uint64_t get_enum_tag_for_layout_string_17RealityFoundation18SerializationErrorO(uint64_t a1)
+{
+  if ((*(a1 + 16) & 2) != 0)
+  {
+    return (*a1 + 2);
+  }
+
+  else
+  {
+    return *(a1 + 16) & 3;
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys, &unk_1F410C170, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys, &unk_1F410C170, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys, &unk_1F410C170, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys;
+  if (!lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys, &unk_1F410C170, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys and conformance __REAssetBundle.AssetMap.SceneDescriptor.SceneCompatibilityVariant.CodingKeys);
+  }
+
+  return result;
+}
+
+uint64_t specialized static __REAssetBundle.getSceneNamesFromRealityFile(realityFile:)(uint64_t a1, __n128 a2)
+{
+  result = RERealityFileGetAssetDescriptorCount();
+  if (result < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v3 = result;
+    if (!result)
+    {
+      return MEMORY[0x1E69E7CC0];
+    }
+
+    v4 = 0;
+    v5 = MEMORY[0x1E69E7CC0];
+    do
+    {
+      if (RERealityFileGetAssetDescriptorAtIndex() && RERealityFileAssetDescriptorAsSceneDescriptor())
+      {
+        if (RESceneDescriptorGetSceneName())
+        {
+          v7 = String.init(cString:)();
+          v9 = v8;
+        }
+
+        else
+        {
+          v7 = 0;
+          v9 = 0xE000000000000000;
+        }
+
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v5 + 2) + 1, 1, v5);
+        }
+
+        v11 = *(v5 + 2);
+        v10 = *(v5 + 3);
+        if (v11 >= v10 >> 1)
+        {
+          v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v10 > 1), v11 + 1, 1, v5);
+        }
+
+        *(v5 + 2) = v11 + 1;
+        v6 = &v5[16 * v11];
+        *(v6 + 4) = v7;
+        *(v6 + 5) = v9;
+      }
+
+      ++v4;
+    }
+
+    while (v3 != v4);
+    return v5;
+  }
+
+  return result;
+}
+
+uint64_t specialized static __REAssetBundle.getSceneDescriptorsFromRealityFile(realityFile:)(uint64_t a1, __n128 a2)
+{
+  result = RERealityFileGetAssetDescriptorCount();
+  if (result < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v3 = result;
+    if (!result)
+    {
+      return MEMORY[0x1E69E7CC0];
+    }
+
+    v4 = 0;
+    v5 = MEMORY[0x1E69E7CC0];
+    do
+    {
+      if (RERealityFileGetAssetDescriptorAtIndex())
+      {
+        v6 = RERealityFileAssetDescriptorAsSceneDescriptor();
+        if (v6)
+        {
+          v7 = v6;
+          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+          {
+            v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v5 + 2) + 1, 1, v5);
+          }
+
+          v9 = *(v5 + 2);
+          v8 = *(v5 + 3);
+          if (v9 >= v8 >> 1)
+          {
+            v5 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v8 > 1), v9 + 1, 1, v5);
+          }
+
+          *(v5 + 2) = v9 + 1;
+          *&v5[8 * v9 + 32] = v7;
+        }
+      }
+
+      ++v4;
+    }
+
+    while (v3 != v4);
+    return v5;
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type SerializationError and conformance SerializationError()
+{
+  result = lazy protocol witness table cache variable for type SerializationError and conformance SerializationError;
+  if (!lazy protocol witness table cache variable for type SerializationError and conformance SerializationError)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for SerializationError, &type metadata for SerializationError, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type SerializationError and conformance SerializationError);
+  }
+
+  return result;
+}
+
+uint64_t _sSo10CFErrorRefaABs5Error10FoundationWlTm_3(unint64_t *a1, uint64_t (*a2)(uint64_t), const char *a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    v6 = a2(255);
+    result = swift_getWitnessTable(a3, v6);
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type LocalizedRealityFileError and conformance LocalizedRealityFileError()
+{
+  result = lazy protocol witness table cache variable for type LocalizedRealityFileError and conformance LocalizedRealityFileError;
+  if (!lazy protocol witness table cache variable for type LocalizedRealityFileError and conformance LocalizedRealityFileError)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for LocalizedRealityFileError, &type metadata for LocalizedRealityFileError, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type LocalizedRealityFileError and conformance LocalizedRealityFileError);
+  }
+
+  return result;
+}
+
+__n128 SpatialMediaComponent.init()@<Q0>(uint64_t a1@<X8>)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
+  inited = swift_initStackObject();
+  *(inited + 16) = xmmword_1C1897FC0;
+  RESpatialMediaComponentGetDefaultImmersiveFrameSize();
+  *(inited + 32) = v3;
+  RESpatialMediaComponentGetDefaultImmersiveFrameSize();
+  *(inited + 36) = v4;
+  _ss4SIMDPsEyxqd__cSTRd__7ElementQyd__6ScalarRtzlufCs5SIMD2VySfG_SaySfGTt1gq5Tf4g_n(inited);
+  v6 = v5;
+  swift_setDeallocating();
+  RESpatialMediaComponentGetDefaultMediaPlaneOffset();
+  v9 = v7;
+  if (one-time initialization token for networkSystemObserver != -1)
+  {
+    swift_once();
+  }
+
+  SMCNetworkSystemObserver.setupRENetworkCallbacks()();
+
+  *a1 = 0;
+  *(a1 + 4) = 0;
+  *(a1 + 8) = v6;
+  *(a1 + 16) = 1;
+  *(a1 + 20) = 0;
+  *(a1 + 23) = 0;
+  *(a1 + 27) = 1;
+  *(a1 + 28) = 1065353216;
+  *(a1 + 32) = 0;
+  *(a1 + 40) = 0;
+  result = v9;
+  *(a1 + 48) = v9;
+  return result;
+}
+
+float SpatialMediaComponent.spatialMediaPlaneXYOffset.setter(__n128 a1)
+{
+  a1.n128_u64[1] = v1[3].n128_u32[2];
+  v1[3] = a1;
+  return a1.n128_f32[0];
+}
+
+float (*SpatialMediaComponent.spatialMediaPlaneXYOffset.modify(uint64_t *a1))(uint64_t *a1)
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x20uLL);
+  }
+
+  *a1 = v3;
+  *(v3 + 24) = v1;
+  v4 = *(v1 + 48);
+  *v3 = v4;
+  *(v3 + 16) = v4;
+  return SpatialMediaComponent.spatialMediaPlaneXYOffset.modify;
+}
+
+float SpatialMediaComponent.spatialMediaPlaneXYOffset.modify(uint64_t *a1)
+{
+  v1 = *a1;
+  *&v2 = *(v1 + 16);
+  *(&v2 + 1) = *(v1 + 8);
+  *(*(v1 + 24) + 48) = v2;
+  free(v1);
+  return result;
+}
+
+void (*SpatialMediaComponent.spatialMediaPlaneOffset.modify(uint64_t *a1))(void **a1)
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    v3 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v3 = malloc(0x18uLL);
+  }
+
+  *a1 = v3;
+  *(v3 + 16) = v1;
+  *v3 = *(v1 + 48);
+  return SpatialMediaComponent.spatialMediaPlaneOffset.modify;
+}
+
+void SpatialMediaComponent.spatialMediaPlaneOffset.modify(void **a1)
+{
+  v1 = *a1;
+  *(v1[2] + 48) = *v1;
+  free(v1);
+}
+
+void one-time initialization function for networkSystemObserver()
+{
+  type metadata accessor for SMCNetworkSystemObserver();
+  v0 = swift_allocObject();
+  *(v0 + 16) = 0;
+  *(v0 + 24) = 0;
+  SMCNetworkSystemObserver.setupRENetworkCallbacks()();
+  static SpatialMediaComponent.networkSystemObserver = v0;
+}
+
+{
+  type metadata accessor for ImagePresentationComponent.NetworkSystemObserver();
+  v0 = swift_allocObject();
+  *(v0 + 16) = 0;
+  *(v0 + 24) = 0;
+  ImagePresentationComponent.NetworkSystemObserver.setupRENetworkCallbacks()();
+  static ImagePresentationComponent.networkSystemObserver = v0;
+}
+
+__n128 static SpatialMediaComponent.__fromCore(_:)@<Q0>(uint64_t a2@<X8>)
+{
+  REComponentGetEntity();
+  SpatialMediaComponent.init()(&v16);
+  RESpatialMediaStatusComponentGetComponentType();
+  if (REEntityGetComponentByClass())
+  {
+    CurrentImmersiveAnimationMode = RESpatialMediaStatusComponentGetCurrentImmersiveAnimationMode();
+    if (CurrentImmersiveAnimationMode >= 4)
+    {
+      v4 = 0;
+    }
+
+    else
+    {
+      v4 = CurrentImmersiveAnimationMode;
+    }
+
+    LOBYTE(v16) = v4;
+    RESpatialMediaStatusComponentGetImmersiveFrameSize();
+    *(&v16 + 1) = v5;
+  }
+
+  RESpatialMediaComponentGetSpillTextureBlend();
+  DWORD1(v16) = v6;
+  RESpatialMediaComponentGetLegibilityGradientStrength();
+  DWORD1(v17) = v7;
+  BYTE9(v17) = RESpatialMediaComponentGetIsMediaBillboardingEnabled();
+  MediaBillboardingMode = RESpatialMediaComponentGetMediaBillboardingMode();
+  v9 = MediaBillboardingMode == 1;
+  if (MediaBillboardingMode == 2)
+  {
+    v9 = 2;
+  }
+
+  BYTE10(v17) = v9;
+  RESpatialMediaComponentGetMediaPlaneOffset();
+  v19 = v10;
+  BYTE8(v17) = RESpatialMediaComponentGetIsFlatGeometry();
+  BYTE11(v17) = RESpatialMediaComponentGetShouldAnimateImmersiveTransition();
+  RESpatialMediaComponentGetImmersiveReducedExtent();
+  DWORD1(v18) = v11;
+  RESpatialMediaComponentGetMagnificationExtent();
+  HIDWORD(v17) = v12;
+  RESpatialMediaComponentGetMagnificationVelocity();
+  LODWORD(v18) = v13;
+  BYTE8(v18) = RESpatialMediaComponentGetShouldUsePortalWidthForMediaScaling();
+  v14 = v17;
+  *a2 = v16;
+  *(a2 + 16) = v14;
+  result = v19;
+  *(a2 + 32) = v18;
+  *(a2 + 48) = result;
+  return result;
+}
+
+uint64_t SpatialMediaComponent.__toCore(_:)(void *a1)
+{
+  REComponentGetEntity();
+  RESpatialMediaStatusComponentGetComponentType();
+  REEntityGetOrAddComponentByClass();
+  RESpatialMediaComponentSetIsFlatGeometry();
+  RESpatialMediaComponentSetSpillTextureBlend();
+  RESpatialMediaComponentSetLegibilityGradientStrength();
+  RESpatialMediaComponentSetIsMediaBillboardingEnabled();
+  RESpatialMediaComponentSetMediaBillboardingMode();
+  RESpatialMediaComponentSetMediaPlaneOffset();
+  RESpatialMediaComponentSetShouldAnimateImmersiveTransition();
+  RESpatialMediaComponentSetImmersiveReducedExtent();
+  RESpatialMediaComponentSetMagnificationExtent();
+  RESpatialMediaComponentSetMagnificationVelocity();
+  RESpatialMediaComponentSetShouldUsePortalWidthForMediaScaling();
+
+  return RENetworkMarkComponentDirty();
+}
+
+uint64_t SMCNetworkSystemObserver.__deallocating_deinit()
+{
+  if (*(v0 + 16) && *(v0 + 24))
+  {
+    RENetworkSystemRemoveObserver();
+    *(v0 + 16) = 0;
+  }
+
+  if (*(v0 + 24))
+  {
+    RERelease();
+  }
+
+  return swift_deallocClassInstance();
+}
+
+void SMCNetworkSystemObserver.setupRENetworkCallbacks()()
+{
+  if (!*(v0 + 24))
+  {
+    v1 = v0;
+    type metadata accessor for __ServiceLocator();
+    static __ServiceLocator.shared.getter();
+    v3 = v2;
+    swift_beginAccess();
+    v4 = *(v3 + 24);
+    swift_unownedRetainStrong();
+
+    swift_beginAccess();
+    v5 = *(v4 + 40);
+
+    if (!v5)
+    {
+      __break(1u);
+      return;
+    }
+
+    swift_beginAccess();
+    outlined init with copy of __REAssetService(v5 + 80, v18);
+
+    v6 = v19;
+    v7 = v20;
+    __swift_project_boxed_opaque_existential_1(v18, v19);
+    (*(v7 + 32))(v17, v6, v7);
+    if (REECSManagerSceneCount() < 1)
+    {
+      if (one-time initialization token for SpatialMediaLogger != -1)
+      {
+        swift_once();
+      }
+
+      v11 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v11, SpatialMediaLogger);
+      v12 = Logger.logObject.getter();
+      v13 = static os_log_type_t.error.getter();
+      if (!os_log_type_enabled(v12, v13))
+      {
+        goto LABEL_16;
+      }
+
+      v14 = swift_slowAlloc();
+      *v14 = 0;
+      v15 = "App SpatialMedia+Component: setupRENetworkCallbacks failed - scene count is zero";
+    }
+
+    else
+    {
+      ServiceLocator = REECSManagerGetServiceLocator();
+      *(v1 + 16) = MEMORY[0x1C68FE270](ServiceLocator);
+      v9 = RENetworkSystemObserverCreateEx();
+      *(v1 + 24) = v9;
+      if (*(v1 + 16) && v9)
+      {
+        v17[4] = partial apply for implicit closure #2 in implicit closure #1 in SMCNetworkSystemObserver.setupRENetworkCallbacks();
+        v17[5] = v1;
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 1107296256;
+        v17[2] = thunk for @escaping @callee_guaranteed (@unowned OpaquePointer) -> ();
+        v17[3] = &block_descriptor_25;
+        v10 = _Block_copy(v17);
+
+        RENetworkSystemObserverOnComponentDidUpdate();
+        _Block_release(v10);
+        RENetworkSystemAddObserver();
+LABEL_17:
+        __swift_destroy_boxed_opaque_existential_1(v18);
+        return;
+      }
+
+      if (one-time initialization token for SpatialMediaLogger != -1)
+      {
+        swift_once();
+      }
+
+      v16 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v16, SpatialMediaLogger);
+      v12 = Logger.logObject.getter();
+      v13 = static os_log_type_t.error.getter();
+      if (!os_log_type_enabled(v12, v13))
+      {
+LABEL_16:
+
+        goto LABEL_17;
+      }
+
+      v14 = swift_slowAlloc();
+      *v14 = 0;
+      v15 = "App SpatialMedia+Component: setupRENetworkCallbacks failed - no network system or observer";
+    }
+
+    _os_log_impl(&dword_1C1358000, v12, v13, v15, v14, 2u);
+    MEMORY[0x1C6902A30](v14, -1, -1);
+    goto LABEL_16;
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type SpatialMediaComponent.MediaBillboardingMode and conformance SpatialMediaComponent.MediaBillboardingMode()
+{
+  result = lazy protocol witness table cache variable for type SpatialMediaComponent.MediaBillboardingMode and conformance SpatialMediaComponent.MediaBillboardingMode;
+  if (!lazy protocol witness table cache variable for type SpatialMediaComponent.MediaBillboardingMode and conformance SpatialMediaComponent.MediaBillboardingMode)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for SpatialMediaComponent.MediaBillboardingMode, &type metadata for SpatialMediaComponent.MediaBillboardingMode, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type SpatialMediaComponent.MediaBillboardingMode and conformance SpatialMediaComponent.MediaBillboardingMode);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type ImmersiveAnimationMode and conformance ImmersiveAnimationMode()
+{
+  result = lazy protocol witness table cache variable for type ImmersiveAnimationMode and conformance ImmersiveAnimationMode;
+  if (!lazy protocol witness table cache variable for type ImmersiveAnimationMode and conformance ImmersiveAnimationMode)
+  {
+    result = swift_getWitnessTable(protocol conformance descriptor for ImmersiveAnimationMode, &type metadata for ImmersiveAnimationMode, v0, v1);
+    atomic_store(result, &lazy protocol witness table cache variable for type ImmersiveAnimationMode and conformance ImmersiveAnimationMode);
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SpatialMediaComponent(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xFF && *(a1 + 64))
+  {
+    return (*a1 + 255);
+  }
+
+  v3 = *(a1 + 16);
+  v4 = v3 >= 2;
+  v5 = (v3 + 2147483646) & 0x7FFFFFFF;
+  if (!v4)
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SpatialMediaComponent(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFE)
+  {
+    *(result + 56) = 0;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 - 255;
+    if (a3 >= 0xFF)
+    {
+      *(result + 64) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFF)
+    {
+      *(result + 64) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 16) = a2 + 1;
+    }
+  }
+
+  return result;
+}
+
+double block_copy_helper_25(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v2;
+
+  return result;
+}
+
+void specialized SMCNetworkSystemObserver.onComponentDidUpdate(componentRef:)(uint64_t a1)
+{
+  REComponentGetEntity();
+  RESpatialMediaComponentGetComponentType();
+  ComponentByClass = REEntityGetComponentByClass();
+  if (ComponentByClass && ComponentByClass == a1 || (RESpatialMediaStatusComponentGetComponentType(), (v3 = REEntityGetComponentByClass()) != 0) && v3 == a1)
+  {
+    RESpatialMediaStatusComponentGetComponentType();
+    if (REEntityGetComponentByClass())
+    {
+
+      MEMORY[0x1EEDFE8F8]();
+    }
+
+    else
+    {
+      if (one-time initialization token for SpatialMediaLogger != -1)
+      {
+        swift_once();
+      }
+
+      v4 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v4, SpatialMediaLogger);
+      oslog = Logger.logObject.getter();
+      v5 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(oslog, v5))
+      {
+        v6 = swift_slowAlloc();
+        *v6 = 0;
+        _os_log_impl(&dword_1C1358000, oslog, v5, "App SpatialMedia+Component SMCNetworkSystemObserver onComponentDidUpdate failed - there is no Spatial Media Status Component", v6, 2u);
+        MEMORY[0x1C6902A30](v6, -1, -1);
+      }
+    }
+  }
+}
+
+uint64_t specialized Material.syncMaterialRenderStateFromCore(coreComponent:index:)(uint64_t a1, uint64_t a2)
+{
+  if (REMaterialRenderStateArrayComponentGetTriangleFillModeAtIndex())
+  {
+    *(v2 + 56) = 0;
+  }
+
+  if (REMaterialRenderStateArrayComponentGetWritesDepthAtIndex())
+  {
+    *(v2 + 64) = 1;
+  }
+
+  if (REMaterialRenderStateArrayComponentGetReadsDepthAtIndex())
+  {
+    *(v2 + 65) = 1;
+  }
+
+  result = REMaterialRenderStateArrayComponentGetCullModeAtIndex();
+  v4 = 2;
+  if (!result)
+  {
+    v4 = 0;
+  }
+
+  *(v2 + 72) = v4;
+  *(v2 + 80) = result ^ 1;
+  return result;
+}
+
+uint64_t ModelComponent.init(mesh:materials:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  *(a3 + 16) = 0;
+  *a3 = a1;
+  *(a3 + 8) = a2;
+  type metadata accessor for _Proto_MeshDeformation_v1.Resource();
+  result = swift_allocObject();
+  *(result + 16) = 0;
+  *(result + 24) = 0;
+  *(a3 + 24) = result;
+  return result;
+}
+
+uint64_t ModelComponent.mesh.setter(uint64_t a1)
+{
+
+  *v1 = a1;
+  return result;
+}
+
+float (*ModelComponent.boundsMargin.modify(uint64_t a1))(float *a1)
+{
+  *a1 = v1;
+  *(a1 + 8) = *(v1 + 16);
+  return PointLightComponent.attenuationFalloffExponent.modify;
+}
+
+double ModelComponent.deformation.getter@<D0>(void *a1@<X8>)
+{
+  *a1 = *(v1 + 24);
+
+  return result;
+}
+
+uint64_t ModelComponent.deformation.setter(uint64_t *a1)
+{
+  v2 = *a1;
+
+  *(v1 + 24) = v2;
+  return result;
+}
+
+uint64_t ModelComponent.init(mesh:materials:deformation:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+{
+  v4 = *a3;
+  *(a4 + 16) = 0;
+  *a4 = result;
+  *(a4 + 8) = a2;
+  *(a4 + 24) = v4;
+  return result;
+}
+
+void ModelComponent.init(mesh:materials:_:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(void)@<X2>, uint64_t a4@<X8>)
+{
+  v8 = a3();
+  v9 = specialized _Proto_MeshDeformation_v1.Resource.__allocating_init(definition:)(v8);
+  if (v4)
+  {
+  }
+
+  else
+  {
+    *a4 = a1;
+    *(a4 + 8) = a2;
+    *(a4 + 16) = 0;
+    *(a4 + 24) = v9;
+  }
+}
+
+uint64_t protocol witness for Component.__toCore(_:) in conformance ModelComponent(uint64_t *a1, __n128 a2)
+{
+  v3 = *a1;
+  v4 = *(v2 + 4);
+  v5 = *(v2 + 3);
+  v8 = *v2;
+  v9 = v4;
+  v10 = v5;
+  v7 = v3;
+  return ModelComponent.__toCore(_:returnStrongReference:)(&v7, 0);
+}
+
+uint64_t ModelComponent.__toCore(_:)(uint64_t *a1, __n128 a2)
+{
+  v3 = *a1;
+  v4 = *(v2 + 4);
+  v5 = *(v2 + 3);
+  v8 = *v2;
+  v9 = v4;
+  v10 = v5;
+  v7 = v3;
+  return ModelComponent.__toCore(_:returnStrongReference:)(&v7, 0);
+}
+
+_BYTE *closure #1 in static ModelComponent.copyDirectBufferData(component:stage:materialIndex:)(_BYTE *result, unint64_t a2, uint64_t *a3)
+{
+  if ((a2 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    if (a2)
+    {
+      if (a2 <= 0xE)
+      {
+        v6 = specialized Data.InlineData.init(_:)(result, &result[a2]);
+        v7 = v8 & 0xFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        type metadata accessor for __DataStorage();
+        swift_allocObject();
+        v5 = __DataStorage.init(bytes:length:)();
+        if (a2 >= 0x7FFFFFFF)
+        {
+          type metadata accessor for Data.RangeReference();
+          v6 = swift_allocObject();
+          *(v6 + 16) = 0;
+          *(v6 + 24) = a2;
+          v7 = v5 | 0x8000000000000000;
+        }
+
+        else
+        {
+          v6 = a2 << 32;
+          v7 = v5 | 0x4000000000000000;
+        }
+      }
+    }
+
+    else
+    {
+      v6 = 0;
+      v7 = 0xC000000000000000;
+    }
+
+    v10 = *a3;
+    v9 = a3[1];
+    *a3 = v6;
+    a3[1] = v7;
+
+    return outlined consume of Data?(v10, v9);
+  }
+
+  return result;
+}
+
+void static ModelComponent.__fromCore(_:borrowStrongReference:)(uint64_t *a1@<X0>, int a2@<W1>, uint64_t *a3@<X8>)
+{
+  v124 = a2;
+  v117 = a3;
+  v4 = *a1;
+  Mesh = REMeshComponentGetMesh();
+  if (Mesh)
+  {
+    v6 = Mesh;
+    if (REAssetGetSwiftObject())
+    {
+      type metadata accessor for MeshResource();
+      v118 = swift_dynamicCastClass();
+      if (v118)
+      {
+        goto LABEL_7;
+      }
+
+      swift_unknownObjectRelease();
+    }
+
+    type metadata accessor for MeshResource();
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
+    RERetain();
+    v118 = v7;
+    REAssetSetSwiftObject();
+  }
+
+  else
+  {
+    type metadata accessor for MeshResource();
+    v118 = swift_allocObject();
+    *(v118 + 16) = 0;
+  }
+
+LABEL_7:
+  MaterialCount = REMeshComponentGetMaterialCount();
+  v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, MaterialCount & ~(MaterialCount >> 63), 0, MEMORY[0x1E69E7CC0]);
+  Entity = REComponentGetEntity();
+  REMaterialParameterBlockArrayComponentGetComponentType();
+  v11 = REEntityGetOrAddComponentByClass();
+  REMaterialRenderStateArrayComponentGetComponentType();
+  v129._rawValue = REEntityGetOrAddComponentByClass();
+  v127 = v11;
+  if (REMaterialParameterBlockArrayComponentSize() != MaterialCount)
+  {
+    REMaterialParameterBlockArrayComponentResize();
+  }
+
+  if (REMaterialRenderStateArrayComponentSize() != MaterialCount)
+  {
+    REMaterialRenderStateArrayComponentResize();
+  }
+
+  REDirectMaterialParametersArrayComponentGetComponentType();
+  v121 = REEntityGetOrAddComponentByClass();
+  v116[1] = Entity;
+  Component = REEntityGetComponent();
+  if (Component)
+  {
+    Entity = Component;
+    VideoAsset = REVideoComponentGetVideoAsset();
+    MaterialAsset = REVideoComponentGetMaterialAsset();
+    if ((MaterialCount & 0x8000000000000000) == 0)
+    {
+      goto LABEL_13;
+    }
+
+LABEL_126:
+    __break(1u);
+    goto LABEL_127;
+  }
+
+  MaterialAsset = 0;
+  VideoAsset = 0;
+  if (MaterialCount < 0)
+  {
+    goto LABEL_126;
+  }
+
+LABEL_13:
+  if (!MaterialCount)
+  {
+LABEL_122:
+    type metadata accessor for _Proto_MeshDeformation_v1.Resource();
+    Entity = swift_allocObject();
+    *(Entity + 16) = 0;
+    *(Entity + 24) = 0;
+
+    REMeshComponentGetBoundsMargin();
+    v3 = v111;
+    REMeshDeformationComponentGetComponentType();
+    if (REEntityGetComponentByClass())
+    {
+      MeshDeformationDefinition = REMeshDeformationComponentGetMeshDeformationDefinition();
+
+      v113 = v118;
+      if (MeshDeformationDefinition)
+      {
+        v114 = swift_allocObject();
+        *(v114 + 16) = MeshDeformationDefinition;
+        *(v114 + 24) = 0;
+        RERetain();
+        REAssetSetSwiftObject();
+
+        Entity = v114;
+      }
+
+      goto LABEL_128;
+    }
+
+LABEL_127:
+
+    v113 = v118;
+LABEL_128:
+    v115 = v117;
+    *v117 = v113;
+    v115[1] = v9;
+    *(v115 + 4) = v3;
+    v115[3] = Entity;
+    return;
+  }
+
+  v13 = 0;
+  v120 = "eiver.rematerial";
+  v14 = &static ComponentInfo.Platform.macOS;
+  v130 = v4;
+  v133 = MaterialCount;
+  while (1)
+  {
+    MaterialAtIndex = REMeshComponentGetMaterialAtIndex();
+    if (!MaterialAtIndex)
+    {
+      goto LABEL_16;
+    }
+
+    v16 = MaterialAtIndex;
+    MaterialParametersIDAtIndex = REMeshComponentGetMaterialParametersIDAtIndex();
+    v134 = v13;
+    if (!MaterialParametersIDAtIndex)
+    {
+      break;
+    }
+
+    type metadata accessor for __ServiceLocator();
+    Shared = REEngineGetShared();
+    if (Shared)
+    {
+      v19 = Shared;
+      if (one-time initialization token for lock != -1)
+      {
+        swift_once();
+      }
+
+      v20 = static __ServiceLocator.lock;
+      os_unfair_lock_lock((static __ServiceLocator.lock + 16));
+      v21 = v14[291];
+      if (!v21 || *(v21 + 24) != v19)
+      {
+        type metadata accessor for __Engine();
+        swift_allocObject();
+        v14[291] = __Engine.init(coreEngine:)(v19);
+
+        specialized static SceneManager.customComponentType(_:)(&type metadata for __EntityInfoComponent, &protocol witness table for __EntityInfoComponent);
+        specialized static SceneManager.customComponentType(_:)(&type metadata for SceneOriginComponent, &protocol witness table for SceneOriginComponent);
+      }
+
+      os_unfair_lock_unlock(v20 + 4);
+      v13 = v134;
+      v22 = v14[291];
+      if (!v22)
+      {
+LABEL_48:
+        Default = REEngineConfigurationCreateDefault();
+        type metadata accessor for EngineConfiguration();
+        v36 = swift_allocObject();
+        *(v36 + 16) = Default;
+        if (REGetRetainCount() >= 2)
+        {
+
+          v37 = REEngineConfigurationClone();
+          v38 = swift_allocObject();
+          *(v38 + 16) = v37;
+
+          v36 = v38;
+        }
+
+        REEngineConfigurationSetClockMode();
+        if (one-time initialization token for defaultServices != -1)
+        {
+          swift_once();
+        }
+
+        v39 = v9;
+        if (REGetRetainCount() >= 2)
+        {
+
+          v40 = REEngineConfigurationClone();
+          v41 = swift_allocObject();
+          *(v41 + 16) = v40;
+
+          v36 = v41;
+        }
+
+        REEngineConfigurationSetServicesToCreate();
+        if (REGetRetainCount() >= 2)
+        {
+
+          v42 = REEngineConfigurationClone();
+          v43 = swift_allocObject();
+          *(v43 + 16) = v42;
+
+          v36 = v43;
+        }
+
+        v9 = v39;
+        REEngineConfigurationSetServicesToUpdate();
+        v14 = &static ComponentInfo.Platform.macOS;
+        if (REGetRetainCount() >= 2)
+        {
+
+          v44 = REEngineConfigurationClone();
+          v45 = swift_allocObject();
+          *(v45 + 16) = v44;
+
+          v36 = v45;
+        }
+
+        REEngineConfigurationSetStartupOptions();
+        if (one-time initialization token for defaultRenderFlags != -1)
+        {
+          swift_once();
+        }
+
+        if (REGetRetainCount() >= 2)
+        {
+
+          v46 = REEngineConfigurationClone();
+          v47 = swift_allocObject();
+          *(v47 + 16) = v46;
+
+          v36 = v47;
+        }
+
+        v48 = REEngineConfigurationSetRenderFlags();
+        static __ServiceLocator.__sharedEngine.getter(v48);
+        if (v49)
+        {
+        }
+
+        else
+        {
+          *&v150 = v36;
+          v61 = specialized static __Engine.makeSharedEngine(_:)(&v150);
+          REEngineSetShared();
+          static __ServiceLocator.sharedEngine = v61;
+
+          static __ServiceLocator.createdSharedEngine = 1;
+        }
+
+        v13 = v134;
+
+        specialized static SceneManager.customComponentType(_:)(&type metadata for __EntityInfoComponent, &protocol witness table for __EntityInfoComponent);
+        specialized static SceneManager.customComponentType(_:)(&type metadata for SceneOriginComponent, &protocol witness table for SceneOriginComponent);
+        v22 = static __ServiceLocator.sharedEngine;
+        if (!static __ServiceLocator.sharedEngine)
+        {
+          goto LABEL_132;
+        }
+      }
+    }
+
+    else
+    {
+      v14[291] = 0;
+
+      v22 = v14[291];
+      if (!v22)
+      {
+        goto LABEL_48;
+      }
+    }
+
+    swift_beginAccess();
+    v62 = v22[5];
+    if (!v62)
+    {
+      goto LABEL_131;
+    }
+
+    swift_beginAccess();
+    if (MEMORY[0x1C68FE260](*(v62 + 16)))
+    {
+      ParametersTypeForID = REMaterialParametersServiceGetParametersTypeForID();
+      if (ParametersTypeForID == 2)
+      {
+        v64 = type metadata accessor for PhysicallyBasedMaterialResource();
+        v65 = swift_allocObject();
+        if (one-time initialization token for materialParametersService != -1)
+        {
+          swift_once();
+        }
+
+        PbrParametersByID = REMaterialParametersServiceFindPbrParametersByID();
+        if (!PbrParametersByID)
+        {
+          goto LABEL_133;
+        }
+
+        *(v65 + 16) = PbrParametersByID;
+        RERetain();
+        v68 = v9[2];
+        v67 = v9[3];
+        v69 = v68 + 1;
+        if (v68 >= v67 >> 1)
+        {
+          v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v67 > 1), v68 + 1, 1, v9);
+        }
+
+        v70 = &protocol witness table for PhysicallyBasedMaterialResource;
+      }
+
+      else
+      {
+        if (ParametersTypeForID != 1)
+        {
+          goto LABEL_136;
+        }
+
+        v64 = type metadata accessor for UnlitMaterialResource();
+        v65 = swift_allocObject();
+        if (one-time initialization token for materialParametersService != -1)
+        {
+          swift_once();
+        }
+
+        UnlitParametersByID = REMaterialParametersServiceFindUnlitParametersByID();
+        if (!UnlitParametersByID)
+        {
+          goto LABEL_133;
+        }
+
+        *(v65 + 16) = UnlitParametersByID;
+        RERetain();
+        v68 = v9[2];
+        v72 = v9[3];
+        v69 = v68 + 1;
+        if (v68 >= v72 >> 1)
+        {
+          v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v72 > 1), v68 + 1, 1, v9);
+        }
+
+        v70 = &protocol witness table for UnlitMaterialResource;
+      }
+
+      *(&v151 + 1) = v64;
+      *&v152 = v70;
+      *&v150 = v65;
+      v9[2] = v69;
+      outlined init with take of ForceEffectBase(&v150, &v9[5 * v68 + 4]);
+LABEL_110:
+      MaterialCount = v133;
+      v13 = v134;
+      goto LABEL_16;
+    }
+
+    MaterialCount = v133;
+LABEL_16:
+    if (++v13 == MaterialCount)
+    {
+      goto LABEL_122;
+    }
+  }
+
+  if (!VideoAsset || v16 != MaterialAsset)
+  {
+    if (v124)
+    {
+      v50 = REMaterialParameterBlockArrayComponentBorrowBlockValueAtIndex();
+      v51 = v121;
+      if (!v50)
+      {
+        goto LABEL_136;
+      }
+    }
+
+    else
+    {
+      v50 = REMaterialParameterBlockArrayComponentGetBlockValueAtIndex();
+      v51 = v121;
+      if (!v50)
+      {
+        goto LABEL_136;
+      }
+    }
+
+    v52 = v50;
+    v53 = MEMORY[0x1C68F8A40](v51, v13);
+    v54 = REDirectMaterialParametersArrayComponentGetBuffer();
+    v55 = REDirectMaterialParametersArrayComponentGetBuffer();
+    if (v54 | v55)
+    {
+      v59 = v55;
+      if (v53)
+      {
+        v132 = specialized static ModelComponent.copyDirectBufferData(component:stage:materialIndex:)(v51, 2, v134);
+        v126 = v60;
+        v56 = REDirectMaterialParametersArrayComponentGetResources();
+        if (!v56)
+        {
+          v56 = REDirectParameterResourcesCreate();
+        }
+
+        v125 = 0;
+        v58 = 0;
+        v57 = 0;
+      }
+
+      else
+      {
+        v73 = v9;
+        v74 = v134;
+        v132 = specialized static ModelComponent.copyDirectBufferData(component:stage:materialIndex:)(v51, 1, v134);
+        v126 = v75;
+        v76 = v51;
+        v56 = REDirectMaterialParametersArrayComponentGetResources();
+        if (!v56)
+        {
+          v56 = REDirectParameterResourcesCreate();
+        }
+
+        v125 = specialized static ModelComponent.copyDirectBufferData(component:stage:materialIndex:)(v76, 2, v74);
+        v78 = v77;
+        v57 = REDirectMaterialParametersArrayComponentGetResources();
+        if (!v57)
+        {
+          v57 = REDirectParameterResourcesCreate();
+        }
+
+        v58 = v78 | 0x1000000000000000;
+        v9 = v73;
+        v14 = &static ComponentInfo.Platform.macOS;
+      }
+    }
+
+    else
+    {
+      v132 = 0;
+      v125 = 0;
+      v126 = 0;
+      v56 = 0;
+      v57 = 0;
+      v58 = 0x2000000000000000;
+    }
+
+    Type = REMaterialAssetGetType();
+    if (one-time initialization token for mapping != -1)
+    {
+      v99 = Type;
+      swift_once();
+      Type = v99;
+    }
+
+    v80 = static __MaterialResource.mapping + 32;
+    v81 = *(static __MaterialResource.mapping + 2) + 1;
+    while (--v81)
+    {
+      v82 = v80 + 24;
+      v83 = *v80;
+      v80 += 24;
+      if (v83 == Type)
+      {
+        v84 = v9;
+        v85 = *(v82 - 2);
+        *&v135 = MEMORY[0x1E69E7CC0];
+        BYTE8(v135) = 0;
+        *&v136 = 0;
+        *(&v136 + 1) = v52;
+        *&v150 = v132;
+        *(&v150 + 1) = v126;
+        *&v151 = v56;
+        *(&v151 + 1) = v125;
+        *&v152 = v58;
+        *(&v152 + 1) = v57;
+        v156 = v16;
+
+        v85(&v141, &v156, &v135, &v150);
+
+        goto LABEL_107;
+      }
+    }
+
+    v84 = v9;
+    *(&v142 + 1) = &type metadata for AnyMaterial;
+    *&v143 = &protocol witness table for AnyMaterial;
+    v86 = swift_allocObject();
+    *&v141 = v86;
+    v87 = MEMORY[0x1E69E7CC0];
+
+    v88 = v52;
+    v89 = _s17RealityFoundation16LoadableResourcePAAE8fromCore8assetRefxSgs13OpaquePointerV_tFZ0A3Kit010__MaterialD0C_Tt1g5(v16);
+    if (!v89)
+    {
+      goto LABEL_136;
+    }
+
+    *(v86 + 16) = v89;
+    *(v86 + 24) = v87;
+    *(v86 + 32) = 0;
+    *(v86 + 40) = 0;
+    *(v86 + 48) = v88;
+    v14 = &static ComponentInfo.Platform.macOS;
+LABEL_107:
+    __swift_mutable_project_boxed_opaque_existential_1(&v141, *(&v142 + 1));
+    Material.syncMaterialRenderStateFromCore(coreComponent:index:)(v129, v134);
+    outlined init with copy of __REAssetService(&v141, &v150);
+    v9 = v84;
+    v157[0] = v84;
+    v91 = v84[2];
+    v90 = v84[3];
+    if (v91 >= v90 >> 1)
+    {
+      v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v90 > 1), v91 + 1, 1, v84);
+      outlined consume of DirectUniformsState?(v132, v126, v56, v125, v58, v57);
+
+      v157[0] = v9;
+    }
+
+    else
+    {
+      outlined consume of DirectUniformsState?(v132, v126, v56, v125, v58, v57);
+    }
+
+    v92 = *(&v151 + 1);
+    v93 = v152;
+    v94 = __swift_mutable_project_boxed_opaque_existential_1(&v150, *(&v151 + 1));
+    v95 = MEMORY[0x1EEE9AC00](v94);
+    v97 = v116 - ((v96 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v98 + 16))(v97, v95);
+    specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)(v91, v97, v157, v92, v93);
+    __swift_destroy_boxed_opaque_existential_1(&v150);
+    __swift_destroy_boxed_opaque_existential_1(&v141);
+    goto LABEL_110;
+  }
+
+  type metadata accessor for __VideoResource();
+  *&v150 = VideoAsset;
+  v23 = static __VideoResource.__fromCore(_:)(&v150);
+  *(&v142 + 1) = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss13OpaquePointerVSgMd, &_ss13OpaquePointerVSgMR);
+  *&v141 = MaterialAsset;
+  outlined init with copy of Any(&v141, &v135);
+  swift_dynamicCast();
+  v122 = v156;
+  __swift_destroy_boxed_opaque_existential_1(&v141);
+  v125 = _s17RealityFoundation16LoadableResourcePAAE010loadEngineD09assetPathxSS_tFZ0A3Kit010__MaterialD0C_Tt1g5(0xD00000000000001FLL, v120 | 0x8000000000000000, v24);
+  v126 = REMaterialParameterBlockValueCreate();
+  v147 = 1;
+  type metadata accessor for VideoPlaybackController();
+  v25 = swift_allocObject();
+  *(v25 + 24) = 1;
+  *(v25 + 32) = 0;
+  *(v25 + 40) = 0;
+  *(v25 + 16) = v23;
+  swift_retain_n();
+  AudioInputMode = REVideoAssetGetAudioInputMode();
+  MaterialCount = v133;
+  if (AudioInputMode >= 3)
+  {
+    goto LABEL_136;
+  }
+
+  v27 = 0x20001u >> (8 * (AudioInputMode & 0x1F));
+  swift_beginAccess();
+  *(v25 + 24) = v27;
+  REVideoAssetGetReverbSendLevelDecibels();
+  *(v25 + 32) = v28;
+  __VideoResource.removeNilEntries()();
+  swift_beginAccess();
+  v132 = v23;
+  v29 = v23[3];
+  v123 = v9;
+  if (!(v29 >> 62))
+  {
+    v30 = *((v29 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    if (v30)
+    {
+      goto LABEL_32;
+    }
+
+    goto LABEL_113;
+  }
+
+  v30 = __CocoaSet.count.getter();
+  if (!v30)
+  {
+LABEL_113:
+
+LABEL_114:
+    v100 = _s17RealityFoundation16LoadableResourcePAAE8fromCore8assetRefxSgs13OpaquePointerV_tFZ0A3Kit010__MaterialD0C_Tt1g5(v122);
+    v9 = v123;
+    v101 = MEMORY[0x1E69E7CC0];
+    v102 = v134;
+    if (!v100)
+    {
+      goto LABEL_136;
+    }
+
+    v103 = v100;
+
+    *(&v151 + 1) = v156;
+    DWORD1(v151) = *(&v156 + 3);
+    *(&v154 + 2) = v148;
+    WORD3(v154) = v149;
+    *&v150 = v103;
+    *(&v150 + 1) = v101;
+    LOBYTE(v151) = 0;
+    *(&v151 + 1) = 0;
+    *&v152 = v126;
+    *(&v152 + 1) = v132;
+    v153 = v25;
+    LOWORD(v154) = 257;
+    *(&v154 + 1) = 0;
+    v155 = v147;
+    specialized Material.syncMaterialRenderStateFromCore(coreComponent:index:)(v129._rawValue, v102);
+    if (v124)
+    {
+      v104 = REMaterialParameterBlockArrayComponentBorrowBlockValueAtIndex();
+      if (!v104)
+      {
+        goto LABEL_136;
+      }
+    }
+
+    else
+    {
+      v104 = REMaterialParameterBlockArrayComponentGetBlockValueAtIndex();
+      if (!v104)
+      {
+        goto LABEL_136;
+      }
+    }
+
+    v105 = v104;
+
+    *(&v150 + 1) = MEMORY[0x1E69E7CC0];
+    LOBYTE(v151) = 0;
+    *(&v151 + 1) = 0;
+    *&v152 = v105;
+    v143 = v152;
+    v144 = v153;
+    v145 = v154;
+    v146 = v155;
+    v141 = v150;
+    v142 = v151;
+    outlined init with copy of VideoMaterial(&v141, &v135);
+    v107 = v9[2];
+    v106 = v9[3];
+    if (v107 >= v106 >> 1)
+    {
+      v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v106 > 1), v107 + 1, 1, v9);
+    }
+
+    v13 = v134;
+
+    *(&v136 + 1) = &type metadata for VideoMaterial;
+    *&v137 = &protocol witness table for VideoMaterial;
+    v108 = swift_allocObject();
+    *&v135 = v108;
+    v109 = v144;
+    *(v108 + 48) = v143;
+    *(v108 + 64) = v109;
+    *(v108 + 80) = v145;
+    *(v108 + 96) = v146;
+    v110 = v142;
+    *(v108 + 16) = v141;
+    *(v108 + 32) = v110;
+    v9[2] = v107 + 1;
+    outlined init with take of ForceEffectBase(&v135, &v9[5 * v107 + 4]);
+    v137 = v152;
+    v138 = v153;
+    v139 = v154;
+    v140 = v155;
+    v135 = v150;
+    v136 = v151;
+    outlined destroy of VideoMaterial(&v135);
+    goto LABEL_16;
+  }
+
+LABEL_32:
+  v119 = v25;
+
+  v31 = 0;
+  while (2)
+  {
+    if ((v29 & 0xC000000000000001) != 0)
+    {
+      MEMORY[0x1C68F41F0](v31, v29);
+      v32 = v31 + 1;
+      if (__OFADD__(v31, 1))
+      {
+        goto LABEL_129;
+      }
+
+LABEL_42:
+      if (swift_weakLoadStrong())
+      {
+        REVideoComponentGetComponentType();
+        if (REEntityGetComponentByClass())
+        {
+          DesiredViewingMode = REVideoComponentGetDesiredViewingMode();
+
+          v34 = DesiredViewingMode == 1;
+          v14 = &static ComponentInfo.Platform.macOS;
+          if (v34)
+          {
+
+            v25 = v119;
+            *(v119 + 40) = 0;
+            MaterialCount = v133;
+            goto LABEL_114;
+          }
+
+LABEL_35:
+          ++v31;
+          if (v32 == v30)
+          {
+
+            MaterialCount = v133;
+            v25 = v119;
+            goto LABEL_114;
+          }
+
+          continue;
+        }
+
+        v14 = &static ComponentInfo.Platform.macOS;
+      }
+
+      goto LABEL_35;
+    }
+
+    break;
+  }
+
+  if (v31 >= *((v29 & 0xFFFFFFFFFFFFFF8) + 0x10))
+  {
+    goto LABEL_130;
+  }
+
+  v32 = v31 + 1;
+  if (!__OFADD__(v31, 1))
+  {
+    goto LABEL_42;
+  }
+
+LABEL_129:
+  __break(1u);
+LABEL_130:
+  __break(1u);
+LABEL_131:
+  __break(1u);
+LABEL_132:
+  __break(1u);
+LABEL_133:
+  swift_deallocPartialClassInstance();
+LABEL_136:
+  _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+}
+
+uint64_t ModelComponent.__toCore(_:returnStrongReference:)(uint64_t *a1, int a2)
+{
+  LODWORD(v181) = a2;
+  v4 = type metadata accessor for Logger();
+  v158 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v159 = &v157 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v171 = *a1;
+  v6 = *v2;
+  v7 = *(v2 + 1);
+  v8 = v2[4];
+  v161 = *(v2 + 3);
+  Entity = REComponentGetEntity();
+  if (REEntityGetSwiftObject())
+  {
+    type metadata accessor for Entity();
+    v10 = swift_dynamicCastClassUnconditional();
+  }
+
+  else
+  {
+    result = REEntityIsBeingDestroyed();
+    if (result)
+    {
+LABEL_179:
+      __break(1u);
+      goto LABEL_180;
+    }
+
+    specialized static Entity.entityInfoType(_:)(Entity);
+    if (v12)
+    {
+      v13 = (*(v12 + 232))();
+      v14 = *(v13 + 16);
+
+      MEMORY[0x1C68F9740](v14, 0);
+      *(v13 + 16) = Entity;
+      MEMORY[0x1C68F9740](Entity, v13);
+
+      v10 = v13;
+    }
+
+    else
+    {
+      v10 = makeEntity(for:)(Entity);
+    }
+  }
+
+  *&v182 = v6;
+  v162 = v10;
+  v157 = v4;
+  v15 = *(v7 + 16);
+  v167 = Entity;
+  v175 = v7;
+  v183 = v15;
+  if (!v15)
+  {
+    v173 = MEMORY[0x1E69E7CC0];
+    if (*(MEMORY[0x1E69E7CC0] + 16))
+    {
+      goto LABEL_25;
+    }
+
+LABEL_28:
+    *&v200 = 0;
+    v198 = 0u;
+    v199 = 0u;
+    v197 = 0u;
+    v40 = v162;
+
+    _s10RealityKit6EntityC12ComponentSetV02doE0_8newValue21returnStrongReferenceyxm_xSgSbtAA0D0RzlF0A10Foundation05VideoD0V_TtB5(&v197, 0, v40);
+    outlined destroy of BodyTrackingComponent?(&v197, &_s17RealityFoundation14VideoComponentVSgMd, &_s17RealityFoundation14VideoComponentVSgMR);
+    v41 = *(v40 + 16);
+
+    if (v41 != *(v40 + 16))
+    {
+LABEL_180:
+      __break(1u);
+      goto LABEL_181;
+    }
+
+    goto LABEL_29;
+  }
+
+  v16 = 0;
+  v173 = MEMORY[0x1E69E7CC0];
+  v17 = v7 + 32;
+  do
+  {
+    outlined init with copy of __REAssetService(v17, v203);
+    if (v16)
+    {
+      v16 = 1;
+    }
+
+    else
+    {
+      v19 = v204;
+      v18 = v205;
+      __swift_project_boxed_opaque_existential_1(v203, v204);
+      v16 = (v18[18])(v19, v18);
+    }
+
+    outlined init with copy of __REAssetService(v203, &v196);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s10RealityKit8Material_pMd, &_s10RealityKit8Material_pMR);
+    if ((swift_dynamicCast() & 1) == 0)
+    {
+      v202 = 0;
+      v200 = 0u;
+      v201 = 0u;
+      v198 = 0u;
+      v199 = 0u;
+      v197 = 0u;
+    }
+
+    __swift_destroy_boxed_opaque_existential_1(v203);
+    if (v197)
+    {
+      v192 = v199;
+      v193 = v200;
+      v194 = v201;
+      v195 = v202;
+      v190 = v197;
+      v191 = v198;
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v173 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v173 + 2) + 1, 1, v173);
+      }
+
+      v21 = *(v173 + 2);
+      v20 = *(v173 + 3);
+      if (v21 >= v20 >> 1)
+      {
+        v173 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1, v173);
+      }
+
+      v186 = v192;
+      v187 = v193;
+      v188 = v194;
+      v189 = v195;
+      v22 = v190;
+      v184 = v190;
+      v185 = v191;
+      v23 = v173;
+      *(v173 + 2) = v21 + 1;
+      v24 = &v23[88 * v21];
+      *(v24 + 3) = v185;
+      v25 = v186;
+      v26 = v187;
+      v27 = v188;
+      v24[112] = v189;
+      *(v24 + 5) = v26;
+      *(v24 + 6) = v27;
+      *(v24 + 4) = v25;
+      *(v24 + 2) = v22;
+    }
+
+    else
+    {
+      v192 = v199;
+      v193 = v200;
+      v194 = v201;
+      v195 = v202;
+      v190 = v197;
+      v191 = v198;
+      outlined destroy of BodyTrackingComponent?(&v190, &_s10RealityKit13VideoMaterialVSgMd, &_s10RealityKit13VideoMaterialVSgMR);
+    }
+
+    v17 += 40;
+    --v15;
+  }
+
+  while (v15);
+  if (!*(v173 + 2))
+  {
+    v7 = v175;
+    if (v16)
+    {
+      goto LABEL_29;
+    }
+
+    goto LABEL_28;
+  }
+
+  v7 = v175;
+LABEL_25:
+  v28 = v173;
+  v29 = *(v173 + 5);
+  v199 = *(v173 + 4);
+  v200 = v29;
+  v201 = *(v173 + 6);
+  v202 = v173[112];
+  v30 = *(v173 + 3);
+  v197 = *(v173 + 2);
+  v198 = v30;
+  v31 = *(&v199 + 1);
+  v32 = v29;
+  v204 = &type metadata for VideoMaterial;
+  v205 = &protocol witness table for VideoMaterial;
+  v203[0] = swift_allocObject();
+  memmove((v203[0] + 16), v28 + 32, 0x51uLL);
+  *&v184 = v31;
+  outlined init with copy of __REAssetService(v203, &v184 + 8);
+  _ss4SIMDPsEyxqd__cSTRd__7ElementQyd__6ScalarRtzlufCs5SIMD2VySfG_SaySfGTt1gq5Tf4g_n(&outlined read-only object #0 of ModelComponent.__toCore(_:returnStrongReference:));
+  v34 = v33;
+  outlined init with copy of VideoMaterial(&v197, &v190);
+  outlined init with copy of VideoMaterial(&v197, &v190);
+
+  __swift_destroy_boxed_opaque_existential_1(v203);
+  *&v187 = v34;
+  v35 = v162;
+
+  _s10RealityKit6EntityC12ComponentSetV02doE0_8newValue21returnStrongReferenceyxm_xSgSbtAA0D0RzlF0A10Foundation05VideoD0V_TtB5(&v184, 0, v35);
+  outlined destroy of BodyTrackingComponent?(&v184, &_s17RealityFoundation14VideoComponentVSgMd, &_s17RealityFoundation14VideoComponentVSgMR);
+  v36 = *(v35 + 16);
+
+  if (v36 != *(v35 + 16))
+  {
+LABEL_178:
+    __break(1u);
+    goto LABEL_179;
+  }
+
+  __VideoResource.addEntity(_:)(v35);
+  LOBYTE(v190) = *(v32 + 40);
+  __VideoResource.preferredViewingMode.setter(&v190);
+  v37 = specialized static __ServiceLocator.shared.getter();
+  swift_beginAccess();
+  outlined init with copy of __REAssetService(v37 + 120, &v190);
+  v38 = *(&v191 + 1);
+  v39 = v192;
+  __swift_project_boxed_opaque_existential_1(&v190, *(&v191 + 1));
+  (*(v39 + 32))(v38, v39);
+  REAssetManagerPreloadVideoAssetOnce();
+  outlined destroy of VideoMaterial(&v197);
+  __swift_destroy_boxed_opaque_existential_1(&v190);
+LABEL_29:
+  Mesh = REMeshComponentGetMesh();
+  v43 = *(v182 + 16);
+  if (v43)
+  {
+    REMeshComponentSetMesh();
+    v44 = Mesh != v43;
+    if (REMeshAssetGetTotalSkeletonCount() >= 1)
+    {
+      REMeshDeformationComponentGetComponentType();
+      REEntityGetOrAddComponentByClass();
+      RESkeletalPoseComponentGetComponentType();
+      REEntityGetOrAddComponentByClass();
+      RERigComponentGetComponentType();
+      REEntityGetOrAddComponentByClass();
+    }
+
+    REMeshDeformationComponentGetComponentType();
+    if (!REEntityGetComponentByClass())
+    {
+      result = REMeshAssetGetModelCount();
+      if (result < 0)
+      {
+LABEL_181:
+        __break(1u);
+        goto LABEL_182;
+      }
+
+      v45 = result;
+      v46 = 0;
+      while (v45 != v46)
+      {
+        if (__OFADD__(v46, 1))
+        {
+          goto LABEL_169;
+        }
+
+        result = REMeshAssetGetBlendShapeGroupCount();
+        ++v46;
+        if (result >= 1)
+        {
+          REMeshDeformationComponentGetComponentType();
+          REEntityGetOrAddComponentByClass();
+          break;
+        }
+      }
+    }
+  }
+
+  else
+  {
+    REMeshComponentSetMesh();
+    v44 = Mesh != 0;
+  }
+
+  REMeshComponentGetBoundsMargin();
+  v48 = v47;
+  REMeshComponentSetBoundsMargin();
+  v49 = v48 != v8 || v44;
+  REMaterialParameterBlockArrayComponentGetComponentType();
+  v170 = REEntityGetOrAddComponentByClass();
+  v50 = REMaterialParameterBlockArrayComponentSize();
+  v51 = *(v7 + 16);
+  if (v50 != v51)
+  {
+    REMaterialParameterBlockArrayComponentResize();
+  }
+
+  MaterialCount = REMeshComponentGetMaterialCount();
+  v53 = v183;
+  v54 = v49;
+  if (v51 < MaterialCount)
+  {
+    REMeshComponentRemoveAllMaterials();
+    v54 = 1;
+  }
+
+  v55 = REMeshComponentGetMaterialCount();
+  REMaterialRenderStateArrayComponentGetComponentType();
+  v56 = REEntityGetComponentByClass() == 0;
+  REMaterialRenderStateArrayComponentGetComponentType();
+  v169._rawValue = REEntityGetOrAddComponentByClass();
+  result = specialized static __ServiceLocator.shared.getter();
+  v57 = 0;
+  v176 = v175 + 32;
+  v180 = v55;
+  while (1)
+  {
+    v58 = 0uLL;
+    v59 = v53;
+    v60 = 0uLL;
+    v61 = 0uLL;
+    if (v57 == v53)
+    {
+      goto LABEL_55;
+    }
+
+    if (v57 >= *(v175 + 16))
+    {
+      __break(1u);
+LABEL_166:
+      __break(1u);
+LABEL_167:
+      __break(1u);
+LABEL_168:
+      __break(1u);
+LABEL_169:
+      __break(1u);
+LABEL_170:
+      __break(1u);
+LABEL_171:
+      __break(1u);
+LABEL_172:
+      __break(1u);
+LABEL_173:
+      __break(1u);
+LABEL_174:
+      __break(1u);
+LABEL_175:
+      __break(1u);
+LABEL_176:
+      __break(1u);
+LABEL_177:
+      __break(1u);
+      goto LABEL_178;
+    }
+
+    v59 = v57 + 1;
+    *&v190 = v57;
+    result = outlined init with copy of __REAssetService(v176 + 40 * v57, &v190 + 8);
+    v58 = v190;
+    v60 = v191;
+    v61 = v192;
+LABEL_55:
+    v197 = v58;
+    v198 = v60;
+    v62 = v61;
+    v199 = v61;
+    if (!v61)
+    {
+      break;
+    }
+
+    v57 = v59;
+    v182 = v58;
+    outlined init with take of ForceEffectBase((&v197 + 8), &v190);
+    v63 = v182;
+    if (v182 < v55)
+    {
+      v168 = v54;
+      MaterialAtIndex = REMeshComponentGetMaterialAtIndex();
+      v65 = *(&v191 + 1);
+      v66 = v192;
+      __swift_project_boxed_opaque_existential_1(&v190, *(&v191 + 1));
+      v67 = (*(v66 + 136))(v65, v66);
+      v68 = *(&v191 + 1);
+      v69 = v192;
+      __swift_project_boxed_opaque_existential_1(&v190, *(&v191 + 1));
+      (*(v69 + 8))(v68, v69);
+      if (v67)
+      {
+        swift_beginAccess();
+
+        REMeshComponentSetMaterialWithParametersAtIndex();
+        goto LABEL_62;
+      }
+
+      swift_beginAccess();
+
+      REMeshComponentSetMaterialAtIndex();
+      if (v168)
+      {
+LABEL_62:
+        v54 = 1;
+      }
+
+      else
+      {
+        v75 = *(&v191 + 1);
+        v76 = v192;
+        __swift_project_boxed_opaque_existential_1(&v190, *(&v191 + 1));
+        v77 = (*(v76 + 8))(v75, v76);
+        swift_beginAccess();
+        v78 = *(v77 + 16);
+
+        if (MaterialAtIndex)
+        {
+          v79 = MaterialAtIndex == v78;
+        }
+
+        else
+        {
+          v79 = 0;
+        }
+
+        v54 = !v79;
+      }
+
+      v53 = v183;
+      v55 = v180;
+      goto LABEL_51;
+    }
+
+    v70 = *(&v191 + 1);
+    v71 = v192;
+    __swift_project_boxed_opaque_existential_1(&v190, *(&v191 + 1));
+    v72 = (*(v71 + 136))(v70, v71);
+    v73 = *(&v191 + 1);
+    v74 = v192;
+    __swift_project_boxed_opaque_existential_1(&v190, *(&v191 + 1));
+    (*(v74 + 8))(v73, v74);
+    swift_beginAccess();
+
+    if (v72)
+    {
+      REMeshComponentAddMaterialWithParameters();
+    }
+
+    else
+    {
+      REMeshComponentAddMaterial();
+    }
+
+    v54 = 1;
+    v53 = v183;
+LABEL_51:
+    __swift_project_boxed_opaque_existential_1(&v190, *(&v191 + 1));
+    v56 |= Material.syncMaterialRenderStateToCore(_:index:)(v169, v63);
+    result = __swift_destroy_boxed_opaque_existential_1(&v190);
+  }
+
+  v168 = v54;
+  v160 = v56;
+  while (1)
+  {
+    v81 = 0uLL;
+    v82 = v183;
+    v83 = 0uLL;
+    v84 = 0uLL;
+    if (v62 != v183)
+    {
+      if (v62 >= *(v175 + 16))
+      {
+        goto LABEL_166;
+      }
+
+      v82 = v62 + 1;
+      *&v190 = v62;
+      outlined init with copy of __REAssetService(v176 + 40 * v62, &v190 + 8);
+      v81 = v190;
+      v83 = v191;
+      v84 = v192;
+    }
+
+    v197 = v81;
+    v198 = v83;
+    v199 = v84;
+    if (!v84)
+    {
+      break;
+    }
+
+    v182 = v81;
+    outlined init with take of ForceEffectBase((&v197 + 8), &v190);
+    v85 = *(&v191 + 1);
+    v86 = v192;
+    if (v181)
+    {
+      __swift_project_boxed_opaque_existential_1(&v190, *(&v191 + 1));
+      (*(v86 + 16))(&v184, v85, v86);
+      v87 = *(&v185 + 1);
+      REMaterialParameterBlockArrayComponentReturnBlockValueAtIndex();
+    }
+
+    else
+    {
+      __swift_mutable_project_boxed_opaque_existential_1(&v190, *(&v191 + 1));
+      v80 = (*(v86 + 32))(&v184, v85, v86);
+      REMaterialParameterBlockArrayComponentSetBlockValueAtIndex();
+      v80(&v184, 0);
+    }
+
+    result = __swift_destroy_boxed_opaque_existential_1(&v190);
+    v62 = v82;
+  }
+
+  REDirectMaterialParametersArrayComponentGetComponentType();
+  result = REEntityGetOrAddComponentByClass();
+  v88 = result;
+  v89 = 0;
+  v166 = &v185;
+  v90 = v175;
+  v91 = v183;
+  v165 = result;
+  while (2)
+  {
+    v92 = 0uLL;
+    v93 = v91;
+    v94 = 0uLL;
+    v95 = 0uLL;
+    if (v89 != v91)
+    {
+      if (v89 >= *(v90 + 16))
+      {
+        goto LABEL_167;
+      }
+
+      v93 = v89 + 1;
+      *&v190 = v89;
+      outlined init with copy of __REAssetService(v176 + 40 * v89, &v190 + 8);
+      v92 = v190;
+      v94 = v191;
+      v95 = v192;
+    }
+
+    v197 = v92;
+    v198 = v94;
+    v199 = v95;
+    if (v95)
+    {
+      v89 = v93;
+      v181 = v92;
+      outlined init with take of ForceEffectBase((&v197 + 8), v203);
+      v96 = v204;
+      v97 = v205;
+      __swift_project_boxed_opaque_existential_1(v203, v204);
+      (v97[19])(&v190, v96, v97);
+      *&v182 = *(&v190 + 1);
+      v179 = v191;
+      v180 = v190;
+      v177 = *(&v192 + 1);
+      v98 = v192;
+      v178 = *(&v191 + 1);
+      v99 = v204;
+      v100 = v205;
+      __swift_project_boxed_opaque_existential_1(v203, v204);
+      (v100[1])(v99, v100);
+      swift_beginAccess();
+
+      v101 = (v98 >> 60) & 3;
+      if (v101)
+      {
+        if (v101 == 1)
+        {
+          HasGeometryModifierCustomParamsName = REMaterialAssetHasGeometryModifierCustomParamsName();
+          v172 = v93;
+          if (HasGeometryModifierCustomParamsName)
+          {
+            v174 = v98;
+            specialized static __ServiceLocator.shared.getter();
+            result = swift_beginAccess();
+            v103 = v182 >> 62;
+            if ((v182 >> 62) > 1)
+            {
+              v98 = v174;
+              v104 = v181;
+              if (v103 == 2 && __OFSUB__(*(v180 + 24), *(v180 + 16)))
+              {
+                goto LABEL_175;
+              }
+            }
+
+            else
+            {
+              v98 = v174;
+              v104 = v181;
+              if (v103 && __OFSUB__(HIDWORD(v180), v180))
+              {
+                goto LABEL_174;
+              }
+            }
+
+            v121 = v104;
+            REDirectMaterialParametersArrayComponentEnsureBufferSize();
+            v122 = REDirectMaterialParametersArrayComponentGetBuffer();
+            if (v122)
+            {
+              v164 = v121;
+              v123 = swift_allocObject();
+              v124 = v179;
+              v125 = v182;
+              v123[2] = v180;
+              v123[3] = v125;
+              v123[4] = v124;
+              v126 = swift_allocObject();
+              v127 = closure #1 in DirectParameterBuffer.applyToComponent(directParameterComponent:stageFlags:index:)partial apply;
+              *(v126 + 16) = closure #1 in DirectParameterBuffer.applyToComponent(directParameterComponent:stageFlags:index:)partial apply;
+              *(v126 + 24) = v123;
+              *&v186 = thunk for @callee_guaranteed (@unowned UnsafeMutableRawPointer, @unowned UInt) -> ()partial apply;
+              *(&v186 + 1) = v126;
+              *&v184 = MEMORY[0x1E69E9820];
+              *(&v184 + 1) = 1107296256;
+              *&v185 = thunk for @escaping @callee_guaranteed (@unowned UnsafeMutableRawPointer, @unowned UInt) -> ();
+              *(&v185 + 1) = &block_descriptor_21;
+              v128 = _Block_copy(&v184);
+              v129 = v122;
+              outlined copy of Data._Representation(v180, v125);
+              v130 = v179;
+
+              DRBufferReplace();
+
+              _Block_release(v128);
+              LOBYTE(v128) = swift_isEscapingClosureAtFileLocation();
+
+              if (v128)
+              {
+                goto LABEL_170;
+              }
+
+              v98 = v174;
+              v90 = v175;
+              v88 = v165;
+            }
+
+            else
+            {
+              v127 = 0;
+              v123 = 0;
+            }
+
+            REDirectMaterialParametersArrayComponentSetResources();
+
+            outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v127, v123);
+            v91 = v183;
+            v89 = v172;
+          }
+
+          else
+          {
+            MEMORY[0x1C68F89F0](v88, 1, v181);
+          }
+
+          if (REMaterialAssetHasSurfaceShaderCustomParamsName())
+          {
+            specialized static __ServiceLocator.shared.getter();
+            result = swift_beginAccess();
+            v131 = v98 >> 62;
+            if ((v98 >> 62) > 1)
+            {
+              v132 = v181;
+              if (v131 == 2 && __OFSUB__(*(v178 + 24), *(v178 + 16)))
+              {
+                goto LABEL_176;
+              }
+            }
+
+            else
+            {
+              v132 = v181;
+              if (v131 && __OFSUB__(HIDWORD(v178), v178))
+              {
+                goto LABEL_177;
+              }
+            }
+
+            v133 = v132;
+            REDirectMaterialParametersArrayComponentEnsureBufferSize();
+            v134 = REDirectMaterialParametersArrayComponentGetBuffer();
+            if (v134)
+            {
+              v164 = v133;
+              v174 = v98;
+              v135 = v98 & 0xCFFFFFFFFFFFFFFFLL;
+              *&v181 = v135;
+              v136 = swift_allocObject();
+              v137 = v178;
+              v136[2] = v178;
+              v136[3] = v135;
+              v138 = v177;
+              v136[4] = v177;
+              v139 = swift_allocObject();
+              v140 = partial apply for closure #1 in DirectParameterBuffer.applyToComponent(directParameterComponent:stageFlags:index:);
+              *(v139 + 16) = partial apply for closure #1 in DirectParameterBuffer.applyToComponent(directParameterComponent:stageFlags:index:);
+              *(v139 + 24) = v136;
+              *&v186 = _sSvSuIgyy_SvSuIegyy_TRTA_0;
+              *(&v186 + 1) = v139;
+              *&v184 = MEMORY[0x1E69E9820];
+              *(&v184 + 1) = 1107296256;
+              *&v185 = thunk for @escaping @callee_guaranteed (@unowned UnsafeMutableRawPointer, @unowned UInt) -> ();
+              *(&v185 + 1) = &block_descriptor_26;
+              v141 = _Block_copy(&v184);
+              v142 = v134;
+              outlined copy of Data._Representation(v137, v181);
+              v143 = v138;
+
+              DRBufferReplace();
+
+              _Block_release(v141);
+              LOBYTE(v138) = swift_isEscapingClosureAtFileLocation();
+
+              if (v138)
+              {
+                goto LABEL_171;
+              }
+
+              v98 = v174;
+              v90 = v175;
+              v91 = v183;
+              v88 = v165;
+            }
+
+            else
+            {
+              v140 = 0;
+              v136 = 0;
+            }
+
+            v144 = v177;
+            REDirectMaterialParametersArrayComponentSetResources();
+
+            outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v140, v136);
+            outlined consume of DirectUniformsState(v180, v182, v179, v178, v98, v144);
+            goto LABEL_138;
+          }
+
+          MEMORY[0x1C68F89F0](v88, 2, v181);
+          outlined consume of DirectUniformsState(v180, v182, v179, v178, v98, v177);
+        }
+
+        else
+        {
+          MEMORY[0x1C68F89F0](v88, 3, v181);
+        }
+      }
+
+      else
+      {
+        Type = REMaterialAssetGetType();
+        v174 = v98;
+        if (Type == 6)
+        {
+          v106 = REMaterialAssetHasGeometryModifierCustomParamsName();
+          if (REMaterialAssetHasSurfaceShaderCustomParamsName())
+          {
+            v107 = v106 | 2;
+          }
+
+          else
+          {
+            v107 = v106;
+          }
+        }
+
+        else if (Type == 7)
+        {
+          v107 = 3;
+        }
+
+        else
+        {
+          v107 = 0;
+        }
+
+        specialized static __ServiceLocator.shared.getter();
+        result = swift_beginAccess();
+        v108 = v182 >> 62;
+        if ((v182 >> 62) > 1)
+        {
+          v109 = v181;
+          if (v108 == 2 && __OFSUB__(*(v180 + 24), *(v180 + 16)))
+          {
+            goto LABEL_173;
+          }
+        }
+
+        else
+        {
+          v109 = v181;
+          if (v108 && __OFSUB__(HIDWORD(v180), v180))
+          {
+            goto LABEL_172;
+          }
+        }
+
+        v172 = v89;
+        v110 = v109;
+        REDirectMaterialParametersArrayComponentEnsureBufferSize();
+        v111 = REDirectMaterialParametersArrayComponentGetBuffer();
+        if (v111)
+        {
+          v163 = v110;
+          v164 = v107;
+          v112 = swift_allocObject();
+          v113 = v179;
+          v114 = v180;
+          v115 = v182;
+          v112[2] = v180;
+          v112[3] = v115;
+          v112[4] = v113;
+          v116 = swift_allocObject();
+          v117 = closure #1 in DirectParameterBuffer.applyToComponent(directParameterComponent:stageFlags:index:)partial apply;
+          *(v116 + 16) = closure #1 in DirectParameterBuffer.applyToComponent(directParameterComponent:stageFlags:index:)partial apply;
+          *(v116 + 24) = v112;
+          *&v186 = thunk for @callee_guaranteed (@unowned UnsafeMutableRawPointer, @unowned UInt) -> ()partial apply;
+          *(&v186 + 1) = v116;
+          *&v184 = MEMORY[0x1E69E9820];
+          *(&v184 + 1) = 1107296256;
+          *&v185 = thunk for @escaping @callee_guaranteed (@unowned UnsafeMutableRawPointer, @unowned UInt) -> ();
+          *(&v185 + 1) = &block_descriptor_32;
+          v118 = _Block_copy(&v184);
+          *&v181 = *(&v186 + 1);
+          v119 = v111;
+          outlined copy of DirectUniformsState(v114, v115, v113, v178, v174, v177);
+
+          DRBufferReplace();
+
+          _Block_release(v118);
+          LOBYTE(v114) = swift_isEscapingClosureAtFileLocation();
+
+          if (v114)
+          {
+            goto LABEL_168;
+          }
+
+          v90 = v175;
+          v88 = v165;
+        }
+
+        else
+        {
+          v117 = 0;
+          v112 = 0;
+        }
+
+        v120 = v179;
+        REDirectMaterialParametersArrayComponentSetResources();
+
+        outlined consume of (@escaping @callee_guaranteed (@in_guaranteed SynchronizationComponent.OwnershipTransferCompletionResult) -> ())?(v117, v112);
+        outlined consume of DirectUniformsState(v180, v182, v120, v178, v174, v177);
+        v91 = v183;
+LABEL_138:
+        v89 = v172;
+      }
+
+      result = __swift_destroy_boxed_opaque_existential_1(v203);
+      continue;
+    }
+
+    break;
+  }
+
+  REMeshDeformationComponentGetComponentType();
+  ComponentByClass = REEntityGetComponentByClass();
+  v146 = v161;
+  if (!*(v161 + 16))
+  {
+    v147 = specialized _Proto_MeshDeformation_v1.Resource.definition.getter();
+    v146 = v161;
+    if (!*(v147 + 16))
+    {
+      v148 = v160;
+      if (v168)
+      {
+        goto LABEL_152;
+      }
+
+      goto LABEL_155;
+    }
+  }
+
+  v148 = v160;
+  v149 = v168;
+  if (!ComponentByClass)
+  {
+    REMeshDeformationComponentGetComponentType();
+    result = REEntityAddComponentByClass();
+    if (!result)
+    {
+LABEL_182:
+      __break(1u);
+      return result;
+    }
+  }
+
+  MeshDeformationDefinition = REMeshDeformationComponentGetMeshDeformationDefinition();
+  v151 = *(v146 + 16);
+  if (MeshDeformationDefinition)
+  {
+    if (MeshDeformationDefinition != v151)
+    {
+      goto LABEL_145;
+    }
+
+LABEL_151:
+    if (v149)
+    {
+LABEL_152:
+      v152 = v171;
+      RENetworkMarkComponentDirty();
+      if ((v148 & 1) == 0)
+      {
+LABEL_157:
+
+        goto LABEL_158;
+      }
+
+LABEL_156:
+      RENetworkMarkComponentDirty();
+      goto LABEL_157;
+    }
+
+LABEL_155:
+    v152 = v171;
+    if ((v148 & 1) == 0)
+    {
+      goto LABEL_157;
+    }
+
+    goto LABEL_156;
+  }
+
+  if (!v151)
+  {
+    goto LABEL_151;
+  }
+
+LABEL_145:
+  REMeshDeformationComponentSetMeshDeformationDefinition();
+  if (v149)
+  {
+    RENetworkMarkComponentDirty();
+  }
+
+  if (v148)
+  {
+    RENetworkMarkComponentDirty();
+  }
+
+  RENetworkMarkComponentDirty();
+  v152 = v171;
+LABEL_158:
+  RENetworkMarkComponentDirty();
+  RENetworkMarkComponentDirty();
+  REMeshPartInstancesComponentGetComponentType();
+  v153 = REEntityGetComponentByClass();
+  if (!v153 || (specialized static MeshInstancesComponent.isAboveLimits(meshComponent:meshInstancesComponent:)(v152, v153) & 1) == 0)
+  {
+  }
+
+  Logger.init()();
+  v154 = Logger.logObject.getter();
+  v155 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v154, v155))
+  {
+    v156 = swift_slowAlloc();
+    *v156 = 67109120;
+    *(v156 + 4) = REMeshPartInstancesComponentGetVertexLimit();
+    _os_log_impl(&dword_1C1358000, v154, v155, "Error: MeshInstancesComponent attempted to render beyond the per component vertex/index limit of %u. Reduce instance count of MeshInstancesComponent, or vertex/index count of the mesh part being instanced.", v156, 8u);
+    MEMORY[0x1C6902A30](v156, -1, -1);
+  }
+
+  else
+  {
+  }
+
+  return (*(v158 + 8))(v159, v157);
 }

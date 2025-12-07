@@ -49,7 +49,7 @@ void __76___UISlideriOSVisualElement__modernThumbImageWithTraitCollection_tintCo
 
   CGContextSetShadowWithColor(v5, *&v6, v8, *(*(*(a1 + 40) + 8) + 24));
   CGContextSetFillColorWithColor([v3 CGContext], *(*(*(a1 + 48) + 8) + 24));
-  +[_UISlideriOSVisualElement drawingMetricsForPlatform];
+  objc_msgSend_drawingMetricsForPlatform(_UISlideriOSVisualElement);
   v9 = [UIBezierPath bezierPathWithOvalInRect:v11, v12, v13, v14];
   [v9 fill];
   CGContextSetStrokeColorWithColor([v3 CGContext], *(*(*(a1 + 40) + 8) + 24));

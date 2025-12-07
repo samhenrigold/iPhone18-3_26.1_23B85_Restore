@@ -40,9 +40,8 @@
 {
   v3 = [MEMORY[0x277CF0C00] builderWithObject:self];
   v4 = [v3 appendObject:self->_name withName:@"name"];
-  process = self->_process;
-  v6 = FBSProcessPrettyDescription();
-  v7 = [v3 appendObject:v6 withName:@"process"];
+  v5 = FBSProcessPrettyDescription();
+  v6 = [v3 appendObject:v5 withName:@"process"];
 
   return v3;
 }

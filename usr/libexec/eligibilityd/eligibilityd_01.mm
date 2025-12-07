@@ -1,21 +1,9 @@
-uint64_t sub_100010778(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_100010778(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v5 = v3;
   v9 = sub_10000A844();
-  if (!*(a1 + 16))
+  if (!*(a1 + 16) || (v10 = *v9, v11 = v9[1], , v12 = sub_100002F84(v10, v11), LOBYTE(v4) = v13, , (v4 & 1) == 0) || (sub_100003218(*(a1 + 56) + 32 * v12, &v29), sub_100001EB0(&qword_10005BAF8, &qword_100033380), result = swift_dynamicCast(), (result & 1) == 0))
   {
-    goto LABEL_14;
-  }
-
-  v10 = *v9;
-  v11 = v9[1];
-
-  v12 = sub_100002F84(v10, v11);
-  LOBYTE(v4) = v13;
-
-  if ((v4 & 1) == 0 || (sub_100003218(*(a1 + 56) + 32 * v12, &v29), sub_100001EB0(&qword_10005BAF8, &qword_100033380), result = swift_dynamicCast(), (result & 1) == 0))
-  {
-LABEL_14:
     *&v29 = 0x7963696C6F50724FLL;
     *(&v29 + 1) = 0xE900000000000020;
     v21 = Dictionary.description.getter();
@@ -122,6 +110,91 @@ LABEL_17:
   return result;
 }
 
+unint64_t sub_100010B18(char a1, uint64_t a2)
+{
+  v23[0] = 0;
+  v23[1] = 0xE000000000000000;
+  _StringGuts.grow(_:)(25);
+
+  v25 = 0xD000000000000019;
+  v26 = 0x8000000100039450;
+  if (a1)
+  {
+    v4 = 1702195828;
+  }
+
+  else
+  {
+    v4 = 0x65736C6166;
+  }
+
+  if (a1)
+  {
+    v5 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v5 = 0xE500000000000000;
+  }
+
+  v6 = v5;
+  String.append(_:)(*&v4);
+
+  v7._countAndFlagsBits = 32;
+  v7._object = 0xE100000000000000;
+  String.append(_:)(v7);
+  v8 = *(a2 + 16);
+  v9 = &_swiftEmptyArrayStorage;
+  if (v8)
+  {
+    v24 = &_swiftEmptyArrayStorage;
+    sub_100010338(0, v8, 0);
+    v9 = &_swiftEmptyArrayStorage;
+    v10 = a2 + 32;
+    do
+    {
+      sub_1000016D0(v10, v23);
+      sub_100003274(v23, v23[3]);
+      v11 = dispatch thunk of CustomStringConvertible.description.getter();
+      v13 = v12;
+      sub_100003374(v23);
+      v24 = v9;
+      v15 = v9[2];
+      v14 = v9[3];
+      if (v15 >= v14 >> 1)
+      {
+        sub_100010338((v14 > 1), v15 + 1, 1);
+        v9 = v24;
+      }
+
+      v9[2] = v15 + 1;
+      v16 = &v9[2 * v15];
+      v16[4] = v11;
+      v16[5] = v13;
+      v10 += 40;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  v23[0] = v9;
+  sub_100001EB0(&qword_10005BB50, "|*");
+  sub_100010E24();
+  v17 = BidirectionalCollection<>.joined(separator:)();
+  v19 = v18;
+
+  v20._countAndFlagsBits = v17;
+  v20._object = v19;
+  String.append(_:)(v20);
+
+  v21._countAndFlagsBits = 62;
+  v21._object = 0xE100000000000000;
+  String.append(_:)(v21);
+  return v25;
+}
+
 unint64_t sub_100010D10(uint64_t a1)
 {
   result = sub_100010D38();
@@ -214,49 +287,44 @@ unint64_t sub_100010E24()
 
 uint64_t sub_1000111A0()
 {
-  v1 = v0[3];
 
   sub_10000B2BC(v0 + OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate);
-  v2 = *(*v0 + 48);
-  v3 = *(*v0 + 52);
+  v1 = *(*v0 + 48);
+  v2 = *(*v0 + 52);
 
-  return _swift_deallocClassInstance(v0, v2, v3);
+  return _swift_deallocClassInstance(v0, v1, v2);
 }
 
 void sub_1000112DC(uint64_t a1, uint64_t a2)
 {
   v5 = sub_100001EB0(&qword_10005BD00, "^/");
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v21 - v7;
-  v9 = String._bridgeToObjectiveC()();
-  v10 = [v2 hasGracePeriod:v9];
+  v7 = &v16 - v6;
+  v8 = String._bridgeToObjectiveC()();
+  v9 = [v2 hasGracePeriod:v8];
 
-  if ((v10 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
-    v11 = type metadata accessor for GracePeriodMock();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
-    v14 = swift_allocObject();
-    v15 = OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate;
-    v16 = type metadata accessor for Date();
-    v17 = *(*(v16 - 8) + 56);
-    v17(v14 + v15, 1, 1, v16);
-    *(v14 + 16) = a1;
-    *(v14 + 24) = a2;
-    v17(v8, 1, 1, v16);
+    type metadata accessor for GracePeriodMock(0);
+    v10 = swift_allocObject();
+    v11 = OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate;
+    v12 = type metadata accessor for Date();
+    v13 = *(*(v12 - 8) + 56);
+    v13(v10 + v11, 1, 1, v12);
+    *(v10 + 16) = a1;
+    *(v10 + 24) = a2;
+    v13(v7, 1, 1, v12);
     swift_beginAccess();
 
-    sub_100012740(v8, v14 + v15);
+    sub_100012740(v7, v10 + v11);
     swift_endAccess();
-    v18 = OBJC_IVAR___DataStoreMock_dataStorage;
+    v14 = OBJC_IVAR___DataStoreMock_dataStorage;
     swift_beginAccess();
-    v19 = *&v2[v18];
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v21 = *&v2[v18];
-    *&v2[v18] = 0x8000000000000000;
-    sub_1000127B0(v14, a1, a2, isUniquelyReferenced_nonNull_native, &v21);
-    *&v2[v18] = v21;
+    v16 = *&v2[v14];
+    *&v2[v14] = 0x8000000000000000;
+    sub_1000127B0(v10, a1, a2, isUniquelyReferenced_nonNull_native, &v16);
+    *&v2[v14] = v16;
     swift_endAccess();
   }
 }
@@ -265,42 +333,36 @@ uint64_t sub_1000114B4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1)
   {
-    v7 = *v3;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v20 = *v3;
+    v16 = *v3;
     swift_getObjectType();
-    sub_1000127B0(a1, a2, a3, isUniquelyReferenced_nonNull_native, &v20);
+    sub_1000127B0(a1, a2, a3, isUniquelyReferenced_nonNull_native, &v16);
 
-    *v3 = v20;
+    *v3 = v16;
   }
 
   else
   {
-    v10 = v3;
-    v11 = *v3;
-    v12 = sub_100002F84(a2, a3);
-    LOBYTE(v11) = v13;
+    v9 = v3;
+    v10 = sub_100002F84(a2, a3);
+    v12 = v11;
 
-    if (v11)
+    if (v12)
     {
-      v14 = v10;
-      v15 = *v10;
-      v16 = swift_isUniquelyReferenced_nonNull_native();
-      v17 = *v10;
-      v20 = *v10;
-      if (!v16)
+      v13 = v9;
+      v14 = swift_isUniquelyReferenced_nonNull_native();
+      v15 = *v9;
+      v16 = *v9;
+      if (!v14)
       {
         sub_100012480();
-        v14 = v10;
-        v17 = v20;
+        v13 = v9;
+        v15 = v16;
       }
 
-      v18 = *(*(v17 + 48) + 16 * v12 + 8);
-
-      v19 = *(*(v17 + 56) + 8 * v12);
       swift_unknownObjectRelease();
-      result = sub_1000122D0(v12, v17);
-      *v14 = v17;
+      result = sub_1000122D0(v10, v15);
+      *v13 = v15;
     }
   }
 
@@ -309,42 +371,37 @@ uint64_t sub_1000114B4(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_10001167C(uint64_t a1, uint64_t a2)
 {
-  v24 = a1;
+  v18 = a1;
   v4 = sub_100001EB0(&qword_10005BD00, "^/");
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v23 - v6;
-  v8 = type metadata accessor for Date();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v17 - v5;
+  v7 = type metadata accessor for Date();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
 
   static Date.now.getter();
-  v13 = type metadata accessor for GracePeriodMock();
-  v14 = *(v13 + 48);
-  v15 = *(v13 + 52);
-  v16 = swift_allocObject();
-  v17 = OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate;
-  v18 = *(v9 + 56);
-  v18(v16 + OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate, 1, 1, v8);
-  *(v16 + 16) = v24;
-  *(v16 + 24) = a2;
-  (*(v9 + 32))(v7, v12, v8);
-  v18(v7, 0, 1, v8);
+  type metadata accessor for GracePeriodMock(0);
+  v11 = swift_allocObject();
+  v12 = OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate;
+  v13 = *(v8 + 56);
+  v13(v11 + OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate, 1, 1, v7);
+  *(v11 + 16) = v18;
+  *(v11 + 24) = a2;
+  (*(v8 + 32))(v6, v10, v7);
+  v13(v6, 0, 1, v7);
   swift_beginAccess();
 
-  sub_100012740(v7, v16 + v17);
+  sub_100012740(v6, v11 + v12);
   swift_endAccess();
-  v19 = OBJC_IVAR___DataStoreMock_dataStorage;
+  v14 = OBJC_IVAR___DataStoreMock_dataStorage;
   swift_beginAccess();
-  v20 = *(v2 + v19);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v25 = *(v2 + v19);
-  *(v2 + v19) = 0x8000000000000000;
-  sub_1000127B0(v16, v24, a2, isUniquelyReferenced_nonNull_native, &v25);
+  v19 = *(v2 + v14);
+  *(v2 + v14) = 0x8000000000000000;
+  sub_1000127B0(v11, v18, a2, isUniquelyReferenced_nonNull_native, &v19);
 
-  *(v2 + v19) = v25;
+  *(v2 + v14) = v19;
   return swift_endAccess();
 }
 
@@ -359,227 +416,214 @@ uint64_t sub_1000118CC(void *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, 
 uint64_t sub_100011938@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v7 = sub_100001EB0(&qword_10005BD00, "^/");
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v22 - v9;
-  v11 = OBJC_IVAR___DataStoreMock_dataStorage;
+  v9 = &v21 - v8;
+  v10 = OBJC_IVAR___DataStoreMock_dataStorage;
   swift_beginAccess();
-  v12 = *(v3 + v11);
-  if (*(v12 + 16) && (v13 = sub_100002F84(a1, a2), (v14 & 1) != 0))
+  v11 = *(v3 + v10);
+  if (*(v11 + 16) && (v12 = sub_100002F84(a1, a2), (v13 & 1) != 0))
   {
-    v15 = *(*(v12 + 56) + 8 * v13);
+    v14 = *(*(v11 + 56) + 8 * v12);
     swift_endAccess();
-    v16 = [v15 startDate];
-    if (v16)
+    v15 = [v14 startDate];
+    if (v15)
     {
-      v17 = v16;
+      v16 = v15;
       static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v18 = 0;
+      v17 = 0;
     }
 
     else
     {
-      v18 = 1;
+      v17 = 1;
     }
 
-    v21 = type metadata accessor for Date();
-    (*(*(v21 - 8) + 56))(v10, v18, 1, v21);
-    return sub_10000B24C(v10, a3);
+    v20 = type metadata accessor for Date();
+    (*(*(v20 - 8) + 56))(v9, v17, 1, v20);
+    return sub_10000B24C(v9, a3);
   }
 
   else
   {
     swift_endAccess();
-    v19 = type metadata accessor for Date();
-    return (*(*(v19 - 8) + 56))(a3, 1, 1, v19);
+    v18 = type metadata accessor for Date();
+    return (*(*(v18 - 8) + 56))(a3, 1, 1, v18);
   }
 }
 
 uint64_t sub_100011C2C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v26 = a1;
-  v27 = a2;
+  v20 = a1;
+  v21 = a2;
   v6 = sub_100001EB0(&qword_10005BD00, "^/");
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v26 - v8;
-  v10 = type metadata accessor for Date();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  v14 = &v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v11 + 16))(v14, a3, v10);
-  v15 = type metadata accessor for GracePeriodMock();
-  v16 = *(v15 + 48);
-  v17 = *(v15 + 52);
-  v18 = swift_allocObject();
-  v19 = OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate;
-  v20 = *(v11 + 56);
-  v20(v18 + OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate, 1, 1, v10);
-  *(v18 + 16) = a1;
-  v21 = v27;
-  *(v18 + 24) = v27;
-  (*(v11 + 32))(v9, v14, v10);
-  v20(v9, 0, 1, v10);
+  v8 = &v20 - v7;
+  v9 = type metadata accessor for Date();
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v10 + 16))(v12, a3, v9);
+  type metadata accessor for GracePeriodMock(0);
+  v13 = swift_allocObject();
+  v14 = OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate;
+  v15 = *(v10 + 56);
+  v15(v13 + OBJC_IVAR____TtC12eligibilitydP33_76CB2993945AB83551AB4E5A6C0D5A8815GracePeriodMock_startDate, 1, 1, v9);
+  *(v13 + 16) = a1;
+  v16 = v21;
+  *(v13 + 24) = v21;
+  (*(v10 + 32))(v8, v12, v9);
+  v15(v8, 0, 1, v9);
   swift_beginAccess();
 
-  sub_100012740(v9, v18 + v19);
+  sub_100012740(v8, v13 + v14);
   swift_endAccess();
-  v22 = OBJC_IVAR___DataStoreMock_dataStorage;
+  v17 = OBJC_IVAR___DataStoreMock_dataStorage;
   swift_beginAccess();
-  v23 = *(v3 + v22);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v28 = *(v3 + v22);
-  *(v3 + v22) = 0x8000000000000000;
-  sub_1000127B0(v18, v26, v21, isUniquelyReferenced_nonNull_native, &v28);
-  *(v3 + v22) = v28;
+  v22 = *(v3 + v17);
+  *(v3 + v17) = 0x8000000000000000;
+  sub_1000127B0(v13, v20, v16, isUniquelyReferenced_nonNull_native, &v22);
+  *(v3 + v17) = v22;
   return swift_endAccess();
 }
 
-uint64_t sub_100012028(uint64_t a1, char a2)
+Swift::Int sub_100012028(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   sub_100001EB0(&qword_10005C000, &qword_100033EE8);
-  v38 = a2;
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v36 = v3;
-    v37 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v33 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = *(*(v5 + 56) + 8 * v21);
-      if ((v38 & 1) == 0)
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = *(*(v5 + 56) + 8 * v20);
+      if ((v34 & 1) == 0)
       {
-        v26 = v22[1];
 
         swift_unknownObjectRetain();
       }
 
-      v27 = *(v8 + 40);
       Hasher.init(_seed:)();
       String.hash(into:)();
       result = Hasher._finalize()();
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
       {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
         {
-          v33 = v30 == v32;
-          if (v30 == v32)
+          v30 = v27 == v29;
+          if (v27 == v29)
           {
-            v30 = 0;
+            v27 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
           {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      *(*(v8 + 56) + 8 * v16) = v25;
-      ++*(v8 + 16);
-      v5 = v37;
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      *(*(v7 + 56) + 8 * v15) = v24;
+      ++*(v7 + 16);
+      v5 = v33;
     }
 
-    v19 = v9;
+    v18 = v8;
     while (1)
     {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
       {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
       }
     }
 
-    if ((v38 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
 
-      v3 = v36;
-      goto LABEL_35;
+      v3 = v2;
+      goto LABEL_33;
     }
 
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
     {
-      bzero(v10, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v35;
+      *v9 = -1 << v32;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_35:
-  *v3 = v8;
+LABEL_33:
+  *v3 = v7;
   return result;
 }
 
@@ -595,46 +639,42 @@ uint64_t sub_1000122D0(uint64_t result, uint64_t a2)
     v8 = (_HashTable.previousHole(before:)() + 1) & ~v5;
     do
     {
-      v9 = *(a2 + 40);
-      v10 = (*(a2 + 48) + 16 * v6);
-      v11 = *v10;
-      v12 = v10[1];
       Hasher.init(_seed:)();
 
       String.hash(into:)();
-      v13 = Hasher._finalize()();
+      v9 = Hasher._finalize()();
 
-      v14 = v13 & v7;
+      v10 = v9 & v7;
       if (v3 >= v8)
       {
-        if (v14 < v8)
+        if (v10 < v8)
         {
           goto LABEL_4;
         }
       }
 
-      else if (v14 >= v8)
+      else if (v10 >= v8)
       {
         goto LABEL_10;
       }
 
-      if (v3 >= v14)
+      if (v3 >= v10)
       {
 LABEL_10:
-        v15 = *(a2 + 48);
-        v16 = (v15 + 16 * v3);
-        v17 = (v15 + 16 * v6);
-        if (v3 != v6 || v16 >= v17 + 1)
+        v11 = *(a2 + 48);
+        v12 = (v11 + 16 * v3);
+        v13 = (v11 + 16 * v6);
+        if (v3 != v6 || v12 >= v13 + 1)
         {
-          *v16 = *v17;
+          *v12 = *v13;
         }
 
-        v18 = *(a2 + 56);
-        v19 = (v18 + 8 * v3);
-        v20 = (v18 + 8 * v6);
-        if (v3 != v6 || v19 >= v20 + 1)
+        v14 = *(a2 + 56);
+        v15 = (v14 + 8 * v3);
+        v16 = (v14 + 8 * v6);
+        if (v3 != v6 || v15 >= v16 + 1)
         {
-          *v19 = *v20;
+          *v15 = *v16;
           v3 = v6;
         }
       }
@@ -647,17 +687,17 @@ LABEL_4:
   }
 
   *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v21 = *(a2 + 16);
-  v22 = __OFSUB__(v21, 1);
-  v23 = v21 - 1;
-  if (v22)
+  v17 = *(a2 + 16);
+  v18 = __OFSUB__(v17, 1);
+  v19 = v17 - 1;
+  if (v18)
   {
     __break(1u);
   }
 
   else
   {
-    *(a2 + 16) = v23;
+    *(a2 + 16) = v19;
     ++*(a2 + 36);
   }
 
@@ -806,7 +846,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t type metadata accessor for GracePeriodMock()
+uint64_t type metadata accessor for GracePeriodMock(uint64_t a1)
 {
   result = qword_10005CEA8;
   if (!qword_10005CEA8)
@@ -845,9 +885,8 @@ uint64_t sub_1000127B0(uint64_t a1, uint64_t a2, uint64_t a3, char a4, void *a5)
     if (v18 < v16 || (a4 & 1) != 0)
     {
       sub_100012028(v16, a4 & 1);
-      v20 = *a5;
       v11 = sub_100002F84(a2, a3);
-      if ((v17 & 1) != (v21 & 1))
+      if ((v17 & 1) != (v20 & 1))
       {
 LABEL_18:
         result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -864,24 +903,22 @@ LABEL_18:
     }
   }
 
-  v22 = *a5;
+  v21 = *a5;
   if (v17)
   {
-    v23 = v22[7];
-    v24 = *(v23 + 8 * v11);
-    *(v23 + 8 * v11) = a1;
+    *(v21[7] + 8 * v11) = a1;
 
     return swift_unknownObjectRelease();
   }
 
-  v22[(v11 >> 6) + 8] |= 1 << v11;
-  v26 = (v22[6] + 16 * v11);
-  *v26 = a2;
-  v26[1] = a3;
-  *(v22[7] + 8 * v11) = a1;
-  v27 = v22[2];
-  v15 = __OFADD__(v27, 1);
-  v28 = v27 + 1;
+  v21[(v11 >> 6) + 8] |= 1 << v11;
+  v23 = (v21[6] + 16 * v11);
+  *v23 = a2;
+  v23[1] = a3;
+  *(v21[7] + 8 * v11) = a1;
+  v24 = v21[2];
+  v15 = __OFADD__(v24, 1);
+  v25 = v24 + 1;
   if (v15)
   {
 LABEL_17:
@@ -889,28 +926,27 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v22[2] = v28;
+  v21[2] = v25;
 }
 
-void sub_100012934()
+void sub_100012934(uint64_t a1)
 {
-  sub_1000129D0();
+  sub_1000129D0(319);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
-void sub_1000129D0()
+void sub_1000129D0(uint64_t a1)
 {
   if (!qword_10005BF10)
   {
     type metadata accessor for Date();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_10005BF10);
+      atomic_store(v1, &qword_10005BF10);
     }
   }
 }
@@ -935,100 +971,95 @@ uint64_t sub_100012A74(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_100012C08()
+uint64_t sub_100012C08(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CED8);
+  sub_100015F58(&qword_10005CED8, &unk_1000340C4);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CEC0);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
   PersistentModel.getValue<A>(forKey:)();
 
-  return v0;
+  return v2;
 }
 
-uint64_t sub_100012DD4@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100012DD4@<X0>(void *a1@<X0>, void *a3@<X8>)
 {
-  v4 = *a1;
+  v5 = *a1;
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CED8);
+  sub_100015F58(&qword_10005CED8, &unk_1000340C4);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CEC0);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
   PersistentModel.getValue<A>(forKey:)();
 
-  *a2 = v4;
-  a2[1] = v5;
+  *a3 = v5;
+  a3[1] = v6;
   return result;
 }
 
 uint64_t sub_100012EC4(uint64_t *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = *a2;
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CED8);
+  sub_100015F58(&qword_10005CED8, &unk_1000340C4);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 }
 
-uint64_t sub_100012F88()
+uint64_t sub_100012F88(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CEC0);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
   PersistentModel.setValue<A>(forKey:to:)();
 }
 
 uint64_t sub_100013234()
 {
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CED8);
+  sub_100015F58(&qword_10005CED8, &unk_1000340C4);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CEC0);
-  sub_100016384(&qword_10005C030, &qword_10005C038);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
+  sub_100016384(&qword_10005C030, &qword_10005C038, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   PersistentModel.getValue<A>(forKey:)();
 }
 
-uint64_t sub_100013544(uint64_t *a1)
+uint64_t sub_100013544()
 {
-  v1 = *a1;
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CED8);
+  sub_100015F58(&qword_10005CED8, &unk_1000340C4);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CEC0);
-  sub_100016384(&qword_10005C030, &qword_10005C038);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
+  sub_100016384(&qword_10005C030, &qword_10005C038, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   PersistentModel.getValue<A>(forKey:)();
 }
 
 uint64_t sub_100013668(uint64_t a1, uint64_t *a2)
 {
   v4 = sub_100001EB0(&qword_10005BD00, "^/");
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v10[-v6];
-  sub_10000A758(a1, &v10[-v6], &qword_10005BD00, "^/");
-  v8 = *a2;
-  v13 = v8;
-  swift_getKeyPath();
-  v11 = v8;
+  v6 = &v9[-v5];
+  sub_10000A758(a1, &v9[-v5], &qword_10005BD00, "^/");
+  v7 = *a2;
   v12 = v7;
-  sub_100015F58(&qword_10005CED8);
+  swift_getKeyPath();
+  v10 = v7;
+  v11 = v6;
+  sub_100015F58(&qword_10005CED8, &unk_1000340C4);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  return sub_100006A80(v7, &qword_10005BD00, "^/");
+  return sub_100006A80(v6, &qword_10005BD00, "^/");
 }
 
-uint64_t sub_1000137A4()
+uint64_t sub_1000137A4(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  sub_100015F58(&qword_10005CEC0);
-  sub_100016384(&qword_10005C2D8, &qword_10005C2E0);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
+  sub_100016384(&qword_10005C2D8, &qword_10005C2E0, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
   PersistentModel.setValue<A>(forKey:to:)();
 }
 
@@ -1036,38 +1067,36 @@ uint64_t sub_100013868(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = sub_100001EB0(&qword_10005BD00, "^/");
-  v7 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v9 = &v15[-v8];
-  v10 = type metadata accessor for GracePeriod();
+  v8 = &v13[-v7];
+  v9 = type metadata accessor for GracePeriod(0);
   *(v3 + 48) = sub_100001EB0(&qword_10005C2D0, &qword_100034188);
-  v11 = sub_100015F58(&qword_10005CEC0);
+  v10 = sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
+  v16 = v9;
+  v17 = v9;
   v18 = v10;
   v19 = v10;
-  v20 = v11;
-  v21 = v11;
   *(v3 + 56) = swift_getOpaqueTypeConformance2();
   sub_10000A3E4((v3 + 24));
   static PersistentModel.createBackingData<A>()();
   *(v3 + 16) = 1;
   ObservationRegistrar.init()();
-  v12 = *(v3 + 56);
   sub_100003274((v3 + 24), *(v3 + 48));
   swift_getKeyPath();
-  v18 = a1;
-  v19 = a2;
+  v16 = a1;
+  v17 = a2;
   dispatch thunk of BackingData.setValue<A>(forKey:to:)();
 
-  v13 = type metadata accessor for Date();
-  (*(*(v13 - 8) + 56))(v9, 1, 1, v13);
-  v18 = v3;
-  swift_getKeyPath();
+  v11 = type metadata accessor for Date();
+  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
   v16 = v3;
-  v17 = v9;
-  sub_100015F58(&qword_10005CED8);
+  swift_getKeyPath();
+  v14 = v3;
+  v15 = v8;
+  sub_100015F58(&qword_10005CED8, &unk_1000340C4);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  sub_100006A80(v9, &qword_10005BD00, "^/");
+  sub_100006A80(v8, &qword_10005BD00, "^/");
   return v3;
 }
 
@@ -1076,23 +1105,16 @@ uint64_t sub_100013AE0()
   sub_100003374(v0 + 3);
   v1 = OBJC_IVAR____TtC12eligibilitydP33_32DFF33DD6989C177E556EAF450A282611GracePeriod___observationRegistrar;
   v2 = type metadata accessor for ObservationRegistrar();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
+  (*(*(v2 - 8) + 8))(&v0[v1], v2);
   v3 = *(*v0 + 48);
   v4 = *(*v0 + 52);
 
   return _swift_deallocClassInstance(v0, v3, v4);
 }
 
-uint64_t sub_100013B84()
-{
-  swift_beginAccess();
-  v1 = *(v0 + 16);
-}
-
 uint64_t sub_100013BBC(uint64_t a1)
 {
   swift_beginAccess();
-  v3 = *(v1 + 16);
   *(v1 + 16) = a1;
 }
 
@@ -1106,106 +1128,100 @@ uint64_t sub_100013C58(uint64_t a1)
 uint64_t sub_100013CA8(uint64_t a1)
 {
   v2 = type metadata accessor for ModelConfiguration.CloudKitDatabase();
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  v4 = sub_100001EB0(&qword_10005BD88, &qword_100033D10);
-  v5 = *(*(v4 - 8) + 64);
-  __chkstk_darwin(v4 - 8);
-  v7 = &v38 - v6;
-  v8 = type metadata accessor for URL();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
+  v3 = sub_100001EB0(&qword_10005BD88, &qword_100033D10);
+  __chkstk_darwin(v3 - 8);
+  v5 = &v31 - v4;
+  v6 = type metadata accessor for URL();
+  v7 = *(v6 - 8);
+  v8 = __chkstk_darwin(v6);
+  v10 = &v31 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v11 = __chkstk_darwin(v8);
-  v13 = &v38 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = __chkstk_darwin(v11);
-  v16 = &v38 - v15;
-  __chkstk_darwin(v14);
-  v18 = &v38 - v17;
-  v19 = type metadata accessor for ModelConfiguration();
-  v39 = *(v19 - 8);
-  v40 = v19;
-  v20 = *(v39 + 64);
-  __chkstk_darwin(v19);
-  v22 = &v38 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v42 = a1;
-  sub_10000A758(a1, v7, &qword_10005BD88, &qword_100033D10);
-  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  v13 = &v31 - v12;
+  __chkstk_darwin(v11);
+  v15 = &v31 - v14;
+  v16 = type metadata accessor for ModelConfiguration();
+  v32 = *(v16 - 8);
+  v33 = v16;
+  __chkstk_darwin(v16);
+  v18 = &v31 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = a1;
+  sub_10000A758(a1, v5, &qword_10005BD88, &qword_100033D10);
+  if ((*(v7 + 48))(v5, 1, v6) == 1)
   {
-    sub_100006A80(v7, &qword_10005BD88, &qword_100033D10);
+    sub_100006A80(v5, &qword_10005BD88, &qword_100033D10);
     if (!sub_10001C094())
     {
       sub_1000032B8();
       swift_allocError();
-      *v36 = 0;
-      *(v36 + 8) = 0;
-      *(v36 + 16) = 4;
+      *v29 = 0;
+      *(v29 + 8) = 0;
+      *(v29 + 16) = 4;
       swift_willThrow();
-      sub_100006A80(v42, &qword_10005BD88, &qword_100033D10);
+      sub_100006A80(v35, &qword_10005BD88, &qword_100033D10);
       goto LABEL_9;
     }
 
     String.init(cString:)();
     URL.init(fileURLWithPath:)();
 
-    (*(v9 + 16))(v13, v16, v8);
+    (*(v7 + 16))(v10, v13, v6);
     static ModelConfiguration.CloudKitDatabase.automatic.getter();
     ModelConfiguration.init(_:schema:url:allowsSave:cloudKitDatabase:)();
-    (*(v9 + 8))(v16, v8);
+    (*(v7 + 8))(v13, v6);
   }
 
   else
   {
-    (*(v9 + 32))(v18, v7, v8);
-    (*(v9 + 16))(v16, v18, v8);
+    (*(v7 + 32))(v15, v5, v6);
+    (*(v7 + 16))(v13, v15, v6);
     static ModelConfiguration.CloudKitDatabase.automatic.getter();
     ModelConfiguration.init(_:schema:url:allowsSave:cloudKitDatabase:)();
-    (*(v9 + 8))(v18, v8);
+    (*(v7 + 8))(v15, v6);
   }
 
   type metadata accessor for ModelContainer();
   sub_100001EB0(&qword_10005C008, &qword_100033F08);
-  v23 = swift_allocObject();
-  v38 = xmmword_100033350;
-  *(v23 + 16) = xmmword_100033350;
-  v24 = type metadata accessor for GracePeriod();
-  v25 = sub_100015F58(&qword_10005CEC0);
-  *(v23 + 32) = v24;
-  *(v23 + 40) = v25;
+  v19 = swift_allocObject();
+  v31 = xmmword_100033350;
+  *(v19 + 16) = xmmword_100033350;
+  v20 = type metadata accessor for GracePeriod(0);
+  v21 = sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
+  *(v19 + 32) = v20;
+  *(v19 + 40) = v21;
   sub_100001EB0(&qword_10005C010, &qword_100033F10);
-  v26 = swift_allocObject();
-  *(v26 + 16) = v38;
-  v27 = v40;
-  *(v26 + 56) = v40;
-  *(v26 + 64) = sub_100016420(&qword_10005C018, &type metadata accessor for ModelConfiguration);
-  v28 = sub_10000A3E4((v26 + 32));
-  v29 = v39;
-  (*(v39 + 16))(v28, v22, v27);
-  v30 = v41;
+  v22 = swift_allocObject();
+  *(v22 + 16) = v31;
+  v23 = v33;
+  *(v22 + 56) = v33;
+  *(v22 + 64) = sub_100016420(&qword_10005C018, &type metadata accessor for ModelConfiguration, &protocol conformance descriptor for ModelConfiguration);
+  v24 = sub_10000A3E4((v22 + 32));
+  v25 = v32;
+  (*(v32 + 16))(v24, v18, v23);
+  v26 = v34;
   ModelContainer.__allocating_init(for:configurations:)();
-  if (v30)
+  if (v26)
   {
-    sub_100006A80(v42, &qword_10005BD88, &qword_100033D10);
-    (*(v29 + 8))(v22, v27);
+    sub_100006A80(v35, &qword_10005BD88, &qword_100033D10);
+    (*(v25 + 8))(v18, v23);
 LABEL_9:
     type metadata accessor for SwiftDataStore();
-    v35 = v43;
+    v28 = v36;
     swift_deallocPartialClassInstance();
-    return v35;
+    return v28;
   }
 
-  v31 = type metadata accessor for ModelContext();
-  v32 = *(v31 + 48);
-  v33 = *(v31 + 52);
+  type metadata accessor for ModelContext();
   swift_allocObject();
-  v34 = ModelContext.init(_:)();
-  sub_100006A80(v42, &qword_10005BD88, &qword_100033D10);
-  (*(v29 + 8))(v22, v27);
-  v35 = v43;
-  *(v43 + 16) = v34;
-  return v35;
+  v27 = ModelContext.init(_:)();
+  sub_100006A80(v35, &qword_10005BD88, &qword_100033D10);
+  (*(v25 + 8))(v18, v23);
+  v28 = v36;
+  *(v36 + 16) = v27;
+  return v28;
 }
 
-uint64_t type metadata accessor for GracePeriod()
+uint64_t type metadata accessor for GracePeriod(uint64_t a1)
 {
   result = qword_10005CEE0;
   if (!qword_10005CEE0)
@@ -1219,42 +1235,40 @@ uint64_t type metadata accessor for GracePeriod()
 uint64_t sub_1000142C0(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v20 = a1;
-  v21 = a2;
+  v18 = a1;
+  v19 = a2;
   v4 = sub_100001EB0(&qword_10005C020, &qword_100033F18);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = &v20 - v6;
-  v8 = sub_100001EB0(&qword_10005C2E8, &qword_100034190);
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = &v20 - v11;
-  v13 = sub_100001EB0(&qword_10005C028, &unk_100033F20);
-  v14 = *(*(v13 - 8) + 56);
-  v14(v7, 1, 1, v13);
-  v15 = type metadata accessor for GracePeriod();
-  sub_100015F58(&qword_10005CEC0);
+  v6 = &v18 - v5;
+  v7 = sub_100001EB0(&qword_10005C2E8, &qword_100034190);
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = &v18 - v9;
+  v11 = sub_100001EB0(&qword_10005C028, &unk_100033F20);
+  v12 = *(*(v11 - 8) + 56);
+  v12(v6, 1, 1, v11);
+  v13 = type metadata accessor for GracePeriod(0);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
   FetchDescriptor.init(predicate:sortBy:)();
-  v22 = v20;
-  v23 = v21;
-  v24 = v15;
+  v20 = v18;
+  v21 = v19;
+  v22 = v13;
   Predicate.init(_:)();
-  v14(v7, 0, 1, v13);
-  v16 = FetchDescriptor.predicate.setter();
-  (*(*v3 + 88))(v16);
-  v17 = dispatch thunk of ModelContext.fetch<A>(_:)();
+  v12(v6, 0, 1, v11);
+  v14 = FetchDescriptor.predicate.setter();
+  (*(*v3 + 88))(v14);
+  v15 = dispatch thunk of ModelContext.fetch<A>(_:)();
 
-  if (!(v17 >> 62))
+  if (!(v15 >> 62))
   {
-    result = *((v17 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    result = *((v15 & 0xFFFFFFFFFFFFFF8) + 0x10);
     if (result)
     {
       goto LABEL_3;
     }
 
 LABEL_9:
-    (*(v9 + 8))(v12, v8);
+    (*(v8 + 8))(v10, v7);
 
     return 0;
   }
@@ -1266,93 +1280,86 @@ LABEL_9:
   }
 
 LABEL_3:
-  if ((v17 & 0xC000000000000001) != 0)
+  if ((v15 & 0xC000000000000001) != 0)
   {
-    v19 = specialized _ArrayBuffer._getElementSlowPath(_:)();
+    v17 = specialized _ArrayBuffer._getElementSlowPath(_:)();
   }
 
   else
   {
-    if (!*((v17 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (!*((v15 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       __break(1u);
       return result;
     }
 
-    v19 = *(v17 + 32);
+    v17 = *(v15 + 32);
   }
 
-  (*(v9 + 8))(v12, v8);
-  return v19;
+  (*(v8 + 8))(v10, v7);
+  return v17;
 }
 
-uint64_t sub_100014600@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t sub_100014600@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v24 = a2;
-  v25 = a3;
-  v6 = sub_100001EB0(&qword_10005C2F0, &qword_100034198);
-  v7 = *(v6 - 8);
-  v26 = v6;
-  v27 = v7;
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = &v24 - v9;
-  v11 = sub_100001EB0(&qword_10005C2F8, &qword_1000341A0);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  __chkstk_darwin(v11);
-  v15 = &v24 - v14;
-  v16 = sub_100001EB0(&qword_10005C300, &qword_1000341A8);
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  __chkstk_darwin(v16);
-  v20 = &v24 - v19;
-  v21 = *a1;
-  sub_100016630(&qword_10005C308, &qword_10005C2F8, &qword_1000341A0);
+  v19 = a2;
+  v20 = a3;
+  v5 = sub_100001EB0(&qword_10005C2F0, &qword_100034198);
+  v6 = *(v5 - 8);
+  v21 = v5;
+  v22 = v6;
+  __chkstk_darwin(v5);
+  v8 = &v19 - v7;
+  v9 = sub_100001EB0(&qword_10005C2F8, &qword_1000341A0);
+  v10 = *(v9 - 8);
+  __chkstk_darwin(v9);
+  v12 = &v19 - v11;
+  v13 = sub_100001EB0(&qword_10005C300, &qword_1000341A8);
+  v14 = *(v13 - 8);
+  __chkstk_darwin(v13);
+  v16 = &v19 - v15;
+  sub_100016630(&qword_10005C308, &qword_10005C2F8, &qword_1000341A0, &protocol conformance descriptor for PredicateExpressions.Variable<A>);
   static PredicateExpressions.build_Arg<A>(_:)();
   swift_getKeyPath();
   static PredicateExpressions.build_KeyPath<A, B>(root:keyPath:)();
 
-  (*(v12 + 8))(v15, v11);
-  v28 = v24;
-  v29 = v25;
+  (*(v10 + 8))(v12, v9);
+  v23 = v19;
+  v24 = v20;
   static PredicateExpressions.build_Arg<A>(_:)();
   a4[3] = sub_100001EB0(&qword_10005C310, &unk_1000341B0);
   a4[4] = sub_100016470();
   sub_10000A3E4(a4);
-  sub_100016630(&qword_10005C338, &qword_10005C300, &qword_1000341A8);
-  sub_100016630(&qword_10005C340, &qword_10005C2F0, &qword_100034198);
-  v22 = v26;
+  sub_100016630(&qword_10005C338, &qword_10005C300, &qword_1000341A8, &protocol conformance descriptor for PredicateExpressions.KeyPath<A, B>);
+  sub_100016630(&qword_10005C340, &qword_10005C2F0, &qword_100034198, &protocol conformance descriptor for PredicateExpressions.Value<A>);
+  v17 = v21;
   static PredicateExpressions.build_Equal<A, B>(lhs:rhs:)();
-  (*(v27 + 8))(v10, v22);
-  return (*(v17 + 8))(v20, v16);
+  (*(v22 + 8))(v8, v17);
+  return (*(v14 + 8))(v16, v13);
 }
 
 uint64_t sub_10001496C()
 {
   v1 = type metadata accessor for Logger();
-  v2 = *(*(v1 - 8) + 64);
-  v3 = __chkstk_darwin(v1);
-  (*(*v0 + 88))(v3);
+  v2 = __chkstk_darwin(v1);
+  (*(*v0 + 88))(v2);
   dispatch thunk of ModelContext.save()();
 }
 
 uint64_t sub_100014BD4()
 {
   v1 = type metadata accessor for Logger();
-  v2 = *(*(v1 - 8) + 64);
   __chkstk_darwin(v1);
-  v3 = sub_100001EB0(&qword_10005C020, &qword_100033F18);
-  v4 = *(*(v3 - 8) + 64);
-  v5 = __chkstk_darwin(v3 - 8);
-  v7 = &v10 - v6;
-  (*(*v0 + 88))(v5);
-  type metadata accessor for GracePeriod();
-  v8 = sub_100001EB0(&qword_10005C028, &unk_100033F20);
-  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
-  sub_100015F58(&qword_10005CEC0);
+  v2 = sub_100001EB0(&qword_10005C020, &qword_100033F18);
+  v3 = __chkstk_darwin(v2 - 8);
+  v5 = &v8 - v4;
+  (*(*v0 + 88))(v3);
+  type metadata accessor for GracePeriod(0);
+  v6 = sub_100001EB0(&qword_10005C028, &unk_100033F20);
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
   dispatch thunk of ModelContext.delete<A>(model:where:includeSubclasses:)();
-  sub_100006A80(v7, &qword_10005C020, &qword_100033F18);
+  sub_100006A80(v5, &qword_10005C020, &qword_100033F18);
 }
 
 BOOL sub_100014F48(uint64_t a1, uint64_t a2)
@@ -1369,14 +1376,12 @@ uint64_t sub_100014FF4(uint64_t a1, uint64_t a2)
 {
   if (!sub_1000142C0(a1, a2))
   {
-    v5 = type metadata accessor for GracePeriod();
-    v6 = *(v5 + 48);
-    v7 = *(v5 + 52);
+    type metadata accessor for GracePeriod(0);
     swift_allocObject();
 
-    v8 = sub_100013868(a1, a2);
-    (*(*v2 + 88))(v8);
-    sub_100015F58(&qword_10005CEC0);
+    v5 = sub_100013868(a1, a2);
+    (*(*v2 + 88))(v5);
+    sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
     dispatch thunk of ModelContext.insert<A>(_:)();
 
     sub_10001496C();
@@ -1386,56 +1391,53 @@ uint64_t sub_100014FF4(uint64_t a1, uint64_t a2)
 uint64_t sub_10001520C(uint64_t a1, uint64_t a2)
 {
   v5 = sub_100001EB0(&qword_10005BD00, "^/");
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = v18 - v7;
-  v9 = sub_1000142C0(a1, a2);
-  if (v9)
+  v7 = v14 - v6;
+  v8 = sub_1000142C0(a1, a2);
+  if (v8)
   {
-    v10 = v9;
+    v9 = v8;
   }
 
   else
   {
-    v11 = type metadata accessor for GracePeriod();
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
-    v10 = swift_allocObject();
+    type metadata accessor for GracePeriod(0);
+    v9 = swift_allocObject();
 
-    v14 = sub_100013868(a1, a2);
-    (*(*v2 + 88))(v14);
-    sub_100015F58(&qword_10005CEC0);
+    v10 = sub_100013868(a1, a2);
+    (*(*v2 + 88))(v10);
+    sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
     dispatch thunk of ModelContext.insert<A>(_:)();
 
     sub_10001496C();
   }
 
   static Date.now.getter();
-  v15 = type metadata accessor for Date();
-  (*(*(v15 - 8) + 56))(v8, 0, 1, v15);
-  v18[1] = v10;
+  v11 = type metadata accessor for Date();
+  (*(*(v11 - 8) + 56))(v7, 0, 1, v11);
+  v14[1] = v9;
   KeyPath = swift_getKeyPath();
   __chkstk_darwin(KeyPath);
-  v18[-2] = v10;
-  v18[-1] = v8;
-  sub_100015F58(&qword_10005CED8);
+  v14[-2] = v9;
+  v14[-1] = v7;
+  sub_100015F58(&qword_10005CED8, &unk_1000340C4);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  sub_100006A80(v8, &qword_10005BD00, "^/");
+  sub_100006A80(v7, &qword_10005BD00, "^/");
   sub_10001496C();
 }
 
-uint64_t sub_1000154D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_1000154D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   if (sub_1000142C0(a1, a2))
   {
     swift_getKeyPath();
-    sub_100015F58(&qword_10005CED8);
+    sub_100015F58(&qword_10005CED8, &unk_1000340C4);
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
     swift_getKeyPath();
-    sub_100015F58(&qword_10005CEC0);
-    sub_100016384(&qword_10005C030, &qword_10005C038);
+    sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
+    sub_100016384(&qword_10005C030, &qword_10005C038, &protocol conformance descriptor for Date, &protocol conformance descriptor for <A> A?);
     PersistentModel.getValue<A>(forKey:)();
   }
 
@@ -1450,7 +1452,6 @@ uint64_t sub_1000154D8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
 
 uint64_t sub_100015910()
 {
-  v1 = *(v0 + 16);
 
   return _swift_deallocClassInstance(v0, 24, 7);
 }
@@ -1510,25 +1511,16 @@ void sub_100015A7C(uint64_t *a1, char a2)
 
 Swift::Int sub_100015B38()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  type metadata accessor for GracePeriod();
-  sub_100015F58(&qword_10005CEC0);
+  type metadata accessor for GracePeriod(0);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
   PersistentModel.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t sub_100015BB0()
-{
-  v1 = *v0;
-  swift_getWitnessTable();
-  return PersistentModel.hash(into:)();
-}
-
-Swift::Int sub_100015C08()
+Swift::Int sub_100015C08(uint64_t a1, uint64_t a2)
 {
   Hasher.init(_seed:)();
-  v1 = *v0;
   swift_getWitnessTable();
   PersistentModel.hash(into:)();
   return Hasher._finalize()();
@@ -1536,9 +1528,8 @@ Swift::Int sub_100015C08()
 
 uint64_t sub_100015C70()
 {
-  v1 = *v0;
-  type metadata accessor for GracePeriod();
-  sub_100015F58(&qword_10005CEC0);
+  type metadata accessor for GracePeriod(0);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
   return PersistentModel.id.getter();
 }
 
@@ -1551,19 +1542,11 @@ uint64_t sub_100015CD8(uint64_t *a1, uint64_t *a2, uint64_t a3)
   return static PersistentModel.== infix(_:_:)(v4, v5, a3, WitnessTable);
 }
 
-uint64_t sub_100015D44()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return sub_1000137A4();
-}
-
-uint64_t sub_100015D78()
+uint64_t sub_100015D78(uint64_t a1)
 {
   result = type metadata accessor for ObservationRegistrar();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -1574,12 +1557,12 @@ uint64_t sub_100015D78()
   return result;
 }
 
-uint64_t sub_100015F58(unint64_t *a1)
+uint64_t sub_100015F58(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for GracePeriod();
+    type metadata accessor for GracePeriod(255);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -1590,66 +1573,50 @@ uint64_t sub_100015F58(unint64_t *a1)
 uint64_t sub_100015FD0()
 {
   sub_100001EB0(&qword_10005C2B8, &qword_100034150);
-  v0 = *(type metadata accessor for Schema.PropertyMetadata() - 8);
-  v1 = *(v0 + 72);
-  v2 = (*(v0 + 80) + 32) & ~*(v0 + 80);
-  v3 = swift_allocObject();
-  *(v3 + 16) = xmmword_100033EF0;
+  type metadata accessor for Schema.PropertyMetadata();
+  v0 = swift_allocObject();
+  *(v0 + 16) = xmmword_100033EF0;
   swift_getKeyPath();
   sub_100001EB0(&qword_10005C2C0, &qword_100034180);
-  v4 = *(type metadata accessor for Schema.Attribute.Option() - 8);
-  v5 = *(v4 + 72);
-  v6 = (*(v4 + 80) + 32) & ~*(v4 + 80);
+  type metadata accessor for Schema.Attribute.Option();
   *(swift_allocObject() + 16) = xmmword_100033350;
   static Schema.Attribute.Option.unique.getter();
-  v7 = type metadata accessor for Schema.Attribute();
-  v8 = *(v7 + 48);
-  v9 = *(v7 + 52);
+  type metadata accessor for Schema.Attribute();
   swift_allocObject();
   Schema.Attribute.init(_:originalName:hashModifier:)();
-  sub_100016420(&qword_10005C2C8, &type metadata accessor for Schema.Attribute);
+  sub_100016420(&qword_10005C2C8, &type metadata accessor for Schema.Attribute, &protocol conformance descriptor for Schema.Attribute);
   Schema.PropertyMetadata.init(name:keypath:defaultValue:metadata:)();
   swift_getKeyPath();
   Schema.PropertyMetadata.init(name:keypath:defaultValue:metadata:)();
-  return v3;
-}
-
-uint64_t sub_100016228()
-{
-  v1 = v0[2];
-  v2 = v0[3];
-  v3 = v0[4];
-  return sub_100012F88();
+  return v0;
 }
 
 uint64_t sub_100016258(__int128 *a1)
 {
-  v2 = type metadata accessor for GracePeriod();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
-  v5 = swift_allocObject();
-  *(v5 + 48) = sub_100001EB0(&qword_10005C2D0, &qword_100034188);
-  sub_100015F58(&qword_10005CEC0);
-  *(v5 + 56) = swift_getOpaqueTypeConformance2();
-  sub_10000A3E4((v5 + 24));
+  type metadata accessor for GracePeriod(0);
+  v2 = swift_allocObject();
+  *(v2 + 48) = sub_100001EB0(&qword_10005C2D0, &qword_100034188);
+  sub_100015F58(&qword_10005CEC0, &unk_1000340E0);
+  *(v2 + 56) = swift_getOpaqueTypeConformance2();
+  sub_10000A3E4((v2 + 24));
   static PersistentModel.createBackingData<A>()();
-  *(v5 + 16) = 1;
+  *(v2 + 16) = 1;
   ObservationRegistrar.init()();
-  *(v5 + 16) = 0;
+  *(v2 + 16) = 0;
   swift_beginAccess();
-  sub_100003374((v5 + 24));
-  sub_100007130(a1, v5 + 24);
+  sub_100003374((v2 + 24));
+  sub_100007130(a1, v2 + 24);
   swift_endAccess();
-  return v5;
+  return v2;
 }
 
-uint64_t sub_100016384(unint64_t *a1, unint64_t *a2)
+uint64_t sub_100016384(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
     sub_100006A20(&qword_10005BD00, "^/");
-    sub_100016420(a2, &type metadata accessor for Date);
+    sub_100016420(a2, &type metadata accessor for Date, a3);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -1657,7 +1624,7 @@ uint64_t sub_100016384(unint64_t *a1, unint64_t *a2)
   return result;
 }
 
-uint64_t sub_100016420(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100016420(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1691,7 +1658,7 @@ unint64_t sub_1000164FC()
   if (!qword_10005C320)
   {
     sub_100006A20(&qword_10005C300, &qword_1000341A8);
-    sub_100016630(&qword_10005C328, &qword_10005C2F8, &qword_1000341A0);
+    sub_100016630(&qword_10005C328, &qword_10005C2F8, &qword_1000341A0, &protocol conformance descriptor for PredicateExpressions.Variable<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10005C320);
   }
@@ -1712,7 +1679,7 @@ unint64_t sub_1000165AC()
   return result;
 }
 
-uint64_t sub_100016630(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_100016630(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1801,15 +1768,15 @@ unint64_t *sub_100016758(uint64_t a1)
   return v3;
 }
 
-uint64_t sub_100016874@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_100016874@<X0>(uint64_t a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
-  result = sub_100017B18(a1, a2);
-  if (!v3)
+  result = sub_100017B18(a2, a3, a4);
+  if (!v4)
   {
-    *a3 = result & 1;
-    *(a3 + 8) = v6;
-    *(a3 + 16) = v7;
-    *(a3 + 24) = v8;
+    *a1 = result & 1;
+    *(a1 + 8) = v7;
+    *(a1 + 16) = v8;
+    *(a1 + 24) = v9;
   }
 
   return result;
@@ -1817,166 +1784,157 @@ uint64_t sub_100016874@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>
 
 uint64_t sub_1000168B8(uint64_t *a1)
 {
-  v2 = type metadata accessor for Locale.Language();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = __chkstk_darwin(v2);
-  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v5);
-  v9 = &v19 - v8;
-  v10 = type metadata accessor for Locale();
-  v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  __chkstk_darwin(v10);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = *a1;
-  v15 = a1[1];
+  v1 = type metadata accessor for Locale.Language();
+  v2 = *(v1 - 8);
+  v3 = __chkstk_darwin(v1);
+  v5 = &v15 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v7 = &v15 - v6;
+  v8 = type metadata accessor for Locale();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
 
   Locale.init(identifier:)();
   Locale.language.getter();
-  (*(v11 + 8))(v14, v10);
+  (*(v9 + 8))(v11, v8);
   Locale.language.getter();
-  LOBYTE(v15) = Locale.Language.isEquivalent(to:)();
-  v17 = *(v3 + 8);
-  v17(v7, v2);
-  v17(v9, v2);
-  return v15 & 1;
+  v12 = Locale.Language.isEquivalent(to:)();
+  v13 = *(v2 + 8);
+  v13(v5, v1);
+  v13(v7, v1);
+  return v12 & 1;
 }
 
 uint64_t sub_100016A9C(uint64_t a1)
 {
   v2 = type metadata accessor for Logger();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = [objc_opt_self() systemLanguages];
-  if (!v7 || (v8 = v7, v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)(), v8, v10 = sub_100016758(v9), , !v10))
+  v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = [objc_opt_self() systemLanguages];
+  if (!v6 || (v7 = v6, v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)(), v7, v9 = sub_100016758(v8), , !v9))
   {
-    v13 = sub_100003960();
-    (*(v3 + 16))(v6, v13, v2);
-    v14 = Logger.logObject.getter();
-    v15 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v14, v15))
+    v12 = sub_100003960();
+    (*(v3 + 16))(v5, v12, v2);
+    v13 = Logger.logObject.getter();
+    v14 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v13, v14))
     {
-      v16 = swift_slowAlloc();
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v14, v15, "NSLocale systemLanguages is not an array of strings", v16, 2u);
+      v15 = swift_slowAlloc();
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v13, v14, "NSLocale systemLanguages is not an array of strings", v15, 2u);
     }
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
     return 0;
   }
 
-  v11.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  v10.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   if (a1)
   {
-    v12.super.isa = Array._bridgeToObjectiveC()().super.isa;
+    v11.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v12.super.isa = 0;
+    v11.super.isa = 0;
   }
 
-  v18 = [objc_opt_self() preferredLocalizationsFromArray:v11.super.isa forPreferences:v12.super.isa];
+  v17 = [objc_opt_self() preferredLocalizationsFromArray:v10.super.isa forPreferences:v11.super.isa];
 
-  v19 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!v19[2])
+  v18 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!*(v18 + 16))
   {
 
     return 0;
   }
 
-  v21 = v19[4];
-  v20 = v19[5];
+  v19 = *(v18 + 32);
 
-  return v21;
+  return v19;
 }
 
 uint64_t sub_100016D0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v56 = a3;
-  v57 = a4;
+  v53 = a3;
+  v54 = a4;
   v6 = type metadata accessor for Logger();
-  v54 = *(v6 - 8);
-  v7 = *(v54 + 64);
-  v8 = __chkstk_darwin(v6);
-  v50 = &v49 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v49 = &v49 - v10;
-  v11 = type metadata accessor for Locale.Language();
-  v52 = *(v11 - 8);
-  v53 = v11;
-  v12 = *(v52 + 64);
-  v13 = __chkstk_darwin(v11);
-  v15 = &v49 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v17 = &v49 - v16;
-  v18 = type metadata accessor for Locale();
-  v51 = *(v18 - 8);
-  v19 = *(v51 + 64);
-  v20 = __chkstk_darwin(v18);
-  v22 = &v49 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v20);
-  v24 = &v49 - v23;
+  v51 = *(v6 - 8);
+  v7 = __chkstk_darwin(v6);
+  v47 = &v46 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v46 = &v46 - v9;
+  v10 = type metadata accessor for Locale.Language();
+  v49 = *(v10 - 8);
+  v50 = v10;
+  v11 = __chkstk_darwin(v10);
+  v13 = &v46 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v11);
+  v15 = &v46 - v14;
+  v16 = type metadata accessor for Locale();
+  v48 = *(v16 - 8);
+  v17 = __chkstk_darwin(v16);
+  v19 = &v46 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v17);
+  v21 = &v46 - v20;
   sub_100001EB0(&qword_10005BB40, &unk_1000342A0);
+  v22 = swift_allocObject();
+  v52 = xmmword_100033350;
+  *(v22 + 16) = xmmword_100033350;
+  *(v22 + 32) = a1;
+  *(v22 + 40) = a2;
+
+  sub_100016A9C(v22);
+  v24 = v23;
+
+  if (!v24)
+  {
+    v33 = sub_100003960();
+    v34 = v51;
+    v35 = v47;
+    (*(v51 + 16))(v47, v33, v6);
+    v36 = Logger.logObject.getter();
+    v37 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v36, v37))
+    {
+      v38 = swift_slowAlloc();
+      *v38 = 0;
+      _os_log_impl(&_mh_execute_header, v36, v37, "Unable to determine the preferred system languages for device", v38, 2u);
+    }
+
+    (*(v34 + 8))(v35, v6);
+    return 2;
+  }
+
+  v47 = v6;
   v25 = swift_allocObject();
-  v55 = xmmword_100033350;
-  *(v25 + 16) = xmmword_100033350;
-  *(v25 + 32) = a1;
-  *(v25 + 40) = a2;
+  *(v25 + 16) = v52;
+  *(v25 + 32) = v53;
+  *(v25 + 40) = v54;
 
   sub_100016A9C(v25);
   v27 = v26;
 
   if (!v27)
   {
-    v36 = sub_100003960();
-    v37 = v54;
-    v38 = v50;
-    (*(v54 + 16))(v50, v36, v6);
-    v39 = Logger.logObject.getter();
-    v40 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v39, v40))
+
+    v39 = sub_100003960();
+    v40 = v51;
+    v42 = v46;
+    v41 = v47;
+    (*(v51 + 16))(v46, v39, v47);
+    v43 = Logger.logObject.getter();
+    v44 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v43, v44))
     {
-      v41 = swift_slowAlloc();
-      *v41 = 0;
-      _os_log_impl(&_mh_execute_header, v39, v40, "Unable to determine the preferred system languages for device", v41, 2u);
+      v45 = swift_slowAlloc();
+      *v45 = 0;
+      _os_log_impl(&_mh_execute_header, v43, v44, "Unable to determine the preferred system languages for Siri", v45, 2u);
     }
 
-    (*(v37 + 8))(v38, v6);
-    return 2;
-  }
-
-  v50 = v6;
-  v28 = swift_allocObject();
-  *(v28 + 16) = v55;
-  *(v28 + 32) = v56;
-  *(v28 + 40) = v57;
-
-  sub_100016A9C(v28);
-  v30 = v29;
-
-  if (!v30)
-  {
-
-    v42 = sub_100003960();
-    v43 = v54;
-    v45 = v49;
-    v44 = v50;
-    (*(v54 + 16))(v49, v42, v50);
-    v46 = Logger.logObject.getter();
-    v47 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v46, v47))
-    {
-      v48 = swift_slowAlloc();
-      *v48 = 0;
-      _os_log_impl(&_mh_execute_header, v46, v47, "Unable to determine the preferred system languages for Siri", v48, 2u);
-    }
-
-    (*(v43 + 8))(v45, v44);
+    (*(v40 + 8))(v42, v41);
     return 2;
   }
 
@@ -1984,15 +1942,15 @@ uint64_t sub_100016D0C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   Locale.init(identifier:)();
   Locale.language.getter();
   Locale.language.getter();
-  v31 = Locale.Language.isEquivalent(to:)();
-  v32 = v53;
-  v33 = *(v52 + 8);
-  v33(v15, v53);
-  v33(v17, v32);
-  v34 = *(v51 + 8);
-  v34(v22, v18);
-  v34(v24, v18);
-  if (v31)
+  v28 = Locale.Language.isEquivalent(to:)();
+  v29 = v50;
+  v30 = *(v49 + 8);
+  v30(v13, v50);
+  v30(v15, v29);
+  v31 = *(v48 + 8);
+  v31(v19, v16);
+  v31(v21, v16);
+  if (v28)
   {
     return 3;
   }
@@ -2007,89 +1965,87 @@ uint64_t sub_1000171FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = type metadata accessor for Locale();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v21[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v11 = &v20[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
 
   Locale.init(identifier:)();
-  v22 = v12;
-  if (sub_1000166A8(sub_100018110, v21, a3))
+  v21 = v11;
+  if (sub_1000166A8(sub_100018110, v20, a3))
   {
-    v13 = 2;
+    v12 = 2;
   }
 
   else
   {
-    v14 = (a4 + 40);
-    v15 = *(a4 + 16) + 1;
-    v13 = 2;
-    while (--v15)
+    v13 = (a4 + 40);
+    v14 = *(a4 + 16) + 1;
+    v12 = 2;
+    while (--v14)
     {
-      v16 = v14 + 2;
-      v18 = *(v14 - 1);
-      v17 = *v14;
+      v15 = v13 + 2;
+      v17 = *(v13 - 1);
+      v16 = *v13;
 
-      v19 = sub_100016D0C(a1, a2, v18, v17);
+      v18 = sub_100016D0C(a1, a2, v17, v16);
 
-      v14 = v16;
-      if (v19 == 3)
+      v13 = v15;
+      if (v18 == 3)
       {
-        v13 = 3;
+        v12 = 3;
         break;
       }
     }
   }
 
-  (*(v9 + 8))(v12, v8);
-  return v13;
+  (*(v9 + 8))(v11, v8);
+  return v12;
 }
 
 uint64_t sub_1000173B8()
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = &v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = [objc_opt_self() sharedInstance];
-  v6 = [v5 objectForInputValue:7];
-  if (v6)
+  v3 = &v17 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = [objc_opt_self() sharedInstance];
+  v5 = [v4 objectForInputValue:7];
+  if (v5)
   {
-    v7 = v6;
+    v6 = v5;
     objc_opt_self();
-    v8 = swift_dynamicCastObjCClass();
-    if (v8)
+    v7 = swift_dynamicCastObjCClass();
+    if (v7)
     {
-      v9 = [v8 deviceLanguages];
-      if (v9)
+      v8 = [v7 deviceLanguages];
+      if (v8)
       {
-        v10 = v9;
-        v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+        v9 = v8;
+        v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
       }
 
       else
       {
-        v11 = 0;
+        v10 = 0;
       }
 
-      v17 = sub_100016A9C(v11);
+      v16 = sub_100016A9C(v10);
 
-      return v17;
+      return v16;
     }
   }
 
-  v12 = sub_100003960();
-  (*(v1 + 16))(v4, v12, v0);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v13, v14))
+  v11 = sub_100003960();
+  (*(v1 + 16))(v3, v11, v0);
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v12, v13))
   {
-    v15 = swift_slowAlloc();
-    *v15 = 0;
-    _os_log_impl(&_mh_execute_header, v13, v14, "Device language input is missing", v15, 2u);
+    v14 = swift_slowAlloc();
+    *v14 = 0;
+    _os_log_impl(&_mh_execute_header, v12, v13, "Device language input is missing", v14, 2u);
   }
 
-  (*(v1 + 8))(v4, v0);
+  (*(v1 + 8))(v3, v0);
   return 0;
 }
 
@@ -2097,93 +2053,83 @@ uint64_t sub_1000175E4(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Logger();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   __chkstk_darwin(v4);
-  v8 = &v46 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for Locale();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v46 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = [objc_opt_self() sharedInstance];
-  v15 = [v14 objectForInputValue:10];
-  if (v15)
+  v7 = &v42 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for Locale();
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v42 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = [objc_opt_self() sharedInstance];
+  v13 = [v12 objectForInputValue:10];
+  if (v13)
   {
-    v16 = v15;
-    v49 = a2;
-    v50 = v14;
+    v14 = v13;
+    v45 = a2;
+    v46 = v12;
     objc_opt_self();
-    v17 = swift_dynamicCastObjCClass();
-    if (v17)
+    v15 = swift_dynamicCastObjCClass();
+    if (v15)
     {
-      v18 = v17;
-      v19 = sub_1000173B8();
-      if (v20)
+      v16 = v15;
+      v17 = sub_1000173B8();
+      if (v18)
       {
-        v21 = v20;
-        v47 = v19;
-        v22 = sub_1000171FC(v19, v20, a1, v49);
-        v23 = 2;
-        if (v22 == 3)
+        v19 = v18;
+        v43 = v17;
+        v20 = sub_1000171FC(v17, v18, a1, v45);
+        v21 = 2;
+        if (v20 == 3)
         {
-          v23 = 4;
+          v21 = 4;
         }
 
-        v48 = v23;
-        v24 = [v18 language];
-        if (v24)
+        v44 = v21;
+        v22 = [v16 language];
+        if (v22)
         {
-          v25 = v24;
-          v46 = v22;
-          v26 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-          v28 = v27;
+          v23 = v22;
+          v42 = v20;
+          v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v26 = v25;
 
-          v29 = Locale.init(identifier:)();
-          __chkstk_darwin(v29);
-          *(&v46 - 2) = v13;
-          v30 = sub_1000166A8(sub_100018110, (&v46 - 4), a1);
-          if (v30)
+          v27 = Locale.init(identifier:)();
+          __chkstk_darwin(v27);
+          *(&v42 - 2) = v11;
+          v28 = sub_1000166A8(sub_100018110, (&v42 - 4), a1);
+          if (v28)
           {
-            (*(v10 + 8))(v13, v9);
-            v31 = 2;
+            (*(v9 + 8))(v11, v8);
+            v29 = 2;
           }
 
           else
           {
-            __chkstk_darwin(v30);
-            *(&v46 - 2) = v13;
-            v41 = sub_1000166A8(sub_100018110, (&v46 - 4), v49);
-            (*(v10 + 8))(v13, v9);
-            if (v41)
+            __chkstk_darwin(v28);
+            *(&v42 - 2) = v11;
+            v38 = sub_1000166A8(sub_100018110, (&v42 - 4), v45);
+            (*(v9 + 8))(v11, v8);
+            if (v38)
             {
-              v31 = 3;
+              v29 = 3;
             }
 
             else
             {
-              v31 = 2;
+              v29 = 2;
             }
           }
 
-          v38 = sub_100016D0C(v47, v21, v26, v28);
+          v36 = sub_100016D0C(v43, v19, v24, v26);
 
-          v42 = v38 == 3 && v31 == 3;
-          v39 = v48;
-          if (!v42)
-          {
-            v39 = 2;
-          }
-
-          v40 = v46;
+          v37 = v42;
         }
 
         else
         {
 
-          v31 = 1;
-          v38 = v22;
-          v39 = v48;
-          v40 = v22;
+          v29 = 1;
+          v36 = v20;
+          v37 = v20;
         }
 
         sub_100001EB0(&qword_10005BAE0, &unk_100033370);
@@ -2191,114 +2137,116 @@ uint64_t sub_1000175E4(uint64_t a1, uint64_t a2)
         *(inited + 16) = xmmword_1000341C0;
         *(inited + 32) = 0xD000000000000024;
         *(inited + 40) = 0x8000000100039690;
-        *(inited + 48) = v40;
+        *(inited + 48) = v37;
         *(inited + 56) = 0xD000000000000022;
         *(inited + 64) = 0x80000001000396C0;
-        *(inited + 72) = v31;
+        *(inited + 72) = v29;
         *(inited + 80) = 0xD000000000000033;
         *(inited + 88) = 0x80000001000396F0;
-        *(inited + 96) = v38;
-        v44 = sub_1000030B4(inited);
+        *(inited + 96) = v36;
+        sub_1000030B4(inited);
         swift_setDeallocating();
         sub_100001EB0(&qword_10005BAE8, &unk_100034290);
         swift_arrayDestroy();
-        v37 = nullsub_1(v39, v44, 0);
+        nullsub_1();
+        v35 = v40;
 
-        goto LABEL_24;
+        goto LABEL_19;
       }
     }
 
-    v14 = v50;
+    v12 = v46;
   }
 
-  v32 = sub_100003960();
-  (*(v5 + 16))(v8, v32, v4);
-  v33 = Logger.logObject.getter();
-  v34 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v33, v34))
+  v30 = sub_100003960();
+  (*(v5 + 16))(v7, v30, v4);
+  v31 = Logger.logObject.getter();
+  v32 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v31, v32))
   {
-    v35 = swift_slowAlloc();
-    *v35 = 0;
-    _os_log_impl(&_mh_execute_header, v33, v34, "Missing input values for device language and siri language", v35, 2u);
+    v33 = swift_slowAlloc();
+    *v33 = 0;
+    _os_log_impl(&_mh_execute_header, v31, v32, "Missing input values for device language and siri language", v33, 2u);
   }
 
-  (*(v5 + 8))(v8, v4);
-  v36 = sub_1000030B4(&_swiftEmptyArrayStorage);
-  v37 = nullsub_1(0, v36, 0);
-  v16 = v14;
-LABEL_24:
+  (*(v5 + 8))(v7, v4);
+  sub_1000030B4(&_swiftEmptyArrayStorage);
+  nullsub_1();
+  v35 = v34;
+  v14 = v12;
+LABEL_19:
 
-  return v37;
+  return v35;
 }
 
-uint64_t sub_100017B18(uint64_t a1, uint64_t a2)
+uint64_t sub_100017B18(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = v2;
-  v6 = sub_10000A8B0();
+  v4 = v3;
+  v7 = sub_10000A8B0();
   if (!*(a1 + 16))
   {
     goto LABEL_10;
   }
 
-  v7 = *v6;
-  v8 = v6[1];
+  v8 = *v7;
+  v9 = v7[1];
 
-  v9 = sub_100002F84(v7, v8);
-  v11 = v10;
+  v10 = sub_100002F84(v8, v9);
+  v12 = v11;
 
-  if ((v11 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
     goto LABEL_10;
   }
 
-  sub_100003218(*(a1 + 56) + 32 * v9, &v29);
+  sub_100003218(*(a1 + 56) + 32 * v10, &v30);
   sub_100001EB0(&qword_10005BB50, "|*");
   if ((swift_dynamicCast() & 1) == 0)
   {
     goto LABEL_10;
   }
 
-  v28 = v3;
-  v12 = v33;
-  v13 = sub_10000A8BC();
-  if (!*(a1 + 16) || (v14 = *v13, v3 = v13[1], , v15 = sub_100002F84(v14, v3), v17 = v16, , (v17 & 1) == 0) || (sub_100003218(*(a1 + 56) + 32 * v15, &v29), (swift_dynamicCast() & 1) == 0))
+  v29 = v4;
+  v13 = v34;
+  v14 = sub_10000A8BC();
+  if (!*(a1 + 16) || (v15 = *v14, v4 = v14[1], , v16 = sub_100002F84(v15, v4), v18 = v17, , (v18 & 1) == 0) || (sub_100003218(*(a1 + 56) + 32 * v16, &v30), (swift_dynamicCast() & 1) == 0))
   {
 
 LABEL_10:
-    v29 = 0;
-    v30 = 0xE000000000000000;
+    v30 = 0;
+    v31 = 0xE000000000000000;
     _StringGuts.grow(_:)(40);
 
-    v29 = 0xD000000000000026;
-    v30 = 0x8000000100039660;
-    v20 = Dictionary.description.getter();
-    v22 = v21;
+    v30 = 0xD000000000000026;
+    v31 = 0x8000000100039660;
+    v21 = Dictionary.description.getter();
+    v23 = v22;
 
-    v23._countAndFlagsBits = v20;
-    v23._object = v22;
-    String.append(_:)(v23);
+    v24._countAndFlagsBits = v21;
+    v24._object = v23;
+    String.append(_:)(v24);
 
-    v24 = v29;
     v25 = v30;
+    v26 = v31;
     sub_1000032B8();
     swift_allocError();
-    *v26 = v24;
-    *(v26 + 8) = v25;
-    *(v26 + 16) = 1;
+    *v27 = v25;
+    *(v27 + 8) = v26;
+    *(v27 + 16) = 1;
     swift_willThrow();
     swift_unknownObjectRelease();
     sub_10000330C(a2);
-    return v3 & 1;
+    return v4 & 1;
   }
 
-  v18 = v33;
-  LOBYTE(v29) = 0;
-  v30 = 0;
-  v31 = v12;
-  v32 = v33;
+  v19 = v34;
+  LOBYTE(v30) = 0;
+  v31 = 0;
+  v32 = v13;
+  v33 = v34;
 
-  v19 = sub_100008304(a1);
-  if (v28)
+  v20 = sub_100008304(a1);
+  if (v29)
   {
 
     swift_unknownObjectRelease();
@@ -2309,12 +2257,12 @@ LABEL_10:
 
   else
   {
-    LOBYTE(v3) = v19;
+    LOBYTE(v4) = v20;
 
-    LOBYTE(v29) = v3 & 1;
-    v30 = 0;
-    v31 = v12;
-    v32 = v18;
+    LOBYTE(v30) = v4 & 1;
+    v31 = 0;
+    v32 = v13;
+    v33 = v19;
 
     sub_1000083C0(a1);
 
@@ -2322,7 +2270,60 @@ LABEL_10:
     sub_10000330C(a2);
   }
 
-  return v3 & 1;
+  return v4 & 1;
+}
+
+uint64_t sub_100017E60(char a1, uint64_t a2, uint64_t a3)
+{
+  _StringGuts.grow(_:)(58);
+  v4._countAndFlagsBits = 60;
+  v4._object = 0xE100000000000000;
+  String.append(_:)(v4);
+  v5._countAndFlagsBits = 0xD00000000000001ALL;
+  v5._object = 0x8000000100034250;
+  String.append(_:)(v5);
+  v6._countAndFlagsBits = 0x72746E6F43736920;
+  v6._object = 0xEF3D776F6C466C6FLL;
+  String.append(_:)(v6);
+  if (a1)
+  {
+    v7 = 1702195828;
+  }
+
+  else
+  {
+    v7 = 0x65736C6166;
+  }
+
+  if (a1)
+  {
+    v8 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v8 = 0xE500000000000000;
+  }
+
+  v9 = v8;
+  String.append(_:)(*&v7);
+
+  v10._countAndFlagsBits = 0xD000000000000011;
+  v10._object = 0x8000000100039620;
+  String.append(_:)(v10);
+  v11._countAndFlagsBits = Array.description.getter();
+  String.append(_:)(v11);
+
+  v12._object = 0x8000000100039640;
+  v12._countAndFlagsBits = 0xD000000000000010;
+  String.append(_:)(v12);
+  v13._countAndFlagsBits = Array.description.getter();
+  String.append(_:)(v13);
+
+  v14._countAndFlagsBits = 62;
+  v14._object = 0xE100000000000000;
+  String.append(_:)(v14);
+  return 0;
 }
 
 unint64_t sub_100017FF0(uint64_t a1)
@@ -2412,55 +2413,54 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_10001812C(int a1, uint64_t a2, uint64_t a3)
+void sub_10001812C(int a1, uint64_t a2, uint64_t a3)
 {
-  v38 = a1;
+  v36 = a1;
   v5 = type metadata accessor for Logger();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   __chkstk_darwin(v5);
-  v9 = &v36 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_1000030B4(&_swiftEmptyArrayStorage);
-  v11 = *(a3 + 16);
-  if (v11)
+  v8 = &v34 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_1000030B4(&_swiftEmptyArrayStorage);
+  v10 = *(a3 + 16);
+  if (v10)
   {
-    v36 = a2;
-    v37 = a3;
-    v12 = 0;
-    v39 = 0;
-    v13 = (a3 + 32);
-    v14 = 4;
+    v34 = a2;
+    v35 = a3;
+    v11 = 0;
+    v37 = 0;
+    v12 = (a3 + 32);
+    v13 = 4;
     while (1)
     {
-      v17 = v13[3];
-      v18 = v13[4];
-      sub_100003274(v13, v17);
-      v15 = (*(v18 + 16))(v17, v18);
-      v20 = v19;
-      v22 = v21;
-      v23 = v36;
+      v16 = v12[3];
+      v17 = v12[4];
+      sub_100003274(v12, v16);
+      v14 = (*(v17 + 16))(v16, v17);
+      v19 = v18;
+      v21 = v20;
+      v22 = v34;
 
-      v24 = v37;
+      v23 = v35;
 
       isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-      v40 = v10;
-      v26 = v39;
-      sub_100018514(v20, sub_100010464, 0, isUniquelyReferenced_nonNull_native, &v40, v38 & 1, v23, v24);
-      v39 = v26;
+      v38 = v9;
+      v25 = v37;
+      sub_100018514(v19, sub_100010464, 0, isUniquelyReferenced_nonNull_native, &v38, v36 & 1, v22, v23);
+      v37 = v25;
 
-      if (v14 > 2)
+      if (v13 > 2)
       {
-        if (v14 == 3)
+        if (v13 == 3)
         {
-          if ((v15 & 0xFFFFFFFFFFFFFFFELL) != 2)
+          if ((v14 & 0xFFFFFFFFFFFFFFFELL) != 2)
           {
-            v15 = 3;
+            v14 = 3;
           }
 
           goto LABEL_5;
         }
 
-        if (v14 != 4)
+        if (v13 != 4)
         {
           goto LABEL_12;
         }
@@ -2468,78 +2468,77 @@ uint64_t sub_10001812C(int a1, uint64_t a2, uint64_t a3)
 
       else
       {
-        if (v14 == 1)
+        if (v13 == 1)
         {
-          if ((v15 - 1) >= 3)
+          if ((v14 - 1) >= 3)
           {
-            v15 = 1;
+            v14 = 1;
           }
 
           goto LABEL_5;
         }
 
-        if (v14 != 2)
+        if (v13 != 2)
         {
 LABEL_12:
-          if (v15 == 4)
+          if (v14 == 4)
           {
-            v15 = v14;
+            v14 = v13;
           }
 
           goto LABEL_5;
         }
 
-        v15 = 2;
+        v14 = 2;
       }
 
 LABEL_5:
-      v10 = v40;
-      v16 = sub_100004898(v12, v22);
+      v9 = v38;
+      v15 = sub_100004898(v11, v21);
 
-      v13 += 5;
-      v12 = v16;
-      v14 = v15;
-      if (!--v11)
+      v12 += 5;
+      v11 = v15;
+      v13 = v14;
+      if (!--v10)
       {
-        return nullsub_1(v15, v10, v16);
+        goto LABEL_21;
       }
     }
   }
 
-  v27 = sub_100003960();
-  (*(v6 + 16))(v9, v27, v5);
+  v26 = sub_100003960();
+  (*(v6 + 16))(v8, v26, v5);
 
-  v28 = Logger.logObject.getter();
-  v29 = static os_log_type_t.error.getter();
+  v27 = Logger.logObject.getter();
+  v28 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v28, v29))
+  if (os_log_type_enabled(v27, v28))
   {
+    v29 = swift_slowAlloc();
     v30 = swift_slowAlloc();
-    v31 = swift_slowAlloc();
-    v40 = v31;
-    *v30 = 136315138;
-    v32 = sub_100018810(v38 & 1, a3);
-    v34 = sub_1000029DC(v32, v33, &v40);
+    v38 = v30;
+    *v29 = 136315138;
+    v31 = sub_100018810(v36 & 1, a3);
+    v33 = sub_1000029DC(v31, v32, &v38);
 
-    *(v30 + 4) = v34;
-    _os_log_impl(&_mh_execute_header, v28, v29, "%s: AndPolicy with no conditions, this is useless", v30, 0xCu);
-    sub_100003374(v31);
+    *(v29 + 4) = v33;
+    _os_log_impl(&_mh_execute_header, v27, v28, "%s: AndPolicy with no conditions, this is useless", v29, 0xCu);
+    sub_100003374(v30);
   }
 
-  (*(v6 + 8))(v9, v5);
-  v16 = 0;
-  v15 = 2;
-  return nullsub_1(v15, v10, v16);
+  (*(v6 + 8))(v8, v5);
+LABEL_21:
+  nullsub_1();
 }
 
-uint64_t sub_1000184D4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t sub_1000184D4@<X0>(uint64_t a1@<X8>, uint64_t a2@<X0>, uint64_t *a3@<X1>, uint64_t a4@<X2>)
 {
-  result = sub_100018A08(a1, a2, a3);
+  result = sub_100018A08(a2, a3, a4);
   if (!v4)
   {
-    *a4 = result & 1;
-    *(a4 + 8) = v7;
-    *(a4 + 16) = v8;
+    *a1 = result & 1;
+    *(a1 + 8) = v7;
+    *(a1 + 16) = v8;
   }
 
   return result;
@@ -2560,14 +2559,13 @@ uint64_t sub_100018514(uint64_t a1, void (*a2)(uint64_t *__return_ptr, uint64_t 
   }
 
   v13 = v12 & *(a1 + 64);
-  v44 = -1 << *(a1 + 32);
   v14 = (63 - v11) >> 6;
-  v52 = a6 & 1;
+  v50 = a6 & 1;
 
   v15 = 0;
-  v50 = v14;
-  v51 = v10;
-  v45 = a5;
+  v48 = v14;
+  v49 = v10;
+  v43 = a5;
   while (v13)
   {
     v20 = v15;
@@ -2576,18 +2574,18 @@ LABEL_15:
     v23 = (*(a1 + 48) + 16 * v22);
     v24 = v23[1];
     v25 = *(*(a1 + 56) + 8 * v22);
-    v58 = *v23;
-    v59 = v24;
-    v60 = v25;
+    v56 = *v23;
+    v57 = v24;
+    v58 = v25;
 
-    a2(&v55, &v58);
+    a2(&v53, &v56);
 
-    v26 = v55;
-    v27 = v56;
-    v61 = v57;
+    v26 = v53;
+    v27 = v54;
+    v59 = v55;
     v28 = *a5;
-    v30 = sub_100002F84(v55, v56);
-    v31 = v28[2];
+    v30 = sub_100002F84(v53, v54);
+    v31 = *(v28 + 16);
     v32 = (v29 & 1) == 0;
     v33 = v31 + v32;
     if (__OFADD__(v31, v32))
@@ -2596,7 +2594,7 @@ LABEL_15:
     }
 
     v34 = v29;
-    if (v28[3] >= v33)
+    if (*(v28 + 24) >= v33)
     {
       if ((a4 & 1) == 0)
       {
@@ -2607,65 +2605,64 @@ LABEL_15:
     else
     {
       sub_10000FDE8(v33, a4 & 1);
-      v35 = *a5;
-      v36 = sub_100002F84(v26, v27);
-      if ((v34 & 1) != (v37 & 1))
+      v35 = sub_100002F84(v26, v27);
+      if ((v34 & 1) != (v36 & 1))
       {
         goto LABEL_28;
       }
 
-      v30 = v36;
+      v30 = v35;
     }
 
     v13 &= v13 - 1;
-    v38 = *a5;
+    v37 = *a5;
     if (v34)
     {
-      v16 = *(v38[7] + 8 * v30);
-      v49 = v16;
-      LOBYTE(v58) = v52;
-      v59 = a7;
-      v60 = a8;
+      v16 = *(v37[7] + 8 * v30);
+      v47 = v16;
+      LOBYTE(v56) = v50;
+      v57 = a7;
+      v58 = a8;
       sub_10000A704();
-      v48 = sub_1000075D8(v16);
-      LOBYTE(v58) = v52;
-      v59 = a7;
-      v60 = a8;
-      a5 = v45;
-      v17 = v61;
-      v18 = sub_1000075D8(v61);
+      v46 = sub_1000075D8(v16);
+      LOBYTE(v56) = v50;
+      v57 = a7;
+      v58 = a8;
+      a5 = v43;
+      v17 = v59;
+      v18 = sub_1000075D8(v59);
 
-      v19 = v49;
-      if (v18 >= v48)
+      v19 = v47;
+      if (v18 >= v46)
       {
         v19 = v17;
       }
 
-      *(v38[7] + 8 * v30) = v19;
+      *(v37[7] + 8 * v30) = v19;
     }
 
     else
     {
-      v38[(v30 >> 6) + 8] |= 1 << v30;
-      v39 = (v38[6] + 16 * v30);
-      *v39 = v26;
-      v39[1] = v27;
-      *(v38[7] + 8 * v30) = v61;
-      v40 = v38[2];
-      v41 = __OFADD__(v40, 1);
-      v42 = v40 + 1;
-      if (v41)
+      v37[(v30 >> 6) + 8] |= 1 << v30;
+      v38 = (v37[6] + 16 * v30);
+      *v38 = v26;
+      v38[1] = v27;
+      *(v37[7] + 8 * v30) = v59;
+      v39 = v37[2];
+      v40 = __OFADD__(v39, 1);
+      v41 = v39 + 1;
+      if (v40)
       {
         goto LABEL_27;
       }
 
-      v38[2] = v42;
+      v37[2] = v41;
     }
 
     a4 = 1;
     v15 = v20;
-    v14 = v50;
-    v10 = v51;
+    v14 = v48;
+    v10 = v49;
   }
 
   v21 = v15;
@@ -2679,7 +2676,7 @@ LABEL_15:
 
     if (v20 >= v14)
     {
-      sub_100006A78();
+      sub_100006A78(a1);
     }
 
     v13 = *(v10 + 8 * v20);
@@ -2702,24 +2699,97 @@ LABEL_28:
   return result;
 }
 
-uint64_t sub_100018A08(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t sub_100018810(char a1, uint64_t a2)
+{
+  v23[0] = 0;
+  v23[1] = 0xE000000000000000;
+  _StringGuts.grow(_:)(25);
+
+  v25 = 0xD00000000000001ALL;
+  v26 = 0x8000000100039730;
+  if (a1)
+  {
+    v4 = 1702195828;
+  }
+
+  else
+  {
+    v4 = 0x65736C6166;
+  }
+
+  if (a1)
+  {
+    v5 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v5 = 0xE500000000000000;
+  }
+
+  v6 = v5;
+  String.append(_:)(*&v4);
+
+  v7._countAndFlagsBits = 32;
+  v7._object = 0xE100000000000000;
+  String.append(_:)(v7);
+  v8 = *(a2 + 16);
+  v9 = &_swiftEmptyArrayStorage;
+  if (v8)
+  {
+    v24 = &_swiftEmptyArrayStorage;
+    sub_100010338(0, v8, 0);
+    v9 = &_swiftEmptyArrayStorage;
+    v10 = a2 + 32;
+    do
+    {
+      sub_1000016D0(v10, v23);
+      sub_100003274(v23, v23[3]);
+      v11 = dispatch thunk of CustomStringConvertible.description.getter();
+      v13 = v12;
+      sub_100003374(v23);
+      v24 = v9;
+      v15 = v9[2];
+      v14 = v9[3];
+      if (v15 >= v14 >> 1)
+      {
+        sub_100010338((v14 > 1), v15 + 1, 1);
+        v9 = v24;
+      }
+
+      v9[2] = v15 + 1;
+      v16 = &v9[2 * v15];
+      v16[4] = v11;
+      v16[5] = v13;
+      v10 += 40;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  v23[0] = v9;
+  sub_100001EB0(&qword_10005BB50, "|*");
+  sub_100010E24();
+  v17 = BidirectionalCollection<>.joined(separator:)();
+  v19 = v18;
+
+  v20._countAndFlagsBits = v17;
+  v20._object = v19;
+  String.append(_:)(v20);
+
+  v21._countAndFlagsBits = 62;
+  v21._object = 0xE100000000000000;
+  String.append(_:)(v21);
+  return v25;
+}
+
+uint64_t sub_100018A08(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v5 = v3;
   v9 = sub_10000A844();
-  if (!*(a1 + 16))
+  if (!*(a1 + 16) || (v10 = *v9, v11 = v9[1], , v12 = sub_100002F84(v10, v11), LOBYTE(v4) = v13, , (v4 & 1) == 0) || (sub_100003218(*(a1 + 56) + 32 * v12, &v29), sub_100001EB0(&qword_10005BAF8, &qword_100033380), result = swift_dynamicCast(), (result & 1) == 0))
   {
-    goto LABEL_14;
-  }
-
-  v10 = *v9;
-  v11 = v9[1];
-
-  v12 = sub_100002F84(v10, v11);
-  LOBYTE(v4) = v13;
-
-  if ((v4 & 1) == 0 || (sub_100003218(*(a1 + 56) + 32 * v12, &v29), sub_100001EB0(&qword_10005BAF8, &qword_100033380), result = swift_dynamicCast(), (result & 1) == 0))
-  {
-LABEL_14:
     *&v29 = 0x63696C6F50646E41;
     *(&v29 + 1) = 0xEB00000000203A79;
     v21 = Dictionary.description.getter();
@@ -2849,198 +2919,207 @@ uint64_t sub_100018E38(uint64_t a1, uint64_t a2, unint64_t a3, id a4)
 {
   v6 = type metadata accessor for Logger();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v35[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v11 = [objc_opt_self() sharedInstance];
-  v12 = [v11 objectForInputValue:a3];
-  if (v12)
+  v9 = &v32[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = [objc_opt_self() sharedInstance];
+  v11 = [v10 objectForInputValue:a3];
+  if (v11)
   {
-    v13 = v12;
-    v14 = [v12 status];
-    if (v14 == a4)
+    v12 = v11;
+    if ([v11 status] == a4)
     {
-      v15 = 4;
+      v13 = 3;
     }
 
     else
     {
-      v15 = 2;
-    }
-
-    if (v14 == a4)
-    {
-      v16 = 3;
-    }
-
-    else
-    {
-      v16 = 2;
+      v13 = 2;
     }
 
     sub_100001EB0(&qword_10005BAE0, &unk_100033370);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_100033350;
-    v18 = sub_10001F4BC(a3);
-    v19 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v21 = v20;
+    v15 = sub_10001F4BC(a3);
+    v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v18 = v17;
 
-    *(inited + 32) = v19;
-    *(inited + 40) = v21;
-    *(inited + 48) = v16;
-    v22 = sub_1000030B4(inited);
+    *(inited + 32) = v16;
+    *(inited + 40) = v18;
+    *(inited + 48) = v13;
+    sub_1000030B4(inited);
     swift_setDeallocating();
     sub_1000031B0(inited + 32);
-    v23 = nullsub_1(v15, v22, 0);
+    nullsub_1();
+    v20 = v19;
 
-    v11 = v13;
+    v10 = v12;
   }
 
   else
   {
-    v24 = sub_100003960();
-    (*(v7 + 16))(v10, v24, v6);
+    v21 = sub_100003960();
+    (*(v7 + 16))(v9, v21, v6);
 
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v25, v26))
+    v22 = Logger.logObject.getter();
+    v23 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v22, v23))
     {
-      v27 = swift_slowAlloc();
-      *v27 = 134217984;
-      *(v27 + 4) = a3;
+      v24 = swift_slowAlloc();
+      *v24 = 134217984;
+      *(v24 + 4) = a3;
 
-      _os_log_impl(&_mh_execute_header, v25, v26, "Unknown input: %llu", v27, 0xCu);
+      _os_log_impl(&_mh_execute_header, v22, v23, "Unknown input: %llu", v24, 0xCu);
     }
 
     else
     {
     }
 
-    (*(v7 + 8))(v10, v6);
+    (*(v7 + 8))(v9, v6);
     sub_100001EB0(&qword_10005BAE0, &unk_100033370);
-    v28 = swift_initStackObject();
-    *(v28 + 16) = xmmword_100033350;
-    v29 = sub_10001F4BC(a3);
-    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v32 = v31;
+    v25 = swift_initStackObject();
+    *(v25 + 16) = xmmword_100033350;
+    v26 = sub_10001F4BC(a3);
+    v27 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v29 = v28;
 
-    *(v28 + 32) = v30;
-    *(v28 + 40) = v32;
-    *(v28 + 48) = 5;
-    v33 = sub_1000030B4(v28);
+    *(v25 + 32) = v27;
+    *(v25 + 40) = v29;
+    *(v25 + 48) = 5;
+    sub_1000030B4(v25);
     swift_setDeallocating();
-    sub_1000031B0(v28 + 32);
-    v23 = nullsub_1(0, v33, 0);
+    sub_1000031B0(v25 + 32);
+    nullsub_1();
+    v20 = v30;
   }
 
-  return v23;
+  return v20;
 }
 
-uint64_t sub_100019190@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t sub_100019190@<X0>(uint64_t a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
-  result = sub_1000191D4(a1, a2);
-  if (!v3)
+  result = sub_1000191D4(a2, a3, a4);
+  if (!v4)
   {
-    *a3 = result & 1;
-    *(a3 + 8) = v6;
-    *(a3 + 16) = v7;
-    *(a3 + 24) = v8;
+    *a1 = result & 1;
+    *(a1 + 8) = v7;
+    *(a1 + 16) = v8;
+    *(a1 + 24) = v9;
   }
 
   return result;
 }
 
-uint64_t sub_1000191D4(uint64_t a1, uint64_t a2)
+uint64_t sub_1000191D4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = v2;
-  v7 = sub_10000A874();
-  if (!*(a1 + 16))
+  v5 = v3;
+  v8 = sub_10000A874();
+  if (*(a1 + 16) && (v9 = *v8, v10 = v8[1], , v11 = sub_100002F84(v9, v10), v13 = v12, , (v13 & 1) != 0) && (sub_100003218(*(a1 + 56) + 32 * v11, &v30), (swift_dynamicCast() & 1) != 0) && (v14 = v34, v15 = sub_10000A880(), *(a1 + 16)) && (v16 = *v15, v17 = v15[1], , v18 = sub_100002F84(v16, v17), v4 = v19, , (v4 & 1) != 0) && (sub_100003218(*(a1 + 56) + 32 * v18, &v30), (swift_dynamicCast() & 1) != 0))
   {
-    goto LABEL_9;
-  }
-
-  v8 = *v7;
-  v9 = v7[1];
-
-  v10 = sub_100002F84(v8, v9);
-  v12 = v11;
-
-  if ((v12 & 1) == 0)
-  {
-    goto LABEL_9;
-  }
-
-  sub_100003218(*(a1 + 56) + 32 * v10, &v29);
-  if ((swift_dynamicCast() & 1) == 0)
-  {
-    goto LABEL_9;
-  }
-
-  v13 = v33;
-  v14 = sub_10000A880();
-  if (!*(a1 + 16))
-  {
-    goto LABEL_9;
-  }
-
-  v15 = *v14;
-  v16 = v14[1];
-
-  v17 = sub_100002F84(v15, v16);
-  v3 = v18;
-
-  if (v3 & 1) != 0 && (sub_100003218(*(a1 + 56) + 32 * v17, &v29), (swift_dynamicCast()))
-  {
-    v19 = v33;
-    LOBYTE(v29) = 0;
-    v30 = 0;
-    v31 = v13;
-    v32 = v33;
-    v20 = sub_100008304(a1);
-    if (!v4)
+    v20 = v34;
+    LOBYTE(v30) = 0;
+    v31 = 0;
+    v32 = v14;
+    v33 = v34;
+    v21 = sub_100008304(a1);
+    if (!v5)
     {
-      v3 = v20;
-      LOBYTE(v29) = v20 & 1;
-      v30 = 0;
-      v31 = v13;
-      v32 = v19;
+      v4 = v21;
+      LOBYTE(v30) = v21 & 1;
+      v31 = 0;
+      v32 = v14;
+      v33 = v20;
       sub_1000083C0(a1);
 
       swift_unknownObjectRelease();
       sub_10000330C(a2);
-      return v3 & 1;
+      return v4 & 1;
     }
   }
 
   else
   {
-LABEL_9:
-    v29 = 0;
-    v30 = 0xE000000000000000;
+    v30 = 0;
+    v31 = 0xE000000000000000;
     _StringGuts.grow(_:)(20);
 
-    v29 = 0xD000000000000012;
-    v30 = 0x8000000100039780;
-    v21 = Dictionary.description.getter();
-    v23 = v22;
+    v30 = 0xD000000000000012;
+    v31 = 0x8000000100039780;
+    v22 = Dictionary.description.getter();
+    v24 = v23;
 
-    v24._countAndFlagsBits = v21;
-    v24._object = v23;
-    String.append(_:)(v24);
+    v25._countAndFlagsBits = v22;
+    v25._object = v24;
+    String.append(_:)(v25);
 
-    v25 = v29;
     v26 = v30;
+    v27 = v31;
     sub_1000032B8();
     swift_allocError();
-    *v27 = v25;
-    *(v27 + 8) = v26;
-    *(v27 + 16) = 1;
+    *v28 = v26;
+    *(v28 + 8) = v27;
+    *(v28 + 16) = 1;
     swift_willThrow();
   }
 
   swift_unknownObjectRelease();
   sub_10000330C(a2);
-  return v3 & 1;
+  return v4 & 1;
+}
+
+unint64_t sub_10001948C(char a1, unint64_t a2, unint64_t a3)
+{
+  v5 = sub_10001F4BC(a2);
+  v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v8 = v7;
+
+  v9 = sub_10001F528(a3);
+  v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v12 = v11;
+
+  _StringGuts.grow(_:)(31);
+
+  if (a1)
+  {
+    v13 = 1702195828;
+  }
+
+  else
+  {
+    v13 = 0x65736C6166;
+  }
+
+  if (a1)
+  {
+    v14 = 0xE400000000000000;
+  }
+
+  else
+  {
+    v14 = 0xE500000000000000;
+  }
+
+  v15 = v14;
+  String.append(_:)(*&v13);
+
+  v16._countAndFlagsBits = 32;
+  v16._object = 0xE100000000000000;
+  String.append(_:)(v16);
+  v17._countAndFlagsBits = v6;
+  v17._object = v8;
+  String.append(_:)(v17);
+
+  v18._countAndFlagsBits = 540884256;
+  v18._object = 0xE400000000000000;
+  String.append(_:)(v18);
+  v19._countAndFlagsBits = v10;
+  v19._object = v12;
+  String.append(_:)(v19);
+
+  v20._countAndFlagsBits = 62;
+  v20._object = 0xE100000000000000;
+  String.append(_:)(v20);
+  return 0xD000000000000022;
 }
 
 unint64_t sub_1000195EC(uint64_t a1)
@@ -3237,9 +3316,9 @@ char *sub_10001C094()
   return v2;
 }
 
-void sub_10001C2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10001C2D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3253,10 +3332,7 @@ uint64_t sub_10001C2F0(uint64_t result, uint64_t a2)
 
 uint64_t sub_10001C308(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _onQueue_debugDictionary];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _onQueue_debugDictionary];
 
   return _objc_release_x1();
 }
@@ -3268,9 +3344,9 @@ void sub_10001C43C(uint64_t a1, void *a2, void *a3)
   [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
 }
 
-void sub_10001C578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001C578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3282,9 +3358,9 @@ id sub_10001C590(uint64_t a1)
   return result;
 }
 
-void sub_10001D138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10001D138(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3303,9 +3379,9 @@ void sub_10001D158(uint64_t a1)
   *(*(*(a1 + 56) + 8) + 24) = [*(a1 + 32) _onQueue_saveInputsWithError:*(a1 + 64)];
 }
 
-void sub_10001D3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10001D3DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3321,7 +3397,6 @@ void sub_10001D3FC(uint64_t a1)
 
 uint64_t sub_10001DAA0(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_10005D4B0 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -4519,9 +4594,9 @@ void sub_1000213B0(id a1)
   [v17 scheduleDailyRecompute];
 }
 
-void sub_100021898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_100021898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4688,9 +4763,9 @@ void sub_100021B90(uint64_t a1)
 LABEL_13:
 }
 
-void sub_100021F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100021F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5105,9 +5180,9 @@ id sub_100025664(uint64_t a1)
   return result;
 }
 
-void sub_1000258F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000258F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5119,16 +5194,15 @@ uint64_t sub_100025908(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_100025A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100025A38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100025B04(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_10005D518 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -5183,41 +5257,40 @@ uint64_t sub_1000277EC(void *a1, void *a2)
   return v6;
 }
 
-uint64_t sub_100027870(void *a1)
+uint64_t sub_100027870(void *a1, uint64_t a2)
 {
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v1 = a1;
-  v2 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v2)
+  v2 = a1;
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v3 = v2;
-    v4 = *v10;
+    v4 = v3;
+    v5 = *v10;
     while (2)
     {
-      v5 = 0;
+      v6 = 0;
       do
       {
-        if (*v10 != v4)
+        if (*v10 != v5)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * v5);
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           v7 = 0;
           goto LABEL_11;
         }
 
-        v5 = v5 + 1;
+        ++v6;
       }
 
-      while (v3 != v5);
-      v3 = [v1 countByEnumeratingWithState:&v9 objects:v13 count:16];
-      if (v3)
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v4)
       {
         continue;
       }
@@ -5360,9 +5433,9 @@ LABEL_4:
   return v4;
 }
 
-void sub_100029878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100029878(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5473,9 +5546,9 @@ void sub_10002A114(uint64_t a1)
   [*(a1 + 32) setObject:v4 forKeyedSubscript:@"OS_ELIGIBILITY_INTERNAL_STATE_COUNTRY_LOCATION"];
 }
 
-void sub_10002A494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002A494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5550,9 +5623,9 @@ id sub_10002A4B4(uint64_t a1)
   return result;
 }
 
-void sub_10002AA14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10002AA14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5567,9 +5640,9 @@ id sub_10002AA34(uint64_t a1)
   return result;
 }
 
-void sub_10002AC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002AC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5587,9 +5660,9 @@ id sub_10002AC6C(uint64_t a1)
   return result;
 }
 
-void sub_10002AEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10002AEF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5633,14 +5706,14 @@ void sub_10002B334(uint64_t a1)
   }
 }
 
-void sub_10002BC74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002BC74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5807,7 +5880,6 @@ uint64_t sub_10002D064(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t sub_10002DA10(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   qword_10005D548 = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();

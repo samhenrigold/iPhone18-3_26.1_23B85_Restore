@@ -124,9 +124,9 @@
 
 - (NavdLocationLeecher)init
 {
-  v21.receiver = self;
-  v21.super_class = NavdLocationLeecher;
-  v2 = [(NavdLocationLeecher *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = NavdLocationLeecher;
+  v2 = [(NavdLocationLeecher *)&v20 init];
   if (v2)
   {
     v3 = objc_alloc_init(GEOLocationShifter);
@@ -157,9 +157,8 @@
     lastRecordDate = v2->_lastRecordDate;
     v2->_lastRecordDate = v16;
 
-    v18 = NavigationConfig_LeechingThrottleTimeout[1];
     GEOConfigGetDouble();
-    v2->_maxLeechingTimeInterval = v19;
+    v2->_maxLeechingTimeInterval = v18;
   }
 
   return v2;
@@ -383,7 +382,7 @@
   v25 = 0u;
   if (locationCopy)
   {
-    [locationCopy clientLocation];
+    objc_msgSend_clientLocation(locationCopy);
   }
 
   objc_initWeak(&location, self);
@@ -485,21 +484,21 @@ LABEL_7:
     v11 = -v10;
     if (self->_maxLeechingTimeInterval <= -v10)
     {
-      v14 = +[NSDate date];
+      v13 = +[NSDate date];
       lastRecordDate = self->_lastRecordDate;
-      self->_lastRecordDate = v14;
+      self->_lastRecordDate = v13;
 
       objc_initWeak(buf, self);
       serialQueue = self->_serialQueue;
-      v17[0] = _NSConcreteStackBlock;
-      v17[1] = 3221225472;
-      v17[2] = sub_10002EE1C;
-      v17[3] = &unk_100064F58;
-      objc_copyWeak(&v19, buf);
-      v18 = locationCopy;
-      dispatch_async(serialQueue, v17);
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_10002EE1C;
+      v16[3] = &unk_100064F58;
+      objc_copyWeak(&v18, buf);
+      v17 = locationCopy;
+      dispatch_async(serialQueue, v16);
 
-      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v18);
       objc_destroyWeak(buf);
       goto LABEL_10;
     }
@@ -507,12 +506,11 @@ LABEL_7:
     v6 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v12 = NavigationConfig_LeechingThrottleTimeout[1];
       GEOConfigGetDouble();
       *buf = 134218240;
-      v21 = v11;
-      v22 = 2048;
-      v23 = v13;
+      v20 = v11;
+      v21 = 2048;
+      v22 = v12;
       v7 = "Dropping location since time elapsed since last leeched location is %f < %f";
       v8 = v6;
       v9 = 22;

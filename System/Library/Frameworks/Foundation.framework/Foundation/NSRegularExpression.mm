@@ -752,11 +752,11 @@ LABEL_54:
   return array;
 }
 
-uint64_t __65__NSRegularExpression_NSMatching__matchesInString_options_range___block_invoke(uint64_t result, uint64_t a2)
+id *__65__NSRegularExpression_NSMatching__matchesInString_options_range___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -842,13 +842,13 @@ id __68__NSRegularExpression_NSMatching__firstMatchInString_options_range___bloc
   return result;
 }
 
-uint64_t __75__NSRegularExpression_NSMatching__rangeOfFirstMatchInString_options_range___block_invoke(uint64_t result, void *a2, uint64_t a3, _BYTE *a4)
+void *__75__NSRegularExpression_NSMatching__rangeOfFirstMatchInString_options_range___block_invoke(void *result, void *a2, uint64_t a3, _BYTE *a4)
 {
   if (a2)
   {
     v5 = result;
     result = [a2 range];
-    v6 = *(*(v5 + 32) + 8);
+    v6 = *(v5[4] + 8);
     *(v6 + 32) = result;
     *(v6 + 40) = v7;
   }

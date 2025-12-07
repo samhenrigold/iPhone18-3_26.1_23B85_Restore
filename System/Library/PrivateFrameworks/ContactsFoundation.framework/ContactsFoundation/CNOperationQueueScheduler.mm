@@ -9,7 +9,7 @@ void __70___CNOperationQueueScheduler_performCancelableBlock_qualityOfService___
   [WeakRetained cancel];
 }
 
-uint64_t __71___CNOperationQueueScheduler_afterDelay_performBlock_qualityOfService___block_invoke(uint64_t a1)
+void *__71___CNOperationQueueScheduler_afterDelay_performBlock_qualityOfService___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isCanceled];
   if ((result & 1) == 0)

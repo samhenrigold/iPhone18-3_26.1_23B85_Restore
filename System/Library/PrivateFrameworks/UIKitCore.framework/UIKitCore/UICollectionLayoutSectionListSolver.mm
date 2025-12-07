@@ -3,7 +3,7 @@
 
 @implementation UICollectionLayoutSectionListSolver
 
-void __63___UICollectionLayoutSectionListSolver__resolveWithParameters___block_invoke(uint64_t a1, unint64_t a2)
+void __63___UICollectionLayoutSectionListSolver__resolveWithParameters___block_invoke(uint64_t a1, NSUInteger a2)
 {
   v84 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
@@ -46,7 +46,7 @@ void __63___UICollectionLayoutSectionListSolver__resolveWithParameters___block_i
         v86.location = a2;
         v86.length = 1;
         _UIRegionSolveResult::_UIRegionSolveResult(v80, v86, v14, v13, *(v2 + 32));
-        std::vector<_UIRegionSolveResult>::insert(v2 + 8, *v4 + 152 * v8, v80);
+        std::vector<_UIRegionSolveResult>::insert((v2 + 8), *v4 + 152 * v8, v80);
       }
 
       else
@@ -56,11 +56,11 @@ void __63___UICollectionLayoutSectionListSolver__resolveWithParameters___block_i
         v87.length = 1;
         _UIRegionSolveResult::_UIRegionSolveResult(v80, v87, v14, v13, *(v2 + 32));
         ++v8;
-        std::vector<_UIRegionSolveResult>::insert(v2 + 8, 152 * v8 + *v4, v80);
+        std::vector<_UIRegionSolveResult>::insert((v2 + 8), 152 * v8 + *v4, v80);
         v88.location = a2 + 1;
         v88.length = v10 + ~a2 + *&v12;
         _UIRegionSolveResult::_UIRegionSolveResult(&v73, v88, v14, v13, *(v2 + 32));
-        std::vector<_UIRegionSolveResult>::insert(v2 + 8, 152 * v8 + *v4 + 152, &v73);
+        std::vector<_UIRegionSolveResult>::insert((v2 + 8), 152 * v8 + *v4 + 152, &v73);
 
         v79[0] = v78;
         std::vector<_UIAuxillarySolveResult>::__destroy_vector::operator()[abi:nn200100](v79);

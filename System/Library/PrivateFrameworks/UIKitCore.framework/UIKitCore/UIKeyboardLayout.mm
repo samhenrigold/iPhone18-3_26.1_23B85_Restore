@@ -165,7 +165,7 @@
           }
 
           v9 = *(*(&v20 + 1) + 8 * i);
-          if ((!self->_activeTouchUUID || ([*(*(&v20 + 1) + 8 * i) isEqual:?] & 1) == 0) && (!self->_shiftKeyTouchUUID || (objc_msgSend(v9, "isEqual:") & 1) == 0))
+          if ((!self->_activeTouchUUID || (objc_msgSend_isEqual_(*(*(&v20 + 1) + 8 * i)) & 1) == 0) && (!self->_shiftKeyTouchUUID || (objc_msgSend_isEqual_(v9) & 1) == 0))
           {
             [(NSMutableArray *)self->_uncommittedTouchUUIDs removeObject:v9];
             [(NSMutableSet *)self->_touchIgnoredUUIDSet addObject:v9];
@@ -926,9 +926,9 @@ void __28__UIKeyboardLayout_touchUp___block_invoke_222()
   touchUUID2 = [stateCopy touchUUID];
 
   activeTouchUUID = [(UIKeyboardLayout *)self activeTouchUUID];
-  v11 = [touchUUID2 isEqual:activeTouchUUID];
+  isEqual = objc_msgSend_isEqual_(touchUUID2);
 
-  if (v11)
+  if (isEqual)
   {
     [(UIKeyboardLayout *)self setActiveTouchUUID:0];
     deferredTaskForActiveTouch = [(UIKeyboardLayout *)self deferredTaskForActiveTouch];
@@ -1216,9 +1216,9 @@ LABEL_17:
 - (void)clearShiftIfNecessaryForEndedTouchState:(id)state
 {
   touchUUID = [state touchUUID];
-  v5 = [touchUUID isEqual:self->_shiftKeyTouchUUID];
+  isEqual = objc_msgSend_isEqual_(touchUUID);
 
-  if (v5)
+  if (isEqual)
   {
     v6 = +[UIKeyboardImpl sharedInstance];
     if (self->_shiftKeyTouchUUID != self->_activeTouchUUID)
@@ -1560,7 +1560,7 @@ void __47__UIKeyboardLayout_touchesCancelled_withEvent___block_invoke(uint64_t a
 uint64_t __54__UIKeyboardLayout_touchUUIDsToCommitBeforeTouchUUID___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = a2;
-  if ([v6 isEqual:*(a1 + 32)])
+  if (objc_msgSend_isEqual_(v6))
   {
     v7 = 0;
     *a4 = 1;
@@ -2355,22 +2355,23 @@ void __109__UIKeyboardLayout_recognizer_restartTouchDownForTouchWithId_startingA
   {
     if (state == 3)
     {
-      readyCopy[2](readyCopy, idCopy, [idCopy isEqual:self->_shiftKeyTouchUUID]);
+      isEqual = objc_msgSend_isEqual_(idCopy);
+      readyCopy[2](readyCopy, idCopy, isEqual);
     }
 
     else
     {
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __129__UIKeyboardLayout_recognizer_shouldContinueTrackingTouchWithId_startingAt_atPoint_currentPoint_forContinueState_whenStateReady___block_invoke;
-      v19[3] = &unk_1E71170C8;
-      v19[4] = self;
-      v20 = idCopy;
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __129__UIKeyboardLayout_recognizer_shouldContinueTrackingTouchWithId_startingAt_atPoint_currentPoint_forContinueState_whenStateReady___block_invoke;
+      v20[3] = &unk_1E71170C8;
+      v20[4] = self;
+      v21 = idCopy;
       stateCopy = state;
-      v23 = x;
-      v24 = y;
-      v21 = readyCopy;
-      dispatch_sync(MEMORY[0x1E69E96A0], v19);
+      v24 = x;
+      v25 = y;
+      v22 = readyCopy;
+      dispatch_sync(MEMORY[0x1E69E96A0], v20);
     }
   }
 
@@ -2574,7 +2575,7 @@ uint64_t __105__UIKeyboardLayout_queryShouldNeverIgnoreTouchStateWithIdentifier_
 {
   v3 = a2;
   v4 = [v3 touchUUID];
-  if ([v4 isEqual:*(a1 + 32)])
+  if (objc_msgSend_isEqual_(v4))
   {
     v5 = 0;
   }
@@ -2713,7 +2714,7 @@ void __95__UIKeyboardLayout_recognizer_willIgnoreTouchWithId_startingAt_atPoint_
   *(*(a1[6] + 8) + 24) = [v2 pathIndex];
 }
 
-uint64_t __95__UIKeyboardLayout_recognizer_willIgnoreTouchWithId_startingAt_atPoint_currentPoint_whenReady___block_invoke_3(uint64_t a1, void *a2)
+void *__95__UIKeyboardLayout_recognizer_willIgnoreTouchWithId_startingAt_atPoint_currentPoint_whenReady___block_invoke_3(uint64_t a1, void *a2)
 {
   result = [a2 timestamp];
   *(*(*(a1 + 32) + 8) + 24) = v4;
@@ -4129,7 +4130,7 @@ void __58__UIKeyboardLayout_updateTouchProcessingForKeyboardChange__block_invoke
 
     [WeakRetained setTouchDrifting:0];
 LABEL_16:
-    if ((_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_943, @"_UIKBRT_CadenceMonitor") & 1) != 0 || byte_1ED48B2E4)
+    if (_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_943, @"_UIKBRT_CadenceMonitor") || byte_1ED48B2E4)
     {
       v28 = [WeakRetained cadenceMonitor];
 
@@ -4145,7 +4146,7 @@ LABEL_16:
       [v31 addObject:v32];
     }
 
-    if (((_UIInternalPreferenceUsesDefault_0(&dword_1ED48B2E8, @"_UIKBRT_TouchVelocities") & 1) != 0 || byte_1ED48B2EC) && MGGetBoolAnswer())
+    if ((_UIInternalPreferenceUsesDefault_0(&dword_1ED48B2E8, @"_UIKBRT_TouchVelocities") || byte_1ED48B2EC) && MGGetBoolAnswer())
     {
       v33 = [WeakRetained touchVelocities];
 
@@ -4313,7 +4314,7 @@ void __58__UIKeyboardLayout_updateTouchProcessingForKeyboardChange__block_invoke
 
     [(UIKeyboardLayout *)self setTouchDrifting:0];
 LABEL_15:
-    if ((_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_943, @"_UIKBRT_CadenceMonitor") & 1) != 0 || byte_1ED48B2E4)
+    if (_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_943, @"_UIKBRT_CadenceMonitor") || byte_1ED48B2E4)
     {
       cadenceMonitor = [(UIKeyboardLayout *)self cadenceMonitor];
 
@@ -4329,7 +4330,7 @@ LABEL_15:
       [averagingRules addObject:cadenceMonitor2];
     }
 
-    if (((_UIInternalPreferenceUsesDefault_0(&dword_1ED48B2E8, @"_UIKBRT_TouchVelocities") & 1) != 0 || byte_1ED48B2EC) && MGGetBoolAnswer())
+    if ((_UIInternalPreferenceUsesDefault_0(&dword_1ED48B2E8, @"_UIKBRT_TouchVelocities") || byte_1ED48B2EC) && MGGetBoolAnswer())
     {
       touchVelocities = [(UIKeyboardLayout *)self touchVelocities];
 

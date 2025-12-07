@@ -96,20 +96,16 @@ LABEL_10:
       dispatch_once(&qword_100229100, &stru_1001FB6C8);
     }
 
-    if (!_NRLogIsLevelEnabled())
+    if (_NRLogIsLevelEnabled())
     {
-      goto LABEL_17;
+      if (qword_100229100 != -1)
+      {
+        dispatch_once(&qword_100229100, &stru_1001FB6C8);
+      }
+
+      _NRLogWithArgs(qword_1002290F8, 1, "%s%.30s:%-4d cancelling POSR %@ because route vanished", ", "[NRPendingOutgoingSeqnoReq cancelIfRouteUnselected]"", 2524, self);
     }
 
-    if (qword_100229100 != -1)
-    {
-      dispatch_once(&qword_100229100, &stru_1001FB6C8);
-    }
-
-    v9 = 2524;
-    selfCopy2 = self;
-    v7 = "";
-    v8 = "[NRPendingOutgoingSeqnoReq cancelIfRouteUnselected]";
     goto LABEL_16;
   }
 
@@ -120,31 +116,24 @@ LABEL_10:
       dispatch_once(&qword_100229100, &stru_1001FB6C8);
     }
 
-    if (!_NRLogIsLevelEnabled())
+    if (_NRLogIsLevelEnabled())
     {
-      goto LABEL_17;
+      if (qword_100229100 != -1)
+      {
+        dispatch_once(&qword_100229100, &stru_1001FB6C8);
+      }
+
+      _NRLogWithArgs(qword_1002290F8, 1, "%s%.30s:%-4d cancelling POSR %@ because route %@ was unselected", ", "[NRPendingOutgoingSeqnoReq cancelIfRouteUnselected]"", 2529, self, v4);
     }
 
-    if (qword_100229100 != -1)
-    {
-      dispatch_once(&qword_100229100, &stru_1001FB6C8);
-    }
-
-    selfCopy2 = self;
-    v11 = v4;
-    v9 = 2529;
-    v7 = "";
-    v8 = "[NRPendingOutgoingSeqnoReq cancelIfRouteUnselected]";
 LABEL_16:
-    _NRLogWithArgs();
-LABEL_17:
-    [(NRPendingOutgoingSeqnoReq *)self cancelWithDelay:0, v7, v8, v9, selfCopy2, v11];
+    [(NRPendingOutgoingSeqnoReq *)self cancelWithDelay:0];
     v5 = 1;
-    goto LABEL_18;
+    goto LABEL_17;
   }
 
   v5 = 0;
-LABEL_18:
+LABEL_17:
 
   return v5;
 }
@@ -163,17 +152,13 @@ LABEL_18:
       dispatch_once(&qword_100229100, &stru_1001FB6C8);
     }
 
-    v5 = 2516;
-    selfCopy = self;
-    v3 = "";
-    v4 = "[NRPendingOutgoingSeqnoReq dealloc]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002290F8, 1, "%s%.30s:%-4d dealloc POSR %@", ", "[NRPendingOutgoingSeqnoReq dealloc]"", 2516, self);
   }
 
-  [(NRPendingOutgoingSeqnoReq *)self cancelTimer:v3];
-  v7.receiver = self;
-  v7.super_class = NRPendingOutgoingSeqnoReq;
-  [(NRPendingOutgoingSeqnoReq *)&v7 dealloc];
+  [(NRPendingOutgoingSeqnoReq *)self cancelTimer];
+  v3.receiver = self;
+  v3.super_class = NRPendingOutgoingSeqnoReq;
+  [(NRPendingOutgoingSeqnoReq *)&v3 dealloc];
 }
 
 - (void)cancelWithDelay:(BOOL)delay
@@ -192,7 +177,7 @@ LABEL_18:
         dispatch_once(&qword_100229100, &stru_1001FB6C8);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002290F8, 1, "%s%.30s:%-4d cancelling POSR soon %@", ", "[NRPendingOutgoingSeqnoReq cancelWithDelay:]"", 2501, self);
     }
 
     self->_retriesLeft = 0x8000;
@@ -216,14 +201,10 @@ LABEL_18:
         dispatch_once(&qword_100229100, &stru_1001FB6C8);
       }
 
-      v9 = 2508;
-      selfCopy = self;
-      v7 = "";
-      v8 = "[NRPendingOutgoingSeqnoReq cancelWithDelay:]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002290F8, 1, "%s%.30s:%-4d removing POSR %@", ", "[NRPendingOutgoingSeqnoReq cancelWithDelay:]"", 2508, self);
     }
 
-    [(NRPendingOutgoingSeqnoReq *)self cancelTimer:v7];
+    [(NRPendingOutgoingSeqnoReq *)self cancelTimer];
     instance = [(NRPendingOutgoingSeqnoReq *)self instance];
     posrs = [instance posrs];
     [posrs removeObject:self];
@@ -266,7 +247,7 @@ LABEL_18:
         dispatch_once(&qword_100229100, &stru_1001FB6C8);
       }
 
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002290F8, 17, "attempted to start cancelled POSR %@", self);
     }
   }
 }
@@ -333,9 +314,9 @@ LABEL_18:
 {
   instanceCopy = instance;
   prefixCopy = prefix;
-  v29.receiver = self;
-  v29.super_class = NRPendingOutgoingSeqnoReq;
-  v10 = [(NRPendingOutgoingSeqnoReq *)&v29 init];
+  v30.receiver = self;
+  v30.super_class = NRPendingOutgoingSeqnoReq;
+  v10 = [(NRPendingOutgoingSeqnoReq *)&v30 init];
   if (!v10)
   {
     v20 = sub_1000CB9A8();
@@ -344,14 +325,14 @@ LABEL_18:
     if (IsLevelEnabled)
     {
       v22 = sub_1000CB9A8();
-      _NRLogWithArgs();
+      _NRLogWithArgs(v22, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRPendingOutgoingSeqnoReq initWithInstance:prefix:routerID:]"", 2424);
     }
 
-    _os_log_pack_size();
-    v23 = *__error();
-    v24 = _os_log_pack_fill();
-    *v24 = 136446210;
-    *(v24 + 4) = "[NRPendingOutgoingSeqnoReq initWithInstance:prefix:routerID:]";
+    v23 = _os_log_pack_size();
+    v24 = __error();
+    v25 = _os_log_pack_fill(handler - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0), v23, *v24, &_mh_execute_header, "%{public}s [super init] failed");
+    *v25 = 136446210;
+    *(v25 + 4) = "[NRPendingOutgoingSeqnoReq initWithInstance:prefix:routerID:]";
     sub_1000CB9A8();
     _NRLogAbortWithPack();
   }
@@ -374,13 +355,13 @@ LABEL_18:
   handler[1] = 3221225472;
   handler[2] = sub_1000D4398;
   handler[3] = &unk_1001FD0D8;
-  objc_copyWeak(&v27, &location);
+  objc_copyWeak(&v28, &location);
   v18 = v11;
-  v26 = v18;
+  v27 = v18;
   dispatch_source_set_event_handler(v17, handler);
   dispatch_activate(v11->_retryTimer);
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
 
   return v18;
@@ -400,17 +381,13 @@ LABEL_18:
       dispatch_once(&qword_100229100, &stru_1001FB6C8);
     }
 
-    v8 = 2418;
-    selfCopy = self;
-    v6 = "";
-    v7 = "[NRPendingOutgoingSeqnoReq sendSeqnoReq]";
-    _NRLogWithArgs();
+    _NRLogWithArgs(qword_1002290F8, 1, "%s%.30s:%-4d sending seqno req for %@", ", "[NRPendingOutgoingSeqnoReq sendSeqnoReq]"", 2418, self);
   }
 
   target = self->_target;
-  v4 = [(NRPendingOutgoingSeqnoReq *)self createTLV:v6];
-  v10 = v4;
-  v5 = [NSArray arrayWithObjects:&v10 count:1];
+  createTLV = [(NRPendingOutgoingSeqnoReq *)self createTLV];
+  v6 = createTLV;
+  v5 = [NSArray arrayWithObjects:&v6 count:1];
   [(NRBabelNeighbor *)target sendTLVs:v5];
 }
 

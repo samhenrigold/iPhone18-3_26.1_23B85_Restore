@@ -41,7 +41,7 @@ LABEL_6:
 
 - (id)viewController
 {
-  v42[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   viewController = self->super._viewController;
   if (!viewController)
   {
@@ -56,13 +56,13 @@ LABEL_6:
       v9 = [v6 URLByAppendingPathComponent:v8];
 
       v10 = MEMORY[0x277CBDAC8];
-      v42[0] = self->super._contact;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:1];
-      v37 = 0;
-      v12 = [v10 dataWithContacts:v11 error:&v37];
-      v13 = v37;
+      v40[0] = self->super._contact;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+      v35 = 0;
+      v12 = [v10 dataWithContacts:v11 error:&v35];
+      v13 = v35;
 
-      if (v13 || (v36 = 0, [v12 writeToURL:v9 options:1 error:&v36], (v13 = v36) != 0))
+      if (v13 || (v34 = 0, [v12 writeToURL:v9 options:1 error:&v34], (v13 = v34) != 0))
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
@@ -74,8 +74,8 @@ LABEL_6:
 
       else
       {
-        v41 = v9;
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+        v39 = v9;
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
       }
     }
 
@@ -103,9 +103,9 @@ LABEL_6:
       v23 = [v17 URLByAppendingPathComponent:v22];
 
       ics = self->super._ics;
-      v35 = 0;
-      [(NSString *)ics writeToURL:v23 atomically:1 encoding:4 error:&v35];
-      v25 = v35;
+      v33 = 0;
+      [(NSString *)ics writeToURL:v23 atomically:1 encoding:4 error:&v33];
+      v25 = v33;
       if (v25)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -118,8 +118,8 @@ LABEL_6:
 
       else
       {
-        v40 = v23;
-        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+        v38 = v23;
+        v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
       }
     }
 
@@ -137,33 +137,32 @@ LABEL_6:
         goto LABEL_23;
       }
 
-      v30 = self->super._result;
-      if (!v30)
+      v29 = self->super._result;
+      if (!v29)
       {
         goto LABEL_24;
       }
 
-      v31 = DDMapURLForResult(v30);
-      if (!v31)
+      v30 = DDMapURLForResult(v29);
+      if (!v30)
       {
-        v32 = self->super._result;
-        v33 = DDResultCopyExtractedURL();
-        if (!v33)
+        v31 = DDResultCopyExtractedURL();
+        if (!v31)
         {
           goto LABEL_24;
         }
 
-        v34 = v33;
-        v31 = [MEMORY[0x277CBEBC0] URLWithString:v33];
+        v32 = v31;
+        v30 = [MEMORY[0x277CBEBC0] URLWithString:v31];
 
-        if (!v31)
+        if (!v30)
         {
           goto LABEL_24;
         }
       }
 
-      v38 = v31;
-      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
+      v36 = v30;
+      v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
     }
 
     if (!v14)
@@ -182,7 +181,6 @@ LABEL_23:
   }
 
 LABEL_25:
-  v28 = *MEMORY[0x277D85DE8];
 
   return viewController;
 }
@@ -213,11 +211,9 @@ LABEL_25:
 
 - (void)viewController
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

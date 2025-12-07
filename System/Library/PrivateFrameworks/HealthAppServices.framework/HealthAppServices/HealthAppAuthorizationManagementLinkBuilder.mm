@@ -12,7 +12,7 @@
 
 + (BOOL)canOpenLinkWithSourceIdentifier:(id)identifier destinationIdentifier:(id)destinationIdentifier
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   destinationIdentifierCopy = destinationIdentifier;
   v8 = objc_alloc(MEMORY[0x277CBEBD0]);
@@ -43,8 +43,8 @@
     v16 = v15;
     v17 = objc_opt_class();
     v18 = @"nil";
-    v24 = 138544386;
-    v25 = v17;
+    v23 = 138544386;
+    v24 = v17;
     if (destinationIdentifierCopy)
     {
       v19 = destinationIdentifierCopy;
@@ -55,8 +55,8 @@
       v19 = @"nil";
     }
 
-    v26 = 2048;
-    v27 = v14;
+    v25 = 2048;
+    v26 = v14;
     if (identifierCopy)
     {
       v20 = identifierCopy;
@@ -67,49 +67,43 @@
       v20 = @"nil";
     }
 
-    v28 = 2112;
-    v29 = v19;
+    v27 = 2112;
+    v28 = v19;
     if (v13)
     {
       v18 = v13;
     }
 
-    v30 = 2112;
-    v31 = v20;
-    v32 = 2112;
-    v33 = v18;
+    v29 = 2112;
+    v30 = v20;
+    v31 = 2112;
+    v32 = v18;
     v21 = v17;
-    _os_log_impl(&dword_2512F1000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ [Authorization] Can Open Link: %ld Destination: %@ Source: %@ Derived: %@", &v24, 0x34u);
+    _os_log_impl(&dword_2512F1000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ [Authorization] Can Open Link: %ld Destination: %@ Source: %@ Derived: %@", &v23, 0x34u);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (BOOL)canOpenAuthorizationManagementWithValidIdentifier:(id)identifier
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  if (identifier)
+  v10[4] = *MEMORY[0x277D85DE8];
+  if (!identifier)
   {
-    v3 = MEMORY[0x277CBEB18];
-    identifierCopy = identifier;
-    v5 = [v3 alloc];
-    v11[0] = @"com.apple.installcoordinationd";
-    v11[1] = @"com.hip.PistoPilot";
-    v11[2] = *MEMORY[0x277CCE558];
-    v11[3] = @"com.apple.journal";
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:4];
-    v7 = [v5 initWithArray:v6];
-
-    v8 = [v7 containsObject:identifierCopy];
+    return 0;
   }
 
-  else
-  {
-    v8 = 0;
-  }
+  v3 = MEMORY[0x277CBEB18];
+  identifierCopy = identifier;
+  v5 = [v3 alloc];
+  v10[0] = @"com.apple.installcoordinationd";
+  v10[1] = @"com.hip.PistoPilot";
+  v10[2] = *MEMORY[0x277CCE558];
+  v10[3] = @"com.apple.journal";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:4];
+  v7 = [v5 initWithArray:v6];
 
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = [v7 containsObject:identifierCopy];
   return v8;
 }
 
@@ -232,22 +226,20 @@ LABEL_8:
 
 - (id)appendBundleIdentifierIfNecessary:(id)necessary toPath:(id)path
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v6 = pathCopy;
   if (necessary)
   {
-    v13[0] = @"/";
-    v13[1] = necessary;
+    v12[0] = @"/";
+    v12[1] = necessary;
     v7 = MEMORY[0x277CBEA60];
     necessaryCopy = necessary;
-    v9 = [v7 arrayWithObjects:v13 count:2];
+    v9 = [v7 arrayWithObjects:v12 count:2];
 
     v10 = [v9 componentsJoinedByString:&stru_28635B3F0];
     v6 = [pathCopy stringByAppendingString:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

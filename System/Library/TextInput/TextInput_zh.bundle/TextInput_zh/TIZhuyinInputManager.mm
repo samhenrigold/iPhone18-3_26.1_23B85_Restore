@@ -826,23 +826,19 @@ LABEL_26:
 - (BOOL)shouldDirectlyCommitInput:(id)input
 {
   inputCopy = input;
-  if ([(TIZhuyinInputManager *)self syllableBuffersOccupied])
+  v7 = 0;
+  if (![(TIZhuyinInputManager *)self syllableBuffersOccupied])
   {
-    goto LABEL_3;
-  }
+    inputBuffer = [(TIZhuyinInputManager *)self inputBuffer];
+    v6 = [inputBuffer length];
 
-  inputBuffer = [(TIZhuyinInputManager *)self inputBuffer];
-  v6 = [inputBuffer length];
-
-  if (v6 || ([inputCopy isEqualToString:@" "] & 1) == 0 && (objc_msgSend(MEMORY[0x29EDB9F50], "zhuyinToneCharacterSet"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(inputCopy, "rangeOfCharacterFromSet:", v9), v9, v10 == 0x7FFFFFFFFFFFFFFFLL))
-  {
-LABEL_3:
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = 1;
+    if (!v6)
+    {
+      if (([inputCopy isEqualToString:@" "] & 1) != 0 || (objc_msgSend(MEMORY[0x29EDB9F50], "zhuyinToneCharacterSet"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(inputCopy, "rangeOfCharacterFromSet:", v9), v9, v10 != 0x7FFFFFFFFFFFFFFFLL))
+      {
+        v7 = 1;
+      }
+    }
   }
 
   return v7;
@@ -1136,29 +1132,29 @@ uint64_t __52__TIZhuyinInputManager_composedBufferCursorLocation__block_invoke(u
 
 - (id)inputStringForCharacters:(id)characters
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v3 = [characters stringByApplyingTransform:@"Han-Latin Latin-Bopomofo" reverse:0];;
   array = [MEMORY[0x29EDB8DE8] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = [v3 componentsSeparatedByString:@" "];
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if ([v10 length])
         {
           v11 = [v10 substringFromIndex:{objc_msgSend(v10, "length") - 1}];
@@ -1177,15 +1173,13 @@ uint64_t __52__TIZhuyinInputManager_composedBufferCursorLocation__block_invoke(u
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v14 = [array componentsJoinedByString:&stru_2A252F9A8];
-
-  v15 = *MEMORY[0x29EDCA608];
 
   return v14;
 }

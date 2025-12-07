@@ -1,23 +1,23 @@
 id HKHRAFibBurdenControlServerInterface()
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_283BEE240];
   v1 = MEMORY[0x277CBEB98];
-  v6[0] = objc_opt_class();
-  v6[1] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+  v5[0] = objc_opt_class();
+  v5[1] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
   v3 = [v1 setWithArray:v2];
 
   [v0 setClasses:v3 forSelector:sel_remote_injectBurdenValues_completion_ argumentIndex:0 ofReply:0];
-  v4 = *MEMORY[0x277D85DE8];
 
   return v0;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 id HKHRHeartHealthBundle()
@@ -162,38 +162,38 @@ id HKHRAFibBurdenOnboardingDateOverride()
   return v5;
 }
 
-id _ParseArrayOfValuesFromStringWithExpectedCount(void *a1, uint64_t a2)
+id _ParseArrayOfValuesFromStringWithExpectedCount(void *a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a1;
   if ([v3 hasPrefix:@"["] && objc_msgSend(v3, "hasSuffix:", @"]"))
   {
-    v24 = v3;
+    v23 = v3;
     v4 = [v3 substringWithRange:{1, objc_msgSend(v3, "length") - 2}];
     v5 = [v4 componentsSeparatedByString:{@", "}];
 
     v6 = objc_alloc_init(MEMORY[0x277CCABB8]);
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     obj = v5;
-    v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v27;
+      v10 = *v26;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v27 != v10)
+          if (*v26 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = [v6 numberFromString:*(*(&v26 + 1) + 8 * i)];
+          v12 = [v6 numberFromString:*(*(&v25 + 1) + 8 * i)];
           v13 = v12;
           if (v12)
           {
@@ -228,7 +228,7 @@ id _ParseArrayOfValuesFromStringWithExpectedCount(void *a1, uint64_t a2)
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v9);
@@ -244,7 +244,7 @@ id _ParseArrayOfValuesFromStringWithExpectedCount(void *a1, uint64_t a2)
       v21 = 0;
     }
 
-    v3 = v24;
+    v3 = v23;
   }
 
   else
@@ -252,12 +252,10 @@ id _ParseArrayOfValuesFromStringWithExpectedCount(void *a1, uint64_t a2)
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
-id _RetrieveAndParseArrayOfResultsForKeyWithExpectedCount(void *a1, uint64_t a2)
+id _RetrieveAndParseArrayOfResultsForKeyWithExpectedCount(void *a1, void *a2)
 {
   v3 = a1;
   if ([MEMORY[0x277CCDD30] isAppleInternalInstall] && (objc_msgSend(MEMORY[0x277CBEBD0], "standardUserDefaults"), v4 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "objectForKey:", v3), v5 = objc_claimAutoreleasedReturnValue(), v5, v4, v5))
@@ -325,260 +323,251 @@ HKHRAFibBurdenTimeOfDayHistogram *HKHRAFibBurdenTimeOfDayHistogramOverride()
 
 id HKHRAFibBurdenDefaultsOverrideKeys()
 {
-  v3[11] = *MEMORY[0x277D85DE8];
-  v3[0] = @"HKHRAFibBurdenSevenDayAnalysisStartingWeekday";
-  v3[1] = @"HKHRAFibBurdenSevenDayAnalysisStartingHour";
-  v3[2] = @"HKHRAFibBurdenSevenDayAnalysisStartingMinute";
-  v3[3] = @"HKHRAFibBurdenSevenDayAnalysisStartingSecond";
-  v3[4] = @"HKHRAFibBurdenSevenDayAnalysisMaximumXPCDelay";
-  v3[5] = @"HKHRAFibBurdenSevenDayAnalysisNotificationEndWeekdayToFire";
-  v3[6] = @"HKHRAFibBurdenAnalysisPercentageOverride";
-  v3[7] = @"HKHRAFibBurdenSevenDayAnalysisUnavailabilityReasonOverride";
-  v3[8] = @"HKHRAFibBurdenDayOfWeekHistogramOverride";
-  v3[9] = @"HKHRAFibBurdenTimeOfDayHistogramOverride";
-  v3[10] = @"HKHRAFibBurdenOnboardingDateOverride";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:11];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[11] = *MEMORY[0x277D85DE8];
+  v2[0] = @"HKHRAFibBurdenSevenDayAnalysisStartingWeekday";
+  v2[1] = @"HKHRAFibBurdenSevenDayAnalysisStartingHour";
+  v2[2] = @"HKHRAFibBurdenSevenDayAnalysisStartingMinute";
+  v2[3] = @"HKHRAFibBurdenSevenDayAnalysisStartingSecond";
+  v2[4] = @"HKHRAFibBurdenSevenDayAnalysisMaximumXPCDelay";
+  v2[5] = @"HKHRAFibBurdenSevenDayAnalysisNotificationEndWeekdayToFire";
+  v2[6] = @"HKHRAFibBurdenAnalysisPercentageOverride";
+  v2[7] = @"HKHRAFibBurdenSevenDayAnalysisUnavailabilityReasonOverride";
+  v2[8] = @"HKHRAFibBurdenDayOfWeekHistogramOverride";
+  v2[9] = @"HKHRAFibBurdenTimeOfDayHistogramOverride";
+  v2[10] = @"HKHRAFibBurdenOnboardingDateOverride";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:11];
 
   return v0;
 }
 
 id HKHRIrregularRhythmNotificationsRequirementsWithFeatureIdentifier(void *a1)
 {
-  v81[11] = *MEMORY[0x277D85DE8];
+  v80[11] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCD420];
   v2 = a1;
-  v52 = [v1 alloc];
-  v80[0] = *MEMORY[0x277CCBE38];
-  v73 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
-  v79[0] = v73;
-  v72 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
-  v79[1] = v72;
-  v71 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
-  v79[2] = v71;
-  v70 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
-  v79[3] = v70;
-  v69 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
-  v79[4] = v69;
-  v68 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
-  v79[5] = v68;
+  v51 = [v1 alloc];
+  v79[0] = *MEMORY[0x277CCBE38];
+  v72 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
+  v78[0] = v72;
+  v71 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
+  v78[1] = v71;
+  v70 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
+  v78[2] = v70;
+  v69 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
+  v78[3] = v69;
+  v68 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
+  v78[4] = v68;
+  v67 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
+  v78[5] = v67;
   v3 = *MEMORY[0x277CCC228];
-  v67 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:*MEMORY[0x277CCC228]];
-  v79[6] = v67;
+  v66 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:*MEMORY[0x277CCC228]];
+  v78[6] = v66;
   v4 = *MEMORY[0x277CCBFF0];
-  v66 = [MEMORY[0x277CCD428] mutuallyExclusiveFeatureIsOffWithIdentifier:*MEMORY[0x277CCBFF0]];
-  v79[7] = v66;
-  v65 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:8];
-  v81[0] = v65;
-  v80[1] = *MEMORY[0x277CCBE48];
-  v64 = [MEMORY[0x277CCD428] healthAppIsNotHidden];
-  v78[0] = v64;
-  v63 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
-  v78[1] = v63;
-  v62 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
-  v78[2] = v62;
-  v61 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
-  v78[3] = v61;
-  v60 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
-  v78[4] = v60;
-  v59 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
-  v78[5] = v59;
-  v58 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
-  v78[6] = v58;
-  v57 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:v3];
-  v78[7] = v57;
-  v56 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:8];
-  v81[1] = v56;
-  v80[2] = *MEMORY[0x277CCBE40];
-  v55 = [MEMORY[0x277CCD428] healthAppIsNotHidden];
-  v77[0] = v55;
-  v54 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
-  v77[1] = v54;
-  v51 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
-  v77[2] = v51;
-  v50 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
-  v77[3] = v50;
-  v49 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
-  v77[4] = v49;
-  v48 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:v3];
-  v77[5] = v48;
-  v47 = [MEMORY[0x277CCD428] heartRateIsEnabledInPrivacy];
-  v77[6] = v47;
-  v46 = [MEMORY[0x277CCD428] mutuallyExclusiveFeatureIsOffWithIdentifier:v4];
-  v77[7] = v46;
-  v45 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:8];
-  v81[2] = v45;
-  v80[3] = *MEMORY[0x277CCBE50];
-  v44 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
-  v76[0] = v44;
-  v43 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
-  v76[1] = v43;
-  v42 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
-  v76[2] = v42;
-  v41 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
-  v76[3] = v41;
-  v40 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
-  v76[4] = v40;
-  v39 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
-  v76[5] = v39;
-  v38 = [MEMORY[0x277CCD428] countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:v2];
-  v76[6] = v38;
-  v37 = [MEMORY[0x277CCD428] countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2 isSupportedIfCountryListMissing:0];
-  v76[7] = v37;
-  v36 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:v3];
-  v76[8] = v36;
-  v35 = [MEMORY[0x277CCD428] heartRateIsEnabledInPrivacy];
-  v76[9] = v35;
-  v34 = [MEMORY[0x277CCD428] wristDetectionIsEnabledForActiveWatch];
-  v76[10] = v34;
-  v33 = [MEMORY[0x277CCD428] onboardingRecordIsNotPresentForMutuallyExclusiveFeatureWithIdentifier:v4];
-  v76[11] = v33;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:12];
-  v81[3] = v32;
-  v80[4] = *MEMORY[0x277CCBE70];
-  v31 = [MEMORY[0x277CCD428] healthAppIsNotHidden];
-  v75[0] = v31;
-  v30 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
-  v75[1] = v30;
-  v29 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
-  v75[2] = v29;
-  v28 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
-  v75[3] = v28;
-  v27 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
-  v75[4] = v27;
-  v26 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:v3];
-  v75[5] = v26;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:6];
-  v81[4] = v25;
-  v80[5] = *MEMORY[0x277CCBE68];
-  v24 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
-  v74[0] = v24;
-  v23 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
-  v74[1] = v23;
-  v22 = [MEMORY[0x277CCD428] countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:v2];
-  v74[2] = v22;
-  v21 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
-  v74[3] = v21;
-  v20 = [MEMORY[0x277CCD428] countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2 isSupportedIfCountryListMissing:1];
-  v74[4] = v20;
-  v19 = [MEMORY[0x277CCD428] heartRateIsEnabledInPrivacy];
-  v74[5] = v19;
-  v18 = [MEMORY[0x277CCD428] wristDetectionIsEnabledForActiveWatch];
-  v74[6] = v18;
+  v65 = [MEMORY[0x277CCD428] mutuallyExclusiveFeatureIsOffWithIdentifier:*MEMORY[0x277CCBFF0]];
+  v78[7] = v65;
+  v64 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:8];
+  v80[0] = v64;
+  v79[1] = *MEMORY[0x277CCBE48];
+  v63 = [MEMORY[0x277CCD428] healthAppIsNotHidden];
+  v77[0] = v63;
+  v62 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
+  v77[1] = v62;
+  v61 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
+  v77[2] = v61;
+  v60 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
+  v77[3] = v60;
+  v59 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
+  v77[4] = v59;
+  v58 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
+  v77[5] = v58;
+  v57 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
+  v77[6] = v57;
+  v56 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:v3];
+  v77[7] = v56;
+  v55 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:8];
+  v80[1] = v55;
+  v79[2] = *MEMORY[0x277CCBE40];
+  v54 = [MEMORY[0x277CCD428] healthAppIsNotHidden];
+  v76[0] = v54;
+  v53 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
+  v76[1] = v53;
+  v50 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
+  v76[2] = v50;
+  v49 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
+  v76[3] = v49;
+  v48 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
+  v76[4] = v48;
+  v47 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:v3];
+  v76[5] = v47;
+  v46 = [MEMORY[0x277CCD428] heartRateIsEnabledInPrivacy];
+  v76[6] = v46;
+  v45 = [MEMORY[0x277CCD428] mutuallyExclusiveFeatureIsOffWithIdentifier:v4];
+  v76[7] = v45;
+  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v76 count:8];
+  v80[2] = v44;
+  v79[3] = *MEMORY[0x277CCBE50];
+  v43 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
+  v75[0] = v43;
+  v42 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
+  v75[1] = v42;
+  v41 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
+  v75[2] = v41;
+  v40 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
+  v75[3] = v40;
+  v39 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
+  v75[4] = v39;
+  v38 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
+  v75[5] = v38;
+  v37 = [MEMORY[0x277CCD428] countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:v2];
+  v75[6] = v37;
+  v36 = [MEMORY[0x277CCD428] countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2 isSupportedIfCountryListMissing:0];
+  v75[7] = v36;
+  v35 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:v3];
+  v75[8] = v35;
+  v34 = [MEMORY[0x277CCD428] heartRateIsEnabledInPrivacy];
+  v75[9] = v34;
+  v33 = [MEMORY[0x277CCD428] wristDetectionIsEnabledForActiveWatch];
+  v75[10] = v33;
+  v32 = [MEMORY[0x277CCD428] onboardingRecordIsNotPresentForMutuallyExclusiveFeatureWithIdentifier:v4];
+  v75[11] = v32;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:12];
+  v80[3] = v31;
+  v79[4] = *MEMORY[0x277CCBE70];
+  v30 = [MEMORY[0x277CCD428] healthAppIsNotHidden];
+  v74[0] = v30;
+  v29 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
+  v74[1] = v29;
+  v28 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
+  v74[2] = v28;
+  v27 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
+  v74[3] = v27;
+  v26 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
+  v74[4] = v26;
+  v25 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:v3];
+  v74[5] = v25;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:6];
+  v80[4] = v24;
+  v79[5] = *MEMORY[0x277CCBE68];
+  v23 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
+  v73[0] = v23;
+  v22 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
+  v73[1] = v22;
+  v21 = [MEMORY[0x277CCD428] countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:v2];
+  v73[2] = v21;
+  v20 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
+  v73[3] = v20;
+  v19 = [MEMORY[0x277CCD428] countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2 isSupportedIfCountryListMissing:1];
+  v73[4] = v19;
+  v18 = [MEMORY[0x277CCD428] heartRateIsEnabledInPrivacy];
+  v73[5] = v18;
+  v17 = [MEMORY[0x277CCD428] wristDetectionIsEnabledForActiveWatch];
+  v73[6] = v17;
   v5 = [MEMORY[0x277CCD428] mutuallyExclusiveFeatureIsOffWithIdentifier:v4];
-  v74[7] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:8];
-  v81[5] = v6;
-  v80[6] = *MEMORY[0x277CCBE88];
+  v73[7] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:8];
+  v80[5] = v6;
+  v79[6] = *MEMORY[0x277CCBE88];
   v7 = _TipsAppVisibilityRequirementsForFeatureIdentifier(v2);
-  v81[6] = v7;
-  v80[7] = *MEMORY[0x277CCBE80];
+  v80[6] = v7;
+  v79[7] = *MEMORY[0x277CCBE80];
   v8 = _TipsAppVisibilityRequirementsForFeatureIdentifier(v2);
   v9 = [MEMORY[0x277CCD428] onboardingRecordIsNotPresentForFeatureWithIdentifier:v2];
   v10 = [v8 arrayByAddingObject:v9];
-  v81[7] = v10;
-  v80[8] = *MEMORY[0x277CCBE20];
+  v80[7] = v10;
+  v79[8] = *MEMORY[0x277CCBE20];
   v11 = _UsageRequirementsForFeatureIdentifier(v2);
   v12 = [v11 hk_filter:&__block_literal_global_1];
 
-  v81[8] = v12;
-  v80[9] = @"UsagePendingOnboarding";
+  v80[8] = v12;
+  v79[9] = @"UsagePendingOnboarding";
   v13 = _UsageRequirementsPendingOnboardingForFeatureIdentifier(v2);
-  v81[9] = v13;
-  v80[10] = *MEMORY[0x277CCBEA0];
+  v80[9] = v13;
+  v79[10] = *MEMORY[0x277CCBEA0];
   v14 = _UsageRequirementsForFeatureIdentifier(v2);
 
-  v81[10] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:11];
-  v53 = [v52 initWithRequirementsByContext:v15];
+  v80[10] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:11];
+  v52 = [v51 initWithRequirementsByContext:v15];
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v53;
+  return v52;
 }
 
 id _TipsAppVisibilityRequirementsForFeatureIdentifier(void *a1)
 {
-  v14[8] = *MEMORY[0x277D85DE8];
+  v13[8] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCD428];
   v2 = a1;
   v3 = [v1 profileIsNotFamilySetupPairingProfile];
-  v14[0] = v3;
+  v13[0] = v3;
   v4 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
-  v14[1] = v4;
+  v13[1] = v4;
   v5 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
-  v14[2] = v5;
+  v13[2] = v5;
   v6 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
-  v14[3] = v6;
+  v13[3] = v6;
   v7 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
-  v14[4] = v7;
+  v13[4] = v7;
   v8 = [MEMORY[0x277CCD428] countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:v2];
-  v14[5] = v8;
+  v13[5] = v8;
   v9 = [MEMORY[0x277CCD428] countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2 isSupportedIfCountryListMissing:1];
 
-  v14[6] = v9;
+  v13[6] = v9;
   v10 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:*MEMORY[0x277CCC228]];
-  v14[7] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:8];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[7] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:8];
 
   return v11;
 }
 
 id _UsageRequirementsPendingOnboardingForFeatureIdentifier(void *a1)
 {
-  v19[13] = *MEMORY[0x277D85DE8];
+  v18[13] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CCD428];
   v2 = a1;
-  v18 = [v1 healthAppIsNotHidden];
-  v19[0] = v18;
-  v17 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
-  v19[1] = v17;
-  v16 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
-  v19[2] = v16;
-  v15 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
-  v19[3] = v15;
+  v17 = [v1 healthAppIsNotHidden];
+  v18[0] = v17;
+  v16 = [MEMORY[0x277CCD428] profileIsNotFamilySetupPairingProfile];
+  v18[1] = v16;
+  v15 = [MEMORY[0x277CCD428] activeRemoteDeviceIsPresentWhenRequiredForRegionAvailabilityOrDeviceCapabilityForFeatureWithIdentifier:v2];
+  v18[2] = v15;
+  v14 = [MEMORY[0x277CCD428] watchAppIsInstalledForBundleIdentifier:@"com.apple.HeartRate"];
+  v18[3] = v14;
   v3 = [MEMORY[0x277CCD428] capabilityIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2];
-  v19[4] = v3;
+  v18[4] = v3;
   v4 = [MEMORY[0x277CCD428] seedIsNotExpiredForFeatureWithIdentifier:v2];
-  v19[5] = v4;
+  v18[5] = v4;
   v5 = [MEMORY[0x277CCD428] featureIsNotRemotelyDisabledWithIdentifier:v2];
-  v19[6] = v5;
+  v18[6] = v5;
   v6 = [MEMORY[0x277CCD428] countryIsSupportedOnLocalDeviceForFeatureWithIdentifier:v2];
-  v19[7] = v6;
+  v18[7] = v6;
   v7 = [MEMORY[0x277CCD428] countryIsSupportedOnActiveRemoteDeviceForFeatureWithIdentifier:v2 isSupportedIfCountryListMissing:1];
 
-  v19[8] = v7;
+  v18[8] = v7;
   v8 = [MEMORY[0x277CCD428] notAgeGatedForUserDefaultsKey:*MEMORY[0x277CCC228]];
-  v19[9] = v8;
+  v18[9] = v8;
   v9 = [MEMORY[0x277CCD428] heartRateIsEnabledInPrivacy];
-  v19[10] = v9;
+  v18[10] = v9;
   v10 = [MEMORY[0x277CCD428] wristDetectionIsEnabledForActiveWatch];
-  v19[11] = v10;
+  v18[11] = v10;
   v11 = [MEMORY[0x277CCD428] mutuallyExclusiveFeatureIsOffWithIdentifier:*MEMORY[0x277CCBFF0]];
-  v19[12] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:13];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v18[12] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:13];
 
   return v12;
 }
 
 id _UsageRequirementsForFeatureIdentifier(void *a1)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = _UsageRequirementsPendingOnboardingForFeatureIdentifier(v1);
   v3 = [MEMORY[0x277CCD428] onboardingRecordIsPresentForFeatureWithIdentifier:v1];
-  v9[0] = v3;
+  v8[0] = v3;
   v4 = [MEMORY[0x277CCD428] featureIsOnWithIdentifier:v1 isOnIfSettingIsAbsent:0];
 
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
   v6 = [v2 arrayByAddingObjectsFromArray:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -635,7 +624,7 @@ uint64_t HKHRAnalyticsAgeBinFromAgeInYears(void *a1)
 
 id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v47[2] = *MEMORY[0x277D85DE8];
   v2 = a1;
   v3 = [MEMORY[0x277CCAB68] string];
   [v3 appendFormat:@"======== Seven Day Analysis Steps ========\n"];
@@ -644,7 +633,7 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
   v6 = [MEMORY[0x277CBEBB0] systemTimeZone];
   [v5 setTimeZone:v6];
 
-  v48[0] = @"Alarm Fired";
+  v47[0] = @"Alarm Fired";
   v7 = [v2 alarmFiredDate];
   if (v7)
   {
@@ -657,15 +646,15 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
     v8 = @"(null)";
   }
 
-  v48[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+  v47[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
   [v4 appendRow:v9];
 
   if (v7)
   {
   }
 
-  v47[0] = @"XPC Activity Fired";
+  v46[0] = @"XPC Activity Fired";
   v10 = [v2 xpcActivityFiredDate];
   if (v10)
   {
@@ -678,15 +667,15 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
     v11 = @"(null)";
   }
 
-  v47[1] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+  v46[1] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
   [v4 appendRow:v12];
 
   if (v10)
   {
   }
 
-  v46[0] = @"Maintenance Operation Run";
+  v45[0] = @"Maintenance Operation Run";
   v13 = [v2 protectedDataOperationRunDate];
   if (v13)
   {
@@ -699,15 +688,15 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
     v14 = @"(null)";
   }
 
-  v46[1] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+  v45[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
   [v4 appendRow:v15];
 
   if (v13)
   {
   }
 
-  v45[0] = @"Analysis Started";
+  v44[0] = @"Analysis Started";
   v16 = [v2 analysisStartedDate];
   if (v16)
   {
@@ -720,15 +709,15 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
     v17 = @"(null)";
   }
 
-  v45[1] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+  v44[1] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
   [v4 appendRow:v18];
 
   if (v16)
   {
   }
 
-  v44[0] = @"Tachograms Classified";
+  v43[0] = @"Tachograms Classified";
   v19 = [v2 tachogramsClassifiedDate];
   if (v19)
   {
@@ -741,15 +730,15 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
     v20 = @"(null)";
   }
 
-  v44[1] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+  v43[1] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
   [v4 appendRow:v21];
 
   if (v19)
   {
   }
 
-  v43[0] = @"Analysis Ended";
+  v42[0] = @"Analysis Ended";
   v22 = [v2 analysisEndedDate];
   if (v22)
   {
@@ -762,15 +751,15 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
     v23 = @"(null)";
   }
 
-  v43[1] = v23;
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+  v42[1] = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
   [v4 appendRow:v24];
 
   if (v22)
   {
   }
 
-  v42[0] = @"Analysis Retry Later Requested";
+  v41[0] = @"Analysis Retry Later Requested";
   v25 = [v2 analysisRetryLaterRequestedDate];
   if (v25)
   {
@@ -783,8 +772,8 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
     v26 = @"(null)";
   }
 
-  v42[1] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
+  v41[1] = v26;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
   [v4 appendRow:v27];
 
   if (v25)
@@ -796,7 +785,7 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
 
   [v3 appendFormat:@"\n======== Seven Day Analysis Results ========\n"];
   v29 = [objc_alloc(MEMORY[0x277CCDA90]) initWithColumnTitles:0];
-  v41[0] = @"Last Analysis Result Date";
+  v40[0] = @"Last Analysis Result Date";
   v30 = [v2 lastAnalysisResultDate];
   if (v30)
   {
@@ -809,8 +798,8 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
     v31 = @"(null)";
   }
 
-  v41[1] = v31;
-  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:2];
+  v40[1] = v31;
+  v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
   [v29 appendRow:v32];
 
   if (v30)
@@ -828,8 +817,8 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
     v34 = @"(null)";
   }
 
-  v40[1] = v34;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+  v39[1] = v34;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
   [v29 appendRow:v35];
 
   if (v33)
@@ -840,7 +829,6 @@ id HKHRPrettyPrintedAFibBurdenSevenDayAnalysisBreadcrumbs(void *a1)
   [v3 appendString:v36];
 
   v37 = [v3 copy];
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }
@@ -1065,19 +1053,19 @@ id HKHRAFibBurdenSevenDayAnalysisDetermineAlarmDateComponentsWithDefaults(void *
 
 id HKHRAFibBurdenSevenDayAnalysisMetadataWithTimeZoneAndWasClamped(void *a1, int a2)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = HKHRAFibBurdenLocalFeatureAttributes();
   v5 = objc_alloc(MEMORY[0x277CBEB38]);
-  v15[0] = *MEMORY[0x277CCE0D0];
+  v14[0] = *MEMORY[0x277CCE0D0];
   v6 = [v4 updateVersion];
-  v16[0] = v6;
-  v15[1] = *MEMORY[0x277CCC428];
+  v15[0] = v6;
+  v14[1] = *MEMORY[0x277CCC428];
   v7 = MEMORY[0x277CCABB0];
   v8 = [v4 featureVersion];
   v9 = [v7 numberWithInteger:{objc_msgSend(v8, "integerValue")}];
-  v16[1] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
+  v15[1] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
   v11 = [v5 initWithDictionary:v10];
 
   if (v3)
@@ -1101,16 +1089,14 @@ id HKHRAFibBurdenSevenDayAnalysisMetadataWithTimeZoneAndWasClamped(void *a1, int
     [v11 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CCC4F8]];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
-void sub_2289520FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2289520FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1121,27 +1107,27 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2289523C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2289523C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22895263C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22895263C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2289528EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2289528EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1152,11 +1138,11 @@ void sub_228952BB8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_228952F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228952F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 48), 8);
+  _Block_object_dispose((v20 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1217,9 +1203,9 @@ id HKHRAFibBurdenDetermineIsFocusModeOn()
   return v6;
 }
 
-void sub_228954050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_228954050(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1233,16 +1219,16 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 
 void __HKHRAFibBurdenDetermineIsFocusModeOn_block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = HKHRAFibBurdenLogForCategory(3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [v3 error];
-    v10 = 138543362;
-    v11 = v5;
-    _os_log_impl(&dword_228942000, v4, OS_LOG_TYPE_DEFAULT, "[HKHRAFibBurdenDetermineIsFocusModeOn] User focus computed mode publisher finished with error: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v5;
+    _os_log_impl(&dword_228942000, v4, OS_LOG_TYPE_DEFAULT, "[HKHRAFibBurdenDetermineIsFocusModeOn] User focus computed mode publisher finished with error: %{public}@", &v9, 0xCu);
   }
 
   if (!*(*(*(a1 + 32) + 8) + 40))
@@ -1251,16 +1237,14 @@ void __HKHRAFibBurdenDetermineIsFocusModeOn_block_invoke(uint64_t a1, void *a2)
     v6 = HKHRAFibBurdenLogForCategory(3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_228942000, v6, OS_LOG_TYPE_DEFAULT, "[HKHRAFibBurdenDetermineIsFocusModeOn] No focus mode returned, possibly implying focus modes never used, sending off.", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_228942000, v6, OS_LOG_TYPE_DEFAULT, "[HKHRAFibBurdenDetermineIsFocusModeOn] No focus mode returned, possibly implying focus modes never used, sending off.", &v9, 2u);
     }
 
     v7 = *(*(a1 + 32) + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = MEMORY[0x277CBEC28];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __HKHRAFibBurdenDetermineIsFocusModeOn_block_invoke_305(uint64_t a1, void *a2)
@@ -1353,17 +1337,18 @@ void __HKHRAFibBurdenLogForCategory_block_invoke()
   }
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void sub_2289585E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2289585E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
+  _Block_object_dispose((v20 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1374,27 +1359,20 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228959A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_228959A28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22895A4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22895A4EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
-}
-
-uint64_t OUTLINED_FUNCTION_4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  return result;
 }
 
 const char *HKHRBloodPressureLogCategoryForCategory(uint64_t a1)
@@ -1440,11 +1418,11 @@ void sub_22895B284(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22895C490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22895C490(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 48), 8);
+  _Block_object_dispose((v20 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1479,11 +1457,11 @@ void sub_22895D3D8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22895DB50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22895DB50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1500,10 +1478,11 @@ id OUTLINED_FUNCTION_0_6(id a1)
   return a1;
 }
 
-void OUTLINED_FUNCTION_1_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 uint64_t _HKHRIsIrregularRhythmNotificationsRowHiddenInBridgeWithFeatureStatus(void *a1)
@@ -1700,7 +1679,7 @@ id HKHRCardioFitnessAllowedCountrySet()
   return v5;
 }
 
-uint64_t HKHRCardioFitnessShouldSkipHardwareCheck()
+void *HKHRCardioFitnessShouldSkipHardwareCheck()
 {
   result = [MEMORY[0x277CCDD30] isAppleInternalInstall];
   if (result)
@@ -1714,7 +1693,7 @@ uint64_t HKHRCardioFitnessShouldSkipHardwareCheck()
   return result;
 }
 
-uint64_t HKHRCardioFitnessShouldSkipLocationCheck()
+void *HKHRCardioFitnessShouldSkipLocationCheck()
 {
   result = [MEMORY[0x277CCDD30] isAppleInternalInstall];
   if (result)
@@ -1728,9 +1707,9 @@ uint64_t HKHRCardioFitnessShouldSkipLocationCheck()
   return result;
 }
 
-void sub_22896492C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22896492C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1742,30 +1721,31 @@ uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_228965030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_228965030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 208), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 208), 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t HKAnalyticsEvent.extractBiologicalSexProperty(healthDataSource:logger:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  v30[1] = *MEMORY[0x277D85DE8];
-  v30[0] = 0;
+  v27[1] = *MEMORY[0x277D85DE8];
+  v27[0] = 0;
   v4 = [a1 biologicalSexWithError_];
   if (v4)
   {
     v5 = v4;
-    v6 = v30[0];
+    v6 = v27[0];
     v7 = HKAnalyticsPropertyValueForBiologicalSex();
     v8 = sub_22896CC94();
   }
 
   else
   {
-    v9 = v30[0];
+    v9 = v27[0];
     v10 = sub_22896CC04();
 
     swift_willThrow();
@@ -1777,104 +1757,97 @@ uint64_t HKAnalyticsEvent.extractBiologicalSexProperty(healthDataSource:logger:)
     {
       v14 = swift_slowAlloc();
       v15 = swift_slowAlloc();
-      v30[0] = v15;
+      v27[0] = v15;
       *v14 = 136446466;
-      v29[4] = a3;
+      v26[4] = a3;
       swift_getMetatypeMetadata();
       v16 = sub_22896CCA4();
-      v18 = sub_228966D10(v16, v17, v30);
+      v18 = sub_228966D10(v16, v17, v27);
 
       *(v14 + 4) = v18;
       *(v14 + 12) = 2082;
       ErrorValue = swift_getErrorValue();
-      v20 = *(*(v29[1] - 8) + 64);
-      MEMORY[0x28223BE20](ErrorValue, v29[0]);
-      (*(v22 + 16))(v29 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v23 = sub_22896CCA4();
-      v25 = sub_228966D10(v23, v24, v30);
+      MEMORY[0x28223BE20](ErrorValue, v26[0]);
+      (*(v21 + 16))(v26 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v22 = sub_22896CCA4();
+      v24 = sub_228966D10(v22, v23, v27);
 
-      *(v14 + 14) = v25;
+      *(v14 + 14) = v24;
       _os_log_impl(&dword_228942000, v12, v13, "[%{public}s] Error when retrieving biological sex: %{public}s", v14, 0x16u);
       swift_arrayDestroy();
       MEMORY[0x22AAC52A0](v15, -1, -1);
       MEMORY[0x22AAC52A0](v14, -1, -1);
     }
 
-    v26 = *MEMORY[0x277CCB800];
     v8 = sub_22896CC94();
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 id HKAnalyticsEvent.extractAgeProperty(healthDataSource:environmentDataSource:logger:)(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   v7 = sub_22896CC34();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v7, v10);
-  v12 = v38 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = [a2 currentDate];
+  MEMORY[0x28223BE20](v7, v9);
+  v11 = v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = [a2 currentDate];
   sub_22896CC24();
 
-  v14 = sub_22896CC14();
-  (*(v8 + 8))(v12, v7);
-  v39[0] = 0;
-  v15 = [a1 ageWithCurrentDate:v14 error:v39];
+  v13 = sub_22896CC14();
+  (*(v8 + 8))(v11, v7);
+  v35[0] = 0;
+  v14 = [a1 ageWithCurrentDate:v13 error:v35];
 
-  if (v15)
+  if (v14)
   {
-    v16 = v39[0];
-    v17 = *MEMORY[0x277D85DE8];
-    return v15;
+    v15 = v35[0];
+    return v14;
   }
 
   else
   {
-    v19 = v39[0];
-    v20 = sub_22896CC04();
+    v17 = v35[0];
+    v18 = sub_22896CC04();
 
     swift_willThrow();
-    v21 = v20;
-    v22 = sub_22896CC44();
-    v23 = sub_22896CCE4();
+    v19 = v18;
+    v20 = sub_22896CC44();
+    v21 = sub_22896CCE4();
 
-    if (os_log_type_enabled(v22, v23))
+    if (os_log_type_enabled(v20, v21))
     {
-      v24 = swift_slowAlloc();
-      v25 = swift_slowAlloc();
-      v39[0] = v25;
-      *v24 = 136446466;
-      v38[4] = a4;
+      v22 = swift_slowAlloc();
+      v23 = swift_slowAlloc();
+      v35[0] = v23;
+      *v22 = 136446466;
+      v34[4] = a4;
       swift_getMetatypeMetadata();
-      v26 = sub_22896CCA4();
-      v28 = sub_228966D10(v26, v27, v39);
+      v24 = sub_22896CCA4();
+      v26 = sub_228966D10(v24, v25, v35);
 
-      *(v24 + 4) = v28;
-      *(v24 + 12) = 2082;
+      *(v22 + 4) = v26;
+      *(v22 + 12) = 2082;
       ErrorValue = swift_getErrorValue();
-      v30 = *(*(v38[1] - 8) + 64);
-      MEMORY[0x28223BE20](ErrorValue, v38[0]);
-      (*(v32 + 16))(v38 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v33 = sub_22896CCA4();
-      v35 = sub_228966D10(v33, v34, v39);
+      MEMORY[0x28223BE20](ErrorValue, v34[0]);
+      (*(v29 + 16))(v34 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v30 = sub_22896CCA4();
+      v32 = sub_228966D10(v30, v31, v35);
 
-      *(v24 + 14) = v35;
-      _os_log_impl(&dword_228942000, v22, v23, "[%{public}s] Error when retrieving  age: %{public}s", v24, 0x16u);
+      *(v22 + 14) = v32;
+      _os_log_impl(&dword_228942000, v20, v21, "[%{public}s] Error when retrieving  age: %{public}s", v22, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x22AAC52A0](v25, -1, -1);
-      MEMORY[0x22AAC52A0](v24, -1, -1);
+      MEMORY[0x22AAC52A0](v23, -1, -1);
+      MEMORY[0x22AAC52A0](v22, -1, -1);
     }
 
-    v36 = *MEMORY[0x277CCB7A0];
-    v37 = *MEMORY[0x277D85DE8];
-    return v36;
+    v33 = *MEMORY[0x277CCB7A0];
+    return v33;
   }
 }
 
-uint64_t sub_228966D10(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_228966D10(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_228966DDC(v11, 0, 0, 1, a1, a2);
@@ -1972,16 +1945,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_228966EE8(uint64_t a1, unint64_t a2)
+void *sub_228966EE8(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_228966F34(a1, a2);
+  v3 = sub_228966F34(a1, a2);
   sub_228967064(&unk_283BD8158);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_228966F34(uint64_t a1, unint64_t a2)
+void *sub_228966F34(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -2078,7 +2049,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -2092,15 +2062,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_2289671B8(result, v12, 1, v3);
+  result = sub_2289671B8(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -2115,15 +2085,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -2132,12 +2102,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -2245,15 +2215,17 @@ char *sub_2289671B8(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_2289672EC(uint64_t a1, uint64_t a2)
@@ -2286,14 +2258,11 @@ uint64_t sub_22896739C()
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -2452,24 +2421,19 @@ LABEL_27:
 
 uint64_t sub_228967764()
 {
-  v1 = *v0;
   sub_22896CDD4();
   sub_22896CCB4();
 
   return sub_22896CDE4();
 }
 
-uint64_t sub_228967850()
+uint64_t sub_228967850(uint64_t a1)
 {
-  *v0;
-  *v0;
-  *v0;
   sub_22896CCB4();
 }
 
-uint64_t sub_228967928()
+uint64_t sub_228967928(uint64_t a1)
 {
-  v1 = *v0;
   sub_22896CDD4();
   sub_22896CCB4();
 
@@ -2571,109 +2535,103 @@ LABEL_9:
   return v3;
 }
 
-uint64_t HypertensionNotificationInteractionEvent.makeIHAGatedEventPayload(with:)(void *a1)
+unint64_t HypertensionNotificationInteractionEvent.makeIHAGatedEventPayload(with:)(void *a1)
 {
-  v3 = *v1;
-  v4 = [a1 healthDataSource];
-  if (v4)
+  v3 = [a1 healthDataSource];
+  if (v3)
   {
-    v5 = v4;
-    v77 = [a1 environmentDataSource];
-    v6 = MEMORY[0x277D84F98];
-    v84 = MEMORY[0x277D84F98];
-    v7 = *MEMORY[0x277CCB7C8];
-    v8 = sub_22896CC94();
-    v10 = v9;
-    v82 = MEMORY[0x277D839B0];
-    v83 = MEMORY[0x277D839C8];
-    LOBYTE(v81) = 1;
-    sub_22896A338(&v81, v79);
+    v4 = v3;
+    v64 = [a1 environmentDataSource];
+    v5 = MEMORY[0x277D84F98];
+    v71 = MEMORY[0x277D84F98];
+    v6 = sub_22896CC94();
+    v8 = v7;
+    v69 = MEMORY[0x277D839B0];
+    v70 = MEMORY[0x277D839C8];
+    LOBYTE(v68) = 1;
+    sub_22896A338(&v68, v66);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v78 = v6;
-    v12 = __swift_mutable_project_boxed_opaque_existential_1(v79, v80);
-    sub_22896919C(*v12, v8, v10, isUniquelyReferenced_nonNull_native, &v78);
+    v65 = v5;
+    v10 = __swift_mutable_project_boxed_opaque_existential_1(v66, v67);
+    sub_22896919C(*v10, v6, v8, isUniquelyReferenced_nonNull_native, &v65);
 
-    __swift_destroy_boxed_opaque_existential_0(v79);
-    v13 = v78;
-    v14 = *(v1 + 16);
-    if (v14 <= 1)
+    __swift_destroy_boxed_opaque_existential_0(v66);
+    v11 = v65;
+    v12 = *(v1 + 16);
+    if (v12 <= 1)
     {
-      v15 = 0xE700000000000000;
+      v13 = 0xE700000000000000;
       if (*(v1 + 16))
       {
-        v16 = 0x7373696D736964;
+        v14 = 0x7373696D736964;
       }
 
       else
       {
-        v16 = 0x7070416E65706FLL;
+        v14 = 0x7070416E65706FLL;
       }
     }
 
-    else if (v14 == 2)
+    else if (v12 == 2)
     {
-      v15 = 0xE900000000000065;
-      v16 = 0x726F4D6E7261656CLL;
+      v13 = 0xE900000000000065;
+      v14 = 0x726F4D6E7261656CLL;
     }
 
-    else if (v14 == 3)
+    else if (v12 == 3)
     {
-      v15 = 0x8000000228973CD0;
-      v16 = 0xD000000000000012;
-    }
-
-    else
-    {
-      v15 = 0xE700000000000000;
-      v16 = 0x6E776F6E6B6E75;
-    }
-
-    v17 = MEMORY[0x277D837D0];
-    v18 = MEMORY[0x277D837F8];
-    v82 = MEMORY[0x277D837D0];
-    v83 = MEMORY[0x277D837F8];
-    *&v81 = v16;
-    *(&v81 + 1) = v15;
-    sub_22896A338(&v81, v79);
-    v19 = swift_isUniquelyReferenced_nonNull_native();
-    v78 = v13;
-    v20 = v80;
-    v21 = __swift_mutable_project_boxed_opaque_existential_1(v79, v80);
-    v22 = *(*(v20 - 8) + 64);
-    MEMORY[0x28223BE20](v21, v21);
-    v24 = (&v76 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
-    (*(v25 + 16))(v24);
-    sub_228969300(*v24, v24[1], 0x6E6F69746361, 0xE600000000000000, v19, &v78);
-    __swift_destroy_boxed_opaque_existential_0(v79);
-    v26 = v78;
-    v84 = v78;
-    v27 = v1[4];
-    if (v27)
-    {
-      v28 = v1[3];
-      v82 = v17;
-      v83 = v18;
-      *&v81 = v28;
-      *(&v81 + 1) = v27;
-      sub_22896A338(&v81, v79);
-
-      v29 = swift_isUniquelyReferenced_nonNull_native();
-      v78 = v26;
-      v30 = v80;
-      v31 = __swift_mutable_project_boxed_opaque_existential_1(v79, v80);
-      v32 = *(*(v30 - 8) + 64);
-      MEMORY[0x28223BE20](v31, v31);
-      v34 = &v76 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-      (*(v35 + 16))(v34);
-      sub_2289696E8(v34, 1701869940, 0xE400000000000000, v29, &v78, v17, v18);
-      __swift_destroy_boxed_opaque_existential_0(v79);
-      v84 = v78;
+      v13 = 0x8000000228973CD0;
+      v14 = 0xD000000000000012;
     }
 
     else
     {
-      sub_228968AE0(1701869940, 0xE400000000000000, &v81);
-      sub_22896A3A0(&v81);
+      v13 = 0xE700000000000000;
+      v14 = 0x6E776F6E6B6E75;
+    }
+
+    v15 = MEMORY[0x277D837D0];
+    v16 = MEMORY[0x277D837F8];
+    v69 = MEMORY[0x277D837D0];
+    v70 = MEMORY[0x277D837F8];
+    *&v68 = v14;
+    *(&v68 + 1) = v13;
+    sub_22896A338(&v68, v66);
+    v17 = swift_isUniquelyReferenced_nonNull_native();
+    v65 = v11;
+    v18 = __swift_mutable_project_boxed_opaque_existential_1(v66, v67);
+    MEMORY[0x28223BE20](v18, v18);
+    v20 = (&v63 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
+    (*(v21 + 16))(v20);
+    sub_228969300(*v20, v20[1], 0x6E6F69746361, 0xE600000000000000, v17, &v65);
+    __swift_destroy_boxed_opaque_existential_0(v66);
+    v22 = v65;
+    v71 = v65;
+    v23 = *(v1 + 32);
+    if (v23)
+    {
+      v24 = *(v1 + 24);
+      v69 = v15;
+      v70 = v16;
+      *&v68 = v24;
+      *(&v68 + 1) = v23;
+      sub_22896A338(&v68, v66);
+
+      v25 = swift_isUniquelyReferenced_nonNull_native();
+      v65 = v22;
+      v26 = __swift_mutable_project_boxed_opaque_existential_1(v66, v67);
+      MEMORY[0x28223BE20](v26, v26);
+      v28 = &v63 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+      (*(v29 + 16))(v28);
+      sub_2289696E8(v28, 1701869940, 0xE400000000000000, v25, &v65, v15, v16);
+      __swift_destroy_boxed_opaque_existential_0(v66);
+      v71 = v65;
+    }
+
+    else
+    {
+      sub_228968AE0(1701869940, 0xE400000000000000, &v68);
+      sub_22896A3A0(&v68);
     }
 
     if (qword_27D85E180 != -1)
@@ -2681,94 +2639,87 @@ uint64_t HypertensionNotificationInteractionEvent.makeIHAGatedEventPayload(with:
       swift_once();
     }
 
-    v36 = sub_22896CC64();
-    __swift_project_value_buffer(v36, qword_27D85E3A8);
-    v37 = sub_228969E98(v5, v77);
-    v82 = sub_22896A4B8();
-    v83 = sub_22896A504();
-    *&v81 = v37;
-    sub_22896A338(&v81, v79);
-    v38 = v84;
-    v39 = swift_isUniquelyReferenced_nonNull_native();
-    v78 = v38;
-    v40 = v80;
-    v41 = __swift_mutable_project_boxed_opaque_existential_1(v79, v80);
-    v42 = *(*(v40 - 8) + 64);
-    MEMORY[0x28223BE20](v41, v41);
-    v44 = (&v76 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v30 = sub_22896CC64();
+    __swift_project_value_buffer(v30, qword_27D85E3A8);
+    v31 = sub_228969E98(v4, v64);
+    v69 = sub_22896A4B8();
+    v70 = sub_22896A504();
+    *&v68 = v31;
+    sub_22896A338(&v68, v66);
+    v32 = v71;
+    v33 = swift_isUniquelyReferenced_nonNull_native();
+    v65 = v32;
+    v34 = __swift_mutable_project_boxed_opaque_existential_1(v66, v67);
+    MEMORY[0x28223BE20](v34, v34);
+    v36 = (&v63 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0));
+    (*(v37 + 16))(v36);
+    sub_2289694F0(*v36, 6645601, 0xE300000000000000, v33, &v65);
+    __swift_destroy_boxed_opaque_existential_0(v66);
+    v38 = v65;
+    v39 = sub_228969BC4(v4);
+    v69 = v15;
+    v70 = v16;
+    *&v68 = v39;
+    *(&v68 + 1) = v40;
+    sub_22896A338(&v68, v66);
+    v41 = swift_isUniquelyReferenced_nonNull_native();
+    v65 = v38;
+    v42 = __swift_mutable_project_boxed_opaque_existential_1(v66, v67);
+    MEMORY[0x28223BE20](v42, v42);
+    v44 = (&v63 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0));
     (*(v45 + 16))(v44);
-    sub_2289694F0(*v44, 6645601, 0xE300000000000000, v39, &v78);
-    __swift_destroy_boxed_opaque_existential_0(v79);
-    v46 = v78;
-    v47 = sub_228969BC4(v5);
-    v82 = v17;
-    v83 = v18;
-    *&v81 = v47;
-    *(&v81 + 1) = v48;
-    sub_22896A338(&v81, v79);
-    v49 = swift_isUniquelyReferenced_nonNull_native();
-    v78 = v46;
-    v50 = v80;
-    v51 = __swift_mutable_project_boxed_opaque_existential_1(v79, v80);
-    v52 = *(*(v50 - 8) + 64);
-    MEMORY[0x28223BE20](v51, v51);
-    v54 = (&v76 - ((v53 + 15) & 0xFFFFFFFFFFFFFFF0));
-    (*(v55 + 16))(v54);
-    sub_228969300(*v54, v54[1], 0x6369676F6C6F6962, 0xED00007865536C61, v49, &v78);
-    __swift_destroy_boxed_opaque_existential_0(v79);
-    v56 = v78;
-    v84 = v78;
-    v57 = *MEMORY[0x277CCB7B8];
-    v58 = sub_22896CC94();
-    v60 = v59;
-    v61 = [a1 environmentDataSource];
-    v62 = [v61 activePairedDeviceProductType];
+    sub_228969300(*v44, v44[1], 0x6369676F6C6F6962, 0xED00007865536C61, v41, &v65);
+    __swift_destroy_boxed_opaque_existential_0(v66);
+    v46 = v65;
+    v71 = v65;
+    v47 = sub_22896CC94();
+    v49 = v48;
+    v50 = [a1 environmentDataSource];
+    v51 = [v50 activePairedDeviceProductType];
 
-    if (v62)
+    if (v51)
     {
-      v63 = sub_22896CC94();
-      v65 = v64;
+      v52 = sub_22896CC94();
+      v54 = v53;
 
-      v82 = v17;
-      v83 = v18;
-      *&v81 = v63;
-      *(&v81 + 1) = v65;
-      sub_22896A338(&v81, v79);
-      LOBYTE(v63) = swift_isUniquelyReferenced_nonNull_native();
-      v78 = v56;
-      v66 = v80;
-      v67 = __swift_mutable_project_boxed_opaque_existential_1(v79, v80);
-      v68 = *(*(v66 - 8) + 64);
-      MEMORY[0x28223BE20](v67, v67);
-      v70 = &v76 - ((v69 + 15) & 0xFFFFFFFFFFFFFFF0);
-      (*(v71 + 16))(v70);
-      sub_2289696E8(v70, v58, v60, v63, &v78, v17, v18);
+      v69 = v15;
+      v70 = v16;
+      *&v68 = v52;
+      *(&v68 + 1) = v54;
+      sub_22896A338(&v68, v66);
+      LOBYTE(v52) = swift_isUniquelyReferenced_nonNull_native();
+      v65 = v46;
+      v55 = __swift_mutable_project_boxed_opaque_existential_1(v66, v67);
+      MEMORY[0x28223BE20](v55, v55);
+      v57 = &v63 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0);
+      (*(v58 + 16))(v57);
+      sub_2289696E8(v57, v47, v49, v52, &v65, v15, v16);
 
-      __swift_destroy_boxed_opaque_existential_0(v79);
-      v72 = v78;
+      __swift_destroy_boxed_opaque_existential_0(v66);
+      v59 = v65;
     }
 
     else
     {
-      sub_228968AE0(v58, v60, &v81);
+      sub_228968AE0(v47, v49, &v68);
 
-      sub_22896A3A0(&v81);
-      v72 = v84;
+      sub_22896A3A0(&v68);
+      v59 = v71;
     }
 
-    v73 = sub_228968630(v72);
+    v60 = sub_228968630(v59);
 
     swift_unknownObjectRelease();
 
-    return v73;
+    return v60;
   }
 
   else
   {
     sub_22896CD24();
     MEMORY[0x22AAC4990](91, 0xE100000000000000);
-    v75 = sub_22896CDF4();
-    MEMORY[0x22AAC4990](v75);
+    v62 = sub_22896CDF4();
+    MEMORY[0x22AAC4990](v62);
 
     MEMORY[0x22AAC4990](0xD00000000000004DLL, 0x8000000228973DD0);
     result = sub_22896CD44();
@@ -2810,57 +2761,55 @@ unint64_t sub_228968630(uint64_t a1)
 LABEL_10:
   while (1)
   {
-    v13 = v8 + 1;
+    v11 = v8 + 1;
     if (__OFADD__(v8, 1))
     {
       break;
     }
 
-    if (v13 >= v6)
+    if (v11 >= v6)
     {
 
       return v2;
     }
 
-    v5 = *(a1 + 64 + 8 * v13);
+    v5 = *(a1 + 64 + 8 * v11);
     ++v8;
     if (v5)
     {
       while (1)
       {
-        v14 = __clz(__rbit64(v5));
+        v12 = __clz(__rbit64(v5));
         v5 &= v5 - 1;
-        v15 = v14 | (v13 << 6);
-        v16 = (*(a1 + 48) + 16 * v15);
-        v17 = *v16;
-        v18 = v16[1];
-        sub_22896A844(*(a1 + 56) + 40 * v15, v32);
-        *&v31 = v17;
-        *(&v31 + 1) = v18;
-        v28[2] = v31;
-        v29[0] = v32[0];
-        v29[1] = v32[1];
-        v30 = v33;
-        v19 = v31;
-        sub_22896A338(v29, v24);
+        v13 = v12 | (v11 << 6);
+        v14 = (*(a1 + 48) + 16 * v13);
+        v15 = *v14;
+        v16 = v14[1];
+        sub_22896A844(*(a1 + 56) + 40 * v13, v30);
+        *&v29 = v15;
+        *(&v29 + 1) = v16;
+        v26[2] = v29;
+        v27[0] = v30[0];
+        v27[1] = v30[1];
+        v28 = v31;
+        v17 = v29;
+        sub_22896A338(v27, v22);
         sub_22896A454();
 
         swift_dynamicCast();
-        sub_22896A90C(&v25, v27);
-        sub_22896A90C(v27, v28);
-        sub_22896A90C(v28, &v26);
-        result = sub_2289689B0(v19, *(&v19 + 1));
-        if (v20)
+        sub_22896A90C(&v23, v25);
+        sub_22896A90C(v25, v26);
+        sub_22896A90C(v26, &v24);
+        result = sub_2289689B0(v17, *(&v17 + 1));
+        if (v18)
         {
-          v9 = v2[6] + 16 * result;
-          v10 = *(v9 + 8);
-          *v9 = v19;
-          v11 = result;
+          *(v2[6] + 16 * result) = v17;
+          v9 = result;
 
-          v12 = (v2[7] + 32 * v11);
-          __swift_destroy_boxed_opaque_existential_0(v12);
-          result = sub_22896A90C(&v26, v12);
-          v8 = v13;
+          v10 = (v2[7] + 32 * v9);
+          __swift_destroy_boxed_opaque_existential_0(v10);
+          result = sub_22896A90C(&v24, v10);
+          v8 = v11;
           if (!v5)
           {
             goto LABEL_10;
@@ -2875,18 +2824,18 @@ LABEL_10:
           }
 
           *(v2 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-          *(v2[6] + 16 * result) = v19;
-          result = sub_22896A90C(&v26, (v2[7] + 32 * result));
-          v21 = v2[2];
-          v22 = __OFADD__(v21, 1);
-          v23 = v21 + 1;
-          if (v22)
+          *(v2[6] + 16 * result) = v17;
+          result = sub_22896A90C(&v24, (v2[7] + 32 * result));
+          v19 = v2[2];
+          v20 = __OFADD__(v19, 1);
+          v21 = v19 + 1;
+          if (v20)
           {
             goto LABEL_21;
           }
 
-          v2[2] = v23;
-          v8 = v13;
+          v2[2] = v21;
+          v8 = v11;
           if (!v5)
           {
             goto LABEL_10;
@@ -2894,7 +2843,7 @@ LABEL_10:
         }
 
 LABEL_9:
-        v13 = v8;
+        v11 = v8;
       }
     }
   }
@@ -2907,28 +2856,19 @@ LABEL_21:
   return result;
 }
 
-uint64_t HypertensionNotificationInteractionEvent.deinit()
-{
-  v1 = *(v0 + 32);
-
-  return v0;
-}
-
 uint64_t HypertensionNotificationInteractionEvent.__deallocating_deinit()
 {
-  v1 = *(v0 + 32);
 
   return MEMORY[0x2821FE8D8](v0, 40, 7);
 }
 
 unint64_t sub_2289689B0(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_22896CDD4();
   sub_22896CCB4();
-  v6 = sub_22896CDE4();
+  v4 = sub_22896CDE4();
 
-  return sub_228968A28(a1, a2, v6);
+  return sub_228968A28(a1, a2, v4);
 }
 
 unint64_t sub_228968A28(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2963,26 +2903,22 @@ unint64_t sub_228968A28(uint64_t a1, uint64_t a2, uint64_t a3)
 double sub_228968AE0@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   v4 = v3;
-  v6 = *v3;
-  v7 = sub_2289689B0(a1, a2);
-  if (v8)
+  v6 = sub_2289689B0(a1, a2);
+  if (v7)
   {
-    v9 = v7;
-    v10 = *v4;
+    v8 = v6;
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    v10 = *v3;
     v12 = *v4;
-    v15 = *v4;
     if (!isUniquelyReferenced_nonNull_native)
     {
       sub_228969000();
-      v12 = v15;
+      v10 = v12;
     }
 
-    v13 = *(*(v12 + 48) + 16 * v9 + 8);
-
-    sub_22896A338((*(v12 + 56) + 40 * v9), a3);
-    sub_228968E44(v9, v12);
-    *v4 = v12;
+    sub_22896A338((*(v10 + 56) + 40 * v8), a3);
+    sub_228968E44(v8, v10);
+    *v4 = v10;
   }
 
   else
@@ -2996,150 +2932,144 @@ double sub_228968AE0@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
   return result;
 }
 
-uint64_t sub_228968B8C(uint64_t a1, char a2)
+uint64_t sub_228968B8C(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
-  sub_22896A7DC();
-  v36 = a2;
+  sub_22896A7DC(0);
+  v33 = v4;
   result = sub_22896CD64();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v35 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = (*(v5 + 56) + 40 * v21);
-      if (v36)
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = (*(v5 + 56) + 40 * v20);
+      if (v33)
       {
-        sub_22896A338(v25, v37);
+        sub_22896A338(v24, v34);
       }
 
       else
       {
-        sub_22896A844(v25, v37);
+        sub_22896A844(v24, v34);
       }
 
-      v26 = *(v8 + 40);
       sub_22896CDD4();
       sub_22896CCB4();
       result = sub_22896CDE4();
-      v27 = -1 << *(v8 + 32);
-      v28 = result & ~v27;
-      v29 = v28 >> 6;
-      if (((-1 << v28) & ~*(v15 + 8 * (v28 >> 6))) == 0)
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
       {
-        v30 = 0;
-        v31 = (63 - v27) >> 6;
-        while (++v29 != v31 || (v30 & 1) == 0)
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
         {
-          v32 = v29 == v31;
-          if (v29 == v31)
+          v30 = v27 == v29;
+          if (v27 == v29)
           {
-            v29 = 0;
+            v27 = 0;
           }
 
-          v30 |= v32;
-          v33 = *(v15 + 8 * v29);
-          if (v33 != -1)
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
           {
-            v16 = __clz(__rbit64(~v33)) + (v29 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_38:
+LABEL_36:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v28) & ~*(v15 + 8 * (v28 >> 6)))) | v28 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      result = sub_22896A338(v37, *(v8 + 56) + 40 * v16);
-      ++*(v8 + 16);
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      result = sub_22896A338(v34, *(v7 + 56) + 40 * v15);
+      ++*(v7 + 16);
     }
 
-    v19 = v9;
+    v18 = v8;
     while (1)
     {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         __break(1u);
-        goto LABEL_38;
+        goto LABEL_36;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
       {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
       }
     }
 
-    if ((v36 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
 
-      v3 = v35;
-      goto LABEL_36;
+      v3 = v2;
+      goto LABEL_34;
     }
 
-    v34 = 1 << *(v5 + 32);
-    v3 = v35;
-    if (v34 >= 64)
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
     {
-      bzero((v5 + 64), ((v34 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v5 + 64), ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v34;
+      *v9 = -1 << v32;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_36:
-  *v3 = v8;
+LABEL_34:
+  *v3 = v7;
   return result;
 }
 
@@ -3155,50 +3085,46 @@ uint64_t sub_228968E44(uint64_t result, uint64_t a2)
     v8 = (sub_22896CD04() + 1) & ~v5;
     do
     {
-      v11 = *(a2 + 40);
-      v12 = (*(a2 + 48) + 16 * v6);
-      v13 = *v12;
-      v14 = v12[1];
       sub_22896CDD4();
 
       sub_22896CCB4();
-      v15 = sub_22896CDE4();
+      v11 = sub_22896CDE4();
 
-      v16 = v15 & v7;
+      v12 = v11 & v7;
       if (v3 >= v8)
       {
-        if (v16 < v8)
+        if (v12 < v8)
         {
           goto LABEL_4;
         }
       }
 
-      else if (v16 >= v8)
+      else if (v12 >= v8)
       {
         goto LABEL_10;
       }
 
-      if (v3 >= v16)
+      if (v3 >= v12)
       {
 LABEL_10:
-        v17 = *(a2 + 48);
-        v18 = (v17 + 16 * v3);
-        v19 = (v17 + 16 * v6);
-        if (v3 != v6 || v18 >= v19 + 1)
+        v13 = *(a2 + 48);
+        v14 = (v13 + 16 * v3);
+        v15 = (v13 + 16 * v6);
+        if (v3 != v6 || v14 >= v15 + 1)
         {
-          *v18 = *v19;
+          *v14 = *v15;
         }
 
-        v20 = *(a2 + 56);
-        v21 = v20 + 40 * v3;
-        v22 = (v20 + 40 * v6);
-        if (v3 != v6 || v21 >= v22 + 40)
+        v16 = *(a2 + 56);
+        v17 = v16 + 40 * v3;
+        v18 = (v16 + 40 * v6);
+        if (v3 != v6 || v17 >= v18 + 40)
         {
-          v9 = *v22;
-          v10 = v22[1];
-          *(v21 + 32) = *(v22 + 4);
-          *v21 = v9;
-          *(v21 + 16) = v10;
+          v9 = *v18;
+          v10 = v18[1];
+          *(v17 + 32) = *(v18 + 4);
+          *v17 = v9;
+          *(v17 + 16) = v10;
           v3 = v6;
         }
       }
@@ -3211,17 +3137,17 @@ LABEL_4:
   }
 
   *(v4 + ((v3 >> 3) & 0x1FFFFFFFFFFFFFF8)) &= (-1 << v3) - 1;
-  v23 = *(a2 + 16);
-  v24 = __OFSUB__(v23, 1);
-  v25 = v23 - 1;
-  if (v24)
+  v19 = *(a2 + 16);
+  v20 = __OFSUB__(v19, 1);
+  v21 = v19 - 1;
+  if (v20)
   {
     __break(1u);
   }
 
   else
   {
-    *(a2 + 16) = v25;
+    *(a2 + 16) = v21;
     ++*(a2 + 36);
   }
 
@@ -3231,7 +3157,7 @@ LABEL_4:
 void *sub_228969000()
 {
   v1 = v0;
-  sub_22896A7DC();
+  sub_22896A7DC(0);
   v2 = *v0;
   v3 = sub_22896CD54();
   v4 = v3;
@@ -3319,11 +3245,11 @@ LABEL_21:
   return result;
 }
 
-uint64_t sub_22896919C(char a1, uint64_t a2, uint64_t a3, char a4, void *a5)
+uint64_t sub_22896919C(char a1, uint64_t a2, uint64_t a3, char a4, uint64_t *a5)
 {
-  LOBYTE(v24) = a1;
-  v25 = MEMORY[0x277D839B0];
-  v26 = MEMORY[0x277D839C8];
+  LOBYTE(v23) = a1;
+  v24 = MEMORY[0x277D839B0];
+  v25 = MEMORY[0x277D839C8];
   v9 = *a5;
   v11 = sub_2289689B0(a2, a3);
   v12 = v9[2];
@@ -3346,7 +3272,7 @@ LABEL_7:
 LABEL_8:
       v18 = (v17[7] + 40 * v11);
       __swift_destroy_boxed_opaque_existential_0(v18);
-      return sub_22896A338(&v24, v18);
+      return sub_22896A338(&v23, v18);
     }
 
     goto LABEL_11;
@@ -3359,9 +3285,8 @@ LABEL_8:
   }
 
   sub_228968B8C(v14, a4 & 1);
-  v20 = *a5;
-  v21 = sub_2289689B0(a2, a3);
-  if ((v15 & 1) != (v22 & 1))
+  v20 = sub_2289689B0(a2, a3);
+  if ((v15 & 1) != (v21 & 1))
   {
 LABEL_14:
     result = sub_22896CDC4();
@@ -3369,7 +3294,7 @@ LABEL_14:
     return result;
   }
 
-  v11 = v21;
+  v11 = v20;
   v17 = *a5;
   if (v15)
   {
@@ -3377,19 +3302,19 @@ LABEL_14:
   }
 
 LABEL_11:
-  v23 = __swift_mutable_project_boxed_opaque_existential_1(&v24, MEMORY[0x277D839B0]);
-  sub_228969A5C(v11, a2, a3, *v23, v17);
+  v22 = __swift_mutable_project_boxed_opaque_existential_1(&v23, MEMORY[0x277D839B0]);
+  sub_228969A5C(v11, a2, a3, *v22, v17);
 
-  return __swift_destroy_boxed_opaque_existential_0(&v24);
+  return __swift_destroy_boxed_opaque_existential_0(&v23);
 }
 
-uint64_t sub_228969300(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, void *a6)
+uint64_t sub_228969300(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t *a6)
 {
   v10 = MEMORY[0x277D837D0];
-  v32 = MEMORY[0x277D837D0];
-  v33 = MEMORY[0x277D837F8];
-  *&v31 = a1;
-  *(&v31 + 1) = a2;
+  v30 = MEMORY[0x277D837D0];
+  v31 = MEMORY[0x277D837F8];
+  *&v29 = a1;
+  *(&v29 + 1) = a2;
   v11 = *a6;
   v13 = sub_2289689B0(a3, a4);
   v14 = v11[2];
@@ -3412,7 +3337,7 @@ LABEL_7:
 LABEL_8:
       v20 = (v19[7] + 40 * v13);
       __swift_destroy_boxed_opaque_existential_0(v20);
-      return sub_22896A338(&v31, v20);
+      return sub_22896A338(&v29, v20);
     }
 
     goto LABEL_11;
@@ -3425,9 +3350,8 @@ LABEL_8:
   }
 
   sub_228968B8C(v16, a5 & 1);
-  v22 = *a6;
-  v23 = sub_2289689B0(a3, a4);
-  if ((v17 & 1) != (v24 & 1))
+  v22 = sub_2289689B0(a3, a4);
+  if ((v17 & 1) != (v23 & 1))
   {
 LABEL_14:
     result = sub_22896CDC4();
@@ -3435,7 +3359,7 @@ LABEL_14:
     return result;
   }
 
-  v13 = v23;
+  v13 = v22;
   v19 = *a6;
   if (v17)
   {
@@ -3443,22 +3367,21 @@ LABEL_14:
   }
 
 LABEL_11:
-  v25 = __swift_mutable_project_boxed_opaque_existential_1(&v31, v10);
-  v26 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v25, v25);
-  v28 = (&v30 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v29 + 16))(v28);
-  sub_2289699CC(v13, a3, a4, *v28, v28[1], v19);
+  v24 = __swift_mutable_project_boxed_opaque_existential_1(&v29, v10);
+  MEMORY[0x28223BE20](v24, v24);
+  v26 = (&v28 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
+  (*(v27 + 16))(v26);
+  sub_2289699CC(v13, a3, a4, *v26, v26[1], v19);
 
-  return __swift_destroy_boxed_opaque_existential_0(&v31);
+  return __swift_destroy_boxed_opaque_existential_0(&v29);
 }
 
-uint64_t sub_2289694F0(uint64_t a1, uint64_t a2, uint64_t a3, char a4, void *a5)
+uint64_t sub_2289694F0(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t *a5)
 {
   v10 = sub_22896A4B8();
-  v32 = v10;
-  v33 = sub_22896A504();
-  *&v31 = a1;
+  v30 = v10;
+  v31 = sub_22896A504();
+  *&v29 = a1;
   v11 = *a5;
   v13 = sub_2289689B0(a2, a3);
   v14 = v11[2];
@@ -3481,7 +3404,7 @@ LABEL_7:
 LABEL_8:
       v20 = (v19[7] + 40 * v13);
       __swift_destroy_boxed_opaque_existential_0(v20);
-      return sub_22896A338(&v31, v20);
+      return sub_22896A338(&v29, v20);
     }
 
     goto LABEL_11;
@@ -3494,9 +3417,8 @@ LABEL_8:
   }
 
   sub_228968B8C(v16, a4 & 1);
-  v22 = *a5;
-  v23 = sub_2289689B0(a2, a3);
-  if ((v17 & 1) != (v24 & 1))
+  v22 = sub_2289689B0(a2, a3);
+  if ((v17 & 1) != (v23 & 1))
   {
 LABEL_14:
     result = sub_22896CDC4();
@@ -3504,7 +3426,7 @@ LABEL_14:
     return result;
   }
 
-  v13 = v23;
+  v13 = v22;
   v19 = *a5;
   if (v17)
   {
@@ -3512,21 +3434,20 @@ LABEL_14:
   }
 
 LABEL_11:
-  v25 = __swift_mutable_project_boxed_opaque_existential_1(&v31, v10);
-  v26 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v25, v25);
-  v28 = (&v30 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v29 + 16))(v28);
-  sub_22896991C(v13, a2, a3, *v28, v19);
+  v24 = __swift_mutable_project_boxed_opaque_existential_1(&v29, v10);
+  MEMORY[0x28223BE20](v24, v24);
+  v26 = (&v28 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
+  (*(v27 + 16))(v26);
+  sub_22896991C(v13, a2, a3, *v26, v19);
 
-  return __swift_destroy_boxed_opaque_existential_0(&v31);
+  return __swift_destroy_boxed_opaque_existential_0(&v29);
 }
 
-uint64_t sub_2289696E8(uint64_t a1, uint64_t a2, uint64_t a3, char a4, void *a5, uint64_t a6, uint64_t a7)
+uint64_t sub_2289696E8(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t *a5, uint64_t a6, uint64_t a7)
 {
-  v37 = a6;
-  v38 = a7;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v36);
+  v34 = a6;
+  v35 = a7;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v33);
   (*(*(a6 - 8) + 32))(boxed_opaque_existential_1, a1, a6);
   v15 = *a5;
   v17 = sub_2289689B0(a2, a3);
@@ -3550,7 +3471,7 @@ LABEL_7:
 LABEL_8:
       v24 = (v23[7] + 40 * v17);
       __swift_destroy_boxed_opaque_existential_0(v24);
-      return sub_22896A338(&v36, v24);
+      return sub_22896A338(v33, v24);
     }
 
     goto LABEL_11;
@@ -3563,9 +3484,8 @@ LABEL_8:
   }
 
   sub_228968B8C(v20, a4 & 1);
-  v26 = *a5;
-  v27 = sub_2289689B0(a2, a3);
-  if ((v21 & 1) != (v28 & 1))
+  v26 = sub_2289689B0(a2, a3);
+  if ((v21 & 1) != (v27 & 1))
   {
 LABEL_14:
     result = sub_22896CDC4();
@@ -3573,7 +3493,7 @@ LABEL_14:
     return result;
   }
 
-  v17 = v27;
+  v17 = v26;
   v23 = *a5;
   if (v21)
   {
@@ -3581,15 +3501,13 @@ LABEL_14:
   }
 
 LABEL_11:
-  v29 = v37;
-  v30 = __swift_mutable_project_boxed_opaque_existential_1(&v36, v37);
-  v31 = *(*(v29 - 8) + 64);
-  MEMORY[0x28223BE20](v30, v30);
-  v33 = &v35 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v34 + 16))(v33);
-  sub_228969AEC(v17, a2, a3, v33, v23, a6, a7);
+  v28 = __swift_mutable_project_boxed_opaque_existential_1(v33, v34);
+  MEMORY[0x28223BE20](v28, v28);
+  v30 = &v33[-1] - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v31 + 16))(v30);
+  sub_228969AEC(v17, a2, a3, v30, v23, a6, a7);
 
-  return __swift_destroy_boxed_opaque_existential_0(&v36);
+  return __swift_destroy_boxed_opaque_existential_0(v33);
 }
 
 uint64_t sub_22896991C(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -3647,14 +3565,14 @@ uint64_t sub_2289699CC(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
 
 uint64_t sub_228969A5C(unint64_t a1, uint64_t a2, uint64_t a3, char a4, void *a5)
 {
-  LOBYTE(v11) = a4;
+  v11[0] = a4;
   v12 = MEMORY[0x277D839B0];
   v13 = MEMORY[0x277D839C8];
   a5[(a1 >> 6) + 8] |= 1 << a1;
   v6 = (a5[6] + 16 * a1);
   *v6 = a2;
   v6[1] = a3;
-  result = sub_22896A338(&v11, a5[7] + 40 * a1);
+  result = sub_22896A338(v11, a5[7] + 40 * a1);
   v8 = a5[2];
   v9 = __OFADD__(v8, 1);
   v10 = v8 + 1;
@@ -3700,20 +3618,20 @@ uint64_t sub_228969AEC(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void
 
 uint64_t sub_228969BC4(void *a1)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
-  v27[0] = 0;
+  v24[1] = *MEMORY[0x277D85DE8];
+  v24[0] = 0;
   v1 = [a1 biologicalSexWithError_];
   if (v1)
   {
     v2 = v1;
-    v3 = v27[0];
+    v3 = v24[0];
     v4 = HKAnalyticsPropertyValueForBiologicalSex();
     v5 = sub_22896CC94();
   }
 
   else
   {
-    v6 = v27[0];
+    v6 = v24[0];
     v7 = sub_22896CC04();
 
     swift_willThrow();
@@ -3725,100 +3643,93 @@ uint64_t sub_228969BC4(void *a1)
     {
       v11 = swift_slowAlloc();
       v12 = swift_slowAlloc();
-      v27[0] = v12;
+      v24[0] = v12;
       *v11 = 136446466;
-      v26[4] = type metadata accessor for HypertensionNotificationInteractionEvent();
+      v23[4] = type metadata accessor for HypertensionNotificationInteractionEvent();
       sub_22896A91C();
       v13 = sub_22896CCA4();
-      v15 = sub_228966D10(v13, v14, v27);
+      v15 = sub_228966D10(v13, v14, v24);
 
       *(v11 + 4) = v15;
       *(v11 + 12) = 2082;
       ErrorValue = swift_getErrorValue();
-      v17 = *(*(v26[1] - 8) + 64);
-      MEMORY[0x28223BE20](ErrorValue, v26[0]);
-      (*(v19 + 16))(v26 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v20 = sub_22896CCA4();
-      v22 = sub_228966D10(v20, v21, v27);
+      MEMORY[0x28223BE20](ErrorValue, v23[0]);
+      (*(v18 + 16))(v23 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v19 = sub_22896CCA4();
+      v21 = sub_228966D10(v19, v20, v24);
 
-      *(v11 + 14) = v22;
+      *(v11 + 14) = v21;
       _os_log_impl(&dword_228942000, v9, v10, "[%{public}s] Error when retrieving biological sex: %{public}s", v11, 0x16u);
       swift_arrayDestroy();
       MEMORY[0x22AAC52A0](v12, -1, -1);
       MEMORY[0x22AAC52A0](v11, -1, -1);
     }
 
-    v23 = *MEMORY[0x277CCB800];
     v5 = sub_22896CC94();
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 id sub_228969E98(void *a1, void *a2)
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v4 = sub_22896CC34();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4, v7);
-  v9 = v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = [a2 currentDate];
+  MEMORY[0x28223BE20](v4, v6);
+  v8 = v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = [a2 currentDate];
   sub_22896CC24();
 
-  v11 = sub_22896CC14();
-  (*(v5 + 8))(v9, v4);
-  v36[0] = 0;
-  v12 = [a1 ageWithCurrentDate:v11 error:v36];
+  v10 = sub_22896CC14();
+  (*(v5 + 8))(v8, v4);
+  v32[0] = 0;
+  v11 = [a1 ageWithCurrentDate:v10 error:v32];
 
-  if (v12)
+  if (v11)
   {
-    v13 = v36[0];
-    v14 = *MEMORY[0x277D85DE8];
-    return v12;
+    v12 = v32[0];
+    return v11;
   }
 
   else
   {
-    v16 = v36[0];
-    v17 = sub_22896CC04();
+    v14 = v32[0];
+    v15 = sub_22896CC04();
 
     swift_willThrow();
-    v18 = v17;
-    v19 = sub_22896CC44();
-    v20 = sub_22896CCE4();
+    v16 = v15;
+    v17 = sub_22896CC44();
+    v18 = sub_22896CCE4();
 
-    if (os_log_type_enabled(v19, v20))
+    if (os_log_type_enabled(v17, v18))
     {
-      v21 = swift_slowAlloc();
-      v22 = swift_slowAlloc();
-      v36[0] = v22;
-      *v21 = 136446466;
-      v35[4] = type metadata accessor for HypertensionNotificationInteractionEvent();
+      v19 = swift_slowAlloc();
+      v20 = swift_slowAlloc();
+      v32[0] = v20;
+      *v19 = 136446466;
+      v31[4] = type metadata accessor for HypertensionNotificationInteractionEvent();
       sub_22896A91C();
-      v23 = sub_22896CCA4();
-      v25 = sub_228966D10(v23, v24, v36);
+      v21 = sub_22896CCA4();
+      v23 = sub_228966D10(v21, v22, v32);
 
-      *(v21 + 4) = v25;
-      *(v21 + 12) = 2082;
+      *(v19 + 4) = v23;
+      *(v19 + 12) = 2082;
       ErrorValue = swift_getErrorValue();
-      v27 = *(*(v35[1] - 8) + 64);
-      MEMORY[0x28223BE20](ErrorValue, v35[0]);
-      (*(v29 + 16))(v35 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v30 = sub_22896CCA4();
-      v32 = sub_228966D10(v30, v31, v36);
+      MEMORY[0x28223BE20](ErrorValue, v31[0]);
+      (*(v26 + 16))(v31 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v27 = sub_22896CCA4();
+      v29 = sub_228966D10(v27, v28, v32);
 
-      *(v21 + 14) = v32;
-      _os_log_impl(&dword_228942000, v19, v20, "[%{public}s] Error when retrieving  age: %{public}s", v21, 0x16u);
+      *(v19 + 14) = v29;
+      _os_log_impl(&dword_228942000, v17, v18, "[%{public}s] Error when retrieving  age: %{public}s", v19, 0x16u);
       swift_arrayDestroy();
-      MEMORY[0x22AAC52A0](v22, -1, -1);
-      MEMORY[0x22AAC52A0](v21, -1, -1);
+      MEMORY[0x22AAC52A0](v20, -1, -1);
+      MEMORY[0x22AAC52A0](v19, -1, -1);
     }
 
-    v33 = *MEMORY[0x277CCB7A0];
-    v34 = *MEMORY[0x277D85DE8];
-    return v33;
+    v30 = *MEMORY[0x277CCB7A0];
+    return v30;
   }
 }
 
@@ -3887,7 +3798,7 @@ uint64_t sub_22896A338(__int128 *a1, uint64_t a2)
   return a2;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -3895,25 +3806,25 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t sub_22896A3A0(uint64_t a1)
 {
-  sub_22896A3FC();
+  sub_22896A3FC(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-void sub_22896A3FC()
+void sub_22896A3FC(uint64_t a1)
 {
   if (!qword_27D85E190)
   {
     sub_22896A454();
-    v0 = sub_22896CCF4();
-    if (!v1)
+    v1 = sub_22896CCF4();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27D85E190);
+      atomic_store(v1, &qword_27D85E190);
     }
   }
 }
@@ -4141,15 +4052,15 @@ uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
   return result;
 }
 
-void sub_22896A7DC()
+void sub_22896A7DC(uint64_t a1)
 {
   if (!qword_27D85E1B8)
   {
     sub_22896A454();
-    v0 = sub_22896CD84();
-    if (!v1)
+    v1 = sub_22896CD84();
+    if (!v2)
     {
-      atomic_store(v0, &qword_27D85E1B8);
+      atomic_store(v1, &qword_27D85E1B8);
     }
   }
 }
@@ -4217,31 +4128,26 @@ void sub_22896A9C4()
 
 void __HKHRAFibBurdenDetermineIsFocusModeOn_block_invoke_305_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 eventBody];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_debug_impl(&dword_228942000, a2, OS_LOG_TYPE_DEBUG, "[HKHRAFibBurdenDetermineIsFocusModeOn] Received event: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_debug_impl(&dword_228942000, a2, OS_LOG_TYPE_DEBUG, "[HKHRAFibBurdenDetermineIsFocusModeOn] Received event: %{public}@", &v4, 0xCu);
 }
 
 void __HKHRAFibBurdenDetermineIsFocusModeOn_block_invoke_305_cold_2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{objc_msgSend(a1, "error")}];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_228942000, a2, OS_LOG_TYPE_ERROR, "[HKHRAFibBurdenDetermineIsFocusModeOn] Received nil user focus computed mode with reason: %{public}@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_228942000, a2, OS_LOG_TYPE_ERROR, "[HKHRAFibBurdenDetermineIsFocusModeOn] Received nil user focus computed mode with reason: %{public}@", &v4, 0xCu);
 }
 
 void _HKHRAreIrregularRhythmNotificationsOnWithFeatureStatus_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "BOOL _HKHRAreIrregularRhythmNotificationsOnWithFeatureStatus(HKFeatureStatus * _Nonnull __strong)";
-  _os_log_error_impl(&dword_228942000, log, OS_LOG_TYPE_ERROR, "[%{public}s]: Prompted for IRN's 'enabled' state, but setting is missing or invalid; reporting 'off'", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "BOOL _HKHRAreIrregularRhythmNotificationsOnWithFeatureStatus(HKFeatureStatus * _Nonnull __strong)";
+  _os_log_error_impl(&dword_228942000, log, OS_LOG_TYPE_ERROR, "[%{public}s]: Prompted for IRN's 'enabled' state, but setting is missing or invalid; reporting 'off'", &v1, 0xCu);
 }

@@ -34,7 +34,7 @@
 
 - (void)speak:(id)speak withContext:(id)context
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   speakCopy = speak;
   contextCopy = context;
   currentRequest = self->_currentRequest;
@@ -54,7 +54,8 @@
 
   if ([speakCopy length] <= 0x14)
   {
-    v17 = speakCopy;
+    v18 = speakCopy;
+    v17 = v18;
   }
 
   else
@@ -63,90 +64,88 @@
     v17 = [v16 stringByAppendingString:@"..."];
   }
 
-  v18 = _LTOSLogTTS();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v20 = _LTOSLogTTS(v18, v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
   {
-    v19 = v18;
+    v21 = v20;
     localeIdentifier = [v15 localeIdentifier];
     *buf = 138740227;
-    v39 = v17;
-    v40 = 2114;
-    v41 = localeIdentifier;
-    _os_log_impl(&dword_232E53000, v19, OS_LOG_TYPE_INFO, "Speaking: %{sensitive}@ language code %{public}@", buf, 0x16u);
+    v43 = v17;
+    v44 = 2114;
+    v45 = localeIdentifier;
+    _os_log_impl(&dword_232E53000, v21, OS_LOG_TYPE_INFO, "Speaking: %{sensitive}@ language code %{public}@", buf, 0x16u);
   }
 
   if ([speakCopy length])
   {
     localeIdentifier2 = [v15 localeIdentifier];
-    v22 = [_LTDTTSAssetService voiceForLocaleIdentifier:localeIdentifier2];
+    v25 = [_LTDTTSAssetService voiceForLocaleIdentifier:localeIdentifier2];
 
-    if (v22)
+    if (v25)
     {
-      v23 = [objc_alloc(MEMORY[0x277D61468]) initWithText:speakCopy voice:v22];
+      v28 = [objc_alloc(MEMORY[0x277D61468]) initWithText:speakCopy voice:v25];
       outputFileURL = [contextCopy outputFileURL];
-      [v23 setOutputPath:outputFileURL];
+      [v28 setOutputPath:outputFileURL];
 
       [contextCopy ttsPlaybackRate];
-      *&v25 = v25;
-      [v23 setRate:v25];
-      [v23 setPrivacySensitive:1];
-      [v23 setDidReportInstrument:&__block_literal_global_22];
-      objc_storeStrong(&self->_currentRequest, v23);
+      *&v30 = v30;
+      [v28 setRate:v30];
+      [v28 setPrivacySensitive:1];
+      [v28 setDidReportInstrument:&__block_literal_global_22];
+      objc_storeStrong(&self->_currentRequest, v28);
       objc_initWeak(buf, self);
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_9;
-      v36[3] = &unk_2789B6F78;
-      objc_copyWeak(&v37, buf);
-      [(SiriTTSSynthesisRequest *)self->_currentRequest setDidGenerateAudio:v36];
-      v34[0] = MEMORY[0x277D85DD0];
-      v34[1] = 3221225472;
-      v34[2] = __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_11;
-      v34[3] = &unk_2789B6FA0;
-      objc_copyWeak(&v35, buf);
-      [(SiriTTSSynthesisRequest *)self->_currentRequest setDidGenerateWordTimings:v34];
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_9;
+      v40[3] = &unk_2789B6F78;
+      objc_copyWeak(&v41, buf);
+      [(SiriTTSSynthesisRequest *)self->_currentRequest setDidGenerateAudio:v40];
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_11;
+      v38[3] = &unk_2789B6FA0;
+      objc_copyWeak(&v39, buf);
+      [(SiriTTSSynthesisRequest *)self->_currentRequest setDidGenerateWordTimings:v38];
       session = self->_session;
-      v26 = self->_currentRequest;
-      v31[0] = MEMORY[0x277D85DD0];
-      v31[1] = 3221225472;
-      v31[2] = __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_2;
-      v31[3] = &unk_2789B6FF0;
-      objc_copyWeak(&v33, buf);
-      v32 = speakCopy;
-      [(SiriTTSDaemonSession *)session synthesizeWithRequest:v26 didFinish:v31];
+      v31 = self->_currentRequest;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __49___LTOfflineSpeechSynthesizer_speak_withContext___block_invoke_2;
+      v35[3] = &unk_2789B6FF0;
+      objc_copyWeak(&v37, buf);
+      v36 = speakCopy;
+      [(SiriTTSDaemonSession *)session synthesizeWithRequest:v31 didFinish:v35];
 
-      objc_destroyWeak(&v33);
-      objc_destroyWeak(&v35);
       objc_destroyWeak(&v37);
+      objc_destroyWeak(&v39);
+      objc_destroyWeak(&v41);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v29 = _LTOSLogTTS();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v34 = _LTOSLogTTS(v26, v27);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
-        [_LTOfflineSpeechSynthesizer speak:v29 withContext:v15];
+        [_LTOfflineSpeechSynthesizer speak:v34 withContext:v15];
       }
     }
   }
 
   else
   {
-    v28 = _LTOSLogTTS();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    v33 = _LTOSLogTTS(0, v23);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_232E53000, v28, OS_LOG_TYPE_INFO, "Received zero-length or nil text speak request", buf, 2u);
+      _os_log_impl(&dword_232E53000, v33, OS_LOG_TYPE_INFO, "Received zero-length or nil text speak request", buf, 2u);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
 {
-  v3 = _LTOSLogTTS();
+  v3 = _LTOSLogTTS(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -158,14 +157,12 @@
 
 - (void)speak:(void *)a1 withContext:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 localeIdentifier];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_232E53000, v3, OS_LOG_TYPE_ERROR, "No synthesis voice found for %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_232E53000, v3, OS_LOG_TYPE_ERROR, "No synthesis voice found for %{public}@", &v5, 0xCu);
 }
 
 @end

@@ -1,12 +1,12 @@
 @interface BWInferenceDepthScalingProvider
 - (BWInferenceDepthScalingProvider)initWithOutputRequirements:(id)requirements configuration:(id)configuration;
 - (BWInferenceSubmittable)submittable;
+- (id)_resolveProcessingMode;
 - (id)bindVideoInputFromAttachedMediaUsingKey:(id)key preparedByAttachedMediaKey:(id)mediaKey withVideoFormatProvider:(id)provider;
 - (id)newStorage;
 - (int)executeOnSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withExecutionTime:(id *)time completionHandler:(id)handler;
 - (int)prepareForSubmissionWithWorkQueue:(id)queue;
 - (int)submitForSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withSubmissionTime:(id *)time workQueue:(id)queue completionHandler:(id)handler;
-- (uint64_t)_resolveProcessingMode;
 - (void)dealloc;
 - (void)setCustomInferenceIdentifier:(id)identifier;
 - (void)setInputRequirement:(id)requirement;
@@ -100,34 +100,34 @@ LABEL_10:
   self->_requestedRotation = bwisr_getRequestedRotationDegrees(videoFormat, v5);
   v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
   device = [(FigMetalContext *)self->_metalContext device];
-  v27 = 0;
-  v23 = 0u;
+  v28 = 0;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v17 = [&unk_1F224A758 countByEnumeratingWithState:&v23 objects:v22 count:16];
+  v27 = 0u;
+  v17 = [&unk_1F224A758 countByEnumeratingWithState:&v24 objects:v23 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v24;
+    v19 = *v25;
     while (2)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v24 != v19)
+        if (*v25 != v19)
         {
           objc_enumerationMutation(&unk_1F224A758);
         }
 
-        [v15 setObject:objc_msgSend(device forKeyedSubscript:{"newComputePipelineStateWithFunction:error:", objc_msgSend(-[FigMetalContext library](self->_metalContext, "library"), "newFunctionWithName:", *(*(&v23 + 1) + 8 * i)), &v27), *(*(&v23 + 1) + 8 * i)}];
-        if (v27)
+        v21 = [v15 setObject:objc_msgSend(device forKeyedSubscript:{"newComputePipelineStateWithFunction:error:", objc_msgSend(-[FigMetalContext library](self->_metalContext, "library"), "newFunctionWithName:", *(*(&v24 + 1) + 8 * i)), &v28), *(*(&v24 + 1) + 8 * i)}];
+        if (v28)
         {
-          [BWInferenceDepthScalingProvider prepareForSubmissionWithWorkQueue:];
+          [BWInferenceDepthScalingProvider prepareForSubmissionWithWorkQueue:v21];
           return -31702;
         }
       }
 
-      v18 = [&unk_1F224A758 countByEnumeratingWithState:&v23 objects:v22 count:16];
+      v18 = [&unk_1F224A758 countByEnumeratingWithState:&v24 objects:v23 count:16];
       if (v18)
       {
         continue;
@@ -137,9 +137,9 @@ LABEL_10:
     }
   }
 
-  v21 = [v15 copy];
+  v22 = [v15 copy];
   result = 0;
-  self->_pipelineStates = v21;
+  self->_pipelineStates = v22;
   return result;
 }
 
@@ -421,11 +421,11 @@ uint64_t __117__BWInferenceDepthScalingProvider_submitForSampleBuffer_usingStora
 
   v6 = [[BWInferenceLazyVideoRequirement alloc] initWithAttachedMediaKey:key preparedByAttachedMediaKey:key videoFormatProvider:provider];
   self->_inputRequirement = &v6->super;
-  [(BWInferenceDepthScalingProvider *)self _resolveProcessingMode];
+  [(BWInferenceDepthScalingProvider *)&self->super.isa _resolveProcessingMode];
   return v6;
 }
 
-- (uint64_t)_resolveProcessingMode
+- (id)_resolveProcessingMode
 {
   if (result)
   {
@@ -433,14 +433,14 @@ uint64_t __117__BWInferenceDepthScalingProvider_submitForSampleBuffer_usingStora
     v2 = 0;
     if (*(result + 56) == 1)
     {
-      result = [&unk_1F224A770 containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(objc_msgSend(*(result + 16), "videoFormat"), "pixelFormat"))}];
+      result = [&unk_1F224A770 containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", objc_msgSend(objc_msgSend(result[2], "videoFormat"), "pixelFormat"))}];
       if (result)
       {
         v2 = 1;
       }
     }
 
-    *(v1 + 52) = v2;
+    *(v1 + 13) = v2;
   }
 
   return result;
@@ -450,90 +450,91 @@ uint64_t __117__BWInferenceDepthScalingProvider_submitForSampleBuffer_usingStora
 {
   self->_inputRequirement = requirement;
 
-  [(BWInferenceDepthScalingProvider *)self _resolveProcessingMode];
+  [(BWInferenceDepthScalingProvider *)&self->super.isa _resolveProcessingMode];
 }
 
 - (int)executeOnSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withExecutionTime:(id *)time completionHandler:(id)handler
 {
-  v9 = [storage pixelBufferForRequirement:self->_inputRequirement];
-  if (v9)
+  v10 = [storage pixelBufferForRequirement:self->_inputRequirement];
+  if (v10)
   {
-    v10 = v9;
-    v11 = [objc_msgSend(storage pixelBufferPoolForRequirement:{-[NSArray firstObject](self->_outputRequirements, "firstObject")), "newPixelBuffer"}];
-    if (v11)
+    v11 = v10;
+    v12 = [objc_msgSend(storage pixelBufferPoolForRequirement:{-[NSArray firstObject](self->_outputRequirements, "firstObject")), "newPixelBuffer"}];
+    if (v12)
     {
-      v12 = MEMORY[0x1E695FF58];
+      v13 = MEMORY[0x1E695FF58];
       if (*MEMORY[0x1E695FF58] == 1)
       {
-        OUTLINED_FUNCTION_18_1();
+        OUTLINED_FUNCTION_18_1(822150281);
       }
 
-      v13 = FigDepthConvertBuffer(v10, v11);
-      if (v13)
+      v14 = FigDepthConvertBuffer(v11, v12);
+      if (v14)
       {
+        v37 = v14;
         fig_log_get_emitter();
-        FigDebugAssert3();
-        v34 = 4294935556;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v37, v6, v42, v44, v46, v48, v50, v52);
+        v35 = 4294935556;
       }
 
       else
       {
         outputRequirements = self->_outputRequirements;
-        v22 = OUTLINED_FUNCTION_10_0(v13, v14, v15, v16, v17, v18, v19, v20, v36, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, 0);
-        if (v22)
+        v23 = OUTLINED_FUNCTION_10_0(v14, v15, v16, v17, v18, v19, v20, v21, v38, v40, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72);
+        if (v23)
         {
-          v23 = v22;
-          v24 = MEMORY[0];
+          v24 = v23;
+          v25 = MEMORY[0];
           do
           {
-            for (i = 0; i != v23; ++i)
+            for (i = 0; i != v24; ++i)
             {
-              if (MEMORY[0] != v24)
+              if (MEMORY[0] != v25)
               {
                 objc_enumerationMutation(outputRequirements);
               }
 
-              v26 = [storage setPixelBuffer:v11 forRequirement:*(8 * i)];
+              v27 = [storage setPixelBuffer:v12 forRequirement:*(8 * i)];
             }
 
-            v23 = OUTLINED_FUNCTION_10_0(v26, v27, v28, v29, v30, v31, v32, v33, v37, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v72);
+            v24 = OUTLINED_FUNCTION_10_0(v27, v28, v29, v30, v31, v32, v33, v34, v39, v41, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73);
           }
 
-          while (v23);
+          while (v24);
         }
 
-        if (*v12 == 1)
+        if (*v13 == 1)
         {
-          OUTLINED_FUNCTION_18_1();
+          OUTLINED_FUNCTION_18_1(822150282);
         }
 
-        v34 = 0;
+        v35 = 0;
       }
     }
 
     else
     {
-      v34 = 4294935553;
+      v35 = 4294935553;
     }
   }
 
   else
   {
-    v11 = 0;
-    v34 = 4294935584;
+    v12 = 0;
+    v35 = 4294935584;
   }
 
   if (handler)
   {
-    (*(handler + 2))(handler, v34, self);
+    (*(handler + 2))(handler, v35, self);
   }
 
-  if (v11)
+  if (v12)
   {
-    CFRelease(v11);
+    CFRelease(v12);
   }
 
-  return v34;
+  return v35;
 }
 
 @end

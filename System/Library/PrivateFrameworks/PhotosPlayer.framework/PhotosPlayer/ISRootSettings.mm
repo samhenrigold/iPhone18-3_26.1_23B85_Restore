@@ -10,20 +10,18 @@
 
 - (void)save
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"SettingsVersionKey";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"SettingsVersionKey";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:12];
-  v9[1] = @"SettingsArchiveKey";
-  v10[0] = v3;
+  v8[1] = @"SettingsArchiveKey";
+  v9[0] = v3;
   archiveDictionary = [(PTSettings *)self archiveDictionary];
-  v10[1] = archiveDictionary;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = archiveDictionary;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   _defaultsKey = [objc_opt_class() _defaultsKey];
   [standardUserDefaults setObject:v5 forKey:_defaultsKey];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createChildren
@@ -60,32 +58,30 @@
 
 + (id)settingsControllerModule
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D43218];
   v3 = [MEMORY[0x277D431E0] rowWithTitle:@"Player" childSettingsKeyPath:@"playerSettings"];
-  v21[0] = v3;
+  v20[0] = v3;
   v4 = [MEMORY[0x277D431E0] rowWithTitle:@"Vitality" childSettingsKeyPath:@"vitalitySettings"];
-  v21[1] = v4;
+  v20[1] = v4;
   v5 = [MEMORY[0x277D431E0] rowWithTitle:@"Performance Diagnostics" childSettingsKeyPath:@"performanceDiagnosticsSettings"];
-  v21[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+  v20[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
   v7 = [v2 sectionWithRows:v6];
 
   v8 = MEMORY[0x277D43218];
   v9 = MEMORY[0x277D431A8];
   v10 = [MEMORY[0x277D43238] actionWithSettingsKeyPath:0];
   v11 = [v9 rowWithTitle:@"Restore All Defaults" action:v10];
-  v20 = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+  v19 = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
   v13 = [v8 sectionWithRows:v12];
 
   v14 = MEMORY[0x277D43218];
-  v19[0] = v7;
-  v19[1] = v13;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  v18[0] = v7;
+  v18[1] = v13;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
   v16 = [v14 moduleWithTitle:@"PhotosPlayer" contents:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

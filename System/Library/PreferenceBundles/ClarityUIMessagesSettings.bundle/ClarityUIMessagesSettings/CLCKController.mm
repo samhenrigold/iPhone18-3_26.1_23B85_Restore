@@ -13,6 +13,7 @@
 - (id)outgoingHeaderText;
 - (id)specifiers;
 - (void)setConversationDetailsEnabled:(id)enabled specifier:(id)specifier;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)setEmojiKeyboardEnabled:(id)enabled specifier:(id)specifier;
 - (void)setPhotoKeyboardEnabled:(id)enabled specifier:(id)specifier;
 - (void)setSoftwareKeyboardEnabled:(id)enabled specifier:(id)specifier;
@@ -52,6 +53,16 @@
   }
 
   return v4;
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v7.receiver = self;
+  v7.super_class = CLCKController;
+  [CLCKController setEditing:"setEditing:animated:" animated:?];
+  [*&self->AXCLFCommunicationLimitController_opaque[OBJC_IVAR___PSListController__table] setEditing:editingCopy animated:animatedCopy];
 }
 
 - (id)outgoingHeaderText

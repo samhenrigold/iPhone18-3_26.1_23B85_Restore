@@ -28,28 +28,26 @@
 
 - (void)_sessionComplete
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Declaring session is complete", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Declaring session is complete", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   eventTrigger = [(HMDEventTriggerSession *)selfCopy eventTrigger];
   [eventTrigger resetExecutionState];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUserPermissionRemoveDialogRequest:(id)request
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -57,44 +55,42 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received user confirmation remove dialog request", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received user confirmation remove dialog request", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDEventTriggerUserConfirmationSession *)selfCopy _sessionComplete];
   [requestCopy respondWithPayload:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeUserDialog:(id)dialog
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = dialog;
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v23;
+    v7 = *v22;
     v8 = *MEMORY[0x277CD2328];
     *&v5 = 138543618;
-    v20 = v5;
+    v19 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         if ([v10 isCurrentDevice])
         {
           device = +[HMDBulletinBoard sharedBulletinBoard];
@@ -112,10 +108,10 @@
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             v18 = HMFGetLogIdentifier();
-            *buf = v20;
-            v27 = v18;
-            v28 = 2112;
-            v29 = v10;
+            *buf = v19;
+            v26 = v18;
+            v27 = 2112;
+            v28 = v10;
             _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Sending the remove dialog message to %@", buf, 0x16u);
           }
 
@@ -125,18 +121,16 @@
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v6 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v6);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleUserPermissionRemoteResponse:(id)response
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v5 = [responseCopy numberForKey:*MEMORY[0x277CD2320]];
   unsignedIntegerValue = [v5 unsignedIntegerValue];
@@ -149,11 +143,11 @@
     v11 = HMFGetLogIdentifier();
     v12 = HMDUserConfirmationResponseAsString(unsignedIntegerValue);
     *buf = 138543874;
-    v23 = v11;
-    v24 = 2112;
-    v25 = v12;
-    v26 = 2112;
-    v27 = remoteSourceDevice;
+    v22 = v11;
+    v23 = 2112;
+    v24 = v12;
+    v25 = 2112;
+    v26 = remoteSourceDevice;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Received response %@ from the device %@", buf, 0x20u);
   }
 
@@ -164,15 +158,13 @@
   v16 = [(HMDEventTriggerDevice *)v13 initWithDevice:remoteSourceDevice forHome:home];
 
   executionSession = [(HMDEventTriggerUserConfirmationSession *)selfCopy executionSession];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteResponse___block_invoke;
-  v20[3] = &unk_2797359D8;
-  v21 = responseCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteResponse___block_invoke;
+  v19[3] = &unk_2797359D8;
+  v20 = responseCopy;
   v18 = responseCopy;
-  [executionSession userResponse:unsignedIntegerValue device:v16 completionHandler:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [executionSession userResponse:unsignedIntegerValue device:v16 completionHandler:v19];
 }
 
 void __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteResponse___block_invoke(uint64_t a1, void *a2)
@@ -189,7 +181,7 @@ void __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteRes
 
 - (void)_userResponse:(unint64_t)response completionHandler:(id)handler
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -199,9 +191,9 @@ void __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteRes
     v10 = HMFGetLogIdentifier();
     v11 = HMDUserConfirmationResponseAsString(response);
     *buf = 138543618;
-    v54 = v10;
-    v55 = 2112;
-    v56 = v11;
+    v53 = v10;
+    v54 = 2112;
+    v55 = v11;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Bulletin notification response ended with %@", buf, 0x16u);
   }
 
@@ -237,9 +229,9 @@ void __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteRes
       analyticsData3 = [analyticsEvent4 analyticsData];
       v25 = [v22 numberWithUnsignedLongLong:{objc_msgSend(analyticsData3, "userResponseDelay")}];
       *buf = 138543618;
-      v54 = v21;
-      v55 = 2112;
-      v56 = v25;
+      v53 = v21;
+      v54 = 2112;
+      v55 = v25;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@self.metricEvent.metric.userResponseDelay %@", buf, 0x16u);
     }
 
@@ -258,7 +250,7 @@ void __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteRes
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v54 = v33;
+      v53 = v33;
       _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Issuing trigger reponse to local execution session", buf, 0xCu);
     }
 
@@ -270,23 +262,23 @@ void __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteRes
 
   else
   {
-    v51[0] = *MEMORY[0x277CD22C0];
+    v50[0] = *MEMORY[0x277CD22C0];
     sessionID = [(HMDEventTriggerSession *)selfCopy sessionID];
     uUIDString = [sessionID UUIDString];
-    v52[0] = uUIDString;
-    v51[1] = *MEMORY[0x277CD2320];
+    v51[0] = uUIDString;
+    v50[1] = *MEMORY[0x277CD2320];
     v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:response];
-    v52[1] = v38;
-    executionSession = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:2];
+    v51[1] = v38;
+    executionSession = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:2];
 
     objc_initWeak(&location, selfCopy);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __74__HMDEventTriggerUserConfirmationSession__userResponse_completionHandler___block_invoke;
     aBlock[3] = &unk_2797355F8;
-    objc_copyWeak(&v49, &location);
+    objc_copyWeak(&v48, &location);
     v39 = handlerCopy;
-    v48 = v39;
+    v47 = v39;
     v40 = _Block_copy(aBlock);
     if (![(HMDEventTriggerSession *)selfCopy sendResidentMessage:*MEMORY[0x277CD2338] payload:executionSession responseHandler:v40])
     {
@@ -297,7 +289,7 @@ void __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteRes
       {
         v44 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v54 = v44;
+        v53 = v44;
         _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_INFO, "%{public}@Could not find compatible resident, Cannot send response", buf, 0xCu);
       }
 
@@ -311,17 +303,16 @@ void __78__HMDEventTriggerUserConfirmationSession__handleUserPermissionRemoteRes
       [(HMDEventTriggerUserConfirmationSession *)v42 _sessionComplete];
     }
 
-    objc_destroyWeak(&v49);
+    objc_destroyWeak(&v48);
     objc_destroyWeak(&location);
   }
 
   [(HMDEventTriggerUserConfirmationSession *)selfCopy setUserResponseTimer:0];
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDEventTriggerUserConfirmationSession__userResponse_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -331,11 +322,11 @@ void __74__HMDEventTriggerUserConfirmationSession__userResponse_completionHandle
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v11;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Sending user permission response resulted with error %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v11;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Sending user permission response resulted with error %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -346,8 +337,6 @@ void __74__HMDEventTriggerUserConfirmationSession__userResponse_completionHandle
   }
 
   [v9 _sessionComplete];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userDidConfirmExecute:(BOOL)execute completionHandler:(id)handler
@@ -396,7 +385,7 @@ uint64_t __82__HMDEventTriggerUserConfirmationSession_userDidConfirmExecute_comp
 
 void __55__HMDEventTriggerUserConfirmationSession_timerDidFire___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) userResponseTimer];
   LODWORD(v2) = [v2 isEqual:v3];
@@ -409,22 +398,20 @@ void __55__HMDEventTriggerUserConfirmationSession_timerDidFire___block_invoke(ui
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@User did not respond to confirm trigger execution", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@User did not respond to confirm trigger execution", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     [*(a1 + 40) _userResponse:1 completionHandler:0];
     [*(a1 + 40) setUserResponseTimer:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createBulletinNotification
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventTrigger = [(HMDEventTriggerSession *)self eventTrigger];
   if (eventTrigger)
   {
@@ -457,15 +444,13 @@ void __55__HMDEventTriggerUserConfirmationSession_timerDidFire___block_invoke(ui
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Not creating a bulletin because event trigger is nil", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Not creating a bulletin because event trigger is nil", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createBulletinNotification
@@ -481,7 +466,7 @@ void __55__HMDEventTriggerUserConfirmationSession_timerDidFire___block_invoke(ui
 
 - (void)_askForUserPermissionFromDevice:(id)device executionSessionID:(id)d
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   dCopy = d;
   if (dCopy)
@@ -494,19 +479,19 @@ void __55__HMDEventTriggerUserConfirmationSession_timerDidFire___block_invoke(ui
     analyticsSendEvents = [(HMDEventTriggerUserConfirmationSession *)self analyticsSendEvents];
     [analyticsSendEvents addObject:v10];
 
-    v37 = *MEMORY[0x277CD22C0];
-    v38 = dCopy;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v36 = *MEMORY[0x277CD22C0];
+    v37 = dCopy;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
     objc_initWeak(&location, self);
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __93__HMDEventTriggerUserConfirmationSession__askForUserPermissionFromDevice_executionSessionID___block_invoke;
     aBlock[3] = &unk_279735248;
-    objc_copyWeak(&v35, &location);
+    objc_copyWeak(&v34, &location);
     v13 = v10;
-    v33 = v13;
+    v32 = v13;
     v14 = deviceCopy;
-    v34 = v14;
+    v33 = v14;
     v15 = _Block_copy(aBlock);
     device = [v14 device];
     eventTrigger = [(HMDEventTriggerSession *)self eventTrigger];
@@ -522,7 +507,7 @@ void __55__HMDEventTriggerUserConfirmationSession_timerDidFire___block_invoke(ui
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v40 = v23;
+        v39 = v23;
         _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Cannot find the compatible resident to send the permission request, marking it as failure", buf, 0xCu);
       }
 
@@ -534,7 +519,7 @@ void __55__HMDEventTriggerUserConfirmationSession_timerDidFire___block_invoke(ui
       [analyticsData setResultErrorCode:3007];
     }
 
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v34);
     objc_destroyWeak(&location);
   }
 
@@ -547,19 +532,17 @@ void __55__HMDEventTriggerUserConfirmationSession_timerDidFire___block_invoke(ui
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v29;
+      v39 = v29;
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Cannot ask for permission without execution session identifier", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v26);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __93__HMDEventTriggerUserConfirmationSession__askForUserPermissionFromDevice_executionSessionID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
@@ -575,19 +558,17 @@ void __93__HMDEventTriggerUserConfirmationSession__askForUserPermissionFromDevic
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v5;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Received error for user permission request: %@, marking user permission as denied", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v5;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Received error for user permission request: %@, marking user permission as denied", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
     v14 = [v11 executionSession];
     [v14 userResponse:4 device:*(a1 + 40) completionHandler:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)askForUserPermission:(id)permission
@@ -606,7 +587,7 @@ void __93__HMDEventTriggerUserConfirmationSession__askForUserPermissionFromDevic
 
 void __63__HMDEventTriggerUserConfirmationSession_askForUserPermission___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) executionSession];
   v3 = [v2 sessionID];
   v4 = [v3 UUIDString];
@@ -623,9 +604,9 @@ void __63__HMDEventTriggerUserConfirmationSession_askForUserPermission___block_i
       if (v9)
       {
         v10 = HMFGetLogIdentifier();
-        v18 = 138543362;
-        v19 = v10;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@This device owns the trigger, asking the permission locally", &v18, 0xCu);
+        v17 = 138543362;
+        v18 = v10;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@This device owns the trigger, asking the permission locally", &v17, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -638,11 +619,11 @@ void __63__HMDEventTriggerUserConfirmationSession_askForUserPermission___block_i
       {
         v15 = HMFGetLogIdentifier();
         v16 = *(a1 + 40);
-        v18 = 138543618;
-        v19 = v15;
-        v20 = 2112;
-        v21 = v16;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@This device does not own the trigger, asking the permission with the device %@", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v15;
+        v19 = 2112;
+        v20 = v16;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@This device does not own the trigger, asking the permission with the device %@", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -658,20 +639,18 @@ void __63__HMDEventTriggerUserConfirmationSession_askForUserPermission___block_i
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Confirmation session is missing associated execution session identifier", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v14;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Confirmation session is missing associated execution session identifier", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForMessages
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   eventTrigger = [(HMDEventTriggerSession *)self eventTrigger];
   home = [eventTrigger home];
   v5 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
@@ -679,50 +658,48 @@ void __63__HMDEventTriggerUserConfirmationSession_askForUserPermission___block_i
   msgDispatcher = [(HMDEventTriggerSession *)self msgDispatcher];
   v7 = *MEMORY[0x277CD2328];
   v8 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v16[0] = v8;
-  v16[1] = v5;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v15[0] = v8;
+  v15[1] = v5;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
   [msgDispatcher registerForMessage:v7 receiver:self policies:v9 selector:sel__handleUserPermissionRemoveDialogRequest_];
 
   msgDispatcher2 = [(HMDEventTriggerSession *)self msgDispatcher];
   v11 = *MEMORY[0x277CD2338];
   v12 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v15[0] = v12;
-  v15[1] = v5;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = v12;
+  v14[1] = v5;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   [msgDispatcher2 registerForMessage:v11 receiver:self policies:v13 selector:sel__handleUserPermissionRemoteResponse_];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = +[HMDMetricsManager sharedLogEventSubmitter];
   analyticsEvent = [(HMDEventTriggerUserConfirmationSession *)self analyticsEvent];
   [v3 submitLogEvent:analyticsEvent];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   analyticsSendEvents = [(HMDEventTriggerUserConfirmationSession *)self analyticsSendEvents];
-  v6 = [analyticsSendEvents countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [analyticsSendEvents countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(analyticsSendEvents);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v9);
+        v10 = *(*(&v13 + 1) + 8 * v9);
         v11 = +[HMDMetricsManager sharedLogEventSubmitter];
         [v11 submitLogEvent:v10];
 
@@ -730,16 +707,15 @@ void __63__HMDEventTriggerUserConfirmationSession_askForUserPermission___block_i
       }
 
       while (v7 != v9);
-      v7 = [analyticsSendEvents countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [analyticsSendEvents countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
-  v13.receiver = self;
-  v13.super_class = HMDEventTriggerUserConfirmationSession;
-  [(HMDEventTriggerSession *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = HMDEventTriggerUserConfirmationSession;
+  [(HMDEventTriggerSession *)&v12 dealloc];
 }
 
 - (HMDEventTriggerUserConfirmationSession)initWithSessionID:(id)d eventTrigger:(id)trigger workQueue:(id)queue msgDispatcher:(id)dispatcher requestingDevice:(id)device
@@ -774,12 +750,11 @@ void __63__HMDEventTriggerUserConfirmationSession_askForUserPermission___block_i
 
 uint64_t __53__HMDEventTriggerUserConfirmationSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_132983;
-  logCategory__hmf_once_v1_132983 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_132983;
+  logCategory__hmf_once_v1_132983 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

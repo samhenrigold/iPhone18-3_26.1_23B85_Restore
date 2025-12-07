@@ -2,6 +2,7 @@
 - (NSString)description;
 - (WFInputDateDialogResponse)initWithBSXPCCoder:(id)coder;
 - (WFInputDateDialogResponse)initWithCoder:(id)coder;
+- (WFInputDateDialogResponse)initWithInputtedDate:(id)date cancelled:(BOOL)cancelled;
 - (void)encodeWithBSXPCCoder:(id)coder;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -76,6 +77,23 @@
   v8 = [v3 stringWithFormat:@"<%@: %p, inputtedDate: %@, cancelled: %@>", v5, self, inputtedDate, v7];
 
   return v8;
+}
+
+- (WFInputDateDialogResponse)initWithInputtedDate:(id)date cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  dateCopy = date;
+  v12.receiver = self;
+  v12.super_class = WFInputDateDialogResponse;
+  v8 = [(WFDialogResponse *)&v12 initWithCancelled:cancelledCopy];
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_inputtedDate, date);
+    v10 = v9;
+  }
+
+  return v9;
 }
 
 @end

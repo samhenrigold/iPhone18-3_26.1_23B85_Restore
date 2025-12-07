@@ -45,12 +45,11 @@ void sub_1000013D8(id a1)
 
 void sub_100001508(uint64_t a1)
 {
-  v2 = [WBTabGroupManager alloc];
-  v3 = *(a1 + 32);
-  v6 = [objc_opt_class() _tabCollection];
-  v4 = [v2 initWithCollection:?];
-  v5 = qword_10000CA90;
-  qword_10000CA90 = v4;
+  v1 = [WBTabGroupManager alloc];
+  v4 = [objc_opt_class() _tabCollection];
+  v2 = [v1 initWithCollection:?];
+  v3 = qword_10000CA90;
+  qword_10000CA90 = v2;
 }
 
 void sub_1000015DC(id a1)
@@ -80,12 +79,12 @@ void sub_100001798(uint64_t a1)
   qword_10000CAC0 = v3;
 }
 
-void sub_1000018D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1000018D4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = ContentBlockerLoader;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -157,7 +156,7 @@ void sub_1000022CC(uint64_t a1)
 
     if (os_log_type_enabled(qword_10000CA60, OS_LOG_TYPE_ERROR))
     {
-      sub_100004554((a1 + 32));
+      sub_100004554();
     }
 
     v5 = *(a1 + 48);
@@ -193,13 +192,12 @@ void sub_10000244C(_Unwind_Exception *a1)
 
 void sub_100002484(uint64_t a1, uint64_t a2)
 {
-  v3 = (a1 + 40);
-  v4 = [*(a1 + 32) _extensionWithIdentifier:*(a1 + 40) inAppWithDisplayIdentifier:a2];
-  if (v4)
+  v3 = [*(a1 + 32) _extensionWithIdentifier:*(a1 + 40) inAppWithDisplayIdentifier:a2];
+  if (v3)
   {
-    if ([*(a1 + 32) _extensionIsEnabledInAnyProfile:v4])
+    if ([*(a1 + 32) _extensionIsEnabledInAnyProfile:v3])
     {
-      [*(a1 + 32) _loadContentBlockerExtension:v4 reply:*(a1 + 48)];
+      [*(a1 + 32) _loadContentBlockerExtension:v3 reply:*(a1 + 48)];
     }
 
     else
@@ -217,12 +215,12 @@ void sub_100002484(uint64_t a1, uint64_t a2)
 
     if (os_log_type_enabled(qword_10000CA60, OS_LOG_TYPE_ERROR))
     {
-      sub_100004554(v3);
+      sub_100004554();
     }
 
-    v5 = *(a1 + 48);
-    v6 = [NSError errorWithDomain:SFErrorDomain code:1 userInfo:0];
-    (*(v5 + 16))(v5, v6);
+    v4 = *(a1 + 48);
+    v5 = [NSError errorWithDomain:SFErrorDomain code:1 userInfo:0];
+    (*(v4 + 16))(v4, v5);
   }
 }
 
@@ -422,7 +420,6 @@ void sub_1000032DC(uint64_t a1, void *a2, void *a3)
   v7 = qword_10000CA60;
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
     [v6 safari_privacyPreservingDescription];
     objc_claimAutoreleasedReturnValue();
     sub_100004604();
@@ -441,7 +438,7 @@ void sub_1000033F4(uint64_t a1, void *a2)
 
   if (os_log_type_enabled(qword_10000CA60, OS_LOG_TYPE_ERROR))
   {
-    sub_100004648(a1);
+    sub_100004648();
   }
 
   v4 = *(a1 + 40);
@@ -470,7 +467,6 @@ void sub_1000034F4(uint64_t a1, void *a2, void *a3)
     v7 = qword_10000CA60;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
       [v6 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       sub_1000046B4();
@@ -478,7 +474,7 @@ void sub_1000034F4(uint64_t a1, void *a2, void *a3)
 
     (*(*(a1 + 40) + 16))();
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    v10 = WeakRetained;
+    v9 = WeakRetained;
     if (v5 && WeakRetained)
     {
       [WeakRetained cancelExtensionRequestWithIdentifier:v5];
@@ -507,19 +503,18 @@ void sub_1000038AC(uint64_t a1)
 
 void sub_10000396C(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v2 = a2;
+  if (v2)
   {
     if (qword_10000CA68 != -1)
     {
       sub_1000044D4();
     }
 
-    v4 = qword_10000CA60;
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = qword_10000CA60;
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
-      [v3 safari_privacyPreservingDescription];
+      [v2 safari_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       sub_10000473C();
     }
@@ -571,7 +566,7 @@ void sub_100003B40(uint64_t a1, void *a2)
 
     if (os_log_type_enabled(qword_10000CA60, OS_LOG_TYPE_ERROR))
     {
-      sub_100004554((a1 + 40));
+      sub_100004554();
     }
 
     v10 = *(a1 + 48);
@@ -596,10 +591,11 @@ uint64_t sub_100004398(uint64_t result, uint64_t a2, uint64_t a3, float a4)
   return result;
 }
 
-void sub_1000043C0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000043C0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_1000043DC(void *a1@<X0>, const char *a2@<X3>, uint8_t *a3@<X4>, NSObject *a4@<X8>)
@@ -608,11 +604,11 @@ void sub_1000043DC(void *a1@<X0>, const char *a2@<X3>, uint8_t *a3@<X4>, NSObjec
   _os_log_error_impl(a1, a4, OS_LOG_TYPE_ERROR, a2, a3, 0x16u);
 }
 
-void sub_100004554(uint64_t *a1)
+void sub_100004468(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *a1;
-  sub_1000043F8();
-  sub_1000043C0(&_mh_execute_header, v2, v3, "A content blocker with identifier '%{private}@' could not be found", v4, v5, v6, v7, v8);
+  LODWORD(v8) = 138477827;
+  *(&v8 + 4) = a1;
+  sub_1000043C0(&_mh_execute_header, a2, a3, "Failed to get bundle record for application %{private}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100004604()
@@ -620,13 +616,6 @@ void sub_100004604()
   sub_1000043B0();
   sub_100004398(v1, v2, v3, 5.8081e-34);
   sub_1000043DC(&_mh_execute_header, "Content blocker with identifier '%{private}@' compilation cancelled due to error: %{public}@", v4, v5);
-}
-
-void sub_100004648(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  sub_1000043F8();
-  sub_1000043C0(&_mh_execute_header, v2, v3, "Failed to load content blocker '%{private}@' because the load was interrupted", v4, v5, v6, v7, v8);
 }
 
 void sub_1000046B4()

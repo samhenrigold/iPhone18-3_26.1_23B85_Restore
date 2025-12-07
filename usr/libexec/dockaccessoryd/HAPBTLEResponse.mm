@@ -155,7 +155,7 @@
   dataCopy = data;
   if ([(HAPBTLEResponse *)self isComplete])
   {
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = sub_10007FAFC(0);
@@ -188,7 +188,7 @@ LABEL_6:
   {
     if ([dataCopy length] <= 1)
     {
-      v12 = sub_10007FAA0();
+      v12 = sub_10007FAA0(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         v13 = sub_10007FAFC(0);
@@ -309,7 +309,7 @@ LABEL_5:
 
   else
   {
-    v7 = sub_10007FAA0();
+    v7 = sub_10007FAA0(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = sub_10007FAFC(0);

@@ -76,7 +76,7 @@
 - (void)cancel
 {
   v15 = *MEMORY[0x277D85DE8];
-  v3 = SBLogCaptureApplication();
+  v3 = SBLogCaptureApplication(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     clientHandle = [(FBScene *)self->_scene clientHandle];
@@ -112,51 +112,51 @@
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"must -invalidate before dealloc"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"must -invalidate before dealloc"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    v9 = @"SBCaptureApplicationLaunchMonitor.m";
-    v10 = 1024;
-    v11 = 95;
-    v12 = v6;
-    v13 = v2;
-    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8);
+    v10 = @"SBCaptureApplicationLaunchMonitor.m";
+    v11 = 1024;
+    v12 = 95;
+    v13 = v7;
+    v14 = v3;
+    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)start
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"unexpected additional watchdog start invocation"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"unexpected additional watchdog start invocation"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    v9 = @"SBCaptureApplicationLaunchMonitor.m";
-    v10 = 1024;
-    v11 = 103;
-    v12 = v6;
-    v13 = v2;
-    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8);
+    v10 = @"SBCaptureApplicationLaunchMonitor.m";
+    v11 = 1024;
+    v12 = 103;
+    v13 = v7;
+    v14 = v3;
+    OUTLINED_FUNCTION_0(&dword_21ED4E000, MEMORY[0x277D86220], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (BOOL)_updateSceneReadyStatusForReason:(id)reason
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = self->_scene;
   contentState = [(FBScene *)v5 contentState];
@@ -184,41 +184,41 @@
   v11 = v10;
 
   deactivationReasons = [v11 deactivationReasons];
-  v14 = contentState == 2 && deactivationReasons == 0;
-  v15 = SBLogCaptureApplication();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v15 = contentState == 2 && deactivationReasons == 0;
+  v16 = SBLogCaptureApplication(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     clientHandle = [(FBScene *)v5 clientHandle];
     bundleIdentifier = [clientHandle bundleIdentifier];
-    v18 = NSStringFromFBSceneContentState();
-    v21 = 134219266;
+    v19 = NSStringFromFBSceneContentState();
+    v22 = 134219266;
     selfCopy = self;
-    v23 = 2112;
-    v24 = reasonCopy;
-    v25 = 2114;
-    v26 = bundleIdentifier;
-    v27 = 1024;
-    v28 = v14;
-    v29 = 2114;
-    v30 = v18;
-    v31 = 2048;
-    v32 = deactivationReasons;
-    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "CALM %p updateSceneReadyStatus(%@) %{public}@ active:%{BOOL}u contentState:%{public}@ deactivationReasons:%lX", &v21, 0x3Au);
+    v24 = 2112;
+    v25 = reasonCopy;
+    v26 = 2114;
+    v27 = bundleIdentifier;
+    v28 = 1024;
+    v29 = v15;
+    v30 = 2114;
+    v31 = v19;
+    v32 = 2048;
+    v33 = deactivationReasons;
+    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "CALM %p updateSceneReadyStatus(%@) %{public}@ active:%{BOOL}u contentState:%{public}@ deactivationReasons:%lX", &v22, 0x3Au);
   }
 
-  if (self->_sceneIsReadyForWatchdogging == v14 && self->_firstReadyStatusUpdateComplete)
+  if (self->_sceneIsReadyForWatchdogging == v15 && self->_firstReadyStatusUpdateComplete)
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v19 = 1;
+    v20 = 1;
     self->_firstReadyStatusUpdateComplete = 1;
-    self->_sceneIsReadyForWatchdogging = v14;
+    self->_sceneIsReadyForWatchdogging = v15;
   }
 
-  return v19;
+  return v20;
 }
 
 - (BOOL)_isCaptureApplicationLaunchMonitorIgnored
@@ -240,7 +240,7 @@
   v8 = clientHandle;
   if (!clientHandle)
   {
-    v10 = SBLogCaptureApplication();
+    v10 = SBLogCaptureApplication(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(SBCaptureApplicationLaunchMonitor *)p_scene _isViewfinderSessionAuditTokenMatching:matchingCopy];
@@ -252,7 +252,7 @@
   processHandle = [clientHandle processHandle];
   if (!processHandle)
   {
-    v10 = SBLogCaptureApplication();
+    v10 = SBLogCaptureApplication(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(SBCaptureApplicationLaunchMonitor *)p_scene _isViewfinderSessionAuditTokenMatching:matchingCopy];
@@ -265,10 +265,10 @@ LABEL_10:
 
   v10 = processHandle;
   v11 = MEMORY[0x277CF0B98];
-  [processHandle auditToken];
+  objc_msgSend_auditToken(processHandle);
   v12 = [v11 tokenFromAuditToken:&v18];
   v13 = [v12 hasSameProcessAsAuditToken:matchingCopy];
-  v14 = SBLogCaptureApplication();
+  v14 = SBLogCaptureApplication(v13);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     clientHandle2 = [(FBScene *)*p_scene clientHandle];
@@ -363,7 +363,7 @@ void __46__SBCaptureApplicationLaunchMonitor_TCCServer__block_invoke()
     {
       v13 = 0u;
       v14 = 0u;
-      [processHandle auditToken];
+      objc_msgSend_auditToken(processHandle);
       v6 = tcc_service_singleton_for_CF_name();
       v7 = tcc_credential_create_for_process_with_audit_token();
       v8 = tcc_message_options_create();
@@ -403,7 +403,7 @@ uint64_t __55__SBCaptureApplicationLaunchMonitor__checkForTCCAccess__block_invok
   v5 = tokenCopy;
   if (self->_isCameraInUse)
   {
-    v6 = SBLogCaptureApplication();
+    v6 = SBLogCaptureApplication(tokenCopy);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       clientHandle = [(FBScene *)self->_scene clientHandle];
@@ -422,7 +422,7 @@ LABEL_9:
 
   if (!tokenCopy)
   {
-    v6 = SBLogCaptureApplication();
+    v6 = SBLogCaptureApplication(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       clientHandle = [(FBScene *)self->_scene clientHandle];
@@ -489,51 +489,52 @@ LABEL_11:
 - (void)_publishLaunchRequirementsIfNeededForScene:(id)scene forced:(BOOL)forced
 {
   forcedCopy = forced;
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   if (!self->_launchRequirementsPublished)
   {
     [(SBCaptureApplicationLaunchMonitor *)self _checkAllRequirementsForScene:sceneCopy];
     _hasCaptureApplicationRequirements = [(SBCaptureApplicationLaunchMonitor *)self _hasCaptureApplicationRequirements];
     _isCaptureApplicationLaunchMonitorIgnored = [(SBCaptureApplicationLaunchMonitor *)self _isCaptureApplicationLaunchMonitorIgnored];
-    v9 = _isCaptureApplicationLaunchMonitorIgnored || _hasCaptureApplicationRequirements;
-    v10 = SBLogCaptureApplication();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = _isCaptureApplicationLaunchMonitorIgnored;
+    v10 = _isCaptureApplicationLaunchMonitorIgnored | _hasCaptureApplicationRequirements;
+    v11 = SBLogCaptureApplication(_isCaptureApplicationLaunchMonitorIgnored);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       clientHandle = [sceneCopy clientHandle];
       bundleIdentifier = [clientHandle bundleIdentifier];
       hasTCCAccess = self->_hasTCCAccess;
       isCameraInUse = self->_isCameraInUse;
       hasCameraCaptureButtonConfiguration = self->_hasCameraCaptureButtonConfiguration;
-      v20 = 138413570;
-      v21 = bundleIdentifier;
-      v22 = 1024;
-      v23 = v9 & 1;
-      v24 = 1024;
-      v25 = _isCaptureApplicationLaunchMonitorIgnored;
-      v26 = 1024;
-      v27 = hasTCCAccess;
-      v28 = 1024;
-      v29 = isCameraInUse;
-      v30 = 1024;
-      v31 = hasCameraCaptureButtonConfiguration;
-      _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_DEFAULT, "Capture Application - %@ -: Launch monitor result: hasMetLaunchRequirements: %{BOOL}u, isCaptureApplicationLaunchMonitorIgnored: %{BOOL}u, hasTCCAccess: %{BOOL}u, isCameraInUse: %{BOOL}u, hasCameraCaptureButtonConfiguration: %{BOOL}u", &v20, 0x2Au);
+      v21 = 138413570;
+      v22 = bundleIdentifier;
+      v23 = 1024;
+      v24 = v10 & 1;
+      v25 = 1024;
+      v26 = v9;
+      v27 = 1024;
+      v28 = hasTCCAccess;
+      v29 = 1024;
+      v30 = isCameraInUse;
+      v31 = 1024;
+      v32 = hasCameraCaptureButtonConfiguration;
+      _os_log_impl(&dword_21ED4E000, v11, OS_LOG_TYPE_DEFAULT, "Capture Application - %@ -: Launch monitor result: hasMetLaunchRequirements: %{BOOL}u, isCaptureApplicationLaunchMonitorIgnored: %{BOOL}u, hasTCCAccess: %{BOOL}u, isCameraInUse: %{BOOL}u, hasCameraCaptureButtonConfiguration: %{BOOL}u", &v21, 0x2Au);
     }
 
-    if ((forcedCopy | v9))
+    if ((forcedCopy | v10))
     {
       viewfinderMonitoringToken = self->_viewfinderMonitoringToken;
       if (viewfinderMonitoringToken)
       {
         [(SBCameraViewfinderMonitoring *)viewfinderMonitoringToken cancel];
-        v17 = self->_viewfinderMonitoringToken;
+        v18 = self->_viewfinderMonitoringToken;
         self->_viewfinderMonitoringToken = 0;
       }
 
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       if (objc_opt_respondsToSelector())
       {
-        if (v9)
+        if (v10)
         {
           [WeakRetained captureApplicationMonitor:self hasMetLaunchRequirements:1 unmetReason:0];
         }
@@ -554,7 +555,7 @@ LABEL_14:
           goto LABEL_15;
         }
 
-        [WeakRetained captureApplicationMonitor:self hasMetLaunchRequirements:v9 & 1];
+        [WeakRetained captureApplicationMonitor:self hasMetLaunchRequirements:v10 & 1];
       }
 
       self->_launchRequirementsPublished = 1;
@@ -573,7 +574,7 @@ LABEL_15:
     {
       if (!self->_monitorTimer)
       {
-        v3 = SBLogCaptureApplication();
+        v3 = SBLogCaptureApplication(self);
         if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf[0]) = 0;
@@ -593,21 +594,21 @@ LABEL_15:
         v11 = v10;
         v12 = MEMORY[0x277D85CD0];
         v13 = MEMORY[0x277D85CD0];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __64__SBCaptureApplicationLaunchMonitor__updateMonitorTimerIfNeeded__block_invoke;
-        v17[3] = &unk_2783A9918;
-        objc_copyWeak(&v18, buf);
-        [(BSAbsoluteMachTimer *)v8 scheduleWithFireInterval:v12 leewayInterval:v17 queue:v11 handler:0.05];
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __64__SBCaptureApplicationLaunchMonitor__updateMonitorTimerIfNeeded__block_invoke;
+        v18[3] = &unk_2783A9918;
+        objc_copyWeak(&v19, buf);
+        [(BSAbsoluteMachTimer *)v8 scheduleWithFireInterval:v12 leewayInterval:v18 queue:v11 handler:0.05];
 
-        objc_destroyWeak(&v18);
+        objc_destroyWeak(&v19);
         objc_destroyWeak(buf);
       }
     }
 
     else
     {
-      v14 = SBLogCaptureApplication();
+      v14 = SBLogCaptureApplication(self);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
@@ -616,15 +617,15 @@ LABEL_15:
 
       if (self->_monitorTimer)
       {
-        v15 = SBLogCaptureApplication();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = SBLogCaptureApplication(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf[0]) = 0;
-          _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Invalidating the current watchdog timer", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Invalidating the current watchdog timer", buf, 2u);
         }
 
         [(BSAbsoluteMachTimer *)self->_monitorTimer invalidate];
-        v16 = self->_monitorTimer;
+        v17 = self->_monitorTimer;
         self->_monitorTimer = 0;
       }
     }
@@ -661,7 +662,7 @@ void __64__SBCaptureApplicationLaunchMonitor__updateMonitorTimerIfNeeded__block_
 
   else
   {
-    v8 = SBLogCaptureApplication();
+    v8 = SBLogCaptureApplication(changeCopy);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -689,7 +690,7 @@ void *__64__SBCaptureApplicationLaunchMonitor_sceneContentStateDidChange___block
 {
   v10 = *MEMORY[0x277D85DE8];
   invalidateCopy = invalidate;
-  v5 = SBLogCaptureApplication();
+  v5 = SBLogCaptureApplication(invalidateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     clientHandle = [invalidateCopy clientHandle];
@@ -736,7 +737,7 @@ void *__64__SBCaptureApplicationLaunchMonitor_sceneContentStateDidChange___block
   tokenCopy = token;
   beginCopy = begin;
   scene = [(SBCaptureApplicationLaunchMonitor *)self scene];
-  v9 = SBLogCaptureApplication();
+  v9 = SBLogCaptureApplication(scene);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     clientHandle = [scene clientHandle];
@@ -755,7 +756,7 @@ void *__64__SBCaptureApplicationLaunchMonitor_sceneContentStateDidChange___block
   tokenCopy = token;
   beginCopy = begin;
   scene = [(SBCaptureApplicationLaunchMonitor *)self scene];
-  v9 = SBLogCaptureApplication();
+  v9 = SBLogCaptureApplication(scene);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     clientHandle = [scene clientHandle];
@@ -880,7 +881,7 @@ void *__64__SBCaptureApplicationLaunchMonitor_sceneContentStateDidChange___block
   v4 = [v3 bundleIdentifier];
   [a2 pid];
   OUTLINED_FUNCTION_0_20();
-  OUTLINED_FUNCTION_3_6(&dword_21ED4E000, v5, v6, "Capture Application - %@ -: No process handle found for the scene, can't check viewfinder session audit token for pid: %i", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_3_6(&dword_21ED4E000, v5, v6, "Capture Application - %@ -: No process handle found for the scene, can't check viewfinder session audit token for pid: %i", v7, v8, v9, v10);
 }
 
 - (void)_isViewfinderSessionAuditTokenMatching:(id *)a1 .cold.2(id *a1, void *a2)
@@ -889,7 +890,7 @@ void *__64__SBCaptureApplicationLaunchMonitor_sceneContentStateDidChange___block
   v4 = [v3 bundleIdentifier];
   [a2 pid];
   OUTLINED_FUNCTION_0_20();
-  OUTLINED_FUNCTION_3_6(&dword_21ED4E000, v5, v6, "Capture Application - %@ -: No client handle found for the scene, can't check viewfinder session audit token for pid: %i", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_3_6(&dword_21ED4E000, v5, v6, "Capture Application - %@ -: No client handle found for the scene, can't check viewfinder session audit token for pid: %i", v7, v8, v9, v10);
 }
 
 - (void)sceneContentStateDidChange:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

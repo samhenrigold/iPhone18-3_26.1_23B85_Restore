@@ -142,7 +142,7 @@ LABEL_34:
 
 - (id)_checkTypeForValue:()PPSSQLitePredicate inKeyPath:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a3;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -225,48 +225,47 @@ LABEL_15:
     }
   }
 
-  v9 = [MEMORY[0x277CBEB58] set];
+  v8 = [MEMORY[0x277CBEB58] set];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v10 = v3;
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v11)
+  v9 = v3;
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v18;
+    v11 = v10;
+    v12 = *v17;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v13)
+        if (*v17 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * i);
+        v14 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) != 0 && ![v15 expressionType])
+        if ((objc_opt_isKindOfClass() & 1) != 0 && ![v14 expressionType])
         {
-          constantValue = [v15 constantValue];
+          constantValue = [v14 constantValue];
 
-          v15 = constantValue;
+          v14 = constantValue;
         }
 
-        [v9 addObject:{v15, v17}];
+        [v8 addObject:{v14, v16}];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
-  allObjects = [v9 allObjects];
+  allObjects = [v8 allObjects];
 
 LABEL_17:
-  v7 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }

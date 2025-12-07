@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   request = [(MSVArtworkServiceOperation *)self request];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -42,7 +42,7 @@
     {
       sourceURL3 = [request2 sourceURL];
       *buf = 138477827;
-      v23 = sourceURL3;
+      v22 = sourceURL3;
       _os_log_impl(&dword_1AC81F000, v12, OS_LOG_TYPE_INFO, "Created artwork analysis for source URL=%{private}@", buf, 0xCu);
     }
 
@@ -55,10 +55,10 @@
 
   else
   {
-    v18 = MEMORY[0x1E696ABC0];
-    v19 = [(MSVArtworkColorAnalyzer *)v10 debugDescription];
-    v20 = [v18 msv_errorWithDomain:@"MSVArtworkServiceErrorDomain" code:1 debugDescription:{@"Failed to create color analysis with analyzer=%@", v19}];
-    [(MSVArtworkServiceOperation *)self setOperationError:v20];
+    v17 = MEMORY[0x1E696ABC0];
+    v18 = [(MSVArtworkColorAnalyzer *)v10 debugDescription];
+    v19 = [v17 msv_errorWithDomain:@"MSVArtworkServiceErrorDomain" code:1 debugDescription:{@"Failed to create color analysis with analyzer=%@", v18}];
+    [(MSVArtworkServiceOperation *)self setOperationError:v19];
 
     if (!ImageFromSource)
     {
@@ -72,8 +72,6 @@ LABEL_9:
 
 LABEL_11:
   [request2 releaseSandboxExtensions];
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

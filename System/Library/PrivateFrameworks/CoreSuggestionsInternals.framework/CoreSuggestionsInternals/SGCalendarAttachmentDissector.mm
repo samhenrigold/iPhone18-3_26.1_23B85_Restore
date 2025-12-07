@@ -49,7 +49,7 @@
 
 - (void)_dissectMessage:(id)message entity:(id)entity
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   entityCopy = entity;
   selfCopy = self;
@@ -61,54 +61,54 @@
       v9 = [(SGCalendarAttachmentDissector *)self downloadedCalendarAttachmentsFrom:attachments];
 
       v10 = sgLogHandle();
-      v39 = messageCopy;
+      v38 = messageCopy;
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         attachments2 = [messageCopy attachments];
         *buf = 134218240;
-        v52 = [attachments2 count];
-        v53 = 2048;
-        v54 = [v9 count];
+        v51 = objc_msgSend_count(attachments2);
+        v52 = 2048;
+        v53 = objc_msgSend_count(v9);
         _os_log_debug_impl(&dword_231E60000, v10, OS_LOG_TYPE_DEBUG, "Message with %lu attachments (%lu downloaded ics)", buf, 0x16u);
 
-        messageCopy = v39;
+        messageCopy = v38;
       }
 
-      if ([v9 count])
+      if (objc_msgSend_count(v9))
       {
-        v38 = entityCopy;
-        v37 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:10];
+        v37 = entityCopy;
+        v36 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:10];
+        v45 = 0u;
         v46 = 0u;
         v47 = 0u;
         v48 = 0u;
-        v49 = 0u;
         obj = v9;
-        v11 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v11 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
         if (v11)
         {
           v12 = v11;
-          v41 = 0;
+          v40 = 0;
           v13 = 0;
           v14 = 0;
-          v43 = *v47;
+          v42 = *v46;
           while (1)
           {
             v15 = 0;
             v16 = v14;
             do
             {
-              if (*v47 != v43)
+              if (*v46 != v42)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v17 = *(*(&v46 + 1) + 8 * v15);
+              v17 = *(*(&v45 + 1) + 8 * v15);
               v18 = objc_autoreleasePoolPush();
               v19 = objc_alloc(MEMORY[0x277CBEA90]);
               path = [v17 path];
-              v45 = 0;
-              v14 = [v19 initWithContentsOfFile:path options:1 error:&v45];
-              v21 = v45;
+              v44 = 0;
+              v14 = [v19 initWithContentsOfFile:path options:1 error:&v44];
+              v21 = v44;
 
               if (v21 || !v14)
               {
@@ -117,9 +117,9 @@
                 {
                   path2 = [v17 path];
                   *buf = 138412546;
-                  v52 = path2;
-                  v53 = 2112;
-                  v54 = v21;
+                  v51 = path2;
+                  v52 = 2112;
+                  v53 = v21;
                   _os_log_impl(&dword_231E60000, v30, OS_LOG_TYPE_DEFAULT, "Error when reading attachment at %@:\n%@", buf, 0x16u);
                 }
 
@@ -130,9 +130,9 @@ LABEL_26:
               }
 
               v22 = objc_alloc(MEMORY[0x277D7F108]);
-              v44 = 0;
-              v23 = [v22 initWithData:v14 options:0 error:&v44];
-              v21 = v44;
+              v43 = 0;
+              v23 = [v22 initWithData:v14 options:0 error:&v43];
+              v21 = v43;
 
               if (v21 || !v23)
               {
@@ -141,9 +141,9 @@ LABEL_26:
                 {
                   path3 = [v17 path];
                   *buf = 138412546;
-                  v52 = path3;
-                  v53 = 2112;
-                  v54 = v21;
+                  v51 = path3;
+                  v52 = 2112;
+                  v53 = v21;
                   _os_log_impl(&dword_231E60000, v30, OS_LOG_TYPE_DEFAULT, "Error when instantiating ICSDocument for attachment at %@:\n%@", buf, 0x16u);
                 }
 
@@ -156,27 +156,27 @@ LABEL_26:
               calscale = [calendar calscale];
               if (!calscale || (v26 = calscale, [calendar calscale], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "isEqualToString:", @"GREGORIAN"), v27, v26, v28))
               {
-                messageCopy = v39;
-                v21 = [(SGCalendarAttachmentDissector *)selfCopy enrichmentsFromData:v14 inDocument:v23 parentMessage:v39 parentEntity:v38, v37];
-                if (!v21 || (v29 = [v37 count], (objc_msgSend(v21, "count") + v29) >= 0xB))
+                messageCopy = v38;
+                v21 = [(SGCalendarAttachmentDissector *)selfCopy enrichmentsFromData:v14 inDocument:v23 parentMessage:v38 parentEntity:v37, v36];
+                if (!v21 || (v29 = objc_msgSend_count(v36), (objc_msgSend_count(v21) + v29) >= 0xB))
                 {
 
                   objc_autoreleasePoolPop(v18);
                   v9 = obj;
 
-                  v34 = v37;
-                  entityCopy = v38;
+                  v34 = v36;
+                  entityCopy = v37;
                   goto LABEL_37;
                 }
 
-                [v37 addObjectsFromArray:v21];
-                v41 = calendar;
+                [v36 addObjectsFromArray:v21];
+                v40 = calendar;
                 v13 = v23;
                 goto LABEL_26;
               }
 
               v13 = v23;
-              v41 = calendar;
+              v40 = calendar;
 LABEL_27:
               objc_autoreleasePoolPop(v18);
               ++v15;
@@ -184,7 +184,7 @@ LABEL_27:
             }
 
             while (v12 != v15);
-            v33 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+            v33 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
             v12 = v33;
             if (!v33)
             {
@@ -193,18 +193,18 @@ LABEL_27:
           }
         }
 
-        v41 = 0;
+        v40 = 0;
         v13 = 0;
         v14 = 0;
 LABEL_36:
         v9 = obj;
 
-        v34 = v37;
-        entityCopy = v38;
-        [v38 addEnrichments:v37];
+        v34 = v36;
+        entityCopy = v37;
+        [v37 addEnrichments:v36];
         v23 = v13;
-        calendar = v41;
-        messageCopy = v39;
+        calendar = v40;
+        messageCopy = v38;
 LABEL_37:
       }
     }
@@ -219,45 +219,43 @@ LABEL_37:
       }
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)enrichmentsFromData:(id)data inDocument:(id)document parentMessage:(id)message parentEntity:(id)entity
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   documentCopy = document;
   messageCopy = message;
   entityCopy = entity;
-  v63 = objc_opt_new();
-  v59 = objc_opt_new();
-  v55 = objc_opt_new();
+  v62 = objc_opt_new();
+  v58 = objc_opt_new();
+  v54 = objc_opt_new();
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
-  v67 = documentCopy;
+  v66 = documentCopy;
   calendar = [documentCopy calendar];
   obj = [calendar componentKeys];
 
-  v66 = [obj countByEnumeratingWithState:&v74 objects:v78 count:16];
-  if (v66)
+  v65 = [obj countByEnumeratingWithState:&v73 objects:v77 count:16];
+  if (v65)
   {
-    v65 = *v75;
-    v57 = *MEMORY[0x277D02468];
+    v64 = *v74;
+    v56 = *MEMORY[0x277D02468];
 LABEL_3:
     v11 = 0;
     while (1)
     {
-      if (*v75 != v65)
+      if (*v74 != v64)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v74 + 1) + 8 * v11);
+      v12 = *(*(&v73 + 1) + 8 * v11);
       v13 = objc_autoreleasePoolPush();
-      calendar2 = [v67 calendar];
+      calendar2 = [v66 calendar];
       v15 = [calendar2 componentForKey:v12];
 
       objc_opt_class();
@@ -269,10 +267,10 @@ LABEL_3:
 LABEL_40:
 
       objc_autoreleasePoolPop(v13);
-      if (v66 == ++v11)
+      if (v65 == ++v11)
       {
-        v66 = [obj countByEnumeratingWithState:&v74 objects:v78 count:16];
-        if (v66)
+        v65 = [obj countByEnumeratingWithState:&v73 objects:v77 count:16];
+        if (v65)
         {
           goto LABEL_3;
         }
@@ -284,14 +282,14 @@ LABEL_40:
     method = [v15 method];
     if (!method)
     {
-      calendar3 = [v67 calendar];
+      calendar3 = [v66 calendar];
       method = [calendar3 method];
     }
 
     if (method > 2)
     {
 LABEL_39:
-      if ([v63 count] > 0xA)
+      if (objc_msgSend_count(v62) > 0xA)
       {
 
         objc_autoreleasePoolPop(v13);
@@ -302,9 +300,9 @@ LABEL_39:
       goto LABEL_40;
     }
 
-    v73 = 1;
-    calendar4 = [v67 calendar];
-    v19 = [v15 enrichmentWithParentEntity:entityCopy withCalendar:calendar4 withCorrectnessFlag:&v73];
+    v72 = 1;
+    calendar4 = [v66 calendar];
+    v19 = [v15 enrichmentWithParentEntity:entityCopy withCalendar:calendar4 withCorrectnessFlag:&v72];
 
     v20 = [v15 uid];
     v21 = v20;
@@ -314,11 +312,11 @@ LABEL_39:
       v22 = v20;
     }
 
-    v64 = v22;
+    v63 = v22;
 
     if (v19)
     {
-      if (([v59 containsObject:v64] & 1) == 0)
+      if (([v58 containsObject:v63] & 1) == 0)
       {
         v24 = sgLogHandle();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
@@ -327,18 +325,18 @@ LABEL_39:
           _os_log_debug_impl(&dword_231E60000, v24, OS_LOG_TYPE_DEBUG, "Found event", buf, 2u);
         }
 
-        [v63 addObject:v19];
-        [v59 addObject:v64];
+        [v62 addObject:v19];
+        [v58 addObject:v63];
         *buf = 0;
-        v70 = buf;
-        v71 = 0x2020000000;
-        v72 = 0;
-        v68[0] = MEMORY[0x277D85DD0];
-        v68[1] = 3221225472;
-        v68[2] = __91__SGCalendarAttachmentDissector_enrichmentsFromData_inDocument_parentMessage_parentEntity___block_invoke;
-        v68[3] = &unk_27894D860;
-        v68[4] = buf;
-        [MEMORY[0x277CC5A40] sg_usingSharedStoreForReadingOnly:v68];
+        v69 = buf;
+        v70 = 0x2020000000;
+        v71 = 0;
+        v67[0] = MEMORY[0x277D85DD0];
+        v67[1] = 3221225472;
+        v67[2] = __91__SGCalendarAttachmentDissector_enrichmentsFromData_inDocument_parentMessage_parentEntity___block_invoke;
+        v67[3] = &unk_27894D860;
+        v67[4] = buf;
+        [MEMORY[0x277CC5A40] sg_usingSharedStoreForReadingOnly:v67];
         timeRange = [v19 timeRange];
         startTimeZone = [timeRange startTimeZone];
         name = [startTimeZone name];
@@ -346,7 +344,7 @@ LABEL_39:
         if (!name)
         {
           v28 = @"floating";
-          if (v70[24])
+          if (v69[24])
           {
             v28 = 0;
           }
@@ -360,9 +358,9 @@ LABEL_39:
           [v19 addTag:v30];
         }
 
-        if ((v73 & 1) == 0)
+        if ((v72 & 1) == 0)
         {
-          [v55 setValue:v29 forKey:v64];
+          [v54 setValue:v29 forKey:v63];
         }
 
         accountHandles = [messageCopy accountHandles];
@@ -388,7 +386,7 @@ LABEL_39:
         goto LABEL_37;
       }
 
-      if (![v59 containsObject:v64])
+      if (![v58 containsObject:v63])
       {
 LABEL_37:
 
@@ -413,7 +411,7 @@ LABEL_37:
 
           v48 = objc_alloc(MEMORY[0x277CCACA8]);
           v49 = [v45 key];
-          v50 = [v48 initWithFormat:@"%@.%@", v57, v49];
+          v50 = [v48 initWithFormat:@"%@.%@", v56, v49];
 
           dictionaryRepresentation = [v45 dictionaryRepresentation];
           AnalyticsSendEvent();
@@ -445,10 +443,8 @@ LABEL_37:
 
 LABEL_42:
 
-  v52 = v63;
+  v52 = v62;
 LABEL_44:
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v52;
 }
@@ -501,34 +497,34 @@ void __91__SGCalendarAttachmentDissector_enrichmentsFromData_inDocument_parentMe
 
 - (BOOL)hasCalendarAccountForOneOf:(id)of
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   ofCopy = of;
-  v5 = [ofCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [ofCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(ofCopy);
         }
 
-        if ([(SGAccountsAdapter *)self->_accountsAdapter hasCalendarAccount:*(*(&v12 + 1) + 8 * i), v12])
+        if ([(SGAccountsAdapter *)self->_accountsAdapter hasCalendarAccount:*(*(&v11 + 1) + 8 * i), v11])
         {
           v9 = 1;
           goto LABEL_11;
         }
       }
 
-      v6 = [ofCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [ofCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v6)
       {
         continue;
@@ -541,7 +537,6 @@ void __91__SGCalendarAttachmentDissector_enrichmentsFromData_inDocument_parentMe
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -594,69 +589,69 @@ uint64_t __67__SGCalendarAttachmentDissector_downloadedCalendarAttachmentsFrom__
 
 + (id)splitAttachment:(id)attachment intoEvents:(id)events withTimezones:(id)timezones
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   attachmentCopy = attachment;
   eventsCopy = events;
   timezonesCopy = timezones;
   bytes = [attachmentCopy bytes];
-  v46 = attachmentCopy;
-  v42 = objc_opt_new();
-  v9 = [objc_opt_class() baseAttachmentFrom:attachmentCopy includingEvents:eventsCopy withRanges:v42];
-  v45 = [v9 length];
+  v45 = attachmentCopy;
+  v41 = objc_opt_new();
+  v9 = [objc_opt_class() baseAttachmentFrom:attachmentCopy includingEvents:eventsCopy withRanges:v41];
+  v44 = [v9 length];
   v10 = v9;
   [v10 appendBytes:"END:VCALENDAR\n" length:14];
-  v39 = objc_opt_new();
+  v38 = objc_opt_new();
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   obj = eventsCopy;
-  v43 = [obj countByEnumeratingWithState:&v53 objects:v67 count:16];
-  if (v43)
+  v42 = [obj countByEnumeratingWithState:&v52 objects:v66 count:16];
+  if (v42)
   {
     v11 = 0;
-    v41 = *v54;
-    v38 = v63;
+    v40 = *v53;
+    v37 = v62;
     do
     {
       v12 = 0;
       do
       {
-        if (*v54 != v41)
+        if (*v53 != v40)
         {
           objc_enumerationMutation(obj);
         }
 
-        v44 = v12;
-        v13 = *(*(&v53 + 1) + 8 * v12);
-        v14 = [v42 objectForKeyedSubscript:{v13, v38}];
+        v43 = v12;
+        v13 = *(*(&v52 + 1) + 8 * v12);
+        v14 = [v41 objectForKeyedSubscript:{v13, v37}];
+        v48 = 0u;
         v49 = 0u;
         v50 = 0u;
         v51 = 0u;
-        v52 = 0u;
-        v15 = [v14 countByEnumeratingWithState:&v49 objects:v66 count:16];
-        v16 = v45;
+        v15 = [v14 countByEnumeratingWithState:&v48 objects:v65 count:16];
+        v16 = v44;
         if (v15)
         {
           v17 = v15;
-          v18 = *v50;
-          v16 = v45;
+          v18 = *v49;
+          v16 = v44;
           do
           {
             for (i = 0; i != v17; ++i)
             {
-              if (*v50 != v18)
+              if (*v49 != v18)
               {
                 objc_enumerationMutation(v14);
               }
 
-              rangeValue = [*(*(&v49 + 1) + 8 * i) rangeValue];
+              rangeValue = [*(*(&v48 + 1) + 8 * i) rangeValue];
               v22 = v21;
               [v10 replaceBytesInRange:v16 withBytes:v11 length:{bytes + rangeValue, v21}];
               v23 = [timezonesCopy objectForKeyedSubscript:v13];
               if (v23)
               {
-                v16 += [objc_opt_class() replaceTzid:v23 inDocument:v10 fromOriginal:v46 withBaseLength:v16 withEventRange:{rangeValue, v22}];
+                v16 += [objc_opt_class() replaceTzid:v23 inDocument:v10 fromOriginal:v45 withBaseLength:v16 withEventRange:{rangeValue, v22}];
               }
 
               v16 += v22;
@@ -664,74 +659,72 @@ uint64_t __67__SGCalendarAttachmentDissector_downloadedCalendarAttachmentsFrom__
               v11 = 0;
             }
 
-            v17 = [v14 countByEnumeratingWithState:&v49 objects:v66 count:16];
+            v17 = [v14 countByEnumeratingWithState:&v48 objects:v65 count:16];
             v11 = 0;
           }
 
           while (v17);
         }
 
-        if (v14 && [v14 count])
+        if (v14 && objc_msgSend_count(v14))
         {
           v24 = v10;
           v25 = objc_opt_new();
-          v61 = MEMORY[0x277D85DD0];
-          v62 = 3221225472;
-          v63[0] = __removeAttachments_block_invoke;
-          v63[1] = &unk_27894C330;
+          v60 = MEMORY[0x277D85DD0];
+          v61 = 3221225472;
+          v62[0] = __removeAttachments_block_invoke;
+          v62[1] = &unk_27894C330;
           v26 = v24;
-          v64 = v26;
+          v63 = v26;
           v27 = v25;
-          v65 = v27;
+          v64 = v27;
           _PASEnumerateSimpleLinesInUTF8Data();
-          v59 = 0u;
-          v60 = 0u;
-          v57 = 0u;
           v58 = 0u;
+          v59 = 0u;
+          v56 = 0u;
+          v57 = 0u;
           reverseObjectEnumerator = [v27 reverseObjectEnumerator];
-          v29 = [reverseObjectEnumerator countByEnumeratingWithState:&v57 objects:v68 count:16];
+          v29 = [reverseObjectEnumerator countByEnumeratingWithState:&v56 objects:v67 count:16];
           if (v29)
           {
             v30 = v29;
-            v31 = *v58;
+            v31 = *v57;
             do
             {
               for (j = 0; j != v30; ++j)
               {
-                if (*v58 != v31)
+                if (*v57 != v31)
                 {
                   objc_enumerationMutation(reverseObjectEnumerator);
                 }
 
-                rangeValue2 = [*(*(&v57 + 1) + 8 * j) rangeValue];
+                rangeValue2 = [*(*(&v56 + 1) + 8 * j) rangeValue];
                 [v26 replaceBytesInRange:rangeValue2 withBytes:v34 length:{"", 0}];
               }
 
-              v30 = [reverseObjectEnumerator countByEnumeratingWithState:&v57 objects:v68 count:16];
+              v30 = [reverseObjectEnumerator countByEnumeratingWithState:&v56 objects:v67 count:16];
             }
 
             while (v30);
           }
 
           v35 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v26 encoding:4];
-          [v39 addObject:v35];
+          [v38 addObject:v35];
         }
 
-        v11 = v16 - v45;
+        v11 = v16 - v44;
 
-        v12 = v44 + 1;
+        v12 = v43 + 1;
       }
 
-      while (v44 + 1 != v43);
-      v43 = [obj countByEnumeratingWithState:&v53 objects:v67 count:16];
+      while (v43 + 1 != v42);
+      v42 = [obj countByEnumeratingWithState:&v52 objects:v66 count:16];
     }
 
-    while (v43);
+    while (v42);
   }
 
-  v36 = *MEMORY[0x277D85DE8];
-
-  return v39;
+  return v38;
 }
 
 + (int64_t)replaceTzid:(id)tzid inDocument:(id)document fromOriginal:(id)original withBaseLength:(unint64_t)length withEventRange:(_NSRange)range

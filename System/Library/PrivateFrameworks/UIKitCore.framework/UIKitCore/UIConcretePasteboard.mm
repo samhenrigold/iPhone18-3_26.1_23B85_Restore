@@ -31,7 +31,7 @@ void __45___UIConcretePasteboard__saveItemCollection___block_invoke_2(uint64_t a
   dispatch_group_leave(*(*(a1 + 32) + 24));
 }
 
-uint64_t __45___UIConcretePasteboard__saveItemCollection___block_invoke_3(uint64_t a1)
+void *__45___UIConcretePasteboard__saveItemCollection___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) notificationState];
   _notificationStateQueue_notificationState = result;
@@ -52,7 +52,7 @@ void __45___UIConcretePasteboard__saveItemCollection___block_invoke_5(uint64_t a
   dispatch_sync(v2, block);
 }
 
-uint64_t __45___UIConcretePasteboard__saveItemCollection___block_invoke_6(uint64_t a1)
+void *__45___UIConcretePasteboard__saveItemCollection___block_invoke_6(uint64_t a1)
 {
   result = [*(a1 + 32) _pasteboardCacheQueue_saveItemCollection:*(a1 + 40) currentNotificationState:_notificationStateQueue_notificationState outNewNotificationState:?];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -116,7 +116,7 @@ void __59___UIConcretePasteboard__pasteboardNamed_createIfNotFound___block_invok
       v14 = *(v13 + 40);
       *(v13 + 40) = v12;
 
-      if (([*(a1 + 32) isEqualToString:@"com.apple.UIKit.pboard.general"] & 1) != 0 || !_UIApplicationIsExtension() || (dyld_program_sdk_at_least() & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(*(a1 + 32)) & 1) != 0 || !_UIApplicationIsExtension() || (dyld_program_sdk_at_least() & 1) == 0)
       {
         v15 = _notificationStateQueue();
         v20[0] = MEMORY[0x1E69E9820];
@@ -139,7 +139,7 @@ void __59___UIConcretePasteboard__pasteboardNamed_createIfNotFound___block_invok
   }
 }
 
-uint64_t __59___UIConcretePasteboard__pasteboardNamed_createIfNotFound___block_invoke_2(uint64_t a1)
+void *__59___UIConcretePasteboard__pasteboardNamed_createIfNotFound___block_invoke_2(uint64_t a1)
 {
   result = [*(*(*(a1 + 40) + 8) + 40) _pasteboardCacheQueue_setPersistent:1 currentNotificationState:_notificationStateQueue_notificationState outNewNotificationState:?];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -177,7 +177,7 @@ void __81___UIConcretePasteboard__pinItemProviders_forPasteboardNamed_withExpira
 
   if (!*(*(*(a1 + 40) + 8) + 40))
   {
-    if ([*(a1 + 32) isEqualToString:@"com.apple.UIKit.pboard.general"])
+    if (objc_msgSend_isEqualToString_(*(a1 + 32)))
     {
       _getTemporaryLocalGeneralPasteboard(0);
     }
@@ -201,7 +201,7 @@ void __81___UIConcretePasteboard__pinItemProviders_forPasteboardNamed_withExpira
   }
 }
 
-uint64_t __37___UIConcretePasteboard_isPersistent__block_invoke(uint64_t a1)
+void *__37___UIConcretePasteboard_isPersistent__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _pasteboardCacheQueue_isPersistent];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -220,7 +220,7 @@ void __40___UIConcretePasteboard__setPersistent___block_invoke(uint64_t a1)
   dispatch_sync(v2, block);
 }
 
-uint64_t __40___UIConcretePasteboard__setPersistent___block_invoke_2(uint64_t a1)
+void *__40___UIConcretePasteboard__setPersistent___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _pasteboardCacheQueue_setPersistent:*(a1 + 48) currentNotificationState:_notificationStateQueue_notificationState outNewNotificationState:?];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -400,9 +400,9 @@ void __59___UIConcretePasteboard_valuesForPasteboardType_inItemSet___block_invok
     if (*(v67 + 40))
     {
       v17 = [*MEMORY[0x1E6982F28] identifier];
-      v18 = [v11 isEqualToString:v17];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-      if (v18)
+      if (isEqualToString)
       {
         v19 = UIImagePNGRepresentation(*(v67 + 40));
 LABEL_19:
@@ -413,7 +413,7 @@ LABEL_19:
       }
 
       v36 = [*MEMORY[0x1E6982E58] identifier];
-      v37 = [v11 isEqualToString:v36];
+      v37 = objc_msgSend_isEqualToString_(v11);
 
       if (v37)
       {
@@ -632,7 +632,7 @@ void __57___UIConcretePasteboard_dataForPasteboardType_inItemSet___block_invoke(
     v7 = [v6 items];
     v8 = [v7 objectAtIndexedSubscript:a2];
 
-    if ([*(a1 + 40) isEqualToString:0x1EFB86090])
+    if (objc_msgSend_isEqualToString_(*(a1 + 40)))
     {
       v9 = dispatch_semaphore_create(0);
       v10 = objc_opt_class();
@@ -833,10 +833,10 @@ LABEL_12:
         {
           v43 = v16;
           v29 = [v28 objectAtIndex:1];
-          v30 = [v29 isEqualToString:&stru_1EFB14550];
+          isEqualToString = objc_msgSend_isEqualToString_(v29);
 
           v31 = MEMORY[0x1E695DFF8];
-          if (v30)
+          if (isEqualToString)
           {
             v32 = [v28 objectAtIndexedSubscript:0];
             v33 = v31;
@@ -925,7 +925,7 @@ LABEL_35:
     goto LABEL_14;
   }
 
-  if ([v16 isEqual:0x1EFB86090])
+  if (objc_msgSend_isEqual_(v16))
   {
 LABEL_14:
     v19 = objc_opt_class();

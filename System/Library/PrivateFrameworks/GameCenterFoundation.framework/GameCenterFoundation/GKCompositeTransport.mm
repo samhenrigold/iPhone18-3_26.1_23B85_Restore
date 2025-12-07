@@ -13,6 +13,7 @@
 - (void)connectToPlayersWithTransportContext:(id)context completionHandler:(id)handler;
 - (void)disconnectAllWithTransportContext:(id)context completionHandler:(id)handler;
 - (void)fileMultiplayerTTRWith:(id)with;
+- (void)handleRelayPushData:(id)data onlyIfPreemptive:(BOOL)preemptive;
 - (void)localConnectionDataWithCompletionHandler:(id)handler;
 - (void)preemptRelay:(id)relay;
 @end
@@ -58,7 +59,7 @@
 
 - (void)disconnectAllWithTransportContext:(id)context completionHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   handlerCopy = handler;
   reporter = [(GKCompositeTransport *)self reporter];
@@ -84,23 +85,21 @@ LABEL_7:
     v12 = MEMORY[0x277CCACC8];
     v9 = v11;
     callStackSymbols = [v12 callStackSymbols];
-    v15 = 138412546;
-    v16 = contextCopy;
-    v17 = 2112;
-    v18 = callStackSymbols;
-    _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "Undefined transport or no transport has been selected when disconnecting. Context: %@.\nCall stack: %@", &v15, 0x16u);
+    v14 = 138412546;
+    v15 = contextCopy;
+    v16 = 2112;
+    v17 = callStackSymbols;
+    _os_log_impl(&dword_227904000, v9, OS_LOG_TYPE_INFO, "Undefined transport or no transport has been selected when disconnecting. Context: %@.\nCall stack: %@", &v14, 0x16u);
 
     goto LABEL_7;
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)transportForContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   selectedTransport = [contextCopy selectedTransport];
   version = [selectedTransport version];
@@ -131,7 +130,7 @@ LABEL_5:
     v12 = v10;
     callStackSymbols = [v11 callStackSymbols];
     *buf = 138412290;
-    v22 = callStackSymbols;
+    v21 = callStackSymbols;
     _os_log_impl(&dword_227904000, v12, OS_LOG_TYPE_INFO, "Undefined transport used from call stack: %@", buf, 0xCu);
   }
 
@@ -144,8 +143,6 @@ LABEL_5:
   [MEMORY[0x277CBEAD8] raise:@"GameKit Exception" format:{@"%@", v18}];
   v8 = 0;
 LABEL_11:
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -268,6 +265,14 @@ LABEL_11:
   responseCopy = response;
   viceroyTransport = [(GKCompositeTransport *)self viceroyTransport];
   [viceroyTransport acceptRelayResponse:responseCopy playerID:dCopy];
+}
+
+- (void)handleRelayPushData:(id)data onlyIfPreemptive:(BOOL)preemptive
+{
+  preemptiveCopy = preemptive;
+  dataCopy = data;
+  viceroyTransport = [(GKCompositeTransport *)self viceroyTransport];
+  [viceroyTransport handleRelayPushData:dataCopy onlyIfPreemptive:preemptiveCopy];
 }
 
 - (void)preemptRelay:(id)relay

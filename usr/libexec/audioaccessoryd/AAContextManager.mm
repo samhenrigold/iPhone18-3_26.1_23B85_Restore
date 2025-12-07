@@ -6,6 +6,7 @@
 - (void)_contextSignalUpdated:(id)updated withFusedState:(unsigned int)state;
 - (void)_ensureStartedContextMonitorWithCompletion:(id)completion;
 - (void)_notifyTips:(int)tips;
+- (void)_requestSensingPredictionInfo:(BOOL)info spl:(BOOL)spl;
 - (void)_setPreferencesForKey:(id)key withBoolValue:(BOOL)value;
 - (void)_wxDeviceFound:(id)found;
 - (void)_wxDeviceLost:(id)lost;
@@ -63,9 +64,12 @@
 {
   if (self->_concertVenueAirPodsNearybyTipShown)
   {
-    if (dword_1002F6848 <= 30 && (dword_1002F6848 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F6848 <= 30)
     {
-      sub_1001EC52C();
+      if (dword_1002F6848 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_1001EC52C(self, a2, v2);
+      }
     }
   }
 
@@ -78,56 +82,60 @@
 
 - (void)_wxDiscoveryEnsureStarted
 {
-  if (dword_1002F6848 <= 30 && (dword_1002F6848 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F6848 <= 30)
   {
-    sub_1001EC548();
+    if (dword_1002F6848 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001EC548(self, a2, v2);
+    }
   }
 
-  v3 = objc_alloc_init(SFDeviceDiscovery);
-  wxDiscovery = self->_wxDiscovery;
-  self->_wxDiscovery = v3;
-  v5 = v3;
+  v4 = objc_alloc_init(SFDeviceDiscovery);
+  wxDiscovery = selfCopy->_wxDiscovery;
+  selfCopy->_wxDiscovery = v4;
+  v6 = v4;
 
-  [(SFDeviceDiscovery *)v5 setChangeFlags:9];
-  [(SFDeviceDiscovery *)v5 setDiscoveryFlags:2];
-  [(SFDeviceDiscovery *)v5 setDispatchQueue:self->_dispatchQueue];
-  [(SFDeviceDiscovery *)v5 setPurpose:@"AAContextManger"];
-  [(SFDeviceDiscovery *)v5 setScanRate:20];
+  [(SFDeviceDiscovery *)v6 setChangeFlags:9];
+  [(SFDeviceDiscovery *)v6 setDiscoveryFlags:2];
+  [(SFDeviceDiscovery *)v6 setDispatchQueue:selfCopy->_dispatchQueue];
+  [(SFDeviceDiscovery *)v6 setPurpose:@"AAContextManger"];
+  [(SFDeviceDiscovery *)v6 setScanRate:20];
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100005D84;
+  v11[3] = &unk_1002B8428;
+  v11[4] = selfCopy;
+  v11[5] = v6;
+  [(SFDeviceDiscovery *)v6 setDeviceFoundHandler:v11];
   v10[0] = _NSConcreteStackBlock;
   v10[1] = 3221225472;
-  v10[2] = sub_100005D84;
+  v10[2] = sub_100005CDC;
   v10[3] = &unk_1002B8428;
-  v10[4] = self;
-  v10[5] = v5;
-  [(SFDeviceDiscovery *)v5 setDeviceFoundHandler:v10];
+  v10[4] = selfCopy;
+  v10[5] = v6;
+  [(SFDeviceDiscovery *)v6 setDeviceLostHandler:v10];
   v9[0] = _NSConcreteStackBlock;
   v9[1] = 3221225472;
-  v9[2] = sub_100005CDC;
-  v9[3] = &unk_1002B8428;
-  v9[4] = self;
-  v9[5] = v5;
-  [(SFDeviceDiscovery *)v5 setDeviceLostHandler:v9];
+  v9[2] = sub_100073DE4;
+  v9[3] = &unk_1002B8450;
+  v9[4] = selfCopy;
+  v9[5] = v6;
+  [(SFDeviceDiscovery *)v6 setDeviceChangedHandler:v9];
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
-  v8[2] = sub_100073DE4;
-  v8[3] = &unk_1002B8450;
-  v8[4] = self;
-  v8[5] = v5;
-  [(SFDeviceDiscovery *)v5 setDeviceChangedHandler:v8];
+  v8[2] = sub_100073E08;
+  v8[3] = &unk_1002B6D18;
+  v8[4] = selfCopy;
+  v8[5] = v6;
+  [(SFDeviceDiscovery *)v6 setInvalidationHandler:v8];
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
-  v7[2] = sub_100073E08;
-  v7[3] = &unk_1002B6D18;
-  v7[4] = self;
-  v7[5] = v5;
-  [(SFDeviceDiscovery *)v5 setInvalidationHandler:v7];
-  v6[0] = _NSConcreteStackBlock;
-  v6[1] = 3221225472;
-  v6[2] = sub_100073E24;
-  v6[3] = &unk_1002B68A8;
-  v6[4] = self;
-  v6[5] = v5;
-  [(SFDeviceDiscovery *)v5 activateWithCompletion:v6];
+  v7[2] = sub_100073E24;
+  v7[3] = &unk_1002B68A8;
+  v7[4] = selfCopy;
+  v7[5] = v6;
+  [(SFDeviceDiscovery *)v6 activateWithCompletion:v7];
 }
 
 - (void)_ensureStartedContextMonitorWithCompletion:(id)completion
@@ -149,7 +157,7 @@
   [v5 setContextSignalUpdatedHandler:v10];
   if (dword_1002F6848 <= 30 && (dword_1002F6848 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EC5A4();
+    sub_1001EC5A4(v5);
   }
 
   v8[0] = _NSConcreteStackBlock;
@@ -160,6 +168,35 @@
   v9 = completionCopy;
   v7 = completionCopy;
   [v5 activateWithCompletion:v8];
+}
+
+- (void)_requestSensingPredictionInfo:(BOOL)info spl:(BOOL)spl
+{
+  splCopy = spl;
+  infoCopy = info;
+  v7 = self->_contextMonitor;
+  if (v7)
+  {
+    [(SPContextMonitor *)v7 setContextChangeFlags:[(AAContextManager *)self _generateContextChangedFlags:infoCopy spl:splCopy]];
+  }
+
+  else
+  {
+    if (dword_1002F6848 <= 30 && (dword_1002F6848 != -1 || _LogCategory_Initialize()))
+    {
+      sub_1001EC704(infoCopy, splCopy);
+    }
+
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100074398;
+    v8[3] = &unk_1002B7898;
+    v9 = 0;
+    selfCopy = self;
+    v11 = infoCopy;
+    v12 = splCopy;
+    [(AAContextManager *)self _ensureStartedContextMonitorWithCompletion:v8];
+  }
 }
 
 - (void)_contextSignalUpdated:(id)updated withFusedState:(unsigned int)state
@@ -243,16 +280,16 @@ LABEL_11:
 {
   if (dword_1002F6848 <= 30 && (dword_1002F6848 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001EC78C();
+    sub_1001EC78C(tips);
   }
 
-  v3 = BiomeLibrary();
-  discoverability = [v3 Discoverability];
+  v4 = BiomeLibrary();
+  discoverability = [v4 Discoverability];
   signals = [discoverability Signals];
 
-  v5 = [[BMDiscoverabilitySignals alloc] initWithContentIdentifier:@"com.apple.AudioAccessoryServices.user-reach-loud-environment" context:0 osBuild:0 userInfo:0];
+  v6 = [[BMDiscoverabilitySignals alloc] initWithContentIdentifier:@"com.apple.AudioAccessoryServices.user-reach-loud-environment" context:0 osBuild:0 userInfo:0];
   source = [signals source];
-  [source sendEvent:v5];
+  [source sendEvent:v6];
 }
 
 - (void)_wxDeviceLost:(id)lost
@@ -282,16 +319,10 @@ LABEL_11:
           v13 = name;
         }
 
-        v16 = v13;
-        LogPrintF();
-
-        [(NSMutableDictionary *)self->_wxDevices setObject:0 forKeyedSubscript:uUIDString, uUIDString, v16, Int64Ranged];
+        LogPrintF(&dword_1002F6848, "[AAContextManager _wxDeviceLost:]", 30, "Wx Device lost: %@ %@ productID %d", uUIDString, v13, Int64Ranged);
       }
 
-      else
-      {
-        [(NSMutableDictionary *)self->_wxDevices setObject:0 forKeyedSubscript:uUIDString, v14, v15, v17];
-      }
+      [(NSMutableDictionary *)self->_wxDevices setObject:0 forKeyedSubscript:uUIDString];
     }
   }
 }
@@ -321,10 +352,7 @@ LABEL_11:
         {
           if (dword_1002F6848 != -1 || (v14 = _LogCategory_Initialize(), v13 = foundCopy, v14))
           {
-            v17 = uUIDString;
-            v18 = v11;
-            v19 = v10;
-            LogPrintF();
+            LogPrintF(&dword_1002F6848, "[AAContextManager _wxDeviceFound:]", 30, "Connected Audio Wx Device: identifier %@, productID: %d subType %d", uUIDString, v11, v10);
             v13 = foundCopy;
           }
         }
@@ -339,7 +367,7 @@ LABEL_11:
         }
       }
 
-      [(NSMutableDictionary *)self->_wxDevices setObject:v13 forKeyedSubscript:uUIDString, v17, v18, v19];
+      [(NSMutableDictionary *)self->_wxDevices setObject:v13 forKeyedSubscript:uUIDString];
       if (v10 == 6 && !self->_concertVenueAirPodsNearybyTipShown)
       {
         [(AAContextManager *)self _requestSensingPredictionInfo:1 spl:0];

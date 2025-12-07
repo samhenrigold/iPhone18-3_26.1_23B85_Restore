@@ -7,33 +7,33 @@
 
 + (id)tableWithTransitionEntries:(id)entries selectorTarget:(id)target
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   targetCopy = target;
   v6 = objc_alloc_init(objc_opt_class());
   v7 = objc_opt_new();
   [v6 setEntriesMap:v7];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = entriesCopy;
-  v8 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v8 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v8)
   {
     v9 = v8;
-    v29 = *v31;
+    v28 = *v30;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v31 != v29)
+        if (*v30 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
         entriesMap = [v6 entriesMap];
         state = [v11 state];
         v14 = [entriesMap objectForKeyedSubscript:state];
@@ -82,14 +82,13 @@
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v9 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v9);
   }
 
   [v6 setSelectorTarget:targetCopy];
-  v25 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

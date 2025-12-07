@@ -1,4 +1,5 @@
 @interface VMUArchitecture
++ (id)architectureWithCpuType:(int)type cpuSubtype:(int)subtype;
 + (void)initialize;
 - (BOOL)is64Bit;
 - (BOOL)isEqual:(id)equal;
@@ -56,6 +57,13 @@
     v17 = anyArchitecture;
     anyArchitecture = v16;
   }
+}
+
++ (id)architectureWithCpuType:(int)type cpuSubtype:(int)subtype
+{
+  v4 = [[VMUArchitecture alloc] initWithCpuType:*&type cpuSubtype:*&subtype];
+
+  return v4;
 }
 
 - (VMUArchitecture)initWithCpuType:(int)type cpuSubtype:(int)subtype

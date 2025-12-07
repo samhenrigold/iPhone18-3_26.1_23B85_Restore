@@ -93,7 +93,7 @@ LABEL_9:
   mInnerWrapPoints = self->mInnerWrapPoints;
   pointCopy = point;
   pointCopy2 = point;
-  sub_9828(mInnerWrapPoints, &pointCopy);
+  sub_9828(mInnerWrapPoints, &pointCopy, &pointCopy);
 }
 
 - (const)wrapPoints

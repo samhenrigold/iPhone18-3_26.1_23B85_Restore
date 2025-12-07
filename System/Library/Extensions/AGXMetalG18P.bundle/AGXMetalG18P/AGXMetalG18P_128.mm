@@ -1,4 +1,4 @@
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE1ELj1ELh0ELNS7_13SubblockOrderE2EL19AGXTextureFootprint1EEELb0EL29AGXHardwareTextureMemoryOrder3EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, __n128 a2, __n128 a3, double a4, double a5)
+uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE1ELj1ELh0ELNS7_13SubblockOrderE2EL19AGXTextureFootprint1EEELb0EL29AGXHardwareTextureMemoryOrder3EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, __n128 a2, __n128 a3, double a4, double a5)
 {
   v62 = *MEMORY[0x29EDCA608];
   v7 = *(a1 + 32);
@@ -206,7 +206,7 @@ LABEL_32:
         v44 = v38 - 8 * v46;
       }
 
-      result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)1,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)2,(AGXTextureFootprint)1>::compressSubblock(v36, v37, &v61[256 * v45 + 16 * v46], 64, v44, v43, v40, a2.n128_f64[0], a3.n128_f64[0], a4, a5, v14, v15, v16, v17);
+      result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)1,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)2,(AGXTextureFootprint)1>::compressSubblock(v36, v37, &v61[256 * v45 + 16 * v46], 64, v44, v43, a2.n128_f64[0], a3.n128_f64[0], a4, a5, v14, v15, v16, v17, v40);
       v36 += result;
     }
 
@@ -426,7 +426,7 @@ LABEL_32:
   return result;
 }
 
-unint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE1ELj1ELh0ELNS7_13SubblockOrderE2EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder3EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, __n128 a2, __n128 a3, double a4, double a5)
+uint64_t ___ZNK3AGX7TextureIL22AGXTextureMemoryLayout4ENS_6HAL3008EncodersENS2_7ClassesEE25processCompressedRegion2DINS_20AppleCompressionGen210CompressorILNS7_11PixelFormatE1ELj1ELh0ELNS7_13SubblockOrderE2EL19AGXTextureFootprint0EEELb0EL29AGXHardwareTextureMemoryOrder3EEEvPvPKvSE_14MTLPixelFormatjjjjjjmjj_block_invoke(uint64_t a1, __n128 a2, __n128 a3, double a4, double a5)
 {
   v59 = *MEMORY[0x29EDCA608];
   v6 = *(a1 + 40);
@@ -925,7 +925,7 @@ LABEL_57:
         v44 = v38 - 8 * v46;
       }
 
-      result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)0,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)2,(AGXTextureFootprint)3>::compressSubblock(v36, v37, &v76[128 * v45 + 8 * v46], 32, v44, v43, v40, a2.n128_f64[0], a3.n128_f64[0], v12, v13, v14, v15, v16);
+      result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)0,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)2,(AGXTextureFootprint)3>::compressSubblock(v36, v37, &v76[128 * v45 + 8 * v46], 32, v44, v43, a2.n128_f64[0], a3.n128_f64[0], v12, v13, v14, v15, v16, v40);
       v36 += result;
     }
 
@@ -1219,7 +1219,7 @@ LABEL_57:
         v44 = v38 - 8 * v46;
       }
 
-      result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)0,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)2,(AGXTextureFootprint)2>::compressSubblock(v36, v37, &v76[128 * v45 + 8 * v46], 32, v44, v43, v40, a2.n128_f64[0], a3.n128_f64[0], v12, v13, v14, v15, v16);
+      result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)0,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)2,(AGXTextureFootprint)2>::compressSubblock(v36, v37, &v76[128 * v45 + 8 * v46], 32, v44, v43, a2.n128_f64[0], a3.n128_f64[0], v12, v13, v14, v15, v16, v40);
       v36 += result;
     }
 
@@ -1513,7 +1513,7 @@ LABEL_57:
         v44 = v38 - 8 * v46;
       }
 
-      result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)0,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)2,(AGXTextureFootprint)1>::compressSubblock(v36, v37, &v76[128 * v45 + 8 * v46], 32, v44, v43, v40, a2.n128_f64[0], a3.n128_f64[0], v12, v13, v14, v15, v16);
+      result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)0,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)2,(AGXTextureFootprint)1>::compressSubblock(v36, v37, &v76[128 * v45 + 8 * v46], 32, v44, v43, a2.n128_f64[0], a3.n128_f64[0], v12, v13, v14, v15, v16, v40);
       v36 += result;
     }
 
@@ -2076,7 +2076,7 @@ LABEL_57:
       }
 
       result = AGX::AppleCompressionGen2::Compressor<(AGX::AppleCompressionGen2::PixelFormat)0,1u,(unsigned char)0,(AGX::AppleCompressionGen2::SubblockOrder)1,(AGXTextureFootprint)0>::compressSubblock(v35, v36, &v73[128 * v42 + 8 * v43], 32, v41, v40, a2.n128_f64[0], a3.n128_f64[0], v10, v11, v12, v13, v14);
-      v35 = (v35 + result);
+      v35 += result;
     }
 
     v34 += 2;
@@ -2164,7 +2164,7 @@ uint64_t agxsTwiddleAddressPVRTC2<true,(TwiddleOrder)1>(uint64_t result, uint64_
   return result;
 }
 
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,8u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+unint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,8u,(TwiddleOrder)1>>(unint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -3379,7 +3379,7 @@ LABEL_192:
   return result;
 }
 
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,4u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+unint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,4u,(TwiddleOrder)1>>(unint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -4590,7 +4590,7 @@ LABEL_192:
   return result;
 }
 
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,2u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+unint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,16ul,2u,(TwiddleOrder)1>>(unint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -5413,7 +5413,7 @@ LABEL_147:
           v169 = v239;
         }
 
-        v250 = &v252[2 * (v169 + v167)];
+        v250 = &v252[2 * v169 + 2 * v167];
         v170 = v147;
         v270 = v168;
         do
@@ -5792,7 +5792,7 @@ LABEL_192:
   return result;
 }
 
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,8u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+unint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,8u,(TwiddleOrder)1>>(unint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -7003,7 +7003,7 @@ LABEL_192:
   return result;
 }
 
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,4u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+unint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,4u,(TwiddleOrder)1>>(unint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -7826,7 +7826,7 @@ LABEL_147:
           v169 = v239;
         }
 
-        v250 = &v252[2 * (v169 + v167)];
+        v250 = &v252[2 * v169 + 2 * v167];
         v170 = v147;
         v270 = v168;
         do
@@ -8205,7 +8205,7 @@ LABEL_192:
   return result;
 }
 
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,2u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,8ul,2u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -9396,7 +9396,7 @@ LABEL_192:
   return result;
 }
 
-uint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,8u,(TwiddleOrder)1>>(uint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, unsigned int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
+unint64_t agxsTwiddleAddressCommon<(TwiddleOrder)1,AGXSConverterPassThru<true,4ul,8u,(TwiddleOrder)1>>(unint64_t result, _OWORD *a2, unsigned int a3, unsigned int a4, unsigned int a5, unsigned int a6, unsigned int a7, unsigned int a8, int a9, int a10, uint64_t a11, unsigned __int16 *a12, unsigned int *a13)
 {
   if (!result || !a2)
   {
@@ -10219,7 +10219,7 @@ LABEL_147:
           v169 = v239;
         }
 
-        v250 = &v252[2 * (v169 + v167)];
+        v250 = &v252[2 * v169 + 2 * v167];
         v170 = v147;
         v270 = v168;
         do

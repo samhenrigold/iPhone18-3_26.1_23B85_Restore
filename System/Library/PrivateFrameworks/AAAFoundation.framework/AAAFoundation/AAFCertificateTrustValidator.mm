@@ -9,84 +9,88 @@
 
 - (int64_t)validateCertificateTrustWithChallenge:(id)challenge type:(unint64_t)type
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   protectionSpace = [challenge protectionSpace];
   authenticationMethod = [protectionSpace authenticationMethod];
   v8 = [authenticationMethod isEqualToString:*MEMORY[0x1E696A968]];
 
-  v9 = _AAFLogSystem();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = _AAFLogSystem(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (!v8)
   {
-    if (!v10)
+    if (!v11)
     {
       goto LABEL_11;
     }
 
-    LOWORD(v17) = 0;
-    v11 = "Unsupported authentication method detected, proceed with default handling.";
+    LOWORD(v18) = 0;
+    v13 = "Unsupported authentication method detected, proceed with default handling.";
 LABEL_9:
-    v12 = v9;
-    v13 = 2;
+    v14 = v10;
+    v15 = 2;
     goto LABEL_10;
   }
 
-  if (v10)
+  if (v11)
   {
-    v17 = 134217984;
+    v18 = 134217984;
     typeCopy2 = type;
-    _os_log_impl(&dword_1C8644000, v9, OS_LOG_TYPE_DEFAULT, "Validating certificate trust for type %lu.", &v17, 0xCu);
+    _os_log_impl(&dword_1C8644000, v10, OS_LOG_TYPE_DEFAULT, "Validating certificate trust for type %lu.", &v18, 0xCu);
   }
 
-  if ([(AAFCertificateTrustValidator *)self _checkPinningPolicy:protectionSpace type:type])
+  v12 = [(AAFCertificateTrustValidator *)self _checkPinningPolicy:protectionSpace type:type];
+  if (v12)
   {
-    v9 = _AAFLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _AAFLogSystem(v12);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 134217984;
+      v18 = 134217984;
       typeCopy2 = type;
-      v11 = "Certificate type %lu is trusted.";
-      v12 = v9;
-      v13 = 12;
+      v13 = "Certificate type %lu is trusted.";
+      v14 = v10;
+      v15 = 12;
 LABEL_10:
-      _os_log_impl(&dword_1C8644000, v12, OS_LOG_TYPE_DEFAULT, v11, &v17, v13);
+      _os_log_impl(&dword_1C8644000, v14, OS_LOG_TYPE_DEFAULT, v13, &v18, v15);
     }
 
 LABEL_11:
-    v14 = 1;
+    v16 = 1;
     goto LABEL_12;
   }
 
-  if (type && [(AAFCertificateTrustValidator *)self _trySSLPinning:protectionSpace])
+  if (type)
   {
-    v9 = _AAFLogSystem();
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v12 = [(AAFCertificateTrustValidator *)self _trySSLPinning:protectionSpace];
+    if (v12)
     {
-      goto LABEL_11;
-    }
+      v10 = _AAFLogSystem(v12);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_11;
+      }
 
-    LOWORD(v17) = 0;
-    v11 = "SSL Certificate is trusted.";
-    goto LABEL_9;
+      LOWORD(v18) = 0;
+      v13 = "SSL Certificate is trusted.";
+      goto LABEL_9;
+    }
   }
 
-  v9 = _AAFLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = _AAFLogSystem(v12);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v17) = 0;
-    v14 = 2;
-    _os_log_impl(&dword_1C8644000, v9, OS_LOG_TYPE_DEFAULT, "Server cert validity check failed!", &v17, 2u);
+    LOWORD(v18) = 0;
+    v16 = 2;
+    _os_log_impl(&dword_1C8644000, v10, OS_LOG_TYPE_DEFAULT, "Server cert validity check failed!", &v18, 2u);
   }
 
   else
   {
-    v14 = 2;
+    v16 = 2;
   }
 
 LABEL_12:
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v16;
 }
 
 - (BOOL)_checkPinningPolicy:(id)policy type:(unint64_t)type
@@ -98,7 +102,7 @@ LABEL_12:
   v9 = [(AAFCertificateTrustValidator *)self _policyForType:type host:host];
   if (!v9)
   {
-    v14 = _AAFLogSystem();
+    v14 = _AAFLogSystem(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [AAFCertificateTrustValidator _checkPinningPolicy:v14 type:?];
@@ -112,7 +116,7 @@ LABEL_12:
   if (v11)
   {
     v12 = SecCopyErrorMessageString(v11, 0);
-    v13 = _AAFLogSystem();
+    v13 = _AAFLogSystem(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [AAFCertificateTrustValidator _checkPinningPolicy:v12 type:v13];
@@ -125,13 +129,14 @@ LABEL_9:
   }
 
   error = 0;
-  v15 = SecTrustEvaluateWithError(serverTrust, &error);
+  v16 = SecTrustEvaluateWithError(serverTrust, &error);
+  v15 = v16;
   if (error)
   {
-    v16 = _AAFLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _AAFLogSystem(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [AAFCertificateTrustValidator _checkPinningPolicy:v16 type:?];
+      [AAFCertificateTrustValidator _checkPinningPolicy:v17 type:?];
     }
 
     CFRelease(error);
@@ -168,43 +173,41 @@ LABEL_7:
 - (BOOL)_trySSLPinning:(id)pinning
 {
   pinningCopy = pinning;
-  if (+[AFUtilities isInternalBuild]&& CFPreferencesGetAppBooleanValue(@"AAFDisableCertPinning", @"com.apple.AAAFoundation", 0))
+  if (+[AFUtilities isInternalBuild]&& (AppBooleanValue = CFPreferencesGetAppBooleanValue(@"AAFDisableCertPinning", @"com.apple.AAAFoundation", 0), AppBooleanValue))
   {
-    v5 = _AAFLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AAFLogSystem(AppBooleanValue);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1C8644000, v5, OS_LOG_TYPE_DEFAULT, "Standard pinning is diabled, falling back to SSL pinning.", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_1C8644000, v6, OS_LOG_TYPE_DEFAULT, "Standard pinning is diabled, falling back to SSL pinning.", v9, 2u);
     }
 
-    v6 = [(AAFCertificateTrustValidator *)self _checkPinningPolicy:pinningCopy type:0];
+    v7 = [(AAFCertificateTrustValidator *)self _checkPinningPolicy:pinningCopy type:0];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)_checkPinningPolicy:(uint64_t)a1 type:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Error setting trust policy: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Error setting trust policy: %@", &v2, 0xCu);
 }
 
 - (void)_checkPinningPolicy:(uint64_t *)a1 type:(NSObject *)a2 .cold.2(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Error evaluating certificate trust: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "Error evaluating certificate trust: %@", &v3, 0xCu);
 }
 
 @end

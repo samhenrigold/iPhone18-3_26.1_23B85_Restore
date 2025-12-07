@@ -82,8 +82,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_100055E30(appear);
+  sub_100055E30(appearCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -215,9 +216,9 @@ LABEL_5:
 - (BOOL)controllerNeedsToRun
 {
   selfCopy = self;
-  v3 = sub_100058110();
+  v4 = sub_100058110(selfCopy, v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)performExtendedInitializationWithCompletion:(id)completion

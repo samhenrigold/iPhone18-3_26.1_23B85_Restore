@@ -591,9 +591,11 @@ LABEL_8:
 
 - (void)_setIdentificationBlock:(id)block
 {
-  self->_identificationBlock = [block copy];
+  v4 = [block copy];
+  identificationBlock = self->_identificationBlock;
+  self->_identificationBlock = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, identificationBlock);
 }
 
 - (NSString)shortDescription
@@ -7785,9 +7787,12 @@ LABEL_8:
 
 uint64_t __43__PHQuery_queryForAssetsForPTPWithOptions___block_invoke(uint64_t a1)
 {
-  *(*(*(a1 + 48) + 8) + 40) = +[PHPTPFetches fetchAssetIdsToExcludeFromPTPInContext:isCloudPhotoLibraryEnabled:](PHPTPFetches, "fetchAssetIdsToExcludeFromPTPInContext:isCloudPhotoLibraryEnabled:", *(a1 + 32), [*(a1 + 40) isCloudPhotoLibraryEnabled]);
+  v2 = +[PHPTPFetches fetchAssetIdsToExcludeFromPTPInContext:isCloudPhotoLibraryEnabled:](PHPTPFetches, "fetchAssetIdsToExcludeFromPTPInContext:isCloudPhotoLibraryEnabled:", *(a1 + 32), [*(a1 + 40) isCloudPhotoLibraryEnabled]);
+  v3 = *(*(a1 + 48) + 8);
+  v4 = *(v3 + 40);
+  *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 + (id)queryForAssetsWithOptions:(id)options

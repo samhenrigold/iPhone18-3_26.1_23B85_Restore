@@ -3,11 +3,11 @@
 
 @implementation NSMutableAttributedString
 
-uint64_t __91__NSMutableAttributedString_IC_UI__ic_addForegroundColorInRangesWhereNoColorAlreadyExists___block_invoke(uint64_t result, uint64_t a2)
+id *__91__NSMutableAttributedString_IC_UI__ic_addForegroundColorInRangesWhereNoColorAlreadyExists___block_invoke(id *result, uint64_t a2)
 {
   if (!a2)
   {
-    return [*(result + 32) addIndexesInRange:?];
+    return [result[4] addIndexesInRange:?];
   }
 
   return result;

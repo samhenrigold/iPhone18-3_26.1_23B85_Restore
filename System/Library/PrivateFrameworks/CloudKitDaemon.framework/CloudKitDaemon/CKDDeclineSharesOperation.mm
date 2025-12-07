@@ -14,11 +14,11 @@
 
 - (CKDDeclineSharesOperation)initWithOperationInfo:(id)info container:(id)container
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   infoCopy = info;
-  v44.receiver = self;
-  v44.super_class = CKDDeclineSharesOperation;
-  v7 = [(CKDDatabaseOperation *)&v44 initWithOperationInfo:infoCopy container:container];
+  v43.receiver = self;
+  v43.super_class = CKDDeclineSharesOperation;
+  v7 = [(CKDDatabaseOperation *)&v43 initWithOperationInfo:infoCopy container:container];
   if (v7)
   {
     v8 = objc_opt_new();
@@ -29,27 +29,27 @@
     shareURLsToDecline = v7->_shareURLsToDecline;
     v7->_shareURLsToDecline = v10;
 
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
-    v38 = infoCopy;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v37 = infoCopy;
     obj = objc_msgSend_shareMetadatasToDecline(infoCopy, v12, v13);
-    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v40, v45, 16);
+    v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v14, &v39, v44, 16);
     if (v15)
     {
       v18 = v15;
-      v19 = *v41;
+      v19 = *v40;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v41 != v19)
+          if (*v40 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v40 + 1) + 8 * i);
+          v21 = *(*(&v39 + 1) + 8 * i);
           v22 = v7->_clientProvidedMetadatasByURL;
           v23 = objc_msgSend_share(v21, v16, v17);
           v26 = objc_msgSend_URL(v23, v24, v25);
@@ -61,16 +61,15 @@
           objc_msgSend_addObject_(v28, v35, v34);
         }
 
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v40, v45, 16);
+        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v16, &v39, v44, 16);
       }
 
       while (v18);
     }
 
-    infoCopy = v38;
+    infoCopy = v37;
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -153,7 +152,7 @@
 
 - (void)_handleShareURLDeclined:(id)declined responseCode:(id)code
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   declinedCopy = declined;
   codeCopy = code;
   if (objc_msgSend_code(codeCopy, v8, v9) == 1)
@@ -167,7 +166,7 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v50 = declinedCopy;
+      v49 = declinedCopy;
       _os_log_impl(&dword_22506F000, v12, OS_LOG_TYPE_INFO, "Share with URL %@ was successfully declined", buf, 0xCu);
     }
 
@@ -193,7 +192,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v50 = declinedCopy;
+        v49 = declinedCopy;
         _os_log_impl(&dword_22506F000, v23, OS_LOG_TYPE_INFO, "Zone busy failure for share with url %@.", buf, 0xCu);
       }
     }
@@ -212,9 +211,9 @@
         v28 = objc_msgSend_error(codeCopy, v26, v27);
         v31 = objc_msgSend_errorDescription(v28, v29, v30);
         *buf = 138412546;
-        v50 = declinedCopy;
-        v51 = 2114;
-        v52 = v31;
+        v49 = declinedCopy;
+        v50 = 2114;
+        v51 = v31;
         _os_log_impl(&dword_22506F000, v25, OS_LOG_TYPE_INFO, "Error declining share with URL %@: %{public}@", buf, 0x16u);
       }
 
@@ -230,39 +229,37 @@
       objc_msgSend__performCallbackForURL_error_(self, v47, declinedCopy, v46);
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_declineShares
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_shareURLsToDecline(self, a2, v2);
   v7 = objc_msgSend_count(v4, v5, v6);
 
   if (v7)
   {
-    v68 = objc_msgSend_container(self, v8, v9);
-    v69 = objc_opt_new();
+    v67 = objc_msgSend_container(self, v8, v9);
+    v68 = objc_opt_new();
+    v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
     v12 = objc_msgSend_clientProvidedMetadatasByURL(self, v10, v11);
-    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v77, v81, 16);
+    v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v76, v80, 16);
     if (v16)
     {
-      v17 = *v78;
+      v17 = *v77;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v78 != v17)
+          if (*v77 != v17)
           {
             objc_enumerationMutation(v12);
           }
 
-          v19 = *(*(&v77 + 1) + 8 * i);
+          v19 = *(*(&v76 + 1) + 8 * i);
           v20 = objc_msgSend_clientProvidedMetadatasByURL(self, v14, v15);
           v22 = objc_msgSend_objectForKeyedSubscript_(v20, v21, v19);
 
@@ -274,7 +271,7 @@
             v32 = objc_msgSend_recordID(v29, v30, v31);
             objc_msgSend_setShareRecordID_(v25, v33, v32);
 
-            v36 = objc_msgSend_options(v68, v34, v35);
+            v36 = objc_msgSend_options(v67, v34, v35);
             LODWORD(v32) = objc_msgSend_useAnonymousToServerShareParticipants(v36, v37, v38);
 
             if (v32)
@@ -287,45 +284,45 @@
             v44 = objc_msgSend_participantID(v41, v42, v43);
             objc_msgSend_setParticipantID_(v25, v45, v44);
 
-            objc_msgSend_addObject_(v69, v46, v25);
+            objc_msgSend_addObject_(v68, v46, v25);
           }
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v77, v81, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v14, &v76, v80, 16);
       }
 
       while (v16);
     }
 
-    v51 = objc_msgSend_count(v69, v49, v50);
+    v51 = objc_msgSend_count(v68, v49, v50);
     v52 = v51 != 0;
     if (v51)
     {
       v53 = [CKDDeclineSharesURLRequest alloc];
-      v55 = objc_msgSend_initWithOperation_shareMetadatasToDecline_(v53, v54, self, v69);
+      v55 = objc_msgSend_initWithOperation_shareMetadatasToDecline_(v53, v54, self, v68);
       objc_initWeak(location, self);
       objc_initWeak(&from, v55);
       v58 = objc_msgSend_stateTransitionGroup(self, v56, v57);
       dispatch_group_enter(v58);
 
-      v73[0] = MEMORY[0x277D85DD0];
-      v73[1] = 3221225472;
-      v73[2] = sub_22522D3F4;
-      v73[3] = &unk_27854A8D0;
-      objc_copyWeak(&v74, location);
-      objc_msgSend_setShareDeclinedBlock_(v55, v59, v73);
-      v70[0] = MEMORY[0x277D85DD0];
-      v70[1] = 3221225472;
-      v70[2] = sub_22522D46C;
-      v70[3] = &unk_278548748;
-      objc_copyWeak(&v71, location);
-      objc_copyWeak(&v72, &from);
-      objc_msgSend_setCompletionBlock_(v55, v60, v70);
+      v72[0] = MEMORY[0x277D85DD0];
+      v72[1] = 3221225472;
+      v72[2] = sub_22522D3F4;
+      v72[3] = &unk_27854A8D0;
+      objc_copyWeak(&v73, location);
+      objc_msgSend_setShareDeclinedBlock_(v55, v59, v72);
+      v69[0] = MEMORY[0x277D85DD0];
+      v69[1] = 3221225472;
+      v69[2] = sub_22522D46C;
+      v69[3] = &unk_278548748;
+      objc_copyWeak(&v70, location);
+      objc_copyWeak(&v71, &from);
+      objc_msgSend_setCompletionBlock_(v55, v60, v69);
       objc_msgSend_setRequest_(self, v61, v55);
-      objc_msgSend_performRequest_(v68, v62, v55);
-      objc_destroyWeak(&v72);
+      objc_msgSend_performRequest_(v67, v62, v55);
       objc_destroyWeak(&v71);
-      objc_destroyWeak(&v74);
+      objc_destroyWeak(&v70);
+      objc_destroyWeak(&v73);
       objc_destroyWeak(&from);
       objc_destroyWeak(location);
     }
@@ -360,10 +357,9 @@
       _os_log_impl(&dword_22506F000, v63, OS_LOG_TYPE_INFO, "No shares to decline", location, 2u);
     }
 
-    v52 = 0;
+    return 0;
   }
 
-  v65 = *MEMORY[0x277D85DE8];
   return v52;
 }
 

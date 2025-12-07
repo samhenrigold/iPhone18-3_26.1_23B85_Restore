@@ -11,9 +11,10 @@
 - (_NFHardwareManager)init;
 - (id)_updateAllPowerCounters;
 - (id)combineFlashWriteCounters:(id)counters with:(id)with overflow:(BOOL)overflow;
-- (id)openStackAndUpdateAllWriteCounters:(id *)counters;
+- (id)openStackAndUpdateAllWriteCounters:(id *)p_isa;
 - (id)powerCycleSE:(id)e;
 - (id)secureElementDidExitRestrictedMode:(id)mode os:(int64_t)os reason:(unsigned int)reason;
+- (id)setHostEmulationEnabled:(BOOL)enabled;
 - (id)setRoutingConfig:(id)config;
 - (id)softResetSE:(id)e;
 - (id)switchToSession:(id)session withToken:(id)token;
@@ -58,6 +59,7 @@
 - (void)handleExpressModeStarted;
 - (void)handleExpressModeTimeout;
 - (void)handleFelicaStateEvent:(id)event appletAID:(id)d;
+- (void)handleFieldChanged:(BOOL)changed;
 - (void)handleFieldNotification:(id)notification;
 - (void)handleFieldReset;
 - (void)handleFilteredFieldNotification:(id)notification;
@@ -70,9 +72,12 @@
 - (void)handleReaderBurnoutTimer;
 - (void)handleReaderModeProhibitTimerEvent:(unint64_t)event;
 - (void)handleRemoteTagsDetected:(id)detected dropAndRestartDiscovery:(BOOL)discovery;
+- (void)handleRequestService:(id)service inExpress:(BOOL)express;
 - (void)handleRestartDiscovery;
 - (void)handleSecureElementEndOfOperation;
 - (void)handleSecureElementEnteredRestrictedMode:(int)mode os:(int64_t)os;
+- (void)handleSecureElementEnteredRestrictedModeExit:(int)exit os:(int64_t)os;
+- (void)handleSecureElementOSReset:(int64_t)reset withReason:(unsigned int)reason;
 - (void)handleSecureElementReaderModeEnded:(id)ended;
 - (void)handleSecureElementReaderModeStarted:(id)started;
 - (void)handleSecureElementRemoved:(int)removed withReason:(unsigned int)reason;
@@ -88,6 +93,7 @@
 - (void)headlessFactoryModeWithCompletion:(id)completion;
 - (void)isCardSessionEligibleWithCompletion:(id)completion;
 - (void)isHWSupportedWithCompletion:(id)completion;
+- (void)logLPCDFalseDetects:(int)detects;
 - (void)markApplicationForDelete:(id)delete;
 - (void)mustStop:(unint64_t)stop;
 - (void)notifyReaderModeActivityEnd;
@@ -329,7 +335,7 @@
   {
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
       if (!self)
       {
         goto LABEL_47;
@@ -1025,7 +1031,7 @@ LABEL_101:
     sub_1000DE998(selfCopy, 0);
     objc_sync_exit(v20);
 
-    v21 = sub_100210FEC();
+    v21 = sub_100210FEC(_NFFailForwardCoordinator);
     sub_100212EFC(v21, selfCopy, 1, selfCopy->_workQueue);
 
     v22 = +[NFPowerAssertion sharedPowerAssertion];
@@ -1712,7 +1718,7 @@ LABEL_19:
 
   if (v12)
   {
-    v13 = sub_10004BF2C();
+    v13 = sub_10004BF2C(NFRoutingConfig);
     v14 = [(_NFHardwareManager *)self setRoutingConfig:v13];
 
     if (v14)
@@ -2801,7 +2807,7 @@ LABEL_15:
   selfCopy = self;
   v42 = &v43;
   v18 = sub_10004C224(NFRoutingConfig, 0);
-  v19 = sub_1000E6BE4(&self->super.isa, &v36, @"PowerCycleSE", v18);
+  v19 = sub_1000E6BE4(self, &v36, @"PowerCycleSE", v18);
 
   if ((v19 & 1) == 0)
   {
@@ -3080,7 +3086,7 @@ LABEL_15:
   {
     if (v6)
     {
-      [v6 auditToken];
+      objc_msgSend_auditToken(v6);
     }
 
     else
@@ -5990,7 +5996,7 @@ LABEL_107:
   v11 = v202;
   if (v202)
   {
-    [v202 auditToken];
+    objc_msgSend_auditToken(v202);
   }
 
   else
@@ -7653,7 +7659,7 @@ LABEL_49:
 
   [(_NFSession *)v82 setUid:0xFFFFFFFFLL];
   buf[0] = 0;
-  v83 = sub_1001DC138(self, v82, v12, attributeCopy, buf);
+  v83 = sub_1001DC138(&self->super.isa, v82, v12, attributeCopy, buf);
   if (v83)
   {
     (*(completionCopy + 2))(completionCopy, 0, 0, v83);
@@ -8271,7 +8277,7 @@ LABEL_88:
 
     [(_NFSession *)v123 setUid:0xFFFFFFFFLL];
     buf[0] = 0;
-    v150 = sub_1001DC138(self, v123, v105, attributeCopy, buf);
+    v150 = sub_1001DC138(&self->super.isa, v123, v105, attributeCopy, buf);
     v46 = completionCopy;
     if (v150)
     {
@@ -8659,7 +8665,7 @@ LABEL_49:
     [(_NFSession *)v81 setUid:0xFFFFFFFFLL];
     buf[0] = 0;
     v78 = attributeCopy;
-    v82 = sub_1001DC138(self, v81, v10, attributeCopy, buf);
+    v82 = sub_1001DC138(&self->super.isa, v81, v10, attributeCopy, buf);
     if (v82)
     {
       (*(completionCopy + 2))(completionCopy, 0, 0, v82);
@@ -9023,11 +9029,11 @@ LABEL_48:
       [(_NFXPCSession *)v79 setConnection:v10];
       [(_NFSession *)v79 setUid:0xFFFFFFFFLL];
       [(_NFSecureElementReaderSession *)v79 setDriverWrapper:self->_driverWrapper];
-      v80 = sub_1001AE20C();
+      v80 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
       [(_NFSecureElementReaderSession *)v79 setPowerConsumptionReporter:v80];
 
       buf[0] = 0;
-      v81 = sub_1001DC138(self, v79, v10, attributeCopy, buf);
+      v81 = sub_1001DC138(&self->super.isa, v79, v10, attributeCopy, buf);
       if (v81)
       {
         (*(completionCopy + 2))(completionCopy, 0, 0, v81);
@@ -9246,7 +9252,7 @@ LABEL_49:
         [v76 setConnection:v103];
         [v76 setQueue:self];
         [v76 setUid:0xFFFFFFFFLL];
-        v78 = sub_1001AE20C();
+        v78 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
         if (v76)
         {
           objc_setProperty_atomic(v76, v77, v78, 192);
@@ -9256,7 +9262,7 @@ LABEL_49:
         sub_100060754(NFHardwareManagerInterface, exportedInterface);
 
         buf[0] = 0;
-        v80 = sub_1001DC138(self, v76, v103, v101, buf);
+        v80 = sub_1001DC138(&self->super.isa, v76, v103, v101, buf);
         if (v80)
         {
           (*(completionCopy + 2))(completionCopy, 0, 0, v80);
@@ -9617,14 +9623,14 @@ LABEL_62:
         [v81 setConnection:v106];
         [v81 setQueue:self];
         [v81 setUid:0xFFFFFFFFLL];
-        v82 = sub_1001AE20C();
+        v82 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
         [v81 setPowerConsumptionReporter:v82];
 
         exportedInterface = [v106 exportedInterface];
         sub_100060754(NFHardwareManagerInterface, exportedInterface);
 
         buf[0] = 0;
-        v84 = sub_1001DC138(self, v81, v106, attributeCopy, buf);
+        v84 = sub_1001DC138(&self->super.isa, v81, v106, attributeCopy, buf);
         if (v84)
         {
           (*(completionCopy + 2))(completionCopy, 0, 0, v84);
@@ -10307,7 +10313,7 @@ LABEL_27:
     [(_NFSecureElementLoggingSession *)v41 setDriverWrapper:self->_driverWrapper];
     buf[0] = 0;
     v42 = attributeCopy;
-    v43 = sub_1001DC138(self, v41, v9, attributeCopy, buf);
+    v43 = sub_1001DC138(&self->super.isa, v41, v9, attributeCopy, buf);
     if (v43)
     {
       (*(completionCopy + 2))(completionCopy, 0, 0, v43);
@@ -10520,7 +10526,7 @@ LABEL_41:
     [(_NFLPEMConfigSession *)v43 setDriverWrapper:self->_driverWrapper];
     buf[0] = 0;
     v42 = attributeCopy;
-    v44 = sub_1001DC138(self, v43, v10, attributeCopy, buf);
+    v44 = sub_1001DC138(&self->super.isa, v43, v10, attributeCopy, buf);
     if (v44)
     {
       (*(completionCopy + 2))(completionCopy, 0, 0, v44);
@@ -10637,7 +10643,7 @@ LABEL_14:
 
     [v13 setUid:v62];
     buf[0] = 0;
-    v36 = sub_1001DC138(self, v13, v11, attributeCopy, buf);
+    v36 = sub_1001DC138(&self->super.isa, v13, v11, attributeCopy, buf);
     if (v36)
     {
       (*(completionCopy + 2))(completionCopy, 0, 0, v36);
@@ -10899,7 +10905,7 @@ LABEL_31:
       nF_whitelistChecker2 = [v12 NF_whitelistChecker];
       if (v12)
       {
-        [v12 auditToken];
+        objc_msgSend_auditToken(v12);
       }
 
       else
@@ -11156,7 +11162,7 @@ LABEL_31:
       processIdentifier3 = [v9 processIdentifier];
       if (v9)
       {
-        [v9 auditToken];
+        objc_msgSend_auditToken(v9);
       }
 
       else
@@ -11317,7 +11323,7 @@ LABEL_43:
     {
       if (v6)
       {
-        [v6 auditToken];
+        objc_msgSend_auditToken(v6);
       }
 
       else
@@ -11527,7 +11533,7 @@ LABEL_43:
     [(_NFInternalConfigurationSession *)v43 setDriverWrapper:self->_driverWrapper];
     buf[0] = 0;
     v42 = attributeCopy;
-    v44 = sub_1001DC138(self, v43, v10, attributeCopy, buf);
+    v44 = sub_1001DC138(&self->super.isa, v43, v10, attributeCopy, buf);
     if (v44)
     {
       (*(completionCopy + 2))(completionCopy, 0, 0, v44);
@@ -11787,17 +11793,17 @@ LABEL_43:
       *(v29 + 16) = 1;
     }
 
-    v31 = sub_1001AE20C();
+    v31 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
     sub_1001AE198(v31, v30);
 
     v32 = self->_driverWrapper;
-    v33 = sub_1001AE20C();
+    v33 = sub_1001AE20C(NFSystemPowerConsumptionMonitor);
     sub_100224618(v32, v33);
   }
 
   if (self->_secureElementWrapper)
   {
-    v34 = sub_10004BF2C();
+    v34 = sub_10004BF2C(NFRoutingConfig);
     v35 = [(_NFHardwareManager *)self setRoutingConfig:v34];
 
     if (v35)
@@ -11852,7 +11858,7 @@ LABEL_43:
     else
     {
       [(_NFHardwareManager *)self refreshSecureElementInfo];
-      v42 = sub_10004C144();
+      v42 = sub_10004C144(NFRoutingConfig);
       v47 = [(_NFHardwareManager *)self setRoutingConfig:v42];
     }
   }
@@ -11990,13 +11996,13 @@ LABEL_43:
     }
 
     *buf = 67109890;
-    *v78 = v14;
-    *&v78[4] = 2082;
-    *&v78[6] = object_getClassName(self);
-    *&v78[14] = 2082;
-    *&v78[16] = sel_getName(a2);
-    v79 = 1024;
-    v80 = 7213;
+    *v77 = v14;
+    *&v77[4] = 2082;
+    *&v77[6] = object_getClassName(self);
+    *&v77[14] = 2082;
+    *&v77[16] = sel_getName(a2);
+    v78 = 1024;
+    v79 = 7213;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i NFC emulation mode activated: nfcd", buf, 0x22u);
   }
 
@@ -12011,7 +12017,7 @@ LABEL_43:
     {
       v18 = sub_10002BB54(self->_expressModeManager);
       *buf = 138412290;
-      *v78 = v18;
+      *v77 = v18;
       _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_ENTERED", "Express type %@", buf, 0xCu);
     }
 
@@ -12023,14 +12029,14 @@ LABEL_43:
       v21 = object_getClass(self);
       v22 = class_isMetaClass(v21);
       v23 = object_getClassName(self);
-      v68 = sel_getName(a2);
+      v67 = sel_getName(a2);
       v24 = 45;
       if (v22)
       {
         v24 = 43;
       }
 
-      v20(6, "%c[%{public}s %{public}s]:%i express mode started", v24, v23, v68, 7226);
+      v20(6, "%c[%{public}s %{public}s]:%i express mode started", v24, v23, v67, 7226);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -12051,17 +12057,16 @@ LABEL_43:
       v28 = object_getClassName(self);
       v29 = sel_getName(a2);
       *buf = 67109890;
-      *v78 = v27;
-      *&v78[4] = 2082;
-      *&v78[6] = v28;
-      *&v78[14] = 2082;
-      *&v78[16] = v29;
-      v79 = 1024;
-      v80 = 7226;
+      *v77 = v27;
+      *&v77[4] = 2082;
+      *&v77[6] = v28;
+      *&v77[14] = 2082;
+      *&v77[16] = v29;
+      v78 = 1024;
+      v79 = 7226;
       _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i express mode started", buf, 0x22u);
     }
 
-    currentSecureElementSession = self->_currentSecureElementSession;
     if (objc_opt_respondsToSelector())
     {
       self->_inSessionExpressSessionID = [(_NFSession *)self->_currentSecureElementSession sessionID];
@@ -12071,107 +12076,107 @@ LABEL_43:
         return;
       }
 
-      v31 = sub_10002BB54(self->_expressModeManager);
-      sub_1000E7BDC(self, "com.apple.stockholm.express.enter", v31);
+      v30 = sub_10002BB54(self->_expressModeManager);
+      sub_1000E7BDC(self, "com.apple.stockholm.express.enter", v30);
     }
 
     else
     {
       self->_inSessionExpressSessionID = -1;
-      v43 = sub_10002BB54(self->_expressModeManager);
-      sub_1000E7BDC(self, "com.apple.stockholm.express.enter", v43);
+      v42 = sub_10002BB54(self->_expressModeManager);
+      sub_1000E7BDC(self, "com.apple.stockholm.express.enter", v42);
 
-      v44 = NFSharedSignpostLog();
-      if (os_signpost_enabled(v44))
+      v43 = NFSharedSignpostLog();
+      if (os_signpost_enabled(v43))
       {
-        v45 = sub_10002BB54(self->_expressModeManager);
+        v44 = sub_10002BB54(self->_expressModeManager);
         *buf = 136315394;
-        *v78 = "com.apple.stockholm.express.enter";
-        *&v78[8] = 2112;
-        *&v78[10] = v45;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v44, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_MODE_ENTERED_NOTIFICATION", "%s, type: %@", buf, 0x16u);
+        *v77 = "com.apple.stockholm.express.enter";
+        *&v77[8] = 2112;
+        *&v77[10] = v44;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v43, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_MODE_ENTERED_NOTIFICATION", "%s, type: %@", buf, 0x16u);
       }
 
-      v31 = objc_opt_new();
-      v46 = sub_10021E074(self->_driverWrapper);
-      if ([v46 notificationType] == 3)
+      v30 = objc_opt_new();
+      v45 = sub_10021E074(self->_driverWrapper);
+      if ([v45 notificationType] == 3)
       {
-        v47 = v46;
-        tciArray = [v47 tciArray];
+        v46 = v45;
+        tciArray = [v46 tciArray];
         if (tciArray)
         {
-          v49 = tciArray;
-          tciArray2 = [v47 tciArray];
-          v51 = [tciArray2 count];
+          v48 = tciArray;
+          tciArray2 = [v46 tciArray];
+          v50 = [tciArray2 count];
 
-          if (v51)
+          if (v50)
           {
-            v72 = 0u;
-            v73 = 0u;
-            v70 = 0u;
             v71 = 0u;
-            tciArray3 = [v47 tciArray];
-            v53 = [tciArray3 countByEnumeratingWithState:&v70 objects:v76 count:16];
-            if (v53)
+            v72 = 0u;
+            v69 = 0u;
+            v70 = 0u;
+            tciArray3 = [v46 tciArray];
+            v52 = [tciArray3 countByEnumeratingWithState:&v69 objects:v75 count:16];
+            if (v52)
             {
-              v54 = v53;
-              v55 = *v71;
+              v53 = v52;
+              v54 = *v70;
               do
               {
-                for (i = 0; i != v54; i = i + 1)
+                for (i = 0; i != v53; i = i + 1)
                 {
-                  if (*v71 != v55)
+                  if (*v70 != v54)
                   {
                     objc_enumerationMutation(tciArray3);
                   }
 
-                  v57 = *(*(&v70 + 1) + 8 * i);
-                  if ([v31 length])
+                  v56 = *(*(&v69 + 1) + 8 * i);
+                  if ([v30 length])
                   {
-                    [v31 appendString:{@", "}];
+                    [v30 appendString:{@", "}];
                   }
 
-                  nF_asHexString = [v57 NF_asHexString];
-                  [v31 appendString:nF_asHexString];
+                  nF_asHexString = [v56 NF_asHexString];
+                  [v30 appendString:nF_asHexString];
                 }
 
-                v54 = [tciArray3 countByEnumeratingWithState:&v70 objects:v76 count:16];
+                v53 = [tciArray3 countByEnumeratingWithState:&v69 objects:v75 count:16];
               }
 
-              while (v54);
+              while (v53);
             }
 
-            sub_1000E7BDC(self, "com.apple.stockholm.express.field.ecp2.tci", v31);
-            v59 = NFSharedSignpostLog();
-            if (os_signpost_enabled(v59))
+            sub_1000E7BDC(self, "com.apple.stockholm.express.field.ecp2.tci", v30);
+            v58 = NFSharedSignpostLog();
+            if (os_signpost_enabled(v58))
             {
               *buf = 0;
-              _os_signpost_emit_with_name_impl(&_mh_execute_header, v59, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_MOD_ECP2_FIELD_TCI_NOTIFICATION", "com.apple.stockholm.express.field.ecp2.tci", buf, 2u);
+              _os_signpost_emit_with_name_impl(&_mh_execute_header, v58, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_MOD_ECP2_FIELD_TCI_NOTIFICATION", "com.apple.stockholm.express.field.ecp2.tci", buf, 2u);
             }
           }
         }
       }
 
-      v60 = [NSMutableDictionary alloc];
-      v74[0] = @"xpcEventName";
-      v74[1] = @"Type";
-      v75[0] = @"com.apple.stockholm.express.enterV2";
-      v61 = sub_10002BB54(self->_expressModeManager);
-      v75[1] = v61;
-      v62 = [NSDictionary dictionaryWithObjects:v75 forKeys:v74 count:2];
-      v63 = [v60 initWithDictionary:v62];
+      v59 = [NSMutableDictionary alloc];
+      v73[0] = @"xpcEventName";
+      v73[1] = @"Type";
+      v74[0] = @"com.apple.stockholm.express.enterV2";
+      v60 = sub_10002BB54(self->_expressModeManager);
+      v74[1] = v60;
+      v61 = [NSDictionary dictionaryWithObjects:v74 forKeys:v73 count:2];
+      v62 = [v59 initWithDictionary:v61];
 
-      if ([v31 length])
+      if ([v30 length])
       {
-        [v63 setObject:v31 forKeyedSubscript:@"Ecp2TCI"];
+        [v62 setObject:v30 forKeyedSubscript:@"Ecp2TCI"];
       }
 
-      v64 = +[NFSecureXPCEventPublisherManager sharedManager];
-      wallet = [v64 wallet];
-      v66 = wallet;
+      v63 = +[NFSecureXPCEventPublisherManager sharedManager];
+      wallet = [v63 wallet];
+      v65 = wallet;
       if (wallet)
       {
-        sub_100235634(wallet, v63, 1);
+        sub_100235634(wallet, v62, 1);
       }
     }
   }
@@ -12179,54 +12184,54 @@ LABEL_43:
   else
   {
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v32 = NFLogGetLogger();
-    if (v32)
+    v31 = NFLogGetLogger();
+    if (v31)
     {
-      v33 = v32;
-      v34 = object_getClass(self);
-      v35 = class_isMetaClass(v34);
-      v36 = object_getClassName(self);
-      v69 = sel_getName(a2);
-      v37 = 45;
-      if (v35)
+      v32 = v31;
+      v33 = object_getClass(self);
+      v34 = class_isMetaClass(v33);
+      v35 = object_getClassName(self);
+      v68 = sel_getName(a2);
+      v36 = 45;
+      if (v34)
       {
-        v37 = 43;
+        v36 = 43;
       }
 
-      v33(4, "%c[%{public}s %{public}s]:%i Routing no longer in express mode; dropping signal", v37, v36, v69, 7216);
+      v32(4, "%c[%{public}s %{public}s]:%i Routing no longer in express mode; dropping signal", v36, v35, v68, 7216);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v38 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v37 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      v39 = object_getClass(self);
-      if (class_isMetaClass(v39))
+      v38 = object_getClass(self);
+      if (class_isMetaClass(v38))
       {
-        v40 = 43;
+        v39 = 43;
       }
 
       else
       {
-        v40 = 45;
+        v39 = 45;
       }
 
-      v41 = object_getClassName(self);
-      v42 = sel_getName(a2);
+      v40 = object_getClassName(self);
+      v41 = sel_getName(a2);
       *buf = 67109890;
-      *v78 = v40;
-      *&v78[4] = 2082;
-      *&v78[6] = v41;
-      *&v78[14] = 2082;
-      *&v78[16] = v42;
-      v79 = 1024;
-      v80 = 7216;
-      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Routing no longer in express mode; dropping signal", buf, 0x22u);
+      *v77 = v39;
+      *&v77[4] = 2082;
+      *&v77[6] = v40;
+      *&v77[14] = 2082;
+      *&v77[16] = v41;
+      v78 = 1024;
+      v79 = 7216;
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Routing no longer in express mode; dropping signal", buf, 0x22u);
     }
 
     sub_100007EE0(self->_expressModeManager);
-    v31 = +[NFPowerAssertion sharedPowerAssertion];
-    [v31 releasePowerAssertion:@"ExpressMode"];
+    v30 = +[NFPowerAssertion sharedPowerAssertion];
+    [v30 releasePowerAssertion:@"ExpressMode"];
   }
 }
 
@@ -12264,13 +12269,13 @@ LABEL_43:
     }
 
     *buf = 67109890;
-    v61 = v12;
-    v62 = 2082;
-    v63 = object_getClassName(self);
-    v64 = 2082;
-    v65 = sel_getName(a2);
-    v66 = 1024;
-    v67 = 7283;
+    v60 = v12;
+    v61 = 2082;
+    v62 = object_getClassName(self);
+    v63 = 2082;
+    v64 = sel_getName(a2);
+    v65 = 1024;
+    v66 = 7283;
     _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i NFC emulation mode terminated: nfcd", buf, 0x22u);
   }
 
@@ -12290,14 +12295,14 @@ LABEL_43:
     v16 = object_getClass(self);
     v17 = class_isMetaClass(v16);
     v18 = object_getClassName(self);
-    v57 = sel_getName(a2);
+    v56 = sel_getName(a2);
     v19 = 45;
     if (v17)
     {
       v19 = 43;
     }
 
-    v15(6, "%c[%{public}s %{public}s]:%i express mode exited", v19, v18, v57, 7288);
+    v15(6, "%c[%{public}s %{public}s]:%i express mode exited", v19, v18, v56, 7288);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -12318,22 +12323,21 @@ LABEL_43:
     v23 = object_getClassName(self);
     v24 = sel_getName(a2);
     *buf = 67109890;
-    v61 = v22;
-    v62 = 2082;
-    v63 = v23;
-    v64 = 2082;
-    v65 = v24;
-    v66 = 1024;
-    v67 = 7288;
+    v60 = v22;
+    v61 = 2082;
+    v62 = v23;
+    v63 = 2082;
+    v64 = v24;
+    v65 = 1024;
+    v66 = 7288;
     _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i express mode exited", buf, 0x22u);
   }
 
-  currentSecureElementSession = self->_currentSecureElementSession;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     sub_1000E7BDC(self, "com.apple.stockholm.express.exit", 0);
-    v27 = NFSharedSignpostLog();
-    if (!os_signpost_enabled(v27))
+    v26 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v26))
     {
 LABEL_28:
 
@@ -12342,7 +12346,7 @@ LABEL_28:
 
     *buf = 0;
 LABEL_27:
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_MODE_EXITED_NOTIFICATION", "com.apple.stockholm.express.exit", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_MODE_EXITED_NOTIFICATION", "com.apple.stockholm.express.exit", buf, 2u);
     goto LABEL_28;
   }
 
@@ -12358,61 +12362,61 @@ LABEL_27:
     goto LABEL_40;
   }
 
-  v28 = self->_inSessionExpressSessionID;
+  v27 = self->_inSessionExpressSessionID;
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v29 = NFLogGetLogger();
-  v30 = v29;
-  if (v28 == -1)
+  v28 = NFLogGetLogger();
+  v29 = v28;
+  if (v27 == -1)
   {
-    if (v29)
+    if (v28)
     {
-      v45 = object_getClass(self);
-      v46 = class_isMetaClass(v45);
-      v47 = object_getClassName(self);
-      v48 = sel_getName(a2);
-      v49 = 45;
-      if (v46)
+      v44 = object_getClass(self);
+      v45 = class_isMetaClass(v44);
+      v46 = object_getClassName(self);
+      v47 = sel_getName(a2);
+      v48 = 45;
+      if (v45)
       {
-        v49 = 43;
+        v48 = 43;
       }
 
-      v30(6, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", v49, v47, v48, 7302, self->_inSessionExpressSessionID);
+      v29(6, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", v48, v46, v47, 7302, self->_inSessionExpressSessionID);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v50 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+    v49 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
-      v51 = object_getClass(self);
-      if (class_isMetaClass(v51))
+      v50 = object_getClass(self);
+      if (class_isMetaClass(v50))
       {
-        v52 = 43;
+        v51 = 43;
       }
 
       else
       {
-        v52 = 45;
+        v51 = 45;
       }
 
-      v53 = object_getClassName(self);
-      v54 = sel_getName(a2);
-      v55 = self->_inSessionExpressSessionID;
+      v52 = object_getClassName(self);
+      v53 = sel_getName(a2);
+      v54 = self->_inSessionExpressSessionID;
       *buf = 67110146;
-      v61 = v52;
-      v62 = 2082;
-      v63 = v53;
-      v64 = 2082;
-      v65 = v54;
-      v66 = 1024;
-      v67 = 7302;
-      v68 = 1024;
-      v69 = v55;
-      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", buf, 0x28u);
+      v60 = v51;
+      v61 = 2082;
+      v62 = v52;
+      v63 = 2082;
+      v64 = v53;
+      v65 = 1024;
+      v66 = 7302;
+      v67 = 1024;
+      v68 = v54;
+      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", buf, 0x28u);
     }
 
     sub_1000E7BDC(self, "com.apple.stockholm.express.exit", 0);
-    v27 = NFSharedSignpostLog();
-    if (!os_signpost_enabled(v27))
+    v26 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v26))
     {
       goto LABEL_28;
     }
@@ -12421,71 +12425,71 @@ LABEL_27:
     goto LABEL_27;
   }
 
-  if (v29)
+  if (v28)
   {
-    v31 = object_getClass(self);
-    v32 = class_isMetaClass(v31);
-    v33 = object_getClassName(self);
-    v34 = sel_getName(a2);
-    v58 = self->_inSessionExpressSessionID;
+    v30 = object_getClass(self);
+    v31 = class_isMetaClass(v30);
+    v32 = object_getClassName(self);
+    v33 = sel_getName(a2);
+    v57 = self->_inSessionExpressSessionID;
     sessionID = [(_NFSession *)self->_currentSecureElementSession sessionID];
-    v35 = 45;
-    if (v32)
+    v34 = 45;
+    if (v31)
     {
-      v35 = 43;
+      v34 = 43;
     }
 
-    v30(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d) - dropping", v35, v33, v34, 7307, v58, sessionID);
+    v29(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d) - dropping", v34, v32, v33, 7307, v57, sessionID);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v36 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+  v35 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
-    v37 = object_getClass(self);
-    if (class_isMetaClass(v37))
+    v36 = object_getClass(self);
+    if (class_isMetaClass(v36))
     {
-      v38 = 43;
+      v37 = 43;
     }
 
     else
     {
-      v38 = 45;
+      v37 = 45;
     }
 
-    v39 = object_getClassName(self);
-    v40 = sel_getName(a2);
-    v41 = self->_inSessionExpressSessionID;
+    v38 = object_getClassName(self);
+    v39 = sel_getName(a2);
+    v40 = self->_inSessionExpressSessionID;
     sessionID2 = [(_NFSession *)self->_currentSecureElementSession sessionID];
     *buf = 67110402;
-    v61 = v38;
-    v62 = 2082;
-    v63 = v39;
-    v64 = 2082;
-    v65 = v40;
-    v66 = 1024;
-    v67 = 7307;
-    v68 = 1024;
-    v69 = v41;
-    v70 = 1024;
-    v71 = sessionID2;
-    _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d) - dropping", buf, 0x2Eu);
+    v60 = v37;
+    v61 = 2082;
+    v62 = v38;
+    v63 = 2082;
+    v64 = v39;
+    v65 = 1024;
+    v66 = 7307;
+    v67 = 1024;
+    v68 = v40;
+    v69 = 1024;
+    v70 = sessionID2;
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d) - dropping", buf, 0x2Eu);
   }
 
 LABEL_40:
   [(_NFHardwareManager *)self maybeStartNextSession];
   sub_10003F008(self->_expressModeManager, 2.0);
-  v43 = +[NFPowerAssertion sharedPowerAssertion];
-  [v43 releasePowerAssertion:@"ExpressMode"];
+  v42 = +[NFPowerAssertion sharedPowerAssertion];
+  [v42 releasePowerAssertion:@"ExpressMode"];
 
   self->_inSessionExpressSessionID = -1;
   if (self->_systemWillSleep)
   {
-    v44 = NFSharedSignpostLog();
-    if (os_signpost_enabled(v44))
+    v43 = NFSharedSignpostLog();
+    if (os_signpost_enabled(v43))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v44, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleExpressModeExited: allowing to sleep", &unk_1002E8B7A, buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v43, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "handleExpressModeExited: allowing to sleep", &unk_1002E8B7A, buf, 2u);
     }
 
     [(NFPowerObserver *)self->_powerObserver allowSleep];
@@ -12538,22 +12542,21 @@ LABEL_40:
     v14 = object_getClassName(self);
     v15 = sel_getName(a2);
     *buf = 67109890;
-    v49 = v13;
-    v50 = 2082;
-    v51 = v14;
-    v52 = 2082;
-    v53 = v15;
-    v54 = 1024;
-    v55 = 7341;
+    v48 = v13;
+    v49 = 2082;
+    v50 = v14;
+    v51 = 2082;
+    v52 = v15;
+    v53 = 1024;
+    v54 = 7341;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Express mode timer fired", buf, 0x22u);
   }
 
-  currentSecureElementSession = self->_currentSecureElementSession;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     sub_1000E7BDC(self, "com.apple.stockholm.express.transaction.timeout", 0);
-    v18 = NFSharedSignpostLog();
-    if (!os_signpost_enabled(v18))
+    v17 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v17))
     {
 LABEL_19:
 
@@ -12562,7 +12565,7 @@ LABEL_19:
 
     *buf = 0;
 LABEL_18:
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v18, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_TRANSIT_TIMEOUT_NOTIFICATION", "com.apple.stockholm.express.transaction.timeout", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_TRANSIT_TIMEOUT_NOTIFICATION", "com.apple.stockholm.express.transaction.timeout", buf, 2u);
     goto LABEL_19;
   }
 
@@ -12578,61 +12581,61 @@ LABEL_18:
     return;
   }
 
-  v19 = self->_inSessionExpressSessionID;
+  v18 = self->_inSessionExpressSessionID;
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v20 = NFLogGetLogger();
-  v21 = v20;
-  if (v19 == -1)
+  v19 = NFLogGetLogger();
+  v20 = v19;
+  if (v18 == -1)
   {
-    if (v20)
+    if (v19)
     {
-      v34 = object_getClass(self);
-      v35 = class_isMetaClass(v34);
-      v36 = object_getClassName(self);
-      v37 = sel_getName(a2);
-      v38 = 45;
-      if (v35)
+      v33 = object_getClass(self);
+      v34 = class_isMetaClass(v33);
+      v35 = object_getClassName(self);
+      v36 = sel_getName(a2);
+      v37 = 45;
+      if (v34)
       {
-        v38 = 43;
+        v37 = 43;
       }
 
-      v21(6, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", v38, v36, v37, 7355, self->_inSessionExpressSessionID);
+      v20(6, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", v37, v35, v36, 7355, self->_inSessionExpressSessionID);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v39 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v38 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = object_getClass(self);
-      if (class_isMetaClass(v40))
+      v39 = object_getClass(self);
+      if (class_isMetaClass(v39))
       {
-        v41 = 43;
+        v40 = 43;
       }
 
       else
       {
-        v41 = 45;
+        v40 = 45;
       }
 
-      v42 = object_getClassName(self);
-      v43 = sel_getName(a2);
-      v44 = self->_inSessionExpressSessionID;
+      v41 = object_getClassName(self);
+      v42 = sel_getName(a2);
+      v43 = self->_inSessionExpressSessionID;
       *buf = 67110146;
-      v49 = v41;
-      v50 = 2082;
-      v51 = v42;
-      v52 = 2082;
-      v53 = v43;
-      v54 = 1024;
-      v55 = 7355;
-      v56 = 1024;
-      v57 = v44;
-      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", buf, 0x28u);
+      v48 = v40;
+      v49 = 2082;
+      v50 = v41;
+      v51 = 2082;
+      v52 = v42;
+      v53 = 1024;
+      v54 = 7355;
+      v55 = 1024;
+      v56 = v43;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", buf, 0x28u);
     }
 
     sub_1000E7BDC(self, "com.apple.stockholm.express.transaction.timeout", 0);
-    v18 = NFSharedSignpostLog();
-    if (!os_signpost_enabled(v18))
+    v17 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v17))
     {
       goto LABEL_19;
     }
@@ -12641,55 +12644,55 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  if (v20)
+  if (v19)
   {
-    v22 = object_getClass(self);
-    v23 = class_isMetaClass(v22);
-    v24 = object_getClassName(self);
-    v25 = sel_getName(a2);
-    v46 = self->_inSessionExpressSessionID;
+    v21 = object_getClass(self);
+    v22 = class_isMetaClass(v21);
+    v23 = object_getClassName(self);
+    v24 = sel_getName(a2);
+    v45 = self->_inSessionExpressSessionID;
     sessionID = [(_NFSession *)self->_currentSecureElementSession sessionID];
-    v26 = 45;
-    if (v23)
+    v25 = 45;
+    if (v22)
     {
-      v26 = 43;
+      v25 = 43;
     }
 
-    v21(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", v26, v24, v25, 7360, v46, sessionID);
+    v20(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", v25, v23, v24, 7360, v45, sessionID);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v27 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v26 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = object_getClass(self);
-    if (class_isMetaClass(v28))
+    v27 = object_getClass(self);
+    if (class_isMetaClass(v27))
     {
-      v29 = 43;
+      v28 = 43;
     }
 
     else
     {
-      v29 = 45;
+      v28 = 45;
     }
 
-    v30 = object_getClassName(self);
-    v31 = sel_getName(a2);
-    v32 = self->_inSessionExpressSessionID;
+    v29 = object_getClassName(self);
+    v30 = sel_getName(a2);
+    v31 = self->_inSessionExpressSessionID;
     sessionID2 = [(_NFSession *)self->_currentSecureElementSession sessionID];
     *buf = 67110402;
-    v49 = v29;
-    v50 = 2082;
-    v51 = v30;
-    v52 = 2082;
-    v53 = v31;
-    v54 = 1024;
-    v55 = 7360;
-    v56 = 1024;
-    v57 = v32;
-    v58 = 1024;
-    v59 = sessionID2;
-    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", buf, 0x2Eu);
+    v48 = v28;
+    v49 = 2082;
+    v50 = v29;
+    v51 = 2082;
+    v52 = v30;
+    v53 = 1024;
+    v54 = 7360;
+    v55 = 1024;
+    v56 = v31;
+    v57 = 1024;
+    v58 = sessionID2;
+    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", buf, 0x2Eu);
   }
 }
 
@@ -12732,15 +12735,15 @@ LABEL_18:
     }
 
     *buf = 67110146;
-    *v66 = v19;
-    *&v66[4] = 2082;
-    *&v66[6] = object_getClassName(self);
-    *&v66[14] = 2082;
-    *&v66[16] = sel_getName(a2);
-    v67 = 1024;
-    v68 = 7371;
-    v69 = 2114;
-    v70[0] = timeoutCopy;
+    *v65 = v19;
+    *&v65[4] = 2082;
+    *&v65[6] = object_getClassName(self);
+    *&v65[14] = 2082;
+    *&v65[16] = sel_getName(a2);
+    v66 = 1024;
+    v67 = 7371;
+    v68 = 2114;
+    v69[0] = timeoutCopy;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Applet Inactivity Timeout : %{public}@", buf, 0x2Cu);
   }
 
@@ -12754,14 +12757,13 @@ LABEL_18:
     v20 = 0;
   }
 
-  currentSecureElementSession = self->_currentSecureElementSession;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     identifier = [v20 identifier];
     sub_1000E7BDC(self, "com.apple.stockholm.express.transaction.timeout", identifier);
 
-    v28 = NFSharedSignpostLog();
-    if (!os_signpost_enabled(v28))
+    v27 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v27))
     {
 LABEL_22:
 
@@ -12771,10 +12773,10 @@ LABEL_22:
 LABEL_21:
     identifier2 = [v20 identifier];
     *buf = 136315394;
-    *v66 = "com.apple.stockholm.express.transaction.timeout";
-    *&v66[8] = 2112;
-    *&v66[10] = identifier2;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v28, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_APPLET_INACTIVITY_TIMEOUT_NOTIFICATION", "%s, aid: %@", buf, 0x16u);
+    *v65 = "com.apple.stockholm.express.transaction.timeout";
+    *&v65[8] = 2112;
+    *&v65[10] = identifier2;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EXPRESS_APPLET_INACTIVITY_TIMEOUT_NOTIFICATION", "%s, aid: %@", buf, 0x16u);
 
     goto LABEL_22;
   }
@@ -12782,9 +12784,9 @@ LABEL_21:
   expressModeManager = self->_expressModeManager;
   if (!expressModeManager || !expressModeManager->_expressModeInProgress || (inSessionExpressSessionID = self->_inSessionExpressSessionID, inSessionExpressSessionID == [(_NFSession *)self->_currentSecureElementSession sessionID]))
   {
-    v24 = self->_currentSecureElementSession;
-    v25 = [timeoutCopy objectForKeyedSubscript:@"result"];
-    [(_NFSession *)v24 handleAppletInactivityTimeout:v25];
+    currentSecureElementSession = self->_currentSecureElementSession;
+    v24 = [timeoutCopy objectForKeyedSubscript:@"result"];
+    [(_NFSession *)currentSecureElementSession handleAppletInactivityTimeout:v24];
 
     if ([(_NFSession *)self->_currentSecureElementSession isMemberOfClass:objc_opt_class()])
     {
@@ -12809,63 +12811,63 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v34 = self->_inSessionExpressSessionID;
+  v33 = self->_inSessionExpressSessionID;
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v35 = NFLogGetLogger();
-  v36 = v35;
-  if (v34 == -1)
+  v34 = NFLogGetLogger();
+  v35 = v34;
+  if (v33 == -1)
   {
-    if (v35)
+    if (v34)
     {
-      v47 = object_getClass(self);
-      v48 = class_isMetaClass(v47);
-      v49 = object_getClassName(self);
-      v50 = sel_getName(a2);
-      v51 = 45;
-      if (v48)
+      v46 = object_getClass(self);
+      v47 = class_isMetaClass(v46);
+      v48 = object_getClassName(self);
+      v49 = sel_getName(a2);
+      v50 = 45;
+      if (v47)
       {
-        v51 = 43;
+        v50 = 43;
       }
 
-      v36(6, "%c[%{public}s %{public}s]:%i in session but express started before (sessionID:%d)", v51, v49, v50, 7393, self->_inSessionExpressSessionID);
+      v35(6, "%c[%{public}s %{public}s]:%i in session but express started before (sessionID:%d)", v50, v48, v49, 7393, self->_inSessionExpressSessionID);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v52 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v51 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
     {
-      v53 = object_getClass(self);
-      if (class_isMetaClass(v53))
+      v52 = object_getClass(self);
+      if (class_isMetaClass(v52))
       {
-        v54 = 43;
+        v53 = 43;
       }
 
       else
       {
-        v54 = 45;
+        v53 = 45;
       }
 
-      v55 = object_getClassName(self);
-      v56 = sel_getName(a2);
-      v57 = self->_inSessionExpressSessionID;
+      v54 = object_getClassName(self);
+      v55 = sel_getName(a2);
+      v56 = self->_inSessionExpressSessionID;
       *buf = 67110146;
-      *v66 = v54;
-      *&v66[4] = 2082;
-      *&v66[6] = v55;
-      *&v66[14] = 2082;
-      *&v66[16] = v56;
-      v67 = 1024;
-      v68 = 7393;
-      v69 = 1024;
-      LODWORD(v70[0]) = v57;
-      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in session but express started before (sessionID:%d)", buf, 0x28u);
+      *v65 = v53;
+      *&v65[4] = 2082;
+      *&v65[6] = v54;
+      *&v65[14] = 2082;
+      *&v65[16] = v55;
+      v66 = 1024;
+      v67 = 7393;
+      v68 = 1024;
+      LODWORD(v69[0]) = v56;
+      _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in session but express started before (sessionID:%d)", buf, 0x28u);
     }
 
     identifier4 = [v20 identifier];
     sub_1000E7BDC(self, "com.apple.stockholm.express.transaction.timeout", identifier4);
 
-    v28 = NFSharedSignpostLog();
-    if (!os_signpost_enabled(v28))
+    v27 = NFSharedSignpostLog();
+    if (!os_signpost_enabled(v27))
     {
       goto LABEL_22;
     }
@@ -12873,55 +12875,55 @@ LABEL_23:
     goto LABEL_21;
   }
 
-  if (v35)
+  if (v34)
   {
-    v37 = object_getClass(self);
-    v63 = class_isMetaClass(v37);
-    v64 = object_getClassName(self);
-    v38 = sel_getName(a2);
-    v61 = self->_inSessionExpressSessionID;
+    v36 = object_getClass(self);
+    v62 = class_isMetaClass(v36);
+    v63 = object_getClassName(self);
+    v37 = sel_getName(a2);
+    v60 = self->_inSessionExpressSessionID;
     sessionID = [(_NFSession *)self->_currentSecureElementSession sessionID];
-    v39 = 45;
-    if (v63)
+    v38 = 45;
+    if (v62)
     {
-      v39 = 43;
+      v38 = 43;
     }
 
-    v36(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", v39, v64, v38, 7399, v61, sessionID);
+    v35(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", v38, v63, v37, 7399, v60, sessionID);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v40 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  v39 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    v41 = object_getClass(self);
-    if (class_isMetaClass(v41))
+    v40 = object_getClass(self);
+    if (class_isMetaClass(v40))
     {
-      v42 = 43;
+      v41 = 43;
     }
 
     else
     {
-      v42 = 45;
+      v41 = 45;
     }
 
-    v43 = object_getClassName(self);
-    v44 = sel_getName(a2);
-    v45 = self->_inSessionExpressSessionID;
+    v42 = object_getClassName(self);
+    v43 = sel_getName(a2);
+    v44 = self->_inSessionExpressSessionID;
     sessionID2 = [(_NFSession *)self->_currentSecureElementSession sessionID];
     *buf = 67110402;
-    *v66 = v42;
-    *&v66[4] = 2082;
-    *&v66[6] = v43;
-    *&v66[14] = 2082;
-    *&v66[16] = v44;
-    v67 = 1024;
-    v68 = 7399;
-    v69 = 1024;
-    LODWORD(v70[0]) = v45;
-    WORD2(v70[0]) = 1024;
-    *(v70 + 6) = sessionID2;
-    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", buf, 0x2Eu);
+    *v65 = v41;
+    *&v65[4] = 2082;
+    *&v65[6] = v42;
+    *&v65[14] = 2082;
+    *&v65[16] = v43;
+    v66 = 1024;
+    v67 = 7399;
+    v68 = 1024;
+    LODWORD(v69[0]) = v44;
+    WORD2(v69[0]) = 1024;
+    *(v69 + 6) = sessionID2;
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", buf, 0x2Eu);
   }
 
   if (caDataCopy)
@@ -12932,26 +12934,164 @@ LABEL_24:
 
     if (embeddedMode != 1)
     {
-      v32 = self->_expressModeManager;
-      if (v32)
+      v31 = self->_expressModeManager;
+      if (v31)
       {
-        if (v32->_expressModeInProgress)
+        if (v31->_expressModeInProgress)
         {
           identifier5 = [v20 identifier];
-          LOBYTE(v32) = sub_1000354C4(v32, identifier5);
+          LOBYTE(v31) = sub_1000354C4(v31, identifier5);
         }
 
         else
         {
-          LOBYTE(v32) = 0;
+          LOBYTE(v31) = 0;
         }
       }
 
-      sub_10024EB60(NFHciTransactionEventCALogger, caDataCopy, dataCopy, v32, 1);
+      sub_10024EB60(NFHciTransactionEventCALogger, caDataCopy, dataCopy, v31, 1);
     }
   }
 
 LABEL_30:
+}
+
+- (void)handleRequestService:(id)service inExpress:(BOOL)express
+{
+  expressCopy = express;
+  serviceCopy = service;
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v9 = Logger;
+    Class = object_getClass(self);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(self);
+    Name = sel_getName(a2);
+    v13 = 45;
+    if (isMetaClass)
+    {
+      v13 = 43;
+    }
+
+    v9(6, "%c[%{public}s %{public}s]:%i express=%d, %{public}@", v13, ClassName, Name, 7422, expressCopy, serviceCopy);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v14 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = object_getClass(self);
+    if (class_isMetaClass(v15))
+    {
+      v16 = 43;
+    }
+
+    else
+    {
+      v16 = 45;
+    }
+
+    *buf = 67110402;
+    v37 = v16;
+    v38 = 2082;
+    v39 = object_getClassName(self);
+    v40 = 2082;
+    v41 = sel_getName(a2);
+    v42 = 1024;
+    v43 = 7422;
+    v44 = 1024;
+    v45 = expressCopy;
+    v46 = 2114;
+    v47 = serviceCopy;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i express=%d, %{public}@", buf, 0x32u);
+  }
+
+  if (objc_opt_respondsToSelector())
+  {
+    expressModeManager = self->_expressModeManager;
+    if (expressModeManager)
+    {
+      if (expressModeManager->_expressModeInProgress)
+      {
+        inSessionExpressSessionID = self->_inSessionExpressSessionID;
+        if (inSessionExpressSessionID != [(_NFSession *)self->_currentSecureElementSession sessionID])
+        {
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v19 = NFLogGetLogger();
+          if (v19)
+          {
+            v20 = v19;
+            v21 = object_getClass(self);
+            v22 = class_isMetaClass(v21);
+            v23 = object_getClassName(self);
+            v24 = sel_getName(a2);
+            v34 = self->_inSessionExpressSessionID;
+            sessionID = [(_NFSession *)self->_currentSecureElementSession sessionID];
+            v25 = 45;
+            if (v22)
+            {
+              v25 = 43;
+            }
+
+            v20(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", v25, v23, v24, 7429, v34, sessionID);
+          }
+
+          dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+          v26 = NFSharedLogGetLogger();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          {
+            v27 = object_getClass(self);
+            if (class_isMetaClass(v27))
+            {
+              v28 = 43;
+            }
+
+            else
+            {
+              v28 = 45;
+            }
+
+            v29 = object_getClassName(self);
+            v30 = sel_getName(a2);
+            v31 = self->_inSessionExpressSessionID;
+            sessionID2 = [(_NFSession *)self->_currentSecureElementSession sessionID];
+            *buf = 67110402;
+            v37 = v28;
+            v38 = 2082;
+            v39 = v29;
+            v40 = 2082;
+            v41 = v30;
+            v42 = 1024;
+            v43 = 7429;
+            v44 = 1024;
+            v45 = v31;
+            v46 = 1024;
+            LODWORD(v47) = sessionID2;
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", buf, 0x2Eu);
+          }
+
+          if (expressCopy)
+          {
+            goto LABEL_16;
+          }
+
+          goto LABEL_17;
+        }
+      }
+    }
+
+    [(_NFSession *)self->_currentSecureElementSession handleRequestService:serviceCopy];
+  }
+
+  if (expressCopy)
+  {
+LABEL_16:
+    [NFGeneralStatisticsCALogger updateAnalyticsGeneralTransactionStatistics:&off_100339828];
+  }
+
+LABEL_17:
 }
 
 - (void)handleForceExpressModeEndEvent
@@ -13054,7 +13194,7 @@ LABEL_30:
 
   else
   {
-    v24 = sub_10004C144();
+    v24 = sub_10004C144(NFRoutingConfig);
     v25 = [(_NFHardwareManager *)self setRoutingConfig:v24];
 
     if (v25)
@@ -13175,7 +13315,7 @@ LABEL_30:
     v45 = &v46;
     selfCopy = self;
     v44 = eCopy;
-    if ((sub_1000E6BE4(&self->super.isa, &v39, @"SoftResetSE", v17) & 1) == 0)
+    if ((sub_1000E6BE4(self, &v39, @"SoftResetSE", v17) & 1) == 0)
     {
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
       v18 = NFLogGetLogger();
@@ -13254,6 +13394,184 @@ LABEL_30:
   return v31;
 }
 
+- (void)handleFieldChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  if (changed)
+  {
+    sub_100005420(self);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v7 = Logger;
+    Class = object_getClass(self);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(self);
+    Name = sel_getName(a2);
+    v10 = 45;
+    if (isMetaClass)
+    {
+      v10 = 43;
+    }
+
+    v7(6, "%c[%{public}s %{public}s]:%i fieldPresent=%d", v10, ClassName, Name, 7502, changedCopy);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v11 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    v12 = object_getClass(self);
+    if (class_isMetaClass(v12))
+    {
+      v13 = 43;
+    }
+
+    else
+    {
+      v13 = 45;
+    }
+
+    *buf = 67110146;
+    *v42 = v13;
+    *&v42[4] = 2082;
+    *&v42[6] = object_getClassName(self);
+    v43 = 2082;
+    v44 = sel_getName(a2);
+    v45 = 1024;
+    v46 = 7502;
+    v47 = 1024;
+    v48 = changedCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i fieldPresent=%d", buf, 0x28u);
+  }
+
+  v14 = sub_100003898();
+  v15 = v14;
+  if (changedCopy)
+  {
+    sub_100005B20(v14);
+  }
+
+  else
+  {
+    sub_10000394C(v14);
+  }
+
+  kdebug_trace();
+  v16 = NFSharedSignpostLog();
+  if (os_signpost_enabled(v16))
+  {
+    v17 = @"OFF";
+    if (changedCopy)
+    {
+      v17 = @"ON";
+    }
+
+    *buf = 138412290;
+    *v42 = v17;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v16, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FIELD_CHANGE_NOTIF", "field %@", buf, 0xCu);
+  }
+
+  if (!changedCopy)
+  {
+    v19 = "com.apple.stockholm.field.off";
+    goto LABEL_24;
+  }
+
+  driverWrapper = self->_driverWrapper;
+  if (!driverWrapper || (driverWrapper->_flags & 0x400) == 0)
+  {
+    v19 = "com.apple.stockholm.field.on";
+LABEL_24:
+    sub_1000F0974(self, v19);
+    v20 = NFSharedSignpostLog();
+    if (os_signpost_enabled(v20))
+    {
+      v21 = "OFF";
+      if (changedCopy)
+      {
+        v21 = "ON";
+      }
+
+      *buf = 136315138;
+      *v42 = v21;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "FIELD_DETECT_NOTIFICATION", "field %s", buf, 0xCu);
+    }
+
+    if (!changedCopy)
+    {
+      sub_100003B94(self);
+    }
+
+    if (objc_opt_respondsToSelector())
+    {
+      [(_NFSession *)self->_currentSecureElementSession handleFieldChanged:changedCopy];
+    }
+
+    v22 = sub_100003CE4(self);
+    fieldDetectManager = self->_fieldDetectManager;
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_10011AD30;
+    v38[3] = &unk_100318C98;
+    v39 = v22;
+    v38[4] = self;
+    v38[5] = a2;
+    v40 = changedCopy;
+    [(NFFieldDetectManager *)fieldDetectManager enumerateFieldDetectSessionsUsingBlock:v38];
+    return;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v24 = NFLogGetLogger();
+  if (v24)
+  {
+    v25 = v24;
+    v26 = object_getClass(self);
+    v27 = class_isMetaClass(v26);
+    v28 = object_getClassName(self);
+    v37 = sel_getName(a2);
+    v29 = 45;
+    if (v27)
+    {
+      v29 = 43;
+    }
+
+    v25(4, "%c[%{public}s %{public}s]:%i Ignoring field on event due to ExpressModeDebug setting!", v29, v28, v37, 7515);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v30 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  {
+    v31 = object_getClass(self);
+    if (class_isMetaClass(v31))
+    {
+      v32 = 43;
+    }
+
+    else
+    {
+      v32 = 45;
+    }
+
+    v33 = object_getClassName(self);
+    v34 = sel_getName(a2);
+    *buf = 67109890;
+    *v42 = v32;
+    *&v42[4] = 2082;
+    *&v42[6] = v33;
+    v43 = 2082;
+    v44 = v34;
+    v45 = 1024;
+    v46 = 7515;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Ignoring field on event due to ExpressModeDebug setting!", buf, 0x22u);
+  }
+}
+
 - (void)handleFilteredFieldNotification:(id)notification
 {
   notificationCopy = notification;
@@ -13306,6 +13624,124 @@ LABEL_30:
   block[4] = self;
   block[5] = os;
   dispatch_async(workQueue, block);
+}
+
+- (void)handleSecureElementEnteredRestrictedModeExit:(int)exit os:(int64_t)os
+{
+  v5 = *&exit;
+  if ([(NFSecureElementWrapper *)self->_secureElementWrapper isSecureElement:?])
+  {
+    if ((os & 0xFFFFFFFFFFFFFFFDLL) != 0)
+    {
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      Logger = NFLogGetLogger();
+      if (Logger)
+      {
+        v9 = Logger;
+        Class = object_getClass(self);
+        isMetaClass = class_isMetaClass(Class);
+        ClassName = object_getClassName(self);
+        Name = sel_getName(a2);
+        v12 = 45;
+        if (isMetaClass)
+        {
+          v12 = 43;
+        }
+
+        v9(6, "%c[%{public}s %{public}s]:%i Ignoring restricted mode for %ld", v12, ClassName, Name, 7780, os);
+      }
+
+      dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+      v13 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = object_getClass(self);
+        if (class_isMetaClass(v14))
+        {
+          v15 = 43;
+        }
+
+        else
+        {
+          v15 = 45;
+        }
+
+        *buf = 67110146;
+        v31 = v15;
+        v32 = 2082;
+        v33 = object_getClassName(self);
+        v34 = 2082;
+        v35 = sel_getName(a2);
+        v36 = 1024;
+        v37 = 7780;
+        v38 = 2048;
+        osCopy = os;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Ignoring restricted mode for %ld", buf, 0x2Cu);
+      }
+    }
+
+    else
+    {
+      workQueue = self->_workQueue;
+      block[0] = _NSConcreteStackBlock;
+      block[1] = 3221225472;
+      block[2] = sub_10011C99C;
+      block[3] = &unk_100318330;
+      block[4] = self;
+      block[5] = a2;
+      block[6] = os;
+      dispatch_async(workQueue, block);
+    }
+  }
+
+  else
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v16 = NFLogGetLogger();
+    if (v16)
+    {
+      v17 = v16;
+      v18 = object_getClass(self);
+      v19 = class_isMetaClass(v18);
+      v26 = object_getClassName(self);
+      v28 = sel_getName(a2);
+      v20 = 45;
+      if (v19)
+      {
+        v20 = 43;
+      }
+
+      v17(6, "%c[%{public}s %{public}s]:%i Ignoring restricted mode for se ID %d", v20, v26, v28, 7775, v5);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v21 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    {
+      v22 = object_getClass(self);
+      if (class_isMetaClass(v22))
+      {
+        v23 = 43;
+      }
+
+      else
+      {
+        v23 = 45;
+      }
+
+      *buf = 67110146;
+      v31 = v23;
+      v32 = 2082;
+      v33 = object_getClassName(self);
+      v34 = 2082;
+      v35 = sel_getName(a2);
+      v36 = 1024;
+      v37 = 7775;
+      v38 = 1024;
+      LODWORD(osCopy) = v5;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Ignoring restricted mode for se ID %d", buf, 0x28u);
+    }
+  }
 }
 
 - (void)handleSelectEvent:(id)event
@@ -13434,7 +13870,6 @@ LABEL_30:
 - (void)handleTimerExpiredEvent:(id)event
 {
   eventCopy = event;
-  currentSecureElementSession = self->_currentSecureElementSession;
   if (objc_opt_respondsToSelector())
   {
     [(_NFSession *)self->_currentSecureElementSession handleTimerExpiredEvent:eventCopy];
@@ -13446,49 +13881,49 @@ LABEL_30:
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      v8 = Logger;
+      v7 = Logger;
       Class = object_getClass(self);
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(self);
       Name = sel_getName(a2);
-      v13 = 45;
+      v12 = 45;
       if (isMetaClass)
       {
-        v13 = 43;
+        v12 = 43;
       }
 
-      v8(4, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v13, ClassName, Name, 7914, self->_currentSecureElementSession);
+      v7(4, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v12, ClassName, Name, 7914, self->_currentSecureElementSession);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v14 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v13 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = object_getClass(self);
-      if (class_isMetaClass(v15))
+      v14 = object_getClass(self);
+      if (class_isMetaClass(v14))
       {
-        v16 = 43;
+        v15 = 43;
       }
 
       else
       {
-        v16 = 45;
+        v15 = 45;
       }
 
-      v17 = object_getClassName(self);
-      v18 = sel_getName(a2);
-      v19 = self->_currentSecureElementSession;
+      v16 = object_getClassName(self);
+      v17 = sel_getName(a2);
+      currentSecureElementSession = self->_currentSecureElementSession;
       *buf = 67110146;
-      v21 = v16;
-      v22 = 2082;
-      v23 = v17;
-      v24 = 2082;
-      v25 = v18;
-      v26 = 1024;
-      v27 = 7914;
-      v28 = 2114;
-      v29 = v19;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", buf, 0x2Cu);
+      v20 = v15;
+      v21 = 2082;
+      v22 = v16;
+      v23 = 2082;
+      v24 = v17;
+      v25 = 1024;
+      v26 = 7914;
+      v27 = 2114;
+      v28 = currentSecureElementSession;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", buf, 0x2Cu);
     }
   }
 }
@@ -13525,7 +13960,6 @@ LABEL_30:
     appletIdentifier2 = [eventCopy appletIdentifier];
   }
 
-  currentSecureElementSession = self->_currentSecureElementSession;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     if (!self->_currentSecureElementSession)
@@ -13539,72 +13973,72 @@ LABEL_32:
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      v24 = Logger;
+      v23 = Logger;
       Class = object_getClass(self);
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(self);
       Name = sel_getName(a2);
-      v29 = 45;
+      v28 = 45;
       if (isMetaClass)
       {
-        v29 = 43;
+        v28 = 43;
       }
 
-      v24(4, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v29, ClassName, Name, 7973, self->_currentSecureElementSession);
+      v23(4, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v28, ClassName, Name, 7973, self->_currentSecureElementSession);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v30 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v29 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
 LABEL_31:
 
       goto LABEL_32;
     }
 
-    v31 = object_getClass(self);
-    if (class_isMetaClass(v31))
+    v30 = object_getClass(self);
+    if (class_isMetaClass(v30))
     {
-      v32 = 43;
+      v31 = 43;
     }
 
     else
     {
-      v32 = 45;
+      v31 = 45;
     }
 
-    v33 = object_getClassName(self);
-    v34 = sel_getName(a2);
-    v35 = self->_currentSecureElementSession;
+    v32 = object_getClassName(self);
+    v33 = sel_getName(a2);
+    currentSecureElementSession = self->_currentSecureElementSession;
     *buf = 67110146;
-    v79 = v32;
-    v80 = 2082;
-    v81 = v33;
-    v82 = 2082;
-    v83 = v34;
-    v84 = 1024;
-    v85 = 7973;
-    v86 = 2114;
-    v87[0] = v35;
-    v36 = "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@";
-    v37 = v30;
-    v38 = OS_LOG_TYPE_ERROR;
-    v39 = 44;
+    v78 = v31;
+    v79 = 2082;
+    v80 = v32;
+    v81 = 2082;
+    v82 = v33;
+    v83 = 1024;
+    v84 = 7973;
+    v85 = 2114;
+    v86[0] = currentSecureElementSession;
+    v35 = "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@";
+    v36 = v29;
+    v37 = OS_LOG_TYPE_ERROR;
+    v38 = 44;
 LABEL_30:
-    _os_log_impl(&_mh_execute_header, v37, v38, v36, buf, v39);
+    _os_log_impl(&_mh_execute_header, v36, v37, v35, buf, v38);
     goto LABEL_31;
   }
 
-  v20 = self->_expressModeManager;
-  if (!v20 || !v20->_expressModeInProgress || (inSessionExpressSessionID = self->_inSessionExpressSessionID, inSessionExpressSessionID == [(_NFSession *)self->_currentSecureElementSession sessionID]))
+  v19 = self->_expressModeManager;
+  if (!v19 || !v19->_expressModeInProgress || (inSessionExpressSessionID = self->_inSessionExpressSessionID, inSessionExpressSessionID == [(_NFSession *)self->_currentSecureElementSession sessionID]))
   {
     [(_NFSession *)self->_currentSecureElementSession handleTransactionStartEvent:eventCopy atlData:dataCopy];
     if ([(_NFSession *)self->_currentSecureElementSession isMemberOfClass:objc_opt_class()])
     {
-      v22 = self->_expressModeManager;
-      if (v22)
+      v21 = self->_expressModeManager;
+      if (v21)
       {
-        if (v22->_expressModeInProgress && !v22->_didPerformExpressTransaction)
+        if (v21->_expressModeInProgress && !v21->_didPerformExpressTransaction)
         {
           sub_1000E7BDC(self, "com.apple.stockholm.express.transaction.start", appletIdentifier2);
           if (!dataCopy)
@@ -13626,121 +14060,121 @@ LABEL_33:
     goto LABEL_34;
   }
 
-  v51 = self->_inSessionExpressSessionID;
+  v50 = self->_inSessionExpressSessionID;
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v52 = NFLogGetLogger();
-  v53 = v52;
-  if (v51 == -1)
+  v51 = NFLogGetLogger();
+  v52 = v51;
+  if (v50 == -1)
   {
-    if (v52)
+    if (v51)
     {
-      v65 = object_getClass(self);
-      v66 = class_isMetaClass(v65);
-      v67 = object_getClassName(self);
-      v68 = sel_getName(a2);
-      v69 = 45;
-      if (v66)
+      v64 = object_getClass(self);
+      v65 = class_isMetaClass(v64);
+      v66 = object_getClassName(self);
+      v67 = sel_getName(a2);
+      v68 = 45;
+      if (v65)
       {
-        v69 = 43;
+        v68 = 43;
       }
 
-      v53(6, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", v69, v67, v68, 7964, self->_inSessionExpressSessionID);
+      v52(6, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", v68, v66, v67, 7964, self->_inSessionExpressSessionID);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v30 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v29 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_31;
     }
 
-    v70 = object_getClass(self);
-    if (class_isMetaClass(v70))
+    v69 = object_getClass(self);
+    if (class_isMetaClass(v69))
     {
-      v71 = 43;
+      v70 = 43;
     }
 
     else
     {
-      v71 = 45;
+      v70 = 45;
     }
 
-    v72 = object_getClassName(self);
-    v73 = sel_getName(a2);
-    v74 = self->_inSessionExpressSessionID;
+    v71 = object_getClassName(self);
+    v72 = sel_getName(a2);
+    v73 = self->_inSessionExpressSessionID;
     *buf = 67110146;
-    v79 = v71;
-    v80 = 2082;
-    v81 = v72;
-    v82 = 2082;
-    v83 = v73;
-    v84 = 1024;
-    v85 = 7964;
-    v86 = 1024;
-    LODWORD(v87[0]) = v74;
-    v36 = "%c[%{public}s %{public}s]:%i in session but express started before (%d)";
-    v37 = v30;
-    v38 = OS_LOG_TYPE_DEFAULT;
-    v39 = 40;
+    v78 = v70;
+    v79 = 2082;
+    v80 = v71;
+    v81 = 2082;
+    v82 = v72;
+    v83 = 1024;
+    v84 = 7964;
+    v85 = 1024;
+    LODWORD(v86[0]) = v73;
+    v35 = "%c[%{public}s %{public}s]:%i in session but express started before (%d)";
+    v36 = v29;
+    v37 = OS_LOG_TYPE_DEFAULT;
+    v38 = 40;
     goto LABEL_30;
   }
 
-  if (v52)
+  if (v51)
   {
-    v54 = object_getClass(self);
-    v55 = class_isMetaClass(v54);
-    v77 = object_getClassName(self);
-    v56 = sel_getName(a2);
-    v75 = self->_inSessionExpressSessionID;
+    v53 = object_getClass(self);
+    v54 = class_isMetaClass(v53);
+    v76 = object_getClassName(self);
+    v55 = sel_getName(a2);
+    v74 = self->_inSessionExpressSessionID;
     sessionID = [(_NFSession *)self->_currentSecureElementSession sessionID];
-    v57 = 45;
-    if (v55)
+    v56 = 45;
+    if (v54)
     {
-      v57 = 43;
+      v56 = 43;
     }
 
-    v53(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d) - drop", v57, v77, v56, 7968, v75, sessionID);
+    v52(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d) - drop", v56, v76, v55, 7968, v74, sessionID);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v58 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
+  v57 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
   {
-    v59 = object_getClass(self);
-    if (class_isMetaClass(v59))
+    v58 = object_getClass(self);
+    if (class_isMetaClass(v58))
     {
-      v60 = 43;
+      v59 = 43;
     }
 
     else
     {
-      v60 = 45;
+      v59 = 45;
     }
 
-    v61 = object_getClassName(self);
-    v62 = sel_getName(a2);
-    v63 = self->_inSessionExpressSessionID;
+    v60 = object_getClassName(self);
+    v61 = sel_getName(a2);
+    v62 = self->_inSessionExpressSessionID;
     sessionID2 = [(_NFSession *)self->_currentSecureElementSession sessionID];
     *buf = 67110402;
-    v79 = v60;
-    v80 = 2082;
-    v81 = v61;
-    v82 = 2082;
-    v83 = v62;
-    v84 = 1024;
-    v85 = 7968;
-    v86 = 1024;
-    LODWORD(v87[0]) = v63;
-    WORD2(v87[0]) = 1024;
-    *(v87 + 6) = sessionID2;
-    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d) - drop", buf, 0x2Eu);
+    v78 = v59;
+    v79 = 2082;
+    v80 = v60;
+    v81 = 2082;
+    v82 = v61;
+    v83 = 1024;
+    v84 = 7968;
+    v85 = 1024;
+    LODWORD(v86[0]) = v62;
+    WORD2(v86[0]) = 1024;
+    *(v86 + 6) = sessionID2;
+    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d) - drop", buf, 0x2Eu);
   }
 
   if (dataCopy)
   {
 LABEL_34:
-    v40 = [dataCopy objectForKey:@"RequiresPowerCycle"];
-    bOOLValue = [v40 BOOLValue];
+    v39 = [dataCopy objectForKey:@"RequiresPowerCycle"];
+    bOOLValue = [v39 BOOLValue];
 
     if (bOOLValue)
     {
@@ -13756,39 +14190,39 @@ LABEL_36:
 
     if (embeddedMode != 1)
     {
-      v44 = self->_expressModeManager;
-      if (v44)
+      v43 = self->_expressModeManager;
+      if (v43)
       {
-        if (v44->_expressModeInProgress)
+        if (v43->_expressModeInProgress)
         {
           appletIdentifier3 = [eventCopy appletIdentifier];
-          LOBYTE(v44) = sub_1000354C4(v44, appletIdentifier3);
+          LOBYTE(v43) = sub_1000354C4(v43, appletIdentifier3);
         }
 
         else
         {
-          LOBYTE(v44) = 0;
+          LOBYTE(v43) = 0;
         }
       }
 
-      v46 = sub_10021E074(self->_driverWrapper);
-      v47 = v46;
-      if (v46 && [v46 notificationType] == 3)
+      v45 = sub_10021E074(self->_driverWrapper);
+      v46 = v45;
+      if (v45 && [v45 notificationType] == 3)
       {
-        v48 = [caDataCopy mutableCopy];
-        v49 = v47;
-        v50 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v49 terminalSubType] | (objc_msgSend(v49, "terminalType") << 8));
-        [v48 setObject:v50 forKeyedSubscript:@"terminalType"];
+        v47 = [caDataCopy mutableCopy];
+        v48 = v46;
+        v49 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v48 terminalSubType] | (objc_msgSend(v48, "terminalType") << 8));
+        [v47 setObject:v49 forKeyedSubscript:@"terminalType"];
 
         if (dataCopy)
         {
-          sub_10024EB60(NFHciTransactionEventCALogger, v48, dataCopy, v44, 1);
+          sub_10024EB60(NFHciTransactionEventCALogger, v47, dataCopy, v43, 1);
         }
       }
 
       else if (dataCopy)
       {
-        sub_10024EB60(NFHciTransactionEventCALogger, caDataCopy, dataCopy, v44, 1);
+        sub_10024EB60(NFHciTransactionEventCALogger, caDataCopy, dataCopy, v43, 1);
       }
     }
   }
@@ -13817,31 +14251,31 @@ LABEL_36:
   v14 = [dataCopy objectForKeyedSubscript:@"appletIdentifier"];
   v15 = [dataCopy objectForKeyedSubscript:@"endPointIdentifier"];
   v16 = [dataCopy objectForKeyedSubscript:@"readerIdentifier"];
-  v130 = sub_100032938(self->_expressModeManager, v14);
-  v131 = v15;
-  v129 = v16;
-  v127 = caDataCopy;
+  v129 = sub_100032938(&self->_expressModeManager->super.isa, v14);
+  v130 = v15;
+  v128 = v16;
+  v126 = caDataCopy;
   if (v14 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     v17 = [NSData NF_dataWithHexString:v14];
     v18 = sub_10001A63C(v17);
 
     v19 = v18 & 0xFFFFFFFFFFFFFFFELL;
-    v16 = v129;
-    v122 = v19 == 2;
-    v125 = [(_NFControllerManager *)self->_controllerManager isUnifiedAccessForHome:v14 passConfig:v130];
+    v16 = v128;
+    v121 = v19 == 2;
+    v124 = [(_NFControllerManager *)self->_controllerManager isUnifiedAccessForHome:v14 passConfig:v129];
   }
 
   else
   {
-    v125 = 0;
-    v122 = 0;
+    v124 = 0;
+    v121 = 0;
   }
 
-  v132 = objc_opt_new();
+  v131 = objc_opt_new();
   if (dataCopy)
   {
-    if (v125)
+    if (v124)
     {
       v20 = [dataCopy objectForKeyedSubscript:@"endPointIdentifier"];
 
@@ -13852,7 +14286,7 @@ LABEL_36:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v132 setObject:v15 forKeyedSubscript:@"endPointIdentifier"];
+            [v131 setObject:v15 forKeyedSubscript:@"endPointIdentifier"];
           }
         }
 
@@ -13861,7 +14295,7 @@ LABEL_36:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v132 setObject:v14 forKeyedSubscript:@"appletIdentifier"];
+            [v131 setObject:v14 forKeyedSubscript:@"appletIdentifier"];
           }
         }
 
@@ -13870,7 +14304,7 @@ LABEL_36:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v132 setObject:v16 forKeyedSubscript:@"readerIdentifier"];
+            [v131 setObject:v16 forKeyedSubscript:@"readerIdentifier"];
           }
         }
 
@@ -13879,12 +14313,12 @@ LABEL_36:
           if ([eventCopy didError])
           {
             v21 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [eventCopy didError]);
-            [v132 setObject:v21 forKeyedSubscript:@"didError"];
+            [v131 setObject:v21 forKeyedSubscript:@"didError"];
           }
 
           else
           {
-            [v132 setObject:&off_1003313E0 forKeyedSubscript:@"didError"];
+            [v131 setObject:&off_1003313E0 forKeyedSubscript:@"didError"];
           }
         }
 
@@ -13895,7 +14329,7 @@ LABEL_36:
         }
 
         v23 = [NSNumber numberWithBool:v22 & 1];
-        [v132 setObject:v23 forKeyedSubscript:@"isStepUp"];
+        [v131 setObject:v23 forKeyedSubscript:@"isStepUp"];
       }
     }
   }
@@ -13928,7 +14362,7 @@ LABEL_36:
     v24 = "com.apple.stockholm.express.transaction.end";
   }
 
-  v121 = v24;
+  v120 = v24;
   keyIdentifier = [eventCopy keyIdentifier];
 
   if (keyIdentifier)
@@ -13966,7 +14400,7 @@ LABEL_36:
 
   if (v38)
   {
-    v39 = [NSNumber numberWithUnsignedInt:sub_1000A5614(NFUnifiedAccessTransactionCALogger, v130, dataCopy)];
+    v39 = [NSNumber numberWithUnsignedInt:sub_1000A5614(NFUnifiedAccessTransactionCALogger, v129, dataCopy)];
     [v35 setObject:v39 forKeyedSubscript:@"keyType"];
 
     if ([eventCopy didError])
@@ -13990,7 +14424,6 @@ LABEL_36:
     }
   }
 
-  currentSecureElementSession = self->_currentSecureElementSession;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     if (self->_currentSecureElementSession)
@@ -13999,176 +14432,176 @@ LABEL_36:
       Logger = NFLogGetLogger();
       if (Logger)
       {
-        v51 = Logger;
+        v50 = Logger;
         Class = object_getClass(self);
         isMetaClass = class_isMetaClass(Class);
         ClassName = object_getClassName(self);
         Name = sel_getName(a2);
-        v56 = 45;
+        v55 = 45;
         if (isMetaClass)
         {
-          v56 = 43;
+          v55 = 43;
         }
 
-        v51(6, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v56, ClassName, Name, 8233, self->_currentSecureElementSession);
+        v50(6, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v55, ClassName, Name, 8233, self->_currentSecureElementSession);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v57 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+      v56 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
       {
-        v58 = object_getClass(self);
-        if (class_isMetaClass(v58))
+        v57 = object_getClass(self);
+        if (class_isMetaClass(v57))
         {
-          v59 = 43;
+          v58 = 43;
         }
 
         else
         {
-          v59 = 45;
+          v58 = 45;
         }
 
-        v60 = object_getClassName(self);
-        v61 = sel_getName(a2);
-        v62 = self->_currentSecureElementSession;
+        v59 = object_getClassName(self);
+        v60 = sel_getName(a2);
+        currentSecureElementSession = self->_currentSecureElementSession;
         *buf = 67110146;
-        v134 = v59;
-        v135 = 2082;
-        v136 = v60;
-        v137 = 2082;
-        v138 = v61;
-        v139 = 1024;
-        v140 = 8233;
-        v141 = 2114;
-        *v142 = v62;
-        _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", buf, 0x2Cu);
+        v133 = v58;
+        v134 = 2082;
+        v135 = v59;
+        v136 = 2082;
+        v137 = v60;
+        v138 = 1024;
+        v139 = 8233;
+        v140 = 2114;
+        *v141 = currentSecureElementSession;
+        _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", buf, 0x2Cu);
       }
     }
 
     if (self->_inSessionExpressSessionID != -1)
     {
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v63 = NFLogGetLogger();
-      if (v63)
+      v62 = NFLogGetLogger();
+      if (v62)
       {
-        v64 = v63;
-        v65 = object_getClass(self);
-        v66 = class_isMetaClass(v65);
-        v67 = object_getClassName(self);
-        v68 = sel_getName(a2);
-        v69 = 45;
-        if (v66)
+        v63 = v62;
+        v64 = object_getClass(self);
+        v65 = class_isMetaClass(v64);
+        v66 = object_getClassName(self);
+        v67 = sel_getName(a2);
+        v68 = 45;
+        if (v65)
         {
-          v69 = 43;
+          v68 = 43;
         }
 
-        v64(6, "%c[%{public}s %{public}s]:%i in-session express (ID:%d) but session got closed", v69, v67, v68, 8238, self->_inSessionExpressSessionID);
+        v63(6, "%c[%{public}s %{public}s]:%i in-session express (ID:%d) but session got closed", v68, v66, v67, 8238, self->_inSessionExpressSessionID);
       }
 
       dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-      v70 = NFSharedLogGetLogger();
-      if (!os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+      v69 = NFSharedLogGetLogger();
+      if (!os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_76;
       }
 
-      v71 = object_getClass(self);
-      if (class_isMetaClass(v71))
+      v70 = object_getClass(self);
+      if (class_isMetaClass(v70))
       {
-        v72 = 43;
+        v71 = 43;
       }
 
       else
       {
-        v72 = 45;
+        v71 = 45;
       }
 
-      v73 = object_getClassName(self);
-      v74 = sel_getName(a2);
+      v72 = object_getClassName(self);
+      v73 = sel_getName(a2);
       inSessionExpressSessionID = self->_inSessionExpressSessionID;
       *buf = 67110146;
-      v134 = v72;
-      v135 = 2082;
-      v136 = v73;
-      v137 = 2082;
-      v138 = v74;
-      v139 = 1024;
-      v140 = 8238;
-      v141 = 1024;
-      *v142 = inSessionExpressSessionID;
-      v76 = "%c[%{public}s %{public}s]:%i in-session express (ID:%d) but session got closed";
-      v77 = v70;
-      v78 = 40;
+      v133 = v71;
+      v134 = 2082;
+      v135 = v72;
+      v136 = 2082;
+      v137 = v73;
+      v138 = 1024;
+      v139 = 8238;
+      v140 = 1024;
+      *v141 = inSessionExpressSessionID;
+      v75 = "%c[%{public}s %{public}s]:%i in-session express (ID:%d) but session got closed";
+      v76 = v69;
+      v77 = 40;
       goto LABEL_75;
     }
 
-    sub_10011EAE0(self, eventCopy, v35, appletIdentifier2, v121, v122);
-    if (!v125)
+    sub_10011EAE0(self, eventCopy, v35, appletIdentifier2, v120, v121);
+    if (!v124)
     {
       goto LABEL_107;
     }
 
-    v79 = &off_100331E60;
+    v78 = &off_100331E60;
 LABEL_81:
-    [v132 setObject:v79 forKeyedSubscript:@"TxType"];
-    v80 = +[NFSecureXPCEventPublisherManager sharedManager];
-    homed = [v80 homed];
-    [(_NFHardwareManager *)self postEventForPublisher:homed event:"com.apple.stockholm.forHome.transaction.end" additionalData:v132];
+    [v131 setObject:v78 forKeyedSubscript:@"TxType"];
+    v79 = +[NFSecureXPCEventPublisherManager sharedManager];
+    homed = [v79 homed];
+    [(_NFHardwareManager *)self postEventForPublisher:homed event:"com.apple.stockholm.forHome.transaction.end" additionalData:v131];
 
     goto LABEL_107;
   }
 
-  v46 = self->_expressModeManager;
-  if (!v46 || !v46->_expressModeInProgress || (v47 = self->_inSessionExpressSessionID, v47 == [(_NFSession *)self->_currentSecureElementSession sessionID]))
+  v45 = self->_expressModeManager;
+  if (!v45 || !v45->_expressModeInProgress || (v46 = self->_inSessionExpressSessionID, v46 == [(_NFSession *)self->_currentSecureElementSession sessionID]))
   {
-    caDataCopy = v127;
+    caDataCopy = v126;
     if ([(_NFSession *)self->_currentSecureElementSession isMemberOfClass:objc_opt_class()])
     {
-      v48 = self->_expressModeManager;
-      if (v48 && v48->_expressModeInProgress && !v48->_didPerformExpressTransaction)
+      v47 = self->_expressModeManager;
+      if (v47 && v47->_expressModeInProgress && !v47->_didPerformExpressTransaction)
       {
-        sub_1000F0B88(self, v121, appletIdentifier2);
-        v49 = 3;
+        sub_1000F0B88(self, v120, appletIdentifier2);
+        v48 = 3;
       }
 
       else
       {
-        v49 = 2;
+        v48 = 2;
       }
 
-      if (v122)
+      if (v121)
       {
-        v97 = [v35 objectForKeyedSubscript:@"EventType"];
+        v96 = [v35 objectForKeyedSubscript:@"EventType"];
         if (v35)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            if ([v97 isEqualToString:@"EndEvent"])
+            if ([v96 isEqualToString:@"EndEvent"])
             {
-              if (v125)
+              if (v124)
               {
-                [NSNumber numberWithUnsignedInt:v49];
-                v98 = v126 = v49;
-                [v132 setObject:v98 forKeyedSubscript:@"TxType"];
+                [NSNumber numberWithUnsignedInt:v48];
+                v97 = v125 = v48;
+                [v131 setObject:v97 forKeyedSubscript:@"TxType"];
 
-                v99 = +[NFSecureXPCEventPublisherManager sharedManager];
-                homed2 = [v99 homed];
-                [(_NFHardwareManager *)self postEventForPublisher:homed2 event:"com.apple.stockholm.forHome.transaction.end" additionalData:v132];
+                v98 = +[NFSecureXPCEventPublisherManager sharedManager];
+                homed2 = [v98 homed];
+                [(_NFHardwareManager *)self postEventForPublisher:homed2 event:"com.apple.stockholm.forHome.transaction.end" additionalData:v131];
 
-                v49 = v126;
+                v48 = v125;
               }
 
-              sub_1000A3C44(NFUnifiedAccessTransactionCALogger, v35, v49, 0);
+              sub_1000A3C44(NFUnifiedAccessTransactionCALogger, v35, v48, 0);
             }
           }
         }
 
-        v101 = NFSharedSignpostLog();
-        if (os_signpost_enabled(v101))
+        v100 = NFSharedSignpostLog();
+        if (os_signpost_enabled(v100))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v101, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "AtlEvent", "AtlEndEventComplete", buf, 2u);
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v100, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "AtlEvent", "AtlEndEventComplete", buf, 2u);
         }
       }
     }
@@ -14177,143 +14610,143 @@ LABEL_81:
     goto LABEL_107;
   }
 
-  v83 = self->_inSessionExpressSessionID;
+  v82 = self->_inSessionExpressSessionID;
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v84 = NFLogGetLogger();
-  v85 = v84;
-  if (v83 != -1)
+  v83 = NFLogGetLogger();
+  v84 = v83;
+  if (v82 != -1)
   {
-    if (v84)
+    if (v83)
     {
-      v86 = object_getClass(self);
-      v87 = class_isMetaClass(v86);
-      v88 = object_getClassName(self);
-      v89 = sel_getName(a2);
-      v119 = self->_inSessionExpressSessionID;
+      v85 = object_getClass(self);
+      v86 = class_isMetaClass(v85);
+      v87 = object_getClassName(self);
+      v88 = sel_getName(a2);
+      v118 = self->_inSessionExpressSessionID;
       sessionID = [(_NFSession *)self->_currentSecureElementSession sessionID];
-      v90 = 45;
-      if (v87)
+      v89 = 45;
+      if (v86)
       {
-        v90 = 43;
+        v89 = 43;
       }
 
-      v85(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", v90, v88, v89, 8228, v119, sessionID);
+      v84(5, "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)", v89, v87, v88, 8228, v118, sessionID);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v70 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+    v69 = NFSharedLogGetLogger();
+    if (!os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_76;
     }
 
-    v91 = object_getClass(self);
-    if (class_isMetaClass(v91))
+    v90 = object_getClass(self);
+    if (class_isMetaClass(v90))
     {
-      v92 = 43;
+      v91 = 43;
     }
 
     else
     {
-      v92 = 45;
+      v91 = 45;
     }
 
-    v93 = object_getClassName(self);
-    v94 = sel_getName(a2);
-    v95 = self->_inSessionExpressSessionID;
+    v92 = object_getClassName(self);
+    v93 = sel_getName(a2);
+    v94 = self->_inSessionExpressSessionID;
     sessionID2 = [(_NFSession *)self->_currentSecureElementSession sessionID];
     *buf = 67110402;
-    v134 = v92;
-    v135 = 2082;
-    v136 = v93;
-    v137 = 2082;
-    v138 = v94;
-    v139 = 1024;
-    v140 = 8228;
-    v141 = 1024;
-    *v142 = v95;
-    *&v142[4] = 1024;
-    *&v142[6] = sessionID2;
-    v76 = "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)";
-    v77 = v70;
-    v78 = 46;
+    v133 = v91;
+    v134 = 2082;
+    v135 = v92;
+    v136 = 2082;
+    v137 = v93;
+    v138 = 1024;
+    v139 = 8228;
+    v140 = 1024;
+    *v141 = v94;
+    *&v141[4] = 1024;
+    *&v141[6] = sessionID2;
+    v75 = "%c[%{public}s %{public}s]:%i in-session express but wrong session ID (%d vs %d)";
+    v76 = v69;
+    v77 = 46;
 LABEL_75:
-    _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, v76, buf, v78);
+    _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, v75, buf, v77);
 LABEL_76:
 
-    caDataCopy = v127;
+    caDataCopy = v126;
     goto LABEL_107;
   }
 
-  if (v84)
+  if (v83)
   {
-    v108 = object_getClass(self);
-    v109 = class_isMetaClass(v108);
-    v110 = object_getClassName(self);
-    v111 = sel_getName(a2);
-    v112 = 45;
-    if (v109)
+    v107 = object_getClass(self);
+    v108 = class_isMetaClass(v107);
+    v109 = object_getClassName(self);
+    v110 = sel_getName(a2);
+    v111 = 45;
+    if (v108)
     {
-      v112 = 43;
+      v111 = 43;
     }
 
-    v85(6, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", v112, v110, v111, 8205, self->_inSessionExpressSessionID);
+    v84(6, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", v111, v109, v110, 8205, self->_inSessionExpressSessionID);
   }
 
   dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-  v113 = NFSharedLogGetLogger();
-  if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
+  v112 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v112, OS_LOG_TYPE_DEFAULT))
   {
-    v114 = object_getClass(self);
-    if (class_isMetaClass(v114))
+    v113 = object_getClass(self);
+    if (class_isMetaClass(v113))
     {
-      v115 = 43;
+      v114 = 43;
     }
 
     else
     {
-      v115 = 45;
+      v114 = 45;
     }
 
-    v116 = object_getClassName(self);
-    v117 = sel_getName(a2);
-    v118 = self->_inSessionExpressSessionID;
+    v115 = object_getClassName(self);
+    v116 = sel_getName(a2);
+    v117 = self->_inSessionExpressSessionID;
     *buf = 67110146;
-    v134 = v115;
-    v135 = 2082;
-    v136 = v116;
-    v137 = 2082;
-    v138 = v117;
-    v139 = 1024;
-    v140 = 8205;
-    v141 = 1024;
-    *v142 = v118;
-    _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", buf, 0x28u);
+    v133 = v114;
+    v134 = 2082;
+    v135 = v115;
+    v136 = 2082;
+    v137 = v116;
+    v138 = 1024;
+    v139 = 8205;
+    v140 = 1024;
+    *v141 = v117;
+    _os_log_impl(&_mh_execute_header, v112, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i in session but express started before (%d)", buf, 0x28u);
   }
 
-  sub_10011EAE0(self, eventCopy, v35, appletIdentifier2, v121, v122);
-  caDataCopy = v127;
-  if (v125)
+  sub_10011EAE0(self, eventCopy, v35, appletIdentifier2, v120, v121);
+  caDataCopy = v126;
+  if (v124)
   {
-    v79 = &off_100331E48;
+    v78 = &off_100331E48;
     goto LABEL_81;
   }
 
 LABEL_107:
   if (caDataCopy && embeddedMode != 1)
   {
-    v102 = sub_100034A8C(self->_expressModeManager, v14, v131);
-    v103 = [caDataCopy mutableCopy];
-    v104 = v103;
-    if (v102)
+    v101 = sub_100034A8C(self->_expressModeManager, v14, v130);
+    v102 = [caDataCopy mutableCopy];
+    v103 = v102;
+    if (v101)
     {
-      [v103 addEntriesFromDictionary:v102];
+      [v102 addEntriesFromDictionary:v101];
     }
 
-    v105 = self->_expressModeManager;
+    v104 = self->_expressModeManager;
     appletIdentifier3 = [eventCopy appletIdentifier];
-    v107 = sub_1000354C4(v105, appletIdentifier3);
-    sub_10024EB60(NFHciTransactionEventCALogger, v104, dataCopy, v107, 0);
+    v106 = sub_1000354C4(v104, appletIdentifier3);
+    sub_10024EB60(NFHciTransactionEventCALogger, v103, dataCopy, v106, 0);
   }
 }
 
@@ -14321,7 +14754,6 @@ LABEL_107:
 {
   eventCopy = event;
   dCopy = d;
-  currentSecureElementSession = self->_currentSecureElementSession;
   if (objc_opt_respondsToSelector())
   {
     [(_NFSession *)self->_currentSecureElementSession handleFelicaStateEvent:eventCopy appletAID:dCopy];
@@ -14333,49 +14765,49 @@ LABEL_107:
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      v11 = Logger;
+      v10 = Logger;
       Class = object_getClass(self);
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(self);
       Name = sel_getName(a2);
-      v16 = 45;
+      v15 = 45;
       if (isMetaClass)
       {
-        v16 = 43;
+        v15 = 43;
       }
 
-      v11(4, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v16, ClassName, Name, 8280, self->_currentSecureElementSession);
+      v10(4, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v15, ClassName, Name, 8280, self->_currentSecureElementSession);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v17 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = object_getClass(self);
-      if (class_isMetaClass(v18))
+      v17 = object_getClass(self);
+      if (class_isMetaClass(v17))
       {
-        v19 = 43;
+        v18 = 43;
       }
 
       else
       {
-        v19 = 45;
+        v18 = 45;
       }
 
-      v20 = object_getClassName(self);
-      v21 = sel_getName(a2);
-      v22 = self->_currentSecureElementSession;
+      v19 = object_getClassName(self);
+      v20 = sel_getName(a2);
+      currentSecureElementSession = self->_currentSecureElementSession;
       *buf = 67110146;
-      v24 = v19;
-      v25 = 2082;
-      v26 = v20;
-      v27 = 2082;
-      v28 = v21;
-      v29 = 1024;
-      v30 = 8280;
-      v31 = 2114;
-      v32 = v22;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", buf, 0x2Cu);
+      v23 = v18;
+      v24 = 2082;
+      v25 = v19;
+      v26 = 2082;
+      v27 = v20;
+      v28 = 1024;
+      v29 = 8280;
+      v30 = 2114;
+      v31 = currentSecureElementSession;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", buf, 0x2Cu);
     }
   }
 }
@@ -14384,25 +14816,24 @@ LABEL_107:
 {
   eventCopy = event;
   appletCopy = applet;
-  currentSecureElementSession = self->_currentSecureElementSession;
   if (objc_opt_respondsToSelector())
   {
     expressModeManager = self->_expressModeManager;
-    v11 = 5;
+    v10 = 5;
     if (expressModeManager)
     {
       if (expressModeManager->_expressModeInProgress)
       {
-        v11 = 6;
+        v10 = 6;
       }
 
       else
       {
-        v11 = 5;
+        v10 = 5;
       }
     }
 
-    [(_NFSession *)self->_currentSecureElementSession handleStepUpEvent:eventCopy transactionType:v11 forApplet:appletCopy];
+    [(_NFSession *)self->_currentSecureElementSession handleStepUpEvent:eventCopy transactionType:v10 forApplet:appletCopy];
   }
 
   else
@@ -14411,49 +14842,49 @@ LABEL_107:
     Logger = NFLogGetLogger();
     if (Logger)
     {
-      v13 = Logger;
+      v12 = Logger;
       Class = object_getClass(self);
       isMetaClass = class_isMetaClass(Class);
       ClassName = object_getClassName(self);
       Name = sel_getName(a2);
-      v18 = 45;
+      v17 = 45;
       if (isMetaClass)
       {
-        v18 = 43;
+        v17 = 43;
       }
 
-      v13(4, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v18, ClassName, Name, 8292, self->_currentSecureElementSession);
+      v12(4, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", v17, ClassName, Name, 8292, self->_currentSecureElementSession);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v19 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = object_getClass(self);
-      if (class_isMetaClass(v20))
+      v19 = object_getClass(self);
+      if (class_isMetaClass(v19))
       {
-        v21 = 43;
+        v20 = 43;
       }
 
       else
       {
-        v21 = 45;
+        v20 = 45;
       }
 
-      v22 = object_getClassName(self);
-      v23 = sel_getName(a2);
-      v24 = self->_currentSecureElementSession;
+      v21 = object_getClassName(self);
+      v22 = sel_getName(a2);
+      currentSecureElementSession = self->_currentSecureElementSession;
       *buf = 67110146;
-      v26 = v21;
-      v27 = 2082;
-      v28 = v22;
-      v29 = 2082;
-      v30 = v23;
-      v31 = 1024;
-      v32 = 8292;
-      v33 = 2114;
-      v34 = v24;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", buf, 0x2Cu);
+      v25 = v20;
+      v26 = 2082;
+      v27 = v21;
+      v28 = 2082;
+      v29 = v22;
+      v30 = 1024;
+      v31 = 8292;
+      v32 = 2114;
+      v33 = currentSecureElementSession;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected active session: %{public}@", buf, 0x2Cu);
     }
   }
 }
@@ -14688,6 +15119,72 @@ LABEL_107:
   block[5] = a2;
   removedCopy = removed;
   dispatch_async(workQueue, block);
+}
+
+- (void)handleSecureElementOSReset:(int64_t)reset withReason:(unsigned int)reason
+{
+  v4 = *&reason;
+  if ((reset & 0xFFFFFFFFFFFFFFFDLL) != 0)
+  {
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    Logger = NFLogGetLogger();
+    if (Logger)
+    {
+      v9 = Logger;
+      Class = object_getClass(self);
+      isMetaClass = class_isMetaClass(Class);
+      ClassName = object_getClassName(self);
+      Name = sel_getName(a2);
+      v13 = 45;
+      if (isMetaClass)
+      {
+        v13 = 43;
+      }
+
+      v9(3, "%c[%{public}s %{public}s]:%i Unexpected OS reset notification : %ld, reason %d.", v13, ClassName, Name, 8441, reset, v4);
+    }
+
+    dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+    v14 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      v15 = object_getClass(self);
+      if (class_isMetaClass(v15))
+      {
+        v16 = 43;
+      }
+
+      else
+      {
+        v16 = 45;
+      }
+
+      *buf = 67110402;
+      v21 = v16;
+      v22 = 2082;
+      v23 = object_getClassName(self);
+      v24 = 2082;
+      v25 = sel_getName(a2);
+      v26 = 1024;
+      v27 = 8441;
+      v28 = 2048;
+      resetCopy = reset;
+      v30 = 1024;
+      v31 = v4;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Unexpected OS reset notification : %ld, reason %d.", buf, 0x32u);
+    }
+  }
+
+  workQueue = self->_workQueue;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100121334;
+  block[3] = &unk_100318330;
+  block[4] = self;
+  block[5] = a2;
+  block[6] = reset;
+  dispatch_async(workQueue, block);
+  [NFExceptionsCALogger postAnalyticsOsResetEvent:v4 osID:reset hardwareType:sub_1000E1E20(self)];
 }
 
 - (BOOL)canStop
@@ -15191,7 +15688,7 @@ LABEL_24:
         driverWrapper->_isInDlMode = 0;
       }
 
-      sub_1000E3290(&self->super.isa, @"Recovery");
+      sub_1000E3290(self, @"Recovery");
       sub_1000E3F30(self);
       sub_10021CC94(self->_driverWrapper, @"Recovery");
     }
@@ -15324,7 +15821,7 @@ LABEL_24:
 - (void)markApplicationForDelete:(id)delete
 {
   deleteCopy = delete;
-  v4 = sub_10001F6E4();
+  v4 = sub_10001F6E4(NFTrustDataBase);
   sub_10001D234(v4, deleteCopy);
 }
 
@@ -15546,6 +16043,110 @@ LABEL_24:
   dispatch_async(workQueue, v3);
 }
 
+- (id)setHostEmulationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (enabled)
+  {
+    hostMode = 2;
+  }
+
+  else
+  {
+    v7 = [(_NFHardwareManager *)self defaultRoutingConfig:3];
+    hostMode = [v7 hostMode];
+  }
+
+  lastKnownRoutingConfig = [(_NFHardwareManager *)self lastKnownRoutingConfig];
+  hostMode2 = [lastKnownRoutingConfig hostMode];
+
+  if (hostMode == hostMode2)
+  {
+    v10 = 0;
+    goto LABEL_21;
+  }
+
+  lastKnownRoutingConfig2 = [(_NFHardwareManager *)self lastKnownRoutingConfig];
+  if ([lastKnownRoutingConfig2 embeddedMode] != 2 || (driverWrapper = self->_driverWrapper) == 0)
+  {
+
+    goto LABEL_20;
+  }
+
+  [(NSLock *)driverWrapper->_fieldPresentLock lock];
+  fieldPresent = driverWrapper->_fieldPresent;
+  [(NSLock *)driverWrapper->_fieldPresentLock unlock];
+
+  if (!fieldPresent)
+  {
+LABEL_20:
+    lastKnownRoutingConfig3 = [(_NFHardwareManager *)self lastKnownRoutingConfig];
+    v27 = sub_10004B7A8(lastKnownRoutingConfig3, enabledCopy);
+
+    v10 = sub_10012535C(self, v27);
+
+    goto LABEL_21;
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  Logger = NFLogGetLogger();
+  if (Logger)
+  {
+    v15 = Logger;
+    Class = object_getClass(self);
+    isMetaClass = class_isMetaClass(Class);
+    ClassName = object_getClassName(self);
+    Name = sel_getName(a2);
+    v18 = 45;
+    if (isMetaClass)
+    {
+      v18 = 43;
+    }
+
+    v15(3, "%c[%{public}s %{public}s]:%i Host Card Emulation can not be modified while SE emulation is active and field is present: requested change= %d", v18, ClassName, Name, 9278, enabledCopy);
+  }
+
+  dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+  v19 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  {
+    v20 = object_getClass(self);
+    if (class_isMetaClass(v20))
+    {
+      v21 = 43;
+    }
+
+    else
+    {
+      v21 = 45;
+    }
+
+    *buf = 67110146;
+    v34 = v21;
+    v35 = 2082;
+    v36 = object_getClassName(self);
+    v37 = 2082;
+    v38 = sel_getName(a2);
+    v39 = 1024;
+    v40 = 9278;
+    v41 = 1024;
+    v42 = enabledCopy;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Host Card Emulation can not be modified while SE emulation is active and field is present: requested change= %d", buf, 0x28u);
+  }
+
+  v22 = [NSError alloc];
+  v23 = [NSString stringWithUTF8String:"nfcd"];
+  v31 = NSLocalizedDescriptionKey;
+  v24 = [NSString stringWithUTF8String:"Invalid State"];
+  v32 = v24;
+  v25 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+  v10 = [v22 initWithDomain:v23 code:12 userInfo:v25];
+
+LABEL_21:
+
+  return v10;
+}
+
 - (void)reconfigureDynamicTransitRF:(unint64_t)f withOverride:(BOOL)override
 {
   overrideCopy = override;
@@ -15588,19 +16189,10 @@ LABEL_24:
       v15 = Logger;
       Class = object_getClass(self);
       isMetaClass = class_isMetaClass(Class);
+      fCopy = f;
       ClassName = object_getClassName(self);
       Name = sel_getName(a2);
       if (overrideCopy)
-      {
-        v20 = @"YES";
-      }
-
-      else
-      {
-        v20 = @"NO";
-      }
-
-      if (v11)
       {
         v21 = @"YES";
       }
@@ -15610,7 +16202,7 @@ LABEL_24:
         v21 = @"NO";
       }
 
-      if (v12)
+      if (v11)
       {
         v22 = @"YES";
       }
@@ -15620,47 +16212,48 @@ LABEL_24:
         v22 = @"NO";
       }
 
-      v35 = v20;
-      v23 = 43;
-      if (!isMetaClass)
+      if (v12)
       {
-        v23 = 45;
+        v23 = @"YES";
       }
 
-      v15(6, "%c[%{public}s %{public}s]:%i RF override : %{public}@, update : %{public}@, alternate FDT : %{public}@", v23, ClassName, Name, 9374, v35, v21, v22);
+      else
+      {
+        v23 = @"NO";
+      }
+
+      v37 = v21;
+      v24 = 43;
+      if (!isMetaClass)
+      {
+        v24 = 45;
+      }
+
+      v36 = ClassName;
+      f = fCopy;
+      v15(6, "%c[%{public}s %{public}s]:%i RF override : %{public}@, update : %{public}@, alternate FDT : %{public}@", v24, v36, Name, 9374, v37, v22, v23);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
-    v24 = NFSharedLogGetLogger();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = NFSharedLogGetLogger();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = object_getClass(self);
-      if (class_isMetaClass(v25))
+      v26 = object_getClass(self);
+      if (class_isMetaClass(v26))
       {
-        v26 = 43;
+        v27 = 43;
       }
 
       else
       {
-        v26 = 45;
+        v27 = 45;
       }
 
-      v27 = object_getClassName(self);
-      v28 = sel_getName(a2);
+      v28 = object_getClassName(self);
+      v29 = sel_getName(a2);
       *buf = 67110658;
-      v29 = @"YES";
+      v30 = @"YES";
       if (overrideCopy)
-      {
-        v30 = @"YES";
-      }
-
-      else
-      {
-        v30 = @"NO";
-      }
-
-      v37 = v26;
-      if (v11)
       {
         v31 = @"YES";
       }
@@ -15670,24 +16263,35 @@ LABEL_24:
         v31 = @"NO";
       }
 
-      v38 = 2082;
-      if (!v12)
+      v39 = v27;
+      if (v11)
       {
-        v29 = @"NO";
+        v32 = @"YES";
       }
 
-      v39 = v27;
+      else
+      {
+        v32 = @"NO";
+      }
+
       v40 = 2082;
+      if (!v12)
+      {
+        v30 = @"NO";
+      }
+
       v41 = v28;
-      v42 = 1024;
-      v43 = 9374;
-      v44 = 2114;
-      v45 = v30;
+      v42 = 2082;
+      v43 = v29;
+      v44 = 1024;
+      v45 = 9374;
       v46 = 2114;
       v47 = v31;
       v48 = 2114;
-      v49 = v29;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i RF override : %{public}@, update : %{public}@, alternate FDT : %{public}@", buf, 0x40u);
+      v49 = v32;
+      v50 = 2114;
+      v51 = v30;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i RF override : %{public}@, update : %{public}@, alternate FDT : %{public}@", buf, 0x40u);
     }
 
     if (v11)
@@ -15699,19 +16303,19 @@ LABEL_24:
           return;
         }
 
-        v32 = sub_1001E129C(self->_driverWrapper);
+        v33 = sub_1001E129C(self->_driverWrapper, f == 2);
       }
 
-      v33 = self->_expressModeManager;
-      if (v33)
+      v34 = self->_expressModeManager;
+      if (v34)
       {
-        v34 = 1;
+        v35 = 1;
         if (v12)
         {
-          v34 = 2;
+          v35 = 2;
         }
 
-        v33->_dynamicTransitConfiguration = v34;
+        v34->_dynamicTransitConfiguration = v35;
       }
     }
   }
@@ -15941,7 +16545,7 @@ LABEL_37:
   v6[4] = self;
   v6[5] = a2;
   v4 = sub_10004C224(NFRoutingConfig, 0);
-  LOBYTE(selfCopy) = sub_1000E6BE4(&selfCopy->super.isa, v6, @"Configure ExpressFelica entry", v4);
+  LOBYTE(selfCopy) = sub_1000E6BE4(selfCopy, v6, @"Configure ExpressFelica entry", v4);
 
   return selfCopy;
 }
@@ -16249,15 +16853,15 @@ LABEL_8:
       }
 
       *buf = 67110146;
-      v51 = v19;
+      v49 = v19;
+      v50 = 2082;
+      v51 = object_getClassName(self);
       v52 = 2082;
-      v53 = object_getClassName(self);
-      v54 = 2082;
-      v55 = sel_getName(a2);
-      v56 = 1024;
-      v57 = 457;
-      v58 = 2114;
-      v59 = sessionCopy;
+      v53 = sel_getName(a2);
+      v54 = 1024;
+      v55 = 457;
+      v56 = 2114;
+      v57 = sessionCopy;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i %{public}@ is not in suspended state", buf, 0x2Cu);
     }
 
@@ -16278,14 +16882,14 @@ LABEL_8:
       v24 = object_getClass(self);
       v25 = class_isMetaClass(v24);
       v26 = object_getClassName(self);
-      v49 = sel_getName(a2);
+      v47 = sel_getName(a2);
       v27 = 45;
       if (v25)
       {
         v27 = 43;
       }
 
-      v23(3, "%c[%{public}s %{public}s]:%i Error - failed to restart parent session", v27, v26, v49, 489);
+      v23(3, "%c[%{public}s %{public}s]:%i Error - failed to restart parent session", v27, v26, v47, 489);
     }
 
     dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
@@ -16304,21 +16908,19 @@ LABEL_8:
       }
 
       *buf = 67109890;
-      v51 = v30;
+      v49 = v30;
+      v50 = 2082;
+      v51 = object_getClassName(self);
       v52 = 2082;
-      v53 = object_getClassName(self);
-      v54 = 2082;
-      v55 = sel_getName(a2);
-      v56 = 1024;
-      v57 = 489;
+      v53 = sel_getName(a2);
+      v54 = 1024;
+      v55 = 489;
       _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Error - failed to restart parent session", buf, 0x22u);
     }
 
     driverWrapper2 = [(_NFHardwareManager *)self driverWrapper];
-    v32 = driverWrapper2;
     if (driverWrapper2)
     {
-      v33 = *(driverWrapper2 + 8);
       NFDriverSimulateCrash();
     }
 
@@ -16327,8 +16929,8 @@ LABEL_8:
 
   if (self)
   {
-    v34 = self->_suspendedSessionQueue;
-    [(NSMutableArray *)v34 removeObjectAtIndex:v11];
+    v32 = self->_suspendedSessionQueue;
+    [(NSMutableArray *)v32 removeObjectAtIndex:v11];
 
     sub_1001263C0(self, sessionCopy);
     currentSecureElementSession = self->_currentSecureElementSession;
@@ -16341,26 +16943,26 @@ LABEL_8:
     currentSecureElementSession = 0;
   }
 
-  v36 = currentSecureElementSession;
-  v37 = [(_NFSession *)v36 initialRoutingConfigWithField:fieldCopy];
-  v38 = [(_NFHardwareManager *)self setRoutingConfig:v37];
+  v34 = currentSecureElementSession;
+  v35 = [(_NFSession *)v34 initialRoutingConfigWithField:fieldCopy];
+  v36 = [(_NFHardwareManager *)self setRoutingConfig:v35];
 
   if (([sessionCopy resume] & 1) == 0)
   {
     if (self)
     {
-      v42 = self->_secureElementSessionQueue;
-      v43 = self->_currentSecureElementSession;
+      v40 = self->_secureElementSessionQueue;
+      v41 = self->_currentSecureElementSession;
     }
 
     else
     {
-      v42 = 0;
-      v43 = 0;
+      v40 = 0;
+      v41 = 0;
     }
 
-    v44 = v43;
-    [(NSMutableArray *)v42 insertObject:v44 atIndex:0];
+    v42 = v41;
+    [(NSMutableArray *)v40 insertObject:v42 atIndex:0];
 
     sub_1001263C0(self, 0);
     driverWrapper3 = [(_NFHardwareManager *)self driverWrapper];
@@ -16368,7 +16970,7 @@ LABEL_8:
 
     v17 = 0;
 LABEL_36:
-    v41 = 0;
+    v39 = 0;
     goto LABEL_37;
   }
 
@@ -16384,24 +16986,24 @@ LABEL_36:
     secureElementSessionQueue = 0;
   }
 
-  v40 = secureElementSessionQueue;
-  v17 = [(NSMutableArray *)v40 count];
+  v38 = secureElementSessionQueue;
+  v17 = [(NSMutableArray *)v38 count];
 
   if (v17)
   {
     v17 = 0;
-    v41 = 1;
+    v39 = 1;
   }
 
   else
   {
-    v41 = 1;
+    v39 = 1;
     sub_1000DE998(self, 1);
   }
 
 LABEL_37:
 
-  return v41;
+  return v39;
 }
 
 - (void)dequeueSession:(id)session
@@ -17020,6 +17622,154 @@ LABEL_45:
   return a2;
 }
 
+- (void)logLPCDFalseDetects:(int)detects
+{
+  if (detects)
+  {
+    v3 = *&detects;
+    v6 = +[NSDate date];
+    v7 = +[NSLocale currentLocale];
+    v8 = [v6 descriptionWithLocale:v7];
+
+    if (v8)
+    {
+      if (self)
+      {
+        lpcdCountersLoggingURL = self->_lpcdCountersLoggingURL;
+      }
+
+      else
+      {
+        lpcdCountersLoggingURL = 0;
+      }
+
+      v10 = lpcdCountersLoggingURL;
+      v11 = [(NSURL *)v10 checkResourceIsReachableAndReturnError:0];
+
+      if (v11)
+      {
+        v12 = [NSMutableDictionary alloc];
+        if (self)
+        {
+          v13 = self->_lpcdCountersLoggingURL;
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+
+        v14 = v13;
+        v15 = [v12 initWithContentsOfURL:v14];
+      }
+
+      else
+      {
+        v15 = objc_opt_new();
+      }
+
+      v50 = v8;
+      v16 = [NSNumber numberWithInt:v3];
+      v51 = v16;
+      v17 = [NSDictionary dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+      [v15 addEntriesFromDictionary:v17];
+
+      if (self)
+      {
+        v18 = self->_lpcdCountersLoggingURL;
+      }
+
+      else
+      {
+        v18 = 0;
+      }
+
+      v19 = v18;
+      v37 = 0;
+      v20 = [v15 writeToURL:v19 error:&v37];
+      v21 = v37;
+
+      if ((v20 & 1) == 0 && v21)
+      {
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        Logger = NFLogGetLogger();
+        if (Logger)
+        {
+          v23 = Logger;
+          Class = object_getClass(self);
+          if (class_isMetaClass(Class))
+          {
+            v25 = 43;
+          }
+
+          else
+          {
+            v25 = 45;
+          }
+
+          ClassName = object_getClassName(self);
+          Name = sel_getName(a2);
+          if (self)
+          {
+            v28 = self->_lpcdCountersLoggingURL;
+          }
+
+          else
+          {
+            v28 = 0;
+          }
+
+          v29 = v28;
+          v23(3, "%c[%{public}s %{public}s]:%i failed to write to URL:%{public}@  error:%{public}@", v25, ClassName, Name, 37, v29, v21);
+        }
+
+        dispatch_get_specific(kNFLOG_DISPATCH_SPECIFIC_KEY);
+        v30 = NFSharedLogGetLogger();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        {
+          v31 = object_getClass(self);
+          if (class_isMetaClass(v31))
+          {
+            v32 = 43;
+          }
+
+          else
+          {
+            v32 = 45;
+          }
+
+          v33 = object_getClassName(self);
+          v34 = sel_getName(a2);
+          if (self)
+          {
+            v35 = self->_lpcdCountersLoggingURL;
+          }
+
+          else
+          {
+            v35 = 0;
+          }
+
+          v36 = v35;
+          *buf = 67110402;
+          v39 = v32;
+          v40 = 2082;
+          v41 = v33;
+          v42 = 2082;
+          v43 = v34;
+          v44 = 1024;
+          v45 = 37;
+          v46 = 2114;
+          v47 = v36;
+          v48 = 2114;
+          v49 = v21;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i failed to write to URL:%{public}@  error:%{public}@", buf, 0x36u);
+        }
+      }
+    }
+  }
+}
+
 - (id)_updateAllPowerCounters
 {
   driverWrapper = [(_NFHardwareManager *)self driverWrapper];
@@ -17547,7 +18297,7 @@ LABEL_40:
   return v19;
 }
 
-- (id)openStackAndUpdateAllWriteCounters:(id *)counters
+- (id)openStackAndUpdateAllWriteCounters:(id *)p_isa
 {
   if (self && self->_systemWillSleep)
   {
@@ -17595,7 +18345,7 @@ LABEL_40:
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Cannot fetch write counters when device is going to sleep", buf, 0x22u);
     }
 
-    if (!counters)
+    if (!p_isa)
     {
       v21 = 0;
       v22 = 0;
@@ -17616,12 +18366,12 @@ LABEL_40:
     v19 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 266];
     v90[3] = v19;
     v20 = [NSDictionary dictionaryWithObjects:v90 forKeys:v89 count:4];
-    *counters = [v15 initWithDomain:v16 code:2 userInfo:v20];
+    *p_isa = [v15 initWithDomain:v16 code:2 userInfo:v20];
 
     v21 = 0;
     v22 = 0;
 LABEL_53:
-    counters = 0;
+    p_isa = 0;
     goto LABEL_54;
   }
 
@@ -17676,7 +18426,7 @@ LABEL_53:
       _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Failed to open session : %@", buf, 0x2Cu);
     }
 
-    if (!counters)
+    if (!p_isa)
     {
       v21 = 0;
       goto LABEL_54;
@@ -17709,7 +18459,7 @@ LABEL_53:
     v55 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 273];
     v78[4] = v55;
     v56 = [NSDictionary dictionaryWithObjects:v78 forKeys:v77 count:5];
-    *counters = [v32 initWithDomain:v33 code:code userInfo:v56];
+    *p_isa = [v32 initWithDomain:v33 code:code userInfo:v56];
 
     v21 = 0;
     goto LABEL_53;
@@ -17795,7 +18545,7 @@ LABEL_53:
 
   if (v22)
   {
-    if (!counters)
+    if (!p_isa)
     {
       goto LABEL_54;
     }
@@ -17827,22 +18577,22 @@ LABEL_53:
     v65 = [[NSString alloc] initWithFormat:@"%s:%d", sel_getName(a2), 289];
     v74[4] = v65;
     v66 = [NSDictionary dictionaryWithObjects:v74 forKeys:v73 count:5];
-    *counters = [v59 initWithDomain:v60 code:code3 userInfo:v66];
+    *p_isa = [v59 initWithDomain:v60 code:code3 userInfo:v66];
 
     goto LABEL_53;
   }
 
-  if (counters)
+  if (p_isa)
   {
-    *counters = 0;
+    *p_isa = 0;
   }
 
   v21 = v21;
   v22 = 0;
-  counters = v21;
+  p_isa = &v21->super.super.isa;
 LABEL_54:
 
-  return counters;
+  return p_isa;
 }
 
 - (void)getFlashWriteCountersWithCompletion:(id)completion

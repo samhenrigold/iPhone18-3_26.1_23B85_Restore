@@ -20,7 +20,7 @@
   numMediaAutomations = [(HMDCurrentAppleMediaAccessoryConfigurationLogEvent *)self numMediaAutomations];
   [dictionary setObject:numMediaAutomations forKeyedSubscript:@"numMediaAutomations"];
 
-  v8 = [dictionary copy];
+  v8 = objc_msgSend_copy(dictionary);
 
   return v8;
 }
@@ -36,19 +36,19 @@
   v14 = [(HMMLogEvent *)&v24 init];
   if (v14)
   {
-    v15 = [sensorsCopy copy];
+    v15 = objc_msgSend_copy(sensorsCopy);
     numPairedSensors = v14->_numPairedSensors;
     v14->_numPairedSensors = v15;
 
-    v17 = [statusCopy copy];
+    v17 = objc_msgSend_copy(statusCopy);
     sensorStatus = v14->_sensorStatus;
     v14->_sensorStatus = v17;
 
-    v19 = [automationsCopy copy];
+    v19 = objc_msgSend_copy(automationsCopy);
     numPairedSensorAutomations = v14->_numPairedSensorAutomations;
     v14->_numPairedSensorAutomations = v19;
 
-    v21 = [mediaAutomationsCopy copy];
+    v21 = objc_msgSend_copy(mediaAutomationsCopy);
     numMediaAutomations = v14->_numMediaAutomations;
     v14->_numMediaAutomations = v21;
   }

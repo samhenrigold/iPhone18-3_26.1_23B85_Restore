@@ -507,7 +507,7 @@ LABEL_13:
   v6.super_class = SBShelfExpansionSwitcherModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v6 transitionWillBegin];
   v3 = [[SBPreemptAnimationSwitcherEventResponse alloc] initWithOptions:3];
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionWillBegin);
+  v4 = SBAppendSwitcherModifierResponse();
 
   return v4;
 }
@@ -518,7 +518,7 @@ LABEL_13:
   v7.super_class = SBShelfExpansionSwitcherModifier;
   v3 = [(SBSwitcherModifier *)&v7 handleAnimatablePropertyChangedEvent:event];
   v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:1];
-  v5 = SBAppendSwitcherModifierResponse(v4, v3);
+  v5 = SBAppendSwitcherModifierResponse();
 
   return v5;
 }

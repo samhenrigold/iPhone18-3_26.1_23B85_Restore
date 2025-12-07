@@ -10,16 +10,16 @@
 {
   deviceCopy = device;
   descriptorCopy = descriptor;
-  v98.receiver = self;
-  v98.super_class = _MFXSpatialScalingEffectEFFECT_NAME_V1;
-  v9 = [(_MTLFXEffectBase *)&v98 init];
+  v96.receiver = self;
+  v96.super_class = _MFXSpatialScalingEffectEFFECT_NAME_V1;
+  v9 = [(_MTLFXEffectBase *)&v96 init];
   objc_storeStrong(&v9->_device, device);
   v10 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v90 = [v10 pathForResource:@"default" ofType:@"metallib"];
-  v11 = [MEMORY[0x277CBEBC0] URLWithString:v90];
-  v97 = 0;
-  v91 = [deviceCopy newLibraryWithURL:v11 error:&v97];
-  v12 = v97;
+  v88 = [v10 pathForResource:@"default" ofType:@"metallib"];
+  v11 = [MEMORY[0x277CBEBC0] URLWithString:v88];
+  v95 = 0;
+  v89 = [deviceCopy newLibraryWithURL:v11 error:&v95];
+  v12 = v95;
 
   v9->_inputLinear = 0;
   v9->_inputOutputNormalized = 1;
@@ -53,21 +53,19 @@
   [v21 setStoreAction:1];
 
   [descriptorCopy colorTextureFormat];
-  device = v9->_device;
-  v102 = 0;
-  v100 = 0u;
-  v101 = 0u;
+  v100 = 0;
+  v98 = 0u;
   v99 = 0u;
+  v97 = 0u;
   MTLPixelFormatGetInfoForDevice();
-  v9->_inputSRGB = (WORD4(v99) & 0x800) != 0;
+  v9->_inputSRGB = (WORD4(v97) & 0x800) != 0;
   [descriptorCopy outputTextureFormat];
-  v23 = v9->_device;
-  v102 = 0;
-  v100 = 0u;
-  v101 = 0u;
+  v100 = 0;
+  v98 = 0u;
   v99 = 0u;
+  v97 = 0u;
   MTLPixelFormatGetInfoForDevice();
-  v9->_outputSRGB = (WORD4(v99) & 0x800) != 0;
+  v9->_outputSRGB = (WORD4(v97) & 0x800) != 0;
   if (v9->_inputSRGB)
   {
     colorTextureFormat = [descriptorCopy colorTextureFormat];
@@ -90,8 +88,8 @@
   {
     NSLog(&cfstr_SMixedSrgbInpu.isa, "[_MFXSpatialScalingEffectEFFECT_NAME_V1 initWithDevice:descriptor:]");
 LABEL_18:
-    v26 = 0;
-    v27 = v12;
+    v24 = 0;
+    v25 = v12;
     goto LABEL_19;
   }
 
@@ -105,13 +103,13 @@ LABEL_17:
   v9->_inputContentWidth = [descriptorCopy inputWidth];
   v9->_inputContentHeight = [descriptorCopy inputHeight];
   v9->_use3DPipeline = 1;
-  v82 = v10;
+  v80 = v10;
   if (([(MTLDeviceSPI *)v9->_device supportsFamily:1001]& 1) != 0)
   {
-    v80 = @"MFX_SHARPEN_SHADER_V1_FRAG";
-    v81 = @"MFX_SCALE_SHADER_V1_FRAG";
-    v78 = @"MFX_Sharpen";
-    v79 = @"MFX_Scale";
+    v78 = @"MFX_SHARPEN_SHADER_V1_FRAG";
+    v79 = @"MFX_SCALE_SHADER_V1_FRAG";
+    v76 = @"MFX_Sharpen";
+    v77 = @"MFX_Scale";
   }
 
   else
@@ -119,49 +117,49 @@ LABEL_17:
     name = [(MTLDeviceSPI *)v9->_device name];
     if ([name containsString:@"Intel"])
     {
-      v80 = @"MFX_SHARPEN_SHADER_V1_FRAG";
-      v81 = @"MFX_SCALE_SHADER_V1_FRAG";
-      v78 = @"MFX_Sharpen";
-      v79 = @"MFX_Scale";
+      v78 = @"MFX_SHARPEN_SHADER_V1_FRAG";
+      v79 = @"MFX_SCALE_SHADER_V1_FRAG";
+      v76 = @"MFX_Sharpen";
+      v77 = @"MFX_Scale";
     }
 
     else
     {
-      v86 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\s\\d{3}\\D+" options:0 error:0];
-      v30 = [v86 matchesInString:name options:0 range:{0, objc_msgSend(name, "length")}];
-      v31 = [v30 count];
+      v84 = [objc_alloc(MEMORY[0x277CCAC68]) initWithPattern:@"\\s\\d{3}\\D+" options:0 error:0];
+      v28 = [v84 matchesInString:name options:0 range:{0, objc_msgSend(name, "length")}];
+      v29 = [v28 count];
 
-      if (v31 == 1)
+      if (v29 == 1)
       {
         v9->_use3DPipeline = 0;
-        v79 = @"MFX_SCALE_SHADER_V1_FP32";
-        v80 = @"MFX_SHARPEN_SHADER_V1_FRAG_FP32";
-        v81 = @"MFX_SCALE_SHADER_V1_FRAG_FP32";
-        v32 = @"MFX_SHARPEN_SHADER_V1_FP32";
+        v77 = @"MFX_SCALE_SHADER_V1_FP32";
+        v78 = @"MFX_SHARPEN_SHADER_V1_FRAG_FP32";
+        v79 = @"MFX_SCALE_SHADER_V1_FRAG_FP32";
+        v30 = @"MFX_SHARPEN_SHADER_V1_FP32";
       }
 
       else
       {
-        v79 = @"MFX_Scale";
-        v80 = @"MFX_SHARPEN_SHADER_V1_FRAG";
-        v81 = @"MFX_SCALE_SHADER_V1_FRAG";
-        v32 = @"MFX_Sharpen";
+        v77 = @"MFX_Scale";
+        v78 = @"MFX_SHARPEN_SHADER_V1_FRAG";
+        v79 = @"MFX_SCALE_SHADER_V1_FRAG";
+        v30 = @"MFX_Sharpen";
       }
 
-      v78 = v32;
+      v76 = v30;
     }
   }
 
   use3DPipeline = v9->_use3DPipeline;
   v9->_colorTextureUsage = 1;
-  v34 = !use3DPipeline;
-  v35 = 7;
-  if (!v34)
+  v32 = !use3DPipeline;
+  v33 = 7;
+  if (!v32)
   {
-    v35 = 5;
+    v33 = 5;
   }
 
-  v9->_outputTextureUsage = v35;
+  v9->_outputTextureUsage = v33;
   v9->_inputFormat = [descriptorCopy colorTextureFormat];
   v9->_outputFormat = [descriptorCopy outputTextureFormat];
   if (!v9->_outputSRGB)
@@ -204,134 +202,134 @@ LABEL_59:
   outputTextureFormat2 = 30;
 LABEL_35:
   v9->_intermediatePixelFormat = outputTextureFormat2;
-  v38 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:outputTextureFormat2 width:objc_msgSend(descriptorCopy height:"outputWidth") mipmapped:objc_msgSend(descriptorCopy, "outputHeight"), 0];
+  v36 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:outputTextureFormat2 width:objc_msgSend(descriptorCopy height:"outputWidth") mipmapped:objc_msgSend(descriptorCopy, "outputHeight"), 0];
   texDesc = v9->_texDesc;
-  v9->_texDesc = v38;
+  v9->_texDesc = v36;
 
   [(MTLTextureDescriptor *)v9->_texDesc setStorageMode:2];
   if (v9->_use3DPipeline)
   {
-    v40 = 5;
+    v38 = 5;
   }
 
   else
   {
-    v40 = 7;
+    v38 = 7;
   }
 
-  [(MTLTextureDescriptor *)v9->_texDesc setUsage:v40];
-  v41 = [(MTLDeviceSPI *)v9->_device newTextureWithDescriptor:v9->_texDesc];
+  [(MTLTextureDescriptor *)v9->_texDesc setUsage:v38];
+  v39 = [(MTLDeviceSPI *)v9->_device newTextureWithDescriptor:v9->_texDesc];
   mfxUpscaledTex = v9->_mfxUpscaledTex;
-  v9->_mfxUpscaledTex = v41;
+  v9->_mfxUpscaledTex = v39;
 
   [(MTLTexture *)v9->_mfxUpscaledTex setLabel:@"MetalFX_Upscaled"];
-  v87 = [v91 newFunctionWithName:@"FSQuadVertexShader"];
-  v83 = [v91 newFunctionWithName:@"MFX_NORMALIZE_SHADER_V1_FRAG"];
-  v43 = objc_alloc_init(MEMORY[0x277CD6F78]);
-  [v43 setLabel:@"MFX_NPRenderPipelineState"];
-  [v43 setRasterSampleCount:1];
-  [v43 setVertexFunction:v87];
-  [v43 setFragmentFunction:v83];
+  v85 = [v89 newFunctionWithName:@"FSQuadVertexShader"];
+  v81 = [v89 newFunctionWithName:@"MFX_NORMALIZE_SHADER_V1_FRAG"];
+  v41 = objc_alloc_init(MEMORY[0x277CD6F78]);
+  [v41 setLabel:@"MFX_NPRenderPipelineState"];
+  [v41 setRasterSampleCount:1];
+  [v41 setVertexFunction:v85];
+  [v41 setFragmentFunction:v81];
   intermediatePixelFormat = v9->_intermediatePixelFormat;
-  colorAttachments4 = [v43 colorAttachments];
-  v46 = [colorAttachments4 objectAtIndexedSubscript:0];
-  [v46 setPixelFormat:intermediatePixelFormat];
+  colorAttachments4 = [v41 colorAttachments];
+  v44 = [colorAttachments4 objectAtIndexedSubscript:0];
+  [v44 setPixelFormat:intermediatePixelFormat];
 
-  v47 = v9->_device;
-  v96 = v12;
-  v48 = [(MTLDeviceSPI *)v47 newRenderPipelineStateWithDescriptor:v43 error:&v96];
-  v49 = v96;
+  device = v9->_device;
+  v94 = v12;
+  v46 = [(MTLDeviceSPI *)device newRenderPipelineStateWithDescriptor:v41 error:&v94];
+  v47 = v94;
 
   mfxNormPerceptPSO = v9->_mfxNormPerceptPSO;
-  v9->_mfxNormPerceptPSO = v48;
+  v9->_mfxNormPerceptPSO = v46;
 
-  v51 = [v91 newFunctionWithName:v81];
-  v52 = objc_alloc_init(MEMORY[0x277CD6F78]);
-  [v52 setLabel:@"MFX_ScaleRenderPipelineStateV1"];
-  [v52 setRasterSampleCount:1];
-  [v52 setVertexFunction:v87];
-  [v52 setFragmentFunction:v51];
-  v53 = v9->_intermediatePixelFormat;
-  colorAttachments5 = [v52 colorAttachments];
-  v55 = [colorAttachments5 objectAtIndexedSubscript:0];
-  [v55 setPixelFormat:v53];
+  v49 = [v89 newFunctionWithName:v79];
+  v50 = objc_alloc_init(MEMORY[0x277CD6F78]);
+  [v50 setLabel:@"MFX_ScaleRenderPipelineStateV1"];
+  [v50 setRasterSampleCount:1];
+  [v50 setVertexFunction:v85];
+  [v50 setFragmentFunction:v49];
+  v51 = v9->_intermediatePixelFormat;
+  colorAttachments5 = [v50 colorAttachments];
+  v53 = [colorAttachments5 objectAtIndexedSubscript:0];
+  [v53 setPixelFormat:v51];
 
-  v56 = v9->_device;
-  v95 = v49;
-  v57 = [(MTLDeviceSPI *)v56 newRenderPipelineStateWithDescriptor:v52 error:&v95];
-  v84 = v51;
-  v88 = v95;
+  v54 = v9->_device;
+  v93 = v47;
+  v55 = [(MTLDeviceSPI *)v54 newRenderPipelineStateWithDescriptor:v50 error:&v93];
+  v82 = v49;
+  v86 = v93;
 
   mfxUpscalePSO = v9->_mfxUpscalePSO;
-  v9->_mfxUpscalePSO = v57;
+  v9->_mfxUpscalePSO = v55;
 
-  v59 = [v91 newFunctionWithName:v80];
-  v60 = objc_alloc_init(MEMORY[0x277CD6F78]);
-  [v60 setLabel:@"MFX_SharpenRenderPipelineStateV1"];
-  [v60 setRasterSampleCount:1];
-  [v60 setVertexFunction:v87];
-  [v60 setFragmentFunction:v59];
-  v61 = v9->_intermediatePixelFormat;
-  colorAttachments6 = [v60 colorAttachments];
-  v63 = [colorAttachments6 objectAtIndexedSubscript:0];
-  [v63 setPixelFormat:v61];
+  v57 = [v89 newFunctionWithName:v78];
+  v58 = objc_alloc_init(MEMORY[0x277CD6F78]);
+  [v58 setLabel:@"MFX_SharpenRenderPipelineStateV1"];
+  [v58 setRasterSampleCount:1];
+  [v58 setVertexFunction:v85];
+  [v58 setFragmentFunction:v57];
+  v59 = v9->_intermediatePixelFormat;
+  colorAttachments6 = [v58 colorAttachments];
+  v61 = [colorAttachments6 objectAtIndexedSubscript:0];
+  [v61 setPixelFormat:v59];
 
-  v64 = v9->_device;
-  v94 = v88;
-  v65 = [(MTLDeviceSPI *)v64 newRenderPipelineStateWithDescriptor:v60 error:&v94];
-  v85 = v59;
-  v66 = v94;
+  v62 = v9->_device;
+  v92 = v86;
+  v63 = [(MTLDeviceSPI *)v62 newRenderPipelineStateWithDescriptor:v58 error:&v92];
+  v83 = v57;
+  v64 = v92;
 
   mfxSharpenPSO = v9->_mfxSharpenPSO;
-  v9->_mfxSharpenPSO = v65;
+  v9->_mfxSharpenPSO = v63;
 
-  v68 = [v91 newFunctionWithName:v79];
-  v69 = objc_alloc_init(MEMORY[0x277CD6D30]);
-  [v69 setLabel:@"MFX_ScaleComputePipelineState"];
-  [v69 setComputeFunction:v68];
-  [v69 setThreadGroupSizeIsMultipleOfThreadExecutionWidth:1];
-  v70 = v9->_device;
-  v93 = v66;
-  v71 = [(MTLDeviceSPI *)v70 newComputePipelineStateWithDescriptor:v69 error:&v93];
-  v89 = v93;
+  v66 = [v89 newFunctionWithName:v77];
+  v67 = objc_alloc_init(MEMORY[0x277CD6D30]);
+  [v67 setLabel:@"MFX_ScaleComputePipelineState"];
+  [v67 setComputeFunction:v66];
+  [v67 setThreadGroupSizeIsMultipleOfThreadExecutionWidth:1];
+  v68 = v9->_device;
+  v91 = v64;
+  v69 = [(MTLDeviceSPI *)v68 newComputePipelineStateWithDescriptor:v67 error:&v91];
+  v87 = v91;
 
   mfxUpscaleKernel = v9->_mfxUpscaleKernel;
-  v9->_mfxUpscaleKernel = v71;
+  v9->_mfxUpscaleKernel = v69;
 
-  v73 = [v91 newFunctionWithName:v78];
-  v74 = objc_alloc_init(MEMORY[0x277CD6D30]);
-  [v74 setLabel:@"MFX_SharpenComputePipelineState"];
-  [v74 setComputeFunction:v73];
-  [v74 setThreadGroupSizeIsMultipleOfThreadExecutionWidth:1];
-  v75 = v9->_device;
-  v92 = v89;
-  v76 = [(MTLDeviceSPI *)v75 newComputePipelineStateWithDescriptor:v74 error:&v92];
-  v27 = v92;
+  v71 = [v89 newFunctionWithName:v76];
+  v72 = objc_alloc_init(MEMORY[0x277CD6D30]);
+  [v72 setLabel:@"MFX_SharpenComputePipelineState"];
+  [v72 setComputeFunction:v71];
+  [v72 setThreadGroupSizeIsMultipleOfThreadExecutionWidth:1];
+  v73 = v9->_device;
+  v90 = v87;
+  v74 = [(MTLDeviceSPI *)v73 newComputePipelineStateWithDescriptor:v72 error:&v90];
+  v25 = v90;
 
   mfxSharpenKernel = v9->_mfxSharpenKernel;
-  v9->_mfxSharpenKernel = v76;
+  v9->_mfxSharpenKernel = v74;
 
-  if (!v27 && v9->_mfxPassDescriptor && v9->_mfxUpscaledTex && v9->_mfxUpscalePSO && v9->_mfxSharpenPSO && v9->_mfxNormPerceptPSO && v9->_mfxUpscaleKernel && v9->_mfxSharpenKernel && v87 && v83 && v84 && v59)
+  if (!v25 && v9->_mfxPassDescriptor && v9->_mfxUpscaledTex && v9->_mfxUpscalePSO && v9->_mfxSharpenPSO && v9->_mfxNormPerceptPSO && v9->_mfxUpscaleKernel && v9->_mfxSharpenKernel && v85 && v81 && v82 && v57)
   {
     [(_MTLFXSpatialScaler *)v9 _emitTelemetry:descriptorCopy forDevice:v9->_device];
-    v10 = v82;
+    v10 = v80;
     if (MetalFXHUDEnabled() && MetalFXHUDAddTAAUMetrics(void)::onceToken != -1)
     {
       [_MFXSpatialScalingEffectEFFECT_NAME_V1 initWithDevice:descriptor:];
     }
 
-    v26 = v9;
+    v24 = v9;
   }
 
   else
   {
     MTLReportFailure();
-    v26 = 0;
-    v10 = v82;
+    v24 = 0;
+    v10 = v80;
   }
 
 LABEL_19:
-  return v26;
+  return v24;
 }
 
 - (void)encodeToCommandQueue:(id)queue
@@ -345,7 +343,7 @@ LABEL_19:
 {
   bufferCopy = buffer;
   [(_MTLFXEffectBase *)self _beginEncode];
-  v59 = bufferCopy;
+  v57 = bufferCopy;
   {
     MetalFXHUDInstanceV3(void)::v3 = WEAK_HUDServiceV3();
   }
@@ -354,7 +352,7 @@ LABEL_19:
   v5 = v4;
   if (v4)
   {
-    [v4 markCommandBuffer:v59 component:3];
+    [v4 markCommandBuffer:v57 component:3];
   }
 
   if (MTLReportFailureTypeEnabled())
@@ -366,7 +364,7 @@ LABEL_19:
     }
   }
 
-  MetalFxScopedSignpost::MetalFxScopedSignpost(v71, 0, self, 4, self->super.super.super._encodeID, 0);
+  MetalFxScopedSignpost::MetalFxScopedSignpost(v69, 0, self, 4, self->super.super.super._encodeID, 0);
   if (MTLTraceEnabled())
   {
     [(_MFXSpatialScalingEffectEFFECT_NAME_V1 *)self inputWidth];
@@ -375,7 +373,7 @@ LABEL_19:
     [(_MFXSpatialScalingEffectEFFECT_NAME_V1 *)self outputHeight];
     if (MTLTraceEnabled())
     {
-      [v59 globalTraceObjectID];
+      [v57 globalTraceObjectID];
       kdebug_trace();
     }
   }
@@ -385,7 +383,7 @@ LABEL_19:
   {
     if (colorProcessingMode < 1)
     {
-      v57 = self->_colorProcessingMode;
+      v55 = self->_colorProcessingMode;
       v7 = 0;
       goto LABEL_20;
     }
@@ -396,7 +394,7 @@ LABEL_19:
     if (!self->_inputLinear)
     {
       v7 = 0;
-      v57 = 0;
+      v55 = 0;
       goto LABEL_20;
     }
 
@@ -408,7 +406,7 @@ LABEL_19:
     colorProcessingMode = 2;
   }
 
-  v57 = colorProcessingMode;
+  v55 = colorProcessingMode;
   if (!self->_mfxNormPerceptTex)
   {
     [(MTLTextureDescriptor *)self->_texDesc setWidth:[(MTLTexture *)self->_inputTexture width]];
@@ -422,10 +420,10 @@ LABEL_19:
 
   v7 = 1;
 LABEL_20:
-  memset(v70, 0, sizeof(v70));
-  v68 = 0u;
-  v69 = 0u;
-  memset(v67, 0, sizeof(v67));
+  memset(v68, 0, sizeof(v68));
+  v66 = 0u;
+  v67 = 0u;
+  memset(v65, 0, sizeof(v65));
   inputContentWidth = self->_inputContentWidth;
   inputContentHeight = self->_inputContentHeight;
   width = [(MTLTexture *)self->_inputTexture width];
@@ -435,36 +433,36 @@ LABEL_20:
   v16.f32[0] = height;
   v17 = 1.0 / width2;
   v18 = 1.0 / height2;
-  *&v68 = v17 * inputContentWidth;
-  *(&v68 + 1) = v18 * inputContentHeight;
-  *(&v68 + 2) = ((inputContentWidth * 0.5) * v17) + -0.5;
-  *(&v68 + 3) = ((inputContentHeight * 0.5) * v18) + -0.5;
+  *&v66 = v17 * inputContentWidth;
+  *(&v66 + 1) = v18 * inputContentHeight;
+  *(&v66 + 2) = ((inputContentWidth * 0.5) * v17) + -0.5;
+  *(&v66 + 3) = ((inputContentHeight * 0.5) * v18) + -0.5;
   v16.f32[1] = width;
   __asm { FMOV            V0.2S, #1.0 }
 
   v24 = vdiv_f32(_D0, v16);
-  *&v69 = vrev64_s32(v24);
-  DWORD2(v69) = v24.i32[1];
+  *&v67 = vrev64_s32(v24);
+  DWORD2(v67) = v24.i32[1];
   v25 = vmul_f32(v24, 0x40000000);
-  *(v70 + 12) = v25;
+  *(v68 + 12) = v25;
   v25.i32[1] = v24.i32[1];
-  *(&v69 + 3) = -v24.f32[0];
-  *v70 = -v24.f32[1];
-  *(v70 + 4) = v25;
-  *(&v70[1] + 1) = 4.0 * v24.f32[0];
-  *(&v70[1] + 1) = 0;
-  v67[0] = xmmword_2398F28B0;
-  v66 = 0;
+  *(&v67 + 3) = -v24.f32[0];
+  *v68 = -v24.f32[1];
+  *(v68 + 4) = v25;
+  *(&v68[1] + 1) = 4.0 * v24.f32[0];
+  *(&v68[1] + 1) = 0;
+  v65[0] = xmmword_2398F28B0;
+  v64 = 0;
   inputTexture = self->_inputTexture;
   if (!self->_inputSRGB)
   {
-    v60 = inputTexture;
-    v28 = v59;
+    v58 = inputTexture;
+    v28 = v57;
     goto LABEL_34;
   }
 
   pixelFormat = [(MTLTexture *)self->_inputTexture pixelFormat];
-  v28 = v59;
+  v28 = v57;
   if (pixelFormat > 70)
   {
     if (pixelFormat == 71)
@@ -497,12 +495,12 @@ LABEL_30:
 
   v29 = 30;
 LABEL_33:
-  v60 = [(MTLTexture *)inputTexture newTextureViewWithPixelFormat:v29];
+  v58 = [(MTLTexture *)inputTexture newTextureViewWithPixelFormat:v29];
 LABEL_34:
   outputTexture = self->_outputTexture;
   if (self->_outputSRGB)
   {
-    v58 = [(MTLTexture *)outputTexture newTextureViewWithPixelFormat:self->_intermediatePixelFormat];
+    v56 = [(MTLTexture *)outputTexture newTextureViewWithPixelFormat:self->_intermediatePixelFormat];
     if (!v7)
     {
       goto LABEL_41;
@@ -511,7 +509,7 @@ LABEL_34:
 
   else
   {
-    v58 = outputTexture;
+    v56 = outputTexture;
     if (!v7)
     {
       goto LABEL_41;
@@ -532,12 +530,12 @@ LABEL_34:
   }
 
   [v34 setLabel:@"MetalFX_Normalize"];
-  LOBYTE(v66) = v57 == 2;
-  *(&v66 + 1) = 1;
-  HIBYTE(v66) = 0;
-  [v34 setFragmentBytes:&v66 length:4 atIndex:0];
+  LOBYTE(v64) = v55 == 2;
+  *(&v64 + 1) = 1;
+  HIBYTE(v64) = 0;
+  [v34 setFragmentBytes:&v64 length:4 atIndex:0];
   [v34 setRenderPipelineState:self->_mfxNormPerceptPSO];
-  [v34 setFragmentTexture:v60 atIndex:0];
+  [v34 setFragmentTexture:v58 atIndex:0];
   [v34 drawPrimitives:3 vertexStart:0 vertexCount:3];
   [v34 endEncoding];
 
@@ -558,11 +556,11 @@ LABEL_41:
       [v39 waitForFence:v40 beforeStages:2];
     }
 
-    [v39 setFragmentBytes:&v68 length:64 atIndex:0];
-    v66 = 0;
-    [v39 setFragmentBytes:&v66 length:4 atIndex:1];
+    [v39 setFragmentBytes:&v66 length:64 atIndex:0];
+    v64 = 0;
+    [v39 setFragmentBytes:&v64 length:4 atIndex:1];
     [v39 setRenderPipelineState:self->_mfxUpscalePSO];
-    v41 = v60;
+    v41 = v58;
     if (v7)
     {
       v41 = self->_mfxNormPerceptTex;
@@ -573,17 +571,17 @@ LABEL_41:
     [v39 endEncoding];
     colorAttachments3 = [(MTLRenderPassDescriptor *)self->_mfxPassDescriptor colorAttachments];
     v43 = [colorAttachments3 objectAtIndexedSubscript:0];
-    [v43 setTexture:v58];
+    [v43 setTexture:v56];
 
     computeCommandEncoder = [v28 renderCommandEncoderWithDescriptor:self->_mfxPassDescriptor];
 
     [computeCommandEncoder setLabel:@"MetalFX_Sharpen"];
     [(_MTLFXEffect *)self _didCreateRenderCommandEncoder:computeCommandEncoder forEncode:self->super.super.super._encodeID];
-    [computeCommandEncoder setFragmentBytes:v67 length:64 atIndex:0];
-    LOWORD(v66) = 0;
-    BYTE2(v66) = v7;
-    HIBYTE(v66) = v57 == 2;
-    [computeCommandEncoder setFragmentBytes:&v66 length:4 atIndex:1];
+    [computeCommandEncoder setFragmentBytes:v65 length:64 atIndex:0];
+    LOWORD(v64) = 0;
+    BYTE2(v64) = v7;
+    HIBYTE(v64) = v55 == 2;
+    [computeCommandEncoder setFragmentBytes:&v64 length:4 atIndex:1];
     [computeCommandEncoder setRenderPipelineState:self->_mfxSharpenPSO];
     [computeCommandEncoder setFragmentTexture:self->_mfxUpscaledTex atIndex:0];
     [computeCommandEncoder drawPrimitives:3 vertexStart:0 vertexCount:3];
@@ -607,10 +605,10 @@ LABEL_41:
     }
 
     [computeCommandEncoder setComputePipelineState:self->_mfxUpscaleKernel];
-    [computeCommandEncoder setBytes:&v68 length:64 atIndex:0];
-    v66 = 0;
-    [computeCommandEncoder setBytes:&v66 length:4 atIndex:1];
-    v46 = v60;
+    [computeCommandEncoder setBytes:&v66 length:64 atIndex:0];
+    v64 = 0;
+    [computeCommandEncoder setBytes:&v64 length:4 atIndex:1];
+    v46 = v58;
     if (v7)
     {
       v46 = self->_mfxNormPerceptTex;
@@ -620,26 +618,26 @@ LABEL_41:
     [computeCommandEncoder setTexture:self->_mfxUpscaledTex atIndex:1];
     width3 = [(MTLTexture *)self->_outputTexture width];
     v48 = ([(MTLTexture *)self->_outputTexture height]+ 15) >> 4;
-    v63 = (width3 + 15) >> 4;
-    v64 = v48;
-    v65 = 1;
-    v61 = xmmword_2398F2910;
-    v62 = 1;
-    [computeCommandEncoder dispatchThreadgroups:&v63 threadsPerThreadgroup:&v61];
-    [computeCommandEncoder setBytes:v67 length:64 atIndex:0];
-    LOWORD(v66) = 0;
-    BYTE2(v66) = v7;
-    HIBYTE(v66) = v57 == 2;
-    [computeCommandEncoder setBytes:&v66 length:4 atIndex:1];
+    v61 = (width3 + 15) >> 4;
+    v62 = v48;
+    v63 = 1;
+    v59 = xmmword_2398F2910;
+    v60 = 1;
+    [computeCommandEncoder dispatchThreadgroups:&v61 threadsPerThreadgroup:&v59];
+    [computeCommandEncoder setBytes:v65 length:64 atIndex:0];
+    LOWORD(v64) = 0;
+    BYTE2(v64) = v7;
+    HIBYTE(v64) = v55 == 2;
+    [computeCommandEncoder setBytes:&v64 length:4 atIndex:1];
     [computeCommandEncoder setTexture:self->_mfxUpscaledTex atIndex:0];
-    [computeCommandEncoder setTexture:v58 atIndex:1];
+    [computeCommandEncoder setTexture:v56 atIndex:1];
     [computeCommandEncoder setComputePipelineState:self->_mfxSharpenKernel];
-    v63 = (width3 + 15) >> 4;
-    v64 = v48;
-    v65 = 1;
-    v61 = xmmword_2398F2910;
-    v62 = 1;
-    [computeCommandEncoder dispatchThreadgroups:&v63 threadsPerThreadgroup:&v61];
+    v61 = (width3 + 15) >> 4;
+    v62 = v48;
+    v63 = 1;
+    v59 = xmmword_2398F2910;
+    v60 = 1;
+    [computeCommandEncoder dispatchThreadgroups:&v61 threadsPerThreadgroup:&v59];
     if (self->_fence)
     {
       [computeCommandEncoder updateFence:?];
@@ -650,7 +648,7 @@ LABEL_41:
 
   {
     MetalFXHUDInstance(void)::inst = WEAK_CADeveloperHUDProperties();
-    v28 = v59;
+    v28 = v57;
   }
 
   if (MetalFXHUDInstance(void)::inst)
@@ -660,19 +658,17 @@ LABEL_41:
     v51 = v50;
     if (v49 && v50)
     {
-      v52 = self->_inputContentWidth;
-      v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lux%lu", v52, self->_inputContentHeight];
-      [v51 updateLabelMetric:@"com.apple.hud-label.metalfx.v2.input_resolution" label:v53];
+      v52 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lux%lu", self->_inputContentWidth, self->_inputContentHeight];
+      [v51 updateLabelMetric:@"com.apple.hud-label.metalfx.v2.input_resolution" label:v52];
 
-      outputWidth = self->_outputWidth;
-      v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lux%lu", outputWidth, self->_outputHeight];
-      [v51 updateLabelMetric:@"com.apple.hud-label.metalfx.v2.target_resolution" label:v55];
+      v53 = [MEMORY[0x277CCACA8] stringWithFormat:@"%lux%lu", self->_outputWidth, self->_outputHeight];
+      [v51 updateLabelMetric:@"com.apple.hud-label.metalfx.v2.target_resolution" label:v53];
 
       [v51 updateLabelMetric:@"com.apple.hud-label.metalfx.v2.scaling" label:@"Spatial"];
     }
   }
 
-  MetalFxScopedSignpost::~MetalFxScopedSignpost(v71);
+  MetalFxScopedSignpost::~MetalFxScopedSignpost(v69);
 }
 
 @end

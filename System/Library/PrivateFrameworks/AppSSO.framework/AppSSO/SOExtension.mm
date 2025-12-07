@@ -157,57 +157,55 @@
 {
   v13 = *MEMORY[0x1E69E9840];
   requestCountLock = [(SOExtension *)self requestCountLock];
-  objc_sync_enter(requestCountLock);
+  v4 = objc_sync_enter(requestCountLock);
   ++self->_requestCount;
-  v4 = SO_LOG_SOExtension();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = SO_LOG_SOExtension(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [MEMORY[0x1E696AD98] numberWithInt:self->_requestCount];
+    v6 = [MEMORY[0x1E696AD98] numberWithInt:self->_requestCount];
     v7 = 136315650;
     v8 = "[SOExtension incrementRequestCount]";
     v9 = 2114;
-    v10 = v5;
+    v10 = v6;
     v11 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1C1317000, v4, OS_LOG_TYPE_DEFAULT, "%s count now %{public}@ on %@", &v7, 0x20u);
+    _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s count now %{public}@ on %@", &v7, 0x20u);
   }
 
   objc_sync_exit(requestCountLock);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)decrementRequestCount
 {
   v15 = *MEMORY[0x1E69E9840];
   requestCountLock = [(SOExtension *)self requestCountLock];
-  objc_sync_enter(requestCountLock);
+  v4 = objc_sync_enter(requestCountLock);
   requestCount = self->_requestCount;
   if (requestCount <= 0)
   {
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v5 = requestCount - 1;
+    v6 = requestCount - 1;
   }
 
-  self->_requestCount = v5;
-  v6 = SO_LOG_SOExtension();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  self->_requestCount = v6;
+  v7 = SO_LOG_SOExtension(v4);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = [MEMORY[0x1E696AD98] numberWithInt:self->_requestCount];
+    v8 = [MEMORY[0x1E696AD98] numberWithInt:self->_requestCount];
     v9 = 136315650;
     v10 = "[SOExtension decrementRequestCount]";
     v11 = 2114;
-    v12 = v7;
+    v12 = v8;
     v13 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1C1317000, v6, OS_LOG_TYPE_DEFAULT, "%s count now %{public}@ on %@", &v9, 0x20u);
+    _os_log_impl(&dword_1C1317000, v7, OS_LOG_TYPE_DEFAULT, "%s count now %{public}@ on %@", &v9, 0x20u);
   }
 
   objc_sync_exit(requestCountLock);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupExtension
@@ -243,7 +241,7 @@ void __30__SOExtension__setupExtension__block_invoke(uint64_t a1, void *a2)
 void __30__SOExtension__setupExtension__block_invoke_2(uint64_t a1)
 {
   v26 = *MEMORY[0x1E69E9840];
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __30__SOExtension__setupExtension__block_invoke_2_cold_1();
@@ -254,68 +252,67 @@ void __30__SOExtension__setupExtension__block_invoke_2(uint64_t a1)
   v4 = *(*(a1 + 32) + 8);
   objc_sync_exit(v3);
 
-  if ([v4 isEqual:*(a1 + 40)])
+  v5 = [v4 isEqual:*(a1 + 40)];
+  if (v5)
   {
-    v5 = SO_LOG_SOExtension();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SO_LOG_SOExtension(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __30__SOExtension__setupExtension__block_invoke_2_cold_2();
     }
 
-    v6 = [*(a1 + 32) sessionIDLock];
-    objc_sync_enter(v6);
+    v7 = [*(a1 + 32) sessionIDLock];
+    objc_sync_enter(v7);
     if (*(*(a1 + 32) + 8))
     {
-      v7 = [*(a1 + 32) extension];
-      [v7 cancelExtensionRequestWithIdentifier:*(*(a1 + 32) + 8)];
+      v8 = [*(a1 + 32) extension];
+      [v8 cancelExtensionRequestWithIdentifier:*(*(a1 + 32) + 8)];
 
-      v8 = *(a1 + 32);
-      v9 = *(v8 + 8);
-      *(v8 + 8) = 0;
+      v9 = *(a1 + 32);
+      v10 = *(v9 + 8);
+      *(v9 + 8) = 0;
 
-      v10 = *(*(a1 + 32) + 32);
+      v11 = *(*(a1 + 32) + 32);
       *(*(a1 + 32) + 32) = 0;
     }
 
-    objc_sync_exit(v6);
+    objc_sync_exit(v7);
 
-    v11 = [*(a1 + 32) extensionDelegatesLock];
-    objc_sync_enter(v11);
-    v12 = NSAllMapTableKeys(*(*(a1 + 32) + 40));
-    objc_sync_exit(v11);
+    v12 = [*(a1 + 32) extensionDelegatesLock];
+    objc_sync_enter(v12);
+    v13 = NSAllMapTableKeys(*(*(a1 + 32) + 40));
+    objc_sync_exit(v12);
 
     v23 = 0u;
     v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v13 = v12;
-    v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v14)
+    v14 = v13;
+    v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v15)
     {
-      v15 = *v22;
+      v16 = *v22;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v22 != v15)
+          if (*v22 != v16)
           {
-            objc_enumerationMutation(v13);
+            objc_enumerationMutation(v14);
           }
 
-          v17 = *(*(&v21 + 1) + 8 * i);
-          v18 = *(a1 + 32);
-          v19 = [getSOErrorHelperClass_0() errorWithCode:-3 message:{@"connection to extension interrupted", v21}];
-          [v18 authorization:v17 didCompleteWithCredential:0 error:v19];
+          v18 = *(*(&v21 + 1) + 8 * i);
+          v19 = *(a1 + 32);
+          v20 = [getSOErrorHelperClass_0() errorWithCode:-3 message:{@"connection to extension interrupted", v21}];
+          [v19 authorization:v18 didCompleteWithCredential:0 error:v20];
         }
 
-        v14 = [v13 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_otherVersionError:(id)error
@@ -329,8 +326,8 @@ void __30__SOExtension__setupExtension__block_invoke_2(uint64_t a1)
 
   if (v6)
   {
-    v7 = SO_LOG_SOExtension();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SO_LOG_SOExtension(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
       v25 = "[SOExtension _otherVersionError:]";
@@ -338,101 +335,97 @@ void __30__SOExtension__setupExtension__block_invoke_2(uint64_t a1)
       v27 = v4;
       v28 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_1C1317000, v7, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", buf, 0x20u);
+      _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", buf, 0x20u);
     }
 
     extensionDelegatesLock = [(SOExtension *)self extensionDelegatesLock];
     objc_sync_enter(extensionDelegatesLock);
-    v9 = NSAllMapTableKeys(self->_extensionDelegates);
+    v10 = NSAllMapTableKeys(self->_extensionDelegates);
     objc_sync_exit(extensionDelegatesLock);
 
     v21 = 0u;
     v22 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v10 = v9;
-    v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
-    if (v11)
+    v11 = v10;
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v12)
     {
-      v12 = *v20;
+      v13 = *v20;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v20 != v12)
+          if (*v20 != v13)
           {
-            objc_enumerationMutation(v10);
+            objc_enumerationMutation(v11);
           }
 
-          v14 = *(*(&v19 + 1) + 8 * i);
-          v15 = [(SOExtension *)self findDelegateForIdentifier:v14];
+          v15 = *(*(&v19 + 1) + 8 * i);
+          v16 = [(SOExtension *)self findDelegateForIdentifier:v15];
           if (objc_opt_respondsToSelector())
           {
-            [v15 authorizationDidFailWithOtherVersionError:v14];
+            [v16 authorizationDidFailWithOtherVersionError:v15];
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveDelegate:(id)delegate forRequestIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   identifierCopy = identifier;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315650;
-    v14 = "[SOExtension saveDelegate:forRequestIdentifier:]";
-    v15 = 2114;
-    v16 = identifierCopy;
-    v17 = 2112;
+    v12 = 136315650;
+    v13 = "[SOExtension saveDelegate:forRequestIdentifier:]";
+    v14 = 2114;
+    v15 = identifierCopy;
+    v16 = 2112;
     selfCopy2 = self;
-    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", &v13, 0x20u);
+    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", &v12, 0x20u);
   }
 
   extensionDelegatesLock = [(SOExtension *)self extensionDelegatesLock];
   objc_sync_enter(extensionDelegatesLock);
-  [(NSMapTable *)self->_extensionDelegates setObject:delegateCopy forKey:identifierCopy];
-  v10 = SO_LOG_SOExtension();
+  v10 = SO_LOG_SOExtension([(NSMapTable *)self->_extensionDelegates setObject:delegateCopy forKey:identifierCopy]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMapTable count](self->_extensionDelegates, "count")}];
-    v13 = 136315650;
-    v14 = "[SOExtension saveDelegate:forRequestIdentifier:]";
-    v15 = 2114;
-    v16 = v11;
-    v17 = 2112;
+    v12 = 136315650;
+    v13 = "[SOExtension saveDelegate:forRequestIdentifier:]";
+    v14 = 2114;
+    v15 = v11;
+    v16 = 2112;
     selfCopy2 = self;
-    _os_log_impl(&dword_1C1317000, v10, OS_LOG_TYPE_DEFAULT, "%s current delegate: %{public}@ on %@", &v13, 0x20u);
+    _os_log_impl(&dword_1C1317000, v10, OS_LOG_TYPE_DEFAULT, "%s current delegate: %{public}@ on %@", &v12, 0x20u);
   }
 
   objc_sync_exit(extensionDelegatesLock);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)findDelegateForIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315650;
-    v11 = "[SOExtension findDelegateForIdentifier:]";
-    v12 = 2114;
-    v13 = identifierCopy;
-    v14 = 2112;
+    v9 = 136315650;
+    v10 = "[SOExtension findDelegateForIdentifier:]";
+    v11 = 2114;
+    v12 = identifierCopy;
+    v13 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", &v10, 0x20u);
+    _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", &v9, 0x20u);
   }
 
   extensionDelegatesLock = [(SOExtension *)self extensionDelegatesLock];
@@ -440,115 +433,107 @@ void __30__SOExtension__setupExtension__block_invoke_2(uint64_t a1)
   v7 = [(NSMapTable *)self->_extensionDelegates objectForKey:identifierCopy];
   objc_sync_exit(extensionDelegatesLock);
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (void)removeDelegateForRequestIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(identifierCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315650;
-    v11 = "[SOExtension removeDelegateForRequestIdentifier:]";
-    v12 = 2114;
-    v13 = identifierCopy;
-    v14 = 2112;
+    v9 = 136315650;
+    v10 = "[SOExtension removeDelegateForRequestIdentifier:]";
+    v11 = 2114;
+    v12 = identifierCopy;
+    v13 = 2112;
     selfCopy2 = self;
-    _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", &v10, 0x20u);
+    _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s %{public}@ on %@", &v9, 0x20u);
   }
 
   extensionDelegatesLock = [(SOExtension *)self extensionDelegatesLock];
   objc_sync_enter(extensionDelegatesLock);
-  [(NSMapTable *)self->_extensionDelegates removeObjectForKey:identifierCopy];
-  v7 = SO_LOG_SOExtension();
+  v7 = SO_LOG_SOExtension([(NSMapTable *)self->_extensionDelegates removeObjectForKey:identifierCopy]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSMapTable count](self->_extensionDelegates, "count")}];
-    v10 = 136315650;
-    v11 = "[SOExtension removeDelegateForRequestIdentifier:]";
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2112;
+    v9 = 136315650;
+    v10 = "[SOExtension removeDelegateForRequestIdentifier:]";
+    v11 = 2114;
+    v12 = v8;
+    v13 = 2112;
     selfCopy2 = self;
-    _os_log_impl(&dword_1C1317000, v7, OS_LOG_TYPE_DEFAULT, "%s current delegates: %{public}@ on %@", &v10, 0x20u);
+    _os_log_impl(&dword_1C1317000, v7, OS_LOG_TYPE_DEFAULT, "%s current delegates: %{public}@ on %@", &v9, 0x20u);
   }
 
   objc_sync_exit(extensionDelegatesLock);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupNonUISessionWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension setupNonUISessionWithCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension setupNonUISessionWithCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __47__SOExtension_setupNonUISessionWithCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __47__SOExtension_setupNonUISessionWithCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v8);
 }
 
 - (void)requestAuthorizationViewControllerWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension requestAuthorizationViewControllerWithCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension requestAuthorizationViewControllerWithCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   queue = self->_queue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __64__SOExtension_requestAuthorizationViewControllerWithCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __64__SOExtension_requestAuthorizationViewControllerWithCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(queue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v8);
 }
 
 - (void)beginAuthorizationWithRequestParameters:(id)parameters completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   completionCopy = completion;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [parametersCopy identifier];
     *buf = 136315650;
-    v18 = "[SOExtension beginAuthorizationWithRequestParameters:completion:]";
-    v19 = 2114;
-    v20 = identifier;
-    v21 = 2112;
+    v17 = "[SOExtension beginAuthorizationWithRequestParameters:completion:]";
+    v18 = 2114;
+    v19 = identifier;
+    v20 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier: %{public}@ on %@", buf, 0x20u);
   }
@@ -559,26 +544,24 @@ void __30__SOExtension__setupExtension__block_invoke_2(uint64_t a1)
   block[2] = __66__SOExtension_beginAuthorizationWithRequestParameters_completion___block_invoke;
   block[3] = &unk_1E813E478;
   block[4] = self;
-  v15 = parametersCopy;
-  v16 = completionCopy;
+  v14 = parametersCopy;
+  v15 = completionCopy;
   v11 = completionCopy;
   v12 = parametersCopy;
   dispatch_async(queue, block);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginAuthorizationWithServiceXPCEndpoint:(id)endpoint completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   completionCopy = completion;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v17 = "[SOExtension beginAuthorizationWithServiceXPCEndpoint:completion:]";
-    v18 = 2112;
+    v16 = "[SOExtension beginAuthorizationWithServiceXPCEndpoint:completion:]";
+    v17 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -589,28 +572,26 @@ void __30__SOExtension__setupExtension__block_invoke_2(uint64_t a1)
   block[2] = __67__SOExtension_beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke;
   block[3] = &unk_1E813E478;
   block[4] = self;
-  v14 = endpointCopy;
-  v15 = completionCopy;
+  v13 = endpointCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = endpointCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelAuthorization:(id)authorization completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   completionCopy = completion;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v17 = "[SOExtension cancelAuthorization:completion:]";
-    v18 = 2114;
-    v19 = authorizationCopy;
-    v20 = 2112;
+    v16 = "[SOExtension cancelAuthorization:completion:]";
+    v17 = 2114;
+    v18 = authorizationCopy;
+    v19 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier: %{public}@ on %@", buf, 0x20u);
   }
@@ -620,14 +601,12 @@ void __30__SOExtension__setupExtension__block_invoke_2(uint64_t a1)
   block[1] = 3221225472;
   block[2] = __46__SOExtension_cancelAuthorization_completion___block_invoke;
   block[3] = &unk_1E813E4F0;
-  v14 = authorizationCopy;
-  v15 = completionCopy;
+  v13 = authorizationCopy;
+  v14 = completionCopy;
   block[4] = self;
   v10 = authorizationCopy;
   v11 = completionCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __46__SOExtension_cancelAuthorization_completion___block_invoke(uint64_t a1)
@@ -636,13 +615,13 @@ void __46__SOExtension_cancelAuthorization_completion___block_invoke(uint64_t a1
   v16 = 0;
   v3 = [v2 remoteContextWithError:&v16];
   v4 = v16;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v3)
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      __46__SOExtension_cancelAuthorization_completion___block_invoke_cold_1(a1);
+      __46__SOExtension_cancelAuthorization_completion___block_invoke_cold_1();
     }
 
     v7 = *(a1 + 40);
@@ -699,15 +678,13 @@ void __46__SOExtension_cancelAuthorization_completion___block_invoke_26(uint64_t
 
 uint64_t __46__SOExtension_cancelAuthorization_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __46__SOExtension_cancelAuthorization_completion___block_invoke_2_cold_1(a1);
+    __46__SOExtension_cancelAuthorization_completion___block_invoke_2_cold_1();
   }
 
   [*(a1 + 56) decrementRequestCount];
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
   return (*(*(a1 + 64) + 16))();
 }
 
@@ -733,10 +710,10 @@ uint64_t __46__SOExtension_cancelAuthorization_completion___block_invoke_2(uint6
 void __88__SOExtension_presentAuthorizationViewControllerWithHints_requestIdentifier_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) findDelegateForIdentifier:*(a1 + 40)];
-  v3 = SO_LOG_SOExtension();
+  v3 = SO_LOG_SOExtension(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __88__SOExtension_presentAuthorizationViewControllerWithHints_requestIdentifier_completion___block_invoke_cold_1(v2, a1);
+    __88__SOExtension_presentAuthorizationViewControllerWithHints_requestIdentifier_completion___block_invoke_cold_1();
   }
 
   [v2 presentAuthorizationViewControllerWithHints:*(a1 + 48) requestIdentifier:*(a1 + 40) completion:*(a1 + 56)];
@@ -744,55 +721,52 @@ void __88__SOExtension_presentAuthorizationViewControllerWithHints_requestIdenti
 
 - (void)authorization:(id)authorization didCompleteWithCredential:(id)credential error:(id)error
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   credentialCopy = credential;
   errorCopy = error;
   v11 = [(SOExtension *)self findDelegateForIdentifier:authorizationCopy];
-  v12 = SO_LOG_SOExtension();
+  v12 = SO_LOG_SOExtension(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413059;
-    v25 = v11;
-    v26 = 2113;
-    v27 = credentialCopy;
-    v28 = 2114;
-    v29 = authorizationCopy;
-    v30 = 2114;
-    v31 = errorCopy;
+    v24 = v11;
+    v25 = 2113;
+    v26 = credentialCopy;
+    v27 = 2114;
+    v28 = authorizationCopy;
+    v29 = 2114;
+    v30 = errorCopy;
     _os_log_impl(&dword_1C1317000, v12, OS_LOG_TYPE_DEFAULT, "Notifying delegate %@ that extension has finished with credential: %{private}@, identifier: %{public}@, error: %{public}@", buf, 0x2Au);
   }
 
   queue = self->_queue;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __61__SOExtension_authorization_didCompleteWithCredential_error___block_invoke;
-  v19[3] = &unk_1E813E540;
-  v20 = v11;
-  v21 = authorizationCopy;
-  v22 = credentialCopy;
-  v23 = errorCopy;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __61__SOExtension_authorization_didCompleteWithCredential_error___block_invoke;
+  v18[3] = &unk_1E813E540;
+  v19 = v11;
+  v20 = authorizationCopy;
+  v21 = credentialCopy;
+  v22 = errorCopy;
   v14 = errorCopy;
   v15 = credentialCopy;
   v16 = authorizationCopy;
   v17 = v11;
-  dispatch_async(queue, v19);
-
-  v18 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v18);
 }
 
 uint64_t __61__SOExtension_authorization_didCompleteWithCredential_error___block_invoke(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
-    v7 = a1[7];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
+    v6 = a1[7];
 
-    return [v4 authorization:v5 didCompleteWithCredential:v6 error:v7];
+    return [v3 authorization:v4 didCompleteWithCredential:v5 error:v6];
   }
 
   return result;
@@ -800,17 +774,17 @@ uint64_t __61__SOExtension_authorization_didCompleteWithCredential_error___block
 
 - (void)finishAuthorization:(id)authorization completion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   completionCopy = completion;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v17 = "[SOExtension finishAuthorization:completion:]";
-    v18 = 2114;
-    v19 = authorizationCopy;
-    v20 = 2112;
+    v16 = "[SOExtension finishAuthorization:completion:]";
+    v17 = 2114;
+    v18 = authorizationCopy;
+    v19 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier: %{public}@ on %@", buf, 0x20u);
   }
@@ -821,45 +795,44 @@ uint64_t __61__SOExtension_authorization_didCompleteWithCredential_error___block
   block[2] = __46__SOExtension_finishAuthorization_completion___block_invoke;
   block[3] = &unk_1E813E478;
   block[4] = self;
-  v14 = authorizationCopy;
-  v15 = completionCopy;
+  v13 = authorizationCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = authorizationCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishAuthorization:(id)authorization withCompletion:(id)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   authorizationCopy = authorization;
   completionCopy = completion;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v25 = "[SOExtension _finishAuthorization:withCompletion:]";
-    v26 = 2114;
-    v27 = authorizationCopy;
-    v28 = 2112;
+    v26 = "[SOExtension _finishAuthorization:withCompletion:]";
+    v27 = 2114;
+    v28 = authorizationCopy;
+    v29 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s requestIdentifier: %{public}@ on %@", buf, 0x20u);
   }
 
   _contextForSession = [(SOExtension *)self _contextForSession];
-  v23 = 0;
-  v10 = [_contextForSession remoteContextWithError:&v23];
-  v11 = v23;
+  v24 = 0;
+  v10 = [_contextForSession remoteContextWithError:&v24];
+  v11 = v24;
+  v12 = v11;
   if (v11)
   {
-    v12 = SO_LOG_SOExtension();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = SO_LOG_SOExtension(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       __46__SOExtension_cancelAuthorization_completion___block_invoke_cold_2();
     }
 
-    completionCopy[2](completionCopy, 0, v11);
+    completionCopy[2](completionCopy, 0, v12);
   }
 
   else
@@ -870,20 +843,20 @@ uint64_t __61__SOExtension_authorization_didCompleteWithCredential_error___block
     {
       objc_sync_exit(sessionIDLock);
 
-      v14 = SO_LOG_SOExtension();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v16 = SO_LOG_SOExtension(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         [SOExtension _finishAuthorization:withCompletion:];
       }
 
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __51__SOExtension__finishAuthorization_withCompletion___block_invoke_33;
-      v17[3] = &unk_1E813E590;
-      v17[4] = self;
-      v19 = completionCopy;
-      v18 = authorizationCopy;
-      [v10 finishAuthorization:v18 completion:v17];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __51__SOExtension__finishAuthorization_withCompletion___block_invoke_33;
+      v18[3] = &unk_1E813E590;
+      v18[4] = self;
+      v20 = completionCopy;
+      v19 = authorizationCopy;
+      [v10 finishAuthorization:v19 completion:v18];
     }
 
     else
@@ -894,20 +867,18 @@ uint64_t __61__SOExtension_authorization_didCompleteWithCredential_error___block
       block[2] = __51__SOExtension__finishAuthorization_withCompletion___block_invoke;
       block[3] = &unk_1E813E4F0;
       block[4] = self;
-      v22 = completionCopy;
-      v21 = authorizationCopy;
+      v23 = completionCopy;
+      v22 = authorizationCopy;
       dispatch_async(queue, block);
 
       objc_sync_exit(sessionIDLock);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__SOExtension__finishAuthorization_withCompletion___block_invoke(uint64_t a1)
 {
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __51__SOExtension__finishAuthorization_withCompletion___block_invoke_cold_1();
@@ -941,15 +912,13 @@ void __51__SOExtension__finishAuthorization_withCompletion___block_invoke_33(uin
 
 uint64_t __51__SOExtension__finishAuthorization_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __51__SOExtension__finishAuthorization_withCompletion___block_invoke_2_cold_1(a1);
+    __51__SOExtension__finishAuthorization_withCompletion___block_invoke_2_cold_1();
   }
 
   [*(a1 + 40) decrementRequestCount];
-  v3 = *(a1 + 64);
-  v4 = *(a1 + 32);
   (*(*(a1 + 56) + 16))();
   return [*(a1 + 40) removeDelegateForRequestIdentifier:*(a1 + 48)];
 }
@@ -989,7 +958,7 @@ uint64_t __51__SOExtension__finishAuthorization_withCompletion___block_invoke_2(
 {
   v17 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1005,15 +974,15 @@ uint64_t __51__SOExtension__finishAuthorization_withCompletion___block_invoke_2(
   sessionID = self->_sessionID;
   objc_sync_exit(sessionIDLock);
 
-  v8 = SO_LOG_SOExtension();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = SO_LOG_SOExtension(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (sessionID)
   {
-    if (v9)
+    if (v10)
     {
       *buf = 138412290;
       selfCopy3 = self;
-      _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "Using existing session for extension %@", buf, 0xCu);
+      _os_log_impl(&dword_1C1317000, v9, OS_LOG_TYPE_DEFAULT, "Using existing session for extension %@", buf, 0xCu);
     }
 
     completionCopy[2](completionCopy, 1, 0);
@@ -1021,11 +990,11 @@ uint64_t __51__SOExtension__finishAuthorization_withCompletion___block_invoke_2(
 
   else
   {
-    if (v9)
+    if (v10)
     {
       *buf = 138412290;
       selfCopy3 = self;
-      _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "Setting up new session for extension %@", buf, 0xCu);
+      _os_log_impl(&dword_1C1317000, v9, OS_LOG_TYPE_DEFAULT, "Setting up new session for extension %@", buf, 0xCu);
     }
 
     v11[0] = MEMORY[0x1E69E9820];
@@ -1036,26 +1005,24 @@ uint64_t __51__SOExtension__finishAuthorization_withCompletion___block_invoke_2(
     v12 = completionCopy;
     [(SOExtension *)self _setupNonUISessionWithCompletion:v11];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __59__SOExtension__setupNonUISessionIfNecessaryWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v14 = 138543874;
-    v15 = v9;
-    v16 = 2114;
-    v17 = v7;
-    v18 = 2114;
-    v19 = v6;
-    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "Finished setting up new session for extension %{public}@ with error %{public}@ and session ID %{public}@", &v14, 0x20u);
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v7;
+    v17 = 2114;
+    v18 = v6;
+    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "Finished setting up new session for extension %{public}@ with error %{public}@ and session ID %{public}@", &v13, 0x20u);
   }
 
   if (v7)
@@ -1076,15 +1043,13 @@ void __59__SOExtension__setupNonUISessionIfNecessaryWithCompletion___block_invok
     objc_sync_exit(v10);
     (*(*(a1 + 40) + 16))();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupSessionIfNecessaryWithCompletion:(id)completion
 {
   v21 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -1105,12 +1070,12 @@ void __59__SOExtension__setupNonUISessionIfNecessaryWithCompletion___block_invok
     goto LABEL_8;
   }
 
-  v8 = SO_LOG_SOExtension();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SO_LOG_SOExtension(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     *&buf[4] = self;
-    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "Using existing session for extension %@", buf, 0xCu);
+    _os_log_impl(&dword_1C1317000, v9, OS_LOG_TYPE_DEFAULT, "Using existing session for extension %@", buf, 0xCu);
   }
 
   remoteViewController = self->_remoteViewController;
@@ -1122,12 +1087,12 @@ void __59__SOExtension__setupNonUISessionIfNecessaryWithCompletion___block_invok
   else
   {
 LABEL_8:
-    v10 = SO_LOG_SOExtension();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SO_LOG_SOExtension(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       *&buf[4] = self;
-      _os_log_impl(&dword_1C1317000, v10, OS_LOG_TYPE_DEFAULT, "Setting up new session for extension %@", buf, 0xCu);
+      _os_log_impl(&dword_1C1317000, v11, OS_LOG_TYPE_DEFAULT, "Setting up new session for extension %@", buf, 0xCu);
     }
 
     *buf = 0;
@@ -1144,32 +1109,30 @@ LABEL_8:
     v15 = completionCopy;
     v16 = buf;
     [(SOExtension *)self _setupSessionWithCompletion:v14];
-    v11 = *(*&buf[8] + 40);
-    v12 = dispatch_time(0, 60000000000);
-    dispatch_semaphore_wait(v11, v12);
+    v12 = *(*&buf[8] + 40);
+    v13 = dispatch_time(0, 60000000000);
+    dispatch_semaphore_wait(v12, v13);
 
     _Block_object_dispose(buf, 8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __54__SOExtension__setupSessionIfNecessaryWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(a1 + 32);
-    v15 = 138543874;
-    v16 = v9;
+    v13 = 138543874;
+    v14 = v9;
+    v15 = 2114;
+    v16 = v7;
     v17 = 2114;
-    v18 = v7;
-    v19 = 2114;
-    v20 = v6;
-    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "Finished setting up new session for extension %{public}@ with error %{public}@ and session ID %{public}@", &v15, 0x20u);
+    v18 = v6;
+    _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "Finished setting up new session for extension %{public}@ with error %{public}@ and session ID %{public}@", &v13, 0x20u);
   }
 
   if (v7)
@@ -1188,27 +1151,24 @@ void __54__SOExtension__setupSessionIfNecessaryWithCompletion___block_invoke(uin
     [v12 setContextExtension:v11];
 
     objc_sync_exit(v10);
-    v13 = *(*(a1 + 32) + 32);
     (*(*(a1 + 40) + 16))();
   }
 
   dispatch_semaphore_signal(*(*(*(a1 + 48) + 8) + 40));
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishedSettingUpSession:(id)session
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
-  v6 = SO_LOG_SOExtension();
+  v6 = SO_LOG_SOExtension(sessionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[SOExtension _finishedSettingUpSession:]";
-    v12 = 2112;
+    v9 = 136315394;
+    v10 = "[SOExtension _finishedSettingUpSession:]";
+    v11 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1C1317000, v6, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v10, 0x16u);
+    _os_log_impl(&dword_1C1317000, v6, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v9, 0x16u);
   }
 
   sessionIDLock = [(SOExtension *)self sessionIDLock];
@@ -1218,31 +1178,30 @@ void __54__SOExtension__setupSessionIfNecessaryWithCompletion___block_invoke(uin
   [_contextForSession setContextExtension:self];
 
   objc_sync_exit(sessionIDLock);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupNonUISessionWithCompletion:(id)completion
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     extension = [(SOExtension *)self extension];
     *buf = 138412290;
-    v21 = extension;
+    v22 = extension;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "Beginning request for extension %@", buf, 0xCu);
   }
 
   extension2 = [(SOExtension *)self extension];
-  v17 = 0;
-  v8 = [extension2 beginExtensionRequestWithInputItems:0 error:&v17];
-  v9 = v17;
+  v18 = 0;
+  v8 = [extension2 beginExtensionRequestWithInputItems:0 error:&v18];
+  v9 = v18;
 
   if (v9)
   {
-    v10 = SO_LOG_SOExtension();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SO_LOG_SOExtension(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SOExtension _setupNonUISessionWithCompletion:?];
     }
@@ -1258,19 +1217,19 @@ void __54__SOExtension__setupSessionIfNecessaryWithCompletion___block_invoke(uin
 
     if (code == 16)
     {
-      v13 = SO_LOG_SOExtension();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = SO_LOG_SOExtension(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C1317000, v13, OS_LOG_TYPE_DEFAULT, "Handling other version error", buf, 2u);
+        _os_log_impl(&dword_1C1317000, v15, OS_LOG_TYPE_DEFAULT, "Handling other version error", buf, 2u);
       }
 
       domain = [MEMORY[0x1E696AD88] defaultCenter];
-      v18 = @"bundleIdentifier";
+      v19 = @"bundleIdentifier";
       extensionBundleIdentifier = [(SOExtension *)self extensionBundleIdentifier];
-      v19 = extensionBundleIdentifier;
-      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-      [domain postNotificationName:@"com.apple.AppSSO.SOExtension.OtherVersionError" object:self userInfo:v15];
+      v20 = extensionBundleIdentifier;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+      [domain postNotificationName:@"com.apple.AppSSO.SOExtension.OtherVersionError" object:self userInfo:v17];
 
 LABEL_11:
     }
@@ -1280,34 +1239,30 @@ LABEL_11:
   {
     (completionCopy)[2](completionCopy, v8, 0);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupSessionHelperForIOSWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     extension = [(SOExtension *)self extension];
     *buf = 138412290;
-    v13 = extension;
+    v12 = extension;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "Instantiating view controller %@", buf, 0xCu);
   }
 
   extension2 = [(SOExtension *)self extension];
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __55__SOExtension__setupSessionHelperForIOSWithCompletion___block_invoke;
-  v10[3] = &unk_1E813E608;
-  v10[4] = self;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __55__SOExtension__setupSessionHelperForIOSWithCompletion___block_invoke;
+  v9[3] = &unk_1E813E608;
+  v9[4] = self;
+  v10 = completionCopy;
   v8 = completionCopy;
-  [extension2 instantiateViewControllerWithInputItems:MEMORY[0x1E695E0F0] listenerEndpoint:0 connectionHandler:v10];
-
-  v9 = *MEMORY[0x1E69E9840];
+  [extension2 instantiateViewControllerWithInputItems:MEMORY[0x1E695E0F0] listenerEndpoint:0 connectionHandler:v9];
 }
 
 void __55__SOExtension__setupSessionHelperForIOSWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -1315,10 +1270,11 @@ void __55__SOExtension__setupSessionHelperForIOSWithCompletion___block_invoke(ui
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (v9)
   {
-    v10 = SO_LOG_SOExtension();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = SO_LOG_SOExtension(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __55__SOExtension__setupSessionHelperForIOSWithCompletion___block_invoke_cold_1();
     }
@@ -1338,7 +1294,7 @@ void __55__SOExtension__setupSessionHelperForIOSWithCompletion___block_invoke(ui
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1373,7 +1329,7 @@ void __55__SOExtension__setupSessionHelperForIOSWithCompletion___block_invoke(ui
 
   else
   {
-    v12 = SO_LOG_SOExtension();
+    v12 = SO_LOG_SOExtension(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [SOExtension _connectContextToSessionWithRequestIdentifier:completion:];
@@ -1388,7 +1344,7 @@ void __55__SOExtension__setupSessionHelperForIOSWithCompletion___block_invoke(ui
 void __72__SOExtension__connectContextToSessionWithRequestIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SO_LOG_SOExtension();
+  v4 = SO_LOG_SOExtension(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __72__SOExtension__connectContextToSessionWithRequestIdentifier_completion___block_invoke_cold_1(a1);
@@ -1407,7 +1363,7 @@ void __72__SOExtension__connectContextToSessionWithRequestIdentifier_completion_
   v15 = 0;
   v9 = [_contextForSession remoteContextWithError:&v15];
   v10 = v15;
-  v11 = SO_LOG_SOExtension();
+  v11 = SO_LOG_SOExtension(v10);
   v12 = v11;
   if (v10)
   {
@@ -1451,14 +1407,12 @@ void __67__SOExtension__beginAuthorizationWithRequestParameters_completion___blo
 
 uint64_t __67__SOExtension__beginAuthorizationWithRequestParameters_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __67__SOExtension__beginAuthorizationWithRequestParameters_completion___block_invoke_2_cold_1(a1);
+    __67__SOExtension__beginAuthorizationWithRequestParameters_completion___block_invoke_2_cold_1();
   }
 
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -1470,7 +1424,7 @@ uint64_t __67__SOExtension__beginAuthorizationWithRequestParameters_completion__
   v15 = 0;
   v9 = [_contextForSession remoteContextWithError:&v15];
   v10 = v15;
-  v11 = SO_LOG_SOExtension();
+  v11 = SO_LOG_SOExtension(v10);
   v12 = v11;
   if (v10)
   {
@@ -1514,14 +1468,12 @@ void __68__SOExtension__beginAuthorizationWithServiceXPCEndpoint_completion___bl
 
 uint64_t __68__SOExtension__beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __68__SOExtension__beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke_2_cold_1(a1);
+    __68__SOExtension__beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke_2_cold_1();
   }
 
-  v3 = *(a1 + 48);
-  v4 = *(a1 + 32);
   return (*(*(a1 + 40) + 16))();
 }
 
@@ -1558,15 +1510,15 @@ uint64_t __68__SOExtension__beginAuthorizationWithServiceXPCEndpoint_completion_
 
 - (void)unload
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v3 = SO_LOG_SOExtension();
+  v12 = *MEMORY[0x1E69E9840];
+  v3 = SO_LOG_SOExtension(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315394;
-    v10 = "[SOExtension unload]";
-    v11 = 2112;
+    v8 = 136315394;
+    v9 = "[SOExtension unload]";
+    v10 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_1C1317000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v9, 0x16u);
+    _os_log_impl(&dword_1C1317000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v8, 0x16u);
   }
 
   sessionIDLock = [(SOExtension *)self sessionIDLock];
@@ -1584,8 +1536,6 @@ uint64_t __68__SOExtension__beginAuthorizationWithServiceXPCEndpoint_completion_
   }
 
   objc_sync_exit(sessionIDLock);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)containerAppPath
@@ -1626,66 +1576,68 @@ uint64_t __68__SOExtension__beginAuthorizationWithServiceXPCEndpoint_completion_
 
 - (int64_t)extensionRequestsMode
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if ((_os_feature_enabled_impl() & 1) == 0)
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = _os_feature_enabled_impl();
+  if ((v3 & 1) == 0)
   {
-    if (!_os_feature_enabled_impl() || ([(SOExtension *)self extensionBundleIdentifier], v5 = objc_claimAutoreleasedReturnValue(), v6 = [SOExtensionManager isAppleConnectExtensionBundleIdentifier:v5], v5, !v6))
+    if (!_os_feature_enabled_impl() || ([(SOExtension *)self extensionBundleIdentifier], v6 = objc_claimAutoreleasedReturnValue(), v7 = [SOExtensionManager isAppleConnectExtensionBundleIdentifier:v6], v6, !v7))
     {
       infoDictionary = [(NSExtension *)self->_extension infoDictionary];
-      v8 = [infoDictionary objectForKeyedSubscript:@"NSExtension"];
-      v3 = [v8 objectForKeyedSubscript:@"SOExtensionRequestsMode"];
+      v9 = [infoDictionary objectForKeyedSubscript:@"NSExtension"];
+      v4 = [v9 objectForKeyedSubscript:@"SOExtensionRequestsMode"];
 
-      if (v3)
+      if (v4)
       {
         objc_opt_class();
-        if ((objc_opt_isKindOfClass() & 1) == 0)
+        isKindOfClass = objc_opt_isKindOfClass();
+        if ((isKindOfClass & 1) == 0)
         {
           goto LABEL_11;
         }
 
-        if (([v3 isEqualToString:@"Concurrent"]& 1) != 0)
+        if (([v4 isEqualToString:@"Concurrent"]& 1) != 0)
         {
           goto LABEL_9;
         }
 
-        if (([v3 isEqualToString:@"Queue"]& 1) == 0)
+        isKindOfClass = [v4 isEqualToString:@"Queue"];
+        if ((isKindOfClass & 1) == 0)
         {
 LABEL_11:
-          v9 = SO_LOG_SOExtension();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+          v11 = SO_LOG_SOExtension(isKindOfClass);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
-            v12 = 138543362;
-            v13 = v3;
-            _os_log_impl(&dword_1C1317000, v9, OS_LOG_TYPE_DEFAULT, "invalid SOExtensionRequestsMode: %{public}@, using default", &v12, 0xCu);
+            v13 = 138543362;
+            v14 = v4;
+            _os_log_impl(&dword_1C1317000, v11, OS_LOG_TYPE_DEFAULT, "invalid SOExtensionRequestsMode: %{public}@, using default", &v13, 0xCu);
           }
         }
       }
 
-      v4 = 1;
+      v5 = 1;
       goto LABEL_15;
     }
   }
 
-  v3 = SO_LOG_SOExtension();
-  if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = SO_LOG_SOExtension(v3);
+  if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
 LABEL_9:
-    v4 = 2;
+    v5 = 2;
     goto LABEL_15;
   }
 
-  LOWORD(v12) = 0;
-  v4 = 2;
-  _os_log_impl(&dword_1C1317000, v3, OS_LOG_TYPE_DEFAULT, "SOExtensionRequestsModeConcurrent enabled by the feature flag", &v12, 2u);
+  LOWORD(v13) = 0;
+  v5 = 2;
+  _os_log_impl(&dword_1C1317000, v4, OS_LOG_TYPE_DEFAULT, "SOExtensionRequestsModeConcurrent enabled by the feature flag", &v13, 2u);
 LABEL_15:
 
-  v10 = *MEMORY[0x1E69E9840];
-  return v4;
+  return v5;
 }
 
 - (NSArray)authenticationMethods
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   infoDictionary = [(NSExtension *)self->_extension infoDictionary];
   v3 = [infoDictionary objectForKeyedSubscript:@"NSExtension"];
   v4 = [v3 objectForKeyedSubscript:@"SOExtensionSSOGrantTypes"];
@@ -1694,27 +1646,27 @@ LABEL_15:
   if (objc_opt_isKindOfClass())
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v14 = v4;
+    v13 = v4;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
+          v11 = *(*(&v14 + 1) + 8 * i);
           if ([v11 isEqualToString:@"password"])
           {
             [v5 addObject:&unk_1F408FB20];
@@ -1727,13 +1679,13 @@ LABEL_15:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
     }
 
-    v4 = v14;
+    v4 = v13;
   }
 
   else
@@ -1741,37 +1693,35 @@ LABEL_15:
     v5 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)removeExpiredEntriesFromCache:(id)cache
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   allKeys = [cacheCopy allKeys];
   v5 = [allKeys copy];
 
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [cacheCopy objectForKeyedSubscript:v10];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -1794,29 +1744,28 @@ LABEL_15:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAssociatedDomainsWithCache:(id)cache
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
-  if (![(SOExtension *)self hasAssociatedDomainsApproved])
+  hasAssociatedDomainsApproved = [(SOExtension *)self hasAssociatedDomainsApproved];
+  if ((hasAssociatedDomainsApproved & 1) == 0)
   {
-    v4 = SO_LOG_SOExtension();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SO_LOG_SOExtension(hasAssociatedDomainsApproved);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v61 = "[SOExtension checkAssociatedDomainsWithCache:]";
-      v62 = 2112;
+      v68 = "[SOExtension checkAssociatedDomainsWithCache:]";
+      v69 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_1C1317000, v4, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
+      _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
     }
 
     [(SOExtension *)self removeExpiredEntriesFromCache:cacheCopy];
@@ -1832,8 +1781,8 @@ LABEL_15:
 
     if (!bundleURL)
     {
-      v11 = SO_LOG_SOExtension();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = SO_LOG_SOExtension(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [SOExtension checkAssociatedDomainsWithCache:?];
       }
@@ -1841,11 +1790,11 @@ LABEL_15:
       goto LABEL_50;
     }
 
-    v10 = [MEMORY[0x1E6963678] pluginKitProxyForURL:bundleURL];
-    v11 = v10;
-    if (!v10)
+    v12 = [MEMORY[0x1E6963678] pluginKitProxyForURL:bundleURL];
+    v13 = v12;
+    if (!v12)
     {
-      containingBundle = SO_LOG_SOExtension();
+      containingBundle = SO_LOG_SOExtension(0);
       if (os_log_type_enabled(containingBundle, OS_LOG_TYPE_ERROR))
       {
         [SOExtension checkAssociatedDomainsWithCache:];
@@ -1854,12 +1803,13 @@ LABEL_15:
       goto LABEL_49;
     }
 
-    containingBundle = [v10 containingBundle];
+    containingBundle = [v12 containingBundle];
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v13 = SO_LOG_SOExtension();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = SO_LOG_SOExtension(isKindOfClass);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [SOExtension checkAssociatedDomainsWithCache:];
       }
@@ -1867,11 +1817,11 @@ LABEL_15:
       goto LABEL_48;
     }
 
-    v13 = [containingBundle entitlementValueForKey:@"application-identifier" ofClass:objc_opt_class()];
-    if (!v13)
+    v16 = [containingBundle entitlementValueForKey:@"application-identifier" ofClass:objc_opt_class()];
+    if (!v16)
     {
-      v15 = SO_LOG_SOExtension();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = SO_LOG_SOExtension(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [SOExtension checkAssociatedDomainsWithCache:containingBundle];
       }
@@ -1879,99 +1829,102 @@ LABEL_15:
       goto LABEL_47;
     }
 
-    v14 = objc_alloc(MEMORY[0x1E69CDB30]);
-    v15 = [v14 initWithServiceType:*MEMORY[0x1E69CDB40] applicationIdentifier:v13 domain:0];
-    v59 = 0;
-    v16 = [MEMORY[0x1E69CDB28] serviceDetailsWithServiceSpecifier:v15 error:&v59];
-    v53 = v59;
-    if (v16)
+    v17 = objc_alloc(MEMORY[0x1E69CDB30]);
+    v18 = [v17 initWithServiceType:*MEMORY[0x1E69CDB40] applicationIdentifier:v16 domain:0];
+    v66 = 0;
+    v19 = [MEMORY[0x1E69CDB28] serviceDetailsWithServiceSpecifier:v18 error:&v66];
+    v20 = v66;
+    v60 = v20;
+    if (v19)
     {
       location = &self->_associatedDomains;
-      v47 = v15;
-      v48 = v13;
+      v54 = v18;
+      v55 = v16;
       selfCopy2 = self;
-      v50 = containingBundle;
-      v51 = v11;
-      v52 = bundleURL;
+      v57 = containingBundle;
+      v58 = v13;
+      v59 = bundleURL;
       array = [MEMORY[0x1E695DF70] array];
-      v55 = 0u;
-      v56 = 0u;
-      v57 = 0u;
-      v58 = 0u;
-      v45 = v16;
-      v18 = v16;
-      v19 = [v18 countByEnumeratingWithState:&v55 objects:v68 count:16];
-      if (v19)
+      v62 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v52 = v19;
+      v22 = v19;
+      v23 = [v22 countByEnumeratingWithState:&v62 objects:v75 count:16];
+      if (v23)
       {
-        v20 = v19;
-        v21 = *v56;
+        v24 = v23;
+        v25 = *v63;
         do
         {
-          for (i = 0; i != v20; ++i)
+          for (i = 0; i != v24; ++i)
           {
-            if (*v56 != v21)
+            if (*v63 != v25)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v22);
             }
 
-            v23 = *(*(&v55 + 1) + 8 * i);
-            serviceSpecifier = [v23 serviceSpecifier];
+            v27 = *(*(&v62 + 1) + 8 * i);
+            serviceSpecifier = [v27 serviceSpecifier];
             domainHost = [serviceSpecifier domainHost];
 
-            serviceSpecifier2 = [v23 serviceSpecifier];
+            serviceSpecifier2 = [v27 serviceSpecifier];
             domainPort = [serviceSpecifier2 domainPort];
 
             if (domainPort)
             {
-              serviceSpecifier3 = [v23 serviceSpecifier];
+              serviceSpecifier3 = [v27 serviceSpecifier];
               domainPort2 = [serviceSpecifier3 domainPort];
-              v30 = [domainHost stringByAppendingFormat:@":%@", domainPort2];
+              v34 = [domainHost stringByAppendingFormat:@":%@", domainPort2];
 
-              domainHost = v30;
+              domainHost = v34;
             }
 
-            if ([v23 isUpdating])
+            isUpdating = [v27 isUpdating];
+            if (isUpdating)
             {
-              v31 = SO_LOG_SOExtension();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+              v36 = SO_LOG_SOExtension(isUpdating);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
               {
                 *buf = 138543362;
-                v61 = domainHost;
-                _os_log_impl(&dword_1C1317000, v31, OS_LOG_TYPE_INFO, "Associated domain: %{public}@ is waiting for an update", buf, 0xCu);
+                v68 = domainHost;
+                _os_log_impl(&dword_1C1317000, v36, OS_LOG_TYPE_INFO, "Associated domain: %{public}@ is waiting for an update", buf, 0xCu);
               }
             }
 
-            if ([v23 isApproved])
+            isApproved = [v27 isApproved];
+            if (isApproved)
             {
-              v32 = SO_LOG_SOExtension();
-              if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+              v38 = SO_LOG_SOExtension(isApproved);
+              if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
               {
                 *buf = 138543362;
-                v61 = domainHost;
-                _os_log_impl(&dword_1C1317000, v32, OS_LOG_TYPE_INFO, "Associated domain: %{public}@ is approved", buf, 0xCu);
+                v68 = domainHost;
+                _os_log_impl(&dword_1C1317000, v38, OS_LOG_TYPE_INFO, "Associated domain: %{public}@ is approved", buf, 0xCu);
               }
 
               [array addObject:domainHost];
-              v33 = MEMORY[0x1E696AD98];
+              v39 = MEMORY[0x1E696AD98];
               date = [MEMORY[0x1E695DF00] date];
               [date timeIntervalSince1970];
-              v35 = [v33 numberWithDouble:?];
-              [cacheCopy setObject:v35 forKeyedSubscript:domainHost];
+              v41 = [v39 numberWithDouble:?];
+              [cacheCopy setObject:v41 forKeyedSubscript:domainHost];
             }
 
             else
             {
-              v36 = [cacheCopy objectForKeyedSubscript:domainHost];
+              v42 = [cacheCopy objectForKeyedSubscript:domainHost];
 
-              v37 = SO_LOG_SOExtension();
-              v38 = v37;
-              if (v36)
+              v44 = SO_LOG_SOExtension(v43);
+              v45 = v44;
+              if (v42)
               {
-                if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138543362;
-                  v61 = domainHost;
-                  _os_log_impl(&dword_1C1317000, v38, OS_LOG_TYPE_INFO, "Associated domain: %{public}@ is cached", buf, 0xCu);
+                  v68 = domainHost;
+                  _os_log_impl(&dword_1C1317000, v45, OS_LOG_TYPE_INFO, "Associated domain: %{public}@ is cached", buf, 0xCu);
                 }
 
                 [array addObject:domainHost];
@@ -1979,20 +1932,20 @@ LABEL_15:
 
               else
               {
-                if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
-                  v61 = domainHost;
-                  _os_log_error_impl(&dword_1C1317000, v38, OS_LOG_TYPE_ERROR, "Associated domain: %{public}@ is not approved", buf, 0xCu);
+                  v68 = domainHost;
+                  _os_log_error_impl(&dword_1C1317000, v45, OS_LOG_TYPE_ERROR, "Associated domain: %{public}@ is not approved", buf, 0xCu);
                 }
               }
             }
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v55 objects:v68 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v62 objects:v75 count:16];
         }
 
-        while (v20);
+        while (v24);
       }
 
       associatedDomainLock2 = [(SOExtension *)selfCopy2 associatedDomainLock];
@@ -2000,42 +1953,42 @@ LABEL_15:
       objc_storeStrong(location, array);
       objc_sync_exit(associatedDomainLock2);
 
-      v40 = SO_LOG_SOExtension();
-      v11 = v51;
-      v13 = v48;
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      v48 = SO_LOG_SOExtension(v47);
+      v13 = v58;
+      v16 = v55;
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
       {
-        containingBundle2 = [v51 containingBundle];
+        containingBundle2 = [v58 containingBundle];
         bundleURL2 = [containingBundle2 bundleURL];
         *buf = 138413058;
-        v61 = bundleURL2;
-        v62 = 2112;
+        v68 = bundleURL2;
+        v69 = 2112;
         selfCopy = array;
-        v64 = 2112;
-        v65 = v48;
-        v66 = 2112;
-        v67 = v18;
-        _os_log_impl(&dword_1C1317000, v40, OS_LOG_TYPE_INFO, "Associated domain: for app %@: %@, appID: %@, services: %@", buf, 0x2Au);
+        v71 = 2112;
+        v72 = v55;
+        v73 = 2112;
+        v74 = v22;
+        _os_log_impl(&dword_1C1317000, v48, OS_LOG_TYPE_INFO, "Associated domain: for app %@: %@, appID: %@, services: %@", buf, 0x2Au);
       }
 
-      bundleURL = v52;
-      containingBundle = v50;
-      v15 = v47;
-      v16 = v45;
+      bundleURL = v59;
+      containingBundle = v57;
+      v18 = v54;
+      v19 = v52;
     }
 
     else
     {
-      array = SO_LOG_SOExtension();
+      array = SO_LOG_SOExtension(v20);
       if (os_log_type_enabled(array, OS_LOG_TYPE_ERROR))
       {
-        v43 = v53;
+        v51 = v60;
         [SOExtension checkAssociatedDomainsWithCache:];
         goto LABEL_46;
       }
     }
 
-    v43 = v53;
+    v51 = v60;
 LABEL_46:
 
 LABEL_47:
@@ -2044,13 +1997,11 @@ LABEL_48:
 LABEL_49:
 LABEL_50:
   }
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAssociatedDomainsWithCompletion:(id)completion
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   extension = [(SOExtension *)self extension];
   _extensionBundle = [extension _extensionBundle];
@@ -2058,150 +2009,155 @@ LABEL_50:
 
   if (bundleURL)
   {
-    v8 = [MEMORY[0x1E6963678] pluginKitProxyForURL:bundleURL];
-    v9 = v8;
-    if (v8)
+    v9 = [MEMORY[0x1E6963678] pluginKitProxyForURL:bundleURL];
+    v10 = v9;
+    if (v9)
     {
-      containingBundle = [v8 containingBundle];
+      containingBundle = [v9 containingBundle];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v11 = [containingBundle entitlementValueForKey:@"application-identifier" ofClass:objc_opt_class()];
-        if (v11)
+        v13 = [containingBundle entitlementValueForKey:@"application-identifier" ofClass:objc_opt_class()];
+        if (v13)
         {
-          if (getuid() == 248)
+          v14 = getuid();
+          if (v14 == 248)
           {
-            v12 = SO_LOG_SOExtension();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+            v15 = SO_LOG_SOExtension(v14);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_1C1317000, v12, OS_LOG_TYPE_INFO, "Associated domain: Notify swcd", buf, 2u);
+              _os_log_impl(&dword_1C1317000, v15, OS_LOG_TYPE_INFO, "Associated domain: Notify swcd", buf, 2u);
             }
 
             defaultCenter = [MEMORY[0x1E696ABB0] defaultCenter];
             [defaultCenter postNotificationName:@"CP_SharedWebCredentialsDidChangeNotification" object:0 userInfo:0 options:1];
           }
 
-          v35 = v9;
-          v36 = completionCopy;
-          v14 = objc_alloc(MEMORY[0x1E69CDB30]);
-          v34 = v11;
-          v15 = [v14 initWithServiceType:*MEMORY[0x1E69CDB40] applicationIdentifier:v11 domain:0];
-          v16 = 0;
-          v17 = 0;
-          v18 = 0;
+          v39 = v10;
+          v40 = completionCopy;
+          v17 = objc_alloc(MEMORY[0x1E69CDB30]);
+          v38 = v13;
+          v18 = [v17 initWithServiceType:*MEMORY[0x1E69CDB40] applicationIdentifier:v13 domain:0];
+          v19 = v18;
+          v20 = 0;
+          v21 = 0;
+          v22 = 0;
           do
           {
-            v19 = SO_LOG_SOExtension();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+            v23 = SO_LOG_SOExtension(v18);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
             {
-              v20 = [MEMORY[0x1E696AD98] numberWithInt:v16];
+              v24 = [MEMORY[0x1E696AD98] numberWithInt:v20];
               *buf = 138543362;
-              v41 = v20;
-              _os_log_impl(&dword_1C1317000, v19, OS_LOG_TYPE_INFO, "Associated domain: attempt %{public}@", buf, 0xCu);
+              v45 = v24;
+              _os_log_impl(&dword_1C1317000, v23, OS_LOG_TYPE_INFO, "Associated domain: attempt %{public}@", buf, 0xCu);
             }
 
-            v39 = v18;
-            v21 = [MEMORY[0x1E69CDB28] serviceDetailsWithServiceSpecifier:v15 error:&v39];
-            v22 = v39;
+            v43 = v22;
+            v25 = [MEMORY[0x1E69CDB28] serviceDetailsWithServiceSpecifier:v19 error:&v43];
+            v26 = v43;
 
-            if (![v21 count])
+            if (![v25 count])
             {
               [MEMORY[0x1E696AF00] sleepForTimeInterval:2.0];
             }
 
-            if ([v21 count])
+            v18 = [v25 count];
+            if (v18)
             {
               break;
             }
 
-            v17 = v21;
-            v18 = v22;
-            v23 = v16 >= 9;
-            v16 = (v16 + 1);
+            v21 = v25;
+            v22 = v26;
+            v27 = v20 >= 9;
+            v20 = (v20 + 1);
           }
 
-          while (!v23);
-          v24 = [v21 count];
-          v25 = SO_LOG_SOExtension();
-          v26 = v25;
-          if (v24)
+          while (!v27);
+          v28 = [v25 count];
+          v29 = SO_LOG_SOExtension(v28);
+          v30 = v29;
+          if (v28)
           {
-            completionCopy = v36;
-            v11 = v34;
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+            completionCopy = v40;
+            v13 = v38;
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
             {
               [SOExtension checkAssociatedDomainsWithCompletion:];
             }
 
-            firstObject = [v21 firstObject];
-            if ([firstObject isApproved])
+            firstObject = [v25 firstObject];
+            isApproved = [firstObject isApproved];
+            if (isApproved)
             {
-              v28 = SO_LOG_SOExtension();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+              v33 = SO_LOG_SOExtension(isApproved);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
               {
                 [SOExtension checkAssociatedDomainsWithCompletion:];
               }
 
-              v36[2](v36, 1, 0);
+              v40[2](v40, 1, 0);
             }
 
             else
             {
-              v37[0] = MEMORY[0x1E69E9820];
-              v37[1] = 3221225472;
-              v37[2] = __52__SOExtension_checkAssociatedDomainsWithCompletion___block_invoke;
-              v37[3] = &unk_1E813E6D0;
-              v38 = v36;
-              [firstObject waitForSiteApprovalWithCompletionHandler:v37];
+              v41[0] = MEMORY[0x1E69E9820];
+              v41[1] = 3221225472;
+              v41[2] = __52__SOExtension_checkAssociatedDomainsWithCompletion___block_invoke;
+              v41[3] = &unk_1E813E6D0;
+              v42 = v40;
+              [firstObject waitForSiteApprovalWithCompletionHandler:v41];
             }
           }
 
           else
           {
-            completionCopy = v36;
-            v11 = v34;
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+            completionCopy = v40;
+            v13 = v38;
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
             {
               [SOExtension checkAssociatedDomainsWithCache:];
             }
 
-            (v36)[2](v36, 0, v22);
+            (v40)[2](v40, 0, v26);
           }
 
-          v9 = v35;
+          v10 = v39;
         }
 
         else
         {
-          v32 = SO_LOG_SOExtension();
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+          v37 = SO_LOG_SOExtension(0);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             [SOExtension checkAssociatedDomainsWithCache:containingBundle];
           }
 
-          v15 = [getSOErrorHelperClass_0() errorWithCode:-14 message:@"Failed to find extension appID"];
-          (*(completionCopy + 2))(completionCopy, 0, v15);
+          v19 = [getSOErrorHelperClass_0() errorWithCode:-14 message:@"Failed to find extension appID"];
+          (*(completionCopy + 2))(completionCopy, 0, v19);
         }
       }
 
       else
       {
-        v31 = SO_LOG_SOExtension();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        v36 = SO_LOG_SOExtension(isKindOfClass);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           [SOExtension checkAssociatedDomainsWithCache:];
         }
 
-        v11 = [getSOErrorHelperClass_0() errorWithCode:-14 message:@"Failed to find app proxy"];
-        (*(completionCopy + 2))(completionCopy, 0, v11);
+        v13 = [getSOErrorHelperClass_0() errorWithCode:-14 message:@"Failed to find app proxy"];
+        (*(completionCopy + 2))(completionCopy, 0, v13);
       }
     }
 
     else
     {
-      v30 = SO_LOG_SOExtension();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v35 = SO_LOG_SOExtension(0);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         [SOExtension checkAssociatedDomainsWithCache:];
       }
@@ -2213,24 +2169,22 @@ LABEL_50:
 
   else
   {
-    v29 = SO_LOG_SOExtension();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v34 = SO_LOG_SOExtension(v8);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       [SOExtension checkAssociatedDomainsWithCache:?];
     }
 
-    v9 = [getSOErrorHelperClass_0() errorWithCode:-14 message:@"Failed to find bundle URL"];
-    (*(completionCopy + 2))(completionCopy, 0, v9);
+    v10 = [getSOErrorHelperClass_0() errorWithCode:-14 message:@"Failed to find bundle URL"];
+    (*(completionCopy + 2))(completionCopy, 0, v10);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 void __52__SOExtension_checkAssociatedDomainsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = SO_LOG_SOExtension();
+  v7 = SO_LOG_SOExtension(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     __52__SOExtension_checkAssociatedDomainsWithCompletion___block_invoke_cold_1();
@@ -2261,19 +2215,19 @@ void __52__SOExtension_checkAssociatedDomainsWithCompletion___block_invoke(uint6
 
 - (BOOL)hasURLApprovedAssociatedDomain:(id)domain cache:(id)cache
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   cacheCopy = cache;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(cacheCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315907;
-    v26 = "[SOExtension hasURLApprovedAssociatedDomain:cache:]";
-    v27 = 2160;
-    v28 = 1752392040;
-    v29 = 2117;
-    v30 = domainCopy;
-    v31 = 2112;
+    v25 = "[SOExtension hasURLApprovedAssociatedDomain:cache:]";
+    v26 = 2160;
+    v27 = 1752392040;
+    v28 = 2117;
+    v29 = domainCopy;
+    v30 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s url: %{sensitive, mask.hash}@ on %@", buf, 0x2Au);
   }
@@ -2318,29 +2272,27 @@ void __52__SOExtension_checkAssociatedDomainsWithCompletion___block_invoke(uint6
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)hasAssociatedDomainsApproved
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   associatedDomainLock = [(SOExtension *)self associatedDomainLock];
   objc_sync_enter(associatedDomainLock);
   v4 = [(NSArray *)self->_associatedDomains count];
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     extensionBundleIdentifier = [(SOExtension *)self extensionBundleIdentifier];
-    v9 = 138543618;
-    v10 = extensionBundleIdentifier;
-    v11 = 1024;
-    v12 = v4 != 0;
-    _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_INFO, "%{public}@ hasAssociatedDomainsApproved = %d", &v9, 0x12u);
+    v8 = 138543618;
+    v9 = extensionBundleIdentifier;
+    v10 = 1024;
+    v11 = v4 != 0;
+    _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_INFO, "%{public}@ hasAssociatedDomainsApproved = %d", &v8, 0x12u);
   }
 
   objc_sync_exit(associatedDomainLock);
-  v7 = *MEMORY[0x1E69E9840];
   return v4 != 0;
 }
 
@@ -2386,14 +2338,14 @@ void __52__SOExtension_checkAssociatedDomainsWithCompletion___block_invoke(uint6
 
 - (void)viewServiceDidTerminateWithError:(id)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v21 = "[SOExtension viewServiceDidTerminateWithError:]";
-    v22 = 2112;
+    v20 = "[SOExtension viewServiceDidTerminateWithError:]";
+    v21 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -2405,72 +2357,68 @@ void __52__SOExtension_checkAssociatedDomainsWithCompletion___block_invoke(uint6
     v7 = NSAllMapTableKeys(self->_extensionDelegates);
     objc_sync_exit(extensionDelegatesLock);
 
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
-      v10 = *v16;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * v11);
-          v13 = [getSOErrorHelperClass_0() errorWithCode:-3 message:{@"connection to extension interrupted", v15}];
+          v12 = *(*(&v14 + 1) + 8 * v11);
+          v13 = [getSOErrorHelperClass_0() errorWithCode:-3 message:{@"connection to extension interrupted", v14}];
           [(SOExtension *)self authorization:v12 didCompleteWithCredential:0 error:v13];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginDeviceRegistrationUsingOptions:(int64_t)options extensionData:(id)data completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   completionCopy = completion;
-  v10 = SO_LOG_SOExtension();
+  v10 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v20 = "[SOExtension beginDeviceRegistrationUsingOptions:extensionData:completion:]";
-    v21 = 2112;
+    v19 = "[SOExtension beginDeviceRegistrationUsingOptions:extensionData:completion:]";
+    v20 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v10, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   pssoQueue = self->_pssoQueue;
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __76__SOExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke;
-  v15[3] = &unk_1E813E748;
-  v17 = completionCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __76__SOExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke;
+  v14[3] = &unk_1E813E748;
+  v16 = completionCopy;
   optionsCopy = options;
-  v15[4] = self;
-  v16 = dataCopy;
+  v14[4] = self;
+  v15 = dataCopy;
   v12 = dataCopy;
   v13 = completionCopy;
-  dispatch_async(pssoQueue, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  dispatch_async(pssoQueue, v14);
 }
 
 void __76__SOExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke(uint64_t a1)
@@ -2479,7 +2427,7 @@ void __76__SOExtension_beginDeviceRegistrationUsingOptions_extensionData_complet
   v11 = 0;
   v3 = [v2 remoteContextWithError:&v11];
   v4 = v11;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -2527,50 +2475,47 @@ void __76__SOExtension_beginDeviceRegistrationUsingOptions_extensionData_complet
 
 uint64_t __76__SOExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __76__SOExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_2_cold_1(a1);
   }
 
-  v3 = *(a1 + 48);
   (*(*(a1 + 40) + 16))();
   return [*(a1 + 32) decrementRequestCount];
 }
 
 - (void)beginUserRegistrationUsingUserName:(id)name authenticationMethod:(int)method options:(int64_t)options extensionData:(id)data completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   dataCopy = data;
   completionCopy = completion;
-  v15 = SO_LOG_SOExtension();
+  v15 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v28 = "[SOExtension beginUserRegistrationUsingUserName:authenticationMethod:options:extensionData:completion:]";
-    v29 = 2112;
+    v27 = "[SOExtension beginUserRegistrationUsingUserName:authenticationMethod:options:extensionData:completion:]";
+    v28 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v15, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   pssoQueue = self->_pssoQueue;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __104__SOExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke;
-  v21[3] = &unk_1E813E770;
-  v21[4] = self;
-  v22 = nameCopy;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __104__SOExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke;
+  v20[3] = &unk_1E813E770;
+  v20[4] = self;
+  v21 = nameCopy;
   methodCopy = method;
-  v24 = completionCopy;
+  v23 = completionCopy;
   optionsCopy = options;
-  v23 = dataCopy;
+  v22 = dataCopy;
   v17 = dataCopy;
   v18 = nameCopy;
   v19 = completionCopy;
-  dispatch_async(pssoQueue, v21);
-
-  v20 = *MEMORY[0x1E69E9840];
+  dispatch_async(pssoQueue, v20);
 }
 
 void __104__SOExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke(uint64_t a1)
@@ -2579,7 +2524,7 @@ void __104__SOExtension_beginUserRegistrationUsingUserName_authenticationMethod_
   v13 = 0;
   v3 = [v2 remoteContextWithError:&v13];
   v4 = v13;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -2628,42 +2573,39 @@ void __104__SOExtension_beginUserRegistrationUsingUserName_authenticationMethod_
 
 uint64_t __104__SOExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __104__SOExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_2_cold_1(a1);
   }
 
-  v3 = *(a1 + 48);
   (*(*(a1 + 40) + 16))();
   return [*(a1 + 32) decrementRequestCount];
 }
 
 - (void)registrationDidCompleteWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension registrationDidCompleteWithCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension registrationDidCompleteWithCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   pssoQueue = self->_pssoQueue;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __53__SOExtension_registrationDidCompleteWithCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __53__SOExtension_registrationDidCompleteWithCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(pssoQueue, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(pssoQueue, v8);
 }
 
 void __53__SOExtension_registrationDidCompleteWithCompletion___block_invoke(uint64_t a1)
@@ -2672,7 +2614,7 @@ void __53__SOExtension_registrationDidCompleteWithCompletion___block_invoke(uint
   v10 = 0;
   v3 = [v2 remoteContextWithError:&v10];
   v4 = v10;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -2705,7 +2647,7 @@ void __53__SOExtension_registrationDidCompleteWithCompletion___block_invoke(uint
 
 uint64_t __53__SOExtension_registrationDidCompleteWithCompletion___block_invoke_123(uint64_t a1)
 {
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __53__SOExtension_registrationDidCompleteWithCompletion___block_invoke_123_cold_1();
@@ -2717,30 +2659,28 @@ uint64_t __53__SOExtension_registrationDidCompleteWithCompletion___block_invoke_
 
 - (void)registrationDidCancelWithCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension registrationDidCancelWithCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension registrationDidCancelWithCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   [(SOExtension *)self incrementRequestCount];
   v6 = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __51__SOExtension_registrationDidCancelWithCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __51__SOExtension_registrationDidCancelWithCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v6, v8);
 }
 
 void __51__SOExtension_registrationDidCancelWithCompletion___block_invoke(uint64_t a1)
@@ -2749,7 +2689,7 @@ void __51__SOExtension_registrationDidCancelWithCompletion___block_invoke(uint64
   v10 = 0;
   v3 = [v2 remoteContextWithError:&v10];
   v4 = v10;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -2782,7 +2722,7 @@ void __51__SOExtension_registrationDidCancelWithCompletion___block_invoke(uint64
 
 uint64_t __51__SOExtension_registrationDidCancelWithCompletion___block_invoke_124(uint64_t a1)
 {
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __51__SOExtension_registrationDidCancelWithCompletion___block_invoke_124_cold_1();
@@ -2794,29 +2734,27 @@ uint64_t __51__SOExtension_registrationDidCancelWithCompletion___block_invoke_12
 
 - (void)supportedGrantTypesCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension supportedGrantTypesCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension supportedGrantTypesCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   v6 = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __45__SOExtension_supportedGrantTypesCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __45__SOExtension_supportedGrantTypesCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v6, v8);
 }
 
 void __45__SOExtension_supportedGrantTypesCompletion___block_invoke(uint64_t a1)
@@ -2825,7 +2763,7 @@ void __45__SOExtension_supportedGrantTypesCompletion___block_invoke(uint64_t a1)
   v10 = 0;
   v3 = [v2 remoteContextWithError:&v10];
   v4 = v10;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -2859,8 +2797,7 @@ void __45__SOExtension_supportedGrantTypesCompletion___block_invoke(uint64_t a1)
 void __45__SOExtension_supportedGrantTypesCompletion___block_invoke_125(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  [*(a1 + 32) decrementRequestCount];
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension([*(a1 + 32) decrementRequestCount]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __45__SOExtension_supportedGrantTypesCompletion___block_invoke_125_cold_1();
@@ -2869,29 +2806,27 @@ void __45__SOExtension_supportedGrantTypesCompletion___block_invoke_125(uint64_t
 
 - (void)protocolVersionCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension protocolVersionCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension protocolVersionCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   v6 = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __41__SOExtension_protocolVersionCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __41__SOExtension_protocolVersionCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v6, v8);
 }
 
 void __41__SOExtension_protocolVersionCompletion___block_invoke(uint64_t a1)
@@ -2900,7 +2835,7 @@ void __41__SOExtension_protocolVersionCompletion___block_invoke(uint64_t a1)
   v10 = 0;
   v3 = [v2 remoteContextWithError:&v10];
   v4 = v10;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -2934,8 +2869,7 @@ void __41__SOExtension_protocolVersionCompletion___block_invoke(uint64_t a1)
 void __41__SOExtension_protocolVersionCompletion___block_invoke_126(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  [*(a1 + 32) decrementRequestCount];
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension([*(a1 + 32) decrementRequestCount]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __41__SOExtension_protocolVersionCompletion___block_invoke_126_cold_1();
@@ -2944,29 +2878,27 @@ void __41__SOExtension_protocolVersionCompletion___block_invoke_126(uint64_t a1)
 
 - (void)canPerformRegistrationCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension canPerformRegistrationCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension canPerformRegistrationCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   v6 = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __48__SOExtension_canPerformRegistrationCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __48__SOExtension_canPerformRegistrationCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v6, v8);
 }
 
 void __48__SOExtension_canPerformRegistrationCompletion___block_invoke(uint64_t a1)
@@ -2975,7 +2907,7 @@ void __48__SOExtension_canPerformRegistrationCompletion___block_invoke(uint64_t 
   v11 = 0;
   v3 = [v2 remoteContextWithError:&v11];
   v4 = v11;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -3002,8 +2934,7 @@ void __48__SOExtension_canPerformRegistrationCompletion___block_invoke(uint64_t 
     v7 = *(a1 + 40);
     v9[4] = *(a1 + 32);
     v10 = v7;
-    [v3 canPerformRegistrationCompletion:v9];
-    v8 = SO_LOG_SOExtension();
+    v8 = SO_LOG_SOExtension([v3 canPerformRegistrationCompletion:v9]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __48__SOExtension_canPerformRegistrationCompletion___block_invoke_cold_3();
@@ -3021,29 +2952,27 @@ uint64_t __48__SOExtension_canPerformRegistrationCompletion___block_invoke_127(u
 
 - (void)supportedDeviceSigningAlgorithmsCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension supportedDeviceSigningAlgorithmsCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension supportedDeviceSigningAlgorithmsCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   v6 = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __58__SOExtension_supportedDeviceSigningAlgorithmsCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __58__SOExtension_supportedDeviceSigningAlgorithmsCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v6, v8);
 }
 
 void __58__SOExtension_supportedDeviceSigningAlgorithmsCompletion___block_invoke(uint64_t a1)
@@ -3052,7 +2981,7 @@ void __58__SOExtension_supportedDeviceSigningAlgorithmsCompletion___block_invoke
   v10 = 0;
   v3 = [v2 remoteContextWithError:&v10];
   v4 = v10;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -3086,8 +3015,7 @@ void __58__SOExtension_supportedDeviceSigningAlgorithmsCompletion___block_invoke
 void __58__SOExtension_supportedDeviceSigningAlgorithmsCompletion___block_invoke_129(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  [*(a1 + 32) decrementRequestCount];
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension([*(a1 + 32) decrementRequestCount]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __58__SOExtension_supportedDeviceSigningAlgorithmsCompletion___block_invoke_129_cold_1();
@@ -3096,29 +3024,27 @@ void __58__SOExtension_supportedDeviceSigningAlgorithmsCompletion___block_invoke
 
 - (void)supportedDeviceEncryptionAlgorithmsCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension supportedDeviceEncryptionAlgorithmsCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension supportedDeviceEncryptionAlgorithmsCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   v6 = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __61__SOExtension_supportedDeviceEncryptionAlgorithmsCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __61__SOExtension_supportedDeviceEncryptionAlgorithmsCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v6, v8);
 }
 
 void __61__SOExtension_supportedDeviceEncryptionAlgorithmsCompletion___block_invoke(uint64_t a1)
@@ -3127,7 +3053,7 @@ void __61__SOExtension_supportedDeviceEncryptionAlgorithmsCompletion___block_inv
   v10 = 0;
   v3 = [v2 remoteContextWithError:&v10];
   v4 = v10;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -3161,8 +3087,7 @@ void __61__SOExtension_supportedDeviceEncryptionAlgorithmsCompletion___block_inv
 void __61__SOExtension_supportedDeviceEncryptionAlgorithmsCompletion___block_invoke_131(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  [*(a1 + 32) decrementRequestCount];
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension([*(a1 + 32) decrementRequestCount]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __61__SOExtension_supportedDeviceEncryptionAlgorithmsCompletion___block_invoke_131_cold_1();
@@ -3171,29 +3096,27 @@ void __61__SOExtension_supportedDeviceEncryptionAlgorithmsCompletion___block_inv
 
 - (void)supportedUserSecureEnclaveKeySigningAlgorithmsCompletion:(id)completion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v12 = "[SOExtension supportedUserSecureEnclaveKeySigningAlgorithmsCompletion:]";
-    v13 = 2112;
+    v11 = "[SOExtension supportedUserSecureEnclaveKeySigningAlgorithmsCompletion:]";
+    v12 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v5, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   v6 = dispatch_get_global_queue(0, 0);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __72__SOExtension_supportedUserSecureEnclaveKeySigningAlgorithmsCompletion___block_invoke;
-  v9[3] = &unk_1E813E450;
-  v9[4] = self;
-  v10 = completionCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __72__SOExtension_supportedUserSecureEnclaveKeySigningAlgorithmsCompletion___block_invoke;
+  v8[3] = &unk_1E813E450;
+  v8[4] = self;
+  v9 = completionCopy;
   v7 = completionCopy;
-  dispatch_async(v6, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  dispatch_async(v6, v8);
 }
 
 void __72__SOExtension_supportedUserSecureEnclaveKeySigningAlgorithmsCompletion___block_invoke(uint64_t a1)
@@ -3202,7 +3125,7 @@ void __72__SOExtension_supportedUserSecureEnclaveKeySigningAlgorithmsCompletion_
   v10 = 0;
   v3 = [v2 remoteContextWithError:&v10];
   v4 = v10;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -3236,8 +3159,7 @@ void __72__SOExtension_supportedUserSecureEnclaveKeySigningAlgorithmsCompletion_
 void __72__SOExtension_supportedUserSecureEnclaveKeySigningAlgorithmsCompletion___block_invoke_132(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  [*(a1 + 32) decrementRequestCount];
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension([*(a1 + 32) decrementRequestCount]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __72__SOExtension_supportedUserSecureEnclaveKeySigningAlgorithmsCompletion___block_invoke_132_cold_1();
@@ -3271,7 +3193,7 @@ void __81__SOExtension_keyWillRotateForKeyType_keyProxyEndpoint_extensionData_co
   v13 = 0;
   v3 = [v2 remoteContextWithError:&v13];
   v4 = v13;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -3308,8 +3230,7 @@ void __81__SOExtension_keyWillRotateForKeyType_keyProxyEndpoint_extensionData_co
 void __81__SOExtension_keyWillRotateForKeyType_keyProxyEndpoint_extensionData_completion___block_invoke_133(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  [*(a1 + 32) decrementRequestCount];
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension([*(a1 + 32) decrementRequestCount]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __81__SOExtension_keyWillRotateForKeyType_keyProxyEndpoint_extensionData_completion___block_invoke_133_cold_1();
@@ -3318,35 +3239,33 @@ void __81__SOExtension_keyWillRotateForKeyType_keyProxyEndpoint_extensionData_co
 
 - (void)displayNamesForGroups:(id)groups extensionData:(id)data completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   groupsCopy = groups;
   dataCopy = data;
   completionCopy = completion;
-  v11 = SO_LOG_SOExtension();
+  v11 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v22 = "[SOExtension displayNamesForGroups:extensionData:completion:]";
-    v23 = 2112;
+    v21 = "[SOExtension displayNamesForGroups:extensionData:completion:]";
+    v22 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v11, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
 
   v12 = dispatch_get_global_queue(0, 0);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __62__SOExtension_displayNamesForGroups_extensionData_completion___block_invoke;
-  v17[3] = &unk_1E813E860;
-  v17[4] = self;
-  v18 = groupsCopy;
-  v19 = dataCopy;
-  v20 = completionCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __62__SOExtension_displayNamesForGroups_extensionData_completion___block_invoke;
+  v16[3] = &unk_1E813E860;
+  v16[4] = self;
+  v17 = groupsCopy;
+  v18 = dataCopy;
+  v19 = completionCopy;
   v13 = dataCopy;
   v14 = groupsCopy;
   v15 = completionCopy;
-  dispatch_async(v12, v17);
-
-  v16 = *MEMORY[0x1E69E9840];
+  dispatch_async(v12, v16);
 }
 
 void __62__SOExtension_displayNamesForGroups_extensionData_completion___block_invoke(uint64_t a1)
@@ -3355,7 +3274,7 @@ void __62__SOExtension_displayNamesForGroups_extensionData_completion___block_in
   v12 = 0;
   v3 = [v2 remoteContextWithError:&v12];
   v4 = v12;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -3391,8 +3310,7 @@ void __62__SOExtension_displayNamesForGroups_extensionData_completion___block_in
 void __62__SOExtension_displayNamesForGroups_extensionData_completion___block_invoke_134(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  [*(a1 + 32) decrementRequestCount];
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension([*(a1 + 32) decrementRequestCount]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __62__SOExtension_displayNamesForGroups_extensionData_completion___block_invoke_134_cold_1();
@@ -3401,15 +3319,15 @@ void __62__SOExtension_displayNamesForGroups_extensionData_completion___block_in
 
 - (void)profilePictureForUserUsingExtensionData:(id)data completion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   completionCopy = completion;
-  v8 = SO_LOG_SOExtension();
+  v8 = SO_LOG_SOExtension(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v17 = "[SOExtension profilePictureForUserUsingExtensionData:completion:]";
-    v18 = 2112;
+    v16 = "[SOExtension profilePictureForUserUsingExtensionData:completion:]";
+    v17 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1C1317000, v8, OS_LOG_TYPE_DEFAULT, "%s  on %@", buf, 0x16u);
   }
@@ -3419,14 +3337,12 @@ void __62__SOExtension_displayNamesForGroups_extensionData_completion___block_in
   block[1] = 3221225472;
   block[2] = __66__SOExtension_profilePictureForUserUsingExtensionData_completion___block_invoke;
   block[3] = &unk_1E813E4F0;
-  v14 = dataCopy;
-  v15 = completionCopy;
+  v13 = dataCopy;
+  v14 = completionCopy;
   block[4] = self;
   v10 = dataCopy;
   v11 = completionCopy;
   dispatch_async(v9, block);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __66__SOExtension_profilePictureForUserUsingExtensionData_completion___block_invoke(uint64_t a1)
@@ -3435,7 +3351,7 @@ void __66__SOExtension_profilePictureForUserUsingExtensionData_completion___bloc
   v11 = 0;
   v3 = [v2 remoteContextWithError:&v11];
   v4 = v11;
-  v5 = SO_LOG_SOExtension();
+  v5 = SO_LOG_SOExtension(v4);
   v6 = v5;
   if (v4)
   {
@@ -3470,215 +3386,108 @@ void __66__SOExtension_profilePictureForUserUsingExtensionData_completion___bloc
 void __66__SOExtension_profilePictureForUserUsingExtensionData_completion___block_invoke_136(uint64_t a1)
 {
   (*(*(a1 + 40) + 16))();
-  [*(a1 + 32) decrementRequestCount];
-  v2 = SO_LOG_SOExtension();
+  v2 = SO_LOG_SOExtension([*(a1 + 32) decrementRequestCount]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __66__SOExtension_profilePictureForUserUsingExtensionData_completion___block_invoke_136_cold_1();
   }
 }
 
-void __46__SOExtension_cancelAuthorization_completion___block_invoke_cold_1(uint64_t a1)
+void __51__SOExtension__finishAuthorization_withCompletion___block_invoke_2_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *(a1 + 40);
-  OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __46__SOExtension_cancelAuthorization_completion___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Failed to get remote context with error %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __46__SOExtension_cancelAuthorization_completion___block_invoke_2_cold_1(void *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = a1[4];
-  v8 = a1[5];
-  v9 = a1[6];
-  OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __88__SOExtension_presentAuthorizationViewControllerWithHints_requestIdentifier_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = *(a2 + 48);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_10(&dword_1C1317000, v3, v4, "Notifying delegate %{public}@ that extension wants to show UI, hints = %{private}@");
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __51__SOExtension__finishAuthorization_withCompletion___block_invoke_2_cold_1(uint64_t a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 64);
-  v2 = *(a1 + 32);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)_setupNonUISessionWithCompletion:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 extension];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __55__SOExtension__setupSessionHelperForIOSWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Failed to instantiate view controller because of %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_connectContextToSessionWithRequestIdentifier:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Session with ID %{public}@ was unable to get remote view service", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SOExtension__connectContextToSessionWithRequestIdentifier_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138543618;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138543618;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_8(&dword_1C1317000, v1, v2, "Session with ID %{public}@ was unable to communicate with the remote service because of %{public}@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8(&dword_1C1317000, v1, v2, "Session with ID %{public}@ was unable to communicate with the remote service because of %{public}@", v3, DWORD2(v3));
 }
 
-void __67__SOExtension__beginAuthorizationWithRequestParameters_completion___block_invoke_2_cold_1(uint64_t a1)
+void __67__SOExtension__beginAuthorizationWithRequestParameters_completion___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 32);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void __68__SOExtension__beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke_2_cold_1(uint64_t a1)
+void __68__SOExtension__beginAuthorizationWithServiceXPCEndpoint_completion___block_invoke_2_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 32);
   OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_5();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)checkAssociatedDomainsWithCache:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Associated domain: failed to get app proxy for extension: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 - (void)checkAssociatedDomainsWithCache:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_8(&dword_1C1317000, v0, v1, "Associated domain: failed to get service details for the appID: %{public}@ with error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAssociatedDomainsWithCache:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 bundleURL];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)checkAssociatedDomainsWithCache:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_0(&dword_1C1317000, v0, v1, "Associated domain: failed to get extension bundle proxy at path: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAssociatedDomainsWithCache:(void *)a1 .cold.5(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 extension];
   v2 = [v1 _extensionBundle];
   v3 = [v2 bundleURL];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_6_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAssociatedDomainsWithCompletion:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkAssociatedDomainsWithCompletion:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_5();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __52__SOExtension_checkAssociatedDomainsWithCompletion___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_10(&dword_1C1317000, v0, v1, "Associated domains response: %{public}@, error: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __76__SOExtension_beginDeviceRegistrationUsingOptions_extensionData_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 48)];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_9(&dword_1C1317000, v2, v3, "Finished beginDeviceRegistrationUsingLoginManager, result = %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1C1317000, v2, v3, "Finished beginDeviceRegistrationUsingLoginManager, result = %{public}@", v4, v5, v6, v7);
 }
 
 void __104__SOExtension_beginUserRegistrationUsingUserName_authenticationMethod_options_extensionData_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:*(a1 + 48)];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_9(&dword_1C1317000, v2, v3, "Finished beginUserRegistrationUsingLoginManager, result = %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9(&dword_1C1317000, v2, v3, "Finished beginUserRegistrationUsingLoginManager, result = %{public}@", v4, v5, v6, v7);
 }
 
 @end

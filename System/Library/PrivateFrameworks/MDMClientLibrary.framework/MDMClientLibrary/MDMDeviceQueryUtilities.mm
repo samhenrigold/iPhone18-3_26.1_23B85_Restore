@@ -11,13 +11,13 @@
   separatedCopy = separated;
   rightsCopy = rights;
   v6 = MEMORY[0x277CBEB58];
-  v7 = _alwaysAllowedQueries();
+  v7 = _alwaysAllowedQueries(self);
   v8 = [v6 setWithSet:v7];
 
   if ((rightsCopy & 0x10) != 0)
   {
-    v9 = _deviceInformationQueries();
-    [v8 unionSet:v9];
+    v10 = _deviceInformationQueries();
+    [v8 unionSet:v10];
 
     if ((rightsCopy & 0x1000) == 0)
     {
@@ -36,8 +36,8 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v10 = _appInstallationQueries();
-  [v8 unionSet:v10];
+  v11 = _appInstallationQueries(v9);
+  [v8 unionSet:v11];
 
   if ((rightsCopy & 0x20) == 0)
   {
@@ -51,8 +51,8 @@ LABEL_4:
   }
 
 LABEL_8:
-  v11 = _networkInformationQueries();
-  [v8 unionSet:v11];
+  v12 = _networkInformationQueries(v9);
+  [v8 unionSet:v12];
 
   if (!separatedCopy)
   {
@@ -67,8 +67,8 @@ LABEL_9:
 
   [v8 minusSet:_unavailableAppInstallationQueriesWithDataSeparation_set];
 LABEL_12:
-  v12 = +[MDMCloudConfiguration sharedConfiguration];
-  if ([v12 userMode] == 1)
+  v13 = +[MDMCloudConfiguration sharedConfiguration];
+  if ([v13 userMode] == 1)
   {
     isSharediPad = [MEMORY[0x277D03538] isSharediPad];
   }
@@ -78,17 +78,17 @@ LABEL_12:
     isSharediPad = 0;
   }
 
-  v14 = +[MDMCloudConfiguration sharedConfiguration];
-  isSupervised = [v14 isSupervised];
+  v15 = +[MDMCloudConfiguration sharedConfiguration];
+  isSupervised = [v15 isSupervised];
 
   if (isSupervised && (isSharediPad & 1) == 0)
   {
     [v8 addObject:@"AccessibilitySettings"];
   }
 
-  v16 = [v8 copy];
+  v17 = [v8 copy];
 
-  return v16;
+  return v17;
 }
 
 + (id)allowedDeviceQueriesOnUserChannelForAccessRights:(unint64_t)rights
@@ -101,14 +101,15 @@ LABEL_12:
   }
 
   v5 = [v4 setWithSet:_alwaysAllowedUserQueries_set];
+  v6 = v5;
   if ((rightsCopy & 0x1000) != 0)
   {
-    v6 = _appInstallationQueries();
-    [v5 unionSet:v6];
+    v7 = _appInstallationQueries(v5);
+    [v6 unionSet:v7];
   }
 
-  v7 = +[MDMCloudConfiguration sharedConfiguration];
-  if ([v7 userMode] == 1)
+  v8 = +[MDMCloudConfiguration sharedConfiguration];
+  if ([v8 userMode] == 1)
   {
     isSharediPad = [MEMORY[0x277D03538] isSharediPad];
   }
@@ -118,17 +119,17 @@ LABEL_12:
     isSharediPad = 0;
   }
 
-  v9 = +[MDMCloudConfiguration sharedConfiguration];
-  isSupervised = [v9 isSupervised];
+  v10 = +[MDMCloudConfiguration sharedConfiguration];
+  isSupervised = [v10 isSupervised];
 
   if (isSupervised && isSharediPad)
   {
-    [v5 addObject:@"AccessibilitySettings"];
+    [v6 addObject:@"AccessibilitySettings"];
   }
 
-  v11 = [v5 copy];
+  v12 = [v6 copy];
 
-  return v11;
+  return v12;
 }
 
 + (id)allowedDeviceQueriesWithUserEnrollment
@@ -143,30 +144,30 @@ LABEL_12:
   return v3;
 }
 
-void __65__MDMDeviceQueryUtilities_allowedDeviceQueriesWithUserEnrollment__block_invoke()
+void __65__MDMDeviceQueryUtilities_allowedDeviceQueriesWithUserEnrollment__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x277CBEB58];
-  v1 = _alwaysAllowedQueries();
-  v7 = [v0 setWithSet:v1];
+  v1 = MEMORY[0x277CBEB58];
+  v2 = _alwaysAllowedQueries(a1);
+  v10 = [v1 setWithSet:v2];
 
-  v2 = _deviceInformationQueries();
-  [v7 unionSet:v2];
+  v3 = _deviceInformationQueries();
+  [v10 unionSet:v3];
 
-  v3 = _appInstallationQueries();
-  [v7 unionSet:v3];
+  v5 = _appInstallationQueries(v4);
+  [v10 unionSet:v5];
 
-  v4 = _networkInformationQueries();
-  [v7 unionSet:v4];
+  v7 = _networkInformationQueries(v6);
+  [v10 unionSet:v7];
 
   if (_validDeviceQueriesWithUserEnrollment_onceToken != -1)
   {
     __65__MDMDeviceQueryUtilities_allowedDeviceQueriesWithUserEnrollment__block_invoke_cold_1();
   }
 
-  [v7 intersectSet:_validDeviceQueriesWithUserEnrollment_validMCKeys];
-  v5 = [v7 copy];
-  v6 = allowedDeviceQueriesWithUserEnrollment_allowedQueries;
-  allowedDeviceQueriesWithUserEnrollment_allowedQueries = v5;
+  [v10 intersectSet:_validDeviceQueriesWithUserEnrollment_validMCKeys];
+  v8 = [v10 copy];
+  v9 = allowedDeviceQueriesWithUserEnrollment_allowedQueries;
+  allowedDeviceQueriesWithUserEnrollment_allowedQueries = v8;
 }
 
 @end

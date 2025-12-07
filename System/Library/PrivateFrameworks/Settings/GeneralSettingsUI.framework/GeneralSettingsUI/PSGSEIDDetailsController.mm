@@ -51,7 +51,7 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v8 = _PSGLoggingFacility();
+  v8 = _PSGLoggingFacility(hwState);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -82,7 +82,7 @@ LABEL_5:
 
 - (void)hardwareStateDidChange
 {
-  v3 = _PSGLoggingFacility();
+  v3 = _PSGLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -102,7 +102,7 @@ LABEL_5:
   }
 }
 
-uint64_t __50__PSGSEIDDetailsController_hardwareStateDidChange__block_invoke(uint64_t a1)
+void *__50__PSGSEIDDetailsController_hardwareStateDidChange__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _setupSEIDSpecifier];
   if (result)
@@ -129,13 +129,14 @@ uint64_t __50__PSGSEIDDetailsController_hardwareStateDidChange__block_invoke(uin
   v15[1] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = [*(&self->super.super.super.super.super.isa + v3) count];
+  v5 = v4;
   if (v4)
   {
-    v5 = _PSGLoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _PSGLoggingFacility(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_21CF20000, v5, OS_LOG_TYPE_DEFAULT, "Already initialized", buf, 2u);
+      _os_log_impl(&dword_21CF20000, v6, OS_LOG_TYPE_DEFAULT, "Already initialized", buf, 2u);
     }
   }
 
@@ -144,32 +145,31 @@ uint64_t __50__PSGSEIDDetailsController_hardwareStateDidChange__block_invoke(uin
     sEIDString = [(PSGSEIDDetailsController *)self SEIDString];
     if (!sEIDString)
     {
-      [PSGSEIDDetailsController _setupSEIDSpecifier];
+      [(PSGSEIDDetailsController *)0 _setupSEIDSpecifier];
     }
 
-    v5 = sEIDString;
-    v7 = MEMORY[0x277D3FAD8];
+    v6 = sEIDString;
+    v8 = MEMORY[0x277D3FAD8];
     sEIDString2 = [(PSGSEIDDetailsController *)self SEIDString];
-    v9 = [v7 preferenceSpecifierNamed:sEIDString2 target:0 set:0 get:0 detail:0 cell:4 edit:0];
+    v10 = [v8 preferenceSpecifierNamed:sEIDString2 target:0 set:0 get:0 detail:0 cell:4 edit:0];
 
-    [v9 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FED8]];
-    v15[0] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-    v11 = *(&self->super.super.super.super.super.isa + v3);
-    *(&self->super.super.super.super.super.isa + v3) = v10;
+    [v10 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FED8]];
+    v15[0] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
+    v12 = *(&self->super.super.super.super.super.isa + v3);
+    *(&self->super.super.super.super.super.isa + v3) = v11;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v4 == 0;
+  return v5 == 0;
 }
 
 - (void)_setupSEIDSpecifier
 {
-  v0 = _PSGLoggingFacility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _PSGLoggingFacility(self);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_21CF20000, v0, OS_LOG_TYPE_DEFAULT, "We should never hit this since we're supposed to wait until the secure element id is returned.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_21CF20000, v1, OS_LOG_TYPE_DEFAULT, "We should never hit this since we're supposed to wait until the secure element id is returned.", v2, 2u);
   }
 
   __assert_rtn("[PSGSEIDDetailsController _setupSEIDSpecifier]", "PSGSEIDDetailsController.m", 93, "0");

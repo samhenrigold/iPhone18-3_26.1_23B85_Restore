@@ -82,39 +82,8 @@ LABEL_3:
 {
   experimentCopy = experiment;
   v5 = experimentCopy;
-  if (!experimentCopy)
+  if (!experimentCopy || (v6 = self->_targetedBundleIds == 0, [experimentCopy targetedBundleIds], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (targetedBundleIds = self->_targetedBundleIds) != 0 && (objc_msgSend(v5, "targetedBundleIds"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSArray isEqual:](targetedBundleIds, "isEqual:", v10), v10, !v11) || (v12 = self->_factorLevelStrings == 0, objc_msgSend(v5, "factorLevelStrings"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_targetedBundleIds == 0;
-  targetedBundleIds = [experimentCopy targetedBundleIds];
-  v8 = targetedBundleIds != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  targetedBundleIds = self->_targetedBundleIds;
-  if (targetedBundleIds)
-  {
-    targetedBundleIds2 = [v5 targetedBundleIds];
-    v11 = [(NSArray *)targetedBundleIds isEqual:targetedBundleIds2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_factorLevelStrings == 0;
-  factorLevelStrings = [v5 factorLevelStrings];
-  v14 = factorLevelStrings != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -123,8 +92,8 @@ LABEL_8:
     factorLevelStrings = self->_factorLevelStrings;
     if (factorLevelStrings)
     {
-      factorLevelStrings2 = [v5 factorLevelStrings];
-      v17 = [(NSArray *)factorLevelStrings isEqual:factorLevelStrings2];
+      factorLevelStrings = [v5 factorLevelStrings];
+      v17 = [(NSArray *)factorLevelStrings isEqual:factorLevelStrings];
     }
 
     else
@@ -155,7 +124,7 @@ LABEL_8:
 
 - (TRIActiveEnvVarExperiment)initWithCoder:(id)coder
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_alloc(MEMORY[0x277CBEB98]);
   v6 = objc_opt_class();
@@ -178,9 +147,9 @@ LABEL_8:
 
         if (!error)
         {
-          v31 = *MEMORY[0x277CCA450];
-          v32 = @"Retrieved nil serialized value for nonnull TRIActiveEnvVarExperiment.factorLevelStrings";
-          v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
+          v30 = *MEMORY[0x277CCA450];
+          v31 = @"Retrieved nil serialized value for nonnull TRIActiveEnvVarExperiment.factorLevelStrings";
+          v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
           v23 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIActiveEnvVarExperimentOCNTErrorDomain" code:2 userInfo:v22];
           [coderCopy failWithError:v23];
         }
@@ -204,9 +173,9 @@ LABEL_17:
       v25 = objc_opt_class();
       v18 = NSStringFromClass(v25);
       v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIActiveEnvVarExperiment key factorLevelStrings (expected %@, decoded %@)", v17, v18, 0];
-      v29 = *MEMORY[0x277CCA450];
-      v30 = v19;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v28 = *MEMORY[0x277CCA450];
+      v29 = v19;
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
       v26 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIActiveEnvVarExperimentOCNTErrorDomain" code:3 userInfo:v20];
       [coderCopy failWithError:v26];
     }
@@ -218,9 +187,9 @@ LABEL_17:
       v16 = objc_opt_class();
       v17 = NSStringFromClass(v16);
       v18 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Unarchived unexpected class for TRIActiveEnvVarExperiment key targetedBundleIds (expected %@, decoded %@)", v12, v17, 0];
-      v33 = *MEMORY[0x277CCA450];
-      v34 = v18;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+      v32 = *MEMORY[0x277CCA450];
+      v33 = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
       v20 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIActiveEnvVarExperimentOCNTErrorDomain" code:3 userInfo:v19];
       [coderCopy failWithError:v20];
     }
@@ -235,9 +204,9 @@ LABEL_16:
 
   if (!error2)
   {
-    v35 = *MEMORY[0x277CCA450];
-    v36[0] = @"Retrieved nil serialized value for nonnull TRIActiveEnvVarExperiment.targetedBundleIds";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35[0] = @"Retrieved nil serialized value for nonnull TRIActiveEnvVarExperiment.targetedBundleIds";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v17 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIActiveEnvVarExperimentOCNTErrorDomain" code:2 userInfo:v12];
     [coderCopy failWithError:v17];
     goto LABEL_15;
@@ -246,7 +215,6 @@ LABEL_16:
   selfCopy = 0;
 LABEL_18:
 
-  v27 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

@@ -125,7 +125,7 @@ void __29__HMFProductInfo_productInfo__block_invoke(uint64_t a1)
 
 - (id)attributeDescriptions
 {
-  v27[6] = *MEMORY[0x277D85DE8];
+  v26[6] = *MEMORY[0x277D85DE8];
   v3 = [HMFAttributeDescription alloc];
   v4 = [(HMFProductInfo *)self productPlatform]- 1;
   if (v4 > 4)
@@ -138,12 +138,12 @@ void __29__HMFProductInfo_productInfo__block_invoke(uint64_t a1)
     v5 = off_2786E7BD8[v4];
   }
 
-  v26 = [(HMFAttributeDescription *)v3 initWithName:@"Platform" value:v5];
-  v27[0] = v26;
+  v25 = [(HMFAttributeDescription *)v3 initWithName:@"Platform" value:v5];
+  v26[0] = v25;
   v6 = [HMFAttributeDescription alloc];
-  v25 = HMFProductClassToString([(HMFProductInfo *)self productClass]);
+  v24 = HMFProductClassToString([(HMFProductInfo *)self productClass]);
   v7 = [(HMFAttributeDescription *)v6 initWithName:@"Product Class" value:?];
-  v27[1] = v7;
+  v26[1] = v7;
   v8 = [HMFAttributeDescription alloc];
   v9 = [(HMFProductInfo *)self productVariant]- 1;
   if (v9 > 2)
@@ -157,23 +157,21 @@ void __29__HMFProductInfo_productInfo__block_invoke(uint64_t a1)
   }
 
   v11 = [(HMFAttributeDescription *)v8 initWithName:@"Product Variant" value:v10];
-  v27[2] = v11;
+  v26[2] = v11;
   v12 = [HMFAttributeDescription alloc];
   softwareVersion = [(HMFProductInfo *)self softwareVersion];
   versionString = [softwareVersion versionString];
   v15 = [(HMFAttributeDescription *)v12 initWithName:@"Software Version" value:versionString];
-  v27[3] = v15;
+  v26[3] = v15;
   v16 = [HMFAttributeDescription alloc];
   v17 = HMFProductColorToString([(HMFProductInfo *)self productColor]);
   v18 = [(HMFAttributeDescription *)v16 initWithName:@"Product Color" value:v17];
-  v27[4] = v18;
+  v26[4] = v18;
   v19 = [HMFAttributeDescription alloc];
   modelIdentifier = [(HMFProductInfo *)self modelIdentifier];
   v21 = [(HMFAttributeDescription *)v19 initWithName:@"Model Identifier" value:modelIdentifier];
-  v27[5] = v21;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:6];
-
-  v23 = *MEMORY[0x277D85DE8];
+  v26[5] = v21;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:6];
 
   return v22;
 }
@@ -197,22 +195,7 @@ void __29__HMFProductInfo_productInfo__block_invoke(uint64_t a1)
   else
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_9;
-    }
-
-    softwareVersion = [(HMFProductInfo *)self softwareVersion];
-    softwareVersion2 = [(HMFProductInfo *)equalCopy softwareVersion];
-    v7 = [softwareVersion isEqual:softwareVersion2];
-
-    if (!v7)
-    {
-      goto LABEL_9;
-    }
-
-    productPlatform = [(HMFProductInfo *)self productPlatform];
-    if (productPlatform == [(HMFProductInfo *)equalCopy productPlatform]&& (v9 = [(HMFProductInfo *)self productClass], v9 == [(HMFProductInfo *)equalCopy productClass]) && (v10 = [(HMFProductInfo *)self productVariant], v10 == [(HMFProductInfo *)equalCopy productVariant]) && (v11 = [(HMFProductInfo *)self productColor], v11 == [(HMFProductInfo *)equalCopy productColor]))
+    if ((objc_opt_isKindOfClass() & 1) != 0 && (-[HMFProductInfo softwareVersion](self, "softwareVersion"), v5 = objc_claimAutoreleasedReturnValue(), -[HMFProductInfo softwareVersion](equalCopy, "softwareVersion"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v5 isEqual:v6], v6, v5, v7) && (v8 = -[HMFProductInfo productPlatform](self, "productPlatform"), v8 == -[HMFProductInfo productPlatform](equalCopy, "productPlatform")) && (v9 = -[HMFProductInfo productClass](self, "productClass"), v9 == -[HMFProductInfo productClass](equalCopy, "productClass")) && (v10 = -[HMFProductInfo productVariant](self, "productVariant"), v10 == -[HMFProductInfo productVariant](equalCopy, "productVariant")) && (v11 = -[HMFProductInfo productColor](self, "productColor"), v11 == -[HMFProductInfo productColor](equalCopy, "productColor")))
     {
       modelIdentifier = [(HMFProductInfo *)self modelIdentifier];
       modelIdentifier2 = [(HMFProductInfo *)equalCopy modelIdentifier];
@@ -221,7 +204,6 @@ void __29__HMFProductInfo_productInfo__block_invoke(uint64_t a1)
 
     else
     {
-LABEL_9:
       v14 = 0;
     }
   }

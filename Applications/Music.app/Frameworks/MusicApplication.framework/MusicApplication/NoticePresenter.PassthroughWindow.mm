@@ -13,9 +13,10 @@
   x = test.x;
   eventCopy = event;
   selfCopy = self;
-  v10 = sub_7E512C(event, x, y);
+  v10.n128_f64[0] = x;
+  v11 = sub_7E512C(event, v10, y);
 
-  return v10;
+  return v11;
 }
 
 - (_TtCC11MusicCoreUI15NoticePresenterP33_D8FBFBA4851A241D976DAD2E389878C117PassthroughWindow)initWithWindowScene:(id)scene

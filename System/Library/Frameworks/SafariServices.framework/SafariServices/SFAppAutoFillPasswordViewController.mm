@@ -7,32 +7,32 @@ void __72___SFAppAutoFillPasswordViewController__connectToServiceWithCompletion_
 {
   v6 = a2;
   v7 = a3;
-  (*(*(a1 + 40) + 16))();
-  v8 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  v9 = v8;
+  v8 = (*(*(a1 + 40) + 16))();
+  v10 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v8, v9);
+  v11 = v10;
   if (v6)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __72___SFAppAutoFillPasswordViewController__connectToServiceWithCompletion___block_invoke_cold_1(a1, v9, v6);
+      __72___SFAppAutoFillPasswordViewController__connectToServiceWithCompletion___block_invoke_cold_1(a1, v11, v6);
     }
 
     objc_storeStrong((*(a1 + 32) + 1008), a2);
     [*(*(a1 + 32) + 1008) setDelegate:?];
-    v10 = [*(*(a1 + 32) + 1008) serviceViewControllerProxy];
-    [*(*(a1 + 32) + 1016) setTarget:v10];
+    v12 = [*(*(a1 + 32) + 1008) serviceViewControllerProxy];
+    [*(*(a1 + 32) + 1016) setTarget:v12];
   }
 
-  else if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
   {
-    __72___SFAppAutoFillPasswordViewController__connectToServiceWithCompletion___block_invoke_cold_2(v9, v7);
+    __72___SFAppAutoFillPasswordViewController__connectToServiceWithCompletion___block_invoke_cold_2(v11, v7);
   }
 }
 
-uint64_t __102___SFAppAutoFillPasswordViewController_authenticateToPresentInPopover_savedAccountContext_completion___block_invoke(uint64_t a1)
+uint64_t __102___SFAppAutoFillPasswordViewController_authenticateToPresentInPopover_savedAccountContext_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __102___SFAppAutoFillPasswordViewController_authenticateToPresentInPopover_savedAccountContext_completion___block_invoke_cold_1();
   }

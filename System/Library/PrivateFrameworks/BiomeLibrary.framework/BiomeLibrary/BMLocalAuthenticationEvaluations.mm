@@ -16,22 +16,20 @@
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"policy" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:2 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"result" dataType:0 requestOnly:0 fieldNumber:2 protoDataType:2 convertedType:0];
   v4 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"biometry_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_234];
   v5 = [objc_alloc(MEMORY[0x1E698F2D8]) initWithName:@"passcode_json" dataType:5 requestOnly:1 extractBlock:&__block_literal_global_236];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"ratchetState" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"ratchetArmingState" dataType:0 requestOnly:0 fieldNumber:7 protoDataType:4 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
@@ -142,7 +140,7 @@ LABEL_25:
 
 - (id)jsonDictionary
 {
-  v25[6] = *MEMORY[0x1E69E9840];
+  v24[6] = *MEMORY[0x1E69E9840];
   if ([(BMLocalAuthenticationEvaluations *)self hasPolicy])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMLocalAuthenticationEvaluations policy](self, "policy")}];
@@ -171,58 +169,58 @@ LABEL_25:
 
   v9 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMLocalAuthenticationEvaluations ratchetState](self, "ratchetState")}];
   v10 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMLocalAuthenticationEvaluations ratchetArmingState](self, "ratchetArmingState")}];
-  v24[0] = @"policy";
+  v23[0] = @"policy";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = null;
-  v23 = v3;
-  v25[0] = null;
-  v24[1] = @"result";
+  v21 = null;
+  v22 = v3;
+  v24[0] = null;
+  v23[1] = @"result";
   null2 = v4;
   if (!v4)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null2;
-  v25[1] = null2;
-  v24[2] = @"biometry";
+  v19 = null2;
+  v24[1] = null2;
+  v23[2] = @"biometry";
   null3 = jsonDictionary;
   if (!jsonDictionary)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[2] = null3;
-  v24[3] = @"passcode";
+  v24[2] = null3;
+  v23[3] = @"passcode";
   null4 = jsonDictionary2;
   if (!jsonDictionary2)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[3] = null4;
-  v24[4] = @"ratchetState";
+  v24[3] = null4;
+  v23[4] = @"ratchetState";
   null5 = v9;
   if (!v9)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[4] = null5;
-  v24[5] = @"ratchetArmingState";
+  v24[4] = null5;
+  v23[5] = @"ratchetArmingState";
   null6 = v10;
   if (!v10)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25[5] = null6;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:{6, v20}];
+  v24[5] = null6;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:{6, v19}];
   if (v10)
   {
     if (v9)
@@ -280,18 +278,16 @@ LABEL_23:
 LABEL_33:
 
 LABEL_24:
-  if (!v23)
+  if (!v22)
   {
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (BMLocalAuthenticationEvaluations)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v82[1] = *MEMORY[0x1E69E9840];
+  v81[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"policy"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -314,18 +310,18 @@ LABEL_4:
         v24 = objc_alloc(MEMORY[0x1E696ABC0]);
         v25 = v8;
         v26 = *MEMORY[0x1E698F240];
-        v79 = *MEMORY[0x1E696A578];
+        v78 = *MEMORY[0x1E696A578];
         selfCopy = self;
         v28 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v55 = objc_opt_class();
+        v54 = objc_opt_class();
         v29 = v28;
         self = selfCopy;
-        v15 = [v29 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v55, @"result"];
-        v80 = v15;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+        v15 = [v29 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v54, @"result"];
+        v79 = v15;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
         v31 = v26;
         v8 = v25;
-        v68 = v30;
+        v67 = v30;
         v32 = [v24 initWithDomain:v31 code:2 userInfo:?];
         v10 = 0;
         v17 = 0;
@@ -354,23 +350,23 @@ LABEL_4:
           goto LABEL_60;
         }
 
-        v65 = v10;
+        v64 = v10;
         v34 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v63 = v8;
+        v62 = v8;
         v35 = *MEMORY[0x1E698F240];
-        v77 = *MEMORY[0x1E696A578];
+        v76 = *MEMORY[0x1E696A578];
         selfCopy2 = self;
         v37 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v56 = objc_opt_class();
+        v55 = objc_opt_class();
         v38 = v37;
         self = selfCopy2;
-        v68 = [v38 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v56, @"biometry"];
-        v78 = v68;
-        v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+        v67 = [v38 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", v55, @"biometry"];
+        v77 = v67;
+        v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
         v40 = v34;
         v41 = v35;
-        v8 = v63;
-        v10 = v65;
+        v8 = v62;
+        v10 = v64;
         *error = [v40 initWithDomain:v41 code:2 userInfo:v39];
 
         v17 = 0;
@@ -378,9 +374,9 @@ LABEL_4:
       }
 
       v15 = v11;
-      v70 = 0;
-      v68 = [[BMLocalAuthenticationEvaluationsMechanism alloc] initWithJSONDictionary:v15 error:&v70];
-      v16 = v70;
+      v69 = 0;
+      v67 = [[BMLocalAuthenticationEvaluationsMechanism alloc] initWithJSONDictionary:v15 error:&v69];
+      v16 = v69;
       if (v16)
       {
         if (error)
@@ -396,12 +392,12 @@ LABEL_4:
 
     else
     {
-      v68 = 0;
+      v67 = 0;
     }
 
     v12 = [dictionaryCopy objectForKeyedSubscript:@"passcode"];
-    v62 = v8;
-    v64 = v10;
+    v61 = v8;
+    v63 = v10;
     if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -416,10 +412,10 @@ LABEL_4:
         v42 = objc_alloc(MEMORY[0x1E696ABC0]);
         selfCopy3 = self;
         v43 = *MEMORY[0x1E698F240];
-        v75 = *MEMORY[0x1E696A578];
-        v61 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"passcode"];
-        v76 = v61;
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+        v74 = *MEMORY[0x1E696A578];
+        v60 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSDictionary", objc_opt_class(), @"passcode"];
+        v75 = v60;
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
         v44 = v43;
         self = selfCopy3;
         v45 = [v42 initWithDomain:v44 code:2 userInfo:v14];
@@ -429,9 +425,9 @@ LABEL_4:
       }
 
       v14 = v12;
-      v69 = 0;
-      v61 = [[BMLocalAuthenticationEvaluationsMechanism alloc] initWithJSONDictionary:v14 error:&v69];
-      v18 = v69;
+      v68 = 0;
+      v60 = [[BMLocalAuthenticationEvaluationsMechanism alloc] initWithJSONDictionary:v14 error:&v68];
+      v18 = v68;
       if (v18)
       {
         if (errorCopy)
@@ -450,7 +446,7 @@ LABEL_4:
     else
     {
       selfCopy5 = self;
-      v61 = 0;
+      v60 = 0;
     }
 
     v13 = [dictionaryCopy objectForKeyedSubscript:@"ratchetState"];
@@ -474,16 +470,16 @@ LABEL_4:
             goto LABEL_54;
           }
 
-          v58 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v51 = *MEMORY[0x1E698F240];
-          v73 = *MEMORY[0x1E696A578];
+          v57 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v50 = *MEMORY[0x1E698F240];
+          v72 = *MEMORY[0x1E696A578];
           v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"ratchetState"];
-          v74 = v47;
-          v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-          v52 = [v58 initWithDomain:v51 code:2 userInfo:v46];
+          v73 = v47;
+          v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+          v51 = [v57 initWithDomain:v50 code:2 userInfo:v46];
           v14 = 0;
           v17 = 0;
-          *errorCopy = v52;
+          *errorCopy = v51;
           goto LABEL_53;
         }
 
@@ -514,13 +510,13 @@ LABEL_4:
         {
           if (errorCopy)
           {
-            v59 = objc_alloc(MEMORY[0x1E696ABC0]);
-            v57 = *MEMORY[0x1E698F240];
-            v71 = *MEMORY[0x1E696A578];
-            v53 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"ratchetArmingState"];
-            v72 = v53;
-            v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-            *errorCopy = [v59 initWithDomain:v57 code:2 userInfo:v54];
+            v58 = objc_alloc(MEMORY[0x1E696ABC0]);
+            v56 = *MEMORY[0x1E698F240];
+            v70 = *MEMORY[0x1E696A578];
+            v52 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"ratchetArmingState"];
+            v71 = v52;
+            v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+            *errorCopy = [v58 initWithDomain:v56 code:2 userInfo:v53];
           }
 
           v47 = 0;
@@ -539,17 +535,17 @@ LABEL_4:
       v47 = 0;
     }
 
-    v17 = -[BMLocalAuthenticationEvaluations initWithPolicy:result:biometry:passcode:ratchetState:ratchetArmingState:](selfCopy5, "initWithPolicy:result:biometry:passcode:ratchetState:ratchetArmingState:", v62, v64, v68, v61, [v14 intValue], objc_msgSend(v47, "intValue"));
+    v17 = -[BMLocalAuthenticationEvaluations initWithPolicy:result:biometry:passcode:ratchetState:ratchetArmingState:](selfCopy5, "initWithPolicy:result:biometry:passcode:ratchetState:ratchetArmingState:", v61, v63, v67, v60, [v14 intValue], objc_msgSend(v47, "intValue"));
     selfCopy5 = v17;
 LABEL_53:
 
 LABEL_54:
     self = selfCopy5;
 LABEL_55:
-    v10 = v64;
+    v10 = v63;
 LABEL_56:
 
-    v8 = v62;
+    v8 = v61;
 LABEL_57:
 
 LABEL_58:
@@ -573,10 +569,10 @@ LABEL_60:
   {
     v19 = objc_alloc(MEMORY[0x1E696ABC0]);
     v20 = *MEMORY[0x1E698F240];
-    v81 = *MEMORY[0x1E696A578];
+    v80 = *MEMORY[0x1E696A578];
     v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"policy"];
-    v82[0] = v21;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v82 forKeys:&v81 count:1];
+    v81[0] = v21;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:&v80 count:1];
     v22 = v19;
     v10 = v21;
     v23 = [v22 initWithDomain:v20 code:2 userInfo:v9];
@@ -592,7 +588,6 @@ LABEL_61:
   v17 = 0;
 LABEL_62:
 
-  v49 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -610,13 +605,11 @@ LABEL_62:
   toCopy = to;
   if (self->_hasPolicy)
   {
-    policy = self->_policy;
     PBDataWriterWriteInt32Field();
   }
 
   if (self->_hasResult)
   {
-    result = self->_result;
     PBDataWriterWriteInt32Field();
   }
 
@@ -634,9 +627,7 @@ LABEL_62:
     PBDataWriterRecallMark();
   }
 
-  ratchetState = self->_ratchetState;
   PBDataWriterWriteUint32Field();
-  ratchetArmingState = self->_ratchetArmingState;
   PBDataWriterWriteUint32Field();
 }
 
@@ -1046,44 +1037,42 @@ LABEL_91:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"policy" number:1 type:2 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"result" number:2 type:2 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"biometry" number:3 type:14 subMessageClass:objc_opt_class()];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"passcode" number:4 type:14 subMessageClass:objc_opt_class()];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"ratchetState" number:5 type:4 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"ratchetArmingState" number:7 type:4 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
-id __43__BMLocalAuthenticationEvaluations_columns__block_invoke_2(uint64_t a1, void *a2)
+id __43__BMLocalAuthenticationEvaluations_columns__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 passcode];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 passcode];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
-id __43__BMLocalAuthenticationEvaluations_columns__block_invoke(uint64_t a1, void *a2)
+id __43__BMLocalAuthenticationEvaluations_columns__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = [a2 eventBodyKeepingBackingData:1];
-  v3 = [v2 biometry];
-  v4 = [v3 jsonDictionary];
-  v5 = BMConvertObjectToJSONString();
+  v3 = [a2 eventBodyKeepingBackingData:1];
+  v4 = [v3 biometry];
+  v5 = [v4 jsonDictionary];
+  v6 = BMConvertObjectToJSONString();
 
-  return v5;
+  return v6;
 }
 
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version

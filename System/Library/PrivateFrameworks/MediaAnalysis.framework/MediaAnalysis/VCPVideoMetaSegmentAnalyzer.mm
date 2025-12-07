@@ -69,7 +69,7 @@
           v25[0] = @"start";
           if (v10)
           {
-            [v10 time];
+            objc_msgSend_time(v10);
           }
 
           else
@@ -83,7 +83,7 @@
           v26[0] = v12;
           if (v10)
           {
-            [v10 duration];
+            objc_msgSend_duration(v10);
           }
 
           else

@@ -10,8 +10,7 @@
   connectionCopy = connection;
   selfCopy = self;
   v9 = connectionCopy;
-  v10 = sub_1DA7AC494(selfCopy, v9, v6);
-  v11 = *(&selfCopy->super.isa + OBJC_IVAR____TtC21UserNotificationsCore27NotificationServiceListener_queue);
+  v11 = sub_1DA7AC494(selfCopy, v9, v6);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECBD62A8, &qword_1DA95F148);
   sub_1DA940FE4();
 

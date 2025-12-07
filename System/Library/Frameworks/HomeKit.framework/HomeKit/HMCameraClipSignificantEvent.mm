@@ -11,7 +11,7 @@
 
 - (HMCameraClipSignificantEvent)initWithCoder:(id)coder
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [[HMCameraSignificantEvent alloc] initWithCoder:coderCopy];
   if (v5)
@@ -41,9 +41,9 @@
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v22 = v18;
-        v23 = 2112;
-        v24 = 0;
+        v21 = v18;
+        v22 = 2112;
+        v23 = 0;
         _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded clipUUID: %@", buf, 0x16u);
       }
 
@@ -57,7 +57,6 @@
     selfCopy = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -105,25 +104,23 @@
 
 - (id)attributeDescriptions
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   v4 = MEMORY[0x1E696AD98];
   [(HMCameraClipSignificantEvent *)self timeOffsetWithinClip];
   v5 = [v4 numberWithDouble:?];
   v6 = [v3 initWithName:@"Time offset within clip" value:v5];
-  v16[0] = v6;
+  v15[0] = v6;
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
   clipUUID = [(HMCameraClipSignificantEvent *)self clipUUID];
   v9 = [v7 initWithName:@"Clip UUID" value:clipUUID];
-  v16[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
 
-  v15.receiver = self;
-  v15.super_class = HMCameraClipSignificantEvent;
-  attributeDescriptions = [(HMCameraSignificantEvent *)&v15 attributeDescriptions];
+  v14.receiver = self;
+  v14.super_class = HMCameraClipSignificantEvent;
+  attributeDescriptions = [(HMCameraSignificantEvent *)&v14 attributeDescriptions];
   v12 = [attributeDescriptions arrayByAddingObjectsFromArray:v10];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

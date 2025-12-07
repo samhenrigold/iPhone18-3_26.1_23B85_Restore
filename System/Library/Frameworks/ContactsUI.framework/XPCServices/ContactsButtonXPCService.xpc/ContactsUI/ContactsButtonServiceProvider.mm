@@ -28,8 +28,8 @@
   x = frame.origin.x;
   v18 = _Block_copy(with);
   v19 = sub_10001D30C();
-  v33 = v20;
-  v34 = v19;
+  v65 = v20;
+  v66 = v19;
   v21 = sub_10001D48C();
   v22 = sub_10001D48C();
   styleCopy = style;
@@ -43,11 +43,16 @@
   v32 = v31;
 
   _Block_copy(v18);
-  sub_1000199B4(styleCopy, context, v34, v33, v21, v22, x, y, width, height, v27, v29, v30, v32, selfCopy, v18);
+  sub_1000199B4(styleCopy, context, v66, v65, v21, v22, v27, v29, x, y, width, height, v30, v32, selfCopy, v18);
   _Block_release(v18);
   _Block_release(v18);
-
+  v32, v33, v34, v35, v36, v69, v37, v38, v39;
   sub_100004798(v27, v29);
+
+  v65, v40, v41, v42, v43, v70, v44, v45, v46;
+  v21, v47, v48, v49, v50, v71, v51, v52, v53;
+
+  v22, v54, v55, v56, v57, *&v61, v58, v59, v60;
 }
 
 - (void)onPrimaryTouchUpEvent:(id)event with:(id)with

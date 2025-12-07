@@ -96,50 +96,50 @@ LABEL_15:
 
 - (id)serializeWithError:(id *)error
 {
-  v60 = *MEMORY[0x277D85DE8];
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
+  v59 = *MEMORY[0x277D85DE8];
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v38 = 0u;
   TLV8BufferInit();
-  v36 = 0u;
-  v34 = 0u;
   v35 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v32 = 0u;
   portRules = [(HMDNetworkRouterWANFirewallRuleList *)self portRules];
-  v6 = [portRules countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v6 = [portRules countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v34;
+    v9 = *v33;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v34 != v9)
+      if (*v33 != v9)
       {
         objc_enumerationMutation(portRules);
       }
 
-      v11 = *(*(&v33 + 1) + 8 * v10);
+      v11 = *(*(&v32 + 1) + 8 * v10);
       if (v8)
       {
         if (TLV8BufferAppend())
@@ -148,9 +148,9 @@ LABEL_3:
         }
       }
 
-      v32 = 0;
-      v12 = [v11 serializeWithError:&v32];
-      v13 = v32;
+      v31 = 0;
+      v12 = [v11 serializeWithError:&v31];
+      v13 = v31;
       if (v13)
       {
 LABEL_24:
@@ -180,7 +180,7 @@ LABEL_24:
       v8 = 1;
       if (v7 == v10)
       {
-        v7 = [portRules countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v7 = [portRules countByEnumeratingWithState:&v32 objects:v37 count:16];
         if (v7)
         {
           goto LABEL_3;
@@ -195,34 +195,34 @@ LABEL_24:
   {
 LABEL_12:
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     portRules = [(HMDNetworkRouterWANFirewallRuleList *)self icmpRules];
-    v15 = [portRules countByEnumeratingWithState:&v28 objects:v37 count:16];
+    v15 = [portRules countByEnumeratingWithState:&v27 objects:v36 count:16];
     if (!v15)
     {
 LABEL_23:
 
-      v22 = [MEMORY[0x277CBEA90] dataWithBytes:v39 length:?];
+      v22 = [MEMORY[0x277CBEA90] dataWithBytes:v38 length:?];
       v23 = 0;
       goto LABEL_30;
     }
 
     v16 = v15;
     v17 = 0;
-    v18 = *v29;
+    v18 = *v28;
 LABEL_14:
     v19 = 0;
     while (1)
     {
-      if (*v29 != v18)
+      if (*v28 != v18)
       {
         objc_enumerationMutation(portRules);
       }
 
-      v20 = *(*(&v28 + 1) + 8 * v19);
+      v20 = *(*(&v27 + 1) + 8 * v19);
       if (v17)
       {
         if (TLV8BufferAppend())
@@ -231,9 +231,9 @@ LABEL_14:
         }
       }
 
-      v27 = 0;
-      v12 = [v20 serializeWithError:&v27];
-      v13 = v27;
+      v26 = 0;
+      v12 = [v20 serializeWithError:&v26];
+      v13 = v26;
       if (v13)
       {
         goto LABEL_24;
@@ -252,7 +252,7 @@ LABEL_14:
       v17 = 1;
       if (v16 == v19)
       {
-        v16 = [portRules countByEnumeratingWithState:&v28 objects:v37 count:16];
+        v16 = [portRules countByEnumeratingWithState:&v27 objects:v36 count:16];
         if (v16)
         {
           goto LABEL_14;
@@ -279,8 +279,6 @@ LABEL_29:
 
 LABEL_30:
   TLV8BufferFree();
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v22;
 }

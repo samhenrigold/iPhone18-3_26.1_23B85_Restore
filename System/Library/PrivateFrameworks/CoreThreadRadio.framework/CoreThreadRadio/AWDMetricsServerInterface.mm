@@ -1,6 +1,7 @@
 @interface AWDMetricsServerInterface
 - (AWDMetricsServerInterface)init;
 - (BOOL)setupAWDMetricsServerConnections;
+- (void)handleMetricQuery:(unsigned int)query;
 @end
 
 @implementation AWDMetricsServerInterface
@@ -389,6 +390,169 @@ void __61__AWDMetricsServerInterface_setupAWDMetricsServerConnections__block_inv
   v6[4] = *(a1 + 32);
   v7 = a2;
   dispatch_async(v5, v6);
+}
+
+- (void)handleMetricQuery:(unsigned int)query
+{
+  v3 = *&query;
+  if (query != 8978440 || (AWDMetricsClient_IsModified_Topology() & 1) != 0)
+  {
+    awdServerConnection = [(AWDMetricsServerInterface *)self awdServerConnection];
+    v6 = [awdServerConnection newMetricContainerWithIdentifier:v3];
+
+    if (!v6)
+    {
+      v7 = log_get_logging_obg("com.apple.wpantund.awd", "default");
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      {
+        [(AWDMetricsServerInterface *)v3 handleMetricQuery:v7, v8, v9, v10, v11, v12, v13];
+      }
+
+      goto LABEL_46;
+    }
+
+    v7 = 0;
+    if (v3 <= 8978435)
+    {
+      if (v3 == 8978433 || v3 == 8978434 || v3 == 8978435)
+      {
+LABEL_24:
+        v7 = objc_opt_new();
+        if (!v7)
+        {
+          goto LABEL_46;
+        }
+
+        goto LABEL_25;
+      }
+    }
+
+    else if (v3 > 8978438)
+    {
+      if (v3 == 8978439)
+      {
+        goto LABEL_24;
+      }
+
+      if (v3 == 8978440)
+      {
+        v7 = objc_opt_new();
+      }
+    }
+
+    else if (v3 == 8978436 || v3 == 8978437)
+    {
+      goto LABEL_24;
+    }
+
+    v14 = log_get_logging_obg("com.apple.wpantund.awd", "default");
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [(AWDMetricsServerInterface *)v3 handleMetricQuery:v14, v15, v16, v17, v18, v19, v20];
+    }
+
+    if (!v7)
+    {
+      goto LABEL_46;
+    }
+
+LABEL_25:
+    if (v3 > 8978435)
+    {
+      switch(v3)
+      {
+        case 0x890004:
+          AWDMetricsClient_GetMetrics_Coex(v7);
+        case 0x890005:
+          AWDMetricsClient_GetMetrics_IPMLE(v7);
+        case 0x890007:
+          AWDMetricsClient_GetMetrics_Power(v7);
+          AWDMetricsClient_ResetMetrics_Power();
+          [v6 setMetric:v7];
+          awdServerConnection2 = [(AWDMetricsServerInterface *)self awdServerConnection];
+          v22 = [awdServerConnection2 submitMetric:v6];
+
+          if (g_is_loggingEnabled == 1)
+          {
+            AWDMetricsLogger_PowerMetrics(v7);
+          }
+
+          goto LABEL_42;
+      }
+    }
+
+    else
+    {
+      switch(v3)
+      {
+        case 0x890001:
+          AWDMetricsClient_GetMetrics_Engagement(v7);
+        case 0x890002:
+          AWDMetricsClient_GetMetrics_NetworkRadio(v7);
+        case 0x890003:
+          AWDMetricsClient_GetMetrics_MAC(v7);
+      }
+    }
+
+    if (v3 == 8978440)
+    {
+      AWDMetricsClient_GetMetrics_Topology(v7);
+      AWDMetricsClient_ResetMetrics_Topology();
+      [v6 setMetric:v7];
+      awdServerConnection3 = [(AWDMetricsServerInterface *)self awdServerConnection];
+      v22 = [awdServerConnection3 submitMetric:v6];
+
+      if (g_is_loggingEnabled == 1)
+      {
+        AWDMetricsLogger_TopologyMetrics(v7);
+      }
+
+LABEL_42:
+      if ((v22 & 1) == 0)
+      {
+        v24 = log_get_logging_obg("com.apple.wpantund.awd", "default");
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        {
+          [(AWDMetricsServerInterface *)v3 handleMetricQuery:v24, v25, v26, v27, v28, v29, v30];
+        }
+      }
+    }
+
+LABEL_46:
+
+    goto LABEL_47;
+  }
+
+  v6 = log_get_logging_obg("com.apple.wpantund.awd", "default");
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    v31[0] = 67109120;
+    v31[1] = 8978440;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "AWDMetricsServerInterface : handleMetricQuery with metricId %d return here as topology not modified", v31, 8u);
+  }
+
+LABEL_47:
+}
+
+- (void)handleMetricQuery:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_2_2(&_mh_execute_header, a2, a3, "AWDMetricsServerInterface : handleMetricQuery with unknown metricId %d", a5, a6, a7, a8, v8);
+}
+
+- (void)handleMetricQuery:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_2_2(&_mh_execute_header, a2, a3, "AWDMetricsServerInterface : ERROR submitMetric with metricId %d", a5, a6, a7, a8, v8);
+}
+
+- (void)handleMetricQuery:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_2_2(&_mh_execute_header, a2, a3, "AWDMetricsServerInterface : handleMetricQuery unable to create metric container for metricId %d", a5, a6, a7, a8, v8);
 }
 
 @end

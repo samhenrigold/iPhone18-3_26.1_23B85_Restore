@@ -3,9 +3,11 @@
 - (void)_accessibilityAnnounceNewKeyboardCompletionWithPreviousIndexPath:(id)path;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axUpdateAccessibilityElements;
+- (void)_setShowingCompletions:(BOOL)completions popoverDismissalReason:(int64_t)reason completionHandler:(id)handler;
 - (void)completionList:(id)list topHitDidBecomeReadyForString:(id)string;
 - (void)showUniversalSearchFirstTimeExperienceIfNotShowing;
 - (void)unifiedField:(id)field moveCompletionSelectionByRowOffset:(int64_t)offset;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation CatalogViewControllerAccessibility
@@ -169,6 +171,14 @@ id __68__CatalogViewControllerAccessibility__axUpdateAccessibilityElements__bloc
   return v2;
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CatalogViewControllerAccessibility;
+  [(CatalogViewControllerAccessibility *)&v4 viewDidAppear:appear];
+  [(CatalogViewControllerAccessibility *)self _axUpdateAccessibilityElements];
+}
+
 - (void)showUniversalSearchFirstTimeExperienceIfNotShowing
 {
   v3.receiver = self;
@@ -177,11 +187,36 @@ id __68__CatalogViewControllerAccessibility__axUpdateAccessibilityElements__bloc
   [(CatalogViewControllerAccessibility *)self _axUpdateAccessibilityElements];
 }
 
-uint64_t __102__CatalogViewControllerAccessibility__setShowingCompletions_popoverDismissalReason_completionHandler___block_invoke(uint64_t result)
+- (void)_setShowingCompletions:(BOOL)completions popoverDismissalReason:(int64_t)reason completionHandler:(id)handler
+{
+  completionsCopy = completions;
+  handlerCopy = handler;
+  v9 = [(CatalogViewControllerAccessibility *)self safeBoolForKey:@"isShowingCompletions"];
+  v17[0] = MEMORY[0x29EDCA5F8];
+  v17[1] = 3221225472;
+  v17[2] = __102__CatalogViewControllerAccessibility__setShowingCompletions_popoverDismissalReason_completionHandler___block_invoke;
+  v17[3] = &unk_29F2D7A48;
+  v18 = v9 ^ completionsCopy;
+  v17[4] = self;
+  v10 = MEMORY[0x29C2E0F40](v17);
+  v14[0] = MEMORY[0x29EDCA5F8];
+  v14[1] = 3221225472;
+  v14[2] = __102__CatalogViewControllerAccessibility__setShowingCompletions_popoverDismissalReason_completionHandler___block_invoke_2;
+  v14[3] = &unk_29F2D7A70;
+  v15 = handlerCopy;
+  v16 = v10;
+  v13.receiver = self;
+  v13.super_class = CatalogViewControllerAccessibility;
+  v11 = v10;
+  v12 = handlerCopy;
+  [(CatalogViewControllerAccessibility *)&v13 _setShowingCompletions:completionsCopy popoverDismissalReason:reason completionHandler:v14];
+}
+
+id *__102__CatalogViewControllerAccessibility__setShowingCompletions_popoverDismissalReason_completionHandler___block_invoke(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _axUpdateAccessibilityElements];
+    return [result[4] _axUpdateAccessibilityElements];
   }
 
   return result;

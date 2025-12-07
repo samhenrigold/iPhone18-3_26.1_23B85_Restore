@@ -124,8 +124,8 @@ LABEL_8:
   [(BWVideoFormatRequirements *)v13 setWidth:1024];
   [(BWVideoFormatRequirements *)v13 setHeight:1024];
   [(BWVideoFormatRequirements *)v13 setSupportedPixelFormats:&unk_1F2247F08];
-  v17 = v13;
-  v14 = -[BWPixelBufferPool initWithVideoFormat:capacity:name:memoryPool:]([BWPixelBufferPool alloc], "initWithVideoFormat:capacity:name:memoryPool:", +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1]), 1, @"BWPocketDetectionNode", +[BWMemoryPool sharedMemoryPool](BWMemoryPool, "sharedMemoryPool"));
+  v18 = v13;
+  v14 = -[BWPixelBufferPool initWithVideoFormat:capacity:name:memoryPool:]([BWPixelBufferPool alloc], "initWithVideoFormat:capacity:name:memoryPool:", +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1]), 1, @"BWPocketDetectionNode", +[BWMemoryPool sharedMemoryPool](BWMemoryPool, "sharedMemoryPool"));
   self->_fftBufferPool = v14;
   if (!v14)
   {
@@ -142,10 +142,11 @@ LABEL_8:
 
   else
   {
-    v12 = VTSessionSetProperty(self->_cropSession, *MEMORY[0x1E6983D68], MEMORY[0x1E695E118]);
-    if (v12)
+    v16 = VTSessionSetProperty(self->_cropSession, *MEMORY[0x1E6983D68], MEMORY[0x1E695E118]);
+    v12 = v16;
+    if (v16)
     {
-      [BWPocketDetectionFFTProcessor allocateResources];
+      [(BWPocketDetectionFFTProcessor *)v16 allocateResources];
     }
   }
 
@@ -382,7 +383,7 @@ LABEL_36:
   if (!commandBuffer)
   {
     [BWPocketDetectionFFTProcessor _processMetalOptimizedFFTOnInputPixelBuffer:? usingSourceRect:? cumulativeScoreOut:?];
-    return v39;
+    return v40;
   }
 
   v20 = commandBuffer;
@@ -390,7 +391,7 @@ LABEL_36:
   if (!computeCommandEncoder)
   {
     [BWPocketDetectionFFTProcessor _processMetalOptimizedFFTOnInputPixelBuffer:? usingSourceRect:? cumulativeScoreOut:?];
-    return v39;
+    return v40;
   }
 
   v22 = computeCommandEncoder;
@@ -408,36 +409,37 @@ LABEL_36:
   }
 
   v24 = v23;
-  v43.origin.x = x;
-  v43.origin.y = y;
-  v43.size.width = width;
-  v43.size.height = height;
-  MidX = CGRectGetMidX(v43);
   v44.origin.x = x;
   v44.origin.y = y;
   v44.size.width = width;
   v44.size.height = height;
-  MidY = CGRectGetMidY(v44);
+  MidX = CGRectGetMidX(v44);
+  v45.origin.x = x;
+  v45.origin.y = y;
+  v45.size.width = width;
+  v45.size.height = height;
+  MidY = CGRectGetMidY(v45);
   v26.f64[0] = MidX;
   v26.f64[1] = MidY;
-  v42 = vcvt_f32_f64(vsubq_f64(v26, vdupq_lane_s64(COERCE__INT64((v24 / 2)), 0)));
-  v41 = vcvts_n_f32_s32(v24, 0xAuLL);
-  [v22 setBytes:&v42 length:8 atIndex:0];
-  [v22 setBytes:&v41 length:4 atIndex:1];
+  v43 = vcvt_f32_f64(vsubq_f64(v26, vdupq_lane_s64(COERCE__INT64((v24 / 2)), 0)));
+  v42 = vcvts_n_f32_s32(v24, 0xAuLL);
+  [v22 setBytes:&v43 length:8 atIndex:0];
+  [v22 setBytes:&v42 length:4 atIndex:1];
   threadExecutionWidth = [(MTLComputePipelineState *)self->_computePipelines[0] threadExecutionWidth];
   maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)self->_computePipelines[0] maxTotalThreadsPerThreadgroup];
-  *&v39 = (threadExecutionWidth + 2047) / threadExecutionWidth;
-  *(&v39 + 1) = (maxTotalThreadsPerThreadgroup / threadExecutionWidth + 1023) / (maxTotalThreadsPerThreadgroup / threadExecutionWidth);
-  v40 = 1;
-  v37.i64[0] = threadExecutionWidth;
-  v37.i64[1] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
-  v38 = 1;
-  [v22 dispatchThreadgroups:&v39 threadsPerThreadgroup:&v37];
+  *&v40 = (threadExecutionWidth + 2047) / threadExecutionWidth;
+  *(&v40 + 1) = (maxTotalThreadsPerThreadgroup / threadExecutionWidth + 1023) / (maxTotalThreadsPerThreadgroup / threadExecutionWidth);
+  v41 = 1;
+  v38.i64[0] = threadExecutionWidth;
+  v38.i64[1] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
+  v39 = 1;
+  [v22 dispatchThreadgroups:&v40 threadsPerThreadgroup:&v38];
   [v22 endEncoding];
-  v13 = [(CMIFFTTransform *)self->_fftTransform encodeToCommandBuffer:v20 inputBuffer:[(MTLTexture *)self->_fftMetalTexture buffer] direction:1];
-  if (v13)
+  v29 = [(CMIFFTTransform *)self->_fftTransform encodeToCommandBuffer:v20 inputBuffer:[(MTLTexture *)self->_fftMetalTexture buffer] direction:1];
+  v13 = v29;
+  if (v29)
   {
-    [BWPocketDetectionFFTProcessor _processMetalOptimizedFFTOnInputPixelBuffer:usingSourceRect:cumulativeScoreOut:];
+    [BWPocketDetectionFFTProcessor _processMetalOptimizedFFTOnInputPixelBuffer:v29 usingSourceRect:? cumulativeScoreOut:?];
   }
 
   else
@@ -446,32 +448,32 @@ LABEL_36:
     [computeCommandEncoder2 setComputePipelineState:self->_computePipelines[1]];
     [computeCommandEncoder2 setTexture:self->_fftMetalTexture atIndex:0];
     [computeCommandEncoder2 setTexture:self->_fftResultAccumulationMetalTexture atIndex:1];
-    v36 = 1024;
-    [computeCommandEncoder2 setBytes:&v36 length:4 atIndex:0];
-    v39 = xmmword_1ACF06140;
-    v40 = 1;
-    v37 = vdupq_n_s64(0x20uLL);
-    v38 = 1;
-    [computeCommandEncoder2 dispatchThreadgroups:&v39 threadsPerThreadgroup:&v37];
+    v37 = 1024;
+    [computeCommandEncoder2 setBytes:&v37 length:4 atIndex:0];
+    v40 = xmmword_1ACF06140;
+    v41 = 1;
+    v38 = vdupq_n_s64(0x20uLL);
+    v39 = 1;
+    [computeCommandEncoder2 dispatchThreadgroups:&v40 threadsPerThreadgroup:&v38];
     [computeCommandEncoder2 endEncoding];
     [v20 commit];
     [v20 waitUntilCompleted];
-    v30 = [-[MTLTexture buffer](self->_fftResultAccumulationMetalTexture "buffer")];
-    v31 = 0;
-    v32 = 0.0;
+    v31 = [-[MTLTexture buffer](self->_fftResultAccumulationMetalTexture "buffer")];
+    v32 = 0;
+    v33 = 0.0;
     do
     {
       for (i = 0; i != 256; i += 16)
       {
-        v32 = (((v32 + COERCE_FLOAT(*(v30 + i))) + COERCE_FLOAT(HIDWORD(*(v30 + i)))) + COERCE_FLOAT(*(v30 + i + 8))) + COERCE_FLOAT(HIDWORD(*(v30 + i)));
+        v33 = (((v33 + COERCE_FLOAT(*(v31 + i))) + COERCE_FLOAT(HIDWORD(*(v31 + i)))) + COERCE_FLOAT(*(v31 + i + 8))) + COERCE_FLOAT(HIDWORD(*(v31 + i)));
       }
 
-      ++v31;
-      v30 += 256;
+      ++v32;
+      v31 += 256;
     }
 
-    while (v31 != 16);
-    *out = v32;
+    while (v32 != 16);
+    *out = v33;
   }
 
   return v13;
@@ -484,22 +486,22 @@ LABEL_36:
   y = rect.origin.y;
   x = rect.origin.x;
   newPixelBuffer = [(BWPixelBufferPool *)self->_fftBufferPool newPixelBuffer];
-  v36.origin.x = x;
-  v36.origin.y = y;
-  v36.size.width = width;
-  v36.size.height = height;
-  CGRectGetMidX(v36);
   v37.origin.x = x;
   v37.origin.y = y;
   v37.size.width = width;
   v37.size.height = height;
-  CGRectGetMidY(v37);
+  CGRectGetMidX(v37);
+  v38.origin.x = x;
+  v38.origin.y = y;
+  v38.size.width = width;
+  v38.size.height = height;
+  CGRectGetMidY(v38);
   CVPixelBufferGetWidth(newPixelBuffer);
   CVPixelBufferGetHeight(newPixelBuffer);
   v12 = VTPixelRotationSessionRotateSubImage();
   if (v12)
   {
-    v24 = v12;
+    v25 = v12;
     [BWPocketDetectionFFTProcessor _processFFTOnInputPixelBuffer:usingSourceRect:cumulativeScoreOut:];
   }
 
@@ -512,7 +514,7 @@ LABEL_36:
       v15 = CVPixelBufferLockBaseAddress(newPixelBuffer, 1uLL);
       if (v15)
       {
-        v24 = v15;
+        v25 = v15;
         [BWPocketDetectionFFTProcessor _processFFTOnInputPixelBuffer:usingSourceRect:cumulativeScoreOut:];
       }
 
@@ -546,51 +548,52 @@ LABEL_36:
         while (v20 != 1024);
         CVPixelBufferUnlockBaseAddress(newPixelBuffer, 1uLL);
         v24 = [(CMIFFTTransform *)self->_fftTransform encodeToCommandBuffer:v14 inputBuffer:self->_fftMetalBuffer direction:1];
+        v25 = v24;
         if (v24)
         {
-          [BWPocketDetectionFFTProcessor _processFFTOnInputPixelBuffer:usingSourceRect:cumulativeScoreOut:];
+          [BWPocketDetectionFFTProcessor _processFFTOnInputPixelBuffer:v24 usingSourceRect:? cumulativeScoreOut:?];
         }
 
         else
         {
           [v14 commit];
           [v14 waitUntilCompleted];
-          v25 = 0;
-          v26 = (contents + 8188);
-          v27 = (contents + 4);
-          v28 = 0.0;
+          v26 = 0;
+          v27 = (contents + 8188);
+          v28 = (contents + 4);
+          v29 = 0.0;
           do
           {
-            v29 = 0;
-            v30 = v27;
-            v31 = v26;
+            v30 = 0;
+            v31 = v28;
+            v32 = v27;
             do
             {
-              if (v25 >= v29)
+              if (v26 >= v30)
               {
-                v32 = v29;
+                v33 = v30;
               }
 
               else
               {
-                v32 = v25;
+                v33 = v26;
               }
 
-              v33 = vcvts_n_f32_u32(v32, 9uLL);
-              v28 = (v28 + (((*v30 * *v30) + (*(v30 - 1) * *(v30 - 1))) * v33)) + (((*(v31 - 1) * *(v31 - 1)) + (*v31 * *v31)) * v33);
-              ++v29;
-              v31 -= 2;
-              v30 += 2;
+              v34 = vcvts_n_f32_u32(v33, 9uLL);
+              v29 = (v29 + (((*v31 * *v31) + (*(v31 - 1) * *(v31 - 1))) * v34)) + (((*(v32 - 1) * *(v32 - 1)) + (*v32 * *v32)) * v34);
+              ++v30;
+              v32 -= 2;
+              v31 += 2;
             }
 
-            while (v29 != 512);
-            ++v25;
-            v26 += 2048;
+            while (v30 != 512);
+            ++v26;
             v27 += 2048;
+            v28 += 2048;
           }
 
-          while (v25 != 512);
-          *out = v28;
+          while (v26 != 512);
+          *out = v29;
         }
       }
     }
@@ -598,12 +601,12 @@ LABEL_36:
     else
     {
       [BWPocketDetectionFFTProcessor _processFFTOnInputPixelBuffer:? usingSourceRect:? cumulativeScoreOut:?];
-      v24 = v35;
+      v25 = v36;
     }
   }
 
   CVPixelBufferRelease(newPixelBuffer);
-  return v24;
+  return v25;
 }
 
 - (int)_setupPipelines
@@ -614,6 +617,7 @@ LABEL_36:
   {
     v6 = i;
     v7 = -[BWPocketDetectionFFTProcessor _loadKernel:name:](self, "_loadKernel:name:", &computePipelines[v3], [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:kKernelNames[v3]]);
+    v8 = v7;
     if (v7)
     {
       break;
@@ -622,12 +626,12 @@ LABEL_36:
     v3 = 1;
     if ((v6 & 1) == 0)
     {
-      return v7;
+      return v8;
     }
   }
 
-  [BWPocketDetectionFFTProcessor _setupPipelines];
-  return v7;
+  [(BWPocketDetectionFFTProcessor *)v7 _setupPipelines];
+  return v8;
 }
 
 - (int)_loadKernel:(id *)kernel name:(id)name
@@ -658,8 +662,8 @@ LABEL_36:
 - (uint64_t)_processMetalOptimizedFFTOnInputPixelBuffer:(_DWORD *)a1 usingSourceRect:cumulativeScoreOut:.cold.2(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_6();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v8, v9, v10, v11, v12, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E498, 0xFFFEE107, "(Fig)", 0x15F, v1, v3, v4, v7);
   *a1 = result;
   return result;
 }
@@ -667,8 +671,8 @@ LABEL_36:
 - (uint64_t)_processMetalOptimizedFFTOnInputPixelBuffer:(_DWORD *)a1 usingSourceRect:cumulativeScoreOut:.cold.3(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_6();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v8, v9, v10, v11, v12, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E498, 0xFFFEE107, "(Fig)", 0x15D, v1, v3, v4, v7);
   *a1 = result;
   return result;
 }
@@ -676,8 +680,8 @@ LABEL_36:
 - (uint64_t)_processFFTOnInputPixelBuffer:(_DWORD *)a1 usingSourceRect:cumulativeScoreOut:.cold.4(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_6();
-  FigDebugAssert3();
-  result = FigSignalErrorAtGM();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v8, v9, v10, v11, v12, vars0, vars8);
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_1EB58E498, 0xFFFEE107, "(Fig)", 0x1C8, v1, v3, v4, v7);
   *a1 = result;
   return result;
 }

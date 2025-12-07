@@ -107,30 +107,30 @@
 
 void __63__BBRemoteDataProviderConnection_debugDescriptionWithChildren___block_invoke(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if ([*(a1[4] + 32) count])
   {
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v2 = *(a1[4] + 32);
-    v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v3)
     {
       v4 = v3;
-      v5 = *v12;
+      v5 = *v11;
       do
       {
         v6 = 0;
         do
         {
-          if (*v12 != v5)
+          if (*v11 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v7 = [*(a1[4] + 32) objectForKeyedSubscript:*(*(&v11 + 1) + 8 * v6)];
+          v7 = [*(a1[4] + 32) objectForKeyedSubscript:*(*(&v10 + 1) + 8 * v6)];
           v8 = a1[5];
           v9 = [v7 debugDescriptionWithChildren:a1[6] + 1];
           [v8 appendFormat:@"\n%@", v9];
@@ -139,14 +139,12 @@ void __63__BBRemoteDataProviderConnection_debugDescriptionWithChildren___block_i
         }
 
         while (v4 != v6);
-        v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v4);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setConnected:(BOOL)connected completion:(id)completion
@@ -166,98 +164,98 @@ void __63__BBRemoteDataProviderConnection_debugDescriptionWithChildren___block_i
 
 uint64_t __58__BBRemoteDataProviderConnection_setConnected_completion___block_invoke(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 48);
-  if (*(v2 + 8) != v3)
+  if (*(v2 + 8) == v3)
   {
-    *(v2 + 8) = v3;
-    v4 = *(*(a1 + 32) + 8);
-    v5 = BBLogConnection;
-    v6 = os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT);
-    if (v4 == 1)
-    {
-      if (!v6)
-      {
-        goto LABEL_19;
-      }
+    goto LABEL_19;
+  }
 
-      v7 = *(a1 + 32);
-      v8 = v5;
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(*(a1 + 32) + 56);
-      *buf = 138543618;
-      v33 = v10;
-      v34 = 2114;
-      v35 = v11;
-      _os_log_impl(&dword_241EFF000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ CONNECTED", buf, 0x16u);
+  *(v2 + 8) = v3;
+  v4 = *(*(a1 + 32) + 8);
+  v5 = BBLogConnection;
+  v6 = os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT);
+  if (v4 == 1)
+  {
+    if (!v6)
+    {
+      goto LABEL_19;
     }
 
-    else
+    v7 = v5;
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = *(*(a1 + 32) + 56);
+    *buf = 138543618;
+    v30 = v9;
+    v31 = 2114;
+    v32 = v10;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ CONNECTED", buf, 0x16u);
+  }
+
+  else
+  {
+    if (v6)
     {
-      if (v6)
+      v11 = v5;
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v14 = *(*(a1 + 32) + 56);
+      *buf = 138543618;
+      v30 = v13;
+      v31 = 2114;
+      v32 = v14;
+      _os_log_impl(&dword_241EFF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ DISCONNECTED", buf, 0x16u);
+    }
+
+    v15 = *(a1 + 32);
+    if (*(v15 + 48) == 1)
+    {
+      v16 = BBLogConnection;
+      if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = *(a1 + 32);
-        v13 = v5;
-        v14 = objc_opt_class();
-        v15 = NSStringFromClass(v14);
-        v16 = *(*(a1 + 32) + 56);
-        *buf = 138543618;
-        v33 = v15;
-        v34 = 2114;
-        v35 = v16;
-        _os_log_impl(&dword_241EFF000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ DISCONNECTED", buf, 0x16u);
+        v17 = *(*(a1 + 32) + 56);
+        *buf = 138543362;
+        v30 = v17;
+        _os_log_impl(&dword_241EFF000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ suspending access queue", buf, 0xCu);
       }
 
-      v17 = *(a1 + 32);
-      if (*(v17 + 48) == 1)
-      {
-        v18 = BBLogConnection;
-        if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
-        {
-          v19 = *(*(a1 + 32) + 56);
-          *buf = 138543362;
-          v33 = v19;
-          _os_log_impl(&dword_241EFF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@ suspending access queue", buf, 0xCu);
-        }
+      *(*(a1 + 32) + 48) = 0;
+      v15 = *(a1 + 32);
+    }
 
-        *(*(a1 + 32) + 48) = 0;
-        v17 = *(a1 + 32);
-      }
-
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
-      v28 = 0u;
-      v8 = *(v17 + 32);
-      v20 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
-      if (v20)
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v7 = *(v15 + 32);
+    v18 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    if (v18)
+    {
+      v19 = v18;
+      v20 = *v25;
+      do
       {
-        v21 = v20;
-        v22 = *v28;
+        v21 = 0;
         do
         {
-          v23 = 0;
-          do
+          if (*v25 != v20)
           {
-            if (*v28 != v22)
-            {
-              objc_enumerationMutation(v8);
-            }
-
-            v24 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:{*(*(&v27 + 1) + 8 * v23), v27}];
-            [v24 setClientProxy:0 completion:0];
-
-            ++v23;
+            objc_enumerationMutation(v7);
           }
 
-          while (v21 != v23);
-          v21 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v22 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:{*(*(&v24 + 1) + 8 * v21), v24}];
+          [v22 setClientProxy:0 completion:0];
+
+          ++v21;
         }
 
-        while (v21);
+        while (v19 != v21);
+        v19 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
+
+      while (v19);
     }
   }
 
@@ -265,16 +263,15 @@ LABEL_19:
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_queue_removeDataProvider:(id)provider
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   providerCopy = provider;
   sectionIdentifier = [providerCopy sectionIdentifier];
   if (sectionIdentifier)
@@ -302,21 +299,19 @@ LABEL_19:
     universalSectionIdentifier = v8;
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
-    v12 = 138543618;
-    v13 = v10;
-    v14 = 2112;
-    v15 = providerCopy;
-    _os_log_impl(&dword_241EFF000, universalSectionIdentifier, OS_LOG_TYPE_DEFAULT, "%{public}@ Asked to remove a data provider (%@) without a sectionID. Ignoring.", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v10;
+    v13 = 2112;
+    v14 = providerCopy;
+    _os_log_impl(&dword_241EFF000, universalSectionIdentifier, OS_LOG_TYPE_DEFAULT, "%{public}@ Asked to remove a data provider (%@) without a sectionID. Ignoring.", &v11, 0x16u);
 
 LABEL_9:
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDataProviderWithSectionID:(id)d clientProxy:(id)proxy identity:(id)identity completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   proxyCopy = proxy;
   identityCopy = identity;
@@ -326,9 +321,9 @@ LABEL_9:
   {
     serviceName = self->_serviceName;
     *buf = 138543618;
-    v28 = serviceName;
-    v29 = 2114;
-    v30 = dCopy;
+    v27 = serviceName;
+    v28 = 2114;
+    v29 = dCopy;
     _os_log_impl(&dword_241EFF000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ updating data provider proxy for section %{public}@", buf, 0x16u);
   }
 
@@ -338,22 +333,20 @@ LABEL_9:
   block[2] = __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke;
   block[3] = &unk_278D2B1D8;
   block[4] = self;
-  v23 = dCopy;
-  v24 = identityCopy;
-  v25 = proxyCopy;
-  v26 = completionCopy;
+  v22 = dCopy;
+  v23 = identityCopy;
+  v24 = proxyCopy;
+  v25 = completionCopy;
   v17 = completionCopy;
   v18 = proxyCopy;
   v19 = identityCopy;
   v20 = dCopy;
   dispatch_async(queue, block);
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a1 + 32;
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
@@ -365,7 +358,7 @@ void __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientPro
     {
       if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_ERROR))
       {
-        __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_cold_1(v3, (a1 + 40));
+        __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_cold_1();
       }
     }
 
@@ -373,59 +366,55 @@ void __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientPro
     {
       if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(*v3 + 56);
-        v11 = *(a1 + 40);
+        v8 = *(*v3 + 56);
+        v9 = *(a1 + 40);
         *buf = 138543618;
-        v23 = v10;
-        v24 = 2114;
-        v25 = v11;
+        v20 = v8;
+        v21 = 2114;
+        v22 = v9;
         _os_log_impl(&dword_241EFF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ adding new data provider proxy for section %{public}@", buf, 0x16u);
       }
 
       v4 = [[BBRemoteDataProvider alloc] initWithSectionID:*(a1 + 40) delegate:*(a1 + 32)];
       [*(*(a1 + 32) + 32) setObject:v4 forKey:*(a1 + 40)];
-      v12 = [*(a1 + 48) universalSectionIdentifier];
-      if (v12)
+      v10 = [*(a1 + 48) universalSectionIdentifier];
+      if (v10)
       {
-        v13 = [*(*v3 + 40) objectForKey:v12];
-        if (!v13)
+        v11 = [*(*v3 + 40) objectForKey:v10];
+        if (!v11)
         {
-          v13 = objc_alloc_init(MEMORY[0x277CBEB58]);
+          v11 = objc_alloc_init(MEMORY[0x277CBEB58]);
         }
 
-        [v13 addObject:v4];
-        [*(*v3 + 40) setObject:v13 forKey:v12];
+        [v11 addObject:v4];
+        [*(*v3 + 40) setObject:v11 forKey:v10];
       }
     }
 
     [(BBDataProvider *)v4 setIdentity:*(a1 + 48)];
     objc_initWeak(buf, v4);
-    v14 = *(a1 + 56);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_37;
-    v17[3] = &unk_278D2B660;
-    objc_copyWeak(&v20, buf);
-    v21 = v5;
-    v15 = *(a1 + 40);
-    v17[4] = *(a1 + 32);
-    v18 = v15;
-    v19 = *(a1 + 64);
-    [(BBRemoteDataProvider *)v4 setClientProxy:v14 completion:v17];
+    v12 = *(a1 + 56);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_37;
+    v14[3] = &unk_278D2B660;
+    objc_copyWeak(&v17, buf);
+    v18 = v5;
+    v13 = *(a1 + 40);
+    v14[4] = *(a1 + 32);
+    v15 = v13;
+    v16 = *(a1 + 64);
+    [(BBRemoteDataProvider *)v4 setClientProxy:v12 completion:v14];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
-
-    v16 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v7 = *(a1 + 64);
-    v8 = *(*(a1 + 64) + 16);
-    v9 = *MEMORY[0x277D85DE8];
+    v7 = *(*(a1 + 64) + 16);
 
-    v8();
+    v7();
   }
 }
 
@@ -438,7 +427,7 @@ void __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientPro
   {
     if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEBUG))
     {
-      __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_37_cold_1((a1 + 40));
+      __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_37_cold_1();
     }
 
     v6 = *(a1 + 32);
@@ -461,10 +450,9 @@ void __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientPro
 uint64_t __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_38(uint64_t a1)
 {
   [*(a1 + 32) setServerIsReady:1];
-  v2 = *(a1 + 32);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 - (void)removeDataProviderWithSectionID:(id)d
@@ -490,7 +478,7 @@ void __66__BBRemoteDataProviderConnection_removeDataProviderWithSectionID___bloc
 
 - (void)addParentSectionFactory:(id)factory
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
   v5 = BBLogConnection;
   if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
@@ -498,25 +486,22 @@ void __66__BBRemoteDataProviderConnection_removeDataProviderWithSectionID___bloc
     serviceName = self->_serviceName;
     v7 = v5;
     sectionIdentifier = [factoryCopy sectionIdentifier];
-    v11 = 138543618;
-    v12 = serviceName;
-    v13 = 2114;
-    v14 = sectionIdentifier;
-    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ adding parent section factory for section %{public}@", &v11, 0x16u);
+    v9 = 138543618;
+    v10 = serviceName;
+    v11 = 2114;
+    v12 = sectionIdentifier;
+    _os_log_impl(&dword_241EFF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ adding parent section factory for section %{public}@", &v9, 0x16u);
   }
 
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(BBRemoteDataProviderStoreDelegate *)self->_delegate dataProviderStore:self didAddParentSectionFactory:factoryCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clientIsReady:(id)ready
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   if (!self->_clientReady)
   {
@@ -524,17 +509,15 @@ void __66__BBRemoteDataProviderConnection_removeDataProviderWithSectionID___bloc
     if (os_log_type_enabled(BBLogConnection, OS_LOG_TYPE_DEFAULT))
     {
       serviceName = self->_serviceName;
-      v8 = 138543362;
-      v9 = serviceName;
-      _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ told client is ready", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = serviceName;
+      _os_log_impl(&dword_241EFF000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ told client is ready", &v7, 0xCu);
     }
 
     self->_clientReady = 1;
   }
 
   readyCopy[2](readyCopy);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dataProviderForSectionID:(id)d
@@ -565,10 +548,7 @@ void __66__BBRemoteDataProviderConnection_removeDataProviderWithSectionID___bloc
 
 uint64_t __59__BBRemoteDataProviderConnection_dataProviderForSectionID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 32) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -601,10 +581,7 @@ uint64_t __59__BBRemoteDataProviderConnection_dataProviderForSectionID___block_i
 
 uint64_t __69__BBRemoteDataProviderConnection_dataProvidersForUniversalSectionID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 40) objectForKeyedSubscript:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 40) objectForKeyedSubscript:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -650,74 +627,71 @@ uint64_t __69__BBRemoteDataProviderConnection_dataProvidersForUniversalSectionID
 
 void __62__BBRemoteDataProviderConnection_performBlockOnDataProviders___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v22 = 0u;
-  v23 = 0u;
   v20 = 0u;
   v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v3 = *(*(a1 + 32) + 32);
-  v4 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v19;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(*(&v20 + 1) + 8 * v7)];
+        v8 = [*(*(a1 + 32) + 32) objectForKeyedSubscript:*(*(&v18 + 1) + 8 * v7)];
         [v2 addObject:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
     while (v5);
   }
 
-  v18 = 0u;
-  v19 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = v2;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
         (*(*(a1 + 40) + 16))(*(a1 + 40));
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithServiceName:(uint64_t)a1 bundleID:(uint64_t)a2 delegate:.cold.1(uint64_t a1, uint64_t a2)
@@ -726,25 +700,20 @@ void __62__BBRemoteDataProviderConnection_performBlockOnDataProviders___block_in
   [v4 handleFailureInMethod:a1 object:a2 file:@"BBRemoteDataProviderConnection.m" lineNumber:38 description:{@"Invalid parameter not satisfying: %@", @"serviceName"}];
 }
 
-void __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *(*a1 + 56);
-  v3 = *a2;
+  v4 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
-  v8 = v4;
-  _os_log_error_impl(&dword_241EFF000, v5, OS_LOG_TYPE_ERROR, "%{public}@ already have data provider for section %{public}@; using existing one", v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v3 = v0;
+  _os_log_error_impl(&dword_241EFF000, v1, OS_LOG_TYPE_ERROR, "%{public}@ already have data provider for section %{public}@; using existing one", v2, 0x16u);
 }
 
-void __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_37_cold_1(uint64_t *a1)
+void __95__BBRemoteDataProviderConnection_addDataProviderWithSectionID_clientProxy_identity_completion___block_invoke_37_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_0_1();
-  v6 = v2;
-  _os_log_debug_impl(&dword_241EFF000, v3, OS_LOG_TYPE_DEBUG, "ADDING REMOTE %{public}@, %{public}@", v5, 0x16u);
   v4 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_1();
+  v3 = v0;
+  _os_log_debug_impl(&dword_241EFF000, v1, OS_LOG_TYPE_DEBUG, "ADDING REMOTE %{public}@, %{public}@", v2, 0x16u);
 }
 
 - (void)removeDataProvider:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

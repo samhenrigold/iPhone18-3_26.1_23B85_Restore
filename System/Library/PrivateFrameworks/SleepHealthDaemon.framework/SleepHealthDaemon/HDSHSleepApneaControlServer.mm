@@ -2,6 +2,7 @@
 + (id)createTaskServerWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate error:(id *)error;
 - (HDSHSleepApneaControlServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate analyzer:(id)analyzer analysisScheduler:(id)scheduler;
 - (id)_clientRemoteObjectProxy;
+- (void)remote_getBreathingDisturbanceSamplesInDateInterval:(id)interval includeTimeZones:(BOOL)zones completion:(id)completion;
 @end
 
 @implementation HDSHSleepApneaControlServer
@@ -21,6 +22,27 @@
   }
 
   return v18;
+}
+
+- (void)remote_getBreathingDisturbanceSamplesInDateInterval:(id)interval includeTimeZones:(BOOL)zones completion:(id)completion
+{
+  zonesCopy = zones;
+  intervalCopy = interval;
+  if (intervalCopy)
+  {
+    analyzer = self->_analyzer;
+    completionCopy = completion;
+    completionCopy2 = [(HDStandardTaskServer *)self profile];
+    v11 = [(HDSHBreathingDisturbanceAnalyzer *)analyzer fetchSamplesWithAnalysisInterval:intervalCopy profile:completionCopy2 includeTimeZones:zonesCopy error:0];
+    (*(completion + 2))(completionCopy, v11);
+  }
+
+  else
+  {
+    v12 = *(completion + 2);
+    completionCopy2 = completion;
+    v12();
+  }
 }
 
 - (id)_clientRemoteObjectProxy

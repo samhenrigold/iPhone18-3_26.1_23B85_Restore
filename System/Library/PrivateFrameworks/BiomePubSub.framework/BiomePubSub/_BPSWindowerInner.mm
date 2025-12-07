@@ -68,109 +68,109 @@
 
 - (void)receiveCompletion:(id)completion
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
   if ([(BPSSubscriptionStatus *)selfCopy->_status state]== 1)
   {
-    v32 = completionCopy;
+    v31 = completionCopy;
     v6 = MEMORY[0x1E695E0F0];
-    v38 = [MEMORY[0x1E695E0F0] mutableCopy];
-    v37 = [v6 mutableCopy];
+    v37 = [MEMORY[0x1E695E0F0] mutableCopy];
+    v36 = [v6 mutableCopy];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     obj = selfCopy->_windowsStatus;
-    v35 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v43 objects:v48 count:16];
-    if (v35)
+    v34 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+    if (v34)
     {
-      v34 = *v44;
+      v33 = *v43;
       do
       {
         v7 = 0;
         do
         {
-          if (*v44 != v34)
+          if (*v43 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v36 = v7;
-          v8 = *(*(&v43 + 1) + 8 * v7);
+          v35 = v7;
+          v8 = *(*(&v42 + 1) + 8 * v7);
+          v38 = 0u;
           v39 = 0u;
           v40 = 0u;
           v41 = 0u;
-          v42 = 0u;
           v9 = [(NSMutableDictionary *)selfCopy->_windowsStatus objectForKeyedSubscript:v8];
-          v10 = [v9 countByEnumeratingWithState:&v39 objects:v47 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v38 objects:v46 count:16];
           if (v10)
           {
             v11 = v10;
-            v12 = *v40;
+            v12 = *v39;
             do
             {
               for (i = 0; i != v11; ++i)
               {
-                if (*v40 != v12)
+                if (*v39 != v12)
                 {
                   objc_enumerationMutation(v9);
                 }
 
-                v14 = *(*(&v39 + 1) + 8 * i);
+                v14 = *(*(&v38 + 1) + 8 * i);
                 v15 = [(NSMutableDictionary *)selfCopy->_windows objectForKeyedSubscript:v8];
                 v16 = [v15 objectForKeyedSubscript:v14];
-                [v38 addObject:v16];
+                [v37 addObject:v16];
 
                 v17 = [(NSMutableDictionary *)selfCopy->_windowsStatus objectForKeyedSubscript:v8];
                 v18 = [v17 objectForKeyedSubscript:v14];
-                [v37 addObject:v18];
+                [v36 addObject:v18];
               }
 
-              v11 = [v9 countByEnumeratingWithState:&v39 objects:v47 count:16];
+              v11 = [v9 countByEnumeratingWithState:&v38 objects:v46 count:16];
             }
 
             while (v11);
           }
 
-          v7 = v36 + 1;
+          v7 = v35 + 1;
         }
 
-        while (v36 + 1 != v35);
-        v35 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+        while (v35 + 1 != v34);
+        v34 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
-      while (v35);
+      while (v34);
     }
 
-    completionCopy = v32;
-    if ([v38 count])
+    completionCopy = v31;
+    if ([v37 count])
     {
       v19 = 0;
       do
       {
-        v20 = [v37 objectAtIndexedSubscript:v19];
+        v20 = [v36 objectAtIndexedSubscript:v19];
         state = [v20 state];
 
         if (state == 1)
         {
           os_unfair_lock_unlock(&selfCopy->_lock);
-          v22 = [v38 objectAtIndexedSubscript:v19];
-          [v22 receiveCompletion:v32];
+          v22 = [v37 objectAtIndexedSubscript:v19];
+          [v22 receiveCompletion:v31];
 
           os_unfair_lock_lock(&selfCopy->_lock);
-          v23 = [v37 objectAtIndexedSubscript:v19];
+          v23 = [v36 objectAtIndexedSubscript:v19];
           [v23 setState:2];
 
-          v24 = [v37 objectAtIndexedSubscript:v19];
+          v24 = [v36 objectAtIndexedSubscript:v19];
           [v24 setSubscription:0];
         }
 
         ++v19;
       }
 
-      while ([v38 count] > v19);
+      while ([v37 count] > v19);
     }
 
     [(BPSSubscriptionStatus *)selfCopy->_status setState:2];
@@ -180,10 +180,10 @@
     [(NSMutableDictionary *)selfCopy->_windowsBuffer removeAllObjects];
     [(NSMutableDictionary *)selfCopy->_windowsStatus removeAllObjects];
     downstream = [(_BPSWindowerInner *)selfCopy downstream];
-    state2 = [v32 state];
+    state2 = [v31 state];
     if (state2 == 1)
     {
-      error = [v32 error];
+      error = [v31 error];
       [(NSMutableArray *)selfCopy->_buffer removeAllObjects];
       os_unfair_lock_unlock(&selfCopy->_lock);
       v30 = [BPSCompletion failureWithError:error];
@@ -230,16 +230,14 @@ LABEL_30:
 
   os_unfair_lock_unlock(&selfCopy->_lock);
 LABEL_31:
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)receiveInput:(id)input
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   selfCopy = self;
-  v67 = inputCopy;
+  v66 = inputCopy;
   v6 = (*(selfCopy->_key + 2))();
   v7 = [v6 copyWithZone:0];
 
@@ -275,49 +273,49 @@ LABEL_31:
 
     v17 = selfCopy->_assigner;
     os_unfair_lock_unlock(&selfCopy->_lock);
-    v61 = v17;
-    v18 = [(BPSWindowAssigner *)v17 assignWindow:allValues input:v67];
+    v60 = v17;
+    v18 = [(BPSWindowAssigner *)v17 assignWindow:allValues input:v66];
     os_unfair_lock_lock(&selfCopy->_lock);
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
     v73 = 0u;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     obj = v18;
-    v68 = [obj countByEnumeratingWithState:&v72 objects:v77 count:16];
-    if (v68)
+    v67 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+    if (v67)
     {
-      v64 = v7;
-      v65 = *v73;
-      v63 = selfCopy;
-      v66 = allValues;
+      v63 = v7;
+      v64 = *v72;
+      v62 = selfCopy;
+      v65 = allValues;
       do
       {
         v19 = 0;
         do
         {
-          if (*v73 != v65)
+          if (*v72 != v64)
           {
             objc_enumerationMutation(obj);
           }
 
-          v69 = v19;
-          v20 = *(*(&v72 + 1) + 8 * v19);
+          v68 = v19;
+          v20 = *(*(&v71 + 1) + 8 * v19);
           identifier = [v20 identifier];
           if ([allValues containsObject:v20])
           {
             v22 = v10[439];
             v23 = [*(&selfCopy->super.super.super.isa + v22) objectForKeyedSubscript:v7];
             v24 = [v23 objectForKeyedSubscript:identifier];
-            [v24 addObject:v67];
+            [v24 addObject:v66];
 
-            v70 = v9[438];
-            v25 = [*(&selfCopy->super.super.super.isa + v70) objectForKeyedSubscript:v7];
+            v69 = v9[438];
+            v25 = [*(&selfCopy->super.super.super.isa + v69) objectForKeyedSubscript:v7];
             v26 = [(_BPSWindowerSide *)v25 objectForKeyedSubscript:identifier];
             if ([(_BPSWindowerInner *)v26 integerValue]>= 1)
             {
               v27 = [*(&selfCopy->super.super.super.isa + v22) objectForKeyedSubscript:v7];
               v28 = [v27 objectForKeyedSubscript:identifier];
-              v71 = v22;
+              v70 = v22;
               v29 = [v28 count];
 
               if (!v29)
@@ -328,17 +326,17 @@ LABEL_31:
               while (1)
               {
                 v30 = MEMORY[0x1E696AD98];
-                v31 = [*(&selfCopy->super.super.super.isa + v70) objectForKeyedSubscript:v7];
+                v31 = [*(&selfCopy->super.super.super.isa + v69) objectForKeyedSubscript:v7];
                 v32 = [v31 objectForKeyedSubscript:identifier];
                 v33 = [v30 numberWithInteger:{objc_msgSend(v32, "integerValue") - 1}];
-                v34 = [*(&selfCopy->super.super.super.isa + v70) objectForKeyedSubscript:v7];
+                v34 = [*(&selfCopy->super.super.super.isa + v69) objectForKeyedSubscript:v7];
                 [v34 setObject:v33 forKeyedSubscript:identifier];
 
-                v35 = [*(&selfCopy->super.super.super.isa + v71) objectForKeyedSubscript:v7];
+                v35 = [*(&selfCopy->super.super.super.isa + v70) objectForKeyedSubscript:v7];
                 v36 = [v35 objectForKeyedSubscript:identifier];
                 v25 = [v36 objectAtIndexedSubscript:0];
 
-                v37 = [*(&selfCopy->super.super.super.isa + v71) objectForKeyedSubscript:v7];
+                v37 = [*(&selfCopy->super.super.super.isa + v70) objectForKeyedSubscript:v7];
                 v38 = [v37 objectForKeyedSubscript:identifier];
                 [v38 removeObjectAtIndex:0];
 
@@ -349,20 +347,20 @@ LABEL_31:
                 v40 = [(_BPSWindowerInner *)v26 receiveInput:v25];
                 os_unfair_lock_lock(&selfCopy->_lock);
                 v41 = MEMORY[0x1E696AD98];
-                v42 = [*(&selfCopy->super.super.super.isa + v70) objectForKeyedSubscript:v7];
+                v42 = [*(&selfCopy->super.super.super.isa + v69) objectForKeyedSubscript:v7];
                 v43 = [v42 objectForKeyedSubscript:identifier];
                 v44 = [v41 numberWithInteger:{objc_msgSend(v43, "integerValue") + v40}];
-                v45 = [*(&selfCopy->super.super.super.isa + v70) objectForKeyedSubscript:v7];
+                v45 = [*(&selfCopy->super.super.super.isa + v69) objectForKeyedSubscript:v7];
                 [v45 setObject:v44 forKeyedSubscript:identifier];
 
-                v46 = [*(&selfCopy->super.super.super.isa + v70) objectForKeyedSubscript:v7];
+                v46 = [*(&selfCopy->super.super.super.isa + v69) objectForKeyedSubscript:v7];
                 v47 = [v46 objectForKeyedSubscript:identifier];
                 if ([v47 integerValue] < 1)
                 {
                   break;
                 }
 
-                v48 = [*(&selfCopy->super.super.super.isa + v71) objectForKeyedSubscript:v7];
+                v48 = [*(&selfCopy->super.super.super.isa + v70) objectForKeyedSubscript:v7];
                 v49 = [v48 objectForKeyedSubscript:identifier];
                 v50 = [v49 count];
 
@@ -382,8 +380,8 @@ LABEL_31:
             v52 = [*(&selfCopy->super.super.super.isa + v9[438]) objectForKeyedSubscript:v7];
             [v52 setObject:&unk_1F48701A8 forKeyedSubscript:identifier];
 
-            v76 = v67;
-            v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+            v75 = v66;
+            v53 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
             v54 = [v53 mutableCopy];
             v55 = [*(&selfCopy->super.super.super.isa + v10[439]) objectForKeyedSubscript:v7];
             [v55 setObject:v54 forKeyedSubscript:identifier];
@@ -400,19 +398,19 @@ LABEL_31:
             os_unfair_lock_lock(&selfCopy->_lock);
           }
 
-          selfCopy = v63;
-          v7 = v64;
+          selfCopy = v62;
+          v7 = v63;
 LABEL_19:
 
-          v19 = v69 + 1;
+          v19 = v68 + 1;
           v9 = &OBJC_IVAR____BPSRemoveDuplicatesInner__last;
           v10 = &OBJC_IVAR____BPSRemoveDuplicatesInner__last;
-          allValues = v66;
+          allValues = v65;
         }
 
-        while (v69 + 1 != v68);
-        v58 = [obj countByEnumeratingWithState:&v72 objects:v77 count:16];
-        v68 = v58;
+        while (v68 + 1 != v67);
+        v58 = [obj countByEnumeratingWithState:&v71 objects:v76 count:16];
+        v67 = v58;
       }
 
       while (v58);
@@ -426,7 +424,6 @@ LABEL_19:
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
 
-  v59 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -456,62 +453,62 @@ LABEL_19:
 
 - (void)cancel
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   os_unfair_lock_lock(&selfCopy->_lock);
   if ([(BPSSubscriptionStatus *)selfCopy->_status state]== 1)
   {
     v3 = [MEMORY[0x1E695E0F0] mutableCopy];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v4 = selfCopy->_windowsStatus;
-    v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v5 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v25;
+      v7 = *v24;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v25 != v7)
+          if (*v24 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [(NSMutableDictionary *)selfCopy->_windowsStatus objectForKeyedSubscript:*(*(&v24 + 1) + 8 * i)];
+          v9 = [(NSMutableDictionary *)selfCopy->_windowsStatus objectForKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
           allValues = [v9 allValues];
           [v3 addObjectsFromArray:allValues];
         }
 
-        v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v6 = [(NSMutableDictionary *)v4 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v6);
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v11 = v3;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * j);
+          v16 = *(*(&v19 + 1) + 8 * j);
           if ([v16 state] == 1)
           {
             os_unfair_lock_unlock(&selfCopy->_lock);
@@ -524,7 +521,7 @@ LABEL_19:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v13);
@@ -545,8 +542,6 @@ LABEL_19:
   {
     os_unfair_lock_unlock(&selfCopy->_lock);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestDemand:(int64_t)demand
@@ -965,43 +960,42 @@ LABEL_23:
 
 - (id)upstreamSubscriptions
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695E0F0] mutableCopy];
   allKeys = [(NSMutableDictionary *)self->_windowsStatus allKeys];
   v5 = [allKeys sortedArrayUsingComparator:&__block_literal_global_10];
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(NSMutableDictionary *)self->_windowsStatus objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i), v16];
+        v11 = [(NSMutableDictionary *)self->_windowsStatus objectForKeyedSubscript:*(*(&v15 + 1) + 8 * i), v15];
         allValues = [v11 allValues];
         [v3 addObjectsFromArray:allValues];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
 
   v13 = [v3 copy];
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

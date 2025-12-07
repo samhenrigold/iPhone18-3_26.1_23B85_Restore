@@ -56,61 +56,55 @@
 
 - (double)standardDeviation
 {
-  v19 = *MEMORY[0x1E69E9840];
-  if ([(NSMutableArray *)self->_scores count])
+  v18 = *MEMORY[0x1E69E9840];
+  if (![(NSMutableArray *)self->_scores count])
   {
-    [(ATXScoreDistribution *)self mean];
-    v4 = v3;
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v5 = self->_scores;
-    v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v6)
-    {
-      v7 = v6;
-      v8 = *v15;
-      v9 = 0.0;
-      do
-      {
-        for (i = 0; i != v7; ++i)
-        {
-          if (*v15 != v8)
-          {
-            objc_enumerationMutation(v5);
-          }
+    return 0.0;
+  }
 
-          [*(*(&v14 + 1) + 8 * i) doubleValue];
-          v9 = v9 + (v11 - v4) * (v11 - v4);
+  [(ATXScoreDistribution *)self mean];
+  v4 = v3;
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v5 = self->_scores;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v14;
+    v9 = 0.0;
+    do
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v14 != v8)
+        {
+          objc_enumerationMutation(v5);
         }
 
-        v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        [*(*(&v13 + 1) + 8 * i) doubleValue];
+        v9 = v9 + (v11 - v4) * (v11 - v4);
       }
 
-      while (v7);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    else
-    {
-      v9 = 0.0;
-    }
-
-    result = sqrt(v9 / [(NSMutableArray *)self->_scores count]);
+    while (v7);
   }
 
   else
   {
-    result = 0.0;
+    v9 = 0.0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return sqrt(v9 / [(NSMutableArray *)self->_scores count]);
 }
 
 - (void)enumerateAsHistogramWithNumberOfBins:(unint64_t)bins binHandler:(id)handler
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (bins && [(NSMutableArray *)self->_scores count])
   {
@@ -124,73 +118,73 @@
 
     else
     {
-      v24 = handlerCopy;
-      v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:bins];
+      v23 = handlerCopy;
+      v10 = [MEMORY[0x1E695DF70] arrayWithCapacity:bins];
       binsCopy = bins;
       do
       {
-        [v11 addObject:&unk_1F5A41128];
+        [v10 addObject:&unk_1F5A41128];
         --binsCopy;
       }
 
       while (binsCopy);
-      v13 = (self->_max - self->_min) / bins;
+      v12 = (self->_max - self->_min) / bins;
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       obj = self->_scores;
-      v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
-      if (v14)
+      v13 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
+      if (v13)
       {
-        v15 = v14;
-        v16 = *v30;
+        v14 = v13;
+        v15 = *v29;
         do
         {
-          v17 = 0;
+          v16 = 0;
           do
           {
-            if (*v30 != v16)
+            if (*v29 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            [*(*(&v29 + 1) + 8 * v17) doubleValue];
-            v19 = (v18 - self->_min) / v13;
-            if (v19 >= bins)
+            [*(*(&v28 + 1) + 8 * v16) doubleValue];
+            v18 = (v17 - self->_min) / v12;
+            if (v18 >= bins)
             {
-              v20 = bins - 1;
+              v19 = bins - 1;
             }
 
             else
             {
-              v20 = v19;
+              v19 = v18;
             }
 
-            v21 = MEMORY[0x1E696AD98];
-            v22 = [v11 objectAtIndexedSubscript:v20];
-            v23 = [v21 numberWithUnsignedInteger:{objc_msgSend(v22, "unsignedIntegerValue") + 1}];
-            [v11 setObject:v23 atIndexedSubscript:v20];
+            v20 = MEMORY[0x1E696AD98];
+            v21 = [v10 objectAtIndexedSubscript:v19];
+            v22 = [v20 numberWithUnsignedInteger:{objc_msgSend(v21, "unsignedIntegerValue") + 1}];
+            [v10 setObject:v22 atIndexedSubscript:v19];
 
-            ++v17;
+            ++v16;
           }
 
-          while (v15 != v17);
-          v15 = [(NSMutableArray *)obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+          while (v14 != v16);
+          v14 = [(NSMutableArray *)obj countByEnumeratingWithState:&v28 objects:v32 count:16];
         }
 
-        while (v15);
+        while (v14);
       }
 
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __72__ATXScoreDistribution_enumerateAsHistogramWithNumberOfBins_binHandler___block_invoke;
-      v26[3] = &unk_1E86A4208;
-      v28 = v13;
-      v26[4] = self;
-      handlerCopy = v24;
-      v27 = v24;
-      [v11 enumerateObjectsUsingBlock:v26];
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __72__ATXScoreDistribution_enumerateAsHistogramWithNumberOfBins_binHandler___block_invoke;
+      v25[3] = &unk_1E86A4208;
+      v27 = v12;
+      v25[4] = self;
+      handlerCopy = v23;
+      v26 = v23;
+      [v10 enumerateObjectsUsingBlock:v25];
     }
   }
 
@@ -201,8 +195,6 @@
     v9.n128_u64[0] = 0;
     handlerCopy[2](handlerCopy, v7, v8, v9);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__ATXScoreDistribution_enumerateAsHistogramWithNumberOfBins_binHandler___block_invoke(uint64_t a1, void *a2, unint64_t a3)

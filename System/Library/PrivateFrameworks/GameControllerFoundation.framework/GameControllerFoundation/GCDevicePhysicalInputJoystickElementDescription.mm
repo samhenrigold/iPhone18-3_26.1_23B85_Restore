@@ -172,50 +172,7 @@
 {
   equalCopy = equal;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_32;
-  }
-
-  v16.receiver = self;
-  v16.super_class = GCDevicePhysicalInputJoystickElementDescription;
-  if (![(GCDevicePhysicalInputElementDescription *)&v16 isEqual:equalCopy])
-  {
-    goto LABEL_32;
-  }
-
-  if (self->_supportsPress != *(equalCopy + 48))
-  {
-    goto LABEL_32;
-  }
-
-  if (self->_supportsTouch != *(equalCopy + 49))
-  {
-    goto LABEL_32;
-  }
-
-  xySources = self->_xySources;
-  if (xySources != equalCopy[8] && ![(NSArray *)xySources isEqual:?])
-  {
-    goto LABEL_32;
-  }
-
-  xSources = self->_xSources;
-  if (xSources != equalCopy[9] && ![(NSArray *)xSources isEqual:?])
-  {
-    goto LABEL_32;
-  }
-
-  if (((ySources = self->_ySources, ySources == equalCopy[10]) || [(NSArray *)ySources isEqual:?]) && ((upSources = self->_upSources, upSources == equalCopy[11]) || [(NSArray *)upSources isEqual:?]) && ((leftSources = self->_leftSources, leftSources == equalCopy[12]) || [(NSArray *)leftSources isEqual:?]) && ((downSources = self->_downSources, downSources == equalCopy[13]) || [(NSArray *)downSources isEqual:?]) && ((rightSources = self->_rightSources, rightSources == equalCopy[14]) || [(NSArray *)rightSources isEqual:?]) && ((pressSources = self->_pressSources, pressSources == equalCopy[15]) || [(NSArray *)pressSources isEqual:?]) && ((touchSources = self->_touchSources, touchSources == equalCopy[16]) || [(NSArray *)touchSources isEqual:?]) && self->_analogAxes == *(equalCopy + 50) && self->_analogPress == *(equalCopy + 51) && self->_directionPressedThreshold == *(equalCopy + 13) && self->_pressedThreshold == *(equalCopy + 14) && self->_touchedThreshold == *(equalCopy + 15) && self->_eventXValueField == equalCopy[17] && self->_eventYValueField == equalCopy[18] && self->_eventPressValueField == equalCopy[19])
-  {
-    v14 = self->_eventTouchValueField == equalCopy[20];
-  }
-
-  else
-  {
-LABEL_32:
-    v14 = 0;
-  }
+  v14 = (objc_opt_isKindOfClass() & 1) != 0 && (v16.receiver = self, v16.super_class = GCDevicePhysicalInputJoystickElementDescription, [(GCDevicePhysicalInputElementDescription *)&v16 isEqual:equalCopy]) && self->_supportsPress == *(equalCopy + 48) && self->_supportsTouch == *(equalCopy + 49) && ((xySources = self->_xySources, xySources == equalCopy[8]) || [(NSArray *)xySources isEqual:?]) && ((xSources = self->_xSources, xSources == equalCopy[9]) || [(NSArray *)xSources isEqual:?]) && ((ySources = self->_ySources, ySources == equalCopy[10]) || [(NSArray *)ySources isEqual:?]) && ((upSources = self->_upSources, upSources == equalCopy[11]) || [(NSArray *)upSources isEqual:?]) && ((leftSources = self->_leftSources, leftSources == equalCopy[12]) || [(NSArray *)leftSources isEqual:?]) && ((downSources = self->_downSources, downSources == equalCopy[13]) || [(NSArray *)downSources isEqual:?]) && ((rightSources = self->_rightSources, rightSources == equalCopy[14]) || [(NSArray *)rightSources isEqual:?]) && ((pressSources = self->_pressSources, pressSources == equalCopy[15]) || [(NSArray *)pressSources isEqual:?]) && ((touchSources = self->_touchSources, touchSources == equalCopy[16]) || [(NSArray *)touchSources isEqual:?]) && self->_analogAxes == *(equalCopy + 50) && self->_analogPress == *(equalCopy + 51) && self->_directionPressedThreshold == *(equalCopy + 13) && self->_pressedThreshold == *(equalCopy + 14) && self->_touchedThreshold == *(equalCopy + 15) && self->_eventXValueField == equalCopy[17] && self->_eventYValueField == equalCopy[18] && self->_eventPressValueField == equalCopy[19] && self->_eventTouchValueField == equalCopy[20];
 
   return v14;
 }
@@ -223,9 +180,9 @@ LABEL_32:
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v10.receiver = self;
-  v10.super_class = GCDevicePhysicalInputJoystickElementDescription;
-  v4 = [(GCDevicePhysicalInputElementDescription *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = GCDevicePhysicalInputJoystickElementDescription;
+  v4 = [(GCDevicePhysicalInputElementDescription *)&v9 description];
   v5 = v4;
   if (self->_analogAxes)
   {
@@ -237,10 +194,9 @@ LABEL_32:
     v6 = @"digital";
   }
 
-  eventPressValueField = self->_eventPressValueField;
-  v8 = [v3 stringWithFormat:@"Joystick %@ %@ X:%#zx Y:%#zx P:%#zx T:%#zx", v4, v6, self->_eventXValueField, self->_eventYValueField, eventPressValueField, self->_eventTouchValueField];
+  v7 = [v3 stringWithFormat:@"Joystick %@ %@ X:%#zx Y:%#zx P:%#zx T:%#zx", v4, v6, self->_eventXValueField, self->_eventYValueField, self->_eventPressValueField, self->_eventTouchValueField];
 
-  return v8;
+  return v7;
 }
 
 @end

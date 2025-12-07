@@ -45,46 +45,47 @@
     goto LABEL_12;
   }
 
-  v18.receiver = self;
-  v18.super_class = CLKIntentReference;
-  self = [(CLKIntentReference *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = CLKIntentReference;
+  self = [(CLKIntentReference *)&v19 init];
   if (self)
   {
     v5 = intentCopy;
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
     v6 = getINIntentWithTypedIntentSymbolLoc_ptr_0;
-    v27 = getINIntentWithTypedIntentSymbolLoc_ptr_0;
+    v28 = getINIntentWithTypedIntentSymbolLoc_ptr_0;
     if (!getINIntentWithTypedIntentSymbolLoc_ptr_0)
     {
-      v19 = MEMORY[0x277D85DD0];
-      v20 = 3221225472;
-      v21 = __getINIntentWithTypedIntentSymbolLoc_block_invoke_0;
-      v22 = &unk_278A1E6A0;
-      v23 = &v24;
+      v20 = MEMORY[0x277D85DD0];
+      v21 = 3221225472;
+      v22 = __getINIntentWithTypedIntentSymbolLoc_block_invoke_0;
+      v23 = &unk_278A1E6A0;
+      v24 = &v25;
       v7 = IntentsLibrary_0();
       v8 = dlsym(v7, "INIntentWithTypedIntent");
-      *(v23[1] + 24) = v8;
-      getINIntentWithTypedIntentSymbolLoc_ptr_0 = *(v23[1] + 24);
-      v6 = v25[3];
+      *(v24[1] + 24) = v8;
+      getINIntentWithTypedIntentSymbolLoc_ptr_0 = *(v24[1] + 24);
+      v6 = v26[3];
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v25, 8);
     if (!v6)
     {
-      v16 = [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
-      _Block_object_dispose(&v24, 8);
-      _Unwind_Resume(v16);
+      [CLKComplicationIntentWidgetMigrationConfiguration encodeWithCoder:];
+      v17 = v16;
+      _Block_object_dispose(&v25, 8);
+      _Unwind_Resume(v17);
     }
 
     v9 = v6(v5);
 
     objc_storeWeak(&self->_inflatedIntent, v9);
     self->_indexingHash = [v5 _indexingHash];
-    v17 = 0;
-    v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v17];
-    v11 = v17;
+    v18 = 0;
+    v10 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v18];
+    v11 = v18;
     if (v10)
     {
       intentData = self->_intentData;

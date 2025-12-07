@@ -14,28 +14,28 @@
   v4 = sub_100001918(0, 0);
   v5 = sub_100001E00(self->_lastCoarseMonotonicTimeMachTime, machTime);
   v6 = v4 - self->_lastCoarseMonotonicTime;
-  v7 = sub_100001EB0();
-  if (v6 >= v7 * -0.5)
+  v9 = sub_100001EB0(v7, v8);
+  if (v6 >= v9 * -0.5)
   {
-    if (v5 > v7 + v7 && v6 < v7 * 0.5)
+    if (v5 > v9 + v9 && v6 < v9 * 0.5)
     {
-      v14 = qword_100033218;
+      v16 = qword_100033218;
       if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_FAULT))
       {
         lastCoarseMonotonicTime = self->_lastCoarseMonotonicTime;
-        v17 = 134219008;
-        v18 = v4;
-        v19 = 2048;
-        v20 = lastCoarseMonotonicTime;
+        v19 = 134219008;
+        v20 = v4;
         v21 = 2048;
-        v22 = v6;
+        v22 = lastCoarseMonotonicTime;
         v23 = 2048;
-        v24 = v5;
+        v24 = v6;
         v25 = 2048;
-        v26 = v7;
-        v10 = "PMU RTC appears stalled: %f - %f = %f; mach advanced by %f; resolution %f";
-        v11 = v14;
-        v12 = 52;
+        v26 = v5;
+        v27 = 2048;
+        v28 = v9;
+        v12 = "PMU RTC appears stalled: %f - %f = %f; mach advanced by %f; resolution %f";
+        v13 = v16;
+        v14 = 52;
         goto LABEL_12;
       }
     }
@@ -43,23 +43,23 @@
 
   else
   {
-    v8 = qword_100033218;
+    v10 = qword_100033218;
     if (os_log_type_enabled(qword_100033218, OS_LOG_TYPE_FAULT))
     {
-      v9 = self->_lastCoarseMonotonicTime;
-      v17 = 134218752;
-      v18 = v4;
-      v19 = 2048;
-      v20 = v9;
+      v11 = self->_lastCoarseMonotonicTime;
+      v19 = 134218752;
+      v20 = v4;
       v21 = 2048;
-      v22 = v6;
+      v22 = v11;
       v23 = 2048;
-      v24 = v7;
-      v10 = "PMU RTC went backward: %f - %f = %f; resolution %f";
-      v11 = v8;
-      v12 = 42;
+      v24 = v6;
+      v25 = 2048;
+      v26 = v9;
+      v12 = "PMU RTC went backward: %f - %f = %f; resolution %f";
+      v13 = v10;
+      v14 = 42;
 LABEL_12:
-      _os_log_fault_impl(&_mh_execute_header, v11, OS_LOG_TYPE_FAULT, v10, &v17, v12);
+      _os_log_fault_impl(&_mh_execute_header, v13, OS_LOG_TYPE_FAULT, v12, &v19, v14);
     }
   }
 

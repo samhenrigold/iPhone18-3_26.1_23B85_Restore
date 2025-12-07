@@ -266,22 +266,22 @@ uint64_t __48__DYJSScriptingContext_evaluteScript_scriptURL___block_invoke(uint6
 
 - (OpaqueJSString)_cachedStringFromString:(const char *)string
 {
-  string[0] = string;
+  string = string;
   if (!string)
   {
     return 0;
   }
 
-  v4 = std::__hash_table<std::__hash_value_type<char const*,OpaqueJSString *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,OpaqueJSString *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,OpaqueJSString *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,OpaqueJSString *>>>::find<char const*>(&self->_stringCache.__table_.__bucket_list_.__ptr_, string);
+  v4 = std::__hash_table<std::__hash_value_type<char const*,OpaqueJSString *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,OpaqueJSString *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,OpaqueJSString *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,OpaqueJSString *>>>::find<char const*>(&self->_stringCache.__table_.__bucket_list_.__ptr_, &string);
   if (v4)
   {
     return v4[3];
   }
 
-  v5 = JSStringCreateWithUTF8CString(string[0]);
+  v5 = JSStringCreateWithUTF8CString(string);
   JSStringRetain(v5);
-  string[2] = string;
-  std::__hash_table<std::__hash_value_type<char const*,OpaqueJSString *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,OpaqueJSString *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,OpaqueJSString *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,OpaqueJSString *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&self->_stringCache.__table_.__bucket_list_.__ptr_, string)[3] = v5;
+  p_string = &string;
+  std::__hash_table<std::__hash_value_type<char const*,OpaqueJSString *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,OpaqueJSString *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,OpaqueJSString *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,OpaqueJSString *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&self->_stringCache.__table_.__bucket_list_.__ptr_, &string, &std::piecewise_construct, &p_string)[3] = v5;
   return v5;
 }
 
@@ -304,21 +304,23 @@ LABEL_4:
     if (exception)
     {
       v8 = *MEMORY[0x277D85DF8];
-      [(DYJSScriptingContext *)self _jsValueToString:?];
-      v9 = functionCopy;
+      objc_msgSend__jsValueToString_(self);
+      v9 = v21;
+      v10 = __p[0];
+      v11 = functionCopy;
       uTF8String = [(NSString *)self->_filename UTF8String];
-      if (v19 >= 0)
+      if (v9 >= 0)
       {
-        v11 = __p;
+        v13 = __p;
       }
 
       else
       {
-        v11 = __p[0];
+        v13 = v10;
       }
 
-      fprintf(v8, "[DYJSScripting] %s when calling %s (%s)", v11, v9, uTF8String);
-      if (v19 < 0)
+      fprintf(v8, "[DYJSScripting] %s when calling %s (%s)", v13, v11, uTF8String);
+      if (v21 < 0)
       {
         operator delete(__p[0]);
       }
@@ -327,31 +329,31 @@ LABEL_4:
     return JSValueToNumber([(JSContext *)self->_context JSGlobalContextRef], v7, 0);
   }
 
-  v13 = JSValueToObject(-[JSContext JSGlobalContextRef](self->_context, "JSGlobalContextRef"), -[JSValue JSValueRef](-[JSContext objectForKeyedSubscript:](self->_context, "objectForKeyedSubscript:", [MEMORY[0x277CCACA8] stringWithUTF8String:functionCopy]), "JSValueRef"), &exception);
+  v15 = JSValueToObject(-[JSContext JSGlobalContextRef](self->_context, "JSGlobalContextRef"), -[JSValue JSValueRef](-[JSContext objectForKeyedSubscript:](self->_context, "objectForKeyedSubscript:", [MEMORY[0x277CCACA8] stringWithUTF8String:functionCopy]), "JSValueRef"), &exception);
   if (!exception)
   {
-    v6 = v13;
+    v6 = v15;
     __p[0] = &functionCopy;
-    std::__hash_table<std::__hash_value_type<char const*,OpaqueJSValue *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,OpaqueJSValue *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,OpaqueJSValue *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,OpaqueJSValue *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&self->_cache.__table_.__bucket_list_.__ptr_, &functionCopy)[3] = v13;
+    std::__hash_table<std::__hash_value_type<char const*,OpaqueJSValue *>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,OpaqueJSValue *>,std::hash<char const*>,std::equal_to<char const*>,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,OpaqueJSValue *>,std::equal_to<char const*>,std::hash<char const*>,true>,std::allocator<std::__hash_value_type<char const*,OpaqueJSValue *>>>::__emplace_unique_key_args<char const*,std::piecewise_construct_t const&,std::tuple<char const* const&>,std::tuple<>>(&self->_cache.__table_.__bucket_list_.__ptr_, &functionCopy, &std::piecewise_construct, __p)[3] = v15;
     goto LABEL_4;
   }
 
-  v14 = *MEMORY[0x277D85DF8];
-  [(DYJSScriptingContext *)self _jsValueToString:?];
-  v15 = functionCopy;
+  v16 = *MEMORY[0x277D85DF8];
+  objc_msgSend__jsValueToString_(self);
+  v17 = functionCopy;
   uTF8String2 = [(NSString *)self->_filename UTF8String];
-  if (v19 >= 0)
+  if (v21 >= 0)
   {
-    v17 = __p;
+    v19 = __p;
   }
 
   else
   {
-    v17 = __p[0];
+    v19 = __p[0];
   }
 
-  fprintf(v14, "[DYJSScripting] %s when calling %s (%s)", v17, v15, uTF8String2);
-  if (v19 < 0)
+  fprintf(v16, "[DYJSScripting] %s when calling %s (%s)", v19, v17, uTF8String2);
+  if (v21 < 0)
   {
     operator delete(__p[0]);
   }
@@ -370,7 +372,7 @@ LABEL_4:
     if (exception)
     {
       v9 = *MEMORY[0x277D85DF8];
-      [(DYJSScriptingContext *)self _jsValueToString:?];
+      objc_msgSend__jsValueToString_(self);
       uTF8String = [(NSString *)self->_filename UTF8String];
       if (v13 >= 0)
       {
@@ -406,7 +408,7 @@ LABEL_4:
   if (exception)
   {
     v8 = *MEMORY[0x277D85DF8];
-    [(DYJSScriptingContext *)self _jsValueToString:?];
+    objc_msgSend__jsValueToString_(self);
     uTF8String = [(NSString *)self->_filename UTF8String];
     if (v13 >= 0)
     {
@@ -472,7 +474,7 @@ LABEL_4:
   if (exception)
   {
     v16 = *MEMORY[0x277D85DF8];
-    [(DYJSScriptingContext *)self _jsValueToString:?];
+    objc_msgSend__jsValueToString_(self);
     uTF8String2 = [(NSString *)self->_filename UTF8String];
     v18 = v21 >= 0 ? &__p : __p;
     fprintf(v16, "[DYJSScripting] %s when setting %s (%s)", v18, object, uTF8String2);
@@ -498,7 +500,7 @@ LABEL_4:
   if (exception)
   {
     v7 = *MEMORY[0x277D85DF8];
-    [(DYJSScriptingContext *)self _jsValueToString:?];
+    objc_msgSend__jsValueToString_(self);
     uTF8String = [(NSString *)self->_filename UTF8String];
     if (v19 >= 0)
     {

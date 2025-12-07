@@ -153,17 +153,17 @@
 
 + (id)parseFromData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15 = 0;
-  v3 = [(TRIPBMessage *)TRIRecurrentScheduleFetchRollbacksPersistedTask parseFromData:data error:&v15];
-  v4 = v15;
+  v17 = *MEMORY[0x277D85DE8];
+  v14 = 0;
+  v3 = [(TRIPBMessage *)TRIRecurrentScheduleFetchRollbacksPersistedTask parseFromData:data error:&v14];
+  v4 = v14;
   if (!v3)
   {
     v6 = TRILogCategory_Server();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = v4;
+      v16 = v4;
       _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, "Unable to parse buffer as TRIRecurrentScheduleFetchRollbacksPersistedTask: %{public}@", buf, 0xCu);
     }
 
@@ -181,7 +181,7 @@
     v8 = objc_opt_class();
     v9 = NSStringFromClass(v8);
     *buf = 138412290;
-    v17 = v9;
+    v16 = v9;
     v10 = "Cannot decode message of type %@ with missing field: taskAttribution";
 LABEL_12:
     _os_log_error_impl(&dword_26F567000, v6, OS_LOG_TYPE_ERROR, v10, buf, 0xCu);
@@ -200,7 +200,7 @@ LABEL_12:
     v11 = objc_opt_class();
     v9 = NSStringFromClass(v11);
     *buf = 138412290;
-    v17 = v9;
+    v16 = v9;
     v10 = "Cannot decode message of type %@ with missing field: isRepeatedInstance";
     goto LABEL_12;
   }
@@ -225,8 +225,6 @@ LABEL_12:
 LABEL_16:
   v7 = 0;
 LABEL_17:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

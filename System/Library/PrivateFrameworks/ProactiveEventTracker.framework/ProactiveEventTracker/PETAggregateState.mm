@@ -36,7 +36,7 @@
   return (v3 & 1) == 0;
 }
 
-uint64_t __35__PETAggregateState_checkIntegrity__block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+void *__35__PETAggregateState_checkIntegrity__block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   v6 = 0;
   while (2)
@@ -96,14 +96,14 @@ uint64_t __35__PETAggregateState_checkIntegrity__block_invoke(uint64_t a1, uint6
   return v4;
 }
 
-void __32__PETAggregateState_description__block_invoke(uint64_t a1, uint64_t a2, unsigned int a3, double a4)
+void __32__PETAggregateState_description__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, double a4)
 {
   v5 = *(a1 + 32);
   v6 = displayStringForKey(a2, a3);
   [v5 appendFormat:@"\nCOUNTER '%@': %g\n", v6, *&a4];
 }
 
-uint64_t __32__PETAggregateState_description__block_invoke_2(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, int a6, uint64_t a7, unsigned __int16 *a8, double a9, double a10, double a11, double a12)
+uint64_t __32__PETAggregateState_description__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, uint64_t a7, unsigned __int16 *a8, double a9, double a10, double a11, double a12)
 {
   v22 = a6;
   if (a6 < 1)
@@ -180,12 +180,12 @@ uint64_t __32__PETAggregateState_description__block_invoke_2(uint64_t a1, uint64
   [(PETAggregateStateStorage *)storage expand:0 andRunWithLock:v11];
 }
 
-uint64_t __61__PETAggregateState_enumerateAndResetCounters_distributions___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, _BYTE *a5)
+uint64_t __61__PETAggregateState_enumerateAndResetCounters_distributions___block_invoke(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, _BYTE *a5)
 {
   for (i = 0; i != 1024; i += 4)
   {
-    BucketPtr = getBucketPtr(a2, a3, i, *(*(a1 + 32) + 8));
-    enumerateChain(a2, a3, BucketPtr, *(a1 + 40), *(a1 + 48), *(*(a1 + 32) + 8));
+    BucketPtr = getBucketPtr(a2, a3, i, *(a1[4] + 8));
+    enumerateChain(a2, a3, BucketPtr, a1[5], a1[6], *(a1[4] + 8));
   }
 
   *a5 = 1;

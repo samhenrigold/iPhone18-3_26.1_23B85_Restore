@@ -66,7 +66,7 @@
 
 - (void)blockContacts:(id)contacts safetyCheckPresenter:(id)presenter
 {
-  sub_100008BA0(0, &qword_1001243E0);
+  sub_100008BA0(0, &qword_1001243E0, CNContact_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   presenterCopy = presenter;
   selfCopy = self;

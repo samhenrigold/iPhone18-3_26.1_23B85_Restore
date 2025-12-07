@@ -105,7 +105,7 @@
   v38 = v11;
   if (processHandle)
   {
-    [processHandle auditToken];
+    objc_msgSend_auditToken(processHandle);
   }
 
   else
@@ -433,7 +433,7 @@ LABEL_12:
   v10 = processHandle;
   if (processHandle)
   {
-    [processHandle auditToken];
+    objc_msgSend_auditToken(processHandle);
   }
 
   else
@@ -695,17 +695,17 @@ LABEL_19:
 
 - (void)pui_invalidateWithCompletion:()PosterUIFoundation
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = a3;
   BSDispatchQueueAssertMain();
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __60__FBScene_PosterUIFoundation__pui_invalidateWithCompletion___block_invoke;
-  v27[3] = &unk_1E7855DD0;
-  v27[4] = self;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __60__FBScene_PosterUIFoundation__pui_invalidateWithCompletion___block_invoke;
+  v28[3] = &unk_1E7855DD0;
+  v28[4] = self;
   v5 = v4;
-  v28 = v5;
-  v6 = MEMORY[0x1AC5769F0](v27);
+  v29 = v5;
+  v6 = MEMORY[0x1AC5769F0](v28);
   if (![self isValid] || !objc_msgSend(self, "isActive"))
   {
     [self pui_setPosterPath:0];
@@ -729,36 +729,36 @@ LABEL_8:
   settings2 = [self settings];
   pui_provider = [settings2 pui_provider];
 
-  v13 = PUILogCommon();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = PUILogCommon(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v30 = pui_shortDescription;
-    v31 = 2114;
-    v32 = pui_provider;
-    _os_log_impl(&dword_1A8C85000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] sending pui_isInvalidated to %{public}@", buf, 0x16u);
+    v31 = pui_shortDescription;
+    v32 = 2114;
+    v33 = pui_provider;
+    _os_log_impl(&dword_1A8C85000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] sending pui_isInvalidated to %{public}@", buf, 0x16u);
   }
 
-  v14 = [PUISceneInvalidationAction alloc];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __60__FBScene_PosterUIFoundation__pui_invalidateWithCompletion___block_invoke_117;
-  v21[3] = &unk_1E7855DF8;
-  v22 = v9;
-  v23 = pui_shortDescription;
-  v24 = pui_provider;
+  v15 = [PUISceneInvalidationAction alloc];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __60__FBScene_PosterUIFoundation__pui_invalidateWithCompletion___block_invoke_117;
+  v22[3] = &unk_1E7855DF8;
+  v23 = v9;
+  v24 = pui_shortDescription;
+  v25 = pui_provider;
   selfCopy = self;
-  v26 = v6;
-  v15 = pui_provider;
-  v16 = pui_shortDescription;
-  v17 = v9;
-  v18 = [(PUISceneInvalidationAction *)v14 initWithInfo:0 timeout:MEMORY[0x1E69E96A0] forResponseOnQueue:v21 withHandler:5.0];
+  v27 = v6;
+  v16 = pui_provider;
+  v17 = pui_shortDescription;
+  v18 = v9;
+  v19 = [(PUISceneInvalidationAction *)v15 initWithInfo:0 timeout:MEMORY[0x1E69E96A0] forResponseOnQueue:v22 withHandler:5.0];
   settings3 = [self settings];
-  v20 = [settings3 mutableCopy];
+  v21 = [settings3 mutableCopy];
 
-  [v20 setForeground:0];
-  [v20 pui_setInvalidated:v18];
-  [self updateSettings:v20 withTransitionContext:0];
+  [v21 setForeground:0];
+  [v21 pui_setInvalidated:v19];
+  [self updateSettings:v21 withTransitionContext:0];
 
 LABEL_9:
 }
@@ -825,11 +825,11 @@ LABEL_9:
       goto LABEL_11;
     }
 
-    v11 = PFFunctionNameForAddress();
+    v12 = PFFunctionNameForAddress();
     v9 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
 
-    v10 = PUILogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PUILogCommon(v13);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_7;
     }
@@ -840,17 +840,17 @@ LABEL_9:
     v8 = PFFunctionNameForAddress();
     v9 = PFGeneralErrorFromObjectWithLocalizedFailureReason();
 
-    v10 = PUILogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = PUILogCommon(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
 LABEL_7:
-      [FBScene(PosterUIFoundation) pui_safelySendActions:v9 outError:v10];
+      [FBScene(PosterUIFoundation) pui_safelySendActions:v9 outError:v11];
     }
   }
 
   if (a4)
   {
-    v12 = v9;
+    v14 = v9;
     *a4 = v9;
   }
 

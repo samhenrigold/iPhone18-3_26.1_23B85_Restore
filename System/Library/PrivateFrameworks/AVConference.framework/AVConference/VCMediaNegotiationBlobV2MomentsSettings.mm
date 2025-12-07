@@ -300,28 +300,27 @@ LABEL_5:
 
 - (void)printWithLogFile:(void *)file prefix:(id)prefix
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   prefix = [MEMORY[0x1E696AD60] stringWithFormat:@"[%lu] %@", objc_msgSend(-[VCMediaNegotiationBlobV2MomentsSettings data](self, "data"), "length"), prefix];
   [prefix appendFormat:@"Moments settings: "];
   [(VCMediaNegotiationBlobV2MomentsSettings *)self appendFieldName:@"imageTypes" codecs:[VCMediaNegotiationBlobV2MomentsSettings outString:"supportedCodecsWithVideoCodecs:imageTypes:" supportedCodecsWithVideoCodecs:[VCMediaNegotiationBlobV2MomentsSettings imageTypesWithSupportedCodecs:[(VCMediaNegotiationBlobV2MomentsSettings *)self supportedCodecs]] imageTypes:?], prefix];
   [(VCMediaNegotiationBlobV2MomentsSettings *)self appendFieldName:@"videoCodecs" codecs:[VCMediaNegotiationBlobV2MomentsSettings outString:"supportedCodecsWithVideoCodecs:imageTypes:" supportedCodecsWithVideoCodecs:0 imageTypes:?], prefix];
-  uTF8String = [prefix UTF8String];
-  VRLogfilePrintWithTimestamp(file, "%s\n", v8, v9, v10, v11, v12, v13, uTF8String);
+  VRLogfilePrintWithTimestamp(file, "%s\n", [prefix UTF8String]);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
-    v14 = VRTraceErrorLogLevelToCSTR();
-    v15 = *MEMORY[0x1E6986650];
+    v7 = VRTraceErrorLogLevelToCSTR();
+    v8 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v17 = v14;
-      v18 = 2080;
-      v19 = "[VCMediaNegotiationBlobV2MomentsSettings(Utils) printWithLogFile:prefix:]";
-      v20 = 1024;
-      v21 = 77;
-      v22 = 2112;
-      v23 = prefix;
-      _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
+      v10 = v7;
+      v11 = 2080;
+      v12 = "[VCMediaNegotiationBlobV2MomentsSettings(Utils) printWithLogFile:prefix:]";
+      v13 = 1024;
+      v14 = 77;
+      v15 = 2112;
+      v16 = prefix;
+      _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %@", buf, 0x26u);
     }
   }
 }

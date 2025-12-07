@@ -12,23 +12,20 @@
   v3 = [[NSMutableString alloc] initWithString:@"{\n"];
   if ([(NSMutableArray *)self->_addedOutputDevices count])
   {
-    addedOutputDevices = self->_addedOutputDevices;
-    v5 = MRCreateIndentedDebugDescriptionFromObject();
-    [v3 appendFormat:@"   addedOutputDevices = %@\n", v5];
+    v4 = MRCreateIndentedDebugDescriptionFromObject();
+    [v3 appendFormat:@"   addedOutputDevices = %@\n", v4];
   }
 
   if ([(NSMutableArray *)self->_changedOutputDevices count])
   {
-    changedOutputDevices = self->_changedOutputDevices;
-    v7 = MRCreateIndentedDebugDescriptionFromObject();
-    [v3 appendFormat:@"    changedOutputDevices = %@\n", v7];
+    v5 = MRCreateIndentedDebugDescriptionFromObject();
+    [v3 appendFormat:@"    changedOutputDevices = %@\n", v5];
   }
 
   if ([(NSMutableArray *)self->_removedOutputDevices count])
   {
-    removedOutputDevices = self->_removedOutputDevices;
-    v9 = MRCreateIndentedDebugDescriptionFromObject();
-    [v3 appendFormat:@"    removedOutputDevices = %@\n", v9];
+    v6 = MRCreateIndentedDebugDescriptionFromObject();
+    [v3 appendFormat:@"    removedOutputDevices = %@\n", v6];
   }
 
   return v3;

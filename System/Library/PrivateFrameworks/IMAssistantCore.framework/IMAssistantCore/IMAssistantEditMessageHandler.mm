@@ -45,15 +45,15 @@
 
 - (void)confirmEditMessage:(id)message completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   completionCopy = completion;
   v8 = IMLogHandleForCategory();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v16 = 138412290;
-    v17 = messageCopy;
-    _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "Confirming INEditMessageIntent: %@", &v16, 0xCu);
+    v15 = 138412290;
+    v16 = messageCopy;
+    _os_log_impl(&dword_25479E000, v8, OS_LOG_TYPE_INFO, "Confirming INEditMessageIntent: %@", &v15, 0xCu);
   }
 
   messageHandlerDataSource = [(IMAssistantMessageHandler *)self messageHandlerDataSource];
@@ -70,8 +70,8 @@
     v13 = IMLogHandleForCategory();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Could not send message; no messaging accounts available", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_25479E000, v13, OS_LOG_TYPE_INFO, "Could not send message; no messaging accounts available", &v15, 2u);
     }
 
     v12 = 10;
@@ -79,20 +79,18 @@
 
   v14 = [objc_alloc(MEMORY[0x277CD3BC8]) initWithCode:v12 userActivity:0];
   completionCopy[2](completionCopy, v14);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleEditMessage:(id)message completion:(id)completion
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   completionCopy = completion;
   v7 = IMLogHandleForCategory();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v19 = messageCopy;
+    v18 = messageCopy;
     _os_log_impl(&dword_25479E000, v7, OS_LOG_TYPE_INFO, "Handling INEditMessageIntent: %@", buf, 0xCu);
   }
 
@@ -100,14 +98,14 @@
   v9 = messageIdentifier;
   if (messageIdentifier)
   {
-    v17 = messageIdentifier;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+    v16 = messageIdentifier;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
     v11 = +[IMAssistantMessageQueryHandler IMAssistantIMSPIQueue];
-    v15 = messageCopy;
-    v16 = completionCopy;
+    v14 = messageCopy;
+    v15 = completionCopy;
     IMSPIQueryIMMessageItemsWithGUIDsAndQOS();
 
-    v12 = v15;
+    v12 = v14;
   }
 
   else
@@ -122,8 +120,6 @@
     v12 = [objc_alloc(MEMORY[0x277CD3BC8]) initWithCode:4 userActivity:0];
     (*(completionCopy + 2))(completionCopy, v12);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendEditedMessageItem:(id)item originalMessageItem:(id)messageItem chat:(id)chat backwardCompatabilityText:(id)text

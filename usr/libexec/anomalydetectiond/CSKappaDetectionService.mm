@@ -14,6 +14,7 @@
 - (int64_t)getMaxTriggerSessionInSecondsDefault;
 - (shared_ptr<CLKappaEstimatesAlgCrash>)getCrashBlock;
 - (shared_ptr<CLKappaFeaturesAlgDataIntegrity>)getDataIntegrityBlock;
+- (void)companionConnectedAck:(int)ack;
 - (void)companionConnectedAckHandler:(int)handler data:(id)data receivedTimestamp:(double)timestamp;
 - (void)companionConnectedAckHandler_Deprecated:(int)deprecated data:(id)data receivedTimestamp:(double)timestamp;
 - (void)companionDecidedToUploadHandler:(int)handler data:(id)data receivedTimestamp:(double)timestamp;
@@ -46,12 +47,18 @@
 - (void)finishAnomalyEvent;
 - (void)forceBehavior:(int)behavior withValue:(int)value;
 - (void)forceCompanionTrigger:(id)trigger;
+- (void)forceCrashDetector:(int)detector withValue:(int)value;
+- (void)forceHighSpeedCrashDetector:(int)detector withValue:(int)value;
+- (void)forceParticipatingInEscalation:(int)escalation withValue:(int)value;
+- (void)forceRolloverCrashDetector:(int)detector withValue:(int)value;
+- (void)forceSevereCrashDetector:(int)detector withValue:(int)value;
 - (void)initFlowController;
 - (void)initSession;
 - (void)kappaSessionCompanionHandler:(int)handler data:(id)data receivedTimestamp:(double)timestamp;
 - (void)logAudioStats;
 - (void)messageReceived:(id)received fromConnection:(id)connection;
 - (void)notifyCompanionOfUploadedCompanionUUID;
+- (void)onCloseEpoch:(unint64_t)epoch epochNumber:(int)number;
 - (void)onCompanionMessage:(int)message data:(id)data receivedTimestamp:(double)timestamp;
 - (void)onCompanionStatusUpdate:(BOOL)update pairedDevice:(id)device updatedTimestamp:(double)timestamp;
 - (void)onCompanionTestTrigger:(double)trigger;
@@ -73,6 +80,7 @@
 - (void)stopSession;
 - (void)triggered:(id)triggered;
 - (void)updateCompanion;
+- (void)updateKappaSessionClients:(int)clients data:(id)data;
 - (void)updateTrustedAudioMetadata;
 @end
 
@@ -211,6 +219,26 @@
   [(CSKappaDetectionService *)self updateKappaSessionClients:0 data:0];
 }
 
+- (void)updateKappaSessionClients:(int)clients data:(id)data
+{
+  v4 = *&clients;
+  dataCopy = data;
+  if (qword_100456818 != -1)
+  {
+    sub_1003061F8();
+  }
+
+  v7 = qword_100456820;
+  if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+  {
+    v8[0] = 67109120;
+    v8[1] = v4;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "updateKappaSessionClients type: %d", v8, 8u);
+  }
+
+  [(CSKappaCoreAnalytics *)self->_coreAnalytics onKappaSessionUpdate:v4 data:dataCopy];
+}
+
 - (CSKappaDetectionService)initWithSilo:(id)silo vendor:(id)vendor aopService:(void *)service sosStateMachine:(id)machine
 {
   siloCopy = silo;
@@ -306,9 +334,9 @@
   self->_isDetectionDevice = isKappaDetectionDevice;
   if (self->_isLoggingDevice & isKappaDetectionDevice)
   {
-    sub_10030635C(buf);
+    sub_10030635C();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 411, "[CSKappaDetectionService initWithSilo:vendor:aopService:sosStateMachine:]");
     __break(1u);
   }
 
@@ -494,7 +522,7 @@
     sub_100009A48(v54);
   }
 
-  (*v55)[20](&v49);
+  (*(*v55 + 160))(&v49);
   sub_10003B98C(&v49, &v51);
   if (v50)
   {
@@ -504,7 +532,7 @@
   v6 = *(v51 + 48);
   mslRecording = self->_mslRecording;
   v121 = @"highSensitivityBitmap";
-  v8 = [NSNumber numberWithUnsignedInt:*(v51 + 38)];
+  v8 = [NSNumber numberWithUnsignedInt:*(v51 + 152)];
   v122 = v8;
   v9 = [NSDictionary dictionaryWithObjects:&v122 forKeys:&v121 count:1];
   [(CSMSLDataRecording *)mslRecording updateMetadata:v9];
@@ -526,30 +554,30 @@
     isCrashDetected = self->_isCrashDetected;
     isRolloverCrashDetected = self->_isRolloverCrashDetected;
     isHighSpeedCrashDetected = self->_isHighSpeedCrashDetected;
-    v19 = *(v51 + 40);
-    v20 = *(v51 + 41);
-    v22 = *(v51 + 42);
-    v21 = *(v51 + 43);
-    v24 = *(v51 + 44);
-    v23 = *(v51 + 45);
-    v25 = *(v51 + 56);
-    v26 = *(v51 + 57);
-    v27 = *(v51 + 58);
+    v19 = *(v51 + 160);
+    v20 = *(v51 + 164);
+    v22 = *(v51 + 168);
+    v21 = *(v51 + 172);
+    v24 = *(v51 + 176);
+    v23 = *(v51 + 180);
+    v25 = *(v51 + 224);
+    v26 = *(v51 + 228);
+    v27 = *(v51 + 232);
     v28 = *(v51 + 241);
-    v29 = *(v51 + 61);
-    v30 = *(v51 + 62);
+    v29 = *(v51 + 244);
+    v30 = *(v51 + 248);
     v31 = *(v51 + 252);
-    v32 = v51[32];
-    v33 = *(v51 + 66);
-    v34 = *(v51 + 67);
-    v35 = *(v51 + 68);
-    v36 = *(v51 + 69);
-    v37 = *(v51 + 70);
-    v38 = *(v51 + 71);
-    v39 = *(v51 + 72);
+    v32 = *(v51 + 256);
+    v33 = *(v51 + 264);
+    v34 = *(v51 + 268);
+    v35 = *(v51 + 272);
+    v36 = *(v51 + 276);
+    v37 = *(v51 + 280);
+    v38 = *(v51 + 284);
+    v39 = *(v51 + 288);
     isAirbagDetectedOverWindow = self->_isAirbagDetectedOverWindow;
     possibleRollerCoaster = self->_possibleRollerCoaster;
-    v42 = *(v51 + 59);
+    v42 = *(v51 + 236);
     *buf = 138551298;
     v58 = uUIDString;
     v59 = 1026;
@@ -718,7 +746,7 @@
       sub_100009A48(v48);
     }
 
-    (*v49)[20](&v43);
+    (*(*v49 + 160))(&v43);
     sub_10003B98C(&v43, &v45);
     if (v44)
     {
@@ -741,30 +769,30 @@
       isCrashDetected = self->_isCrashDetected;
       isRolloverCrashDetected = self->_isRolloverCrashDetected;
       isHighSpeedCrashDetected = self->_isHighSpeedCrashDetected;
-      v18 = *(v45 + 40);
-      v19 = *(v45 + 41);
-      v20 = *(v45 + 42);
-      v21 = *(v45 + 43);
-      v23 = *(v45 + 44);
-      v22 = *(v45 + 45);
-      v24 = *(v45 + 56);
-      v25 = *(v45 + 57);
-      v26 = *(v45 + 58);
+      v18 = *(v45 + 160);
+      v19 = *(v45 + 164);
+      v20 = *(v45 + 168);
+      v21 = *(v45 + 172);
+      v23 = *(v45 + 176);
+      v22 = *(v45 + 180);
+      v24 = *(v45 + 224);
+      v25 = *(v45 + 228);
+      v26 = *(v45 + 232);
       v27 = *(v45 + 241);
-      v28 = *(v45 + 61);
-      v29 = *(v45 + 62);
+      v28 = *(v45 + 244);
+      v29 = *(v45 + 248);
       v30 = *(v45 + 252);
-      v31 = v45[32];
-      v32 = *(v45 + 66);
-      v33 = *(v45 + 67);
-      v34 = *(v45 + 68);
-      v35 = *(v45 + 69);
-      v36 = *(v45 + 70);
-      v37 = *(v45 + 71);
-      v38 = *(v45 + 72);
+      v31 = *(v45 + 256);
+      v32 = *(v45 + 264);
+      v33 = *(v45 + 268);
+      v34 = *(v45 + 272);
+      v35 = *(v45 + 276);
+      v36 = *(v45 + 280);
+      v37 = *(v45 + 284);
+      v38 = *(v45 + 288);
       isAirbagDetectedOverWindow = self->_isAirbagDetectedOverWindow;
       possibleRollerCoaster = self->_possibleRollerCoaster;
-      v41 = *(v45 + 59);
+      v41 = *(v45 + 236);
       *buf = 138551298;
       *v52 = uUIDString;
       *&v52[8] = 1026;
@@ -923,6 +951,153 @@
   companionProxy = self->_companionProxy;
   v9 = [NSData dataWithBytes:&triggerTime length:40];
   [(CSCompanionServiceProtocol *)companionProxy sendData:v9 type:3];
+}
+
+- (void)companionConnectedAck:(int)ack
+{
+  v3 = *&ack;
+  if (qword_100456818 != -1)
+  {
+    sub_1003061F8();
+  }
+
+  v5 = qword_100456820;
+  if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    getSystemHardware = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "request response from companion %d", buf, 8u);
+  }
+
+  if ((v3 - 4) < 2 || (v3 - 101) < 2)
+  {
+    *buf = 1;
+    v6 = +[CSPlatformInfo sharedInstance];
+    getSystemHardware = [v6 getSystemHardware];
+    getSystemModel = [v6 getSystemModel];
+    v8 = getSystemModel;
+    strncpy(v26, [getSystemModel UTF8String], 0x14uLL);
+
+    if ([v6 isKappaLoggingDevice])
+    {
+      v27 = 0;
+    }
+
+    else if ([v6 isKappaDetectionDevice])
+    {
+      v27 = 1;
+    }
+
+    else
+    {
+      if (qword_100456818 != -1)
+      {
+        sub_10030620C();
+      }
+
+      v10 = qword_100456820;
+      if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_FAULT))
+      {
+        *v17 = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_FAULT, "invalid kappa device detected", v17, 2u);
+      }
+    }
+
+    KappaToken = getKappaToken(0);
+    v11 = objc_alloc_init(CSArmedSeconds);
+    if (self->_isLoggingDevice)
+    {
+      if (qword_100456818 != -1)
+      {
+        sub_10030620C();
+      }
+
+      v12 = qword_100456820;
+      if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_34;
+      }
+
+      *v17 = 0;
+      v13 = "query armed state not supported";
+    }
+
+    else
+    {
+      if (CSAOPSvc::getArmedState(self->_aop, v11))
+      {
+        isArmed = [(CSArmedSeconds *)v11 isArmed];
+        if (qword_100456818 != -1)
+        {
+          sub_10030620C();
+        }
+
+        v14 = qword_100456820;
+        if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_INFO))
+        {
+          *v17 = 67109120;
+          *&v17[4] = isArmed;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "queried isArmed:%d", v17, 8u);
+        }
+
+        goto LABEL_35;
+      }
+
+      if (qword_100456818 != -1)
+      {
+        sub_10030620C();
+      }
+
+      v12 = qword_100456820;
+      if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_INFO))
+      {
+LABEL_34:
+        isArmed = -1;
+LABEL_35:
+        if (qword_100456818 != -1)
+        {
+          sub_10030620C();
+        }
+
+        v15 = qword_100456820;
+        if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_INFO))
+        {
+          *v17 = 134218754;
+          *&v17[4] = getSystemHardware;
+          v18 = 2080;
+          v19 = v26;
+          v20 = 1024;
+          v21 = v27;
+          v22 = 1024;
+          v23 = KappaToken;
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "sending device info %lu %s %d %d", v17, 0x22u);
+        }
+
+        v16 = [NSData dataWithBytes:buf length:40, *v17];
+        [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v16 type:v3];
+
+        return;
+      }
+
+      *v17 = 0;
+      v13 = "query get armed state failed";
+    }
+
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, v13, v17, 2u);
+    goto LABEL_34;
+  }
+
+  if (qword_100456818 != -1)
+  {
+    sub_10030620C();
+  }
+
+  v9 = qword_100456820;
+  if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_FAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_FAULT, "invalid opcode", buf, 2u);
+  }
 }
 
 - (void)companionConnectedAckHandler:(int)handler data:(id)data receivedTimestamp:(double)timestamp
@@ -1287,9 +1462,9 @@ LABEL_22:
   protobufCopy = protobuf;
   if (!protobufCopy)
   {
-    sub_1003064AC(&Current);
+    sub_1003064AC();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 1044, "[CSKappaDetectionService sendForceTriggerProtobuf:]");
     __break(1u);
   }
 
@@ -1313,7 +1488,7 @@ LABEL_22:
 
 - (void)receiveForceTriggerProtobuf:(id)protobuf
 {
-  KappaCompanion::deserializeTrigger(protobuf, a2);
+  KappaCompanion::deserializeTrigger(protobuf, a2, &v8);
   if ((*(v8 + 9) & 4) != 0)
   {
     v8 = 0;
@@ -1450,14 +1625,14 @@ LABEL_5:
     sub_100009A48(v29);
   }
 
-  (*v30)[20](&v24);
+  (*(*v30 + 160))(&v24);
   sub_10003B98C(&v24, &v26);
   if (v25)
   {
     sub_100009A48(v25);
   }
 
-  v7 = v26[4];
+  v7 = *(v26 + 32);
   v8 = *(v26 + 48);
   if (qword_100456818 != -1)
   {
@@ -1476,9 +1651,9 @@ LABEL_5:
 
   v10 = v26;
   self->_isCrashDetected |= *(v26 + 56);
-  self->_isRolloverCrashDetected |= *(v10 + 57);
-  self->_isHighSpeedCrashDetected |= *(v10 + 58);
-  self->_isAirbagDetectedOverWindow |= *(v10 + 292);
+  self->_isRolloverCrashDetected |= v10[57];
+  self->_isHighSpeedCrashDetected |= v10[58];
+  self->_isAirbagDetectedOverWindow |= v10[292];
   v11 = +[CSPersistentConfiguration sharedConfiguration];
   if ([v11 BOOLForKey:@"CSRollerCoasterProxyForceBT"])
   {
@@ -1653,7 +1828,7 @@ LABEL_41:
 
 - (void)updateTrustedAudioMetadata
 {
-  [(CSKappaDetectionService *)self getDataIntegrityBlock];
+  objc_msgSend_getDataIntegrityBlock(self, a2);
   Stats = TrustedAudioHelper::getStats((v15 + 128), self->_triggerAOPTime);
   *&self->_trustedAudioStats.fractionalAudio = Stats;
   *&self->_trustedAudioStats.numEpochsMissingAudioAfterStart = v4;
@@ -1737,13 +1912,13 @@ LABEL_41:
     sub_100009A48(v24);
   }
 
-  v7 = *(v25 + 15);
-  v18 = *(v25 + 13);
+  v7 = *(v25 + 120);
+  v18 = *(v25 + 104);
   v19 = v7;
-  v20 = *(v25 + 17);
-  v21 = v25[19];
-  v8 = *(v25 + 11);
-  v16 = *(v25 + 9);
+  v20 = *(v25 + 136);
+  v21 = *(v25 + 152);
+  v8 = *(v25 + 88);
+  v16 = *(v25 + 72);
   v17 = v8;
   Current = CFAbsoluteTimeGetCurrent();
   *&v16 = self->_epochTimestamp;
@@ -1760,7 +1935,7 @@ LABEL_41:
   if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134349312;
-    v28 = *&v21;
+    v28 = v21;
     v29 = 2050;
     v30 = v10;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "sending local audio results to companion %{public}llu %{public}llu", buf, 0x16u);
@@ -1849,14 +2024,14 @@ LABEL_41:
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v4 + 160))(&v25);
-  sub_10001F720(&v25, &v27);
-  if (v26)
+  (*(*v4 + 160))(&v24);
+  sub_10001F720(&v24, &v26);
+  if (v25)
   {
-    sub_100009A48(v26);
+    sub_100009A48(v25);
   }
 
-  if (v27[10] & 1) != 0 || (self->_forceFeatureBitmap)
+  if (*(v26 + 80) & 1) != 0 || (self->_forceFeatureBitmap)
   {
     self->_algFeatureBitmap |= 1u;
   }
@@ -1872,96 +2047,95 @@ LABEL_41:
   (*(*v7 + 160))(&lpsrc);
   if (lpsrc)
   {
-    v9 = **lpsrc;
-    if (v10)
+    if (v9)
     {
-      v11 = v24;
-      if (v24)
+      v10 = v23;
+      if (v23)
       {
-        atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
       }
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
   }
 
   else
   {
-    v11 = 0;
     v10 = 0;
+    v9 = 0;
   }
 
-  if (v24)
+  if (v23)
   {
-    sub_100009A48(v24);
+    sub_100009A48(v23);
   }
 
-  if ((v10[40] & 1) != 0 || (self->_forceFeatureBitmap & 2) != 0)
+  if ((v9[40] & 1) != 0 || (self->_forceFeatureBitmap & 2) != 0)
   {
     self->_algFeatureBitmap |= 2u;
   }
 
-  v12 = self->fFlowControl.__ptr_;
-  v13 = *(v12 + 6);
-  v14 = *(v12 + 7);
-  if (v14)
+  v11 = self->fFlowControl.__ptr_;
+  v12 = *(v11 + 6);
+  v13 = *(v11 + 7);
+  if (v13)
   {
-    atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v13 + 320))(&v21);
-  v15 = *(v21 + 8);
-  if (v22)
+  (*(*v12 + 320))(&v20);
+  v14 = v20[8];
+  if (v21)
   {
-    sub_100009A48(v22);
+    sub_100009A48(v21);
   }
 
-  if ((v15 & 1) != 0 || (self->_forceFeatureBitmap & 4) != 0)
+  if ((v14 & 1) != 0 || (self->_forceFeatureBitmap & 4) != 0)
   {
     self->_algFeatureBitmap |= 4u;
   }
 
-  v16 = self->fFlowControl.__ptr_;
-  v17 = *(v16 + 42);
-  v18 = *(v16 + 43);
-  if (v18)
+  v15 = self->fFlowControl.__ptr_;
+  v16 = *(v15 + 42);
+  v17 = *(v15 + 43);
+  if (v17)
   {
-    atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v17 + 160))(&v19);
-  sub_1002C33E0(&v19, &v21);
-  if (v20)
+  (*(*v16 + 160))(&v18);
+  sub_1002C33E0(&v18, &v20);
+  if (v19)
   {
-    sub_100009A48(v20);
+    sub_100009A48(v19);
   }
 
-  if (*(v21 + 340) == 1 && (v21[40] & 1) != 0 || (self->_forceFeatureBitmap & 8) != 0)
+  if (v20[340] == 1 && (v20[320] & 1) != 0 || (self->_forceFeatureBitmap & 8) != 0)
   {
     self->_algFeatureBitmap |= 8u;
   }
 
-  if (v22)
+  if (v21)
   {
-    sub_100009A48(v22);
+    sub_100009A48(v21);
   }
 
-  if (v18)
+  if (v17)
   {
-    sub_100009A48(v18);
+    sub_100009A48(v17);
   }
 
-  if (v14)
+  if (v13)
   {
-    sub_100009A48(v14);
+    sub_100009A48(v13);
   }
 
-  if (v11)
+  if (v10)
   {
-    sub_100009A48(v11);
+    sub_100009A48(v10);
   }
 
   if (v8)
@@ -1969,9 +2143,9 @@ LABEL_41:
     sub_100009A48(v8);
   }
 
-  if (v28)
+  if (v27)
   {
-    sub_100009A48(v28);
+    sub_100009A48(v27);
   }
 
   if (v5)
@@ -1995,14 +2169,14 @@ LABEL_41:
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v4 + 160))(&v64);
-  sub_1002C33E0(&v64, &v66);
-  if (v65)
+  (*(*v4 + 160))(&v62);
+  sub_1002C33E0(&v62, &v64);
+  if (v63)
   {
-    sub_100009A48(v65);
+    sub_100009A48(v63);
   }
 
-  if (*(v66 + 296) == 1)
+  if (*(v64 + 296) == 1)
   {
     ++self->_sessionDetails.numRolloverCrashes;
   }
@@ -2015,15 +2189,15 @@ LABEL_41:
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v49 = v8;
-  (*(*v7 + 160))(&v60);
-  sub_1002A9480(&v60, &v62);
-  if (v61)
+  v47 = v8;
+  (*(*v7 + 160))(&v58);
+  sub_1002A9480(&v58, &v60);
+  if (v59)
   {
-    sub_100009A48(v61);
+    sub_100009A48(v59);
   }
 
-  if ((*(v62 + 101) & 1) != 0 || (self->_forceFeatureBitmap & 0x10) != 0)
+  if ((*(v60 + 101) & 1) != 0 || (self->_forceFeatureBitmap & 0x10) != 0)
   {
     self->_algFeatureBitmap |= 0x10u;
   }
@@ -2039,66 +2213,22 @@ LABEL_41:
   (*(*v10 + 160))(&lpsrc);
   if (lpsrc)
   {
-    v12 = **lpsrc;
-    if (v13 && v59)
+    if (v12 && v57)
     {
-      v48 = v59;
-      atomic_fetch_add_explicit(&v59->__shared_owners_, 1uLL, memory_order_relaxed);
+      v46 = v57;
+      atomic_fetch_add_explicit(&v57->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     else
     {
-      v48 = 0;
+      v46 = 0;
     }
   }
 
   else
   {
-    v48 = 0;
-    v13 = 0;
-  }
-
-  if (v59)
-  {
-    sub_100009A48(v59);
-  }
-
-  if (v13[184] == 1)
-  {
-    ++self->_sessionDetails.numPlanarCrashes;
-  }
-
-  v14 = self->fFlowControl.__ptr_;
-  v15 = *(v14 + 44);
-  v16 = *(v14 + 45);
-  if (v16)
-  {
-    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  (*(*v15 + 160))(&v56);
-  if (v56)
-  {
-    v17 = **v56;
-    if (v18)
-    {
-      v19 = v57;
-      if (v57)
-      {
-        atomic_fetch_add_explicit(&v57->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-  }
-
-  else
-  {
-    v19 = 0;
-    v18 = 0;
+    v46 = 0;
+    v12 = 0;
   }
 
   if (v57)
@@ -2106,197 +2236,41 @@ LABEL_41:
     sub_100009A48(v57);
   }
 
-  if (v18[32] == 1)
+  if (v12[184] == 1)
   {
-    if (self->_sessionDetails.latchedHighSpeedCrash)
+    ++self->_sessionDetails.numPlanarCrashes;
+  }
+
+  v13 = self->fFlowControl.__ptr_;
+  v14 = *(v13 + 44);
+  v15 = *(v13 + 45);
+  if (v15)
+  {
+    atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  (*(*v14 + 160))(&v54);
+  if (v54)
+  {
+    if (v16)
     {
-      goto LABEL_42;
+      v17 = v55;
+      if (v55)
+      {
+        atomic_fetch_add_explicit(&v55->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
     }
 
-    ++self->_sessionDetails.numHighSpeedCrashes;
-    v20 = 1;
+    else
+    {
+      v17 = 0;
+    }
   }
 
   else
   {
-    v20 = 0;
-  }
-
-  self->_sessionDetails.latchedHighSpeedCrash = v20;
-LABEL_42:
-  v21 = self->fFlowControl.__ptr_;
-  v22 = *(v21 + 54);
-  v23 = *(v21 + 55);
-  if (v23)
-  {
-    atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  (*(*v22 + 160))(&v52);
-  sub_10003B98C(&v52, &v54);
-  if (v53)
-  {
-    sub_100009A48(v53);
-  }
-
-  v24 = v54;
-  v25 = v54[5];
-  if (v25)
-  {
-    self->_sessionDetails.crashTimestamp = v25;
-  }
-
-  if (*(v24 + 48) == 1)
-  {
-    ++self->_sessionDetails.numSevereCrashes;
-    self->_sessionDetails.severeCrashAOPTimestamp = v24[4];
-  }
-
-  v26 = *(v24 + 50);
-  v27 = *(v24 + 49);
-  if (((v26 & 1) != 0 || *(v24 + 49)) && !self->_sessionDetails.lendCompanionPunchThru)
-  {
-    if (qword_100456818 != -1)
-    {
-      sub_10030620C();
-    }
-
-    v28 = qword_100456820;
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "lending companion punch thru", buf, 2u);
-    }
-
-    self->_sessionDetails.lendCompanionPunchThru = 1;
-    v29 = sub_1000197C8();
-    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v29 type:402];
-  }
-
-  if (qword_100456818 != -1)
-  {
-    sub_10030620C();
-  }
-
-  v30 = qword_100456820;
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
-  {
-    lendCompanionPunchThru = self->_sessionDetails.lendCompanionPunchThru;
-    v32 = *(v54 + 51);
-    v33 = *(v54 + 48);
-    v34 = *(v54 + 53);
-    *buf = 67110400;
-    *&buf[4] = v26;
-    LOWORD(v69) = 1024;
-    *(&v69 + 2) = v27;
-    HIWORD(v69) = 1024;
-    v70 = lendCompanionPunchThru;
-    v71 = 1024;
-    v72 = v32;
-    v73 = 1024;
-    v74 = v33;
-    v75 = 1024;
-    v76 = v34;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "punch thru lowsense %d highsense %d lend %d decided %d severe %d cand %d", buf, 0x26u);
-  }
-
-  KappaLowSenseCrashToken = getKappaLowSenseCrashToken(0);
-  KappaHighSenseCrashToken = getKappaHighSenseCrashToken(0);
-  if (v26 && KappaLowSenseCrashToken > 0)
-  {
-    v37 = 0;
-  }
-
-  else if (KappaHighSenseCrashToken < 1)
-  {
-    v37 = 1;
-  }
-
-  else
-  {
-    v37 = v27 ^ 1;
-  }
-
-  v38 = v54;
-  if (v54[6])
-  {
-    v39 = 0;
-  }
-
-  else
-  {
-    v39 = *(v54 + 53) ^ 1;
-  }
-
-  if (self->_sessionDetails.lendCompanionPunchThru && !self->_sessionDetails.retractCompanionPunchThru && (*(v54 + 51) & (v37 & v39) & 1) != 0)
-  {
-    if (qword_100456818 != -1)
-    {
-      sub_10030620C();
-    }
-
-    v40 = qword_100456820;
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, "retracting companion punch thru", buf, 2u);
-    }
-
-    self->_sessionDetails.retractCompanionPunchThru = 1;
-    v41 = sub_100019A7C();
-    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v41 type:403];
-
-    v38 = v54;
-  }
-
-  self->_sessionDetails.numDeescalationStatic = v38[6].i32[2];
-  self->_sessionDetails.numDeescalationMoving = v38[5].i32[2];
-  self->_sessionDetails.numDeescalationSteps = v38[6].i32[3];
-  self->_sessionDetails.numDeescalationQuiescence = v38[5].i32[3];
-  self->_sessionDetails.numDeescalationAutocorrelation = v38[5].i32[1];
-  self->_sessionDetails.numDeescalationTriggerCluster = v38[7].i32[0];
-  *&self->_sessionDetails.numDeescalationSkiingBaroAndAudio = v38[6].i64[0];
-  self->_sessionDetails.numDeescalationUsha = v38[7].i32[2];
-  self->_sessionDetails.numDeescalationAOI = v38[5].i32[0];
-  self->_sessionDetails.numDeescalationTwoLevel = v38[7].i32[1];
-  *&self->_sessionDetails.numDeescalationDistToRoad = vuzp2q_s32(vextq_s8(v38[8], v38[8], 4uLL), v38[8]);
-  self->_sessionDetails.numInertDeescalationCrashClassifier = v38[9].i32[0];
-  v42 = self->fFlowControl.__ptr_;
-  v43 = *(v42 + 18);
-  v44 = *(v42 + 19);
-  if (v44)
-  {
-    atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  (*(*v43 + 160))(&v50);
-  sub_10001F720(&v50, buf);
-  if (v51)
-  {
-    sub_100009A48(v51);
-  }
-
-  v45 = *buf;
-  v46 = *(*buf + 176);
-  if (v46 > self->_sessionDetails.maxDeltaVXYBiggestImpact)
-  {
-    self->_sessionDetails.maxDeltaVXYBiggestImpact = v46;
-  }
-
-  v47 = *(v45 + 168);
-  if (v47 > self->_sessionDetails.maxDeltaVXYOverEpoch)
-  {
-    self->_sessionDetails.maxDeltaVXYOverEpoch = v47;
-  }
-
-  if (v69)
-  {
-    sub_100009A48(v69);
-  }
-
-  if (v44)
-  {
-    sub_100009A48(v44);
+    v17 = 0;
+    v16 = 0;
   }
 
   if (v55)
@@ -2304,39 +2278,187 @@ LABEL_42:
     sub_100009A48(v55);
   }
 
+  if (v16[32] == 1)
+  {
+    if (self->_sessionDetails.latchedHighSpeedCrash)
+    {
+      goto LABEL_42;
+    }
+
+    ++self->_sessionDetails.numHighSpeedCrashes;
+    v18 = 1;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  self->_sessionDetails.latchedHighSpeedCrash = v18;
+LABEL_42:
+  v19 = self->fFlowControl.__ptr_;
+  v20 = *(v19 + 54);
+  v21 = *(v19 + 55);
+  if (v21)
+  {
+    atomic_fetch_add_explicit(&v21->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  (*(*v20 + 160))(&v50);
+  sub_10003B98C(&v50, &v52);
+  if (v51)
+  {
+    sub_100009A48(v51);
+  }
+
+  v22 = v52;
+  v23 = v52[2].u64[1];
   if (v23)
   {
-    sub_100009A48(v23);
+    self->_sessionDetails.crashTimestamp = v23;
   }
 
-  if (v19)
+  if (v22[3].i8[0] == 1)
   {
-    sub_100009A48(v19);
+    ++self->_sessionDetails.numSevereCrashes;
+    self->_sessionDetails.severeCrashAOPTimestamp = v22[2].u64[0];
   }
 
-  if (v16)
+  v24 = v22[3].u8[2];
+  v25 = v22[3].u8[1];
+  if (((v24 & 1) != 0 || v22[3].i8[1]) && !self->_sessionDetails.lendCompanionPunchThru)
   {
-    sub_100009A48(v16);
+    if (qword_100456818 != -1)
+    {
+      sub_10030620C();
+    }
+
+    v26 = qword_100456820;
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "lending companion punch thru", buf, 2u);
+    }
+
+    self->_sessionDetails.lendCompanionPunchThru = 1;
+    v27 = sub_1000197C8();
+    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v27 type:402];
   }
 
-  if (v48)
+  if (qword_100456818 != -1)
   {
-    sub_100009A48(v48);
+    sub_10030620C();
   }
 
-  if (v11)
+  v28 = qword_100456820;
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
   {
-    sub_100009A48(v11);
+    lendCompanionPunchThru = self->_sessionDetails.lendCompanionPunchThru;
+    v30 = v52[3].u8[3];
+    v31 = v52[3].u8[0];
+    v32 = v52[3].u8[5];
+    *buf = 67110400;
+    *&buf[4] = v24;
+    LOWORD(v67) = 1024;
+    *(&v67 + 2) = v25;
+    HIWORD(v67) = 1024;
+    v68 = lendCompanionPunchThru;
+    v69 = 1024;
+    v70 = v30;
+    v71 = 1024;
+    v72 = v31;
+    v73 = 1024;
+    v74 = v32;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "punch thru lowsense %d highsense %d lend %d decided %d severe %d cand %d", buf, 0x26u);
   }
 
-  if (v63)
+  KappaLowSenseCrashToken = getKappaLowSenseCrashToken(0);
+  KappaHighSenseCrashToken = getKappaHighSenseCrashToken(0);
+  if (v24 && KappaLowSenseCrashToken > 0)
   {
-    sub_100009A48(v63);
+    v35 = 0;
   }
 
+  else if (KappaHighSenseCrashToken < 1)
+  {
+    v35 = 1;
+  }
+
+  else
+  {
+    v35 = v25 ^ 1;
+  }
+
+  v36 = v52;
+  if (v52[3].i8[0])
+  {
+    v37 = 0;
+  }
+
+  else
+  {
+    v37 = v52[3].i8[5] ^ 1;
+  }
+
+  if (self->_sessionDetails.lendCompanionPunchThru && !self->_sessionDetails.retractCompanionPunchThru && (v52[3].i8[3] & (v35 & v37) & 1) != 0)
+  {
+    if (qword_100456818 != -1)
+    {
+      sub_10030620C();
+    }
+
+    v38 = qword_100456820;
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEBUG, "retracting companion punch thru", buf, 2u);
+    }
+
+    self->_sessionDetails.retractCompanionPunchThru = 1;
+    v39 = sub_100019A7C();
+    [(CSCompanionServiceProtocol *)self->_companionProxy sendData:v39 type:403];
+
+    v36 = v52;
+  }
+
+  self->_sessionDetails.numDeescalationStatic = v36[6].i32[2];
+  self->_sessionDetails.numDeescalationMoving = v36[5].i32[2];
+  self->_sessionDetails.numDeescalationSteps = v36[6].i32[3];
+  self->_sessionDetails.numDeescalationQuiescence = v36[5].i32[3];
+  self->_sessionDetails.numDeescalationAutocorrelation = v36[5].i32[1];
+  self->_sessionDetails.numDeescalationTriggerCluster = v36[7].i32[0];
+  *&self->_sessionDetails.numDeescalationSkiingBaroAndAudio = v36[6].i64[0];
+  self->_sessionDetails.numDeescalationUsha = v36[7].i32[2];
+  self->_sessionDetails.numDeescalationAOI = v36[5].i32[0];
+  self->_sessionDetails.numDeescalationTwoLevel = v36[7].i32[1];
+  *&self->_sessionDetails.numDeescalationDistToRoad = vuzp2q_s32(vextq_s8(v36[8], v36[8], 4uLL), v36[8]);
+  self->_sessionDetails.numInertDeescalationCrashClassifier = v36[9].i32[0];
+  v40 = self->fFlowControl.__ptr_;
+  v41 = *(v40 + 18);
+  v42 = *(v40 + 19);
+  if (v42)
+  {
+    atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  (*(*v41 + 160))(&v48);
+  sub_10001F720(&v48, buf);
   if (v49)
   {
     sub_100009A48(v49);
+  }
+
+  v43 = *buf;
+  v44 = *(*buf + 176);
+  if (v44 > self->_sessionDetails.maxDeltaVXYBiggestImpact)
+  {
+    self->_sessionDetails.maxDeltaVXYBiggestImpact = v44;
+  }
+
+  v45 = *(v43 + 168);
+  if (v45 > self->_sessionDetails.maxDeltaVXYOverEpoch)
+  {
+    self->_sessionDetails.maxDeltaVXYOverEpoch = v45;
   }
 
   if (v67)
@@ -2344,10 +2466,98 @@ LABEL_42:
     sub_100009A48(v67);
   }
 
+  if (v42)
+  {
+    sub_100009A48(v42);
+  }
+
+  if (v53)
+  {
+    sub_100009A48(v53);
+  }
+
+  if (v21)
+  {
+    sub_100009A48(v21);
+  }
+
+  if (v17)
+  {
+    sub_100009A48(v17);
+  }
+
+  if (v15)
+  {
+    sub_100009A48(v15);
+  }
+
+  if (v46)
+  {
+    sub_100009A48(v46);
+  }
+
+  if (v11)
+  {
+    sub_100009A48(v11);
+  }
+
+  if (v61)
+  {
+    sub_100009A48(v61);
+  }
+
+  if (v47)
+  {
+    sub_100009A48(v47);
+  }
+
+  if (v65)
+  {
+    sub_100009A48(v65);
+  }
+
   if (v5)
   {
     sub_100009A48(v5);
   }
+}
+
+- (void)onCloseEpoch:(unint64_t)epoch epochNumber:(int)number
+{
+  v4 = *&number;
+  v7 = +[CSTimeManager SPU_estimate_current_timestamp];
+  self->_epochTimestamp = epoch;
+  self->_epochNumber = v4;
+  self->_lastEpochTime = CFAbsoluteTimeGetCurrent();
+  if (qword_100456818 != -1)
+  {
+    sub_1003061F8();
+  }
+
+  v8 = qword_100456820;
+  if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEFAULT))
+  {
+    epochNumber = self->_epochNumber;
+    epochTimestamp = self->_epochTimestamp;
+    v11[0] = 67240704;
+    v11[1] = epochNumber;
+    v12 = 2050;
+    v13 = epochTimestamp;
+    v14 = 2050;
+    v15 = v7;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "close epoch %{public}d aop timestamp %{public}llu, %{public}llu", v11, 0x1Cu);
+  }
+
+  if (self->_isDetectionDevice)
+  {
+    [(CSKappaDetectionService *)self evaluatePossibleCrashDetectorDecision];
+    [(CSKappaDetectionService *)self evaluateSamplingAlgFeatures];
+    [(CSKappaDetectionService *)self populateSessionDetails];
+    [(CSKappaDetectionService *)self updateTrustedAudioMetadata];
+  }
+
+  [(CSKappaDetectionService *)self sendLocalAudioToWatch];
+  [(CSKappaDetectionService *)self sendRemoteSampleToCompanion:v7 epochTs:epoch epochNumber:v4];
 }
 
 - (void)sendRemoteSampleToCompanion:(unint64_t)companion epochTs:(unint64_t)ts epochNumber:(int)number
@@ -2499,18 +2709,18 @@ LABEL_42:
     atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  (*(*v10 + 160))(&v45);
-  sub_10003B98C(&v45, v56);
-  if (v46)
+  (*(*v10 + 160))(&v47);
+  sub_10003B98C(&v47, v58);
+  if (v48)
   {
-    sub_100009A48(v46);
+    sub_100009A48(v48);
   }
 
-  v12 = *v56;
-  self->_deescalationBitmap = *(*v56 + 344);
-  v42 = v12[49];
-  v43 = v12[50];
-  v41 = v12[48];
+  v12 = *v58;
+  self->_deescalationBitmap = *(*v58 + 344);
+  v44 = v12[49];
+  v45 = v12[50];
+  v43 = v12[48];
   v13 = v12[53];
   KappaToken = getKappaToken(0);
   KappaLowSenseCrashToken = getKappaLowSenseCrashToken(0);
@@ -2522,14 +2732,15 @@ LABEL_42:
 
   stopCopy = stop;
   v18 = qword_100456820;
-  if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+  v19 = os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG);
+  if (v19)
   {
     LODWORD(buf) = 67109632;
     HIDWORD(buf) = KappaToken;
-    v48 = 1024;
-    v49 = KappaLowSenseCrashToken;
     v50 = 1024;
-    v51 = KappaHighSenseCrashToken;
+    v51 = KappaLowSenseCrashToken;
+    v52 = 1024;
+    v53 = KappaHighSenseCrashToken;
     _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "tokenTriggerCnt = %d, tokenLowSenseCrashCnt = %d, tokenHighSenseCrashCnt = %d", &buf, 0x14u);
   }
 
@@ -2541,58 +2752,58 @@ LABEL_42:
       sub_10030620C();
     }
 
-    v19 = v11;
-    v22 = qword_100456820;
+    v21 = v11;
+    v24 = qword_100456820;
     if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
     {
       SOSInProgress = self->_SOSInProgress;
       LODWORD(buf) = 67109376;
       HIDWORD(buf) = SOSInProgress;
-      v48 = 1024;
-      v49 = v13;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "crash detected %d suppressed %d", &buf, 0xEu);
+      v50 = 1024;
+      v51 = v13;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEBUG, "crash detected %d suppressed %d", &buf, 0xEu);
     }
 
     goto LABEL_36;
   }
 
   stop = stopCopy;
-  if (KappaLowSenseCrashToken >= 1 && v43)
+  if (KappaLowSenseCrashToken >= 1 && v45)
   {
-    v19 = v11;
+    v21 = v11;
     if (qword_100456818 != -1)
     {
       sub_10030620C();
     }
 
-    v20 = qword_100456820;
+    v22 = qword_100456820;
     if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEBUG, "acquiring kappa low sense crash token", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEBUG, "acquiring kappa low sense crash token", &buf, 2u);
     }
 
-    v21 = 1;
+    v23 = 1;
     getKappaLowSenseCrashToken(1);
     goto LABEL_37;
   }
 
-  v19 = v11;
-  if (KappaHighSenseCrashToken >= 1 && v42)
+  v21 = v11;
+  if (KappaHighSenseCrashToken >= 1 && v44)
   {
     if (qword_100456818 != -1)
     {
       sub_10030620C();
     }
 
-    v32 = qword_100456820;
+    v34 = qword_100456820;
     if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "acquiring kappa high sense crash token", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEBUG, "acquiring kappa high sense crash token", &buf, 2u);
     }
 
-    v21 = 1;
+    v23 = 1;
     getKappaHighSenseCrashToken(1);
     goto LABEL_37;
   }
@@ -2601,18 +2812,18 @@ LABEL_42:
   {
     if (!KappaToken)
     {
-      v40 = sub_1002F7258();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+      v42 = sub_1002F7258(v19, v20);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEBUG, "forcefully stopping aop collection", &buf, 2u);
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEBUG, "forcefully stopping aop collection", &buf, 2u);
       }
 
       CSAOPSvc::forceStopCollection(self->_aop);
     }
 
 LABEL_36:
-    v21 = 0;
+    v23 = 0;
     goto LABEL_37;
   }
 
@@ -2621,44 +2832,44 @@ LABEL_36:
     sub_10030620C();
   }
 
-  v39 = qword_100456820;
+  v41 = qword_100456820;
   if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
   {
     LOWORD(buf) = 0;
-    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "acquiring kappa trigger token", &buf, 2u);
+    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEBUG, "acquiring kappa trigger token", &buf, 2u);
   }
 
-  v21 = 1;
+  v23 = 1;
   getKappaToken(1);
 LABEL_37:
   mslRecording = self->_mslRecording;
-  v54 = @"kappaTokenAllocated";
-  v25 = [NSNumber numberWithBool:v21];
-  v55 = v25;
-  v26 = [NSDictionary dictionaryWithObjects:&v55 forKeys:&v54 count:1];
-  [(CSMSLDataRecording *)mslRecording updateMetadata:v26];
+  v56 = @"kappaTokenAllocated";
+  v27 = [NSNumber numberWithBool:v23];
+  v57 = v27;
+  v28 = [NSDictionary dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+  [(CSMSLDataRecording *)mslRecording updateMetadata:v28];
 
-  self->_sessionDetails.lowSenseCrashDetected = v43;
-  self->_sessionDetails.highSenseCrashDetected = v42;
-  v27 = +[CSPersistentConfiguration sharedConfiguration];
-  v28 = [v27 getFloatDefault:@"KappaTTREnableHighSens"];
+  self->_sessionDetails.lowSenseCrashDetected = v45;
+  self->_sessionDetails.highSenseCrashDetected = v44;
+  v29 = +[CSPersistentConfiguration sharedConfiguration];
+  v30 = [v29 getFloatDefault:@"KappaTTREnableHighSens"];
   if (qword_100456818 != -1)
   {
     sub_10030620C();
   }
 
-  v29 = (v28 & 0x17FFFFFFFLL);
-  v30 = qword_100456820;
+  v31 = (v30 & 0x17FFFFFFFLL);
+  v32 = qword_100456820;
   if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEFAULT))
   {
-    buf = __PAIR64__(v43, 67109888);
-    v48 = 1024;
-    v49 = v42;
+    buf = __PAIR64__(v45, 67109888);
     v50 = 1024;
-    v51 = v29 != &_mh_execute_header;
+    v51 = v44;
     v52 = 1024;
-    v53 = v41;
-    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "[TTR] lowSens,%d,highSens,%d,highSensEnabled,%d,severe,%d", &buf, 0x1Au);
+    v53 = v31 != &_mh_execute_header;
+    v54 = 1024;
+    v55 = v43;
+    _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "[TTR] lowSens,%d,highSens,%d,highSensEnabled,%d,severe,%d", &buf, 0x1Au);
   }
 
   if (![(CSKappaDetectionService *)self shouldKeepEarlyCrashTTR])
@@ -2666,64 +2877,64 @@ LABEL_37:
     goto LABEL_57;
   }
 
-  if (!v43 || (v41 & 1) != 0)
+  if (!v45 || (v43 & 1) != 0)
   {
-    if (v29 == &_mh_execute_header || !v42 || (v41 & 1) != 0)
+    if (v31 == &_mh_execute_header || !v44 || (v43 & 1) != 0)
     {
       goto LABEL_57;
     }
 
-    v31 = 2;
+    v33 = 2;
   }
 
   else
   {
-    v31 = 3;
+    v33 = 3;
   }
 
-  self->_sessionDetails.ttrType = v31;
+  self->_sessionDetails.ttrType = v33;
 LABEL_57:
 
-  if (v57)
+  if (v59)
   {
-    sub_100009A48(v57);
+    sub_100009A48(v59);
   }
 
-  if (v19)
+  if (v21)
   {
-    sub_100009A48(v19);
+    sub_100009A48(v21);
   }
 
 LABEL_61:
-  v33 = objc_initWeak(&buf, self);
+  v35 = objc_initWeak(&buf, self);
   newTimer = [(CLSilo *)self->_silo newTimer];
   sosTimer = self->_sosTimer;
   self->_sosTimer = newTimer;
 
-  v44[0] = _NSConcreteStackBlock;
-  v44[1] = 3221225472;
-  v44[2] = sub_1002FD810;
-  v44[3] = &unk_1004234F0;
-  v44[4] = self;
-  v44[5] = stop;
-  [(CLTimer *)self->_sosTimer setHandler:v44];
-  v36 = +[CSPersistentConfiguration sharedConfiguration];
-  v37 = [v36 integerForKey:@"SOSTimeoutExpiration"];
+  v46[0] = _NSConcreteStackBlock;
+  v46[1] = 3221225472;
+  v46[2] = sub_1002FD810;
+  v46[3] = &unk_1004234F0;
+  v46[4] = self;
+  v46[5] = stop;
+  [(CLTimer *)self->_sosTimer setHandler:v46];
+  v38 = +[CSPersistentConfiguration sharedConfiguration];
+  v39 = [v38 integerForKey:@"SOSTimeoutExpiration"];
 
   if (qword_100456818 != -1)
   {
     sub_10030620C();
   }
 
-  v38 = qword_100456820;
+  v40 = qword_100456820;
   if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_INFO))
   {
-    *v56 = 67109120;
-    *&v56[4] = v37;
-    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "setting sos timer expiration %d", v56, 8u);
+    *v58 = 67109120;
+    *&v58[4] = v39;
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_INFO, "setting sos timer expiration %d", v58, 8u);
   }
 
-  [(CLTimer *)self->_sosTimer setNextFireDelay:v37 interval:1.79769313e308];
+  [(CLTimer *)self->_sosTimer setNextFireDelay:v39 interval:1.79769313e308];
 
   objc_destroyWeak(&buf);
 }
@@ -2751,6 +2962,826 @@ LABEL_61:
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "value not in range", v7, 2u);
     }
   }
+}
+
+- (void)forceCrashDetector:(int)detector withValue:(int)value
+{
+  ptr = self->fFlowControl.__ptr_;
+  if (!ptr)
+  {
+    sub_100307280();
+  }
+
+  v5 = *(ptr + 40);
+  v6 = *(ptr + 41);
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (!v5)
+  {
+    sub_10030716C();
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 1785, "[CSKappaDetectionService forceCrashDetector:withValue:]");
+    __break(1u);
+    goto LABEL_58;
+  }
+
+  if (detector <= 2)
+  {
+    if (detector)
+    {
+      if (detector != 1)
+      {
+        if (detector == 2)
+        {
+          if (value < 2)
+          {
+            sub_1002FDE14(v5, value != 0);
+            if (!v6)
+            {
+              return;
+            }
+
+            goto LABEL_52;
+          }
+
+          if (qword_100456818 != -1)
+          {
+            sub_1003061F8();
+          }
+
+          v7 = qword_100456820;
+          if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 0;
+            v8 = "value must be 0/1";
+            goto LABEL_41;
+          }
+        }
+
+        goto LABEL_51;
+      }
+
+      if (value < 2)
+      {
+        sub_1002FDD4C(v5, value != 0);
+        goto LABEL_51;
+      }
+
+      if (qword_100456818 != -1)
+      {
+        sub_1003061F8();
+      }
+
+      v7 = qword_100456820;
+      if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+      {
+LABEL_51:
+        if (!v6)
+        {
+          return;
+        }
+
+        goto LABEL_52;
+      }
+
+      *buf = 0;
+      v8 = "value must be 0/1";
+LABEL_41:
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, v8, buf, 2u);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_52;
+    }
+
+    if (value < 2)
+    {
+      sub_1002FDC84(v5, value != 0);
+      goto LABEL_51;
+    }
+
+    if (qword_100456818 == -1)
+    {
+LABEL_24:
+      v7 = qword_100456820;
+      if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_51;
+      }
+
+      *buf = 0;
+      v8 = "value must be 0/1";
+      goto LABEL_41;
+    }
+
+LABEL_58:
+    sub_1003061F8();
+    goto LABEL_24;
+  }
+
+  if (detector == 3)
+  {
+    if (value < 2)
+    {
+      sub_1002FDEDC(v5, value != 0);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_52;
+    }
+
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_51;
+    }
+
+    *buf = 0;
+    v8 = "value must be 0/1";
+    goto LABEL_41;
+  }
+
+  if (detector != 4)
+  {
+    if (detector != 5)
+    {
+      goto LABEL_51;
+    }
+
+    if ((value - 4) > 0xFFFFFFFA)
+    {
+      sub_1002FE06C(v5, value);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_52;
+    }
+
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_51;
+    }
+
+    *buf = 0;
+    v8 = "value not in range";
+    goto LABEL_41;
+  }
+
+  if (value >= 2)
+  {
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_51;
+    }
+
+    *buf = 0;
+    v8 = "value must be 0/1";
+    goto LABEL_41;
+  }
+
+  sub_1002FDFA4(v5, value != 0);
+  if (v6)
+  {
+LABEL_52:
+    sub_100009A48(v6);
+  }
+}
+
+- (void)forceHighSpeedCrashDetector:(int)detector withValue:(int)value
+{
+  ptr = self->fFlowControl.__ptr_;
+  if (!ptr)
+  {
+    sub_1003074D0();
+  }
+
+  v5 = *(ptr + 44);
+  v6 = *(ptr + 45);
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (!v5)
+  {
+    sub_1003073BC();
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 1819, "[CSKappaDetectionService forceHighSpeedCrashDetector:withValue:]");
+    __break(1u);
+    goto LABEL_59;
+  }
+
+  if (detector <= 12)
+  {
+    if (detector != 10)
+    {
+      if (detector != 11)
+      {
+        if (detector == 12)
+        {
+          if (value < 2)
+          {
+            sub_1002FE60C(v5, value != 0);
+            if (!v6)
+            {
+              return;
+            }
+
+            goto LABEL_53;
+          }
+
+          if (qword_100456818 != -1)
+          {
+            sub_1003061F8();
+          }
+
+          v7 = qword_100456820;
+          if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 0;
+            goto LABEL_41;
+          }
+        }
+
+        goto LABEL_52;
+      }
+
+      if (value < 2)
+      {
+        sub_1002FE544(v5, value != 0);
+        goto LABEL_52;
+      }
+
+      if (qword_100456818 != -1)
+      {
+        sub_1003061F8();
+      }
+
+      v7 = qword_100456820;
+      if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+      {
+LABEL_52:
+        if (!v6)
+        {
+          return;
+        }
+
+        goto LABEL_53;
+      }
+
+      *buf = 0;
+LABEL_41:
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "value must be 0/1", buf, 2u);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_53;
+    }
+
+    if (value < 2)
+    {
+      sub_1002FE47C(v5, value != 0);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_53;
+    }
+
+    if (qword_100456818 == -1)
+    {
+LABEL_24:
+      v7 = qword_100456820;
+      if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_52;
+      }
+
+      *buf = 0;
+      goto LABEL_41;
+    }
+
+LABEL_59:
+    sub_1003061F8();
+    goto LABEL_24;
+  }
+
+  if (detector == 13)
+  {
+    if (value < 2)
+    {
+      sub_1002FE6D4(v5, value != 0);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_53;
+    }
+
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_52;
+    }
+
+    *buf = 0;
+    goto LABEL_41;
+  }
+
+  if (detector != 14)
+  {
+    if (detector != 15)
+    {
+      goto LABEL_52;
+    }
+
+    if (value < 2)
+    {
+      sub_1002FE864(v5, value != 0);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_53;
+    }
+
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_52;
+    }
+
+    *buf = 0;
+    goto LABEL_41;
+  }
+
+  if (value >= 2)
+  {
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_52;
+    }
+
+    *buf = 0;
+    goto LABEL_41;
+  }
+
+  sub_1002FE79C(v5, value != 0);
+  if (v6)
+  {
+LABEL_53:
+    sub_100009A48(v6);
+  }
+}
+
+- (void)forceRolloverCrashDetector:(int)detector withValue:(int)value
+{
+  ptr = self->fFlowControl.__ptr_;
+  if (!ptr)
+  {
+    sub_10030770C();
+  }
+
+  v5 = *(ptr + 42);
+  v6 = *(ptr + 43);
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (!v5)
+  {
+    sub_1003075F8();
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 1853, "[CSKappaDetectionService forceRolloverCrashDetector:withValue:]");
+    __break(1u);
+LABEL_43:
+    sub_1003061F8();
+LABEL_10:
+    v7 = qword_100456820;
+    if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 0;
+      v8 = "value must be 0/1";
+      goto LABEL_29;
+    }
+
+    goto LABEL_36;
+  }
+
+  if (detector <= 7)
+  {
+    if (detector != 6)
+    {
+      if (detector != 7)
+      {
+        goto LABEL_36;
+      }
+
+      if (value < 2)
+      {
+        sub_1002FEC64(v5, value != 0);
+        if (!v6)
+        {
+          return;
+        }
+
+        goto LABEL_37;
+      }
+
+      if (qword_100456818 == -1)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_43;
+    }
+
+    if (value < 2)
+    {
+      sub_1002FEB9C(v5, value != 0);
+      goto LABEL_36;
+    }
+
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+LABEL_36:
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_37;
+    }
+
+    *buf = 0;
+    v8 = "value must be 0/1";
+LABEL_29:
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, v8, buf, 2u);
+    if (!v6)
+    {
+      return;
+    }
+
+    goto LABEL_37;
+  }
+
+  if (detector != 8)
+  {
+    if (detector != 9)
+    {
+      goto LABEL_36;
+    }
+
+    if ((value - 3) > 0xFFFFFFFB)
+    {
+      sub_1002FEDF4(v5, value);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_37;
+    }
+
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_36;
+    }
+
+    *buf = 0;
+    v8 = "value not in range";
+    goto LABEL_29;
+  }
+
+  if (value >= 2)
+  {
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_36;
+    }
+
+    *buf = 0;
+    v8 = "value must be 0/1";
+    goto LABEL_29;
+  }
+
+  sub_1002FED2C(v5, value != 0);
+  if (v6)
+  {
+LABEL_37:
+    sub_100009A48(v6);
+  }
+}
+
+- (void)forceSevereCrashDetector:(int)detector withValue:(int)value
+{
+  ptr = self->fFlowControl.__ptr_;
+  if (!ptr)
+  {
+    sub_100307948();
+  }
+
+  v5 = *(ptr + 54);
+  v6 = *(ptr + 55);
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  if (!v5)
+  {
+    sub_100307834();
+
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 1880, "[CSKappaDetectionService forceSevereCrashDetector:withValue:]");
+    __break(1u);
+    goto LABEL_59;
+  }
+
+  if (detector <= 18)
+  {
+    if (detector != 16)
+    {
+      if (detector != 17)
+      {
+        if (detector == 18)
+        {
+          if (value < 2)
+          {
+            sub_1002FF394(v5, value != 0);
+            if (!v6)
+            {
+              return;
+            }
+
+            goto LABEL_53;
+          }
+
+          if (qword_100456818 != -1)
+          {
+            sub_1003061F8();
+          }
+
+          v7 = qword_100456820;
+          if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 0;
+            goto LABEL_41;
+          }
+        }
+
+        goto LABEL_52;
+      }
+
+      if (value < 2)
+      {
+        sub_1002FF2CC(v5, value != 0);
+        goto LABEL_52;
+      }
+
+      if (qword_100456818 != -1)
+      {
+        sub_1003061F8();
+      }
+
+      v7 = qword_100456820;
+      if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+      {
+LABEL_52:
+        if (!v6)
+        {
+          return;
+        }
+
+        goto LABEL_53;
+      }
+
+      *buf = 0;
+LABEL_41:
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "value must be 0/1", buf, 2u);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_53;
+    }
+
+    if (value < 2)
+    {
+      sub_1002FF204(v5, value != 0);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_53;
+    }
+
+    if (qword_100456818 == -1)
+    {
+LABEL_24:
+      v7 = qword_100456820;
+      if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_52;
+      }
+
+      *buf = 0;
+      goto LABEL_41;
+    }
+
+LABEL_59:
+    sub_1003061F8();
+    goto LABEL_24;
+  }
+
+  if (detector == 19)
+  {
+    if (value < 2)
+    {
+      sub_1002FF45C(v5, value != 0);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_53;
+    }
+
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_52;
+    }
+
+    *buf = 0;
+    goto LABEL_41;
+  }
+
+  if (detector != 20)
+  {
+    if (detector != 23)
+    {
+      goto LABEL_52;
+    }
+
+    if (value < 2)
+    {
+      sub_1002FF5EC(v5, value != 0);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_53;
+    }
+
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_52;
+    }
+
+    *buf = 0;
+    goto LABEL_41;
+  }
+
+  if (value >= 2)
+  {
+    if (qword_100456818 != -1)
+    {
+      sub_1003061F8();
+    }
+
+    v7 = qword_100456820;
+    if (!os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      goto LABEL_52;
+    }
+
+    *buf = 0;
+    goto LABEL_41;
+  }
+
+  sub_1002FF524(v5, value != 0);
+  if (v6)
+  {
+LABEL_53:
+    sub_100009A48(v6);
+  }
+}
+
+- (void)forceParticipatingInEscalation:(int)escalation withValue:(int)value
+{
+  ptr = self->fFlowControl.__ptr_;
+  if (!ptr)
+  {
+    sub_100307A70(0, a2, *&escalation, *&value);
+LABEL_12:
+    sub_1003061F8();
+LABEL_5:
+    v5 = qword_100456820;
+    if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEBUG))
+    {
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "value must be 0/1", v6, 2u);
+    }
+
+    return;
+  }
+
+  if (escalation != 22)
+  {
+    return;
+  }
+
+  if (value >= 2)
+  {
+    if (qword_100456818 == -1)
+    {
+      goto LABEL_5;
+    }
+
+    goto LABEL_12;
+  }
+
+  sub_1002FF774(ptr, value != 0);
 }
 
 - (void)forceBehavior:(int)behavior withValue:(int)value
@@ -3551,9 +4582,9 @@ LABEL_11:
 
   else
   {
-    sub_100307CCC(buf);
+    sub_100307CCC();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2323, "[CSKappaDetectionService setRecording:withUUID:]");
     __break(1u);
   }
 
@@ -3624,14 +4655,14 @@ LABEL_3:
     v7 = *([v4 c_struct] + 2);
     v8 = *([v4 c_struct] + 3);
     v9 = *([v4 c_struct] + 4);
-    v56 = 134218752;
-    v57 = v6;
-    v58 = 2048;
-    *v59 = v7;
-    *&v59[8] = 2048;
-    *v60 = v8;
-    *&v60[8] = 2048;
-    v61 = v9;
+    v61 = 134218752;
+    v62 = v6;
+    v63 = 2048;
+    *v64 = v7;
+    *&v64[8] = 2048;
+    *v65 = v8;
+    *&v65[8] = 2048;
+    v66 = v9;
     v10 = "accel800 %llu x %.7f y %.7f z %.7f\n";
     goto LABEL_16;
   }
@@ -3655,14 +4686,14 @@ LABEL_3:
     v13 = *([v11 c_struct] + 2);
     v14 = *([v11 c_struct] + 3);
     v15 = *([v11 c_struct] + 4);
-    v56 = 134218752;
-    v57 = v12;
-    v58 = 2048;
-    *v59 = v13;
-    *&v59[8] = 2048;
-    *v60 = v14;
-    *&v60[8] = 2048;
-    v61 = v15;
+    v61 = 134218752;
+    v62 = v12;
+    v63 = 2048;
+    *v64 = v13;
+    *&v64[8] = 2048;
+    *v65 = v14;
+    *&v65[8] = 2048;
+    v66 = v15;
     v10 = "hgaccel %llu x %.7f y %.7f z %.7f\n";
     goto LABEL_16;
   }
@@ -3686,20 +4717,20 @@ LABEL_3:
     v18 = *([v16 c_struct] + 2);
     v19 = *([v16 c_struct] + 3);
     v20 = *([v16 c_struct] + 4);
-    v56 = 134218752;
-    v57 = v17;
-    v58 = 2048;
-    *v59 = v18;
-    *&v59[8] = 2048;
-    *v60 = v19;
-    *&v60[8] = 2048;
-    v61 = v20;
+    v61 = 134218752;
+    v62 = v17;
+    v63 = 2048;
+    *v64 = v18;
+    *&v64[8] = 2048;
+    *v65 = v19;
+    *&v65[8] = 2048;
+    v66 = v20;
     v10 = "accel %llu x %.7f y %.7f z %.7f\n";
 LABEL_16:
     v21 = v5;
     v22 = 42;
 LABEL_17:
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, v10, &v56, v22);
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, v10, &v61, v22);
     goto LABEL_18;
   }
 
@@ -3719,8 +4750,8 @@ LABEL_17:
     }
 
     v24 = *([v23 c_struct] + 1);
-    v56 = 134217984;
-    v57 = v24;
+    v61 = 134217984;
+    v62 = v24;
     v10 = "trigger %llu\n";
     v21 = v5;
     v22 = 12;
@@ -3750,22 +4781,22 @@ LABEL_17:
     v31 = *([v25 c_struct] + 4);
     v32 = *([v25 c_struct] + 5);
     v33 = *([v25 c_struct] + 6);
-    v56 = 134219776;
-    v57 = v26;
-    v58 = 2048;
-    *v59 = v27;
-    *&v59[8] = 2048;
-    *v60 = v28;
-    *&v60[8] = 2048;
-    v61 = v29;
-    v62 = 2048;
-    v63 = v30;
-    v64 = 2048;
-    v65 = v31;
-    v66 = 2048;
-    v67 = v32;
-    v68 = 2048;
-    v69 = v33;
+    v61 = 134219776;
+    v62 = v26;
+    v63 = 2048;
+    *v64 = v27;
+    *&v64[8] = 2048;
+    *v65 = v28;
+    *&v65[8] = 2048;
+    v66 = v29;
+    v67 = 2048;
+    v68 = v30;
+    v69 = 2048;
+    v70 = v31;
+    v71 = 2048;
+    v72 = v32;
+    v73 = 2048;
+    v74 = v33;
     v10 = "dm6 %llu %.7f %.7f %.7f %.7f %.7f %.7f %.7f\n";
     v21 = v5;
     v22 = 82;
@@ -3776,30 +4807,30 @@ LABEL_17:
   if (objc_opt_isKindOfClass())
   {
     v34 = sampleCopy;
-    v5 = sub_1002F7258();
+    v5 = sub_1002F7258(v34, v35);
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_18;
     }
 
-    v35 = *([v34 c_struct] + 5);
-    v36 = *([v34 c_struct] + 8);
-    v37 = *[v34 c_struct];
-    v38 = *([v34 c_struct] + 1);
-    v39 = *([v34 c_struct] + 2);
-    v40 = *([v34 c_struct] + 3);
-    v56 = 134219264;
-    v57 = v35;
-    v58 = 2048;
-    *v59 = v36;
-    *&v59[8] = 2048;
-    *v60 = v37;
-    *&v60[8] = 2048;
-    v61 = v38;
-    v62 = 2048;
-    v63 = v39;
-    v64 = 2048;
-    v65 = v40;
+    v36 = *([v34 c_struct] + 5);
+    v37 = *([v34 c_struct] + 8);
+    v38 = *[v34 c_struct];
+    v39 = *([v34 c_struct] + 1);
+    v40 = *([v34 c_struct] + 2);
+    v41 = *([v34 c_struct] + 3);
+    v61 = 134219264;
+    v62 = v36;
+    v63 = 2048;
+    *v64 = v37;
+    *&v64[8] = 2048;
+    *v65 = v38;
+    *&v65[8] = 2048;
+    v66 = v39;
+    v67 = 2048;
+    v68 = v40;
+    v69 = 2048;
+    v70 = v41;
     v10 = "gps %llu %f %.7f %.7f %.7f %.7f\n";
     v21 = v5;
     v22 = 62;
@@ -3809,28 +4840,28 @@ LABEL_17:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v41 = sampleCopy;
-    v5 = sub_1002F7258();
+    v42 = sampleCopy;
+    v5 = sub_1002F7258(v42, v43);
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_18;
     }
 
-    v42 = *[v41 c_struct];
-    v43 = *([v41 c_struct] + 2);
-    v44 = *([v41 c_struct] + 3);
-    v45 = *([v41 c_struct] + 4);
-    v46 = *([v41 c_struct] + 20);
-    v56 = 134219008;
-    v57 = v42;
-    v58 = 1024;
-    *v59 = v43;
-    *&v59[4] = 1024;
-    *&v59[6] = v44;
-    *v60 = 2048;
-    *&v60[2] = v45;
-    LOWORD(v61) = 1024;
-    *(&v61 + 2) = v46;
+    v44 = *[v42 c_struct];
+    v45 = *([v42 c_struct] + 2);
+    v46 = *([v42 c_struct] + 3);
+    v47 = *([v42 c_struct] + 4);
+    v48 = *([v42 c_struct] + 20);
+    v61 = 134219008;
+    v62 = v44;
+    v63 = 1024;
+    *v64 = v45;
+    *&v64[4] = 1024;
+    *&v64[6] = v46;
+    *v65 = 2048;
+    *&v65[2] = v47;
+    LOWORD(v66) = 1024;
+    *(&v66 + 2) = v48;
     v10 = "steps %llu %d %d %.7f %d\n";
     v21 = v5;
     v22 = 40;
@@ -3840,19 +4871,19 @@ LABEL_17:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v47 = sampleCopy;
-    v5 = sub_1002F7258();
+    v49 = sampleCopy;
+    v5 = sub_1002F7258(v49, v50);
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_18;
     }
 
-    v48 = *[v47 c_struct];
-    v49 = *([v47 c_struct] + 2);
-    v56 = 134218240;
-    v57 = v48;
-    v58 = 2048;
-    *v59 = v49;
+    v51 = *[v49 c_struct];
+    v52 = *([v49 c_struct] + 2);
+    v61 = 134218240;
+    v62 = v51;
+    v63 = 2048;
+    *v64 = v52;
     v10 = "SPL %llu %f\n";
     goto LABEL_45;
   }
@@ -3860,19 +4891,19 @@ LABEL_17:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v50 = sampleCopy;
-    v5 = sub_1002F7258();
+    v53 = sampleCopy;
+    v5 = sub_1002F7258(v53, v54);
     if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_18;
     }
 
-    v51 = *[v50 c_struct];
-    v52 = *([v50 c_struct] + 2);
-    v56 = 134218240;
-    v57 = v51;
-    v58 = 2048;
-    *v59 = v52;
+    v55 = *[v53 c_struct];
+    v56 = *([v53 c_struct] + 2);
+    v61 = 134218240;
+    v62 = v55;
+    v63 = 2048;
+    *v64 = v56;
     v10 = "pressure %llu %f\n";
     goto LABEL_45;
   }
@@ -3883,16 +4914,16 @@ LABEL_17:
     goto LABEL_19;
   }
 
-  v53 = sampleCopy;
-  v5 = sub_1002F7258();
+  v57 = sampleCopy;
+  v5 = sub_1002F7258(v57, v58);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v54 = *[v53 c_struct];
-    v55 = *([v53 c_struct] + 1);
-    v56 = 134218240;
-    v57 = v54;
-    v58 = 2048;
-    *v59 = v55;
+    v59 = *[v57 c_struct];
+    v60 = *([v57 c_struct] + 1);
+    v61 = 134218240;
+    v62 = v59;
+    v63 = 2048;
+    *v64 = v60;
     v10 = "roads %llu %f\n";
 LABEL_45:
     v21 = v5;
@@ -3949,9 +4980,9 @@ LABEL_19:
 
   else
   {
-    sub_100307DE0(&v6);
+    sub_100307DE0();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2440, "[CSKappaDetectionService feedAccel800:]");
     __break(1u);
   }
 }
@@ -3967,9 +4998,9 @@ LABEL_19:
 
   else
   {
-    sub_100307EF4(&v6);
+    sub_100307EF4();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2448, "[CSKappaDetectionService feedHgAccel:]");
     __break(1u);
   }
 }
@@ -3994,9 +5025,9 @@ LABEL_19:
 
   else
   {
-    sub_100308130(&v6);
+    sub_100308130();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2466, "[CSKappaDetectionService feedDeviceMotion:]");
     __break(1u);
   }
 }
@@ -4007,9 +5038,9 @@ LABEL_19:
   v6 = sCopy;
   if (!sCopy)
   {
-    sub_100308244(&v15);
+    sub_100308244();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2475, "[CSKappaDetectionService feedGPS:]");
     __break(1u);
     goto LABEL_20;
   }
@@ -4096,9 +5127,9 @@ LABEL_18:
 
   else
   {
-    sub_100308358(&v6);
+    sub_100308358();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2528, "[CSKappaDetectionService feedSteps:]");
     __break(1u);
   }
 }
@@ -4114,9 +5145,9 @@ LABEL_18:
 
   else
   {
-    sub_10030846C(&v6);
+    sub_10030846C();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2537, "[CSKappaDetectionService feedKappaTrigger:]");
     __break(1u);
   }
 }
@@ -4141,9 +5172,9 @@ LABEL_18:
 
   else
   {
-    sub_1003086A8(&v6);
+    sub_1003086A8();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2553, "[CSKappaDetectionService feedPressure:]");
     __break(1u);
   }
 }
@@ -4159,9 +5190,9 @@ LABEL_18:
 
   else
   {
-    sub_1003087BC(&v6);
+    sub_1003087BC();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2562, "[CSKappaDetectionService feedSoundPressureLevel:]");
     __break(1u);
   }
 }
@@ -4177,9 +5208,9 @@ LABEL_18:
 
   else
   {
-    sub_1003088D0(&v6);
+    sub_1003088D0();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2571, "[CSKappaDetectionService feedTrustedAudioResult:]");
     __break(1u);
   }
 }
@@ -4195,9 +5226,9 @@ LABEL_18:
 
   else
   {
-    sub_1003089E4(&v6);
+    sub_1003089E4();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2579, "[CSKappaDetectionService feedRoads:]");
     __break(1u);
   }
 }
@@ -4213,9 +5244,9 @@ LABEL_18:
 
   else
   {
-    sub_100308AF8(&v6);
+    sub_100308AF8();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2587, "[CSKappaDetectionService feedHertzSample:]");
     __break(1u);
   }
 }
@@ -4231,9 +5262,9 @@ LABEL_18:
 
   else
   {
-    sub_100308C0C(&v6);
+    sub_100308C0C();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2595, "[CSKappaDetectionService feedCompanionStatus:]");
     __break(1u);
   }
 }
@@ -4249,9 +5280,9 @@ LABEL_18:
 
   else
   {
-    sub_100308D20(&v6);
+    sub_100308D20();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2603, "[CSKappaDetectionService feedRemoteSample:]");
     __break(1u);
   }
 }
@@ -4264,18 +5295,18 @@ LABEL_18:
     ptr = self->fFlowControl.__ptr_;
     if (!ptr)
     {
-      sub_100308E34(buf);
+      sub_100308E34();
 
-      abort_report_np();
+      abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2612, "[CSKappaDetectionService consumeSampleArray:]");
       __break(1u);
 LABEL_49:
       sub_10030620C();
 LABEL_45:
-      v11 = qword_100456820;
+      v13 = qword_100456820;
       if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "stop consuming samples", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "stop consuming samples", buf, 2u);
       }
 
       break;
@@ -4428,9 +5459,10 @@ LABEL_39:
     }
 
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v8 = sub_1002F7258();
+      v8 = sub_1002F7258(isKindOfClass, v12);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
@@ -4702,10 +5734,10 @@ LABEL_47:
     *&buf[4] = 0;
     *&buf[8] = 2082;
     *&buf[10] = "";
-    v88 = 2114;
-    v89 = connectionCopy;
-    v90 = 2114;
-    v91 = name;
+    v99 = 2114;
+    v100 = connectionCopy;
+    v101 = 2114;
+    v102 = name;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:messageReceived, connection:%{public, location:escape_only}@, name:%{public, location:escape_only}@}", buf, 0x26u);
   }
 
@@ -4760,9 +5792,9 @@ LABEL_47:
     v16 = +[NSUUID UUID];
     uUIDString = [v16 UUIDString];
 
-    v84 = 0;
-    [qword_100458890 enqueueTTRWithTriggerUUID:uUIDString error:&v84];
-    v18 = v84;
+    v95 = 0;
+    [qword_100458890 enqueueTTRWithTriggerUUID:uUIDString error:&v95];
+    v18 = v95;
     if (v18)
     {
       if (qword_100456818 != -1)
@@ -4789,7 +5821,7 @@ LABEL_47:
   {
     if (receivedCopy)
     {
-      [receivedCopy message];
+      objc_msgSend_message(receivedCopy);
       v22 = *buf;
     }
 
@@ -4850,18 +5882,19 @@ LABEL_47:
 
           if (v41 == 1)
           {
-            v83 = 0;
-            [v39 enqueueHeldRecordingForUploadWithConsent:v36 withError:&v83];
-            v42 = v83;
+            v94 = 0;
+            [v39 enqueueHeldRecordingForUploadWithConsent:v36 withError:&v94];
+            v42 = v94;
+            v44 = v42;
             if (v42)
             {
-              v43 = sub_1002F7258();
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+              v45 = sub_1002F7258(v42, v43);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
               {
-                v44 = [v42 description];
+                v46 = [v44 description];
                 *buf = 138412290;
-                *&buf[4] = v44;
-                _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "[fba] Feedback Assistant encountered an error: %@", buf, 0xCu);
+                *&buf[4] = v46;
+                _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "[fba] Feedback Assistant encountered an error: %@", buf, 0xCu);
               }
 
               [CSAnomalyEventService removeHeldRecording:v36];
@@ -4881,11 +5914,11 @@ LABEL_47:
             sub_10030620C();
           }
 
-          v56 = qword_100456820;
+          v59 = qword_100456820;
           if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_ERROR))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "[fba] UUID in message is malformed", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_ERROR, "[fba] UUID in message is malformed", buf, 2u);
           }
         }
 
@@ -4898,13 +5931,13 @@ LABEL_47:
       sub_10030620C();
     }
 
-    v45 = qword_100456820;
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v47 = qword_100456820;
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      v46 = [v30 description];
+      v48 = [v30 description];
       *buf = 138412290;
-      *&buf[4] = v46;
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "[fba] Feedback Assistant consent keys not found: %@", buf, 0xCu);
+      *&buf[4] = v48;
+      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "[fba] Feedback Assistant consent keys not found: %@", buf, 0xCu);
     }
 
 LABEL_60:
@@ -4937,7 +5970,7 @@ LABEL_60:
       v29 = +[CSKappaDetectionService testSensorAccessQuery];
       if (receivedCopy)
       {
-        [receivedCopy message];
+        objc_msgSend_message(receivedCopy);
       }
 
       else
@@ -4946,10 +5979,10 @@ LABEL_60:
         *&buf[8] = 0;
       }
 
-      v85 = @"SensorAccess";
-      v62 = [NSNumber numberWithBool:v29 ^ 1];
-      v86 = v62;
-      v63 = [NSDictionary dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+      v96 = @"SensorAccess";
+      v67 = [NSNumber numberWithBool:v29 ^ 1];
+      v97 = v67;
+      v68 = [NSDictionary dictionaryWithObjects:&v97 forKeys:&v96 count:1];
       CLConnectionMessage::sendReply();
 
       if (*&buf[8])
@@ -4961,62 +5994,63 @@ LABEL_60:
     }
 
     name7 = [receivedCopy name];
-    v48 = [name7 isEqualToString:@"com.apple.anomalydetectiond.kappa.command"];
+    v50 = [name7 isEqualToString:@"com.apple.anomalydetectiond.kappa.command"];
 
-    if (v48)
+    if (v50)
     {
       if (receivedCopy)
       {
-        [receivedCopy message];
-        v49 = *buf;
+        objc_msgSend_message(receivedCopy);
+        v51 = *buf;
       }
 
       else
       {
-        v49 = 0;
+        v51 = 0;
         *buf = 0;
         *&buf[8] = 0;
       }
 
-      v68 = CLConnectionMessage::getDictionary(v49);
+      v75 = CLConnectionMessage::getDictionary(v51);
       if (*&buf[8])
       {
         sub_100009A48(*&buf[8]);
       }
 
-      v69 = [v68 objectForKeyedSubscript:@"CSKappaCommandKey"];
-      if (!v69 || ([v68 objectForKeyedSubscript:@"CSKappaValueKey"], v70 = objc_claimAutoreleasedReturnValue(), v71 = v70 == 0, v70, v69, v71))
+      v76 = [v75 objectForKeyedSubscript:@"CSKappaCommandKey"];
+      v78 = v76;
+      if (!v76 || ([v75 objectForKeyedSubscript:@"CSKappaValueKey"], v79 = objc_claimAutoreleasedReturnValue(), v80 = v79 == 0, v79, v78, v80))
       {
-        v77 = sub_1002F7258();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
+        v88 = sub_1002F7258(v76, v77);
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_INFO, "invalid command", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_INFO, "invalid command", buf, 2u);
         }
       }
 
       else
       {
-        v72 = [v68 objectForKeyedSubscript:@"CSKappaCommandKey"];
-        intValue = [v72 intValue];
+        v81 = [v75 objectForKeyedSubscript:@"CSKappaCommandKey"];
+        intValue = [v81 intValue];
 
-        v74 = [v68 objectForKeyedSubscript:@"CSKappaValueKey"];
-        intValue2 = [v74 intValue];
+        v83 = [v75 objectForKeyedSubscript:@"CSKappaValueKey"];
+        intValue2 = [v83 intValue];
 
-        v76 = sub_1002F7258();
-        if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+        v87 = sub_1002F7258(v85, v86);
+        if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
         {
           *buf = 67109376;
           *&buf[4] = intValue;
           *&buf[8] = 1024;
           *&buf[10] = intValue2;
-          _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_INFO, "cmd = %d val = %d", buf, 0xEu);
+          _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_INFO, "cmd = %d val = %d", buf, 0xEu);
         }
 
         [(CSKappaDetectionService *)self saveForceState:intValue withValue:intValue2];
         if (receivedCopy)
         {
-          [receivedCopy message];
+          objc_msgSend_message(receivedCopy);
         }
 
         else
@@ -5036,79 +6070,79 @@ LABEL_60:
     else
     {
       name8 = [receivedCopy name];
-      v58 = [name8 isEqualToString:@"com.apple.anomalydetectiond.kappa.powerassertion.test"];
+      v61 = [name8 isEqualToString:@"com.apple.anomalydetectiond.kappa.powerassertion.test"];
 
-      if (!v58)
+      if (!v61)
       {
         name9 = [receivedCopy name];
-        v65 = [name9 isEqualToString:@"com.apple.anomalydetectiond.kappa.aoi.test"];
+        v70 = [name9 isEqualToString:@"com.apple.anomalydetectiond.kappa.aoi.test"];
 
-        if (v65)
+        if (v70)
         {
-          v66 = sub_1002F7258();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+          v73 = sub_1002F7258(v71, v72);
+          if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEBUG, "testAOIReceived", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEBUG, "testAOIReceived", buf, 2u);
           }
 
           if (receivedCopy)
           {
-            [receivedCopy message];
-            v67 = *buf;
+            objc_msgSend_message(receivedCopy);
+            v74 = *buf;
           }
 
           else
           {
-            v67 = 0;
+            v74 = 0;
             *buf = 0;
             *&buf[8] = 0;
           }
 
-          v82 = CLConnectionMessage::getDictionary(v67);
+          v93 = CLConnectionMessage::getDictionary(v74);
           if (*&buf[8])
           {
             sub_100009A48(*&buf[8]);
           }
 
-          CLKappaDeescalatorAOI::runOnDeviceTest(v82);
+          CLKappaDeescalatorAOI::runOnDeviceTest(v93);
         }
 
         goto LABEL_125;
       }
 
-      v59 = sub_1002F7258();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+      v64 = sub_1002F7258(v62, v63);
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEBUG, "testPowerAssertionReceived", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEBUG, "testPowerAssertionReceived", buf, 2u);
       }
 
       if (receivedCopy)
       {
-        [receivedCopy message];
-        v60 = *buf;
+        objc_msgSend_message(receivedCopy);
+        v65 = *buf;
       }
 
       else
       {
-        v60 = 0;
+        v65 = 0;
         *buf = 0;
         *&buf[8] = 0;
       }
 
-      v68 = CLConnectionMessage::getDictionary(v60);
+      v75 = CLConnectionMessage::getDictionary(v65);
       if (*&buf[8])
       {
         sub_100009A48(*&buf[8]);
       }
 
-      v78 = [v68 objectForKeyedSubscript:@"testPowerAssertionCmd"];
-      [v78 doubleValue];
-      v80 = v79;
+      v89 = [v75 objectForKeyedSubscript:@"testPowerAssertionCmd"];
+      [v89 doubleValue];
+      v91 = v90;
 
       powerAssertion = self->_powerAssertion;
-      if (v80 <= 0.0)
+      if (v91 <= 0.0)
       {
         [(CSPower *)powerAssertion releasePowerAssertion];
       }
@@ -5124,7 +6158,7 @@ LABEL_60:
 
   if (receivedCopy)
   {
-    [receivedCopy message];
+    objc_msgSend_message(receivedCopy);
     v25 = *buf;
   }
 
@@ -5141,30 +6175,9 @@ LABEL_60:
     sub_100009A48(*&buf[8]);
   }
 
-  v50 = [v30 objectForKeyedSubscript:@"CSKappaFeedbackAssistantUUIDKey"];
-  v51 = v50 == 0;
+  v52 = [v30 objectForKeyedSubscript:@"CSKappaFeedbackAssistantUUIDKey"];
+  v53 = v52 == 0;
 
-  if (v51)
-  {
-    if (qword_100456818 != -1)
-    {
-      sub_10030620C();
-    }
-
-    v45 = qword_100456820;
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-    {
-      v55 = [v30 description];
-      *buf = 138412290;
-      *&buf[4] = v55;
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "[fba] Feedback Assistant consent keys not found: %@", buf, 0xCu);
-    }
-
-    goto LABEL_60;
-  }
-
-  v52 = [v30 objectForKey:@"CSKappaFeedbackAssistantUUIDKey"];
-  v53 = [[NSUUID alloc] initWithUUIDString:v52];
   if (v53)
   {
     if (qword_100456818 != -1)
@@ -5172,24 +6185,45 @@ LABEL_60:
       sub_10030620C();
     }
 
-    v54 = qword_100456820;
+    v47 = qword_100456820;
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    {
+      v58 = [v30 description];
+      *buf = 138412290;
+      *&buf[4] = v58;
+      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "[fba] Feedback Assistant consent keys not found: %@", buf, 0xCu);
+    }
+
+    goto LABEL_60;
+  }
+
+  v54 = [v30 objectForKey:@"CSKappaFeedbackAssistantUUIDKey"];
+  v56 = [[NSUUID alloc] initWithUUIDString:v54];
+  if (v56)
+  {
+    if (qword_100456818 != -1)
+    {
+      sub_10030620C();
+    }
+
+    v57 = qword_100456820;
     if (os_log_type_enabled(qword_100456820, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v52;
-      _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "[fba] Received Feedback Assistant bringup: uuid,%@", buf, 0xCu);
+      *&buf[4] = v54;
+      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "[fba] Received Feedback Assistant bringup: uuid,%@", buf, 0xCu);
     }
 
-    [CSFeedbackAssistant showFeedbackAssistantSurveyWithUUID:v52];
+    [CSFeedbackAssistant showFeedbackAssistantSurveyWithUUID:v54];
   }
 
   else
   {
-    v61 = sub_1002F7258();
-    if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+    v66 = sub_1002F7258(0, v55);
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_ERROR, "[fba] UUID in message is malformed", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "[fba] UUID in message is malformed", buf, 2u);
     }
   }
 
@@ -5239,7 +6273,7 @@ LABEL_12:
       goto LABEL_23;
     }
 
-    *buf = 0;
+    LOWORD(buf[0]) = 0;
     v11 = "ignoring companion UUID since collection is not allowed";
     v15 = v14;
     v16 = OS_LOG_TYPE_DEBUG;
@@ -5288,8 +6322,8 @@ LABEL_23:
       }
 
       v10 = self->_companionUUID;
-      *buf = 138543362;
-      *&buf[4] = v10;
+      LODWORD(buf[0]) = 138543362;
+      *(buf + 4) = v10;
       v11 = "Companion trigger session UUID %{public}@";
     }
 
@@ -5316,8 +6350,8 @@ LABEL_23:
       }
 
       v20 = self->_companionUUIDPreSession;
-      *buf = 138543362;
-      *&buf[4] = v20;
+      LODWORD(buf[0]) = 138543362;
+      *(buf + 4) = v20;
       v11 = "Companion trigger session UUID %{public}@";
     }
 
@@ -5329,9 +6363,9 @@ LABEL_16:
     goto LABEL_23;
   }
 
-  sub_100308F70(buf);
+  sub_100308F70();
 
-  abort_report_np();
+  abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 2954, "[CSKappaDetectionService kappaSessionCompanionHandler:data:receivedTimestamp:]");
   __break(1u);
 }
 
@@ -5368,9 +6402,9 @@ LABEL_16:
   dataCopy = data;
   if ([dataCopy length] <= 0x27)
   {
-    sub_100309084(&__dst);
+    sub_100309084();
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreSafety/SafetyAlgorithms/CSKappaDetectionService.mm", 3059, "[CSKappaDetectionService companionTriggerHandler:data:receivedTimestamp:]");
     __break(1u);
   }
 
@@ -5398,7 +6432,7 @@ LABEL_16:
     v14[2] = 0;
     v16 = 0;
     CSAOPSvc::sendCommand(self->_aop, v14, 0x10u);
-    v8 = *&__dst;
+    v8 = __dst;
     if (*&__dst == 0.0)
     {
       if (qword_100456818 != -1)
@@ -5416,7 +6450,7 @@ LABEL_16:
 
     if ([(CSKappaDetectionService *)self isArmedForKappa])
     {
-      self->_companionTriggerTime = v8;
+      *&self->_companionTriggerTime = v8;
     }
   }
 }

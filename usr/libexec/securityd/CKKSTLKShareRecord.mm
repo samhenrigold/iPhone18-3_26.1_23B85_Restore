@@ -253,17 +253,7 @@
   recordType = [recordCopy recordType];
   v6 = [recordType isEqualToString:@"tlkshare"];
 
-  if (!v6)
-  {
-    goto LABEL_4;
-  }
-
-  recordID = [recordCopy recordID];
-  recordName = [recordID recordName];
-  cKRecordName = [(CKKSTLKShareRecord *)self CKRecordName];
-  v10 = [recordName isEqualToString:cKRecordName];
-
-  if (v10)
+  if (v6 && ([recordCopy recordID], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "recordName"), v8 = objc_claimAutoreleasedReturnValue(), -[CKKSTLKShareRecord CKRecordName](self, "CKRecordName"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "isEqualToString:", v9), v9, v8, v7, v10))
   {
     v11 = [CKKSTLKShareRecord alloc];
     contextID = [(CKKSCKRecordHolder *)self contextID];
@@ -274,7 +264,6 @@
 
   else
   {
-LABEL_4:
     v14 = 0;
   }
 

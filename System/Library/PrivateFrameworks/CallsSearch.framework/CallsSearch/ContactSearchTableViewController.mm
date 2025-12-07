@@ -45,54 +45,51 @@
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_1CFB7C12C(viewCopy, v10);
+  v12 = sub_1CFB7C12C(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   viewCopy = view;
   selfCopy = self;
-  sub_1CFB7C780(viewCopy, v10);
+  sub_1CFB7C780(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)handleTUIDSLookupManagerStatusChanged
 {
   selfCopy = self;
-  sub_1CFB7D624();
+  sub_1CFB7D624(selfCopy);
 }
 
 - (int64_t)configureWithCardController:(id)controller presentationResultForIndex:(id)index
 {
   v6 = sub_1CFB8F780();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFB8F750();
   controllerCopy = controller;
   selfCopy = self;
-  v13 = sub_1CFB7D75C(controllerCopy);
+  v12 = sub_1CFB7D75C(controllerCopy);
 
-  (*(v7 + 8))(v10, v6);
-  return v13;
+  (*(v7 + 8))(v9, v6);
+  return v12;
 }
 
 - (void)callButtonTapped

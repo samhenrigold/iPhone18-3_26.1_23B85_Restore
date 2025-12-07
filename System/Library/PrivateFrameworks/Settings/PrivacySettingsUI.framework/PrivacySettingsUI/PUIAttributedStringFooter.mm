@@ -45,7 +45,7 @@
 
 - (void)refreshContentsWithSpecifier:(id)specifier
 {
-  v35[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   [(PUIAttributedStringFooter *)self setSpecifier:specifierCopy];
   v5 = [specifierCopy objectForKeyedSubscript:@"PUIAttributedStringTextViewDelegateKey"];
@@ -103,20 +103,18 @@
   v27 = [(PUIAttributedStringFooter *)self _accessibilityHigherContrastTintColorForColor:altTextColor2];
   [v9 addAttribute:v26 value:v27 range:{0, v10}];
 
-  v34[0] = v26;
+  v33[0] = v26;
   v28 = [(PUIAttributedStringFooter *)self _accessibilityHigherContrastTintColorForColor:footerHyperlinkColor2];
-  v34[1] = *MEMORY[0x277D741F0];
-  v35[0] = v28;
-  v35[1] = MEMORY[0x277CBEC28];
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
+  v33[1] = *MEMORY[0x277D741F0];
+  v34[0] = v28;
+  v34[1] = MEMORY[0x277CBEC28];
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
   textView2 = [(PUIAttributedStringFooter *)self textView];
   [textView2 setLinkTextAttributes:v29];
 
   v31 = [v9 copy];
   textView3 = [(PUIAttributedStringFooter *)self textView];
   [textView3 setAttributedText:v31];
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setupSubviewsAndContstraints

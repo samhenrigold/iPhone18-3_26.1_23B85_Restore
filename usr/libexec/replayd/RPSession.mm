@@ -2,6 +2,7 @@
 + (unint64_t)getFileSizeForURL:(id)l;
 - (BOOL)checkContextIDsMatch:(id)match;
 - (BOOL)dispatchLimitReached:(int64_t)reached;
+- (BOOL)getAcknowledgementAlertResultsWithMicrophone:(BOOL)microphone cameraEnabled:(BOOL)enabled;
 - (BOOL)shouldBypassAlertForTest;
 - (BOOL)shouldSupressAlert;
 - (BOOL)showAlertRecordingCaptureSessionWithError:(id)error;
@@ -21,6 +22,7 @@
 - (id)getNotificationBodyTextForSessionType:(int)type cameraEnabled:(BOOL)enabled microphoneEnabled:(BOOL)microphoneEnabled;
 - (id)getNotificationTitleTextForSessionType:(int)type bundleID:(id)d;
 - (id)serviceNameForReporting;
+- (id)showAcknowledgementAlertWithMicrophone:(BOOL)microphone camera:(BOOL)camera;
 - (void)addObserversForSession;
 - (void)callObserver:(id)observer callChanged:(id)changed;
 - (void)checkAndPlaySystemSessionSound:(BOOL)sound;
@@ -44,15 +46,19 @@
 - (void)reportSessionEndReason:(id)reason;
 - (void)reportSummaryEvent:(int64_t)event recordedFileSize:(int64_t)size;
 - (void)resumeSessionWithWindowLayerContextID:(id)d completionHandler:(id)handler;
+- (void)sendBiomeEventIsStarting:(BOOL)starting;
 - (void)sendBiomeEventWithSessionState:(int)state;
 - (void)sessionReportCameraUsage:(int64_t)usage;
+- (void)setSessionState:(int)state;
 - (void)setUpDeviceLockNotifications;
 - (void)setUpFrontBoardServices;
 - (void)setUpStatusBarAssertionWithServiceName:(id)name;
 - (void)startAcknowledgementAlertTimer;
 - (void)startWithContextID:(id)d windowSize:(CGSize)size;
+- (void)updateClientProxy:(id)proxy callingPID:(int)d bundleID:(id)iD;
 - (void)updatePauseOffsetForSampleBuffer:(opaqueCMSampleBuffer *)buffer withSampleType:(int)type handler:(id)handler;
 - (void)updatePauseOffsetFromVideoBuffer:(opaqueCMSampleBuffer *)buffer;
+- (void)updateProcessIDForAudioCaptureWithPID:(int)d;
 - (void)updateReportingSampleCount:(int)count;
 @end
 
@@ -316,6 +322,38 @@ LABEL_15:
   [v5 removeObserver:self];
 }
 
+- (void)setSessionState:(int)state
+{
+  v3 = *&state;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = 136447234;
+    v8 = "[RPSession setSessionState:]";
+    v9 = 1024;
+    v10 = 284;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2048;
+    selfCopy = self;
+    v15 = 1024;
+    v16 = v3;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %@ %p session state change to %d", &v7, 0x2Cu);
+  }
+
+  if (self->_sessionState != v3)
+  {
+    [(RPSession *)self sendBiomeEventWithSessionState:v3];
+  }
+
+  self->_sessionState = v3;
+  if (v3 == 3)
+  {
+    [(RPSession *)self removeObserversForSession];
+  }
+}
+
 - (void)reportSessionEndReason:(id)reason
 {
   reasonCopy = reason;
@@ -463,6 +501,59 @@ LABEL_15:
   }
 }
 
+- (void)updateClientProxy:(id)proxy callingPID:(int)d bundleID:(id)iD
+{
+  v6 = *&d;
+  proxyCopy = proxy;
+  iDCopy = iD;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = objc_opt_class();
+    v12 = NSStringFromClass(v11);
+    v17 = 136446978;
+    v18 = "[RPSession updateClientProxy:callingPID:bundleID:]";
+    v19 = 1024;
+    v20 = 375;
+    v21 = 2112;
+    v22 = v12;
+    v23 = 2048;
+    selfCopy2 = self;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %@ %p", &v17, 0x26u);
+  }
+
+  objc_storeStrong(&self->_clientProxy, proxy);
+  callingPID = self->_callingPID;
+  if (callingPID != v6)
+  {
+    if (dword_1000B6840 <= 1)
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        v14 = objc_opt_class();
+        v15 = NSStringFromClass(v14);
+        v17 = 136446978;
+        v18 = "[RPSession updateClientProxy:callingPID:bundleID:]";
+        v19 = 1024;
+        v20 = 378;
+        v21 = 2112;
+        v22 = v15;
+        v23 = 2048;
+        selfCopy2 = self;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %@ %p pid changed", &v17, 0x26u);
+      }
+
+      callingPID = self->_callingPID;
+    }
+
+    [(RPApplicationStateMonitor *)self->_applicationStateMonitor removeObserverWithProcessIdentifier:callingPID];
+    [(RPApplicationStateMonitor *)self->_applicationStateMonitor addObserver:self processIdentifier:v6];
+    self->_callingPID = v6;
+  }
+
+  bundleID = self->_bundleID;
+  self->_bundleID = iDCopy;
+}
+
 - (void)setUpStatusBarAssertionWithServiceName:(id)name
 {
   nameCopy = name;
@@ -545,6 +636,49 @@ LABEL_7:
   if (alertCopy)
   {
     [(RPSession *)self showAlertRecordingCaptureSessionWithError:v9];
+  }
+}
+
+- (void)updateProcessIDForAudioCaptureWithPID:(int)d
+{
+  v3 = *&d;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 136446722;
+    v7 = "[RPSession updateProcessIDForAudioCaptureWithPID:]";
+    v8 = 1024;
+    v9 = 453;
+    v10 = 1024;
+    v11 = v3;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d pid: %d", &v6, 0x18u);
+  }
+
+  if ([(RPSession *)self sessionState]== 1)
+  {
+    if (v3 < 1)
+    {
+      if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000606AC();
+      }
+    }
+
+    else
+    {
+      if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        v6 = 136446722;
+        v7 = "[RPSession updateProcessIDForAudioCaptureWithPID:]";
+        v8 = 1024;
+        v9 = 457;
+        v10 = 1024;
+        v11 = v3;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d resuming audio capture for pid: %d", &v6, 0x18u);
+      }
+
+      v5 = +[RPCaptureManager sharedInstance];
+      [v5 restartAppAudioCaptureForProcessID:v3];
+    }
   }
 }
 
@@ -762,19 +896,19 @@ LABEL_10:
 
   else
   {
-    v9 = *&CGAffineTransformIdentity.c;
+    v8 = *&CGAffineTransformIdentity.c;
     *buf = *&CGAffineTransformIdentity.a;
-    *&buf[16] = v9;
-    v12 = *&CGAffineTransformIdentity.tx;
+    *&buf[16] = v8;
+    v11 = *&CGAffineTransformIdentity.tx;
     if ((self->_sessionType - 5) <= 2)
     {
-      [(RPSession *)self CGAffineTransformFromFigTransformFlags:flags];
+      objc_msgSend_CGAffineTransformFromFigTransformFlags_(self);
     }
 
-    v10[0] = *buf;
-    v10[1] = *&buf[16];
-    v10[2] = v12;
-    [writerCopy appendVideoSampleBuffer:buffer withWindowTransform:v10];
+    v9[0] = *buf;
+    v9[1] = *&buf[16];
+    v9[2] = v11;
+    [writerCopy appendVideoSampleBuffer:buffer withWindowTransform:v9];
   }
 }
 
@@ -1419,6 +1553,71 @@ LABEL_3:
   return v3;
 }
 
+- (BOOL)getAcknowledgementAlertResultsWithMicrophone:(BOOL)microphone cameraEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  microphoneCopy = microphone;
+  if ((self->_sessionType - 5) < 4 || +[RPConnectionManager hasUnitTestEntitlement])
+  {
+    [(RPSession *)self setMicrophoneEnabled:microphoneCopy];
+    [(RPSession *)self setCameraEnabled:enabledCopy];
+    return 1;
+  }
+
+  if ([(RPSession *)self shouldSupressAlert])
+  {
+    [(RPSession *)self setMicrophoneEnabled:microphoneCopy];
+    [(RPSession *)self setCameraEnabled:enabledCopy];
+    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 136446722;
+      v16 = "[RPSession getAcknowledgementAlertResultsWithMicrophone:cameraEnabled:]";
+      v17 = 1024;
+      v18 = 1028;
+      v19 = 2080;
+      v20 = "[RPSession getAcknowledgementAlertResultsWithMicrophone:cameraEnabled:]";
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %s internal settings suppressAlert", &v15, 0x1Cu);
+    }
+
+    return 1;
+  }
+
+  v9 = [(RPSession *)self showAcknowledgementAlertWithMicrophone:microphoneCopy camera:enabledCopy];
+  v10 = [v9 objectForKey:@"microphoneEnabled"];
+  self->_didAcceptMicrophonePermission |= [v10 BOOLValue];
+
+  v11 = [v9 objectForKey:@"cameraEnabled"];
+  self->_didAcceptCameraPermission |= [v11 BOOLValue];
+
+  [(RPSession *)self setMicrophoneEnabled:self->_didAcceptMicrophonePermission & microphoneCopy];
+  [(RPSession *)self setCameraEnabled:self->_didAcceptCameraPermission & enabledCopy];
+  v12 = [v9 objectForKey:@"alertResponse"];
+  bOOLValue = [v12 BOOLValue];
+
+  if ((bOOLValue & 1) == 0 && dword_1000B6840 <= 1)
+  {
+    bOOLValue = 0;
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v15 = 136446978;
+      v16 = "[RPSession getAcknowledgementAlertResultsWithMicrophone:cameraEnabled:]";
+      v17 = 1024;
+      v18 = 1043;
+      v19 = 2112;
+      v20 = v14;
+      v21 = 2048;
+      selfCopy = self;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %@ %p user declined session", &v15, 0x26u);
+
+      return 0;
+    }
+  }
+
+  return bOOLValue;
+}
+
 - (BOOL)shouldSupressAlert
 {
   [@"com.apple.replayd" UTF8String];
@@ -1466,6 +1665,332 @@ LABEL_3:
   }
 
   return v4;
+}
+
+- (id)showAcknowledgementAlertWithMicrophone:(BOOL)microphone camera:(BOOL)camera
+{
+  cameraCopy = camera;
+  microphoneCopy = microphone;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    *buf = 136447490;
+    v52 = "[RPSession showAcknowledgementAlertWithMicrophone:camera:]";
+    v53 = 1024;
+    v54 = 1081;
+    v55 = 2112;
+    *v56 = v8;
+    *&v56[8] = 2048;
+    selfCopy = self;
+    v58 = 1024;
+    v59 = microphoneCopy;
+    v60 = 1024;
+    v61 = cameraCopy;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %@ %p microphoneEnabled: %d cameraEnabled: %d", buf, 0x32u);
+  }
+
+  v9 = !cameraCopy;
+  if (cameraCopy && !self->_didAcceptCameraPermission || microphoneCopy && !self->_didAcceptMicrophonePermission)
+  {
+    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446978;
+      v52 = "[RPSession showAcknowledgementAlertWithMicrophone:camera:]";
+      v53 = 1024;
+      v54 = 1085;
+      v55 = 1024;
+      *v56 = cameraCopy;
+      *&v56[4] = 1024;
+      *&v56[6] = microphoneCopy;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d user acknowledgement required requesting camera %d and microphone %d", buf, 0x1Eu);
+    }
+
+    self->_isExempt = 0;
+  }
+
+  v10 = objc_alloc_init(NSMutableDictionary);
+  if (!self->_isExempt)
+  {
+    Mutable = CFDictionaryCreateMutable(0, 0, 0, 0);
+    v13 = [(RPSession *)self getNotificationTitleTextForSessionType:self->_sessionType bundleID:self->_bundleID];
+    v15 = [(RPSession *)self getNotificationBodyTextForSessionType:self->_sessionType cameraEnabled:cameraCopy microphoneEnabled:microphoneCopy];
+    CFDictionaryAddValue(Mutable, kCFUserNotificationAlertHeaderKey, v13);
+    v46 = v15;
+    CFDictionaryAddValue(Mutable, kCFUserNotificationAlertMessageKey, v15);
+    v16 = +[NSBundle _rpFrameworkBundle];
+    bundleURL = [v16 bundleURL];
+
+    value = [NSBundle _rpLocalizedStringFromFrameworkBundleWithKey:@"ACKNOWLEDGEMENT_ALERT_DECLINE_BUTTON"];
+    v17 = !microphoneCopy;
+    if (!microphoneCopy || v9)
+    {
+      if (v17 || cameraCopy)
+      {
+        sessionType = self->_sessionType;
+        if (v9 || microphoneCopy)
+        {
+          v19 = bundleURL;
+          if (sessionType == 3)
+          {
+            v20 = @"ACKNOWLEDGEMENT_BROADCAST_ALERT_ACCEPT_BUTTON_1_MICROPHONE_DISABLED";
+          }
+
+          else
+          {
+            v20 = @"ACKNOWLEDGEMENT_ALERT_ACCEPT_BUTTON_1_MICROPHONE_DISABLED";
+          }
+
+          v24 = [NSBundle _rpLocalizedStringFromFrameworkBundleWithKey:v20];
+          v26 = 0;
+          goto LABEL_32;
+        }
+
+        v21 = @"ACKNOWLEDGEMENT_ALERT_ACCEPT_BUTTON_1_CAMERA";
+        v22 = @"ACKNOWLEDGEMENT_BROADCAST_ALERT_ACCEPT_BUTTON_1_CAMERA";
+      }
+
+      else
+      {
+        sessionType = self->_sessionType;
+        v21 = @"ACKNOWLEDGEMENT_ALERT_ACCEPT_BUTTON_1";
+        v22 = @"ACKNOWLEDGEMENT_BROADCAST_ALERT_ACCEPT_BUTTON_1";
+      }
+    }
+
+    else
+    {
+      sessionType = self->_sessionType;
+      v21 = @"ACKNOWLEDGEMENT_ALERT_ACCEPT_BUTTON_1_MICROPHONE_CAMERA_ENABLED";
+      v22 = @"ACKNOWLEDGEMENT_BROADCAST_ALERT_ACCEPT_BUTTON_1_MICROPHONE_CAMERA_ENABLED";
+    }
+
+    if (sessionType == 3)
+    {
+      v23 = v22;
+    }
+
+    else
+    {
+      v23 = v21;
+    }
+
+    v24 = [NSBundle _rpLocalizedStringFromFrameworkBundleWithKey:v23];
+    if (self->_sessionType == 3)
+    {
+      v25 = @"ACKNOWLEDGEMENT_BROADCAST_ALERT_ACCEPT_BUTTON_2";
+    }
+
+    else
+    {
+      v25 = @"ACKNOWLEDGEMENT_ALERT_ACCEPT_BUTTON_2";
+    }
+
+    v26 = [NSBundle _rpLocalizedStringFromFrameworkBundleWithKey:v25];
+    v19 = bundleURL;
+LABEL_32:
+    v47 = v26;
+    if (v24)
+    {
+      CFDictionaryAddValue(Mutable, kCFUserNotificationAlternateButtonTitleKey, v24);
+      v26 = v47;
+    }
+
+    v45 = v24;
+    if (v26)
+    {
+      CFDictionaryAddValue(Mutable, kCFUserNotificationOtherButtonTitleKey, v26);
+    }
+
+    CFDictionaryAddValue(Mutable, kCFUserNotificationDefaultButtonTitleKey, value);
+    if (v19)
+    {
+      CFDictionaryAddValue(Mutable, kCFUserNotificationLocalizationURLKey, v19);
+    }
+
+    v27 = CFUserNotificationCreate(kCFAllocatorDefault, 0.0, 0, 0, Mutable);
+    if (!v27)
+    {
+      if (Mutable)
+      {
+        CFRelease(Mutable);
+      }
+
+      v33 = v46;
+      if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_100060874();
+      }
+
+      v34 = [NSNumber numberWithBool:0];
+      [v10 setObject:v34 forKey:@"cameraEnabled"];
+
+      v35 = [NSNumber numberWithBool:0];
+      [v10 setObject:v35 forKey:@"microphoneEnabled"];
+
+      v36 = [NSNumber numberWithBool:0];
+      [v10 setObject:v36 forKey:@"alertResponse"];
+
+      self->_isExempt = 0;
+      goto LABEL_74;
+    }
+
+    v28 = v27;
+    responseFlags = 0;
+    CFUserNotificationReceiveResponse(v27, 0.0, &responseFlags);
+    v29 = &_AXSVoiceOverTouchEnabled_ptr;
+    if (responseFlags == 2)
+    {
+      v37 = v13;
+      if (dword_1000B6840 > 1)
+      {
+        v31 = 0;
+LABEL_65:
+        v38 = 0;
+LABEL_71:
+        v39 = 1;
+        v32 = 1;
+        goto LABEL_72;
+      }
+
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446466;
+        v52 = "[RPSession showAcknowledgementAlertWithMicrophone:camera:]";
+        v53 = 1024;
+        v54 = 1192;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d user acknowledgement accepted, but no consent for microphone or camera", buf, 0x12u);
+      }
+
+      v31 = 0;
+      v38 = 0;
+      v39 = 1;
+      v32 = 1;
+    }
+
+    else
+    {
+      if (responseFlags == 1)
+      {
+        if (dword_1000B6840 <= 1)
+        {
+          v30 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+          v29 = &_AXSVoiceOverTouchEnabled_ptr;
+          if (v30)
+          {
+            *buf = 136446978;
+            v52 = "[RPSession showAcknowledgementAlertWithMicrophone:camera:]";
+            v53 = 1024;
+            v54 = 1168;
+            v55 = 1024;
+            *v56 = cameraCopy;
+            *&v56[4] = 1024;
+            *&v56[6] = microphoneCopy;
+            _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d user acknowledgement accepted for camera %d and microphone %d", buf, 0x1Eu);
+            v29 = &_AXSVoiceOverTouchEnabled_ptr;
+          }
+        }
+
+        if (!microphoneCopy || v9)
+        {
+          if (v17 || cameraCopy)
+          {
+            v31 = 1;
+            if (v9 || microphoneCopy)
+            {
+              v32 = 1;
+              v33 = v46;
+LABEL_73:
+              v43 = [v29[422] numberWithBool:v31];
+              [v10 setObject:v43 forKey:@"alertResponse"];
+
+              self->_isExempt = v32;
+              CFRelease(v28);
+              CFRelease(Mutable);
+LABEL_74:
+
+              goto LABEL_75;
+            }
+
+            v37 = v13;
+            goto LABEL_65;
+          }
+
+          v37 = v13;
+          v31 = 0;
+        }
+
+        else
+        {
+          v37 = v13;
+          v31 = 1;
+        }
+
+        v38 = 1;
+        goto LABEL_71;
+      }
+
+      v37 = v13;
+      if (dword_1000B6840 > 1)
+      {
+        v31 = 0;
+        v38 = 0;
+        v39 = 0;
+        v32 = 0;
+        goto LABEL_72;
+      }
+
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 136446466;
+        v52 = "[RPSession showAcknowledgementAlertWithMicrophone:camera:]";
+        v53 = 1024;
+        v54 = 1201;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d user acknowledgement refused", buf, 0x12u);
+      }
+
+      v31 = 0;
+      v38 = 0;
+      v39 = 0;
+      v32 = 0;
+    }
+
+    v29 = &_AXSVoiceOverTouchEnabled_ptr;
+LABEL_72:
+    v40 = v29;
+    v41 = [v29[422] numberWithBool:v31];
+    [v10 setObject:v41 forKey:@"cameraEnabled"];
+
+    v42 = [v40[422] numberWithBool:v38];
+    [v10 setObject:v42 forKey:@"microphoneEnabled"];
+
+    v29 = v40;
+    v31 = v39;
+    v33 = v46;
+    v13 = v37;
+    goto LABEL_73;
+  }
+
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v52 = "[RPSession showAcknowledgementAlertWithMicrophone:camera:]";
+    v53 = 1024;
+    v54 = 1226;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d session is still exempt from showing the alert", buf, 0x12u);
+  }
+
+  v11 = [NSNumber numberWithBool:[(RPSession *)self cameraEnabled]];
+  [v10 setObject:v11 forKey:@"cameraEnabled"];
+
+  v12 = [NSNumber numberWithBool:[(RPSession *)self microphoneEnabled]];
+  [v10 setObject:v12 forKey:@"microphoneEnabled"];
+
+  v13 = [NSNumber numberWithBool:1];
+  [v10 setObject:v13 forKey:@"alertResponse"];
+LABEL_75:
+
+  return v10;
 }
 
 - (id)getNotificationTitleTextForSessionType:(int)type bundleID:(id)d
@@ -2037,6 +2562,46 @@ LABEL_35:
   if (state <= 4 && ((1 << state) & 0x1A) != 0)
   {
     [(RPSession *)self sendBiomeEventIsStarting:state == 1];
+  }
+}
+
+- (void)sendBiomeEventIsStarting:(BOOL)starting
+{
+  startingCopy = starting;
+  sessionType = self->_sessionType;
+  if (sessionType == 3 || sessionType == 6)
+  {
+    v7 = BMScreenSharingEvent_ptr;
+  }
+
+  else
+  {
+    v7 = BMScreenRecordingEvent_ptr;
+  }
+
+  v8 = objc_opt_new();
+  v9 = [objc_alloc(*v7) initWithIsStart:startingCopy];
+  source = [v8 source];
+  [source sendEvent:v9];
+
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = self->_sessionType;
+    v12 = @"stop";
+    v14 = "[RPSession sendBiomeEventIsStarting:]";
+    v13 = 136446978;
+    v15 = 1024;
+    if (startingCopy)
+    {
+      v12 = @"start";
+    }
+
+    v16 = 1710;
+    v17 = 1024;
+    v18 = v11;
+    v19 = 2112;
+    v20 = v12;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Sending Biome event for sessionType:%d %@", &v13, 0x22u);
   }
 }
 

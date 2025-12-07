@@ -1,245 +1,59 @@
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Stationary(uint64_t *a1, uint64_t *a2)
+uint64_t closure #2 in TextWipeTransitionModifier.FadeOutCluster.body.getter@<X0>(uint64_t a2@<X8>)
 {
-  v2 = a1[1];
-  v3 = *(a1 + 2);
-  v4 = *(a1 + 3);
-  v5 = *(a1 + 4);
-  v6 = *(a1 + 5);
-  v7 = a2[1];
-  v8 = *(a2 + 2);
-  v9 = *(a2 + 3);
-  v10 = *(a2 + 4);
-  v11 = *(a2 + 5);
-  if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ20TextAnimationSupport0B5Model33_5BB6BA5906EF51728AE44082969295EDLLV11ClusterDataV_Tt1g5(*a1, *a2) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ20TextAnimationSupport0B5Model33_5BB6BA5906EF51728AE44082969295EDLLV7ClusterV_Tt1g5(v2, v7))
-  {
-    v14.origin.x = v3;
-    v14.origin.y = v4;
-    v14.size.width = v5;
-    v14.size.height = v6;
-    v15.origin.x = v8;
-    v15.origin.y = v9;
-    v15.size.width = v10;
-    v15.size.height = v11;
-    v12 = CGRectEqualToRect(v14, v15);
-    if (v12)
-    {
-      LOBYTE(v12) = static Path.== infix(_:_:)();
-    }
-  }
-
-  else
-  {
-    LOBYTE(v12) = 0;
-  }
-
-  return v12 & 1;
-}
-
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance Transition(void *__src, const void *a2)
-{
-  memcpy(v4, __src, sizeof(v4));
-  memcpy(__dst, a2, sizeof(__dst));
-  return specialized static Transition.== infix(_:_:)(v4, __dst);
-}
-
-uint64_t TextWipeTransitionModifier.externalAlign.getter@<X0>(uint64_t a1@<X8>)
-{
-  v3 = type metadata accessor for EnvironmentValues();
-  v4 = *(v3 - 8);
-  MEMORY[0x1EEE9AC00](v3);
-  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = MEMORY[0x1E697E7E0];
-  v8 = MEMORY[0x1E697DCB8];
-  type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>(0, &lazy cache variable for type metadata for Environment<LayoutDirection>.Content, MEMORY[0x1E697E7E0], MEMORY[0x1E697DCB8]);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v16 - v10;
-  v12 = type metadata accessor for TextWipeTransitionModifier(0);
-  outlined init with copy of Environment<LayoutDirection>.Content(v1 + *(v12 + 36), v11, &lazy cache variable for type metadata for Environment<LayoutDirection>.Content, v7, v8);
-  if (swift_getEnumCaseMultiPayload() == 1)
-  {
-    v13 = type metadata accessor for LayoutDirection();
-    return (*(*(v13 - 8) + 32))(a1, v11, v13);
-  }
-
-  else
-  {
-    static os_log_type_t.fault.getter();
-    v15 = static Log.runtimeIssuesLog.getter();
-    os_log(_:dso:log:_:_:)();
-
-    EnvironmentValues.init()();
-    swift_getAtKeyPath();
-
-    return (*(v4 + 8))(v6, v3);
-  }
-}
-
-BOOL protocol witness for static Equatable.== infix(_:_:) in conformance TextWipeTransitionModifier.Model.State(void *__src, const void *a2)
-{
-  memcpy(v4, __src, 0x131uLL);
-  memcpy(__dst, a2, 0x131uLL);
-  return specialized static TextWipeTransitionModifier.Model.State.== infix(_:_:)(v4, __dst);
-}
-
-void protocol witness for Animatable.animatableData.getter in conformance TextWipeTransitionModifier.KeyframeAnimationProgress(uint64_t a1@<X8>)
-{
-  v2 = 0.0;
-  if (*(v1 + 8))
-  {
-    v2 = 1.0;
-  }
-
-  *a1 = *v1;
-  *(a1 + 8) = v2;
-}
-
-uint64_t protocol witness for Animatable.animatableData.setter in conformance TextWipeTransitionModifier.KeyframeAnimationProgress(uint64_t result)
-{
-  v2 = *(result + 8);
-  *v1 = *result;
-  *(v1 + 8) = v2 >= 1.0;
-  return result;
-}
-
-uint64_t (*protocol witness for Animatable.animatableData.modify in conformance TextWipeTransitionModifier.KeyframeAnimationProgress(uint64_t a1))(uint64_t result)
-{
-  *(a1 + 16) = v1;
-  v2 = 0.0;
-  if (*(v1 + 8))
-  {
-    v2 = 1.0;
-  }
-
-  *a1 = *v1;
-  *(a1 + 8) = v2;
-  return protocol witness for Animatable.animatableData.modify in conformance TextWipeTransitionModifier.KeyframeAnimationProgress;
-}
-
-uint64_t protocol witness for Animatable.animatableData.modify in conformance TextWipeTransitionModifier.KeyframeAnimationProgress(uint64_t result)
-{
-  v1 = *(result + 16);
-  v2 = *(result + 8) >= 1.0;
-  *v1 = *result;
-  *(v1 + 8) = v2;
-  return result;
-}
-
-uint64_t closure #1 in TextWipeTransitionModifier.FadeOutCluster.body.getter@<X0>(double *a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
-{
-  v5 = *a1;
-  v6 = type metadata accessor for TextWipeTransitionModifier.FadeOutCluster(0);
-  v7 = UnitCurve.value(at:)(v5);
-  v8 = a2[3];
-  v35 = a2[2];
-  v36 = v8;
-  v9 = a2[5];
-  v37 = a2[4];
-  v38 = v9;
-  v10 = a2[1];
-  v33 = *a2;
-  v34 = v10;
-  v11 = static Alignment.center.getter();
-  v13 = v12;
-  type metadata accessor for Color?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Color>, MEMORY[0x1E69815C0], MEMORY[0x1E69E6F90]);
-  v14 = swift_allocObject();
-  *(v14 + 16) = xmmword_195CC8D70;
-  *(v14 + 32) = static Color.clear.getter();
-  *(v14 + 40) = static Color.white.getter();
-  v15 = *(a2 + *(v6 + 24));
-  v24 = v33;
-  v25 = v34;
-  v28 = v37;
-  v29 = v38;
-  v26 = v35;
-  v27 = v36;
-  MEMORY[0x19A8BD450](v14);
-  LinearGradient.init(gradient:startPoint:endPoint:)();
-  v16 = v30;
-
-  outlined init with copy of TextModel.Cluster(&v33, &v23);
-
-  v18 = -(v7 * *(a2 + *(v6 + 36)));
-  if (!v15)
-  {
-    v18 = v7 * *(a2 + *(v6 + 36));
-  }
-
-  v19 = v27;
-  *(a3 + 32) = v26;
-  *(a3 + 48) = v19;
-  v20 = v29;
-  *(a3 + 64) = v28;
-  *(a3 + 80) = v20;
-  v21 = v25;
-  *a3 = v24;
-  *(a3 + 16) = v21;
-  *(a3 + 96) = v11;
-  *(a3 + 104) = v13;
-  *(a3 + 112) = v16;
-  v22 = v31;
-  *(a3 + 136) = v32;
-  *(a3 + 120) = v22;
-  *(a3 + 152) = 0;
-  *(a3 + 160) = v18;
-  return result;
-}
-
-uint64_t closure #2 in TextWipeTransitionModifier.FadeOutCluster.body.getter@<X0>(uint64_t a1@<X8>)
-{
-  v34 = a1;
-  type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0();
-  v2 = *(v1 - 8);
-  v32 = v1;
+  v35 = a2;
+  type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(0);
+  v3 = *(v2 - 8);
   v33 = v2;
-  MEMORY[0x1EEE9AC00](v1);
-  v31 = &v28 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for UnitCurve();
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v5 = MEMORY[0x1E69E63B0];
+  v34 = v3;
+  MEMORY[0x1EEE9AC00](v2);
+  v32 = &v29 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for UnitCurve();
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v6 = MEMORY[0x1E69E63B0];
   type metadata accessor for ModifiedContent<Text, TextGlassWipeTransitionModifier>(0, &lazy cache variable for type metadata for LinearKeyframe<Double>, MEMORY[0x1E69E63B0], MEMORY[0x1E6981FE0], MEMORY[0x1E697E3F8]);
-  v7 = v6;
-  v8 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v30 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v28 - v11;
-  MEMORY[0x1EEE9AC00](v13);
-  v29 = &v28 - v14;
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v28 - v16;
-  MEMORY[0x1EEE9AC00](v18);
-  v28 = &v28 - v19;
-  v35 = 0;
+  v8 = v7;
+  v9 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v31 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v29 - v12;
+  MEMORY[0x1EEE9AC00](v14);
+  v30 = &v29 - v15;
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v29 - v17;
+  MEMORY[0x1EEE9AC00](v19);
+  v29 = &v29 - v20;
+  v36 = 0;
   type metadata accessor for TextWipeTransitionModifier.FadeOutCluster(0);
   static UnitCurve.linear.getter();
   LinearKeyframe.init(_:duration:timingCurve:)();
-  v20 = lazy protocol witness table accessor for type LinearKeyframe<Double> and conformance LinearKeyframe<A>();
-  MEMORY[0x19A8BCC30](v17, v5, v7, v20);
-  v21 = *(v8 + 8);
-  v21(v17, v7);
-  v35 = 0x3FF0000000000000;
+  v21 = lazy protocol witness table accessor for type LinearKeyframe<Double> and conformance LinearKeyframe<A>();
+  MEMORY[0x19A8BCC30](v18, v6, v8, v21);
+  v22 = *(v9 + 8);
+  v22(v18, v8);
+  v36 = 0x3FF0000000000000;
   static UnitCurve.linear.getter();
   LinearKeyframe.init(_:duration:timingCurve:)();
-  v22 = v29;
-  MEMORY[0x19A8BCC30](v12, v5, v7, v20);
-  v21(v12, v7);
   v23 = v30;
-  v24 = v28;
-  MEMORY[0x19A8BCC60](v28, v5, v7, v20);
-  v25 = v31;
-  static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)();
-  v35 = v5;
-  v36 = v7;
-  v37 = v7;
-  v38 = v20;
-  v39 = v20;
-  swift_getOpaqueTypeConformance2();
+  MEMORY[0x19A8BCC30](v13, v6, v8, v21);
+  v22(v13, v8);
+  v24 = v31;
+  v25 = v29;
+  MEMORY[0x19A8BCC60](v29, v6, v8, v21);
   v26 = v32;
+  static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)();
+  v36 = v6;
+  v37 = v8;
+  v38 = v8;
+  v39 = v21;
+  v40 = v21;
+  swift_getOpaqueTypeConformance2();
+  v27 = v33;
   static KeyframesBuilder.buildFinalResult<A>(_:)();
-  (*(v33 + 8))(v25, v26);
-  v21(v23, v7);
-  v21(v22, v7);
-  return (v21)(v24, v7);
+  (*(v34 + 8))(v26, v27);
+  v22(v24, v8);
+  v22(v23, v8);
+  return (v22)(v25, v8);
 }
 
 uint64_t closure #1 in TextWipeTransitionModifier.FadeInCluster.body.getter@<X0>(uint64_t a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X8>)
@@ -328,14 +142,14 @@ uint64_t closure #1 in TextWipeTransitionModifier.FadeInCluster.body.getter@<X0>
   return outlined destroy of ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>(v40, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>, type metadata accessor for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, v22, v23);
 }
 
-void *closure #2 in closure #1 in TextWipeTransitionModifier.FadeInCluster.body.getter()
+void *closure #2 in closure #1 in TextWipeTransitionModifier.FadeInCluster.body.getter(uint64_t a1)
 {
   type metadata accessor for TextWipeTransitionModifier.FadeInCluster(0);
   type metadata accessor for Color?(0, &lazy cache variable for type metadata for Binding<Int>, MEMORY[0x1E69E6530], MEMORY[0x1E6981948]);
-  v1 = v0;
+  v2 = v1;
 
-  result = MEMORY[0x19A8BD400](&v3, v1);
-  if (__OFADD__(v3, 1))
+  result = MEMORY[0x19A8BD400](&v4, v2);
+  if (__OFADD__(v4, 1))
   {
     __break(1u);
   }
@@ -348,87 +162,87 @@ void *closure #2 in closure #1 in TextWipeTransitionModifier.FadeInCluster.body.
   return result;
 }
 
-uint64_t closure #2 in TextWipeTransitionModifier.FadeInCluster.body.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>)
+uint64_t closure #2 in TextWipeTransitionModifier.FadeInCluster.body.getter@<X0>(uint64_t a1@<X1>, uint64_t a2@<X8>, __n128 a3@<Q0>)
 {
-  v33 = a1;
-  v40 = a2;
-  type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0();
-  v3 = *(v2 - 8);
-  v38 = v2;
-  v39 = v3;
-  MEMORY[0x1EEE9AC00](v2);
-  v36 = &v33 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0();
-  v35 = v5;
-  v37 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v44 = &v33 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for UnitCurve();
-  MEMORY[0x1EEE9AC00](v7 - 8);
+  v37 = a1;
+  v44 = a2;
+  type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(0, a3);
+  v4 = *(v3 - 8);
+  v42 = v3;
+  v43 = v4;
+  MEMORY[0x1EEE9AC00](v3);
+  v40 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(0);
+  v39 = v6;
+  v41 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v48 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for UnitCurve();
+  MEMORY[0x1EEE9AC00](v8 - 8);
   type metadata accessor for _ViewModifier_Content<TextGlassWipeTransitionModifier>(0, &lazy cache variable for type metadata for LinearKeyframe<TextWipeTransitionModifier.KeyframeAnimationProgress>, lazy protocol witness table accessor for type TextWipeTransitionModifier.KeyframeAnimationProgress and conformance TextWipeTransitionModifier.KeyframeAnimationProgress, &unk_1F0A2D008, MEMORY[0x1E697E3F8]);
-  v9 = v8;
-  v10 = *(v8 - 8);
-  MEMORY[0x1EEE9AC00](v8);
-  v42 = &v33 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v34 = &v33 - v13;
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v33 - v15;
-  MEMORY[0x1EEE9AC00](v17);
-  v41 = &v33 - v18;
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v33 - v20;
-  MEMORY[0x1EEE9AC00](v22);
-  v43 = &v33 - v23;
-  v45 = 0;
-  LOBYTE(v46) = 0;
+  v10 = v9;
+  v11 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v46 = &v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v38 = &v37 - v14;
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v37 - v16;
+  MEMORY[0x1EEE9AC00](v18);
+  v45 = &v37 - v19;
+  MEMORY[0x1EEE9AC00](v20);
+  v22 = &v37 - v21;
+  MEMORY[0x1EEE9AC00](v23);
+  v47 = &v37 - v24;
+  v49 = 0;
+  LOBYTE(v50) = 0;
   type metadata accessor for TextWipeTransitionModifier.FadeInCluster(0);
-  static UnitCurve.linear.getter();
-  lazy protocol witness table accessor for type TextWipeTransitionModifier.KeyframeAnimationProgress and conformance TextWipeTransitionModifier.KeyframeAnimationProgress();
+  v25 = static UnitCurve.linear.getter();
+  lazy protocol witness table accessor for type TextWipeTransitionModifier.KeyframeAnimationProgress and conformance TextWipeTransitionModifier.KeyframeAnimationProgress(v25, v26, v27);
   LinearKeyframe.init(_:duration:timingCurve:)();
-  v24 = lazy protocol witness table accessor for type LinearKeyframe<TextWipeTransitionModifier.KeyframeAnimationProgress> and conformance LinearKeyframe<A>();
-  MEMORY[0x19A8BCC30](v21, &unk_1F0A2D008, v9, v24);
-  v25 = *(v10 + 8);
-  v25(v21, v9);
-  v45 = 0x3FF0000000000000;
-  LOBYTE(v46) = 1;
+  v28 = lazy protocol witness table accessor for type LinearKeyframe<TextWipeTransitionModifier.KeyframeAnimationProgress> and conformance LinearKeyframe<A>();
+  MEMORY[0x19A8BCC30](v22, &unk_1F0A2D008, v10, v28);
+  v29 = *(v11 + 8);
+  v29(v22, v10);
+  v49 = 0x3FF0000000000000;
+  LOBYTE(v50) = 1;
   static UnitCurve.linear.getter();
   LinearKeyframe.init(_:duration:timingCurve:)();
-  MEMORY[0x19A8BCC30](v16, &unk_1F0A2D008, v9, v24);
-  v25(v16, v9);
-  v45 = 0x3FF0000000000000;
-  LOBYTE(v46) = 1;
+  MEMORY[0x19A8BCC30](v17, &unk_1F0A2D008, v10, v28);
+  v29(v17, v10);
+  v49 = 0x3FF0000000000000;
+  LOBYTE(v50) = 1;
   static UnitCurve.linear.getter();
-  v26 = v42;
+  v30 = v46;
   LinearKeyframe.init(_:duration:timingCurve:)();
-  v27 = v34;
-  MEMORY[0x19A8BCC30](v26, &unk_1F0A2D008, v9, v24);
-  v25(v26, v9);
-  MEMORY[0x19A8BCC60](v43, &unk_1F0A2D008, v9, v24);
-  static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)();
-  v45 = &unk_1F0A2D008;
-  v46 = v9;
-  v47 = v9;
-  v48 = v24;
-  v49 = v24;
-  OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
-  v29 = v36;
-  v30 = v35;
-  static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)();
-  v45 = &unk_1F0A2D008;
-  v46 = v30;
-  v47 = v9;
-  v48 = OpaqueTypeConformance2;
-  v49 = v24;
-  swift_getOpaqueTypeConformance2();
   v31 = v38;
+  MEMORY[0x19A8BCC30](v30, &unk_1F0A2D008, v10, v28);
+  v29(v30, v10);
+  MEMORY[0x19A8BCC60](v47, &unk_1F0A2D008, v10, v28);
+  static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)();
+  v49 = &unk_1F0A2D008;
+  v50 = v10;
+  v51 = v10;
+  v52 = v28;
+  v53 = v28;
+  OpaqueTypeConformance2 = swift_getOpaqueTypeConformance2();
+  v33 = v40;
+  v34 = v39;
+  static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)();
+  v49 = &unk_1F0A2D008;
+  v50 = v34;
+  v51 = v10;
+  v52 = OpaqueTypeConformance2;
+  v53 = v28;
+  swift_getOpaqueTypeConformance2();
+  v35 = v42;
   static KeyframesBuilder.buildFinalResult<A>(_:)();
-  (*(v39 + 8))(v29, v31);
-  (*(v37 + 8))(v44, v30);
-  v25(v42, v9);
-  v25(v27, v9);
-  v25(v41, v9);
-  return (v25)(v43, v9);
+  (*(v43 + 8))(v33, v35);
+  (*(v41 + 8))(v48, v34);
+  v29(v46, v10);
+  v29(v31, v10);
+  v29(v45, v10);
+  return (v29)(v47, v10);
 }
 
 uint64_t closure #3 in TextWipeTransitionModifier.FadeOutCluster.body.getter(uint64_t a1, uint64_t (*a2)(void))
@@ -486,10 +300,10 @@ void TextWipeTransitionModifier.MoveCluster.body.getter(uint64_t a1@<X8>)
   outlined init with copy of TextWipeTransitionModifier.FadeInCluster(v1, v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), type metadata accessor for TextWipeTransitionModifier.MoveCluster);
   v8 = swift_allocObject();
   outlined init with take of TextWipeTransitionModifier(v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v8 + v6, type metadata accessor for TextWipeTransitionModifier.MoveCluster);
-  type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>();
+  type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>(0);
   v14[1] = v9;
   type metadata accessor for ModifiedContent<Text, TextGlassWipeTransitionModifier>(0, &lazy cache variable for type metadata for ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>, &unk_1F0A2CF08, MEMORY[0x1E697E278], MEMORY[0x1E697E830]);
-  lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0> and conformance KeyframeTrack<A, B, C>, type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>);
+  lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0> and conformance KeyframeTrack<A, B, C>, type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, MEMORY[0x1E697E160]);
   lazy protocol witness table accessor for type ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect> and conformance <> ModifiedContent<A, B>();
   v10 = v16;
   KeyframeAnimator.init<A>(initialValue:trigger:content:keyframes:)();
@@ -557,63 +371,63 @@ uint64_t closure #1 in TextWipeTransitionModifier.MoveCluster.body.getter@<X0>(d
   return outlined init with copy of TextModel.MorphCluster(v27, &v26);
 }
 
-uint64_t closure #2 in TextWipeTransitionModifier.MoveCluster.body.getter@<X0>(uint64_t a1@<X8>)
+uint64_t closure #2 in TextWipeTransitionModifier.MoveCluster.body.getter@<X0>(uint64_t a2@<X8>)
 {
-  v32 = a1;
-  type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0();
-  v2 = *(v1 - 8);
-  v30 = v1;
+  v33 = a2;
+  type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(0);
+  v3 = *(v2 - 8);
   v31 = v2;
-  MEMORY[0x1EEE9AC00](v1);
-  v29 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for UnitCurve();
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v5 = MEMORY[0x1E69E63B0];
+  v32 = v3;
+  MEMORY[0x1EEE9AC00](v2);
+  v30 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for UnitCurve();
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v6 = MEMORY[0x1E69E63B0];
   type metadata accessor for ModifiedContent<Text, TextGlassWipeTransitionModifier>(0, &lazy cache variable for type metadata for LinearKeyframe<Double>, MEMORY[0x1E69E63B0], MEMORY[0x1E6981FE0], MEMORY[0x1E697E3F8]);
-  v7 = v6;
-  v8 = *(v6 - 8);
-  MEMORY[0x1EEE9AC00](v6);
-  v10 = &v26 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v28 = &v26 - v12;
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v26 - v14;
-  MEMORY[0x1EEE9AC00](v16);
-  v27 = &v26 - v17;
-  v33 = 0;
+  v8 = v7;
+  v9 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v29 = &v27 - v13;
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v27 - v15;
+  MEMORY[0x1EEE9AC00](v17);
+  v28 = &v27 - v18;
+  v34 = 0;
   type metadata accessor for TextWipeTransitionModifier.MoveCluster(0);
   static UnitCurve.linear.getter();
   LinearKeyframe.init(_:duration:timingCurve:)();
-  v18 = lazy protocol witness table accessor for type LinearKeyframe<Double> and conformance LinearKeyframe<A>();
-  MEMORY[0x19A8BCC30](v15, v5, v7, v18);
-  v19 = *(v8 + 8);
-  v19(v15, v7);
-  v33 = 0x3FF0000000000000;
+  v19 = lazy protocol witness table accessor for type LinearKeyframe<Double> and conformance LinearKeyframe<A>();
+  MEMORY[0x19A8BCC30](v16, v6, v8, v19);
+  v20 = *(v9 + 8);
+  v20(v16, v8);
+  v34 = 0x3FF0000000000000;
   static UnitCurve.linear.getter();
   LinearKeyframe.init(_:duration:timingCurve:)();
-  v20 = v28;
-  MEMORY[0x19A8BCC30](v10, v5, v7, v18);
-  v19(v10, v7);
-  v21 = v27;
-  MEMORY[0x19A8BCC60](v27, v5, v7, v18);
-  v22 = v29;
+  v21 = v29;
+  MEMORY[0x19A8BCC30](v11, v6, v8, v19);
+  v20(v11, v8);
+  v22 = v28;
+  MEMORY[0x19A8BCC60](v28, v6, v8, v19);
+  v23 = v30;
   static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)();
-  v33 = v5;
-  v34 = v7;
-  v35 = v7;
-  v36 = v18;
-  v37 = v18;
+  v34 = v6;
+  v35 = v8;
+  v36 = v8;
+  v37 = v19;
+  v38 = v19;
   swift_getOpaqueTypeConformance2();
-  v23 = v22;
-  v24 = v30;
+  v24 = v23;
+  v25 = v31;
   static KeyframesBuilder.buildFinalResult<A>(_:)();
-  (*(v31 + 8))(v23, v24);
-  v19(v10, v7);
-  v19(v20, v7);
-  return (v19)(v21, v7);
+  (*(v32 + 8))(v24, v25);
+  v20(v11, v8);
+  v20(v21, v8);
+  return (v20)(v22, v8);
 }
 
-uint64_t closure #3 in TextWipeTransitionModifier.MoveCluster.body.getter()
+uint64_t closure #3 in TextWipeTransitionModifier.MoveCluster.body.getter(uint64_t a1)
 {
   type metadata accessor for TextWipeTransitionModifier.MoveCluster(0);
   type metadata accessor for Color?(0, &lazy cache variable for type metadata for State<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E6981790]);
@@ -639,12 +453,12 @@ uint64_t TextWipeTransitionModifier.TransitionView.body.getter@<X0>(uint64_t a1@
 {
   v2 = v1;
   v54 = a1;
-  type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>();
+  type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>(0);
   v4 = v3;
   v50 = *(v3 - 8);
   MEMORY[0x1EEE9AC00](v3);
   v6 = &v49 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for <<opaque return type of View.backdropGroup_temp(_:name:)>>.0();
+  type metadata accessor for <<opaque return type of View.backdropGroup_temp(_:name:)>>.0(0);
   v52 = *(v7 - 8);
   v53 = v7;
   MEMORY[0x1EEE9AC00](v7);
@@ -783,7 +597,7 @@ uint64_t TextWipeTransitionModifier.TransitionView.body.getter@<X0>(uint64_t a1@
   lazy protocol witness table accessor for type Edit<Int> and conformance <> Edit<A>();
   lazy protocol witness table accessor for type _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>> and conformance <> _ConditionalContent<A, B>();
   ForEach<>.init(_:id:content:)();
-  v44 = lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>, lazy protocol witness table accessor for type _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>> and conformance <> _ConditionalContent<A, B>);
+  v44 = lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>, lazy protocol witness table accessor for type _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>> and conformance <> _ConditionalContent<A, B>, MEMORY[0x1E69819D0]);
   v45 = v51;
   View.backdropGroup_temp(_:name:)();
   (*(v50 + 8))(v6, v4);
@@ -804,86 +618,86 @@ uint64_t TextWipeTransitionModifier.TransitionView.body.getter@<X0>(uint64_t a1@
 
 void closure #1 in TextWipeTransitionModifier.TransitionView.body.getter(unsigned __int8 *a1@<X0>, void *a2@<X1>, _OWORD *a3@<X2>, uint64_t a4@<X8>, double a5@<D0>, double a6@<D1>, double a7@<D2>, double a8@<D3>, double a9@<D4>, double a10@<D5>)
 {
-  v99 = a4;
-  type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>();
+  v105 = a4;
+  type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>(0);
   v20 = v19;
-  v95 = *(v19 - 8);
+  v101 = *(v19 - 8);
   MEMORY[0x1EEE9AC00](v19);
-  v94 = &v83 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v100 = &v89 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>.Storage(0, &lazy cache variable for type metadata for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>.Storage, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>, MEMORY[0x1E697F948]);
-  v97 = v22;
+  v103 = v22;
   MEMORY[0x1EEE9AC00](v22);
-  v24 = &v83 - v23;
+  v24 = &v89 - v23;
   type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>(0);
   v26 = v25;
   MEMORY[0x1EEE9AC00](v25);
-  v93 = &v83 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v99 = &v89 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>(0, &lazy cache variable for type metadata for ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>, type metadata accessor for TextWipeTransitionModifier.FadeInCluster);
-  v91 = *(v28 - 8);
-  v92 = v28;
+  v97 = *(v28 - 8);
+  v98 = v28;
   MEMORY[0x1EEE9AC00](v28);
-  v90 = &v83 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v96 = &v89 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v30);
-  v96 = &v83 - v31;
-  type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>();
+  v102 = &v89 - v31;
+  type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>(0);
   MEMORY[0x1EEE9AC00](v32);
   MEMORY[0x1EEE9AC00](v33);
-  v100 = &v83 - v36;
+  v106 = &v89 - v36;
   v37 = *a1;
   v38 = *(a1 + 3);
   v39 = *(a1 + 4);
   v40 = *(a1 + 5);
-  v98 = v26;
+  v104 = v26;
   if (v37 != 1)
   {
-    v73 = a2[18];
-    v105[0] = v73;
+    v76 = a2[18];
+    v111[0] = v76;
     if ((v38 & 0x8000000000000000) == 0)
     {
-      v74 = *(v73 + 16);
-      if (v74 >= v38 && v74 >= v39)
+      v77 = *(v76 + 16);
+      if (v77 >= v38 && v77 >= v39)
       {
         if ((v39 & 0x8000000000000000) == 0)
         {
-          v101 = v73;
-          v102 = v73 + 32;
-          v103 = v38;
-          v104 = (2 * v39) | 1;
-          v75 = swift_allocObject();
-          v76 = a3[7];
-          *(v75 + 112) = a3[6];
-          *(v75 + 128) = v76;
-          *(v75 + 144) = a3[8];
-          v77 = a3[3];
-          *(v75 + 48) = a3[2];
-          *(v75 + 64) = v77;
-          v78 = a3[5];
-          *(v75 + 80) = a3[4];
-          *(v75 + 96) = v78;
-          v79 = a3[1];
-          *(v75 + 16) = *a3;
-          *(v75 + 32) = v79;
-          *(v75 + 160) = v40;
-          *(v75 + 168) = a8;
-          *(v75 + 176) = a9;
-          *(v75 + 184) = a10;
+          v107 = v76;
+          v108 = v76 + 32;
+          v109 = v38;
+          v110 = (2 * v39) | 1;
+          v78 = swift_allocObject();
+          v79 = a3[7];
+          *(v78 + 112) = a3[6];
+          *(v78 + 128) = v79;
+          *(v78 + 144) = a3[8];
+          v80 = a3[3];
+          *(v78 + 48) = a3[2];
+          *(v78 + 64) = v80;
+          v81 = a3[5];
+          *(v78 + 80) = a3[4];
+          *(v78 + 96) = v81;
+          v82 = a3[1];
+          *(v78 + 16) = *a3;
+          *(v78 + 32) = v82;
+          *(v78 + 160) = v40;
+          *(v78 + 168) = a8;
+          *(v78 + 176) = a9;
+          *(v78 + 184) = a10;
           type metadata accessor for Color?(0, &lazy cache variable for type metadata for ArraySlice<TextModel.MorphCluster>, &type metadata for TextModel.MorphCluster, MEMORY[0x1E69E6948]);
           type metadata accessor for TextWipeTransitionModifier.MoveCluster(0);
           lazy protocol witness table accessor for type ArraySlice<TextModel.MorphCluster> and conformance ArraySlice<A>(&lazy protocol witness table cache variable for type ArraySlice<TextModel.MorphCluster> and conformance ArraySlice<A>, &lazy cache variable for type metadata for ArraySlice<TextModel.MorphCluster>, &type metadata for TextModel.MorphCluster);
-          lazy protocol witness table accessor for type TextWipeTransitionModifier.MoveCluster and conformance TextWipeTransitionModifier.MoveCluster();
-          v80 = v24;
-          lazy protocol witness table accessor for type TextModel.MorphCluster and conformance TextModel.MorphCluster();
+          v83 = lazy protocol witness table accessor for type TextWipeTransitionModifier.MoveCluster and conformance TextWipeTransitionModifier.MoveCluster();
+          v86 = v24;
+          lazy protocol witness table accessor for type TextModel.MorphCluster and conformance TextModel.MorphCluster(v83, v84, v85);
           swift_bridgeObjectRetain_n();
-          v81 = v94;
+          v87 = v100;
           ForEach<>.init(_:content:)();
-          v82 = v95;
-          (*(v95 + 16))(v80, v81, v20);
+          v88 = v101;
+          (*(v101 + 16))(v86, v87, v20);
           swift_storeEnumTagMultiPayload();
-          lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>);
-          lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>, lazy protocol witness table accessor for type TextWipeTransitionModifier.MoveCluster and conformance TextWipeTransitionModifier.MoveCluster);
+          lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, MEMORY[0x1E6981F48]);
+          lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>, lazy protocol witness table accessor for type TextWipeTransitionModifier.MoveCluster and conformance TextWipeTransitionModifier.MoveCluster, MEMORY[0x1E69819D0]);
           _ConditionalContent<>.init(storage:)();
-          outlined destroy of [TextModel.MorphCluster](v105, &lazy cache variable for type metadata for [TextModel.MorphCluster], &type metadata for TextModel.MorphCluster, MEMORY[0x1E69E62F8], type metadata accessor for Color?);
-          (*(v82 + 8))(v81, v20);
+          outlined destroy of [TextModel.MorphCluster](v111, &lazy cache variable for type metadata for [TextModel.MorphCluster], &type metadata for TextModel.MorphCluster, MEMORY[0x1E69E62F8], type metadata accessor for Color?);
+          (*(v88 + 8))(v87, v20);
           return;
         }
 
@@ -898,11 +712,11 @@ void closure #1 in TextWipeTransitionModifier.TransitionView.body.getter(unsigne
 
   v41 = *(a1 + 1);
   v42 = *(a1 + 2);
-  LODWORD(v95) = a1[48];
+  LODWORD(v101) = a1[48];
   v43 = *(a1 + 7);
   v44 = a2[1];
   v45 = a2[13];
-  v107 = v44;
+  v113 = v44;
   if ((v41 & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -930,17 +744,17 @@ LABEL_21:
     goto LABEL_22;
   }
 
-  v84 = v35;
-  v85 = a2;
-  v86 = v24;
-  v87 = v20;
-  v101 = v44;
-  v102 = v44 + 32;
-  v103 = v41;
-  v104 = (2 * v42) | 1;
-  v89 = v34;
+  v90 = v35;
+  v91 = a2;
+  v92 = v24;
+  v93 = v20;
+  v107 = v44;
+  v108 = v44 + 32;
+  v109 = v41;
+  v110 = (2 * v42) | 1;
+  v95 = v34;
   v47 = swift_allocObject();
-  v94 = v45;
+  v100 = v45;
   v48 = a3[7];
   *(v47 + 112) = a3[6];
   *(v47 + 128) = v48;
@@ -955,24 +769,24 @@ LABEL_21:
   *(v47 + 16) = *a3;
   *(v47 + 32) = v51;
   *(v47 + 160) = v40;
-  *(v47 + 168) = v95;
+  *(v47 + 168) = v101;
   *(v47 + 176) = v43;
   *(v47 + 184) = v40;
   *(v47 + 192) = a5;
   type metadata accessor for Color?(0, &lazy cache variable for type metadata for ArraySlice<TextModel.Cluster>, &type metadata for TextModel.Cluster, MEMORY[0x1E69E6948]);
-  v88 = type metadata accessor for TextWipeTransitionModifier.FadeOutCluster(0);
+  v94 = type metadata accessor for TextWipeTransitionModifier.FadeOutCluster(0);
   lazy protocol witness table accessor for type ArraySlice<TextModel.MorphCluster> and conformance ArraySlice<A>(&lazy protocol witness table cache variable for type ArraySlice<TextModel.Cluster> and conformance ArraySlice<A>, &lazy cache variable for type metadata for ArraySlice<TextModel.Cluster>, &type metadata for TextModel.Cluster);
-  lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TextWipeTransitionModifier.FadeOutCluster and conformance TextWipeTransitionModifier.FadeOutCluster, type metadata accessor for TextWipeTransitionModifier.FadeOutCluster);
-  v52 = lazy protocol witness table accessor for type TextModel.Cluster and conformance TextModel.Cluster();
+  v52 = lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TextWipeTransitionModifier.FadeOutCluster and conformance TextWipeTransitionModifier.FadeOutCluster, type metadata accessor for TextWipeTransitionModifier.FadeOutCluster, &protocol conformance descriptor for TextWipeTransitionModifier.FadeOutCluster);
+  v55 = lazy protocol witness table accessor for type TextModel.Cluster and conformance TextModel.Cluster(v52, v53, v54);
   swift_bridgeObjectRetain_n();
-  v83 = v52;
-  v53 = v100;
-  v54 = v94;
+  v89 = v55;
+  v56 = v106;
+  v57 = v100;
   ForEach<>.init(_:content:)();
-  v55 = v53 + *(v89 + 36);
-  *v55 = a6;
-  *(v55 + 8) = 0;
-  v106 = v54;
+  v58 = v56 + *(v95 + 36);
+  *v58 = a6;
+  *(v58 + 8) = 0;
+  v112 = v57;
   if ((v38 & 0x8000000000000000) != 0)
   {
 LABEL_22:
@@ -980,69 +794,69 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  v56 = *(v54 + 2);
-  if (v56 >= v38 && v56 >= v39)
+  v59 = *(v57 + 2);
+  if (v59 >= v38 && v59 >= v39)
   {
     if ((v39 & 0x8000000000000000) == 0)
     {
-      v105[0] = v54;
-      v105[1] = v54 + 32;
-      v105[2] = v38;
-      v105[3] = (2 * v39) | 1;
-      v57 = swift_allocObject();
-      v58 = a3[7];
-      *(v57 + 112) = a3[6];
-      *(v57 + 128) = v58;
-      *(v57 + 144) = a3[8];
-      v59 = a3[3];
-      *(v57 + 48) = a3[2];
-      *(v57 + 64) = v59;
-      v60 = a3[5];
-      *(v57 + 80) = a3[4];
-      *(v57 + 96) = v60;
-      v61 = a3[1];
-      *(v57 + 16) = *a3;
-      *(v57 + 32) = v61;
-      *(v57 + 160) = v40;
-      *(v57 + 168) = v95;
-      *(v57 + 176) = v43;
-      *(v57 + 184) = v40;
-      *(v57 + 192) = a7;
-      v62 = v85;
-      memcpy((v57 + 200), v85, 0x158uLL);
+      v111[0] = v57;
+      v111[1] = v57 + 32;
+      v111[2] = v38;
+      v111[3] = (2 * v39) | 1;
+      v60 = swift_allocObject();
+      v61 = a3[7];
+      *(v60 + 112) = a3[6];
+      *(v60 + 128) = v61;
+      *(v60 + 144) = a3[8];
+      v62 = a3[3];
+      *(v60 + 48) = a3[2];
+      *(v60 + 64) = v62;
+      v63 = a3[5];
+      *(v60 + 80) = a3[4];
+      *(v60 + 96) = v63;
+      v64 = a3[1];
+      *(v60 + 16) = *a3;
+      *(v60 + 32) = v64;
+      *(v60 + 160) = v40;
+      *(v60 + 168) = v101;
+      *(v60 + 176) = v43;
+      *(v60 + 184) = v40;
+      *(v60 + 192) = a7;
+      v65 = v91;
+      memcpy((v60 + 200), v91, 0x158uLL);
 
-      v95 = MEMORY[0x1E69E62F8];
-      outlined init with copy of TextModel.Cluster?(&v106, &v101, &lazy cache variable for type metadata for [TextModel.Cluster], &type metadata for TextModel.Cluster, MEMORY[0x1E69E62F8], type metadata accessor for Color?);
-      outlined init with copy of TextWipeTransitionModifier.TransitionView(v62, &v101);
+      v101 = MEMORY[0x1E69E62F8];
+      outlined init with copy of TextModel.Cluster?(&v112, &v107, &lazy cache variable for type metadata for [TextModel.Cluster], &type metadata for TextModel.Cluster, MEMORY[0x1E69E62F8], type metadata accessor for Color?);
+      outlined init with copy of TextWipeTransitionModifier.TransitionView(v65, &v107);
       type metadata accessor for TextWipeTransitionModifier.FadeInCluster(0);
-      lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TextWipeTransitionModifier.FadeInCluster and conformance TextWipeTransitionModifier.FadeInCluster, type metadata accessor for TextWipeTransitionModifier.FadeInCluster);
-      v63 = v96;
+      lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TextWipeTransitionModifier.FadeInCluster and conformance TextWipeTransitionModifier.FadeInCluster, type metadata accessor for TextWipeTransitionModifier.FadeInCluster, &protocol conformance descriptor for TextWipeTransitionModifier.FadeInCluster);
+      v66 = v102;
       ForEach<>.init(_:content:)();
-      v64 = v84;
-      outlined init with copy of TextWipeTransitionModifier.FadeInCluster(v100, v84, type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>);
-      v65 = v90;
-      v66 = v91;
-      v67 = *(v91 + 16);
-      v68 = v92;
-      v67(v90, v63, v92);
-      v69 = v93;
-      outlined init with copy of TextWipeTransitionModifier.FadeInCluster(v64, v93, type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>);
-      type metadata accessor for (ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)();
-      v67((v69 + *(v70 + 48)), v65, v68);
-      v71 = *(v66 + 8);
-      v71(v65, v68);
-      outlined destroy of (TextModel.ClusterData, TextModel.Cluster)(v64, type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>);
-      outlined init with copy of TextWipeTransitionModifier.FadeInCluster(v69, v86, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>);
+      v67 = v90;
+      outlined init with copy of TextWipeTransitionModifier.FadeInCluster(v106, v90, type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>);
+      v68 = v96;
+      v69 = v97;
+      v70 = *(v97 + 16);
+      v71 = v98;
+      v70(v96, v66, v98);
+      v72 = v99;
+      outlined init with copy of TextWipeTransitionModifier.FadeInCluster(v67, v99, type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>);
+      type metadata accessor for (ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)(0);
+      v70((v72 + *(v73 + 48)), v68, v71);
+      v74 = *(v69 + 8);
+      v74(v68, v71);
+      outlined destroy of (TextModel.ClusterData, TextModel.Cluster)(v67, type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>);
+      outlined init with copy of TextWipeTransitionModifier.FadeInCluster(v72, v92, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>);
       swift_storeEnumTagMultiPayload();
-      lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>);
-      lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>, lazy protocol witness table accessor for type TextWipeTransitionModifier.MoveCluster and conformance TextWipeTransitionModifier.MoveCluster);
+      lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, MEMORY[0x1E6981F48]);
+      lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>, lazy protocol witness table accessor for type TextWipeTransitionModifier.MoveCluster and conformance TextWipeTransitionModifier.MoveCluster, MEMORY[0x1E69819D0]);
       _ConditionalContent<>.init(storage:)();
-      v72 = v95;
-      outlined destroy of [TextModel.MorphCluster](&v106, &lazy cache variable for type metadata for [TextModel.Cluster], &type metadata for TextModel.Cluster, v95, type metadata accessor for Color?);
-      outlined destroy of [TextModel.MorphCluster](&v107, &lazy cache variable for type metadata for [TextModel.Cluster], &type metadata for TextModel.Cluster, v72, type metadata accessor for Color?);
-      outlined destroy of (TextModel.ClusterData, TextModel.Cluster)(v69, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>);
-      v71(v96, v68);
-      outlined destroy of (TextModel.ClusterData, TextModel.Cluster)(v100, type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>);
+      v75 = v101;
+      outlined destroy of [TextModel.MorphCluster](&v112, &lazy cache variable for type metadata for [TextModel.Cluster], &type metadata for TextModel.Cluster, v101, type metadata accessor for Color?);
+      outlined destroy of [TextModel.MorphCluster](&v113, &lazy cache variable for type metadata for [TextModel.Cluster], &type metadata for TextModel.Cluster, v75, type metadata accessor for Color?);
+      outlined destroy of (TextModel.ClusterData, TextModel.Cluster)(v72, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>);
+      v74(v102, v71);
+      outlined destroy of (TextModel.ClusterData, TextModel.Cluster)(v106, type metadata accessor for ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>);
       return;
     }
 
@@ -1055,7 +869,7 @@ LABEL_24:
   __break(1u);
 }
 
-uint64_t closure #1 in closure #1 in TextWipeTransitionModifier.TransitionView.body.getter@<X0>(__int128 *a1@<X0>, uint64_t *a2@<X1>, char a3@<W2>, _OWORD *a4@<X8>, double a5@<D1>, double a6@<D2>, double a7@<D3>)
+void *closure #1 in closure #1 in TextWipeTransitionModifier.TransitionView.body.getter@<X0>(__int128 *a1@<X0>, double *a2@<X1>, char a3@<W2>, _OWORD *a4@<X8>, double a5@<D1>, double a6@<D2>, double a7@<D3>)
 {
   v13 = a1[3];
   v28 = a1[2];
@@ -1092,53 +906,53 @@ uint64_t closure #1 in closure #1 in TextWipeTransitionModifier.TransitionView.b
   return result;
 }
 
-__n128 closure #2 in closure #1 in TextWipeTransitionModifier.TransitionView.body.getter@<Q0>(__int128 *a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, _OWORD *a4@<X8>, double a5@<D1>, double a6@<D2>, double a7@<D3>)
+__n128 closure #2 in closure #1 in TextWipeTransitionModifier.TransitionView.body.getter@<Q0>(__int128 *a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, _OWORD *a5@<X8>, double a6@<D1>, double a7@<D2>, double a8@<D3>)
 {
-  v13 = a1[3];
-  v32 = a1[2];
-  v33 = v13;
-  v14 = a1[5];
-  v34 = a1[4];
-  v35 = v14;
-  v15 = a1[1];
-  v30 = *a1;
-  v31 = v15;
-  v16 = type metadata accessor for TextWipeTransitionModifier.FadeInCluster(0);
-  outlined init with copy of TextModel.Cluster(&v30, &v28);
+  v14 = a1[3];
+  v33 = a1[2];
+  v34 = v14;
+  v15 = a1[5];
+  v35 = a1[4];
+  v36 = v15;
+  v16 = a1[1];
+  v31 = *a1;
+  v32 = v16;
+  v17 = type metadata accessor for TextWipeTransitionModifier.FadeInCluster(0);
+  outlined init with copy of TextModel.Cluster(&v31, &v29);
   static UnitCurve.bezier(startControlPoint:endControlPoint:)();
-  v17 = *(a2 + 8);
-  v18 = *(a2 + 16) + a6;
+  v18 = *(a2 + 8);
+  v19 = *(a2 + 16) + a7;
   type metadata accessor for Color?(0, &lazy cache variable for type metadata for State<Int>, MEMORY[0x1E69E6530], MEMORY[0x1E6981790]);
   State.projectedValue.getter();
-  v27 = v28;
-  v19 = v29;
-  v20 = v33;
-  a4[2] = v32;
-  a4[3] = v20;
-  v21 = v35;
-  a4[4] = v34;
-  a4[5] = v21;
-  v22 = v31;
-  *a4 = v30;
-  a4[1] = v22;
-  *(a4 + v16[6]) = a3;
-  *(a4 + v16[7]) = v18;
-  *(a4 + v16[8]) = v17;
-  *(a4 + v16[9]) = a5 * a7;
-  *(a4 + v16[10]) = 0x3FE0000000000000;
-  v23 = a4 + v16[11];
+  v28 = v29;
+  v20 = v30;
+  v21 = v34;
+  a5[2] = v33;
+  a5[3] = v21;
+  v22 = v36;
+  a5[4] = v35;
+  a5[5] = v22;
+  v23 = v32;
+  *a5 = v31;
+  a5[1] = v23;
+  *(a5 + v17[6]) = a3;
+  *(a5 + v17[7]) = v19;
+  *(a5 + v17[8]) = v18;
+  *(a5 + v17[9]) = a6 * a8;
+  *(a5 + v17[10]) = 0x3FE0000000000000;
+  v24 = a5 + v17[11];
   State.init(wrappedValue:)();
-  v24 = v28.n128_u64[1];
-  *v23 = v28.n128_u8[0];
-  *(v23 + 1) = v24;
-  v25 = (a4 + v16[12]);
-  result = v27;
-  *v25 = v27;
-  v25[1].n128_u64[0] = v19;
+  v25 = v29.n128_u64[1];
+  *v24 = v29.n128_u8[0];
+  *(v24 + 1) = v25;
+  v26 = a5 + v17[12];
+  result = v28;
+  *v26 = v28;
+  *(v26 + 2) = v20;
   return result;
 }
 
-uint64_t closure #3 in closure #1 in TextWipeTransitionModifier.TransitionView.body.getter@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>, double a4@<D0>, double a5@<D1>, double a6@<D2>, double a7@<D3>)
+void *closure #3 in closure #1 in TextWipeTransitionModifier.TransitionView.body.getter@<X0>(__int128 *a1@<X0>, double *a2@<X1>, _OWORD *a3@<X8>, double a4@<D0>, double a5@<D1>, double a6@<D2>, double a7@<D3>)
 {
   v13 = a1[9];
   v40 = a1[8];
@@ -1161,7 +975,7 @@ uint64_t closure #3 in closure #1 in TextWipeTransitionModifier.TransitionView.b
   v19 = type metadata accessor for TextWipeTransitionModifier.MoveCluster(0);
   outlined init with copy of TextModel.MorphCluster(&v32, v30);
   static UnitCurve.bezier(startControlPoint:endControlPoint:)();
-  v20 = *(a2 + 40);
+  v20 = *(a2 + 5);
   v21 = v41;
   a3[8] = v40;
   a3[9] = v21;
@@ -1250,9 +1064,9 @@ uint64_t TextWipeTransitionModifier.stopTransition()()
   memcpy(__dst, v0, sizeof(__dst));
   type metadata accessor for Color?(0, &lazy cache variable for type metadata for State<TextWipeTransitionModifier.Model>, &unk_1F0A2C500, MEMORY[0x1E6981790]);
   State.wrappedValue.getter();
-  memcpy(__src, &v23[8], 0x131uLL);
-  memcpy(v26, __src, 0x131uLL);
-  result = _s20TextAnimationSupport0A22WipeTransitionModifierV5Model33_5BB6BA5906EF51728AE44082969295EDLLV5StateOWOg(v26);
+  memcpy(__src, &v24[1], 0x131uLL);
+  memcpy(v27, __src, 0x131uLL);
+  result = _s20TextAnimationSupport0A22WipeTransitionModifierV5Model33_5BB6BA5906EF51728AE44082969295EDLLV5StateOWOg(v27);
   if (result)
   {
     if (result != 1)
@@ -1260,7 +1074,7 @@ uint64_t TextWipeTransitionModifier.stopTransition()()
       return result;
     }
 
-    v2 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer(v26);
+    protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer();
     v3 = v2 + 1;
     v4 = v2 + 2;
     v5 = v2 + 3;
@@ -1270,238 +1084,240 @@ uint64_t TextWipeTransitionModifier.stopTransition()()
 
   else
   {
-    v8 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer(v26);
-    v2 = (v8 + 96);
-    v3 = (v8 + 104);
-    v4 = (v8 + 112);
-    v5 = (v8 + 120);
-    v6 = (v8 + 128);
-    v7 = (v8 + 136);
+    protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer();
+    v9 = v8;
+    v2 = v8 + 12;
+    v3 = v9 + 13;
+    v4 = v9 + 14;
+    v5 = v9 + 15;
+    v6 = v9 + 16;
+    v7 = v9 + 17;
   }
 
-  v9 = *v6;
-  v10 = *v5;
-  v11 = *v4;
-  v12 = *v3;
-  v13 = *v2;
-  v14 = *v7;
+  v10 = *v6;
+  v11 = *v5;
+  v12 = *v4;
+  v13 = *v3;
+  v14 = *v2;
+  v15 = *v7;
 
   outlined destroy of TextWipeTransitionModifier.Model.State(__src);
   memcpy(__dst, v0, sizeof(__dst));
   State.wrappedValue.getter();
-  memcpy(v19, v23, 0x139uLL);
-  outlined destroy of TextWipeTransitionModifier.Model(v19);
+  memcpy(v20, v24, 0x139uLL);
+  outlined destroy of TextWipeTransitionModifier.Model(v20);
 
-  specialized TextModel.combinedPath()(v15, v20);
+  specialized TextModel.combinedPath()(v16, v21);
 
-  *v22 = v13;
-  *&v22[8] = v12;
-  *&v22[16] = v11;
-  *&v22[24] = v10;
-  *&v22[32] = v9;
-  *&v22[40] = v14;
-  *&v22[48] = v20[0];
-  *&v22[64] = v20[1];
-  v22[80] = v21;
-  _s20TextAnimationSupport0A22WipeTransitionModifierV5Model33_5BB6BA5906EF51728AE44082969295EDLLV5StateOWOi0_(v22);
-  memcpy(v17, v22, sizeof(v17));
-  memcpy(v23, v0, sizeof(v23));
-  memcpy(v18, v0, sizeof(v18));
-  v16 = MEMORY[0x1E6981790];
-  outlined init with copy of TextModel.Cluster?(v23, __dst, &lazy cache variable for type metadata for State<TextWipeTransitionModifier.Model>, &unk_1F0A2C500, MEMORY[0x1E6981790], type metadata accessor for Color?);
+  *v23 = v14;
+  *&v23[8] = v13;
+  *&v23[16] = v12;
+  *&v23[24] = v11;
+  *&v23[32] = v10;
+  *&v23[40] = v15;
+  *&v23[48] = v21[0];
+  *&v23[64] = v21[1];
+  v23[80] = v22;
+  _s20TextAnimationSupport0A22WipeTransitionModifierV5Model33_5BB6BA5906EF51728AE44082969295EDLLV5StateOWOi0_(v23);
+  memcpy(v18, v23, sizeof(v18));
+  memcpy(v24, v0, sizeof(v24));
+  memcpy(v19, v0, sizeof(v19));
+  v17 = MEMORY[0x1E6981790];
+  outlined init with copy of TextModel.Cluster?(v24, __dst, &lazy cache variable for type metadata for State<TextWipeTransitionModifier.Model>, &unk_1F0A2C500, MEMORY[0x1E6981790], type metadata accessor for Color?);
   State.wrappedValue.setter();
-  memcpy(__dst, v18, sizeof(__dst));
-  return outlined destroy of [TextModel.MorphCluster](__dst, &lazy cache variable for type metadata for State<TextWipeTransitionModifier.Model>, &unk_1F0A2C500, v16, type metadata accessor for Color?);
+  memcpy(__dst, v19, sizeof(__dst));
+  return outlined destroy of [TextModel.MorphCluster](__dst, &lazy cache variable for type metadata for State<TextWipeTransitionModifier.Model>, &unk_1F0A2C500, v17, type metadata accessor for Color?);
 }
 
 uint64_t closure #1 in closure #1 in TextWipeTransitionModifier.body(content:)(uint64_t a1)
 {
   MEMORY[0x1EEE9AC00](a1);
   v2 = v1;
-  v43 = v3;
+  v44 = v3;
   v4 = type metadata accessor for TextWipeTransitionModifier(0);
-  v41 = *(v4 - 8);
-  v5 = *(v41 + 64);
+  v42 = *(v4 - 8);
+  v5 = *(v42 + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = type metadata accessor for LayoutDirection();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v10);
-  v12 = &v37 - v11;
-  memcpy(v53, v2, 0x148uLL);
+  v12 = &v38 - v11;
+  memcpy(v54, v2, 0x148uLL);
   type metadata accessor for Color?(0, &lazy cache variable for type metadata for State<TextWipeTransitionModifier.Model>, &unk_1F0A2C500, MEMORY[0x1E6981790]);
-  v42 = v13;
+  v43 = v13;
   State.wrappedValue.getter();
-  memcpy(v54, &v52[1], 0x131uLL);
-  memcpy(v55, v54, 0x131uLL);
-  v14 = _s20TextAnimationSupport0A22WipeTransitionModifierV5Model33_5BB6BA5906EF51728AE44082969295EDLLV5StateOWOg(v55);
+  memcpy(v55, &v53[1], 0x131uLL);
+  memcpy(v56, v55, 0x131uLL);
+  v14 = _s20TextAnimationSupport0A22WipeTransitionModifierV5Model33_5BB6BA5906EF51728AE44082969295EDLLV5StateOWOg(v56);
   if (!v14)
   {
-    v39 = &v37 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v38 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer(v55);
-    memcpy(v48, v54, 0x131uLL);
-    v20 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer(v48);
-    outlined init with copy of Transition(v20, v53);
-    v21 = v2;
+    v40 = &v38 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+    protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer();
+    v39 = v20;
+    memcpy(v49, v55, 0x131uLL);
+    protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer();
+    outlined init with copy of Transition(v21, v54);
+    v22 = v2;
     TextWipeTransitionModifier.externalAlign.getter(v12);
-    v22 = v2[59];
+    v23 = v2[59];
     (*(v7 + 104))(v9, *MEMORY[0x1E697E7D0], v6);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type LayoutDirection and conformance LayoutDirection, MEMORY[0x1E697E7E0]);
-    v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v24 = *(v7 + 8);
-    v24(v9, v6);
-    if (v23)
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type LayoutDirection and conformance LayoutDirection, MEMORY[0x1E697E7E0], MEMORY[0x1E697E7F8]);
+    v24 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v25 = *(v7 + 8);
+    v25(v9, v6);
+    if (v24)
     {
-      v40 = v22;
-      v25 = v41;
-      v26 = v39;
+      v41 = v23;
+      v26 = v42;
+      v27 = v40;
 LABEL_11:
-      v24(v12, v6);
-      outlined init with copy of TextWipeTransitionModifier.FadeInCluster(v21, v26, type metadata accessor for TextWipeTransitionModifier);
-      v31 = (*(v25 + 80) + 16) & ~*(v25 + 80);
-      v32 = swift_allocObject();
-      outlined init with take of TextWipeTransitionModifier(v26, v32 + v31, type metadata accessor for TextWipeTransitionModifier);
-      v52[0] = 0;
+      v25(v12, v6);
+      outlined init with copy of TextWipeTransitionModifier.FadeInCluster(v22, v27, type metadata accessor for TextWipeTransitionModifier);
+      v32 = (*(v26 + 80) + 16) & ~*(v26 + 80);
+      v33 = swift_allocObject();
+      outlined init with take of TextWipeTransitionModifier(v27, v33 + v32, type metadata accessor for TextWipeTransitionModifier);
+      v53[0] = 0;
       State.init(wrappedValue:)();
-      v33 = v53[0];
-      v34 = v53[1];
-      memcpy(v45, v38, sizeof(v45));
-      memcpy(v53, v21, 0x148uLL);
+      v34 = v54[0];
+      v35 = v54[1];
+      memcpy(v46, v39, sizeof(v46));
+      memcpy(v54, v22, 0x148uLL);
       State.wrappedValue.getter();
-      memcpy(v46, v52, 0x139uLL);
-      outlined destroy of TextWipeTransitionModifier.Model(v46);
-      memcpy(v47, v45, 0x130uLL);
-      v47[38] = v40;
-      v47[39] = partial apply for closure #1 in closure #1 in closure #1 in TextWipeTransitionModifier.body(content:);
-      v47[40] = v32;
-      v47[41] = v33;
-      v47[42] = v34;
-      v47[43] = *&v46[0];
-      memcpy(v49, v47, 0x160uLL);
-      _s7SwiftUI19_ConditionalContentV7StorageOyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiG_GWOi0_(v49);
-      memcpy(v53, v49, 0x161uLL);
+      memcpy(v47, v53, 0x139uLL);
+      outlined destroy of TextWipeTransitionModifier.Model(v47);
+      memcpy(v48, v46, 0x130uLL);
+      v48[38] = v41;
+      v48[39] = partial apply for closure #1 in closure #1 in closure #1 in TextWipeTransitionModifier.body(content:);
+      v48[40] = v33;
+      v48[41] = v34;
+      v48[42] = v35;
+      v48[43] = *&v47[0];
+      memcpy(v50, v48, 0x160uLL);
+      _s7SwiftUI19_ConditionalContentV7StorageOyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiG_GWOi0_(v50);
+      memcpy(v54, v50, 0x161uLL);
       v16 = &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>;
       v17 = &unk_1F0A2C910;
       v18 = lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView;
-      outlined init with copy of TextModel.Cluster?(v47, v52, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView, &unk_1F0A2C910, type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>);
-      type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(0, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView);
-      type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(0, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView);
-      lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView);
-      lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.TransitionView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView);
+      outlined init with copy of TextModel.Cluster?(v48, v53, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView, &unk_1F0A2C910, type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>);
+      type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(0, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView, &unk_1F0A2C998);
+      type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(0, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView, &unk_1F0A2C910);
+      lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView, &unk_1F0A2C998);
+      lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.TransitionView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView, &unk_1F0A2C910);
       _ConditionalContent<>.init(storage:)();
-      memcpy(v52, v44, 0x161uLL);
-      _s7SwiftUI19_ConditionalContentV7StorageOyACyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiGGAA05EmptyN0V_GWOi_(v52);
-      memcpy(v53, v52, 0x162uLL);
-      type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>();
+      memcpy(v53, v45, 0x161uLL);
+      _s7SwiftUI19_ConditionalContentV7StorageOyACyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiGGAA05EmptyN0V_GWOi_(v53);
+      memcpy(v54, v53, 0x162uLL);
+      type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>(0);
       lazy protocol witness table accessor for type _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>> and conformance <> _ConditionalContent<A, B>();
       _ConditionalContent<>.init(storage:)();
-      outlined destroy of TextWipeTransitionModifier.Model.State(v54);
-      v19 = v47;
+      outlined destroy of TextWipeTransitionModifier.Model.State(v55);
+      v19 = v48;
       goto LABEL_12;
     }
 
-    v27 = static HorizontalAlignment.leading.getter();
-    v28 = MEMORY[0x19A8BCD00](v27, v22);
-    v29 = static HorizontalAlignment.trailing.getter();
-    v30 = v22;
-    v25 = v41;
-    v26 = v39;
-    if ((v28 & 1) == 0)
+    v28 = static HorizontalAlignment.leading.getter();
+    v29 = MEMORY[0x19A8BCD00](v28, v23);
+    v30 = static HorizontalAlignment.trailing.getter();
+    v31 = v23;
+    v26 = v42;
+    v27 = v40;
+    if ((v29 & 1) == 0)
     {
-      v40 = v30;
-      if ((MEMORY[0x19A8BCD00](v29, v30) & 1) == 0)
+      v41 = v31;
+      if ((MEMORY[0x19A8BCD00](v30, v31) & 1) == 0)
       {
         goto LABEL_11;
       }
 
-      v29 = static HorizontalAlignment.leading.getter();
+      v30 = static HorizontalAlignment.leading.getter();
     }
 
-    v40 = v29;
+    v41 = v30;
     goto LABEL_11;
   }
 
   if (v14 == 1)
   {
-    v15 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer(v55);
-    v48[2] = *(v15 + 32);
-    v48[3] = *(v15 + 48);
-    v48[4] = *(v15 + 64);
-    LOBYTE(v48[5]) = *(v15 + 80);
-    v48[0] = *v15;
-    v48[1] = *(v15 + 16);
-    memcpy(v53, v2, 0x148uLL);
+    protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer();
+    v49[2] = *(v15 + 32);
+    v49[3] = *(v15 + 48);
+    v49[4] = *(v15 + 64);
+    LOBYTE(v49[5]) = *(v15 + 80);
+    v49[0] = *v15;
+    v49[1] = *(v15 + 16);
+    memcpy(v54, v2, 0x148uLL);
     State.wrappedValue.getter();
-    memcpy(v47, v52, 0x139uLL);
-    outlined destroy of TextWipeTransitionModifier.Model(v47);
-    LOBYTE(v46[5]) = v48[5];
-    v46[2] = v48[2];
-    v46[3] = v48[3];
-    v46[4] = v48[4];
-    v46[0] = v48[0];
-    v46[1] = v48[1];
-    *(&v46[5] + 1) = v47[0];
-    *v49 = v48[0];
-    *&v49[16] = v48[1];
-    *&v49[80] = v46[5];
-    *&v49[64] = v48[4];
-    *&v49[48] = v48[3];
-    *&v49[32] = v48[2];
-    _s7SwiftUI19_ConditionalContentV7StorageOyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiG_GWOi_(v49);
-    memcpy(v53, v49, 0x161uLL);
-    outlined init with copy of TextWipeTransitionModifier.Model.State(v54, v52);
+    memcpy(v48, v53, 0x139uLL);
+    outlined destroy of TextWipeTransitionModifier.Model(v48);
+    LOBYTE(v47[5]) = v49[5];
+    v47[2] = v49[2];
+    v47[3] = v49[3];
+    v47[4] = v49[4];
+    v47[0] = v49[0];
+    v47[1] = v49[1];
+    *(&v47[5] + 1) = v48[0];
+    *v50 = v49[0];
+    *&v50[16] = v49[1];
+    *&v50[80] = v47[5];
+    *&v50[64] = v49[4];
+    *&v50[48] = v49[3];
+    *&v50[32] = v49[2];
+    _s7SwiftUI19_ConditionalContentV7StorageOyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiG_GWOi_(v50);
+    memcpy(v54, v50, 0x161uLL);
+    outlined init with copy of TextWipeTransitionModifier.Model.State(v55, v53);
     v16 = &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>;
     v17 = &unk_1F0A2C998;
     v18 = lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView;
-    outlined init with copy of TextModel.Cluster?(v46, v52, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView, &unk_1F0A2C998, type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>);
-    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(0, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView);
-    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(0, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView);
-    lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView);
-    lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.TransitionView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView);
+    outlined init with copy of TextModel.Cluster?(v47, v53, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView, &unk_1F0A2C998, type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>);
+    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(0, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView, &unk_1F0A2C998);
+    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(0, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView, &unk_1F0A2C910);
+    lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView, &unk_1F0A2C998);
+    lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.TransitionView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView, &unk_1F0A2C910);
     _ConditionalContent<>.init(storage:)();
-    memcpy(v52, v44, 0x161uLL);
-    _s7SwiftUI19_ConditionalContentV7StorageOyACyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiGGAA05EmptyN0V_GWOi_(v52);
-    memcpy(v53, v52, 0x162uLL);
-    type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>();
+    memcpy(v53, v45, 0x161uLL);
+    _s7SwiftUI19_ConditionalContentV7StorageOyACyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiGGAA05EmptyN0V_GWOi_(v53);
+    memcpy(v54, v53, 0x162uLL);
+    type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>(0);
     lazy protocol witness table accessor for type _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>> and conformance <> _ConditionalContent<A, B>();
     _ConditionalContent<>.init(storage:)();
-    outlined destroy of TextWipeTransitionModifier.Model.State(v54);
-    v19 = v46;
+    outlined destroy of TextWipeTransitionModifier.Model.State(v55);
+    v19 = v47;
 LABEL_12:
     outlined destroy of [TextModel.MorphCluster](v19, v16, v18, v17, type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>);
-    memcpy(v53, v51, 0x162uLL);
+    memcpy(v54, v52, 0x162uLL);
     goto LABEL_13;
   }
 
-  _s7SwiftUI19_ConditionalContentV7StorageOyACyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiGGAA05EmptyN0V_GWOi0_(v52);
-  memcpy(v51, v52, 0x162uLL);
-  type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>();
+  _s7SwiftUI19_ConditionalContentV7StorageOyACyAA6IDViewVy20TextAnimationSupport0G22WipeTransitionModifierV14StationaryView33_5BB6BA5906EF51728AE44082969295EDLLVSiGAGyAJ0kN0ALLLVSiGGAA05EmptyN0V_GWOi0_(v53);
+  memcpy(v52, v53, 0x162uLL);
+  type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>(0);
   lazy protocol witness table accessor for type _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>> and conformance <> _ConditionalContent<A, B>();
   _ConditionalContent<>.init(storage:)();
 LABEL_13:
-  v35 = v43;
-  memcpy(v52, v53, 0x162uLL);
-  v44[0] = 1;
-  memcpy(v51, v53, 0x162uLL);
-  memcpy(&v50[7], v53, 0x162uLL);
-  *v43 = 0;
-  *(v35 + 8) = 1;
-  memcpy(v35 + 9, v50, 0x169uLL);
-  outlined init with copy of _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>(v51, v49);
-  return outlined destroy of ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>(v52, &lazy cache variable for type metadata for _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>, type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, MEMORY[0x1E6981E70], MEMORY[0x1E697F960]);
+  v36 = v44;
+  memcpy(v53, v54, 0x162uLL);
+  v45[0] = 1;
+  memcpy(v52, v54, 0x162uLL);
+  memcpy(&v51[7], v54, 0x162uLL);
+  *v44 = 0;
+  *(v36 + 8) = 1;
+  memcpy(v36 + 9, v51, 0x169uLL);
+  outlined init with copy of _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>(v52, v50);
+  return outlined destroy of ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>(v53, &lazy cache variable for type metadata for _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>, type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, MEMORY[0x1E6981E70], MEMORY[0x1E697F960]);
 }
 
-uint64_t key path setter for EnvironmentValues.timeDataSource : EnvironmentValues(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void), uint64_t (*a6)(char *))
+uint64_t key path setter for EnvironmentValues.timeDataSource : EnvironmentValues(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(char *))
 {
-  a5(0);
-  MEMORY[0x1EEE9AC00]();
-  v9 = &v12 - v8;
-  (*(v10 + 16))(&v12 - v8, a1);
-  return a6(v9);
+  v8 = a5(0);
+  v9 = MEMORY[0x1EEE9AC00](v8);
+  v11 = &v14 - v10;
+  (*(v12 + 16))(&v14 - v10, a1, v9);
+  return a6(v11);
 }
 
-void (*protocol witness for Animatable.animatableData.modify in conformance TextWipeTransitionModifier.NullRenderer(uint64_t *a1))(void *a1)
+uint64_t (*protocol witness for Animatable.animatableData.modify in conformance TextWipeTransitionModifier.NullRenderer(uint64_t *a1))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -1557,21 +1373,20 @@ uint64_t specialized Collection.firstIndex(where:)(uint64_t (*a1)(uint64_t), uin
   return v7;
 }
 
-uint64_t partial apply for closure #1 in AODProgressProxy.progress.setter()
+void partial apply for closure #1 in AODProgressProxy.progress.setter()
 {
   v1 = *(v0 + 16);
   v2 = *(v0 + 24);
   v3 = *(v0 + 32);
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v1 + 16) = v2;
   *(v1 + 24) = v3;
-  return result;
 }
 
-uint64_t type metadata completion function for AODProgressProxy()
+uint64_t type metadata completion function for AODProgressProxy(uint64_t a1)
 {
   result = type metadata accessor for ObservationRegistrar();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -1583,7 +1398,7 @@ uint64_t type metadata completion function for AODProgressProxy()
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type TextGlassWipeTransitionModifier and conformance TextGlassWipeTransitionModifier()
+unint64_t lazy protocol witness table accessor for type TextGlassWipeTransitionModifier and conformance TextGlassWipeTransitionModifier(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type TextGlassWipeTransitionModifier and conformance TextGlassWipeTransitionModifier;
   if (!lazy protocol witness table cache variable for type TextGlassWipeTransitionModifier and conformance TextGlassWipeTransitionModifier)
@@ -1677,16 +1492,16 @@ uint64_t storeEnumTagSinglePayload for TextGlassWipeTransitionModifier(uint64_t 
   return result;
 }
 
-void type metadata accessor for ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>()
+void type metadata accessor for ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>)
   {
     type metadata accessor for _ViewModifier_Content<TextGlassWipeTransitionModifier>(255, &lazy cache variable for type metadata for _ViewModifier_Content<TextGlassWipeTransitionModifier>, lazy protocol witness table accessor for type TextGlassWipeTransitionModifier and conformance TextGlassWipeTransitionModifier, &type metadata for TextGlassWipeTransitionModifier, MEMORY[0x1E697FDE8]);
     type metadata accessor for TextWipeTransitionModifier(255);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>);
     }
   }
 }
@@ -1754,12 +1569,12 @@ uint64_t outlined destroy of Environment<String?>(uint64_t a1, unint64_t *a2, un
 
 uint64_t outlined destroy of [TextModel.MorphCluster](uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v6 = a5(0);
+  v6 = (a5)(0, a2, a3, a4);
   (*(*(v6 - 8) + 8))(a1, v6);
   return a1;
 }
 
-unint64_t lazy protocol witness table accessor for type EnvironmentValues.__Key_glassSubvariant and conformance EnvironmentValues.__Key_glassSubvariant()
+unint64_t lazy protocol witness table accessor for type EnvironmentValues.__Key_glassSubvariant and conformance EnvironmentValues.__Key_glassSubvariant(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type EnvironmentValues.__Key_glassSubvariant and conformance EnvironmentValues.__Key_glassSubvariant;
   if (!lazy protocol witness table cache variable for type EnvironmentValues.__Key_glassSubvariant and conformance EnvironmentValues.__Key_glassSubvariant)
@@ -1771,7 +1586,7 @@ unint64_t lazy protocol witness table accessor for type EnvironmentValues.__Key_
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type EnvironmentValues.__Key_frost and conformance EnvironmentValues.__Key_frost()
+unint64_t lazy protocol witness table accessor for type EnvironmentValues.__Key_frost and conformance EnvironmentValues.__Key_frost(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type EnvironmentValues.__Key_frost and conformance EnvironmentValues.__Key_frost;
   if (!lazy protocol witness table cache variable for type EnvironmentValues.__Key_frost and conformance EnvironmentValues.__Key_frost)
@@ -1796,13 +1611,13 @@ uint64_t get_enum_tag_for_layout_string_20TextAnimationSupport0A22WipeTransition
   }
 }
 
-void type metadata completion function for TextWipeTransitionModifier()
+void type metadata completion function for TextWipeTransitionModifier(uint64_t a1)
 {
   type metadata accessor for Color?(319, &lazy cache variable for type metadata for State<TextWipeTransitionModifier.Model>, &unk_1F0A2C500, MEMORY[0x1E6981790]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>(319, &lazy cache variable for type metadata for Environment<LayoutDirection>, MEMORY[0x1E697E7E0], MEMORY[0x1E697DCC0]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -1865,7 +1680,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     type metadata accessor for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>.Storage(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>, _EnvironmentKeyWritingModifier<TimeDataSource<Date>>>, _ForegroundStyleModifier<Material>>, type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>, _EnvironmentKeyWritingModifier<TimeDataSource<Date>>>, type metadata accessor for _ForegroundStyleModifier<Material>, MEMORY[0x1E697E830]);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>, _EnvironmentKeyWritingModifier<TimeDataSource<Date>>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Material> and conformance _ForegroundStyleModifier<A>, type metadata accessor for _ForegroundStyleModifier<Material>);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _ForegroundStyleModifier<Material> and conformance _ForegroundStyleModifier<A>, type metadata accessor for _ForegroundStyleModifier<Material>, MEMORY[0x1E6980490]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>, _EnvironmentKeyWritingModifier<TimeDataSource<Date>>>, _ForegroundStyleModifier<Material>> and conformance <> ModifiedContent<A, B>);
   }
@@ -1880,7 +1695,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     type metadata accessor for ModifiedContent<ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>, _EnvironmentKeyWritingModifier<TimeDataSource<Date>>>(255);
     lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<TimeDataSource<Date>> and conformance _EnvironmentKeyWritingModifier<A>, type metadata accessor for _EnvironmentKeyWritingModifier<TimeDataSource<Date>>);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<TimeDataSource<Date>> and conformance _EnvironmentKeyWritingModifier<A>, type metadata accessor for _EnvironmentKeyWritingModifier<TimeDataSource<Date>>, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>, _EnvironmentKeyWritingModifier<TimeDataSource<Date>>> and conformance <> ModifiedContent<A, B>);
   }
@@ -1893,9 +1708,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ViewMod
   result = lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>();
+    type metadata accessor for ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier>(255);
     lazy protocol witness table accessor for type _ViewModifier_Content<TextGlassWipeTransitionModifier> and conformance _ViewModifier_Content<A>();
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TextWipeTransitionModifier and conformance TextWipeTransitionModifier, type metadata accessor for TextWipeTransitionModifier);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TextWipeTransitionModifier and conformance TextWipeTransitionModifier, type metadata accessor for TextWipeTransitionModifier, "]I\x1BYЊ");
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<TextGlassWipeTransitionModifier>, TextWipeTransitionModifier> and conformance <> ModifiedContent<A, B>);
   }
@@ -1916,7 +1731,7 @@ unint64_t lazy protocol witness table accessor for type _ViewModifier_Content<Te
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type TextWipeTransitionTiming and conformance TextWipeTransitionTiming()
+unint64_t lazy protocol witness table accessor for type TextWipeTransitionTiming and conformance TextWipeTransitionTiming(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type TextWipeTransitionTiming and conformance TextWipeTransitionTiming;
   if (!lazy protocol witness table cache variable for type TextWipeTransitionTiming and conformance TextWipeTransitionTiming)
@@ -1928,7 +1743,7 @@ unint64_t lazy protocol witness table accessor for type TextWipeTransitionTiming
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type String? and conformance <A> A?(unint64_t *a1, unint64_t *a2, uint64_t a3)
+uint64_t lazy protocol witness table accessor for type String? and conformance <A> A?(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -1947,7 +1762,7 @@ unint64_t lazy protocol witness table accessor for type Color? and conformance <
   if (!lazy protocol witness table cache variable for type Color? and conformance <A> A?)
   {
     type metadata accessor for Color?(255, &lazy cache variable for type metadata for Color?, MEMORY[0x1E69815C0], MEMORY[0x1E69E6720]);
-    lazy protocol witness table accessor for type Color and conformance Color();
+    lazy protocol witness table accessor for type Color and conformance Color(v1, v2, v3);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type Color? and conformance <A> A?);
   }
@@ -1955,7 +1770,7 @@ unint64_t lazy protocol witness table accessor for type Color? and conformance <
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Color and conformance Color()
+unint64_t lazy protocol witness table accessor for type Color and conformance Color(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Color and conformance Color;
   if (!lazy protocol witness table cache variable for type Color and conformance Color)
@@ -2185,11 +2000,11 @@ BOOL specialized static ClusterWithPath.== infix(_:_:)(void *a1, void *a2)
   type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>(0, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v36 - v9;
-  type metadata accessor for (AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?)();
+  type metadata accessor for (AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?)(0);
   v12 = v11;
   MEMORY[0x1EEE9AC00](v11);
   v14 = &v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if ((*a1 != *a2 || a1[1] != a2[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if (*a1 != *a2 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     return 0;
   }
@@ -2217,7 +2032,7 @@ BOOL specialized static ClusterWithPath.== infix(_:_:)(void *a1, void *a2)
       v25 = &v14[v19];
       v26 = v37;
       (*(v5 + 32))(v37, v25, v4);
-      lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.DateFieldAttribute.Field and conformance AttributeScopes.FoundationAttributes.DateFieldAttribute.Field, MEMORY[0x1E69685B0]);
+      lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.DateFieldAttribute.Field and conformance AttributeScopes.FoundationAttributes.DateFieldAttribute.Field, MEMORY[0x1E69685B0], MEMORY[0x1E69685C8]);
       v27 = dispatch thunk of static Equatable.== infix(_:_:)();
       v28 = *(v5 + 8);
       v28(v26, v4);
@@ -2229,34 +2044,34 @@ BOOL specialized static ClusterWithPath.== infix(_:_:)(void *a1, void *a2)
         return 0;
       }
 
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
     (*(v5 + 8))(v10, v4);
-LABEL_9:
+LABEL_8:
     outlined destroy of (TextModel.ClusterData, TextModel.Cluster)(v14, type metadata accessor for (AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?));
     return 0;
   }
 
   if (v24(&v14[v19], 1, v4) != 1)
   {
-    goto LABEL_9;
+    goto LABEL_8;
   }
 
   outlined destroy of GlassMaterialProvider.Subvariant?(v14, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
-LABEL_11:
+LABEL_10:
   v30 = v38;
   v29 = v39;
   if (*(v39 + *(v38 + 24)) == *(v23 + *(v38 + 24)))
   {
-    v31 = (v39 + *(v38 + 28));
-    v42 = *(v31 + 32);
-    v32 = v31[1];
+    v31 = v39 + *(v38 + 28);
+    v42 = v31[32];
+    v32 = *(v31 + 1);
     v40 = *v31;
     v41 = v32;
-    v33 = (v23 + *(v38 + 28));
-    v45 = *(v33 + 32);
-    v34 = v33[1];
+    v33 = v23 + *(v38 + 28);
+    v45 = v33[32];
+    v34 = *(v33 + 1);
     v43 = *v33;
     v44 = v34;
     if (static Path.== infix(_:_:)())
@@ -2398,11 +2213,11 @@ BOOL specialized static TextModel.ClusterData.== infix(_:_:)(void *a1, void *a2)
   type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>(0, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
   MEMORY[0x1EEE9AC00](v8 - 8);
   v10 = &v26 - v9;
-  type metadata accessor for (AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?)();
+  type metadata accessor for (AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?)(0);
   v12 = v11;
   MEMORY[0x1EEE9AC00](v11);
   v14 = &v26 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  if ((*a1 != *a2 || a1[1] != a2[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || a1[2] != a2[2])
+  if (*a1 != *a2 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || a1[2] != a2[2])
   {
     return 0;
   }
@@ -2417,36 +2232,36 @@ BOOL specialized static TextModel.ClusterData.== infix(_:_:)(void *a1, void *a2)
   outlined init with copy of Environment<LayoutDirection>.Content(a1 + v15, v14, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
   outlined init with copy of Environment<LayoutDirection>.Content(a2 + v15, &v14[v16], &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, v18, v19);
   v20 = *(v17 + 48);
-  if (v20(v14, 1, v4) == 1)
+  if (v20(v14, 1, v4) != 1)
   {
-    if (v20(&v14[v16], 1, v4) == 1)
+    v21 = v27;
+    outlined init with copy of Environment<LayoutDirection>.Content(v14, v27, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
+    if (v20(&v14[v16], 1, v4) != 1)
     {
+      v23 = v26;
+      (*(v17 + 32))(v26, &v14[v16], v4);
+      lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.DateFieldAttribute.Field and conformance AttributeScopes.FoundationAttributes.DateFieldAttribute.Field, MEMORY[0x1E69685B0], MEMORY[0x1E69685C8]);
+      v24 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v25 = *(v17 + 8);
+      v25(v23, v4);
+      v25(v21, v4);
       outlined destroy of GlassMaterialProvider.Subvariant?(v14, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
-      return 1;
+      return (v24 & 1) != 0;
     }
 
-    goto LABEL_10;
-  }
-
-  v21 = v27;
-  outlined init with copy of Environment<LayoutDirection>.Content(v14, v27, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
-  if (v20(&v14[v16], 1, v4) == 1)
-  {
     (*(v17 + 8))(v21, v4);
-LABEL_10:
+LABEL_9:
     outlined destroy of (TextModel.ClusterData, TextModel.Cluster)(v14, type metadata accessor for (AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?));
     return 0;
   }
 
-  v23 = v26;
-  (*(v17 + 32))(v26, &v14[v16], v4);
-  lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type AttributeScopes.FoundationAttributes.DateFieldAttribute.Field and conformance AttributeScopes.FoundationAttributes.DateFieldAttribute.Field, MEMORY[0x1E69685B0]);
-  v24 = dispatch thunk of static Equatable.== infix(_:_:)();
-  v25 = *(v17 + 8);
-  v25(v23, v4);
-  v25(v21, v4);
+  if (v20(&v14[v16], 1, v4) != 1)
+  {
+    goto LABEL_9;
+  }
+
   outlined destroy of GlassMaterialProvider.Subvariant?(v14, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
-  return (v24 & 1) != 0;
+  return 1;
 }
 
 BOOL specialized static TextWipeTransitionModifier.Model.State.== infix(_:_:)(void *__src, const void *a2)
@@ -2455,7 +2270,7 @@ BOOL specialized static TextWipeTransitionModifier.Model.State.== infix(_:_:)(vo
   v3 = _s20TextAnimationSupport0A22WipeTransitionModifierV5Model33_5BB6BA5906EF51728AE44082969295EDLLV5StateOWOg(__dst);
   if (!v3)
   {
-    v18 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer(__dst);
+    protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer();
     v19 = *v18;
     v20 = *(v18 + 8);
     v70 = *(v18 + 24);
@@ -2500,7 +2315,7 @@ BOOL specialized static TextWipeTransitionModifier.Model.State.== infix(_:_:)(vo
       v54 = v31;
       v55 = v30;
       v56 = v29;
-      v39 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer(v84);
+      protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer();
       v40 = *(v39 + 8);
       v66 = *(v39 + 24);
       v67 = *(v39 + 16);
@@ -2594,7 +2409,7 @@ BOOL specialized static TextWipeTransitionModifier.Model.State.== infix(_:_:)(vo
 
   if (v3 == 1)
   {
-    v4 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer(__dst);
+    protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer();
     v6 = *v4;
     v5 = *(v4 + 8);
     v7 = *(v4 + 16);
@@ -2608,7 +2423,7 @@ BOOL specialized static TextWipeTransitionModifier.Model.State.== infix(_:_:)(vo
     memcpy(v84, a2, 0x131uLL);
     if (_s20TextAnimationSupport0A22WipeTransitionModifierV5Model33_5BB6BA5906EF51728AE44082969295EDLLV5StateOWOg(v84) == 1)
     {
-      v12 = protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer(v84);
+      protocol witness for TextRenderer.draw(layout:in:) in conformance TextWipeTransitionModifier.NullRenderer();
       v13 = *(v12 + 8);
       v14 = *(v12 + 16);
       v15 = *(v12 + 24);
@@ -2670,13 +2485,13 @@ uint64_t outlined destroy of (TextModel.ClusterData, TextModel.Cluster)(uint64_t
   return a1;
 }
 
-void type metadata accessor for (TextModel.Cluster?, TextModel.Cluster?)()
+void type metadata accessor for (TextModel.Cluster?, TextModel.Cluster?)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (TextModel.Cluster?, TextModel.Cluster?))
   {
     type metadata accessor for Color?(255, &lazy cache variable for type metadata for TextModel.Cluster?, &type metadata for TextModel.Cluster, MEMORY[0x1E69E6720]);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (TextModel.Cluster?, TextModel.Cluster?));
     }
@@ -2690,34 +2505,34 @@ uint64_t outlined init with copy of Environment<LayoutDirection>.Content(uint64_
   return a2;
 }
 
-void type metadata accessor for (Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)()
+void type metadata accessor for (Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>))
   {
     type metadata accessor for _ForegroundStyleModifier<Material>(255, &lazy cache variable for type metadata for _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>, type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, MEMORY[0x1E6981E70], MEMORY[0x1E697F960]);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>));
     }
   }
 }
 
-void type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>()
+void type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>)
   {
-    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(255, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView);
-    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(255, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView);
-    v0 = type metadata accessor for _ConditionalContent();
-    if (!v1)
+    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(255, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView, &unk_1F0A2C998);
+    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(255, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView, &unk_1F0A2C910);
+    v1 = type metadata accessor for _ConditionalContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>);
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView()
+unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView;
   if (!lazy protocol witness table cache variable for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView)
@@ -2729,20 +2544,20 @@ unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifi
   return result;
 }
 
-void type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(uint64_t a1, unint64_t *a2, void (*a3)(void))
+void type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void), uint64_t a4)
 {
   if (!*a2)
   {
     a3();
-    v4 = type metadata accessor for IDView();
-    if (!v5)
+    v5 = type metadata accessor for IDView();
+    if (!v6)
     {
-      atomic_store(v4, a2);
+      atomic_store(v5, a2);
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView()
+unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView;
   if (!lazy protocol witness table cache variable for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView)
@@ -2754,44 +2569,44 @@ unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifi
   return result;
 }
 
-void type metadata accessor for _ViewModifier_Content<TextWipeTransitionModifier>()
+void type metadata accessor for _ViewModifier_Content<TextWipeTransitionModifier>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _ViewModifier_Content<TextWipeTransitionModifier>)
   {
     type metadata accessor for TextWipeTransitionModifier(255);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TextWipeTransitionModifier and conformance TextWipeTransitionModifier, type metadata accessor for TextWipeTransitionModifier);
-    v0 = type metadata accessor for _ViewModifier_Content();
-    if (!v1)
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TextWipeTransitionModifier and conformance TextWipeTransitionModifier, type metadata accessor for TextWipeTransitionModifier, "]I\x1BYЊ");
+    v1 = type metadata accessor for _ViewModifier_Content();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _ViewModifier_Content<TextWipeTransitionModifier>);
+      atomic_store(v1, &lazy cache variable for type metadata for _ViewModifier_Content<TextWipeTransitionModifier>);
     }
   }
 }
 
-void type metadata accessor for _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>()
+void type metadata accessor for _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>)
   {
-    type metadata accessor for ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>();
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>> and conformance ZStack<A>, type metadata accessor for ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>);
-    v0 = type metadata accessor for _OverlayModifier();
-    if (!v1)
+    type metadata accessor for ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>(255);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>> and conformance ZStack<A>, type metadata accessor for ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>, MEMORY[0x1E6981880]);
+    v1 = type metadata accessor for _OverlayModifier();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>);
+      atomic_store(v1, &lazy cache variable for type metadata for _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>);
     }
   }
 }
 
-void type metadata accessor for ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>()
+void type metadata accessor for ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>)
   {
     type metadata accessor for TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>(255);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)> and conformance TupleView<A>, type metadata accessor for TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>);
-    v0 = type metadata accessor for ZStack();
-    if (!v1)
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)> and conformance TupleView<A>, type metadata accessor for TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>, MEMORY[0x1E6981F48]);
+    v1 = type metadata accessor for ZStack();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>);
     }
   }
 }
@@ -2809,21 +2624,21 @@ void outlined consume of TextWipeTransitionModifier.Model.State(uint64_t a1, uin
   }
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>>()
+void type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>>)
   {
     type metadata accessor for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>.Storage(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, type metadata accessor for ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, type metadata accessor for _EnvironmentKeyWritingModifier<LayoutDirection>, MEMORY[0x1E697E830]);
     type metadata accessor for _ViewModifier_Content<TextGlassWipeTransitionModifier>(255, &lazy cache variable for type metadata for _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>, lazy protocol witness table accessor for type TextWipeTransitionModifier.NullRenderer and conformance TextWipeTransitionModifier.NullRenderer, &unk_1F0A2C898, MEMORY[0x1E6980628]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>>);
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.NullRenderer and conformance TextWipeTransitionModifier.NullRenderer()
+unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.NullRenderer and conformance TextWipeTransitionModifier.NullRenderer(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type TextWipeTransitionModifier.NullRenderer and conformance TextWipeTransitionModifier.NullRenderer;
   if (!lazy protocol witness table cache variable for type TextWipeTransitionModifier.NullRenderer and conformance TextWipeTransitionModifier.NullRenderer)
@@ -2846,16 +2661,16 @@ unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifi
   return result;
 }
 
-void type metadata accessor for _PreferenceActionModifier<Text.LayoutKey>()
+void type metadata accessor for _PreferenceActionModifier<Text.LayoutKey>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for _PreferenceActionModifier<Text.LayoutKey>)
   {
     type metadata accessor for Text.LayoutKey();
-    lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type [Text.LayoutKey.AnchoredLayout] and conformance <A> [A], type metadata accessor for [Text.LayoutKey.AnchoredLayout], lazy protocol witness table accessor for type Text.LayoutKey.AnchoredLayout and conformance Text.LayoutKey.AnchoredLayout);
-    v0 = type metadata accessor for _PreferenceActionModifier();
-    if (!v1)
+    lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type [Text.LayoutKey.AnchoredLayout] and conformance <A> [A], type metadata accessor for [Text.LayoutKey.AnchoredLayout], lazy protocol witness table accessor for type Text.LayoutKey.AnchoredLayout and conformance Text.LayoutKey.AnchoredLayout, MEMORY[0x1E69E6320]);
+    v1 = type metadata accessor for _PreferenceActionModifier();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _PreferenceActionModifier<Text.LayoutKey>);
+      atomic_store(v1, &lazy cache variable for type metadata for _PreferenceActionModifier<Text.LayoutKey>);
     }
   }
 }
@@ -3283,7 +3098,7 @@ LABEL_35:
   }
 
 LABEL_32:
-  type metadata accessor for _ContiguousArrayStorage<[Edit<Int>]>();
+  type metadata accessor for _ContiguousArrayStorage<[Edit<Int>]>(0);
   v69 = swift_allocObject();
   v139 = xmmword_195CC8D00;
   *(v69 + 16) = xmmword_195CC8D00;
@@ -3352,7 +3167,7 @@ LABEL_37:
 LABEL_49:
     v57 = v139;
 
-    v76 = specialized Collection<>.animationInfo(_:)(v58, v57);
+    specialized Collection<>.animationInfo(_:)(v58, v57);
   }
 
   v5 = v77;
@@ -3714,13 +3529,13 @@ BOOL partial apply for specialized closure #1 in Collection<>.editsForClock<A>(t
   return v3 == v1;
 }
 
-void type metadata accessor for (inserted: Bool, memberAfterInsert: GlassMaterialProvider.Options)(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void type metadata accessor for (inserted: Bool, memberAfterInsert: GlassMaterialProvider.Options)(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4, uint64_t a5)
 {
   if (!*a2)
   {
     a3(255);
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v5)
+    if (!v7)
     {
       atomic_store(TupleTypeMetadata2, a2);
     }
@@ -3729,15 +3544,15 @@ void type metadata accessor for (inserted: Bool, memberAfterInsert: GlassMateria
 
 uint64_t outlined destroy of (offset: Int, element: ClusterWithPath)(uint64_t a1)
 {
-  type metadata accessor for (inserted: Bool, memberAfterInsert: GlassMaterialProvider.Options)(0, &lazy cache variable for type metadata for (offset: Int, element: ClusterWithPath), type metadata accessor for ClusterWithPath);
+  type metadata accessor for (inserted: Bool, memberAfterInsert: GlassMaterialProvider.Options)(0, &lazy cache variable for type metadata for (offset: Int, element: ClusterWithPath), type metadata accessor for ClusterWithPath, MEMORY[0x1E69E6530], "offset element ");
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
-uint64_t outlined init with take of (inserted: Bool, memberAfterInsert: GlassMaterialProvider.Options)(uint64_t a1, uint64_t a2, unint64_t *a3, void (*a4)(uint64_t))
+uint64_t outlined init with take of (inserted: Bool, memberAfterInsert: GlassMaterialProvider.Options)(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t (*a4)(uint64_t), uint64_t a5, uint64_t a6)
 {
-  type metadata accessor for (inserted: Bool, memberAfterInsert: GlassMaterialProvider.Options)(0, a3, a4);
-  (*(*(v6 - 8) + 32))(a2, a1, v6);
+  type metadata accessor for (inserted: Bool, memberAfterInsert: GlassMaterialProvider.Options)(0, a3, a4, a5, a6);
+  (*(*(v8 - 8) + 32))(a2, a1, v8);
   return a2;
 }
 
@@ -3761,9 +3576,9 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<IDVi
   result = lazy protocol witness table cache variable for type _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>> and conformance <> _ConditionalContent<A, B>;
   if (!lazy protocol witness table cache variable for type _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>> and conformance <> _ConditionalContent<A, B>)
   {
-    type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>();
-    lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView);
-    lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.TransitionView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView);
+    type metadata accessor for _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>(255);
+    lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.StationaryView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.StationaryView and conformance TextWipeTransitionModifier.StationaryView, &unk_1F0A2C998);
+    lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(&lazy protocol witness table cache variable for type IDView<TextWipeTransitionModifier.TransitionView, Int> and conformance IDView<A, B>, &lazy cache variable for type metadata for IDView<TextWipeTransitionModifier.TransitionView, Int>, lazy protocol witness table accessor for type TextWipeTransitionModifier.TransitionView and conformance TextWipeTransitionModifier.TransitionView, &unk_1F0A2C910);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>> and conformance <> _ConditionalContent<A, B>);
   }
@@ -3771,12 +3586,12 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<IDVi
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(unint64_t *a1, unint64_t *a2, void (*a3)(void))
+uint64_t lazy protocol witness table accessor for type IDView<TextWipeTransitionModifier.StationaryView, Int> and conformance IDView<A, B>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(void), uint64_t a4)
 {
   result = *a1;
   if (!result)
   {
-    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(255, a2, a3);
+    type metadata accessor for IDView<TextWipeTransitionModifier.StationaryView, Int>(255, a2, a3, a4);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -3804,14 +3619,14 @@ uint64_t objectdestroyTm()
   v2 = *(*v1 + 80);
   v3 = *(*v1 + 64);
   v4 = (v2 + 16) & ~v2;
-  v13 = *(v0 + v4 + 264);
-  v14 = *(v0 + v4 + 280);
-  v11 = *(v0 + v4 + 232);
-  v12 = *(v0 + v4 + 248);
-  v9 = *(v0 + v4 + 200);
-  v10 = *(v0 + v4 + 216);
-  v8 = *(v0 + v4 + 168);
-  outlined consume of TextWipeTransitionModifier.Model.State(*(v0 + v4 + 8), *(v0 + v4 + 16), *(v0 + v4 + 24), *(v0 + v4 + 32), *(v0 + v4 + 40), *(v0 + v4 + 48), *(v0 + v4 + 56), *(v0 + v4 + 64), *(v0 + v4 + 72), *(v0 + v4 + 80), *(v0 + v4 + 88), *(v0 + v4 + 96), *(v0 + v4 + 104), *(v0 + v4 + 112), *(v0 + v4 + 120), *(v0 + v4 + 128), *(v0 + v4 + 136), *(v0 + v4 + 144), *(v0 + v4 + 152), *(v0 + v4 + 160), v8, *(&v8 + 1), *(v0 + v4 + 184), *(v0 + v4 + 192), v9, *(&v9 + 1), v10, *(&v10 + 1), v11, *(&v11 + 1), v12, *(&v12 + 1), v13, *(&v13 + 1), v14, *(&v14 + 1), *(v0 + v4 + 296), *(v0 + v4 + 304), *(v0 + v4 + 312));
+  v14 = *(v0 + v4 + 264);
+  v15 = *(v0 + v4 + 280);
+  v12 = *(v0 + v4 + 232);
+  v13 = *(v0 + v4 + 248);
+  v10 = *(v0 + v4 + 200);
+  v11 = *(v0 + v4 + 216);
+  v9 = *(v0 + v4 + 168);
+  outlined consume of TextWipeTransitionModifier.Model.State(*(v0 + v4 + 8), *(v0 + v4 + 16), *(v0 + v4 + 24), *(v0 + v4 + 32), *(v0 + v4 + 40), *(v0 + v4 + 48), *(v0 + v4 + 56), *(v0 + v4 + 64), *(v0 + v4 + 72), *(v0 + v4 + 80), *(v0 + v4 + 88), *(v0 + v4 + 96), *(v0 + v4 + 104), *(v0 + v4 + 112), *(v0 + v4 + 120), *(v0 + v4 + 128), *(v0 + v4 + 136), *(v0 + v4 + 144), *(v0 + v4 + 152), *(v0 + v4 + 160), v9, *(&v9 + 1), *(v0 + v4 + 184), *(v0 + v4 + 192), v10, *(&v10 + 1), v11, *(&v11 + 1), v12, *(&v12 + 1), v13, *(&v13 + 1), v14, *(&v14 + 1), v15, *(&v15 + 1), *(v0 + v4 + 296), *(v0 + v4 + 304), *(v0 + v4 + 312));
 
   v5 = v1[11];
   type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>(0, &lazy cache variable for type metadata for Environment<LayoutDirection>.Content, MEMORY[0x1E697E7E0], MEMORY[0x1E697DCB8]);
@@ -3825,16 +3640,16 @@ uint64_t objectdestroyTm()
   {
   }
 
-  return MEMORY[0x1EEE6BDD0](v0, v4 + v3, v2 | 7);
+  return MEMORY[0x1EEE6BDD0](v0, v4 + v3, v2 | 7, v7);
 }
 
-void type metadata completion function for ClusterWithPath()
+void type metadata completion function for ClusterWithPath(uint64_t a1)
 {
   type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>(319, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for CGRect(319);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -4313,10 +4128,10 @@ LABEL_8:
   return result;
 }
 
-void type metadata completion function for TextModel.ClusterData()
+void type metadata completion function for TextModel.ClusterData(uint64_t a1)
 {
   type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>(319, &lazy cache variable for type metadata for AttributeScopes.FoundationAttributes.DateFieldAttribute.Field?, MEMORY[0x1E69685B0], MEMORY[0x1E69E6720]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
   }
@@ -4645,7 +4460,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     type metadata accessor for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>.Storage(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>>, _PreferenceActionModifier<Text.LayoutKey>>, type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>>, type metadata accessor for _PreferenceActionModifier<Text.LayoutKey>, MEMORY[0x1E697E830]);
     lazy protocol witness table accessor for type ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>> and conformance <> ModifiedContent<A, B>(&lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>> and conformance <> ModifiedContent<A, B>, type metadata accessor for ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>>, lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>> and conformance <> ModifiedContent<A, B>, lazy protocol witness table accessor for type _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer> and conformance _TextRendererViewModifier<A>);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _PreferenceActionModifier<Text.LayoutKey> and conformance _PreferenceActionModifier<A>, type metadata accessor for _PreferenceActionModifier<Text.LayoutKey>);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _PreferenceActionModifier<Text.LayoutKey> and conformance _PreferenceActionModifier<A>, type metadata accessor for _PreferenceActionModifier<Text.LayoutKey>, MEMORY[0x1E6980620]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, _TextRendererViewModifier<TextWipeTransitionModifier.NullRenderer>>, _PreferenceActionModifier<Text.LayoutKey>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4653,7 +4468,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>> and conformance <> ModifiedContent<A, B>(unint64_t *a1, void (*a2)(uint64_t), void (*a3)(void), void (*a4)(void))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t (*a3)(void), uint64_t (*a4)(void))
 {
   result = *a1;
   if (!result)
@@ -4675,7 +4490,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   {
     type metadata accessor for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>.Storage(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>>, type metadata accessor for ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, type metadata accessor for _EnvironmentKeyWritingModifier<LayoutDirection>, MEMORY[0x1E697E830]);
     lazy protocol witness table accessor for type ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>> and conformance <> ModifiedContent<A, B>();
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<LayoutDirection> and conformance _EnvironmentKeyWritingModifier<A>, type metadata accessor for _EnvironmentKeyWritingModifier<LayoutDirection>);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _EnvironmentKeyWritingModifier<LayoutDirection> and conformance _EnvironmentKeyWritingModifier<A>, type metadata accessor for _EnvironmentKeyWritingModifier<LayoutDirection>, MEMORY[0x1E6980A18]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>, _EnvironmentKeyWritingModifier<LayoutDirection>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4689,8 +4504,8 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<_ViewMod
   if (!lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>> and conformance <> ModifiedContent<A, B>)
   {
     type metadata accessor for ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>>(255);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _ViewModifier_Content<TextWipeTransitionModifier> and conformance _ViewModifier_Content<A>, type metadata accessor for _ViewModifier_Content<TextWipeTransitionModifier>);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>> and conformance _OverlayModifier<A>, type metadata accessor for _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _ViewModifier_Content<TextWipeTransitionModifier> and conformance _ViewModifier_Content<A>, type metadata accessor for _ViewModifier_Content<TextWipeTransitionModifier>, MEMORY[0x1E697FDF8]);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>> and conformance _OverlayModifier<A>, type metadata accessor for _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>, MEMORY[0x1E697EC18]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<_ViewModifier_Content<TextWipeTransitionModifier>, _OverlayModifier<ZStack<TupleView<(Spacer, _ConditionalContent<_ConditionalContent<IDView<TextWipeTransitionModifier.StationaryView, Int>, IDView<TextWipeTransitionModifier.TransitionView, Int>>, EmptyView>)>>>> and conformance <> ModifiedContent<A, B>);
   }
@@ -4711,7 +4526,7 @@ unint64_t lazy protocol witness table accessor for type _TextRendererViewModifie
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type TextWipeTransitionTiming.Bezier and conformance TextWipeTransitionTiming.Bezier()
+unint64_t lazy protocol witness table accessor for type TextWipeTransitionTiming.Bezier and conformance TextWipeTransitionTiming.Bezier(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type TextWipeTransitionTiming.Bezier and conformance TextWipeTransitionTiming.Bezier;
   if (!lazy protocol witness table cache variable for type TextWipeTransitionTiming.Bezier and conformance TextWipeTransitionTiming.Bezier)
@@ -4723,7 +4538,7 @@ unint64_t lazy protocol witness table accessor for type TextWipeTransitionTiming
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type EmptyAnimatableData and conformance EmptyAnimatableData()
+unint64_t lazy protocol witness table accessor for type EmptyAnimatableData and conformance EmptyAnimatableData(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type EmptyAnimatableData and conformance EmptyAnimatableData;
   if (!lazy protocol witness table cache variable for type EmptyAnimatableData and conformance EmptyAnimatableData)
@@ -4735,7 +4550,7 @@ unint64_t lazy protocol witness table accessor for type EmptyAnimatableData and 
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type EditAnimationInfo and conformance EditAnimationInfo()
+unint64_t lazy protocol witness table accessor for type EditAnimationInfo and conformance EditAnimationInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type EditAnimationInfo and conformance EditAnimationInfo;
   if (!lazy protocol witness table cache variable for type EditAnimationInfo and conformance EditAnimationInfo)
@@ -4747,7 +4562,7 @@ unint64_t lazy protocol witness table accessor for type EditAnimationInfo and co
   return result;
 }
 
-void type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>()
+void type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>)
   {
@@ -4756,10 +4571,10 @@ void type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>,
     type metadata accessor for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>.Storage(255, &lazy cache variable for type metadata for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>, MEMORY[0x1E697F960]);
     lazy protocol witness table accessor for type [EditWithAnimationInfo<Int>] and conformance [A]();
     lazy protocol witness table accessor for type Edit<Int> and conformance <> Edit<A>();
-    v0 = type metadata accessor for ForEach();
-    if (!v1)
+    v1 = type metadata accessor for ForEach();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>);
     }
   }
 }
@@ -4777,22 +4592,22 @@ uint64_t lazy protocol witness table accessor for type ArraySlice<TextModel.Morp
   return result;
 }
 
-void type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>()
+void type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>)
   {
     type metadata accessor for Color?(255, &lazy cache variable for type metadata for ArraySlice<TextModel.MorphCluster>, &type metadata for TextModel.MorphCluster, MEMORY[0x1E69E6948]);
     type metadata accessor for TextWipeTransitionModifier.MoveCluster(255);
     lazy protocol witness table accessor for type ArraySlice<TextModel.MorphCluster> and conformance ArraySlice<A>(&lazy protocol witness table cache variable for type ArraySlice<TextModel.MorphCluster> and conformance ArraySlice<A>, &lazy cache variable for type metadata for ArraySlice<TextModel.MorphCluster>, &type metadata for TextModel.MorphCluster);
-    v0 = type metadata accessor for ForEach();
-    if (!v1)
+    v1 = type metadata accessor for ForEach();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>);
+      atomic_store(v1, &lazy cache variable for type metadata for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>);
     }
   }
 }
 
-uint64_t type metadata accessor for AODProgressProxy(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for AODProgressProxy(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -4803,21 +4618,21 @@ uint64_t type metadata accessor for AODProgressProxy(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-void type metadata accessor for <<opaque return type of View.backdropGroup_temp(_:name:)>>.0()
+void type metadata accessor for <<opaque return type of View.backdropGroup_temp(_:name:)>>.0(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for <<opaque return type of View.backdropGroup_temp(_:name:)>>.0)
   {
-    type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>();
-    lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>, lazy protocol witness table accessor for type _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>> and conformance <> _ConditionalContent<A, B>);
+    type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>(255);
+    lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<[EditWithAnimationInfo<Int>], Edit<Int>, _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>>, lazy protocol witness table accessor for type _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>> and conformance <> _ConditionalContent<A, B>, MEMORY[0x1E69819D0]);
     OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(OpaqueTypeMetadata2, &lazy cache variable for type metadata for <<opaque return type of View.backdropGroup_temp(_:name:)>>.0);
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(unint64_t *a1, void (*a2)(uint64_t), void (*a3)(void))
+uint64_t lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t (*a3)(void), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -4837,8 +4652,8 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Tupl
   if (!lazy protocol witness table cache variable for type _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>> and conformance <> _ConditionalContent<A, B>)
   {
     type metadata accessor for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>.Storage(255, &lazy cache variable for type metadata for _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>>, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>, MEMORY[0x1E697F960]);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>);
-    lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>, lazy protocol witness table accessor for type TextWipeTransitionModifier.MoveCluster and conformance TextWipeTransitionModifier.MoveCluster);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)> and conformance TupleView<A>, type metadata accessor for TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, MEMORY[0x1E6981F48]);
+    lazy protocol witness table accessor for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>(&lazy protocol witness table cache variable for type ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster> and conformance <> ForEach<A, B, C>, type metadata accessor for ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>, lazy protocol witness table accessor for type TextWipeTransitionModifier.MoveCluster and conformance TextWipeTransitionModifier.MoveCluster, MEMORY[0x1E69819D0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type _ConditionalContent<TupleView<(ModifiedContent<ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeOutCluster>, _OffsetEffect>, ForEach<ArraySlice<TextModel.Cluster>, Int, TextWipeTransitionModifier.FadeInCluster>)>, ForEach<ArraySlice<TextModel.MorphCluster>, Int, TextWipeTransitionModifier.MoveCluster>> and conformance <> _ConditionalContent<A, B>);
   }
@@ -4849,10 +4664,10 @@ unint64_t lazy protocol witness table accessor for type _ConditionalContent<Tupl
 uint64_t objectdestroy_145Tm(uint64_t a1)
 {
 
-  return MEMORY[0x1EEE6BDD0](v1, a1, 7);
+  return MEMORY[0x1EEE6BDD0](v1, a1, 7, v3);
 }
 
-unint64_t lazy protocol witness table accessor for type TextModel.MorphCluster and conformance TextModel.MorphCluster()
+unint64_t lazy protocol witness table accessor for type TextModel.MorphCluster and conformance TextModel.MorphCluster(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type TextModel.MorphCluster and conformance TextModel.MorphCluster;
   if (!lazy protocol witness table cache variable for type TextModel.MorphCluster and conformance TextModel.MorphCluster)
@@ -4864,13 +4679,13 @@ unint64_t lazy protocol witness table accessor for type TextModel.MorphCluster a
   return result;
 }
 
-void type metadata completion function for TextWipeTransitionModifier.MoveCluster()
+void type metadata completion function for TextWipeTransitionModifier.MoveCluster(uint64_t a1)
 {
   type metadata accessor for UnitCurve();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Color?(319, &lazy cache variable for type metadata for State<Bool>, MEMORY[0x1E69E6370], MEMORY[0x1E6981790]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -5066,7 +4881,7 @@ LABEL_8:
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type Path and conformance Path()
+unint64_t lazy protocol witness table accessor for type Path and conformance Path(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Path and conformance Path;
   if (!lazy protocol witness table cache variable for type Path and conformance Path)
@@ -5104,7 +4919,7 @@ uint64_t objectdestroy_206Tm()
   v8 = type metadata accessor for UnitCurve();
   (*(*(v8 - 8) + 8))(v5 + v7, v8);
 
-  return MEMORY[0x1EEE6BDD0](v0, v4 + v3, v2 | 7);
+  return MEMORY[0x1EEE6BDD0](v0, v4 + v3, v2 | 7, v9);
 }
 
 unint64_t lazy protocol witness table accessor for type ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect> and conformance <> ModifiedContent<A, B>()
@@ -5113,7 +4928,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<TextWipe
   if (!lazy protocol witness table cache variable for type ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect> and conformance <> ModifiedContent<A, B>)
   {
     type metadata accessor for ModifiedContent<Text, TextGlassWipeTransitionModifier>(255, &lazy cache variable for type metadata for ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>, &unk_1F0A2CF08, MEMORY[0x1E697E278], MEMORY[0x1E697E830]);
-    lazy protocol witness table accessor for type TextWipeTransitionModifier.MorphClusterView and conformance TextWipeTransitionModifier.MorphClusterView();
+    lazy protocol witness table accessor for type TextWipeTransitionModifier.MorphClusterView and conformance TextWipeTransitionModifier.MorphClusterView(v1, v2, v3);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect> and conformance <> ModifiedContent<A, B>);
   }
@@ -5121,28 +4936,28 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<TextWipe
   return result;
 }
 
-void type metadata accessor for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>()
+void type metadata accessor for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>)
   {
-    type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>();
+    type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>(255);
     type metadata accessor for ModifiedContent<Text, TextGlassWipeTransitionModifier>(255, &lazy cache variable for type metadata for ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>, &unk_1F0A2CF08, MEMORY[0x1E697E278], MEMORY[0x1E697E830]);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0> and conformance KeyframeTrack<A, B, C>, type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0> and conformance KeyframeTrack<A, B, C>, type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, MEMORY[0x1E697E160]);
     lazy protocol witness table accessor for type ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect> and conformance <> ModifiedContent<A, B>();
-    v0 = type metadata accessor for KeyframeAnimator();
-    if (!v1)
+    v1 = type metadata accessor for KeyframeAnimator();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>);
+      atomic_store(v1, &lazy cache variable for type metadata for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>);
     }
   }
 }
 
-uint64_t partial apply for closure #1 in TextWipeTransitionModifier.FadeOutCluster.body.getter@<X0>(double *a1@<X0>, uint64_t a2@<X8>)
+void partial apply for closure #1 in TextWipeTransitionModifier.FadeOutCluster.body.getter(double *a1@<X0>, uint64_t a2@<X8>)
 {
   v5 = *(type metadata accessor for TextWipeTransitionModifier.FadeOutCluster(0) - 8);
   v6 = (v2 + ((*(v5 + 80) + 16) & ~*(v5 + 80)));
 
-  return closure #1 in TextWipeTransitionModifier.FadeOutCluster.body.getter(a1, v6, a2);
+  closure #1 in TextWipeTransitionModifier.FadeOutCluster.body.getter(a1, v6, a2);
 }
 
 uint64_t objectdestroy_216Tm()
@@ -5156,7 +4971,7 @@ uint64_t objectdestroy_216Tm()
   v6 = type metadata accessor for UnitCurve();
   (*(*(v6 - 8) + 8))(v0 + v3 + v5, v6);
 
-  return MEMORY[0x1EEE6BDD0](v0, v3 + v4, v2 | 7);
+  return MEMORY[0x1EEE6BDD0](v0, v3 + v4, v2 | 7, v7);
 }
 
 uint64_t partial apply for closure #2 in TextWipeTransitionModifier.MoveCluster.body.getter(uint64_t a1, uint64_t (*a2)(void), uint64_t (*a3)(uint64_t, uint64_t))
@@ -5167,15 +4982,15 @@ uint64_t partial apply for closure #2 in TextWipeTransitionModifier.MoveCluster.
   return a3(a1, v6);
 }
 
-void type metadata accessor for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>()
+void type metadata accessor for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>)
   {
-    type metadata accessor for _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>();
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    type metadata accessor for _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>(255);
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>);
     }
   }
 }
@@ -5199,9 +5014,9 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<TextWipe
   result = lazy protocol witness table cache variable for type ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>();
-    lazy protocol witness table accessor for type TextWipeTransitionModifier.ClusterView and conformance TextWipeTransitionModifier.ClusterView();
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>> and conformance _MaskAlignmentEffect<A>, type metadata accessor for _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>);
+    type metadata accessor for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>(255);
+    lazy protocol witness table accessor for type TextWipeTransitionModifier.ClusterView and conformance TextWipeTransitionModifier.ClusterView(v1, v2, v3);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>> and conformance _MaskAlignmentEffect<A>, type metadata accessor for _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>, MEMORY[0x1E697FB38]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>> and conformance <> ModifiedContent<A, B>);
   }
@@ -5209,7 +5024,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<TextWipe
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.ClusterView and conformance TextWipeTransitionModifier.ClusterView()
+unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.ClusterView and conformance TextWipeTransitionModifier.ClusterView(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type TextWipeTransitionModifier.ClusterView and conformance TextWipeTransitionModifier.ClusterView;
   if (!lazy protocol witness table cache variable for type TextWipeTransitionModifier.ClusterView and conformance TextWipeTransitionModifier.ClusterView)
@@ -5221,18 +5036,18 @@ unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifi
   return result;
 }
 
-void type metadata accessor for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>>()
+void type metadata accessor for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>>)
   {
-    type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>();
+    type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>(255);
     type metadata accessor for _ForegroundStyleModifier<Material>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>, type metadata accessor for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, MEMORY[0x1E697E278], MEMORY[0x1E697E830]);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0> and conformance KeyframeTrack<A, B, C>, type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0> and conformance KeyframeTrack<A, B, C>, type metadata accessor for KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, MEMORY[0x1E697E160]);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect> and conformance <> ModifiedContent<A, B>();
-    v0 = type metadata accessor for KeyframeAnimator();
-    if (!v1)
+    v1 = type metadata accessor for KeyframeAnimator();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>>);
+      atomic_store(v1, &lazy cache variable for type metadata for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>>);
     }
   }
 }
@@ -5248,7 +5063,7 @@ uint64_t objectdestroy_225Tm()
   v6 = type metadata accessor for UnitCurve();
   (*(*(v6 - 8) + 8))(v0 + v3 + v5, v6);
 
-  return MEMORY[0x1EEE6BDD0](v0, v3 + v4, v2 | 7);
+  return MEMORY[0x1EEE6BDD0](v0, v3 + v4, v2 | 7, v7);
 }
 
 uint64_t partial apply for closure #1 in TextWipeTransitionModifier.FadeInCluster.body.getter(uint64_t a1, uint64_t (*a2)(uint64_t, uint64_t))
@@ -5259,25 +5074,98 @@ uint64_t partial apply for closure #1 in TextWipeTransitionModifier.FadeInCluste
   return a2(a1, v5);
 }
 
-void type metadata accessor for KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>()
+void type metadata accessor for KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>(uint64_t a1, __n128 a2)
 {
   if (!lazy cache variable for type metadata for KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>)
   {
-    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0();
-    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0();
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255, a2);
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255);
     type metadata accessor for _ViewModifier_Content<TextGlassWipeTransitionModifier>(255, &lazy cache variable for type metadata for LinearKeyframe<TextWipeTransitionModifier.KeyframeAnimationProgress>, lazy protocol witness table accessor for type TextWipeTransitionModifier.KeyframeAnimationProgress and conformance TextWipeTransitionModifier.KeyframeAnimationProgress, &unk_1F0A2D008, MEMORY[0x1E697E3F8]);
     lazy protocol witness table accessor for type LinearKeyframe<TextWipeTransitionModifier.KeyframeAnimationProgress> and conformance LinearKeyframe<A>();
     swift_getOpaqueTypeConformance2();
     swift_getOpaqueTypeConformance2();
-    v0 = type metadata accessor for KeyframeTrack();
-    if (!v1)
+    v2 = type metadata accessor for KeyframeTrack();
+    if (!v3)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>);
+      atomic_store(v2, &lazy cache variable for type metadata for KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>);
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.KeyframeAnimationProgress and conformance TextWipeTransitionModifier.KeyframeAnimationProgress()
+void type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(uint64_t a1, __n128 a2)
+{
+  if (!lazy cache variable for type metadata for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0)
+  {
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255);
+    type metadata accessor for _ViewModifier_Content<TextGlassWipeTransitionModifier>(255, &lazy cache variable for type metadata for LinearKeyframe<TextWipeTransitionModifier.KeyframeAnimationProgress>, lazy protocol witness table accessor for type TextWipeTransitionModifier.KeyframeAnimationProgress and conformance TextWipeTransitionModifier.KeyframeAnimationProgress, &unk_1F0A2D008, MEMORY[0x1E697E3F8]);
+    lazy protocol witness table accessor for type LinearKeyframe<TextWipeTransitionModifier.KeyframeAnimationProgress> and conformance LinearKeyframe<A>();
+    swift_getOpaqueTypeConformance2();
+    OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
+    if (!v3)
+    {
+      atomic_store(OpaqueTypeMetadata2, &lazy cache variable for type metadata for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0);
+    }
+  }
+}
+
+{
+  if (!lazy cache variable for type metadata for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0)
+  {
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255, a2);
+    type metadata accessor for LinearKeyframe<Double>(255, &lazy cache variable for type metadata for LinearKeyframe<Double>, MEMORY[0x1E69E63B0], MEMORY[0x1E6981FE0], MEMORY[0x1E697E3F8]);
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255, v2);
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255);
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255);
+    lazy protocol witness table accessor for type LinearKeyframe<Double> and conformance LinearKeyframe<A>();
+    swift_getOpaqueTypeConformance2();
+    swift_getOpaqueTypeConformance2();
+    swift_getOpaqueTypeConformance2();
+    swift_getOpaqueTypeConformance2();
+    OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
+    if (!v4)
+    {
+      atomic_store(OpaqueTypeMetadata2, &lazy cache variable for type metadata for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0);
+    }
+  }
+}
+
+{
+  if (!lazy cache variable for type metadata for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0)
+  {
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255, a2);
+    type metadata accessor for LinearKeyframe<Double>(255, &lazy cache variable for type metadata for LinearKeyframe<Double>, MEMORY[0x1E69E63B0], MEMORY[0x1E6981FE0], MEMORY[0x1E697E3F8]);
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255);
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255);
+    lazy protocol witness table accessor for type LinearKeyframe<Double> and conformance LinearKeyframe<A>();
+    swift_getOpaqueTypeConformance2();
+    swift_getOpaqueTypeConformance2();
+    swift_getOpaqueTypeConformance2();
+    OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
+    if (!v3)
+    {
+      atomic_store(OpaqueTypeMetadata2, &lazy cache variable for type metadata for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0);
+    }
+  }
+}
+
+{
+  if (!lazy cache variable for type metadata for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0)
+  {
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255);
+    type metadata accessor for LinearKeyframe<Double>(255, &lazy cache variable for type metadata for LinearKeyframe<Double>, MEMORY[0x1E69E63B0], MEMORY[0x1E6981FE0], MEMORY[0x1E697E3F8]);
+    type metadata accessor for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0(255);
+    lazy protocol witness table accessor for type LinearKeyframe<Double> and conformance LinearKeyframe<A>();
+    swift_getOpaqueTypeConformance2();
+    swift_getOpaqueTypeConformance2();
+    OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
+    if (!v3)
+    {
+      atomic_store(OpaqueTypeMetadata2, &lazy cache variable for type metadata for <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0);
+    }
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type TextWipeTransitionModifier.KeyframeAnimationProgress and conformance TextWipeTransitionModifier.KeyframeAnimationProgress(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type TextWipeTransitionModifier.KeyframeAnimationProgress and conformance TextWipeTransitionModifier.KeyframeAnimationProgress;
   if (!lazy protocol witness table cache variable for type TextWipeTransitionModifier.KeyframeAnimationProgress and conformance TextWipeTransitionModifier.KeyframeAnimationProgress)
@@ -5302,34 +5190,34 @@ unint64_t lazy protocol witness table accessor for type LinearKeyframe<TextWipeT
   return result;
 }
 
-void type metadata accessor for <<opaque return type of View.onChange<A>(of:initial:_:)>>.0()
+void type metadata accessor for <<opaque return type of View.onChange<A>(of:initial:_:)>>.0(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for <<opaque return type of View.onChange<A>(of:initial:_:)>>.0)
   {
     type metadata accessor for _ForegroundStyleModifier<Material>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>, type metadata accessor for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, MEMORY[0x1E697E278], MEMORY[0x1E697E830]);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect> and conformance <> ModifiedContent<A, B>();
     OpaqueTypeMetadata2 = swift_getOpaqueTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(OpaqueTypeMetadata2, &lazy cache variable for type metadata for <<opaque return type of View.onChange<A>(of:initial:_:)>>.0);
     }
   }
 }
 
-void type metadata accessor for KeyframeAnimator<TextWipeTransitionModifier.KeyframeAnimationProgress, KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0>()
+void type metadata accessor for KeyframeAnimator<TextWipeTransitionModifier.KeyframeAnimationProgress, KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0>(uint64_t a1, __n128 a2)
 {
   if (!lazy cache variable for type metadata for KeyframeAnimator<TextWipeTransitionModifier.KeyframeAnimationProgress, KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0>)
   {
-    type metadata accessor for KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>();
-    type metadata accessor for <<opaque return type of View.onChange<A>(of:initial:_:)>>.0();
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0> and conformance KeyframeTrack<A, B, C>, type metadata accessor for KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>);
+    type metadata accessor for KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>(255, a2);
+    type metadata accessor for <<opaque return type of View.onChange<A>(of:initial:_:)>>.0(255);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0> and conformance KeyframeTrack<A, B, C>, type metadata accessor for KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, MEMORY[0x1E697E160]);
     type metadata accessor for _ForegroundStyleModifier<Material>(255, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect>, type metadata accessor for ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, MEMORY[0x1E697E278], MEMORY[0x1E697E830]);
     lazy protocol witness table accessor for type ModifiedContent<ModifiedContent<TextWipeTransitionModifier.ClusterView, _MaskAlignmentEffect<ModifiedContent<Rectangle, _ForegroundStyleModifier<LinearGradient>>>>, _OffsetEffect> and conformance <> ModifiedContent<A, B>();
     swift_getOpaqueTypeConformance2();
-    v0 = type metadata accessor for KeyframeAnimator();
-    if (!v1)
+    v2 = type metadata accessor for KeyframeAnimator();
+    if (!v3)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for KeyframeAnimator<TextWipeTransitionModifier.KeyframeAnimationProgress, KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0>);
+      atomic_store(v2, &lazy cache variable for type metadata for KeyframeAnimator<TextWipeTransitionModifier.KeyframeAnimationProgress, KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0>);
     }
   }
 }
@@ -5571,7 +5459,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Keyframe
   if (!lazy protocol witness table cache variable for type ModifiedContent<KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>, _AppearanceActionModifier> and conformance <> ModifiedContent<A, B>)
   {
     type metadata accessor for _ForegroundStyleModifier<Material>(255, &lazy cache variable for type metadata for ModifiedContent<KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>, _AppearanceActionModifier>, type metadata accessor for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>, MEMORY[0x1E69805D8], MEMORY[0x1E697E830]);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>> and conformance KeyframeAnimator<A, B, C>, type metadata accessor for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(&lazy protocol witness table cache variable for type KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>> and conformance KeyframeAnimator<A, B, C>, type metadata accessor for KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>, MEMORY[0x1E697E9C0]);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<KeyframeAnimator<Double, KeyframeTrack<Double, Double, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, ModifiedContent<TextWipeTransitionModifier.MorphClusterView, _OffsetEffect>>, _AppearanceActionModifier> and conformance <> ModifiedContent<A, B>);
   }
@@ -5593,13 +5481,13 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type ModifiedContent<KeyframeAnimator<TextWipeTransitionModifier.KeyframeAnimationProgress, KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0>, _AppearanceActionModifier> and conformance <> ModifiedContent<A, B>(unint64_t *a1, void (*a2)(uint64_t), unint64_t *a3, void (*a4)(uint64_t))
+uint64_t lazy protocol witness table accessor for type ModifiedContent<KeyframeAnimator<TextWipeTransitionModifier.KeyframeAnimationProgress, KeyframeTrack<TextWipeTransitionModifier.KeyframeAnimationProgress, TextWipeTransitionModifier.KeyframeAnimationProgress, <<opaque return type of static KeyframesBuilder.buildPartialBlock<A, B>(accumulated:next:)>>.0>, <<opaque return type of View.onChange<A>(of:initial:_:)>>.0>, _AppearanceActionModifier> and conformance <> ModifiedContent<A, B>(unint64_t *a1, uint64_t (*a2)(uint64_t), unint64_t *a3, uint64_t (*a4)(uint64_t))
 {
   result = *a1;
   if (!result)
   {
     a2(255);
-    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(a3, a4);
+    lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(a3, a4, MEMORY[0x1E697E9C0]);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -5621,7 +5509,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AODProgressProxy and conformance AODProgressProxy(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5651,7 +5539,7 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   result = lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect> and conformance <> ModifiedContent<A, B>;
   if (!lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect> and conformance <> ModifiedContent<A, B>)
   {
-    type metadata accessor for ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect>();
+    type metadata accessor for ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect>(255);
     lazy protocol witness table accessor for type ModifiedContent<Path, _FrameLayout> and conformance <> ModifiedContent<A, B>();
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect> and conformance <> ModifiedContent<A, B>);
@@ -5660,20 +5548,20 @@ unint64_t lazy protocol witness table accessor for type ModifiedContent<Modified
   return result;
 }
 
-void type metadata accessor for ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect>()
+void type metadata accessor for ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect>(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect>)
   {
     type metadata accessor for ModifiedContent<Text, TextGlassWipeTransitionModifier>(255, &lazy cache variable for type metadata for ModifiedContent<Path, _FrameLayout>, MEMORY[0x1E6980F80], MEMORY[0x1E697E048], MEMORY[0x1E697E830]);
-    v0 = type metadata accessor for ModifiedContent();
-    if (!v1)
+    v1 = type metadata accessor for ModifiedContent();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect>);
+      atomic_store(v1, &lazy cache variable for type metadata for ModifiedContent<ModifiedContent<Path, _FrameLayout>, _OffsetEffect>);
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type Text.Effect.Markers and conformance Text.Effect.Markers()
+unint64_t lazy protocol witness table accessor for type Text.Effect.Markers and conformance Text.Effect.Markers(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = lazy protocol witness table cache variable for type Text.Effect.Markers and conformance Text.Effect.Markers;
   if (!lazy protocol witness table cache variable for type Text.Effect.Markers and conformance Text.Effect.Markers)
@@ -5790,7 +5678,7 @@ uint64_t Dictionary<>.foregroundColor.getter(uint64_t a1, uint64_t *a2)
   }
 
   outlined init with copy of Any(*(a1 + 56) + 32 * v3, v7);
-  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSObject);
+  type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
   if (swift_dynamicCast())
   {
     return v6;
@@ -5908,7 +5796,7 @@ void closure #2 in Text.Effect.Markers.init(fragment:)(int a1, int a2, char *a3,
 
   v13 = objc_opt_self();
   type metadata accessor for NSAttributedStringKey(0);
-  lazy protocol witness table accessor for type Text.Effect.BaseContent and conformance Text.Effect.BaseContent(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey);
+  lazy protocol witness table accessor for type Text.Effect.BaseContent and conformance Text.Effect.BaseContent(&lazy protocol witness table cache variable for type NSAttributedStringKey and conformance NSAttributedStringKey, type metadata accessor for NSAttributedStringKey, &protocol conformance descriptor for NSAttributedStringKey);
   v14.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   v15 = [(objc_class *)v13 textCorrectionMarkerTypeWithAttributes:v14.super.isa];
 
@@ -6384,7 +6272,7 @@ unint64_t protocol witness for RandomAccessCollection.index(_:offsetBy:limitedBy
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance Text.Effect.Markers(uint64_t (*result)(), unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance Text.Effect.Markers(void (*result)(), unint64_t *a2))()
 {
   v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
@@ -6414,7 +6302,7 @@ uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance T
   return v1;
 }
 
-uint64_t lazy protocol witness table accessor for type IndexingIterator<Text.Effect.Markers> and conformance IndexingIterator<A>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, uint64_t, uint64_t))
+uint64_t lazy protocol witness table accessor for type IndexingIterator<Text.Effect.Markers> and conformance IndexingIterator<A>(unint64_t *a1, unint64_t *a2, uint64_t (*a3)(uint64_t, uint64_t, uint64_t), uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -6427,13 +6315,13 @@ uint64_t lazy protocol witness table accessor for type IndexingIterator<Text.Eff
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
     type metadata accessor for Range<Int>(255, &lazy cache variable for type metadata for Range<Int>, MEMORY[0x1E69E66A8]);
-    lazy protocol witness table accessor for type Int and conformance Int();
+    lazy protocol witness table accessor for type Int and conformance Int(v4, v5, v6);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -6441,7 +6329,7 @@ uint64_t lazy protocol witness table accessor for type Range<Int> and conformanc
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<Text.Effect.Markers> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Slice<Text.Effect.Markers> and conformance <> Slice<A>(unint64_t *a1, uint64_t (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6600,7 +6488,7 @@ unint64_t *protocol witness for BidirectionalCollection.formIndex(before:) in co
   return result;
 }
 
-void (*protocol witness for Collection.subscript.read in conformance Text.Effect.MarkerLayoutInfo(void (**a1)(uint64_t *a1), unint64_t *a2))(uint64_t *a1)
+uint64_t (*protocol witness for Collection.subscript.read in conformance Text.Effect.MarkerLayoutInfo(uint64_t (**a1)(), unint64_t *a2))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -6637,10 +6525,10 @@ void protocol witness for Collection.subscript.read in conformance Text.Effect.M
   free(v1);
 }
 
-uint64_t *protocol witness for Collection.subscript.getter in conformance Text.Effect.Markers@<X0>(uint64_t *result@<X0>, void *a2@<X8>)
+void protocol witness for Collection.subscript.getter in conformance Text.Effect.Markers(uint64_t *a1@<X0>, void *a2@<X8>)
 {
-  v3 = *result;
-  if (*result < 0 || (v4 = result[1], result = *v2, (*v2)[2] < v4))
+  v3 = *a1;
+  if (*a1 < 0 || (v4 = a1[1], v5 = *v2, *(*v2 + 16) < v4))
   {
     __break(1u);
   }
@@ -6649,10 +6537,8 @@ uint64_t *protocol witness for Collection.subscript.getter in conformance Text.E
   {
     *a2 = v3;
     a2[1] = v4;
-    a2[2] = result;
+    a2[2] = v5;
   }
-
-  return result;
 }
 
 void *protocol witness for RandomAccessCollection.index(_:offsetBy:) in conformance Text.Effect.Markers@<X0>(void *result@<X0>, uint64_t a2@<X1>, unint64_t *a3@<X8>)
@@ -6766,7 +6652,7 @@ uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance T
   return v1;
 }
 
-void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3, void *a4)
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3, void *a4)
 {
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
 }
@@ -6780,27 +6666,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
-}
-
-{
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.Configuration<ShakeVerticalTextEffect>.StyleModifier>, &lazy cache variable for type metadata for Text.Effect.Configuration<ShakeVerticalTextEffect>.StyleModifier, lazy protocol witness table accessor for type ShakeVerticalTextEffect and conformance ShakeVerticalTextEffect, &type metadata for ShakeVerticalTextEffect);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
 }
 
 {
@@ -6808,34 +6674,14 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 }
 
 {
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
-}
-
-{
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.Configuration<BigTextEffect>.StyleModifier>, &lazy cache variable for type metadata for Text.Effect.Configuration<BigTextEffect>.StyleModifier, lazy protocol witness table accessor for type BigTextEffect and conformance BigTextEffect, &type metadata for BigTextEffect);
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
 }
 
 {
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.Configuration<SmallTextEffect>.StyleModifier>, &lazy cache variable for type metadata for Text.Effect.Configuration<SmallTextEffect>.StyleModifier, lazy protocol witness table accessor for type SmallTextEffect and conformance SmallTextEffect, &type metadata for SmallTextEffect);
 }
 
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
-}
-
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<(_:_:_:)>, type metadata accessor for (_:_:_:));
-}
-
-char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3, char *a4)
+char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3, char *a4)
 {
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.GlyphIndex>, &type metadata for Text.Effect.GlyphIndex);
 }
@@ -6844,11 +6690,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
   return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.ClusterIndex>, &type metadata for Text.Effect.ClusterIndex);
 }
 
-{
-  return specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, a4, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.Identifier>, &type metadata for Text.Effect.Identifier);
-}
-
-void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, unint64_t *a5, void (*a6)(uint64_t))
+void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, unint64_t *a5, uint64_t (*a6)(uint64_t))
 {
   v7 = result;
   if (a3)
@@ -7124,7 +6966,7 @@ void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    type metadata accessor for _ContiguousArrayStorage<Path?>();
+    type metadata accessor for _ContiguousArrayStorage<Path?>(0);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v10[2] = v8;
@@ -7270,7 +7112,7 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
   return result;
 }
 
-size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV6LayoutV3RunV_Tt1g5Tm(uint64_t a1, uint64_t a2, unint64_t *a3, void (*a4)(uint64_t), uint64_t (*a5)(void))
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV6LayoutV3RunV_Tt1g5Tm(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t (*a4)(uint64_t), uint64_t (*a5)(void))
 {
   if (a2 <= a1)
   {
@@ -7295,7 +7137,7 @@ size_t _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi
   result = _swift_stdlib_malloc_size(v11);
   if (v9)
   {
-    if (result - v10 != 0x8000000000000000 || v9 != -1)
+    if ((result - v10) != 0x8000000000000000 || v9 != -1)
     {
       v11[2] = a1;
       v11[3] = 2 * ((result - v10) / v9);
@@ -7418,10 +7260,10 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
 {
   v2 = type metadata accessor for Text.Effect.BaseContent(0);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v4 = &v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for IndexingIterator<Text.Effect.BaseContent>();
+  v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for IndexingIterator<Text.Effect.BaseContent>(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   v8 = specialized Collection.count.getter();
   if (!v8)
   {
@@ -7431,9 +7273,9 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
   v9 = v8;
   v10 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV0J16AnimationSupportE6EffectO12BaseFragmentV_Tt1g5(v8, 0);
   outlined init with copy of Text.Effect.RenderSegmentation.Segment(a1, v4, type metadata accessor for Text.Effect.BaseContent);
-  v11 = specialized Sequence._copySequenceContents(initializing:)(v7, v10 + 4, v9);
+  v12 = specialized Sequence._copySequenceContents(initializing:)(v7, v10 + 4, v9, v11);
   outlined destroy of Text.Effect.RenderSegmentation.StaticRuns(v7, type metadata accessor for IndexingIterator<Text.Effect.BaseContent>);
-  if (v11 != v9)
+  if (v12 != v9)
   {
     __break(1u);
     return MEMORY[0x1E69E7CC0];
@@ -7456,7 +7298,7 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
     v5 = 0;
     v6 = (a1 + 32);
     v7 = result;
-    v8 = (result + 4);
+    v8 = result + 4;
     while (1)
     {
       memmove(v8, v6, 0x60uLL);
@@ -7465,7 +7307,7 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
         break;
       }
 
-      v8 += 96;
+      v8 += 12;
       ++v5;
       v6 += 96;
       if (v4 == v5)
@@ -7495,9 +7337,51 @@ LABEL_9:
   }
 
   v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV0J16AnimationSupportE6EffectO16KeyframeSequenceV5EntryV_Tt1g5(*(a1 + 16), 0);
-  v4 = specialized Sequence._copySequenceContents(initializing:)(&v6, (v3 + 4), v1, a1);
+  specialized Sequence._copySequenceContents(initializing:)(&v7, (v3 + 4), v1, a1);
+  v5 = v4;
 
-  if (v4 != v1)
+  if (v5 != v1)
+  {
+    __break(1u);
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return v3;
+}
+
+{
+  v1 = *(*a1 + 16);
+  if (!v1)
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV6LayoutV3RunV_Tt1g5Tm(*(*a1 + 16), 0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Layout.Line>, MEMORY[0x1E6981048], MEMORY[0x1E6981048]);
+  v4 = *(type metadata accessor for Text.Layout.Line() - 8);
+  v5 = specialized Sequence._copySequenceContents(initializing:)(v8, v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80)), v1);
+  outlined init with copy of Text.Effect.RenderSegmentation.StaticLines(a1, v7);
+  outlined destroy of IndexingIterator<Text.Effect.RenderSegmentation.StaticLines>(v8);
+  if (v5 != v1)
+  {
+    __break(1u);
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  return v3;
+}
+
+{
+  v1 = *(a1 + 16);
+  if (!v1)
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV6LayoutV3RunV_Tt1g5Tm(*(a1 + 16), 0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.RenderSegmentation.Segment>, type metadata accessor for Text.Effect.RenderSegmentation.Segment, type metadata accessor for Text.Effect.RenderSegmentation.Segment);
+  v4 = *(type metadata accessor for Text.Effect.RenderSegmentation.Segment(0) - 8);
+  v5 = specialized Sequence._copySequenceContents(initializing:)(&v7, v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80)), v1, a1);
+
+  if (v5 != v1)
   {
     __break(1u);
     return MEMORY[0x1E69E7CC0];
@@ -7695,9 +7579,10 @@ LABEL_16:
   }
 
   v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV0J16AnimationSupportE6EffectO14KeyframeLayoutV8FragmentV_Tt1g5Tm(*(a1 + 16), 0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Double>, MEMORY[0x1E69E63B0]);
-  v4 = specialized Sequence._copySequenceContents(initializing:)(&v6, v3 + 4, v1, a1);
+  v4 = specialized Sequence._copySequenceContents(initializing:)(&v7, v3 + 4, v1, a1);
+  v5 = v7;
 
-  outlined consume of [Double : Text.Effect.BaseFragment].Iterator._Variant();
+  outlined consume of [Double : Text.Effect.BaseFragment].Iterator._Variant(v5);
   if (v4 != v1)
   {
     __break(1u);
@@ -7707,7 +7592,7 @@ LABEL_16:
   return v3;
 }
 
-void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, char a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 16);
   if (!v2)
@@ -7715,8 +7600,9 @@ void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, char a2)
     return MEMORY[0x1E69E7CC0];
   }
 
+  v3 = a2;
   v5 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV0J16AnimationSupportE6EffectO14KeyframeLayoutV8FragmentV_Tt1g5Tm(*(a1 + 16), 0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.KeyframeLayout.Fragment>, &type metadata for Text.Effect.KeyframeLayout.Fragment);
-  v6 = specialized Sequence._copySequenceContents(initializing:)(v8, (v5 + 4), v2, a1, a2);
+  v6 = specialized Sequence._copySequenceContents(initializing:)(v8, (v5 + 4), v2, a1, v3);
 
   if (v6 != v2)
   {
@@ -7747,11 +7633,11 @@ uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64
   return v8;
 }
 
-int64_t specialized _copyCollectionToContiguousArray<A>(_:)(int64_t result, uint64_t a2)
+char *specialized _copyCollectionToContiguousArray<A>(_:)(char *result, uint64_t a2)
 {
   v2 = *(a2 + 16);
   v3 = __OFADD__(result, v2);
-  v4 = result + v2;
+  v4 = &result[v2];
   if (v3)
   {
     __break(1u);
@@ -7773,7 +7659,7 @@ LABEL_10:
     {
       v8 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV6LayoutV3RunV_Tt1g5Tm(v4 - result, 0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.PathInterpolator.Cluster>, type metadata accessor for Text.Effect.PathInterpolator.Cluster, type metadata accessor for Text.Effect.PathInterpolator.Cluster);
       v9 = *(type metadata accessor for Text.Effect.PathInterpolator.Cluster(0) - 8);
-      v10 = specialized Sequence._copySequenceContents(initializing:)(&v11, v8 + ((*(v9 + 80) + 32) & ~*(v9 + 80)), v6, v5, a2);
+      v10 = specialized Sequence._copySequenceContents(initializing:)(v11, v8 + ((*(v9 + 80) + 32) & ~*(v9 + 80)), v6, v5, a2);
 
       if (v10 == v6)
       {
@@ -7789,48 +7675,6 @@ LABEL_10:
 LABEL_11:
   __break(1u);
   return result;
-}
-
-size_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1)
-{
-  v1 = *(*a1 + 16);
-  if (!v1)
-  {
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV6LayoutV3RunV_Tt1g5Tm(*(*a1 + 16), 0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Layout.Line>, MEMORY[0x1E6981048], MEMORY[0x1E6981048]);
-  v4 = *(type metadata accessor for Text.Layout.Line() - 8);
-  v5 = specialized Sequence._copySequenceContents(initializing:)(v8, v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80)), v1);
-  outlined init with copy of Text.Effect.RenderSegmentation.StaticLines(a1, v7);
-  outlined destroy of IndexingIterator<Text.Effect.RenderSegmentation.StaticLines>(v8);
-  if (v5 != v1)
-  {
-    __break(1u);
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  return v3;
-}
-
-{
-  v1 = *(a1 + 16);
-  if (!v1)
-  {
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV6LayoutV3RunV_Tt1g5Tm(*(a1 + 16), 0, &lazy cache variable for type metadata for _ContiguousArrayStorage<Text.Effect.RenderSegmentation.Segment>, type metadata accessor for Text.Effect.RenderSegmentation.Segment, type metadata accessor for Text.Effect.RenderSegmentation.Segment);
-  v4 = *(type metadata accessor for Text.Effect.RenderSegmentation.Segment(0) - 8);
-  v5 = specialized Sequence._copySequenceContents(initializing:)(&v7, v3 + ((*(v4 + 80) + 32) & ~*(v4 + 80)), v1, a1);
-
-  if (v5 != v1)
-  {
-    __break(1u);
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  return v3;
 }
 
 char *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, double a2)
@@ -7871,7 +7715,7 @@ LABEL_11:
       if (v4 != a3)
       {
 LABEL_7:
-        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for CALayer);
+        type metadata accessor for NSObject(0, &lazy cache variable for type metadata for CALayer, 0x1E6979398);
         swift_arrayInitWithCopy();
         return;
       }
@@ -8435,27 +8279,27 @@ LABEL_57:
   return result;
 }
 
-uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, void *a2, unint64_t a3)
+uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, void *a2, unint64_t a3, __n128 a4)
 {
-  type metadata accessor for IndexingIterator<Text.Effect.BaseContent>();
-  v8 = v7;
-  MEMORY[0x1EEE9AC00](v7);
-  v44 = (&v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  outlined init with copy of Text.Effect.RenderSegmentation.Segment(v3, v44, type metadata accessor for Text.Effect.BaseContent);
-  v10 = *v3;
-  v11 = v3[1];
-  v12 = v3[2];
+  type metadata accessor for IndexingIterator<Text.Effect.BaseContent>(0);
+  v9 = v8;
+  MEMORY[0x1EEE9AC00](v8);
+  v45 = (&v42 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  outlined init with copy of Text.Effect.RenderSegmentation.Segment(v4, v45, type metadata accessor for Text.Effect.BaseContent);
+  v11 = *v4;
+  v12 = v4[1];
+  v13 = v4[2];
   swift_beginAccess();
-  if (*(*(v10 + 48) + 16))
+  if (*(*(v11 + 48) + 16))
   {
-    specialized __RawDictionaryStorage.find<A>(_:)(v11, v12);
-    if (v13)
+    specialized __RawDictionaryStorage.find<A>(_:)(v12, v13);
+    if (v14)
     {
-      v14 = *(v8 + 36);
+      v15 = *(v9 + 36);
       swift_endAccess();
-      v43 = v14;
-      *(v44 + v14) = 0;
-      outlined destroy of Text.Effect.RenderSegmentation.StaticRuns(v3, type metadata accessor for Text.Effect.BaseContent);
+      v44 = v15;
+      *(v45 + v15) = 0;
+      outlined destroy of Text.Effect.RenderSegmentation.StaticRuns(v4, type metadata accessor for Text.Effect.BaseContent);
       if (!a2)
       {
 LABEL_27:
@@ -8466,80 +8310,80 @@ LABEL_27:
       if (!a3)
       {
 LABEL_30:
-        outlined init with take of Text.Effect.RenderSegmentation.StaticRuns.Iterator(v44, a1, type metadata accessor for IndexingIterator<Text.Effect.BaseContent>);
+        outlined init with take of Text.Effect.RenderSegmentation.StaticRuns.Iterator(v45, a1, type metadata accessor for IndexingIterator<Text.Effect.BaseContent>);
         return a3;
       }
 
       if ((a3 & 0x8000000000000000) == 0)
       {
-        v41 = a1;
-        v15 = *v44;
-        v16 = v44[1];
-        v17 = v44[2];
+        v42 = a1;
+        v16 = *v45;
+        v17 = v45[1];
+        v18 = v45[2];
         swift_beginAccess();
-        v18 = *(v15 + 48);
-        if (*(v18 + 16))
+        v19 = *(v16 + 48);
+        if (*(v19 + 16))
         {
-          v19 = 0;
+          v20 = 0;
           a1 = 1;
-          v42 = a3;
+          v43 = a3;
           do
           {
-            v20 = specialized __RawDictionaryStorage.find<A>(_:)(v16, v17);
-            if ((v21 & 1) == 0)
+            v21 = specialized __RawDictionaryStorage.find<A>(_:)(v17, v18);
+            if ((v22 & 1) == 0)
             {
               break;
             }
 
-            v22 = *(*(v18 + 56) + 16 * v20);
+            v23 = *(*(v19 + 56) + 16 * v21);
             swift_endAccess();
-            if (*(v22 + 16) == v19)
+            if (*(v23 + 16) == v20)
             {
-              a3 = v19;
+              a3 = v20;
 LABEL_29:
-              a1 = v41;
+              a1 = v42;
               goto LABEL_30;
             }
 
             swift_beginAccess();
-            v23 = *(v15 + 48);
-            v24 = *(v23 + 16);
+            v24 = *(v16 + 48);
+            v25 = *(v24 + 16);
 
-            if (!v24)
+            if (!v25)
             {
               goto LABEL_38;
             }
 
-            v25 = specialized __RawDictionaryStorage.find<A>(_:)(v16, v17);
-            if ((v26 & 1) == 0)
+            v26 = specialized __RawDictionaryStorage.find<A>(_:)(v17, v18);
+            if ((v27 & 1) == 0)
             {
               goto LABEL_38;
             }
 
-            v27 = *(*(v23 + 56) + 16 * v25);
+            v28 = *(*(v24 + 56) + 16 * v26);
             swift_endAccess();
-            v28 = *(v27 + 16);
-            if (v19 >= v28)
+            v29 = *(v28 + 16);
+            if (v20 >= v29)
             {
               goto LABEL_32;
             }
 
-            v45 = *(v27 + 32 + 8 * v19);
-            if (v19)
+            v46 = *(v28 + 32 + 8 * v20);
+            if (v20)
             {
-              v29 = 0;
               v30 = 0;
+              v31 = 0;
               while (1)
               {
-                v31 = *(*(*(v27 + 32 + 8 * v29) + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters) + 16);
-                v32 = __OFADD__(v30, v31);
-                v30 += v31;
-                if (v32)
+                v32 = *(*(*(v28 + 32 + 8 * v30) + OBJC_IVAR____TtCVVOE20TextAnimationSupportV7SwiftUI4Text6Effect14KeyframeLayout8FragmentP33_4C784D74468FB10855DB713ACA87B0927Storage_clusters) + 16);
+                v33 = __OFADD__(v31, v32);
+                v31 += v32;
+                if (v33)
                 {
                   break;
                 }
 
-                if (v19 == ++v29)
+                if (v20 == ++v30)
                 {
                   goto LABEL_19;
                 }
@@ -8553,54 +8397,54 @@ LABEL_33:
               goto LABEL_34;
             }
 
-            v30 = 0;
+            v31 = 0;
 LABEL_19:
             swift_beginAccess();
-            v33 = *(*(v15 + 48) + 16);
+            v34 = *(*(v16 + 48) + 16);
 
-            if (!v33)
+            if (!v34)
             {
               goto LABEL_36;
             }
 
-            specialized __RawDictionaryStorage.find<A>(_:)(v16, v17);
-            if ((v34 & 1) == 0)
+            specialized __RawDictionaryStorage.find<A>(_:)(v17, v18);
+            if ((v35 & 1) == 0)
             {
               goto LABEL_36;
             }
 
             swift_endAccess();
             swift_beginAccess();
-            v35 = *(v15 + 48);
-            if (!*(v35 + 16))
+            v36 = *(v16 + 48);
+            if (!*(v36 + 16))
             {
               goto LABEL_35;
             }
 
-            v36 = specialized __RawDictionaryStorage.find<A>(_:)(v16, v17);
-            if ((v37 & 1) == 0)
+            v37 = specialized __RawDictionaryStorage.find<A>(_:)(v17, v18);
+            if ((v38 & 1) == 0)
             {
               goto LABEL_35;
             }
 
-            v38 = *(*(v35 + 56) + 16 * v36);
+            v39 = *(*(v36 + 56) + 16 * v37);
             swift_endAccess();
-            if (v19 >= *(v38 + 16))
+            if (v20 >= *(v39 + 16))
             {
               goto LABEL_33;
             }
 
-            *(v44 + v43) = a1;
-            *a2 = v15;
-            a2[1] = v16;
-            v39 = v45;
-            a2[2] = v17;
-            a2[3] = v39;
-            a2[4] = v19;
-            a2[5] = v28;
-            a2[6] = v30;
-            a3 = v42;
-            if (a1 == v42)
+            *(v45 + v44) = a1;
+            *a2 = v16;
+            a2[1] = v17;
+            v40 = v46;
+            a2[2] = v18;
+            a2[3] = v40;
+            a2[4] = v20;
+            a2[5] = v29;
+            a2[6] = v31;
+            a3 = v43;
+            if (a1 == v43)
             {
               goto LABEL_29;
             }
@@ -8608,11 +8452,11 @@ LABEL_19:
             a2 += 7;
             ++a1;
             swift_beginAccess();
-            v18 = *(v15 + 48);
-            ++v19;
+            v19 = *(v16 + 48);
+            ++v20;
           }
 
-          while (*(v18 + 16));
+          while (*(v19 + 16));
         }
 
         swift_endAccess();
@@ -8825,9 +8669,131 @@ LABEL_13:
   return result;
 }
 
-uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v5 = result;
+  if (!a2)
+  {
+    a3 = 0;
+    goto LABEL_29;
+  }
+
+  if (!a3)
+  {
+LABEL_29:
+    *result = a4;
+    result[1] = a3;
+    return a3;
+  }
+
+  if ((a3 & 0x8000000000000000) == 0)
+  {
+    v4 = *(a4 + 16);
+    if (v4)
+    {
+      v5 = a4 + 32;
+      v6 = v4 - 1;
+      v7 = a3 - 1;
+      if (v4 - 1 >= (a3 - 1))
+      {
+        v8 = a3 - 1;
+      }
+
+      else
+      {
+        v8 = v4 - 1;
+      }
+
+      v9 = v8 + 1;
+      if (v9 <= 0x1A)
+      {
+        goto LABEL_24;
+      }
+
+      v10 = v6 >= v7 ? a3 - 1 : v4 - 1;
+      v11 = &a2[v10] >= a2 && &a2[v10] + 8 >= a2 + 8;
+      v12 = v10 >> 60;
+      if (!v11 || v12 != 0)
+      {
+        goto LABEL_24;
+      }
+
+      if (v6 >= v7)
+      {
+        v6 = a3 - 1;
+      }
+
+      v14 = v6;
+      if (a4 + v14 * 16 + 48 <= a2 || v5 >= &a2[v14 + 1])
+      {
+        v18 = v9 & 3;
+        if ((v9 & 3) == 0)
+        {
+          v18 = 4;
+        }
+
+        v15 = v9 - v18;
+        v16 = v15 + 1;
+        v17 = &a2[v15];
+        v19 = (a4 + 64);
+        v20 = a2 + 2;
+        v21 = v15;
+        do
+        {
+          v23 = *(v19 - 2);
+          v22 = *(v19 - 1);
+          v25 = *v19;
+          v24 = v19[1];
+          v19 += 4;
+          *(v20 - 2) = v23;
+          *(v20 - 1) = v22;
+          *v20 = v25;
+          v20[1] = v24;
+          v20 += 4;
+          v21 -= 4;
+        }
+
+        while (v21);
+      }
+
+      else
+      {
+LABEL_24:
+        v15 = 0;
+        v16 = 1;
+        v17 = a2;
+      }
+
+      while (1)
+      {
+        *v17 = *(v5 + 16 * v15);
+        if (a3 == v16)
+        {
+          break;
+        }
+
+        v15 = v16;
+        ++v17;
+        if (v4 + 1 == ++v16)
+        {
+          goto LABEL_27;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_27:
+      a3 = v4;
+    }
+
+    goto LABEL_29;
+  }
+
+  __break(1u);
+  return result;
+}
+
+void specialized Sequence._copySequenceContents(initializing:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
   if (!a2)
   {
     v6 = 0;
@@ -8838,9 +8804,9 @@ uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t resu
   if (!a3)
   {
 LABEL_12:
-    *v5 = a4;
-    v5[1] = v6;
-    return v6;
+    *a1 = a4;
+    a1[1] = v6;
+    return;
   }
 
   if ((a3 & 0x8000000000000000) == 0)
@@ -8884,186 +8850,67 @@ LABEL_9:
 
 LABEL_14:
   __break(1u);
-  return result;
 }
 
+void *specialized Sequence._copySequenceContents(initializing:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
 {
-  v5 = result;
+  v6 = result;
   if (!a2)
   {
-    v6 = 0;
+    v7 = 0;
     goto LABEL_11;
   }
 
-  v6 = a3;
+  v7 = a3;
   if (!a3)
   {
 LABEL_11:
-    *v5 = a4;
-    v5[1] = v6;
-    return v6;
+    *v6 = a4;
+    v6[1] = v7;
+    return v7;
   }
 
   if ((a3 & 0x8000000000000000) == 0)
   {
-    v7 = *(a4 + 16);
-    if (v7)
+    v8 = *(a4 + 16);
+    if (v8)
     {
-      v8 = a2;
-      v9 = 0;
-      v10 = a4 + 32;
-      v11 = a3 - 1;
-      while (v9 < *(a4 + 16))
-      {
-        result = outlined init with copy of Text.Effect.MarkerLayoutInfo.Element(v10, v8);
-        if (v11 == v9)
-        {
-          goto LABEL_11;
-        }
-
-        v8 += 96;
-        ++v9;
-        v10 += 96;
-        if (v7 == v9)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      __break(1u);
-      goto LABEL_13;
-    }
-
-LABEL_9:
-    v6 = v7;
-    goto LABEL_11;
-  }
-
-LABEL_13:
-  __break(1u);
-  return result;
-}
-
-{
-  v5 = result;
-  if (!a2)
-  {
-    v6 = 0;
-    goto LABEL_11;
-  }
-
-  v6 = a3;
-  if (!a3)
-  {
-LABEL_11:
-    *v5 = a4;
-    v5[1] = v6;
-    return v6;
-  }
-
-  if ((a3 & 0x8000000000000000) == 0)
-  {
-    v7 = *(a4 + 16);
-    if (v7)
-    {
-      v8 = a2;
-      v9 = 0;
-      v10 = a3 - 1;
-      while (v9 < *(a4 + 16))
-      {
-        v11 = *(type metadata accessor for Text.Effect.RenderSegmentation.Segment(0) - 8);
-        v12 = *(v11 + 72);
-        result = outlined init with copy of Text.Effect.RenderSegmentation.Segment(a4 + ((*(v11 + 80) + 32) & ~*(v11 + 80)) + v12 * v9, v8, type metadata accessor for Text.Effect.RenderSegmentation.Segment);
-        if (v10 == v9)
-        {
-          goto LABEL_11;
-        }
-
-        v8 += v12;
-        if (v7 == ++v9)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      __break(1u);
-      goto LABEL_13;
-    }
-
-LABEL_9:
-    v6 = v7;
-    goto LABEL_11;
-  }
-
-LABEL_13:
-  __break(1u);
-  return result;
-}
-
-{
-  v5 = result;
-  if (!a2)
-  {
-    v6 = 0;
-    goto LABEL_12;
-  }
-
-  v6 = a3;
-  if (!a3)
-  {
-LABEL_12:
-    *v5 = a4;
-    v5[1] = v6;
-    return v6;
-  }
-
-  if ((a3 & 0x8000000000000000) == 0)
-  {
-    v7 = *(a4 + 16);
-    if (v7)
-    {
-      v9 = 0;
+      v9 = a2;
       v10 = 0;
-      v11 = a3 - 1;
+      v11 = a4 + 32;
+      v12 = a3 - 1;
       while (v10 < *(a4 + 16))
       {
-        v12 = a2 + v9;
-        v13 = *(a4 + v9 + 32);
-        v14 = *(a4 + v9 + 40);
-        v15 = *(a4 + v9 + 48);
-        *v12 = v13;
-        *(v12 + 8) = v14;
-        *(v12 + 16) = v15;
-        if (v11 == v10)
+        result = outlined init with copy of Text.Effect.MarkerLayoutInfo.Element(v11, v9);
+        if (v12 == v10)
         {
-          outlined copy of Text.Effect.Markers.MarkerType(v13, v14);
-          goto LABEL_12;
+          goto LABEL_11;
         }
 
-        result = outlined copy of Text.Effect.Markers.MarkerType(v13, v14);
+        v9 += 96;
         ++v10;
-        v9 += 32;
-        if (v7 == v10)
+        v11 += 96;
+        if (v8 == v10)
         {
           goto LABEL_9;
         }
       }
 
       __break(1u);
-      goto LABEL_14;
+      goto LABEL_13;
     }
 
 LABEL_9:
-    v6 = v7;
-    goto LABEL_12;
+    v7 = v8;
+    goto LABEL_11;
   }
 
-LABEL_14:
+LABEL_13:
   __break(1u);
   return result;
 }
 
-void *specialized Sequence._copySequenceContents(initializing:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t *specialized Sequence._copySequenceContents(initializing:)(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a2)
   {
@@ -9164,7 +9011,7 @@ LABEL_20:
   return v7;
 }
 
-uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, uint64_t a2, uint64_t a3)
+void *specialized Sequence._copySequenceContents(initializing:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v52 = a3;
   v53 = a1;
@@ -9390,126 +9237,59 @@ LABEL_14:
   return result;
 }
 
-void *specialized Sequence._copySequenceContents(initializing:)(void *result, unint64_t a2, uint64_t a3, uint64_t a4)
+void *specialized Sequence._copySequenceContents(initializing:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = result;
   if (!a2)
   {
-    a3 = 0;
-    goto LABEL_29;
+    v6 = 0;
+    goto LABEL_11;
   }
 
+  v6 = a3;
   if (!a3)
   {
-LABEL_29:
-    *result = a4;
-    result[1] = a3;
-    return a3;
+LABEL_11:
+    *v5 = a4;
+    v5[1] = v6;
+    return v6;
   }
 
   if ((a3 & 0x8000000000000000) == 0)
   {
-    v4 = *(a4 + 16);
-    if (v4)
+    v7 = *(a4 + 16);
+    if (v7)
     {
-      v5 = a4 + 32;
-      v6 = v4 - 1;
-      v7 = a3 - 1;
-      if (v4 - 1 >= (a3 - 1))
+      v8 = a2;
+      v9 = 0;
+      v10 = a3 - 1;
+      while (v9 < *(a4 + 16))
       {
-        v8 = a3 - 1;
-      }
-
-      else
-      {
-        v8 = v4 - 1;
-      }
-
-      v9 = v8 + 1;
-      if (v9 <= 0x1A)
-      {
-        goto LABEL_24;
-      }
-
-      v10 = v6 >= v7 ? a3 - 1 : v4 - 1;
-      v11 = a2 + 16 * v10 >= a2 && a2 + 8 + 16 * v10 >= a2 + 8;
-      v12 = v10 >> 60;
-      if (!v11 || v12 != 0)
-      {
-        goto LABEL_24;
-      }
-
-      if (v6 >= v7)
-      {
-        v6 = a3 - 1;
-      }
-
-      v14 = 16 * v6;
-      if (a4 + v14 + 48 <= a2 || v5 >= a2 + v14 + 16)
-      {
-        v18 = v9 & 3;
-        if ((v9 & 3) == 0)
+        v11 = *(type metadata accessor for Text.Effect.RenderSegmentation.Segment(0) - 8);
+        v12 = *(v11 + 72);
+        result = outlined init with copy of Text.Effect.RenderSegmentation.Segment(a4 + ((*(v11 + 80) + 32) & ~*(v11 + 80)) + v12 * v9, v8, type metadata accessor for Text.Effect.RenderSegmentation.Segment);
+        if (v10 == v9)
         {
-          v18 = 4;
+          goto LABEL_11;
         }
 
-        v15 = v9 - v18;
-        v16 = v15 + 1;
-        v17 = (a2 + 16 * v15);
-        v19 = (a4 + 64);
-        v20 = (a2 + 32);
-        v21 = v15;
-        do
+        v8 += v12;
+        if (v7 == ++v9)
         {
-          v23 = *(v19 - 2);
-          v22 = *(v19 - 1);
-          v25 = *v19;
-          v24 = v19[1];
-          v19 += 4;
-          *(v20 - 2) = v23;
-          *(v20 - 1) = v22;
-          *v20 = v25;
-          v20[1] = v24;
-          v20 += 4;
-          v21 -= 4;
-        }
-
-        while (v21);
-      }
-
-      else
-      {
-LABEL_24:
-        v15 = 0;
-        v16 = 1;
-        v17 = a2;
-      }
-
-      while (1)
-      {
-        *v17 = *(v5 + 16 * v15);
-        if (a3 == v16)
-        {
-          break;
-        }
-
-        v15 = v16;
-        ++v17;
-        if (v4 + 1 == ++v16)
-        {
-          goto LABEL_27;
+          goto LABEL_9;
         }
       }
+
+      __break(1u);
+      goto LABEL_13;
     }
 
-    else
-    {
-LABEL_27:
-      a3 = v4;
-    }
-
-    goto LABEL_29;
+LABEL_9:
+    v6 = v7;
+    goto LABEL_11;
   }
 
+LABEL_13:
   __break(1u);
   return result;
 }
@@ -9855,6 +9635,234 @@ LABEL_42:
 LABEL_43:
   __break(1u);
 LABEL_44:
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized Sequence._copySequenceContents(initializing:)(uint64_t result, char *__dst, uint64_t a3, uint64_t a4, double a5)
+{
+  v7 = result;
+  if (!__dst)
+  {
+    v8 = 0;
+    goto LABEL_12;
+  }
+
+  v8 = a3;
+  if (!a3)
+  {
+LABEL_12:
+    *v7 = a4;
+    *(v7 + 8) = a5;
+    *(v7 + 16) = v8;
+    return v8;
+  }
+
+  if ((a3 & 0x8000000000000000) == 0)
+  {
+    v9 = *(a4 + 16);
+    if (v9)
+    {
+      v10 = __dst;
+      v11 = 0;
+      v12 = (a4 + 144);
+      v13 = a3 - 1;
+      while (v11 < *(a4 + 16))
+      {
+        v14 = *(v12 - 2);
+        v20[4] = *(v12 - 3);
+        v20[5] = v14;
+        v15 = *v12;
+        v21 = *(v12 - 1);
+        v22 = v15;
+        v16 = *(v12 - 6);
+        v20[0] = *(v12 - 7);
+        v20[1] = v16;
+        v17 = *(v12 - 4);
+        v20[2] = *(v12 - 5);
+        v20[3] = v17;
+        v23 = v15;
+        v18 = *(&v21 + 1) + a5;
+        memmove(v10, v12 - 7, 0x68uLL);
+        *(v10 + 13) = v18;
+        *(v10 + 7) = v23;
+        if (v13 == v11)
+        {
+          outlined init with copy of Text.Effect.DisplayInfo(v20, v19);
+          goto LABEL_12;
+        }
+
+        result = outlined init with copy of Text.Effect.DisplayInfo(v20, v19);
+        ++v11;
+        v12 += 8;
+        v10 += 128;
+        if (v9 == v11)
+        {
+          goto LABEL_9;
+        }
+      }
+
+      __break(1u);
+      goto LABEL_14;
+    }
+
+LABEL_9:
+    v8 = v9;
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  __break(1u);
+  return result;
+}
+
+void specialized Sequence._copySequenceContents(initializing:)(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a2)
+  {
+    v6 = 0;
+    goto LABEL_12;
+  }
+
+  v6 = a3;
+  if (!a3)
+  {
+LABEL_12:
+    *result = a4;
+    result[1] = v6;
+    return;
+  }
+
+  if ((a3 & 0x8000000000000000) == 0)
+  {
+    v7 = *(a4 + 16);
+    if (v7)
+    {
+      v9 = 0;
+      v10 = 0;
+      v11 = a3 - 1;
+      while (v10 < *(a4 + 16))
+      {
+        v12 = a2 + v9;
+        v13 = *(a4 + v9 + 32);
+        v14 = *(a4 + v9 + 40);
+        v15 = *(a4 + v9 + 48);
+        *v12 = v13;
+        *(v12 + 8) = v14;
+        *(v12 + 16) = v15;
+        if (v11 == v10)
+        {
+          outlined copy of Text.Effect.Markers.MarkerType(v13, v14);
+          goto LABEL_12;
+        }
+
+        outlined copy of Text.Effect.Markers.MarkerType(v13, v14);
+        ++v10;
+        v9 += 32;
+        if (v7 == v10)
+        {
+          goto LABEL_9;
+        }
+      }
+
+      __break(1u);
+      goto LABEL_14;
+    }
+
+LABEL_9:
+    v6 = v7;
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  __break(1u);
+}
+
+void *specialized Sequence._copySequenceContents(initializing:)(void *result, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (!a2)
+  {
+    a3 = 0;
+    goto LABEL_18;
+  }
+
+  if (!a3)
+  {
+LABEL_18:
+    *result = a4;
+    result[1] = a5;
+    result[2] = a3;
+    return a3;
+  }
+
+  if ((a3 & 0x8000000000000000) == 0)
+  {
+    v5 = *(a4 + 16);
+    if (v5)
+    {
+      v6 = v5 - 1;
+      if (v5 - 1 >= (a3 - 1))
+      {
+        v6 = a3 - 1;
+      }
+
+      v7 = v6 + 1;
+      if (v7 > 0x10 && &a2[-a4 - 32] >= 0x10)
+      {
+        v10 = a2;
+        v11 = v7 & 0xF;
+        if ((v7 & 0xF) == 0)
+        {
+          v11 = 16;
+        }
+
+        v8 = v7 - v11;
+        v9 = v8 + 1;
+        a2 += v8;
+        v12 = v8;
+        v13 = (a4 + 32);
+        do
+        {
+          v14 = *v13++;
+          *v10++ = v14;
+          v12 -= 16;
+        }
+
+        while (v12);
+      }
+
+      else
+      {
+        v8 = 0;
+        v9 = 1;
+      }
+
+      while (1)
+      {
+        *a2 = *(a4 + 32 + v8);
+        if (a3 == v9)
+        {
+          break;
+        }
+
+        v8 = v9;
+        ++a2;
+        if (v5 + 1 == ++v9)
+        {
+          goto LABEL_17;
+        }
+      }
+    }
+
+    else
+    {
+LABEL_17:
+      a3 = v5;
+    }
+
+    goto LABEL_18;
+  }
+
   __break(1u);
   return result;
 }

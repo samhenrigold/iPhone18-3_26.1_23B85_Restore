@@ -66,10 +66,7 @@
 
 uint64_t __38__MTUuidQueryObserver_notifyObservers__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 mt_compactMap:&__block_literal_global_6];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 mt_compactMap:&__block_literal_global_6];
 
   return MEMORY[0x2821F96F8]();
 }

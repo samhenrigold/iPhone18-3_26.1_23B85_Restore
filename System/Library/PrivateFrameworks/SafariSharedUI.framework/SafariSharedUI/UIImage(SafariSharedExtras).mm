@@ -18,11 +18,11 @@
 
 - (uint64_t)safari_transparencyAnalysisResult
 {
-  v0 = MEMORY[0x1EEE9AC00]();
-  v47[256] = *MEMORY[0x1E69E9840];
-  v1 = objc_getAssociatedObject(v0, &transparencyAnalysisResultKey);
-  v2 = v1;
-  if (!v1)
+  v1 = MEMORY[0x1EEE9AC00](self);
+  v48[256] = *MEMORY[0x1E69E9840];
+  v2 = objc_getAssociatedObject(v1, &transparencyAnalysisResultKey);
+  v3 = v2;
+  if (!v2)
   {
     CGImageRepresentation = _UIImageGetCGImageRepresentation();
     if (!CGImageHasAlpha())
@@ -43,55 +43,55 @@
     {
       integerValue = 0;
 LABEL_7:
-      [v0 safari_setTransparencyAnalysisResult:{integerValue, v26, v27, v28, v29, v30}];
+      [v1 safari_setTransparencyAnalysisResult:{integerValue, v27, v28, v29, v30, v31}];
       goto LABEL_8;
     }
 
     data = srcs.data;
-    v7 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
-    v8 = objc_alloc_init(MEMORY[0x1E69C8A40]);
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = ___ZL25_analyzeImageTransparencyP7CGImage_block_invoke;
-    v40[3] = &__block_descriptor_40_e5_v8__0l;
-    v40[4] = v7;
-    [v8 setHandler:v40];
+    v8 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
+    v9 = objc_alloc_init(MEMORY[0x1E69C8A40]);
+    v41[0] = MEMORY[0x1E69E9820];
+    v41[1] = 3221225472;
+    v41[2] = ___ZL25_analyzeImageTransparencyP7CGImage_block_invoke;
+    v41[3] = &__block_descriptor_40_e5_v8__0l;
+    v41[4] = v8;
+    [v9 setHandler:v41];
     *&destFormat.bitsPerComponent = 0x2000000008;
-    destFormat.colorSpace = v7;
+    destFormat.colorSpace = v8;
     destFormat.bitmapInfo = 3;
     memset(&destFormat.version, 0, 20);
     src = srcs;
     if (MEMORY[0x1CCA51F40](&srcFormat, &destFormat))
     {
-      v9 = 0;
+      v10 = 0;
 LABEL_11:
+      bzero(v48, 0x800uLL);
       bzero(v47, 0x800uLL);
       bzero(v46, 0x800uLL);
       bzero(v45, 0x800uLL);
-      bzero(v44, 0x800uLL);
-      histogram[0] = v47;
-      histogram[1] = v46;
-      histogram[2] = v45;
-      histogram[3] = v44;
+      histogram[0] = v48;
+      histogram[1] = v47;
+      histogram[2] = v46;
+      histogram[3] = v45;
       if (!vImageHistogramCalculation_ARGB8888(&src, histogram, 0))
       {
-        v13 = 0;
+        v14 = 0;
         integerValue = 1;
-        while (!*&v44[v13])
+        while (!*&v45[v14])
         {
-          v13 += 8;
-          if (v13 == 2040)
+          v14 += 8;
+          if (v14 == 2040)
           {
             goto LABEL_44;
           }
         }
 
-        v14 = 0;
+        v15 = 0;
         integerValue = 3;
-        while (!*&v44[v14])
+        while (!*&v45[v15])
         {
-          v14 += 8;
-          if (v14 == 1640)
+          v15 += 8;
+          if (v15 == 1640)
           {
             goto LABEL_44;
           }
@@ -99,8 +99,8 @@ LABEL_11:
 
         height = src.height;
         width = src.width;
-        v17 = src.width >= 0x11 && src.height >= 0x11;
-        if (!v17 || ((aBlock[0] = MEMORY[0x1E69E9820], aBlock[1] = 3221225472, aBlock[2] = ___ZL25_analyzeImageTransparencyP7CGImage_block_invoke_2, aBlock[3] = &__block_descriptor_72_e11_B24__0Q8Q16l, aBlock[4] = src.data, v37 = src, v18 = _Block_copy(aBlock), v33[0] = MEMORY[0x1E69E9820], v33[1] = 3221225472, v33[2] = ___ZL25_analyzeImageTransparencyP7CGImage_block_invoke_3, v33[3] = &unk_1E82858B8, v19 = v18, v34 = v19, v35 = width - 1, v26 = width - 1, v20 = _Block_copy(v33), v21 = height - 1, v27 = MEMORY[0x1E69E9820], v28 = 3221225472, v29 = ___ZL25_analyzeImageTransparencyP7CGImage_block_invoke_4, v30 = &unk_1E82858B8, v22 = v19, v31 = v22, v32 = height - 1, v23 = _Block_copy(&v27), !v20[2](v20, 0)) || !v20[2](v20, v21) || !v23[2](v23, 0) || ((v23[2])(v23, v26) & 1) == 0 ? (integerValue = 0, v24 = 1) : (v24 = 0, integerValue = 4), v23, v31, v20, v34, v22, v24))
+        v18 = src.width >= 0x11 && src.height >= 0x11;
+        if (!v18 || ((aBlock[0] = MEMORY[0x1E69E9820], aBlock[1] = 3221225472, aBlock[2] = ___ZL25_analyzeImageTransparencyP7CGImage_block_invoke_2, aBlock[3] = &__block_descriptor_72_e11_B24__0Q8Q16l, aBlock[4] = src.data, v38 = src, v19 = _Block_copy(aBlock), v34[0] = MEMORY[0x1E69E9820], v34[1] = 3221225472, v34[2] = ___ZL25_analyzeImageTransparencyP7CGImage_block_invoke_3, v34[3] = &unk_1E82858B8, v20 = v19, v35 = v20, v36 = width - 1, v27 = width - 1, v21 = _Block_copy(v34), v22 = height - 1, v28 = MEMORY[0x1E69E9820], v29 = 3221225472, v30 = ___ZL25_analyzeImageTransparencyP7CGImage_block_invoke_4, v31 = &unk_1E82858B8, v23 = v20, v32 = v23, v33 = height - 1, v24 = _Block_copy(&v28), !v21[2](v21, 0)) || !v21[2](v21, v22) || !v24[2](v24, 0) || ((v24[2])(v24, v27) & 1) == 0 ? (integerValue = 0, v25 = 1) : (v25 = 0, integerValue = 4), v24, v32, v21, v35, v23, v25))
         {
           integerValue = 2;
         }
@@ -111,17 +111,17 @@ LABEL_11:
 LABEL_12:
       integerValue = 0;
 LABEL_44:
-      if (v9)
+      if (v10)
       {
-        free(v9);
+        free(v10);
       }
 
       goto LABEL_46;
     }
 
-    v10 = vImageConverter_CreateWithCGImageFormat(&srcFormat, &destFormat, 0, 0, 0);
-    integerValue = v10;
-    if (!v10)
+    v11 = vImageConverter_CreateWithCGImageFormat(&srcFormat, &destFormat, 0, 0, 0);
+    integerValue = v11;
+    if (!v11)
     {
 LABEL_46:
 
@@ -134,31 +134,31 @@ LABEL_46:
     }
 
     bitsPerPixel = destFormat.bitsPerPixel;
-    v12 = srcs.width;
+    v13 = srcs.width;
     if (srcs.rowBytes == srcs.width * destFormat.bitsPerPixel)
     {
-      if (!vImageConverter_MustOperateOutOfPlace(v10, 0, 0, 0))
+      if (!vImageConverter_MustOperateOutOfPlace(v11, 0, 0, 0))
       {
-        v9 = 0;
+        v10 = 0;
         goto LABEL_39;
       }
 
-      v12 = srcs.width;
+      v13 = srcs.width;
       bitsPerPixel = destFormat.bitsPerPixel;
     }
 
-    if (MEMORY[0x1CCA51F20](&src, srcs.height, v12, bitsPerPixel, 0))
+    if (MEMORY[0x1CCA51F20](&src, srcs.height, v13, bitsPerPixel, 0))
     {
       vImageConverter_Release(integerValue);
       integerValue = 0;
       goto LABEL_46;
     }
 
-    v9 = src.data;
+    v10 = src.data;
 LABEL_39:
-    v25 = vImageConvert_AnyToAny(integerValue, &srcs, &src, 0, 0);
+    v26 = vImageConvert_AnyToAny(integerValue, &srcs, &src, 0, 0);
     vImageConverter_Release(integerValue);
-    if (v25)
+    if (v26)
     {
       goto LABEL_12;
     }
@@ -166,7 +166,7 @@ LABEL_39:
     goto LABEL_11;
   }
 
-  integerValue = [v1 integerValue];
+  integerValue = [v2 integerValue];
 LABEL_8:
 
   return integerValue;
@@ -261,19 +261,19 @@ LABEL_8:
 
 + (id)safari_imageWithSVGData:()SafariSharedExtras
 {
-  v0 = CGSVGDocumentCreateFromData();
-  if (v0)
+  v3 = CGSVGDocumentCreateFromData();
+  if (v3)
   {
-    v1 = [MEMORY[0x1E69DCAB8] _imageWithCGSVGDocument:v0];
+    v4 = [MEMORY[0x1E69DCAB8] _imageWithCGSVGDocument:v3];
     CGSVGDocumentRelease();
   }
 
   else
   {
-    v1 = 0;
+    v4 = 0;
   }
 
-  return v1;
+  return v4;
 }
 
 + (id)safari_dynamicImageWithSize:()SafariSharedExtras generator:

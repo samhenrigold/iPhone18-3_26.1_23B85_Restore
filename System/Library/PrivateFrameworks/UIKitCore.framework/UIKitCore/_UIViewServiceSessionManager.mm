@@ -612,9 +612,9 @@ LABEL_8:
   connectionCopy = connection;
   contextCopy = context;
   service = [connectionCopy service];
-  v13 = [service isEqualToString:8316790000];
+  isEqualToString = objc_msgSend_isEqualToString_(service);
 
-  if (!v13)
+  if (!isEqualToString)
   {
     v24 = *(__UILogGetCategoryCachedImpl("ViewServiceSessionManager", &qword_1ED4A2960) + 8);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))

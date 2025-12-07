@@ -818,7 +818,7 @@ void __38__WFProxyConfigViewController_urlCell__block_invoke(uint64_t a1, void *
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v63[1] = *MEMORY[0x277D85DE8];
+  v62[1] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
   [viewCopy deselectRowAtIndexPath:pathCopy animated:1];
@@ -869,24 +869,24 @@ void __38__WFProxyConfigViewController_urlCell__block_invoke(uint64_t a1, void *
         {
           [viewCopy beginUpdates];
           v42 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-          v58 = v42;
-          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+          v57 = v42;
+          v43 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
           [viewCopy reloadRowsAtIndexPaths:v43 withRowAnimation:0];
 
           v44 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
-          v57[0] = v44;
+          v56[0] = v44;
           v45 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
-          v57[1] = v45;
-          v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:2];
+          v56[1] = v45;
+          v46 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
           [viewCopy deleteRowsAtIndexPaths:v46 withRowAnimation:0];
 
           if (httpProxyAuthenticationRequired)
           {
             v47 = [MEMORY[0x277CCAA70] indexPathForRow:3 inSection:1];
-            v56[0] = v47;
+            v55[0] = v47;
             v48 = [MEMORY[0x277CCAA70] indexPathForRow:4 inSection:1];
-            v56[1] = v48;
-            v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:2];
+            v55[1] = v48;
+            v49 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:2];
             [viewCopy deleteRowsAtIndexPaths:v49 withRowAnimation:0];
           }
 
@@ -903,8 +903,8 @@ void __38__WFProxyConfigViewController_urlCell__block_invoke(uint64_t a1, void *
       [viewCopy insertSections:v53 withRowAnimation:0];
 
       v25 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-      v55 = v25;
-      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+      v54 = v25;
+      v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
       [viewCopy insertRowsAtIndexPaths:v26 withRowAnimation:0];
       goto LABEL_28;
     }
@@ -932,15 +932,15 @@ void __38__WFProxyConfigViewController_urlCell__block_invoke(uint64_t a1, void *
         }
 
         v33 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-        v61 = v33;
-        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+        v60 = v33;
+        v34 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
         [viewCopy reloadRowsAtIndexPaths:v34 withRowAnimation:0];
 
         v25 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
-        v60[0] = v25;
+        v59[0] = v25;
         v26 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
-        v60[1] = v26;
-        v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v60 count:2];
+        v59[1] = v26;
+        v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:2];
         [viewCopy insertRowsAtIndexPaths:v35 withRowAnimation:0];
 LABEL_27:
 
@@ -951,12 +951,12 @@ LABEL_27:
       [viewCopy insertSections:v51 withRowAnimation:0];
 
       v25 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-      v59[0] = v25;
+      v58[0] = v25;
       v26 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
-      v59[1] = v26;
+      v58[1] = v26;
       v35 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
-      v59[2] = v35;
-      v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:3];
+      v58[2] = v35;
+      v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:3];
       [viewCopy insertRowsAtIndexPaths:v52 withRowAnimation:0];
     }
 
@@ -990,8 +990,8 @@ LABEL_30:
         if (httpProxyConfig2 == 2)
         {
           v25 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-          v63[0] = v25;
-          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:1];
+          v62[0] = v25;
+          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:1];
           [viewCopy deleteRowsAtIndexPaths:v26 withRowAnimation:0];
 LABEL_28:
         }
@@ -1002,12 +1002,12 @@ LABEL_29:
       }
 
       v25 = [MEMORY[0x277CCAA70] indexPathForRow:0 inSection:1];
-      v62[0] = v25;
+      v61[0] = v25;
       v26 = [MEMORY[0x277CCAA70] indexPathForRow:1 inSection:1];
-      v62[1] = v26;
+      v61[1] = v26;
       v35 = [MEMORY[0x277CCAA70] indexPathForRow:2 inSection:1];
-      v62[2] = v35;
-      v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:3];
+      v61[2] = v35;
+      v52 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:3];
       [viewCopy deleteRowsAtIndexPaths:v52 withRowAnimation:0];
     }
 
@@ -1023,7 +1023,6 @@ LABEL_29:
   }
 
 LABEL_31:
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (id)tableView:(id)view titleForFooterInSection:(int64_t)section
@@ -1044,7 +1043,7 @@ LABEL_31:
 
 - (void)_changeProxyAuthentication:(id)authentication
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   isOn = [authentication isOn];
   modifiedConfig = [(WFProxyConfigViewController *)self modifiedConfig];
   v6 = modifiedConfig;
@@ -1054,10 +1053,10 @@ LABEL_31:
 
     tableView = [(WFProxyConfigViewController *)self tableView];
     v8 = [MEMORY[0x277CCAA70] indexPathForRow:3 inSection:1];
-    v15[0] = v8;
+    v14[0] = v8;
     v9 = [MEMORY[0x277CCAA70] indexPathForRow:4 inSection:1];
-    v15[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     [tableView insertRowsAtIndexPaths:v10 withRowAnimation:0];
   }
 
@@ -1067,10 +1066,10 @@ LABEL_31:
 
     tableView = [(WFProxyConfigViewController *)self tableView];
     v8 = [MEMORY[0x277CCAA70] indexPathForRow:3 inSection:1];
-    v14[0] = v8;
+    v13[0] = v8;
     v9 = [MEMORY[0x277CCAA70] indexPathForRow:4 inSection:1];
-    v14[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     [tableView deleteRowsAtIndexPaths:v10 withRowAnimation:0];
   }
 
@@ -1078,8 +1077,6 @@ LABEL_31:
   tableView2 = [(WFProxyConfigViewController *)self tableView];
   v12 = [MEMORY[0x277CCAA78] indexSetWithIndex:1];
   [tableView2 reloadSections:v12 withRowAnimation:5];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_configCellLeadingInset

@@ -1,4 +1,5 @@
 @interface MUGroupedActionsRowView
++ (id)presentationOptionsForSourceView:(id)view isForActionBar:(BOOL)bar;
 - (BOOL)hasContent;
 - (MUGroupedActionsRowView)initWithConfiguration:(id)configuration;
 - (MUPlaceCardActionsRowViewDelegate)delegate;
@@ -9,6 +10,8 @@
 - (int64_t)preferredOrientation;
 - (void)_setupStackLayout;
 - (void)_updateLayoutIfNeeded;
+- (void)actionRowItemPresentedMenu:(id)menu isForActionBar:(BOOL)bar actionBarMoreMenu:(BOOL)moreMenu;
+- (void)actionRowItemSelected:(id)selected isForActionBar:(BOOL)bar actionBarMoreMenu:(BOOL)menu;
 - (void)actionRowItemViewModelDidSelect:(id)select;
 - (void)actionRowItemViewModelDidUpdate:(id)update;
 - (void)createActionViews;
@@ -54,33 +57,33 @@
 
 id __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v51 = *MEMORY[0x1E69E9840];
-  v30 = a2;
-  v29 = a3;
-  v31 = a1;
+  v50 = *MEMORY[0x1E69E9840];
+  v29 = a2;
+  v28 = a3;
+  v30 = a1;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v32 = [MEMORY[0x1E695DF70] array];
-    v47 = 0u;
-    v48 = 0u;
+    v31 = [MEMORY[0x1E695DF70] array];
     v46 = 0u;
+    v47 = 0u;
     v45 = 0u;
+    v44 = 0u;
     obj = WeakRetained[52];
-    v5 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v5 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
     if (v5)
     {
-      v34 = *v46;
+      v33 = *v45;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v46 != v34)
+          if (*v45 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v45 + 1) + 8 * i);
+          v7 = *(*(&v44 + 1) + 8 * i);
           v8 = [WeakRetained viewModelForItemView:v7];
           if (([v8 isHidden] & 1) == 0)
           {
@@ -96,29 +99,29 @@ id __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke(uint64_t a1, v
             {
               objc_initWeak(&location, v7);
               v11 = MEMORY[0x1E69DC928];
-              v39[0] = MEMORY[0x1E69E9820];
-              v39[1] = 3221225472;
-              v39[2] = __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke_2;
-              v39[3] = &unk_1E8218D70;
-              objc_copyWeak(&v42, &location);
-              objc_copyWeak(&v43, (v31 + 32));
-              v40 = v30;
-              v41 = v29;
-              v12 = [v11 elementWithUncachedProvider:v39];
+              v38[0] = MEMORY[0x1E69E9820];
+              v38[1] = 3221225472;
+              v38[2] = __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke_2;
+              v38[3] = &unk_1E8218D70;
+              objc_copyWeak(&v41, &location);
+              objc_copyWeak(&v42, (v30 + 32));
+              v39 = v29;
+              v40 = v28;
+              v12 = [v11 elementWithUncachedProvider:v38];
               v13 = MEMORY[0x1E69DCC60];
               v14 = [v8 titleText];
               v15 = [MEMORY[0x1E69DCAB8] _mapsui_systemImageNamed:v9];
-              v49 = v12;
-              v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+              v48 = v12;
+              v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
               v17 = [v13 menuWithTitle:v14 image:v15 identifier:0 options:0 children:v16];
 
               v18 = [v8 accessibilityIdentifier];
               v19 = [v18 stringByAppendingString:@"MenuAction"];
               [v17 setAccessibilityIdentifier:v19];
 
-              [v32 addObject:v17];
-              objc_destroyWeak(&v43);
+              [v31 addObject:v17];
               objc_destroyWeak(&v42);
+              objc_destroyWeak(&v41);
               objc_destroyWeak(&location);
             }
 
@@ -128,13 +131,13 @@ id __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke(uint64_t a1, v
               v20 = MEMORY[0x1E69DC628];
               v21 = [v8 titleText];
               v22 = [MEMORY[0x1E69DCAB8] _mapsui_systemImageNamed:v9];
-              v36[0] = MEMORY[0x1E69E9820];
-              v36[1] = 3221225472;
-              v36[2] = __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke_3;
-              v36[3] = &unk_1E8218D98;
-              objc_copyWeak(&v37, &location);
-              objc_copyWeak(&v38, (v31 + 32));
-              v23 = [v20 actionWithTitle:v21 image:v22 identifier:0 handler:v36];
+              v35[0] = MEMORY[0x1E69E9820];
+              v35[1] = 3221225472;
+              v35[2] = __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke_3;
+              v35[3] = &unk_1E8218D98;
+              objc_copyWeak(&v36, &location);
+              objc_copyWeak(&v37, (v30 + 32));
+              v23 = [v20 actionWithTitle:v21 image:v22 identifier:0 handler:v35];
 
               if (([v8 isEnabled] & 1) == 0)
               {
@@ -145,21 +148,21 @@ id __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke(uint64_t a1, v
               v25 = [v24 stringByAppendingString:@"MenuAction"];
               [v23 setAccessibilityIdentifier:v25];
 
-              [v32 addObject:v23];
-              objc_destroyWeak(&v38);
+              [v31 addObject:v23];
               objc_destroyWeak(&v37);
+              objc_destroyWeak(&v36);
               objc_destroyWeak(&location);
             }
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v5 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
       while (v5);
     }
 
-    v26 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F44CA030 image:0 identifier:0 options:1 children:v32];
+    v26 = [MEMORY[0x1E69DCC60] menuWithTitle:&stru_1F44CA030 image:0 identifier:0 options:1 children:v31];
   }
 
   else
@@ -167,14 +170,12 @@ id __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke(uint64_t a1, v
     v26 = 0;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
-
   return v26;
 }
 
 void __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke_2(uint64_t a1, void *a2)
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -186,13 +187,11 @@ void __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke_2(uint64_t a
       v7 = v6[2](v6, *(a1 + 32), *(a1 + 40));
 
       [v5 actionRowItemPresentedMenu:WeakRetained isForActionBar:1 actionBarMoreMenu:1];
-      v10[0] = v7;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+      v9[0] = v7;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
       v3[2](v3, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke_3(uint64_t a1)
@@ -214,33 +213,33 @@ void __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke_3(uint64_t a
 
 - (BOOL)hasContent
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = self->_viewModels;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
-    v4 = *v9;
+    v4 = *v8;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        if (![*(*(&v8 + 1) + 8 * i) isHidden])
+        if (![*(*(&v7 + 1) + 8 * i) isHidden])
         {
           LOBYTE(v3) = 1;
           goto LABEL_11;
         }
       }
 
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
       if (v3)
       {
         continue;
@@ -252,8 +251,51 @@ void __45__MUGroupedActionsRowView_menuActionBarItems__block_invoke_3(uint64_t a
 
 LABEL_11:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
+}
+
+- (void)actionRowItemPresentedMenu:(id)menu isForActionBar:(BOOL)bar actionBarMoreMenu:(BOOL)moreMenu
+{
+  moreMenuCopy = moreMenu;
+  barCopy = bar;
+  menuCopy = menu;
+  delegate = [(MUGroupedActionsRowView *)self delegate];
+  v9 = objc_opt_respondsToSelector();
+
+  if (v9)
+  {
+    v10 = [(MUGroupedActionsRowView *)self viewModelForItemView:menuCopy];
+    if (v10)
+    {
+      v11 = objc_alloc_init(MUPresentationOptions);
+      [(MUPresentationOptions *)v11 setIsForActionBar:barCopy];
+      [(MUPresentationOptions *)v11 setIsForActionBarMoreMenu:moreMenuCopy];
+      delegate2 = [(MUGroupedActionsRowView *)self delegate];
+      [delegate2 actionsRowView:self didPresentMenuForViewModel:v10 presentationOptions:v11];
+    }
+  }
+
+  MEMORY[0x1EEE66BE0]();
+}
+
+- (void)actionRowItemSelected:(id)selected isForActionBar:(BOOL)bar actionBarMoreMenu:(BOOL)menu
+{
+  menuCopy = menu;
+  barCopy = bar;
+  selectedCopy = selected;
+  v11 = objc_alloc_init(MUPresentationOptions);
+  [(MUPresentationOptions *)v11 setSourceView:selectedCopy];
+  [selectedCopy frame];
+  [(MUPresentationOptions *)v11 setSourceRect:?];
+  [(MUPresentationOptions *)v11 setIsForActionBar:barCopy];
+  [(MUPresentationOptions *)v11 setIsForActionBarMoreMenu:menuCopy];
+  v9 = [(MUGroupedActionsRowView *)self viewModelForItemView:selectedCopy];
+
+  if (v9)
+  {
+    delegate = [(MUGroupedActionsRowView *)self delegate];
+    [delegate actionsRowView:self didSelectViewModel:v9 presentationOptions:v11];
+  }
 }
 
 - (void)didMoveToWindow
@@ -266,7 +308,7 @@ LABEL_11:
 
 - (void)_updateLayoutIfNeeded
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   style = [(MUGroupedActionsRowViewConfiguration *)self->_configuration style];
   if (style == 1)
   {
@@ -303,26 +345,26 @@ LABEL_6:
   self->_featureDiscoveryView = 0;
 
   array = [MEMORY[0x1E695DF70] array];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v8 = self->_actionButtons;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v45;
+    v11 = *v44;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v45 != v11)
+        if (*v44 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v44 + 1) + 8 * i);
+        v13 = *(*(&v43 + 1) + 8 * i);
         v14 = [(MUGroupedActionsRowView *)self viewModelForItemView:v13];
         if ([v14 isHidden])
         {
@@ -356,7 +398,7 @@ LABEL_6:
         [v13 setCornerStyle:v6];
       }
 
-      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v10 = [(NSArray *)v8 countByEnumeratingWithState:&v43 objects:v51 count:16];
     }
 
     while (v10);
@@ -373,9 +415,9 @@ LABEL_6:
     layoutMarginsGuide2 = [[MUCompositionalStackLayoutGroup alloc] initWithIdentifier:@"content" axis:1];
     [(MUCompositionalStackLayoutGroup *)layoutMarginsGuide2 setSpacing:20.0];
     v22 = self->_featureDiscoveryView;
-    v50[0] = self->_buttonLayoutGroup;
-    v50[1] = v22;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
+    v49[0] = self->_buttonLayoutGroup;
+    v49[1] = v22;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
     [(MUCompositionalStackLayoutGroup *)layoutMarginsGuide2 setArrangedLayoutItems:v23];
 
     v24 = [MUCompositionalStackLayout alloc];
@@ -395,40 +437,38 @@ LABEL_6:
   }
 
   v30 = MEMORY[0x1E696ACD8];
-  v49 = self->_containerStackLayout;
-  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v49 count:1];
+  v48 = self->_containerStackLayout;
+  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
   [v30 _mapsui_activateLayouts:v31];
 
   axis = [(MUCompositionalStackLayoutGroup *)self->_buttonLayoutGroup axis];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v33 = self->_actionButtons;
-  v34 = [(NSArray *)v33 countByEnumeratingWithState:&v40 objects:v48 count:16];
+  v34 = [(NSArray *)v33 countByEnumeratingWithState:&v39 objects:v47 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v41;
+    v36 = *v40;
     do
     {
       for (j = 0; j != v35; ++j)
       {
-        if (*v41 != v36)
+        if (*v40 != v36)
         {
           objc_enumerationMutation(v33);
         }
 
-        [*(*(&v40 + 1) + 8 * j) setFullWidthMode:axis == 1];
+        [*(*(&v39 + 1) + 8 * j) setFullWidthMode:axis == 1];
       }
 
-      v35 = [(NSArray *)v33 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      v35 = [(NSArray *)v33 countByEnumeratingWithState:&v39 objects:v47 count:16];
     }
 
     while (v35);
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (id)viewModelForItemView:(id)view
@@ -593,7 +633,7 @@ id __59__MUGroupedActionsRowView_actionRowItemViewModelDidUpdate___block_invoke(
 
 - (void)createActionViews
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [(NSArray *)self->_actionButtons makeObjectsPerformSelector:sel_removeFromSuperview];
   array = [MEMORY[0x1E695DF70] array];
   if ([(NSArray *)self->_viewModels count])
@@ -621,38 +661,37 @@ id __59__MUGroupedActionsRowView_actionRowItemViewModelDidUpdate___block_invoke(
   }
 
   objc_storeStrong(&self->_actionButtons, array);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v9 = self->_viewModels;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v16;
+    v12 = *v15;
     do
     {
       v13 = 0;
       do
       {
-        if (*v16 != v12)
+        if (*v15 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [(MUGroupedActionsRowView *)self actionRowItemViewModelDidUpdate:*(*(&v15 + 1) + 8 * v13++), v15];
+        [(MUGroupedActionsRowView *)self actionRowItemViewModelDidUpdate:*(*(&v14 + 1) + 8 * v13++), v14];
       }
 
       while (v11 != v13);
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v11);
   }
 
   [(MUGroupedActionsRowView *)self _updateLayoutIfNeeded];
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)actionButtons
@@ -664,35 +703,35 @@ id __59__MUGroupedActionsRowView_actionRowItemViewModelDidUpdate___block_invoke(
 
 - (void)setViewModels:(id)models
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   modelsCopy = models;
   if (([(NSArray *)self->_viewModels isEqual:modelsCopy]& 1) == 0)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v5 = self->_viewModels;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v24;
+      v8 = *v23;
       do
       {
         v9 = 0;
         do
         {
-          if (*v24 != v8)
+          if (*v23 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v23 + 1) + 8 * v9++) removeObserver:self];
+          [*(*(&v22 + 1) + 8 * v9++) removeObserver:self];
         }
 
         while (v7 != v9);
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v7);
@@ -702,31 +741,31 @@ id __59__MUGroupedActionsRowView_actionRowItemViewModelDidUpdate___block_invoke(
     viewModels = self->_viewModels;
     self->_viewModels = v10;
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v12 = self->_viewModels;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         v16 = 0;
         do
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [*(*(&v19 + 1) + 8 * v16++) addObserver:{self, v19}];
+          [*(*(&v18 + 1) + 8 * v16++) addObserver:{self, v18}];
         }
 
         while (v14 != v16);
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
       }
 
       while (v14);
@@ -736,13 +775,11 @@ id __59__MUGroupedActionsRowView_actionRowItemViewModelDidUpdate___block_invoke(
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter postNotificationName:@"MUPlaceActionBarDataSourceDidUpdateNotification" object:self];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupStackLayout
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = [[MUCompositionalStackLayoutGroup alloc] initWithIdentifier:@"buttons" axis:[(MUGroupedActionsRowView *)self preferredOrientation]];
   buttonLayoutGroup = self->_buttonLayoutGroup;
   self->_buttonLayoutGroup = v3;
@@ -757,17 +794,15 @@ id __59__MUGroupedActionsRowView_actionRowItemViewModelDidUpdate___block_invoke(
   self->_containerStackLayout = v8;
 
   v10 = MEMORY[0x1E696ACD8];
-  v17[0] = self->_containerStackLayout;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+  v16[0] = self->_containerStackLayout;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
   [v10 _mapsui_activateLayouts:v11];
 
   [(MUGroupedActionsRowView *)self _updateLayoutIfNeeded];
   v12 = objc_opt_self();
-  v16 = v12;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+  v15 = v12;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
   v14 = [(MUGroupedActionsRowView *)self registerForTraitChanges:v13 withAction:sel__updateLayoutIfNeeded];
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (MUGroupedActionsRowView)initWithConfiguration:(id)configuration
@@ -784,6 +819,20 @@ id __59__MUGroupedActionsRowView_actionRowItemViewModelDidUpdate___block_invoke(
   }
 
   return v7;
+}
+
++ (id)presentationOptionsForSourceView:(id)view isForActionBar:(BOOL)bar
+{
+  barCopy = bar;
+  viewCopy = view;
+  v6 = objc_alloc_init(MUPresentationOptions);
+  [(MUPresentationOptions *)v6 setSourceView:viewCopy];
+  contextMenuInteraction = [viewCopy contextMenuInteraction];
+
+  [(MUPresentationOptions *)v6 setContextMenuInteraction:contextMenuInteraction];
+  [(MUPresentationOptions *)v6 setIsForActionBar:barCopy];
+
+  return v6;
 }
 
 @end

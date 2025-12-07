@@ -98,40 +98,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_bundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    requestType = self->_requestType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    isTest = self->_isTest;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_baseUrl)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    expirationDate = self->_expirationDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -224,7 +221,6 @@
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 40);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_requestType != *(equalCopy + 8))
@@ -245,7 +241,6 @@
       goto LABEL_19;
     }
 
-    v11 = *(equalCopy + 36);
     if (self->_isTest)
     {
       if ((*(equalCopy + 36) & 1) == 0)
@@ -274,13 +269,13 @@
   if (![(NSString *)baseUrl isEqual:?])
   {
 LABEL_19:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_20;
   }
 
   has = self->_has;
 LABEL_14:
-  v9 = (*(equalCopy + 40) & 1) == 0;
+  v8 = (*(equalCopy + 40) & 1) == 0;
   if (has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_expirationDate != *(equalCopy + 1))
@@ -288,12 +283,12 @@ LABEL_14:
       goto LABEL_19;
     }
 
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_20:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

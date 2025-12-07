@@ -3,10 +3,6 @@
 - (CGPoint)motionVectorScale;
 - (CGPoint)previousJitterOffset;
 - (_MFXTemporalScalingEffectDebug)initWithDevice:(id)device descriptor:(id)descriptor mode:(unint64_t)mode enableJitterViz:(BOOL)viz;
-- (__n128)currentViewToClipMatrix;
-- (__n128)currentWorldToViewMatrix;
-- (__n128)previousViewToClipMatrix;
-- (__n128)previousWorldToViewMatrix;
 - (__n128)setCurrentViewToClipMatrix:(__n128)matrix;
 - (__n128)setCurrentWorldToViewMatrix:(__n128)matrix;
 - (__n128)setPreviousViewToClipMatrix:(__n128)matrix;
@@ -275,30 +271,12 @@
   return result;
 }
 
-- (__n128)currentWorldToViewMatrix
-{
-  result = *(self + 368);
-  v2 = *(self + 384);
-  v3 = *(self + 400);
-  v4 = *(self + 416);
-  return result;
-}
-
 - (__n128)setCurrentWorldToViewMatrix:(__n128)matrix
 {
   result[23] = a2;
   result[24] = matrix;
   result[25] = a4;
   result[26] = a5;
-  return result;
-}
-
-- (__n128)currentViewToClipMatrix
-{
-  result = *(self + 432);
-  v2 = *(self + 448);
-  v3 = *(self + 464);
-  v4 = *(self + 480);
   return result;
 }
 
@@ -311,30 +289,12 @@
   return result;
 }
 
-- (__n128)previousWorldToViewMatrix
-{
-  result = *(self + 496);
-  v2 = *(self + 512);
-  v3 = *(self + 528);
-  v4 = *(self + 544);
-  return result;
-}
-
 - (__n128)setPreviousWorldToViewMatrix:(__n128)matrix
 {
   result[31] = a2;
   result[32] = matrix;
   result[33] = a4;
   result[34] = a5;
-  return result;
-}
-
-- (__n128)previousViewToClipMatrix
-{
-  result = *(self + 560);
-  v2 = *(self + 576);
-  v3 = *(self + 592);
-  v4 = *(self + 608);
   return result;
 }
 

@@ -8,8 +8,8 @@
 
 - (void)fetchContinuityDevicesWithCompletionHandler:(id)handler
 {
-  v5 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE80690, &qword_247F3B018) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE80690, &qword_247F3B018);
+  MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();
@@ -33,8 +33,8 @@
 
 - (void)unpairDeviceWith:(NSUUID *)with completionHandler:(id)handler
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE80690, &qword_247F3B018) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE80690, &qword_247F3B018);
+  MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();

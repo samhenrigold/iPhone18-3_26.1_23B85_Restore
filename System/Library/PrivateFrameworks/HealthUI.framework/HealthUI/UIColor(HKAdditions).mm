@@ -637,9 +637,9 @@ LABEL_15:
 + (id)hk_electrocardiogramCardOnboardingBackgroundColor
 {
   hk_electrocardiogramCardOnboardingHeaderColor = [objc_opt_class() hk_electrocardiogramCardOnboardingHeaderColor];
-  v1 = [hk_electrocardiogramCardOnboardingHeaderColor colorWithAlphaComponent:0.5];
+  v2 = [hk_electrocardiogramCardOnboardingHeaderColor colorWithAlphaComponent:0.5];
 
-  return v1;
+  return v2;
 }
 
 + (id)hk_electrocardiogramChartMediumGridlineColor
@@ -1034,9 +1034,9 @@ LABEL_15:
     +[UIColor(HKAdditions) _accessibilityColorView];
   }
 
-  v1 = _accessibilityColorView_accessibilityColorView;
+  v2 = _accessibilityColorView_accessibilityColorView;
 
-  return v1;
+  return v2;
 }
 
 + (id)_accessibilityHigherContrastTintColorForColorIfNeeded:()HKAdditions

@@ -53,12 +53,12 @@
 
 - (void)layoutSubviews
 {
-  v5.receiver = self;
-  v5.super_class = swift_getObjectType();
-  v2 = v5.receiver;
-  [(ShelfFooterTitleButton *)&v5 layoutSubviews];
+  v6.receiver = self;
+  v6.super_class = swift_getObjectType();
+  v2 = v6.receiver;
+  [(ShelfFooterTitleButton *)&v6 layoutSubviews];
   sub_1006949AC(v4);
-  sub_10000C888(v4, v4[3]);
+  sub_10000C888(v4, v5);
   sub_1007477B4();
   traitCollection = [v2 traitCollection];
   sub_100751244();

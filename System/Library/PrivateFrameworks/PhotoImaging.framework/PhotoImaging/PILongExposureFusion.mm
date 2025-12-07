@@ -20,7 +20,7 @@
   guideImageCopy = guideImage;
   imageCopy = image;
   v13 = +[PIAutoLoopKernels blur7x7Kernel];
-  [guideImageCopy extent];
+  objc_msgSend_extent(guideImageCopy);
   v15 = v14;
   v17 = v16;
   v19 = v18;
@@ -32,7 +32,7 @@
 
   v25 = [MEMORY[0x1E695F688] vectorWithX:*&kBlendMaskThreshold0 Y:*&kBlendMaskThreshold1];
   v26 = +[PIAutoLoopKernels fusionKernel];
-  [guideImageCopy extent];
+  objc_msgSend_extent(guideImageCopy);
   v28 = v27;
   v30 = v29;
   v32 = v31;
@@ -60,7 +60,7 @@
   v10 = [v7 vectorWithX:v6 * 15.0 Y:v6 * 15.0];
   v11 = v6;
   v12 = [MEMORY[0x1E695F688] vectorWithX:(-0.5 / ((v11 * 7.0) * (v11 * 7.0))) Y:-0.00499999989 Z:-49.9999962];
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   NUScaleRect();
   v14 = v13;
   v16 = v15;
@@ -102,7 +102,7 @@
   v6 = fmin(1.0 / (scale * 8.0), 1.0);
   toImageCopy = toImage;
   imageCopy = image;
-  [imageCopy extent];
+  objc_msgSend_extent(imageCopy);
   NUScaleRect();
   v10 = v9;
   v12 = v11;
@@ -413,15 +413,15 @@ void __52__PILongExposureFusion_alignImage_transform_extent___block_invoke(CGFlo
               [inputImage writeToTIFF:@"long-exp-input-image.tiff"];
               [inputMaskImage writeToTIFF:@"long-exp-mask-image.tiff"];
               [v59 writeToTIFF:@"long-exp-still-image.tiff"];
-              [v36 extent];
+              objc_msgSend_extent(v36);
               v38 = [v60 imageByCroppingToRect:?];
               [v38 writeToTIFF:@"long-exp-guide-image.tiff"];
 
-              [v36 extent];
+              objc_msgSend_extent(v36);
               v39 = [v61 imageByCroppingToRect:?];
               [v39 writeToTIFF:@"long-exp-ncc-map-image.tiff"];
 
-              [inputMaskImage extent];
+              objc_msgSend_extent(inputMaskImage);
               v35 = v52;
               v40 = [v52 imageByCroppingToRect:?];
               [v40 writeToTIFF:@"long-exp-refined-mask-image.tiff"];
@@ -551,7 +551,7 @@ LABEL_65:
   return debugDumpIntermediateImages_s_debugDumpIntermediateImages;
 }
 
-uint64_t __51__PILongExposureFusion_debugDumpIntermediateImages__block_invoke(uint64_t a1)
+void *__51__PILongExposureFusion_debugDumpIntermediateImages__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _debugDumpIntermediateImages];
   debugDumpIntermediateImages_s_debugDumpIntermediateImages = result;

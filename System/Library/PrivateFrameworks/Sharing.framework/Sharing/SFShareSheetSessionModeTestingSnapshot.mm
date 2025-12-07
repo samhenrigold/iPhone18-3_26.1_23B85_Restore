@@ -150,7 +150,7 @@ void __142__SFShareSheetSessionModeTestingSnapshot_updateWithDiscoveredShareActi
 
 - (void)updateFromSnapshot:(id)snapshot
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   snapshotCopy = snapshot;
   placeholderItemDescriptions = [(SFShareSheetSessionModeTestingSnapshot *)self placeholderItemDescriptions];
 
@@ -242,28 +242,28 @@ LABEL_33:
       finalItemsByActivity5 = [(SFShareSheetSessionModeTestingSnapshot *)self finalItemsByActivity];
       v19 = [finalItemsByActivity5 mutableCopy];
 
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
       finalItemsByActivity6 = [snapshotCopy finalItemsByActivity];
       allKeys = [finalItemsByActivity6 allKeys];
 
-      v29 = [allKeys countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v29 = [allKeys countByEnumeratingWithState:&v38 objects:v42 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v40;
+        v31 = *v39;
         do
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v40 != v31)
+            if (*v39 != v31)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v33 = *(*(&v39 + 1) + 8 * i);
+            v33 = *(*(&v38 + 1) + 8 * i);
             finalItemsByActivity7 = [(SFShareSheetSessionModeTestingSnapshot *)self finalItemsByActivity];
             v35 = [finalItemsByActivity7 objectForKeyedSubscript:v33];
 
@@ -275,7 +275,7 @@ LABEL_33:
             }
           }
 
-          v30 = [allKeys countByEnumeratingWithState:&v39 objects:v43 count:16];
+          v30 = [allKeys countByEnumeratingWithState:&v38 objects:v42 count:16];
         }
 
         while (v30);
@@ -289,8 +289,6 @@ LABEL_33:
   }
 
 LABEL_34:
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (SFShareSheetSessionModeTestingSnapshot)initWithJSONInfo:(id)info
@@ -364,74 +362,74 @@ LABEL_34:
 
 - (SFShareSheetSessionModeTestingSnapshot)initWithCoder:(id)coder
 {
-  v51[3] = *MEMORY[0x1E69E9840];
+  v50[3] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v44.receiver = self;
-  v44.super_class = SFShareSheetSessionModeTestingSnapshot;
-  v5 = [(SFShareSheetSessionModeTestingSnapshot *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = SFShareSheetSessionModeTestingSnapshot;
+  v5 = [(SFShareSheetSessionModeTestingSnapshot *)&v43 init];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v51[0] = objc_opt_class();
-    v51[1] = objc_opt_class();
-    v51[2] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:3];
+    v50[0] = objc_opt_class();
+    v50[1] = objc_opt_class();
+    v50[2] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:3];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"placeholderItemDescriptions"];
     placeholderItemDescriptions = v5->_placeholderItemDescriptions;
     v5->_placeholderItemDescriptions = v9;
 
     v11 = MEMORY[0x1E695DFD8];
-    v50[0] = objc_opt_class();
-    v50[1] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
+    v49[0] = objc_opt_class();
+    v49[1] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"peopleSuggestionActivityTypes"];
     peopleSuggestionActivityTypes = v5->_peopleSuggestionActivityTypes;
     v5->_peopleSuggestionActivityTypes = v14;
 
     v16 = MEMORY[0x1E695DFD8];
-    v49[0] = objc_opt_class();
-    v49[1] = objc_opt_class();
-    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
+    v48[0] = objc_opt_class();
+    v48[1] = objc_opt_class();
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
     v18 = [v16 setWithArray:v17];
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"shareActivities"];
     shareActivities = v5->_shareActivities;
     v5->_shareActivities = v19;
 
     v21 = MEMORY[0x1E695DFD8];
-    v48[0] = objc_opt_class();
-    v48[1] = objc_opt_class();
-    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v48 count:2];
+    v47[0] = objc_opt_class();
+    v47[1] = objc_opt_class();
+    v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
     v23 = [v21 setWithArray:v22];
     v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"visibleShareActivities"];
     visibleShareActivities = v5->_visibleShareActivities;
     v5->_visibleShareActivities = v24;
 
     v26 = MEMORY[0x1E695DFD8];
-    v47[0] = objc_opt_class();
-    v47[1] = objc_opt_class();
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
+    v46[0] = objc_opt_class();
+    v46[1] = objc_opt_class();
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
     v28 = [v26 setWithArray:v27];
     v29 = [coderCopy decodeObjectOfClasses:v28 forKey:@"actionActivities"];
     actionActivities = v5->_actionActivities;
     v5->_actionActivities = v29;
 
     v31 = MEMORY[0x1E695DFD8];
-    v46[0] = objc_opt_class();
-    v46[1] = objc_opt_class();
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+    v45[0] = objc_opt_class();
+    v45[1] = objc_opt_class();
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
     v33 = [v31 setWithArray:v32];
     v34 = [coderCopy decodeObjectOfClasses:v33 forKey:@"visibleActionActivities"];
     visibleActionActivities = v5->_visibleActionActivities;
     v5->_visibleActionActivities = v34;
 
     v36 = MEMORY[0x1E695DFD8];
-    v45[0] = objc_opt_class();
-    v45[1] = objc_opt_class();
-    v45[2] = objc_opt_class();
-    v45[3] = objc_opt_class();
-    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:4];
+    v44[0] = objc_opt_class();
+    v44[1] = objc_opt_class();
+    v44[2] = objc_opt_class();
+    v44[3] = objc_opt_class();
+    v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:4];
     v38 = [v36 setWithArray:v37];
     v39 = [coderCopy decodeObjectOfClasses:v38 forKey:@"finalItemsByActivity"];
     finalItemsByActivity = v5->_finalItemsByActivity;
@@ -440,7 +438,6 @@ LABEL_34:
     v41 = v5;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

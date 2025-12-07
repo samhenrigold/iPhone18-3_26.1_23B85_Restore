@@ -31,7 +31,7 @@
 {
   if (self->_timer)
   {
-    v4 = __atxlog_handle_modes();
+    v4 = __atxlog_handle_modes(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       [(ATXModeScheduler *)self runAfterDelaySecondsIfNotYetScheduled:v4];
@@ -47,30 +47,30 @@
     dispatch_source_set_timer(self->_timer, [MEMORY[0x277D425A0] dispatchTimeWithSecondsFromNow:scheduled], 0xFFFFFFFFFFFFFFFFLL, (self->_leewaySeconds * 1000000000.0));
     objc_initWeak(&location, self);
     v8 = self->_timer;
-    v14 = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __58__ATXModeScheduler_runAfterDelaySecondsIfNotYetScheduled___block_invoke;
-    v17 = &unk_279AB7B90;
-    objc_copyWeak(&v18, &location);
-    dispatch_source_set_event_handler(v8, &v14);
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __58__ATXModeScheduler_runAfterDelaySecondsIfNotYetScheduled___block_invoke;
+    v18 = &unk_279AB7B90;
+    objc_copyWeak(&v19, &location);
+    dispatch_source_set_event_handler(v8, &v15);
     dispatch_resume(self->_timer);
-    v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:{scheduled, v14, v15, v16, v17}];
+    v9 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:{scheduled, v15, v16, v17, v18}];
     scheduledDate = self->_scheduledDate;
     self->_scheduledDate = v9;
 
-    v11 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = __atxlog_handle_modes(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [(ATXModeScheduler *)v11 runAfterDelaySecondsIfNotYetScheduled:scheduled];
+      [(ATXModeScheduler *)v12 runAfterDelaySecondsIfNotYetScheduled:scheduled];
     }
 
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 
-  v12 = self->_scheduledDate;
+  v13 = self->_scheduledDate;
 
-  return v12;
+  return v13;
 }
 
 void __58__ATXModeScheduler_runAfterDelaySecondsIfNotYetScheduled___block_invoke(uint64_t a1)
@@ -101,25 +101,23 @@ void __58__ATXModeScheduler_runAfterDelaySecondsIfNotYetScheduled___block_invoke
 
 - (void)runAfterDelaySecondsIfNotYetScheduled:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
-  v4 = 136315394;
-  v5 = "[ATXModeScheduler runAfterDelaySecondsIfNotYetScheduled:]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_debug_impl(&dword_260C9F000, a2, OS_LOG_TYPE_DEBUG, "%s: an operation has already been scheduled at %@. Skip this request.", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[ATXModeScheduler runAfterDelaySecondsIfNotYetScheduled:]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_debug_impl(&dword_260C9F000, a2, OS_LOG_TYPE_DEBUG, "%s: an operation has already been scheduled at %@. Skip this request.", &v3, 0x16u);
 }
 
 - (void)runAfterDelaySecondsIfNotYetScheduled:(os_log_t)log .cold.2(os_log_t log, double a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[ATXModeScheduler runAfterDelaySecondsIfNotYetScheduled:]";
-  v5 = 2048;
-  v6 = a2;
-  _os_log_debug_impl(&dword_260C9F000, log, OS_LOG_TYPE_DEBUG, "%s: schedule an operation with %.2lf seconds delay", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[ATXModeScheduler runAfterDelaySecondsIfNotYetScheduled:]";
+  v4 = 2048;
+  v5 = a2;
+  _os_log_debug_impl(&dword_260C9F000, log, OS_LOG_TYPE_DEBUG, "%s: schedule an operation with %.2lf seconds delay", &v2, 0x16u);
 }
 
 @end

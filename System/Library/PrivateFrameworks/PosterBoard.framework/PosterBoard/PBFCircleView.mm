@@ -27,7 +27,7 @@
 
 + (Class)layerClass
 {
-  sub_21B61785C(0, &qword_27CD93BF0);
+  sub_21B61785C(0, &qword_27CD93BF0, 0x277CD9F90);
 
   return swift_getObjCClassFromMetadata();
 }

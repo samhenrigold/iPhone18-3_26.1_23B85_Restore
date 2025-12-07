@@ -9,15 +9,13 @@
 
 + (id)create
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   createForDefaultAttest = [self createForDefaultAttest];
   createForWebAuthAttestKeychain = [self createForWebAuthAttestKeychain];
-  v9[1] = createForWebAuthAttestKeychain;
+  v8[1] = createForWebAuthAttestKeychain;
   createForDeviceAttestKeychain = [self createForDeviceAttestKeychain];
-  v9[2] = createForDeviceAttestKeychain;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[2] = createForDeviceAttestKeychain;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
 
   return v6;
 }
@@ -32,7 +30,7 @@
 
 void __46__AppAttestTaskCreator_createForDefaultAttest__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (v4)
   {
@@ -79,15 +77,13 @@ void __46__AppAttestTaskCreator_createForDefaultAttest__block_invoke(uint64_t a1
         v11 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/AppAttestInternal/Source/Interfaces/AppAttestTaskCreator.m";
       }
 
-      v13 = 136315394;
-      v14 = v11;
-      v15 = 1024;
-      v16 = 51;
-      _os_log_impl(&dword_226177000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to cast system task type.", &v13, 0x12u);
+      v12 = 136315394;
+      v13 = v11;
+      v14 = 1024;
+      v15 = 51;
+      _os_log_impl(&dword_226177000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to cast system task type.", &v12, 0x12u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createForWebAuthAttestKeychain
@@ -100,13 +96,13 @@ void __46__AppAttestTaskCreator_createForDefaultAttest__block_invoke(uint64_t a1
 
 void __54__AppAttestTaskCreator_createForWebAuthAttestKeychain__block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
-    v22 = 0;
-    v3 = delete_keychain_item(@"appattest-webauthn", 0, &v22);
-    v4 = v22;
+    v21 = 0;
+    v3 = delete_keychain_item(@"appattest-webauthn", 0, &v21);
+    v4 = v21;
     v5 = v4;
     if (!v3 || v4 != 0)
     {
@@ -151,13 +147,13 @@ void __54__AppAttestTaskCreator_createForWebAuthAttestKeychain__block_invoke(uin
 
         v14 = [v5 localizedDescription];
         *buf = 136315906;
-        v24 = v13;
-        v25 = 1024;
-        v26 = 75;
-        v27 = 2112;
-        v28 = @"appattest-webauthn";
-        v29 = 2112;
-        v30 = v14;
+        v23 = v13;
+        v24 = 1024;
+        v25 = 75;
+        v26 = 2112;
+        v27 = @"appattest-webauthn";
+        v28 = 2112;
+        v29 = v14;
         _os_log_impl(&dword_226177000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to delete keychain items. { accessGroup=%@, error=%@ }", buf, 0x26u);
       }
     }
@@ -207,14 +203,12 @@ void __54__AppAttestTaskCreator_createForWebAuthAttestKeychain__block_invoke(uin
       }
 
       *buf = 136315394;
-      v24 = v20;
-      v25 = 1024;
-      v26 = 69;
+      v23 = v20;
+      v24 = 1024;
+      v25 = 69;
       _os_log_impl(&dword_226177000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to cast system task type.", buf, 0x12u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createForDeviceAttestKeychain
@@ -227,13 +221,13 @@ void __54__AppAttestTaskCreator_createForWebAuthAttestKeychain__block_invoke(uin
 
 void __53__AppAttestTaskCreator_createForDeviceAttestKeychain__block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
-    v22 = 0;
-    v3 = delete_keychain_item(@"appattest-device", 0, &v22);
-    v4 = v22;
+    v21 = 0;
+    v3 = delete_keychain_item(@"appattest-device", 0, &v21);
+    v4 = v21;
     v5 = v4;
     if (!v3 || v4 != 0)
     {
@@ -278,13 +272,13 @@ void __53__AppAttestTaskCreator_createForDeviceAttestKeychain__block_invoke(uint
 
         v14 = [v5 localizedDescription];
         *buf = 136315906;
-        v24 = v13;
-        v25 = 1024;
-        v26 = 96;
-        v27 = 2112;
-        v28 = @"appattest-device";
-        v29 = 2112;
-        v30 = v14;
+        v23 = v13;
+        v24 = 1024;
+        v25 = 96;
+        v26 = 2112;
+        v27 = @"appattest-device";
+        v28 = 2112;
+        v29 = v14;
         _os_log_impl(&dword_226177000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to delete keychain items. { accessGroup=%@, error=%@ }", buf, 0x26u);
       }
     }
@@ -334,14 +328,12 @@ void __53__AppAttestTaskCreator_createForDeviceAttestKeychain__block_invoke(uint
       }
 
       *buf = 136315394;
-      v24 = v20;
-      v25 = 1024;
-      v26 = 90;
+      v23 = v20;
+      v24 = 1024;
+      v25 = 90;
       _os_log_impl(&dword_226177000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to cast system task type.", buf, 0x12u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

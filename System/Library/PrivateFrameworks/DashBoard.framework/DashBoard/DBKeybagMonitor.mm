@@ -126,7 +126,7 @@ LABEL_8:
   return v4;
 }
 
-uint64_t __31__DBKeybagMonitor_currentState__block_invoke(uint64_t a1)
+void *__31__DBKeybagMonitor_currentState__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) lockedState];
   *(*(*(a1 + 40) + 8) + 24) = result;

@@ -1,166 +1,72 @@
-uint64_t sub_29927B6FC(uint64_t a1, CFDictionaryRef theDict)
-{
-  if (!theDict)
-  {
-    return 0;
-  }
-
-  result = CFDictionaryContainsKey(theDict, off_2A145F3A8);
-  if (!result)
-  {
-    return result;
-  }
-
-  if (*(a1 + 16) == 1)
-  {
-    result = CFDictionaryContainsKey(theDict, off_2A145F358);
-    if (!result)
-    {
-      return result;
-    }
-
-    v5 = &off_2A145F350;
-  }
-
-  else
-  {
-    result = CFDictionaryContainsKey(theDict, off_2A145F360);
-    if (!result)
-    {
-      return result;
-    }
-
-    v5 = &off_2A145F368;
-  }
-
-  result = CFDictionaryContainsKey(theDict, *v5);
-  if (result)
-  {
-    return 1;
-  }
-
-  return result;
-}
-
-uint64_t sub_29927B7AC(uint64_t a1)
-{
-  v1 = *(*(*(a1 + 8) + 72) + 8);
-  if (*(v1 + 5) != 1 || (v2 = *(v1 + 40)) == 0)
-  {
-    v2 = *(v1 + 32);
-  }
-
-  v3 = *(v2 + 8);
-  return LMLanguageModelGetTokenIDForString();
-}
-
 uint64_t sub_29927B7DC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, BOOL *a6)
 {
-  v11 = *(*(*(a1 + 8) + 72) + 8);
-  if (*(v11 + 5) != 1 || (v12 = *(v11 + 40)) == 0)
+  v11 = LMLanguageModelCopyTokenAttributes();
+  v12 = sub_29927B6FC(a1, v11);
+  if (v12)
   {
-    v12 = *(v11 + 32);
-  }
-
-  v13 = *(v12 + 8);
-  v14 = LMLanguageModelCopyTokenAttributes();
-  v15 = sub_29927B6FC(a1, v14);
-  if (v15)
-  {
-    Value = CFDictionaryGetValue(v14, off_2A145F3A8);
-    v17 = &off_2A145F350;
+    Value = CFDictionaryGetValue(v11, off_2A145F3A8);
+    v14 = &off_2A145F350;
     if (!*(a1 + 16))
     {
-      v17 = &off_2A145F360;
+      v14 = &off_2A145F360;
     }
 
-    v18 = CFDictionaryGetValue(v14, *v17);
-    v19 = &off_2A145F358;
+    v15 = CFDictionaryGetValue(v11, *v14);
+    v16 = &off_2A145F358;
     if (!*(a1 + 16))
     {
-      v19 = &off_2A145F368;
+      v16 = &off_2A145F368;
     }
 
-    v20 = CFDictionaryGetValue(v14, *v19);
+    v17 = CFDictionaryGetValue(v11, *v16);
     *a6 = CEMStringContainsEmoji() != 0;
-    sub_299276BDC(Value, &v25);
-    v21 = *a3;
+    sub_299276BDC(Value, &v22);
+    v18 = *a3;
     if (*a3)
     {
-      *(a3 + 8) = v21;
-      operator delete(v21);
+      *(a3 + 8) = v18;
+      operator delete(v18);
     }
 
-    *a3 = v25;
-    *(a3 + 16) = v26;
-    sub_299276BDC(v18, &v25);
-    v22 = *a4;
+    *a3 = v22;
+    *(a3 + 16) = v23;
+    sub_299276BDC(v15, &v22);
+    v19 = *a4;
     if (*a4)
     {
-      *(a4 + 8) = v22;
-      operator delete(v22);
+      *(a4 + 8) = v19;
+      operator delete(v19);
     }
 
-    *a4 = v25;
-    *(a4 + 16) = v26;
-    sub_299276BDC(v20, &v25);
-    v23 = *a5;
+    *a4 = v22;
+    *(a4 + 16) = v23;
+    sub_299276BDC(v17, &v22);
+    v20 = *a5;
     if (*a5)
     {
-      *(a5 + 8) = v23;
-      operator delete(v23);
+      *(a5 + 8) = v20;
+      operator delete(v20);
     }
 
-    *a5 = v25;
-    *(a5 + 16) = v26;
-    CFRelease(v14);
+    *a5 = v22;
+    *(a5 + 16) = v23;
+    CFRelease(v11);
   }
 
-  return v15;
-}
-
-BOOL sub_29927B98C(uint64_t a1)
-{
-  v1 = *(*(*(a1 + 8) + 72) + 8);
-  if (*(v1 + 5) != 1 || (v2 = *(v1 + 40)) == 0)
-  {
-    v2 = *(v1 + 32);
-  }
-
-  v3 = *(v2 + 8);
-  return LMLanguageModelAddOrUpdateTokenWithAttributes() < 2;
-}
-
-uint64_t sub_29927B9D4(uint64_t a1)
-{
-  v1 = *(*(*(a1 + 8) + 72) + 8);
-  if (*(v1 + 5) != 1 || (v2 = *(v1 + 40)) == 0)
-  {
-    v2 = *(v1 + 32);
-  }
-
-  v3 = *(v2 + 8);
-  return LMLanguageModelEnumerateDynamicTokensWithBlock();
+  return v12;
 }
 
 void sub_29927BA6C(uint64_t a1)
 {
-  v2 = *(*(*(*(a1 + 40) + 8) + 72) + 8);
-  if (*(v2 + 5) != 1 || (v3 = *(v2 + 40)) == 0)
-  {
-    v3 = *(v2 + 32);
-  }
-
-  v4 = *(v3 + 8);
-  v5 = LMLanguageModelCopyTokenAttributes();
+  v2 = LMLanguageModelCopyTokenAttributes();
   (*(*(a1 + 32) + 16))();
 
-  CFRelease(v5);
+  CFRelease(v2);
 }
 
 void sub_29927BAFC(uint64_t a1, const __CFArray *a2)
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   *a1 = 0;
   v4 = (a1 + 8);
   sub_29927DB54(a1 + 8);
@@ -177,7 +83,7 @@ void sub_29927BAFC(uint64_t a1, const __CFArray *a2)
     {
       v7 = 0;
       v8 = 0;
-      v20 = Count;
+      v19 = Count;
       do
       {
         v9 = *(CFArrayGetValueAtIndex(a2, v8) + 3);
@@ -186,7 +92,7 @@ void sub_29927BAFC(uint64_t a1, const __CFArray *a2)
           ++v7;
           if (v8)
           {
-            v21 = v7;
+            v20 = v7;
             for (i = 0; i != v8; ++i)
             {
               v11 = *(CFArrayGetValueAtIndex(a2, i) + 3);
@@ -194,23 +100,23 @@ void sub_29927BAFC(uint64_t a1, const __CFArray *a2)
               if (*(a1 + 1) != 1 || (v12 - 123) >= 0xFFFFFFE6)
               {
                 v14 = hypotf((v11[1] + (v11[3] * 0.5)) - (v9[1] + (v9[3] * 0.5)), (v11[2] + (v11[4] * 0.5)) - (v9[2] + (v9[4] * 0.5)));
-                v23 = v12;
-                *buf = &v23;
-                v15 = sub_29927DBF4(v4, &v23);
+                v22 = v12;
+                *buf = &v22;
+                v15 = sub_29927DBF4(v4, &v22, &unk_299400092, buf);
+                v21 = *v9;
+                *buf = &v21;
+                *(sub_29927DEB8(v15 + 3, &v21, &unk_299400092, buf) + 3) = v14;
                 v22 = *v9;
                 *buf = &v22;
-                *(sub_29927DEB8(v15 + 3, &v22) + 3) = v14;
-                v23 = *v9;
-                *buf = &v23;
-                v16 = sub_29927DBF4(v4, &v23);
-                v22 = *v11;
-                *buf = &v22;
-                *(sub_29927DEB8(v16 + 3, &v22) + 3) = v14;
+                v16 = sub_29927DBF4(v4, &v22, &unk_299400092, buf);
+                v21 = *v11;
+                *buf = &v21;
+                *(sub_29927DEB8(v16 + 3, &v21, &unk_299400092, buf) + 3) = v14;
               }
             }
 
-            v6 = v20;
-            v7 = v21;
+            v6 = v19;
+            v7 = v20;
           }
         }
 
@@ -225,28 +131,24 @@ void sub_29927BAFC(uint64_t a1, const __CFArray *a2)
     {
       *buf = 134218240;
       *&buf[4] = v6;
-      v25 = 2048;
-      v26 = v7;
+      v24 = 2048;
+      v25 = v7;
       _os_log_debug_impl(&dword_29918C000, v17, OS_LOG_TYPE_DEBUG, "Input layout key count: %ld, valid layout key count: %ld", buf, 0x16u);
       if (!v7)
       {
-        goto LABEL_22;
+        return;
       }
-
-      goto LABEL_21;
     }
 
-    if (v7)
+    else if (!v7)
     {
-LABEL_21:
-      v18 = CFRetain(a2);
-      sub_299229F00((a1 + 48), v18);
-      *a1 = 1;
+      return;
     }
-  }
 
-LABEL_22:
-  v19 = *MEMORY[0x29EDCA608];
+    v18 = CFRetain(a2);
+    sub_299229F00((a1 + 48), v18);
+    *a1 = 1;
+  }
 }
 
 double sub_29927BDA0(uint64_t a1, int a2, int a3)
@@ -368,7 +270,7 @@ unint64_t sub_29927BE08(uint64_t a1, uint64_t a2, _BYTE *a3, unint64_t a4)
     v32 = v41;
   }
 
-  v33 = 126 - 2 * __clz(v32 - v31);
+  v33 = 126 - 2 * __clz((v32 - v31) >> 4);
   v43 = &unk_2A1F690B8;
   if (v32 == v31)
   {
@@ -433,7 +335,7 @@ void sub_29927C08C(uint64_t a1, unint64_t a2)
   sub_29919600C();
 }
 
-double sub_29927C0D4(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
+double sub_29927C0D4(__int16 *a1, __int128 *a2, uint64_t a3, uint64_t a4, char a5, __n128 a6)
 {
 LABEL_1:
   v10 = (a2 - 1);
@@ -622,7 +524,7 @@ LABEL_10:
       v18 = (*(*a3 + 16))();
       if (v17)
       {
-        v20 = (a1 + 8);
+        v20 = (a1 + 4);
         v19 = *a1;
         if (v18)
         {
@@ -633,8 +535,8 @@ LABEL_10:
         *a1 = *v15;
         *v15 = v19;
         v20 = (v15 + 4);
-        v33 = *(a1 + 8);
-        *(a1 + 8) = *(v15 + 1);
+        v33 = *(a1 + 1);
+        *(a1 + 1) = *(v15 + 1);
         *(v15 + 1) = v33;
         if ((*(*a3 + 16))())
         {
@@ -663,7 +565,7 @@ LABEL_28:
         {
           v28 = *a1;
           *a1 = *v15;
-          v20 = (a1 + 8);
+          v20 = (a1 + 4);
           *v15 = v28;
           goto LABEL_28;
         }
@@ -674,16 +576,16 @@ LABEL_28:
       v37 = (*(*a3 + 16))();
       if (v36)
       {
-        v38 = *(a1 + 16);
-        v39 = (a1 + 24);
+        v38 = a1[8];
+        v39 = a1 + 12;
         if (v37)
         {
-          *(a1 + 16) = *v101;
+          a1[8] = *v101;
           *v101 = v38;
           goto LABEL_40;
         }
 
-        *(a1 + 16) = *v35;
+        a1[8] = *v35;
         *v35 = v38;
         v45 = *v39;
         *v39 = *(v15 - 1);
@@ -714,10 +616,10 @@ LABEL_41:
         *(a2 - 3) = v42;
         if ((*(*a3 + 16))())
         {
-          v43 = *(a1 + 16);
-          *(a1 + 16) = *v35;
+          v43 = a1[8];
+          a1[8] = *v35;
           *v35 = v43;
-          v39 = (a1 + 24);
+          v39 = a1 + 12;
           goto LABEL_41;
         }
       }
@@ -727,16 +629,16 @@ LABEL_41:
       v50 = (*(*a3 + 16))();
       if (v49)
       {
-        v51 = *(a1 + 32);
-        v52 = (a1 + 40);
+        v51 = a1[16];
+        v52 = (a1 + 20);
         if (v50)
         {
-          *(a1 + 32) = *v100;
+          a1[16] = *v100;
           *v100 = v51;
           goto LABEL_50;
         }
 
-        *(a1 + 32) = *v48;
+        a1[16] = *v48;
         *v48 = v51;
         v57 = *v52;
         *v52 = *(v15 + 3);
@@ -767,10 +669,10 @@ LABEL_51:
         *(a2 - 5) = v55;
         if ((*(*a3 + 16))())
         {
-          v56 = *(a1 + 32);
-          *(a1 + 32) = *v48;
+          v56 = a1[16];
+          a1[16] = *v48;
           *v48 = v56;
-          v52 = (a1 + 40);
+          v52 = (a1 + 20);
           goto LABEL_51;
         }
       }
@@ -841,7 +743,7 @@ LABEL_61:
 
       v74 = *a1;
       *a1 = v64;
-      v24 = (a1 + 8);
+      v24 = (a1 + 4);
       *v15 = v74;
       v32 = (v15 + 4);
 LABEL_63:
@@ -906,7 +808,7 @@ LABEL_64:
       goto LABEL_71;
     }
 
-    a6.n128_f64[0] = sub_29927D098(a1, a2, a3);
+    sub_29927D098(a1, a2, a3);
     v77 = v76;
     if ((v78 & 1) == 0)
     {
@@ -931,7 +833,7 @@ LABEL_64:
     if (!v79)
     {
 LABEL_69:
-      sub_29927C0D4(a1, v77, a3, -v13, a5 & 1, a6);
+      a6.n128_f64[0] = sub_29927C0D4(a1, v77, a3, -v13, a5 & 1);
       v11 = (v77 + 1);
 LABEL_71:
       a5 = 0;
@@ -950,20 +852,20 @@ double sub_29927CB50(__int16 *a1, __int16 *a2, __int16 *a3, __int16 *a4, uint64_
   v11 = (*(*a5 + 16))();
   if (v10)
   {
-    v13 = (a1 + 4);
+    v13 = a1 + 4;
     v12 = *a1;
     if (v11)
     {
       *a1 = *a3;
 LABEL_9:
       *a3 = v12;
-      v15 = (a3 + 4);
+      v15 = a3 + 4;
       goto LABEL_10;
     }
 
     *a1 = *a2;
     *a2 = v12;
-    v13 = (a2 + 4);
+    v13 = a2 + 4;
     v18 = *(a1 + 1);
     *(a1 + 1) = *(a2 + 1);
     *(a2 + 1) = v18;
@@ -980,7 +882,7 @@ LABEL_9:
     v14 = *a2;
     *a2 = *a3;
     *a3 = v14;
-    v15 = (a2 + 4);
+    v15 = a2 + 4;
     v16 = *(a2 + 1);
     *(a2 + 1) = *(a3 + 1);
     *(a3 + 1) = v16;
@@ -988,7 +890,7 @@ LABEL_9:
     {
       v17 = *a1;
       *a1 = *a2;
-      v13 = (a1 + 4);
+      v13 = a1 + 4;
       *a2 = v17;
 LABEL_10:
       v19 = *v13;
@@ -1246,7 +1148,7 @@ double sub_29927D098(__int16 *a1, unint64_t a2, uint64_t a3)
       *(v9 + 8) = v11;
       do
       {
-        ++v8;
+        v8 += 8;
       }
 
       while (((*(*a3 + 16))() & 1) != 0);
@@ -1261,7 +1163,7 @@ double sub_29927D098(__int16 *a1, unint64_t a2, uint64_t a3)
     while (v8 < v9);
   }
 
-  if (v8 - 1 != a1)
+  if (v8 - 8 != a1)
   {
     *a1 = *(v8 - 8);
     *(a1 + 1) = *(v8 - 1);
@@ -1522,7 +1424,7 @@ LABEL_43:
   }
 }
 
-__int16 *sub_29927D6E4(uint64_t a1, __int16 *a2, __int16 *a3, uint64_t a4, __n128 a5)
+char *sub_29927D6E4(char *a1, char *a2, char *a3, uint64_t a4, __n128 a5)
 {
   if (a1 != a2)
   {
@@ -1531,7 +1433,7 @@ __int16 *sub_29927D6E4(uint64_t a1, __int16 *a2, __int16 *a3, uint64_t a4, __n12
     {
       v10 = (v9 - 2) >> 1;
       v11 = v10 + 1;
-      v12 = (a1 + 16 * v10);
+      v12 = &a1[16 * v10];
       do
       {
         a5.n128_f64[0] = sub_29927D864(a1, a4, v9, v12--);
@@ -1553,12 +1455,12 @@ __int16 *sub_29927D6E4(uint64_t a1, __int16 *a2, __int16 *a3, uint64_t a4, __n12
           *v13 = *a1;
           *a1 = v14;
           v15 = *(v13 + 1);
-          *(v13 + 1) = *(a1 + 8);
-          *(a1 + 8) = v15;
+          *(v13 + 1) = *(a1 + 1);
+          *(a1 + 1) = v15;
           a5.n128_f64[0] = sub_29927D864(a1, a4, v9, a1);
         }
 
-        v13 += 8;
+        v13 += 16;
       }
 
       while (v13 != a3);
@@ -1566,11 +1468,11 @@ __int16 *sub_29927D6E4(uint64_t a1, __int16 *a2, __int16 *a3, uint64_t a4, __n12
 
     if (v9 >= 2)
     {
-      v16 = a2 - 8;
+      v16 = a2 - 16;
       do
       {
         v17 = *a1;
-        v18 = *(a1 + 8);
+        v18 = *(a1 + 1);
         v19 = sub_29927D9CC(a1, a4, v9);
         if (v16 == v19)
         {
@@ -1587,7 +1489,7 @@ __int16 *sub_29927D6E4(uint64_t a1, __int16 *a2, __int16 *a3, uint64_t a4, __n12
           sub_29927DA88(a1, v19 + 16, a4, (v19 + 16 - a1) >> 4);
         }
 
-        v16 -= 8;
+        v16 -= 16;
       }
 
       while (v9-- > 2);
@@ -1610,11 +1512,11 @@ double sub_29927D864(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4)
     {
       v10 = (a4 - a1) >> 3;
       v11 = v10 + 1;
-      v12 = (a1 + 16 * (v10 + 1));
+      v12 = a1 + 16 * (v10 + 1);
       v13 = v10 + 2;
       if (v10 + 2 < a3 && (*(*a2 + 16))())
       {
-        ++v12;
+        v12 += 16;
         v11 = v13;
       }
 
@@ -1625,20 +1527,20 @@ double sub_29927D864(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4)
         {
           v15 = v12;
           *v5 = *v12;
-          *(v5 + 1) = *(v12 + 1);
+          *(v5 + 1) = *(v12 + 8);
           if (v7 < v11)
           {
             break;
           }
 
           v16 = (2 * v11) | 1;
-          v12 = (a1 + 16 * v16);
+          v12 = a1 + 16 * v16;
           v17 = 2 * v11 + 2;
           if (v17 < a3)
           {
             if ((*(*a2 + 16))())
             {
-              ++v12;
+              v12 += 16;
               v16 = v17;
             }
           }
@@ -1650,7 +1552,7 @@ double sub_29927D864(uint64_t a1, uint64_t a2, uint64_t a3, __int128 *a4)
         while (!(*(*a2 + 16))());
         *v15 = v18;
         result = *(&v18 + 1);
-        *(v15 + 1) = *(&v18 + 1);
+        *(v15 + 8) = *(&v18 + 1);
       }
     }
   }
@@ -1724,22 +1626,22 @@ double sub_29927DA88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-void sub_29927DB54(uint64_t a1)
+void sub_29927DB54(uint64_t result)
 {
-  if (*(a1 + 24))
+  if (*(result + 24))
   {
-    sub_29927DBB0(a1, *(a1 + 16));
-    *(a1 + 16) = 0;
-    v2 = *(a1 + 8);
+    sub_29927DBB0(result, *(result + 16));
+    *(result + 16) = 0;
+    v2 = *(result + 8);
     if (v2)
     {
       for (i = 0; i != v2; ++i)
       {
-        *(*a1 + 8 * i) = 0;
+        *(*result + 8 * i) = 0;
       }
     }
 
-    *(a1 + 24) = 0;
+    *(result + 24) = 0;
   }
 }
 
@@ -1760,33 +1662,33 @@ void sub_29927DBB0(uint64_t a1, void *a2)
   }
 }
 
-uint64_t **sub_29927DBF4(void *a1, unsigned __int16 *a2)
+uint64_t **sub_29927DBF4(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1794,49 +1696,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_29927DE58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29927DE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29927DE6C(va);
   _Unwind_Resume(a1);
 }
@@ -1858,33 +1760,33 @@ uint64_t sub_29927DE6C(uint64_t a1)
   return a1;
 }
 
-uint64_t **sub_29927DEB8(void *a1, unsigned __int16 *a2)
+uint64_t **sub_29927DEB8(void *a1, unsigned __int16 *a2, uint64_t a3, _WORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % a1[1];
+      v7 = v4 % a1[1];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v7 = (v5.i32[0] - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -1892,47 +1794,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 8) != v2)
+  if (*(v9 + 8) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_29927E0F4(_DWORD *a1, const __CFString *a2, uint64_t a3, int a4, int a5)
+void sub_29927E0F4(unsigned int *a1, const __CFString *a2, int a3, unsigned int a4, unsigned int a5)
 {
   *a1 = a4;
   a1[1] = a5;
@@ -2006,7 +1908,7 @@ void sub_29927E3A0(uint64_t a1, uint64_t *a2)
   }
 }
 
-void sub_29927E444(int a1, CFStringRef theString)
+void sub_29927E444(uint64_t a1, CFStringRef theString, uint64_t a3)
 {
   if (theString)
   {
@@ -2170,7 +2072,7 @@ uint64_t sub_29927E758(uint64_t a1, uint64_t *a2, uint64_t a3)
   *(a1 + 104) = 0;
   *(a1 + 112) = 0;
   *(a1 + 96) = 0;
-  sub_29921E8E0(a1 + 96, *(a3 + 96), *(a3 + 104), 0xCCCCCCCCCCCCCCCDLL * ((*(a3 + 104) - *(a3 + 96)) >> 3));
+  sub_29921E8E0((a1 + 96), *(a3 + 96), *(a3 + 104), 0xCCCCCCCCCCCCCCCDLL * ((*(a3 + 104) - *(a3 + 96)) >> 3));
   return a1;
 }
 
@@ -2373,17 +2275,17 @@ BOOL sub_29927EBAC(uint64_t a1)
   return v3 <= v7;
 }
 
-void *sub_29927EC68(void *result, unint64_t a2)
+uint64_t *sub_29927EC68(uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_29921E95C(result, a2);
+    sub_29921E95C(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_29927ECE8(_Unwind_Exception *exception_object)
@@ -2398,233 +2300,233 @@ void sub_29927ECE8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__CFArray *sub_29927ED04(void *a1, const char *a2, uint64_t a3)
+__CFArray *sub_29927ED04(void *a1, const __CFArray *a2, uint64_t a3, uint64_t a4)
 {
   if (!a2)
   {
     return 0;
   }
 
-  v70 = objc_msgSend_rawCandidate(a1, a2, a3);
-  v3 = (*(*v70 + 576))();
-  if (v3)
+  v71 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  v4 = (*(*v71 + 576))();
+  if (v4)
   {
-    v4 = v3;
-    if (*v3 != v3[1])
+    v5 = v4;
+    if (*v4 != v4[1])
     {
       Mutable = CFArrayCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9000]);
-      v5 = (*(*v70 + 560))(v70);
-      v6 = *v5;
-      v72 = v5;
-      v7 = v5[1] - *v5;
-      if (v7)
+      v6 = (*(*v71 + 560))(v71);
+      v7 = *v6;
+      v73 = v6;
+      v8 = v6[1] - *v6;
+      if (v8)
       {
-        v69 = v4;
-        v74 = 0;
-        v8 = 0;
-        v9 = v7 >> 2;
-        v10 = Mutable;
-        while (*(v6 + 4 * v8) != 1)
+        v70 = v5;
+        v75 = 0;
+        v9 = 0;
+        v10 = v8 >> 2;
+        v11 = Mutable;
+        while (*(v7 + 4 * v9) != 1)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(a2, v8);
-          CFArrayAppendValue(v10, ValueAtIndex);
-          v16 = v8;
+          ValueAtIndex = CFArrayGetValueAtIndex(a2, v9);
+          CFArrayAppendValue(v11, ValueAtIndex);
+          v17 = v9;
 LABEL_89:
-          v8 = v16 + 1;
-          v6 = *v72;
-          v9 = (v72[1] - *v72) >> 2;
-          if (v16 + 1 >= v9)
+          v9 = v17 + 1;
+          v7 = *v73;
+          v10 = (v73[1] - *v73) >> 2;
+          if (v17 + 1 >= v10)
           {
-            return v10;
+            return v11;
           }
         }
 
-        v11 = v8 + 1;
+        v12 = v9 + 1;
         while (1)
         {
-          v12 = v11;
-          if (v11 >= v9)
+          v13 = v12;
+          if (v12 >= v10)
           {
             break;
           }
 
-          v13 = *(v6 + 4 * v11++);
-          if (v13 != 1)
+          v14 = *(v7 + 4 * v12++);
+          if (v14 != 1)
           {
-            v14 = v12 - 1;
+            v15 = v13 - 1;
             goto LABEL_13;
           }
         }
 
-        v14 = v9 - 1;
+        v15 = v10 - 1;
 LABEL_13:
-        v17 = (*v69 + 16 * v74);
-        v18 = v17[1];
-        v19 = v14;
-        if (v14 == v8)
+        v18 = (*v70 + 16 * v75);
+        v19 = v18[1];
+        v20 = v15;
+        if (v15 == v9)
         {
-          LOWORD(__p.__r_.__value_.__l.__data_) = v17[1];
-          v81 = 0;
+          LOWORD(__p.__r_.__value_.__l.__data_) = v18[1];
           v82 = 0;
+          v83 = 0;
           valuePtr = 0;
-          sub_2992220D8(&valuePtr, &__p, __p.__r_.__value_.__r.__words + 2, 1);
-          v20 = sub_299279BF8(&valuePtr);
-          v16 = v19;
+          sub_2992220D8(&valuePtr, &__p, &__p.__r_.__value_.__s.__data_[2], 1);
+          v21 = sub_299279BF8(&valuePtr);
+          v17 = v20;
           if (valuePtr)
           {
-            v81 = valuePtr;
+            v82 = valuePtr;
             operator delete(valuePtr);
           }
 
 LABEL_86:
-          v88.length = CFArrayGetCount(v20);
-          v88.location = 0;
-          CFArrayAppendArray(Mutable, v20, v88);
-          if (v20)
+          v89.length = CFArrayGetCount(v21);
+          v89.location = 0;
+          CFArrayAppendArray(Mutable, v21, v89);
+          if (v21)
           {
-            CFRelease(v20);
+            CFRelease(v21);
           }
 
-          v10 = Mutable;
-          ++v74;
+          v11 = Mutable;
+          ++v75;
           goto LABEL_89;
         }
 
-        v21 = *v17;
-        v22 = (*(*v70 + 56))(v70);
-        v85.location = v21;
-        v85.length = v18;
-        theString1 = CFStringCreateWithSubstring(0, v22, v85);
-        (*(*v70 + 432))(&valuePtr, v70, 0);
-        v23 = sub_299279BF8(&valuePtr);
+        v22 = *v18;
+        v23 = (*(*v71 + 56))(v71);
+        v86.location = v22;
+        v86.length = v19;
+        theString1 = CFStringCreateWithSubstring(0, v23, v86);
+        (*(*v71 + 432))(&valuePtr, v71, 0);
+        v24 = sub_299279BF8(&valuePtr);
         if (valuePtr)
         {
-          v81 = valuePtr;
+          v82 = valuePtr;
           operator delete(valuePtr);
         }
 
-        v24 = (*(*v70 + 232))(v70);
-        if (v8 < 1)
+        v25 = (*(*v71 + 232))(v71);
+        if (v9 < 1)
         {
-          v25 = 0;
+          v26 = 0;
         }
 
         else
         {
-          v25 = 0;
-          for (i = 0; i != v8; ++i)
+          v26 = 0;
+          for (i = 0; i != v9; ++i)
           {
-            v27 = CFArrayGetValueAtIndex(v23, i);
+            v28 = CFArrayGetValueAtIndex(v24, i);
             LOWORD(valuePtr) = 0;
-            CFNumberGetValue(v27, kCFNumberShortType, &valuePtr);
-            v25 += valuePtr;
+            CFNumberGetValue(v28, kCFNumberShortType, &valuePtr);
+            v26 += valuePtr;
           }
         }
 
-        v28 = 0;
-        if (v19 >= v8)
+        v29 = 0;
+        if (v20 >= v9)
         {
-          if (v9 >= v12)
+          if (v10 >= v13)
           {
-            v9 = v12;
+            v10 = v13;
           }
 
-          v29 = v8;
+          v30 = v9;
           do
           {
-            v30 = CFArrayGetValueAtIndex(v23, v29);
+            v31 = CFArrayGetValueAtIndex(v24, v30);
             LOWORD(valuePtr) = 0;
-            CFNumberGetValue(v30, kCFNumberShortType, &valuePtr);
-            v28 += valuePtr;
-            ++v29;
+            CFNumberGetValue(v31, kCFNumberShortType, &valuePtr);
+            v29 += valuePtr;
+            ++v30;
           }
 
-          while (v9 != v29);
+          while (v10 != v30);
         }
 
-        v86.location = v25;
-        v86.length = v28;
-        v31 = CFStringCreateWithSubstring(0, v24, v86);
-        v32 = CFArrayCreateMutable(0, 0, MEMORY[0x29EDB9000]);
-        v87.length = v19 - v8 + 1;
-        v87.location = v8;
-        CFArrayAppendArray(v32, v23, v87);
-        v16 = v19;
-        if (CFStringCompare(theString1, v31, 0))
+        v87.location = v26;
+        v87.length = v29;
+        v32 = CFStringCreateWithSubstring(0, v25, v87);
+        v33 = CFArrayCreateMutable(0, 0, MEMORY[0x29EDB9000]);
+        v88.length = v20 - v9 + 1;
+        v88.location = v9;
+        CFArrayAppendArray(v33, v24, v88);
+        v17 = v20;
+        if (CFStringCompare(theString1, v32, 0))
         {
-          MutableCopy = CFStringCreateMutableCopy(0, 0, v31);
-          cf = v31;
-          v34 = 0;
+          MutableCopy = CFStringCreateMutableCopy(0, 0, v32);
+          cf = v32;
           v35 = 0;
-          v82 = 0;
-          v83 = MutableCopy;
+          v36 = 0;
+          v83 = 0;
+          v84 = MutableCopy;
           valuePtr = 0;
-          v81 = 0;
-          while (v34 < CFArrayGetCount(v32))
+          v82 = 0;
+          while (v35 < CFArrayGetCount(v33))
           {
-            v36 = CFArrayGetValueAtIndex(v32, v34);
+            v37 = CFArrayGetValueAtIndex(v33, v35);
             LOWORD(__p.__r_.__value_.__l.__data_) = 0;
-            CFNumberGetValue(v36, kCFNumberShortType, &__p);
-            v37 = v35 + LOWORD(__p.__r_.__value_.__l.__data_);
-            CFStringInsert(MutableCopy, v37, @"  ");
-            v38 = CFStringGetLength(@"  ") + v37;
-            v39 = v38 - v35;
-            v40 = v81;
-            if (v81 >= v82)
+            CFNumberGetValue(v37, kCFNumberShortType, &__p);
+            v38 = v36 + LOWORD(__p.__r_.__value_.__l.__data_);
+            CFStringInsert(MutableCopy, v38, @"  ");
+            v39 = CFStringGetLength(@"  ") + v38;
+            v40 = v39 - v36;
+            v41 = v82;
+            if (v82 >= v83)
             {
-              v42 = valuePtr;
-              v43 = v81 - valuePtr;
-              v44 = (v81 - valuePtr) >> 4;
-              v45 = v44 + 1;
-              if ((v44 + 1) >> 60)
+              v43 = valuePtr;
+              v44 = v82 - valuePtr;
+              v45 = (v82 - valuePtr) >> 4;
+              v46 = v45 + 1;
+              if ((v45 + 1) >> 60)
               {
                 sub_299212A8C();
               }
 
-              v46 = v82 - valuePtr;
-              if ((v82 - valuePtr) >> 3 > v45)
+              v47 = v83 - valuePtr;
+              if ((v83 - valuePtr) >> 3 > v46)
               {
-                v45 = v46 >> 3;
+                v46 = v47 >> 3;
               }
 
-              v47 = v46 >= 0x7FFFFFFFFFFFFFF0;
-              v48 = 0xFFFFFFFFFFFFFFFLL;
-              if (!v47)
+              v48 = v47 >= 0x7FFFFFFFFFFFFFF0;
+              v49 = 0xFFFFFFFFFFFFFFFLL;
+              if (!v48)
               {
-                v48 = v45;
+                v49 = v46;
               }
 
-              if (v48)
+              if (v49)
               {
-                sub_29927F5A0(&valuePtr, v48);
+                sub_29927F5A0(&valuePtr, v49);
               }
 
-              v49 = (16 * v44);
-              *v49 = v35;
-              v49[1] = v39;
-              v41 = 16 * v44 + 16;
-              memcpy(0, v42, v43);
-              v50 = valuePtr;
+              v50 = (16 * v45);
+              *v50 = v36;
+              v50[1] = v40;
+              v42 = 16 * v45 + 16;
+              memcpy(0, v43, v44);
+              v51 = valuePtr;
               valuePtr = 0;
-              v81 = v41;
-              v82 = 0;
-              if (v50)
+              v82 = v42;
+              v83 = 0;
+              if (v51)
               {
-                operator delete(v50);
+                operator delete(v51);
               }
             }
 
             else
             {
-              *v81 = v35;
-              *(v40 + 1) = v39;
-              v41 = (v40 + 8);
+              *v82 = v36;
+              *(v41 + 1) = v40;
+              v42 = (v41 + 8);
             }
 
-            v81 = v41;
-            ++v34;
-            v35 = v38;
-            v16 = v19;
+            v82 = v42;
+            ++v35;
+            v36 = v39;
+            v17 = v20;
           }
 
           while (1)
@@ -2640,24 +2542,24 @@ LABEL_86:
 
           sub_299236624(MutableCopy, theString1, &__p);
           __src = 0;
-          v77 = 0;
           v78 = 0;
-          sub_299218E20(&__src, (v81 - valuePtr) >> 4);
-          v52 = valuePtr;
-          v53 = v81;
-          while (v52 != v53)
+          v79 = 0;
+          sub_299218E20(&__src, (v82 - valuePtr) >> 4);
+          v53 = valuePtr;
+          v54 = v82;
+          while (v53 != v54)
           {
-            v54 = *(v52 + 1);
-            if (v54 < 1)
+            v55 = *(v53 + 1);
+            if (v55 < 1)
             {
-              v55 = 0;
+              v56 = 0;
             }
 
             else
             {
-              v55 = 0;
-              v56 = *v52;
-              v57 = v54 + *v52;
+              v56 = 0;
+              v57 = *v53;
+              v58 = v55 + *v53;
               p_p = &__p;
               if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
               {
@@ -2666,78 +2568,78 @@ LABEL_86:
 
               do
               {
-                if ((p_p->__r_.__value_.__s.__data_[v56] - 97) < 0x1A)
+                if ((p_p->__r_.__value_.__s.__data_[v57] - 97) < 0x1A)
                 {
-                  ++v55;
+                  ++v56;
                 }
 
-                ++v56;
+                ++v57;
               }
 
-              while (v56 < v57);
+              while (v57 < v58);
             }
 
-            v59 = v77;
-            if (v77 >= v78)
+            v60 = v78;
+            if (v78 >= v79)
             {
-              v61 = __src;
-              v62 = v77 - __src;
-              v63 = (v77 - __src) >> 1;
-              if (v63 <= -2)
+              v62 = __src;
+              v63 = v78 - __src;
+              v64 = (v78 - __src) >> 1;
+              if (v64 <= -2)
               {
                 sub_299212A8C();
               }
 
-              if (v78 - __src <= v63 + 1)
+              if (v79 - __src <= v64 + 1)
               {
-                v64 = v63 + 1;
+                v65 = v64 + 1;
               }
 
               else
               {
-                v64 = v78 - __src;
+                v65 = v79 - __src;
               }
 
-              v65 = 0x7FFFFFFFFFFFFFFFLL;
-              if (v78 - __src < 0x7FFFFFFFFFFFFFFELL)
+              v66 = 0x7FFFFFFFFFFFFFFFLL;
+              if (v79 - __src < 0x7FFFFFFFFFFFFFFELL)
               {
-                v65 = v64;
+                v66 = v65;
               }
 
-              if (v65)
-              {
-                sub_299212A48(&__src, v65);
-              }
-
-              *(2 * v63) = v55;
-              v60 = 2 * v63 + 2;
-              memcpy(0, v61, v62);
-              v66 = __src;
-              __src = 0;
-              v77 = v60;
-              v78 = 0;
               if (v66)
               {
-                operator delete(v66);
+                sub_299212A48(&__src, v66);
+              }
+
+              *(2 * v64) = v56;
+              v61 = 2 * v64 + 2;
+              memcpy(0, v62, v63);
+              v67 = __src;
+              __src = 0;
+              v78 = v61;
+              v79 = 0;
+              if (v67)
+              {
+                operator delete(v67);
               }
             }
 
             else
             {
-              *v77 = v55;
-              v60 = (v59 + 2);
+              *v78 = v56;
+              v61 = (v60 + 2);
             }
 
-            v16 = v19;
-            v77 = v60;
-            v52 += 8;
+            v17 = v20;
+            v78 = v61;
+            v53 += 8;
           }
 
-          v20 = sub_299279BF8(&__src);
-          v31 = cf;
+          v21 = sub_299279BF8(&__src);
+          v32 = cf;
           if (__src)
           {
-            v77 = __src;
+            v78 = __src;
             operator delete(__src);
           }
 
@@ -2748,7 +2650,7 @@ LABEL_86:
 
           if (valuePtr)
           {
-            v81 = valuePtr;
+            v82 = valuePtr;
             operator delete(valuePtr);
           }
 
@@ -2757,9 +2659,9 @@ LABEL_86:
             CFRelease(MutableCopy);
           }
 
-          if (v32)
+          if (v33)
           {
-            CFRelease(v32);
+            CFRelease(v33);
           }
 
           if (!cf)
@@ -2770,13 +2672,13 @@ LABEL_86:
 
         else
         {
-          v20 = v32;
-          if (!v31)
+          v21 = v33;
+          if (!v32)
           {
 LABEL_82:
-            if (v23)
+            if (v24)
             {
-              CFRelease(v23);
+              CFRelease(v24);
             }
 
             if (theString1)
@@ -2788,7 +2690,7 @@ LABEL_82:
           }
         }
 
-        CFRelease(v31);
+        CFRelease(v32);
         goto LABEL_82;
       }
 
@@ -2826,9 +2728,9 @@ void sub_29927F5A0(uint64_t a1, unint64_t a2)
   sub_29919600C();
 }
 
-void sub_29927F5E8(uint64_t *a1, int **a2, uint64_t a3, uint64_t a4, uint64_t a5, const __CFString *a6, unsigned __int8 a7, _BYTE *a8, double a9, uint64_t a10)
+void sub_29927F5E8(uint64_t *a1, unsigned int **a2, uint64_t a3, uint64_t a4, uint64_t a5, const __CFString *a6, char a7, _BYTE *a8, double a9, uint64_t **a10)
 {
-  v105 = a7;
+  v104[0] = a7;
   v17 = *a1;
   v18 = *(*a1 + 8);
   if (*(v18 + 5) != 1 || (v19 = *(v18 + 40)) == 0)
@@ -2847,9 +2749,9 @@ void sub_29927F5E8(uint64_t *a1, int **a2, uint64_t a3, uint64_t a4, uint64_t a5
       v23 = !v22 || v19 == 0;
       if (!v23)
       {
-        if (v105 == 1)
+        if (v104[0] == 1)
         {
-          if ((sub_299377274(a2, v19) & 1) == 0)
+          if (!sub_299377274(a2, v19))
           {
             return;
           }
@@ -2875,24 +2777,21 @@ void sub_29927F5E8(uint64_t *a1, int **a2, uint64_t a3, uint64_t a4, uint64_t a5
           v24 = 1;
         }
 
-        v86 = a5;
+        v83 = a5;
         v25 = -7.0;
-        if (v105)
+        if (v104[0])
         {
-          v26 = a2[1] - *a2;
           v25 = (*(*v19 + 40))(v19, 2);
         }
 
-        v27 = a2[1] - *a2;
-        v28 = v19[1];
         LMLanguageModelCreatePredictionEnumerator();
         __src = 0;
-        v29 = 0;
+        v26 = 0;
         alloc = *MEMORY[0x29EDB8ED8];
-        v93 = (a10 + 8);
-        v30 = 7.0;
-        v31 = 0.0;
-        v91 = 1;
+        v90 = (a10 + 1);
+        v27 = 7.0;
+        v28 = 0.0;
+        v88 = 1;
         while (1)
         {
           if (!LMPredictionEnumeratorAdvance())
@@ -2902,32 +2801,32 @@ LABEL_169:
             return;
           }
 
-          v104 = 0;
-          v102 = 0;
-          v103 = 0.0;
+          v103 = 0;
+          v101 = 0;
+          v102 = 0.0;
           LMPredictionEnumeratorGetPrediction();
-          v32 = v105;
-          if ((v105 & 1) == 0)
+          v29 = v104[0];
+          if ((v104[0] & 1) == 0)
           {
-            v102 = a2[1] - *a2;
+            v101 = a2[1] - *a2;
           }
 
-          if (v104 == 2)
+          if (v103 == 2)
           {
-            v33 = !v24;
-            if (v29)
+            v30 = !v24;
+            if (v26)
             {
-              v33 = 1;
+              v30 = 1;
             }
 
-            if ((v33 & 1) == 0)
+            if ((v30 & 1) == 0)
             {
               *a8 = 1;
             }
 
-            if (!v32)
+            if (!v29)
             {
-              v25 = v103;
+              v25 = v102;
             }
 
             goto LABEL_30;
@@ -2935,75 +2834,75 @@ LABEL_169:
 
           if (v24)
           {
-            if (v104 < 0x258)
+            if (v103 < 0x258)
             {
               goto LABEL_30;
             }
           }
 
-          else if (v104 < 0x258 || v104 == 1000 || v104 == 1003)
+          else if (v103 < 0x258 || v103 == 1000 || v103 == 1003)
           {
             goto LABEL_30;
           }
 
-          if ((v105 & 1) != 0 || *(a2[1] - 1) != v104)
+          if ((v104[0] & 1) != 0 || *(a2[1] - 1) != v103)
           {
-            v34 = *(*a1 + 8);
-            if (*(v34 + 5) != 1 || (v35 = *(v34 + 40)) == 0)
+            v31 = *(*a1 + 8);
+            if (*(v31 + 5) != 1 || (v32 = *(v31 + 40)) == 0)
             {
-              v35 = *(v34 + 32);
+              v32 = *(v31 + 32);
             }
 
-            v36 = v103;
-            if (!sub_299384558(v35, v104))
+            v33 = v102;
+            if (!sub_299384558(v32, v103))
             {
-              v37 = v25 <= -0.3;
+              v34 = v25 <= -0.3;
               if (!v24)
               {
-                v37 = v25 <= -0.5;
+                v34 = v25 <= -0.5;
               }
 
-              if (!v37 || v25 + -2.0 > v36)
+              if (!v34 || v25 + -2.0 > v33)
               {
                 goto LABEL_169;
               }
             }
 
-            v38 = v104;
-            if (v104 >= 0x258)
+            v35 = v103;
+            if (v103 >= 0x258)
             {
-              v39 = *(*a1 + 8);
-              if (*(v39 + 5) != 1 || (v40 = *(v39 + 40)) == 0)
+              v36 = *(*a1 + 8);
+              if (*(v36 + 5) != 1 || (v37 = *(v36 + 40)) == 0)
               {
-                v40 = *(v39 + 32);
+                v37 = *(v36 + 32);
               }
 
-              v41 = *(*(*a1 + 136) + 8);
-              if (sub_299384558(v40, v104))
+              v38 = *(*(*a1 + 136) + 8);
+              if (sub_299384558(v37, v103))
               {
-                v42 = *(*a1 + 8);
-                if (*(v42 + 5) != 1 || (v43 = *(v42 + 40)) == 0)
+                v39 = *(*a1 + 8);
+                if (*(v39 + 5) != 1 || (v40 = *(v39 + 40)) == 0)
                 {
-                  v43 = *(v42 + 32);
+                  v40 = *(v39 + 32);
                 }
 
-                v44 = (*(*v43 + 32))(v43, v38);
+                v41 = (*(*v40 + 32))(v40, v35);
               }
 
               else
               {
-                v45 = sub_2993337E8(v41, v38);
-                if (!v45 || (*(v45 + 4) & 0x800) != 0)
+                v42 = sub_2993337E8(v38, v35);
+                if (!v42 || (*(v42 + 4) & 0x800) != 0)
                 {
                   goto LABEL_30;
                 }
 
-                v44 = sub_2993336C8(v41, v38);
+                v41 = sub_2993336C8(v38, v35);
               }
 
-              v46 = v44;
-              v101 = v44;
-              if (v44)
+              v43 = v41;
+              v100 = v41;
+              if (v41)
               {
                 break;
               }
@@ -3011,44 +2910,43 @@ LABEL_169:
           }
 
 LABEL_30:
-          if (++v29 == a4)
+          if (++v26 == a4)
           {
             goto LABEL_169;
           }
         }
 
-        Length = CFStringGetLength(v44);
+        Length = CFStringGetLength(v41);
         if (!Length)
         {
-          v49 = 4;
+          v45 = 4;
           goto LABEL_161;
         }
 
         if (*(a3 + 8) == 1)
         {
-          if (v91 & 1 | (__src != v102))
+          if (v88 & 1 | (__src != v101))
           {
-            v48 = *(a3 + 9);
-            if (v102 > 1)
+            if (v101 > 1)
             {
               if (*(a3 + 9))
               {
-                v31 = 1.1;
+                v28 = 1.1;
               }
 
               else
               {
-                v31 = 4.1;
+                v28 = 4.1;
               }
 
               if (*(a3 + 9))
               {
-                v30 = 10.0;
+                v27 = 10.0;
               }
 
               else
               {
-                v30 = 10.5;
+                v27 = 10.5;
               }
             }
 
@@ -3056,253 +2954,263 @@ LABEL_30:
             {
               if (*(a3 + 9))
               {
-                v31 = 1.1;
+                v28 = 1.1;
               }
 
               else
               {
-                v31 = 3.1;
+                v28 = 3.1;
               }
 
               if (*(a3 + 9))
               {
-                v30 = 10.0;
+                v27 = 10.0;
               }
 
               else
               {
-                v30 = 11.0;
+                v27 = 11.0;
               }
             }
           }
 
-          if (v103 <= -v30)
+          if (v102 <= -v27)
           {
-            v49 = 2;
+            v45 = 2;
             goto LABEL_161;
           }
 
-          if (v91)
+          if (v88)
           {
-            v30 = -(v103 * v31);
+            v27 = -(v102 * v28);
           }
         }
 
         cf = 0;
-        sub_299280940(v99, 1uLL);
-        sub_29927A740(&__p, 1);
+        sub_299280940(v98, 1uLL, &v103);
+        LOWORD(v94) = Length;
+        sub_29927A740(&__p, 1, &v94);
         if (v24)
         {
-          v50 = v103 + a9;
-          v92 = 0;
-          v51 = v50 + log2(Length) * 0.25;
-          if (!v32)
+          v46 = v102 + a9;
+          v89 = 0;
+          v47 = v46 + log2(Length) * 0.25;
+          if (!v29)
           {
 LABEL_111:
-            __src = v102;
-            v66 = *(a10 + 16);
-            v67 = *a10;
-            if (!v66)
+            v94 = v47;
+            __src = v101;
+            v62 = a10[2];
+            v63 = *a10;
+            if (!v62)
             {
               goto LABEL_125;
             }
 
-            v68 = 1;
-            if (*(v67 + 56))
+            v64 = 1;
+            if (*(v63 + 56))
             {
-              v68 = 0;
+              v64 = 0;
             }
 
-            if (v51 < *&v67[v68 + 4] + -3.0)
+            if (v47 < *&v63[v64 + 4] + -3.0)
             {
               goto LABEL_115;
             }
 
-            if (v66 != v86)
+            if (v62 != v83)
             {
               goto LABEL_125;
             }
 
-            v69 = a10 + 8;
-            v70 = *v93;
-            if (*v93)
+            v65 = a10 + 1;
+            v66 = *v90;
+            if (*v90)
             {
               do
               {
-                v71 = v70;
-                v70 = *(v70 + 8);
+                v67 = v66;
+                v66 = *(v66 + 8);
               }
 
-              while (v70);
+              while (v66);
             }
 
             else
             {
               do
               {
-                v71 = *(v69 + 16);
-                v23 = *v71 == v69;
-                v69 = v71;
+                v67 = v65[2];
+                v23 = *v67 == v65;
+                v65 = v67;
               }
 
               while (v23);
             }
 
-            v72 = 8;
-            if (*(v71 + 56))
+            v68 = 8;
+            if (*(v67 + 56))
             {
-              v72 = 0;
+              v68 = 0;
             }
 
-            v73 = *(v71 + v72 + 32);
-            if (v51 < v73 + -0.5)
+            v69 = *(v67 + v68 + 32);
+            if (v47 < v69 + -0.5)
             {
 LABEL_115:
-              v49 = 2;
+              v45 = 2;
               goto LABEL_154;
             }
 
-            if (v51 < v73)
+            if (v47 < v69)
             {
-              v49 = 4;
+              v45 = 4;
             }
 
             else
             {
 LABEL_125:
-              if (v92)
+              if (v89)
               {
-                v46 = v92;
+                v43 = v89;
               }
 
-              if (v67 != v93)
+              v93 = v43;
+              if (v63 != v90)
               {
                 while (1)
                 {
-                  v74 = v67[8];
-                  if (v74)
+                  v70 = v63[8];
+                  if (v70)
                   {
-                    if (CFStringCompare(v74, v46, 0) == kCFCompareEqualTo)
+                    if (CFStringCompare(v70, v43, 0) == kCFCompareEqualTo)
                     {
                       break;
                     }
                   }
 
-                  v75 = v67[1];
-                  if (v75)
+                  v71 = v63[1];
+                  if (v71)
                   {
                     do
                     {
-                      v76 = v75;
-                      v75 = *v75;
+                      v72 = v71;
+                      v71 = *v71;
                     }
 
-                    while (v75);
+                    while (v71);
                   }
 
                   else
                   {
                     do
                     {
-                      v76 = v67[2];
-                      v23 = *v76 == v67;
-                      v67 = v76;
+                      v72 = v63[2];
+                      v23 = *v72 == v63;
+                      v63 = v72;
                     }
 
                     while (!v23);
                   }
 
-                  v67 = v76;
-                  if (v76 == v93)
+                  v63 = v72;
+                  if (v72 == v90)
                   {
                     goto LABEL_143;
                   }
                 }
               }
 
-              if (v67 == v93)
+              if (v63 == v90)
               {
 LABEL_143:
-                if (*(a10 + 16) == v86)
+                if (a10[2] == v83)
                 {
-                  v79 = (a10 + 8);
-                  v80 = *v93;
-                  if (*v93)
+                  v75 = (a10 + 1);
+                  v76 = *v90;
+                  if (*v90)
                   {
                     do
                     {
-                      v81 = v80;
-                      v80 = v80[1];
+                      v77 = v76;
+                      v76 = v76[1];
                     }
 
-                    while (v80);
+                    while (v76);
                   }
 
                   else
                   {
                     do
                     {
-                      v81 = v79[2];
-                      v23 = *v81 == v79;
-                      v79 = v81;
+                      v77 = v75[2];
+                      v23 = *v77 == v75;
+                      v75 = v77;
                     }
 
                     while (v23);
                   }
 
-                  sub_299280C44(a10, v81);
-                  sub_299280B18((v81 + 4));
-                  operator delete(v81);
-                  if ((v105 & 1) == 0)
+                  v78 = a10;
+                  sub_299280C44(a10, v77);
+                  sub_299280B18((v77 + 4));
+                  operator delete(v77);
+                  if ((v104[0] & 1) == 0)
                   {
 LABEL_149:
-                    sub_299280E68();
+                    LODWORD(v92) = 0;
+                    sub_299280E68(v78, &v93, &v92, &v94, v98, &__p, v104);
                   }
                 }
 
-                else if (!v32)
+                else
                 {
-                  goto LABEL_149;
+                  v78 = a10;
+                  if (!v29)
+                  {
+                    goto LABEL_149;
+                  }
                 }
 
-                sub_299280CB8();
+                LODWORD(v92) = 0;
+                sub_299280CB8(v78, &v93, &v94, &v92, v98, &__p, v104);
               }
 
-              v77 = v67 + 4;
-              v78 = 1;
-              if (*(v67 + 56))
+              v73 = v63 + 4;
+              v74 = 1;
+              if (*(v63 + 56))
               {
-                v78 = 0;
+                v74 = 0;
               }
 
-              if (v51 > *&v77[v78])
+              if (v47 > *&v73[v74])
               {
-                v95 = v77[v78];
-                sub_299280C44(a10, v67);
-                sub_299280B18((v67 + 4));
-                operator delete(v67);
-                if (v105 == 1)
+                v92 = v73[v74];
+                sub_299280C44(a10, v63);
+                sub_299280B18((v63 + 4));
+                operator delete(v63);
+                if (v104[0] == 1)
                 {
-                  sub_299280F5C();
+                  sub_299280F5C(a10, &v93, &v94, &v92, v98, &__p, v104);
                 }
 
-                sub_29928104C();
+                sub_29928104C(a10, &v93, &v92, &v94, v98, &__p, v104);
               }
 
-              v49 = 0;
+              v45 = 0;
             }
 
 LABEL_154:
             if (__p)
             {
-              v97 = __p;
+              v96 = __p;
               operator delete(__p);
             }
 
-            if (v99[0])
+            if (v98[0])
             {
-              v99[1] = v99[0];
-              operator delete(v99[0]);
+              v98[1] = v98[0];
+              operator delete(v98[0]);
             }
 
             if (cf)
@@ -3310,12 +3218,12 @@ LABEL_154:
               CFRelease(cf);
             }
 
-            v91 = 0;
-            v46 = v101;
-            if (!v101)
+            v88 = 0;
+            v43 = v100;
+            if (!v100)
             {
 LABEL_162:
-              if ((v49 | 4) != 4)
+              if ((v45 | 4) != 4)
               {
                 goto LABEL_169;
               }
@@ -3324,7 +3232,7 @@ LABEL_162:
             }
 
 LABEL_161:
-            CFRelease(v46);
+            CFRelease(v43);
             goto LABEL_162;
           }
         }
@@ -3333,130 +3241,130 @@ LABEL_161:
         {
           MutableCopy = CFStringCreateMutableCopy(alloc, 0, theString);
           cf = MutableCopy;
-          CFStringAppend(MutableCopy, v46);
-          sub_29920D3D8(v99, v99[0], a2[1] - 4);
+          CFStringAppend(MutableCopy, v43);
+          sub_29920D3D8(v98, v98[0], a2[1] - 4);
           __srca = __p;
-          v84 = CFStringGetLength(theString);
-          v53 = v97;
-          v92 = MutableCopy;
-          if (v97 >= v98)
+          v81 = CFStringGetLength(theString);
+          v49 = v96;
+          v89 = MutableCopy;
+          if (v96 >= v97)
           {
-            v56 = (v97 - __p) >> 1;
-            if (v56 <= -2)
+            v52 = (v96 - __p) >> 1;
+            if (v52 <= -2)
             {
               sub_299212A8C();
             }
 
-            if (v98 - __p <= v56 + 1)
+            if (v97 - __p <= v52 + 1)
             {
-              v57 = v56 + 1;
+              v53 = v52 + 1;
             }
 
             else
             {
-              v57 = v98 - __p;
+              v53 = v97 - __p;
             }
 
-            if (v98 - __p >= 0x7FFFFFFFFFFFFFFELL)
+            if (v97 - __p >= 0x7FFFFFFFFFFFFFFELL)
             {
-              v58 = 0x7FFFFFFFFFFFFFFFLL;
+              v54 = 0x7FFFFFFFFFFFFFFFLL;
             }
 
             else
             {
-              v58 = v57;
+              v54 = v53;
             }
 
-            if (v58)
+            if (v54)
             {
-              sub_299212A48(&__p, v58);
+              sub_299212A48(&__p, v54);
             }
 
-            v59 = __srca - __p;
-            v60 = (__srca - __p) >> 1;
-            v61 = (2 * v60);
-            if (!v60)
+            v55 = __srca - __p;
+            v56 = (__srca - __p) >> 1;
+            v57 = (2 * v56);
+            if (!v56)
             {
-              if (v59 < 1)
+              if (v55 < 1)
               {
                 if (__p == __srca)
                 {
-                  v82 = 1;
+                  v79 = 1;
                 }
 
                 else
                 {
-                  v82 = __srca - __p;
+                  v79 = __srca - __p;
                 }
 
-                sub_299212A48(&__p, v82);
+                sub_299212A48(&__p, v79);
               }
 
-              v61 = (v61 - (((v59 >> 1) + 1) & 0x7FFFFFFFFFFFFFFELL));
+              v57 = (v57 - (((v55 >> 1) + 1) & 0x7FFFFFFFFFFFFFFELL));
             }
 
-            v62 = __srca;
-            v83 = v61;
-            *v61 = v84;
-            v63 = v61 + 1;
-            memcpy(v61 + 1, __srca, v97 - __srca);
-            __srcb = v63 + v97 - __srca;
-            v97 = v62;
-            v64 = &v83[-(v62 - __p)];
-            memcpy(v64, __p, v62 - __p);
-            v65 = __p;
-            __p = v64;
-            v97 = __srcb;
-            v98 = 0;
-            if (v65)
+            v58 = __srca;
+            v80 = v57;
+            *v57 = v81;
+            v59 = v57 + 1;
+            memcpy(v57 + 1, __srca, v96 - __srca);
+            __srcb = v59 + v96 - __srca;
+            v96 = v58;
+            v60 = &v80[-(v58 - __p)];
+            memcpy(v60, __p, v58 - __p);
+            v61 = __p;
+            __p = v60;
+            v96 = __srcb;
+            v97 = 0;
+            if (v61)
             {
-              operator delete(v65);
+              operator delete(v61);
             }
           }
 
           else
           {
-            v54 = __srca;
-            if (__srca == v97)
+            v50 = __srca;
+            if (__srca == v96)
             {
-              *v97 = v84;
-              v97 = v53 + 2;
+              *v96 = v81;
+              v96 = v49 + 2;
             }
 
             else
             {
-              if (v97 < 2)
+              if (v96 < 2)
               {
-                v55 = v97;
+                v51 = v96;
               }
 
               else
               {
-                *v97 = *(v97 - 1);
-                v55 = v53 + 2;
+                *v96 = *(v96 - 1);
+                v51 = v49 + 2;
               }
 
-              v97 = v55;
-              if (v53 != __srca + 2)
+              v96 = v51;
+              if (v49 != __srca + 2)
               {
-                memmove(__srca + 2, __srca, v53 - (__srca + 2));
-                v54 = __srca;
+                memmove(__srca + 2, __srca, v49 - (__srca + 2));
+                v50 = __srca;
               }
 
-              *v54 = v84;
+              *v50 = v81;
             }
           }
 
-          v51 = v103 + a9;
-          if ((v105 & 1) == 0)
+          v47 = v102 + a9;
+          if ((v104[0] & 1) == 0)
           {
-            v32 = 0;
+            v29 = 0;
             goto LABEL_111;
           }
         }
 
-        v51 = v51 + -0.2;
-        v32 = 1;
+        v47 = v47 + -0.2;
+        v29 = 1;
         goto LABEL_111;
       }
     }
@@ -3485,20 +3393,20 @@ void sub_29927FFC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_29928005C(uint64_t a1@<X0>, _BYTE *a2@<X3>, void *a3@<X8>)
+void sub_29928005C(uint64_t *a1@<X0>, _BYTE *a4@<X3>, void *a5@<X8>)
 {
-  *a2 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  *a3 = a3 + 1;
-  v3 = *(*a1 + 24);
-  if (v3)
+  *a4 = 0;
+  a5[1] = 0;
+  a5[2] = 0;
+  *a5 = a5 + 1;
+  v5 = *(*a1 + 24);
+  if (v5)
   {
     sub_299210C88(*(*a1 + 24));
-    v4 = atomic_load((v3 + 40));
-    if (v4 == 2)
+    v6 = atomic_load((v5 + 40));
+    if (v6 == 2)
     {
-      if (*v3)
+      if (*v5)
       {
         operator new();
       }
@@ -3521,17 +3429,17 @@ void sub_299280830(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *sub_299280940(void *result, unint64_t a2)
+uint64_t *sub_299280940(uint64_t *a1, unint64_t a2, int *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_2992F8674(result, a2);
+    sub_2992F8674(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_299280A38(_Unwind_Exception *exception_object)
@@ -3546,7 +3454,7 @@ void sub_299280A38(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t sub_299280A54(uint64_t a1, CFTypeRef cf, uint64_t *a3, uint64_t *a4, char a5, double a6, double a7)
+uint64_t sub_299280A54(uint64_t a1, CFTypeRef cf, uint64_t a3, uint64_t a4, char a5, double a6, double a7)
 {
   *a1 = a6;
   *(a1 + 8) = a7;
@@ -3566,11 +3474,11 @@ uint64_t sub_299280A54(uint64_t a1, CFTypeRef cf, uint64_t *a3, uint64_t *a4, ch
   *(a1 + 32) = v10;
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  sub_29920DED0(a1 + 40, *a3, a3[1], (a3[1] - *a3) >> 2);
+  sub_29920DED0((a1 + 40), *a3, *(a3 + 8), (*(a3 + 8) - *a3) >> 2);
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
-  sub_299215EC0(a1 + 64, *a4, a4[1], (a4[1] - *a4) >> 1);
+  sub_299215EC0((a1 + 64), *a4, *(a4 + 8), (*(a4 + 8) - *a4) >> 1);
   return a1;
 }
 
@@ -3687,9 +3595,9 @@ uint64_t *sub_299280C44(uint64_t **a1, uint64_t *a2)
   return v3;
 }
 
-void sub_299280D94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299280D94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_299280E1C(va);
   _Unwind_Resume(a1);
 }
@@ -3771,23 +3679,23 @@ uint64_t sub_299280E1C(uint64_t a1)
   return a1;
 }
 
-void sub_299280F44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299280F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_299280E1C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_299281034(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299281034(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_299280E1C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_299281124(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299281124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_299280E1C(va);
   _Unwind_Resume(a1);
 }
@@ -3808,7 +3716,7 @@ uint64_t sub_299281198(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(&qword_2A1460628, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1460628))
   {
-    sub_29927B508(&qword_2A1460620);
+    sub_29927B508(&qword_2A1460620, 5, "ja");
     __cxa_atexit(sub_29927B588, &qword_2A1460620, &dword_29918C000);
     __cxa_guard_release(&qword_2A1460628);
   }
@@ -3827,7 +3735,7 @@ BOOL sub_299281268(uint64_t a1)
 
   if ((atomic_load_explicit(&qword_2A1460640, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1460640))
   {
-    sub_29927B28C(&qword_2A1460638, qword_2A14606F0);
+    sub_29927B28C(&qword_2A1460638, qword_2A14606F0, 0);
     __cxa_atexit(sub_29927B320, &qword_2A1460638, &dword_29918C000);
     __cxa_guard_release(&qword_2A1460640);
   }
@@ -3846,7 +3754,7 @@ BOOL sub_299281394(uint64_t a1)
 
   if ((atomic_load_explicit(&qword_2A1460658, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1460658))
   {
-    sub_29927B28C(&qword_2A1460650, qword_2A1460708);
+    sub_29927B28C(&qword_2A1460650, qword_2A1460708, 0);
     __cxa_atexit(sub_29927B320, &qword_2A1460650, &dword_29918C000);
     __cxa_guard_release(&qword_2A1460658);
   }
@@ -3854,7 +3762,7 @@ BOOL sub_299281394(uint64_t a1)
   return sub_29927B354(&qword_2A1460650, a1);
 }
 
-uint64_t sub_2992814C0(const __CFString *a1)
+CFStringRef sub_2992814C0(const __CFString *a1)
 {
   if (a1)
   {
@@ -3865,11 +3773,11 @@ uint64_t sub_2992814C0(const __CFString *a1)
   return 0;
 }
 
-void sub_299281574(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+void sub_299281574(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
 {
   if (v15)
   {
-    MEMORY[0x29C29BF70](v15, 0x1000C80BDFB0063);
+    MEMORY[0x29C29BF70](v15, 0x1000C80BDFB0063, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3879,7 +3787,7 @@ uint64_t sub_2992815B4(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(&qword_2A1460668, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1460668))
   {
-    sub_29927B508(&qword_2A1460660);
+    sub_29927B508(&qword_2A1460660, 1, 0);
     __cxa_atexit(sub_29927B588, &qword_2A1460660, &dword_29918C000);
     __cxa_guard_release(&qword_2A1460668);
   }
@@ -3891,7 +3799,7 @@ uint64_t sub_299281680(uint64_t a1, uint64_t a2)
 {
   if ((atomic_load_explicit(&qword_2A1460678, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1460678))
   {
-    sub_29927B508(&qword_2A1460670);
+    sub_29927B508(&qword_2A1460670, 1, "en");
     __cxa_atexit(sub_29927B588, &qword_2A1460670, &dword_29918C000);
     __cxa_guard_release(&qword_2A1460678);
   }
@@ -3903,7 +3811,7 @@ uint64_t sub_299281750(uint64_t a1, uint64_t *a2)
 {
   if ((atomic_load_explicit(&qword_2A1460688, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1460688))
   {
-    sub_29927B508(&qword_2A1460680);
+    sub_29927B508(&qword_2A1460680, 1, 0);
     __cxa_atexit(sub_29927B588, &qword_2A1460680, &dword_29918C000);
     __cxa_guard_release(&qword_2A1460688);
   }
@@ -3936,7 +3844,7 @@ uint64_t sub_29928182C(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   if ((atomic_load_explicit(&qword_2A1460698, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1460698))
   {
-    sub_29927B508(&qword_2A1460690);
+    sub_29927B508(&qword_2A1460690, 5, "ja");
     __cxa_atexit(sub_29927B588, &qword_2A1460690, &dword_29918C000);
     __cxa_guard_release(&qword_2A1460698);
   }
@@ -4029,31 +3937,29 @@ void sub_299281A08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL sub_299281A24(__int16 a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A14606A0, memory_order_acquire) & 1) == 0)
   {
-    v3 = a1;
-    v4 = __cxa_guard_acquire(&qword_2A14606A0);
-    a1 = v3;
-    if (v4)
+    v2 = a1;
+    v3 = __cxa_guard_acquire(&qword_2A14606A0);
+    a1 = v2;
+    if (v3)
     {
-      v5[2] = *&asc_29940C008[16];
-      v5[3] = unk_29940C038;
-      v6[0] = xmmword_29940C048;
-      *(v6 + 12) = *(&xmmword_29940C048 + 12);
-      v5[0] = *asc_29940C008;
-      v5[1] = *&asc_29940C008[8];
-      sub_29923BCCC(qword_2A1460750, v5, 46);
+      v4[2] = *&asc_29940C008[16];
+      v4[3] = unk_29940C038;
+      v5[0] = xmmword_29940C048;
+      *(v5 + 12) = *(&xmmword_29940C048 + 12);
+      v4[0] = *asc_29940C008;
+      v4[1] = *&asc_29940C008[8];
+      sub_29923BCCC(qword_2A1460750, v4, 46);
       __cxa_atexit(sub_29923BCC8, qword_2A1460750, &dword_29918C000);
       __cxa_guard_release(&qword_2A14606A0);
-      a1 = v3;
+      a1 = v2;
     }
   }
 
-  LOWORD(v5[0]) = a1;
-  result = sub_299223864(qword_2A1460750, v5) != 0;
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
+  LOWORD(v4[0]) = a1;
+  return sub_299223864(qword_2A1460750, v4) != 0;
 }
 
 BOOL sub_299281B44(const __CFString *a1)
@@ -4071,53 +3977,49 @@ BOOL sub_299281B44(const __CFString *a1)
 
 BOOL sub_299281B98(unsigned __int16 a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A14606A8, memory_order_acquire) & 1) == 0)
   {
-    v3 = a1;
-    v4 = __cxa_guard_acquire(&qword_2A14606A8);
-    a1 = v3;
-    if (v4)
+    v2 = a1;
+    v3 = __cxa_guard_acquire(&qword_2A14606A8);
+    a1 = v2;
+    if (v3)
     {
-      *v5 = xmmword_29940C064;
-      *&v5[7] = 0x53414E5D516B4E03;
-      sub_29923BCCC(qword_2A1460778, v5, 11);
+      *v4 = xmmword_29940C064;
+      *&v4[7] = 0x53414E5D516B4E03;
+      sub_29923BCCC(qword_2A1460778, v4, 11);
       __cxa_atexit(sub_29923BCC8, qword_2A1460778, &dword_29918C000);
       __cxa_guard_release(&qword_2A14606A8);
-      a1 = v3;
+      a1 = v2;
     }
   }
 
-  v5[0] = a1;
-  result = sub_299223864(qword_2A1460778, v5) != 0;
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
+  v4[0] = a1;
+  return sub_299223864(qword_2A1460778, v4) != 0;
 }
 
 BOOL sub_299281CA8(__int16 a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A14606B0, memory_order_acquire) & 1) == 0)
   {
-    v3 = a1;
-    v4 = __cxa_guard_acquire(&qword_2A14606B0);
-    a1 = v3;
-    if (v4)
+    v2 = a1;
+    v3 = __cxa_guard_acquire(&qword_2A14606B0);
+    a1 = v2;
+    if (v3)
     {
-      v6 = 20140;
-      v5[0] = xmmword_29940C07A;
-      v5[1] = unk_29940C08A;
-      sub_29923BCCC(qword_2A14607A0, v5, 17);
+      v5 = 20140;
+      v4[0] = xmmword_29940C07A;
+      v4[1] = unk_29940C08A;
+      sub_29923BCCC(qword_2A14607A0, v4, 17);
       __cxa_atexit(sub_29923BCC8, qword_2A14607A0, &dword_29918C000);
       __cxa_guard_release(&qword_2A14606B0);
-      a1 = v3;
+      a1 = v2;
     }
   }
 
-  LOWORD(v5[0]) = a1;
-  result = sub_299223864(qword_2A14607A0, v5) != 0;
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
+  LOWORD(v4[0]) = a1;
+  return sub_299223864(qword_2A14607A0, v4) != 0;
 }
 
 BOOL sub_299281DB8(unsigned __int16 *a1, uint64_t a2)
@@ -4407,93 +4309,29 @@ LABEL_10:
 
 uint64_t sub_29928221C(unsigned __int16 *a1, uint64_t a2, int a3)
 {
-  v30 = *MEMORY[0x29EDCA608];
-  if (a3)
-  {
-    if ((atomic_load_explicit(&qword_2A14606E0, memory_order_acquire) & 1) == 0)
-    {
-      v18 = a1;
-      v19 = a2;
-      v20 = __cxa_guard_acquire(&qword_2A14606E0);
-      a2 = v19;
-      v21 = v20;
-      a1 = v18;
-      if (v21)
-      {
-        v26 = xmmword_29940C0E2;
-        *&v27 = 0x2E002800390038;
-        sub_29921B60C(&qword_2A1460720, &v26, 12);
-        __cxa_atexit(sub_29921B5E0, &qword_2A1460720, &dword_29918C000);
-        __cxa_guard_release(&qword_2A14606E0);
-        a1 = v18;
-        a2 = v19;
-      }
-    }
-
-    if (a2)
-    {
-      if (qword_2A1460728)
-      {
-        v3 = &a1[a2];
-        while (1)
-        {
-          v4 = *a1;
-          v5 = &qword_2A1460728;
-          v6 = qword_2A1460728;
-          do
-          {
-            v7 = *(v6 + 26);
-            v8 = v7 >= v4;
-            v9 = v7 < v4;
-            if (v8)
-            {
-              v5 = v6;
-            }
-
-            v6 = *(v6 + 8 * v9);
-          }
-
-          while (v6);
-          if (v5 == &qword_2A1460728 || v4 < *(v5 + 13))
-          {
-            break;
-          }
-
-          if (++a1 == v3)
-          {
-            goto LABEL_27;
-          }
-        }
-      }
-
-LABEL_28:
-      result = 0;
-      goto LABEL_29;
-    }
-  }
-
-  else
+  v29 = *MEMORY[0x29EDCA608];
+  if (!a3)
   {
     if ((atomic_load_explicit(&qword_2A14606E8, memory_order_acquire) & 1) == 0)
     {
-      v22 = a1;
-      v23 = a2;
-      v24 = __cxa_guard_acquire(&qword_2A14606E8);
-      a2 = v23;
-      v25 = v24;
-      a1 = v22;
-      if (v25)
+      v21 = a1;
+      v22 = a2;
+      v23 = __cxa_guard_acquire(&qword_2A14606E8);
+      a2 = v22;
+      v24 = v23;
+      a1 = v21;
+      if (v24)
       {
-        v28 = xmmword_29940C11A;
-        v29[0] = unk_29940C12A;
-        *(v29 + 12) = unk_29940C136;
-        v26 = xmmword_29940C0FA;
-        v27 = unk_29940C10A;
-        sub_29921B60C(&qword_2A1460738, &v26, 38);
+        v27 = xmmword_29940C11A;
+        v28[0] = unk_29940C12A;
+        *(v28 + 12) = unk_29940C136;
+        v25 = xmmword_29940C0FA;
+        v26 = unk_29940C10A;
+        sub_29921B60C(&qword_2A1460738, &v25, 38);
         __cxa_atexit(sub_29921B5E0, &qword_2A1460738, &dword_29918C000);
         __cxa_guard_release(&qword_2A14606E8);
-        a1 = v22;
-        a2 = v23;
+        a1 = v21;
+        a2 = v22;
       }
     }
 
@@ -4528,31 +4366,88 @@ LABEL_28:
 
           if (++a1 == v10)
           {
-            goto LABEL_27;
+            return 1;
           }
         }
       }
 
-      goto LABEL_28;
+      return 0;
+    }
+
+    return 1;
+  }
+
+  if ((atomic_load_explicit(&qword_2A14606E0, memory_order_acquire) & 1) == 0)
+  {
+    v17 = a1;
+    v18 = a2;
+    v19 = __cxa_guard_acquire(&qword_2A14606E0);
+    a2 = v18;
+    v20 = v19;
+    a1 = v17;
+    if (v20)
+    {
+      v25 = xmmword_29940C0E2;
+      *&v26 = 0x2E002800390038;
+      sub_29921B60C(&qword_2A1460720, &v25, 12);
+      __cxa_atexit(sub_29921B5E0, &qword_2A1460720, &dword_29918C000);
+      __cxa_guard_release(&qword_2A14606E0);
+      a1 = v17;
+      a2 = v18;
     }
   }
 
-LABEL_27:
-  result = 1;
-LABEL_29:
-  v17 = *MEMORY[0x29EDCA608];
-  return result;
+  if (!a2)
+  {
+    return 1;
+  }
+
+  if (qword_2A1460728)
+  {
+    v3 = &a1[a2];
+    while (1)
+    {
+      v4 = *a1;
+      v5 = &qword_2A1460728;
+      v6 = qword_2A1460728;
+      do
+      {
+        v7 = *(v6 + 26);
+        v8 = v7 >= v4;
+        v9 = v7 < v4;
+        if (v8)
+        {
+          v5 = v6;
+        }
+
+        v6 = *(v6 + 8 * v9);
+      }
+
+      while (v6);
+      if (v5 == &qword_2A1460728 || v4 < *(v5 + 13))
+      {
+        break;
+      }
+
+      if (++a1 == v3)
+      {
+        return 1;
+      }
+    }
+  }
+
+  return 0;
 }
 
 void sub_2992824B0(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, void *a4@<X8>)
 {
   v5 = a1;
-  v131 = *MEMORY[0x29EDCA608];
+  v130 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A14606C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A14606C8))
   {
     *__p = xmmword_29940C0B2;
-    v38 = unk_29940C0C2;
-    v39 = xmmword_29940C0D2;
+    v37 = unk_29940C0C2;
+    v38 = xmmword_29940C0D2;
     sub_299283B5C(__p, 12);
     __cxa_atexit(sub_299282F78, &xmmword_2A14607C8, &dword_29918C000);
     __cxa_guard_release(&qword_2A14606C8);
@@ -4562,112 +4457,112 @@ void sub_2992824B0(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, void *a4@
   if ((atomic_load_explicit(&qword_2A14606D0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A14606D0))
   {
     sub_299217DF0(__p, "1");
-    WORD4(v38) = 49;
-    sub_299217DF0(&v39, "1");
-    v40 = 9734;
-    sub_299217DF0(v41, L"111");
-    v42 = 9834;
-    sub_299217DF0(v43, L"1111");
-    v44 = 8594;
-    sub_299217DF0(v45, "2");
-    v46 = 50;
-    sub_299217DF0(v47, L"22");
-    v48 = 165;
-    sub_299217DF0(v49, "2");
-    v50 = 36;
-    sub_299217DF0(v51, "2");
-    v52 = 8364;
-    sub_299217DF0(v53, L"3");
-    v54 = 51;
-    sub_299217DF0(v55, L"33");
-    v56 = 37;
-    sub_299217DF0(v57, "3");
-    v58 = 176;
-    sub_299217DF0(v59, "3");
-    v60 = 35;
-    sub_299217DF0(v61, L"4");
-    v62 = 52;
-    sub_299217DF0(v63, L"44");
-    v64 = 9675;
-    sub_299217DF0(v65, "4");
-    v66 = -246;
-    sub_299217DF0(v67, "4");
-    v68 = 12539;
-    sub_299217DF0(v69, L"5");
-    v70 = 53;
-    sub_299217DF0(v71, L"55");
-    v72 = 43;
-    sub_299217DF0(v73, "5");
-    v74 = 215;
-    sub_299217DF0(v75, "5");
-    v76 = 247;
-    sub_299217DF0(v77, word_29945C960);
-    v78 = 54;
-    sub_299217DF0(v79, L"66");
-    v80 = 60;
-    sub_299217DF0(v81, "6");
-    v82 = 61;
-    sub_299217DF0(v83, "6");
-    v84 = 62;
-    sub_299217DF0(v85, L"7");
-    v86 = 55;
-    sub_299217DF0(v87, L"77");
-    v88 = 12300;
-    sub_299217DF0(v89, "7");
-    v90 = 12301;
-    sub_299217DF0(v91, "7");
-    v92 = -230;
-    sub_299217DF0(v93, "8");
-    v94 = 56;
-    sub_299217DF0(v95, L"88");
-    v96 = 12306;
-    sub_299217DF0(v97, "8");
-    v98 = 12293;
-    sub_299217DF0(v99, "8");
-    v100 = 12294;
-    sub_299217DF0(v101, word_29945C930);
-    v102 = 57;
-    sub_299217DF0(v103, L"99");
-    v104 = 94;
-    sub_299217DF0(v105, "9");
-    v106 = 124;
-    sub_299217DF0(v107, "9");
-    v108 = 92;
-    sub_299217DF0(v109, L"0");
-    v110 = 48;
-    sub_299217DF0(v111, L"00");
-    v112 = 12316;
-    sub_299217DF0(v113, "0");
-    v114 = 8230;
-    sub_299217DF0(v115, "(");
-    v116 = 40;
-    sub_299217DF0(v117, "(");
-    v118 = 41;
-    sub_299217DF0(v119, L"(((");
-    v120 = 91;
-    sub_299217DF0(v121, L"((((");
-    v122 = 93;
-    sub_299217DF0(v123, ".");
-    v124 = 46;
-    sub_299217DF0(v125, ".");
-    v126 = 44;
-    sub_299217DF0(v127, L"...");
-    v128 = 45;
-    sub_299217DF0(v129, L"....");
-    v130 = 47;
+    WORD4(v37) = 49;
+    sub_299217DF0(&v38, "1");
+    v39 = 9734;
+    sub_299217DF0(v40, L"111");
+    v41 = 9834;
+    sub_299217DF0(v42, L"1111");
+    v43 = 8594;
+    sub_299217DF0(v44, "2");
+    v45 = 50;
+    sub_299217DF0(v46, L"22");
+    v47 = 165;
+    sub_299217DF0(v48, "2");
+    v49 = 36;
+    sub_299217DF0(v50, "2");
+    v51 = 8364;
+    sub_299217DF0(v52, L"3");
+    v53 = 51;
+    sub_299217DF0(v54, L"33");
+    v55 = 37;
+    sub_299217DF0(v56, "3");
+    v57 = 176;
+    sub_299217DF0(v58, "3");
+    v59 = 35;
+    sub_299217DF0(v60, L"4");
+    v61 = 52;
+    sub_299217DF0(v62, L"44");
+    v63 = 9675;
+    sub_299217DF0(v64, "4");
+    v65 = -246;
+    sub_299217DF0(v66, "4");
+    v67 = 12539;
+    sub_299217DF0(v68, L"5");
+    v69 = 53;
+    sub_299217DF0(v70, L"55");
+    v71 = 43;
+    sub_299217DF0(v72, "5");
+    v73 = 215;
+    sub_299217DF0(v74, "5");
+    v75 = 247;
+    sub_299217DF0(v76, "6");
+    v77 = 54;
+    sub_299217DF0(v78, L"66");
+    v79 = 60;
+    sub_299217DF0(v80, "6");
+    v81 = 61;
+    sub_299217DF0(v82, "6");
+    v83 = 62;
+    sub_299217DF0(v84, L"7");
+    v85 = 55;
+    sub_299217DF0(v86, L"77");
+    v87 = 12300;
+    sub_299217DF0(v88, "7");
+    v89 = 12301;
+    sub_299217DF0(v90, "7");
+    v91 = -230;
+    sub_299217DF0(v92, "8");
+    v93 = 56;
+    sub_299217DF0(v94, L"88");
+    v95 = 12306;
+    sub_299217DF0(v96, "8");
+    v97 = 12293;
+    sub_299217DF0(v98, "8");
+    v99 = 12294;
+    sub_299217DF0(v100, "9");
+    v101 = 57;
+    sub_299217DF0(v102, L"99");
+    v103 = 94;
+    sub_299217DF0(v104, "9");
+    v105 = 124;
+    sub_299217DF0(v106, "9");
+    v107 = 92;
+    sub_299217DF0(v108, L"0");
+    v109 = 48;
+    sub_299217DF0(v110, L"00");
+    v111 = 12316;
+    sub_299217DF0(v112, "0");
+    v113 = 8230;
+    sub_299217DF0(v114, "(");
+    v115 = 40;
+    sub_299217DF0(v116, "(");
+    v117 = 41;
+    sub_299217DF0(v118, L"(((");
+    v119 = 91;
+    sub_299217DF0(v120, L"((((");
+    v121 = 93;
+    sub_299217DF0(v122, ".");
+    v123 = 46;
+    sub_299217DF0(v124, ".");
+    v125 = 44;
+    sub_299217DF0(v126, L"...");
+    v127 = 45;
+    sub_299217DF0(v128, L"....");
+    v129 = 47;
     sub_299283FD4(__p, 47);
-    v33 = 188;
+    v32 = 188;
     do
     {
-      if (*(&__p[v33 - 1] - 1) < 0)
+      if (*(&__p[v32 - 1] - 1) < 0)
       {
-        operator delete(__p[v33 - 4]);
+        operator delete(__p[v32 - 4]);
       }
 
-      v33 -= 4;
+      v32 -= 4;
     }
 
-    while (v33 * 8);
+    while (v32 * 8);
     __cxa_atexit(sub_299282F7C, &xmmword_2A14607F0, &dword_29918C000);
     __cxa_guard_release(&qword_2A14606D0);
     v5 = a1;
@@ -4678,13 +4573,13 @@ void sub_2992824B0(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X2>, void *a4@
   a4[2] = 0;
   if (!a2)
   {
-    goto LABEL_63;
+    return;
   }
 
   v7 = 0;
   v8 = v5 + 2;
   v9 = &qword_2A1460000;
-  v34 = a4;
+  v33 = a4;
   do
   {
     v10 = (v5 + 2 * v7);
@@ -4868,7 +4763,7 @@ LABEL_55:
         i = 0;
       }
 
-      a4 = v34;
+      a4 = v33;
       v9 = &qword_2A1460000;
     }
 
@@ -4877,7 +4772,7 @@ LABEL_55:
       i = 0;
     }
 
-    if (SBYTE7(v38) < 0)
+    if (SBYTE7(v37) < 0)
     {
       operator delete(__p[0]);
       if (!i)
@@ -4903,8 +4798,6 @@ LABEL_22:
   }
 
   while (v17 < a2);
-LABEL_63:
-  v32 = *MEMORY[0x29EDCA608];
 }
 
 void sub_299282E24(_Unwind_Exception *a1)
@@ -4933,78 +4826,78 @@ void sub_299282E24(_Unwind_Exception *a1)
 
 void sub_299282F80(uint64_t a1, uint64_t a2, void *a3)
 {
-  v61 = *MEMORY[0x29EDCA608];
+  v62 = *MEMORY[0x29EDCA608];
   if ((atomic_load_explicit(&qword_2A14606D8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A14606D8))
   {
-    v5[0] = 12316;
-    sub_299217DF0(v6, L"00");
-    v7 = 8230;
-    sub_299217DF0(v8, "0");
-    v9 = 9734;
-    sub_299217DF0(v10, "1");
-    v11 = 9834;
-    sub_299217DF0(v12, L"111");
-    v13 = 8594;
-    sub_299217DF0(v14, L"1111");
-    v15 = 165;
-    sub_299217DF0(v16, L"22");
-    v17 = 36;
-    sub_299217DF0(v18, "2");
-    v19 = 8364;
-    sub_299217DF0(v20, "2");
-    v21 = 37;
-    sub_299217DF0(v22, L"33");
-    v23 = 176;
-    sub_299217DF0(v24, "3");
-    v25 = 9675;
-    sub_299217DF0(v26, L"44");
-    v27 = -246;
-    sub_299217DF0(v28, "4");
-    v29 = 12539;
-    sub_299217DF0(v30, "4");
-    v31 = 43;
-    sub_299217DF0(v32, L"55");
-    v33 = 215;
-    sub_299217DF0(v34, "5");
-    v35 = 247;
-    sub_299217DF0(v36, "5");
-    v37 = 60;
-    sub_299217DF0(v38, L"66");
-    v39 = 61;
-    sub_299217DF0(v40, "6");
-    v41 = 62;
-    sub_299217DF0(v42, "6");
-    v43 = 12300;
-    sub_299217DF0(v44, L"77");
-    v45 = 12301;
-    sub_299217DF0(v46, "7");
-    v47 = -230;
-    sub_299217DF0(v48, "7");
-    v49 = 12306;
-    sub_299217DF0(v50, L"88");
-    v51 = 12293;
-    sub_299217DF0(v52, "8");
-    v53 = 12294;
-    sub_299217DF0(v54, "8");
-    v55 = 94;
-    sub_299217DF0(v56, L"99");
-    v57 = 124;
-    sub_299217DF0(v58, "9");
-    v59 = 92;
-    sub_299217DF0(v60, "9");
-    sub_2992844AC(v5, 28);
-    v4 = 448;
+    v6[0] = 12316;
+    sub_299217DF0(v7, L"00");
+    v8 = 8230;
+    sub_299217DF0(v9, "0");
+    v10 = 9734;
+    sub_299217DF0(v11, "1");
+    v12 = 9834;
+    sub_299217DF0(v13, L"111");
+    v14 = 8594;
+    sub_299217DF0(v15, L"1111");
+    v16 = 165;
+    sub_299217DF0(v17, L"22");
+    v18 = 36;
+    sub_299217DF0(v19, "2");
+    v20 = 8364;
+    sub_299217DF0(v21, "2");
+    v22 = 37;
+    sub_299217DF0(v23, L"33");
+    v24 = 176;
+    sub_299217DF0(v25, "3");
+    v26 = 9675;
+    sub_299217DF0(v27, L"44");
+    v28 = -246;
+    sub_299217DF0(v29, "4");
+    v30 = 12539;
+    sub_299217DF0(v31, "4");
+    v32 = 43;
+    sub_299217DF0(v33, L"55");
+    v34 = 215;
+    sub_299217DF0(v35, "5");
+    v36 = 247;
+    sub_299217DF0(v37, "5");
+    v38 = 60;
+    sub_299217DF0(v39, L"66");
+    v40 = 61;
+    sub_299217DF0(v41, "6");
+    v42 = 62;
+    sub_299217DF0(v43, "6");
+    v44 = 12300;
+    sub_299217DF0(v45, L"77");
+    v46 = 12301;
+    sub_299217DF0(v47, "7");
+    v48 = -230;
+    sub_299217DF0(v49, "7");
+    v50 = 12306;
+    sub_299217DF0(v51, L"88");
+    v52 = 12293;
+    sub_299217DF0(v53, "8");
+    v54 = 12294;
+    sub_299217DF0(v55, "8");
+    v56 = 94;
+    sub_299217DF0(v57, L"99");
+    v58 = 124;
+    sub_299217DF0(v59, "9");
+    v60 = 92;
+    sub_299217DF0(v61, "9");
+    sub_2992844AC(v6, 28);
+    v5 = 448;
     do
     {
-      if (SHIBYTE(v5[v4 - 1]) < 0)
+      if (SHIBYTE(v6[v5 - 1]) < 0)
       {
-        operator delete(*&v5[v4 - 12]);
+        operator delete(*&v6[v5 - 12]);
       }
 
-      v4 -= 16;
+      v5 -= 16;
     }
 
-    while (v4 * 2);
+    while (v5 * 2);
     __cxa_atexit(sub_2992835E4, &xmmword_2A1460818, &dword_29918C000);
     __cxa_guard_release(&qword_2A14606D8);
   }
@@ -5037,37 +4930,37 @@ void sub_299283508(_Unwind_Exception *a1)
 BOOL sub_2992835E8(CFStringRef theString, const __CFString *a2)
 {
   result = 0;
-  v28 = *MEMORY[0x29EDCA608];
+  v27 = *MEMORY[0x29EDCA608];
   if (theString && a2)
   {
     Length = CFStringGetLength(theString);
     v6 = CFStringGetLength(a2);
-    v22[1] = v22;
-    v22[0] = v6 + 1;
-    MEMORY[0x2A1C7C4A8]();
-    v23 = v22 - v7;
-    v25 = Length;
+    v21[1] = v21;
+    v21[0] = v6 + 1;
+    MEMORY[0x2A1C7C4A8](v6);
+    v22 = v21 - v7;
+    v24 = Length;
     if ((Length & 0x8000000000000000) == 0)
     {
       v8 = 0;
-      v26 = v23;
-      v27 = &v23[-8 * v6 - 8];
-      v24 = 8 * v6 + 8;
+      v25 = v22;
+      v26 = &v22[-8 * v6 - 8];
+      v23 = 8 * v6 + 8;
       while (v6 < 0)
       {
 LABEL_44:
-        v27 += v24;
-        v26 = (v26 + v24);
-        v17 = v8++ == v25;
+        v26 += v23;
+        v25 = (v25 + v23);
+        v17 = v8++ == v24;
         if (v17)
         {
-          goto LABEL_46;
+          return *&v22[8 * v21[0] * v24 + 8 * v6] == 0;
         }
       }
 
       v9 = -1;
-      v11 = v26;
-      v10 = v27;
+      v11 = v25;
+      v10 = v26;
       while (1)
       {
         if (v8)
@@ -5142,11 +5035,9 @@ LABEL_39:
       }
     }
 
-LABEL_46:
-    result = *&v23[8 * v22[0] * v25 + 8 * v6] == 0;
+    return *&v22[8 * v21[0] * v24 + 8 * v6] == 0;
   }
 
-  v21 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5241,14 +5132,14 @@ uint64_t sub_299283910(uint64_t a1, uint64_t a2)
   return v11;
 }
 
-unsigned __int16 *sub_299283B5C(unsigned __int16 *result, uint64_t a2)
+void sub_299283B5C(_DWORD *a1, uint64_t a2)
 {
   xmmword_2A14607C8 = 0u;
   *&qword_2A14607D8 = 0u;
   dword_2A14607E8 = 1065353216;
   if (a2)
   {
-    for (i = result; i != &result[2 * a2]; i += 2)
+    for (i = a1; i != &a1[a2]; ++i)
     {
       v3 = *i;
       if (!*(&xmmword_2A14607C8 + 1))
@@ -5319,8 +5210,6 @@ LABEL_18:
       }
     }
   }
-
-  return result;
 }
 
 void sub_299283FA8(_Unwind_Exception *a1)
@@ -5330,15 +5219,15 @@ void sub_299283FA8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-BOOL sub_299283FD4(_BOOL8 result, uint64_t a2)
+void sub_299283FD4(unsigned __int16 *a1, uint64_t a2)
 {
   xmmword_2A14607F0 = 0u;
   *&qword_2A1460800 = 0u;
   dword_2A1460810 = 1065353216;
   if (a2)
   {
-    v2 = result;
-    v12 = (result + 32 * a2);
+    v2 = a1;
+    v12 = &a1[16 * a2];
     do
     {
       v3 = sub_29923AF34(&xmmword_2A14607F0, v2);
@@ -5407,8 +5296,7 @@ LABEL_18:
         }
       }
 
-      result = sub_29923AF78(&xmmword_2A14607F0, v10 + 8, v2);
-      if (!result)
+      if (!sub_29923AF78(&xmmword_2A14607F0, v10 + 8, v2))
       {
         goto LABEL_18;
       }
@@ -5418,8 +5306,6 @@ LABEL_18:
 
     while (v2 != v12);
   }
-
-  return result;
 }
 
 void sub_29928446C(_Unwind_Exception *a1)
@@ -5429,14 +5315,14 @@ void sub_29928446C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-unsigned __int16 *sub_2992844AC(unsigned __int16 *result, uint64_t a2)
+void sub_2992844AC(unsigned __int16 *a1, uint64_t a2)
 {
   xmmword_2A1460818 = 0u;
   *&qword_2A1460828 = 0u;
   dword_2A1460838 = 1065353216;
   if (a2)
   {
-    for (i = result; i != &result[16 * a2]; i += 16)
+    for (i = a1; i != &a1[16 * a2]; i += 16)
     {
       v3 = *i;
       if (!*(&xmmword_2A1460818 + 1))
@@ -5507,8 +5393,6 @@ LABEL_18:
       }
     }
   }
-
-  return result;
 }
 
 void sub_299284920(_Unwind_Exception *a1)
@@ -5518,7 +5402,7 @@ void sub_299284920(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t MecabraCreateWithAdditionalDictionariesAndOptions(unsigned int a1, const void *a2, const void *a3, char a4)
+uint64_t *MecabraCreateWithAdditionalDictionariesAndOptions(unsigned int a1, const void *a2, const void *a3, char a4)
 {
   v8 = *MEMORY[0x29EDB8ED8];
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
@@ -5573,14 +5457,14 @@ LABEL_9:
   return v12;
 }
 
-uint64_t MecabraCreate(uint64_t a1)
+uint64_t *MecabraCreate(const __CFDictionary *a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    *v5 = 0;
-    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraCreate]", v5, 2u);
+    LOWORD(v4) = 0;
+    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraCreate]", &v4, 2u);
     if (a1)
     {
 LABEL_3:
@@ -5593,11 +5477,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v3 = *MEMORY[0x29EDCA608];
   return 0;
 }
 
-void sub_299285A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
+void sub_299285A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   sub_2992530BC(v12, 0);
   sub_29929054C(v11, 0);
@@ -5616,135 +5499,126 @@ void sub_299285A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t MecabraAnalyzeString(void *a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v6 = sub_2993652F8(2u);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 134218242;
-    v12 = a1;
-    v13 = 2112;
-    v14 = a2;
-    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraAnalyzeString] mecabra:%p string:%@", &v11, 0x16u);
+    v10 = 134218242;
+    v11 = a1;
+    v12 = 2112;
+    v13 = a2;
+    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraAnalyzeString] mecabra:%p string:%@", &v10, 0x16u);
     if (!a1)
     {
-      goto LABEL_6;
+      return 0;
     }
   }
 
   else if (!a1)
   {
-LABEL_6:
-    v8 = 0;
-    goto LABEL_7;
+    return 0;
   }
 
   if (!*a1)
   {
-    goto LABEL_6;
+    return 0;
   }
 
   v7 = objc_autoreleasePoolPush();
   v8 = (*(**a1 + 32))(*a1, a2, a3, 0, 0, 0, 0);
   objc_autoreleasePoolPop(v7);
-LABEL_7:
-  v9 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
 uint64_t MecabraAnalyzeStringWithContext(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   ptr = a3;
-  if (a1 && *a1)
+  if (!a1 || !*a1)
   {
-    if (a4)
-    {
-      v7 = *a4;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v7 = 0;
-    }
-
-    v9 = sub_2993652F8(2u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-    {
-      sub_2992860E0(__p, v7);
-      v10 = sub_2993652F8(2u);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-      {
-        v21 = __p;
-        if (v23 < 0)
-        {
-          v21 = __p[0];
-        }
-
-        *buf = 134218754;
-        v26 = a1;
-        v27 = 2112;
-        v28 = a2;
-        v29 = 2048;
-        v30 = a3;
-        v31 = 2080;
-        v32 = v21;
-        _os_log_debug_impl(&dword_29918C000, v10, OS_LOG_TYPE_DEBUG, "[MecabraAnalyzeStringWithContext] mecabra:%p string:%@ options:0x%lx context:%s", buf, 0x2Au);
-      }
-
-      if (v23 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v11 = objc_autoreleasePoolPush();
-    v12 = sub_2993652F8(0xDu);
-    v13 = os_signpost_id_make_with_pointer(v12, &ptr);
-    if ((*(**a1 + 16))() == 1 || (*(**a1 + 16))() == 17)
-    {
-      v14 = 1;
-    }
-
-    else
-    {
-      v15 = sub_2993652F8(0xDu);
-      if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v16 = v15;
-        if (os_signpost_enabled(v15))
-        {
-          *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_29918C000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v13, "MecabraAnalyzeStringWithContext", &unk_29945DB9F, buf, 2u);
-        }
-      }
-
-      v14 = 0;
-    }
-
-    v8 = (*(**a1 + 40))(*a1, a2, ptr, v7);
-    if ((v14 & 1) == 0)
-    {
-      v17 = sub_2993652F8(0xDu);
-      if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-      {
-        v18 = v17;
-        if (os_signpost_enabled(v17))
-        {
-          *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_29918C000, v18, OS_SIGNPOST_INTERVAL_END, v13, "MecabraAnalyzeStringWithContext", &unk_29945DB9F, buf, 2u);
-        }
-      }
-    }
-
-    objc_autoreleasePoolPop(v11);
+  if (a4)
+  {
+    v7 = *a4;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v19 = *MEMORY[0x29EDCA608];
+  v9 = sub_2993652F8(2u);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    sub_2992860E0(__p, v7);
+    v10 = sub_2993652F8(2u);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      v20 = __p;
+      if (v22 < 0)
+      {
+        v20 = __p[0];
+      }
+
+      *buf = 134218754;
+      v25 = a1;
+      v26 = 2112;
+      v27 = a2;
+      v28 = 2048;
+      v29 = a3;
+      v30 = 2080;
+      v31 = v20;
+      _os_log_debug_impl(&dword_29918C000, v10, OS_LOG_TYPE_DEBUG, "[MecabraAnalyzeStringWithContext] mecabra:%p string:%@ options:0x%lx context:%s", buf, 0x2Au);
+    }
+
+    if (v22 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v11 = objc_autoreleasePoolPush();
+  v12 = sub_2993652F8(0xDu);
+  v13 = os_signpost_id_make_with_pointer(v12, &ptr);
+  if ((*(**a1 + 16))() == 1 || (*(**a1 + 16))() == 17)
+  {
+    v14 = 1;
+  }
+
+  else
+  {
+    v15 = sub_2993652F8(0xDu);
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v16 = v15;
+      if (os_signpost_enabled(v15))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_29918C000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v13, "MecabraAnalyzeStringWithContext", &unk_29945DB9F, buf, 2u);
+      }
+    }
+
+    v14 = 0;
+  }
+
+  v8 = (*(**a1 + 40))(*a1, a2, ptr, v7);
+  if ((v14 & 1) == 0)
+  {
+    v17 = sub_2993652F8(0xDu);
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    {
+      v18 = v17;
+      if (os_signpost_enabled(v17))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_29918C000, v18, OS_SIGNPOST_INTERVAL_END, v13, "MecabraAnalyzeStringWithContext", &unk_29945DB9F, buf, 2u);
+      }
+    }
+  }
+
+  objc_autoreleasePoolPop(v11);
   return v8;
 }
 
@@ -5758,11 +5632,11 @@ void sub_2992860BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *sub_2992860E0(_BYTE *a1, uint64_t a2)
+void *sub_2992860E0(void *a1, uint64_t a2)
 {
   if (a2)
   {
-    sub_2991D7954(v97);
+    sub_2991D7954(v95);
     for (i = 0; ; ++i)
     {
       Count = *(a2 + 16);
@@ -5777,239 +5651,237 @@ _BYTE *sub_2992860E0(_BYTE *a1, uint64_t a2)
       }
 
       v6 = sub_299324228(a2, i);
-      Surface = MecabraCandidateGetSurface(v6, v7, v8);
+      Surface = MecabraCandidateGetSurface(v6, v7, v8, v9);
       sub_299277A90(Surface, __s);
-      v10 = __s[0];
-      v11 = strlen(__s[0]);
-      sub_2991C0E9C(&v98, __s[0], v11);
-      if (v10)
+      v11 = __s[0];
+      v12 = strlen(__s[0]);
+      sub_2991C0E9C(&v96, __s[0], v12);
+      if (v11)
       {
-        MEMORY[0x29C29BF70](v10, 0x1000C8077774924);
+        MEMORY[0x29C29BF70](v11, 0x1000C8077774924);
       }
 
-      v12 = *(a2 + 16);
-      if (v12)
+      v13 = *(a2 + 16);
+      if (v13)
       {
-        v12 = CFArrayGetCount(v12);
+        v13 = CFArrayGetCount(v13);
       }
 
-      if (i < v12 - 1)
+      if (i < v13 - 1)
       {
         LOBYTE(__s[0]) = 124;
-        sub_2991C0E9C(&v98, __s, 1);
+        sub_2991C0E9C(&v96, __s, 1);
       }
     }
 
     sub_2991D7954(__s);
     for (j = 0; j < CFArrayGetCount(*(a2 + 32)); ++j)
     {
-      v14 = sub_299324314(a2, j);
-      v17 = MecabraCandidateGetSurface(v14, v15, v16);
-      sub_299277A90(v17, v77);
-      v18 = v77[0];
-      v19 = strlen(v77[0]);
-      sub_2991C0E9C(&v88, v77[0], v19);
-      if (v18)
+      v15 = sub_299324314(a2, j);
+      v19 = MecabraCandidateGetSurface(v15, v16, v17, v18);
+      sub_299277A90(v19, v75);
+      v20 = v75[0];
+      v21 = strlen(v75[0]);
+      sub_2991C0E9C(&v86, v75[0], v21);
+      if (v20)
       {
-        MEMORY[0x29C29BF70](v18, 0x1000C8077774924);
+        MEMORY[0x29C29BF70](v20, 0x1000C8077774924);
       }
 
       if (j < CFArrayGetCount(*(a2 + 32)) - 1)
       {
-        LOBYTE(v77[0]) = 124;
-        sub_2991C0E9C(&v88, v77, 1);
+        LOBYTE(v75[0]) = 124;
+        sub_2991C0E9C(&v86, v75, 1);
       }
     }
 
-    sub_2991D7954(v77);
-    v20 = *(a2 + 88);
-    if (v20)
+    sub_2991D7954(v75);
+    v22 = *(a2 + 88);
+    if (v22)
     {
-      sub_299277A90(v20, v64);
-      v21 = v64[0];
-      v22 = strlen(v64[0]);
-      sub_2991C0E9C(&v78, v64[0], v22);
-      if (v21)
+      sub_299277A90(v22, v62);
+      v23 = v62[0];
+      v24 = strlen(v62[0]);
+      sub_2991C0E9C(&v76, v62[0], v24);
+      if (v23)
       {
-        MEMORY[0x29C29BF70](v21, 0x1000C8077774924);
+        MEMORY[0x29C29BF70](v23, 0x1000C8077774924);
       }
     }
 
-    v23 = *(a2 + 72);
-    if (v23)
+    v25 = *(a2 + 72);
+    if (v25)
     {
-      sub_299277A90(v23, &v74);
-      v24 = v74;
+      sub_299277A90(v25, &v72);
+      v26 = v72;
     }
 
     else
     {
-      v24 = "N/A";
+      v26 = "N/A";
     }
 
-    sub_2991C6CA8(v75, v24);
-    if (v23 && v24)
+    sub_2991C6CA8(v73, v26);
+    if (v25 && v26)
     {
-      MEMORY[0x29C29BF70](v24, 0x1000C8077774924);
+      MEMORY[0x29C29BF70](v26, 0x1000C8077774924);
     }
 
-    sub_2991D7954(v64);
-    v26 = sub_2991C0E9C(&v65, "(left[", 6);
-    if ((v105 & 0x10) != 0)
+    sub_2991D7954(v62);
+    v28 = sub_2991C0E9C(&v63, "(left[", 6);
+    if ((v103 & 0x10) != 0)
     {
-      v28 = v104;
-      if (v104 < v101)
+      v30 = v102;
+      if (v102 < v99)
       {
-        v104 = v101;
-        v28 = v101;
+        v102 = v99;
+        v30 = v99;
       }
 
-      locale = v100[4].__locale_;
+      locale = v98[4].__locale_;
     }
 
     else
     {
-      if ((v105 & 8) == 0)
+      if ((v103 & 8) == 0)
       {
-        v27 = 0;
-        v63 = 0;
+        v29 = 0;
+        v61 = 0;
         goto LABEL_45;
       }
 
-      locale = v100[1].__locale_;
-      v28 = v100[3].__locale_;
+      locale = v98[1].__locale_;
+      v30 = v98[3].__locale_;
     }
 
-    v27 = v28 - locale;
-    if ((v28 - locale) > 0x7FFFFFFFFFFFFFF7)
+    v29 = v30 - locale;
+    if ((v30 - locale) > 0x7FFFFFFFFFFFFFF7)
     {
       sub_2991A11B0();
     }
 
-    if (v27 >= 0x17)
+    if (v29 >= 0x17)
     {
       operator new();
     }
 
-    v63 = v28 - locale;
-    if (v27)
+    v61 = v30 - locale;
+    if (v29)
     {
-      memmove(__dst, locale, v27);
+      memmove(__dst, locale, v29);
     }
 
 LABEL_45:
-    *(__dst + v27) = 0;
-    if ((v63 & 0x80u) == 0)
+    *(__dst + v29) = 0;
+    if ((v61 & 0x80u) == 0)
     {
-      v30 = __dst;
+      v32 = __dst;
     }
 
     else
     {
-      v30 = __dst[0];
+      v32 = __dst[0];
     }
 
-    if ((v63 & 0x80u) == 0)
+    if ((v61 & 0x80u) == 0)
     {
-      v31 = v63;
+      v33 = sub_2991C0E9C(v28, v32, v61);
     }
 
     else
     {
-      v31 = __dst[1];
+      v33 = sub_2991C0E9C(v28, v32, __dst[1]);
     }
 
-    v32 = sub_2991C0E9C(v26, v30, v31);
-    v33 = sub_2991C0E9C(v32, "] inline[", 9);
-    if ((v95 & 0x10) != 0)
+    v34 = sub_2991C0E9C(v33, "] inline[", 9);
+    if ((v93 & 0x10) != 0)
     {
-      v35 = v94;
-      if (v94 < v91)
+      v36 = v92;
+      if (v92 < v89)
       {
-        v94 = v91;
-        v35 = v91;
+        v92 = v89;
+        v36 = v89;
       }
 
-      v36 = v90[4].__locale_;
+      v37 = v88[4].__locale_;
     }
 
     else
     {
-      if ((v95 & 8) == 0)
+      if ((v93 & 8) == 0)
       {
-        v34 = 0;
-        v61 = 0;
+        v35 = 0;
+        v59 = 0;
         goto LABEL_64;
       }
 
-      v36 = v90[1].__locale_;
-      v35 = v90[3].__locale_;
+      v37 = v88[1].__locale_;
+      v36 = v88[3].__locale_;
     }
 
-    v34 = v35 - v36;
-    if ((v35 - v36) > 0x7FFFFFFFFFFFFFF7)
+    v35 = v36 - v37;
+    if ((v36 - v37) > 0x7FFFFFFFFFFFFFF7)
     {
       sub_2991A11B0();
     }
 
-    if (v34 >= 0x17)
+    if (v35 >= 0x17)
     {
       operator new();
     }
 
-    v61 = v35 - v36;
-    if (v34)
+    v59 = v36 - v37;
+    if (v35)
     {
-      memmove(v60, v36, v34);
+      memmove(v58, v37, v35);
     }
 
 LABEL_64:
-    *(v60 + v34) = 0;
-    if ((v61 & 0x80u) == 0)
+    *(v58 + v35) = 0;
+    if ((v59 & 0x80u) == 0)
     {
-      v37 = v60;
+      v38 = v58;
     }
 
     else
     {
-      v37 = v60[0];
+      v38 = v58[0];
     }
 
-    if ((v61 & 0x80u) == 0)
+    if ((v59 & 0x80u) == 0)
     {
-      v38 = v61;
+      v39 = sub_2991C0E9C(v34, v38, v59);
     }
 
     else
     {
-      v38 = v60[1];
+      v39 = sub_2991C0E9C(v34, v38, v58[1]);
     }
 
-    v39 = sub_2991C0E9C(v33, v37, v38);
     v40 = sub_2991C0E9C(v39, "] right[", 8);
-    if ((v85 & 0x10) != 0)
+    if ((v83 & 0x10) != 0)
     {
-      v42 = v84;
-      if (v84 < v81)
+      v42 = v82;
+      if (v82 < v79)
       {
-        v84 = v81;
-        v42 = v81;
+        v82 = v79;
+        v42 = v79;
       }
 
-      v43 = v80[4].__locale_;
+      v43 = v78[4].__locale_;
     }
 
     else
     {
-      if ((v85 & 8) == 0)
+      if ((v83 & 8) == 0)
       {
         v41 = 0;
-        v59 = 0;
+        v57 = 0;
         goto LABEL_83;
       }
 
-      v43 = v80[1].__locale_;
-      v42 = v80[3].__locale_;
+      v43 = v78[1].__locale_;
+      v42 = v78[3].__locale_;
     }
 
     v41 = v42 - v43;
@@ -6023,7 +5895,7 @@ LABEL_64:
       operator new();
     }
 
-    v59 = v42 - v43;
+    v57 = v42 - v43;
     if (v41)
     {
       memmove(__p, v43, v41);
@@ -6031,7 +5903,7 @@ LABEL_64:
 
 LABEL_83:
     *(__p + v41) = 0;
-    if ((v59 & 0x80u) == 0)
+    if ((v57 & 0x80u) == 0)
     {
       v44 = __p;
     }
@@ -6041,157 +5913,155 @@ LABEL_83:
       v44 = __p[0];
     }
 
-    if ((v59 & 0x80u) == 0)
+    if ((v57 & 0x80u) == 0)
     {
-      v45 = v59;
+      v45 = sub_2991C0E9C(v40, v44, v57);
     }
 
     else
     {
-      v45 = __p[1];
+      v45 = sub_2991C0E9C(v40, v44, __p[1]);
     }
 
-    v46 = sub_2991C0E9C(v40, v44, v45);
-    v47 = sub_2991C0E9C(v46, "] App[", 6);
-    if ((v76 & 0x80u) == 0)
+    v46 = sub_2991C0E9C(v45, "] App[", 6);
+    if ((v74 & 0x80u) == 0)
     {
-      v48 = v75;
+      v47 = v73;
     }
 
     else
     {
-      v48 = v75[0];
+      v47 = v73[0];
     }
 
-    if ((v76 & 0x80u) == 0)
+    if ((v74 & 0x80u) == 0)
     {
-      v49 = v76;
+      v48 = sub_2991C0E9C(v46, v47, v74);
     }
 
     else
     {
-      v49 = v75[1];
+      v48 = sub_2991C0E9C(v46, v47, v73[1]);
     }
 
-    v50 = sub_2991C0E9C(v47, v48, v49);
-    sub_2991C0E9C(v50, "])", 2);
-    if (v59 < 0)
+    sub_2991C0E9C(v48, "])", 2);
+    if (v57 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v61 < 0)
+    if (v59 < 0)
     {
-      operator delete(v60[0]);
+      operator delete(v58[0]);
     }
 
-    if (v63 < 0)
+    if (v61 < 0)
     {
       operator delete(__dst[0]);
     }
 
-    if ((v72 & 0x10) != 0)
+    if ((v70 & 0x10) != 0)
     {
-      v52 = v71;
-      if (v71 < v68)
+      v50 = v69;
+      if (v69 < v66)
       {
-        v71 = v68;
-        v52 = v68;
+        v69 = v66;
+        v50 = v66;
       }
 
-      v53 = v67[4].__locale_;
+      v51 = v65[4].__locale_;
     }
 
     else
     {
-      if ((v72 & 8) == 0)
+      if ((v70 & 8) == 0)
       {
-        v51 = 0;
-        a1[23] = 0;
+        v49 = 0;
+        *(a1 + 23) = 0;
 LABEL_113:
-        a1[v51] = 0;
-        v64[0] = *MEMORY[0x29EDC9528];
-        v54 = v64[0];
-        v55 = *(MEMORY[0x29EDC9528] + 72);
-        v56 = *(MEMORY[0x29EDC9528] + 64);
-        *(v64 + *(v64[0] - 3)) = v56;
-        v57 = v55;
-        v65 = v55;
-        v66 = MEMORY[0x29EDC9570] + 16;
-        if (v70 < 0)
+        *(a1 + v49) = 0;
+        v62[0] = *MEMORY[0x29EDC9528];
+        v52 = v62[0];
+        v53 = *(MEMORY[0x29EDC9528] + 72);
+        v54 = *(MEMORY[0x29EDC9528] + 64);
+        *(v62 + *(v62[0] - 3)) = v54;
+        v55 = v53;
+        v63 = v53;
+        v64 = MEMORY[0x29EDC9570] + 16;
+        if (v68 < 0)
         {
-          operator delete(v69);
+          operator delete(v67);
         }
 
-        v66 = MEMORY[0x29EDC9568] + 16;
-        std::locale::~locale(v67);
+        v64 = MEMORY[0x29EDC9568] + 16;
+        std::locale::~locale(v65);
         std::iostream::~basic_iostream();
-        MEMORY[0x29C29BF00](&v73);
-        if (v76 < 0)
+        MEMORY[0x29C29BF00](&v71);
+        if (v74 < 0)
         {
-          operator delete(v75[0]);
+          operator delete(v73[0]);
         }
 
-        v77[0] = v54;
-        *(v77 + *(v54 - 3)) = v56;
-        v78 = v57;
-        v79 = MEMORY[0x29EDC9570] + 16;
-        if (v83 < 0)
+        v75[0] = v52;
+        *(v75 + *(v52 - 3)) = v54;
+        v76 = v55;
+        v77 = MEMORY[0x29EDC9570] + 16;
+        if (v81 < 0)
         {
-          operator delete(v82);
+          operator delete(v80);
         }
 
-        v79 = MEMORY[0x29EDC9568] + 16;
-        std::locale::~locale(v80);
+        v77 = MEMORY[0x29EDC9568] + 16;
+        std::locale::~locale(v78);
         std::iostream::~basic_iostream();
-        MEMORY[0x29C29BF00](&v86);
-        __s[0] = v54;
-        *(__s + *(v54 - 3)) = v56;
-        v88 = v57;
-        v89 = MEMORY[0x29EDC9570] + 16;
-        if (v93 < 0)
+        MEMORY[0x29C29BF00](&v84);
+        __s[0] = v52;
+        *(__s + *(v52 - 3)) = v54;
+        v86 = v55;
+        v87 = MEMORY[0x29EDC9570] + 16;
+        if (v91 < 0)
         {
-          operator delete(v92);
+          operator delete(v90);
         }
 
-        v89 = MEMORY[0x29EDC9568] + 16;
-        std::locale::~locale(v90);
+        v87 = MEMORY[0x29EDC9568] + 16;
+        std::locale::~locale(v88);
         std::iostream::~basic_iostream();
-        MEMORY[0x29C29BF00](&v96);
-        v97[0] = v54;
-        *(v97 + *(v54 - 3)) = v56;
-        v98 = v57;
-        v99 = MEMORY[0x29EDC9570] + 16;
-        if (v103 < 0)
+        MEMORY[0x29C29BF00](&v94);
+        v95[0] = v52;
+        *(v95 + *(v52 - 3)) = v54;
+        v96 = v55;
+        v97 = MEMORY[0x29EDC9570] + 16;
+        if (v101 < 0)
         {
-          operator delete(v102);
+          operator delete(v100);
         }
 
-        v99 = MEMORY[0x29EDC9568] + 16;
-        std::locale::~locale(v100);
+        v97 = MEMORY[0x29EDC9568] + 16;
+        std::locale::~locale(v98);
         std::iostream::~basic_iostream();
-        return MEMORY[0x29C29BF00](&v106);
+        return MEMORY[0x29C29BF00](&v104);
       }
 
-      v53 = v67[1].__locale_;
-      v52 = v67[3].__locale_;
+      v51 = v65[1].__locale_;
+      v50 = v65[3].__locale_;
     }
 
-    v51 = v52 - v53;
-    if ((v52 - v53) > 0x7FFFFFFFFFFFFFF7)
+    v49 = v50 - v51;
+    if ((v50 - v51) > 0x7FFFFFFFFFFFFFF7)
     {
       sub_2991A11B0();
     }
 
-    if (v51 >= 0x17)
+    if (v49 >= 0x17)
     {
       operator new();
     }
 
-    a1[23] = v51;
-    if (v51)
+    *(a1 + 23) = v49;
+    if (v49)
     {
-      memmove(a1, v53, v51);
+      memmove(a1, v51, v49);
     }
 
     goto LABEL_113;
@@ -6210,86 +6080,81 @@ void sub_299286B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t MecabraAnalyzeGesturesWithContext(void *a1, const __CFArray *a2, uint64_t a3, uint64_t *a4)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   ptr = a3;
-  if (a1 && *a1)
+  if (!a1 || !*a1)
   {
-    if (a4)
-    {
-      v7 = *a4;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v7 = 0;
-    }
-
-    v9 = sub_2993652F8(2u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
-    {
-      sub_2992860E0(__p, v7);
-      v10 = sub_2993652F8(2u);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
-      {
-        Count = CFArrayGetCount(a2);
-        v21 = __p;
-        if (v23 < 0)
-        {
-          v21 = __p[0];
-        }
-
-        *buf = 134218754;
-        v26 = a1;
-        v27 = 2048;
-        v28 = Count;
-        v29 = 2048;
-        v30 = a3;
-        v31 = 2080;
-        v32 = v21;
-        _os_log_debug_impl(&dword_29918C000, v10, OS_LOG_TYPE_DEBUG, "[MecabraAnalyzeGesturesWithContext] mecabra:%p gestures:%ld options:0x%lx context:%s", buf, 0x2Au);
-      }
-
-      if (v23 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    v11 = objc_autoreleasePoolPush();
-    v12 = sub_2993652F8(0xDu);
-    v13 = os_signpost_id_make_with_pointer(v12, &ptr);
-    v14 = sub_2993652F8(0xDu);
-    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v15 = v14;
-      if (os_signpost_enabled(v14))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_29918C000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "MecabraAnalyzeGesturesWithContext", &unk_29945DB9F, buf, 2u);
-      }
-    }
-
-    v8 = (*(**a1 + 48))(*a1, a2, ptr, v7);
-    v16 = sub_2993652F8(0xDu);
-    if (v13 - 1 < 0xFFFFFFFFFFFFFFFELL)
-    {
-      v17 = v16;
-      if (os_signpost_enabled(v16))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_29918C000, v17, OS_SIGNPOST_INTERVAL_END, v13, "MecabraAnalyzeGesturesWithContext", &unk_29945DB9F, buf, 2u);
-      }
-    }
-
-    objc_autoreleasePoolPop(v11);
+  if (a4)
+  {
+    v7 = *a4;
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  v18 = *MEMORY[0x29EDCA608];
+  v9 = sub_2993652F8(2u);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    sub_2992860E0(__p, v7);
+    v10 = sub_2993652F8(2u);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    {
+      Count = CFArrayGetCount(a2);
+      v20 = __p;
+      if (v22 < 0)
+      {
+        v20 = __p[0];
+      }
+
+      *buf = 134218754;
+      v25 = a1;
+      v26 = 2048;
+      v27 = Count;
+      v28 = 2048;
+      v29 = a3;
+      v30 = 2080;
+      v31 = v20;
+      _os_log_debug_impl(&dword_29918C000, v10, OS_LOG_TYPE_DEBUG, "[MecabraAnalyzeGesturesWithContext] mecabra:%p gestures:%ld options:0x%lx context:%s", buf, 0x2Au);
+    }
+
+    if (v22 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v11 = objc_autoreleasePoolPush();
+  v12 = sub_2993652F8(0xDu);
+  v13 = os_signpost_id_make_with_pointer(v12, &ptr);
+  v14 = sub_2993652F8(0xDu);
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v15 = v14;
+    if (os_signpost_enabled(v14))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_29918C000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "MecabraAnalyzeGesturesWithContext", &unk_29945DB9F, buf, 2u);
+    }
+  }
+
+  v8 = (*(**a1 + 48))(*a1, a2, ptr, v7);
+  v16 = sub_2993652F8(0xDu);
+  if (v13 - 1 < 0xFFFFFFFFFFFFFFFELL)
+  {
+    v17 = v16;
+    if (os_signpost_enabled(v16))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_29918C000, v17, OS_SIGNPOST_INTERVAL_END, v13, "MecabraAnalyzeGesturesWithContext", &unk_29945DB9F, buf, 2u);
+    }
+  }
+
+  objc_autoreleasePoolPop(v11);
   return v8;
 }
 
@@ -6341,26 +6206,29 @@ uint64_t MecabraGetNextCandidate(uint64_t a1)
 
 uint64_t MecabraDeclareEndOfSentence(void *a1, uint64_t *a2)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v4 = sub_2993652F8(2u);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 134218240;
-    v9 = a1;
-    v10 = 2048;
-    v11 = a2;
-    _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraDeclareEndOfSentence] mecabra:%p context:%p", &v8, 0x16u);
-    if (!a1)
+    v7 = 134218240;
+    v8 = a1;
+    v9 = 2048;
+    v10 = a2;
+    _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraDeclareEndOfSentence] mecabra:%p context:%p", &v7, 0x16u);
+    if (a1)
     {
-      goto LABEL_8;
+      goto LABEL_3;
     }
+
+    return 0;
   }
 
-  else if (!a1)
+  if (!a1)
   {
-    goto LABEL_8;
+    return 0;
   }
 
+LABEL_3:
   result = 0;
   if (a2 && *a1)
   {
@@ -6369,16 +6237,12 @@ uint64_t MecabraDeclareEndOfSentence(void *a1, uint64_t *a2)
     {
       (*(**a1 + 80))(*a1, v6);
       sub_299324500(v6);
-      result = 1;
-      goto LABEL_9;
+      return 1;
     }
 
-LABEL_8:
-    result = 0;
+    return 0;
   }
 
-LABEL_9:
-  v7 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -6403,14 +6267,14 @@ uint64_t MecabraAcceptInlineCandidates(uint64_t result, uint64_t *a2)
             for (i = 0; i < CFArrayGetCount(*(v4 + 32)); ++i)
             {
               v7 = sub_299324314(v4, i);
-              Surface = MecabraCandidateGetSurface(v7, v8, v9);
+              Surface = MecabraCandidateGetSurface(v7, v8, v9, v10);
               sub_299277A90(Surface, buf);
-              v11 = *buf;
-              v12 = strlen(*buf);
-              sub_2991C0E9C(&v20, *buf, v12);
-              if (v11)
+              v12 = *buf;
+              v13 = strlen(*buf);
+              sub_2991C0E9C(&v20, *buf, v13);
+              if (v12)
               {
-                MEMORY[0x29C29BF70](v11, 0x1000C8077774924);
+                MEMORY[0x29C29BF70](v12, 0x1000C8077774924);
               }
 
               if (i < CFArrayGetCount(*(v4 + 32)) - 1)
@@ -6420,8 +6284,8 @@ uint64_t MecabraAcceptInlineCandidates(uint64_t result, uint64_t *a2)
               }
             }
 
-            v13 = sub_2993652F8(2u);
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+            v14 = sub_2993652F8(2u);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
             {
               sub_29928F808(&v21, v17);
               v16 = v18 >= 0 ? v17 : v17[0];
@@ -6431,7 +6295,7 @@ uint64_t MecabraAcceptInlineCandidates(uint64_t result, uint64_t *a2)
               v27 = a2;
               v28 = 2080;
               v29 = v16;
-              _os_log_debug_impl(&dword_29918C000, v13, OS_LOG_TYPE_DEBUG, "[MecabraAcceptInlineCandidates] mecabra:%p context:%p candidates:%s", buf, 0x20u);
+              _os_log_debug_impl(&dword_29918C000, v14, OS_LOG_TYPE_DEBUG, "[MecabraAcceptInlineCandidates] mecabra:%p context:%p candidates:%s", buf, 0x20u);
               if (v18 < 0)
               {
                 operator delete(v17[0]);
@@ -6439,9 +6303,9 @@ uint64_t MecabraAcceptInlineCandidates(uint64_t result, uint64_t *a2)
             }
 
             v19[0] = *MEMORY[0x29EDC9528];
-            v14 = *(MEMORY[0x29EDC9528] + 72);
+            v15 = *(MEMORY[0x29EDC9528] + 72);
             *(v19 + *(v19[0] - 24)) = *(MEMORY[0x29EDC9528] + 64);
-            v20 = v14;
+            v20 = v15;
             v21 = MEMORY[0x29EDC9570] + 16;
             if (v23 < 0)
             {
@@ -6456,49 +6320,48 @@ uint64_t MecabraAcceptInlineCandidates(uint64_t result, uint64_t *a2)
 
           (*(**v3 + 88))(*v3, v4);
           sub_299324458(v4);
-          result = 1;
+          return 1;
         }
 
         else
         {
-          result = 0;
+          return 0;
         }
       }
     }
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_299287460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_299287460(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_2992510CC(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t MecabraCandidateGetSurface(void *a1, const char *a2, uint64_t a3)
+void *MecabraCandidateGetSurface(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v4 = result;
-    v5 = (*(*result + 40))(result);
-    v6 = *v4;
-    if (v5)
+    v5 = result;
+    v6 = (*(*result + 40))(result);
+    v7 = *v5;
+    if (v6)
     {
-      v7 = *(v6 + 40);
-      v8 = v4;
+      v8 = *(v7 + 40);
+      v9 = v5;
     }
 
     else
     {
-      v7 = *(v6 + 24);
-      v8 = v4;
+      v8 = *(v7 + 24);
+      v9 = v5;
     }
 
-    return v7(v8);
+    return v8(v9);
   }
 
   return result;
@@ -6515,128 +6378,119 @@ uint64_t MecabraRevertLearningForCandidate(void *a1, void *a2, void *a3)
     v13 = 2048;
     v14 = a2;
     v15 = 2112;
-    Surface = MecabraCandidateGetSurface(a3, v7, v8);
+    Surface = MecabraCandidateGetSurface(a3, v7, v8, v9);
     _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraRevertLearningForCandidate] mecabra:%p context:%p candidate:%@", &v11, 0x20u);
-    if (!a1)
+    if (a1)
     {
-      goto LABEL_9;
+      goto LABEL_3;
     }
+
+    return 0;
   }
 
-  else if (!a1)
+  if (!a1)
   {
-    goto LABEL_9;
+    return 0;
   }
 
+LABEL_3:
   result = 0;
   if (a3 && a2 && *a1)
   {
     if (*a2)
     {
-      result = (*(**a1 + 96))(*a1, *a2, a3);
-      goto LABEL_10;
+      return (*(**a1 + 96))(*a1, *a2, a3);
     }
 
-LABEL_9:
-    result = 0;
+    return 0;
   }
 
-LABEL_10:
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void MecabraCancelAnalysis(void *a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 134217984;
-    v5 = a1;
-    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraCancelAnalysis] mecabra:%p", &v4, 0xCu);
+    v3 = 134217984;
+    v4 = a1;
+    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraCancelAnalysis] mecabra:%p", &v3, 0xCu);
     if (!a1)
     {
-      goto LABEL_5;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_5;
+    return;
   }
 
   if (*a1)
   {
     (*(**a1 + 72))(*a1);
   }
-
-LABEL_5:
-  v3 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t MecabraAcceptCandidate(uint64_t *a1, void *a2, int a3)
+void *MecabraAcceptCandidate(void **a1, void *a2, int a3)
 {
   v17 = *MEMORY[0x29EDCA608];
   v6 = sub_2993652F8(2u);
-  if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
+    v11 = 134218498;
+    v12 = a1;
+    v13 = 2112;
+    Surface = MecabraCandidateGetSurface(a2, v7, v8, v9);
+    v15 = 1024;
+    v16 = a3;
+    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraAcceptCandidate] mecabra:%p candidate.surface:%@ isPartial%d", &v11, 0x1Cu);
     if (a1)
     {
       goto LABEL_3;
     }
 
-LABEL_9:
-    result = 0;
-    goto LABEL_10;
+    return 0;
   }
 
-  v11 = 134218498;
-  v12 = a1;
-  v13 = 2112;
-  Surface = MecabraCandidateGetSurface(a2, v7, v8);
-  v15 = 1024;
-  v16 = a3;
-  _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraAcceptCandidate] mecabra:%p candidate.surface:%@ isPartial%d", &v11, 0x1Cu);
   if (!a1)
   {
-    goto LABEL_9;
+    return 0;
   }
 
 LABEL_3:
   result = *a1;
-  if (*a1)
+  if (!*a1)
   {
-    if (!a2)
-    {
-LABEL_7:
-      result = (*(*result + 104))(result, a2, a3 != 0);
-      goto LABEL_10;
-    }
-
-    result = sub_2992878A0(a2, v7, v8);
-    if (result)
-    {
-      result = *a1;
-      goto LABEL_7;
-    }
+    return result;
   }
 
-LABEL_10:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  if (a2)
+  {
+    result = sub_2992878A0(a2, v7, v8, v9);
+    if (!result)
+    {
+      return result;
+    }
+
+    result = *a1;
+  }
+
+  return (*(*result + 104))(result, a2, a3 != 0);
 }
 
-uint64_t sub_2992878A0(void *a1, const char *a2, uint64_t a3)
+void *sub_2992878A0(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v4 = result;
+    v5 = result;
     result = (*(*result + 72))(result);
     if (result != 1)
     {
-      return (*(*v4 + 72))(v4) == 7;
+      return ((*(*v5 + 72))(v5) == 7);
     }
   }
 
@@ -6645,7 +6499,7 @@ uint64_t sub_2992878A0(void *a1, const char *a2, uint64_t a3)
 
 uint64_t MecabraCancelLastAcceptedCandidate(uint64_t *a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v6 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
   if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
@@ -6654,102 +6508,90 @@ uint64_t MecabraCancelLastAcceptedCandidate(uint64_t *a1)
       goto LABEL_3;
     }
 
-LABEL_6:
-    result = 0;
-    goto LABEL_7;
+    return 0;
   }
 
-  v5 = 134217984;
-  v6 = a1;
-  _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraCancelLastAcceptedCandidate] mecabra:%p", &v5, 0xCu);
+  v4 = 134217984;
+  v5 = a1;
+  _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraCancelLastAcceptedCandidate] mecabra:%p", &v4, 0xCu);
   if (!a1)
   {
-    goto LABEL_6;
+    return 0;
   }
 
 LABEL_3:
   result = *a1;
   if (*a1)
   {
-    result = (*(*result + 112))(result);
+    return (*(*result + 112))(result);
   }
 
-LABEL_7:
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t MecabraSetAdditionalConversionDictionaries(void *a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v4 = sub_2993652F8(2u);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 134217984;
-    v10 = a1;
-    _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraSetAdditionalConversionDictionaries] mecabra:%p", &v9, 0xCu);
+    v8 = 134217984;
+    v9 = a1;
+    _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraSetAdditionalConversionDictionaries] mecabra:%p", &v8, 0xCu);
     if (!a1)
     {
-      goto LABEL_6;
+      return 0;
     }
   }
 
   else if (!a1)
   {
-LABEL_6:
-    v6 = 0;
-    goto LABEL_7;
+    return 0;
   }
 
   if (!*a1)
   {
-    goto LABEL_6;
+    return 0;
   }
 
   v5 = objc_autoreleasePoolPush();
   v6 = (*(**a1 + 248))(*a1, a2);
   objc_autoreleasePoolPop(v5);
-LABEL_7:
-  v7 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t MecabraSetAssetDataItemsForType(void *a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   v6 = sub_2993652F8(2u);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 134218498;
-    v12 = a1;
-    v13 = 2048;
-    v14 = a2;
-    v15 = 2112;
-    v16 = a3;
-    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraSetAssetDataItemsForType] mecabra:%p type:%ld dataItems:%@", &v11, 0x20u);
+    v10 = 134218498;
+    v11 = a1;
+    v12 = 2048;
+    v13 = a2;
+    v14 = 2112;
+    v15 = a3;
+    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraSetAssetDataItemsForType] mecabra:%p type:%ld dataItems:%@", &v10, 0x20u);
     if (!a1)
     {
-      goto LABEL_6;
+      return 0;
     }
   }
 
   else if (!a1)
   {
-LABEL_6:
-    v8 = 0;
-    goto LABEL_7;
+    return 0;
   }
 
   if (!*a1)
   {
-    goto LABEL_6;
+    return 0;
   }
 
   v7 = objc_autoreleasePoolPush();
   v8 = (*(**a1 + 256))(*a1, a2, a3);
   objc_autoreleasePoolPop(v7);
-LABEL_7:
-  v9 = *MEMORY[0x29EDCA608];
   return v8;
 }
 
@@ -6804,67 +6646,62 @@ __CFArray *MecabraCopyLearningDictionaryNames(char *a1)
 
 void MecabraSaveLearningDictionaries(void *a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 134217984;
-    v5 = a1;
-    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraSaveLearningDictionaries] mecabra:%p", &v4, 0xCu);
+    v3 = 134217984;
+    v4 = a1;
+    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraSaveLearningDictionaries] mecabra:%p", &v3, 0xCu);
     if (!a1)
     {
-      goto LABEL_5;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_5;
+    return;
   }
 
   if (*a1)
   {
     (*(**a1 + 120))(*a1);
   }
-
-LABEL_5:
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void MecabraClearLearningDictionaries(void *a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 134217984;
-    v5 = a1;
-    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraClearLearningDictionaries] mecabra:%p", &v4, 0xCu);
+    v3 = 134217984;
+    v4 = a1;
+    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraClearLearningDictionaries] mecabra:%p", &v3, 0xCu);
     if (!a1)
     {
-      goto LABEL_5;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_5;
+    return;
   }
 
   if (*a1)
   {
     (*(**a1 + 128))(*a1);
   }
-
-LABEL_5:
-  v3 = *MEMORY[0x29EDCA608];
 }
 
-const void **MecabraResetLearningDictionaries(int a1, const __CFURL *a2)
+const void **MecabraResetLearningDictionaries(uint64_t a1, const __CFURL *a2, uint64_t a3)
 {
+  v4 = a1;
   v10 = *MEMORY[0x29EDCA608];
-  v4 = sub_2993652F8(2u);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = sub_2993652F8(2u);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     if (a2)
     {
@@ -6878,20 +6715,18 @@ const void **MecabraResetLearningDictionaries(int a1, const __CFURL *a2)
 
     v8 = 138412290;
     v9 = v7;
-    _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraResetLearningDictionaries] learningDictionaryDirectory:%@", &v8, 0xCu);
+    _os_log_debug_impl(&dword_29918C000, v5, OS_LOG_TYPE_DEBUG, "[MecabraResetLearningDictionaries] learningDictionaryDirectory:%@", &v8, 0xCu);
   }
 
   sub_29932D500(a2);
-  result = sub_2992F3048(a1);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  return sub_2992F3048(v4);
 }
 
-void MecabraWaitForAsyncDataLoading(uint64_t *a1)
+void MecabraWaitForAsyncDataLoading(uint64_t *result)
 {
-  if (a1)
+  if (result)
   {
-    v1 = *a1;
+    v1 = *result;
     if (v1)
     {
       v2 = (*(*v1 + 16))(v1);
@@ -6902,66 +6737,65 @@ void MecabraWaitForAsyncDataLoading(uint64_t *a1)
   }
 }
 
-void MecabraWaitForLanguageSpecificAsyncDataLoading(unsigned int a1)
+void MecabraWaitForLanguageSpecificAsyncDataLoading(uint64_t a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v1 = a1;
+  v11 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    *&buf[4] = a1;
+    *&buf[4] = v1;
     _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraWaitForLanguageSpecificAsyncDataLoading] language: %u", buf, 8u);
   }
 
   sub_2993EA664(buf);
   sub_299299E1C(*buf, 0xFFFFFFFFFFFFFFFFLL, 0);
-  sub_2993EA8D4(&v8);
-  sub_299299E1C(v8, 0xFFFFFFFFFFFFFFFFLL, 0);
-  sub_29920E10C(&v6);
-  sub_29920FAF8(v6, 0xFFFFFFFFFFFFFFFFLL, 0);
-  if (a1 - 1 <= 1)
+  sub_2993EA8D4(&v7);
+  sub_299299E1C(v7, 0xFFFFFFFFFFFFFFFFLL, 0);
+  sub_29920E10C(&v5);
+  sub_29920FAF8(v5, 0xFFFFFFFFFFFFFFFFLL, 0);
+  if (v1 - 1 <= 1)
   {
-    sub_29920E2A4(a1, 0, 0, &v4);
-    sub_29920FAF8(v4, 0xFFFFFFFFFFFFFFFFLL, 0);
-    if (v5)
+    sub_29920E2A4(v1, 0, 0, &v3);
+    sub_29920FAF8(v3, 0xFFFFFFFFFFFFFFFFLL, 0);
+    if (v4)
     {
-      sub_2991A893C(v5);
+      sub_2991A893C(v4);
     }
 
-    if (a1 == 1)
+    if (v1 == 1)
     {
-      sub_2992D7E44(1u, 0, &v4);
-      sub_29929A2D8(v4, 0xFFFFFFFFFFFFFFFFLL, 0);
-      if (v5)
+      sub_2992D7E44(1, 0, &v3);
+      sub_29929A2D8(v3, 0xFFFFFFFFFFFFFFFFLL, 0);
+      if (v4)
       {
-        sub_2991A893C(v5);
+        sub_2991A893C(v4);
       }
     }
 
-    sub_2992D891C(a1, 0, &v4);
-    sub_29929A2D8(v4, 0xFFFFFFFFFFFFFFFFLL, 0);
-    if (v5)
+    sub_2992D891C(v1, 0, &v3);
+    sub_29929A2D8(v3, 0xFFFFFFFFFFFFFFFFLL, 0);
+    if (v4)
     {
-      sub_2991A893C(v5);
+      sub_2991A893C(v4);
     }
   }
 
-  if (v7)
+  if (v6)
   {
-    sub_2991A893C(v7);
+    sub_2991A893C(v6);
   }
 
-  if (v9)
+  if (v8)
   {
-    sub_2991A893C(v9);
+    sub_2991A893C(v8);
   }
 
-  if (v11)
+  if (v10)
   {
-    sub_2991A893C(v11);
+    sub_2991A893C(v10);
   }
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29928818C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, std::__shared_weak_count *a14, uint64_t a15, std::__shared_weak_count *a16)
@@ -7004,25 +6838,25 @@ uint64_t MecabraCreateSyllableSequences(uint64_t a1, uint64_t a2)
 
 void MecabraSetIsTypeToSiriMode(void *a1, int a2)
 {
-  v17 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   ptr = a2;
   v4 = sub_2993652F8(2u);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    v14 = a1;
-    v15 = 1024;
-    v16 = a2;
+    v13 = a1;
+    v14 = 1024;
+    v15 = a2;
     _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraSetIsTypeToSiriMode] mecabra:%p isTypeToSiriMode:%d", buf, 0x12u);
     if (!a1)
     {
-      goto LABEL_10;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_10;
+    return;
   }
 
   if (*a1)
@@ -7036,7 +6870,7 @@ void MecabraSetIsTypeToSiriMode(void *a1, int a2)
       if (os_signpost_enabled(v7))
       {
         *buf = 67109120;
-        LODWORD(v14) = ptr;
+        LODWORD(v13) = ptr;
         _os_signpost_emit_with_name_impl(&dword_29918C000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "SetIsTypeToSiriMode", "isTypeToSiriMode:%d", buf, 8u);
       }
     }
@@ -7053,14 +6887,11 @@ void MecabraSetIsTypeToSiriMode(void *a1, int a2)
       }
     }
   }
-
-LABEL_10:
-  v11 = *MEMORY[0x29EDCA608];
 }
 
 void MecabraSetAddressBookNamePhoneticPairs(void *a1, CFArrayRef theArray)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (theArray)
   {
     Count = CFArrayGetCount(theArray);
@@ -7076,19 +6907,19 @@ void MecabraSetAddressBookNamePhoneticPairs(void *a1, CFArrayRef theArray)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    v15 = a1;
-    v16 = 2048;
-    v17 = Count;
+    v14 = a1;
+    v15 = 2048;
+    v16 = Count;
     _os_log_debug_impl(&dword_29918C000, v5, OS_LOG_TYPE_DEBUG, "[MecabraSetAddressBookNamePhoneticPairs] mecabra:%p size:%ld", buf, 0x16u);
     if (!a1)
     {
-      goto LABEL_13;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_13;
+    return;
   }
 
   if (*a1)
@@ -7102,7 +6933,7 @@ void MecabraSetAddressBookNamePhoneticPairs(void *a1, CFArrayRef theArray)
       if (os_signpost_enabled(v8))
       {
         *buf = 134217984;
-        v15 = ptr;
+        v14 = ptr;
         _os_signpost_emit_with_name_impl(&dword_29918C000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SetAddressBook", "Address book reset (%ld items).", buf, 0xCu);
       }
     }
@@ -7119,14 +6950,11 @@ void MecabraSetAddressBookNamePhoneticPairs(void *a1, CFArrayRef theArray)
       }
     }
   }
-
-LABEL_13:
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void MecabraSetUserWordKeyPairs(void *a1, CFArrayRef theArray)
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if (theArray)
   {
     Count = CFArrayGetCount(theArray);
@@ -7142,19 +6970,19 @@ void MecabraSetUserWordKeyPairs(void *a1, CFArrayRef theArray)
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    v15 = a1;
-    v16 = 2048;
-    v17 = Count;
+    v14 = a1;
+    v15 = 2048;
+    v16 = Count;
     _os_log_debug_impl(&dword_29918C000, v5, OS_LOG_TYPE_DEBUG, "[MecabraSetUserWordKeyPairs] mecabra:%p size:%ld", buf, 0x16u);
     if (!a1)
     {
-      goto LABEL_13;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_13;
+    return;
   }
 
   if (*a1)
@@ -7168,7 +6996,7 @@ void MecabraSetUserWordKeyPairs(void *a1, CFArrayRef theArray)
       if (os_signpost_enabled(v8))
       {
         *buf = 134217984;
-        v15 = ptr;
+        v14 = ptr;
         _os_signpost_emit_with_name_impl(&dword_29918C000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SetUserWord", "User word reset (%ld items).", buf, 0xCu);
       }
     }
@@ -7185,14 +7013,11 @@ void MecabraSetUserWordKeyPairs(void *a1, CFArrayRef theArray)
       }
     }
   }
-
-LABEL_13:
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void MecabraSetSupplementalLexiconEntries(void *a1, CFArrayRef theArray)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   if (theArray)
   {
     Count = CFArrayGetCount(theArray);
@@ -7206,34 +7031,31 @@ void MecabraSetSupplementalLexiconEntries(void *a1, CFArrayRef theArray)
   v5 = sub_2993652F8(2u);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 134218240;
-    v8 = a1;
-    v9 = 2048;
-    v10 = Count;
-    _os_log_debug_impl(&dword_29918C000, v5, OS_LOG_TYPE_DEBUG, "[MecabraSetSupplementalLexiconEntries] mecabra:%p size:%ld", &v7, 0x16u);
+    v6 = 134218240;
+    v7 = a1;
+    v8 = 2048;
+    v9 = Count;
+    _os_log_debug_impl(&dword_29918C000, v5, OS_LOG_TYPE_DEBUG, "[MecabraSetSupplementalLexiconEntries] mecabra:%p size:%ld", &v6, 0x16u);
     if (!a1)
     {
-      goto LABEL_8;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_8;
+    return;
   }
 
   if (*a1)
   {
     (*(**a1 + 408))(*a1, theArray);
   }
-
-LABEL_8:
-  v6 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t MecabraFindSupplementalLexiconCandidatesWithinContext(uint64_t result, uint64_t *a2)
+void *MecabraFindSupplementalLexiconCandidatesWithinContext(void *result, uint64_t *a2)
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   if (result)
   {
     v2 = result;
@@ -7250,31 +7072,30 @@ uint64_t MecabraFindSupplementalLexiconCandidatesWithinContext(uint64_t result, 
           v5 = sub_2993652F8(2u);
           if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
           {
-            v7 = __p;
-            if (v9 < 0)
+            v6 = __p;
+            if (v8 < 0)
             {
-              v7 = __p[0];
+              v6 = __p[0];
             }
 
             *buf = 134218242;
-            v11 = v2;
-            v12 = 2080;
-            v13 = v7;
+            v10 = v2;
+            v11 = 2080;
+            v12 = v6;
             _os_log_debug_impl(&dword_29918C000, v5, OS_LOG_TYPE_DEBUG, "[MecabraFindSupplementalLexiconCandidatesWithinContext] mecabra:%p context:%s", buf, 0x16u);
           }
 
-          if (v9 < 0)
+          if (v8 < 0)
           {
             operator delete(__p[0]);
           }
         }
 
-        result = (*(**v2 + 416))(*v2, v3);
+        return (*(**v2 + 416))(*v2, v3);
       }
     }
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -7290,22 +7111,22 @@ void sub_299288A38(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void MecabraPreheatResources(void *a1)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 134217984;
-    v11 = a1;
-    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraPreheatResources] mecabra:%p", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = a1;
+    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraPreheatResources] mecabra:%p", &v9, 0xCu);
     if (!a1)
     {
-      goto LABEL_10;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_10;
+    return;
   }
 
   if (*a1)
@@ -7318,8 +7139,8 @@ void MecabraPreheatResources(void *a1)
       v6 = v5;
       if (os_signpost_enabled(v5))
       {
-        LOWORD(v10) = 0;
-        _os_signpost_emit_with_name_impl(&dword_29918C000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MecabraPreheatResources", &unk_29945DB9F, &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_signpost_emit_with_name_impl(&dword_29918C000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "MecabraPreheatResources", &unk_29945DB9F, &v9, 2u);
       }
     }
 
@@ -7330,39 +7151,36 @@ void MecabraPreheatResources(void *a1)
       v8 = v7;
       if (os_signpost_enabled(v7))
       {
-        LOWORD(v10) = 0;
-        _os_signpost_emit_with_name_impl(&dword_29918C000, v8, OS_SIGNPOST_INTERVAL_END, v4, "MecabraPreheatResources", &unk_29945DB9F, &v10, 2u);
+        LOWORD(v9) = 0;
+        _os_signpost_emit_with_name_impl(&dword_29918C000, v8, OS_SIGNPOST_INTERVAL_END, v4, "MecabraPreheatResources", &unk_29945DB9F, &v9, 2u);
       }
     }
   }
-
-LABEL_10:
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void MecabraHandleMemoryPressure(void *a1, unsigned int a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   ptr = a2;
   v6 = sub_2993652F8(2u);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218496;
-    *v16 = a1;
-    *&v16[8] = 1024;
-    *&v16[10] = a2;
-    v17 = 2048;
-    v18 = a3;
+    *v15 = a1;
+    *&v15[8] = 1024;
+    *&v15[10] = a2;
+    v16 = 2048;
+    v17 = a3;
     _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraHandleMemoryPressure] mecabra:%p level:%uld, excessMemoryInBytes:%ld", buf, 0x1Cu);
     if (!a1)
     {
-      goto LABEL_10;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_10;
+    return;
   }
 
   if (*a1)
@@ -7376,9 +7194,9 @@ void MecabraHandleMemoryPressure(void *a1, unsigned int a2, uint64_t a3)
       if (os_signpost_enabled(v9))
       {
         *buf = 67109376;
-        *v16 = ptr;
-        *&v16[4] = 2048;
-        *&v16[6] = a3;
+        *v15 = ptr;
+        *&v15[4] = 2048;
+        *&v15[6] = a3;
         _os_signpost_emit_with_name_impl(&dword_29918C000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "MecabraHandleMemoryPressure", "level: %d, excessMemoryInBytes: %ld", buf, 0x12u);
       }
     }
@@ -7395,29 +7213,26 @@ void MecabraHandleMemoryPressure(void *a1, unsigned int a2, uint64_t a3)
       }
     }
   }
-
-LABEL_10:
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 void MecabraRelease(void *a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 134217984;
-    v5 = a1;
-    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraRelease] mecabra:%p", &v4, 0xCu);
+    v3 = 134217984;
+    v4 = a1;
+    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraRelease] mecabra:%p", &v3, 0xCu);
     if (!a1)
     {
-      goto LABEL_7;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_7;
+    return;
   }
 
   if (*a1)
@@ -7430,8 +7245,6 @@ void MecabraRelease(void *a1)
   }
 
   MEMORY[0x29C29BFB0](a1, 0x20C4093837F09);
-LABEL_7:
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t MecabraPredictionAnalyze(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -7449,32 +7262,30 @@ uint64_t MecabraPredictionAnalyze(void *a1, uint64_t a2, uint64_t a3, uint64_t a
 
 uint64_t MecabraPredictionAnalyzeWithContext(void *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v25 = *MEMORY[0x29EDCA608];
+  v24 = *MEMORY[0x29EDCA608];
   ptr = a4;
   v8 = sub_2993652F8(2u);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218240;
-    v22 = a1;
-    v23 = 2048;
-    v24 = a4;
+    v21 = a1;
+    v22 = 2048;
+    v23 = a4;
     _os_log_debug_impl(&dword_29918C000, v8, OS_LOG_TYPE_DEBUG, "[MecabraPredictionAnalyzeWithContext] mecabra:%p options:0x%lx", buf, 0x16u);
     if (!a1)
     {
-      goto LABEL_15;
+      return 0;
     }
   }
 
   else if (!a1)
   {
-LABEL_15:
-    v15 = 0;
-    goto LABEL_16;
+    return 0;
   }
 
   if (!*a1)
   {
-    goto LABEL_15;
+    return 0;
   }
 
   v9 = objc_autoreleasePoolPush();
@@ -7514,8 +7325,6 @@ LABEL_15:
   }
 
   objc_autoreleasePoolPop(v9);
-LABEL_16:
-  v18 = *MEMORY[0x29EDCA608];
   return v15;
 }
 
@@ -7548,32 +7357,34 @@ uint64_t MecabraPredictionGetNextCandidate(uint64_t *a1)
 
 uint64_t MecabraCreateCandidateFromContextString(void *a1, uint64_t a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
   v6 = sub_2993652F8(2u);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 134218498;
-    v10 = a1;
-    v11 = 2112;
-    v12 = a2;
-    v13 = 1024;
-    v14 = a3;
-    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraCreateCandidateFromContextString] mecabra:%p string:[%@] isRightContext:%d", &v9, 0x1Cu);
+    v8 = 134218498;
+    v9 = a1;
+    v10 = 2112;
+    v11 = a2;
+    v12 = 1024;
+    v13 = a3;
+    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraCreateCandidateFromContextString] mecabra:%p string:[%@] isRightContext:%d", &v8, 0x1Cu);
   }
 
   result = 0;
-  if (a1 && a2 && *a1)
+  if (a1 && a2)
   {
-    result = (*(**a1 + 344))(*a1, a2, a3);
+    if (*a1)
+    {
+      return (*(**a1 + 344))(*a1, a2, a3);
+    }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t MecabraGetLengthForContextString(uint64_t result, const __CFString *a2, int a3)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (result)
   {
     v4 = result;
@@ -7585,76 +7396,40 @@ uint64_t MecabraGetLengthForContextString(uint64_t result, const __CFString *a2,
         v6 = sub_2993652F8(2u);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
-          v10 = 134218498;
-          v11 = v4;
-          v12 = 2112;
-          v13 = a2;
-          v14 = 1024;
-          v15 = a3;
-          _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraGetLengthForContextString] mecabra:%p string:[%@] isRightContext:%d", &v10, 0x1Cu);
+          v9 = 134218498;
+          v10 = v4;
+          v11 = 2112;
+          v12 = a2;
+          v13 = 1024;
+          v14 = a3;
+          _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraGetLengthForContextString] mecabra:%p string:[%@] isRightContext:%d", &v9, 0x1Cu);
         }
 
         v7 = (*(**v4 + 16))();
         v8 = sub_299277300(v7);
-        result = sub_299319940(v8, a2, a3 != 0);
+        return sub_299319940(v8, a2, a3 != 0);
       }
     }
   }
 
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void *MecabraCandidateCopy(void *a1, const char *a2, uint64_t a3)
-{
-  if (a1)
-  {
-    return objc_msgSend_copy(a1, a2, a3);
-  }
-
-  return a1;
-}
-
-void *MecabraCandidateGetType(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateCopy(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = *(*objc_msgSend_rawCandidate(result, a2, a3) + 72);
-
-    return v3();
+    return objc_msgSend_copy(result, a2, a3, a4);
   }
 
   return result;
 }
 
-uint64_t MecabraCandidateSetDisplayString(void *a1, const char *a2, uint64_t a3)
+void *MecabraCandidateGetType(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
-  if (!a1)
-  {
-    return 0;
-  }
-
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 6)
-  {
-    return 0;
-  }
-
-  return sub_2993C38AC(v5, a2);
-}
-
-uint64_t MecabraCandidateGetAttributes(void *a1, const char *a2, uint64_t a3)
-{
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
   if (result)
   {
-    v4 = *(*result + 136);
+    v4 = *(*objc_msgSend_rawCandidate(result, a2, a3, a4) + 72);
 
     return v4();
   }
@@ -7662,18 +7437,53 @@ uint64_t MecabraCandidateGetAttributes(void *a1, const char *a2, uint64_t a3)
   return result;
 }
 
-uint64_t MecabraCandidateGetAnalysisString(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateSetDisplayString(void *a1, const __CFString *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  if (!a1)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 9))(v5) != 7)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
-    if ((*(*v5 + 9))(v5) == 6)
+    return 0;
+  }
+
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 6)
+  {
+    return 0;
+  }
+
+  return sub_2993C38AC(v6, a2);
+}
+
+void *MecabraCandidateGetAttributes(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (result)
+  {
+    v5 = *(*result + 136);
+
+    return v5();
+  }
+
+  return result;
+}
+
+uint64_t MecabraCandidateGetAnalysisString(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
+  {
+    if ((*(*v6 + 72))(v6) == 6)
     {
       goto LABEL_5;
     }
@@ -7681,19 +7491,18 @@ uint64_t MecabraCandidateGetAnalysisString(void *a1, const char *a2, uint64_t a3
     return 0;
   }
 
-  v5 = sub_2992896C0(a1, v6, v7);
+  v6 = sub_2992896C0(a1, v7, v8, v9);
 LABEL_5:
-  v8 = *(*v5 + 7);
+  v10 = *(*v6 + 56);
 
-  return v8(v5);
+  return v10(v6);
 }
 
-char **sub_2992896C0(void *a1, const char *a2, uint64_t a3)
+void *sub_2992896C0(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v4 = **result;
 
     return __dynamic_cast(result, &unk_2A1F64300, &unk_2A1F72C30, 0);
   }
@@ -7701,77 +7510,77 @@ char **sub_2992896C0(void *a1, const char *a2, uint64_t a3)
   return result;
 }
 
-uint64_t MecabraCandidateGetConvertedAnalysisString(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetConvertedAnalysisString(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) == 1 || (*(*v5 + 72))(v5) == 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) == 1 || (*(*v6 + 72))(v6) == 7)
   {
-    v8 = *(*sub_2992896C0(a1, v6, v7) + 28);
+    v10 = *(*sub_2992896C0(a1, v7, v8, v9) + 224);
 
-    return v8();
+    return v10();
   }
 
-  if ((*(*v5 + 72))(v5) != 6)
+  if ((*(*v6 + 72))(v6) != 6)
   {
     return 0;
   }
 
-  v10 = *(*v5 + 176);
+  v12 = *(*v6 + 176);
 
-  return v10(v5);
+  return v12(v6);
 }
 
-uint64_t MecabraCandidateGetDictionaryReading(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetDictionaryReading(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) == 1 || (*(*v5 + 72))(v5) == 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) == 1 || (*(*v6 + 72))(v6) == 7)
   {
-    v8 = *(*sub_2992896C0(a1, v6, v7) + 29);
+    v10 = *(*sub_2992896C0(a1, v7, v8, v9) + 232);
 
-    return v8();
+    return v10();
   }
 
-  if ((*(*v5 + 72))(v5) != 6)
+  if ((*(*v6 + 72))(v6) != 6)
   {
     return 0;
   }
 
-  v10 = *(*v5 + 184);
+  v12 = *(*v6 + 184);
 
-  return v10(v5);
+  return v12(v6);
 }
 
-void *MecabraCandidateIsPersonName(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateIsPersonName(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = result;
-    result = sub_2992878A0(result, a2, a3);
+    v4 = result;
+    result = sub_2992878A0(result, a2, a3, a4);
     if (result)
     {
-      v6 = sub_2992896C0(v3, v4, v5);
-      return (*(*v6 + 23))(v6);
+      v8 = sub_2992896C0(v4, v5, v6, v7);
+      return (*(*v8 + 184))(v8);
     }
   }
 
   return result;
 }
 
-uint64_t MecabraCandidateIsExtensionCandidate(void *a1, const char *a2, uint64_t a3)
+void *MecabraCandidateIsExtensionCandidate(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
     return (*(*result + 80))(result);
@@ -7780,150 +7589,150 @@ uint64_t MecabraCandidateIsExtensionCandidate(void *a1, const char *a2, uint64_t
   return result;
 }
 
-char **MecabraCandidateIsExtensionForCandidateBar(void *a1, const char *a2, uint64_t a3)
+void *MecabraCandidateIsExtensionForCandidateBar(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = sub_2992896C0(a1, a2, a3);
+  result = sub_2992896C0(a1, a2, a3, a4);
+  if (result)
+  {
+    v5 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
+    {
+      return ((*(*v5 + 96))(v5) == 68);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void *MecabraCandidateIsEmojiCandidate(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (result)
+  {
+    v6 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v6 + 72))(v6) == 7)
+    {
+      v10 = sub_2992896C0(a1, v7, v8, v9);
+      return (*(*v10 + 176))(v10);
+    }
+
+    else
+    {
+      return ((*(*v6 + 104))(v6) & 0x40);
+    }
+  }
+
+  return result;
+}
+
+void *MecabraCandidateIsLearningDictionaryCandidate(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (result)
+  {
+    v6 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v6 + 72))(v6) == 7)
+    {
+      v10 = sub_2992896C0(a1, v7, v8, v9);
+      return ((*(*v10 + 96))(v10) == 76);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void *MecabraCandidateIsUserWordCandidate(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (result)
+  {
+    v6 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v6 + 72))(v6) == 7)
+    {
+      v10 = sub_2992896C0(a1, v7, v8, v9);
+      return ((*(*v10 + 96))(v10) == 85);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void *MecabraCandidateIsPredictionCandidate(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (result)
+  {
+    return (((*(*result + 104))(result) >> 9) & 1);
+  }
+
+  return result;
+}
+
+void *MecabraCandidateIsFuzzyMatchCandidate(void *result, const char *a2, uint64_t a3, uint64_t a4)
+{
   if (result)
   {
     v4 = result;
-    if ((*(*result + 9))(result) == 1 || (*(*v4 + 9))(v4) == 7)
-    {
-      return ((*(*v4 + 12))(v4) == 68);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t MecabraCandidateIsEmojiCandidate(void *a1, const char *a2, uint64_t a3)
-{
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (result)
-  {
-    v5 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
-    {
-      v8 = sub_2992896C0(a1, v6, v7);
-      return (*(*v8 + 22))(v8);
-    }
-
-    else
-    {
-      return (*(*v5 + 104))(v5) & 0x40;
-    }
-  }
-
-  return result;
-}
-
-uint64_t MecabraCandidateIsLearningDictionaryCandidate(void *a1, const char *a2, uint64_t a3)
-{
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (result)
-  {
-    v5 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
-    {
-      v8 = sub_2992896C0(a1, v6, v7);
-      return (*(*v8 + 12))(v8) == 76;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t MecabraCandidateIsUserWordCandidate(void *a1, const char *a2, uint64_t a3)
-{
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (result)
-  {
-    v5 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
-    {
-      v8 = sub_2992896C0(a1, v6, v7);
-      return (*(*v8 + 12))(v8) == 85;
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t MecabraCandidateIsPredictionCandidate(void *a1, const char *a2, uint64_t a3)
-{
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (result)
-  {
-    return ((*(*result + 104))(result) >> 9) & 1;
-  }
-
-  return result;
-}
-
-void *MecabraCandidateIsFuzzyMatchCandidate(void *result, const char *a2, uint64_t a3)
-{
-  if (result)
-  {
-    v3 = result;
-    result = sub_2992878A0(result, a2, a3);
+    result = sub_2992878A0(result, a2, a3, a4);
     if (result)
     {
-      v6 = sub_2992896C0(v3, v4, v5);
-      return (*(*v6 + 24))(v6);
+      v8 = sub_2992896C0(v4, v5, v6, v7);
+      return (*(*v8 + 192))(v8);
     }
   }
 
   return result;
 }
 
-void *MecabraCandidateIsAutocorrectionCandidate(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateIsAutocorrectionCandidate(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = result;
-    result = sub_2992878A0(result, a2, a3);
+    v4 = result;
+    result = sub_2992878A0(result, a2, a3, a4);
     if (result)
     {
-      v6 = sub_2992896C0(v3, v4, v5);
-      return (*(*v6 + 25))(v6);
+      v8 = sub_2992896C0(v4, v5, v6, v7);
+      return (*(*v8 + 200))(v8);
     }
   }
 
   return result;
 }
 
-uint64_t MecabraCandidateIsOTAWordlistCandidate(uint64_t result, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateIsOTAWordlistCandidate(uint64_t result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = result;
-    result = sub_2992878A0(result, a2, a3);
+    v4 = result;
+    result = sub_2992878A0(result, a2, a3, a4);
     if (result)
     {
-      v6 = objc_msgSend_rawCandidate(v3, v4, v5);
-      if (((*(*v6 + 104))(v6) & 0x2000) != 0)
+      v8 = objc_msgSend_rawCandidate(v4, v5, v6, v7);
+      if (((*(*v8 + 104))(v8) & 0x2000) != 0)
       {
         return 1;
       }
 
       else
       {
-        v9 = sub_2992896C0(v3, v7, v8);
-        return (*(*v9 + 33))(v9);
+        v12 = sub_2992896C0(v4, v9, v10, v11);
+        return (*(*v12 + 264))(v12);
       }
     }
   }
@@ -7931,53 +7740,53 @@ uint64_t MecabraCandidateIsOTAWordlistCandidate(uint64_t result, const char *a2,
   return result;
 }
 
-void *MecabraCandidateIsRegionalCandidate(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateIsRegionalCandidate(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = result;
-    result = sub_2992878A0(result, a2, a3);
+    v4 = result;
+    result = sub_2992878A0(result, a2, a3, a4);
     if (result)
     {
-      v6 = objc_msgSend_rawCandidate(v3, v4, v5);
-      return (((*(*v6 + 104))(v6) >> 14) & 1);
+      v8 = objc_msgSend_rawCandidate(v4, v5, v6, v7);
+      return (((*(*v8 + 104))(v8) >> 14) & 1);
     }
   }
 
   return result;
 }
 
-unint64_t MecabraCandidateIsBilingualCandidate(unint64_t result, const char *a2, uint64_t a3)
+unint64_t MecabraCandidateIsBilingualCandidate(unint64_t result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = objc_msgSend_rawCandidate(result, a2, a3);
-    return ((*(*v3 + 104))(v3) & 0x80) != 0 || (*(*v3 + 96))(v3) == 71;
+    v4 = objc_msgSend_rawCandidate(result, a2, a3, a4);
+    return ((*(*v4 + 104))(v4) & 0x80) != 0 || (*(*v4 + 96))(v4) == 71;
   }
 
   return result;
 }
 
-void *MecabraCandidateIsPartialCandidate(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateIsPartialCandidate(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    return (MecabraCandidateGetMatchedLengthType(result, a2, a3) == 1);
+    return (MecabraCandidateGetMatchedLengthType(result, a2, a3, a4) == 1);
   }
 
   return result;
 }
 
-uint64_t MecabraCandidateGetMatchedLengthType(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetMatchedLengthType(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v5 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
+    v6 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v6 + 72))(v6) == 7)
     {
-      v8 = sub_2992896C0(a1, v6, v7);
-      LOWORD(result) = (*(*v8 + 51))(v8);
+      v10 = sub_2992896C0(a1, v7, v8, v9);
+      LOWORD(result) = (*(*v10 + 408))(v10);
     }
 
     else
@@ -7989,65 +7798,65 @@ uint64_t MecabraCandidateGetMatchedLengthType(void *a1, const char *a2, uint64_t
   return result;
 }
 
-void *MecabraCandidateIsMLTapTypingCandidate(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateIsMLTapTypingCandidate(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = result;
-    result = sub_2992878A0(result, a2, a3);
+    v4 = result;
+    result = sub_2992878A0(result, a2, a3, a4);
     if (result)
     {
-      v6 = sub_2992896C0(v3, v4, v5);
-      return (*(*v6 + 35))(v6);
+      v8 = sub_2992896C0(v4, v5, v6, v7);
+      return (*(*v8 + 280))(v8);
     }
   }
 
   return result;
 }
 
-uint64_t sub_29928A14C(void *a1, const char *a2, uint64_t a3)
+uint64_t sub_29928A14C(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  if (!a1 || !sub_2992878A0(a1, a2, a3))
+  if (!a1 || !sub_2992878A0(a1, a2, a3, a4))
   {
     return 0;
   }
 
-  v6 = *(*sub_2992896C0(a1, v4, v5) + 26);
-
-  return v6();
-}
-
-uint64_t sub_29928A270(uint64_t a1)
-{
-  v2 = [MecabraCandidate alloc];
-
-  return objc_msgSend_initWithCandidate_(v2, v3, a1);
-}
-
-uint64_t MecabraCandidateGetNextPhraseBoundary(void *a1, const char *a2, uint64_t a3)
-{
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
-  {
-    return -1;
-  }
-
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
-  {
-    return -1;
-  }
-
-  v8 = *(*sub_2992896C0(a1, v6, v7) + 46);
+  v8 = *(*sub_2992896C0(a1, v5, v6, v7) + 208);
 
   return v8();
 }
 
-void *MecabraCandidateGetWordCount(void *result, const char *a2, uint64_t a3)
+MecabraCandidate *sub_29928A270(uint64_t a1)
+{
+  v2 = [MecabraCandidate alloc];
+
+  return objc_msgSend_initWithCandidate_(v2, v3, a1, v4);
+}
+
+uint64_t MecabraCandidateGetNextPhraseBoundary(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
+  {
+    return -1;
+  }
+
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
+  {
+    return -1;
+  }
+
+  v10 = *(*sub_2992896C0(a1, v7, v8, v9) + 368);
+
+  return v10();
+}
+
+void *MecabraCandidateGetWordCount(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    result = objc_msgSend_rawCandidate(result, a2, a3);
+    result = objc_msgSend_rawCandidate(result, a2, a3, a4);
     if (result)
     {
       return (*(*result + 48))(result);
@@ -8057,133 +7866,133 @@ void *MecabraCandidateGetWordCount(void *result, const char *a2, uint64_t a3)
   return result;
 }
 
-uint64_t MecabraCandidateGetWordLengthAtIndex(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetWordLengthAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = objc_msgSend_rawCandidate(a1, a2, a3);
+  v6 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  v8 = (*(*v6 + 120))(v6, a2);
+  if (v8)
+  {
+    (*(*v8 + 24))(v8);
+    return v9;
+  }
+
+  if ((*(*v7 + 72))(v7) != 1 && (*(*v7 + 72))(v7) != 7)
+  {
+    return 0;
+  }
+
+  v13 = *(*sub_2992896C0(a1, v10, v11, v12) + 128);
+
+  return v13();
+}
+
+uint64_t MecabraCandidateGetWordReadingLengthAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  v8 = (*(*v6 + 120))(v6, a2);
+  if (v8)
+  {
+    v9 = *(*v8 + 16);
+
+    return v9();
+  }
+
+  if ((*(*v7 + 72))(v7) != 1 && (*(*v7 + 72))(v7) != 7)
+  {
+    return 0;
+  }
+
+  v14 = *(*sub_2992896C0(a1, v11, v12, v13) + 312);
+
+  return v14();
+}
+
+uint64_t MecabraCandidateGetWordDictionaryReadingLengthAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  v6 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  v8 = (*(*v6 + 120))(v6, a2);
+  if (v8)
+  {
+    v9 = *(*v8 + 16);
+
+    return v9();
+  }
+
+  if ((*(*v7 + 72))(v7) != 1 && (*(*v7 + 72))(v7) != 7)
+  {
+    return 0;
+  }
+
+  v14 = *(*sub_2992896C0(a1, v11, v12, v13) + 320);
+
+  return v14();
+}
+
+uint64_t MecabraCandidateCreateWordLocaleAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
+{
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (!v5)
   {
     return 0;
   }
 
   v6 = v5;
-  v7 = (*(*v5 + 120))(v5, a2);
-  if (v7)
-  {
-    (*(*v7 + 24))(v7);
-    return v8;
-  }
-
-  if ((*(*v6 + 72))(v6) != 1 && (*(*v6 + 72))(v6) != 7)
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
   {
     return 0;
   }
 
-  v11 = *(*sub_2992896C0(a1, v9, v10) + 16);
+  v10 = *(*sub_2992896C0(a1, v7, v8, v9) + 328);
 
-  return v11();
+  return v10();
 }
 
-uint64_t MecabraCandidateGetWordReadingLengthAtIndex(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateWordAtIndexIsFromSystemDictionary(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v5)
+  v6 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v6)
   {
     return 0;
   }
 
-  v6 = v5;
-  v7 = (*(*v5 + 120))(v5, a2);
-  if (v7)
+  v7 = v6;
+  v8 = (*(*v6 + 120))(v6, a2);
+  if (v8)
   {
-    v8 = *(*v7 + 16);
+    v9 = *(*v8 + 32);
 
-    return v8();
+    return v9();
   }
 
-  if ((*(*v6 + 72))(v6) != 1 && (*(*v6 + 72))(v6) != 7)
+  if ((*(*v7 + 72))(v7) != 1 && (*(*v7 + 72))(v7) != 7)
   {
     return 0;
   }
 
-  v12 = *(*sub_2992896C0(a1, v10, v11) + 39);
+  v14 = *(*sub_2992896C0(a1, v11, v12, v13) + 336);
 
-  return v12();
+  return v14();
 }
 
-uint64_t MecabraCandidateGetWordDictionaryReadingLengthAtIndex(void *a1, const char *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v6 = v5;
-  v7 = (*(*v5 + 120))(v5, a2);
-  if (v7)
-  {
-    v8 = *(*v7 + 16);
-
-    return v8();
-  }
-
-  if ((*(*v6 + 72))(v6) != 1 && (*(*v6 + 72))(v6) != 7)
-  {
-    return 0;
-  }
-
-  v12 = *(*sub_2992896C0(a1, v10, v11) + 40);
-
-  return v12();
-}
-
-uint64_t MecabraCandidateCreateWordLocaleAtIndex(void *a1, const char *a2, uint64_t a3)
-{
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
-  {
-    return 0;
-  }
-
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
-  {
-    return 0;
-  }
-
-  v8 = *(*sub_2992896C0(a1, v6, v7) + 41);
-
-  return v8();
-}
-
-uint64_t MecabraCandidateWordAtIndexIsFromSystemDictionary(void *a1, const char *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v5)
-  {
-    return 0;
-  }
-
-  v6 = v5;
-  v7 = (*(*v5 + 120))(v5, a2);
-  if (v7)
-  {
-    v8 = *(*v7 + 32);
-
-    return v8();
-  }
-
-  if ((*(*v6 + 72))(v6) != 1 && (*(*v6 + 72))(v6) != 7)
-  {
-    return 0;
-  }
-
-  v12 = *(*sub_2992896C0(a1, v10, v11) + 42);
-
-  return v12();
-}
-
-BOOL MecabraCandidateHasAlternativeSurfaceFormForWordAtIndex(void *a1, unint64_t a2, uint64_t a3)
+BOOL MecabraCandidateHasAlternativeSurfaceFormForWordAtIndex(void *a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   if ((atomic_load_explicit(&qword_2A1460848, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A1460848))
   {
@@ -8192,14 +8001,13 @@ BOOL MecabraCandidateHasAlternativeSurfaceFormForWordAtIndex(void *a1, unint64_t
     __cxa_guard_release(&qword_2A1460848);
   }
 
-  v5 = sub_2992896C0(a1, a2, a3);
-  if (!v5)
+  v6 = sub_2992896C0(a1, a2, a3, a4);
+  if (!v6)
   {
     return 0;
   }
 
-  v6 = **v5;
-  v7 = __dynamic_cast(v5, &unk_2A1F72C30, &unk_2A1F6D008, 0);
+  v7 = __dynamic_cast(v6, &unk_2A1F72C30, &unk_2A1F6D008, 0);
   v8 = 0;
   if ((a2 & 0x8000000000000000) != 0)
   {
@@ -8256,30 +8064,30 @@ BOOL MecabraCandidateHasAlternativeSurfaceFormForWordAtIndex(void *a1, unint64_t
   return v8;
 }
 
-__CFArray *MecabraCandidateCopySyllableLengthArrayForWordAtIndex(void *a1, const char *a2, uint64_t a3)
+__CFArray *MecabraCandidateCopySyllableLengthArrayForWordAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
   {
     return 0;
   }
 
-  v8 = sub_2992896C0(a1, v6, v7);
-  (*(*v8 + 53))(__p);
-  v9 = sub_299279BF8(__p);
+  v10 = sub_2992896C0(a1, v7, v8, v9);
+  (*(*v10 + 424))(__p);
+  v11 = sub_299279BF8(__p);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  return v9;
+  return v11;
 }
 
 void sub_29928AE08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -8292,67 +8100,67 @@ void sub_29928AE08(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MecabraCandidateGetLcAttrAtIndex(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetLcAttrAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
   {
     return 0;
   }
 
-  v8 = *(*sub_2992896C0(a1, v6, v7) + 43);
+  v10 = *(*sub_2992896C0(a1, v7, v8, v9) + 344);
 
-  return v8();
+  return v10();
 }
 
-uint64_t MecabraCandidateGetRcAttrAtIndex(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetRcAttrAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
   {
     return 0;
   }
 
-  v8 = *(*sub_2992896C0(a1, v6, v7) + 44);
+  v10 = *(*sub_2992896C0(a1, v7, v8, v9) + 352);
 
-  return v8();
+  return v10();
 }
 
-uint64_t MecabraCandidateGetTrieValueAtIndex(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetTrieValueAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
   {
     return 0;
   }
 
-  v8 = *(*sub_2992896C0(a1, v6, v7) + 45);
+  v10 = *(*sub_2992896C0(a1, v7, v8, v9) + 360);
 
-  return v8();
+  return v10();
 }
 
-uint64_t MecabraCandidateGetKindAtIndex(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetKindAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (v4 && ((v5 = v4, (*(*v4 + 72))(v4) == 1) || (*(*v5 + 9))(v5) == 7) && (v6 = **v5, (v7 = __dynamic_cast(v5, &unk_2A1F64300, &unk_2A1F6D008, 0)) != 0))
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (v5 && ((v6 = v5, (*(*v5 + 72))(v5) == 1) || (*(*v6 + 72))(v6) == 7) && (v7 = __dynamic_cast(v6, &unk_2A1F64300, &unk_2A1F6D008, 0)) != 0)
   {
     return *(*(*v7 + 560))(v7, a2);
   }
@@ -8365,16 +8173,15 @@ uint64_t MecabraCandidateGetKindAtIndex(void *a1, const char *a2, uint64_t a3)
   return v8;
 }
 
-uint64_t MecabraCandidateGetCostAtIndex(void *a1, const char *a2, uint64_t a3)
+void *MecabraCandidateGetCostAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v5 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v5 + 9))(v5) == 7)
+    v6 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v6 + 72))(v6) == 7)
     {
-      v6 = **v5;
-      result = __dynamic_cast(v5, &unk_2A1F64300, &unk_2A1F6D008, 0);
+      result = __dynamic_cast(v6, &unk_2A1F64300, &unk_2A1F6D008, 0);
       if (result)
       {
         return *((*(*result + 560))(result, a2) + 4);
@@ -8390,16 +8197,16 @@ uint64_t MecabraCandidateGetCostAtIndex(void *a1, const char *a2, uint64_t a3)
   return result;
 }
 
-uint64_t MecabraCandidateGetLastPrefixValue(void *a1, const char *a2, uint64_t a3)
+void *MecabraCandidateGetLastPrefixValue(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v5 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
+    v6 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v6 + 72))(v6) == 7)
     {
-      v8 = sub_2992896C0(a1, v6, v7);
-      return (*(*v8 + 47))(v8);
+      v10 = sub_2992896C0(a1, v7, v8, v9);
+      return (*(*v10 + 376))(v10);
     }
 
     else
@@ -8411,29 +8218,29 @@ uint64_t MecabraCandidateGetLastPrefixValue(void *a1, const char *a2, uint64_t a
   return result;
 }
 
-uint64_t MecabraCandidateGetWeight(void *a1, const char *a2, uint64_t a3)
+void *MecabraCandidateGetWeight(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v4 = *(*result + 112);
+    v5 = *(*result + 112);
 
-    return v4();
+    return v5();
   }
 
   return result;
 }
 
-uint64_t MecabraCandidateGetKind(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetKind(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v5 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
+    v6 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v6 + 72))(v6) == 7)
     {
-      v8 = sub_2992896C0(a1, v6, v7);
-      LOWORD(result) = (*(*v8 + 12))(v8);
+      v10 = sub_2992896C0(a1, v7, v8, v9);
+      LOWORD(result) = (*(*v10 + 96))(v10);
     }
 
     else
@@ -8445,16 +8252,16 @@ uint64_t MecabraCandidateGetKind(void *a1, const char *a2, uint64_t a3)
   return result;
 }
 
-uint64_t MecabraCandidateGetMatchType(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetMatchType(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v5 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
+    v6 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v6 + 72))(v6) == 7)
     {
-      v8 = sub_2992896C0(a1, v6, v7);
-      LOWORD(result) = (*(*v8 + 52))(v8);
+      v10 = sub_2992896C0(a1, v7, v8, v9);
+      LOWORD(result) = (*(*v10 + 416))(v10);
     }
 
     else
@@ -8466,36 +8273,35 @@ uint64_t MecabraCandidateGetMatchType(void *a1, const char *a2, uint64_t a3)
   return result;
 }
 
-double MecabraCandidateGetLMProbability(void *a1, const char *a2, uint64_t a3)
+double MecabraCandidateGetLMProbability(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0.0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
   {
     return 0.0;
   }
 
-  v8 = *(*sub_2992896C0(a1, v6, v7) + 49);
+  v10 = *(*sub_2992896C0(a1, v7, v8, v9) + 392);
 
-  v8();
+  v10();
   return result;
 }
 
-uint64_t MecabraCandidateGetBaseCost(void *a1, const char *a2, uint64_t a3)
+void *MecabraCandidateGetBaseCost(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v4 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v4 + 9))(v4) == 7)
+    v5 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
     {
-      v5 = **v4;
-      result = __dynamic_cast(v4, &unk_2A1F64300, &unk_2A1F6D008, 0);
+      result = __dynamic_cast(v5, &unk_2A1F64300, &unk_2A1F6D008, 0);
       if (result)
       {
         return (*(*result + 384))(result);
@@ -8511,16 +8317,15 @@ uint64_t MecabraCandidateGetBaseCost(void *a1, const char *a2, uint64_t a3)
   return result;
 }
 
-int *MecabraCandidateGetMatchPenalty(void *a1, const char *a2, uint64_t a3)
+int *MecabraCandidateGetMatchPenalty(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  result = objc_msgSend_rawCandidate(a1, a2, a3);
+  result = objc_msgSend_rawCandidate(a1, a2, a3, a4);
   if (result)
   {
-    v4 = result;
-    if ((*(*result + 72))(result) == 1 || (*(*v4 + 72))(v4) == 7)
+    v5 = result;
+    if ((*(*result + 72))(result) == 1 || (*(*v5 + 72))(v5) == 7)
     {
-      v5 = **v4;
-      result = __dynamic_cast(v4, &unk_2A1F64300, &unk_2A1F6D008, 0);
+      result = __dynamic_cast(v5, &unk_2A1F64300, &unk_2A1F6D008, 0);
       if (result)
       {
         return result[55];
@@ -8536,43 +8341,43 @@ int *MecabraCandidateGetMatchPenalty(void *a1, const char *a2, uint64_t a3)
   return result;
 }
 
-__CFArray *MecabraCandidateCopySyllableLengthArrayInAnalysisString(void *a1, const char *a2, uint64_t a3)
+__CFArray *MecabraCandidateCopySyllableLengthArrayInAnalysisString(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
   {
     return 0;
   }
 
-  v8 = sub_2992896C0(a1, v6, v7);
-  (*(*v8 + 54))(__p);
-  v11 = sub_299279BF8(__p);
-  __p[3] = v11;
+  v10 = sub_2992896C0(a1, v7, v8, v9);
+  (*(*v10 + 432))(__p);
+  v14 = sub_299279BF8(__p);
+  __p[3] = v14;
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  v12 = sub_2992896C0(a1, v9, v10);
-  if (!(*(*v12 + 57))(v12))
+  v15 = sub_2992896C0(a1, v11, v12, v13);
+  if (!(*(*v15 + 456))(v15))
   {
-    return v11;
+    return v14;
   }
 
-  v14 = sub_29927ED04(a1, v11, v13);
-  if (v11)
+  v18 = sub_29927ED04(a1, v14, v16, v17);
+  if (v14)
   {
-    CFRelease(v11);
+    CFRelease(v14);
   }
 
-  return v14;
+  return v18;
 }
 
 void sub_29928B9CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11, char a12)
@@ -8585,30 +8390,30 @@ void sub_29928B9CC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__CFArray *MecabraCandidateCopySyllableLengthArrayInConvertedAnalysisString(void *a1, const char *a2, uint64_t a3)
+__CFArray *MecabraCandidateCopySyllableLengthArrayInConvertedAnalysisString(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
   {
     return 0;
   }
 
-  v8 = sub_2992896C0(a1, v6, v7);
-  (*(*v8 + 54))(__p);
-  v9 = sub_299279BF8(__p);
+  v10 = sub_2992896C0(a1, v7, v8, v9);
+  (*(*v10 + 432))(__p);
+  v11 = sub_299279BF8(__p);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  return v9;
+  return v11;
 }
 
 void sub_29928BAF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -8621,30 +8426,30 @@ void sub_29928BAF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__CFArray *MecabraCandidateCopySyllableLengthArrayInDictionaryReading(void *a1, const char *a2, uint64_t a3)
+__CFArray *MecabraCandidateCopySyllableLengthArrayInDictionaryReading(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  if ((*(*v4 + 72))(v4) != 1 && (*(*v5 + 72))(v5) != 7)
+  v6 = v5;
+  if ((*(*v5 + 72))(v5) != 1 && (*(*v6 + 72))(v6) != 7)
   {
     return 0;
   }
 
-  v8 = sub_2992896C0(a1, v6, v7);
-  (*(*v8 + 54))(__p);
-  v9 = sub_299279BF8(__p);
+  v10 = sub_2992896C0(a1, v7, v8, v9);
+  (*(*v10 + 432))(__p);
+  v11 = sub_299279BF8(__p);
   if (__p[0])
   {
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
 
-  return v9;
+  return v11;
 }
 
 void sub_29928BC00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -8657,54 +8462,54 @@ void sub_29928BC00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *MecabraCandidateIsSupplementalLexiconCandidate(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateIsSupplementalLexiconCandidate(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = objc_msgSend_rawCandidate(result, a2, a3);
-    return ((*(*v3 + 96))(v3) == 89);
+    v4 = objc_msgSend_rawCandidate(result, a2, a3, a4);
+    return ((*(*v4 + 96))(v4) == 89);
   }
 
   return result;
 }
 
-void *MecabraCandidateGetSupplementalLexiconIdentifiers(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateGetSupplementalLexiconIdentifiers(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = *(*objc_msgSend_rawCandidate(result, a2, a3) + 160);
+    v4 = *(*objc_msgSend_rawCandidate(result, a2, a3, a4) + 160);
 
-    return v3();
+    return v4();
   }
 
   return result;
 }
 
-void *MecabraCandidateGetSupplementalLexiconItemPrefix(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateGetSupplementalLexiconItemPrefix(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = *(*objc_msgSend_rawCandidate(result, a2, a3) + 168);
+    v4 = *(*objc_msgSend_rawCandidate(result, a2, a3, a4) + 168);
 
-    return v3();
+    return v4();
   }
 
   return result;
 }
 
-void *MecabraCandidateExactlyCoversInputString(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateExactlyCoversInputString(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    v3 = result;
-    result = sub_2992878A0(result, a2, a3);
+    v4 = result;
+    result = sub_2992878A0(result, a2, a3, a4);
     if (result)
     {
-      v6 = objc_msgSend_rawCandidate(v3, v4, v5);
-      if ((*(*v6 + 96))(v6) == 89)
+      v8 = objc_msgSend_rawCandidate(v4, v5, v6, v7);
+      if ((*(*v8 + 96))(v8) == 89)
       {
-        v9 = sub_2992896C0(v3, v7, v8);
-        return (*(*v9 + 37))(v9);
+        v12 = sub_2992896C0(v4, v9, v10, v11);
+        return (*(*v12 + 296))(v12);
       }
 
       else
@@ -8717,44 +8522,44 @@ void *MecabraCandidateExactlyCoversInputString(void *result, const char *a2, uin
   return result;
 }
 
-CFStringRef sub_29928BDA8(void *a1, const char *a2, uint64_t a3)
+CFStringRef sub_29928BDA8(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (v4 && ((v7 = v4, (*(*v4 + 72))(v4) == 1) || (*(*v7 + 72))(v7) == 7))
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (v5 && ((v9 = v5, (*(*v5 + 72))(v5) == 1) || (*(*v9 + 72))(v9) == 7))
   {
-    LMProbability = MecabraCandidateGetLMProbability(a1, v5, v6);
-    Surface = MecabraCandidateGetSurface(a1, v9, v10);
-    AnalysisString = MecabraCandidateGetAnalysisString(a1, v12, v13);
-    ConvertedAnalysisString = MecabraCandidateGetConvertedAnalysisString(a1, v15, v16);
-    DictionaryReading = MecabraCandidateGetDictionaryReading(a1, v18, v19);
-    v23 = objc_msgSend_rawCandidate(a1, v21, v22);
-    if (v23)
+    LMProbability = MecabraCandidateGetLMProbability(a1, v6, v7, v8);
+    Surface = MecabraCandidateGetSurface(a1, v11, v12, v13);
+    AnalysisString = MecabraCandidateGetAnalysisString(a1, v15, v16, v17);
+    ConvertedAnalysisString = MecabraCandidateGetConvertedAnalysisString(a1, v19, v20, v21);
+    DictionaryReading = MecabraCandidateGetDictionaryReading(a1, v23, v24, v25);
+    v30 = objc_msgSend_rawCandidate(a1, v27, v28, v29);
+    if (v30)
     {
-      v23 = (*(*v23 + 112))(v23);
+      v30 = (*(*v30 + 112))(v30);
     }
 
-    v24 = -1000.0;
+    v31 = -1000.0;
     if (LMProbability != -1.79769313e308)
     {
-      v24 = LMProbability;
+      v31 = LMProbability;
     }
 
-    return CFStringCreateWithFormat(0, 0, @"%@ (AS:%@ CAS:%@ DR:%@), %d, %f", Surface, AnalysisString, ConvertedAnalysisString, DictionaryReading, v23, *&v24);
+    return CFStringCreateWithFormat(0, 0, @"%@ (AS:%@ CAS:%@ DR:%@), %d, %f", Surface, AnalysisString, ConvertedAnalysisString, DictionaryReading, v30, *&v31);
   }
 
   else
   {
-    v26 = MecabraCandidateGetSurface(a1, v5, v6);
-    v29 = MecabraCandidateGetAnalysisString(a1, v27, v28);
-    v32 = MecabraCandidateGetConvertedAnalysisString(a1, v30, v31);
-    v35 = MecabraCandidateGetDictionaryReading(a1, v33, v34);
-    v38 = objc_msgSend_rawCandidate(a1, v36, v37);
-    if (v38)
+    v33 = MecabraCandidateGetSurface(a1, v6, v7, v8);
+    v37 = MecabraCandidateGetAnalysisString(a1, v34, v35, v36);
+    v41 = MecabraCandidateGetConvertedAnalysisString(a1, v38, v39, v40);
+    v45 = MecabraCandidateGetDictionaryReading(a1, v42, v43, v44);
+    v49 = objc_msgSend_rawCandidate(a1, v46, v47, v48);
+    if (v49)
     {
-      v38 = (*(*v38 + 112))(v38);
+      v49 = (*(*v49 + 112))(v49);
     }
 
-    return CFStringCreateWithFormat(0, 0, @"%@ (AS:%@ CAS:%@ DR:%@), %d", v26, v29, v32, v35, v38);
+    return CFStringCreateWithFormat(0, 0, @"%@ (AS:%@ CAS:%@ DR:%@), %d", v33, v37, v41, v45, v49);
   }
 }
 
@@ -8772,7 +8577,7 @@ uint64_t MecabraSetCandidateOrderAdjustment(uint64_t result, int a2)
   return result;
 }
 
-void **MecabraWorkingSetAddStringWithContext(void **result, uint64_t *a2, const char *a3)
+uint64_t MecabraWorkingSetAddStringWithContext(uint64_t result, uint64_t *a2, const char *a3)
 {
   if (result)
   {
@@ -8780,21 +8585,21 @@ void **MecabraWorkingSetAddStringWithContext(void **result, uint64_t *a2, const 
     result = *result;
     if (result)
     {
-      result = (*(*result + 2))(result);
+      result = (*(*result + 16))(result);
       if (result <= 0xE && ((1 << result) & 0x5800) != 0)
       {
         v7 = (*(**v3 + 424))(*v3);
         if (a2)
         {
-          v8 = *a2;
+          v9 = *a2;
         }
 
         else
         {
-          v8 = 0;
+          v9 = 0;
         }
 
-        return sub_29932DEE0(v7, v8, a3);
+        return sub_29932DEE0(v7, v9, a3, v8);
       }
     }
   }
@@ -8821,15 +8626,15 @@ void *MecabraWorkingSetContainsStringWithContext(void *result, const char **a2, 
         v8 = (*(**v3 + 424))(*v3);
         if (a2)
         {
-          v9 = *a2;
+          v10 = *a2;
         }
 
         else
         {
-          v9 = 0;
+          v10 = 0;
         }
 
-        return sub_29932DF58(v8, v9, a3);
+        return sub_29932DF58(v8, v10, a3, v9);
       }
     }
   }
@@ -8851,7 +8656,7 @@ uint64_t MecabraDeleteEntryFromLearningDictionary(uint64_t result)
   return result;
 }
 
-uint64_t MecabraDeleteCandidateFromLearningDictionary(uint64_t result, uint64_t a2)
+uint64_t *MecabraDeleteCandidateFromLearningDictionary(uint64_t *result, uint64_t a2)
 {
   if (result)
   {
@@ -8885,57 +8690,53 @@ CFMutableArrayRef MecabraCreatePinyinSyllableArray(uint64_t *a1)
 
 uint64_t MecabraSetFuzzyPinyinPairs(void *a1, CFArrayRef theArray)
 {
-  v17 = *MEMORY[0x29EDCA608];
-  if (a1 && *a1)
+  v16 = *MEMORY[0x29EDCA608];
+  if (!a1 || !*a1)
   {
-    if (theArray)
-    {
-      Count = CFArrayGetCount(theArray);
-    }
+    return 0;
+  }
 
-    else
-    {
-      Count = 0;
-    }
-
-    ptr = Count;
-    v6 = sub_2993652F8(0xDu);
-    v7 = os_signpost_id_make_with_pointer(v6, &ptr);
-    v8 = sub_2993652F8(0xDu);
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v9 = v8;
-      if (os_signpost_enabled(v8))
-      {
-        *buf = 134217984;
-        v16 = ptr;
-        _os_signpost_emit_with_name_impl(&dword_29918C000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "MecabraSetFuzzyPinyinPairs", "Reset (%ld) fuzzy pairs.", buf, 0xCu);
-      }
-    }
-
-    v5 = (*(**a1 + 240))(*a1, theArray);
-    v10 = sub_2993652F8(0xDu);
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
-    {
-      v11 = v10;
-      if (os_signpost_enabled(v10))
-      {
-        *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_29918C000, v11, OS_SIGNPOST_INTERVAL_END, v7, "MecabraSetFuzzyPinyinPairs", &unk_29945DB9F, buf, 2u);
-      }
-    }
+  if (theArray)
+  {
+    Count = CFArrayGetCount(theArray);
   }
 
   else
   {
-    v5 = 0;
+    Count = 0;
   }
 
-  v12 = *MEMORY[0x29EDCA608];
+  ptr = Count;
+  v6 = sub_2993652F8(0xDu);
+  v7 = os_signpost_id_make_with_pointer(v6, &ptr);
+  v8 = sub_2993652F8(0xDu);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v9 = v8;
+    if (os_signpost_enabled(v8))
+    {
+      *buf = 134217984;
+      v15 = ptr;
+      _os_signpost_emit_with_name_impl(&dword_29918C000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "MecabraSetFuzzyPinyinPairs", "Reset (%ld) fuzzy pairs.", buf, 0xCu);
+    }
+  }
+
+  v5 = (*(**a1 + 240))(*a1, theArray);
+  v10 = sub_2993652F8(0xDu);
+  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  {
+    v11 = v10;
+    if (os_signpost_enabled(v10))
+    {
+      *buf = 0;
+      _os_signpost_emit_with_name_impl(&dword_29918C000, v11, OS_SIGNPOST_INTERVAL_END, v7, "MecabraSetFuzzyPinyinPairs", &unk_29945DB9F, buf, 2u);
+    }
+  }
+
   return v5;
 }
 
-uint64_t MecabraGetMaximalCharacterInputCodeLength(int a1, int a2)
+uint64_t MecabraGetMaximalCharacterInputCodeLength(uint64_t a1, uint64_t a2)
 {
   if ((a1 - 3) < 0xFFFFFFFE || a2 != 0)
   {
@@ -8951,7 +8752,7 @@ uint64_t MecabraGetMaximalCharacterInputCodeLength(int a1, int a2)
   return result;
 }
 
-uint64_t MecabraGetInputCodeForCharacters(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, unsigned int a7)
+uint64_t MecabraGetInputCodeForCharacters(uint64_t result, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7)
 {
   if (result)
   {
@@ -9006,7 +8807,7 @@ uint64_t MecabraCangjieCodeIsValid(_BYTE *a1, unint64_t a2)
   return sub_299322C64(qword_2A1460850, a1, a2);
 }
 
-uint64_t MecabraSetWubixingStandard(uint64_t result, int a2)
+void *MecabraSetWubixingStandard(void *result, uint64_t a2)
 {
   if (result)
   {
@@ -9014,12 +8815,13 @@ uint64_t MecabraSetWubixingStandard(uint64_t result, int a2)
     result = *result;
     if (result)
     {
+      v3 = a2;
       result = (*(*result + 16))(result);
       if (result == 10)
       {
         v4 = (*(**v2 + 424))(*v2);
 
-        return sub_29930A92C(v4, a2);
+        return sub_29930A92C(v4, v3);
       }
     }
   }
@@ -9068,18 +8870,18 @@ uint64_t MecabraCreateWubixingCodesFromSurface(void *a1, uint64_t a2)
   return sub_29930A8C8(v5, a2);
 }
 
-void *MecabraCandidateGetWubixingType(void *result, const char *a2, uint64_t a3)
+void *MecabraCandidateGetWubixingType(void *result, const char *a2, uint64_t a3, uint64_t a4)
 {
   if (result)
   {
-    result = objc_msgSend_rawCandidate(result, a2, a3);
+    result = objc_msgSend_rawCandidate(result, a2, a3, a4);
     if (result)
     {
-      v3 = result;
-      if ((*(*result + 72))(result) == 1 || (*(*v3 + 72))(v3) == 7)
+      v4 = result;
+      if ((*(*result + 72))(result) == 1 || (*(*v4 + 72))(v4) == 7)
       {
-        v4 = ((*(*v3 + 104))(v3) & 0x8080) == 0;
-        return (((*(*v3 + 104))(v3) >> 14) & 4 | (2 * v4));
+        v5 = ((*(*v4 + 104))(v4) & 0x8080) == 0;
+        return (((*(*v4 + 104))(v4) >> 14) & 4 | (2 * v5));
       }
 
       else
@@ -9134,7 +8936,7 @@ uint64_t MecabraCreateCustomDebugInfo(uint64_t *a1)
 
 void *MecabraFlushDynamicData(void *result, uint64_t a2)
 {
-  v8 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
   if (result)
   {
     v2 = result;
@@ -9143,114 +8945,110 @@ void *MecabraFlushDynamicData(void *result, uint64_t a2)
       v4 = sub_2993652F8(2u);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
       {
-        v6 = 134217984;
-        v7 = v2;
-        _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraFlushDynamicData] mecabra:%p", &v6, 0xCu);
+        v5 = 134217984;
+        v6 = v2;
+        _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraFlushDynamicData] mecabra:%p", &v5, 0xCu);
       }
 
-      result = (*(**v2 + 304))(*v2, a2);
+      return (*(**v2 + 304))(*v2, a2);
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v5 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 void MecabraPerformMaintenance(void *a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v4 = 134217984;
-    v5 = a1;
-    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraPerformMaintenance] mecabra:%p", &v4, 0xCu);
+    v3 = 134217984;
+    v4 = a1;
+    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraPerformMaintenance] mecabra:%p", &v3, 0xCu);
     if (!a1)
     {
-      goto LABEL_5;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_5;
+    return;
   }
 
   if (*a1)
   {
     (*(**a1 + 312))(*a1);
   }
-
-LABEL_5:
-  v3 = *MEMORY[0x29EDCA608];
 }
 
-uint64_t MecabraCandidateGetRangeOfWordAtIndex(void *a1, const char *a2, uint64_t a3)
+uint64_t MecabraCandidateGetRangeOfWordAtIndex(void *a1, const char *a2, uint64_t a3, uint64_t a4)
 {
-  v4 = objc_msgSend_rawCandidate(a1, a2, a3);
-  if (!v4)
+  v5 = objc_msgSend_rawCandidate(a1, a2, a3, a4);
+  if (!v5)
   {
     return -1;
   }
 
-  v5 = v4;
-  v6 = (*(*v4 + 120))(v4, a2);
-  if (!v6)
+  v6 = v5;
+  v7 = (*(*v5 + 120))(v5, a2);
+  if (!v7)
   {
-    if ((*(*v5 + 48))(v5) > a2)
+    if ((*(*v6 + 48))(v6) > a2)
     {
       if (a2)
       {
-        v9 = 0;
-        LODWORD(v10) = 0;
+        v10 = 0;
+        LODWORD(v11) = 0;
         do
         {
-          v10 = v10 + (*(*v5 + 128))(v5, v9++);
+          v11 = v11 + (*(*v6 + 128))(v6, v10++);
         }
 
-        while (a2 != v9);
+        while (a2 != v10);
       }
 
       else
       {
-        v10 = 0;
+        v11 = 0;
       }
 
-      (*(*v5 + 128))(v5, a2);
-      return v10;
+      (*(*v6 + 128))(v6, a2);
+      return v11;
     }
 
     return -1;
   }
 
-  v7 = *(*v6 + 24);
+  v8 = *(*v7 + 24);
 
-  return v7();
+  return v8();
 }
 
-uint64_t MecabraCreateAlternateWordArrayForWordAtIndex(uint64_t *a1, void *a2, uint64_t a3)
+uint64_t MecabraCreateAlternateWordArrayForWordAtIndex(uint64_t *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (!a1)
   {
     return 0;
   }
 
-  v4 = *a1;
-  if (!v4)
+  v5 = *a1;
+  if (!v5)
   {
     return 0;
   }
 
   if (a2)
   {
-    if (sub_2992878A0(a2, a2, a3))
+    if (sub_2992878A0(a2, a2, a3, a4))
     {
-      v4 = *a1;
+      v5 = *a1;
       goto LABEL_6;
     }
 
@@ -9258,163 +9056,35 @@ uint64_t MecabraCreateAlternateWordArrayForWordAtIndex(uint64_t *a1, void *a2, u
   }
 
 LABEL_6:
-  v5 = *(*v4 + 336);
+  v6 = *(*v5 + 336);
 
-  return v5();
+  return v6();
 }
 
-uint64_t MecabraSpecialtyDictionaryCreateWithEntries(int a1, uint64_t a2, uint64_t a3)
+uint64_t MecabraSpecialtyDictionaryCreateWithEntries(int a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v11 = *MEMORY[0x29EDCA608];
-  v6 = sub_2993652F8(2u);
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v12 = *MEMORY[0x29EDCA608];
+  v8 = sub_2993652F8(2u);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v9 = 134217984;
-    v10 = a2;
-    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryCreateWithEntries] entries:%p", &v9, 0xCu);
+    v10 = 134217984;
+    v11 = a2;
+    _os_log_debug_impl(&dword_29918C000, v8, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryCreateWithEntries] entries:%p", &v10, 0xCu);
   }
 
   result = 0;
-  if (!a1 && a2)
+  if (!a1)
   {
-    result = sub_2993CA1FC(a2, a3);
+    if (a2)
+    {
+      return sub_2993CA1FC(a2, a3, a4);
+    }
   }
 
-  v8 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 CFDataRef MecabraSpecialtyDictionaryGetData(uint64_t a1)
-{
-  v7 = *MEMORY[0x29EDCA608];
-  v2 = sub_2993652F8(2u);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
-  {
-    v5 = 134217984;
-    v6 = a1;
-    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryGetData] dictionary:%p", &v5, 0xCu);
-    if (a1)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_5:
-    result = 0;
-    goto LABEL_6;
-  }
-
-  if (!a1)
-  {
-    goto LABEL_5;
-  }
-
-LABEL_3:
-  result = sub_2993CA910(a1);
-LABEL_6:
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t MecabraSpecialtyDictionaryCreateWithData(int a1, uint64_t a2)
-{
-  v9 = *MEMORY[0x29EDCA608];
-  v4 = sub_2993652F8(2u);
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-  {
-    v7 = 134217984;
-    v8 = a2;
-    _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryCreateWithData] dictionaryData:%p", &v7, 0xCu);
-  }
-
-  result = 0;
-  if (!a1 && a2)
-  {
-    sub_2993CA290();
-  }
-
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-BOOL MecabraAddSpecialtyDictionary(_BOOL8 result, void *a2)
-{
-  v11 = *MEMORY[0x29EDCA608];
-  if (result)
-  {
-    v3 = result;
-    result = 0;
-    if (a2)
-    {
-      if (*v3)
-      {
-        if ((*(**v3 + 16))(*v3) == 1)
-        {
-          v4 = sub_2993652F8(2u);
-          if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-          {
-            v7 = 134218240;
-            v8 = v3;
-            v9 = 2048;
-            v10 = a2;
-            _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraAddSpecialtyDictionary] mecabra:%p dictionary:%p", &v7, 0x16u);
-          }
-
-          v5 = (*(**v3 + 424))(*v3);
-          result = (*(**(v5 + 192) + 168))(*(v5 + 192), *a2) != 0;
-        }
-
-        else
-        {
-          result = 0;
-        }
-      }
-    }
-  }
-
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-BOOL MecabraRemoveSpecialtyDictionary(_BOOL8 result, void *a2)
-{
-  v11 = *MEMORY[0x29EDCA608];
-  if (result)
-  {
-    v3 = result;
-    result = 0;
-    if (a2)
-    {
-      if (*v3)
-      {
-        if ((*(**v3 + 16))(*v3) == 1)
-        {
-          v4 = sub_2993652F8(2u);
-          if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
-          {
-            v7 = 134218240;
-            v8 = v3;
-            v9 = 2048;
-            v10 = a2;
-            _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraRemoveSpecialtyDictionary] mecabra:%p dictionary:%p", &v7, 0x16u);
-          }
-
-          v5 = (*(**v3 + 424))(*v3);
-          result = (*(**(v5 + 192) + 176))(*(v5 + 192), *a2) != 0;
-        }
-
-        else
-        {
-          result = 0;
-        }
-      }
-    }
-  }
-
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-void MecabraSpecialtyDictionaryEnumerateEntries(uint64_t *a1)
 {
   v6 = *MEMORY[0x29EDCA608];
   v2 = sub_2993652F8(2u);
@@ -9422,48 +9092,165 @@ void MecabraSpecialtyDictionaryEnumerateEntries(uint64_t *a1)
   {
     v4 = 134217984;
     v5 = a1;
-    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryEnumerateEntries] dictionary:%p", &v4, 0xCu);
-    if (!a1)
+    _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryGetData] dictionary:%p", &v4, 0xCu);
+    if (a1)
     {
-      goto LABEL_4;
+      return sub_2993CA910(a1);
     }
-
-    goto LABEL_3;
   }
 
-  if (a1)
+  else if (a1)
   {
-LABEL_3:
-    sub_2993CA970(a1);
+    return sub_2993CA910(a1);
   }
 
-LABEL_4:
-  v3 = *MEMORY[0x29EDCA608];
+  return 0;
 }
 
-uint64_t MecabraSpecialtyDictionaryRelease(uint64_t result)
+uint64_t MecabraSpecialtyDictionaryCreateWithData(int a1, uint64_t a2, unint64_t a3)
 {
-  v7 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
+  v6 = sub_2993652F8(2u);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    v8 = 134217984;
+    v9 = a2;
+    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryCreateWithData] dictionaryData:%p", &v8, 0xCu);
+  }
+
+  result = 0;
+  if (!a1)
+  {
+    if (a2)
+    {
+      sub_2993CA290(a2, a3);
+    }
+  }
+
+  return result;
+}
+
+void *MecabraAddSpecialtyDictionary(void *result, void *a2)
+{
+  v10 = *MEMORY[0x29EDCA608];
+  if (result)
+  {
+    v3 = result;
+    result = 0;
+    if (a2)
+    {
+      if (*v3)
+      {
+        if ((*(**v3 + 16))(*v3) == 1)
+        {
+          v4 = sub_2993652F8(2u);
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+          {
+            v6 = 134218240;
+            v7 = v3;
+            v8 = 2048;
+            v9 = a2;
+            _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraAddSpecialtyDictionary] mecabra:%p dictionary:%p", &v6, 0x16u);
+          }
+
+          v5 = (*(**v3 + 424))(*v3);
+          return ((*(**(v5 + 192) + 168))(*(v5 + 192), *a2) != 0);
+        }
+
+        else
+        {
+          return 0;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void *MecabraRemoveSpecialtyDictionary(void *result, void *a2)
+{
+  v10 = *MEMORY[0x29EDCA608];
+  if (result)
+  {
+    v3 = result;
+    result = 0;
+    if (a2)
+    {
+      if (*v3)
+      {
+        if ((*(**v3 + 16))(*v3) == 1)
+        {
+          v4 = sub_2993652F8(2u);
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+          {
+            v6 = 134218240;
+            v7 = v3;
+            v8 = 2048;
+            v9 = a2;
+            _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraRemoveSpecialtyDictionary] mecabra:%p dictionary:%p", &v6, 0x16u);
+          }
+
+          v5 = (*(**v3 + 424))(*v3);
+          return ((*(**(v5 + 192) + 176))(*(v5 + 192), *a2) != 0);
+        }
+
+        else
+        {
+          return 0;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void MecabraSpecialtyDictionaryEnumerateEntries(uint64_t *a1, uint64_t a2)
+{
+  v6 = *MEMORY[0x29EDCA608];
+  v3 = sub_2993652F8(2u);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  {
+    v4 = 134217984;
+    v5 = a1;
+    _os_log_debug_impl(&dword_29918C000, v3, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryEnumerateEntries] dictionary:%p", &v4, 0xCu);
+    if (!a1)
+    {
+      return;
+    }
+  }
+
+  else if (!a1)
+  {
+    return;
+  }
+
+  sub_2993CA970(a1);
+}
+
+uint64_t **MecabraSpecialtyDictionaryRelease(uint64_t **result)
+{
+  v6 = *MEMORY[0x29EDCA608];
   if (result)
   {
     v1 = result;
     v2 = sub_2993652F8(2u);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      v5 = 134217984;
-      v6 = v1;
-      _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryRelease] dictionary:%p", &v5, 0xCu);
+      v4 = 134217984;
+      v5 = v1;
+      _os_log_debug_impl(&dword_29918C000, v2, OS_LOG_TYPE_DEBUG, "[MecabraSpecialtyDictionaryRelease] dictionary:%p", &v4, 0xCu);
     }
 
     v3 = sub_2993CA808(v1);
-    result = MEMORY[0x29C29BFB0](v3, 0x60C40149E097CLL);
+    return MEMORY[0x29C29BFB0](v3, 0x60C40149E097CLL);
   }
 
-  v4 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t MecabraWordPropertiesCreate(uint64_t a1, uint64_t a2)
+MecabraWordProperties *MecabraWordPropertiesCreate(uint64_t a1, uint64_t a2)
 {
   v4 = [MecabraWordProperties alloc];
 
@@ -9472,89 +9259,89 @@ uint64_t MecabraWordPropertiesCreate(uint64_t a1, uint64_t a2)
 
 void MecabraAdaptToTokenizedText(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v6 = sub_2993652F8(2u);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v8 = 134217984;
-    v9 = a1;
-    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraAdaptToTokenizedText] mecabra:%p", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = a1;
+    _os_log_debug_impl(&dword_29918C000, v6, OS_LOG_TYPE_DEBUG, "[MecabraAdaptToTokenizedText] mecabra:%p", &v7, 0xCu);
     if (!a1)
     {
-      goto LABEL_6;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_6;
+    return;
   }
 
-  if (a3 && *a1)
+  if (a3)
   {
-    (*(**a1 + 200))(*a1, a2, a3);
+    if (*a1)
+    {
+      (*(**a1 + 200))(*a1, a2, a3);
+    }
   }
-
-LABEL_6:
-  v7 = *MEMORY[0x29EDCA608];
 }
 
 void MecabraAdaptToTokenizedTextWithEffectiveTime(void *a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v8 = sub_2993652F8(2u);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 134217984;
-    v11 = a1;
-    _os_log_debug_impl(&dword_29918C000, v8, OS_LOG_TYPE_DEBUG, "[MecabraAdaptToTokenizedTextWithEffectiveTime] mecabra:%p", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = a1;
+    _os_log_debug_impl(&dword_29918C000, v8, OS_LOG_TYPE_DEBUG, "[MecabraAdaptToTokenizedTextWithEffectiveTime] mecabra:%p", &v9, 0xCu);
     if (!a1)
     {
-      goto LABEL_6;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_6;
+    return;
   }
 
-  if (a3 && *a1)
+  if (a3)
   {
-    (*(**a1 + 208))(*a1, a2, a3, a4);
+    if (*a1)
+    {
+      (*(**a1 + 208))(*a1, a2, a3, a4);
+    }
   }
-
-LABEL_6:
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 void MecabraAdaptToUntokenizedText(void *a1, uint64_t a2, uint64_t a3, double a4)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v8 = sub_2993652F8(2u);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 134217984;
-    v11 = a1;
-    _os_log_debug_impl(&dword_29918C000, v8, OS_LOG_TYPE_DEBUG, "[MecabraAdaptToUntokenizedText] mecabra:%p", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = a1;
+    _os_log_debug_impl(&dword_29918C000, v8, OS_LOG_TYPE_DEBUG, "[MecabraAdaptToUntokenizedText] mecabra:%p", &v9, 0xCu);
     if (!a1)
     {
-      goto LABEL_6;
+      return;
     }
   }
 
   else if (!a1)
   {
-    goto LABEL_6;
+    return;
   }
 
-  if (a3 && *a1)
+  if (a3)
   {
-    (*(**a1 + 216))(*a1, a2, a3, a4);
+    if (*a1)
+    {
+      (*(**a1 + 216))(*a1, a2, a3, a4);
+    }
   }
-
-LABEL_6:
-  v9 = *MEMORY[0x29EDCA608];
 }
 
 double MecabraGetLastOfflineAdaptationTime(uint64_t *a1)
@@ -9576,142 +9363,337 @@ double MecabraGetLastOfflineAdaptationTime(uint64_t *a1)
 
 id MecabraCreateFacemarkCandidatesWithContext(void *a1, uint64_t *a2)
 {
-  v65 = *MEMORY[0x29EDCA608];
-  if (a1 && (v3 = *a1) != 0 && ((v5 = (*(*v3 + 16))(v3), v6 = sub_299277300(v5), v6 <= 5) ? (v7 = ((1 << v6) & 0x27) == 0) : (v7 = 1), !v7))
+  v77 = *MEMORY[0x29EDCA608];
+  if (!a1)
   {
-    v8 = v6;
-    v9 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-    v12 = objc_msgSend_set(MEMORY[0x29EDB8E20], v10, v11);
-    if (a2)
-    {
-      v13 = *a2;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v13 = 0;
-    }
+  v3 = *a1;
+  if (!v3)
+  {
+    return 0;
+  }
 
-    if ((*(**a1 + 40))(*a1, kMecabraAnalysisStringForFacemark[0], 16386, v13))
-    {
-      v18 = (*(**a1 + 64))();
-      if (v18)
-      {
-        v19 = v18;
-        do
-        {
-          Surface = MecabraCandidateGetSurface(v19, v16, v17);
-          if ((objc_msgSend_containsObject_(v12, v21, Surface) & 1) == 0)
-          {
-            v24 = MecabraCandidateGetSurface(v19, v22, v23);
-            objc_msgSend_addObject_(v12, v25, v24);
-            if (!v8)
-            {
-              MecabraCandidateGetSurface(v19, v26, v27);
-              sub_29928DBA4();
-            }
+  v5 = (*(*v3 + 16))(v3);
+  v6 = sub_299277300(v5);
+  if (v6 > 5 || ((1 << v6) & 0x27) == 0)
+  {
+    return 0;
+  }
 
-            objc_msgSend_addObject_(v9, v26, v19);
-          }
-
-          v19 = (*(**a1 + 64))();
-        }
-
-        while (v19);
-      }
-    }
-
-    if (v8 || *sub_299237120() == 1)
-    {
-      objc_msgSend_removeAllObjects(v12, v16, v17);
-    }
-
-    if (v8 - 1 < 2 || v8 == 5)
-    {
-      v29 = 3;
-    }
-
-    else
-    {
-      v29 = v8;
-    }
-
-    v30 = sub_29936C2B8();
-    v31 = sub_29936C350(v30, v29, off_2A145F738[0], off_2A145F698[0]);
-    v33 = MEMORY[0x29EDB8D80];
-    if (*(v31 + 23) >= 0)
-    {
-      v34 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x29EDBA0F8], v32, v31, 4);
-    }
-
-    else
-    {
-      v34 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x29EDBA0F8], v32, *v31, 4);
-    }
-
-    v36 = objc_msgSend_arrayWithContentsOfFile_(v33, v35, v34);
-    if (v36)
-    {
-      v37 = v36;
-      v38 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
-      v59 = 0u;
-      v60 = 0u;
-      v61 = 0u;
-      v62 = 0u;
-      if (objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v39, &v59, v64, 16))
-      {
-        *v60;
-        *v60;
-        v41 = **(&v59 + 1);
-        objc_msgSend_objectForKey_(**(&v59 + 1), v40, @"string");
-        objc_msgSend_objectForKey_(v41, v42, @"category");
-        sub_29928DBA4();
-      }
-
-      if (v38)
-      {
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
-        v56 = 0u;
-        v43 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v40, &v55, v63, 16);
-        if (v43)
-        {
-          v46 = v43;
-          v47 = *v56;
-          do
-          {
-            for (i = 0; i != v46; ++i)
-            {
-              if (*v56 != v47)
-              {
-                objc_enumerationMutation(v38);
-              }
-
-              v49 = *(*(&v55 + 1) + 8 * i);
-              v50 = MecabraCandidateGetSurface(v49, v44, v45);
-              if ((objc_msgSend_containsObject_(v12, v51, v50) & 1) == 0)
-              {
-                v52 = MecabraCandidateGetSurface(v49, v44, v45);
-                objc_msgSend_addObject_(v12, v53, v52);
-                objc_msgSend_addObject_(v9, v54, v49);
-              }
-            }
-
-            v46 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v44, &v55, v63, 16);
-          }
-
-          while (v46);
-        }
-      }
-    }
+  v8 = v6;
+  v9 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+  v13 = objc_msgSend_set(MEMORY[0x29EDB8E20], v10, v11, v12);
+  if (a2)
+  {
+    v14 = *a2;
   }
 
   else
   {
-    v9 = 0;
+    v14 = 0;
   }
 
-  v14 = *MEMORY[0x29EDCA608];
+  if ((*(**a1 + 40))(*a1, kMecabraAnalysisStringForFacemark[0], 16386, v14))
+  {
+    v19 = (*(**a1 + 64))();
+    if (v19)
+    {
+      v20 = v19;
+      do
+      {
+        Surface = MecabraCandidateGetSurface(v20, v16, v17, v18);
+        if ((objc_msgSend_containsObject_(v13, v22, Surface, v23) & 1) == 0)
+        {
+          v27 = MecabraCandidateGetSurface(v20, v24, v25, v26);
+          objc_msgSend_addObject_(v13, v28, v27, v29);
+          if (!v8)
+          {
+            v33 = MecabraCandidateGetSurface(v20, v30, v31, v32);
+            sub_29928DBA4(v33, kFacemarkCategoryRecentlyUsed[0]);
+          }
+
+          objc_msgSend_addObject_(v9, v30, v20, v32);
+        }
+
+        v20 = (*(**a1 + 64))();
+      }
+
+      while (v20);
+    }
+  }
+
+  if (v8 || *sub_299237120() == 1)
+  {
+    objc_msgSend_removeAllObjects(v13, v16, v17, v18);
+  }
+
+  if (v8 - 1 < 2 || v8 == 5)
+  {
+    v35 = 3;
+  }
+
+  else
+  {
+    v35 = v8;
+  }
+
+  v36 = sub_29936C2B8();
+  v37 = sub_29936C350(v36, v35, off_2A145F738[0], off_2A145F698[0]);
+  v39 = MEMORY[0x29EDB8D80];
+  if (*(v37 + 23) >= 0)
+  {
+    v40 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x29EDBA0F8], v38, v37, 4);
+  }
+
+  else
+  {
+    v40 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x29EDBA0F8], v38, *v37, 4);
+  }
+
+  v43 = objc_msgSend_arrayWithContentsOfFile_(v39, v41, v40, v42);
+  if (v43)
+  {
+    v44 = v43;
+    v45 = objc_alloc_init(MEMORY[0x29EDB8DE8]);
+    memset(v74, 0, sizeof(v74));
+    if (objc_msgSend_countByEnumeratingWithState_objects_count_(v44, v46, v74, v76, 16))
+    {
+      v49 = **(&v74[0] + 1);
+      v50 = objc_msgSend_objectForKey_(**(&v74[0] + 1), v47, @"string", v48);
+      v53 = objc_msgSend_objectForKey_(v49, v51, @"category", v52);
+      sub_29928DBA4(v50, v53);
+    }
+
+    if (v45)
+    {
+      v72 = 0u;
+      v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
+      v54 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v47, &v70, v75, 16);
+      if (v54)
+      {
+        v58 = v54;
+        v59 = *v71;
+        do
+        {
+          for (i = 0; i != v58; ++i)
+          {
+            if (*v71 != v59)
+            {
+              objc_enumerationMutation(v45);
+            }
+
+            v61 = *(*(&v70 + 1) + 8 * i);
+            v62 = MecabraCandidateGetSurface(v61, v55, v56, v57);
+            if ((objc_msgSend_containsObject_(v13, v63, v62, v64) & 1) == 0)
+            {
+              v65 = MecabraCandidateGetSurface(v61, v55, v56, v57);
+              objc_msgSend_addObject_(v13, v66, v65, v67);
+              objc_msgSend_addObject_(v9, v68, v61, v69);
+            }
+          }
+
+          v58 = objc_msgSend_countByEnumeratingWithState_objects_count_(v45, v55, &v70, v75, 16);
+        }
+
+        while (v58);
+      }
+    }
+  }
+
   return v9;
+}
+
+void MecabraSetDynamicLanguageModelAppContext(void *a1, uint64_t a2)
+{
+  v9 = *MEMORY[0x29EDCA608];
+  v4 = sub_2993652F8(2u);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = 138412546;
+    v6 = a2;
+    v7 = 2048;
+    v8 = a1;
+    _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraSetDynamicLanguageModelAppContext] %@ (mecabra:%p)", &v5, 0x16u);
+    if (!a1)
+    {
+      return;
+    }
+  }
+
+  else if (!a1)
+  {
+    return;
+  }
+
+  if (*a1)
+  {
+    (*(**a1 + 136))(*a1, a2);
+  }
+}
+
+uint64_t MecabraEnumerateSyllabifiedStringLengths(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  if (result)
+  {
+    result = *result;
+    if (result)
+    {
+      return (*(*result + 392))(result, a3, a4, a5);
+    }
+  }
+
+  return result;
+}
+
+void MecabraGestureAddKeyAndLoglikelihoodPair(uint64_t result, float a2, __int16 a3)
+{
+  if (result)
+  {
+    sub_2992FE264(*(result + 24), a3, a2);
+  }
+}
+
+void MecabraSetKeyboardLayout(void *a1, uint64_t a2)
+{
+  v7 = *MEMORY[0x29EDCA608];
+  v4 = sub_2993652F8(2u);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    v5 = 134217984;
+    v6 = a1;
+    _os_log_debug_impl(&dword_29918C000, v4, OS_LOG_TYPE_DEBUG, "[MecabraSetKeyboardLayout] mecabra:%p", &v5, 0xCu);
+    if (!a1)
+    {
+      return;
+    }
+  }
+
+  else if (!a1)
+  {
+    return;
+  }
+
+  if (*a1)
+  {
+    (*(**a1 + 264))(*a1, a2);
+  }
+}
+
+uint64_t MecabraCreateSegments(uint64_t *a1, uint64_t a2)
+{
+  if (a1 && a2 && (v2 = *a1) != 0)
+  {
+    return (*(*v2 + 352))();
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+CFStringRef *MecabraConvertedKanaCreateFromRomajiString(const __CFString *a1, int a2)
+{
+  if (a1)
+  {
+    v3 = 0u;
+    *capacity = 0u;
+    v5 = 1065353216;
+    sub_299216C84(a1, 0, &v3, a2 != 0);
+  }
+
+  return 0;
+}
+
+void sub_29928E2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  sub_29921ED28(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t MecabraConvertedKanaGetKana(uint64_t result)
+{
+  if (result)
+  {
+    return *result;
+  }
+
+  return result;
+}
+
+uint64_t MecabraConvertedKanaGetAlignment(uint64_t result)
+{
+  if (result)
+  {
+    return *(result + 8);
+  }
+
+  return result;
+}
+
+CFTypeRef *MecabraConvertedKanaRelease(CFTypeRef *result)
+{
+  if (result)
+  {
+    v1 = result;
+    CFRelease(*result);
+    CFRelease(v1[1]);
+
+    JUMPOUT(0x29C29BFB0);
+  }
+
+  return result;
+}
+
+CFStringRef MecabraReverseConvertedRomajiCreateFromKanaString(const __CFString *a1)
+{
+  if (a1)
+  {
+    v2 = 0;
+    sub_299276A84(a1);
+  }
+
+  return 0;
+}
+
+void sub_29928E43C(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (v15)
+  {
+    MEMORY[0x29C29BF70](v15, 0x1000C80BDFB0063, a3, a4, a5, a6, a7, a8);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void MecabraJapaneseLMCreate(int a1, const __CFURL *cf)
+{
+  if (cf)
+  {
+    CFRetain(cf);
+  }
+
+  else
+  {
+    v2 = sub_29936D41C("ja");
+    v3 = CFURLCreateCopyAppendingPathComponent(0, v2, off_2A145E380, 1u);
+    if (v2)
+    {
+      CFRelease(v2);
+    }
+
+    CFURLCreateCopyAppendingPathComponent(0, v3, off_2A145E3A0, 0);
+  }
+
+  operator new();
 }

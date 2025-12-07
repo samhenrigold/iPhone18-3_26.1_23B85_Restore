@@ -6,6 +6,8 @@
 - (id)getDomainForCameraKey:(id)key;
 - (id)populateTimerContextForFrequency:(unint64_t)frequency;
 - (unsigned)getRateForTimer:(id)timer;
+- (void)initCVDataBufferStream:(id)stream width:(unsigned int)width height:(unsigned int)height pixelFormat:(unsigned int)format framerate:(unint64_t)framerate isShared:(BOOL)shared isExported:(BOOL)exported domain:(id)self0;
+- (void)initCVPixelBufferStream:(id)stream width:(unsigned int)width height:(unsigned int)height pixelFormat:(unsigned int)format framerate:(unint64_t)framerate isShared:(BOOL)shared isExported:(BOOL)exported domain:(id)self0;
 - (void)initDataStream:(id)stream length:(unint64_t)length type:(unint64_t)type framerate:(unint64_t)framerate isShared:(BOOL)shared domain:(id)domain;
 - (void)initIOSurfaceStream:(id)stream framerate:(unint64_t)framerate isShared:(BOOL)shared isExported:(BOOL)exported domain:(id)domain;
 - (void)initializeIMU;
@@ -203,17 +205,8 @@ LABEL_3:
   v4 = &getAriadneID__cameraAriadneIDs;
   v5 = [getAriadneID__cameraAriadneIDs objectForKey:dCopy];
 
-  if (v5)
+  if (v5 || (v4 = &getAriadneID__hidAriadneIDs, [getAriadneID__hidAriadneIDs objectForKey:dCopy], v6 = objc_claimAutoreleasedReturnValue(), v6, v6) || (v4 = &getAriadneID__systemEventAriadneIDs, objc_msgSend(getAriadneID__systemEventAriadneIDs, "objectForKey:", dCopy), v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
   {
-    goto LABEL_10;
-  }
-
-  v4 = &getAriadneID__hidAriadneIDs;
-  v6 = [getAriadneID__hidAriadneIDs objectForKey:dCopy];
-
-  if (v6 || (v4 = &getAriadneID__systemEventAriadneIDs, [getAriadneID__systemEventAriadneIDs objectForKey:dCopy], v7 = objc_claimAutoreleasedReturnValue(), v7, v7))
-  {
-LABEL_10:
     v8 = [*v4 objectForKeyedSubscript:dCopy];
     unsignedIntValue = [v8 unsignedIntValue];
 
@@ -236,30 +229,26 @@ void __26__PLSDevice_getAriadneID___block_invoke()
 
 void __26__PLSDevice_getAriadneID___block_invoke_2()
 {
-  v4[3] = *MEMORY[0x277D85DE8];
-  v3[0] = PLSResourceKeyAccel[0];
-  v3[1] = PLSResourceKeyGyro[0];
-  v4[0] = &unk_2870CBD00;
-  v4[1] = &unk_2870CBD18;
-  v3[2] = PLSResourceKeyBioMotion[0];
-  v4[2] = &unk_2870CBD30;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x277D85DE8];
+  v2[0] = PLSResourceKeyAccel[0];
+  v2[1] = PLSResourceKeyGyro[0];
+  v3[0] = &unk_2870CBD00;
+  v3[1] = &unk_2870CBD18;
+  v2[2] = PLSResourceKeyBioMotion[0];
+  v3[2] = &unk_2870CBD30;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = getAriadneID__hidAriadneIDs;
   getAriadneID__hidAriadneIDs = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __26__PLSDevice_getAriadneID___block_invoke_82()
 {
-  v4[1] = *MEMORY[0x277D85DE8];
-  v3 = PLSResourceKeyTimer[0];
-  v4[0] = &unk_2870CBD48;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
+  v3[1] = *MEMORY[0x277D85DE8];
+  v2 = PLSResourceKeyTimer[0];
+  v3[0] = &unk_2870CBD48;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:&v2 count:1];
   v1 = getAriadneID__systemEventAriadneIDs;
   getAriadneID__systemEventAriadneIDs = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loadSourceConfiguration:(id)configuration
@@ -352,8 +341,8 @@ void __26__PLSDevice_getAriadneID___block_invoke_82()
           v30 = [v6 objectForKeyedSubscript:@"RCFrameID"];
           -[PLSSensorProperties setRcFrameID:](v22, "setRcFrameID:", [v30 BOOLValue]);
 
-          v31 = __PLSLogSharedInstance();
-          if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+          v32 = __PLSLogSharedInstance(v31);
+          if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_28;
           }
@@ -362,14 +351,14 @@ void __26__PLSDevice_getAriadneID___block_invoke_82()
           v48 = "[PLSDevice loadSourceConfiguration:]";
           v49 = 2112;
           v50 = v5;
-          v32 = v31;
-          v33 = "%s resource %@ RC provides frameid";
+          v33 = v32;
+          v34 = "%s resource %@ RC provides frameid";
         }
 
         else
         {
-          v31 = __PLSLogSharedInstance();
-          if (!os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+          v32 = __PLSLogSharedInstance(v26);
+          if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
           {
             goto LABEL_28;
           }
@@ -378,11 +367,11 @@ void __26__PLSDevice_getAriadneID___block_invoke_82()
           v48 = "[PLSDevice loadSourceConfiguration:]";
           v49 = 2112;
           v50 = v5;
-          v32 = v31;
-          v33 = "%s resource %@ Polaris provides frameid";
+          v33 = v32;
+          v34 = "%s resource %@ Polaris provides frameid";
         }
 
-        _os_log_impl(&dword_25EA3A000, v32, OS_LOG_TYPE_DEBUG, v33, buf, 0x16u);
+        _os_log_impl(&dword_25EA3A000, v33, OS_LOG_TYPE_DEBUG, v34, buf, 0x16u);
 LABEL_28:
 
         [(PLSSensorProperties *)v22 setFormat:v15];
@@ -396,8 +385,6 @@ LABEL_28:
 
     while (v38);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initDataStream:(id)stream length:(unint64_t)length type:(unint64_t)type framerate:(unint64_t)framerate isShared:(BOOL)shared domain:(id)domain
@@ -432,6 +419,84 @@ LABEL_28:
   if (context)
   {
     [(PSContext *)context addBuiltInResourceStream:v18];
+  }
+}
+
+- (void)initCVPixelBufferStream:(id)stream width:(unsigned int)width height:(unsigned int)height pixelFormat:(unsigned int)format framerate:(unint64_t)framerate isShared:(BOOL)shared isExported:(BOOL)exported domain:(id)self0
+{
+  v11 = *&format;
+  if (shared)
+  {
+    v14 = 2;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  v21 = v14;
+  v22 = 1;
+  v15 = MEMORY[0x277D3E680];
+  widthCopy = width;
+  heightCopy = height;
+  domainCopy = domain;
+  v19 = [v15 cvPixelStreamWithResourceKey:stream options:&v21 width:widthCopy height:heightCopy pixelFormat:v11];
+  [v19 setType:{3, v21, v22}];
+  [v19 setFramerate:framerate];
+  [v19 setDomain:domainCopy];
+
+  context = self->_context;
+  if (context)
+  {
+    if (exported)
+    {
+      [(PSContext *)context addResourceStream:v19];
+    }
+
+    else
+    {
+      [(PSContext *)context addBuiltInResourceStream:v19];
+    }
+  }
+}
+
+- (void)initCVDataBufferStream:(id)stream width:(unsigned int)width height:(unsigned int)height pixelFormat:(unsigned int)format framerate:(unint64_t)framerate isShared:(BOOL)shared isExported:(BOOL)exported domain:(id)self0
+{
+  v11 = *&format;
+  if (shared)
+  {
+    v14 = 2;
+  }
+
+  else
+  {
+    v14 = 1;
+  }
+
+  v21 = v14;
+  v22 = 1;
+  v15 = MEMORY[0x277D3E678];
+  widthCopy = width;
+  heightCopy = height;
+  domainCopy = domain;
+  v19 = [v15 cvDataStreamWithResourceKey:stream options:&v21 width:widthCopy height:heightCopy pixelFormat:v11];
+  [v19 setType:{5, v21, v22}];
+  [v19 setFramerate:framerate];
+  [v19 setDomain:domainCopy];
+
+  context = self->_context;
+  if (context)
+  {
+    if (exported)
+    {
+      [(PSContext *)context addResourceStream:v19];
+    }
+
+    else
+    {
+      [(PSContext *)context addBuiltInResourceStream:v19];
+    }
   }
 }
 
@@ -513,18 +578,14 @@ LABEL_28:
 
 - (void)replaceSensors:(id)sensors
 {
-  v4 = [sensors mutableCopy];
-  currentSensors = self->_currentSensors;
-  self->_currentSensors = v4;
+  self->_currentSensors = [sensors mutableCopy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)resetSensors
 {
-  v3 = [(NSDictionary *)self->_systemSourceNodes mutableCopy];
-  currentSensors = self->_currentSensors;
-  self->_currentSensors = v3;
+  self->_currentSensors = [(NSDictionary *)self->_systemSourceNodes mutableCopy];
 
   MEMORY[0x2821F96F8]();
 }
@@ -571,9 +632,9 @@ LABEL_28:
   v16 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = a2;
-  asprintf(a1, "Tried to get a timer rate from a non-timer key %s", [a2 UTF8String]);
-  v5 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v5 = asprintf(a1, "Tried to get a timer rate from a non-timer key %s", [a2 UTF8String]);
+  v6 = __PLSLogSharedInstance(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315650;
     v11 = "[PLSDevice getRateForTimer:]";
@@ -581,21 +642,21 @@ LABEL_28:
     v13 = 803;
     v14 = 2080;
     v15 = [a2 UTF8String];
-    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d Tried to get a timer rate from a non-timer key %s", buf, 0x1Cu);
+    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_FAULT, "%s:%d Tried to get a timer rate from a non-timer key %s", buf, 0x1Cu);
   }
 
-  v6 = OSLogFlushBuffers();
-  if (v6)
+  v7 = OSLogFlushBuffers();
+  if (v7)
   {
-    v7 = v6;
-    v8 = __PLSLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v8 = v7;
+    v9 = __PLSLogSharedInstance(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       v11 = "[PLSDevice getRateForTimer:]";
       v12 = 1024;
-      v13 = v7;
-      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v13 = v8;
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -604,7 +665,6 @@ LABEL_28:
     usleep(0x1E8480u);
   }
 
-  v9 = *a1;
   abort_with_reason();
   __PLSLogSharedInstance_cold_1();
 }

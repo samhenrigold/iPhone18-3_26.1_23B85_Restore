@@ -31,29 +31,28 @@
 {
   v8 = type metadata accessor for UUID();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(completion);
+  v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
   static UUID._unconditionallyBridgeFromObjectiveC(_:)();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
-  v15 = *self->controller;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
+  v14 = *self->controller;
   keyCopy = key;
 
   isa = UUID._bridgeToObjectiveC()().super.isa;
   aBlock[4] = sub_10005B8F8;
-  aBlock[5] = v14;
+  aBlock[5] = v13;
   aBlock[0] = _NSConcreteStackBlock;
   aBlock[1] = 1107296256;
   aBlock[2] = sub_10020E828;
   aBlock[3] = &unk_1003AFF40;
-  v18 = _Block_copy(aBlock);
+  v17 = _Block_copy(aBlock);
 
-  [v15 preflightInheritanceRecoveryForBeneficiaryID:isa accessKey:keyCopy completion:v18];
-  _Block_release(v18);
+  [v14 preflightInheritanceRecoveryForBeneficiaryID:isa accessKey:keyCopy completion:v17];
+  _Block_release(v17);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)recreateInheritanceKeyWithAccessKey:(id)key completion:(id)completion

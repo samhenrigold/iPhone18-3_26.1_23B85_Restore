@@ -59,50 +59,49 @@ void __26__DADMain__shutdownDaemon__block_invoke()
 
 void __26__DADMain__shutdownDaemon__block_invoke_5(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = *(*(*(a1 + 32) + 8) + 40);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v12 = v1;
+  v11 = v1;
   v2 = [v1 userSwitchTasks];
-  v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v14;
+    v5 = *v13;
     v6 = *(MEMORY[0x277D03988] + 6);
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v14 != v5)
+        if (*v13 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         v9 = DALoggingwithCategory();
         if (os_log_type_enabled(v9, v6))
         {
           v10 = [v8 bundleID];
           *buf = 138412290;
-          v18 = v10;
+          v17 = v10;
           _os_log_impl(&dword_248524000, v9, v6, "UserManagementFramework: Ending Switch Task For %@", buf, 0xCu);
         }
 
         [v8 end];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v4);
   }
 
-  [v12 _setRunLoopStopped:1];
-  v11 = *MEMORY[0x277D85DE8];
+  [v11 _setRunLoopStopped:1];
 }
 
 - (void)_forceShutdownTimerFired:(id)fired
@@ -115,7 +114,7 @@ void __26__DADMain__shutdownDaemon__block_invoke_5(uint64_t a1)
 
 - (void)_forceShutdownDaemonOnLogoutInTimeInterval:(int)interval
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   forceShutdownTimer = self->_forceShutdownTimer;
   if (forceShutdownTimer)
   {
@@ -136,12 +135,10 @@ void __26__DADMain__shutdownDaemon__block_invoke_5(uint64_t a1)
   v13 = *(MEMORY[0x277D03988] + 4);
   if (os_log_type_enabled(v12, v13))
   {
-    v15[0] = 67109120;
-    v15[1] = interval;
-    _os_log_impl(&dword_248524000, v12, v13, "Add Force Logout Timer in %d seconds", v15, 8u);
+    v14[0] = 67109120;
+    v14[1] = interval;
+    _os_log_impl(&dword_248524000, v12, v13, "Add Force Logout Timer in %d seconds", v14, 8u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addToOperationsQueueDisabledCheckAndGoBlock:(id)block wrappedBlock:(id)wrappedBlock
@@ -187,7 +184,7 @@ uint64_t __68__DADMain_addToOperationsQueueDisabledCheckAndGoBlock_wrappedBlock_
 
 - (void)willSwitchUser
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = +[DADAgentManager sharedManager];
   activeAgents = [v3 activeAgents];
   v5 = [activeAgents count];
@@ -246,8 +243,8 @@ LABEL_16:
 
           v8 = [MEMORY[0x277D77C20] taskWithName:@"DA-Blocking Task" reason:@"LogoutReceived" forBundleID:@"com.apple.dataaccessd"];
           [v8 begin];
-          v21 = v8;
-          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+          v20 = v8;
+          v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
           [(DADMain *)self setUserSwitchTasks:v18];
 
           mEMORY[0x277D037F8]3 = [MEMORY[0x277D037F8] sharedTransactionMonitor];
@@ -282,8 +279,6 @@ LABEL_16:
       goto LABEL_16;
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFinishAllXPCTransactions
@@ -404,10 +399,10 @@ uint64_t __21__DADMain_sharedMain__block_invoke()
 
 - (DADMain)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = DADMain;
-  v2 = [(DADMain *)&v14 init];
+  v16 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = DADMain;
+  v2 = [(DADMain *)&v13 init];
   if (v2)
   {
     v3 = dispatch_queue_create("com.apple.dataaccessd.dadOperation", 0);
@@ -431,7 +426,7 @@ uint64_t __21__DADMain_sharedMain__block_invoke()
       }
 
       *buf = 138412290;
-      v16 = v10;
+      v15 = v10;
       _os_log_impl(&dword_248524000, v7, v8, "Device is a %@AppleInternal install", buf, 0xCu);
     }
 
@@ -448,7 +443,6 @@ uint64_t __21__DADMain_sharedMain__block_invoke()
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

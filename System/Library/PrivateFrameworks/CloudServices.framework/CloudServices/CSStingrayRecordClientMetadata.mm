@@ -96,51 +96,49 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_icdp)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_keyRegistry)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_stableMetadata)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_icloudIdentityPublicData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    passwordGeneration = self->_passwordGeneration;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    passwordIterations = self->_passwordIterations;
     PBDataWriterWriteInt64Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_passwordProtocol)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -289,7 +287,6 @@
     }
   }
 
-  v16 = *(equalCopy + 64);
   if (*&self->_has)
   {
     if ((equalCopy[8] & 1) == 0 || self->_passwordGeneration != equalCopy[1])
@@ -319,10 +316,10 @@ LABEL_22:
   }
 
   passwordProtocol = self->_passwordProtocol;
-  v18 = equalCopy[6];
-  if (passwordProtocol | v18)
+  v17 = equalCopy[6];
+  if (passwordProtocol | v17)
   {
-    isEqual = objc_msgSend_isEqual_(passwordProtocol, v7, v18);
+    isEqual = objc_msgSend_isEqual_(passwordProtocol, v7, v17);
   }
 
   else

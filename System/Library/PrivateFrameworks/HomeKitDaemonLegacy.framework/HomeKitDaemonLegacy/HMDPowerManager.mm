@@ -3,6 +3,7 @@
 - (BOOL)isPowerAsserted;
 - (HMDPowerManager)init;
 - (HMDPowerManager)initWithPowerManager:(id)manager timerProvider:(id)provider ttrManager:(id)ttrManager;
+- (id)timerWithTimeInterval:(double)interval options:(unsigned int)options;
 - (int)_ensureNetworkInterfaceMonitorStarted;
 - (void)_ensureNetworkInterfaceMonitorStopped;
 - (void)_update;
@@ -15,9 +16,18 @@
 
 @implementation HMDPowerManager
 
+- (id)timerWithTimeInterval:(double)interval options:(unsigned int)options
+{
+  v4 = *&options;
+  timerProvider = [(HMDPowerManager *)self timerProvider];
+  v7 = [timerProvider timerWithTimeInterval:v4 options:interval];
+
+  return v7;
+}
+
 - (void)timerDidFire:(id)fire
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   verificationTimer = self->_verificationTimer;
   if (verificationTimer == fireCopy)
@@ -32,9 +42,9 @@
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         v9 = HMFGetLogIdentifier();
-        v12 = 138543362;
-        v13 = v9;
-        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@HomeKit remote access power assertion unexpectedly released", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = v9;
+        _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_ERROR, "%{public}@HomeKit remote access power assertion unexpectedly released", &v11, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -45,13 +55,11 @@
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_ensureNetworkInterfaceMonitorStopped
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   scStore = self->_scStore;
   if (scStore)
   {
@@ -60,7 +68,7 @@
     self->_scStore = 0;
     if (gLogCategory_HMDPowerManager <= 30 && (gLogCategory_HMDPowerManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_HMDPowerManager, "[HMDPowerManager _ensureNetworkInterfaceMonitorStopped]", 30, "Stopped network interface monitor\n");
     }
 
     v4 = objc_autoreleasePoolPush();
@@ -69,9 +77,9 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopped network interface monitor", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Stopped network interface monitor", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -85,17 +93,16 @@
   }
 
   self->_networkInterfaceActive = 0;
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_ensureNetworkInterfaceMonitorStarted
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   memset(&context, 0, sizeof(context));
   if (self->_scStore)
   {
-    v9 = 0;
-    goto LABEL_35;
+    LODWORD(v9) = 0;
+    return v9;
   }
 
   selfCopy = self;
@@ -108,13 +115,13 @@ LABEL_3:
     Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
     if (!Mutable)
     {
-      v9 = -6728;
+      v9 = 4294960568;
       if (!v4)
       {
 LABEL_27:
         if (!v9)
         {
-          goto LABEL_35;
+          return v9;
         }
 
         goto LABEL_28;
@@ -129,7 +136,7 @@ LABEL_26:
     NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, *MEMORY[0x277CE1648], *MEMORY[0x277CE1628], *MEMORY[0x277CE16A0]);
     if (!NetworkInterfaceEntity)
     {
-      v9 = -6728;
+      v9 = 4294960568;
       goto LABEL_25;
     }
 
@@ -165,7 +172,7 @@ LABEL_7:
         [(HMDPowerManager *)selfCopy setNetworkInterfaceActive:_isNetworkIntefaceActive(selfCopy)];
         if (gLogCategory_HMDPowerManager <= 30 && (gLogCategory_HMDPowerManager != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_HMDPowerManager, "[HMDPowerManager _ensureNetworkInterfaceMonitorStarted]", 30, "Start network interface monitor\n");
         }
 
         v11 = objc_autoreleasePoolPush();
@@ -175,7 +182,7 @@ LABEL_7:
         {
           v14 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v24 = v14;
+          v23 = v14;
           _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Start network interface monitor", buf, 0xCu);
         }
 
@@ -198,7 +205,7 @@ LABEL_18:
     }
 
 LABEL_19:
-    v9 = -6700;
+    v9 = 4294960596;
     goto LABEL_25;
   }
 
@@ -213,13 +220,13 @@ LABEL_19:
 
   else
   {
-    v9 = -6700;
+    v9 = 4294960596;
   }
 
 LABEL_28:
   if (gLogCategory_HMDPowerManager <= 60 && (gLogCategory_HMDPowerManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_HMDPowerManager, "[HMDPowerManager _ensureNetworkInterfaceMonitorStarted]", 60, "### Start network interface monitor failed: %#m\n", v9);
   }
 
   v15 = objc_autoreleasePoolPush();
@@ -230,22 +237,20 @@ LABEL_28:
     v18 = HMFGetLogIdentifier();
     v19 = strerror(v9);
     *buf = 138543618;
-    v24 = v18;
-    v25 = 2080;
-    v26 = v19;
+    v23 = v18;
+    v24 = 2080;
+    v25 = v19;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Start network interface monitor failed: %s", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v15);
   [(HMDPowerManager *)v16 _ensureNetworkInterfaceMonitorStopped];
-LABEL_35:
-  v20 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)_update
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (self->_started && self->_networkAccessRequired && isAppleTV())
   {
     [(HMDPowerManager *)self _ensureNetworkInterfaceMonitorStarted];
@@ -262,7 +267,7 @@ LABEL_35:
   {
     if (powerAssertion)
     {
-      goto LABEL_24;
+      return;
     }
 
     v5 = [(HMDIOPM *)self->_iopmLib iopmAssertionCreateWithDescription:@"PreventUserIdleSystemSleep" name:@"HomeKit remote access" details:0 humanReadableReason:0 localizationBundlePath:0 timeout:0 timeoutAction:0.0 iopmAssertionID:&self->_powerAssertion];
@@ -271,81 +276,81 @@ LABEL_35:
       v6 = v5;
       if (gLogCategory_HMDPowerManager <= 60 && (gLogCategory_HMDPowerManager != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMDPowerManager, "[HMDPowerManager _update]", 60, "### Create HomeKit remote access power assertion failed: %#m\n", v6);
       }
 
-      v13 = objc_autoreleasePoolPush();
+      v12 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v15 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v14 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v16 = HMFGetLogIdentifier();
+        v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v31 = v16;
-        v32 = 2080;
-        v33 = strerror(v6);
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Create HomeKit remote access power assertion failed: %s", buf, 0x16u);
+        v30 = v15;
+        v31 = 2080;
+        v32 = strerror(v6);
+        _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Create HomeKit remote access power assertion failed: %s", buf, 0x16u);
       }
 
 LABEL_39:
-      objc_autoreleasePoolPop(v13);
+      objc_autoreleasePoolPop(v12);
       ttrManager = selfCopy->_ttrManager;
       if (ttrManager)
       {
         [(HMMRadarInitiating *)ttrManager requestRadarWithDisplayReason:@"Unable to create power assertion" radarTitle:@"Unable to create power assertion" componentName:@"HomeKit" componentVersion:@"Resident" componentID:938669];
       }
 
-      goto LABEL_24;
+      return;
     }
 
     if (gLogCategory_HMDPowerManager <= 30 && (gLogCategory_HMDPowerManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_HMDPowerManager, "[HMDPowerManager _update]", 30, "Created HomeKit remote access power assertion\n");
     }
 
-    v17 = objc_autoreleasePoolPush();
+    v16 = objc_autoreleasePoolPush();
     selfCopy2 = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v20;
-      _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Created HomeKit remote access power assertion", buf, 0xCu);
+      v30 = v19;
+      _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Created HomeKit remote access power assertion", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v17);
+    objc_autoreleasePoolPop(v16);
     isPowerAsserted = [(HMDPowerManager *)selfCopy2 isPowerAsserted];
-    v13 = objc_autoreleasePoolPush();
+    v12 = objc_autoreleasePoolPush();
     selfCopy = selfCopy2;
-    v22 = HMFGetOSLogHandle();
-    v23 = v22;
+    v21 = HMFGetOSLogHandle();
+    v22 = v21;
     if (!isPowerAsserted)
     {
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        v28 = HMFGetLogIdentifier();
+        v27 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v28;
-        _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Create HomeKit remote access power assertion failed to become active", buf, 0xCu);
+        v30 = v27;
+        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Create HomeKit remote access power assertion failed to become active", buf, 0xCu);
       }
 
       goto LABEL_39;
     }
 
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
-      v24 = HMFGetLogIdentifier();
+      v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v24;
-      _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@HomeKit remote access power assertion is active", buf, 0xCu);
+      v30 = v23;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@HomeKit remote access power assertion is active", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v13);
+    objc_autoreleasePoolPop(v12);
     timerProvider = [(HMDPowerManager *)selfCopy timerProvider];
-    v26 = [timerProvider timerWithTimeInterval:0 options:2.5];
+    v25 = [timerProvider timerWithTimeInterval:0 options:2.5];
     verificationTimer = selfCopy->_verificationTimer;
-    selfCopy->_verificationTimer = v26;
+    selfCopy->_verificationTimer = v25;
 
     [(HMFTimer *)selfCopy->_verificationTimer setDelegate:selfCopy];
     [(HMFTimer *)selfCopy->_verificationTimer setDelegateQueue:selfCopy->_dispatchQueue];
@@ -360,7 +365,7 @@ LABEL_39:
       self->_powerAssertion = 0;
       if (gLogCategory_HMDPowerManager <= 30 && (gLogCategory_HMDPowerManager != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMDPowerManager, "[HMDPowerManager _update]", 30, "Released HomeKit remote access power assertion\n");
       }
 
       v7 = objc_autoreleasePoolPush();
@@ -370,7 +375,7 @@ LABEL_39:
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v31 = v10;
+        v30 = v10;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Released HomeKit remote access power assertion", buf, 0xCu);
       }
 
@@ -381,14 +386,11 @@ LABEL_39:
     v11 = self->_verificationTimer;
     self->_verificationTimer = 0;
   }
-
-LABEL_24:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPowerAsserted
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   iopmUpdateAssertionsByProcess = [(HMDIOPM *)selfCopy->_iopmLib iopmUpdateAssertionsByProcess];
   if (iopmUpdateAssertionsByProcess)
@@ -401,9 +403,9 @@ LABEL_24:
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v8;
-      v26 = 2080;
-      v27 = strerror(v4);
+      v24 = v8;
+      v25 = 2080;
+      v26 = strerror(v4);
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@iopmUpdateAssertionsByProcess returned %s", buf, 0x16u);
     }
 
@@ -458,7 +460,6 @@ LABEL_15:
 
 LABEL_16:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -496,14 +497,14 @@ LABEL_16:
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __44__HMDPowerManager_setNetworkAccessRequired___block_invoke(uint64_t result)
+unsigned __int8 *__44__HMDPowerManager_setNetworkAccessRequired___block_invoke(unsigned __int8 *result)
 {
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = result[40];
+  v2 = *(result + 4);
   if (v1 != *(v2 + 16))
   {
     *(v2 + 16) = v1;
-    return [*(result + 32) _update];
+    return [*(result + 4) _update];
   }
 
   return result;
@@ -570,12 +571,11 @@ uint64_t __44__HMDPowerManager_setNetworkAccessRequired___block_invoke(uint64_t 
 
 uint64_t __30__HMDPowerManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_53571;
-  logCategory__hmf_once_v1_53571 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_53571;
+  logCategory__hmf_once_v1_53571 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

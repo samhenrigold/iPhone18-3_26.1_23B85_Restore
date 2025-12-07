@@ -2,6 +2,7 @@
 - (BOOL)supportsHKQuantityType:(id)type;
 - (HRMService)initWithManager:(id)manager peripheral:(id)peripheral service:(id)service;
 - (id)hidDeviceProperties;
+- (void)collectData:(BOOL)data;
 - (void)deviceInformation:(id)information readCompleteForDeviceUUID:(id)d;
 - (void)didUpdateBodySensorLocation:(id)location;
 - (void)didUpdateHeartRateMeasurement:(id)measurement;
@@ -400,6 +401,42 @@ LABEL_10:
   return v7;
 }
 
+- (void)collectData:(BOOL)data
+{
+  dataCopy = data;
+  v5 = qword_1000DDBC8;
+  if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
+  {
+    if (dataCopy)
+    {
+      v6 = @"ON";
+    }
+
+    else
+    {
+      v6 = @"OFF";
+    }
+
+    v7 = v5;
+    peripheral = [(ClientService *)self peripheral];
+    name = [peripheral name];
+    v13 = 138412546;
+    v14 = v6;
+    v15 = 2112;
+    v16 = name;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "collectData:%@ for “%@”", &v13, 0x16u);
+  }
+
+  heartRateMeasurementCharacteristic = [(HRMService *)self heartRateMeasurementCharacteristic];
+  isNotifying = [heartRateMeasurementCharacteristic isNotifying];
+
+  if (isNotifying != dataCopy && (!dataCopy || ![(HRMService *)self shouldBlockCATTHRM]))
+  {
+    heartRateMeasurementCharacteristic2 = [(HRMService *)self heartRateMeasurementCharacteristic];
+    [(FitnessService *)self setNotify:dataCopy forCharacteristic:heartRateMeasurementCharacteristic2];
+  }
+}
+
 - (void)deviceInformation:(id)information readCompleteForDeviceUUID:(id)d
 {
   informationCopy = information;
@@ -727,7 +764,7 @@ LABEL_13:
 
     if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEBUG))
     {
-      sub_1000770F4(&v15);
+      sub_1000770F4();
     }
 
     if (v15)

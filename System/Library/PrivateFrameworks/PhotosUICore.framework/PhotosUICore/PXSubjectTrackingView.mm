@@ -327,7 +327,7 @@ LABEL_11:
 
   v28 = 0uLL;
   v29 = 0;
-  [(PXSubjectTrackingView *)self _currentCinematographyTime];
+  objc_msgSend__currentCinematographyTime(self);
   [(PXSubjectTrackingView *)self normalizedPointForViewPoint:x, y];
   v11 = v10;
   v13 = v12;
@@ -410,7 +410,7 @@ void __60__PXSubjectTrackingView__trackAndFocusObjectAtPoint_strong___block_invo
     v19 = [objc_alloc(MEMORY[0x1E69C4F78]) initWithDetection:v18];
     memset(buf, 0, sizeof(buf));
     v27 = 0;
-    [(PXSubjectTrackingView *)self _currentCinematographyTime];
+    objc_msgSend__currentCinematographyTime(self);
     v23 = *buf;
     v24 = v27;
     v20 = [(PXSubjectTrackingView *)self addFocusTrack:v19 atTime:&v23 strong:strongCopy];
@@ -469,7 +469,7 @@ LABEL_14:
 
   v30 = 0uLL;
   v31 = 0;
-  [(PXSubjectTrackingView *)self _currentCinematographyTime];
+  objc_msgSend__currentCinematographyTime(self);
   [(PXSubjectTrackingView *)self normalizedPointForViewPoint:x, y];
   v11 = v10;
   v13 = v12;
@@ -518,7 +518,7 @@ void __61__PXSubjectTrackingView__focusOnFixedLocationAtPoint_strong___block_inv
   v15 = 0uLL;
   v16 = 0;
   detectionCopy = detection;
-  [(PXSubjectTrackingView *)self _currentCinematographyTime];
+  objc_msgSend__currentCinematographyTime(self);
   v7 = [objc_alloc(MEMORY[0x1E69C4F78]) initWithDetection:detectionCopy];
 
   v13 = v15;
@@ -720,7 +720,7 @@ LABEL_10:
   v7 = v6;
   if (v6)
   {
-    [v6 time];
+    objc_msgSend_time(v6);
     [(PXSubjectTrackingView *)self focusOnDetection:v7 atTime:&v10 strong:1];
   }
 
@@ -750,7 +750,7 @@ LABEL_10:
   v9 = v8;
   if (v8)
   {
-    [v8 time];
+    objc_msgSend_time(v8);
     v10 = [cinematographyScript primaryDecisionAtTime:&v24];
     [v10 groupIdentifier];
     v11 = PTGroupIDIsValid();
@@ -772,7 +772,7 @@ LABEL_10:
       v25 = 0;
       if (v10)
       {
-        [v10 time];
+        objc_msgSend_time(v10);
       }
 
       v22 = v24;
@@ -783,14 +783,14 @@ LABEL_10:
       v21 = trackIdentifier3 == [v9 trackIdentifier] || v13;
       if (v21 == 1)
       {
-        [(PXSubjectTrackingView *)self _currentCinematographyTime];
+        objc_msgSend__currentCinematographyTime(self);
         [(PXSubjectTrackingView *)self focusOnDetection:v9 atTime:&v22 strong:isStrongDecision ^ 1u];
       }
     }
 
     else
     {
-      [(PXSubjectTrackingView *)self _currentCinematographyTime];
+      objc_msgSend__currentCinematographyTime(self);
       [(PXSubjectTrackingView *)self focusOnDetection:v9 atTime:&v24 strong:0];
     }
   }
@@ -1241,17 +1241,17 @@ LABEL_15:
     v7 = cinematographyFrame2;
     if (cinematographyFrame2)
     {
-      [cinematographyFrame2 time];
+      objc_msgSend_time(cinematographyFrame2);
     }
 
     else
     {
-      v21 = 0uLL;
-      v22 = 0;
+      v19 = 0uLL;
+      v21 = 0;
     }
 
-    *&retstr->var0 = v21;
-    v11 = v22;
+    *&retstr->var0 = v19;
+    v11 = v21;
   }
 
   else
@@ -1261,57 +1261,53 @@ LABEL_15:
     v10 = player;
     if (player)
     {
-      [player currentTime];
+      objc_msgSend_currentTime(player);
     }
 
     else
     {
-      v21 = 0uLL;
-      v22 = 0;
+      v19 = 0uLL;
+      v21 = 0;
     }
 
-    *&retstr->var0 = v21;
-    retstr->var3 = v22;
+    *&retstr->var0 = v19;
+    retstr->var3 = v21;
 
-    v21 = 0uLL;
-    v22 = 0;
+    v20 = 0uLL;
     mediaView2 = [(PXSubjectTrackingView *)self mediaView];
     player2 = [mediaView2 player];
     v14 = player2;
     if (player2)
     {
-      [player2 currentSeekTime];
+      objc_msgSend_currentSeekTime(player2);
     }
 
     else
     {
-      v21 = 0uLL;
-      v22 = 0;
+      v20 = 0uLL;
     }
 
-    if (BYTE12(v21))
+    if (BYTE12(v20))
     {
-      *&retstr->var0 = v21;
-      retstr->var3 = v22;
+      *&retstr->var0 = v20;
+      retstr->var3 = 0;
     }
 
     delegate = [(PXSubjectTrackingView *)self delegate];
     v7 = delegate;
     if (delegate)
     {
-      v17 = *&retstr->var0;
-      var3 = retstr->var3;
-      [delegate unadjustedTimeForPlayerTime:&v17];
+      objc_msgSend_unadjustedTimeForPlayerTime_(delegate, retstr->var0, *&retstr->var1, retstr->var3);
     }
 
     else
     {
-      v19 = 0uLL;
-      v20 = 0;
+      v17 = 0uLL;
+      v18 = 0;
     }
 
-    *&retstr->var0 = v19;
-    v11 = v20;
+    *&retstr->var0 = v17;
+    v11 = v18;
   }
 
   retstr->var3 = v11;
@@ -1501,7 +1497,7 @@ uint64_t __60__PXSubjectTrackingView_setFocusStateBadgeVisible_autoHide___block_
     {
       v23 = 0uLL;
       v24 = 0;
-      [v6 time];
+      objc_msgSend_time(v6);
       cineController = [(PXSubjectTrackingView *)self cineController];
       cinematographyScript = [cineController cinematographyScript];
 
@@ -1866,38 +1862,22 @@ uint64_t __56__PXSubjectTrackingView_setCinematographyFrame_animate___block_invo
 {
   if (self->_viewEnabled)
   {
-    v24 = v2;
-    v25 = v3;
+    v22 = v2;
+    v23 = v3;
     mediaView = [(PXSubjectTrackingView *)self mediaView];
     player = [mediaView player];
     playbackState = [player playbackState];
 
     if ((playbackState - 4) >= 0xFFFFFFFFFFFFFFFELL)
     {
-      v22 = 0uLL;
-      v23 = 0;
+      v20 = 0uLL;
+      v21 = 0;
       mediaView2 = [(PXSubjectTrackingView *)self mediaView];
       player2 = [mediaView2 player];
       v10 = player2;
       if (player2)
       {
-        [player2 currentTime];
-      }
-
-      else
-      {
-        v22 = 0uLL;
-        v23 = 0;
-      }
-
-      v20 = 0uLL;
-      v21 = 0;
-      mediaView3 = [(PXSubjectTrackingView *)self mediaView];
-      player3 = [mediaView3 player];
-      v13 = player3;
-      if (player3)
-      {
-        [player3 currentSeekTime];
+        objc_msgSend_currentTime(player2);
       }
 
       else
@@ -1906,19 +1886,14 @@ uint64_t __56__PXSubjectTrackingView_setCinematographyFrame_animate___block_invo
         v21 = 0;
       }
 
-      if (BYTE12(v20))
+      v18 = 0uLL;
+      v19 = 0;
+      mediaView3 = [(PXSubjectTrackingView *)self mediaView];
+      player3 = [mediaView3 player];
+      v13 = player3;
+      if (player3)
       {
-        v22 = v20;
-        v23 = v21;
-      }
-
-      delegate = [(PXSubjectTrackingView *)self delegate];
-      v15 = delegate;
-      if (delegate)
-      {
-        v16 = v22;
-        v17 = v23;
-        [delegate unadjustedTimeForPlayerTime:&v16];
+        objc_msgSend_currentSeekTime(player3);
       }
 
       else
@@ -1927,12 +1902,31 @@ uint64_t __56__PXSubjectTrackingView_setCinematographyFrame_animate___block_invo
         v19 = 0;
       }
 
-      v22 = v18;
-      v23 = v19;
+      if (BYTE12(v18))
+      {
+        v20 = v18;
+        v21 = v19;
+      }
 
-      v18 = v22;
-      v19 = v23;
-      [(PXSubjectTrackingView *)self _updateCinematographyFrameWithTime:&v18];
+      delegate = [(PXSubjectTrackingView *)self delegate];
+      v15 = delegate;
+      if (delegate)
+      {
+        objc_msgSend_unadjustedTimeForPlayerTime_(delegate, v20, v21);
+      }
+
+      else
+      {
+        v16 = 0uLL;
+        v17 = 0;
+      }
+
+      v20 = v16;
+      v21 = v17;
+
+      v16 = v20;
+      v17 = v21;
+      [(PXSubjectTrackingView *)self _updateCinematographyFrameWithTime:&v16];
     }
   }
 }
@@ -1950,7 +1944,7 @@ uint64_t __56__PXSubjectTrackingView_setCinematographyFrame_animate___block_invo
 
   v6 = 0uLL;
   v7 = 0;
-  [(PXSubjectTrackingView *)self _currentCinematographyTime];
+  objc_msgSend__currentCinematographyTime(self);
   if (0 >> 96)
   {
     v4 = v6;
@@ -1970,21 +1964,21 @@ uint64_t __56__PXSubjectTrackingView_setCinematographyFrame_animate___block_invo
   }
 }
 
-uint64_t __62__PXSubjectTrackingView_decisionsDidChangeInScript_timeRange___block_invoke(uint64_t a1)
+void *__62__PXSubjectTrackingView_decisionsDidChangeInScript_timeRange___block_invoke(uint64_t a1, const char *a2)
 {
-  memset(&v7, 0, sizeof(v7));
-  v2 = *(a1 + 32);
-  if (v2)
+  memset(&v8, 0, sizeof(v8));
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 _currentCinematographyTime];
+    objc_msgSend__currentCinematographyTime(v3, a2);
   }
 
-  v3 = *(a1 + 56);
+  v4 = *(a1 + 56);
   *&range.start.value = *(a1 + 40);
-  *&range.start.epoch = v3;
+  *&range.start.epoch = v4;
   *&range.duration.timescale = *(a1 + 72);
-  v5 = v7;
-  result = CMTimeRangeContainsTime(&range, &v5);
+  v6 = v8;
+  result = CMTimeRangeContainsTime(&range, &v6);
   if (result)
   {
     return [*(a1 + 32) _updateFocusStateAnimated:1];
@@ -1993,21 +1987,21 @@ uint64_t __62__PXSubjectTrackingView_decisionsDidChangeInScript_timeRange___bloc
   return result;
 }
 
-uint64_t __59__PXSubjectTrackingView_framesDidChangeInScript_timeRange___block_invoke(uint64_t a1)
+void *__59__PXSubjectTrackingView_framesDidChangeInScript_timeRange___block_invoke(uint64_t a1, const char *a2)
 {
-  memset(&v7, 0, sizeof(v7));
-  v2 = *(a1 + 32);
-  if (v2)
+  memset(&v8, 0, sizeof(v8));
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 _currentCinematographyTime];
+    objc_msgSend__currentCinematographyTime(v3, a2);
   }
 
-  v3 = *(a1 + 56);
+  v4 = *(a1 + 56);
   *&range.start.value = *(a1 + 40);
-  *&range.start.epoch = v3;
+  *&range.start.epoch = v4;
   *&range.duration.timescale = *(a1 + 72);
-  v5 = v7;
-  result = CMTimeRangeContainsTime(&range, &v5);
+  v6 = v8;
+  result = CMTimeRangeContainsTime(&range, &v6);
   if (result)
   {
     return [*(a1 + 32) scriptDidUpdate];
@@ -2115,7 +2109,7 @@ uint64_t __59__PXSubjectTrackingView_framesDidChangeInScript_timeRange___block_i
       v20 = player;
       if (player)
       {
-        [player currentTime];
+        objc_msgSend_currentTime(player);
       }
 
       else

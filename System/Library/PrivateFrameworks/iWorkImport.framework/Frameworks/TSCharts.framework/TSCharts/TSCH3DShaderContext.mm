@@ -20,15 +20,15 @@
   if (v8)
   {
     sub_2761CB09C(&v17, state);
-    sub_276161210(&v8->_state._effects.mValue, v17);
-    sub_2761CB63C(&v8->_state._attributes.__begin_);
-    *&v8->_state._attributes.__begin_ = v18;
-    v8->_state._attributes.__cap_ = v19;
+    sub_276161210(v8 + 1, v17);
+    sub_2761CB63C(v8 + 2);
+    *(v8 + 1) = v18;
+    *(v8 + 4) = v19;
     v18 = 0uLL;
     v19 = 0;
-    sub_2761CB6A0(&v8->_state._textures.__begin_);
-    *&v8->_state._textures.__begin_ = v20;
-    v8->_state._textures.__cap_ = v21;
+    sub_2761CB6A0(v8 + 5);
+    *(v8 + 40) = v20;
+    *(v8 + 7) = v21;
     v20 = 0uLL;
     v21 = 0;
     v23 = &v20;
@@ -36,11 +36,11 @@
     v23 = &v18;
     sub_2761CB388(&v23);
 
-    objc_storeStrong(&v8->_version, version);
+    objc_storeStrong(v8 + 8, version);
     v9 = [TSCH3DShaderResource alloc];
     v14 = objc_msgSend_initWithCaching_version_(v9, v10, v11, v12, v13, 0, versionCopy);
-    shader = v8->_shader;
-    v8->_shader = v14;
+    v15 = *(v8 + 9);
+    *(v8 + 9) = v14;
   }
 
   return v8;

@@ -23,7 +23,7 @@
 {
   height = size.height;
   width = size.width;
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   managerCopy = manager;
   v14 = [itemsCopy count];
@@ -31,24 +31,24 @@
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     v41 = objc_opt_class();
-    v53.width = width;
-    v53.height = height;
-    v42 = NSStringFromSize(v53);
+    v52.width = width;
+    v52.height = height;
+    v42 = NSStringFromSize(v52);
     [currentHandler handleFailureInMethod:a2 object:self file:@"FPFetchThumbnailsOperation.m" lineNumber:296 description:{@"invalid parameter to initialize %@ (items:%@, desiredSize:%@, screenScale:%f, itemManager:%@)", v41, itemsCopy, v42, *&scale, managerCopy}];
 
     selfCopy = 0;
     goto LABEL_30;
   }
 
-  v50.receiver = self;
-  v50.super_class = FPFetchThumbnailsOperation;
-  v18 = [(FPOperation *)&v50 init];
+  v49.receiver = self;
+  v49.super_class = FPFetchThumbnailsOperation;
+  v18 = [(FPOperation *)&v49 init];
   if (!v18)
   {
     goto LABEL_28;
   }
 
-  v45 = managerCopy;
+  v44 = managerCopy;
   v19 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(itemsCopy, "count")}];
   dictionary = v18->_dictionary;
   v18->_dictionary = v19;
@@ -61,29 +61,29 @@
   placeHoldersItems = v18->_placeHoldersItems;
   v18->_placeHoldersItems = v23;
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v25 = itemsCopy;
-  v26 = [v25 countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (!v26)
   {
     goto LABEL_27;
   }
 
   v27 = v26;
-  v28 = *v47;
+  v28 = *v46;
   do
   {
     for (i = 0; i != v27; ++i)
     {
-      if (*v47 != v28)
+      if (*v46 != v28)
       {
         objc_enumerationMutation(v25);
       }
 
-      v30 = *(*(&v46 + 1) + 8 * i);
+      v30 = *(*(&v45 + 1) + 8 * i);
       if ([v30 isPlaceholder])
       {
         v31 = v18->_placeHoldersItems;
@@ -111,7 +111,7 @@ LABEL_23:
       [(NSMutableDictionary *)v35 setObject:MEMORY[0x1E695E0F0] forKeyedSubscript:itemID];
     }
 
-    v27 = [v25 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v27 = [v25 countByEnumeratingWithState:&v45 objects:v50 count:16];
   }
 
   while (v27);
@@ -127,13 +127,12 @@ LABEL_27:
 
   [(NSOperationQueue *)v18->_subOperationQueue setName:@"com.apple.FileProvider.FetchThumbnailsOperation"];
   [(NSOperationQueue *)v18->_subOperationQueue setMaxConcurrentOperationCount:2];
-  managerCopy = v45;
+  managerCopy = v44;
 LABEL_28:
   self = v18;
   selfCopy = self;
 LABEL_30:
 
-  v43 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -141,14 +140,14 @@ LABEL_30:
 {
   height = size.height;
   width = size.width;
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   versionsCopy = versions;
-  v23 = itemCopy;
+  v22 = itemCopy;
   v15 = MEMORY[0x1E695DEC8];
   managerCopy = manager;
-  v17 = [v15 arrayWithObjects:&v23 count:1];
-  v18 = [(FPFetchThumbnailsOperation *)self initWithItems:v17 desiredSize:managerCopy screenScale:width itemManager:height, scale, v23, v24];
+  v17 = [v15 arrayWithObjects:&v22 count:1];
+  v18 = [(FPFetchThumbnailsOperation *)self initWithItems:v17 desiredSize:managerCopy screenScale:width itemManager:height, scale, v22, v23];
 
   if (v18)
   {
@@ -157,32 +156,31 @@ LABEL_30:
     [(NSMutableDictionary *)dictionary setObject:versionsCopy forKeyedSubscript:itemID];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (void)main
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   v4 = self->_placeHoldersItems;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v38 objects:v48 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v37 objects:v47 count:16];
   if (v5)
   {
-    v6 = *v39;
+    v6 = *v38;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v39 != v6)
+        if (*v38 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v38 + 1) + 8 * i);
+        v8 = *(*(&v37 + 1) + 8 * i);
         v9 = fp_current_or_default_log();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
@@ -196,7 +194,7 @@ LABEL_30:
         [(FPFetchThumbnailsOperation *)self _perItemCompletionBlockFor:identifier version:0 thumbnailURL:0 thumbnailData:0 contentType:0 metadata:0 error:0];
       }
 
-      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v38 objects:v48 count:16];
+      v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v37 objects:v47 count:16];
     }
 
     while (v5);
@@ -231,7 +229,7 @@ LABEL_30:
       v27 = [MEMORY[0x1E696ABC0] fp_invalidArgumentError:{@"can't fetch app-library icons for %@", self->_appLibraryItems}];
       [(FPOperation *)self completedWithResult:0 error:v27];
 
-      goto LABEL_31;
+      return;
     }
 
     [(FPFetchAppLibraryIconsOperation *)v16 setDelegate:self];
@@ -249,7 +247,7 @@ LABEL_30:
       v30 = [v28 fp_invalidArgumentError:{@"can't fetch thumbnails for %@", allKeys}];
 
       [(FPOperation *)self completedWithResult:0 error:v30];
-      goto LABEL_31;
+      return;
     }
 
     [(FPFetchRegularItemThumbnailsOperation *)v18 setDelegate:self];
@@ -258,10 +256,10 @@ LABEL_30:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v44 = 0x3032000000;
-  v45 = __Block_byref_object_copy__4;
-  v46 = __Block_byref_object_dispose__4;
-  v47 = 0;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__4;
+  v45 = __Block_byref_object_dispose__4;
+  v46 = 0;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __34__FPFetchThumbnailsOperation_main__block_invoke;
@@ -269,38 +267,38 @@ LABEL_30:
   aBlock[4] = self;
   aBlock[5] = &buf;
   v20 = _Block_copy(aBlock);
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __34__FPFetchThumbnailsOperation_main__block_invoke_2;
-  v36[3] = &unk_1E793AD20;
-  v36[4] = self;
-  v36[5] = &buf;
-  v21 = [MEMORY[0x1E696AAE0] blockOperationWithBlock:v36];
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
+  v35[0] = MEMORY[0x1E69E9820];
+  v35[1] = 3221225472;
+  v35[2] = __34__FPFetchThumbnailsOperation_main__block_invoke_2;
+  v35[3] = &unk_1E793AD20;
+  v35[4] = self;
+  v35[5] = &buf;
+  v21 = [MEMORY[0x1E696AAE0] blockOperationWithBlock:v35];
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v22 = self->_subOperations;
-  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v32 objects:v42 count:16];
+  v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v31 objects:v41 count:16];
   if (v23)
   {
-    v24 = *v33;
+    v24 = *v32;
     do
     {
       for (j = 0; j != v23; ++j)
       {
-        if (*v33 != v24)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(v22);
         }
 
-        v26 = *(*(&v32 + 1) + 8 * j);
+        v26 = *(*(&v31 + 1) + 8 * j);
         [v26 setFinishedBlock:v20];
         [v21 addDependency:v26];
         [(NSOperationQueue *)self->_subOperationQueue addOperation:v26];
       }
 
-      v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v32 objects:v42 count:16];
+      v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v31 objects:v41 count:16];
     }
 
     while (v23);
@@ -308,9 +306,6 @@ LABEL_30:
 
   [(NSOperationQueue *)self->_subOperationQueue addOperation:v21];
   _Block_object_dispose(&buf, 8);
-
-LABEL_31:
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 void __34__FPFetchThumbnailsOperation_main__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -365,7 +360,7 @@ void __34__FPFetchThumbnailsOperation_main__block_invoke(uint64_t a1, uint64_t a
       v10 = fp_current_or_default_log();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        [FPFetchThumbnailsOperation operation:didReceiveProgressInfo:error:];
+        [FPFetchThumbnailsOperation operation:? didReceiveProgressInfo:? error:?];
       }
 
       goto LABEL_43;
@@ -618,82 +613,68 @@ void __119__FPFetchThumbnailsOperation__perItemCompletionBlockFor_version_thumbn
 - (void)operation:didReceiveProgressInfo:error:.cold.1()
 {
   OUTLINED_FUNCTION_3();
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_4_3();
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operation:didReceiveProgressInfo:error:.cold.2()
 {
   OUTLINED_FUNCTION_3();
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_4_3();
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operation:didReceiveProgressInfo:error:.cold.3()
 {
   OUTLINED_FUNCTION_3();
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_4_3();
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operation:didReceiveProgressInfo:error:.cold.4()
 {
   OUTLINED_FUNCTION_3();
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_4_3();
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operation:didReceiveProgressInfo:error:.cold.5()
 {
   OUTLINED_FUNCTION_3();
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_4_3();
   OUTLINED_FUNCTION_0_7();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)operation:didReceiveProgressInfo:error:.cold.6()
 {
   OUTLINED_FUNCTION_3();
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)operation:didReceiveProgressInfo:error:.cold.7()
+- (void)operation:(uint64_t)a1 didReceiveProgressInfo:error:.cold.7(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 @end

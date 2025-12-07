@@ -12,7 +12,7 @@
   v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_217005934();
 
-  sub_216E3FA94();
+  sub_216E3FA94(v6);
 
   (*(v4 + 8))(v6, v3);
 }

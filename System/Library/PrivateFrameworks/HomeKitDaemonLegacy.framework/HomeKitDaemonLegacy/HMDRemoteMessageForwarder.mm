@@ -20,15 +20,15 @@
 
 - (void)handleResponseMessage:(id)message
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDRemoteMessageForwarder *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   [messageCopy respondWithSuccess];
   v6 = [messageCopy dictionaryForKey:@"HMDRemoteMessageForwarderPayloadKey"];
-  v38[0] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+  v37[0] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
   v8 = [messageCopy unarchivedObjectForKey:@"HMDRemoteMessageForwarderErrorKey" ofClasses:v7];
 
   v9 = objc_alloc(MEMORY[0x277CCAD78]);
@@ -44,13 +44,13 @@
     name = [messageCopy name];
     identifier = [messageCopy identifier];
     *buf = 138544130;
-    v31 = v15;
-    v32 = 2112;
-    v33 = name;
-    v34 = 2112;
-    v35 = identifier;
-    v36 = 2112;
-    v37 = v11;
+    v30 = v15;
+    v31 = 2112;
+    v32 = name;
+    v33 = 2112;
+    v34 = identifier;
+    v35 = 2112;
+    v36 = v11;
     _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Handling response message with name: %@, identifier: %@, originalMessageIdentifier: %@", buf, 0x2Au);
   }
 
@@ -76,27 +76,25 @@
       v25 = HMFGetLogIdentifier();
       name2 = [messageCopy name];
       [messageCopy identifier];
-      v27 = v29 = v22;
+      v27 = v28 = v22;
       *buf = 138543874;
-      v31 = v25;
-      v32 = 2112;
-      v33 = name2;
-      v34 = 2112;
-      v35 = v27;
+      v30 = v25;
+      v31 = 2112;
+      v32 = name2;
+      v33 = 2112;
+      v34 = v27;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Did not find a cached message for message response with name: %@, identifier: %@", buf, 0x20u);
 
-      v22 = v29;
+      v22 = v28;
     }
 
     objc_autoreleasePoolPop(v22);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)messageForForwardedMessage:(id)message
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDRemoteMessageForwarder *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -109,9 +107,9 @@
     v9 = HMFGetLogIdentifier();
     name = [messageCopy name];
     *buf = 138543618;
-    v31 = v9;
-    v32 = 2112;
-    v33 = name;
+    v30 = v9;
+    v31 = 2112;
+    v32 = name;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Determining message for message with name: %@", buf, 0x16u);
   }
 
@@ -127,25 +125,25 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v16;
-      v32 = 2112;
-      v33 = v12;
+      v30 = v16;
+      v31 = 2112;
+      v32 = v12;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Message with original message identifier: %@, is remote, returning a copy and responding to the original.", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v13);
     v17 = [messageCopy mutableCopy];
     [messageCopy respondWithSuccess];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke;
-    v26[3] = &unk_279730A88;
-    v27 = v12;
-    v28 = v14;
-    v29 = messageCopy;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke;
+    v25[3] = &unk_279730A88;
+    v26 = v12;
+    v27 = v14;
+    v28 = messageCopy;
     v18 = messageCopy;
     v19 = v12;
-    [v17 setResponseHandler:v26];
+    [v17 setResponseHandler:v25];
 
     messageCopy = v17;
   }
@@ -159,21 +157,19 @@
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v23;
+      v30 = v23;
       _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Message was not forwarded, returning as is.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return messageCopy;
 }
 
 void __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke(id *a1, void *a2, void *a3)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB38] dictionary];
@@ -199,52 +195,50 @@ void __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke(i
   v14 = [(HMDRemoteDeviceMessageDestination *)v11 initWithTarget:v12 device:v13];
   v15 = [(HMDRemoteMessage *)v10 initWithName:@"HMDRemoteMessageForwarderResponseMessage" destination:v14 payload:v7 type:0 timeout:1 secure:0.0];
 
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke_2;
-  v29[3] = &unk_279730A88;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke_2;
+  v28[3] = &unk_279730A88;
   v16 = a1[6];
-  v29[4] = a1[5];
-  v30 = v16;
-  v31 = a1[4];
-  [(HMDRemoteMessage *)v15 setResponseHandler:v29];
+  v28[4] = a1[5];
+  v29 = v16;
+  v30 = a1[4];
+  [(HMDRemoteMessage *)v15 setResponseHandler:v28];
   v17 = objc_autoreleasePoolPush();
   v18 = a1[5];
   v19 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     HMFGetLogIdentifier();
-    v20 = v28 = v6;
+    v20 = v27 = v6;
     v21 = [a1[6] name];
     v22 = v5;
     v23 = a1[4];
     [(HMDRemoteMessage *)v15 identifier];
-    v24 = v27 = v17;
+    v24 = v26 = v17;
     *buf = 138544130;
-    v33 = v20;
-    v34 = 2112;
-    v35 = v21;
-    v36 = 2112;
-    v37 = v23;
+    v32 = v20;
+    v33 = 2112;
+    v34 = v21;
+    v35 = 2112;
+    v36 = v23;
     v5 = v22;
-    v38 = 2112;
-    v39 = v24;
+    v37 = 2112;
+    v38 = v24;
     _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Sending response message for message with name: %@, originalMessageIdentifier: %@, responseMessageIdentifier: %@", buf, 0x2Au);
 
-    v17 = v27;
-    v6 = v28;
+    v17 = v26;
+    v6 = v27;
   }
 
   objc_autoreleasePoolPop(v17);
   v25 = [a1[5] messageDispatcher];
   [v25 sendMessage:v15];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -257,26 +251,24 @@ void __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke_2
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 40) name];
       v12 = *(a1 + 48);
-      v14 = 138544130;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v5;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to send response message for message with name: %@, originalMessageIdentifier: %@, error: %@", &v14, 0x2Au);
+      v13 = 138544130;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v5;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to send response message for message with name: %@, originalMessageIdentifier: %@, error: %@", &v13, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)redispatchToResidentMessage:(id)message
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDRemoteMessageForwarder *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -290,11 +282,11 @@ void __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke_2
     name = [messageCopy name];
     identifier = [messageCopy identifier];
     *buf = 138543874;
-    v35 = v9;
-    v36 = 2112;
-    v37 = name;
-    v38 = 2112;
-    v39 = identifier;
+    v34 = v9;
+    v35 = 2112;
+    v36 = name;
+    v37 = 2112;
+    v38 = identifier;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Redispatching to resident message with name: %@, identifier: %@", buf, 0x20u);
   }
 
@@ -311,15 +303,15 @@ void __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke_2
     [v15 setObject:uUIDString forKeyedSubscript:@"HMDRemoteMessageForwarderOriginalMessageUUIDStringKey"];
 
     [v13 setMessagePayload:v15];
-    v28 = MEMORY[0x277D85DD0];
-    v29 = 3221225472;
-    v30 = __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke;
-    v31 = &unk_279733FB0;
-    v32 = selfCopy;
+    v27 = MEMORY[0x277D85DD0];
+    v28 = 3221225472;
+    v29 = __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke;
+    v30 = &unk_279733FB0;
+    v31 = selfCopy;
     v18 = messageCopy;
-    v33 = v18;
-    [v13 setResponseHandler:&v28];
-    v19 = [(HMDRemoteMessageForwarder *)selfCopy messagesByIdentifier:v28];
+    v32 = v18;
+    [v13 setResponseHandler:&v27];
+    v19 = [(HMDRemoteMessageForwarder *)selfCopy messagesByIdentifier:v27];
     identifier3 = [v18 identifier];
     [v19 setObject:v18 forKeyedSubscript:identifier3];
 
@@ -337,19 +329,17 @@ void __56__HMDRemoteMessageForwarder_messageForForwardedMessage___block_invoke_2
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v35 = v26;
+      v34 = v26;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Home property is nil on HMDRemoteMessageForwarder", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v23);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -361,13 +351,13 @@ void __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke(
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
-      v15 = 138543874;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to forward message to resident: %@ with error: %@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to forward message to resident: %@ with error: %@", &v14, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -377,13 +367,11 @@ void __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke(
 
     [*(a1 + 40) respondWithError:v5];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithMessageDispatcher:(id)dispatcher
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dispatcherCopy = dispatcher;
   workQueue = [(HMDRemoteMessageForwarder *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -396,9 +384,9 @@ void __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke(
     v10 = HMFGetLogIdentifier();
     uUID = [(HMDRemoteMessageForwarder *)selfCopy UUID];
     *buf = 138543618;
-    v28 = v10;
-    v29 = 2112;
-    v30 = uUID;
+    v27 = v10;
+    v28 = 2112;
+    v29 = uUID;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring HMDRemoteMessageForwarder with UUID: %@", buf, 0x16u);
   }
 
@@ -413,7 +401,7 @@ void __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke(
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v15;
+      v27 = v15;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Message dispatcher property is nil on HMDRemoteMessageForwarder", buf, 0xCu);
     }
 
@@ -425,9 +413,9 @@ void __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke(
   {
     v17 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
     v18 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:0];
-    v26[0] = v17;
-    v26[1] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[0] = v17;
+    v25[1] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     messageDispatcher = [(HMDRemoteMessageForwarder *)selfCopy messageDispatcher];
     [messageDispatcher registerForMessage:@"HMDRemoteMessageForwarderResponseMessage" receiver:selfCopy policies:v19 selector:sel_handleResponseMessage_];
   }
@@ -441,14 +429,12 @@ void __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke(
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v24;
+      v27 = v24;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Home property is nil on HMDRemoteMessageForwarder", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDRemoteMessageForwarder)initWithHome:(id)home UUID:(id)d workQueue:(id)queue
@@ -491,12 +477,11 @@ void __57__HMDRemoteMessageForwarder_redispatchToResidentMessage___block_invoke(
 
 uint64_t __40__HMDRemoteMessageForwarder_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_77574;
-  logCategory__hmf_once_v14_77574 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_77574;
+  logCategory__hmf_once_v14_77574 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)remoteMessageForwarderUUIDFromUUID:(id)d

@@ -5,9 +5,11 @@
 
 uint64_t ___CATLogGeneral_block_invoke()
 {
-  _CATLogGeneral_logObj = os_log_create("com.apple.catalyst", "General");
+  v0 = os_log_create("com.apple.catalyst", "General");
+  v1 = _CATLogGeneral_logObj;
+  _CATLogGeneral_logObj = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 uint64_t ___CATLogGeneral_block_invoke_0()

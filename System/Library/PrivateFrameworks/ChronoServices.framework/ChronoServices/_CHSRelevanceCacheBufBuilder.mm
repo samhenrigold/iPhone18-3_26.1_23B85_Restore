@@ -1,14 +1,14 @@
 @interface _CHSRelevanceCacheBufBuilder
 - (id)_finish;
-- (id)initWithBufferBuilder:(id *)builder;
 - (void)dealloc;
+- (void)initWithBufferBuilder:(void *)builder;
 - (void)setArchivedObjects:(id)objects;
 - (void)setGroups:(id)groups;
 @end
 
 @implementation _CHSRelevanceCacheBufBuilder
 
-- (id)initWithBufferBuilder:(id *)builder
+- (void)initWithBufferBuilder:(void *)builder
 {
   v4 = a2;
   if (builder)
@@ -47,7 +47,6 @@
 
 - (void)setArchivedObjects:(id)objects
 {
-  v10 = *MEMORY[0x1E69E9840];
   objectsCopy = objects;
   if (!objectsCopy)
   {
@@ -62,13 +61,10 @@
     v7 = objectsCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 4, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setGroups:(id)groups
 {
-  v10 = *MEMORY[0x1E69E9840];
   groupsCopy = groups;
   if (!groupsCopy)
   {
@@ -83,8 +79,6 @@
     v7 = groupsCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 6, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_finish

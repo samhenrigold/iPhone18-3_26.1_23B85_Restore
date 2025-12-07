@@ -406,9 +406,9 @@ BOOL __39__VKFootprint_annotationCoordinateTest__block_invoke(uint64_t a1, doubl
   v75 = *MEMORY[0x1E69E9840];
   cameraCopy = camera;
   viewVolume = [cameraCopy viewVolume];
-  position = [cameraCopy position];
-  v74 = *position;
-  v6 = *(position + 16);
+  v5 = objc_msgSend_position(cameraCopy);
+  v74 = *v5;
+  v6 = *(v5 + 16);
   [cameraCopy forwardVector];
   v8 = v7;
   v10 = v9;

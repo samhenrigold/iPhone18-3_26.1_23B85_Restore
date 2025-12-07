@@ -613,11 +613,11 @@ LABEL_41:
 
 - (SFStrokeAnimationCardSection)initWithProtobuf:(id)protobuf
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v66.receiver = self;
-  v66.super_class = SFStrokeAnimationCardSection;
-  v5 = [(SFCardSection *)&v66 init];
+  v65.receiver = self;
+  v65.super_class = SFStrokeAnimationCardSection;
+  v5 = [(SFCardSection *)&v65 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -631,33 +631,33 @@ LABEL_41:
       v7 = 0;
     }
 
-    v64 = 0u;
-    v65 = 0u;
-    v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v62 objects:v70 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v61 objects:v69 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v63;
+      v11 = *v62;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v63 != v11)
+          if (*v62 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v62 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v61 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v62 objects:v70 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v61 objects:v69 count:16];
       }
 
       while (v10);
@@ -737,32 +737,32 @@ LABEL_41:
       v27 = 0;
     }
 
-    v60 = 0u;
-    v61 = 0u;
-    v58 = 0u;
     v59 = 0u;
+    v60 = 0u;
+    v57 = 0u;
+    v58 = 0u;
     strokeNames2 = [protobufCopy strokeNames];
-    v29 = [strokeNames2 countByEnumeratingWithState:&v58 objects:v69 count:16];
+    v29 = [strokeNames2 countByEnumeratingWithState:&v57 objects:v68 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v59;
+      v31 = *v58;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v59 != v31)
+          if (*v58 != v31)
           {
             objc_enumerationMutation(strokeNames2);
           }
 
-          if (*(*(&v58 + 1) + 8 * j))
+          if (*(*(&v57 + 1) + 8 * j))
           {
             [v27 addObject:?];
           }
         }
 
-        v30 = [strokeNames2 countByEnumeratingWithState:&v58 objects:v69 count:16];
+        v30 = [strokeNames2 countByEnumeratingWithState:&v57 objects:v68 count:16];
       }
 
       while (v30);
@@ -780,32 +780,32 @@ LABEL_41:
       v34 = 0;
     }
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     characters2 = [protobufCopy characters];
-    v36 = [characters2 countByEnumeratingWithState:&v54 objects:v68 count:16];
+    v36 = [characters2 countByEnumeratingWithState:&v53 objects:v67 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v55;
+      v38 = *v54;
       do
       {
         for (k = 0; k != v37; ++k)
         {
-          if (*v55 != v38)
+          if (*v54 != v38)
           {
             objc_enumerationMutation(characters2);
           }
 
-          if (*(*(&v54 + 1) + 8 * k))
+          if (*(*(&v53 + 1) + 8 * k))
           {
             [v34 addObject:?];
           }
         }
 
-        v37 = [characters2 countByEnumeratingWithState:&v54 objects:v68 count:16];
+        v37 = [characters2 countByEnumeratingWithState:&v53 objects:v67 count:16];
       }
 
       while (v37);
@@ -823,32 +823,32 @@ LABEL_41:
       v41 = 0;
     }
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     pronunciations2 = [protobufCopy pronunciations];
-    v43 = [pronunciations2 countByEnumeratingWithState:&v50 objects:v67 count:16];
+    v43 = [pronunciations2 countByEnumeratingWithState:&v49 objects:v66 count:16];
     if (v43)
     {
       v44 = v43;
-      v45 = *v51;
+      v45 = *v50;
       do
       {
         for (m = 0; m != v44; ++m)
         {
-          if (*v51 != v45)
+          if (*v50 != v45)
           {
             objc_enumerationMutation(pronunciations2);
           }
 
-          if (*(*(&v50 + 1) + 8 * m))
+          if (*(*(&v49 + 1) + 8 * m))
           {
             [v41 addObject:?];
           }
         }
 
-        v44 = [pronunciations2 countByEnumeratingWithState:&v50 objects:v67 count:16];
+        v44 = [pronunciations2 countByEnumeratingWithState:&v49 objects:v66 count:16];
       }
 
       while (v44);
@@ -858,7 +858,6 @@ LABEL_41:
     v47 = v5;
   }
 
-  v48 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

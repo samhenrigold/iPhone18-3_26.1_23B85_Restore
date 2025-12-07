@@ -18,9 +18,8 @@
 
 - (void)animationEnded:(BOOL)ended
 {
-  endedCopy = ended;
   selfCopy = self;
-  sub_79990(endedCopy);
+  sub_79990(ended);
 }
 
 - (_TtC12NowPlayingUI38NowPlayingFormSheetAnimationController)init

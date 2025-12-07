@@ -105,13 +105,13 @@ void __74__CompletionListVendorForHistoryService_completionListDidUpdate_forQuer
 
 - (void)_completionListDidUpdateForQuery:(id)query completionList:(id)list
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   queryCopy = query;
   listCopy = list;
   v8 = listCopy;
   if (self->_completionListItemsCallback)
   {
-    v24 = queryCopy;
+    v26 = queryCopy;
     v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(listCopy, "numberOfGroups")}];
     if ([v8 numberOfGroups])
     {
@@ -131,9 +131,9 @@ void __74__CompletionListVendorForHistoryService_completionListDidUpdate_forQuer
           v14 = &stru_2827BF158;
         }
 
-        v25[0] = @"section";
-        v25[1] = @"results";
-        v26[0] = v14;
+        v27[0] = @"section";
+        v27[1] = @"results";
+        v28[0] = v14;
         v15 = v12;
         v16 = [v13 safari_mapObjectsUsingBlock:&__block_literal_global_28];
         v17 = v16;
@@ -147,8 +147,8 @@ void __74__CompletionListVendorForHistoryService_completionListDidUpdate_forQuer
           v18 = v11;
         }
 
-        v26[1] = v18;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+        v28[1] = v18;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
         [v9 addObject:v19];
         ++v10;
@@ -157,21 +157,22 @@ void __74__CompletionListVendorForHistoryService_completionListDidUpdate_forQuer
       while (v10 < [v8 numberOfGroups]);
     }
 
-    queryCopy = v24;
-    if ([MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled])
+    isSearchEvaluationLoggingEnabled = [MEMORY[0x277D49A08] isSearchEvaluationLoggingEnabled];
+    queryCopy = v26;
+    if (isSearchEvaluationLoggingEnabled)
     {
-      v20 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v22 = WBS_LOG_CHANNEL_PREFIXURLAutocomplete(isSearchEvaluationLoggingEnabled, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        [(CompletionListVendorForHistoryService *)v24 _completionListDidUpdateForQuery:v9 completionList:v20];
+        [(CompletionListVendorForHistoryService *)v26 _completionListDidUpdateForQuery:v9 completionList:v22];
       }
     }
 
     completionListItemsCallback = self->_completionListItemsCallback;
-    v22 = [v9 copy];
-    completionListItemsCallback[2](completionListItemsCallback, v22);
+    v24 = [v9 copy];
+    completionListItemsCallback[2](completionListItemsCallback, v24);
 
-    v23 = self->_completionListItemsCallback;
+    v25 = self->_completionListItemsCallback;
     self->_completionListItemsCallback = 0;
   }
 }

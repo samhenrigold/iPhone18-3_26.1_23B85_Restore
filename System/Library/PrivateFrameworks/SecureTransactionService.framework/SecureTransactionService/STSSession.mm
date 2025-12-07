@@ -6,6 +6,7 @@
 - (id)canStartSession;
 - (id)createHandlerForCredential:(id)credential;
 - (id)enableExpressModeForActiveCredential:(BOOL)credential;
+- (id)enablePlasticCardMode:(BOOL)mode;
 - (id)felicaCredentialState:(id)state error:(id *)error;
 - (id)releaseCredential:(id)credential withAuthorization:(id)authorization;
 - (id)releaseCredential:(id)credential withAuthorization:(id)authorization iso18013Selection:(id)selection;
@@ -23,13 +24,17 @@
 - (id)stopTransaction;
 - (id)transitCredentialState:(id)state error:(id *)error;
 - (void)_activateInvalidationHandler:(id)handler;
+- (void)fireDidExpireTransaction:(BOOL)transaction;
+- (void)fireDidFailDeferredAuth:(BOOL)auth;
 - (void)fireDidPerformAuxiliaryTransactions:(id)transactions;
 - (void)fireDidReceive18013Requests:(id)requests readerAuthInfo:(id)info;
 - (void)fireDidReceiveActivityTimeout:(id)timeout;
 - (void)fireDidReceivePassthroughMessage:(id)message;
 - (void)fireDigitalCarKeyEventPayload:(id)payload;
 - (void)fireExpressModeStateChangeWithInfo:(id)info;
+- (void)fireFieldDetectEvent:(BOOL)event;
 - (void)fireFieldNotificationEvent:(id)event;
+- (void)fireHasPendingServerRequest:(BOOL)request;
 - (void)fireRequestHandoverConfirmation;
 - (void)fireSessionDidConsumeAuthorizationEvent;
 - (void)fireSessionEndEvent:(id)event;
@@ -45,7 +50,7 @@
 
 - (void)generateHandoverRequestForQRCodeWithConfiguration:(unint64_t)configuration responseHandler:(id)handler
 {
-  v52[4] = *MEMORY[0x277D85DE8];
+  v51[4] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSession(Identity) generateHandoverRequestForQRCodeWithConfiguration:responseHandler:]", 64, self, @"dataRetrievalType = 0x%x", v8, v9, configuration);
   handler = [(STSSessionBase *)self handler];
@@ -54,21 +59,21 @@
 
   if ((isKindOfClass & 1) == 0)
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(Identity) generateHandoverRequestForQRCodeWithConfiguration:responseHandler:]", 67, self, @"Invalid ISO18013 configuration", v12, v13, v46);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(Identity) generateHandoverRequestForQRCodeWithConfiguration:responseHandler:]", 67, self, @"Invalid ISO18013 configuration", v12, v13, v45);
     v32 = MEMORY[0x277CCA9B8];
     v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v51[0] = *MEMORY[0x277CCA450];
+    v50[0] = *MEMORY[0x277CCA450];
     activeSTSCredential = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v52[0] = activeSTSCredential;
-    v52[1] = &unk_2876ED128;
-    v51[1] = @"Line";
-    v51[2] = @"Method";
+    v51[0] = activeSTSCredential;
+    v51[1] = &unk_2876ED128;
+    v50[1] = @"Line";
+    v50[2] = @"Method";
     v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v52[2] = v29;
-    v51[3] = *MEMORY[0x277CCA068];
+    v51[2] = v29;
+    v50[3] = *MEMORY[0x277CCA068];
     v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 68];
-    v52[3] = v33;
-    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:4];
+    v51[3] = v33;
+    v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:4];
     v35 = [v32 errorWithDomain:v17 code:9 userInfo:v34];
     handlerCopy[2](handlerCopy, 0, v35);
 
@@ -91,18 +96,18 @@
 LABEL_12:
     v40 = MEMORY[0x277CCA9B8];
     activeSTSCredential = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v49[0] = *MEMORY[0x277CCA450];
+    v48[0] = *MEMORY[0x277CCA450];
     v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Unexpected Result"];
-    v50[0] = v29;
-    v50[1] = &unk_2876ED140;
-    v49[1] = @"Line";
-    v49[2] = @"Method";
+    v49[0] = v29;
+    v49[1] = &unk_2876ED140;
+    v48[1] = @"Line";
+    v48[2] = @"Method";
     v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v50[2] = v41;
-    v49[3] = *MEMORY[0x277CCA068];
+    v49[2] = v41;
+    v48[3] = *MEMORY[0x277CCA068];
     v42 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 76];
-    v50[3] = v42;
-    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:4];
+    v49[3] = v42;
+    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:4];
     v44 = [v40 errorWithDomain:activeSTSCredential code:10 userInfo:v43];
     handlerCopy[2](handlerCopy, 0, v44);
 
@@ -153,21 +158,19 @@ LABEL_12:
     else
     {
       v39 = v17[10];
-      v47[0] = MEMORY[0x277D85DD0];
-      v47[1] = 3221225472;
-      v47[2] = sub_26537E740;
-      v47[3] = &unk_279B93C08;
-      v47[4] = self;
-      v48 = handlerCopy;
-      [v39 generateQRCodeCHRequestAndStartACWithQueue:0 responseHandler:v47];
+      v46[0] = MEMORY[0x277D85DD0];
+      v46[1] = 3221225472;
+      v46[2] = sub_26537E740;
+      v46[3] = &unk_279B93C08;
+      v46[4] = self;
+      v47 = handlerCopy;
+      [v39 generateQRCodeCHRequestAndStartACWithQueue:0 responseHandler:v46];
     }
 
     v29 = 0;
   }
 
 LABEL_13:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)relinquishSEProxy
@@ -213,7 +216,7 @@ LABEL_13:
 - (id)_translateXPCClientNotificationStatus:(unint64_t)status
 {
   v4 = 0;
-  v34[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   if (status > 5)
   {
     if (status > 7)
@@ -222,18 +225,18 @@ LABEL_13:
       {
         v18 = MEMORY[0x277CCA9B8];
         v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-        v23[0] = *MEMORY[0x277CCA450];
+        v22[0] = *MEMORY[0x277CCA450];
         v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Alternative Carrier transmission error"];
-        v24[0] = v7;
-        v24[1] = &unk_2876ED1D0;
-        v23[1] = @"Line";
-        v23[2] = @"Method";
+        v23[0] = v7;
+        v23[1] = &unk_2876ED1D0;
+        v22[1] = @"Line";
+        v22[2] = @"Method";
         v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-        v24[2] = v8;
-        v23[3] = *MEMORY[0x277CCA068];
+        v23[2] = v8;
+        v22[3] = *MEMORY[0x277CCA068];
         v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 205];
-        v24[3] = v9;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
+        v23[3] = v9;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
         v11 = v18;
         v12 = v6;
         v13 = 19;
@@ -248,18 +251,18 @@ LABEL_13:
 
         v15 = MEMORY[0x277CCA9B8];
         v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-        v21[0] = *MEMORY[0x277CCA450];
+        v20[0] = *MEMORY[0x277CCA450];
         v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-        v22[0] = v7;
-        v22[1] = &unk_2876ED1E8;
-        v21[1] = @"Line";
-        v21[2] = @"Method";
+        v21[0] = v7;
+        v21[1] = &unk_2876ED1E8;
+        v20[1] = @"Line";
+        v20[2] = @"Method";
         v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-        v22[2] = v8;
-        v21[3] = *MEMORY[0x277CCA068];
+        v21[2] = v8;
+        v20[3] = *MEMORY[0x277CCA068];
         v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 207];
-        v22[3] = v9;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+        v21[3] = v9;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
         v11 = v15;
         v12 = v6;
         v13 = 9;
@@ -272,18 +275,18 @@ LABEL_13:
       if (status == 6)
       {
         v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-        v27[0] = *MEMORY[0x277CCA450];
+        v26[0] = *MEMORY[0x277CCA450];
         v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Requires Wifi power on"];
-        v28[0] = v7;
-        v28[1] = &unk_2876ED1A0;
-        v27[1] = @"Line";
-        v27[2] = @"Method";
+        v27[0] = v7;
+        v27[1] = &unk_2876ED1A0;
+        v26[1] = @"Line";
+        v26[2] = @"Method";
         v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-        v28[2] = v8;
-        v27[3] = *MEMORY[0x277CCA068];
+        v27[2] = v8;
+        v26[3] = *MEMORY[0x277CCA068];
         v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 201];
-        v28[3] = v9;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
+        v27[3] = v9;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
         v11 = v14;
         v12 = v6;
         v13 = 15;
@@ -292,18 +295,18 @@ LABEL_13:
       else
       {
         v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-        v25[0] = *MEMORY[0x277CCA450];
+        v24[0] = *MEMORY[0x277CCA450];
         v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Requires Bluetooth power on"];
-        v26[0] = v7;
-        v26[1] = &unk_2876ED1B8;
-        v25[1] = @"Line";
-        v25[2] = @"Method";
+        v25[0] = v7;
+        v25[1] = &unk_2876ED1B8;
+        v24[1] = @"Line";
+        v24[2] = @"Method";
         v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-        v26[2] = v8;
-        v25[3] = *MEMORY[0x277CCA068];
+        v25[2] = v8;
+        v24[3] = *MEMORY[0x277CCA068];
         v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 203];
-        v26[3] = v9;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
+        v25[3] = v9;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
         v11 = v14;
         v12 = v6;
         v13 = 16;
@@ -324,18 +327,18 @@ LABEL_13:
 
         v5 = MEMORY[0x277CCA9B8];
         v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-        v31[0] = *MEMORY[0x277CCA450];
+        v30[0] = *MEMORY[0x277CCA450];
         v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Timeout"];
-        v32[0] = v7;
-        v32[1] = &unk_2876ED170;
-        v31[1] = @"Line";
-        v31[2] = @"Method";
+        v31[0] = v7;
+        v31[1] = &unk_2876ED170;
+        v30[1] = @"Line";
+        v30[2] = @"Method";
         v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-        v32[2] = v8;
-        v31[3] = *MEMORY[0x277CCA068];
+        v31[2] = v8;
+        v30[3] = *MEMORY[0x277CCA068];
         v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 197];
-        v32[3] = v9;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
+        v31[3] = v9;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
         v11 = v5;
         v12 = v6;
         v13 = 4;
@@ -350,18 +353,18 @@ LABEL_13:
 LABEL_14:
       v17 = MEMORY[0x277CCA9B8];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-      v33[0] = *MEMORY[0x277CCA450];
+      v32[0] = *MEMORY[0x277CCA450];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Cancelled"];
-      v34[0] = v7;
-      v34[1] = &unk_2876ED158;
-      v33[1] = @"Line";
-      v33[2] = @"Method";
+      v33[0] = v7;
+      v33[1] = &unk_2876ED158;
+      v32[1] = @"Line";
+      v32[2] = @"Method";
       v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-      v34[2] = v8;
-      v33[3] = *MEMORY[0x277CCA068];
+      v33[2] = v8;
+      v32[3] = *MEMORY[0x277CCA068];
       v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 195];
-      v34[3] = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
+      v33[3] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
       v11 = v17;
       v12 = v6;
       v13 = 13;
@@ -370,18 +373,18 @@ LABEL_14:
 
     v16 = MEMORY[0x277CCA9B8];
     v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v29[0] = *MEMORY[0x277CCA450];
+    v28[0] = *MEMORY[0x277CCA450];
     v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"No alernative carrier available"];
-    v30[0] = v7;
-    v30[1] = &unk_2876ED188;
-    v29[1] = @"Line";
-    v29[2] = @"Method";
+    v29[0] = v7;
+    v29[1] = &unk_2876ED188;
+    v28[1] = @"Line";
+    v28[2] = @"Method";
     v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v30[2] = v8;
-    v29[3] = *MEMORY[0x277CCA068];
+    v29[2] = v8;
+    v28[3] = *MEMORY[0x277CCA068];
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 199];
-    v30[3] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+    v29[3] = v9;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
     v11 = v16;
     v12 = v6;
     v13 = 14;
@@ -391,9 +394,18 @@ LABEL_17:
   v4 = [v11 errorWithDomain:v12 code:v13 userInfo:v10];
 
 LABEL_18:
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
+}
+
+- (void)fireFieldDetectEvent:(BOOL)event
+{
+  eventCopy = event;
+  delegate = [(STSSessionBase *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate stsSession:self didDetectField:eventCopy];
+  }
 }
 
 - (void)fireFieldNotificationEvent:(id)event
@@ -435,6 +447,26 @@ LABEL_18:
   }
 }
 
+- (void)fireHasPendingServerRequest:(BOOL)request
+{
+  requestCopy = request;
+  delegate = [(STSSessionBase *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate stsSession:self hasPendingServerRequest:requestCopy];
+  }
+}
+
+- (void)fireDidFailDeferredAuth:(BOOL)auth
+{
+  authCopy = auth;
+  delegate = [(STSSessionBase *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate stsSession:self didFailDeferredAuth:authCopy];
+  }
+}
+
 - (void)fireExpressModeStateChangeWithInfo:(id)info
 {
   infoCopy = info;
@@ -472,6 +504,16 @@ LABEL_18:
   if (objc_opt_respondsToSelector())
   {
     [delegate stsSession:self didPerformAuxiliaryTransactions:transactionsCopy];
+  }
+}
+
+- (void)fireDidExpireTransaction:(BOOL)transaction
+{
+  transactionCopy = transaction;
+  delegate = [(STSSessionBase *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate stsSession:self didExpireTransaction:transactionCopy];
   }
 }
 
@@ -535,7 +577,7 @@ LABEL_18:
 
 - (id)setAuxiliaryCredentials:(id)credentials
 {
-  v40[4] = *MEMORY[0x277D85DE8];
+  v39[4] = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   v6 = _os_activity_create(&dword_26536F000, "setAuxiliaryCredentials:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
@@ -567,7 +609,7 @@ LABEL_18:
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSession(Auxiliary) setAuxiliaryCredentials:]", 27, self, @"Creating initial handler", v10, v11, v37);
+    sub_265398094(OS_LOG_TYPE_DEFAULT, 0, "[STSSession(Auxiliary) setAuxiliaryCredentials:]", 27, self, @"Creating initial handler", v10, v11, v36);
     v18 = [(STSTransactionHandler *)[PaymentHandler alloc] initWithParent:self];
   }
 
@@ -598,25 +640,23 @@ LABEL_6:
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(Auxiliary) setAuxiliaryCredentials:]", 50, self, @"Failed to create payment handler", v21, v22, v37);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(Auxiliary) setAuxiliaryCredentials:]", 50, self, @"Failed to create payment handler", v21, v22, v36);
     v29 = MEMORY[0x277CCA9B8];
     v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v39[0] = *MEMORY[0x277CCA450];
+    v38[0] = *MEMORY[0x277CCA450];
     v30 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v40[0] = v30;
-    v40[1] = &unk_2876ED998;
-    v39[1] = @"Line";
-    v39[2] = @"Method";
+    v39[0] = v30;
+    v39[1] = &unk_2876ED998;
+    v38[1] = @"Line";
+    v38[2] = @"Method";
     v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v40[2] = v31;
-    v39[3] = *MEMORY[0x277CCA068];
+    v39[2] = v31;
+    v38[3] = *MEMORY[0x277CCA068];
     v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 51];
-    v40[3] = v32;
-    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:4];
+    v39[3] = v32;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:4];
     v28 = [v29 errorWithDomain:v27 code:11 userInfo:v33];
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -655,7 +695,7 @@ LABEL_6:
 
 - (id)rkeSendPassthroughMessage:(id)message
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = _os_activity_create(&dword_26536F000, "rkeSendPassthroughMessage:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
@@ -685,18 +725,18 @@ LABEL_6:
 
     v27 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v32[0] = *MEMORY[0x277CCA450];
+    v31[0] = *MEMORY[0x277CCA450];
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v33[0] = v16;
-    v33[1] = &unk_2876EDA10;
-    v32[1] = @"Line";
-    v32[2] = @"Method";
+    v32[0] = v16;
+    v32[1] = &unk_2876EDA10;
+    v31[1] = @"Line";
+    v31[2] = @"Method";
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v33[2] = v17;
-    v32[3] = *MEMORY[0x277CCA068];
+    v32[2] = v17;
+    v31[3] = *MEMORY[0x277CCA068];
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 53];
-    v33[3] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
+    v32[3] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
     v20 = v27;
     v21 = v13;
     v22 = 11;
@@ -704,21 +744,21 @@ LABEL_6:
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeSendPassthroughMessage:]", 49, self, @"No handler available", v8, v9, v30);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeSendPassthroughMessage:]", 49, self, @"No handler available", v8, v9, v29);
     v15 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v34[0] = *MEMORY[0x277CCA450];
+    v33[0] = *MEMORY[0x277CCA450];
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v35[0] = v16;
-    v35[1] = &unk_2876ED9F8;
-    v34[1] = @"Line";
-    v34[2] = @"Method";
+    v34[0] = v16;
+    v34[1] = &unk_2876ED9F8;
+    v33[1] = @"Line";
+    v33[2] = @"Method";
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v35[2] = v17;
-    v34[3] = *MEMORY[0x277CCA068];
+    v34[2] = v17;
+    v33[3] = *MEMORY[0x277CCA068];
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 50];
-    v35[3] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
+    v34[3] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
     v20 = v15;
     v21 = v13;
     v22 = 9;
@@ -727,14 +767,13 @@ LABEL_6:
   v14 = [v20 errorWithDomain:v21 code:v22 userInfo:v19];
 
 LABEL_7:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)rkeSendFunction:(id)function action:(id)action authorization:(id)authorization completion:(id)completion
 {
-  v52[4] = *MEMORY[0x277D85DE8];
+  v51[4] = *MEMORY[0x277D85DE8];
   functionCopy = function;
   actionCopy = action;
   authorizationCopy = authorization;
@@ -751,37 +790,37 @@ LABEL_7:
   aBlock[3] = &unk_279B94180;
   aBlock[4] = self;
   v16 = completionCopy;
-  v47 = v16;
+  v46 = v16;
   v17 = _Block_copy(aBlock);
   handler = [(STSSessionBase *)self handler];
 
   if (!handler)
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeSendFunction:action:authorization:completion:]", 74, self, @"No handler available", v19, v20, v43);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeSendFunction:action:authorization:completion:]", 74, self, @"No handler available", v19, v20, v42);
     v25 = MEMORY[0x277CCA9B8];
     v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v51[0] = *MEMORY[0x277CCA450];
+    v50[0] = *MEMORY[0x277CCA450];
     v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v52[0] = v26;
-    v52[1] = &unk_2876EDA28;
-    v51[1] = @"Line";
-    v51[2] = @"Method";
-    v45 = authorizationCopy;
+    v51[0] = v26;
+    v51[1] = &unk_2876EDA28;
+    v50[1] = @"Line";
+    v50[2] = @"Method";
+    v44 = authorizationCopy;
     v27 = actionCopy;
     v28 = functionCopy;
     v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v52[2] = v29;
-    v51[3] = *MEMORY[0x277CCA068];
+    v51[2] = v29;
+    v50[3] = *MEMORY[0x277CCA068];
     v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 75];
-    v52[3] = v30;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v52 forKeys:v51 count:4];
+    v51[3] = v30;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:v50 count:4];
     v32 = [v25 errorWithDomain:v24 code:9 userInfo:v31];
     v17[2](v17, 0, v32);
 
     functionCopy = v28;
     actionCopy = v27;
 LABEL_7:
-    authorizationCopy = v45;
+    authorizationCopy = v44;
 
     goto LABEL_8;
   }
@@ -798,23 +837,23 @@ LABEL_7:
     v34 = NSStringFromClass(v33);
     sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeSendFunction:action:authorization:completion:]", 77, self, @"Invalid handler - %@", v35, v36, v34);
 
-    v44 = MEMORY[0x277CCA9B8];
+    v43 = MEMORY[0x277CCA9B8];
     v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v49[0] = *MEMORY[0x277CCA450];
+    v48[0] = *MEMORY[0x277CCA450];
     v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v50[0] = v26;
-    v50[1] = &unk_2876EDA40;
-    v49[1] = @"Line";
-    v49[2] = @"Method";
+    v49[0] = v26;
+    v49[1] = &unk_2876EDA40;
+    v48[1] = @"Line";
+    v48[2] = @"Method";
     [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v45 = authorizationCopy;
+    v44 = authorizationCopy;
     v38 = v37 = functionCopy;
-    v50[2] = v38;
-    v49[3] = *MEMORY[0x277CCA068];
+    v49[2] = v38;
+    v48[3] = *MEMORY[0x277CCA068];
     v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 78];
-    v50[3] = v39;
-    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:4];
-    v41 = [v44 errorWithDomain:v24 code:11 userInfo:v40];
+    v49[3] = v39;
+    v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:4];
+    v41 = [v43 errorWithDomain:v24 code:11 userInfo:v40];
     v17[2](v17, 0, v41);
 
     functionCopy = v37;
@@ -827,13 +866,11 @@ LABEL_7:
   }
 
 LABEL_8:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (id)rkeCancelFunction:(id)function
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   functionCopy = function;
   v6 = _os_activity_create(&dword_26536F000, "rkeCancelFunction:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
@@ -863,18 +900,18 @@ LABEL_8:
 
     v27 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v32[0] = *MEMORY[0x277CCA450];
+    v31[0] = *MEMORY[0x277CCA450];
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v33[0] = v16;
-    v33[1] = &unk_2876EDA70;
-    v32[1] = @"Line";
-    v32[2] = @"Method";
+    v32[0] = v16;
+    v32[1] = &unk_2876EDA70;
+    v31[1] = @"Line";
+    v31[2] = @"Method";
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v33[2] = v17;
-    v32[3] = *MEMORY[0x277CCA068];
+    v32[2] = v17;
+    v31[3] = *MEMORY[0x277CCA068];
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 93];
-    v33[3] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
+    v32[3] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
     v20 = v27;
     v21 = v13;
     v22 = 11;
@@ -882,21 +919,21 @@ LABEL_8:
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeCancelFunction:]", 89, self, @"No handler available", v8, v9, v30);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeCancelFunction:]", 89, self, @"No handler available", v8, v9, v29);
     v15 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v34[0] = *MEMORY[0x277CCA450];
+    v33[0] = *MEMORY[0x277CCA450];
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v35[0] = v16;
-    v35[1] = &unk_2876EDA58;
-    v34[1] = @"Line";
-    v34[2] = @"Method";
+    v34[0] = v16;
+    v34[1] = &unk_2876EDA58;
+    v33[1] = @"Line";
+    v33[2] = @"Method";
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v35[2] = v17;
-    v34[3] = *MEMORY[0x277CCA068];
+    v34[2] = v17;
+    v33[3] = *MEMORY[0x277CCA068];
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 90];
-    v35[3] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
+    v34[3] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
     v20 = v15;
     v21 = v13;
     v22 = 9;
@@ -905,14 +942,13 @@ LABEL_8:
   v14 = [v20 errorWithDomain:v21 code:v22 userInfo:v19];
 
 LABEL_7:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)rkePauseRangingForReaderIdentifier:(id)identifier durationInSec:(id)sec
 {
-  v38[4] = *MEMORY[0x277D85DE8];
+  v37[4] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   secCopy = sec;
   v9 = _os_activity_create(&dword_26536F000, "rkePauseRangingForReaderIdentifier:durationInSec:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -943,18 +979,18 @@ LABEL_7:
 
     v30 = MEMORY[0x277CCA9B8];
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v35[0] = *MEMORY[0x277CCA450];
+    v34[0] = *MEMORY[0x277CCA450];
     v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v36[0] = v19;
-    v36[1] = &unk_2876EDAA0;
-    v35[1] = @"Line";
-    v35[2] = @"Method";
+    v35[0] = v19;
+    v35[1] = &unk_2876EDAA0;
+    v34[1] = @"Line";
+    v34[2] = @"Method";
     v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v36[2] = v20;
-    v35[3] = *MEMORY[0x277CCA068];
+    v35[2] = v20;
+    v34[3] = *MEMORY[0x277CCA068];
     v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 109];
-    v36[3] = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:4];
+    v35[3] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
     v23 = v30;
     v24 = v16;
     v25 = 11;
@@ -962,21 +998,21 @@ LABEL_7:
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkePauseRangingForReaderIdentifier:durationInSec:]", 105, self, @"No handler available", v11, v12, v33);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkePauseRangingForReaderIdentifier:durationInSec:]", 105, self, @"No handler available", v11, v12, v32);
     v18 = MEMORY[0x277CCA9B8];
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v37[0] = *MEMORY[0x277CCA450];
+    v36[0] = *MEMORY[0x277CCA450];
     v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v38[0] = v19;
-    v38[1] = &unk_2876EDA88;
-    v37[1] = @"Line";
-    v37[2] = @"Method";
+    v37[0] = v19;
+    v37[1] = &unk_2876EDA88;
+    v36[1] = @"Line";
+    v36[2] = @"Method";
     v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v38[2] = v20;
-    v37[3] = *MEMORY[0x277CCA068];
+    v37[2] = v20;
+    v36[3] = *MEMORY[0x277CCA068];
     v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 106];
-    v38[3] = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:4];
+    v37[3] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:4];
     v23 = v18;
     v24 = v16;
     v25 = 9;
@@ -985,14 +1021,13 @@ LABEL_7:
   v17 = [v23 errorWithDomain:v24 code:v25 userInfo:v22];
 
 LABEL_7:
-  v31 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (id)rkeResumeRangingForReaderIdentifier:(id)identifier
 {
-  v35[4] = *MEMORY[0x277D85DE8];
+  v34[4] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v6 = _os_activity_create(&dword_26536F000, "rkeResumeRangingForReaderIdentifier:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
@@ -1022,18 +1057,18 @@ LABEL_7:
 
     v27 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v32[0] = *MEMORY[0x277CCA450];
+    v31[0] = *MEMORY[0x277CCA450];
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v33[0] = v16;
-    v33[1] = &unk_2876EDAD0;
-    v32[1] = @"Line";
-    v32[2] = @"Method";
+    v32[0] = v16;
+    v32[1] = &unk_2876EDAD0;
+    v31[1] = @"Line";
+    v31[2] = @"Method";
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v33[2] = v17;
-    v32[3] = *MEMORY[0x277CCA068];
+    v32[2] = v17;
+    v31[3] = *MEMORY[0x277CCA068];
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 124];
-    v33[3] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
+    v32[3] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
     v20 = v27;
     v21 = v13;
     v22 = 11;
@@ -1041,21 +1076,21 @@ LABEL_7:
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeResumeRangingForReaderIdentifier:]", 120, self, @"No handler available", v8, v9, v30);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeResumeRangingForReaderIdentifier:]", 120, self, @"No handler available", v8, v9, v29);
     v15 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v34[0] = *MEMORY[0x277CCA450];
+    v33[0] = *MEMORY[0x277CCA450];
     v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v35[0] = v16;
-    v35[1] = &unk_2876EDAB8;
-    v34[1] = @"Line";
-    v34[2] = @"Method";
+    v34[0] = v16;
+    v34[1] = &unk_2876EDAB8;
+    v33[1] = @"Line";
+    v33[2] = @"Method";
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v35[2] = v17;
-    v34[3] = *MEMORY[0x277CCA068];
+    v34[2] = v17;
+    v33[3] = *MEMORY[0x277CCA068];
     v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 121];
-    v35[3] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:4];
+    v34[3] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
     v20 = v15;
     v21 = v13;
     v22 = 9;
@@ -1064,14 +1099,13 @@ LABEL_7:
   v14 = [v20 errorWithDomain:v21 code:v22 userInfo:v19];
 
 LABEL_7:
-  v28 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (id)rkeGetVehicleReports:(id *)reports
 {
-  v34[4] = *MEMORY[0x277D85DE8];
+  v33[4] = *MEMORY[0x277D85DE8];
   v6 = _os_activity_create(&dword_26536F000, "rkeGetVehicleReports:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -1082,7 +1116,7 @@ LABEL_7:
 
   if (!handler)
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeGetVehicleReports:]", 135, self, @"No handler available", v8, v9, v29);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession(RKE) rkeGetVehicleReports:]", 135, self, @"No handler available", v8, v9, v28);
     if (!reports)
     {
       goto LABEL_10;
@@ -1090,18 +1124,18 @@ LABEL_7:
 
     v14 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v33[0] = *MEMORY[0x277CCA450];
+    v32[0] = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v34[0] = v15;
-    v34[1] = &unk_2876EDAE8;
-    v33[1] = @"Line";
-    v33[2] = @"Method";
+    v33[0] = v15;
+    v33[1] = &unk_2876EDAE8;
+    v32[1] = @"Line";
+    v32[2] = @"Method";
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v34[2] = v16;
-    v33[3] = *MEMORY[0x277CCA068];
+    v33[2] = v16;
+    v32[3] = *MEMORY[0x277CCA068];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 137];
-    v34[3] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:4];
+    v33[3] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:4];
     v19 = v14;
     v20 = v13;
     v21 = 9;
@@ -1131,18 +1165,18 @@ LABEL_8:
 
     v26 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v31[0] = *MEMORY[0x277CCA450];
+    v30[0] = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v32[0] = v15;
-    v32[1] = &unk_2876EDB00;
-    v31[1] = @"Line";
-    v31[2] = @"Method";
+    v31[0] = v15;
+    v31[1] = &unk_2876EDB00;
+    v30[1] = @"Line";
+    v30[2] = @"Method";
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v32[2] = v16;
-    v31[3] = *MEMORY[0x277CCA068];
+    v31[2] = v16;
+    v30[3] = *MEMORY[0x277CCA068];
     v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 143];
-    v32[3] = v17;
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:4];
+    v31[3] = v17;
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
     v19 = v26;
     v20 = v13;
     v21 = 11;
@@ -1153,34 +1187,32 @@ LABEL_8:
 LABEL_9:
 
 LABEL_10:
-  v27 = *MEMORY[0x277D85DE8];
 
   return reports;
 }
 
 + (id)requestAssertionForKeyID:(id)d options:(id)options outError:(id *)error
 {
-  v16[4] = *MEMORY[0x277D85DE8];
+  v15[4] = *MEMORY[0x277D85DE8];
   if (error)
   {
     v7 = MEMORY[0x277CCA9B8];
     v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"STS.fwk", options}];
-    v15[0] = *MEMORY[0x277CCA450];
+    v14[0] = *MEMORY[0x277CCA450];
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v16[0] = v9;
-    v16[1] = &unk_2876EDB18;
-    v15[1] = @"Line";
-    v15[2] = @"Method";
+    v15[0] = v9;
+    v15[1] = &unk_2876EDB18;
+    v14[1] = @"Line";
+    v14[2] = @"Method";
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v16[2] = v10;
-    v15[3] = *MEMORY[0x277CCA068];
+    v15[2] = v10;
+    v14[3] = *MEMORY[0x277CCA068];
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 155];
-    v16[3] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+    v15[3] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
     *error = [v7 errorWithDomain:v8 code:11 userInfo:v12];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1327,14 +1359,14 @@ LABEL_19:
 
 - (id)canStartSession
 {
-  v30[4] = *MEMORY[0x277D85DE8];
+  v29[4] = *MEMORY[0x277D85DE8];
   nfHardwareManager = [(STSSessionBase *)self nfHardwareManager];
   if ([nfHardwareManager getHwSupport] == 2)
   {
-    v26 = 1;
-    v7 = [nfHardwareManager getRadioEnabledState:&v26];
+    v25 = 1;
+    v7 = [nfHardwareManager getRadioEnabledState:&v25];
     v10 = v7;
-    if (!v7 && v26)
+    if (!v7 && v25)
     {
       v11 = 0;
       goto LABEL_10;
@@ -1349,50 +1381,49 @@ LABEL_19:
     sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession canStartSession]", 104, self, @"NFC Radio is not available (error=%@).", v8, v9, v17);
     v18 = MEMORY[0x277CCA9B8];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v27[0] = *MEMORY[0x277CCA450];
+    v26[0] = *MEMORY[0x277CCA450];
     v19 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NFC radio disabled"];
-    v28[0] = v19;
-    v28[1] = &unk_2876EDB48;
-    v27[1] = @"Line";
-    v27[2] = @"Method";
+    v27[0] = v19;
+    v27[1] = &unk_2876EDB48;
+    v26[1] = @"Line";
+    v26[2] = @"Method";
     v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v28[2] = v20;
-    v27[3] = *MEMORY[0x277CCA068];
+    v27[2] = v20;
+    v26[3] = *MEMORY[0x277CCA068];
     v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 105];
-    v28[3] = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
+    v27[3] = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
     v11 = [v18 errorWithDomain:v13 code:18 userInfo:v22];
   }
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession canStartSession]", 97, self, @"Hardware not available", v5, v6, v25);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession canStartSession]", 97, self, @"Hardware not available", v5, v6, v24);
     v12 = MEMORY[0x277CCA9B8];
     v10 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v29[0] = *MEMORY[0x277CCA450];
+    v28[0] = *MEMORY[0x277CCA450];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Hardware Not Available"];
-    v30[0] = v13;
-    v30[1] = &unk_2876EDB30;
-    v29[1] = @"Line";
-    v29[2] = @"Method";
+    v29[0] = v13;
+    v29[1] = &unk_2876EDB30;
+    v28[1] = @"Line";
+    v28[2] = @"Method";
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v30[2] = v14;
-    v29[3] = *MEMORY[0x277CCA068];
+    v29[2] = v14;
+    v28[3] = *MEMORY[0x277CCA068];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 98];
-    v30[3] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+    v29[3] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
     v11 = [v12 errorWithDomain:v10 code:12 userInfo:v16];
   }
 
 LABEL_10:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)startTransactionWithAuthorization:(id)authorization options:(unint64_t)options
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
   v8 = _os_activity_create(&dword_26536F000, "startTransactionWithAuthorization:options:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
@@ -1423,32 +1454,30 @@ LABEL_10:
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession startTransactionWithAuthorization:options:]", 115, self, @"Handler invalid", v10, v11, v25);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession startTransactionWithAuthorization:options:]", 115, self, @"Handler invalid", v10, v11, v24);
     v17 = MEMORY[0x277CCA9B8];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v27[0] = *MEMORY[0x277CCA450];
+    v26[0] = *MEMORY[0x277CCA450];
     v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v28[0] = v18;
-    v28[1] = &unk_2876EDB60;
-    v27[1] = @"Line";
-    v27[2] = @"Method";
+    v27[0] = v18;
+    v27[1] = &unk_2876EDB60;
+    v26[1] = @"Line";
+    v26[2] = @"Method";
     v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v28[2] = v19;
-    v27[3] = *MEMORY[0x277CCA068];
+    v27[2] = v19;
+    v26[3] = *MEMORY[0x277CCA068];
     v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 116];
-    v28[3] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
+    v27[3] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:4];
     v16 = [v17 errorWithDomain:v15 code:9 userInfo:v21];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)stopTransaction
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   v4 = _os_activity_create(&dword_26536F000, "stopTransaction:", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -1459,87 +1488,81 @@ LABEL_10:
 
   if (handler)
   {
-    sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSession stopTransaction]", 136, self, &stru_2876E3E50, v6, v7, v17);
+    sub_265398094(OS_LOG_TYPE_INFO, 0, "[STSSession stopTransaction]", 136, self, &stru_2876E3E50, v6, v7, v16);
     handler2 = [(STSSessionBase *)self handler];
     stopTransaction = [handler2 stopTransaction];
   }
 
   else
   {
-    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession stopTransaction]", 132, self, @"Handler invalid", v6, v7, v17);
+    sub_265398094(OS_LOG_TYPE_ERROR, 0, "[STSSession stopTransaction]", 132, self, @"Handler invalid", v6, v7, v16);
     v10 = MEMORY[0x277CCA9B8];
     handler2 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v19[0] = *MEMORY[0x277CCA450];
+    v18[0] = *MEMORY[0x277CCA450];
     v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-    v20[0] = v11;
-    v20[1] = &unk_2876EDB78;
-    v19[1] = @"Line";
-    v19[2] = @"Method";
+    v19[0] = v11;
+    v19[1] = &unk_2876EDB78;
+    v18[1] = @"Line";
+    v18[2] = @"Method";
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v20[2] = v12;
-    v19[3] = *MEMORY[0x277CCA068];
+    v19[2] = v12;
+    v18[3] = *MEMORY[0x277CCA068];
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 133];
-    v20[3] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v19[3] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
     stopTransaction = [v10 errorWithDomain:handler2 code:9 userInfo:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return stopTransaction;
 }
 
 - (id)enableExpressModeForActiveCredential:(BOOL)credential
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
   v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-  v13[0] = *MEMORY[0x277CCA450];
+  v12[0] = *MEMORY[0x277CCA450];
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-  v14[0] = v6;
-  v14[1] = &unk_2876EDB90;
-  v13[1] = @"Line";
-  v13[2] = @"Method";
+  v13[0] = v6;
+  v13[1] = &unk_2876EDB90;
+  v12[1] = @"Line";
+  v12[2] = @"Method";
   v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-  v14[2] = v7;
-  v13[3] = *MEMORY[0x277CCA068];
+  v13[2] = v7;
+  v12[3] = *MEMORY[0x277CCA068];
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 141];
-  v14[3] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
   v10 = [v4 errorWithDomain:v5 code:11 userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)releaseCredential:(id)credential withAuthorization:(id)authorization
 {
-  v15[4] = *MEMORY[0x277D85DE8];
+  v14[4] = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCA9B8];
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"STS.fwk", authorization}];
-  v14[0] = *MEMORY[0x277CCA450];
+  v13[0] = *MEMORY[0x277CCA450];
   v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-  v15[0] = v7;
-  v15[1] = &unk_2876EDBA8;
-  v14[1] = @"Line";
-  v14[2] = @"Method";
+  v14[0] = v7;
+  v14[1] = &unk_2876EDBA8;
+  v13[1] = @"Line";
+  v13[2] = @"Method";
   v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-  v15[2] = v8;
-  v14[3] = *MEMORY[0x277CCA068];
+  v14[2] = v8;
+  v13[3] = *MEMORY[0x277CCA068];
   v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 145];
-  v15[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
   v11 = [v5 errorWithDomain:v6 code:11 userInfo:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
 
 - (id)releaseCredential:(id)credential withAuthorization:(id)authorization iso18013Selection:(id)selection
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v28[4] = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   authorizationCopy = authorization;
   selectionCopy = selection;
@@ -1575,29 +1598,28 @@ LABEL_5:
 
   v20 = MEMORY[0x277CCA9B8];
   handler3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-  v28[0] = *MEMORY[0x277CCA450];
+  v27[0] = *MEMORY[0x277CCA450];
   v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-  v29[0] = v21;
-  v29[1] = &unk_2876EDBC0;
-  v28[1] = @"Line";
-  v28[2] = @"Method";
+  v28[0] = v21;
+  v28[1] = &unk_2876EDBC0;
+  v27[1] = @"Line";
+  v27[2] = @"Method";
   v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-  v29[2] = v22;
-  v28[3] = *MEMORY[0x277CCA068];
+  v28[2] = v22;
+  v27[3] = *MEMORY[0x277CCA068];
   v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 163];
-  v29[3] = v23;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
+  v28[3] = v23;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:4];
   v19 = [v20 errorWithDomain:handler3 code:11 userInfo:v24];
 
 LABEL_7:
-  v25 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 - (id)startHandoff
 {
-  v23[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   handler = [(STSSessionBase *)self handler];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -1647,23 +1669,21 @@ LABEL_7:
     {
       v16 = MEMORY[0x277CCA9B8];
       v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-      v22[0] = *MEMORY[0x277CCA450];
+      v21[0] = *MEMORY[0x277CCA450];
       v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Invalid State"];
-      v23[0] = v15;
-      v23[1] = &unk_2876EDBD8;
-      v22[1] = @"Line";
-      v22[2] = @"Method";
+      v22[0] = v15;
+      v22[1] = &unk_2876EDBD8;
+      v21[1] = @"Line";
+      v21[2] = @"Method";
       v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-      v23[2] = v17;
-      v22[3] = *MEMORY[0x277CCA068];
+      v22[2] = v17;
+      v21[3] = *MEMORY[0x277CCA068];
       v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 176];
-      v23[3] = v18;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:4];
+      v22[3] = v18;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
       startHandoff = [v16 errorWithDomain:v13 code:9 userInfo:v19];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return startHandoff;
 }
@@ -1724,22 +1744,13 @@ LABEL_7:
   os_activity_scope_leave(&state);
 
   handler = [(STSSessionBase *)self handler];
-  if (!handler)
+  if (handler && (v11 = handler, [(STSSessionBase *)self handler], v12 = objc_claimAutoreleasedReturnValue(), sub_2653837C8(ISO18013Handler, v12), v13 = objc_claimAutoreleasedReturnValue(), v13, v12, v11, v13))
   {
-    goto LABEL_6;
-  }
-
-  v11 = handler;
-  handler2 = [(STSSessionBase *)self handler];
-  v13 = sub_2653837C8(ISO18013Handler, handler2);
-
-  if (v13)
-  {
-    handler3 = [(STSSessionBase *)self handler];
-    callbackQueue = handler3;
-    if (handler3)
+    handler2 = [(STSSessionBase *)self handler];
+    callbackQueue = handler2;
+    if (handler2)
     {
-      v16 = *(handler3 + 72);
+      v16 = *(handler2 + 72);
     }
 
     else
@@ -1760,7 +1771,6 @@ LABEL_7:
 
   else
   {
-LABEL_6:
     callbackQueue = [(STSSessionBase *)self callbackQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -1774,9 +1784,45 @@ LABEL_6:
   }
 }
 
+- (id)enablePlasticCardMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v24[4] = *MEMORY[0x277D85DE8];
+  handler = [(STSSessionBase *)self handler];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    handler2 = [(STSSessionBase *)self handler];
+    v15 = sub_265388F3C(handler2, modeCopy, v9, v10, v11, v12, v13, v14);
+  }
+
+  else
+  {
+    v16 = MEMORY[0x277CCA9B8];
+    v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
+    v23[0] = *MEMORY[0x277CCA450];
+    v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
+    v24[0] = v18;
+    v24[1] = &unk_2876EDC08;
+    v23[1] = @"Line";
+    v23[2] = @"Method";
+    v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
+    v24[2] = v19;
+    v23[3] = *MEMORY[0x277CCA068];
+    v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 17];
+    v24[3] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
+    v15 = [v16 errorWithDomain:v17 code:11 userInfo:v21];
+  }
+
+  return v15;
+}
+
 - (id)felicaCredentialState:(id)state error:(id *)error
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   handler = [(STSSessionBase *)self handler];
   objc_opt_class();
@@ -1792,31 +1838,29 @@ LABEL_6:
   {
     v11 = MEMORY[0x277CCA9B8];
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v19[0] = *MEMORY[0x277CCA450];
+    v18[0] = *MEMORY[0x277CCA450];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v20[0] = v13;
-    v20[1] = &unk_2876EDC20;
-    v19[1] = @"Line";
-    v19[2] = @"Method";
+    v19[0] = v13;
+    v19[1] = &unk_2876EDC20;
+    v18[1] = @"Line";
+    v18[2] = @"Method";
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v20[2] = v14;
-    v19[3] = *MEMORY[0x277CCA068];
+    v19[2] = v14;
+    v18[3] = *MEMORY[0x277CCA068];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 26];
-    v20[3] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v19[3] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
     *error = [v11 errorWithDomain:v12 code:11 userInfo:v16];
 
     error = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return error;
 }
 
 - (id)transitCredentialState:(id)state error:(id *)error
 {
-  v20[4] = *MEMORY[0x277D85DE8];
+  v19[4] = *MEMORY[0x277D85DE8];
   stateCopy = state;
   handler = [(STSSessionBase *)self handler];
   objc_opt_class();
@@ -1832,24 +1876,22 @@ LABEL_6:
   {
     v11 = MEMORY[0x277CCA9B8];
     v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"STS.fwk"];
-    v19[0] = *MEMORY[0x277CCA450];
+    v18[0] = *MEMORY[0x277CCA450];
     v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Feature Not Supported"];
-    v20[0] = v13;
-    v20[1] = &unk_2876EDC38;
-    v19[1] = @"Line";
-    v19[2] = @"Method";
+    v19[0] = v13;
+    v19[1] = &unk_2876EDC38;
+    v18[1] = @"Line";
+    v18[2] = @"Method";
     v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", sel_getName(a2)];
-    v20[2] = v14;
-    v19[3] = *MEMORY[0x277CCA068];
+    v19[2] = v14;
+    v18[3] = *MEMORY[0x277CCA068];
     v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s:%d", sel_getName(a2), 38];
-    v20[3] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
+    v19[3] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
     *error = [v11 errorWithDomain:v12 code:11 userInfo:v16];
 
     error = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return error;
 }

@@ -199,114 +199,107 @@
 
 - (unint64_t)nextBits:(int)bits
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (bits < 1)
   {
-    result = 0;
-    v22 = *MEMORY[0x277D85DE8];
+    return 0;
+  }
+
+  if (bits >= 0x40)
+  {
+    bitsCopy = 64;
   }
 
   else
   {
-    if (bits >= 0x40)
-    {
-      bitsCopy = 64;
-    }
+    bitsCopy = bits;
+  }
 
-    else
-    {
-      bitsCopy = bits;
-    }
-
-    state = self->_state;
-    v5 = (bitsCopy + 7) >> 3;
-    var2 = state->var2;
-    var0 = state->var0;
-    v8 = (state->var0 + 1);
-    v9 = var2[v8];
-    v10 = v9 + LOBYTE(state->var1);
+  state = self->_state;
+  v5 = (bitsCopy + 7) >> 3;
+  var2 = state->var2;
+  var0 = state->var0;
+  v8 = (state->var0 + 1);
+  v9 = var2[v8];
+  v10 = v9 + LOBYTE(state->var1);
+  var2[v8] = var2[v10];
+  var2[v10] = v9;
+  v21[0] = var2[(var2[v8] + v9)];
+  if (v5 != 1)
+  {
+    v8 = (var0 + 2);
+    v11 = var2[v8];
+    v10 += v11;
     var2[v8] = var2[v10];
-    var2[v10] = v9;
-    v23[0] = var2[(var2[v8] + v9)];
-    if (v5 != 1)
+    var2[v10] = v11;
+    v21[1] = var2[(var2[v8] + v11)];
+    if (v5 != 2)
     {
-      v8 = (var0 + 2);
-      v11 = var2[v8];
-      v10 += v11;
+      v8 = (var0 + 3);
+      v12 = var2[v8];
+      v10 += v12;
       var2[v8] = var2[v10];
-      var2[v10] = v11;
-      v23[1] = var2[(var2[v8] + v11)];
-      if (v5 != 2)
+      var2[v10] = v12;
+      v21[2] = var2[(var2[v8] + v12)];
+      if (v5 != 3)
       {
-        v8 = (var0 + 3);
-        v12 = var2[v8];
-        v10 += v12;
+        v8 = (var0 + 4);
+        v13 = var2[v8];
+        v10 += v13;
         var2[v8] = var2[v10];
-        var2[v10] = v12;
-        v23[2] = var2[(var2[v8] + v12)];
-        if (v5 != 3)
+        var2[v10] = v13;
+        v21[3] = var2[(var2[v8] + v13)];
+        if (v5 != 4)
         {
-          v8 = (var0 + 4);
-          v13 = var2[v8];
-          v10 += v13;
+          v8 = (var0 + 5);
+          v14 = var2[v8];
+          v10 += v14;
           var2[v8] = var2[v10];
-          var2[v10] = v13;
-          v23[3] = var2[(var2[v8] + v13)];
-          if (v5 != 4)
+          var2[v10] = v14;
+          v21[4] = var2[(var2[v8] + v14)];
+          if (v5 != 5)
           {
-            v8 = (var0 + 5);
-            v14 = var2[v8];
-            v10 += v14;
+            v8 = (var0 + 6);
+            v15 = var2[v8];
+            v10 += v15;
             var2[v8] = var2[v10];
-            var2[v10] = v14;
-            v23[4] = var2[(var2[v8] + v14)];
-            if (v5 != 5)
+            var2[v10] = v15;
+            v21[5] = var2[(var2[v8] + v15)];
+            if (v5 != 6)
             {
-              v8 = (var0 + 6);
-              v15 = var2[v8];
-              v10 += v15;
+              v8 = (var0 + 7);
+              v16 = var2[v8];
+              v10 += v16;
               var2[v8] = var2[v10];
-              var2[v10] = v15;
-              v23[5] = var2[(var2[v8] + v15)];
-              if (v5 != 6)
+              var2[v10] = v16;
+              v21[6] = var2[(var2[v8] + v16)];
+              if (v5 != 7)
               {
-                v8 = (var0 + 7);
-                v16 = var2[v8];
-                v10 += v16;
+                v8 = (var0 + 8);
+                v17 = var2[v8];
+                v10 += v17;
                 var2[v8] = var2[v10];
-                var2[v10] = v16;
-                v23[6] = var2[(var2[v8] + v16)];
-                if (v5 != 7)
-                {
-                  v8 = (var0 + 8);
-                  v17 = var2[v8];
-                  v10 += v17;
-                  var2[v8] = var2[v10];
-                  var2[v10] = v17;
-                  v23[7] = var2[(var2[v8] + v17)];
-                }
+                var2[v10] = v17;
+                v21[7] = var2[(var2[v8] + v17)];
               }
             }
           }
         }
       }
     }
-
-    v18 = 0;
-    v19 = 0;
-    state->var0 = v8;
-    state->var1 = v10;
-    do
-    {
-      v19 = v23[v18++] | (v19 << 8);
-    }
-
-    while (v5 != v18);
-    result = v19 >> (((bitsCopy + 7) & 0xF8u) - bitsCopy);
-    v21 = *MEMORY[0x277D85DE8];
   }
 
-  return result;
+  v18 = 0;
+  v19 = 0;
+  state->var0 = v8;
+  state->var1 = v10;
+  do
+  {
+    v19 = v21[v18++] | (v19 << 8);
+  }
+
+  while (v5 != v18);
+  return v19 >> (((bitsCopy + 7) & 0xF8u) - bitsCopy);
 }
 
 - (int64_t)nextInt

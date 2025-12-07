@@ -17,7 +17,6 @@
 
   if (targetBundle)
   {
-    targetBundle = self->_targetBundle;
     PBDataWriterWriteStringField();
   }
 
@@ -31,18 +30,16 @@
 
   if (*&self->_has)
   {
-    isSuccess = self->_isSuccess;
     PBDataWriterWriteBOOLField();
   }
 
   errorDescription = [(SiriLinkFlowProvisionalLinkActionCompletion *)self errorDescription];
 
-  v10 = toCopy;
+  v8 = toCopy;
   if (errorDescription)
   {
-    errorDescription = self->_errorDescription;
     PBDataWriterWriteStringField();
-    v10 = toCopy;
+    v8 = toCopy;
   }
 }
 

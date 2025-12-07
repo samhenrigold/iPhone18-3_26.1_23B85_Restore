@@ -6,106 +6,107 @@
 
 + (id)configWithDictionary:(id)dictionary error:(id *)error
 {
-  dictionaryCopy = dictionary;
-  if (!dictionaryCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  isKindOfClass = dictionary;
+  v7 = isKindOfClass;
+  if (!isKindOfClass || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) == 0))
   {
-    v6 = _MXMGetLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = _MXMGetLog(isKindOfClass, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Invalid dictionary received. Unable to create MXMTerminateProcessConfiguration.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Invalid dictionary received. Unable to create MXMTerminateProcessConfiguration.", buf, 2u);
     }
 
     if (error)
     {
-      v41 = NSLocalizedDescriptionKey;
-      v42 = @"terminateProcessConfigDictionary is not a valid dictionary.";
-      v7 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v7];
+      v43 = NSLocalizedDescriptionKey;
+      v44 = @"terminateProcessConfigDictionary is not a valid dictionary.";
+      v9 = [NSDictionary dictionaryWithObjects:&v44 forKeys:&v43 count:1];
+      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v9];
     }
   }
 
-  v8 = objc_alloc_init(MXMTerminateProcessConfiguration);
-  v9 = [dictionaryCopy valueForKey:@"processName"];
+  v10 = objc_alloc_init(MXMTerminateProcessConfiguration);
+  v11 = [v7 valueForKey:@"processName"];
 
-  if (v9)
+  if (v11)
   {
-    v10 = [dictionaryCopy valueForKey:@"processName"];
+    v12 = [v7 valueForKey:@"processName"];
     objc_opt_class();
-    isKindOfClass = objc_opt_isKindOfClass();
+    v13 = objc_opt_isKindOfClass();
 
-    if ((isKindOfClass & 1) == 0)
+    if ((v13 & 1) == 0)
+    {
+      v41 = NSLocalizedDescriptionKey;
+      v14 = [NSString stringWithFormat:@"%@ is not a string type.", @"processName"];
+      v42 = v14;
+      v15 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v15];
+    }
+
+    v16 = [v7 valueForKey:@"processName"];
+    [(MXMTerminateProcessConfiguration *)v10 setProcessName:v16];
+  }
+
+  v17 = [v7 valueForKey:@"timeout"];
+
+  if (v17)
+  {
+    v18 = [v7 valueForKey:@"timeout"];
+    objc_opt_class();
+    v19 = objc_opt_isKindOfClass();
+
+    if ((v19 & 1) == 0)
     {
       v39 = NSLocalizedDescriptionKey;
-      v12 = [NSString stringWithFormat:@"%@ is not a string type.", @"processName"];
-      v40 = v12;
-      v13 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v13];
+      v20 = [NSString stringWithFormat:@"%@ is not a double type.", @"timeout"];
+      v40 = v20;
+      v21 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v21];
     }
 
-    v14 = [dictionaryCopy valueForKey:@"processName"];
-    [(MXMTerminateProcessConfiguration *)v8 setProcessName:v14];
+    v22 = [v7 valueForKey:@"timeout"];
+    [v22 doubleValue];
+    [(MXMTerminateProcessConfiguration *)v10 setTimeout:?];
   }
 
-  v15 = [dictionaryCopy valueForKey:@"timeout"];
+  v23 = [v7 valueForKey:@"requiredForTestContinuation"];
 
-  if (v15)
+  if (v23)
   {
-    v16 = [dictionaryCopy valueForKey:@"timeout"];
+    v24 = [v7 valueForKey:@"requiredForTestContinuation"];
     objc_opt_class();
-    v17 = objc_opt_isKindOfClass();
+    v25 = objc_opt_isKindOfClass();
 
-    if ((v17 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
       v37 = NSLocalizedDescriptionKey;
-      v18 = [NSString stringWithFormat:@"%@ is not a double type.", @"timeout"];
-      v38 = v18;
-      v19 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v19];
+      v26 = [NSString stringWithFormat:@"%@ is not a BOOLean type.", @"requiredForTestContinuation"];
+      v38 = v26;
+      v27 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v27];
     }
 
-    v20 = [dictionaryCopy valueForKey:@"timeout"];
-    [v20 doubleValue];
-    [(MXMTerminateProcessConfiguration *)v8 setTimeout:?];
-  }
-
-  v21 = [dictionaryCopy valueForKey:@"requiredForTestContinuation"];
-
-  if (v21)
-  {
-    v22 = [dictionaryCopy valueForKey:@"requiredForTestContinuation"];
-    objc_opt_class();
-    v23 = objc_opt_isKindOfClass();
-
-    if ((v23 & 1) == 0)
+    v28 = [v7 valueForKey:@"requiredForTestContinuation"];
+    if ([v28 unsignedLongValue])
     {
-      v35 = NSLocalizedDescriptionKey;
-      v24 = [NSString stringWithFormat:@"%@ is not a BOOLean type.", @"requiredForTestContinuation"];
-      v36 = v24;
-      v25 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v25];
-    }
-
-    v26 = [dictionaryCopy valueForKey:@"requiredForTestContinuation"];
-    if ([v26 unsignedLongValue])
-    {
-      v27 = [dictionaryCopy valueForKey:@"requiredForTestContinuation"];
-      unsignedLongValue = [v27 unsignedLongValue];
+      v29 = [v7 valueForKey:@"requiredForTestContinuation"];
+      unsignedLongValue = [v29 unsignedLongValue];
 
       if (unsignedLongValue == 1)
       {
 LABEL_22:
-        v30 = [dictionaryCopy valueForKey:@"requiredForTestContinuation"];
-        -[MXMTerminateProcessConfiguration setRequiredForTestContinuation:](v8, "setRequiredForTestContinuation:", [v30 BOOLValue]);
+        v32 = [v7 valueForKey:@"requiredForTestContinuation"];
+        -[MXMTerminateProcessConfiguration setRequiredForTestContinuation:](v10, "setRequiredForTestContinuation:", [v32 BOOLValue]);
 
         goto LABEL_23;
       }
 
-      v33 = NSLocalizedDescriptionKey;
-      v26 = [NSString stringWithFormat:@"%@ is not a BOOLean type.", @"requiredForTestContinuation"];
-      v34 = v26;
-      v29 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v29];
+      v35 = NSLocalizedDescriptionKey;
+      v28 = [NSString stringWithFormat:@"%@ is not a BOOLean type.", @"requiredForTestContinuation"];
+      v36 = v28;
+      v31 = [NSDictionary dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+      *error = [NSError errorWithDomain:@"MXMTerminateProcessConfigurationErrorDomain" code:1 userInfo:v31];
     }
 
     goto LABEL_22;
@@ -113,7 +114,7 @@ LABEL_22:
 
 LABEL_23:
 
-  return v8;
+  return v10;
 }
 
 @end

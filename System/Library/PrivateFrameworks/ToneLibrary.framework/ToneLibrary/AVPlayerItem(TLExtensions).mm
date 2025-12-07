@@ -7,13 +7,13 @@
 - (TLAlertQueuePlayerItemHapticTracks)tl_hapticTracks
 {
   selfCopy = self;
-  v37 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   [self tracks];
-  v26 = 0u;
-  v27 = 0u;
   v28 = 0u;
-  v2 = v29 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v29 = 0u;
+  v30 = 0u;
+  v2 = v31 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (!v3)
   {
 
@@ -22,23 +22,23 @@
   }
 
   v4 = v3;
-  v23 = selfCopy;
+  v25 = selfCopy;
   v5 = 0;
   v6 = 0;
-  v7 = *v27;
+  v7 = *v29;
   v8 = *MEMORY[0x1E69875C8];
-  v24 = *MEMORY[0x1E6987580];
+  v26 = *MEMORY[0x1E6987580];
   obj = v2;
   while (2)
   {
     for (i = 0; i != v4; ++i)
     {
-      if (*v27 != v7)
+      if (*v29 != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v10 = *(*(&v26 + 1) + 8 * i);
+      v10 = *(*(&v28 + 1) + 8 * i);
       assetTrack = [v10 assetTrack];
       mediaType = [assetTrack mediaType];
       v13 = [mediaType isEqualToString:v8];
@@ -48,7 +48,7 @@
         goto LABEL_16;
       }
 
-      if ([assetTrack hasMediaCharacteristic:v24])
+      if ([assetTrack hasMediaCharacteristic:v26])
       {
         v14 = v10;
         v15 = v6;
@@ -92,19 +92,19 @@ LABEL_12:
       {
 
         v2 = obj;
-        selfCopy = v23;
+        selfCopy = v25;
 LABEL_19:
-        v18 = [[TLAlertQueuePlayerItemHapticTracks alloc] initWithHapticPlayerItemTrack:v6 attenuatedHapticPlayerItemTrack:v5];
-        v19 = TLLogPlayback();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v20 = [[TLAlertQueuePlayerItemHapticTracks alloc] initWithHapticPlayerItemTrack:v6 attenuatedHapticPlayerItemTrack:v5];
+        v22 = TLLogPlayback(v20, v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543874;
-          v31 = selfCopy;
-          v32 = 2114;
-          v33 = v6;
+          v33 = selfCopy;
           v34 = 2114;
-          v35 = v5;
-          _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "Found haptic tracks for %{public}@. hapticPlayerItemTrack = %{public}@, attenuatedHapticPlayerItemTrack = %{public}@.", buf, 0x20u);
+          v35 = v6;
+          v36 = 2114;
+          v37 = v5;
+          _os_log_impl(&dword_1D9356000, v22, OS_LOG_TYPE_DEFAULT, "Found haptic tracks for %{public}@. hapticPlayerItemTrack = %{public}@, attenuatedHapticPlayerItemTrack = %{public}@.", buf, 0x20u);
         }
 
         goto LABEL_25;
@@ -114,7 +114,7 @@ LABEL_16:
     }
 
     v2 = obj;
-    v4 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+    v4 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
     if (v4)
     {
       continue;
@@ -123,33 +123,31 @@ LABEL_16:
     break;
   }
 
-  selfCopy = v23;
+  selfCopy = v25;
   if (v6)
   {
     goto LABEL_19;
   }
 
 LABEL_22:
-  v19 = TLLogPlayback();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v22 = TLLogPlayback(v18, v19);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = [v2 count];
+    v23 = [v2 count];
     *buf = 138543874;
-    v31 = selfCopy;
-    v32 = 2048;
-    v33 = v20;
-    v34 = 2114;
-    v35 = v2;
-    _os_log_impl(&dword_1D9356000, v19, OS_LOG_TYPE_DEFAULT, "Cannot find any haptic tracks for %{public}@. Available tracks (%lu): %{public}@", buf, 0x20u);
+    v33 = selfCopy;
+    v34 = 2048;
+    v35 = v23;
+    v36 = 2114;
+    v37 = v2;
+    _os_log_impl(&dword_1D9356000, v22, OS_LOG_TYPE_DEFAULT, "Cannot find any haptic tracks for %{public}@. Available tracks (%lu): %{public}@", buf, 0x20u);
   }
 
   v6 = 0;
-  v18 = 0;
+  v20 = 0;
 LABEL_25:
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v20;
 }
 
 @end

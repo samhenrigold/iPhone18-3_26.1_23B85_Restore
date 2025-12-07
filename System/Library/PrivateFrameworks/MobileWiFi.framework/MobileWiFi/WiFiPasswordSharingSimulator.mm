@@ -15,7 +15,7 @@
   if (v2)
   {
     v2->_queue = dispatch_queue_create("mobilewifitool.wifi-password-sharing", 0);
-    if (SharingLibraryCore())
+    if (SharingLibraryCore(0))
     {
       v8 = 0;
       v9 = &v8;
@@ -74,9 +74,9 @@
   dispatch_async(queue, block);
 }
 
-uint64_t __50__WiFiPasswordSharingSimulator_runWithSSID_reply___block_invoke(uint64_t a1)
+void *__50__WiFiPasswordSharingSimulator_runWithSSID_reply___block_invoke(uint64_t a1)
 {
-  if (SharingLibraryCore())
+  if (SharingLibraryCore(0))
   {
     [*(*(a1 + 32) + 16) setNetworkName:*(a1 + 40)];
 
@@ -91,7 +91,7 @@ uint64_t __50__WiFiPasswordSharingSimulator_runWithSSID_reply___block_invoke(uin
     result = *(a1 + 48);
     if (result)
     {
-      v4 = *(result + 16);
+      v4 = result[2];
 
       return v4();
     }

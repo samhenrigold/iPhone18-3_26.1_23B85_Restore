@@ -26,13 +26,13 @@
   queueCopy = queue;
   if (!placeholderCopy)
   {
-    [FBSApplicationPlaceholderProgress initWithPlaceholder:a2 queue:?];
+    [FBSApplicationPlaceholderProgress initWithPlaceholder:a2 queue:self];
   }
 
   v9 = queueCopy;
   if (!queueCopy)
   {
-    [FBSApplicationPlaceholderProgress initWithPlaceholder:a2 queue:?];
+    [FBSApplicationPlaceholderProgress initWithPlaceholder:a2 queue:self];
   }
 
   v10 = [(FBSApplicationPlaceholderProgress *)self init];
@@ -393,14 +393,12 @@ id __47__FBSApplicationPlaceholderProgress_invalidate__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __84__FBSApplicationPlaceholderProgress_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t result)
+void __84__FBSApplicationPlaceholderProgress_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  if (*(result + 32) == *(*(result + 40) + 16))
+  if (*(a1 + 32) == *(*(a1 + 40) + 16))
   {
     BSAtomicGetFlag();
   }
-
-  return result;
 }
 
 - (FBSApplicationPlaceholder)placeholder
@@ -410,45 +408,45 @@ uint64_t __84__FBSApplicationPlaceholderProgress_observeValueForKeyPath_ofObject
   return WeakRetained;
 }
 
-- (void)initWithPlaceholder:(const char *)a1 queue:.cold.1(const char *a1)
+- (void)initWithPlaceholder:(const char *)a1 queue:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    v8 = @"FBSApplicationPlaceholderProgress.m";
-    v9 = 1024;
-    v10 = 45;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"FBSApplicationPlaceholderProgress.m";
+    v10 = 1024;
+    v11 = 45;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)initWithPlaceholder:(const char *)a1 queue:.cold.2(const char *a1)
+- (void)initWithPlaceholder:(const char *)a1 queue:(uint64_t)a2 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"placeholder"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"placeholder"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    v8 = @"FBSApplicationPlaceholderProgress.m";
-    v9 = 1024;
-    v10 = 44;
-    v11 = v6;
-    v12 = v2;
+    v9 = @"FBSApplicationPlaceholderProgress.m";
+    v10 = 1024;
+    v11 = 44;
+    v12 = v7;
+    v13 = v3;
     _os_log_error_impl(&dword_1A2DBB000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 

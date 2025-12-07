@@ -173,7 +173,7 @@
   layerCopy = layer;
   keyCopy = key;
   v8 = keyCopy;
-  if (layerCopy == self && [keyCopy isEqualToString:@"sublayers"])
+  if (layerCopy == self && objc_msgSend_isEqualToString_(keyCopy))
   {
     null = [MEMORY[0x1E695DFB0] null];
     goto LABEL_10;
@@ -205,7 +205,7 @@ LABEL_5:
 
   else
   {
-    if (-[_UIStackedImageConfiguration useSeparateUnfocusedShadowImage](self->_configuration, "useSeparateUnfocusedShadowImage") || ![v8 isEqualToString:@"contentsScale"])
+    if ([(_UIStackedImageConfiguration *)self->_configuration useSeparateUnfocusedShadowImage]|| !objc_msgSend_isEqualToString_(v8))
     {
       goto LABEL_5;
     }
@@ -1060,13 +1060,13 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ([pathCopy isEqualToString:@"selectionStyle"])
+  if (objc_msgSend_isEqualToString_(pathCopy))
   {
     [(_UIStackedImageContainerLayer *)self _setSelectionStyle:[(_UIStackedImageConfiguration *)self->_configuration selectionStyle]];
     goto LABEL_9;
   }
 
-  if (([v11 isEqualToString:@"cornerRadius"] & 1) != 0 || objc_msgSend(v11, "isEqualToString:", @"cornerRadii"))
+  if ((objc_msgSend_isEqualToString_(v11) & 1) != 0 || objc_msgSend_isEqualToString_(v11))
   {
     [(_UIStackedImageContainerLayer *)self _updateCornerRadiusFromConfig];
 LABEL_8:
@@ -1074,7 +1074,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  if ([v11 isEqualToString:@"radiosityStrength"])
+  if (objc_msgSend_isEqualToString_(v11))
   {
     if ([(_UIStackedImageContainerLayer *)self _radiosityEnabled]&& !self->_radiosityLayer)
     {
@@ -1089,30 +1089,30 @@ LABEL_8:
 
   else
   {
-    if ([v11 isEqualToString:@"placeholderImage"])
+    if (objc_msgSend_isEqualToString_(v11))
     {
       [(_UIStackedImageContainerLayer *)self _setFlatImage:[(UINamedLayerStack *)self->_layerStack flattenedImage]];
       goto LABEL_9;
     }
 
-    if ([v11 isEqualToString:@"allowsNonOpaqueShadow"])
+    if (objc_msgSend_isEqualToString_(v11))
     {
       [(_UIStackedImageContainerLayer *)self _updateNonOpaqueShadowStateFromLayerStack];
       goto LABEL_9;
     }
 
-    if (([v11 isEqualToString:@"boostBrightness"] & 1) != 0 || objc_msgSend(v11, "isEqualToString:", @"hueShift"))
+    if ((objc_msgSend_isEqualToString_(v11) & 1) != 0 || objc_msgSend_isEqualToString_(v11))
     {
       [(_UIStackedImageContainerLayer *)self _updateSingleLayerNoMaskFromLayerStack];
       goto LABEL_9;
     }
 
-    if ([v11 isEqualToString:@"focusCursorEnabled"])
+    if (objc_msgSend_isEqualToString_(v11))
     {
       goto LABEL_8;
     }
 
-    if (([v11 isEqualToString:@"specularHighlightHorizontalPositionSensitivity"] & 1) != 0 || objc_msgSend(v11, "isEqualToString:", @"specularHighlightVerticalPositionSensitivity"))
+    if ((objc_msgSend_isEqualToString_(v11) & 1) != 0 || objc_msgSend_isEqualToString_(v11))
     {
       specularLayer = self->_specularLayer;
       [(_UIStackedImageConfiguration *)self->_configuration specularHighlightHorizontalPositionSensitivity];
@@ -1121,7 +1121,7 @@ LABEL_8:
       [(_UIFocusSpecularHighlightLayer *)specularLayer setFocusSensitivity:v16, v17];
     }
 
-    else if ([v11 isEqualToString:@"expansionAmount"])
+    else if (objc_msgSend_isEqualToString_(v11))
     {
       [(_UIStackedImageContainerLayer *)self setNeedsLayout];
     }
@@ -1168,7 +1168,7 @@ LABEL_9:
   configuration = self->_configuration;
   if (configuration)
   {
-    [(_UIStackedImageConfiguration *)configuration cornerRadii];
+    objc_msgSend_cornerRadii(configuration);
   }
 
   v30 = v34;
@@ -1270,7 +1270,7 @@ LABEL_9:
 {
   v143 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
-  if (![(_UIStackedImageConfiguration *)self->_configuration isEqual:configurationCopy])
+  if ((objc_msgSend_isEqual_(self->_configuration) & 1) == 0)
   {
     [(_UIStackedImageContainerLayer *)self bounds];
     v7 = v6;
@@ -1371,7 +1371,7 @@ LABEL_9:
 
       else
       {
-        +[UIColor blackColor];
+        objc_msgSend_blackColor(UIColor);
       }
       v42 = ;
       v43 = objc_alloc_init(MEMORY[0x1E6979398]);
@@ -1540,7 +1540,7 @@ LABEL_9:
       [(CATransformLayer *)self->_imageRotationTransformLayer setAnchorPoint:0.5, 0.5];
       [(CATransformLayer *)self->_imageRotationTransformLayer setFrame:v15, v17, v19, v21];
       [(CATransformLayer *)self->_imagePerspectiveTransformLayer addSublayer:self->_imageRotationTransformLayer];
-      if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRendering3DTransformedGlassLayer, @"UISolariumNewStackedImageRendering3DTransformedGlassLayer", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E92C)
+      if (!_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRendering3DTransformedGlassLayer, @"UISolariumNewStackedImageRendering3DTransformedGlassLayer", _UIInternalPreferenceUpdateBool) && byte_1EA95E92C)
       {
         v80 = objc_alloc_init(MEMORY[0x1E6979398]);
         imagePostPerspectiveRotationBackgroundEffectContainer = self->_imagePostPerspectiveRotationBackgroundEffectContainer;
@@ -1767,7 +1767,7 @@ LABEL_9:
 - (void)_setLayerStack:(id)stack
 {
   stackCopy = stack;
-  if (([(UINamedLayerStack *)self->_layerStack isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_layerStack) & 1) == 0)
   {
     disableActions = [MEMORY[0x1E6979518] disableActions];
     [MEMORY[0x1E6979518] setDisableActions:1];
@@ -1833,7 +1833,7 @@ LABEL_9:
 
 - (double)_effectiveScaleSizeIncrease
 {
-  if (self->_selectionStyle != 1 && [(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]&& (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingForceDefaultScaleSizeIncrease, @"UISolariumNewStackedImageRenderingForceDefaultScaleSizeIncrease", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E924)
+  if (self->_selectionStyle != 1 && [(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]&& !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingForceDefaultScaleSizeIncrease, @"UISolariumNewStackedImageRenderingForceDefaultScaleSizeIncrease", _UIInternalPreferenceUpdateBool) && byte_1EA95E924)
   {
     return 40.0;
   }
@@ -1852,7 +1852,7 @@ LABEL_9:
     return 0;
   }
 
-  if ([(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]&& (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingForceAdjustMotionForSize, @"UISolariumNewStackedImageRenderingForceAdjustMotionForSize", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E91C)
+  if ([(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]&& !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingForceAdjustMotionForSize, @"UISolariumNewStackedImageRenderingForceAdjustMotionForSize", _UIInternalPreferenceUpdateBool) && byte_1EA95E91C)
   {
     return 1;
   }
@@ -1880,7 +1880,7 @@ LABEL_9:
 
 - (id)_layerForBackgroundEffects
 {
-  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRendering3DTransformedGlassLayer, @"UISolariumNewStackedImageRendering3DTransformedGlassLayer", _UIInternalPreferenceUpdateBool) & 1) != 0 || !byte_1EA95E92C)
+  if (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRendering3DTransformedGlassLayer, @"UISolariumNewStackedImageRendering3DTransformedGlassLayer", _UIInternalPreferenceUpdateBool) || !byte_1EA95E92C)
   {
     p_imagePrePerspectiveRotationBackgroundEffectContainer = &self->_imagePrePerspectiveRotationBackgroundEffectContainer;
   }
@@ -2211,7 +2211,7 @@ LABEL_12:
   v13 = v6;
   if (!self->_nonOpaqueShadow)
   {
-    [(_UIStackedImageContainerLayer *)self _scaleTransform3DForCurrentState];
+    objc_msgSend__scaleTransform3DForCurrentState(self, a2);
   }
 
   if ([(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering])
@@ -2751,7 +2751,7 @@ LABEL_59:
 {
   v16 = *MEMORY[0x1E69E9840];
   gravityCopy = gravity;
-  if (([(NSString *)self->_imageStackContentsGravity isEqual:gravityCopy]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_imageStackContentsGravity) & 1) == 0)
   {
     objc_storeStrong(&self->_imageStackContentsGravity, gravity);
     [(CALayer *)self->_flatLayer setContentsGravity:self->_imageStackContentsGravity];
@@ -3369,7 +3369,7 @@ LABEL_6:
 
 - (void)_updateSpecularLayerVisibility
 {
-  v3 = [(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]&& (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingSpecularEnabled, @"UISolariumNewStackedImageRenderingSpecularEnabled", _UIInternalPreferenceUpdateBool) & 1) == 0 && !byte_1EA95E8FC;
+  v3 = [(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]&& !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingSpecularEnabled, @"UISolariumNewStackedImageRenderingSpecularEnabled", _UIInternalPreferenceUpdateBool) && !byte_1EA95E8FC;
   specularLayer = self->_specularLayer;
 
   [(_UIStackedImageContainerLayer *)self _updateLayer:specularLayer isHidden:v3];
@@ -3399,7 +3399,7 @@ LABEL_6:
 
 - (BOOL)_radiosityEnabled
 {
-  if (![(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]|| (v3 = _UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingRadiosityEnabled, @"UISolariumNewStackedImageRenderingRadiosityEnabled", _UIInternalPreferenceUpdateBool), result = 0, (v3 & 1) == 0) && byte_1EA95E904)
+  if (![(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]|| (v3 = _UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingRadiosityEnabled, @"UISolariumNewStackedImageRenderingRadiosityEnabled", _UIInternalPreferenceUpdateBool), result = 0, !v3) && byte_1EA95E904)
   {
     [(_UIStackedImageConfiguration *)self->_configuration radiosityStrength];
     return fabs(v5) >= 2.22044605e-16;
@@ -3463,11 +3463,11 @@ LABEL_6:
   v13 = v10 * 0.5;
   has_internal_diagnostics = os_variant_has_internal_diagnostics();
   _imageStackContentsGravity = [(_UIStackedImageContainerLayer *)self _imageStackContentsGravity];
-  v16 = [_imageStackContentsGravity isEqualToString:*MEMORY[0x1E6979DF0]];
+  isEqualToString = objc_msgSend_isEqualToString_(_imageStackContentsGravity);
 
   if (has_internal_diagnostics)
   {
-    if ((v16 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v34 = __UIFaultDebugAssertLog();
       if (os_log_type_enabled(v34, OS_LOG_TYPE_FAULT))
@@ -3478,7 +3478,7 @@ LABEL_6:
     }
   }
 
-  else if ((v16 & 1) == 0)
+  else if ((isEqualToString & 1) == 0)
   {
     v35 = *(__UILogGetCategoryCachedImpl("Assert", &_positionAndSizeForLayerImage____s_category) + 8);
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
@@ -3595,7 +3595,7 @@ LABEL_6:
   if (![(CALayer *)self->_selectedPlaceholderLayer isHidden])
   {
     memset(&v34, 0, sizeof(v34));
-    [(_UIStackedImageContainerLayer *)self _imageLayersScaleTransformForCurrentState];
+    objc_msgSend__imageLayersScaleTransformForCurrentState(self);
     if (self->_selectionStyle == 1 && [(_UIStackedImageConfiguration *)self->_configuration fullBleedCenteredGrowth]&& (_isFocused || _isSelected || _isHighlighted))
     {
       CATransform3DMakeScale(&v32, self->_scale, self->_scale, 1.0);
@@ -3861,9 +3861,9 @@ LABEL_6:
           {
             currentRunLoop = [MEMORY[0x1E695DFD0] currentRunLoop];
             currentMode = [currentRunLoop currentMode];
-            v20 = [currentMode isEqualToString:@"UITrackingRunLoopMode"];
+            isEqualToString = objc_msgSend_isEqualToString_(currentMode);
 
-            if ((v20 & 1) == 0)
+            if ((isEqualToString & 1) == 0)
             {
               [MEMORY[0x1E6979518] animationDuration];
               v23 = v22;
@@ -4199,14 +4199,14 @@ LABEL_12:
 {
   [(_UIStackedImageContainerLayer *)self _scaleAmountsForCurrentState];
 
-  return [(_UIStackedImageContainerLayer *)self _scaleTransform3DForScaleAmounts:?];
+  return objc_msgSend__scaleTransform3DForScaleAmounts_(self);
 }
 
 - (CATransform3D)_imageLayersScaleTransformForCurrentState
 {
   [(_UIStackedImageContainerLayer *)self _imageLayersScaleAmountsForCurrentState];
 
-  return [(_UIStackedImageContainerLayer *)self _scaleTransform3DForScaleAmounts:?];
+  return objc_msgSend__scaleTransform3DForScaleAmounts_(self);
 }
 
 - (CATransform3D)_rotationTransformForCurrentFocusDirection
@@ -4366,7 +4366,7 @@ LABEL_5:
   v14 = 0u;
   v11 = 0u;
   v12 = 0u;
-  [(_UIStackedImageContainerLayer *)self _perspectiveTransformForCurrentState];
+  objc_msgSend__perspectiveTransformForCurrentState(self, a2);
   v7 = v15;
   v8 = v16;
   v9 = v17;
@@ -4440,7 +4440,7 @@ LABEL_5:
   v54 = 0u;
   v51 = 0u;
   v52 = 0u;
-  [(_UIStackedImageContainerLayer *)self _rotationTransformForCurrentFocusDirection];
+  objc_msgSend__rotationTransformForCurrentFocusDirection(self);
   v47 = v55;
   v48 = v56;
   v49 = v57;
@@ -4700,7 +4700,7 @@ LABEL_23:
   {
     if (_layerForInnerParallaxTransform)
     {
-      [_layerForInnerParallaxTransform transform];
+      objc_msgSend_transform(_layerForInnerParallaxTransform);
     }
 
     else
@@ -4817,7 +4817,7 @@ LABEL_23:
 
   [(_UIStackedImageContainerLayer *)self _imageLayersScaleAmountsForCurrentState];
   memset(&v19, 0, sizeof(v19));
-  [(_UIStackedImageContainerLayer *)self _scaleTransform3DForScaleAmounts:v14 * v13, v15 * v13];
+  objc_msgSend__scaleTransform3DForScaleAmounts_(self, v14 * v13, v15 * v13);
   CATransform3DMakeTranslation(&a, 0.0, 0.0, factorCopy);
   v17 = v19;
   return CATransform3DConcat(retstr, &a, &v17);
@@ -4837,7 +4837,7 @@ LABEL_23:
     _isSelected = [(_UIStackedImageContainerLayer *)self _isSelected];
     _isHighlighted = [(_UIStackedImageContainerLayer *)self _isHighlighted];
     memset(&v49, 0, sizeof(v49));
-    [(_UIStackedImageContainerLayer *)self _imageLayersScaleTransformForCurrentState];
+    objc_msgSend__imageLayersScaleTransformForCurrentState(self);
     v12 = [(NSArray *)self->_imageLayers count];
     if (v12)
     {
@@ -4870,7 +4870,7 @@ LABEL_23:
           memset(&v48, 0, sizeof(v48));
           if (v19)
           {
-            [(_UIStackedImageContainerLayer *)self _fixedFrameImageLayersTransformForDepth:v20 fudgeFactor:1.035];
+            objc_msgSend__fixedFrameImageLayersTransformForDepth_fudgeFactor_(self, v20, 1.035);
             goto LABEL_11;
           }
         }
@@ -5006,7 +5006,7 @@ LABEL_25:
     v64 = 0u;
     v61 = 0u;
     v62 = 0u;
-    [(_UIStackedImageContainerLayer *)self _imageLayersScaleTransformForCurrentState];
+    objc_msgSend__imageLayersScaleTransformForCurrentState(self);
     v14 = [(NSArray *)self->_imageLayers count];
     v15 = v14 - 1;
     if (v14 - 1 <= 1)
@@ -5155,9 +5155,9 @@ LABEL_25:
   v47 = 0u;
   v44 = 0u;
   v45 = 0u;
-  [(_UIStackedImageContainerLayer *)self _scaleTransform3DForCurrentState];
+  objc_msgSend__scaleTransform3DForCurrentState(self);
   memset(&v43, 0, sizeof(v43));
-  [(_UIStackedImageContainerLayer *)self _imageLayersScaleTransformForCurrentState];
+  objc_msgSend__imageLayersScaleTransformForCurrentState(self);
   overlayLayer = self->_overlayLayer;
   if (self->_selectionStyle == 1)
   {
@@ -5264,7 +5264,7 @@ LABEL_25:
       {
         if (overlayFixedFrame)
         {
-          [(_UIStackedImageContainerLayer *)self _fixedFrameImageLayersTransformForDepth:v11 fudgeFactor:1.015];
+          objc_msgSend__fixedFrameImageLayersTransformForDepth_fudgeFactor_(self, v11, 1.015);
         }
 
         else
@@ -5436,7 +5436,7 @@ LABEL_29:
 
 - (void)_updateImageLayerFilterChains
 {
-  if (![(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]|| (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingFiltersEnabled, @"UISolariumNewStackedImageRenderingFiltersEnabled", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E90C)
+  if (![(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]|| !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingFiltersEnabled, @"UISolariumNewStackedImageRenderingFiltersEnabled", _UIInternalPreferenceUpdateBool) && byte_1EA95E90C)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
     if ([(_UIStackedImageConfiguration *)self->_configuration boostBrightness]&& [(_UIStackedImageContainerLayer *)self _isFocused])
@@ -5461,7 +5461,7 @@ LABEL_29:
 
 - (void)_updateImageLayerFilterValues
 {
-  if (![(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]|| (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingFiltersEnabled, @"UISolariumNewStackedImageRenderingFiltersEnabled", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1EA95E90C)
+  if (![(_UIStackedImageContainerLayer *)self _isEligibleForSolariumRendering]|| !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_UISolariumNewStackedImageRenderingFiltersEnabled, @"UISolariumNewStackedImageRenderingFiltersEnabled", _UIInternalPreferenceUpdateBool) && byte_1EA95E90C)
   {
     _isFocused = [(_UIStackedImageContainerLayer *)self _isFocused];
     if ([(_UIStackedImageConfiguration *)self->_configuration boostBrightness])
@@ -6272,7 +6272,7 @@ LABEL_20:
 
 - (void)_updateMarkerLayerIfPresent
 {
-  if (os_variant_has_internal_diagnostics() && (_UIInternalPreferenceUsesDefault(&_UIInternalPreference_VisualizeUIViews, @"VisualizeUIViews", _UIInternalPreferenceUpdateBool) & 1) == 0 && byte_1ED48A8C4)
+  if (os_variant_has_internal_diagnostics() && !_UIInternalPreferenceUsesDefault(&_UIInternalPreference_VisualizeUIViews, @"VisualizeUIViews", _UIInternalPreferenceUpdateBool) && byte_1ED48A8C4)
   {
     delegate = [(_UIStackedImageContainerLayer *)self delegate];
     v5 = objc_getAssociatedObject(delegate, &__UIViewMarkerLayerKey);

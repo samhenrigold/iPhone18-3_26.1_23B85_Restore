@@ -67,11 +67,11 @@
 
       [viewCopy setAlpha:v28];
       v29 = objc_alloc(MEMORY[0x1E69DD250]);
-      [viewCopy bounds];
+      objc_msgSend_bounds(viewCopy);
       v30 = [v29 initWithFrame:{0.0, 0.0}];
       [(UIView *)v30 sbh_applyClearGlass];
       [(UIView *)v30 addSubview:viewCopy];
-      [(UIView *)v30 bounds];
+      objc_msgSend_bounds(v30);
       UIRectGetCenter();
       [viewCopy setCenter:?];
       listContainerView = v14->_listContainerView;
@@ -125,7 +125,7 @@
   v48.receiver = self;
   v48.super_class = SBHPageManagementCellView;
   [(SBHPageManagementCellView *)&v48 layoutSubviews];
-  [(SBHPageManagementCellView *)self iconImageInfo];
+  objc_msgSend_iconImageInfo(self);
   v4 = v3;
   v6 = v5;
   v34 = v8;

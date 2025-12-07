@@ -884,12 +884,12 @@ uint64_t __99__PLFileUtilities__diagnosticInfoForPath_includeFileSystemAttribute
   v4 = *(a1 + 32);
   if (a3)
   {
-    return [v4 appendFormat:@"%@:\n%@\n", a2, a3];
+    return [v4 appendFormat:@"%@:\n%@\n", a4, a2, a3];
   }
 
   else
   {
-    return [v4 appendFormat:@"%@: failed with error\n%@\n", a2, a4];
+    return [v4 appendFormat:@"%@: failed with error\n%@\n", a4, a2, a4];
   }
 }
 

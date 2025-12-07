@@ -42,7 +42,7 @@
 
 - (HAPAccessoryInfo)initWithName:(id)name manufacturer:(id)manufacturer modelName:(id)modelName category:(id)category certificationStatus:(id)status denylisted:(id)denylisted ppid:(id)ppid
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   manufacturerCopy = manufacturer;
   modelNameCopy = modelName;
@@ -57,21 +57,21 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v19 = v24 = manufacturerCopy;
+      v19 = v23 = manufacturerCopy;
       *buf = 138543362;
-      v32 = v19;
+      v31 = v19;
       _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_ERROR, "%{public}@Accessory name is Unknown", buf, 0xCu);
 
-      manufacturerCopy = v24;
+      manufacturerCopy = v23;
     }
 
     objc_autoreleasePoolPop(context);
     nameCopy = @"Unknown";
   }
 
-  v30.receiver = self;
-  v30.super_class = HAPAccessoryInfo;
-  v20 = [(HAPAccessoryInfo *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = HAPAccessoryInfo;
+  v20 = [(HAPAccessoryInfo *)&v29 init];
   v21 = v20;
   if (v20)
   {
@@ -85,7 +85,6 @@
     v21->_authenticated = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

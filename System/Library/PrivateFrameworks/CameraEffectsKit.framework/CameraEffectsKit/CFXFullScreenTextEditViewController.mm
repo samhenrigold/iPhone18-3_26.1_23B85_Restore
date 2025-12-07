@@ -185,10 +185,10 @@
 
 - (void)viewDidLoad
 {
-  v83[4] = *MEMORY[0x277D85DE8];
-  v82.receiver = self;
-  v82.super_class = CFXFullScreenTextEditViewController;
-  [(CFXFullScreenTextEditViewController *)&v82 viewDidLoad];
+  v87[4] = *MEMORY[0x277D85DE8];
+  v86.receiver = self;
+  v86.super_class = CFXFullScreenTextEditViewController;
+  [(CFXFullScreenTextEditViewController *)&v86 viewDidLoad];
   v3 = objc_alloc_init(MEMORY[0x277D75D18]);
   [(CFXFullScreenTextEditViewController *)self setDimmingView:v3];
 
@@ -199,33 +199,33 @@
   dimmingView2 = [(CFXFullScreenTextEditViewController *)self dimmingView];
   [view addSubview:dimmingView2];
 
-  v72 = MEMORY[0x277CCAAD0];
+  v76 = MEMORY[0x277CCAAD0];
   dimmingView3 = [(CFXFullScreenTextEditViewController *)self dimmingView];
   topAnchor = [dimmingView3 topAnchor];
   view2 = [(CFXFullScreenTextEditViewController *)self view];
   topAnchor2 = [view2 topAnchor];
-  v77 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v83[0] = v77;
+  v81 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v87[0] = v81;
   dimmingView4 = [(CFXFullScreenTextEditViewController *)self dimmingView];
   bottomAnchor = [dimmingView4 bottomAnchor];
   view3 = [(CFXFullScreenTextEditViewController *)self view];
   bottomAnchor2 = [view3 bottomAnchor];
-  v71 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v83[1] = v71;
+  v75 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v87[1] = v75;
   dimmingView5 = [(CFXFullScreenTextEditViewController *)self dimmingView];
   leadingAnchor = [dimmingView5 leadingAnchor];
   view4 = [(CFXFullScreenTextEditViewController *)self view];
   leadingAnchor2 = [view4 leadingAnchor];
   v9 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v83[2] = v9;
+  v87[2] = v9;
   dimmingView6 = [(CFXFullScreenTextEditViewController *)self dimmingView];
   trailingAnchor = [dimmingView6 trailingAnchor];
   view5 = [(CFXFullScreenTextEditViewController *)self view];
   trailingAnchor2 = [view5 trailingAnchor];
   v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v83[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:4];
-  [v72 activateConstraints:v15];
+  v87[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v87 count:4];
+  [v76 activateConstraints:v15];
 
   blackColor = [MEMORY[0x277D75348] blackColor];
   v17 = [blackColor colorWithAlphaComponent:0.5];
@@ -239,24 +239,24 @@
   dimmingView9 = [(CFXFullScreenTextEditViewController *)self dimmingView];
   [dimmingView9 setAlpha:0.0];
 
-  v22 = JFX_getDrawOverlayBoundsOptionsDictionary();
-  v23 = [JFXOverlayEffectDebugViewOptions debugViewOptionsWithDictionary:v22];
-  [(CFXFullScreenTextEditViewController *)self setDebugOptions:v23];
+  v24 = JFX_getDrawOverlayBoundsOptionsDictionary(v22, v23);
+  v25 = [JFXOverlayEffectDebugViewOptions debugViewOptionsWithDictionary:v24];
+  [(CFXFullScreenTextEditViewController *)self setDebugOptions:v25];
 
-  if (JFX_isDrawOverlayBoundsEnabled())
+  if (JFX_isDrawOverlayBoundsEnabled(v26, v27))
   {
     debugOptions = [(CFXFullScreenTextEditViewController *)self debugOptions];
     showTextBoundingBoxes = [debugOptions showTextBoundingBoxes];
 
     if (showTextBoundingBoxes)
     {
-      v26 = objc_alloc(MEMORY[0x277D75D18]);
-      v27 = *MEMORY[0x277CBF3A0];
-      v28 = *(MEMORY[0x277CBF3A0] + 8);
-      v29 = *(MEMORY[0x277CBF3A0] + 16);
-      v30 = *(MEMORY[0x277CBF3A0] + 24);
-      v31 = [v26 initWithFrame:{*MEMORY[0x277CBF3A0], v28, v29, v30}];
-      [(CFXFullScreenTextEditViewController *)self setDebugView:v31];
+      v30 = objc_alloc(MEMORY[0x277D75D18]);
+      v31 = *MEMORY[0x277CBF3A0];
+      v32 = *(MEMORY[0x277CBF3A0] + 8);
+      v33 = *(MEMORY[0x277CBF3A0] + 16);
+      v34 = *(MEMORY[0x277CBF3A0] + 24);
+      v35 = [v30 initWithFrame:{*MEMORY[0x277CBF3A0], v32, v33, v34}];
+      [(CFXFullScreenTextEditViewController *)self setDebugView:v35];
 
       debugView = [(CFXFullScreenTextEditViewController *)self debugView];
       layer = [debugView layer];
@@ -272,67 +272,67 @@
       debugView3 = [(CFXFullScreenTextEditViewController *)self debugView];
       [view6 addSubview:debugView3];
 
-      v40 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v27, v28, v29, v30}];
-      [v40 setTag:1];
-      layer3 = [v40 layer];
+      v44 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v31, v32, v33, v34}];
+      [v44 setTag:1];
+      layer3 = [v44 layer];
       [layer3 setBorderWidth:4.0];
 
       yellowColor = [MEMORY[0x277D75348] yellowColor];
       cGColor2 = [yellowColor CGColor];
-      layer4 = [v40 layer];
+      layer4 = [v44 layer];
       [layer4 setBorderColor:cGColor2];
 
       debugView4 = [(CFXFullScreenTextEditViewController *)self debugView];
-      [debugView4 addSubview:v40];
+      [debugView4 addSubview:v44];
 
-      v46 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v27, v28, v29, v30}];
-      [v46 setTag:2];
-      layer5 = [v46 layer];
+      v50 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v31, v32, v33, v34}];
+      [v50 setTag:2];
+      layer5 = [v50 layer];
       [layer5 setBorderWidth:2.0];
 
       orangeColor = [MEMORY[0x277D75348] orangeColor];
       cGColor3 = [orangeColor CGColor];
-      layer6 = [v46 layer];
+      layer6 = [v50 layer];
       [layer6 setBorderColor:cGColor3];
 
       debugView5 = [(CFXFullScreenTextEditViewController *)self debugView];
-      [debugView5 addSubview:v46];
+      [debugView5 addSubview:v50];
 
-      v52 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{0.0, 0.0, 4.0, 4.0}];
-      [v52 setTag:3];
+      v56 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{0.0, 0.0, 4.0, 4.0}];
+      [v56 setTag:3];
       magentaColor = [MEMORY[0x277D75348] magentaColor];
       cGColor4 = [magentaColor CGColor];
-      layer7 = [v52 layer];
+      layer7 = [v56 layer];
       [layer7 setBackgroundColor:cGColor4];
 
       debugView6 = [(CFXFullScreenTextEditViewController *)self debugView];
-      [debugView6 addSubview:v52];
+      [debugView6 addSubview:v56];
 
-      v57 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v27, v28, v29, v30}];
-      [v57 setTag:4];
-      layer8 = [v57 layer];
+      v61 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v31, v32, v33, v34}];
+      [v61 setTag:4];
+      layer8 = [v61 layer];
       [layer8 setBorderWidth:2.0];
 
       redColor = [MEMORY[0x277D75348] redColor];
       cGColor5 = [redColor CGColor];
-      layer9 = [v57 layer];
+      layer9 = [v61 layer];
       [layer9 setBorderColor:cGColor5];
 
       debugView7 = [(CFXFullScreenTextEditViewController *)self debugView];
-      [debugView7 addSubview:v57];
+      [debugView7 addSubview:v61];
 
-      v63 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v27, v28, v29, v30}];
-      [v63 setTag:5];
-      layer10 = [v63 layer];
+      v67 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v31, v32, v33, v34}];
+      [v67 setTag:5];
+      layer10 = [v67 layer];
       [layer10 setBorderWidth:4.0];
 
       blackColor2 = [MEMORY[0x277D75348] blackColor];
       cGColor6 = [blackColor2 CGColor];
-      layer11 = [v63 layer];
+      layer11 = [v67 layer];
       [layer11 setBorderColor:cGColor6];
 
       debugView8 = [(CFXFullScreenTextEditViewController *)self debugView];
-      [debugView8 addSubview:v63];
+      [debugView8 addSubview:v67];
     }
   }
 }
@@ -447,18 +447,18 @@ void __53__CFXFullScreenTextEditViewController_viewDidAppear___block_invoke(uint
 
   [jtEffect setHidden:0];
   v5 = *(MEMORY[0x277D860A0] + 80);
-  v35 = *(MEMORY[0x277D860A0] + 64);
-  v36 = v5;
+  v33 = *(MEMORY[0x277D860A0] + 64);
+  v34 = v5;
   v6 = *(MEMORY[0x277D860A0] + 112);
-  v37 = *(MEMORY[0x277D860A0] + 96);
-  v38 = v6;
+  v35 = *(MEMORY[0x277D860A0] + 96);
+  v36 = v6;
   v7 = *(MEMORY[0x277D860A0] + 16);
-  v31 = *MEMORY[0x277D860A0];
-  v32 = v7;
+  v29 = *MEMORY[0x277D860A0];
+  v30 = v7;
   v8 = *(MEMORY[0x277D860A0] + 48);
-  v33 = *(MEMORY[0x277D860A0] + 32);
-  v34 = v8;
-  [jtEffect setTopLevelTransform:&v31];
+  v31 = *(MEMORY[0x277D860A0] + 32);
+  v32 = v8;
+  [jtEffect setTopLevelTransform:&v29];
   delegate = [(CFXFullScreenTextEditViewController *)self delegate];
   v10 = objc_opt_respondsToSelector();
 
@@ -486,12 +486,10 @@ void __53__CFXFullScreenTextEditViewController_viewDidAppear___block_invoke(uint
 LABEL_7:
   if ([jtEffect isTextFlipped])
   {
-    CGAffineTransformMakeRotation(&v31, 3.14159265);
+    CGAffineTransformMakeRotation(&v29, 3.14159265);
     view = [(CFXFullScreenTextEditViewController *)self view];
     [view bounds];
-    v29 = *MEMORY[0x277CC08F0];
-    v30 = *(MEMORY[0x277CC08F0] + 16);
-    [jtEffect addTransform:&v31 withComponentTime:&v29 relativeTo:1 basisOrigin:?];
+    objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_(jtEffect);
   }
 
   currentDevice = [MEMORY[0x277D75418] currentDevice];
@@ -503,9 +501,9 @@ LABEL_7:
     v22 = v21;
     v24 = v23;
     [(CFXFullScreenTextEditViewController *)self effectEditorFrameRelativeToScreen];
-    Height = CGRectGetHeight(v39);
+    Height = CGRectGetHeight(v37);
     [(CFXFullScreenTextEditViewController *)self effectEditorFrameRelativeToScreen];
-    v26 = (v22 < v24) ^ (Height > CGRectGetWidth(v40));
+    v26 = (v22 < v24) ^ (Height > CGRectGetWidth(v38));
     if (v26)
     {
       v27 = v24;
@@ -540,7 +538,7 @@ LABEL_7:
     [(CFXFullScreenTextEditViewController *)self effectEditorFrameRelativeToScreen];
     [view convertRect:0 fromView:?];
     v7 = v6;
-    v86 = v8;
+    v88 = v8;
     v10 = v9;
     v12 = v11;
 
@@ -579,8 +577,8 @@ LABEL_7:
     v27 = MEMORY[0x277CC08F0];
     if (bounds || (*&v102.a = *MEMORY[0x277CC08F0], v102.c = *(MEMORY[0x277CC08F0] + 16), [jtEffect imageFrameAtTime:&v102 forcePosterFrame:1 includeDropShadow:1 relativeTo:1 basisOrigin:{0.0, 0.0, v10, v12}], v124.origin.x = v28 + -24.0, v124.origin.y = v29 + -34.0, v124.size.width = v30 + 48.0, v124.size.height = v31 + 58.0, v107.origin.x = x, v107.origin.y = y, v107.size.width = width, v107.size.height = height, !CGRectContainsRect(v107, v124)))
     {
-      v94 = y;
-      v85 = v7;
+      v96 = y;
+      v87 = v7;
       if (isEmoji)
       {
         v32 = 0.32;
@@ -612,16 +610,16 @@ LABEL_7:
       }
 
       *&v102.a = *v27;
-      v96 = *&v102.a;
+      v98 = *&v102.a;
       v102.c = *(v27 + 16);
       c = v102.c;
-      v83 = v35 * v32;
-      [jtEffect applyScaleToFitFrame:&v102 withComponentTime:0.0 relativeRect:{0.0, v83, v83, 0.0, 0.0, v10, v12}];
-      *&v102.a = v96;
+      v85 = v35 * v32;
+      [jtEffect applyScaleToFitFrame:&v102 withComponentTime:0.0 relativeRect:{0.0, v85, v85, 0.0, 0.0, v10, v12}];
+      *&v102.a = v98;
       v102.c = c;
       [jtEffect imageFrameAtTime:&v102 forcePosterFrame:1 includeDropShadow:1 relativeTo:1 basisOrigin:{0.0, 0.0, v10, v12}];
-      v92 = v40;
-      v93 = v39;
+      v94 = v40;
+      v95 = v39;
       if (width <= height)
       {
         v41 = 0.5;
@@ -632,7 +630,7 @@ LABEL_7:
         v41 = width / height * 0.5 - (width / height + -1.0) * 0.5;
       }
 
-      v90 = v38;
+      v92 = v38;
       v42 = v12;
       if (v10 <= v12)
       {
@@ -645,76 +643,76 @@ LABEL_7:
         v41 = ((v10 / v42 + -1.0) * 0.5 + v41) / (v10 / v42);
       }
 
-      v91 = v42;
+      v93 = v42;
       v44 = CGRectMakeWithSizeAndCenterPoint(v37 + 48.0, v38 + 58.0, v10 * v41);
-      v97 = v45;
-      v98 = v46;
-      v99 = v44;
+      v99 = v45;
+      v100 = v46;
+      v101 = v44;
       rect = v47;
-      v87 = v44;
+      v89 = v44;
       if (v46 <= width)
       {
-        v99 = x;
+        v101 = x;
         if (v44 >= x)
         {
           MaxX = CGRectGetMaxX(*&v44);
           v108.origin.x = x;
-          v108.origin.y = v94;
+          v108.origin.y = v96;
           v108.size.width = width;
           v108.size.height = height;
           v49 = CGRectGetMaxX(v108);
           v47 = rect;
-          v99 = v87;
+          v101 = v89;
           if (MaxX > v49)
           {
             v109.origin.x = x;
-            v109.origin.y = v94;
+            v109.origin.y = v96;
             v109.size.width = width;
             v109.size.height = height;
             v50 = CGRectGetMaxX(v109);
-            v110.origin.x = v87;
-            v110.origin.y = v97;
-            v110.size.width = v98;
+            v110.origin.x = v89;
+            v110.origin.y = v99;
+            v110.size.width = v100;
             v110.size.height = rect;
             v51 = CGRectGetWidth(v110);
             v47 = rect;
-            v99 = v50 - v51;
+            v101 = v50 - v51;
           }
         }
       }
 
       if (v47 > height)
       {
-        v52 = v97;
+        v52 = v99;
       }
 
       else
       {
-        v52 = v94;
-        if (v97 >= v94)
+        v52 = v96;
+        if (v99 >= v96)
         {
-          v111.size.width = v98;
-          v111.origin.x = v99;
-          v111.origin.y = v97;
+          v111.size.width = v100;
+          v111.origin.x = v101;
+          v111.origin.y = v99;
           v111.size.height = rect;
           MaxY = CGRectGetMaxY(v111);
           v112.origin.x = x;
-          v112.origin.y = v94;
+          v112.origin.y = v96;
           v112.size.width = width;
           v112.size.height = height;
           v54 = CGRectGetMaxY(v112);
           v47 = rect;
-          v52 = v97;
+          v52 = v99;
           if (MaxY > v54)
           {
             v113.origin.x = x;
-            v113.origin.y = v94;
+            v113.origin.y = v96;
             v113.size.width = width;
             v113.size.height = height;
             v55 = CGRectGetMaxY(v113);
-            v114.size.width = v98;
-            v114.origin.x = v99;
-            v114.origin.y = v97;
+            v114.size.width = v100;
+            v114.origin.x = v101;
+            v114.origin.y = v99;
             v114.size.height = rect;
             v56 = CGRectGetHeight(v114);
             v47 = rect;
@@ -723,36 +721,34 @@ LABEL_7:
         }
       }
 
-      v81 = v52;
-      v82 = width;
-      v84 = x;
+      v83 = v52;
+      v84 = width;
+      v86 = x;
       v57 = v52 + 34.0;
-      v115.origin.x = v99 + 24.0;
+      v115.origin.x = v101 + 24.0;
       v115.origin.y = v52 + 34.0;
-      v115.size.width = v98 + -48.0;
+      v115.size.width = v100 + -48.0;
       v115.size.height = v47 + -58.0;
       v58 = v115.size.height;
-      v88 = CGRectGetMidX(v115);
-      v116.origin.x = v93;
-      v116.origin.y = v92;
+      v90 = CGRectGetMidX(v115);
+      v116.origin.x = v95;
+      v116.origin.y = v94;
       v116.size.width = v43;
-      v116.size.height = v90;
-      v89 = v88 - CGRectGetMidX(v116);
-      v117.origin.x = v99 + 24.0;
+      v116.size.height = v92;
+      v91 = v90 - CGRectGetMidX(v116);
+      v117.origin.x = v101 + 24.0;
       v117.origin.y = v57;
-      v117.size.width = v98 + -48.0;
+      v117.size.width = v100 + -48.0;
       v117.size.height = v58;
       MidY = CGRectGetMidY(v117);
-      v118.origin.x = v93;
-      v118.origin.y = v92;
+      v118.origin.x = v95;
+      v118.origin.y = v94;
       v118.size.width = v43;
-      v118.size.height = v90;
+      v118.size.height = v92;
       v60 = CGRectGetMidY(v118);
-      CGAffineTransformMakeTranslation(&v102, v89, MidY - v60);
-      v100 = v96;
-      v101 = c;
-      [jtEffect addTransform:&v102 withComponentTime:&v100 relativeTo:1 basisOrigin:{0.0, 0.0, v10, v91}];
-      if (JFX_isDrawOverlayBoundsEnabled())
+      CGAffineTransformMakeTranslation(&v102, v91, MidY - v60);
+      v61 = objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_(jtEffect, 0.0, 0.0, v10, v93);
+      if (JFX_isDrawOverlayBoundsEnabled(v61, v62))
       {
         debugOptions = [(CFXFullScreenTextEditViewController *)self debugOptions];
         showTextBoundingBoxes = [debugOptions showTextBoundingBoxes];
@@ -760,51 +756,51 @@ LABEL_7:
         if (showTextBoundingBoxes)
         {
           debugView = [(CFXFullScreenTextEditViewController *)self debugView];
-          [debugView setFrame:{v85, v86, v10, v91}];
+          [debugView setFrame:{v87, v88, v10, v93}];
 
           debugView2 = [(CFXFullScreenTextEditViewController *)self debugView];
-          v65 = [debugView2 viewWithTag:1];
-          [v65 setFrame:{v84, v94, v82, height}];
+          v67 = [debugView2 viewWithTag:1];
+          [v67 setFrame:{v86, v96, v84, height}];
 
           debugView3 = [(CFXFullScreenTextEditViewController *)self debugView];
-          v67 = [debugView3 viewWithTag:2];
-          [v67 setFrame:{0.0, 0.0, v83, v83}];
+          v69 = [debugView3 viewWithTag:2];
+          [v69 setFrame:{0.0, 0.0, v85, v85}];
 
-          v119.origin.x = v99 + 24.0;
+          v119.origin.x = v101 + 24.0;
           v119.origin.y = v57;
-          v119.size.width = v98 + -48.0;
+          v119.size.width = v100 + -48.0;
           v119.size.height = v58;
-          v68 = CGRectGetMidX(v119);
-          v120.origin.x = v99 + 24.0;
+          v70 = CGRectGetMidX(v119);
+          v120.origin.x = v101 + 24.0;
           v120.origin.y = v57;
-          v120.size.width = v98 + -48.0;
+          v120.size.width = v100 + -48.0;
           v120.size.height = v58;
-          v69 = CGRectGetMidY(v120);
+          v71 = CGRectGetMidY(v120);
           debugView4 = [(CFXFullScreenTextEditViewController *)self debugView];
-          v71 = [debugView4 viewWithTag:2];
-          [v71 setCenter:{v68, v69}];
+          v73 = [debugView4 viewWithTag:2];
+          [v73 setCenter:{v70, v71}];
 
-          v121.origin.x = v87;
-          v121.origin.y = v97;
-          v121.size.width = v98;
+          v121.origin.x = v89;
+          v121.origin.y = v99;
+          v121.size.width = v100;
           v121.size.height = rect;
-          v72 = CGRectGetMidX(v121);
-          v122.origin.x = v87;
-          v122.origin.y = v97;
-          v122.size.width = v98;
+          v74 = CGRectGetMidX(v121);
+          v122.origin.x = v89;
+          v122.origin.y = v99;
+          v122.size.width = v100;
           v122.size.height = rect;
-          v73 = CGRectGetMidY(v122);
+          v75 = CGRectGetMidY(v122);
           debugView5 = [(CFXFullScreenTextEditViewController *)self debugView];
-          v75 = [debugView5 viewWithTag:3];
-          [v75 setCenter:{v72, v73}];
+          v77 = [debugView5 viewWithTag:3];
+          [v77 setCenter:{v74, v75}];
 
           debugView6 = [(CFXFullScreenTextEditViewController *)self debugView];
-          v77 = [debugView6 viewWithTag:4];
-          [v77 setFrame:{v99, v81, v98, rect}];
+          v79 = [debugView6 viewWithTag:4];
+          [v79 setFrame:{v101, v83, v100, rect}];
 
           debugView7 = [(CFXFullScreenTextEditViewController *)self debugView];
-          v79 = [debugView7 viewWithTag:5];
-          [v79 setFrame:{v99 + 24.0, v57, v98 + -48.0, v58}];
+          v81 = [debugView7 viewWithTag:5];
+          [v81 setFrame:{v101 + 24.0, v57, v100 + -48.0, v58}];
         }
       }
 
@@ -1423,9 +1419,11 @@ uint64_t __106__CFXFullScreenTextEditViewController_effectEditorView_didStartBeg
 
 uint64_t __63__CFXFullScreenTextEditViewController_CFX_fadeTimingParameters__block_invoke()
 {
-  CFX_fadeTimingParameters_sFadeTimingParameters = [objc_alloc(MEMORY[0x277D75A60]) initWithDampingRatio:0.968245837];
+  v0 = [objc_alloc(MEMORY[0x277D75A60]) initWithDampingRatio:0.968245837];
+  v1 = CFX_fadeTimingParameters_sFadeTimingParameters;
+  CFX_fadeTimingParameters_sFadeTimingParameters = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)CFX_animateWithDuration:(double)duration animatingIn:(BOOL)in completion:(id)completion

@@ -47,7 +47,7 @@
   {
     [(NURegion *)self area];
     v6 = v5;
-    [(NURegion *)self bounds:0];
+    objc_msgSend_bounds(self, 0, 0);
     return v6 / 0;
   }
 
@@ -106,7 +106,7 @@
 
 - ($41299696D20B6C925B74A5D5E4D5CC87)bounds
 {
-  NU::Region::getBounds(self->_imp, v6);
+  NU::Region::getBounds(v6, self->_imp);
   v5 = v6[1];
   retstr->var0 = v6[0];
   retstr->var1 = v5;
@@ -365,7 +365,7 @@ void __23__NURegion_description__block_invoke(uint64_t a1, void *a2)
     {
       if (lastObject)
       {
-        [lastObject bounds];
+        objc_msgSend_bounds(lastObject);
       }
 
       else
@@ -381,7 +381,7 @@ void __23__NURegion_description__block_invoke(uint64_t a1, void *a2)
       memset(buf, 0, sizeof(buf));
       if (lastObject)
       {
-        [lastObject bounds];
+        objc_msgSend_bounds(lastObject);
         v12 = *buf;
         v11 = *&buf[8];
         v13 = *&buf[16] / 2;
@@ -471,7 +471,7 @@ void __61__NURegion_Mutability__regionWithSubregionsOfMinimumDensity___block_inv
   v7 = *(a1 + 40);
   if (v5)
   {
-    [v5 bounds];
+    objc_msgSend_bounds(v5);
   }
 
   else

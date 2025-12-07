@@ -794,7 +794,7 @@ uint64_t __48__PKStrokeGenerator_allowSnappingToRuler_width___block_invoke(uint6
 
 - (CGPoint)getRulerSnapLineOriginAndTangent:(CGPoint *)tangent andNormal:(CGPoint *)normal
 {
-  [(PKStrokeGenerator *)self rulerTransform];
+  objc_msgSend_rulerTransform(self, a2);
   [(PKStrokeGenerator *)self rulerWidth];
   v8 = v7 * 0.5;
   if ([(PKStrokeGenerator *)self isSnappedToRuler])
@@ -851,7 +851,7 @@ uint64_t __48__PKStrokeGenerator_allowSnappingToRuler_width___block_invoke(uint6
 {
   y = center.y;
   x = center.x;
-  [(PKStrokeGenerator *)self rulerTransform];
+  objc_msgSend_rulerTransform(self, a2);
   v6 = *(MEMORY[0x1E695EFF8] + 8) * 0.0 + 0.0 * *MEMORY[0x1E695EFF8] + 0.0;
   [(PKStrokeGenerator *)self rulerWidth];
   v8 = v7 * 0.5 * 0.0 + 0.0 * 0.0 + 0.0 - v6;
@@ -878,7 +878,7 @@ uint64_t __48__PKStrokeGenerator_allowSnappingToRuler_width___block_invoke(uint6
 
     [(PKStrokeGenerator *)self rulerWidth];
     v9 = v8 * 0.5 + v7;
-    [(PKStrokeGenerator *)self rulerTransform];
+    objc_msgSend_rulerTransform(self);
     [(PKStrokeGenerator *)self distanceToRulerCenter:x, y];
     LOBYTE(useRuler) = fabs(v10) < v9 * sqrt(v13 * v13 + v12 * v12);
   }
@@ -903,48 +903,15 @@ uint64_t __48__PKStrokeGenerator_allowSnappingToRuler_width___block_invoke(uint6
   }
 
   end = self->_drawPoints.__end_;
-  v32[0] = *(end - 136);
-  v9 = *(end - 104);
-  v10 = *(end - 72);
-  v11 = *(end - 120);
-  v32[3] = *(end - 88);
-  v32[4] = v10;
-  v32[1] = v11;
-  v32[2] = v9;
-  v12 = *(end - 40);
-  v13 = *(end - 24);
-  v14 = *(end - 56);
-  v33 = *(end - 1);
-  v32[6] = v12;
-  v32[7] = v13;
-  v32[5] = v14;
-  v30[0] = *(end - 136);
-  v15 = *(end - 120);
-  v16 = *(end - 104);
-  v17 = *(end - 72);
-  v30[3] = *(end - 88);
-  v30[4] = v17;
-  v30[1] = v15;
-  v30[2] = v16;
-  v18 = *(end - 56);
-  v19 = *(end - 40);
-  v20 = *(end - 24);
-  v31 = *(end - 1);
-  v30[6] = v19;
-  v30[7] = v20;
-  v30[5] = v18;
-  [(PKStrokeGenerator *)self outputCurrentStrokePoint:v32 lastPoint:v30];
-  v21 = v37;
-  *&self->_baseValues.aspectRatio = v36;
-  *&self->_baseValues.force = v21;
-  v22 = v39;
-  *&self->_baseValues.altitude = v38;
-  *&self->_baseValues.radius2 = v22;
-  v23 = v35;
-  *&self->_baseValues.timestamp = v34;
-  *&self->_baseValues.location.y = v23;
+  objc_msgSend_outputCurrentStrokePoint_lastPoint_(self, *(end - 17), *(end - 16), *(end - 15), *(end - 14), *(end - 13), *(end - 12), *(end - 11), *(end - 10), *(end - 9), *(end - 8), *(end - 7), *(end - 6), *(end - 5), *(end - 4), *(end - 3), *(end - 2), *(end - 1));
+  *&self->_baseValues.aspectRatio = v17;
+  *&self->_baseValues.force = v18;
+  *&self->_baseValues.altitude = v19;
+  *&self->_baseValues.radius2 = v20;
+  *&self->_baseValues.timestamp = v15;
+  *&self->_baseValues.location.y = v16;
   [(PKStrokeGenerator *)self distanceToRulerCenter:*self->_drawPoints.__begin_, *(self->_drawPoints.__begin_ + 1)];
-  [(PKStrokeGenerator *)self setIsSnappedToRulerTopSide:v24 > 0.0];
+  [(PKStrokeGenerator *)self setIsSnappedToRulerTopSide:v9 > 0.0];
   [(PKStrokeGenerator *)self setIsSnappedToRuler:1];
   _clipPlane = [(PKStroke *)self->_currentStroke _clipPlane];
 
@@ -954,12 +921,12 @@ uint64_t __48__PKStrokeGenerator_allowSnappingToRuler_width___block_invoke(uint6
   }
 
   begin = self->_drawPoints.__begin_;
-  v27 = self->_drawPoints.__end_;
-  while (begin != v27)
+  v12 = self->_drawPoints.__end_;
+  while (begin != v12)
   {
     [(PKStrokeGenerator *)self snapPointToRuler:*begin, *(begin + 1)];
-    *begin = v28;
-    *(begin + 1) = v29;
+    *begin = v13;
+    *(begin + 1) = v14;
     begin = (begin + 136);
   }
 }
@@ -1018,7 +985,7 @@ uint64_t __48__PKStrokeGenerator_allowSnappingToRuler_width___block_invoke(uint6
         end = self->_drawPoints.__end_;
         v6 = *(end - 17) - *begin;
         v7 = *(end - 16) - *(begin + 1);
-        [(PKStrokeGenerator *)self rulerTransform];
+        objc_msgSend_rulerTransform(self);
         v8 = v7 * v7 + v6 * v6;
         if (v8 > self->_inputScale * (self->_inputScale * 225.0))
         {
@@ -1063,7 +1030,7 @@ uint64_t __48__PKStrokeGenerator_allowSnappingToRuler_width___block_invoke(uint6
     v8 = v7;
     [(PKStrokeGenerator *)self rulerWidth];
     v10 = v9 * 0.5;
-    [(PKStrokeGenerator *)self rulerTransform];
+    objc_msgSend_rulerTransform(self);
     v11 = v10 * sqrt(v13 * v13 + v12 * v12);
     if ([(PKStrokeGenerator *)self isSnappedToRulerTopSide])
     {
@@ -1159,7 +1126,7 @@ uint64_t __46__PKStrokeGenerator_getUpdatedRangeFromIndex___block_invoke(uint64_
   v15 = *&a5->var1;
   v17[0] = a5->var0;
   v17[1] = v15;
-  return [(PKStrokeGenerator *)self outputPoint:v20 baseValues:v19 lastPoint:v17];
+  return objc_msgSend_outputPoint_baseValues_lastPoint_(self, point, v20, v19, v17);
 }
 
 - (_PKStrokePoint)outputPoint:(SEL)point baseValues:(id *)values lastPoint:(_PKStrokePoint *)lastPoint
@@ -1987,9 +1954,9 @@ double __36__PKStrokeGenerator_latestTimestamp__block_invoke(uint64_t a1)
   }
 }
 
-void __31__PKStrokeGenerator_addPoints___block_invoke(void *a1)
+void __31__PKStrokeGenerator_addPoints___block_invoke(uint64_t a1)
 {
-  v1 = a1[4];
+  v1 = *(a1 + 32);
   if (*(v1 + 184))
   {
     v3 = *(v1 + 416);
@@ -2000,8 +1967,8 @@ void __31__PKStrokeGenerator_addPoints___block_invoke(void *a1)
     v6 = 0;
     v7 = 0;
     __p = 0;
-    std::vector<PKInputPoint>::__init_with_size[abi:ne200100]<PKInputPoint*,PKInputPoint*>(&__p, a1[5], a1[6], 0xF0F0F0F0F0F0F0F1 * ((a1[6] - a1[5]) >> 3));
-    v4[4] = a1[4];
+    std::vector<PKInputPoint>::__init_with_size[abi:ne200100]<PKInputPoint*,PKInputPoint*>(&__p, *(a1 + 40), *(a1 + 48), 0xF0F0F0F0F0F0F0F1 * ((*(a1 + 48) - *(a1 + 40)) >> 3));
+    v4[4] = *(a1 + 32);
     dispatch_sync(v3, v4);
     if (__p)
     {
@@ -2011,9 +1978,9 @@ void __31__PKStrokeGenerator_addPoints___block_invoke(void *a1)
   }
 }
 
-uint64_t __31__PKStrokeGenerator_addPoints___block_invoke_2(uint64_t result)
+void *__31__PKStrokeGenerator_addPoints___block_invoke_2(void *result)
 {
-  v3 = *(result + 48) - *(result + 40);
+  v3 = result[6] - result[5];
   if (v3 >= 1)
   {
     v18 = v1;
@@ -2033,8 +2000,8 @@ uint64_t __31__PKStrokeGenerator_addPoints___block_invoke_2(uint64_t result)
 
     do
     {
-      v8 = *(v4 + 32);
-      v9 = *(v4 + 40) + v5;
+      v8 = v4[4];
+      v9 = v4[5] + v5;
       v16[0] = *v9;
       v10 = *(v9 + 64);
       v12 = *(v9 + 16);
@@ -2154,7 +2121,7 @@ void __32__PKStrokeGenerator_closeStroke__block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __32__PKStrokeGenerator_closeStroke__block_invoke_2(uint64_t a1)
+void *__32__PKStrokeGenerator_closeStroke__block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _removePredictedTouches];
   v2 = *(*(a1 + 32) + 16);
@@ -2237,7 +2204,7 @@ uint64_t __32__PKStrokeGenerator_closeStroke__block_invoke_2(uint64_t a1)
           [v9 addInputPoint:&var0];
           if (v9)
           {
-            [v9 currentFilteredPoint];
+            objc_msgSend_currentFilteredPoint(v9);
           }
 
           else
@@ -2669,7 +2636,7 @@ LABEL_15:
   v12 = 0;
   v13 = 0;
   PKPointsFromPath(function, &__p, a5, 0.0);
-  [path inputPointsFromPoints:&__p velocityForDistanceFunction:v9];
+  objc_msgSend_inputPointsFromPoints_velocityForDistanceFunction_(path);
   if (__p)
   {
     v12 = __p;
@@ -2747,27 +2714,27 @@ void __91__PKStrokeGenerator_strokeFromInputPoints_inputType_ink_inputScale_rand
 {
   inkCopy = ink;
   functionCopy = function;
-  v16 = objc_opt_class();
-  if (v16)
+  v15 = objc_opt_class();
+  if (v15)
   {
-    [v16 inputPointsFromPath:path maxSegmentLength:functionCopy velocityForDistanceFunction:length];
+    objc_msgSend_inputPointsFromPath_maxSegmentLength_velocityForDistanceFunction_(v15, length);
   }
 
   else
   {
     __p = 0;
+    v19 = 0;
     v20 = 0;
-    v21 = 0;
   }
 
-  v17 = [(PKStrokeGenerator *)self strokeFromInputPoints:&__p inputType:0 ink:inkCopy inputScale:arc4random() randomSeed:class strokeClass:scale];
+  v16 = [(PKStrokeGenerator *)self strokeFromInputPoints:&__p inputType:0 ink:inkCopy inputScale:arc4random() randomSeed:class strokeClass:scale];
   if (__p)
   {
-    v20 = __p;
+    v19 = __p;
     operator delete(__p);
   }
 
-  return v17;
+  return v16;
 }
 
 - (id)strokeFromPoints:(CGPoint *)points count:(unint64_t)count ink:(id)ink inputScale:(double)scale strokeClass:(Class)class
@@ -2780,7 +2747,7 @@ void __91__PKStrokeGenerator_strokeFromInputPoints_inputType_ink_inputScale_rand
   v13 = objc_opt_class();
   if (v13)
   {
-    [v13 inputPointsFromPoints:&v19 velocityForDistanceFunction:0];
+    objc_msgSend_inputPointsFromPoints_velocityForDistanceFunction_(v13);
   }
 
   else
@@ -2809,72 +2776,60 @@ void __91__PKStrokeGenerator_strokeFromInputPoints_inputType_ink_inputScale_rand
 - (id)strokeFromPoints:(const void *)points sourceStroke:(id)stroke inputScale:(double)scale averageInputPoint:(id *)point
 {
   strokeCopy = stroke;
-  v11 = objc_opt_class();
-  v26 = MEMORY[0x1E69E9820];
-  v27 = 3221225472;
-  v28 = __80__PKStrokeGenerator_strokeFromPoints_sourceStroke_inputScale_averageInputPoint___block_invoke;
-  v29 = &__block_descriptor_168_e8_d16__0d8l;
-  v12 = *&point->var13;
-  v36 = *&point->var11;
-  v37 = v12;
-  var15 = point->var15;
-  v13 = *&point->var5;
-  v32 = *&point->var3;
-  v33 = v13;
-  v14 = *&point->var9;
-  v34 = *&point->var7;
-  v35 = v14;
-  v15 = *&point->var1;
-  var0 = point->var0;
-  v31 = v15;
-  if (v11)
+  v10 = objc_opt_class();
+  v21 = MEMORY[0x1E69E9820];
+  v22 = 3221225472;
+  v23 = __80__PKStrokeGenerator_strokeFromPoints_sourceStroke_inputScale_averageInputPoint___block_invoke;
+  v24 = &__block_descriptor_168_e8_d16__0d8l;
+  v25 = *point;
+  if (v10)
   {
-    [v11 inputPointsFromPoints:points velocityForDistanceFunction:&v26];
-    if (v40 != v39)
+    objc_msgSend_inputPointsFromPoints_velocityForDistanceFunction_(v10, MEMORY[0x1E69E9820], 3221225472, __80__PKStrokeGenerator_strokeFromPoints_sourceStroke_inputScale_averageInputPoint___block_invoke, &__block_descriptor_168_e8_d16__0d8l, *&v25.var0, *&v25.var1, *&v25.var3, *&v25.var5, *&v25.var7, *&v25.var9, *&v25.var11, *&v25.var13, v25.var15);
+    if (v27 != v26)
     {
-      v16 = 0xF0F0F0F0F0F0F0F1 * ((v40 - v39) >> 3);
-      if (v16 <= 1)
+      v11 = 0xF0F0F0F0F0F0F0F1 * ((v27 - v26) >> 3);
+      if (v11 <= 1)
       {
-        v16 = 1;
+        v11 = 1;
       }
 
-      v17 = v39 + 112;
+      v12 = v26 + 112;
       do
       {
         var13 = point->var13;
         var5 = point->var5;
-        v20 = *&point->var3;
-        *(v17 - 6) = *&point->var1;
-        *(v17 - 5) = v20;
-        *(v17 - 8) = var5;
-        *v17 = var13;
-        v17 += 17;
-        --v16;
+        v15 = *&point->var3;
+        *(v12 - 6) = *&point->var1;
+        *(v12 - 5) = v15;
+        *(v12 - 8) = var5;
+        *v12 = var13;
+        v12 += 17;
+        --v11;
       }
 
-      while (v16);
+      while (v11);
     }
   }
 
   else
   {
-    v39 = 0;
-    v40 = 0;
-    v41 = 0;
+    v26 = 0;
+    v27 = 0;
+    v28 = 0;
   }
 
   _inputType = [strokeCopy _inputType];
-  v22 = [strokeCopy ink];
-  v23 = arc4random();
-  v24 = [(PKStrokeGenerator *)self strokeFromInputPoints:&v39 inputType:_inputType ink:v22 inputScale:v23 randomSeed:objc_opt_class() strokeClass:scale];
+  v17 = [strokeCopy ink];
+  v18 = arc4random();
+  v19 = [(PKStrokeGenerator *)self strokeFromInputPoints:&v26 inputType:_inputType ink:v17 inputScale:v18 randomSeed:objc_opt_class() strokeClass:scale];
 
-  if (v39)
+  if (v26)
   {
-    v40 = v39;
-    operator delete(v39);
+    v27 = v26;
+    operator delete(v26);
   }
 
-  return v24;
+  return v19;
 }
 
 - (id)strokeFromLineSegments:(const void *)segments maxSegmentLength:(double)length ink:(id)ink inputScale:(double)scale strokeClass:(Class)class

@@ -18,27 +18,27 @@
 
 - (void)MCDeepCopyEntriesFromDictionary:()MCUtilities
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [v4 objectForKey:v9];
         v11 = [self objectForKey:v9];
         v12 = v11;
@@ -88,38 +88,36 @@
 LABEL_18:
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)MCDeepCopyMissingEntriesFromDictionary:()MCUtilities
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v18;
+    v7 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
+        v9 = *(*(&v16 + 1) + 8 * i);
         v10 = [self objectForKey:v9];
         v11 = [v4 objectForKey:v9];
         if (v11)
@@ -176,28 +174,26 @@ LABEL_18:
 LABEL_20:
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)MCSetObjectIfNotNil:()MCUtilities forKey:
 {
   if (a3)
   {
-    return [self setObject:? forKey:?];
+    return [result setObject:? forKey:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)MCSetBoolRestriction:()MCUtilities value:
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = +[MCRestrictionManager sharedManager];
   defaultRestrictions = [v7 defaultRestrictions];
@@ -208,13 +204,13 @@ LABEL_20:
 
   if (!v11)
   {
-    v17 = MEMORY[0x1E695DF30];
-    v18 = *MEMORY[0x1E695D940];
-    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not a BOOL restriction.", v6];
-    v20 = [v17 exceptionWithName:v18 reason:v19 userInfo:0];
-    v21 = v20;
+    v16 = MEMORY[0x1E695DF30];
+    v17 = *MEMORY[0x1E695D940];
+    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not a BOOL restriction.", v6];
+    v19 = [v16 exceptionWithName:v17 reason:v18 userInfo:0];
+    v20 = v19;
 
-    objc_exception_throw(v20);
+    objc_exception_throw(v19);
   }
 
   v12 = [self objectForKeyedSubscript:@"restrictedBool"];
@@ -225,16 +221,15 @@ LABEL_20:
     dictionary = [MEMORY[0x1E695DF90] dictionary];
   }
 
-  v22[0] = @"preference";
-  v22[1] = @"value";
-  v23[0] = v11;
+  v21[0] = @"preference";
+  v21[1] = @"value";
+  v22[0] = v11;
   v14 = [MEMORY[0x1E696AD98] numberWithBool:a4];
-  v23[1] = v14;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+  v22[1] = v14;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
   [dictionary setObject:v15 forKeyedSubscript:v6];
 
   [self setObject:dictionary forKeyedSubscript:@"restrictedBool"];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)MCDeleteBoolRestriction:()MCUtilities
@@ -264,7 +259,7 @@ LABEL_20:
 
 - (void)MCSetValueRestriction:()MCUtilities value:
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v7)
@@ -278,13 +273,13 @@ LABEL_20:
 
     if (!v12)
     {
-      v21 = MEMORY[0x1E695DF30];
-      v22 = *MEMORY[0x1E695D940];
-      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not a value restriction.", v6];
-      v24 = [v21 exceptionWithName:v22 reason:v23 userInfo:0];
-      v25 = v24;
+      v20 = MEMORY[0x1E695DF30];
+      v21 = *MEMORY[0x1E695D940];
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not a value restriction.", v6];
+      v23 = [v20 exceptionWithName:v21 reason:v22 userInfo:0];
+      v24 = v23;
 
-      objc_exception_throw(v24);
+      objc_exception_throw(v23);
     }
 
     v13 = [self objectForKeyedSubscript:@"restrictedValue"];
@@ -295,11 +290,11 @@ LABEL_20:
       dictionary = [MEMORY[0x1E695DF90] dictionary];
     }
 
-    v26[0] = @"preferSmallerValues";
-    v26[1] = @"value";
-    v27[0] = v12;
-    v27[1] = v7;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v25[0] = @"preferSmallerValues";
+    v25[1] = @"value";
+    v26[0] = v12;
+    v26[1] = v7;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
     [dictionary setObject:v15 forKeyedSubscript:v6];
 
     [self setObject:dictionary forKeyedSubscript:@"restrictedValue"];
@@ -328,13 +323,11 @@ LABEL_20:
       [selfCopy2 setObject:v19 forKeyedSubscript:@"restrictedValue"];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)MCSetIntersectionRestriction:()MCUtilities values:
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v7)
@@ -347,13 +340,13 @@ LABEL_20:
 
     if (!v11)
     {
-      v20 = MEMORY[0x1E695DF30];
-      v21 = *MEMORY[0x1E695D940];
-      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not an intersection restriction.", v6];
-      v23 = [v20 exceptionWithName:v21 reason:v22 userInfo:0];
-      v24 = v23;
+      v19 = MEMORY[0x1E695DF30];
+      v20 = *MEMORY[0x1E695D940];
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not an intersection restriction.", v6];
+      v22 = [v19 exceptionWithName:v20 reason:v21 userInfo:0];
+      v23 = v22;
 
-      objc_exception_throw(v23);
+      objc_exception_throw(v22);
     }
 
     v12 = [self objectForKeyedSubscript:@"intersection"];
@@ -364,9 +357,9 @@ LABEL_20:
       dictionary = [MEMORY[0x1E695DF90] dictionary];
     }
 
-    v25 = @"values";
-    v26[0] = v7;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = @"values";
+    v25[0] = v7;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     [dictionary setObject:v14 forKeyedSubscript:v6];
 
     [self setObject:dictionary forKeyedSubscript:@"intersection"];
@@ -395,13 +388,11 @@ LABEL_20:
       [selfCopy2 setObject:v18 forKeyedSubscript:@"intersection"];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)MCSetUnionRestriction:()MCUtilities values:
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v7)
@@ -414,13 +405,13 @@ LABEL_20:
 
     if (!v11)
     {
-      v20 = MEMORY[0x1E695DF30];
-      v21 = *MEMORY[0x1E695D940];
-      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not an union restriction.", v6];
-      v23 = [v20 exceptionWithName:v21 reason:v22 userInfo:0];
-      v24 = v23;
+      v19 = MEMORY[0x1E695DF30];
+      v20 = *MEMORY[0x1E695D940];
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not an union restriction.", v6];
+      v22 = [v19 exceptionWithName:v20 reason:v21 userInfo:0];
+      v23 = v22;
 
-      objc_exception_throw(v23);
+      objc_exception_throw(v22);
     }
 
     v12 = [self objectForKeyedSubscript:@"union"];
@@ -431,9 +422,9 @@ LABEL_20:
       dictionary = [MEMORY[0x1E695DF90] dictionary];
     }
 
-    v25 = @"values";
-    v26[0] = v7;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = @"values";
+    v25[0] = v7;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     [dictionary setObject:v14 forKeyedSubscript:v6];
 
     [self setObject:dictionary forKeyedSubscript:@"union"];
@@ -462,13 +453,11 @@ LABEL_20:
       [selfCopy2 setObject:v18 forKeyedSubscript:@"union"];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)MCSetIntersectionSetting:()MCUtilities values:
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v7)
@@ -481,13 +470,13 @@ LABEL_20:
 
     if (!v11)
     {
-      v20 = MEMORY[0x1E695DF30];
-      v21 = *MEMORY[0x1E695D940];
-      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not an intersection setting.", v6];
-      v23 = [v20 exceptionWithName:v21 reason:v22 userInfo:0];
-      v24 = v23;
+      v19 = MEMORY[0x1E695DF30];
+      v20 = *MEMORY[0x1E695D940];
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not an intersection setting.", v6];
+      v22 = [v19 exceptionWithName:v20 reason:v21 userInfo:0];
+      v23 = v22;
 
-      objc_exception_throw(v23);
+      objc_exception_throw(v22);
     }
 
     v12 = [self objectForKeyedSubscript:@"intersection"];
@@ -498,9 +487,9 @@ LABEL_20:
       dictionary = [MEMORY[0x1E695DF90] dictionary];
     }
 
-    v25 = @"values";
-    v26[0] = v7;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = @"values";
+    v25[0] = v7;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     [dictionary setObject:v14 forKeyedSubscript:v6];
 
     [self setObject:dictionary forKeyedSubscript:@"intersection"];
@@ -529,13 +518,11 @@ LABEL_20:
       [selfCopy2 setObject:v18 forKeyedSubscript:@"intersection"];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)MCSetUnionSetting:()MCUtilities values:
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   v7 = a4;
   if (v7)
@@ -548,13 +535,13 @@ LABEL_20:
 
     if (!v11)
     {
-      v20 = MEMORY[0x1E695DF30];
-      v21 = *MEMORY[0x1E695D940];
-      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not an union setting.", v6];
-      v23 = [v20 exceptionWithName:v21 reason:v22 userInfo:0];
-      v24 = v23;
+      v19 = MEMORY[0x1E695DF30];
+      v20 = *MEMORY[0x1E695D940];
+      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ is not an union setting.", v6];
+      v22 = [v19 exceptionWithName:v20 reason:v21 userInfo:0];
+      v23 = v22;
 
-      objc_exception_throw(v23);
+      objc_exception_throw(v22);
     }
 
     v12 = [self objectForKeyedSubscript:@"union"];
@@ -565,9 +552,9 @@ LABEL_20:
       dictionary = [MEMORY[0x1E695DF90] dictionary];
     }
 
-    v25 = @"values";
-    v26[0] = v7;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = @"values";
+    v25[0] = v7;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     [dictionary setObject:v14 forKeyedSubscript:v6];
 
     [self setObject:dictionary forKeyedSubscript:@"union"];
@@ -596,8 +583,6 @@ LABEL_20:
       [selfCopy2 setObject:v18 forKeyedSubscript:@"union"];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_MCFilterRestrictionPayloadKeys:()MCUtilities filterOut:
@@ -624,7 +609,7 @@ LABEL_20:
 - (void)MCFixUpRestrictionsDictionaryForMDMReporting
 {
   selfCopy = self;
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v2 = [self objectForKey:@"restrictedValue"];
   v3 = v2;
   if (v2)
@@ -674,33 +659,33 @@ LABEL_20:
   v19 = [selfCopy objectForKey:@"intersection"];
   if (v19)
   {
-    v35 = v19;
-    v36 = selfCopy;
-    v37 = v3;
+    v34 = v19;
+    v35 = selfCopy;
+    v36 = v3;
     v20 = [v19 mutableCopy];
     +[MCRestrictionUtilities intersectionFeaturesWithPayloadRestictionKeyAlias];
+    v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    obj = v48 = 0u;
-    v21 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+    obj = v47 = 0u;
+    v21 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v46;
-      v38 = *v46;
+      v23 = *v45;
+      v37 = *v45;
       do
       {
         v24 = 0;
-        v39 = v22;
+        v38 = v22;
         do
         {
-          if (*v46 != v23)
+          if (*v45 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v45 + 1) + 8 * v24);
+          v25 = *(*(&v44 + 1) + 8 * v24);
           v26 = [MCRestrictionUtilities intersectionPayloadRestrictionKeysForFeature:v25];
           v27 = [v20 objectForKey:v25];
           if (v27)
@@ -715,209 +700,207 @@ LABEL_20:
 
           if (!v28)
           {
-            v43 = 0u;
-            v44 = 0u;
-            v41 = 0u;
             v42 = 0u;
+            v43 = 0u;
+            v40 = 0u;
+            v41 = 0u;
             v29 = v26;
-            v30 = [v29 countByEnumeratingWithState:&v41 objects:v49 count:16];
+            v30 = [v29 countByEnumeratingWithState:&v40 objects:v48 count:16];
             if (v30)
             {
               v31 = v30;
-              v32 = *v42;
+              v32 = *v41;
               do
               {
                 for (i = 0; i != v31; ++i)
                 {
-                  if (*v42 != v32)
+                  if (*v41 != v32)
                   {
                     objc_enumerationMutation(v29);
                   }
 
-                  [v20 setObject:v27 forKey:*(*(&v41 + 1) + 8 * i)];
+                  [v20 setObject:v27 forKey:*(*(&v40 + 1) + 8 * i)];
                 }
 
-                v31 = [v29 countByEnumeratingWithState:&v41 objects:v49 count:16];
+                v31 = [v29 countByEnumeratingWithState:&v40 objects:v48 count:16];
               }
 
               while (v31);
             }
 
             [v20 removeObjectForKey:v25];
-            v23 = v38;
-            v22 = v39;
+            v23 = v37;
+            v22 = v38;
           }
 
           ++v24;
         }
 
         while (v24 != v22);
-        v22 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v22 = [obj countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
       while (v22);
     }
 
-    [v36 setObject:v20 forKey:@"intersection"];
-    v3 = v37;
-    v19 = v35;
+    [v35 setObject:v20 forKey:@"intersection"];
+    v3 = v36;
+    v19 = v34;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)MCSanitizeRestrictions
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v2 = +[MCRestrictionManager sharedManager];
   defaultRestrictions = [v2 defaultRestrictions];
 
   v4 = [self objectForKeyedSubscript:@"restrictedBool"];
   v5 = [v4 mutableCopy];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v57 objects:v64 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v56 objects:v63 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v58;
+    v9 = *v57;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v58 != v9)
+        if (*v57 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v57 + 1) + 8 * i);
+        v11 = *(*(&v56 + 1) + 8 * i);
         if (([self MCValidateBoolRestriction:v11 inRestrictions:v6 defaultRestrictions:defaultRestrictions] & 1) == 0)
         {
           [v5 setObject:0 forKeyedSubscript:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v57 objects:v64 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v56 objects:v63 count:16];
     }
 
     while (v8);
   }
 
-  v43 = v6;
+  v42 = v6;
 
   v12 = [v5 copy];
   [self setObject:v12 forKeyedSubscript:@"restrictedBool"];
 
   v13 = [self objectForKeyedSubscript:@"restrictedValue"];
   v14 = [v13 mutableCopy];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v15 = v13;
-  v16 = [v15 countByEnumeratingWithState:&v53 objects:v63 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v52 objects:v62 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v54;
+    v18 = *v53;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v54 != v18)
+        if (*v53 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v53 + 1) + 8 * j);
+        v20 = *(*(&v52 + 1) + 8 * j);
         if (([self MCValidateValueRestriction:v20 inRestrictions:v15 defaultRestrictions:defaultRestrictions] & 1) == 0)
         {
           [v14 setObject:0 forKeyedSubscript:v20];
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v53 objects:v63 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v52 objects:v62 count:16];
     }
 
     while (v17);
   }
 
-  v44 = v5;
+  v43 = v5;
 
-  v42 = v14;
+  v41 = v14;
   v21 = [v14 copy];
   [self setObject:v21 forKeyedSubscript:@"restrictedValue"];
 
   v22 = [self objectForKeyedSubscript:@"intersection"];
   v23 = [v22 mutableCopy];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   v24 = v22;
-  v25 = [v24 countByEnumeratingWithState:&v49 objects:v62 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v48 objects:v61 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v50;
+    v27 = *v49;
     do
     {
       for (k = 0; k != v26; ++k)
       {
-        if (*v50 != v27)
+        if (*v49 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v29 = *(*(&v49 + 1) + 8 * k);
+        v29 = *(*(&v48 + 1) + 8 * k);
         if (([self MCValidateIntersectionRestriction:v29 inRestrictions:v24 defaultRestrictions:defaultRestrictions] & 1) == 0)
         {
           [v23 setObject:0 forKeyedSubscript:v29];
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v49 objects:v62 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v48 objects:v61 count:16];
     }
 
     while (v26);
   }
 
-  v41 = v23;
+  v40 = v23;
   v30 = [v23 copy];
   [self setObject:v30 forKeyedSubscript:@"intersection"];
 
   v31 = [self objectForKeyedSubscript:?];
   v32 = [v31 mutableCopy];
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   v33 = v31;
-  v34 = [v33 countByEnumeratingWithState:&v45 objects:v61 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v44 objects:v60 count:16];
   if (v34)
   {
     v35 = v34;
-    v36 = *v46;
+    v36 = *v45;
     do
     {
       for (m = 0; m != v35; ++m)
       {
-        if (*v46 != v36)
+        if (*v45 != v36)
         {
           objc_enumerationMutation(v33);
         }
 
-        v38 = *(*(&v45 + 1) + 8 * m);
+        v38 = *(*(&v44 + 1) + 8 * m);
         if (([self MCValidateUnionRestriction:v38 inRestrictions:v33 defaultRestrictions:defaultRestrictions] & 1) == 0)
         {
           [v32 setObject:0 forKeyedSubscript:v38];
         }
       }
 
-      v35 = [v33 countByEnumeratingWithState:&v45 objects:v61 count:16];
+      v35 = [v33 countByEnumeratingWithState:&v44 objects:v60 count:16];
     }
 
     while (v35);
@@ -925,8 +908,6 @@ LABEL_20:
 
   v39 = [v32 copy];
   [self setObject:v39 forKeyedSubscript:@"union"];
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 @end

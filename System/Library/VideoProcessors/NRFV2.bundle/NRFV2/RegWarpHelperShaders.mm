@@ -7,53 +7,53 @@
 - (RegWarpHelperShaders)initWithMetalContext:(id)context
 {
   contextCopy = context;
-  v17 = 0;
+  v22 = 0;
   if (!contextCopy)
   {
-    FigDebugAssert3();
-    v16 = 0;
-    v15 = 0;
-    v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-    os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v15.receiver, v15.super_class, v16, *&v17[1], v18, v19);
+    v21 = 0;
+    v20 = 0;
+    v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+    os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
 
 LABEL_10:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_5;
   }
 
-  v14.receiver = self;
-  v14.super_class = RegWarpHelperShaders;
-  v6 = [(RegWarpHelperShaders *)&v14 init];
-  if (!v6)
+  v15.receiver = self;
+  v15.super_class = RegWarpHelperShaders;
+  v7 = [(RegWarpHelperShaders *)&v15 init];
+  if (!v7)
   {
     sub_295893A74();
     goto LABEL_5;
   }
 
-  v7 = objc_msgSend_computePipelineStateFor_constants_fault_(contextCopy, v5, @"rwppDownsampleAndConvert10To8", 0, &v17);
-  downsampleAndConvert10To8 = v6->_downsampleAndConvert10To8;
-  v6->_downsampleAndConvert10To8 = v7;
+  v8 = objc_msgSend_computePipelineStateFor_constants_fault_(contextCopy, v6, @"rwppDownsampleAndConvert10To8", 0, &v22);
+  downsampleAndConvert10To8 = v7->_downsampleAndConvert10To8;
+  v7->_downsampleAndConvert10To8 = v8;
 
-  if (!v7)
+  if (!v8)
   {
-    sub_295893A04(v6);
+    sub_295893A04(v7);
     goto LABEL_10;
   }
 
-  v10 = objc_msgSend_computePipelineStateFor_constants_fault_(contextCopy, v9, @"downsampleRGBToLuma", 0, &v17);
-  downsampleRGBToLuma = v6->_downsampleRGBToLuma;
-  v6->_downsampleRGBToLuma = v10;
+  v11 = objc_msgSend_computePipelineStateFor_constants_fault_(contextCopy, v10, @"downsampleRGBToLuma", 0, &v22);
+  downsampleRGBToLuma = v7->_downsampleRGBToLuma;
+  v7->_downsampleRGBToLuma = v11;
 
-  if (!v10)
+  if (!v11)
   {
-    sub_295893994(v6);
+    sub_295893994(v7);
     goto LABEL_10;
   }
 
 LABEL_5:
 
-  return v6;
+  return v7;
 }
 
 @end

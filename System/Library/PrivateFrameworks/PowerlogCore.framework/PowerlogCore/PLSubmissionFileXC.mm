@@ -7,7 +7,6 @@
 - (void)copyAndPrepareLog;
 - (void)getXCSQLFile;
 - (void)obfuscateTimestampsForTable:(id)table connection:(id)connection withOffset:(double)offset;
-- (void)randomizedBaseOffset;
 - (void)submit;
 - (void)xcodeVersionFromUserActions;
 @end
@@ -36,7 +35,7 @@
 
 - (BOOL)copyAndPrepareLog
 {
-  v86[6] = *MEMORY[0x1E69E9840];
+  v92[6] = *MEMORY[0x1E69E9840];
   taskingConfig = [(PLSubmissionFile *)self taskingConfig];
   if ([taskingConfig submitReasonType] != 1)
   {
@@ -50,8 +49,8 @@ LABEL_5:
 
     if (v10)
     {
-      v11 = PLLogSubmission();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = PLLogSubmission(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBG copyAndPrepareLog];
       }
@@ -61,14 +60,14 @@ LABEL_5:
     }
 
     defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
-    v82 = 0;
-    v13 = [defaultManager2 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v82];
-    v11 = v82;
+    v88 = 0;
+    v14 = [defaultManager2 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v88];
+    v12 = v88;
 
-    if ((v13 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
-      v19 = PLLogSubmission();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = PLLogSubmission(v15);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBG copyAndPrepareLog];
       }
@@ -82,136 +81,138 @@ LABEL_5:
 
     if (submitReasonType != 1)
     {
-      v16 = +[PowerlogCore sharedCore];
-      storage = [v16 storage];
+      v18 = +[PowerlogCore sharedCore];
+      storage = [v18 storage];
       [storage blockingFlushCachesWithReason:@"XcodeOrganizer"];
     }
 
     getXCSQLFile = [(PLSubmissionFileXC *)self getXCSQLFile];
-    v19 = [v8 stringByAppendingPathComponent:getXCSQLFile];
+    v21 = [v8 stringByAppendingPathComponent:getXCSQLFile];
 
-    v20 = [v19 stringByAppendingFormat:@".gz"];
-    if ([(PLSubmissionFileXC *)self copyDatabaseToPath:v19])
+    v22 = [v21 stringByAppendingFormat:@".gz"];
+    v23 = [(PLSubmissionFileXC *)self copyDatabaseToPath:v21];
+    if (v23)
     {
-      v79 = [[PLSQLiteConnection alloc] initWithFilePath:v19];
+      v85 = [[PLSQLiteConnection alloc] initWithFilePath:v21];
       [(PLSubmissionFileXC *)self randomizedBaseOffset];
-      v22 = v21;
-      [(PLSubmissionFileXC *)self obfuscateTimestampsForTable:@"XcodeMetrics_TimeOffset_365_4" connection:v79 withOffset:?];
-      [(PLSubmissionFileXC *)self obfuscateTimestampsForTable:@"XcodeMetrics_UserAction_365_4" connection:v79 withOffset:v22];
-      [(PLSQLiteConnection *)v79 fullVacuum];
-      v23 = [(PLSubmissionFileXC *)self userActionCountForConnection:v79];
-      v85[0] = @"has_user_actions";
-      v75 = [MEMORY[0x1E696AD98] numberWithBool:v23 > 0];
-      v86[0] = v75;
-      v86[1] = &unk_1F540A230;
-      v85[1] = @"preparation_stage";
-      v85[2] = @"user_action_row_count";
-      v65 = v23;
-      v74 = [MEMORY[0x1E696AD98] numberWithInt:v23];
-      v86[2] = v74;
-      v85[3] = @"xcsql_size";
-      v24 = MEMORY[0x1E696AD98];
-      v73 = +[PPSCoreStorage sharedSQLStorage];
-      xCSQLConnection = [v73 XCSQLConnection];
-      filePath2 = [xCSQLConnection filePath];
-      v70 = [v24 numberWithLongLong:{+[PLFileStats fileSizeAtPath:](PLFileStats, "fileSizeAtPath:", filePath2)}];
-      v86[3] = v70;
-      v85[4] = @"shm_size";
-      v25 = MEMORY[0x1E696AD98];
-      v77 = v19;
-      v69 = +[PPSCoreStorage sharedSQLStorage];
-      xCSQLConnection2 = [v69 XCSQLConnection];
-      filePath3 = [xCSQLConnection2 filePath];
-      v66 = [filePath3 stringByAppendingString:@"-shm"];
-      v26 = [v25 numberWithLongLong:{+[PLFileStats fileSizeAtPath:](PLFileStats, "fileSizeAtPath:", v66)}];
-      v86[4] = v26;
-      v85[5] = @"wal_size";
-      v78 = v20;
+      v25 = v24;
+      [(PLSubmissionFileXC *)self obfuscateTimestampsForTable:@"XcodeMetrics_TimeOffset_365_4" connection:v85 withOffset:?];
+      [(PLSubmissionFileXC *)self obfuscateTimestampsForTable:@"XcodeMetrics_UserAction_365_4" connection:v85 withOffset:v25];
+      [(PLSQLiteConnection *)v85 fullVacuum];
+      v26 = [(PLSubmissionFileXC *)self userActionCountForConnection:v85];
+      v91[0] = @"has_user_actions";
+      v81 = [MEMORY[0x1E696AD98] numberWithBool:v26 > 0];
+      v92[0] = v81;
+      v92[1] = &unk_1F540A230;
+      v91[1] = @"preparation_stage";
+      v91[2] = @"user_action_row_count";
+      v71 = v26;
+      v80 = [MEMORY[0x1E696AD98] numberWithInt:v26];
+      v92[2] = v80;
+      v91[3] = @"xcsql_size";
       v27 = MEMORY[0x1E696AD98];
-      v28 = +[PPSCoreStorage sharedSQLStorage];
-      xCSQLConnection3 = [v28 XCSQLConnection];
+      v79 = +[PPSCoreStorage sharedSQLStorage];
+      xCSQLConnection = [v79 XCSQLConnection];
+      filePath2 = [xCSQLConnection filePath];
+      v76 = [v27 numberWithLongLong:{+[PLFileStats fileSizeAtPath:](PLFileStats, "fileSizeAtPath:", filePath2)}];
+      v92[3] = v76;
+      v91[4] = @"shm_size";
+      v28 = MEMORY[0x1E696AD98];
+      v83 = v21;
+      v75 = +[PPSCoreStorage sharedSQLStorage];
+      xCSQLConnection2 = [v75 XCSQLConnection];
+      filePath3 = [xCSQLConnection2 filePath];
+      v72 = [filePath3 stringByAppendingString:@"-shm"];
+      v29 = [v28 numberWithLongLong:{+[PLFileStats fileSizeAtPath:](PLFileStats, "fileSizeAtPath:", v72)}];
+      v92[4] = v29;
+      v91[5] = @"wal_size";
+      v84 = v22;
+      v30 = MEMORY[0x1E696AD98];
+      v31 = +[PPSCoreStorage sharedSQLStorage];
+      xCSQLConnection3 = [v31 XCSQLConnection];
       filePath4 = [xCSQLConnection3 filePath];
-      v31 = [filePath4 stringByAppendingString:@"-wal"];
-      v32 = [v27 numberWithLongLong:{+[PLFileStats fileSizeAtPath:](PLFileStats, "fileSizeAtPath:", v31)}];
-      v86[5] = v32;
-      v33 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v86 forKeys:v85 count:6];
+      v34 = [filePath4 stringByAppendingString:@"-wal"];
+      v35 = [v30 numberWithLongLong:{+[PLFileStats fileSizeAtPath:](PLFileStats, "fileSizeAtPath:", v34)}];
+      v92[5] = v35;
+      v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:v91 count:6];
       AnalyticsSendEvent();
 
-      v20 = v78;
-      p_super = &v79->super;
+      v22 = v84;
+      p_super = &v85->super;
 
-      v19 = v77;
-      [(PLSQLiteConnection *)v79 closeConnection];
-      if ([PLUtilities compressWithSource:v77 withDestination:v78 withLevel:4])
+      v21 = v83;
+      [(PLSQLiteConnection *)v85 closeConnection];
+      v38 = [PLUtilities compressWithSource:v83 withDestination:v84 withLevel:4];
+      if (v38)
       {
         defaultManager3 = [MEMORY[0x1E696AC08] defaultManager];
-        [defaultManager3 removeItemAtPath:v77 error:0];
+        [defaultManager3 removeItemAtPath:v83 error:0];
 
         defaultManager4 = [MEMORY[0x1E696AC08] defaultManager];
-        v37 = [v77 stringByAppendingString:@"-wal"];
-        [defaultManager4 removeItemAtPath:v37 error:0];
+        v41 = [v83 stringByAppendingString:@"-wal"];
+        [defaultManager4 removeItemAtPath:v41 error:0];
 
         defaultManager5 = [MEMORY[0x1E696AC08] defaultManager];
-        v39 = [v77 stringByAppendingString:@"-shm"];
-        [defaultManager5 removeItemAtPath:v39 error:0];
+        v43 = [v83 stringByAppendingString:@"-shm"];
+        [defaultManager5 removeItemAtPath:v43 error:0];
 
-        v80 = [v8 stringByAppendingPathComponent:@"tag.json"];
+        v86 = [v8 stringByAppendingPathComponent:@"tag.json"];
         array = [MEMORY[0x1E695DF70] array];
-        lastPathComponent = [v78 lastPathComponent];
+        lastPathComponent = [v84 lastPathComponent];
         [array addObject:lastPathComponent];
 
-        v76 = array;
-        v84[0] = array;
-        v83[0] = @"LogFiles";
-        v83[1] = @"XcodeVersion";
-        v42 = MEMORY[0x1E696AD98];
+        v82 = array;
+        v90[0] = array;
+        v89[0] = @"LogFiles";
+        v89[1] = @"XcodeVersion";
+        v46 = MEMORY[0x1E696AD98];
         [(PLSubmissionFileXC *)self xcodeVersionFromUserActions];
-        v43 = [v42 numberWithDouble:?];
-        v84[1] = v43;
-        v83[2] = @"UserActionCount_System";
-        v44 = MEMORY[0x1E696AD98];
-        v45 = +[PPSCoreStorage sharedSQLStorage];
-        xCSQLConnection4 = [v45 XCSQLConnection];
-        v47 = [v44 numberWithInt:{-[PLSubmissionFileXC userActionCountForConnection:](self, "userActionCountForConnection:", xCSQLConnection4)}];
-        v84[2] = v47;
-        v83[3] = @"UserActionCount_Upload";
-        v48 = [MEMORY[0x1E696AD98] numberWithInt:v65];
-        v84[3] = v48;
-        v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v84 forKeys:v83 count:4];
+        v47 = [v46 numberWithDouble:?];
+        v90[1] = v47;
+        v89[2] = @"UserActionCount_System";
+        v48 = MEMORY[0x1E696AD98];
+        v49 = +[PPSCoreStorage sharedSQLStorage];
+        xCSQLConnection4 = [v49 XCSQLConnection];
+        v51 = [v48 numberWithInt:{-[PLSubmissionFileXC userActionCountForConnection:](self, "userActionCountForConnection:", xCSQLConnection4)}];
+        v90[2] = v51;
+        v89[3] = @"UserActionCount_Upload";
+        v52 = [MEMORY[0x1E696AD98] numberWithInt:v71];
+        v90[3] = v52;
+        v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v90 forKeys:v89 count:4];
 
-        if (![(PLSubmissionFile *)self createTagFileWithPath:v80 withInfo:v49])
+        v54 = [(PLSubmissionFile *)self createTagFileWithPath:v86 withInfo:v53];
+        if ((v54 & 1) == 0)
         {
-          v50 = PLLogSubmission();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
+          v55 = PLLogSubmission(v54);
+          if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
           {
             [PLSubmissionFileBG copyAndPrepareLog];
           }
         }
 
-        v51 = MEMORY[0x1E6999F68];
-        v52 = [MEMORY[0x1E695DFF8] fileURLWithPath:v8];
-        v53 = [v51 archiveDirectoryAt:v52 deleteOriginal:1];
+        v56 = MEMORY[0x1E6999F68];
+        v57 = [MEMORY[0x1E695DFF8] fileURLWithPath:v8];
+        v58 = [v56 archiveDirectoryAt:v57 deleteOriginal:1];
 
-        if (v53)
+        if (v58)
         {
           defaultManager6 = [MEMORY[0x1E696AC08] defaultManager];
-          path = [v53 path];
+          path = [v58 path];
           filePath5 = [(PLSubmissionFile *)self filePath];
-          v81 = v11;
-          v57 = [defaultManager6 moveItemAtPath:path toPath:filePath5 error:&v81];
-          v58 = v81;
+          v87 = v12;
+          v63 = [defaultManager6 moveItemAtPath:path toPath:filePath5 error:&v87];
+          v64 = v87;
 
-          if (v57)
+          if (v63)
           {
-            [(PLSubmissionFile *)self decorateFile];
-            v59 = PLLogSubmission();
-            if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+            v66 = PLLogSubmission([(PLSubmissionFile *)self decorateFile]);
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
             {
               [PLSubmissionFileXC copyAndPrepareLog];
             }
 
             defaultManager7 = [MEMORY[0x1E696AC08] defaultManager];
-            path2 = [v53 path];
+            path2 = [v58 path];
             [defaultManager7 removeItemAtPath:path2 error:0];
 
             v6 = 1;
@@ -219,7 +220,7 @@ LABEL_5:
 
           else
           {
-            defaultManager7 = PLLogSubmission();
+            defaultManager7 = PLLogSubmission(v65);
             if (os_log_type_enabled(defaultManager7, OS_LOG_TYPE_ERROR))
             {
               [PLSubmissionFileXC copyAndPrepareLog];
@@ -228,29 +229,29 @@ LABEL_5:
             v6 = 0;
           }
 
-          v19 = v77;
+          v21 = v83;
         }
 
         else
         {
-          defaultManager7 = PLLogSubmission();
+          defaultManager7 = PLLogSubmission(v59);
           if (os_log_type_enabled(defaultManager7, OS_LOG_TYPE_ERROR))
           {
             [PLSubmissionFileXC copyAndPrepareLog];
           }
 
           v6 = 0;
-          v58 = v11;
+          v64 = v12;
         }
 
-        v11 = v58;
-        v20 = v78;
-        p_super = v80;
+        v12 = v64;
+        v22 = v84;
+        p_super = v86;
         goto LABEL_40;
       }
 
-      v62 = PLLogSubmission();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      v69 = PLLogSubmission(v38);
+      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileBG copyAndPrepareLog];
       }
@@ -258,7 +259,7 @@ LABEL_5:
 
     else
     {
-      p_super = PLLogSubmission();
+      p_super = PLLogSubmission(v23);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         [PLSubmissionFileXC copyAndPrepareLog];
@@ -271,7 +272,7 @@ LABEL_40:
 LABEL_41:
 LABEL_42:
 
-    goto LABEL_43;
+    return v6;
   }
 
   taskingConfig3 = [(PLSubmissionFile *)self taskingConfig];
@@ -282,10 +283,7 @@ LABEL_42:
     goto LABEL_5;
   }
 
-  v6 = 0;
-LABEL_43:
-  v63 = *MEMORY[0x1E69E9840];
-  return v6;
+  return 0;
 }
 
 - (id)getXCSQLFile
@@ -308,7 +306,7 @@ LABEL_43:
   }
 
   v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"xcode_%@.XCSQL", v9];
-  v13 = PLLogSubmission();
+  v13 = PLLogSubmission(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [PLSubmissionFileXC getXCSQLFile];
@@ -321,7 +319,7 @@ LABEL_43:
 {
   tableCopy = table;
   connectionCopy = connection;
-  v9 = PLLogSubmission();
+  v9 = PLLogSubmission(connectionCopy);
   v10 = v9;
   if (connectionCopy)
   {
@@ -344,14 +342,15 @@ LABEL_43:
 
 - (double)randomizedBaseOffset
 {
-  v2 = arc4random() / 4294967300.0 * 86400.0 + 86400.0;
-  v3 = PLLogSubmission();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v2 = arc4random();
+  v3 = v2 / 4294967300.0 * 86400.0 + 86400.0;
+  v4 = PLLogSubmission(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [PLSubmissionFileXC randomizedBaseOffset];
   }
 
-  return v2;
+  return v3;
 }
 
 - (double)xcodeVersionFromUserActions
@@ -368,8 +367,8 @@ LABEL_43:
     [v7 doubleValue];
     v9 = v8;
 
-    v10 = PLLogSubmission();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = PLLogSubmission(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFileXC xcodeVersionFromUserActions];
     }
@@ -377,9 +376,9 @@ LABEL_43:
 
   else
   {
-    v10 = PLLogSubmission();
+    v11 = PLLogSubmission(0);
     v9 = -1.0;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [PLSubmissionFileXC xcodeVersionFromUserActions];
     }
@@ -406,19 +405,9 @@ LABEL_43:
 
 - (void)getXCSQLFile
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)obfuscateTimestampsForTable:connection:withOffset:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)obfuscateTimestampsForTable:connection:withOffset:.cold.2()
@@ -426,14 +415,6 @@ LABEL_43:
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)randomizedBaseOffset
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)xcodeVersionFromUserActions

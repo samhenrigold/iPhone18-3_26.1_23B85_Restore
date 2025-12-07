@@ -6,6 +6,7 @@
 - (id)accessibilityLabel;
 - (id)accessibilityValue;
 - (unint64_t)accessibilityTraits;
+- (void)_axAdjustValue:(BOOL)value;
 - (void)scrollViewDidScroll:(id)scroll;
 @end
 
@@ -181,6 +182,90 @@ void __44__CEKSliderAccessibility_accessibilityLabel__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)_axAdjustValue:(BOOL)value
+{
+  valueCopy = value;
+  [(CEKSliderAccessibility *)self safeCGFloatForKey:@"maximumValue"];
+  v6 = v5;
+  [(CEKSliderAccessibility *)self safeCGFloatForKey:@"minimumValue"];
+  v8 = v7;
+  [(CEKSliderAccessibility *)self safeCGFloatForKey:@"value"];
+  v10 = v9;
+  [(CEKSliderAccessibility *)self _axGetDeltaForCurrentValue:valueCopy toIncrement:?];
+  v12 = v11;
+  v13 = [(CEKSliderAccessibility *)self safeValueForKey:@"delegate"];
+  MEMORY[0x29C2CE830](@"CAMSystemOverlaySlider");
+  isKindOfClass = objc_opt_isKindOfClass();
+  v15 = v12 * 10.0;
+  if ((isKindOfClass & 1) == 0)
+  {
+    v15 = v12;
+  }
+
+  v16 = v10 - v15;
+  if (v10 - v15 < v8)
+  {
+    v16 = v8;
+  }
+
+  v17 = v10 + v15;
+  if (v17 > v6)
+  {
+    v17 = v6;
+  }
+
+  v22[6] = MEMORY[0x29EDCA5F8];
+  v22[7] = 3221225472;
+  v22[8] = __41__CEKSliderAccessibility__axAdjustValue___block_invoke;
+  v22[9] = &unk_29F2AB750;
+  if (!valueCopy)
+  {
+    v17 = v16;
+  }
+
+  v22[10] = self;
+  *&v22[11] = v17;
+  AXPerformSafeBlock();
+  MEMORY[0x29C2CE830](@"PUFilterToolController");
+  if (objc_opt_isKindOfClass())
+  {
+    v18 = v22;
+    v22[0] = MEMORY[0x29EDCA5F8];
+    v22[1] = 3221225472;
+    v19 = __41__CEKSliderAccessibility__axAdjustValue___block_invoke_2;
+LABEL_15:
+    v18[2] = v19;
+    v18[3] = &unk_29F2AB6B0;
+    v18[4] = v13;
+    v18[5] = self;
+    AXPerformSafeBlock();
+
+    goto LABEL_16;
+  }
+
+  MEMORY[0x29C2CE830](@"PUAdjustmentsViewController");
+  if (objc_opt_isKindOfClass())
+  {
+    v18 = v21;
+    v21[0] = MEMORY[0x29EDCA5F8];
+    v21[1] = 3221225472;
+    v19 = __41__CEKSliderAccessibility__axAdjustValue___block_invoke_3;
+    goto LABEL_15;
+  }
+
+  MEMORY[0x29C2CE830](@"CAMSystemOverlaySlider");
+  if (objc_opt_isKindOfClass())
+  {
+    v18 = v20;
+    v20[0] = MEMORY[0x29EDCA5F8];
+    v20[1] = 3221225472;
+    v19 = __41__CEKSliderAccessibility__axAdjustValue___block_invoke_4;
+    goto LABEL_15;
+  }
+
+LABEL_16:
 }
 
 uint64_t __41__CEKSliderAccessibility__axAdjustValue___block_invoke_2(uint64_t a1)

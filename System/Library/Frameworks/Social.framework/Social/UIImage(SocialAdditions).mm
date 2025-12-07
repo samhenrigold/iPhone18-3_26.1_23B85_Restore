@@ -8,7 +8,7 @@
 {
   v3 = MEMORY[0x1E69DCAB8];
   v4 = a3;
-  v5 = SLSocialFrameworkBundle();
+  v5 = SLSocialFrameworkBundle(v4);
   v6 = [v3 imageNamed:v4 inBundle:v5];
 
   return v6;

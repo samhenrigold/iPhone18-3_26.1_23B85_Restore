@@ -9,16 +9,15 @@
 
 - (CTXPCIsAnyPlanTransferableFromThisDeviceForFlowRequest)initWithFlowType:(unint64_t)type
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"flowType";
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"flowType";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
-  v11[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-  v9.receiver = self;
-  v9.super_class = CTXPCIsAnyPlanTransferableFromThisDeviceForFlowRequest;
-  v6 = [(CTXPCMessage *)&v9 initWithNamedArguments:v5];
+  v10[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8.receiver = self;
+  v8.super_class = CTXPCIsAnyPlanTransferableFromThisDeviceForFlowRequest;
+  v6 = [(CTXPCMessage *)&v8 initWithNamedArguments:v5];
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -46,15 +45,13 @@ void __102__CTXPCIsAnyPlanTransferableFromThisDeviceForFlowRequest_performReques
 
 + (id)allowedClassesForArguments
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___CTXPCIsAnyPlanTransferableFromThisDeviceForFlowRequest;
-  v2 = objc_msgSendSuper2(&v7, sel_allowedClassesForArguments);
-  v8[0] = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___CTXPCIsAnyPlanTransferableFromThisDeviceForFlowRequest;
+  v2 = objc_msgSendSuper2(&v6, sel_allowedClassesForArguments);
+  v7[0] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v4 = [v2 setByAddingObjectsFromArray:v3];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

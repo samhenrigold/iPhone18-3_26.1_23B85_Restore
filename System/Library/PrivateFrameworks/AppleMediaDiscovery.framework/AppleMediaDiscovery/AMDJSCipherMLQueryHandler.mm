@@ -195,7 +195,6 @@
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v10 = v54;
 
   return v10;
@@ -573,7 +572,6 @@ LABEL_36:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v17 = v96;
 
   return v17;

@@ -1,5 +1,6 @@
 @interface USApplicationUsageReport
 - (USApplicationUsageReport)initWithBundleIdentifier:(id)identifier totalUsageTime:(double)time applicationUsageTime:(double)usageTime webUsageByDomain:(id)domain;
+- (USApplicationUsageReport)initWithCanonicalBundleIdentifier:(id)identifier applicationUsageTrusted:(BOOL)trusted totalUsageTime:(double)time applicationUsageByBundleIdentifier:(id)bundleIdentifier webUsageByDomain:(id)domain userNotificationsByBundleIdentifier:(id)byBundleIdentifier pickupsByBundleIdentifier:(id)pickupsByBundleIdentifier;
 - (USApplicationUsageReport)initWithCoder:(id)coder;
 - (double)applicationUsageTime;
 - (id)description;
@@ -13,18 +14,33 @@
 
 - (USApplicationUsageReport)initWithBundleIdentifier:(id)identifier totalUsageTime:(double)time applicationUsageTime:(double)usageTime webUsageByDomain:(id)domain
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v10 = MEMORY[0x277CCABB0];
   domainCopy = domain;
   identifierCopy2 = identifier;
   v13 = [v10 numberWithDouble:usageTime];
-  v19[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&identifierCopy count:1];
+  v18[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&identifierCopy count:1];
   v15 = [(USApplicationUsageReport *)self initWithCanonicalBundleIdentifier:identifierCopy2 applicationUsageTrusted:1 totalUsageTime:v14 applicationUsageByBundleIdentifier:domainCopy webUsageByDomain:MEMORY[0x277CBEC10] userNotificationsByBundleIdentifier:MEMORY[0x277CBEC10] pickupsByBundleIdentifier:time];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
+}
+
+- (USApplicationUsageReport)initWithCanonicalBundleIdentifier:(id)identifier applicationUsageTrusted:(BOOL)trusted totalUsageTime:(double)time applicationUsageByBundleIdentifier:(id)bundleIdentifier webUsageByDomain:(id)domain userNotificationsByBundleIdentifier:(id)byBundleIdentifier pickupsByBundleIdentifier:(id)pickupsByBundleIdentifier
+{
+  trustedCopy = trusted;
+  v22.receiver = self;
+  v22.super_class = USApplicationUsageReport;
+  pickupsByBundleIdentifierCopy = pickupsByBundleIdentifier;
+  byBundleIdentifierCopy = byBundleIdentifier;
+  domainCopy = domain;
+  bundleIdentifierCopy = bundleIdentifier;
+  identifierCopy = identifier;
+  v20 = [(USApplicationUsageReport *)&v22 init];
+  [(USApplicationUsageReport *)v20 _usApplicationUsageReportCommonInitWithCanonicalBundleIdentifier:identifierCopy applicationUsageTrusted:trustedCopy totalUsageTime:bundleIdentifierCopy applicationUsageByBundleIdentifier:domainCopy webUsageByDomain:byBundleIdentifierCopy userNotificationsByBundleIdentifier:pickupsByBundleIdentifierCopy pickupsByBundleIdentifier:time, v22.receiver, v22.super_class];
+
+  return v20;
 }
 
 - (void)_usApplicationUsageReportCommonInitWithCanonicalBundleIdentifier:(id)identifier applicationUsageTrusted:(BOOL)trusted totalUsageTime:(double)time applicationUsageByBundleIdentifier:(id)bundleIdentifier webUsageByDomain:(id)domain userNotificationsByBundleIdentifier:(id)byBundleIdentifier pickupsByBundleIdentifier:(id)pickupsByBundleIdentifier
@@ -59,7 +75,7 @@
 
 - (USApplicationUsageReport)initWithCoder:(id)coder
 {
-  v45[1] = *MEMORY[0x277D85DE8];
+  v44[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"CanonicalBundleIdentifier"];
   if ([coderCopy containsValueForKey:@"ApplicationUsageTrusted"])
@@ -86,12 +102,12 @@
     v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"BundleIdentifier"];
     if ([coderCopy containsValueForKey:@"ApplicationUsage"])
     {
-      v44 = v5;
+      v43 = v5;
       v12 = MEMORY[0x277CCABB0];
       [coderCopy decodeDoubleForKey:@"ApplicationUsage"];
       v13 = [v12 numberWithDouble:?];
-      v45[0] = v13;
-      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:&v44 count:1];
+      v44[0] = v13;
+      v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
     }
 
     else
@@ -105,9 +121,9 @@
   v16 = v15;
   if (v5 && v11 && v14 && v15)
   {
-    v33.receiver = self;
-    v33.super_class = USApplicationUsageReport;
-    v17 = [(USApplicationUsageReport *)&v33 init];
+    v32.receiver = self;
+    v32.super_class = USApplicationUsageReport;
+    v17 = [(USApplicationUsageReport *)&v32 init];
     [coderCopy decodeDoubleForKey:@"TotalUsageTime"];
     v19 = v18;
     v20 = [coderCopy decodeObjectOfClasses:v10 forKey:@"UserNotificationsByBundleIdentifier"];
@@ -149,15 +165,15 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138544386;
-      v35 = v5;
-      v36 = 1026;
-      v37 = v6;
-      v38 = 2114;
-      v39 = v11;
-      v40 = 2114;
-      v41 = v14;
-      v42 = 1026;
-      v43 = v16;
+      v34 = v5;
+      v35 = 1026;
+      v36 = v6;
+      v37 = 2114;
+      v38 = v11;
+      v39 = 2114;
+      v40 = v14;
+      v41 = 1026;
+      v42 = v16;
       _os_log_error_impl(&dword_2707F8000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Failed to decode USApplicationUsageReport with canonicalBundleIdentifier: %{public}@, applicationUsageTrusted: %{public}d, applicationUsageByBundleIdentifier: %{public}@, webUsageByDomain: %{public}@, hasTotalUsageTime: %{public}d", buf, 0x2Cu);
     }
 
@@ -167,7 +183,6 @@
     selfCopy = 0;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -339,7 +354,7 @@ double __48__USApplicationUsageReport_applicationUsageTime__block_invoke(uint64_
   return v18;
 }
 
-uint64_t __39__USApplicationUsageReport_description__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__39__USApplicationUsageReport_description__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1 + 32;
   v4 = *(a1 + 32);
@@ -353,7 +368,7 @@ uint64_t __39__USApplicationUsageReport_description__block_invoke(uint64_t a1, u
   return result;
 }
 
-uint64_t __39__USApplicationUsageReport_description__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__39__USApplicationUsageReport_description__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1 + 32;
   v4 = *(a1 + 32);
@@ -367,7 +382,7 @@ uint64_t __39__USApplicationUsageReport_description__block_invoke_2(uint64_t a1,
   return result;
 }
 
-uint64_t __39__USApplicationUsageReport_description__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__39__USApplicationUsageReport_description__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1 + 32;
   v4 = *(a1 + 32);
@@ -381,7 +396,7 @@ uint64_t __39__USApplicationUsageReport_description__block_invoke_3(uint64_t a1,
   return result;
 }
 
-uint64_t __39__USApplicationUsageReport_description__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__39__USApplicationUsageReport_description__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1 + 32;
   v4 = *(a1 + 32);

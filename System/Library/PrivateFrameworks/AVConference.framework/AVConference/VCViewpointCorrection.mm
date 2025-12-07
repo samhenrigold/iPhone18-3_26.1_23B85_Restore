@@ -70,7 +70,7 @@ LABEL_12:
   [(VCViewpointCorrection *)&v4 dealloc];
 }
 
-intptr_t __VCViewpointCorrection_CorrectViewpoint_block_invoke(uint64_t a1)
+intptr_t __VCViewpointCorrection_CorrectViewpoint_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 40))
   {

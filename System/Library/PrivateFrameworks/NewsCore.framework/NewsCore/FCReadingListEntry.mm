@@ -37,7 +37,7 @@
 
 - (id)initWithEntryID:(void *)d articleID:(void *)iD dateAdded:(void *)added origin:
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v9 = a2;
   dCopy = d;
   iDCopy = iD;
@@ -48,15 +48,15 @@
 
   if (!v9 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"reading list entry must have an identifier"];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"reading list entry must have an identifier"];
     *buf = 136315906;
-    v23 = "[FCReadingListEntry initWithEntryID:articleID:dateAdded:origin:]";
-    v24 = 2080;
-    v25 = "FCReadingListEntry.m";
-    v26 = 1024;
-    v27 = 18;
-    v28 = 2114;
-    v29 = v19;
+    v22 = "[FCReadingListEntry initWithEntryID:articleID:dateAdded:origin:]";
+    v23 = 2080;
+    v24 = "FCReadingListEntry.m";
+    v25 = 1024;
+    v26 = 18;
+    v27 = 2114;
+    v28 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (!dCopy)
@@ -64,15 +64,15 @@
 LABEL_5:
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"reading list entry must have an article ID"];
+        v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"reading list entry must have an article ID"];
         *buf = 136315906;
-        v23 = "[FCReadingListEntry initWithEntryID:articleID:dateAdded:origin:]";
-        v24 = 2080;
-        v25 = "FCReadingListEntry.m";
-        v26 = 1024;
-        v27 = 19;
-        v28 = 2114;
-        v29 = v20;
+        v22 = "[FCReadingListEntry initWithEntryID:articleID:dateAdded:origin:]";
+        v23 = 2080;
+        v24 = "FCReadingListEntry.m";
+        v25 = 1024;
+        v26 = 19;
+        v27 = 2114;
+        v28 = v19;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
     }
@@ -83,9 +83,9 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v21.receiver = self;
-  v21.super_class = FCReadingListEntry;
-  v12 = objc_msgSendSuper2(&v21, sel_init);
+  v20.receiver = self;
+  v20.super_class = FCReadingListEntry;
+  v12 = objc_msgSendSuper2(&v20, sel_init);
   self = v12;
   if (v12)
   {
@@ -112,7 +112,6 @@ LABEL_5:
 
 LABEL_12:
 
-  v17 = *MEMORY[0x1E69E9840];
   return self;
 }
 

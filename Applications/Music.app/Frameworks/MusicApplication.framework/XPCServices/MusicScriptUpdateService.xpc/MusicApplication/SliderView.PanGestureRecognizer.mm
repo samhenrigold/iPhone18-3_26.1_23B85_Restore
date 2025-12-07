@@ -7,16 +7,16 @@
 
 - (void)touchesBegan:(id)began withEvent:(id)event
 {
-  sub_100009130(0, &qword_100610C90);
+  sub_100009130(0, &qword_100610C90, UITouch_ptr);
   sub_1003A7E54();
   sub_1004BC664();
   eventCopy = event;
   selfCopy = self;
   isa = sub_1004BC654().super.isa;
 
-  v9.receiver = selfCopy;
-  v9.super_class = type metadata accessor for SliderView.PanGestureRecognizer();
-  [(SliderView.PanGestureRecognizer *)&v9 touchesBegan:isa withEvent:eventCopy];
+  v10.receiver = selfCopy;
+  v10.super_class = type metadata accessor for SliderView.PanGestureRecognizer(0, v9);
+  [(SliderView.PanGestureRecognizer *)&v10 touchesBegan:isa withEvent:eventCopy];
 
   [(SliderView.PanGestureRecognizer *)selfCopy setState:1];
 }

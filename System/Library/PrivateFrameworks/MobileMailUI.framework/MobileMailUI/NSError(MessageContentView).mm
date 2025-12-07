@@ -7,7 +7,7 @@
 
 - (id)mf_markupString
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = messageForFragment(self);
   if (!v2)
   {
@@ -25,8 +25,6 @@
   v6 = MEMORY[0x277CCACA8];
   mf_stringByEscapingHTMLCodes = [v2 mf_stringByEscapingHTMLCodes];
   v8 = [v6 localizedStringWithFormat:@"<html dir=auto><body><i><font color=#888>%@</font></i></body></html>", mf_stringByEscapingHTMLCodes];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

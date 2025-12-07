@@ -42,7 +42,7 @@
 {
   callCopy = call;
   completionCopy = completion;
-  v8 = IntentHandlerDefaultLog();
+  v8 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -55,10 +55,10 @@
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v24 = 0x3032000000;
-  v25 = sub_100021958;
-  v26 = sub_100021968;
-  v27 = 0;
+  v25 = 0x3032000000;
+  v26 = sub_100021958;
+  v27 = sub_100021968;
+  v28 = 0;
   callCenter = [(JoinCallIntentHandler *)self callCenter];
   queue = [callCenter queue];
   block[0] = _NSConcreteStackBlock;
@@ -66,31 +66,31 @@
   block[2] = sub_100021970;
   block[3] = &unk_10004D130;
   v13 = conversationId;
-  v20 = v13;
+  v21 = v13;
   selfCopy = self;
   p_buf = &buf;
   dispatch_sync(queue, block);
 
-  v14 = *(*(&buf + 1) + 40);
-  if (v14)
+  v15 = *(*(&buf + 1) + 40);
+  if (v15)
   {
-    v15 = [(JoinCallIntentHandler *)self _responseForMatchingConversation:v14 intent:callCopy];
+    v16 = [(JoinCallIntentHandler *)self _responseForMatchingConversation:v15 intent:callCopy];
   }
 
   else
   {
-    v16 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = IntentHandlerDefaultLog(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "No matching conversation. Returning failure.", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No matching conversation. Returning failure.", v19, 2u);
     }
 
-    v15 = [[INJoinCallIntentResponse alloc] initWithCode:5 userActivity:0];
+    v16 = [[INJoinCallIntentResponse alloc] initWithCode:5 userActivity:0];
   }
 
-  v17 = v15;
-  completionCopy[2](completionCopy, v15);
+  v18 = v16;
+  completionCopy[2](completionCopy, v16);
 
   _Block_object_dispose(&buf, 8);
 }
@@ -104,43 +104,43 @@
   [v7 setVideoEnabled:1];
   v8 = [NSUserActivity makeActivityWithIntent:intentCopy joinRequestAttachment:v7];
 
-  v9 = IntentHandlerDefaultLog();
-  v10 = v9;
+  v10 = IntentHandlerDefaultLog(v9);
+  v11 = v10;
   if (v8)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Attaching TUJoinConversationRequest to UserActivity", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attaching TUJoinConversationRequest to UserActivity", v17, 2u);
     }
 
-    v11 = [INJoinCallIntentResponse alloc];
-    v12 = 2;
-    v13 = v8;
+    v12 = [INJoinCallIntentResponse alloc];
+    v13 = 2;
+    v14 = v8;
   }
 
   else
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10003094C(v10);
+      sub_10003094C(v11);
     }
 
-    v11 = [INJoinCallIntentResponse alloc];
-    v12 = 5;
-    v13 = 0;
+    v12 = [INJoinCallIntentResponse alloc];
+    v13 = 5;
+    v14 = 0;
   }
 
-  v14 = [v11 initWithCode:v12 userActivity:v13];
+  v15 = [v12 initWithCode:v13 userActivity:v14];
 
-  return v14;
+  return v15;
 }
 
 - (void)confirmJoinCall:(id)call completion:(id)completion
 {
   callCopy = call;
   completionCopy = completion;
-  v7 = IntentHandlerDefaultLog();
+  v7 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -156,17 +156,17 @@
 {
   callCopy = call;
   completionCopy = completion;
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_100021958;
-  v28 = sub_100021968;
-  v29 = 0;
-  v8 = IntentHandlerDefaultLog();
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_100021958;
+  v30 = sub_100021968;
+  v31 = 0;
+  v8 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v31 = callCopy;
+    v33 = callCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Resolving join call intent: %@", buf, 0xCu);
   }
 
@@ -182,40 +182,40 @@
     block[1] = 3221225472;
     block[2] = sub_1000220C0;
     block[3] = &unk_10004D130;
-    v21 = callCopy;
+    v23 = callCopy;
     selfCopy = self;
-    v23 = &v24;
+    v25 = &v26;
     dispatch_sync(queue, block);
 
-    groupConversation2 = v21;
+    groupConversation2 = v23;
   }
 
   else
   {
-    v12 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = IntentHandlerDefaultLog(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "INCallGroupConversation already resolved.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "INCallGroupConversation already resolved.", buf, 2u);
     }
 
     groupConversation2 = [callCopy groupConversation];
-    v14 = [INCallGroupConversationResolutionResult successWithResolvedCallGroupConversation:groupConversation2];
-    v15 = v25[5];
-    v25[5] = v14;
+    v15 = [INCallGroupConversationResolutionResult successWithResolvedCallGroupConversation:groupConversation2];
+    v16 = v27[5];
+    v27[5] = v15;
   }
 
-  v18 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v20 = IntentHandlerDefaultLog(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = v25[5];
+    v21 = v27[5];
     *buf = 138412290;
-    v31 = v19;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Calling completion on resolution result: %@", buf, 0xCu);
+    v33 = v21;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Calling completion on resolution result: %@", buf, 0xCu);
   }
 
-  completionCopy[2](completionCopy, v25[5]);
-  _Block_object_dispose(&v24, 8);
+  completionCopy[2](completionCopy, v27[5]);
+  _Block_object_dispose(&v26, 8);
 }
 
 @end

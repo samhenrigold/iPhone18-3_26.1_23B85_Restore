@@ -74,7 +74,7 @@
 
 - (void)setContactIdentifier:(id)identifier
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   contactIdentifiers = [(TUCallDisplayContext *)self contactIdentifiers];
   firstObject = [contactIdentifiers firstObject];
@@ -82,12 +82,10 @@
 
   if ((v7 & 1) == 0)
   {
-    v10[0] = identifierCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = identifierCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
     [(TUCallDisplayContext *)self setContactIdentifiers:v8];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)firstName

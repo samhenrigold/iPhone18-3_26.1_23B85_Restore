@@ -7,7 +7,7 @@
 - (_TtC8Announce36PlayAnnouncementSoundIntentPerformer)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PlayAnnouncementSoundIntentPerformer();
+  v3.super_class = type metadata accessor for PlayAnnouncementSoundIntentPerformer(0);
   return [(IntentPerformer *)&v3 init];
 }
 

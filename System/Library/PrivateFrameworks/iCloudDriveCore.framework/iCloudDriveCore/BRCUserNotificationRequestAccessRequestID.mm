@@ -86,27 +86,27 @@
 
 - (id)_getRequesterForUserRecordName:(id)name requesters:(id)requesters
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   requestersCopy = requesters;
-  v7 = [requestersCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [requestersCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(requestersCopy);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         userIdentity = [v10 userIdentity];
         userRecordID = [userIdentity userRecordID];
         recordName = [userRecordID recordName];
@@ -119,7 +119,7 @@
         }
       }
 
-      v7 = [requestersCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [requestersCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -130,8 +130,6 @@
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -224,7 +222,7 @@ void __88__BRCUserNotificationRequestAccessRequestID__saveShareOperationForShare
 
 - (void)_approveRequester:(id)requester share:(id)share sessionContext:(id)context completionHandler:(id)handler
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   shareCopy = share;
   handlerCopy = handler;
   v11 = MEMORY[0x277CFAE60];
@@ -237,40 +235,39 @@ void __88__BRCUserNotificationRequestAccessRequestID__saveShareOperationForShare
 
   participantLookupInfo = [requesterCopy participantLookupInfo];
 
-  v38[0] = participantLookupInfo;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+  v37[0] = participantLookupInfo;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
 
   v20 = [objc_alloc(MEMORY[0x277CBC410]) initWithUserIdentityLookupInfos:v19];
   br_requestForAccess = [MEMORY[0x277CBC4F8] br_requestForAccess];
   [v20 setGroup:br_requestForAccess];
 
   array = [MEMORY[0x277CBEB18] array];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_sessionContext_completionHandler___block_invoke;
-  v35[3] = &unk_278504C80;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_sessionContext_completionHandler___block_invoke;
+  v34[3] = &unk_278504C80;
   v23 = shareCopy;
-  v36 = v23;
+  v35 = v23;
   v24 = array;
-  v37 = v24;
-  [v20 setPerShareParticipantCompletionBlock:v35];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_sessionContext_completionHandler___block_invoke_83;
-  v31[3] = &unk_278504CA8;
-  v33 = v23;
-  v34 = handlerCopy;
-  v32 = v24;
+  v36 = v24;
+  [v20 setPerShareParticipantCompletionBlock:v34];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_sessionContext_completionHandler___block_invoke_83;
+  v30[3] = &unk_278504CA8;
+  v32 = v23;
+  v33 = handlerCopy;
+  v31 = v24;
   v25 = v23;
   v26 = v24;
   v27 = handlerCopy;
-  [v20 setFetchShareParticipantsCompletionBlock:v31];
+  [v20 setFetchShareParticipantsCompletionBlock:v30];
   syncContextProvider = [contextCopy syncContextProvider];
 
   v29 = [syncContextProvider transferSyncContextForMangledID:v17];
 
   [v29 addOperation:v20 nonDiscretionary:1];
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_sessionContext_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -301,7 +298,7 @@ void __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_se
 
 void __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_sessionContext_completionHandler___block_invoke_83(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -323,28 +320,28 @@ void __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_se
   {
     v7 = *(a1 + 32);
     objc_sync_enter(v7);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v8 = *(a1 + 32);
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v9)
     {
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(a1 + 40) addParticipant:{*(*(&v14 + 1) + 8 * i), v14}];
+          [*(a1 + 40) addParticipant:{*(*(&v13 + 1) + 8 * i), v13}];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
@@ -357,13 +354,11 @@ void __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_se
       (*(v12 + 16))(v12, 0);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_perfromActionWithIdentifier:(id)identifier share:(id)share sessionContext:(id)context requesterToModify:(id)modify
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   shareCopy = share;
   contextCopy = context;
@@ -374,21 +369,21 @@ void __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_se
 
   if ([identifierCopy isEqualToString:@"APPROVE_ACTION"])
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __113__BRCUserNotificationRequestAccessRequestID__perfromActionWithIdentifier_share_sessionContext_requesterToModify___block_invoke;
-    v21[3] = &unk_278504CD0;
-    v22 = recordName;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __113__BRCUserNotificationRequestAccessRequestID__perfromActionWithIdentifier_share_sessionContext_requesterToModify___block_invoke;
+    v20[3] = &unk_278504CD0;
+    v21 = recordName;
     selfCopy = self;
-    v24 = shareCopy;
-    v25 = contextCopy;
-    [(BRCUserNotificationRequestAccessRequestID *)self _approveRequester:modifyCopy share:v24 sessionContext:v25 completionHandler:v21];
+    v23 = shareCopy;
+    v24 = contextCopy;
+    [(BRCUserNotificationRequestAccessRequestID *)self _approveRequester:modifyCopy share:v23 sessionContext:v24 completionHandler:v20];
   }
 
   else if ([identifierCopy isEqualToString:@"DECLINE_ACTION"])
   {
-    v26[0] = modifyCopy;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = modifyCopy;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     [shareCopy blockRequesters:v17];
 
     [(BRCUserNotificationRequestAccessRequestID *)self _saveShareOperationForShare:shareCopy sessionContext:contextCopy];
@@ -403,8 +398,6 @@ void __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_se
       [BRCUserNotificationRequestAccessRequestID _perfromActionWithIdentifier:share:sessionContext:requesterToModify:];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __113__BRCUserNotificationRequestAccessRequestID__perfromActionWithIdentifier_share_sessionContext_requesterToModify___block_invoke(uint64_t a1, void *a2)
@@ -426,7 +419,7 @@ void __113__BRCUserNotificationRequestAccessRequestID__perfromActionWithIdentifi
     v7 = brc_default_log();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __113__BRCUserNotificationRequestAccessRequestID__perfromActionWithIdentifier_share_sessionContext_requesterToModify___block_invoke_cold_2(a1);
+      __113__BRCUserNotificationRequestAccessRequestID__perfromActionWithIdentifier_share_sessionContext_requesterToModify___block_invoke_cold_2();
     }
 
     [*(a1 + 40) _saveShareOperationForShare:*(a1 + 48) sessionContext:*(a1 + 56)];
@@ -496,37 +489,35 @@ LABEL_15:
 
 - (id)_createCKFetchRecordsOperationForShareRecordID:(id)d originalRequest:(id)request sessionContext:(id)context perRecordCompletionBlock:(id)block
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v10 = MEMORY[0x277CBC3E0];
   blockCopy = block;
   dCopy = d;
   v13 = [v10 alloc];
-  v22[0] = dCopy;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = dCopy;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v15 = [v13 initWithRecordIDs:v14];
 
   [v15 setPerRecordCompletionBlock:blockCopy];
   br_requestForAccess = [MEMORY[0x277CBC4F8] br_requestForAccess];
   [v15 setGroup:br_requestForAccess];
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __148__BRCUserNotificationRequestAccessRequestID__createCKFetchRecordsOperationForShareRecordID_originalRequest_sessionContext_perRecordCompletionBlock___block_invoke;
-  v20[3] = &unk_278504CF8;
-  v20[4] = self;
-  v21 = requestCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __148__BRCUserNotificationRequestAccessRequestID__createCKFetchRecordsOperationForShareRecordID_originalRequest_sessionContext_perRecordCompletionBlock___block_invoke;
+  v19[3] = &unk_278504CF8;
+  v19[4] = self;
+  v20 = requestCopy;
   v17 = requestCopy;
-  [v15 setFetchRecordsCompletionBlock:v20];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [v15 setFetchRecordsCompletionBlock:v19];
 
   return v15;
 }
 
 void __148__BRCUserNotificationRequestAccessRequestID__createCKFetchRecordsOperationForShareRecordID_originalRequest_sessionContext_perRecordCompletionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -535,13 +526,13 @@ void __148__BRCUserNotificationRequestAccessRequestID__createCKFetchRecordsOpera
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 138412802;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
-      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Could not fetch records %@ with error %@%@", &v14, 0x20u);
+      v13 = 138412802;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v7;
+      _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Could not fetch records %@ with error %@%@", &v13, 0x20u);
     }
 
     v9 = *(a1 + 32);
@@ -550,8 +541,6 @@ void __148__BRCUserNotificationRequestAccessRequestID__createCKFetchRecordsOpera
     v12 = [v11 objectForKeyedSubscript:@"itemType"];
     [v9 _sendUserAlertWithError:v6 type:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performOnActionWithNotificationResponse:(id)response sessionContext:(id)context completionHandler:(id)handler
@@ -674,17 +663,15 @@ void __148__BRCUserNotificationRequestAccessRequestID__createCKFetchRecordsOpera
 
 void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotificationResponse_sessionContext_completionHandler___block_invoke()
 {
-  v5[3] = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"DECLINE_ACTION";
-  v5[1] = @"APPROVE_ACTION";
-  v5[2] = *MEMORY[0x277CE20E8];
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
+  v4[0] = @"DECLINE_ACTION";
+  v4[1] = @"APPROVE_ACTION";
+  v4[2] = *MEMORY[0x277CE20E8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
   v2 = [v0 setWithArray:v1];
   v3 = performOnActionWithNotificationResponse_sessionContext_completionHandler__actionsIdentifiers;
   performOnActionWithNotificationResponse_sessionContext_completionHandler__actionsIdentifiers = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotificationResponse_sessionContext_completionHandler___block_invoke_106(uint64_t a1)
@@ -724,7 +711,7 @@ void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotific
 
 void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotificationResponse_sessionContext_completionHandler___block_invoke_108(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -735,11 +722,11 @@ void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotific
     {
       v9 = *(a1 + 32);
       *buf = 138412802;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v6;
-      v25 = 2112;
-      v26 = v7;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v6;
+      v24 = 2112;
+      v25 = v7;
       _os_log_debug_impl(&dword_223E7A000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] Got an error while computing the URL of %@ - %@%@", buf, 0x20u);
     }
   }
@@ -747,16 +734,16 @@ void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotific
   else
   {
     v10 = *MEMORY[0x277D0AC70];
-    v19[0] = *MEMORY[0x277D0AC58];
-    v19[1] = v10;
-    v20[0] = MEMORY[0x277CBEC38];
-    v20[1] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v18[0] = *MEMORY[0x277D0AC58];
+    v18[1] = v10;
+    v19[0] = MEMORY[0x277CBEC38];
+    v19[1] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
     v11 = [*(a1 + 32) recordName];
     v12 = *(a1 + 32);
-    v18 = 0;
-    v13 = [BRCSharingUtil openSharedSideFaultFileWithURL:v5 recordName:v11 scheduleOpenOperationBlock:&__block_literal_global_113 options:v7 skipOpenIfNeeded:0 delegate:v12 error:&v18];
-    v8 = v18;
+    v17 = 0;
+    v13 = [BRCSharingUtil openSharedSideFaultFileWithURL:v5 recordName:v11 scheduleOpenOperationBlock:&__block_literal_global_113 options:v7 skipOpenIfNeeded:0 delegate:v12 error:&v17];
+    v8 = v17;
 
     if (!v13)
     {
@@ -764,24 +751,22 @@ void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotific
       v15 = brc_default_log();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v17 = [v5 URLByDeletingLastPathComponent];
+        v16 = [v5 URLByDeletingLastPathComponent];
         *buf = 138412802;
-        v22 = v17;
-        v23 = 2112;
-        v24 = v8;
-        v25 = 2112;
-        v26 = v14;
+        v21 = v16;
+        v22 = 2112;
+        v23 = v8;
+        v24 = 2112;
+        v25 = v14;
         _os_log_debug_impl(&dword_223E7A000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] Couldn't open item at path %@: %@%@", buf, 0x20u);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotificationResponse_sessionContext_completionHandler___block_invoke_115(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -791,13 +776,13 @@ void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotific
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 138412802;
-      v20 = v8;
-      v21 = 2112;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v10;
-      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Failed fetching recordID %@ with error %@%@", &v19, 0x20u);
+      v18 = 138412802;
+      v19 = v8;
+      v20 = 2112;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v10;
+      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] Failed fetching recordID %@ with error %@%@", &v18, 0x20u);
     }
   }
 
@@ -818,143 +803,82 @@ void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotific
     }
 
     v11 = brc_bread_crumbs();
-    v18 = brc_default_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v17 = brc_default_log();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotificationResponse_sessionContext_completionHandler___block_invoke_115_cold_1();
     }
   }
 
 LABEL_7:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_saveShareOperationForShare:sessionContext:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v11 = *MEMORY[0x277D85DE8];
   v1 = [v0 recordID];
   v2 = [v1 zoneID];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v3, v4, "[DEBUG] Could not find client zone for %@%@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-void __88__BRCUserNotificationRequestAccessRequestID__saveShareOperationForShare_sessionContext___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Failed to save the share due to %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v3, v4, "[DEBUG] Could not find client zone for %@%@", v5, v6, v7, v8);
 }
 
 void __88__BRCUserNotificationRequestAccessRequestID__saveShareOperationForShare_sessionContext___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*(v0 + 40) recordID];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Finished saving share %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Finished saving share %@%@", v4, v5, v6, v7);
 }
 
 void __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_sessionContext_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __102__BRCUserNotificationRequestAccessRequestID__approveRequester_share_sessionContext_completionHandler___block_invoke_83_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_perfromActionWithIdentifier:share:sessionContext:requesterToModify:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Unsupported action identifier %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __113__BRCUserNotificationRequestAccessRequestID__perfromActionWithIdentifier_share_sessionContext_requesterToModify___block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Error modifying share %@%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __113__BRCUserNotificationRequestAccessRequestID__perfromActionWithIdentifier_share_sessionContext_requesterToModify___block_invoke_cold_2(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v2, v3, "[DEBUG] Successfully approved requester %@%@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performOnActionWithNotificationResponse:sessionContext:completionHandler:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_20(v0, v1, v2, v3, v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performOnActionWithNotificationResponse:sessionContext:completionHandler:.cold.3()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [v0 recordName];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Failed creating recordID for request with record name: %@%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)performOnActionWithNotificationResponse:sessionContext:completionHandler:.cold.4()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v0, v1, "[DEBUG] Couldn't find client zone for %@%@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Failed creating recordID for request with record name: %@%@", v4, v5, v6, v7);
 }
 
 void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotificationResponse_sessionContext_completionHandler___block_invoke_106_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
   brc_bread_crumbs();
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_2();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: li && syncContext%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_0(&dword_223E7A000, v2, v3, "[CRIT] Assertion failed: li && syncContext%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __118__BRCUserNotificationRequestAccessRequestID_performOnActionWithNotificationResponse_sessionContext_completionHandler___block_invoke_115_cold_1()
 {
   OUTLINED_FUNCTION_18();
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [*v0 userRecordName];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Did not find requester %@ in requesters list%@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_223E7A000, v2, v3, "[DEBUG] Did not find requester %@ in requesters list%@", v4, v5, v6, v7);
 }
 
 @end

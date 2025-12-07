@@ -22,45 +22,44 @@ uint64_t __41___HKWorkoutRouteStore_setWorkoutRoutes___block_invoke(uint64_t a1)
 
 void __59___HKWorkoutRouteStore__fetchAllLocationsFromSeriesSample___block_invoke(uint64_t a1, void *a2, void *a3, int a4, void *a5)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a5;
+  v13 = v11;
   if (v11)
   {
-    _HKInitializeLogging();
-    v12 = HKLogWorkouts;
+    _HKInitializeLogging(v11, v12);
+    v14 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      __59___HKWorkoutRouteStore__fetchAllLocationsFromSeriesSample___block_invoke_cold_1(a1, v11, v12);
+      __59___HKWorkoutRouteStore__fetchAllLocationsFromSeriesSample___block_invoke_cold_1(a1, v13, v14);
     }
   }
 
-  [*(a1 + 40) addObjectsFromArray:v10];
+  v15 = [*(a1 + 40) addObjectsFromArray:v10];
   if (a4)
   {
-    _HKInitializeLogging();
-    v13 = HKLogWorkouts;
+    _HKInitializeLogging(v15, v16);
+    v17 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 40);
-      v15 = v13;
-      LODWORD(v14) = [v14 count];
-      v16 = [*(a1 + 32) UUID];
-      v21[0] = 67109378;
-      v21[1] = v14;
-      v22 = 2112;
-      v23 = v16;
-      _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, "[routes] Fetched %d locations for series: %@. ", v21, 0x12u);
+      v18 = *(a1 + 40);
+      v19 = v17;
+      LODWORD(v18) = [v18 count];
+      v20 = [*(a1 + 32) UUID];
+      v24[0] = 67109378;
+      v24[1] = v18;
+      v25 = 2112;
+      v26 = v20;
+      _os_log_impl(&dword_19197B000, v19, OS_LOG_TYPE_DEFAULT, "[routes] Fetched %d locations for series: %@. ", v24, 0x12u);
     }
 
-    v18 = *(a1 + 40);
-    v17 = *(a1 + 48);
-    v19 = [*(a1 + 32) UUID];
-    [v17 _setLocations:v18 forUUID:v19];
+    v22 = *(a1 + 40);
+    v21 = *(a1 + 48);
+    v23 = [*(a1 + 32) UUID];
+    [v21 _setLocations:v22 forUUID:v23];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __31___HKWorkoutRouteStore_samples__block_invoke(uint64_t a1)
@@ -85,14 +84,13 @@ uint64_t __40___HKWorkoutRouteStore__queue_locations__block_invoke(uint64_t a1, 
 
 void __59___HKWorkoutRouteStore__fetchAllLocationsFromSeriesSample___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "[routes] Error occurred while querying locations for series %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "[routes] Error occurred while querying locations for series %@: %@", &v4, 0x16u);
 }
 
 @end

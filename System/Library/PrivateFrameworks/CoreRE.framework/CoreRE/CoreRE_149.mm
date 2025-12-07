@@ -1,416 +1,5089 @@
-void re::internal::TriangleDecimator::updateEdgeData(re::internal::TriangleDecimator *this, unsigned int a2)
+void re::ecs2::ClippingParameterDataStateTracking::clearEntityHierarchyStateData(re::ecs2::ClippingParameterDataStateTracking *this, const re::ecs2::Entity *a2)
 {
-  v9 = this;
-  v74 = *MEMORY[0x1E69E9840];
-  re::GeomConnectivityManifold::edgeVertices(this, a2, &v60);
-  isBoundaryVertex = v60;
-  v11 = *(v9 + 45);
-  if (v11 <= v60)
+  v90 = *MEMORY[0x1E69E9840];
+  if (*(this + 21))
   {
-    *v62 = 0;
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v69 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v57 = 136315906;
-    *&v57[4] = "operator[]";
-    *&v57[12] = 1024;
-    *&v57[14] = 789;
-    *&v57[18] = 2048;
-    *&v57[20] = isBoundaryVertex;
-    *&v57[28] = 2048;
-    *&v57[30] = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_48;
-  }
-
-  v2 = v61;
-  if (v11 <= v61)
-  {
-LABEL_48:
-    *v62 = 0;
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v69 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v57 = 136315906;
-    *&v57[4] = "operator[]";
-    *&v57[12] = 1024;
-    *&v57[14] = 789;
-    *&v57[18] = 2048;
-    *&v57[20] = v2;
-    *&v57[28] = 2048;
-    *&v57[30] = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_49;
-  }
-
-  v3 = v62;
-  v12 = *(v9 + 47);
-  v13 = (v12 + 80 * v60);
-  v14 = (v12 + 80 * v61);
-  *v57 = vaddq_f64(*v13, *v14);
-  *&v57[16] = vaddq_f64(v13[1], v14[1]);
-  *&v57[32] = vaddq_f64(v13[2], v14[2]);
-  v58 = vaddq_f64(v13[3], v14[3]);
-  v59 = vaddq_f64(v13[4], v14[4]);
-  v11 = *(v9 + 40);
-  if (v11 <= v60)
-  {
-LABEL_49:
-    v54[0] = 0;
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v69 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v62 = 136315906;
-    *(v3 + 4) = "operator[]";
-    v63 = 1024;
-    *(v3 + 14) = 789;
-    v65 = 2048;
-    *(v3 + 20) = isBoundaryVertex;
-    v67 = 2048;
-    *(v3 + 30) = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_50;
-  }
-
-  if (v11 <= v61)
-  {
-LABEL_50:
-    v54[0] = 0;
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v69 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v62 = 136315906;
-    *(v3 + 4) = "operator[]";
-    v63 = 1024;
-    *(v3 + 14) = 789;
-    v65 = 2048;
-    *(v3 + 20) = v2;
-    v67 = 2048;
-    *(v3 + 30) = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_51;
-  }
-
-  v15 = *(v9 + 42);
-  v11 = (v15 + 16 * v60);
-  v16 = (v15 + 16 * v61);
-  v17.i64[0] = 0x3F0000003F000000;
-  v17.i64[1] = 0x3F0000003F000000;
-  v55 = vmulq_f32(vaddq_f32(*v11, *v16), v17);
-  v54[0] = v57;
-  v54[1] = v11;
-  v54[2] = v16;
-  v54[3] = &v55;
-  v4 = a2;
-  v5 = *(v9 + 55);
-  if (v5 <= a2)
-  {
-LABEL_51:
-    v56 = 0;
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v69 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v62 = 136315906;
-    *(v3 + 4) = "operator[]";
-    v63 = 1024;
-    *(v3 + 14) = 789;
-    v65 = 2048;
-    *(v3 + 20) = v4;
-    v67 = 2048;
-    *(v3 + 30) = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_52;
-  }
-
-  v18 = *(v9 + 57) + 32 * a2;
-  v19 = vsubq_f32(*v16, *v11);
-  v20 = vmulq_f32(v19, v19);
-  if (fabsf(v20.f32[2] + vaddv_f32(*v20.f32)) >= 1.0e-10)
-  {
-    goto LABEL_9;
-  }
-
-  *v18 = *v11;
-  v11 = *(v9 + 55);
-  v21 = 0.0;
-  if (v11 <= v4)
-  {
-    v56 = 0;
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v69 = 0u;
-    v9 = MEMORY[0x1E69E9C10];
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v62 = 136315906;
-    *&v62[4] = "operator[]";
-    v63 = 1024;
-    v64 = 789;
-    v65 = 2048;
-    v66 = v4;
-    v67 = 2048;
-    v68 = v11;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_9:
-    isBoundaryVertex = re::GeomConnectivityManifold::isBoundaryVertex(v9, isBoundaryVertex);
-    v22 = re::GeomConnectivityManifold::isBoundaryVertex(v9, v61);
-    v6 = v60;
-    v5 = *(v9 + 50);
-    if (v5 > v60)
+    re::StackScratchAllocator::StackScratchAllocator(v75);
+    v69[0] = 0;
+    v69[1] = 0;
+    v70 = 1;
+    v72 = 0;
+    v73 = 0;
+    v71 = 0;
+    v74 = 0;
+    re::BucketArray<re::ecs2::Entity const*,32ul>::init(v69, v75, 1uLL);
+    *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v69) = a2;
+    v4 = v73;
+    if (v73)
     {
-      v7 = v61;
-      if (v5 > v61)
+      v5 = (this + 632);
+      v66 = xmmword_1E304FAD0;
+      do
       {
-        v31 = *(v9 + 52);
-        v32 = *(v31 + v60);
-        v33 = *(v31 + v61);
-        if (v32 && !v33)
+        v68 = *re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v69, v4 - 1);
+        re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v69, --v73);
+        ++v74;
+        v6 = re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::tryGet(this + 56, &v68);
+        if (v6)
         {
-          goto LABEL_13;
+          v7 = v6;
+          re::ecs2::ClippingParametersRegistry::unregisterClippingParameterDataRefs(this + 768, v6);
+          re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(this + 56, &v68);
+          v8 = *v7;
+          v9 = re::HashBrown<unsigned long long,re::HashSet<re::ecs2::PortalComponent const*,re::Hash<re::ecs2::PortalComponent const*>,re::EqualTo<re::ecs2::PortalComponent const*>,true,false>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find(this + 76, v8);
+          if (v9 != -1)
+          {
+            v10 = *(this + 77) + 56 * v9;
+            re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(v10 + 8, &v68);
+            if (!*(v10 + 36))
+            {
+              v11 = re::HashBrown<unsigned long long,re::HashSet<re::ecs2::PortalComponent const*,re::Hash<re::ecs2::PortalComponent const*>,re::EqualTo<re::ecs2::PortalComponent const*>,true,false>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find(this + 76, v8);
+              if (v11 != -1)
+              {
+                v12 = (*(this + 76) + (v11 & 0xFFFFFFFFFFFFFFF0));
+                v13.i64[0] = -1;
+                v13.i64[1] = -1;
+                v14 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(*v12, v13), xmmword_1E304FAD0)))), 0x3830282018100800);
+                v15 = *&v14 != 0;
+                v16 = *&v14 ? -1 : 0x80;
+                v12->i8[v11 & 0xF] = v16;
+                v17 = (*(this + 77) + 56 * v11);
+                v18 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*v17 ^ (*v17 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (*v17 ^ (*v17 >> 30))) >> 27));
+                *(this + 81) ^= (v18 >> 31) ^ v18;
+                re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v17 + 1);
+                v19.i64[0] = -1;
+                v19.i64[1] = v15;
+                v20 = vaddq_s64(*v5, v19);
+                *v5 = v20;
+                v21 = *(this + 78);
+                if (v21 >= 0x11 && v20.i64[0] < v21 >> 2)
+                {
+                  re::HashBrown<unsigned long long,re::HashSet<re::ecs2::Entity const*,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::resize(this + 608, 0);
+                }
+              }
+            }
+          }
         }
 
-        if (!v33 || v32)
+        v22 = v68;
+        v23 = re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::find(this + 52, v68);
+        if (v23 != -1)
         {
-          if (((isBoundaryVertex ^ 1 | v22) & 1) == 0)
+          v24 = *(this + 53) + 96 * v23;
+          if (*(v24 + 24))
           {
-LABEL_13:
-            v34 = v11->i64[0];
-            v35 = v11->i64[1];
-            goto LABEL_17;
+            v25 = (v24 + 32);
           }
 
-          if ((v22 ^ 1 | isBoundaryVertex))
+          else
           {
-            if (v33)
-            {
-              v36 = v32 == 0;
-            }
+            v25 = *(v24 + 40);
+          }
 
-            else
+          v26 = *(v24 + 16);
+          if (v26)
+          {
+            v27 = &v25[v26];
+            do
             {
-              v36 = 1;
-            }
-
-            v37 = v36;
-            if (isBoundaryVertex ^ 1 | v22 ^ 1) == 1 && (v37)
-            {
-              isBoundaryVertex = *(v9 + 55);
-              if (isBoundaryVertex <= v4)
+              v28 = re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::tryGet(this + 352, *v25);
+              if (v28)
               {
-                goto LABEL_55;
-              }
-
-              v38 = *(*(v9 + 57) + 32 * v4 + 16);
-              *&v38 = v38;
-              *&v38 = fabsf(*&v38);
-              LODWORD(v23.f64[0]) = 925353388;
-              if (*&v38 >= 0.00001)
-              {
-                v51 = *(v9 + 150);
-                if (v51 == 1)
+                v29 = v28;
+                re::ecs2::ClippingParametersRegistry::unregisterClippingParameterDataRefs(this + 768, v28 + 16);
+                re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::destroy(this + 352, *v25);
+                v30 = *v29;
+                v31 = re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::find(this + 60, v30);
+                if (v31 != -1)
                 {
-                  re::internal::Quadric::computeOptimalPositionAlongEdge(v57, v11, v16, &v69, v38, v23, v24, v25, v26.f64[0], v27, v28);
-                }
-
-                else if (v51)
-                {
-                  v34 = re::internal::TriangleDecimator::updateEdgeData::$_0::operator()(v54);
-                }
-
-                else
-                {
-                  v69 = 0u;
-                  v52 = re::internal::Quadric::optimalPositionConditionNumberTest(v57, &v69, 0, v23.f64[0], v24, v25, v26, v27.f64[0], v28);
-                  v53 = &v55;
-                  if (v52)
+                  v32 = *(this + 61) + 96 * v31;
+                  v33 = *(v32 + 16);
+                  if (v33 >= 1)
                   {
-                    v53 = &v69;
+                    v34 = v32 + 8;
+                    v35 = v32 + 32;
+                    v36 = (*(v32 + 16) & 0x7FFFFFFFLL) - 1;
+                    do
+                    {
+                      v37 = *(v34 + 8);
+                      if (v37 <= v36)
+                      {
+                        v76 = 0;
+                        v88 = 0u;
+                        v89 = 0u;
+                        v86 = 0u;
+                        v87 = 0u;
+                        v85 = 0u;
+                        v60 = MEMORY[0x1E69E9C10];
+                        v61 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                        v77 = 136315906;
+                        v78 = "operator[]";
+                        v79 = 1024;
+                        if (v61)
+                        {
+                          v62 = 3;
+                        }
+
+                        else
+                        {
+                          v62 = 2;
+                        }
+
+                        v80 = 858;
+                        v81 = 2048;
+                        v82 = v36;
+                        v83 = 2048;
+                        v84 = v37;
+                        _os_log_send_and_compose_impl(v62, &v76, &v85, 80, &dword_1E1C61000, v60, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v77, 38, 0x8040201008040201, 0x8040201008040201);
+                        _os_crash_msg();
+                        __break(1u);
+LABEL_75:
+                        v76 = 0;
+                        v88 = 0u;
+                        v89 = 0u;
+                        v86 = 0u;
+                        v87 = 0u;
+                        v85 = 0u;
+                        v63 = MEMORY[0x1E69E9C10];
+                        v64 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                        v77 = 136315906;
+                        v78 = "operator[]";
+                        v79 = 1024;
+                        if (v64)
+                        {
+                          v65 = 3;
+                        }
+
+                        else
+                        {
+                          v65 = 2;
+                        }
+
+                        v80 = 858;
+                        v81 = 2048;
+                        v82 = v36;
+                        v83 = 2048;
+                        v84 = v37;
+                        _os_log_send_and_compose_impl(v65, &v76, &v85, 80, &dword_1E1C61000, v63, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v77, 38, v66, *(&v66 + 1));
+                        _os_crash_msg();
+                        __break(1u);
+                      }
+
+                      v38 = v35;
+                      if ((*(v34 + 16) & 1) == 0)
+                      {
+                        v38 = *(v34 + 32);
+                      }
+
+                      if (!re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::tryGet(this + 352, *(v38 + 8 * v36)))
+                      {
+                        re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>::removeAt(v34, v36);
+                      }
+
+                      v39 = v36-- + 1;
+                    }
+
+                    while (v39 > 1);
+                    v33 = *(v34 + 8);
                   }
 
-                  v34 = v53->i64[0];
-                  v35 = v53->i64[1];
+                  if (!v33)
+                  {
+                    re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::remove(this + 480, v30);
+                  }
                 }
+
+                re::HashBrown<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,void,false>::remove(this + 544, v68, v30);
               }
 
-              else if (*(v9 + 151) == 1)
-              {
-                re::internal::TriangleDecimator::computeCentroidOfVertexPairOneRing(v9, &v60);
-              }
-
-              else
-              {
-                v35 = v55.i64[1];
-                v34 = v55.i64[0];
-              }
+              ++v25;
             }
 
-            else
+            while (v25 != v27);
+            v22 = v68;
+          }
+
+          re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::remove(this + 416, v22);
+        }
+
+        re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(this + 672, &v68);
+        v40 = v68;
+        v67 = v68[28];
+        if (v67)
+        {
+          v41 = re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::find(this + 60, v68);
+          if (v41 == -1)
+          {
+            goto LABEL_61;
+          }
+
+          v42 = *(this + 61) + 96 * v41;
+          if (*(v42 + 24))
+          {
+            v43 = (v42 + 32);
+          }
+
+          else
+          {
+            v43 = *(v42 + 40);
+          }
+
+          v44 = *(v42 + 16);
+          if (v44)
+          {
+            v45 = &v43[v44];
+            do
             {
-              v39 = vcvtq_f64_f32(vsub_f32(*v16->f32, *v11->f32));
-              LODWORD(v23.f64[0]) = v11->i32[2];
-              v25.f64[0] = (v16->f32[2] - *v23.f64);
-              v40.f64[0] = *&v57[8];
-              v28.f64[0] = *&v57[16];
-              v29.f64[0] = *&v57[40];
-              v40.f64[1] = *&v57[32];
-              v30.f64[0] = v58.f64[1];
-              v41 = vmulq_f64(v25, v28);
-              v28.f64[1] = *&v57[40];
-              v42 = vaddq_f64(vzip1q_s64(v41, vmulq_f64(v25, v29)), vpaddq_f64(vmulq_f64(v39, *v57), vmulq_f64(v39, v40)));
-              v43 = vmulq_f64(v25, v30);
-              v43.f64[0] = v43.f64[0] + vaddvq_f64(vmulq_f64(v39, v28));
-              v44 = -(vmulq_f64(v25, v43).f64[0] + vaddvq_f64(vmulq_f64(v39, v42)));
-              v45 = v44;
-              v46 = fabsf(v45);
-              v47 = 0.5;
-              if (v46 < 0.00001 || (v48.f64[0] = *&v57[24], v30.f64[0] = v59.f64[0], v48.f64[1] = v58.f64[0], v23.f64[0] = *v23.f64, v49 = vaddvq_f64(vaddq_f64(vzip1q_s64(vmulq_f64(v23, v43), vmulq_f64(v25, v30)), vpaddq_f64(vmulq_f64(vcvtq_f64_f32(*v11->f32), v42), vmulq_f64(v39, v48)))) / v44, v47 = 0.0, v49 < 0.0) || (v47 = 1.0, v49 > 1.0))
+              v46 = re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::tryGet(this + 352, *v43);
+              if (v46)
               {
-                v49 = v47;
+                v47 = v46;
+                re::ecs2::ClippingParametersRegistry::unregisterClippingParameterDataRefs(this + 768, v46 + 16);
+                re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::destroy(this + 352, *v43);
+                v48 = *(v47 + 8);
+                v49 = re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::find(this + 52, v48);
+                if (v49 != -1)
+                {
+                  v50 = *(this + 53) + 96 * v49;
+                  v51 = *(v50 + 16);
+                  if (v51 >= 1)
+                  {
+                    v52 = v50 + 8;
+                    v53 = v50 + 32;
+                    v36 = (*(v50 + 16) & 0x7FFFFFFFLL) - 1;
+                    do
+                    {
+                      v37 = *(v52 + 8);
+                      if (v37 <= v36)
+                      {
+                        goto LABEL_75;
+                      }
+
+                      v54 = v53;
+                      if ((*(v52 + 16) & 1) == 0)
+                      {
+                        v54 = *(v52 + 32);
+                      }
+
+                      if (!re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::tryGet(this + 352, *(v54 + 8 * v36)))
+                      {
+                        re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>::removeAt(v52, v36);
+                      }
+
+                      v55 = v36-- + 1;
+                    }
+
+                    while (v55 > 1);
+                    v51 = *(v52 + 8);
+                  }
+
+                  if (!v51)
+                  {
+                    re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::remove(this + 416, v48);
+                  }
+                }
+
+                re::HashBrown<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,void,false>::remove(this + 544, v48, v68);
               }
 
-              v50 = vaddq_f32(vmulq_n_f32(*v11, 1.0 - v49), vmulq_n_f32(*v16, v49));
-              v35 = v50.i64[1];
-              v34 = v50.i64[0];
+              ++v43;
             }
 
-            goto LABEL_17;
+            while (v43 != v45);
+            v40 = v68;
+          }
+
+          re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::remove(this + 480, v40);
+          if (v67)
+          {
+LABEL_61:
+            re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(this + 720, &v67);
           }
         }
 
-        v34 = v16->i64[0];
-        v35 = v16->i64[1];
-LABEL_17:
-        *v18 = v34;
-        *(v18 + 8) = v35;
-        v11 = *(v9 + 55);
-        if (v11 > v4)
+        v56 = v68[43];
+        if (v56)
         {
-          v21 = v59.f64[1] + *&v57[32] * *(&v34 + 1) * *(&v34 + 1) + *v57 * *&v34 * *&v34 + v58.f64[1] * *&v35 * *&v35 + (*&v57[16] * *&v34 * *&v35 + *&v57[8] * *&v34 * *(&v34 + 1) + *&v57[40] * *(&v34 + 1) * *&v35 + *&v57[24] * *&v34 + v58.f64[0] * *(&v34 + 1) + v59.f64[0] * *&v35) * 2.0;
-          goto LABEL_19;
+          v57 = v68[45];
+          v58 = 8 * v56;
+          do
+          {
+            v59 = *v57++;
+            *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v69) = v59;
+            v58 -= 8;
+          }
+
+          while (v58);
         }
 
-        goto LABEL_54;
+        v4 = v73;
       }
 
-LABEL_53:
-      v56 = 0;
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      v69 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v62 = 136315906;
-      *(v3 + 4) = "operator[]";
-      v63 = 1024;
-      *(v3 + 14) = 789;
-      v65 = 2048;
-      *(v3 + 20) = v7;
-      v67 = 2048;
-      *(v3 + 30) = v5;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_54:
-      v56 = 0;
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      v69 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v62 = 136315906;
-      *(v3 + 4) = "operator[]";
-      v63 = 1024;
-      *(v3 + 14) = 789;
-      v65 = 2048;
-      *(v3 + 20) = v4;
-      v67 = 2048;
-      *(v3 + 30) = v11;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_55:
-      v56 = 0;
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      v69 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v62 = 136315906;
-      *(v3 + 4) = "operator[]";
-      v63 = 1024;
-      *(v3 + 14) = 789;
-      v65 = 2048;
-      *(v3 + 20) = v4;
-      v67 = 2048;
-      *(v3 + 30) = isBoundaryVertex;
-      _os_log_send_and_compose_impl();
+      while (v73);
+    }
+
+    re::BucketArray<re::ecs2::Entity const*,32ul>::deinit(v69);
+    if (v69[0])
+    {
+      if ((v70 & 1) == 0)
+      {
+        (*(*v69[0] + 40))();
+      }
+    }
+
+    re::StackScratchAllocator::~StackScratchAllocator(v75);
+  }
+}
+
+int *re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(uint64_t a1, void *a2)
+{
+  v3 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  result = re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::findEntry<re::ecs2::Entity const*>(a1, a2, (0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) ^ ((0x94D049BB133111EBLL * (v3 ^ (v3 >> 27))) >> 31), v11);
+  v5 = v13;
+  if (v13 != 0x7FFFFFFF)
+  {
+    v6 = *(a1 + 16);
+    v7 = *(v6 + 224 * v13) & 0x7FFFFFFF;
+    if (v14 == 0x7FFFFFFF)
+    {
+      *(*(a1 + 8) + 4 * v12) = v7;
+      v5 = v13;
+    }
+
+    else
+    {
+      *(v6 + 224 * v14) = *(v6 + 224 * v14) & 0x80000000 | v7;
+    }
+
+    result = (v6 + 224 * v5);
+    v8 = *result;
+    if (*result < 0)
+    {
+      *result = v8 & 0x7FFFFFFF;
+      result = re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit((result + 40));
+      v9 = v13;
+      v6 = *(a1 + 16);
+      v8 = *(v6 + 224 * v13);
+      v5 = v13;
+    }
+
+    else
+    {
+      v9 = v5;
+    }
+
+    v10 = *(a1 + 40);
+    *(v6 + 224 * v9) = *(a1 + 36) | v8 & 0x80000000;
+    --*(a1 + 28);
+    *(a1 + 36) = v5;
+    *(a1 + 40) = v10 + 1;
+  }
+
+  return result;
+}
+
+_DWORD *re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::destroy(uint64_t a1, unint64_t a2)
+{
+  v2 = a2;
+  v21 = *MEMORY[0x1E69E9840];
+  v4 = a2 >> 16;
+  result = re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::tryGet(a1, a2 & 0xFFFFFFFF00000000 | (WORD1(a2) << 16) | a2);
+  if (result)
+  {
+    v6 = result;
+    result = re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit((result + 40));
+    v7 = *(a1 + 16);
+    if (v7 <= HIWORD(v2))
+    {
+      v11 = 0;
+      memset(v20, 0, sizeof(v20));
+      v8 = MEMORY[0x1E69E9C10];
+      v12 = 136315906;
+      v13 = "operator[]";
+      v14 = 1024;
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v9 = 3;
+      }
+
+      else
+      {
+        v9 = 2;
+      }
+
+      v15 = 789;
+      v16 = 2048;
+      v17 = HIWORD(v2);
+      v18 = 2048;
+      v19 = v7;
+      _os_log_send_and_compose_impl(v9, &v11, v20, 80, &dword_1E1C61000, v8, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v12, 38, v10);
       _os_crash_msg();
       __break(1u);
     }
 
-LABEL_52:
-    v56 = 0;
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v69 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v62 = 136315906;
-    *(v3 + 4) = "operator[]";
-    v63 = 1024;
-    *(v3 + 14) = 789;
-    v65 = 2048;
-    *(v3 + 20) = v6;
-    v67 = 2048;
-    *(v3 + 30) = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_53;
+    *(*(*(a1 + 32) + 16 * HIWORD(v2) + 8) + 4 * v2) = 0;
+    *v6 = *(a1 + 52);
+    *(a1 + 52) = v2;
+    *(a1 + 54) = v4;
+    --*(a1 + 40);
   }
 
-LABEL_19:
-  *(*(v9 + 57) + 32 * v4 + 16) = v21;
+  return result;
 }
 
-uint64_t re::DynamicArray<re::internal::Quadric>::operator[](uint64_t a1, unint64_t a2)
+uint64_t re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>::removeAt(uint64_t result, unint64_t a2)
 {
-  if (*(a1 + 16) <= a2)
+  v20 = *MEMORY[0x1E69E9840];
+  v3 = *(result + 8);
+  if (v3 <= a2)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v10 = 0;
+    memset(v19, 0, sizeof(v19));
+    v7 = MEMORY[0x1E69E9C10];
+    v11 = 136315906;
+    v12 = "removeAt";
+    v13 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    v14 = 1000;
+    v15 = 2048;
+    v16 = a2;
+    v17 = 2048;
+    v18 = v3;
+    _os_log_send_and_compose_impl(v8, &v10, v19, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v11, 38, v9);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v4 = v3 - 1;
+  if (v3 - 1 > a2)
+  {
+    if (*(result + 16))
+    {
+      v5 = result + 24;
+    }
+
+    else
+    {
+      v5 = *(result + 32);
+    }
+
+    *(v5 + 8 * a2) = *(v5 + 8 * v3 - 8);
+    v4 = *(result + 8) - 1;
+  }
+
+  v6 = *(result + 16);
+  *(result + 8) = v4;
+  *(result + 16) = v6 + 2;
+  return result;
+}
+
+double re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::remove(uint64_t a1, unint64_t a2)
+{
+  v3 = re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::find(a1, a2);
+  if (v3 != -1)
+  {
+    v5 = (*a1 + (v3 & 0xFFFFFFFFFFFFFFF0));
+    v6.i64[0] = -1;
+    v6.i64[1] = -1;
+    v7 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(*v5, v6), xmmword_1E304FAD0)))), 0x3830282018100800);
+    v8 = *&v7 != 0;
+    v9 = *&v7 ? -1 : 0x80;
+    v5->i8[v3 & 0xF] = v9;
+    v10 = (*(a1 + 8) + 96 * v3);
+    v11 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*v10 ^ (*v10 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (*v10 ^ (*v10 >> 30))) >> 27));
+    *(a1 + 40) ^= (v11 >> 31) ^ v11;
+    re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit((v10 + 1));
+    v12.i64[0] = -1;
+    v12.i64[1] = v8;
+    v4 = vaddq_s64(*(a1 + 24), v12);
+    *(a1 + 24) = v4;
+    v13 = *(a1 + 16);
+    if (v13 >= 0x11 && v4.i64[0] < v13 >> 2)
+    {
+
+      *v4.i64 = re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::resize(a1, 0);
+    }
+  }
+
+  return *v4.i64;
+}
+
+void re::HashBrown<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,void,false>::remove(uint64_t a1, unint64_t a2, unint64_t a3)
+{
+  v4 = re::HashBrown<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,void,false>::find(a1, a2, a3);
+  if (v4 != -1)
+  {
+    v5 = (*a1 + (v4 & 0xFFFFFFFFFFFFFFF0));
+    v6.i64[0] = -1;
+    v6.i64[1] = -1;
+    v7 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(*v5, v6), xmmword_1E304FAD0)))), 0x3830282018100800);
+    v8 = *&v7 ? -1 : 0x80;
+    v5->i8[v4 & 0xF] = v8;
+    v9 = *(a1 + 16);
+    v10 = (*(a1 + 8) + 24 * v4);
+    v11 = *v10;
+    v12 = 0xBF58476D1CE4E5B9 * (v10[1] ^ (v10[1] >> 30));
+    v13 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v11 ^ (v11 >> 30))) >> 27));
+    *(a1 + 40) ^= v13 ^ (v13 >> 31) ^ (((0x94D049BB133111EBLL * (v12 ^ (v12 >> 27))) ^ ((0x94D049BB133111EBLL * (v12 ^ (v12 >> 27))) >> 31)) + ((v13 ^ (v13 >> 31)) << 6) + ((v13 ^ (v13 >> 31)) >> 2) - 0x61C8864680B583E9);
+    v6.i64[1] = *&v7 != 0;
+    v14 = vaddq_s64(*(a1 + 24), v6);
+    *(a1 + 24) = v14;
+    if (v9 >= 0x11 && v14.i64[0] < v9 >> 2)
+    {
+
+      re::HashBrown<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,void,false>::resize(a1, 0);
+    }
+  }
+}
+
+__n128 re::BucketArray<re::ecs2::ClippingParameterDataStateTracking::buildClippingParameterDataStateForEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&,re::ecs2::RenderOptions const&,re::TransformService &)::EntityClippingData,32ul>::add(uint64_t a1, __int128 *a2)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 40);
+  v5 = *(a1 + 8);
+  if (v4 + 1 > 32 * v5)
+  {
+    re::BucketArray<re::ecs2::ClippingParameterDataStateTracking::buildClippingParameterDataStateForEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&,re::ecs2::RenderOptions const&,re::TransformService &)::EntityClippingData,32ul>::setBucketsCapacity(a1, (v4 + 32) >> 5);
+    v5 = *(a1 + 8);
+  }
+
+  if (v5 <= v4 >> 5)
+  {
+    v15 = 0;
+    memset(v24, 0, sizeof(v24));
+    v12 = MEMORY[0x1E69E9C10];
+    v16 = 136315906;
+    v17 = "operator[]";
+    v18 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    v19 = 858;
+    v20 = 2048;
+    v21 = v4 >> 5;
+    v22 = 2048;
+    v23 = v5;
+    _os_log_send_and_compose_impl(v13, &v15, v24, 80, &dword_1E1C61000, v12, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v14);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  if (*(a1 + 16))
+  {
+    v6 = a1 + 24;
+  }
+
+  else
+  {
+    v6 = *(a1 + 32);
+  }
+
+  v7 = *(v6 + 8 * (v4 >> 5));
+  ++*(a1 + 40);
+  ++*(a1 + 48);
+  v8 = v7 + 112 * (v4 & 0x1F);
+  v9 = *a2;
+  *(v8 + 16) = *(a2 + 2);
+  *v8 = v9;
+  re::DynamicOverflowArray<unsigned short,8ul>::DynamicOverflowArray(v8 + 24, a2 + 24);
+  result = a2[4];
+  v11 = a2[5];
+  *(v8 + 89) = *(a2 + 89);
+  *(v8 + 64) = result;
+  *(v8 + 80) = v11;
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned short,8ul>::add(_anonymous_namespace_ *result, _WORD *a2)
+{
+  v3 = result;
+  if (*result)
+  {
+    v4 = *(result + 1);
+    v5 = *(result + 4);
+    if (v5)
+    {
+      v6 = 8;
+    }
+
+    else
+    {
+      v6 = *(result + 3);
+    }
+
+    if (v4 >= v6)
+    {
+      result = re::DynamicOverflowArray<unsigned short,8ul>::growCapacity(result, v4 + 1);
+      v5 = *(v3 + 4);
+    }
+  }
+
+  else
+  {
+    v7 = *(v3 + 1);
+    result = re::DynamicOverflowArray<unsigned short,8ul>::setCapacity(v3, v7 + 1);
+    v5 = *(v3 + 4) + 2;
+    *(v3 + 4) = v5;
+  }
+
+  if (v5)
+  {
+    v8 = v3 + 24;
+  }
+
+  else
+  {
+    v8 = *(v3 + 4);
+  }
+
+  v9 = *(v3 + 1);
+  *&v8[2 * v9] = *a2;
+  *(v3 + 1) = v9 + 1;
+  *(v3 + 4) += 2;
+  return result;
+}
+
+uint64_t re::HashSetBase<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::internal::ValueAsKey<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,true,false>::add(uint64_t result, unint64_t *a2)
+{
+  v3 = result;
+  v4 = *a2;
+  v5 = a2[1];
+  v6 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  v7 = (0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) ^ ((0x94D049BB133111EBLL * (v6 ^ (v6 >> 27))) >> 31);
+  v8 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v5 ^ (v5 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v5 ^ (v5 >> 30))) >> 27));
+  v9 = ((v8 ^ (v8 >> 31)) + (v7 << 6) + (v7 >> 2) - 0x61C8864680B583E9) ^ v7;
+  v10 = *(result + 24);
+  if (!v10)
+  {
+    LODWORD(v11) = 0;
+    goto LABEL_15;
+  }
+
+  v11 = v9 % v10;
+  v12 = *(*(result + 8) + 4 * (v9 % v10));
+  if (v12 == 0x7FFFFFFF)
+  {
+LABEL_15:
+    result = re::HashSetBase<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::internal::ValueAsKey<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,true,false>::addAsMove(result, v11, v9, a2);
+    ++*(v3 + 40);
+    return result;
+  }
+
+  v13 = *(result + 16);
+  v14 = v13 + 32 * v12;
+  v16 = *(v14 + 16);
+  v15 = *(v14 + 24);
+  if (v16 != v4 || v15 != v5)
+  {
+    while (1)
+    {
+      v12 = *(v13 + 32 * v12 + 8) & 0x7FFFFFFF;
+      if (v12 == 0x7FFFFFFF)
+      {
+        break;
+      }
+
+      v18 = v13 + 32 * v12;
+      v20 = *(v18 + 16);
+      v19 = *(v18 + 24);
+      if (v20 == v4 && v19 == v5)
+      {
+        return result;
+      }
+    }
+
+    goto LABEL_15;
+  }
+
+  return result;
+}
+
+void *re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::addNew(uint64_t *a1, unint64_t *a2, uint64_t a3)
+{
+  v6 = re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::find(a1, *a2);
+  if (v6 != -1)
+  {
+    return (a1[1] + 96 * v6 + 8);
+  }
+
+  return re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::internalAdd(a1, a2, a3);
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>::add(_anonymous_namespace_ *result, void *a2)
+{
+  v3 = result;
+  if (!*result)
+  {
+    v10 = *(v3 + 1);
+    result = re::DynamicOverflowArray<re::internal::BindPointImplBase const*,8ul>::setCapacity(v3, v10 + 1);
+    v5 = *(v3 + 4) + 2;
+    *(v3 + 4) = v5;
+    goto LABEL_15;
+  }
+
+  v4 = *(result + 1);
+  v5 = *(result + 4);
+  if (v5)
+  {
+    if (v4 - 8 >= 0xFFFFFFFFFFFFFFF7)
+    {
+      goto LABEL_15;
+    }
+
+    v7 = v4 + 1;
+    v9 = 16;
+    goto LABEL_11;
+  }
+
+  v6 = *(result + 3);
+  v8 = v4 >= v6;
+  v7 = v4 + 1;
+  v8 = !v8 || v6 >= v7;
+  if (!v8)
+  {
+    v9 = 2 * v6;
+LABEL_11:
+    if (v9 <= v7)
+    {
+      v11 = v7;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    result = re::DynamicOverflowArray<re::internal::BindPointImplBase const*,8ul>::setCapacity(result, v11);
+    v5 = *(v3 + 4);
+  }
+
+LABEL_15:
+  if (v5)
+  {
+    v12 = v3 + 24;
+  }
+
+  else
+  {
+    v12 = *(v3 + 4);
+  }
+
+  *&v12[8 * (*(v3 + 1))++] = *a2;
+  *(v3 + 4) += 2;
+  return result;
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned short,8ul>::resize(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v3 = result;
+  v4 = *(result + 1);
+  if (v4 < a2)
+  {
+    if (*result)
+    {
+      if ((*(result + 4) & 1) == 0)
+      {
+LABEL_4:
+        v5 = *(v3 + 3);
+LABEL_9:
+        if (v5 < a2)
+        {
+          result = re::DynamicOverflowArray<unsigned short,8ul>::setCapacity(v3, a2);
+        }
+
+        v7 = *(v3 + 1);
+        if (v7 < a2)
+        {
+          do
+          {
+            v8 = v3 + 24;
+            if ((*(v3 + 16) & 1) == 0)
+            {
+              v8 = *(v3 + 4);
+            }
+
+            *&v8[2 * v7++] = 0;
+          }
+
+          while (a2 != v7);
+        }
+
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+      result = re::DynamicOverflowArray<unsigned short,8ul>::setCapacity(v3, a2);
+      v6 = *(v3 + 4) + 2;
+      *(v3 + 4) = v6;
+      if ((v6 & 1) == 0)
+      {
+        goto LABEL_4;
+      }
+    }
+
+    v5 = 8;
+    goto LABEL_9;
+  }
+
+  if (v4 > a2)
+  {
+LABEL_15:
+    *(v3 + 1) = a2;
+    *(v3 + 4) += 2;
+  }
+
+  return result;
+}
+
+char *re::DynamicOverflowArray<unsigned short,8ul>::copy(char *result, unint64_t a2, char *__src, uint64_t a4)
+{
+  v31 = *MEMORY[0x1E69E9840];
+  if (!a4)
+  {
+    return result;
+  }
+
+  v6 = result;
+  v7 = *(result + 1);
+  v8 = v7 + 1;
+  if (v7 + 1 <= a2)
+  {
+    v24 = 0;
+    memset(v30, 0, sizeof(v30));
+    v17 = MEMORY[0x1E69E9C10];
+    *v25 = 136315906;
+    *&v25[4] = "copy";
+    *&v25[12] = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v18 = 3;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    *&v25[14] = 678;
+    v26 = 2048;
+    v27 = a2;
+    v28 = 2048;
+    v29 = v8;
+    _os_log_send_and_compose_impl(v18, &v24, v30, 80, &dword_1E1C61000, v17, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v25, 38, v21, v23);
+    _os_crash_msg();
+    __break(1u);
+LABEL_24:
+    re::internal::assertLog(7, a2, "assertion failure: '%s' (%s:line %i) Size overflow in DynamicOverflowArray<T, N>::copy(). size = %zu, pos = %zu, count = %zu", "!overflow", "copy", 682, v7, a2, v4, v24, *v25);
+    _os_crash("assertion failure: (!overflow) Size overflow in DynamicOverflowArray<T, N>::copy(). size = %zu, pos = %zu, count = %zu", v19, v20, v22);
+    __break(1u);
+  }
+
+  v4 = a4;
+  v9 = a2 + a4;
+  if (__CFADD__(a2, a4))
+  {
+    goto LABEL_24;
+  }
+
+  if (v7 >= v9)
+  {
+    if (result[16])
+    {
+      v15 = result + 24;
+    }
+
+    else
+    {
+      v15 = *(result + 4);
+    }
+
+    result = memmove(&v15[2 * a2], __src, 2 * a4);
+  }
+
+  else
+  {
+    re::DynamicOverflowArray<unsigned short,8ul>::growCapacity(result, a2 + a4);
+    v11 = *(v6 + 1);
+    v12 = v11 - a2;
+    v13 = *(v6 + 4);
+    if (v13)
+    {
+      v14 = v6 + 24;
+    }
+
+    else
+    {
+      v14 = *(v6 + 4);
+    }
+
+    if (v11 != a2)
+    {
+      memmove(&v14[2 * a2], __src, 2 * v12);
+      v13 = *(v6 + 4);
+    }
+
+    if (v13)
+    {
+      v16 = v6 + 24;
+    }
+
+    else
+    {
+      v16 = *(v6 + 4);
+    }
+
+    result = memcpy(&v16[2 * *(v6 + 1)], &__src[2 * v12], 2 * (v4 - v12));
+    *(v6 + 1) = v9;
+  }
+
+  *(v6 + 4) += 2;
+  return result;
+}
+
+uint64_t re::ecs2::ClippingManager::updateClippingParameterData(uint64_t a1, re::RenderManager *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v43 = *MEMORY[0x1E69E9840];
+  v8 = a1 + 8;
+  v7 = *(a1 + 8);
+  *(a1 + 904) = a3;
+  *(a1 + 912) = a4;
+  *(a1 + 920) = a5;
+  (*(v7 + 32))(a1 + 8, a1 + 112);
+  re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear(v8 + 104);
+  re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear(v8 + 200);
+  re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear(v8 + 248);
+  *(v8 + 912) = 0;
+  *(v8 + 896) = 0u;
+  v35 = 0;
+  v32[1] = 0;
+  v33 = 0;
+  v34 = 0;
+  v32[0] = re::RenderManager::perFrameAllocator(a2);
+  re::DynamicArray<unsigned short>::setCapacity(v32, 0);
+  ++v34;
+  re::DynamicArray<unsigned short>::setCapacity(v32, *(v8 + 928));
+  v9 = *(v8 + 88);
+  if (v9)
+  {
+    v10 = 0;
+    v11 = *(a1 + 80);
+    while (1)
+    {
+      v12 = *v11;
+      v11 += 56;
+      if (v12 < 0)
+      {
+        break;
+      }
+
+      if (v9 == ++v10)
+      {
+        LODWORD(v10) = v9;
+        break;
+      }
+    }
+  }
+
+  else
+  {
+    LODWORD(v10) = 0;
+  }
+
+  if (v10 != v9)
+  {
+    do
+    {
+      v13 = *(a1 + 80) + 224 * v10;
+      re::ecs2::ClippingManager::updateClippingParameterDataInternal(a1, v13 + 16, v32, *(v13 + 8));
+      v14 = *(a1 + 96);
+      if (v14 <= v10 + 1)
+      {
+        v15 = v10 + 1;
+      }
+
+      else
+      {
+        v15 = *(a1 + 96);
+      }
+
+      while (v15 - 1 != v10)
+      {
+        LODWORD(v10) = v10 + 1;
+        if ((*(*(a1 + 80) + 224 * v10) & 0x80000000) != 0)
+        {
+          goto LABEL_15;
+        }
+      }
+
+      LODWORD(v10) = v15;
+LABEL_15:
+      ;
+    }
+
+    while (v10 != v14);
+  }
+
+  re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::DataArrayIterator<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData,re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData&>::DataArrayIterator(v42, a1 + 360);
+  v16 = *&v42[0];
+  v30 = *&v42[0];
+  LODWORD(v31) = DWORD2(v42[0]);
+  v17 = WORD4(v42[0]);
+  v18 = HIWORD(DWORD2(v42[0]));
+  if (a1 + 360 != *&v42[0] || WORD4(v42[0]) != 0xFFFF || v18 != 0xFFFF)
+  {
+    do
+    {
+      v21 = v18;
+      v22 = *(v16 + 16);
+      if (v22 <= v18)
+      {
+        v36 = 0;
+        memset(v42, 0, sizeof(v42));
+        v27 = MEMORY[0x1E69E9C10];
+        v28 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+        *v37 = 136315906;
+        *&v37[4] = "operator[]";
+        *&v37[12] = 1024;
+        if (v28)
+        {
+          v29 = 3;
+        }
+
+        else
+        {
+          v29 = 2;
+        }
+
+        *&v37[14] = 797;
+        v38 = 2048;
+        v39 = v21;
+        v40 = 2048;
+        v41 = v22;
+        _os_log_send_and_compose_impl(v29, &v36, v42, 80, &dword_1E1C61000, v27, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v37, 38, v30, v31);
+        _os_crash_msg();
+        __break(1u);
+      }
+
+      v23 = *(*(v16 + 32) + 16 * v18) + 208 * v17;
+      re::ecs2::ClippingManager::updateClippingParameterDataInternal(a1, v23 + 16, v32, *(v23 + 8));
+      re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(&v30);
+      v16 = v30;
+      v17 = v31;
+      v18 = WORD1(v31);
+    }
+
+    while (v30 != a1 + 360 || v31 != 0xFFFF || WORD1(v31) != 0xFFFF);
+  }
+
+  *(a1 + 936) = v33;
+  v24 = re::RenderFrameBox::get((*(a2 + 14) + 328), 0xFFFFFFFFFFFFFFFuLL);
+  *&v42[0] = re::ecs2::ClippingParametersRegistry::copyClippingParameterEntries((a1 + 776), *(v24 + 392));
+  *(&v42[0] + 1) = v25;
+  if (v25)
+  {
+    (*(**(v24 + 320) + 112))(*(v24 + 320), v42);
+    *v37 = v35;
+    *&v37[8] = v33;
+    (*(**(v24 + 320) + 144))(*(v24 + 320), v37);
+  }
+
+  result = v32[0];
+  if (v32[0])
+  {
+    if (v35)
+    {
+      return (*(*v32[0] + 40))();
+    }
+  }
+
+  return result;
+}
+
+void re::ecs2::ClippingManager::updateClippingParameterDataInternal(re *a1, uint64_t a2, _anonymous_namespace_ *this, uint64_t a4)
+{
+  v47 = *MEMORY[0x1E69E9840];
+  v4 = *(this + 2);
+  if (v4 == 0x4000)
+  {
+    if ((atomic_exchange(re::ecs2::ClippingManager::updateClippingParameterDataInternal(re::ecs2::ClippingParameterData &,re::DynamicArray<unsigned short> &,re::ecs2::Entity const*)::__FILE____LINE___logged, 1u) & 1) == 0)
+    {
+      v6 = *re::ecsComponentsLogObjects(a1);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v7 = *(a4 + 296);
+        LODWORD(buf[0]) = 134218242;
+        *(buf + 4) = 0x4000;
+        WORD6(buf[0]) = 2080;
+        *(buf + 14) = v7;
+        _os_log_impl(&dword_1E1C61000, v6, OS_LOG_TYPE_DEFAULT, "Current frame has more than %zu unique clipping indices in the indirection buffer. Unable to add clipping indices for entity '%s'.", buf, 0x16u);
+      }
+    }
+
+    return;
+  }
+
+  v9 = a2;
+  v10 = a2 + 168;
+  if (*(a2 + 160))
+  {
+    v11 = (a2 + 168);
+  }
+
+  else
+  {
+    v11 = *(a2 + 176);
+  }
+
+  v12 = *(a2 + 152);
+  if (v12)
+  {
+    v13 = *(a1 + 101);
+    v14 = *(a1 + 99);
+    v15 = &v11[v12];
+    while (1)
+    {
+      v16 = *v11;
+      if (v14 <= v16)
+      {
+        break;
+      }
+
+      v17 = (v13 + 96 * *v11);
+      if (v17[7].i32[0] | v17[7].u16[2] || v17[6].i32[0] | v17[6].u16[2] || (v18 = vcgtz_f32(v17[8]), (vpmin_u32(v18, v18).u32[0] & 0x80000000) != 0))
+      {
+        if (++v11 == v15)
+        {
+          goto LABEL_25;
+        }
+      }
+
+      else
+      {
+        v19 = v15 - 1;
+        do
+        {
+          if (v19 == v11)
+          {
+            goto LABEL_24;
+          }
+
+          v15 = v19;
+          v20 = *v19;
+          if (v14 <= v20)
+          {
+            goto LABEL_43;
+          }
+
+          v21 = (v13 + 96 * *v19);
+          a2 = v21[7].u16[2];
+          if (v21[7].i32[0] | a2)
+          {
+            break;
+          }
+
+          a2 = v21[6].u16[2];
+          if (v21[6].i32[0] | a2)
+          {
+            break;
+          }
+
+          v22 = vcgtz_f32(v21[8]);
+          v19 = v15 - 1;
+        }
+
+        while ((vpmin_u32(v22, v22).u32[0] & 0x80000000) == 0);
+        *v11++ = v20;
+        *v15 = v16;
+        if (v15 == v11)
+        {
+          goto LABEL_25;
+        }
+      }
+    }
+
+LABEL_42:
+    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v16, v14);
+    _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v31, v33);
+    __break(1u);
+LABEL_43:
+    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < size()", "operator[]", 264, v20, v14);
+    _os_crash("assertion failure: (index < size()) Index out of range. index = %zu, size = %zu", v32, v34);
+    __break(1u);
+  }
+
+LABEL_24:
+  LODWORD(v15) = v11;
+LABEL_25:
+  if (*(v9 + 160))
+  {
+    v23 = v10;
+  }
+
+  else
+  {
+    v23 = *(v9 + 176);
+  }
+
+  *(v9 + 188) = (v15 - v23) >> 1;
+  *(v9 + 184) = v4;
+  v24 = 0x4000 - v4;
+  if (v12 < v24)
+  {
+    LOWORD(v24) = v12;
+  }
+
+  *(v9 + 186) = v24;
+  if (v24)
+  {
+    v25 = 0;
+    v26 = 0;
+    while (1)
+    {
+      v27 = *(v9 + 152);
+      if (v27 <= v26)
+      {
+        break;
+      }
+
+      if (*(v9 + 160))
+      {
+        v28 = v10;
+      }
+
+      else
+      {
+        v28 = *(v9 + 176);
+      }
+
+      re::DynamicArray<unsigned short>::add(this, (v28 + v25));
+      ++v26;
+      v25 += 2;
+      if (v26 >= *(v9 + 186))
+      {
+        return;
+      }
+    }
+
+    v37 = 0;
+    memset(buf, 0, sizeof(buf));
+    v29 = MEMORY[0x1E69E9C10];
+    v38 = 136315906;
+    v39 = "operator[]";
+    v40 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v30 = 3;
+    }
+
+    else
+    {
+      v30 = 2;
+    }
+
+    v41 = 858;
+    v42 = 2048;
+    v43 = v26;
+    v44 = 2048;
+    v45 = v27;
+    _os_log_send_and_compose_impl(v30, &v37, buf, 80, &dword_1E1C61000, v29, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v38, 38, v35, v36);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_42;
+  }
+}
+
+uint64_t (***re::ecs2::ClippingManager::registerScene(re::ecs2::ClippingManager *this, re::EventBus **a2))(void)
+{
+  v63 = *MEMORY[0x1E69E9840];
+  v52 = a2;
+  v53 = a2;
+  v2 = a2[36];
+  if (!v2)
+  {
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) An event bus is expected for this system to track entity state changes.", "eventBus", "registerScene", 106);
+    _os_crash("assertion failure: (eventBus) An event bus is expected for this system to track entity state changes.");
+    __break(1u);
+  }
+
+  v5 = (this + 8);
+  v54[0] = 0;
+  v54[1] = 0;
+  v55 = 1;
+  v57 = 0;
+  v58 = 0;
+  v56 = 0;
+  v59 = 0;
+  v6 = (*(*v5 + 16))(v5);
+  if (v7)
+  {
+    v8 = v6;
+    v9 = 8 * v7;
+    do
+    {
+      v10 = *v8++;
+      v61 = re::globalAllocators(v6)[2];
+      v11 = (*(*v61 + 32))(v61, 32, 0);
+      *v11 = &unk_1F5D00BB0;
+      v11[1] = v5;
+      v11[2] = re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<REComponentDidChangeEvent>;
+      v11[3] = 0;
+      v62 = v11;
+      v12 = re::EventBus::subscribe<re::ecs2::Entity,REComponentDidChangeEvent>(v2, v60, v10, 0);
+      v14 = v13;
+      v15 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v54);
+      *v15 = v12;
+      v15[1] = v14;
+      re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::destroyCallable(v60);
+      re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::subscribeToEventToInvalidateEntityHierarchy<REComponentDidActivateEvent>(v5, v2, v54, v10);
+      v6 = re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::subscribeToEventToInvalidateEntityHierarchy<REComponentWillDeactivateEvent>(v5, v2, v54, v10);
+      v9 -= 8;
+    }
+
+    while (v9);
+  }
+
+  v16 = (*(*v5 + 24))(v5);
+  if (v17)
+  {
+    v18 = v16;
+    v19 = 8 * v17;
+    do
+    {
+      v20 = *v18++;
+      re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::subscribeToEventToInvalidateEntityHierarchy<REComponentDidActivateEvent>(v5, v2, v54, v20);
+      v16 = re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::subscribeToEventToInvalidateEntityHierarchy<REComponentWillDeactivateEvent>(v5, v2, v54, v20);
+      v19 -= 8;
+    }
+
+    while (v19);
+  }
+
+  v61 = re::globalAllocators(v16)[2];
+  v21 = (*(*v61 + 32))(v61, 32, 0);
+  *v21 = &unk_1F5D00CB8;
+  v21[1] = v5;
+  v21[2] = re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<RESceneEntityDidReparentEvent>;
+  v21[3] = 0;
+  v62 = v21;
+  v22 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidReparentEvent>(v2, v60, 0, 0);
+  v24 = v23;
+  v25 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v54);
+  *v25 = v22;
+  v25[1] = v24;
+  v26 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::destroyCallable(v60);
+  v61 = re::globalAllocators(v26)[2];
+  v27 = (*(*v61 + 32))(v61, 32, 0);
+  *v27 = &unk_1F5D00D10;
+  v27[1] = v5;
+  v27[2] = re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<RESceneEntityDidActivateEvent>;
+  v27[3] = 0;
+  v62 = v27;
+  v28 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityDidActivateEvent>(v2, v60, 0, 0);
+  v30 = v29;
+  v31 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v54);
+  *v31 = v28;
+  v31[1] = v30;
+  v32 = re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::destroyCallable(v60);
+  v61 = re::globalAllocators(v32)[2];
+  v33 = (*(*v61 + 32))(v61, 32, 0);
+  *v33 = &unk_1F5D00D68;
+  v33[1] = v5;
+  v33[2] = re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<RESceneEntityWillDeactivateEvent>;
+  v33[3] = 0;
+  v62 = v33;
+  v34 = re::EventBus::subscribe<re::ecs2::Entity,RESceneEntityWillDeactivateEvent>(v2, v60, 0, 0);
+  v36 = v35;
+  v37 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v54);
+  *v37 = v34;
+  v37[1] = v36;
+  re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::destroyCallable(v60);
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::add(this + 160, &v53, v54);
+  v38 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v53 ^ (v53 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v53 ^ (v53 >> 30))) >> 27));
+  v39 = v38 ^ (v38 >> 31);
+  v40 = *(this + 10);
+  if (!v40)
+  {
+    LODWORD(v41) = 0;
+    goto LABEL_15;
+  }
+
+  v41 = v39 % v40;
+  v42 = *(*(this + 3) + 4 * (v39 % v40));
+  if (v42 == 0x7FFFFFFF)
+  {
+LABEL_15:
+    re::HashSetBase<re::ecs2::Scene const*,re::ecs2::Scene const*,re::internal::ValueAsKey<re::ecs2::Scene const*>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::addAsCopy(this + 16, v41, v39, &v53, &v53);
+    ++*(this + 14);
+    goto LABEL_16;
+  }
+
+  v43 = *(this + 4);
+  while (*(v43 + 24 * v42 + 16) != v53)
+  {
+    LODWORD(v42) = *(v43 + 24 * v42 + 8) & 0x7FFFFFFF;
+    if (v42 == 0x7FFFFFFF)
+    {
+      goto LABEL_15;
+    }
+  }
+
+LABEL_16:
+  re::BucketArray<RESubscriptionHandle,8ul>::deinit(v54);
+  result = v54[0];
+  if (v54[0] && (v55 & 1) == 0)
+  {
+    result = (*(*v54[0] + 40))();
+  }
+
+  v45 = a2[36];
+  if (v45)
+  {
+    v46 = re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::operator[](this + 160, &v52);
+    v56 = re::globalAllocators(v46)[2];
+    v47 = (*(*v56 + 32))(v56, 32, 0);
+    *v47 = &unk_1F5D00B18;
+    v47[1] = v5;
+    v47[2] = re::ecs2::ClippingParameterDataStateTracking::invalidateTransformEventHandler<REBillboardTransformChangedEvent>;
+    v47[3] = 0;
+    v57 = v47;
+    v48 = re::EventBus::subscribe<re::ecs2::Entity,REBillboardTransformChangedEvent>(v45, v54, 0, 0);
+    v50 = v49;
+    v51 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(v46);
+    *v51 = v48;
+    v51[1] = v50;
+    return re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REBillboardTransformChangedEvent const&)>::destroyCallable(v54);
+  }
+
+  return result;
+}
+
+uint64_t re::ecs2::ClippingManager::unregisterScene(re::ecs2::ClippingManager *this, re::ecs2::Scene *a2)
+{
+  v13 = a2;
+  re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(this + 16, &v13);
+  v3 = *(v13 + 13);
+  v4 = *(v3 + 344);
+  if (v4)
+  {
+    v5 = *(v3 + 360);
+    v6 = 8 * v4;
+    do
+    {
+      if (*(*v5 + 304))
+      {
+        (*(*(this + 1) + 40))(this + 8);
+      }
+
+      v5 += 8;
+      v6 -= 8;
+    }
+
+    while (v6);
+  }
+
+  result = re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::tryGet(this + 160, &v13);
+  if (result)
+  {
+    v8 = *(v13 + 36);
+    if (v8)
+    {
+      v9 = result;
+      v10 = *(result + 40);
+      if (v10)
+      {
+        for (i = 0; i != v10; ++i)
+        {
+          v12 = re::BucketArray<RESubscriptionHandle,8ul>::operator[](v9, i);
+          re::EventBus::unsubscribe(v8, *v12, v12[1]);
+        }
+      }
+    }
+
+    return re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::remove(this + 160, &v13);
+  }
+
+  return result;
+}
+
+void re::ecs2::ClippingParameterDataStateTracking::~ClippingParameterDataStateTracking(re::ecs2::ClippingParameterDataStateTracking *this)
+{
+  re::ecs2::ClippingParameterDataStateTracking::~ClippingParameterDataStateTracking(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+{
+  v2 = this;
+  v39 = *MEMORY[0x1E69E9840];
+  re::ecs2::ClippingParametersRegistry::~ClippingParametersRegistry((this + 768));
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v2 + 90);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v2 + 84);
+  re::HashBrown<re::ecs2::ShadowScopeComponent const*,re::HashSet<re::ecs2::Entity *,re::Hash<re::ecs2::Entity *>,re::EqualTo<re::ecs2::Entity *>,true,false>,re::Hash<re::ecs2::ShadowScopeComponent const*>,re::EqualTo<re::ecs2::ShadowScopeComponent const*>,void,false>::deinit(v2 + 608);
+  re::HashBrown<void const*,unsigned long,re::Hash<void const*>,re::EqualTo<void const*>,void,false>::deinit(v2 + 544);
+  re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::deinit(v2 + 480);
+  re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::deinit(v2 + 416);
+  v3 = v2 + 352;
+  if (!*(v2 + 99))
+  {
+    goto LABEL_23;
+  }
+
+  re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::DataArrayIterator<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData,re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData&>::DataArrayIterator(&v34, v2 + 352);
+  v4 = v34;
+  v23 = v34;
+  v24 = DWORD2(v34);
+  if (v3 != v34 || DWORD2(v34) != 0xFFFFFFFFLL)
+  {
+    v5 = WORD4(v34);
+    v6 = WORD5(v34);
+    while (1)
+    {
+      v7 = *(v4 + 16);
+      if (v7 <= v6)
+      {
+        break;
+      }
+
+      re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::destroy(v2 + 352, ((*(*(*(v4 + 32) + 16 * v6 + 8) + 4 * v5) & 0xFFFFFF) << 32) | (v6 << 16) | v5);
+      re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(&v23);
+      v4 = v23;
+      v5 = v24;
+      v6 = HIWORD(v24);
+      if (v23 == v3 && v24 == 0xFFFFLL && HIWORD(v24) == 0xFFFFLL)
+      {
+        goto LABEL_9;
+      }
+    }
+
+LABEL_32:
+    v25 = 0;
+    v38 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v19 = MEMORY[0x1E69E9C10];
+    v20 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v26 = 136315906;
+    v27 = "operator[]";
+    v28 = 1024;
+    if (v20)
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 2;
+    }
+
+    v29 = 797;
+    v30 = 2048;
+    v31 = v6;
+    v32 = 2048;
+    v33 = v7;
+    _os_log_send_and_compose_impl(v21, &v25, &v34, 80, &dword_1E1C61000, v19, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v26, 38, v22, v23);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+LABEL_9:
+  v8 = *(v2 + 46);
+  v6 = v8 - 1;
+  if (v8 == 1)
+  {
+    goto LABEL_21;
+  }
+
+  v7 = 16 * v8 - 16;
+  do
+  {
+    if (v8 <= v6)
+    {
+      v23 = 0;
+      v38 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v13 = MEMORY[0x1E69E9C10];
+      v14 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v26 = 136315906;
+      v27 = "operator[]";
+      v28 = 1024;
+      if (v14)
+      {
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      v29 = 789;
+      v30 = 2048;
+      v31 = v6;
+      v32 = 2048;
+      v33 = v8;
+      _os_log_send_and_compose_impl(v15, &v23, &v34, 80, &dword_1E1C61000, v13, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v26, 38, v22);
+      _os_crash_msg();
+      __break(1u);
+LABEL_28:
+      v23 = 0;
+      v38 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v16 = MEMORY[0x1E69E9C10];
+      v17 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v26 = 136315906;
+      v27 = "removeAt";
+      v28 = 1024;
+      if (v17)
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      v29 = 931;
+      v30 = 2048;
+      v31 = v6;
+      v32 = 2048;
+      v33 = v1;
+      _os_log_send_and_compose_impl(v18, &v23, &v34, 80, &dword_1E1C61000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v26, 38, v22);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_32;
+    }
+
+    v9 = (*(v2 + 48) + v7);
+    (*(**(v2 + 44) + 40))(*(v2 + 44), *v9);
+    (*(**(v2 + 44) + 40))(*(v2 + 44), v9[1]);
+    v1 = *(v2 + 46);
+    if (v1 <= v6)
+    {
+      goto LABEL_28;
+    }
+
+    v8 = v1 - 1;
+    if (v1 - 1 > v6)
+    {
+      *(*(v2 + 48) + v7) = *(*(v2 + 48) + 16 * v1 - 16);
+      v8 = *(v2 + 46) - 1;
+    }
+
+    *(v2 + 46) = v8;
+    ++*(v2 + 94);
+    v7 -= 16;
+    --v6;
+  }
+
+  while (v6);
+  *(v2 + 50) = 0xFFFFFFFF00000000;
+  if (!v8)
+  {
+    v23 = 0;
+    v38 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v2 = MEMORY[0x1E69E9C10];
+    v10 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v26 = 136315906;
+    v27 = "operator[]";
+    v28 = 1024;
+    if (v10)
+    {
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    v29 = 789;
+    v30 = 2048;
+    v31 = 0;
+    v32 = 2048;
+    v33 = 0;
+    _os_log_send_and_compose_impl(v11, &v23, &v34, 80, &dword_1E1C61000, v2, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v26, 38, v22);
+    _os_crash_msg();
+    __break(1u);
+LABEL_21:
+    *(v2 + 50) = 0xFFFFFFFF00000000;
+  }
+
+  v12 = *(v2 + 48);
+  (*(**(v2 + 44) + 40))(*(v2 + 44), *v12);
+  (*(**(v2 + 44) + 40))(*(v2 + 44), v12[1]);
+  re::DynamicArray<unsigned long>::deinit(v3);
+  *(v2 + 99) = 0;
+LABEL_23:
+  re::DynamicArray<unsigned long>::deinit(v3);
+  re::FixedArray<CoreIKTransform>::deinit(v2 + 41);
+  re::FixedArray<CoreIKTransform>::deinit(v2 + 38);
+  *v2 = &unk_1F5D00B70;
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v2 + 31);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v2 + 25);
+  re::HashTable<re::ecs2::Scene const*,re::BucketArray<RESubscriptionHandle,8ul>,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,true,false>::deinit(v2 + 19);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v2 + 13);
+  re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::deinit(v2 + 7);
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::deinit(v2 + 1);
+}
+
+void re::ecs2::ClippingManager::~ClippingManager(re::ecs2::ClippingManager *this)
+{
+  re::ecs2::ClippingParameterDataStateTracking::~ClippingParameterDataStateTracking((this + 8));
+}
+
+{
+  re::ecs2::ClippingParameterDataStateTracking::~ClippingParameterDataStateTracking((this + 8));
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::ecs2::ClippingManager::clippingDataForPortalCrossingPair(re::ecs2::ClippingManager *this, const re::ecs2::Entity *a2, const re::ecs2::Entity *a3)
+{
+  v4 = re::HashBrown<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,void,false>::find(this + 69, a2, a3);
+  if (v4 == -1)
+  {
+    return 0;
+  }
+
+  v5 = re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::tryGet(this + 360, *(*(this + 70) + 24 * v4 + 16));
+  if (v5)
+  {
+    return v5 + 16;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::ClippingParameterDataStateTracking,REEventHandlerResult (re::ecs2::ClippingParameterDataStateTracking::*)(re::ecs2::Entity *,REBillboardTransformChangedEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REBillboardTransformChangedEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::ClippingParameterDataStateTracking,REEventHandlerResult (re::ecs2::ClippingParameterDataStateTracking::*)(re::ecs2::Entity *,REBillboardTransformChangedEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REBillboardTransformChangedEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D00B18;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::ClippingParameterDataStateTracking,REEventHandlerResult (re::ecs2::ClippingParameterDataStateTracking::*)(re::ecs2::Entity *,REBillboardTransformChangedEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REBillboardTransformChangedEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5D00B18;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+double re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::deinit(uint64_t a1)
+{
+  if (*(a1 + 56))
+  {
+    if (*(a1 + 8))
+    {
+      v10[0] = a1;
+      v2 = *(a1 + 16);
+      if (v2 >= 0x10)
+      {
+        v3 = 0;
+        v4 = *a1;
+        v5 = v2 >> 4;
+        while (1)
+        {
+          v6 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v4), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
+          v10[1] = v6 ^ 0xFFFFLL;
+          if (v6 != 0xFFFFLL)
+          {
+            break;
+          }
+
+          v3 -= 16;
+          ++v4;
+          if (!--v5)
+          {
+            goto LABEL_10;
+          }
+        }
+
+        v7 = __clz(__rbit64(v6 ^ 0xFFFFLL));
+        v8 = v7 - v3;
+        v11 = v7 - v3;
+        if (v7 + 1 != v3)
+        {
+          do
+          {
+            re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(*(a1 + 8) + 96 * v8 + 8);
+            re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v10);
+            v8 = v11;
+          }
+
+          while (v11 != -1);
+        }
+      }
+
+LABEL_10:
+      *(a1 + 8) = 0;
+    }
+
+    if (*a1)
+    {
+      (*(**(a1 + 56) + 40))(*(a1 + 56));
+      *a1 = 0;
+    }
+
+    result = 0.0;
+    *(a1 + 32) = 0u;
+    *(a1 + 48) = 0u;
+    *(a1 + 16) = 0u;
+  }
+
+  return result;
+}
+
+void re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::clearEntityHierarchyStateData(_DWORD *a1, uint64_t a2)
+{
+  if (a1[21])
+  {
+    if (a1[74] != a1[24])
+    {
+      re::HashSetBase<unsigned long long,unsigned long long,re::internal::ValueAsKey<unsigned long long>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::clear((a1 + 62));
+    }
+
+    re::StackScratchAllocator::StackScratchAllocator(v15);
+    v9[0] = 0;
+    v9[1] = 0;
+    v10 = 1;
+    v12 = 0;
+    v13 = 0;
+    v11 = 0;
+    v14 = 0;
+    re::BucketArray<re::ecs2::Entity const*,32ul>::init(v9, v15, 1uLL);
+    *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v9) = a2;
+    while (v13)
+    {
+      v8 = *re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v9, v13 - 1);
+      re::BucketArray<re::ecs2::Entity const*,32ul>::operator[](v9, --v13);
+      ++v14;
+      if (!re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains((a1 + 62), &v8))
+      {
+        re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove((a1 + 14), &v8);
+        re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add((a1 + 62), &v8);
+        v4 = *(v8 + 344);
+        if (v4)
+        {
+          v5 = *(v8 + 360);
+          v6 = 8 * v4;
+          do
+          {
+            v7 = *v5++;
+            *re::BucketArray<re::ecs2::Entity const*,32ul>::addUninitialized(v9) = v7;
+            v6 -= 8;
+          }
+
+          while (v6);
+        }
+      }
+    }
+
+    a1[74] = a1[24];
+    re::BucketArray<re::ecs2::Entity const*,32ul>::deinit(v9);
+    if (v9[0] && (v10 & 1) == 0)
+    {
+      (*(*v9[0] + 40))();
+    }
+
+    re::StackScratchAllocator::~StackScratchAllocator(v15);
+  }
+}
+
+double re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::deinit(uint64_t *a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    v3 = *(a1 + 8);
+    if (v3)
+    {
+      v4 = 0;
+      for (i = 0; i < v3; ++i)
+      {
+        v6 = a1[2];
+        v7 = *(v6 + v4);
+        if (v7 < 0)
+        {
+          *(v6 + v4) = v7 & 0x7FFFFFFF;
+          re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(v6 + v4 + 160);
+          v3 = *(a1 + 8);
+        }
+
+        v4 += 224;
+      }
+
+      v2 = *a1;
+    }
+
+    (*(*v2 + 40))(v2, a1[1]);
+    *(a1 + 8) = 0;
+    *a1 = 0u;
+    *(a1 + 1) = 0u;
+    *&result = 0x7FFFFFFFLL;
+    *(a1 + 36) = 0x7FFFFFFFLL;
+  }
+
+  return result;
+}
+
+_anonymous_namespace_ *re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::allocBlock(void *a1)
+{
+  v3 = 208 * *(a1 + 11);
+  v4 = (*(**a1 + 32))(*a1, v3, 0);
+  if (!v4)
+  {
+    re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.elements", "allocBlock", 520, v3, *(*a1 + 8));
+    _os_crash("assertion failure: (block.elements) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v16, v18);
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  v6 = v4;
+  v1 = 4 * *(a1 + 11);
+  result = (*(**a1 + 32))(*a1, v1, 0);
+  if (!result)
+  {
+LABEL_16:
+    re::internal::assertLog(6, v8, "assertion failure: '%s' (%s:line %i) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "block.allocationCounters", "allocBlock", 528, v1, *(*a1 + 8));
+    result = _os_crash("assertion failure: (block.allocationCounters) DataArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", v17, v19);
+    __break(1u);
+    return result;
+  }
+
+  v9 = result;
+  v11 = a1[1];
+  v10 = a1[2];
+  if (v10 >= v11)
+  {
+    v12 = v10 + 1;
+    if (v11 < v10 + 1)
+    {
+      if (*a1)
+      {
+        v13 = 2 * v11;
+        if (!v11)
+        {
+          v13 = 8;
+        }
+
+        if (v13 <= v12)
+        {
+          v14 = v12;
+        }
+
+        else
+        {
+          v14 = v13;
+        }
+
+        result = re::DynamicArray<re::RigNodeConstraint>::setCapacity(a1, v14);
+      }
+
+      else
+      {
+        result = re::DynamicArray<re::RigNodeConstraint>::setCapacity(a1, v12);
+        ++*(a1 + 6);
+      }
+    }
+
+    v10 = a1[2];
+  }
+
+  v15 = (a1[4] + 16 * v10);
+  *v15 = v6;
+  v15[1] = v9;
+  a1[2] = v10 + 1;
+  ++*(a1 + 6);
+  *(a1 + 12) = 0;
+  return result;
+}
+
+uint64_t (***re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::subscribeToEventToInvalidateEntityHierarchy<REComponentDidActivateEvent>(re *a1, re::EventBus *a2, uint64_t a3, uint64_t a4))(void)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = re::globalAllocators(a1)[2];
+  v8 = (*(*v15 + 32))(v15, 32, 0);
+  *v8 = &unk_1F5D00C08;
+  v8[1] = a1;
+  v8[2] = re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<REComponentDidActivateEvent>;
+  v8[3] = 0;
+  v16 = v8;
+  v9 = re::EventBus::subscribe<re::ecs2::Entity,REComponentDidActivateEvent>(a2, v14, a4, 0);
+  v11 = v10;
+  v12 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(a3);
+  *v12 = v9;
+  v12[1] = v11;
+  return re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::destroyCallable(v14);
+}
+
+uint64_t (***re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::subscribeToEventToInvalidateEntityHierarchy<REComponentWillDeactivateEvent>(re *a1, re::EventBus *a2, uint64_t a3, uint64_t a4))(void)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  v15 = re::globalAllocators(a1)[2];
+  v8 = (*(*v15 + 32))(v15, 32, 0);
+  *v8 = &unk_1F5D00C60;
+  v8[1] = a1;
+  v8[2] = re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<REComponentWillDeactivateEvent>;
+  v8[3] = 0;
+  v16 = v8;
+  v9 = re::EventBus::subscribe<re::ecs2::Entity,REComponentWillDeactivateEvent>(a2, v14, a4, 0);
+  v11 = v10;
+  v12 = re::BucketArray<RESubscriptionHandle,8ul>::addUninitialized(a3);
+  *v12 = v9;
+  v12[1] = v11;
+  return re::FunctionBase<24ul,REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::destroyCallable(v14);
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<REComponentDidChangeEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,REComponentDidChangeEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,REComponentDidChangeEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D00BB0;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,REComponentDidChangeEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidChangeEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5D00BB0;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<REComponentDidActivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,REComponentDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,REComponentDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D00C08;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,REComponentDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentDidActivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5D00C08;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<REComponentWillDeactivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,REComponentWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,REComponentWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D00C60;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,REComponentWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,REComponentWillDeactivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5D00C60;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<RESceneEntityDidReparentEvent>(uint64_t a1, unint64_t a2)
+{
+  v4 = a2;
+  if ((*(a2 + 387) & 1) == 0 && (*(a2 + 304) & 1) != 0 && !re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::contains(a1 + 200, &v4))
+  {
+    (*(*a1 + 40))(a1, v4);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v4);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D00CB8;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidReparentEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5D00CB8;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<RESceneEntityDidActivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v5 = a2;
+  if ((*(a2 + 387) & 1) == 0)
+  {
+    v3 = a1 + 200;
+    (*(*a1 + 40))(a1);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(a1 + 104, &v5);
+    re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(v3, &v5);
+  }
+
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D00D10;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityDidActivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5D00D10;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+uint64_t re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::invalidateEntityHierarchyEventHandler<RESceneEntityWillDeactivateEvent>(uint64_t a1, unint64_t a2)
+{
+  v5 = a2;
+  v3 = a1 + 200;
+  (*(*a1 + 40))(a1);
+  re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::remove(a1 + 104, &v5);
+  re::HashSetBase<re::ecs2::Entity const*,re::ecs2::Entity const*,re::internal::ValueAsKey<re::ecs2::Entity const*>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::add(v3, &v5);
+  return 0;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::operator()(void *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a1[3];
+  v4 = (a1[1] + (v3 >> 1));
+  if (v3)
+  {
+    v2 = *(*v4 + v2);
+  }
+
+  return v2(v4, *a2);
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::cloneInto(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F5D00D68;
+  v2 = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = v2;
+  return a2;
+}
+
+uint64_t re::internal::CallableMemFn<re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>,REEventHandlerResult (re::ecs2::HierarchyStateTracking<re::ecs2::ClippingParameterData>::*)(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&),REEventHandlerResult ()(re::ecs2::Entity *,RESceneEntityWillDeactivateEvent const&)>::moveInto(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F5D00D68;
+  *(a2 + 8) = v2;
+  *(a2 + 16) = *(a1 + 16);
+  return a2;
+}
+
+unint64_t re::HashBrown<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,void,false>::find(uint64_t *a1, unint64_t a2, unint64_t a3)
+{
+  if (!a1[7])
+  {
+    return -1;
+  }
+
+  v4 = a1[2];
+  if (v4 < 0x10 || !a1[3])
+  {
+    return -1;
+  }
+
+  v7 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) >> 27));
+  v8 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a3 ^ (a3 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a3 ^ (a3 >> 30))) >> 27));
+  v9 = ((v8 ^ (v8 >> 31)) + ((v7 ^ (v7 >> 31)) << 6) + ((v7 ^ (v7 >> 31)) >> 2) - 0x61C8864680B583E9) ^ v7 ^ (v7 >> 31);
+  v10 = v4 >> 4;
+  v11 = v9 % (v4 >> 4);
+  v12 = *a1;
+  v13 = vdupq_n_s8(v9 & 0x7F);
+  v14 = xmmword_1E304FAD0;
+  v15.i64[0] = -1;
+  for (v15.i64[1] = -1; ; v15.i64[1] = -1)
+  {
+    v16 = *(v12 + 16 * v11);
+    v17 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(v13, v16), v14)))), 0x3830282018100800);
+    v18 = __clz(__rbit64(v17));
+    if (v18 <= 0x3F)
+    {
+      break;
+    }
+
+LABEL_13:
+    if (vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(v16, v15), v14)))), 0x3830282018100800))
+    {
+      return -1;
+    }
+
+    v26 = v14;
+    v27 = v13;
+    if (++v11 == v10)
+    {
+      v11 = 0;
+    }
+
+    v25 = re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>::operator()(a2, a3) % v10;
+    result = -1;
+    v14 = v26;
+    v13 = v27;
+    v15.i64[0] = -1;
+    if (v11 == v25)
+    {
+      return result;
+    }
+  }
+
+  v19 = 16 * v11;
+  while (1)
+  {
+    result = v18 + v19;
+    v21 = (a1[1] + 24 * (v18 + v19));
+    v23 = *v21;
+    v22 = v21[1];
+    if (v23 == a2 && v22 == a3)
+    {
+      return result;
+    }
+
+    if (v18 <= 0x3E)
+    {
+      v18 = __clz(__rbit64((-2 << v18) & v17));
+      if (v18 < 0x40)
+      {
+        continue;
+      }
+    }
+
+    goto LABEL_13;
+  }
+}
+
+unint64_t re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>::operator()(unint64_t a1, unint64_t a2)
+{
+  v2 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a1 ^ (a1 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a1 ^ (a1 >> 30))) >> 27));
+  v3 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) >> 27));
+  return ((v3 ^ (v3 >> 31)) + ((v2 ^ (v2 >> 31)) << 6) + ((v2 ^ (v2 >> 31)) >> 2) - 0x61C8864680B583E9) ^ v2 ^ (v2 >> 31);
+}
+
+double re::HashBrown<unsigned long long,re::HashSet<re::ecs2::Entity const*,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::resize(uint64_t a1, unsigned int a2)
+{
+  v3 = *(a1 + 16);
+  v4 = *(a1 + 24) + a2;
+  v5 = (((151 * v4) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+  if (v5 > v3)
+  {
+    v6 = 3 * v3;
+    v7 = v6 << 6;
+    v8 = (v6 >> 1) & 0x1FFFFFFFFFFFFFFLL;
+    if (v5 > v7 >> 7)
+    {
+      v8 = (((151 * v4) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+    }
+
+    v4 = (v8 << 7) / 0x97;
+  }
+
+  v9 = *(a1 + 56);
+  memset(v26, 0, sizeof(v26));
+  re::HashBrown<RESubscriptionHandle,re::Function<void ()(void)>,re::Hash<RESubscriptionHandle>,re::EqualTo<RESubscriptionHandle>,void,false>::init(v26, v9, v4);
+  v24[0] = a1;
+  v10 = *(a1 + 16);
+  if (v10 >= 0x10)
+  {
+    v11 = 0;
+    v12 = *a1;
+    v13 = v10 >> 4;
+    while (1)
+    {
+      v14 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v12), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
+      v24[1] = v14 ^ 0xFFFFLL;
+      if (v14 != 0xFFFFLL)
+      {
+        break;
+      }
+
+      v11 -= 16;
+      ++v12;
+      if (!--v13)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    v15 = __clz(__rbit64(v14 ^ 0xFFFFLL));
+    v16 = v15 - v11;
+    v25 = v15 - v11;
+    if (v15 + 1 != v11)
+    {
+      do
+      {
+        re::HashBrown<unsigned long long,re::HashSet<re::ecs2::Entity const*,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::internalAdd(v26, (*(v24[0] + 8) + 56 * v16), (*(v24[0] + 8) + 56 * v16 + 8));
+        re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v24);
+        v16 = v25;
+      }
+
+      while (v25 != -1);
+      v10 = *(a1 + 16);
+    }
+  }
+
+LABEL_13:
+  v17 = *(&v26[3] + 1);
+  *(&v26[3] + 1) = *(a1 + 56);
+  v18 = v26[0];
+  v19 = v26[1];
+  v26[0] = *a1;
+  *&v26[1] = v10;
+  v20 = v26[2];
+  v21 = *(a1 + 40);
+  *(a1 + 48) = *&v26[3];
+  *(a1 + 56) = v17;
+  *(&v26[2] + 8) = v21;
+  v22 = *(a1 + 24);
+  *a1 = v18;
+  *(a1 + 16) = v19;
+  *(a1 + 32) = v20;
+  *(&v26[1] + 8) = v22;
+  return re::HashBrown<re::ecs2::ShadowScopeComponent const*,re::HashSet<re::ecs2::Entity *,re::Hash<re::ecs2::Entity *>,re::EqualTo<re::ecs2::Entity *>,true,false>,re::Hash<re::ecs2::ShadowScopeComponent const*>,re::EqualTo<re::ecs2::ShadowScopeComponent const*>,void,false>::deinit(v26);
+}
+
+void *re::HashBrown<unsigned long long,re::HashSet<re::ecs2::Entity const*,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::internalAdd(uint64_t *a1, void *a2, uint64_t *a3)
+{
+  if (!a1[7])
+  {
+  }
+
+  v6 = a1[4];
+  if (!v6 || (v7 = a1[2], v7 > 8 * v6))
+  {
+    re::HashBrown<unsigned long long,re::HashSet<re::ecs2::Entity const*,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::resize(a1, 1u);
+    v7 = a1[2];
+  }
+
+  v8 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  v9 = (0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) ^ ((0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) >> 31);
+  v10 = v7 >> 4;
+  v11 = v9 % (v7 >> 4);
+  v12 = *a1;
+  v13 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(*a1 + 16 * v11)), xmmword_1E304FAD0)))), 0x3830282018100800)));
+  if (v13 >= 0x40)
+  {
+    do
+    {
+      if (v11 + 1 == v10)
+      {
+        v11 = 0;
+      }
+
+      else
+      {
+        ++v11;
+      }
+
+      v13 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v12 + 16 * v11)), xmmword_1E304FAD0)))), 0x3830282018100800)));
+    }
+
+    while (v13 > 0x3F);
+  }
+
+  v14 = v12 + 16 * v11;
+  v15 = *(v14 + v13);
+  *(v14 + v13) = v9 & 0x7F;
+  v16 = 56 * (v13 + 16 * v11);
+  v17 = a1[1] + v16;
+  *v17 = *a2;
+  *(v17 + 44) = 0x7FFFFFFFLL;
+  *(v17 + 24) = 0u;
+  *(v17 + 40) = 0;
+  *(v17 + 8) = 0u;
+  re::HashSetBase<re::RigGraphSystem::BuildTask *,re::RigGraphSystem::BuildTask *,re::internal::ValueAsKey<re::RigGraphSystem::BuildTask *>,re::Hash<re::RigGraphSystem::BuildTask *>,re::EqualTo<re::RigGraphSystem::BuildTask *>,true,false>::swap((v17 + 8), a3);
+  if (v15 == 255)
+  {
+    v18 = -1;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  v19.i64[0] = vdupq_n_s64(1uLL).u64[0];
+  v19.i64[1] = v18;
+  *(a1 + 3) = vaddq_s64(*(a1 + 3), v19);
+  v20 = (a1[1] + v16);
+  v22 = *v20;
+  result = v20 + 1;
+  v23 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v22 ^ (v22 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v22 ^ (v22 >> 30))) >> 27));
+  a1[5] ^= (v23 >> 31) ^ v23;
+  return result;
+}
+
+uint64_t re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::find(void *a1, unint64_t a2)
+{
+  if (!a1[7])
+  {
+    return -1;
+  }
+
+  v2 = a1[2];
+  if (v2 < 0x10 || !a1[3])
+  {
+    return -1;
+  }
+
+  v3 = v2 >> 4;
+  v4 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (a2 ^ (a2 >> 30))) >> 27));
+  v5 = v4 ^ (v4 >> 31);
+  v6 = v5 % v3;
+  v7 = vdupq_n_s8(v5 & 0x7F);
+  v8.i64[0] = -1;
+  v8.i64[1] = -1;
+  v9 = v5 % v3;
+  while (1)
+  {
+    v10 = *(*a1 + 16 * v9);
+    v11 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(v7, v10), xmmword_1E304FAD0)))), 0x3830282018100800);
+    v12 = __clz(__rbit64(v11));
+    if (v12 <= 0x3F)
+    {
+      break;
+    }
+
+LABEL_10:
+    if (vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(v10, v8), xmmword_1E304FAD0)))), 0x3830282018100800))
+    {
+      return -1;
+    }
+
+    if (v9 + 1 == v3)
+    {
+      v9 = 0;
+    }
+
+    else
+    {
+      ++v9;
+    }
+
+    v14 = -1;
+    if (v9 == v6)
+    {
+      return v14;
+    }
+  }
+
+  v13 = 16 * v9;
+  while (1)
+  {
+    v14 = v12 + v13;
+    if (*(a1[1] + 96 * (v12 + v13)) == a2)
+    {
+      return v14;
+    }
+
+    if (v12 <= 0x3E)
+    {
+      v12 = __clz(__rbit64((-2 << v12) & v11));
+      if (v12 < 0x40)
+      {
+        continue;
+      }
+    }
+
+    goto LABEL_10;
+  }
+}
+
+double re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::resize(uint64_t a1, unsigned int a2)
+{
+  v3 = *(a1 + 16);
+  v4 = *(a1 + 24) + a2;
+  v5 = (((151 * v4) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+  if (v5 > v3)
+  {
+    v6 = 3 * v3;
+    v7 = v6 << 6;
+    v8 = (v6 >> 1) & 0x1FFFFFFFFFFFFFFLL;
+    if (v5 > v7 >> 7)
+    {
+      v8 = (((151 * v4) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+    }
+
+    v4 = (v8 << 7) / 0x97;
+  }
+
+  v9 = *(a1 + 56);
+  memset(v26, 0, sizeof(v26));
+  re::HashBrown<re::DynamicString,re::VariedFunctionConstant,re::Hash<re::DynamicString>,re::EqualTo<re::DynamicString>,void,false>::init(v26, v9, v4);
+  v24[0] = a1;
+  v10 = *(a1 + 16);
+  if (v10 >= 0x10)
+  {
+    v11 = 0;
+    v12 = *a1;
+    v13 = v10 >> 4;
+    while (1)
+    {
+      v14 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v12), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
+      v24[1] = v14 ^ 0xFFFFLL;
+      if (v14 != 0xFFFFLL)
+      {
+        break;
+      }
+
+      v11 -= 16;
+      ++v12;
+      if (!--v13)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    v15 = __clz(__rbit64(v14 ^ 0xFFFFLL));
+    v16 = v15 - v11;
+    v25 = v15 - v11;
+    if (v15 + 1 != v11)
+    {
+      do
+      {
+        re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::internalAdd(v26, (*(v24[0] + 8) + 96 * v16), *(v24[0] + 8) + 96 * v16 + 8);
+        re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v24);
+        v16 = v25;
+      }
+
+      while (v25 != -1);
+      v10 = *(a1 + 16);
+    }
+  }
+
+LABEL_13:
+  v17 = *(&v26[3] + 1);
+  *(&v26[3] + 1) = *(a1 + 56);
+  v18 = v26[0];
+  v19 = v26[1];
+  v26[0] = *a1;
+  *&v26[1] = v10;
+  v20 = v26[2];
+  v21 = *(a1 + 40);
+  *(a1 + 48) = *&v26[3];
+  *(a1 + 56) = v17;
+  *(&v26[2] + 8) = v21;
+  v22 = *(a1 + 24);
+  *a1 = v18;
+  *(a1 + 16) = v19;
+  *(a1 + 32) = v20;
+  *(&v26[1] + 8) = v22;
+  return re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::deinit(v26);
+}
+
+void *re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::internalAdd(uint64_t *a1, void *a2, uint64_t a3)
+{
+  if (!a1[7])
+  {
+  }
+
+  v6 = a1[4];
+  if (!v6 || (v7 = a1[2], v7 > 8 * v6))
+  {
+    re::HashBrown<re::ecs2::Entity const*,re::DynamicOverflowArray<re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,8ul>,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,void,false>::resize(a1, 1u);
+    v7 = a1[2];
+  }
+
+  v8 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  v9 = (0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) ^ ((0x94D049BB133111EBLL * (v8 ^ (v8 >> 27))) >> 31);
+  v10 = v7 >> 4;
+  v11 = v9 % (v7 >> 4);
+  v12 = *a1;
+  v13 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(*a1 + 16 * v11)), xmmword_1E304FAD0)))), 0x3830282018100800)));
+  if (v13 >= 0x40)
+  {
+    do
+    {
+      if (v11 + 1 == v10)
+      {
+        v11 = 0;
+      }
+
+      else
+      {
+        ++v11;
+      }
+
+      v13 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v12 + 16 * v11)), xmmword_1E304FAD0)))), 0x3830282018100800)));
+    }
+
+    while (v13 > 0x3F);
+  }
+
+  v14 = v12 + 16 * v11;
+  v15 = *(v14 + v13);
+  *(v14 + v13) = v9 & 0x7F;
+  v16 = v13 + 16 * v11;
+  *(a1[1] + 96 * v16) = *a2;
+  v17 = a1[1] + 96 * v16;
+  *(v17 + 8) = 0;
+  *(v17 + 16) = 0;
+  v18 = v17 + 8;
+  *(v18 + 16) = 1;
+  *(v18 + 24) = 0;
+  v19 = v18 + 24;
+  *(v18 + 32) = 0;
+  if ((*(a3 + 16) & 1) == 0)
+  {
+    *(v18 + 16) = 3;
+    v20 = *(a3 + 8);
+    *v18 = *a3;
+    *(v18 + 8) = v20;
+    *a3 = 0;
+    *(a3 + 8) = 0;
+    v21 = *(v18 + 32);
+    *(v18 + 32) = *(a3 + 32);
+    *(a3 + 32) = v21;
+    *(a3 + 16) = *(a3 + 16) & 0xFFFFFFFE | *(v18 + 16) & 1;
+    *(v18 + 16) &= ~1u;
+    v22 = *(v18 + 24);
+    *(v18 + 24) = *(a3 + 24);
+    *(a3 + 24) = v22;
+LABEL_23:
+    v29 = 2;
+    goto LABEL_24;
+  }
+
+  v23 = *(a3 + 8);
+  if (!v23)
+  {
+    re::DynamicOverflowArray<re::CollisionCastHit *,2ul>::deinit(v18);
+    *v18 = *a3;
+    goto LABEL_23;
+  }
+
+  *v18 = *a3;
+  re::DynamicOverflowArray<re::internal::BindPointImplBase const*,8ul>::setCapacity(v18, v23);
+  if (*(a3 + 16))
+  {
+    v24 = (a3 + 24);
+  }
+
+  else
+  {
+    v24 = *(a3 + 32);
+  }
+
+  v25 = *(v18 + 8);
+  v26 = *(v18 + 16);
+  v27 = (v18 + 24);
+  if ((v26 & 1) == 0)
+  {
+    v27 = *(v18 + 32);
+  }
+
+  if (v25)
+  {
+    memmove(v27, v24, 8 * v25);
+    v26 = *(v18 + 16);
+  }
+
+  if ((v26 & 1) == 0)
+  {
+    v19 = *(v18 + 32);
+  }
+
+  if (*(a3 + 16))
+  {
+    v28 = a3 + 24;
+  }
+
+  else
+  {
+    v28 = *(a3 + 32);
+  }
+
+  memcpy((v19 + 8 * *(v18 + 8)), (v28 + 8 * *(v18 + 8)), 8 * (v23 - *(v18 + 8)));
+  *(v18 + 8) = v23;
+  *(a3 + 8) = 0;
+  v29 = 4;
+LABEL_24:
+  *(a3 + 16) = ((*(a3 + 16) & 0xFFFFFFFE) + v29) | *(a3 + 16) & 1;
+  *(v18 + 16) += 2;
+  if (v15 == 255)
+  {
+    v30 = -1;
+  }
+
+  else
+  {
+    v30 = 0;
+  }
+
+  v31.i64[0] = vdupq_n_s64(1uLL).u64[0];
+  v31.i64[1] = v30;
+  *(a1 + 3) = vaddq_s64(*(a1 + 3), v31);
+  v32 = (a1[1] + 96 * v16);
+  v34 = *v32;
+  result = v32 + 1;
+  v35 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v34 ^ (v34 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v34 ^ (v34 >> 30))) >> 27));
+  a1[5] ^= (v35 >> 31) ^ v35;
+  return result;
+}
+
+void re::HashBrown<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,void,false>::resize(uint64_t a1, unsigned int a2)
+{
+  v3 = *(a1 + 16);
+  v4 = *(a1 + 24) + a2;
+  v5 = (((151 * v4) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+  if (v5 > v3)
+  {
+    v6 = 3 * v3;
+    v7 = v6 << 6;
+    v8 = (v6 >> 1) & 0x1FFFFFFFFFFFFFFLL;
+    if (v5 > v7 >> 7)
+    {
+      v8 = (((151 * v4) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+    }
+
+    v4 = (v8 << 7) / 0x97;
+  }
+
+  v9 = *(a1 + 56);
+  memset(v46, 0, sizeof(v46));
+  v10 = re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::init(v46, v9, v4);
+  v44[0] = a1;
+  v11 = *(a1 + 16);
+  if (v11 >= 0x10)
+  {
+    v12 = 0;
+    v13 = *a1;
+    v14 = v11 >> 4;
+    while (1)
+    {
+      v15 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v13), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
+      v44[1] = v15 ^ 0xFFFFLL;
+      if (v15 != 0xFFFFLL)
+      {
+        break;
+      }
+
+      v12 -= 16;
+      ++v13;
+      if (!--v14)
+      {
+        goto LABEL_28;
+      }
+    }
+
+    v16 = __clz(__rbit64(v15 ^ 0xFFFFLL));
+    v17 = v16 - v12;
+    v45 = v16 - v12;
+    if (v16 + 1 != v12)
+    {
+      do
+      {
+        v18 = *(v44[0] + 8);
+        if (*(&v46[3] + 1))
+        {
+          v19 = *&v46[2];
+        }
+
+        else
+        {
+          *&v46[1] = 16;
+          *&v37 = -1;
+          *(&v37 + 1) = -1;
+          **&v46[0] = v37;
+          v19 = *&v46[1];
+          *(&v46[0] + 1) = *&v46[0] + 16;
+          *(&v46[1] + 1) = 0;
+          v46[2] = *&v46[1];
+          *&v46[3] = 0;
+        }
+
+        v20 = xmmword_1E304FAD0;
+        if (!v19 || (v21 = *&v46[1], *&v46[1] > (8 * v19)))
+        {
+          re::HashBrown<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::DataArrayHandle<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,void,false>::resize(v46, 1u);
+          v20 = xmmword_1E304FAD0;
+          v21 = *&v46[1];
+        }
+
+        v22 = (v18 + 24 * v17);
+        v23 = 0xBF58476D1CE4E5B9 * (*v22 ^ (*v22 >> 30));
+        v24 = (0x94D049BB133111EBLL * (v23 ^ (v23 >> 27))) ^ ((0x94D049BB133111EBLL * (v23 ^ (v23 >> 27))) >> 31);
+        v25 = 0xBF58476D1CE4E5B9 * (v22[1] ^ (v22[1] >> 30));
+        v26 = (((0x94D049BB133111EBLL * (v25 ^ (v25 >> 27))) ^ ((0x94D049BB133111EBLL * (v25 ^ (v25 >> 27))) >> 31)) - 0x61C8864680B583E9 + (v24 << 6) + (v24 >> 2)) ^ v24;
+        v27 = v21 >> 4;
+        v28 = v26 % (v21 >> 4);
+        v29 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(*&v46[0] + 16 * v28)), v20)))), 0x3830282018100800)));
+        if (v29 >= 0x40)
+        {
+          do
+          {
+            if (v28 + 1 == v27)
+            {
+              v28 = 0;
+            }
+
+            else
+            {
+              ++v28;
+            }
+
+            v29 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(*&v46[0] + 16 * v28)), v20)))), 0x3830282018100800)));
+          }
+
+          while (v29 > 0x3F);
+        }
+
+        v30 = *&v46[0] + 16 * v28;
+        v31 = *(v30 + v29);
+        *(v30 + v29) = v26 & 0x7F;
+        *(*(&v46[0] + 1) + 24 * (v29 + 16 * v28)) = *v22;
+        *(*(&v46[0] + 1) + 24 * (v29 + 16 * v28) + 16) = v22[2];
+        if (v31 == 255)
+        {
+          v32 = -1;
+        }
+
+        else
+        {
+          v32 = 0;
+        }
+
+        v33.i64[0] = vdupq_n_s64(1uLL).u64[0];
+        v33.i64[1] = v32;
+        *(&v46[1] + 8) = vaddq_s64(*(&v46[1] + 8), v33);
+        v34 = (*(&v46[0] + 1) + 24 * (v29 + 16 * v28));
+        v35 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*v34 ^ (*v34 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (*v34 ^ (*v34 >> 30))) >> 27));
+        v36 = 0xBF58476D1CE4E5B9 * (v34[1] ^ (v34[1] >> 30));
+        *(&v46[2] + 1) ^= v35 ^ (v35 >> 31) ^ (((0x94D049BB133111EBLL * (v36 ^ (v36 >> 27))) ^ ((0x94D049BB133111EBLL * (v36 ^ (v36 >> 27))) >> 31)) - 0x61C8864680B583E9 + ((v35 ^ (v35 >> 31)) << 6) + ((v35 ^ (v35 >> 31)) >> 2));
+        v10 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v44);
+        v17 = v45;
+      }
+
+      while (v45 != -1);
+      v11 = *(a1 + 16);
+    }
+  }
+
+LABEL_28:
+  v38 = *(&v46[3] + 1);
+  *(&v46[3] + 1) = *(a1 + 56);
+  v39 = v46[0];
+  v40 = v46[1];
+  v46[0] = *a1;
+  *&v46[1] = v11;
+  v41 = v46[2];
+  v42 = *(a1 + 40);
+  *(a1 + 48) = *&v46[3];
+  *(a1 + 56) = v38;
+  *(&v46[2] + 8) = v42;
+  v43 = *(a1 + 24);
+  *a1 = v39;
+  *(a1 + 16) = v40;
+  *(a1 + 32) = v41;
+  *(&v46[1] + 8) = v43;
+  re::HashBrown<void const*,unsigned long,re::Hash<void const*>,re::EqualTo<void const*>,void,false>::deinit(v46);
+}
+
+void *re::BucketArray<re::ecs2::ClippingParameterDataStateTracking::buildClippingParameterDataStateForEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&,re::ecs2::RenderOptions const&,re::TransformService &)::EntityClippingData,32ul>::init(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  *a1 = a2;
+  re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(a1, a3);
+  *(a1 + 16) += 2;
+  *(a1 + 40) = 0;
+  result = re::BucketArray<re::ecs2::ClippingParameterDataStateTracking::buildClippingParameterDataStateForEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&,re::ecs2::RenderOptions const&,re::TransformService &)::EntityClippingData,32ul>::setBucketsCapacity(a1, a3);
+  ++*(a1 + 48);
+  return result;
+}
+
+_anonymous_namespace_ *re::BucketArray<re::ecs2::ClippingParameterDataStateTracking::buildClippingParameterDataStateForEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&,re::ecs2::RenderOptions const&,re::TransformService &)::EntityClippingData,32ul>::setBucketsCapacity(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v3 = result;
+  if (*result)
+  {
+    if (*(result + 5) < 32 * a2)
+    {
+      while (1)
+      {
+        v4 = *(v3 + 1);
+        if (v4 <= a2)
+        {
+          break;
+        }
+
+        result = re::BucketArray<re::CollisionCastHit,10ul>::freeElementBucket(v3);
+      }
+
+      if (v4 < a2)
+      {
+        v5 = (v3 + 24);
+        do
+        {
+          result = (*(**v3 + 32))(*v3, 3584, 0);
+          v6 = result;
+          if (*v3)
+          {
+            v7 = *(v3 + 1);
+            v8 = *(v3 + 4);
+            if ((v8 & 1) == 0)
+            {
+              v9 = *v5;
+              v11 = v7 >= *v5;
+              v10 = v7 + 1;
+              v11 = !v11 || v9 >= v10;
+              if (v11)
+              {
+                goto LABEL_24;
+              }
+
+              v12 = 2 * v9;
+              goto LABEL_20;
+            }
+
+            v10 = v7 + 1;
+            if (v10 >= 3)
+            {
+              v12 = 4;
+LABEL_20:
+              if (v12 <= v10)
+              {
+                v14 = v10;
+              }
+
+              else
+              {
+                v14 = v12;
+              }
+
+              result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v14);
+              v8 = *(v3 + 4);
+            }
+          }
+
+          else
+          {
+            v13 = *(v3 + 1);
+            result = re::DynamicOverflowArray<std::unique_ptr<void,std::function<void ()(void *)>> *,2ul>::setCapacity(v3, v13 + 1);
+            v8 = *(v3 + 4) + 2;
+            *(v3 + 4) = v8;
+          }
+
+LABEL_24:
+          v15 = (v3 + 24);
+          if ((v8 & 1) == 0)
+          {
+            v15 = *(v3 + 4);
+          }
+
+          v16 = *(v3 + 1);
+          v15[v16++] = v6;
+          *(v3 + 1) = v16;
+          *(v3 + 4) += 2;
+        }
+
+        while (v16 < a2);
+      }
+    }
+  }
+
+  else
+  {
+  }
+
+  return result;
+}
+
+unint64_t re::BucketArray<re::ecs2::ClippingParameterDataStateTracking::buildClippingParameterDataStateForEntityHierarchy(re::ecs2::Entity const*,re::ecs2::WorldRootProvider const&,re::ecs2::RenderOptions const&,re::TransformService &)::EntityClippingData,32ul>::operator[](uint64_t a1, unint64_t a2)
+{
+  v23 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 40);
+  if (v4 <= a2)
+  {
+    re::internal::assertLog(6, a2, "assertion failure: '%s' (%s:line %i) Index out of range. index = %zu, size = %zu", "index < m_size", "operator[]", 1011, a2, v4);
+    _os_crash("assertion failure: (index < m_size) Index out of range. index = %zu, size = %zu", v9, v10);
+    __break(1u);
+LABEL_8:
+    v13 = 0;
+    memset(v22, 0, sizeof(v22));
+    v7 = MEMORY[0x1E69E9C10];
+    v14 = 136315906;
+    v15 = "operator[]";
+    v16 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    v17 = 858;
+    v18 = 2048;
+    v19 = v2;
+    v20 = 2048;
+    v21 = v3;
+    _os_log_send_and_compose_impl(v8, &v13, v22, 80, &dword_1E1C61000, v7, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v14, 38, v11, v12);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v2 = a2 >> 5;
+  v3 = *(a1 + 8);
+  if (v3 <= a2 >> 5)
+  {
+    goto LABEL_8;
+  }
+
+  if (*(a1 + 16))
+  {
+    v5 = a1 + 24;
+  }
+
+  else
+  {
+    v5 = *(a1 + 32);
+  }
+
+  return *(v5 + 8 * v2) + 112 * (a2 & 0x1F);
+}
+
+_anonymous_namespace_ *re::DynamicOverflowArray<unsigned short,8ul>::growCapacity(_anonymous_namespace_ *result, unint64_t a2)
+{
+  v2 = a2;
+  v3 = result;
+  if (!*result)
+  {
+    result = re::DynamicOverflowArray<unsigned short,8ul>::setCapacity(v3, v2);
+    *(v3 + 4) += 2;
+    return result;
+  }
+
+  if (*(result + 16))
+  {
+    if (a2 <= 8)
+    {
+      return result;
+    }
+
+    v5 = 16;
+  }
+
+  else
+  {
+    v4 = *(result + 3);
+    if (v4 >= a2)
+    {
+      return result;
+    }
+
+    v5 = 2 * v4;
+  }
+
+  if (v5 > a2)
+  {
+    a2 = v5;
+  }
+
+  return re::DynamicOverflowArray<unsigned short,8ul>::setCapacity(result, a2);
+}
+
+uint64_t re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+{
+  v5 = *(a1 + 36);
+  if (v5 == 0x7FFFFFFF)
+  {
+    v5 = *(a1 + 32);
+    v6 = v5;
+    if (v5 == *(a1 + 24))
+    {
+      v7 = *(a1 + 28);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
+      {
+        if (v8)
+        {
+          v10 = v5 == v8;
+        }
+
+        else
+        {
+          v10 = 1;
+        }
+
+        if (!v10 && (v7 & 0x80000000) == 0)
+        {
+          memset(v32, 0, 36);
+          *&v32[36] = 0x7FFFFFFFLL;
+          re::HashTable<unsigned long long,re::UIShadowRenderData::ReceiverData,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::init(v32, v9, v8);
+          v11 = *v32;
+          *v32 = *a1;
+          *a1 = v11;
+          v12 = *&v32[16];
+          v13 = *(a1 + 16);
+          *&v32[16] = v13;
+          *(a1 + 16) = v12;
+          v15 = *&v32[24];
+          *&v32[24] = *(a1 + 24);
+          v14 = *&v32[32];
+          *(a1 + 24) = v15;
+          ++*&v32[40];
+          v16 = v14;
+          if (v14)
+          {
+            v17 = v13 + 160;
+            do
+            {
+              if ((*(v17 - 160) & 0x80000000) != 0)
+              {
+                v18 = re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::allocEntry(a1, *(v17 + 48) % *(a1 + 24), *(v17 + 48));
+                *(v18 + 8) = *(v17 - 152);
+                v19 = *(v17 - 64);
+                v20 = *(v17 - 48);
+                v21 = *(v17 - 16);
+                *(v18 + 128) = *(v17 - 32);
+                *(v18 + 144) = v21;
+                *(v18 + 96) = v19;
+                *(v18 + 112) = v20;
+                v22 = *(v17 - 128);
+                v23 = *(v17 - 112);
+                v24 = *(v17 - 80);
+                *(v18 + 64) = *(v17 - 96);
+                *(v18 + 80) = v24;
+                *(v18 + 32) = v22;
+                *(v18 + 48) = v23;
+                *(v18 + 16) = *(v17 - 144);
+                re::DynamicOverflowArray<unsigned short,8ul>::DynamicOverflowArray(v18 + 160, v17);
+                v25 = *(v17 + 40);
+                *(v18 + 203) = *(v17 + 43);
+                *(v18 + 200) = v25;
+              }
+
+              v17 += 224;
+              --v16;
+            }
+
+            while (v16);
+          }
+
+          re::HashTable<re::ecs2::Entity const*,re::ecs2::ClippingParameterData,re::Hash<re::ecs2::Entity const*>,re::EqualTo<re::ecs2::Entity const*>,true,false>::deinit(v32);
+        }
+      }
+
+      else
+      {
+        if (v8)
+        {
+          v28 = 2 * v7;
+        }
+
+        else
+        {
+          v28 = 3;
+        }
+      }
+
+      a2 = a3 % *(a1 + 24);
+      v6 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v6 + 1;
+    v26 = *(a1 + 16);
+    v27 = *(v26 + 224 * v5);
+  }
+
+  else
+  {
+    v26 = *(a1 + 16);
+    v27 = *(v26 + 224 * v5);
+    *(a1 + 36) = v27 & 0x7FFFFFFF;
+  }
+
+  v29 = v26 + 224 * v5;
+  *v29 = v27 | 0x80000000;
+  v30 = *(a1 + 8);
+  *v29 = *(v30 + 4 * a2) | 0x80000000;
+  *(v30 + 4 * a2) = v5;
+  *(v29 + 208) = a3;
+  ++*(a1 + 28);
+  return v26 + 224 * v5;
+}
+
+uint64_t re::HashSetBase<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::internal::ValueAsKey<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,true,false>::addAsMove(uint64_t a1, unsigned int a2, unint64_t a3, _OWORD *a4)
+{
+  v7 = *(a1 + 36);
+  if (v7 == 0x7FFFFFFF)
+  {
+    v7 = *(a1 + 32);
+    v8 = v7;
+    if (v7 == *(a1 + 24))
+    {
+      v9 = *(a1 + 28);
+      v10 = 2 * v9;
+      v11 = *a1;
+      if (*a1)
+      {
+        if (v10)
+        {
+          v12 = v7 == v10;
+        }
+
+        else
+        {
+          v12 = 1;
+        }
+
+        if (!v12 && (v9 & 0x80000000) == 0)
+        {
+          memset(v24, 0, 36);
+          *&v24[36] = 0x7FFFFFFFLL;
+          re::HashSetBase<re::DirectResourceId,re::DirectResourceId,re::internal::ValueAsKey<re::DirectResourceId>,re::Hash<re::DirectResourceId>,re::EqualTo<re::DirectResourceId>,true,false>::init(v24, v11, v10);
+          v13 = *v24;
+          *v24 = *a1;
+          *a1 = v13;
+          v14 = *&v24[16];
+          v15 = *(a1 + 16);
+          *&v24[16] = v15;
+          *(a1 + 16) = v14;
+          v17 = *&v24[24];
+          *&v24[24] = *(a1 + 24);
+          v16 = *&v24[32];
+          *(a1 + 24) = v17;
+          v18 = v16;
+          if (v16)
+          {
+            v19 = (v15 + 16);
+            do
+            {
+              if ((*(v19 - 2) & 0x80000000) != 0)
+              {
+                re::HashSetBase<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>,re::internal::ValueAsKey<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::Hash<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,re::EqualTo<re::Pair<re::ecs2::Entity const*,re::ecs2::Entity const*,true>>,true,false>::addAsMove(a1, *(v19 - 2) % *(a1 + 24), *(v19 - 2), v19);
+              }
+
+              v19 += 2;
+              --v18;
+            }
+
+            while (v18);
+          }
+
+          re::HashSetBase<re::SceneShadowClusterID,re::SceneShadowClusterID,re::internal::ValueAsKey<re::SceneShadowClusterID>,re::Hash<re::SceneShadowClusterID>,re::EqualTo<re::SceneShadowClusterID>,true,false>::deinit(v24);
+        }
+      }
+
+      else
+      {
+        if (v10)
+        {
+          v22 = v10;
+        }
+
+        else
+        {
+          v22 = 3;
+        }
+      }
+
+      a2 = a3 % *(a1 + 24);
+      v8 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v8 + 1;
+    v20 = *(a1 + 16);
+    v21 = *(v20 + 32 * v7 + 8);
+  }
+
+  else
+  {
+    v20 = *(a1 + 16);
+    v21 = *(v20 + 32 * v7 + 8);
+    *(a1 + 36) = v21 & 0x7FFFFFFF;
+  }
+
+  *(v20 + 32 * v7 + 8) = v21 | 0x80000000;
+  *(*(a1 + 16) + 32 * v7 + 8) = *(*(a1 + 16) + 32 * v7 + 8) & 0x80000000 | *(*(a1 + 8) + 4 * a2);
+  *(*(a1 + 16) + 32 * v7) = a3;
+  *(*(a1 + 16) + 32 * v7 + 16) = *a4;
+  *(*(a1 + 8) + 4 * a2) = v7;
+  ++*(a1 + 28);
+  return v7;
+}
+
+uint64_t re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::DataArrayIterator<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData,re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData&>::DataArrayIterator(uint64_t a1, uint64_t a2)
+{
+  v17 = *MEMORY[0x1E69E9840];
+  *a1 = a2;
+  if (*(a2 + 40))
+  {
+    *(a1 + 8) = 0;
+    if (!*(a2 + 16))
+    {
+      v7 = 0;
+      memset(v16, 0, sizeof(v16));
+      v4 = MEMORY[0x1E69E9C10];
+      v8 = 136315906;
+      v9 = "operator[]";
+      v10 = 1024;
+      if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+      {
+        v5 = 3;
+      }
+
+      else
+      {
+        v5 = 2;
+      }
+
+      v11 = 797;
+      v12 = 2048;
+      v13 = 0;
+      v14 = 2048;
+      v15 = 0;
+      _os_log_send_and_compose_impl(v5, &v7, v16, 80, &dword_1E1C61000, v4, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v8, 38, v6);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    if (!**(*(a2 + 32) + 8))
+    {
+      re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(a1);
+    }
+  }
+
+  else
+  {
+    *(a1 + 8) = -1;
+  }
+
+  return a1;
+}
+
+void *re::ecs2::allocInfo_RenderGraphFileProviderEntry(re::ecs2 *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1B5998, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B5998))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B5A58, "RenderGraphFileProviderEntry");
+    __cxa_guard_release(&qword_1EE1B5998);
+  }
+
+  return &unk_1EE1B5A58;
+}
+
+void re::ecs2::initInfo_RenderGraphFileProviderEntry(re::ecs2 *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v28[0] = 0xB11ACD09D60D6D1ALL;
+  v28[1] = "RenderGraphFileProviderEntry";
+  if (v28[0])
+  {
+    if (v28[0])
+    {
+    }
+  }
+
+  *(this + 2) = v29;
+  if ((atomic_load_explicit(&qword_1EE1B59A0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B59A0))
+  {
+    v7 = re::introspectionAllocator();
+    v9 = re::introspect_AssetHandle(1, v8);
+    v10 = (*(*v7 + 32))(v7, 72, 8);
+    *v10 = 1;
+    *(v10 + 8) = "renderGraph";
+    *(v10 + 16) = v9;
+    *(v10 + 24) = 0;
+    *(v10 + 32) = 1;
+    *(v10 + 40) = 0;
+    *(v10 + 48) = 0;
+    *(v10 + 56) = 0;
+    *(v10 + 64) = 0;
+    qword_1EE1B59F0 = v10;
+    v11 = re::introspectionAllocator();
+    v13 = re::IntrospectionInfo<re::DynamicString>::get(1, v12);
+    v14 = (*(*v11 + 32))(v11, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "typeScope";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 0x1800000002;
+    *(v14 + 40) = 0;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE1B59F8 = v14;
+    v15 = re::introspectionAllocator();
+    v17 = re::introspect_int(1, v16);
+    v18 = (*(*v15 + 32))(v15, 72, 8);
+    *v18 = 1;
+    *(v18 + 8) = "order";
+    *(v18 + 16) = v17;
+    *(v18 + 24) = 0;
+    *(v18 + 32) = 0x3800000003;
+    *(v18 + 40) = 0;
+    *(v18 + 48) = 0;
+    *(v18 + 56) = 0;
+    *(v18 + 64) = 0;
+    qword_1EE1B5A00 = v18;
+    v19 = re::introspectionAllocator();
+    v21 = re::introspect_uint64_t(1, v20);
+    v22 = (*(*v19 + 32))(v19, 72, 8);
+    *v22 = 1;
+    *(v22 + 8) = "token";
+    *(v22 + 16) = v21;
+    *(v22 + 24) = 0;
+    *(v22 + 32) = 0x4000000004;
+    *(v22 + 40) = 0;
+    *(v22 + 48) = 0;
+    *(v22 + 56) = 0;
+    *(v22 + 64) = 0;
+    qword_1EE1B5A08 = v22;
+    v23 = re::introspectionAllocator();
+    v25 = re::introspect_BOOL(1, v24);
+    v26 = (*(*v23 + 32))(v23, 72, 8);
+    *v26 = 1;
+    *(v26 + 8) = "removed";
+    *(v26 + 16) = v25;
+    *(v26 + 24) = 0;
+    *(v26 + 32) = 0x4800000005;
+    *(v26 + 40) = 0;
+    *(v26 + 48) = 0;
+    *(v26 + 56) = 0;
+    *(v26 + 64) = 0;
+    qword_1EE1B5A10 = v26;
+    __cxa_guard_release(&qword_1EE1B59A0);
+  }
+
+  *(this + 2) = 0x5000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 5;
+  *(this + 8) = &qword_1EE1B59F0;
+  *(this + 9) = re::internal::defaultConstruct<re::ecs2::RenderGraphFileProviderEntry>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::ecs2::RenderGraphFileProviderEntry>;
+  *(this + 13) = re::internal::defaultConstructV2<re::ecs2::RenderGraphFileProviderEntry>;
+  *(this + 14) = re::internal::defaultDestructV2<re::ecs2::RenderGraphFileProviderEntry>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v27 = v29;
+}
+
+void *re::internal::defaultConstruct<re::ecs2::RenderGraphFileProviderEntry>(_anonymous_namespace_ *a1, uint64_t a2, uint64_t a3)
+{
+  v3 = a3;
+  *(a3 + 48) = 0;
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 0u;
+  *a3 = 0u;
+  v3 += 24;
+  result = re::DynamicString::setCapacity(v3, 0);
+  *(v3 + 40) = 0;
+  *(v3 + 48) = 0;
+  return result;
+}
+
+void re::internal::defaultDestruct<re::ecs2::RenderGraphFileProviderEntry>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::DynamicString::deinit((a3 + 24));
+
+  re::AssetHandle::~AssetHandle(a3);
+}
+
+void *re::internal::defaultConstructV2<re::ecs2::RenderGraphFileProviderEntry>(uint64_t a1)
+{
+  v1 = a1;
+  *(a1 + 48) = 0;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  v1 += 24;
+  result = re::DynamicString::setCapacity(v1, 0);
+  *(v1 + 40) = 0;
+  *(v1 + 48) = 0;
+  return result;
+}
+
+void re::internal::defaultDestructV2<re::ecs2::RenderGraphFileProviderEntry>(uint64_t a1)
+{
+  re::DynamicString::deinit((a1 + 24));
+
+  re::AssetHandle::~AssetHandle(a1);
+}
+
+void re::IntrospectionInfo<re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>>::get(re::ecs2 *a1)
+{
+  if ((atomic_load_explicit(&qword_1EE1B59C8, memory_order_acquire) & 1) == 0)
+  {
+    a1 = __cxa_guard_acquire(&qword_1EE1B59C8);
+    if (a1)
+    {
+      re::IntrospectionDynamicArray<re::ecs2::RenderGraphFileProviderEntry>::IntrospectionDynamicArray();
+      __cxa_guard_release(&qword_1EE1B59C8);
+    }
+  }
+
+  if ((_MergedGlobals_404 & 1) == 0)
+  {
+    v1 = qword_1EE1B59A8;
+    if (qword_1EE1B59A8 || (v1 = re::ecs2::allocInfo_RenderGraphFileProviderEntry(a1), qword_1EE1B59A8 = v1, re::ecs2::initInfo_RenderGraphFileProviderEntry(v1, v2, v3, v4), (_MergedGlobals_404 & 1) == 0))
+    {
+      _MergedGlobals_404 = 1;
+      v5 = *(v1 + 6);
+      ArcSharedObject::ArcSharedObject(&qword_1EE1B5A18, 0);
+      qword_1EE1B5A28 = 0x2800000003;
+      dword_1EE1B5A30 = v5;
+      word_1EE1B5A34 = 0;
+      *&xmmword_1EE1B5A38 = 0;
+      *(&xmmword_1EE1B5A38 + 1) = 0xFFFFFFFFLL;
+      qword_1EE1B5A48 = v1;
+      qword_1EE1B5A50 = 0;
+      qword_1EE1B5A18 = &unk_1F5D00E50;
+      re::IntrospectionRegistry::add(v6, v7);
+      re::getPrettyTypeName(&v15, &qword_1EE1B5A18);
+      if (v16)
+      {
+        v8 = *&v17[7];
+      }
+
+      else
+      {
+        v8 = v17;
+      }
+
+      if (v15 && (v16 & 1) != 0)
+      {
+        (*(*v15 + 40))();
+      }
+
+      v12 = *(v1 + 2);
+      if (v19)
+      {
+        v11 = v19;
+      }
+
+      else
+      {
+        re::StackScratchAllocator::StackScratchAllocator(v18);
+        re::TypeBuilder::TypeBuilder(&v15, v18);
+        v14 = v12;
+        re::TypeBuilder::beginListType(&v15, &v13, 1, 0x28uLL, 8uLL, &v14);
+        re::TypeBuilder::setConstructor(&v15, re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke);
+        re::TypeBuilder::setDestructor(&v15, re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#2}::__invoke);
+        re::TypeBuilder::setListUsesContiguousStorage(&v15, 1);
+        re::TypeBuilder::setListAccessors(&v15, re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIndexer(&v15, re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke);
+        re::TypeBuilder::setListIterator(&v15, re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke, re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke);
+        re::TypeBuilder::~TypeBuilder(&v15, v10);
+        re::StackScratchAllocator::~StackScratchAllocator(v18);
+      }
+
+      xmmword_1EE1B5A38 = v11;
+      if (v13)
+      {
+        if (v13)
+        {
+        }
+      }
+    }
+  }
+}
+
+void *re::ecs2::allocInfo_RenderGraphFileProviderArrayComponent(re::ecs2 *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1B59B8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B59B8))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B5AE8, "RenderGraphFileProviderArrayComponent");
+    __cxa_guard_release(&qword_1EE1B59B8);
+  }
+
+  return &unk_1EE1B5AE8;
+}
+
+void re::ecs2::initInfo_RenderGraphFileProviderArrayComponent(re::ecs2 *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v26[0] = 0x5223CBB28538BDD2;
+  v26[1] = "RenderGraphFileProviderArrayComponent";
+  if (v26[0])
+  {
+    if (v26[0])
+    {
+    }
+  }
+
+  *(this + 2) = v27;
+  if ((atomic_load_explicit(&qword_1EE1B59B0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B59B0))
+  {
+    v7 = re::introspectionAllocator();
+    v13 = re::ecs2::introspect_Component(1, v8, v9, v10, v11, v12);
+    v14 = (*(*v7 + 32))(v7, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "Component";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 0;
+    *(v14 + 40) = 3;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE1B59D0 = v14;
+    v15 = re::introspectionAllocator();
+    re::IntrospectionInfo<re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>>::get(v15);
+    v16 = (*(*v15 + 32))(v15, 72, 8);
+    *v16 = 1;
+    *(v16 + 8) = "m_entries";
+    *(v16 + 16) = &qword_1EE1B5A18;
+    *(v16 + 24) = 0;
+    *(v16 + 32) = 0x2800000001;
+    *(v16 + 40) = 0;
+    *(v16 + 48) = 0;
+    *(v16 + 56) = 0;
+    *(v16 + 64) = 0;
+    qword_1EE1B59D8 = v16;
+    v17 = re::introspectionAllocator();
+    v19 = re::introspect_uint64_t(1, v18);
+    v20 = (*(*v17 + 32))(v17, 72, 8);
+    *v20 = 1;
+    *(v20 + 8) = "m_currentProviderToken";
+    *(v20 + 16) = v19;
+    *(v20 + 24) = 0;
+    *(v20 + 32) = 0x2000000002;
+    *(v20 + 40) = 0;
+    *(v20 + 48) = 0;
+    *(v20 + 56) = 0;
+    *(v20 + 64) = 0;
+    qword_1EE1B59E0 = v20;
+    v21 = re::introspectionAllocator();
+    v23 = re::introspect_BOOL(1, v22);
+    v24 = (*(*v21 + 32))(v21, 72, 8);
+    *v24 = 1;
+    *(v24 + 8) = "m_useForScene";
+    *(v24 + 16) = v23;
+    *(v24 + 24) = 0;
+    *(v24 + 32) = 0x5000000003;
+    *(v24 + 40) = 0;
+    *(v24 + 48) = 0;
+    *(v24 + 56) = 0;
+    *(v24 + 64) = 0;
+    qword_1EE1B59E8 = v24;
+    __cxa_guard_release(&qword_1EE1B59B0);
+  }
+
+  *(this + 2) = 0x5800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 4;
+  *(this + 8) = &qword_1EE1B59D0;
+  *(this + 9) = re::internal::defaultConstruct<re::ecs2::RenderGraphFileProviderArrayComponent>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::ecs2::RenderGraphFileProviderArrayComponent>;
+  *(this + 13) = re::internal::defaultConstructV2<re::ecs2::RenderGraphFileProviderArrayComponent>;
+  *(this + 14) = re::internal::defaultDestructV2<re::ecs2::RenderGraphFileProviderArrayComponent>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = _ZZN2re8internal15setIntroVersionINS_4ecs237RenderGraphFileProviderArrayComponentELNS_17RealityKitReleaseE5EEEDTcldtclsr3stdE7declvalIT_EE24adjustedIntroReleaseInfoclL_ZNSt3__17declvalB8nn200100INS_19RealityFilePlatformEEEDTclsr3stdE9__declvalIS5_ELi0EEEvEEEERPFNS_21RealityKitReleaseInfoEPKvS8_ENS0_8priorityILi1EEEENUlSD_S8_E_8__invokeESD_S8_;
+  re::internal::prepare(this, v6);
+  v25 = v27;
+}
+
+void re::internal::defaultConstruct<re::ecs2::RenderGraphFileProviderArrayComponent>(int a1, int a2, ArcSharedObject *this)
+{
+  *(this + 10) = 0;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *this = 0u;
+  ArcSharedObject::ArcSharedObject(this, 0);
+  *(v3 + 16) = 0;
+  *(v3 + 24) = 0;
+  *v3 = &unk_1F5CDDD98;
+  *(v3 + 72) = 0;
+  *(v3 + 32) = 1000;
+  *(v3 + 40) = 0;
+  *(v3 + 48) = 0;
+  *(v3 + 56) = 0;
+  *(v3 + 64) = 0;
+  *(v3 + 80) = 0;
+}
+
+void re::internal::defaultConstructV2<re::ecs2::RenderGraphFileProviderArrayComponent>(uint64_t a1)
+{
+  *(a1 + 80) = 0;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *a1 = 0u;
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v1 + 16) = 0;
+  *(v1 + 24) = 0;
+  *v1 = &unk_1F5CDDD98;
+  *(v1 + 72) = 0;
+  *(v1 + 32) = 1000;
+  *(v1 + 40) = 0;
+  *(v1 + 48) = 0;
+  *(v1 + 56) = 0;
+  *(v1 + 64) = 0;
+  *(v1 + 80) = 0;
+}
+
+void *re::ecs2::allocInfo_RenderGraphFileProviderArraySystem(re::ecs2 *this)
+{
+  if ((atomic_load_explicit(&qword_1EE1B59C0, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B59C0))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B5B78, "RenderGraphFileProviderArraySystem");
+    __cxa_guard_release(&qword_1EE1B59C0);
+  }
+
+  return &unk_1EE1B5B78;
+}
+
+void re::ecs2::initInfo_RenderGraphFileProviderArraySystem(re::ecs2 *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v8[0] = 0x5B49CEE5C618AF86;
+  v8[1] = "RenderGraphFileProviderArraySystem";
+  if (v8[0])
+  {
+    if (v8[0])
+    {
+    }
+  }
+
+  *(this + 2) = v9;
+  *(this + 2) = 0x12800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 0;
+  *(this + 8) = &re::ecs2::initInfo_RenderGraphFileProviderArraySystem(re::IntrospectionBase *)::structureAttributes;
+  *(this + 9) = re::internal::defaultConstruct<re::ecs2::RenderGraphFileProviderArraySystem>;
+  *(this + 10) = re::internal::defaultDestruct<re::ecs2::RenderGraphFileProviderArraySystem>;
+  *(this + 11) = re::internal::defaultRetain<re::ecs2::RenderGraphFileProviderArraySystem>(void)::{lambda(void *)#1}::__invoke;
+  *(this + 12) = re::internal::defaultRelease<re::ecs2::RenderGraphFileProviderArraySystem>(void)::{lambda(void *)#1}::__invoke;
+  *(this + 13) = re::internal::defaultConstructV2<re::ecs2::RenderGraphFileProviderArraySystem>;
+  *(this + 14) = re::internal::defaultDestructV2<re::ecs2::RenderGraphFileProviderArraySystem>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v7 = v9;
+}
+
+double re::internal::defaultConstruct<re::ecs2::RenderGraphFileProviderArraySystem>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a3 + 288) = 0;
+  *(a3 + 256) = 0u;
+  *(a3 + 272) = 0u;
+  *(a3 + 224) = 0u;
+  *(a3 + 240) = 0u;
+  *(a3 + 192) = 0u;
+  *(a3 + 208) = 0u;
+  *(a3 + 160) = 0u;
+  *(a3 + 176) = 0u;
+  *(a3 + 128) = 0u;
+  *(a3 + 144) = 0u;
+  *(a3 + 96) = 0u;
+  *(a3 + 112) = 0u;
+  *(a3 + 64) = 0u;
+  *(a3 + 80) = 0u;
+  *(a3 + 32) = 0u;
+  *(a3 + 48) = 0u;
+  *a3 = 0u;
+  *(a3 + 16) = 0u;
+  v3 = re::ecs2::System::System(a3, 1, 1);
+  *(v3 + 288) = 0;
+  result = 0.0;
+  *(v3 + 256) = 0u;
+  *(v3 + 272) = 0u;
+  *(v3 + 224) = 0u;
+  *(v3 + 240) = 0u;
+  *v3 = &unk_1F5D00DC0;
+  return result;
+}
+
+double re::internal::defaultConstructV2<re::ecs2::RenderGraphFileProviderArraySystem>(uint64_t a1)
+{
+  *(a1 + 288) = 0;
+  *(a1 + 256) = 0u;
+  *(a1 + 272) = 0u;
+  *(a1 + 224) = 0u;
+  *(a1 + 240) = 0u;
+  *(a1 + 192) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 176) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 144) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  v1 = re::ecs2::System::System(a1, 1, 1);
+  *(v1 + 288) = 0;
+  result = 0.0;
+  *(v1 + 256) = 0u;
+  *(v1 + 272) = 0u;
+  *(v1 + 224) = 0u;
+  *(v1 + 240) = 0u;
+  *v1 = &unk_1F5D00DC0;
+  return result;
+}
+
+uint64_t re::ecs2::RenderGraphFileProviderArrayComponent::add(uint64_t a1, uint64_t *a2, const char *a3, int a4)
+{
+  *(a1 + 25) = 2;
+  v15 = 0;
+  memset(&v16[1], 0, 24);
+  v14 = 0u;
+  re::DynamicString::setCapacity(v16, 0);
+  v18 = 0;
+  v19 = 0;
+  re::AssetHandle::operator=(&v14, a2);
+  v8 = strlen(a3);
+  v20[0] = a3;
+  v20[1] = v8;
+  re::DynamicString::operator=(v16, v20);
+  v17 = a4;
+  v9 = *(a1 + 32) + 1;
+  do
+  {
+    v10 = v9;
+    v9 = 1;
+  }
+
+  while (!v10);
+  *(a1 + 32) = v10;
+  v18 = v10;
+  v11 = re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::add((a1 + 40), &v14);
+  v12 = v18;
+  if (v16[0])
+  {
+    if (v16[1])
+    {
+      (*(*v16[0] + 40))(v11);
+    }
+
+    memset(v16, 0, sizeof(v16));
+  }
+
+  re::AssetHandle::~AssetHandle(&v14);
+  return v12;
+}
+
+__n128 re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::add(_anonymous_namespace_ *this, re::AssetHandle *a2)
+{
+  v4 = *(this + 2);
+  if (v4 >= *(this + 1))
+  {
+    re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::growCapacity(this, v4 + 1);
+    v4 = *(this + 2);
+  }
+
+  v5 = *(this + 4) + 80 * v4;
+  re::AssetHandle::AssetHandle(v5, a2);
+  re::DynamicString::DynamicString((v5 + 24), (a2 + 24));
+  result = *(a2 + 56);
+  *(v5 + 72) = *(a2 + 72);
+  *(v5 + 56) = result;
+  ++*(this + 2);
+  ++*(this + 6);
+  return result;
+}
+
+uint64_t re::ecs2::RenderGraphFileProviderArrayComponent::entry(re::ecs2::RenderGraphFileProviderArrayComponent *this, unint64_t a2)
+{
+  v22 = *MEMORY[0x1E69E9840];
+  if (v10 != 1)
+  {
+    return 0;
+  }
+
+  v3 = v11;
+  v4 = *(this + 7);
+  if (v4 <= v11)
+  {
+    v12 = 0;
+    memset(v21, 0, sizeof(v21));
+    v6 = MEMORY[0x1E69E9C10];
+    v7 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v13 = 136315906;
+    v14 = "operator[]";
+    v15 = 1024;
+    if (v7)
+    {
+      v8 = 3;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+
+    v16 = 797;
+    v17 = 2048;
+    v18 = v3;
+    v19 = 2048;
+    v20 = v4;
+    _os_log_send_and_compose_impl(v8, &v12, v21, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v13, 38, v9, v10);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(this + 9) + 80 * v11;
+}
+
+uint64_t anonymous namespace::providerTokenIndex<re::ecs2::RenderGraphFileProviderEntry>(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v4 = a3 + 80 * a2;
+  v5 = a3;
+  if (a2)
+  {
+    v5 = a3;
+    do
+    {
+      v6 = v5 + 80 * (a2 >> 1);
+      v7 = *(v6 + 64);
+      v8 = v6 + 80;
+      if (v7 >= a4)
+      {
+        a2 >>= 1;
+      }
+
+      else
+      {
+        a2 += ~(a2 >> 1);
+      }
+
+      if (v7 < a4)
+      {
+        v5 = v8;
+      }
+    }
+
+    while (a2);
+  }
+
+  if (v5 == v4 || *(v5 + 64) != a4)
+  {
+    *result = 0;
+  }
+
+  else
+  {
+    *result = 1;
+    *(result + 8) = 0xCCCCCCCCCCCCCCCDLL * ((v5 - a3) >> 4);
+  }
+
+  return result;
+}
+
+uint64_t re::ecs2::RenderGraphFileProviderArrayComponent::setRenderGraph(uint64_t a1, unint64_t a2, uint64_t *a3)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  if (v13 == 1)
+  {
+    v6 = v14;
+    v7 = *(a1 + 56);
+    if (v7 <= v14)
+    {
+      v15 = 0;
+      memset(v24, 0, sizeof(v24));
+      v9 = MEMORY[0x1E69E9C10];
+      v10 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v16 = 136315906;
+      v17 = "operator[]";
+      v18 = 1024;
+      if (v10)
+      {
+        v11 = 3;
+      }
+
+      else
+      {
+        v11 = 2;
+      }
+
+      v19 = 789;
+      v20 = 2048;
+      v21 = v6;
+      v22 = 2048;
+      v23 = v7;
+      _os_log_send_and_compose_impl(v11, &v15, v24, 80, &dword_1E1C61000, v9, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v16, 38, v12, v13);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    v8 = *(a1 + 72) + 80 * v14;
+
+    return re::AssetHandle::operator=(v8, a3);
+  }
+
+  return result;
+}
+
+re::DynamicString *re::ecs2::RenderGraphFileProviderArrayComponent::setTypeScope(re::ecs2::RenderGraphFileProviderArrayComponent *this, unint64_t a2, const char *a3)
+{
+  v26 = *MEMORY[0x1E69E9840];
+  if (v14 == 1)
+  {
+    v6 = v15;
+    v7 = *(this + 7);
+    if (v7 <= v15)
+    {
+      v16 = 0;
+      memset(v25, 0, sizeof(v25));
+      v10 = MEMORY[0x1E69E9C10];
+      v11 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v17 = 136315906;
+      v18 = "operator[]";
+      v19 = 1024;
+      if (v11)
+      {
+        v12 = 3;
+      }
+
+      else
+      {
+        v12 = 2;
+      }
+
+      v20 = 789;
+      v21 = 2048;
+      v22 = v6;
+      v23 = 2048;
+      v24 = v7;
+      _os_log_send_and_compose_impl(v12, &v16, v25, 80, &dword_1E1C61000, v10, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v17, 38, v13, v14);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    v8 = *(this + 9) + 80 * v15;
+    v9 = strlen(a3);
+    *&v25[0] = a3;
+    *(&v25[0] + 1) = v9;
+    return re::DynamicString::operator=((v8 + 24), v25);
+  }
+
+  return result;
+}
+
+uint64_t re::ecs2::RenderGraphFileProviderArrayComponent::setOrder(re::ecs2::RenderGraphFileProviderArrayComponent *this, unint64_t a2, int a3)
+{
+  v24 = *MEMORY[0x1E69E9840];
+  if (v12 == 1)
+  {
+    v6 = v13;
+    v7 = *(this + 7);
+    if (v7 <= v13)
+    {
+      v14 = 0;
+      memset(v23, 0, sizeof(v23));
+      v8 = MEMORY[0x1E69E9C10];
+      v9 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v15 = 136315906;
+      v16 = "operator[]";
+      v17 = 1024;
+      if (v9)
+      {
+        v10 = 3;
+      }
+
+      else
+      {
+        v10 = 2;
+      }
+
+      v18 = 789;
+      v19 = 2048;
+      v20 = v6;
+      v21 = 2048;
+      v22 = v7;
+      _os_log_send_and_compose_impl(v10, &v14, v23, 80, &dword_1E1C61000, v8, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v15, 38, v11, v12);
+      _os_crash_msg();
+      __break(1u);
+    }
+
+    *(*(this + 9) + 80 * v13 + 56) = a3;
+  }
+
+  return result;
+}
+
+void *re::ecs2::RenderGraphFileProviderArraySystem::update(void *result, uint64_t a2, uint64_t a3)
+{
+  v5 = result;
+  v84 = *MEMORY[0x1E69E9840];
+  v6 = result[28];
+  if (!v6 || (*(v6 + 432) & 0x10) != 0)
+  {
+    v7 = *(a3 + 200);
+    if (v7)
+    {
+      v8 = *(a3 + 216);
+      v62 = &v8[v7];
+      v60 = result;
+      while (1)
+      {
+        v9 = *v8;
+        if (*v8)
+        {
+          break;
+        }
+
+LABEL_96:
+        if (++v8 == v62)
+        {
+          return result;
+        }
+      }
+
+      re::ProfilerTimeGuard<(re::ProfilerStatistic)20>::ProfilerTimeGuard(v71);
+      v11 = v5[29];
+      if (!v11)
+      {
+        goto LABEL_102;
+      }
+
+      v12 = *(v11 + 112);
+      v63 = v8;
+      if (v12)
+      {
+        v13 = re::RenderFrameBox::get((v12 + 328), 0xFFFFFFFFFFFFFFFuLL);
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      v14 = *(v13 + 392);
+      v67[1] = 0;
+      v68 = 0;
+      v69 = 0;
+      v70 = 0;
+      v64 = v14;
+      v67[0] = v14;
+      re::DynamicArray<re::RenderGraphFileProvider>::setCapacity(v67, 0);
+      ++v69;
+      v66 = (*(*v5[32] + 24))(v5[32]);
+      v61 = v9;
+      v15 = re::ecs2::SceneComponentTable::get((v9 + 200), re::ecs2::ComponentImpl<re::ecs2::RenderGraphFileProviderArrayComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
+      if (v15)
+      {
+        v16 = *(v15 + 384);
+        if (v16)
+        {
+          v17 = *(v15 + 400);
+          v18 = &v17[v16];
+          while (2)
+          {
+            v19 = *v17;
+            v20 = *(*v17 + 16);
+            if (!v20 || (~*(v20 + 304) & 0x2008) != 0)
+            {
+              goto LABEL_61;
+            }
+
+            v21 = *(v19 + 25);
+            if (!*(v19 + 25))
+            {
+              v22 = *(v20 + 216);
+              if (!v22)
+              {
+                goto LABEL_21;
+              }
+
+              if (*(v22 + 32))
+              {
+                if (RESyncableGetOwnerPeerID())
+                {
+                  goto LABEL_19;
+                }
+
+LABEL_21:
+                v21 = 2;
+              }
+
+              else
+              {
+                if ((*(v22 + 116) & 0x80000000) == 0 || !*(v22 + 64))
+                {
+                  goto LABEL_21;
+                }
+
+LABEL_19:
+                v21 = 1;
+              }
+
+              *(v19 + 25) = v21;
+            }
+
+            v4 = *(v19 + 56);
+            if (v21 == 2)
+            {
+              if (v4)
+              {
+                v23 = 0;
+                while (1)
+                {
+                  v24 = *(v19 + 72);
+                  if (*(v24 + 80 * v23 + 72) == 1)
+                  {
+                    if (v4 <= v23)
+                    {
+                      v72 = 0;
+                      memset(v75, 0, 48);
+                      v73 = 0u;
+                      v74 = 0u;
+                      v55 = MEMORY[0x1E69E9C10];
+                      v56 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+                      *v79 = 136315906;
+                      *&v79[4] = "removeStableAt";
+                      *&v79[12] = 1024;
+                      if (v56)
+                      {
+                        v57 = 3;
+                      }
+
+                      else
+                      {
+                        v57 = 2;
+                      }
+
+                      *&v79[14] = 969;
+                      v80 = 2048;
+                      v81 = v23;
+                      v82 = 2048;
+                      v83 = v4;
+                      _os_log_send_and_compose_impl(v57, &v72, &v73, 80, &dword_1E1C61000, v55, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", v79, 38, v58, v59);
+                      _os_crash_msg();
+                      __break(1u);
+LABEL_102:
+                      re::internal::assertLog(4, v10, "assertion failure: '%s' (%s:line %i) ", "m_renderManager", "updateSceneInternal", 193);
+                      _os_crash("assertion failure: (m_renderManager) ");
+                      __break(1u);
+                    }
+
+                    if (v4 - 1 > v23 && v24 + 80 * v23 + 80 != v24 + 80 * v4)
+                    {
+                      v25 = 80 * v23;
+                      v26 = 80 * v4 - 80;
+                      do
+                      {
+                        v3 = v24 + v25;
+                        v27 = *(v24 + 80 * v23);
+                        *v3 = *(v24 + v25 + 80);
+                        *(v3 + 80) = v27;
+                        v28 = *(v24 + v25 + 16);
+                        *(v3 + 16) = *(v24 + v25 + 96);
+                        *(v3 + 96) = v28;
+                        re::DynamicString::operator=((v24 + v25 + 24), (v24 + v25 + 104));
+                        *(v3 + 56) = *(v3 + 136);
+                        *(v3 + 72) = *(v3 + 152);
+                        v24 += 80;
+                        v26 -= 80;
+                      }
+
+                      while (v25 != v26);
+                      v4 = *(v19 + 56);
+                      v24 = *(v19 + 72);
+                    }
+
+                    v29 = v24 + 80 * v4;
+                    v30 = (v29 - 80);
+                    re::DynamicString::deinit((v29 - 56));
+                    re::AssetHandle::~AssetHandle(v30);
+                    v4 = *(v19 + 56) - 1;
+                    *(v19 + 56) = v4;
+                    ++*(v19 + 64);
+                  }
+
+                  else
+                  {
+                    ++v23;
+                  }
+
+                  if (v23 >= v4)
+                  {
+                    if (v4)
+                    {
+                      v31 = 2;
+                    }
+
+                    else
+                    {
+                      v31 = 1;
+                    }
+
+                    goto LABEL_42;
+                  }
+                }
+              }
+
+              *(v19 + 25) = 1;
+              goto LABEL_61;
+            }
+
+            if (v4)
+            {
+              v31 = 3;
+            }
+
+            else
+            {
+              v31 = 1;
+            }
+
+LABEL_42:
+            *(v19 + 25) = v31;
+            if ((*(v19 + 80) & 1) != 0 && v4)
+            {
+              v32 = 0;
+              v33 = *(v19 + 72);
+              v34 = 80 * v4;
+              do
+              {
+                v4 = v33 + v32;
+                if ((*(v33 + v32 + 72) & 1) == 0)
+                {
+                  v35 = *(v4 + 8);
+                  if (v35)
+                  {
+                    v36 = atomic_load((v35 + 896));
+                    if (v36 == 2)
+                    {
+LABEL_51:
+                      v39 = v33 + v32;
+                      if (*(v33 + v32 + 32))
+                      {
+                        v40 = *(v39 + 40);
+                      }
+
+                      else
+                      {
+                        v40 = (v39 + 33);
+                      }
+
+                      *&v73 = 0;
+                      re::DynamicString::DynamicString((&v73 + 8), v40, v64);
+                      *&v73 = re::AssetHandle::blockUntilLoaded<re::RenderGraphAsset>((v33 + v32)) + 8;
+                      DWORD2(v75[0]) = *(v33 + v32 + 56);
+                      re::DynamicArray<re::RenderGraphFileProvider>::add(v67, &v73);
+                      if (*(&v73 + 1) && (v74 & 1) != 0)
+                      {
+                        (*(**(&v73 + 1) + 40))();
+                      }
+
+                      goto LABEL_58;
+                    }
+                  }
+
+                  if (*(a3 + 8) == 2)
+                  {
+                    re::AssetHandle::loadNow(*(v4 + 8), 0);
+                    v37 = *(v4 + 8);
+                    if (v37)
+                    {
+                      v38 = atomic_load((v37 + 896));
+                      if (v38 == 2)
+                      {
+                        goto LABEL_51;
+                      }
+                    }
+                  }
+
+                  else
+                  {
+                    re::AssetHandle::loadAsync((v33 + v32));
+                  }
+                }
+
+LABEL_58:
+                v32 += 80;
+              }
+
+              while (v34 != v32);
+            }
+
+LABEL_61:
+            if (++v17 == v18)
+            {
+              break;
+            }
+
+            continue;
+          }
+        }
+      }
+
+      v5 = v60;
+      if (!v68)
+      {
+LABEL_95:
+        re::DynamicArray<re::RenderGraphFileProvider>::deinit(v67);
+        result = re::ProfilerTimeGuard<(re::ProfilerStatistic)122>::end(v71);
+        v8 = v63;
+        goto LABEL_96;
+      }
+
+      re::ecs2::WorldRootProvider::worldIds(&v73, &v66);
+      v41 = v77;
+      if (v77)
+      {
+        LODWORD(v3) = v78;
+        if (v78)
+        {
+          v4 = 0;
+          v42 = v76[2];
+          v43 = v61;
+          while (1)
+          {
+            v44 = *v42;
+            v42 += 4;
+            if (v44 < 0)
+            {
+              break;
+            }
+
+            if (v78 == ++v4)
+            {
+              LODWORD(v4) = v78;
+              break;
+            }
+          }
+
+          v45 = v76;
+          v46 = v76;
+          goto LABEL_76;
+        }
+
+        LODWORD(v4) = 0;
+        v45 = v76;
+        v46 = v76;
+      }
+
+      else
+      {
+        v46 = v75;
+        v45 = v75 + 8 * v74;
+      }
+
+      v43 = v61;
+LABEL_76:
+      v47 = v46 != v45;
+      if (v77)
+      {
+        v47 = v3 != v4;
+      }
+
+      if (v47)
+      {
+        do
+        {
+          if (v41)
+          {
+            re::ecs2::RenderingSubsystem::nonOwningStreamNameForWorldRoot(v79, v43, *(*(v46 + 2) + 16 * v4 + 8), v13);
+            v72 = *v79 >> 1;
+            v48 = **(re::RenderFrameData::stream((v13 + 264), &v72) + 48);
+            v49 = (*(v48 + 800))();
+            if (v79[0])
+            {
+              if (v79[0])
+              {
+              }
+            }
+
+            v50 = v4 + 1;
+            do
+            {
+              LODWORD(v4) = v50;
+              if (v50 >= *(v46 + 8))
+              {
+                break;
+              }
+
+              v51 = *(*(v46 + 2) + 16 * v50++);
+            }
+
+            while ((v51 & 0x80000000) == 0);
+          }
+
+          else
+          {
+            re::ecs2::RenderingSubsystem::nonOwningStreamNameForWorldRoot(v79, v43, *v46, v13);
+            v72 = *v79 >> 1;
+            v52 = **(re::RenderFrameData::stream((v13 + 264), &v72) + 48);
+            v53 = (*(v52 + 800))();
+            if (v79[0])
+            {
+              if (v79[0])
+              {
+              }
+            }
+
+            v46 += 8;
+          }
+
+          v54 = v46 != v45;
+          if (v41)
+          {
+            v54 = v3 != v4;
+          }
+        }
+
+        while (v54);
+      }
+
+      re::SmallHashSet<unsigned long long,8ul,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,false>::~SmallHashSet(&v73);
+      goto LABEL_95;
+    }
+  }
+
+  return result;
+}
+
+void re::ecs2::RenderGraphFileProviderArraySystem::~RenderGraphFileProviderArraySystem(re::ecs2::RenderGraphFileProviderArraySystem *this)
+{
+  re::ecs2::System::~System(this);
+
+  JUMPOUT(0x1E6906520);
+}
+
+uint64_t re::IntrospectionDynamicArray<re::ecs2::RenderGraphFileProviderEntry>::IntrospectionDynamicArray()
+{
+  ArcSharedObject::ArcSharedObject(&qword_1EE1B5A18, 0);
+  *(&qword_1EE1B5A28 + 6) = 0;
+  qword_1EE1B5A28 = 0;
+  *&xmmword_1EE1B5A38 = 0;
+  *(&xmmword_1EE1B5A38 + 1) = 0xFFFFFFFFLL;
+  qword_1EE1B5A18 = &unk_1F5CADA48;
+  qword_1EE1B5A50 = 0;
+  result = re::SerializedReference<re::IntrospectionBase const*>::reset(&qword_1EE1B5A48);
+  qword_1EE1B5A18 = &unk_1F5D00E50;
+  return result;
+}
+
+void *re::IntrospectionDynamicArray<re::ecs2::RenderGraphFileProviderEntry>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+  return a1;
+}
+
+void re::IntrospectionDynamicArray<re::ecs2::RenderGraphFileProviderEntry>::~IntrospectionDynamicArray(void *a1)
+{
+  *a1 = &unk_1F5CADA48;
+  re::SerializedReference<re::IntrospectionBase const*>::reset((a1 + 6));
+  *a1 = &unk_1F5CCF868;
+  objc_destructInstance(a1 + 1);
+
+  JUMPOUT(0x1E6906520);
+}
+
+void re::IntrospectionDynamicArray<re::ecs2::RenderGraphFileProviderEntry>::construct(uint64_t a1, uint64_t a2)
+{
+  *(a2 + 32) = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  *(a2 + 24) = 0;
+}
+
+void *re::IntrospectionDynamicArray<re::ecs2::RenderGraphFileProviderEntry>::init(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::deinit(a2);
+  *a2 = a3;
+  result = re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::setCapacity(a2, 0);
+  ++*(a2 + 24);
+  return result;
+}
+
+void re::IntrospectionDynamicArray<re::ecs2::RenderGraphFileProviderEntry>::resize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5)
+{
+  if (!*a4)
+  {
+    *a4 = a2;
+    re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::setCapacity(a4, a5);
+    ++*(a4 + 24);
+  }
+
+  re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::resize(a4, a5);
+}
+
+re::IntrospectionBase *re::IntrospectionDynamicArray<re::ecs2::RenderGraphFileProviderEntry>::addElement(re::Allocator **a1, re *a2, int a3, uint64_t a4)
+{
+  memset(v19, 0, sizeof(v19));
+  v16 = 0;
+  v18 = 0u;
+  v15 = 0u;
+  re::DynamicString::setCapacity(&v17, 0);
+  *&v19[1] = 0;
+  BYTE8(v19[1]) = 0;
+  v8 = *(a4 + 16);
+  if (v8 >= *(a4 + 8))
+  {
+    re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::growCapacity(a4, v8 + 1);
+    v8 = *(a4 + 16);
+  }
+
+  v9 = *(a4 + 32) + 80 * v8;
+  v10 = *&v19[0];
+  *(v9 + 8) = *(&v15 + 1);
+  *(&v15 + 1) = 0;
+  *(v9 + 48) = v10;
+  v11 = v18;
+  *v9 = v15;
+  *&v15 = 0;
+  *(v9 + 16) = v16;
+  v16 = 0;
+  *&v19[0] = 0;
+  *(v9 + 24) = v17;
+  *(v9 + 32) = v11;
+  v17 = 0;
+  *(v9 + 40) = *(&v18 + 1);
+  v18 = 0uLL;
+  v12 = BYTE8(v19[1]);
+  *(v9 + 56) = *(v19 + 8);
+  *(v9 + 72) = v12;
+  ++*(a4 + 16);
+  ++*(a4 + 24);
+  re::AssetHandle::~AssetHandle(&v15);
+  v13 = (*(a4 + 32) + 80 * *(a4 + 16) - 80);
+  re::introspectionInitElement(a2, a3, a1[6], v13);
+  return v13;
+}
+
+unint64_t re::IntrospectionDynamicArray<re::ecs2::RenderGraphFileProviderEntry>::elementAt(uint64_t a1, uint64_t a2, unint64_t a3)
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 789;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a2 + 32) + 80 * a3;
+}
+
+{
+  v19 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 16);
+  if (v4 <= a3)
+  {
+    v9 = 0;
+    memset(v18, 0, sizeof(v18));
+    v6 = MEMORY[0x1E69E9C10];
+    v10 = 136315906;
+    v11 = "operator[]";
+    v12 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v7 = 3;
+    }
+
+    else
+    {
+      v7 = 2;
+    }
+
+    v13 = 797;
+    v14 = 2048;
+    v15 = a3;
+    v16 = 2048;
+    v17 = v4;
+    _os_log_send_and_compose_impl(v7, &v9, v18, 80, &dword_1E1C61000, v6, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v10, 38, v8);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(a2 + 32) + 80 * a3;
+}
+
+void re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::resize(_anonymous_namespace_ *a1, unint64_t a2)
+{
+  v3 = a1;
+  v4 = *(a1 + 2);
+  if (v4 >= a2)
+  {
+    if (v4 <= a2)
+    {
+      return;
+    }
+
+    v8 = 80 * a2;
+    v9 = a2;
+    do
+    {
+      v10 = *(v3 + 4) + v8;
+      re::DynamicString::deinit((v10 + 24));
+      re::AssetHandle::~AssetHandle(v10);
+      ++v9;
+      v8 += 80;
+    }
+
+    while (v9 < *(v3 + 2));
+  }
+
+  else
+  {
+    if (*(a1 + 1) < a2)
+    {
+      a1 = re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::setCapacity(a1, a2);
+      v4 = *(v3 + 2);
+    }
+
+    v5 = a2 - v4;
+    if (a2 > v4)
+    {
+      v6 = 80 * v4;
+      do
+      {
+        v7 = *(v3 + 4) + v6;
+        *(v7 + 48) = 0;
+        *(v7 + 16) = 0u;
+        *(v7 + 32) = 0u;
+        *v7 = 0u;
+        v7 += 24;
+        a1 = re::DynamicString::setCapacity(v7, 0);
+        *(v7 + 32) = 0;
+        *(v7 + 40) = 0;
+        v6 += 80;
+        *(v7 + 48) = 0;
+        --v5;
+      }
+
+      while (v5);
+    }
+  }
+
+  *(v3 + 2) = a2;
+  ++*(v3 + 6);
+}
+
+_anonymous_namespace_ *re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::growCapacity(_anonymous_namespace_ *this, unint64_t a2)
+{
+  v2 = *(this + 1);
+  if (v2 < a2)
+  {
+    v3 = a2;
+    v4 = this;
+    if (*this)
+    {
+      v5 = 2 * v2;
+      v6 = v2 == 0;
+      v7 = 8;
+      if (!v6)
+      {
+        v7 = v5;
+      }
+
+      if (v7 > a2)
+      {
+        a2 = v7;
+      }
+
+      return re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::setCapacity(this, a2);
+    }
+
+    else
+    {
+      this = re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::setCapacity(v4, v3);
+      ++*(v4 + 6);
+    }
+  }
+
+  return this;
+}
+
+void *re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,void *)#1}::__invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0;
+  *a1 = a3;
+  result = re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::setCapacity(a1, 0);
+  ++*(a1 + 24);
+  return result;
+}
+
+void re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::TypeInfo const&,re::Allocator *,unsigned long)#1}::__invoke(uint64_t a1, void *a2, re::Allocator *a3, unint64_t a4)
+{
+  if (*a1 == a3)
+  {
+    v8 = *(a1 + 16);
+    *(a1 + 16) = 0;
+    if (v8)
+    {
+      v9 = *(a1 + 32);
+      v10 = 80 * v8;
+      do
+      {
+        re::DynamicString::deinit((v9 + 24));
+        re::AssetHandle::~AssetHandle(v9);
+        v9 += 80;
+        v10 -= 80;
+      }
+
+      while (v10);
+    }
+  }
+
+  else
+  {
+    re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::deinit(a1);
+    *a1 = a3;
+    re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::setCapacity(a1, a4);
+  }
+
+  ++*(a1 + 24);
+  re::DynamicArray<re::ecs2::RenderGraphFileProviderEntry>::resize(a1, a4);
+  {
+    re::TypeRegistry::typeInfo(*a2, *(a2[2] + 80), &v16);
+    re::TypeInfo::TypeInfo(v15, &v17);
+    v12 = *(a1 + 16);
+    if (v12)
+    {
+      v13 = *(a1 + 32);
+      v14 = 80 * v12;
+      do
+      {
+        re::TypeInfo::destruct(v15, v13, a3, 0);
+        re::TypeInfo::construct(v15, v13, a3, 0);
+        v13 += 80;
+        v14 -= 80;
+      }
+
+      while (v14);
+    }
+  }
+}
+
+unint64_t re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,unsigned long)#1}::__invoke(uint64_t a1, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 16);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 789;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
     _os_crash_msg();
     __break(1u);
   }
@@ -418,1252 +5091,3282 @@ uint64_t re::DynamicArray<re::internal::Quadric>::operator[](uint64_t a1, unint6
   return *(a1 + 32) + 80 * a2;
 }
 
-double re::internal::TriangleDecimator::faceArea(re::internal::TriangleDecimator *this, unsigned int a2)
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#1}::__invoke(uint64_t a1, uint64_t a2)
 {
-  if (*(this + 3) <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_7;
-  }
-
-  v2 = (*(this + 5) + 16 * a2);
-  v3 = *v2;
-  v4 = *(this + 40);
-  if (v4 <= v3)
-  {
-LABEL_7:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_8;
-  }
-
-  v5 = v2[1];
-  if (v4 <= v5)
-  {
-LABEL_8:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_9:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v6 = v2[2];
-  if (v4 <= v6)
-  {
-    goto LABEL_9;
-  }
-
-  v7 = *(this + 42);
-  v8 = *(v7 + 16 * v3);
-  v9 = vsubq_f32(*(v7 + 16 * v6), v8);
-  v10 = vsubq_f32(*(v7 + 16 * v5), v8);
-  v11 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v10, v10), v10, 0xCuLL), vnegq_f32(v9)), v10, vextq_s8(vuzp1q_s32(v9, v9), v9, 0xCuLL));
-  v12 = vmulq_f32(v11, v11);
-  return sqrtf(v12.f32[1] + (v12.f32[2] + v12.f32[0])) * 0.5;
+  result = (*(*a2 + 32))(a2, 16, 8);
+  *result = a1;
+  *(result + 8) = *(a1 + 24);
+  *(result + 12) = -1;
+  return result;
 }
 
-uint64_t re::internal::TriangleDecimator::checkForFlip(re::GeomConnectivityManifold *a1, unsigned int a2, unsigned int a3, float32x4_t *a4)
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *)#2}::__invoke(_DWORD *a1, uint64_t a2)
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v34 = 0;
-  v31[1] = 0;
-  v32 = 0;
-  v31[0] = 0;
-  v33 = 0;
-  re::GeomConnectivityManifold::fetchVertexIncidentFaces(a1, a2, v31);
-  v8 = *(a1 + 40);
-  if (v8 <= a2)
+  v4 = *a1;
+  if (a1[2] == *(*a1 + 24))
   {
-    goto LABEL_31;
+    v5 = a1[3];
+    v6 = *(v4 + 16);
+    if (v5 < v6)
+    {
+      a1[3] = ++v5;
+    }
+
+    if (v6 <= v5)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return *(v4 + 32) + 80 * v5;
+    }
   }
 
-  if (v32)
+  else
   {
-    v9 = *(a1 + 42);
-    v10 = *(a1 + 3);
-    v11 = 0xFFFFFFFFLL;
-    v12 = 0xFFFFFFFFLL;
-    v13 = v34;
-    v14 = *a4;
-    v15 = a3;
+    re::internal::assertLog(4, a2, "assertion failure: '%s' (%s:line %i) DynamicArray elements may not be added or removed during iteration.", "iter->originalVersion == iter->array->version()", "operator()", 316, v2, v3);
+    result = _os_crash("assertion failure: (iter->originalVersion == iter->array->version()) DynamicArray elements may not be added or removed during iteration.");
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t re::TypeBuilderHelper::registerDynamicArray<re::ecs2::RenderGraphFileProviderEntry>(re::TypeRegistry *,re::StringID const&,re::TypeID const&)::{lambda(void *,re::Allocator *)#2}::__invoke(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+    return (*(*a2 + 40))(a2, result);
+  }
+
+  return result;
+}
+
+void _ZZN2re8internal15setIntroVersionINS_4ecs237RenderGraphFileProviderArrayComponentELNS_17RealityKitReleaseE5EEEDTcldtclsr3stdE7declvalIT_EE24adjustedIntroReleaseInfoclL_ZNSt3__17declvalB8nn200100INS_19RealityFilePlatformEEEDTclsr3stdE9__declvalIS5_ELi0EEEvEEEERPFNS_21RealityKitReleaseInfoEPKvS8_ENS0_8priorityILi1EEEENUlSD_S8_E_8__invokeESD_S8_(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  if (a1 && ((*(*a1 + 64))(&v5), v5 == 1))
+  {
+    *a2 = v6;
+    v3 = v7;
+    *(a2 + 8) = v7;
+    if (v3 == 1)
+    {
+      v4 = re::StringID::StringID((a2 + 16), &v8);
+      if (v5 & 1) != 0 && (v7 & 1) != 0 && (*&v8.var0)
+      {
+        if (*&v8.var0)
+        {
+        }
+      }
+    }
+  }
+
+  else
+  {
+    *a2 = 5;
+    *(a2 + 8) = 0;
+  }
+}
+
+void *re::ecs2::allocInfo_ImageBasedLightService(re::ecs2 *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_405, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_405))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B5C10, "ImageBasedLightService");
+    __cxa_guard_release(&_MergedGlobals_405);
+  }
+
+  return &unk_1EE1B5C10;
+}
+
+void re::ecs2::initInfo_ImageBasedLightService(re::ecs2 *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v8[0] = 0x16BB2D00FED2B82ELL;
+  v8[1] = "ImageBasedLightService";
+  if (v8[0])
+  {
+    if (v8[0])
+    {
+    }
+  }
+
+  *(this + 2) = v9;
+  *(this + 2) = 0x800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 0;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 8) = &re::ecs2::initInfo_ImageBasedLightService(re::IntrospectionBase *)::structureAttributes;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  *(this + 15) = 0;
+  re::internal::prepare(this, v6);
+  v7 = v9;
+}
+
+void *re::ecs2::allocInfo_PbrMaterialParametersComponent(re::ecs2 *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_406, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_406))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B5CC8, "PbrMaterialParametersComponent");
+    __cxa_guard_release(&_MergedGlobals_406);
+  }
+
+  return &unk_1EE1B5CC8;
+}
+
+void re::ecs2::initInfo_PbrMaterialParametersComponent(re::ecs2 *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v28[0] = 0x3ABE975A155C7198;
+  v28[1] = "PbrMaterialParametersComponent";
+  if (v28[0])
+  {
+    if (v28[0])
+    {
+    }
+  }
+
+  *(this + 2) = v29;
+  if ((atomic_load_explicit(&qword_1EE1B5CA8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B5CA8))
+  {
+    v7 = re::introspectionAllocator();
+    v13 = re::ecs2::introspect_Component(1, v8, v9, v10, v11, v12);
+    v14 = (*(*v7 + 32))(v7, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "Component";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 0;
+    *(v14 + 40) = 3;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE1B5CB0 = v14;
+    v15 = re::introspectionAllocator();
+    v21 = re::introspect_PbrMaterialParameters(1, v16, v17, v18, v19, v20);
+    v22 = (*(*v15 + 32))(v15, 72, 8);
+    *v22 = 1;
+    *(v22 + 8) = "params";
+    *(v22 + 16) = v21;
+    *(v22 + 24) = 0;
+    *(v22 + 32) = 0x2000000001;
+    *(v22 + 40) = 0;
+    *(v22 + 48) = 0;
+    *(v22 + 56) = 0;
+    *(v22 + 64) = 0;
+    qword_1EE1B5CB8 = v22;
+    v23 = re::introspectionAllocator();
+    v25 = re::introspect_AssetHandle(1, v24);
+    v26 = (*(*v23 + 32))(v23, 72, 8);
+    *v26 = 1;
+    *(v26 + 8) = "materialAsset";
+    *(v26 + 16) = v25;
+    *(v26 + 24) = 0;
+    *(v26 + 32) = 0x21000000002;
+    *(v26 + 40) = 0;
+    *(v26 + 48) = 0;
+    *(v26 + 56) = 0;
+    *(v26 + 64) = 0;
+    qword_1EE1B5CC0 = v26;
+    __cxa_guard_release(&qword_1EE1B5CA8);
+  }
+
+  *(this + 2) = 0x23000000008;
+  *(this + 6) = 16;
+  *(this + 14) = 0;
+  *(this + 14) = 3;
+  *(this + 8) = &qword_1EE1B5CB0;
+  *(this + 9) = re::internal::defaultConstruct<re::ecs2::PbrMaterialParametersComponent>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::ecs2::PbrMaterialParametersComponent>;
+  *(this + 13) = re::internal::defaultConstructV2<re::ecs2::PbrMaterialParametersComponent>;
+  *(this + 14) = re::internal::defaultDestructV2<re::ecs2::PbrMaterialParametersComponent>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = _ZZN2re8internal15setIntroVersionINS_4ecs230PbrMaterialParametersComponentELNS_17RealityKitReleaseE9EEEDTcldtclsr3stdE7declvalIT_EE24adjustedIntroReleaseInfoclL_ZNSt3__17declvalB8nn200100INS_19RealityFilePlatformEEEDTclsr3stdE9__declvalIS5_ELi0EEEvEEEERPFNS_21RealityKitReleaseInfoEPKvS8_ENS0_8priorityILi1EEEENUlSD_S8_E_8__invokeESD_S8_;
+  re::internal::prepare(this, v6);
+  v27 = v29;
+}
+
+void *re::make::shared::unsafelyInplace<re::ecs2::PbrMaterialParametersComponent>(void *a1)
+{
+  bzero(a1, 0x230uLL);
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  a1[2] = 0;
+  *(a1 + 24) = 0;
+  *a1 = &unk_1F5CDE410;
+  re::PbrMaterialParameters::PbrMaterialParameters((a1 + 4));
+  a1[68] = 0;
+  *(a1 + 33) = 0u;
+  return a1;
+}
+
+void _ZZN2re8internal15setIntroVersionINS_4ecs230PbrMaterialParametersComponentELNS_17RealityKitReleaseE9EEEDTcldtclsr3stdE7declvalIT_EE24adjustedIntroReleaseInfoclL_ZNSt3__17declvalB8nn200100INS_19RealityFilePlatformEEEDTclsr3stdE9__declvalIS5_ELi0EEEvEEEERPFNS_21RealityKitReleaseInfoEPKvS8_ENS0_8priorityILi1EEEENUlSD_S8_E_8__invokeESD_S8_(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  if (a1 && ((*(*a1 + 64))(&v5), v5 == 1))
+  {
+    *a2 = v6;
+    v3 = v7;
+    *(a2 + 8) = v7;
+    if (v3 == 1)
+    {
+      v4 = re::StringID::StringID((a2 + 16), &v8);
+      if (v5 & 1) != 0 && (v7 & 1) != 0 && (*&v8.var0)
+      {
+        if (*&v8.var0)
+        {
+        }
+      }
+    }
+  }
+
+  else
+  {
+    *a2 = 9;
+    *(a2 + 8) = 0;
+  }
+}
+
+void *re::ecs2::allocInfo_VFXEmitterSystem(re::ecs2 *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_407, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_407))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B5D60, "VFXEmitterSystem");
+    __cxa_guard_release(&_MergedGlobals_407);
+  }
+
+  return &unk_1EE1B5D60;
+}
+
+void re::ecs2::initInfo_VFXEmitterSystem(re::ecs2 *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v8[0] = 0x49E29E8B3C4CC8EALL;
+  v8[1] = "VFXEmitterSystem";
+  if (v8[0])
+  {
+    if (v8[0])
+    {
+    }
+  }
+
+  *(this + 2) = v9;
+  *(this + 2) = 0x17000000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 0;
+  *(this + 8) = &re::ecs2::initInfo_VFXEmitterSystem(re::IntrospectionBase *)::structureAttributes;
+  *(this + 9) = re::internal::defaultConstruct<re::ecs2::VFXEmitterSystem>;
+  *(this + 10) = re::internal::defaultDestruct<re::ecs2::VFXEmitterSystem>;
+  *(this + 11) = re::internal::defaultRetain<re::ecs2::VFXEmitterSystem>(void)::{lambda(void *)#1}::__invoke;
+  *(this + 12) = re::internal::defaultRelease<re::ecs2::VFXEmitterSystem>(void)::{lambda(void *)#1}::__invoke;
+  *(this + 13) = re::internal::defaultConstructV2<re::ecs2::VFXEmitterSystem>;
+  *(this + 14) = re::internal::defaultDestructV2<re::ecs2::VFXEmitterSystem>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  re::internal::prepare(this, v6);
+  v7 = v9;
+}
+
+double re::internal::defaultConstruct<re::ecs2::VFXEmitterSystem>(uint64_t a1, uint64_t a2, _OWORD *a3)
+{
+  a3[21] = 0u;
+  a3[22] = 0u;
+  a3[19] = 0u;
+  a3[20] = 0u;
+  a3[17] = 0u;
+  a3[18] = 0u;
+  a3[15] = 0u;
+  a3[16] = 0u;
+  a3[13] = 0u;
+  a3[14] = 0u;
+  a3[11] = 0u;
+  a3[12] = 0u;
+  a3[9] = 0u;
+  a3[10] = 0u;
+  a3[7] = 0u;
+  a3[8] = 0u;
+  a3[5] = 0u;
+  a3[6] = 0u;
+  a3[3] = 0u;
+  a3[4] = 0u;
+  a3[1] = 0u;
+  a3[2] = 0u;
+  *a3 = 0u;
+  v3 = re::ecs2::System::System(a3, 1, 1);
+  *(v3 + 288) = 0;
+  result = 0.0;
+  *(v3 + 256) = 0u;
+  *(v3 + 272) = 0u;
+  *(v3 + 224) = 0u;
+  *(v3 + 240) = 0u;
+  *v3 = &unk_1F5D00EE8;
+  *(v3 + 312) = 0u;
+  *(v3 + 328) = 0u;
+  *(v3 + 344) = 0u;
+  *(v3 + 360) = 0;
+  return result;
+}
+
+void re::internal::defaultDestruct<re::ecs2::VFXEmitterSystem>(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = *(a3 + 360);
+  if (v4)
+  {
+
+    *(a3 + 360) = 0;
+  }
+
+  v5 = (a3 + 336);
+  std::vector<re::ecs2::VFXEmitterComponent::VFXBindingValue>::__destroy_vector::operator()[abi:nn200100](&v5);
+  re::AssetHandle::~AssetHandle((a3 + 312));
+  re::ecs2::System::~System(a3);
+}
+
+double re::internal::defaultConstructV2<re::ecs2::VFXEmitterSystem>(_OWORD *a1)
+{
+  a1[21] = 0u;
+  a1[22] = 0u;
+  a1[19] = 0u;
+  a1[20] = 0u;
+  a1[17] = 0u;
+  a1[18] = 0u;
+  a1[15] = 0u;
+  a1[16] = 0u;
+  a1[13] = 0u;
+  a1[14] = 0u;
+  a1[11] = 0u;
+  a1[12] = 0u;
+  a1[9] = 0u;
+  a1[10] = 0u;
+  a1[7] = 0u;
+  a1[8] = 0u;
+  a1[5] = 0u;
+  a1[6] = 0u;
+  a1[3] = 0u;
+  a1[4] = 0u;
+  a1[1] = 0u;
+  a1[2] = 0u;
+  *a1 = 0u;
+  v1 = re::ecs2::System::System(a1, 1, 1);
+  *(v1 + 288) = 0;
+  result = 0.0;
+  *(v1 + 256) = 0u;
+  *(v1 + 272) = 0u;
+  *(v1 + 224) = 0u;
+  *(v1 + 240) = 0u;
+  *v1 = &unk_1F5D00EE8;
+  *(v1 + 312) = 0u;
+  *(v1 + 328) = 0u;
+  *(v1 + 344) = 0u;
+  *(v1 + 360) = 0;
+  return result;
+}
+
+void re::internal::defaultDestructV2<re::ecs2::VFXEmitterSystem>(uint64_t a1)
+{
+  v2 = *(a1 + 360);
+  if (v2)
+  {
+
+    *(a1 + 360) = 0;
+  }
+
+  v3 = (a1 + 336);
+  std::vector<re::ecs2::VFXEmitterComponent::VFXBindingValue>::__destroy_vector::operator()[abi:nn200100](&v3);
+  re::AssetHandle::~AssetHandle((a1 + 312));
+  re::ecs2::System::~System(a1);
+}
+
+void re::ecs2::VFXEmitterSystem::update(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(a1 + 224);
+  if ((!v5 || (*(v5 + 432) & 0x10) != 0) && ((*(**(a1 + 40) + 216))(*(a1 + 40), a2) & 1) == 0)
+  {
+    v6 = *(a3 + 200);
+    if (!v6)
+    {
+      goto LABEL_35;
+    }
+
+    v7 = 0;
+    v8 = *(a3 + 216);
+    v9 = &v8[v6];
+    do
+    {
+      while (1)
+      {
+        v10 = *v8;
+        v11 = re::ecs2::SceneComponentTable::get((*v8 + 200), re::ecs2::ComponentImpl<re::ecs2::VFXEmitterComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
+        if (!v11)
+        {
+          break;
+        }
+
+        v12 = *(v11 + 48);
+        if (!v12)
+        {
+          break;
+        }
+
+        v13 = *(v11 + 50);
+        if ((v7 & 1) == 0)
+        {
+          if (*(a1 + 240) && !*(a1 + 320))
+          {
+            re::loadVFXAssetsFramework(v11);
+            (*(**(a1 + 240) + 8))(&v28);
+            v14 = *(a1 + 312);
+            *(a1 + 312) = v28;
+            v28 = v14;
+            v15 = *(a1 + 328);
+            *(a1 + 328) = v29;
+            v29 = v15;
+            re::AssetHandle::~AssetHandle(&v28);
+            re::AssetHandle::loadAsync((a1 + 312));
+          }
+
+          if (!*(a1 + 360))
+          {
+            v22 = *(a1 + 320);
+            if (v22)
+            {
+              v23 = atomic_load((v22 + 896));
+              if (v23 == 2)
+              {
+                re::ecs2::VFXSceneComponent::createDetachedSceneComponent(&v28);
+                v24 = *(a1 + 360);
+                v25 = v28;
+                *(a1 + 360) = v28;
+                if (v24)
+                {
+
+                  v25 = *(a1 + 360);
+                }
+
+                re::AssetHandle::AssetHandle(v27, (a1 + 312));
+                re::ecs2::VFXSceneComponent::setVFXFromParticleEmitter(v25, v27);
+                re::AssetHandle::~AssetHandle(v27);
+                re::ecs2::VFXSceneComponent::initializeBindings(*(a1 + 360));
+                re::ecs2::VFXSceneComponent::updateBindingStatesInitialValues(*(a1 + 360));
+                re::ecs2::VFXSceneComponent::finishInitializationFromParticleEmitter(*(a1 + 360));
+                re::ecs2::VFXEmitterComponent::loadBindingValues(*(a1 + 360), &v28);
+                std::vector<re::ecs2::VFXEmitterComponent::VFXBindingValue>::__vdeallocate((a1 + 336));
+                *(a1 + 336) = v28;
+                *(a1 + 352) = v29;
+                v29 = 0;
+                v28 = 0uLL;
+                v30 = &v28;
+                std::vector<re::ecs2::VFXEmitterComponent::VFXBindingValue>::__destroy_vector::operator()[abi:nn200100](&v30);
+              }
+            }
+          }
+        }
+
+        if (v10)
+        {
+          v16 = re::ecs2::SceneComponentTable::get((v10 + 200), re::ecs2::ComponentImpl<re::ecs2::VFXEmitterComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
+          if (v16)
+          {
+            v17 = *(v16 + 384);
+          }
+
+          else
+          {
+            v17 = 0;
+          }
+
+          re::internal::AriadneSignpostScopeGuard::AriadneSignpostScopeGuard(&v28, 3142, a1, v17, 0, 0);
+          v18 = 8 * v12;
+          do
+          {
+            v19 = *v13++;
+            re::ecs2::VFXEmitterComponent::loadAssetsIfNeeded(v19, *(a1 + 240), *(a1 + 360), (a1 + 336));
+            re::ecs2::VFXEmitterComponent::update(v19);
+            v18 -= 8;
+          }
+
+          while (v18);
+          re::internal::AriadneSignpostScopeGuard::~AriadneSignpostScopeGuard(&v28, v20, v21);
+        }
+
+        ++v8;
+        v7 = 1;
+        if (v8 == v9)
+        {
+          return;
+        }
+      }
+
+      ++v8;
+    }
+
+    while (v8 != v9);
+    if ((v7 & 1) == 0)
+    {
+LABEL_35:
+      if (*(a1 + 360))
+      {
+        std::vector<re::ecs2::VFXEmitterComponent::VFXBindingValue>::__base_destruct_at_end[abi:nn200100](a1 + 336, *(a1 + 336));
+        v26 = *(a1 + 360);
+        if (v26)
+        {
+
+          *(a1 + 360) = 0;
+        }
+      }
+    }
+  }
+}
+
+uint64_t emitterComponentDidChangeHandler(uint64_t a1, void **a2)
+{
+  if (a2[1] == re::ecs2::ComponentImpl<re::ecs2::VFXEmitterComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType)
+  {
+    v2 = re::ecs2::EntityComponentCollection::get((*a2 + 48), re::ecs2::ComponentImpl<re::ecs2::VFXEmitterComponent,(re::ecs2::ComponentTypeBase::ComponentCategory)1,(re::ecs2::ComponentTypeBase::Flags)4>::s_componentType);
+    if (v2)
+    {
+      re::ecs2::VFXEmitterComponent::update(v2);
+    }
+  }
+
+  return 0;
+}
+
+re::EventBus *re::ecs2::VFXEmitterSystem::willAddSceneToECSService(re::ecs2::VFXEmitterSystem *this, re::ecs2::Scene *a2)
+{
+  result = *(a2 + 36);
+  if (result)
+  {
+    result = re::EventBus::subscribe<re::ecs2::Entity,REComponentDidChangeEvent>(result, 0, emitterComponentDidChangeHandler, 0, 0);
+    *(this + 37) = result;
+    *(this + 38) = v4;
+  }
+
+  return result;
+}
+
+uint64_t re::ecs2::VFXEmitterSystem::willRemoveSceneFromECSService(re::ecs2::VFXEmitterSystem *this, re::ecs2::Scene *a2)
+{
+  result = *(a2 + 36);
+  if (result)
+  {
+    return re::EventBus::unsubscribe(result, *(this + 37), *(this + 38));
+  }
+
+  return result;
+}
+
+void re::ecs2::VFXEmitterSystem::~VFXEmitterSystem(re::ecs2::VFXEmitterSystem *this)
+{
+  v2 = *(this + 45);
+  if (v2)
+  {
+
+    *(this + 45) = 0;
+  }
+
+  v3 = (this + 336);
+  std::vector<re::ecs2::VFXEmitterComponent::VFXBindingValue>::__destroy_vector::operator()[abi:nn200100](&v3);
+  re::AssetHandle::~AssetHandle((this + 312));
+  re::ecs2::System::~System(this);
+}
+
+{
+  v2 = *(this + 45);
+  if (v2)
+  {
+
+    *(this + 45) = 0;
+  }
+
+  v3 = (this + 336);
+  std::vector<re::ecs2::VFXEmitterComponent::VFXBindingValue>::__destroy_vector::operator()[abi:nn200100](&v3);
+  re::AssetHandle::~AssetHandle((this + 312));
+  re::ecs2::System::~System(this);
+  MEMORY[0x1E6906520]();
+}
+
+void std::vector<re::ecs2::VFXEmitterComponent::VFXBindingValue>::__vdeallocate(uint64_t *a1)
+{
+  if (*a1)
+  {
+    std::vector<re::ecs2::VFXEmitterComponent::VFXBindingValue>::__base_destruct_at_end[abi:nn200100](a1, *a1);
+    operator delete(*a1);
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
+  }
+}
+
+BOOL re::CollisionEventDelegate::hasCollisionEventSubscriptions(_BOOL8 this, const re::EventBus *a2)
+{
+  if (this)
+  {
+    v2 = this;
+    Event = re::EventBus::getEventInfo<RECollisionDidStartEvent>(this);
+    if (Event)
+    {
+      v4 = re::EventBus::EventInfo::subscriptionCount(Event);
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+
+    v5 = re::EventBus::getEventInfo<RECollisionDidStartEventEx>(v2);
+    if (v5)
+    {
+      v5 = re::EventBus::EventInfo::subscriptionCount(v5);
+    }
+
+    v6 = v5 + v4;
+    v7 = re::EventBus::getEventInfo<RECollisionDidStopEvent>(v2);
+    if (v7)
+    {
+      v7 = re::EventBus::EventInfo::subscriptionCount(v7);
+    }
+
+    v8 = v7 + v6;
+    v9 = re::EventBus::getEventInfo<RECollisionDidUpdateEvent>(v2);
+    if (v9)
+    {
+      v9 = re::EventBus::EventInfo::subscriptionCount(v9);
+    }
+
+    v10 = v9 + v8;
+    v11 = re::EventBus::getEventInfo<RECollisionDidUpdateEventEx>(v2);
+    if (v11)
+    {
+      v11 = re::EventBus::EventInfo::subscriptionCount(v11);
+    }
+
+    v12 = v11 + v10;
+    v13 = re::EventBus::getEventInfo<RECollisionStartEvent>(v2);
+    if (v13)
+    {
+      v13 = re::EventBus::EventInfo::subscriptionCount(v13);
+    }
+
+    v14 = v13 + v12;
+    v15 = re::EventBus::getEventInfo<RECollisionStopEvent>(v2);
+    if (v15)
+    {
+      v15 = re::EventBus::EventInfo::subscriptionCount(v15);
+    }
+
+    v16 = v15 + v14;
+    v17 = re::EventBus::getEventInfo<RECollisionUpdateEvent>(v2);
+    if (v17)
+    {
+      v17 = re::EventBus::EventInfo::subscriptionCount(v17);
+    }
+
+    return (v17 + v16) != 0;
+  }
+
+  return this;
+}
+
+void re::EngineCollisionEventDelegate::startCollision(re::EngineCollisionEventDelegate *this, const re::CollisionObject *a2, const re::CollisionObject *a3, float32x4_t *a4)
+{
+  v8 = *(a2 + 5);
+  if (v8)
+  {
+    v9 = (v8 + 8);
+  }
+
+  v10 = *(a3 + 5);
+  if (v10)
+  {
+    v11 = (v10 + 8);
+  }
+
+  if (v8)
+  {
+    v12 = v8;
+    do
+    {
+      v13 = v12;
+      v12 = *(v12 + 32);
+    }
+
+    while (v12);
+    if (!*(v13 + 24))
+    {
+      goto LABEL_12;
+    }
+
+    v14 = v8;
+    do
+    {
+      v15 = v14;
+      v14 = *(v14 + 32);
+    }
+
+    while (v14);
+    v16 = *(*(v15 + 24) + 288);
+    if (!v16)
+    {
+LABEL_12:
+      v16 = *(this + 1);
+    }
+
+    started = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidStartEventEx>(v16, v8);
+    Event = re::EventBus::getEventInfo<RECollisionDidStartEventEx>(v16);
+    if (Event)
+    {
+      v19 = *(Event + 208);
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    if (v19 + started)
+    {
+      v54 = a2;
+      v55 = a3;
+      v56.i64[0] = a4;
+      Type = re::EventBus::getTypeId<RECollisionDidStartEventEx>();
+      re::EventBus::publish(v16, v8, Type, &v54, 0x18uLL, 0);
+    }
+
+    v21 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidStartEvent>(v16, v8);
+    v22 = re::EventBus::getEventInfo<RECollisionDidStartEvent>(v16);
+    if (v22)
+    {
+      v23 = *(v22 + 208);
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    if (v23 + v21)
+    {
+      v54 = a2;
+      v55 = a3;
+      v24 = a4[5];
+      v56 = a4[4];
+      v25 = vmulq_f32(v24, v24);
+      v57 = sqrtf(v25.f32[2] + vaddv_f32(*v25.f32));
+      v26 = re::EventBus::getTypeId<RECollisionDidStartEvent>();
+      re::EventBus::publish(v16, v8, v26, &v54, 0x30uLL, 0);
+    }
+
+    v27 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionStartEvent>(v16, v8);
+    v28 = re::EventBus::getEventInfo<RECollisionStartEvent>(v16);
+    if (v28)
+    {
+      v29 = *(v28 + 208);
+    }
+
+    else
+    {
+      v29 = 0;
+    }
+
+    if (v29 + v27)
+    {
+      v54 = a2;
+      v55 = a3;
+      v30 = a4[5];
+      v56 = a4[4];
+      v31 = vmulq_f32(v30, v30);
+      v57 = sqrtf(v31.f32[2] + vaddv_f32(*v31.f32));
+      v32 = re::EventBus::getTypeId<RECollisionStartEvent>();
+      re::EventBus::publish(v16, v8, v32, &v54, 0x30uLL, 0);
+    }
+  }
+
+  if (v10)
+  {
+    v33 = v10;
+    do
+    {
+      v34 = v33;
+      v33 = *(v33 + 32);
+    }
+
+    while (v33);
+    if (!*(v34 + 24))
+    {
+      goto LABEL_35;
+    }
+
+    v35 = v10;
+    do
+    {
+      v36 = v35;
+      v35 = *(v35 + 32);
+    }
+
+    while (v35);
+    v37 = *(*(v36 + 24) + 288);
+    if (!v37)
+    {
+LABEL_35:
+      v37 = *(this + 1);
+    }
+
+    v38 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidStartEventEx>(v37, v10);
+    v39 = re::EventBus::getEventInfo<RECollisionDidStartEventEx>(v37);
+    if (v39)
+    {
+      v40 = *(v39 + 208);
+    }
+
+    else
+    {
+      v40 = 0;
+    }
+
+    if (v40 + v38)
+    {
+      v54 = a3;
+      v55 = a2;
+      v56.i64[0] = a4;
+      v41 = re::EventBus::getTypeId<RECollisionDidStartEventEx>();
+      re::EventBus::publish(v37, v10, v41, &v54, 0x18uLL, 0);
+    }
+
+    v42 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidStartEvent>(v37, v10);
+    v43 = re::EventBus::getEventInfo<RECollisionDidStartEvent>(v37);
+    if (v43)
+    {
+      v44 = *(v43 + 208);
+    }
+
+    else
+    {
+      v44 = 0;
+    }
+
+    if (v44 + v42)
+    {
+      v54 = a3;
+      v55 = a2;
+      v45 = a4[5];
+      v56 = a4[4];
+      v46 = vmulq_f32(v45, v45);
+      v57 = sqrtf(v46.f32[2] + vaddv_f32(*v46.f32));
+      v47 = re::EventBus::getTypeId<RECollisionDidStartEvent>();
+      re::EventBus::publish(v37, v10, v47, &v54, 0x30uLL, 0);
+    }
+
+    v48 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionStartEvent>(v37, v10);
+    v49 = re::EventBus::getEventInfo<RECollisionStartEvent>(v37);
+    if (v49)
+    {
+      v50 = *(v49 + 208);
+    }
+
+    else
+    {
+      v50 = 0;
+    }
+
+    if (v50 + v48)
+    {
+      v54 = a3;
+      v55 = a2;
+      v51 = a4[5];
+      v56 = a4[4];
+      v52 = vmulq_f32(v51, v51);
+      v57 = sqrtf(v52.f32[2] + vaddv_f32(*v52.f32));
+      v53 = re::EventBus::getTypeId<RECollisionStartEvent>();
+      re::EventBus::publish(v37, v10, v53, &v54, 0x30uLL, 0);
+    }
+  }
+
+  if (v8 && [v8 + 8 retainCount] == 1)
+  {
+    *(a2 + 5) = 0;
+  }
+
+  if (v10)
+  {
+    if ([v10 + 8 retainCount] == 1)
+    {
+      *(a3 + 5) = 0;
+    }
+  }
+
+  if (v8)
+  {
+  }
+}
+
+void re::EngineCollisionEventDelegate::updateCollision(re::EngineCollisionEventDelegate *this, const re::CollisionObject *a2, const re::CollisionObject *a3, float32x4_t *a4)
+{
+  v8 = *(a2 + 5);
+  if (v8)
+  {
+    v9 = (v8 + 8);
+  }
+
+  v10 = *(a3 + 5);
+  if (v10)
+  {
+    v11 = (v10 + 8);
+  }
+
+  if (v8)
+  {
+    v12 = v8;
+    do
+    {
+      v13 = v12;
+      v12 = *(v12 + 32);
+    }
+
+    while (v12);
+    if (!*(v13 + 24))
+    {
+      goto LABEL_12;
+    }
+
+    v14 = v8;
+    do
+    {
+      v15 = v14;
+      v14 = *(v14 + 32);
+    }
+
+    while (v14);
+    v16 = *(*(v15 + 24) + 288);
+    if (!v16)
+    {
+LABEL_12:
+      v16 = *(this + 1);
+    }
+
+    updated = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidUpdateEventEx>(v16, v8);
+    Event = re::EventBus::getEventInfo<RECollisionDidUpdateEventEx>(v16);
+    if (Event)
+    {
+      v19 = *(Event + 208);
+    }
+
+    else
+    {
+      v19 = 0;
+    }
+
+    if (v19 + updated)
+    {
+      v54 = a2;
+      v55 = a3;
+      v56.i64[0] = a4;
+      Type = re::EventBus::getTypeId<RECollisionDidUpdateEventEx>();
+      re::EventBus::publish(v16, v8, Type, &v54, 0x18uLL, 0);
+    }
+
+    v21 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidUpdateEvent>(v16, v8);
+    v22 = re::EventBus::getEventInfo<RECollisionDidUpdateEvent>(v16);
+    if (v22)
+    {
+      v23 = *(v22 + 208);
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+
+    if (v23 + v21)
+    {
+      v54 = a2;
+      v55 = a3;
+      v24 = a4[5];
+      v56 = a4[4];
+      v25 = vmulq_f32(v24, v24);
+      v57 = sqrtf(v25.f32[2] + vaddv_f32(*v25.f32));
+      v26 = re::EventBus::getTypeId<RECollisionDidUpdateEvent>();
+      re::EventBus::publish(v16, v8, v26, &v54, 0x30uLL, 0);
+    }
+
+    v27 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionUpdateEvent>(v16, v8);
+    v28 = re::EventBus::getEventInfo<RECollisionUpdateEvent>(v16);
+    if (v28)
+    {
+      v29 = *(v28 + 208);
+    }
+
+    else
+    {
+      v29 = 0;
+    }
+
+    if (v29 + v27)
+    {
+      v54 = a2;
+      v55 = a3;
+      v30 = a4[5];
+      v56 = a4[4];
+      v31 = vmulq_f32(v30, v30);
+      v57 = sqrtf(v31.f32[2] + vaddv_f32(*v31.f32));
+      v32 = re::EventBus::getTypeId<RECollisionUpdateEvent>();
+      re::EventBus::publish(v16, v8, v32, &v54, 0x30uLL, 0);
+    }
+  }
+
+  if (v10)
+  {
+    v33 = v10;
+    do
+    {
+      v34 = v33;
+      v33 = *(v33 + 32);
+    }
+
+    while (v33);
+    if (!*(v34 + 24))
+    {
+      goto LABEL_35;
+    }
+
+    v35 = v10;
+    do
+    {
+      v36 = v35;
+      v35 = *(v35 + 32);
+    }
+
+    while (v35);
+    v37 = *(*(v36 + 24) + 288);
+    if (!v37)
+    {
+LABEL_35:
+      v37 = *(this + 1);
+    }
+
+    v38 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidUpdateEventEx>(v37, v10);
+    v39 = re::EventBus::getEventInfo<RECollisionDidUpdateEventEx>(v37);
+    if (v39)
+    {
+      v40 = *(v39 + 208);
+    }
+
+    else
+    {
+      v40 = 0;
+    }
+
+    if (v40 + v38)
+    {
+      v54 = a3;
+      v55 = a2;
+      v56.i64[0] = a4;
+      v41 = re::EventBus::getTypeId<RECollisionDidUpdateEventEx>();
+      re::EventBus::publish(v37, v10, v41, &v54, 0x18uLL, 0);
+    }
+
+    v42 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidUpdateEvent>(v37, v10);
+    v43 = re::EventBus::getEventInfo<RECollisionDidUpdateEvent>(v37);
+    if (v43)
+    {
+      v44 = *(v43 + 208);
+    }
+
+    else
+    {
+      v44 = 0;
+    }
+
+    if (v44 + v42)
+    {
+      v54 = a3;
+      v55 = a2;
+      v45 = a4[5];
+      v56 = a4[4];
+      v46 = vmulq_f32(v45, v45);
+      v57 = sqrtf(v46.f32[2] + vaddv_f32(*v46.f32));
+      v47 = re::EventBus::getTypeId<RECollisionDidUpdateEvent>();
+      re::EventBus::publish(v37, v10, v47, &v54, 0x30uLL, 0);
+    }
+
+    v48 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionUpdateEvent>(v37, v10);
+    v49 = re::EventBus::getEventInfo<RECollisionUpdateEvent>(v37);
+    if (v49)
+    {
+      v50 = *(v49 + 208);
+    }
+
+    else
+    {
+      v50 = 0;
+    }
+
+    if (v50 + v48)
+    {
+      v54 = a3;
+      v55 = a2;
+      v51 = a4[5];
+      v56 = a4[4];
+      v52 = vmulq_f32(v51, v51);
+      v57 = sqrtf(v52.f32[2] + vaddv_f32(*v52.f32));
+      v53 = re::EventBus::getTypeId<RECollisionUpdateEvent>();
+      re::EventBus::publish(v37, v10, v53, &v54, 0x30uLL, 0);
+    }
+  }
+
+  if (v8 && [v8 + 8 retainCount] == 1)
+  {
+    *(a2 + 5) = 0;
+  }
+
+  if (v10)
+  {
+    if ([v10 + 8 retainCount] == 1)
+    {
+      *(a3 + 5) = 0;
+    }
+  }
+
+  if (v8)
+  {
+  }
+}
+
+void re::EngineCollisionEventDelegate::stopCollision(re::EngineCollisionEventDelegate *this, const re::CollisionObject *a2, const re::CollisionObject *a3)
+{
+  v6 = *(a2 + 5);
+  if (v6)
+  {
+    v7 = (v6 + 8);
+  }
+
+  v8 = *(a3 + 5);
+  if (v8)
+  {
+    v9 = (v8 + 8);
+  }
+
+  if (v6)
+  {
+    v10 = v6;
+    do
+    {
+      v11 = v10;
+      v10 = *(v10 + 32);
+    }
+
+    while (v10);
+    if (!*(v11 + 24))
+    {
+      goto LABEL_12;
+    }
+
+    v12 = v6;
+    do
+    {
+      v13 = v12;
+      v12 = *(v12 + 32);
+    }
+
+    while (v12);
+    v14 = *(*(v13 + 24) + 288);
+    if (!v14)
+    {
+LABEL_12:
+      v14 = *(this + 1);
+    }
+
+    v15 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidStopEvent>(v14, v6);
+    Event = re::EventBus::getEventInfo<RECollisionDidStopEvent>(v14);
+    if (Event)
+    {
+      v17 = *(Event + 208);
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+
+    if (v17 + v15)
+    {
+      v36 = a2;
+      v37 = a3;
+      Type = re::EventBus::getTypeId<RECollisionDidStopEvent>();
+      re::EventBus::publish(v14, v6, Type, &v36, 0x10uLL, 0);
+    }
+
+    v19 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionStopEvent>(v14, v6);
+    v20 = re::EventBus::getEventInfo<RECollisionStopEvent>(v14);
+    if (v20)
+    {
+      v21 = *(v20 + 208);
+    }
+
+    else
+    {
+      v21 = 0;
+    }
+
+    if (v21 + v19)
+    {
+      v36 = a2;
+      v37 = a3;
+      v22 = re::EventBus::getTypeId<RECollisionStopEvent>();
+      re::EventBus::publish(v14, v6, v22, &v36, 0x10uLL, 0);
+    }
+  }
+
+  if (v8)
+  {
+    v23 = v8;
+    do
+    {
+      v24 = v23;
+      v23 = *(v23 + 32);
+    }
+
+    while (v23);
+    if (!*(v24 + 24))
+    {
+      goto LABEL_30;
+    }
+
+    v25 = v8;
+    do
+    {
+      v26 = v25;
+      v25 = *(v25 + 32);
+    }
+
+    while (v25);
+    v27 = *(*(v26 + 24) + 288);
+    if (!v27)
+    {
+LABEL_30:
+      v27 = *(this + 1);
+    }
+
+    v28 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidStopEvent>(v27, v8);
+    v29 = re::EventBus::getEventInfo<RECollisionDidStopEvent>(v27);
+    if (v29)
+    {
+      v30 = *(v29 + 208);
+    }
+
+    else
+    {
+      v30 = 0;
+    }
+
+    if (v30 + v28)
+    {
+      v36 = a3;
+      v37 = a2;
+      v31 = re::EventBus::getTypeId<RECollisionDidStopEvent>();
+      re::EventBus::publish(v27, v8, v31, &v36, 0x10uLL, 0);
+    }
+
+    v32 = re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionStopEvent>(v27, v8);
+    v33 = re::EventBus::getEventInfo<RECollisionStopEvent>(v27);
+    if (v33)
+    {
+      v34 = *(v33 + 208);
+    }
+
+    else
+    {
+      v34 = 0;
+    }
+
+    if (v34 + v32)
+    {
+      v36 = a3;
+      v37 = a2;
+      v35 = re::EventBus::getTypeId<RECollisionStopEvent>();
+      re::EventBus::publish(v27, v8, v35, &v36, 0x10uLL, 0);
+    }
+  }
+
+  if (v6 && [v6 + 8 retainCount] == 1)
+  {
+    *(a2 + 5) = 0;
+  }
+
+  if (v8)
+  {
+    if ([v8 + 8 retainCount] == 1)
+    {
+      *(a3 + 5) = 0;
+    }
+  }
+
+  if (v6)
+  {
+  }
+}
+
+uint64_t re::EventBus::getEventInfo<RECollisionDidStartEvent>(uint64_t a1)
+{
+  Type = re::EventBus::getTypeId<RECollisionDidStartEvent>();
+  v2 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find((a1 + 24), &Type);
+  if (v2 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(*(a1 + 32) + 48 * v2 + 8);
+  }
+}
+
+uint64_t re::EventBus::EventInfo::subscriptionCount(re::EventBus::EventInfo *this)
+{
+  v1 = *(this + 26);
+  v10[0] = this + 216;
+  v2 = *(this + 29);
+  if (v2 >= 0x10)
+  {
+    v3 = 0;
+    v4 = *(this + 27);
+    v5 = v2 >> 4;
     while (1)
     {
-      v16 = *v13;
-      if (v10 <= v16)
+      v6 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v4), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
+      v10[1] = v6 ^ 0xFFFFLL;
+      if (v6 != 0xFFFFLL)
       {
         break;
       }
 
-      v17 = 0;
-      v36 = *(*(a1 + 5) + 16 * v16);
-      while (*(&v36 + v17) != a2)
+      v3 -= 16;
+      ++v4;
+      if (!--v5)
       {
-        if (++v17 == 3)
-        {
-          goto LABEL_16;
-        }
-      }
-
-      if (v17 == 2)
-      {
-        v18 = 0;
-      }
-
-      else
-      {
-        v18 = v17 + 1;
-      }
-
-      v11 = *(&v36 + v18);
-      if (v17)
-      {
-        v19 = (v17 - 1);
-      }
-
-      else
-      {
-        v19 = 2;
-      }
-
-      v12 = *(&v36 + v19);
-LABEL_16:
-      if (v11 != v15 && v12 != v15)
-      {
-        if (v8 <= v11)
-        {
-          goto LABEL_29;
-        }
-
-        if (v8 <= v12)
-        {
-          goto LABEL_30;
-        }
-
-        v20 = *(v9 + 16 * v11);
-        v21 = *(v9 + 16 * a2);
-        v22 = *(v9 + 16 * v12);
-        v23 = vsubq_f32(v20, v21);
-        v24 = vsubq_f32(v22, v21);
-        v25 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL), vnegq_f32(v23)), v24, vextq_s8(vuzp1q_s32(v23, v23), v23, 0xCuLL));
-        v26 = vsubq_f32(v20, v14);
-        v27 = vsubq_f32(v22, v14);
-        v28 = vmulq_f32(v25, vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v27, v27), v27, 0xCuLL), vnegq_f32(v26)), v27, vextq_s8(vuzp1q_s32(v26, v26), v26, 0xCuLL)));
-        if ((v28.f32[1] + (v28.f32[2] + v28.f32[0])) <= 0.0)
-        {
-          v29 = 0;
-          goto LABEL_24;
-        }
-      }
-
-      if (++v13 == &v34[v32])
-      {
-        goto LABEL_22;
+        return v1;
       }
     }
 
-    v35 = 0;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v45 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v37 = 136315906;
-    v38 = "operator[]";
-    v39 = 1024;
-    v40 = 797;
-    v41 = 2048;
-    v42 = v16;
-    v43 = 2048;
-    v44 = v10;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_29:
-    v35 = 0;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v45 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v37 = 136315906;
-    v38 = "operator[]";
-    v39 = 1024;
-    v40 = 789;
-    v41 = 2048;
-    v42 = v11;
-    v43 = 2048;
-    v44 = v8;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_30:
-    v35 = 0;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v45 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v37 = 136315906;
-    v38 = "operator[]";
-    v39 = 1024;
-    v40 = 789;
-    v41 = 2048;
-    v42 = v12;
-    v43 = 2048;
-    v44 = v8;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_31:
-    *&v36 = 0;
-    v48 = 0u;
-    v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v45 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v37 = 136315906;
-    v38 = "operator[]";
-    v39 = 1024;
-    v40 = 789;
-    v41 = 2048;
-    v42 = a2;
-    v43 = 2048;
-    v44 = v8;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    v7 = __clz(__rbit64(v6 ^ 0xFFFFLL));
+    v8 = v7 - v3;
+    v11 = v7 - v3;
+    if (v7 + 1 != v3)
+    {
+      do
+      {
+        v1 += *(*(v10[0] + 8) + 144 * v8 + 136);
+        re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v10);
+        v8 = v11;
+      }
+
+      while (v11 != -1);
+    }
   }
 
-LABEL_22:
-  v29 = 1;
-LABEL_24:
-  if (v31[0] && v34)
-  {
-    (*(*v31[0] + 40))();
-  }
-
-  return v29;
+  return v1;
 }
 
-uint64_t re::internal::TriangleDecimator::decimateOneEdge(re::internal::TriangleDecimator *this)
+char *re::EventBus::getTypeId<RECollisionDidStartEvent>()
 {
-  v79 = *MEMORY[0x1E69E9840];
-  v3 = *(this + 67);
-  if (!v3)
+  v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+  {
+    v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    if (v2)
+    {
+      re::EventBus::getTypeId<RECollisionDidStartEvent>(void)const::s_id = re::EventBus::typeStringToId(("24RECollisionDidStartEvent" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    }
+  }
+
+  return v0[189];
+}
+
+uint64_t re::EventBus::getEventInfo<RECollisionDidStartEventEx>(uint64_t a1)
+{
+  Type = re::EventBus::getTypeId<RECollisionDidStartEventEx>();
+  v2 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find((a1 + 24), &Type);
+  if (v2 == -1)
   {
     return 0;
-  }
-
-  v4 = this;
-  v5 = v65;
-  v6 = *(this + 69);
-  *v54 = *v6;
-  v55 = *(v6 + 16);
-  if (v3 == 1)
-  {
-    *(this + 67) = 0;
-    ++*(this + 136);
-    goto LABEL_13;
-  }
-
-  v7 = v3 - 1;
-  if (v3 <= v7)
-  {
-LABEL_97:
-    *v59 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v65[0].i32[0] = 136315906;
-    *(v65[0].i64 + 4) = "operator[]";
-    v65[0].i16[6] = 1024;
-    *(&v65[0].i32[3] + 2) = 789;
-    v65[1].i16[1] = 2048;
-    *(v5 + 20) = v7;
-    v65[1].i16[6] = 2048;
-    *(v5 + 30) = v3;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_98;
-  }
-
-  v8 = (v6 + 24 * v7);
-  v9 = *v8;
-  *(v6 + 16) = *(v8 + 2);
-  *v6 = v9;
-  v10 = *(this + 67);
-  if (!v10)
-  {
-LABEL_98:
-    *v59 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v65[0].i32[0] = 136315906;
-    *(v65[0].i64 + 4) = "operator[]";
-    v65[0].i16[6] = 1024;
-    *(&v65[0].i32[3] + 2) = 789;
-    v65[1].i16[1] = 2048;
-    *(v5 + 20) = 0;
-    v65[1].i16[6] = 2048;
-    *(v5 + 30) = 0;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_99;
-  }
-
-  v3 = **(this + 69);
-  v1 = *(this + 72);
-  if (v1 <= v3)
-  {
-LABEL_99:
-    *v59 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v65[0].i32[0] = 136315906;
-    *(v65[0].i64 + 4) = "operator[]";
-    v65[0].i16[6] = 1024;
-    *(&v65[0].i32[3] + 2) = 789;
-    v65[1].i16[1] = 2048;
-    *(v5 + 20) = v3;
-    v65[1].i16[6] = 2048;
-    *(v5 + 30) = v1;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_100;
-  }
-
-  *(*(this + 74) + 4 * v3) = 0;
-  if (v10 < v7)
-  {
-    if (*(this + 66) < v7)
-    {
-      re::DynamicArray<re::internal::AnimationCompositionChainEntry>::setCapacity(this + 65, v7);
-    }
-
-    goto LABEL_11;
-  }
-
-  if (v10 > v7)
-  {
-LABEL_11:
-    *(v4 + 67) = v7;
-    ++*(v4 + 136);
-  }
-
-  re::internal::IndexedPriorityQueue::rebalance(v4 + 65, 0);
-LABEL_13:
-  v2 = v54[0];
-  v7 = *(v4 + 72);
-  if (v7 <= v54[0])
-  {
-LABEL_93:
-    *v59 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v65[0].i32[0] = 136315906;
-    *(v65[0].i64 + 4) = "operator[]";
-    v65[0].i16[6] = 1024;
-    *(&v65[0].i32[3] + 2) = 789;
-    v65[1].i16[1] = 2048;
-    *(v5 + 20) = v2;
-    v65[1].i16[6] = 2048;
-    *(v5 + 30) = v7;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_94:
-    *v67 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v59 = 136315906;
-    *&v59[4] = "operator[]";
-    *&v59[12] = 1024;
-    *&v59[14] = 797;
-    *&v59[18] = 2048;
-    *&v59[20] = v3;
-    v60 = 2048;
-    *v61 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_95:
-    *v67 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v59 = 136315906;
-    *&v59[4] = "operator[]";
-    *&v59[12] = 1024;
-    *&v59[14] = 797;
-    *&v59[18] = 2048;
-    *&v59[20] = v5;
-    v60 = 2048;
-    *v61 = v2;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_96:
-    *v67 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v59 = 136315906;
-    *&v59[4] = "operator[]";
-    *&v59[12] = 1024;
-    *&v59[14] = 789;
-    *&v59[18] = 2048;
-    *&v59[20] = v3;
-    v60 = 2048;
-    *v61 = v5;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_97;
-  }
-
-  *(*(v4 + 74) + 4 * v54[0]) = -1;
-  if (!re::GeomConnectivityManifold::isCollapseEdgeSafe(v4, v2))
-  {
-    return 0;
-  }
-
-  LODWORD(v11) = re::GeomConnectivityManifold::isBoundaryEdge(v4, v2);
-  re::GeomConnectivityManifold::edgeVertices(v4, v2, &v57);
-  if (*(v4 + 628) == 1)
-  {
-    v3 = v57;
-    v7 = *(v4 + 40);
-    if (v7 <= v57)
-    {
-LABEL_101:
-      *v59 = 0;
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
-      v76 = 0u;
-      v74 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v65[0].i32[0] = 136315906;
-      *(v65[0].i64 + 4) = "operator[]";
-      v65[0].i16[6] = 1024;
-      *(&v65[0].i32[3] + 2) = 789;
-      v65[1].i16[1] = 2048;
-      *(v5 + 20) = v3;
-      v65[1].i16[6] = 2048;
-      *(v5 + 30) = v7;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_102;
-    }
-
-    v1 = v58;
-    if (v7 <= v58)
-    {
-LABEL_102:
-      *v59 = 0;
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
-      v76 = 0u;
-      v74 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v65[0].i32[0] = 136315906;
-      *(v65[0].i64 + 4) = "operator[]";
-      v65[0].i16[6] = 1024;
-      *(&v65[0].i32[3] + 2) = 789;
-      v65[1].i16[1] = 2048;
-      *(v5 + 20) = v1;
-      v65[1].i16[6] = 2048;
-      *(v5 + 30) = v7;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_103:
-      *v59 = 0;
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
-      v76 = 0u;
-      v74 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v65[0].i32[0] = 136315906;
-      *(v65[0].i64 + 4) = "operator[]";
-      v65[0].i16[6] = 1024;
-      *(&v65[0].i32[3] + 2) = 789;
-      v65[1].i16[1] = 2048;
-      *(v5 + 20) = v3;
-      v65[1].i16[6] = 2048;
-      *(v5 + 30) = v7;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_104:
-      *v67 = 0;
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
-      v76 = 0u;
-      v74 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v59 = 136315906;
-      *&v59[4] = "operator[]";
-      *&v59[12] = 1024;
-      *&v59[14] = 789;
-      *&v59[18] = 2048;
-      *&v59[20] = v3;
-      v60 = 2048;
-      *v61 = v5;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_105;
-    }
-
-    v12 = vsubq_f32(*(*(v4 + 42) + 16 * v57), *(*(v4 + 42) + 16 * v58));
-    v13 = vmulq_f32(v12, v12);
-    if ((v13.f32[2] + vaddv_f32(*v13.f32)) > (*(v4 + 158) * *(v4 + 158)))
-    {
-      return 0;
-    }
-  }
-
-  if (*(v4 + 617) == 1)
-  {
-    v3 = v57;
-    v7 = *(v4 + 50);
-    if (v7 <= v57)
-    {
-      goto LABEL_103;
-    }
-
-    v14 = *(v4 + 52);
-    if (*(v14 + v57))
-    {
-      v3 = v58;
-      if (v7 <= v58)
-      {
-LABEL_105:
-        *v59 = 0;
-        v77 = 0u;
-        v78 = 0u;
-        v75 = 0u;
-        v76 = 0u;
-        v74 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v65[0].i32[0] = 136315906;
-        *(v65[0].i64 + 4) = "operator[]";
-        v65[0].i16[6] = 1024;
-        *(&v65[0].i32[3] + 2) = 789;
-        v65[1].i16[1] = 2048;
-        *(v5 + 20) = v3;
-        v65[1].i16[6] = 2048;
-        *(v5 + 30) = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_106:
-        *v59 = 0;
-        v77 = 0u;
-        v78 = 0u;
-        v75 = 0u;
-        v76 = 0u;
-        v74 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v65[0].i32[0] = 136315906;
-        *(v65[0].i64 + 4) = "operator[]";
-        v65[0].i16[6] = 1024;
-        *(&v65[0].i32[3] + 2) = 797;
-        v65[1].i16[1] = 2048;
-        *(v5 + 20) = v2;
-        v65[1].i16[6] = 2048;
-        *(v5 + 30) = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_107;
-      }
-
-      if (*(v14 + v58))
-      {
-        return 0;
-      }
-    }
-  }
-
-  v7 = *(v4 + 55);
-  if (v7 <= v2)
-  {
-LABEL_100:
-    *v59 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v65[0].i32[0] = 136315906;
-    *(v65[0].i64 + 4) = "operator[]";
-    v65[0].i16[6] = 1024;
-    *(&v65[0].i32[3] + 2) = 789;
-    v65[1].i16[1] = 2048;
-    *(v5 + 20) = v2;
-    v65[1].i16[6] = 2048;
-    *(v5 + 30) = v7;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_101;
-  }
-
-  v1 = *(v4 + 57) + 32 * v2;
-  if (*(v4 + 608))
-  {
-    if (!*(v4 + 617))
-    {
-      goto LABEL_68;
-    }
   }
 
   else
   {
-    if (!re::internal::TriangleDecimator::checkForFlip(v4, v57, v58, (*(v4 + 57) + 32 * v2)) || !re::internal::TriangleDecimator::checkForFlip(v4, v58, v57, v1))
+    return *(*(a1 + 32) + 48 * v2 + 8);
+  }
+}
+
+char *re::EventBus::getTypeId<RECollisionDidStartEventEx>()
+{
+  v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+  {
+    v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    if (v2)
     {
-      return 0;
-    }
-
-    if ((*(v4 + 617) & 1) == 0)
-    {
-      goto LABEL_68;
+      re::EventBus::getTypeId<RECollisionDidStartEventEx>(void)const::s_id = re::EventBus::typeStringToId(("26RECollisionDidStartEventEx" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
     }
   }
 
-  v7 = *(v4 + 28);
-  if (v7 <= v2)
-  {
-    goto LABEL_106;
-  }
+  return v0[191];
+}
 
-  v7 = *(*(v4 + 30) + 4 * v2);
-  v3 = *(v4 + 8);
-  if (v3 <= v7)
-  {
-LABEL_107:
-    *v59 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v65[0].i32[0] = 136315906;
-    *(v65[0].i64 + 4) = "operator[]";
-    v65[0].i16[6] = 1024;
-    *(&v65[0].i32[3] + 2) = 797;
-    v65[1].i16[1] = 2048;
-    *(v5 + 20) = v7;
-    v65[1].i16[6] = 2048;
-    *(v5 + 30) = v3;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_108:
-    *v59 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v65[0].i32[0] = 136315906;
-    *(v65[0].i64 + 4) = "operator[]";
-    v65[0].i16[6] = 1024;
-    *(&v65[0].i32[3] + 2) = 789;
-    v65[1].i16[1] = 2048;
-    *(v5 + 20) = v3;
-    v65[1].i16[6] = 2048;
-    *(v5 + 30) = v7;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_109;
-  }
-
-  v15 = *(*(v4 + 10) + 4 * v7);
-  if ((v15 & 0x40000000) != 0)
-  {
-    v16 = -1;
-    v17 = 1;
-  }
-
-  else
-  {
-    v16 = v15 & 0xFFFFFFF;
-    v15 = re::GeomConnectivityManifold::faceVertexDualHalfEdge(v4, v15 & 0xFFFFFFF, (v15 >> 28) & 3);
-    v17 = 2;
-  }
-
-  v3 = v15 & 0xFFFFFFF;
-  v64[0] = v15 & 0xFFFFFFF;
-  v64[1] = v16;
-  v7 = *(v4 + 94);
-  if (v7 <= v3)
-  {
-    goto LABEL_108;
-  }
-
-  v53 = v15 & 0xFFFFFFF;
-  v3 = *(*(v4 + 96) + 4 * v3);
-  v7 = *(v4 + 99);
-  if (v7 <= v3)
-  {
-LABEL_109:
-    *v59 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v65[0].i32[0] = 136315906;
-    *(v65[0].i64 + 4) = "operator[]";
-    v65[0].i16[6] = 1024;
-    *(&v65[0].i32[3] + 2) = 789;
-    v65[1].i16[1] = 2048;
-    *(v5 + 20) = v3;
-    v65[1].i16[6] = 2048;
-    *(v5 + 30) = v7;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_110:
-    *v59 = 0;
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v74 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v65[0].i32[0] = 136315906;
-    *(v65[0].i64 + 4) = "operator[]";
-    v65[0].i16[6] = 1024;
-    *(&v65[0].i32[3] + 2) = 789;
-    v65[1].i16[1] = 2048;
-    *(v5 + 20) = v7;
-    v65[1].i16[6] = 2048;
-    *(v5 + 30) = v3;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_111;
-  }
-
-  if (*(*(v4 + 101) + 16 * v3 + 4) == 0.0)
+uint64_t re::EventBus::getEventInfo<RECollisionDidStopEvent>(uint64_t a1)
+{
+  Type = re::EventBus::getTypeId<RECollisionDidStopEvent>();
+  v2 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find((a1 + 24), &Type);
+  if (v2 == -1)
   {
     return 0;
   }
 
-  v51 = v3;
-  v50 = v11;
-  v20 = 0;
-  v21 = 4 * v17;
-  v22 = 0.0;
-  do
+  else
   {
-    v22 = v22 - re::internal::TriangleDecimator::faceArea(v4, v64[v20 / 4]);
-    v20 += 4;
+    return *(*(a1 + 32) + 48 * v2 + 8);
   }
+}
 
-  while (v21 != v20);
-  v23 = &v62;
-  v49 = v2;
-  re::GeomConnectivityManifold::edgeVertices(v4, v2, &v62);
-  *&v61[2] = 0;
-  v24 = 1;
-  memset(v59, 0, sizeof(v59));
-  v7 = v66;
-  v25 = 0.5;
-  v26 = v53;
-  do
+char *re::EventBus::getTypeId<RECollisionDidStopEvent>()
+{
+  v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
   {
-    v52 = v24;
-    re::GeomConnectivityManifold::fetchVertexIncidentFaces(v4, *v23, v59);
-    if (*&v59[16])
+    v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    if (v2)
     {
-      v2 = *&v61[2];
-      v11 = *&v61[2] + 4 * *&v59[16];
-      while (1)
-      {
-        v5 = *v2;
-        if (v5 != v26 && v5 != v16)
-        {
-          break;
-        }
-
-LABEL_57:
-        v2 += 4;
-        if (v2 == v11)
-        {
-          goto LABEL_58;
-        }
-      }
-
-      v28 = *v23;
-      memset(v65, 0, sizeof(v65));
-      v3 = *(v4 + 3);
-      if (v3 > v5)
-      {
-        v29 = 0;
-        *v66 = *(*(v4 + 5) + 16 * v5);
-        v30 = v65;
-        while (1)
-        {
-          v31 = v66[v29];
-          v32 = v1;
-          if (v31 != v28)
-          {
-            v33 = *(v4 + 40);
-            if (v33 <= v31)
-            {
-              v56 = 0;
-              v77 = 0u;
-              v78 = 0u;
-              v75 = 0u;
-              v76 = 0u;
-              v74 = 0u;
-              v4 = MEMORY[0x1E69E9C10];
-              os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-              *v67 = 136315906;
-              *&v67[4] = "operator[]";
-              v68 = 1024;
-              v69 = 797;
-              v70 = 2048;
-              v71 = v31;
-              v72 = 2048;
-              v73 = v33;
-              _os_log_send_and_compose_impl();
-              _os_crash_msg();
-              __break(1u);
-LABEL_63:
-              *(v38 + 4) = 0;
-              goto LABEL_64;
-            }
-
-            v32 = (*(v4 + 42) + 16 * v31);
-          }
-
-          *v30++ = *v32;
-          if (++v29 == 3)
-          {
-            v34 = vsubq_f32(v65[2], v65[0]);
-            v35 = vsubq_f32(v65[1], v65[0]);
-            v36 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v35, v35), v35, 0xCuLL), vnegq_f32(v34)), v35, vextq_s8(vuzp1q_s32(v34, v34), v34, 0xCuLL));
-            v37 = vmulq_f32(v36, v36);
-            v22 = v22 + sqrtf(v37.f32[1] + (v37.f32[2] + v37.f32[0])) * 0.5 - re::internal::TriangleDecimator::faceArea(v4, v5);
-            v26 = v53;
-            goto LABEL_57;
-          }
-        }
-      }
-
-      *v66 = 0;
-      v77 = 0uLL;
-      v78 = 0uLL;
-      v75 = 0uLL;
-      v76 = 0uLL;
-      v74 = 0uLL;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v67 = 136315906;
-      *&v67[4] = "operator[]";
-      v68 = 1024;
-      v69 = 797;
-      v70 = 2048;
-      v71 = v5;
-      v72 = 2048;
-      v73 = v3;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_93;
+      re::EventBus::getTypeId<RECollisionDidStopEvent>(void)const::s_id = re::EventBus::typeStringToId(("23RECollisionDidStopEvent" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
     }
-
-LABEL_58:
-    v24 = 0;
-    v23 = &v63;
   }
 
-  while ((v52 & 1) != 0);
-  v7 = *(v4 + 99);
-  v3 = v51;
-  if (v7 <= v51)
-  {
-    goto LABEL_112;
-  }
+  return v0[193];
+}
 
-  v38 = *(v4 + 101) + 16 * v51;
-  v39 = v22 + *(v38 + 8);
-  v22 = fabs(v39);
-  v25 = *(v38 + 4);
-  v5 = v65;
-  LODWORD(v11) = v50;
-  v2 = v49;
-  if (v22 >= v25)
-  {
-    goto LABEL_63;
-  }
-
-  *(v38 + 8) = v39;
-LABEL_64:
-  if (*v59 && *&v61[2])
-  {
-    (*(**v59 + 40))(*v59, *&v61[2]);
-  }
-
-  if (v22 >= v25)
+uint64_t re::EventBus::getEventInfo<RECollisionDidUpdateEvent>(uint64_t a1)
+{
+  Type = re::EventBus::getTypeId<RECollisionDidUpdateEvent>();
+  v2 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find((a1 + 24), &Type);
+  if (v2 == -1)
   {
     return 0;
   }
 
-LABEL_68:
-  v66[0] = 0;
-  re::GeomConnectivityManifold::collapseEdgeWithoutSafetyCheck(v4, v2, v66);
-  if (re::GeomConnectivityManifold::isValidVertex(v4, v66[0]))
+  else
   {
-    if (v66[0] == v57)
+    return *(*(a1 + 32) + 48 * v2 + 8);
+  }
+}
+
+char *re::EventBus::getTypeId<RECollisionDidUpdateEvent>()
+{
+  v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+  {
+    v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    if (v2)
     {
-      v40 = re::DynamicArray<re::internal::Quadric>::operator[](v4 + 344, v58);
-      v41 = re::DynamicArray<re::internal::Quadric>::operator[](v4 + 344, v57);
-      re::internal::Quadric::operator+=(v41, v40);
-      v42 = re::DynamicArray<unsigned char>::operator[](v4 + 384, v58);
-      v43 = v57;
-    }
-
-    else
-    {
-      v44 = re::DynamicArray<re::internal::Quadric>::operator[](v4 + 344, v57);
-      v45 = re::DynamicArray<re::internal::Quadric>::operator[](v4 + 344, v58);
-      re::internal::Quadric::operator+=(v45, v44);
-      v42 = re::DynamicArray<unsigned char>::operator[](v4 + 384, v57);
-      v43 = v58;
-    }
-
-    v7 = v43;
-    v3 = *(v4 + 50);
-    if (v3 <= v43)
-    {
-      goto LABEL_110;
-    }
-
-    *(*(v4 + 52) + v43) |= *v42;
-    v3 = v66[0];
-    v7 = *(v4 + 40);
-    if (v7 <= v66[0])
-    {
-LABEL_111:
-      *v59 = 0;
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
-      v76 = 0u;
-      v74 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v65[0].i32[0] = 136315906;
-      *(v65[0].i64 + 4) = "operator[]";
-      v65[0].i16[6] = 1024;
-      *(&v65[0].i32[3] + 2) = 789;
-      v65[1].i16[1] = 2048;
-      *(v5 + 20) = v3;
-      v65[1].i16[6] = 2048;
-      *(v5 + 30) = v7;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_112:
-      *v67 = 0;
-      v77 = 0u;
-      v78 = 0u;
-      v75 = 0u;
-      v76 = 0u;
-      v74 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v65[0].i32[0] = 136315906;
-      *(v65[0].i64 + 4) = "operator[]";
-      v65[0].i16[6] = 1024;
-      *(&v65[0].i32[3] + 2) = 789;
-      v65[1].i16[1] = 2048;
-      *(v65[1].i64 + 4) = v3;
-      v65[1].i16[6] = 2048;
-      *(&v65[1].i64[1] + 6) = v7;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-    }
-
-    *(*(v4 + 42) + 16 * v66[0]) = *v1;
-    v65[2].i64[0] = 0;
-    memset(v65, 0, 28);
-    re::GeomConnectivityManifold::fetchVertexIncidentEdges(v4, v3, v65);
-    if (v65[1].i64[0])
-    {
-      v7 = v65[2].u64[0];
-      v1 = 4 * v65[1].i64[0];
-      while (1)
-      {
-        v3 = *v7;
-        re::internal::TriangleDecimator::updateEdgeData(v4, *v7);
-        v5 = *(v4 + 72);
-        if (v5 <= v3)
-        {
-          goto LABEL_94;
-        }
-
-        v5 = *(*(v4 + 74) + 4 * v3);
-        if (v5 != -1)
-        {
-          break;
-        }
-
-        if ((*(v4 + 640) & 1) == 0)
-        {
-          v5 = *(v4 + 55);
-          if (v5 <= v3)
-          {
-            goto LABEL_104;
-          }
-
-          *&v54[2] = *(*(v4 + 57) + 32 * v3 + 16);
-          LODWORD(v74) = v3;
-          *(&v74 + 1) = *&v54[2];
-          *&v75 = 0;
-          v47 = (v4 + 520);
-          v48 = &v74;
-LABEL_84:
-          re::internal::IndexedPriorityQueue::pushOrChangeCost(v47, v48);
-        }
-
-        v7 += 4;
-        v1 -= 4;
-        if (!v1)
-        {
-          goto LABEL_86;
-        }
-      }
-
-      v2 = *(v4 + 67);
-      if (v2 <= v5)
-      {
-        goto LABEL_95;
-      }
-
-      v46 = *(v4 + 69) + 24 * v5;
-      *v54 = *v46;
-      v55 = *(v46 + 16);
-      v5 = *(v4 + 55);
-      if (v5 <= v3)
-      {
-        goto LABEL_96;
-      }
-
-      *&v54[2] = *(*(v4 + 57) + 32 * v3 + 16);
-      v55 = v55 + 1.0;
-      v47 = (v4 + 520);
-      v48 = v54;
-      goto LABEL_84;
-    }
-
-LABEL_86:
-    if (v65[0].i64[0] && v65[2].i64[0])
-    {
-      (*(*v65[0].i64[0] + 40))(v65[0].i64[0], v65[2].i64[0]);
+      re::EventBus::getTypeId<RECollisionDidUpdateEvent>(void)const::s_id = re::EventBus::typeStringToId(("25RECollisionDidUpdateEvent" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
     }
   }
 
-  if (v11)
+  return v0[195];
+}
+
+uint64_t re::EventBus::getEventInfo<RECollisionDidUpdateEventEx>(uint64_t a1)
+{
+  Type = re::EventBus::getTypeId<RECollisionDidUpdateEventEx>();
+  v2 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find((a1 + 24), &Type);
+  if (v2 == -1)
   {
-    return 1;
+    return 0;
   }
 
   else
   {
-    return 2;
+    return *(*(a1 + 32) + 48 * v2 + 8);
   }
 }
 
-uint64_t re::GeomConnectivityManifold::isBoundaryEdge(re::GeomConnectivityManifold *this, unsigned int a2)
+char *re::EventBus::getTypeId<RECollisionDidUpdateEventEx>()
 {
-  if (*(this + 28) <= a2)
+  v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_5:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    if (v2)
+    {
+      re::EventBus::getTypeId<RECollisionDidUpdateEventEx>(void)const::s_id = re::EventBus::typeStringToId(("27RECollisionDidUpdateEventEx" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    }
   }
 
-  v2 = *(*(this + 30) + 4 * a2);
-  if (*(this + 8) <= v2)
-  {
-    goto LABEL_5;
-  }
-
-  return (*(*(this + 10) + 4 * v2) >> 30) & 1;
+  return v0[197];
 }
 
-float64x2_t re::internal::Quadric::operator+=(float64x2_t *a1, float64x2_t *a2)
+uint64_t re::EventBus::getEventInfo<RECollisionStartEvent>(uint64_t a1)
 {
-  v2 = a1[1];
-  *a1 = vaddq_f64(*a2, *a1);
-  a1[1] = vaddq_f64(a2[1], v2);
-  v3 = a1[3];
-  a1[2] = vaddq_f64(a2[2], a1[2]);
-  a1[3] = vaddq_f64(a2[3], v3);
-  result = vaddq_f64(a2[4], a1[4]);
-  a1[4] = result;
+  Type = re::EventBus::getTypeId<RECollisionStartEvent>();
+  v2 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find((a1 + 24), &Type);
+  if (v2 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(*(a1 + 32) + 48 * v2 + 8);
+  }
+}
+
+char *re::EventBus::getTypeId<RECollisionStartEvent>()
+{
+  v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+  {
+    v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    if (v2)
+    {
+      re::EventBus::getTypeId<RECollisionStartEvent>(void)const::s_id = re::EventBus::typeStringToId(("21RECollisionStartEvent" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    }
+  }
+
+  return v0[199];
+}
+
+uint64_t re::EventBus::getEventInfo<RECollisionStopEvent>(uint64_t a1)
+{
+  Type = re::EventBus::getTypeId<RECollisionStopEvent>();
+  v2 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find((a1 + 24), &Type);
+  if (v2 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(*(a1 + 32) + 48 * v2 + 8);
+  }
+}
+
+char *re::EventBus::getTypeId<RECollisionStopEvent>()
+{
+  v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+  {
+    v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    if (v2)
+    {
+      re::EventBus::getTypeId<RECollisionStopEvent>(void)const::s_id = re::EventBus::typeStringToId(("20RECollisionStopEvent" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    }
+  }
+
+  return v0[201];
+}
+
+uint64_t re::EventBus::getEventInfo<RECollisionUpdateEvent>(uint64_t a1)
+{
+  Type = re::EventBus::getTypeId<RECollisionUpdateEvent>();
+  v2 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::find((a1 + 24), &Type);
+  if (v2 == -1)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(*(a1 + 32) + 48 * v2 + 8);
+  }
+}
+
+char *re::EventBus::getTypeId<RECollisionUpdateEvent>()
+{
+  v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+  {
+    v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    if (v2)
+    {
+      re::EventBus::getTypeId<RECollisionUpdateEvent>(void)const::s_id = re::EventBus::typeStringToId(("22RECollisionUpdateEvent" & 0x7FFFFFFFFFFFFFFFLL), v3);
+      v0 = &re::MaterialDefinitionCompiler::getSupportedExtensions(void)const::supportedExtensions;
+    }
+  }
+
+  return v0[203];
+}
+
+uint64_t re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidStartEventEx>(uint64_t a1, uint64_t a2)
+{
+  result = re::EventBus::getEventInfo<RECollisionDidStartEventEx>(a1);
+  if (result)
+  {
+    v4 = result;
+    if (!a2)
+    {
+      v6 = result + 88;
+      return *(v6 + 120);
+    }
+
+    v7[0] = a2;
+    v7[1] = 0;
+    v5 = re::HashBrown<re::Pair<void const*,void const*,true>,re::EventBus::Subscriptions,re::Hash<re::Pair<void const*,void const*,true>>,re::EqualTo<re::Pair<void const*,void const*,true>>,void,false>::find((result + 216), v7);
+    if (v5 != -1)
+    {
+      v6 = *(v4 + 224) + 144 * v5 + 16;
+      return *(v6 + 120);
+    }
+
+    return 0;
+  }
+
   return result;
 }
 
-void *re::internal::IndexedPriorityQueue::pushOrChangeCost(void *this, unsigned int *a2)
+uint64_t re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidStartEvent>(uint64_t a1, uint64_t a2)
 {
-  v2 = *a2;
-  if (this[7] <= v2)
+  result = re::EventBus::getEventInfo<RECollisionDidStartEvent>(a1);
+  if (result)
   {
-LABEL_23:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_24:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    v4 = result;
+    if (!a2)
+    {
+      v6 = result + 88;
+      return *(v6 + 120);
+    }
+
+    v7[0] = a2;
+    v7[1] = 0;
+    v5 = re::HashBrown<re::Pair<void const*,void const*,true>,re::EventBus::Subscriptions,re::Hash<re::Pair<void const*,void const*,true>>,re::EqualTo<re::Pair<void const*,void const*,true>>,void,false>::find((result + 216), v7);
+    if (v5 != -1)
+    {
+      v6 = *(v4 + 224) + 144 * v5 + 16;
+      return *(v6 + 120);
+    }
+
+    return 0;
   }
 
-  v4 = this;
-  v5 = *(this[9] + 4 * v2);
-  if (v5 == -1)
-  {
+  return result;
+}
 
-    return re::internal::IndexedPriorityQueue::push(this, a2);
+uint64_t re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionStartEvent>(uint64_t a1, uint64_t a2)
+{
+  result = re::EventBus::getEventInfo<RECollisionStartEvent>(a1);
+  if (result)
+  {
+    v4 = result;
+    if (!a2)
+    {
+      v6 = result + 88;
+      return *(v6 + 120);
+    }
+
+    v7[0] = a2;
+    v7[1] = 0;
+    v5 = re::HashBrown<re::Pair<void const*,void const*,true>,re::EventBus::Subscriptions,re::Hash<re::Pair<void const*,void const*,true>>,re::EqualTo<re::Pair<void const*,void const*,true>>,void,false>::find((result + 216), v7);
+    if (v5 != -1)
+    {
+      v6 = *(v4 + 224) + 144 * v5 + 16;
+      return *(v6 + 120);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidUpdateEventEx>(uint64_t a1, uint64_t a2)
+{
+  result = re::EventBus::getEventInfo<RECollisionDidUpdateEventEx>(a1);
+  if (result)
+  {
+    v4 = result;
+    if (!a2)
+    {
+      v6 = result + 88;
+      return *(v6 + 120);
+    }
+
+    v7[0] = a2;
+    v7[1] = 0;
+    v5 = re::HashBrown<re::Pair<void const*,void const*,true>,re::EventBus::Subscriptions,re::Hash<re::Pair<void const*,void const*,true>>,re::EqualTo<re::Pair<void const*,void const*,true>>,void,false>::find((result + 216), v7);
+    if (v5 != -1)
+    {
+      v6 = *(v4 + 224) + 144 * v5 + 16;
+      return *(v6 + 120);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidUpdateEvent>(uint64_t a1, uint64_t a2)
+{
+  result = re::EventBus::getEventInfo<RECollisionDidUpdateEvent>(a1);
+  if (result)
+  {
+    v4 = result;
+    if (!a2)
+    {
+      v6 = result + 88;
+      return *(v6 + 120);
+    }
+
+    v7[0] = a2;
+    v7[1] = 0;
+    v5 = re::HashBrown<re::Pair<void const*,void const*,true>,re::EventBus::Subscriptions,re::Hash<re::Pair<void const*,void const*,true>>,re::EqualTo<re::Pair<void const*,void const*,true>>,void,false>::find((result + 216), v7);
+    if (v5 != -1)
+    {
+      v6 = *(v4 + 224) + 144 * v5 + 16;
+      return *(v6 + 120);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionUpdateEvent>(uint64_t a1, uint64_t a2)
+{
+  result = re::EventBus::getEventInfo<RECollisionUpdateEvent>(a1);
+  if (result)
+  {
+    v4 = result;
+    if (!a2)
+    {
+      v6 = result + 88;
+      return *(v6 + 120);
+    }
+
+    v7[0] = a2;
+    v7[1] = 0;
+    v5 = re::HashBrown<re::Pair<void const*,void const*,true>,re::EventBus::Subscriptions,re::Hash<re::Pair<void const*,void const*,true>>,re::EqualTo<re::Pair<void const*,void const*,true>>,void,false>::find((result + 216), v7);
+    if (v5 != -1)
+    {
+      v6 = *(v4 + 224) + 144 * v5 + 16;
+      return *(v6 + 120);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionDidStopEvent>(uint64_t a1, uint64_t a2)
+{
+  result = re::EventBus::getEventInfo<RECollisionDidStopEvent>(a1);
+  if (result)
+  {
+    v4 = result;
+    if (!a2)
+    {
+      v6 = result + 88;
+      return *(v6 + 120);
+    }
+
+    v7[0] = a2;
+    v7[1] = 0;
+    v5 = re::HashBrown<re::Pair<void const*,void const*,true>,re::EventBus::Subscriptions,re::Hash<re::Pair<void const*,void const*,true>>,re::EqualTo<re::Pair<void const*,void const*,true>>,void,false>::find((result + 216), v7);
+    if (v5 != -1)
+    {
+      v6 = *(v4 + 224) + 144 * v5 + 16;
+      return *(v6 + 120);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t re::EventBus::subscriptionCountInternal<re::ecs2::Entity,RECollisionStopEvent>(uint64_t a1, uint64_t a2)
+{
+  result = re::EventBus::getEventInfo<RECollisionStopEvent>(a1);
+  if (result)
+  {
+    v4 = result;
+    if (!a2)
+    {
+      v6 = result + 88;
+      return *(v6 + 120);
+    }
+
+    v7[0] = a2;
+    v7[1] = 0;
+    v5 = re::HashBrown<re::Pair<void const*,void const*,true>,re::EventBus::Subscriptions,re::Hash<re::Pair<void const*,void const*,true>>,re::EqualTo<re::Pair<void const*,void const*,true>>,void,false>::find((result + 216), v7);
+    if (v5 != -1)
+    {
+      v6 = *(v4 + 224) + 144 * v5 + 16;
+      return *(v6 + 120);
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+void *re::ecs2::allocInfo_ThrottleComponent(re::ecs2 *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_408, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_408))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B5E08, "ThrottleComponent");
+    __cxa_guard_release(&_MergedGlobals_408);
+  }
+
+  return &unk_1EE1B5E08;
+}
+
+void re::ecs2::initInfo_ThrottleComponent(re::ecs2 *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v16[0] = 0x7C4A073DE665C1A6;
+  v16[1] = "ThrottleComponent";
+  if (v16[0])
+  {
+    if (v16[0])
+    {
+    }
+  }
+
+  *(this + 2) = v17;
+  if ((atomic_load_explicit(&qword_1EE1B5E00, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B5E00))
+  {
+    v7 = re::introspectionAllocator();
+    v13 = re::ecs2::introspect_Component(1, v8, v9, v10, v11, v12);
+    v14 = (*(*v7 + 32))(v7, 72, 8);
+    *v14 = 1;
+    *(v14 + 8) = "Component";
+    *(v14 + 16) = v13;
+    *(v14 + 24) = 0;
+    *(v14 + 32) = 0;
+    *(v14 + 40) = 3;
+    *(v14 + 48) = 0;
+    *(v14 + 56) = 0;
+    *(v14 + 64) = 0;
+    qword_1EE1B5DF8 = v14;
+    __cxa_guard_release(&qword_1EE1B5E00);
+  }
+
+  *(this + 2) = 0x2800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 14) = 1;
+  *(this + 8) = &qword_1EE1B5DF8;
+  *(this + 9) = re::internal::defaultConstruct<re::ecs2::ThrottleComponent>;
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 10) = re::internal::defaultDestruct<re::ecs2::ThrottleComponent>;
+  *(this + 13) = re::internal::defaultConstructV2<re::ecs2::ThrottleComponent>;
+  *(this + 14) = re::internal::defaultDestructV2<re::ecs2::ThrottleComponent>;
+  *(this + 15) = 0;
+  *(this + 16) = 0;
+  *(this + 17) = _ZZN2re8internal15setIntroVersionINS_4ecs217ThrottleComponentELNS_17RealityKitReleaseE5EEEDTcldtclsr3stdE7declvalIT_EE24adjustedIntroReleaseInfoclL_ZNSt3__17declvalB8nn200100INS_19RealityFilePlatformEEEDTclsr3stdE9__declvalIS5_ELi0EEEvEEEERPFNS_21RealityKitReleaseInfoEPKvS8_ENS0_8priorityILi1EEEENUlSD_S8_E_8__invokeESD_S8_;
+  re::internal::prepare(this, v6);
+  v15 = v17;
+}
+
+void re::internal::defaultConstruct<re::ecs2::ThrottleComponent>(int a1, int a2, ArcSharedObject *this)
+{
+  *(this + 4) = 0;
+  *this = 0u;
+  *(this + 1) = 0u;
+  ArcSharedObject::ArcSharedObject(this, 0);
+  *(v3 + 16) = 0;
+  *(v3 + 24) = 0;
+  *v3 = &unk_1F5CE49B8;
+  *(v3 + 28) = 0;
+  *(v3 + 32) = 0;
+}
+
+void re::internal::defaultConstructV2<re::ecs2::ThrottleComponent>(uint64_t a1)
+{
+  *(a1 + 32) = 0;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  ArcSharedObject::ArcSharedObject(a1, 0);
+  *(v1 + 16) = 0;
+  *(v1 + 24) = 0;
+  *v1 = &unk_1F5CE49B8;
+  *(v1 + 28) = 0;
+  *(v1 + 32) = 0;
+}
+
+void _ZZN2re8internal15setIntroVersionINS_4ecs217ThrottleComponentELNS_17RealityKitReleaseE5EEEDTcldtclsr3stdE7declvalIT_EE24adjustedIntroReleaseInfoclL_ZNSt3__17declvalB8nn200100INS_19RealityFilePlatformEEEDTclsr3stdE9__declvalIS5_ELi0EEEvEEEERPFNS_21RealityKitReleaseInfoEPKvS8_ENS0_8priorityILi1EEEENUlSD_S8_E_8__invokeESD_S8_(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  if (a1 && ((*(*a1 + 64))(&v5), v5 == 1))
+  {
+    *a2 = v6;
+    v3 = v7;
+    *(a2 + 8) = v7;
+    if (v3 == 1)
+    {
+      v4 = re::StringID::StringID((a2 + 16), &v8);
+      if (v5 & 1) != 0 && (v7 & 1) != 0 && (*&v8.var0)
+      {
+        if (*&v8.var0)
+        {
+        }
+      }
+    }
   }
 
   else
   {
-    if (this[2] <= v5)
-    {
-      goto LABEL_24;
-    }
+    *a2 = 5;
+    *(a2 + 8) = 0;
+  }
+}
 
-    v6 = this[4] + 24 * v5;
-    v7 = *(v6 + 8);
-    v8 = *(a2 + 1);
-    if ((v7 - v8) * (v7 - v8) <= 1.0e-12)
-    {
-      v7 = *(v6 + 16);
-      v8 = *(a2 + 2);
-    }
+BOOL re::SRTNetworkSyncHelper::readSnapshot(uint64_t a1, uint64_t a2)
+{
+  v2 = RESyncBitReaderBytesLeft();
+  if (v2 >= 0x30)
+  {
+    RESyncBitReaderReadData();
+  }
 
-    if (v7 <= v8)
+  return v2 > 0x2F;
+}
+
+uint64_t re::SRTNetworkSyncHelper::read(uint64_t a1, uint64_t a2)
+{
+  v4[0] = 0x3F8000003F800000;
+  v4[1] = 1065353216;
+  v4[2] = 0;
+  v4[3] = 0x3F80000000000000;
+  v4[4] = 0;
+  v4[5] = 0;
+  RESyncBitReaderReadBool();
+  RESyncBitReaderReadBool();
+  RESyncBitReaderReadData();
+  RESyncBitReaderReadData();
+  RESyncBitReaderReadData();
+  RESyncBitReaderReadData();
+  RESyncBitReaderReadData();
+  RESyncBitReaderReadData();
+  RESyncBitReaderReadData();
+  RESyncBitReaderReadData();
+  RESyncBitReaderReadData();
+  RESyncBitReaderReadData();
+  return MEMORY[0x1E69049A0](a2, v4, 48);
+}
+
+uint64_t re::SRTNetworkSyncHelper::readDelta(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  *&v9 = 0x3F8000003F800000;
+  *(&v9 + 1) = 1065353216;
+  *&v10 = 0;
+  *(&v10 + 1) = 0x3F80000000000000;
+  v11 = 0uLL;
+  result = re::SRTNetworkSyncHelper::readSnapshot(a2, &v9);
+  if (result)
+  {
+    v8 = 0;
+    RESyncBitReaderReadBool();
+    v7 = 0;
+    RESyncBitReaderReadBool();
+    v6 = 0;
+    RESyncBitReaderReadBool();
+    v5[0] = v9;
+    v5[1] = v10;
+    v5[2] = v11;
+    return MEMORY[0x1E69049A0](a3, v5, 48);
+  }
+
+  return result;
+}
+
+BOOL re::SRTNetworkSyncHelper::write(uint64_t a1, uint64_t a2)
+{
+  v10 = 0x3F8000003F800000;
+  v11 = 1065353216;
+  v12 = 0;
+  v13 = 0x3F80000000000000;
+  v14 = 0;
+  v15 = 0;
+  Snapshot = re::SRTNetworkSyncHelper::readSnapshot(a1, &v10);
+  if (Snapshot)
+  {
+    if ((*&v10 == 1.0 || fabsf(*&v10 + -1.0) < (((fabsf(*&v10) + 1.0) + 1.0) * 0.00001)) && (*(&v10 + 1) == 1.0 || fabsf(*(&v10 + 1) + -1.0) < (((fabsf(*(&v10 + 1)) + 1.0) + 1.0) * 0.00001)))
     {
-      if (v7 < v8)
+      if (*&v11 == 1.0)
       {
-        v15 = *a2;
-        *(v6 + 16) = *(a2 + 2);
-        *v6 = v15;
+        RESyncBitWriterWriteBool();
+LABEL_19:
+        MEMORY[0x1E69049A0](a2, &v12, 4);
+        MEMORY[0x1E69049A0](a2, &v12 + 4, 4);
+        MEMORY[0x1E69049A0](a2, &v13, 4);
+        MEMORY[0x1E69049A0](a2, &v13 + 4, 4);
+        MEMORY[0x1E69049A0](a2, &v14, 4);
+        MEMORY[0x1E69049A0](a2, &v14 + 4, 4);
+        MEMORY[0x1E69049A0](a2, &v15, 4);
+        return Snapshot;
+      }
 
-        return re::internal::IndexedPriorityQueue::rebalance(this, v5);
+      v4 = ((fabsf(*&v11) + 1.0) + 1.0) * 0.00001;
+      v5 = fabsf(*&v11 + -1.0);
+      RESyncBitWriterWriteBool();
+      if (v5 < v4)
+      {
+        goto LABEL_19;
       }
     }
 
     else
     {
-      v9 = *a2;
-      *(v6 + 16) = *(a2 + 2);
-      *v6 = v9;
-      if (v5)
+      RESyncBitWriterWriteBool();
+    }
+
+    if (*&v10 == *(&v10 + 1) || vabds_f32(*&v10, *(&v10 + 1)) < (((fabsf(*&v10) + fabsf(*(&v10 + 1))) + 1.0) * 0.00001))
+    {
+      if (*&v10 == *&v11)
       {
-        while (1)
+        RESyncBitWriterWriteBool();
+        v6 = &v10;
+LABEL_18:
+        MEMORY[0x1E69049A0](a2, v6, 4);
+        goto LABEL_19;
+      }
+
+      v7 = ((fabsf(*&v10) + fabsf(*&v11)) + 1.0) * 0.00001;
+      v8 = vabds_f32(*&v10, *&v11);
+      RESyncBitWriterWriteBool();
+      MEMORY[0x1E69049A0](a2, &v10, 4);
+      if (v8 < v7)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    else
+    {
+      RESyncBitWriterWriteBool();
+      MEMORY[0x1E69049A0](a2, &v10, 4);
+    }
+
+    MEMORY[0x1E69049A0](a2, &v10 + 4, 4);
+    v6 = &v11;
+    goto LABEL_18;
+  }
+
+  return Snapshot;
+}
+
+BOOL re::SRTNetworkSyncHelper::writeDelta(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v20.i64[0] = 0x3F8000003F800000;
+  v20.i64[1] = 1065353216;
+  v21.i64[0] = 0;
+  v21.i64[1] = 0x3F80000000000000;
+  v22 = 0uLL;
+  if (!re::SRTNetworkSyncHelper::readSnapshot(a2, &v20))
+  {
+    return 0;
+  }
+
+  v17.i64[0] = 0x3F8000003F800000;
+  v17.i64[1] = 1065353216;
+  v18.i64[0] = 0;
+  v18.i64[1] = 0x3F80000000000000;
+  v19 = 0uLL;
+  Snapshot = re::SRTNetworkSyncHelper::readSnapshot(a1, &v17);
+  if (Snapshot)
+  {
+    v6 = vmvnq_s8(vceqq_f32(v17, v20));
+    v6.i32[3] = v6.i32[2];
+    v7 = vmaxvq_u32(v6);
+    RESyncBitWriterWriteBool();
+    v8 = vmaxvq_u32(vmvnq_s8(vceqq_f32(v18, v21)));
+    RESyncBitWriterWriteBool();
+    v9 = vmvnq_s8(vceqq_f32(v19, v22));
+    v9.i32[3] = v9.i32[2];
+    v10 = vmaxvq_u32(v9);
+    RESyncBitWriterWriteBool();
+    if ((v7 & 0x80000000) == 0)
+    {
+      goto LABEL_4;
+    }
+
+    if ((v17.f32[0] == 1.0 || fabsf(v17.f32[0] + -1.0) < (((fabsf(v17.f32[0]) + 1.0) + 1.0) * 0.00001)) && (v17.f32[1] == 1.0 || fabsf(v17.f32[1] + -1.0) < (((fabsf(v17.f32[1]) + 1.0) + 1.0) * 0.00001)))
+    {
+      if (v17.f32[2] == 1.0)
+      {
+        RESyncBitWriterWriteBool();
+        goto LABEL_4;
+      }
+
+      v12 = ((fabsf(v17.f32[2]) + 1.0) + 1.0) * 0.00001;
+      v13 = fabsf(v17.f32[2] + -1.0);
+      RESyncBitWriterWriteBool();
+      if (v13 < v12)
+      {
+LABEL_4:
+        if ((v8 & 0x80000000) != 0)
         {
-          v10 = v5 - 1;
-          v11 = (v5 - 1) >> 1;
-          if (v4[2] <= v11)
+          MEMORY[0x1E69049A0](a3, &v18, 4);
+          MEMORY[0x1E69049A0](a3, &v18.i32[1], 4);
+          MEMORY[0x1E69049A0](a3, &v18.u32[2], 4);
+          MEMORY[0x1E69049A0](a3, &v18.u64[1] + 4, 4);
+          if ((v10 & 0x80000000) != 0)
           {
-            break;
+LABEL_16:
+            MEMORY[0x1E69049A0](a3, &v19, 4);
+            MEMORY[0x1E69049A0](a3, &v19.i32[1], 4);
+            MEMORY[0x1E69049A0](a3, &v19.u32[2], 4);
+            return Snapshot;
           }
-
-          v12 = v4[4] + 24 * v11;
-          v13 = *(v12 + 8);
-          v14 = *(a2 + 1);
-          if ((v13 - v14) * (v13 - v14) <= 1.0e-12)
-          {
-            v13 = *(v12 + 16);
-            v14 = *(a2 + 2);
-          }
-
-          if (v13 > v14)
-          {
-            this = re::internal::IndexedPriorityQueue::swap(v4, v5, v10 >> 1);
-            LODWORD(v5) = v10 >> 1;
-            if (v10 >= 2)
-            {
-              continue;
-            }
-          }
-
-          return this;
         }
 
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_23;
+        else if ((v10 & 0x80000000) != 0)
+        {
+          goto LABEL_16;
+        }
+
+        return Snapshot;
+      }
+    }
+
+    else
+    {
+      RESyncBitWriterWriteBool();
+    }
+
+    if (v17.f32[0] == v17.f32[1] || vabds_f32(v17.f32[0], v17.f32[1]) < (((fabsf(v17.f32[0]) + fabsf(v17.f32[1])) + 1.0) * 0.00001))
+    {
+      if (v17.f32[0] == v17.f32[2])
+      {
+        RESyncBitWriterWriteBool();
+        v14 = &v17;
+LABEL_27:
+        MEMORY[0x1E69049A0](a3, v14, 4);
+        goto LABEL_4;
+      }
+
+      v15 = ((fabsf(v17.f32[0]) + fabsf(v17.f32[2])) + 1.0) * 0.00001;
+      v16 = vabds_f32(v17.f32[0], v17.f32[2]);
+      RESyncBitWriterWriteBool();
+      MEMORY[0x1E69049A0](a3, &v17, 4);
+      if (v16 < v15)
+      {
+        goto LABEL_4;
+      }
+    }
+
+    else
+    {
+      RESyncBitWriterWriteBool();
+      MEMORY[0x1E69049A0](a3, &v17, 4);
+    }
+
+    MEMORY[0x1E69049A0](a3, &v17.i32[1], 4);
+    v14 = &v17.u32[2];
+    goto LABEL_27;
+  }
+
+  return Snapshot;
+}
+
+void re::ecs2::System::~System(re::ecs2::System *this)
+{
+  *this = &unk_1F5D00FD8;
+  v2 = this + 72;
+  re::DynamicArray<unsigned long>::deinit(this + 184);
+  re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(this + 17);
+  re::DataArray<re::ecs2::System::SystemScheduling>::deinit(v2);
+  re::DynamicArray<unsigned long>::deinit(v2);
+  *this = &unk_1F5CCF868;
+  objc_destructInstance(this + 8);
+}
+
+uint64_t re::ecs2::System::taskOptions(uint64_t a1, uint64_t a2)
+{
+  v6 = a2;
+  v3 = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v6);
+  if (v3 && (v4 = re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *v3), *(v4 + 24) == 1))
+  {
+    return v4 + 28;
+  }
+
+  else
+  {
+    return a1 + 56;
+  }
+}
+
+uint64_t re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(uint64_t a1, _DWORD *a2)
+{
+  v3 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*a2 & 0xFFFFFFLL)) ^ ((0xBF58476D1CE4E5B9 * (*a2 & 0xFFFFFFLL)) >> 27));
+  re::HashTable<re::DataArrayHandle<re::MeshModel>,unsigned long,re::Hash<re::DataArrayHandle<re::MeshModel>>,re::EqualTo<re::DataArrayHandle<re::MeshModel>>,true,false>::findEntry<re::DataArrayHandle<re::MeshModel>>(a1, a2, v3 ^ (v3 >> 31), v5);
+  if (v6 == 0x7FFFFFFF)
+  {
+    return 0;
+  }
+
+  else
+  {
+    return *(a1 + 16) + 32 * v6 + 16;
+  }
+}
+
+uint64_t re::DataArray<re::ecs2::System::SystemScheduling>::get(uint64_t a1, int a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v2 = HIWORD(a2);
+  v3 = *(a1 + 16);
+  if (v3 <= HIWORD(a2))
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "operator[]";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 797;
+    v13 = 2048;
+    v14 = v2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  return *(*(a1 + 32) + 16 * HIWORD(a2)) + 40 * a2;
+}
+
+uint64_t re::ecs2::System::taskHandle(uint64_t a1, uint64_t a2)
+{
+  v5 = a2;
+  v3 = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v5);
+  if (v3)
+  {
+    return *(re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *v3) + 16);
+  }
+
+  else
+  {
+    return -1;
+  }
+}
+
+void *re::ecs2::System::setTaskHandle(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = a2;
+  result = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v6);
+  if (result)
+  {
+    result = re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *result);
+    result[2] = a3;
+  }
+
+  return result;
+}
+
+uint64_t re::ecs2::System::setDefaultTaskOptions(uint64_t result, uint64_t *a2)
+{
+  v32 = *MEMORY[0x1E69E9840];
+  v2 = *a2;
+  *(result + 64) = *(a2 + 8);
+  *(result + 56) = v2;
+  if (*(result + 40))
+  {
+    v4 = result;
+    v5 = result + 72;
+    result = re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::DataArrayIterator<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData,re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData&>::DataArrayIterator(v31, result + 72);
+    v6 = *&v31[0];
+    v20 = *&v31[0];
+    v21 = DWORD2(v31[0]);
+    v7 = WORD4(v31[0]);
+    v8 = HIWORD(DWORD2(v31[0]));
+    v9 = v5 == *&v31[0] && WORD4(v31[0]) == 0xFFFF;
+    if (!v9 || v8 != 0xFFFF)
+    {
+      do
+      {
+        v11 = v8;
+        v12 = *(v6 + 16);
+        if (v12 <= v8)
+        {
+          v22 = 0;
+          memset(v31, 0, sizeof(v31));
+          v16 = MEMORY[0x1E69E9C10];
+          v17 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+          v23 = 136315906;
+          v24 = "operator[]";
+          v25 = 1024;
+          if (v17)
+          {
+            v18 = 3;
+          }
+
+          else
+          {
+            v18 = 2;
+          }
+
+          v26 = 797;
+          v27 = 2048;
+          v28 = v11;
+          v29 = 2048;
+          v30 = v12;
+          _os_log_send_and_compose_impl(v18, &v22, v31, 80, &dword_1E1C61000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v23, 38, v19, v20);
+          _os_crash_msg();
+          __break(1u);
+        }
+
+        v13 = *(*(v6 + 32) + 16 * v8) + 40 * v7;
+        v14 = (*(**(v4 + 40) + 104))(*(v4 + 40), *v13);
+        if (v14)
+        {
+          v15 = *(v13 + 16);
+          if (*(v14 + 5) > v15 && (*(v13 + 24) & 1) == 0)
+          {
+            re::Scheduler::setTaskOptions(v14, v15, a2);
+          }
+        }
+
+        result = re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(&v20);
+        v6 = v20;
+        v7 = v21;
+        v8 = HIWORD(v21);
+      }
+
+      while (v20 != v5 || v21 != 0xFFFF || HIWORD(v21) != 0xFFFF);
+    }
+  }
+
+  return result;
+}
+
+void *re::ecs2::System::setTaskOptions(uint64_t a1, uint64_t a2, uint64_t *a3)
+{
+  v10 = a2;
+  result = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v10);
+  if (result)
+  {
+    result = re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *result);
+    v6 = result;
+    v8 = *a3;
+    v9 = *(a3 + 2);
+    if (result[3])
+    {
+      v7 = *a3;
+      *(result + 36) = *(a3 + 8);
+      *(result + 28) = v7;
+    }
+
+    else
+    {
+      *(result + 24) = 1;
+      *(result + 28) = v8;
+      *(result + 9) = v9;
+    }
+
+    if (result[2] != -1)
+    {
+      result = *(a1 + 40);
+      if (result)
+      {
+        result = (*(*result + 104))(result, v10);
+        if (result)
+        {
+          return re::Scheduler::setTaskOptions(result, v6[2], a3);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+re::Scheduler *re::ecs2::System::resetTaskOptions(uint64_t a1, uint64_t a2)
+{
+  v5 = a2;
+  result = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v5);
+  if (result)
+  {
+    result = re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *result);
+    v4 = result;
+    if (*(result + 24) == 1)
+    {
+      *(result + 24) = 0;
+    }
+
+    if (*(result + 2) != -1)
+    {
+      result = *(a1 + 40);
+      if (result)
+      {
+        result = (*(*result + 104))(result, v5);
+        if (result)
+        {
+          return re::Scheduler::setTaskOptions(result, *(v4 + 2), (a1 + 56));
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void re::ecs2::System::queueToRun(uint64_t a1, uint64_t a2, float a3)
+{
+  v10 = a2;
+  v5 = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v10);
+  if (v5)
+  {
+    v6 = re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *v5);
+    *(v6 + 9) = 1;
+    *(v6 + 12) = a3;
+    v7 = *(a1 + 40);
+    if (v7)
+    {
+      v8 = (*(*v7 + 104))(v7, v10);
+      if (v8)
+      {
+        v9 = *(v6 + 16);
+        if (*(v8 + 5) > v9)
+        {
+          re::Scheduler::enqueueTaskWithDeadline(v8, v9, a3);
+        }
+      }
+    }
+  }
+}
+
+uint64_t re::ecs2::System::isQueuedToRun(uint64_t a1, uint64_t a2)
+{
+  v6 = a2;
+  v3 = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v6);
+  if (v3)
+  {
+    v4 = *(re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *v3) + 9);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4 & 1;
+}
+
+uint64_t re::ecs2::System::resetQueuedToRun(uint64_t a1, uint64_t a2)
+{
+  v4 = a2;
+  result = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v4);
+  if (result)
+  {
+    result = re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *result);
+    *(result + 9) = 0;
+  }
+
+  return result;
+}
+
+float re::ecs2::System::queuedToRunDeadline(uint64_t a1, uint64_t a2)
+{
+  v5 = a2;
+  v3 = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v5);
+  if (v3)
+  {
+    return *(re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *v3) + 12);
+  }
+
+  else
+  {
+    return 3.4028e38;
+  }
+}
+
+void re::ecs2::System::setTaskEnabled(uint64_t a1, uint64_t a2, int a3)
+{
+  v10 = a2;
+  v5 = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v10);
+  if (v5)
+  {
+    v6 = re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *v5);
+    if (*(v6 + 8) != a3)
+    {
+      v7 = v6;
+      *(v6 + 8) = a3;
+      if (*(v6 + 16) != -1)
+      {
+        v8 = *(a1 + 40);
+        if (v8)
+        {
+          v9 = (*(*v8 + 104))(v8, v10);
+          if (v9)
+          {
+            re::Scheduler::setEnabled(v9, *(v7 + 16), a3);
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t re::ecs2::System::isTaskEnabled(uint64_t a1, uint64_t a2)
+{
+  v6 = a2;
+  v3 = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::tryGet(a1 + 136, &v6);
+  if (v3)
+  {
+    v4 = *(re::DataArray<re::ecs2::System::SystemScheduling>::get(a1 + 72, *v3) + 8);
+  }
+
+  else
+  {
+    v4 = 0;
+  }
+
+  return v4 & 1;
+}
+
+_anonymous_namespace_ *re::ecs2::System::willAddToSystemCollection(re::ecs2::System *this, re::ecs2::SystemCollection *a2)
+{
+  v7 = *(*(a2 + 6) + 16);
+  v6 = re::DataArray<re::ecs2::System::SystemScheduling>::create<re::DataArrayHandle<re::ecs2::SceneGroup> const&>(this + 72, &v7);
+  re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::addNew(this + 136, &v7, &v6);
+  result = re::DynamicArray<re::DataArrayHandle<re::MeshModel>>::add((this + 184), &v7);
+  v5 = *(this + 13);
+  if (!v5)
+  {
+    *(this + 5) = ***(a2 + 6);
+    result = (*(*this + 40))(this);
+    v5 = *(this + 13);
+  }
+
+  *(this + 13) = v5 + 1;
+  return result;
+}
+
+uint64_t re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::addNew(uint64_t a1, _DWORD *a2, void *a3)
+{
+  v9 = 0;
+  v10 = 0;
+  v11 = 0;
+  v6 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*a2 & 0xFFFFFFLL)) ^ ((0xBF58476D1CE4E5B9 * (*a2 & 0xFFFFFFLL)) >> 27));
+  re::HashTable<re::DataArrayHandle<re::MeshModel>,unsigned long,re::Hash<re::DataArrayHandle<re::MeshModel>>,re::EqualTo<re::DataArrayHandle<re::MeshModel>>,true,false>::findEntry<re::DataArrayHandle<re::MeshModel>>(a1, a2, v6 ^ (v6 >> 31), &v9);
+  if (HIDWORD(v10) != 0x7FFFFFFF)
+  {
+    return *(a1 + 16) + 32 * HIDWORD(v10) + 16;
+  }
+
+  v7 = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::allocEntry(a1, v10, v9);
+  *(v7 + 8) = *a2;
+  *(v7 + 16) = *a3;
+  result = v7 + 16;
+  ++*(a1 + 40);
+  return result;
+}
+
+unint64_t re::DataArray<re::ecs2::System::SystemScheduling>::create<re::DataArrayHandle<re::ecs2::SceneGroup> const&>(uint64_t a1, void *a2)
+{
+  v37 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 56);
+  if ((v4 + 1) >> 24)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    v5 = v4 + 1;
+  }
+
+  *(a1 + 56) = v5;
+  v6 = *(a1 + 52);
+  v7 = *(a1 + 54);
+  if (v6 == 0xFFFF && v7 == 0xFFFF)
+  {
+    if (*(a1 + 48) >= *(a1 + 44))
+    {
+      re::DataArray<re::ecs2::System::SystemScheduling>::allocBlock(a1);
+    }
+
+    v12 = *(a1 + 16);
+    v7 = (v12 - 1);
+    if (v12)
+    {
+      v6 = *(a1 + 48);
+      if (v6 < 0x10000)
+      {
+        v13 = (*(a1 + 32) + 16 * v7);
+        *(a1 + 48) = v6 + 1;
+        *(v13[1] + 4 * v6) = *(a1 + 56);
+        v11 = *v13 + 40 * v6;
+        goto LABEL_15;
+      }
+
+LABEL_24:
+      re::internal::assertLog(5, a2, "assertion failure: '%s' (%s:line %i) m_tailBlockLinearAllocationCount (%u) is too large for a 16-bit unsigned integer", "!overflow", "create", 601, v6);
+      _os_crash("assertion failure: (!overflow) m_tailBlockLinearAllocationCount (%u) is too large for a 16-bit unsigned integer", v20);
+      __break(1u);
+    }
+
+LABEL_20:
+    v23 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
+    v17 = MEMORY[0x1E69E9C10];
+    v18 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v24 = 136315906;
+    v25 = "operator[]";
+    v26 = 1024;
+    if (v18)
+    {
+      v19 = 3;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+
+    v27 = 789;
+    v28 = 2048;
+    v29 = v7;
+    v30 = 2048;
+    v31 = 0;
+    _os_log_send_and_compose_impl(v19, &v23, &v32, 80, &dword_1E1C61000, v17, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v24, 38, v21, v22);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_24;
+  }
+
+  v9 = *(a1 + 16);
+  if (v9 <= v7)
+  {
+    v23 = 0;
+    v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
+    v32 = 0u;
+    v15 = MEMORY[0x1E69E9C10];
+    v24 = 136315906;
+    v25 = "operator[]";
+    v26 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v16 = 3;
+    }
+
+    else
+    {
+      v16 = 2;
+    }
+
+    v27 = 789;
+    v28 = 2048;
+    v29 = v7;
+    v30 = 2048;
+    v31 = v9;
+    _os_log_send_and_compose_impl(v16, &v23, &v32, 80, &dword_1E1C61000, v15, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v24, 38, v21, v22);
+    _os_crash_msg();
+    __break(1u);
+    goto LABEL_20;
+  }
+
+  v10 = (*(a1 + 32) + 16 * v7);
+  *(v10[1] + 4 * v6) = v5;
+  v11 = *v10 + 40 * v6;
+  *(a1 + 52) = *v11;
+LABEL_15:
+  ++*(a1 + 40);
+  *v11 = *a2;
+  *(v11 + 8) = 1;
+  *(v11 + 12) = 0;
+  *(v11 + 16) = -1;
+  *(v11 + 24) = 0;
+  return ((v7 << 16) | ((*(a1 + 56) & 0xFFFFFF) << 32)) + v6;
+}
+
+BOOL re::ecs2::System::willRemoveFromSystemCollection(re::ecs2::System *this, re::ecs2::SystemCollection *a2)
+{
+  v4 = *(this + 13) - 1;
+  *(this + 13) = v4;
+  if (!v4)
+  {
+    (*(*this + 72))(this);
+    *(this + 5) = 0;
+  }
+
+  v7 = *(*(a2 + 6) + 16);
+  re::DynamicArray<re::DataArrayHandle<re::ecs2::SceneGroup>>::remove(this + 184, &v7);
+  v5 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v7 & 0xFFFFFF)) ^ ((0xBF58476D1CE4E5B9 * (v7 & 0xFFFFFF)) >> 27));
+  re::HashTable<re::DataArrayHandle<re::MeshModel>,unsigned long,re::Hash<re::DataArrayHandle<re::MeshModel>>,re::EqualTo<re::DataArrayHandle<re::MeshModel>>,true,false>::findEntry<re::DataArrayHandle<re::MeshModel>>(this + 136, &v7, v5 ^ (v5 >> 31), v8);
+  re::DataArray<re::ecs2::System::SystemScheduling>::destroy(this + 72, *(*(this + 19) + 32 * v9 + 16));
+  return re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::remove(this + 136, &v7);
+}
+
+uint64_t re::DynamicArray<re::DataArrayHandle<re::ecs2::SceneGroup>>::remove(uint64_t a1, _DWORD *a2)
+{
+  re::DynamicArray<re::DataArrayHandle<re::ecs2::SceneGroup>>::indexOf(a1, a2, v5);
+  v3 = v5[0];
+  if (v5[0] == 1)
+  {
+    re::DynamicArray<re::DataArrayHandle<re::ecs2::SceneGroup>>::removeAt(a1, v6);
+  }
+
+  return v3;
+}
+
+uint64_t re::DataArray<re::ecs2::System::SystemScheduling>::destroy(uint64_t result, uint64_t a2)
+{
+  v2 = *(result + 16);
+  if (WORD1(a2) < v2)
+  {
+    v3 = (v2 - 1) == WORD1(a2) ? *(result + 48) : *(result + 44);
+    if (a2 < v3)
+    {
+      v4 = (*(result + 32) + 16 * WORD1(a2));
+      v5 = v4[1];
+      v6 = *(v5 + 4 * a2);
+      if (v6)
+      {
+        v7 = v6 == (HIDWORD(a2) & 0xFFFFFF);
+      }
+
+      else
+      {
+        v7 = 0;
+      }
+
+      if (v7)
+      {
+        v8 = *v4;
+        if (v8)
+        {
+          *(v5 + 4 * a2) = 0;
+          *(v8 + 40 * a2) = *(result + 52);
+          *(result + 52) = a2;
+          --*(result + 40);
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::remove(uint64_t a1, _DWORD *a2)
+{
+  v3 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (*a2 & 0xFFFFFFLL)) ^ ((0xBF58476D1CE4E5B9 * (*a2 & 0xFFFFFFLL)) >> 27));
+  re::HashTable<re::DataArrayHandle<re::MeshModel>,unsigned long,re::Hash<re::DataArrayHandle<re::MeshModel>>,re::EqualTo<re::DataArrayHandle<re::MeshModel>>,true,false>::findEntry<re::DataArrayHandle<re::MeshModel>>(a1, a2, v3 ^ (v3 >> 31), v5);
+  return re::HashTable<unsigned long long,re::PeerAttributionContext *,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,true,false>::removeInternal(a1, v5);
+}
+
+uint64_t re::DataArray<re::ecs2::System::SystemScheduling>::deinit(uint64_t result)
+{
+  v39 = *MEMORY[0x1E69E9840];
+  if (!*(result + 44))
+  {
+    return result;
+  }
+
+  v2 = result;
+  re::DataArray<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData>::DataArrayIterator<re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData,re::ecs2::ClippingParameterDataStateTracking::PortalCrossingData&>::DataArrayIterator(&v34, result);
+  v3 = v34;
+  v23 = v34;
+  v24 = DWORD2(v34);
+  if (v34 != v2 || DWORD2(v34) != 0xFFFFFFFFLL)
+  {
+    v5 = WORD4(v34);
+    v6 = WORD5(v34);
+    while (1)
+    {
+      v7 = *(v3 + 16);
+      if (v7 <= v6)
+      {
+        break;
+      }
+
+      re::DataArray<re::ecs2::System::SystemScheduling>::destroy(v2, ((*(*(*(v3 + 32) + 16 * v6 + 8) + 4 * v5) & 0xFFFFFF) << 32) | (v6 << 16) | v5);
+      re::DataArray<re::RigGraphOperatorDefinition>::DataArrayIterator<re::RigGraphOperatorDefinition,re::RigGraphOperatorDefinition&>::increment(&v23);
+      v3 = v23;
+      v5 = v24;
+      v6 = HIWORD(v24);
+      if (v23 == v2 && v24 == 0xFFFFLL && HIWORD(v24) == 0xFFFFLL)
+      {
+        goto LABEL_11;
+      }
+    }
+
+LABEL_34:
+    v25 = 0;
+    v38 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v19 = MEMORY[0x1E69E9C10];
+    v20 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v26 = 136315906;
+    v27 = "operator[]";
+    v28 = 1024;
+    if (v20)
+    {
+      v21 = 3;
+    }
+
+    else
+    {
+      v21 = 2;
+    }
+
+    v29 = 797;
+    v30 = 2048;
+    v31 = v6;
+    v32 = 2048;
+    v33 = v7;
+    _os_log_send_and_compose_impl(v21, &v25, &v34, 80, &dword_1E1C61000, v19, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v26, 38, v22, v23);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+LABEL_11:
+  v8 = v2[2];
+  v6 = v8 - 1;
+  if (v8 == 1)
+  {
+    goto LABEL_23;
+  }
+
+  v7 = 16 * v8 - 16;
+  do
+  {
+    if (v8 <= v6)
+    {
+      v23 = 0;
+      v38 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v13 = MEMORY[0x1E69E9C10];
+      v14 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v26 = 136315906;
+      v27 = "operator[]";
+      v28 = 1024;
+      if (v14)
+      {
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      v29 = 789;
+      v30 = 2048;
+      v31 = v6;
+      v32 = 2048;
+      v33 = v8;
+      _os_log_send_and_compose_impl(v15, &v23, &v34, 80, &dword_1E1C61000, v13, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v26, 38, v22);
+      _os_crash_msg();
+      __break(1u);
+LABEL_30:
+      v23 = 0;
+      v38 = 0u;
+      v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
+      v16 = MEMORY[0x1E69E9C10];
+      v17 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+      v26 = 136315906;
+      v27 = "removeAt";
+      v28 = 1024;
+      if (v17)
+      {
+        v18 = 3;
+      }
+
+      else
+      {
+        v18 = 2;
+      }
+
+      v29 = 931;
+      v30 = 2048;
+      v31 = v6;
+      v32 = 2048;
+      v33 = v1;
+      _os_log_send_and_compose_impl(v18, &v23, &v34, 80, &dword_1E1C61000, v16, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v26, 38, v22);
+      _os_crash_msg();
+      __break(1u);
+      goto LABEL_34;
+    }
+
+    v9 = (v2[4] + v7);
+    (*(**v2 + 40))(*v2, *v9);
+    (*(**v2 + 40))(*v2, v9[1]);
+    v1 = v2[2];
+    if (v1 <= v6)
+    {
+      goto LABEL_30;
+    }
+
+    v8 = v1 - 1;
+    if (v1 - 1 > v6)
+    {
+      *(v2[4] + v7) = *(v2[4] + 16 * v1 - 16);
+      v8 = v2[2] - 1;
+    }
+
+    v2[2] = v8;
+    ++*(v2 + 6);
+    v7 -= 16;
+    --v6;
+  }
+
+  while (v6);
+  v2[6] = 0xFFFFFFFF00000000;
+  if (!v8)
+  {
+    v23 = 0;
+    v38 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v2 = MEMORY[0x1E69E9C10];
+    v10 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
+    v26 = 136315906;
+    v27 = "operator[]";
+    v28 = 1024;
+    if (v10)
+    {
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    v29 = 789;
+    v30 = 2048;
+    v31 = 0;
+    v32 = 2048;
+    v33 = 0;
+    _os_log_send_and_compose_impl(v11, &v23, &v34, 80, &dword_1E1C61000, v2, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v26, 38, v22);
+    _os_crash_msg();
+    __break(1u);
+LABEL_23:
+    v2[6] = 0xFFFFFFFF00000000;
+  }
+
+  v12 = v2[4];
+  (*(**v2 + 40))(*v2, *v12);
+  (*(**v2 + 40))(*v2, v12[1]);
+  result = re::DynamicArray<unsigned long>::deinit(v2);
+  *(v2 + 11) = 0;
+  return result;
+}
+
+uint64_t re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::allocEntry(uint64_t a1, unsigned int a2, unint64_t a3)
+{
+  v5 = *(a1 + 36);
+  if (v5 == 0x7FFFFFFF)
+  {
+    v5 = *(a1 + 32);
+    v6 = v5;
+    if (v5 == *(a1 + 24))
+    {
+      v7 = *(a1 + 28);
+      v8 = 2 * v7;
+      v9 = *a1;
+      if (*a1)
+      {
+        if (v8)
+        {
+          v10 = v5 == v8;
+        }
+
+        else
+        {
+          v10 = 1;
+        }
+
+        if (!v10 && (v7 & 0x80000000) == 0)
+        {
+          memset(v25, 0, 36);
+          *&v25[36] = 0x7FFFFFFFLL;
+          re::HashTable<re::StringID,unsigned int,re::Hash<re::StringID>,re::EqualTo<re::StringID>,false,false>::init(v25, v9, v8);
+          v11 = *v25;
+          *v25 = *a1;
+          *a1 = v11;
+          v12 = *&v25[16];
+          *&v25[16] = *(a1 + 16);
+          *(a1 + 16) = v12;
+          v14 = *&v25[24];
+          *&v25[24] = *(a1 + 24);
+          v13 = *&v25[32];
+          *(a1 + 24) = v14;
+          ++*&v25[40];
+          v15 = v13;
+          if (v13)
+          {
+            v16 = 0;
+            v17 = 0;
+            do
+            {
+              if ((*(*&v25[16] + v16) & 0x80000000) != 0)
+              {
+                v18 = re::HashTable<re::DataArrayHandle<re::ecs2::SceneGroup>,re::DataArrayHandle<re::ecs2::System::SystemScheduling>,re::Hash<re::DataArrayHandle<re::ecs2::SceneGroup>>,re::EqualTo<re::DataArrayHandle<re::ecs2::SceneGroup>>,true,false>::allocEntry(a1, *(*&v25[16] + v16 + 24) % *(a1 + 24), *(*&v25[16] + v16 + 24));
+                *(v18 + 8) = *(*&v25[16] + v16 + 8);
+                *(v18 + 16) = *(*&v25[16] + v16 + 16);
+                v15 = *&v25[32];
+              }
+
+              ++v17;
+              v16 += 32;
+            }
+
+            while (v17 < v15);
+          }
+
+          re::HashTable<void *,re::internal::AnimationCompositionChainBase *,re::Hash<void *>,re::EqualTo<void *>,true,false>::deinit(v25);
+        }
+      }
+
+      else
+      {
+        if (v8)
+        {
+          v21 = 2 * v7;
+        }
+
+        else
+        {
+          v21 = 3;
+        }
+      }
+
+      a2 = a3 % *(a1 + 24);
+      v6 = *(a1 + 32);
+    }
+
+    *(a1 + 32) = v6 + 1;
+    v19 = *(a1 + 16);
+    v20 = *(v19 + 32 * v5);
+  }
+
+  else
+  {
+    v19 = *(a1 + 16);
+    v20 = *(v19 + 32 * v5);
+    *(a1 + 36) = v20 & 0x7FFFFFFF;
+  }
+
+  v22 = v19 + 32 * v5;
+  *v22 = v20 | 0x80000000;
+  v23 = *(a1 + 8);
+  *v22 = *(v23 + 4 * a2) | 0x80000000;
+  *(v22 + 24) = a3;
+  *(v23 + 4 * a2) = v5;
+  ++*(a1 + 28);
+  return v19 + 32 * v5;
+}
+
+uint64_t re::DynamicArray<re::DataArrayHandle<re::ecs2::SceneGroup>>::indexOf@<X0>(uint64_t result@<X0>, _DWORD *a2@<X1>, uint64_t a3@<X8>)
+{
+  v3 = *(result + 32);
+  v4 = *(result + 16);
+  if (v4)
+  {
+    v5 = 8 * v4;
+    v6 = *(result + 32);
+    while (*v6 != *a2 || v6[1] != HIWORD(*a2) || ((*(v6 + 1) ^ a2[1]) & 0xFFFFFF) != 0)
+    {
+      v6 += 4;
+      v5 -= 8;
+      if (!v5)
+      {
+        goto LABEL_11;
+      }
+    }
+  }
+
+  else
+  {
+    v6 = *(result + 32);
+  }
+
+  if (v6 == (v3 + 8 * v4))
+  {
+LABEL_11:
+    v7 = 0;
+  }
+
+  else
+  {
+    *(a3 + 8) = (v6 - v3) >> 3;
+    v7 = 1;
+  }
+
+  *a3 = v7;
+  return result;
+}
+
+uint64_t re::DynamicArray<re::DataArrayHandle<re::ecs2::SceneGroup>>::removeAt(uint64_t result, unint64_t a2)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(result + 16);
+  if (v3 <= a2)
+  {
+    v8 = 0;
+    memset(v17, 0, sizeof(v17));
+    v5 = MEMORY[0x1E69E9C10];
+    v9 = 136315906;
+    v10 = "removeAt";
+    v11 = 1024;
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v6 = 3;
+    }
+
+    else
+    {
+      v6 = 2;
+    }
+
+    v12 = 931;
+    v13 = 2048;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v3;
+    _os_log_send_and_compose_impl(v6, &v8, v17, 80, &dword_1E1C61000, v5, 16, "assertion failure: Index out of range (%s:line %i) index = %zu, max = %zu", &v9, 38, v7);
+    _os_crash_msg();
+    __break(1u);
+  }
+
+  v4 = v3 - 1;
+  if (v3 - 1 > a2)
+  {
+    *(*(result + 32) + 8 * a2) = *(*(result + 32) + 8 * v3 - 8);
+    v4 = *(result + 16) - 1;
+  }
+
+  *(result + 16) = v4;
+  ++*(result + 24);
+  return result;
+}
+
+void *re::ecs2::allocInfo_ECSService(re::ecs2 *this)
+{
+  if ((atomic_load_explicit(&_MergedGlobals_409, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_409))
+  {
+    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B5EA0, "ECSService");
+    __cxa_guard_release(&_MergedGlobals_409);
+  }
+
+  return &unk_1EE1B5EA0;
+}
+
+void re::ecs2::initInfo_ECSService(re::ecs2 *this, re::IntrospectionBase *a2, uint64_t a3, BOOL a4)
+{
+  v8[0] = 0xD62AE5A64EB00;
+  v8[1] = "ECSService";
+  if (v8[0])
+  {
+    if (v8[0])
+    {
+    }
+  }
+
+  *(this + 2) = v9;
+  *(this + 2) = 0x1800000008;
+  *(this + 6) = 8;
+  *(this + 14) = 0;
+  *(this + 11) = re::internal::defaultRetain<re::ecs2::ECSService>(void)::{lambda(void *)#1}::__invoke;
+  *(this + 12) = re::internal::defaultRelease<re::ecs2::ECSService>(void)::{lambda(void *)#1}::__invoke;
+  *(this + 14) = 0;
+  *(this + 8) = &re::ecs2::initInfo_ECSService(re::IntrospectionBase *)::structureAttributes;
+  *(this + 16) = 0;
+  *(this + 17) = 0;
+  *(this + 15) = 0;
+  re::internal::prepare(this, v6);
+  v7 = v9;
+}
+
+uint64_t re::ecs2::SceneComponentCollectionBase::remove(re::ecs2::SceneComponentCollectionBase *this, re::ecs2::Component *a2)
+{
+  v11 = a2;
+  v3 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(this + 51, &v11);
+  if (v3 == -1)
+  {
+    return 0;
+  }
+
+  if (*(*(this + 52) + 16 * v3 + 8) >= *(this + 48))
+  {
+    return 0;
+  }
+
+  re::ecs2::SceneComponentCollectionBase::willRemoveAt(this, v4, &v11);
+  v5 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(this + 51, &v11);
+  if (v5 == -1)
+  {
+    return 0;
+  }
+
+  v6 = *(this + 52) + 16 * v5;
+  v9 = *(v6 + 8);
+  v8 = (v6 + 8);
+  v7 = v9;
+  if (v9 >= *(this + 48))
+  {
+    return 0;
+  }
+
+  re::DynamicArray<re::internal::AnimationCompositionChainBase *>::removeAt(this + 368, v7);
+  re::ecs2::SceneComponentCollectionBase::didRemoveAt(this, *v8, &v11);
+  return 1;
+}
+
+uint64_t re::ecs2::SceneComponentCollectionBase::willRemoveAt(uint64_t this, unint64_t a2, re::ecs2::Component **a3)
+{
+  if (*(*(this + 472) + 56))
+  {
+    v4 = this;
+    re::ScratchDynamicArray<re::ecs2::Component *>::ScratchDynamicArray(v6, a3);
+    v5 = *(*a3 + 2);
+    if (v5 && (*(v5 + 304) & 1) != 0 && (*(v5 + 386) & 1) == 0)
+    {
+      (*(*v4 + 40))(v4, v6);
+    }
+
+    (*(*v4 + 48))(v4, v6);
+    this = v6[0];
+    if (v6[0])
+    {
+      if (v6[4])
+      {
+        return (*(*v6[0] + 40))();
       }
     }
   }
@@ -1671,8518 +8374,1448 @@ LABEL_24:
   return this;
 }
 
-void *re::internal::TriangleDecimator::computeQuadrics(void *this)
+void re::ecs2::SceneComponentCollectionBase::didRemoveAt(re::ecs2::SceneComponentCollectionBase *this, unint64_t a2, re::ecs2::Component **a3)
 {
-  v4 = this;
-  v127 = *MEMORY[0x1E69E9840];
-  v5 = *this;
-  v6 = this[45];
-  if (v6 >= v5)
+  re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::remove(this + 408, a3);
+  if (*(this + 48) > a2)
   {
-    if (v6 <= v5)
+    v5 = *(this + 52) + 16 * re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(this + 51, (*(this + 50) + 8 * a2));
+    v7 = *(v5 + 8);
+    v6 = (v5 + 8);
+    v8 = *(this + 48);
+    if (v7 == v8)
     {
-      goto LABEL_10;
+      *v6 = a2;
     }
+
+    else
+    {
+      v9 = a2;
+      if (v8 > a2)
+      {
+        do
+        {
+          re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::addOrReplace(this + 51, (*(this + 50) + 8 * a2), &v9);
+          a2 = v9 + 1;
+          v9 = a2;
+        }
+
+        while (a2 < *(this + 48));
+      }
+    }
+  }
+}
+
+void re::ecs2::SceneComponentCollectionBase::add(re::ecs2::SceneComponentCollectionBase *this, re::ecs2::Component *a2)
+{
+  v5 = a2;
+  v3 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(this + 51, &v5);
+  if (v3 == -1)
+  {
+    v4 = *(this + 48);
+    goto LABEL_5;
+  }
+
+  v4 = *(this + 48);
+  if (*(*(this + 52) + 16 * v3 + 8) >= v4)
+  {
+LABEL_5:
+    re::DynamicArray<re::TransitionCondition *>::add((this + 368), &v5);
+    re::ecs2::SceneComponentCollectionBase::didInsert(this, v4, &v5);
+  }
+}
+
+void re::ecs2::SceneComponentCollectionBase::didInsert(uint64_t *this, unint64_t a2, re::ecs2::Component **a3)
+{
+  for (v6[0] = a2; a2 < this[48]; v6[0] = a2)
+  {
+    re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::addOrReplace(this + 51, (this[50] + 8 * a2), v6);
+    a2 = v6[0] + 1;
+  }
+
+  if (*(this[59] + 56))
+  {
+    re::ScratchDynamicArray<re::ecs2::Component *>::ScratchDynamicArray(v6, a3);
+    (*(*this + 24))(this, v6);
+    v5 = *(*a3 + 2);
+    if (v5 && (*(v5 + 304) & 1) != 0 && (*(v5 + 386) & 1) == 0)
+    {
+      (*(*this + 32))(this, v6);
+    }
+
+    if (v6[0])
+    {
+      if (v6[4])
+      {
+        (*(*v6[0] + 40))();
+      }
+    }
+  }
+}
+
+re::ecs2::SceneComponentCollectionBase *re::ecs2::SceneComponentCollectionBase::SceneComponentCollectionBase(re::ecs2::SceneComponentCollectionBase *this, const re::ecs2::ComponentTypeBase *a2)
+{
+  *this = &unk_1F5D01068;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  *(this + 1) = 0;
+  v3 = (this + 8);
+  *(this + 8) = 0;
+  *(this + 10) = 0;
+  *(this + 22) = 0;
+  *(this + 40) = 0u;
+  *(this + 56) = 0u;
+  *(this + 18) = 0;
+  *(this + 13) = 0;
+  *(this + 14) = 0;
+  *(this + 12) = 0;
+  v4 = (this + 96);
+  *(this + 30) = 0;
+  *(this + 21) = 0;
+  *(this + 44) = 0;
+  *(this + 40) = 0;
+  *(this + 8) = 0u;
+  *(this + 9) = 0u;
+  *(this + 52) = 0;
+  *(this + 24) = 0;
+  *(this + 25) = 0;
+  *(this + 23) = 0;
+  v5 = (this + 184);
+  *(this + 32) = 0;
+  *(this + 66) = 0;
+  *(this + 216) = 0u;
+  *(this + 232) = 0u;
+  *(this + 62) = 0;
+  *(this + 34) = 0;
+  *(this + 35) = 0;
+  *(this + 74) = 0;
+  *(this + 36) = 0;
+  *(this + 43) = 0;
+  *(this + 88) = 0;
+  *(this + 19) = 0u;
+  *(this + 20) = 0u;
+  *(this + 84) = 0;
+  *(this + 45) = a2;
+  *(this + 46) = 0;
+  *(this + 98) = 0;
+  *(this + 47) = 0;
+  *(this + 48) = 0;
+  *(this + 28) = 0u;
+  *(this + 29) = 0u;
+  *(this + 26) = 0u;
+  *(this + 27) = 0u;
+  *(this + 25) = 0u;
+  v6 = re::DynamicArray<re::EvaluationRegister>::setCapacity(v3, 0);
+  ++*(this + 8);
+  v7 = re::DynamicArray<re::EvaluationRegister>::setCapacity(v4, 0);
+  ++*(this + 30);
+  v8 = re::DynamicArray<re::EvaluationRegister>::setCapacity(v5, 0);
+  ++*(this + 52);
+  v9 = re::DynamicArray<re::EvaluationRegister>::setCapacity(this + 34, 0);
+  ++*(this + 74);
+  re::DynamicArray<float *>::setCapacity(this + 46, 0);
+  ++*(this + 98);
+  return this;
+}
+
+void re::ecs2::SceneComponentCollectionBase::~SceneComponentCollectionBase(re::ecs2::SceneComponentCollectionBase *this)
+{
+  *this = &unk_1F5D01068;
+  v2 = (this + 8);
+  if (*(this + 1))
+  {
+    re::DynamicArray<unsigned long>::deinit(this + 8);
+  }
+
+  if (*(this + 12))
+  {
+    re::DynamicArray<unsigned long>::deinit(this + 96);
+  }
+
+  if (*(this + 23))
+  {
+    re::DynamicArray<unsigned long>::deinit(this + 184);
+  }
+
+  if (*(this + 34))
+  {
+    re::DynamicArray<unsigned long>::deinit(this + 272);
+  }
+
+  re::DynamicArray<unsigned long>::deinit(this + 368);
+  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(this + 408);
+  re::DynamicArray<unsigned long>::deinit(this + 368);
+  re::Event<re::GeometricObjectBase>::~Event(this + 34);
+  re::Event<re::GeometricObjectBase>::~Event(this + 23);
+  re::Event<re::GeometricObjectBase>::~Event(this + 12);
+  re::Event<re::GeometricObjectBase>::~Event(v2);
+}
+
+double re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::addOrReplace(uint64_t *a1, void *a2, void *a3)
+{
+  v6 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(a1, a2);
+  if (v6 == -1)
+  {
+
+    *&result = re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::internalAdd(a1, a2, a3).u64[0];
   }
 
   else
   {
-    if (this[44] < v5)
+    *(a1[1] + 16 * v6 + 8) = *a3;
+  }
+
+  return result;
+}
+
+uint64_t re::ScratchDynamicArray<re::ecs2::Component *>::ScratchDynamicArray(uint64_t a1, void *a2)
+{
+  *(a1 + 32) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 24) = 0;
+  re::DynamicArray<float *>::setCapacity(a1, 1uLL);
+  ++*(a1 + 24);
+  re::DynamicArray<re::TransitionCondition *>::add(a1, a2);
+  return a1;
+}
+
+BOOL re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::remove(uint64_t a1, void *a2)
+{
+  v3 = re::HashBrown<re::WeakStringID,re::IndexAndProtectionOptions,re::Hash<re::WeakStringID>,re::EqualTo<re::WeakStringID>,re::Hash<re::IndexAndProtectionOptions>,false>::find(a1, a2);
+  v4 = v3;
+  if (v3 != -1)
+  {
+    v5 = (*a1 + (v3 & 0xFFFFFFFFFFFFFFF0));
+    v6.i64[0] = -1;
+    v6.i64[1] = -1;
+    v7 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vceqq_s8(*v5, v6), xmmword_1E304FAD0)))), 0x3830282018100800);
+    if (v7)
     {
-      this = re::DynamicArray<re::internal::Quadric>::setCapacity(this + 43, v5);
-      v6 = *(v4 + 360);
+      v8 = -1;
     }
 
-    v7 = v5 - v6;
-    if (v5 > v6)
+    else
     {
-      v8 = 80 * v6;
+      v8 = 0x80;
+    }
+
+    v5->i8[v3 & 0xF] = v8;
+    v9 = *(a1 + 16);
+    v10 = *(*(a1 + 8) + 16 * v3);
+    v11 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * (v10 ^ (v10 >> 30))) ^ ((0xBF58476D1CE4E5B9 * (v10 ^ (v10 >> 30))) >> 27));
+    *(a1 + 40) ^= (v11 >> 31) ^ v11;
+    v6.i64[1] = *&v7 != 0;
+    v12 = vaddq_s64(*(a1 + 24), v6);
+    *(a1 + 24) = v12;
+    if (v9 >= 0x11 && v12.i64[0] < v9 >> 2)
+    {
+      re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::resize(a1, 0);
+    }
+  }
+
+  return v4 != -1;
+}
+
+double re::ecs2::SceneComponentCollectionCallbacks::subscribe(re::ecs2::SceneComponentCollectionCallbacks *this, re::ecs2::SceneComponentCollectionBase *a2)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  if (*(this + 3))
+  {
+    *&v5 = this;
+    *(&v5 + 1) = re::ecs2::SceneComponentCollectionCallbacks::didAddComponent;
+    v6 = 0;
+    v7 = re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::createSubscription<re::ecs2::SceneComponentCollectionCallbacks>(re::ecs2::SceneComponentCollectionCallbacks *,REEventHandlerResult (re::ecs2::SceneComponentCollectionCallbacks::*)(re::ecs2::SceneComponentCollectionBase*,re::Slice<re::ecs2::Component *>))::{lambda(re::ecs2::SceneComponentCollectionBase*,re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::Subscription const&,re::Slice<re::ecs2::Component *>&&)#1}::__invoke;
+    result = re::Event<re::NetworkSystem,re::ecs2::Component *>::addSubscription(a2 + 2, &v5);
+  }
+
+  if (*(this + 4))
+  {
+    *&v5 = this;
+    *(&v5 + 1) = re::ecs2::SceneComponentCollectionCallbacks::willRemoveComponent;
+    v6 = 0;
+    v7 = re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::createSubscription<re::ecs2::SceneComponentCollectionCallbacks>(re::ecs2::SceneComponentCollectionCallbacks *,REEventHandlerResult (re::ecs2::SceneComponentCollectionCallbacks::*)(re::ecs2::SceneComponentCollectionBase*,re::Slice<re::ecs2::Component *>))::{lambda(re::ecs2::SceneComponentCollectionBase*,re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::Subscription const&,re::Slice<re::ecs2::Component *>&&)#1}::__invoke;
+    result = re::Event<re::NetworkSystem,re::ecs2::Component *>::addSubscription(a2 + 68, &v5);
+  }
+
+  if (*(this + 5))
+  {
+    *&v5 = this;
+    *(&v5 + 1) = re::ecs2::SceneComponentCollectionCallbacks::doActivateComponent;
+    v6 = 0;
+    v7 = re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::createSubscription<re::ecs2::SceneComponentCollectionCallbacks>(re::ecs2::SceneComponentCollectionCallbacks *,REEventHandlerResult (re::ecs2::SceneComponentCollectionCallbacks::*)(re::ecs2::SceneComponentCollectionBase*,re::Slice<re::ecs2::Component *>))::{lambda(re::ecs2::SceneComponentCollectionBase*,re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::Subscription const&,re::Slice<re::ecs2::Component *>&&)#1}::__invoke;
+    result = re::Event<re::NetworkSystem,re::ecs2::Component *>::addSubscription(a2 + 24, &v5);
+  }
+
+  if (*(this + 6))
+  {
+    *&v5 = this;
+    *(&v5 + 1) = re::ecs2::SceneComponentCollectionCallbacks::doDeactivateComponent;
+    v6 = 0;
+    v7 = re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::createSubscription<re::ecs2::SceneComponentCollectionCallbacks>(re::ecs2::SceneComponentCollectionCallbacks *,REEventHandlerResult (re::ecs2::SceneComponentCollectionCallbacks::*)(re::ecs2::SceneComponentCollectionBase*,re::Slice<re::ecs2::Component *>))::{lambda(re::ecs2::SceneComponentCollectionBase*,re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::Subscription const&,re::Slice<re::ecs2::Component *>&&)#1}::__invoke;
+    return re::Event<re::NetworkSystem,re::ecs2::Component *>::addSubscription(a2 + 46, &v5);
+  }
+
+  return result;
+}
+
+void re::ecs2::SceneComponentCollectionCallbacks::unsubscribe(re::ecs2::SceneComponentCollectionCallbacks *this, re::ecs2::SceneComponentCollectionBase *a2)
+{
+  v7 = *MEMORY[0x1E69E9840];
+  if (*(this + 3))
+  {
+    *&v4 = this;
+    *(&v4 + 1) = re::ecs2::SceneComponentCollectionCallbacks::didAddComponent;
+    v5 = 0;
+    v6 = re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::createSubscription<re::ecs2::SceneComponentCollectionCallbacks>(re::ecs2::SceneComponentCollectionCallbacks *,REEventHandlerResult (re::ecs2::SceneComponentCollectionCallbacks::*)(re::ecs2::SceneComponentCollectionBase*,re::Slice<re::ecs2::Component *>))::{lambda(re::ecs2::SceneComponentCollectionBase*,re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::Subscription const&,re::Slice<re::ecs2::Component *>&&)#1}::__invoke;
+    re::Event<re::GeometricObjectBase>::removeSubscription(a2 + 8, &v4);
+  }
+
+  if (*(this + 4))
+  {
+    *&v4 = this;
+    *(&v4 + 1) = re::ecs2::SceneComponentCollectionCallbacks::willRemoveComponent;
+    v5 = 0;
+    v6 = re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::createSubscription<re::ecs2::SceneComponentCollectionCallbacks>(re::ecs2::SceneComponentCollectionCallbacks *,REEventHandlerResult (re::ecs2::SceneComponentCollectionCallbacks::*)(re::ecs2::SceneComponentCollectionBase*,re::Slice<re::ecs2::Component *>))::{lambda(re::ecs2::SceneComponentCollectionBase*,re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::Subscription const&,re::Slice<re::ecs2::Component *>&&)#1}::__invoke;
+    re::Event<re::GeometricObjectBase>::removeSubscription(a2 + 272, &v4);
+  }
+
+  if (*(this + 5))
+  {
+    *&v4 = this;
+    *(&v4 + 1) = re::ecs2::SceneComponentCollectionCallbacks::doActivateComponent;
+    v5 = 0;
+    v6 = re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::createSubscription<re::ecs2::SceneComponentCollectionCallbacks>(re::ecs2::SceneComponentCollectionCallbacks *,REEventHandlerResult (re::ecs2::SceneComponentCollectionCallbacks::*)(re::ecs2::SceneComponentCollectionBase*,re::Slice<re::ecs2::Component *>))::{lambda(re::ecs2::SceneComponentCollectionBase*,re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::Subscription const&,re::Slice<re::ecs2::Component *>&&)#1}::__invoke;
+    re::Event<re::GeometricObjectBase>::removeSubscription(a2 + 96, &v4);
+  }
+
+  if (*(this + 6))
+  {
+    *&v4 = this;
+    *(&v4 + 1) = re::ecs2::SceneComponentCollectionCallbacks::doDeactivateComponent;
+    v5 = 0;
+    v6 = re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::createSubscription<re::ecs2::SceneComponentCollectionCallbacks>(re::ecs2::SceneComponentCollectionCallbacks *,REEventHandlerResult (re::ecs2::SceneComponentCollectionCallbacks::*)(re::ecs2::SceneComponentCollectionBase*,re::Slice<re::ecs2::Component *>))::{lambda(re::ecs2::SceneComponentCollectionBase*,re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::Subscription const&,re::Slice<re::ecs2::Component *>&&)#1}::__invoke;
+    re::Event<re::GeometricObjectBase>::removeSubscription(a2 + 184, &v4);
+  }
+}
+
+void re::ecs2::SceneComponentCollectionBase::didAdd(uint64_t result, uint64_t a2)
+{
+  if (*(a2 + 16))
+  {
+    re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::raise(result + 8, result);
+  }
+}
+
+void re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::raise(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a1 + 80);
+  *(a1 + 80) = v3 + 1;
+  if (*(a1 + 16))
+  {
+    v5 = 0;
+    do
+    {
+      if ((*(*(a1 + 32) + 32 * v5 + 24))(a2) == 1)
+      {
+        re::DynamicArray<re::Event<re::SimulationTimer,re::SimulationTimerEventArgs const&>::Subscription>::removeStableAt(a1, v5);
+      }
+
+      else
+      {
+        ++v5;
+      }
+    }
+
+    while (v5 < *(a1 + 16));
+    v3 = *(a1 + 80) - 1;
+  }
+
+  *(a1 + 80) = v3;
+  if (!v3)
+  {
+    re::Event<re::GeometricObjectBase>::doDeferredActions(a1);
+  }
+}
+
+void re::ecs2::SceneComponentCollectionBase::doActivate(uint64_t a1, uint64_t a2)
+{
+  if (*(a2 + 16))
+  {
+    re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::raise(a1 + 96, a1);
+  }
+}
+
+void re::ecs2::SceneComponentCollectionBase::doDeactivate(uint64_t a1, uint64_t a2)
+{
+  if (*(a2 + 16))
+  {
+    re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::raise(a1 + 184, a1);
+  }
+}
+
+re::ecs2::ComponentBucketsBase *re::ecs2::SceneComponentCollectionBase::willRemove(re::ecs2::ComponentBucketsBase *result, uint64_t a2)
+{
+  if (*(a2 + 16))
+  {
+    v3 = result;
+    re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::raise(result + 272, result);
+    result = (*(*v3 + 64))(v3);
+    v4 = *(a2 + 16);
+    if (v4)
+    {
+      v5 = result;
+      v6 = *(a2 + 32);
+      v7 = 8 * v4;
       do
       {
-        v9 = (*(v4 + 376) + v8);
-        v9[3] = 0uLL;
-        v9[4] = 0uLL;
-        v9[1] = 0uLL;
-        v9[2] = 0uLL;
-        *v9 = 0uLL;
-        v8 += 80;
-        --v7;
+        v8 = *v6++;
+        result = re::ecs2::ComponentBucketsBase::removeComponentFromAllBuckets(v5, v8);
+        v7 -= 8;
       }
 
       while (v7);
     }
   }
 
-  *(v4 + 360) = v5;
-  ++*(v4 + 368);
-  v6 = v5;
-LABEL_10:
-  v111 = 0;
-  v108[1] = 0;
-  v109 = 0;
-  v108[0] = 0;
-  v110 = 0;
-  if (v5)
+  return result;
+}
+
+uint64_t re::ecs2::SceneComponentCollectionCallbacks::didAddComponent(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+{
+  v5 = *(a1 + 24);
+  if (*(a1 + 16) == 1)
   {
-    v10 = 0;
-    v102 = v5;
+    if (a4)
+    {
+      v7 = 8 * a4;
+      do
+      {
+        v8 = *a3++;
+        v5(v8, *(a1 + 56));
+        v7 -= 8;
+      }
+
+      while (v7);
+    }
+  }
+
+  else if (a4)
+  {
+    v9 = 8 * a4;
     do
     {
-      if (v6 <= v10)
-      {
-        goto LABEL_79;
-      }
-
-      v11 = (*(v4 + 376) + 80 * v10);
-      v11[3] = 0u;
-      v11[4] = 0u;
-      v11[1] = 0u;
-      v11[2] = 0u;
-      *v11 = 0u;
-      re::GeomConnectivityManifold::fetchVertexIncidentFaces(v4, v10, v108);
-      v12 = v109;
-      if (v109)
-      {
-        v13 = 0;
-        v14 = 0;
-        v106 = 0u;
-        v107 = 0u;
-        v103 = 0u;
-        v104 = 0u;
-        v105 = 0u;
-        while (1)
-        {
-          v6 = *(v111 + 4 * v13);
-          v15 = *(v4 + 24);
-          if (v15 <= v6)
-          {
-            break;
-          }
-
-          v16 = (*(v4 + 40) + 16 * v6);
-          v15 = *v16;
-          v3 = *(v4 + 320);
-          if (v3 <= v15)
-          {
-            goto LABEL_69;
-          }
-
-          v1 = v16[1];
-          if (v3 <= v1)
-          {
-            goto LABEL_70;
-          }
-
-          v2 = v16[2];
-          if (v3 <= v2)
-          {
-            goto LABEL_71;
-          }
-
-          v17 = *(v4 + 336);
-          v18 = *(v17 + 16 * v15);
-          v19 = vsubq_f32(*(v17 + 16 * v1), v18);
-          v20 = vsubq_f32(*(v17 + 16 * v2), v18);
-          v21 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v20, v20), v20, 0xCuLL), vnegq_f32(v19)), v20, vextq_s8(vuzp1q_s32(v19, v19), v19, 0xCuLL));
-          v22 = vextq_s8(vuzp1q_s32(v21, v21), v21, 0xCuLL);
-          if ((*(v4 + 616) & 1) == 0)
-          {
-            v23 = vmulq_f32(v21, v21);
-            v24 = v23.f32[1] + (v23.f32[2] + v23.f32[0]);
-            if (v24 > 0.0)
-            {
-              v25 = v24;
-              v26 = vrsqrte_f32(LODWORD(v24));
-              v27 = vmul_f32(v26, vrsqrts_f32(LODWORD(v25), vmul_f32(v26, v26)));
-              v22 = vmulq_n_f32(v22, vmul_f32(v27, vrsqrts_f32(LODWORD(v25), vmul_f32(v27, v27))).f32[0]);
-            }
-          }
-
-          v15 = *(v4 + 360);
-          if (v15 <= v10)
-          {
-            goto LABEL_72;
-          }
-
-          v28 = vmulq_f32(v18, v22);
-          v28.f32[0] = v28.f32[2] + vaddv_f32(*v28.f32);
-          v29 = (*(v4 + 376) + 80 * v10);
-          v30 = vdup_laneq_s32(v22, 2);
-          v31.i32[0] = v30.i32[0];
-          v31.f32[1] = -v28.f32[0];
-          v32 = vaddq_f64(v29[1], vcvtq_f64_f32(vmul_n_f32(v31, v22.f32[0])));
-          *v29 = vaddq_f64(*v29, vcvtq_f64_f32(vmul_n_f32(*v22.f32, v22.f32[0])));
-          v29[1] = v32;
-          v33 = vextq_s8(v22, v22, 4uLL).u64[0];
-          v34 = vaddq_f64(v29[2], vcvtq_f64_f32(vmul_lane_f32(v33, *v22.f32, 1)));
-          HIDWORD(v32.f64[0]) = v30.i32[1];
-          *v32.f64 = -v28.f32[0];
-          v35 = vaddq_f64(v29[3], vcvtq_f64_f32(vmul_f32(v33, *&v32.f64[0])));
-          v29[2] = v34;
-          v29[3] = v35;
-          v30.i32[1] = v28.i32[0];
-          HIDWORD(v34.f64[0]) = v28.i32[0];
-          *v34.f64 = -v28.f32[0];
-          v29[4] = vaddq_f64(v29[4], vcvtq_f64_f32(vmul_f32(v30, *&v34.f64[0])));
-          if (v12 <= v13)
-          {
-            goto LABEL_73;
-          }
-
-          if (re::GeomConnectivityManifold::isBoundaryFace(v4, v6) && re::GeomConnectivityManifold::isBoundaryVertex(v4, v10))
-          {
-            v15 = v109;
-            if (v109 <= v13)
-            {
-              goto LABEL_74;
-            }
-
-            v15 = *(v111 + 4 * v13);
-            v6 = *(v4 + 24);
-            if (v6 <= v15)
-            {
-              goto LABEL_75;
-            }
-
-            v36 = 0;
-            v113 = *(*(v4 + 40) + 16 * v15);
-            LODWORD(v6) = -1;
-            LODWORD(v13) = -1;
-            do
-            {
-              v37 = *(&v113 + v36);
-              if (v6 == -1)
-              {
-                v38 = *(&v113 + v36);
-              }
-
-              else
-              {
-                v38 = v6;
-              }
-
-              if (v6 == -1 || v10 == v37)
-              {
-                v13 = v13;
-              }
-
-              else
-              {
-                v13 = v37;
-              }
-
-              if (v10 == v37)
-              {
-                v6 = v6;
-              }
-
-              else
-              {
-                v6 = v38;
-              }
-
-              v36 += 4;
-            }
-
-            while (v36 != 12);
-            v12 = *(v4 + 320);
-            if (v12 <= v10)
-            {
-              goto LABEL_76;
-            }
-
-            if (v12 <= v6)
-            {
-              goto LABEL_77;
-            }
-
-            if (v12 <= v13)
-            {
-              goto LABEL_78;
-            }
-
-            v40 = *(v4 + 336);
-            isBoundaryVertex = re::GeomConnectivityManifold::isBoundaryVertex(v4, v6);
-            v42 = re::GeomConnectivityManifold::isBoundaryVertex(v4, v13);
-            if (isBoundaryVertex & 1) != 0 || (v43 = 0uLL, v44 = 0uLL, v45 = 0uLL, v46 = 0uLL, v47 = 0uLL, (v42))
-            {
-              v48 = *(v40 + 16 * v10);
-              v49 = vsubq_f32(*(v40 + 16 * v6), v48);
-              v50 = vsubq_f32(*(v40 + 16 * v13), v48);
-              v51 = vextq_s8(vuzp1q_s32(v49, v49), v49, 0xCuLL);
-              v52 = vextq_s8(vuzp1q_s32(v50, v50), v50, 0xCuLL);
-              v53 = vnegq_f32(v49);
-              v54 = vmlaq_f32(vmulq_f32(v52, v53), v50, v51);
-              v55 = vmulq_f32(v54, v54);
-              v56 = v55.f32[1] + (v55.f32[2] + v55.f32[0]);
-              v57 = 0uLL;
-              v58 = 0uLL;
-              if (v56 > 0.0)
-              {
-                v59 = v56;
-                v60 = vrsqrte_f32(LODWORD(v56));
-                v61 = vmul_f32(v60, vrsqrts_f32(LODWORD(v59), vmul_f32(v60, v60)));
-                v58 = vmulq_n_f32(vextq_s8(vuzp1q_s32(v54, v54), v54, 0xCuLL), vmul_f32(v61, vrsqrts_f32(LODWORD(v59), vmul_f32(v61, v61))).f32[0]);
-              }
-
-              v62 = vaddq_f32(v48, v58);
-              v63 = 0uLL;
-              v64 = 0uLL;
-              v65 = 0uLL;
-              v66 = 0uLL;
-              if (isBoundaryVertex)
-              {
-                v67 = vsubq_f32(v62, v48);
-                v68 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v67, v67), v67, 0xCuLL), v53), v67, v51);
-                v69 = vmulq_f32(v68, v68);
-                v70 = v69.f32[1] + (v69.f32[2] + v69.f32[0]);
-                v71 = 0uLL;
-                if (v70 > 0.0)
-                {
-                  v72 = v70;
-                  v73 = vrsqrte_f32(LODWORD(v70));
-                  v74 = vmul_f32(v73, vrsqrts_f32(LODWORD(v72), vmul_f32(v73, v73)));
-                  v71 = vmulq_n_f32(vextq_s8(vuzp1q_s32(v68, v68), v68, 0xCuLL), vmul_f32(v74, vrsqrts_f32(LODWORD(v72), vmul_f32(v74, v74))).f32[0]);
-                }
-
-                v75 = vmulq_f32(v48, v71);
-                v76 = v75.f32[2] + vaddv_f32(*v75.f32);
-                v57.f64[0] = vmulq_f32(v71, v71).f32[0];
-                v77.f32[0] = vmuls_lane_f32(v71.f32[0], v71, 2);
-                v77.f32[1] = -v76 * v71.f32[0];
-                v64.f64[0] = vmuls_lane_f32(v71.f32[1], *v71.f32, 1);
-                v78 = vmuls_lane_f32(v71.f32[1], v71, 2);
-                v79 = vmuls_lane_f32(v76, *v71.f32, 1);
-                v80 = vmuls_lane_f32(v71.f32[2], v71, 2);
-                v81 = vmuls_lane_f32(v76, v71, 2);
-                v82 = (v76 * v76);
-                v83 = vmuls_lane_f32(v71.f32[0], *v71.f32, 1) + 0.0;
-                v63 = vaddq_f64(vcvtq_f64_f32(v77), 0);
-                v84 = v78 + 0.0;
-                v65.f64[0] = 0.0 - v79;
-                v66.f64[0] = 0.0 - v81;
-                v57.f64[1] = v83;
-                v64.f64[1] = v84;
-                v65.f64[1] = v80;
-                v66.f64[1] = v82;
-              }
-
-              if (v42)
-              {
-                v85 = vsubq_f32(v62, v48);
-                v86 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v85, v85), v85, 0xCuLL), vnegq_f32(v50)), v85, v52);
-                v87 = vmulq_f32(v86, v86);
-                v88 = v87.f32[1] + (v87.f32[2] + v87.f32[0]);
-                v89 = 0uLL;
-                if (v88 > 0.0)
-                {
-                  v90 = vextq_s8(vuzp1q_s32(v86, v86), v86, 0xCuLL);
-                  v91 = v88;
-                  v92 = vrsqrte_f32(LODWORD(v88));
-                  v93 = vmul_f32(v92, vrsqrts_f32(LODWORD(v91), vmul_f32(v92, v92)));
-                  v89 = vmulq_n_f32(v90, vmul_f32(v93, vrsqrts_f32(LODWORD(v91), vmul_f32(v93, v93))).f32[0]);
-                }
-
-                v94 = vmulq_f32(v48, v89);
-                v94.f32[0] = v94.f32[2] + vaddv_f32(*v94.f32);
-                v95 = vdup_laneq_s32(v89, 2);
-                v96 = vextq_s8(v89, v89, 4uLL).u64[0];
-                v97.i32[1] = v95.i32[1];
-                v97.f32[0] = -v94.f32[0];
-                v95.i32[1] = v94.i32[0];
-                v57 = vaddq_f64(v57, vcvtq_f64_f32(vmul_n_f32(*v89.f32, v89.f32[0])));
-                v63 = vaddq_f64(v63, vcvtq_f64_f32(vmul_n_f32(__PAIR64__(-v94.f32[0], v95.u32[0]), v89.f32[0])));
-                v64 = vaddq_f64(v64, vcvtq_f64_f32(vmul_lane_f32(v96, *v89.f32, 1)));
-                v65 = vaddq_f64(v65, vcvtq_f64_f32(vmul_f32(v96, v97)));
-                v66 = vaddq_f64(v66, vcvtq_f64_f32(vmul_f32(v95, __PAIR64__(v94.u32[0], -v94.f32[0]))));
-              }
-
-              v98 = *(v4 + 612);
-              v43 = vmulq_n_f64(v57, v98);
-              v44 = vmulq_n_f64(v63, v98);
-              v45 = vmulq_n_f64(v64, v98);
-              v46 = vmulq_n_f64(v65, v98);
-              v47 = vmulq_n_f64(v66, v98);
-            }
-
-            v105 = vaddq_f64(v105, v45);
-            v103 = vaddq_f64(v103, v44);
-            v104 = vaddq_f64(v104, v46);
-            v106 = vaddq_f64(v106, v47);
-            v107 = vaddq_f64(v107, v43);
-          }
-
-          v12 = v109;
-          v13 = ++v14;
-          if (v109 <= v14)
-          {
-            goto LABEL_62;
-          }
-        }
-
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 797;
-        v118 = 2048;
-        v119 = v6;
-        v120 = 2048;
-        v121 = v15;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_69:
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 797;
-        v118 = 2048;
-        v119 = v15;
-        v120 = 2048;
-        v121 = v3;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_70:
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 797;
-        v118 = 2048;
-        v119 = v1;
-        v120 = 2048;
-        v121 = v3;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_71:
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        v10 = MEMORY[0x1E69E9C10];
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 797;
-        v118 = 2048;
-        v119 = v2;
-        v120 = 2048;
-        v121 = v3;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_72:
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 789;
-        v118 = 2048;
-        v119 = v10;
-        v120 = 2048;
-        v121 = v15;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_73:
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 789;
-        v118 = 2048;
-        v119 = v13;
-        v120 = 2048;
-        v121 = v12;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_74:
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 789;
-        v118 = 2048;
-        v119 = v13;
-        v120 = 2048;
-        v121 = v15;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_75:
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        v10 = MEMORY[0x1E69E9C10];
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 797;
-        v118 = 2048;
-        v119 = v15;
-        v120 = 2048;
-        v121 = v6;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_76:
-        v112 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 789;
-        v118 = 2048;
-        v119 = v10;
-        v120 = 2048;
-        v121 = v12;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_77:
-        v112 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 789;
-        v118 = 2048;
-        v119 = v6;
-        v120 = 2048;
-        v121 = v12;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_78:
-        v112 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        v10 = MEMORY[0x1E69E9C10];
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 789;
-        v118 = 2048;
-        v119 = v13;
-        v120 = 2048;
-        v121 = v12;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_79:
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 789;
-        v118 = 2048;
-        v119 = v10;
-        v120 = 2048;
-        v121 = v6;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_80:
-        *&v113 = 0;
-        v125 = 0u;
-        v126 = 0u;
-        v123 = 0u;
-        v124 = 0u;
-        v122 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v114 = 136315906;
-        v115 = "operator[]";
-        v116 = 1024;
-        v117 = 789;
-        v118 = 2048;
-        v119 = v10;
-        v120 = 2048;
-        v121 = v6;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v106 = 0u;
-      v107 = 0u;
-      v103 = 0u;
-      v104 = 0u;
-      v105 = 0u;
-LABEL_62:
-      v6 = *(v4 + 360);
-      if (v6 <= v10)
-      {
-        goto LABEL_80;
-      }
-
-      v99 = (*(v4 + 376) + 80 * v10);
-      v100 = vaddq_f64(v103, v99[1]);
-      *v99 = vaddq_f64(v107, *v99);
-      v99[1] = v100;
-      v101 = vaddq_f64(v104, v99[3]);
-      v99[2] = vaddq_f64(v105, v99[2]);
-      v99[3] = v101;
-      v99[4] = vaddq_f64(v106, v99[4]);
-      ++v10;
+      v10 = *a3++;
+      v5(v10, a2);
+      v9 -= 8;
     }
 
-    while (v10 != v102);
-    this = v108[0];
-    if (v108[0])
-    {
-      if (v111)
-      {
-        return (*(*v108[0] + 40))();
-      }
-    }
+    while (v9);
   }
 
-  return this;
+  return 0;
 }
 
-uint64_t re::GeomConnectivityManifold::isBoundaryVertex(re::GeomConnectivityManifold *this, unsigned int a2)
+uint64_t re::ecs2::SceneComponentCollectionCallbacks::willRemoveComponent(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  if (*(this + 18) <= a2)
+  v5 = *(a1 + 32);
+  if (*(a1 + 16) == 1)
   {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_5:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
+    if (a4)
+    {
+      v7 = 8 * a4;
+      do
+      {
+        v8 = *a3++;
+        v5(v8, *(a1 + 56));
+        v7 -= 8;
+      }
+
+      while (v7);
+    }
   }
 
-  v2 = *(*(this + 20) + 4 * a2);
-  if (*(this + 8) <= v2)
+  else if (a4)
   {
-    goto LABEL_5;
+    v9 = 8 * a4;
+    do
+    {
+      v10 = *a3++;
+      v5(v10, a2);
+      v9 -= 8;
+    }
+
+    while (v9);
   }
 
-  return (*(*(this + 10) + 4 * v2) >> 30) & 1;
+  return 0;
 }
 
-unint64_t re::internal::TriangleDecimator::initializeQueue(uint64_t a1, unint64_t a2)
+uint64_t re::ecs2::SceneComponentCollectionCallbacks::doActivateComponent(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v4 = *(a1 + 224);
-  v5 = v4;
-  v23.__x_[0] = v4;
-  v6 = 1;
-  v7 = v4;
-  do
+  v5 = *(a1 + 40);
+  if (*(a1 + 16) == 1)
   {
-    v7 = v6 + 1812433253 * (v7 ^ (v7 >> 30));
-    v23.__x_[v6++] = v7;
-  }
-
-  while (v6 != 624);
-  v23.__i_ = 0;
-  *(a1 + 536) = 0;
-  ++*(a1 + 544);
-  if (*(a1 + 528) < v4)
-  {
-    re::DynamicArray<re::internal::AnimationCompositionChainEntry>::setCapacity((a1 + 520), v4);
-  }
-
-  *(a1 + 576) = 0;
-  ++*(a1 + 584);
-  result = re::DynamicArray<unsigned int>::resize((a1 + 560), v4, &re::kInvalidMeshIndex);
-  v9 = *(a1 + 440);
-  if (v9 >= v4)
-  {
-    if (v9 <= v4)
+    if (a4)
     {
-      goto LABEL_15;
+      v7 = 8 * a4;
+      do
+      {
+        v8 = *a3++;
+        v5(v8, *(a1 + 56));
+        v7 -= 8;
+      }
+
+      while (v7);
     }
+  }
+
+  else if (a4)
+  {
+    v9 = 8 * a4;
+    do
+    {
+      v10 = *a3++;
+      v5(v10, a2);
+      v9 -= 8;
+    }
+
+    while (v9);
+  }
+
+  return 0;
+}
+
+uint64_t re::ecs2::SceneComponentCollectionCallbacks::doDeactivateComponent(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4)
+{
+  v5 = *(a1 + 48);
+  if (*(a1 + 16) == 1)
+  {
+    if (a4)
+    {
+      v7 = 8 * a4;
+      do
+      {
+        v8 = *a3++;
+        v5(v8, *(a1 + 56));
+        v7 -= 8;
+      }
+
+      while (v7);
+    }
+  }
+
+  else if (a4)
+  {
+    v9 = 8 * a4;
+    do
+    {
+      v10 = *a3++;
+      v5(v10, a2);
+      v9 -= 8;
+    }
+
+    while (v9);
+  }
+
+  return 0;
+}
+
+uint64_t re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::createSubscription<re::ecs2::SceneComponentCollectionCallbacks>(re::ecs2::SceneComponentCollectionCallbacks *,REEventHandlerResult (re::ecs2::SceneComponentCollectionCallbacks::*)(re::ecs2::SceneComponentCollectionBase*,re::Slice<re::ecs2::Component *>))::{lambda(re::ecs2::SceneComponentCollectionBase*,re::Event<re::ecs2::SceneComponentCollectionBase,re::Slice<re::ecs2::Component *>>::Subscription const&,re::Slice<re::ecs2::Component *>&&)#1}::__invoke(uint64_t a1, void *a2, void *a3)
+{
+  v4 = a2[1];
+  v5 = a2[2];
+  v6 = (*a2 + (v5 >> 1));
+  if (v5)
+  {
+    v4 = *(*v6 + v4);
+  }
+
+  return v4(v6, a1, *a3, a3[1]);
+}
+
+int64x2_t re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::internalAdd(uint64_t *a1, void *a2, void *a3)
+{
+  if (!a1[7])
+  {
+  }
+
+  v6 = a1[4];
+  if (!v6 || (v7 = a1[2], v7 > 8 * v6))
+  {
+    re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::resize(a1, 1);
+    v7 = a1[2];
+  }
+
+  v8 = 0xBF58476D1CE4E5B9;
+  v9 = 0x94D049BB133111EBLL;
+  v10 = 0xBF58476D1CE4E5B9 * (*a2 ^ (*a2 >> 30));
+  v11 = (0x94D049BB133111EBLL * (v10 ^ (v10 >> 27))) ^ ((0x94D049BB133111EBLL * (v10 ^ (v10 >> 27))) >> 31);
+  v12 = v7 >> 4;
+  v13 = *a1;
+  v14 = v11 % v12;
+  while (1)
+  {
+    v15 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(v13 + 16 * v14)), xmmword_1E304FAD0)))), 0x3830282018100800)));
+    if (v15 < 0x40)
+    {
+      break;
+    }
+
+    if (v14 + 1 == v12)
+    {
+      v14 = 0;
+    }
+
+    else
+    {
+      ++v14;
+    }
+
+    if (v14 == v11 % v12)
+    {
+      re::internal::assertLog(4, a2, -1.79399301e-307, 4.74803907e-38, "assertion failure: '%s' (%s:line %i) Unexpected full hash-table", "blockIndex != h1(key) % blockCount()", "internalAdd", 658);
+      _os_crash("assertion failure: (blockIndex != h1(key) % blockCount()) Unexpected full hash-table");
+      __break(1u);
+      break;
+    }
+  }
+
+  v16 = v13 + 16 * v14;
+  v17 = *(v16 + v15);
+  *(v16 + v15) = v11 & 0x7F;
+  v18 = 16 * (v15 + 16 * v14);
+  *(a1[1] + v18) = *a2;
+  v19 = a1[1];
+  *(v19 + v18 + 8) = *a3;
+  if (v17 == 255)
+  {
+    v20 = -1;
   }
 
   else
   {
-    if (*(a1 + 432) < v4)
-    {
-      result = re::DynamicArray<re::internal::TriangleDecimator::EdgeData>::setCapacity((a1 + 424), v4);
-      v9 = *(a1 + 440);
-    }
-
-    v10 = v4 - v9;
-    if (v4 > v9 && v10 >= 1)
-    {
-      v11 = (*(a1 + 456) + 32 * v9);
-      v12 = v10 + 1;
-      do
-      {
-        *v11 = 0;
-        v11[1] = 0;
-        v11[2] = 0;
-        v11 += 4;
-        --v12;
-      }
-
-      while (v12 > 1);
-    }
+    v20 = 0;
   }
 
-  *(a1 + 440) = v4;
-  ++*(a1 + 448);
-LABEL_15:
-  if (a2)
+  v21.i64[0] = vdupq_n_s64(1uLL).u64[0];
+  v21.i64[1] = v20;
+  result = vaddq_s64(*(a1 + 3), v21);
+  *(a1 + 3) = result;
+  v23 = *(v19 + v18) ^ (*(v19 + v18) >> 30);
+  v24 = ((v23 * v8) ^ ((v23 * v8) >> 27)) * v9;
+  a1[5] ^= (v24 >> 31) ^ v24;
+  return result;
+}
+
+void re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::resize(uint64_t a1, int a2)
+{
+  v2 = *(a1 + 16);
+  v3 = *(a1 + 24) + a2;
+  v4 = (((151 * v3) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
+  if (v4 > v2)
   {
-    result = re::DynamicBitset<unsigned long long,64ul>::findFirstBitSet(a2, 0);
-    if (result < v4)
+    v5 = 3 * v2;
+    v6 = v5 << 6;
+    v7 = (v5 >> 1) & 0x1FFFFFFFFFFFFFFLL;
+    if (v4 > v6 >> 7)
     {
-      v13 = result;
-      while (1)
-      {
-        re::internal::TriangleDecimator::updateEdgeData(a1, v13);
-        v14 = v13;
-        v15 = *(a1 + 440);
-        if (v15 <= v13)
-        {
-          break;
-        }
-
-        v16 = *(*(a1 + 456) + 32 * v13 + 16);
-        v17 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v23);
-        v18 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v23);
-        LODWORD(v33) = v13;
-        *(&v33 + 1) = v16;
-        *&v34 = (v17 + v18 * 4294967300.0) * 5.42101086e-20 + 0.0;
-        re::internal::IndexedPriorityQueue::push((a1 + 520), &v33);
-        result = re::DynamicBitset<unsigned long long,64ul>::findFirstBitSet(a2, v13 + 1);
-        v13 = result;
-        if (result >= v5)
-        {
-          return result;
-        }
-      }
-
-      v24 = 0;
-      v36 = 0u;
-      v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v33 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      v25 = 136315906;
-      v26 = "operator[]";
-      v27 = 1024;
-      v28 = 789;
-      v29 = 2048;
-      v30 = v13;
-      v31 = 2048;
-      v32 = v15;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-      goto LABEL_27;
+      v7 = (((151 * v3) >> 7) + 15) & 0x3FFFFFFFFFFFFF0;
     }
+
+    v3 = (v7 << 7) / 0x97;
   }
 
-  else if (v4)
+  re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::doResize(a1, v3);
+}
+
+void re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::doResize(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 56);
+  memset(v41, 0, sizeof(v41));
+  v5 = re::HashBrown<re::ecs2::Scene const*,unsigned long,re::Hash<re::ecs2::Scene const*>,re::EqualTo<re::ecs2::Scene const*>,void,false>::init(v41, v4, a2);
+  v39[0] = a1;
+  v6 = *(a1 + 16);
+  if (v6 >= 0x10)
   {
-    a2 = 0;
-    for (i = 16; ; i += 32)
+    v7 = 0;
+    v8 = *a1;
+    v9 = v6 >> 4;
+    while (1)
     {
-      re::internal::TriangleDecimator::updateEdgeData(a1, a2);
-      v14 = *(a1 + 440);
-      if (v14 <= a2)
+      v10 = vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*v8), xmmword_1E304FAD0)))), 0x3830282018100800).u16[0];
+      v39[1] = v10 ^ 0xFFFFLL;
+      if (v10 != 0xFFFFLL)
       {
         break;
       }
 
-      v20 = *(*(a1 + 456) + i);
-      v21 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v23);
-      v22 = std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(&v23);
-      LODWORD(v33) = a2;
-      *(&v33 + 1) = v20;
-      *&v34 = (v21 + v22 * 4294967300.0) * 5.42101086e-20 + 0.0;
-      result = re::internal::IndexedPriorityQueue::push((a1 + 520), &v33);
-      if (v5 == ++a2)
+      v7 -= 16;
+      ++v8;
+      if (!--v9)
       {
-        return result;
+        goto LABEL_24;
       }
     }
 
-LABEL_27:
-    v24 = 0;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
-    v35 = 0u;
-    v33 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v25 = 136315906;
-    v26 = "operator[]";
-    v27 = 1024;
-    v28 = 789;
-    v29 = 2048;
-    v30 = a2;
-    v31 = 2048;
-    v32 = v14;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return result;
-}
-
-void *re::internal::IndexedPriorityQueue::push(void *this, unsigned int *a2)
-{
-  v3 = this;
-  v4 = this[1];
-  v5 = this[2];
-  if (v5 >= v4)
-  {
-    v6 = v5 + 1;
-    if (v4 < v5 + 1)
+    v11 = __clz(__rbit64(v10 ^ 0xFFFFLL));
+    v12 = v11 - v7;
+    v40 = v11 - v7;
+    if (v11 + 1 != v7)
     {
-      if (*this)
+      do
       {
-        v7 = 2 * v4;
-        v8 = v4 == 0;
-        v9 = 8;
-        if (!v8)
+        v13 = *(v39[0] + 8);
+        if (*(&v41[3] + 1))
         {
-          v9 = v7;
-        }
-
-        if (v9 <= v6)
-        {
-          v10 = v6;
+          v14 = *&v41[2];
         }
 
         else
         {
-          v10 = v9;
+          *&v41[1] = 16;
+          *&v32 = -1;
+          *(&v32 + 1) = -1;
+          **&v41[0] = v32;
+          v14 = *&v41[1];
+          *(&v41[0] + 1) = *&v41[0] + 16;
+          *(&v41[1] + 1) = 0;
+          v41[2] = *&v41[1];
+          *&v41[3] = 0;
         }
 
-        this = re::DynamicArray<re::internal::AnimationCompositionChainEntry>::setCapacity(this, v10);
-      }
-
-      else
-      {
-        this = re::DynamicArray<re::internal::AnimationCompositionChainEntry>::setCapacity(v3, v6);
-        ++*(v3 + 6);
-      }
-    }
-
-    v5 = v3[2];
-  }
-
-  v11 = v3[4] + 24 * v5;
-  v12 = *a2;
-  *(v11 + 16) = *(a2 + 2);
-  *v11 = v12;
-  v13 = v3[2] + 1;
-  v3[2] = v13;
-  ++*(v3 + 6);
-  v14 = *a2;
-  if (v3[7] <= v14)
-  {
-    goto LABEL_23;
-  }
-
-  v15 = v13 - 1;
-  *(v3[9] + 4 * v14) = v13 - 1;
-  if (v13 != 1)
-  {
-    while (1)
-    {
-      v16 = v15 - 1;
-      v17 = (v15 - 1) >> 1;
-      v18 = v3[2];
-      if (v18 <= v17)
-      {
-        break;
-      }
-
-      if (v18 <= v15)
-      {
-        goto LABEL_22;
-      }
-
-      v19 = v3[4];
-      v20 = v19 + 24 * v17;
-      v21 = v19 + 24 * v15;
-      v22 = *(v20 + 8);
-      v23 = *(v21 + 8);
-      if ((v22 - v23) * (v22 - v23) <= 1.0e-12)
-      {
-        v22 = *(v20 + 16);
-        v23 = *(v21 + 16);
-      }
-
-      if (v22 > v23)
-      {
-        this = re::internal::IndexedPriorityQueue::swap(v3, v15, v16 >> 1);
-        v15 = v16 >> 1;
-        if (v16 > 1)
+        v15 = xmmword_1E304FAD0;
+        if (!v14 || (v16 = *&v41[1], *&v41[1] > (8 * v14)))
         {
-          continue;
-        }
-      }
-
-      return this;
-    }
-
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_22:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_23:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  return this;
-}
-
-uint64_t re::internal::TriangleDecimator::clear(uint64_t this)
-{
-  *this = 0;
-  *(this + 24) = 0;
-  ++*(this + 32);
-  *(this + 64) = 0;
-  ++*(this + 72);
-  *(this + 104) = 0;
-  ++*(this + 112);
-  *(this + 144) = 0;
-  ++*(this + 152);
-  *(this + 184) = 0;
-  ++*(this + 192);
-  *(this + 224) = 0;
-  ++*(this + 232);
-  *(this + 320) = 0;
-  ++*(this + 328);
-  *(this + 360) = 0;
-  ++*(this + 368);
-  *(this + 400) = 0;
-  ++*(this + 408);
-  *(this + 440) = 0;
-  ++*(this + 448);
-  *(this + 536) = 0;
-  ++*(this + 544);
-  *(this + 576) = 0;
-  ++*(this + 584);
-  v1 = *(this + 720);
-  *(this + 712) = 0;
-  *(this + 720) = v1 + 2;
-  *(this + 644) = 0;
-  *(this + 640) = 0;
-  return this;
-}
-
-unint64_t re::internal::TriangleDecimator::setMesh(re::internal::TriangleDecimator *this, const re::GeomMesh *a2)
-{
-  re::internal::TriangleDecimator::clear(this);
-  re::internal::TriangleDecimator::convertMeshToCombinatorialMap(this, a2, v4);
-  re::internal::TriangleDecimator::findCornerVertices(this, this + 384);
-  re::internal::TriangleDecimator::computeQuadrics(this);
-  result = re::internal::TriangleDecimator::initializeQueue(this, 0);
-  *(this + 161) = *(this + 3);
-  return result;
-}
-
-uint64_t re::internal::TriangleDecimator::decimateTo(re::internal::TriangleDecimator *this, unsigned int a2)
-{
-  for (result = *(this + 161); result > a2 && *(this + 134); *(this + 161) = result)
-  {
-    result = *(this + 161) - re::internal::TriangleDecimator::decimateOneEdge(this);
-  }
-
-  return result;
-}
-
-double re::internal::Quadric::computeOptimalPositionAlongEdge(uint64_t a1, float32x2_t *a2, float32x2_t *a3, float *a4, double a5, float64x2_t a6, double a7, float64x2_t a8, double a9, float64x2_t a10, float64x2_t a11)
-{
-  v12 = vcvtq_f64_f32(vsub_f32(*a3, *a2));
-  LODWORD(a6.f64[0]) = a2[1].i32[0];
-  a8.f64[0] = (a3[1].f32[0] - *a6.f64);
-  a10.f64[0] = *(a1 + 16);
-  a11.f64[0] = *(a1 + 40);
-  *&v13.f64[0] = vdupq_laneq_s64(*a1, 1).u64[0];
-  v13.f64[1] = *(a1 + 32);
-  v11.f64[0] = *(a1 + 56);
-  v14 = vmulq_f64(a8, a10);
-  a10.f64[1] = a11.f64[0];
-  v15 = vaddq_f64(vzip1q_s64(v14, vmulq_f64(a8, a11)), vpaddq_f64(vmulq_f64(v12, *a1), vmulq_f64(v12, v13)));
-  v16 = vmulq_f64(v12, a10);
-  v16.f64[0] = vmulq_f64(a8, v11).f64[0] + vaddvq_f64(v16);
-  v17 = -(vmulq_f64(a8, v16).f64[0] + vaddvq_f64(vmulq_f64(v12, v15)));
-  *v13.f64 = v17;
-  v18 = fabsf(*v13.f64);
-  v19 = 0.5;
-  if (v18 < 0.00001 || (v20.f64[0] = *(a1 + 24), v11.f64[0] = *(a1 + 64), v20.f64[1] = *(a1 + 48), a6.f64[0] = *a6.f64, v21 = vaddvq_f64(vaddq_f64(vzip1q_s64(vmulq_f64(a6, v16), vmulq_f64(a8, v11)), vpaddq_f64(vmulq_f64(vcvtq_f64_f32(*a2), v15), vmulq_f64(v12, v20)))) / v17, *a4 = v21, v19 = 0.0, v21 < 0.0) || (v19 = 1.0, v21 > 1.0))
-  {
-    *a4 = v19;
-    v21 = v19;
-  }
-
-  *&result = vaddq_f32(vmulq_n_f32(*a2->f32, 1.0 - v21), vmulq_n_f32(*a3->f32, v21)).u64[0];
-  return result;
-}
-
-uint64_t re::internal::TriangleDecimator::updateEdgeData(unsigned int)::$_0::operator()(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  v2 = *v1;
-  v4 = **a1;
-  v3 = *(*a1 + 8);
-  v5 = v1[1];
-  v7 = *(*a1 + 32);
-  v6 = *(*a1 + 40);
-  *&v8 = v1[2];
-  v9 = *(*a1 + 48);
-  v10 = *(*a1 + 56);
-  *&v11 = v7 * v5 * v5 + v4 * v2 * v2 + v10 * *&v8 * *&v8;
-  v13 = *(*a1 + 16);
-  v12 = *(*a1 + 24);
-  v14 = v13 * v2 * *&v8 + v3 * v2 * v5 + v6 * v5 * *&v8 + v12 * v2 + v9 * v5;
-  v16 = *(*a1 + 64);
-  v15 = *(*a1 + 72);
-  v17 = *&v15 + *&v11 + (v14 + v16 * *&v8) * 2.0;
-  v18 = *(a1 + 16);
-  v19 = *(a1 + 24);
-  v8.i32[0] = *v18;
-  v11.i32[0] = v18[1];
-  v20.i32[0] = v18[2];
-  v8.i32[1] = *v19;
-  v21 = vcvtq_f64_f32(v8);
-  v11.i32[1] = v19[1];
-  v22 = vcvtq_f64_f32(v11);
-  v23 = vmlaq_f64(vmulq_f64(vmulq_n_f64(v22, v7), v22), v21, vmulq_n_f64(v21, v4));
-  v20.i32[1] = v19[2];
-  v24 = vcvtq_f64_f32(v20);
-  v25 = vmlaq_f64(v23, v24, vmulq_n_f64(v24, v10));
-  v26 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmlaq_f64(vmlaq_f64(vmulq_f64(vmulq_n_f64(v21, v13), v24), v22, vmulq_n_f64(v21, v3)), v24, vmulq_n_f64(v22, v6)), v21, v12), v22, v9), v24, v16);
-  __asm { FMOV            V0.2D, #2.0 }
-
-  v32 = vaddq_f64(vdupq_lane_s64(v15, 0), vmlaq_f64(v25, _Q0, v26));
-  v33 = 24;
-  v34 = 8;
-  if (v17 >= v32.f64[1])
-  {
-    v34 = 24;
-  }
-
-  if (v32.f64[0] < v32.f64[1])
-  {
-    v33 = 16;
-  }
-
-  if (v17 < v32.f64[0])
-  {
-    v33 = v34;
-  }
-
-  return **(a1 + v33);
-}
-
-uint64_t re::internal::Quadric::optimalPositionConditionNumberTest(double *a1, float32x2_t *a2, float64x2_t a3, double a4, double a5, float64x2_t a6, float64x2_t a7, double a8, float64x2_t a9)
-{
-  v9 = *a1;
-  v10 = a1[1];
-  v12 = a1[4];
-  v11 = a1[5];
-  v13 = *a1 * v12;
-  v14 = a1[7];
-  v15 = a1[2];
-  v16 = v10 * v11 * v15 + v13 * v14 + v10 * v15 * v11 + -(*a1 * v11) * v11 + -(v10 * v10) * v14 + -(v15 * v12) * v15;
-  v17 = 0;
-  if (v16 > 0.0)
-  {
-    v18 = 1.0 / v16;
-    v19.f64[0] = (v12 * v14 - v11 * v11) * (1.0 / v16);
-    v20.f64[0] = (v14 * -v10 + v15 * v11) * v18;
-    a3.f64[0] = (v10 * v11 + -v15 * v12) * v18;
-    v21 = (v9 * v14 + -v15 * v15) * v18;
-    a7.f64[0] = (v10 * v15 - *a1 * v11) * v18;
-    a6.f64[0] = (v13 + -v10 * v10) * v18;
-    v22 = fabs(v10);
-    v23 = fabs(v15);
-    v24 = fabs(v9) + v22 + v23;
-    v25 = fabs(v11);
-    v26 = fabs(v12) + v22 + v25;
-    if (v24 < v26)
-    {
-      v24 = v26;
-    }
-
-    v27 = fabs(v14) + v25 + v23;
-    if (v24 >= v27)
-    {
-      v27 = v24;
-    }
-
-    v28 = fabs(v20.f64[0]);
-    v29 = fabs(a3.f64[0]);
-    v30 = v29 + fabs(v19.f64[0]) + v28;
-    v31 = fabs(a7.f64[0]);
-    v32 = v31 + v28 + fabs(v21);
-    if (v30 < v32)
-    {
-      v30 = v32;
-    }
-
-    v33 = fabs(a6.f64[0]) + v29 + v31;
-    if (v30 < v33)
-    {
-      v30 = v33;
-    }
-
-    v34 = v27 * v30;
-    if (v34 > 0.0 && 1.0 / v34 >= 0.000001)
-    {
-      v19.f64[1] = v20.f64[0];
-      v20.f64[1] = v21;
-      v35.f64[0] = a1[3];
-      a9.f64[0] = a1[8];
-      v35.f64[1] = a1[6];
-      v36 = vmulq_f64(a3, a9);
-      a3.f64[1] = a7.f64[0];
-      *a2 = vneg_f32(vcvt_f32_f64(vaddq_f64(vzip1q_s64(v36, vmulq_f64(a7, a9)), vpaddq_f64(vmulq_f64(v19, v35), vmulq_f64(v20, v35)))));
-      v37 = vmulq_f64(a6, a9).f64[0] + vaddvq_f64(vmulq_f64(a3, v35));
-      a2[1].f32[0] = -v37;
-      return 1;
-    }
-  }
-
-  return v17;
-}
-
-void *re::internal::IndexedPriorityQueue::rebalance(void *this, unsigned int a2)
-{
-  v2 = this;
-  for (i = a2; ; a2 = i)
-  {
-    v4 = (2 * a2) | 1;
-    v5 = v2[2];
-    if (v4 < v5)
-    {
-      if (v5 <= v4)
-      {
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_21:
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_22:
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_23:
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      if (v5 <= a2)
-      {
-        goto LABEL_22;
-      }
-
-      v6 = v2[4];
-      v7 = v6 + 24 * v4;
-      v8 = v6 + 24 * a2;
-      v9 = *(v7 + 8);
-      v10 = *(v8 + 8);
-      if ((v9 - v10) * (v9 - v10) <= 1.0e-12)
-      {
-        v9 = *(v7 + 16);
-        v10 = *(v8 + 16);
-      }
-
-      if (v9 >= v10)
-      {
-        i = a2;
-      }
-
-      else
-      {
-        i = (2 * a2) | 1;
-      }
-    }
-
-    v11 = 2 * a2 + 2;
-    if (v11 < v5)
-    {
-      if (v5 <= v11)
-      {
-        goto LABEL_21;
-      }
-
-      if (v5 <= i)
-      {
-        goto LABEL_23;
-      }
-
-      v12 = v2[4];
-      v13 = v12 + 24 * v11;
-      v14 = v12 + 24 * i;
-      v15 = *(v13 + 8);
-      v16 = *(v14 + 8);
-      if ((v15 - v16) * (v15 - v16) <= 1.0e-12)
-      {
-        v15 = *(v13 + 16);
-        v16 = *(v14 + 16);
-      }
-
-      if (v15 < v16)
-      {
-        i = 2 * a2 + 2;
-      }
-    }
-
-    if (i == a2)
-    {
-      break;
-    }
-
-    this = re::internal::IndexedPriorityQueue::swap(v2, a2, i);
-  }
-
-  return this;
-}
-
-void *re::internal::IndexedPriorityQueue::swap(void *this, unsigned int a2, unsigned int a3)
-{
-  v3 = this[2];
-  if (v3 <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  if (v3 <= a3)
-  {
-LABEL_9:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  v4 = this[4];
-  v5 = (v4 + 24 * a2);
-  v6 = (v4 + 24 * a3);
-  v7 = *(v5 + 2);
-  v8 = *v5;
-  v9 = *(v6 + 2);
-  *v5 = *v6;
-  *(v5 + 2) = v9;
-  *v6 = v8;
-  *(v6 + 2) = v7;
-  v10 = this[2];
-  if (v10 <= a2)
-  {
-LABEL_10:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_11;
-  }
-
-  v11 = this[4];
-  v12 = *(v11 + 24 * a2);
-  v13 = this[7];
-  if (v13 <= v12)
-  {
-LABEL_11:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_12;
-  }
-
-  v14 = this[9];
-  *(v14 + 4 * v12) = a2;
-  if (v10 <= a3)
-  {
-LABEL_12:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_13:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  v15 = *(v11 + 24 * a3);
-  if (v13 <= v15)
-  {
-    goto LABEL_13;
-  }
-
-  *(v14 + 4 * v15) = a3;
-  return this;
-}
-
-uint64_t re::DynamicArray<re::GeomCell4>::operator=(uint64_t a1, uint64_t *a2)
-{
-  if (a1 != a2)
-  {
-    v4 = *a2;
-    if (*a1)
-    {
-      if (v4)
-      {
-        re::DynamicArray<re::GeomCell4>::copy(a1, a2);
-      }
-
-      else
-      {
-        *(a1 + 16) = 0;
-      }
-
-      ++*(a1 + 24);
-    }
-
-    else if (v4)
-    {
-      v5 = a2[2];
-      *a1 = v4;
-      re::DynamicArray<re::BlendNode>::setCapacity(a1, v5);
-      ++*(a1 + 24);
-      re::DynamicArray<re::GeomCell4>::copy(a1, a2);
-    }
-  }
-
-  return a1;
-}
-
-void *re::DynamicArray<re::internal::TriangleDecimator::ComponentAreaPreservationData>::setCapacity(void *result, unint64_t a2)
-{
-  v2 = result[1];
-  if (v2 != a2)
-  {
-    v4 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (*v4)
-      {
-        if (!a2)
-        {
-          v6 = 0;
-          if (!v2)
-          {
-            goto LABEL_8;
-          }
-
-          goto LABEL_7;
+          re::HashBrown<re::ecs2::Component *,unsigned long,re::Hash<re::ecs2::Component *>,re::EqualTo<re::ecs2::Component *>,void,false>::resize(v41, 1);
+          v15 = xmmword_1E304FAD0;
+          v16 = *&v41[1];
         }
 
-        result = (*(*result + 32))(result, 16 * a2, 8);
-        if (result)
+        v17 = (v13 + 16 * v12);
+        v18 = 0xBF58476D1CE4E5B9 * (*v17 ^ (*v17 >> 30));
+        v19 = (0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) ^ ((0x94D049BB133111EBLL * (v18 ^ (v18 >> 27))) >> 31);
+        v20 = v16 >> 4;
+        v21 = v19 % (v16 >> 4);
+        v22 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(*&v41[0] + 16 * v21)), v15)))), 0x3830282018100800)));
+        if (v22 >= 0x40)
         {
-          v6 = result;
-          if (!v4[1])
-          {
-LABEL_8:
-            v4[4] = v6;
-            v4[1] = a2;
-            return result;
-          }
-
-LABEL_7:
-          memcpy(v6, v4[4], 16 * v4[2]);
-          result = (*(**v4 + 40))(*v4, v4[4]);
-          goto LABEL_8;
-        }
-
-        re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, 16 * a2, *(*v4 + 8));
-        result = _os_crash();
-        __break(1u);
-      }
-
-      else
-      {
-        result = re::DynamicArray<re::internal::TriangleDecimator::ComponentAreaPreservationData>::setCapacity(v4, a2);
-        ++*(v4 + 6);
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t std::__introsort<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *,false>(uint64_t result, unsigned int *a2, uint64_t *a3, uint64_t a4, char a5)
-{
-  v9 = result;
-LABEL_2:
-  v10 = v9;
-  v125 = a2;
-  while (1)
-  {
-    v9 = v10;
-    v11 = (a2 - v10) >> 2;
-    if (v11 > 2)
-    {
-      break;
-    }
-
-    if (v11 < 2)
-    {
-      return result;
-    }
-
-    if (v11 == 2)
-    {
-      result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), v10->i32[0]);
-      if (result)
-      {
-        v79 = v10->i32[0];
-        v10->i32[0] = *(a2 - 1);
-LABEL_105:
-        *(a2 - 1) = v79;
-        return result;
-      }
-
-      return result;
-    }
-
-LABEL_10:
-    if (v11 <= 23)
-    {
-      v82 = v10 + 1;
-      v84 = v10 == a2 || v82 == a2;
-      if (a5)
-      {
-        if (!v84)
-        {
-          v85 = 0;
-          v86 = v10;
           do
           {
-            v88 = *v86;
-            v87 = v86[1];
-            v86 = v82;
-            result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v87, v88);
-            if (result)
+            if (v21 + 1 == v20)
             {
-              v89 = *v86;
-              v90 = v85;
-              while (1)
-              {
-                *(&v10->i32[1] + v90) = *(v10->i32 + v90);
-                if (!v90)
-                {
-                  break;
-                }
-
-                result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v89, *(&v10->u32[-1] + v90));
-                v90 -= 4;
-                if ((result & 1) == 0)
-                {
-                  v91 = (v10 + v90 + 4);
-                  goto LABEL_127;
-                }
-              }
-
-              v91 = v10;
-LABEL_127:
-              v91->i32[0] = v89;
-            }
-
-            v82 = v86 + 1;
-            v85 += 4;
-          }
-
-          while (v86 + 1 != a2);
-        }
-      }
-
-      else if (!v84)
-      {
-        do
-        {
-          v120 = *v9;
-          v119 = v9[1];
-          v9 = v82;
-          result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v119, v120);
-          if (result)
-          {
-            v121 = *v9;
-            v122 = v9;
-            do
-            {
-              v123 = v122;
-              v124 = *--v122;
-              *v123 = v124;
-              result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v121, *(v123 - 2));
-            }
-
-            while ((result & 1) != 0);
-            *v122 = v121;
-          }
-
-          v82 = v9 + 1;
-        }
-
-        while (v9 + 1 != a2);
-      }
-
-      return result;
-    }
-
-    if (!a4)
-    {
-      if (v10 != a2)
-      {
-        v92 = (v11 - 2) >> 1;
-        v126 = v92;
-        do
-        {
-          v93 = v92;
-          if (v126 >= v92)
-          {
-            v94 = (2 * v92) | 1;
-            v95 = &v9[v94];
-            if (2 * v92 + 2 < v11 && re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *v95, v95[1]))
-            {
-              ++v95;
-              v94 = 2 * v93 + 2;
-            }
-
-            v96 = &v9[v93];
-            result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *v95, *v96);
-            if ((result & 1) == 0)
-            {
-              v97 = *v96;
-              do
-              {
-                v98 = v95;
-                *v96 = *v95;
-                if (v126 < v94)
-                {
-                  break;
-                }
-
-                v99 = (2 * v94) | 1;
-                v95 = &v9[v99];
-                v100 = 2 * v94 + 2;
-                if (v100 < v11 && re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *v95, v95[1]))
-                {
-                  ++v95;
-                  v99 = v100;
-                }
-
-                result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *v95, v97);
-                v96 = v98;
-                v94 = v99;
-              }
-
-              while (!result);
-              *v98 = v97;
-            }
-          }
-
-          v92 = v93 - 1;
-        }
-
-        while (v93);
-        v101 = v125;
-        do
-        {
-          v102 = v101;
-          v103 = 0;
-          v127 = *v9;
-          v104 = v9;
-          do
-          {
-            v105 = &v104[v103];
-            v106 = v105 + 1;
-            v107 = (2 * v103) | 1;
-            v108 = 2 * v103 + 2;
-            if (v108 >= v11)
-            {
-              v103 = (2 * v103) | 1;
+              v21 = 0;
             }
 
             else
             {
-              v110 = v105[2];
-              v109 = v105 + 2;
-              result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(v109 - 1), v110);
-              if (result)
-              {
-                v106 = v109;
-                v103 = v108;
-              }
-
-              else
-              {
-                v103 = v107;
-              }
+              ++v21;
             }
 
-            *v104 = *v106;
-            v104 = v106;
+            v22 = __clz(__rbit64(*&vqtbl1_s8(vpaddlq_u32(vpaddlq_u16(vpaddlq_u8(vandq_s8(vcltzq_s8(*(*&v41[0] + 16 * v21)), v15)))), 0x3830282018100800)));
           }
 
-          while (v103 <= ((v11 - 2) >> 1));
-          v101 = v102 - 1;
-          if (v106 == v102 - 1)
-          {
-            *v106 = v127;
-          }
-
-          else
-          {
-            *v106 = *v101;
-            *v101 = v127;
-            v111 = (v106 - v9 + 4) >> 2;
-            v112 = v111 < 2;
-            v113 = v111 - 2;
-            if (!v112)
-            {
-              v114 = v113 >> 1;
-              v115 = &v9[v113 >> 1];
-              result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *v115, *v106);
-              if (result)
-              {
-                v116 = *v106;
-                do
-                {
-                  v117 = v115;
-                  *v106 = *v115;
-                  if (!v114)
-                  {
-                    break;
-                  }
-
-                  v114 = (v114 - 1) >> 1;
-                  v115 = &v9[v114];
-                  result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *v115, v116);
-                  v106 = v117;
-                }
-
-                while ((result & 1) != 0);
-                *v117 = v116;
-              }
-            }
-          }
-
-          v112 = v11-- <= 2;
+          while (v22 > 0x3F);
         }
 
-        while (!v112);
-      }
-
-      return result;
-    }
-
-    v12 = v11 >> 1;
-    v13 = *a3;
-    if (v11 < 0x81)
-    {
-      v17 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(v13, *v9, v9[v12]);
-      v18 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), *v9);
-      if (v17)
-      {
-        v19 = v9[v12];
-        if (v18)
+        v23 = *&v41[0] + 16 * v21;
+        v24 = *(v23 + v22);
+        *(v23 + v22) = v19 & 0x7F;
+        v25 = 16 * (v22 + 16 * v21);
+        v27 = *v17;
+        v26 = v17[1];
+        *(*(&v41[0] + 1) + v25) = v27;
+        v28 = (*(&v41[0] + 1) + v25);
+        *(*(&v41[0] + 1) + v25 + 8) = v26;
+        if (v24 == 255)
         {
-          v9[v12] = *(a2 - 1);
-          *(a2 - 1) = v19;
+          v29 = -1;
         }
 
         else
         {
-          v9[v12] = *v9;
-          *v9 = v19;
-          if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), v19))
-          {
-            v31 = *v9;
-            *v9 = *(a2 - 1);
-            *(a2 - 1) = v31;
-          }
-        }
-      }
-
-      else if (v18)
-      {
-        v22 = *v9;
-        *v9 = *(a2 - 1);
-        *(a2 - 1) = v22;
-        if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *v9, v9[v12]))
-        {
-          v23 = v9[v12];
-          v9[v12] = *v9;
-          *v9 = v23;
-        }
-      }
-
-      goto LABEL_55;
-    }
-
-    v14 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(v13, v9[v12], *v9);
-    v15 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), v9[v12]);
-    if (v14)
-    {
-      v16 = *v9;
-      if (v15)
-      {
-        *v9 = *(a2 - 1);
-        *(a2 - 1) = v16;
-      }
-
-      else
-      {
-        *v9 = v9[v12];
-        v9[v12] = v16;
-        if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), v16))
-        {
-          v24 = v9[v12];
-          v9[v12] = *(a2 - 1);
-          *(a2 - 1) = v24;
-        }
-      }
-    }
-
-    else if (v15)
-    {
-      v20 = v9[v12];
-      v9[v12] = *(a2 - 1);
-      *(a2 - 1) = v20;
-      if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v9[v12], *v9))
-      {
-        v21 = *v9;
-        *v9 = v9[v12];
-        v9[v12] = v21;
-      }
-    }
-
-    v25 = v12 - 1;
-    v26 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v9[v12 - 1], v9[1]);
-    v27 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 2), v9[v12 - 1]);
-    if (v26)
-    {
-      v28 = v9[1];
-      if (v27)
-      {
-        v9[1] = *(a2 - 2);
-        *(a2 - 2) = v28;
-      }
-
-      else
-      {
-        v9[1] = v9[v25];
-        v9[v25] = v28;
-        if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 2), v28))
-        {
-          v32 = v9[v25];
-          v9[v25] = *(a2 - 2);
-          *(a2 - 2) = v32;
-        }
-      }
-    }
-
-    else if (v27)
-    {
-      v29 = v9[v25];
-      v9[v25] = *(a2 - 2);
-      *(a2 - 2) = v29;
-      if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v9[v25], v9[1]))
-      {
-        v30 = v9[1];
-        v9[1] = v9[v25];
-        v9[v25] = v30;
-      }
-    }
-
-    v33 = v12 + 1;
-    v34 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v9[v12 + 1], v9[2]);
-    v35 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 3), v9[v12 + 1]);
-    if (v34)
-    {
-      v36 = v9[2];
-      if (v35)
-      {
-        v9[2] = *(a2 - 3);
-        *(a2 - 3) = v36;
-      }
-
-      else
-      {
-        v9[2] = v9[v33];
-        v9[v33] = v36;
-        if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 3), v36))
-        {
-          v39 = v9[v33];
-          v9[v33] = *(a2 - 3);
-          *(a2 - 3) = v39;
-        }
-      }
-    }
-
-    else if (v35)
-    {
-      v37 = v9[v33];
-      v9[v33] = *(a2 - 3);
-      *(a2 - 3) = v37;
-      if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v9[v33], v9[2]))
-      {
-        v38 = v9[2];
-        v9[2] = v9[v33];
-        v9[v33] = v38;
-      }
-    }
-
-    v40 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v9[v12], v9[v25]);
-    v41 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v9[v33], v9[v12]);
-    if (!v40)
-    {
-      v43 = v9[v12];
-      if (!v41)
-      {
-        goto LABEL_54;
-      }
-
-      v44 = v9[v33];
-      v9[v12] = v44;
-      v9[v33] = v43;
-      v45 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v44, v9[v25]);
-      v43 = v9[v12];
-      if (!v45)
-      {
-        goto LABEL_54;
-      }
-
-      v46 = v9[v25];
-      v9[v25] = v43;
-      v9[v12] = v46;
-      goto LABEL_53;
-    }
-
-    v42 = v9[v25];
-    if (v41)
-    {
-      v9[v25] = v9[v33];
-      v9[v33] = v42;
-      v43 = v9[v12];
-    }
-
-    else
-    {
-      v9[v25] = v9[v12];
-      v9[v12] = v42;
-      v47 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v9[v33], v42);
-      v43 = v9[v12];
-      if (v47)
-      {
-        v46 = v9[v33];
-        v9[v12] = v46;
-        v9[v33] = v43;
-LABEL_53:
-        v43 = v46;
-      }
-    }
-
-LABEL_54:
-    v48 = *v9;
-    *v9 = v43;
-    v9[v12] = v48;
-LABEL_55:
-    --a4;
-    v49 = *v9;
-    if ((a5 & 1) != 0 || (v50 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(v9 - 1), *v9), v49 = *v9, v50))
-    {
-      v51 = 0;
-        ;
-      }
-
-      v53 = &v9[v51];
-      v54 = a2;
-      if (v51 == 1)
-      {
-        v54 = a2;
-        do
-        {
-          if (v53 >= v54)
-          {
-            break;
-          }
-
-          v56 = *--v54;
+          v29 = 0;
         }
 
-        while (!re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v56, v49));
+        v30.i64[0] = vdupq_n_s64(1uLL).u64[0];
+        v30.i64[1] = v29;
+        *(&v41[1] + 8) = vaddq_s64(*(&v41[1] + 8), v30);
+        v31 = 0xBF58476D1CE4E5B9 * (*v28 ^ (*v28 >> 30));
+        *(&v41[2] + 1) ^= ((0x94D049BB133111EBLL * (v31 ^ (v31 >> 27))) >> 31) ^ (0x94D049BB133111EBLL * (v31 ^ (v31 >> 27)));
+        v5 = re::HashBrown<unsigned long long,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned long long const&,std::unique_ptr<re::EventBus::EventInfo,std::function<void ()(re::EventBus::EventInfo*)>>&>>::operator++(v39);
+        v12 = v40;
       }
 
-      else
-      {
-        do
-        {
-          v55 = *--v54;
-        }
-
-        while (!re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v55, v49));
-      }
-
-      if (v53 >= v54)
-      {
-        v62 = v53 - 1;
-      }
-
-      else
-      {
-        v57 = &v9[v51];
-        v58 = v54;
-        do
-        {
-          v59 = *v57;
-          *v57 = *v58;
-          *v58 = v59;
-          do
-          {
-            v60 = v57[1];
-            ++v57;
-          }
-
-          while (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v60, v49));
-          do
-          {
-            v61 = *--v58;
-          }
-
-          while (!re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v61, v49));
-        }
-
-        while (v57 < v58);
-        v62 = v57 - 1;
-        a2 = v125;
-      }
-
-      if (v62 != v9)
-      {
-        *v9 = *v62;
-      }
-
-      *v62 = v49;
-      if (v53 < v54)
-      {
-        goto LABEL_78;
-      }
-
-      v63 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *>(v9, v62, a3);
-      v10 = (v62 + 1);
-      result = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *>((v62 + 1), a2, a3);
-      if (result)
-      {
-        a2 = v62;
-        if (!v63)
-        {
-          goto LABEL_2;
-        }
-
-        return result;
-      }
-
-      if (!v63)
-      {
-LABEL_78:
-        result = std::__introsort<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *,false>(v9, v62, a3, a4, a5 & 1);
-        a5 = 0;
-        v10 = (v62 + 1);
-      }
-    }
-
-    else
-    {
-      result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *v9, *(a2 - 1));
-      if (result)
-      {
-        v10 = v9;
-        do
-        {
-          v64 = v10->u32[1];
-          v10 = (v10 + 4);
-          result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v49, v64);
-        }
-
-        while ((result & 1) == 0);
-      }
-
-      else
-      {
-        v65 = (v9 + 1);
-        do
-        {
-          v10 = v65;
-          if (v65 >= a2)
-          {
-            break;
-          }
-
-          v65 = (v65 + 4);
-          result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v49, v10->i32[0]);
-        }
-
-        while (!result);
-      }
-
-      v66 = a2;
-      if (v10 < a2)
-      {
-        v66 = a2;
-        do
-        {
-          v67 = v66[-1].u32[1];
-          v66 = (v66 - 4);
-          result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v49, v67);
-        }
-
-        while ((result & 1) != 0);
-      }
-
-      while (v10 < v66)
-      {
-        v68 = v10->i32[0];
-        v10->i32[0] = v66->i32[0];
-        v66->i32[0] = v68;
-        do
-        {
-          v69 = v10->u32[1];
-          v10 = (v10 + 4);
-        }
-
-        while (!re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v49, v69));
-        do
-        {
-          v70 = v66[-1].u32[1];
-          v66 = (v66 - 4);
-          result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v49, v70);
-        }
-
-        while ((result & 1) != 0);
-      }
-
-      v71 = &v10[-1] + 1;
-      if (&v10[-1].u8[4] != v9)
-      {
-        *v9 = *v71;
-      }
-
-      a5 = 0;
-      *v71 = v49;
-    }
-  }
-
-  if (v11 != 3)
-  {
-    if (v11 == 4)
-    {
-
-      return std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *,0>(v10, v10 + 1, &v10[1], a2 - 1, a3);
-    }
-
-    if (v11 == 5)
-    {
-      std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *,0>(v10, v10 + 1, &v10[1], &v10[1] + 1, a3);
-      result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), v10[1].u32[1]);
-      if (!result)
-      {
-        return result;
-      }
-
-      v72 = v10[1].u32[1];
-      v10[1].i32[1] = *(a2 - 1);
-      *(a2 - 1) = v72;
-      result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v10[1].u32[1], v10[1].u32[0]);
-      if (!result)
-      {
-        return result;
-      }
-
-      v74 = v10[1].i32[0];
-      v73 = v10[1].u32[1];
-      v75 = v10->u32[1];
-      v10[1].i32[0] = v73;
-      v10[1].i32[1] = v74;
-      result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v73, v75);
-      if (!result)
-      {
-        return result;
-      }
-
-      v77 = v10->i32[1];
-      v76 = v10[1].u32[0];
-      v78 = v10->i32[0];
-      v10->i32[1] = v76;
-      v10[1].i32[0] = v77;
-      goto LABEL_166;
-    }
-
-    goto LABEL_10;
-  }
-
-  v80 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v10->u32[1], v10->i32[0]);
-  result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), v10->u32[1]);
-  if (!v80)
-  {
-    if (!result)
-    {
-      return result;
-    }
-
-    v118 = v10->u32[1];
-    v10->i32[1] = *(a2 - 1);
-    *(a2 - 1) = v118;
-    v78 = v10->i32[0];
-    v76 = v10->u32[1];
-LABEL_166:
-    result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v76, v78);
-    if (result)
-    {
-      *v10 = vrev64_s32(*v10);
-    }
-
-    return result;
-  }
-
-  v81 = v10->i32[0];
-  if (result)
-  {
-    v10->i32[0] = *(a2 - 1);
-    *(a2 - 1) = v81;
-  }
-
-  else
-  {
-    v10->i32[0] = v10->i32[1];
-    v10->i32[1] = v81;
-    result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), v81);
-    if (result)
-    {
-      v79 = v10->u32[1];
-      v10->i32[1] = *(a2 - 1);
-      goto LABEL_105;
-    }
-  }
-
-  return result;
-}
-
-BOOL re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(uint64_t a1, unsigned int a2, unsigned int a3)
-{
-  v3 = *(a1 + 752);
-  if (v3 <= a2)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_5:
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  if (v3 <= a3)
-  {
-    goto LABEL_5;
-  }
-
-  return *(*(a1 + 768) + 4 * a2) < *(*(a1 + 768) + 4 * a3);
-}
-
-BOOL std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *,0>(unsigned int *a1, unsigned int *a2, unsigned int *a3, unsigned int *a4, uint64_t *a5)
-{
-  v10 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a5, *a2, *a1);
-  v11 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a5, *a3, *a2);
-  if (v10)
-  {
-    v12 = *a1;
-    if (v11)
-    {
-      *a1 = *a3;
-      *a3 = v12;
-    }
-
-    else
-    {
-      *a1 = *a2;
-      *a2 = v12;
-      if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a5, *a3, v12))
-      {
-        v15 = *a2;
-        *a2 = *a3;
-        *a3 = v15;
-      }
-    }
-  }
-
-  else if (v11)
-  {
-    v13 = *a2;
-    *a2 = *a3;
-    *a3 = v13;
-    if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a5, *a2, *a1))
-    {
-      v14 = *a1;
-      *a1 = *a2;
-      *a2 = v14;
-    }
-  }
-
-  result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a5, *a4, *a3);
-  if (result)
-  {
-    v17 = *a3;
-    *a3 = *a4;
-    *a4 = v17;
-    result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a5, *a3, *a2);
-    if (result)
-    {
-      v18 = *a2;
-      *a2 = *a3;
-      *a3 = v18;
-      result = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a5, *a2, *a1);
-      if (result)
-      {
-        v19 = *a1;
-        *a1 = *a2;
-        *a2 = v19;
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *>(uint64_t a1, unsigned int *a2, uint64_t *a3)
-{
-  v6 = (a2 - a1) >> 2;
-  if (v6 > 2)
-  {
-    switch(v6)
-    {
-      case 3:
-        v15 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a1 + 4), *a1);
-        v16 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), *(a1 + 4));
-        if (v15)
-        {
-          v17 = *a1;
-          if (v16)
-          {
-            *a1 = *(a2 - 1);
-            *(a2 - 1) = v17;
-            return 1;
-          }
-
-          *a1 = *(a1 + 4);
-          *(a1 + 4) = v17;
-          if (!re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), v17))
-          {
-            return 1;
-          }
-
-          v7 = *(a1 + 4);
-          *(a1 + 4) = *(a2 - 1);
-          goto LABEL_6;
-        }
-
-        if (!v16)
-        {
-          return 1;
-        }
-
-        v22 = *(a1 + 4);
-        *(a1 + 4) = *(a2 - 1);
-        *(a2 - 1) = v22;
-        v14 = *a1;
-        v12 = *(a1 + 4);
-        break;
-      case 4:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *,0>(a1, (a1 + 4), (a1 + 8), a2 - 1, a3);
-        return 1;
-      case 5:
-        std::__sort4[abi:nn200100]<std::_ClassicAlgPolicy,re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)::$_0 &,unsigned int *,0>(a1, (a1 + 4), (a1 + 8), (a1 + 12), a3);
-        if (!re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), *(a1 + 12)))
-        {
-          return 1;
-        }
-
-        v8 = *(a1 + 12);
-        *(a1 + 12) = *(a2 - 1);
-        *(a2 - 1) = v8;
-        if (!re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a1 + 12), *(a1 + 8)))
-        {
-          return 1;
-        }
-
-        v10 = *(a1 + 8);
-        v9 = *(a1 + 12);
-        v11 = *(a1 + 4);
-        *(a1 + 8) = v9;
-        *(a1 + 12) = v10;
-        if (!re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v9, v11))
-        {
-          return 1;
-        }
-
-        v13 = *(a1 + 4);
-        v12 = *(a1 + 8);
-        v14 = *a1;
-        *(a1 + 4) = v12;
-        *(a1 + 8) = v13;
-        break;
-      default:
-        goto LABEL_17;
-    }
-
-    if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v12, v14))
-    {
-      *a1 = vrev64_s32(*a1);
-    }
-
-    return 1;
-  }
-
-  if (v6 < 2)
-  {
-    return 1;
-  }
-
-  if (v6 == 2)
-  {
-    if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a2 - 1), *a1))
-    {
-      v7 = *a1;
-      *a1 = *(a2 - 1);
-LABEL_6:
-      *(a2 - 1) = v7;
-    }
-
-    return 1;
-  }
-
-LABEL_17:
-  v18 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a1 + 4), *a1);
-  v19 = (a1 + 8);
-  v20 = re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *(a1 + 8), *(a1 + 4));
-  if (v18)
-  {
-    v21 = *a1;
-    if (v20)
-    {
-      *a1 = *(a1 + 8);
-      *(a1 + 8) = v21;
-    }
-
-    else
-    {
-      v26 = *(a1 + 8);
-      *a1 = *(a1 + 4);
-      *(a1 + 4) = v21;
-      if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v26, v21))
-      {
-        *(a1 + 4) = vrev64_s32(*(a1 + 4));
-      }
-    }
-  }
-
-  else if (v20)
-  {
-    v24 = *(a1 + 4);
-    v23 = *(a1 + 8);
-    v25 = *a1;
-    *(a1 + 4) = v23;
-    *(a1 + 8) = v24;
-    if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v23, v25))
-    {
-      *a1 = vrev64_s32(*a1);
-    }
-  }
-
-  v27 = (a1 + 12);
-  if ((a1 + 12) == a2)
-  {
-    return 1;
-  }
-
-  v28 = 0;
-  v29 = 0;
-  while (1)
-  {
-    if (re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, *v27, *v19))
-    {
-      v30 = *v27;
-      v31 = v28;
-      while (1)
-      {
-        v32 = a1 + v31;
-        *(a1 + v31 + 12) = *(a1 + v31 + 8);
-        if (v31 == -8)
-        {
-          break;
-        }
-
-        v31 -= 4;
-        if (!re::internal::TriangleDecimator::findSmallConnectedComponents(re::DynamicArray<BOOL> &)const::$_0::operator()(*a3, v30, *(v32 + 4)))
-        {
-          v33 = (a1 + v31 + 12);
-          goto LABEL_40;
-        }
-      }
-
-      v33 = a1;
-LABEL_40:
-      *v33 = v30;
-      if (++v29 == 8)
-      {
-        return v27 + 1 == a2;
-      }
-    }
-
-    v19 = v27;
-    v28 += 4;
-    if (++v27 == a2)
-    {
-      return 1;
-    }
-  }
-}
-
-void *re::DynamicArray<re::internal::Quadric>::setCapacity(void *result, unint64_t a2)
-{
-  v2 = result[1];
-  if (v2 != a2)
-  {
-    v4 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (!*v4)
-      {
-        result = re::DynamicArray<re::internal::Quadric>::setCapacity(v4, a2);
-        ++*(v4 + 6);
-        return result;
-      }
-
-      if (a2)
-      {
-        result = (*(*result + 32))(result, 80 * a2, 8);
-        if (!result)
-        {
-          re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, 80 * a2, *(*v4 + 8));
-          result = _os_crash();
-          __break(1u);
-          return result;
-        }
-
-        v6 = result;
-        if (!v4[1])
-        {
-          goto LABEL_14;
-        }
-      }
-
-      else
-      {
-        v6 = 0;
-        if (!v2)
-        {
-LABEL_14:
-          v4[4] = v6;
-          v4[1] = a2;
-          return result;
-        }
-      }
-
-      v7 = v4[4];
-      v8 = v4[2];
-      if (v8)
-      {
-        v9 = (v7 + 80 * v8);
-        v10 = v6;
-        v11 = v4[4];
-        do
-        {
-          *v10 = *v11;
-          v10[1] = v11[1];
-          v10[2] = v11[2];
-          v10[3] = v11[3];
-          v10[4] = v11[4];
-          v11 += 5;
-          v10 += 5;
-        }
-
-        while (v11 != v9);
-      }
-
-      result = (*(**v4 + 40))(*v4, v7);
-      goto LABEL_14;
-    }
-  }
-
-  return result;
-}
-
-void *re::DynamicArray<re::internal::TriangleDecimator::EdgeData>::setCapacity(void *result, unint64_t a2)
-{
-  v2 = result[1];
-  if (v2 != a2)
-  {
-    v4 = result;
-    if (result[2] <= a2)
-    {
-      result = *result;
-      if (*v4)
-      {
-        if (!a2)
-        {
-          v6 = 0;
-          if (!v2)
-          {
-            goto LABEL_8;
-          }
-
-          goto LABEL_7;
-        }
-
-        result = (*(*result + 32))(result, 32 * a2, 16);
-        if (result)
-        {
-          v6 = result;
-          if (!v4[1])
-          {
-LABEL_8:
-            v4[4] = v6;
-            v4[1] = a2;
-            return result;
-          }
-
-LABEL_7:
-          memcpy(v6, v4[4], 32 * v4[2]);
-          result = (*(**v4 + 40))(*v4, v4[4]);
-          goto LABEL_8;
-        }
-
-        re::internal::assertLog(6, v5, "assertion failure: '%s' (%s:line %i) DynamicArray<T> is out of memory (tried to allocate %zu bytes from allocator '%s').", "newData", "setCapacity", 619, 32 * a2, *(*v4 + 8));
-        result = _os_crash();
-        __break(1u);
-      }
-
-      else
-      {
-        result = re::DynamicArray<re::internal::TriangleDecimator::EdgeData>::setCapacity(v4, a2);
-        ++*(v4 + 6);
-      }
-    }
-  }
-
-  return result;
-}
-
-std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 4294967295, 7, 2636928640, 15, 4022730752, 18, 1812433253>::result_type std::mersenne_twister_engine<unsigned int,32ul,624ul,397ul,31ul,2567483615u,11ul,4294967295u,7ul,2636928640u,15ul,4022730752u,18ul,1812433253u>::operator()(std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 4294967295, 7, 2636928640, 15, 4022730752, 18, 1812433253> *this)
-{
-  i = this->__i_;
-  v2 = (i + 1) % 0x270;
-  v3 = this->__x_[v2];
-  if (v3)
-  {
-    v4 = -1727483681;
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = v4 ^ this->__x_[(i + 397) % 0x270] ^ ((v3 & 0x7FFFFFFE | this->__x_[i] & 0x80000000) >> 1);
-  this->__x_[i] = v5;
-  this->__i_ = v2;
-  v6 = ((v5 ^ (v5 >> 11)) << 7) & 0x9D2C5680 ^ v5 ^ (v5 >> 11);
-  return (v6 << 15) & 0xEFC60000 ^ v6 ^ (((v6 << 15) & 0xEFC60000 ^ v6) >> 18);
-}
-
-void *re::DynamicOverflowArray<unsigned long long,3ul>::copy(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 8);
-  if (v4 >= *(a1 + 8))
-  {
-    re::DynamicOverflowArray<unsigned long long,3ul>::setCapacity(a1, *(a2 + 8));
-    if (*(a2 + 16))
-    {
-      v7 = (a2 + 24);
-    }
-
-    else
-    {
-      v7 = *(a2 + 32);
-    }
-
-    v8 = *(a1 + 8);
-    v9 = *(a1 + 16);
-    if (v9)
-    {
-      v10 = (a1 + 24);
-      if (!v8)
-      {
-LABEL_18:
-        if (v9)
-        {
-          v11 = a1 + 24;
-        }
-
-        else
-        {
-          v11 = *(a1 + 32);
-        }
-
-        v12 = *(a1 + 8);
-        v13 = (v11 + 8 * v12);
-        if (*(a2 + 16))
-        {
-          v14 = a2 + 24;
-        }
-
-        else
-        {
-          v14 = *(a2 + 32);
-        }
-
-        result = memcpy(v13, (v14 + 8 * v12), 8 * (v4 - v12));
-        goto LABEL_25;
-      }
-    }
-
-    else
-    {
-      v10 = *(a1 + 32);
-      if (!v8)
-      {
-        goto LABEL_18;
-      }
-    }
-
-    memmove(v10, v7, 8 * v8);
-    v9 = *(a1 + 16);
-    goto LABEL_18;
-  }
-
-  if (*(a2 + 16))
-  {
-    v5 = (a2 + 24);
-  }
-
-  else
-  {
-    v5 = *(a2 + 32);
-  }
-
-  if ((*(a1 + 16) & 1) == 0)
-  {
-    result = *(a1 + 32);
-    if (!v4)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_15;
-  }
-
-  result = (a1 + 24);
-  if (v4)
-  {
-LABEL_15:
-    result = memmove(result, v5, 8 * v4);
-  }
-
-LABEL_25:
-  *(a1 + 8) = v4;
-  return result;
-}
-
-BOOL re::snapshot::DecoderOPACK::field<1,re::Vector3<float>>(re::snapshot::DecoderOPACK *a1, uint64_t a2)
-{
-  v4 = re::snapshot::DecoderOPACK::beginField<1>(a1);
-  if (v4)
-  {
-    re::internal::opack::decode<float,3>(a1, a2);
-    re::snapshot::DecoderOPACK::endField(a1);
-  }
-
-  return v4;
-}
-
-BOOL re::snapshot::DecoderOPACK::field<2,re::Vector3<float>>(re::snapshot::DecoderOPACK *a1, uint64_t a2)
-{
-  v4 = re::snapshot::DecoderOPACK::beginField<2>(a1);
-  if (v4)
-  {
-    re::internal::opack::decode<float,3>(a1, a2);
-    re::snapshot::DecoderOPACK::endField(a1);
-  }
-
-  return v4;
-}
-
-unsigned int *re::snapshotMapFields<re::snapshot::EncoderOPACK>(re::snapshot::EncoderOPACK *this, char *a2)
-{
-  v4 = *(this + 4);
-  if (v4 >= *(this + 5))
-  {
-    re::snapshot::EncoderOPACK::writeInteger(this, 1);
-  }
-
-  else
-  {
-    v5 = *(this + 1);
-    *(this + 4) = v4 + 1;
-    *(v5 + v4) = 9;
-  }
-
-  re::internal::opack::encode<float,3>(this, a2);
-  v6 = *(this + 4);
-  if (v6 >= *(this + 5))
-  {
-    re::snapshot::EncoderOPACK::writeInteger(this, 2);
-  }
-
-  else
-  {
-    v7 = *(this + 1);
-    *(this + 4) = v6 + 1;
-    *(v7 + v6) = 10;
-  }
-
-  return re::internal::opack::encode<float,3>(this, a2 + 16);
-}
-
-void *re::allocInfo_AABB(re *this)
-{
-  if ((atomic_load_explicit(&_MergedGlobals_422, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_422))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B6CF0, "AABB");
-    __cxa_guard_release(&_MergedGlobals_422);
-  }
-
-  return &unk_1EE1B6CF0;
-}
-
-void re::initInfo_AABB(re *this, re::IntrospectionBase *a2)
-{
-  v13[0] = 4001984;
-  v13[1] = "AABB";
-  if (v13[0])
-  {
-    if (v13[0])
-    {
-    }
-  }
-
-  *(this + 2) = v14;
-  if ((atomic_load_explicit(&qword_1EE1B6CB0, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1B6CB0);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_Vector3F(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "min";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 1;
-      *(v8 + 40) = 0;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1B6CC8 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v10 = re::introspect_Vector3F(1);
-      v11 = (*(*v9 + 32))(v9, 72, 8);
-      *v11 = 1;
-      *(v11 + 8) = "max";
-      *(v11 + 16) = v10;
-      *(v11 + 24) = 0;
-      *(v11 + 32) = 0x1000000002;
-      *(v11 + 40) = 0;
-      *(v11 + 48) = 0;
-      *(v11 + 56) = 0;
-      *(v11 + 64) = 0;
-      qword_1EE1B6CD0 = v11;
-      __cxa_guard_release(&qword_1EE1B6CB0);
-    }
-  }
-
-  *(this + 2) = 0x2000000008;
-  *(this + 6) = 16;
-  *(this + 14) = 1;
-  *(this + 14) = 2;
-  *(this + 8) = &qword_1EE1B6CC8;
-  *(this + 9) = re::internal::defaultConstruct<re::AABB>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::AABB>;
-  *(this + 13) = re::internal::defaultConstructV2<re::AABB>;
-  *(this + 14) = re::internal::defaultDestructV2<re::AABB>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v12 = v14;
-}
-
-float32x4_t re::internal::defaultConstruct<re::AABB>(uint64_t a1, uint64_t a2, float32x4_t *a3)
-{
-  result.i64[0] = 0x7F0000007FLL;
-  result.i64[1] = 0x7F0000007FLL;
-  *a3 = vnegq_f32(result);
-  a3[1] = result;
-  return result;
-}
-
-float32x4_t re::internal::defaultConstructV2<re::AABB>(float32x4_t *a1)
-{
-  result.i64[0] = 0x7F0000007FLL;
-  result.i64[1] = 0x7F0000007FLL;
-  *a1 = vnegq_f32(result);
-  a1[1] = result;
-  return result;
-}
-
-void *re::allocInfo_RayF(re *this)
-{
-  if ((atomic_load_explicit(&qword_1EE1B6CB8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B6CB8))
-  {
-    re::IntrospectionStructure::IntrospectionStructure(&unk_1EE1B6D80, "RayF");
-    __cxa_guard_release(&qword_1EE1B6CB8);
-  }
-
-  return &unk_1EE1B6D80;
-}
-
-void re::initInfo_RayF(re *this, re::IntrospectionBase *a2)
-{
-  v17[0] = 5079800;
-  v17[1] = "RayF";
-  if (v17[0])
-  {
-    if (v17[0])
-    {
-    }
-  }
-
-  *(this + 2) = v18;
-  if ((atomic_load_explicit(&qword_1EE1B6CC0, memory_order_acquire) & 1) == 0)
-  {
-    v5 = __cxa_guard_acquire(&qword_1EE1B6CC0);
-    if (v5)
-    {
-      v6 = re::introspectionAllocator(v5);
-      v7 = re::introspect_Vector3F(1);
-      v8 = (*(*v6 + 32))(v6, 72, 8);
-      *v8 = 1;
-      *(v8 + 8) = "origin";
-      *(v8 + 16) = v7;
-      *(v8 + 24) = 0;
-      *(v8 + 32) = 1;
-      *(v8 + 40) = 0;
-      *(v8 + 48) = 0;
-      *(v8 + 56) = 0;
-      *(v8 + 64) = 0;
-      qword_1EE1B6CD8 = v8;
-      v9 = re::introspectionAllocator(v8);
-      v10 = re::introspect_Vector3F(1);
-      v11 = (*(*v9 + 32))(v9, 72, 8);
-      *v11 = 1;
-      *(v11 + 8) = "direction";
-      *(v11 + 16) = v10;
-      *(v11 + 24) = 0;
-      *(v11 + 32) = 0x1000000002;
-      *(v11 + 40) = 0;
-      *(v11 + 48) = 0;
-      *(v11 + 56) = 0;
-      *(v11 + 64) = 0;
-      qword_1EE1B6CE0 = v11;
-      v12 = re::introspectionAllocator(v11);
-      v14 = re::introspect_float(1, v13);
-      v15 = (*(*v12 + 32))(v12, 72, 8);
-      *v15 = 1;
-      *(v15 + 8) = "length";
-      *(v15 + 16) = v14;
-      *(v15 + 24) = 0;
-      *(v15 + 32) = 0x2000000003;
-      *(v15 + 40) = 0;
-      *(v15 + 48) = 0;
-      *(v15 + 56) = 0;
-      *(v15 + 64) = 0;
-      qword_1EE1B6CE8 = v15;
-      __cxa_guard_release(&qword_1EE1B6CC0);
-    }
-  }
-
-  *(this + 2) = 0x3000000008;
-  *(this + 6) = 16;
-  *(this + 14) = 1;
-  *(this + 14) = 3;
-  *(this + 8) = &qword_1EE1B6CD8;
-  *(this + 9) = re::internal::defaultConstruct<re::RayF>;
-  *(this + 11) = 0;
-  *(this + 12) = 0;
-  *(this + 10) = re::internal::defaultDestruct<re::RayF>;
-  *(this + 13) = re::internal::defaultConstructV2<re::RayF>;
-  *(this + 14) = re::internal::defaultDestructV2<re::RayF>;
-  *(this + 15) = 0;
-  *(this + 16) = 0;
-  *(this + 17) = 0;
-  re::internal::prepare(this, v4);
-  v16 = v18;
-}
-
-double re::internal::defaultConstruct<re::RayF>(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  *(a3 + 32) = 0;
-  result = 0.0;
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  return result;
-}
-
-double re::internal::defaultConstructV2<re::RayF>(uint64_t a1)
-{
-  *(a1 + 32) = 0;
-  result = 0.0;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  return result;
-}
-
-float32x4_t *re::computeAABB@<X0>(re *this@<X0>, float32x4_t *a2@<X8>)
-{
-  v4 = a2;
-  v5.i64[0] = 0x7F0000007FLL;
-  v5.i64[1] = 0x7F0000007FLL;
-  v14 = vnegq_f32(v5);
-  *a2 = v14;
-  a2[1] = v5;
-  result = re::GeomMesh::accessVertexPositions(this);
-  v8 = *(this + 4);
-  if (v8)
-  {
-    v9.i64[0] = 0x7F0000007FLL;
-    v9.i64[1] = 0x7F0000007FLL;
-    v10 = v14;
-    if (v7)
-    {
-      v10 = vnegq_f32(v9);
-      v11 = v8 - 1;
-      v12 = v7;
-      while (1)
-      {
-        v13 = *result;
-        v10.i32[3] = 0;
-        v13.i32[3] = 0;
-        v10 = vminnmq_f32(v10, v13);
-        v9.i32[3] = 0;
-        v9 = vmaxnmq_f32(v9, v13);
-        if (!v11)
-        {
-          break;
-        }
-
-        --v11;
-        ++result;
-        if (!--v12)
-        {
-          goto LABEL_6;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_6:
-      *v4 = v10;
-      v4[1] = v9;
-      v4 = MEMORY[0x1E69E9C10];
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      _os_log_send_and_compose_impl();
-      result = _os_crash_msg();
-      __break(1u);
-    }
-
-    *v4 = v10;
-    v4[1] = v9;
-  }
-
-  return result;
-}
-
-uint64_t re::computeOrientedBoundingBox@<X0>(re *this@<X0>, _OWORD *a2@<X8>)
-{
-  v34 = *MEMORY[0x1E69E9840];
-  v6 = *(this + 4);
-  v19 = 0;
-  v16[1] = 0;
-  v17 = 0;
-  v16[0] = 0;
-  v18 = 0;
-  re::DynamicArray<re::Vector3<float>>::resize(v16, v6);
-  v7 = re::GeomMesh::accessVertexPositions(this);
-  if (v6)
-  {
-    v9 = 0;
-    v10 = v8;
-    do
-    {
-      if (v9 == v8)
-      {
-        v20 = 0;
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v29 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v21 = 136315906;
-        v22 = "operator[]";
-        v23 = 1024;
-        v24 = 613;
-        v25 = 2048;
-        v26 = v10;
-        v27 = 2048;
-        v28 = v10;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_11:
-        v20 = 0;
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
-        v31 = 0u;
-        v29 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        v21 = 136315906;
-        v22 = "operator[]";
-        v23 = 1024;
-        v24 = 789;
-        v25 = 2048;
-        v26 = v9;
-        v27 = 2048;
-        v28 = v3;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-      }
-
-      v3 = v17;
-      if (v17 <= v9)
-      {
-        goto LABEL_11;
-      }
-
-      *(v19 + 16 * v9) = *(v7 + 16 * v9);
-      ++v9;
-    }
-
-    while (v9 != v6);
-  }
-
-  *&v11 = MEMORY[0x1E69070C0](v17, v19);
-  *a2 = v11;
-  a2[1] = v12;
-  a2[2] = v13;
-  a2[3] = v14;
-  result = v16[0];
-  if (v16[0])
-  {
-    if (v19)
-    {
-      return (*(*v16[0] + 40))();
-    }
-  }
-
-  return result;
-}
-
-float32x2_t *re::transform(re::GeomMesh *a1, float32x4_t *a2)
-{
-  v4 = re::GeomMesh::modifyVertexPositions(a1);
-  v6 = v5;
-  if (v5)
-  {
-    do
-    {
-      *v4->f32 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a2, COERCE_FLOAT(*v4->f32)), a2[1], *v4, 1), a2[2], *v4->f32, 2);
-      v4 += 2;
-      --v6;
-    }
-
-    while (v6);
-  }
-}
-
-{
-  v4 = a2[1];
-  v5 = a2[2];
-  v11[0] = *a2;
-  v11[1] = v4;
-  v11[2] = v5;
-  v6 = re::GeomMesh::modifyVertexPositions(a1);
-  v8 = v7;
-  if (v7)
-  {
-    do
-    {
-      v9 = vaddq_f32(a2[3], vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(*a2, COERCE_FLOAT(*v6->f32)), a2[1], *v6, 1), a2[2], *v6->f32, 2));
-      *v6->f32 = vdivq_f32(v9, vdupq_laneq_s32(v9, 3));
-      v6 += 2;
-      --v8;
-    }
-
-    while (v8);
-  }
-}
-
-double re::anonymous namespace::transformMeshTangents(uint64_t a1, float32x4_t *a2)
-{
-  v4 = re::internal::GeomAttributeManager::attributeByName((a1 + 64), "vertexTangent");
-  if (v4 && *(v4 + 17) == 7)
-  {
-    v5 = re::internal::GeomAttributeManager::attributeByName((a1 + 64), "vertexTangent");
-    v11 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v5);
-    v12 = v6;
-  }
-
-  v7 = re::internal::GeomAttributeManager::attributeByName((a1 + 64), "vertexBitangent");
-  if (v7)
-  {
-    if (*(v7 + 17) == 7)
-    {
-      v9 = re::internal::GeomAttributeManager::attributeByName((a1 + 64), "vertexBitangent");
-      v11 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v9);
-      v12 = v10;
-    }
-  }
-
-  return result;
-}
-
-float32x2_t *re::anonymous namespace::transformMeshNormals(float32x2_t *result, uint64_t a2)
-{
-  v2.columns[1] = *(a2 + 16);
-  v2.columns[2] = *(a2 + 32);
-  v3 = vmulq_f32(*a2, vmlaq_f32(vmulq_f32(vextq_s8(vextq_s8(v2.columns[2], v2.columns[2], 0xCuLL), v2.columns[2], 8uLL), vnegq_f32(vextq_s8(vuzp1q_s32(v2.columns[1], v2.columns[1]), v2.columns[1], 0xCuLL))), vextq_s8(vuzp1q_s32(v2.columns[2], v2.columns[2]), v2.columns[2], 0xCuLL), vextq_s8(vextq_s8(v2.columns[1], v2.columns[1], 0xCuLL), v2.columns[1], 8uLL)));
-  if (fabsf(v3.f32[2] + vaddv_f32(*v3.f32)) >= 1.0e-15)
-  {
-    v4 = result;
-    v2.columns[0] = *a2;
-    v17 = __invert_f3(v2);
-    v15 = v17.columns[2];
-    v16 = v17.columns[0];
-    v14 = v17.columns[1];
-    result = re::internal::GeomAttributeManager::attributeByName(&v4[8], "vertexNormal");
-    if (result)
-    {
-      if (result[2].i8[1] == 7)
-      {
-        v5 = re::internal::GeomAttributeManager::attributeByName(&v4[8], "vertexNormal");
-        result = re::GeomAttribute::modifyValues<re::Vector3<float>>(v5);
-        v7 = v6;
-        if (v6)
-        {
-          v8 = vzip1q_s32(v16, v14);
-          v8.i32[2] = v15.i32[0];
-          v9 = vzip2q_s32(vzip1q_s32(v16, v15), vdupq_lane_s32(*v14.i8, 1));
-          v10 = vzip2q_s32(v16, v14);
-          v10.i32[2] = v15.i32[2];
-          do
-          {
-            v11 = vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v8, COERCE_FLOAT(*result->f32)), v9, *result, 1), v10, *result->f32, 2);
-            v12 = vmulq_f32(v11, v11);
-            *&v13 = v12.f32[2] + vaddv_f32(*v12.f32);
-            *v12.f32 = vrsqrte_f32(v13);
-            *v12.f32 = vmul_f32(*v12.f32, vrsqrts_f32(v13, vmul_f32(*v12.f32, *v12.f32)));
-            *result->f32 = vmulq_n_f32(v11, vmul_f32(*v12.f32, vrsqrts_f32(v13, vmul_f32(*v12.f32, *v12.f32))).f32[0]);
-            result += 2;
-            --v7;
-          }
-
-          while (v7);
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t re::computeVertexFaceConnectivity(unint64_t a1, uint64_t a2, unint64_t a3)
-{
-  v6 = a3;
-  v8 = a1;
-  v43 = *MEMORY[0x1E69E9840];
-  v9 = *(a1 + 16);
-  *(a3 + 16) = 0;
-  ++*(a3 + 24);
-  LODWORD(v38) = 0;
-  re::DynamicArray<unsigned int>::resize(a3, v9, &v38);
-  v10 = *(v8 + 40);
-  v11 = v10;
-  if (!v10)
-  {
-    v13 = 0;
-    goto LABEL_13;
-  }
-
-  v12 = 0;
-  v13 = 0;
-  v14 = *(v8 + 56);
-  v4 = *(v6 + 16);
-  do
-  {
-    if (v12 == v10)
-    {
-      goto LABEL_41;
-    }
-
-    v15 = 0;
-    *v33 = *(v14 + 16 * v12);
-    v16 = *(v6 + 32);
-    if (*&v33[12] == -1)
-    {
-      v17 = 3;
-    }
-
-    else
-    {
-      v17 = 4;
-    }
-
-    v13 = (v13 + v17);
-    do
-    {
-      v3 = *&v33[4 * v15];
-      if (v4 <= v3)
-      {
-        *&v29 = 0;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v38 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v30 = 136315906;
-        *&v30[4] = "operator[]";
-        *&v30[12] = 1024;
-        *&v30[14] = 789;
-        *&v30[18] = 2048;
-        *&v30[20] = v3;
-        v31 = 2048;
-        *v32 = v4;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_39:
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v38 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v33 = 136315906;
-        *&v33[4] = "operator[]";
-        *&v33[12] = 1024;
-        *&v33[14] = 789;
-        v34 = 2048;
-        v35 = v9;
-        v36 = 2048;
-        v37 = v8;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_40:
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v38 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v33 = 136315906;
-        *&v33[4] = "operator[]";
-        *&v33[12] = 1024;
-        *&v33[14] = 789;
-        v34 = 2048;
-        v35 = v3;
-        v36 = 2048;
-        v37 = v6;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_41:
-        *v33 = 0;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v38 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v30 = 136315906;
-        *&v30[4] = "operator[]";
-        *&v30[12] = 1024;
-        *&v30[14] = 797;
-        *&v30[18] = 2048;
-        *&v30[20] = v10;
-        v31 = 2048;
-        *v32 = v10;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_42:
-        *&v29 = 0;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v38 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v33 = 136315906;
-        *&v33[4] = "operator[]";
-        *&v33[12] = 1024;
-        *&v33[14] = 797;
-        v34 = 2048;
-        v35 = v13;
-        v36 = 2048;
-        v37 = v13;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_43;
-      }
-
-      ++*(v16 + 4 * v3);
-      ++v15;
-    }
-
-    while (v17 != v15);
-    ++v12;
-  }
-
-  while (v12 != v10);
-LABEL_13:
-  *&v32[2] = 0;
-  memset(v30, 0, sizeof(v30));
-  if (v9)
-  {
-    re::DynamicArray<float>::resize(v30, v9);
-    v4 = *&v30[16];
-    if (!*&v30[16])
-    {
-      goto LABEL_46;
-    }
-
-    v18 = *&v32[2];
-    **&v32[2] = 0;
-    if (v9 != 1)
-    {
-      v5 = 0;
-      v10 = *(v6 + 16);
-      if (v10 <= 1)
-      {
-        v3 = 1;
-      }
-
-      else
-      {
-        v3 = *(v6 + 16);
-      }
-
-      v19 = v18 + 4;
-      v20 = (*(v6 + 32) + 4);
-      while (v10 != v5)
-      {
-        if (v4 - 1 == v5)
-        {
-          goto LABEL_44;
-        }
-
-        v21 = *(v20 - 1);
-        *(v19 + 4 * v5) = v21;
-        if (v3 - 1 == v5)
-        {
-          goto LABEL_45;
-        }
-
-        *v20++ += v21;
-        if (v9 - 1 == ++v5)
-        {
-          goto LABEL_24;
-        }
-      }
-
-LABEL_43:
-      *&v29 = 0;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v38 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v33 = 136315906;
-      *&v33[4] = "operator[]";
-      *&v33[12] = 1024;
-      *&v33[14] = 789;
-      v34 = 2048;
-      v35 = v5;
-      v36 = 2048;
-      v37 = v10;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_44:
-      *&v29 = 0;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v38 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v33 = 136315906;
-      *&v33[4] = "operator[]";
-      *&v33[12] = 1024;
-      *&v33[14] = 789;
-      v34 = 2048;
-      v35 = v4;
-      v36 = 2048;
-      v37 = v4;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_45:
-      *&v29 = 0;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v38 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v33 = 136315906;
-      *&v33[4] = "operator[]";
-      *&v33[12] = 1024;
-      *&v33[14] = 789;
-      v34 = 2048;
-      v35 = v3;
-      v36 = 2048;
-      v37 = v10;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
-LABEL_46:
-      *&v29 = 0;
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
-      v40 = 0u;
-      v38 = 0u;
-      os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-      *v33 = 136315906;
-      *&v33[4] = "operator[]";
-      *&v33[12] = 1024;
-      *&v33[14] = 789;
-      v34 = 2048;
-      v35 = 0;
-      v36 = 2048;
-      v37 = 0;
-      _os_log_send_and_compose_impl();
-      _os_crash_msg();
-      __break(1u);
+      while (v40 != -1);
+      v6 = *(a1 + 16);
     }
   }
 
 LABEL_24:
-  re::DynamicArray<float>::resize(a2, v13);
-  if (v11)
-  {
-    v22 = 0;
-    v13 = *(v8 + 40);
-    v23 = *(v8 + 56);
-    v8 = *&v30[16];
-    while (v22 != v13)
-    {
-      v24 = 0;
-      v29 = *(v23 + 16 * v22);
-      v25 = *&v32[2];
-      v6 = *(a2 + 16);
-      v26 = *(a2 + 32);
-      if (HIDWORD(v29) == -1)
-      {
-        v27 = 3;
-      }
-
-      else
-      {
-        v27 = 4;
-      }
-
-      do
-      {
-        v9 = *&v30[4 * v24 - 16];
-        if (v8 <= v9)
-        {
-          goto LABEL_39;
-        }
-
-        v3 = *(v25 + 4 * v9);
-        *(v25 + 4 * v9) = v3 + 1;
-        if (v6 <= v3)
-        {
-          goto LABEL_40;
-        }
-
-        *(v26 + 4 * v3) = v22;
-        ++v24;
-      }
-
-      while (v27 != v24);
-      if (++v22 == v11)
-      {
-        goto LABEL_34;
-      }
-    }
-
-    goto LABEL_42;
-  }
-
-LABEL_34:
-  result = *v30;
-  if (*v30)
-  {
-    if (*&v32[2])
-    {
-      return (*(**v30 + 40))();
-    }
-  }
-
-  return result;
+  v33 = *(&v41[3] + 1);
+  *(&v41[3] + 1) = *(a1 + 56);
+  v34 = v41[0];
+  v35 = v41[1];
+  v41[0] = *a1;
+  *&v41[1] = v6;
+  v36 = v41[2];
+  v37 = *(a1 + 40);
+  *(a1 + 48) = *&v41[3];
+  *(a1 + 56) = v33;
+  *(&v41[2] + 8) = v37;
+  v38 = *(a1 + 24);
+  *a1 = v34;
+  *(a1 + 16) = v35;
+  *(a1 + 32) = v36;
+  *(&v41[1] + 8) = v38;
+  re::HashBrown<unsigned long long,re::Pair<void const*,void const*,true>,re::Hash<unsigned long long>,re::EqualTo<unsigned long long>,void,false>::deinit(v41);
 }
 
-uint64_t re::mergeContinuousFaceVaryingAttributeValues(re *this, re::GeomMesh *a2, const char *a3, double a4)
+void re::ecs2::AnchoringComponent::adjustedIntroReleaseInfo(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v9 = this;
-  v10 = v318;
-  v337 = *MEMORY[0x1E69E9840];
-  v11 = re::internal::GeomAttributeManager::attributeByName((this + 64), a2);
-  v13 = v11;
-  v14 = v11[17];
-  if (v14 <= 5)
+  v20 = *MEMORY[0x1E69E9840];
+  if (*(a1 + 32) == 12)
   {
-    if (v14 != 4)
+    re::getRequiredDeploymentTargetsForRelease(0xF, &v14);
+    if (v15)
     {
-      if (v14 != 5)
-      {
-LABEL_700:
-        re::internal::assertLog(4, v12, "assertion failure: '%s' (%s:line %i) The attribute is not a continuous (float or vector) type.", "!Unreachable code", "mergeContinuousFaceVaryingAttributeValues", 564);
-        _os_crash();
-        __break(1u);
-LABEL_701:
-        re::internal::assertLog(4, v35, "assertion failure: '%s' (%s:line %i) k-d tree failed to build.", "!Unreachable code", "computeRepresentativeValuesAndReducedIndicesContinuous", 245);
-        _os_crash();
-        __break(1u);
-LABEL_702:
-        *v327 = 0;
-        v335 = 0u;
-        v336 = 0u;
-        v333 = 0u;
-        v334 = 0u;
-        v332 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v318 = 136315906;
-        *&v318[4] = "operator[]";
-        *&v318[12] = 1024;
-        *&v318[14] = 621;
-        *&v318[18] = 2048;
-        *&v318[20] = 0;
-        v319 = 2048;
-        *v320 = 0;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_703:
-        *v327 = 0;
-        v335 = 0u;
-        v336 = 0u;
-        v333 = 0u;
-        v334 = 0u;
-        v332 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v318 = 136315906;
-        *&v318[4] = "operator[]";
-        *&v318[12] = 1024;
-        *&v318[14] = 621;
-        *&v318[18] = 2048;
-        *&v318[20] = 0;
-        v319 = 2048;
-        *v320 = 0;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_704;
-      }
-
-      result = (*(*v11 + 16))(v11);
-      if (!result)
-      {
-        return result;
-      }
-
-      v311 = 0;
-      v308 = 0;
-      v309 = 0;
-      v306 = 0;
-      v307 = 0;
-      v310 = 0;
-      v303 = 0;
-      v304 = 0;
-      v302 = 0;
-      v305 = 0;
-      v16 = (*(*v13 + 16))(v13);
-      if (v16)
-      {
-        v19 = re::GeomAttribute::accessValues<int>(v13);
-        if (!v20)
-        {
-          goto LABEL_694;
-        }
-
-        v4 = v19;
-      }
-
-      else
-      {
-        v4 = 0;
-      }
-
-      v326 = 0;
-      v10 = v16;
-      *(&v324 + 1) = v16;
-      memset(v325, 0, 28);
-      *&v324 = v4;
-      v317 = 0;
-      v314 = 0;
-      v315 = 0;
-      v313 = 0;
-      v316 = 0;
-      re::DynamicArray<float>::resize(&v313, v16);
-      if (v16)
-      {
-        v28 = 0;
-        v29 = v315;
-        v59 = v317;
-        do
-        {
-          if (v29 <= v28)
-          {
-            goto LABEL_614;
-          }
-
-          v59[v28] = v28;
-          ++v28;
-        }
-
-        while (v16 != v28);
-        v60 = 0;
-        *&v325[1] = 0;
-        ++DWORD2(v325[1]);
-        if (*(&v325[0] + 1) < v16)
-        {
-          re::DynamicArray<re::internal::GeomKDTree<float>::Node>::setCapacity(v325, v16);
-          v60 = *&v325[1];
-        }
-
-        v61 = v16 - v60;
-        if (v16 > v60 && v61 >= 1)
-        {
-          v62 = &v326[3 * v60];
-          v63 = v61 + 1;
-          do
-          {
-            *v62 = 0;
-            v62[1] = 0;
-            *(v62 + 4) = -1;
-            *(v62 + 20) = 0;
-            v62 += 3;
-            --v63;
-          }
-
-          while (v63 > 1);
-        }
-
-        *&v325[1] = v16;
-      }
-
-      else
-      {
-        *&v325[1] = 0;
-      }
-
-      ++DWORD2(v325[1]);
-      if (*(&v324 + 1))
-      {
-        LODWORD(v332) = 0;
-        re::internal::GeomKDTree<double>::buildHelper(&v324, 0, v16, &v313, &v332);
-      }
-
-      if (v313 && v317)
-      {
-        (*(*v313 + 40))();
-      }
-
-      v309 = 0;
-      ++v310;
-      v304 = 0;
-      ++v305;
-      re::DynamicArray<unsigned int>::resize(&v307, v16, &re::kInvalidMeshIndex);
-      LOBYTE(v332) = 0;
-      re::DynamicArray<unsigned char>::resize(&v302, v16, &v332);
-      v317 = 0;
-      v314 = 0;
-      v315 = 0;
-      v313 = 0;
-      v316 = 0;
-      if (v16)
-      {
-        v16 = 0;
-        v29 = 1;
-        do
-        {
-          v28 = v309;
-          if (v309 <= v16)
-          {
-            goto LABEL_625;
-          }
-
-          if (*(v311 + 4 * v16) == -1)
-          {
-            v315 = 0;
-            v316 += 2;
-            v100 = *&v325[1];
-            if (*&v325[1] && (re::internal::GeomKDTree<double>::findWithinRadiusHelper(&v324, v326, (v4 + 8 * v16), &v313, a4), v100 = v315, v315))
-            {
-              v101 = 0;
-              v102 = *v317;
-            }
-
-            else
-            {
-              v101 = 1;
-              v102 = v16;
-            }
-
-            v28 = v309;
-            if (v309 <= v16)
-            {
-              goto LABEL_663;
-            }
-
-            *(v311 + 4 * v16) = v102;
-            v28 = v304;
-            if (v304 <= v16)
-            {
-              goto LABEL_667;
-            }
-
-            v306[v16] = 1;
-            if ((v101 & 1) == 0)
-            {
-              v103 = 0;
-              v40 = v315;
-              v104 = v317;
-              v6 = v309;
-              v105 = v311;
-              do
-              {
-                if (v40 == v103)
-                {
-                  goto LABEL_506;
-                }
-
-                v5 = v104[v103];
-                if (v6 <= v5)
-                {
-                  goto LABEL_510;
-                }
-
-                *(v105 + 4 * v5) = v16;
-                ++v103;
-              }
-
-              while (v100 != v103);
-            }
-          }
-
-          ++v16;
-        }
-
-        while (v16 != v10);
-        if (v313 && v317)
-        {
-          (*(*v313 + 40))();
-        }
-      }
-
-      if (*&v325[0] && v326)
-      {
-        (*(**&v325[0] + 40))();
-      }
-
-      *&v325[1] = 0;
-      *&v325[0] = 0;
-      v324 = 0uLL;
-      DWORD2(v325[0]) = 0;
-      v317 = 0;
-      v314 = 0;
-      v315 = 0;
-      v313 = 0;
-      v316 = 0;
-      v106 = (*(*v13 + 16))(v13);
-      v107 = v106;
-      if (v106)
-      {
-        v4 = v304;
-        if (v304 <= v106 - 1)
-        {
-          goto LABEL_699;
-        }
-
-        LODWORD(v108) = 0;
-        v109 = v306;
-        v4 = v106;
-        v110 = v106;
-        do
-        {
-          v111 = *v109++;
-          v108 = (v108 + v111);
-          --v110;
-        }
-
-        while (v110);
-      }
-
-      else
-      {
-        v4 = 0;
-        v108 = 0;
-      }
-
-      v10 = re::GeomAttribute::accessValues<int>(v13);
-      LODWORD(v28) = v182;
-      re::DynamicArray<double>::resize(&v324, v108);
-      re::DynamicArray<unsigned int>::resize(&v313, v4, &re::kInvalidMeshIndex);
-      if (v107)
-      {
-        v29 = 0;
-        v184 = 0;
-        v16 = v304;
-        v185 = v306;
-        v6 = v315;
-        v186 = v317;
-        v28 = v28;
-        v7 = *&v325[0];
-        v187 = *&v325[1];
-        do
-        {
-          if (v16 == v29)
-          {
-            goto LABEL_617;
-          }
-
-          if (v185[v29])
-          {
-            if (v6 <= v29)
-            {
-              goto LABEL_644;
-            }
-
-            v186[v29] = v184;
-            if (v29 >= v28)
-            {
-              goto LABEL_648;
-            }
-
-            v5 = v184;
-            if (v7 <= v184)
-            {
-              goto LABEL_652;
-            }
-
-            *(v187 + 8 * v184++) = *(v10 + 8 * v29);
-          }
-
-          ++v29;
-        }
-
-        while (v4 != v29);
-        v10 = 0;
-        v188 = v306;
-        v28 = v309;
-        v189 = v311;
-        v29 = v315;
-        v190 = v317;
-        do
-        {
-          if (v16 == v10)
-          {
-            goto LABEL_629;
-          }
-
-          if (!v188[v10])
-          {
-            if (v28 <= v10)
-            {
-              goto LABEL_671;
-            }
-
-            v6 = *(v189 + 4 * v10);
-            if (v29 <= v6)
-            {
-              goto LABEL_675;
-            }
-
-            if (v29 <= v10)
-            {
-              goto LABEL_679;
-            }
-
-            v190[v10] = v190[v6];
-          }
-
-          ++v10;
-        }
-
-        while (v4 != v10);
-      }
-
-      v10 = re::internal::accessFaceVaryingAttributeSubmesh(v13, v183);
-      v4 = *&v325[0];
-      v6 = *(v10 + 24);
-      v16 = v6;
-      *&v323[2] = 0;
-      memset(v321, 0, sizeof(v321));
-      re::DynamicArray<re::GeomCell4>::resize(v321, v6);
-      if (v6)
-      {
-        v191 = 0;
-        v29 = *&v321[16];
-        v192 = *&v323[2];
-        v28 = *(v10 + 24);
-        v193 = *(v10 + 40);
-        v7 = v315;
-        do
-        {
-          if (v191 == v29)
-          {
-            goto LABEL_635;
-          }
-
-          if (v191 == v28)
-          {
-            goto LABEL_639;
-          }
-
-          v194 = 0;
-          *v327 = *(v193 + 16 * v191);
-          v195 = v317;
-          if (*&v327[12] == -1)
-          {
-            v196 = 3;
-          }
-
-          else
-          {
-            v196 = 4;
-          }
-
-          do
-          {
-            v5 = *&v327[4 * v194];
-            if (v7 <= v5)
-            {
-              goto LABEL_440;
-            }
-
-            *(v192 + 4 * v194++) = v195[v5];
-          }
-
-          while (v196 != v194);
-          ++v191;
-          v192 += 16;
-        }
-
-        while (v191 != v6);
-      }
-
-      if (*(v10 + 48))
-      {
-        v197 = *(v10 + 60) == 0;
-      }
-
-      else
-      {
-        v197 = 1;
-      }
-
-      if (v197 && *(v9 + 10) == v6)
-      {
-        re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321);
-        goto LABEL_590;
-      }
-
-      *&v320[2] = 0;
-      memset(v318, 0, sizeof(v318));
-      re::DynamicArray<unsigned int>::resize(v318, v6, &re::kInvalidMeshIndex);
-      v200 = *(v10 + 60);
-      if (v200 == 2)
-      {
-        re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned int,unsigned int> const&>::HashBrownIterator(&v299, v10 + 64);
-        LOBYTE(v298) = 2;
-        v259 = *(v10 + 60);
-        if (!*(v10 + 60))
-        {
-LABEL_500:
-          v260 = *(v10 + 64);
-          LOBYTE(v295) = 0;
-          LODWORD(v296) = v260;
-LABEL_586:
-          while ((re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator==(&v298, &v295) & 1) == 0)
-          {
-            v10 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v293);
-            v292 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v291);
-            v16 = v292;
-            v29 = *&v318[16];
-            if (*&v318[16] <= v292)
-            {
-              goto LABEL_684;
-            }
-
-            *(*&v320[2] + 4 * v292) = HIDWORD(v10);
-            re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::increment(&v298);
-          }
-
-          re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v295, v293);
-          re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v298, v294);
-          re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321, v318);
-          if (*v318 && *&v320[2])
-          {
-            (*(**v318 + 40))();
-          }
-
-LABEL_590:
-          if ((*(*v13 + 16))(v13))
-          {
-            if (!*(v13 + 5))
-            {
-              goto LABEL_689;
-            }
-
-            v9 = *(v13 + 7);
-            if ((*(*v13 + 16))(v13))
-            {
-              goto LABEL_593;
-            }
-          }
-
-LABEL_704:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 621;
-          *&v318[18] = 2048;
-          *&v318[20] = 0;
-          v319 = 2048;
-          *v320 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          goto LABEL_705;
-        }
-
-        if (v259 == 2)
-        {
-          LOBYTE(v295) = 2;
-          v296 = v10 + 64;
-          v297 = xmmword_1E3049610;
-          goto LABEL_586;
-        }
-
-        if (v259 != 1)
-        {
-          goto LABEL_714;
-        }
-
-        v249 = *(v10 + 48);
-      }
-
-      else
-      {
-        if (v200 != 1)
-        {
-          if (*(v10 + 60))
-          {
-            goto LABEL_709;
-          }
-
-          LOBYTE(v298) = 0;
-          LODWORD(v299) = 0;
-          goto LABEL_500;
-        }
-
-        v249 = *(v10 + 48);
-        if (v249)
-        {
-          v250 = *(v10 + 96);
-          v251 = *(v10 + 52);
-          v252 = *(v10 + 80);
-          v253 = v250 + 4 * v252;
-          LOBYTE(v298) = 1;
-          if (v250)
-          {
-            v254 = v250 + 4 * v251;
-            if (v252 != v251)
-            {
-              v254 -= 4;
-              v255 = 4 * v252 - 4 * v251;
-              do
-              {
-                v257 = *(v254 + 4);
-                v254 += 4;
-                v256 = v257;
-                if (!v255)
-                {
-                  break;
-                }
-
-                v255 -= 4;
-              }
-
-              while (v256 == -1);
-            }
-          }
-
-          else
-          {
-            v254 = 0;
-          }
-
-          v299 = v250;
-          v300 = v254;
-          v301 = v253;
-        }
-
-        else
-        {
-          LOBYTE(v298) = 1;
-          v300 = 0;
-          v301 = 0;
-          v299 = 0;
-        }
-      }
-
-      if (v249)
-      {
-        v289 = *(v10 + 96);
-        v290 = v289 + 4 * *(v10 + 80);
-        LOBYTE(v295) = 1;
-        v296 = v289;
-        *&v297 = v290;
-        *(&v297 + 1) = v290;
-      }
-
-      else
-      {
-        LOBYTE(v295) = 1;
-        v297 = 0uLL;
-        v296 = 0;
-      }
-
-      goto LABEL_586;
-    }
-
-    result = (*(*v11 + 16))(v11);
-    if (!result)
-    {
-      return result;
-    }
-
-    v311 = 0;
-    v308 = 0;
-    v309 = 0;
-    v306 = 0;
-    v307 = 0;
-    v310 = 0;
-    v303 = 0;
-    v304 = 0;
-    v302 = 0;
-    v305 = 0;
-    v16 = (*(*v13 + 16))(v13);
-    if (v16)
-    {
-      v26 = re::GeomAttribute::accessValues<int>(v13);
-      if (!v27)
-      {
-        goto LABEL_692;
-      }
-
-      v4 = v26;
+      v3 = v17;
     }
 
     else
     {
-      v4 = 0;
+      v3 = v16;
     }
 
-    v326 = 0;
-    v10 = v16;
-    *(&v324 + 1) = v16;
-    memset(v325, 0, 28);
-    *&v324 = v4;
-    v317 = 0;
-    v314 = 0;
-    v315 = 0;
-    v313 = 0;
-    v316 = 0;
-    re::DynamicArray<float>::resize(&v313, v16);
-    if (v16)
+    snprintf(__str, 0x100uLL, "%s %s %s", "AnchoringComponent uses an Accessory target which is available for", v3, "and later.");
+    v4 = v14;
+    if (v14 && (v15 & 1) != 0)
     {
-      v28 = 0;
-      v29 = v315;
-      v49 = v317;
-      do
-      {
-        if (v29 <= v28)
-        {
-          goto LABEL_612;
-        }
-
-        v49[v28] = v28;
-        ++v28;
-      }
-
-      while (v16 != v28);
-      v50 = 0;
-      *&v325[1] = 0;
-      ++DWORD2(v325[1]);
-      if (*(&v325[0] + 1) < v16)
-      {
-        re::DynamicArray<re::internal::GeomKDTree<float>::Node>::setCapacity(v325, v16);
-        v50 = *&v325[1];
-      }
-
-      v51 = v16 - v50;
-      if (v16 > v50 && v51 >= 1)
-      {
-        v52 = &v326[3 * v50];
-        v53 = v51 + 1;
-        do
-        {
-          *v52 = 0;
-          v52[1] = 0;
-          *(v52 + 4) = -1;
-          *(v52 + 20) = 0;
-          v52 += 3;
-          --v53;
-        }
-
-        while (v53 > 1);
-      }
-
-      *&v325[1] = v16;
+      v4 = (*(*v14 + 40))();
     }
 
-    else
+    v15 = 0;
+    LODWORD(v14) = 15;
+    v9 = 0;
+    v10 = &str_67;
+    v5 = strlen(__str);
+    v11[0] = 1;
+    v12 = v9;
+    v13 = v10;
+    v9 = 0;
+    v10 = &str_67;
+    v6 = re::Optional<re::StringID>::operator=(&v15, v11);
+    if (v11[0] == 1)
     {
-      *&v325[1] = 0;
+      if (v12)
+      {
+        if (v12)
+        {
+        }
+      }
+
+      v12 = 0;
+      v13 = &str_67;
     }
 
-    ++DWORD2(v325[1]);
-    if (*(&v324 + 1))
+    if (v9)
     {
-      LODWORD(v332) = 0;
-      re::internal::GeomKDTree<float>::buildHelper(&v324, 0, v16, &v313, &v332);
+      if (v9)
+      {
+      }
     }
 
-    if (v313 && v317)
+    *a2 = 1;
+    *(a2 + 8) = v14;
+    v7 = v15;
+    *(a2 + 16) = v15;
+    if (v7 == 1)
     {
-      (*(*v313 + 40))();
+      v8 = v18;
+      *(a2 + 24) = v17;
+      *(a2 + 32) = v8;
     }
-
-    v309 = 0;
-    ++v310;
-    v304 = 0;
-    ++v305;
-    re::DynamicArray<unsigned int>::resize(&v307, v16, &re::kInvalidMeshIndex);
-    LOBYTE(v332) = 0;
-    re::DynamicArray<unsigned char>::resize(&v302, v16, &v332);
-    v317 = 0;
-    v314 = 0;
-    v315 = 0;
-    v313 = 0;
-    v316 = 0;
-    if (v16)
-    {
-      v16 = 0;
-      v29 = 1;
-      do
-      {
-        v28 = v309;
-        if (v309 <= v16)
-        {
-          goto LABEL_623;
-        }
-
-        if (*(v311 + 4 * v16) == -1)
-        {
-          v315 = 0;
-          v316 += 2;
-          v76 = *&v325[1];
-          if (*&v325[1] && (re::internal::GeomKDTree<float>::findWithinRadiusHelper(&v324, v326, (v4 + 4 * v16), &v313, a4), v76 = v315, v315))
-          {
-            v77 = 0;
-            v78 = *v317;
-          }
-
-          else
-          {
-            v77 = 1;
-            v78 = v16;
-          }
-
-          v28 = v309;
-          if (v309 <= v16)
-          {
-            goto LABEL_661;
-          }
-
-          *(v311 + 4 * v16) = v78;
-          v28 = v304;
-          if (v304 <= v16)
-          {
-            goto LABEL_665;
-          }
-
-          v306[v16] = 1;
-          if ((v77 & 1) == 0)
-          {
-            v79 = 0;
-            v40 = v315;
-            v80 = v317;
-            v6 = v309;
-            v81 = v311;
-            do
-            {
-              if (v40 == v79)
-              {
-                goto LABEL_504;
-              }
-
-              v5 = v80[v79];
-              if (v6 <= v5)
-              {
-                goto LABEL_508;
-              }
-
-              *(v81 + 4 * v5) = v16;
-              ++v79;
-            }
-
-            while (v76 != v79);
-          }
-        }
-
-        ++v16;
-      }
-
-      while (v16 != v10);
-      if (v313 && v317)
-      {
-        (*(*v313 + 40))();
-      }
-    }
-
-    if (*&v325[0] && v326)
-    {
-      (*(**&v325[0] + 40))();
-    }
-
-    *&v325[1] = 0;
-    *&v325[0] = 0;
-    v324 = 0uLL;
-    DWORD2(v325[0]) = 0;
-    v317 = 0;
-    v314 = 0;
-    v315 = 0;
-    v313 = 0;
-    v316 = 0;
-    v82 = (*(*v13 + 16))(v13);
-    v83 = v82;
-    if (v82)
-    {
-      v4 = v304;
-      if (v304 <= v82 - 1)
-      {
-        goto LABEL_697;
-      }
-
-      LODWORD(v84) = 0;
-      v85 = v306;
-      v4 = v82;
-      v86 = v82;
-      do
-      {
-        v87 = *v85++;
-        v84 = (v84 + v87);
-        --v86;
-      }
-
-      while (v86);
-    }
-
-    else
-    {
-      v4 = 0;
-      v84 = 0;
-    }
-
-    v10 = re::GeomAttribute::accessValues<int>(v13);
-    LODWORD(v28) = v146;
-    re::DynamicArray<float>::resize(&v324, v84);
-    re::DynamicArray<unsigned int>::resize(&v313, v4, &re::kInvalidMeshIndex);
-    if (v83)
-    {
-      v29 = 0;
-      v148 = 0;
-      v16 = v304;
-      v149 = v306;
-      v6 = v315;
-      v150 = v317;
-      v28 = v28;
-      v7 = *&v325[0];
-      v151 = *&v325[1];
-      do
-      {
-        if (v16 == v29)
-        {
-          goto LABEL_616;
-        }
-
-        if (v149[v29])
-        {
-          if (v6 <= v29)
-          {
-            goto LABEL_643;
-          }
-
-          v150[v29] = v148;
-          if (v29 >= v28)
-          {
-            goto LABEL_647;
-          }
-
-          v5 = v148;
-          if (v7 <= v148)
-          {
-            goto LABEL_651;
-          }
-
-          *(v151 + 4 * v148++) = *(v10 + 4 * v29);
-        }
-
-        ++v29;
-      }
-
-      while (v4 != v29);
-      v10 = 0;
-      v152 = v306;
-      v28 = v309;
-      v153 = v311;
-      v29 = v315;
-      v154 = v317;
-      do
-      {
-        if (v16 == v10)
-        {
-          goto LABEL_628;
-        }
-
-        if (!v152[v10])
-        {
-          if (v28 <= v10)
-          {
-            goto LABEL_670;
-          }
-
-          v6 = *(v153 + 4 * v10);
-          if (v29 <= v6)
-          {
-            goto LABEL_674;
-          }
-
-          if (v29 <= v10)
-          {
-            goto LABEL_678;
-          }
-
-          v154[v10] = v154[v6];
-        }
-
-        ++v10;
-      }
-
-      while (v4 != v10);
-    }
-
-    v10 = re::internal::accessFaceVaryingAttributeSubmesh(v13, v147);
-    v4 = *&v325[0];
-    v6 = *(v10 + 24);
-    v16 = v6;
-    *&v323[2] = 0;
-    memset(v321, 0, sizeof(v321));
-    re::DynamicArray<re::GeomCell4>::resize(v321, v6);
-    if (v6)
-    {
-      v155 = 0;
-      v29 = *&v321[16];
-      v156 = *&v323[2];
-      v28 = *(v10 + 24);
-      v157 = *(v10 + 40);
-      v7 = v315;
-      do
-      {
-        if (v155 == v29)
-        {
-          goto LABEL_634;
-        }
-
-        if (v155 == v28)
-        {
-          goto LABEL_638;
-        }
-
-        v158 = 0;
-        *v327 = *(v157 + 16 * v155);
-        v159 = v317;
-        if (*&v327[12] == -1)
-        {
-          v160 = 3;
-        }
-
-        else
-        {
-          v160 = 4;
-        }
-
-        do
-        {
-          v5 = *&v327[4 * v158];
-          if (v7 <= v5)
-          {
-            goto LABEL_439;
-          }
-
-          *(v156 + 4 * v158++) = v159[v5];
-        }
-
-        while (v160 != v158);
-        ++v155;
-        v156 += 16;
-      }
-
-      while (v155 != v6);
-    }
-
-    if (*(v10 + 48))
-    {
-      v161 = *(v10 + 60) == 0;
-    }
-
-    else
-    {
-      v161 = 1;
-    }
-
-    if (v161 && *(v9 + 10) == v6)
-    {
-      re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321);
-      goto LABEL_575;
-    }
-
-    *&v320[2] = 0;
-    memset(v318, 0, sizeof(v318));
-    re::DynamicArray<unsigned int>::resize(v318, v6, &re::kInvalidMeshIndex);
-    v164 = *(v10 + 60);
-    if (v164 == 2)
-    {
-      re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned int,unsigned int> const&>::HashBrownIterator(&v299, v10 + 64);
-      LOBYTE(v298) = 2;
-      v247 = *(v10 + 60);
-      if (!*(v10 + 60))
-      {
-LABEL_488:
-        v248 = *(v10 + 64);
-        LOBYTE(v295) = 0;
-        LODWORD(v296) = v248;
-LABEL_571:
-        while ((re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator==(&v298, &v295) & 1) == 0)
-        {
-          v10 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v287);
-          v286 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v285);
-          v16 = v286;
-          v29 = *&v318[16];
-          if (*&v318[16] <= v286)
-          {
-            goto LABEL_683;
-          }
-
-          *(*&v320[2] + 4 * v286) = HIDWORD(v10);
-          re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::increment(&v298);
-        }
-
-        re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v295, v287);
-        re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v298, v288);
-        re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321, v318);
-        if (*v318 && *&v320[2])
-        {
-          (*(**v318 + 40))();
-        }
-
-LABEL_575:
-        if ((*(*v13 + 16))(v13))
-        {
-          if (!*(v13 + 5))
-          {
-            goto LABEL_688;
-          }
-
-          v9 = *(v13 + 7);
-          if ((*(*v13 + 16))(v13))
-          {
-            v269 = *&v325[1];
-            v270 = 4 * v4;
-            goto LABEL_594;
-          }
-        }
-
-        goto LABEL_703;
-      }
-
-      if (v247 == 2)
-      {
-        LOBYTE(v295) = 2;
-        v296 = v10 + 64;
-        v297 = xmmword_1E3049610;
-        goto LABEL_571;
-      }
-
-      if (v247 != 1)
-      {
-        goto LABEL_713;
-      }
-
-      v234 = *(v10 + 48);
-    }
-
-    else
-    {
-      if (v164 != 1)
-      {
-        if (*(v10 + 60))
-        {
-          goto LABEL_707;
-        }
-
-        LOBYTE(v298) = 0;
-        LODWORD(v299) = 0;
-        goto LABEL_488;
-      }
-
-      v234 = *(v10 + 48);
-      if (v234)
-      {
-        v235 = *(v10 + 96);
-        v236 = *(v10 + 52);
-        v237 = *(v10 + 80);
-        v238 = v235 + 4 * v237;
-        LOBYTE(v298) = 1;
-        if (v235)
-        {
-          v239 = v235 + 4 * v236;
-          if (v237 != v236)
-          {
-            v239 -= 4;
-            v240 = 4 * v237 - 4 * v236;
-            do
-            {
-              v242 = *(v239 + 4);
-              v239 += 4;
-              v241 = v242;
-              if (!v240)
-              {
-                break;
-              }
-
-              v240 -= 4;
-            }
-
-            while (v241 == -1);
-          }
-        }
-
-        else
-        {
-          v239 = 0;
-        }
-
-        v299 = v235;
-        v300 = v239;
-        v301 = v238;
-      }
-
-      else
-      {
-        LOBYTE(v298) = 1;
-        v300 = 0;
-        v301 = 0;
-        v299 = 0;
-      }
-    }
-
-    if (v234)
-    {
-      v283 = *(v10 + 96);
-      v284 = v283 + 4 * *(v10 + 80);
-      LOBYTE(v295) = 1;
-      v296 = v283;
-      *&v297 = v284;
-      *(&v297 + 1) = v284;
-    }
-
-    else
-    {
-      LOBYTE(v295) = 1;
-      v297 = 0uLL;
-      v296 = 0;
-    }
-
-    goto LABEL_571;
-  }
-
-  if (v14 == 6)
-  {
-    result = (*(*v11 + 16))(v11);
-    if (!result)
-    {
-      return result;
-    }
-
-    v311 = 0;
-    v308 = 0;
-    v309 = 0;
-    v306 = 0;
-    v307 = 0;
-    v310 = 0;
-    v303 = 0;
-    v304 = 0;
-    v302 = 0;
-    v305 = 0;
-    v16 = (*(*v13 + 16))(v13);
-    if (v16)
-    {
-      v21 = re::GeomAttribute::accessValues<int>(v13);
-      if (!v22)
-      {
-        goto LABEL_690;
-      }
-
-      v4 = v21;
-    }
-
-    else
-    {
-      v4 = 0;
-    }
-
-    v326 = 0;
-    v10 = v16;
-    *(&v324 + 1) = v16;
-    memset(v325, 0, 28);
-    *&v324 = v4;
-    v317 = 0;
-    v314 = 0;
-    v315 = 0;
-    v313 = 0;
-    v316 = 0;
-    re::DynamicArray<float>::resize(&v313, v16);
-    if (!v16)
-    {
-      *&v325[1] = 0;
-      goto LABEL_105;
-    }
-
-    v28 = 0;
-    v29 = v315;
-    v30 = v317;
-    while (v29 > v28)
-    {
-      v30[v28] = v28;
-      if (v16 == ++v28)
-      {
-        v31 = 0;
-        *&v325[1] = 0;
-        ++DWORD2(v325[1]);
-        if (*(&v325[0] + 1) < v16)
-        {
-          re::DynamicArray<re::internal::GeomKDTree<float>::Node>::setCapacity(v325, v16);
-          v31 = *&v325[1];
-        }
-
-        v32 = v16 - v31;
-        if (v16 > v31 && v32 >= 1)
-        {
-          v33 = &v326[3 * v31];
-          v34 = v32 + 1;
-          do
-          {
-            *v33 = 0;
-            v33[1] = 0;
-            *(v33 + 4) = -1;
-            *(v33 + 20) = 0;
-            v33 += 3;
-            --v34;
-          }
-
-          while (v34 > 1);
-        }
-
-        *&v325[1] = v16;
-LABEL_105:
-        ++DWORD2(v325[1]);
-        if (*(&v324 + 1))
-        {
-          LODWORD(v332) = 0;
-          re::internal::GeomKDTree<re::Vector2<float>>::buildHelper(&v324, 0, v16, &v313, &v332);
-        }
-
-        if (v313 && v317)
-        {
-          (*(*v313 + 40))();
-        }
-
-        v309 = 0;
-        ++v310;
-        v304 = 0;
-        ++v305;
-        re::DynamicArray<unsigned int>::resize(&v307, v16, &re::kInvalidMeshIndex);
-        LOBYTE(v332) = 0;
-        re::DynamicArray<unsigned char>::resize(&v302, v16, &v332);
-        v317 = 0;
-        v314 = 0;
-        v315 = 0;
-        v313 = 0;
-        v316 = 0;
-        if (v16)
-        {
-          v16 = 0;
-          v29 = 1;
-          while (1)
-          {
-            v28 = v309;
-            if (v309 <= v16)
-            {
-              goto LABEL_622;
-            }
-
-            if (*(v311 + 4 * v16) == -1)
-            {
-              v315 = 0;
-              v316 += 2;
-              v64 = *&v325[1];
-              if (*&v325[1] && (re::internal::GeomKDTree<re::Vector2<float>>::findWithinRadiusHelper(&v324, v326, (v4 + 8 * v16), &v313, a4), v64 = v315, v315))
-              {
-                v65 = 0;
-                v66 = *v317;
-              }
-
-              else
-              {
-                v65 = 1;
-                v66 = v16;
-              }
-
-              v28 = v309;
-              if (v309 <= v16)
-              {
-                goto LABEL_660;
-              }
-
-              *(v311 + 4 * v16) = v66;
-              v28 = v304;
-              if (v304 <= v16)
-              {
-                goto LABEL_664;
-              }
-
-              v306[v16] = 1;
-              if ((v65 & 1) == 0)
-              {
-                break;
-              }
-            }
-
-LABEL_125:
-            if (++v16 == v10)
-            {
-              if (v313 && v317)
-              {
-                (*(*v313 + 40))();
-              }
-
-              goto LABEL_129;
-            }
-          }
-
-          v67 = 0;
-          v40 = v315;
-          v68 = v317;
-          v6 = v309;
-          v69 = v311;
-          while (v40 != v67)
-          {
-            v5 = v68[v67];
-            if (v6 <= v5)
-            {
-              goto LABEL_507;
-            }
-
-            *(v69 + 4 * v5) = v16;
-            if (v64 == ++v67)
-            {
-              goto LABEL_125;
-            }
-          }
-
-LABEL_503:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v40;
-          v322 = 2048;
-          *v323 = v40;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_504:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v40;
-          v322 = 2048;
-          *v323 = v40;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_505:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v40;
-          v322 = 2048;
-          *v323 = v40;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_506:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v40;
-          v322 = 2048;
-          *v323 = v40;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_507:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v5;
-          v322 = 2048;
-          *v323 = v6;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_508:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v5;
-          v322 = 2048;
-          *v323 = v6;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_509:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v5;
-          v322 = 2048;
-          *v323 = v6;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_510:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          v13 = MEMORY[0x1E69E9C10];
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v5;
-          v322 = 2048;
-          *v323 = v6;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_511:
-          LOBYTE(v298) = 1;
-          v300 = 0;
-          v301 = 0;
-          v299 = 0;
-LABEL_523:
-          if (v201)
-          {
-            v261 = *(v10 + 96);
-            v262 = v261 + 4 * *(v10 + 80);
-            LOBYTE(v295) = 1;
-            v296 = v261;
-            *&v297 = v262;
-            *(&v297 + 1) = v262;
-          }
-
-          else
-          {
-            LOBYTE(v295) = 1;
-            v297 = 0uLL;
-            v296 = 0;
-          }
-
-LABEL_528:
-          while ((re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator==(&v298, &v295) & 1) == 0)
-          {
-            v10 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v265);
-            v264 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v263);
-            v16 = v264;
-            v29 = *&v318[16];
-            if (*&v318[16] <= v264)
-            {
-              goto LABEL_680;
-            }
-
-            *(*&v320[2] + 4 * v264) = HIDWORD(v10);
-            re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::increment(&v298);
-          }
-
-          re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v295, v265);
-          re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v298, v266);
-          re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321, v318);
-          if (*v318 && *&v320[2])
-          {
-            (*(**v318 + 40))(*v318, *&v320[2]);
-          }
-
-LABEL_532:
-          v267 = re::GeomAttribute::modifyValues<re::Vector3<float>>(v13);
-          if (v268)
-          {
-            v269 = *&v325[1];
-            v270 = 16 * v4;
-            goto LABEL_595;
-          }
-
-LABEL_685:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 621;
-          *&v318[18] = 2048;
-          *&v318[20] = 0;
-          v319 = 2048;
-          *v320 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_686:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 789;
-          *&v318[18] = 2048;
-          *&v318[20] = 0;
-          v319 = 2048;
-          *v320 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_687:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 789;
-          *&v318[18] = 2048;
-          *&v318[20] = 0;
-          v319 = 2048;
-          *v320 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_688:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 789;
-          *&v318[18] = 2048;
-          *&v318[20] = 0;
-          v319 = 2048;
-          *v320 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_689:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 789;
-          *&v318[18] = 2048;
-          *&v318[20] = 0;
-          v319 = 2048;
-          *v320 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_690:
-          v313 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          LODWORD(v324) = 136315906;
-          *(v10 + 100) = "operator[]";
-          WORD6(v324) = 1024;
-          *(v10 + 110) = 613;
-          WORD1(v325[0]) = 2048;
-          *(v10 + 116) = 0;
-          WORD6(v325[0]) = 2048;
-          *(v10 + 126) = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_691:
-          v313 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          LODWORD(v324) = 136315906;
-          *(v10 + 100) = "operator[]";
-          WORD6(v324) = 1024;
-          *(v10 + 110) = 613;
-          WORD1(v325[0]) = 2048;
-          *(v10 + 116) = 0;
-          WORD6(v325[0]) = 2048;
-          *(v10 + 126) = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_692:
-          v313 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          LODWORD(v324) = 136315906;
-          *(v10 + 100) = "operator[]";
-          WORD6(v324) = 1024;
-          *(v10 + 110) = 613;
-          WORD1(v325[0]) = 2048;
-          *(v10 + 116) = 0;
-          WORD6(v325[0]) = 2048;
-          *(v10 + 126) = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_693:
-          v313 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          LODWORD(v324) = 136315906;
-          *(v10 + 100) = "operator[]";
-          WORD6(v324) = 1024;
-          *(v10 + 110) = 613;
-          WORD1(v325[0]) = 2048;
-          *(v10 + 116) = 0;
-          WORD6(v325[0]) = 2048;
-          *(v10 + 126) = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_694:
-          v313 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          LODWORD(v324) = 136315906;
-          *(v10 + 100) = "operator[]";
-          WORD6(v324) = 1024;
-          *(v10 + 110) = 613;
-          WORD1(v325[0]) = 2048;
-          *(v10 + 116) = 0;
-          WORD6(v325[0]) = 2048;
-          *(v10 + 126) = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_695:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v4;
-          v322 = 2048;
-          *v323 = v4;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_696:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v4;
-          v322 = 2048;
-          *v323 = v4;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_697:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v4;
-          v322 = 2048;
-          *v323 = v4;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_698:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v4;
-          v322 = 2048;
-          *v323 = v4;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_699:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v4;
-          v322 = 2048;
-          *v323 = v4;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-        }
-
-LABEL_129:
-        if (*&v325[0] && v326)
-        {
-          (*(**&v325[0] + 40))();
-        }
-
-        *&v325[1] = 0;
-        *&v325[0] = 0;
-        v324 = 0uLL;
-        DWORD2(v325[0]) = 0;
-        v317 = 0;
-        v314 = 0;
-        v315 = 0;
-        v313 = 0;
-        v316 = 0;
-        v70 = (*(*v13 + 16))(v13);
-        v71 = v70;
-        if (v70)
-        {
-          v4 = v304;
-          if (v304 <= v70 - 1)
-          {
-            goto LABEL_696;
-          }
-
-          LODWORD(v72) = 0;
-          v73 = v306;
-          v4 = v70;
-          v74 = v70;
-          do
-          {
-            v75 = *v73++;
-            v72 = (v72 + v75);
-            --v74;
-          }
-
-          while (v74);
-        }
-
-        else
-        {
-          v4 = 0;
-          v72 = 0;
-        }
-
-        v10 = re::GeomAttribute::accessValues<int>(v13);
-        v130 = v129;
-        re::DynamicArray<unsigned long>::resize(&v324, v72);
-        re::DynamicArray<unsigned int>::resize(&v313, v4, &re::kInvalidMeshIndex);
-        if (v71)
-        {
-          v16 = 0;
-          v132 = 0;
-          v29 = v130;
-          do
-          {
-            v28 = v304;
-            if (v304 <= v16)
-            {
-              goto LABEL_618;
-            }
-
-            if (v306[v16])
-            {
-              v28 = v315;
-              if (v315 <= v16)
-              {
-                goto LABEL_645;
-              }
-
-              v317[v16] = v132;
-              if (v16 >= v29)
-              {
-                goto LABEL_649;
-              }
-
-              v28 = v132;
-              v5 = *&v325[0];
-              if (*&v325[0] <= v132)
-              {
-                goto LABEL_653;
-              }
-
-              *(*&v325[1] + 8 * v132++) = *(v10 + 8 * v16);
-            }
-
-            ++v16;
-          }
-
-          while (v4 != v16);
-          v10 = 0;
-          v29 = v304;
-          v133 = v306;
-          v28 = v309;
-          v134 = v311;
-          v16 = v315;
-          v135 = v317;
-          while (v29 != v10)
-          {
-            if (!v133[v10])
-            {
-              if (v28 <= v10)
-              {
-                goto LABEL_668;
-              }
-
-              v6 = *(v134 + 4 * v10);
-              if (v16 <= v6)
-              {
-                goto LABEL_672;
-              }
-
-              if (v16 <= v10)
-              {
-                goto LABEL_676;
-              }
-
-              v135[v10] = v135[v6];
-            }
-
-            if (v4 == ++v10)
-            {
-              goto LABEL_294;
-            }
-          }
-
-LABEL_626:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v29;
-          v322 = 2048;
-          *v323 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_627:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v29;
-          v322 = 2048;
-          *v323 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_628:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v16;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_629:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v16;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_630:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 789;
-          *&v318[18] = 2048;
-          *&v318[20] = v29;
-          v319 = 2048;
-          *v320 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_631:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 797;
-          *&v318[18] = 2048;
-          *&v318[20] = v28;
-          v319 = 2048;
-          *v320 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_632:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 789;
-          *&v318[18] = 2048;
-          *&v318[20] = v29;
-          v319 = 2048;
-          *v320 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_633:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 789;
-          *&v318[18] = 2048;
-          *&v318[20] = v29;
-          v319 = 2048;
-          *v320 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_634:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 789;
-          *&v318[18] = 2048;
-          *&v318[20] = v29;
-          v319 = 2048;
-          *v320 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_635:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 789;
-          *&v318[18] = 2048;
-          *&v318[20] = v29;
-          v319 = 2048;
-          *v320 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_636:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 797;
-          *&v318[18] = 2048;
-          *&v318[20] = v28;
-          v319 = 2048;
-          *v320 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_637:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 797;
-          *&v318[18] = 2048;
-          *&v318[20] = v28;
-          v319 = 2048;
-          *v320 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_638:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 797;
-          *&v318[18] = 2048;
-          *&v318[20] = v28;
-          v319 = 2048;
-          *v320 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_639:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 797;
-          *&v318[18] = 2048;
-          *&v318[20] = v28;
-          v319 = 2048;
-          *v320 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_640:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_641:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 613;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_642:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v28;
-          v322 = 2048;
-          *v323 = v5;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_643:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v29;
-          v322 = 2048;
-          *v323 = v6;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_644:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v29;
-          v322 = 2048;
-          *v323 = v6;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_645:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_646:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_647:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 613;
-          *&v321[18] = 2048;
-          *&v321[20] = v29;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_648:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 613;
-          *&v321[18] = 2048;
-          *&v321[20] = v29;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_649:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 613;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_650:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 613;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_651:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v5;
-          v322 = 2048;
-          *v323 = v7;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_652:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v5;
-          v322 = 2048;
-          *v323 = v7;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_653:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v28;
-          v322 = 2048;
-          *v323 = v5;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_654:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v28;
-          v322 = 2048;
-          *v323 = v5;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_655:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_656:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_657:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_658:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v6;
-          v322 = 2048;
-          *v323 = v16;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_659:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v16;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_660:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_661:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_662:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_663:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_664:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_665:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_666:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_667:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v16;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_668:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_669:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_670:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_671:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 797;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v28;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_672:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v6;
-          v322 = 2048;
-          *v323 = v16;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_673:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v6;
-          v322 = 2048;
-          *v323 = v16;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_674:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v6;
-          v322 = 2048;
-          *v323 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_675:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v6;
-          v322 = 2048;
-          *v323 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_676:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v16;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_677:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v16;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_678:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_679:
-          *v318 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v321 = 136315906;
-          *&v321[4] = "operator[]";
-          *&v321[12] = 1024;
-          *&v321[14] = 789;
-          *&v321[18] = 2048;
-          *&v321[20] = v10;
-          v322 = 2048;
-          *v323 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_680:
-          v312 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v327 = 136315906;
-          *&v327[4] = "operator[]";
-          *&v327[12] = 1024;
-          *&v327[14] = 789;
-          v328 = 2048;
-          v329 = v16;
-          v330 = 2048;
-          v331 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_681:
-          v312 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v327 = 136315906;
-          *&v327[4] = "operator[]";
-          *&v327[12] = 1024;
-          *&v327[14] = 789;
-          v328 = 2048;
-          v329 = v16;
-          v330 = 2048;
-          v331 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_682:
-          v312 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v327 = 136315906;
-          *&v327[4] = "operator[]";
-          *&v327[12] = 1024;
-          *&v327[14] = 789;
-          v328 = 2048;
-          v329 = v16;
-          v330 = 2048;
-          v331 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_683:
-          v312 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v327 = 136315906;
-          *&v327[4] = "operator[]";
-          *&v327[12] = 1024;
-          *&v327[14] = 789;
-          v328 = 2048;
-          v329 = v16;
-          v330 = 2048;
-          v331 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_684:
-          v312 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v327 = 136315906;
-          *&v327[4] = "operator[]";
-          *&v327[12] = 1024;
-          *&v327[14] = 789;
-          v328 = 2048;
-          v329 = v16;
-          v330 = 2048;
-          v331 = v29;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-          goto LABEL_685;
-        }
-
-LABEL_294:
-        v10 = re::internal::accessFaceVaryingAttributeSubmesh(v13, v131);
-        v4 = *&v325[0];
-        v6 = *(v10 + 24);
-        v16 = v6;
-        *&v323[2] = 0;
-        memset(v321, 0, sizeof(v321));
-        re::DynamicArray<re::GeomCell4>::resize(v321, v6);
-        if (v6)
-        {
-          v136 = 0;
-          v29 = *&v321[16];
-          v137 = *&v323[2];
-          v28 = *(v10 + 24);
-          v138 = *(v10 + 40);
-          v7 = v315;
-          while (v136 != v29)
-          {
-            if (v136 == v28)
-            {
-              goto LABEL_636;
-            }
-
-            v139 = 0;
-            *v327 = *(v138 + 16 * v136);
-            v140 = v317;
-            if (*&v327[12] == -1)
-            {
-              v141 = 3;
-            }
-
-            else
-            {
-              v141 = 4;
-            }
-
-            do
-            {
-              v5 = *&v327[4 * v139];
-              if (v7 <= v5)
-              {
-                goto LABEL_437;
-              }
-
-              *(v137 + 4 * v139++) = v140[v5];
-            }
-
-            while (v141 != v139);
-            ++v136;
-            v137 += 16;
-            if (v136 == v6)
-            {
-              goto LABEL_304;
-            }
-          }
-
-          goto LABEL_632;
-        }
-
-LABEL_304:
-        if (*(v10 + 48))
-        {
-          v142 = *(v10 + 60) == 0;
-        }
-
-        else
-        {
-          v142 = 1;
-        }
-
-        if (v142 && *(v9 + 10) == v6)
-        {
-          re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321);
-        }
-
-        else
-        {
-          *&v320[2] = 0;
-          memset(v318, 0, sizeof(v318));
-          re::DynamicArray<unsigned int>::resize(v318, v6, &re::kInvalidMeshIndex);
-          v145 = *(v10 + 60);
-          if (v145 == 2)
-          {
-            re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned int,unsigned int> const&>::HashBrownIterator(&v299, v10 + 64);
-            LOBYTE(v298) = 2;
-            v223 = *(v10 + 60);
-            if (!*(v10 + 60))
-            {
-LABEL_464:
-              v224 = *(v10 + 64);
-              LOBYTE(v295) = 0;
-              LODWORD(v296) = v224;
-              goto LABEL_541;
-            }
-
-            if (v223 == 2)
-            {
-              LOBYTE(v295) = 2;
-              v296 = v10 + 64;
-              v297 = xmmword_1E3049610;
-              goto LABEL_541;
-            }
-
-            if (v223 != 1)
-            {
-              goto LABEL_711;
-            }
-
-            v213 = *(v10 + 48);
-          }
-
-          else
-          {
-            if (v145 != 1)
-            {
-              if (*(v10 + 60))
-              {
-                goto LABEL_706;
-              }
-
-              LOBYTE(v298) = 0;
-              LODWORD(v299) = 0;
-              goto LABEL_464;
-            }
-
-            v213 = *(v10 + 48);
-            if (v213)
-            {
-              v214 = *(v10 + 96);
-              v215 = *(v10 + 52);
-              v216 = *(v10 + 80);
-              v217 = v214 + 4 * v216;
-              LOBYTE(v298) = 1;
-              if (v214)
-              {
-                v218 = v214 + 4 * v215;
-                if (v216 != v215)
-                {
-                  v218 -= 4;
-                  v219 = 4 * v216 - 4 * v215;
-                  do
-                  {
-                    v221 = *(v218 + 4);
-                    v218 += 4;
-                    v220 = v221;
-                    if (!v219)
-                    {
-                      break;
-                    }
-
-                    v219 -= 4;
-                  }
-
-                  while (v220 == -1);
-                }
-              }
-
-              else
-              {
-                v218 = 0;
-              }
-
-              v299 = v214;
-              v300 = v218;
-              v301 = v217;
-            }
-
-            else
-            {
-              LOBYTE(v298) = 1;
-              v300 = 0;
-              v301 = 0;
-              v299 = 0;
-            }
-          }
-
-          if (v213)
-          {
-            v271 = *(v10 + 96);
-            v272 = v271 + 4 * *(v10 + 80);
-            LOBYTE(v295) = 1;
-            v296 = v271;
-            *&v297 = v272;
-            *(&v297 + 1) = v272;
-          }
-
-          else
-          {
-            LOBYTE(v295) = 1;
-            v297 = 0uLL;
-            v296 = 0;
-          }
-
-LABEL_541:
-          while ((re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator==(&v298, &v295) & 1) == 0)
-          {
-            v10 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v275);
-            v274 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v273);
-            v16 = v274;
-            v29 = *&v318[16];
-            if (*&v318[16] <= v274)
-            {
-              goto LABEL_681;
-            }
-
-            *(*&v320[2] + 4 * v274) = HIDWORD(v10);
-            re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::increment(&v298);
-          }
-
-          re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v295, v275);
-          re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v298, v276);
-          re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321, v318);
-          if (*v318 && *&v320[2])
-          {
-            (*(**v318 + 40))();
-          }
-        }
-
-        if (!(*(*v13 + 16))(v13))
-        {
-          goto LABEL_548;
-        }
-
-        if (!*(v13 + 5))
-        {
-          goto LABEL_686;
-        }
-
-        v9 = *(v13 + 7);
-        if (!(*(*v13 + 16))(v13))
-        {
-LABEL_548:
-          *v327 = 0;
-          v335 = 0u;
-          v336 = 0u;
-          v333 = 0u;
-          v334 = 0u;
-          v332 = 0u;
-          v13 = MEMORY[0x1E69E9C10];
-          os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-          *v318 = 136315906;
-          *&v318[4] = "operator[]";
-          *&v318[12] = 1024;
-          *&v318[14] = 621;
-          *&v318[18] = 2048;
-          *&v318[20] = 0;
-          v319 = 2048;
-          *v320 = 0;
-          _os_log_send_and_compose_impl();
-          _os_crash_msg();
-          __break(1u);
-LABEL_549:
-          v230 = 0;
-LABEL_550:
-          v299 = v226;
-          v300 = v230;
-          v301 = v229;
-          goto LABEL_551;
-        }
-
-LABEL_593:
-        v269 = *&v325[1];
-        v270 = 8 * v4;
-LABEL_594:
-        v267 = v9;
-LABEL_595:
-        memcpy(v267, v269, v270);
-        if (*v321 && *&v323[2])
-        {
-          (*(**v321 + 40))(*v321, *&v323[2]);
-        }
-
-        if (v313 && v317)
-        {
-          (*(*v313 + 40))(v313, v317);
-        }
-
-        if (v324 && *&v325[1])
-        {
-          (*(*v324 + 40))(v324, *&v325[1]);
-        }
-
-        if (v302 && v306)
-        {
-          (*(*v302 + 40))(v302, v306);
-        }
-
-        result = v307;
-        if (v307)
-        {
-          if (v311)
-          {
-            return (*(*v307 + 40))(v307, v311);
-          }
-        }
-
-        return result;
-      }
-    }
-
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 789;
-    *&v321[18] = 2048;
-    *&v321[20] = v28;
-    v322 = 2048;
-    *v323 = v29;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_612:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 789;
-    *&v321[18] = 2048;
-    *&v321[20] = v28;
-    v322 = 2048;
-    *v323 = v29;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_613:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 789;
-    *&v321[18] = 2048;
-    *&v321[20] = v28;
-    v322 = 2048;
-    *v323 = v29;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_614:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 789;
-    *&v321[18] = 2048;
-    *&v321[20] = v28;
-    v322 = 2048;
-    *v323 = v29;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_615:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 797;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v28;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_616:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 797;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v16;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_617:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 797;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v16;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_618:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 797;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v28;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_619:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 797;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v28;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_620:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 789;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v28;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_621:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 797;
-    *&v321[18] = 2048;
-    *&v321[20] = v29;
-    v322 = 2048;
-    *v323 = v29;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_622:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 789;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v28;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_623:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 789;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v28;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_624:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 789;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v28;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-LABEL_625:
-    *v318 = 0;
-    v335 = 0u;
-    v336 = 0u;
-    v333 = 0u;
-    v334 = 0u;
-    v332 = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    *v321 = 136315906;
-    *&v321[4] = "operator[]";
-    *&v321[12] = 1024;
-    *&v321[14] = 789;
-    *&v321[18] = 2048;
-    *&v321[20] = v16;
-    v322 = 2048;
-    *v323 = v28;
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-    goto LABEL_626;
-  }
-
-  if (v14 != 7)
-  {
-    if (v14 == 8)
-    {
-      result = (*(*v11 + 16))(v11);
-      if (!result)
-      {
-        return result;
-      }
-
-      v311 = 0;
-      v308 = 0;
-      v309 = 0;
-      v306 = 0;
-      v307 = 0;
-      v310 = 0;
-      v303 = 0;
-      v304 = 0;
-      v302 = 0;
-      v305 = 0;
-      v16 = (*(*v13 + 16))(v13);
-      if (v16)
-      {
-        v17 = re::GeomAttribute::accessValues<int>(v13);
-        if (!v18)
-        {
-          goto LABEL_693;
-        }
-
-        v4 = v17;
-      }
-
-      else
-      {
-        v4 = 0;
-      }
-
-      v326 = 0;
-      v10 = v16;
-      *(&v324 + 1) = v16;
-      memset(v325, 0, 28);
-      *&v324 = v4;
-      v317 = 0;
-      v314 = 0;
-      v315 = 0;
-      v313 = 0;
-      v316 = 0;
-      re::DynamicArray<float>::resize(&v313, v16);
-      if (v16)
-      {
-        v28 = 0;
-        v29 = v315;
-        v54 = v317;
-        do
-        {
-          if (v29 <= v28)
-          {
-            goto LABEL_613;
-          }
-
-          v54[v28] = v28;
-          ++v28;
-        }
-
-        while (v16 != v28);
-        v55 = 0;
-        *&v325[1] = 0;
-        ++DWORD2(v325[1]);
-        if (*(&v325[0] + 1) < v16)
-        {
-          re::DynamicArray<re::internal::GeomKDTree<float>::Node>::setCapacity(v325, v16);
-          v55 = *&v325[1];
-        }
-
-        v56 = v16 - v55;
-        if (v16 > v55 && v56 >= 1)
-        {
-          v57 = &v326[3 * v55];
-          v58 = v56 + 1;
-          do
-          {
-            *v57 = 0;
-            v57[1] = 0;
-            *(v57 + 4) = -1;
-            *(v57 + 20) = 0;
-            v57 += 3;
-            --v58;
-          }
-
-          while (v58 > 1);
-        }
-
-        *&v325[1] = v16;
-      }
-
-      else
-      {
-        *&v325[1] = 0;
-      }
-
-      ++DWORD2(v325[1]);
-      if (*(&v324 + 1))
-      {
-        LODWORD(v332) = 0;
-        re::internal::GeomKDTree<re::Vector4<float>>::buildHelper(&v324, 0, v16, &v313, &v332);
-      }
-
-      if (v313 && v317)
-      {
-        (*(*v313 + 40))();
-      }
-
-      v309 = 0;
-      ++v310;
-      v304 = 0;
-      ++v305;
-      re::DynamicArray<unsigned int>::resize(&v307, v16, &re::kInvalidMeshIndex);
-      LOBYTE(v332) = 0;
-      re::DynamicArray<unsigned char>::resize(&v302, v16, &v332);
-      v317 = 0;
-      v314 = 0;
-      v315 = 0;
-      v313 = 0;
-      v316 = 0;
-      if (v16)
-      {
-        v16 = 0;
-        v29 = 1;
-        while (1)
-        {
-          v28 = v309;
-          if (v309 <= v16)
-          {
-            goto LABEL_624;
-          }
-
-          if (*(v311 + 4 * v16) == -1)
-          {
-            v315 = 0;
-            v316 += 2;
-            v88 = *&v325[1];
-            if (*&v325[1] && (re::internal::GeomKDTree<re::Vector4<float>>::findWithinRadiusHelper(&v324, v326, (v4 + 16 * v16), &v313, a4), v88 = v315, v315))
-            {
-              v89 = 0;
-              v90 = *v317;
-            }
-
-            else
-            {
-              v89 = 1;
-              v90 = v16;
-            }
-
-            v28 = v309;
-            if (v309 <= v16)
-            {
-              goto LABEL_662;
-            }
-
-            *(v311 + 4 * v16) = v90;
-            v28 = v304;
-            if (v304 <= v16)
-            {
-              goto LABEL_666;
-            }
-
-            v306[v16] = 1;
-            if ((v89 & 1) == 0)
-            {
-              break;
-            }
-          }
-
-LABEL_191:
-          if (++v16 == v10)
-          {
-            if (v313 && v317)
-            {
-              (*(*v313 + 40))();
-            }
-
-            goto LABEL_195;
-          }
-        }
-
-        v91 = 0;
-        v40 = v315;
-        v92 = v317;
-        v6 = v309;
-        v93 = v311;
-        while (v40 != v91)
-        {
-          v5 = v92[v91];
-          if (v6 <= v5)
-          {
-            goto LABEL_509;
-          }
-
-          *(v93 + 4 * v5) = v16;
-          if (v88 == ++v91)
-          {
-            goto LABEL_191;
-          }
-        }
-
-        goto LABEL_505;
-      }
-
-LABEL_195:
-      if (*&v325[0] && v326)
-      {
-        (*(**&v325[0] + 40))();
-      }
-
-      *&v325[1] = 0;
-      *&v325[0] = 0;
-      v324 = 0uLL;
-      DWORD2(v325[0]) = 0;
-      v317 = 0;
-      v314 = 0;
-      v315 = 0;
-      v313 = 0;
-      v316 = 0;
-      v94 = (*(*v13 + 16))(v13);
-      v95 = v94;
-      if (v94)
-      {
-        v4 = v304;
-        if (v304 <= v94 - 1)
-        {
-          goto LABEL_698;
-        }
-
-        LODWORD(v96) = 0;
-        v97 = v306;
-        v4 = v94;
-        v98 = v94;
-        do
-        {
-          v99 = *v97++;
-          v96 = (v96 + v99);
-          --v98;
-        }
-
-        while (v98);
-      }
-
-      else
-      {
-        v4 = 0;
-        v96 = 0;
-      }
-
-      v10 = re::GeomAttribute::accessValues<int>(v13);
-      v166 = v165;
-      re::DynamicArray<re::Vector4<float>>::resize(&v324, v96);
-      re::DynamicArray<unsigned int>::resize(&v313, v4, &re::kInvalidMeshIndex);
-      if (v95)
-      {
-        v16 = 0;
-        v168 = 0;
-        v29 = v166;
-        do
-        {
-          v28 = v304;
-          if (v304 <= v16)
-          {
-            goto LABEL_619;
-          }
-
-          if (v306[v16])
-          {
-            v28 = v315;
-            if (v315 <= v16)
-            {
-              goto LABEL_646;
-            }
-
-            v317[v16] = v168;
-            if (v16 >= v29)
-            {
-              goto LABEL_650;
-            }
-
-            v28 = v168;
-            v5 = *&v325[0];
-            if (*&v325[0] <= v168)
-            {
-              goto LABEL_654;
-            }
-
-            *(*&v325[1] + 16 * v168++) = *v10;
-          }
-
-          ++v16;
-          v10 += 16;
-        }
-
-        while (v4 != v16);
-        v10 = 0;
-        v29 = v304;
-        v169 = v306;
-        v28 = v309;
-        v170 = v311;
-        v16 = v315;
-        v171 = v317;
-        while (v29 != v10)
-        {
-          if (!v169[v10])
-          {
-            if (v28 <= v10)
-            {
-              goto LABEL_669;
-            }
-
-            v6 = *(v170 + 4 * v10);
-            if (v16 <= v6)
-            {
-              goto LABEL_673;
-            }
-
-            if (v16 <= v10)
-            {
-              goto LABEL_677;
-            }
-
-            v171[v10] = v171[v6];
-          }
-
-          if (v4 == ++v10)
-          {
-            goto LABEL_372;
-          }
-        }
-
-        goto LABEL_627;
-      }
-
-LABEL_372:
-      v10 = re::internal::accessFaceVaryingAttributeSubmesh(v13, v167);
-      v4 = *&v325[0];
-      v6 = *(v10 + 24);
-      v16 = v6;
-      *&v323[2] = 0;
-      memset(v321, 0, sizeof(v321));
-      re::DynamicArray<re::GeomCell4>::resize(v321, v6);
-      if (v6)
-      {
-        v172 = 0;
-        v29 = *&v321[16];
-        v173 = *&v323[2];
-        v28 = *(v10 + 24);
-        v174 = *(v10 + 40);
-        v7 = v315;
-        while (v172 != v29)
-        {
-          if (v172 == v28)
-          {
-            goto LABEL_637;
-          }
-
-          v175 = 0;
-          *v327 = *(v174 + 16 * v172);
-          v176 = v317;
-          if (*&v327[12] == -1)
-          {
-            v177 = 3;
-          }
-
-          else
-          {
-            v177 = 4;
-          }
-
-          do
-          {
-            v5 = *&v327[4 * v175];
-            if (v7 <= v5)
-            {
-              goto LABEL_438;
-            }
-
-            *(v173 + 4 * v175++) = v176[v5];
-          }
-
-          while (v177 != v175);
-          ++v172;
-          v173 += 16;
-          if (v172 == v6)
-          {
-            goto LABEL_382;
-          }
-        }
-
-        goto LABEL_633;
-      }
-
-LABEL_382:
-      if (*(v10 + 48))
-      {
-        v178 = *(v10 + 60) == 0;
-      }
-
-      else
-      {
-        v178 = 1;
-      }
-
-      if (v178 && *(v9 + 10) == v6)
-      {
-        re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321);
-      }
-
-      else
-      {
-        *&v320[2] = 0;
-        memset(v318, 0, sizeof(v318));
-        re::DynamicArray<unsigned int>::resize(v318, v6, &re::kInvalidMeshIndex);
-        v181 = *(v10 + 60);
-        if (v181 == 2)
-        {
-          re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned int,unsigned int> const&>::HashBrownIterator(&v299, v10 + 64);
-          LOBYTE(v298) = 2;
-          v244 = *(v10 + 60);
-          if (*(v10 + 60))
-          {
-            if (v244 == 2)
-            {
-              LOBYTE(v295) = 2;
-              v296 = v10 + 64;
-              v297 = xmmword_1E3049610;
-              goto LABEL_556;
-            }
-
-            if (v244 != 1)
-            {
-              goto LABEL_712;
-            }
-
-            v225 = *(v10 + 48);
-            goto LABEL_551;
-          }
-
-LABEL_483:
-          v245 = *(v10 + 64);
-          LOBYTE(v295) = 0;
-          LODWORD(v296) = v245;
-          goto LABEL_556;
-        }
-
-        if (v181 != 1)
-        {
-          if (*(v10 + 60))
-          {
-            goto LABEL_708;
-          }
-
-          LOBYTE(v298) = 0;
-          LODWORD(v299) = 0;
-          goto LABEL_483;
-        }
-
-        v225 = *(v10 + 48);
-        if (v225)
-        {
-          v226 = *(v10 + 96);
-          v227 = *(v10 + 52);
-          v228 = *(v10 + 80);
-          v229 = v226 + 4 * v228;
-          LOBYTE(v298) = 1;
-          if (!v226)
-          {
-            goto LABEL_549;
-          }
-
-          v230 = v226 + 4 * v227;
-          if (v228 != v227)
-          {
-            v230 -= 4;
-            v231 = 4 * v228 - 4 * v227;
-            do
-            {
-              v233 = *(v230 + 4);
-              v230 += 4;
-              v232 = v233;
-              if (!v231)
-              {
-                break;
-              }
-
-              v231 -= 4;
-            }
-
-            while (v232 == -1);
-          }
-
-          goto LABEL_550;
-        }
-
-        LOBYTE(v298) = 1;
-        v300 = 0;
-        v301 = 0;
-        v299 = 0;
-LABEL_551:
-        if (v225)
-        {
-          v277 = *(v10 + 96);
-          v278 = v277 + 4 * *(v10 + 80);
-          LOBYTE(v295) = 1;
-          v296 = v277;
-          *&v297 = v278;
-          *(&v297 + 1) = v278;
-        }
-
-        else
-        {
-          LOBYTE(v295) = 1;
-          v297 = 0uLL;
-          v296 = 0;
-        }
-
-LABEL_556:
-        while ((re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator==(&v298, &v295) & 1) == 0)
-        {
-          v10 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v281);
-          v280 = re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::operator*(&v298, v279);
-          v16 = v280;
-          v29 = *&v318[16];
-          if (*&v318[16] <= v280)
-          {
-            goto LABEL_682;
-          }
-
-          *(*&v320[2] + 4 * v280) = HIDWORD(v10);
-          re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::increment(&v298);
-        }
-
-        re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v295, v281);
-        re::GeomIndexMap::ConstantOrHashTableOrArrayIterator::~ConstantOrHashTableOrArrayIterator(&v298, v282);
-        re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321, v318);
-        if (*v318 && *&v320[2])
-        {
-          (*(**v318 + 40))(*v318, *&v320[2]);
-        }
-      }
-
-      if ((*(*v13 + 16))(v13))
-      {
-        if (!*(v13 + 5))
-        {
-          goto LABEL_687;
-        }
-
-        v9 = *(v13 + 7);
-        if ((*(*v13 + 16))(v13))
-        {
-          v269 = *&v325[1];
-          v270 = 16 * v4;
-          goto LABEL_594;
-        }
-      }
-
-      goto LABEL_702;
-    }
-
-    goto LABEL_700;
-  }
-
-  result = (*(*v11 + 16))(v11);
-  if (!result)
-  {
-    return result;
-  }
-
-  v311 = 0;
-  v308 = 0;
-  v309 = 0;
-  v306 = 0;
-  v307 = 0;
-  v310 = 0;
-  v303 = 0;
-  v304 = 0;
-  v302 = 0;
-  v305 = 0;
-  v23 = (*(*v13 + 16))(v13);
-  if (v23)
-  {
-    v24 = re::GeomAttribute::accessValues<int>(v13);
-    if (!v25)
-    {
-      goto LABEL_691;
-    }
-
-    v4 = v24;
   }
 
   else
   {
-    v4 = 0;
+    *a2 = 0;
+  }
+}
+
+void re::ecs2::introspect_AnchoringAlignment(re::ecs2 *this, const re::IntrospectionBase *a2)
+{
+  if ((atomic_load_explicit(&qword_1EE1B5F38, memory_order_acquire) & 1) == 0)
+  {
+    goto LABEL_43;
   }
 
-  v326 = 0;
-  v324 = 0u;
-  memset(v325, 0, 28);
-  v10 = v23;
-  if ((re::internal::GeomKDTree<re::Vector3<float>>::build(&v324, v23, v4) & 1) == 0)
+  while (1)
   {
-    goto LABEL_701;
-  }
-
-  v309 = 0;
-  ++v310;
-  v304 = 0;
-  ++v305;
-  re::DynamicArray<unsigned int>::resize(&v307, v23, &re::kInvalidMeshIndex);
-  LOBYTE(v332) = 0;
-  re::DynamicArray<unsigned char>::resize(&v302, v23, &v332);
-  v317 = 0;
-  v314 = 0;
-  v315 = 0;
-  v313 = 0;
-  v316 = 0;
-  if (!v23)
-  {
-    goto LABEL_60;
-  }
-
-  v16 = 0;
-  v29 = 1;
-  do
-  {
-    v28 = v309;
-    if (v309 <= v16)
+    if ((atomic_load_explicit(&qword_1EE1B5F40, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B5F40))
     {
-      goto LABEL_620;
+      re::IntrospectionBasic::IntrospectionBasic(&qword_1EE1B60C0, "AnchoringAlignment", 1, 1, 1, 1);
+      qword_1EE1B60C0 = &unk_1F5D0C658;
+      qword_1EE1B6100 = &re::ecs2::introspect_AnchoringAlignment(BOOL)::enumTable;
+      dword_1EE1B60D0 = 9;
+      __cxa_guard_release(&qword_1EE1B5F40);
     }
 
-    if (*(v311 + 4 * v16) == -1)
+    if (_MergedGlobals_410)
     {
-      v315 = 0;
-      v316 += 2;
-      v36 = *&v325[1];
-      if (*&v325[1] && (re::internal::GeomKDTree<re::Vector3<float>>::findWithinRadiusHelper(&v324, v326, (v4 + 16 * v16), &v313, a4), v36 = v315, v315))
-      {
-        v37 = 0;
-        v38 = *v317;
-      }
-
-      else
-      {
-        v37 = 1;
-        v38 = v16;
-      }
-
-      v28 = v309;
-      if (v309 <= v16)
-      {
-        goto LABEL_655;
-      }
-
-      *(v311 + 4 * v16) = v38;
-      v28 = v304;
-      if (v304 <= v16)
-      {
-        goto LABEL_656;
-      }
-
-      v306[v16] = 1;
-      if ((v37 & 1) == 0)
-      {
-        v39 = 0;
-        v40 = v315;
-        v41 = v317;
-        v6 = v309;
-        v42 = v311;
-        while (v40 != v39)
-        {
-          v5 = v41[v39];
-          if (v6 <= v5)
-          {
-            goto LABEL_502;
-          }
-
-          *(v42 + 4 * v5) = v16;
-          if (v36 == ++v39)
-          {
-            goto LABEL_56;
-          }
-        }
-
-        *v318 = 0;
-        v335 = 0u;
-        v336 = 0u;
-        v333 = 0u;
-        v334 = 0u;
-        v332 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v321 = 136315906;
-        *&v321[4] = "operator[]";
-        *&v321[12] = 1024;
-        *&v321[14] = 789;
-        *&v321[18] = 2048;
-        *&v321[20] = v40;
-        v322 = 2048;
-        *v323 = v40;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_502:
-        *v318 = 0;
-        v335 = 0u;
-        v336 = 0u;
-        v333 = 0u;
-        v334 = 0u;
-        v332 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v321 = 136315906;
-        *&v321[4] = "operator[]";
-        *&v321[12] = 1024;
-        *&v321[14] = 789;
-        *&v321[18] = 2048;
-        *&v321[20] = v5;
-        v322 = 2048;
-        *v323 = v6;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-        goto LABEL_503;
-      }
-    }
-
-LABEL_56:
-    ++v16;
-  }
-
-  while (v16 != v10);
-  if (v313 && v317)
-  {
-    (*(*v313 + 40))();
-  }
-
-LABEL_60:
-  if (*&v325[0] && v326)
-  {
-    (*(**&v325[0] + 40))();
-  }
-
-  *&v325[1] = 0;
-  *&v325[0] = 0;
-  v324 = 0uLL;
-  DWORD2(v325[0]) = 0;
-  v317 = 0;
-  v314 = 0;
-  v315 = 0;
-  v313 = 0;
-  v316 = 0;
-  v43 = (*(*v13 + 16))(v13);
-  v44 = v43;
-  if (!v43)
-  {
-    v4 = 0;
-    v45 = 0;
-    goto LABEL_237;
-  }
-
-  v4 = v304;
-  if (v304 <= v43 - 1)
-  {
-    goto LABEL_695;
-  }
-
-  LODWORD(v45) = 0;
-  v46 = v306;
-  v4 = v43;
-  v47 = v43;
-  do
-  {
-    v48 = *v46++;
-    v45 = (v45 + v48);
-    --v47;
-  }
-
-  while (v47);
-LABEL_237:
-  v10 = re::GeomAttribute::accessValues<int>(v13);
-  v113 = v112;
-  re::DynamicArray<re::Vector3<float>>::resize(&v324, v45);
-  re::DynamicArray<unsigned int>::resize(&v313, v4, &re::kInvalidMeshIndex);
-  if (v44)
-  {
-    v16 = 0;
-    v115 = 0;
-    v29 = v113;
-    do
-    {
-      v28 = v304;
-      if (v304 <= v16)
-      {
-        goto LABEL_615;
-      }
-
-      if (v306[v16])
-      {
-        v28 = v315;
-        if (v315 <= v16)
-        {
-          goto LABEL_640;
-        }
-
-        v317[v16] = v115;
-        if (v16 >= v29)
-        {
-          goto LABEL_641;
-        }
-
-        v28 = v115;
-        v5 = *&v325[0];
-        if (*&v325[0] <= v115)
-        {
-          goto LABEL_642;
-        }
-
-        *(*&v325[1] + 16 * v115++) = *v10;
-      }
-
-      ++v16;
-      v10 += 16;
-    }
-
-    while (v4 != v16);
-    v10 = 0;
-    v29 = v304;
-    v116 = v306;
-    v28 = v309;
-    v117 = v311;
-    v16 = v315;
-    v118 = v317;
-    while (v29 != v10)
-    {
-      if (!v116[v10])
-      {
-        if (v28 <= v10)
-        {
-          goto LABEL_657;
-        }
-
-        v6 = *(v117 + 4 * v10);
-        if (v16 <= v6)
-        {
-          goto LABEL_658;
-        }
-
-        if (v16 <= v10)
-        {
-          goto LABEL_659;
-        }
-
-        v118[v10] = v118[v6];
-      }
-
-      if (v4 == ++v10)
-      {
-        goto LABEL_254;
-      }
-    }
-
-    goto LABEL_621;
-  }
-
-LABEL_254:
-  v10 = re::internal::accessFaceVaryingAttributeSubmesh(v13, v114);
-  v4 = *&v325[0];
-  v6 = *(v10 + 24);
-  v16 = v6;
-  *&v323[2] = 0;
-  memset(v321, 0, sizeof(v321));
-  re::DynamicArray<re::GeomCell4>::resize(v321, v6);
-  if (!v6)
-  {
-    goto LABEL_264;
-  }
-
-  v119 = 0;
-  v29 = *&v321[16];
-  v120 = *&v323[2];
-  v28 = *(v10 + 24);
-  v121 = *(v10 + 40);
-  v7 = v315;
-  while (2)
-  {
-    if (v119 == v29)
-    {
-      goto LABEL_630;
-    }
-
-    if (v119 == v28)
-    {
-      goto LABEL_631;
-    }
-
-    v122 = 0;
-    *v327 = *(v121 + 16 * v119);
-    v123 = v317;
-    if (*&v327[12] == -1)
-    {
-      v124 = 3;
-    }
-
-    else
-    {
-      v124 = 4;
-    }
-
-    while (2)
-    {
-      v5 = *&v327[4 * v122];
-      if (v7 <= v5)
-      {
-        v298 = 0;
-        v335 = 0u;
-        v336 = 0u;
-        v333 = 0u;
-        v334 = 0u;
-        v332 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v318 = 136315906;
-        *&v318[4] = "operator[]";
-        *&v318[12] = 1024;
-        *&v318[14] = 789;
-        *&v318[18] = 2048;
-        *&v318[20] = v5;
-        v319 = 2048;
-        *v320 = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_437:
-        v298 = 0;
-        v335 = 0u;
-        v336 = 0u;
-        v333 = 0u;
-        v334 = 0u;
-        v332 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v318 = 136315906;
-        *&v318[4] = "operator[]";
-        *&v318[12] = 1024;
-        *&v318[14] = 789;
-        *&v318[18] = 2048;
-        *&v318[20] = v5;
-        v319 = 2048;
-        *v320 = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_438:
-        v298 = 0;
-        v335 = 0u;
-        v336 = 0u;
-        v333 = 0u;
-        v334 = 0u;
-        v332 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v318 = 136315906;
-        *&v318[4] = "operator[]";
-        *&v318[12] = 1024;
-        *&v318[14] = 789;
-        *&v318[18] = 2048;
-        *&v318[20] = v5;
-        v319 = 2048;
-        *v320 = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_439:
-        v298 = 0;
-        v335 = 0u;
-        v336 = 0u;
-        v333 = 0u;
-        v334 = 0u;
-        v332 = 0u;
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v318 = 136315906;
-        *&v318[4] = "operator[]";
-        *&v318[12] = 1024;
-        *&v318[14] = 789;
-        *&v318[18] = 2048;
-        *&v318[20] = v5;
-        v319 = 2048;
-        *v320 = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_440:
-        v298 = 0;
-        v335 = 0u;
-        v336 = 0u;
-        v333 = 0u;
-        v334 = 0u;
-        v332 = 0u;
-        v13 = MEMORY[0x1E69E9C10];
-        os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-        *v318 = 136315906;
-        *&v318[4] = "operator[]";
-        *&v318[12] = 1024;
-        *&v318[14] = 789;
-        *&v318[18] = 2048;
-        *&v318[20] = v5;
-        v319 = 2048;
-        *v320 = v7;
-        _os_log_send_and_compose_impl();
-        _os_crash_msg();
-        __break(1u);
-LABEL_441:
-        v201 = *(v10 + 48);
-        if (!v201)
-        {
-          goto LABEL_511;
-        }
-
-        v202 = *(v10 + 96);
-        v203 = *(v10 + 52);
-        v204 = *(v10 + 80);
-        v205 = v202 + 4 * v204;
-        LOBYTE(v298) = 1;
-        if (v202)
-        {
-          v206 = v202 + 4 * v203;
-          if (v204 != v203)
-          {
-            v206 -= 4;
-            v207 = 4 * v204 - 4 * v203;
-            do
-            {
-              v209 = *(v206 + 4);
-              v206 += 4;
-              v208 = v209;
-              if (!v207)
-              {
-                break;
-              }
-
-              v207 -= 4;
-            }
-
-            while (v208 == -1);
-          }
-        }
-
-        else
-        {
-          v206 = 0;
-        }
-
-        v299 = v202;
-        v300 = v206;
-        v301 = v205;
-        goto LABEL_523;
-      }
-
-      *(v120 + 4 * v122++) = v123[v5];
-      if (v124 != v122)
-      {
-        continue;
-      }
-
       break;
     }
 
-    ++v119;
-    v120 += 16;
-    if (v119 != v6)
+    _MergedGlobals_410 = 1;
+    re::IntrospectionRegistry::add(&qword_1EE1B60C0, a2);
+    v35 = 0x21BB132D812DFEECLL;
+    v36 = "AnchoringAlignment";
+    v39 = 0x31CD534126;
+    v40 = "uint8_t";
+    v4 = v38[0];
+    v5 = v38[1];
+    if (v39)
     {
-      continue;
+      if (v39)
+      {
+      }
     }
 
-    break;
-  }
-
-LABEL_264:
-  if (*(v10 + 48))
-  {
-    v125 = *(v10 + 60) == 0;
-  }
-
-  else
-  {
-    v125 = 1;
-  }
-
-  if (v125 && *(v9 + 10) == v6)
-  {
-    re::GeomMesh::updateFaceVaryingAttribute(v9, *(v13 + 1), v4, v321);
-    goto LABEL_532;
-  }
-
-  *&v320[2] = 0;
-  memset(v318, 0, sizeof(v318));
-  re::DynamicArray<unsigned int>::resize(v318, v6, &re::kInvalidMeshIndex);
-  v128 = *(v10 + 60);
-  if (v128 == 2)
-  {
-    re::HashBrown<unsigned int,unsigned int,re::Hash<unsigned int>,re::EqualTo<unsigned int>,void,false>::HashBrownIterator<re::KeyValuePair<unsigned int,unsigned int> const&>::HashBrownIterator(&v299, v10 + 64);
-    LOBYTE(v298) = 2;
-    v211 = *(v10 + 60);
-    if (!*(v10 + 60))
+    if (v4)
     {
-      goto LABEL_452;
+      v6 = qword_1EE1B6100;
+      v39 = v4;
+      v40 = v5;
+      re::TypeBuilder::beginEnumType(v38, &v35, 1, 1, &v39);
+      v7 = *v6;
+      if (v7)
+      {
+        for (i = 0; i < v7; ++i)
+        {
+          v9 = *(*(v6 + 1) + 8 * i);
+          if (*v9 == 1)
+          {
+            v10 = *(v9 + 16);
+            if (v10)
+            {
+              v11 = *v10;
+              if (*v10)
+              {
+                v12 = v10[1];
+                if (v12)
+                {
+                  v13 = (v10 + 2);
+                  do
+                  {
+                    v11 = 31 * v11 + v12;
+                    v14 = *v13++;
+                    v12 = v14;
+                  }
+
+                  while (v14);
+                }
+              }
+            }
+
+            else
+            {
+              v11 = 0;
+            }
+
+            v15 = *(v9 + 8);
+            *&v37.var0 = 2 * v11;
+            v37.var1 = v10;
+            re::TypeBuilder::addEnumConstant(v38, v15, &v37);
+            if (*&v37.var0)
+            {
+              if (*&v37.var0)
+              {
+              }
+            }
+
+            v7 = *v6;
+          }
+        }
+
+        if (v7)
+        {
+          for (j = 0; j < v7; ++j)
+          {
+            v18 = *(*(v6 + 1) + 8 * j);
+            if (*v18 == 2)
+            {
+              v19 = *(v18 + 16);
+              if (v19)
+              {
+                v20 = *v19;
+                if (*v19)
+                {
+                  v21 = v19[1];
+                  if (v21)
+                  {
+                    v22 = (v19 + 2);
+                    do
+                    {
+                      v20 = 31 * v20 + v21;
+                      v23 = *v22++;
+                      v21 = v23;
+                    }
+
+                    while (v23);
+                  }
+                }
+              }
+
+              else
+              {
+                v20 = 0;
+              }
+
+              v24 = *(v18 + 8);
+              *&v37.var0 = 2 * v20;
+              v37.var1 = v19;
+              re::TypeBuilder::addEnumConstantRenaming(v38, v24, &v37);
+              if (*&v37.var0)
+              {
+                if (*&v37.var0)
+                {
+                }
+              }
+
+              v7 = *v6;
+            }
+          }
+        }
+      }
+
+      re::TypeBuilder::~TypeBuilder(v38, v26);
+      xmmword_1EE1B60E0 = v37;
+      if (v35)
+      {
+        if (v35)
+        {
+        }
+      }
+
+      return;
     }
 
-    if (v211 == 2)
+    re::internal::assertLog(5, v3, "assertion failure: '%s' (%s:line %i) Failed to determine underlying type of enum %s.", "valueID.isValid()", "registerEnumType", 2930, v36);
+    _os_crash("assertion failure: (valueID.isValid()) Failed to determine underlying type of enum %s.", v34);
+    __break(1u);
+LABEL_43:
+    if (__cxa_guard_acquire(&qword_1EE1B5F38))
     {
-      LOBYTE(v295) = 2;
-      v296 = v10 + 64;
-      v297 = xmmword_1E3049610;
-      goto LABEL_528;
+      v28 = re::introspectionAllocator();
+      v29 = (*(*v28 + 32))(v28, 24, 8);
+      *v29 = 1;
+      *(v29 + 8) = 1;
+      *(v29 + 16) = "Horizontal";
+      qword_1EE1B5FF0 = v29;
+      v30 = re::introspectionAllocator();
+      v31 = (*(*v30 + 32))(v30, 24, 8);
+      *v31 = 1;
+      *(v31 + 8) = 2;
+      *(v31 + 16) = "Vertical";
+      qword_1EE1B5FF8 = v31;
+      v32 = re::introspectionAllocator();
+      v33 = (*(*v32 + 32))(v32, 24, 8);
+      *v33 = 1;
+      *(v33 + 8) = 255;
+      *(v33 + 16) = "Any";
+      qword_1EE1B6000 = v33;
+      __cxa_guard_release(&qword_1EE1B5F38);
+    }
+  }
+}
+
+void re::ecs2::introspect_AnchoringClassification(re::ecs2 *this, const re::IntrospectionBase *a2)
+{
+  if ((atomic_load_explicit(&qword_1EE1B5F48, memory_order_acquire) & 1) == 0)
+  {
+    goto LABEL_43;
+  }
+
+  while (1)
+  {
+    if ((atomic_load_explicit(&qword_1EE1B5F50, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B5F50))
+    {
+      re::IntrospectionBasic::IntrospectionBasic(&qword_1EE1B6108, "AnchoringClassification", 8, 8, 1, 1);
+      qword_1EE1B6108 = &unk_1F5D0C658;
+      qword_1EE1B6148 = &re::ecs2::introspect_AnchoringClassification(BOOL)::enumTable;
+      dword_1EE1B6118 = 9;
+      __cxa_guard_release(&qword_1EE1B5F50);
     }
 
-    if (v211 != 1)
+    if (byte_1EE1B5F31)
     {
-      goto LABEL_710;
+      break;
     }
 
-    v201 = *(v10 + 48);
-    goto LABEL_523;
-  }
+    byte_1EE1B5F31 = 1;
+    re::IntrospectionRegistry::add(&qword_1EE1B6108, a2);
+    v41 = 0xBAF40396AEFAB466;
+    v42 = "AnchoringClassification";
+    v45 = 0x607DD11CB1ALL;
+    v46 = "uint64_t";
+    v4 = v44[0];
+    v5 = v44[1];
+    if (v45)
+    {
+      if (v45)
+      {
+      }
+    }
 
-  if (v128 == 1)
+    if (v4)
+    {
+      v6 = qword_1EE1B6148;
+      v45 = v4;
+      v46 = v5;
+      re::TypeBuilder::beginEnumType(v44, &v41, 1, 1, &v45);
+      v7 = *v6;
+      if (v7)
+      {
+        for (i = 0; i < v7; ++i)
+        {
+          v9 = *(*(v6 + 1) + 8 * i);
+          if (*v9 == 1)
+          {
+            v10 = *(v9 + 16);
+            if (v10)
+            {
+              v11 = *v10;
+              if (*v10)
+              {
+                v12 = v10[1];
+                if (v12)
+                {
+                  v13 = (v10 + 2);
+                  do
+                  {
+                    v11 = 31 * v11 + v12;
+                    v14 = *v13++;
+                    v12 = v14;
+                  }
+
+                  while (v14);
+                }
+              }
+            }
+
+            else
+            {
+              v11 = 0;
+            }
+
+            v15 = *(v9 + 8);
+            *&v43.var0 = 2 * v11;
+            v43.var1 = v10;
+            re::TypeBuilder::addEnumConstant(v44, v15, &v43);
+            if (*&v43.var0)
+            {
+              if (*&v43.var0)
+              {
+              }
+            }
+
+            v7 = *v6;
+          }
+        }
+
+        if (v7)
+        {
+          for (j = 0; j < v7; ++j)
+          {
+            v18 = *(*(v6 + 1) + 8 * j);
+            if (*v18 == 2)
+            {
+              v19 = *(v18 + 16);
+              if (v19)
+              {
+                v20 = *v19;
+                if (*v19)
+                {
+                  v21 = v19[1];
+                  if (v21)
+                  {
+                    v22 = (v19 + 2);
+                    do
+                    {
+                      v20 = 31 * v20 + v21;
+                      v23 = *v22++;
+                      v21 = v23;
+                    }
+
+                    while (v23);
+                  }
+                }
+              }
+
+              else
+              {
+                v20 = 0;
+              }
+
+              v24 = *(v18 + 8);
+              *&v43.var0 = 2 * v20;
+              v43.var1 = v19;
+              re::TypeBuilder::addEnumConstantRenaming(v44, v24, &v43);
+              if (*&v43.var0)
+              {
+                if (*&v43.var0)
+                {
+                }
+              }
+
+              v7 = *v6;
+            }
+          }
+        }
+      }
+
+      re::TypeBuilder::~TypeBuilder(v44, v26);
+      xmmword_1EE1B6128 = v43;
+      if (v41)
+      {
+        if (v41)
+        {
+        }
+      }
+
+      return;
+    }
+
+    re::internal::assertLog(5, v3, "assertion failure: '%s' (%s:line %i) Failed to determine underlying type of enum %s.", "valueID.isValid()", "registerEnumType", 2930, v42);
+    _os_crash("assertion failure: (valueID.isValid()) Failed to determine underlying type of enum %s.", v40);
+    __break(1u);
+LABEL_43:
+    if (__cxa_guard_acquire(&qword_1EE1B5F48))
+    {
+      v28 = re::introspectionAllocator();
+      v29 = (*(*v28 + 32))(v28, 24, 8);
+      *v29 = 1;
+      *(v29 + 8) = 1;
+      *(v29 + 16) = "Wall";
+      qword_1EE1B6060 = v29;
+      v30 = re::introspectionAllocator();
+      v31 = (*(*v30 + 32))(v30, 24, 8);
+      *v31 = 1;
+      *(v31 + 8) = 2;
+      *(v31 + 16) = "Floor";
+      qword_1EE1B6068 = v31;
+      v32 = re::introspectionAllocator();
+      v33 = (*(*v32 + 32))(v32, 24, 8);
+      *v33 = 1;
+      *(v33 + 8) = 4;
+      *(v33 + 16) = "Ceiling";
+      qword_1EE1B6070 = v33;
+      v34 = re::introspectionAllocator();
+      v35 = (*(*v34 + 32))(v34, 24, 8);
+      *v35 = 1;
+      *(v35 + 8) = 8;
+      *(v35 + 16) = "Table";
+      qword_1EE1B6078 = v35;
+      v36 = re::introspectionAllocator();
+      v37 = (*(*v36 + 32))(v36, 24, 8);
+      *v37 = 1;
+      *(v37 + 8) = 16;
+      *(v37 + 16) = "Seat";
+      qword_1EE1B6080 = v37;
+      v38 = re::introspectionAllocator();
+      v39 = (*(*v38 + 32))(v38, 24, 8);
+      *v39 = 1;
+      *(v39 + 8) = -1;
+      *(v39 + 16) = "Any";
+      qword_1EE1B6088 = v39;
+      __cxa_guard_release(&qword_1EE1B5F48);
+    }
+  }
+}
+
+void re::ecs2::introspect_AnchoringAccessoryType(re::ecs2 *this, const re::IntrospectionBase *a2)
+{
+  if ((atomic_load_explicit(&qword_1EE1B5F58, memory_order_acquire) & 1) == 0)
   {
-    goto LABEL_441;
+    goto LABEL_43;
   }
 
-  if (!*(v10 + 60))
+  while (1)
   {
-    LOBYTE(v298) = 0;
-    LODWORD(v299) = 0;
-LABEL_452:
-    v212 = *(v10 + 64);
-    LOBYTE(v295) = 0;
-    LODWORD(v296) = v212;
-    goto LABEL_528;
-  }
+    if ((atomic_load_explicit(&qword_1EE1B5F60, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1EE1B5F60))
+    {
+      re::IntrospectionBasic::IntrospectionBasic(&qword_1EE1B6150, "AnchoringAccessoryType", 4, 4, 1, 1);
+      qword_1EE1B6150 = &unk_1F5D0C658;
+      qword_1EE1B6190 = &re::ecs2::introspect_AnchoringAccessoryType(BOOL)::enumTable;
+      dword_1EE1B6160 = 9;
+      __cxa_guard_release(&qword_1EE1B5F60);
+    }
 
-LABEL_705:
-  re::internal::assertLog(4, v127, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "begin", 699, v295, v296, v297, v298, v299, v300, v301);
-  _os_crash();
-  __break(1u);
-LABEL_706:
-  re::internal::assertLog(4, v144, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "begin", 699);
-  _os_crash();
-  __break(1u);
-LABEL_707:
-  re::internal::assertLog(4, v163, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "begin", 699);
-  _os_crash();
-  __break(1u);
-LABEL_708:
-  re::internal::assertLog(4, v180, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "begin", 699);
-  _os_crash();
-  __break(1u);
-LABEL_709:
-  re::internal::assertLog(4, v199, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "begin", 699);
-  _os_crash();
-  __break(1u);
-LABEL_710:
-  re::internal::assertLog(4, v210, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "end", 721);
-  _os_crash();
-  __break(1u);
-LABEL_711:
-  re::internal::assertLog(4, v222, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "end", 721);
-  _os_crash();
-  __break(1u);
-LABEL_712:
-  re::internal::assertLog(4, v243, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "end", 721);
-  _os_crash();
-  __break(1u);
-LABEL_713:
-  re::internal::assertLog(4, v246, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "end", 721);
-  _os_crash();
-  __break(1u);
-LABEL_714:
-  re::internal::assertLog(4, v258, "assertion failure: '%s' (%s:line %i) Invalid mapping type -- indicative of a use after free or memory corruption", "!Unreachable code", "end", 721);
-  result = _os_crash();
-  __break(1u);
-  return result;
+    if (byte_1EE1B5F32)
+    {
+      break;
+    }
+
+    byte_1EE1B5F32 = 1;
+    re::IntrospectionRegistry::add(&qword_1EE1B6150, a2);
+    v35 = 0xD3FEAFD0AE5BAAFELL;
+    v36 = "AnchoringAccessoryType";
+    v39 = 0x607DD0F01DCLL;
+    v40 = "uint32_t";
+    v4 = v38[0];
+    v5 = v38[1];
+    if (v39)
+    {
+      if (v39)
+      {
+      }
+    }
+
+    if (v4)
+    {
+      v6 = qword_1EE1B6190;
+      v39 = v4;
+      v40 = v5;
+      re::TypeBuilder::beginEnumType(v38, &v35, 1, 1, &v39);
+      v7 = *v6;
+      if (v7)
+      {
+        for (i = 0; i < v7; ++i)
+        {
+          v9 = *(*(v6 + 1) + 8 * i);
+          if (*v9 == 1)
+          {
+            v10 = *(v9 + 16);
+            if (v10)
+            {
+              v11 = *v10;
+              if (*v10)
+              {
+                v12 = v10[1];
+                if (v12)
+                {
+                  v13 = (v10 + 2);
+                  do
+                  {
+                    v11 = 31 * v11 + v12;
+                    v14 = *v13++;
+                    v12 = v14;
+                  }
+
+                  while (v14);
+                }
+              }
+            }
+
+            else
+            {
+              v11 = 0;
+            }
+
+            v15 = *(v9 + 8);
+            *&v37.var0 = 2 * v11;
+            v37.var1 = v10;
+            re::TypeBuilder::addEnumConstant(v38, v15, &v37);
+            if (*&v37.var0)
+            {
+              if (*&v37.var0)
+              {
+              }
+            }
+
+            v7 = *v6;
+          }
+        }
+
+        if (v7)
+        {
+          for (j = 0; j < v7; ++j)
+          {
+            v18 = *(*(v6 + 1) + 8 * j);
+            if (*v18 == 2)
+            {
+              v19 = *(v18 + 16);
+              if (v19)
+              {
+                v20 = *v19;
+                if (*v19)
+                {
+                  v21 = v19[1];
+                  if (v21)
+                  {
+                    v22 = (v19 + 2);
+                    do
+                    {
+                      v20 = 31 * v20 + v21;
+                      v23 = *v22++;
+                      v21 = v23;
+                    }
+
+                    while (v23);
+                  }
+                }
+              }
+
+              else
+              {
+                v20 = 0;
+              }
+
+              v24 = *(v18 + 8);
+              *&v37.var0 = 2 * v20;
+              v37.var1 = v19;
+              re::TypeBuilder::addEnumConstantRenaming(v38, v24, &v37);
+              if (*&v37.var0)
+              {
+                if (*&v37.var0)
+                {
+                }
+              }
+
+              v7 = *v6;
+            }
+          }
+        }
+      }
+
+      re::TypeBuilder::~TypeBuilder(v38, v26);
+      xmmword_1EE1B6170 = v37;
+      if (v35)
+      {
+        if (v35)
+        {
+        }
+      }
+
+      return;
+    }
+
+    re::internal::assertLog(5, v3, "assertion failure: '%s' (%s:line %i) Failed to determine underlying type of enum %s.", "valueID.isValid()", "registerEnumType", 2930, v36);
+    _os_crash("assertion failure: (valueID.isValid()) Failed to determine underlying type of enum %s.", v34);
+    __break(1u);
+LABEL_43:
+    if (__cxa_guard_acquire(&qword_1EE1B5F58))
+    {
+      v28 = re::introspectionAllocator();
+      v29 = (*(*v28 + 32))(v28, 24, 8);
+      *v29 = 1;
+      *(v29 + 8) = 1;
+      *(v29 + 16) = "Spatial_L";
+      qword_1EE1B6008 = v29;
+      v30 = re::introspectionAllocator();
+      v31 = (*(*v30 + 32))(v30, 24, 8);
+      *v31 = 1;
+      *(v31 + 8) = 2;
+      *(v31 + 16) = "Spatial_R";
+      qword_1EE1B6010 = v31;
+      v32 = re::introspectionAllocator();
+      v33 = (*(*v32 + 32))(v32, 24, 8);
+      *v33 = 1;
+      *(v33 + 8) = 255;
+      *(v33 + 16) = "Unsupported";
+      qword_1EE1B6018 = v33;
+      __cxa_guard_release(&qword_1EE1B5F58);
+    }
+  }
 }

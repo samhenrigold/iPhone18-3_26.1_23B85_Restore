@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    requestTime = self->_requestTime;
     PBDataWriterWriteDoubleField();
   }
 }

@@ -17,7 +17,7 @@
 - (void)didMoveToWindow
 {
   selfCopy = self;
-  sub_10072720C();
+  sub_10072720C(selfCopy);
 }
 
 - (void)sliderDidChangeValue:(id)value
@@ -44,9 +44,10 @@
     v7 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC5Music12VolumeSlider_volumeChangeHandler);
     if (v7)
     {
+      v8 = *&selfCopy->volumeController[OBJC_IVAR____TtC5Music12VolumeSlider_volumeChangeHandler];
 
-      v7(v8);
-      sub_100020438(v7);
+      v7(v9);
+      sub_100020438(v7, v8);
     }
   }
 }
@@ -105,11 +106,12 @@
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC5Music12VolumeSlider_volumeChangeHandler);
   if (v4)
   {
+    v5 = *&self->volumeController[OBJC_IVAR____TtC5Music12VolumeSlider_volumeChangeHandler];
     selfCopy = self;
-    v6 = sub_100030444(v4);
-    v4(v6);
+    v7 = sub_100030444(v4, v5);
+    v4(v7);
 
-    sub_100020438(v4);
+    sub_100020438(v4, v5);
   }
 }
 
@@ -118,11 +120,12 @@
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC5Music12VolumeSlider_volumeChangeHandler);
   if (v4)
   {
+    v5 = *&self->volumeController[OBJC_IVAR____TtC5Music12VolumeSlider_volumeChangeHandler];
     selfCopy = self;
-    v6 = sub_100030444(v4);
-    v4(v6);
+    v7 = sub_100030444(v4, v5);
+    v4(v7);
 
-    sub_100020438(v4);
+    sub_100020438(v4, v5);
   }
 }
 

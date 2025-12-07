@@ -76,7 +76,7 @@
 
 void __47__FLViewExtensionLoader__setupSessionIfNeeded___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -92,11 +92,11 @@ void __47__FLViewExtensionLoader__setupSessionIfNeeded___block_invoke(uint64_t a
 
   else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412546;
-    v23 = v7;
-    v24 = 2112;
-    v25 = v8;
-    _os_log_impl(&dword_245383000, v11, OS_LOG_TYPE_DEFAULT, "Extension setup: %@ - %@", &v22, 0x16u);
+    v21 = 138412546;
+    v22 = v7;
+    v23 = 2112;
+    v24 = v8;
+    _os_log_impl(&dword_245383000, v11, OS_LOG_TYPE_DEFAULT, "Extension setup: %@ - %@", &v21, 0x16u);
   }
 
   v12 = *(*(a1 + 40) + 8);
@@ -115,7 +115,6 @@ void __47__FLViewExtensionLoader__setupSessionIfNeeded___block_invoke(uint64_t a
   v20 = v9;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupSessionWithExtension:(id)extension completion:(id)completion
@@ -154,20 +153,18 @@ void __63__FLViewExtensionLoader__setupSessionWithExtension_completion___block_i
 
 void __47__FLViewExtensionLoader__setupSessionIfNeeded___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_245383000, a2, OS_LOG_TYPE_ERROR, "Failed to setup extension with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_245383000, a2, OS_LOG_TYPE_ERROR, "Failed to setup extension with error: %@", &v2, 0xCu);
 }
 
 void __63__FLViewExtensionLoader__setupSessionWithExtension_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_245383000, a2, OS_LOG_TYPE_ERROR, "Failed to instantiate extension controller with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_245383000, a2, OS_LOG_TYPE_ERROR, "Failed to instantiate extension controller with error: %@", &v2, 0xCu);
 }
 
 @end

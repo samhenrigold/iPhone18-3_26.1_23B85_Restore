@@ -1,7 +1,7 @@
 @interface MTLRenderPipelineColorAttachmentDescriptorArrayInternal
 - (BOOL)isEqual:(id)equal;
 - (id)objectAtIndexedSubscript:(unint64_t)subscript;
-- (uint64_t)reset;
+- (id)reset;
 - (unint64_t)hash;
 - (void)dealloc;
 - (void)setObject:(id)object atIndexedSubscript:(unint64_t)subscript;
@@ -138,7 +138,7 @@
   }
 }
 
-- (uint64_t)reset
+- (id)reset
 {
   if (result)
   {
@@ -146,8 +146,8 @@
     v2 = 8;
     do
     {
-      result = [*(v1 + 8) reset];
-      v1 += 8;
+      result = [v1[1] reset];
+      ++v1;
       --v2;
     }
 

@@ -14,6 +14,7 @@
 - (BOOL)someNotificationsEnabledAndSupported;
 - (BOOL)wristTemperatureBasedProjectionsEnabled;
 - (HKMCSettingsManager)init;
+- (HKMCSettingsManager)initWithObservationEnabled:(BOOL)enabled;
 - (HKMCSettingsManager)initWithUserDefaults:(id)defaults observationEnabled:(BOOL)enabled;
 - (NSDate)cycleTrackingOnboardingTileDismissedDate;
 - (NSDateComponents)fertileWindowNotificationTimeOfDay;
@@ -42,19 +43,36 @@
 - (void)_stopObservingNPSNotifications;
 - (void)dealloc;
 - (void)fertileWindowNotificationTimeOfDay;
+- (void)forceDisableProjectionsFromOngoingCycleFactors:(id)factors menstruationProjectionsEnabled:(BOOL)enabled fertileWindowProjectionsEnabled:(BOOL)projectionsEnabled useHeartRateInput:(BOOL)input useWristTemperatureInput:(BOOL)temperatureInput;
 - (void)heartRateBasedProjectionsEnabled;
 - (void)menstruationNotificationTimeOfDay;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)resetAllSettings;
 - (void)setCycleTrackingOnboardingTileDismissedDate:(id)date;
+- (void)setDeviationDetectionEnabled:(BOOL)enabled forType:(int64_t)type;
 - (void)setFertileWindowNotificationTimeOfDay:(id)day;
+- (void)setFertileWindowNotificationsEnabled:(BOOL)enabled;
 - (void)setFertileWindowProjectionsAlgorithmAttributesPhone:(unint64_t)phone;
 - (void)setFertileWindowProjectionsAlgorithmAttributesWatch:(unint64_t)watch;
+- (void)setFertileWindowProjectionsDisabledOnWatchForVersionMismatch:(BOOL)mismatch;
+- (void)setFertileWindowProjectionsEnabled:(BOOL)enabled;
+- (void)setFertilityTrackingDisplayTypesHidden:(BOOL)hidden;
+- (void)setHeartRateBasedProjectionsEnabled:(BOOL)enabled;
+- (void)setHidden:(BOOL)hidden forDisplayTypeIdentifier:(id)identifier;
+- (void)setHidden:(BOOL)hidden forDisplayTypeIdentifiers:(id)identifiers;
+- (void)setInternalCycleFactorsOverrideEnabled:(BOOL)enabled;
+- (void)setInternalIgnoreOvulationTestResultsEnabled:(BOOL)enabled;
 - (void)setLocalizedTextForVersionMismatchAndDisabledProjections:(id)projections;
 - (void)setMenstruationNotificationTimeOfDay:(id)day;
+- (void)setMenstruationNotificationsEnabled:(BOOL)enabled;
 - (void)setMenstruationProjectionsAlgorithmAttributesPhone:(unint64_t)phone;
 - (void)setMenstruationProjectionsAlgorithmAttributesWatch:(unint64_t)watch;
+- (void)setMenstruationProjectionsDisabledOnWatchForVersionMismatch:(BOOL)mismatch;
+- (void)setMenstruationProjectionsEnabled:(BOOL)enabled;
+- (void)setMenstruationTrackingDisplayTypesHidden:(BOOL)hidden;
 - (void)setProjectionAttributesOnWatchFromUseHeartRateInput:(BOOL)input useWristTemperatureInput:(BOOL)temperatureInput;
+- (void)setWristTemperatureBasedProjectionsEnabled:(BOOL)enabled;
+- (void)updateUserDefaultIfNeededForBool:(BOOL)bool key:(id)key shouldSync:(BOOL)sync shouldRemoveIfFalse:(BOOL)false;
 - (void)updateUserDefaultIfNeededForInteger:(int64_t)integer key:(id)key shouldSync:(BOOL)sync;
 - (void)updateUserDefaultIfNeededForObject:(id)object key:(id)key shouldSync:(BOOL)sync shouldRemoveIfNil:(BOOL)nil;
 - (void)wristTemperatureBasedProjectionsEnabled;
@@ -341,7 +359,7 @@
     v11 = *MEMORY[0x277CCC2E8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_FAULT))
     {
-      [HKMCSettingsManager(Support) setProjectionAttributesOnWatchFromUseHeartRateInput:v11 useWristTemperatureInput:?];
+      [HKMCSettingsManager(Support) setProjectionAttributesOnWatchFromUseHeartRateInput:v11 useWristTemperatureInput:self];
     }
   }
 }
@@ -358,6 +376,54 @@
   [(HKMCSettingsManager *)self setFertileWindowProjectionsDisabledOnWatchForVersionMismatch:attributes != 0];
 
   [(HKMCSettingsManager *)self setFertileWindowProjectionsAlgorithmAttributesPhone:attributes];
+}
+
+- (void)forceDisableProjectionsFromOngoingCycleFactors:(id)factors menstruationProjectionsEnabled:(BOOL)enabled fertileWindowProjectionsEnabled:(BOOL)projectionsEnabled useHeartRateInput:(BOOL)input useWristTemperatureInput:(BOOL)temperatureInput
+{
+  temperatureInputCopy = temperatureInput;
+  inputCopy = input;
+  projectionsEnabledCopy = projectionsEnabled;
+  enabledCopy = enabled;
+  factorsCopy = factors;
+  v13 = HKMCForceDisablePeriodProjectionsFromCycleFactorSamples(factorsCopy);
+  v14 = HKMCForceDisableFertileWindowProjectionsFromCycleFactorSamples(factorsCopy);
+  v15 = v14;
+  v16 = v13 | 2;
+  if (inputCopy)
+  {
+    v15 = v14 | 2;
+  }
+
+  else
+  {
+    v16 = v13;
+  }
+
+  if (temperatureInputCopy)
+  {
+    v17 = v15 | 4;
+  }
+
+  else
+  {
+    v17 = v15;
+  }
+
+  if (temperatureInputCopy)
+  {
+    v18 = v16 | 4;
+  }
+
+  else
+  {
+    v18 = v16;
+  }
+
+  [(HKMCSettingsManager *)self _setMenstruationProjectionsDisabledOnWatchForVersionMismatchFromAlgorithmAttributes:v18];
+  [(HKMCSettingsManager *)self _setFertileWindowProjectionsDisabledOnWatchForVersionMismatchFromAlgorithmAttributes:v17];
+  v19 = [(HKMCSettingsManager *)self _localizedTextForVersionMismatchFromOngoingCycleFactors:factorsCopy menstruationProjectionsEnabled:enabledCopy fertileWindowProjectionsEnabled:projectionsEnabledCopy useHeartRateInput:inputCopy useWristTemperatureInput:temperatureInputCopy];
+
+  [(HKMCSettingsManager *)self setLocalizedTextForVersionMismatchAndDisabledProjections:v19];
 }
 
 - (id)_localizedTextForVersionMismatchFromOngoingCycleFactors:(id)factors menstruationProjectionsEnabled:(BOOL)enabled fertileWindowProjectionsEnabled:(BOOL)projectionsEnabled useHeartRateInput:(BOOL)input useWristTemperatureInput:(BOOL)temperatureInput
@@ -395,6 +461,15 @@
   v4 = [(HKMCSettingsManager *)self initWithUserDefaults:hkmc_menstrualCyclesDefaults observationEnabled:1];
 
   return v4;
+}
+
+- (HKMCSettingsManager)initWithObservationEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  hkmc_menstrualCyclesDefaults = [MEMORY[0x277CBEBD0] hkmc_menstrualCyclesDefaults];
+  v6 = [(HKMCSettingsManager *)self initWithUserDefaults:hkmc_menstrualCyclesDefaults observationEnabled:enabledCopy];
+
+  return v6;
 }
 
 - (HKMCSettingsManager)initWithUserDefaults:(id)defaults observationEnabled:(BOOL)enabled
@@ -529,79 +604,75 @@ void __65__HKMCSettingsManager__algorithmVersionMismatchSettingsDidUpdate__block
 
 - (void)_startObservingDefaults
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_allSettingsToObserve;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NSUserDefaults *)self->_userDefaults addObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++) options:3 context:0, v9];
+        [(NSUserDefaults *)self->_userDefaults addObserver:self forKeyPath:*(*(&v8 + 1) + 8 * v7++) options:3 context:0, v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopObservingAllDefaults
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_allSettingsToObserve;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(NSUserDefaults *)self->_userDefaults removeObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++), v9];
+        [(NSUserDefaults *)self->_userDefaults removeObserver:self forKeyPath:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
       while (v5 != v7);
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   changeCopy = change;
   _HKInitializeLogging();
@@ -614,15 +685,15 @@ void __65__HKMCSettingsManager__algorithmVersionMismatchSettingsDidUpdate__block
     v14 = v12;
     v15 = [changeCopy objectForKeyedSubscript:v13];
     v16 = [changeCopy objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-    v26 = 138544130;
-    v27 = v12;
-    v28 = 2114;
-    v29 = pathCopy;
-    v30 = 2114;
-    v31 = v15;
-    v32 = 2114;
-    v33 = v16;
-    _os_log_impl(&dword_2518FC000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@ changed: %{public}@ -> %{public}@", &v26, 0x2Au);
+    v25 = 138544130;
+    v26 = v12;
+    v27 = 2114;
+    v28 = pathCopy;
+    v29 = 2114;
+    v30 = v15;
+    v31 = 2114;
+    v32 = v16;
+    _os_log_impl(&dword_2518FC000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@ changed: %{public}@ -> %{public}@", &v25, 0x2Au);
   }
 
   v17 = _AnalysisSettingKeys();
@@ -656,8 +727,6 @@ void __65__HKMCSettingsManager__algorithmVersionMismatchSettingsDidUpdate__block
   {
     [(HKMCSettingsManager *)self _algorithmVersionMismatchSettingsDidUpdate];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startObservingNPSNotifications
@@ -728,7 +797,7 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
 
 - (unint64_t)menstruationProjectionsAlgorithmAttributesWatch
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self->_unitTest_watchMenstruationPredictionAlgorithmAttributesSupported)
   {
     _HKInitializeLogging();
@@ -736,13 +805,13 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v3;
-      *v8 = 138543362;
-      *&v8[4] = objc_opt_class();
-      v5 = *&v8[4];
-      _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Overriding -watchMenstruationPredictionWatchAlgorithmAttributesSupported", v8, 0xCu);
+      *v7 = 138543362;
+      *&v7[4] = objc_opt_class();
+      v5 = *&v7[4];
+      _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Overriding -watchMenstruationPredictionWatchAlgorithmAttributesSupported", v7, 0xCu);
     }
 
-    result = [(NSNumber *)self->_unitTest_watchMenstruationPredictionAlgorithmAttributesSupported unsignedIntegerValue];
+    return [(NSNumber *)self->_unitTest_watchMenstruationPredictionAlgorithmAttributesSupported unsignedIntegerValue:*v7];
   }
 
   else
@@ -750,17 +819,16 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     result = [(NSUserDefaults *)self->_userDefaults integerForKey:@"MenstruationProjectionsAlgorithmAttributesWatch"];
     if (!result)
     {
-      result = 7;
+      return 7;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)setMenstruationProjectionsAlgorithmAttributesWatch:(unint64_t)watch
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
@@ -770,20 +838,19 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     v8 = MEMORY[0x277CCABB0];
     v9 = v7;
     v10 = [v8 numberWithUnsignedInteger:watch];
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2114;
-    v15 = v10;
-    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set menstruation projections algorithm attributes on watch: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v10;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set menstruation projections algorithm attributes on watch: %{public}@", &v11, 0x16u);
   }
 
   [(NSUserDefaults *)self->_userDefaults setInteger:watch forKey:@"MenstruationProjectionsAlgorithmAttributesWatch"];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)fertileWindowProjectionsAlgorithmAttributesWatch
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (self->_unitTest_watchFertileWindowPredictionAlgorithmAttributesSupported)
   {
     _HKInitializeLogging();
@@ -791,13 +858,13 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v3;
-      *v8 = 138543362;
-      *&v8[4] = objc_opt_class();
-      v5 = *&v8[4];
-      _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Overriding -watchFertileWindowPredictionAlgorithmAttributesSupported", v8, 0xCu);
+      *v7 = 138543362;
+      *&v7[4] = objc_opt_class();
+      v5 = *&v7[4];
+      _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Overriding -watchFertileWindowPredictionAlgorithmAttributesSupported", v7, 0xCu);
     }
 
-    result = [(NSNumber *)self->_unitTest_watchFertileWindowPredictionAlgorithmAttributesSupported unsignedIntegerValue];
+    return [(NSNumber *)self->_unitTest_watchFertileWindowPredictionAlgorithmAttributesSupported unsignedIntegerValue:*v7];
   }
 
   else
@@ -805,17 +872,16 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     result = [(NSUserDefaults *)self->_userDefaults integerForKey:@"FertileWindowProjectionsAlgorithmAttributesWatch"];
     if (!result)
     {
-      result = 7;
+      return 7;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)setFertileWindowProjectionsAlgorithmAttributesWatch:(unint64_t)watch
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
@@ -825,20 +891,19 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     v8 = MEMORY[0x277CCABB0];
     v9 = v7;
     v10 = [v8 numberWithUnsignedInteger:watch];
-    v12 = 138543618;
-    v13 = v7;
-    v14 = 2114;
-    v15 = v10;
-    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set fertile window projections algorithm attributes on watch: %{public}@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v10;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set fertile window projections algorithm attributes on watch: %{public}@", &v11, 0x16u);
   }
 
   [(NSUserDefaults *)self->_userDefaults setInteger:watch forKey:@"FertileWindowProjectionsAlgorithmAttributesWatch"];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)algorithmVersionMismatchOnWatch
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self->_unitTest_algorithmVersionMismatchOnWatch)
   {
     _HKInitializeLogging();
@@ -846,13 +911,13 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
     {
       v4 = v3;
-      *v18 = 138543362;
-      *&v18[4] = objc_opt_class();
-      v5 = *&v18[4];
-      _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Overriding -algorithmVersionMismatchOnWatch", v18, 0xCu);
+      *v17 = 138543362;
+      *&v17[4] = objc_opt_class();
+      v5 = *&v17[4];
+      _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Overriding -algorithmVersionMismatchOnWatch", v17, 0xCu);
     }
 
-    result = [(NSNumber *)self->_unitTest_algorithmVersionMismatchOnWatch BOOLValue];
+    return [(NSNumber *)self->_unitTest_algorithmVersionMismatchOnWatch BOOLValue:*v17];
   }
 
   else
@@ -878,25 +943,142 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
           v15 = @"YES";
         }
 
-        *v18 = 138543618;
-        *&v18[4] = v14;
-        *&v18[12] = 2114;
-        *&v18[14] = v15;
+        *v17 = 138543618;
+        *&v17[4] = v14;
+        *&v17[12] = 2114;
+        *&v17[14] = v15;
         v16 = v14;
-        _os_log_impl(&dword_2518FC000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Algorithm version same on paired device: %{public}@", v18, 0x16u);
+        _os_log_impl(&dword_2518FC000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Algorithm version same on paired device: %{public}@", v17, 0x16u);
       }
 
-      result = v11 ^ 1;
+      return v11 ^ 1;
     }
 
     else
     {
-      result = 0;
+      return 0;
     }
   }
+}
 
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+- (void)setMenstruationProjectionsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v12 = 138543618;
+    *&v12[4] = v7;
+    *&v12[12] = 2114;
+    *&v12[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set menstruation predictions enabled: %{public}@", v12, 0x16u);
+  }
+
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
+
+  [(HKMCSettingsManager *)self updateUserDefaultIfNeededForBool:enabledCopy key:@"MenstruationProjectionsEnabled" shouldSync:isAppleWatch ^ 1u shouldRemoveIfFalse:0];
+}
+
+- (void)setFertileWindowProjectionsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v13 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v12 = 138543618;
+    *&v12[4] = v7;
+    *&v12[12] = 2114;
+    *&v12[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set fertile window predictions enabled: %{public}@", v12, 0x16u);
+  }
+
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
+
+  [(HKMCSettingsManager *)self updateUserDefaultIfNeededForBool:enabledCopy key:@"FertileWindowProjectionsEnabled" shouldSync:isAppleWatch ^ 1u shouldRemoveIfFalse:0];
+}
+
+- (void)setMenstruationProjectionsDisabledOnWatchForVersionMismatch:(BOOL)mismatch
+{
+  mismatchCopy = mismatch;
+  v13 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (mismatchCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v12 = 138543618;
+    *&v12[4] = v7;
+    *&v12[12] = 2114;
+    *&v12[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set menstruation predictions force disabled: %{public}@", v12, 0x16u);
+  }
+
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
+
+  [(HKMCSettingsManager *)self updateUserDefaultIfNeededForBool:mismatchCopy key:@"MenstruationProjectionsDisabledForVersionMismatch" shouldSync:isAppleWatch ^ 1u shouldRemoveIfFalse:0];
+}
+
+- (void)setFertileWindowProjectionsDisabledOnWatchForVersionMismatch:(BOOL)mismatch
+{
+  mismatchCopy = mismatch;
+  v13 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (mismatchCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v12 = 138543618;
+    *&v12[4] = v7;
+    *&v12[12] = 2114;
+    *&v12[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set fertile window predictions force disabled: %{public}@", v12, 0x16u);
+  }
+
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
+
+  [(HKMCSettingsManager *)self updateUserDefaultIfNeededForBool:mismatchCopy key:@"FertileWindowProjectionsDisabledForVersionMismatch" shouldSync:isAppleWatch ^ 1u shouldRemoveIfFalse:0];
 }
 
 - (void)setLocalizedTextForVersionMismatchAndDisabledProjections:(id)projections
@@ -921,6 +1103,19 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
   return [(NSUserDefaults *)self->_userDefaults hk_BOOLForKey:@"SensorBasedProjectionsEnabled" defaultValue:1];
 }
 
+- (void)setHeartRateBasedProjectionsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
+  {
+    [(HKMCSettingsManager *)v5 heartRateBasedProjectionsEnabled];
+  }
+
+  [(HKMCSettingsManager *)self updateUserDefaultIfNeededForBool:enabledCopy key:@"SensorBasedProjectionsEnabled" shouldSync:1 shouldRemoveIfFalse:0];
+}
+
 - (BOOL)wristTemperatureBasedProjectionsEnabled
 {
   _HKInitializeLogging();
@@ -933,9 +1128,76 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
   return [(NSUserDefaults *)self->_userDefaults hk_BOOLForKey:@"WristTemperatureBasedProjectionsEnabled" defaultValue:1];
 }
 
+- (void)setWristTemperatureBasedProjectionsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_ERROR))
+  {
+    [(HKMCSettingsManager *)v5 wristTemperatureBasedProjectionsEnabled];
+  }
+
+  [(HKMCSettingsManager *)self updateUserDefaultIfNeededForBool:enabledCopy key:@"WristTemperatureBasedProjectionsEnabled" shouldSync:1 shouldRemoveIfFalse:0];
+}
+
+- (void)setInternalCycleFactorsOverrideEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v10 = 138543618;
+    *&v10[4] = v7;
+    *&v10[12] = 2114;
+    *&v10[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set internal cycle factors override enabled: %{public}@", v10, 0x16u);
+  }
+
+  [(HKMCSettingsManager *)self updateUserDefaultIfNeededForBool:enabledCopy key:@"InternalCycleFactorsOverrideEnabled" shouldSync:1 shouldRemoveIfFalse:1, *v10, *&v10[8], v11];
+}
+
+- (void)setInternalIgnoreOvulationTestResultsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v11 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v10 = 138543618;
+    *&v10[4] = v7;
+    *&v10[12] = 2114;
+    *&v10[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set internal ignore ovulation test results enabled: %{public}@", v10, 0x16u);
+  }
+
+  [(HKMCSettingsManager *)self updateUserDefaultIfNeededForBool:enabledCopy key:@"InternalIgnoreOvulationTestResultsEnabled" shouldSync:1 shouldRemoveIfFalse:1, *v10, *&v10[8], v11];
+}
+
 - (void)setMenstruationProjectionsAlgorithmAttributesPhone:(unint64_t)phone
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
@@ -945,23 +1207,22 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     v8 = MEMORY[0x277CCABB0];
     v9 = v7;
     v10 = [v8 numberWithUnsignedInteger:phone];
-    v14 = 138543618;
-    v15 = v7;
-    v16 = 2114;
-    v17 = v10;
-    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set menstruation projections algorithm attributes: %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v7;
+    v15 = 2114;
+    v16 = v10;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set menstruation projections algorithm attributes: %{public}@", &v13, 0x16u);
   }
 
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
 
   [(HKMCSettingsManager *)self updateUserDefaultIfNeededForInteger:phone key:@"MenstruationProjectionsAlgorithmAttributesPhone" shouldSync:isAppleWatch ^ 1u];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFertileWindowProjectionsAlgorithmAttributesPhone:(unint64_t)phone
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
@@ -971,25 +1232,109 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     v8 = MEMORY[0x277CCABB0];
     v9 = v7;
     v10 = [v8 numberWithUnsignedInteger:phone];
-    v14 = 138543618;
-    v15 = v7;
-    v16 = 2114;
-    v17 = v10;
-    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set fertile window projections algorithm attributes: %{public}@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v7;
+    v15 = 2114;
+    v16 = v10;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set fertile window projections algorithm attributes: %{public}@", &v13, 0x16u);
   }
 
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
 
   [(HKMCSettingsManager *)self updateUserDefaultIfNeededForInteger:phone key:@"FertileWindowProjectionsAlgorithmAttributesPhone" shouldSync:isAppleWatch ^ 1u];
-  v13 = *MEMORY[0x277D85DE8];
+}
+
+- (void)updateUserDefaultIfNeededForBool:(BOOL)bool key:(id)key shouldSync:(BOOL)sync shouldRemoveIfFalse:(BOOL)false
+{
+  falseCopy = false;
+  syncCopy = sync;
+  boolCopy = bool;
+  v27 = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  if ([(NSUserDefaults *)self->_userDefaults BOOLForKey:keyCopy]== boolCopy)
+  {
+    goto LABEL_16;
+  }
+
+  _HKInitializeLogging();
+  v11 = MEMORY[0x277CCC2E8];
+  v12 = *MEMORY[0x277CCC2E8];
+  v13 = os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT);
+  if (falseCopy && !boolCopy)
+  {
+    if (v13)
+    {
+      v14 = v12;
+      *v25 = 138543618;
+      *&v25[4] = objc_opt_class();
+      *&v25[12] = 2114;
+      *&v25[14] = keyCopy;
+      v15 = *&v25[4];
+      _os_log_impl(&dword_2518FC000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing user default key: %{public}@", v25, 0x16u);
+    }
+
+    [(NSUserDefaults *)self->_userDefaults removeObjectForKey:keyCopy, *v25, *&v25[8]];
+    if (!syncCopy)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_13:
+    _HKInitializeLogging();
+    v20 = *v11;
+    if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v21 = v20;
+      v22 = objc_opt_class();
+      *v25 = 138543618;
+      *&v25[4] = v22;
+      *&v25[12] = 2114;
+      *&v25[14] = keyCopy;
+      v23 = v22;
+      _os_log_impl(&dword_2518FC000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting sync of nano preferences for key: %{public}@", v25, 0x16u);
+    }
+
+    v24 = [MEMORY[0x277CBEB98] setWithObject:keyCopy];
+    HKSynchronizeNanoPreferencesUserDefaults();
+
+    goto LABEL_16;
+  }
+
+  if (v13)
+  {
+    v16 = v12;
+    v17 = objc_opt_class();
+    v18 = @"NO";
+    *v25 = 138543874;
+    *&v25[4] = v17;
+    *&v25[12] = 2114;
+    if (boolCopy)
+    {
+      v18 = @"YES";
+    }
+
+    *&v25[14] = keyCopy;
+    *&v25[22] = 2114;
+    v26 = v18;
+    v19 = v17;
+    _os_log_impl(&dword_2518FC000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating user default for key: %{public}@ with value %{public}@", v25, 0x20u);
+  }
+
+  [(NSUserDefaults *)self->_userDefaults setBool:boolCopy forKey:keyCopy, *v25, *&v25[8], v26];
+  if (syncCopy)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_16:
 }
 
 - (void)updateUserDefaultIfNeededForObject:(id)object key:(id)key shouldSync:(BOOL)sync shouldRemoveIfNil:(BOOL)nil
 {
   nilCopy = nil;
   syncCopy = sync;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   v12 = [(NSUserDefaults *)self->_userDefaults objectForKey:keyCopy];
@@ -1007,15 +1352,15 @@ void __54__HKMCSettingsManager__startObservingNPSNotifications__block_invoke_2(u
     if (v15)
     {
       v16 = v14;
-      *v26 = 138543618;
-      *&v26[4] = objc_opt_class();
-      *&v26[12] = 2114;
-      *&v26[14] = keyCopy;
-      v17 = *&v26[4];
-      _os_log_impl(&dword_2518FC000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing user default key: %{public}@", v26, 0x16u);
+      *v25 = 138543618;
+      *&v25[4] = objc_opt_class();
+      *&v25[12] = 2114;
+      *&v25[14] = keyCopy;
+      v17 = *&v25[4];
+      _os_log_impl(&dword_2518FC000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing user default key: %{public}@", v25, 0x16u);
     }
 
-    [(NSUserDefaults *)self->_userDefaults removeObjectForKey:keyCopy, *v26, *&v26[16]];
+    [(NSUserDefaults *)self->_userDefaults removeObjectForKey:keyCopy, *v25, *&v25[8]];
     if (!syncCopy)
     {
       goto LABEL_14;
@@ -1028,12 +1373,12 @@ LABEL_11:
     {
       v21 = v20;
       v22 = objc_opt_class();
-      *v26 = 138543618;
-      *&v26[4] = v22;
-      *&v26[12] = 2114;
-      *&v26[14] = keyCopy;
+      *v25 = 138543618;
+      *&v25[4] = v22;
+      *&v25[12] = 2114;
+      *&v25[14] = keyCopy;
       v23 = v22;
-      _os_log_impl(&dword_2518FC000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting sync of nano preferences for key: %{public}@", v26, 0x16u);
+      _os_log_impl(&dword_2518FC000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting sync of nano preferences for key: %{public}@", v25, 0x16u);
     }
 
     v24 = [MEMORY[0x277CBEB98] setWithObject:keyCopy];
@@ -1045,31 +1390,29 @@ LABEL_11:
   if (v15)
   {
     v18 = v14;
-    *v26 = 138543874;
-    *&v26[4] = objc_opt_class();
-    *&v26[12] = 2114;
-    *&v26[14] = keyCopy;
-    *&v26[22] = 2114;
-    v27 = objectCopy;
-    v19 = *&v26[4];
-    _os_log_impl(&dword_2518FC000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating user default for key: %{public}@ with value %{public}@", v26, 0x20u);
+    *v25 = 138543874;
+    *&v25[4] = objc_opt_class();
+    *&v25[12] = 2114;
+    *&v25[14] = keyCopy;
+    *&v25[22] = 2114;
+    v26 = objectCopy;
+    v19 = *&v25[4];
+    _os_log_impl(&dword_2518FC000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating user default for key: %{public}@ with value %{public}@", v25, 0x20u);
   }
 
-  [(NSUserDefaults *)self->_userDefaults setObject:objectCopy forKey:keyCopy, *v26, *&v26[8], v27];
+  [(NSUserDefaults *)self->_userDefaults setObject:objectCopy forKey:keyCopy, *v25, *&v25[8], v26];
   if (syncCopy)
   {
     goto LABEL_11;
   }
 
 LABEL_14:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateUserDefaultIfNeededForInteger:(int64_t)integer key:(id)key shouldSync:(BOOL)sync
 {
   syncCopy = sync;
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if ([(NSUserDefaults *)self->_userDefaults integerForKey:keyCopy]!= integer)
   {
@@ -1079,17 +1422,17 @@ LABEL_14:
     if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
     {
       v11 = v10;
-      *v19 = 138543874;
-      *&v19[4] = objc_opt_class();
-      *&v19[12] = 2114;
-      *&v19[14] = keyCopy;
-      *&v19[22] = 2048;
+      *v18 = 138543874;
+      *&v18[4] = objc_opt_class();
+      *&v18[12] = 2114;
+      *&v18[14] = keyCopy;
+      *&v18[22] = 2048;
       integerCopy = integer;
-      v12 = *&v19[4];
-      _os_log_impl(&dword_2518FC000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating user default for key: %{public}@ with value %ld@", v19, 0x20u);
+      v12 = *&v18[4];
+      _os_log_impl(&dword_2518FC000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating user default for key: %{public}@ with value %ld@", v18, 0x20u);
     }
 
-    [(NSUserDefaults *)self->_userDefaults setInteger:integer forKey:keyCopy, *v19, *&v19[16], integerCopy];
+    [(NSUserDefaults *)self->_userDefaults setInteger:integer forKey:keyCopy, *v18, *&v18[8], integerCopy];
     if (syncCopy)
     {
       _HKInitializeLogging();
@@ -1098,20 +1441,53 @@ LABEL_14:
       {
         v14 = v13;
         v15 = objc_opt_class();
-        *v19 = 138543618;
-        *&v19[4] = v15;
-        *&v19[12] = 2114;
-        *&v19[14] = keyCopy;
+        *v18 = 138543618;
+        *&v18[4] = v15;
+        *&v18[12] = 2114;
+        *&v18[14] = keyCopy;
         v16 = v15;
-        _os_log_impl(&dword_2518FC000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting sync of nano preferences for key: %{public}@", v19, 0x16u);
+        _os_log_impl(&dword_2518FC000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requesting sync of nano preferences for key: %{public}@", v18, 0x16u);
       }
 
       v17 = [MEMORY[0x277CBEB98] setWithObject:keyCopy];
       HKSynchronizeNanoPreferencesUserDefaults();
     }
   }
+}
 
-  v18 = *MEMORY[0x277D85DE8];
+- (void)setMenstruationNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v14 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v13 = 138543618;
+    *&v13[4] = v7;
+    *&v13[12] = 2114;
+    *&v13[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set menstruation notifications enabled: %{public}@", v13, 0x16u);
+  }
+
+  [(NSUserDefaults *)self->_userDefaults setBool:enabledCopy forKey:@"MenstruationNotificationsEnabled", *v13, *&v13[8], v14];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
+
+  if ((isAppleWatch & 1) == 0)
+  {
+    v12 = [MEMORY[0x277CBEB98] setWithObject:@"MenstruationNotificationsEnabled"];
+    HKSynchronizeNanoPreferencesUserDefaults();
+  }
 }
 
 - (NSDateComponents)menstruationNotificationTimeOfDay
@@ -1151,6 +1527,41 @@ LABEL_14:
   if ((isAppleWatch & 1) == 0)
   {
     v6 = [MEMORY[0x277CBEB98] setWithObject:@"MenstruationNotificationTimeOfDay"];
+    HKSynchronizeNanoPreferencesUserDefaults();
+  }
+}
+
+- (void)setFertileWindowNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v14 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = @"NO";
+    if (enabledCopy)
+    {
+      v8 = @"YES";
+    }
+
+    *v13 = 138543618;
+    *&v13[4] = v7;
+    *&v13[12] = 2114;
+    *&v13[14] = v8;
+    v9 = v7;
+    _os_log_impl(&dword_2518FC000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set fertile window notifications enabled: %{public}@", v13, 0x16u);
+  }
+
+  [(NSUserDefaults *)self->_userDefaults setBool:enabledCopy forKey:@"FertileWindowNotificationsEnabled", *v13, *&v13[8], v14];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
+
+  if ((isAppleWatch & 1) == 0)
+  {
+    v12 = [MEMORY[0x277CBEB98] setWithObject:@"FertileWindowNotificationsEnabled"];
     HKSynchronizeNanoPreferencesUserDefaults();
   }
 }
@@ -1247,6 +1658,55 @@ LABEL_14:
   return [(NSUserDefaults *)userDefaults hk_BOOLForKey:v4 defaultValue:1];
 }
 
+- (void)setDeviationDetectionEnabled:(BOOL)enabled forType:(int64_t)type
+{
+  enabledCopy = enabled;
+  v21 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v7 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    v9 = objc_opt_class();
+    v10 = v9;
+    v11 = NSStringFromDeviationType(type);
+    v12 = v11;
+    v13 = @"NO";
+    *v18 = 138543874;
+    *&v18[4] = v9;
+    *&v18[12] = 2114;
+    if (enabledCopy)
+    {
+      v13 = @"YES";
+    }
+
+    *&v18[14] = v11;
+    v19 = 2114;
+    v20 = v13;
+    _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set %{public}@ deviation detection enabled: %{public}@", v18, 0x20u);
+  }
+
+  if ((type - 1) > 2)
+  {
+    v14 = @"ProlongedDeviationDetectionEnabled";
+  }
+
+  else
+  {
+    v14 = off_2796D52A0[type - 1];
+  }
+
+  [(NSUserDefaults *)self->_userDefaults setBool:enabledCopy forKey:v14, *v18, *&v18[8]];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
+
+  if ((isAppleWatch & 1) == 0)
+  {
+    v17 = [MEMORY[0x277CBEB98] setWithObject:v14];
+    HKSynchronizeNanoPreferencesUserDefaults();
+  }
+}
+
 - (NSDate)cycleTrackingOnboardingTileDismissedDate
 {
   if ([(NSUserDefaults *)self->_userDefaults hk_keyExists:@"CycleTrackingOnboardingTileDismissedDate"])
@@ -1282,6 +1742,112 @@ LABEL_14:
   }
 }
 
+- (void)setHidden:(BOOL)hidden forDisplayTypeIdentifiers:(id)identifiers
+{
+  hiddenCopy = hidden;
+  v35 = *MEMORY[0x277D85DE8];
+  identifiersCopy = identifiers;
+  _HKInitializeLogging();
+  v7 = *MEMORY[0x277CCC2E8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v7;
+    v9 = objc_opt_class();
+    v10 = @"NO";
+    *buf = 138543874;
+    v30 = v9;
+    v31 = 2114;
+    if (hiddenCopy)
+    {
+      v10 = @"YES";
+    }
+
+    v32 = v10;
+    v33 = 2114;
+    v34 = identifiersCopy;
+    v11 = v9;
+    _os_log_impl(&dword_2518FC000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Set hidden = %{public}@ for display types: %{public}@", buf, 0x20u);
+  }
+
+  v12 = [(NSUserDefaults *)self->_userDefaults dictionaryForKey:@"ShouldHideByDisplayTypeIdentifier"];
+  v13 = [v12 mutableCopy];
+
+  if (!v13)
+  {
+    v13 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  }
+
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v14 = identifiersCopy;
+  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v25;
+    do
+    {
+      v18 = 0;
+      do
+      {
+        if (*v25 != v17)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v19 = *(*(&v24 + 1) + 8 * v18);
+        v20 = [MEMORY[0x277CCABB0] numberWithBool:{hiddenCopy, v24}];
+        [v13 setObject:v20 forKeyedSubscript:v19];
+
+        ++v18;
+      }
+
+      while (v16 != v18);
+      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    }
+
+    while (v16);
+  }
+
+  [(NSUserDefaults *)self->_userDefaults setObject:v13 forKey:@"ShouldHideByDisplayTypeIdentifier"];
+  mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
+  isAppleWatch = [mEMORY[0x277CCDD30] isAppleWatch];
+
+  if ((isAppleWatch & 1) == 0)
+  {
+    v23 = [MEMORY[0x277CBEB98] setWithObject:@"ShouldHideByDisplayTypeIdentifier"];
+    HKSynchronizeNanoPreferencesUserDefaults();
+  }
+}
+
+- (void)setHidden:(BOOL)hidden forDisplayTypeIdentifier:(id)identifier
+{
+  hiddenCopy = hidden;
+  v10 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  v6 = MEMORY[0x277CBEA60];
+  identifierCopy2 = identifier;
+  v8 = [v6 arrayWithObjects:&identifierCopy count:1];
+
+  [(HKMCSettingsManager *)self setHidden:hiddenCopy forDisplayTypeIdentifiers:v8, identifierCopy, v10];
+}
+
+- (void)setMenstruationTrackingDisplayTypesHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  v5 = _HKMCMenstruationDisplayTypeIdentifiers(self);
+  [(HKMCSettingsManager *)self setHidden:hiddenCopy forDisplayTypeIdentifiers:v5];
+}
+
+- (void)setFertilityTrackingDisplayTypesHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  v5 = _HKMCFertilityDisplayTypeIdentifiers();
+  [(HKMCSettingsManager *)self setHidden:hiddenCopy forDisplayTypeIdentifiers:v5];
+}
+
 - (BOOL)hiddenForDisplayTypeIdentifier:(id)identifier
 {
   identifierCopy = identifier;
@@ -1308,39 +1874,39 @@ LABEL_14:
 
 - (void)resetAllSettings
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2E8];
   if (os_log_type_enabled(*MEMORY[0x277CCC2E8], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     *buf = 138543362;
-    v24 = objc_opt_class();
-    v5 = v24;
+    v23 = objc_opt_class();
+    v5 = v23;
     _os_log_impl(&dword_2518FC000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Reset all settings", buf, 0xCu);
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = self->_allSettingsToObserve;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v17 + 1) + 8 * v10);
         hkmc_menstrualCyclesDefaults = [MEMORY[0x277CBEBD0] hkmc_menstrualCyclesDefaults];
         [hkmc_menstrualCyclesDefaults removeObjectForKey:v11];
 
@@ -1348,7 +1914,7 @@ LABEL_14:
       }
 
       while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -1365,56 +1931,42 @@ LABEL_14:
     v16 = [MEMORY[0x277CBEB98] setWithArray:self->_allSettingsToObserve];
     HKSynchronizeNanoPreferencesUserDefaults();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)heartRateBasedProjectionsEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_1_2();
   v4 = v3;
-  OUTLINED_FUNCTION_0_3(&dword_2518FC000, v5, v6, "[%{public}@] -heartRateBasedProjectionsEnabled is deprecated. Please move to using HKFeatureSettingsKeyEnabled for HKFeatureIdentifierMenstrualCyclesHeartRateInput", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_2518FC000, v5, v6, "[%{public}@] -heartRateBasedProjectionsEnabled is deprecated. Please move to using HKFeatureSettingsKeyEnabled for HKFeatureIdentifierMenstrualCyclesHeartRateInput", v7, v8, v9, v10);
 }
 
 - (void)wristTemperatureBasedProjectionsEnabled
 {
-  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_1_2();
   v4 = v3;
-  OUTLINED_FUNCTION_0_3(&dword_2518FC000, v5, v6, "[%{public}@] -wristTemperatureBasedProjectionsEnabled is deprecated. Please move to using HKFeatureSettingsKeyEnabled for HKFeatureIdentifierMenstrualCyclesWristTemperatureInput", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_2518FC000, v5, v6, "[%{public}@] -wristTemperatureBasedProjectionsEnabled is deprecated. Please move to using HKFeatureSettingsKeyEnabled for HKFeatureIdentifierMenstrualCyclesWristTemperatureInput", v7, v8, v9, v10);
 }
 
 - (void)menstruationNotificationTimeOfDay
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_opt_class();
   OUTLINED_FUNCTION_1_2();
-  v3 = v2;
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v4, v5, "[%{public}@] Using overridden menstruation notification time: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Using overridden menstruation notification time: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)fertileWindowNotificationTimeOfDay
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_opt_class();
   OUTLINED_FUNCTION_1_2();
-  v3 = v2;
-  OUTLINED_FUNCTION_1(&dword_2518FC000, v4, v5, "[%{public}@] Using overridden fertile window notification time: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  OUTLINED_FUNCTION_1(&dword_2518FC000, v5, v6, "[%{public}@] Using overridden fertile window notification time: %{public}@", v7, v8, v9, v10);
 }
 
 @end

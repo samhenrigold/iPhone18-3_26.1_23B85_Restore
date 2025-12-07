@@ -24,6 +24,7 @@
 - (int64_t)getUserPreferredThreadNetworkNodeTypeWithError:(id *)error;
 - (void)_getPreferredNetworkExistsWithCompletion:(id)completion;
 - (void)_scheduleThreadNetworkRestart;
+- (void)_startNetworkListenerForUserPreferredNetwork:(BOOL)network;
 - (void)_stopNetworkListenerForUserPreferredNetwork;
 - (void)browser:(id)browser didRemoveAccessoryPairingWithNodeID:(id)d;
 - (void)configureWithAccessoryServerBrowser:(id)browser;
@@ -51,6 +52,7 @@
 - (void)handleThreadNetworkPeripheralDeviceNodeTypeChangedNotification:(id)notification;
 - (void)handleThreadNetworkStateChangedNotification:(id)notification;
 - (void)handleThreadNetworkWakeOnConnectionStateChangedNotification:(id)notification;
+- (void)handleUpdatedDataWithIsLocalChange:(BOOL)change;
 - (void)hasValidGeoOrPreferredNetworkForHome:(id)home completion:(id)completion;
 - (void)overrideLocationCheckForPairingForFabricUUID:(id)d;
 - (void)registerForArrivalNotifications:(id)notifications;
@@ -74,6 +76,7 @@
 - (void)unregisterForArrivalNotifications:(id)notifications;
 - (void)unregisterForLeaveNotifications:(id)notifications;
 - (void)unregisterPresenceNotificationsForHome:(id)home;
+- (void)updateNotificationsEnabled:(BOOL)enabled forHome:(id)home keepAliveOnly:(BOOL)only;
 @end
 
 @implementation HMDCHIPDataSource
@@ -107,7 +110,7 @@
 
 - (BOOL)hasMatterThreadAccessoryInHomeWithFabricUUID:(id)d
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
@@ -120,7 +123,7 @@
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v48 = v29;
+      v47 = v29;
       v30 = "%{public}@Home manager reference is nil";
 LABEL_29:
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, v30, buf, 0xCu);
@@ -141,7 +144,7 @@ LABEL_30:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v48 = v29;
+      v47 = v29;
       v30 = "%{public}@Fabric UUID is nil";
       goto LABEL_29;
     }
@@ -149,73 +152,61 @@ LABEL_30:
     goto LABEL_30;
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   homes = [homeManager homes];
-  v8 = [homes countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v8 = [homes countByEnumeratingWithState:&v40 objects:v45 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v42;
-    v36 = homes;
-    v34 = *v42;
+    v10 = *v41;
+    v35 = homes;
+    v33 = *v41;
     do
     {
       v11 = 0;
-      v35 = v9;
+      v34 = v9;
       do
       {
-        if (*v42 != v10)
+        if (*v41 != v10)
         {
           objc_enumerationMutation(homes);
         }
 
-        v12 = *(*(&v41 + 1) + 8 * v11);
+        v12 = *(*(&v40 + 1) + 8 * v11);
         targetFabricUUID = [v12 targetFabricUUID];
         v14 = [targetFabricUUID isEqual:dCopy];
 
         if (v14)
         {
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
           v38 = 0u;
+          v39 = 0u;
+          v36 = 0u;
+          v37 = 0u;
           hapAccessories = [v12 hapAccessories];
-          v16 = [hapAccessories countByEnumeratingWithState:&v37 objects:v45 count:16];
+          v16 = [hapAccessories countByEnumeratingWithState:&v36 objects:v44 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v38;
+            v18 = *v37;
             while (2)
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v38 != v18)
+                if (*v37 != v18)
                 {
                   objc_enumerationMutation(hapAccessories);
                 }
 
-                v20 = *(*(&v37 + 1) + 8 * i);
+                v20 = *(*(&v36 + 1) + 8 * i);
                 if ([v20 supportsCHIP])
                 {
                   supportedLinkLayerTypes = [v20 supportedLinkLayerTypes];
 
-                  if (!supportedLinkLayerTypes)
+                  if (!supportedLinkLayerTypes || ([v20 supportedLinkLayerTypes], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "unsignedIntValue"), v22, objc_msgSend(v20, "supportedLinkLayerTypes"), v24 = objc_claimAutoreleasedReturnValue(), v25 = objc_msgSend(v24, "unsignedIntValue"), v24, (v23 & 0x10) != 0) || !v25)
                   {
-                    goto LABEL_26;
-                  }
-
-                  supportedLinkLayerTypes2 = [v20 supportedLinkLayerTypes];
-                  unsignedIntValue = [supportedLinkLayerTypes2 unsignedIntValue];
-
-                  supportedLinkLayerTypes3 = [v20 supportedLinkLayerTypes];
-                  unsignedIntValue2 = [supportedLinkLayerTypes3 unsignedIntValue];
-
-                  if ((unsignedIntValue & 0x10) != 0 || !unsignedIntValue2)
-                  {
-LABEL_26:
 
                     v31 = 1;
                     goto LABEL_32;
@@ -223,7 +214,7 @@ LABEL_26:
                 }
               }
 
-              v17 = [hapAccessories countByEnumeratingWithState:&v37 objects:v45 count:16];
+              v17 = [hapAccessories countByEnumeratingWithState:&v36 objects:v44 count:16];
               if (v17)
               {
                 continue;
@@ -233,16 +224,16 @@ LABEL_26:
             }
           }
 
-          v9 = v35;
-          homes = v36;
-          v10 = v34;
+          v9 = v34;
+          homes = v35;
+          v10 = v33;
         }
 
         ++v11;
       }
 
       while (v11 != v9);
-      v9 = [homes countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v9 = [homes countByEnumeratingWithState:&v40 objects:v45 count:16];
     }
 
     while (v9);
@@ -252,13 +243,12 @@ LABEL_31:
   v31 = 0;
 LABEL_32:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (void)stopAccessoryFirmwareUpdateWithFabricUUID:(id)d completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
@@ -272,7 +262,7 @@ LABEL_32:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v25;
+      v35 = v25;
       v26 = "%{public}@Home manager reference is nil";
 LABEL_20:
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, v26, buf, 0xCu);
@@ -295,7 +285,7 @@ LABEL_21:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v25;
+      v35 = v25;
       v26 = "%{public}@Fabric UUID is nil";
       goto LABEL_20;
     }
@@ -303,45 +293,45 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
-  v28 = homeManager;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v27 = homeManager;
   homes = [homeManager homes];
-  v11 = [homes countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v11 = [homes countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v32;
+    v13 = *v31;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v32 != v13)
+        if (*v31 != v13)
         {
           objc_enumerationMutation(homes);
         }
 
-        v15 = *(*(&v31 + 1) + 8 * i);
+        v15 = *(*(&v30 + 1) + 8 * i);
         targetFabricUUID = [v15 targetFabricUUID];
         v17 = [targetFabricUUID isEqual:dCopy];
 
         if (v17)
         {
-          v29[0] = MEMORY[0x277D85DD0];
-          v29[1] = 3221225472;
-          v29[2] = __74__HMDCHIPDataSource_stopAccessoryFirmwareUpdateWithFabricUUID_completion___block_invoke;
-          v29[3] = &unk_279733F30;
-          v29[4] = self;
-          v30 = completionCopy;
-          [v15 stopThreadAccessoryFirmwareUpdateWithCompletion:v29];
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __74__HMDCHIPDataSource_stopAccessoryFirmwareUpdateWithFabricUUID_completion___block_invoke;
+          v28[3] = &unk_279733F30;
+          v28[4] = self;
+          v29 = completionCopy;
+          [v15 stopThreadAccessoryFirmwareUpdateWithCompletion:v28];
 
           goto LABEL_17;
         }
       }
 
-      v12 = [homes countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v12 = [homes countByEnumeratingWithState:&v30 objects:v38 count:16];
       if (v12)
       {
         continue;
@@ -358,9 +348,9 @@ LABEL_21:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v36 = v21;
-    v37 = 2112;
-    v38 = dCopy;
+    v35 = v21;
+    v36 = 2112;
+    v37 = dCopy;
     _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find home with CHIP fabric: %@", buf, 0x16u);
   }
 
@@ -368,15 +358,13 @@ LABEL_21:
   homes = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
   completionCopy[2](completionCopy, homes);
 LABEL_17:
-  v9 = v28;
+  v9 = v27;
 LABEL_22:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __74__HMDCHIPDataSource_stopAccessoryFirmwareUpdateWithFabricUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -386,25 +374,23 @@ void __74__HMDCHIPDataSource_stopAccessoryFirmwareUpdateWithFabricUUID_completio
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop thread accessory firmware update, error %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop thread accessory firmware update, error %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAccessoryFirmwareUpdateWithExtendedMACAddress:(id)address fabricUUID:(id)d isWedDevice:(BOOL)device completion:(id)completion
 {
   deviceCopy = device;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   dCopy = d;
   completionCopy = completion;
@@ -419,7 +405,7 @@ void __74__HMDCHIPDataSource_stopAccessoryFirmwareUpdateWithFabricUUID_completio
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v30;
+      v43 = v30;
       v31 = "%{public}@Home manager reference is nil";
 LABEL_20:
       _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, v31, buf, 0xCu);
@@ -442,7 +428,7 @@ LABEL_21:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v30;
+      v43 = v30;
       v31 = "%{public}@Fabric UUID is nil";
       goto LABEL_20;
     }
@@ -450,49 +436,49 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v33 = deviceCopy;
-  v34 = homeManager;
-  v35 = addressCopy;
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v32 = deviceCopy;
+  v33 = homeManager;
+  v34 = addressCopy;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   homes = [homeManager homes];
-  v16 = [homes countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v16 = [homes countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v40;
+    v18 = *v39;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v40 != v18)
+        if (*v39 != v18)
         {
           objc_enumerationMutation(homes);
         }
 
-        v20 = *(*(&v39 + 1) + 8 * i);
+        v20 = *(*(&v38 + 1) + 8 * i);
         targetFabricUUID = [v20 targetFabricUUID];
         v22 = [targetFabricUUID isEqual:dCopy];
 
         if (v22)
         {
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __106__HMDCHIPDataSource_startAccessoryFirmwareUpdateWithExtendedMACAddress_fabricUUID_isWedDevice_completion___block_invoke;
-          v36[3] = &unk_279735168;
-          v36[4] = self;
-          addressCopy = v35;
-          v37 = v35;
-          v38 = completionCopy;
-          [v20 startThreadAccessoryFirmwareUpdateWithExtendedMACAddress:v37 isWedDevice:v33 completion:v36];
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __106__HMDCHIPDataSource_startAccessoryFirmwareUpdateWithExtendedMACAddress_fabricUUID_isWedDevice_completion___block_invoke;
+          v35[3] = &unk_279735168;
+          v35[4] = self;
+          addressCopy = v34;
+          v36 = v34;
+          v37 = completionCopy;
+          [v20 startThreadAccessoryFirmwareUpdateWithExtendedMACAddress:v36 isWedDevice:v32 completion:v35];
 
           goto LABEL_17;
         }
       }
 
-      v17 = [homes countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v17 = [homes countByEnumeratingWithState:&v38 objects:v46 count:16];
       if (v17)
       {
         continue;
@@ -509,26 +495,24 @@ LABEL_21:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v44 = v26;
-    v45 = 2112;
-    v46 = dCopy;
+    v43 = v26;
+    v44 = 2112;
+    v45 = dCopy;
     _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find home with CHIP fabric: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v23);
   homes = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
   completionCopy[2](completionCopy, homes);
-  addressCopy = v35;
+  addressCopy = v34;
 LABEL_17:
-  v14 = v34;
+  v14 = v33;
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HMDCHIPDataSource_startAccessoryFirmwareUpdateWithExtendedMACAddress_fabricUUID_isWedDevice_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -539,26 +523,24 @@ void __106__HMDCHIPDataSource_startAccessoryFirmwareUpdateWithExtendedMACAddress
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to start thread accessory firmware update with emac %@, error %@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to start thread accessory firmware update with emac %@, error %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopAccessoryPairingWithFabricUUID:(id)d completion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
@@ -572,7 +554,7 @@ void __106__HMDCHIPDataSource_startAccessoryFirmwareUpdateWithExtendedMACAddress
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v25;
+      v39 = v25;
       v26 = "%{public}@Home manager reference is nil";
 LABEL_22:
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, v26, buf, 0xCu);
@@ -595,7 +577,7 @@ LABEL_23:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v25;
+      v39 = v25;
       v26 = "%{public}@Fabric UUID is nil";
       goto LABEL_22;
     }
@@ -603,39 +585,39 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
-  v32 = homeManager;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v31 = homeManager;
   homes = [homeManager homes];
-  v11 = [homes countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v11 = [homes countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v36;
+    v13 = *v35;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v36 != v13)
+        if (*v35 != v13)
         {
           objc_enumerationMutation(homes);
         }
 
-        v15 = *(*(&v35 + 1) + 8 * i);
+        v15 = *(*(&v34 + 1) + 8 * i);
         targetFabricUUID = [v15 targetFabricUUID];
         v17 = [targetFabricUUID isEqual:dCopy];
 
         if (v17)
         {
-          v33[0] = MEMORY[0x277D85DD0];
-          v33[1] = 3221225472;
-          v33[2] = __67__HMDCHIPDataSource_stopAccessoryPairingWithFabricUUID_completion___block_invoke;
-          v33[3] = &unk_279733F30;
-          v33[4] = self;
-          v34 = completionCopy;
-          [v15 stopThreadAccessoryPairingWithCompletion:v33];
+          v32[0] = MEMORY[0x277D85DD0];
+          v32[1] = 3221225472;
+          v32[2] = __67__HMDCHIPDataSource_stopAccessoryPairingWithFabricUUID_completion___block_invoke;
+          v32[3] = &unk_279733F30;
+          v32[4] = self;
+          v33 = completionCopy;
+          [v15 stopThreadAccessoryPairingWithCompletion:v32];
           [(HMDCHIPDataSource *)self setThreadPairingOverride:0];
           [(HMDCHIPDataSource *)self setThreadPairingFabricUUID:0];
           v27 = objc_autoreleasePoolPush();
@@ -645,9 +627,9 @@ LABEL_23:
           {
             v30 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v40 = v30;
-            v41 = 2112;
-            v42 = v15;
+            v39 = v30;
+            v40 = 2112;
+            v41 = v15;
             _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Setting thread start pairing override to NO for home %@", buf, 0x16u);
           }
 
@@ -656,7 +638,7 @@ LABEL_23:
         }
       }
 
-      v12 = [homes countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v12 = [homes countByEnumeratingWithState:&v34 objects:v42 count:16];
       if (v12)
       {
         continue;
@@ -673,9 +655,9 @@ LABEL_23:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v40 = v21;
-    v41 = 2112;
-    v42 = dCopy;
+    v39 = v21;
+    v40 = 2112;
+    v41 = dCopy;
     _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find home with CHIP fabric: %@", buf, 0x16u);
   }
 
@@ -683,15 +665,13 @@ LABEL_23:
   homes = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
   completionCopy[2](completionCopy, homes);
 LABEL_19:
-  v9 = v32;
+  v9 = v31;
 LABEL_24:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDCHIPDataSource_stopAccessoryPairingWithFabricUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -701,24 +681,22 @@ void __67__HMDCHIPDataSource_stopAccessoryPairingWithFabricUUID_completion___blo
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop thread accessory pairing, error %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop thread accessory pairing, error %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overrideLocationCheckForPairingForFabricUUID:(id)d
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if (dCopy)
   {
@@ -731,11 +709,11 @@ void __67__HMDCHIPDataSource_stopAccessoryPairingWithFabricUUID_completion___blo
     {
       v8 = HMFGetLogIdentifier();
       threadPairingFabricUUID = [(HMDCHIPDataSource *)selfCopy threadPairingFabricUUID];
-      v13 = 138543618;
-      v14 = v8;
-      v15 = 2112;
-      v16 = threadPairingFabricUUID;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Allowing thread start for pairing with fabric: %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v8;
+      v14 = 2112;
+      v15 = threadPairingFabricUUID;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Allowing thread start for pairing with fabric: %@", &v12, 0x16u);
     }
   }
 
@@ -747,20 +725,19 @@ void __67__HMDCHIPDataSource_stopAccessoryPairingWithFabricUUID_completion___blo
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Not setting pairing override as fabricID is null.", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Not setting pairing override as fabricID is null.", &v12, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v5);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAccessoryPairingWithExtendedMACAddress:(id)address fabricUUID:(id)d isWedDevice:(BOOL)device completion:(id)completion
 {
   deviceCopy = device;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   dCopy = d;
   completionCopy = completion;
@@ -775,7 +752,7 @@ void __67__HMDCHIPDataSource_stopAccessoryPairingWithFabricUUID_completion___blo
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v30;
+      v43 = v30;
       v31 = "%{public}@Home manager reference is nil";
 LABEL_20:
       _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, v31, buf, 0xCu);
@@ -798,7 +775,7 @@ LABEL_21:
     {
       v30 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v30;
+      v43 = v30;
       v31 = "%{public}@Fabric UUID is nil";
       goto LABEL_20;
     }
@@ -806,50 +783,50 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v33 = deviceCopy;
-  v34 = homeManager;
-  v35 = addressCopy;
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v32 = deviceCopy;
+  v33 = homeManager;
+  v34 = addressCopy;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   homes = [homeManager homes];
-  v16 = [homes countByEnumeratingWithState:&v39 objects:v47 count:16];
+  v16 = [homes countByEnumeratingWithState:&v38 objects:v46 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v40;
+    v18 = *v39;
     while (2)
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v40 != v18)
+        if (*v39 != v18)
         {
           objc_enumerationMutation(homes);
         }
 
-        v20 = *(*(&v39 + 1) + 8 * i);
+        v20 = *(*(&v38 + 1) + 8 * i);
         targetFabricUUID = [v20 targetFabricUUID];
         v22 = [targetFabricUUID isEqual:dCopy];
 
         if (v22)
         {
           [(HMDCHIPDataSource *)self overrideLocationCheckForPairingForFabricUUID:dCopy];
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __99__HMDCHIPDataSource_startAccessoryPairingWithExtendedMACAddress_fabricUUID_isWedDevice_completion___block_invoke;
-          v36[3] = &unk_279735168;
-          v36[4] = self;
-          addressCopy = v35;
-          v37 = v35;
-          v38 = completionCopy;
-          [v20 startThreadAccessoryPairingWithExtendedMACAddress:v37 isWedDevice:v33 completion:v36];
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __99__HMDCHIPDataSource_startAccessoryPairingWithExtendedMACAddress_fabricUUID_isWedDevice_completion___block_invoke;
+          v35[3] = &unk_279735168;
+          v35[4] = self;
+          addressCopy = v34;
+          v36 = v34;
+          v37 = completionCopy;
+          [v20 startThreadAccessoryPairingWithExtendedMACAddress:v36 isWedDevice:v32 completion:v35];
 
           goto LABEL_17;
         }
       }
 
-      v17 = [homes countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v17 = [homes countByEnumeratingWithState:&v38 objects:v46 count:16];
       if (v17)
       {
         continue;
@@ -866,26 +843,24 @@ LABEL_21:
   {
     v26 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v44 = v26;
-    v45 = 2112;
-    v46 = dCopy;
+    v43 = v26;
+    v44 = 2112;
+    v45 = dCopy;
     _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find home with CHIP fabric: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v23);
   homes = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
   completionCopy[2](completionCopy, homes);
-  addressCopy = v35;
+  addressCopy = v34;
 LABEL_17:
-  v14 = v34;
+  v14 = v33;
 LABEL_22:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __99__HMDCHIPDataSource_startAccessoryPairingWithExtendedMACAddress_fabricUUID_isWedDevice_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -896,21 +871,19 @@ void __99__HMDCHIPDataSource_startAccessoryPairingWithExtendedMACAddress_fabricU
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to start thread accessory pairing with emac %@, error %@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to start thread accessory pairing with emac %@, error %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)getUserPreferredThreadNetworkNodeTypeWithError:(id *)error
@@ -955,7 +928,7 @@ void __99__HMDCHIPDataSource_startAccessoryPairingWithExtendedMACAddress_fabricU
 
 - (int64_t)getThreadNetworkNodeTypeWithFabricUUID:(id)d
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
@@ -971,7 +944,7 @@ void __99__HMDCHIPDataSource_startAccessoryPairingWithExtendedMACAddress_fabricU
 
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v30 = v18;
+    v29 = v18;
     v19 = "%{public}@Home manager reference is nil";
 LABEL_18:
     v20 = v17;
@@ -991,31 +964,31 @@ LABEL_18:
 
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v30 = v18;
+    v29 = v18;
     v19 = "%{public}@fabricUUID is nil";
     goto LABEL_18;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   homes = [homeManager homes];
-  v8 = [homes countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v8 = [homes countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(homes);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         targetFabricUUID = [v12 targetFabricUUID];
         v14 = [targetFabricUUID isEqual:dCopy];
 
@@ -1027,7 +1000,7 @@ LABEL_18:
         }
       }
 
-      v9 = [homes countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v9 = [homes countByEnumeratingWithState:&v24 objects:v32 count:16];
       if (v9)
       {
         continue;
@@ -1044,9 +1017,9 @@ LABEL_18:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v30 = v18;
-    v31 = 2112;
-    v32 = dCopy;
+    v29 = v18;
+    v30 = 2112;
+    v31 = dCopy;
     v19 = "%{public}@No home found with fabric %@";
     v20 = v17;
     v21 = 22;
@@ -1060,13 +1033,12 @@ LABEL_20:
   threadNetworkNodeType = 0;
 LABEL_21:
 
-  v23 = *MEMORY[0x277D85DE8];
   return threadNetworkNodeType;
 }
 
 - (int64_t)getThreadNetworkConnectionStateWithFabricUUID:(id)d
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
@@ -1082,7 +1054,7 @@ LABEL_21:
 
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v30 = v18;
+    v29 = v18;
     v19 = "%{public}@Home manager reference is nil";
 LABEL_18:
     v20 = v17;
@@ -1102,31 +1074,31 @@ LABEL_18:
 
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v30 = v18;
+    v29 = v18;
     v19 = "%{public}@fabricUUID is nil";
     goto LABEL_18;
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   homes = [homeManager homes];
-  v8 = [homes countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v8 = [homes countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(homes);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         targetFabricUUID = [v12 targetFabricUUID];
         v14 = [targetFabricUUID isEqual:dCopy];
 
@@ -1138,7 +1110,7 @@ LABEL_18:
         }
       }
 
-      v9 = [homes countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v9 = [homes countByEnumeratingWithState:&v24 objects:v32 count:16];
       if (v9)
       {
         continue;
@@ -1155,9 +1127,9 @@ LABEL_18:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v30 = v18;
-    v31 = 2112;
-    v32 = dCopy;
+    v29 = v18;
+    v30 = 2112;
+    v31 = dCopy;
     v19 = "%{public}@No home found with fabric %@";
     v20 = v17;
     v21 = 22;
@@ -1171,13 +1143,12 @@ LABEL_20:
   threadNetworkConnectionState = 0;
 LABEL_21:
 
-  v23 = *MEMORY[0x277D85DE8];
   return threadNetworkConnectionState;
 }
 
 - (void)handleThreadNetworkPeripheralDeviceNodeTypeChangedNotification:(id)notification
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -1207,20 +1178,18 @@ LABEL_21:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Event not of type HMDThreadNetworkPeripheralDeviceNodeTypeEvent", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Event not of type HMDThreadNetworkPeripheralDeviceNodeTypeEvent", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleThreadNetworkWakeOnConnectionStateChangedNotification:(id)notification
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   object = [notificationCopy object];
   objc_opt_class();
@@ -1252,15 +1221,13 @@ LABEL_21:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Event not of type thread wake on connection state changed", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Event not of type thread wake on connection state changed", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleThreadNetworkStateChangedNotification:(id)notification
@@ -1288,15 +1255,15 @@ LABEL_21:
       [(HMDCHIPDataSource *)self setPendingRadioStateChangeNotification:1];
       objc_initWeak(location, self);
       v8 = dispatch_time(0, 50000000);
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __65__HMDCHIPDataSource_handleThreadNetworkStateChangedNotification___block_invoke;
-      v14[3] = &unk_279732E78;
-      objc_copyWeak(&v16, location);
-      v15 = v7;
-      [(HMDCHIPDataSource *)self dispatchAfter:v8 block:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __65__HMDCHIPDataSource_handleThreadNetworkStateChangedNotification___block_invoke;
+      v13[3] = &unk_279732E78;
+      objc_copyWeak(&v15, location);
+      v14 = v7;
+      [(HMDCHIPDataSource *)self dispatchAfter:v8 block:v13];
 
-      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v15);
       objc_destroyWeak(location);
     }
   }
@@ -1316,8 +1283,6 @@ LABEL_21:
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDCHIPDataSource_handleThreadNetworkStateChangedNotification___block_invoke(uint64_t a1)
@@ -1341,7 +1306,7 @@ void __65__HMDCHIPDataSource_handleThreadNetworkStateChangedNotification___block
 
 - (void)connectToAccessoryWithExtendedMACAddress:(id)address withFabricUUID:(id)d completion:(id)completion
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   dCopy = d;
   completionCopy = completion;
@@ -1349,52 +1314,52 @@ void __65__HMDCHIPDataSource_handleThreadNetworkStateChangedNotification___block
   v12 = homeManager;
   if (homeManager)
   {
-    v30 = completionCopy;
-    v31 = addressCopy;
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
+    v29 = completionCopy;
+    v30 = addressCopy;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     homes = [homeManager homes];
-    v14 = [homes countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v14 = [homes countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v36;
+      v16 = *v35;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v36 != v16)
+          if (*v35 != v16)
           {
             objc_enumerationMutation(homes);
           }
 
           if (dCopy)
           {
-            v18 = *(*(&v35 + 1) + 8 * i);
+            v18 = *(*(&v34 + 1) + 8 * i);
             targetFabricUUID = [v18 targetFabricUUID];
             v20 = [targetFabricUUID isEqual:dCopy];
 
             if (v20)
             {
-              v32[0] = MEMORY[0x277D85DD0];
-              v32[1] = 3221225472;
-              v32[2] = __88__HMDCHIPDataSource_connectToAccessoryWithExtendedMACAddress_withFabricUUID_completion___block_invoke;
-              v32[3] = &unk_279735168;
-              v32[4] = self;
-              addressCopy = v31;
-              v33 = v31;
-              completionCopy = v30;
-              v34 = v30;
-              [v18 connectToThreadAccessoryWithExtendedMACAddress:v33 completion:v32];
+              v31[0] = MEMORY[0x277D85DD0];
+              v31[1] = 3221225472;
+              v31[2] = __88__HMDCHIPDataSource_connectToAccessoryWithExtendedMACAddress_withFabricUUID_completion___block_invoke;
+              v31[3] = &unk_279735168;
+              v31[4] = self;
+              addressCopy = v30;
+              v32 = v30;
+              completionCopy = v29;
+              v33 = v29;
+              [v18 connectToThreadAccessoryWithExtendedMACAddress:v32 completion:v31];
 
               goto LABEL_18;
             }
           }
         }
 
-        v15 = [homes countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v15 = [homes countByEnumeratingWithState:&v34 objects:v42 count:16];
         if (v15)
         {
           continue;
@@ -1411,17 +1376,17 @@ void __65__HMDCHIPDataSource_handleThreadNetworkStateChangedNotification___block
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v40 = v24;
-      v41 = 2112;
-      v42 = dCopy;
+      v39 = v24;
+      v40 = 2112;
+      v41 = dCopy;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find home with CHIP fabric: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
     homes = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-    completionCopy = v30;
-    (v30)[2](v30, homes);
-    addressCopy = v31;
+    completionCopy = v29;
+    (v29)[2](v29, homes);
+    addressCopy = v30;
   }
 
   else
@@ -1433,7 +1398,7 @@ void __65__HMDCHIPDataSource_handleThreadNetworkStateChangedNotification___block
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v28;
+      v39 = v28;
       _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", buf, 0xCu);
     }
 
@@ -1443,13 +1408,11 @@ void __65__HMDCHIPDataSource_handleThreadNetworkStateChangedNotification___block
   }
 
 LABEL_18:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HMDCHIPDataSource_connectToAccessoryWithExtendedMACAddress_withFabricUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1460,26 +1423,24 @@ void __88__HMDCHIPDataSource_connectToAccessoryWithExtendedMACAddress_withFabric
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to connect to accessory with emac %@, error %@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to connect to accessory with emac %@, error %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopThreadRadioOnDeviceLock
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1487,25 +1448,23 @@ void __88__HMDCHIPDataSource_connectToAccessoryWithExtendedMACAddress_withFabric
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping Thread network after device lock", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   getSharedThreadResidentCommissioner = [(HMDCHIPDataSource *)selfCopy getSharedThreadResidentCommissioner];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __48__HMDCHIPDataSource_stopThreadRadioOnDeviceLock__block_invoke;
-  v9[3] = &unk_2797359D8;
-  v9[4] = selfCopy;
-  [getSharedThreadResidentCommissioner stopThreadNetworkOnDeviceLockWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __48__HMDCHIPDataSource_stopThreadRadioOnDeviceLock__block_invoke;
+  v8[3] = &unk_2797359D8;
+  v8[4] = selfCopy;
+  [getSharedThreadResidentCommissioner stopThreadNetworkOnDeviceLockWithCompletion:v8];
 }
 
 void __48__HMDCHIPDataSource_stopThreadRadioOnDeviceLock__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1516,24 +1475,24 @@ void __48__HMDCHIPDataSource_stopThreadRadioOnDeviceLock__block_invoke(uint64_t 
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Failed to stop Thread network with error: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Successfully stopped Thread network";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -1542,7 +1501,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopNetworkListenerForUserPreferredNetwork
@@ -1554,9 +1512,27 @@ LABEL_6:
   [(HMDCHIPDataSource *)self setUserPreferredThreadNetworkEventListener:0];
 }
 
+- (void)_startNetworkListenerForUserPreferredNetwork:(BOOL)network
+{
+  networkCopy = network;
+  userPreferredThreadNetworkEventListener = [(HMDCHIPDataSource *)self userPreferredThreadNetworkEventListener];
+
+  if (!userPreferredThreadNetworkEventListener)
+  {
+    getSharedThreadResidentCommissioner = [(HMDCHIPDataSource *)self getSharedThreadResidentCommissioner];
+    v7 = [[HMDCHIPThreadNetworkEventListener alloc] initWithThreadResidentCommissioner:getSharedThreadResidentCommissioner];
+    [(HMDCHIPDataSource *)self setUserPreferredThreadNetworkEventListener:v7];
+
+    userPreferredThreadNetworkEventListener2 = [(HMDCHIPDataSource *)self userPreferredThreadNetworkEventListener];
+    [userPreferredThreadNetworkEventListener2 setEventListenerDelegate:self];
+  }
+
+  [(HMDCHIPDataSource *)self setThreadNetworkShouldRestartOnNetworkChange:networkCopy];
+}
+
 - (void)stopThreadRadioForUserPreferredNetwork
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1564,26 +1540,24 @@ LABEL_6:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v6;
+    v10 = v6;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping Thread network for user preferred network", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDCHIPDataSource *)selfCopy _stopNetworkListenerForUserPreferredNetwork];
   getSharedThreadResidentCommissioner = [(HMDCHIPDataSource *)selfCopy getSharedThreadResidentCommissioner];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __59__HMDCHIPDataSource_stopThreadRadioForUserPreferredNetwork__block_invoke;
-  v9[3] = &unk_2797359D8;
-  v9[4] = selfCopy;
-  [getSharedThreadResidentCommissioner stopThreadNetworkWithCompletion:v9];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __59__HMDCHIPDataSource_stopThreadRadioForUserPreferredNetwork__block_invoke;
+  v8[3] = &unk_2797359D8;
+  v8[4] = selfCopy;
+  [getSharedThreadResidentCommissioner stopThreadNetworkWithCompletion:v8];
 }
 
 void __59__HMDCHIPDataSource_stopThreadRadioForUserPreferredNetwork__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1594,24 +1568,24 @@ void __59__HMDCHIPDataSource_stopThreadRadioForUserPreferredNetwork__block_invok
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Failed to stop Thread network with error: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_2531F8000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Successfully stopped Thread network for user preferred network";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -1620,75 +1594,71 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startThreadRadioForUserPreferredNetwork
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([(HMDCHIPDataSource *)self startThreadOnWakeEnabled])
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [(HMDCHIPDataSource *)self startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck];
   }
 
   else
   {
-    v4 = objc_autoreleasePoolPush();
+    v3 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v5 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      v7 = HMFGetLogIdentifier();
+      v6 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v20 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting Thread network for user preferred network", buf, 0xCu);
+      v18 = v6;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting Thread network for user preferred network", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v4);
+    objc_autoreleasePoolPop(v3);
     getDefaultThreadNetworkMetadataStore = [(HMDCHIPDataSource *)selfCopy getDefaultThreadNetworkMetadataStore];
     if (getDefaultThreadNetworkMetadataStore)
     {
       getSharedThreadResidentCommissioner = [(HMDCHIPDataSource *)selfCopy getSharedThreadResidentCommissioner];
       [(HMDCHIPDataSource *)selfCopy _startNetworkListenerForUserPreferredNetwork:0];
       objc_initWeak(buf, selfCopy);
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invoke;
-      v16[3] = &unk_27972A9B8;
-      objc_copyWeak(&v18, buf);
-      v10 = getSharedThreadResidentCommissioner;
-      v17 = v10;
-      [getDefaultThreadNetworkMetadataStore retrievePreferredNetwork:0 completion:v16];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invoke;
+      v14[3] = &unk_27972A9B8;
+      objc_copyWeak(&v16, buf);
+      v9 = getSharedThreadResidentCommissioner;
+      v15 = v9;
+      [getDefaultThreadNetworkMetadataStore retrievePreferredNetwork:0 completion:v14];
 
-      objc_destroyWeak(&v18);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      v11 = objc_autoreleasePoolPush();
-      v12 = selfCopy;
-      v13 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v10 = objc_autoreleasePoolPush();
+      v11 = selfCopy;
+      v12 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v14 = HMFGetLogIdentifier();
+        v13 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v20 = v14;
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@No thread network metadata store", buf, 0xCu);
+        v18 = v13;
+        _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@No thread network metadata store", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v11);
+      objc_autoreleasePoolPop(v10);
     }
-
-    v15 = *MEMORY[0x277D85DE8];
   }
 }
 
 void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -1706,9 +1676,9 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v28 = v23;
-        v29 = 2112;
-        v30 = v12;
+        v27 = v23;
+        v28 = 2112;
+        v29 = v12;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Unable to retrieve operationalDataset for thread network: %@", buf, 0x16u);
       }
 
@@ -1722,26 +1692,26 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v28 = v18;
-        v29 = 2112;
-        v30 = v9;
-        v31 = 2112;
-        v32 = v10;
-        v33 = 2112;
-        v34 = v11;
+        v27 = v18;
+        v28 = 2112;
+        v29 = v9;
+        v30 = 2112;
+        v31 = v10;
+        v32 = 2112;
+        v33 = v11;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Successfully retrieved preferred thread credentials %@ with UUID %@ and operationalDataset %@ from network metadata store", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v14);
       [*(a1 + 32) setGeoAvailable:1];
       v19 = *(a1 + 32);
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invoke_173;
-      v25[3] = &unk_2797358C8;
-      v25[4] = v15;
-      v26 = v10;
-      [v19 startThreadNetworkWithOperationalDataset:v11 threadNetworkID:v26 isOwnerUser:0 completion:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invoke_173;
+      v24[3] = &unk_2797358C8;
+      v24[4] = v15;
+      v25 = v10;
+      [v19 startThreadNetworkWithOperationalDataset:v11 threadNetworkID:v25 isOwnerUser:0 completion:v24];
     }
   }
 
@@ -1753,19 +1723,17 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v22;
+      v27 = v22;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to get strong reference to self - abort", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invoke_173(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1777,13 +1745,13 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v13 = 138543874;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to attach to user preferred thread network %@: %@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      v16 = 2112;
+      v17 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to attach to user preferred thread network %@: %@", &v12, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -1796,22 +1764,20 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
-      v13 = 138543618;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Attached to thread network %@", &v13, 0x16u);
+      v12 = 138543618;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Attached to thread network %@", &v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -1828,16 +1794,16 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
   if (getDefaultThreadNetworkMetadataStore)
   {
     _getLocationAuthorized = [(HMDCHIPDataSource *)selfCopy _getLocationAuthorized];
-    v67 = 0;
-    v68 = &v67;
-    v69 = 0x2020000000;
-    v70 = 0;
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x2020000000;
+    v68 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v79 = 0x3032000000;
-    v80 = __Block_byref_object_copy__99799;
-    v81 = __Block_byref_object_dispose__99800;
-    v82 = 0;
+    v77 = 0x3032000000;
+    v78 = __Block_byref_object_copy__99799;
+    v79 = __Block_byref_object_dispose__99800;
+    v80 = 0;
     group = dispatch_group_create();
     homeManager = [(HMDCHIPDataSource *)selfCopy homeManager];
     if (homeManager)
@@ -1850,31 +1816,31 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
       v8 = 0;
     }
 
-    v49 = homeManager;
+    v47 = homeManager;
     if (v8)
     {
       homes = [homeManager homes];
       v10 = [homes sortedArrayUsingComparator:&__block_literal_global_164_99801];
 
-      v65 = 0u;
-      v66 = 0u;
       v63 = 0u;
       v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
       v11 = v10;
-      v12 = [v11 countByEnumeratingWithState:&v63 objects:v77 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v61 objects:v75 count:16];
       if (v12)
       {
-        v13 = *v64;
+        v13 = *v62;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v64 != v13)
+            if (*v62 != v13)
             {
               objc_enumerationMutation(v11);
             }
 
-            v15 = *(*(&v63 + 1) + 8 * i);
+            v15 = *(*(&v61 + 1) + 8 * i);
             fabric = [v15 fabric];
             fabricID = [fabric fabricID];
 
@@ -1884,21 +1850,21 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
               if ([matterAccessories count])
               {
                 dispatch_group_enter(group);
-                v59[0] = MEMORY[0x277D85DD0];
-                v59[1] = 3221225472;
-                v59[2] = __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_2;
-                v59[3] = &unk_27972A940;
-                v59[4] = selfCopy;
-                v59[5] = v15;
-                v61 = &v67;
+                v57[0] = MEMORY[0x277D85DD0];
+                v57[1] = 3221225472;
+                v57[2] = __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_2;
+                v57[3] = &unk_27972A940;
+                v57[4] = selfCopy;
+                v57[5] = v15;
+                v59 = &v65;
                 p_buf = &buf;
-                v60 = group;
-                [(HMDCHIPDataSource *)selfCopy hasValidGeoOrPreferredNetworkForHome:v15 completion:v59];
+                v58 = group;
+                [(HMDCHIPDataSource *)selfCopy hasValidGeoOrPreferredNetworkForHome:v15 completion:v57];
               }
             }
           }
 
-          v12 = [v11 countByEnumeratingWithState:&v63 objects:v77 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v61 objects:v75 count:16];
         }
 
         while (v12);
@@ -1913,9 +1879,9 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
       if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         v26 = HMFGetLogIdentifier();
-        *v71 = 138543362;
-        v72 = v26;
-        _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil - skipping in-geo && matter check", v71, 0xCu);
+        *v69 = 138543362;
+        v70 = v26;
+        _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil - skipping in-geo && matter check", v69, 0xCu);
       }
 
       objc_autoreleasePoolPop(v23);
@@ -1930,9 +1896,9 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
       if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         v31 = HMFGetLogIdentifier();
-        *v71 = 138543362;
-        v72 = v31;
-        _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_ERROR, "%{public}@Timed out while fetching preferred network.", v71, 0xCu);
+        *v69 = 138543362;
+        v70 = v31;
+        _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_ERROR, "%{public}@Timed out while fetching preferred network.", v69, 0xCu);
       }
 
       objc_autoreleasePoolPop(v28);
@@ -1945,72 +1911,71 @@ void __60__HMDCHIPDataSource_startThreadRadioForUserPreferredNetwork__block_invo
     {
       v35 = HMFGetLogIdentifier();
       v36 = HMFBooleanToString();
-      v37 = *(v68 + 24);
-      v38 = HMFBooleanToString();
-      *v71 = 138543874;
-      v72 = v35;
+      v37 = HMFBooleanToString();
+      *v69 = 138543874;
+      v70 = v35;
+      v71 = 2112;
+      v72 = v36;
       v73 = 2112;
-      v74 = v36;
-      v75 = 2112;
-      v76 = v38;
-      _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@startThreadRadioForUserPreferredNetwork: isLocationAuthorized = %@. isInGeoForAnyHome = %@", v71, 0x20u);
+      v74 = v37;
+      _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@startThreadRadioForUserPreferredNetwork: isLocationAuthorized = %@. isInGeoForAnyHome = %@", v69, 0x20u);
     }
 
     objc_autoreleasePoolPop(v32);
-    if (_getLocationAuthorized && (v68[3] & 1) == 0)
+    if (_getLocationAuthorized && (v66[3] & 1) == 0)
     {
-      v39 = CFPreferencesGetAppBooleanValue(@"StartThreadOnWakeBypassAccessoryRequirement", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0) == 0;
-      v40 = objc_autoreleasePoolPush();
-      v41 = v33;
-      if (v39)
+      v38 = CFPreferencesGetAppBooleanValue(@"StartThreadOnWakeBypassAccessoryRequirement", @"/Library/Managed Preferences/mobile/com.apple.homed.plist", 0) == 0;
+      v39 = objc_autoreleasePoolPush();
+      v40 = v33;
+      if (v38)
       {
-        v47 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+        v45 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
         {
-          v48 = HMFGetLogIdentifier();
-          *v71 = 138543362;
-          v72 = v48;
-          _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_INFO, "%{public}@Not in-geo for any home and no accessories in matter locker, not starting thread", v71, 0xCu);
+          v46 = HMFGetLogIdentifier();
+          *v69 = 138543362;
+          v70 = v46;
+          _os_log_impl(&dword_2531F8000, v45, OS_LOG_TYPE_INFO, "%{public}@Not in-geo for any home and no accessories in matter locker, not starting thread", v69, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v40);
+        objc_autoreleasePoolPop(v39);
         goto LABEL_39;
       }
 
-      v42 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      v41 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
       {
-        v43 = HMFGetLogIdentifier();
-        *v71 = 138543362;
-        v72 = v43;
-        _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_INFO, "%{public}@Not in-geo for any home and no accessories in matter locker, allowing thread start anyways", v71, 0xCu);
+        v42 = HMFGetLogIdentifier();
+        *v69 = 138543362;
+        v70 = v42;
+        _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_INFO, "%{public}@Not in-geo for any home and no accessories in matter locker, allowing thread start anyways", v69, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v40);
+      objc_autoreleasePoolPop(v39);
     }
 
     getSharedThreadResidentCommissioner = [(HMDCHIPDataSource *)v33 getSharedThreadResidentCommissioner];
     [(HMDCHIPDataSource *)v33 _startNetworkListenerForUserPreferredNetwork:1];
-    objc_initWeak(v71, v33);
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_169;
-    v53[3] = &unk_27972A990;
-    objc_copyWeak(&v58, v71);
-    v54 = getDefaultThreadNetworkMetadataStore;
-    v56 = &buf;
-    v45 = getSharedThreadResidentCommissioner;
-    v55 = v45;
-    v57 = &v67;
-    [v54 retrieveBorderRouterPreferredNetworkWithCompletion:v53];
+    objc_initWeak(v69, v33);
+    v51[0] = MEMORY[0x277D85DD0];
+    v51[1] = 3221225472;
+    v51[2] = __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_169;
+    v51[3] = &unk_27972A990;
+    objc_copyWeak(&v56, v69);
+    v52 = getDefaultThreadNetworkMetadataStore;
+    v54 = &buf;
+    v44 = getSharedThreadResidentCommissioner;
+    v53 = v44;
+    v55 = &v65;
+    [v52 retrieveBorderRouterPreferredNetworkWithCompletion:v51];
 
-    objc_destroyWeak(&v58);
-    objc_destroyWeak(v71);
+    objc_destroyWeak(&v56);
+    objc_destroyWeak(v69);
 
 LABEL_39:
     _Block_object_dispose(&buf, 8);
 
-    _Block_object_dispose(&v67, 8);
+    _Block_object_dispose(&v65, 8);
     goto LABEL_40;
   }
 
@@ -2027,13 +1992,12 @@ LABEL_39:
 
   objc_autoreleasePoolPop(v19);
 LABEL_40:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
-void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_2(uint64_t a1, int a2, void *a3)
+void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -2042,17 +2006,17 @@ void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBo
   {
     v9 = HMFGetLogIdentifier();
     v10 = HMFBooleanToString();
-    v20 = 138543874;
-    v21 = v9;
-    v22 = 2112;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v5;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@GeoAvailable: %@, error %@", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v9;
+    v21 = 2112;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v5;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@GeoAvailable: %@, error %@", &v19, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
-  if (a2)
+  if (v3)
   {
     v11 = objc_autoreleasePoolPush();
     v12 = *(a1 + 32);
@@ -2063,13 +2027,13 @@ void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBo
       v15 = [*(a1 + 40) fabric];
       v16 = [v15 fabricID];
       v17 = *(a1 + 40);
-      v20 = 138543874;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v17;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Is in Geo for home with fabricID %@ - %@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v14;
+      v21 = 2112;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v17;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Is in Geo for home with fabricID %@ - %@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -2086,13 +2050,11 @@ void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBo
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_169(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
@@ -2107,20 +2069,20 @@ void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBo
       {
         objc_initWeak(buf, v8);
         v18 = *(a1 + 32);
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_170;
-        v22[3] = &unk_27972A968;
-        objc_copyWeak(&v27, buf);
-        v25 = *(a1 + 48);
-        v23 = v5;
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_170;
+        v21[3] = &unk_27972A968;
+        objc_copyWeak(&v26, buf);
+        v24 = *(a1 + 48);
+        v22 = v5;
         v19 = *(a1 + 40);
         v20 = *(a1 + 56);
-        v24 = v19;
-        v26 = v20;
-        [v18 retrievePreferredNetwork:0 completion:v22];
+        v23 = v19;
+        v25 = v20;
+        [v18 retrievePreferredNetwork:0 completion:v21];
 
-        objc_destroyWeak(&v27);
+        objc_destroyWeak(&v26);
         objc_destroyWeak(buf);
         goto LABEL_15;
       }
@@ -2132,7 +2094,7 @@ void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBo
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v29 = v13;
+        v28 = v13;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Border router present on network - not starting thread", buf, 0xCu);
       }
     }
@@ -2146,7 +2108,7 @@ void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBo
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v29 = v17;
+        v28 = v17;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Aborting thread start after border router check - thread was started for a home", buf, 0xCu);
       }
     }
@@ -2162,7 +2124,7 @@ void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBo
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v16;
+      v28 = v16;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to get strong reference to self - abort", buf, 0xCu);
     }
 
@@ -2170,13 +2132,11 @@ void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBo
   }
 
 LABEL_15:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_170(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -2197,7 +2157,7 @@ LABEL_17:
 
     v33 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v43 = v33;
+    v42 = v33;
     _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_ERROR, "%{public}@Unable to get strong reference to self - abort", buf, 0xCu);
 LABEL_16:
 
@@ -2215,7 +2175,7 @@ LABEL_16:
     {
       v34 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v43 = v34;
+      v42 = v34;
       _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_INFO, "%{public}@Aborting thread start after getting preferred network - thread was started for a home", buf, 0xCu);
     }
 
@@ -2234,19 +2194,19 @@ LABEL_16:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         v21 = HMFGetLogIdentifier();
-        v38 = [*(*(*(a1 + 48) + 8) + 40) fabric];
-        [v38 fabricID];
-        v22 = v39 = v17;
+        v37 = [*(*(*(a1 + 48) + 8) + 40) fabric];
+        [v37 fabricID];
+        v22 = v38 = v17;
         v23 = *(*(*(a1 + 48) + 8) + 40);
         *buf = 138543874;
-        v43 = v21;
-        v44 = 2112;
-        v45 = v22;
-        v46 = 2112;
-        v47 = v23;
+        v42 = v21;
+        v43 = 2112;
+        v44 = v22;
+        v45 = 2112;
+        v46 = v23;
         _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Using cached AOD from home with fabricID %@ - %@", buf, 0x20u);
 
-        v17 = v39;
+        v17 = v38;
       }
 
       objc_autoreleasePoolPop(v17);
@@ -2258,9 +2218,9 @@ LABEL_16:
 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v37 = HMFGetLogIdentifier();
+      v36 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v43 = v37;
+      v42 = v36;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@No cached AOD available as a fallback, aborting thread start", buf, 0xCu);
     }
 
@@ -2279,34 +2239,33 @@ LABEL_9:
     v28 = HMFGetLogIdentifier();
     v29 = *(a1 + 32);
     *buf = 138544130;
-    v43 = v28;
-    v44 = 2112;
-    v45 = v29;
-    v46 = 2112;
-    v47 = v10;
-    v48 = 2112;
-    v49 = v11;
+    v42 = v28;
+    v43 = 2112;
+    v44 = v29;
+    v45 = 2112;
+    v46 = v10;
+    v47 = 2112;
+    v48 = v11;
     _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Successfully retrieved preferred thread credentials %@ with UUID %@ and operationalDataset %@ from network metadata store", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v25);
   [*(a1 + 40) setGeoAvailable:*(*(*(a1 + 56) + 8) + 24)];
   v30 = *(a1 + 40);
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_171;
-  v40[3] = &unk_2797358C8;
-  v40[4] = v26;
-  v41 = v10;
-  [v30 startThreadNetworkWithOperationalDataset:v11 threadNetworkID:v41 isOwnerUser:0 completion:v40];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_171;
+  v39[3] = &unk_2797358C8;
+  v39[4] = v26;
+  v40 = v10;
+  [v30 startThreadNetworkWithOperationalDataset:v11 threadNetworkID:v40 isOwnerUser:0 completion:v39];
 
 LABEL_19:
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke_171(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2318,18 +2277,18 @@ void __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBo
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v16 = 138543874;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v3;
+      v15 = 138543874;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v3;
       v10 = "%{public}@Failed to attach to user preferred thread network %@: %@";
       v11 = v7;
       v12 = OS_LOG_TYPE_ERROR;
       v13 = 32;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v16, v13);
+      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v15, v13);
     }
   }
 
@@ -2337,10 +2296,10 @@ LABEL_6:
   {
     v8 = HMFGetLogIdentifier();
     v14 = *(a1 + 40);
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v14;
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v14;
     v10 = "%{public}@Attached to thread network %@";
     v11 = v7;
     v12 = OS_LOG_TYPE_INFO;
@@ -2349,7 +2308,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoAndBorderRouterCheck__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -2378,9 +2336,9 @@ uint64_t __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoA
 
 - (void)_getPreferredNetworkExistsWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v21 = 0;
+  v20 = 0;
   v5 = WiFiCopyCurrentNetworkInfoEx();
   v6 = [v5 objectForKeyedSubscript:@"ssid"];
   v7 = objc_autoreleasePoolPush();
@@ -2390,11 +2348,11 @@ uint64_t __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoA
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v6;
-    v26 = 1024;
-    v27 = v21;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v6;
+    v25 = 1024;
+    v26 = v20;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Checking if preferred network exists for SSID: %@ error: %d", buf, 0x1Cu);
   }
 
@@ -2404,15 +2362,15 @@ uint64_t __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoA
   if (getDefaultThreadNetworkMetadataStore)
   {
     objc_initWeak(buf, selfCopy);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_invoke;
-    v18[3] = &unk_27972A918;
-    objc_copyWeak(&v20, buf);
-    v19 = completionCopy;
-    [getDefaultThreadNetworkMetadataStore retrievePreferredNetwork:0 completion:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_invoke;
+    v17[3] = &unk_27972A918;
+    objc_copyWeak(&v19, buf);
+    v18 = completionCopy;
+    [getDefaultThreadNetworkMetadataStore retrievePreferredNetwork:0 completion:v17];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(buf);
   }
 
@@ -2425,7 +2383,7 @@ uint64_t __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoA
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v15;
+      v22 = v15;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@No thread network metadata store", buf, 0xCu);
     }
 
@@ -2433,13 +2391,11 @@ uint64_t __87__HMDCHIPDataSource_startThreadRadioForUserPreferredNetworkWithGeoA
     v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:2 userInfo:0];
     (*(completionCopy + 2))(completionCopy, v16);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -2456,15 +2412,15 @@ void __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_in
       if (v17)
       {
         v18 = HMFGetLogIdentifier();
-        v26 = 138544130;
-        v27 = v18;
-        v28 = 2112;
-        v29 = v9;
-        v30 = 2112;
-        v31 = v10;
-        v32 = 2112;
-        v33 = v11;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Successfully retrieved preferred thread credentials %@ with UUID %@ and operationalDataset %@ for current network", &v26, 0x2Au);
+        v25 = 138544130;
+        v26 = v18;
+        v27 = 2112;
+        v28 = v9;
+        v29 = 2112;
+        v30 = v10;
+        v31 = 2112;
+        v32 = v11;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Successfully retrieved preferred thread credentials %@ with UUID %@ and operationalDataset %@ for current network", &v25, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -2477,9 +2433,9 @@ void __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_in
       if (v17)
       {
         v24 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v24;
-        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@No thread network found for current Wifi", &v26, 0xCu);
+        v25 = 138543362;
+        v26 = v24;
+        _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@No thread network found for current Wifi", &v25, 0xCu);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -2496,17 +2452,15 @@ void __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_in
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v22;
-      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to get strong reference to self - abort", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v22;
+      _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Unable to get strong reference to self - abort", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
     v23 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:2 userInfo:0];
     (*(*(a1 + 32) + 16))();
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_getLocationAuthorized
@@ -2519,16 +2473,16 @@ void __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_in
 
 - (void)handleNetworkStateChange
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Received network state change from Thread network event listener", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Received network state change from Thread network event listener", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -2537,13 +2491,11 @@ void __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_in
   threadNetworkConnectionState = [userPreferredThreadNetworkEventListener threadNetworkConnectionState];
   userPreferredThreadNetworkEventListener2 = [(HMDCHIPDataSource *)selfCopy userPreferredThreadNetworkEventListener];
   [matterThreadRadioManager notifyThreadRadioStateChanged:threadNetworkConnectionState nodeType:objc_msgSend(userPreferredThreadNetworkEventListener2 fabricUUID:{"threadNetworkNodeType"), 0}];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleThreadBTCallStateChange:(BOOL)change
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -2551,11 +2503,11 @@ void __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_in
   {
     v8 = HMFGetLogIdentifier();
     v9 = HMFBooleanToString();
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received thread call state change - isInCall = %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received thread call state change - isInCall = %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -2563,13 +2515,11 @@ void __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_in
   {
     [(HMDCHIPDataSource *)selfCopy startThreadRadioForUserPreferredNetwork];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopThreadRadioForHomeWithFabricUUID:(id)d
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
@@ -2585,7 +2535,7 @@ void __62__HMDCHIPDataSource__getPreferredNetworkExistsWithCompletion___block_in
 
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v29 = v18;
+    v28 = v18;
     v19 = "%{public}@Home manager reference is nil";
 LABEL_18:
     v20 = v17;
@@ -2606,31 +2556,31 @@ LABEL_18:
 
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v29 = v18;
+    v28 = v18;
     v19 = "%{public}@fabricID is nil";
     goto LABEL_18;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   homes = [homeManager homes];
-  v8 = [homes countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v8 = [homes countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v25;
+    v10 = *v24;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v25 != v10)
+        if (*v24 != v10)
         {
           objc_enumerationMutation(homes);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         targetFabricUUID = [v12 targetFabricUUID];
         v14 = [targetFabricUUID isEqual:dCopy];
 
@@ -2642,7 +2592,7 @@ LABEL_18:
         }
       }
 
-      v9 = [homes countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v9 = [homes countByEnumeratingWithState:&v23 objects:v31 count:16];
       if (v9)
       {
         continue;
@@ -2659,9 +2609,9 @@ LABEL_18:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v29 = v18;
-    v30 = 2112;
-    v31 = dCopy;
+    v28 = v18;
+    v29 = 2112;
+    v30 = dCopy;
     v19 = "%{public}@Could not find home with CHIP fabric: %@";
     v20 = v17;
     v21 = OS_LOG_TYPE_DEFAULT;
@@ -2674,13 +2624,11 @@ LABEL_20:
 
   objc_autoreleasePoolPop(v15);
 LABEL_21:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopThreadRadioForHome:(id)home
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -2689,11 +2637,11 @@ LABEL_21:
   {
     v8 = HMFGetLogIdentifier();
     targetFabricUUID = [homeCopy targetFabricUUID];
-    v11 = 138543618;
-    v12 = v8;
-    v13 = 2112;
-    v14 = targetFabricUUID;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Calling thread stop for home with fabric: %@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v8;
+    v12 = 2112;
+    v13 = targetFabricUUID;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Calling thread stop for home with fabric: %@", &v10, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -2703,13 +2651,11 @@ LABEL_21:
   {
     [(HMDCHIPDataSource *)selfCopy _startNetworkListenerForUserPreferredNetwork:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startThreadRadioForHomeWithFabricUUID:(id)d
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
@@ -2717,29 +2663,29 @@ LABEL_21:
   {
     if (dCopy)
     {
-      v34 = 0u;
-      v35 = 0u;
-      v32 = 0u;
       v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
       homes = [homeManager homes];
-      v8 = [homes countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v8 = [homes countByEnumeratingWithState:&v31 objects:v39 count:16];
       if (!v8)
       {
         goto LABEL_11;
       }
 
       v9 = v8;
-      v10 = *v33;
+      v10 = *v32;
 LABEL_5:
       v11 = 0;
       while (1)
       {
-        if (*v33 != v10)
+        if (*v32 != v10)
         {
           objc_enumerationMutation(homes);
         }
 
-        v12 = *(*(&v32 + 1) + 8 * v11);
+        v12 = *(*(&v31 + 1) + 8 * v11);
         targetFabricUUID = [v12 targetFabricUUID];
         v14 = [targetFabricUUID isEqual:dCopy];
 
@@ -2750,7 +2696,7 @@ LABEL_5:
 
         if (v9 == ++v11)
         {
-          v9 = [homes countByEnumeratingWithState:&v32 objects:v40 count:16];
+          v9 = [homes countByEnumeratingWithState:&v31 objects:v39 count:16];
           if (v9)
           {
             goto LABEL_5;
@@ -2765,9 +2711,9 @@ LABEL_11:
           {
             v18 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v37 = v18;
-            v38 = 2112;
-            v39 = dCopy;
+            v36 = v18;
+            v37 = 2112;
+            v38 = dCopy;
             v19 = "%{public}@Could not find home with fabric: %@";
             v20 = v17;
             v21 = OS_LOG_TYPE_DEFAULT;
@@ -2790,9 +2736,9 @@ LABEL_11:
           {
             v26 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v37 = v26;
-            v38 = 2112;
-            v39 = dCopy;
+            v36 = v26;
+            v37 = 2112;
+            v38 = dCopy;
             _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Not calling thread start for home with fabric: %@ as user is not home", buf, 0x16u);
           }
 
@@ -2819,9 +2765,9 @@ LABEL_31:
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v37 = v30;
-        v38 = 2112;
-        v39 = dCopy;
+        v36 = v30;
+        v37 = 2112;
+        v38 = dCopy;
         _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Calling thread start for home with fabric: %@", buf, 0x16u);
       }
 
@@ -2840,7 +2786,7 @@ LABEL_31:
 
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v18;
+    v36 = v18;
     v19 = "%{public}@fabric UUID is nil";
   }
 
@@ -2856,7 +2802,7 @@ LABEL_31:
 
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v37 = v18;
+    v36 = v18;
     v19 = "%{public}@Home manager reference is nil";
   }
 
@@ -2869,8 +2815,6 @@ LABEL_23:
 LABEL_24:
   objc_autoreleasePoolPop(v15);
 LABEL_32:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_scheduleThreadNetworkRestart
@@ -2888,7 +2832,7 @@ LABEL_32:
 
 void __50__HMDCHIPDataSource__scheduleThreadNetworkRestart__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 40);
   if (v2 != [*(a1 + 32) networkChangedLastUpdatedTime])
   {
@@ -2898,9 +2842,9 @@ void __50__HMDCHIPDataSource__scheduleThreadNetworkRestart__block_invoke(uint64_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Ignoring Wifi network changed as newer request is queued.", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Ignoring Wifi network changed as newer request is queued.", &v13, 0xCu);
     }
 
     goto LABEL_12;
@@ -2917,33 +2861,31 @@ void __50__HMDCHIPDataSource__scheduleThreadNetworkRestart__block_invoke(uint64_
     if (v7)
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Ignoring WiFi network changed notification when Thread is not up", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Ignoring WiFi network changed notification when Thread is not up", &v13, 0xCu);
     }
 
 LABEL_12:
     objc_autoreleasePoolPop(v4);
-    goto LABEL_13;
+    return;
   }
 
   if (v7)
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Restarting Thread network for user preferred network upon WiFi network changed notification", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v8;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Restarting Thread network for user preferred network upon WiFi network changed notification", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) startThreadRadioForUserPreferredNetwork];
-LABEL_13:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hasValidGeoOrPreferredNetworkForHome:(id)home completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   homeCopy = home;
   completionCopy = completion;
   if (homeCopy)
@@ -2958,9 +2900,9 @@ LABEL_13:
       {
         v12 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v12;
-        v31 = 2112;
-        v32 = homeCopy;
+        v29 = v12;
+        v30 = 2112;
+        v31 = homeCopy;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Allowing geo as user is at home for: %@", buf, 0x16u);
       }
 
@@ -2976,11 +2918,11 @@ LABEL_13:
       aBlock[2] = __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___block_invoke;
       aBlock[3] = &unk_27972A8F0;
       aBlock[4] = self;
-      v28 = v8 == 0;
+      v27 = v8 == 0;
       v15 = homeCopy;
-      v25 = v15;
-      v26 = completionCopy;
-      v27 = v14;
+      v24 = v15;
+      v25 = completionCopy;
+      v26 = v14;
       v16 = _Block_copy(aBlock);
       if ([(HMDCHIPDataSource *)self pnExistsOnCurrentNetwork])
       {
@@ -2996,20 +2938,20 @@ LABEL_13:
         {
           v20 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v30 = v20;
-          v31 = 2112;
-          v32 = v15;
+          v29 = v20;
+          v30 = 2112;
+          v31 = v15;
           _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Fetching preferred network as location is unknown for home: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v17);
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___block_invoke_155;
-        v22[3] = &unk_279733F30;
-        v22[4] = selfCopy2;
-        v23 = v16;
-        [(HMDCHIPDataSource *)selfCopy2 _getPreferredNetworkExistsWithCompletion:v22];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___block_invoke_155;
+        v21[3] = &unk_279733F30;
+        v21[4] = selfCopy2;
+        v22 = v16;
+        [(HMDCHIPDataSource *)selfCopy2 _getPreferredNetworkExistsWithCompletion:v21];
       }
     }
   }
@@ -3019,13 +2961,11 @@ LABEL_13:
     v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCFD28] code:2 userInfo:0];
     (completionCopy)[2](completionCopy, 0, v13);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) _getLocationAuthorized];
   if (*(a1 + 64) == 1 && ([*(a1 + 32) pnExistsOnCurrentNetwork] & v4) == 1)
@@ -3037,13 +2977,13 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v17 = 138543874;
-      v18 = v8;
+      v15 = 138543874;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
       v19 = 2112;
-      v20 = v9;
-      v21 = 2112;
-      v22 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Allowing geo due to valid preferred network for: %@ and error: %@", &v17, 0x20u);
+      v20 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Allowing geo due to valid preferred network for: %@ and error: %@", &v15, 0x20u);
     }
   }
 
@@ -3055,14 +2995,15 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v11 = *(a1 + 56);
-      v12 = HMStringFromHomeLocation();
-      v13 = HMFBooleanToString();
+      v11 = HMStringFromHomeLocation();
+      v12 = HMFBooleanToString();
       [*(a1 + 32) pnExistsOnCurrentNetwork];
-      v14 = HMFBooleanToString();
-      v15 = *(a1 + 40);
-      v17 = 138544642;
-      v18 = v10;
+      v13 = HMFBooleanToString();
+      v14 = *(a1 + 40);
+      v15 = 138544642;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v11;
       v19 = 2112;
       v20 = v12;
       v21 = 2112;
@@ -3070,22 +3011,18 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
       v23 = 2112;
       v24 = v14;
       v25 = 2112;
-      v26 = v15;
-      v27 = 2112;
-      v28 = v3;
-      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Denying geo due to presence: %@, location authorization: %@, preferred network: %@ for: %@ error: %@", &v17, 0x3Eu);
+      v26 = v3;
+      _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Denying geo due to presence: %@, location authorization: %@, preferred network: %@ for: %@ error: %@", &v15, 0x3Eu);
     }
   }
 
   objc_autoreleasePoolPop(v5);
   (*(*(a1 + 48) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___block_invoke_155(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -3093,15 +3030,13 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Done fetching.", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Done fetching.", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterPresenceNotificationsForHome:(id)home
@@ -3135,7 +3070,7 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
 
 - (void)unregisterForArrivalNotifications:(id)notifications
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -3143,16 +3078,14 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Unregistering arrival notifications.", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Unregistering arrival notifications.", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   notificationCenter = [(HMDCHIPDataSource *)selfCopy notificationCenter];
   [notificationCenter removeObserver:selfCopy name:@"HMDHomeDidArriveHomeNotificationKey" object:notificationsCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForArrivalNotifications:(id)notifications
@@ -3165,7 +3098,7 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
 
 - (void)unprotectedRegisterForArrivalNotifications:(id)notifications
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   pendingThreadHome = [(HMDCHIPDataSource *)self pendingThreadHome];
   uuid = [pendingThreadHome uuid];
@@ -3180,9 +3113,9 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Registering for arrival notifications.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Registering for arrival notifications.", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -3199,13 +3132,11 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
 
     [(HMDCHIPDataSource *)selfCopy setPendingThreadHome:notificationsCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterForLeaveNotifications:(id)notifications
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -3213,16 +3144,14 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Unregistering leave notifications.", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Unregistering leave notifications.", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   notificationCenter = [(HMDCHIPDataSource *)selfCopy notificationCenter];
   [notificationCenter removeObserver:selfCopy name:@"HMDHomeDidLeaveHomeNotificationKey" object:notificationsCopy];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForLeaveNotifications:(id)notifications
@@ -3235,7 +3164,7 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
 
 - (void)unprotectedRegisterForLeaveNotifications:(id)notifications
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   notificationsCopy = notifications;
   activeThreadHome = [(HMDCHIPDataSource *)self activeThreadHome];
   uuid = [activeThreadHome uuid];
@@ -3250,9 +3179,9 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v17 = 138543362;
-      v18 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Registering for leave notifications.", &v17, 0xCu);
+      v16 = 138543362;
+      v17 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Registering for leave notifications.", &v16, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -3269,13 +3198,11 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
 
     [(HMDCHIPDataSource *)selfCopy setActiveThreadHome:notificationsCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeDidArriveHomeNotification:(id)notification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   os_unfair_lock_lock_with_options();
   pendingThreadHome = [(HMDCHIPDataSource *)self pendingThreadHome];
@@ -3296,22 +3223,20 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
     v9 = HMFGetLogIdentifier();
     fabric = [pendingThreadHome fabric];
     fabricID = [fabric fabricID];
-    v13 = 138543618;
-    v14 = v9;
-    v15 = 2112;
-    v16 = fabricID;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@User arrived home, starting thread network for fabric ID: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2112;
+    v15 = fabricID;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@User arrived home, starting thread network for fabric ID: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   [pendingThreadHome startThreadNetwork:1];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeDidLeaveHomeNotification:(id)notification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   os_unfair_lock_lock_with_options();
   activeThreadHome = [(HMDCHIPDataSource *)self activeThreadHome];
@@ -3327,11 +3252,11 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
     v9 = HMFGetLogIdentifier();
     fabric = [activeThreadHome fabric];
     fabricID = [fabric fabricID];
-    v13 = 138543618;
-    v14 = v9;
-    v15 = 2112;
-    v16 = fabricID;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@User left home, stopping thread network for fabric ID: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v9;
+    v14 = 2112;
+    v15 = fabricID;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@User left home, stopping thread network for fabric ID: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -3340,13 +3265,11 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
   {
     [(HMDCHIPDataSource *)selfCopy _startNetworkListenerForUserPreferredNetwork:1];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleLocationAuthorizationChangedNotification:(id)notification
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo hmf_numberForKey:@"HMLocationAuthorizationKey"];
@@ -3364,11 +3287,11 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
       {
         v11 = HMFGetLogIdentifier();
         v12 = HMLocationAuthorizationAsString();
-        v20 = 138543618;
-        v21 = v11;
-        v22 = 2112;
-        v23 = v12;
-        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Location Authorization is changing to %@, stopping thread network", &v20, 0x16u);
+        v19 = 138543618;
+        v20 = v11;
+        v21 = 2112;
+        v22 = v12;
+        _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Location Authorization is changing to %@, stopping thread network", &v19, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -3392,69 +3315,67 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       v18 = HMFGetLogIdentifier();
-      v20 = 138543362;
-      v21 = v18;
-      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@No location authorization key in the message", &v20, 0xCu);
+      v19 = 138543362;
+      v20 = v18;
+      _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@No location authorization key in the message", &v19, 0xCu);
     }
 
     objc_autoreleasePoolPop(v15);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)browser:(id)browser didRemoveAccessoryPairingWithNodeID:(id)d
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   browserCopy = browser;
   dCopy = d;
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   selfCopy = self;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   homes = [homeManager homes];
 
-  v32 = [homes countByEnumeratingWithState:&v44 objects:v55 count:16];
-  if (v32)
+  v31 = [homes countByEnumeratingWithState:&v43 objects:v54 count:16];
+  if (v31)
   {
-    v9 = *v45;
-    v35 = homes;
-    v31 = *v45;
+    v9 = *v44;
+    v34 = homes;
+    v30 = *v44;
     do
     {
       v10 = 0;
       do
       {
-        if (*v45 != v9)
+        if (*v44 != v9)
         {
           objc_enumerationMutation(homes);
         }
 
-        v11 = *(*(&v44 + 1) + 8 * v10);
+        v11 = *(*(&v43 + 1) + 8 * v10);
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
-        v33 = v10;
-        v34 = v11;
+        v32 = v10;
+        v33 = v11;
         hapAccessories = [v11 hapAccessories];
-        v13 = [hapAccessories countByEnumeratingWithState:&v40 objects:v54 count:16];
+        v13 = [hapAccessories countByEnumeratingWithState:&v39 objects:v53 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v41;
+          v15 = *v40;
           while (2)
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v41 != v15)
+              if (*v40 != v15)
               {
                 objc_enumerationMutation(hapAccessories);
               }
 
-              v17 = *(*(&v40 + 1) + 8 * i);
+              v17 = *(*(&v39 + 1) + 8 * i);
               matterNodeID = [v17 matterNodeID];
               if ([matterNodeID isEqual:&unk_2866287E0])
               {
@@ -3475,29 +3396,29 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
                     v28 = HMFGetLogIdentifier();
                     shortDescription = [v17 shortDescription];
                     *buf = 138543874;
-                    v49 = v28;
-                    v50 = 2112;
-                    v51 = dCopy;
-                    v52 = 2112;
-                    v53 = shortDescription;
+                    v48 = v28;
+                    v49 = 2112;
+                    v50 = dCopy;
+                    v51 = 2112;
+                    v52 = shortDescription;
                     _os_log_impl(&dword_2531F8000, v27, OS_LOG_TYPE_INFO, "%{public}@Found accessory to remove from Apple Home with Matter node ID %@: %@", buf, 0x20u);
                   }
 
                   objc_autoreleasePoolPop(v25);
-                  v38[0] = MEMORY[0x277D85DD0];
-                  v38[1] = 3221225472;
-                  v38[2] = __65__HMDCHIPDataSource_browser_didRemoveAccessoryPairingWithNodeID___block_invoke;
-                  v38[3] = &unk_2797358C8;
-                  v38[4] = v26;
-                  v39 = dCopy;
-                  [v34 handleRemoveAccessory:v17 completion:v38];
+                  v37[0] = MEMORY[0x277D85DD0];
+                  v37[1] = 3221225472;
+                  v37[2] = __65__HMDCHIPDataSource_browser_didRemoveAccessoryPairingWithNodeID___block_invoke;
+                  v37[3] = &unk_2797358C8;
+                  v37[4] = v26;
+                  v38 = dCopy;
+                  [v33 handleRemoveAccessory:v17 completion:v37];
 
                   goto LABEL_24;
                 }
               }
             }
 
-            v14 = [hapAccessories countByEnumeratingWithState:&v40 objects:v54 count:16];
+            v14 = [hapAccessories countByEnumeratingWithState:&v39 objects:v53 count:16];
             if (v14)
             {
               continue;
@@ -3507,16 +3428,16 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
           }
         }
 
-        v10 = v33 + 1;
-        homes = v35;
-        v9 = v31;
+        v10 = v32 + 1;
+        homes = v34;
+        v9 = v30;
       }
 
-      while (v33 + 1 != v32);
-      v32 = [v35 countByEnumeratingWithState:&v44 objects:v55 count:16];
+      while (v32 + 1 != v31);
+      v31 = [v34 countByEnumeratingWithState:&v43 objects:v54 count:16];
     }
 
-    while (v32);
+    while (v31);
   }
 
   v21 = objc_autoreleasePoolPush();
@@ -3526,21 +3447,19 @@ void __69__HMDCHIPDataSource_hasValidGeoOrPreferredNetworkForHome_completion___b
   {
     v24 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v49 = v24;
-    v50 = 2112;
-    v51 = dCopy;
+    v48 = v24;
+    v49 = 2112;
+    v50 = dCopy;
     _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@No accessory found in any homes with matter node id %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v21);
 LABEL_24:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDCHIPDataSource_browser_didRemoveAccessoryPairingWithNodeID___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -3552,18 +3471,18 @@ void __65__HMDCHIPDataSource_browser_didRemoveAccessoryPairingWithNodeID___block
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v16 = 138543874;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v3;
+      v15 = 138543874;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v3;
       v10 = "%{public}@Failed to remove accessory from Apple Home with Matter node ID %@: %@";
       v11 = v7;
       v12 = OS_LOG_TYPE_ERROR;
       v13 = 32;
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v16, v13);
+      _os_log_impl(&dword_2531F8000, v11, v12, v10, &v15, v13);
     }
   }
 
@@ -3571,10 +3490,10 @@ LABEL_6:
   {
     v8 = HMFGetLogIdentifier();
     v14 = *(a1 + 40);
-    v16 = 138543618;
-    v17 = v8;
-    v18 = 2112;
-    v19 = v14;
+    v15 = 138543618;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v14;
     v10 = "%{public}@Successfully removed accessory from Apple Home with Matter node ID: %@";
     v11 = v7;
     v12 = OS_LOG_TYPE_INFO;
@@ -3583,7 +3502,6 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestUserPermissionForBridgeAccessory:(id)accessory withContext:(id)context queue:(id)queue completionHandler:(id)handler
@@ -3610,7 +3528,7 @@ LABEL_6:
 
 void __97__HMDCHIPDataSource_requestUserPermissionForBridgeAccessory_withContext_queue_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) dialogPresenter];
   v3 = [v2 shouldSkipAuthPromptDialog];
 
@@ -3624,7 +3542,7 @@ void __97__HMDCHIPDataSource_requestUserPermissionForBridgeAccessory_withContext
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Defaults write set - skipping auth prompt for bridge accessory", buf, 0xCu);
     }
 
@@ -3638,7 +3556,7 @@ void __97__HMDCHIPDataSource_requestUserPermissionForBridgeAccessory_withContext
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Presenting user with auth prompt for bridge accessory", buf, 0xCu);
     }
 
@@ -3646,16 +3564,14 @@ void __97__HMDCHIPDataSource_requestUserPermissionForBridgeAccessory_withContext
     v10 = [*(a1 + 32) dialogPresenter];
     v11 = *(a1 + 40);
     v12 = *(a1 + 48);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __97__HMDCHIPDataSource_requestUserPermissionForBridgeAccessory_withContext_queue_completionHandler___block_invoke_149;
-    v15[3] = &unk_279730A60;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __97__HMDCHIPDataSource_requestUserPermissionForBridgeAccessory_withContext_queue_completionHandler___block_invoke_149;
+    v14[3] = &unk_279730A60;
     v13 = *(a1 + 56);
-    v16 = *(a1 + 64);
-    [v10 requestUserPermissionForBridgeAccessory:v11 withContext:v12 queue:v13 completionHandler:v15];
+    v15 = *(a1 + 64);
+    [v10 requestUserPermissionForBridgeAccessory:v11 withContext:v12 queue:v13 completionHandler:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestUserPermissionForUnauthenticatedAccessory:(id)accessory withContext:(id)context queue:(id)queue completionHandler:(id)handler
@@ -3682,7 +3598,7 @@ void __97__HMDCHIPDataSource_requestUserPermissionForBridgeAccessory_withContext
 
 void __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_withContext_queue_completionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) dialogPresenter];
   v3 = [v2 shouldSkipAuthPromptDialog];
 
@@ -3696,7 +3612,7 @@ void __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_w
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v8;
+      v17 = v8;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Defaults write set - skipping auth prompt for unauthenticated accessory", buf, 0xCu);
     }
 
@@ -3710,7 +3626,7 @@ void __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_w
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v9;
+      v17 = v9;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Presenting user with auth prompt for unauthenticated accessory", buf, 0xCu);
     }
 
@@ -3718,21 +3634,19 @@ void __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_w
     v10 = [*(a1 + 32) dialogPresenter];
     v11 = *(a1 + 40);
     v12 = *(a1 + 48);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_withContext_queue_completionHandler___block_invoke_147;
-    v15[3] = &unk_279730A60;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_withContext_queue_completionHandler___block_invoke_147;
+    v14[3] = &unk_279730A60;
     v13 = *(a1 + 56);
-    v16 = *(a1 + 64);
-    [v10 requestUserPermissionForUnauthenticatedAccessory:v11 withContext:v12 queue:v13 completionHandler:v15];
+    v15 = *(a1 + 64);
+    [v10 requestUserPermissionForUnauthenticatedAccessory:v11 withContext:v12 queue:v13 completionHandler:v14];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   vendorMetadataRefreshTimer = [(HMDCHIPDataSource *)self vendorMetadataRefreshTimer];
 
@@ -3744,9 +3658,9 @@ void __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_w
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v9;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Vendor metadata refresh timer fired; fetching vendor metadata from cloud", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v9;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Vendor metadata refresh timer fired; fetching vendor metadata from cloud", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -3764,87 +3678,85 @@ void __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_w
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Attestation data refresh timer fired; fetching attestation data from cloud", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Attestation data refresh timer fired; fetching attestation data from cloud", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     attestationDataStore = [(HMDCHIPDataSource *)selfCopy2 attestationDataStore];
     [attestationDataStore fetchCloudAttestationData];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forAllPairedMatterServersFetchVidPid:(id)pid
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   pidCopy = pid;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
   if (homeManager)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v24 = homeManager;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v23 = homeManager;
     obj = [homeManager homes];
-    v7 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+    v7 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     if (v7)
     {
       v8 = v7;
-      v26 = *v32;
+      v25 = *v31;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v32 != v26)
+          if (*v31 != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v31 + 1) + 8 * i);
+          v10 = *(*(&v30 + 1) + 8 * i);
+          v26 = 0u;
           v27 = 0u;
           v28 = 0u;
           v29 = 0u;
-          v30 = 0u;
           matterAccessories = [v10 matterAccessories];
-          v12 = [matterAccessories countByEnumeratingWithState:&v27 objects:v35 count:16];
+          v12 = [matterAccessories countByEnumeratingWithState:&v26 objects:v34 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v28;
+            v14 = *v27;
             do
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v28 != v14)
+                if (*v27 != v14)
                 {
                   objc_enumerationMutation(matterAccessories);
                 }
 
-                v16 = *(*(&v27 + 1) + 8 * j);
+                v16 = *(*(&v26 + 1) + 8 * j);
                 matterVendorID = [v16 matterVendorID];
                 matterProductID = [v16 matterProductID];
                 pidCopy[2](pidCopy, matterVendorID, matterProductID);
               }
 
-              v13 = [matterAccessories countByEnumeratingWithState:&v27 objects:v35 count:16];
+              v13 = [matterAccessories countByEnumeratingWithState:&v26 objects:v34 count:16];
             }
 
             while (v13);
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+        v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
       }
 
       while (v8);
     }
 
-    v6 = v24;
+    v6 = v23;
   }
 
   else
@@ -3856,45 +3768,43 @@ void __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_w
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v38 = v22;
+      v37 = v22;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forAllStorageDataSourcesDo:(id)do
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   doCopy = do;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
   if (homeManager)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v22 = homeManager;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = homeManager;
     homes = [homeManager homes];
-    v8 = [homes countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [homes countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v24;
+      v10 = *v23;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(homes);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * i);
+          v12 = *(*(&v22 + 1) + 8 * i);
           matterFabricID = [v12 matterFabricID];
           v14 = matterFabricID;
           if (matterFabricID)
@@ -3913,7 +3823,7 @@ void __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_w
           }
         }
 
-        v9 = [homes countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v9 = [homes countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v9)
         {
           continue;
@@ -3925,7 +3835,7 @@ void __106__HMDCHIPDataSource_requestUserPermissionForUnauthenticatedAccessory_w
 
 LABEL_17:
 
-    v6 = v22;
+    v6 = v21;
   }
 
   else
@@ -3937,46 +3847,44 @@ LABEL_17:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v20;
+      v28 = v20;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@forAllStorageDataSourcesDo: Home manager reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)storageDataSourceForFabricUUID:(id)d
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
   if (homeManager)
   {
     selfCopy = self;
-    v29 = homeManager;
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
+    v28 = homeManager;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     homes = [homeManager homes];
-    v8 = [homes countByEnumeratingWithState:&v30 objects:v38 count:16];
+    v8 = [homes countByEnumeratingWithState:&v29 objects:v37 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v31;
+      v10 = *v30;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v31 != v10)
+          if (*v30 != v10)
           {
             objc_enumerationMutation(homes);
           }
 
-          v12 = *(*(&v30 + 1) + 8 * i);
+          v12 = *(*(&v29 + 1) + 8 * i);
           matterFabricID = [v12 matterFabricID];
           v14 = matterFabricID;
           if (matterFabricID)
@@ -3996,7 +3904,7 @@ LABEL_17:
           }
         }
 
-        v9 = [homes countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v9 = [homes countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v9)
         {
           continue;
@@ -4013,16 +3921,16 @@ LABEL_17:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v35 = v20;
-      v36 = 2112;
-      v37 = dCopy;
+      v34 = v20;
+      v35 = 2112;
+      v36 = dCopy;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@Could not find home with valid fabric ID corresponding to fabric UUID: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
     v21 = 0;
 LABEL_19:
-    v6 = v29;
+    v6 = v28;
   }
 
   else
@@ -4034,7 +3942,7 @@ LABEL_19:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v35 = v25;
+      v34 = v25;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", buf, 0xCu);
     }
 
@@ -4042,39 +3950,37 @@ LABEL_19:
     v21 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 - (id)appleHomeFabricWithTargetFabricUUID:(id)d
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
   if (homeManager)
   {
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     homes = [homeManager homes];
-    v8 = [homes countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v8 = [homes countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(homes);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           targetFabricUUID = [v12 targetFabricUUID];
           v14 = [targetFabricUUID isEqual:dCopy];
 
@@ -4086,7 +3992,7 @@ LABEL_19:
           }
         }
 
-        v9 = [homes countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v9 = [homes countByEnumeratingWithState:&v21 objects:v25 count:16];
         if (v9)
         {
           continue;
@@ -4106,7 +4012,7 @@ LABEL_19:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v19;
+      v27 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", buf, 0xCu);
     }
 
@@ -4116,39 +4022,37 @@ LABEL_19:
   fabric = 0;
 LABEL_16:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return fabric;
 }
 
 - (id)fabricIDFromFabricUUID:(id)d
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dCopy = d;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
   if (homeManager)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     homes = [homeManager homes];
-    v8 = [homes countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v8 = [homes countByEnumeratingWithState:&v26 objects:v36 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v28;
+      v10 = *v27;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v28 != v10)
+          if (*v27 != v10)
           {
             objc_enumerationMutation(homes);
           }
 
-          v12 = *(*(&v27 + 1) + 8 * i);
+          v12 = *(*(&v26 + 1) + 8 * i);
           targetFabricUUID = [v12 targetFabricUUID];
           v14 = [targetFabricUUID isEqual:dCopy];
 
@@ -4165,11 +4069,11 @@ LABEL_16:
                 v19 = HMFGetLogIdentifier();
                 uuid = [v12 uuid];
                 *buf = 138543874;
-                v32 = v19;
-                v33 = 2112;
-                v34 = dCopy;
-                v35 = 2112;
-                v36 = uuid;
+                v31 = v19;
+                v32 = 2112;
+                v33 = dCopy;
+                v34 = 2112;
+                v35 = uuid;
                 _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Data source retrieved nil fabric ID from fabric %@ from home %@", buf, 0x20u);
               }
 
@@ -4180,7 +4084,7 @@ LABEL_16:
           }
         }
 
-        v9 = [homes countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v9 = [homes countByEnumeratingWithState:&v26 objects:v36 count:16];
         if (v9)
         {
           continue;
@@ -4200,7 +4104,7 @@ LABEL_16:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v32 = v24;
+      v31 = v24;
       _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", buf, 0xCu);
     }
 
@@ -4210,14 +4114,12 @@ LABEL_16:
   matterFabricID = 0;
 LABEL_20:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return matterFabricID;
 }
 
 - (NSUUID)currentFabricUUID
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v4 = homeManager;
   if (homeManager)
@@ -4238,16 +4140,14 @@ LABEL_20:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     targetFabricUUID = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return targetFabricUUID;
 }
@@ -4278,7 +4178,7 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
 
 - (NSSet)allTargetFabricUUIDs
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v4 = homeManager;
   if (homeManager)
@@ -4297,23 +4197,21 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = [MEMORY[0x277CBEB98] set];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (NSSet)allFabricIDs
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v4 = homeManager;
   if (homeManager)
@@ -4332,86 +4230,84 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = [MEMORY[0x277CBEB98] set];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (NSSet)allPairedHAPServerIdentifiers
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   if (homeManager)
   {
     v4 = [MEMORY[0x277CBEB58] set];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
-    v24 = homeManager;
+    v23 = homeManager;
     homes = [homeManager homes];
-    v6 = [homes countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v6 = [homes countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v30;
+      v8 = *v29;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v30 != v8)
+          if (*v29 != v8)
           {
             objc_enumerationMutation(homes);
           }
 
-          v10 = *(*(&v29 + 1) + 8 * i);
+          v10 = *(*(&v28 + 1) + 8 * i);
+          v24 = 0u;
           v25 = 0u;
           v26 = 0u;
           v27 = 0u;
-          v28 = 0u;
           hapAccessories = [v10 hapAccessories];
-          v12 = [hapAccessories countByEnumeratingWithState:&v25 objects:v33 count:16];
+          v12 = [hapAccessories countByEnumeratingWithState:&v24 objects:v32 count:16];
           if (v12)
           {
             v13 = v12;
-            v14 = *v26;
+            v14 = *v25;
             do
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v26 != v14)
+                if (*v25 != v14)
                 {
                   objc_enumerationMutation(hapAccessories);
                 }
 
-                identifier = [*(*(&v25 + 1) + 8 * j) identifier];
+                identifier = [*(*(&v24 + 1) + 8 * j) identifier];
                 [v4 addObject:identifier];
               }
 
-              v13 = [hapAccessories countByEnumeratingWithState:&v25 objects:v33 count:16];
+              v13 = [hapAccessories countByEnumeratingWithState:&v24 objects:v32 count:16];
             }
 
             while (v13);
           }
         }
 
-        v7 = [homes countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v7 = [homes countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v7);
     }
 
-    v17 = [v4 copy];
-    homeManager = v24;
+    v17 = objc_msgSend_copy(v4);
+    homeManager = v23;
   }
 
   else
@@ -4423,15 +4319,13 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v36 = v21;
+      v35 = v21;
       _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v18);
     v17 = [MEMORY[0x277CBEB98] set];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -4446,7 +4340,7 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
 
 - (void)handleHomeRemovedNotification:(id)notification
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -4454,9 +4348,9 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v19 = 138543362;
-    v20 = v8;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling home removal by notifying CHIP storage", &v19, 0xCu);
+    v18 = 138543362;
+    v19 = v8;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling home removal by notifying CHIP storage", &v18, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -4485,13 +4379,11 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
   [(HMDCHIPDataSource *)selfCopy stopThreadRadioForHome:v12];
   chipStorage = [(HMDCHIPDataSource *)selfCopy chipStorage];
   [chipStorage handleUpdatedDataWithIsLocalChange:0];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleAccessoryCHIPStorageChangedNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo hmf_numberForKey:@"HMDAccessoryCHIPStorageIsLocalChangeNotificationKey"];
@@ -4510,13 +4402,13 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
     {
       v11 = HMFGetLogIdentifier();
       v12 = HMFBooleanToString();
-      v14 = 138543874;
-      v15 = v11;
-      v16 = 2112;
-      v17 = @"HMDAccessoryCHIPStorageIsLocalChangeNotificationKey";
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Did not find %@ in notification userInfo. Defaulting isLocalChange to %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2112;
+      v16 = @"HMDAccessoryCHIPStorageIsLocalChangeNotificationKey";
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Did not find %@ in notification userInfo. Defaulting isLocalChange to %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -4524,13 +4416,11 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
   }
 
   [(HMDCHIPDataSource *)self handleUpdatedDataWithIsLocalChange:bOOLValue];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeCHIPStorageChangedNotification:(id)notification
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo hmf_numberForKey:@"HMDHomeCHIPStorageIsLocalChangeNotificationKey"];
@@ -4549,13 +4439,13 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
     {
       v11 = HMFGetLogIdentifier();
       v12 = HMFBooleanToString();
-      v14 = 138543874;
-      v15 = v11;
-      v16 = 2112;
-      v17 = @"HMDHomeCHIPStorageIsLocalChangeNotificationKey";
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Did not find %@ in notification userInfo. Defaulting isLocalChange to %@", &v14, 0x20u);
+      v13 = 138543874;
+      v14 = v11;
+      v15 = 2112;
+      v16 = @"HMDHomeCHIPStorageIsLocalChangeNotificationKey";
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Did not find %@ in notification userInfo. Defaulting isLocalChange to %@", &v13, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -4563,13 +4453,59 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
   }
 
   [(HMDCHIPDataSource *)self handleUpdatedDataWithIsLocalChange:bOOLValue];
+}
 
-  v13 = *MEMORY[0x277D85DE8];
+- (void)updateNotificationsEnabled:(BOOL)enabled forHome:(id)home keepAliveOnly:(BOOL)only
+{
+  onlyCopy = only;
+  enabledCopy = enabled;
+  v27 = *MEMORY[0x277D85DE8];
+  homeCopy = home;
+  fabric = [homeCopy fabric];
+  fabricID = [fabric fabricID];
+  if (fabricID)
+  {
+    v11 = fabricID;
+    fabric2 = [homeCopy fabric];
+    fabricID2 = [fabric2 fabricID];
+    v14 = [fabricID2 isEqualToNumber:&unk_2866287E0];
+
+    if ((v14 & 1) == 0)
+    {
+      chipResidentStateManager = [(HMDCHIPDataSource *)self chipResidentStateManager];
+      fabric3 = [homeCopy fabric];
+      [chipResidentStateManager handleUpdateNotificationsEnabled:enabledCopy forFabric:fabric3 keepAliveOnly:onlyCopy];
+
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+  }
+
+  v17 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v19 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
+    v20 = HMFGetLogIdentifier();
+    fabric4 = [homeCopy fabric];
+    fabricID3 = [fabric4 fabricID];
+    v23 = 138543618;
+    v24 = v20;
+    v25 = 2112;
+    v26 = fabricID3;
+    _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Skipping notifications as fabricID is %@", &v23, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v17);
+LABEL_8:
 }
 
 - (void)handleResidentReachabilityNotification:(id)notification
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   userInfo = [notificationCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDResidentDeviceManagerHomeUUIDNotificationKey"];
@@ -4602,20 +4538,20 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v16;
+      v22 = v16;
       _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Setting up shared user fabric data per resident reachability notification", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
     objc_initWeak(buf, v10);
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invoke;
-    v20[3] = &unk_2797338E8;
-    objc_copyWeak(&v21, buf);
-    v20[4] = selfCopy;
-    [v10 setUpSharedUserFabricDataWithForceFetch:0 completion:v20];
-    objc_destroyWeak(&v21);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invoke;
+    v19[3] = &unk_2797338E8;
+    objc_copyWeak(&v20, buf);
+    v19[4] = selfCopy;
+    [v10 setUpSharedUserFabricDataWithForceFetch:0 completion:v19];
+    objc_destroyWeak(&v20);
     objc_destroyWeak(buf);
   }
 
@@ -4625,13 +4561,11 @@ uint64_t __38__HMDCHIPDataSource_currentFabricUUID__block_invoke_2(uint64_t a1, 
     fabric = [v10 fabric];
     [chipResidentStateManager handleResidentReachabilityChangeForFabric:fabric];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = [WeakRetained fabric];
@@ -4641,13 +4575,13 @@ void __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invo
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543874;
-    v13 = v9;
-    v14 = 2112;
-    v15 = WeakRetained;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying HomeKitMatter of resident reachability change for Home %@ with fabricID %@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v9;
+    v13 = 2112;
+    v14 = WeakRetained;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying HomeKitMatter of resident reachability change for Home %@ with fabricID %@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -4656,13 +4590,11 @@ void __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invo
     v10 = [*(a1 + 32) chipResidentStateManager];
     [v10 handleResidentReachabilityChangeForFabric:v5];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handlePrimaryResidentUpdatedNotification:(id)notification
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -4671,40 +4603,40 @@ void __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invo
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v34 = v7;
+    v33 = v7;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Notifying CHIP data sources of updated resident state", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   homeManager = [(HMDCHIPDataSource *)selfCopy homeManager];
   homes = [homeManager homes];
 
-  v10 = [homes countByEnumeratingWithState:&v29 objects:v39 count:16];
+  v10 = [homes countByEnumeratingWithState:&v28 objects:v38 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       v13 = 0;
-      v27 = v11;
+      v26 = v11;
       do
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(homes);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * v13);
+        v14 = *(*(&v28 + 1) + 8 * v13);
         if ([v14 isCurrentDeviceConfirmedPrimaryResident])
         {
-          v28 = 0;
-          [v14 setUpOperationalFabricDataWithError:&v28];
-          v15 = v28;
+          v27 = 0;
+          [v14 setUpOperationalFabricDataWithError:&v27];
+          v15 = v27;
           v16 = objc_autoreleasePoolPush();
           v17 = selfCopy;
           v18 = HMFGetOSLogHandle();
@@ -4715,17 +4647,17 @@ void __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invo
             v20 = homes;
             v22 = v21 = selfCopy;
             *buf = 138543874;
-            v34 = v22;
-            v35 = 2112;
-            v36 = v14;
-            v37 = 2112;
-            v38 = v15;
+            v33 = v22;
+            v34 = 2112;
+            v35 = v14;
+            v36 = 2112;
+            v37 = v15;
             _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Set up operational fabric data for primary resident of home: %@ with error: %@", buf, 0x20u);
 
             selfCopy = v21;
             homes = v20;
             v12 = v19;
-            v11 = v27;
+            v11 = v26;
           }
 
           objc_autoreleasePoolPop(v16);
@@ -4735,7 +4667,7 @@ void __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invo
       }
 
       while (v11 != v13);
-      v11 = [homes countByEnumeratingWithState:&v29 objects:v39 count:16];
+      v11 = [homes countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
     while (v11);
@@ -4746,8 +4678,6 @@ void __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invo
 
   chipStorage = [(HMDCHIPDataSource *)selfCopy chipStorage];
   [chipStorage handleUpdatedCurrentFabricIndex];
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getDefaultThreadNetworkMetadataStore
@@ -4758,21 +4688,44 @@ void __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invo
   return v3;
 }
 
+- (void)handleUpdatedDataWithIsLocalChange:(BOOL)change
+{
+  changeCopy = change;
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = HMFGetLogIdentifier();
+    v9 = HMFBooleanToString();
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Notifying CHIP storage of updated home CHIP storage with isLocalChange: %@", &v11, 0x16u);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  chipStorage = [(HMDCHIPDataSource *)selfCopy chipStorage];
+  [chipStorage handleUpdatedDataWithIsLocalChange:changeCopy];
+}
+
 - (id)homeWithCHIPFabric:(id)fabric
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fabricCopy = fabric;
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v6 = homeManager;
   if (fabricCopy && homeManager)
   {
     homes = [homeManager homes];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __40__HMDCHIPDataSource_homeWithCHIPFabric___block_invoke;
-    v15[3] = &unk_2797323C0;
-    v16 = fabricCopy;
-    v8 = [homes na_firstObjectPassingTest:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __40__HMDCHIPDataSource_homeWithCHIPFabric___block_invoke;
+    v14[3] = &unk_2797323C0;
+    v15 = fabricCopy;
+    v8 = [homes na_firstObjectPassingTest:v14];
   }
 
   else
@@ -4784,15 +4737,13 @@ void __60__HMDCHIPDataSource_handleResidentReachabilityNotification___block_invo
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v12;
+      v17 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Home manager or fabric reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -4807,7 +4758,7 @@ BOOL __40__HMDCHIPDataSource_homeWithCHIPFabric___block_invoke(uint64_t a1, void
 
 - (id)home
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   homeManager = [(HMDCHIPDataSource *)self homeManager];
   v4 = homeManager;
   if (homeManager)
@@ -4824,13 +4775,13 @@ BOOL __40__HMDCHIPDataSource_homeWithCHIPFabric___block_invoke(uint64_t a1, void
 
     else
     {
-      v28[0] = MEMORY[0x277D85DD0];
-      v28[1] = 3221225472;
-      v28[2] = __25__HMDCHIPDataSource_home__block_invoke_3;
-      v28[3] = &unk_2797323C0;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __25__HMDCHIPDataSource_home__block_invoke_3;
+      v27[3] = &unk_2797323C0;
       v14 = v4;
-      v29 = v14;
-      v15 = [v6 na_firstObjectPassingTest:v28];
+      v28 = v14;
+      v15 = [v6 na_firstObjectPassingTest:v27];
       v16 = v15;
       if (v15)
       {
@@ -4839,12 +4790,12 @@ BOOL __40__HMDCHIPDataSource_homeWithCHIPFabric___block_invoke(uint64_t a1, void
 
       else
       {
-        v23 = MEMORY[0x277D85DD0];
-        v24 = 3221225472;
-        v25 = __25__HMDCHIPDataSource_home__block_invoke_4;
-        v26 = &unk_2797323C0;
-        v27 = v14;
-        v17 = [v6 na_firstObjectPassingTest:&v23];
+        v22 = MEMORY[0x277D85DD0];
+        v23 = 3221225472;
+        v24 = __25__HMDCHIPDataSource_home__block_invoke_4;
+        v25 = &unk_2797323C0;
+        v26 = v14;
+        v17 = [v6 na_firstObjectPassingTest:&v22];
         v18 = v17;
         if (v17)
         {
@@ -4853,7 +4804,7 @@ BOOL __40__HMDCHIPDataSource_homeWithCHIPFabric___block_invoke(uint64_t a1, void
 
         else
         {
-          v19 = [v6 sortedArrayUsingComparator:{&__block_literal_global_121_99919, v23, v24, v25, v26}];
+          v19 = [v6 sortedArrayUsingComparator:{&__block_literal_global_121_99919, v22, v23, v24, v25}];
           firstObject = [v19 firstObject];
 
           if (firstObject)
@@ -4874,15 +4825,13 @@ BOOL __40__HMDCHIPDataSource_homeWithCHIPFabric___block_invoke(uint64_t a1, void
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v13;
+      v30 = v13;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_ERROR, "%{public}@Home manager reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v10);
     firstObject = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -4929,7 +4878,7 @@ BOOL __25__HMDCHIPDataSource_home__block_invoke_2(uint64_t a1, void *a2)
 
 - (void)configureWithUIDialogPresenter:(id)presenter
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   presenterCopy = presenter;
   if (!presenterCopy)
   {
@@ -4952,24 +4901,22 @@ LABEL_7:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v5;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with UI dialog presenter: %@", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v10;
+    v14 = 2112;
+    v15 = v5;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with UI dialog presenter: %@", &v12, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   [(HMDCHIPDataSource *)selfCopy setUiDialogPresenter:v5];
   uiDialogPresenter2 = [(HMDCHIPDataSource *)selfCopy uiDialogPresenter];
   [uiDialogPresenter2 setDialogDelegate:selfCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithAttestationDataStore:(id)store
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   if (!storeCopy)
   {
@@ -4992,11 +4939,11 @@ LABEL_7:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v15 = 138543618;
-    v16 = v10;
-    v17 = 2112;
-    v18 = v5;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with attestation data store: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v10;
+    v16 = 2112;
+    v17 = v5;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with attestation data store: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -5009,13 +4956,11 @@ LABEL_7:
 
   attestationDataRefreshTimer2 = [(HMDCHIPDataSource *)selfCopy attestationDataRefreshTimer];
   [attestationDataRefreshTimer2 resume];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithVendorMetadataStore:(id)store
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   if (!storeCopy)
   {
@@ -5038,11 +4983,11 @@ LABEL_7:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v16 = 138543618;
-    v17 = v10;
-    v18 = 2112;
-    v19 = v5;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with vendor metadata store: %@", &v16, 0x16u);
+    v15 = 138543618;
+    v16 = v10;
+    v17 = 2112;
+    v18 = v5;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with vendor metadata store: %@", &v15, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -5058,13 +5003,11 @@ LABEL_7:
 
   vendorMetadataRefreshTimer2 = [(HMDCHIPDataSource *)selfCopy vendorMetadataRefreshTimer];
   [vendorMetadataRefreshTimer2 resume];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithStorage:(id)storage
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   if (!storageCopy)
   {
@@ -5087,11 +5030,11 @@ LABEL_7:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v5;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with storage: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v10;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with storage: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -5111,13 +5054,11 @@ LABEL_7:
 
   notificationCenter4 = [(HMDCHIPDataSource *)selfCopy notificationCenter];
   [notificationCenter4 addObserver:selfCopy selector:sel_handleLocationAuthorizationChangedNotification_ name:@"HMLocationAuthorizationChangedNotification" object:0];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithThreadRadioManager:(id)manager
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   if (!managerCopy)
   {
@@ -5131,11 +5072,11 @@ LABEL_7:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v5;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Configuring with thread radio manager: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v5;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Configuring with thread radio manager: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -5166,13 +5107,11 @@ LABEL_7:
       [v5 setDeviceSupportsThreadService:1];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithResidentStateManager:(id)manager
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   if (!managerCopy)
   {
@@ -5195,11 +5134,11 @@ LABEL_9:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v17 = 138543618;
-    v18 = v10;
-    v19 = 2112;
-    v20 = v5;
-    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with resident state manager: %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v10;
+    v18 = 2112;
+    v19 = v5;
+    _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Configuring with resident state manager: %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -5221,8 +5160,6 @@ LABEL_9:
     notificationCenter4 = [(HMDCHIPDataSource *)selfCopy notificationCenter];
     [notificationCenter4 addObserver:selfCopy selector:sel_handleResidentReachabilityNotification_ name:@"HMDResidentDeviceManagerUpdatePrimaryResidentNotification" object:0];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithAccessoryServerBrowser:(id)browser
@@ -5326,12 +5263,11 @@ LABEL_9:
 
 uint64_t __32__HMDCHIPDataSource_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v31_99989;
-  logCategory__hmf_once_v31_99989 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v31_99989;
+  logCategory__hmf_once_v31_99989 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

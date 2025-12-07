@@ -18,12 +18,12 @@
 
 - (HMDCameraSnapshot)initWithFilePath:(id)path videoResolution:(id)resolution error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   resolutionCopy = resolution;
-  v21 = 0;
-  v10 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:0 error:&v21];
-  v11 = v21;
+  v20 = 0;
+  v10 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:pathCopy options:0 error:&v20];
+  v11 = v20;
   if (v10)
   {
     v12 = [objc_alloc(MEMORY[0x277D0F880]) initWithName:@"com.apple.homed.snapshot-data"];
@@ -41,11 +41,11 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v23 = v17;
-      v24 = 2112;
-      v25 = pathCopy;
-      v26 = 2112;
-      v27 = v11;
+      v22 = v17;
+      v23 = 2112;
+      v24 = pathCopy;
+      v25 = 2112;
+      v26 = v11;
       _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize HMDCameraSnapshot from file path %@: %@", buf, 0x20u);
     }
 
@@ -63,7 +63,6 @@
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

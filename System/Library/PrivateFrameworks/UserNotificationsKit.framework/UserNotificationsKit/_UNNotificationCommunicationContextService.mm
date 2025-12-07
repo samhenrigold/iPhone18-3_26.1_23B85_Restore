@@ -7,11 +7,11 @@
 - (id)resolveCommunicationContextForRequest:(id)request bundleIdentifier:(id)identifier
 {
   requestCopy = request;
-  NCRegisterUserNotificationsUILogging();
-  v5 = NCUILogCommunicationNotifications;
+  NCRegisterUserNotificationsUILogging(requestCopy, v5);
+  v6 = NCUILogCommunicationNotifications;
   if (os_log_type_enabled(NCUILogCommunicationNotifications, OS_LOG_TYPE_ERROR))
   {
-    [_UNNotificationCommunicationContextService resolveCommunicationContextForRequest:v5 bundleIdentifier:?];
+    [_UNNotificationCommunicationContextService resolveCommunicationContextForRequest:v6 bundleIdentifier:?];
   }
 
   return requestCopy;

@@ -168,128 +168,128 @@ LABEL_15:
   }
 
   errorCopy = error;
-  v83 = 0;
-  v84 = &v83;
-  v85 = 0x3032000000;
-  v86 = sub_10000235C;
-  v87 = sub_10000236C;
-  v88 = +[NSNull null];
-  v81[0] = 0;
-  v81[1] = v81;
-  v81[2] = 0x3032000000;
-  v81[3] = sub_10000235C;
-  v81[4] = sub_10000236C;
-  v82 = +[NSNull null];
-  v74 = +[NSMutableDictionary dictionary];
-  v119[0] = kSecClass;
-  v119[1] = kSecClassKey;
-  v71 = [NSArray arrayWithObjects:v119 count:2];
-  v120[0] = v71;
-  v118[0] = kSecAttrKeyClass;
-  v118[1] = kSecAttrKeyClassPrivate;
+  v82 = 0;
+  v83 = &v82;
+  v84 = 0x3032000000;
+  v85 = sub_10000235C;
+  v86 = sub_10000236C;
+  v87 = +[NSNull null];
+  v80[0] = 0;
+  v80[1] = v80;
+  v80[2] = 0x3032000000;
+  v80[3] = sub_10000235C;
+  v80[4] = sub_10000236C;
+  v81 = +[NSNull null];
+  v73 = +[NSMutableDictionary dictionary];
+  v118[0] = kSecClass;
+  v118[1] = kSecClassKey;
   v70 = [NSArray arrayWithObjects:v118 count:2];
-  v120[1] = v70;
-  v117[0] = kSecAttrKeyType;
-  v69 = +[NSNull null];
-  v117[1] = v69;
-  v80[0] = _NSConcreteStackBlock;
-  v80[1] = 3221225472;
-  v80[2] = sub_100002374;
-  v80[3] = &unk_100008320;
-  v80[4] = v81;
-  v68 = objc_retainBlock(v80);
-  v117[2] = v68;
-  v67 = [NSArray arrayWithObjects:v117 count:3];
-  v120[2] = v67;
-  v116[0] = kSecAttrKeySizeInBits;
-  v116[1] = &off_1000087D8;
-  v116[2] = &stru_100008360;
-  v66 = [NSArray arrayWithObjects:v116 count:3];
-  v120[3] = v66;
-  v115[0] = kSecAttrEffectiveKeySize;
-  v115[1] = &off_1000087D8;
-  v115[2] = &stru_100008380;
-  v65 = [NSArray arrayWithObjects:v115 count:3];
-  v120[4] = v65;
-  v114 = kSecValueData;
-  v64 = [NSArray arrayWithObjects:&v114 count:1];
-  v120[5] = v64;
-  v10 = v84[5];
-  v113[0] = kSecAttrAccessControl;
-  v113[1] = v10;
+  v119[0] = v70;
+  v117[0] = kSecAttrKeyClass;
+  v117[1] = kSecAttrKeyClassPrivate;
+  v69 = [NSArray arrayWithObjects:v117 count:2];
+  v119[1] = v69;
+  v116[0] = kSecAttrKeyType;
+  v68 = +[NSNull null];
+  v116[1] = v68;
   v79[0] = _NSConcreteStackBlock;
   v79[1] = 3221225472;
-  v79[2] = sub_100002424;
+  v79[2] = sub_100002374;
   v79[3] = &unk_100008320;
-  v79[4] = &v83;
-  v59 = objc_retainBlock(v79);
-  v113[2] = v59;
-  v63 = [NSArray arrayWithObjects:v113 count:3];
-  v120[6] = v63;
-  v112[0] = kSecAttrIsPrivate;
-  v112[1] = &__kCFBooleanTrue;
-  v62 = [NSArray arrayWithObjects:v112 count:2];
-  v120[7] = v62;
-  v111[0] = kSecAttrIsModifiable;
-  v111[1] = &__kCFBooleanFalse;
+  v79[4] = v80;
+  v67 = objc_retainBlock(v79);
+  v116[2] = v67;
+  v66 = [NSArray arrayWithObjects:v116 count:3];
+  v119[2] = v66;
+  v115[0] = kSecAttrKeySizeInBits;
+  v115[1] = &off_1000087D8;
+  v115[2] = &stru_100008360;
+  v65 = [NSArray arrayWithObjects:v115 count:3];
+  v119[3] = v65;
+  v114[0] = kSecAttrEffectiveKeySize;
+  v114[1] = &off_1000087D8;
+  v114[2] = &stru_100008380;
+  v64 = [NSArray arrayWithObjects:v114 count:3];
+  v119[4] = v64;
+  v113 = kSecValueData;
+  v63 = [NSArray arrayWithObjects:&v113 count:1];
+  v119[5] = v63;
+  v10 = v83[5];
+  v112[0] = kSecAttrAccessControl;
+  v112[1] = v10;
+  v78[0] = _NSConcreteStackBlock;
+  v78[1] = 3221225472;
+  v78[2] = sub_100002424;
+  v78[3] = &unk_100008320;
+  v78[4] = &v82;
+  v58 = objc_retainBlock(v78);
+  v112[2] = v58;
+  v62 = [NSArray arrayWithObjects:v112 count:3];
+  v119[6] = v62;
+  v111[0] = kSecAttrIsPrivate;
+  v111[1] = &__kCFBooleanTrue;
   v61 = [NSArray arrayWithObjects:v111 count:2];
-  v120[8] = v61;
-  v110[0] = kSecAttrIsExtractable;
+  v119[7] = v61;
+  v110[0] = kSecAttrIsModifiable;
   v110[1] = &__kCFBooleanFalse;
   v60 = [NSArray arrayWithObjects:v110 count:2];
-  v120[9] = v60;
-  v109[0] = kSecAttrWasNeverExtractable;
-  v109[1] = &__kCFBooleanTrue;
-  v11 = [NSArray arrayWithObjects:v109 count:2];
-  v120[10] = v11;
-  v108[0] = kSecAttrCanEncrypt;
+  v119[8] = v60;
+  v109[0] = kSecAttrIsExtractable;
+  v109[1] = &__kCFBooleanFalse;
+  v59 = [NSArray arrayWithObjects:v109 count:2];
+  v119[9] = v59;
+  v108[0] = kSecAttrWasNeverExtractable;
   v108[1] = &__kCFBooleanTrue;
-  v12 = [NSArray arrayWithObjects:v108 count:2];
-  v120[11] = v12;
-  v107[0] = kSecAttrCanDecrypt;
+  v11 = [NSArray arrayWithObjects:v108 count:2];
+  v119[10] = v11;
+  v107[0] = kSecAttrCanEncrypt;
   v107[1] = &__kCFBooleanTrue;
-  v13 = [NSArray arrayWithObjects:v107 count:2];
-  v120[12] = v13;
-  v106[0] = kSecAttrCanDerive;
+  v12 = [NSArray arrayWithObjects:v107 count:2];
+  v119[11] = v12;
+  v106[0] = kSecAttrCanDecrypt;
   v106[1] = &__kCFBooleanTrue;
-  v14 = [NSArray arrayWithObjects:v106 count:2];
-  v120[13] = v14;
-  v105[0] = kSecAttrCanSign;
+  v13 = [NSArray arrayWithObjects:v106 count:2];
+  v119[12] = v13;
+  v105[0] = kSecAttrCanDerive;
   v105[1] = &__kCFBooleanTrue;
-  v15 = [NSArray arrayWithObjects:v105 count:2];
-  v120[14] = v15;
-  v104[0] = kSecAttrCanVerify;
-  v104[1] = &__kCFBooleanFalse;
-  v16 = [NSArray arrayWithObjects:v104 count:2];
-  v120[15] = v16;
-  v103[0] = kSecAttrCanWrap;
+  v14 = [NSArray arrayWithObjects:v105 count:2];
+  v119[13] = v14;
+  v104[0] = kSecAttrCanSign;
+  v104[1] = &__kCFBooleanTrue;
+  v15 = [NSArray arrayWithObjects:v104 count:2];
+  v119[14] = v15;
+  v103[0] = kSecAttrCanVerify;
   v103[1] = &__kCFBooleanFalse;
-  v17 = [NSArray arrayWithObjects:v103 count:2];
-  v120[16] = v17;
-  v18 = [NSArray arrayWithObjects:v120 count:17];
+  v16 = [NSArray arrayWithObjects:v103 count:2];
+  v119[15] = v16;
+  v102[0] = kSecAttrCanWrap;
+  v102[1] = &__kCFBooleanFalse;
+  v17 = [NSArray arrayWithObjects:v102 count:2];
+  v119[16] = v17;
+  v18 = [NSArray arrayWithObjects:v119 count:17];
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v19 = v18;
-  v20 = [v19 countByEnumeratingWithState:&v75 objects:v102 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v74 objects:v101 count:16];
   if (!v20)
   {
     goto LABEL_23;
   }
 
-  v21 = *v76;
+  v21 = *v75;
   do
   {
     for (i = 0; i != v20; i = i + 1)
     {
-      if (*v76 != v21)
+      if (*v75 != v21)
       {
         objc_enumerationMutation(v19);
       }
 
-      v23 = *(*(&v75 + 1) + 8 * i);
+      v23 = *(*(&v74 + 1) + 8 * i);
       v24 = [v23 objectAtIndexedSubscript:0];
       if ([v23 count] < 2)
       {
@@ -311,7 +311,7 @@ LABEL_15:
 
           if ((v31 & 1) == 0)
           {
-            [v74 setObject:v25 forKeyedSubscript:v24];
+            [v73 setObject:v25 forKeyedSubscript:v24];
           }
         }
 
@@ -340,10 +340,10 @@ LABEL_19:
       {
         if (errorCopy)
         {
-          v100 = NSLocalizedDescriptionKey;
+          v99 = NSLocalizedDescriptionKey;
           v37 = [NSString stringWithFormat:@"secelemtoken: %@ requires '%@' value when present", v24, v25];
-          v101 = v37;
-          v38 = [NSDictionary dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+          v100 = v37;
+          v38 = [NSDictionary dictionaryWithObjects:&v100 forKeys:&v99 count:1];
           *errorCopy = [NSError errorWithDomain:TKErrorDomain code:-8 userInfo:v38];
         }
 
@@ -352,18 +352,18 @@ LABEL_19:
         goto LABEL_42;
       }
 
-      [v74 setObject:v26 forKeyedSubscript:v24];
+      [v73 setObject:v26 forKeyedSubscript:v24];
 
 LABEL_21:
     }
 
-    v20 = [v19 countByEnumeratingWithState:&v75 objects:v102 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v74 objects:v101 count:16];
   }
 
   while (v20);
 LABEL_23:
 
-  v32 = v84[5];
+  v32 = v83[5];
   v33 = +[NSNull null];
   LODWORD(v32) = [v32 isEqual:v33];
 
@@ -372,46 +372,45 @@ LABEL_23:
     v34 = kSecAttrAccessibleWhenUnlocked;
     v35 = SecAccessControlCreateWithFlags(0, v34, 0, 0);
     v36 = SecAccessControlCopyData();
-    [v74 setObject:v36 forKeyedSubscript:kSecAttrAccessControl];
+    [v73 setObject:v36 forKeyedSubscript:kSecAttrAccessControl];
   }
 
   else
   {
-    v40 = v84[5];
     v35 = SecAccessControlCreateFromData();
   }
 
-  [v74 setObject:v84[5] forKeyedSubscript:kSecAttrAccessControl];
-  v94 = 0;
-  v95 = &v94;
-  v96 = 0x2020000000;
-  v41 = off_10000CB28;
-  v97 = off_10000CB28;
+  [v73 setObject:v83[5] forKeyedSubscript:kSecAttrAccessControl];
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x2020000000;
+  v40 = off_10000CB28;
+  v96 = off_10000CB28;
   if (!off_10000CB28)
   {
-    v89 = _NSConcreteStackBlock;
-    v90 = 3221225472;
-    v91 = sub_100003BB4;
-    v92 = &unk_1000083E8;
-    v93 = &v94;
-    v42 = sub_100003A48();
-    v43 = dlsym(v42, "SESKeyCreate");
-    *(v93[1] + 24) = v43;
-    off_10000CB28 = *(v93[1] + 24);
-    v41 = v95[3];
+    v88 = _NSConcreteStackBlock;
+    v89 = 3221225472;
+    v90 = sub_100003BB4;
+    v91 = &unk_1000083E8;
+    v92 = &v93;
+    v41 = sub_100003A48();
+    v42 = dlsym(v41, "SESKeyCreate");
+    *(v92[1] + 24) = v42;
+    off_10000CB28 = *(v92[1] + 24);
+    v40 = v94[3];
   }
 
-  _Block_object_dispose(&v94, 8);
-  if (!v41)
+  _Block_object_dispose(&v93, 8);
+  if (!v40)
   {
-    v55 = +[NSAssertionHandler currentHandler];
-    v56 = [NSString stringWithUTF8String:"NSData * _Nullable soft_SESKeyCreate(SecAccessControlRef _Nonnull, NSError * _Nullable __autoreleasing * _Nullable)"];
-    [v55 handleFailureInFunction:v56 file:@"TKSecElemTokenSoftLinking.h" lineNumber:25 description:{@"%s", dlerror()}];
+    v54 = +[NSAssertionHandler currentHandler];
+    v55 = [NSString stringWithUTF8String:"NSData * _Nullable soft_SESKeyCreate(SecAccessControlRef _Nonnull, NSError * _Nullable __autoreleasing * _Nullable)"];
+    [v54 handleFailureInFunction:v55 file:@"TKSecElemTokenSoftLinking.h" lineNumber:25 description:{@"%s", dlerror()}];
 
     goto LABEL_48;
   }
 
-  v39 = v41(v35, errorCopy);
+  v39 = v40(v35, errorCopy);
   CFRelease(v35);
   if (errorCopy && *errorCopy)
   {
@@ -419,57 +418,57 @@ LABEL_23:
   }
 
   v39 = v39;
-  v94 = 0;
-  v95 = &v94;
-  v96 = 0x2020000000;
-  v44 = off_10000CB30;
-  v97 = off_10000CB30;
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x2020000000;
+  v43 = off_10000CB30;
+  v96 = off_10000CB30;
   if (!off_10000CB30)
   {
-    v89 = _NSConcreteStackBlock;
-    v90 = 3221225472;
-    v91 = sub_100003C04;
-    v92 = &unk_1000083E8;
-    v93 = &v94;
-    v45 = sub_100003A48();
-    v46 = dlsym(v45, "SESKeyPublicKey");
-    *(v93[1] + 24) = v46;
-    off_10000CB30 = *(v93[1] + 24);
-    v44 = v95[3];
+    v88 = _NSConcreteStackBlock;
+    v89 = 3221225472;
+    v90 = sub_100003C04;
+    v91 = &unk_1000083E8;
+    v92 = &v93;
+    v44 = sub_100003A48();
+    v45 = dlsym(v44, "SESKeyPublicKey");
+    *(v92[1] + 24) = v45;
+    off_10000CB30 = *(v92[1] + 24);
+    v43 = v94[3];
   }
 
-  _Block_object_dispose(&v94, 8);
-  if (!v44)
+  _Block_object_dispose(&v93, 8);
+  if (!v43)
   {
-    v57 = +[NSAssertionHandler currentHandler];
-    v58 = [NSString stringWithUTF8String:"NSData * _Nullable soft_SESKeyPublicKey(NSData * _Nonnull __strong, NSError * _Nullable __autoreleasing * _Nullable)"];
-    [v57 handleFailureInFunction:v58 file:@"TKSecElemTokenSoftLinking.h" lineNumber:43 description:{@"%s", dlerror()}];
+    v56 = +[NSAssertionHandler currentHandler];
+    v57 = [NSString stringWithUTF8String:"NSData * _Nullable soft_SESKeyPublicKey(NSData * _Nonnull __strong, NSError * _Nullable __autoreleasing * _Nullable)"];
+    [v56 handleFailureInFunction:v57 file:@"TKSecElemTokenSoftLinking.h" lineNumber:43 description:{@"%s", dlerror()}];
 
 LABEL_48:
     __break(1u);
   }
 
-  v47 = v44(v39, 0);
+  v46 = v43(v39, 0);
 
-  [v74 setObject:v47 forKeyedSubscript:@"pubk"];
-  v98[0] = @"keyData";
-  v98[1] = @"keyAttributes";
-  v99[0] = v39;
-  v48 = [v74 copy];
-  v99[1] = v48;
-  v49 = [NSDictionary dictionaryWithObjects:v99 forKeys:v98 count:2];
-  v50 = [NSKeyedArchiver archivedDataWithRootObject:v49 requiringSecureCoding:0 error:errorCopy];
-  v51 = kSecAttrTokenOID;
-  [v74 setObject:v50 forKeyedSubscript:kSecAttrTokenOID];
+  [v73 setObject:v46 forKeyedSubscript:@"pubk"];
+  v97[0] = @"keyData";
+  v97[1] = @"keyAttributes";
+  v98[0] = v39;
+  v47 = [v73 copy];
+  v98[1] = v47;
+  v48 = [NSDictionary dictionaryWithObjects:v98 forKeys:v97 count:2];
+  v49 = [NSKeyedArchiver archivedDataWithRootObject:v48 requiringSecureCoding:0 error:errorCopy];
+  v50 = kSecAttrTokenOID;
+  [v73 setObject:v49 forKeyedSubscript:kSecAttrTokenOID];
 
   if (!errorCopy || !*errorCopy)
   {
-    v52 = [v74 objectForKeyedSubscript:v51];
-    v53 = v52 == 0;
+    v51 = [v73 objectForKeyedSubscript:v50];
+    v52 = v51 == 0;
 
-    if (!v53)
+    if (!v52)
     {
-      v9 = v74;
+      v9 = v73;
       goto LABEL_42;
     }
   }
@@ -478,8 +477,8 @@ LABEL_41:
   v9 = 0;
 LABEL_42:
 
-  _Block_object_dispose(v81, 8);
-  _Block_object_dispose(&v83, 8);
+  _Block_object_dispose(v80, 8);
+  _Block_object_dispose(&v82, 8);
 
 LABEL_43:
 
@@ -853,8 +852,8 @@ LABEL_18:
   nonceCopy = nonce;
   if (!sub_1000012E0(keyCopy))
   {
-    v36 = sub_100001338(keyCopy, error);
-    if (!v36)
+    v35 = sub_100001338(keyCopy, error);
+    if (!v35)
     {
       v14 = 0;
 LABEL_34:
@@ -863,19 +862,19 @@ LABEL_34:
     }
 
     parameters = [(TKSecElemTokenSession *)self parameters];
-    v35 = [parameters objectForKeyedSubscript:@"kSecKeyParameterSecElemTokenAttestationOIDs"];
+    v34 = [parameters objectForKeyedSubscript:@"kSecKeyParameterSecElemTokenAttestationOIDs"];
 
-    if (v35)
+    if (v34)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         if (error)
         {
-          v33 = [NSError errorWithDomain:TKErrorDomain code:-8 userInfo:0];
+          v32 = [NSError errorWithDomain:TKErrorDomain code:-8 userInfo:0];
 LABEL_28:
           v14 = 0;
-          *error = v33;
+          *error = v32;
 LABEL_33:
 
           goto LABEL_34;
@@ -886,25 +885,24 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      v41 = 0u;
-      v42 = 0u;
-      v39 = 0u;
       v40 = 0u;
-      v16 = v35;
-      v17 = [v16 countByEnumeratingWithState:&v39 objects:v52 count:16];
+      v41 = 0u;
+      v38 = 0u;
+      v39 = 0u;
+      v16 = v34;
+      v17 = [v16 countByEnumeratingWithState:&v38 objects:v51 count:16];
       if (v17)
       {
-        v18 = *v40;
+        v18 = *v39;
         while (2)
         {
-          for (i = 0; i != v17; i = i + 1)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v40 != v18)
+            if (*v39 != v18)
             {
               objc_enumerationMutation(v16);
             }
 
-            v20 = *(*(&v39 + 1) + 8 * i);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
@@ -917,7 +915,7 @@ LABEL_32:
             }
           }
 
-          v17 = [v16 countByEnumeratingWithState:&v39 objects:v52 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v38 objects:v51 count:16];
           if (v17)
           {
             continue;
@@ -932,41 +930,41 @@ LABEL_32:
     {
       if ([(TKSecElemTokenSession *)self isOperationAuthorized:1 error:error])
       {
-        v21 = [v36 objectForKeyedSubscript:@"keyData"];
+        v20 = [v35 objectForKeyedSubscript:@"keyData"];
         applicationIdentifier = [(TKSecElemTokenSession *)self applicationIdentifier];
         parameters2 = [(TKSecElemTokenSession *)self parameters];
-        v24 = [parameters2 objectForKeyedSubscript:@"kSecKeyParameterSecElemTokenAttestationNonce"];
-        v25 = v21;
-        v26 = applicationIdentifier;
-        v27 = v24;
-        v28 = v35;
-        v48 = 0;
-        v49 = &v48;
-        v50 = 0x2020000000;
-        v29 = off_10000CB50;
-        v51 = off_10000CB50;
+        v23 = [parameters2 objectForKeyedSubscript:@"kSecKeyParameterSecElemTokenAttestationNonce"];
+        v24 = v20;
+        v25 = applicationIdentifier;
+        v26 = v23;
+        v27 = v34;
+        v47 = 0;
+        v48 = &v47;
+        v49 = 0x2020000000;
+        v28 = off_10000CB50;
+        v50 = off_10000CB50;
         if (!off_10000CB50)
         {
-          v43 = _NSConcreteStackBlock;
-          v44 = 3221225472;
-          v45 = sub_100003D44;
-          v46 = &unk_1000083E8;
-          v47 = &v48;
-          v30 = sub_100003A48();
-          v31 = dlsym(v30, "SESKeyCreateSEBAASCertificate");
-          *(v47[1] + 24) = v31;
-          off_10000CB50 = *(v47[1] + 24);
-          v29 = v49[3];
+          v42 = _NSConcreteStackBlock;
+          v43 = 3221225472;
+          v44 = sub_100003D44;
+          v45 = &unk_1000083E8;
+          v46 = &v47;
+          v29 = sub_100003A48();
+          v30 = dlsym(v29, "SESKeyCreateSEBAASCertificate");
+          *(v46[1] + 24) = v30;
+          off_10000CB50 = *(v46[1] + 24);
+          v28 = v48[3];
         }
 
-        _Block_object_dispose(&v48, 8);
-        if (!v29)
+        _Block_object_dispose(&v47, 8);
+        if (!v28)
         {
           sub_100003F88();
         }
 
-        v32 = v26;
-        v14 = v29(v25, v26, v27, v28, error);
+        v31 = v25;
+        v14 = v28(v24, v25, v26, v27, error);
 
         goto LABEL_33;
       }
@@ -976,7 +974,7 @@ LABEL_32:
 
     if (error)
     {
-      v33 = [NSError errorWithDomain:TKErrorDomain code:-8 userInfo:0];
+      v32 = [NSError errorWithDomain:TKErrorDomain code:-8 userInfo:0];
       goto LABEL_28;
     }
 

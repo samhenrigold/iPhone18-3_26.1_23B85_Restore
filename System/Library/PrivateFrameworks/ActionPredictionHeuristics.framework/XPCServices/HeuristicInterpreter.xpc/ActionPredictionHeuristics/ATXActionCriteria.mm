@@ -15,7 +15,7 @@
 
   if (v5 && v7 && [v5 compare:v7] == 1)
   {
-    v8 = sub_100001940();
+    v8 = sub_100001940(1);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       [v5 timeIntervalSinceReferenceDate];

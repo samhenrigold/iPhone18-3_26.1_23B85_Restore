@@ -266,31 +266,31 @@
 
 - (unint64_t)offerTypesAsFlagBits
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   offers = [(IMPodcastFeed *)self offers];
-  v3 = [offers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [offers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(offers);
         }
 
-        v5 |= [*(*(&v10 + 1) + 8 * i) offerTypeAsFlagBit];
+        v5 |= [*(*(&v9 + 1) + 8 * i) offerTypeAsFlagBit];
       }
 
-      v4 = [offers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [offers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -301,7 +301,6 @@
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

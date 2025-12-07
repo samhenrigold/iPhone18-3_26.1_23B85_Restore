@@ -47,18 +47,19 @@
 - (HKSPSleepModeObject)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v10.receiver = self;
-  v10.super_class = HKSPSleepModeObject;
-  v5 = [(HKSPSleepModeObject *)&v10 init];
+  v12.receiver = self;
+  v12.super_class = HKSPSleepModeObject;
+  v5 = [(HKSPSleepModeObject *)&v12 init];
   if (v5)
   {
     v5->_sleepMode = [coderCopy decodeIntegerForKey:@"sleepMode"];
-    v5->_changeReason = [coderCopy decodeIntegerForKey:@"changeReason"];
-    v6 = [coderCopy decodeObjectOfClass:HKSPSyncAnchorClass() forKey:@"syncAnchor"];
+    v6 = [coderCopy decodeIntegerForKey:@"changeReason"];
+    v5->_changeReason = v6;
+    v8 = [coderCopy decodeObjectOfClass:HKSPSyncAnchorClass(v6 forKey:{v7), @"syncAnchor"}];
     syncAnchor = v5->_syncAnchor;
-    v5->_syncAnchor = v6;
+    v5->_syncAnchor = v8;
 
-    v8 = v5;
+    v10 = v5;
   }
 
   return v5;

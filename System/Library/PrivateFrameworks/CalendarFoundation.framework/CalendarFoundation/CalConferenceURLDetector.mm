@@ -24,57 +24,57 @@
 
 + (id)conferenceURLFromSources:(id)sources
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   sourcesCopy = sources;
-  v5 = [sourcesCopy countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v5 = [sourcesCopy countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v5)
   {
     v6 = v5;
     phoneURL = 0;
     v8 = 0;
-    v9 = *v35;
-    v28 = sourcesCopy;
-    v26 = *v35;
+    v9 = *v34;
+    v27 = sourcesCopy;
+    v25 = *v34;
     do
     {
       v10 = 0;
-      v27 = v6;
+      v26 = v6;
       do
       {
-        if (*v35 != v9)
+        if (*v34 != v9)
         {
           objc_enumerationMutation(sourcesCopy);
         }
 
-        v11 = *(*(&v34 + 1) + 8 * v10);
+        v11 = *(*(&v33 + 1) + 8 * v10);
         if ([v11 length])
         {
-          v29 = phoneURL;
+          v28 = phoneURL;
           v12 = [self _URLsInSource:v11];
+          v29 = 0u;
           v30 = 0u;
           v31 = 0u;
           v32 = 0u;
-          v33 = 0u;
           v13 = v12;
-          v14 = [v13 countByEnumeratingWithState:&v30 objects:v38 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v29 objects:v37 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v31;
+            v16 = *v30;
             while (2)
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v31 != v16)
+                if (*v30 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = *(*(&v30 + 1) + 8 * i);
+                v18 = *(*(&v29 + 1) + 8 * i);
                 if ([v18 resultType] == 32)
                 {
                   v19 = [v18 URL];
@@ -83,8 +83,8 @@
                   if ([objc_opt_class() isPreferredURL:v20])
                   {
 
-                    sourcesCopy = v28;
-                    phoneURL = v29;
+                    sourcesCopy = v27;
+                    phoneURL = v28;
                     goto LABEL_36;
                   }
 
@@ -103,7 +103,7 @@
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v30 objects:v38 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v29 objects:v37 count:16];
               if (v15)
               {
                 continue;
@@ -113,10 +113,10 @@
             }
           }
 
-          sourcesCopy = v28;
-          phoneURL = v29;
-          v6 = v27;
-          if (!(v8 | v29))
+          sourcesCopy = v27;
+          phoneURL = v28;
+          v6 = v26;
+          if (!(v8 | v28))
           {
             v21 = [self _firstPhoneNumberInSource:v11];
             if ([v21 resultType] == 2048)
@@ -124,7 +124,7 @@
               phoneNumber = [v21 phoneNumber];
               phoneURL = [phoneNumber phoneURL];
 
-              v6 = v27;
+              v6 = v26;
             }
 
             else
@@ -133,14 +133,14 @@
             }
           }
 
-          v9 = v26;
+          v9 = v25;
         }
 
         ++v10;
       }
 
       while (v10 != v6);
-      v6 = [sourcesCopy countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v6 = [sourcesCopy countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v6);
@@ -165,36 +165,34 @@
   v20 = v23;
 LABEL_36:
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 + (id)googleMeetURLsAndPhoneNumbersFromSource:(id)source
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   sourceCopy = source;
   array = [MEMORY[0x1E695DF70] array];
   v6 = [self _linksInSource:sourceCopy];
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v40;
+    v9 = *v39;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v40 != v9)
+        if (*v39 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v39 + 1) + 8 * i);
+        v11 = *(*(&v38 + 1) + 8 * i);
         if ([v11 resultType] == 32)
         {
           v12 = [v11 URL];
@@ -205,32 +203,32 @@ LABEL_36:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v8);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v13 = v6;
-  v14 = [v13 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v36;
+    v16 = *v35;
     do
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v36 != v16)
+        if (*v35 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v35 + 1) + 8 * j);
+        v18 = *(*(&v34 + 1) + 8 * j);
         if ([v18 resultType] == 32)
         {
           v19 = [v18 URL];
@@ -241,32 +239,32 @@ LABEL_36:
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v15);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v20 = v13;
-  v21 = [v20 countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v32;
+    v23 = *v31;
     do
     {
       for (k = 0; k != v22; ++k)
       {
-        if (*v32 != v23)
+        if (*v31 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = *(*(&v31 + 1) + 8 * k);
+        v25 = *(*(&v30 + 1) + 8 * k);
         if ([v25 resultType] == 32)
         {
           v26 = [v25 URL];
@@ -288,13 +286,11 @@ LABEL_36:
         }
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v22);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -392,7 +388,7 @@ void __42__CalConferenceURLDetector__URLsInSource___block_invoke(uint64_t a1, vo
 
 + (id)decodeIfSafeLink:(id)link
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   linkCopy = link;
   v5 = linkCopy;
   if (!linkCopy)
@@ -414,27 +410,27 @@ void __42__CalConferenceURLDetector__URLsInSource___block_invoke(uint64_t a1, vo
       goto LABEL_17;
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
-    v22 = v9;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v21 = v9;
     queryItems = [v9 queryItems];
-    v11 = [queryItems countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v11 = [queryItems countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v23;
       while (2)
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(queryItems);
           }
 
-          v15 = *(*(&v23 + 1) + 8 * i);
+          v15 = *(*(&v22 + 1) + 8 * i);
           name = [v15 name];
           v17 = [name isEqualToString:@"url"];
 
@@ -447,7 +443,7 @@ void __42__CalConferenceURLDetector__URLsInSource___block_invoke(uint64_t a1, vo
           }
         }
 
-        v12 = [queryItems countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v12 = [queryItems countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v12)
         {
           continue;
@@ -462,38 +458,37 @@ void __42__CalConferenceURLDetector__URLsInSource___block_invoke(uint64_t a1, vo
 LABEL_17:
 
 LABEL_18:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 + (BOOL)isPreferredURL:(id)l
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (lCopy && ([self _hasDisallowedPathExtension:lCopy] & 1) == 0 && objc_msgSend(self, "_hasValidPath:", lCopy))
   {
     cal_hostAfterGoogleRedirects = [lCopy cal_hostAfterGoogleRedirects];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     _preferredHostSuffixes = [self _preferredHostSuffixes];
-    v7 = [_preferredHostSuffixes countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [_preferredHostSuffixes countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(_preferredHostSuffixes);
           }
 
-          if ([cal_hostAfterGoogleRedirects hasSuffix:*(*(&v14 + 1) + 8 * i)])
+          if ([cal_hostAfterGoogleRedirects hasSuffix:*(*(&v13 + 1) + 8 * i)])
           {
 
             v11 = 1;
@@ -501,7 +496,7 @@ LABEL_18:
           }
         }
 
-        v8 = [_preferredHostSuffixes countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [_preferredHostSuffixes countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -520,35 +515,34 @@ LABEL_16:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (BOOL)isTUConversationLink:(id)link
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (link)
   {
     host = [link host];
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
     baseURLs = [MEMORY[0x1E69D8B70] baseURLs];
-    v5 = [baseURLs countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [baseURLs countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v5)
     {
-      v6 = *v13;
+      v6 = *v12;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(baseURLs);
           }
 
-          host2 = [*(*(&v12 + 1) + 8 * i) host];
+          host2 = [*(*(&v11 + 1) + 8 * i) host];
           v9 = [host2 isEqualToString:host];
 
           if (v9)
@@ -558,7 +552,7 @@ LABEL_16:
           }
         }
 
-        v5 = [baseURLs countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [baseURLs countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (v5)
         {
           continue;
@@ -576,7 +570,6 @@ LABEL_12:
     LOBYTE(v5) = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -710,35 +703,33 @@ void __52__CalConferenceURLDetector__microsoftSafeLinkPrefix__block_invoke()
 
 void __50__CalConferenceURLDetector__preferredHostSuffixes__block_invoke(uint64_t a1)
 {
-  v5[22] = *MEMORY[0x1E69E9840];
-  v5[0] = @".webex.com";
-  v5[1] = @".webex.com.cn";
-  v5[2] = @".dmz.webex.com";
-  v5[3] = @"web.ciscospark.com";
-  v5[4] = @".skype.com";
-  v5[5] = @"meetings.ringcentral.com";
+  v4[22] = *MEMORY[0x1E69E9840];
+  v4[0] = @".webex.com";
+  v4[1] = @".webex.com.cn";
+  v4[2] = @".dmz.webex.com";
+  v4[3] = @"web.ciscospark.com";
+  v4[4] = @".skype.com";
+  v4[5] = @"meetings.ringcentral.com";
   v1 = [*(a1 + 32) _googleMeetSuffix];
-  v5[6] = v1;
-  v5[7] = @"zoom.us";
-  v5[8] = @"teams.microsoft.com";
-  v5[9] = @"teams.microsoft.us";
-  v5[10] = @"teams.live.com";
-  v5[11] = @"teams.microsoftonline.cn";
-  v5[12] = @"messenger.com";
-  v5[13] = @"msngr.com";
-  v5[14] = @"line.me";
-  v5[15] = @"telegram.me";
-  v5[16] = @"duo.app.goo.gl";
-  v5[17] = @"transcripts.gotomeeting.com";
-  v5[18] = @"gotomeet.me";
-  v5[19] = @"bluejeans.com";
-  v5[20] = @"join.me";
-  v5[21] = @"call.whatsapp.com";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:22];
+  v4[6] = v1;
+  v4[7] = @"zoom.us";
+  v4[8] = @"teams.microsoft.com";
+  v4[9] = @"teams.microsoft.us";
+  v4[10] = @"teams.live.com";
+  v4[11] = @"teams.microsoftonline.cn";
+  v4[12] = @"messenger.com";
+  v4[13] = @"msngr.com";
+  v4[14] = @"line.me";
+  v4[15] = @"telegram.me";
+  v4[16] = @"duo.app.goo.gl";
+  v4[17] = @"transcripts.gotomeeting.com";
+  v4[18] = @"gotomeet.me";
+  v4[19] = @"bluejeans.com";
+  v4[20] = @"join.me";
+  v4[21] = @"call.whatsapp.com";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:22];
   v3 = _preferredHostSuffixes_preferredSuffixes;
   _preferredHostSuffixes_preferredSuffixes = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_dataDetector
@@ -760,30 +751,29 @@ void __50__CalConferenceURLDetector__preferredHostSuffixes__block_invoke(uint64_
 
 void __41__CalConferenceURLDetector__dataDetector__block_invoke(uint64_t a1)
 {
-  v9 = 0;
-  v2 = [objc_alloc(MEMORY[0x1E696AB60]) initWithTypes:2080 error:&v9];
-  v3 = v9;
-  v4 = _dataDetector_dataDetector;
-  _dataDetector_dataDetector = v2;
+  v7 = 0;
+  v1 = [objc_alloc(MEMORY[0x1E696AB60]) initWithTypes:2080 error:&v7];
+  v2 = v7;
+  v3 = _dataDetector_dataDetector;
+  _dataDetector_dataDetector = v1;
 
   if (_dataDetector_dataDetector)
   {
-    v5 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v5 = v3 == 0;
+    v4 = v2 == 0;
   }
 
-  if (!v5)
+  if (!v4)
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v5 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1B990D000, v7, OS_LOG_TYPE_DEFAULT, "Error initializing the data detector.", v8, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1B990D000, v5, OS_LOG_TYPE_DEFAULT, "Error initializing the data detector.", v6, 2u);
     }
   }
 }
@@ -807,30 +797,29 @@ void __41__CalConferenceURLDetector__dataDetector__block_invoke(uint64_t a1)
 
 void __44__CalConferenceURLDetector__URLDataDetector__block_invoke(uint64_t a1)
 {
-  v9 = 0;
-  v2 = [objc_alloc(MEMORY[0x1E696AB60]) initWithTypes:32 error:&v9];
-  v3 = v9;
-  v4 = _URLDataDetector_dataDetector;
-  _URLDataDetector_dataDetector = v2;
+  v7 = 0;
+  v1 = [objc_alloc(MEMORY[0x1E696AB60]) initWithTypes:32 error:&v7];
+  v2 = v7;
+  v3 = _URLDataDetector_dataDetector;
+  _URLDataDetector_dataDetector = v1;
 
   if (_URLDataDetector_dataDetector)
   {
-    v5 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v5 = v3 == 0;
+    v4 = v2 == 0;
   }
 
-  if (!v5)
+  if (!v4)
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v5 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1B990D000, v7, OS_LOG_TYPE_DEFAULT, "Error initializing the data detector.", v8, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1B990D000, v5, OS_LOG_TYPE_DEFAULT, "Error initializing the data detector.", v6, 2u);
     }
   }
 }
@@ -854,30 +843,29 @@ void __44__CalConferenceURLDetector__URLDataDetector__block_invoke(uint64_t a1)
 
 void __52__CalConferenceURLDetector__phoneNumberDataDetector__block_invoke(uint64_t a1)
 {
-  v9 = 0;
-  v2 = [objc_alloc(MEMORY[0x1E696AB60]) initWithTypes:2048 error:&v9];
-  v3 = v9;
-  v4 = _phoneNumberDataDetector_dataDetector;
-  _phoneNumberDataDetector_dataDetector = v2;
+  v7 = 0;
+  v1 = [objc_alloc(MEMORY[0x1E696AB60]) initWithTypes:2048 error:&v7];
+  v2 = v7;
+  v3 = _phoneNumberDataDetector_dataDetector;
+  _phoneNumberDataDetector_dataDetector = v1;
 
   if (_phoneNumberDataDetector_dataDetector)
   {
-    v5 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v5 = v3 == 0;
+    v4 = v2 == 0;
   }
 
-  if (!v5)
+  if (!v4)
   {
-    v6 = *(a1 + 32);
-    v7 = [objc_opt_class() logHandle];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v5 = [objc_opt_class() logHandle];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_1B990D000, v7, OS_LOG_TYPE_DEFAULT, "Error initializing the data detector.", v8, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1B990D000, v5, OS_LOG_TYPE_DEFAULT, "Error initializing the data detector.", v6, 2u);
     }
   }
 }
@@ -899,9 +887,8 @@ void __52__CalConferenceURLDetector__phoneNumberDataDetector__block_invoke(uint6
   return v2;
 }
 
-void __37__CalConferenceURLDetector_logHandle__block_invoke(uint64_t a1)
+void __37__CalConferenceURLDetector_logHandle__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   v2 = objc_opt_class();
   v6 = NSStringFromClass(v2);
   v3 = v6;

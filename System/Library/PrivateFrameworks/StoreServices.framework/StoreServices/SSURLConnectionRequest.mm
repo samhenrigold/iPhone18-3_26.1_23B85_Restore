@@ -90,7 +90,7 @@
   return v3;
 }
 
-uint64_t __44__SSURLConnectionRequest_destinationFileURL__block_invoke(uint64_t a1)
+void *__44__SSURLConnectionRequest_destinationFileURL__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 120) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -116,15 +116,15 @@ uint64_t __44__SSURLConnectionRequest_destinationFileURL__block_invoke(uint64_t 
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __48__SSURLConnectionRequest_setDestinationFileURL___block_invoke(uint64_t result)
+void *__48__SSURLConnectionRequest_setDestinationFileURL___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 120);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 120);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 120) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 120) = result;
   }
 
   return result;
@@ -163,99 +163,98 @@ uint64_t __48__SSURLConnectionRequest_setDestinationFileURL___block_invoke(uint6
 
 - (void)startWithConnectionResponseBlock:(id)block
 {
-  v30 = *MEMORY[0x1E69E9840];
-  if ([(SSURLConnectionRequest *)self _canRunInProcess])
+  v31 = *MEMORY[0x1E69E9840];
+  _canRunInProcess = [(SSURLConnectionRequest *)self _canRunInProcess];
+  if (_canRunInProcess)
   {
-    v5 = [[SSVLoadURLOperation alloc] initWithURLRequestProperties:self->_requestProperties];
+    v7 = [[SSVLoadURLOperation alloc] initWithURLRequestProperties:self->_requestProperties];
     dataConsumer = [(SSURLConnectionRequest *)self dataConsumer];
     if (!dataConsumer)
     {
       dataConsumer = +[(SSVURLDataConsumer *)SSVURLConnectionConsumer];
     }
 
-    [(SSVLoadURLOperation *)v5 setDataConsumer:dataConsumer];
+    [(SSVLoadURLOperation *)v7 setDataConsumer:dataConsumer];
     dispatchQueue = self->super._dispatchQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __59__SSURLConnectionRequest_startWithConnectionResponseBlock___block_invoke;
     block[3] = &unk_1E84AC458;
     block[4] = self;
-    block[5] = v5;
+    block[5] = v7;
     dispatch_sync(dispatchQueue, block);
     if (block)
     {
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = __59__SSURLConnectionRequest_startWithConnectionResponseBlock___block_invoke_2;
-      v26[3] = &unk_1E84ADF30;
-      v26[4] = block;
-      [(SSVLoadURLOperation *)v5 setOutputBlock:v26];
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = __59__SSURLConnectionRequest_startWithConnectionResponseBlock___block_invoke_2;
+      v27[3] = &unk_1E84ADF30;
+      v27[4] = block;
+      [(SSVLoadURLOperation *)v7 setOutputBlock:v27];
     }
 
     global_queue = dispatch_get_global_queue(0, 0);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __59__SSURLConnectionRequest_startWithConnectionResponseBlock___block_invoke_3;
-    v25[3] = &unk_1E84AC408;
-    v25[4] = v5;
-    dispatch_async(global_queue, v25);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __59__SSURLConnectionRequest_startWithConnectionResponseBlock___block_invoke_3;
+    v26[3] = &unk_1E84AC408;
+    v26[4] = v7;
+    dispatch_async(global_queue, v26);
   }
 
   else
   {
-    if (SSIsInternalBuild() && _os_feature_enabled_impl())
+    if (SSIsInternalBuild(_canRunInProcess, v6) && _os_feature_enabled_impl())
     {
-      v9 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v9)
+      v11 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v11)
       {
-        v9 = +[SSLogConfig sharedConfig];
+        v11 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v9 shouldLog];
-      if ([v9 shouldLogToDisk])
+      shouldLog = [v11 shouldLog];
+      if ([v11 shouldLogToDisk])
       {
-        v11 = shouldLog | 2;
-      }
-
-      else
-      {
-        v11 = shouldLog;
-      }
-
-      if (os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEBUG))
-      {
-        v12 = v11;
+        v13 = shouldLog | 2;
       }
 
       else
       {
-        v12 = v11 & 2;
+        v13 = shouldLog;
       }
 
-      if (v12)
+      oSLogObject = [v11 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        v28 = 136446210;
-        v29 = "[SSURLConnectionRequest startWithConnectionResponseBlock:]";
-        LODWORD(v23) = 12;
-        v22 = &v28;
-        v13 = _os_log_send_and_compose_impl();
-        if (v13)
+        v15 = v13;
+      }
+
+      else
+      {
+        v15 = v13 & 2;
+      }
+
+      if (v15)
+      {
+        v29 = 136446210;
+        v30 = "[SSURLConnectionRequest startWithConnectionResponseBlock:]";
+        if (v16)
         {
-          v14 = v13;
-          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v28, v23}];
-          free(v14);
-          SSFileLog(v9, @"%@", v16, v17, v18, v19, v20, v21, v15);
+          v17 = v16;
+          v18 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:4];
+          free(v17);
+          SSFileLog(v11, @"%@", v19, v20, v21, v22, v23, v24, v18);
         }
       }
     }
 
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __59__SSURLConnectionRequest_startWithConnectionResponseBlock___block_invoke_24;
-    v24[3] = &unk_1E84AC760;
-    v24[4] = self;
-    v24[5] = block;
-    [(SSRequest *)self _startWithMessageID:62 messageBlock:v24, v22];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __59__SSURLConnectionRequest_startWithConnectionResponseBlock___block_invoke_24;
+    v25[3] = &unk_1E84AC760;
+    v25[4] = self;
+    v25[5] = block;
+    [(SSRequest *)self _startWithMessageID:62 messageBlock:v25];
   }
 }
 
@@ -540,7 +539,7 @@ id __36__SSURLConnectionRequest_SAPSession__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __44__SSURLConnectionRequest_SAPSignaturePolicy__block_invoke(uint64_t a1)
+void *__44__SSURLConnectionRequest_SAPSignaturePolicy__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -578,15 +577,15 @@ uint64_t __44__SSURLConnectionRequest_SAPSignaturePolicy__block_invoke(uint64_t 
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __51__SSURLConnectionRequest_setAuthenticationContext___block_invoke(uint64_t result)
+void *__51__SSURLConnectionRequest_setAuthenticationContext___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 104);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 104);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 104) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 104) = result;
   }
 
   return result;
@@ -668,15 +667,15 @@ void *__40__SSURLConnectionRequest_setSAPSession___block_invoke(void *result)
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __48__SSURLConnectionRequest_setSAPSignaturePolicy___block_invoke(uint64_t result)
+void *__48__SSURLConnectionRequest_setSAPSignaturePolicy___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 144);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 144);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 144) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 144) = result;
   }
 
   return result;
@@ -720,28 +719,28 @@ uint64_t __48__SSURLConnectionRequest_setSAPSignaturePolicy___block_invoke(uint6
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v10.receiver = self;
-    v10.super_class = SSURLConnectionRequest;
-    v7 = [(SSRequest *)&v10 init];
+    v11.receiver = self;
+    v11.super_class = SSURLConnectionRequest;
+    v7 = [(SSRequest *)&v11 init];
     v5 = v7;
     if (v7)
     {
 
       v5->_authenticationContext = [[SSAuthenticationContext alloc] initWithXPCEncoding:xpc_dictionary_get_value(encoding, "50")];
-      objc_opt_class();
-      v8 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "54");
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "54", v8);
 
-      if (v8)
+      if (v9)
       {
-        v9 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v8];
+        v10 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v9];
       }
 
       else
       {
-        v9 = 0;
+        v10 = 0;
       }
 
-      v5->_destinationFileURL = v9;
+      v5->_destinationFileURL = v10;
 
       v5->_requestProperties = [[SSURLRequestProperties alloc] initWithXPCEncoding:xpc_dictionary_get_value(encoding, "51")];
       [(SSURLConnectionRequest *)v5 setSendsResponseForHTTPFailures:xpc_dictionary_get_BOOL(encoding, "53")];

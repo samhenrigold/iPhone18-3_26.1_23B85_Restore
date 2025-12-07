@@ -12,9 +12,11 @@
   swift_getObjCClassMetadata();
   sub_1000F5104(&unk_10093E750, qword_10079FC30);
   String.init<A>(describing:)();
-  v2 = String._bridgeToObjectiveC()();
+  v3 = v2;
+  v4 = String._bridgeToObjectiveC()();
+  v3, v5, v6, v7, v8, v9, v10, v11;
 
-  return v2;
+  return v4;
 }
 
 - (void)willSave

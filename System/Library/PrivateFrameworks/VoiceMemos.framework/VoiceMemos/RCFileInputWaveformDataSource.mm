@@ -1,6 +1,7 @@
 @interface RCFileInputWaveformDataSource
 - ($F24F406B2B787EFB06265DBA3D28CBD5)sourceTimeRange;
 - (BOOL)savesGeneratedWaveform;
+- (BOOL)setPaused:(BOOL)paused;
 - (RCFileInputWaveformDataSource)initWithAVFileURL:(id)l savesGeneratedWaveform:(BOOL)waveform segmentFlushInterval:(double)interval trackIndex:(unint64_t)index;
 - (double)duration;
 - (float)loadingProgress;
@@ -108,13 +109,10 @@ float __52__RCFileInputWaveformDataSource_setLoadingProgress___block_invoke(uint
 
 - (void)startLoading
 {
-  v8 = *MEMORY[0x277D85DE8];
   path = [self path];
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_2_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishLoadingWithCompletionTimeout:(unint64_t)timeout completionBlock:(id)block
@@ -158,6 +156,15 @@ uint64_t __84__RCFileInputWaveformDataSource_finishLoadingWithCompletionTimeout_
   return MEMORY[0x2821F9730]();
 }
 
+- (BOOL)setPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  waveformGenerator = [(RCWaveformDataSource *)self waveformGenerator];
+  [waveformGenerator setPaused:pausedCopy];
+
+  return 1;
+}
+
 - (id)synchronouslyApproximateWaveformSegmentsByReadingCurrentFileAheadTimeRange:(id)range
 {
   var1 = range.var1;
@@ -188,7 +195,7 @@ id __65__RCFileInputWaveformDataSource_saveGeneratedWaveformIfNecessary__block_i
   if (v4)
   {
     v5 = v4;
-    [*(a1 + 32) duration];
+    objc_msgSend_duration(*(a1 + 32));
     if (v6 <= 0.0)
     {
       v7 = v3;
@@ -197,12 +204,12 @@ id __65__RCFileInputWaveformDataSource_saveGeneratedWaveformIfNecessary__block_i
     else
     {
       v7 = [v3 mutableCopy];
-      [v5 timeRange];
-      v9 = v8;
-      [*(a1 + 32) duration];
-      v11 = [v5 copyWithAdjustedTimeRange:{RCTimeRangeMake(v9, v10)}];
+      objc_msgSend_timeRange(v5);
+      objc_msgSend_duration(*(a1 + 32));
+      RCTimeRangeMake();
+      v8 = [v5 copyWithAdjustedTimeRange:?];
 
-      [v7 replaceObjectAtIndex:objc_msgSend(v3 withObject:{"count") - 1, v11}];
+      [v7 replaceObjectAtIndex:objc_msgSend(v3 withObject:{"count") - 1, v8}];
     }
   }
 
@@ -225,7 +232,7 @@ id __65__RCFileInputWaveformDataSource_saveGeneratedWaveformIfNecessary__block_i
     {
       if (v4)
       {
-        [v4 duration];
+        objc_msgSend_duration(v4);
       }
 
       else
@@ -250,7 +257,7 @@ id __65__RCFileInputWaveformDataSource_saveGeneratedWaveformIfNecessary__block_i
       v9 = v8;
       if (v8)
       {
-        [v8 timeRange];
+        objc_msgSend_timeRange(v8);
       }
 
       else

@@ -36,6 +36,7 @@
 - (void)fetchAllBookmarkRecordsWithCompletionHandler:(id)handler;
 - (void)fetchBookmarkRecordsWithNames:(id)names withCompletionHandler:(id)handler;
 - (void)fetchBookmarksRecordChangesSinceServerChangeToken:(id)token inOperationGroup:(id)group recordChangedBlock:(id)block recordWithIDWasDeletedBlock:(id)deletedBlock completionHandler:(id)handler;
+- (void)fetchBookmarksZoneSubscriptionStatusCreatingZoneIfNeeded:(BOOL)needed inOperationGroup:(id)group withCompletionHandler:(id)handler;
 - (void)fetchCachedRemoteMigrationInfoWithCompletionHandler:(id)handler;
 - (void)fetchChangesSinceServerChangeToken:(id)token inDatabase:(id)database operationGroup:(id)group completionHandler:(id)handler;
 - (void)fetchEncryptionInfoWithCompletionHandler:(id)handler;
@@ -122,9 +123,9 @@
 {
   containerCopy = container;
   storageCopy = storage;
-  v51.receiver = self;
-  v51.super_class = CloudBookmarkStore;
-  v11 = [(CloudRemoteStore *)&v51 init];
+  v53.receiver = self;
+  v53.super_class = CloudBookmarkStore;
+  v11 = [(CloudRemoteStore *)&v53 init];
   if (!v11)
   {
     goto LABEL_13;
@@ -144,32 +145,32 @@
   objc_storeStrong(v11 + 19, storage);
   if (*(v11 + 19))
   {
-    v18 = [CKRecord alloc];
+    v20 = [CKRecord alloc];
     migrationStateEncodedRecordData = [*(v11 + 19) migrationStateEncodedRecordData];
-    v20 = [v18 safari_initWithEncodedRecordData:migrationStateEncodedRecordData];
-    v21 = *(v11 + 11);
-    *(v11 + 11) = v20;
+    v22 = [v20 safari_initWithEncodedRecordData:migrationStateEncodedRecordData];
+    v23 = *(v11 + 11);
+    *(v11 + 11) = v22;
   }
 
   if (type == 1)
   {
-    v30 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    v31 = *(v11 + 4);
-    *(v11 + 4) = v30;
+    v32 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v18, v19);
+    v33 = *(v11 + 4);
+    *(v11 + 4) = v32;
 
-    v32 = +[CKRecordZoneID safari_tabGroupsRecordZoneID];
-    v33 = *(v11 + 13);
-    *(v11 + 13) = v32;
+    v34 = +[CKRecordZoneID safari_tabGroupsRecordZoneID];
+    v35 = *(v11 + 13);
+    *(v11 + 13) = v34;
 
-    v34 = +[CloudBookmarkItemConfiguration cloudTabGroupConfigurations];
-    v35 = [v34 copy];
-    v36 = *(v11 + 24);
-    *(v11 + 24) = v35;
+    v36 = +[CloudBookmarkItemConfiguration cloudTabGroupConfigurations];
+    v37 = [v36 copy];
+    v38 = *(v11 + 24);
+    *(v11 + 24) = v37;
 
     objc_storeStrong(v11 + 23, WBSCKRecordZoneIDSecondaryZoneNamePrefixTabGroups);
-    v37 = WBSCKShareTypeSharedTabGroup;
-    v27 = *(v11 + 17);
-    *(v11 + 17) = v37;
+    v39 = WBSCKShareTypeSharedTabGroup;
+    v29 = *(v11 + 17);
+    *(v11 + 17) = v39;
   }
 
   else
@@ -179,27 +180,27 @@
       goto LABEL_9;
     }
 
-    v22 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    v23 = *(v11 + 4);
-    *(v11 + 4) = v22;
+    v24 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v18, v19);
+    v25 = *(v11 + 4);
+    *(v11 + 4) = v24;
 
-    v24 = +[CKRecordZoneID safari_bookmarksRecordZoneID];
-    v25 = *(v11 + 13);
-    *(v11 + 13) = v24;
+    v26 = +[CKRecordZoneID safari_bookmarksRecordZoneID];
+    v27 = *(v11 + 13);
+    *(v11 + 13) = v26;
 
-    v26 = *(v11 + 22);
+    v28 = *(v11 + 22);
     *(v11 + 22) = @"ZoneSubscription";
 
-    v27 = +[CloudBookmarkItemConfiguration cloudBookmarkConfigurations];
-    v28 = [v27 copy];
-    v29 = *(v11 + 24);
-    *(v11 + 24) = v28;
+    v29 = +[CloudBookmarkItemConfiguration cloudBookmarkConfigurations];
+    v30 = [v29 copy];
+    v31 = *(v11 + 24);
+    *(v11 + 24) = v30;
   }
 
 LABEL_9:
   objc_storeStrong(v11 + 21, container);
   privateCloudDatabase = [*(v11 + 21) privateCloudDatabase];
-  v39 = *(v11 + 5);
+  v41 = *(v11 + 5);
   *(v11 + 5) = privateCloudDatabase;
 
   if (!*(v11 + 5) && os_log_type_enabled(*(v11 + 4), OS_LOG_TYPE_ERROR))
@@ -207,27 +208,27 @@ LABEL_9:
     sub_1000676FC();
   }
 
-  v40 = objc_opt_new();
-  v41 = *(v11 + 7);
-  *(v11 + 7) = v40;
+  v42 = objc_opt_new();
+  v43 = *(v11 + 7);
+  *(v11 + 7) = v42;
 
   [*(v11 + 7) setQualityOfService:17];
-  v42 = [NSString stringWithFormat:@"com.apple.Safari.CloudBookmarks.CloudBookmarkStore.%@.%p.operationQueue", objc_opt_class(), v11];
-  [*(v11 + 7) setName:v42];
+  v44 = [NSString stringWithFormat:@"com.apple.Safari.CloudBookmarks.CloudBookmarkStore.%@.%p.operationQueue", objc_opt_class(), v11];
+  [*(v11 + 7) setName:v44];
 
-  v43 = [[CKRecordID alloc] initWithRecordName:@"SyncRequirements" zoneID:*(v11 + 13)];
-  v44 = *(v11 + 14);
-  *(v11 + 14) = v43;
+  v45 = [[CKRecordID alloc] initWithRecordName:@"SyncRequirements" zoneID:*(v11 + 13)];
+  v46 = *(v11 + 14);
+  *(v11 + 14) = v45;
 
-  v45 = [[CKRecordID alloc] initWithRecordName:@"EncryptionInfo" zoneID:*(v11 + 13)];
-  v46 = *(v11 + 15);
-  *(v11 + 15) = v45;
+  v47 = [[CKRecordID alloc] initWithRecordName:@"EncryptionInfo" zoneID:*(v11 + 13)];
+  v48 = *(v11 + 15);
+  *(v11 + 15) = v47;
 
-  v47 = [[CKRecordID alloc] initWithRecordName:@"MigrationState" zoneID:*(v11 + 13)];
-  v48 = *(v11 + 16);
-  *(v11 + 16) = v47;
+  v49 = [[CKRecordID alloc] initWithRecordName:@"MigrationState" zoneID:*(v11 + 13)];
+  v50 = *(v11 + 16);
+  *(v11 + 16) = v49;
 
-  v49 = v11;
+  v51 = v11;
 LABEL_13:
 
   return v11;
@@ -1237,6 +1238,39 @@ LABEL_13:
   v19 = handlerCopy;
   [v15 setModifySubscriptionsCompletionBlock:&v20];
   [(NSOperationQueue *)self->_bookmarksOperationQueue addOperation:v15, v20, v21, v22, v23];
+}
+
+- (void)fetchBookmarksZoneSubscriptionStatusCreatingZoneIfNeeded:(BOOL)needed inOperationGroup:(id)group withCompletionHandler:(id)handler
+{
+  neededCopy = needed;
+  groupCopy = group;
+  handlerCopy = handler;
+  objc_initWeak(&location, self);
+  v10 = self->_log;
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Fetching Bookmarks zone subscription", buf, 2u);
+  }
+
+  v11 = self->_recordZoneSubscriptionID;
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_10005DAB8;
+  v16[3] = &unk_100134370;
+  objc_copyWeak(&v21, &location);
+  v12 = v10;
+  v17 = v12;
+  v13 = handlerCopy;
+  v20 = v13;
+  v14 = v11;
+  v18 = v14;
+  v15 = groupCopy;
+  v19 = v15;
+  [(CloudBookmarkStore *)self _prepareBookmarksRecordZoneCreatingIfNeeded:neededCopy inOperationGroup:v15 withCompletionHandler:v16];
+
+  objc_destroyWeak(&v21);
+  objc_destroyWeak(&location);
 }
 
 - (void)saveBookmarksZoneSubscriptionInOperationGroup:(id)group withCompletionHandler:(id)handler

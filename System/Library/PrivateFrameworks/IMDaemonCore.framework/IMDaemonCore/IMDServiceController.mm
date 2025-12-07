@@ -40,7 +40,7 @@
 
 - (BOOL)_bundleAllowedToLoadWithProperties:(id)properties
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   v4 = [propertiesCopy objectForKeyedSubscript:*MEMORY[0x277D19048]];
   mEMORY[0x277D1A9B8] = [MEMORY[0x277D1A9B8] sharedFeatureFlags];
@@ -55,25 +55,24 @@
   {
     if (IMOSLoggingEnabled())
     {
-      v12 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v11 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
-        v13 = 138412290;
-        v14 = v4;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "=> Skip loading this service, we don't allow it when Messages is uninstalled: %@", &v13, 0xCu);
+        v12 = 138412290;
+        v13 = v4;
+        _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "=> Skip loading this service, we don't allow it when Messages is uninstalled: %@", &v12, 0xCu);
       }
     }
 
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (void)registerSessionClassWithBundle:(id)bundle
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   v5 = MEMORY[0x277CBEAC0];
   v6 = [bundleCopy pathForResource:@"ServiceProperties" ofType:@"plist"];
@@ -91,9 +90,9 @@
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v24 = 138412290;
-        v25 = bundleCopy;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Registering bundle: %@", &v24, 0xCu);
+        v23 = 138412290;
+        v24 = bundleCopy;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Registering bundle: %@", &v23, 0xCu);
       }
     }
 
@@ -102,9 +101,9 @@
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v24 = 138412290;
-        v25 = v8;
-        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "   => Internal service with name: %@", &v24, 0xCu);
+        v23 = 138412290;
+        v24 = v8;
+        _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "   => Internal service with name: %@", &v23, 0xCu);
       }
     }
 
@@ -147,13 +146,11 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
       bundlePath = [bundleCopy bundlePath];
-      v24 = 138412290;
-      v25 = bundlePath;
-      _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Refusing to register service %@, not allowed", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = bundlePath;
+      _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Refusing to register service %@, not allowed", &v23, 0xCu);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (id)serviceWithName:(id)name
@@ -235,7 +232,7 @@
 
 - (id)serviceNamesSupportingCapability:(id)capability
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   capabilityCopy = capability;
   v5 = [(NSMutableDictionary *)self->_serviceNameCapabilityCache objectForKey:capabilityCopy];
   if (v5)
@@ -247,30 +244,30 @@
   {
     v7 = [(IMDServiceController *)self servicesSupportingCapability:capabilityCopy];
     v8 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v7, "count")}];
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          internalName = [*(*(&v18 + 1) + 8 * i) internalName];
+          internalName = [*(*(&v17 + 1) + 8 * i) internalName];
           [v8 addObject:internalName];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -280,8 +277,6 @@
     [(NSMutableDictionary *)self->_serviceNameCapabilityCache setObject:v15 forKey:capabilityCopy];
     v6 = v15;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -391,106 +391,107 @@
 + (void)updateRangingMeasurementForPerson:(id)person inNode:(__SFNode *)node
 {
   personCopy = person;
-  v35 = 0u;
-  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   devices = [personCopy devices];
-  v7 = [devices countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v7 = [devices countByEnumeratingWithState:&v37 objects:v49 count:16];
   if (v7)
   {
     v8 = v7;
     nodeCopy = node;
-    v33 = personCopy;
+    v35 = personCopy;
     v9 = 0;
     v10 = 0;
-    v11 = *v36;
+    v11 = *v38;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v36 != v11)
+        if (*v38 != v11)
         {
           objc_enumerationMutation(devices);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * i);
+        v13 = *(*(&v37 + 1) + 8 * i);
         v14 = [objc_opt_class() deviceIsEligibleForAirDrop:v13];
-        v15 = magic_head_log();
-        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-        if (v14)
+        v15 = v14;
+        v16 = magic_head_log(v14);
+        v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
+        if (v15)
         {
-          if (v16)
+          if (v17)
           {
             relativeLocation = [v13 relativeLocation];
             *buf = 138412546;
-            v40 = v13;
-            v41 = 2112;
-            v42 = relativeLocation;
-            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "SDRapportBrowser: Device %@ with location %@ eligible for AirDrop", buf, 0x16u);
+            v42 = v13;
+            v43 = 2112;
+            v44 = relativeLocation;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SDRapportBrowser: Device %@ with location %@ eligible for AirDrop", buf, 0x16u);
           }
 
           relativeLocation2 = [v13 relativeLocation];
-          v15 = relativeLocation2;
+          v16 = relativeLocation2;
           if (relativeLocation2)
           {
             [relativeLocation2 ptsScore];
-            v20 = v19;
+            v21 = v20;
             [v9 ptsScore];
-            if (v20 > v21 || v9 == 0)
+            if (v21 > v22 || v9 == 0)
             {
-              v15 = v15;
+              v16 = v16;
 
-              v9 = v15;
+              v9 = v16;
             }
           }
         }
 
-        else if (v16)
+        else if (v17)
         {
           relativeLocation3 = [v13 relativeLocation];
           [relativeLocation3 ptsScore];
           *buf = 138412546;
-          v40 = v13;
-          v41 = 2048;
-          v42 = v24;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "SDRapportBrowser: Device %@ with score %f not eligible for AirDrop", buf, 0x16u);
+          v42 = v13;
+          v43 = 2048;
+          v44 = v25;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "SDRapportBrowser: Device %@ with score %f not eligible for AirDrop", buf, 0x16u);
         }
 
         v10 |= ([v13 flags] & 0x100) >> 8;
       }
 
-      v8 = [devices countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v8 = [devices countByEnumeratingWithState:&v37 objects:v49 count:16];
     }
 
     while (v8);
 
     if (v9)
     {
-      v34 = 0;
-      v25 = [NSKeyedArchiver archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v34];
-      v26 = v34;
+      v36 = 0;
+      v27 = [NSKeyedArchiver archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v36];
+      v28 = v36;
       [v9 timestampTicks];
-      v27 = SFUpTicksDiffFromNowToString();
-      v28 = magic_head_log();
-      personCopy = v33;
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v29 = SFUpTicksDiffFromNowToString();
+      v30 = magic_head_log(v29);
+      personCopy = v35;
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138413058;
-        v40 = v33;
-        v41 = 2112;
-        v42 = v9;
+        v42 = v35;
         v43 = 2112;
-        v44 = v27;
+        v44 = v9;
         v45 = 2112;
-        v46 = v26;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Setting ranging measurement for person %@ to %@ - %@ (%@)", buf, 0x2Au);
+        v46 = v29;
+        v47 = 2112;
+        v48 = v28;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Setting ranging measurement for person %@ to %@ - %@ (%@)", buf, 0x2Au);
       }
 
       goto LABEL_29;
     }
 
-    personCopy = v33;
+    personCopy = v35;
   }
 
   else
@@ -499,32 +500,32 @@
     LOBYTE(v10) = 0;
   }
 
-  v26 = magic_head_log();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v28 = magic_head_log(v26);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v40 = personCopy;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "No highest ranging measurement found for %@", buf, 0xCu);
+    v42 = personCopy;
+    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "No highest ranging measurement found for %@", buf, 0xCu);
   }
 
   v9 = 0;
-  v25 = 0;
+  v27 = 0;
 LABEL_29:
 
   SFNodeSetRangingData();
-  v29 = SFNodeCopyFlags();
-  longValue = [v29 longValue];
+  v31 = SFNodeCopyFlags();
+  longValue = [v31 longValue];
   if (v10)
   {
-    v31 = longValue | 0x400;
+    v33 = longValue | 0x400;
   }
 
   else
   {
-    v31 = longValue & 0x400;
+    v33 = longValue & 0x400;
   }
 
-  [NSNumber numberWithUnsignedInteger:v31, nodeCopy];
+  [NSNumber numberWithUnsignedInteger:v33, nodeCopy];
   SFNodeSetFlags();
 }
 
@@ -539,7 +540,7 @@ LABEL_29:
     v7 = v14;
     [relativeLocation timestampTicks];
     v8 = SFUpTicksDiffFromNowToString();
-    v9 = magic_head_log();
+    v9 = magic_head_log(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138413058;
@@ -556,7 +557,7 @@ LABEL_29:
 
   else
   {
-    v7 = magic_head_log();
+    v7 = magic_head_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;

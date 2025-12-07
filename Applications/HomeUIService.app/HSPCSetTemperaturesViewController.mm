@@ -96,9 +96,9 @@
 - (UIViewController)temperaturePreferencesHostingController
 {
   selfCopy = self;
-  v3 = HSPCSetTemperaturesViewController.temperaturePreferencesHostingController.getter();
+  v4 = HSPCSetTemperaturesViewController.temperaturePreferencesHostingController.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 @end

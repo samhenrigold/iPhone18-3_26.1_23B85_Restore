@@ -417,19 +417,18 @@ void __77__AKAuthorizationViewController_presentAuthenticationChoiceUIWithComple
   navigationController = selfCopy->_navigationController;
   selfCopy->_navigationController = v4;
   MEMORY[0x277D82BD8](navigationController);
-  v9 = [AKAuthorizationContainerViewController alloc];
+  v8 = [AKAuthorizationContainerViewController alloc];
   navigationController = [(AKAuthorizationViewController *)selfCopy navigationController];
-  presentationContext = selfCopy->_presentationContext;
-  v12 = [AKAuthorizationContainerViewController initWithRootViewController:v9 authorizationContext:"initWithRootViewController:authorizationContext:"];
-  *&v7 = MEMORY[0x277D82BD8](navigationController).n128_u64[0];
-  [(AKAuthorizationContainerViewController *)v12 setDelegate:selfCopy, v7];
-  [(AKAuthorizationContainerViewController *)v12 setPaneDelegate:selfCopy];
+  v11 = [AKAuthorizationContainerViewController initWithRootViewController:v8 authorizationContext:"initWithRootViewController:authorizationContext:"];
+  *&v6 = MEMORY[0x277D82BD8](navigationController).n128_u64[0];
+  [(AKAuthorizationContainerViewController *)v11 setDelegate:selfCopy, v6];
+  [(AKAuthorizationContainerViewController *)v11 setPaneDelegate:selfCopy];
   [location[0] sizeToFitPaneContent];
   navigationController2 = [(AKAuthorizationViewController *)selfCopy navigationController];
-  [(AKAuthorizationNavigationController *)navigationController2 setDelegate:v12];
-  *&v8 = MEMORY[0x277D82BD8](navigationController2).n128_u64[0];
-  [(AKAuthorizationViewController *)selfCopy presentViewController:v12 animated:1 completion:0, v8];
-  objc_storeStrong(&v12, 0);
+  [(AKAuthorizationNavigationController *)navigationController2 setDelegate:v11];
+  *&v7 = MEMORY[0x277D82BD8](navigationController2).n128_u64[0];
+  [(AKAuthorizationViewController *)selfCopy presentViewController:v11 animated:1 completion:0, v7];
+  objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -987,7 +986,6 @@ void __94__AKAuthorizationViewController_authorizationPaneViewController_didRequ
 
   objc_storeStrong(&v13, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)authorizationPaneViewController:(id)controller pushEditScope:(id)scope presentationContext:(id)context options:(id)options
@@ -1071,7 +1069,6 @@ void __94__AKAuthorizationViewController_authorizationPaneViewController_didRequ
   objc_storeStrong(&v28, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)performAppleIDAuthorizationForPaneViewController:(id)controller

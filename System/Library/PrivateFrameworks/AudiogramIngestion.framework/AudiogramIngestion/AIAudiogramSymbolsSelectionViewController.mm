@@ -14,7 +14,7 @@
 {
   v6 = sub_2417E419C();
   v8 = v7;
-  sub_2417D9544(0, &qword_27E54B440);
+  sub_2417D9544(0, &qword_27E54B440, 0x277CCABB0);
   v9 = sub_2417E424C();
   swift_unknownObjectRetain();
   return AIAudiogramSymbolsSelectionViewController.init(title:delegate:selectedSymbols:)(v6, v8, delegate, v9);
@@ -38,7 +38,7 @@
   {
   }
 
-  __swift_destroy_boxed_opaque_existential_0(&v6);
+  __swift_destroy_boxed_opaque_existential_0(v6);
 }
 
 - (void)cancelTapped:(id)tapped

@@ -81,8 +81,10 @@
 - (void)test_addAutoFillEvent:(id)event url:(id)url;
 - (void)test_addCredentialProviderExtensionLoginChoiceWithName:(id)name extensionBundleID:(id)d containingAppBundleID:(id)iD;
 - (void)test_prepareForAuthorizationRequestsForContext:(id)context clientConnection:(id)connection withPresentationHandler:(id)handler;
+- (void)test_setOverrideCanCreateICloudKeychainPasskey:(BOOL)passkey;
 - (void)test_setOverrideEntitlements:(id)entitlements;
 - (void)test_setOverrideExtensionStates:(id)states;
+- (void)test_setOverrideISLAContextValid:(BOOL)valid;
 - (void)userSelectedLoginChoice:(id)choice authenticatedContext:(id)context completionHandler:(id)handler;
 @end
 
@@ -90,22 +92,15 @@
 
 + (BOOL)isClientWithAuditTokenAWebBrowser:(id *)browser
 {
-  v5 = *browser;
-  if (WBSAuditTokenHasEntitlement())
+  if (WBSAuditTokenHasEntitlement() & 1) != 0 || (WBSAuditTokenHasEntitlement())
   {
     return 1;
   }
 
-  v6 = *browser->var0;
-  v8 = *&browser->var0[4];
-  if (WBSAuditTokenHasEntitlement())
+  else
   {
-    return 1;
+    return WBSAuditTokenHasEntitlement();
   }
-
-  v7 = *browser->var0;
-  v9 = *&browser->var0[4];
-  return WBSAuditTokenHasEntitlement();
 }
 
 - (ASCAgent)initWithTrafficController:(id)controller connection:(id)connection publicKeyCredentialManager:(id)manager signInEventCollector:(id)collector
@@ -114,81 +109,80 @@
   connectionCopy = connection;
   managerCopy = manager;
   collectorCopy = collector;
-  v36.receiver = self;
-  v36.super_class = ASCAgent;
-  v15 = [(ASCAgent *)&v36 init];
+  v38.receiver = self;
+  v38.super_class = ASCAgent;
+  v15 = [(ASCAgent *)&v38 init];
+  v17 = v15;
   if (v15)
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_signpost_enabled(v16))
+    v18 = WBS_LOG_CHANNEL_PREFIXAuthorization(v15, v16);
+    if (os_signpost_enabled(v18))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C20AD000, v16, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "AuthorizationRequestReceivedToShowingUI", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C20AD000, v18, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "AuthorizationRequestReceivedToShowingUI", "", buf, 2u);
     }
 
-    v17 = _os_activity_create(&dword_1C20AD000, "ASCAgent request", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
-    authorizationActivity = v15->_authorizationActivity;
-    v15->_authorizationActivity = v17;
+    v19 = _os_activity_create(&dword_1C20AD000, "ASCAgent request", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
+    authorizationActivity = v17->_authorizationActivity;
+    v17->_authorizationActivity = v19;
 
-    v19 = dispatch_semaphore_create(1);
-    internalSemaphore = v15->_internalSemaphore;
-    v15->_internalSemaphore = v19;
+    v21 = dispatch_semaphore_create(1);
+    internalSemaphore = v17->_internalSemaphore;
+    v17->_internalSemaphore = v21;
 
-    objc_storeStrong(&v15->_authorizationTrafficController, controller);
+    objc_storeStrong(&v17->_authorizationTrafficController, controller);
     uUID = [MEMORY[0x1E696AFB0] UUID];
-    authorizationTrafficControllerToken = v15->_authorizationTrafficControllerToken;
-    v15->_authorizationTrafficControllerToken = uUID;
+    authorizationTrafficControllerToken = v17->_authorizationTrafficControllerToken;
+    v17->_authorizationTrafficControllerToken = uUID;
 
-    objc_storeStrong(&v15->_connection, connection);
-    objc_storeStrong(&v15->_publicKeyCredentialManager, manager);
-    objc_storeStrong(&v15->_signInEventCollector, collector);
+    objc_storeStrong(&v17->_connection, connection);
+    objc_storeStrong(&v17->_publicKeyCredentialManager, manager);
+    objc_storeStrong(&v17->_signInEventCollector, collector);
     *buf = 0u;
-    v35 = 0u;
+    v37 = 0u;
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
-    v32 = *buf;
-    v33 = v35;
-    v15->_isClientEntitledWebBrowser = [ASCAgent isClientWithAuditTokenAWebBrowser:&v32];
-    v32 = *buf;
-    v33 = v35;
-    v15->_isClientEntitledInternalProcess = WBSAuditTokenHasEntitlement();
+    v34 = *buf;
+    v35 = v37;
+    v17->_isClientEntitledWebBrowser = [ASCAgent isClientWithAuditTokenAWebBrowser:&v34];
+    v34 = *buf;
+    v35 = v37;
+    v17->_isClientEntitledInternalProcess = WBSAuditTokenHasEntitlement();
     mEMORY[0x1E69C8DE0] = [MEMORY[0x1E69C8DE0] sharedManager];
-    [mEMORY[0x1E69C8DE0] addWeakObserver:v15];
+    [mEMORY[0x1E69C8DE0] addWeakObserver:v17];
 
-    v24 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    test_credentialProviderExtensionLoginChoices = v15->_test_credentialProviderExtensionLoginChoices;
-    v15->_test_credentialProviderExtensionLoginChoices = v24;
+    v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    test_credentialProviderExtensionLoginChoices = v17->_test_credentialProviderExtensionLoginChoices;
+    v17->_test_credentialProviderExtensionLoginChoices = v26;
 
-    v26 = v15->_authorizationActivity;
+    v28 = v17->_authorizationActivity;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __97__ASCAgent_initWithTrafficController_connection_publicKeyCredentialManager_signInEventCollector___block_invoke;
     block[3] = &unk_1E815F9D0;
-    v27 = v15;
-    v31 = v27;
-    os_activity_apply(v26, block);
-    v28 = v27;
+    v29 = v17;
+    v33 = v29;
+    os_activity_apply(v28, block);
+    v30 = v29;
   }
 
-  return v15;
+  return v17;
 }
 
-void __97__ASCAgent_initWithTrafficController_connection_publicKeyCredentialManager_signInEventCollector___block_invoke(uint64_t a1)
+void __97__ASCAgent_initWithTrafficController_connection_publicKeyCredentialManager_signInEventCollector___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 134349056;
-    v6 = v3;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_DEFAULT, "Initializing ASCAgent %{public}p.", &v5, 0xCu);
+    v6 = *(a1 + 32);
+    v7 = 134349056;
+    v8 = v6;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_DEFAULT, "Initializing ASCAgent %{public}p.", &v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performAuthorizationRequestsForContext:(id)context withPresenter:(id)presenter completionHandler:(id)handler
@@ -204,82 +198,76 @@ void __97__ASCAgent_initWithTrafficController_connection_publicKeyCredentialMana
   block[2] = __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke;
   block[3] = &unk_1E815F9D0;
   v13 = contextCopy;
-  v30 = v13;
+  v28 = v13;
   os_activity_apply(authorizationActivity, block);
   internalSemaphore = self->_internalSemaphore;
   v15 = dispatch_time(0, 10000000000);
-  v16 = dispatch_semaphore_wait(internalSemaphore, v15);
-  v17 = self->_authorizationActivity;
-  if (v16)
+  if (dispatch_semaphore_wait(internalSemaphore, v15))
   {
-    v18 = &__block_literal_global_0;
+    v16 = &__block_literal_global_0;
   }
 
   else
   {
-    v18 = &__block_literal_global_66;
+    v16 = &__block_literal_global_66;
   }
 
-  os_activity_apply(self->_authorizationActivity, v18);
-  v19 = objc_alloc_init(MEMORY[0x1E69C8A40]);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_68;
-  v28[3] = &unk_1E815F9D0;
-  v28[4] = self;
-  [v19 setHandler:v28];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_71;
-  v23[3] = &unk_1E815FAB0;
-  v24 = v19;
+  os_activity_apply(self->_authorizationActivity, v16);
+  v17 = objc_alloc_init(MEMORY[0x1E69C8A40]);
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_68;
+  v26[3] = &unk_1E815F9D0;
+  v26[4] = self;
+  [v17 setHandler:v26];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_71;
+  v21[3] = &unk_1E815FAB0;
+  v22 = v17;
   selfCopy = self;
-  v26 = currentConnection;
-  v27 = handlerCopy;
-  v20 = currentConnection;
-  v21 = handlerCopy;
-  v22 = v19;
-  [(ASCAgent *)self _prepareForAuthorizationRequestsForContext:v13 clientConnection:v20 withPresentationHandler:v23];
+  v24 = currentConnection;
+  v25 = handlerCopy;
+  v18 = currentConnection;
+  v19 = handlerCopy;
+  v20 = v17;
+  [(ASCAgent *)self _prepareForAuthorizationRequestsForContext:v13 clientConnection:v18 withPresentationHandler:v21];
 }
 
-uint64_t __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke(uint64_t a1)
+uint64_t __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_INFO, "Beginning request: %{public}@", &v6, 0xCu);
+    v6 = *(a1 + 32);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_INFO, "Beginning request: %{public}@", &v8, 0xCu);
   }
 
-  result = [*(a1 + 32) logRequest];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) logRequest];
 }
 
-void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_63()
+void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_63(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_63_cold_1();
   }
 }
 
-void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_64()
+void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_64(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[ASCAgent performAuthorizationRequestsForContext:withPresenter:completionHandler:]_block_invoke";
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Acquired lock for %s", &v2, 0xCu);
+    v5 = 136315138;
+    v6 = "[ASCAgent performAuthorizationRequestsForContext:withPresenter:completionHandler:]_block_invoke";
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Acquired lock for %s", &v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_68(uint64_t a1)
@@ -290,18 +278,16 @@ void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_complet
   os_activity_apply(v2, &__block_literal_global_70);
 }
 
-void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2()
+void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[ASCAgent performAuthorizationRequestsForContext:withPresenter:completionHandler:]_block_invoke_2";
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Released lock for %s", &v2, 0xCu);
+    v5 = 136315138;
+    v6 = "[ASCAgent performAuthorizationRequestsForContext:withPresenter:completionHandler:]_block_invoke_2";
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Released lock for %s", &v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_71(uint64_t a1, void *a2, void *a3)
@@ -316,7 +302,7 @@ void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_complet
     block[1] = 3221225472;
     block[2] = __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2_72;
     block[3] = &unk_1E815F9D0;
-    v23 = v6;
+    v22 = v6;
     os_activity_apply(v17, block);
     (*(*(a1 + 56) + 16))();
 
@@ -372,7 +358,6 @@ void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_complet
   }
 
 LABEL_13:
-  v21 = *(*(a1 + 40) + 104);
   if (objc_opt_respondsToSelector())
   {
     [*(*(a1 + 40) + 104) test_runBlockToRunAfterReceivingRequest];
@@ -381,12 +366,12 @@ LABEL_13:
 LABEL_15:
 }
 
-void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2_72(uint64_t a1)
+void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2_72(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2_72_cold_1(a1, v2);
+    __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2_72_cold_1(a1, v5);
   }
 }
 
@@ -416,7 +401,7 @@ void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_complet
 
 void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v59[1] = *MEMORY[0x1E69E9840];
+  v58[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -427,20 +412,20 @@ void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionH
     aBlock[2] = __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_78;
     aBlock[3] = &unk_1E815FB00;
     aBlock[4] = *(a1 + 32);
-    v53 = *(a1 + 48);
+    v52 = *(a1 + 48);
     v8 = _Block_copy(aBlock);
     v9 = *(a1 + 40);
     if (v9)
     {
-      [v9 auditToken];
+      objc_msgSend_auditToken(v9);
     }
 
     else
     {
-      memset(v51, 0, sizeof(v51));
+      memset(v50, 0, sizeof(v50));
     }
 
-    v12 = [MEMORY[0x1E695DEF0] dataWithBytes:v51 length:32];
+    v12 = [MEMORY[0x1E695DEF0] dataWithBytes:v50 length:32];
     v13 = [[ASCAuthorizationPresentationContext alloc] initWithRequestContext:v5 appIdentifier:0 shouldUseRelyingPartyForServiceName:1 auditTokenData:v12];
     [*(a1 + 32) _configureLoginChoicesForPresentationContext:v13 withRequestContext:v5];
     if ([v5 isRegistrationRequest])
@@ -451,17 +436,17 @@ void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionH
       if ((objc_opt_isKindOfClass() & 1) == 0 || ([v15 isRegistrationRequest] & 1) == 0)
       {
         v28 = *(*(a1 + 32) + 184);
-        v49[0] = MEMORY[0x1E69E9820];
-        v49[1] = 3221225472;
-        v49[2] = __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_4;
-        v49[3] = &unk_1E815F9D0;
-        v50 = v15;
+        v48[0] = MEMORY[0x1E69E9820];
+        v48[1] = 3221225472;
+        v48[2] = __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_4;
+        v48[3] = &unk_1E815F9D0;
+        v49 = v15;
         v15 = v15;
-        os_activity_apply(v28, v49);
+        os_activity_apply(v28, v48);
         v29 = MEMORY[0x1E696ABC0];
-        v58 = *MEMORY[0x1E696A588];
-        v59[0] = @"Found an unexpected credential in conditional registration request.";
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v59 forKeys:&v58 count:1];
+        v57 = *MEMORY[0x1E696A588];
+        v58[0] = @"Found an unexpected credential in conditional registration request.";
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v58 forKeys:&v57 count:1];
         v31 = [v29 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v30];
         v8[2](v8, 0, v31);
 
@@ -479,9 +464,9 @@ void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionH
       {
         os_activity_apply(*(*(a1 + 32) + 184), &__block_literal_global_92);
         v32 = MEMORY[0x1E696ABC0];
-        v56 = *MEMORY[0x1E696A588];
-        v57 = @"Could not find the requested credential.";
-        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+        v55 = *MEMORY[0x1E696A588];
+        v56 = @"Could not find the requested credential.";
+        v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
         v14 = [v32 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v15];
         v8[2](v8, 0, v14);
         goto LABEL_25;
@@ -504,48 +489,48 @@ void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionH
         }
 
         v20 = *(a1 + 32);
-        v40 = v18;
+        v39 = v18;
         if ((*(v20 + 80) & 1) != 0 || *(v20 + 81) == 1 && (v34 = [v18 isEqualToString:@"com.apple.sfapp"], v20 = *(a1 + 32), (v34 & 1) == 0))
         {
           v21 = *(v20 + 112);
-          v38 = [v14 userVisibleName];
+          v37 = [v14 userVisibleName];
           v22 = [v14 relyingPartyIdentifier];
-          v45[0] = MEMORY[0x1E69E9820];
-          v45[1] = 3221225472;
-          v45[2] = __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_103;
-          v45[3] = &unk_1E815FB48;
-          v45[4] = *(a1 + 32);
-          v39 = &v46;
-          v46 = v13;
-          v23 = &v47;
-          v47 = v5;
-          v24 = &v48;
-          v48 = v8;
+          v44[0] = MEMORY[0x1E69E9820];
+          v44[1] = 3221225472;
+          v44[2] = __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_103;
+          v44[3] = &unk_1E815FB48;
+          v44[4] = *(a1 + 32);
+          v38 = &v45;
+          v45 = v13;
+          v23 = &v46;
+          v46 = v5;
+          v24 = &v47;
+          v47 = v8;
           v25 = v21;
-          v26 = v38;
-          [v25 signInEventForRecentlyFilledCredentialWithUsername:v38 forRelyingPartyIdentifier:v22 inAppWithBundleIdentifier:v40 completionHandler:v45];
+          v26 = v37;
+          [v25 signInEventForRecentlyFilledCredentialWithUsername:v37 forRelyingPartyIdentifier:v22 inAppWithBundleIdentifier:v39 completionHandler:v44];
 
-          v27 = v40;
+          v27 = v39;
         }
 
         else
         {
           v35 = *(v20 + 112);
           v26 = [v14 userVisibleName];
-          v41[0] = MEMORY[0x1E69E9820];
-          v41[1] = 3221225472;
-          v41[2] = __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2_105;
-          v41[3] = &unk_1E815FB48;
-          v41[4] = *(a1 + 32);
-          v39 = &v42;
-          v42 = v13;
-          v23 = &v43;
-          v43 = v5;
-          v24 = &v44;
-          v44 = v8;
+          v40[0] = MEMORY[0x1E69E9820];
+          v40[1] = 3221225472;
+          v40[2] = __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2_105;
+          v40[3] = &unk_1E815FB48;
+          v40[4] = *(a1 + 32);
+          v38 = &v41;
+          v41 = v13;
+          v23 = &v42;
+          v42 = v5;
+          v24 = &v43;
+          v43 = v8;
           v36 = v35;
-          v27 = v40;
-          [v36 signInEventForRecentlyFilledCredentialWithUsername:v26 forAppWithBundleIdentifier:v40 completionHandler:v41];
+          v27 = v39;
+          [v36 signInEventForRecentlyFilledCredentialWithUsername:v26 forAppWithBundleIdentifier:v39 completionHandler:v40];
         }
 
         v15 = v14;
@@ -558,7 +543,7 @@ void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionH
     [v33 userSelectedLoginChoice:v15 authenticatedContext:v14 completionHandler:v8];
 LABEL_25:
 
-    v11 = v53;
+    v11 = v52;
     goto LABEL_26;
   }
 
@@ -567,21 +552,19 @@ LABEL_25:
   block[1] = 3221225472;
   block[2] = __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2;
   block[3] = &unk_1E815F9D0;
-  v55 = v6;
+  v54 = v6;
   os_activity_apply(v10, block);
   (*(*(a1 + 48) + 16))();
-  v11 = v55;
+  v11 = v54;
 LABEL_26:
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
-void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2(uint64_t a1)
+void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2_72_cold_1(a1, v2);
+    __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2_72_cold_1(a1, v5);
   }
 }
 
@@ -624,19 +607,19 @@ uint64_t __79__ASCAgent_performSilentAuthorizationRequestsForContext_withComplet
   return v3;
 }
 
-void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_4(uint64_t a1)
+void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_4_cold_1(a1);
+    __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_4_cold_1();
   }
 }
 
-void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_90()
+void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_90_cold_1();
   }
@@ -755,10 +738,10 @@ uint64_t __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpo
   return v3;
 }
 
-void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2()
+void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_cold_1();
   }
@@ -832,10 +815,10 @@ void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_
   }
 }
 
-void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_111()
+void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_111(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_111_cold_1();
   }
@@ -862,20 +845,21 @@ void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v6 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = WBS_LOG_CHANNEL_PREFIXAuthorization(WeakRetained, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_164_cold_1(v5);
+      __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_164_cold_1(v7);
     }
   }
 }
 
-void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_169()
+void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_169(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_169_cold_1();
   }
@@ -889,37 +873,38 @@ void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_
   v9 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
   {
-    v15 = 0u;
-    v16 = 0u;
+    v19 = 0u;
+    v20 = 0u;
   }
 
-  if (WBSAuditTokenHasEntitlement())
+  HasEntitlement = WBSAuditTokenHasEntitlement();
+  if (HasEntitlement)
   {
     mEMORY[0x1E69C88B0] = [MEMORY[0x1E69C88B0] sharedManager];
     keyBagLockStatus = [mEMORY[0x1E69C88B0] keyBagLockStatus];
 
     if (keyBagLockStatus)
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+      v16 = WBS_LOG_CHANNEL_PREFIXAuthorization(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
         [ASCAgent getPasskeysDataForRelyingParty:withCompletionHandler:];
       }
     }
 
-    v13 = [(ASPublicKeyCredentialManagerInterface *)self->_publicKeyCredentialManager allPasskeysDataForRelyingParty:partyCopy, v15, v16];
-    handlerCopy[2](handlerCopy, v13);
+    v17 = [(ASPublicKeyCredentialManagerInterface *)self->_publicKeyCredentialManager allPasskeysDataForRelyingParty:partyCopy, v19, v20];
+    handlerCopy[2](handlerCopy, v17);
   }
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v18 = WBS_LOG_CHANNEL_PREFIXAuthorization(HasEntitlement, v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       [ASCAgent getPasskeysDataForRelyingParty:withCompletionHandler:];
     }
@@ -930,125 +915,123 @@ void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_
 
 - (void)deletePasskeyForRelyingParty:(id)party withCredentialID:(id)d completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   partyCopy = party;
   dCopy = d;
   handlerCopy = handler;
-  v11 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  v12 = WBS_LOG_CHANNEL_PREFIXAuthorization(handlerCopy, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138543618;
-    v27 = dCopy;
-    v28 = 2114;
-    v29 = partyCopy;
-    _os_log_impl(&dword_1C20AD000, v11, OS_LOG_TYPE_INFO, "Received request to delete passkey %{public}@ for %{public}@.", buf, 0x16u);
+    v31 = dCopy;
+    v32 = 2114;
+    v33 = partyCopy;
+    _os_log_impl(&dword_1C20AD000, v12, OS_LOG_TYPE_INFO, "Received request to delete passkey %{public}@ for %{public}@.", buf, 0x16u);
   }
 
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
-  if ([(ASCAgent *)self _isConnection:currentConnection entitledToDeletePasskeysForRelyingParty:partyCopy])
+  v14 = [(ASCAgent *)self _isConnection:currentConnection entitledToDeletePasskeysForRelyingParty:partyCopy];
+  if (v14)
   {
     mEMORY[0x1E69C88B0] = [MEMORY[0x1E69C88B0] sharedManager];
     keyBagLockStatus = [mEMORY[0x1E69C88B0] keyBagLockStatus];
 
     if (keyBagLockStatus)
     {
-      v15 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v20 = WBS_LOG_CHANNEL_PREFIXAuthorization(v18, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [ASCAgent deletePasskeyForRelyingParty:withCredentialID:completionHandler:];
       }
 
-      v16 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A588];
-      v25 = @"KeyBag is currently locked.";
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-      v18 = [v16 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v17];
-      handlerCopy[2](handlerCopy, 0, v18);
+      v21 = MEMORY[0x1E696ABC0];
+      v28 = *MEMORY[0x1E696A588];
+      v29 = @"KeyBag is currently locked.";
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+      v23 = [v21 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v22];
+      handlerCopy[2](handlerCopy, 0, v23);
     }
 
     else
     {
       publicKeyCredentialManager = self->_publicKeyCredentialManager;
-      v23 = 0;
-      v21 = [(ASPublicKeyCredentialManagerInterface *)publicKeyCredentialManager deletePasskeyForRelyingParty:partyCopy withCredentialID:dCopy error:&v23];
-      v17 = v23;
-      handlerCopy[2](handlerCopy, v21, v17);
+      v27 = 0;
+      v26 = [(ASPublicKeyCredentialManagerInterface *)publicKeyCredentialManager deletePasskeyForRelyingParty:partyCopy withCredentialID:dCopy error:&v27];
+      v22 = v27;
+      handlerCopy[2](handlerCopy, v26, v22);
     }
   }
 
   else
   {
-    v19 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v24 = WBS_LOG_CHANNEL_PREFIXAuthorization(v14, v15);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       [ASCAgent deletePasskeyForRelyingParty:withCredentialID:completionHandler:];
     }
 
-    v17 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
-    handlerCopy[2](handlerCopy, 0, v17);
+    v22 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
+    handlerCopy[2](handlerCopy, 0, v22);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteAllPasskeysForRelyingParty:(id)party completionHandler:(id)handler
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   partyCopy = party;
   handlerCopy = handler;
-  v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(handlerCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v24 = partyCopy;
-    _os_log_impl(&dword_1C20AD000, v8, OS_LOG_TYPE_INFO, "Received request to delete all passkeys for %{public}@.", buf, 0xCu);
+    v28 = partyCopy;
+    _os_log_impl(&dword_1C20AD000, v9, OS_LOG_TYPE_INFO, "Received request to delete all passkeys for %{public}@.", buf, 0xCu);
   }
 
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
-  if ([(ASCAgent *)self _isConnection:currentConnection entitledToDeletePasskeysForRelyingParty:partyCopy])
+  v11 = [(ASCAgent *)self _isConnection:currentConnection entitledToDeletePasskeysForRelyingParty:partyCopy];
+  if (v11)
   {
     mEMORY[0x1E69C88B0] = [MEMORY[0x1E69C88B0] sharedManager];
     keyBagLockStatus = [mEMORY[0x1E69C88B0] keyBagLockStatus];
 
     if (keyBagLockStatus)
     {
-      v12 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v17 = WBS_LOG_CHANNEL_PREFIXAuthorization(v15, v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [ASCAgent deleteAllPasskeysForRelyingParty:completionHandler:];
       }
 
-      v13 = MEMORY[0x1E696ABC0];
-      v21 = *MEMORY[0x1E696A588];
-      v22 = @"KeyBag is currently locked.";
-      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-      v15 = [v13 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v14];
-      handlerCopy[2](handlerCopy, 0, v15);
+      v18 = MEMORY[0x1E696ABC0];
+      v25 = *MEMORY[0x1E696A588];
+      v26 = @"KeyBag is currently locked.";
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      v20 = [v18 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v19];
+      handlerCopy[2](handlerCopy, 0, v20);
     }
 
     else
     {
       publicKeyCredentialManager = self->_publicKeyCredentialManager;
-      v20 = 0;
-      v18 = [(ASPublicKeyCredentialManagerInterface *)publicKeyCredentialManager deleteAllPasskeysForRelyingParty:partyCopy error:&v20];
-      v14 = v20;
-      handlerCopy[2](handlerCopy, v18, v14);
+      v24 = 0;
+      v23 = [(ASPublicKeyCredentialManagerInterface *)publicKeyCredentialManager deleteAllPasskeysForRelyingParty:partyCopy error:&v24];
+      v19 = v24;
+      handlerCopy[2](handlerCopy, v23, v19);
     }
   }
 
   else
   {
-    v16 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v21 = WBS_LOG_CHANNEL_PREFIXAuthorization(v11, v12);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       [ASCAgent deleteAllPasskeysForRelyingParty:completionHandler:];
     }
 
-    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
-    handlerCopy[2](handlerCopy, 0, v14);
+    v19 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
+    handlerCopy[2](handlerCopy, 0, v19);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)preflightCanCreateICloudKeychainPasskeyWithCompletionHandler:(id)handler
@@ -1080,13 +1063,13 @@ void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_
   v6 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
   {
     *buf = 0u;
-    v26 = 0u;
+    v30 = 0u;
   }
 
   v7 = WBSApplicationIdentifierFromAuditToken();
@@ -1114,38 +1097,38 @@ void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_
 
     else
     {
-      v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"turnOnAutoFillRequestLastDate-%@", v8];
+      v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"turnOnAutoFillRequestLastDate-%@", v8];
       safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
-      v17 = [safari_browserDefaults safari_dateForKey:v15];
+      v19 = [safari_browserDefaults safari_dateForKey:v17];
 
-      if (v17 && ([MEMORY[0x1E695DF00] now], v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "timeIntervalSinceDate:", v17), v20 = v19, v18, v20 <= 10.0))
+      if (v19 && ([MEMORY[0x1E695DF00] now], v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "timeIntervalSinceDate:", v19), v22 = v21, v20, v22 <= 10.0))
       {
-        v24 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+        v28 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v23, v24);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C20AD000, v24, OS_LOG_TYPE_INFO, "AutoFill enablement API failed request because not enough time passed since last request.", buf, 2u);
+          _os_log_impl(&dword_1C20AD000, v28, OS_LOG_TYPE_INFO, "AutoFill enablement API failed request because not enough time passed since last request.", buf, 2u);
         }
 
-        v21 = 0;
+        v25 = 0;
       }
 
       else
       {
-        v21 = [(ASCAgent *)self _showExtensionEnablementAlert:v8];
+        v25 = [(ASCAgent *)self _showExtensionEnablementAlert:v8];
         safari_browserDefaults2 = [MEMORY[0x1E695E000] safari_browserDefaults];
-        v23 = [MEMORY[0x1E695DF00] now];
-        [safari_browserDefaults2 safari_setDate:v23 forKey:v15];
+        v27 = [MEMORY[0x1E695DF00] now];
+        [safari_browserDefaults2 safari_setDate:v27 forKey:v17];
       }
 
-      handlerCopy[2](handlerCopy, v21);
+      handlerCopy[2](handlerCopy, v25);
     }
   }
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXAuthenticationServicesAgent(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [ASCAgent requestToTurnOnCredentialProviderExtensionWithCompletionHandler:];
     }
@@ -1188,7 +1171,7 @@ uint64_t __32__ASCAgent__isExtensionEnabled___block_invoke(uint64_t a1, void *a2
 
 - (BOOL)_showExtensionEnablementAlert:(id)alert
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   alertCopy = alert;
   v4 = [alertCopy isEqualToString:*MEMORY[0x1E69C8CC0]];
   if (v4)
@@ -1205,17 +1188,17 @@ LABEL_14:
     v23 = [v21 localizedStringWithFormat:v22, localizedContainingName];
 
     v24 = *MEMORY[0x1E695EE60];
-    v39[0] = *MEMORY[0x1E695EE58];
-    v39[1] = v24;
-    v40[0] = v23;
-    v40[1] = v20;
-    v39[2] = *MEMORY[0x1E695EE78];
+    v38[0] = *MEMORY[0x1E695EE58];
+    v38[1] = v24;
+    v39[0] = v23;
+    v39[1] = v20;
+    v38[2] = *MEMORY[0x1E695EE78];
     v25 = _WBSLocalizedStringWithCurrentUserLocale();
-    v40[2] = v25;
-    v39[3] = *MEMORY[0x1E695EE70];
+    v39[2] = v25;
+    v38[3] = *MEMORY[0x1E695EE70];
     v26 = _WBSLocalizedStringWithCurrentUserLocale();
-    v40[3] = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:4];
+    v39[3] = v26;
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:4];
     v28 = [v27 mutableCopy];
 
     v29 = CFUserNotificationCreate(*MEMORY[0x1E695E480], 0.0, 2uLL, 0, v28);
@@ -1244,14 +1227,14 @@ LABEL_14:
     goto LABEL_20;
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   mEMORY[0x1E69C8DE0] = [MEMORY[0x1E69C8DE0] sharedManager];
   extensionsSync = [mEMORY[0x1E69C8DE0] extensionsSync];
 
-  v8 = [extensionsSync countByEnumeratingWithState:&v35 objects:v41 count:16];
+  v8 = [extensionsSync countByEnumeratingWithState:&v34 objects:v40 count:16];
   if (!v8)
   {
 LABEL_11:
@@ -1262,17 +1245,17 @@ LABEL_20:
   }
 
   v9 = v8;
-  v10 = *v36;
+  v10 = *v35;
 LABEL_5:
   v11 = 0;
   while (1)
   {
-    if (*v36 != v10)
+    if (*v35 != v10)
     {
       objc_enumerationMutation(extensionsSync);
     }
 
-    v12 = *(*(&v35 + 1) + 8 * v11);
+    v12 = *(*(&v34 + 1) + 8 * v11);
     sf_bundleIdentifierForContainingApp = [v12 sf_bundleIdentifierForContainingApp];
     v14 = [sf_bundleIdentifierForContainingApp isEqualToString:alertCopy];
 
@@ -1283,7 +1266,7 @@ LABEL_5:
 
     if (v9 == ++v11)
     {
-      v9 = [extensionsSync countByEnumeratingWithState:&v35 objects:v41 count:16];
+      v9 = [extensionsSync countByEnumeratingWithState:&v34 objects:v40 count:16];
       if (v9)
       {
         goto LABEL_5;
@@ -1307,7 +1290,6 @@ LABEL_5:
   v15 = 0;
 LABEL_21:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -1379,37 +1361,37 @@ LABEL_14:
   return v10;
 }
 
-void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke(uint64_t a1)
+void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_cold_1(a1, v2);
+    __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_cold_1(a1, v5);
   }
 }
 
-void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_201(uint64_t a1)
+void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_201(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_201_cold_1(a1);
+    __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_201_cold_1();
   }
 }
 
-void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_202()
+void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_202(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_202_cold_1();
   }
 }
 
-void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_205()
+void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_205(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_205_cold_1();
   }
@@ -1419,77 +1401,71 @@ void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext_
 {
   internalSemaphore = self->_internalSemaphore;
   v4 = dispatch_time(0, 10000000000);
-  v5 = dispatch_semaphore_wait(internalSemaphore, v4);
-  authorizationActivity = self->_authorizationActivity;
-  if (v5)
+  if (dispatch_semaphore_wait(internalSemaphore, v4))
   {
-    v7 = &__block_literal_global_209;
+    v5 = &__block_literal_global_209;
   }
 
   else
   {
-    v7 = &__block_literal_global_212;
+    v5 = &__block_literal_global_212;
   }
 
-  os_activity_apply(self->_authorizationActivity, v7);
+  os_activity_apply(self->_authorizationActivity, v5);
   [(ASCAuthorizationTrafficController *)self->_authorizationTrafficController cancelAuthorizationForAppIdentifierIfNecessary:self->_clientApplicationIdentifier token:self->_authorizationTrafficControllerToken];
-  v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:2 userInfo:0];
+  v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:2 userInfo:0];
   publicKeyCredentialOperationUUID = self->_publicKeyCredentialOperationUUID;
-  v10 = v8;
+  v8 = v6;
   if (publicKeyCredentialOperationUUID)
   {
-    [(ASPublicKeyCredentialManagerInterface *)self->_publicKeyCredentialManager cancelOperationIfNecessaryWithUUID:publicKeyCredentialOperationUUID overrideError:v8];
+    [(ASPublicKeyCredentialManagerInterface *)self->_publicKeyCredentialManager cancelOperationIfNecessaryWithUUID:publicKeyCredentialOperationUUID overrideError:v6];
   }
 
   else
   {
-    [(ASCAgent *)self _authorizationCompletedWithCredential:0 error:v8];
+    [(ASCAgent *)self _authorizationCompletedWithCredential:0 error:v6];
   }
 
   dispatch_semaphore_signal(self->_internalSemaphore);
   os_activity_apply(self->_authorizationActivity, &__block_literal_global_215);
 }
 
-void __32__ASCAgent_cancelCurrentRequest__block_invoke()
+void __32__ASCAgent_cancelCurrentRequest__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __32__ASCAgent_cancelCurrentRequest__block_invoke_cold_1();
   }
 }
 
-void __32__ASCAgent_cancelCurrentRequest__block_invoke_210()
+void __32__ASCAgent_cancelCurrentRequest__block_invoke_210(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[ASCAgent cancelCurrentRequest]_block_invoke";
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Acquired lock for %s", &v2, 0xCu);
+    v5 = 136315138;
+    v6 = "[ASCAgent cancelCurrentRequest]_block_invoke";
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Acquired lock for %s", &v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
-void __32__ASCAgent_cancelCurrentRequest__block_invoke_213()
+void __32__ASCAgent_cancelCurrentRequest__block_invoke_213(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v7 = *MEMORY[0x1E69E9840];
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "[ASCAgent cancelCurrentRequest]_block_invoke";
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Released lock for %s", &v2, 0xCu);
+    v5 = 136315138;
+    v6 = "[ASCAgent cancelCurrentRequest]_block_invoke";
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Released lock for %s", &v5, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_prepareForAuthorizationRequestsForContext:(id)context clientConnection:(id)connection withPresentationHandler:(id)handler
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   connectionCopy = connection;
   handlerCopy = handler;
@@ -1499,10 +1475,10 @@ void __32__ASCAgent_cancelCurrentRequest__block_invoke_213()
   {
     os_activity_apply(self->_authorizationActivity, &__block_literal_global_218);
     v14 = MEMORY[0x1E696ABC0];
-    v39 = *MEMORY[0x1E696A588];
+    v38 = *MEMORY[0x1E696A588];
     v15 = _WBSLocalizedStringWithCurrentUserLocale();
-    v40[0] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v39[0] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v17 = v14;
     v18 = 5;
 LABEL_19:
@@ -1523,13 +1499,13 @@ LABEL_19:
   {
     if (connectionCopy)
     {
-      [connectionCopy auditToken];
+      objc_msgSend_auditToken(connectionCopy);
     }
 
     else
     {
+      v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
     }
 
     v13 = WBSApplicationIdentifierFromAuditToken();
@@ -1541,9 +1517,9 @@ LABEL_19:
   {
     os_activity_apply(self->_authorizationActivity, &__block_literal_global_224);
     v26 = MEMORY[0x1E696ABC0];
-    v37 = *MEMORY[0x1E696A588];
-    v38 = @"The calling process does not have an application identifier. Make sure it is properly configured.";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v36 = *MEMORY[0x1E696A588];
+    v37 = @"The calling process does not have an application identifier. Make sure it is properly configured.";
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
     v17 = v26;
     v18 = 1;
     goto LABEL_19;
@@ -1566,24 +1542,24 @@ LABEL_19:
     }
   }
 
-  v34 = 0;
-  v23 = [(ASCAgent *)self _isClientWithApplicationIdentifier:v15 properlyEntitledForRequestContext:contextCopy error:&v34];
-  v16 = v34;
+  v33 = 0;
+  v23 = [(ASCAgent *)self _isClientWithApplicationIdentifier:v15 properlyEntitledForRequestContext:contextCopy error:&v33];
+  v16 = v33;
   if (v23)
   {
     authorizationTrafficController = self->_authorizationTrafficController;
     authorizationTrafficControllerToken = self->_authorizationTrafficControllerToken;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_235;
-    v29[3] = &unk_1E815FCD8;
-    v33 = handlerCopy;
-    v29[4] = self;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_235;
+    v28[3] = &unk_1E815FCD8;
+    v32 = handlerCopy;
+    v28[4] = self;
     v15 = v15;
-    v30 = v15;
-    v31 = contextCopy;
-    v32 = connectionCopy;
-    [(ASCAuthorizationTrafficController *)authorizationTrafficController beginAuthorizationForApplicationIdentifier:v15 token:authorizationTrafficControllerToken withClearanceHandler:v29];
+    v29 = v15;
+    v30 = contextCopy;
+    v31 = connectionCopy;
+    [(ASCAuthorizationTrafficController *)authorizationTrafficController beginAuthorizationForApplicationIdentifier:v15 token:authorizationTrafficControllerToken withClearanceHandler:v28];
   }
 
   else
@@ -1593,42 +1569,40 @@ LABEL_19:
   }
 
 LABEL_21:
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
-void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke()
+void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_cold_1();
   }
 }
 
-void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_222()
+void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_222(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_222_cold_1();
   }
 }
 
-void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_229()
+void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_229(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Dropping passkey requests from quirked relying party.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "Dropping passkey requests from quirked relying party.", v5, 2u);
   }
 }
 
-void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_232()
+void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_232(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_232_cold_1();
   }
@@ -1805,32 +1779,32 @@ void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_
 {
   v5 = a3;
   v6 = objc_alloc_init(MEMORY[0x1E69C8A40]);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_5;
-  v15[3] = &unk_1E815F9D0;
-  v16 = *(a1 + 32);
-  [v6 setHandler:v15];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_5;
+  v17[3] = &unk_1E815F9D0;
+  v18 = *(a1 + 32);
+  v7 = [v6 setHandler:v17];
   if (a2)
   {
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 56);
-    v10 = [*(a1 + 64) requestStyle];
-    v11 = [*(a1 + 64) testOptions];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_240;
-    v13[3] = &unk_1E815F9D0;
-    v14 = v6;
-    [v7 _configurePublicKeyCredentialsWithAssertionOptions:v8 forProcessWithApplicationIdentifier:v9 requestStyle:v10 testOptions:v11 completionHandler:v13];
+    v9 = *(a1 + 40);
+    v10 = *(a1 + 48);
+    v11 = *(a1 + 56);
+    v12 = [*(a1 + 64) requestStyle];
+    v13 = [*(a1 + 64) testOptions];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_240;
+    v15[3] = &unk_1E815F9D0;
+    v16 = v6;
+    [v9 _configurePublicKeyCredentialsWithAssertionOptions:v10 forProcessWithApplicationIdentifier:v11 requestStyle:v12 testOptions:v13 completionHandler:v15];
   }
 
   else
   {
     *(*(*(a1 + 72) + 8) + 24) = 1;
-    v12 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXAuthorization(v7, v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_4_cold_1();
     }
@@ -1841,85 +1815,83 @@ void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_
 {
   v5 = a3;
   v6 = objc_alloc_init(MEMORY[0x1E69C8A40]);
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_4_244;
-  v8[3] = &unk_1E815F9D0;
-  v9 = *(a1 + 32);
-  [v6 setHandler:v8];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_4_244;
+  v10[3] = &unk_1E815F9D0;
+  v11 = *(a1 + 32);
+  v7 = [v6 setHandler:v10];
   if ((a2 & 1) == 0)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
-    v7 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_4_cold_1();
     }
   }
 }
 
-void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_245(uint64_t a1)
+void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_245(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v46[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 64) + 8) + 24) == 1)
   {
-    v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_245_cold_1();
     }
 
     [*(*(a1 + 32) + 8) endAuthorizationForAppIdentifier:*(*(a1 + 32) + 64) token:*(*(a1 + 32) + 16) clearanceHandler:&__block_literal_global_248];
-    v3 = *(a1 + 56);
-    v4 = MEMORY[0x1E696ABC0];
-    v45 = *MEMORY[0x1E696A588];
-    v46[0] = @"The requested RPID did not match the origin or related origins.";
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
-    v6 = v4;
-    v7 = 17;
+    v6 = *(a1 + 56);
+    v7 = MEMORY[0x1E696ABC0];
+    v43 = *MEMORY[0x1E696A588];
+    v44[0] = @"The requested RPID did not match the origin or related origins.";
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+    v9 = v7;
+    v10 = 17;
     goto LABEL_5;
   }
 
-  v10 = *(a1 + 72);
-  if (v10 == 512)
+  v12 = *(a1 + 72);
+  if (v12 == 512)
   {
-    v11 = [*(a1 + 40) platformAccountRegistrationOptions];
-    v12 = [v11 acceptedContactIdentifiersIsEmpty];
+    v13 = [*(a1 + 40) platformAccountRegistrationOptions];
+    v14 = [v13 acceptedContactIdentifiersIsEmpty];
 
-    if (v12)
+    if (v14)
     {
-      v3 = *(a1 + 56);
-      v13 = MEMORY[0x1E696ABC0];
-      v43 = *MEMORY[0x1E696A578];
-      v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-      v6 = v13;
-      v7 = 1;
+      v6 = *(a1 + 56);
+      v15 = MEMORY[0x1E696ABC0];
+      v41 = *MEMORY[0x1E696A578];
+      v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v9 = v15;
+      v10 = 1;
 LABEL_5:
-      v8 = [v6 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:v7 userInfo:v5];
-      (*(v3 + 16))(v3, 0, v8);
+      v11 = [v9 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:v10 userInfo:v8];
+      (*(v6 + 16))(v6, 0, v11);
 
-LABEL_6:
-      v9 = *MEMORY[0x1E69E9840];
       return;
     }
 
-    v14 = [*(a1 + 40) platformAccountRegistrationOptions];
-    if ([v14 acceptsPhoneNumberOnly])
+    v16 = [*(a1 + 40) platformAccountRegistrationOptions];
+    if ([v16 acceptsPhoneNumberOnly])
     {
-      v15 = [*(a1 + 32) _connection:*(a1 + 48) hasEntitlement:@"com.apple.developer.authentication-services.account-creation-requires-phone-number"];
+      v17 = [*(a1 + 32) _connection:*(a1 + 48) hasEntitlement:@"com.apple.developer.authentication-services.account-creation-requires-phone-number"];
 
-      if ((v15 & 1) == 0)
+      if ((v17 & 1) == 0)
       {
-        v16 = *(a1 + 56);
-        v17 = MEMORY[0x1E696ABC0];
-        v41 = *MEMORY[0x1E696A588];
-        v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Passkey Account Creation requests that specify .phoneNumber as the only contact identifier require adding the %@ entitlement, with a value of true, which asserts that a phone number is required to create an account in your app. If a phone number is not required (e.g. an email address can be used instead, or there is any other path to getting an account that does not require providing a phone number), then you must include .email in acceptedContactIdentifiers.", @"com.apple.developer.authentication-services.account-creation-requires-phone-number"];
-        v42 = v18;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-        v20 = [v17 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v19];
-        (*(v16 + 16))(v16, 0, v20);
+        v18 = *(a1 + 56);
+        v19 = MEMORY[0x1E696ABC0];
+        v39 = *MEMORY[0x1E696A588];
+        v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Passkey Account Creation requests that specify .phoneNumber as the only contact identifier require adding the %@ entitlement, with a value of true, which asserts that a phone number is required to create an account in your app. If a phone number is not required (e.g. an email address can be used instead, or there is any other path to getting an account that does not require providing a phone number), then you must include .email in acceptedContactIdentifiers.", @"com.apple.developer.authentication-services.account-creation-requires-phone-number"];
+        v40 = v20;
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+        v22 = [v19 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v21];
+        (*(v18 + 16))(v18, 0, v22);
 
-        goto LABEL_6;
+        return;
       }
     }
 
@@ -1928,84 +1900,80 @@ LABEL_6:
     }
   }
 
-  v21 = *(a1 + 72) & 0x214;
-  v22 = [*(*(a1 + 32) + 56) requestOptions];
-  v23 = v22;
-  if (v10 == 512 || ((v21 != 0) & v22) != 0)
+  v23 = *(a1 + 72) & 0x214;
+  v24 = [*(*(a1 + 32) + 56) requestOptions];
+  v25 = v24;
+  if (v12 == 512 || ((v23 != 0) & v24) != 0)
   {
-    v25 = [MEMORY[0x1E69C8DB8] sharedFeatureManager];
-    v26 = [v25 userIsEligibleForPasskeys];
+    v27 = [MEMORY[0x1E69C8DB8] sharedFeatureManager];
+    v28 = [v27 userIsEligibleForPasskeys];
 
-    if ((v26 & 1) == 0)
+    if ((v28 & 1) == 0)
     {
-      v37 = *(a1 + 56);
-      v38 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:22 userInfo:0];
-      v33 = *(v37 + 16);
-      v40 = v38;
-LABEL_30:
-      v33();
-      v39 = *MEMORY[0x1E69E9840];
+      v36 = *(a1 + 56);
+      v37 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:22 userInfo:0];
+      v34 = *(v36 + 16);
+      v38 = v37;
+LABEL_29:
+      v34();
 
       return;
     }
   }
 
-  if (([*(a1 + 32) _hasSignInOptionsForRequestContext:*(a1 + 40)] & 1) == 0 && !v21)
+  if (([*(a1 + 32) _hasSignInOptionsForRequestContext:*(a1 + 40)] & 1) == 0 && !v23)
   {
-    v40 = [*(a1 + 32) _noCredentialsFoundErrorForRequestContext:*(*(a1 + 32) + 56)];
-    v27 = [*(*(a1 + 32) + 56) platformKeyCredentialAssertionOptions];
-    v28 = [v27 allowedCredentials];
-    v29 = [v28 count];
+    v38 = [*(a1 + 32) _noCredentialsFoundErrorForRequestContext:*(*(a1 + 32) + 56)];
+    v29 = [*(*(a1 + 32) + 56) platformKeyCredentialAssertionOptions];
+    v30 = [v29 allowedCredentials];
+    v31 = [v30 count];
 
-    v30 = [v40 code];
-    v31 = *(*(a1 + 32) + 184);
-    if (v30 == 2 && v29 && (v23 & 1) == 0)
+    v32 = [v38 code];
+    v33 = *(*(a1 + 32) + 184);
+    if (v32 == 2 && v31 && (v25 & 1) == 0)
     {
-      os_activity_apply(v31, &__block_literal_global_260);
-      v32 = *(a1 + 40);
-      v33 = *(*(a1 + 56) + 16);
+      os_activity_apply(v33, &__block_literal_global_260);
+      v34 = *(*(a1 + 56) + 16);
     }
 
     else
     {
-      os_activity_apply(v31, &__block_literal_global_263);
+      os_activity_apply(v33, &__block_literal_global_263);
       [*(*(a1 + 32) + 8) endAuthorizationForAppIdentifier:*(*(a1 + 32) + 64) token:*(*(a1 + 32) + 16) clearanceHandler:&__block_literal_global_266];
-      v33 = *(*(a1 + 56) + 16);
+      v34 = *(*(a1 + 56) + 16);
     }
 
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
-  v34 = *(a1 + 40);
   v35 = *(*(a1 + 56) + 16);
-  v36 = *MEMORY[0x1E69E9840];
 
   v35();
 }
 
-void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_2_258()
+void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_2_258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "No available credentials and not using preferImmediatelyAvailableCredentials, show error message sheet", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "No available credentials and not using preferImmediatelyAvailableCredentials, show error message sheet", v5, 2u);
   }
 }
 
-void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_261()
+void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_261(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Canceling request due to no matching credentials.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "Canceling request due to no matching credentials.", v5, 2u);
   }
 }
 
 - (id)_noCredentialsFoundErrorForRequestContext:(id)context
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if ([contextCopy isCABLEAuthenticatorRequest])
   {
@@ -2023,70 +1991,68 @@ void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_
   }
 
   v5 = MEMORY[0x1E696ABC0];
-  v16 = *MEMORY[0x1E696A588];
+  v15 = *MEMORY[0x1E696A588];
   isCABLEAuthenticatorRequest = [contextCopy isCABLEAuthenticatorRequest];
   platformKeyCredentialAssertionOptions = [contextCopy platformKeyCredentialAssertionOptions];
   allowedCredentials = [platformKeyCredentialAssertionOptions allowedCredentials];
   v9 = [allowedCredentials count] != 0;
   relyingPartyIdentifier = [contextCopy relyingPartyIdentifier];
   v11 = noCredentialsErrorString(isCABLEAuthenticatorRequest, v9, relyingPartyIdentifier);
-  v17[0] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   v13 = [v5 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:v4 userInfo:v12];
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (BOOL)_userHasSignInWithAppleAccountForPresentingClientID
 {
-  p_clientApplicationIdentifier = &self->_clientApplicationIdentifier;
   v3 = [(ASCAgent *)self _bundleIDFromAppID:self->_clientApplicationIdentifier];
   if (v3)
   {
-    v15 = 0;
-    v16 = &v15;
-    v17 = 0x2020000000;
-    v18 = 0;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2020000000;
+    v20 = 0;
     v4 = dispatch_group_create();
     v5 = objc_alloc_init(MEMORY[0x1E698DCE0]);
     dispatch_group_enter(v4);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __63__ASCAgent__userHasSignInWithAppleAccountForPresentingClientID__block_invoke;
-    v12[3] = &unk_1E815FD00;
-    v14 = &v15;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __63__ASCAgent__userHasSignInWithAppleAccountForPresentingClientID__block_invoke;
+    v14[3] = &unk_1E815FD00;
+    v16 = &v17;
     v6 = v4;
-    v13 = v6;
-    [v5 getCredentialStateForClientID:v3 completion:v12];
+    v15 = v6;
+    [v5 getCredentialStateForClientID:v3 completion:v14];
     v7 = dispatch_time(0, 3000000000);
-    if (dispatch_group_wait(v6, v7))
+    v8 = dispatch_group_wait(v6, v7);
+    if (v8)
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = WBS_LOG_CHANNEL_PREFIXAuthorization(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [ASCAgent _userHasSignInWithAppleAccountForPresentingClientID];
       }
     }
 
-    v9 = *(v16 + 24);
+    v11 = *(v18 + 24);
 
-    _Block_object_dispose(&v15, 8);
+    _Block_object_dispose(&v17, 8);
   }
 
   else
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v12 = WBS_LOG_CHANNEL_PREFIXAuthorization(0, v2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      [(ASCAgent *)p_clientApplicationIdentifier _userHasSignInWithAppleAccountForPresentingClientID];
+      [ASCAgent _userHasSignInWithAppleAccountForPresentingClientID];
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
-  return v9 & 1;
+  return v11 & 1;
 }
 
 - (void)presentCABLESheetWithCompletionHandler:(id)handler
@@ -2104,7 +2070,7 @@ void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -2164,26 +2130,24 @@ void __51__ASCAgent_presentCABLESheetWithCompletionHandler___block_invoke(uint64
   (*(*(a1 + 40) + 16))(*(a1 + 40), v9 != 0);
 }
 
-void __51__ASCAgent_presentCABLESheetWithCompletionHandler___block_invoke_2(uint64_t a1)
+void __51__ASCAgent_presentCABLESheetWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v16 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v5 = v2;
-    v6 = [v3 safari_privacyPreservingDescription];
-    v8 = 141558530;
-    v9 = 1752392040;
-    v10 = 2112;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v6;
-    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_DEFAULT, "Completed sheet for AutoFill request: %{mask.hash}@ %{public}@", &v8, 0x20u);
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = v5;
+    v9 = [v6 safari_privacyPreservingDescription];
+    v10 = 141558530;
+    v11 = 1752392040;
+    v12 = 2112;
+    v13 = v7;
+    v14 = 2114;
+    v15 = v9;
+    _os_log_impl(&dword_1C20AD000, v8, OS_LOG_TYPE_DEFAULT, "Completed sheet for AutoFill request: %{mask.hash}@ %{public}@", &v10, 0x20u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)userSelectedLoginChoice:(id)choice authenticatedContext:(id)context completionHandler:(id)handler
@@ -2270,19 +2234,19 @@ void __51__ASCAgent_presentCABLESheetWithCompletionHandler___block_invoke_2(uint
   }
 }
 
-void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___block_invoke_2()
+void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___block_invoke_2_cold_1();
   }
 }
 
-void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___block_invoke_273()
+void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___block_invoke_273(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___block_invoke_273_cold_1();
   }
@@ -2333,19 +2297,16 @@ void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___b
 
   else
   {
-    v5 = [a2 loginChoices];
-    v6 = *(a1 + 48);
-    v7 = *(v6 + 40);
-    *(v6 + 40) = v5;
+    *(*(a1 + 48) + 40) = [a2 loginChoices];
 
     MEMORY[0x1EEE66BB8]();
   }
 }
 
-void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___block_invoke_3()
+void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___block_invoke_3_cold_1();
   }
@@ -2377,7 +2338,7 @@ void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___b
 
 - (void)openCABLEURL:(id)l fromSourceApplication:(id)application withCompletionHandler:(id)handler
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   applicationCopy = application;
   handlerCopy = handler;
@@ -2387,21 +2348,21 @@ void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___b
   block[2] = __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke;
   block[3] = &unk_1E815FD28;
   v12 = lCopy;
-  v33 = v12;
+  v32 = v12;
   v13 = applicationCopy;
-  v34 = v13;
+  v33 = v13;
   os_activity_apply(authorizationActivity, block);
   currentConnection = [MEMORY[0x1E696B0B8] currentConnection];
   v15 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   else
   {
+    v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
   }
 
   HasEntitlement = WBSAuditTokenHasEntitlement();
@@ -2410,11 +2371,11 @@ void __69__ASCAgent__configureAppleIDCredentialWithContext_completionHandler___b
   {
     os_activity_apply(self->_authorizationActivity, &__block_literal_global_286);
     v20 = MEMORY[0x1E696ABC0];
-    v37 = *MEMORY[0x1E696A588];
-    v38[0] = @"Client is missing required entitlement";
+    v36 = *MEMORY[0x1E696A588];
+    v37[0] = @"Client is missing required entitlement";
     v21 = MEMORY[0x1E695DF20];
-    v22 = v38;
-    v23 = &v37;
+    v22 = v37;
+    v23 = &v36;
 LABEL_9:
     v19 = [v21 dictionaryWithObjects:v22 forKeys:v23 count:1];
     v24 = [v20 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v19];
@@ -2426,54 +2387,50 @@ LABEL_9:
   if (!v12)
   {
     v20 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A588];
-    v36 = @"Invalid request: missing caBLE URL";
+    v34 = *MEMORY[0x1E696A588];
+    v35 = @"Invalid request: missing caBLE URL";
     v21 = MEMORY[0x1E695DF20];
-    v22 = &v36;
-    v23 = &v35;
+    v22 = &v35;
+    v23 = &v34;
     goto LABEL_9;
   }
 
   authorizationTrafficController = self->_authorizationTrafficController;
   authorizationTrafficControllerToken = self->_authorizationTrafficControllerToken;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_293;
-  v26[3] = &unk_1E815FDC8;
-  v29 = handlerCopy;
-  v26[4] = self;
-  v27 = v12;
-  v28 = v13;
-  [(ASCAuthorizationTrafficController *)authorizationTrafficController beginAuthorizationForApplicationIdentifier:@"com.apple.AuthenticationServicesCore.caBLEAuthenticator" token:authorizationTrafficControllerToken withClearanceHandler:v26];
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_293;
+  v25[3] = &unk_1E815FDC8;
+  v28 = handlerCopy;
+  v25[4] = self;
+  v26 = v12;
+  v27 = v13;
+  [(ASCAuthorizationTrafficController *)authorizationTrafficController beginAuthorizationForApplicationIdentifier:@"com.apple.AuthenticationServicesCore.caBLEAuthenticator" token:authorizationTrafficControllerToken withClearanceHandler:v25];
 
-  v19 = v29;
+  v19 = v28;
 LABEL_10:
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
-void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke(uint64_t a1)
+void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v12 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v6 = 138478083;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_DEFAULT, "Open caBLE URL: %{private}@, sourceApplication: %@", &v6, 0x16u);
+    v6 = *(a1 + 32);
+    v7 = *(a1 + 40);
+    v8 = 138478083;
+    v9 = v6;
+    v10 = 2112;
+    v11 = v7;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_DEFAULT, "Open caBLE URL: %{private}@, sourceApplication: %@", &v8, 0x16u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_284()
+void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_284(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_284_cold_1();
   }
@@ -2481,7 +2438,7 @@ void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___b
 
 void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_293(uint64_t a1, char a2, void *a3)
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = v5;
   if (a2)
@@ -2514,13 +2471,13 @@ void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___b
     v15 = -[ASCAuthorizationPresentationContext _initWithCABLEAuthenticatorURL:shouldRequireConsent:passkeyURLType:](v10, "_initWithCABLEAuthenticatorURL:shouldRequireConsent:passkeyURLType:", v11, v13, [*(*(a1 + 32) + 216) as_passkeyURLType]);
     v16 = *(a1 + 32);
     v17 = *(v16 + 72);
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_2;
-    v22[3] = &unk_1E815FB00;
-    v22[4] = v16;
-    v23 = *(a1 + 56);
-    [v17 presentAuthorizationWithContext:v15 forProcess:0 completionHandler:v22];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_2;
+    v21[3] = &unk_1E815FB00;
+    v21[4] = v16;
+    v22 = *(a1 + 56);
+    [v17 presentAuthorizationWithContext:v15 forProcess:0 completionHandler:v21];
   }
 
   else
@@ -2534,15 +2491,13 @@ void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___b
     else
     {
       v18 = MEMORY[0x1E696ABC0];
-      v24 = *MEMORY[0x1E696A588];
-      v25[0] = @"Traffic controller denied request.";
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v23 = *MEMORY[0x1E696A588];
+      v24[0] = @"Traffic controller denied request.";
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
       v20 = [v18 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:0 userInfo:v19];
       (*(v14 + 16))(v14, v20);
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2578,32 +2533,30 @@ void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___b
   (*(*(a1 + 40) + 16))();
 }
 
-void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_3(uint64_t a1)
+void __69__ASCAgent_openCABLEURL_fromSourceApplication_withCompletionHandler___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    if (v3)
+    v6 = *(a1 + 32);
+    if (v6)
     {
-      v4 = @"success";
+      v7 = @"success";
     }
 
     else
     {
-      v4 = [*(a1 + 40) safari_privacyPreservingDescription];
+      v7 = [*(a1 + 40) safari_privacyPreservingDescription];
     }
 
-    v6 = 138543362;
-    v7 = v4;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_DEFAULT, "Finishing caBLE transaction: %{public}@", &v6, 0xCu);
-    if (!v3)
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_DEFAULT, "Finishing caBLE transaction: %{public}@", &v8, 0xCu);
+    if (!v6)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)browserPasskeysForRelyingParty:(id)party testOptions:(id)options completionHandler:(id)handler
@@ -2627,11 +2580,12 @@ LABEL_9:
   }
 
   v13 = [ASCAgent isClientTCCAuthorizedWebBrowserWithConnection:currentConnection testOptions:optionsCopy];
-  v14 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  v15 = v14;
-  if (!v13)
+  v14 = v13;
+  v16 = WBS_LOG_CHANNEL_PREFIXAuthorization(v13, v15);
+  v17 = v16;
+  if ((v14 & 1) == 0)
   {
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [ASCAgent browserPasskeysForRelyingParty:testOptions:completionHandler:];
     }
@@ -2639,24 +2593,24 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    *v18 = 0;
-    _os_log_impl(&dword_1C20AD000, v15, OS_LOG_TYPE_INFO, "TCC access granted for browser passkey request.", v18, 2u);
+    *v20 = 0;
+    _os_log_impl(&dword_1C20AD000, v17, OS_LOG_TYPE_INFO, "TCC access granted for browser passkey request.", v20, 2u);
   }
 
-  v16 = [(ASPublicKeyCredentialManagerInterface *)self->_publicKeyCredentialManager browserPasskeysForRelyingParty:partyCopy testOptions:optionsCopy];
-  (handlerCopy)[2](handlerCopy, v16);
+  v18 = [(ASPublicKeyCredentialManagerInterface *)self->_publicKeyCredentialManager browserPasskeysForRelyingParty:partyCopy testOptions:optionsCopy];
+  (handlerCopy)[2](handlerCopy, v18);
 
 LABEL_10:
 }
 
-void __73__ASCAgent_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke(uint64_t a1)
+void __73__ASCAgent_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    __73__ASCAgent_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke_cold_1(a1, v2);
+    __73__ASCAgent_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -2688,12 +2642,12 @@ void __73__ASCAgent_browserPasskeysForRelyingParty_testOptions_completionHandler
   return userIsEligibleForPasskeys;
 }
 
-void __57__ASCAgent_isDeviceConfiguredForPasskeysWithTestOptions___block_invoke(uint64_t a1)
+void __57__ASCAgent_isDeviceConfiguredForPasskeysWithTestOptions___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    __73__ASCAgent_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke_cold_1(a1, v2);
+    __73__ASCAgent_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -2705,7 +2659,7 @@ void __57__ASCAgent_isDeviceConfiguredForPasskeysWithTestOptions___block_invoke(
   v9 = currentConnection;
   if (currentConnection)
   {
-    [currentConnection auditToken];
+    objc_msgSend_auditToken(currentConnection);
   }
 
   v10 = WBSApplicationIdentifierFromAuditToken();
@@ -2714,21 +2668,21 @@ void __57__ASCAgent_isDeviceConfiguredForPasskeysWithTestOptions___block_invoke(
 
   if (canKeychainSyncBeEnabled)
   {
-    v13 = self->_isClientEntitledWebBrowser || [(ASCAgent *)self _approvalStateForApplicationIdentifier:v10 relyingParty:partyCopy]== 1;
+    v15 = self->_isClientEntitledWebBrowser || [(ASCAgent *)self _approvalStateForApplicationIdentifier:v10 relyingParty:partyCopy]== 1;
   }
 
   else
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXAuthorization(v13, v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [ASCAgent getCanCurrentProcessAccessPasskeysForRelyingParty:withCompletionHandler:];
     }
 
-    v13 = 0;
+    v15 = 0;
   }
 
-  handlerCopy[2](handlerCopy, v13);
+  handlerCopy[2](handlerCopy, v15);
 }
 
 - (void)_configurePasswordCredentialsWithTestOptions:(id)options completionHandler:(id)handler
@@ -2805,72 +2759,72 @@ uint64_t __75__ASCAgent__configurePasswordCredentialsWithTestOptions_completionH
 
 - (id)_allAvailableLoginChoicesForRequestContext:(id)context
 {
-  v159 = *MEMORY[0x1E69E9840];
+  v160 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   array = [MEMORY[0x1E695DF70] array];
   LOWORD(getEnabledExtensionsSynchronously) = [contextCopy requestTypes];
-  v112 = getEnabledExtensionsSynchronously;
-  v113 = contextCopy;
+  v113 = getEnabledExtensionsSynchronously;
+  v114 = contextCopy;
   selfCopy = self;
   if ((getEnabledExtensionsSynchronously & 2) != 0 && self->_existingAppleIDCredentialAvailableForLogIn)
   {
-    v146 = 0u;
     v147 = 0u;
-    v144 = 0u;
+    v148 = 0u;
     v145 = 0u;
+    v146 = 0u;
     v7 = self->_appleIDChoices;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v144 objects:v158 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v145 objects:v159 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v145;
+      v10 = *v146;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v145 != v10)
+          if (*v146 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [[ASCAppleIDLoginChoice alloc] initWithAppleIDLoginChoice:*(*(&v144 + 1) + 8 * i)];
+          v12 = [[ASCAppleIDLoginChoice alloc] initWithAppleIDLoginChoice:*(*(&v145 + 1) + 8 * i)];
           [array addObject:v12];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v144 objects:v158 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v145 objects:v159 count:16];
       }
 
       while (v9);
     }
 
-    LOWORD(getEnabledExtensionsSynchronously) = v112;
-    contextCopy = v113;
+    LOWORD(getEnabledExtensionsSynchronously) = v113;
+    contextCopy = v114;
     self = selfCopy;
   }
 
-  v118 = array;
+  v119 = array;
   if (getEnabledExtensionsSynchronously)
   {
-    v142 = 0u;
     v143 = 0u;
-    v140 = 0u;
+    v144 = 0u;
     v141 = 0u;
+    v142 = 0u;
     obj = self->_passwordCredentials;
-    v13 = [(NSArray *)obj countByEnumeratingWithState:&v140 objects:v157 count:16];
+    v13 = [(NSArray *)obj countByEnumeratingWithState:&v141 objects:v158 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v141;
+      v15 = *v142;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v141 != v15)
+          if (*v142 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v140 + 1) + 8 * j);
+          v17 = *(*(&v141 + 1) + 8 * j);
           if ([v17 isExternal])
           {
             externalCredential = [v17 externalCredential];
@@ -2888,19 +2842,19 @@ uint64_t __75__ASCAgent__configurePasswordCredentialsWithTestOptions_completionH
           groupName = [v17 groupName];
           v24 = [(ASCPasswordLoginChoice *)v19 initWithUsername:user site:site externalCredentialIdentity:externalCredential customTitle:customTitle groupName:groupName];
 
-          [v118 addObject:v24];
+          [v119 addObject:v24];
         }
 
-        v14 = [(NSArray *)obj countByEnumeratingWithState:&v140 objects:v157 count:16];
+        v14 = [(NSArray *)obj countByEnumeratingWithState:&v141 objects:v158 count:16];
       }
 
       while (v14);
     }
 
-    LOWORD(getEnabledExtensionsSynchronously) = v112;
-    contextCopy = v113;
+    LOWORD(getEnabledExtensionsSynchronously) = v113;
+    contextCopy = v114;
     self = selfCopy;
-    array = v118;
+    array = v119;
   }
 
   obja = [(ASCAgent *)self _allowedAuthenticatorModalitiesForRequestContext:contextCopy];
@@ -2908,72 +2862,72 @@ uint64_t __75__ASCAgent__configurePasswordCredentialsWithTestOptions_completionH
   {
     if ([(NSArray *)self->_test_overrideExtensionStates count])
     {
-      v138 = 0uLL;
       v139 = 0uLL;
-      v136 = 0uLL;
+      v140 = 0uLL;
       v137 = 0uLL;
+      v138 = 0uLL;
       getEnabledExtensionsSynchronously = self->_test_overrideExtensionStates;
-      v25 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v136 objects:v156 count:16];
+      v25 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v137 objects:v157 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v137;
+        v27 = *v138;
         do
         {
           for (k = 0; k != v26; ++k)
           {
-            if (*v137 != v27)
+            if (*v138 != v27)
             {
               objc_enumerationMutation(getEnabledExtensionsSynchronously);
             }
 
-            v29 = *(*(&v136 + 1) + 8 * k);
+            v29 = *(*(&v137 + 1) + 8 * k);
             platformKeyCredentialCreationOptions = [contextCopy platformKeyCredentialCreationOptions];
             [(ASPublicKeyCredentialManagerInterface *)selfCopy->_publicKeyCredentialManager computeClientDataIfNeededForCreationOptions:platformKeyCredentialCreationOptions];
             localizedDisplayName = [v29 localizedDisplayName];
             v32 = [ASCPlatformPublicKeyCredentialLoginChoice alloc];
             providerBundleID = [v29 providerBundleID];
             v34 = [(ASCPlatformPublicKeyCredentialLoginChoice *)v32 initRegistrationChoiceWithOptions:platformKeyCredentialCreationOptions externalCredentialProviderName:localizedDisplayName externalCredentialProviderBundleID:providerBundleID];
-            [v118 addObject:v34];
+            [v119 addObject:v34];
           }
 
-          v26 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v136 objects:v156 count:16];
+          v26 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v137 objects:v157 count:16];
         }
 
         while (v26);
 LABEL_43:
         self = selfCopy;
-        array = v118;
+        array = v119;
       }
     }
 
     else
     {
-      v134 = 0uLL;
       v135 = 0uLL;
-      v132 = 0uLL;
+      v136 = 0uLL;
       v133 = 0uLL;
+      v134 = 0uLL;
       v35 = 0x1E69C8000uLL;
       mEMORY[0x1E69C8DE0] = [MEMORY[0x1E69C8DE0] sharedManager];
       getEnabledExtensionsSynchronously = [mEMORY[0x1E69C8DE0] getEnabledExtensionsSynchronously];
 
-      v37 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v132 objects:v155 count:16];
+      v37 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v133 objects:v156 count:16];
       if (v37)
       {
         v38 = v37;
-        v39 = *v133;
+        v39 = *v134;
         do
         {
           v40 = 0;
-          v114 = v38;
+          v115 = v38;
           do
           {
-            if (*v133 != v39)
+            if (*v134 != v39)
             {
               objc_enumerationMutation(getEnabledExtensionsSynchronously);
             }
 
-            v41 = *(*(&v132 + 1) + 8 * v40);
+            v41 = *(*(&v133 + 1) + 8 * v40);
             sharedManager = [*(v35 + 3552) sharedManager];
             v43 = [sharedManager extensionSupportsPasskeys:v41];
 
@@ -2993,20 +2947,20 @@ LABEL_43:
               v53 = [ASCPlatformPublicKeyCredentialLoginChoice alloc];
               sf_bundleIdentifierForContainingApp2 = [v41 sf_bundleIdentifierForContainingApp];
               v55 = [(ASCPlatformPublicKeyCredentialLoginChoice *)v53 initRegistrationChoiceWithOptions:platformKeyCredentialCreationOptions2 externalCredentialProviderName:v52 externalCredentialProviderBundleID:sf_bundleIdentifierForContainingApp2];
-              [v118 addObject:v55];
+              [v119 addObject:v55];
 
               v35 = v51;
               contextCopy = v50;
               getEnabledExtensionsSynchronously = v49;
               v39 = v48;
-              v38 = v114;
+              v38 = v115;
             }
 
             ++v40;
           }
 
           while (v38 != v40);
-          v38 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v132 objects:v155 count:16];
+          v38 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v133 objects:v156 count:16];
         }
 
         while (v38);
@@ -3014,7 +2968,7 @@ LABEL_43:
       }
     }
 
-    LOWORD(getEnabledExtensionsSynchronously) = v112;
+    LOWORD(getEnabledExtensionsSynchronously) = v113;
   }
 
   if (getEnabledExtensionsSynchronously & 4) != 0 && (obja)
@@ -3027,26 +2981,26 @@ LABEL_43:
 
   if ((getEnabledExtensionsSynchronously & 8) != 0)
   {
-    v130 = 0u;
     v131 = 0u;
-    v128 = 0u;
+    v132 = 0u;
     v129 = 0u;
+    v130 = 0u;
     getEnabledExtensionsSynchronously = self->_platformLoginChoices;
-    v59 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v128 objects:v154 count:16];
+    v59 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v129 objects:v155 count:16];
     if (v59)
     {
       v60 = v59;
-      v61 = *v129;
+      v61 = *v130;
       do
       {
         for (m = 0; m != v60; ++m)
         {
-          if (*v129 != v61)
+          if (*v130 != v61)
           {
             objc_enumerationMutation(getEnabledExtensionsSynchronously);
           }
 
-          v63 = *(*(&v128 + 1) + 8 * m);
+          v63 = *(*(&v129 + 1) + 8 * m);
           externalCredentialProviderName = [v63 externalCredentialProviderName];
           if (externalCredentialProviderName)
           {
@@ -3066,20 +3020,20 @@ LABEL_43:
 
           if (v65 || (v67 & 1) != 0 || (v69 & obja) != 0)
           {
-            [v118 addObject:v63];
+            [v119 addObject:v63];
           }
         }
 
-        v60 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v128 objects:v154 count:16];
+        v60 = [(NSArray *)getEnabledExtensionsSynchronously countByEnumeratingWithState:&v129 objects:v155 count:16];
       }
 
       while (v60);
     }
 
-    LOWORD(getEnabledExtensionsSynchronously) = v112;
-    contextCopy = v113;
+    LOWORD(getEnabledExtensionsSynchronously) = v113;
+    contextCopy = v114;
     self = selfCopy;
-    array = v118;
+    array = v119;
   }
 
   if ((getEnabledExtensionsSynchronously & 0x10) != 0 && (obja & 4) != 0)
@@ -3124,7 +3078,7 @@ LABEL_72:
     [(ASCCredentialRequestContext *)self->_requestContext setPlatformKeyCredentialCreationOptions:publicKeyCredentialCreationOptions2];
 
     [array addObject:v75];
-    LOBYTE(getEnabledExtensionsSynchronously) = v112;
+    LOBYTE(getEnabledExtensionsSynchronously) = v113;
   }
 
 LABEL_73:
@@ -3140,7 +3094,7 @@ LABEL_73:
     relyingPartyIdentifier2 = [contextCopy relyingPartyIdentifier];
     v82 = [v80 shouldUseFallbackUIForRelyingParty:relyingPartyIdentifier2];
 
-    contextCopy = v113;
+    contextCopy = v114;
     if (getEnabledExtensionsSynchronously & 9) == 0 || (v82)
     {
       goto LABEL_100;
@@ -3152,117 +3106,115 @@ LABEL_73:
     goto LABEL_100;
   }
 
-  v126 = 0u;
   v127 = 0u;
-  v124 = 0u;
+  v128 = 0u;
   v125 = 0u;
+  v126 = 0u;
   mEMORY[0x1E69C8DE0]2 = [MEMORY[0x1E69C8DE0] sharedManager];
   getEnabledExtensionsSynchronously2 = [mEMORY[0x1E69C8DE0]2 getEnabledExtensionsSynchronously];
 
-  v85 = [getEnabledExtensionsSynchronously2 countByEnumeratingWithState:&v124 objects:v153 count:16];
+  v85 = [getEnabledExtensionsSynchronously2 countByEnumeratingWithState:&v125 objects:v154 count:16];
   if (!v85)
   {
     goto LABEL_92;
   }
 
   v86 = v85;
-  v87 = *v125;
+  v87 = *v126;
   do
   {
     for (n = 0; n != v86; ++n)
     {
-      if (*v125 != v87)
+      if (*v126 != v87)
       {
         objc_enumerationMutation(getEnabledExtensionsSynchronously2);
       }
 
-      v89 = *(*(&v124 + 1) + 8 * n);
+      v89 = *(*(&v125 + 1) + 8 * n);
       v90 = objc_alloc(MEMORY[0x1E69635F8]);
       sf_bundleIdentifierForContainingApp3 = [v89 sf_bundleIdentifierForContainingApp];
-      v123 = 0;
-      v92 = [v90 initWithBundleIdentifier:sf_bundleIdentifierForContainingApp3 allowPlaceholder:0 error:&v123];
-      v93 = v123;
+      v124 = 0;
+      v92 = [v90 initWithBundleIdentifier:sf_bundleIdentifierForContainingApp3 allowPlaceholder:0 error:&v124];
+      v93 = v124;
       localizedName = [v92 localizedName];
 
       if (v93)
       {
-        v95 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-        if (!os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+        v97 = WBS_LOG_CHANNEL_PREFIXAuthorization(v95, v96);
+        if (!os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_90;
         }
 
-        v96 = v95;
+        v98 = v97;
         sf_bundleIdentifierForContainingApp4 = [v89 sf_bundleIdentifierForContainingApp];
         *buf = 138543618;
-        v150 = sf_bundleIdentifierForContainingApp4;
-        v151 = 2112;
-        v152 = v93;
-        _os_log_error_impl(&dword_1C20AD000, v96, OS_LOG_TYPE_ERROR, "failed to get LSApplicationRecord for app with bundle ID %{public}@: %@", buf, 0x16u);
+        v151 = sf_bundleIdentifierForContainingApp4;
+        v152 = 2112;
+        v153 = v93;
+        _os_log_error_impl(&dword_1C20AD000, v98, OS_LOG_TYPE_ERROR, "failed to get LSApplicationRecord for app with bundle ID %{public}@: %@", buf, 0x16u);
       }
 
       else
       {
-        v98 = [ASCCredentialProviderExtensionLoginChoice alloc];
+        v100 = [ASCCredentialProviderExtensionLoginChoice alloc];
         sf_bundleIdentifierForContainingApp4 = [v89 identifier];
         sf_bundleIdentifierForContainingApp5 = [v89 sf_bundleIdentifierForContainingApp];
-        v100 = [(ASCCredentialProviderExtensionLoginChoice *)v98 initWithProviderName:localizedName providerBundleID:sf_bundleIdentifierForContainingApp4 providerExtensionContainingAppBundleID:sf_bundleIdentifierForContainingApp5];
-        [v118 addObject:v100];
+        v102 = [(ASCCredentialProviderExtensionLoginChoice *)v100 initWithProviderName:localizedName providerBundleID:sf_bundleIdentifierForContainingApp4 providerExtensionContainingAppBundleID:sf_bundleIdentifierForContainingApp5];
+        [v119 addObject:v102];
       }
 
 LABEL_90:
     }
 
-    v86 = [getEnabledExtensionsSynchronously2 countByEnumeratingWithState:&v124 objects:v153 count:16];
+    v86 = [getEnabledExtensionsSynchronously2 countByEnumeratingWithState:&v125 objects:v154 count:16];
   }
 
   while (v86);
 LABEL_92:
 
-  v121 = 0u;
   v122 = 0u;
-  v119 = 0u;
+  v123 = 0u;
   v120 = 0u;
-  v101 = selfCopy->_test_credentialProviderExtensionLoginChoices;
-  v102 = [(NSMutableArray *)v101 countByEnumeratingWithState:&v119 objects:v148 count:16];
-  contextCopy = v113;
-  array = v118;
-  if (v102)
+  v121 = 0u;
+  v103 = selfCopy->_test_credentialProviderExtensionLoginChoices;
+  v104 = [(NSMutableArray *)v103 countByEnumeratingWithState:&v120 objects:v149 count:16];
+  contextCopy = v114;
+  array = v119;
+  if (v104)
   {
-    v103 = v102;
-    v104 = *v120;
+    v105 = v104;
+    v106 = *v121;
     do
     {
-      for (ii = 0; ii != v103; ++ii)
+      for (ii = 0; ii != v105; ++ii)
       {
-        if (*v120 != v104)
+        if (*v121 != v106)
         {
-          objc_enumerationMutation(v101);
+          objc_enumerationMutation(v103);
         }
 
-        [v118 addObject:*(*(&v119 + 1) + 8 * ii)];
+        [v119 addObject:*(*(&v120 + 1) + 8 * ii)];
       }
 
-      v103 = [(NSMutableArray *)v101 countByEnumeratingWithState:&v119 objects:v148 count:16];
+      v105 = [(NSMutableArray *)v103 countByEnumeratingWithState:&v120 objects:v149 count:16];
     }
 
-    while (v103);
+    while (v105);
   }
 
 LABEL_100:
-  if (([contextCopy requestOptions] & 1) != 0 && (objc_msgSend(array, "safari_filterObjectsUsingBlock:", &__block_literal_global_316), v106 = objc_claimAutoreleasedReturnValue(), v107 = objc_msgSend(v106, "count"), v106, !v107))
+  if (([contextCopy requestOptions] & 1) != 0 && (objc_msgSend(array, "safari_filterObjectsUsingBlock:", &__block_literal_global_316), v108 = objc_claimAutoreleasedReturnValue(), v109 = objc_msgSend(v108, "count"), v108, !v109))
   {
-    v108 = MEMORY[0x1E695E0F0];
+    v110 = MEMORY[0x1E695E0F0];
   }
 
   else
   {
-    v108 = array;
+    v110 = array;
   }
 
-  v109 = *MEMORY[0x1E69E9840];
-
-  return v108;
+  return v110;
 }
 
 uint64_t __55__ASCAgent__allAvailableLoginChoicesForRequestContext___block_invoke(uint64_t a1, void *a2)
@@ -3480,7 +3432,7 @@ id __61__ASCAgent__allowListExclusivelyMatchesPlatformLoginChoices___block_invok
 
 - (id)_allTransportsForAssertionRequest:(id)request
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   requestTypes = [requestCopy requestTypes];
   v5 = [MEMORY[0x1E695DFA8] set];
@@ -3496,26 +3448,26 @@ LABEL_25:
       goto LABEL_28;
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     allowedCredentials = allowedCredentials;
-    v9 = [allowedCredentials countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v9 = [allowedCredentials countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v30;
+      v11 = *v29;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v30 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(allowedCredentials);
           }
 
-          transports = [*(*(&v29 + 1) + 8 * i) transports];
+          transports = [*(*(&v28 + 1) + 8 * i) transports];
           if (!transports)
           {
 
@@ -3526,7 +3478,7 @@ LABEL_25:
           [v5 addObjectsFromArray:transports];
         }
 
-        v10 = [allowedCredentials countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v10 = [allowedCredentials countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (v10)
         {
           continue;
@@ -3554,26 +3506,26 @@ LABEL_3:
 
   if ([allowedCredentials2 count])
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     allowedCredentials2 = allowedCredentials2;
-    v17 = [allowedCredentials2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v17 = [allowedCredentials2 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v26;
+      v19 = *v25;
       while (2)
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(allowedCredentials2);
           }
 
-          transports2 = [*(*(&v25 + 1) + 8 * j) transports];
+          transports2 = [*(*(&v24 + 1) + 8 * j) transports];
           if (!transports2)
           {
 
@@ -3584,7 +3536,7 @@ LABEL_3:
           [v5 addObjectsFromArray:transports2];
         }
 
-        v18 = [allowedCredentials2 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v18 = [allowedCredentials2 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v18)
         {
           continue;
@@ -3602,8 +3554,6 @@ LABEL_27:
 LABEL_28:
   v6 = 0;
 LABEL_29:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -3634,15 +3584,15 @@ LABEL_29:
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
   {
-    memset(v32, 0, sizeof(v32));
+    memset(v34, 0, sizeof(v34));
   }
 
-  v16 = [v14 dataWithBytes:v32 length:32];
+  v16 = [v14 dataWithBytes:v34 length:32];
   globalFrameID = [contextCopy globalFrameID];
 
   v18 = [ASCAuthorizationPresentationContext alloc];
@@ -3657,7 +3607,7 @@ LABEL_29:
     if (choiceCopy)
     {
 LABEL_6:
-      [(ASCAuthorizationPresentationContext *)v23 addLoginChoice:choiceCopy];
+      v24 = [(ASCAuthorizationPresentationContext *)v23 addLoginChoice:choiceCopy];
       goto LABEL_9;
     }
   }
@@ -3671,33 +3621,33 @@ LABEL_6:
     }
   }
 
-  [(ASCAgent *)self _configureLoginChoicesForPresentationContext:v23 withRequestContext:contextCopy];
+  v24 = [(ASCAgent *)self _configureLoginChoicesForPresentationContext:v23 withRequestContext:contextCopy];
 LABEL_9:
   if (!self->_requestPresenter)
   {
-    v24 = objc_alloc_init(ASCAuthorizationPresenter);
+    v26 = objc_alloc_init(ASCAuthorizationPresenter);
     requestPresenter = self->_requestPresenter;
-    self->_requestPresenter = v24;
+    self->_requestPresenter = v26;
 
-    [(ASCAuthorizationPresenterHostProtocol *)self->_requestPresenter setDelegate:self];
+    v24 = [(ASCAuthorizationPresenterHostProtocol *)self->_requestPresenter setDelegate:self];
   }
 
-  v26 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_signpost_enabled(v26))
+  v28 = WBS_LOG_CHANNEL_PREFIXAuthorization(v24, v25);
+  if (os_signpost_enabled(v28))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C20AD000, v26, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "AuthorizationRequestReceivedToShowingUI", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C20AD000, v28, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "AuthorizationRequestReceivedToShowingUI", "", buf, 2u);
   }
 
-  v27 = self->_requestPresenter;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __111__ASCAgent__presentAuthorizationRequestWithContext_implicitlySelectedLoginChoice_forProcess_completionHandler___block_invoke;
-  v29[3] = &unk_1E815FB00;
-  v29[4] = self;
+  v29 = self->_requestPresenter;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __111__ASCAgent__presentAuthorizationRequestWithContext_implicitlySelectedLoginChoice_forProcess_completionHandler___block_invoke;
+  v31[3] = &unk_1E815FB00;
+  v31[4] = self;
+  v32 = handlerCopy;
   v30 = handlerCopy;
-  v28 = handlerCopy;
-  [(ASCAuthorizationPresenterHostProtocol *)v27 presentAuthorizationWithContext:v23 forProcess:processCopy completionHandler:v29];
+  [(ASCAuthorizationPresenterHostProtocol *)v29 presentAuthorizationWithContext:v23 forProcess:processCopy completionHandler:v31];
 }
 
 void __111__ASCAgent__presentAuthorizationRequestWithContext_implicitlySelectedLoginChoice_forProcess_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3851,12 +3801,12 @@ void __111__ASCAgent__presentAuthorizationRequestWithContext_implicitlySelectedL
   return proxiedBundleIdentifier2;
 }
 
-void __31__ASCAgent__bundleIDFromAppID___block_invoke(uint64_t a1)
+void __31__ASCAgent__bundleIDFromAppID___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __31__ASCAgent__bundleIDFromAppID___block_invoke_cold_1(a1, v2);
+    __31__ASCAgent__bundleIDFromAppID___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -3891,12 +3841,12 @@ void __31__ASCAgent__bundleIDFromAppID___block_invoke(uint64_t a1)
   return proxiedTeamIdentifier2;
 }
 
-void __29__ASCAgent__teamIDfromAppID___block_invoke(uint64_t a1)
+void __29__ASCAgent__teamIDfromAppID___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __29__ASCAgent__teamIDfromAppID___block_invoke_cold_1(a1, v2);
+    __29__ASCAgent__teamIDfromAppID___block_invoke_cold_1(a1, v5);
   }
 }
 
@@ -3904,34 +3854,34 @@ void __29__ASCAgent__teamIDfromAppID___block_invoke(uint64_t a1)
 {
   accountCopy = account;
   v5 = objc_alloc_init(MEMORY[0x1E698DD08]);
-  v6 = v5;
+  v7 = v5;
   if (accountCopy)
   {
     [v5 setAuthkitAccount:accountCopy];
-    v7 = objc_alloc_init(MEMORY[0x1E698DD58]);
-    [v7 setAuthorizationRequest:v6];
-    v15 = 0;
-    v8 = [MEMORY[0x1E698DD28] canPerformAuthorizationRequest:v7 error:&v15];
-    v9 = v15;
-    v10 = v9;
-    if (v9)
+    v8 = objc_alloc_init(MEMORY[0x1E698DD58]);
+    [v8 setAuthorizationRequest:v7];
+    v16 = 0;
+    v9 = [MEMORY[0x1E698DD28] canPerformAuthorizationRequest:v8 error:&v16];
+    v10 = v16;
+    v11 = v10;
+    if (v10)
     {
       authorizationActivity = self->_authorizationActivity;
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_invoke;
-      v13[3] = &unk_1E815F9D0;
-      v14 = v9;
-      os_activity_apply(authorizationActivity, v13);
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_invoke;
+      v14[3] = &unk_1E815F9D0;
+      v15 = v10;
+      os_activity_apply(authorizationActivity, v14);
     }
 
-    self->_existingAppleIDCredentialAvailableForLogIn = v8;
+    self->_existingAppleIDCredentialAvailableForLogIn = v9;
   }
 
   else
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = WBS_LOG_CHANNEL_PREFIXAuthorization(v5, v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [ASCAgent _performAuthKitAuthorizationValidationForAccount:];
     }
@@ -3940,24 +3890,24 @@ void __29__ASCAgent__teamIDfromAppID___block_invoke(uint64_t a1)
   }
 }
 
-void __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_invoke(uint64_t a1)
+void __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_invoke_cold_1(a1, v2);
+    __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_invoke_cold_1(a1, v5);
   }
 }
 
 - (unsigned)_approvalStateForApplicationIdentifier:(id)identifier relyingParty:(id)party
 {
-  v61[3] = *MEMORY[0x1E69E9840];
+  v60[3] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   partyCopy = party;
-  v58 = 0;
-  v38 = identifierCopy;
-  v35 = [objc_alloc(MEMORY[0x1E69635D0]) safari_initWithExtensionApplicationIdentifier:v38 error:&v58];
-  v6 = v58;
+  v57 = 0;
+  v37 = identifierCopy;
+  v34 = [objc_alloc(MEMORY[0x1E69635D0]) safari_initWithExtensionApplicationIdentifier:v37 error:&v57];
+  v6 = v57;
   v7 = v6;
   if (v6 && ([v6 safari_matchesErrorDomain:*MEMORY[0x1E696A768] andCode:-10814] & 1) == 0)
   {
@@ -3966,67 +3916,67 @@ void __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_inv
     block[1] = 3221225472;
     block[2] = __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke;
     block[3] = &unk_1E815F9D0;
-    v57 = v7;
+    v56 = v7;
     os_activity_apply(authorizationActivity, block);
   }
 
   v9 = *MEMORY[0x1E69C8E70];
-  v61[0] = @"com.apple.AppSSO.idp-extension";
-  v61[1] = v9;
-  v61[2] = @"com.apple.ui-services";
-  v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:3];
-  extensionPointRecord = [v35 extensionPointRecord];
+  v60[0] = @"com.apple.AppSSO.idp-extension";
+  v60[1] = v9;
+  v60[2] = @"com.apple.ui-services";
+  v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:3];
+  extensionPointRecord = [v34 extensionPointRecord];
   identifier = [extensionPointRecord identifier];
 
-  applicationIdentifier = v38;
+  applicationIdentifier = v37;
   if (identifier)
   {
-    applicationIdentifier = v38;
-    if ([v32 containsObject:identifier])
+    applicationIdentifier = v37;
+    if ([v31 containsObject:identifier])
     {
-      containingBundleRecord = [v35 containingBundleRecord];
+      containingBundleRecord = [v34 containingBundleRecord];
       applicationIdentifier = [containingBundleRecord applicationIdentifier];
     }
   }
 
   v12 = objc_alloc(MEMORY[0x1E69CDB30]);
-  v33 = [v12 initWithServiceType:*MEMORY[0x1E69CDB48] applicationIdentifier:applicationIdentifier domain:partyCopy];
-  v55 = v7;
-  v13 = [MEMORY[0x1E69CDB28] serviceDetailsWithServiceSpecifier:v33 error:&v55];
-  v30 = v55;
+  v32 = [v12 initWithServiceType:*MEMORY[0x1E69CDB48] applicationIdentifier:applicationIdentifier domain:partyCopy];
+  v54 = v7;
+  v13 = [MEMORY[0x1E69CDB28] serviceDetailsWithServiceSpecifier:v32 error:&v54];
+  v29 = v54;
 
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 2;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 2;
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v47 objects:v60 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v46 objects:v59 count:16];
   if (v15)
   {
-    v16 = *v48;
+    v16 = *v47;
     do
     {
       v17 = 0;
       do
       {
-        if (*v48 != v16)
+        if (*v47 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v47 + 1) + 8 * v17);
-        if (*(v52 + 24) == 2 && ![*(*(&v47 + 1) + 8 * v17) siteApprovalState])
+        v18 = *(*(&v46 + 1) + 8 * v17);
+        if (*(v51 + 24) == 2 && ![*(*(&v46 + 1) + 8 * v17) siteApprovalState])
         {
-          *(v52 + 24) = 0;
+          *(v51 + 24) = 0;
         }
 
         else if ([v18 isApproved])
         {
-          *(v52 + 24) = 1;
+          *(v51 + 24) = 1;
           goto LABEL_21;
         }
 
@@ -4034,7 +3984,7 @@ void __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_inv
       }
 
       while (v15 != v17);
-      v19 = [v14 countByEnumeratingWithState:&v47 objects:v60 count:16];
+      v19 = [v14 countByEnumeratingWithState:&v46 objects:v59 count:16];
       v15 = v19;
     }
 
@@ -4042,48 +3992,48 @@ void __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_inv
   }
 
 LABEL_21:
-  v31 = v14;
+  v30 = v14;
 
-  v20 = *(v52 + 24);
+  v20 = *(v51 + 24);
   if (!v20)
   {
     v21 = dispatch_group_create();
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v22 = v14;
-    v23 = [v22 countByEnumeratingWithState:&v43 objects:v59 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v42 objects:v58 count:16];
     if (v23)
     {
-      v24 = *v44;
+      v24 = *v43;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v44 != v24)
+          if (*v43 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v43 + 1) + 8 * i);
+          v26 = *(*(&v42 + 1) + 8 * i);
           if (![v26 siteApprovalState])
           {
             os_activity_apply(self->_authorizationActivity, &__block_literal_global_355);
             dispatch_group_enter(v21);
-            v40[0] = MEMORY[0x1E69E9820];
-            v40[1] = 3221225472;
-            v40[2] = __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_356;
-            v40[3] = &unk_1E815FE78;
-            v42 = &v51;
-            v40[4] = self;
-            v40[5] = v26;
-            v41 = v21;
-            [v26 waitForSiteApprovalWithCompletionHandler:v40];
+            v39[0] = MEMORY[0x1E69E9820];
+            v39[1] = 3221225472;
+            v39[2] = __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_356;
+            v39[3] = &unk_1E815FE78;
+            v41 = &v50;
+            v39[4] = self;
+            v39[5] = v26;
+            v40 = v21;
+            [v26 waitForSiteApprovalWithCompletionHandler:v39];
           }
         }
 
-        v23 = [v22 countByEnumeratingWithState:&v43 objects:v59 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v42 objects:v58 count:16];
       }
 
       while (v23);
@@ -4092,31 +4042,30 @@ LABEL_21:
     v27 = dispatch_time(0, 1000000000);
     dispatch_group_wait(v21, v27);
 
-    v20 = *(v52 + 24);
+    v20 = *(v51 + 24);
   }
 
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v50, 8);
 
-  v28 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
-void __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke(uint64_t a1)
+void __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_cold_1(a1, v2);
+    __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_cold_1(a1, v5);
   }
 }
 
-void __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_353()
+void __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_353(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "SWC approval state was unspecified, will wait for approval", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "SWC approval state was unspecified, will wait for approval", v5, 2u);
   }
 }
 
@@ -4152,18 +4101,18 @@ LABEL_8:
   dispatch_group_leave(*(a1 + 48));
 }
 
-void __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_2(uint64_t a1)
+void __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_2_cold_1(a1, v2);
+    __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_2_cold_1(a1, v5);
   }
 }
 
 - (BOOL)_isClientWithApplicationIdentifier:(id)identifier properlyEntitledForRequestContext:(id)context error:(id *)error
 {
-  v98[1] = *MEMORY[0x1E69E9840];
+  v97[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   contextCopy = context;
   if ([contextCopy requestStyle] == 2)
@@ -4171,13 +4120,13 @@ void __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_
     connection = self->_connection;
     if (connection)
     {
-      [(NSXPCConnection *)connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
     {
+      v76 = 0u;
       v77 = 0u;
-      v78 = 0u;
     }
 
     if (WBSAuditTokenHasEntitlement())
@@ -4198,11 +4147,11 @@ LABEL_7:
         if (error)
         {
           v22 = MEMORY[0x1E696ABC0];
-          v97 = *MEMORY[0x1E696A588];
-          v98[0] = @"Only entitled web browsers can make this request.";
+          v96 = *MEMORY[0x1E696A588];
+          v97[0] = @"Only entitled web browsers can make this request.";
           v23 = MEMORY[0x1E695DF20];
-          v24 = v98;
-          v25 = &v97;
+          v24 = v97;
+          v25 = &v96;
           goto LABEL_43;
         }
 
@@ -4218,23 +4167,23 @@ LABEL_66:
     if ([contextCopy requestTypes] != 4)
     {
       v38 = self->_authorizationActivity;
-      v73[0] = MEMORY[0x1E69E9820];
-      v73[1] = 3221225472;
-      v73[2] = __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_382;
-      v73[3] = &unk_1E815F9D0;
-      v74 = contextCopy;
-      os_activity_apply(v38, v73);
+      v72[0] = MEMORY[0x1E69E9820];
+      v72[1] = 3221225472;
+      v72[2] = __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_382;
+      v72[3] = &unk_1E815F9D0;
+      v73 = contextCopy;
+      os_activity_apply(v38, v72);
       if (error)
       {
         v39 = MEMORY[0x1E696ABC0];
-        v91 = *MEMORY[0x1E696A588];
-        v92 = @"Silent requests are only allowed for platform assertions.";
-        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
+        v90 = *MEMORY[0x1E696A588];
+        v91 = @"Silent requests are only allowed for platform assertions.";
+        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
         *error = [v39 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v40];
       }
 
       v16 = 0;
-      relyingPartyIdentifier2 = v74;
+      relyingPartyIdentifier2 = v73;
       goto LABEL_59;
     }
 
@@ -4253,14 +4202,14 @@ LABEL_66:
       case 0:
         if (error)
         {
-          v63 = MEMORY[0x1E696ABC0];
-          v95 = *MEMORY[0x1E696A588];
-          v64 = MEMORY[0x1E696AEC0];
+          v62 = MEMORY[0x1E696ABC0];
+          v94 = *MEMORY[0x1E696A588];
+          v63 = MEMORY[0x1E696AEC0];
           relyingPartyIdentifier2 = [contextCopy relyingPartyIdentifier];
-          v65 = [v64 stringWithFormat:@"Unable to verify webcredentials association of %@ with domain %@. Please try again in a few seconds.", identifierCopy, relyingPartyIdentifier2];
-          v96 = v65;
-          v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
-          *error = [v63 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v66];
+          v64 = [v63 stringWithFormat:@"Unable to verify webcredentials association of %@ with domain %@. Please try again in a few seconds.", identifierCopy, relyingPartyIdentifier2];
+          v95 = v64;
+          v65 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+          *error = [v62 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v65];
 
 LABEL_50:
           v16 = 0;
@@ -4269,28 +4218,28 @@ LABEL_50:
 
         goto LABEL_66;
       case 2:
-        v56 = self->_authorizationActivity;
-        v75[0] = MEMORY[0x1E69E9820];
-        v75[1] = 3221225472;
-        v75[2] = __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_378;
-        v75[3] = &unk_1E815F9D0;
-        v57 = contextCopy;
-        v76 = v57;
-        os_activity_apply(v56, v75);
+        v55 = self->_authorizationActivity;
+        v74[0] = MEMORY[0x1E69E9820];
+        v74[1] = 3221225472;
+        v74[2] = __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_378;
+        v74[3] = &unk_1E815F9D0;
+        v56 = contextCopy;
+        v75 = v56;
+        os_activity_apply(v55, v74);
         if (error)
         {
-          v58 = MEMORY[0x1E696ABC0];
-          v93 = *MEMORY[0x1E696A588];
-          v59 = MEMORY[0x1E696AEC0];
-          relyingPartyIdentifier3 = [v57 relyingPartyIdentifier];
-          v61 = [v59 stringWithFormat:@"Application with identifier %@ is not associated with domain %@", identifierCopy, relyingPartyIdentifier3];
-          v94 = v61;
-          v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
-          *error = [v58 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v62];
+          v57 = MEMORY[0x1E696ABC0];
+          v92 = *MEMORY[0x1E696A588];
+          v58 = MEMORY[0x1E696AEC0];
+          relyingPartyIdentifier3 = [v56 relyingPartyIdentifier];
+          v60 = [v58 stringWithFormat:@"Application with identifier %@ is not associated with domain %@", identifierCopy, relyingPartyIdentifier3];
+          v93 = v60;
+          v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+          *error = [v57 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v61];
         }
 
         v16 = 0;
-        relyingPartyIdentifier2 = v76;
+        relyingPartyIdentifier2 = v75;
         goto LABEL_59;
       case 1:
         authorizationActivity = self->_authorizationActivity;
@@ -4310,10 +4259,10 @@ LABEL_8:
       block[1] = 3221225472;
       block[2] = __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_399;
       block[3] = &unk_1E815F9D0;
-      v70 = contextCopy;
+      v69 = contextCopy;
       os_activity_apply(v17, block);
       v16 = 0;
-      attestationPreference = v70;
+      attestationPreference = v69;
 LABEL_58:
 
       goto LABEL_59;
@@ -4328,10 +4277,10 @@ LABEL_58:
       if (error)
       {
         v35 = MEMORY[0x1E696ABC0];
-        v85 = *MEMORY[0x1E696A588];
+        v84 = *MEMORY[0x1E696A588];
         v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"This device is not configured to allow enterprise attestation for “%@”.", relyingPartyIdentifier2];
-        v86 = v36;
-        v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+        v85 = v36;
+        v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
         *error = [v35 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v37];
       }
     }
@@ -4352,9 +4301,9 @@ LABEL_35:
         if (error)
         {
           v26 = MEMORY[0x1E696ABC0];
-          v83 = *MEMORY[0x1E696A588];
-          v84 = @"Only entitled web browsers can use these options.";
-          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+          v82 = *MEMORY[0x1E696A588];
+          v83 = @"Only entitled web browsers can use these options.";
+          v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v83 forKeys:&v82 count:1];
           *error = [v26 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v27];
         }
       }
@@ -4377,31 +4326,31 @@ LABEL_35:
         if (error)
         {
           v31 = MEMORY[0x1E696ABC0];
-          v81 = *MEMORY[0x1E696A588];
-          v82 = v29;
-          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+          v80 = *MEMORY[0x1E696A588];
+          v81 = v29;
+          v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
           *error = [v31 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v32];
         }
 
         v33 = self->_authorizationActivity;
-        v67[0] = MEMORY[0x1E69E9820];
-        v67[1] = 3221225472;
-        v67[2] = __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_415;
-        v67[3] = &unk_1E815F9D0;
-        v68 = v30;
+        v66[0] = MEMORY[0x1E69E9820];
+        v66[1] = 3221225472;
+        v66[2] = __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_415;
+        v66[3] = &unk_1E815F9D0;
+        v67 = v30;
         v34 = v30;
-        os_activity_apply(v33, v67);
+        os_activity_apply(v33, v66);
       }
 
       else if (error)
       {
         v49 = MEMORY[0x1E696ABC0];
-        v79 = *MEMORY[0x1E696A588];
+        v78 = *MEMORY[0x1E696A588];
         v50 = MEMORY[0x1E696AEC0];
         relyingPartyIdentifier4 = [contextCopy relyingPartyIdentifier];
         v52 = [v50 stringWithFormat:@"Unable to verify webcredentials association of %@ with domain %@. Please try again in a few seconds.", identifierCopy, relyingPartyIdentifier4];
-        v80 = v52;
-        v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+        v79 = v52;
+        v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
         *error = [v49 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v53];
       }
     }
@@ -4416,11 +4365,11 @@ LABEL_35:
     if (error)
     {
       v22 = MEMORY[0x1E696ABC0];
-      v89 = *MEMORY[0x1E696A588];
-      v90 = @"Client does not have entitlement for using proxied credential request context.";
+      v88 = *MEMORY[0x1E696A588];
+      v89 = @"Client does not have entitlement for using proxied credential request context.";
       v23 = MEMORY[0x1E695DF20];
-      v24 = &v90;
-      v25 = &v89;
+      v24 = &v89;
+      v25 = &v88;
 LABEL_43:
       relyingPartyIdentifier2 = [v23 dictionaryWithObjects:v24 forKeys:v25 count:1];
       [v22 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:relyingPartyIdentifier2];
@@ -4442,22 +4391,22 @@ LABEL_43:
       if ((v15 & 1) == 0)
       {
         v41 = self->_authorizationActivity;
-        v71[0] = MEMORY[0x1E69E9820];
-        v71[1] = 3221225472;
-        v71[2] = __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_392;
-        v71[3] = &unk_1E815F9D0;
+        v70[0] = MEMORY[0x1E69E9820];
+        v70[1] = 3221225472;
+        v70[2] = __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_392;
+        v70[3] = &unk_1E815F9D0;
         relyingPartyIdentifier2 = relyingPartyIdentifier2;
-        v72 = relyingPartyIdentifier2;
-        os_activity_apply(v41, v71);
+        v71 = relyingPartyIdentifier2;
+        os_activity_apply(v41, v70);
         if (error)
         {
           v42 = MEMORY[0x1E696ABC0];
-          v87 = *MEMORY[0x1E696A588];
+          v86 = *MEMORY[0x1E696A588];
           v43 = MEMORY[0x1E696AEC0];
           proxiedAppName = [contextCopy proxiedAppName];
           v45 = [v43 stringWithFormat:@"%@ is not associated with domain %@.", proxiedAppName, relyingPartyIdentifier2];
-          v88 = v45;
-          v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+          v87 = v45;
+          v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
           *error = [v42 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v46];
         }
 
@@ -4471,148 +4420,147 @@ LABEL_43:
 LABEL_59:
 
 LABEL_60:
-  v54 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Allowing silent internal request.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Allowing silent internal request.", v5, 2u);
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_360()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_360(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_360_cold_1();
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_366()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_366(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Allowing silent request from web browser.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Allowing silent request from web browser.", v5, 2u);
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_369()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_369(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Allowing conditional request from web browser.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Allowing conditional request from web browser.", v5, 2u);
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_372()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_372(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Allowing conditional request from associated app.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Allowing conditional request from associated app.", v5, 2u);
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_378(uint64_t a1)
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_378(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_378_cold_1(a1, v2);
+    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_378_cold_1(a1, v5);
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_382(uint64_t a1)
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_382(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_382_cold_1(a1, v2);
+    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_382_cold_1(a1, v5);
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_386()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_386(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_386_cold_1();
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_392(uint64_t a1)
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_392(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_392_cold_1(a1);
+    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_392_cold_1();
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_396()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_396(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Allowing proxied request.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "Allowing proxied request.", v5, 2u);
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_399(uint64_t a1)
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_399(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_399_cold_1(a1, v2);
+    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_399_cold_1(a1, v5);
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_400()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_400(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_400_cold_1();
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_406()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_406(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Allowing request from web browser.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "Allowing request from web browser.", v5, 2u);
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_409()
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_409(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_409_cold_1();
   }
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_415(uint64_t a1)
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_415(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_415_cold_1(a1);
+    __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_415_cold_1();
   }
 }
 
@@ -4735,30 +4683,30 @@ uint64_t __51__ASCAgent__shouldAddCABLEChoiceForRequestContext___block_invoke(ui
 
 - (void)_credentialRequestedForPasswordLoginChoice:(id)choice completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   choiceCopy = choice;
   handlerCopy = handler;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   selfCopy = self;
   v8 = self->_passwordCredentials;
-  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [(NSArray *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v26 != v11)
+      if (*v25 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v25 + 1) + 8 * v12);
+      v13 = *(*(&v24 + 1) + 8 * v12);
       if (([v13 isExternal] & 1) == 0)
       {
         username = [choiceCopy username];
@@ -4773,7 +4721,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [(NSArray *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -4807,14 +4755,12 @@ LABEL_13:
     v22 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
     (handlerCopy)[2](handlerCopy, 0, v22);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
-void __73__ASCAgent__credentialRequestedForPasswordLoginChoice_completionHandler___block_invoke()
+void __73__ASCAgent__credentialRequestedForPasswordLoginChoice_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __73__ASCAgent__credentialRequestedForPasswordLoginChoice_completionHandler___block_invoke_cold_1();
   }
@@ -4829,16 +4775,17 @@ void __73__ASCAgent__credentialRequestedForPasswordLoginChoice_completionHandler
   passkeyCredentialCallback = self->_passkeyCredentialCallback;
   self->_passkeyCredentialCallback = v11;
 
-  if ([choiceCopy isExternal])
+  isExternal = [choiceCopy isExternal];
+  if (isExternal)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXAuthorization(isExternal, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [ASCAgent _credentialRequestedForPlatformLoginChoice:authenticatedContext:completionHandler:];
     }
 
-    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, 0, v14);
+    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
+    (*(handlerCopy + 2))(handlerCopy, 0, v16);
   }
 
   else
@@ -4852,9 +4799,9 @@ void __73__ASCAgent__credentialRequestedForPasswordLoginChoice_completionHandler
       authorizationActivity = self->_authorizationActivity;
       isConditionalRegistrationRequest = [(ASCCredentialRequestContext *)self->_requestContext isConditionalRegistrationRequest];
       testOptions = [(ASCCredentialRequestContext *)self->_requestContext testOptions];
-      v22 = [(ASPublicKeyCredentialManagerInterface *)publicKeyCredentialManager createNewPlatformCredentialWithOptions:platformKeyCredentialCreationOptions authenticatedContext:contextCopy delegate:self webFrameIdentifier:globalFrameID parentActivity:authorizationActivity isConditionalRegistration:isConditionalRegistrationRequest testOptions:testOptions];
+      v24 = [(ASPublicKeyCredentialManagerInterface *)publicKeyCredentialManager createNewPlatformCredentialWithOptions:platformKeyCredentialCreationOptions authenticatedContext:contextCopy delegate:self webFrameIdentifier:globalFrameID parentActivity:authorizationActivity isConditionalRegistration:isConditionalRegistrationRequest testOptions:testOptions];
       publicKeyCredentialOperationUUID = self->_publicKeyCredentialOperationUUID;
-      self->_publicKeyCredentialOperationUUID = v22;
+      self->_publicKeyCredentialOperationUUID = v24;
     }
 
     else
@@ -4866,7 +4813,7 @@ void __73__ASCAgent__credentialRequestedForPasswordLoginChoice_completionHandler
 
 - (void)_credentialRequestedForSecurityKeyLoginChoice:(id)choice
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   choiceCopy = choice;
   credentialKind = [choiceCopy credentialKind];
   if (credentialKind)
@@ -4882,8 +4829,8 @@ void __73__ASCAgent__credentialRequestedForPasswordLoginChoice_completionHandler
 
         v9 = self->_publicKeyCredentialManager;
         securityKeyCredentialAssertionOptions = [(ASCCredentialRequestContext *)self->_requestContext securityKeyCredentialAssertionOptions];
-        v24[0] = securityKeyCredentialAssertionOptions;
-        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+        v23[0] = securityKeyCredentialAssertionOptions;
+        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
         clientApplicationIdentifier = self->_clientApplicationIdentifier;
         globalFrameID = [(ASCCredentialRequestContext *)self->_requestContext globalFrameID];
         authorizationActivity = self->_authorizationActivity;
@@ -4907,8 +4854,6 @@ void __73__ASCAgent__credentialRequestedForPasswordLoginChoice_completionHandler
     testOptions2 = [(ASCCredentialRequestContext *)self->_requestContext testOptions];
     v22 = [(ASPublicKeyCredentialManagerInterface *)v17 beginCreatingNewSecurityKeyCredentialIfAvailableWithOptions:securityKeyCredentialCreationOptions delegate:self webFrameIdentifier:globalFrameID2 parentActivity:v20 testOptions:testOptions2];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_credentialRequestedForCABLELoginChoice:(id)choice
@@ -4967,23 +4912,23 @@ void __73__ASCAgent__credentialRequestedForPasswordLoginChoice_completionHandler
   }
 }
 
-void __52__ASCAgent__credentialRequestedForCABLELoginChoice___block_invoke()
+void __52__ASCAgent__credentialRequestedForCABLELoginChoice___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "caBLE client already started", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "caBLE client already started", v5, 2u);
   }
 }
 
-void __52__ASCAgent__credentialRequestedForCABLELoginChoice___block_invoke_425()
+void __52__ASCAgent__credentialRequestedForCABLELoginChoice___block_invoke_425(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Starting caBLE client", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "Starting caBLE client", v5, 2u);
   }
 }
 
@@ -5035,13 +4980,13 @@ void __52__ASCAgent__credentialRequestedForCABLELoginChoice___block_invoke_428(u
 LABEL_11:
 }
 
-void __52__ASCAgent__credentialRequestedForCABLELoginChoice___block_invoke_2()
+void __52__ASCAgent__credentialRequestedForCABLELoginChoice___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Not propagating internal cancel for caBLE in AutoFill", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "Not propagating internal cancel for caBLE in AutoFill", v5, 2u);
   }
 }
 
@@ -5072,23 +5017,23 @@ LABEL_7:
   return v9;
 }
 
-void __87__ASCAgent__canPerformConditionalRegistrationInICloudKeychainForUsername_relyingParty___block_invoke()
+void __87__ASCAgent__canPerformConditionalRegistrationInICloudKeychainForUsername_relyingParty___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Automatic passkey upgrades is off", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Automatic passkey upgrades is off", v5, 2u);
   }
 }
 
-void __87__ASCAgent__canPerformConditionalRegistrationInICloudKeychainForUsername_relyingParty___block_invoke_435()
+void __87__ASCAgent__canPerformConditionalRegistrationInICloudKeychainForUsername_relyingParty___block_invoke_435(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_INFO, "Matching passkey already exists.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_INFO, "Matching passkey already exists.", v5, 2u);
   }
 }
 
@@ -5113,46 +5058,46 @@ void __87__ASCAgent__canPerformConditionalRegistrationInICloudKeychainForUsernam
 
 void __112__ASCAgent__credentialRequestedForPasskeyAccountRegistrationLoginChoice_authenticatedContext_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  if (v3)
+  v4 = a2;
+  if (v4)
   {
-    v4 = [*(a1 + 32) publicKeyCredentialCreationOptions];
-    [v4 setUserName:v3];
-    [v4 setUserDisplayName:v3];
-    v5 = _Block_copy(*(a1 + 56));
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 168);
-    *(v6 + 168) = v5;
+    v5 = [*(a1 + 32) publicKeyCredentialCreationOptions];
+    [v5 setUserName:v4];
+    [v5 setUserDisplayName:v4];
+    v6 = _Block_copy(*(a1 + 56));
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 168);
+    *(v7 + 168) = v6;
 
-    v8 = [*(a1 + 32) userState];
-    v9 = *(a1 + 40);
-    v10 = *(v9 + 280);
-    *(v9 + 280) = v8;
+    v9 = [*(a1 + 32) userState];
+    v10 = *(a1 + 40);
+    v11 = *(v10 + 280);
+    *(v10 + 280) = v9;
 
-    v11 = *(a1 + 40);
-    v12 = *(a1 + 48);
-    v13 = *(v11 + 104);
-    v14 = [*(v11 + 56) globalFrameID];
-    v15 = *(a1 + 40);
-    v16 = *(v15 + 184);
-    v17 = [*(v15 + 56) testOptions];
-    v18 = [v13 createNewPlatformCredentialWithOptions:v4 authenticatedContext:v12 delegate:v11 webFrameIdentifier:v14 parentActivity:v16 isConditionalRegistration:0 testOptions:v17];
-    v19 = *(a1 + 40);
-    v20 = *(v19 + 176);
-    *(v19 + 176) = v18;
+    v12 = *(a1 + 40);
+    v13 = *(a1 + 48);
+    v14 = *(v12 + 104);
+    v15 = [*(v12 + 56) globalFrameID];
+    v16 = *(a1 + 40);
+    v17 = *(v16 + 184);
+    v18 = [*(v16 + 56) testOptions];
+    v19 = [v14 createNewPlatformCredentialWithOptions:v5 authenticatedContext:v13 delegate:v12 webFrameIdentifier:v15 parentActivity:v17 isConditionalRegistration:0 testOptions:v18];
+    v20 = *(a1 + 40);
+    v21 = *(v20 + 176);
+    *(v20 + 176) = v19;
   }
 
   else
   {
-    v21 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v22 = WBS_LOG_CHANNEL_PREFIXAuthorization(0, v3);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
       __112__ASCAgent__credentialRequestedForPasskeyAccountRegistrationLoginChoice_authenticatedContext_completionHandler___block_invoke_cold_1();
     }
 
-    v22 = *(a1 + 56);
-    v4 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
-    (*(v22 + 16))(v22, 0, v4);
+    v23 = *(a1 + 56);
+    v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:0];
+    (*(v23 + 16))(v23, 0, v5);
   }
 }
 
@@ -5182,10 +5127,10 @@ void __112__ASCAgent__credentialRequestedForPasskeyAccountRegistrationLoginChoic
   }
 }
 
-void __76__ASCAgent_authorizationPresenter_validateUserEnteredPIN_completionHandler___block_invoke()
+void __76__ASCAgent_authorizationPresenter_validateUserEnteredPIN_completionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __76__ASCAgent_authorizationPresenter_validateUserEnteredPIN_completionHandler___block_invoke_cold_1();
   }
@@ -5209,10 +5154,10 @@ void __76__ASCAgent_authorizationPresenter_validateUserEnteredPIN_completionHand
   }
 }
 
-void __54__ASCAgent_authorizationPresenterDidIgnorePINRequest___block_invoke()
+void __54__ASCAgent_authorizationPresenterDidIgnorePINRequest___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__ASCAgent_authorizationPresenterDidIgnorePINRequest___block_invoke_cold_1();
   }
@@ -5266,22 +5211,22 @@ void __54__ASCAgent_authorizationPresenterDidIgnorePINRequest___block_invoke()
   }
 }
 
-void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke()
+void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Starting caBLE authentication", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "Starting caBLE authentication", v5, 2u);
   }
 }
 
-void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_446(uint64_t a1)
+void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_446(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_446_cold_1(a1, v2);
+    __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_446_cold_1(a1, v5);
   }
 }
 
@@ -5339,39 +5284,37 @@ void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletio
   }
 }
 
-void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_2()
+void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_2_cold_1();
   }
 }
 
-void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_450(uint64_t a1)
+void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_450(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_450_cold_1(a1, v2);
+    __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_450_cold_1(a1, v5);
   }
 }
 
-uint64_t __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_451(uint64_t a1)
+uint64_t __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_451(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v10 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_INFO, "Beginning caBLE request: %{public}@", &v6, 0xCu);
+    v6 = *(a1 + 32);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_INFO, "Beginning caBLE request: %{public}@", &v8, 0xCu);
   }
 
-  result = [*(a1 + 32) logRequest];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) logRequest];
 }
 
 void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_452(uint64_t a1, void *a2, void *a3)
@@ -5388,7 +5331,7 @@ void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletio
       v10 = *(a1 + 40);
       if (v10)
       {
-        [v10 auditToken];
+        objc_msgSend_auditToken(v10);
       }
 
       else
@@ -5423,21 +5366,21 @@ void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletio
   }
 }
 
-void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_2_453()
+void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_2_453(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_2_453_cold_1();
   }
 }
 
-void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_456(uint64_t a1)
+void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_456(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_456_cold_1(a1, v2);
+    __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_456_cold_1(a1, v5);
   }
 }
 
@@ -5565,12 +5508,12 @@ LABEL_10:
 LABEL_6:
 }
 
-void __28__ASCAgent_didReceiveError___block_invoke(uint64_t a1)
+void __28__ASCAgent_didReceiveError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __28__ASCAgent_didReceiveError___block_invoke_cold_1(a1);
+    __28__ASCAgent_didReceiveError___block_invoke_cold_1();
   }
 }
 
@@ -5877,54 +5820,52 @@ LABEL_22:
 LABEL_45:
 }
 
-void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke(void *a1)
+void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v20 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = a1[5];
-    v5 = a1[6];
-    v6 = v2;
-    v7 = [v5 safari_privacyPreservingDescription];
-    v8 = *(a1[4] + 176);
-    v10 = 134218754;
-    v11 = v3;
-    v12 = 2114;
-    v13 = v4;
+    v6 = a1[4];
+    v7 = a1[5];
+    v8 = a1[6];
+    v9 = v5;
+    v10 = [v8 safari_privacyPreservingDescription];
+    v11 = *(a1[4] + 176);
+    v12 = 134218754;
+    v13 = v6;
     v14 = 2114;
     v15 = v7;
     v16 = 2114;
-    v17 = v8;
-    _os_log_impl(&dword_1C20AD000, v6, OS_LOG_TYPE_DEFAULT, "Completing authorization: %p %{public}@ %{public}@ %{public}@", &v10, 0x2Au);
+    v17 = v10;
+    v18 = 2114;
+    v19 = v11;
+    _os_log_impl(&dword_1C20AD000, v9, OS_LOG_TYPE_DEFAULT, "Completing authorization: %p %{public}@ %{public}@ %{public}@", &v12, 0x2Au);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
-void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_464()
+void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_464(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C20AD000, v0, OS_LOG_TYPE_DEFAULT, "Received internal cancel. Dropping.", v1, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C20AD000, v4, OS_LOG_TYPE_DEFAULT, "Received internal cancel. Dropping.", v5, 2u);
   }
 }
 
-void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_469(uint64_t a1)
+void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_469(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_469_cold_1(a1, v2);
+    __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_469_cold_1(a1, v5);
   }
 }
 
-void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_2(void *a1)
+void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_2(uint64_t a1)
 {
-  v2 = a1[4];
+  v2 = *(a1 + 32);
   v3 = *(v2 + 184);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -5932,27 +5873,23 @@ void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_2
   block[3] = &unk_1E815F9D0;
   block[4] = v2;
   os_activity_apply(v3, block);
-  v4 = a1[5];
-  v5 = a1[6];
-  (*(*(a1[4] + 96) + 16))();
-  v6 = a1[4];
-  v7 = *(v6 + 96);
-  *(v6 + 96) = 0;
+  (*(*(*(a1 + 32) + 96) + 16))();
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 96);
+  *(v4 + 96) = 0;
 }
 
-void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_3(uint64_t a1)
+void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(*(a1 + 32) + 64);
-    v5 = 138477827;
-    v6 = v3;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_DEFAULT, "Completed request for %{private}@", &v5, 0xCu);
+    v6 = *(*(a1 + 32) + 64);
+    v7 = 138477827;
+    v8 = v6;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_DEFAULT, "Completed request for %{private}@", &v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -5977,19 +5914,17 @@ void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_3
   [(ASCAgent *)&v5 dealloc];
 }
 
-void __19__ASCAgent_dealloc__block_invoke(uint64_t a1)
+void __19__ASCAgent_dealloc__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v5 = 134349056;
-    v6 = v3;
-    _os_log_impl(&dword_1C20AD000, v2, OS_LOG_TYPE_DEFAULT, "Dealloc for %{public}p. Cancelling any outstanding requests.", &v5, 0xCu);
+    v6 = *(a1 + 32);
+    v7 = 134349056;
+    v8 = v6;
+    _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_DEFAULT, "Dealloc for %{public}p. Cancelling any outstanding requests.", &v7, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)encodeMakeCredentialCTAPCommandForAuthenticatorWithUserVerificationAvailability:(unint64_t)availability authenticatorSupportedExtensions:(id)extensions
@@ -6032,18 +5967,18 @@ void __19__ASCAgent_dealloc__block_invoke(uint64_t a1)
 
 - (BOOL)_canCreateICloudKeychainPasskeyPreflightWithError:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (self->_test_overrideCanCreateICloudKeychainPasskey && [MEMORY[0x1E69C8880] isInternalInstall])
+  v17 = *MEMORY[0x1E69E9840];
+  if (self->_test_overrideCanCreateICloudKeychainPasskey && (v5 = [MEMORY[0x1E69C8880] isInternalInstall], v5))
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXAuthorization(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v15 = "[ASCAgent _canCreateICloudKeychainPasskeyPreflightWithError:]";
-      _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_INFO, "Using test override for %s", buf, 0xCu);
+      v16 = "[ASCAgent _canCreateICloudKeychainPasskeyPreflightWithError:]";
+      _os_log_impl(&dword_1C20AD000, v7, OS_LOG_TYPE_INFO, "Using test override for %s", buf, 0xCu);
     }
 
-    result = [(NSNumber *)self->_test_overrideCanCreateICloudKeychainPasskey BOOLValue];
+    return [(NSNumber *)self->_test_overrideCanCreateICloudKeychainPasskey BOOLValue];
   }
 
   else
@@ -6053,30 +5988,27 @@ void __19__ASCAgent_dealloc__block_invoke(uint64_t a1)
 
     if (isKeychainSyncEnabled)
     {
-      result = 1;
+      return 1;
     }
 
     else
     {
       os_activity_apply(self->_authorizationActivity, &__block_literal_global_477);
-      v9 = MEMORY[0x1E696ABC0];
-      v12 = *MEMORY[0x1E696A588];
-      v13 = @"iCloud Keychain is off.";
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-      *error = [v9 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v10];
+      v11 = MEMORY[0x1E696ABC0];
+      v13 = *MEMORY[0x1E696A588];
+      v14 = @"iCloud Keychain is off.";
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+      *error = [v11 errorWithDomain:@"com.apple.AuthenticationServicesCore.AuthorizationError" code:1 userInfo:v12];
 
-      result = 0;
+      return 0;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-void __62__ASCAgent__canCreateICloudKeychainPasskeyPreflightWithError___block_invoke()
+void __62__ASCAgent__canCreateICloudKeychainPasskeyPreflightWithError___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v4 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__ASCAgent__canCreateICloudKeychainPasskeyPreflightWithError___block_invoke_cold_1();
   }
@@ -6103,17 +6035,17 @@ void __62__ASCAgent__canCreateICloudKeychainPasskeyPreflightWithError___block_in
 
 - (BOOL)_connection:(id)_connection hasEntitlement:(id)entitlement
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   _connectionCopy = _connection;
   entitlementCopy = entitlement;
-  if (-[NSDictionary count](self->_test_overrideEntitlements, "count") && [MEMORY[0x1E69C8880] isInternalInstall])
+  if (-[NSDictionary count](self->_test_overrideEntitlements, "count") && (v8 = [MEMORY[0x1E69C8880] isInternalInstall], v8))
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = WBS_LOG_CHANNEL_PREFIXAuthorization(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      LODWORD(v13[0]) = 136315138;
-      *(v13 + 4) = "[ASCAgent _connection:hasEntitlement:]";
-      _os_log_impl(&dword_1C20AD000, v8, OS_LOG_TYPE_INFO, "Using test override for %s", v13, 0xCu);
+      LODWORD(v14[0]) = 136315138;
+      *(v14 + 4) = "[ASCAgent _connection:hasEntitlement:]";
+      _os_log_impl(&dword_1C20AD000, v10, OS_LOG_TYPE_INFO, "Using test override for %s", v14, 0xCu);
     }
 
     HasEntitlement = [(NSDictionary *)self->_test_overrideEntitlements safari_BOOLForKey:entitlementCopy];
@@ -6123,35 +6055,34 @@ void __62__ASCAgent__canCreateICloudKeychainPasskeyPreflightWithError___block_in
   {
     if (_connectionCopy)
     {
-      [_connectionCopy auditToken];
+      objc_msgSend_auditToken(_connectionCopy);
     }
 
     else
     {
-      memset(v13, 0, sizeof(v13));
+      memset(v14, 0, sizeof(v14));
     }
 
     HasEntitlement = WBSAuditTokenHasEntitlement();
   }
 
-  v10 = HasEntitlement;
+  v12 = HasEntitlement;
 
-  v11 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v12;
 }
 
 - (BOOL)_isValidContext:(id)context
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  if (self->_test_overrideIsLAContextValid && [MEMORY[0x1E69C8880] isInternalInstall])
+  if (self->_test_overrideIsLAContextValid && (v5 = [MEMORY[0x1E69C8880] isInternalInstall], v5))
   {
-    v5 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = WBS_LOG_CHANNEL_PREFIXAuthorization(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v20 = "[ASCAgent _isValidContext:]";
-      _os_log_impl(&dword_1C20AD000, v5, OS_LOG_TYPE_INFO, "Using test override for %s", buf, 0xCu);
+      v21 = "[ASCAgent _isValidContext:]";
+      _os_log_impl(&dword_1C20AD000, v7, OS_LOG_TYPE_INFO, "Using test override for %s", buf, 0xCu);
     }
 
     bOOLValue = [(NSNumber *)self->_test_overrideIsLAContextValid BOOLValue];
@@ -6159,54 +6090,63 @@ void __62__ASCAgent__canCreateICloudKeychainPasskeyPreflightWithError___block_in
 
   else
   {
-    v7 = WBSAuthenticationPolicyForPasswordManager();
-    v17 = &unk_1F41ABBC8;
-    v18 = MEMORY[0x1E695E118];
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-    v16 = 0;
-    v9 = [contextCopy evaluatePolicy:v7 options:v8 error:&v16];
-    v10 = v16;
+    v9 = WBSAuthenticationPolicyForPasswordManager();
+    v18 = &unk_1F41ABBC8;
+    v19 = MEMORY[0x1E695E118];
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = 0;
+    v11 = [contextCopy evaluatePolicy:v9 options:v10 error:&v17];
+    v12 = v17;
 
-    bOOLValue = v9 != 0;
-    if (!v9)
+    bOOLValue = v11 != 0;
+    if (!v11)
     {
       authorizationActivity = self->_authorizationActivity;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __28__ASCAgent__isValidContext___block_invoke;
-      v14[3] = &unk_1E815F9D0;
-      v15 = v10;
-      os_activity_apply(authorizationActivity, v14);
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __28__ASCAgent__isValidContext___block_invoke;
+      v15[3] = &unk_1E815F9D0;
+      v16 = v12;
+      os_activity_apply(authorizationActivity, v15);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
-void __28__ASCAgent__isValidContext___block_invoke(uint64_t a1)
+void __28__ASCAgent__isValidContext___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v5 = WBS_LOG_CHANNEL_PREFIXAuthorization(a1, a2);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    __28__ASCAgent__isValidContext___block_invoke_cold_1(a1, v2);
+    __28__ASCAgent__isValidContext___block_invoke_cold_1(a1, v5);
   }
 }
 
 - (void)test_setOverrideEntitlements:(id)entitlements
 {
-  v4 = [entitlements copy];
-  test_overrideEntitlements = self->_test_overrideEntitlements;
-  self->_test_overrideEntitlements = v4;
+  self->_test_overrideEntitlements = [entitlements copy];
+
+  MEMORY[0x1EEE66BB8]();
+}
+
+- (void)test_setOverrideCanCreateICloudKeychainPasskey:(BOOL)passkey
+{
+  self->_test_overrideCanCreateICloudKeychainPasskey = [MEMORY[0x1E696AD98] numberWithBool:passkey];
+
+  MEMORY[0x1EEE66BB8]();
+}
+
+- (void)test_setOverrideISLAContextValid:(BOOL)valid
+{
+  self->_test_overrideIsLAContextValid = [MEMORY[0x1E696AD98] numberWithBool:valid];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)test_setOverrideExtensionStates:(id)states
 {
-  v4 = [states copy];
-  test_overrideExtensionStates = self->_test_overrideExtensionStates;
-  self->_test_overrideExtensionStates = v4;
+  self->_test_overrideExtensionStates = [states copy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -6294,43 +6234,28 @@ void __100__ASCAgent_test_prepareForAuthorizationRequestsForContext_clientConnec
   return optionsCopy & 1;
 }
 
-void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_63_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
 void __83__ASCAgent_performAuthorizationRequestsForContext_withPresenter_completionHandler___block_invoke_2_72_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Could not perform authorization: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Could not perform authorization: %{public}@", v6, v7, v8, v9);
 }
 
-void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_4_cold_1(uint64_t a1)
+void __79__ASCAgent_performSilentAuthorizationRequestsForContext_withCompletionHandler___block_invoke_4_cold_1()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_presentationContext_requestContext_completionHandler___block_invoke_2_164_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Lost connection to automatic passkey upgrade requester: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Lost connection to automatic passkey upgrade requester: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)getPasskeysDataForRelyingParty:withCompletionHandler:.cold.1()
@@ -6349,185 +6274,135 @@ void __124__ASCAgent__requestConditionalRegistrationOnProvider_listenerEndpoint_
 
 - (void)deletePasskeyForRelyingParty:withCredentialID:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteAllPasskeysForRelyingParty:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_6();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
   [OUTLINED_FUNCTION_1() count];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Found unexpected number of login choices: %{public}ld", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v3, v4, "Found unexpected number of login choices: %{public}ld", v5, v6, v7, v8);
 }
 
-void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_201_cold_1(uint64_t a1)
+void __72__ASCAgent__implicitlySelectAssertionLoginChoiceFromChoices_forContext___block_invoke_201_cold_1()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __32__ASCAgent_cancelCurrentRequest__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __96__ASCAgent__prepareForAuthorizationRequestsForContext_clientConnection_withPresentationHandler___block_invoke_4_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_userHasSignInWithAppleAccountForPresentingClientID
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *self;
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_6();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __73__ASCAgent_browserPasskeysForRelyingParty_testOptions_completionHandler___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = OUTLINED_FUNCTION_1();
-  v5 = NSStringFromSelector(v4);
+  v3 = OUTLINED_FUNCTION_1();
+  v4 = NSStringFromSelector(v3);
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_8(&dword_1C20AD000, v6, v7, "Rejecting invocation of restricted method %{public}@ from unentitled process.", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8(&dword_1C20AD000, v5, v6, "Rejecting invocation of restricted method %{public}@ from unentitled process.", v7, v8, v9, v10);
 }
 
 void __31__ASCAgent__bundleIDFromAppID___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Failed to get application bundle identifier with error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Failed to get application bundle identifier with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __29__ASCAgent__teamIDfromAppID___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Failed to get application team identifier with error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Failed to get application team identifier with error: %{public}@", v6, v7, v8, v9);
 }
 
 void __61__ASCAgent__performAuthKitAuthorizationValidationForAccount___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Cannot perform AuthKit authorization due to error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Cannot perform AuthKit authorization due to error: %{public}@", v6, v7, v8, v9);
 }
 
 void __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Error checking extension application identifier: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Error checking extension application identifier: %{public}@", v6, v7, v8, v9);
 }
 
 void __64__ASCAgent__approvalStateForApplicationIdentifier_relyingParty___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Error while waiting for site approval: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Error while waiting for site approval: %{public}@", v6, v7, v8, v9);
 }
 
 void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_378_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() relyingPartyIdentifier];
+  v3 = [OUTLINED_FUNCTION_1() relyingPartyIdentifier];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Client attempted to make conditional request for non-associated rp: %{private}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Client attempted to make conditional request for non-associated rp: %{private}@", v6, v7, v8, v9);
 }
 
 void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_382_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
   [OUTLINED_FUNCTION_1() requestTypes];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Client attempted to make silent request for unsupported credential types: %{public}ld", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v3, v4, "Client attempted to make silent request for unsupported credential types: %{public}ld", v5, v6, v7, v8);
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_392_cold_1(uint64_t a1)
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_392_cold_1()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_399_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
   [OUTLINED_FUNCTION_1() requestTypes];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_8(&dword_1C20AD000, v4, v5, "Attempted to make a request of type %lx without setting relying party.", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_8(&dword_1C20AD000, v3, v4, "Attempted to make a request of type %lx without setting relying party.", v5, v6, v7, v8);
 }
 
-void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_415_cold_1(uint64_t a1)
+void __87__ASCAgent__isClientWithApplicationIdentifier_properlyEntitledForRequestContext_error___block_invoke_415_cold_1()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __112__ASCAgent__credentialRequestedForPasskeyAccountRegistrationLoginChoice_authenticatedContext_completionHandler___block_invoke_cold_1()
@@ -6539,66 +6414,50 @@ void __112__ASCAgent__credentialRequestedForPasskeyAccountRegistrationLoginChoic
 
 void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_446_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Failed to create caBLE authenticator: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Failed to create caBLE authenticator: %{public}@", v6, v7, v8, v9);
 }
 
 void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_450_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Failed to start caBLE authenticator: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Failed to start caBLE authenticator: %{public}@", v6, v7, v8, v9);
 }
 
 void __81__ASCAgent_authorizationPresenter_startCABLEAuthenticationWithCompletionHandler___block_invoke_456_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Failed to prepare for caBLE authorization: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Failed to prepare for caBLE authorization: %{public}@", v6, v7, v8, v9);
 }
 
-void __28__ASCAgent_didReceiveError___block_invoke_cold_1(uint64_t a1)
+void __28__ASCAgent_didReceiveError___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_10(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_10(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void __56__ASCAgent__authorizationCompletedWithCredential_error___block_invoke_469_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Could not fetch application record for client: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Could not fetch application record for client: %{public}@", v6, v7, v8, v9);
 }
 
 void __28__ASCAgent__isValidContext___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_7(a1, a2);
-  v4 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
+  v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_1C20AD000, v5, v6, "Invalid LAContext provided: %{public}@.", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1C20AD000, v4, v5, "Invalid LAContext provided: %{public}@.", v6, v7, v8, v9);
 }
 
 @end

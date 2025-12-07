@@ -157,7 +157,7 @@
 - (void)significantTimeChangeDidOccur
 {
   ObjectType = swift_getObjectType();
-  v5 = sub_2187DEAC4(&qword_280ECFA70, v4, type metadata accessor for TodayViewController);
+  v5 = sub_2187DEAC4(&qword_280ECFA70, v4, type metadata accessor for TodayViewController, &unk_219CA346C);
   selfCopy = self;
   v6 = MEMORY[0x21CEBCBD0](ObjectType, v5);
   if (v6)

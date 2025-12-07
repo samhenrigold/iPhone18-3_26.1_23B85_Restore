@@ -11,7 +11,7 @@
 
 - (id)parameterStateFromLinkValue:(id)value
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   value = [value value];
   if (!value)
   {
@@ -29,12 +29,12 @@ LABEL_12:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       valueType2 = [(WFLinkActionParameterDefinition *)self valueType];
-      v16 = 136315650;
-      v17 = "[WFLinkActionPhotoItemCollectionParameterDefinition parameterStateFromLinkValue:]";
-      v18 = 2114;
-      v19 = value;
-      v20 = 2114;
-      v21 = valueType2;
+      v15 = 136315650;
+      v16 = "[WFLinkActionPhotoItemCollectionParameterDefinition parameterStateFromLinkValue:]";
+      v17 = 2114;
+      v18 = value;
+      v19 = 2114;
+      v20 = valueType2;
     }
 
     goto LABEL_12;
@@ -62,7 +62,6 @@ LABEL_12:
   }
 
 LABEL_13:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -130,7 +129,7 @@ LABEL_13:
 
 - (id)localizedTitleForLinkValue:(id)value
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   if (valueCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -140,34 +139,34 @@ LABEL_13:
     if (firstObject)
     {
       mEMORY[0x1E6996F50] = [MEMORY[0x1E6996F50] sharedLibrary];
-      v19 = 0;
-      v7 = [mEMORY[0x1E6996F50] systemPhotoLibraryWithError:&v19];
-      v8 = v19;
+      v18 = 0;
+      v7 = [mEMORY[0x1E6996F50] systemPhotoLibraryWithError:&v18];
+      v8 = v18;
 
       if (v7)
       {
         librarySpecificFetchOptions = [v7 librarySpecificFetchOptions];
-        v20 = 0;
-        v21 = &v20;
-        v22 = 0x2050000000;
+        v19 = 0;
+        v20 = &v19;
+        v21 = 0x2050000000;
         v10 = getPHAssetCollectionClass_softClass;
-        v23 = getPHAssetCollectionClass_softClass;
+        v22 = getPHAssetCollectionClass_softClass;
         if (!getPHAssetCollectionClass_softClass)
         {
           *buf = MEMORY[0x1E69E9820];
           *&buf[8] = 3221225472;
           *&buf[16] = __getPHAssetCollectionClass_block_invoke;
-          v26 = &unk_1E837FAC0;
-          v27 = &v20;
+          v25 = &unk_1E837FAC0;
+          v26 = &v19;
           __getPHAssetCollectionClass_block_invoke(buf);
-          v10 = v21[3];
+          v10 = v20[3];
         }
 
         v11 = v10;
-        _Block_object_dispose(&v20, 8);
+        _Block_object_dispose(&v19, 8);
         identifier = [firstObject identifier];
-        v24 = identifier;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+        v23 = identifier;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
         v14 = [v10 fetchAssetCollectionsWithLocalIdentifiers:v13 options:librarySpecificFetchOptions];
         firstObject2 = [v14 firstObject];
 
@@ -201,8 +200,6 @@ LABEL_13:
 
     localizedTitle = 0;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return localizedTitle;
 }

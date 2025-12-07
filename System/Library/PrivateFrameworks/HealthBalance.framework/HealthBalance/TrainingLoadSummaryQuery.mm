@@ -14,8 +14,7 @@
 {
   v5 = sub_1CFE30354();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v5, v7);
   v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = sub_1CFE30A84();
   sub_1CFE30344();
@@ -27,7 +26,7 @@
 
 + (Class)configurationClass
 {
-  type metadata accessor for TrainingLoadDaySummaryQueryConfiguration();
+  type metadata accessor for TrainingLoadDaySummaryQueryConfiguration(0);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -51,8 +50,7 @@
   ObjectType = swift_getObjectType();
   v5 = sub_1CFE30354();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x1EEE9AC00](v5);
+  MEMORY[0x1EEE9AC00](v5, v7);
   v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1CFE30344();
   selfCopy = self;
@@ -67,7 +65,7 @@
   v14 = *(&selfCopy->super._hasBeenExecuted + OBJC_IVAR____TtC13HealthBalance24TrainingLoadSummaryQuery_queue_resultsHandler);
   *v12 = 0;
   v12[1] = 0;
-  sub_1CFDAC3D4(v13);
+  sub_1CFDAC3D4(v13, v14);
 }
 
 + (void)configureClientInterface:(id)interface

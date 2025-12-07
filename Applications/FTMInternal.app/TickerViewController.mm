@@ -20,7 +20,7 @@
 {
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC11FTMInternal20TickerViewController_numberValue);
   selfCopy = self;
-  sub_1002065E0(v3);
+  sub_1002065E0(v3, selfCopy, v4);
 }
 
 - (_TtC11FTMInternal20TickerViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -34,85 +34,79 @@
 {
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   __chkstk_darwin(v8);
-  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
   sub_10020730C();
-  v17 = v16;
-  v19 = v18;
+  v16 = v15;
+  v18 = v17;
 
-  (*(v9 + 8))(v12, v8);
-  v20 = v17;
-  v21 = v19;
-  result.height = v21;
-  result.width = v20;
+  (*(v9 + 8))(v11, v8);
+  v19 = v16;
+  v20 = v18;
+  result.height = v20;
+  result.width = v19;
   return result;
 }
 
 - (UIEdgeInsets)collectionView:(id)view layout:(id)layout insetForSectionAtIndex:(int64_t)index
 {
-  v6 = *(&self->super.super.super.isa + OBJC_IVAR____TtC11FTMInternal20TickerViewController_stringValue);
-  v7 = *&self->numericAlphabet[OBJC_IVAR____TtC11FTMInternal20TickerViewController_stringValue];
   viewCopy = view;
   selfCopy = self;
 
-  v10 = String.count.getter();
+  v8 = String.count.getter();
 
-  if (__OFSUB__(v10, 4))
+  if (__OFSUB__(v8, 4))
   {
     __break(1u);
   }
 
   else
   {
-    v15 = (v10 - 4) * 32.0 + 68.0;
+    v13 = (v8 - 4) * 32.0 + 68.0;
     layer = [viewCopy layer];
     [layer frame];
-    v18 = v17;
+    v16 = v15;
 
-    v12 = (v18 - v15) * 0.5;
+    v10 = (v16 - v13) * 0.5;
+    v9 = 0.0;
     v11 = 0.0;
-    v13 = 0.0;
-    v14 = v12;
+    v12 = v10;
   }
 
-  result.right = v14;
-  result.bottom = v13;
-  result.left = v12;
-  result.top = v11;
+  result.right = v12;
+  result.bottom = v11;
+  result.left = v10;
+  result.top = v9;
   return result;
 }
 
 - (int64_t)collectionView:(id)view numberOfItemsInSection:(int64_t)section
 {
-  v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC11FTMInternal20TickerViewController_stringValue);
-  v5 = *&self->numericAlphabet[OBJC_IVAR____TtC11FTMInternal20TickerViewController_stringValue];
   selfCopy = self;
 
-  v7 = String.count.getter();
+  v5 = String.count.getter();
 
-  return v7;
+  return v5;
 }
 
 - (id)collectionView:(id)view cellForItemAtIndexPath:(id)path
 {
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_100206D50(viewCopy);
+  v12 = sub_100206D50(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 @end

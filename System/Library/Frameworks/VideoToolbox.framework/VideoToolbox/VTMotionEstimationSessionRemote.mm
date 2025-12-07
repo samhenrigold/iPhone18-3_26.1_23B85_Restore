@@ -3,7 +3,7 @@
 
 @implementation VTMotionEstimationSessionRemote
 
-uint64_t __VTMotionEstimationSessionRemote_Create_block_invoke(uint64_t a1, mach_port_t a2, int a3, _DWORD *a4, void *a5, void *a6)
+uint64_t __VTMotionEstimationSessionRemote_Create_block_invoke(uint64_t a1, mach_port_t a2, int a3, int *a4, void *a5, void *a6)
 {
   v23 = *MEMORY[0x1E69E9840];
   v21 = 0;

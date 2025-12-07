@@ -12,41 +12,41 @@
 
 - (void)enumerateObserversWithBlock:(id)block
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   blockCopy = block;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__867;
-  v19 = __Block_byref_object_dispose__868;
-  v20 = 0;
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __61__CSLPRFConcurrentObserverStore_enumerateObserversWithBlock___block_invoke;
-  v14[3] = &unk_278745590;
-  v14[4] = self;
-  v14[5] = &v15;
-  [(CSLPRFConcurrentObserverStore *)self _withLock:v14];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__867;
+  v18 = __Block_byref_object_dispose__868;
+  v19 = 0;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __61__CSLPRFConcurrentObserverStore_enumerateObserversWithBlock___block_invoke;
+  v13[3] = &unk_278745590;
+  v13[4] = self;
+  v13[5] = &v14;
+  [(CSLPRFConcurrentObserverStore *)self _withLock:v13];
   v11 = 0u;
-  v5 = v16[5];
-  v6 = [v5 countByEnumeratingWithState:&v10 objects:v21 count:16];
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v5 = v15[5];
+  v6 = [v5 countByEnumeratingWithState:&v9 objects:v20 count:16];
   if (v6)
   {
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        if (*(*(&v10 + 1) + 8 * v8))
+        if (*(*(&v9 + 1) + 8 * v8))
         {
           blockCopy[2](blockCopy);
         }
@@ -55,23 +55,19 @@
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v10 objects:v21 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v9 objects:v20 count:16];
     }
 
     while (v6);
   }
 
-  _Block_object_dispose(&v15, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
 }
 
 uint64_t __61__CSLPRFConcurrentObserverStore_enumerateObserversWithBlock___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) compact];
-  v2 = [*(*(a1 + 32) + 16) allObjects];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 16) allObjects];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -93,11 +89,9 @@ uint64_t __61__CSLPRFConcurrentObserverStore_enumerateObserversWithBlock___block
 void __105__CSLPRFConcurrentObserverStore_performSelectorOnMainThreadWithRespondingObservers_object_waitUntilDone___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 40);
-  v5 = v3;
   if (objc_opt_respondsToSelector())
   {
-    [v5 performSelectorOnMainThread:*(a1 + 40) withObject:*(a1 + 32) waitUntilDone:*(a1 + 48)];
+    [v3 performSelectorOnMainThread:*(a1 + 40) withObject:*(a1 + 32) waitUntilDone:*(a1 + 48)];
   }
 }
 
@@ -183,7 +177,7 @@ LABEL_7:
   return v2;
 }
 
-uint64_t __38__CSLPRFConcurrentObserverStore_count__block_invoke(uint64_t a1)
+void *__38__CSLPRFConcurrentObserverStore_count__block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) compact];
   result = [*(*(a1 + 32) + 16) count];

@@ -89,7 +89,7 @@ VCServerBag *__29__VCServerBag_sharedInstance__block_invoke()
   pthread_mutex_unlock(&self->isLoadedMutex);
 }
 
-uint64_t __29__VCServerBag_waitForBagLoad__block_invoke(uint64_t a1)
+void *__29__VCServerBag_waitForBagLoad__block_invoke(uint64_t a1)
 {
   v6[5] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD88] defaultCenter];

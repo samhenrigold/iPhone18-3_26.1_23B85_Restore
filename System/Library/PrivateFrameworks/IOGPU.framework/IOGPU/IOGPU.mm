@@ -50,14 +50,14 @@ uint64_t IOGPUDeviceGetNextGlobalTraceID(uint64_t a1)
   return result;
 }
 
-uint64_t IOGPUDeviceTraceObjectLabel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t IOGPUDeviceTraceObjectLabel(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v6 = kdebug_trace_string();
-  if (v6 != -1)
+  v7 = kdebug_trace_string();
+  if (v7 != -1)
   {
-    v7 = v6;
+    v8 = v7;
     kdebug_trace();
-    return v7;
+    return v8;
   }
 
   return a5;
@@ -108,14 +108,15 @@ LABEL_8:
   return v2;
 }
 
-IOGPUMetalCommandBufferStorage *IOGPUMetalCommandBufferStoragePoolCreateStorage(uint64_t a1, uint64_t a2, int a3)
+IOGPUMetalCommandBufferStorage *IOGPUMetalCommandBufferStoragePoolCreateStorage(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   os_unfair_lock_lock((a1 + 16));
   Ext = *a1;
   if (!*a1)
   {
     os_unfair_lock_unlock((a1 + 16));
-    Ext = IOGPUMetalCommandBufferStorageCreateExt(*(a1 + 32), *(a1 + 40), a2, a3);
+    Ext = IOGPUMetalCommandBufferStorageCreateExt(*(a1 + 32), *(a1 + 40), a2, v3);
     if (!Ext)
     {
       return Ext;
@@ -140,14 +141,13 @@ IOGPUMetalCommandBufferStorage *IOGPUMetalCommandBufferStoragePoolCreateStorage(
   os_unfair_lock_unlock((a1 + 16));
   *&Ext->var31 = a2;
   var20 = Ext->var20;
-  if (a3)
+  if (v3)
   {
     if (var20)
     {
       goto LABEL_12;
     }
 
-    v11 = *(*(a1 + 40) + 40);
     ResourceList = MTLResourceListPoolCreateResourceList();
   }
 
@@ -176,50 +176,50 @@ LABEL_13:
   return Ext;
 }
 
-void IOGPUMetalCommandBufferStorageBeginKernelCommands(uint64_t a1, int a2)
+void IOGPUMetalCommandBufferStorageBeginKernelCommands(uint64_t result, int a2)
 {
-  v4 = *(a1 + 816);
+  v4 = *(result + 816);
   if (v4)
   {
-    v5 = a2 - *(a1 + 40);
+    v5 = a2 - *(result + 40);
     goto LABEL_11;
   }
 
-  v6 = *(a1 + 832);
+  v6 = *(result + 832);
   if (v6 != -1)
   {
     if (!v6)
     {
-      v4 = *(a1 + 128);
-      *(*(a1 + 120) + 12) = v4 - *(a1 + 120);
-      *(a1 + 808) = v4;
-      *(a1 + 120) = 0;
-      *(a1 + 128) = 0u;
-      *(a1 + 848) = 0u;
+      v4 = *(result + 128);
+      *(*(result + 120) + 12) = v4 - *(result + 120);
+      *(result + 808) = v4;
+      *(result + 120) = 0;
+      *(result + 128) = 0u;
+      *(result + 848) = 0u;
       goto LABEL_8;
     }
 
     MTLReleaseAssertionFailure();
   }
 
-  v4 = *(a1 + 808);
+  v4 = *(result + 808);
 LABEL_8:
-  *(a1 + 816) = v4;
-  *(a1 + 832) = 1;
-  *(a1 + 824) = 0;
-  if ((v4 + 48) >= *(a1 + 112))
+  *(result + 816) = v4;
+  *(result + 832) = 1;
+  *(result + 824) = 0;
+  if ((v4 + 48) >= *(result + 112))
   {
-    IOGPUMetalCommandBufferStorageGrowSegmentList(a1);
-    v4 = *(a1 + 816);
+    IOGPUMetalCommandBufferStorageGrowSegmentList(result);
+    v4 = *(result + 816);
   }
 
-  *v4 = *(a1 + 800);
+  *v4 = *(result + 800);
   *(v4 + 8) = 0x4000000100000000;
-  v5 = a2 - *(a1 + 40);
+  v5 = a2 - *(result + 40);
   *(v4 + 16) = v5;
 LABEL_11:
-  v7 = *(a1 + 824);
-  v8 = *(a1 + 828);
+  v7 = *(result + 824);
+  v8 = *(result + 828);
   if (v8)
   {
     if (*(v4 + 8 * (v8 - 1) + 20) == v5)
@@ -230,14 +230,14 @@ LABEL_11:
     ++v7;
   }
 
-  if (v4 + 8 * (v7 + 1) + 16 >= *(a1 + 112))
+  if (v4 + 8 * (v7 + 1) + 16 >= *(result + 112))
   {
-    IOGPUMetalCommandBufferStorageGrowSegmentList(a1);
-    v4 = *(a1 + 816);
+    IOGPUMetalCommandBufferStorageGrowSegmentList(result);
+    v4 = *(result + 816);
   }
 
   *(v4 + 8 * v7 + 16) = v5;
-  *(a1 + 824) = v7;
+  *(result + 824) = v7;
 }
 
 uint64_t _ioGPUResourceListAddResourceEntry(uint64_t a1, uint64_t a2, uint64_t a3, char a4)
@@ -307,14 +307,13 @@ uint64_t _ioGPUResourceListAddResourceEntry(uint64_t a1, uint64_t a2, uint64_t a
   *(a1 + 548) = v18;
   if (*a2)
   {
-    v19 = *(a1 + 560);
     IOSurfaceBindAccel();
   }
 
   return v13 & 0xFFFFFF;
 }
 
-uint64_t IOGPUResourceListAddResource(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t IOGPUResourceListAddResource(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a2 + 16);
   v4 = (0x9E3779B97F4A7C15 * v3) >> -*(a1 + 488);
@@ -458,7 +457,7 @@ void IOGPUMetalCommandBufferStorageBeginSegment(IOGPUMetalCommandBufferStorage *
   a1->var12->var0 = a1->var26;
 }
 
-void IOGPUResourceListReset(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void IOGPUResourceListReset(uint64_t a1, uint64_t a2, unint64_t a3, int a4)
 {
   if (a3 <= 0)
   {
@@ -467,7 +466,7 @@ void IOGPUResourceListReset(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 
   *(a1 + 512) = a2;
   *(a1 + 536) = a3 >> 6;
-  if (a2 + (a3 & 0x3FFFFFFFC0uLL) > *(*(a1 + 576) + 112))
+  if (a2 + (a3 & 0x3FFFFFFFC0) > *(*(a1 + 576) + 112))
   {
     IOGPUResourceListReset_cold_1();
   }
@@ -490,12 +489,11 @@ void IOGPUResourceListReset(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 
 uint64_t IOGPUResourceCreate(mach_port_t *a1, void *a2, size_t a3)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v6 = a1[13];
-  v17[0] = v6 + 88;
+  v15[0] = v6 + 88;
   MEMORY[0x1EEE9AC00](a1, a2);
-  v7 = v17 - ((v6 + 103) & 0x1FFFFFFF0);
-  v8 = *MEMORY[0x1E695E490];
+  v7 = v15 - ((v6 + 103) & 0x1FFFFFFF0);
   if (IOGPUResourceGetTypeID_onceToken != -1)
   {
     IOGPUResourceGetTypeID_cold_1();
@@ -504,48 +502,48 @@ uint64_t IOGPUResourceCreate(mach_port_t *a1, void *a2, size_t a3)
   Instance = _CFRuntimeCreateInstance();
   if (Instance)
   {
-    bzero(v17 - ((v6 + 103) & 0x1FFFFFFF0), v6 + 88);
+    bzero(v15 - ((v6 + 103) & 0x1FFFFFFF0), v6 + 88);
     CFRetain(a1);
     *(Instance + 16) = a1;
     *(Instance + 72) = 0;
     *(Instance + 48) = 0;
-    if (IOConnectCallMethod(a1[5], 8u, 0, 0, a2, a3, 0, 0, v17 - ((v6 + 103) & 0x1FFFFFFF0), v17))
+    if (IOConnectCallMethod(a1[5], 8u, 0, 0, a2, a3, 0, 0, v15 - ((v6 + 103) & 0x1FFFFFFF0), v15))
     {
       CFRelease(Instance);
-      Instance = 0;
+      return 0;
     }
 
     else
     {
-      v12 = *(v7 + 1);
-      *(Instance + 24) = v12;
+      v10 = *(v7 + 1);
+      *(Instance + 24) = v10;
       *(Instance + 40) = *(v7 + 5);
-      v13 = *a2;
+      v11 = *a2;
       *(Instance + 48) = *(v7 + 9);
-      *(Instance + 52) = v13;
-      if ((v13 & 0xF) != 0)
+      *(Instance + 52) = v11;
+      if ((v11 & 0xF) != 0)
       {
-        v14 = 0;
+        v12 = 0;
       }
 
       else
       {
-        v14 = a2[9];
+        v12 = a2[9];
       }
 
-      *(Instance + 32) = v14;
-      v15 = *(v7 + 2);
+      *(Instance + 32) = v12;
+      v13 = *(v7 + 2);
       *(Instance + 112) = *(v7 + 3);
-      v16 = *(v7 + 10);
+      v14 = *(v7 + 10);
       *(Instance + 56) = *v7;
-      *(Instance + 64) = v16;
-      *(Instance + 72) = v15;
+      *(Instance + 64) = v14;
+      *(Instance + 72) = v13;
       memcpy((Instance + 120), v7 + 88, v6);
       *(Instance + 88) = *(v7 + 56);
       *(Instance + 104) = *(v7 + 9);
-      if ((*(a2 + 20) & 0x40) != 0 && !v13 && (*(v7 + 8) & 1) != 0 && v12)
+      if ((*(a2 + 20) & 0x40) != 0 && !v11 && (*(v7 + 8) & 1) != 0 && v10)
       {
-        bzero(v12, a2[9]);
+        bzero(v10, a2[9]);
       }
 
       *(Instance + 80) = *(v7 + 6);
@@ -556,7 +554,6 @@ uint64_t IOGPUResourceCreate(mach_port_t *a1, void *a2, size_t a3)
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return Instance;
 }
 
@@ -636,11 +633,10 @@ uint64_t IOGPUCommandQueueSubmitCommandBuffers(uint64_t a1, unsigned int a2, uns
 
     else
     {
-      v6 = 3758096385;
+      return 3758096385;
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -705,7 +701,7 @@ void IOGPUNotificationQueueDispatchAvailableCompletionNotifications(uint64_t a1)
   IOGPUDeviceCheckAndLogSoftFaultCount(*(a1 + 16));
 }
 
-void __IOGPUNotificationQueueSetDispatchQueue_block_invoke(uint64_t a1, uint64_t a2)
+void __IOGPUNotificationQueueSetDispatchQueue_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 8)
   {
@@ -714,9 +710,9 @@ void __IOGPUNotificationQueueSetDispatchQueue_block_invoke(uint64_t a1, uint64_t
     dispatch_release(*(*(a1 + 40) + 48));
     *(*(a1 + 40) + 48) = 0;
     dispatch_semaphore_signal(*(*(a1 + 40) + 56));
-    v3 = *(a1 + 40);
+    v4 = *(a1 + 40);
 
-    CFRelease(v3);
+    CFRelease(v4);
   }
 
   else if (a2 == 2)
@@ -1020,16 +1016,16 @@ void IOGPUMetalPooledResourceRelease(void *a1)
   }
 }
 
-BOOL IOGPUMetalCommandBufferStoragePoolReturnStorage(uint64_t *a1, void *a2)
+BOOL IOGPUMetalCommandBufferStoragePoolReturnStorage(os_unfair_lock_s *a1, void *a2)
 {
   a2[1] = 0;
   os_unfair_lock_lock(a1 + 4);
-  v4 = *(a1 + 5);
-  v5 = *(a1 + 7);
-  if (v4 < v5)
+  os_unfair_lock_opaque = a1[5]._os_unfair_lock_opaque;
+  v5 = a1[7]._os_unfair_lock_opaque;
+  if (os_unfair_lock_opaque < v5)
   {
-    v6 = *a1;
-    a2[2] = *a1;
+    v6 = *&a1->_os_unfair_lock_opaque;
+    a2[2] = *&a1->_os_unfair_lock_opaque;
     if (v6)
     {
       v7 = (v6 + 24);
@@ -1037,16 +1033,16 @@ BOOL IOGPUMetalCommandBufferStoragePoolReturnStorage(uint64_t *a1, void *a2)
 
     else
     {
-      v7 = a1 + 1;
+      v7 = &a1[2];
     }
 
-    *v7 = a2 + 2;
-    *a1 = a2;
+    *v7 = (a2 + 2);
+    *&a1->_os_unfair_lock_opaque = a2;
     a2[3] = a1;
-    *(a1 + 5) = v4 + 1;
+    a1[5]._os_unfair_lock_opaque = os_unfair_lock_opaque + 1;
   }
 
-  v8 = v4 < v5;
+  v8 = os_unfair_lock_opaque < v5;
   os_unfair_lock_unlock(a1 + 4);
   return v8;
 }
@@ -1152,9 +1148,9 @@ LABEL_13:
   var32->var2 |= 0x80000000;
 }
 
-void sub_1CA09A30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1CA09A30C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1344,10 +1340,11 @@ uint64_t IOGPUDeviceSetDisplayParams(uint64_t a1, uintptr_t p1, uintptr_t p2)
   }
 }
 
-void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 8u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 8u);
 }
 
 void OUTLINED_FUNCTION_1(os_unfair_lock_s *a1)
@@ -1382,7 +1379,7 @@ void *IOGPUResourceGetDataBytes(void *result)
   return result;
 }
 
-id IOGPUMetalSuballocatorAllocate(uint64_t a1, uint64_t *a2, unint64_t a3, unint64_t *a4, uint64_t a5, uint64_t a6)
+id IOGPUMetalSuballocatorAllocate(uint64_t a1, uint64_t *a2, unint64_t a3, unint64_t *a4, void *a5, uint64_t a6)
 {
   if (!a1 || !a2 || !a4)
   {
@@ -1420,7 +1417,7 @@ id IOGPUMetalSuballocatorAllocate(uint64_t a1, uint64_t *a2, unint64_t a3, unint
       v18 = a3;
     }
 
-    v98 = v18;
+    v96 = v18;
     v19 = a1 + 88 * v16;
     os_unfair_lock_lock((v19 + 80));
     v20 = *(v19 + 72);
@@ -1435,11 +1432,11 @@ id IOGPUMetalSuballocatorAllocate(uint64_t a1, uint64_t *a2, unint64_t a3, unint
       __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", 191, "false && Different MTLResourceOptions used for the same heap index, this is not supported");
     }
 
-    v94 = a1;
-    v95 = a4;
+    v92 = a1;
+    v93 = a4;
     v22 = *a2;
-    v96 = a6;
-    v97 = *a2;
+    v94 = a6;
+    v95 = *a2;
     if (a5)
     {
       v23 = *v19;
@@ -1453,7 +1450,6 @@ id IOGPUMetalSuballocatorAllocate(uint64_t a1, uint64_t *a2, unint64_t a3, unint
           if ([*v26 gpuAddress] == a5)
           {
             [*v26 gpuAddress];
-            v27 = a2[1];
             if (MTLRangeAllocatorAllocateRange())
             {
               break;
@@ -1469,97 +1465,97 @@ id IOGPUMetalSuballocatorAllocate(uint64_t a1, uint64_t *a2, unint64_t a3, unint
         }
 
         MaxFreeSize = MTLRangeAllocatorGetMaxFreeSize();
-        v46 = MaxFreeSize;
-        v47 = *(v26 + 14);
-        if (v47 != MaxFreeSize)
+        v45 = MaxFreeSize;
+        v46 = *(v26 + 14);
+        if (v46 != MaxFreeSize)
         {
-          if (v47 <= MaxFreeSize)
+          if (v46 <= MaxFreeSize)
           {
             __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", 215, "newFreeSize < buffer.freeSize && Buffer cannot have more space as a result of allocation");
           }
 
-          v48 = (v19 + 56);
-          v49 = *(v19 + 56);
-          if (v49)
+          v47 = (v19 + 56);
+          v48 = *(v19 + 56);
+          if (v48)
           {
-            v50 = (v19 + 56);
+            v49 = (v19 + 56);
             do
             {
-              v51 = *(v49 + 28);
-              v32 = v51 >= v97;
-              v52 = v51 < v97;
-              if (v32)
+              v50 = *(v48 + 28);
+              v31 = v50 >= v95;
+              v51 = v50 < v95;
+              if (v31)
               {
-                v50 = v49;
+                v49 = v48;
               }
 
-              v49 = *(v49 + 8 * v52);
+              v48 = *(v48 + 8 * v51);
             }
 
-            while (v49);
-            if (v50 != v48)
+            while (v48);
+            if (v49 != v47)
             {
-              while (*(v50 + 16) != v25)
+              while (*(v49 + 16) != v25)
               {
-                v53 = v50[1];
-                if (v53)
+                v52 = v49[1];
+                if (v52)
                 {
                   do
                   {
-                    v54 = v53;
-                    v53 = *v53;
+                    v53 = v52;
+                    v52 = *v52;
                   }
 
-                  while (v53);
+                  while (v52);
                 }
 
                 else
                 {
                   do
                   {
-                    v54 = v50[2];
-                    v15 = *v54 == v50;
-                    v50 = v54;
+                    v53 = v49[2];
+                    v15 = *v53 == v49;
+                    v49 = v53;
                   }
 
                   while (!v15);
                 }
 
-                v50 = v54;
-                if (v54 == v48)
+                v49 = v53;
+                if (v53 == v47)
                 {
                   goto LABEL_113;
                 }
               }
 
-              std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__remove_node_pointer((v19 + 48), v50);
-              free(v50);
+              std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__remove_node_pointer((v19 + 48), v49);
+              free(v49);
             }
           }
 
 LABEL_113:
-          *(v26 + 14) = v46;
-          WORD2(v101) = v25;
-          LODWORD(v101) = v46;
-          std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v19 + 48, &v101);
-          LODWORD(v22) = v97;
+          *(v26 + 14) = v45;
+          WORD2(v99) = v25;
+          LODWORD(v99) = v45;
+          std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v19 + 48, &v99);
+          LODWORD(v22) = v95;
         }
 
-        v83 = a2[1];
-        v84 = *(v26 + 13);
-        if (v83 >= v84)
+        v81 = a2[1];
+        v82 = *(v26 + 13);
+        if (v81 >= v82)
         {
           *a4 |= 0x10000uLL;
         }
 
-        v85 = v83 + v22;
-        if (v84 > v85)
+        v83 = v81 + v22;
+        if (v82 > v83)
         {
-          v85 = v84;
+          v83 = v82;
         }
 
         ++*(v26 + 12);
-        *(v26 + 13) = v85;
+        *(v26 + 13) = v83;
         *(a2 + 8) = v25;
 LABEL_119:
         v17 = *v26;
@@ -1569,100 +1565,100 @@ LABEL_119:
 
     else
     {
-      v29 = (v19 + 56);
-      v28 = *(v19 + 56);
-      if (v28)
+      v28 = (v19 + 56);
+      v27 = *(v19 + 56);
+      if (v27)
       {
-        v93 = (v19 + 48);
-        v30 = (v19 + 56);
+        v91 = (v19 + 48);
+        v29 = (v19 + 56);
         do
         {
-          v31 = *(v28 + 28);
-          v32 = v31 >= v22;
-          v33 = v31 < v22;
-          if (v32)
+          v30 = *(v27 + 28);
+          v31 = v30 >= v22;
+          v32 = v30 < v22;
+          if (v31)
           {
-            v30 = v28;
+            v29 = v27;
           }
 
-          v28 = *(v28 + 8 * v33);
+          v27 = *(v27 + 8 * v32);
         }
 
-        while (v28);
-        if (v30 != v29)
+        while (v27);
+        if (v29 != v28)
         {
           while (1)
           {
-            v34 = *(v30 + 16);
-            if (v34 >= (*(v19 + 8) - *v19) >> 6)
+            v33 = *(v29 + 16);
+            if (v33 >= (*(v19 + 8) - *v19) >> 6)
             {
               __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", 253, "bufferIndex < heap.buffers.size()");
             }
 
-            v26 = (*v19 + (v34 << 6));
+            v26 = (*v19 + (v33 << 6));
             if (!*(v26 + 12))
             {
-              v87 = 255;
-              v88 = "buffer.isAlive() && Buffer index corrupt: refers to dead item";
+              v85 = 255;
+              v86 = "buffer.isAlive() && Buffer index corrupt: refers to dead item";
               goto LABEL_127;
             }
 
-            v35 = *(v26 + 14);
-            if (MTLRangeAllocatorGetMaxFreeSize() != v35)
+            v34 = *(v26 + 14);
+            if (MTLRangeAllocatorGetMaxFreeSize() != v34)
             {
               break;
             }
 
-            LODWORD(v22) = v97;
-            if (*(v26 + 14) < v97)
+            LODWORD(v22) = v95;
+            if (*(v26 + 14) < v95)
             {
-              v87 = 257;
-              v88 = "buffer.freeSize >= bytes && Bad primary buffer selected";
+              v85 = 257;
+              v86 = "buffer.freeSize >= bytes && Bad primary buffer selected";
 LABEL_127:
-              __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", v87, v88);
+              __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", v85, v86);
             }
 
-            v101 = 0;
+            v99 = 0;
             if (MTLRangeAllocatorAllocate())
             {
-              v55 = MTLRangeAllocatorGetMaxFreeSize();
-              v56 = v55;
-              v57 = *(v26 + 14);
-              if (v57 != v55)
+              v54 = MTLRangeAllocatorGetMaxFreeSize();
+              v55 = v54;
+              v56 = *(v26 + 14);
+              if (v56 != v54)
               {
-                if (v57 <= v55)
+                if (v56 <= v54)
                 {
                   __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", 271, "newFreeSize < buffer.freeSize && Buffer cannot have more space as a result of allocation");
                 }
 
-                std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__remove_node_pointer(v93, v30);
-                free(v30);
-                *(v26 + 14) = v56;
-                v100 = v34;
-                v99 = v56;
-                std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v93, &v99);
-                LODWORD(v22) = v97;
+                std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__remove_node_pointer(v91, v29);
+                free(v29);
+                *(v26 + 14) = v55;
+                v98 = v33;
+                v97 = v55;
+                std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v91, &v97);
+                LODWORD(v22) = v95;
               }
 
-              v58 = v101;
-              v59 = v58 - [*v26 gpuAddress];
-              v60 = v59;
-              v61 = *(v26 + 13);
-              if (v59 >= v61)
+              v57 = v99;
+              v58 = v57 - [*v26 gpuAddress];
+              v59 = v58;
+              v60 = *(v26 + 13);
+              if (v58 >= v60)
               {
-                *v95 |= 0x10000uLL;
+                *v93 |= 0x10000uLL;
               }
 
-              v62 = v59 + v22;
-              if (v61 > v62)
+              v61 = v58 + v22;
+              if (v60 > v61)
               {
-                v62 = v61;
+                v61 = v60;
               }
 
               ++*(v26 + 12);
-              *(v26 + 13) = v62;
-              *(a2 + 8) = v34;
-              a2[1] = v60;
+              *(v26 + 13) = v61;
+              *(a2 + 8) = v33;
+              a2[1] = v59;
               goto LABEL_119;
             }
 
@@ -1671,265 +1667,264 @@ LABEL_127:
               __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", 301, "align > kMinAlignment && Buffer index corrupt: expected index to be suitable");
             }
 
-            v36 = v30[1];
-            if (v36)
+            v35 = v29[1];
+            if (v35)
             {
               do
               {
-                v37 = v36;
-                v36 = *v36;
+                v36 = v35;
+                v35 = *v35;
               }
 
-              while (v36);
+              while (v35);
             }
 
             else
             {
               do
               {
-                v37 = v30[2];
-                v15 = *v37 == v30;
-                v30 = v37;
+                v36 = v29[2];
+                v15 = *v36 == v29;
+                v29 = v36;
               }
 
               while (!v15);
             }
 
-            v30 = v37;
-            if (v37 == v29)
+            v29 = v36;
+            if (v36 == v28)
             {
               goto LABEL_48;
             }
           }
 
-          v87 = 256;
-          v88 = "buffer.freeSize == MTLRangeAllocatorGetMaxFreeSize(&buffer.allocator, kMinAlignment) && Buffer index corrupt: allocator state doesn't match";
+          v85 = 256;
+          v86 = "buffer.freeSize == MTLRangeAllocatorGetMaxFreeSize(&buffer.allocator, kMinAlignment) && Buffer index corrupt: allocator state doesn't match";
           goto LABEL_127;
         }
       }
     }
 
 LABEL_48:
-    v38 = *(v19 + 32);
-    if (*(v19 + 24) == v38)
+    v37 = *(v19 + 32);
+    if (*(v19 + 24) == v37)
     {
-      v43 = *v19;
-      v42 = *(v19 + 8);
-      v44 = &v42[-*v19];
-      if (v44 > 0xFFC0)
+      v42 = *v19;
+      v41 = *(v19 + 8);
+      v43 = &v41[-*v19];
+      if (v43 > 0xFFC0)
       {
         goto LABEL_111;
       }
 
-      if (v43 == v42)
+      if (v42 == v41)
       {
         std::vector<IOGPUMetalSuballocatorHeap::Buffer,IOGPUMetalSuballocatorHeap::Allocator<IOGPUMetalSuballocatorHeap::Buffer>>::reserve(v19, 0x80uLL);
-        v41 = v95;
+        v40 = v93;
         std::vector<short,IOGPUMetalSuballocatorHeap::Allocator<short>>::reserve(v19 + 24, 0x80uLL);
-        v43 = *v19;
-        v42 = *(v19 + 8);
-        v44 = &v42[-*v19];
+        v42 = *v19;
+        v41 = *(v19 + 8);
+        v43 = &v41[-*v19];
       }
 
       else
       {
-        v41 = v95;
+        v40 = v93;
       }
 
-      v63 = v44 >> 6;
-      LOWORD(v99) = v44 >> 6;
-      v64 = *(v19 + 16);
-      if (v42 >= v64)
+      v62 = v43 >> 6;
+      LOWORD(v97) = v43 >> 6;
+      v63 = *(v19 + 16);
+      if (v41 >= v63)
       {
-        v66 = v63 + 1;
-        if ((v63 + 1) >> 58)
+        v65 = v62 + 1;
+        if ((v62 + 1) >> 58)
         {
           std::vector<NSObject *>::__throw_length_error[abi:ne200100]();
         }
 
-        v67 = v64 - v43;
-        if (v67 >> 5 > v66)
+        v66 = v63 - v42;
+        if (v66 >> 5 > v65)
         {
-          v66 = v67 >> 5;
+          v65 = v66 >> 5;
         }
 
-        if (v67 >= 0x7FFFFFFFFFFFFFC0)
+        if (v66 >= 0x7FFFFFFFFFFFFFC0)
         {
-          v68 = 0x3FFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v68 = v66;
-        }
-
-        if (v68)
-        {
-          v69 = IOGPUMetalSuballocatorHeap::Allocator<IOGPUMetalSuballocatorHeap::Buffer>::allocate(v19, v68);
+          v67 = 0x3FFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v69 = 0;
+          v67 = v65;
         }
 
-        v70 = &v69[64 * v63];
-        v71 = &v69[64 * v68];
-        *(v70 + 2) = 0u;
-        *(v70 + 3) = 0u;
-        *v70 = 0u;
-        *(v70 + 1) = 0u;
-        v65 = v70 + 64;
-        v72 = *(v19 + 8) - *v19;
-        v73 = &v70[-v72];
-        memcpy(&v70[-v72], *v19, v72);
-        v74 = *v19;
-        *v19 = v73;
-        *(v19 + 8) = v65;
-        *(v19 + 16) = v71;
-        if (v74)
+        if (v67)
         {
-          free(v74);
+          v68 = IOGPUMetalSuballocatorHeap::Allocator<IOGPUMetalSuballocatorHeap::Buffer>::allocate(v19, v67);
         }
 
-        LODWORD(v22) = v97;
+        else
+        {
+          v68 = 0;
+        }
+
+        v69 = &v68[64 * v62];
+        v70 = &v68[64 * v67];
+        *(v69 + 2) = 0u;
+        *(v69 + 3) = 0u;
+        *v69 = 0u;
+        *(v69 + 1) = 0u;
+        v64 = v69 + 64;
+        v71 = *(v19 + 8) - *v19;
+        v72 = &v69[-v71];
+        memcpy(&v69[-v71], *v19, v71);
+        v73 = *v19;
+        *v19 = v72;
+        *(v19 + 8) = v64;
+        *(v19 + 16) = v70;
+        if (v73)
+        {
+          free(v73);
+        }
+
+        LODWORD(v22) = v95;
       }
 
       else
       {
-        *(v42 + 2) = 0u;
-        *(v42 + 3) = 0u;
-        *v42 = 0u;
-        *(v42 + 1) = 0u;
-        v65 = v42 + 64;
+        *(v41 + 2) = 0u;
+        *(v41 + 3) = 0u;
+        *v41 = 0u;
+        *(v41 + 1) = 0u;
+        v64 = v41 + 64;
       }
 
-      *(v19 + 8) = v65;
-      *(v65 - 4) = 0;
-      v40 = *v19;
-      v39 = v44 << 42 >> 48;
+      *(v19 + 8) = v64;
+      *(v64 - 4) = 0;
+      v39 = *v19;
+      v38 = v43 << 42 >> 48;
     }
 
     else
     {
-      LOWORD(v99) = *(v38 - 2);
-      v39 = v99;
-      *(v19 + 32) = v38 - 2;
-      v40 = *v19;
-      if (v39 >= (*(v19 + 8) - *v19) >> 6)
+      LOWORD(v97) = *(v37 - 2);
+      v38 = v97;
+      *(v19 + 32) = v37 - 2;
+      v39 = *v19;
+      if (v38 >= (*(v19 + 8) - *v19) >> 6)
       {
         __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", 330, "bufferIndex < heap.buffers.size()");
       }
 
-      v41 = v95;
+      v40 = v93;
     }
 
-    v75 = &v40[64 * v39];
-    if (*(v75 + 12))
+    v74 = &v39[64 * v38];
+    if (*(v74 + 12))
     {
       __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", 333, "!buffer.isAlive() && Alive buffer found in dead slots");
     }
 
     if (a5)
     {
-      v76 = objc_opt_new();
-      [v76 setPinnedGPUAddress:a5];
-      [v76 setLength:v96];
-      [v76 setResourceOptions:*(v19 + 72)];
-      *v75 = [*(v94 + 2816) newBufferWithDescriptor:v76];
+      v75 = objc_opt_new();
+      [v75 setPinnedGPUAddress:a5];
+      [v75 setLength:v94];
+      [v75 setResourceOptions:*(v19 + 72)];
+      *v74 = [*(v92 + 2816) newBufferWithDescriptor:v75];
 
-      if (*v75)
+      if (*v74)
       {
-        [*v75 gpuAddress];
+        [*v74 gpuAddress];
         MTLRangeAllocatorInitWithStartRange();
-        [*v75 gpuAddress];
-        v77 = a2[1];
+        [*v74 gpuAddress];
         if (MTLRangeAllocatorAllocateRange())
         {
-          *(a2 + 8) = v99;
-          *(v75 + 12) = 1;
-          v78 = *(a2 + 2);
-          v79 = v96 - ((v22 + 255) & 0xFFFFFF00) - v78;
-          if (v78 > v79)
+          *(a2 + 8) = v97;
+          *(v74 + 12) = 1;
+          v76 = *(a2 + 2);
+          v77 = v94 - ((v22 + 255) & 0xFFFFFF00) - v76;
+          if (v76 > v77)
           {
-            v79 = *(a2 + 2);
+            v77 = *(a2 + 2);
           }
 
-          *(v75 + 14) = v79;
-          v80 = MTLRangeAllocatorGetMaxFreeSize();
-          if (v80 == *(v75 + 14))
+          *(v74 + 14) = v77;
+          v78 = MTLRangeAllocatorGetMaxFreeSize();
+          if (v78 == *(v74 + 14))
           {
-            LODWORD(v101) = v80;
-            WORD2(v101) = (v80 | (v99 << 32)) >> 32;
-            std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v19 + 48, &v101);
-            *v41 |= 0x10000uLL;
+            LODWORD(v99) = v78;
+            WORD2(v99) = (v78 | (v97 << 32)) >> 32;
+            std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v19 + 48, &v99);
+            *v40 |= 0x10000uLL;
             LODWORD(v22) = *(a2 + 2) + v22;
 LABEL_109:
-            *(v75 + 13) = v22;
-            v17 = *v75;
+            *(v74 + 13) = v22;
+            v17 = *v74;
 LABEL_120:
             os_unfair_lock_unlock((v19 + 80));
             return v17;
           }
 
-          v89 = "MTLRangeAllocatorGetMaxFreeSize(&buffer.allocator, kMinAlignment) == buffer.freeSize && Bad initial free size computed";
-          v90 = 363;
+          v87 = "MTLRangeAllocatorGetMaxFreeSize(&buffer.allocator, kMinAlignment) == buffer.freeSize && Bad initial free size computed";
+          v88 = 363;
+        }
+
+        else
+        {
+          v87 = "false && Failed to suballocate from fresh block";
+          v88 = 356;
+        }
+
+        __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", v88, v87);
+      }
+    }
+
+    else
+    {
+      v79 = objc_opt_new();
+      [v79 setLength:0x20000];
+      [v79 setResourceOptions:*(v19 + 72)];
+      [v79 setAlignment:v96];
+      *v74 = [*(v92 + 2816) newBufferWithDescriptor:v79];
+
+      if (*v74)
+      {
+        [*v74 gpuAddress];
+        MTLRangeAllocatorInitWithStartRange();
+        [*v74 gpuAddress];
+        if (MTLRangeAllocatorAllocateRange())
+        {
+          a2[1] = 0;
+          *(a2 + 8) = v97;
+          *(v74 + 12) = 1;
+          v80 = MTLRangeAllocatorGetMaxFreeSize();
+          *(v74 + 14) = v80;
+          if (0x20000 - ((v22 + 255) & 0x1FFFFFF00) == v80)
+          {
+            LODWORD(v99) = v80;
+            WORD2(v99) = v97;
+            std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v19 + 48, &v99);
+            *v40 |= 0x10000uLL;
+            goto LABEL_109;
+          }
+
+          v89 = "kBufferSize - ((bytes + kMinAlignment - 1) & ~(kMinAlignment - 1)) == buffer.freeSize && Bad initial free size computed";
+          v90 = 405;
         }
 
         else
         {
           v89 = "false && Failed to suballocate from fresh block";
-          v90 = 356;
+          v90 = 397;
         }
 
         __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", v90, v89);
       }
     }
 
-    else
-    {
-      v81 = objc_opt_new();
-      [v81 setLength:0x20000];
-      [v81 setResourceOptions:*(v19 + 72)];
-      [v81 setAlignment:v98];
-      *v75 = [*(v94 + 2816) newBufferWithDescriptor:v81];
-
-      if (*v75)
-      {
-        [*v75 gpuAddress];
-        MTLRangeAllocatorInitWithStartRange();
-        [*v75 gpuAddress];
-        if (MTLRangeAllocatorAllocateRange())
-        {
-          a2[1] = 0;
-          *(a2 + 8) = v99;
-          *(v75 + 12) = 1;
-          v82 = MTLRangeAllocatorGetMaxFreeSize();
-          *(v75 + 14) = v82;
-          if (0x20000 - ((v22 + 255) & 0x1FFFFFF00) == v82)
-          {
-            LODWORD(v101) = v82;
-            WORD2(v101) = v99;
-            std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v19 + 48, &v101);
-            *v41 |= 0x10000uLL;
-            goto LABEL_109;
-          }
-
-          v91 = "kBufferSize - ((bytes + kMinAlignment - 1) & ~(kMinAlignment - 1)) == buffer.freeSize && Bad initial free size computed";
-          v92 = 405;
-        }
-
-        else
-        {
-          v91 = "false && Failed to suballocate from fresh block";
-          v92 = 397;
-        }
-
-        __assert_rtn("IOGPUMetalSuballocatorAllocate", "IOGPUMetalSuballocator.mm", v92, v91);
-      }
-    }
-
-    std::vector<short,IOGPUMetalSuballocatorHeap::Allocator<short>>::push_back[abi:ne200100]((v19 + 24), &v99);
+    std::vector<short,IOGPUMetalSuballocatorHeap::Allocator<short>>::push_back[abi:ne200100]((v19 + 24), &v97);
 LABEL_111:
     v17 = 0;
     goto LABEL_120;
@@ -2068,31 +2063,30 @@ LABEL_8:
 
   while (1)
   {
-    v12 = v7[2];
+    v12 = *(v7 + 16);
     v13 = *v12;
-    v14 = *(v7 + 24);
     if (*v12 == v7)
     {
       break;
     }
 
-    if ((v7[3] & 1) == 0)
+    if ((*(v7 + 24) & 1) == 0)
     {
       *(v7 + 24) = 1;
       *(v12 + 24) = 0;
-      v15 = v12[1];
-      v16 = *v15;
-      v12[1] = *v15;
-      if (v16)
+      v14 = v12[1];
+      v15 = *v14;
+      v12[1] = *v14;
+      if (v15)
       {
-        *(v16 + 16) = v12;
+        *(v15 + 16) = v12;
       }
 
-      v17 = v12[2];
-      v15[2] = v17;
-      v17[*v17 != v12] = v15;
-      *v15 = v12;
-      v12[2] = v15;
+      v16 = v12[2];
+      v14[2] = v16;
+      v16[*v16 != v12] = v14;
+      *v14 = v12;
+      v12[2] = v14;
       if (result == *v7)
       {
         result = v7;
@@ -2101,173 +2095,173 @@ LABEL_8:
       v7 = *(*v7 + 8);
     }
 
-    v18 = *v7;
-    if (*v7 && *(v18 + 24) != 1)
+    v17 = *v7;
+    if (*v7 && *(v17 + 24) != 1)
     {
-      v19 = v7[1];
-      if (!v19)
+      v18 = *(v7 + 8);
+      if (!v18)
       {
         goto LABEL_55;
       }
 
 LABEL_54:
-      if (*(v19 + 24) == 1)
+      if (*(v18 + 24) == 1)
       {
 LABEL_55:
-        *(v18 + 24) = 1;
+        *(v17 + 24) = 1;
         *(v7 + 24) = 0;
-        v27 = v18[1];
-        *v7 = v27;
-        if (v27)
+        v26 = *(v17 + 8);
+        *v7 = v26;
+        if (v26)
         {
-          *(v27 + 16) = v7;
+          *(v26 + 16) = v7;
         }
 
-        v28 = v7[2];
-        v18[2] = v28;
-        v28[*v28 != v7] = v18;
-        v18[1] = v7;
-        v7[2] = v18;
-        v19 = v7;
+        v27 = *(v7 + 16);
+        *(v17 + 16) = v27;
+        v27[*v27 != v7] = v17;
+        *(v17 + 8) = v7;
+        *(v7 + 16) = v17;
+        v18 = v7;
       }
 
       else
       {
-        v18 = v7;
+        v17 = v7;
       }
 
-      v29 = v18[2];
-      *(v18 + 24) = *(v29 + 24);
-      *(v29 + 24) = 1;
-      *(v19 + 24) = 1;
-      v30 = *(v29 + 8);
-      v31 = *v30;
-      *(v29 + 8) = *v30;
-      if (v31)
+      v28 = *(v17 + 16);
+      *(v17 + 24) = *(v28 + 24);
+      *(v28 + 24) = 1;
+      *(v18 + 24) = 1;
+      v29 = *(v28 + 8);
+      v30 = *v29;
+      *(v28 + 8) = *v29;
+      if (v30)
       {
-        *(v31 + 16) = v29;
+        *(v30 + 16) = v28;
       }
 
-      v32 = *(v29 + 16);
-      v30[2] = v32;
-      v32[*v32 != v29] = v30;
-      *v30 = v29;
+      v31 = *(v28 + 16);
+      v29[2] = v31;
+      v31[*v31 != v28] = v29;
+      *v29 = v28;
       goto LABEL_72;
     }
 
-    v19 = v7[1];
-    if (v19 && *(v19 + 24) != 1)
+    v18 = *(v7 + 8);
+    if (v18 && *(v18 + 24) != 1)
     {
       goto LABEL_54;
     }
 
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (v20 == result || (v20[3] & 1) == 0)
+    v19 = *(v7 + 16);
+    if (v19 == result || (v19[3] & 1) == 0)
     {
       goto LABEL_52;
     }
 
 LABEL_49:
-    v7 = *(v20[2] + 8 * (*v20[2] == v20));
+    v7 = *(v19[2] + 8 * (*v19[2] == v19));
   }
 
-  if ((v7[3] & 1) == 0)
+  if ((*(v7 + 24) & 1) == 0)
   {
     *(v7 + 24) = 1;
     *(v12 + 24) = 0;
-    v21 = v13[1];
-    *v12 = v21;
-    if (v21)
+    v20 = *(v13 + 8);
+    *v12 = v20;
+    if (v20)
     {
-      *(v21 + 16) = v12;
+      *(v20 + 16) = v12;
     }
 
-    v22 = v12[2];
-    v13[2] = v22;
-    v22[*v22 != v12] = v13;
-    v13[1] = v12;
+    v21 = v12[2];
+    *(v13 + 16) = v21;
+    v21[*v21 != v12] = v13;
+    *(v13 + 8) = v12;
     v12[2] = v13;
-    v23 = v7[1];
-    if (result == v23)
+    v22 = *(v7 + 8);
+    if (result == v22)
     {
       result = v7;
     }
 
-    v7 = *v23;
+    v7 = *v22;
   }
 
-  v24 = *v7;
-  if (*v7 && *(v24 + 24) != 1)
+  v23 = *v7;
+  if (*v7 && *(v23 + 24) != 1)
   {
     goto LABEL_68;
   }
 
-  v25 = v7[1];
-  if (!v25 || *(v25 + 24) == 1)
+  v24 = *(v7 + 8);
+  if (!v24 || *(v24 + 24) == 1)
   {
     *(v7 + 24) = 0;
-    v20 = v7[2];
-    if (*(v20 + 24) != 1 || v20 == result)
+    v19 = *(v7 + 16);
+    if (*(v19 + 24) != 1 || v19 == result)
     {
 LABEL_52:
-      *(v20 + 24) = 1;
+      *(v19 + 24) = 1;
       return result;
     }
 
     goto LABEL_49;
   }
 
-  if (!v24)
+  if (!v23)
   {
     goto LABEL_65;
   }
 
-  if (v24[3])
+  if (*(v23 + 24))
   {
-    v25 = v7[1];
+    v24 = *(v7 + 8);
 LABEL_65:
-    *(v25 + 24) = 1;
+    *(v24 + 24) = 1;
     *(v7 + 24) = 0;
-    v33 = *v25;
-    v7[1] = *v25;
-    if (v33)
+    v32 = *v24;
+    *(v7 + 8) = *v24;
+    if (v32)
     {
-      *(v33 + 16) = v7;
+      *(v32 + 16) = v7;
     }
 
-    v34 = v7[2];
-    v25[2] = v34;
-    v34[*v34 != v7] = v25;
-    *v25 = v7;
-    v7[2] = v25;
-    v24 = v7;
+    v33 = *(v7 + 16);
+    *(v24 + 16) = v33;
+    v33[*v33 != v7] = v24;
+    *v24 = v7;
+    *(v7 + 16) = v24;
+    v23 = v7;
   }
 
   else
   {
 LABEL_68:
-    v25 = v7;
+    v24 = v7;
   }
 
-  v29 = v25[2];
-  *(v25 + 24) = *(v29 + 24);
-  *(v29 + 24) = 1;
-  *(v24 + 24) = 1;
-  v30 = *v29;
-  v35 = *(*v29 + 8);
-  *v29 = v35;
-  if (v35)
+  v28 = *(v24 + 16);
+  *(v24 + 24) = *(v28 + 24);
+  *(v28 + 24) = 1;
+  *(v23 + 24) = 1;
+  v29 = *v28;
+  v34 = *(*v28 + 8);
+  *v28 = v34;
+  if (v34)
   {
-    *(v35 + 16) = v29;
+    *(v34 + 16) = v28;
   }
 
-  v36 = *(v29 + 16);
-  v30[2] = v36;
-  v36[*v36 != v29] = v30;
-  v30[1] = v29;
+  v35 = *(v28 + 16);
+  v29[2] = v35;
+  v35[*v35 != v28] = v29;
+  v29[1] = v28;
 LABEL_72:
-  *(v29 + 16) = v30;
+  *(v28 + 16) = v29;
   return result;
 }
 
@@ -2330,7 +2324,7 @@ void *IOGPUMetalSuballocatorHeap::Allocator<std::__tree_node<std::__value_type<u
   }
 }
 
-uint64_t *std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -2356,12 +2350,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -2375,22 +2369,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -2424,13 +2418,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -2478,9 +2472,9 @@ uint64_t IOGPUDeviceCreateDeviceShmem(uint64_t a1, unsigned int a2, unsigned int
   input[0] = a2;
   input[1] = a3;
   outputStruct = 0;
-  v19 = 0;
-  v17 = 16;
-  v10 = IOConnectCallMethod(*(a1 + 20), 0xCu, input, 2u, 0, 0, 0, 0, &outputStruct, &v17);
+  v18 = 0;
+  v16 = 16;
+  v10 = IOConnectCallMethod(*(a1 + 20), 0xCu, input, 2u, 0, 0, 0, 0, &outputStruct, &v16);
   if (v10)
   {
     *a4 = 0;
@@ -2491,28 +2485,27 @@ uint64_t IOGPUDeviceCreateDeviceShmem(uint64_t a1, unsigned int a2, unsigned int
   else
   {
     *a4 = outputStruct;
-    v13 = HIDWORD(v19);
-    *a5 = v19;
-    *a6 = v13;
-    v14 = *MEMORY[0x1E69E99E8];
+    v12 = HIDWORD(v18);
+    *a5 = v18;
+    *a6 = v12;
+    v13 = *MEMORY[0x1E69E99E8];
     if (*MEMORY[0x1E69E99E8])
     {
-      v15 = malloc_type_malloc(0x18uLL, 0x10200403ED2C137uLL);
-      if (v15)
+      v14 = malloc_type_malloc(0x18uLL, 0x10200403ED2C137uLL);
+      if (v14)
       {
-        v16 = v15;
-        *v15 = outputStruct;
-        v15[1] = v19;
+        v15 = v14;
+        *v14 = outputStruct;
+        v14[1] = v18;
         os_unfair_lock_lock((a1 + 120));
-        v16[2] = *(a1 + 128);
-        *(a1 + 128) = v16;
+        v15[2] = *(a1 + 128);
+        *(a1 + 128) = v15;
         os_unfair_lock_unlock((a1 + 120));
-        v14(1677721616, *MEMORY[0x1E69E9A60], v19, 0, outputStruct, 0);
+        v13(1677721616, *MEMORY[0x1E69E9A60], v18, 0, outputStruct, 0);
       }
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -2537,7 +2530,7 @@ dispatch_semaphore_t *IOGPUNotificationQueueDidSubmit(dispatch_semaphore_t *resu
   return result;
 }
 
-void IOGPUMetalSuballocatorFree(uint64_t a1, uint64_t *a2)
+void IOGPUMetalSuballocatorFree(uint64_t a1, uint64_t a2)
 {
   if (!a1 || !a2)
   {
@@ -2549,161 +2542,159 @@ void IOGPUMetalSuballocatorFree(uint64_t a1, uint64_t *a2)
     IOGPUMetalSuballocatorFree_cold_4();
   }
 
-  if ((a2[1] + *a2) > 0x20000)
+  if (*(a2 + 8) + *a2 > 0x20000uLL)
   {
     IOGPUMetalSuballocatorFree_cold_3();
   }
 
-  if (*(a2 + 9) >= 0x20uLL)
+  if (*(a2 + 18) >= 0x20uLL)
   {
     IOGPUMetalSuballocatorFree_cold_2();
   }
 
-  v3 = (a2 + 2);
-  if (*(a2 + 8) >= 0x400u)
+  v2 = (a2 + 16);
+  if (*(a2 + 16) >= 0x400u)
   {
     IOGPUMetalSuballocatorFree_cold_1();
   }
 
-  v4 = a1 + 88 * *(a2 + 9);
-  os_unfair_lock_lock((v4 + 80));
-  v5 = *v4 + (*v3 << 6);
-  if (!*(v5 + 48))
+  v3 = a1 + 88 * *(a2 + 18);
+  os_unfair_lock_lock((v3 + 80));
+  v4 = *v3 + (*v2 << 6);
+  if (!*(v4 + 48))
   {
     __assert_rtn("IOGPUMetalSuballocatorFree", "IOGPUMetalSuballocator.mm", 432, "buffer.isAlive() && Reference to dead buffer");
   }
 
-  [*v5 gpuAddress];
-  v6 = *a2;
-  v7 = a2[1];
+  [*v4 gpuAddress];
   MTLRangeAllocatorDeallocate();
-  --*(v5 + 48);
+  --*(v4 + 48);
   MaxFreeSize = MTLRangeAllocatorGetMaxFreeSize();
-  v9 = MaxFreeSize;
-  v10 = *(v5 + 56);
-  if (v10 > MaxFreeSize)
+  v6 = MaxFreeSize;
+  v7 = *(v4 + 56);
+  if (v7 > MaxFreeSize)
   {
-    v23 = "buffer.freeSize <= newFreeSize && Buffer cannot have less space as a result of deallocation";
-    v24 = 442;
+    v20 = "buffer.freeSize <= newFreeSize && Buffer cannot have less space as a result of deallocation";
+    v21 = 442;
     goto LABEL_48;
   }
 
-  v11 = MaxFreeSize;
+  v8 = MaxFreeSize;
   if (MaxFreeSize > 0x20000uLL)
   {
-    v23 = "newFreeSize <= kBufferSize && Unexpected free size";
-    v24 = 443;
+    v20 = "newFreeSize <= kBufferSize && Unexpected free size";
+    v21 = 443;
     goto LABEL_48;
   }
 
-  v12 = v10 != MaxFreeSize || *(v5 + 48) == 0;
-  if (v12)
+  v9 = v7 != MaxFreeSize || *(v4 + 48) == 0;
+  if (v9)
   {
-    v13 = *(v4 + 56);
-    if (!v13)
+    v10 = *(v3 + 56);
+    if (!v10)
     {
       goto LABEL_23;
     }
 
-    v14 = (v4 + 48);
-    v15 = (v4 + 56);
+    v11 = (v3 + 48);
+    v12 = (v3 + 56);
     do
     {
-      v16 = *(v13 + 28);
-      v17 = v16 >= v10;
-      v18 = v16 < v10;
-      if (v17)
+      v13 = *(v10 + 28);
+      v14 = v13 >= v7;
+      v15 = v13 < v7;
+      if (v14)
       {
-        v15 = v13;
+        v12 = v10;
       }
 
-      v13 = *(v13 + 8 * v18);
+      v10 = *(v10 + 8 * v15);
     }
 
-    while (v13);
-    if (v15 == (v4 + 56) || v10 < *(v15 + 7))
+    while (v10);
+    if (v12 == (v3 + 56) || v7 < *(v12 + 7))
     {
 LABEL_23:
       __assert_rtn("IOGPUMetalSuballocatorFree", "IOGPUMetalSuballocator.mm", 449, "it != heap.index.end() && Buffer index corrupt: buffer not found at expected size");
     }
 
-    v19 = *v3;
-    if (*(v15 + 16) == v19)
+    v16 = *v2;
+    if (*(v12 + 16) == v16)
     {
-      v20 = v15;
+      v17 = v12;
     }
 
     else
     {
       do
       {
-        if (*(v15 + 7) != v10)
+        if (*(v12 + 7) != v7)
         {
           __assert_rtn("IOGPUMetalSuballocatorFree", "IOGPUMetalSuballocator.mm", 452, "it->first == buffer.freeSize");
         }
 
-        v21 = v15[1];
-        if (v21)
+        v18 = v12[1];
+        if (v18)
         {
           do
           {
-            v20 = v21;
-            v21 = *v21;
+            v17 = v18;
+            v18 = *v18;
           }
 
-          while (v21);
+          while (v18);
         }
 
         else
         {
           do
           {
-            v20 = v15[2];
-            v12 = *v20 == v15;
-            v15 = v20;
+            v17 = v12[2];
+            v9 = *v17 == v12;
+            v12 = v17;
           }
 
-          while (!v12);
+          while (!v9);
         }
 
-        v15 = v20;
+        v12 = v17;
       }
 
-      while (*(v20 + 16) != v19);
+      while (*(v17 + 16) != v16);
     }
 
-    std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__remove_node_pointer(v14, v20);
-    free(v20);
-    if (*(v5 + 48))
+    std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__remove_node_pointer(v11, v17);
+    free(v17);
+    if (*(v4 + 48))
     {
-      if (*(v5 + 56) != v9)
+      if (*(v4 + 56) != v6)
       {
-        *(v5 + 56) = v9;
-        v22 = *v3;
-        v25 = v11;
-        v26 = v22;
-        std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v14, &v25);
+        *(v4 + 56) = v6;
+        v19 = *v2;
+        v22 = v8;
+        v23 = v19;
+        std::__tree<std::__value_type<unsigned int,short>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,short>,std::less<unsigned int>,true>,IOGPUMetalSuballocatorHeap::Allocator<std::__value_type<unsigned int,short>>>::__emplace_multi<std::pair<unsigned int,short>>(v11, &v22);
       }
 
       goto LABEL_38;
     }
 
-    if (v9 == 0x20000)
+    if (v6 == 0x20000)
     {
       MTLRangeAllocatorDestroy();
 
-      std::vector<short,IOGPUMetalSuballocatorHeap::Allocator<short>>::push_back[abi:ne200100]((v4 + 24), v3);
+      std::vector<short,IOGPUMetalSuballocatorHeap::Allocator<short>>::push_back[abi:ne200100]((v3 + 24), v2);
       goto LABEL_38;
     }
 
-    v23 = "newFreeSize == kBufferSize && Allocator state not empty with no allocations left";
-    v24 = 460;
+    v20 = "newFreeSize == kBufferSize && Allocator state not empty with no allocations left";
+    v21 = 460;
 LABEL_48:
-    __assert_rtn("IOGPUMetalSuballocatorFree", "IOGPUMetalSuballocator.mm", v24, v23);
+    __assert_rtn("IOGPUMetalSuballocatorFree", "IOGPUMetalSuballocator.mm", v21, v20);
   }
 
 LABEL_38:
-  os_unfair_lock_unlock((v4 + 80));
+  os_unfair_lock_unlock((v3 + 80));
 }
 
 uint64_t IOGPUDeviceCreateWithOptions(io_service_t a1, int a2)
@@ -2722,14 +2713,13 @@ uint64_t IOGPUDeviceCreateWithOptions(io_service_t a1, int a2)
   }
 
   v5 = connect;
-  v6 = *MEMORY[0x1E695E490];
   if (IOGPUDeviceGetTypeID_onceToken != -1)
   {
     IOGPUDeviceCreateWithOptions_cold_2();
   }
 
   Instance = _CFRuntimeCreateInstance();
-  v8 = Instance;
+  v7 = Instance;
   if (Instance)
   {
     *(Instance + 16) = a1;
@@ -2745,49 +2735,49 @@ uint64_t IOGPUDeviceCreateWithOptions(io_service_t a1, int a2)
       goto LABEL_15;
     }
 
-    *(v8 + 24) = *&outputStruct[0];
-    v9 = DWORD1(outputStruct[1]);
-    *(v8 + 40) = DWORD1(outputStruct[1]);
-    if (v9 < 2)
+    *(v7 + 24) = *&outputStruct[0];
+    v8 = DWORD1(outputStruct[1]);
+    *(v7 + 40) = DWORD1(outputStruct[1]);
+    if (v8 < 2)
     {
-      *(v8 + 32) = v8 + 24;
+      *(v7 + 32) = v7 + 24;
     }
 
     else
     {
-      *(v8 + 32) = malloc_type_malloc(8 * v9, 0x10040436913F5uLL);
-      v10 = *(v8 + 40);
-      if (v10 >= 1)
+      *(v7 + 32) = malloc_type_malloc(8 * v8, 0x10040436913F5uLL);
+      v9 = *(v7 + 40);
+      if (v9 >= 1)
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          *(*(v8 + 32) + 8 * i) = *(&outputStruct[1] + i + 2) + *(v8 + 24);
+          *(*(v7 + 32) + 8 * i) = *(&outputStruct[1] + i + 2) + *(v7 + 24);
         }
       }
     }
 
-    *(v8 + 44) = *(&outputStruct[0] + 1);
-    *(v8 + 52) = outputStruct[1];
-    v14[0] = 64;
-    if (IOConnectCallStructMethod(*(v8 + 20), 0, 0, 0, (v8 + 160), v14))
+    *(v7 + 44) = *(&outputStruct[0] + 1);
+    *(v7 + 52) = outputStruct[1];
+    v13[0] = 64;
+    if (IOConnectCallStructMethod(*(v7 + 20), 0, 0, 0, (v7 + 160), v13))
     {
 LABEL_15:
-      CFRelease(v8);
+      CFRelease(v7);
       return 0;
     }
 
-    *v14 = 0u;
-    v15 = 0u;
-    v13 = 32;
-    if (!IOConnectCallStructMethod(*(v8 + 20), 4u, 0, 0, v14, &v13))
+    *v13 = 0u;
+    v14 = 0u;
+    v12 = 32;
+    if (!IOConnectCallStructMethod(*(v7 + 20), 4u, 0, 0, v13, &v12))
     {
-      *(v8 + 88) = v14[0];
-      if (DWORD2(v15) >= 4)
+      *(v7 + 88) = v13[0];
+      if (DWORD2(v14) >= 4)
       {
-        *(v8 + 96) = v14[1];
+        *(v7 + 96) = v13[1];
       }
 
-      *(v8 + 104) = v15;
+      *(v7 + 104) = v14;
     }
 
     if (__globalGPUCommPageInit != -1)
@@ -2795,13 +2785,13 @@ LABEL_15:
       IOGPUDeviceCreateWithOptions_cold_3();
     }
 
-    *(v8 + 112) = 0;
-    *(v8 + 120) = 0;
-    *(v8 + 128) = 0u;
-    *(v8 + 144) = 0u;
+    *(v7 + 112) = 0;
+    *(v7 + 120) = 0;
+    *(v7 + 128) = 0u;
+    *(v7 + 144) = 0u;
   }
 
-  return v8;
+  return v7;
 }
 
 uint64_t __IOGPUDeviceGetTypeID_block_invoke()
@@ -2883,16 +2873,15 @@ IOGPUMetalCommandBufferStorage *IOGPUMetalCommandBufferStorageCreateExt(uint64_t
   v8->var21 = ResourceList;
   if (a4)
   {
-    v12 = *(a2 + 40);
-    v13 = MTLResourceListPoolCreateResourceList();
+    v12 = MTLResourceListPoolCreateResourceList();
   }
 
   else
   {
-    v13 = 0;
+    v12 = 0;
   }
 
-  v8->var20 = v13;
+  v8->var20 = v12;
   if ((_iogpuMetalCommandBufferStorageSetupShmems(v8, a2) & 1) == 0)
   {
     _iogpuMetalCommandBufferStorageFree(v8);
@@ -2905,8 +2894,7 @@ IOGPUMetalCommandBufferStorage *IOGPUMetalCommandBufferStorageCreateExt(uint64_t
 uint64_t IOGPUCommandQueueCreate(mach_port_t *a1, _BYTE *a2, unsigned int a3)
 {
   input[2] = *MEMORY[0x1E69E9840];
-  v16 = 16;
-  v6 = *MEMORY[0x1E695E490];
+  v14 = 16;
   if (IOGPUCommandQueueGetTypeID_onceToken != -1)
   {
     IOGPUCommandQueueGetTypeID_cold_1();
@@ -2916,21 +2904,21 @@ uint64_t IOGPUCommandQueueCreate(mach_port_t *a1, _BYTE *a2, unsigned int a3)
   if (Instance)
   {
     outputStruct = 0;
-    v18 = 0;
+    v16 = 0;
     CFRetain(a1);
     *(Instance + 16) = a1;
     *(Instance + 24) = 0;
     *(Instance + 40) = 0;
     *(Instance + 48) = a2[1029] != 0;
-    v8 = IOConnectCallMethod(a1[5], 6u, 0, 0, a2, a3, 0, 0, &outputStruct, &v16);
-    if (v8)
+    v7 = IOConnectCallMethod(a1[5], 6u, 0, 0, a2, a3, 0, 0, &outputStruct, &v14);
+    if (v7)
     {
-      if (v8 == -536379391)
+      if (v7 == -536379391)
       {
         abort();
       }
 
-      v9 = a1;
+      v8 = a1;
       goto LABEL_15;
     }
 
@@ -2939,12 +2927,12 @@ uint64_t IOGPUCommandQueueCreate(mach_port_t *a1, _BYTE *a2, unsigned int a3)
       IOGPUCommandQueueCreate_cold_4();
     }
 
-    v10 = v18;
+    v9 = v16;
     *(Instance + 24) = outputStruct;
-    *(Instance + 32) = v10;
-    v11 = IOGPUNotificationQueueCreate(a1, 0x100u, 0x28u);
-    *(Instance + 40) = v11;
-    if (!v11)
+    *(Instance + 32) = v9;
+    v10 = IOGPUNotificationQueueCreate(a1, 0x100u, 0x28u);
+    *(Instance + 40) = v10;
+    if (!v10)
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
@@ -2955,25 +2943,24 @@ uint64_t IOGPUCommandQueueCreate(mach_port_t *a1, _BYTE *a2, unsigned int a3)
     }
 
     input[0] = *(Instance + 24);
-    input[1] = IOGPUNotificationQueueGetID(v11);
-    v12 = IOConnectCallMethod(a1[5], 0x18u, input, 2u, 0, 0, 0, 0, 0, 0);
-    if (v12)
+    input[1] = IOGPUNotificationQueueGetID(v10);
+    v11 = IOConnectCallMethod(a1[5], 0x18u, input, 2u, 0, 0, 0, 0, 0, 0);
+    if (v11)
     {
-      v13 = v12;
+      v12 = v11;
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
       {
-        IOGPUCommandQueueCreate_cold_2(v13);
+        IOGPUCommandQueueCreate_cold_2(v12);
       }
 
 LABEL_14:
-      v9 = Instance;
+      v8 = Instance;
 LABEL_15:
-      CFRelease(v9);
-      Instance = 0;
+      CFRelease(v8);
+      return 0;
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return Instance;
 }
 
@@ -2999,16 +2986,15 @@ double IOGPUResourceListInit(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4
   return result;
 }
 
-uint64_t IOGPUNotificationQueueCreate(mach_port_t *a1, unsigned int a2, unsigned int a3)
+uint64_t IOGPUNotificationQueueCreate(mach_port_t *cold_1, unsigned int a2, unsigned int a3)
 {
   input[2] = *MEMORY[0x1E69E9840];
-  v13 = 16;
+  v11 = 16;
   if (IOGPUNotificationQueueCreate_once != -1)
   {
     IOGPUNotificationQueueCreate_cold_1();
   }
 
-  v6 = *MEMORY[0x1E695E490];
   if (IOGPUNotificationQueueGetTypeID_onceToken != -1)
   {
     IOGPUNotificationQueueGetTypeID_cold_1();
@@ -3018,10 +3004,10 @@ uint64_t IOGPUNotificationQueueCreate(mach_port_t *a1, unsigned int a2, unsigned
   if (Instance)
   {
     outputStruct = 0;
-    v15 = 0;
-    CFRetain(a1);
+    v13 = 0;
+    CFRetain(cold_1);
     *(Instance + 24) = 0;
-    *(Instance + 16) = a1;
+    *(Instance + 16) = cold_1;
     *(Instance + 72) = 0;
     *(Instance + 32) = 0;
     *(Instance + 40) = 0;
@@ -3029,39 +3015,37 @@ uint64_t IOGPUNotificationQueueCreate(mach_port_t *a1, unsigned int a2, unsigned
     *(Instance + 56) = 0;
     input[0] = a2;
     input[1] = a3;
-    if (IOConnectCallMethod(a1[5], 0xEu, input, 2u, 0, 0, 0, 0, &outputStruct, &v13))
+    if (IOConnectCallMethod(cold_1[5], 0xEu, input, 2u, 0, 0, 0, 0, &outputStruct, &v11))
     {
-      v8 = a1;
+      v7 = cold_1;
     }
 
     else
     {
-      if (!v15)
+      if (!v13)
       {
         IOGPUNotificationQueueCreate_cold_3();
       }
 
-      v9 = outputStruct;
-      *(Instance + 24) = v15;
-      *(Instance + 32) = v9;
+      v8 = outputStruct;
+      *(Instance + 24) = v13;
+      *(Instance + 32) = v8;
       NotificationPort = IODataQueueAllocateNotificationPort();
       *(Instance + 40) = NotificationPort;
-      if (NotificationPort && !MEMORY[0x1CCA975E0](a1[5], 0, NotificationPort, *(Instance + 24)))
+      if (NotificationPort && !MEMORY[0x1CCA975E0](cold_1[5], 0, NotificationPort, *(Instance + 24)))
       {
         *(Instance + 56) = dispatch_semaphore_create(0);
         *(Instance + 64) = dispatch_semaphore_create(a2);
-        goto LABEL_13;
+        return Instance;
       }
 
-      v8 = Instance;
+      v7 = Instance;
     }
 
-    CFRelease(v8);
-    Instance = 0;
+    CFRelease(v7);
+    return 0;
   }
 
-LABEL_13:
-  v11 = *MEMORY[0x1E69E9840];
   return Instance;
 }
 
@@ -3105,7 +3089,6 @@ dispatch_queue_t *IOGPUNotificationQueueSetDispatchQueue(dispatch_queue_t *resul
       if (v5[9])
       {
         dispatch_assert_queue_not_V2(v5[6]);
-        v6 = v5[9];
         dispatch_mach_cancel();
         result = dispatch_semaphore_wait(v5[7], 0xFFFFFFFFFFFFFFFFLL);
         if (v5[6])
@@ -3124,20 +3107,19 @@ dispatch_queue_t *IOGPUNotificationQueueSetDispatchQueue(dispatch_queue_t *resul
         label = dispatch_queue_get_label(a2);
         if (*label)
         {
-          v8 = label;
+          v7 = label;
         }
 
         else
         {
-          v8 = "IOGPUNotificationQueueDispatchQueue";
+          v7 = "IOGPUNotificationQueueDispatchQueue";
         }
 
         CFRetain(v5);
-        v9 = dispatch_queue_create_with_target_V2(v8, 0, a2);
-        v10 = dispatch_mach_create();
-        v5[6] = v9;
-        v5[9] = v10;
-        v11 = *(v5 + 10);
+        v8 = dispatch_queue_create_with_target_V2(v7, 0, a2);
+        v9 = dispatch_mach_create();
+        v5[6] = v8;
+        v5[9] = v9;
         return dispatch_mach_connect();
       }
     }
@@ -3293,15 +3275,15 @@ uint64_t IOGPUMetalCommandBufferStorageEndSegment(uint64_t result)
   return result;
 }
 
-void IOGPUMetalSuballocatorCreate(IOGPUMetalDevice *a1)
+void IOGPUMetalSuballocatorCreate(IOGPUMetalDevice *result)
 {
   v3 = 0;
-  if (a1)
+  if (result)
   {
     v2 = IOGPUMetalSuballocatorHeap::Allocator<IOGPUMetalSuballocator>::allocate(&v3, 1);
     if (v2)
     {
-      IOGPUMetalSuballocator::IOGPUMetalSuballocator(v2, a1);
+      IOGPUMetalSuballocator::IOGPUMetalSuballocator(v2, result);
     }
   }
 }
@@ -3631,7 +3613,7 @@ void IOGPUMetalCommandBufferStorageGrowKernelCommandBuffer(void *a1, int a2)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
-      IOGPUMetalCommandBufferStorageGrowKernelCommandBuffer_cold_4(a1);
+      IOGPUMetalCommandBufferStorageGrowKernelCommandBuffer_cold_4();
     }
 
     abort();
@@ -3723,11 +3705,11 @@ void sub_1CA09E160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-unint64_t IOGPUResourceGroupUpdateResources(uint64_t a1, uintptr_t p2, unsigned int *p3, uintptr_t a4, void *a5)
+uintptr_t IOGPUResourceGroupUpdateResources(uint64_t a1, uintptr_t p2, unsigned int *p3, uintptr_t a4, void *a5)
 {
   v5 = p3;
   v6 = p2;
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (p2 > 0x100 || a4 > 0x100)
   {
     if (!a4)
@@ -3738,7 +3720,7 @@ unint64_t IOGPUResourceGroupUpdateResources(uint64_t a1, uintptr_t p2, unsigned 
     if (a4 > 0x100)
     {
       input = *(a1 + 48);
-      v43 = a4;
+      v42 = a4;
       v22 = IOConnectCallMethod(*(*(a1 + 16) + 20), 0x35u, &input, 2u, a5, 8 * a4, 0, 0, 0, 0);
     }
 
@@ -3771,7 +3753,7 @@ unint64_t IOGPUResourceGroupUpdateResources(uint64_t a1, uintptr_t p2, unsigned 
       IOGPUResourceGroupUpdateResources_cold_1(v24, v25, v26, v27, v28, v29, v30, v31);
       if (!v6)
       {
-        goto LABEL_36;
+        return v6;
       }
     }
 
@@ -3780,14 +3762,14 @@ unint64_t IOGPUResourceGroupUpdateResources(uint64_t a1, uintptr_t p2, unsigned 
 LABEL_27:
       if (!v6)
       {
-        goto LABEL_36;
+        return v6;
       }
     }
 
     if (v6 > 0x100)
     {
       input = *(a1 + 48);
-      v43 = v6;
+      v42 = v6;
       v32 = IOConnectCallMethod(*(*(a1 + 16) + 20), 0x34u, &input, 2u, v5, 4 * v6, 0, 0, 0, 0);
     }
 
@@ -3854,8 +3836,6 @@ LABEL_27:
     }
   }
 
-LABEL_36:
-  v40 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -3958,9 +3938,7 @@ uint64_t IOGPUResourceSetOwnerIdentity(uint64_t a1, unsigned int a2)
   input[2] = *MEMORY[0x1E69E9840];
   input[0] = *(a1 + 48);
   input[1] = a2;
-  result = IOConnectCallScalarMethod(*(*(a1 + 16) + 20), 0x23u, input, 2u, 0, 0);
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallScalarMethod(*(*(a1 + 16) + 20), 0x23u, input, 2u, 0, 0);
 }
 
 void _addResidencySets(os_unfair_lock_s *a1, void *a2, uint64_t a3, uint64_t a4)
@@ -3979,9 +3957,7 @@ void _addResidencySets(os_unfair_lock_s *a1, void *a2, uint64_t a3, uint64_t a4)
       [*&a1[2 * a4 + 106]._os_unfair_lock_opaque addObject:*a2];
       if (*__globalGPUCommPage)
       {
-        v9 = *(&a1->_os_unfair_lock_opaque + *v8);
-        v10 = *(*a2 + 48);
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 34, *(&a1->_os_unfair_lock_opaque + *v8), *(*a2 + 48), 0, 0);
       }
 
       ++a2;
@@ -3993,15 +3969,15 @@ void _addResidencySets(os_unfair_lock_s *a1, void *a2, uint64_t a3, uint64_t a4)
 
   if (a4 == 1)
   {
-    v11 = 8;
+    v9 = 8;
   }
 
   else
   {
-    v11 = 32;
+    v9 = 32;
   }
 
-  if ([*&a1[2 * a4 + 106]._os_unfair_lock_opaque count] > v11)
+  if ([*&a1[2 * a4 + 106]._os_unfair_lock_opaque count] > v9)
   {
     MTLReportFailure();
   }
@@ -4028,9 +4004,7 @@ void _removeResidencySets(os_unfair_lock_s *a1, void *a2, uint64_t a3, uint64_t 
       [*&v8[106]._os_unfair_lock_opaque removeObject:*a2];
       if (*__globalGPUCommPage)
       {
-        v10 = *(&a1->_os_unfair_lock_opaque + *v9);
-        v11 = *(*a2 + 48);
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 35, *(&a1->_os_unfair_lock_opaque + *v9), *(*a2 + 48), 0, 0);
       }
 
       ++a2;
@@ -4114,6 +4088,13 @@ void _updateResidencySets(uint64_t a1)
   _Block_object_dispose(&v19, 8);
 }
 
+void sub_1CA0A31D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void *___updateResidencySets_block_invoke(void *result, _DWORD *a2)
 {
   v2 = *(result[4] + 8);
@@ -4158,9 +4139,9 @@ void ___updateResidencySets_block_invoke_2(uint64_t a1)
   free(*(a1 + 48));
 }
 
-void sub_1CA0A43C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1CA0A43C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4320,9 +4301,9 @@ void sub_1CA0A981C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void IOGPUGenerationalSet<objc_object *,IOGPUMTLIdKey,IOGPUMTLObjectHashAllocator>::rehash(uint64_t a1, unsigned int a2)
+void IOGPUGenerationalSet<objc_object *,IOGPUMTLIdKey,IOGPUMTLObjectHashAllocator>::rehash(uint64_t *a1, unsigned int a2)
 {
-  v2 = *(a1 + 48);
+  v2 = *(a1 + 12);
   v3 = 2 * v2;
   if (a2)
   {
@@ -4461,7 +4442,7 @@ void IOGPUMetalCommandBufferStorageGrowSegmentList(uint64_t a1)
     {
       if (v26)
       {
-        IOGPUMetalCommandBufferStorageGrowSegmentList_cold_1(v25);
+        IOGPUMetalCommandBufferStorageGrowSegmentList_cold_1();
         abort();
       }
     }
@@ -4513,7 +4494,7 @@ void IOGPUMetalCommandBufferStorageGrowSegmentList(uint64_t a1)
       else
       {
         v27 = MTLReleaseAssertionFailure();
-        _iogpuMetalCommandBufferStorageSetupShmems(v27);
+        _iogpuMetalCommandBufferStorageSetupShmems(v27, v28);
       }
 
       return;
@@ -4626,7 +4607,6 @@ void _iogpuMetalCommandBufferStorageFree(IOGPUMetalCommandBufferStorage *a1)
   if (var20)
   {
     [(IOGPUMetalCommandBufferResourceInfo *)var20 releaseAllObjectsAndReset];
-    v3 = a1->var20;
     MTLResourceListRelease();
     a1->var20 = 0;
   }
@@ -4635,7 +4615,6 @@ void _iogpuMetalCommandBufferStorageFree(IOGPUMetalCommandBufferStorage *a1)
   if (var21)
   {
     [var21 releaseAllObjectsAndReset];
-    v5 = a1->var21;
     MTLResourceListRelease();
     a1->var21 = 0;
   }
@@ -4897,7 +4876,7 @@ void IOGPUMetalCommandBufferStorageGrowDebugBuffer(void *a1, int a2)
     {
       if (v10)
       {
-        IOGPUMetalCommandBufferStorageGrowDebugBuffer_cold_1(v9);
+        IOGPUMetalCommandBufferStorageGrowDebugBuffer_cold_1();
         abort();
       }
     }
@@ -4966,7 +4945,7 @@ void IOGPUMetalCommandBufferStorageGrowSidebandBuffer(void *a1, int a2)
     {
       if (v14)
       {
-        IOGPUMetalCommandBufferStorageGrowSidebandBuffer_cold_1(v13);
+        IOGPUMetalCommandBufferStorageGrowSidebandBuffer_cold_1();
         abort();
       }
     }
@@ -4990,7 +4969,7 @@ void IOGPUMetalCommandBufferStorageGrowSidebandBuffer(void *a1, int a2)
   a1[8] = v10;
 }
 
-unint64_t IOGPUMetalCommandBufferStorageAddResidencySets(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned int a4)
+void *IOGPUMetalCommandBufferStorageAddResidencySets(uint64_t a1, uint64_t *a2, uint64_t a3, unsigned int a4)
 {
   if (a4)
   {
@@ -5068,7 +5047,7 @@ void IOGPUMetalResidencySetListCreate(uint64_t a1)
 
 unint64_t _IOGPUMetalResidencySetListInitialize(unint64_t result, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = *(a2 + 888);
   if (!v2)
   {
@@ -5100,14 +5079,14 @@ unint64_t _IOGPUMetalResidencySetListInitialize(unint64_t result, uint64_t a2)
           _IOGPUMetalResidencySetListInitialize();
         }
 
-        result = [v10 getObjects:v16 count:result];
+        result = [v10 getObjects:v15 count:result];
         if (v11)
         {
-          v13 = v16;
+          v13 = v15;
           do
           {
             v14 = *v13++;
-            result = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>((v4 + 40 * v5), (v14 + 40));
+            result = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>((v4 + 40 * v5), (v14 + 40), (v14 + 40));
             --v11;
           }
 
@@ -5121,7 +5100,8 @@ unint64_t _IOGPUMetalResidencySetListInitialize(unint64_t result, uint64_t a2)
         v6 += result;
         do
         {
-          result = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>((v4 + 40 * v5), v12++);
+          result = std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>((v4 + 40 * v5), v12, v12);
+          ++v12;
           --v11;
         }
 
@@ -5134,7 +5114,6 @@ unint64_t _IOGPUMetalResidencySetListInitialize(unint64_t result, uint64_t a2)
   }
 
   while ((v9 & 1) != 0);
-  v15 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5153,7 +5132,7 @@ void IOGPUMetalResidencySetListDestroy(uint64_t a1)
   IOGPUMetalResidencySetListDestroy_cold_1();
 }
 
-BOOL IOGPUMetalCommandBufferStorageMergeResidencySetList(uint64_t a1, uint64_t a2)
+BOOL IOGPUMetalCommandBufferStorageMergeResidencySetList(_OWORD *a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -5170,7 +5149,7 @@ BOOL IOGPUMetalCommandBufferStorageMergeResidencySetList(uint64_t a1, uint64_t a
   while (1)
   {
     v6 = v5;
-    v7 = *(a1 + 40 * v4 + 24) + [*(a2 + 896 + 8 * v4) count];
+    v7 = *(a1 + 5 * v4 + 3) + [*(a2 + 896 + 8 * v4) count];
     v8 = *(&unk_1CA0CCDB8 + v4);
     if (v7 > v8)
     {
@@ -5339,9 +5318,9 @@ void IOGPUMetal4CommandBufferStorageEndCommandBuffer(uint64_t a1)
   }
 }
 
-void sub_1CA0ACE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1CA0ACE58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5397,7 +5376,7 @@ LABEL_7:
   return result;
 }
 
-void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned int,void *> *>>(void *a1, uint64_t *a2, uint64_t *a3)
+void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__assign_multi<std::__hash_const_iterator<std::__hash_node<unsigned int,void *> *>>(void *a1, unsigned int *a2, unsigned int *a3)
 {
   v6 = a1[1];
   if (v6)
@@ -5414,7 +5393,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     {
       while (a2 != a3)
       {
-        v9 = *(a2 + 4);
+        v9 = a2[4];
         *(v8 + 4) = v9;
         v10 = *v8;
         v8[1] = v9;
@@ -5442,7 +5421,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
 LABEL_11:
   if (a2 != a3)
   {
-    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_multi<unsigned int const&>();
+    std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_multi<unsigned int const&>(a1, a2 + 4);
   }
 }
 
@@ -5624,7 +5603,7 @@ LABEL_19:
   return result;
 }
 
-void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<false>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<false>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -5640,7 +5619,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -5648,7 +5627,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5672,7 +5651,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     {
 LABEL_6:
 
-      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<false>(a1, prime);
+      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<false>(result, prime);
     }
   }
 }
@@ -5699,33 +5678,33 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
   *(a1 + 8) = 0;
 }
 
-uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(void *a1, unsigned int *a2)
+uint64_t *std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__emplace_unique_key_args<unsigned int,unsigned int const&>(float *a1, unsigned int *a2, _DWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % v3.i32[0];
+      v6 = v3 % v4.i32[0];
     }
   }
 
   else
   {
-    v5 = (v3.i32[0] - 1) & v2;
+    v6 = (v4.i32[0] - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -5733,47 +5712,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -5789,7 +5768,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -5797,7 +5776,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -5821,7 +5800,7 @@ void std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsign
     {
 LABEL_6:
 
-      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<unsigned int>,std::allocator<unsigned int>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -5873,7 +5852,7 @@ uint64_t std::__hash_table<unsigned int,std::hash<unsigned int>,std::equal_to<un
   return a1;
 }
 
-uint64_t IOGPUIOCommandQueueGetTypeID()
+uint64_t IOGPUIOCommandQueueGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (IOGPUIOCommandQueueGetTypeID_onceToken != -1)
   {
@@ -5893,7 +5872,6 @@ uint64_t __IOGPUIOCommandQueueGetTypeID_block_invoke()
 void *IOGPUIOCommandQueueCreate(mach_port_t *a1, uint64_t a2, unsigned int a3, unsigned int a4)
 {
   input[2] = *MEMORY[0x1E69E9840];
-  v7 = *MEMORY[0x1E695E490];
   if (IOGPUIOCommandQueueGetTypeID_onceToken != -1)
   {
     IOGPUIOCommandQueueGetTypeID_cold_1();
@@ -5907,14 +5885,14 @@ void *IOGPUIOCommandQueueCreate(mach_port_t *a1, uint64_t a2, unsigned int a3, u
       IOGPUIOCommandQueueCreate_cold_5();
     }
 
-    goto LABEL_18;
+    return 0;
   }
 
-  v9 = Instance;
+  v8 = Instance;
   CFRetain(a1);
-  v9[2] = a1;
-  v9[3] = 0;
-  v9[5] = 0;
+  v8[2] = a1;
+  v8[3] = 0;
+  v8[5] = 0;
   input[0] = a3;
   input[1] = a4;
   outputCnt = 2;
@@ -5925,14 +5903,14 @@ void *IOGPUIOCommandQueueCreate(mach_port_t *a1, uint64_t a2, unsigned int a3, u
       IOGPUIOCommandQueueCreate_cold_2();
     }
 
-    v10 = a1;
+    v9 = a1;
     goto LABEL_17;
   }
 
-  *(v9 + 3) = *output;
-  v11 = IOGPUNotificationQueueCreate(a1, 0x2000u, 0x10u);
-  v9[5] = v11;
-  if (!v11)
+  *(v8 + 3) = *output;
+  v10 = IOGPUNotificationQueueCreate(a1, 0x2000u, 0x10u);
+  v8[5] = v10;
+  if (!v10)
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
@@ -5942,9 +5920,9 @@ void *IOGPUIOCommandQueueCreate(mach_port_t *a1, uint64_t a2, unsigned int a3, u
     goto LABEL_16;
   }
 
-  v15[0] = v9[3];
-  v15[1] = IOGPUNotificationQueueGetID(v11);
-  if (IOConnectCallMethod(a1[5], 0x2Cu, v15, 2u, 0, 0, 0, 0, 0, 0))
+  v13[0] = v8[3];
+  v13[1] = IOGPUNotificationQueueGetID(v10);
+  if (IOConnectCallMethod(a1[5], 0x2Cu, v13, 2u, 0, 0, 0, 0, 0, 0))
   {
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
@@ -5952,15 +5930,13 @@ void *IOGPUIOCommandQueueCreate(mach_port_t *a1, uint64_t a2, unsigned int a3, u
     }
 
 LABEL_16:
-    v10 = v9;
+    v9 = v8;
 LABEL_17:
-    CFRelease(v10);
-LABEL_18:
-    v9 = 0;
+    CFRelease(v9);
+    return 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v8;
 }
 
 dispatch_queue_t *IOGPUIOCommandQueueSetDispatchQueue(dispatch_queue_t *result, NSObject *a2)
@@ -6121,7 +6097,6 @@ uint64_t IOGPUIOCommandQueueCreateIOCommandBuffer(uint64_t a1, _DWORD *a2, uint6
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -6149,7 +6124,6 @@ uint64_t IOGPUIOCommandQueueDestroyIOCommandBuffer(void *a1, unsigned int a2)
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -6175,7 +6149,6 @@ uint64_t IOGPUIOCommandQueueTryCancelIOCommandBuffer(void *a1, unsigned int a2)
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -6228,7 +6201,6 @@ uint64_t IOGPUIOCommandQueueIOCommandBufferBarrierComplete(void *a1, unsigned in
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -6293,7 +6265,7 @@ void __ioGPUIOCommandQueueFinalize_block_invoke_2(uint64_t a1)
   IOGPUNotificationQueueRelease(v2);
 }
 
-uint64_t IOGPUDeviceGetTypeID()
+uint64_t IOGPUDeviceGetTypeID(uint64_t a1, uint64_t a2)
 {
   if (IOGPUDeviceGetTypeID_onceToken != -1)
   {
@@ -6349,14 +6321,14 @@ unsigned int *IOGPUDeviceGetConnect(unsigned int *result)
 
 uint64_t IOGPUDeviceGetName(mach_port_t *a1, char *a2, size_t a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = 3758097090;
-  v9 = 64;
+  v8 = 64;
   if (a1)
   {
     if (CFGetTypeID(a1) == kIOGPUDeviceID)
     {
-      v3 = IOConnectCallStructMethod(a1[5], 1u, 0, 0, outputStruct, &v9);
+      v3 = IOConnectCallStructMethod(a1[5], 1u, 0, 0, outputStruct, &v8);
       if (!v3)
       {
         strncpy(a2, outputStruct, a3);
@@ -6364,7 +6336,6 @@ uint64_t IOGPUDeviceGetName(mach_port_t *a1, char *a2, size_t a3)
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -6442,11 +6413,10 @@ uint64_t IOGPUDeviceSetAppGPURole(uint64_t a1, int a2, unsigned int a3)
     {
       input[0] = a2;
       input[1] = a3;
-      result = IOConnectCallScalarMethod(v5, 0x21u, input, 2u, 0, 0);
+      return IOConnectCallScalarMethod(v5, 0x21u, input, 2u, 0, 0);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6470,7 +6440,6 @@ uint64_t IOGPUDeviceGetAppGPURole(uint64_t a1, int a2, _DWORD *a3)
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6516,7 +6485,6 @@ uint64_t IOGPUDeviceCreateVNIODesc(_DWORD *cf, int a2, _DWORD *a3, void *a4)
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -6555,7 +6523,6 @@ uint64_t IOGPUDeviceCreateDeviceAssertion(_DWORD *cf, uint64_t a2, uint64_t a3, 
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -6773,7 +6740,7 @@ uint64_t IOGPUCommandQueueWaitMTLEvent(uint64_t a1, uintptr_t p2, uintptr_t p3, 
 
 uint64_t IOGPUCommandQueueSupportsBackgroundAppRole(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (a1 | a2)
   {
     v2 = 3758097088;
@@ -6799,13 +6766,12 @@ uint64_t IOGPUCommandQueueSupportsBackgroundAppRole(uint64_t a1, uint64_t a2)
     v2 = IOConnectTrap1(*(a1 + 20), 0xDu, v3);
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
-      v6[0] = 67109120;
-      v6[1] = v2;
-      _os_log_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "BackgroundAppRole kr = 0x%X", v6, 8u);
+      v5[0] = 67109120;
+      v5[1] = v2;
+      _os_log_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "BackgroundAppRole kr = 0x%X", v5, 8u);
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -6946,7 +6912,6 @@ IOSurfaceRef IOGPUResourceCreateIOSurface(uint64_t a1, uint64_t a2, uint64_t a3)
     mach_port_mod_refs(*MEMORY[0x1E69E9A60], output, 0, -1);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -6954,9 +6919,7 @@ uint64_t IOGPUResourceDetachBacking(uint64_t a1)
 {
   input[1] = *MEMORY[0x1E69E9840];
   input[0] = *(a1 + 48);
-  result = IOConnectCallMethod(*(*(a1 + 16) + 20), 0x25u, input, 1u, 0, 0, 0, 0, 0, 0);
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return IOConnectCallMethod(*(*(a1 + 16) + 20), 0x25u, input, 1u, 0, 0, 0, 0, 0, 0);
 }
 
 uint64_t IOGPUResourceReplaceBackingWithBytes(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -7003,7 +6966,6 @@ uint64_t IOGPUResourceReplaceBackingWithRanges(uint64_t a1, uint64_t a2, uint64_
     *a6 = output[0];
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -7120,7 +7082,7 @@ const char *tensorDataTypeToString(uint64_t a1)
   return "";
 }
 
-uint64_t IOGPUResourceListAddResourceNoThreshold(uint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t IOGPUResourceListAddResourceNoThreshold(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a2 + 16);
   v4 = (0x9E3779B97F4A7C15 * v3) >> -*(a1 + 488);
@@ -7173,7 +7135,7 @@ BOOL _ioGPUResourceListMergeGroup(uint64_t a1, uint64_t a2, unsigned int a3)
 
 LABEL_6:
       ++v5;
-      v8 += 16;
+      v8 += 64;
       v7 += 32;
       v6 = v5 >= v9;
       if (v5 == v9)
@@ -7247,7 +7209,7 @@ uint64_t IOGPUResourceListShowResources(uint64_t result)
 
 void ioGPUResourceListRebuild(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 480);
   v2 = 2 * v1;
   *(a1 + 480) = 2 * v1;
@@ -7286,8 +7248,8 @@ LABEL_18:
       *(a1 + 492) = *(a1 + 480);
     }
 
-    v18 = *(a1 + 544);
-    if (!v18)
+    v17 = *(a1 + 544);
+    if (!v17)
     {
       break;
     }
@@ -7295,21 +7257,21 @@ LABEL_18:
     v5 = 0;
     v6 = *(a1 + 512);
     v7 = (v6 + 12);
-    v19 = v6;
-    while (!HIWORD(v19[16 * v5 + 15]))
+    v18 = v6;
+    while (!HIWORD(v18[16 * v5 + 15]))
     {
 LABEL_11:
       ++v5;
       v6 += 16;
       v7 += 32;
-      if (v5 == v18)
+      if (v5 == v17)
       {
-        goto LABEL_17;
+        return;
       }
     }
 
     v8 = 0;
-    v9 = HIWORD(v19[16 * v5 + 15]) << 24;
+    v9 = HIWORD(v18[16 * v5 + 15]) << 24;
     v10 = v7;
     v11 = v6;
     while (1)
@@ -7333,9 +7295,9 @@ LABEL_11:
     {
       v16 = *(a1 + 480);
       *buf = 67109376;
-      v21 = v16;
-      v22 = 1024;
-      v23 = 2 * v16;
+      v20 = v16;
+      v21 = 1024;
+      v22 = 2 * v16;
       _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "intermediate rebuild failed, trying larger hash table %d -> %d...\n", buf, 0xEu);
     }
 
@@ -7350,9 +7312,6 @@ LABEL_11:
       goto LABEL_18;
     }
   }
-
-LABEL_17:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void IOGPUMetalSuballocatorDestroy(IOGPUMetalSuballocator *a1)
@@ -7367,7 +7326,7 @@ void IOGPUMetalSuballocatorDestroy(IOGPUMetalSuballocator *a1)
   free(v1);
 }
 
-void std::vector<short,IOGPUMetalSuballocatorHeap::Allocator<short>>::push_back[abi:ne200100](const void **a1, __int16 *a2)
+void std::vector<short,IOGPUMetalSuballocatorHeap::Allocator<short>>::push_back[abi:ne200100](char **a1, __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7434,7 +7393,7 @@ void std::vector<short,IOGPUMetalSuballocatorHeap::Allocator<short>>::push_back[
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 2;
   }
 
   a1[1] = v6;
@@ -7561,12 +7520,12 @@ void sub_1CA0B83F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t __copy_helper_block_e8_64c66_ZTSNSt3__16vectorI24IOGPUIODecompressionArgsNS_9allocatorIS1_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_64c66_ZTSNSt3__16vectorI24IOGPUIODecompressionArgsNS_9allocatorIS1_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
-  v2 = a1 + 64;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 64);
+  v2[2] = 0;
   return std::vector<IOGPUIODecompressionArgs>::__init_with_size[abi:ne200100]<IOGPUIODecompressionArgs*,IOGPUIODecompressionArgs*>(v2, *(a2 + 64), *(a2 + 72), 0xCCCCCCCCCCCCCCCDLL * ((*(a2 + 72) - *(a2 + 64)) >> 3));
 }
 
@@ -7600,7 +7559,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<IOGPUIODecompressionA
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<IOGPUIODecompressionArgs>::__init_with_size[abi:ne200100]<IOGPUIODecompressionArgs*,IOGPUIODecompressionArgs*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<IOGPUIODecompressionArgs>::__init_with_size[abi:ne200100]<IOGPUIODecompressionArgs*,IOGPUIODecompressionArgs*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7622,7 +7581,7 @@ void sub_1CA0B9B30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<IOGPUIODecompressionArgs>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<IOGPUIODecompressionArgs>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -7635,15 +7594,15 @@ void std::vector<IOGPUIODecompressionArgs>::__vallocate[abi:ne200100](uint64_t a
 void submitCommandBuffers(void *a1)
 {
   v1 = a1;
-  v25 = a1[1];
+  v26 = a1[1];
   v2 = *(a1 + 5);
   if (v2)
   {
     v3 = 0;
-    v26 = *a1;
+    v27 = *a1;
     v4 = *(a1 + 4);
     v5 = &unk_1E8363040;
-    v27 = *(a1 + 5);
+    v28 = *(a1 + 5);
     do
     {
       if (v2 - v3 >= 0x40)
@@ -7658,100 +7617,96 @@ void submitCommandBuffers(void *a1)
 
       if (*__globalGPUCommPage)
       {
-        [v25 backgroundTrackingPID];
-        [objc_msgSend(v25 "device")];
-        [v25 globalTraceObjectID];
-        v7 = v1[3];
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 41, [v26 backgroundTrackingPID], objc_msgSend(objc_msgSend(v26, "device"), "globalTraceObjectID"), objc_msgSend(v26, "globalTraceObjectID"), v1[3]);
       }
 
-      v8 = (v26 + (v3 * v4));
-      v9 = IOGPUCommandQueueSubmitCommandBuffers(*(v1[1] + 128), 0, v6, v8, v4, 0);
-      v10 = v9;
-      v28 = v3;
-      if ((v9 & 0x80000000) != 0)
+      v7 = (v27 + (v3 * v4));
+      v8 = IOGPUCommandQueueSubmitCommandBuffers(*(v1[1] + 128), 0, v6, v7, v4, 0);
+      v9 = v8;
+      v29 = v3;
+      if ((v8 & 0x80000000) != 0)
       {
-        if (v9 == -536870206)
+        if (v8 == -536870206)
         {
-          v10 = 10;
+          v9 = 10;
           goto LABEL_17;
         }
 
-        if (v9 == -536870174)
+        if (v8 == -536870174)
         {
-          v10 = 7;
+          v9 = 7;
 LABEL_17:
-          v11 = 1;
+          v10 = 1;
           goto LABEL_19;
         }
       }
 
       else
       {
-        if (!v9)
+        if (!v8)
         {
-          v11 = 0;
+          v10 = 0;
           goto LABEL_19;
         }
 
-        if (v9 == 268435459)
+        if (v8 == 268435459)
         {
-          v10 = 15;
+          v9 = 15;
           goto LABEL_17;
         }
       }
 
-      v11 = 1;
       v10 = 1;
+      v9 = 1;
 LABEL_19:
-      v12 = v6;
+      v11 = v6;
       if (*__globalGPUCommPage)
       {
-        [v25 globalTraceObjectID];
+        v12 = [v26 globalTraceObjectID];
         v13 = v1[3];
-        mach_absolute_time();
-        IOGPUDeviceTraceEvent();
+        v14 = mach_absolute_time();
+        IOGPUDeviceTraceEvent(0, 8, 42, v12, v13, v14, v9);
       }
 
-      v14 = 0x1EC432000uLL;
-      v15 = v1;
-      v16 = v5;
-      if (v11)
+      v15 = 0x1EC432000uLL;
+      v16 = v1;
+      v17 = v5;
+      if (v10)
       {
-        v17 = v8;
-        v18 = v10;
-        v19 = 0;
+        v18 = v7;
+        v19 = v9;
         v20 = 0;
-        v29 = MEMORY[0x1E69E9820];
+        v21 = 0;
+        v30 = MEMORY[0x1E69E9820];
         do
         {
-          v21 = *&v17[v19 + 24];
-          v22 = v14;
-          v23 = *(v15[1] + *(v14 + 952));
-          block[0] = v29;
+          v22 = *&v18[v20 + 24];
+          v23 = v15;
+          v24 = *(v16[1] + *(v15 + 952));
+          block[0] = v30;
           block[1] = 3221225472;
           block[2] = ___ZL20submitCommandBuffersPv_block_invoke;
-          block[3] = v16;
-          block[4] = v21;
-          v31 = v18;
-          v24 = v18;
-          dispatch_async(v23, block);
-          v18 = v24;
-          v14 = v22;
-          ++v20;
-          v19 += v4;
+          block[3] = v17;
+          block[4] = v22;
+          v32 = v19;
+          v25 = v19;
+          dispatch_async(v24, block);
+          v19 = v25;
+          v15 = v23;
+          ++v21;
+          v20 += v4;
         }
 
-        while (v20 < v12);
+        while (v21 < v11);
       }
 
-      v2 = v27;
-      v3 = v28 + 64;
-      v5 = v16;
-      v1 = v15;
+      v2 = v28;
+      v3 = v29 + 64;
+      v5 = v17;
+      v1 = v16;
     }
 
-    while (v28 + 64 < v27);
+    while (v29 + 64 < v28);
   }
 
   free(v1);
@@ -7813,9 +7768,7 @@ void _addResidencySets(IOGPUMetal4CommandQueue *a1, uint64_t a2, unint64_t a3, u
       [(NSCountedSet *)a1->_resourceGroups[a4] addObject:*(a2 + 8 * v8)];
       if (*__globalGPUCommPage)
       {
-        v11 = *(&a1->super.super.super.isa + *v10);
-        v12 = *(*(a2 + 8 * v8) + 48);
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 34, *(&a1->super.super.super.isa + *v10), *(*(a2 + 8 * v8) + 48), 0, 0);
       }
 
       v8 = v9++;
@@ -7826,15 +7779,15 @@ void _addResidencySets(IOGPUMetal4CommandQueue *a1, uint64_t a2, unint64_t a3, u
 
   if (a4 == 1)
   {
-    v13 = 8;
+    v11 = 8;
   }
 
   else
   {
-    v13 = 32;
+    v11 = 32;
   }
 
-  if ([(NSCountedSet *)a1->_resourceGroups[a4] count]> v13)
+  if ([(NSCountedSet *)a1->_resourceGroups[a4] count]> v11)
   {
     MTLReportFailure();
   }
@@ -7863,9 +7816,7 @@ void _removeResidencySets(IOGPUMetal4CommandQueue *a1, uint64_t a2, unint64_t a3
       [v11[19] removeObject:*(a2 + 8 * v8)];
       if (*__globalGPUCommPage)
       {
-        v12 = *(&a1->super.super.super.isa + *v10);
-        v13 = *(*(a2 + 8 * v8) + 48);
-        IOGPUDeviceTraceEvent();
+        IOGPUDeviceTraceEvent(0, 8, 35, *(&a1->super.super.super.isa + *v10), *(*(a2 + 8 * v8) + 48), 0, 0);
       }
 
       v8 = v9++;
@@ -7888,11 +7839,10 @@ void sub_1CA0BD0B8(_Unwind_Exception *a1)
 
 void ___ZL20submitCommandBuffersPv_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 32);
+  v2 = *(a1 + 32);
 
-  _Block_release(v3);
+  _Block_release(v2);
 }
 
 uint64_t ___ZL13_waitForEventP23IOGPUMetal4CommandQueuePU18objcproto8MTLEvent11objc_objectyjPP7NSError_block_invoke_2(uint64_t a1)
@@ -7974,6 +7924,13 @@ void _updateResidencySets(IOGPUMetal4CommandQueue *a1)
   _Block_object_dispose(&v19, 8);
 }
 
+void sub_1CA0BD4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void *___ZL20_updateResidencySetsP23IOGPUMetal4CommandQueue_block_invoke(void *result, _DWORD *a2)
 {
   v2 = *(result[4] + 8);
@@ -8020,39 +7977,18 @@ void ___ZL20_updateResidencySetsP23IOGPUMetal4CommandQueue_block_invoke_2(uint64
 
 void ___updateResidencySets_block_invoke_2_cold_1(int a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_error_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "IOGPUCommandQueueSetResourceGroups() failed: %08x", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_error_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "IOGPUCommandQueueSetResourceGroups() failed: %08x", v1, 8u);
 }
 
 void ioGPUNotificationQueueFinalize_cold_3(int a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "IOGPUNotificationQueue delete failed with error 0x%x", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
-}
-
-void IOGPUMetalCommandBufferStorageGrowSegmentList_cold_1(uint64_t *a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  v8 = *(a1 + 2);
-  v9 = *(a1 + 3);
-  OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0x22u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void IOGPUMetalCommandBufferStorageGrowSegmentList_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "IOGPUNotificationQueue delete failed with error 0x%x", v1, 8u);
 }
 
 void _iogpuMetalCommandBufferStorageFree()
@@ -8064,60 +8000,18 @@ void _iogpuMetalCommandBufferStorageFree()
   __assert_rtn("_iogpuMetalCommandBufferStorageFree", "IOGPUMetalCommandBufferStorage.mm", 157, "!storage->segmentListShmem");
 }
 
-void IOGPUMetalCommandBufferStorageGrowKernelCommandBuffer_cold_4(uint64_t a1)
+void IOGPUMetalCommandBufferStorageGrowDebugBuffer_cold_1()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 120);
-  v8 = *v1;
-  v9 = *(v1 + 2);
-  v10 = *(v1 + 3);
-  OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x28u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void IOGPUMetalCommandBufferStorageAllocResourceAtIndex_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void IOGPUMetalCommandBufferStorageGrowDebugBuffer_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void IOGPUMetalCommandBufferStorageGrowDebugBuffer_cold_2()
+void IOGPUMetalCommandBufferStorageGrowSidebandBuffer_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void IOGPUMetalCommandBufferStorageGrowSidebandBuffer_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void IOGPUMetalCommandBufferStorageGrowSidebandBuffer_cold_2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void _IOGPUMetalResidencySetListInitialize()
@@ -8135,86 +8029,75 @@ void _IOGPUMetalResidencySetListInitialize()
 
 void IOGPUIOCommandQueueCreate_cold_3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOGPUIOCommandQueueDestroyIOCommandBuffer_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOGPUIOCommandQueueTryCancelIOCommandBuffer_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOGPUIOCommandQueueIOCommandBufferBarrierComplete_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void IOGPUDeviceCreateWithOptions_cold_1(int a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to create an IOGPUDevice... IOServiceOpen returned kIOReturn(0x%X)", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to create an IOGPUDevice... IOServiceOpen returned kIOReturn(0x%X)", v1, 8u);
 }
 
 void IOGPUDeviceCheckAndLogSoftFaultCount_cold_1(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 134217984;
-  v3 = a1;
-  _os_log_error_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "GPU Soft Fault count: %lld\n", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 134217984;
+  v2 = a1;
+  _os_log_error_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "GPU Soft Fault count: %lld\n", &v1, 0xCu);
 }
 
 void IOGPUCommandQueueCreate_cold_2(int a1)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = a1;
-  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to set notification queue for cmd queue: %08x", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = a1;
+  _os_log_fault_impl(&dword_1CA097000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "Failed to set notification queue for cmd queue: %08x", v1, 8u);
 }
 
 void IOGPUResourceGroupUpdateResources_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1CA097000, MEMORY[0x1E69E9C10], a3, "Group Remove Resources Failed = 0x%X", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1CA097000, MEMORY[0x1E69E9C10], a3, "Group Remove Resources Failed = 0x%X", a5, a6, a7, a8, v8);
 }
 
 void IOGPUResourceGroupUpdateResources_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1CA097000, MEMORY[0x1E69E9C10], a3, "Group Add Resources Failed = 0x%X", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1CA097000, MEMORY[0x1E69E9C10], a3, "Group Add Resources Failed = 0x%X", a5, a6, a7, a8, v8);
 }
 
 void IOGPUResourceGroupUpdateResources_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_1(&dword_1CA097000, MEMORY[0x1E69E9C10], a3, "Group Update Resources Failed = 0x%X", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0_1(&dword_1CA097000, MEMORY[0x1E69E9C10], a3, "Group Update Resources Failed = 0x%X", a5, a6, a7, a8, v8);
 }
 
 void operator delete(void *__p)

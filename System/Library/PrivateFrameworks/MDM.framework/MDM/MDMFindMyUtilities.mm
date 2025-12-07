@@ -18,7 +18,7 @@
 
 + (id)lockDeviceWithMessage:(id)message phoneNumber:(id)number
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   numberCopy = number;
   [self lockDevice];
@@ -46,9 +46,9 @@
       {
         v14 = v13;
         dMCVerboseDescription = [v12 DMCVerboseDescription];
-        v19 = 138543362;
-        v20 = dMCVerboseDescription;
-        _os_log_impl(&dword_2561F5000, v14, OS_LOG_TYPE_ERROR, "MDMFindMyUtilities failed to set lock screen message with error: %{public}@", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = dMCVerboseDescription;
+        _os_log_impl(&dword_2561F5000, v14, OS_LOG_TYPE_ERROR, "MDMFindMyUtilities failed to set lock screen message with error: %{public}@", &v18, 0xCu);
       }
 
       if ([v12 code] == 7)
@@ -73,7 +73,6 @@
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -147,23 +146,21 @@
 
 void __40__MDMFindMyUtilities_isActivationLockOn__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
     v6 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v8 = 138543362;
-      v9 = v5;
-      _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_ERROR, "MDMFindMyUtilities failed to get activation lock state with error: %{public}@", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v5;
+      _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_ERROR, "MDMFindMyUtilities failed to get activation lock state with error: %{public}@", &v7, 0xCu);
     }
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)enableActivationLockWithCompletion:(id)completion
@@ -181,7 +178,7 @@ void __40__MDMFindMyUtilities_isActivationLockOn__block_invoke(uint64_t a1, char
 
 void __57__MDMFindMyUtilities_enableActivationLockWithCompletion___block_invoke(uint64_t a1, unint64_t a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5)
   {
@@ -189,7 +186,7 @@ void __57__MDMFindMyUtilities_enableActivationLockWithCompletion___block_invoke(
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v5;
+      v13 = v5;
       _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_ERROR, "Could not get device locator state. Error: %{public}@", buf, 0xCu);
     }
 
@@ -213,20 +210,19 @@ LABEL_10:
   }
 
   v8 = [MEMORY[0x277D08F78] sharedInstance];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __57__MDMFindMyUtilities_enableActivationLockWithCompletion___block_invoke_19;
-  v11[3] = &unk_27982BA30;
-  v12 = *(a1 + 32);
-  [v8 isActivationLockedWithCompletion:v11];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __57__MDMFindMyUtilities_enableActivationLockWithCompletion___block_invoke_19;
+  v10[3] = &unk_27982BA30;
+  v11 = *(a1 + 32);
+  [v8 isActivationLockedWithCompletion:v10];
 
 LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __57__MDMFindMyUtilities_enableActivationLockWithCompletion___block_invoke_19(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *(DMCLogObjects() + 8);
   if (v5)
@@ -234,7 +230,7 @@ void __57__MDMFindMyUtilities_enableActivationLockWithCompletion___block_invoke_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v14 = v5;
+      v13 = v5;
       _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_ERROR, "Could not get activation lock state. Error: %{public}@", buf, 0xCu);
     }
 
@@ -263,43 +259,40 @@ LABEL_9:
     _os_log_impl(&dword_2561F5000, v6, OS_LOG_TYPE_DEFAULT, "Enabling activation lock...", buf, 2u);
   }
 
-  v10 = [MEMORY[0x277D08F78] sharedInstance];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __57__MDMFindMyUtilities_enableActivationLockWithCompletion___block_invoke_20;
-  v11[3] = &unk_27982BD00;
-  v12 = *(a1 + 32);
-  [v10 enableActivationLockWithCompletion:v11];
+  v9 = [MEMORY[0x277D08F78] sharedInstance];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __57__MDMFindMyUtilities_enableActivationLockWithCompletion___block_invoke_20;
+  v10[3] = &unk_27982BD00;
+  v11 = *(a1 + 32);
+  [v9 enableActivationLockWithCompletion:v10];
 
 LABEL_10:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __57__MDMFindMyUtilities_enableActivationLockWithCompletion___block_invoke_20(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *(DMCLogObjects() + 8);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138543362;
-      v8 = v3;
-      _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_ERROR, "Could not enable activation lock. Error: %{public}@", &v7, 0xCu);
+      v6 = 138543362;
+      v7 = v3;
+      _os_log_impl(&dword_2561F5000, v4, OS_LOG_TYPE_ERROR, "Could not enable activation lock. Error: %{public}@", &v6, 0xCu);
     }
   }
 
   v5 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v7) = 0;
-    _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_DEFAULT, "Activation lock enabled.", &v7, 2u);
+    LOWORD(v6) = 0;
+    _os_log_impl(&dword_2561F5000, v5, OS_LOG_TYPE_DEFAULT, "Activation lock enabled.", &v6, 2u);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

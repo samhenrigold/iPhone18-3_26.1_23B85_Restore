@@ -10,7 +10,10 @@
 - (id)certificateData;
 - (id)description;
 - (id)signatureData;
+- (void)accessoryAdditionsData;
+- (void)certificateData;
 - (void)encodeWithCoder:(id)coder;
+- (void)signatureData;
 @end
 
 @implementation CARThemeAsset
@@ -135,15 +138,16 @@
   baseURL = [(CARThemeAsset *)self baseURL];
   v3 = [baseURL URLByAppendingPathComponent:@"Certificate.chain.pem" isDirectory:0];
 
-  v14 = 0;
-  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3 options:0 error:&v14];
-  v5 = v14;
+  v15 = 0;
+  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3 options:0 error:&v15];
+  v5 = v15;
+  v6 = v5;
   if (!v4)
   {
-    v6 = CarThemeAssetsLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CarThemeAssetsLogging(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CARThemeAsset *)v5 certificateData:v6];
+      [(CARThemeAsset *)v6 certificateData:v7];
     }
   }
 
@@ -155,15 +159,16 @@
   baseURL = [(CARThemeAsset *)self baseURL];
   v3 = [baseURL URLByAppendingPathComponent:@"CarPlayAccessory.assets.sha256" isDirectory:0];
 
-  v14 = 0;
-  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3 options:0 error:&v14];
-  v5 = v14;
+  v15 = 0;
+  v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3 options:0 error:&v15];
+  v5 = v15;
+  v6 = v5;
   if (!v4)
   {
-    v6 = CarThemeAssetsLogging();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = CarThemeAssetsLogging(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(CARThemeAsset *)v5 signatureData:v6];
+      [(CARThemeAsset *)v6 signatureData:v7];
     }
   }
 
@@ -178,7 +183,7 @@
   v16 = 0;
   v4 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v3 options:0 error:&v16];
   v5 = v16;
-  v6 = CarThemeAssetsLogging();
+  v6 = CarThemeAssetsLogging(v5);
   v7 = v6;
   if (v4)
   {
@@ -195,6 +200,27 @@
   }
 
   return v4;
+}
+
+- (void)certificateData
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1C81FC000, a2, a3, "error reading certificate from asset: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)signatureData
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1C81FC000, a2, a3, "error reading signature from asset: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)accessoryAdditionsData
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1C81FC000, a2, a3, "error reading accessory additions from asset: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

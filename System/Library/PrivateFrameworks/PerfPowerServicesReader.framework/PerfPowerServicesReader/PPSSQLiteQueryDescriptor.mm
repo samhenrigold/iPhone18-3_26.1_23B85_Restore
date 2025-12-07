@@ -52,77 +52,77 @@
 
 - (id)_sqlForSelectWithProperties:(id)properties
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
-  v46 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"SELECT "];
+  v45 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"SELECT "];
   context = objc_autoreleasePoolPush();
   if ([(PPSSQLiteQueryDescriptor *)self returnsDistinctEntities])
   {
-    [v46 appendString:@"DISTINCT "];
+    [v45 appendString:@"DISTINCT "];
   }
 
   v4 = objc_opt_new();
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"'%d'.ID", 0];
   [v4 addObject:v5];
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   v6 = propertiesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v49 objects:v53 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v48 objects:v52 count:16];
   if (v7)
   {
-    v8 = *v50;
+    v8 = *v49;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v50 != v8)
+        if (*v49 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v49 + 1) + 8 * i);
+        v10 = *(*(&v48 + 1) + 8 * i);
         entity = [(PPSSQLiteQueryDescriptor *)self entity];
         v12 = [entity disambiguatedSQLForProperty:v10 shouldEscape:1];
         [v4 addObject:v12];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v48 objects:v52 count:16];
     }
 
     while (v7);
   }
 
   v13 = [v4 componentsJoinedByString:{@", "}];
-  [v46 appendString:v13];
+  [v45 appendString:v13];
 
   entity2 = [(PPSSQLiteQueryDescriptor *)self entity];
   tableNames = [entity2 tableNames];
   firstObject = [tableNames firstObject];
-  [v46 appendFormat:@" FROM '%@' AS '%d'", firstObject, 0];
+  [v45 appendFormat:@" FROM '%@' AS '%d'", firstObject, 0];
 
   entity3 = [(PPSSQLiteQueryDescriptor *)self entity];
   joinClauses = [entity3 joinClauses];
 
   if ([joinClauses count])
   {
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __56__PPSSQLiteQueryDescriptor__sqlForSelectWithProperties___block_invoke;
-    v47[3] = &unk_279A11848;
-    v48 = v46;
-    [joinClauses enumerateObjectsUsingBlock:v47];
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __56__PPSSQLiteQueryDescriptor__sqlForSelectWithProperties___block_invoke;
+    v46[3] = &unk_279A11848;
+    v47 = v45;
+    [joinClauses enumerateObjectsUsingBlock:v46];
   }
 
   predicate = [(PPSSQLiteQueryDescriptor *)self predicate];
   entity4 = [(PPSSQLiteQueryDescriptor *)self entity];
-  v44 = [predicate sqlForEntity:entity4];
+  v43 = [predicate sqlForEntity:entity4];
 
-  if (v44)
+  if (v43)
   {
-    [v46 appendFormat:@" WHERE %@", v44];
+    [v45 appendFormat:@" WHERE %@", v43];
   }
 
   groupByProperties = [(PPSSQLiteQueryDescriptor *)self groupByProperties];
@@ -146,7 +146,7 @@
       [v22 appendFormat:@"%@", v27];
     }
 
-    [v46 appendFormat:@" GROUP BY %@", v22];
+    [v45 appendFormat:@" GROUP BY %@", v22];
   }
 
   orderByProperties = [(PPSSQLiteQueryDescriptor *)self orderByProperties];
@@ -184,23 +184,22 @@
       }
     }
 
-    [v46 appendFormat:@" ORDER BY %@", v30];
+    [v45 appendFormat:@" ORDER BY %@", v30];
   }
 
   if ([(PPSSQLiteQueryDescriptor *)self limitCount])
   {
-    [v46 appendString:@" LIMIT ? "];
+    [v45 appendString:@" LIMIT ? "];
   }
 
   if ([(PPSSQLiteQueryDescriptor *)self offsetCount])
   {
-    [v46 appendString:@" OFFSET ?"];
+    [v45 appendString:@" OFFSET ?"];
   }
 
   objc_autoreleasePoolPop(context);
-  v40 = *MEMORY[0x277D85DE8];
 
-  return v46;
+  return v45;
 }
 
 @end

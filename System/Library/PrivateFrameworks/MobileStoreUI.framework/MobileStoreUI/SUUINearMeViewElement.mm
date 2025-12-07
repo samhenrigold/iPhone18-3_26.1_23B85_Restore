@@ -56,13 +56,13 @@ void __66__SUUINearMeViewElement_initWithDOMElement_parent_elementFactory___bloc
 - (void)enumerateChildrenUsingBlock:(id)block
 {
   blockCopy = block;
-  v5 = SUUICoreLocationFramework();
-  v6 = [SUUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa v5)];
-  if (SUUINearMeIsEnabledForAuthorizationStatus(v6))
+  v6 = SUUICoreLocationFramework(blockCopy, v5);
+  v7 = [SUUIWeakLinkedClassForString(&cfstr_Cllocationmana.isa v6)];
+  if (SUUINearMeIsEnabledForAuthorizationStatus(v7))
   {
-    v7.receiver = self;
-    v7.super_class = SUUINearMeViewElement;
-    [(SUUIViewElement *)&v7 enumerateChildrenUsingBlock:blockCopy];
+    v8.receiver = self;
+    v8.super_class = SUUINearMeViewElement;
+    [(SUUIViewElement *)&v8 enumerateChildrenUsingBlock:blockCopy];
   }
 }
 

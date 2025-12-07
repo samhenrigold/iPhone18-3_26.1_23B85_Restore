@@ -46,9 +46,10 @@
 
 - (BOOL)_isPasswordAppInstalled
 {
-  v8 = 0;
-  v2 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:@"com.apple.Passwords" allowPlaceholder:1 error:&v8];
-  v3 = v8;
+  v9 = 0;
+  v2 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:@"com.apple.Passwords" allowPlaceholder:1 error:&v9];
+  v3 = v9;
+  v4 = v3;
   if (v2)
   {
     applicationState = [v2 applicationState];
@@ -66,10 +67,10 @@
 
   else
   {
-    applicationState = _AALogSystem();
+    applicationState = _AALogSystem(v3);
     if (os_log_type_enabled(applicationState, OS_LOG_TYPE_DEBUG))
     {
-      [(AASignInWithAppleManagementUIRequest *)v3 _isPasswordAppInstalled];
+      [(AASignInWithAppleManagementUIRequest *)v4 _isPasswordAppInstalled];
     }
 
     isPlaceholder = 0;
@@ -80,13 +81,12 @@
 
 - (void)_isPasswordAppInstalled
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 138412546;
-  v4 = @"com.apple.Passwords";
-  v5 = 2112;
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 138412546;
+  v3 = @"com.apple.Passwords";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "Error creating appRecord for %@. %@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_DEBUG, "Error creating appRecord for %@. %@", &v2, 0x16u);
 }
 
 @end

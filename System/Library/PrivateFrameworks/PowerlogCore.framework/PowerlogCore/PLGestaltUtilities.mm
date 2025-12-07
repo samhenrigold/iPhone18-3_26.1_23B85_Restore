@@ -339,12 +339,10 @@ uint64_t __28__PLGestaltUtilities_hasLPM__block_invoke()
   return hasLPW_ret;
 }
 
-uint64_t __28__PLGestaltUtilities_hasLPW__block_invoke()
+uint64_t __28__PLGestaltUtilities_hasLPW__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *MEMORY[0x1E69E9840];
   result = MGIsDeviceOfType();
   hasLPW_ret = result;
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -565,9 +563,10 @@ uint64_t __37__PLGestaltUtilities_isVirtualDevice__block_invoke()
 
 uint64_t __47__PLGestaltUtilities_getUserAssignedDeviceName__block_invoke()
 {
-  getUserAssignedDeviceName_ret = MGGetStringAnswer();
+  v0 = MGGetStringAnswer();
+  getUserAssignedDeviceName_ret = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)getBasebandFirmwareVersion
@@ -584,9 +583,10 @@ uint64_t __47__PLGestaltUtilities_getUserAssignedDeviceName__block_invoke()
 
 uint64_t __48__PLGestaltUtilities_getBasebandFirmwareVersion__block_invoke()
 {
-  getBasebandFirmwareVersion_ret = MGGetStringAnswer();
+  v0 = MGGetStringAnswer();
+  getBasebandFirmwareVersion_ret = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)getBasebandChipset
@@ -603,9 +603,10 @@ uint64_t __48__PLGestaltUtilities_getBasebandFirmwareVersion__block_invoke()
 
 uint64_t __40__PLGestaltUtilities_getBasebandChipset__block_invoke()
 {
-  getBasebandChipset_ret = MGGetStringAnswer();
+  v0 = MGGetStringAnswer();
+  getBasebandChipset_ret = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)getBuildVersion
@@ -622,9 +623,10 @@ uint64_t __40__PLGestaltUtilities_getBasebandChipset__block_invoke()
 
 uint64_t __37__PLGestaltUtilities_getBuildVersion__block_invoke()
 {
-  getBuildVersion_ret = MGGetStringAnswer();
+  v0 = MGGetStringAnswer();
+  getBuildVersion_ret = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)getHardwareModel
@@ -682,9 +684,10 @@ void __38__PLGestaltUtilities_getHardwareModel__block_invoke()
 
 uint64_t __41__PLGestaltUtilities_getHardwarePlatform__block_invoke()
 {
-  getHardwarePlatform_ret = MGGetStringAnswer();
+  v0 = MGGetStringAnswer();
+  getHardwarePlatform_ret = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)getInverseDeviceID
@@ -701,9 +704,10 @@ uint64_t __41__PLGestaltUtilities_getHardwarePlatform__block_invoke()
 
 uint64_t __40__PLGestaltUtilities_getInverseDeviceID__block_invoke()
 {
-  getInverseDeviceID_ret = MGGetStringAnswer();
+  v0 = MGGetStringAnswer();
+  getInverseDeviceID_ret = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 + (id)getProductType
@@ -740,9 +744,10 @@ void __36__PLGestaltUtilities_getProductType__block_invoke()
 
 uint64_t __36__PLGestaltUtilities_getWifiChipset__block_invoke()
 {
-  getWifiChipset_ret = MGGetStringAnswer();
+  v0 = MGGetStringAnswer();
+  getWifiChipset_ret = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0);
 }
 
 uint64_t __36__PLGestaltUtilities_getDeviceClass__block_invoke()

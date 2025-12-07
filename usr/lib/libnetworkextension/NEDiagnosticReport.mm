@@ -6,7 +6,7 @@
 
 + (void)logInternalError:(id)error subType:(id)type context:(id)context
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   typeCopy = type;
   contextCopy = context;
@@ -38,13 +38,13 @@
       v16 = ne_log_obj();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138412802;
-        v24 = typeCopy;
-        v25 = 2112;
-        v26 = v12;
-        v27 = 2112;
-        v28 = contextCopy;
-        _os_log_impl(&dword_1C0DA5000, v16, OS_LOG_TYPE_DEFAULT, "NEDiagnosticReport - subType <%@> for %@ with context <%@>", &v23, 0x20u);
+        v22 = 138412802;
+        v23 = typeCopy;
+        v24 = 2112;
+        v25 = v12;
+        v26 = 2112;
+        v27 = contextCopy;
+        _os_log_impl(&dword_1C0DA5000, v16, OS_LOG_TYPE_DEFAULT, "NEDiagnosticReport - subType <%@> for %@ with context <%@>", &v22, 0x20u);
       }
 
       v17 = objc_alloc_init(MEMORY[0x1E69D4F78]);
@@ -68,8 +68,8 @@
           v21 = ne_log_obj();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
-            LOWORD(v23) = 0;
-            _os_log_error_impl(&dword_1C0DA5000, v21, OS_LOG_TYPE_ERROR, "NEDiagnosticReport - failed to get signature", &v23, 2u);
+            LOWORD(v22) = 0;
+            _os_log_error_impl(&dword_1C0DA5000, v21, OS_LOG_TYPE_ERROR, "NEDiagnosticReport - failed to get signature", &v22, 2u);
           }
         }
       }
@@ -80,20 +80,18 @@
       os_unfair_lock_unlock(&logInternalError_subType_context__lock);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __55__NEDiagnosticReport_logInternalError_subType_context___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = v2;
-    _os_log_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_DEFAULT, "NEDiagnosticReport - submission response = %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v2;
+    _os_log_impl(&dword_1C0DA5000, v3, OS_LOG_TYPE_DEFAULT, "NEDiagnosticReport - submission response = %@", &v5, 0xCu);
   }
 
   v4 = [v2 objectForKeyedSubscript:@"success"];
@@ -103,8 +101,6 @@ void __55__NEDiagnosticReport_logInternalError_subType_context___block_invoke(ui
     logInternalError_subType_context__frequencyLoggedError = 0x40AC200000000000;
     os_unfair_lock_unlock(&logInternalError_subType_context__lock);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

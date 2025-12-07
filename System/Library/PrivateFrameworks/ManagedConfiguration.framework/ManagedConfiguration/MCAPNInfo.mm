@@ -40,13 +40,13 @@
 
 - (id)strippedDefaultsRepresentation
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   apnName = self->_apnName;
   if (apnName)
   {
-    v10 = @"apn";
-    v11[0] = apnName;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v9 = @"apn";
+    v10[0] = apnName;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
     v5 = [v4 mutableCopy];
 
     username = self->_username;
@@ -62,8 +62,6 @@
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

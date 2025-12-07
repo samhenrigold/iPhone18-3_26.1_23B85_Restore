@@ -71,7 +71,7 @@ CMNetworkActivityMonitor *__49__CMNetworkActivityMonitor_sharedActivityMonitor__
   dispatch_sync(queue, block);
 }
 
-uint64_t __43__CMNetworkActivityMonitor_beginMonitoring__block_invoke(uint64_t a1)
+void *__43__CMNetworkActivityMonitor_beginMonitoring__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setMonitoringActiveCount:{objc_msgSend(*(a1 + 32), "monitoringActiveCount") + 1}];
   result = [*(a1 + 32) monitoringActiveCount];
@@ -97,7 +97,7 @@ uint64_t __43__CMNetworkActivityMonitor_beginMonitoring__block_invoke(uint64_t a
   dispatch_sync(queue, block);
 }
 
-uint64_t __41__CMNetworkActivityMonitor_endMonitoring__block_invoke(uint64_t a1)
+void *__41__CMNetworkActivityMonitor_endMonitoring__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) setMonitoringActiveCount:{objc_msgSend(*(a1 + 32), "monitoringActiveCount") - 1}];
   result = [*(a1 + 32) monitoringActiveCount];

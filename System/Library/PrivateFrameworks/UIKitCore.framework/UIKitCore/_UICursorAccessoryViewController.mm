@@ -276,9 +276,9 @@
 {
   colorCopy = color;
   accessoryTintColor = [(_UICursorAccessoryViewController *)self accessoryTintColor];
-  v5 = [accessoryTintColor isEqual:colorCopy];
+  isEqual = objc_msgSend_isEqual_(accessoryTintColor);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     cursorAccessoryView = [(_UICursorAccessoryHostView *)self->_hostView cursorAccessoryView];
     [cursorAccessoryView setTintColor:colorCopy];
@@ -582,7 +582,7 @@ LABEL_6:
   accessoriesByIdentifier = self->_accessoriesByIdentifier;
   identifierCopy = identifier;
   v9 = [(NSDictionary *)accessoriesByIdentifier objectForKey:identifierCopy];
-  [(_UICursorAccessoryViewController *)self _contentForAccessory:v9];
+  objc_msgSend__contentForAccessory_(self);
   v10 = v18;
   v14 = v10;
   v11 = v19;

@@ -14,7 +14,7 @@
   dateCopy = date;
   endDateCopy = endDate;
   blockCopy = block;
-  v13 = __atxlog_handle_sleep_schedule();
+  v13 = __atxlog_handle_sleep_schedule(blockCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -84,12 +84,13 @@ uint64_t __72__ATXSleepStream_enumerateSleepEventsFromStartDate_endDate_limit_bl
 void __72__ATXSleepStream_enumerateSleepEventsFromStartDate_endDate_limit_block___block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 state])
+  v3 = [v2 state];
+  if (v3)
   {
-    v3 = __atxlog_handle_sleep_schedule();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_sleep_schedule(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __72__ATXSleepStream_enumerateSleepEventsFromStartDate_endDate_limit_block___block_invoke_2_cold_1(v2, v3);
+      __72__ATXSleepStream_enumerateSleepEventsFromStartDate_endDate_limit_block___block_invoke_2_cold_1(v2, v4);
     }
   }
 }
@@ -127,12 +128,12 @@ uint64_t __72__ATXSleepStream_enumerateSleepEventsFromStartDate_endDate_limit_bl
     {
       if (![v12 backlightLevel])
       {
-        v22 = *(*(a1 + 72) + 8);
-        v24 = *(v22 + 40);
-        v23 = (v22 + 40);
-        if (!v24)
+        v23 = *(*(a1 + 72) + 8);
+        v25 = *(v23 + 40);
+        v24 = (v23 + 40);
+        if (!v25)
         {
-          objc_storeStrong(v23, v6);
+          objc_storeStrong(v24, v6);
         }
 
         goto LABEL_23;
@@ -151,40 +152,40 @@ uint64_t __72__ATXSleepStream_enumerateSleepEventsFromStartDate_endDate_limit_bl
             (*(v16 + 16))(v16, v15, &v27);
           }
 
-          [*(*(*(a1 + 64) + 8) + 40) addObject:v15];
+          v17 = [*(*(*(a1 + 64) + 8) + 40) addObject:v15];
           ++*(*(*(a1 + 56) + 8) + 24);
-          v17 = __atxlog_handle_sleep_schedule();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = __atxlog_handle_sleep_schedule(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
             v29 = v15;
-            _os_log_impl(&dword_226368000, v17, OS_LOG_TYPE_DEFAULT, "Emitted Sleep event: %@", buf, 0xCu);
+            _os_log_impl(&dword_226368000, v18, OS_LOG_TYPE_DEFAULT, "Emitted Sleep event: %@", buf, 0xCu);
           }
 
           if ((v27 & 1) != 0 || *(*(*(a1 + 56) + 8) + 24) >= *(a1 + 80))
           {
 
-            v18 = 0;
+            v19 = 0;
             goto LABEL_25;
           }
         }
 
 LABEL_20:
-        v20 = *(*(a1 + 72) + 8);
-        v21 = *(v20 + 40);
-        *(v20 + 40) = 0;
+        v21 = *(*(a1 + 72) + 8);
+        v22 = *(v21 + 40);
+        *(v21 + 40) = 0;
       }
     }
 
     else
     {
       objc_opt_class();
-      v19 = objc_opt_isKindOfClass();
+      v20 = objc_opt_isKindOfClass();
 
-      if ((v19 & 1) == 0)
+      if ((v20 & 1) == 0)
       {
 LABEL_24:
-        v18 = 1;
+        v19 = 1;
 LABEL_25:
 
         goto LABEL_26;
@@ -202,11 +203,10 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v18 = 0;
+  v19 = 0;
 LABEL_26:
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v19;
 }
 
 - (id)backlightPublisherWithStartDate:(id)date endDate:(id)endDate
@@ -268,7 +268,7 @@ LABEL_26:
 
 - (BOOL)hasAlreadyDetectedSleepEventOnGivenDay:(id)day sleepEvents:(id)events withCalendar:(id)calendar
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dayCopy = day;
   eventsCopy = events;
   calendarCopy = calendar;
@@ -276,25 +276,25 @@ LABEL_26:
   {
     v10 = [calendarCopy dateBySettingHour:3 minute:0 second:0 ofDate:dayCopy options:0];
     v11 = [calendarCopy dateBySettingHour:13 minute:0 second:0 ofDate:dayCopy options:0];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v12 = eventsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v13)
     {
-      v14 = *v21;
+      v14 = *v20;
       while (2)
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          wakeUpTime = [*(*(&v20 + 1) + 8 * i) wakeUpTime];
+          wakeUpTime = [*(*(&v19 + 1) + 8 * i) wakeUpTime];
           v17 = wakeUpTime;
           if (wakeUpTime && [wakeUpTime compare:v10] != -1 && objc_msgSend(v17, "compare:", v11) == -1)
           {
@@ -304,7 +304,7 @@ LABEL_26:
           }
         }
 
-        v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v13)
         {
           continue;
@@ -322,21 +322,18 @@ LABEL_15:
     LOBYTE(v13) = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void __72__ATXSleepStream_enumerateSleepEventsFromStartDate_endDate_limit_block___block_invoke_2_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 136315394;
-  v6 = "[ATXSleepStream enumerateSleepEventsFromStartDate:endDate:limit:block:]_block_invoke_2";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching biome events: %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[ATXSleepStream enumerateSleepEventsFromStartDate:endDate:limit:block:]_block_invoke_2";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching biome events: %@", &v4, 0x16u);
 }
 
 @end

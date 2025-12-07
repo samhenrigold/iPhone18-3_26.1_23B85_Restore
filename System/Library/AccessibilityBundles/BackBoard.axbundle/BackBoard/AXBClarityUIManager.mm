@@ -90,20 +90,16 @@ uint64_t __36__AXBClarityUIManager_sharedManager__block_invoke()
 
 - (void)setAdminPasscode:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
   [a1 length];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_29BBBD000, v1, v2, "Attempted to set admin passcode to a string of %lu characters (expected: %lu).", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1_1(&dword_29BBBD000, v1, v2, "Attempted to set admin passcode to a string of %lu characters (expected: %lu).", v3, v4, v5, v6);
 }
 
 - (void)validateAdminPasscode:(void *)a1 .cold.1(void *a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
   [a1 length];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_1_1(&dword_29BBBD000, v1, v2, "Attempted to validate admin passcode as a string of %lu characters (expected: %lu).", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x29EDCA608];
+  OUTLINED_FUNCTION_1_1(&dword_29BBBD000, v1, v2, "Attempted to validate admin passcode as a string of %lu characters (expected: %lu).", v3, v4, v5, v6);
 }
 
 @end

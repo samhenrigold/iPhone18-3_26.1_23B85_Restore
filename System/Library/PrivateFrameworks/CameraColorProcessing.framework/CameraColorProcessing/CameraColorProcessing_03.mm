@@ -907,16 +907,16 @@ void LTMComputeV1::LTMCompute::HFFHighFreqModulate(LTMComputeV1::LTMCompute *thi
   while (v9 != 6);
   v19 = 0;
   v21 = *a8;
-  f32 = a8[1].f32;
+  v20 = a8 + 1;
   v22 = v21;
   v24 = *a7;
-  v23 = a7[1].f32;
+  v23 = a7 + 1;
   v25 = vrecpeq_f32(v22);
   v26 = vmulq_f32(v25, vrecpsq_f32(v22, v25));
   *a6 = vmulq_f32(v24, vmulq_f32(vrecpsq_f32(v22, v26), v26));
   do
   {
-    a6[1].f32[v19] = v23[v19] / f32[v19];
+    a6[1].f32[v19] = v23->f32[v19] / v20->f32[v19];
     ++v19;
   }
 
@@ -1554,7 +1554,7 @@ void LTMDriverV1::LTMDriver::HFFThumbnailDownscaleConvert(LTMDriverV1::LTMDriver
   while (v12 != 48);
 }
 
-unsigned __int16 *LTMDriverV1::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV1::LTMDriver *this, const sCLRProcHITHStat_SOFTISP *a2, float a3, sLtmComputeInput *a4)
+unint64_t LTMDriverV1::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV1::LTMDriver *this, const sCLRProcHITHStat_SOFTISP *a2, float a3, sLtmComputeInput *a4)
 {
   v4 = 0;
   v5 = 0;
@@ -1611,7 +1611,7 @@ unsigned __int16 *LTMDriverV1::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV1::
         v22 = 0;
         v23 = 0;
         v24 = v18 + result;
-        v25 = result - 1;
+        v25 = (result - 2);
         v26 = result - 2;
         v27 = v17 + 6;
         if (v7 < v17 + 6)
@@ -1622,7 +1622,7 @@ unsigned __int16 *LTMDriverV1::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV1::
         thumbnailTotal = a2->thumbnailTotal;
         v29 = v27;
         v30 = thumbnailTotal * v24;
-        result = (17 * thumbnailTotal);
+        result = 17 * thumbnailTotal;
         v31 = v15;
         do
         {
@@ -1632,14 +1632,14 @@ unsigned __int16 *LTMDriverV1::LTMDriver::ComputeLumaFromThumbnail(LTMDriverV1::
           {
             do
             {
-              result = &thumbnailStat[2 * v32];
-              v34 = result[2];
-              if (result[1] > v34)
+              result = thumbnailStat + 2 * v32;
+              v34 = *(result + 4);
+              if (*(result + 2) > v34)
               {
-                v34 = result[1];
+                v34 = *(result + 2);
               }
 
-              v35 = result[3];
+              v35 = *(result + 6);
               if (v35 <= v34)
               {
                 v35 = v34;
@@ -2052,15 +2052,15 @@ _DWORD *LTMDriverV1::LTMDriver::CalculateSpatialCCMWeightMapForLEDFlash(LTMDrive
   return result;
 }
 
-uint64_t OUTLINED_FUNCTION_3_1()
+uint64_t OUTLINED_FUNCTION_3_1(uint64_t a1, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int a12, int a13, char a14)
 {
 
   return fig_log_call_emit_and_clean_up_after_send_and_compose();
 }
 
-void sub_1C9317AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C9317AE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2097,23 +2097,23 @@ void *__getFigCaptureGetModelSpecificNameSymbolLoc_block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __CMCaptureLibraryCore_block_invoke_0()
+uint64_t __CMCaptureLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   CMCaptureLibraryCore_frameworkLibrary_0 = result;
   return result;
 }
 
-double GeometryUtilitiesGetFinalCropRect()
+double GeometryUtilitiesGetFinalCropRect(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E695F050];
+  v7 = *MEMORY[0x1E695F050];
   if (!FigCFDictionaryGetCGRectIfPresent())
   {
-    *&v6 = 0;
+    *&v7 = 0;
     __asm { FMOV            V0.2D, #1.0 }
   }
 
-  return *&v6;
+  return *&v7;
 }
 
 void CAWBAFEPhotometerAssistPenrose::CAWBAFEPhotometerAssistPenrose(CAWBAFEPhotometerAssistPenrose *this, char a2, int a3)
@@ -2482,7 +2482,7 @@ void CAWBAFEPhotometerAssistPenrose::updatePhotometerDetectionOutput(CAWBAFEPhot
       }
     }
 
-    v97 = v54;
+    *&v97 = v54;
     v66 = v31 / v103;
     v67 = v25 / v103;
     v90 = v24 / v103;
@@ -2496,8 +2496,8 @@ void CAWBAFEPhotometerAssistPenrose::updatePhotometerDetectionOutput(CAWBAFEPhot
     v74 = (v109 * v99) * v71;
     if (a2[26].i8[4])
     {
-      v75 = v113;
-      v76 = v97;
+      v75 = LODWORD(v113);
+      v76 = *&v97;
       if ((*(this + 32) & 1) == 0)
       {
         v77 = a2[27].f32[1];
@@ -2516,7 +2516,7 @@ void CAWBAFEPhotometerAssistPenrose::updatePhotometerDetectionOutput(CAWBAFEPhot
       v79 = (a2[28].f32[0] * 0.5) + (v102 * 0.5);
       a2[27].f32[1] = v69;
       a2[28].f32[0] = v79;
-      a2[28].f32[1] = v97;
+      a2[28].f32[1] = *&v97;
       v72.f32[1] = v73;
       a2[29] = vmla_f32(vmul_f32(a2[29], 0x3F0000003F000000), 0x3F0000003F000000, v72);
       a2[30].f32[0] = (a2[30].f32[0] * 0.5) + (v74 * 0.5);
@@ -2527,13 +2527,13 @@ void CAWBAFEPhotometerAssistPenrose::updatePhotometerDetectionOutput(CAWBAFEPhot
       v79 = v102;
       a2[27].f32[1] = v69;
       a2[28].f32[0] = v102;
-      v76 = v97;
-      a2[28].f32[1] = v97;
+      v76 = *&v97;
+      a2[28].f32[1] = *&v97;
       a2[29].i32[0] = v72.i32[0];
       a2[29].f32[1] = v73;
       a2[30].f32[0] = v74;
       a2[26].i8[4] = 1;
-      v75 = v113;
+      v75 = LODWORD(v113);
     }
 
     if (v79 < v40[5])
@@ -2552,7 +2552,7 @@ void CAWBAFEPhotometerAssistPenrose::updatePhotometerDetectionOutput(CAWBAFEPhot
     a2[30].f32[1] = v11;
     a2[31].f32[0] = v104;
     a2[31].f32[1] = v111;
-    a2[32].f32[0] = v75;
+    a2[32].i32[0] = v75;
     a2[32].f32[1] = v66;
     a2[33].f32[0] = v80;
     a2[35].f32[0] = v112;
@@ -2618,7 +2618,7 @@ void CAWBAFEPhotometerAssistPenrose::updatePhotometerDetectionOutput(CAWBAFEPhot
 
 float CAWBAFEPhotometerAssistPenrose::calculateWeightFromTuningTable(float a1, uint64_t a2, float *a3)
 {
-  v3 = (a3 + 1);
+  v3 = a3 + 1;
   v4 = *a3;
   if (v4 < 2)
   {
@@ -2646,7 +2646,7 @@ float CAWBAFEPhotometerAssistPenrose::calculateWeightFromTuningTable(float a1, u
     LODWORD(v6) = v4 - 1;
   }
 
-  v7 = &v3[4 * v4];
+  v7 = &v3[v4];
   if (*(v7 - 1) < a1)
   {
     a1 = *(v7 - 1);
@@ -2657,7 +2657,7 @@ float CAWBAFEPhotometerAssistPenrose::calculateWeightFromTuningTable(float a1, u
     a1 = a3[1];
   }
 
-  v8 = (a1 - *&v3[4 * (v6 - 1)]) / (*&v3[4 * v6] - *&v3[4 * (v6 - 1)]);
+  v8 = (a1 - v3[(v6 - 1)]) / (v3[v6] - v3[(v6 - 1)]);
   return (a3[v6 + 5] * v8) + ((1.0 - v8) * a3[(v6 - 1) + 5]);
 }
 
@@ -2787,81 +2787,81 @@ void __getFigCapturePlatformIdentifierSymbolLoc_block_invoke_cold_1(void *a1)
 uint64_t convertANSTMaskFrom32FloatTo8Uint(_DWORD *a1)
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
 
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
 
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
 
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
 
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
 
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
 
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
 
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }
 
 {
   OUTLINED_FUNCTION_2_0();
-  FigDebugAssert3();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v4, v5, v6, v7, v8, v9, vars0, vars8);
   OUTLINED_FUNCTION_8();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM(v2);
   *a1 = result;
   return result;
 }

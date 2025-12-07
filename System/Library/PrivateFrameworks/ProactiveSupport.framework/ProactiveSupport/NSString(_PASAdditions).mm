@@ -1,6 +1,6 @@
 @interface NSString(_PASAdditions)
 + (__CFString)_pas_proxyStringByConcatenatingStrings:()_PASAdditions;
-+ (id)_pas_stringWithConsumedAllocaDescrNoCopy:()_PASAdditions bufferSize:encoding:nullTerminated:isExternalRepresentation:;
++ (__CFString)_pas_stringWithConsumedAllocaDescrNoCopy:()_PASAdditions bufferSize:encoding:nullTerminated:isExternalRepresentation:;
 - (__CFString)_pas_stringBackedByUTF8CString;
 - (const)_pas_fastUTF8StringPtrWithOptions:()_PASAdditions encodedLength:;
 - (id)_pas_proxyArrayOfSubstringsWithRanges:()_PASAdditions;
@@ -12,7 +12,7 @@
 
 - (__CFString)_pas_stringBackedByUTF8CString
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (objc_opt_respondsToSelector())
   {
     selfCopy = [(__CFString *)self _pas_overrideStringBackedByUTF8CString];
@@ -28,87 +28,87 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v6 = [(__CFString *)self length];
-  if (v6)
+  v5 = [(__CFString *)self length];
+  if (v5)
   {
-    v7 = v6;
-    v8 = [(__CFString *)self lengthOfBytesUsingEncoding:4];
-    if (!v8)
+    v6 = v5;
+    v7 = [(__CFString *)self lengthOfBytesUsingEncoding:4];
+    if (!v7)
     {
       goto LABEL_4;
     }
 
-    v9 = v8;
+    v8 = v7;
     memptr = 0;
-    v23 = 0;
-    if ((v8 + 4) > 0x400)
+    v22 = 0;
+    if ((v7 + 4) > 0x400)
     {
-      v19 = malloc_type_posix_memalign(&memptr, 8uLL, v8 + 1, 0x4A0A0270uLL);
-      LOBYTE(v23) = 0;
-      if (v19)
+      v18 = malloc_type_posix_memalign(&memptr, 8uLL, v7 + 1, 0x4A0A0270uLL);
+      LOBYTE(v22) = 0;
+      if (v18)
       {
-        v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
-        objc_exception_throw(v20);
+        v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
+        objc_exception_throw(v19);
       }
 
-      v10 = memptr;
+      v9 = memptr;
     }
 
     else
     {
-      v10 = &v21 - ((v8 + 19) & 0xFFFFFFFFFFFFFFF0);
-      bzero(v10, v8 + 4);
-      memptr = v10;
-      LOBYTE(v23) = 1;
+      v9 = &v20 - ((v7 + 19) & 0xFFFFFFFFFFFFFFF0);
+      bzero(v9, v7 + 4);
+      memptr = v9;
+      LOBYTE(v22) = 1;
     }
 
-    v11 = v23;
-    [(__CFString *)self getCString:v10 maxLength:v9 + 1 encoding:4];
-    if (v9 == v7)
+    v10 = v22;
+    [(__CFString *)self getCString:v9 maxLength:v8 + 1 encoding:4];
+    if (v8 == v6)
     {
-      if (strnlen(v10, v7) < v7)
+      if (strnlen(v9, v6) < v6)
       {
-        if ((v11 & 1) == 0)
+        if ((v10 & 1) == 0)
         {
-          free(v10);
+          free(v9);
         }
 
         goto LABEL_4;
       }
 
-      v15 = objc_autoreleasePoolPush();
-      v16 = [MEMORY[0x1E696AEC0] _pas_stringWithConsumedAllocaDescrNoCopy:v10 bufferSize:v11 encoding:v9 + 1 nullTerminated:1 isExternalRepresentation:{1, 0}];
-      if (!v16)
+      v14 = objc_autoreleasePoolPush();
+      v15 = [MEMORY[0x1E696AEC0] _pas_stringWithConsumedAllocaDescrNoCopy:v9 bufferSize:v10 encoding:v8 + 1 nullTerminated:1 isExternalRepresentation:{1, 0}];
+      if (!v15)
       {
         __assert_rtn("[NSString(_PASAdditions) _pas_stringBackedByUTF8CString]", "NSString+_PASAdditions.m", 1044, "result");
       }
 
-      v3 = v16;
-      objc_autoreleasePoolPop(v15);
+      v3 = v15;
+      objc_autoreleasePoolPop(v14);
     }
 
     else
     {
-      v12 = objc_alloc(MEMORY[0x1E695DEF0]);
-      v13 = v9 + 1;
-      if (v11)
+      v11 = objc_alloc(MEMORY[0x1E695DEF0]);
+      v12 = v8 + 1;
+      if (v10)
       {
-        v14 = [v12 initWithBytes:v10 length:v13];
+        v13 = [v11 initWithBytes:v9 length:v12];
       }
 
       else
       {
-        v14 = [v12 initWithBytesNoCopy:v10 length:v13 freeWhenDone:1];
+        v13 = [v11 initWithBytesNoCopy:v9 length:v12 freeWhenDone:1];
       }
 
-      v17 = v14;
-      v18 = [(NSString *)MEMORY[0x1E696AEC0] _pas_stringWithDataNoCopy:v14 encoding:4 nullTerminated:1 isExternalRepresentation:0 utf8StringThreshold:1uLL];
-      if (!v18)
+      v16 = v13;
+      v17 = [(NSString *)MEMORY[0x1E696AEC0] _pas_stringWithDataNoCopy:v13 encoding:4uLL nullTerminated:1 isExternalRepresentation:0 utf8StringThreshold:1uLL];
+      if (!v17)
       {
         __assert_rtn("[NSString(_PASAdditions) _pas_stringBackedByUTF8CString]", "NSString+_PASAdditions.m", 1060, "result");
       }
 
-      v3 = v18;
+      v3 = v17;
     }
   }
 
@@ -118,7 +118,6 @@ LABEL_4:
   }
 
 LABEL_6:
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -240,7 +239,7 @@ LABEL_6:
   return v6;
 }
 
-+ (id)_pas_stringWithConsumedAllocaDescrNoCopy:()_PASAdditions bufferSize:encoding:nullTerminated:isExternalRepresentation:
++ (__CFString)_pas_stringWithConsumedAllocaDescrNoCopy:()_PASAdditions bufferSize:encoding:nullTerminated:isExternalRepresentation:
 {
   v9 = a5;
   if (a4)

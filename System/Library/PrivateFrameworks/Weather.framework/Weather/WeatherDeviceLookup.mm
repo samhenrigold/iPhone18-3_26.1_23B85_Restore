@@ -26,14 +26,14 @@
   var0 = sVersion.var0;
   v8 = version.var1;
   v9 = version.var0;
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   accountStore = [(WeatherDeviceLookup *)self accountStore];
-  v33[0] = *MEMORY[0x277CB8BA0];
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
-  v31 = 0;
-  v14 = [accountStore accountsWithAccountTypeIdentifiers:v13 error:&v31];
-  v15 = v31;
+  v32[0] = *MEMORY[0x277CB8BA0];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+  v30 = 0;
+  v14 = [accountStore accountsWithAccountTypeIdentifiers:v13 error:&v30];
+  v15 = v30;
   firstObject = [v14 firstObject];
 
   if (firstObject)
@@ -43,37 +43,35 @@
     [v17 setAltDSID:aa_altDSID];
 
     [v17 setIncludeUntrustedDevices:1];
-    v32 = *MEMORY[0x277CF00C0];
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
+    v31 = *MEMORY[0x277CF00C0];
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
     [v17 setServices:v19];
 
     [v17 setOperatingSystems:&unk_288235628];
     v20 = objc_alloc_init(MEMORY[0x277CF0178]);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __120__WeatherDeviceLookup_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke;
-    v23[3] = &unk_279E693B0;
-    v24 = v15;
-    v25 = handlerCopy;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __120__WeatherDeviceLookup_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke;
+    v22[3] = &unk_279E693B0;
+    v23 = v15;
+    v24 = handlerCopy;
     intervalCopy = interval;
-    v27 = v9;
-    v28 = v8;
-    v29 = var0;
-    v30 = var1;
-    [v20 fetchDeviceListWithContext:v17 completion:v23];
+    v26 = v9;
+    v27 = v8;
+    v28 = var0;
+    v29 = var1;
+    [v20 fetchDeviceListWithContext:v17 completion:v22];
   }
 
   else
   {
     (*(handlerCopy + 2))(handlerCopy, 0, v15);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __120__WeatherDeviceLookup_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(a1 + 32))
   {
@@ -82,29 +80,29 @@ void __120__WeatherDeviceLookup_checkAllDevicesRunningMinimumiOSVersion_macOSVer
 
   else
   {
-    v18 = a1;
+    v17 = a1;
     v4 = [MEMORY[0x277CBEB38] dictionary];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
-    v19 = v3;
+    v18 = v3;
     obj = v3;
-    v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v25;
+      v7 = *v24;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v25 != v7)
+          if (*v24 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v24 + 1) + 8 * i);
+          v9 = *(*(&v23 + 1) + 8 * i);
           v10 = [v9 serialNumber];
           if (v10)
           {
@@ -116,28 +114,26 @@ void __120__WeatherDeviceLookup_checkAllDevicesRunningMinimumiOSVersion_macOSVer
           }
         }
 
-        v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v6);
     }
 
     v15 = [v4 allValues];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __120__WeatherDeviceLookup_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke_2;
-    v21[3] = &__block_descriptor_72_e24_B16__0__AKRemoteDevice_8l;
-    v21[4] = *(v18 + 48);
-    v16 = *(v18 + 72);
-    v22 = *(v18 + 56);
-    v23 = v16;
-    [v15 wa_allObjectsPassTest:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __120__WeatherDeviceLookup_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke_2;
+    v20[3] = &__block_descriptor_72_e24_B16__0__AKRemoteDevice_8l;
+    v20[4] = *(v17 + 48);
+    v16 = *(v17 + 72);
+    v21 = *(v17 + 56);
+    v22 = v16;
+    [v15 wa_allObjectsPassTest:v20];
 
-    (*(*(v18 + 40) + 16))();
-    v3 = v19;
+    (*(*(v17 + 40) + 16))();
+    v3 = v18;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __120__WeatherDeviceLookup_checkAllDevicesRunningMinimumiOSVersion_macOSVersion_orInactiveForTimeInterval_completionHandler___block_invoke_2(uint64_t a1, void *a2)

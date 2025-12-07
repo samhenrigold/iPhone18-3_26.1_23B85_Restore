@@ -11,7 +11,7 @@
   buttonCopy = button;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairDoneViewController handleDismissButton:]", 30, "Dismiss button\n");
   }
 
   [self->super._mainController dismiss:5];
@@ -22,7 +22,7 @@
   disappearCopy = disappear;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairDoneViewController viewDidDisappear:]", 30, "Done ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -35,7 +35,7 @@
   appearCopy = appear;
   if (dword_1001BEAD8 <= 30 && (dword_1001BEAD8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEAD8, "[PINPairDoneViewController viewWillAppear:]", 30, "Done ViewWillAppear\n");
   }
 
   v21.receiver = self;

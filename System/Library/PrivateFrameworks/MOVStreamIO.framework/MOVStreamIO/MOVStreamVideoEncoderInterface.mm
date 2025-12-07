@@ -128,12 +128,14 @@
 
 - (void)setupEncoderWithWidth:(int)width andHeight:(int)height imageFormat:(int)format formatDescription:(opaqueCMFormatDescription *)description andFramerate:(double)framerate
 {
+  v10 = *&height;
+  v11 = *&width;
   v31 = *MEMORY[0x277D85DE8];
   if ([(MOVStreamVideoEncoderInterface *)self useLegacyVTController])
   {
     m_encoder = self->m_encoder;
     m_encoder->var0 = self->m_enableAVEHighPerformanceProfile;
-    if (MOVStreamHEVCLosslessEncoder::Open(m_encoder, width, height, format, [(MOVStreamVideoEncoderInterface *)self shouldEnableInProcessEncoding], description, VTCompressionOutputCallbackImpl, self, framerate))
+    if (MOVStreamHEVCLosslessEncoder::Open(m_encoder, v11, v10, format, [(MOVStreamVideoEncoderInterface *)self shouldEnableInProcessEncoding], description, VTCompressionOutputCallbackImpl, self, framerate))
     {
       self->m_failedState = 1;
       self->m_encoderInitialized = 0;

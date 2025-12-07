@@ -15,7 +15,7 @@
 {
   height = size.height;
   width = size.width;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (!finalize)
   {
@@ -28,7 +28,7 @@
   [v14 setMaximumSize:{width, height}];
   [v14 setAppliesPreferredTrackTransform:1];
   *buf = *MEMORY[0x277CC08F0];
-  v23 = *(MEMORY[0x277CC08F0] + 16);
+  v22 = *(MEMORY[0x277CC08F0] + 16);
   v15 = [MEMORY[0x277D3B450] copyCGImageFromImageGenerator:v14 atTime:buf actualTime:0 error:error];
   if (v15)
   {
@@ -51,7 +51,6 @@
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -59,7 +58,7 @@
 {
   height = size.height;
   width = size.width;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   lCopy = l;
   typeCopy = type;
   if (!typeCopy)
@@ -90,14 +89,13 @@
     {
       path = [lCopy path];
       *buf = 138412290;
-      v27 = path;
+      v26 = path;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create image destination for still image extraction for %@", buf, 0xCu);
     }
 
     v20 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -105,7 +103,7 @@
 {
   height = size.height;
   width = size.width;
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   lCopy = l;
   rLCopy = rL;
   typeCopy = type;
@@ -129,26 +127,25 @@
     {
       path = [lCopy path];
       *buf = 138412290;
-      v25 = path;
+      v24 = path;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create image destination for still image extraction for %@", buf, 0xCu);
     }
 
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 + (id)primaryImagePropertiesForFileAtURL:(id)l
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v13[0] = *MEMORY[0x277CD3618];
-  v13[1] = @"kCGImageSourceRawPropertiesHint";
-  v14[0] = MEMORY[0x277CBEC28];
-  v14[1] = @"ImportOnly";
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[0] = *MEMORY[0x277CD3618];
+  v12[1] = @"kCGImageSourceRawPropertiesHint";
+  v13[0] = MEMORY[0x277CBEC28];
+  v13[1] = @"ImportOnly";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v5 = CGImageSourceCreateWithURL(lCopy, v4);
   if (v5)
   {
@@ -162,37 +159,35 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = lCopy;
-      _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create image source for %@, skipping", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = lCopy;
+      _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create image source for %@, skipping", &v10, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 + (void)logMissingPropertiesInCMPhotoOutputData:(id)data comparedToProcessedSourceImagePropertiesByIndex:(id)index
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   indexCopy = index;
   v7 = CGImageSourceCreateWithData(dataCopy, 0);
   if (v7)
   {
     v8 = v7;
-    v25 = dataCopy;
+    v24 = dataCopy;
     Count = CGImageSourceGetCount(v7);
     v10 = [indexCopy count];
     if (v10 != Count && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
-      v36 = v10;
-      v37 = 2048;
-      v38 = Count;
+      v35 = v10;
+      v36 = 2048;
+      v37 = Count;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unexpected input (%tu) / output (%tu) image count mismatch", buf, 0x16u);
     }
 
@@ -206,37 +201,37 @@
       v11 = v10;
     }
 
-    v28 = v11;
+    v27 = v11;
     if (v11)
     {
       v12 = 0;
-      v26 = v8;
-      v27 = indexCopy;
+      v25 = v8;
+      v26 = indexCopy;
       do
       {
         v13 = CGImageSourceCopyPropertiesAtIndex(v8, v12, 0);
-        v29 = v12;
+        v28 = v12;
         v14 = [indexCopy objectAtIndexedSubscript:v12];
+        v29 = 0u;
         v30 = 0u;
         v31 = 0u;
         v32 = 0u;
-        v33 = 0u;
-        v15 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v31;
+          v17 = *v30;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v31 != v17)
+              if (*v30 != v17)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v19 = *(*(&v30 + 1) + 8 * i);
-              v20 = [v14 objectForKeyedSubscript:{v19, v25}];
+              v19 = *(*(&v29 + 1) + 8 * i);
+              v20 = [v14 objectForKeyedSubscript:{v19, v24}];
               v21 = [(__CFDictionary *)v13 objectForKeyedSubscript:v19];
               if (v21)
               {
@@ -250,47 +245,45 @@
                 if ((v23 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 134218242;
-                  v36 = v29;
-                  v37 = 2114;
-                  v38 = v19;
+                  v35 = v28;
+                  v36 = 2114;
+                  v37 = v19;
                   _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Output image at index %tu is missing image property '%{public}@' present in input image", buf, 0x16u);
                 }
               }
             }
 
-            v16 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
           }
 
           while (v16);
         }
 
-        v12 = v29 + 1;
-        indexCopy = v27;
-        v8 = v26;
+        v12 = v28 + 1;
+        indexCopy = v26;
+        v8 = v25;
       }
 
-      while (v29 + 1 != v28);
+      while (v28 + 1 != v27);
     }
 
     CFRelease(v8);
-    dataCopy = v25;
+    dataCopy = v24;
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 134218240;
-    v36 = dataCopy;
-    v37 = 2048;
-    v38 = [(__CFData *)dataCopy length];
+    v35 = dataCopy;
+    v36 = 2048;
+    v37 = [(__CFData *)dataCopy length];
     _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to create an image source from Fig outputData %p of length %tu to inspect for missing metadata properties.", buf, 0x16u);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (id)dataForSingleImageJPEGPassthroughConversionForImageSource:(CGImageSource *)source primaryImageProperties:(id)properties
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CBEB28];
   propertiesCopy = properties;
   data = [v5 data];
@@ -307,48 +300,46 @@
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v14 = 138412290;
+      v13 = 138412290;
       sourceCopy = source;
-      _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to perform single image JPEG passthrough conversion for source %@", &v14, 0xCu);
+      _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to perform single image JPEG passthrough conversion for source %@", &v13, 0xCu);
     }
 
     data = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return data;
 }
 
 + (id)imageDataForPassthroughConversionForSourceURL:(id)l metadataPolicy:(id)policy outResultImageSize:(CGSize *)size
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   policyCopy = policy;
-  v39 = *MEMORY[0x277CD3618];
-  v40[0] = MEMORY[0x277CBEC28];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+  v38 = *MEMORY[0x277CD3618];
+  v39[0] = MEMORY[0x277CBEC28];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
   v10 = CGImageSourceCreateWithURL(lCopy, v9);
   if (v10)
   {
     v11 = v10;
-    v37 = *MEMORY[0x277CD3530];
-    v38 = MEMORY[0x277CBEC38];
-    v29 = CGImageSourceCopyProperties(v10, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1]);
+    v36 = *MEMORY[0x277CD3530];
+    v37 = MEMORY[0x277CBEC38];
+    v28 = CGImageSourceCopyProperties(v10, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1]);
     v12 = [self imagePropertiesByImageIndexInImageSource:v11 processedWithMetadataPolicy:policyCopy];
     v13 = *MEMORY[0x277CE1DC0];
     identifier = [*MEMORY[0x277CE1DC0] identifier];
-    v32 = 0;
-    v15 = *MEMORY[0x277CBE918];
     v31 = 0;
-    v16 = [(__CFURL *)lCopy getResourceValue:&v32 forKey:v15 error:&v31];
-    v17 = v32;
+    v15 = *MEMORY[0x277CBE918];
+    v30 = 0;
+    v16 = [(__CFURL *)lCopy getResourceValue:&v31 forKey:v15 error:&v30];
+    v17 = v31;
 
-    v18 = v31;
+    v18 = v30;
     if ((v16 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v34 = v18;
+      v33 = v18;
       _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to get type identifier of image source URL: %@", buf, 0xCu);
     }
 
@@ -363,7 +354,7 @@
 
     else
     {
-      v30 = v29;
+      v29 = v28;
       v23 = v12;
       v24 = PFFigCopyImageFileWithPropertiesToData();
       v22 = 0;
@@ -373,9 +364,9 @@
         {
           path = [(__CFURL *)lCopy path];
           *buf = 138412546;
-          v34 = path;
-          v35 = 1024;
-          v36 = v24;
+          v33 = path;
+          v34 = 1024;
+          v35 = v24;
           _os_log_error_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to perform passthrough conversion for %@: %d", buf, 0x12u);
         }
       }
@@ -385,7 +376,7 @@
         [self logMissingPropertiesInCMPhotoOutputData:v22 comparedToProcessedSourceImagePropertiesByIndex:v23];
       }
 
-      v21 = v30;
+      v21 = v29;
     }
 
     CFRelease(v11);
@@ -396,37 +387,33 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v34 = lCopy;
+      v33 = lCopy;
       _os_log_impl(&dword_2585D9000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unable to create image source from %@", buf, 0xCu);
     }
 
     v22 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
-id __124__PAMediaConversionServiceImagingUtilities_imageDataForPassthroughConversionForSourceURL_metadataPolicy_outResultImageSize___block_invoke(uint64_t a1)
+id __124__PAMediaConversionServiceImagingUtilities_imageDataForPassthroughConversionForSourceURL_metadataPolicy_outResultImageSize___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 32);
-  v4 = 0;
+  v3 = 0;
   if (PFFigGetImageSourceImageIndexForContainerItemID())
   {
-    v4 = [*(a1 + 40) objectAtIndexedSubscript:0];
-    v5 = [MEMORY[0x277CBEB68] null];
-    v6 = [v4 isEqual:v5];
+    v3 = [*(a1 + 40) objectAtIndexedSubscript:0];
+    v4 = [MEMORY[0x277CBEB68] null];
+    v5 = [v3 isEqual:v4];
 
-    if (v6)
+    if (v5)
     {
 
-      v4 = 0;
+      v3 = 0;
     }
   }
 
-  return v4;
+  return v3;
 }
 
 + (id)imagePropertiesByImageIndexInImageSource:(CGImageSource *)source processedWithMetadataPolicy:(id)policy

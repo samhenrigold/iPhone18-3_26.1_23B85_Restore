@@ -15,7 +15,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for RevealingVideoView();
+  v3.super_class = type metadata accessor for RevealingVideoView(0);
   v2 = v3.receiver;
   [(RevealingVideoView *)&v3 layoutSubviews];
   sub_2481B8();

@@ -41,7 +41,7 @@
     v5->_identifier = v9;
 
     v11 = [dictionaryCopy PKStringForKey:@"receiveMethod"];
-    v5->_receiveMethod = [@"iMessage" isEqualToString:v11];
+    v5->_receiveMethod = objc_msgSend_isEqualToString_(@"iMessage");
 
     v12 = [dictionaryCopy PKStringForKey:@"receiveCurrency"];
     v13 = [v12 copy];
@@ -522,10 +522,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)conversationAddress isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(conversationAddress, v6, v6);
 
   v8 = v10;
-  if (!v7)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     v9 = v8;

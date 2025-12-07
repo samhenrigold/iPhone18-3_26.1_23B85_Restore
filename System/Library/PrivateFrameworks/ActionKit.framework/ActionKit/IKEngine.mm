@@ -3,6 +3,7 @@
 - (IKEngine)initWithDelegate:(id)delegate;
 - (id)_signatureWithKey:(id)key baseString:(id)string;
 - (id)_startConnectionWithAPIPath:(id)path bodyArguments:(id)arguments type:(int)type userInfo:(id)info context:(id)context;
+- (id)addBookmarkWithURL:(id)l title:(id)title description:(id)description folder:(id)folder resolveFinalURL:(BOOL)rL userInfo:(id)info;
 - (id)addFolderWithTitle:(id)title userInfo:(id)info;
 - (id)archiveBookmark:(id)bookmark userInfo:(id)info;
 - (id)authTokenForUsername:(id)username password:(id)password userInfo:(id)info;
@@ -29,7 +30,7 @@
 
 - (id)_signatureWithKey:(id)key baseString:(id)string
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = [key cStringUsingEncoding:1];
   v6 = [string cStringUsingEncoding:1];
   v7 = strlen(v5);
@@ -38,210 +39,204 @@
   v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:macOut length:20];
   v10 = [v9 base64EncodedStringWithOptions:0];
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (id)_startConnectionWithAPIPath:(id)path bodyArguments:(id)arguments type:(int)type userInfo:(id)info context:(id)context
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   if (!_startConnectionWithAPIPath_bodyArguments_type_userInfo_context__baseURL)
   {
     _startConnectionWithAPIPath_bodyArguments_type_userInfo_context__baseURL = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:@"https://www.instapaper.com"];
   }
 
   v13 = [MEMORY[0x277CBEBC0] URLWithString:path relativeToURL:?];
-  if (v13)
+  if (!v13)
   {
-    v14 = v13;
-    typeCopy = type;
-    infoCopy = info;
-    contextCopy = context;
-    selfCopy = self;
-    dictionary = [MEMORY[0x277CBEB38] dictionary];
-    v70 = 0u;
-    v71 = 0u;
-    v72 = 0u;
-    v73 = 0u;
-    v16 = [arguments countByEnumeratingWithState:&v70 objects:v77 count:16];
-    if (v16)
+    return 0;
+  }
+
+  v14 = v13;
+  typeCopy = type;
+  infoCopy = info;
+  contextCopy = context;
+  selfCopy = self;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v69 = 0u;
+  v70 = 0u;
+  v71 = 0u;
+  v72 = 0u;
+  v16 = [arguments countByEnumeratingWithState:&v69 objects:v76 count:16];
+  if (v16)
+  {
+    v17 = v16;
+    v18 = *v70;
+    do
     {
-      v17 = v16;
-      v18 = *v71;
-      do
+      for (i = 0; i != v17; ++i)
       {
-        for (i = 0; i != v17; ++i)
+        if (*v70 != v18)
         {
-          if (*v71 != v18)
-          {
-            objc_enumerationMutation(arguments);
-          }
-
-          v20 = *(*(&v70 + 1) + 8 * i);
-          ik_URLEncodedString = [v20 ik_URLEncodedString];
-          stringValue = [arguments objectForKey:v20];
-          objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
-          {
-            stringValue = [stringValue stringValue];
-          }
-
-          [dictionary setObject:objc_msgSend(stringValue forKey:{"ik_URLEncodedString"), ik_URLEncodedString}];
+          objc_enumerationMutation(arguments);
         }
 
-        v17 = [arguments countByEnumeratingWithState:&v70 objects:v77 count:16];
-      }
-
-      while (v17);
-    }
-
-    string = [MEMORY[0x277CCAB68] string];
-    if ([dictionary count])
-    {
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
-      v67 = 0u;
-      v23 = [dictionary countByEnumeratingWithState:&v66 objects:v76 count:16];
-      if (v23)
-      {
-        v24 = v23;
-        v25 = *v67;
-        do
+        v20 = *(*(&v69 + 1) + 8 * i);
+        ik_URLEncodedString = [v20 ik_URLEncodedString];
+        stringValue = [arguments objectForKey:v20];
+        objc_opt_class();
+        if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          for (j = 0; j != v24; ++j)
-          {
-            if (*v67 != v25)
-            {
-              objc_enumerationMutation(dictionary);
-            }
-
-            [string appendFormat:@"%@=%@&", *(*(&v66 + 1) + 8 * j), objc_msgSend(dictionary, "objectForKey:", *(*(&v66 + 1) + 8 * j))];
-          }
-
-          v24 = [dictionary countByEnumeratingWithState:&v66 objects:v76 count:16];
+          stringValue = [stringValue stringValue];
         }
 
-        while (v24);
+        [dictionary setObject:objc_msgSend(stringValue forKey:{"ik_URLEncodedString"), ik_URLEncodedString}];
       }
 
-      [string replaceCharactersInRange:objc_msgSend(string withString:{"length") - 1, 1, &stru_2850323E8}];
+      v17 = [arguments countByEnumeratingWithState:&v69 objects:v76 count:16];
     }
 
-    v52 = v14;
-    v27 = [objc_msgSend(v14 "absoluteString")];
-    v28 = [objc_msgSend(MEMORY[0x277CCAC38] "processInfo")];
-    v29 = MEMORY[0x277CCACA8];
-    [objc_msgSend(MEMORY[0x277CBEAA8] "date")];
-    v31 = [v29 stringWithFormat:@"%d", v30];
-    dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-    [dictionary2 setObject:v28 forKey:@"oauth_nonce"];
-    [dictionary2 setObject:@"HMAC-SHA1" forKey:@"oauth_signature_method"];
-    [dictionary2 setObject:v31 forKey:@"oauth_timestamp"];
-    [dictionary2 setObject:_OAuthConsumerKey forKey:@"oauth_consumer_key"];
-    [dictionary2 setObject:@"1.0" forKey:@"oauth_version"];
-    if ([(IKEngine *)selfCopy OAuthToken])
-    {
-      [dictionary2 setObject:-[IKEngine OAuthToken](selfCopy forKey:{"OAuthToken"), @"oauth_token"}];
-    }
+    while (v17);
+  }
 
-    v33 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:dictionary];
-    [v33 addEntriesFromDictionary:dictionary2];
-    v34 = [objc_msgSend(v33 "allKeys")];
-    v35 = [MEMORY[0x277CCAB68] stringWithFormat:@"%@&%@&", @"POST", v27];
-    v62 = 0u;
-    v63 = 0u;
-    v64 = 0u;
+  string = [MEMORY[0x277CCAB68] string];
+  if ([dictionary count])
+  {
+    v67 = 0u;
+    v68 = 0u;
     v65 = 0u;
-    v36 = [v34 countByEnumeratingWithState:&v62 objects:v75 count:16];
-    if (v36)
+    v66 = 0u;
+    v23 = [dictionary countByEnumeratingWithState:&v65 objects:v75 count:16];
+    if (v23)
     {
-      v37 = v36;
-      v38 = *v63;
+      v24 = v23;
+      v25 = *v66;
       do
       {
-        for (k = 0; k != v37; ++k)
+        for (j = 0; j != v24; ++j)
         {
-          if (*v63 != v38)
+          if (*v66 != v25)
           {
-            objc_enumerationMutation(v34);
+            objc_enumerationMutation(dictionary);
           }
 
-          [v35 appendFormat:@"%@%%3D%@%%26", objc_msgSend(*(*(&v62 + 1) + 8 * k), "ik_URLEncodedString"), objc_msgSend(objc_msgSend(v33, "objectForKey:", *(*(&v62 + 1) + 8 * k)), "ik_URLEncodedString")];
+          [string appendFormat:@"%@=%@&", *(*(&v65 + 1) + 8 * j), objc_msgSend(dictionary, "objectForKey:", *(*(&v65 + 1) + 8 * j))];
         }
 
-        v37 = [v34 countByEnumeratingWithState:&v62 objects:v75 count:16];
+        v24 = [dictionary countByEnumeratingWithState:&v65 objects:v75 count:16];
       }
 
-      while (v37);
+      while (v24);
     }
 
-    [v35 replaceCharactersInRange:objc_msgSend(v35 withString:{"length") - 3, 3, &stru_2850323E8}];
-    OAuthTokenSecret = selfCopy->_OAuthTokenSecret;
-    if (!OAuthTokenSecret)
-    {
-      OAuthTokenSecret = &stru_2850323E8;
-    }
-
-    [dictionary2 setObject:-[IKEngine _signatureWithKey:baseString:](selfCopy forKey:{"_signatureWithKey:baseString:", objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@&%@", _OAuthConsumerSecret, OAuthTokenSecret), v35), @"oauth_signature"}];
-    v41 = [MEMORY[0x277CBAB50] requestWithURL:v52];
-    [v41 _setNonAppInitiated:1];
-    [v41 setHTTPMethod:@"POST"];
-    [v41 setHTTPBody:{objc_msgSend(string, "dataUsingEncoding:", 4)}];
-    v42 = [MEMORY[0x277CCAB68] stringWithString:@"OAuth "];
-    v58 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v43 = [dictionary2 countByEnumeratingWithState:&v58 objects:v74 count:16];
-    if (v43)
-    {
-      v44 = v43;
-      v45 = *v59;
-      do
-      {
-        for (m = 0; m != v44; ++m)
-        {
-          if (*v59 != v45)
-          {
-            objc_enumerationMutation(dictionary2);
-          }
-
-          [v42 appendFormat:@"%@=%@, ", *(*(&v58 + 1) + 8 * m), objc_msgSend(dictionary2, "objectForKey:", *(*(&v58 + 1) + 8 * m))];
-        }
-
-        v44 = [dictionary2 countByEnumeratingWithState:&v58 objects:v74 count:16];
-      }
-
-      while (v44);
-    }
-
-    [v42 replaceCharactersInRange:objc_msgSend(v42 withString:{"length") - 2, 2, &stru_2850323E8}];
-    [v41 setValue:v42 forHTTPHeaderField:@"Authorization"];
-    v47 = [[IKURLConnection alloc] initWithRequest:v41 delegate:selfCopy startImmediately:0];
-    [(IKURLConnection *)v47 _setType:typeCopy];
-    [(IKURLConnection *)v47 _setUserInfo:infoCopy];
-    [(IKURLConnection *)v47 _setContext:contextCopy];
-    v48 = [objc_msgSend(MEMORY[0x277CCAC38] "processInfo")];
-    [(NSMutableDictionary *)selfCopy->_connections setObject:v47 forKey:v48];
-
-    [(IKEngine *)selfCopy delegate];
-    if (objc_opt_respondsToSelector())
-    {
-      [(IKEngineDelegate *)[(IKEngine *)selfCopy delegate] engine:selfCopy willStartConnection:v47];
-    }
-
-    currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
-    [(NSURLConnection *)v47 scheduleInRunLoop:currentRunLoop forMode:*MEMORY[0x277CBE738]];
-    [(NSURLConnection *)v47 start];
+    [string replaceCharactersInRange:objc_msgSend(string withString:{"length") - 1, 1, &stru_2850323E8}];
   }
 
-  else
+  v51 = v14;
+  v27 = [objc_msgSend(v14 "absoluteString")];
+  v28 = [objc_msgSend(MEMORY[0x277CCAC38] "processInfo")];
+  v29 = MEMORY[0x277CCACA8];
+  [objc_msgSend(MEMORY[0x277CBEAA8] "date")];
+  v31 = [v29 stringWithFormat:@"%d", v30];
+  dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+  [dictionary2 setObject:v28 forKey:@"oauth_nonce"];
+  [dictionary2 setObject:@"HMAC-SHA1" forKey:@"oauth_signature_method"];
+  [dictionary2 setObject:v31 forKey:@"oauth_timestamp"];
+  [dictionary2 setObject:_OAuthConsumerKey forKey:@"oauth_consumer_key"];
+  [dictionary2 setObject:@"1.0" forKey:@"oauth_version"];
+  if ([(IKEngine *)selfCopy OAuthToken])
   {
-    v48 = 0;
+    [dictionary2 setObject:-[IKEngine OAuthToken](selfCopy forKey:{"OAuthToken"), @"oauth_token"}];
   }
 
-  v50 = *MEMORY[0x277D85DE8];
+  v33 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:dictionary];
+  [v33 addEntriesFromDictionary:dictionary2];
+  v34 = [objc_msgSend(v33 "allKeys")];
+  v35 = [MEMORY[0x277CCAB68] stringWithFormat:@"%@&%@&", @"POST", v27];
+  v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v36 = [v34 countByEnumeratingWithState:&v61 objects:v74 count:16];
+  if (v36)
+  {
+    v37 = v36;
+    v38 = *v62;
+    do
+    {
+      for (k = 0; k != v37; ++k)
+      {
+        if (*v62 != v38)
+        {
+          objc_enumerationMutation(v34);
+        }
+
+        [v35 appendFormat:@"%@%%3D%@%%26", objc_msgSend(*(*(&v61 + 1) + 8 * k), "ik_URLEncodedString"), objc_msgSend(objc_msgSend(v33, "objectForKey:", *(*(&v61 + 1) + 8 * k)), "ik_URLEncodedString")];
+      }
+
+      v37 = [v34 countByEnumeratingWithState:&v61 objects:v74 count:16];
+    }
+
+    while (v37);
+  }
+
+  [v35 replaceCharactersInRange:objc_msgSend(v35 withString:{"length") - 3, 3, &stru_2850323E8}];
+  OAuthTokenSecret = selfCopy->_OAuthTokenSecret;
+  if (!OAuthTokenSecret)
+  {
+    OAuthTokenSecret = &stru_2850323E8;
+  }
+
+  [dictionary2 setObject:-[IKEngine _signatureWithKey:baseString:](selfCopy forKey:{"_signatureWithKey:baseString:", objc_msgSend(MEMORY[0x277CCACA8], "stringWithFormat:", @"%@&%@", _OAuthConsumerSecret, OAuthTokenSecret), v35), @"oauth_signature"}];
+  v41 = [MEMORY[0x277CBAB50] requestWithURL:v51];
+  [v41 _setNonAppInitiated:1];
+  [v41 setHTTPMethod:@"POST"];
+  [v41 setHTTPBody:{objc_msgSend(string, "dataUsingEncoding:", 4)}];
+  v42 = [MEMORY[0x277CCAB68] stringWithString:@"OAuth "];
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v43 = [dictionary2 countByEnumeratingWithState:&v57 objects:v73 count:16];
+  if (v43)
+  {
+    v44 = v43;
+    v45 = *v58;
+    do
+    {
+      for (m = 0; m != v44; ++m)
+      {
+        if (*v58 != v45)
+        {
+          objc_enumerationMutation(dictionary2);
+        }
+
+        [v42 appendFormat:@"%@=%@, ", *(*(&v57 + 1) + 8 * m), objc_msgSend(dictionary2, "objectForKey:", *(*(&v57 + 1) + 8 * m))];
+      }
+
+      v44 = [dictionary2 countByEnumeratingWithState:&v57 objects:v73 count:16];
+    }
+
+    while (v44);
+  }
+
+  [v42 replaceCharactersInRange:objc_msgSend(v42 withString:{"length") - 2, 2, &stru_2850323E8}];
+  [v41 setValue:v42 forHTTPHeaderField:@"Authorization"];
+  v47 = [[IKURLConnection alloc] initWithRequest:v41 delegate:selfCopy startImmediately:0];
+  [(IKURLConnection *)v47 _setType:typeCopy];
+  [(IKURLConnection *)v47 _setUserInfo:infoCopy];
+  [(IKURLConnection *)v47 _setContext:contextCopy];
+  v48 = [objc_msgSend(MEMORY[0x277CCAC38] "processInfo")];
+  [(NSMutableDictionary *)selfCopy->_connections setObject:v47 forKey:v48];
+
+  [(IKEngine *)selfCopy delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [(IKEngineDelegate *)[(IKEngine *)selfCopy delegate] engine:selfCopy willStartConnection:v47];
+  }
+
+  currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
+  [(NSURLConnection *)v47 scheduleInRunLoop:currentRunLoop forMode:*MEMORY[0x277CBE738]];
+  [(NSURLConnection *)v47 start];
   return v48;
 }
 
@@ -257,7 +252,7 @@
 
 - (void)connectionDidFinishLoading:(id)loading
 {
-  v82 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:objc_msgSend(loading encoding:{"data"), 4}];
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA738] code:-1011 userInfo:0];
   type = [loading type];
@@ -274,28 +269,26 @@
       goto LABEL_11;
     }
 
-    v22 = [IKDeserializer objectFromJSONString:v5];
-    if (v22)
+    v20 = [IKDeserializer objectFromJSONString:v5];
+    if (v20)
     {
-      v12 = v22;
+      v12 = v20;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
 LABEL_24:
-        v23 = *MEMORY[0x277D85DE8];
         selfCopy3 = self;
         loadingCopy3 = loading;
-        v19 = v12;
-        goto LABEL_98;
+        v17 = v12;
+        goto LABEL_97;
       }
     }
 
-LABEL_97:
-    v63 = *MEMORY[0x277D85DE8];
+LABEL_96:
     selfCopy3 = self;
     loadingCopy3 = loading;
-    v19 = v6;
-    goto LABEL_98;
+    v17 = v6;
+    goto LABEL_97;
   }
 
   v8 = type;
@@ -314,14 +307,14 @@ LABEL_97:
             lastObject = [v12 lastObject];
             if (!lastObject)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             v14 = lastObject;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             [(IKEngine *)self delegate];
@@ -333,30 +326,30 @@ LABEL_97:
             break;
           case 2:
             array = [MEMORY[0x277CBEB18] array];
-            v73 = 0u;
-            v74 = 0u;
-            v75 = 0u;
-            v76 = 0u;
-            v48 = [v12 countByEnumeratingWithState:&v73 objects:v81 count:16];
-            if (v48)
+            v68 = 0u;
+            v69 = 0u;
+            v70 = 0u;
+            v71 = 0u;
+            v44 = [v12 countByEnumeratingWithState:&v68 objects:v76 count:16];
+            if (v44)
             {
-              v49 = v48;
-              v50 = 0;
-              v51 = *v74;
+              v45 = v44;
+              v46 = 0;
+              v47 = *v69;
               do
               {
-                for (i = 0; i != v49; ++i)
+                for (i = 0; i != v45; ++i)
                 {
-                  if (*v74 != v51)
+                  if (*v69 != v47)
                   {
                     objc_enumerationMutation(v12);
                   }
 
-                  v53 = *(*(&v73 + 1) + 8 * i);
+                  v49 = *(*(&v68 + 1) + 8 * i);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v50 = v53;
+                    v46 = v49;
                   }
 
                   else
@@ -364,48 +357,48 @@ LABEL_97:
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      [array addObject:v53];
+                      [array addObject:v49];
                     }
                   }
                 }
 
-                v49 = [v12 countByEnumeratingWithState:&v73 objects:v81 count:16];
+                v45 = [v12 countByEnumeratingWithState:&v68 objects:v76 count:16];
               }
 
-              while (v49);
+              while (v45);
             }
 
             else
             {
-              v50 = 0;
+              v46 = 0;
             }
 
             _context = [loading _context];
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didReceiveBookmarks:array ofUser:v50 forFolder:_context];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didReceiveBookmarks:array ofUser:v46 forFolder:_context];
             }
 
-            goto LABEL_11;
+            break;
           case 3:
             lastObject2 = [v12 lastObject];
             if (!lastObject2)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
-            v46 = lastObject2;
+            v42 = lastObject2;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didUpdateReadProgressOfBookmark:v46];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didUpdateReadProgressOfBookmark:v42];
             }
 
             break;
@@ -413,50 +406,50 @@ LABEL_97:
             lastObject3 = [v12 lastObject];
             if (!lastObject3)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
-            v44 = lastObject3;
+            v40 = lastObject3;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didAddBookmark:v44];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didAddBookmark:v40];
             }
 
             break;
           case 5:
-            v37 = [objc_msgSend(loading "_context")];
+            v33 = [objc_msgSend(loading "_context")];
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didDeleteBookmarkWithBookmarkID:v37];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didDeleteBookmarkWithBookmarkID:v33];
             }
 
-            goto LABEL_11;
+            break;
           case 6:
             lastObject4 = [v12 lastObject];
             if (!lastObject4)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
-            v40 = lastObject4;
+            v36 = lastObject4;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didStarBookmark:v40];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didStarBookmark:v36];
             }
 
             break;
@@ -464,20 +457,20 @@ LABEL_97:
             lastObject5 = [v12 lastObject];
             if (!lastObject5)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
-            v55 = lastObject5;
+            v51 = lastObject5;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didUnstarBookmark:v55];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didUnstarBookmark:v51];
             }
 
             break;
@@ -485,20 +478,20 @@ LABEL_97:
             lastObject6 = [v12 lastObject];
             if (!lastObject6)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
-            v57 = lastObject6;
+            v53 = lastObject6;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didArchiveBookmark:v57];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didArchiveBookmark:v53];
             }
 
             break;
@@ -506,77 +499,77 @@ LABEL_97:
             lastObject7 = [v12 lastObject];
             if (!lastObject7)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
-            v62 = lastObject7;
+            v58 = lastObject7;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didUnarchiveBookmark:v62];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didUnarchiveBookmark:v58];
             }
 
             break;
           case 10:
             lastObject8 = [v12 lastObject];
-            v59 = [objc_msgSend(loading "_context")];
+            v55 = [objc_msgSend(loading "_context")];
             if (!lastObject8)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
-            v60 = v59;
+            v56 = v55;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didMoveBookmark:lastObject8 toFolderWithFolderID:v60];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didMoveBookmark:lastObject8 toFolderWithFolderID:v56];
             }
 
             break;
           case 12:
             array2 = [MEMORY[0x277CBEB18] array];
-            v69 = 0u;
-            v70 = 0u;
-            v71 = 0u;
-            v72 = 0u;
-            v32 = [v12 countByEnumeratingWithState:&v69 objects:v80 count:16];
-            if (v32)
+            v64 = 0u;
+            v65 = 0u;
+            v66 = 0u;
+            v67 = 0u;
+            v28 = [v12 countByEnumeratingWithState:&v64 objects:v75 count:16];
+            if (v28)
             {
-              v33 = v32;
-              v34 = *v70;
+              v29 = v28;
+              v30 = *v65;
               do
               {
-                for (j = 0; j != v33; ++j)
+                for (j = 0; j != v29; ++j)
                 {
-                  if (*v70 != v34)
+                  if (*v65 != v30)
                   {
                     objc_enumerationMutation(v12);
                   }
 
-                  v36 = *(*(&v69 + 1) + 8 * j);
+                  v32 = *(*(&v64 + 1) + 8 * j);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    [array2 addObject:v36];
+                    [array2 addObject:v32];
                   }
                 }
 
-                v33 = [v12 countByEnumeratingWithState:&v69 objects:v80 count:16];
+                v29 = [v12 countByEnumeratingWithState:&v64 objects:v75 count:16];
               }
 
-              while (v33);
+              while (v29);
             }
 
             [(IKEngine *)self delegate];
@@ -585,69 +578,69 @@ LABEL_97:
               [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didReceiveFolders:array2];
             }
 
-            goto LABEL_11;
+            break;
           case 13:
             lastObject9 = [v12 lastObject];
             if (!lastObject9)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
-            v42 = lastObject9;
+            v38 = lastObject9;
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              goto LABEL_97;
+              goto LABEL_96;
             }
 
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didAddFolder:v42];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didAddFolder:v38];
             }
 
             break;
           case 14:
-            v38 = [objc_msgSend(loading "_context")];
+            v34 = [objc_msgSend(loading "_context")];
             [(IKEngine *)self delegate];
             if (objc_opt_respondsToSelector())
             {
-              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didDeleteFolderWithFolderID:v38];
+              [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didDeleteFolderWithFolderID:v34];
             }
 
-            goto LABEL_11;
+            break;
           case 15:
             array3 = [MEMORY[0x277CBEB18] array];
-            v65 = 0u;
-            v66 = 0u;
-            v67 = 0u;
-            v68 = 0u;
-            v26 = [v12 countByEnumeratingWithState:&v65 objects:v79 count:16];
-            if (v26)
+            v60 = 0u;
+            v61 = 0u;
+            v62 = 0u;
+            v63 = 0u;
+            v22 = [v12 countByEnumeratingWithState:&v60 objects:v74 count:16];
+            if (v22)
             {
-              v27 = v26;
-              v28 = *v66;
+              v23 = v22;
+              v24 = *v61;
               do
               {
-                for (k = 0; k != v27; ++k)
+                for (k = 0; k != v23; ++k)
                 {
-                  if (*v66 != v28)
+                  if (*v61 != v24)
                   {
                     objc_enumerationMutation(v12);
                   }
 
-                  v30 = *(*(&v65 + 1) + 8 * k);
+                  v26 = *(*(&v60 + 1) + 8 * k);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    [array3 addObject:v30];
+                    [array3 addObject:v26];
                   }
                 }
 
-                v27 = [v12 countByEnumeratingWithState:&v65 objects:v79 count:16];
+                v23 = [v12 countByEnumeratingWithState:&v60 objects:v74 count:16];
               }
 
-              while (v27);
+              while (v23);
             }
 
             [(IKEngine *)self delegate];
@@ -656,30 +649,36 @@ LABEL_97:
               [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self connection:loading didOrderFolders:array3];
             }
 
-            goto LABEL_11;
+            break;
           default:
-            goto LABEL_11;
+            break;
         }
 
-        goto LABEL_11;
+LABEL_11:
+        [(IKEngine *)self delegate];
+        if (objc_opt_respondsToSelector())
+        {
+          [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self didFinishConnection:loading];
+        }
+
+        [(NSMutableDictionary *)self->_connections removeObjectForKey:[(IKEngine *)self identifierForConnection:loading]];
+        return;
       }
 
       goto LABEL_24;
     }
 
-    goto LABEL_97;
+    goto LABEL_96;
   }
 
   v9 = [objc_msgSend(loading "response")];
   if (v9 == 200)
   {
-    v77 = 0;
-    v78 = 0;
-    if (![IKDeserializer token:&v78 andTokenSecret:&v77 fromQlineString:v5])
+    v72 = 0;
+    v73 = 0;
+    if (![IKDeserializer token:&v73 andTokenSecret:&v72 fromQlineString:v5])
     {
       [(IKEngine *)self connection:loading didFailWithError:v6];
-LABEL_26:
-      v24 = *MEMORY[0x277D85DE8];
       return;
     }
 
@@ -687,32 +686,22 @@ LABEL_26:
     if (objc_opt_respondsToSelector())
     {
       delegate = [(IKEngine *)self delegate];
-      [(IKEngineDelegate *)delegate engine:self connection:loading didReceiveAuthToken:v78 andTokenSecret:v77];
+      [(IKEngineDelegate *)delegate engine:self connection:loading didReceiveAuthToken:v73 andTokenSecret:v72];
     }
 
-    [(IKEngine *)self setOAuthToken:v78];
-    [(IKEngine *)self setOAuthTokenSecret:v77];
-LABEL_11:
-    [(IKEngine *)self delegate];
-    if (objc_opt_respondsToSelector())
-    {
-      [(IKEngineDelegate *)[(IKEngine *)self delegate] engine:self didFinishConnection:loading];
-    }
-
-    [(NSMutableDictionary *)self->_connections removeObjectForKey:[(IKEngine *)self identifierForConnection:loading]];
-    goto LABEL_26;
+    [(IKEngine *)self setOAuthToken:v73];
+    [(IKEngine *)self setOAuthTokenSecret:v72];
+    goto LABEL_11;
   }
 
   v15 = v9;
   v16 = [MEMORY[0x277CBEAC0] dictionaryWithObject:v5 forKey:@"message"];
   v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.matthiasplappert.InstapaperKit" code:v15 userInfo:v16];
-  v18 = *MEMORY[0x277D85DE8];
-  v19 = v17;
   selfCopy3 = self;
   loadingCopy3 = loading;
-LABEL_98:
+LABEL_97:
 
-  [(IKEngine *)selfCopy3 connection:loadingCopy3 didFailWithError:v19];
+  [(IKEngine *)selfCopy3 connection:loadingCopy3 didFailWithError:v17];
 }
 
 - (void)connection:(id)connection didFailWithError:(id)error
@@ -731,38 +720,36 @@ LABEL_98:
 
 - (void)cancelAllConnections
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithDictionary:self->_connections];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        -[IKEngine cancelConnection:](self, "cancelConnection:", [v3 objectForKey:*(*(&v9 + 1) + 8 * v7++)]);
+        -[IKEngine cancelConnection:](self, "cancelConnection:", [v3 objectForKey:*(*(&v8 + 1) + 8 * v7++)]);
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelConnection:(id)connection
@@ -883,6 +870,31 @@ LABEL_98:
   return [(IKEngine *)self _startConnectionWithAPIPath:@"/api/1/bookmarks/delete" bodyArguments:v7 type:5 userInfo:info context:v6];
 }
 
+- (id)addBookmarkWithURL:(id)l title:(id)title description:(id)description folder:(id)folder resolveFinalURL:(BOOL)rL userInfo:(id)info
+{
+  rLCopy = rL;
+  dictionary = [MEMORY[0x277CBEB38] dictionary];
+  [dictionary setObject:objc_msgSend(l forKey:{"absoluteString"), @"url"}];
+  if (title)
+  {
+    [dictionary setObject:title forKey:@"title"];
+  }
+
+  if (description)
+  {
+    [dictionary setObject:description forKey:@"description"];
+  }
+
+  if (folder)
+  {
+    [dictionary setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithInteger:", objc_msgSend(folder, "folderID")), @"folder_id"}];
+  }
+
+  [dictionary setObject:objc_msgSend(MEMORY[0x277CCABB0] forKey:{"numberWithBool:", rLCopy), @"resolve_final_url"}];
+
+  return [(IKEngine *)self _startConnectionWithAPIPath:@"/api/1/bookmarks/add" bodyArguments:dictionary type:4 userInfo:info context:0];
+}
+
 - (id)updateReadProgressOfBookmark:(id)bookmark toProgress:(double)progress userInfo:(id)info
 {
   v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(bookmark, "bookmarkID")}];
@@ -898,7 +910,7 @@ LABEL_98:
 
 - (id)bookmarksInFolder:(id)folder limit:(unint64_t)limit existingBookmarks:(id)bookmarks userInfo:(id)info
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
   folderID = [folder folderID];
   if (folderID <= 0xFFFFFFFFFFFFFFFCLL)
@@ -914,29 +926,29 @@ LABEL_98:
   string = [MEMORY[0x277CCAB68] string];
   if ([bookmarks count])
   {
-    v25 = v12;
-    v26 = v10;
+    v24 = v12;
+    v25 = v10;
     selfCopy = self;
     infoCopy = info;
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
-    v14 = [bookmarks countByEnumeratingWithState:&v29 objects:v33 count:16];
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
+    v14 = [bookmarks countByEnumeratingWithState:&v28 objects:v32 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v30;
+      v16 = *v29;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v30 != v16)
+          if (*v29 != v16)
           {
             objc_enumerationMutation(bookmarks);
           }
 
-          v18 = *(*(&v29 + 1) + 8 * i);
+          v18 = *(*(&v28 + 1) + 8 * i);
           [string appendFormat:@"%ld", objc_msgSend(v18, "bookmarkID")];
           if ([v18 hashString])
           {
@@ -958,7 +970,7 @@ LABEL_98:
           [string appendFormat:@", "];
         }
 
-        v15 = [bookmarks countByEnumeratingWithState:&v29 objects:v33 count:16];
+        v15 = [bookmarks countByEnumeratingWithState:&v28 objects:v32 count:16];
       }
 
       while (v15);
@@ -966,14 +978,12 @@ LABEL_98:
 
     [string replaceCharactersInRange:objc_msgSend(string withString:{"length") - 1, 1, &stru_2850323E8}];
     info = infoCopy;
-    v10 = v26;
+    v10 = v25;
     self = selfCopy;
-    v12 = v25;
+    v12 = v24;
   }
 
-  result = -[IKEngine _startConnectionWithAPIPath:bodyArguments:type:userInfo:context:](self, "_startConnectionWithAPIPath:bodyArguments:type:userInfo:context:", @"/api/1/bookmarks/list", [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v10, @"limit", v12, @"folder_id", string, @"have", 0}], 2, info, folder);
-  v24 = *MEMORY[0x277D85DE8];
-  return result;
+  return -[IKEngine _startConnectionWithAPIPath:bodyArguments:type:userInfo:context:](self, "_startConnectionWithAPIPath:bodyArguments:type:userInfo:context:", @"/api/1/bookmarks/list", [MEMORY[0x277CBEAC0] dictionaryWithObjectsAndKeys:{v10, @"limit", v12, @"folder_id", string, @"have", 0}], 2, info, folder);
 }
 
 - (id)bookmarksWithUserInfo:(id)info

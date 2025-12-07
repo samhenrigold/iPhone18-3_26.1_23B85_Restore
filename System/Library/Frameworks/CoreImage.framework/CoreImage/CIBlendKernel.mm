@@ -19,7 +19,7 @@
 + (CIBlendKernel)kernelWithString:(NSString *)string
 {
   v15 = *MEMORY[0x1E69E9840];
-  v5 = ci_signpost_log_kernel();
+  v5 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v5))
   {
     *buf = 138543362;
@@ -47,20 +47,20 @@
     v6 = 0;
   }
 
-  v10(v9);
+  (v10)(v9);
   return v6;
 }
 
-void __34__CIBlendKernel_kernelWithString___block_invoke(uint64_t a1)
+void __34__CIBlendKernel_kernelWithString___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString", "%{public}@", &v5, 0xCu);
   }
 }
 
@@ -83,7 +83,7 @@ void __34__CIBlendKernel_kernelWithString___block_invoke(uint64_t a1)
 {
   v4 = *&type;
   v21 = *MEMORY[0x1E69E9840];
-  v7 = ci_signpost_log_kernel();
+  v7 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v7))
   {
     *buf = 138543362;
@@ -128,20 +128,20 @@ void __34__CIBlendKernel_kernelWithString___block_invoke(uint64_t a1)
     v13 = v10;
   }
 
-  v16(v15);
+  (v16)(v15);
   return v13;
 }
 
-void __51__CIBlendKernel_cachedKernelWithString_extentType___block_invoke(uint64_t a1)
+void __51__CIBlendKernel_cachedKernelWithString_extentType___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "cachedKernelWithString:extentType", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "cachedKernelWithString:extentType", "%{public}@", &v5, 0xCu);
   }
 }
 
@@ -161,7 +161,7 @@ void __51__CIBlendKernel_cachedKernelWithString_extentType___block_invoke(uint64
 {
   v4 = *&type;
   v13 = *MEMORY[0x1E69E9840];
-  v7 = ci_signpost_log_kernel();
+  v7 = ci_signpost_log_kernel(self, a2);
   if (os_signpost_enabled(v7))
   {
     *buf = 138543362;
@@ -174,20 +174,20 @@ void __51__CIBlendKernel_cachedKernelWithString_extentType___block_invoke(uint64
   v10[3] = &unk_1E75C2AA0;
   v10[4] = self;
   v8 = [[CIBlendKernel alloc] initWithString:string extentType:v4];
-  __45__CIBlendKernel_kernelWithString_extentType___block_invoke(v10);
+  (__45__CIBlendKernel_kernelWithString_extentType___block_invoke)(v10);
   return v8;
 }
 
-void __45__CIBlendKernel_kernelWithString_extentType___block_invoke(uint64_t a1)
+void __45__CIBlendKernel_kernelWithString_extentType___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v2 = ci_signpost_log_kernel();
-  if (os_signpost_enabled(v2))
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = ci_signpost_log_kernel(a1, a2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [*(a1 + 32) description];
-    v4 = 138543362;
-    v5 = v3;
-    _os_signpost_emit_with_name_impl(&dword_19CC36000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString:extentType", "%{public}@", &v4, 0xCu);
+    v4 = [*(a1 + 32) description];
+    v5 = 138543362;
+    v6 = v4;
+    _os_signpost_emit_with_name_impl(&dword_19CC36000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "kernelWithString:extentType", "%{public}@", &v5, 0xCu);
   }
 }
 
@@ -236,7 +236,7 @@ void __45__CIBlendKernel_kernelWithString_extentType___block_invoke(uint64_t a1)
 - (void)setIsBackIfForeIsClear:(BOOL)clear
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = ci_logger_api();
+  v3 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 136446210;
@@ -248,7 +248,7 @@ void __45__CIBlendKernel_kernelWithString_extentType___block_invoke(uint64_t a1)
 - (void)setIsForeIfBackIsClear:(BOOL)clear
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = ci_logger_api();
+  v3 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 136446210;
@@ -260,7 +260,7 @@ void __45__CIBlendKernel_kernelWithString_extentType___block_invoke(uint64_t a1)
 - (void)setIsClearIfForeIsClear:(BOOL)clear
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = ci_logger_api();
+  v3 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 136446210;
@@ -272,7 +272,7 @@ void __45__CIBlendKernel_kernelWithString_extentType___block_invoke(uint64_t a1)
 - (void)setIsClearIfBackIsClear:(BOOL)clear
 {
   v6 = *MEMORY[0x1E69E9840];
-  v3 = ci_logger_api();
+  v3 = ci_logger_api(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 136446210;

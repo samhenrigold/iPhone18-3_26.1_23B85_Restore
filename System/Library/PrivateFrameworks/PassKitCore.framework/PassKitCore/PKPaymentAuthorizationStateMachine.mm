@@ -336,9 +336,9 @@ void __54__PKPaymentAuthorizationStateMachine__setState_param___block_invoke(uin
   error = 0;
 LABEL_26:
   domain = [error domain];
-  v10 = [domain isEqualToString:@"PKPassKitErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v10)
+  if (isEqualToString)
   {
     v59 = paramCopy;
     domain2 = [error domain];
@@ -356,7 +356,7 @@ LABEL_26:
     v16 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E696AA08]];
 
     domain3 = [v16 domain];
-    v18 = [domain3 isEqualToString:@"PKPassKitErrorDomain"];
+    v18 = objc_msgSend_isEqualToString_(domain3);
 
     v57 = error;
     v58 = v16;
@@ -687,7 +687,7 @@ LABEL_127:
 
             v39 = *(*(&v65 + 1) + 8 * v38);
             domain5 = [v39 domain];
-            v41 = [domain5 isEqualToString:@"PKPaymentErrorDomain"];
+            v41 = objc_msgSend_isEqualToString_(domain5);
 
             if (v41)
             {
@@ -1102,7 +1102,7 @@ LABEL_5:
   return v9;
 }
 
-unint64_t __49__PKPaymentAuthorizationStateMachine_description__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__49__PKPaymentAuthorizationStateMachine_description__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a1 + 32);
   v6 = [*(*(a1 + 40) + 136) objectAtIndex:?];
@@ -1330,10 +1330,10 @@ unint64_t __49__PKPaymentAuthorizationStateMachine_description__block_invoke(uin
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __65__PKPaymentAuthorizationStateMachine_paymentOfferCatalogChanged___block_invoke(uint64_t result)
+void *__65__PKPaymentAuthorizationStateMachine_paymentOfferCatalogChanged___block_invoke(void *result)
 {
-  v2 = *(result + 40);
-  if (*(result + 32) == *(v2 + 256))
+  v2 = result[5];
+  if (result[4] == *(v2 + 256))
   {
     v3 = *(v2 + 112);
     v4 = v3 > 0x10;
@@ -1342,9 +1342,9 @@ uint64_t __65__PKPaymentAuthorizationStateMachine_paymentOfferCatalogChanged___b
     {
       v7 = result;
       [*(v2 + 56) beginUpdates];
-      [*(*(v7 + 40) + 56) paymentOffersDidUpdate];
-      [*(*(v7 + 40) + 56) endUpdates];
-      v8 = *(v7 + 40);
+      [*(v7[5] + 56) paymentOffersDidUpdate];
+      [*(v7[5] + 56) endUpdates];
+      v8 = v7[5];
 
       return [v8 _advanceToNextState];
     }
@@ -1366,10 +1366,10 @@ uint64_t __65__PKPaymentAuthorizationStateMachine_paymentOfferCatalogChanged___b
   dispatch_async(MEMORY[0x1E69E96A0], v7);
 }
 
-uint64_t __83__PKPaymentAuthorizationStateMachine_paymentOffersChanged_forPassUniqueIdentifier___block_invoke(uint64_t result)
+void *__83__PKPaymentAuthorizationStateMachine_paymentOffersChanged_forPassUniqueIdentifier___block_invoke(void *result)
 {
-  v2 = *(result + 40);
-  if (*(result + 32) == *(v2 + 256))
+  v2 = result[5];
+  if (result[4] == *(v2 + 256))
   {
     v3 = *(v2 + 112);
     v4 = v3 > 0x10;
@@ -1378,9 +1378,9 @@ uint64_t __83__PKPaymentAuthorizationStateMachine_paymentOffersChanged_forPassUn
     {
       v7 = result;
       [*(v2 + 56) beginUpdates];
-      [*(*(v7 + 40) + 56) paymentOffersDidUpdate];
-      [*(*(v7 + 40) + 56) endUpdates];
-      v8 = *(v7 + 40);
+      [*(v7[5] + 56) paymentOffersDidUpdate];
+      [*(v7[5] + 56) endUpdates];
+      v8 = v7[5];
 
       return [v8 _advanceToNextState];
     }
@@ -1402,10 +1402,10 @@ uint64_t __83__PKPaymentAuthorizationStateMachine_paymentOffersChanged_forPassUn
   dispatch_async(MEMORY[0x1E69E96A0], v6);
 }
 
-uint64_t __65__PKPaymentAuthorizationStateMachine_paymentOfferActionsChanged___block_invoke(uint64_t result)
+void *__65__PKPaymentAuthorizationStateMachine_paymentOfferActionsChanged___block_invoke(void *result)
 {
-  v2 = *(result + 40);
-  if (*(result + 32) == *(v2 + 256))
+  v2 = result[5];
+  if (result[4] == *(v2 + 256))
   {
     v3 = *(v2 + 112);
     v4 = v3 > 0x10;
@@ -1414,9 +1414,9 @@ uint64_t __65__PKPaymentAuthorizationStateMachine_paymentOfferActionsChanged___b
     {
       v7 = result;
       [*(v2 + 56) beginUpdates];
-      [*(*(v7 + 40) + 56) paymentOffersDidUpdate];
-      [*(*(v7 + 40) + 56) endUpdates];
-      v8 = *(v7 + 40);
+      [*(v7[5] + 56) paymentOffersDidUpdate];
+      [*(v7[5] + 56) endUpdates];
+      v8 = v7[5];
 
       return [v8 _advanceToNextState];
     }
@@ -1481,9 +1481,9 @@ LABEL_10:
 
   else
   {
-    v8 = [v4 isEqualToString:v5];
+    isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-    if (v8)
+    if (isEqualToString)
     {
       goto LABEL_10;
     }
@@ -2293,9 +2293,9 @@ void __82__PKPaymentAuthorizationStateMachine_didReceiveMerchantSessionCompleteW
     goto LABEL_8;
   }
 
-  v7 = [v8 isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     [(PKPaymentAuthorizationDataModel *)self->_model beginUpdates];
@@ -2616,9 +2616,9 @@ LABEL_26:
         goto LABEL_33;
       }
 
-      v17 = [passUniqueID isEqualToString:v15];
+      isEqualToString = objc_msgSend_isEqualToString_(passUniqueID);
 
-      if ((v17 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         goto LABEL_26;
       }
@@ -3770,9 +3770,9 @@ LABEL_46:
 
         v10 = *(*(&v14 + 1) + 8 * i);
         uniqueID2 = [v10 uniqueID];
-        v12 = [uniqueID2 isEqualToString:uniqueID];
+        isEqualToString = objc_msgSend_isEqualToString_(uniqueID2);
 
-        if (v12)
+        if (isEqualToString)
         {
           v7 = v10;
           goto LABEL_11;
@@ -3965,12 +3965,12 @@ LABEL_23:
 
     model = [v19 firstObject];
     domain = [model domain];
-    v22 = [domain isEqualToString:@"PKPaymentErrorDomain"];
+    isEqualToString = objc_msgSend_isEqualToString_(domain);
 
     domain2 = [model domain];
-    v24 = [domain2 isEqualToString:@"PKDisbursementErrorDomain"];
+    v24 = objc_msgSend_isEqualToString_(domain2);
 
-    if ((v22 & 1) == 0 && !v24)
+    if ((isEqualToString & 1) == 0 && !v24)
     {
 LABEL_80:
 
@@ -4710,9 +4710,9 @@ id __59__PKPaymentAuthorizationStateMachine_sanitizeClientErrors___block_invoke(
 {
   errorCopy = error;
   domain = [errorCopy domain];
-  v6 = [domain isEqualToString:@"PKPaymentErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v6)
+  if (isEqualToString)
   {
     code = [errorCopy code];
     v8 = code;
@@ -4755,7 +4755,7 @@ LABEL_13:
   }
 
   domain2 = [errorCopy domain];
-  v14 = [domain2 isEqualToString:@"PKDisbursementErrorDomain"];
+  v14 = objc_msgSend_isEqualToString_(domain2);
 
   if (!v14)
   {
@@ -4791,10 +4791,10 @@ LABEL_18:
 {
   fieldCopy = field;
   domain = [fieldCopy domain];
-  v6 = [domain isEqualToString:@"PKDisbursementErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
   v7 = &PKDisbursementErrorContactFieldUserInfoKey;
-  if (!v6)
+  if (!isEqualToString)
   {
     v7 = &PKPaymentErrorContactFieldUserInfoKey;
   }
@@ -4804,15 +4804,15 @@ LABEL_18:
 
   v10 = [userInfo objectForKey:v8];
 
-  v11 = [v10 isEqualToString:@"post"];
-  if ([v10 isEqualToString:@"name"])
+  v11 = objc_msgSend_isEqualToString_(v10);
+  if (objc_msgSend_isEqualToString_(v10))
   {
     v12 = 1;
   }
 
   else
   {
-    v12 = [v10 isEqualToString:@"phoneticName"];
+    v12 = objc_msgSend_isEqualToString_(v10);
   }
 
   paymentRequest = [(PKPaymentAuthorizationDataModel *)self->_model paymentRequest];
@@ -6905,9 +6905,9 @@ LABEL_13:
     goto LABEL_9;
   }
 
-  v11 = [oldAgreementCopy isEqualToString:v9];
+  isEqualToString = objc_msgSend_isEqualToString_(oldAgreementCopy);
 
-  if (v11)
+  if (isEqualToString)
   {
 LABEL_7:
     v12 = 0;
@@ -7379,9 +7379,9 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v16 = [accountIdentifier isEqualToString:v14];
+      isEqualToString = objc_msgSend_isEqualToString_(accountIdentifier);
 
-      if (!v16)
+      if (!isEqualToString)
       {
         goto LABEL_17;
       }
@@ -7687,7 +7687,7 @@ void __63__PKPaymentAuthorizationStateMachine__startClientCallbackTimer__block_i
   if (requiresAddressPrecision)
   {
     hostApplicationIdentifier = [(PKPaymentAuthorizationDataModel *)self->_model hostApplicationIdentifier];
-    if ([hostApplicationIdentifier isEqualToString:@"W74U47NE8E.com.apple.store.Jolly"])
+    if (objc_msgSend_isEqualToString_(hostApplicationIdentifier))
     {
 LABEL_5:
 
@@ -7695,7 +7695,7 @@ LABEL_5:
     }
 
     hostApplicationIdentifier2 = [(PKPaymentAuthorizationDataModel *)self->_model hostApplicationIdentifier];
-    if ([hostApplicationIdentifier2 isEqualToString:@"MT9US5E2G8.com.apple.store.Jolly.MessagesExtension"])
+    if (objc_msgSend_isEqualToString_(hostApplicationIdentifier2))
     {
 
       goto LABEL_5;
@@ -8355,7 +8355,7 @@ LABEL_41:
 
         v18 = *(*(&v29 + 1) + 8 * i);
         dpanIdentifier2 = [v18 dpanIdentifier];
-        if ([dpanIdentifier2 isEqualToString:dpanIdentifier])
+        if (objc_msgSend_isEqualToString_(dpanIdentifier2))
         {
           v20 = v18;
 
@@ -9402,7 +9402,7 @@ void __73__PKPaymentAuthorizationStateMachine__performRewrapRequestImplWithParam
   }
 
   v9 = [v8 domain];
-  if (![v9 isEqualToString:@"PKPaymentWebServiceErrorDomain"])
+  if (!objc_msgSend_isEqualToString_(v9))
   {
     goto LABEL_22;
   }
@@ -9420,9 +9420,9 @@ LABEL_23:
       v46[0] = v14;
       v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v46 forKeys:&v45 count:1];
       v16 = [*(a1 + 48) domain];
-      v17 = [v16 isEqualToString:@"PKPaymentWebServiceErrorDomain"];
+      isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-      if (v17)
+      if (isEqualToString)
       {
         v18 = [*(*(a1 + 32) + 56) paymentRequest];
         v19 = [v18 merchantSession];
@@ -11986,9 +11986,9 @@ void __54__PKPaymentAuthorizationStateMachine__simulatePayment__block_invoke(uin
   }
 
   domain = [errorCopy domain];
-  v7 = [domain isEqualToString:@"PKPaymentErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v7)
+  if (isEqualToString)
   {
     if ([v5 code] == 5)
     {

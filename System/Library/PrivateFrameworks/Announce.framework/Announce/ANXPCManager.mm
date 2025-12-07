@@ -10,12 +10,12 @@
 
 - (ANXPCManager)initWithMachServiceName:(id)name remoteObjectInterface:(id)interface exportedInterface:(id)exportedInterface exportedObject:(id)object
 {
-  v8 = sub_223800FE0();
-  v10 = v9;
+  v9 = sub_223800FE0();
+  v11 = v10;
   interfaceCopy = interface;
   exportedInterfaceCopy = exportedInterface;
   swift_unknownObjectRetain();
-  return XPCManager.init(machServiceName:remoteObjectInterface:exportedInterface:exportedObject:)(v8, v10, interfaceCopy, exportedInterfaceCopy);
+  return XPCManager.init(machServiceName:remoteObjectInterface:exportedInterface:exportedObject:)(v9, v11, interfaceCopy, exportedInterfaceCopy, object);
 }
 
 - (void)dealloc
@@ -28,7 +28,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for XPCManager();
+  v5.super_class = type metadata accessor for XPCManager(0);
   [(ANXPCManager *)&v5 dealloc];
 }
 
@@ -36,7 +36,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_2237FEA1C();
+  sub_2237FEA1C(observer);
   swift_unknownObjectRelease();
 }
 

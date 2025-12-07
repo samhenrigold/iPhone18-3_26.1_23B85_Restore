@@ -3697,15 +3697,15 @@ LABEL_87:
                     CGAffineTransformMakeTranslation(&v292, v174, v176);
                     v296 = v300;
                     v297 = v292;
-                    sub_2763448F0(v186 + 6, &v296);
+                    sub_2763448F0(v186 + 6, &v296, &v296);
                     v296 = v300;
                     v297.a = v169;
                     v297.b = v171;
-                    sub_276344B2C(v321 + 6, &v296);
+                    sub_276344B2C(v321 + 6, &v296, &v296);
                     v296 = v300;
                     *&v297.a = v285;
                     *&v297.c = v286;
-                    sub_276344D60(v313 + 6, &v296);
+                    sub_276344D60(v313 + 6, &v296, &v296);
                     v191 = v154;
                     if (!v154)
                     {
@@ -3720,7 +3720,7 @@ LABEL_87:
                     {
                     }
 
-                    sub_276344308(v305 + 6, &v300);
+                    sub_276344308(v305 + 6, &v300, &v300);
                     v198 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v197, v182, v183, v184, v185);
                     objc_msgSend_p_insertRectValue_intoArray_isVertical_showAll_(self, v199, v200, v201, v202, v198, v262, 1, v264 & 1);
                   }

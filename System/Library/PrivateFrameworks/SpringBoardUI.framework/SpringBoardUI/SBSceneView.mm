@@ -548,15 +548,14 @@ LABEL_17:
 
 - (int64_t)preferredStatusBarStyle
 {
-  placeholderContentView = self->_placeholderContentView;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return -1;
   }
 
-  v4 = self->_placeholderContentView;
+  placeholderContentView = self->_placeholderContentView;
 
-  return [(SBScenePlaceholderContentView *)v4 statusBarStyle];
+  return [(SBScenePlaceholderContentView *)placeholderContentView statusBarStyle];
 }
 
 - (SBSceneView)initWithSceneHandle:(id)handle referenceSize:(CGSize)size contentOrientation:(int64_t)orientation containerOrientation:(int64_t)containerOrientation hostRequester:(id)requester
@@ -1211,12 +1210,11 @@ void __59__SBSceneView_acquireLiveContentDisableAssertionForReason___block_invok
 
 - (void)_containerContentWrapperInterfaceOrientationChangedTo:(int64_t)to
 {
-  placeholderContentView = self->_placeholderContentView;
   if (objc_opt_respondsToSelector())
   {
-    v6 = self->_placeholderContentView;
+    placeholderContentView = self->_placeholderContentView;
 
-    [(SBScenePlaceholderContentView *)v6 setContainerOrientation:to];
+    [(SBScenePlaceholderContentView *)placeholderContentView setContainerOrientation:to];
   }
 }
 
@@ -1667,17 +1665,16 @@ uint64_t __112__SBSceneView__transitionFromDisplayMode_showingView_toDisplayMode
 {
   if (!self->_liveSnapshotView && self->_presenter && ([(SBSceneHandle *)self->_sceneHandle isContentReady]|| [(SBSceneView *)self _presenterMayBeZombified]))
   {
+    v3 = objc_opt_respondsToSelector();
     presenter = self->_presenter;
-    v4 = objc_opt_respondsToSelector();
-    v5 = self->_presenter;
-    if (v4)
+    if (v3)
     {
-      captureSnapshotPresentationView = [(UIScenePresenter *)v5 captureSnapshotPresentationView];
+      captureSnapshotPresentationView = [(UIScenePresenter *)presenter captureSnapshotPresentationView];
     }
 
     else
     {
-      captureSnapshotPresentationView = [(UIScenePresenter *)v5 newSnapshotPresentationView];
+      captureSnapshotPresentationView = [(UIScenePresenter *)presenter newSnapshotPresentationView];
     }
 
     liveSnapshotView = self->_liveSnapshotView;
@@ -1841,16 +1838,14 @@ __CFString *__38__SBSceneView__addStateCaptureHandler__block_invoke(uint64_t a1)
 
 - (void)_layoutLiveHostView:(NSObject *)a3 .cold.1(void *a1, uint64_t *a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = [a1 superview];
   v6 = *a2;
-  v8 = 138543618;
-  v9 = v5;
-  v10 = 2114;
-  v11 = v6;
-  _os_log_error_impl(&dword_21E74E000, a3, OS_LOG_TYPE_ERROR, "Live host view super view[%{public}@] not matching container view[%{public}@], frame not updated", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = v5;
+  v9 = 2114;
+  v10 = v6;
+  _os_log_error_impl(&dword_21E74E000, a3, OS_LOG_TYPE_ERROR, "Live host view super view[%{public}@] not matching container view[%{public}@], frame not updated", &v7, 0x16u);
 }
 
 - (void)_updateReferenceSize:andOrientation:.cold.1()

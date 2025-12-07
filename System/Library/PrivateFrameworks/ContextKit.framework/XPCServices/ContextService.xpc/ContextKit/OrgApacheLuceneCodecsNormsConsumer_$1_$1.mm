@@ -116,14 +116,14 @@ LABEL_24:
 {
   if (![(OrgApacheLuceneCodecsNormsConsumer_$1_$1 *)self hasNext])
   {
-    v5 = new_JavaUtilNoSuchElementException_init();
-    objc_exception_throw(v5);
+    v6 = new_JavaUtilNoSuchElementException_init();
+    objc_exception_throw(v6);
   }
 
   self->nextIsSet_ = 0;
   nextValue = self->nextValue_;
 
-  return JavaLangLong_valueOfWithLong_(nextValue);
+  return JavaLangLong_valueOfWithLong_(nextValue, v3);
 }
 
 - (OrgApacheLuceneCodecsNormsConsumer_$1_$1)initWithOrgApacheLuceneCodecsNormsConsumer_$1:(id)1

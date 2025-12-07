@@ -1,5 +1,6 @@
 @interface _PSFeedback
 + (id)feedbackForAction:(id)action delay:(double)delay context:(id)context suggestions:(id)suggestions numberOfVisibleSuggestions:(float)visibleSuggestions sessionIdentifier:(id)identifier;
++ (id)feedbackForActionWithAirdrop:(id)airdrop delay:(double)delay context:(id)context suggestions:(id)suggestions numberOfVisibleSuggestions:(float)visibleSuggestions sessionIdentifier:(id)identifier isAirDropEvent:(BOOL)event wasAirDropShown:(BOOL)self0;
 - (_PSFeedback)initWithAction:(id)action delay:(double)delay context:(id)context suggestions:(id)suggestions numberOfVisibleSuggestions:(float)visibleSuggestions sessionIdentifier:(id)identifier isAirDropEvent:(BOOL)event wasAirDropShown:(BOOL)self0;
 - (id)feedbackPayloadShowFamily:(id)family;
 - (id)getTrialID;
@@ -21,6 +22,21 @@
   v20 = [v18 initWithAction:actionCopy delay:contextCopy context:suggestionsCopy suggestions:identifierCopy numberOfVisibleSuggestions:0 sessionIdentifier:0 isAirDropEvent:delay wasAirDropShown:v19];
 
   return v20;
+}
+
++ (id)feedbackForActionWithAirdrop:(id)airdrop delay:(double)delay context:(id)context suggestions:(id)suggestions numberOfVisibleSuggestions:(float)visibleSuggestions sessionIdentifier:(id)identifier isAirDropEvent:(BOOL)event wasAirDropShown:(BOOL)self0
+{
+  shownCopy = shown;
+  eventCopy = event;
+  identifierCopy = identifier;
+  suggestionsCopy = suggestions;
+  contextCopy = context;
+  airdropCopy = airdrop;
+  v22 = [self alloc];
+  *&v23 = visibleSuggestions;
+  v24 = [v22 initWithAction:airdropCopy delay:contextCopy context:suggestionsCopy suggestions:identifierCopy numberOfVisibleSuggestions:eventCopy sessionIdentifier:shownCopy isAirDropEvent:delay wasAirDropShown:v23];
+
+  return v24;
 }
 
 - (_PSFeedback)initWithAction:(id)action delay:(double)delay context:(id)context suggestions:(id)suggestions numberOfVisibleSuggestions:(float)visibleSuggestions sessionIdentifier:(id)identifier isAirDropEvent:(BOOL)event wasAirDropShown:(BOOL)self0
@@ -178,11 +194,10 @@ LABEL_8:
 
 - (void)donateToBiome
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Error serializing share sheet attachments: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Error serializing share sheet attachments: %@", &v2, 0xCu);
 }
 
 @end

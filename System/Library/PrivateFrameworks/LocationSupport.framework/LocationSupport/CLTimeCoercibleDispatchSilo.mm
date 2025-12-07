@@ -12,89 +12,88 @@
 
 - (CLTimeCoercibleDispatchSilo)initWithIdentifier:(id)identifier
 {
-  v7.receiver = self;
-  v7.super_class = CLTimeCoercibleDispatchSilo;
-  v3 = [(CLDispatchSilo *)&v7 initWithIdentifier:identifier];
-  if (v3)
+  v9.receiver = self;
+  v9.super_class = CLTimeCoercibleDispatchSilo;
+  v5 = [(CLDispatchSilo *)&v9 initWithIdentifier:identifier];
+  if (v5)
   {
-    array = [MEMORY[0x1E695DF70] array];
-    timerHolders = v3->_timerHolders;
-    v3->_timerHolders = array;
+    v6 = objc_msgSend_array(MEMORY[0x1E695DF70], v3, v4);
+    timerHolders = v5->_timerHolders;
+    v5->_timerHolders = v6;
   }
 
-  return v3;
+  return v5;
 }
 
 - (CLTimeCoercibleDispatchSilo)initWithUnderlyingQueue:(id)queue
 {
-  v7.receiver = self;
-  v7.super_class = CLTimeCoercibleDispatchSilo;
-  v3 = [(CLDispatchSilo *)&v7 initWithUnderlyingQueue:queue];
-  if (v3)
+  v9.receiver = self;
+  v9.super_class = CLTimeCoercibleDispatchSilo;
+  v5 = [(CLDispatchSilo *)&v9 initWithUnderlyingQueue:queue];
+  if (v5)
   {
-    array = [MEMORY[0x1E695DF70] array];
-    timerHolders = v3->_timerHolders;
-    v3->_timerHolders = array;
+    v6 = objc_msgSend_array(MEMORY[0x1E695DF70], v3, v4);
+    timerHolders = v5->_timerHolders;
+    v5->_timerHolders = v6;
   }
 
-  return v3;
+  return v5;
 }
 
 - (void)setLatchedAbsoluteTimestamp:(double)timestamp
 {
-  v28 = *MEMORY[0x1E69E9840];
-  [(CLDispatchSilo *)self currentLatchedAbsoluteTimestamp];
-  v6 = timestamp - v5;
-  [(CLDispatchSilo *)self _setLatchedAbsoluteTimestamp:timestamp];
-  v7 = self->_timerHolders;
-  array = [MEMORY[0x1E695DF70] array];
-  array2 = [MEMORY[0x1E695DF70] array];
+  v40 = *MEMORY[0x1E69E9840];
+  objc_msgSend_currentLatchedAbsoluteTimestamp(self, a2, v3);
+  v7 = timestamp - v6;
+  objc_msgSend__setLatchedAbsoluteTimestamp_(self, v8, v9, timestamp);
+  v10 = self->_timerHolders;
+  v13 = objc_msgSend_array(MEMORY[0x1E695DF70], v11, v12);
+  v16 = objc_msgSend_array(MEMORY[0x1E695DF70], v14, v15);
   timerHolders = self->_timerHolders;
-  self->_timerHolders = array2;
+  self->_timerHolders = v16;
 
-  v11 = MEMORY[0x1E696AE18];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = sub_1DF81B878;
-  v24[3] = &unk_1E86C8520;
-  v26 = v6;
-  v12 = array;
-  v25 = v12;
-  v13 = [v11 predicateWithBlock:v24];
-  [(NSMutableArray *)v7 filterUsingPredicate:v13];
+  v18 = MEMORY[0x1E696AE18];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = sub_1DF81B878;
+  v36[3] = &unk_1E86C8520;
+  v38 = v7;
+  v19 = v13;
+  v37 = v19;
+  v21 = objc_msgSend_predicateWithBlock_(v18, v20, v36);
+  objc_msgSend_filterUsingPredicate_(v10, v22, v21);
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v14 = v12;
-  v15 = [v14 countByEnumeratingWithState:&v20 objects:v27 count:16];
-  if (v15)
+  v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v23 = v19;
+  v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v24, &v32, v39, 16);
+  if (v25)
   {
-    v16 = v15;
-    v17 = *v21;
+    v28 = v25;
+    v29 = *v33;
     do
     {
-      v18 = 0;
+      v30 = 0;
       do
       {
-        if (*v21 != v17)
+        if (*v33 != v29)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v23);
         }
 
-        [*(*(&v20 + 1) + 8 * v18++) shouldFire];
+        objc_msgSend_shouldFire(*(*(&v32 + 1) + 8 * v30++), v26, v27, v32);
       }
 
-      while (v16 != v18);
-      v16 = [v14 countByEnumeratingWithState:&v20 objects:v27 count:16];
+      while (v28 != v30);
+      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v23, v26, &v32, v39, 16);
     }
 
-    while (v16);
+    while (v28);
   }
 
-  [(NSMutableArray *)self->_timerHolders addObjectsFromArray:v7];
-  v19 = *MEMORY[0x1E69E9840];
+  objc_msgSend_addObjectsFromArray_(self->_timerHolders, v31, v10);
 }
 
 - (void)prepareAndRunBlock:(id)block
@@ -108,40 +107,41 @@
 - (void)afterInterval:(double)interval async:(id)async
 {
   asyncCopy = async;
-  newTimer = [(CLTimeCoercibleDispatchSilo *)self newTimer];
-  v10 = MEMORY[0x1E69E9820];
-  v11 = 3221225472;
-  v12 = sub_1DF81BA20;
-  v13 = &unk_1E86C8548;
-  v14 = newTimer;
-  v15 = asyncCopy;
-  v8 = newTimer;
-  v9 = asyncCopy;
-  [v8 setHandler:&v10];
-  [v8 setNextFireDelay:{interval, v10, v11, v12, v13}];
+  v9 = objc_msgSend_newTimer(self, v7, v8);
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = sub_1DF81BA20;
+  v18 = &unk_1E86C8548;
+  v19 = v9;
+  v20 = asyncCopy;
+  v10 = v9;
+  v11 = asyncCopy;
+  objc_msgSend_setHandler_(v10, v12, &v15);
+  objc_msgSend_setNextFireDelay_(v10, v13, v14, interval, v15, v16, v17, v18);
 }
 
 - (void)heartBeat:(id)beat
 {
   beatCopy = beat;
-  queue = [(CLDispatchSilo *)self queue];
+  v7 = objc_msgSend_queue(self, v5, v6);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = sub_1DF81BB14;
   block[3] = &unk_1E86C8570;
+  v10 = beatCopy;
   v8 = beatCopy;
-  v6 = beatCopy;
-  dispatch_async(queue, block);
+  dispatch_async(v7, block);
 }
 
 - (id)newTimer
 {
-  v3 = [[CLTimer alloc] initInSilo:self withScheduler:0];
+  v3 = [CLTimer alloc];
+  v5 = objc_msgSend_initInSilo_withScheduler_(v3, v4, self, 0);
   timerHolders = self->_timerHolders;
-  v5 = [CLTimerWeakHolder holderWithTimer:v3];
-  [(NSMutableArray *)timerHolders addObject:v5];
+  v8 = objc_msgSend_holderWithTimer_(CLTimerWeakHolder, v7, v5);
+  objc_msgSend_addObject_(timerHolders, v9, v8);
 
-  return v3;
+  return v5;
 }
 
 @end

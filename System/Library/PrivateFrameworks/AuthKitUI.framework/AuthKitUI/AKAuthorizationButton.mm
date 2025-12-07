@@ -65,7 +65,6 @@
   MEMORY[0x277D82BD8](centerYAnchor2);
   MEMORY[0x277D82BD8](centerYAnchor);
   MEMORY[0x277D82BD8](titleLabel7);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setButtonText:(id)text

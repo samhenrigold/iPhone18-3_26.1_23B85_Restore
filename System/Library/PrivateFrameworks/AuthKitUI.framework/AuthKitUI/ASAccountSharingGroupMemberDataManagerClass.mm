@@ -11,7 +11,7 @@ uint64_t __get_ASAccountSharingGroupMemberDataManagerClass_block_invoke(uint64_t
   *(*(*(a1 + 32) + 8) + 24) = Class;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    result = abort_report_np();
+    result = abort_report_np("Unable to find class %s", "_ASAccountSharingGroupMemberDataManager");
   }
 
   get_ASAccountSharingGroupMemberDataManagerClass_softClass = *(*(*(a1 + 32) + 8) + 24);

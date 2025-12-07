@@ -17,13 +17,13 @@
 - (void)handleEditFindMyNotificationsLabel
 {
   selfCopy = self;
-  sub_1002E4848(0xD000000000000031, 0x800000010057BF90);
+  sub_1002E4848(0xD000000000000031, 0x800000010057BF90, selfCopy);
 }
 
 - (void)handleEditSafetyAlertsNotificationsLabel
 {
   selfCopy = self;
-  sub_1002E4848(0xD00000000000004ALL, 0x800000010058F130);
+  sub_1002E4848(0xD00000000000004ALL, 0x800000010058F130, selfCopy);
 }
 
 - (void)handleClearTags

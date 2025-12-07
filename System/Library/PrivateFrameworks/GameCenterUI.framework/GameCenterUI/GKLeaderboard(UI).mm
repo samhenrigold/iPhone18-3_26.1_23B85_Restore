@@ -70,18 +70,18 @@
 
 + (id)localizedStringForTimeScope:()UI
 {
-  v0 = GKGameCenterUIFrameworkBundle();
-  v1 = GKGetLocalizedStringFromTableInBundle();
+  v3 = GKGameCenterUIFrameworkBundle();
+  v4 = GKGetLocalizedStringFromTableInBundle();
 
-  return v1;
+  return v4;
 }
 
 + (id)localizedStringForLeaderboardOccurrence:()UI
 {
-  v0 = GKGameCenterUIFrameworkBundle();
-  v1 = GKGetLocalizedStringFromTableInBundle();
+  v3 = GKGameCenterUIFrameworkBundle();
+  v4 = GKGetLocalizedStringFromTableInBundle();
 
-  return v1;
+  return v4;
 }
 
 @end

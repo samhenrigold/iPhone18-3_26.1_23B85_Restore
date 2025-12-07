@@ -136,7 +136,7 @@
 
       else
       {
-        v11 = +[UIColor blackColor];
+        v11 = objc_msgSend_blackColor(UIColor);
         v18 = MEMORY[0x1E6979CE8];
         v13 = 0.7;
       }

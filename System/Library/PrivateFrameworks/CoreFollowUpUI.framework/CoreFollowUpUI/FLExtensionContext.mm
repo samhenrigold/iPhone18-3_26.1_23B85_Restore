@@ -59,7 +59,7 @@ void __55__FLExtensionContext__extensionAuxiliaryVendorProtocol__block_invoke()
 
 - (id)extensionLogicProvider
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _principalObject = [(FLExtensionContext *)self _principalObject];
   v4 = _principalObject;
   if (_principalObject)
@@ -77,12 +77,10 @@ void __55__FLExtensionContext__extensionAuxiliaryVendorProtocol__block_invoke()
   v7 = _FLLogSystem();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_245383000, v7, OS_LOG_TYPE_DEFAULT, "Loaded extension principal object: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_245383000, v7, OS_LOG_TYPE_DEFAULT, "Loaded extension principal object: %@", &v9, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -122,17 +120,17 @@ void __55__FLExtensionContext__extensionAuxiliaryVendorProtocol__block_invoke()
 
 - (id)syncHostContextWithErrorHandler:(id)handler
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = _FLLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     _auxiliaryConnection = [(FLExtensionContext *)self _auxiliaryConnection];
-    v13 = 136315394;
-    v14 = "[FLExtensionContext syncHostContextWithErrorHandler:]";
-    v15 = 2112;
-    v16 = _auxiliaryConnection;
-    _os_log_impl(&dword_245383000, v5, OS_LOG_TYPE_DEFAULT, "%s self._auxiliaryConnection: %@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[FLExtensionContext syncHostContextWithErrorHandler:]";
+    v14 = 2112;
+    v15 = _auxiliaryConnection;
+    _os_log_impl(&dword_245383000, v5, OS_LOG_TYPE_DEFAULT, "%s self._auxiliaryConnection: %@", &v12, 0x16u);
   }
 
   _auxiliaryConnection2 = [(FLExtensionContext *)self _auxiliaryConnection];
@@ -142,16 +140,14 @@ void __55__FLExtensionContext__extensionAuxiliaryVendorProtocol__block_invoke()
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     _auxiliaryConnection3 = [(FLExtensionContext *)self _auxiliaryConnection];
-    v13 = 136315650;
-    v14 = "[FLExtensionContext syncHostContextWithErrorHandler:]";
-    v15 = 2112;
-    v16 = v8;
-    v17 = 2112;
-    v18 = _auxiliaryConnection3;
-    _os_log_impl(&dword_245383000, v9, OS_LOG_TYPE_DEFAULT, "%s return hostContext: %@ self._auxiliaryConnection: %@", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "[FLExtensionContext syncHostContextWithErrorHandler:]";
+    v14 = 2112;
+    v15 = v8;
+    v16 = 2112;
+    v17 = _auxiliaryConnection3;
+    _os_log_impl(&dword_245383000, v9, OS_LOG_TYPE_DEFAULT, "%s return hostContext: %@ self._auxiliaryConnection: %@", &v12, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -217,13 +213,13 @@ void __55__FLExtensionContext__extensionAuxiliaryVendorProtocol__block_invoke()
   }
 }
 
-uint64_t __65__FLExtensionContext_followUpPerformUpdateWithCompletionHandler___block_invoke(uint64_t a1)
+uint64_t __65__FLExtensionContext_followUpPerformUpdateWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = _FLLogSystem();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _FLLogSystem();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_245383000, v2, OS_LOG_TYPE_DEFAULT, "FLExtensionContext: completing request...", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_245383000, v3, OS_LOG_TYPE_DEFAULT, "FLExtensionContext: completing request...", v5, 2u);
   }
 
   return (*(*(a1 + 32) + 16))();

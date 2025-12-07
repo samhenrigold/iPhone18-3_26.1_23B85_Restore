@@ -107,17 +107,10 @@
   controllerCopy = controller;
   identifierCopy = identifier;
   errorCopy = error;
-  if (!identifierCopy)
+  if (!identifierCopy || (-[NAQPreviewViewController previewItemIdentifier](self, "previewItemIdentifier"), (v10 = objc_claimAutoreleasedReturnValue()) == 0) || (v11 = v10, -[NAQPreviewViewController previewItemIdentifier](self, "previewItemIdentifier"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [identifierCopy isEqualToString:v12], v12, v11, (v13 & 1) == 0))
   {
-    goto LABEL_4;
-  }
-
-  previewItemIdentifier = [(NAQPreviewViewController *)self previewItemIdentifier];
-  if (!previewItemIdentifier || (v11 = previewItemIdentifier, -[NAQPreviewViewController previewItemIdentifier](self, "previewItemIdentifier"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [identifierCopy isEqualToString:v12], v12, v11, (v13 & 1) == 0))
-  {
-LABEL_4:
-    previewItemIdentifier2 = [(NAQPreviewViewController *)self previewItemIdentifier];
-    v15 = [NSError naq_errorFailedUnexpectedArticleLoadedWithIdentifier:identifierCopy expectedIdentifier:previewItemIdentifier2];
+    previewItemIdentifier = [(NAQPreviewViewController *)self previewItemIdentifier];
+    v15 = [NSError naq_errorFailedUnexpectedArticleLoadedWithIdentifier:identifierCopy expectedIdentifier:previewItemIdentifier];
 
     errorCopy = v15;
   }

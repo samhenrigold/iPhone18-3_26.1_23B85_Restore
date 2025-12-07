@@ -224,7 +224,7 @@ uint64_t __42__TBPreferLocalFetchOperation__fetchLocal__block_invoke(uint64_t a1
 
 - (BOOL)_doResults:(id)results satisfyFetchRequest:(id)request keysToFetchRemotely:(id *)remotely satisfiedKeys:(id *)keys
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   requestCopy = request;
   descriptor = [requestCopy descriptor];
@@ -245,32 +245,32 @@ uint64_t __42__TBPreferLocalFetchOperation__fetchLocal__block_invoke(uint64_t a1
   }
 
   v14 = [MEMORY[0x277CBEB58] set];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   descriptor3 = [requestCopy descriptor];
   tileItems = [descriptor3 tileItems];
 
-  v17 = [tileItems countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v17 = [tileItems countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v30;
+    v19 = *v29;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v30 != v19)
+        if (*v29 != v19)
         {
           objc_enumerationMutation(tileItems);
         }
 
-        v21 = [*(*(&v29 + 1) + 8 * i) key];
+        v21 = [*(*(&v28 + 1) + 8 * i) key];
         [v14 addObject:v21];
       }
 
-      v18 = [tileItems countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v18 = [tileItems countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v18);
@@ -302,7 +302,6 @@ uint64_t __42__TBPreferLocalFetchOperation__fetchLocal__block_invoke(uint64_t a1
   }
 
 LABEL_20:
-  v27 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -484,46 +483,45 @@ void __59__TBPreferLocalFetchOperation__mergeLocalAndRemoteResults___block_invok
 
 - (id)_tileItemsFromTileKeys:(id)keys
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v4 = [MEMORY[0x277CBEB58] set];
   v5 = objc_autoreleasePoolPush();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = keysCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = [TBTileItemDescriptor tileItemDescriptorWithKey:v11, v15];
+          v12 = [TBTileItemDescriptor tileItemDescriptorWithKey:v11, v14];
           [v4 addObject:v12];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   objc_autoreleasePoolPop(v5);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

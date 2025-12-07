@@ -54,19 +54,8 @@
     inputImageDescriptor = v9->_inputImageDescriptor;
     v9->_inputImageDescriptor = v12;
 
-    if (!v9->_inputImageDescriptor)
+    if (!v9->_inputImageDescriptor || (v14 = [ANSTPixelBufferDescriptor alloc], v16 = objc_msgSend_initWithName_width_height_pixelFormatType_pixelBufferAttributes_error_(v14, v15, @"input_coarse_mask", 448, 576, 1278226536, 0, error), inputCoarseMaskDescriptor = v9->_inputCoarseMaskDescriptor, v9->_inputCoarseMaskDescriptor = v16, inputCoarseMaskDescriptor, !v9->_inputCoarseMaskDescriptor) || (v18 = [ANSTPixelBufferDescriptor alloc], v20 = objc_msgSend_initWithName_width_height_pixelFormatType_pixelBufferAttributes_error_(v18, v19, @"matting", 448, 576, 1278226536, 0, error), outputRefinedMaskDescriptor = v9->_outputRefinedMaskDescriptor, v9->_outputRefinedMaskDescriptor = v20, outputRefinedMaskDescriptor, !v9->_outputRefinedMaskDescriptor))
     {
-      goto LABEL_7;
-    }
-
-    v14 = [ANSTPixelBufferDescriptor alloc];
-    v16 = objc_msgSend_initWithName_width_height_pixelFormatType_pixelBufferAttributes_error_(v14, v15, @"input_coarse_mask", 448, 576, 1278226536, 0, error);
-    inputCoarseMaskDescriptor = v9->_inputCoarseMaskDescriptor;
-    v9->_inputCoarseMaskDescriptor = v16;
-
-    if (!v9->_inputCoarseMaskDescriptor || (v18 = [ANSTPixelBufferDescriptor alloc], v20 = objc_msgSend_initWithName_width_height_pixelFormatType_pixelBufferAttributes_error_(v18, v19, @"matting", 448, 576, 1278226536, 0, error), outputRefinedMaskDescriptor = v9->_outputRefinedMaskDescriptor, v9->_outputRefinedMaskDescriptor = v20, outputRefinedMaskDescriptor, !v9->_outputRefinedMaskDescriptor))
-    {
-LABEL_7:
       v22 = 0;
       goto LABEL_8;
     }
@@ -103,7 +92,7 @@ LABEL_8:
 
 - (BOOL)prepareWithError:(id *)error
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   if (!self->_prepared)
   {
     v6 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], a2, @"/AppleInternal/Library/Application Support/com.apple.ANSTKit/vmrefinerHQ.mlmodelc");
@@ -152,13 +141,13 @@ LABEL_8:
                     self->_prepared = 1;
 LABEL_18:
 
-                    goto LABEL_19;
+                    return v3;
                   }
                 }
               }
 
               v35 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v28, @"Unexpected mask buffer size in bytes");
-              v36 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+              v36 = _ANSTLoggingGetOSLogForCategoryANSTKit(v35);
               if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 sub_22E6571B0();
@@ -167,9 +156,9 @@ LABEL_18:
               if (error)
               {
                 v38 = MEMORY[0x277CCA9B8];
-                v43 = *MEMORY[0x277CCA068];
-                v44[0] = v35;
-                v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, v44, &v43, 1);
+                v42 = *MEMORY[0x277CCA068];
+                v43[0] = v35;
+                v39 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v37, v43, &v42, 1);
                 *error = objc_msgSend_errorWithDomain_code_userInfo_(v38, v40, @"ANSTErrorDomain", 3, v39);
               }
             }
@@ -182,21 +171,18 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v3 = 1;
-LABEL_19:
-  v41 = *MEMORY[0x277D85DE8];
-  return v3;
+  return 1;
 }
 
 - (BOOL)bindInputImageBuffer:(__CVBuffer *)buffer error:(id *)error
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v7 = [ANSTPixelBuffer alloc];
   v10 = objc_msgSend_initWithDescriptor_pixelBuffer_orientation_error_(v7, v8, self->_inputImageDescriptor, buffer, 1, error);
   if (!v10)
   {
     v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v9, @"Failed to create ANSTPixelBuffer from given input pixel buffer.");
-    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_22E657224();
@@ -205,9 +191,9 @@ LABEL_19:
     if (error)
     {
       v15 = MEMORY[0x277CCA9B8];
-      v20 = *MEMORY[0x277CCA068];
-      v21[0] = v12;
-      v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v21, &v20, 1);
+      v19 = *MEMORY[0x277CCA068];
+      v20[0] = v12;
+      v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v20, &v19, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v15, v17, @"ANSTErrorDomain", 13, v16);
     }
 
@@ -225,17 +211,16 @@ LABEL_9:
   self->_inputImageBound = 1;
 LABEL_10:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (BOOL)bindInputCoarseMaskBuffer:(__CVBuffer *)buffer error:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   if (!buffer)
   {
     v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"Input pixel buffer is NULL.");
-    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_22E657298();
@@ -247,16 +232,16 @@ LABEL_10:
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v27 = *MEMORY[0x277CCA068];
-    v28[0] = v12;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v28, &v27, 1);
+    v26 = *MEMORY[0x277CCA068];
+    v27[0] = v12;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v27, &v26, 1);
     goto LABEL_19;
   }
 
   if ((objc_msgSend_validatePixelBuffer_(self->_inputCoarseMaskDescriptor, a2, buffer) & 1) == 0)
   {
     v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"Input pixel buffer does not match requirement of inputCoarseMaskDescriptor.");
-    v16 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v16 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_22E657298();
@@ -268,9 +253,9 @@ LABEL_10:
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v25 = *MEMORY[0x277CCA068];
-    v26 = v12;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, &v26, &v25, 1);
+    v24 = *MEMORY[0x277CCA068];
+    v25 = v12;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v17, &v25, &v24, 1);
     goto LABEL_19;
   }
 
@@ -278,7 +263,7 @@ LABEL_10:
   if (CVPixelBufferGetHeight(buffer) * BytesPerRow != self->_expectedMaskSizeInBytes)
   {
     v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v9, @"Unexpected mask buffer size in bytes. Please ensure rowBytes is tight.");
-    v18 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v18 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_22E657298();
@@ -290,15 +275,14 @@ LABEL_10:
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA068];
-    v24 = v12;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, &v24, &v23, 1);
+    v22 = *MEMORY[0x277CCA068];
+    v23 = v12;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v19, &v23, &v22, 1);
     v20 = LABEL_19:;
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v15, v21, @"ANSTErrorDomain", 13, v20);
 
 LABEL_20:
-    result = 0;
-    goto LABEL_21;
+    return 0;
   }
 
   inputCoarseMaskBuffer = self->_inputCoarseMaskBuffer;
@@ -311,19 +295,17 @@ LABEL_20:
   CVPixelBufferRetain(buffer);
   result = 1;
   self->_inputCoarseMaskBound = 1;
-LABEL_21:
-  v22 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)bindOutputRefinedMaskBuffer:(__CVBuffer *)buffer error:(id *)error
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   Width = CVPixelBufferGetWidth(buffer);
   if (Width != objc_msgSend_width(self->_outputRefinedMaskDescriptor, v8, v9) || (Height = CVPixelBufferGetHeight(buffer), Height != objc_msgSend_height(self->_outputRefinedMaskDescriptor, v12, v13)))
   {
     v31 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v10, @"Unexpected pixel buffer width or height.");
-    v32 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v32 = _ANSTLoggingGetOSLogForCategoryANSTKit(v31);
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       sub_22E65730C();
@@ -335,9 +317,9 @@ LABEL_21:
     }
 
     v34 = MEMORY[0x277CCA9B8];
-    v48 = *MEMORY[0x277CCA068];
-    v49[0] = v31;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v33, v49, &v48, 1);
+    v47 = *MEMORY[0x277CCA068];
+    v48[0] = v31;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v33, v48, &v47, 1);
     goto LABEL_15;
   }
 
@@ -345,8 +327,8 @@ LABEL_21:
   if (CVPixelBufferGetHeight(buffer) * BytesPerRow != self->_expectedMaskSizeInBytes)
   {
     v31 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v15, @"Unexpected pixel buffer size in bytes.");
-    v39 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v38 = _ANSTLoggingGetOSLogForCategoryANSTKit(v31);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       sub_22E65730C();
     }
@@ -357,9 +339,9 @@ LABEL_21:
     }
 
     v34 = MEMORY[0x277CCA9B8];
-    v46 = *MEMORY[0x277CCA068];
-    v47 = v31;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v40, &v47, &v46, 1);
+    v45 = *MEMORY[0x277CCA068];
+    v46 = v31;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v39, &v46, &v45, 1);
     goto LABEL_15;
   }
 
@@ -367,8 +349,8 @@ LABEL_21:
   if (!IOSurface)
   {
     v31 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v17, @"OutputRefinedMaskBuffer must be backed by IOSurface.");
-    v41 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v40 = _ANSTLoggingGetOSLogForCategoryANSTKit(v31);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       sub_22E65730C();
     }
@@ -379,22 +361,21 @@ LABEL_21:
     }
 
     v34 = MEMORY[0x277CCA9B8];
-    v44 = *MEMORY[0x277CCA068];
-    v45 = v31;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v42, &v45, &v44, 1);
+    v43 = *MEMORY[0x277CCA068];
+    v44 = v31;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v41, &v44, &v43, 1);
     v35 = LABEL_15:;
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v34, v36, @"ANSTErrorDomain", 13, v35);
 
 LABEL_16:
-    v30 = 0;
-    goto LABEL_17;
+    return 0;
   }
 
   v19 = IOSurface;
-  v43[0] = objc_msgSend_height(self->_outputRefinedMaskDescriptor, v17, v18);
-  v43[1] = objc_msgSend_width(self->_outputRefinedMaskDescriptor, v20, v21);
+  v42[0] = objc_msgSend_height(self->_outputRefinedMaskDescriptor, v17, v18);
+  v42[1] = objc_msgSend_width(self->_outputRefinedMaskDescriptor, v20, v21);
   v22 = [ANSTTensorDescriptor alloc];
-  v24 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v22, v23, @"matting", 104, 2, v43, 1, error);
+  v24 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v22, v23, @"matting", 104, 2, v42, 1, error);
   if (v24)
   {
     v25 = [ANSTTensorSurface alloc];
@@ -424,18 +405,16 @@ LABEL_16:
     v30 = 0;
   }
 
-LABEL_17:
-  v37 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 - (BOOL)commitIOBindingWithError:(id *)error
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   if (!self->_prepared)
   {
     v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"Algorithm not prepared. Please call prepareWithError first.");
-    v7 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v7 = _ANSTLoggingGetOSLogForCategoryANSTKit(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_22E657380();
@@ -447,16 +426,16 @@ LABEL_17:
     }
 
     v9 = MEMORY[0x277CCA9B8];
-    v26 = *MEMORY[0x277CCA068];
-    v27[0] = v6;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v27, &v26, 1);
+    v25 = *MEMORY[0x277CCA068];
+    v26[0] = v6;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v8, v26, &v25, 1);
     goto LABEL_23;
   }
 
   if (!self->_inputImageBound)
   {
     v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"Input image not bound.");
-    v10 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v10 = _ANSTLoggingGetOSLogForCategoryANSTKit(v6);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_22E657380();
@@ -468,16 +447,16 @@ LABEL_17:
     }
 
     v9 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA068];
-    v25 = v6;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, &v25, &v24, 1);
+    v23 = *MEMORY[0x277CCA068];
+    v24 = v6;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, &v24, &v23, 1);
     goto LABEL_23;
   }
 
   if (!self->_inputCoarseMaskBound)
   {
     v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"Input coarse mask not bound.");
-    v12 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v12 = _ANSTLoggingGetOSLogForCategoryANSTKit(v6);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_22E657380();
@@ -489,16 +468,16 @@ LABEL_17:
     }
 
     v9 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA068];
-    v23 = v6;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, &v23, &v22, 1);
+    v21 = *MEMORY[0x277CCA068];
+    v22 = v6;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, &v22, &v21, 1);
     goto LABEL_23;
   }
 
   if (!self->_outputRefinedMaskBound)
   {
     v6 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"Output refined mask not bound.");
-    v14 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v14 = _ANSTLoggingGetOSLogForCategoryANSTKit(v6);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_22E657380();
@@ -510,15 +489,15 @@ LABEL_17:
     }
 
     v9 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA068];
-    v21 = v6;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, &v21, &v20, 1);
+    v19 = *MEMORY[0x277CCA068];
+    v20 = v6;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, &v20, &v19, 1);
     v16 = LABEL_23:;
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v9, v17, @"ANSTErrorDomain", 3, v16);
 
 LABEL_24:
     LOBYTE(v5) = 0;
-    goto LABEL_25;
+    return v5;
   }
 
   v5 = objc_msgSend_commitNetworkIOBindingsWithError_(self->_network, a2, error);
@@ -528,18 +507,16 @@ LABEL_24:
     self->_ioCommitted = 1;
   }
 
-LABEL_25:
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)executeInferenceWithError:(id *)error
 {
-  v92[1] = *MEMORY[0x277D85DE8];
+  v91[1] = *MEMORY[0x277D85DE8];
   if (!self->_ioCommitted)
   {
     v26 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], a2, @"Algorithm IO not yet committed.");
-    v27 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v27 = _ANSTLoggingGetOSLogForCategoryANSTKit(v26);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_22E6573F4();
@@ -548,13 +525,13 @@ LABEL_25:
     if (error)
     {
       v29 = MEMORY[0x277CCA9B8];
-      v91 = *MEMORY[0x277CCA068];
-      v92[0] = v26;
-      v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, v92, &v91, 1);
+      v90 = *MEMORY[0x277CCA068];
+      v91[0] = v26;
+      v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, v91, &v90, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v29, v31, @"ANSTErrorDomain", 3, v30);
     }
 
-    goto LABEL_26;
+    return 0;
   }
 
   mode = self->_mode;
@@ -672,9 +649,7 @@ LABEL_13:
   CVPixelBufferUnlockBaseAddress(v86, 0);
   if ((objc_msgSend_executeInferenceWithError_(self->_network, v87, error) & 1) == 0)
   {
-LABEL_26:
-    result = 0;
-    goto LABEL_27;
+    return 0;
   }
 
   v88 = self->_mode;
@@ -683,10 +658,7 @@ LABEL_26:
     self->_mode = v88 + 1;
   }
 
-  result = 1;
-LABEL_27:
-  v90 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 @end

@@ -10,7 +10,7 @@ uint64_t __52___HKActivityStatisticsQuery_setQueryUpdateHandler___block_invoke(u
   v4 = *(v3 + 192);
   *(v3 + 192) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 void __57___HKActivityStatisticsQuery_client_deliverResult_query___block_invoke(uint64_t a1)

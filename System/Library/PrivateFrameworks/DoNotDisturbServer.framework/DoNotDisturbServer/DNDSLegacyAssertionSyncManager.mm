@@ -160,37 +160,37 @@ void __59__DNDSLegacyAssertionSyncManager__updateGizmoAssertionSync__block_invok
 
 uint64_t __67__DNDSLegacyAssertionSyncManager__queue_updateToggleSyncForReason___block_invoke(uint64_t a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) dataSource];
   v5 = [v4 currentStateForLegacyAssertionSyncManager:*(a1 + 32)];
 
-  v25 = v3;
+  v23 = v3;
   v6 = [v3 store];
   v7 = [v6 lastUpdateDate];
 
-  v28 = 0u;
-  v29 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v8 = [v5 activeModeAssertionMetadata];
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v36 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v25;
     do
     {
       v12 = 0;
       v13 = v7;
       do
       {
-        if (*v27 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = [*(*(&v26 + 1) + 8 * v12) activeDateInterval];
+        v14 = [*(*(&v24 + 1) + 8 * v12) activeDateInterval];
         v15 = [v14 startDate];
         v7 = [v13 laterDate:v15];
 
@@ -199,7 +199,7 @@ uint64_t __67__DNDSLegacyAssertionSyncManager__queue_updateToggleSyncForReason__
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v26 objects:v36 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v10);
@@ -209,38 +209,36 @@ uint64_t __67__DNDSLegacyAssertionSyncManager__queue_updateToggleSyncForReason__
   v17 = DNDSLogLegacyAssertionSync;
   if (os_log_type_enabled(DNDSLogLegacyAssertionSync, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = *(a1 + 40);
-    v19 = v17;
-    v20 = DNDStateUpdateReasonToString();
+    v18 = v17;
+    v19 = DNDStateUpdateReasonToString();
     *buf = 138543874;
-    v31 = v7;
+    v29 = v7;
+    v30 = 2114;
+    v31 = v16;
     v32 = 2114;
-    v33 = v16;
-    v34 = 2114;
-    v35 = v20;
-    _os_log_impl(&dword_24912E000, v19, OS_LOG_TYPE_DEFAULT, "Update toggle sync: companionUpdateDate=%{public}@, gizmoUpdateDate=%{public}@, reason=%{public}@", buf, 0x20u);
+    v33 = v19;
+    _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Update toggle sync: companionUpdateDate=%{public}@, gizmoUpdateDate=%{public}@, reason=%{public}@", buf, 0x20u);
   }
 
-  v21 = [v7 compare:v16];
-  if (v21 < 2)
+  v20 = [v7 compare:v16];
+  if (v20 < 2)
   {
     [*(a1 + 32) _queue_updateGizmoToggleSyncForState:v5 companionUpdateDate:v7 reason:*(a1 + 40)];
 LABEL_14:
-    v22 = 0;
+    v21 = 0;
     goto LABEL_15;
   }
 
-  if (v21 != -1)
+  if (v20 != -1)
   {
     goto LABEL_14;
   }
 
-  v22 = [*(a1 + 32) _queue_updateCompanionToggleSyncForGizmoUpdateDate:v16 modeAssertionUpdateContext:v25];
+  v21 = [*(a1 + 32) _queue_updateCompanionToggleSyncForGizmoUpdateDate:v16 modeAssertionUpdateContext:v23];
 LABEL_15:
   [*(a1 + 32) _queue_updateCompanionAssertionMirroringForState:v5];
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v22;
+  return v21;
 }
 
 - (id)_queue_gizmoUpdateDate
@@ -294,7 +292,7 @@ LABEL_15:
 
 - (void)_queue_updateGizmoToggleSyncForState:(id)state companionUpdateDate:(id)date reason:(unint64_t)reason
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   dateCopy = date;
   dispatch_assert_queue_V2(self->_queue);
@@ -302,12 +300,12 @@ LABEL_15:
   {
     v10 = [(NPSDomainAccessor *)self->_accessor BOOLForKey:@"dndState"];
     activeModeAssertionMetadata = [stateCopy activeModeAssertionMetadata];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __98__DNDSLegacyAssertionSyncManager__queue_updateGizmoToggleSyncForState_companionUpdateDate_reason___block_invoke;
-    v23[3] = &unk_278F8AD68;
-    v23[4] = self;
-    v12 = [activeModeAssertionMetadata bs_containsObjectPassingTest:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __98__DNDSLegacyAssertionSyncManager__queue_updateGizmoToggleSyncForState_companionUpdateDate_reason___block_invoke;
+    v22[3] = &unk_278F8AD68;
+    v22[4] = self;
+    v12 = [activeModeAssertionMetadata bs_containsObjectPassingTest:v22];
 
     v13 = DNDSLogLegacyAssertionSync;
     if (os_log_type_enabled(DNDSLogLegacyAssertionSync, OS_LOG_TYPE_DEFAULT))
@@ -315,11 +313,11 @@ LABEL_15:
       v14 = v13;
       v15 = DNDStateUpdateReasonToString();
       *buf = 67109634;
-      *v25 = v12;
-      *&v25[4] = 1024;
-      *&v25[6] = v10;
-      v26 = 2114;
-      v27 = v15;
+      *v24 = v12;
+      *&v24[4] = 1024;
+      *&v24[6] = v10;
+      v25 = 2114;
+      v26 = v15;
       _os_log_impl(&dword_24912E000, v14, OS_LOG_TYPE_DEFAULT, "Will update toggle sync state to reflect current companion state, companionToggleDNDActive=%{BOOL}d, gizmoDNDActive=%{BOOL}d, reason=%{public}@", buf, 0x18u);
     }
 
@@ -340,12 +338,10 @@ LABEL_15:
       v20 = v19;
       v21 = DNDStateUpdateReasonToString();
       *buf = 138543362;
-      *v25 = v21;
+      *v24 = v21;
       _os_log_impl(&dword_24912E000, v20, OS_LOG_TYPE_DEFAULT, "Ignoring update to toggle for reason %{public}@ as it was not user initiated", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __98__DNDSLegacyAssertionSyncManager__queue_updateGizmoToggleSyncForState_companionUpdateDate_reason___block_invoke(uint64_t a1, void *a2)
@@ -380,7 +376,7 @@ uint64_t __98__DNDSLegacyAssertionSyncManager__queue_updateGizmoToggleSyncForSta
 
 - (BOOL)_queue_updateCompanionToggleSyncForGizmoUpdateDate:(id)date modeAssertionUpdateContext:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   contextCopy = context;
   dispatch_assert_queue_V2(self->_queue);
@@ -389,12 +385,12 @@ uint64_t __98__DNDSLegacyAssertionSyncManager__queue_updateGizmoToggleSyncForSta
   if (os_log_type_enabled(DNDSLogLegacyAssertionSync, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v33 = v7;
+    v32 = v7;
     _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Gizmo has toggled DND, will mirror locally: gizmoDNDActive=%{BOOL}d", buf, 8u);
   }
 
-  v31 = @"com.donotdisturb.server.sync.legacy";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:{1, dateCopy}];
+  v30 = @"com.donotdisturb.server.sync.legacy";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:{1, dateCopy}];
   v10 = [MEMORY[0x277D05938] predicateForModeAssertionsWithClientIdentifiers:v9];
   v11 = [contextCopy modeAssertionsMatchingPredicate:v10];
   firstObject = [v11 firstObject];
@@ -426,7 +422,7 @@ uint64_t __98__DNDSLegacyAssertionSyncManager__queue_updateGizmoToggleSyncForSta
       [v21 setLifetime:v22];
 
       [v21 setReason:1];
-      v23 = [contextCopy takeAssertionWithDetails:v21 source:v20 startDate:v30];
+      v23 = [contextCopy takeAssertionWithDetails:v21 source:v20 startDate:v29];
       assertions = [v23 assertions];
       v15 = [assertions count] != 0;
     }
@@ -449,7 +445,7 @@ LABEL_18:
       }
 
       v21 = +[DNDSModeAssertionInvalidationPredicate predicateForAnyAssertion];
-      v23 = [DNDSModeAssertionInvalidationRequest requestWithPredicate:v21 requestDate:v30 source:v20 reason:2];
+      v23 = [DNDSModeAssertionInvalidationRequest requestWithPredicate:v21 requestDate:v29 source:v20 reason:2];
       v26 = [contextCopy invalidateAssertionsForRequest:v23];
       v15 = 1;
     }
@@ -468,24 +464,23 @@ LABEL_18:
 
 LABEL_19:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (void)_queue_updateCompanionAssertionMirroringForState:(id)state
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   queue = self->_queue;
   stateCopy = state;
   dispatch_assert_queue_V2(queue);
   activeModeAssertionMetadata = [stateCopy activeModeAssertionMetadata];
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __83__DNDSLegacyAssertionSyncManager__queue_updateCompanionAssertionMirroringForState___block_invoke;
-  v12[3] = &unk_278F8AD68;
-  v12[4] = self;
-  v7 = [activeModeAssertionMetadata bs_containsObjectPassingTest:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __83__DNDSLegacyAssertionSyncManager__queue_updateCompanionAssertionMirroringForState___block_invoke;
+  v11[3] = &unk_278F8AD68;
+  v11[4] = self;
+  v7 = [activeModeAssertionMetadata bs_containsObjectPassingTest:v11];
 
   if (v7 != [(NPSDomainAccessor *)self->_accessor BOOLForKey:@"dndCompanionAssertActive"])
   {
@@ -493,7 +488,7 @@ LABEL_19:
     if (os_log_type_enabled(DNDSLogLegacyAssertionSync, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_24912E000, v8, OS_LOG_TYPE_DEFAULT, "Companion assertion active changed, will update gizmo: value=%{BOOL}d", buf, 8u);
     }
 
@@ -502,8 +497,6 @@ LABEL_19:
     v10 = [MEMORY[0x277CBEB98] setWithObject:@"dndCompanionAssertActive"];
     [(NPSManager *)self->_npsManager synchronizeNanoDomain:@"com.apple.nano" keys:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __83__DNDSLegacyAssertionSyncManager__queue_updateCompanionAssertionMirroringForState___block_invoke(uint64_t a1, void *a2)
@@ -530,13 +523,13 @@ uint64_t __83__DNDSLegacyAssertionSyncManager__queue_updateCompanionAssertionMir
 
 - (void)_queue_updateGizmoAssertionSyncWithModeAssertionUpdateContext:(id)context
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   dispatch_assert_queue_V2(self->_queue);
   synchronize = [(NPSDomainAccessor *)self->_accessor synchronize];
   v6 = [(NPSDomainAccessor *)self->_accessor BOOLForKey:@"dndGizmoAssertActive"];
-  v27[0] = @"com.donotdisturb.server.sync.legacy.workout";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = @"com.donotdisturb.server.sync.legacy.workout";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   v8 = [MEMORY[0x277D05938] predicateForModeAssertionsWithClientIdentifiers:v7];
   v9 = [contextCopy modeAssertionsMatchingPredicate:v8];
   firstObject = [v9 firstObject];
@@ -575,8 +568,8 @@ uint64_t __83__DNDSLegacyAssertionSyncManager__queue_updateCompanionAssertionMir
       v18 = DNDSLogLegacyAssertionSync;
       if (os_log_type_enabled(DNDSLogLegacyAssertionSync, OS_LOG_TYPE_DEFAULT))
       {
-        *v26 = 0;
-        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Gizmo has taken a DND assertion, will mirror locally", v26, 2u);
+        *v25 = 0;
+        _os_log_impl(&dword_24912E000, v18, OS_LOG_TYPE_DEFAULT, "Gizmo has taken a DND assertion, will mirror locally", v25, 2u);
       }
 
       date2 = [MEMORY[0x277D05958] detailsWithIdentifier:@"com.apple.donotdisturb.sync.legacy.mirror-assertion" modeIdentifier:@"com.apple.donotdisturb.mode.workout" lifetime:0 reason:1];
@@ -596,8 +589,8 @@ LABEL_18:
       v22 = DNDSLogLegacyAssertionSync;
       if (os_log_type_enabled(DNDSLogLegacyAssertionSync, OS_LOG_TYPE_DEFAULT))
       {
-        *v26 = 0;
-        _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "Gizmo has invalidated its DND assertion, will mirror locally", v26, 2u);
+        *v25 = 0;
+        _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "Gizmo has invalidated its DND assertion, will mirror locally", v25, 2u);
       }
 
       date2 = [MEMORY[0x277CBEAA8] date];
@@ -610,8 +603,6 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (DNDSLegacyAssertionSyncManagerDataSource)dataSource
@@ -630,11 +621,10 @@ LABEL_19:
 
 - (void)_queue_gizmoUpdateDate
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Gizmo date is in the future, will reset to now: gizmoUpdateDate=%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Gizmo date is in the future, will reset to now: gizmoUpdateDate=%{public}@", &v2, 0xCu);
 }
 
 @end

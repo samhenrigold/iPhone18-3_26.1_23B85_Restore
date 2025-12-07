@@ -1,5 +1,6 @@
 @interface PSIOSurfaceStream
 + (id)ioSurfaceStreamWithKey:(char *)key options:(ps_resource_options *)options properties:(id)properties;
++ (id)ioSurfaceStreamWithKey:(char *)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
 + (id)ioSurfaceStreamWithResourceKey:(id)key options:(ps_resource_options *)options allocator:(void *)allocator deallocator:(void *)deallocator;
 + (id)ioSurfaceStreamWithResourceKey:(id)key options:(ps_resource_options *)options properties:(id)properties;
 + (id)ioSurfaceStreamWithResourceKey:(id)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format;
@@ -150,6 +151,15 @@ LABEL_22:
 LABEL_17:
 
   return v14;
+}
+
++ (id)ioSurfaceStreamWithKey:(char *)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format
+{
+  v7 = *&format;
+  v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", key];
+  v12 = [PSIOSurfaceStream ioSurfaceStreamWithResourceKey:v11 options:options width:width height:height pixelFormat:v7];
+
+  return v12;
 }
 
 + (id)ioSurfaceStreamWithResourceKey:(id)key options:(ps_resource_options *)options width:(unint64_t)width height:(unint64_t)height pixelFormat:(unsigned int)format

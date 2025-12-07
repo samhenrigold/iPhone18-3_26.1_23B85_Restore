@@ -1211,11 +1211,11 @@ LABEL_27:
   return v14;
 }
 
-void sub_296C001C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_296C001C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<DFTSetups>::~unique_ptr[abi:ne200100](va);
-  os_unfair_lock_unlock(v4);
+  os_unfair_lock_unlock(v7);
   _Unwind_Resume(a1);
 }
 
@@ -1409,8 +1409,8 @@ void HOA::RotationMatrix::setRotationMatrixYPR(float **this, float a2, float a3,
   if (a2 == 0.0 && a3 == 0.0 && a4 == 0.0)
   {
     vDSP_vclr(*this, 1, this[1] - *this);
-    v5 = *(v4 + 3);
-    v6 = *(v4 + 4);
+    v5 = v4[3];
+    v6 = v4[4];
     if (v5 != v6)
     {
       v7 = 2;
@@ -2892,48 +2892,52 @@ LABEL_164:
   return sqrtf(1.0 - (result * result)) * (-1.875 * ((((result * result) * -14.0) + 1.0) + (((result * result) * (result * result)) * 21.0)));
 }
 
-void boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>(double a1)
+void boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>(__n128 a1, __n128 a2)
 {
-  _D6 = a1;
-  v2 = 1.0;
+  _D6 = a1.n128_f64[0];
+  v34 = a1.n128_u64[0];
+  v3 = 1.0;
   if (_D6 <= 0.0)
   {
     if (floor(_D6) == _D6)
     {
-      boost::math::policies::detail::raise_error<std::domain_error,double>();
+      boost::math::policies::detail::raise_error<std::domain_error,double>(&v34);
     }
 
+    a2.n128_u64[0] = -20.0;
     if (_D6 <= -20.0)
     {
-      v30 = _D6;
-      v7 = boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>(-_D6);
-      v8 = fabs(v30);
-      v9 = floor(v8);
-      v10 = 1.0 - v8 + v9;
-      v11 = v8 - v9;
-      if (vcvtmd_s64_f64(v8))
+      a1.n128_f64[0] = -_D6;
+      v32 = _D6;
+      boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>(a1, a2);
+      v9 = v8;
+      v10 = fabs(v32);
+      v11 = floor(v10);
+      v12 = 1.0 - v10 + v11;
+      v13 = v10 - v11;
+      if (vcvtmd_s64_f64(v10))
       {
-        v11 = v10;
-        v12 = -v8;
+        v13 = v12;
+        v14 = -v10;
       }
 
       else
       {
-        v12 = v8;
+        v14 = v10;
       }
 
-      if (v11 <= 0.5)
+      if (v13 <= 0.5)
       {
-        v13 = v11;
+        v15 = v13;
       }
 
       else
       {
-        v13 = 1.0 - v11;
+        v15 = 1.0 - v13;
       }
 
-      v14 = fabs(v12 * v7 * sin(v13 * 3.14159265));
-      if (v14 >= 1.0 || v14 * 1.79769313e308 >= 3.14159265)
+      v16 = fabs(v14 * v9 * sin(v15 * 3.14159265));
+      if (v16 >= 1.0 || v16 * 1.79769313e308 >= 3.14159265)
       {
         return;
       }
@@ -2943,22 +2947,23 @@ void boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::
 
     for (; _D6 < 0.0; _D6 = _D6 + 1.0)
     {
-      v2 = v2 / _D6;
+      v3 = v3 / _D6;
     }
   }
 
-  v3 = floor(_D6);
-  if (v3 == _D6 && _D6 < 170.0)
+  v4 = floor(_D6);
+  if (v4 == _D6 && _D6 < 170.0)
   {
-    v5 = ceil(_D6);
+    v6 = ceil(_D6);
     if (_D6 < 0.0)
     {
-      v3 = v5;
+      v4 = v6;
     }
 
-    if (v3 > 2147483650.0 || v3 < -2147483650.0)
+    if (v4 > 2147483650.0 || v4 < -2147483650.0)
     {
-      boost::math::policies::detail::raise_error<boost::math::rounding_error,double>();
+      v35 = _D6;
+      boost::math::policies::detail::raise_error<boost::math::rounding_error,double>(&v35);
     }
 
     return;
@@ -2968,50 +2973,50 @@ void boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::
   {
     if (_D6 < COERCE_DOUBLE(0x4000000000000))
     {
-      boost::math::policies::detail::raise_error<std::overflow_error,double>();
+      boost::math::policies::detail::raise_error<std::overflow_error,double>("Overflow Error");
     }
 
     return;
   }
 
-  v15.f64[0] = _D6 * _D6;
+  v17.f64[0] = _D6 * _D6;
   if (_D6 <= 1.0)
   {
-    v23 = vdupq_lane_s64(*&v15.f64[0], 0);
-    v24 = vdupq_lane_s64(0x4050800000000000, 0);
-    v24.f64[0] = v15.f64[0] + 1925.0;
-    _Q2 = vmlaq_n_f64(xmmword_296C1A050, vmlaq_n_f64(xmmword_296C1A040, vmlaq_n_f64(xmmword_296C1A030, vmlaq_n_f64(xmmword_296C1A020, vmlaq_n_f64(xmmword_296C1A010, v24, v15.f64[0]), v15.f64[0]), v15.f64[0]), v15.f64[0]), v15.f64[0]);
-    v23.f64[0] = _D6;
+    v25 = vdupq_lane_s64(*&v17.f64[0], 0);
+    v26 = vdupq_lane_s64(0x4050800000000000, 0);
+    v26.f64[0] = v17.f64[0] + 1925.0;
+    _Q2 = vmlaq_n_f64(xmmword_296C1A050, vmlaq_n_f64(xmmword_296C1A040, vmlaq_n_f64(xmmword_296C1A030, vmlaq_n_f64(xmmword_296C1A020, vmlaq_n_f64(xmmword_296C1A010, v26, v17.f64[0]), v17.f64[0]), v17.f64[0]), v17.f64[0]), v17.f64[0]);
+    v25.f64[0] = _D6;
     __asm { FMLA            D2, D6, V2.D[1] }
 
-    v22 = (vaddvq_f64(vmulq_f64(vmlaq_n_f64(xmmword_296C1A0B0, vmlaq_n_f64(xmmword_296C1A0A0, vmlaq_n_f64(xmmword_296C1A090, vmlaq_n_f64(xmmword_296C1A080, vmlaq_n_f64(xmmword_296C1A070, xmmword_296C1A060, v15.f64[0]), v15.f64[0]), v15.f64[0]), v15.f64[0]), v15.f64[0]), v23)) + 2.35313769e10) / _Q2.f64[0];
+    v24 = (vaddvq_f64(vmulq_f64(vmlaq_n_f64(xmmword_296C1A0B0, vmlaq_n_f64(xmmword_296C1A0A0, vmlaq_n_f64(xmmword_296C1A090, vmlaq_n_f64(xmmword_296C1A080, vmlaq_n_f64(xmmword_296C1A070, xmmword_296C1A060, v17.f64[0]), v17.f64[0]), v17.f64[0]), v17.f64[0]), v17.f64[0]), v25)) + 2.35313769e10) / _Q2.f64[0];
   }
 
   else
   {
-    v15.f64[1] = _D6;
+    v17.f64[1] = _D6;
     __asm { FMOV            V2.2D, #1.0 }
 
-    v20 = vdivq_f64(_Q2, v15);
-    v21 = vmlaq_n_f64(xmmword_296C1A170, vmlaq_n_f64(xmmword_296C1A160, vmlaq_n_f64(xmmword_296C1A150, vmlaq_n_f64(xmmword_296C1A140, vmlaq_n_f64(xmmword_296C1A130, xmmword_296C1A120, v20.f64[0]), v20.f64[0]), v20.f64[0]), v20.f64[0]), v20.f64[0]);
-    v22 = (vaddvq_f64(vmulq_f64(vmlaq_n_f64(xmmword_296C1A110, vmlaq_n_f64(xmmword_296C1A100, vmlaq_n_f64(xmmword_296C1A0F0, vmlaq_n_f64(xmmword_296C1A0E0, vmlaq_n_f64(xmmword_296C1A0D0, xmmword_296C1A0C0, v20.f64[0]), v20.f64[0]), v20.f64[0]), v20.f64[0]), v20.f64[0]), v20)) + 2.50662827) / vmlaq_laneq_f64(vdupq_laneq_s64(v21, 1), v21, v20, 1).f64[0];
+    v22 = vdivq_f64(_Q2, v17);
+    v23 = vmlaq_n_f64(xmmword_296C1A170, vmlaq_n_f64(xmmword_296C1A160, vmlaq_n_f64(xmmword_296C1A150, vmlaq_n_f64(xmmword_296C1A140, vmlaq_n_f64(xmmword_296C1A130, xmmword_296C1A120, v22.f64[0]), v22.f64[0]), v22.f64[0]), v22.f64[0]), v22.f64[0]);
+    v24 = (vaddvq_f64(vmulq_f64(vmlaq_n_f64(xmmword_296C1A110, vmlaq_n_f64(xmmword_296C1A100, vmlaq_n_f64(xmmword_296C1A0F0, vmlaq_n_f64(xmmword_296C1A0E0, vmlaq_n_f64(xmmword_296C1A0D0, xmmword_296C1A0C0, v22.f64[0]), v22.f64[0]), v22.f64[0]), v22.f64[0]), v22.f64[0]), v22)) + 2.50662827) / vmlaq_laneq_f64(vdupq_laneq_s64(v23, 1), v23, v22, 1).f64[0];
   }
 
-  v26 = v22 * v2;
-  v27 = _D6 + 5.52468004;
-  v31 = _D6;
-  v28 = log(_D6 + 5.52468004);
-  if (v28 * v31 <= 709.0)
+  v28 = v24 * v3;
+  v29 = _D6 + 5.52468004;
+  v33 = _D6;
+  v30 = log(_D6 + 5.52468004);
+  if (v30 * v33 <= 709.0)
   {
-    pow(v27, v31 + -0.5);
-    exp(-v27);
+    pow(v29, v33 + -0.5);
+    exp(-v29);
     return;
   }
 
-  if (v28 * v31 * 0.5 > 709.0 || (v29 = pow(v27, v31 * 0.5 + -0.25), 1.79769313e308 / v29 < exp(-v27) * v29 * v26))
+  if (v30 * v33 * 0.5 > 709.0 || (v31 = pow(v29, v33 * 0.5 + -0.25), 1.79769313e308 / v31 < exp(-v29) * v31 * v28))
   {
 LABEL_39:
-    boost::math::policies::detail::raise_error<std::overflow_error,double>();
+    boost::math::policies::detail::raise_error<std::overflow_error,double>("Result of tgamma is too large to represent.");
   }
 }
 
@@ -3215,10 +3220,11 @@ uint64_t boost::exception_detail::copy_boost_exception(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_296C03800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+void sub_296C03800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a9);
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a10);
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(va);
   _Unwind_Resume(a1);
 }
 
@@ -3701,7 +3707,7 @@ uint64_t boost::wrapexcept<std::domain_error>::wrapexcept(uint64_t a1, uint64_t 
   return a1;
 }
 
-void HOA::applyDecoderWeighting(unsigned int *a1, void *a2, unsigned int a3, int a4)
+void HOA::applyDecoderWeighting(unsigned int *a1, void *a2, unsigned int a3, int a4, __n128 a5, __n128 a6)
 {
   if (!a4)
   {
@@ -3715,56 +3721,83 @@ void HOA::applyDecoderWeighting(unsigned int *a1, void *a2, unsigned int a3, int
 
   if (a4 == 2)
   {
-    v10 = *a1;
-    if (v10 > 0x22)
+    v12 = *a1;
+    if (v12 > 0x22)
     {
-      v12 = v10 + 1;
-      boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>((v10 + 1));
-      if (fabs(v13) > 3.40282347e38)
+      v14 = v12 + 1;
+      a5.n128_f64[0] = (v12 + 1);
+      boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>(a5, a6);
+      a6.n128_f64[0] = fabs(a5.n128_f64[0]);
+      if (a6.n128_f64[0] > 3.40282347e38)
       {
         goto LABEL_37;
       }
 
-      v11 = v13;
-      if (v11 <= 3.4028e38)
+      v13 = a5.n128_f64[0];
+      if (v13 <= 3.4028e38)
       {
-        v11 = floorf(v11 + 0.5);
+        v13 = floorf(v13 + 0.5);
       }
     }
 
     else
     {
-      v11 = flt_296C2D55C[v10];
-      v12 = v10 + 1;
+      v13 = flt_296C2D55C[v12];
+      v14 = v12 + 1;
     }
 
-    if (v12 <= 0x22)
+    if (v14 <= 0x22)
     {
-      v14 = flt_296C2D55C[v12];
+      v15 = flt_296C2D55C[v14];
       goto LABEL_20;
     }
 
-    boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>((v10 + 2));
-    if (fabs(v15) <= 3.40282347e38)
+    a5.n128_f64[0] = (v12 + 2);
+    boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>(a5, a6);
+    a6.n128_f64[0] = fabs(a5.n128_f64[0]);
+    if (a6.n128_f64[0] <= 3.40282347e38)
     {
-      v14 = v15;
-      v16 = floorf(v14 + 0.5);
-      if (v14 <= 3.4028e38)
+      v15 = a5.n128_f64[0];
+      a6.n128_f32[0] = floorf(v15 + 0.5);
+      if (v15 <= 3.4028e38)
       {
-        v14 = v16;
+        v15 = a6.n128_f32[0];
       }
 
 LABEL_20:
-      v17 = 0;
-      v18 = v14 * v11;
-      v19 = 1;
-      v20 = v10;
+      v16 = 0;
+      v17 = v15 * v13;
+      v18 = 1;
+      v19 = v12;
       do
       {
-        v21 = v10 + v17 + 1;
-        if (v21 > 0x22)
+        v20 = v12 + v16 + 1;
+        if (v20 > 0x22)
         {
-          boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>((v10 + v17 + 2));
+          a5.n128_f64[0] = (v12 + v16 + 2);
+          boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>(a5, a6);
+          a6.n128_f64[0] = fabs(a5.n128_f64[0]);
+          if (a6.n128_f64[0] > 3.40282347e38)
+          {
+            goto LABEL_37;
+          }
+
+          v21 = a5.n128_f64[0];
+          if (v21 <= 3.4028e38)
+          {
+            v21 = floorf(v21 + 0.5);
+          }
+        }
+
+        else
+        {
+          v21 = flt_296C2D55C[v20];
+        }
+
+        if (v19 > 0x22)
+        {
+          a5.n128_f64[0] = (v19 + 1);
+          boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>(a5, a6);
           if (fabs(v23) > 3.40282347e38)
           {
             goto LABEL_37;
@@ -3779,37 +3812,17 @@ LABEL_20:
 
         else
         {
-          v22 = flt_296C2D55C[v21];
+          v22 = flt_296C2D55C[v19];
         }
 
-        if (v20 > 0x22)
-        {
-          boost::math::detail::gamma_imp<double,boost::math::policies::policy<boost::math::policies::promote_float<false>,boost::math::policies::promote_double<false>,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy,boost::math::policies::default_policy>,boost::math::lanczos::lanczos13m53>((v20 + 1));
-          if (fabs(v25) > 3.40282347e38)
-          {
-            goto LABEL_37;
-          }
-
-          v24 = v25;
-          if (v24 <= 3.4028e38)
-          {
-            v24 = floorf(v24 + 0.5);
-          }
-        }
-
-        else
-        {
-          v24 = flt_296C2D55C[v20];
-        }
-
-        v30 = v18 / (v24 * v22);
-        vDSP_vfill(&v30, (4 * v17 * v17), 1, v19);
-        ++v17;
-        v19 += 2;
-        --v20;
+        v28 = v17 / (v22 * v21);
+        vDSP_vfill(&v28, (4 * v16 * v16), 1, v18);
+        ++v16;
+        v18 += 2;
+        --v19;
       }
 
-      while (v17 <= v10);
+      while (v16 <= v12);
       goto LABEL_32;
     }
 
@@ -3819,19 +3832,19 @@ LABEL_37:
 
   if (a4 == 1)
   {
-    v6 = *a1;
-    v7 = cosf(2.4068 / (*a1 + 1.51));
-    v8 = 0;
-    v9 = 1;
+    v8 = *a1;
+    v9 = cosf(2.4068 / (*a1 + 1.51));
+    v10 = 0;
+    v11 = 1;
     do
     {
-      __A = HOA::legendre(v8, 0, v7);
-      vDSP_vfill(&__A, (4 * (v8 * v8)), 1, v9);
-      v8 = (v8 + 1);
-      v9 += 2;
+      __A = HOA::legendre(v10, 0, v9);
+      vDSP_vfill(&__A, (4 * (v10 * v10)), 1, v11);
+      v10 = (v10 + 1);
+      v11 += 2;
     }
 
-    while (v8 <= v6);
+    while (v10 <= v8);
   }
 
   else
@@ -3843,14 +3856,14 @@ LABEL_37:
 LABEL_32:
   if (a3)
   {
-    v26 = 0;
+    v24 = 0;
     do
     {
-      MEMORY[0x29C260480](0, 1, *a2 + v26, a3, *a2 + v26, a3, a1[2]);
-      v26 += 4;
+      MEMORY[0x29C260480](0, 1, *a2 + v24, a3, *a2 + v24, a3, a1[2]);
+      v24 += 4;
     }
 
-    while (4 * a3 != v26);
+    while (4 * a3 != v24);
   }
 }
 
@@ -5949,7 +5962,7 @@ void sub_296C07EDC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void HOA::createALLRAD2(HOA *this, VBAP *a2, const float *a3, const float *a4, int a5)
+void HOA::createALLRAD2(HOA *this, VBAP *a2, float *a3, const float *a4, unsigned int a5)
 {
   if (*(this + 2) * a5)
   {
@@ -5993,7 +6006,7 @@ LABEL_7:
 
 uint64_t HOA::createDecoder(unsigned int *a1, void *a2, void *a3, unsigned int a4, int a5)
 {
-  v72 = *MEMORY[0x29EDCA608];
+  v74 = *MEMORY[0x29EDCA608];
   if ((a1[7] & 1) == 0)
   {
     if (!os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
@@ -6112,15 +6125,15 @@ LABEL_13:
       HOA::sphericalHarmonics(*(a1 + 16), *(a1 + 19), v30, 0, *a1);
       vDSP_mtrans(0, 1, *(a1 + 7), 1, a1[5], a1[2]);
       v38 = a1[5];
-      *v51 = 1.0 / v38;
-      MEMORY[0x29C260530](*(a1 + 7), 1, v51, *(a1 + 7), 1, a1[2] * v38);
+      *v53 = 1.0 / v38;
+      MEMORY[0x29C260530](*(a1 + 7), 1, v53, *(a1 + 7), 1, a1[2] * v38);
       if (a5)
       {
-        HOA::applyDecoderWeighting(a1, a1 + 7, a1[5], a5);
+        HOA::applyDecoderWeighting(a1, a1 + 7, a1[5], a5, v28, v39);
       }
 
-      v39 = a1[76];
-      if (v39 == 2)
+      v40 = a1[76];
+      if (v40 == 2)
       {
         memset(buf, 0, 24);
         std::vector<float>::vector[abi:ne200100](buf, a1[2] * a1[2]);
@@ -6129,16 +6142,16 @@ LABEL_13:
         memcpy(*(a1 + 7), 0, 4 * a1[2] * a1[5]);
         if (a1[5])
         {
-          v43 = 0;
+          v44 = 0;
           do
           {
-            v44 = a1[2];
-            v45 = (*(a1 + 7) + 4 * v44 * v43);
-            vDSP_vdiv(*(a1 + 10), 1, v45, 1, v45, 1, v44);
-            ++v43;
+            v45 = a1[2];
+            v46 = (*(a1 + 7) + 4 * v45 * v44);
+            vDSP_vdiv(*(a1 + 10), 1, v46, 1, v46, 1, v45);
+            ++v44;
           }
 
-          while (v43 < a1[5]);
+          while (v44 < a1[5]);
         }
 
         if (*buf)
@@ -6148,18 +6161,18 @@ LABEL_13:
         }
       }
 
-      else if (v39 == 1 && a1[5])
+      else if (v40 == 1 && a1[5])
       {
-        v40 = 0;
+        v41 = 0;
         do
         {
-          v41 = a1[2];
-          v42 = (*(a1 + 7) + 4 * v41 * v40);
-          vDSP_vdiv(*(a1 + 10), 1, v42, 1, v42, 1, v41);
-          ++v40;
+          v42 = a1[2];
+          v43 = (*(a1 + 7) + 4 * v42 * v41);
+          vDSP_vdiv(*(a1 + 10), 1, v43, 1, v43, 1, v42);
+          ++v41;
         }
 
-        while (v40 < a1[5]);
+        while (v41 < a1[5]);
       }
     }
 
@@ -6168,6 +6181,8 @@ LABEL_13:
 
   if (*a1)
   {
+    v72 = 0u;
+    v73 = 0u;
     v70 = 0u;
     v71 = 0u;
     v68 = 0u;
@@ -6182,11 +6197,9 @@ LABEL_13:
     v61 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
-    v55 = 0u;
     memset(buf, 0, sizeof(buf));
-    memset(v50, 0, sizeof(v50));
+    memset(v52, 0, sizeof(v52));
     v29 = a2[1] - *a2;
     if (v29)
     {
@@ -6198,7 +6211,7 @@ LABEL_13:
       std::vector<float>::__throw_length_error[abi:ne200100]();
     }
 
-    memset(v49, 0, sizeof(v49));
+    memset(v51, 0, sizeof(v51));
     v37 = a3[1];
     if (v37 != *a3)
     {
@@ -6210,16 +6223,17 @@ LABEL_13:
       std::vector<float>::__throw_length_error[abi:ne200100]();
     }
 
-    *v51 = 0;
-    v52 = 0;
-    v53 = 0;
-    VBAP::VBAP(buf, v50, v49, 1);
+    *v53 = 0;
+    v54 = 0;
+    v55 = 0;
+    memset(__p, 0, sizeof(__p));
+    VBAP::VBAP(buf, v52, v51, 1, v53, __p);
   }
 
   v31 = a1[5];
   if (v31)
   {
-    *v28.i32 = 1.0 / sqrtf(v31);
+    v28.n128_f32[0] = 1.0 / sqrtf(v31);
     v32 = *(a1 + 7);
     if (v31 < 8)
     {
@@ -6227,7 +6241,7 @@ LABEL_13:
     }
 
     v33 = v31 & 0xFFFFFFF8;
-    v34 = vdupq_lane_s32(v28, 0);
+    v34 = vdupq_lane_s32(v28.n128_u64[0], 0);
     v35 = v32 + 1;
     v36 = v33;
     do
@@ -6246,7 +6260,7 @@ LABEL_13:
       do
       {
 LABEL_36:
-        v32->i32[0] = v28.i32[0];
+        v32->i32[0] = v28.n128_u32[0];
         v32 = (v32 + 4);
         LODWORD(v31) = v31 - 1;
       }
@@ -6259,21 +6273,21 @@ LABEL_55:
   v21 = 0;
   if (a1[1] != *a1)
   {
-    v46 = a1[5] * a1[3];
+    v47 = a1[5] * a1[3];
     *buf = 0;
-    v47 = *(a1 + 7);
-    v48 = (*(a1 + 8) - v47) >> 2;
-    if (v46 <= v48)
+    v48 = *(a1 + 7);
+    v49 = (*(a1 + 8) - v48) >> 2;
+    if (v47 <= v49)
     {
-      if (v46 < v48)
+      if (v47 < v49)
       {
-        *(a1 + 8) = v47 + 4 * v46;
+        *(a1 + 8) = v48 + 4 * v47;
       }
     }
 
     else
     {
-      std::vector<float>::__append((a1 + 14), v46 - v48, buf, v28);
+      std::vector<float>::__append((a1 + 14), v47 - v49, buf, v28.n128_u64[0]);
     }
   }
 
@@ -6299,17 +6313,17 @@ void sub_296C09158(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::vector<float>::vector[abi:ne200100](void *result, uint64_t a2)
+void *std::vector<float>::vector[abi:ne200100](void *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_296C09310(_Unwind_Exception *exception_object)
@@ -6326,7 +6340,7 @@ void sub_296C09310(_Unwind_Exception *exception_object)
 
 uint64_t HOA::createSphericalGridDecoder(unsigned int *a1, int a2)
 {
-  v38 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   if (a1[7])
   {
     std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1 + 16, *(a1 + 26), *(a1 + 27), (*(a1 + 27) - *(a1 + 26)) >> 2);
@@ -6432,41 +6446,41 @@ uint64_t HOA::createSphericalGridDecoder(unsigned int *a1, int a2)
     }
 
     vDSP_svdiv(buf, v20, 1, 0, 1, a1[2]);
-    LODWORD(v22) = a1[6];
-    if (v22)
+    LODWORD(v24) = a1[6];
+    if (v24)
     {
-      v23 = 0;
-      v24 = 0;
+      v25 = 0;
+      v26 = 0;
       do
       {
-        MEMORY[0x29C260480](0, 1, *(a1 + 23) + v23, v22, *(a1 + 7) + v23, v22, a1[2]);
-        ++v24;
-        v22 = a1[6];
-        v23 += 4;
+        MEMORY[0x29C260480](0, 1, *(a1 + 23) + v25, v24, *(a1 + 7) + v25, v24, a1[2]);
+        ++v26;
+        v24 = a1[6];
+        v25 += 4;
       }
 
-      while (v24 < v22);
+      while (v26 < v24);
     }
 
-    HOA::applyDecoderWeighting(a1, a1 + 7, v22, a2);
+    HOA::applyDecoderWeighting(a1, a1 + 7, v24, a2, v22, v23);
     std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>(a1 + 23, *(a1 + 7), *(a1 + 8), (*(a1 + 8) - *(a1 + 7)) >> 2);
     if (a1[1] != *a1)
     {
-      v26 = a1[6] * a1[3];
-      v29 = 0;
-      v27 = *(a1 + 7);
-      v28 = (*(a1 + 8) - v27) >> 2;
-      if (v26 <= v28)
+      v28 = a1[6] * a1[3];
+      v31 = 0;
+      v29 = *(a1 + 7);
+      v30 = (*(a1 + 8) - v29) >> 2;
+      if (v28 <= v30)
       {
-        if (v26 < v28)
+        if (v28 < v30)
         {
-          *(a1 + 8) = v27 + 4 * v26;
+          *(a1 + 8) = v29 + 4 * v28;
         }
       }
 
       else
       {
-        std::vector<float>::__append((a1 + 14), v26 - v28, &v29, v25);
+        std::vector<float>::__append((a1 + 14), v28 - v30, &v31, v27);
       }
     }
 
@@ -6478,13 +6492,13 @@ uint64_t HOA::createSphericalGridDecoder(unsigned int *a1, int a2)
     if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR))
     {
       *buf = 4.8153e-34;
-      v31 = "HOA.cpp";
-      v32 = 1024;
-      v33 = 1100;
-      v34 = 2080;
-      v35 = "createSphericalGridDecoder";
-      v36 = 1024;
-      v37 = 1100;
+      v33 = "HOA.cpp";
+      v34 = 1024;
+      v35 = 1100;
+      v36 = 2080;
+      v37 = "createSphericalGridDecoder";
+      v38 = 1024;
+      v39 = 1100;
       _os_log_impl(&dword_296B9D000, MEMORY[0x29EDCA988], OS_LOG_TYPE_ERROR, "%25s:%-5d CADSPUtility:%s:%d: HOA Error; HOA object was not initialized", buf, 0x22u);
     }
 
@@ -6613,11 +6627,12 @@ LABEL_9:
   return v9;
 }
 
-void sub_296C0A27C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_296C0A27C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  std::__split_buffer<KaiserWindow>::~__split_buffer(&a29);
+  va_start(va, a28);
+  std::__split_buffer<KaiserWindow>::~__split_buffer(va);
   os_unfair_lock_unlock(&GetKaiser(unsigned int,double)::sKaiserWindows);
-  MEMORY[0x29C25FC20](v29, 0x1080C4003DAF236);
+  MEMORY[0x29C25FC20](v28, 0x1080C4003DAF236);
   _Unwind_Resume(a1);
 }
 
@@ -6667,7 +6682,7 @@ void *SincKernelFactory::ReleaseSincKernel(void *result, uint64_t a2)
   return result;
 }
 
-void KaiserWindow::KaiserWindow(KaiserWindow *this, int a2, double a3)
+void KaiserWindow::KaiserWindow(KaiserWindow *this, unsigned int a2, double a3)
 {
   *this = a2;
   *(this + 1) = a3;
@@ -6887,11 +6902,15 @@ void IR::FixedIntegerDelay<float>::process()
 
 void IR::IRData::Implementation::readIRPlist(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: failed to read rawPlistLength", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "readIRPlist";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: failed to read rawPlistLength", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: error while constructing dictionary from data", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "readIRPlist";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: error while constructing dictionary from data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void IR::IRData::Implementation::readIRPlist()
@@ -6912,7 +6931,7 @@ void IR::IRData::Implementation::readIRPlist()
 
 void IR::IRData::Implementation::getEmptyIRDataNode()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals))
+  if (__cxa_guard_acquire(_MergedGlobals))
   {
     dword_2A18B8200 = 0;
     xmmword_2A18B8208 = 0u;
@@ -6924,98 +6943,149 @@ void IR::IRData::Implementation::getEmptyIRDataNode()
     xmmword_2A18B8268 = 0u;
     __cxa_atexit(IR::IRDataNode::~IRDataNode, &dword_2A18B8200, &dword_296B9D000);
 
-    __cxa_guard_release(&_MergedGlobals);
+    __cxa_guard_release(_MergedGlobals);
   }
 }
 
 void IR::IRData::Implementation::Implementation(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Fractional Filter Length", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Fractional Filter Length", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Dimension Size Mismatch", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Dimension Size Mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Filter Data Size - Delay Size Mismatch", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Filter Data Size - Delay Size Mismatch", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to create user-defined size dimension", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to create user-defined size dimension", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Empty Data Vectors", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Empty Data Vectors", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: window start sample beyond end of filter", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: window start sample beyond end of filter", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: start of fadeout is beyond end of filter", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: start of fadeout is beyond end of filter", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: coefficient format not specified", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: coefficient format not specified", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Triangulation dictionary found but failed to load", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Triangulation dictionary found but failed to load", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Triangulation dictionary found but is empty/defective", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Triangulation dictionary found but is empty/defective", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: failed to read float dimensionVal from file", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: failed to read float dimensionVal from file", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: failed to read float value from file", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: failed to read float value from file", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: NumChannels was either not specified or read as 0", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: NumChannels was either not specified or read as 0", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: start of fadeout is before window fadein", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: start of fadeout is before window fadein", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: length of fadeout is greater than filter", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: length of fadeout is greater than filter", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid filter length.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid filter length.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: IR file's native sample rate is zero.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: IR file's native sample rate is zero.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to load IR file header", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to load IR file header", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to load IR file", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "Implementation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to load IR file", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void IR::IRData::Implementation::canCreateSizeDimension(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to create user-defined size dimension; size vector has values not in the range [0 1]", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "canCreateSizeDimension";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to create user-defined size dimension; size vector has values not in the range [0 1]", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to create user-defined size dimension; size dimension already exists in data", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "canCreateSizeDimension";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to create user-defined size dimension; size dimension already exists in data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to create user-defined size dimension; missing azimuth and/or elevation data", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "canCreateSizeDimension";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to create user-defined size dimension; missing azimuth and/or elevation data", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void IR::IRData::Implementation::createSizeDimension(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSizeDimension";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: Could not create VBAP data for size dimensions", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void IR::IRData::Implementation::createSizeDimension()
@@ -7091,35 +7161,63 @@ void IR::IRData::Implementation::Implementation()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
+void IR::IRData::Implementation::createSoundProfilePack(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSoundProfilePack";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Invalid EQ data.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void IR::IRData::Implementation::createSerializedIRData(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Only Time Domain supported", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSerializedIRData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Only Time Domain supported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Filter data not created, XML creation issue", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSerializedIRData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Filter data not created, XML creation issue", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Invalid IR Data", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSerializedIRData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Invalid IR Data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void IR::IRData::Implementation::createSoundProfileMetaDataDictionary(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: SoundProfile is not well-constructed.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSoundProfileMetaDataDictionary";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: SoundProfile is not well-constructed.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid SoundProfile pack.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSoundProfileMetaDataDictionary";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid SoundProfile pack.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void IR::IRData::Implementation::getSoundProfileVersion(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: SoundProfile is not well-constructed.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getSoundProfileVersion";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: SoundProfile is not well-constructed.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid SoundProfile pack.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "getSoundProfileVersion";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid SoundProfile pack.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void IR::IRData::Implementation::createDictionaryIRData(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createDictionaryIRData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "%s: ERROR: Only Time Domain supported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void IR::IRData::Implementation::createSerializedIRDataWithNoise()
@@ -7151,44 +7249,64 @@ void IR::IRData::Implementation::createSerializedIRDataWithNoise()
 
 void IR::IRData::Implementation::createSerializedIRDataWithNoise(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: NumChannels was either not specified or read as 0", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSerializedIRDataWithNoise";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: NumChannels was either not specified or read as 0", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TotalNumCoordinates was either not specified or read as 0", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSerializedIRDataWithNoise";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TotalNumCoordinates was either not specified or read as 0", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: invalid filter length.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSerializedIRDataWithNoise";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: invalid filter length.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to load input data header", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSerializedIRDataWithNoise";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to load input data header", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to load input data", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSerializedIRDataWithNoise";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: unable to load input data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid data", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createSerializedIRDataWithNoise";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void IR::IRData::Implementation::createNoisySoundProfilePack(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Failed to create noisy IR for HRTF type 1.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createNoisySoundProfilePack";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Failed to create noisy IR for HRTF type 1.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Failed to create noisy IR for HRTF type 2.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createNoisySoundProfilePack";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Failed to create noisy IR for HRTF type 2.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: SoundProfile is not well-constructed.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createNoisySoundProfilePack";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: SoundProfile is not well-constructed.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid SoundProfile pack.", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createNoisySoundProfilePack";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: Invalid SoundProfile pack.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void IR::VBAPTriangulationKernel::VBAPTriangulationKernel(void **a1, void **a2, void *a3)
@@ -7259,72 +7377,113 @@ void IR::IRData::Implementation::getInterpolatedAuxData()
 
 void IR::HOA2BinauralIRRenderer::setEnvironment(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "HOA2BinauralIRRenderer::%s: Invalid HRIR IRData object", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setEnvironment";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "HOA2BinauralIRRenderer::%s: Invalid HRIR IRData object", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "HOA2BinauralIRRenderer::%s: Invalid number of HOA channels", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setEnvironment";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "HOA2BinauralIRRenderer::%s: Invalid number of HOA channels", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "HOA2BinauralIRRenderer::%s: Invalid HOARIR IRData object", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setEnvironment";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "HOA2BinauralIRRenderer::%s: Invalid HOARIR IRData object", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void IR::IRData::Implementation::loadTriangulationData(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: NumTriangulations key missing from triangulation dictionary", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: NumTriangulations key missing from triangulation dictionary", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriVertices key missing from triangulation dictionary", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriVertices key missing from triangulation dictionary", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriVertices has wrong data type", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriVertices has wrong data type", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriVertices array wrong length", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriVertices array wrong length", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriAssignment key missing from triangulation dictionary", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriAssignment key missing from triangulation dictionary", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriAssignment data of wrong type", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriAssignment data of wrong type", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: wrong number of TriAssignment data points", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: wrong number of TriAssignment data points", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriBinLengths and/or TriBinSerial key missing from triangulation dictionary", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriBinLengths and/or TriBinSerial key missing from triangulation dictionary", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriBinLengths and/or TriBinSerial not array type", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriBinLengths and/or TriBinSerial not array type", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriBinLengths and/or TriBinSerial array not of proper size", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: TriBinLengths and/or TriBinSerial array not of proper size", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: triangle lookup bins must have at least one element", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: triangle lookup bins must have at least one element", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: triangle lookup bins have wrong amount of data", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: triangle lookup bins have wrong amount of data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: triangle lookup bins have insufficient data", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: triangle lookup bins have insufficient data", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 {
-  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: number of stored triangulations found to be zero", a5, a6, a7, a8, 2u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "loadTriangulationData";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: number of stored triangulations found to be zero", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void IR::IRData::Implementation::initVBAPTriangulation(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "initVBAPTriangulation";
+  OUTLINED_FUNCTION_3(&dword_296B9D000, a1, a3, "IRData::%s: top level nodes empty", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void AudioDSP::Core::HeadTracker::Implementation::SetBluetoothLowLatencyMode()
@@ -7347,20 +7506,20 @@ void AudioDSP::Core::HeadTracker::ConnectRM()
 {
   OUTLINED_FUNCTION_3_0(*MEMORY[0x29EDCA608]);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_296B9D000, v0, v1, "[%s|%s] Device doesn't support head tracking.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_1_0(&dword_296B9D000, v0, v1, "[%s|%s] Device doesn't support head tracking.", v2, v3, v4, v5);
 }
 
 {
   OUTLINED_FUNCTION_3_0(*MEMORY[0x29EDCA608]);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_296B9D000, v0, v1, "[%s|%s] Head tracking is disabled on the device.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_1_0(&dword_296B9D000, v0, v1, "[%s|%s] Head tracking is disabled on the device.", v2, v3, v4, v5);
 }
 
 void AudioDSP::Core::HeadTracker::RegisterUserChoiceListener()
 {
   OUTLINED_FUNCTION_3_0(*MEMORY[0x29EDCA608]);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_296B9D000, v0, v1, "[%s|%s] Failed to register SpatialConfig listener. Unknown/unsupported device ID.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_1_0(&dword_296B9D000, v0, v1, "[%s|%s] Failed to register SpatialConfig listener. Unknown/unsupported device ID.", v2, v3, v4, v5);
 }
 
 void IR::DataResampler<float>::Initialize()
@@ -7704,11 +7863,11 @@ void IR::DataCache::addToCFDataCachePrivate()
 
 void IR::ComplexDataCircBuffer::Implementation::getFFTBufferVec(void *a1)
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_0))
+  if (__cxa_guard_acquire(_MergedGlobals_0))
   {
     v2 = OUTLINED_FUNCTION_0_3();
     __cxa_atexit(v2, &unk_2A18B8290, v3);
-    __cxa_guard_release(&_MergedGlobals_0);
+    __cxa_guard_release(_MergedGlobals_0);
   }
 
   *a1 = &unk_2A18B8290;
@@ -7716,11 +7875,11 @@ void IR::ComplexDataCircBuffer::Implementation::getFFTBufferVec(void *a1)
 
 void IR::ComplexDataCircBuffer::getFFTBufferVec(void *a1)
 {
-  if (__cxa_guard_acquire(&qword_2A18B8280))
+  if (__cxa_guard_acquire(byte_2A18B8280))
   {
     v2 = OUTLINED_FUNCTION_0_3();
     __cxa_atexit(v2, &unk_2A18B82A8, v3);
-    __cxa_guard_release(&qword_2A18B8280);
+    __cxa_guard_release(byte_2A18B8280);
   }
 
   *a1 = &unk_2A18B82A8;
@@ -7728,10 +7887,10 @@ void IR::ComplexDataCircBuffer::getFFTBufferVec(void *a1)
 
 void IR::ComplexDataCircBuffer::getSampleDataPtrs(void *a1)
 {
-  if (__cxa_guard_acquire(&qword_2A18B8288))
+  if (__cxa_guard_acquire(byte_2A18B8288))
   {
     __cxa_atexit(std::vector<float *>::~vector[abi:ne200100], &unk_2A18B82C0, &dword_296B9D000);
-    __cxa_guard_release(&qword_2A18B8288);
+    __cxa_guard_release(byte_2A18B8288);
   }
 
   *a1 = &unk_2A18B82C0;
@@ -7824,7 +7983,29 @@ void IR::FFTFilterKernel<float>::initialize()
   }
 }
 
+void IR::FFTFilterKernel<float>::storeCoeffs()
+{
+    ;
+  }
+}
+
+{
+    ;
+  }
+}
+
 void IR::FFTFilterKernel<float>::calculateFIRFilterLength()
+{
+    ;
+  }
+}
+
+void IR::FFTFilterKernel<float>::initializeAndStoreCoeffs()
+{
+    ;
+  }
+}
+
 {
     ;
   }
@@ -7903,6 +8084,12 @@ void IR::FixedIntegerDelay<float>::FixedIntegerDelay()
   }
 }
 
+{
+    ;
+  }
+}
+
+void IR::FFTFilter<float>::FFTFilter()
 {
     ;
   }

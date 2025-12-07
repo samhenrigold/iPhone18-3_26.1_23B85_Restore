@@ -12,6 +12,7 @@
 - (id)attemptToBecomeActiveRequest:(id)request;
 - (id)cachedImageForIcon:(void *)icon imageAppearance:(char)appearance options:;
 - (id)cachingPlaceholderImageWithImageAppearance:(char)appearance options:;
+- (id)cancelAllCachingRequests;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)genericImageWithImageAppearance:(char)appearance options:;
@@ -21,7 +22,6 @@
 - (id)realImageForIcon:(void *)icon imageAppearance:(uint64_t)appearance options:;
 - (id)succinctDescription;
 - (int64_t)effectivePriorityForPriority:(int64_t)priority;
-- (uint64_t)cancelAllCachingRequests;
 - (uint64_t)isCachingImageForIcon:(uint64_t)icon;
 - (unint64_t)currentImageGenerationForIcon:(id)icon;
 - (unint64_t)imageRetrievalOptions;
@@ -143,7 +143,7 @@ uint64_t __117__SBHIconImageVariantCache_cacheImageForIcon_imageAppearance_prior
 
 - (void)performSynchronousCacheRequest:(id)request
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = requestCopy;
   if (requestCopy)
@@ -153,7 +153,7 @@ uint64_t __117__SBHIconImageVariantCache_cacheImageForIcon_imageAppearance_prior
     v8 = v5[16];
     v9 = v5[10];
     v10 = v5[13];
-    v21 = v5[9];
+    v22 = v5[9];
   }
 
   else
@@ -164,19 +164,19 @@ uint64_t __117__SBHIconImageVariantCache_cacheImageForIcon_imageAppearance_prior
     v6 = 0;
     v7 = 0;
     v9 = 0;
-    v21 = 0;
+    v22 = 0;
   }
 
   v11 = [(SBHIconImageVariantCache *)self _cacheKeyForIcon:v6];
   _variantDescription = [(SBHIconImageVariantCache *)self _variantDescription];
-  v22 = v7;
+  v23 = v7;
   v13 = [(SBHIconImageVariantCache *)self _variantImageForIcon:v6 imageAppearance:v7 context:v9 extraImageOptions:0 options:v10];
   if (v13)
   {
     v14 = v9;
     v15 = v11;
     v16 = [(SBHIconImageVariantCache *)self pooledIconImageForMappedIconImage:v13 icon:v6];
-    v17 = SBLogIconImageCache();
+    v17 = SBLogIconImageCache(v16);
     v18 = v17;
     if (v16)
     {
@@ -185,7 +185,7 @@ uint64_t __117__SBHIconImageVariantCache_cacheImageForIcon_imageAppearance_prior
         [SBHIconImageVariantCache performSynchronousCacheRequest:];
       }
 
-      [(SBHIconImageVariantCache *)self cacheImage:v16 forIcon:v6 imageAppearance:v22 imageGeneration:v21];
+      [(SBHIconImageVariantCache *)self cacheImage:v16 forIcon:v6 imageAppearance:v23 imageGeneration:v22];
       v11 = v15;
     }
 
@@ -195,9 +195,9 @@ uint64_t __117__SBHIconImageVariantCache_cacheImageForIcon_imageAppearance_prior
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 138543618;
-        v25 = _variantDescription;
-        v26 = 2112;
-        v27 = v15;
+        v26 = _variantDescription;
+        v27 = 2112;
+        v28 = v15;
         _os_log_impl(&dword_1BEB18000, v18, OS_LOG_TYPE_INFO, "Could not pool %{public}@ image for icon in foreground with key: %@", buf, 0x16u);
       }
     }
@@ -213,24 +213,25 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  if ([objc_opt_class() hasIconImage])
+  hasIconImage = [objc_opt_class() hasIconImage];
+  if (hasIconImage)
   {
-    v19 = SBLogIconImageCache();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v20 = SBLogIconImageCache(hasIconImage);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       *buf = 138543618;
-      v25 = _variantDescription;
-      v26 = 2112;
-      v27 = v11;
-      _os_log_impl(&dword_1BEB18000, v19, OS_LOG_TYPE_INFO, "Could not make %{public}@ image for icon in foreground with key: %@", buf, 0x16u);
+      v26 = _variantDescription;
+      v27 = 2112;
+      v28 = v11;
+      _os_log_impl(&dword_1BEB18000, v20, OS_LOG_TYPE_INFO, "Could not make %{public}@ image for icon in foreground with key: %@", buf, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_lock);
     [(SBHIconImageAppearanceStore *)self->_images removeAllImagesForIcon:v6];
     [(SBHIconImageVariantCache *)self _lock_markIconAsFailed:v6];
-    v23 = v6;
-    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
-    [(SBHIconImageVariantCache *)self _lock_removeStoredImageGenerationForIcons:v20];
+    v24 = v6;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    [(SBHIconImageVariantCache *)self _lock_removeStoredImageGenerationForIcons:v21];
 
     [(SBHIconImageVariantCache *)self _lock_removeCachedIcon:v6];
     os_unfair_lock_unlock(&self->_lock);
@@ -268,7 +269,7 @@ LABEL_14:
   v18 = *MEMORY[0x1E69E9840];
   iconCopy = icon;
   appearanceCopy = appearance;
-  v10 = SBLogIconImageCache();
+  v10 = SBLogIconImageCache(appearanceCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     uniqueIdentifier = [iconCopy uniqueIdentifier];
@@ -516,12 +517,12 @@ void __68__SBHIconImageVariantCache_genericImageWithImageAppearance_options___bl
     mach_continuous_time();
     v15 = [iconCopy iconImageWithInfo:v16 traitCollection:contextCopy context:iconImageOptions | options options:{width, height, scale, continuousCornerRadius}];
     mach_continuous_time();
-    BSTimeDifferenceFromMachTimeToMachTime();
-    v23 = v22;
-    v24 = SBLogIconImageCache();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v22 = BSTimeDifferenceFromMachTimeToMachTime();
+    v24 = v23;
+    v25 = SBLogIconImageCache(v22);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      [SBHIconImageVariantCache _variantImageForIcon:v24 imageAppearance:v23 context:v25 extraImageOptions:v26 options:?];
+      [SBHIconImageVariantCache _variantImageForIcon:v25 imageAppearance:v24 context:v26 extraImageOptions:v27 options:?];
     }
   }
 
@@ -541,12 +542,12 @@ void __68__SBHIconImageVariantCache_genericImageWithImageAppearance_options___bl
     mach_continuous_time();
     v11 = SBHTintedImageFromTintableImage(v9, tintColor);
     mach_continuous_time();
-    BSTimeDifferenceFromMachTimeToMachTime();
-    v13 = v12;
-    v14 = SBLogIconImageCache();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v12 = BSTimeDifferenceFromMachTimeToMachTime();
+    v14 = v13;
+    v15 = SBLogIconImageCache(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      [(SBHIconImageVariantCache *)v14 _tintedImageFromTintableImageForIcon:v13 imageAppearance:v15, v16];
+      [(SBHIconImageVariantCache *)v15 _tintedImageFromTintableImageForIcon:v14 imageAppearance:v16, v17];
     }
   }
 
@@ -576,33 +577,33 @@ void __68__SBHIconImageVariantCache_genericImageWithImageAppearance_options___bl
   gracefullyCopy = gracefully;
   height = size.height;
   width = size.width;
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   drawingCopy = drawing;
   iconImagesMemoryPool = [(SBHIconImageVariantCache *)self iconImagesMemoryPool];
-  if (gracefullyCopy && (v13 = [MEMORY[0x1E69DCAB8] sbf_bytesNeededForSize:0 scale:width withContextType:{height, scale}], v13 > objc_msgSend(iconImagesMemoryPool, "slotLength")))
+  if (gracefullyCopy && (v13 = [MEMORY[0x1E69DCAB8] sbf_bytesNeededForSize:0 scale:width withContextType:{height, scale}], v14 = objc_msgSend(iconImagesMemoryPool, "slotLength"), v13 > v14))
   {
-    v14 = SBLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = SBLogCommon(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v24.width = width;
-      v24.height = height;
-      v15 = NSStringFromCGSize(v24);
-      v18 = 138543618;
-      v19 = v15;
-      v20 = 2048;
+      v25.width = width;
+      v25.height = height;
+      v16 = NSStringFromCGSize(v25);
+      v19 = 138543618;
+      v20 = v16;
+      v21 = 2048;
       scaleCopy = scale;
-      _os_log_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEFAULT, "color context with dimensions %{public}@ @%fx does not fit in 'iconImages' memory pool - returning nil", &v18, 0x16u);
+      _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "color context with dimensions %{public}@ @%fx does not fit in 'iconImages' memory pool - returning nil", &v19, 0x16u);
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = [MEMORY[0x1E69DCAB8] sbf_imageFromContextWithSize:0 scale:iconImagesMemoryPool type:drawingCopy pool:width drawing:{height, scale}];
+    v17 = [MEMORY[0x1E69DCAB8] sbf_imageFromContextWithSize:0 scale:iconImagesMemoryPool type:drawingCopy pool:width drawing:{height, scale}];
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)memoryMappedIconImageOfSize:(CGSize)size scale:(double)scale withDrawing:(id)drawing
@@ -935,109 +936,109 @@ LABEL_10:
 
 - (void)purgeCachedImagesForIcons:(uint64_t)icons
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (icons)
   {
     BSDispatchQueueAssertMain();
     _variantDescription = [icons _variantDescription];
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v15 = v3;
+    v28 = 0u;
+    v16 = v3;
     obj = v3;
-    v19 = [obj countByEnumeratingWithState:&v24 objects:v33 count:16];
-    if (v19)
+    v20 = [obj countByEnumeratingWithState:&v25 objects:v34 count:16];
+    if (v20)
     {
-      v18 = *v25;
+      v19 = *v26;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v25 != v18)
+          if (*v26 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v24 + 1) + 8 * i);
+          v6 = *(*(&v25 + 1) + 8 * i);
           v7 = [icons _cacheKeyForIcon:v6];
           os_unfair_lock_lock((icons + 72));
           [*(icons + 8) removeAllImagesForIcon:v6];
           [icons _lock_resetFailedStatusForIcon:v6];
           [icons _lock_removeCachedIcon:v6];
           os_unfair_lock_unlock((icons + 72));
-          v22 = 0u;
           v23 = 0u;
-          v20 = 0u;
+          v24 = 0u;
           v21 = 0u;
+          v22 = 0u;
           v8 = *(icons + 24);
-          v9 = [v8 countByEnumeratingWithState:&v20 objects:v32 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v21 objects:v33 count:16];
           if (v9)
           {
             v10 = v9;
-            v11 = *v21;
+            v11 = *v22;
             do
             {
               for (j = 0; j != v10; ++j)
               {
-                if (*v21 != v11)
+                if (*v22 != v11)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v13 = *(*(&v20 + 1) + 8 * j);
-                if ([SBHIconImageCacheRequest matchesIcon:v13])
+                v13 = *(*(&v21 + 1) + 8 * j);
+                if ([(SBHIconImageCacheRequest *)v13 matchesIcon:v6])
                 {
                   [v13 cancel];
                   [v4 addObject:v13];
                 }
               }
 
-              v10 = [v8 countByEnumeratingWithState:&v20 objects:v32 count:16];
+              v10 = [v8 countByEnumeratingWithState:&v21 objects:v33 count:16];
             }
 
             while (v10);
           }
 
-          v14 = SBLogIconImageCache();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+          v15 = SBLogIconImageCache(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543618;
-            v29 = _variantDescription;
-            v30 = 2112;
-            v31 = v7;
-            _os_log_debug_impl(&dword_1BEB18000, v14, OS_LOG_TYPE_DEBUG, "Purging cached %{public}@ image for icon with key: %@", buf, 0x16u);
+            v30 = _variantDescription;
+            v31 = 2112;
+            v32 = v7;
+            _os_log_debug_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEBUG, "Purging cached %{public}@ image for icon with key: %@", buf, 0x16u);
           }
         }
 
-        v19 = [obj countByEnumeratingWithState:&v24 objects:v33 count:16];
+        v20 = [obj countByEnumeratingWithState:&v25 objects:v34 count:16];
       }
 
-      while (v19);
+      while (v20);
     }
 
     [*(icons + 24) removeObjectsInArray:v4];
     [OUTLINED_FUNCTION_9() removeStoredImageGenerationForIcons:?];
 
-    v3 = v15;
+    v3 = v16;
   }
 }
 
 - (void)purgeAllCachedImages
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
     BSDispatchQueueAssertMain();
     _variantDescription = [self _variantDescription];
-    v3 = SBLogIconImageCache();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = SBLogIconImageCache(_variantDescription);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v13 = 138543362;
-      v14 = _variantDescription;
-      OUTLINED_FUNCTION_12(&dword_1BEB18000, v3, v4, "Purging all cached icon %{public}@ images", &v13);
+      v14 = 138543362;
+      v15 = _variantDescription;
+      OUTLINED_FUNCTION_12(&dword_1BEB18000, v4, v5, "Purging all cached icon %{public}@ images", &v14);
     }
 
     os_unfair_lock_lock((self + 72));
@@ -1045,31 +1046,31 @@ LABEL_10:
     os_unfair_lock_unlock((self + 72));
     [*(self + 16) removeAllObjects];
     OUTLINED_FUNCTION_2_0();
-    v5 = *(self + 24);
-    v6 = [v5 countByEnumeratingWithState:v11 objects:v12 count:16];
-    if (v6)
+    v6 = *(self + 24);
+    v7 = [v6 countByEnumeratingWithState:v12 objects:v13 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v11[2];
+      v8 = v7;
+      v9 = *v12[2];
       do
       {
-        v9 = 0;
+        v10 = 0;
         do
         {
           OUTLINED_FUNCTION_15();
-          if (v10 != v8)
+          if (v11 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          [*(v11[1] + 8 * v9++) cancel];
+          [*(v12[1] + 8 * v10++) cancel];
         }
 
-        while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:v11 objects:v12 count:16];
+        while (v8 != v10);
+        v8 = [v6 countByEnumeratingWithState:v12 objects:v13 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
     [*(self + 24) removeAllObjects];
@@ -1086,7 +1087,7 @@ LABEL_10:
   {
     BSDispatchQueueAssertMain();
     _variantDescription = [appearances _variantDescription];
-    v5 = SBLogIconImageCache();
+    v5 = SBLogIconImageCache(_variantDescription);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = 138543618;
@@ -1103,51 +1104,51 @@ LABEL_10:
   }
 }
 
-- (uint64_t)cancelAllCachingRequests
+- (id)cancelAllCachingRequests
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    v1 = result;
-    BSDispatchQueueAssertMain();
-    v2 = SBLogIconImageCache();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v2 = result;
+    v3 = BSDispatchQueueAssertMain();
+    v4 = SBLogIconImageCache(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_debug_impl(&dword_1BEB18000, v2, OS_LOG_TYPE_DEBUG, "Canceling all caching requests", buf, 2u);
+      _os_log_debug_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_DEBUG, "Canceling all caching requests", buf, 2u);
     }
 
     OUTLINED_FUNCTION_2_0();
-    v3 = *(v1 + 24);
+    v5 = v2[3];
     OUTLINED_FUNCTION_7();
-    v5 = [v4 countByEnumeratingWithState:? objects:? count:?];
-    if (v5)
+    v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
+    if (v7)
     {
-      v6 = v5;
-      v7 = *v11;
+      v8 = v7;
+      v9 = *v13;
       do
       {
-        v8 = 0;
+        v10 = 0;
         do
         {
           OUTLINED_FUNCTION_15();
-          if (v9 != v7)
+          if (v11 != v9)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v5);
           }
 
-          [*(v10 + 8 * v8++) cancel];
+          [*(v12 + 8 * v10++) cancel];
         }
 
-        while (v6 != v8);
+        while (v8 != v10);
         OUTLINED_FUNCTION_7();
-        v6 = [v3 countByEnumeratingWithState:? objects:? count:?];
+        v8 = [v5 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v6);
+      while (v8);
     }
 
-    return [*(v1 + 24) removeAllObjects];
+    return [v2[3] removeAllObjects];
   }
 
   return result;
@@ -1179,7 +1180,7 @@ LABEL_10:
               objc_enumerationMutation(v5);
             }
 
-            if (([SBHIconImageCacheRequest matchesIcon:?]& 1) != 0)
+            if (([(SBHIconImageCacheRequest *)*(v12 + 8 * i) matchesIcon:v3]& 1) != 0)
             {
               v7 = 1;
               goto LABEL_14;
@@ -1397,7 +1398,7 @@ LABEL_14:
 
 - (void)performBackgroundCacheWorkForCachingRequest:(id)request
 {
-  v57[2] = *MEMORY[0x1E69E9840];
+  v59[2] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = +[SBHIconImageCache _workQueue];
   BSDispatchQueueAssert();
@@ -1414,124 +1415,125 @@ LABEL_14:
   }
 
   v7 = v6;
-  v57[0] = 0;
-  v57[1] = 0;
-  [v7 getUUIDBytes:v57];
+  v59[0] = 0;
+  v59[1] = 0;
+  [v7 getUUIDBytes:v59];
   _variantDescription = [(SBHIconImageVariantCache *)self _variantDescription];
-  v9 = SBLogIconImageCache();
+  v9 = SBLogIconImageCache(_variantDescription);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543874;
-    v50 = _variantDescription;
+    v52 = _variantDescription;
     OUTLINED_FUNCTION_1();
-    v54 = v57;
+    v56 = v59;
     _os_log_debug_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_DEBUG, "starting background work for %{public}@ request %{uuid_t}.16P", buf, 0x1Cu);
   }
 
   if (!requestCopy)
   {
     isCancelled = [(SBHIconImageCacheRequest *)0 isCancelled];
-    v12 = 0;
     v13 = 0;
+    v14 = 0;
     if (isCancelled)
     {
       goto LABEL_7;
     }
 
 LABEL_15:
-    v14 = v13;
-    v15 = [(SBHIconImageVariantCache *)self attemptToBecomeActiveRequest:requestCopy];
-    if (v15)
+    v15 = v14;
+    v16 = [(SBHIconImageVariantCache *)self attemptToBecomeActiveRequest:requestCopy];
+    v17 = v16;
+    if (v16)
     {
-      v27 = SBLogIconImageCache();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v30 = SBLogIconImageCache(v16);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = v15[4];
+        v31 = v17[4];
         *buf = 138544130;
-        v50 = _variantDescription;
-        v51 = 1040;
-        v52 = 16;
-        v53 = 2096;
-        v54 = v57;
-        v55 = 2114;
-        v56 = v28;
-        _os_log_impl(&dword_1BEB18000, v27, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@ caching request %{uuid_t}.16P because another request matching this one is already active (%{public}@)", buf, 0x26u);
+        v52 = _variantDescription;
+        v53 = 1040;
+        v54 = 16;
+        v55 = 2096;
+        v56 = v59;
+        v57 = 2114;
+        v58 = v31;
+        _os_log_impl(&dword_1BEB18000, v30, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@ caching request %{uuid_t}.16P because another request matching this one is already active (%{public}@)", buf, 0x26u);
       }
 
-      v29 = v15[5];
-      v16 = v29;
+      v32 = v17[5];
+      v18 = v32;
       if (requestCopy)
       {
-        if (v29 == v12)
+        if (v32 == v13)
         {
-          v30 = 1;
+          v33 = 1;
         }
 
         else
         {
-          v30 = 3;
+          v33 = 3;
         }
 
         *(requestCopy + 19) = 3;
-        *(requestCopy + 20) = v30;
-        [(SBHIconImageCacheRequest *)v15 addDependentRequest:requestCopy];
-        objc_storeWeak(requestCopy + 22, v15);
+        *(requestCopy + 20) = v33;
+        [(SBHIconImageCacheRequest *)v17 addDependentRequest:requestCopy];
+        objc_storeWeak(requestCopy + 22, v17);
       }
 
       else
       {
-        [(SBHIconImageCacheRequest *)v15 addDependentRequest:?];
+        [(SBHIconImageCacheRequest *)v17 addDependentRequest:?];
       }
 
       mach_continuous_time();
       BSTimeDifferenceFromMachTimeToMachTime();
       if (requestCopy)
       {
-        *(requestCopy + 21) = v31;
+        *(requestCopy + 21) = v34;
       }
 
-      v37 = MEMORY[0x1E69E9820];
-      v38 = 3221225472;
-      v39 = __72__SBHIconImageVariantCache_performBackgroundCacheWorkForCachingRequest___block_invoke_343;
-      v40 = &unk_1E8088F18;
+      v39 = MEMORY[0x1E69E9820];
+      v40 = 3221225472;
+      v41 = __72__SBHIconImageVariantCache_performBackgroundCacheWorkForCachingRequest___block_invoke_343;
+      v42 = &unk_1E8088F18;
       selfCopy = self;
-      v42 = requestCopy;
+      v44 = requestCopy;
       BSDispatchMain();
 
       goto LABEL_28;
     }
 
-    v34 = _variantDescription;
+    v36 = _variantDescription;
     if (requestCopy)
     {
-      v16 = *(requestCopy + 10);
-      v17 = *(requestCopy + 13);
+      v18 = *(requestCopy + 10);
+      v19 = *(requestCopy + 13);
     }
 
     else
     {
-      v16 = 0;
-      v17 = 0;
+      v18 = 0;
+      v19 = 0;
     }
 
-    v19 = [(SBHIconImageVariantCache *)self _variantImageForIcon:v12 imageAppearance:v14 context:v16 extraImageOptions:0 options:v17];
-    if (v19)
+    v21 = [(SBHIconImageVariantCache *)self _variantImageForIcon:v13 imageAppearance:v15 context:v18 extraImageOptions:0 options:v19];
+    if (v21)
     {
-      v33 = v16;
-      v20 = [(SBHIconImageVariantCache *)self pooledIconImageForMappedIconImage:v19 icon:v12];
-      v21 = v20;
-      if (v20)
+      v35 = v18;
+      v22 = [(SBHIconImageVariantCache *)self pooledIconImageForMappedIconImage:v21 icon:v13];
+      v23 = v22;
+      if (v22)
       {
-        v22 = v14;
-        v23 = v12;
-        v24 = v20;
+        v24 = v15;
+        v25 = v13;
+        v26 = v22;
 
-        v19 = v24;
-        v12 = v23;
-        v14 = v22;
+        v21 = v26;
+        v13 = v25;
+        v15 = v24;
       }
 
-      v16 = v33;
+      v18 = v35;
       if (!requestCopy)
       {
         goto LABEL_23;
@@ -1543,27 +1545,27 @@ LABEL_15:
       goto LABEL_23;
     }
 
-    objc_setProperty_atomic(requestCopy, v18, v19, 144);
+    objc_setProperty_atomic(requestCopy, v20, v21, 144);
     *(requestCopy + 19) = 2;
     *(requestCopy + 20) = 2;
 LABEL_23:
     mach_continuous_time();
-    BSTimeDifferenceFromMachTimeToMachTime();
+    v27 = BSTimeDifferenceFromMachTimeToMachTime();
     if (requestCopy)
     {
-      *(requestCopy + 21) = v25;
+      *(requestCopy + 21) = v28;
     }
 
-    v26 = SBLogIconImageCache();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v29 = SBLogIconImageCache(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138544130;
-      v50 = v34;
+      v52 = v36;
       OUTLINED_FUNCTION_1();
-      v54 = v57;
-      v55 = 2048;
-      v56 = v19;
-      _os_log_debug_impl(&dword_1BEB18000, v26, OS_LOG_TYPE_DEBUG, "finishing background work for %{public}@ request %{uuid_t}.16P with image %p, queueing for main thread processing", buf, 0x26u);
+      v56 = v59;
+      v57 = 2048;
+      v58 = v21;
+      _os_log_debug_impl(&dword_1BEB18000, v29, OS_LOG_TYPE_DEBUG, "finishing background work for %{public}@ request %{uuid_t}.16P with image %p, queueing for main thread processing", buf, 0x26u);
     }
 
     block[0] = MEMORY[0x1E69E9820];
@@ -1571,32 +1573,33 @@ LABEL_23:
     block[2] = __72__SBHIconImageVariantCache_performBackgroundCacheWorkForCachingRequest___block_invoke_344;
     block[3] = &unk_1E8088F18;
     block[4] = self;
-    v36 = requestCopy;
+    v38 = requestCopy;
     dispatch_async(MEMORY[0x1E69E96A0], block);
 
-    _variantDescription = v34;
+    _variantDescription = v36;
 LABEL_28:
 
     goto LABEL_29;
   }
 
   *(requestCopy + 19) = 1;
-  if (![(SBHIconImageCacheRequest *)requestCopy isCancelled])
+  isCancelled = [(SBHIconImageCacheRequest *)requestCopy isCancelled];
+  if (!isCancelled)
   {
-    v12 = *(requestCopy + 5);
-    v13 = *(requestCopy + 8);
+    v13 = *(requestCopy + 5);
+    v14 = *(requestCopy + 8);
     goto LABEL_15;
   }
 
 LABEL_7:
-  v10 = SBLogIconImageCache();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = SBLogIconImageCache(isCancelled);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v50 = _variantDescription;
+    v52 = _variantDescription;
     OUTLINED_FUNCTION_1();
-    v54 = v57;
-    _os_log_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@ caching request %{uuid_t}.16P because user cancelled", buf, 0x1Cu);
+    v56 = v59;
+    _os_log_impl(&dword_1BEB18000, v11, OS_LOG_TYPE_DEFAULT, "Stopping %{public}@ caching request %{uuid_t}.16P because user cancelled", buf, 0x1Cu);
   }
 
   if (requestCopy)
@@ -1609,15 +1612,15 @@ LABEL_7:
   BSTimeDifferenceFromMachTimeToMachTime();
   if (requestCopy)
   {
-    *(requestCopy + 21) = v11;
+    *(requestCopy + 21) = v12;
   }
 
-  v43 = MEMORY[0x1E69E9820];
-  v44 = 3221225472;
-  v45 = __72__SBHIconImageVariantCache_performBackgroundCacheWorkForCachingRequest___block_invoke;
-  v46 = &unk_1E8088F18;
+  v45 = MEMORY[0x1E69E9820];
+  v46 = 3221225472;
+  v47 = __72__SBHIconImageVariantCache_performBackgroundCacheWorkForCachingRequest___block_invoke;
+  v48 = &unk_1E8088F18;
   selfCopy2 = self;
-  v48 = requestCopy;
+  v50 = requestCopy;
   BSDispatchMain();
 
 LABEL_29:
@@ -1661,8 +1664,7 @@ LABEL_29:
   v12 = v11;
   v53[0] = 0;
   v53[1] = 0;
-  [v12 getUUIDBytes:v53];
-  v13 = SBLogIconImageCache();
+  v13 = SBLogIconImageCache([v12 getUUIDBytes:v53]);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_11();
@@ -1686,7 +1688,7 @@ LABEL_29:
   if ((v16 | v9))
   {
 LABEL_23:
-    v27 = SBLogIconImageCache();
+    v27 = SBLogIconImageCache(v14);
     v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG);
     v25 = v44;
     if (v44)
@@ -1746,7 +1748,7 @@ LABEL_28:
 
   v17 = v14;
   v18 = [(SBHIconImageVariantCache *)self cachedImageForIcon:v5 imageAppearance:v7 options:0];
-  v19 = SBLogIconImageCache();
+  v19 = SBLogIconImageCache(v18);
   v20 = v19;
   if (!v18)
   {
@@ -1758,7 +1760,7 @@ LABEL_28:
       _os_log_error_impl(v39, v40, OS_LOG_TYPE_ERROR, v41, v42, 0xCu);
     }
 
-    [OUTLINED_FUNCTION_6() removeStoredImageGenerationForIcon:? imageAppearance:?];
+    v14 = [OUTLINED_FUNCTION_6() removeStoredImageGenerationForIcon:? imageAppearance:?];
     goto LABEL_23;
   }
 
@@ -1804,7 +1806,7 @@ LABEL_29:
 
   v6 = info;
   v7 = [(SBHIconImageVariantCache *)self _cacheKeyForIcon:v6];
-  v8 = SBLogIconImageCache();
+  v8 = SBLogIconImageCache(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     variantDescription = [(SBHIconImageCacheRequest *)requestCopy variantDescription];
@@ -1864,7 +1866,7 @@ LABEL_29:
 
 - (id)attemptToBecomeActiveRequest:(id)request
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v5 = requestCopy;
   if (requestCopy)
@@ -1880,14 +1882,15 @@ LABEL_29:
   v7 = v6;
   os_unfair_lock_lock(&self->_lock);
   v8 = [(NSMutableDictionary *)self->_activeRequests objectForKey:v7];
+  v9 = v8;
   if (v8)
   {
-    v9 = SBLogIconImageCache();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = SBLogIconImageCache(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v15 = 138412290;
-      v16 = v7;
-      OUTLINED_FUNCTION_12(&dword_1BEB18000, v9, v10, "Pre-existing active request found when trying to service request for %@", &v15);
+      v16 = 138412290;
+      v17 = v7;
+      OUTLINED_FUNCTION_12(&dword_1BEB18000, v10, v11, "Pre-existing active request found when trying to service request for %@", &v16);
     }
   }
 
@@ -1896,9 +1899,9 @@ LABEL_29:
     activeRequests = self->_activeRequests;
     if (!activeRequests)
     {
-      v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v13 = self->_activeRequests;
-      self->_activeRequests = v12;
+      v13 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v14 = self->_activeRequests;
+      self->_activeRequests = v13;
 
       activeRequests = self->_activeRequests;
     }
@@ -1908,7 +1911,7 @@ LABEL_29:
 
   os_unfair_lock_unlock(&self->_lock);
 
-  return v8;
+  return v9;
 }
 
 - (void)clearActiveRequest:(id)request

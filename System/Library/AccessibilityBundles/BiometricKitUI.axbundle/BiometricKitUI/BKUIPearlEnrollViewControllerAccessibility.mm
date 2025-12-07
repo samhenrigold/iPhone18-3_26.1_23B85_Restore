@@ -5,6 +5,8 @@
 - (id)_accessibilityInstructionView;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axProvidePositioningInstruction;
+- (void)_setState:(int)state animated:(BOOL)animated completion:(id)completion;
+- (void)_setSubstate:(int)substate animated:(BOOL)animated;
 - (void)finalizeInstructionAnimation;
 - (void)viewDidLoad;
 @end
@@ -85,6 +87,31 @@
   UIAccessibilityPostNotification(v3, _accessibilityInstructionLabel);
 }
 
+- (void)_setState:(int)state animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v6 = *&state;
+  completionCopy = completion;
+  v9 = [(BKUIPearlEnrollViewControllerAccessibility *)self safeIntForKey:@"_state"];
+  v11.receiver = self;
+  v11.super_class = BKUIPearlEnrollViewControllerAccessibility;
+  [(BKUIPearlEnrollViewControllerAccessibility *)&v11 _setState:v6 animated:animatedCopy completion:completionCopy];
+
+  if (v9 != v6 && UIAccessibilityIsVoiceOverRunning())
+  {
+    if (v6 == 5)
+    {
+      v10 = accessibilityLocalizedString(@"pearl.positioning.correct");
+      UIAccessibilitySpeakAndDoNotBeInterrupted();
+    }
+
+    else if (v6 == 3)
+    {
+      AXPerformBlockOnMainThreadAfterDelay();
+    }
+  }
+}
+
 void __76__BKUIPearlEnrollViewControllerAccessibility__setState_animated_completion___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) safeIntForKey:@"_substate"];
@@ -102,6 +129,35 @@ void __76__BKUIPearlEnrollViewControllerAccessibility__setState_animated_complet
   {
     v3 = accessibilityLocalizedString(off_29F2A82E8[v2]);
     UIAccessibilitySpeak();
+  }
+}
+
+- (void)_setSubstate:(int)substate animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v5 = *&substate;
+  v7 = [(BKUIPearlEnrollViewControllerAccessibility *)self safeIntForKey:@"_substate"];
+  v10.receiver = self;
+  v10.super_class = BKUIPearlEnrollViewControllerAccessibility;
+  [(BKUIPearlEnrollViewControllerAccessibility *)&v10 _setSubstate:v5 animated:animatedCopy];
+  v8 = [(BKUIPearlEnrollViewControllerAccessibility *)self safeIntForKey:@"_state"];
+  if ((v8 & 0xFFFFFFFD) == 5)
+  {
+    if (v7 == v5 || !(v5 | v7))
+    {
+      return;
+    }
+  }
+
+  else if (v5 < 0xA || v8 != 4 || v7 == v5)
+  {
+    return;
+  }
+
+  AXPerformBlockOnMainThreadAfterDelay();
+  if ((v5 - 11) < 5 || (v5 & 0xFFFFFFF7) - 1 <= 1)
+  {
+    v9 = [MEMORY[0x29EDB8E68] scheduledTimerWithTimeInterval:self target:sel__axProvidePositioningInstruction selector:0 userInfo:0 repeats:5.0];
   }
 }
 

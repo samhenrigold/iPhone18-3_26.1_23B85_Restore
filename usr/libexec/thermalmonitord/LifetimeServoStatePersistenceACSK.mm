@@ -340,7 +340,7 @@ LABEL_46:
 LABEL_41:
   if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
   {
-    sub_100058B00(v4);
+    sub_100058B00();
   }
 
   [(LifetimeServoStatePersistenceBase *)self safeFreeUpdatedLTSState:v4];

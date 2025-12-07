@@ -6,63 +6,63 @@
 
 - (BOOL)isFindMyEnabled
 {
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v2 = dispatch_semaphore_create(0);
-  v3 = _BYLoggingFacility();
+  v3 = _BYLoggingFacility(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Will fetch Find My state.", buf, 2u);
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2050000000;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x2050000000;
   v4 = getFMDFMIPManagerClass_softClass;
-  v26 = getFMDFMIPManagerClass_softClass;
+  v27 = getFMDFMIPManagerClass_softClass;
   if (!getFMDFMIPManagerClass_softClass)
   {
     *buf = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = __getFMDFMIPManagerClass_block_invoke;
-    v21 = &unk_1E7D02730;
-    v22 = &v23;
+    v20 = 3221225472;
+    v21 = __getFMDFMIPManagerClass_block_invoke;
+    v22 = &unk_1E7D02730;
+    v23 = &v24;
     __getFMDFMIPManagerClass_block_invoke(buf);
-    v4 = v24[3];
+    v4 = v25[3];
   }
 
   v5 = v4;
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v24, 8);
   sharedInstance = [v4 sharedInstance];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __34__BYFindMyManager_isFindMyEnabled__block_invoke;
-  v11[3] = &unk_1E7D028F0;
-  v13 = &v14;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __34__BYFindMyManager_isFindMyEnabled__block_invoke;
+  v12[3] = &unk_1E7D028F0;
+  v14 = &v15;
   v7 = v2;
-  v12 = v7;
-  [sharedInstance fmipStateWithCompletion:v11];
+  v13 = v7;
+  [sharedInstance fmipStateWithCompletion:v12];
 
-  dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
-  v8 = _BYLoggingFacility();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v8 = dispatch_semaphore_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
+  v9 = _BYLoggingFacility(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B862F000, v8, OS_LOG_TYPE_DEFAULT, "Did finish waiting for Find My state.", buf, 2u);
+    _os_log_impl(&dword_1B862F000, v9, OS_LOG_TYPE_DEFAULT, "Did finish waiting for Find My state.", buf, 2u);
   }
 
-  v9 = *(v15 + 24);
-  _Block_object_dispose(&v14, 8);
-  return v9;
+  v10 = *(v16 + 24);
+  _Block_object_dispose(&v15, 8);
+  return v10;
 }
 
 void __34__BYFindMyManager_isFindMyEnabled__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v5 = a3;
-  v6 = _BYLoggingFacility();
+  v6 = _BYLoggingFacility(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
   if (v5)
   {
@@ -87,32 +87,30 @@ void __34__BYFindMyManager_isFindMyEnabled__block_invoke(uint64_t a1, uint64_t a
 
 void __34__BYFindMyManager_isFindMyEnabled__block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v5 = _BYIsInternalInstall();
+  v4 = a1;
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = _BYIsInternalInstall(a1, a2);
   if ((v5 & 1) == 0)
   {
     v6 = MEMORY[0x1E696AEC0];
-    v2 = [a1 domain];
-    a1 = [v6 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(a1, "code")];
+    v2 = [v4 domain];
+    v4 = [v6 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v4, "code")];
   }
 
   *buf = 138543362;
-  v9 = a1;
+  v8 = v4;
   _os_log_error_impl(&dword_1B862F000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch Find My state: %{public}@", buf, 0xCu);
   if (!v5)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __34__BYFindMyManager_isFindMyEnabled__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B862F000, a2, OS_LOG_TYPE_ERROR, "Did fetch Find My state %lu", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B862F000, a2, OS_LOG_TYPE_ERROR, "Did fetch Find My state %lu", &v2, 0xCu);
 }
 
 @end

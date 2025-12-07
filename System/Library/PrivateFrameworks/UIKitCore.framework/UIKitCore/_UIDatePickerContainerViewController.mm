@@ -28,9 +28,9 @@
 - (_UIDatePickerOverlayPresentation)presentation
 {
   view = [(UIViewController *)self view];
-  presentation = [view presentation];
+  v3 = objc_msgSend_presentation(view);
 
-  return presentation;
+  return v3;
 }
 
 - (_UIDatePickerContainerViewController)initWithPresentation:(id)presentation
@@ -67,8 +67,8 @@
 
 - (void)_didReceiveEscapeKey:(id)key
 {
-  presentation = [(_UIDatePickerContainerViewController *)self presentation];
-  [presentation dismissPresentationAnimated:1];
+  v3 = objc_msgSend_presentation(self, a2, key);
+  [v3 dismissPresentationAnimated:1];
 }
 
 - (void)keyboardFrameWillChange:(id)change
@@ -114,8 +114,8 @@
   v20[6] = v21;
   v20[7] = v22;
   v18 = _Block_copy(v20);
-  presentation = [(_UIDatePickerContainerViewController *)self presentation];
-  LODWORD(v16) = [presentation defersAutomaticKeyboardAvoidanceAdjustments];
+  v19 = objc_msgSend_presentation(self);
+  LODWORD(v16) = [v19 defersAutomaticKeyboardAvoidanceAdjustments];
 
   if (v16)
   {
@@ -150,8 +150,8 @@
   v6.receiver = self;
   v6.super_class = _UIDatePickerContainerViewController;
   [(UIViewController *)&v6 viewWillTransitionToSize:coordinator withTransitionCoordinator:size.width, size.height];
-  presentation = [(_UIDatePickerContainerViewController *)self presentation];
-  [presentation dismissPresentationAnimated:0];
+  v5 = objc_msgSend_presentation(self);
+  [v5 dismissPresentationAnimated:0];
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
@@ -162,13 +162,13 @@
   [(UIViewController *)&v8 viewDidDisappear:?];
   if ([(UIViewController *)self isBeingDismissed])
   {
-    presentation = [(_UIDatePickerContainerViewController *)self presentation];
-    containerViewController = [presentation containerViewController];
+    v5 = objc_msgSend_presentation(self);
+    containerViewController = [v5 containerViewController];
 
     if (containerViewController == self)
     {
-      presentation2 = [(_UIDatePickerContainerViewController *)self presentation];
-      [presentation2 dismissPresentationAnimated:disappearCopy];
+      v7 = objc_msgSend_presentation(self);
+      [v7 dismissPresentationAnimated:disappearCopy];
     }
   }
 }
@@ -189,15 +189,15 @@
 
   if (![(UIViewController *)self isBeingPresented]&& (horizontalSizeClass != horizontalSizeClass2 || verticalSizeClass != verticalSizeClass2))
   {
-    presentation = [(_UIDatePickerContainerViewController *)self presentation];
-    [presentation dismissPresentationAnimated:0];
+    v13 = objc_msgSend_presentation(self);
+    [v13 dismissPresentationAnimated:0];
   }
 }
 
 - (BOOL)passthroughScrollInteractionDidRecognize:(id)recognize
 {
-  presentation = [(_UIDatePickerContainerViewController *)self presentation];
-  [presentation dismissPresentationAnimated:1];
+  v3 = objc_msgSend_presentation(self, a2, recognize);
+  [v3 dismissPresentationAnimated:1];
 
   return 1;
 }

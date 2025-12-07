@@ -6,17 +6,18 @@
 - (void)setAction:(unint64_t)action forDetailController:(id)controller;
 - (void)setActionMenuLargerSize:(id)size;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation WatchControlCustomizeActionMenuController
 
 - (id)specifiers
 {
-  v57[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
   v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
   if (!v3)
   {
-    v51 = *MEMORY[0x277D3FC48];
+    v50 = *MEMORY[0x277D3FC48];
     array = [MEMORY[0x277CBEB18] array];
     v5 = MEMORY[0x277D3FAD8];
     v6 = settingsLocString(@"WATCH_CONTROL_ACTION_MENU_FAVORITES", @"AccessibilitySettings-watchcontrol");
@@ -28,16 +29,16 @@
 
     if ([actionMenuFavorites count])
     {
-      v54[0] = MEMORY[0x277D85DD0];
-      v54[1] = 3221225472;
-      v54[2] = __55__WatchControlCustomizeActionMenuController_specifiers__block_invoke;
-      v54[3] = &unk_278B90A78;
-      v54[4] = self;
-      v55 = array;
-      [actionMenuFavorites enumerateObjectsUsingBlock:v54];
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __55__WatchControlCustomizeActionMenuController_specifiers__block_invoke;
+      v53[3] = &unk_278B90A78;
+      v53[4] = self;
+      v54 = array;
+      [actionMenuFavorites enumerateObjectsUsingBlock:v53];
     }
 
-    v50 = actionMenuFavorites;
+    v49 = actionMenuFavorites;
     v10 = [actionMenuFavorites count];
     if (v10 < *MEMORY[0x277D7A918])
     {
@@ -45,9 +46,9 @@
       v12 = settingsLocString(@"WATCH_CONTROL_ACTION_MENU_ADD_NEW_FAVORITE", @"AccessibilitySettings-watchcontrol");
       v13 = [v11 preferenceSpecifierNamed:v12 target:self set:0 get:0 detail:objc_opt_class() cell:2 edit:0];
 
-      v56 = @"ActionDetailDelegate";
-      v57[0] = self;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
+      v55 = @"ActionDetailDelegate";
+      v56[0] = self;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v55 count:1];
       [v13 setUserInfo:v14];
 
       [array addObject:v13];
@@ -60,7 +61,7 @@
 
     v18 = *MEMORY[0x277D3FFE8];
     [v17 setProperty:MEMORY[0x277CBEC38] forKey:*MEMORY[0x277D3FFE8]];
-    v52 = v17;
+    v51 = v17;
     [array addObject:v17];
     mEMORY[0x277D7A910]2 = [MEMORY[0x277D7A910] sharedInstance];
     actionMenuPosition = [mEMORY[0x277D7A910]2 actionMenuPosition];
@@ -89,7 +90,7 @@
     }
 
     while (v22 != 3);
-    v49 = *MEMORY[0x277D40090];
+    v48 = *MEMORY[0x277D40090];
     [v17 setProperty:v21 forKey:?];
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     [array addObject:emptyGroupSpecifier];
@@ -131,15 +132,13 @@
     }
 
     while (v38 != 3);
-    [v35 setProperty:v39 forKey:v49];
-    v45 = *(&selfCopy->super.super.super.super.super.super.isa + v51);
-    *(&selfCopy->super.super.super.super.super.super.isa + v51) = array;
+    [v35 setProperty:v39 forKey:v48];
+    v45 = *(&selfCopy->super.super.super.super.super.super.isa + v50);
+    *(&selfCopy->super.super.super.super.super.super.isa + v50) = array;
     v46 = array;
 
-    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v51);
+    v3 = *(&selfCopy->super.super.super.super.super.super.isa + v50);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -175,6 +174,36 @@ void __55__WatchControlCustomizeActionMenuController_specifiers__block_invoke(ui
   [v17 setProperty:v16 forKey:*MEMORY[0x277D401A8]];
 
   [*(a1 + 40) addObject:v17];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = WatchControlCustomizeActionMenuController;
+  [(AccessibilityBridgeBaseController *)&v19 viewWillAppear:appear];
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"WATCH_CONTROL_CUSTOMIZE_ACTION_MENU" table:@"AccessibilitySettings-watchcontrol" locale:currentLocale bundleURL:bundleURL];
+
+  v8 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL2 = [v3 bundleURL];
+  v11 = [v8 initWithKey:@"WATCH_CONTROL_ROW_TITLE" table:@"AccessibilitySettings-watchcontrol" locale:currentLocale2 bundleURL:bundleURL2];
+
+  v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  bundleURL3 = [v3 bundleURL];
+  v15 = [v12 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+  v16 = MEMORY[0x277CF3470];
+  v20[0] = v15;
+  v20[1] = v11;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v18 = [MEMORY[0x277CBEBC0] URLWithString:@"bridge:root=ACCESSIBILITY_ID&path=WATCH_CONTROL_ROW_ID/CUSTOMIZE_ACTION_ID"];
+  [v16 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v7 localizedNavigationComponents:v17 deepLink:v18];
 }
 
 - (void)_removeActionSpecifier:(id)specifier

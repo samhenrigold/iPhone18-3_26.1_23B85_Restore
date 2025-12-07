@@ -24,28 +24,28 @@ void __fbf_TryReconnect_block_invoke(uint64_t a1, int a2, NSObject *a3)
       DerivedStorage = CMBaseObjectGetDerivedStorage();
       if (*(DerivedStorage + 488))
       {
-        v7 = DerivedStorage;
+        v14 = DerivedStorage;
         if (a2 == 4)
         {
           if (a3)
           {
-            v8 = nw_error_copy_cf_error(a3);
+            v15 = nw_error_copy_cf_error(a3);
             error_domain = nw_error_get_error_domain(a3);
             error_code = nw_error_get_error_code(a3);
             if (error_domain - 1 > 2)
             {
-              v11 = kCoreMediaErrorDomain;
+              v18 = kCoreMediaErrorDomain;
             }
 
             else
             {
-              v11 = qword_1E74833D8[error_domain - 1];
+              v18 = qword_1E74833D8[error_domain - 1];
             }
 
-            CFError = FigCreateCFError(*v11, error_code, @"Reconnect failure", 0, 0, *(v7 + 168), v8);
-            if (v8)
+            CFError = FigCreateCFError(*v18, error_code, @"Reconnect failure", 0, 0, *(v14 + 168), v15);
+            if (v15)
             {
-              CFRelease(v8);
+              CFRelease(v15);
             }
           }
 
@@ -54,23 +54,23 @@ void __fbf_TryReconnect_block_invoke(uint64_t a1, int a2, NSObject *a3)
             CFError = FigCreateCFError(@"CoreMediaErrorDomain", -12935, @"Reconnect failure", 0, 0, *(DerivedStorage + 168), 0);
           }
 
-          fbf_CancelReconnect(v7);
-          ++*(v7 + 496);
+          fbf_CancelReconnect(v14);
+          ++*(v14 + 496);
           if (CFError)
           {
-            fbf_ReleaseAndRetainLastErrorFromCFError(v7, CFError);
+            fbf_ReleaseAndRetainLastErrorFromCFError(v14, CFError);
           }
 
-          if (*(v7 + 520) <= FigGetUpTimeNanoseconds())
+          if (*(v14 + 520) <= FigGetUpTimeNanoseconds())
           {
-            *(v7 + 512) = 0;
-            fbf_postConnectionToHostLostNotification(v7);
+            *(v14 + 512) = 0;
+            fbf_postConnectionToHostLostNotification(v14);
           }
 
           else
           {
-            *(v7 + 512) = FigGetUpTimeNanoseconds() + 30000000000;
-            FigHTTPRescheduleTimer(30.0, *(v7 + 48), *(v7 + 456));
+            *(v14 + 512) = FigGetUpTimeNanoseconds() + 30000000000;
+            FigHTTPRescheduleTimer(30.0, *(v14 + 48), *(v14 + 456));
           }
         }
 
@@ -78,16 +78,16 @@ void __fbf_TryReconnect_block_invoke(uint64_t a1, int a2, NSObject *a3)
         {
           *(DerivedStorage + 17) = 0;
           fbf_CancelReconnect(DerivedStorage);
-          if (FigByteFlumePostHostAvailableNotification(v7))
+          if (FigByteFlumePostHostAvailableNotification(v14))
           {
-            fbf_ReportingAgentResetErrorStats(v7);
+            fbf_ReportingAgentResetErrorStats(v14);
           }
         }
       }
 
       else
       {
-        __fbf_TryReconnect_block_invoke_cold_1();
+        __fbf_TryReconnect_block_invoke_cold_1(DerivedStorage, v7, v8, v9, v10, v11, v12, v13, v20, v21, SHIDWORD(v21), v22);
       }
     }
 

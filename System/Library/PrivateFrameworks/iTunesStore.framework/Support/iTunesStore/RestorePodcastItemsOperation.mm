@@ -46,16 +46,21 @@
   shouldLog = [v3 shouldLog];
   if ([v3 shouldLogToDisk])
   {
-    v5 = shouldLog | 2;
+    LODWORD(v5) = shouldLog | 2;
   }
 
   else
   {
-    v5 = shouldLog;
+    LODWORD(v5) = shouldLog;
   }
 
   oSLogObject = [v3 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v5 = v5;
+  }
+
+  else
   {
     v5 &= 2u;
   }
@@ -69,22 +74,20 @@
     v60 = v7;
     v61 = 2048;
     v62 = [(NSArray *)downloadItems count];
-    LODWORD(v45) = 22;
-    v44 = &v59;
-    v10 = _os_log_send_and_compose_impl();
+    v10 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Restoring %lu podcasts", &v59, 22);
 
     if (!v10)
     {
-      goto LABEL_12;
+      goto LABEL_13;
     }
 
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v59, v45];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     v44 = oSLogObject;
     SSFileLog();
   }
 
-LABEL_12:
+LABEL_13:
   v11 = [SSURLBagContext contextWithBagType:0];
   v57 = 0;
   v12 = [(RestorePodcastItemsOperation *)self loadURLBagWithContext:v11 returningError:&v57];
@@ -146,7 +149,7 @@ LABEL_12:
                 v21 = v29;
                 v19 = v28;
                 v24 = v50;
-                goto LABEL_24;
+                goto LABEL_25;
               }
 
               responseError = v31;
@@ -160,7 +163,7 @@ LABEL_12:
 
             [(RestorePodcastItemsOperation *)self _addResponse:v32];
             v33 = 0;
-LABEL_24:
+LABEL_25:
 
             if (!v21)
             {
@@ -176,16 +179,16 @@ LABEL_24:
           if (!v49)
           {
             v11 = v46;
-            goto LABEL_42;
+            goto LABEL_43;
           }
         }
       }
 
       v20 = 1;
       v21 = v15;
-LABEL_42:
+LABEL_43:
       v35 = v47;
-      goto LABEL_46;
+      goto LABEL_47;
     }
 
     v36 = +[SSLogConfig sharedDaemonConfig];
@@ -225,24 +228,24 @@ LABEL_42:
       v62 = @"p2-podcast-restore";
       v42 = v41;
       LODWORD(v45) = 22;
-      v43 = _os_log_send_and_compose_impl();
+      v43 = _os_log_send_and_compose_impl(v40, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Failing podcast restore, no bag key: %@", &v59, v45);
 
       v35 = v47;
       if (!v43)
       {
-LABEL_45:
+LABEL_46:
 
         v21 = SSError();
 
         v19 = [(RestorePodcastItemsOperation *)self _newResponseWithItems:self->_downloadItems error:v21];
         [(RestorePodcastItemsOperation *)self _addResponse:v19];
         v20 = 1;
-LABEL_46:
+LABEL_47:
 
-        goto LABEL_47;
+        goto LABEL_48;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v43 encoding:4, &v59, v45];
+      oSLogObject2 = [NSString stringWithCString:v43 encoding:4];
       free(v43);
       SSFileLog();
     }
@@ -252,14 +255,14 @@ LABEL_46:
       v35 = v47;
     }
 
-    goto LABEL_45;
+    goto LABEL_46;
   }
 
   v35 = [(RestorePodcastItemsOperation *)self _newResponseWithItems:self->_downloadItems error:v13];
   [(RestorePodcastItemsOperation *)self _addResponse:v35];
   v20 = 0;
   v21 = v14;
-LABEL_47:
+LABEL_48:
 
   [(RestorePodcastItemsOperation *)self setError:v21];
   [(RestorePodcastItemsOperation *)self setSuccess:v20 & 1];

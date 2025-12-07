@@ -16,7 +16,7 @@
   if (v4)
   {
 
-    v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     MEMORY[0x24C1FB330](v4, MEMORY[0x277D84F78] + 8, v5, MEMORY[0x277D84950]);
   }
 

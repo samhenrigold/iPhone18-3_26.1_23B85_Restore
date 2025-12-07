@@ -1,7 +1,7 @@
 @interface _PASProxyConcatenatedString
-- (__CFString)_substringWithRange:(unint64_t)range;
+- (__CFString)_substringWithRange:(size_t)range;
+- (char)_locationOfStringIndex:(uint64_t)index;
 - (id)_createSubstringWithRange:(_NSRange)range;
-- (uint64_t)_locationOfStringIndex:(uint64_t)index;
 - (uint64_t)_validateRange:(uint64_t)range;
 - (unsigned)characterAtIndex:(unint64_t)index;
 - (void)_initWithComponents:(void *)components;
@@ -11,9 +11,9 @@
 
 @implementation _PASProxyConcatenatedString
 
-- (__CFString)_substringWithRange:(unint64_t)range
+- (__CFString)_substringWithRange:(size_t)range
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   if (self)
   {
     rangeCopy = range;
@@ -53,7 +53,7 @@
 
     else
     {
-      v45 = v11;
+      v44 = v11;
       v15 = [*(self + 8) count];
       v16 = v15;
       if (v10 && v8 < v15 - 1)
@@ -68,58 +68,58 @@
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v11 = v45;
-              v30 = [v45 _fastCStringContents:0];
-              v31 = v17;
-              if (v30 && (v32 = v30, (v33 = [v17 _fastCStringContents:0]) != 0))
+              v11 = v44;
+              v29 = [v44 _fastCStringContents:0];
+              v30 = v17;
+              if (v29 && (v31 = v29, (v32 = [v17 _fastCStringContents:0]) != 0))
               {
-                v34 = v33;
-                v35 = objc_autoreleasePoolPush();
-                v43 = v35;
-                v36 = range + 1;
+                v33 = v32;
+                v34 = objc_autoreleasePoolPush();
+                v42 = v34;
+                v35 = range + 1;
                 memptr = 0;
-                v48 = 0;
+                v47 = 0;
                 if (range > 0x7F)
                 {
-                  v41 = malloc_type_posix_memalign(&memptr, 8uLL, range + 1, 0x7FA429uLL);
-                  LOBYTE(v48) = 0;
-                  if (v41)
+                  v40 = malloc_type_posix_memalign(&memptr, 8uLL, range + 1, 0x7FA429uLL);
+                  LOBYTE(v47) = 0;
+                  if (v40)
                   {
-                    v42 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
-                    objc_exception_throw(v42);
+                    v41 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA18] reason:@"malloc failed" userInfo:0];
+                    objc_exception_throw(v41);
                   }
 
-                  v37 = memptr;
+                  v36 = memptr;
                 }
 
                 else
                 {
-                  MEMORY[0x1EEE9AC00](v35);
-                  v37 = &v43 - ((range + 16) & 0xFFFFFFFFFFFFFFF0);
-                  bzero(&v43 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0), v36);
-                  memptr = v37;
-                  LOBYTE(v48) = 1;
+                  MEMORY[0x1EEE9AC00](v34);
+                  v36 = &v42 - ((range + 16) & 0xFFFFFFFFFFFFFFF0);
+                  bzero(&v42 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0), v35);
+                  memptr = v36;
+                  LOBYTE(v47) = 1;
                 }
 
-                v38 = rangeCopy2;
-                v39 = v48;
-                memcpy(v37, (v32 + v10), v13);
-                memcpy(&v37[v13], v34, v38);
-                v37[rangeCopy] = 0;
-                selfCopy = [MEMORY[0x1E696AEC0] _pas_stringWithConsumedAllocaDescrNoCopy:v37 bufferSize:v39 encoding:v36 nullTerminated:1 isExternalRepresentation:{1, 0}];
-                v11 = v45;
-                v40 = v43;
+                v37 = rangeCopy2;
+                v38 = v47;
+                memcpy(v36, (v31 + v10), v13);
+                memcpy(&v36[v13], v33, v37);
+                v36[rangeCopy] = 0;
+                selfCopy = [MEMORY[0x1E696AEC0] _pas_stringWithConsumedAllocaDescrNoCopy:v36 bufferSize:v38 encoding:v35 nullTerminated:1 isExternalRepresentation:{1, 0}];
+                v11 = v44;
+                v39 = v42;
               }
 
               else
               {
-                v40 = objc_autoreleasePoolPush();
-                v46.receiver = self;
-                v46.super_class = _PASProxyConcatenatedString;
-                selfCopy = objc_msgSendSuper2(&v46, sel_substringWithRange_, a2, range);
+                v39 = objc_autoreleasePoolPush();
+                v45.receiver = self;
+                v45.super_class = _PASProxyConcatenatedString;
+                selfCopy = objc_msgSendSuper2(&v45, sel_substringWithRange_, a2, range);
               }
 
-              objc_autoreleasePoolPop(v40);
+              objc_autoreleasePoolPop(v39);
 
               goto LABEL_32;
             }
@@ -179,7 +179,7 @@
       }
 
       while (rangeCopy);
-      v11 = v45;
+      v11 = v44;
       if ([v18 count] < 2)
       {
         __assert_rtn("[_PASProxyConcatenatedString _substringWithRange:]", "NSString+_PASAdditions.m", 774, "substringComponents.count >= 2");
@@ -202,7 +202,6 @@ LABEL_32:
 
   selfCopy = 0;
 LABEL_33:
-  v28 = *MEMORY[0x1E69E9840];
 
   return selfCopy;
 }
@@ -226,7 +225,7 @@ LABEL_33:
   return result;
 }
 
-- (uint64_t)_locationOfStringIndex:(uint64_t)index
+- (char)_locationOfStringIndex:(uint64_t)index
 {
   __key = a2;
   if (!index)
@@ -272,12 +271,12 @@ LABEL_33:
     v16 = *(index + 16);
     if (a2 < *(v16 + v15 - 2))
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __54___PASProxyConcatenatedString__locationOfStringIndex___block_invoke;
-      v21[3] = &__block_descriptor_40_e15_i24__0r_v8r_v16l;
-      v21[4] = a2;
-      v17 = bsearch_b(&__key, v16, v15 - 2, 8uLL, v21);
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __54___PASProxyConcatenatedString__locationOfStringIndex___block_invoke;
+      v20[3] = &__block_descriptor_40_e15_i24__0r_v8r_v16l;
+      v20[4] = a2;
+      v17 = bsearch_b(&__key, v16, v15 - 2, 8uLL, v20);
       v18 = *(index + 16);
       v19 = (v17 - v18) >> 3;
       if ((v18 + 8 * v19) != v17)
@@ -285,8 +284,7 @@ LABEL_33:
         __assert_rtn("[_PASProxyConcatenatedString _locationOfStringIndex:]", "NSString+_PASAdditions.m", 851, "&(_startIndices[startIndicesIndex]) == matchingCandidate");
       }
 
-      v5 = v19 + 1;
-      v20 = __key - *v17;
+      return (v19 + 1);
     }
   }
 

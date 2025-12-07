@@ -10,20 +10,20 @@
 
 + (id)sharedInstance
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __38__PPKPayloadEncryption_sharedInstance__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (sharedInstance_onceToken != -1)
   {
     dispatch_once(&sharedInstance_onceToken, block);
   }
 
-  v1 = _sharedInstance;
+  v2 = _sharedInstance;
 
-  return v1;
+  return v2;
 }
 
 void __38__PPKPayloadEncryption_sharedInstance__block_invoke(uint64_t a1)
@@ -186,7 +186,7 @@ void __38__PPKPayloadEncryption_sharedInstance__block_invoke(uint64_t a1)
 
 - (_BYTE)encryptData:(_BYTE *)data
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = v4;
   if (!data)
@@ -233,7 +233,7 @@ LABEL_17:
   if (v8)
   {
     __buf = 134217984;
-    v55 = [v5 length];
+    v57 = [v5 length];
     OUTLINED_FUNCTION_1();
     _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
   }
@@ -247,19 +247,20 @@ LABEL_17:
   [v18 appendData:v14];
   [v18 appendData:v5];
   [v18 setLength:v17];
-  v52 = 0;
+  v53 = 0;
   mutableBytes = [v18 mutableBytes];
   dataOuta = [v18 mutableBytes];
   OUTLINED_FUNCTION_2();
-  v26 = CCCrypt(v20, v21, v22, v23, v24, v25, mutableBytes, v16, dataOuta, v17, &v52);
+  v26 = CCCrypt(v20, v21, v22, v23, v24, v25, mutableBytes, v16, dataOuta, v17, &v53);
   v27 = +[PPKImageWriter log];
   v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
   if (v26)
   {
     if (v28)
     {
-      v53 = v26;
-      OUTLINED_FUNCTION_0(&dword_1D38C4000, v29, v30, "PPKPayloadEncryption: Failed to encrypt with error code: %ld", v31, v32, v33, v34, dataOut, dataOutAvailable, v51, v52, 0);
+      *buf = 134217984;
+      v55 = v26;
+      OUTLINED_FUNCTION_0(&dword_1D38C4000, v29, v30, "PPKPayloadEncryption: Failed to encrypt with error code: %ld", v31, v32, v33, v34, dataOut, dataOutAvailable, v52, v53);
     }
 
     data = 0;
@@ -269,8 +270,10 @@ LABEL_17:
   {
     if (v28)
     {
-      HIDWORD(v53) = [v18 length] >> 32;
-      OUTLINED_FUNCTION_0(&dword_1D38C4000, v41, v42, "PPKPayloadEncryption: %lu bytes encrypted", v43, v44, v45, v46, dataOut, dataOutAvailable, v51, v52, 0);
+      v41 = [v18 length];
+      *buf = 134217984;
+      v55 = v41;
+      OUTLINED_FUNCTION_0(&dword_1D38C4000, v42, v43, "PPKPayloadEncryption: %lu bytes encrypted", v44, v45, v46, v47, dataOut, dataOutAvailable, v52, v53);
     }
 
     data = v18;
@@ -283,7 +286,7 @@ LABEL_22:
 
 - (id)decryptData:(_BYTE *)data
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = v4;
   if (!data)
@@ -331,26 +334,27 @@ LABEL_19:
   if (v8)
   {
     *buf = 134217984;
-    v52 = [v5 length];
+    v53 = [v5 length];
     OUTLINED_FUNCTION_1();
     _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
   }
 
-  v50 = 0;
+  v51 = 0;
   v14 = malloc_type_malloc([v5 length], 0x5086D5AuLL);
   bytes = [v5 bytes];
   v16 = [v5 length] - 16;
   dataOutAvailablea = [v5 length] - 16;
   OUTLINED_FUNCTION_2();
-  v23 = CCCrypt(v17, v18, v19, v20, v21, v22, bytes, v16, v14, dataOutAvailablea, &v50);
+  v23 = CCCrypt(v17, v18, v19, v20, v21, v22, bytes, v16, v14, dataOutAvailablea, &v51);
   if (v23)
   {
     v24 = v23;
     v25 = +[PPKImageWriter log];
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v52 = v24;
-      OUTLINED_FUNCTION_0(&dword_1D38C4000, v26, v27, "PPKPayloadEncryption: Failed to decrypt with error code: %ld", v28, v29, v30, v31, dataOut, dataOutAvailable, v49, v50, 0);
+      *buf = 134217984;
+      v53 = v24;
+      OUTLINED_FUNCTION_0(&dword_1D38C4000, v26, v27, "PPKPayloadEncryption: Failed to decrypt with error code: %ld", v28, v29, v30, v31, dataOut, dataOutAvailable, v50, v51);
     }
 
     v32 = 0;
@@ -358,12 +362,14 @@ LABEL_19:
 
   else
   {
-    v32 = [MEMORY[0x1E695DEF0] dataWithBytes:v14 + 16 length:v50 - 16];
+    v32 = [MEMORY[0x1E695DEF0] dataWithBytes:v14 + 16 length:v51 - 16];
     v25 = +[PPKImageWriter log];
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      HIDWORD(v52) = [v32 length] >> 32;
-      OUTLINED_FUNCTION_0(&dword_1D38C4000, v40, v41, "PPKPayloadEncryption: %lu bytes decrypted", v42, v43, v44, v45, dataOut, dataOutAvailable, v49, v50, 0);
+      v40 = [v32 length];
+      *buf = 134217984;
+      v53 = v40;
+      OUTLINED_FUNCTION_0(&dword_1D38C4000, v41, v42, "PPKPayloadEncryption: %lu bytes decrypted", v43, v44, v45, v46, dataOut, dataOutAvailable, v50, v51);
     }
   }
 

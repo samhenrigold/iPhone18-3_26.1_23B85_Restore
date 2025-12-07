@@ -167,7 +167,7 @@
   v8 = 0u;
   if (copy)
   {
-    [copy imageInfo];
+    objc_msgSend_imageInfo(copy, a2);
   }
 
   v5[2] = v9;

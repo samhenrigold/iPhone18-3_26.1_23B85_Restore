@@ -1,8 +1,26 @@
 @interface FBALoginFlowViewController
 - (void)prepareForSegue:(id)segue sender:(id)sender;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation FBALoginFlowViewController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = FBALoginFlowViewController;
+  [(FBALoginFlowViewController *)&v4 viewDidAppear:appear];
+  if (([(FBALoginFlowViewController *)self pendingUI]& 2) != 0)
+  {
+    [(FBALoginFlowViewController *)self performSegueWithIdentifier:@"FBAStartupLicensePresentation" sender:self];
+    [(FBALoginFlowViewController *)self setPendingUI:[(FBALoginFlowViewController *)self pendingUI]& 0xFFFFFFFFFFFFFFFDLL];
+  }
+
+  else if (([(FBALoginFlowViewController *)self pendingUI]& 4) == 0)
+  {
+    [(FBALoginFlowViewController *)self performSegueWithIdentifier:@"FBAUnwindLoginFlow" sender:self];
+  }
+}
 
 - (void)prepareForSegue:(id)segue sender:(id)sender
 {

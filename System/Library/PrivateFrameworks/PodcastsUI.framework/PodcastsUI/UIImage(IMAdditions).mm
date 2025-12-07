@@ -587,21 +587,21 @@
   v8 = v7;
   [self scale];
   v10 = v9;
-  v19.width = v6;
-  v19.height = v8;
-  UIGraphicsBeginImageContextWithOptions(v19, 1, v10);
+  v16.width = v6;
+  v16.height = v8;
+  UIGraphicsBeginImageContextWithOptions(v16, 1, v10);
   [v4 set];
 
-  v11 = [self size];
-  v12 = *MEMORY[0x277CBF348];
-  v13 = *(MEMORY[0x277CBF348] + 8);
-  v20.origin.x = CGRectMakeWithOriginSize(v11, *MEMORY[0x277CBF348], v13, v14, v15);
-  UIRectFill(v20);
-  [self drawAtPoint:{v12, v13}];
-  v16 = UIGraphicsGetImageFromCurrentImageContext();
+  [self size];
+  v11 = *MEMORY[0x277CBF348];
+  v12 = *(MEMORY[0x277CBF348] + 8);
+  CGRectMakeWithOriginSize();
+  UIRectFill(v17);
+  [self drawAtPoint:{v11, v12}];
+  v13 = UIGraphicsGetImageFromCurrentImageContext();
   UIGraphicsEndImageContext();
 
-  return v16;
+  return v13;
 }
 
 - (id)imageWithComposite:()IMAdditions blendMode:

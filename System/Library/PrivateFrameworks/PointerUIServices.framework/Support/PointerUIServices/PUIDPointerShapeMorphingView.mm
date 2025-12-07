@@ -151,7 +151,7 @@
         v30 = presentationLayer;
         if (presentationLayer)
         {
-          [presentationLayer affineTransform];
+          objc_msgSend_affineTransform(presentationLayer);
         }
 
         else
@@ -180,7 +180,7 @@
         v53 = presentationLayer2;
         if (presentationLayer2)
         {
-          [presentationLayer2 affineTransform];
+          objc_msgSend_affineTransform(presentationLayer2);
         }
 
         else

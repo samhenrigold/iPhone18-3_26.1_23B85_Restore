@@ -118,7 +118,7 @@
 - (BOOL)declaredInShader:(TSCH3DShaderType)shader scope:(TSCH3DShaderVariableScopeType)scope
 {
   p_declaredScope = &self->_declaredScope;
-  v9 = sub_2761AAAA4(v4, v5, v6, &self->_declaredScope, shader._value);
+  v9 = sub_2761AAAA4(&self->_declaredScope, shader._value, v4, v5, v6);
   if (scope._value)
   {
     value = scope._value;
@@ -164,14 +164,14 @@
 {
   value = scope._value;
   p_scope = &self->_scope;
-  v9 = sub_2761AAAA4(v4, v5, v6, &self->_scope, shader._value);
+  v9 = sub_2761AAAA4(&self->_scope, shader._value, v4, v5, v6);
   p_scope->_scopes.__elems_[v9]._value |= value;
 }
 
 - (BOOL)updateShader:(TSCH3DShaderType)shader scope:(TSCH3DShaderVariableScopeType)scope
 {
   p_scope = &self->_scope;
-  v9 = sub_2761AAAA4(v4, v5, v6, &self->_scope, shader._value);
+  v9 = sub_2761AAAA4(&self->_scope, shader._value, v4, v5, v6);
   value = p_scope->_scopes.__elems_[v9]._value;
   if (scope._value)
   {
@@ -190,14 +190,14 @@
 - (void)removeShader:(TSCH3DShaderType)shader scope:(TSCH3DShaderVariableScopeType)scope
 {
   p_scope = &self->_scope;
-  v9 = sub_2761AAAA4(v4, v5, v6, &self->_scope, shader._value);
+  v9 = sub_2761AAAA4(&self->_scope, shader._value, v4, v5, v6);
   p_scope->_scopes.__elems_[v9]._value &= ~scope._value;
 }
 
 - (BOOL)hasShader:(TSCH3DShaderType)shader scope:(TSCH3DShaderVariableScopeType)scope
 {
   p_scope = &self->_scope;
-  v9 = sub_2761AAAA4(v4, v5, v6, &self->_scope, shader._value);
+  v9 = sub_2761AAAA4(&self->_scope, shader._value, v4, v5, v6);
   if (scope._value)
   {
     value = scope._value;
@@ -214,7 +214,7 @@
 - (void)addBodyScope:(TSCH3DShaderType)scope
 {
   p_scope = &self->_scope;
-  if (self->_scope._scopes.__elems_[sub_2761AAAA4(v3, v4, v5, &self->_scope, scope._value)]._value == 4)
+  if (self->_scope._scopes.__elems_[sub_2761AAAA4(&self->_scope, scope._value, v3, v4, v5)]._value == 4)
   {
     v13 = MEMORY[0x277D81150];
     v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, v10, v11, v12, "[TSCH3DShaderVariableLinkage addBodyScope:]");
@@ -224,8 +224,8 @@
     objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26, v27);
   }
 
-  v31 = p_scope->_scopes.__elems_[sub_2761AAAA4(v10, v11, v12, p_scope, scope._value)]._value != 16 || LODWORD(scope._value) == 2;
-  if (v31 && p_scope->_scopes.__elems_[sub_2761AAAA4(v28, v29, v30, p_scope, scope._value)]._value != 2)
+  v31 = p_scope->_scopes.__elems_[sub_2761AAAA4(p_scope, scope._value, v10, v11, v12)]._value != 16 || LODWORD(scope._value) == 2;
+  if (v31 && p_scope->_scopes.__elems_[sub_2761AAAA4(p_scope, scope._value, v28, v29, v30)]._value != 2)
   {
 
     objc_msgSend_addShader_scope_(self, v32, v33, v34, v35, scope._value, 1);
@@ -301,8 +301,8 @@
   }
 
   while (v5++ != 1);
-  v9 = ((p_scope->_scopes.__elems_[sub_2761AAAA4(v2, v3, v4, &self->_scope, 1)]._value >> 3) & 1) + ((value & 4) >> 2);
-  return v9 + ((p_scope->_scopes.__elems_[sub_2761AAAA4(v10, v11, v12, p_scope, 1)]._value >> 4) & 1);
+  v9 = ((p_scope->_scopes.__elems_[sub_2761AAAA4(&self->_scope, 1, v2, v3, v4)]._value >> 3) & 1) + ((value & 4) >> 2);
+  return v9 + ((p_scope->_scopes.__elems_[sub_2761AAAA4(p_scope, 1, v10, v11, v12)]._value >> 4) & 1);
 }
 
 - (id)resolveGlobalNameForShader:(TSCH3DShaderType)shader scope:(TSCH3DShaderVariableScopeType)scope defaultTo:(id)to
@@ -388,7 +388,7 @@ LABEL_7:
 {
   value = scope._value;
   p_declaredScope = &self->_declaredScope;
-  v9 = sub_2761AAAA4(v4, v5, v6, &self->_declaredScope, shader._value);
+  v9 = sub_2761AAAA4(&self->_declaredScope, shader._value, v4, v5, v6);
   p_declaredScope->_scopes.__elems_[v9]._value |= value;
 }
 

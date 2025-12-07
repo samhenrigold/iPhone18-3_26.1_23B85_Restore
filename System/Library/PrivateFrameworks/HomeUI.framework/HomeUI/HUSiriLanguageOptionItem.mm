@@ -46,12 +46,12 @@
 - (id)_subclass_updateWithOptions:(id)options
 {
   v4 = objc_opt_new();
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke;
-  v25[3] = &unk_277DBA4B8;
-  v25[4] = self;
-  v5 = __56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke(v25);
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke;
+  v26[3] = &unk_277DBA4B8;
+  v26[4] = self;
+  v5 = __56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke(v26);
   [v4 setObject:v5 forKeyedSubscript:*MEMORY[0x277D13F60]];
 
   siriLanguageOptionsManager = [(HUSiriLanguageOptionItem *)self siriLanguageOptionsManager];
@@ -69,38 +69,38 @@
   }
 
   v9 = MEMORY[0x277CCABB0];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke_2;
-  v23[3] = &unk_277DBB548;
-  v23[4] = self;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke_2;
+  v24[3] = &unk_277DBB548;
+  v24[4] = self;
   v10 = selectedLanguageOption;
-  v24 = v10;
-  v11 = [v9 numberWithBool:__56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke_2(v23)];
-  [v4 setObject:v11 forKeyedSubscript:*MEMORY[0x277D13FE8]];
+  v25 = v10;
+  v12 = [v9 numberWithBool:{__56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke_2(v24, v11)}];
+  [v4 setObject:v12 forKeyedSubscript:*MEMORY[0x277D13FE8]];
 
   adapter2 = [(HUSiriLanguageOptionItem *)self adapter];
 
   if (adapter2)
   {
-    v13 = MEMORY[0x277CBEB58];
+    v14 = MEMORY[0x277CBEB58];
     adapter3 = [(HUSiriLanguageOptionItem *)self adapter];
     homeKitSettingsVendor = [adapter3 homeKitSettingsVendor];
-    v16 = [v13 setWithObject:homeKitSettingsVendor];
+    v17 = [v14 setWithObject:homeKitSettingsVendor];
 
     adapter4 = [(HUSiriLanguageOptionItem *)self adapter];
     settings = [adapter4 settings];
-    [v16 na_safeAddObject:settings];
+    [v17 na_safeAddObject:settings];
 
-    [v4 setObject:v16 forKeyedSubscript:*MEMORY[0x277D13DA8]];
+    [v4 setObject:v17 forKeyedSubscript:*MEMORY[0x277D13DA8]];
     adapter5 = [(HUSiriLanguageOptionItem *)self adapter];
     keyPaths = [adapter5 keyPaths];
     [v4 setObject:keyPaths forKeyedSubscript:*MEMORY[0x277D14098]];
   }
 
-  v21 = [MEMORY[0x277D2C900] futureWithResult:v4];
+  v22 = [MEMORY[0x277D2C900] futureWithResult:v4];
 
-  return v21;
+  return v22;
 }
 
 __CFString *__56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke(uint64_t a1)
@@ -131,15 +131,15 @@ LABEL_9:
   return v5;
 }
 
-uint64_t __56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke_2(uint64_t a1)
+uint64_t __56__HUSiriLanguageOptionItem__subclass_updateWithOptions___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() selectionKeyForLanguageOption:*(a1 + 40) withOptionStyle:{objc_msgSend(*(a1 + 32), "optionStyle")}];
-  v3 = objc_opt_class();
-  v4 = [*(a1 + 32) languageOption];
-  v5 = [v3 selectionKeyForLanguageOption:v4 withOptionStyle:{objc_msgSend(*(a1 + 32), "optionStyle")}];
+  v3 = [objc_opt_class() selectionKeyForLanguageOption:*(a1 + 40) withOptionStyle:{objc_msgSend(*(a1 + 32), "optionStyle")}];
+  v4 = objc_opt_class();
+  v5 = [*(a1 + 32) languageOption];
+  v6 = [v4 selectionKeyForLanguageOption:v5 withOptionStyle:{objc_msgSend(*(a1 + 32), "optionStyle")}];
 
-  v6 = [v2 isEqual:v5];
-  return v6;
+  v7 = [v3 isEqual:v6];
+  return v7;
 }
 
 + (id)selectionKeyForLanguageOption:(id)option withOptionStyle:(unint64_t)style

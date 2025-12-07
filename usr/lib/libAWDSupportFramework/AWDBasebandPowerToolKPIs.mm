@@ -357,7 +357,6 @@ LABEL_5:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -377,12 +376,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  radarPriority = self->_radarPriority;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    armUtilityThresholdPoint = self->_armUtilityThresholdPoint;
     PBDataWriterWriteInt32Field();
   }
 
@@ -392,15 +389,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_armUtilityPDFs.count)
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        v7 = self->_armUtilityPDFs.list[v6];
         PBDataWriterWriteInt32Field();
-        ++v6;
+        ++v5;
       }
 
-      while (v6 < self->_armUtilityPDFs.count);
+      while (v5 < self->_armUtilityPDFs.count);
     }
 
     PBDataWriterRecallMark();
@@ -411,15 +407,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeOOSARMUtilitys.count)
     {
-      v8 = 0;
+      v6 = 0;
       do
       {
-        v9 = self->_causeCodeOOSARMUtilitys.list[v8];
         PBDataWriterWriteInt32Field();
-        ++v8;
+        ++v6;
       }
 
-      while (v8 < self->_causeCodeOOSARMUtilitys.count);
+      while (v6 < self->_causeCodeOOSARMUtilitys.count);
     }
 
     PBDataWriterRecallMark();
@@ -430,15 +425,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeOOSDurations.count)
     {
-      v10 = 0;
+      v7 = 0;
       do
       {
-        v11 = self->_causeCodeOOSDurations.list[v10];
         PBDataWriterWriteInt32Field();
-        ++v10;
+        ++v7;
       }
 
-      while (v10 < self->_causeCodeOOSDurations.count);
+      while (v7 < self->_causeCodeOOSDurations.count);
     }
 
     PBDataWriterRecallMark();
@@ -449,15 +443,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeTcXONotShuttingARMUtilitys.count)
     {
-      v12 = 0;
+      v8 = 0;
       do
       {
-        v13 = self->_causeCodeTcXONotShuttingARMUtilitys.list[v12];
         PBDataWriterWriteInt32Field();
-        ++v12;
+        ++v8;
       }
 
-      while (v12 < self->_causeCodeTcXONotShuttingARMUtilitys.count);
+      while (v8 < self->_causeCodeTcXONotShuttingARMUtilitys.count);
     }
 
     PBDataWriterRecallMark();
@@ -468,15 +461,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeTcXONotShuttingDurations.count)
     {
-      v14 = 0;
+      v9 = 0;
       do
       {
-        v15 = self->_causeCodeTcXONotShuttingDurations.list[v14];
         PBDataWriterWriteInt32Field();
-        ++v14;
+        ++v9;
       }
 
-      while (v14 < self->_causeCodeTcXONotShuttingDurations.count);
+      while (v9 < self->_causeCodeTcXONotShuttingDurations.count);
     }
 
     PBDataWriterRecallMark();
@@ -487,15 +479,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeBackgroundActivityARMUtilitys.count)
     {
-      v16 = 0;
+      v10 = 0;
       do
       {
-        v17 = self->_causeCodeBackgroundActivityARMUtilitys.list[v16];
         PBDataWriterWriteInt32Field();
-        ++v16;
+        ++v10;
       }
 
-      while (v16 < self->_causeCodeBackgroundActivityARMUtilitys.count);
+      while (v10 < self->_causeCodeBackgroundActivityARMUtilitys.count);
     }
 
     PBDataWriterRecallMark();
@@ -506,15 +497,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeBackgroundActivityDurations.count)
     {
-      v18 = 0;
+      v11 = 0;
       do
       {
-        v19 = self->_causeCodeBackgroundActivityDurations.list[v18];
         PBDataWriterWriteInt32Field();
-        ++v18;
+        ++v11;
       }
 
-      while (v18 < self->_causeCodeBackgroundActivityDurations.count);
+      while (v11 < self->_causeCodeBackgroundActivityDurations.count);
     }
 
     PBDataWriterRecallMark();
@@ -525,15 +515,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeRACHFailARMUtilitys.count)
     {
-      v20 = 0;
+      v12 = 0;
       do
       {
-        v21 = self->_causeCodeRACHFailARMUtilitys.list[v20];
         PBDataWriterWriteInt32Field();
-        ++v20;
+        ++v12;
       }
 
-      while (v20 < self->_causeCodeRACHFailARMUtilitys.count);
+      while (v12 < self->_causeCodeRACHFailARMUtilitys.count);
     }
 
     PBDataWriterRecallMark();
@@ -544,15 +533,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeRACHFailDurations.count)
     {
-      v22 = 0;
+      v13 = 0;
       do
       {
-        v23 = self->_causeCodeRACHFailDurations.list[v22];
         PBDataWriterWriteInt32Field();
-        ++v22;
+        ++v13;
       }
 
-      while (v22 < self->_causeCodeRACHFailDurations.count);
+      while (v13 < self->_causeCodeRACHFailDurations.count);
     }
 
     PBDataWriterRecallMark();
@@ -563,15 +551,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeStruckInDCHARMUtilitys.count)
     {
-      v24 = 0;
+      v14 = 0;
       do
       {
-        v25 = self->_causeCodeStruckInDCHARMUtilitys.list[v24];
         PBDataWriterWriteInt32Field();
-        ++v24;
+        ++v14;
       }
 
-      while (v24 < self->_causeCodeStruckInDCHARMUtilitys.count);
+      while (v14 < self->_causeCodeStruckInDCHARMUtilitys.count);
     }
 
     PBDataWriterRecallMark();
@@ -582,15 +569,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeStruckInDCHDurations.count)
     {
-      v26 = 0;
+      v15 = 0;
       do
       {
-        v27 = self->_causeCodeStruckInDCHDurations.list[v26];
         PBDataWriterWriteInt32Field();
-        ++v26;
+        ++v15;
       }
 
-      while (v26 < self->_causeCodeStruckInDCHDurations.count);
+      while (v15 < self->_causeCodeStruckInDCHDurations.count);
     }
 
     PBDataWriterRecallMark();
@@ -601,15 +587,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeMarginalCoverageARMUtilitys.count)
     {
-      v28 = 0;
+      v16 = 0;
       do
       {
-        v29 = self->_causeCodeMarginalCoverageARMUtilitys.list[v28];
         PBDataWriterWriteInt32Field();
-        ++v28;
+        ++v16;
       }
 
-      while (v28 < self->_causeCodeMarginalCoverageARMUtilitys.count);
+      while (v16 < self->_causeCodeMarginalCoverageARMUtilitys.count);
     }
 
     PBDataWriterRecallMark();
@@ -620,15 +605,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeMarginalCoverageDurations.count)
     {
-      v30 = 0;
+      v17 = 0;
       do
       {
-        v31 = self->_causeCodeMarginalCoverageDurations.list[v30];
         PBDataWriterWriteInt32Field();
-        ++v30;
+        ++v17;
       }
 
-      while (v30 < self->_causeCodeMarginalCoverageDurations.count);
+      while (v17 < self->_causeCodeMarginalCoverageDurations.count);
     }
 
     PBDataWriterRecallMark();
@@ -639,15 +623,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeUnknownARMUtilitys.count)
     {
-      v32 = 0;
+      v18 = 0;
       do
       {
-        v33 = self->_causeCodeUnknownARMUtilitys.list[v32];
         PBDataWriterWriteInt32Field();
-        ++v32;
+        ++v18;
       }
 
-      while (v32 < self->_causeCodeUnknownARMUtilitys.count);
+      while (v18 < self->_causeCodeUnknownARMUtilitys.count);
     }
 
     PBDataWriterRecallMark();
@@ -658,15 +641,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeUnknownDurations.count)
     {
-      v34 = 0;
+      v19 = 0;
       do
       {
-        v35 = self->_causeCodeUnknownDurations.list[v34];
         PBDataWriterWriteInt32Field();
-        ++v34;
+        ++v19;
       }
 
-      while (v34 < self->_causeCodeUnknownDurations.count);
+      while (v19 < self->_causeCodeUnknownDurations.count);
     }
 
     PBDataWriterRecallMark();
@@ -677,15 +659,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (self->_causeCodeCumulativeARMUtilitys.count)
     {
-      v36 = 0;
+      v20 = 0;
       do
       {
-        v37 = self->_causeCodeCumulativeARMUtilitys.list[v36];
         PBDataWriterWriteInt32Field();
-        ++v36;
+        ++v20;
       }
 
-      while (v36 < self->_causeCodeCumulativeARMUtilitys.count);
+      while (v20 < self->_causeCodeCumulativeARMUtilitys.count);
     }
 
     PBDataWriterRecallMark();
@@ -697,15 +678,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (p_causeCodeCumulativeDurations->count)
     {
-      v39 = 0;
+      v22 = 0;
       do
       {
-        v40 = p_causeCodeCumulativeDurations->list[v39];
         PBDataWriterWriteInt32Field();
-        ++v39;
+        ++v22;
       }
 
-      while (v39 < p_causeCodeCumulativeDurations->count);
+      while (v22 < p_causeCodeCumulativeDurations->count);
     }
 
     PBDataWriterRecallMark();
@@ -1056,7 +1036,6 @@ LABEL_5:
     return 0;
   }
 
-  v5 = *(equal + 432);
   if (*&self->_has)
   {
     if ((*(equal + 432) & 1) == 0 || self->_timestamp != *(equal + 52))

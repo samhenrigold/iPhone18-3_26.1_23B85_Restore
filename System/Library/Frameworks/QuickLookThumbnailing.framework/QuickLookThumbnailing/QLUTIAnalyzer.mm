@@ -67,29 +67,29 @@
 
 + (id)contentTypeForURL:(id)l
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   lCopy = l;
   startAccessingSecurityScopedResource = [lCopy startAccessingSecurityScopedResource];
   v5 = startAccessingSecurityScopedResource;
   if (lCopy)
   {
-    v24 = 0;
-    v6 = *MEMORY[0x1E695DAA0];
     v23 = 0;
-    v7 = [lCopy getPromisedItemResourceValue:&v24 forKey:v6 error:&v23];
-    v8 = v24;
-    v9 = v23;
+    v6 = *MEMORY[0x1E695DAA0];
+    v22 = 0;
+    v7 = [lCopy getPromisedItemResourceValue:&v23 forKey:v6 error:&v22];
+    v8 = v23;
+    v9 = v22;
     if (!v7 || ([v8 isDynamic] & 1) != 0 || objc_msgSend(v8, "isEqual:", *MEMORY[0x1E69830D0]))
     {
       pathComponents = [lCopy pathComponents];
-      if ([pathComponents count] < 2 || (objc_msgSend(pathComponents, "objectAtIndex:", 1), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isEqualToString:", @".vol"), v11, !v12) || (v22 = 0, v21 = xmmword_1CA21FDD8, memset(v25, 0, 512), getattrlist(objc_msgSend(lCopy, "fileSystemRepresentation", 0x100000005, 0, 0), &v21, v25, 0x30CuLL, 0x20u) < 0))
+      if ([pathComponents count] < 2 || (objc_msgSend(pathComponents, "objectAtIndex:", 1), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "isEqualToString:", @".vol"), v11, !v12) || (v21 = 0, v20 = xmmword_1CA21FDD8, memset(v24, 0, 512), getattrlist(objc_msgSend(lCopy, "fileSystemRepresentation", 0x100000005, 0, 0), &v20, v24, 0x30CuLL, 0x20u) < 0))
       {
         lastPathComponent = [lCopy lastPathComponent];
       }
 
       else
       {
-        lastPathComponent = [MEMORY[0x1E696AEC0] stringWithUTF8String:v25 + SDWORD1(v25[0]) + 4];
+        lastPathComponent = [MEMORY[0x1E696AEC0] stringWithUTF8String:v24 + SDWORD1(v24[0]) + 4];
       }
 
       v14 = lastPathComponent;
@@ -126,8 +126,6 @@ LABEL_18:
       [lCopy stopAccessingSecurityScopedResource];
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

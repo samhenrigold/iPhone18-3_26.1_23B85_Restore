@@ -25,6 +25,8 @@
   *(v9 + 16) = v7;
   selfCopy = self;
   sub_1000340EC(v8, throttlerCopy, sub_10003FE60, v9);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)restartCloudKitSyncWithReason:(id)reason bypassThrottler:(BOOL)throttler completion:(id)completion
@@ -57,6 +59,8 @@
   *(v15 + 16) = v12;
   selfCopy = self;
   sub_1001C4638(migrateCopy, migrationCopy, finishMigration, v13, d, sub_10003FE58, v15);
+
+  d, v17, v18, v19, v20, v21, v22, v23;
 }
 
 - (void)fetchServerRecordFor:(id)for completion:(id)completion

@@ -101,29 +101,29 @@
   v3 = +[IDSFoundationLog stewieProvisioning];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v11 = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Performing initial stewie device info check", v11, 2u);
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Performing initial stewie device info check", v12, 2u);
   }
 
   pushHandler = [(IDSStewieDeviceInfoManager *)self pushHandler];
   pushToken = [pushHandler pushToken];
   [(IDSStewieDeviceInfoManager *)self setPushToken:pushToken];
 
-  v6 = sub_100923B68(self);
-  [(IDSStewieDeviceInfoManager *)self setLocale:v6];
+  v7 = sub_100923B68(self, v6);
+  [(IDSStewieDeviceInfoManager *)self setLocale:v7];
 
   accountStore = [(IDSStewieDeviceInfoManager *)self accountStore];
   aa_primaryAppleAccount = [accountStore aa_primaryAppleAccount];
   normalizedDSID = [aa_primaryAppleAccount normalizedDSID];
   [(IDSStewieDeviceInfoManager *)self setDsid:normalizedDSID];
 
-  v12[0] = @"networking.st.text-911";
-  v12[1] = @"networking.st.find-my";
-  v12[2] = @"networking.st.roadside";
-  v12[3] = @"networking.st.imessage-lite";
-  v12[4] = @"networking.st.sms";
-  v10 = [NSArray arrayWithObjects:v12 count:5];
-  [(IDSStewieDeviceInfoManager *)self requestAccessTokensForFeatures:v10];
+  v13[0] = @"networking.st.text-911";
+  v13[1] = @"networking.st.find-my";
+  v13[2] = @"networking.st.roadside";
+  v13[3] = @"networking.st.imessage-lite";
+  v13[4] = @"networking.st.sms";
+  v11 = [NSArray arrayWithObjects:v13 count:5];
+  [(IDSStewieDeviceInfoManager *)self requestAccessTokensForFeatures:v11];
 
   sub_100923C7C(self);
 }
@@ -319,7 +319,7 @@
 
 - (void)localeChanged:(id)changed
 {
-  v5 = sub_100923B68(self);
+  v5 = sub_100923B68(self, a2);
   v6 = +[IDSFoundationLog stewieProvisioning];
   if (sub_1004DA798(v6))
   {

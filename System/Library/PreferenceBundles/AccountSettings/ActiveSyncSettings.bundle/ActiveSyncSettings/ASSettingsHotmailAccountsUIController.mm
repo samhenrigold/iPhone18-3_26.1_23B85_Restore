@@ -1,5 +1,6 @@
 @interface ASSettingsHotmailAccountsUIController
 - (id)accountSpecifiers;
+- (void)account:(id)account isValid:(BOOL)valid validationError:(id)error;
 - (void)beginAccountCreationWithSpecifier:(id)specifier fromViewController:(id)controller completion:(id)completion;
 @end
 
@@ -51,6 +52,35 @@
   [*(&self->super._backgroundTaskID + 2) setCompletion:v19];
   objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
+}
+
+- (void)account:(id)account isValid:(BOOL)valid validationError:(id)error
+{
+  v15.receiver = self;
+  v15.super_class = ASSettingsHotmailAccountsUIController;
+  [(ASSettingsAccountsUIController *)&v15 account:account isValid:valid validationError:?];
+  completion = [(ASSettingsHotmailAccountsUIController *)self completion];
+
+  if (completion)
+  {
+    v11 = 1;
+    if (error)
+    {
+      account = [(ASSettingsAccountsUIController *)self account];
+      accountTypeIdentifier = [account accountTypeIdentifier];
+      v10 = [accountTypeIdentifier isEqualToString:ACAccountTypeIdentifierHotmail];
+
+      if (v10)
+      {
+        v11 = 0;
+      }
+    }
+
+    completion2 = [(ASSettingsHotmailAccountsUIController *)self completion];
+    account2 = [(ASSettingsAccountsUIController *)self account];
+    backingAccountInfo = [account2 backingAccountInfo];
+    (completion2)[2](completion2, backingAccountInfo, v11, 0);
+  }
 }
 
 - (id)accountSpecifiers

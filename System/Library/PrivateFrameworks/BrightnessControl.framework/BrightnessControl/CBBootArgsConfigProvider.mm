@@ -12,17 +12,16 @@
 
 - (CBBootArgsConfigProvider)init
 {
-  v8 = *MEMORY[0x277D85DE8];
-  bzero(v7, 0x401uLL);
-  v6 = 1025;
-  v3 = sysctlbyname("kern.bootargs", v7, &v6, 0, 0);
+  v7 = *MEMORY[0x277D85DE8];
+  bzero(v6, 0x401uLL);
+  v5 = 1025;
+  v3 = sysctlbyname("kern.bootargs", v6, &v5, 0, 0);
   result = 0;
   if (!v3)
   {
-    result = [(CBBootArgsConfigProvider *)self initWithBootArgs:v7];
+    return [(CBBootArgsConfigProvider *)self initWithBootArgs:v6];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 

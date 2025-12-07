@@ -46,22 +46,22 @@
     if ([(b515cUnifiedDevice *)self btAddress])
     {
       v8 = sub_1002D3618([(b515cUnifiedDevice *)self btAddress]);
-      v19 = v8;
-      v20 = WORD2(v8);
-      v9 = sub_10000C7D0();
+      v28 = v8;
+      v29 = WORD2(v8);
+      v10 = sub_10000C7D0(v8, v9);
       if (deviceCopy)
       {
-        (*(*v9 + 56))(v9, v8 & 0xFFFFFFFFFFFFLL, 16, 2, 1, 1, 1, 0);
-        v10 = *sub_10000C7D0();
-        (*(v10 + 944))();
-        v11 = sub_10000C7D0();
-        (*(*v11 + 80))(v11, v7, 1);
-        v18 = 0;
-        sub_1000216B4(&v18);
-        sub_1002429D4(&v19);
-        v12 = sub_10023DF34(v7 + 128);
-        sub_100022214(&v18);
-        if (v12 && os_log_type_enabled(qword_100BCE8D0, OS_LOG_TYPE_ERROR))
+        v11 = (*(*v10 + 56))(v10, v8 & 0xFFFFFFFFFFFFLL, 16, 2, 1, 1, 1, 0);
+        v13 = *sub_10000C7D0(v11, v12);
+        v14 = (*(v13 + 944))();
+        v16 = sub_10000C7D0(v14, v15);
+        (*(*v16 + 80))(v16, v7, 1);
+        v27 = 0;
+        sub_1000216B4(&v27);
+        sub_1002429D4(&v28);
+        v17 = sub_10023DF34(v7 + 128);
+        sub_100022214(&v27);
+        if (v17 && os_log_type_enabled(qword_100BCE8D0, OS_LOG_TYPE_ERROR))
         {
           sub_1007FFD38();
         }
@@ -72,31 +72,31 @@
           [(b515cUnifiedDevice *)self usbcRequestSensorDataOnDevice];
         }
 
-        v13 = &v18;
+        v18 = &v27;
       }
 
       else
       {
-        (*(*v9 + 944))(v9, 0, 1);
-        v14 = sub_10000C7D0();
-        (*(*v14 + 56))(v14, v8 & 0xFFFFFFFFFFFFLL, 16, 2, 0, 1, 1, 0);
-        v15 = sub_10000C7D0();
-        (*(*v15 + 80))(v15, v7, 0);
-        v17 = 0;
-        sub_1000216B4(&v17);
-        v16 = sub_10023DF34(v7 + 128);
-        sub_100022214(&v17);
-        if (v16 && os_log_type_enabled(qword_100BCE8D0, OS_LOG_TYPE_ERROR))
+        v19 = (*(*v10 + 944))(v10, 0, 1);
+        v21 = sub_10000C7D0(v19, v20);
+        v22 = (*(*v21 + 56))(v21, v8 & 0xFFFFFFFFFFFFLL, 16, 2, 0, 1, 1, 0);
+        v24 = sub_10000C7D0(v22, v23);
+        (*(*v24 + 80))(v24, v7, 0);
+        v26 = 0;
+        sub_1000216B4(&v26);
+        v25 = sub_10023DF34(v7 + 128);
+        sub_100022214(&v26);
+        if (v25 && os_log_type_enabled(qword_100BCE8D0, OS_LOG_TYPE_ERROR))
         {
           sub_1007FFCC0();
         }
 
         [(b515cUnifiedDevice *)self setAudioStarted:0];
         [(b515cUnifiedDevice *)self usbcStopSensorDataOnDevice];
-        v13 = &v17;
+        v18 = &v26;
       }
 
-      sub_10002249C(v13);
+      sub_10002249C(v18);
       notify_post("com.apple.bluetooth.AdaptiveJitterBufferChanged");
     }
   }

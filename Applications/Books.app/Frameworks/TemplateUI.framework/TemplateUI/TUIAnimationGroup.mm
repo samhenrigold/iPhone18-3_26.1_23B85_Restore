@@ -91,8 +91,8 @@
           [v10 delay];
           [v10 delay];
           [v16 setDelay:?];
-          [v10 duration];
-          [v10 duration];
+          objc_msgSend_duration(v10);
+          objc_msgSend_duration(v10);
           [v16 setDuration:?];
           [v16 setOptions:{objc_msgSend(v16, "options") | objc_msgSend(v10, "options")}];
           [v8 addObject:v16];

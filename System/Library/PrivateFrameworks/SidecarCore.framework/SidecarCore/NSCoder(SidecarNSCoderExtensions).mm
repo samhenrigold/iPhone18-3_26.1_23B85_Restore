@@ -9,17 +9,17 @@
   decodeObject = [self decodeObject];
   if (objc_opt_isKindOfClass())
   {
-    v2 = decodeObject;
+    v4 = decodeObject;
   }
 
   else
   {
-    v2 = 0;
+    v4 = 0;
   }
 
-  v3 = v2;
+  v5 = v4;
 
-  return v2;
+  return v4;
 }
 
 @end

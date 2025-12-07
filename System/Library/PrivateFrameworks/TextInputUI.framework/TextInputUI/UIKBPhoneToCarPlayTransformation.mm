@@ -416,34 +416,34 @@ LABEL_11:
   return a2;
 }
 
-void __86__UIKBPhoneToCarPlayTransformation_transformQWERTYKeyplane_withTransformationContext___block_invoke_3(uint64_t a1, void *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
+void __86__UIKBPhoneToCarPlayTransformation_transformQWERTYKeyplane_withTransformationContext___block_invoke_3(uint64_t a1, void *a2, int a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
 {
-  v11 = a2;
-  v19.origin.x = a3;
-  v19.origin.y = a4;
-  v19.size.width = a5;
-  v19.size.height = a6;
-  MaxX = CGRectGetMaxX(v19);
-  v13 = (*(*(a1 + 40) + 16))();
-  if (v13 == MaxX)
+  v12 = a2;
+  v20.origin.x = a4;
+  v20.origin.y = a5;
+  v20.size.width = a6;
+  v20.size.height = a7;
+  MaxX = CGRectGetMaxX(v20);
+  v14 = (*(*(a1 + 40) + 16))();
+  if (v14 == MaxX)
   {
-    v14 = *(a1 + 32);
-    v15 = [MEMORY[0x1E696AD98] numberWithDouble:MaxX];
-    [v14 addObject:v15];
+    v15 = *(a1 + 32);
+    v16 = [MEMORY[0x1E696AD98] numberWithDouble:MaxX];
+    [v15 addObject:v16];
   }
 
   else
   {
-    a5 = v13 - a3;
+    a6 = v14 - a4;
   }
 
-  v16 = [v11 shape];
-  v17 = [v16 copy];
+  v17 = [v12 shape];
+  v18 = [v17 copy];
 
-  [v17 setFrame:{a3, a4, a5, a6}];
+  [v18 setFrame:{a4, a5, a6, a7}];
   UIRectInset();
-  [v17 setPaddedFrame:?];
-  [v11 setShape:v17];
+  [v18 setPaddedFrame:?];
+  [v12 setShape:v18];
 }
 
 id __86__UIKBPhoneToCarPlayTransformation_transformQWERTYKeyplane_withTransformationContext___block_invoke_4(uint64_t a1, double a2, double a3, double a4, double a5)

@@ -10,11 +10,12 @@
   v3 = *(&self->super.isa + OBJC_IVAR____TtC11AssetViewer18ARQLReplayObserver_callback);
   if (v3)
   {
+    v4 = *&self->callback[OBJC_IVAR____TtC11AssetViewer18ARQLReplayObserver_callback];
     selfCopy = self;
-    v5 = sub_24124AD38(v3);
-    v3(v5);
+    v6 = sub_24124AD38(v3, v4);
+    v3(v6);
 
-    sub_2412186FC(v3);
+    sub_2412186FC(v3, v4);
   }
 }
 

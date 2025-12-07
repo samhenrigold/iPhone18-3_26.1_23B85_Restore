@@ -19,12 +19,12 @@
   {
     v7 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCF810]];
     characteristic = [v7 characteristic];
-    service = [characteristic service];
+    v9 = objc_msgSend_service(characteristic);
 
-    if (service)
+    if (v9)
     {
       v10 = [v7 valueWithExpectedClass:objc_opt_class()];
-      v11 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCF748] inService:service];
+      v11 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCF748] inService:v9];
       v12 = [v11 valueWithExpectedClass:objc_opt_class()];
 
       v6 = 0;
@@ -64,12 +64,12 @@
   {
     v7 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCFB18]];
     characteristic = [v7 characteristic];
-    service = [characteristic service];
+    v9 = objc_msgSend_service(characteristic);
 
-    if (service)
+    if (v9)
     {
       v10 = [v7 valueWithExpectedClass:objc_opt_class()];
-      v11 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCF748] inService:service];
+      v11 = [responseCopy responseForCharacteristicType:*MEMORY[0x277CCF748] inService:v9];
       v12 = [v11 valueWithExpectedClass:objc_opt_class()];
 
       v6 = 0;

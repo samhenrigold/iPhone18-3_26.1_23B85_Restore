@@ -10,6 +10,7 @@
 - (void)setupNavigationItems;
 - (void)updateImageExplorerWithImage:(id)image features:(id)features data:(id)data;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VOTImageExplorerViewController
@@ -68,6 +69,14 @@
   bottomAnchor2 = [view6 bottomAnchor];
   v31 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
   [v31 setActive:1];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = VOTImageExplorerViewController;
+  [(VOTImageExplorerViewController *)&v4 viewWillAppear:appear];
+  [(VOTImageExplorerViewController *)self setupNavigationItems];
 }
 
 - (void)setupNavigationItems
@@ -145,7 +154,7 @@ LABEL_12:
     v14 = VOTLogImageExplorer();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      sub_10001327C();
+      sub_10001327C(self);
     }
 
     if (dataCopy)
@@ -159,7 +168,7 @@ LABEL_12:
   v13 = VOTLogImageExplorer();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
-    sub_1000131F0();
+    sub_1000131F0(self);
   }
 
   if (!featuresCopy)
@@ -180,7 +189,7 @@ LABEL_15:
   v15 = VOTLogImageExplorer();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    sub_100013308();
+    sub_100013308(self);
   }
 
 LABEL_18:

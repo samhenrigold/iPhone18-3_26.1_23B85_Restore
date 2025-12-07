@@ -97,10 +97,11 @@ uint64_t __30__SFCompanionAdvertiser_start__block_invoke(uint64_t a1, void *a2, 
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(*(*(a1 + 40) + 8) + 40);
-  if (!v7 || *(v7 + 8) != 1)
+  v7 = v6;
+  v8 = *(*(*(a1 + 40) + 8) + 40);
+  if (!v8 || *(v8 + 8) != 1)
   {
-    v10 = streams_log();
+    v10 = streams_log(v6);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -110,7 +111,6 @@ uint64_t __30__SFCompanionAdvertiser_start__block_invoke(uint64_t a1, void *a2, 
     goto LABEL_8;
   }
 
-  v8 = *(*(a1 + 32) + 16);
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
 LABEL_8:
@@ -118,7 +118,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  [*(*(a1 + 32) + 16) advertiser:*(*(*(a1 + 40) + 8) + 40) didReceiveInputStream:v5 outputStream:v6];
+  [*(*(a1 + 32) + 16) advertiser:*(*(*(a1 + 40) + 8) + 40) didReceiveInputStream:v5 outputStream:v7];
   v9 = 1;
 LABEL_9:
 

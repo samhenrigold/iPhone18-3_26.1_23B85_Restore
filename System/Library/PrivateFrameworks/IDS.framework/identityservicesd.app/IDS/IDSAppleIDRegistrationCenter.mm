@@ -1330,8 +1330,7 @@ LABEL_31:
 - (BOOL)_registrationNeedsAuthentication:(id)authentication
 {
   authenticationCopy = authentication;
-  authenticationToken = [authenticationCopy authenticationToken];
-  v7 = (!authenticationToken || (v5 = authenticationToken, [authenticationCopy profileID], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, !v6)) && objc_msgSend(authenticationCopy, "registrationType") == 1;
+  v7 = (!authenticationToken || (v5 = authenticationToken, [authenticationCopy profileID], v6 = authenticationToken = [authenticationCopy authenticationToken];
 
   return v7;
 }

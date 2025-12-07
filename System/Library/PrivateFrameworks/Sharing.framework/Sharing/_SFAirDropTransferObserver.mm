@@ -65,7 +65,7 @@
 
 - (void)updateActionHandlersOnTransfer:(id)transfer
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   transferCopy = transfer;
   v5 = _os_activity_create(&dword_1A9662000, "Sharing/SFAirDropTransferObserver/updateActionHandlersOnTransfer", MEMORY[0x1E69E9C00], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -77,7 +77,7 @@
   aBlock[2] = __61___SFAirDropTransferObserver_updateActionHandlersOnTransfer___block_invoke;
   aBlock[3] = &unk_1E788A6A8;
   aBlock[4] = self;
-  objc_copyWeak(&v19, &location);
+  objc_copyWeak(&v18, &location);
   v6 = _Block_copy(aBlock);
   selectedAction = [transferCopy selectedAction];
   [selectedAction setActionHandler:v6];
@@ -85,40 +85,38 @@
   cancelAction = [transferCopy cancelAction];
   [cancelAction setActionHandler:v6];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   possibleActions = [transferCopy possibleActions];
-  v10 = [possibleActions countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v10 = [possibleActions countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v10)
   {
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(possibleActions);
         }
 
-        [*(*(&v14 + 1) + 8 * v12++) setActionHandler:v6];
+        [*(*(&v13 + 1) + 8 * v12++) setActionHandler:v6];
       }
 
       while (v10 != v12);
-      v10 = [possibleActions countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v10 = [possibleActions countByEnumeratingWithState:&v13 objects:v21 count:16];
     }
 
     while (v10);
   }
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
   os_activity_scope_leave(&state);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updatedTransfer:(id)transfer
@@ -132,7 +130,7 @@
   if (v7)
   {
     v8 = [v7 updateWithTransfer:transferCopy];
-    [(_SFAirDropTransferObserver *)self updateActionHandlersOnTransfer:v7];
+    v9 = [(_SFAirDropTransferObserver *)self updateActionHandlersOnTransfer:v7];
     if (!v8)
     {
       goto LABEL_8;
@@ -148,23 +146,22 @@
     identifier2 = [v7 identifier];
     [transferIdentifierToTransfer2 setObject:v7 forKeyedSubscript:identifier2];
 
-    [(_SFAirDropTransferObserver *)self updateActionHandlersOnTransfer:v7];
+    v9 = [(_SFAirDropTransferObserver *)self updateActionHandlersOnTransfer:v7];
   }
 
-  v11 = airdrop_log();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = airdrop_log(v9);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     identifier3 = [v7 identifier];
     v15 = 138412290;
     v16 = identifier3;
-    _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "Updated transfer %@", &v15, 0xCu);
+    _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "Updated transfer %@", &v15, 0xCu);
   }
 
   delegate = [(_SFAirDropTransferObserver *)self delegate];
   [delegate updatedTransfer:v7];
 
 LABEL_8:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removedTransfer:(id)transfer
@@ -179,13 +176,13 @@ LABEL_8:
 
   if (v7)
   {
-    v8 = airdrop_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = airdrop_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       identifier2 = [v7 identifier];
       v15 = 138412290;
       v16 = identifier2;
-      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "Removed transfer %@", &v15, 0xCu);
+      _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "Removed transfer %@", &v15, 0xCu);
     }
 
     [(_SFAirDropTransferObserver *)self removeObserverForLocalOnlyPropertiesOnTransfer:v7];
@@ -202,8 +199,6 @@ LABEL_8:
       [delegate2 removedTransfer:v7];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (SFAirDropTransferObserverDelegate)delegate

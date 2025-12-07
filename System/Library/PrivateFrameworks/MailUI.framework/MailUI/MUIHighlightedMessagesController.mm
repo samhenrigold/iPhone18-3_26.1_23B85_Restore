@@ -132,7 +132,7 @@
   MEMORY[0x277D82BE0](ds);
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](self);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710, &qword_214CF3320);
   v6 = sub_214CCF7E4();
   MUIHighlightedMessagesController.collection(_:addedItemIDs:before:)(collection, v6, before);
 
@@ -157,7 +157,7 @@
   swift_getObjectType();
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](self);
-  sub_214C1653C();
+  sub_214C1653C(delegate);
   MEMORY[0x277D82BD8](self);
 }
 
@@ -196,7 +196,7 @@
   MEMORY[0x277D82BE0](ds);
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](self);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710, &qword_214CF3320);
   v6 = sub_214CCF7E4();
   MUIHighlightedMessagesController.collection(_:addedItemIDs:after:)(collection, v6, after);
 
@@ -213,7 +213,7 @@
   MEMORY[0x277D82BE0](ds);
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](self);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710, &qword_214CF3320);
   v6 = sub_214CCF7E4();
   MUIHighlightedMessagesController.collection(_:movedItemIDs:before:)(collection, v6, before);
 
@@ -230,7 +230,7 @@
   MEMORY[0x277D82BE0](ds);
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](self);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710, &qword_214CF3320);
   v6 = sub_214CCF7E4();
   MUIHighlightedMessagesController.collection(_:movedItemIDs:after:)(collection, v6, after);
 
@@ -246,7 +246,7 @@
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](ds);
   MEMORY[0x277D82BE0](self);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710, &qword_214CF3320);
   v5 = sub_214CCF7E4();
   MUIHighlightedMessagesController.collection(_:changedItemIDs:)(collection, v5);
 
@@ -261,7 +261,7 @@
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](ds);
   MEMORY[0x277D82BE0](self);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37710, &qword_214CF3320);
   v5 = sub_214CCF7E4();
   MUIHighlightedMessagesController.collection(_:deletedItemIDs:)(collection, v5);
 

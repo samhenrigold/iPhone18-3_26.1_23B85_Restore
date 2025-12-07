@@ -8,7 +8,7 @@
 - (void)prepareForReuse
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for LocationCollectionViewCell();
+  v3.super_class = type metadata accessor for LocationCollectionViewCell(0);
   v2 = v3.receiver;
   [(LocationCollectionViewCell *)&v3 prepareForReuse];
   [*&v2[OBJC_IVAR____TtC7Journal26LocationCollectionViewCell_locationIconView] setImage:{0, v3.receiver, v3.super_class}];
@@ -19,7 +19,7 @@
 - (void)preferredContentSizeCategoryTraitChanged
 {
   selfCopy = self;
-  sub_10045657C();
+  sub_10045657C(v2);
 }
 
 @end

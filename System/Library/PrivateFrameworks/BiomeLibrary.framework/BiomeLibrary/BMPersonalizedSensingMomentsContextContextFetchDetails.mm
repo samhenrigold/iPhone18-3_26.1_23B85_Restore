@@ -146,7 +146,7 @@ LABEL_32:
 
 - (id)jsonDictionary
 {
-  v26[6] = *MEMORY[0x1E69E9840];
+  v25[6] = *MEMORY[0x1E69E9840];
   if ([(BMPersonalizedSensingMomentsContextContextFetchDetails *)self hasFetchId])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[BMPersonalizedSensingMomentsContextContextFetchDetails fetchId](self, "fetchId")}];
@@ -193,58 +193,58 @@ LABEL_32:
     v11 = 0;
   }
 
-  v24 = v3;
-  v25[0] = @"fetchId";
+  v23 = v3;
+  v24[0] = @"fetchId";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = null;
-  v23 = v7;
-  v26[0] = null;
-  v25[1] = @"timestamp";
+  v20 = null;
+  v22 = v7;
+  v25[0] = null;
+  v24[1] = @"timestamp";
   null2 = v7;
   if (!v7)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[1] = null2;
-  v25[2] = @"clientBundleIdentifier";
+  v25[1] = null2;
+  v24[2] = @"clientBundleIdentifier";
   null3 = clientBundleIdentifier;
   if (!clientBundleIdentifier)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[2] = null3;
-  v25[3] = @"alternateClientIdentifier";
+  v25[2] = null3;
+  v24[3] = @"alternateClientIdentifier";
   null4 = alternateClientIdentifier;
   if (!alternateClientIdentifier)
   {
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[3] = null4;
-  v25[4] = @"totalContextReplyCount";
+  v25[3] = null4;
+  v24[4] = @"totalContextReplyCount";
   null5 = v10;
   if (!v10)
   {
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[4] = null5;
-  v25[5] = @"batchContextReplyStartIndex";
+  v25[4] = null5;
+  v24[5] = @"batchContextReplyStartIndex";
   null6 = v11;
   if (!v11)
   {
     null6 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26[5] = null6;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:{6, v21}];
+  v25[5] = null6;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:{6, v20}];
   if (v11)
   {
     if (v10)
@@ -289,22 +289,20 @@ LABEL_28:
 LABEL_39:
 
 LABEL_29:
+  if (!v22)
+  {
+  }
+
   if (!v23)
   {
   }
-
-  if (!v24)
-  {
-  }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (BMPersonalizedSensingMomentsContextContextFetchDetails)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v80[1] = *MEMORY[0x1E69E9840];
+  v79[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"fetchId"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -312,7 +310,7 @@ LABEL_29:
     v8 = 0;
 LABEL_4:
     v9 = [dictionaryCopy objectForKeyedSubscript:@"timestamp"];
-    v66 = v9;
+    v65 = v9;
     if (v9 && (v10 = v9, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -351,17 +349,17 @@ LABEL_4:
           }
 
           errorCopy2 = error;
-          v51 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v52 = *MEMORY[0x1E698F240];
-          v77 = *MEMORY[0x1E696A578];
+          v50 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v51 = *MEMORY[0x1E698F240];
+          v76 = *MEMORY[0x1E696A578];
           v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"timestamp"];
-          v78 = v28;
-          v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-          v54 = v52;
-          v27 = v53;
+          v77 = v28;
+          v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+          v53 = v51;
+          v27 = v52;
           v11 = 0;
           v24 = 0;
-          *errorCopy2 = [v51 initWithDomain:v54 code:2 userInfo:v53];
+          *errorCopy2 = [v50 initWithDomain:v53 code:2 userInfo:v52];
           goto LABEL_50;
         }
 
@@ -378,8 +376,8 @@ LABEL_4:
 
 LABEL_16:
     v26 = [dictionaryCopy objectForKeyedSubscript:@"clientBundleIdentifier"];
-    v68 = v8;
-    v65 = v26;
+    v67 = v8;
+    v64 = v26;
     if (v26 && (v27 = v26, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -395,20 +393,20 @@ LABEL_16:
         errorCopy3 = error;
         v36 = objc_alloc(MEMORY[0x1E696ABC0]);
         v37 = *MEMORY[0x1E698F240];
-        v75 = *MEMORY[0x1E696A578];
-        v67 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientBundleIdentifier"];
-        v76 = v67;
-        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+        v74 = *MEMORY[0x1E696A578];
+        v66 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clientBundleIdentifier"];
+        v75 = v66;
+        v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
         v24 = 0;
         *errorCopy3 = [v36 initWithDomain:v37 code:2 userInfo:v29];
         v28 = 0;
 LABEL_49:
 
-        v8 = v68;
-        v27 = v65;
+        v8 = v67;
+        v27 = v64;
 LABEL_50:
 
-        v10 = v66;
+        v10 = v65;
         goto LABEL_51;
       }
 
@@ -428,7 +426,7 @@ LABEL_50:
       {
         if (!error)
         {
-          v67 = 0;
+          v66 = 0;
           v24 = 0;
           goto LABEL_49;
         }
@@ -438,30 +436,30 @@ LABEL_50:
         v39 = v28;
         v40 = v11;
         v41 = *MEMORY[0x1E698F240];
-        v73 = *MEMORY[0x1E696A578];
+        v72 = *MEMORY[0x1E696A578];
         v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"alternateClientIdentifier"];
-        v74 = v33;
-        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+        v73 = v33;
+        v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
         v42 = v41;
         v11 = v40;
         v28 = v39;
-        v67 = 0;
+        v66 = 0;
         v24 = 0;
         *errorCopy4 = [v38 initWithDomain:v42 code:2 userInfo:v30];
         goto LABEL_48;
       }
 
-      v67 = v29;
+      v66 = v29;
     }
 
     else
     {
-      v67 = 0;
+      v66 = 0;
     }
 
     v30 = [dictionaryCopy objectForKeyedSubscript:@"totalContextReplyCount"];
-    v63 = v28;
-    v64 = v7;
+    v62 = v28;
+    v63 = v7;
     if (v30 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       objc_opt_class();
@@ -475,15 +473,15 @@ LABEL_50:
         }
 
         selfCopy3 = self;
-        v60 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v59 = objc_alloc(MEMORY[0x1E696ABC0]);
         v43 = *MEMORY[0x1E698F240];
-        v71 = *MEMORY[0x1E696A578];
+        v70 = *MEMORY[0x1E696A578];
         v31 = v11;
         errorCopy5 = error;
         error = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"totalContextReplyCount"];
         errorCopy6 = error;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&errorCopy6 forKeys:&v71 count:1];
-        v45 = [v60 initWithDomain:v43 code:2 userInfo:v34];
+        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&errorCopy6 forKeys:&v70 count:1];
+        v45 = [v59 initWithDomain:v43 code:2 userInfo:v34];
         v33 = 0;
         v24 = 0;
         *errorCopy5 = v45;
@@ -509,13 +507,13 @@ LABEL_50:
 LABEL_28:
       v11 = v31;
       v35 = v31;
-      v28 = v63;
-      v24 = [(BMPersonalizedSensingMomentsContextContextFetchDetails *)selfCopy3 initWithFetchId:v68 timestamp:v35 clientBundleIdentifier:v63 alternateClientIdentifier:v67 totalContextReplyCount:v33 batchContextReplyStartIndex:error];
+      v28 = v62;
+      v24 = [(BMPersonalizedSensingMomentsContextContextFetchDetails *)selfCopy3 initWithFetchId:v67 timestamp:v35 clientBundleIdentifier:v62 alternateClientIdentifier:v66 totalContextReplyCount:v33 batchContextReplyStartIndex:error];
       selfCopy3 = v24;
 LABEL_47:
 
       self = selfCopy3;
-      v7 = v64;
+      v7 = v63;
 LABEL_48:
 
       goto LABEL_49;
@@ -530,14 +528,14 @@ LABEL_48:
 
     if (error)
     {
-      v61 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v56 = *MEMORY[0x1E698F240];
-      v69 = *MEMORY[0x1E696A578];
+      v60 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v55 = *MEMORY[0x1E698F240];
+      v68 = *MEMORY[0x1E696A578];
       errorCopy7 = error;
       v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"batchContextReplyStartIndex"];
-      v70 = v47;
-      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-      *errorCopy7 = [v61 initWithDomain:v56 code:2 userInfo:v48];
+      v69 = v47;
+      v48 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+      *errorCopy7 = [v60 initWithDomain:v55 code:2 userInfo:v48];
 
       error = 0;
     }
@@ -545,7 +543,7 @@ LABEL_48:
     v24 = 0;
 LABEL_46:
     v11 = v31;
-    v28 = v63;
+    v28 = v62;
     goto LABEL_47;
   }
 
@@ -566,22 +564,21 @@ LABEL_46:
   errorCopy8 = error;
   v19 = objc_alloc(MEMORY[0x1E696ABC0]);
   v20 = *MEMORY[0x1E698F240];
-  v79 = *MEMORY[0x1E696A578];
+  v78 = *MEMORY[0x1E696A578];
   v21 = v7;
   v22 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v55 = objc_opt_class();
+  v54 = objc_opt_class();
   v23 = v22;
   v7 = v21;
-  v11 = [v23 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v55, @"fetchId"];
-  v80[0] = v11;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v80 forKeys:&v79 count:1];
+  v11 = [v23 initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", v54, @"fetchId"];
+  v79[0] = v11;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v79 forKeys:&v78 count:1];
   v8 = 0;
   v24 = 0;
   *errorCopy8 = [v19 initWithDomain:v20 code:2 userInfo:v10];
 LABEL_51:
 
 LABEL_52:
-  v49 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
@@ -599,13 +596,11 @@ LABEL_52:
   toCopy = to;
   if (self->_hasFetchId)
   {
-    fetchId = self->_fetchId;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasRaw_timestamp)
   {
-    raw_timestamp = self->_raw_timestamp;
     PBDataWriterWriteDoubleField();
   }
 
@@ -621,13 +616,11 @@ LABEL_52:
 
   if (self->_hasTotalContextReplyCount)
   {
-    totalContextReplyCount = self->_totalContextReplyCount;
     PBDataWriterWriteUint32Field();
   }
 
   if (self->_hasBatchContextReplyStartIndex)
   {
-    batchContextReplyStartIndex = self->_batchContextReplyStartIndex;
     PBDataWriterWriteUint32Field();
   }
 }
@@ -1024,44 +1017,40 @@ LABEL_78:
 
 + (id)protoFields
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"fetchId" number:1 type:4 subMessageClass:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timestamp" number:2 type:0 subMessageClass:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clientBundleIdentifier" number:3 type:13 subMessageClass:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"alternateClientIdentifier" number:4 type:13 subMessageClass:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"totalContextReplyCount" number:5 type:4 subMessageClass:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"batchContextReplyStartIndex" number:6 type:4 subMessageClass:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)columns
 {
-  v11[6] = *MEMORY[0x1E69E9840];
+  v10[6] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"fetchId" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timestamp" dataType:3 requestOnly:0 fieldNumber:2 protoDataType:0 convertedType:2];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clientBundleIdentifier" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
   v5 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"alternateClientIdentifier" dataType:2 requestOnly:0 fieldNumber:4 protoDataType:13 convertedType:0];
   v6 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"totalContextReplyCount" dataType:0 requestOnly:0 fieldNumber:5 protoDataType:4 convertedType:0];
   v7 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"batchContextReplyStartIndex" dataType:0 requestOnly:0 fieldNumber:6 protoDataType:4 convertedType:0];
-  v11[0] = v2;
-  v11[1] = v3;
-  v11[2] = v4;
-  v11[3] = v5;
-  v11[4] = v6;
-  v11[5] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10[0] = v2;
+  v10[1] = v3;
+  v10[2] = v4;
+  v10[3] = v5;
+  v10[4] = v6;
+  v10[5] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:6];
 
   return v8;
 }

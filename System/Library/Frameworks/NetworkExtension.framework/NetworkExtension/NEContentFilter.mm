@@ -3,10 +3,31 @@
 - (NEContentFilter)init;
 - (NEContentFilter)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEContentFilter
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc_init(MEMORY[0x1E696AD60]);
+  [v7 appendPrettyBOOL:-[NEContentFilter isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  if ([(NEContentFilter *)self disableEncryptedDNSSettings])
+  {
+    [v7 appendPrettyBOOL:-[NEContentFilter disableEncryptedDNSSettings](self withName:"disableEncryptedDNSSettings") andIndent:@"disableEncryptedDNSSettings" options:{v5, options}];
+  }
+
+  provider = [(NEContentFilter *)self provider];
+  [v7 appendPrettyObject:provider withName:@"provider" andIndent:v5 options:options];
+
+  [v7 appendPrettyInt:-[NEContentFilter grade](self withName:"grade") andIndent:@"filter-grade" options:{v5, options}];
+  perApp = [(NEContentFilter *)self perApp];
+  [v7 appendPrettyObject:perApp withName:@"per-app" andIndent:v5 options:options];
+
+  return v7;
+}
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
 {

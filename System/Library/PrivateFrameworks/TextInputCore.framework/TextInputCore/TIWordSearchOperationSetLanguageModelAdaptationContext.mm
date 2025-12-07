@@ -7,7 +7,7 @@
 
 - (void)perform
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   mecabraWrapper = [(TIWordSearchOperationSetLanguageModelAdaptationContext *)self mecabraWrapper];
   mecabraRef = [mecabraWrapper mecabraRef];
 
@@ -23,11 +23,11 @@
       v5 = TIOSLogFacility();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
-        v9 = MEMORY[0x277CCACA8];
+        v8 = MEMORY[0x277CCACA8];
         adaptationContext = [(TIWordSearchOperationSetLanguageModelAdaptationContext *)self adaptationContext];
-        v11 = [v9 stringWithFormat:@"%s Set dynamic language model with context %@", "-[TIWordSearchOperationSetLanguageModelAdaptationContext perform]", adaptationContext];
+        v10 = [v8 stringWithFormat:@"%s Set dynamic language model with context %@", "-[TIWordSearchOperationSetLanguageModelAdaptationContext perform]", adaptationContext];
         *buf = 138412290;
-        v13 = v11;
+        v12 = v10;
         _os_log_debug_impl(&dword_22CA55000, v5, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -36,8 +36,6 @@
     identifier = [adaptationContext2 identifier];
     MecabraSetDynamicLanguageModelAppContext();
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (TIWordSearchOperationSetLanguageModelAdaptationContext)initWithWordSearch:(id)search adaptationContext:(id)context

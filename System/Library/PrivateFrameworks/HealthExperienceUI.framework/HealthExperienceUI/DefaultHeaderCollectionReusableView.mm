@@ -31,7 +31,7 @@
   swift_unknownObjectRelease();
   sub_1BA344EE4();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI35DefaultHeaderCollectionReusableView)initWithCoder:(id)coder

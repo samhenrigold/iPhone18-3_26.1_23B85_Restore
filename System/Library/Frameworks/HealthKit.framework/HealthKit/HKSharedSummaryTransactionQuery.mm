@@ -55,7 +55,7 @@ uint64_t __52__HKSharedSummaryTransactionQuery_setUpdateHandler___block_invoke(u
   v4 = *(v3 + 168);
   *(v3 + 168) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 + (void)configureClientInterface:(id)interface

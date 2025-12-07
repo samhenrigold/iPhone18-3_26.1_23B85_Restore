@@ -49,48 +49,48 @@ void __44__CPLRecordTargetMapping_targetDescriptions__block_invoke(uint64_t a1, 
 
 - (NSString)updatedTargetsDescription
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if ([(NSMutableSet *)self->_updatedScopedIdentifiers count])
   {
-    v20 = a2;
+    v19 = a2;
     v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableSet count](self->_updatedScopedIdentifiers, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v5 = self->_updatedScopedIdentifiers;
-    v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
           v11 = [(NSMutableDictionary *)self->_targets objectForKeyedSubscript:v10];
           if (!v11)
           {
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v17 = __CPLGenericOSLogDomain();
-              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              v16 = __CPLGenericOSLogDomain();
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v26 = v10;
-                _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "Target for %@ should have been updated and thus present", buf, 0xCu);
+                v25 = v10;
+                _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "Target for %@ should have been updated and thus present", buf, 0xCu);
               }
             }
 
             currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-            v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordTarget.m"];
-            [currentHandler handleFailureInMethod:v20 object:self file:v19 lineNumber:252 description:{@"Target for %@ should have been updated and thus present", v10}];
+            v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordTarget.m"];
+            [currentHandler handleFailureInMethod:v19 object:self file:v18 lineNumber:252 description:{@"Target for %@ should have been updated and thus present", v10}];
 
             abort();
           }
@@ -100,7 +100,7 @@ void __44__CPLRecordTargetMapping_targetDescriptions__block_invoke(uint64_t a1, 
           [v4 addObject:v13];
         }
 
-        v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        v7 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v20 objects:v26 count:16];
       }
 
       while (v7);
@@ -113,8 +113,6 @@ void __44__CPLRecordTargetMapping_targetDescriptions__block_invoke(uint64_t a1, 
   {
     v14 = @"no updates";
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -138,35 +136,33 @@ void __44__CPLRecordTargetMapping_targetDescriptions__block_invoke(uint64_t a1, 
 
 void __59__CPLRecordTargetMapping_enumerateUpdatedTargetsWithBlock___block_invoke(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11 = a2;
+  v13 = *MEMORY[0x1E69E9840];
+  v10 = a2;
   v3 = [*(a1[4] + 8) objectForKeyedSubscript:?];
   if (!v3)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v5 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v13 = v11;
-        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Target for %@ should have been updated and thus present", buf, 0xCu);
+        v12 = v10;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Target for %@ should have been updated and thus present", buf, 0xCu);
       }
     }
 
-    v7 = [MEMORY[0x1E696AAA8] currentHandler];
-    v8 = a1[6];
-    v9 = a1[4];
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordTarget.m"];
-    [v7 handleFailureInMethod:v8 object:v9 file:v10 lineNumber:235 description:{@"Target for %@ should have been updated and thus present", v11}];
+    v6 = [MEMORY[0x1E696AAA8] currentHandler];
+    v7 = a1[6];
+    v8 = a1[4];
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordTarget.m"];
+    [v6 handleFailureInMethod:v7 object:v8 file:v9 lineNumber:235 description:{@"Target for %@ should have been updated and thus present", v10}];
 
     abort();
   }
 
   v4 = v3;
   (*(a1[5] + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startTrackingUpdates
@@ -195,35 +191,33 @@ void __59__CPLRecordTargetMapping_enumerateUpdatedTargetsWithBlock___block_invok
 
 void __59__CPLRecordTargetMapping_enumerateUnknownTargetsWithBlock___block_invoke(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11 = a2;
+  v13 = *MEMORY[0x1E69E9840];
+  v10 = a2;
   v3 = [*(a1[4] + 8) objectForKeyedSubscript:?];
   if (!v3)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = __CPLGenericOSLogDomain();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v5 = __CPLGenericOSLogDomain();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v13 = v11;
-        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Target for %@ should be present", buf, 0xCu);
+        v12 = v10;
+        _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Target for %@ should be present", buf, 0xCu);
       }
     }
 
-    v7 = [MEMORY[0x1E696AAA8] currentHandler];
-    v8 = a1[6];
-    v9 = a1[4];
-    v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordTarget.m"];
-    [v7 handleFailureInMethod:v8 object:v9 file:v10 lineNumber:208 description:{@"Target for %@ should be present", v11}];
+    v6 = [MEMORY[0x1E696AAA8] currentHandler];
+    v7 = a1[6];
+    v8 = a1[4];
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLRecordTarget.m"];
+    [v6 handleFailureInMethod:v7 object:v8 file:v9 lineNumber:208 description:{@"Target for %@ should be present", v10}];
 
     abort();
   }
 
   v4 = v3;
   (*(a1[5] + 16))();
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateTargetsWithBlock:(id)block

@@ -56,7 +56,7 @@
     v12 = v11;
     if (v11)
     {
-      [v11 if_auditToken];
+      objc_msgSend_if_auditToken(v11);
       *v5->_originatingProcessAuditToken.val = v15;
       *&v5->_originatingProcessAuditToken.val[4] = v16;
     }
@@ -92,7 +92,7 @@
   v4 = processInfo;
   if (processInfo)
   {
-    [processInfo if_auditToken];
+    objc_msgSend_if_auditToken(processInfo);
   }
 
   else

@@ -32,30 +32,30 @@ uint64_t __63__AVTStickerShaderModifierProperty_shaderModifierPropertyCache__blo
 {
   pathCopy = path;
   dictionaryCopy = dictionary;
-  v8 = [dictionaryCopy objectForKeyedSubscript:@"value"];
-  v9 = [dictionaryCopy objectForKeyedSubscript:@"name"];
-  v10 = [dictionaryCopy objectForKeyedSubscript:@"type"];
+  v8 = [dictionaryCopy objectForKeyedSubscript:?];
+  v9 = [dictionaryCopy objectForKeyedSubscript:?];
+  v10 = [dictionaryCopy objectForKeyedSubscript:?];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = [pathCopy stringByAppendingPathComponent:v8];
-    v12 = [MEMORY[0x1E695DFF8] fileURLWithPath:v11 isDirectory:0];
+    v11 = [pathCopy stringByAppendingPathComponent:?];
+    v12 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
     standardizedURL = [v12 standardizedURL];
     absoluteString = [standardizedURL absoluteString];
 
     shaderModifierPropertyCache = [self shaderModifierPropertyCache];
-    v16 = [shaderModifierPropertyCache objectForKey:absoluteString];
+    v16 = [shaderModifierPropertyCache objectForKey:?];
     if (!v16)
     {
-      v16 = [[AVTStickerShaderModifierProperty alloc] initWithName:v9 type:v10 value:v11 originalValue:v8];
-      [shaderModifierPropertyCache setObject:v16 forKey:absoluteString];
+      v16 = [AVTStickerShaderModifierProperty initWithName:"initWithName:type:value:originalValue:" type:? value:? originalValue:?];
+      [shaderModifierPropertyCache setObject:? forKey:?];
     }
   }
 
   else
   {
-    v16 = [[AVTStickerShaderModifierProperty alloc] initWithName:v9 type:v10 value:v8 originalValue:v8];
+    v16 = [AVTStickerShaderModifierProperty initWithName:"initWithName:type:value:originalValue:" type:? value:? originalValue:?];
   }
 
   return v16;
@@ -77,12 +77,12 @@ uint64_t __63__AVTStickerShaderModifierProperty_shaderModifierPropertyCache__blo
     objc_storeStrong(&v16->_type, type);
     objc_storeStrong(&v16->_value, value);
     objc_storeStrong(&v16->_originalValue, originalValue);
-    if ([typeCopy isEqualToString:@"texture"])
+    if ([typeCopy isEqualToString:?])
     {
-      v17 = [MEMORY[0x1E69DF300] materialPropertyWithContents:valueCopy];
+      v17 = [MEMORY[0x1E69DF300] materialPropertyWithContents:?];
     }
 
-    else if ([typeCopy isEqualToString:@"float"])
+    else if ([typeCopy isEqualToString:?])
     {
       v18 = MEMORY[0x1E696AD98];
       [valueCopy floatValue];
@@ -103,15 +103,14 @@ uint64_t __63__AVTStickerShaderModifierProperty_shaderModifierPropertyCache__blo
 
 - (id)dictionaryWithTargetPath:(id)path
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = *&self->_name;
-  v7[0] = @"name";
-  v7[1] = @"type";
-  v8 = v3;
-  v7[2] = @"value";
+  v6 = @"name";
+  v7 = @"type";
+  v9 = v3;
+  v8 = @"value";
   originalValue = self->_originalValue;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v8 forKeys:v7 count:3];
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
 
   return v4;
 }

@@ -41,38 +41,37 @@
 
 - (id)requestOperationClasses
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = objc_opt_class();
-  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v6, 1);
-  v4 = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = objc_opt_class();
+  v3 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v2, v5, 1);
 
   return v3;
 }
 
 - (id)generateRequestOperations
 {
-  v249 = *MEMORY[0x277D85DE8];
-  v227 = objc_opt_new();
+  v248 = *MEMORY[0x277D85DE8];
+  v226 = objc_opt_new();
+  v237 = 0u;
   v238 = 0u;
   v239 = 0u;
   v240 = 0u;
-  v241 = 0u;
   obj = objc_msgSend_continuations(self, v3, v4);
-  v228 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v238, v248, 16);
-  if (v228)
+  v227 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v5, &v237, v247, 16);
+  if (v227)
   {
-    v225 = *v239;
+    v224 = *v238;
     do
     {
       v6 = 0;
       do
       {
-        if (*v239 != v225)
+        if (*v238 != v224)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v238 + 1) + 8 * v6);
+        v7 = *(*(&v237 + 1) + 8 * v6);
         v8 = objc_opt_new();
         v11 = objc_msgSend_continuationToken(v7, v9, v10);
         objc_msgSend_setContinuation_(v8, v12, v11);
@@ -131,9 +130,9 @@
           v112 = v77;
           v115 = objc_msgSend_requestUUID(self, v113, v114);
           *buf = 138543618;
-          v245 = v115;
-          v246 = 2112;
-          v247 = v8;
+          v244 = v115;
+          v245 = 2112;
+          v246 = v8;
           _os_log_debug_impl(&dword_22506F000, v112, OS_LOG_TYPE_DEBUG, "req: %{public}@, Sending continuation device capabilities check: %@", buf, 0x16u);
         }
 
@@ -152,58 +151,58 @@
         v108 = objc_msgSend_operationUUID(v105, v106, v107);
         objc_msgSend_setObject_forKeyedSubscript_(v102, v109, v99, v108);
 
-        objc_msgSend_addObject_(v227, v110, v82);
+        objc_msgSend_addObject_(v226, v110, v82);
         ++v6;
       }
 
-      while (v228 != v6);
-      v228 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v111, &v238, v248, 16);
+      while (v227 != v6);
+      v227 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v111, &v237, v247, 16);
     }
 
-    while (v228);
+    while (v227);
   }
 
-  v236 = 0u;
-  v237 = 0u;
-  v234 = 0u;
   v235 = 0u;
-  v219 = objc_msgSend_zoneIDs(self, v116, v117);
-  v221 = objc_msgSend_countByEnumeratingWithState_objects_count_(v219, v118, &v234, v243, 16);
-  if (v221)
+  v236 = 0u;
+  v233 = 0u;
+  v234 = 0u;
+  v218 = objc_msgSend_zoneIDs(self, v116, v117);
+  v220 = objc_msgSend_countByEnumeratingWithState_objects_count_(v218, v118, &v233, v242, 16);
+  if (v220)
   {
-    v220 = *v235;
+    v219 = *v234;
     do
     {
       v121 = 0;
       do
       {
-        if (*v235 != v220)
+        if (*v234 != v219)
         {
-          objc_enumerationMutation(v219);
+          objc_enumerationMutation(v218);
         }
 
-        v222 = v121;
-        v122 = *(*(&v234 + 1) + 8 * v121);
+        v221 = v121;
+        v122 = *(*(&v233 + 1) + 8 * v121);
+        v229 = 0u;
         v230 = 0u;
         v231 = 0u;
         v232 = 0u;
-        v233 = 0u;
         obja = objc_msgSend_desiredCapabilitySets(self, v119, v120);
-        v229 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v123, &v230, v242, 16);
-        if (v229)
+        v228 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v123, &v229, v241, 16);
+        if (v228)
         {
-          v226 = *v231;
+          v225 = *v230;
           do
           {
             v124 = 0;
             do
             {
-              if (*v231 != v226)
+              if (*v230 != v225)
               {
                 objc_enumerationMutation(obja);
               }
 
-              v125 = *(*(&v230 + 1) + 8 * v124);
+              v125 = *(*(&v229 + 1) + 8 * v124);
               v126 = objc_opt_new();
               v129 = objc_msgSend_translator(self, v127, v128);
               v131 = objc_msgSend_pRecordZoneIdentifierFromRecordZoneID_(v129, v130, v122);
@@ -256,9 +255,9 @@
                 v213 = v184;
                 v216 = objc_msgSend_requestUUID(self, v214, v215);
                 *buf = 138543618;
-                v245 = v216;
-                v246 = 2112;
-                v247 = v126;
+                v244 = v216;
+                v245 = 2112;
+                v246 = v126;
                 _os_log_debug_impl(&dword_22506F000, v213, OS_LOG_TYPE_DEBUG, "req: %{public}@, Sending device capabilities check: %@", buf, 0x16u);
               }
 
@@ -275,30 +274,28 @@
               v209 = objc_msgSend_operationUUID(v206, v207, v208);
               objc_msgSend_setObject_forKeyedSubscript_(v203, v210, v125, v209);
 
-              objc_msgSend_addObject_(v227, v211, v189);
+              objc_msgSend_addObject_(v226, v211, v189);
               ++v124;
             }
 
-            while (v229 != v124);
-            v229 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v212, &v230, v242, 16);
+            while (v228 != v124);
+            v228 = objc_msgSend_countByEnumeratingWithState_objects_count_(obja, v212, &v229, v241, 16);
           }
 
-          while (v229);
+          while (v228);
         }
 
-        v121 = v222 + 1;
+        v121 = v221 + 1;
       }
 
-      while (v222 + 1 != v221);
-      v221 = objc_msgSend_countByEnumeratingWithState_objects_count_(v219, v119, &v234, v243, 16);
+      while (v221 + 1 != v220);
+      v220 = objc_msgSend_countByEnumeratingWithState_objects_count_(v218, v119, &v233, v242, 16);
     }
 
-    while (v221);
+    while (v220);
   }
 
-  v217 = *MEMORY[0x277D85DE8];
-
-  return v227;
+  return v226;
 }
 
 - (void)reportClientValidationError:(id)error forZoneID:(id)d capabilitySet:(id)set failureType:(id)type
@@ -329,7 +326,7 @@
 
 - (void)reportContinuationToken:(id)token forZoneID:(id)d capabilitySet:(id)set
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   setCopy = set;
   dCopy = d;
   tokenCopy = token;
@@ -346,11 +343,11 @@
   {
     v17 = v14;
     v20 = objc_msgSend_requestUUID(self, v18, v19);
-    v26 = 138543618;
-    v27 = v20;
-    v28 = 2112;
-    v29 = v13;
-    _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "req: %{public}@, Received continuation token from device capability check: %@", &v26, 0x16u);
+    v25 = 138543618;
+    v26 = v20;
+    v27 = 2112;
+    v28 = v13;
+    _os_log_impl(&dword_22506F000, v17, OS_LOG_TYPE_INFO, "req: %{public}@, Received continuation token from device capability check: %@", &v25, 0x16u);
   }
 
   v21 = objc_msgSend_continuationResponseBlock(self, v15, v16);
@@ -360,13 +357,11 @@
     v24 = objc_msgSend_continuationResponseBlock(self, v22, v23);
     (v24)[2](v24, v13);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)requestDidParseProtobufObject:(id)object
 {
-  v730 = *MEMORY[0x277D85DE8];
+  v729 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   v7 = objc_msgSend_zoneIDByRequestID(self, v5, v6);
   v10 = objc_msgSend_response(objectCopy, v8, v9);
@@ -392,11 +387,11 @@
   {
     v90 = objc_msgSend_requestUUID(self, v32, v33);
     *buf = 138543874;
-    v717 = v90;
-    v718 = 2112;
-    v719 = objectCopy;
-    v720 = 2112;
-    v721 = v15;
+    v716 = v90;
+    v717 = 2112;
+    v718 = objectCopy;
+    v719 = 2112;
+    v720 = v15;
     _os_log_debug_impl(&dword_22506F000, v31, OS_LOG_TYPE_DEBUG, "req: %{public}@, Received device capabilities check response: %@ for zoneID: %@", buf, 0x20u);
   }
 
@@ -406,11 +401,11 @@
   if (!hasError)
   {
     v48 = objc_opt_new();
-    v708 = v48;
+    v707 = v48;
     if (!objc_msgSend_hasAdopterCapabilitiesCheckResponse(objectCopy, v49, v50))
     {
       v45 = 0;
-      v704 = 0;
+      v703 = 0;
       v66 = 0;
 LABEL_14:
       v67 = *v27;
@@ -422,14 +417,14 @@ LABEL_14:
       v68 = *MEMORY[0x277CBC860];
       if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
-        v122 = objc_msgSend_requestUUID(self, v69, v70);
-        v125 = objc_msgSend_result(objectCopy, v123, v124);
+        v121 = objc_msgSend_requestUUID(self, v69, v70);
+        v124 = objc_msgSend_result(objectCopy, v122, v123);
         *buf = 138543874;
-        v717 = v122;
-        v718 = 2112;
-        v719 = v125;
-        v720 = 2112;
-        v721 = v15;
+        v716 = v121;
+        v717 = 2112;
+        v718 = v124;
+        v719 = 2112;
+        v720 = v15;
         _os_log_error_impl(&dword_22506F000, v68, OS_LOG_TYPE_ERROR, "req: %{public}@, Incomplete device capability check response from the server: %@, zoneID: %@", buf, 0x20u);
       }
 
@@ -465,7 +460,7 @@ LABEL_48:
         }
 
         v45 = 0;
-        v704 = 0;
+        v703 = 0;
         v66 = 0;
 LABEL_211:
         v29 = MEMORY[0x277CBC880];
@@ -473,7 +468,7 @@ LABEL_211:
       }
     }
 
-    v703 = v53;
+    v702 = v53;
     if (!objc_msgSend_hasIsSupported(v53, v56, v57))
     {
       goto LABEL_44;
@@ -493,17 +488,17 @@ LABEL_211:
         v84 = v82;
         v87 = objc_msgSend_requestUUID(self, v85, v86);
         *buf = 138543618;
-        v717 = v87;
-        v718 = 2112;
-        v719 = v15;
+        v716 = v87;
+        v717 = 2112;
+        v718 = v15;
         _os_log_impl(&dword_22506F000, v84, OS_LOG_TYPE_INFO, "req: %{public}@, Server returned isSupported:YES for the device capability check. zoneID: %@", buf, 0x16u);
       }
 
       v66 = 0;
       v64 = 0;
-      v704 = 0;
+      v703 = 0;
       v88 = 0;
-      v694 = 0;
+      v693 = 0;
       canValidateWithKT = 0;
       v45 = 0;
       LOBYTE(v89) = 1;
@@ -515,9 +510,9 @@ LABEL_211:
 LABEL_44:
       v66 = 0;
       v64 = 0;
-      v704 = 0;
+      v703 = 0;
       v88 = 0;
-      v694 = 0;
+      v693 = 0;
       canValidateWithKT = 0;
       v45 = 0;
       v83 = 0;
@@ -538,30 +533,30 @@ LABEL_44:
       {
         v104 = objc_msgSend_requestUUID(self, v102, v103);
         *buf = 138543618;
-        v717 = v104;
-        v718 = 2112;
-        v719 = v15;
+        v716 = v104;
+        v717 = 2112;
+        v718 = v15;
         _os_log_impl(&dword_22506F000, v101, OS_LOG_TYPE_INFO, "req: %{public}@, Warn: Unexpected - server returned isSupported:NO with both zone and share usage! zoneID: %@", buf, 0x16u);
       }
 
-      v96 = v703;
+      v96 = v702;
     }
 
     if (!objc_msgSend_hasSignedZoneUsage(v96, v98, v99))
     {
-      v692 = 0;
+      v691 = 0;
+      v688 = 0;
       v689 = 0;
-      v690 = 0;
       v66 = 0;
       v64 = 0;
       canValidateWithKT = 0;
       v45 = 0;
-      v126 = @"share participant";
+      v125 = @"share participant";
       goto LABEL_53;
     }
 
     v107 = objc_msgSend_signedZoneUsage(v96, v105, v106);
-    v693 = v107;
+    v692 = v107;
     if (objc_msgSend_hasVersion(v107, v108, v109) && objc_msgSend_version(v107, v110, v111) >= 2)
     {
       if (*v97 != -1)
@@ -572,28 +567,28 @@ LABEL_44:
       v112 = *v30;
       if (os_log_type_enabled(*v30, OS_LOG_TYPE_ERROR))
       {
-        v507 = v112;
-        v510 = objc_msgSend_requestUUID(self, v508, v509);
-        v513 = objc_msgSend_version(v693, v511, v512);
+        v506 = v112;
+        v509 = objc_msgSend_requestUUID(self, v507, v508);
+        v512 = objc_msgSend_version(v692, v510, v511);
         *buf = 138543874;
-        v717 = v510;
-        v718 = 2048;
-        v719 = v513;
-        v720 = 2112;
-        v721 = v15;
-        _os_log_error_impl(&dword_22506F000, v507, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Zone usage blob version %ld is not supported. zoneID: %@", buf, 0x20u);
+        v716 = v509;
+        v717 = 2048;
+        v718 = v512;
+        v719 = 2112;
+        v720 = v15;
+        _os_log_error_impl(&dword_22506F000, v506, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Zone usage blob version %ld is not supported. zoneID: %@", buf, 0x20u);
       }
 
       v115 = MEMORY[0x277CBC560];
       v116 = *MEMORY[0x277CBBF50];
-      v691 = objc_msgSend_requestUUID(self, v113, v114);
-      v64 = objc_msgSend_errorWithDomain_code_format_(v115, v117, v116, 160, @"Unsupported zone usage version in device capability check response for request %@", v691);
-      v692 = 0;
+      v690 = objc_msgSend_requestUUID(self, v113, v114);
+      v64 = objc_msgSend_errorWithDomain_code_format_(v115, v117, v116, 160, @"Unsupported zone usage version in device capability check response for request %@", v690);
+      v691 = 0;
+      v688 = 0;
       v689 = 0;
-      v690 = 0;
-      v704 = 0;
+      v703 = 0;
       v88 = 0;
-      v694 = 0;
+      v693 = 0;
       canValidateWithKT = 0;
       v45 = 0;
       LOBYTE(v89) = 0;
@@ -602,49 +597,49 @@ LABEL_44:
       goto LABEL_203;
     }
 
-    if (objc_msgSend_hasSignature(v107, v110, v111) && (v142 = v107, objc_msgSend_signature(v107, v140, v141), v143 = objc_claimAutoreleasedReturnValue(), v146 = objc_msgSend_length(v143, v144, v145), v143, v146))
+    if (objc_msgSend_hasSignature(v107, v110, v111) && (v141 = v107, objc_msgSend_signature(v107, v139, v140), v142 = objc_claimAutoreleasedReturnValue(), v145 = objc_msgSend_length(v142, v143, v144), v142, v145))
     {
-      v147 = objc_msgSend_container(self, v140, v141);
-      v150 = objc_msgSend_pcsManager(v147, v148, v149);
-      v153 = objc_msgSend_signature(v142, v151, v152);
-      v156 = objc_msgSend_serializedObject(v142, v154, v155);
-      v715 = 0;
-      v158 = objc_msgSend_validateFullPublicKeySignature_forSignedData_error_(v150, v157, v153, v156, &v715);
-      v89 = v715;
+      v146 = objc_msgSend_container(self, v139, v140);
+      v149 = objc_msgSend_pcsManager(v146, v147, v148);
+      v152 = objc_msgSend_signature(v141, v150, v151);
+      v155 = objc_msgSend_serializedObject(v141, v153, v154);
+      v714 = 0;
+      v157 = objc_msgSend_validateFullPublicKeySignature_forSignedData_error_(v149, v156, v152, v155, &v714);
+      v89 = v714;
 
-      if (!v158 || v89)
+      if (!v157 || v89)
       {
-        v691 = v89;
+        v690 = v89;
         if (*MEMORY[0x277CBC880] != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v414 = *MEMORY[0x277CBC860];
+        v413 = *MEMORY[0x277CBC860];
         if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
         {
-          v545 = v414;
-          v548 = objc_msgSend_requestUUID(self, v546, v547);
+          v544 = v413;
+          v547 = objc_msgSend_requestUUID(self, v545, v546);
           *buf = 138543874;
-          v717 = v548;
-          v718 = 2112;
-          v719 = v89;
-          v720 = 2112;
-          v721 = v15;
-          _os_log_error_impl(&dword_22506F000, v545, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Zone usage signature validation failed: %@ zoneID: %@", buf, 0x20u);
+          v716 = v547;
+          v717 = 2112;
+          v718 = v89;
+          v719 = 2112;
+          v720 = v15;
+          _os_log_error_impl(&dword_22506F000, v544, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Zone usage signature validation failed: %@ zoneID: %@", buf, 0x20u);
         }
 
-        v417 = MEMORY[0x277CBC560];
-        v418 = *MEMORY[0x277CBBF50];
-        v419 = objc_msgSend_requestUUID(self, v415, v416);
-        v64 = objc_msgSend_errorWithDomain_code_error_format_(v417, v420, v418, 161, v89, @"Failed to validate zone usage signature in device capability check response for request %@", v419);
+        v416 = MEMORY[0x277CBC560];
+        v417 = *MEMORY[0x277CBBF50];
+        v418 = objc_msgSend_requestUUID(self, v414, v415);
+        v64 = objc_msgSend_errorWithDomain_code_error_format_(v416, v419, v417, 161, v89, @"Failed to validate zone usage signature in device capability check response for request %@", v418);
 
-        v692 = 0;
+        v691 = 0;
+        v688 = 0;
         v689 = 0;
-        v690 = 0;
-        v704 = 0;
+        v703 = 0;
         v88 = 0;
-        v694 = 0;
+        v693 = 0;
         canValidateWithKT = 0;
         v45 = 0;
         LOBYTE(v89) = 0;
@@ -653,69 +648,69 @@ LABEL_44:
         goto LABEL_203;
       }
 
-      canValidateWithKT = objc_msgSend_canValidateWithKT(v693, v159, v160);
-      v163 = objc_msgSend_container(self, v161, v162);
-      v166 = objc_msgSend_pcsManager(v163, v164, v165);
-      v169 = objc_msgSend_signature(v693, v167, v168);
-      v714 = 0;
-      v171 = objc_msgSend_publicKeyFromSignature_error_(v166, v170, v169, &v714);
-      v172 = v714;
+      canValidateWithKT = objc_msgSend_canValidateWithKT(v692, v158, v159);
+      v162 = objc_msgSend_container(self, v160, v161);
+      v165 = objc_msgSend_pcsManager(v162, v163, v164);
+      v168 = objc_msgSend_signature(v692, v166, v167);
+      v713 = 0;
+      v170 = objc_msgSend_publicKeyFromSignature_error_(v165, v169, v168, &v713);
+      v171 = v713;
 
       v27 = MEMORY[0x277CBC878];
       v30 = MEMORY[0x277CBC860];
-      if (v172)
+      if (v171)
       {
-        v173 = *MEMORY[0x277CBC878];
+        v172 = *MEMORY[0x277CBC878];
         if (*MEMORY[0x277CBC880] != -1)
         {
-          dispatch_once(MEMORY[0x277CBC880], v173);
+          dispatch_once(MEMORY[0x277CBC880], v172);
         }
 
-        v174 = *v30;
-        if (os_log_type_enabled(v174, OS_LOG_TYPE_ERROR))
+        v173 = *v30;
+        if (os_log_type_enabled(v173, OS_LOG_TYPE_ERROR))
         {
-          v571 = objc_msgSend_requestUUID(self, v175, v176);
+          v570 = objc_msgSend_requestUUID(self, v174, v175);
           *buf = 138543618;
-          v717 = v571;
-          v718 = 2112;
-          v719 = v172;
-          _os_log_error_impl(&dword_22506F000, v174, OS_LOG_TYPE_ERROR, "req: %{public}@, Failed to extract public key from the signature: %@", buf, 0x16u);
+          v716 = v570;
+          v717 = 2112;
+          v718 = v171;
+          _os_log_error_impl(&dword_22506F000, v173, OS_LOG_TYPE_ERROR, "req: %{public}@, Failed to extract public key from the signature: %@", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v177 = objc_msgSend_options(self, v140, v141);
-      v180 = objc_msgSend_excludeDevicesWithoutCapabilityCheckingSupport(v177, v178, v179);
+      v176 = objc_msgSend_options(self, v139, v140);
+      v179 = objc_msgSend_excludeDevicesWithoutCapabilityCheckingSupport(v176, v177, v178);
 
-      if (v180)
+      if (v179)
       {
         if (*MEMORY[0x277CBC880] != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *v27);
         }
 
-        v181 = *v30;
+        v180 = *v30;
         if (os_log_type_enabled(*v30, OS_LOG_TYPE_ERROR))
         {
-          v503 = v181;
-          v506 = objc_msgSend_requestUUID(self, v504, v505);
+          v502 = v180;
+          v505 = objc_msgSend_requestUUID(self, v503, v504);
           *buf = 138543362;
-          v717 = v506;
-          _os_log_error_impl(&dword_22506F000, v503, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server. Server returned isSupported:NO for a device without capability checking support, when devices without capability checking support should have been excluded.", buf, 0xCu);
+          v716 = v505;
+          _os_log_error_impl(&dword_22506F000, v502, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server. Server returned isSupported:NO for a device without capability checking support, when devices without capability checking support should have been excluded.", buf, 0xCu);
         }
 
-        v184 = MEMORY[0x277CBC560];
-        v185 = *MEMORY[0x277CBBF50];
-        v691 = objc_msgSend_requestUUID(self, v182, v183);
-        v64 = objc_msgSend_errorWithDomain_code_format_(v184, v186, v185, 161, @"Device without capability checking support should have been excluded, but was returned by server in request: %@", v691);
-        v692 = 0;
+        v183 = MEMORY[0x277CBC560];
+        v184 = *MEMORY[0x277CBBF50];
+        v690 = objc_msgSend_requestUUID(self, v181, v182);
+        v64 = objc_msgSend_errorWithDomain_code_format_(v183, v185, v184, 161, @"Device without capability checking support should have been excluded, but was returned by server in request: %@", v690);
+        v691 = 0;
+        v688 = 0;
         v689 = 0;
-        v690 = 0;
-        v704 = 0;
+        v703 = 0;
         v88 = 0;
-        v694 = 0;
+        v693 = 0;
         canValidateWithKT = 0;
         v45 = 0;
         LOBYTE(v89) = 0;
@@ -724,50 +719,50 @@ LABEL_44:
         goto LABEL_203;
       }
 
-      v171 = 0;
+      v170 = 0;
       canValidateWithKT = 0;
     }
 
-    v278 = [CKDPZoneUsage alloc];
-    v281 = objc_msgSend_serializedObject(v693, v279, v280);
-    v283 = objc_msgSend_initWithData_(v278, v282, v281);
+    v277 = [CKDPZoneUsage alloc];
+    v280 = objc_msgSend_serializedObject(v692, v278, v279);
+    v282 = objc_msgSend_initWithData_(v277, v281, v280);
 
-    v691 = v283;
-    v692 = v171;
-    if (objc_msgSend_hasVersion(v283, v284, v285) && objc_msgSend_version(v283, v286, v287) >= 2)
+    v690 = v282;
+    v691 = v170;
+    if (objc_msgSend_hasVersion(v282, v283, v284) && objc_msgSend_version(v282, v285, v286) >= 2)
     {
       if (*MEMORY[0x277CBC880] != -1)
       {
         dispatch_once(MEMORY[0x277CBC880], *v27);
       }
 
-      v288 = *v30;
+      v287 = *v30;
       if (os_log_type_enabled(*v30, OS_LOG_TYPE_ERROR))
       {
-        v549 = v288;
-        v552 = objc_msgSend_requestUUID(self, v550, v551);
-        v555 = objc_msgSend_version(v691, v553, v554);
+        v548 = v287;
+        v551 = objc_msgSend_requestUUID(self, v549, v550);
+        v554 = objc_msgSend_version(v690, v552, v553);
         *buf = 138543874;
-        v717 = v552;
-        v718 = 2048;
-        v719 = v555;
-        v720 = 2112;
-        v721 = v15;
-        _os_log_error_impl(&dword_22506F000, v549, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Zone usage version %ld is not supported. zoneID: %@", buf, 0x20u);
+        v716 = v551;
+        v717 = 2048;
+        v718 = v554;
+        v719 = 2112;
+        v720 = v15;
+        _os_log_error_impl(&dword_22506F000, v548, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Zone usage version %ld is not supported. zoneID: %@", buf, 0x20u);
       }
 
-      v291 = MEMORY[0x277CBC560];
-      v292 = *MEMORY[0x277CBBF50];
-      v293 = objc_msgSend_requestUUID(self, v289, v290);
-      v64 = objc_msgSend_errorWithDomain_code_format_(v291, v294, v292, 160, @"Unsupported zone usage version in device capability check response for request %@", v293);
+      v290 = MEMORY[0x277CBC560];
+      v291 = *MEMORY[0x277CBBF50];
+      v292 = objc_msgSend_requestUUID(self, v288, v289);
+      v64 = objc_msgSend_errorWithDomain_code_format_(v290, v293, v291, 160, @"Unsupported zone usage version in device capability check response for request %@", v292);
       v66 = @"unsupportedZoneUsageVersion";
 LABEL_136:
 
+      v688 = 0;
       v689 = 0;
-      v690 = 0;
-      v704 = 0;
+      v703 = 0;
       v88 = 0;
-      v694 = 0;
+      v693 = 0;
       v45 = 0;
       LOBYTE(v89) = 0;
       v83 = 10;
@@ -776,59 +771,59 @@ LABEL_203:
       goto LABEL_204;
     }
 
-    v295 = MEMORY[0x277CBC880];
-    if (!v283 || !objc_msgSend_hasZoneIdentifier(v283, v286, v287) || !objc_msgSend_hasUserIdentifier(v283, v296, v297) || !objc_msgSend_hasDeviceIdentifier(v283, v298, v299) || (objc_msgSend_hasTime(v283, v300, v301) & 1) == 0)
+    v294 = MEMORY[0x277CBC880];
+    if (!v282 || !objc_msgSend_hasZoneIdentifier(v282, v285, v286) || !objc_msgSend_hasUserIdentifier(v282, v295, v296) || !objc_msgSend_hasDeviceIdentifier(v282, v297, v298) || (objc_msgSend_hasTime(v282, v299, v300) & 1) == 0)
     {
-      if (*v295 != -1)
+      if (*v294 != -1)
       {
         dispatch_once(MEMORY[0x277CBC880], *v27);
       }
 
-      v338 = *v30;
+      v337 = *v30;
       if (os_log_type_enabled(*v30, OS_LOG_TYPE_ERROR))
       {
-        v499 = v338;
-        v502 = objc_msgSend_requestUUID(self, v500, v501);
+        v498 = v337;
+        v501 = objc_msgSend_requestUUID(self, v499, v500);
         *buf = 138543874;
-        v717 = v502;
-        v718 = 2112;
-        v719 = v691;
-        v720 = 2112;
-        v721 = v15;
-        _os_log_error_impl(&dword_22506F000, v499, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Invalid zone usage content: %@, zoneID: %@", buf, 0x20u);
+        v716 = v501;
+        v717 = 2112;
+        v718 = v690;
+        v719 = 2112;
+        v720 = v15;
+        _os_log_error_impl(&dword_22506F000, v498, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Invalid zone usage content: %@, zoneID: %@", buf, 0x20u);
       }
 
-      v341 = MEMORY[0x277CBC560];
-      v342 = *MEMORY[0x277CBBF50];
-      v293 = objc_msgSend_requestUUID(self, v339, v340);
-      v64 = objc_msgSend_errorWithDomain_code_format_(v341, v343, v342, 161, @"Invalid zone usage content in device capability check response for request %@", v293);
+      v340 = MEMORY[0x277CBC560];
+      v341 = *MEMORY[0x277CBBF50];
+      v292 = objc_msgSend_requestUUID(self, v338, v339);
+      v64 = objc_msgSend_errorWithDomain_code_format_(v340, v342, v341, 161, @"Invalid zone usage content in device capability check response for request %@", v292);
       v66 = @"incompleteZoneUsage";
       goto LABEL_136;
     }
 
-    objc_msgSend_translator(self, v302, v303);
-    v305 = v304 = v283;
-    v308 = objc_msgSend_time(v304, v306, v307);
-    v690 = objc_msgSend_dateFromPDate_(v305, v309, v308);
+    objc_msgSend_translator(self, v301, v302);
+    v304 = v303 = v282;
+    v307 = objc_msgSend_time(v303, v305, v306);
+    v689 = objc_msgSend_dateFromPDate_(v304, v308, v307);
 
-    v312 = objc_msgSend_deviceIdentifier(v304, v310, v311);
-    v689 = objc_msgSend_name(v312, v313, v314);
+    v311 = objc_msgSend_deviceIdentifier(v303, v309, v310);
+    v688 = objc_msgSend_name(v311, v312, v313);
 
-    v317 = objc_msgSend_userIdentifier(v304, v315, v316);
-    v45 = objc_msgSend_name(v317, v318, v319);
+    v316 = objc_msgSend_userIdentifier(v303, v314, v315);
+    v45 = objc_msgSend_name(v316, v317, v318);
 
-    v322 = objc_msgSend_translator(self, v320, v321);
-    v325 = objc_msgSend_zoneIdentifier(v304, v323, v324);
-    v713 = 0;
-    v327 = objc_msgSend_recordZoneIDFromPRecordZoneIdentifier_error_(v322, v326, v325, &v713);
-    v699 = v713;
+    v321 = objc_msgSend_translator(self, v319, v320);
+    v324 = objc_msgSend_zoneIdentifier(v303, v322, v323);
+    v712 = 0;
+    v326 = objc_msgSend_recordZoneIDFromPRecordZoneIdentifier_error_(v321, v325, v324, &v712);
+    v698 = v712;
 
-    v707 = v327;
-    if (objc_msgSend_isEqual_(v327, v328, v15))
+    v706 = v326;
+    if (objc_msgSend_isEqual_(v326, v327, v15))
     {
-      v331 = objc_msgSend_translator(self, v329, v330);
-      v334 = objc_msgSend_containerScopedUserID(v331, v332, v333);
-      isEqual = objc_msgSend_isEqual_(v45, v335, v334);
+      v330 = objc_msgSend_translator(self, v328, v329);
+      v333 = objc_msgSend_containerScopedUserID(v330, v331, v332);
+      isEqual = objc_msgSend_isEqual_(v45, v334, v333);
 
       if (isEqual)
       {
@@ -836,61 +831,61 @@ LABEL_203:
         v64 = 0;
         v83 = 0;
         LODWORD(v89) = 1;
-        v337 = v699;
+        v336 = v698;
 LABEL_231:
 
         if (!v89)
         {
-          v704 = 0;
+          v703 = 0;
           v88 = 0;
-          v694 = 0;
+          v693 = 0;
           goto LABEL_204;
         }
 
-        v126 = @"owner";
+        v125 = @"owner";
         v27 = MEMORY[0x277CBC878];
 LABEL_53:
-        if (!objc_msgSend_hasSignedShareUsage(v703, v105, v106))
+        if (!objc_msgSend_hasSignedShareUsage(v702, v105, v106))
         {
-          v687 = v126;
-          v704 = 0;
+          v686 = v125;
+          v703 = 0;
 LABEL_79:
-          v187 = objc_msgSend_options(self, v127, v128);
-          v190 = objc_msgSend_excludeZoneAccessBefore(v187, v188, v189);
+          v186 = objc_msgSend_options(self, v126, v127);
+          v189 = objc_msgSend_excludeZoneAccessBefore(v186, v187, v188);
 
-          v693 = v190;
-          if (v190)
+          v692 = v189;
+          if (v189)
           {
-            objc_msgSend_timeIntervalSinceDate_(v690, v191, v190);
-            if (v193 < 0.0)
+            objc_msgSend_timeIntervalSinceDate_(v689, v190, v189);
+            if (v192 < 0.0)
             {
               if (*MEMORY[0x277CBC880] != -1)
               {
                 dispatch_once(MEMORY[0x277CBC880], *v27);
               }
 
-              v194 = *MEMORY[0x277CBC860];
+              v193 = *MEMORY[0x277CBC860];
               if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
               {
-                v514 = v194;
-                v517 = objc_msgSend_requestUUID(self, v515, v516);
+                v513 = v193;
+                v516 = objc_msgSend_requestUUID(self, v514, v515);
                 *buf = 138544130;
-                v717 = v517;
-                v718 = 2112;
-                v719 = v690;
-                v720 = 2112;
-                v721 = v190;
-                v722 = 2112;
-                v723 = v15;
-                _os_log_error_impl(&dword_22506F000, v514, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server: Zone/share usage blob date is too old: %@ (vs. %@), zoneID: %@", buf, 0x2Au);
+                v716 = v516;
+                v717 = 2112;
+                v718 = v689;
+                v719 = 2112;
+                v720 = v189;
+                v721 = 2112;
+                v722 = v15;
+                _os_log_error_impl(&dword_22506F000, v513, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server: Zone/share usage blob date is too old: %@ (vs. %@), zoneID: %@", buf, 0x2Au);
               }
 
-              v197 = MEMORY[0x277CBC560];
-              v198 = *MEMORY[0x277CBBF50];
-              v691 = objc_msgSend_requestUUID(self, v195, v196);
-              v686 = objc_msgSend_errorWithDomain_code_format_(v197, v199, v198, 161, @"Invalid zone/share usage date (%@) in device capability check response for request %@", v690, v691);
+              v196 = MEMORY[0x277CBC560];
+              v197 = *MEMORY[0x277CBBF50];
+              v690 = objc_msgSend_requestUUID(self, v194, v195);
+              v685 = objc_msgSend_errorWithDomain_code_format_(v196, v198, v197, 161, @"Invalid zone/share usage date (%@) in device capability check response for request %@", v689, v690);
               v88 = 0;
-              v694 = 0;
+              v693 = 0;
               LOBYTE(v89) = 0;
               v83 = 10;
               v66 = @"usageTooOld";
@@ -898,319 +893,319 @@ LABEL_79:
             }
           }
 
-          v233 = objc_msgSend_signedSupportedAdopterCapabilities(v703, v191, v192);
-          v691 = v233;
-          if (objc_msgSend_hasVersion(v233, v234, v235) && objc_msgSend_version(v233, v236, v237) >= 2)
+          v232 = objc_msgSend_signedSupportedAdopterCapabilities(v702, v190, v191);
+          v690 = v232;
+          if (objc_msgSend_hasVersion(v232, v233, v234) && objc_msgSend_version(v232, v235, v236) >= 2)
           {
             if (*MEMORY[0x277CBC880] != -1)
             {
               dispatch_once(MEMORY[0x277CBC880], *v27);
             }
 
-            v238 = *MEMORY[0x277CBC860];
+            v237 = *MEMORY[0x277CBC860];
             if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
             {
-              v564 = v238;
-              v567 = objc_msgSend_requestUUID(self, v565, v566);
-              v570 = objc_msgSend_version(v233, v568, v569);
+              v563 = v237;
+              v566 = objc_msgSend_requestUUID(self, v564, v565);
+              v569 = objc_msgSend_version(v232, v567, v568);
               *buf = 138543874;
-              v717 = v567;
-              v718 = 2048;
-              v719 = v570;
-              v720 = 2112;
-              v721 = v15;
-              _os_log_error_impl(&dword_22506F000, v564, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Device capabilities blob version %ld is not supported. zoneID: %@", buf, 0x20u);
+              v716 = v566;
+              v717 = 2048;
+              v718 = v569;
+              v719 = 2112;
+              v720 = v15;
+              _os_log_error_impl(&dword_22506F000, v563, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Device capabilities blob version %ld is not supported. zoneID: %@", buf, 0x20u);
             }
 
-            v241 = MEMORY[0x277CBC560];
-            v242 = *MEMORY[0x277CBBF50];
-            v684 = objc_msgSend_requestUUID(self, v239, v240);
-            v686 = objc_msgSend_errorWithDomain_code_format_(v241, v243, v242, 160, @"Unsupported device capabilities version in device capability check response for request %@", v684);
+            v240 = MEMORY[0x277CBC560];
+            v241 = *MEMORY[0x277CBBF50];
+            v683 = objc_msgSend_requestUUID(self, v238, v239);
+            v685 = objc_msgSend_errorWithDomain_code_format_(v240, v242, v241, 160, @"Unsupported device capabilities version in device capability check response for request %@", v683);
             v88 = 0;
-            v694 = 0;
+            v693 = 0;
             LOBYTE(v89) = 0;
             v83 = 10;
             v66 = @"unsupportedSignedVersionedBlobVersion";
             goto LABEL_200;
           }
 
-          if (objc_msgSend_hasSignature(v233, v236, v237) && (objc_msgSend_signature(v233, v244, v245), v246 = objc_claimAutoreleasedReturnValue(), v697 = objc_msgSend_length(v246, v247, v248), v246, v697))
+          if (objc_msgSend_hasSignature(v232, v235, v236) && (objc_msgSend_signature(v232, v243, v244), v245 = objc_claimAutoreleasedReturnValue(), v696 = objc_msgSend_length(v245, v246, v247), v245, v696))
           {
-            v698 = objc_msgSend_container(self, v244, v245);
-            v675 = objc_msgSend_pcsManager(v698, v249, v250);
-            v673 = objc_msgSend_signature(v233, v251, v252);
-            objc_msgSend_serializedObject(v233, v253, v254);
-            v255 = v709[1] = 0;
-            v679 = objc_msgSend_validateFullPublicKeySignature_forSignedData_error_(v675, v256, v673);
-            v684 = 0;
+            v697 = objc_msgSend_container(self, v243, v244);
+            v674 = objc_msgSend_pcsManager(v697, v248, v249);
+            v672 = objc_msgSend_signature(v232, v250, v251);
+            objc_msgSend_serializedObject(v232, v252, v253);
+            v254 = v708[1] = 0;
+            v678 = objc_msgSend_validateFullPublicKeySignature_forSignedData_error_(v674, v255, v672);
+            v683 = 0;
 
-            if (!v679 || v684)
+            if (!v678 || v683)
             {
               if (*MEMORY[0x277CBC880] != -1)
               {
                 dispatch_once(MEMORY[0x277CBC880], *v27);
               }
 
-              v481 = *MEMORY[0x277CBC860];
+              v480 = *MEMORY[0x277CBC860];
               if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
               {
-                v593 = v481;
-                v596 = objc_msgSend_requestUUID(self, v594, v595);
+                v592 = v480;
+                v595 = objc_msgSend_requestUUID(self, v593, v594);
                 *buf = 138543874;
-                v717 = v596;
-                v718 = 2112;
-                v719 = v684;
-                v720 = 2112;
-                v721 = v15;
-                _os_log_error_impl(&dword_22506F000, v593, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Device capabilities signature validation failed: %@, zoneID: %@", buf, 0x20u);
+                v716 = v595;
+                v717 = 2112;
+                v718 = v683;
+                v719 = 2112;
+                v720 = v15;
+                _os_log_error_impl(&dword_22506F000, v592, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Device capabilities signature validation failed: %@, zoneID: %@", buf, 0x20u);
               }
 
-              v484 = MEMORY[0x277CBC560];
-              v485 = *MEMORY[0x277CBBF50];
-              v486 = objc_msgSend_requestUUID(self, v482, v483);
-              v686 = objc_msgSend_errorWithDomain_code_error_format_(v484, v487, v485, 161, v684, @"Failed to validate device capabilities signature in device capability check response for request %@", v486);
+              v483 = MEMORY[0x277CBC560];
+              v484 = *MEMORY[0x277CBBF50];
+              v485 = objc_msgSend_requestUUID(self, v481, v482);
+              v685 = objc_msgSend_errorWithDomain_code_error_format_(v483, v486, v484, 161, v683, @"Failed to validate device capabilities signature in device capability check response for request %@", v485);
 
               v88 = 0;
-              v694 = 0;
+              v693 = 0;
               LOBYTE(v89) = 0;
               v83 = 10;
-              v64 = v486;
+              v64 = v485;
               v66 = @"invalidDeviceCapabilitySignature";
               goto LABEL_200;
             }
 
-            v694 = objc_msgSend_canValidateWithKT(v233, v257, v258);
-            v680 = objc_msgSend_container(self, v259, v260);
-            v263 = objc_msgSend_pcsManager(v680, v261, v262);
-            v266 = objc_msgSend_signature(v233, v264, v265);
-            v709[0] = 0;
-            v684 = objc_msgSend_publicKeyFromSignature_error_(v263, v267, v266, v709);
-            v676 = v709[0];
+            v693 = objc_msgSend_canValidateWithKT(v232, v256, v257);
+            v679 = objc_msgSend_container(self, v258, v259);
+            v262 = objc_msgSend_pcsManager(v679, v260, v261);
+            v265 = objc_msgSend_signature(v232, v263, v264);
+            v708[0] = 0;
+            v683 = objc_msgSend_publicKeyFromSignature_error_(v262, v266, v265, v708);
+            v675 = v708[0];
           }
 
           else
           {
-            v361 = objc_msgSend_options(self, v244, v245);
-            v364 = objc_msgSend_excludeDevicesWithoutCapabilityCheckingSupport(v361, v362, v363);
+            v360 = objc_msgSend_options(self, v243, v244);
+            v363 = objc_msgSend_excludeDevicesWithoutCapabilityCheckingSupport(v360, v361, v362);
 
-            if (v364)
+            if (v363)
             {
               if (*MEMORY[0x277CBC880] != -1)
               {
                 dispatch_once(MEMORY[0x277CBC880], *v27);
               }
 
-              v365 = *MEMORY[0x277CBC860];
+              v364 = *MEMORY[0x277CBC860];
               if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
               {
-                v560 = v365;
-                v563 = objc_msgSend_requestUUID(self, v561, v562);
+                v559 = v364;
+                v562 = objc_msgSend_requestUUID(self, v560, v561);
                 *buf = 138543362;
-                v717 = v563;
-                _os_log_error_impl(&dword_22506F000, v560, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server. Server returned isSupported:NO for a device without capability checking support, when devices without capability checking support should have been excluded.", buf, 0xCu);
+                v716 = v562;
+                _os_log_error_impl(&dword_22506F000, v559, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server. Server returned isSupported:NO for a device without capability checking support, when devices without capability checking support should have been excluded.", buf, 0xCu);
               }
 
-              v368 = MEMORY[0x277CBC560];
-              v369 = *MEMORY[0x277CBBF50];
-              v684 = objc_msgSend_requestUUID(self, v366, v367);
-              v686 = objc_msgSend_errorWithDomain_code_format_(v368, v370, v369, 161, @"Device without capability checking support should have been excluded, but was returned by server in request: %@", v684);
+              v367 = MEMORY[0x277CBC560];
+              v368 = *MEMORY[0x277CBBF50];
+              v683 = objc_msgSend_requestUUID(self, v365, v366);
+              v685 = objc_msgSend_errorWithDomain_code_format_(v367, v369, v368, 161, @"Device without capability checking support should have been excluded, but was returned by server in request: %@", v683);
               v88 = 0;
-              v694 = 0;
+              v693 = 0;
               LOBYTE(v89) = 0;
               v83 = 10;
               v66 = @"serverDetectedDeviceNotExcluded";
               goto LABEL_200;
             }
 
-            v684 = 0;
-            v694 = 0;
+            v683 = 0;
+            v693 = 0;
           }
 
-          v421 = [CKDPSupportedCapabilities alloc];
-          v424 = objc_msgSend_serializedObject(v691, v422, v423);
-          v426 = objc_msgSend_initWithData_(v421, v425, v424);
+          v420 = [CKDPSupportedCapabilities alloc];
+          v423 = objc_msgSend_serializedObject(v690, v421, v422);
+          v425 = objc_msgSend_initWithData_(v420, v424, v423);
 
-          v682 = v426;
-          if (!v426 || !objc_msgSend_hasUserIdentifier(v426, v427, v428) || !objc_msgSend_hasDeviceIdentifier(v426, v429, v430) || (objc_msgSend_hasTime(v426, v431, v432) & 1) == 0)
+          v681 = v425;
+          if (!v425 || !objc_msgSend_hasUserIdentifier(v425, v426, v427) || !objc_msgSend_hasDeviceIdentifier(v425, v428, v429) || (objc_msgSend_hasTime(v425, v430, v431) & 1) == 0)
           {
-            v463 = *v27;
+            v462 = *v27;
             if (*MEMORY[0x277CBC880] != -1)
             {
-              dispatch_once(MEMORY[0x277CBC880], v463);
+              dispatch_once(MEMORY[0x277CBC880], v462);
             }
 
-            v464 = *MEMORY[0x277CBC860];
-            if (os_log_type_enabled(v464, OS_LOG_TYPE_ERROR))
+            v463 = *MEMORY[0x277CBC860];
+            if (os_log_type_enabled(v463, OS_LOG_TYPE_ERROR))
             {
-              v544 = objc_msgSend_requestUUID(self, v465, v466);
+              v543 = objc_msgSend_requestUUID(self, v464, v465);
               *buf = 138543874;
-              v717 = v544;
-              v718 = 2112;
-              v719 = v426;
-              v720 = 2112;
-              v721 = v15;
-              _os_log_error_impl(&dword_22506F000, v464, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Invalid device capabilities content: %@, zoneID: %@", buf, 0x20u);
+              v716 = v543;
+              v717 = 2112;
+              v718 = v425;
+              v719 = 2112;
+              v720 = v15;
+              _os_log_error_impl(&dword_22506F000, v463, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Invalid device capabilities content: %@, zoneID: %@", buf, 0x20u);
             }
 
-            v467 = MEMORY[0x277CBC560];
-            v468 = *MEMORY[0x277CBBF50];
-            v678 = objc_msgSend_requestUUID(self, v469, v470);
-            v472 = objc_msgSend_errorWithDomain_code_format_(v467, v471, v468, 161, @"Invalid device capabilities content in device capability check response for request %@", v678);
+            v466 = MEMORY[0x277CBC560];
+            v467 = *MEMORY[0x277CBBF50];
+            v677 = objc_msgSend_requestUUID(self, v468, v469);
+            v471 = objc_msgSend_errorWithDomain_code_format_(v466, v470, v467, 161, @"Invalid device capabilities content in device capability check response for request %@", v677);
             v88 = 0;
             LOBYTE(v89) = 0;
-            v473 = v64;
+            v472 = v64;
             v83 = 10;
             v66 = @"incompleteDeviceCapabilities";
-            v64 = v472;
+            v64 = v471;
             goto LABEL_187;
           }
 
-          v435 = objc_msgSend_userIdentifier(v426, v433, v434);
-          v678 = objc_msgSend_name(v435, v436, v437);
+          v434 = objc_msgSend_userIdentifier(v425, v432, v433);
+          v677 = objc_msgSend_name(v434, v435, v436);
 
-          v440 = objc_msgSend_deviceIdentifier(v426, v438, v439);
-          v674 = objc_msgSend_name(v440, v441, v442);
+          v439 = objc_msgSend_deviceIdentifier(v425, v437, v438);
+          v673 = objc_msgSend_name(v439, v440, v441);
 
-          if (!objc_msgSend_isEqual_(v678, v443, v45) || (objc_msgSend_isEqual_(v674, v444, v689) & 1) == 0)
+          if (!objc_msgSend_isEqual_(v677, v442, v45) || (objc_msgSend_isEqual_(v673, v443, v688) & 1) == 0)
           {
-            v522 = *v27;
+            v521 = *v27;
             if (*MEMORY[0x277CBC880] != -1)
             {
-              dispatch_once(MEMORY[0x277CBC880], v522);
+              dispatch_once(MEMORY[0x277CBC880], v521);
             }
 
-            v523 = *MEMORY[0x277CBC860];
-            if (os_log_type_enabled(v523, OS_LOG_TYPE_ERROR))
+            v522 = *MEMORY[0x277CBC860];
+            if (os_log_type_enabled(v522, OS_LOG_TYPE_ERROR))
             {
-              v640 = objc_msgSend_requestUUID(self, v524, v525);
+              v639 = objc_msgSend_requestUUID(self, v523, v524);
               *buf = 138544642;
-              v717 = v640;
-              v718 = 2112;
-              v719 = v678;
-              v720 = 2112;
-              v721 = v45;
-              v722 = 2112;
-              v723 = v674;
-              v724 = 2112;
-              v725 = v689;
-              v726 = 2112;
-              v727 = v15;
-              _os_log_error_impl(&dword_22506F000, v523, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Device capabilities have different userID and/or deviceID than the zone/share usage. userID: %@ vs. %@, deviceID: %@ vs. %@, zoneID: %@", buf, 0x3Eu);
+              v716 = v639;
+              v717 = 2112;
+              v718 = v677;
+              v719 = 2112;
+              v720 = v45;
+              v721 = 2112;
+              v722 = v673;
+              v723 = 2112;
+              v724 = v688;
+              v725 = 2112;
+              v726 = v15;
+              _os_log_error_impl(&dword_22506F000, v522, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Device capabilities have different userID and/or deviceID than the zone/share usage. userID: %@ vs. %@, deviceID: %@ vs. %@, zoneID: %@", buf, 0x3Eu);
             }
 
-            v526 = MEMORY[0x277CBC560];
-            v527 = *MEMORY[0x277CBBF50];
-            v672 = objc_msgSend_requestUUID(self, v528, v529);
-            v531 = objc_msgSend_errorWithDomain_code_format_(v526, v530, v527, 161, @"Inconsistent device capabilities and usage in device capability check response for request %@", v672);
+            v525 = MEMORY[0x277CBC560];
+            v526 = *MEMORY[0x277CBBF50];
+            v671 = objc_msgSend_requestUUID(self, v527, v528);
+            v530 = objc_msgSend_errorWithDomain_code_format_(v525, v529, v526, 161, @"Inconsistent device capabilities and usage in device capability check response for request %@", v671);
             v88 = 0;
             LOBYTE(v89) = 0;
-            v532 = v64;
+            v531 = v64;
             v83 = 10;
             v66 = @"incorrectCapabilities";
-            v64 = v531;
+            v64 = v530;
             goto LABEL_256;
           }
 
-          v447 = objc_msgSend_translator(self, v445, v446);
-          v449 = objc_msgSend_deviceCapabilitySetFromPDeviceCapabilitySet_(v447, v448, v426);
+          v446 = objc_msgSend_translator(self, v444, v445);
+          v448 = objc_msgSend_deviceCapabilitySetFromPDeviceCapabilitySet_(v446, v447, v425);
 
-          v671 = v449;
-          if (objc_msgSend_isCapabilitySet_subsetOf_(MEMORY[0x277CBC2B0], v450, v26, v449))
+          v670 = v448;
+          if (objc_msgSend_isCapabilitySet_subsetOf_(MEMORY[0x277CBC2B0], v449, v26, v448))
           {
-            v453 = *MEMORY[0x277CBC878];
+            v452 = *MEMORY[0x277CBC878];
             if (*MEMORY[0x277CBC880] != -1)
             {
-              dispatch_once(MEMORY[0x277CBC880], v453);
+              dispatch_once(MEMORY[0x277CBC880], v452);
             }
 
-            v454 = *MEMORY[0x277CBC860];
-            if (os_log_type_enabled(v454, OS_LOG_TYPE_ERROR))
+            v453 = *MEMORY[0x277CBC860];
+            if (os_log_type_enabled(v453, OS_LOG_TYPE_ERROR))
             {
-              v669 = objc_msgSend_requestUUID(self, v455, v456);
+              v668 = objc_msgSend_requestUUID(self, v454, v455);
               *buf = 138544130;
-              v717 = v669;
-              v718 = 2112;
-              v719 = v26;
-              v720 = 2112;
-              v721 = v449;
-              v722 = 2112;
-              v723 = v15;
-              _os_log_error_impl(&dword_22506F000, v454, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Server returned isSupported:NO, but the returned device capabilities do support the requested capabilities. requested: %@, returned: %@, zoneID: %@", buf, 0x2Au);
+              v716 = v668;
+              v717 = 2112;
+              v718 = v26;
+              v719 = 2112;
+              v720 = v448;
+              v721 = 2112;
+              v722 = v15;
+              _os_log_error_impl(&dword_22506F000, v453, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Server returned isSupported:NO, but the returned device capabilities do support the requested capabilities. requested: %@, returned: %@, zoneID: %@", buf, 0x2Au);
             }
 
             v89 = MEMORY[0x277CBC560];
-            v457 = *MEMORY[0x277CBBF50];
-            v460 = objc_msgSend_requestUUID(self, v458, v459);
-            v462 = objc_msgSend_errorWithDomain_code_format_(v89, v461, v457, 161, @"Incorrect device capability check response for request %@", v460);
+            v456 = *MEMORY[0x277CBBF50];
+            v459 = objc_msgSend_requestUUID(self, v457, v458);
+            v461 = objc_msgSend_errorWithDomain_code_format_(v89, v460, v456, 161, @"Incorrect device capability check response for request %@", v459);
 
-            v672 = 0;
+            v671 = 0;
             v88 = 0;
             LOBYTE(v89) = 0;
             v83 = 10;
-            v64 = v462;
+            v64 = v461;
             v66 = @"capabilitiesSupported";
           }
 
           else
           {
-            v618 = objc_msgSend_translator(self, v451, v452);
-            v621 = objc_msgSend_time(v682, v619, v620);
-            v623 = objc_msgSend_dateFromPDate_(v618, v622, v621);
+            v617 = objc_msgSend_translator(self, v450, v451);
+            v620 = objc_msgSend_time(v681, v618, v619);
+            v622 = objc_msgSend_dateFromPDate_(v617, v621, v620);
 
-            v672 = v623;
-            objc_msgSend_timeIntervalSinceNow(v623, v624, v625);
-            if (v628 >= -16070400.0 && (objc_msgSend_timeIntervalSinceNow(v690, v626, v627), v629 >= -16070400.0))
+            v671 = v622;
+            objc_msgSend_timeIntervalSinceNow(v622, v623, v624);
+            if (v627 >= -16070400.0 && (objc_msgSend_timeIntervalSinceNow(v689, v625, v626), v628 >= -16070400.0))
             {
-              v642 = *MEMORY[0x277CBC878];
+              v641 = *MEMORY[0x277CBC878];
               if (*MEMORY[0x277CBC880] != -1)
               {
-                dispatch_once(MEMORY[0x277CBC880], v642);
+                dispatch_once(MEMORY[0x277CBC880], v641);
               }
 
-              v643 = *MEMORY[0x277CBC860];
-              if (os_log_type_enabled(v643, OS_LOG_TYPE_INFO))
+              v642 = *MEMORY[0x277CBC860];
+              if (os_log_type_enabled(v642, OS_LOG_TYPE_INFO))
               {
-                v646 = objc_msgSend_requestUUID(self, v644, v645);
+                v645 = objc_msgSend_requestUUID(self, v643, v644);
                 *buf = 138544898;
-                v717 = v646;
-                v718 = 2112;
-                v719 = v15;
-                v720 = 2112;
-                v721 = v687;
-                v722 = 2112;
-                v723 = v45;
-                v724 = 2112;
-                v725 = v689;
-                v726 = 2112;
-                v727 = v690;
-                v728 = 2112;
-                v729 = v671;
-                _os_log_impl(&dword_22506F000, v643, OS_LOG_TYPE_INFO, "req: %{public}@, Server returned isSupported:NO for the device capability check. zoneID: %@, %@ userID: %@, deviceID: %@, accessed: %@, supported capabilities: %@", buf, 0x48u);
+                v716 = v645;
+                v717 = 2112;
+                v718 = v15;
+                v719 = 2112;
+                v720 = v686;
+                v721 = 2112;
+                v722 = v45;
+                v723 = 2112;
+                v724 = v688;
+                v725 = 2112;
+                v726 = v689;
+                v727 = 2112;
+                v728 = v670;
+                _os_log_impl(&dword_22506F000, v642, OS_LOG_TYPE_INFO, "req: %{public}@, Server returned isSupported:NO for the device capability check. zoneID: %@, %@ userID: %@, deviceID: %@, accessed: %@, supported capabilities: %@", buf, 0x48u);
               }
 
-              if (v684 && objc_msgSend_isEqualToData_(v692, v647, v684))
+              if (v683 && objc_msgSend_isEqualToData_(v691, v646, v683))
               {
-                if (v692 && objc_msgSend_length(v692, v647, v648))
+                if (v691 && objc_msgSend_length(v691, v646, v647))
                 {
-                  objc_msgSend_addObject_(v708, v649, v692);
+                  objc_msgSend_addObject_(v707, v648, v691);
                 }
               }
 
               else
               {
-                if (canValidateWithKT != v694)
+                if (canValidateWithKT != v693)
                 {
-                  v650 = v692;
+                  v649 = v691;
                   if (canValidateWithKT)
                   {
-                    v650 = v684;
+                    v649 = v683;
                   }
 
-                  v651 = v650;
-                  v654 = v651;
-                  if (v651 && objc_msgSend_length(v651, v652, v653))
+                  v650 = v649;
+                  v653 = v650;
+                  if (v650 && objc_msgSend_length(v650, v651, v652))
                   {
-                    objc_msgSend_addObject_(v708, v655, v654);
+                    objc_msgSend_addObject_(v707, v654, v653);
                   }
 
                   v88 = 0;
@@ -1219,14 +1214,14 @@ LABEL_79:
                   goto LABEL_255;
                 }
 
-                if (v692 && objc_msgSend_length(v692, v647, v648))
+                if (v691 && objc_msgSend_length(v691, v646, v647))
                 {
-                  objc_msgSend_addObject_(v708, v647, v692);
+                  objc_msgSend_addObject_(v707, v646, v691);
                 }
 
-                if (v684 && objc_msgSend_length(v684, v647, v648))
+                if (v683 && objc_msgSend_length(v683, v646, v647))
                 {
-                  objc_msgSend_addObject_(v708, v667, v684);
+                  objc_msgSend_addObject_(v707, v666, v683);
                 }
               }
 
@@ -1237,318 +1232,318 @@ LABEL_79:
 
             else
             {
-              v630 = *MEMORY[0x277CBC878];
+              v629 = *MEMORY[0x277CBC878];
               if (*MEMORY[0x277CBC880] != -1)
               {
-                dispatch_once(MEMORY[0x277CBC880], v630);
+                dispatch_once(MEMORY[0x277CBC880], v629);
               }
 
-              v631 = *MEMORY[0x277CBC860];
-              if (os_log_type_enabled(v631, OS_LOG_TYPE_ERROR))
+              v630 = *MEMORY[0x277CBC860];
+              if (os_log_type_enabled(v630, OS_LOG_TYPE_ERROR))
               {
-                v670 = objc_msgSend_requestUUID(self, v632, v633);
+                v669 = objc_msgSend_requestUUID(self, v631, v632);
                 *buf = 138544130;
-                v717 = v670;
-                v718 = 2112;
-                v719 = v623;
-                v720 = 2112;
-                v721 = v690;
-                v722 = 2112;
-                v723 = v15;
-                _os_log_error_impl(&dword_22506F000, v631, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Server returned device capabilities and/or zone/share usage that is too far in the past: %@ and %@, zoneID: %@", buf, 0x2Au);
+                v716 = v669;
+                v717 = 2112;
+                v718 = v622;
+                v719 = 2112;
+                v720 = v689;
+                v721 = 2112;
+                v722 = v15;
+                _os_log_error_impl(&dword_22506F000, v630, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Server returned device capabilities and/or zone/share usage that is too far in the past: %@ and %@, zoneID: %@", buf, 0x2Au);
               }
 
               v89 = MEMORY[0x277CBC560];
-              v634 = *MEMORY[0x277CBBF50];
-              v637 = objc_msgSend_requestUUID(self, v635, v636);
-              v639 = objc_msgSend_errorWithDomain_code_format_(v89, v638, v634, 161, @"Obsolete device capability check response for request %@", v637);
+              v633 = *MEMORY[0x277CBBF50];
+              v636 = objc_msgSend_requestUUID(self, v634, v635);
+              v638 = objc_msgSend_errorWithDomain_code_format_(v89, v637, v633, 161, @"Obsolete device capability check response for request %@", v636);
 
               v88 = 0;
               LOBYTE(v89) = 0;
               v83 = 10;
-              v64 = v639;
+              v64 = v638;
               v66 = @"capabilitiesTooOld";
             }
           }
 
 LABEL_255:
-          v532 = v671;
+          v531 = v670;
 LABEL_256:
 
-          v473 = v674;
+          v472 = v673;
 LABEL_187:
-          v686 = v64;
+          v685 = v64;
 
-          v64 = v682;
+          v64 = v681;
 LABEL_200:
 
-          v64 = v684;
+          v64 = v683;
 LABEL_201:
 
           goto LABEL_202;
         }
 
-        v129 = objc_msgSend_signedShareUsage(v703, v127, v128);
-        v693 = v129;
-        if (objc_msgSend_hasVersion(v129, v130, v131) && objc_msgSend_version(v129, v132, v133) >= 2)
+        v128 = objc_msgSend_signedShareUsage(v702, v126, v127);
+        v692 = v128;
+        if (objc_msgSend_hasVersion(v128, v129, v130) && objc_msgSend_version(v128, v131, v132) >= 2)
         {
           if (*MEMORY[0x277CBC880] != -1)
           {
             dispatch_once(MEMORY[0x277CBC880], *v27);
           }
 
-          v134 = *MEMORY[0x277CBC860];
+          v133 = *MEMORY[0x277CBC860];
           if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
           {
-            v537 = v134;
-            v540 = objc_msgSend_requestUUID(self, v538, v539);
-            v543 = objc_msgSend_version(v693, v541, v542);
+            v536 = v133;
+            v539 = objc_msgSend_requestUUID(self, v537, v538);
+            v542 = objc_msgSend_version(v692, v540, v541);
             *buf = 138543874;
-            v717 = v540;
-            v718 = 2048;
-            v719 = v543;
-            v720 = 2112;
-            v721 = v15;
-            _os_log_error_impl(&dword_22506F000, v537, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Share usage blob version %ld is not supported. zoneID: %@", buf, 0x20u);
+            v716 = v539;
+            v717 = 2048;
+            v718 = v542;
+            v719 = 2112;
+            v720 = v15;
+            _os_log_error_impl(&dword_22506F000, v536, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Share usage blob version %ld is not supported. zoneID: %@", buf, 0x20u);
           }
 
-          v137 = MEMORY[0x277CBC560];
-          v138 = *MEMORY[0x277CBBF50];
-          v691 = objc_msgSend_requestUUID(self, v135, v136);
-          v686 = objc_msgSend_errorWithDomain_code_format_(v137, v139, v138, 160, @"Unsupported share usage version in device capability check response for request %@", v691);
+          v136 = MEMORY[0x277CBC560];
+          v137 = *MEMORY[0x277CBBF50];
+          v690 = objc_msgSend_requestUUID(self, v134, v135);
+          v685 = objc_msgSend_errorWithDomain_code_format_(v136, v138, v137, 160, @"Unsupported share usage version in device capability check response for request %@", v690);
           v66 = @"unsupportedSignedVersionedBlobVersion";
 LABEL_193:
 
           goto LABEL_194;
         }
 
-        if (objc_msgSend_hasSignature(v129, v132, v133) && (objc_msgSend_signature(v129, v200, v201), v202 = objc_claimAutoreleasedReturnValue(), v205 = objc_msgSend_length(v202, v203, v204), v202, v205))
+        if (objc_msgSend_hasSignature(v128, v131, v132) && (objc_msgSend_signature(v128, v199, v200), v201 = objc_claimAutoreleasedReturnValue(), v204 = objc_msgSend_length(v201, v202, v203), v201, v204))
         {
-          v688 = v126;
-          v705 = objc_msgSend_container(self, v200, v201);
-          v683 = objc_msgSend_pcsManager(v705, v206, v207);
-          v210 = objc_msgSend_signature(v693, v208, v209);
-          v213 = objc_msgSend_serializedObject(v693, v211, v212);
-          v712 = 0;
-          v695 = objc_msgSend_validateFullPublicKeySignature_forSignedData_error_(v683, v214, v210, v213, &v712);
-          v215 = v712;
+          v687 = v125;
+          v704 = objc_msgSend_container(self, v199, v200);
+          v682 = objc_msgSend_pcsManager(v704, v205, v206);
+          v209 = objc_msgSend_signature(v692, v207, v208);
+          v212 = objc_msgSend_serializedObject(v692, v210, v211);
+          v711 = 0;
+          v694 = objc_msgSend_validateFullPublicKeySignature_forSignedData_error_(v682, v213, v209, v212, &v711);
+          v214 = v711;
 
-          if (!v695 || v215)
+          if (!v694 || v214)
           {
-            v691 = v215;
+            v690 = v214;
             if (*MEMORY[0x277CBC880] != -1)
             {
               dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
             }
 
-            v474 = *MEMORY[0x277CBC860];
+            v473 = *MEMORY[0x277CBC860];
             if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
             {
-              v572 = v474;
-              v575 = objc_msgSend_requestUUID(self, v573, v574);
+              v571 = v473;
+              v574 = objc_msgSend_requestUUID(self, v572, v573);
               *buf = 138543874;
-              v717 = v575;
-              v718 = 2112;
-              v719 = v215;
-              v720 = 2112;
-              v721 = v15;
-              _os_log_error_impl(&dword_22506F000, v572, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Share usage signature validation failed: %@ zoneID: %@", buf, 0x20u);
+              v716 = v574;
+              v717 = 2112;
+              v718 = v214;
+              v719 = 2112;
+              v720 = v15;
+              _os_log_error_impl(&dword_22506F000, v571, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Share usage signature validation failed: %@ zoneID: %@", buf, 0x20u);
             }
 
-            v477 = MEMORY[0x277CBC560];
-            v478 = *MEMORY[0x277CBBF50];
-            v479 = objc_msgSend_requestUUID(self, v475, v476);
-            v686 = objc_msgSend_errorWithDomain_code_error_format_(v477, v480, v478, 161, v215, @"Failed to validate share usage signature in device capability check response for request %@", v479);
+            v476 = MEMORY[0x277CBC560];
+            v477 = *MEMORY[0x277CBBF50];
+            v478 = objc_msgSend_requestUUID(self, v474, v475);
+            v685 = objc_msgSend_errorWithDomain_code_error_format_(v476, v479, v477, 161, v214, @"Failed to validate share usage signature in device capability check response for request %@", v478);
 
             v66 = @"invalidShareUsageSignature";
-            v64 = v479;
+            v64 = v478;
             goto LABEL_193;
           }
 
-          canValidateWithKT = objc_msgSend_canValidateWithKT(v693, v216, v217);
-          v696 = objc_msgSend_container(self, v218, v219);
-          v222 = objc_msgSend_pcsManager(v696, v220, v221);
-          v225 = objc_msgSend_signature(v693, v223, v224);
-          v711 = 0;
-          v706 = objc_msgSend_publicKeyFromSignature_error_(v222, v226, v225, &v711);
-          v227 = v711;
+          canValidateWithKT = objc_msgSend_canValidateWithKT(v692, v215, v216);
+          v695 = objc_msgSend_container(self, v217, v218);
+          v221 = objc_msgSend_pcsManager(v695, v219, v220);
+          v224 = objc_msgSend_signature(v692, v222, v223);
+          v710 = 0;
+          v705 = objc_msgSend_publicKeyFromSignature_error_(v221, v225, v224, &v710);
+          v226 = v710;
 
-          v228 = v227;
-          v126 = v688;
-          if (v228)
+          v227 = v226;
+          v125 = v687;
+          if (v227)
           {
-            v229 = *MEMORY[0x277CBC878];
+            v228 = *MEMORY[0x277CBC878];
             if (*MEMORY[0x277CBC880] != -1)
             {
-              dispatch_once(MEMORY[0x277CBC880], v229);
+              dispatch_once(MEMORY[0x277CBC880], v228);
             }
 
-            v230 = *MEMORY[0x277CBC860];
-            if (os_log_type_enabled(v230, OS_LOG_TYPE_ERROR))
+            v229 = *MEMORY[0x277CBC860];
+            if (os_log_type_enabled(v229, OS_LOG_TYPE_ERROR))
             {
-              objc_msgSend_requestUUID(self, v231, v232);
-              v597 = v701 = v228;
+              objc_msgSend_requestUUID(self, v230, v231);
+              v596 = v700 = v227;
               *buf = 138543618;
-              v717 = v597;
-              v718 = 2112;
-              v719 = v701;
-              _os_log_error_impl(&dword_22506F000, v230, OS_LOG_TYPE_ERROR, "req: %{public}@, Failed to extract public key from the signature: %@", buf, 0x16u);
+              v716 = v596;
+              v717 = 2112;
+              v718 = v700;
+              _os_log_error_impl(&dword_22506F000, v229, OS_LOG_TYPE_ERROR, "req: %{public}@, Failed to extract public key from the signature: %@", buf, 0x16u);
 
-              v228 = v701;
+              v227 = v700;
             }
           }
 
-          v692 = v706;
+          v691 = v705;
         }
 
         else
         {
-          v268 = objc_msgSend_options(self, v200, v201);
-          v271 = objc_msgSend_excludeDevicesWithoutCapabilityCheckingSupport(v268, v269, v270);
+          v267 = objc_msgSend_options(self, v199, v200);
+          v270 = objc_msgSend_excludeDevicesWithoutCapabilityCheckingSupport(v267, v268, v269);
 
-          if (v271)
+          if (v270)
           {
             if (*MEMORY[0x277CBC880] != -1)
             {
               dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
             }
 
-            v272 = *MEMORY[0x277CBC860];
+            v271 = *MEMORY[0x277CBC860];
             if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
             {
-              v533 = v272;
-              v536 = objc_msgSend_requestUUID(self, v534, v535);
+              v532 = v271;
+              v535 = objc_msgSend_requestUUID(self, v533, v534);
               *buf = 138543362;
-              v717 = v536;
-              _os_log_error_impl(&dword_22506F000, v533, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server. Server returned isSupported:NO for a device without capability checking support, when devices without capability checking support should have been excluded.", buf, 0xCu);
+              v716 = v535;
+              _os_log_error_impl(&dword_22506F000, v532, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server. Server returned isSupported:NO for a device without capability checking support, when devices without capability checking support should have been excluded.", buf, 0xCu);
             }
 
-            v275 = MEMORY[0x277CBC560];
-            v276 = *MEMORY[0x277CBBF50];
-            v691 = objc_msgSend_requestUUID(self, v273, v274);
-            v686 = objc_msgSend_errorWithDomain_code_format_(v275, v277, v276, 161, @"Device without capability checking support should have been excluded, but was returned by server in request: %@", v691);
+            v274 = MEMORY[0x277CBC560];
+            v275 = *MEMORY[0x277CBBF50];
+            v690 = objc_msgSend_requestUUID(self, v272, v273);
+            v685 = objc_msgSend_errorWithDomain_code_format_(v274, v276, v275, 161, @"Device without capability checking support should have been excluded, but was returned by server in request: %@", v690);
             v66 = @"serverDetectedDeviceNotExcluded";
             goto LABEL_193;
           }
         }
 
-        v344 = [CKDPShareUsage alloc];
-        v347 = objc_msgSend_serializedObject(v693, v345, v346);
-        v349 = objc_msgSend_initWithData_(v344, v348, v347);
+        v343 = [CKDPShareUsage alloc];
+        v346 = objc_msgSend_serializedObject(v692, v344, v345);
+        v348 = objc_msgSend_initWithData_(v343, v347, v346);
 
-        v691 = v349;
-        if (objc_msgSend_hasVersion(v349, v350, v351) && objc_msgSend_version(v349, v352, v353) >= 2)
+        v690 = v348;
+        if (objc_msgSend_hasVersion(v348, v349, v350) && objc_msgSend_version(v348, v351, v352) >= 2)
         {
           if (*MEMORY[0x277CBC880] != -1)
           {
             dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
           }
 
-          v354 = *MEMORY[0x277CBC860];
+          v353 = *MEMORY[0x277CBC860];
           if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
           {
-            v576 = v354;
-            v579 = objc_msgSend_requestUUID(self, v577, v578);
-            v582 = objc_msgSend_version(v691, v580, v581);
+            v575 = v353;
+            v578 = objc_msgSend_requestUUID(self, v576, v577);
+            v581 = objc_msgSend_version(v690, v579, v580);
             *buf = 138543874;
-            v717 = v579;
-            v718 = 2048;
-            v719 = v582;
-            v720 = 2112;
-            v721 = v15;
-            _os_log_error_impl(&dword_22506F000, v576, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Share usage version %ld is not supported. zoneID: %@", buf, 0x20u);
+            v716 = v578;
+            v717 = 2048;
+            v718 = v581;
+            v719 = 2112;
+            v720 = v15;
+            _os_log_error_impl(&dword_22506F000, v575, OS_LOG_TYPE_ERROR, "req: %{public}@, Unsupported device capability check response from the server: Share usage version %ld is not supported. zoneID: %@", buf, 0x20u);
           }
 
-          v357 = MEMORY[0x277CBC560];
-          v358 = *MEMORY[0x277CBBF50];
-          v359 = objc_msgSend_requestUUID(self, v355, v356);
-          v686 = objc_msgSend_errorWithDomain_code_format_(v357, v360, v358, 160, @"Unsupported share usage version in device capability check response for request %@", v359);
+          v356 = MEMORY[0x277CBC560];
+          v357 = *MEMORY[0x277CBBF50];
+          v358 = objc_msgSend_requestUUID(self, v354, v355);
+          v685 = objc_msgSend_errorWithDomain_code_format_(v356, v359, v357, 160, @"Unsupported share usage version in device capability check response for request %@", v358);
           v66 = @"unsupportedShareUsageVersion";
 LABEL_163:
 
 LABEL_194:
-          v704 = 0;
+          v703 = 0;
           v88 = 0;
-          v694 = 0;
+          v693 = 0;
           LOBYTE(v89) = 0;
           v83 = 10;
 LABEL_202:
-          v64 = v686;
+          v64 = v685;
           goto LABEL_203;
         }
 
-        if (!v349 || !objc_msgSend_hasShareIdentifier(v349, v352, v353) || !objc_msgSend_hasUserIdentifier(v349, v371, v372) || !objc_msgSend_hasDeviceIdentifier(v349, v373, v374) || (objc_msgSend_hasTime(v349, v375, v376) & 1) == 0)
+        if (!v348 || !objc_msgSend_hasShareIdentifier(v348, v351, v352) || !objc_msgSend_hasUserIdentifier(v348, v370, v371) || !objc_msgSend_hasDeviceIdentifier(v348, v372, v373) || (objc_msgSend_hasTime(v348, v374, v375) & 1) == 0)
         {
           if (*MEMORY[0x277CBC880] != -1)
           {
             dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
           }
 
-          v408 = *MEMORY[0x277CBC860];
+          v407 = *MEMORY[0x277CBC860];
           if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
           {
-            v518 = v408;
-            v521 = objc_msgSend_requestUUID(self, v519, v520);
+            v517 = v407;
+            v520 = objc_msgSend_requestUUID(self, v518, v519);
             *buf = 138543874;
-            v717 = v521;
-            v718 = 2112;
-            v719 = v691;
-            v720 = 2112;
-            v721 = v15;
-            _os_log_error_impl(&dword_22506F000, v518, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Invalid share usage content: %@, zoneID: %@", buf, 0x20u);
+            v716 = v520;
+            v717 = 2112;
+            v718 = v690;
+            v719 = 2112;
+            v720 = v15;
+            _os_log_error_impl(&dword_22506F000, v517, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Invalid share usage content: %@, zoneID: %@", buf, 0x20u);
           }
 
-          v411 = MEMORY[0x277CBC560];
-          v412 = *MEMORY[0x277CBBF50];
-          v359 = objc_msgSend_requestUUID(self, v409, v410);
-          v686 = objc_msgSend_errorWithDomain_code_format_(v411, v413, v412, 161, @"Invalid share usage content in device capability check response for request %@", v359);
+          v410 = MEMORY[0x277CBC560];
+          v411 = *MEMORY[0x277CBBF50];
+          v358 = objc_msgSend_requestUUID(self, v408, v409);
+          v685 = objc_msgSend_errorWithDomain_code_format_(v410, v412, v411, 161, @"Invalid share usage content in device capability check response for request %@", v358);
           v66 = @"incompleteShareUsage";
           goto LABEL_163;
         }
 
-        v687 = v126;
-        objc_msgSend_translator(self, v377, v378);
-        v380 = v379 = v349;
-        v383 = objc_msgSend_time(v379, v381, v382);
-        v685 = objc_msgSend_dateFromPDate_(v380, v384, v383);
+        v686 = v125;
+        objc_msgSend_translator(self, v376, v377);
+        v379 = v378 = v348;
+        v382 = objc_msgSend_time(v378, v380, v381);
+        v684 = objc_msgSend_dateFromPDate_(v379, v383, v382);
 
-        v387 = objc_msgSend_deviceIdentifier(v379, v385, v386);
-        v681 = objc_msgSend_name(v387, v388, v389);
+        v386 = objc_msgSend_deviceIdentifier(v378, v384, v385);
+        v680 = objc_msgSend_name(v386, v387, v388);
 
-        v392 = objc_msgSend_userIdentifier(v379, v390, v391);
-        v677 = objc_msgSend_name(v392, v393, v394);
+        v391 = objc_msgSend_userIdentifier(v378, v389, v390);
+        v676 = objc_msgSend_name(v391, v392, v393);
 
-        v397 = objc_msgSend_translator(self, v395, v396);
-        v400 = objc_msgSend_shareIdentifier(v379, v398, v399);
-        v710 = 0;
-        v402 = objc_msgSend_recordIDFromPShareIdentifier_error_(v397, v401, v400, &v710);
-        v700 = v710;
+        v396 = objc_msgSend_translator(self, v394, v395);
+        v399 = objc_msgSend_shareIdentifier(v378, v397, v398);
+        v709 = 0;
+        v401 = objc_msgSend_recordIDFromPShareIdentifier_error_(v396, v400, v399, &v709);
+        v699 = v709;
 
-        v704 = v402;
-        if (v402)
+        v703 = v401;
+        if (v401)
         {
-          v405 = objc_msgSend_zoneID(v402, v403, v404);
-          if (objc_msgSend_isEqual_(v405, v406, v15))
+          v404 = objc_msgSend_zoneID(v401, v402, v403);
+          if (objc_msgSend_isEqual_(v404, v405, v15))
           {
             v83 = 0;
-            v407 = 1;
+            v406 = 1;
 LABEL_245:
 
-            if (v407)
+            if (v406)
             {
-              v689 = v681;
-              v690 = v685;
-              v45 = v677;
+              v688 = v680;
+              v689 = v684;
+              v45 = v676;
               v27 = MEMORY[0x277CBC878];
               goto LABEL_79;
             }
 
             v88 = 0;
-            v694 = 0;
+            v693 = 0;
             LOBYTE(v89) = 0;
-            v689 = v681;
-            v690 = v685;
-            v45 = v677;
+            v688 = v680;
+            v689 = v684;
+            v45 = v676;
 LABEL_204:
 
             if (v83)
@@ -1570,35 +1565,35 @@ LABEL_45:
 LABEL_46:
               objc_msgSend_reportClientValidationError_forZoneID_capabilitySet_failureType_(self, v118, v64, v15, v26, v66);
 LABEL_47:
-              v65 = v704;
-              v48 = v708;
+              v65 = v703;
+              v48 = v707;
               goto LABEL_48;
             }
 
 LABEL_206:
             if (v89)
             {
-              v488 = objc_msgSend_supportedDeviceCapabilitiesCheckedForZoneBlock(self, v118, v119);
+              v487 = objc_msgSend_supportedDeviceCapabilitiesCheckedForZoneBlock(self, v118, v119);
 
-              if (v488)
+              if (v487)
               {
-                v489 = [CKDDeviceCapabilityCheckResult alloc];
-                v48 = v708;
+                v488 = [CKDDeviceCapabilityCheckResult alloc];
+                v48 = v707;
                 if (v83)
                 {
-                  inited = objc_msgSend_initSupported(v489, v490, v491);
-                  v65 = v704;
+                  inited = objc_msgSend_initSupported(v488, v489, v490);
+                  v65 = v703;
                 }
 
                 else
                 {
-                  v65 = v704;
-                  inited = objc_msgSend_initNotSupportedWithUserID_publicKeys_canValidateWithKT_shareID_usageIsManateeSigned_capabilitiesIsManateeSigned_(v489, v490, v45, v708, v88, v704, canValidateWithKT, v694);
+                  v65 = v703;
+                  inited = objc_msgSend_initNotSupportedWithUserID_publicKeys_canValidateWithKT_shareID_usageIsManateeSigned_capabilitiesIsManateeSigned_(v488, v489, v45, v707, v88, v703, canValidateWithKT, v693);
                 }
 
-                v495 = objc_msgSend_supportedDeviceCapabilitiesCheckedForZoneBlock(self, v492, v493);
-                v498 = objc_msgSend_result(objectCopy, v496, v497);
-                (v495)[2](v495, v15, v26, inited, v498);
+                v494 = objc_msgSend_supportedDeviceCapabilitiesCheckedForZoneBlock(self, v491, v492);
+                v497 = objc_msgSend_result(objectCopy, v495, v496);
+                (v494)[2](v494, v15, v26, inited, v497);
 
                 v64 = 0;
                 goto LABEL_48;
@@ -1612,88 +1607,88 @@ LABEL_206:
             goto LABEL_211;
           }
 
-          v608 = *MEMORY[0x277CBC878];
+          v607 = *MEMORY[0x277CBC878];
           if (*MEMORY[0x277CBC880] != -1)
           {
-            dispatch_once(MEMORY[0x277CBC880], v608);
+            dispatch_once(MEMORY[0x277CBC880], v607);
           }
 
-          v609 = *MEMORY[0x277CBC860];
-          if (os_log_type_enabled(v609, OS_LOG_TYPE_ERROR))
+          v608 = *MEMORY[0x277CBC860];
+          if (os_log_type_enabled(v608, OS_LOG_TYPE_ERROR))
           {
-            v668 = objc_msgSend_requestUUID(self, v610, v611);
+            v667 = objc_msgSend_requestUUID(self, v609, v610);
             *buf = 138543874;
-            v717 = v668;
-            v718 = 2112;
-            v719 = v405;
-            v720 = 2112;
-            v721 = v15;
-            _os_log_error_impl(&dword_22506F000, v609, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Share usage is for a different zone: %@ (expected %@)", buf, 0x20u);
+            v716 = v667;
+            v717 = 2112;
+            v718 = v404;
+            v719 = 2112;
+            v720 = v15;
+            _os_log_error_impl(&dword_22506F000, v608, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Share usage is for a different zone: %@ (expected %@)", buf, 0x20u);
           }
 
-          v612 = MEMORY[0x277CBC560];
-          v613 = *MEMORY[0x277CBBF50];
-          v616 = objc_msgSend_requestUUID(self, v614, v615);
-          v607 = objc_msgSend_errorWithDomain_code_error_format_(v612, v617, v613, 161, v700, @"Invalid share usage zone ID in device capability check response for request %@", v616);
+          v611 = MEMORY[0x277CBC560];
+          v612 = *MEMORY[0x277CBBF50];
+          v615 = objc_msgSend_requestUUID(self, v613, v614);
+          v606 = objc_msgSend_errorWithDomain_code_error_format_(v611, v616, v612, 161, v699, @"Invalid share usage zone ID in device capability check response for request %@", v615);
 
           v66 = @"incorrectZone";
-          v64 = v616;
+          v64 = v615;
         }
 
         else
         {
-          v598 = *MEMORY[0x277CBC878];
+          v597 = *MEMORY[0x277CBC878];
           if (*MEMORY[0x277CBC880] != -1)
           {
-            dispatch_once(MEMORY[0x277CBC880], v598);
+            dispatch_once(MEMORY[0x277CBC880], v597);
           }
 
-          v599 = *MEMORY[0x277CBC860];
-          if (os_log_type_enabled(v599, OS_LOG_TYPE_ERROR))
+          v598 = *MEMORY[0x277CBC860];
+          if (os_log_type_enabled(v598, OS_LOG_TYPE_ERROR))
           {
-            v663 = objc_msgSend_requestUUID(self, v600, v601);
-            v666 = objc_msgSend_shareIdentifier(v691, v664, v665);
+            v662 = objc_msgSend_requestUUID(self, v599, v600);
+            v665 = objc_msgSend_shareIdentifier(v690, v663, v664);
             *buf = 138543618;
-            v717 = v663;
-            v718 = 2112;
-            v719 = v666;
-            _os_log_error_impl(&dword_22506F000, v599, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Invalid shareID: %@", buf, 0x16u);
+            v716 = v662;
+            v717 = 2112;
+            v718 = v665;
+            _os_log_error_impl(&dword_22506F000, v598, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Invalid shareID: %@", buf, 0x16u);
           }
 
-          v602 = MEMORY[0x277CBC560];
-          v603 = *MEMORY[0x277CBBF50];
-          v405 = objc_msgSend_requestUUID(self, v604, v605);
-          v607 = objc_msgSend_errorWithDomain_code_error_format_(v602, v606, v603, 161, v700, @"Invalid share ID in device capability check response for request %@", v405);
+          v601 = MEMORY[0x277CBC560];
+          v602 = *MEMORY[0x277CBBF50];
+          v404 = objc_msgSend_requestUUID(self, v603, v604);
+          v606 = objc_msgSend_errorWithDomain_code_error_format_(v601, v605, v602, 161, v699, @"Invalid share ID in device capability check response for request %@", v404);
           v66 = @"invalidShareID";
         }
 
-        v407 = 0;
+        v406 = 0;
         v83 = 10;
-        v64 = v607;
+        v64 = v606;
         goto LABEL_245;
       }
 
-      v583 = *MEMORY[0x277CBC878];
+      v582 = *MEMORY[0x277CBC878];
       if (*MEMORY[0x277CBC880] != -1)
       {
-        dispatch_once(MEMORY[0x277CBC880], v583);
+        dispatch_once(MEMORY[0x277CBC880], v582);
       }
 
-      v557 = *MEMORY[0x277CBC860];
-      if (os_log_type_enabled(v557, OS_LOG_TYPE_ERROR))
+      v556 = *MEMORY[0x277CBC860];
+      if (os_log_type_enabled(v556, OS_LOG_TYPE_ERROR))
       {
-        v656 = objc_msgSend_requestUUID(self, v584, v585);
-        v659 = objc_msgSend_translator(self, v657, v658);
-        v662 = objc_msgSend_containerScopedUserID(v659, v660, v661);
+        v655 = objc_msgSend_requestUUID(self, v583, v584);
+        v658 = objc_msgSend_translator(self, v656, v657);
+        v661 = objc_msgSend_containerScopedUserID(v658, v659, v660);
         *buf = 138544130;
-        v717 = v656;
-        v718 = 2112;
-        v719 = v45;
-        v720 = 2112;
-        v721 = v662;
-        v722 = 2112;
-        v723 = v15;
-        _os_log_error_impl(&dword_22506F000, v557, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Zone usage is for a different user: %@ (expected %@), zoneID: %@", buf, 0x2Au);
+        v716 = v655;
+        v717 = 2112;
+        v718 = v45;
+        v719 = 2112;
+        v720 = v661;
+        v721 = 2112;
+        v722 = v15;
+        _os_log_error_impl(&dword_22506F000, v556, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Zone usage is for a different user: %@ (expected %@), zoneID: %@", buf, 0x2Au);
       }
 
       v66 = @"incorrectUserID";
@@ -1702,35 +1697,35 @@ LABEL_206:
 
     else
     {
-      v556 = *MEMORY[0x277CBC878];
+      v555 = *MEMORY[0x277CBC878];
       if (*MEMORY[0x277CBC880] != -1)
       {
-        dispatch_once(MEMORY[0x277CBC880], v556);
+        dispatch_once(MEMORY[0x277CBC880], v555);
       }
 
-      v557 = *MEMORY[0x277CBC860];
-      if (os_log_type_enabled(v557, OS_LOG_TYPE_ERROR))
+      v556 = *MEMORY[0x277CBC860];
+      if (os_log_type_enabled(v556, OS_LOG_TYPE_ERROR))
       {
-        v641 = objc_msgSend_requestUUID(self, v558, v559);
+        v640 = objc_msgSend_requestUUID(self, v557, v558);
         *buf = 138543874;
-        v717 = v641;
-        v718 = 2112;
-        v719 = v327;
-        v720 = 2112;
-        v721 = v15;
-        _os_log_error_impl(&dword_22506F000, v557, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Zone usage is for a different zone: %@ (expected %@)", buf, 0x20u);
+        v716 = v640;
+        v717 = 2112;
+        v718 = v326;
+        v719 = 2112;
+        v720 = v15;
+        _os_log_error_impl(&dword_22506F000, v556, OS_LOG_TYPE_ERROR, "req: %{public}@, Invalid device capability check response from the server! Zone usage is for a different zone: %@ (expected %@)", buf, 0x20u);
       }
 
       v66 = @"incorrectZone";
       v89 = @"Invalid zone usage zone ID in device capability check response for request %@";
     }
 
-    v586 = MEMORY[0x277CBC560];
-    v587 = *MEMORY[0x277CBBF50];
-    v590 = objc_msgSend_requestUUID(self, v588, v589);
-    v591 = v587;
-    v337 = v699;
-    v64 = objc_msgSend_errorWithDomain_code_error_format_(v586, v592, v591, 161, v699, v89, v590);
+    v585 = MEMORY[0x277CBC560];
+    v586 = *MEMORY[0x277CBBF50];
+    v589 = objc_msgSend_requestUUID(self, v587, v588);
+    v590 = v586;
+    v336 = v698;
+    v64 = objc_msgSend_errorWithDomain_code_error_format_(v585, v591, v590, 161, v698, v89, v589);
 
     LODWORD(v89) = 0;
     v83 = 10;
@@ -1747,13 +1742,12 @@ LABEL_206:
 LABEL_49:
   }
 
-  v120 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)requestDidParseNodeFailure:(id)failure
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   failureCopy = failure;
   v7 = objc_msgSend_zoneIDByRequestID(self, v5, v6);
   v10 = objc_msgSend_response(failureCopy, v8, v9);
@@ -1773,17 +1767,17 @@ LABEL_49:
   v27 = *MEMORY[0x277CBC860];
   if (os_log_type_enabled(*MEMORY[0x277CBC860], OS_LOG_TYPE_ERROR))
   {
-    v38 = v27;
-    v41 = objc_msgSend_requestUUID(self, v39, v40);
-    v44 = objc_msgSend_response(failureCopy, v42, v43);
-    v47 = objc_msgSend_operationUUID(v44, v45, v46);
-    v48 = 138543874;
-    v49 = v41;
-    v50 = 2112;
-    v51 = v47;
-    v52 = 2112;
-    v53 = failureCopy;
-    _os_log_error_impl(&dword_22506F000, v38, OS_LOG_TYPE_ERROR, "req: %{public}@, Parse failure in device capabilities check response, operationUUID: %@, responseObject: %@", &v48, 0x20u);
+    v37 = v27;
+    v40 = objc_msgSend_requestUUID(self, v38, v39);
+    v43 = objc_msgSend_response(failureCopy, v41, v42);
+    v46 = objc_msgSend_operationUUID(v43, v44, v45);
+    v47 = 138543874;
+    v48 = v40;
+    v49 = 2112;
+    v50 = v46;
+    v51 = 2112;
+    v52 = failureCopy;
+    _os_log_error_impl(&dword_22506F000, v37, OS_LOG_TYPE_ERROR, "req: %{public}@, Parse failure in device capabilities check response, operationUUID: %@, responseObject: %@", &v47, 0x20u);
   }
 
   v30 = objc_msgSend_errorFromServerBlock(self, v28, v29);
@@ -1794,8 +1788,6 @@ LABEL_49:
     v36 = objc_msgSend_result(failureCopy, v34, v35);
     (v33)[2](v33, v15, v26, v36);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 @end

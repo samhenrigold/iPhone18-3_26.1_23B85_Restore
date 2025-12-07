@@ -13,7 +13,7 @@
   result = self->_renderState;
   if (result)
   {
-    return [($19B257AB4ABD0C41B01C0B081813B3B6 *)result values];
+    return objc_msgSend_values(result, a3);
   }
 
   *&retstr->var4 = 0u;

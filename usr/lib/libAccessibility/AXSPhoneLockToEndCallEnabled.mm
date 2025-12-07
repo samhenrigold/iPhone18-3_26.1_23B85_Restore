@@ -3,7 +3,7 @@
 
 @implementation AXSPhoneLockToEndCallEnabled
 
-uint64_t ___AXSPhoneLockToEndCallEnabled_block_invoke()
+void *___AXSPhoneLockToEndCallEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

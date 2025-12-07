@@ -243,7 +243,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    apOUI = self->_apOUI;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -263,12 +262,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  securityType = self->_securityType;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_4:
-    timeUsed = self->_timeUsed;
     PBDataWriterWriteDoubleField();
   }
 
@@ -278,10 +275,10 @@ LABEL_5:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 0x80000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80000000) == 0)
   {
-    if ((*&v6 & 8) == 0)
+    if ((*&v5 & 8) == 0)
     {
       goto LABEL_10;
     }
@@ -289,27 +286,24 @@ LABEL_5:
     goto LABEL_9;
   }
 
-  timeUsedMinutes = self->_timeUsedMinutes;
   PBDataWriterWriteUint32Field();
-  *&v6 = self->_has;
-  if ((*&v6 & 8) != 0)
+  *&v5 = self->_has;
+  if ((*&v5 & 8) != 0)
   {
 LABEL_9:
-    networkScoreBitMap = self->_networkScoreBitMap;
     PBDataWriterWriteUint32Field();
-    *&v6 = self->_has;
+    *&v5 = self->_has;
   }
 
 LABEL_10:
-  if ((*&v6 & 0x40) != 0)
+  if ((*&v5 & 0x40) != 0)
   {
-    switchedAwayFromCount = self->_switchedAwayFromCount;
     PBDataWriterWriteUint32Field();
-    *&v6 = self->_has;
-    if ((*&v6 & 0x20) == 0)
+    *&v5 = self->_has;
+    if ((*&v5 & 0x20) == 0)
     {
 LABEL_12:
-      if ((*&v6 & 4) == 0)
+      if ((*&v5 & 4) == 0)
       {
         goto LABEL_14;
       }
@@ -318,17 +312,15 @@ LABEL_12:
     }
   }
 
-  else if ((*&v6 & 0x20) == 0)
+  else if ((*&v5 & 0x20) == 0)
   {
     goto LABEL_12;
   }
 
-  switchToCount = self->_switchToCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_13:
-    networkScore = self->_networkScore;
     PBDataWriterWriteInt32Field();
   }
 
@@ -550,7 +542,6 @@ LABEL_12:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 64);
     if ((has & 2) != 0)
     {
       if ((*(equal + 64) & 2) == 0 || self->_apOUI != *(equal + 4))
@@ -602,7 +593,6 @@ LABEL_12:
       has = self->_has;
     }
 
-    v9 = *(equal + 64);
     if (has < 0)
     {
       if ((*(equal + 64) & 0x80) == 0 || self->_timeUsedMinutes != *(equal + 15))

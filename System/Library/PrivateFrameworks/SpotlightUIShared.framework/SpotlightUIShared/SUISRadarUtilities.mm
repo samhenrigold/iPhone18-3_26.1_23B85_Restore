@@ -15,38 +15,38 @@
 
 + (void)fileRadarWithCommand:(id)command
 {
-  v51[7] = *MEMORY[0x277D85DE8];
+  v50[7] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAD18];
   commandCopy = command;
   componentName = [commandCopy componentName];
-  v48 = [v3 queryItemWithName:@"ComponentName" value:componentName];
-  v51[0] = v48;
+  v47 = [v3 queryItemWithName:@"ComponentName" value:componentName];
+  v50[0] = v47;
   v5 = MEMORY[0x277CCAD18];
   componentVersion = [commandCopy componentVersion];
-  v46 = [v5 queryItemWithName:@"ComponentVersion" value:componentVersion];
-  v51[1] = v46;
+  v45 = [v5 queryItemWithName:@"ComponentVersion" value:componentVersion];
+  v50[1] = v45;
   v6 = MEMORY[0x277CCAD18];
-  v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(commandCopy, "componentID")}];
-  stringValue = [v45 stringValue];
-  v43 = [v6 queryItemWithName:@"ComponentID" value:stringValue];
-  v51[2] = v43;
+  v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(commandCopy, "componentID")}];
+  stringValue = [v44 stringValue];
+  v42 = [v6 queryItemWithName:@"ComponentID" value:stringValue];
+  v50[2] = v42;
   v7 = MEMORY[0x277CCAD18];
   classification = [commandCopy classification];
   v8 = [v7 queryItemWithName:@"Classification" value:classification];
-  v51[3] = v8;
+  v50[3] = v8;
   v9 = MEMORY[0x277CCAD18];
   reproducibility = [commandCopy reproducibility];
   v11 = [v9 queryItemWithName:@"Reproducibility" value:reproducibility];
-  v51[4] = v11;
+  v50[4] = v11;
   v12 = MEMORY[0x277CCAD18];
   title = [commandCopy title];
   v14 = [v12 queryItemWithName:@"Title" value:title];
-  v51[5] = v14;
+  v50[5] = v14;
   v15 = MEMORY[0x277CCAD18];
   problemDescription = [commandCopy problemDescription];
   v17 = [v15 queryItemWithName:@"Description" value:problemDescription];
-  v51[6] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:7];
+  v50[6] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:7];
   v19 = [v18 mutableCopy];
 
   extensionIdentifiers = [commandCopy extensionIdentifiers];
@@ -94,75 +94,73 @@
   v39 = [v36 URL];
   v40 = [v38 punchoutWithURL:v39];
   [v37 openPunchout:v40];
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logResultSectionsWithSections:(id)sections rankingManager:(id)manager
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   sectionsCopy = sections;
   managerCopy = manager;
   string = [MEMORY[0x277CCAB68] string];
   [string appendString:@"Results:\n"];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = sectionsCopy;
-  v7 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v7 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v7)
   {
     v8 = v7;
-    v28 = *v35;
+    v27 = *v34;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v35 != v28)
+        if (*v34 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v34 + 1) + 8 * i);
+        v10 = *(*(&v33 + 1) + 8 * i);
         [string appendString:@"\n"];
         title = [v10 title];
         bundleIdentifier = [v10 bundleIdentifier];
         [string appendFormat:@"%@ <%@> maxInitiallyVisibleResults: %lu, isInitiallyHidden; %d\n", title, bundleIdentifier, objc_msgSend(v10, "maxInitiallyVisibleResults"), objc_msgSend(v10, "isInitiallyHidden")];
 
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
         results = [v10 results];
-        v14 = [results countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v14 = [results countByEnumeratingWithState:&v29 objects:v37 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v31;
+          v16 = *v30;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v31 != v16)
+              if (*v30 != v16)
               {
                 objc_enumerationMutation(results);
               }
 
-              ttrDescription = [*(*(&v30 + 1) + 8 * j) ttrDescription];
+              ttrDescription = [*(*(&v29 + 1) + 8 * j) ttrDescription];
               [string appendFormat:@"\t%@", ttrDescription];
 
               [string appendString:@"\n"];
             }
 
-            v15 = [results countByEnumeratingWithState:&v30 objects:v38 count:16];
+            v15 = [results countByEnumeratingWithState:&v29 objects:v37 count:16];
           }
 
           while (v15);
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v8 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v8);
@@ -176,63 +174,61 @@
   [string appendString:getTTRLogs];
 
   resultSectionsFilePath = [self resultSectionsFilePath];
-  v29 = 0;
-  [string writeToURL:resultSectionsFilePath atomically:1 encoding:10 error:&v29];
-  v23 = v29;
+  v28 = 0;
+  [string writeToURL:resultSectionsFilePath atomically:1 encoding:10 error:&v28];
+  v23 = v28;
 
   if (v23)
   {
     NSLog(&stru_287C62058.isa, v23);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logRankingDiagnosticsWithSections:(id)sections
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   sectionsCopy = sections;
   v4 = objc_opt_new();
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   obj = sectionsCopy;
-  v5 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+  v5 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
   if (v5)
   {
     v6 = v5;
-    v47 = *v64;
+    v46 = *v63;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v64 != v47)
+        if (*v63 != v46)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v63 + 1) + 8 * i);
+        v8 = *(*(&v62 + 1) + 8 * i);
+        v58 = 0u;
         v59 = 0u;
         v60 = 0u;
         v61 = 0u;
-        v62 = 0u;
         results = [v8 results];
-        v10 = [results countByEnumeratingWithState:&v59 objects:v69 count:16];
+        v10 = [results countByEnumeratingWithState:&v58 objects:v68 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v60;
+          v12 = *v59;
           do
           {
             for (j = 0; j != v11; ++j)
             {
-              if (*v60 != v12)
+              if (*v59 != v12)
               {
                 objc_enumerationMutation(results);
               }
 
-              v14 = *(*(&v59 + 1) + 8 * j);
+              v14 = *(*(&v58 + 1) + 8 * j);
               rankingItem = [v14 rankingItem];
 
               if (rankingItem)
@@ -247,14 +243,14 @@
               }
             }
 
-            v11 = [results countByEnumeratingWithState:&v59 objects:v69 count:16];
+            v11 = [results countByEnumeratingWithState:&v58 objects:v68 count:16];
           }
 
           while (v11);
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
+      v6 = [obj countByEnumeratingWithState:&v62 objects:v69 count:16];
     }
 
     while (v6);
@@ -264,27 +260,27 @@
   pathToSpotlightFiles = [self pathToSpotlightFiles];
   path = [pathToSpotlightFiles path];
 
-  v45 = path;
+  v44 = path;
   [defaultManager contentsOfDirectoryAtPath:path error:0];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  v48 = v58 = 0u;
-  v20 = [v48 countByEnumeratingWithState:&v55 objects:v68 count:16];
+  v47 = v57 = 0u;
+  v20 = [v47 countByEnumeratingWithState:&v54 objects:v67 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v56;
+    v22 = *v55;
     do
     {
       for (k = 0; k != v21; ++k)
       {
-        if (*v56 != v22)
+        if (*v55 != v22)
         {
-          objc_enumerationMutation(v48);
+          objc_enumerationMutation(v47);
         }
 
-        v24 = *(*(&v55 + 1) + 8 * k);
+        v24 = *(*(&v54 + 1) + 8 * k);
         rankingDiagnosticsFilePath = [self rankingDiagnosticsFilePath];
         pathComponents = [rankingDiagnosticsFilePath pathComponents];
         lastObject = [pathComponents lastObject];
@@ -292,12 +288,12 @@
 
         if (v28)
         {
-          v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", v45, v24];
+          v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", v44, v24];
           [defaultManager removeItemAtPath:v29 error:0];
         }
       }
 
-      v21 = [v48 countByEnumeratingWithState:&v55 objects:v68 count:16];
+      v21 = [v47 countByEnumeratingWithState:&v54 objects:v67 count:16];
     }
 
     while (v21);
@@ -315,29 +311,29 @@
       if (v32)
       {
         v33 = v32;
-        v50 = path2;
+        v49 = path2;
         v34 = defaultManager;
         json_writer_begin_array();
-        v53 = 0u;
-        v54 = 0u;
-        v51 = 0u;
         v52 = 0u;
+        v53 = 0u;
+        v50 = 0u;
+        v51 = 0u;
         v35 = v4;
-        v36 = [v35 countByEnumeratingWithState:&v51 objects:v67 count:16];
+        v36 = [v35 countByEnumeratingWithState:&v50 objects:v66 count:16];
         if (v36)
         {
           v37 = v36;
-          v38 = *v52;
+          v38 = *v51;
           do
           {
             for (m = 0; m != v37; ++m)
             {
-              if (*v52 != v38)
+              if (*v51 != v38)
               {
                 objc_enumerationMutation(v35);
               }
 
-              v40 = *(*(&v51 + 1) + 8 * m);
+              v40 = *(*(&v50 + 1) + 8 * m);
               identifier = [v40 identifier];
               l2FeatureVector = [v40 L2FeatureVector];
               if ([identifier length])
@@ -361,7 +357,7 @@
               }
             }
 
-            v37 = [v35 countByEnumeratingWithState:&v51 objects:v67 count:16];
+            v37 = [v35 countByEnumeratingWithState:&v50 objects:v66 count:16];
           }
 
           while (v37);
@@ -370,12 +366,10 @@
         json_writer_end_array();
         json_writer_dispose();
         defaultManager = v34;
-        path2 = v50;
+        path2 = v49;
       }
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 + (id)pathToSpotlightFiles

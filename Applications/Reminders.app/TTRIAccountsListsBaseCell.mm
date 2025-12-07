@@ -17,7 +17,7 @@
 
 + (Class)containerViewClass
 {
-  sub_100003540(0, &qword_1007884F8);
+  sub_100003540(0, &qword_1007884F8, NUIContainerGridView_ptr);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -55,7 +55,7 @@
   }
 
   v14.receiver = self;
-  v14.super_class = type metadata accessor for TTRIAccountsListsBaseCell();
+  v14.super_class = type metadata accessor for TTRIAccountsListsBaseCell(0);
   [(TTRIAccountsListsBaseCell *)&v14 sizeThatFits:width, height];
   v9 = v8;
   v11 = v10;
@@ -70,7 +70,7 @@
 - (void)layoutSubviews
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for TTRIAccountsListsBaseCell();
+  v3.super_class = type metadata accessor for TTRIAccountsListsBaseCell(0);
   v2 = v3.receiver;
   [(TTRIAccountsListsBaseCell *)&v3 layoutSubviews];
   if (v2[OBJC_IVAR____TtC9Reminders25TTRIAccountsListsBaseCell_needsUpdateGridSubviewRows] == 1)
@@ -85,7 +85,7 @@
   animatedCopy = animated;
   editingCopy = editing;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for TTRIAccountsListsBaseCell();
+  v9.super_class = type metadata accessor for TTRIAccountsListsBaseCell(0);
   v6 = v9.receiver;
   [(TTRIAccountsListsBaseCell *)&v9 setEditing:editingCopy animated:animatedCopy];
   if (*(v6 + OBJC_IVAR____TtC9Reminders25TTRIAccountsListsBaseCell_unitTest_forceLargeTextLayout) & 1) != 0 || (v7 = [v6 traitCollection], v8 = objc_msgSend(v7, "preferredContentSizeCategory"), v7, LOBYTE(v7) = UIContentSizeCategory.isAccessibilityCategory.getter(), v8, (v7))
@@ -105,7 +105,7 @@
 - (unint64_t)accessibilityTraits
 {
   v10.receiver = self;
-  v10.super_class = type metadata accessor for TTRIAccountsListsBaseCell();
+  v10.super_class = type metadata accessor for TTRIAccountsListsBaseCell(0);
   v2 = v10.receiver;
   accessibilityTraits = [(TTRIAccountsListsBaseCell *)&v10 accessibilityTraits];
   isSelected = [v2 isSelected];
@@ -174,7 +174,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for TTRIAccountsListsBaseCell();
+  v7.super_class = type metadata accessor for TTRIAccountsListsBaseCell(0);
   [(TTRIAccountsListsBaseCell *)&v7 setAccessibilityLabel:v5];
 }
 
@@ -196,7 +196,7 @@
     v8 = v9;
   }
 
-  sub_100058000(&unk_100771E10);
+  sub_100058000(&unk_100771E10, &qword_100634270);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_10062D400;
   *(v10 + 32) = v6;
@@ -229,7 +229,7 @@
   else
   {
     v5.receiver = selfCopy;
-    v5.super_class = type metadata accessor for TTRIAccountsListsBaseCell();
+    v5.super_class = type metadata accessor for TTRIAccountsListsBaseCell(0);
     accessibilityActivate = [(TTRIAccountsListsBaseCell *)&v5 accessibilityActivate];
 
     return accessibilityActivate;

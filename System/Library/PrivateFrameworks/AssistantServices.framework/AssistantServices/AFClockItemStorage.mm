@@ -35,33 +35,32 @@
 
 - (void)deleteAllItems
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v5 = 136315138;
-    v6 = "[AFClockItemStorage deleteAllItems]";
-    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[AFClockItemStorage deleteAllItems]";
+    _os_log_impl(&dword_1912FE000, v3, OS_LOG_TYPE_INFO, "%s ", &v4, 0xCu);
   }
 
   [(AFClockItemStorage *)self beginGrouping];
   [(NSMutableDictionary *)self->_workingItemsByID removeAllObjects];
   [(AFClockItemStorage *)self endGroupingWithOptions:0];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteItemsWithIDs:(id)ds
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v7 = 136315394;
-    v8 = "[AFClockItemStorage deleteItemsWithIDs:]";
-    v9 = 2112;
-    v10 = dsCopy;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s itemIDs = %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[AFClockItemStorage deleteItemsWithIDs:]";
+    v8 = 2112;
+    v9 = dsCopy;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s itemIDs = %@", &v6, 0x16u);
   }
 
   if ([dsCopy count])
@@ -70,47 +69,45 @@
     [(NSMutableDictionary *)self->_workingItemsByID removeObjectsForKeys:dsCopy];
     [(AFClockItemStorage *)self endGroupingWithOptions:0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertOrUpdateItems:(id)items
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v20 = "[AFClockItemStorage insertOrUpdateItems:]";
-    v21 = 2112;
-    v22 = itemsCopy;
+    v19 = "[AFClockItemStorage insertOrUpdateItems:]";
+    v20 = 2112;
+    v21 = itemsCopy;
     _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s items = %@", buf, 0x16u);
   }
 
   if ([itemsCopy count])
   {
     [(AFClockItemStorage *)self beginGrouping];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = itemsCopy;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v11 = *(*(&v13 + 1) + 8 * i);
           itemID = [v11 itemID];
           if (itemID)
           {
@@ -118,7 +115,7 @@
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -126,8 +123,6 @@
 
     [(AFClockItemStorage *)self endGroupingWithOptions:0];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)itemWithID:(id)d
@@ -145,7 +140,7 @@
 
 - (void)endGroupingWithOptions:(unint64_t)options
 {
-  v129 = *MEMORY[0x1E69E9840];
+  v128 = *MEMORY[0x1E69E9840];
   groupingDepth = self->_groupingDepth;
   p_superclass = AFSpeechPackage.superclass;
   if (groupingDepth < 1)
@@ -154,7 +149,7 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v124 = "[AFClockItemStorage endGroupingWithOptions:]";
+      v123 = "[AFClockItemStorage endGroupingWithOptions:]";
       _os_log_error_impl(&dword_1912FE000, v12, OS_LOG_TYPE_ERROR, "%s Attempt to end grouping without a balanced begin grouping.", buf, 0xCu);
     }
   }
@@ -166,11 +161,11 @@
     if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-      v125 = 2048;
-      v126 = groupingDepth;
-      v127 = 2048;
-      v128 = groupingDepth - 1;
+      v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+      v124 = 2048;
+      v125 = groupingDepth;
+      v126 = 2048;
+      v127 = groupingDepth - 1;
       _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s grouping depth: %ld -> %ld", buf, 0x20u);
     }
 
@@ -178,11 +173,11 @@
     if (groupingDepth == 1)
     {
       itemsByID = self->_itemsByID;
-      v106 = optionsCopy;
+      v105 = optionsCopy;
       if (itemsByID == self->_workingItemsByID || ([(NSMutableDictionary *)itemsByID isEqualToDictionary:?]& 1) != 0)
       {
         v9 = 0;
-        v107 = 0;
+        v106 = 0;
         v10 = 0;
         v11 = 0;
         goto LABEL_81;
@@ -200,9 +195,9 @@
         }
 
         *buf = 136315394;
-        v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-        v125 = 2048;
-        v126 = v13;
+        v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+        v124 = 2048;
+        v125 = v13;
         v17 = "%s numberOfItems: %lu";
         v18 = v15;
         v19 = 22;
@@ -216,11 +211,11 @@
         }
 
         *buf = 136315650;
-        v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-        v125 = 2048;
-        v126 = v13;
-        v127 = 2048;
-        v128 = v14;
+        v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+        v124 = 2048;
+        v125 = v13;
+        v126 = 2048;
+        v127 = v14;
         v17 = "%s numberOfItems: %lu -> %lu";
         v18 = v15;
         v19 = 32;
@@ -287,24 +282,24 @@ LABEL_16:
           goto LABEL_77;
         }
 
-        v118 = 0u;
-        v119 = 0u;
-        v116 = 0u;
         v117 = 0u;
+        v118 = 0u;
+        v115 = 0u;
+        v116 = 0u;
         v10 = v31;
-        v33 = [v10 countByEnumeratingWithState:&v116 objects:v122 count:16];
+        v33 = [v10 countByEnumeratingWithState:&v115 objects:v121 count:16];
         if (v33)
         {
           v34 = v33;
-          v97 = v14;
-          v99 = v13;
-          v102 = v30;
-          v35 = *v117;
+          v96 = v14;
+          v98 = v13;
+          v101 = v30;
+          v35 = *v116;
           do
           {
             for (i = 0; i != v34; ++i)
             {
-              if (*v117 != v35)
+              if (*v116 != v35)
               {
                 objc_enumerationMutation(v10);
               }
@@ -313,55 +308,55 @@ LABEL_16:
               if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
               {
                 v38 = v10;
-                v39 = *(*(&v116 + 1) + 8 * i);
+                v39 = *(*(&v115 + 1) + 8 * i);
                 workingItemsByID = self->_workingItemsByID;
                 v41 = v37;
                 v42 = workingItemsByID;
                 p_superclass = (AFSpeechPackage + 8);
                 v43 = [(NSMutableDictionary *)v42 objectForKey:v39];
                 *buf = 136315394;
-                v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-                v125 = 2112;
-                v126 = v43;
+                v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+                v124 = 2112;
+                v125 = v43;
                 _os_log_impl(&dword_1912FE000, v41, OS_LOG_TYPE_INFO, "%s itemsByID: [+] %@", buf, 0x16u);
 
                 v10 = v38;
               }
             }
 
-            v34 = [v10 countByEnumeratingWithState:&v116 objects:v122 count:16];
+            v34 = [v10 countByEnumeratingWithState:&v115 objects:v121 count:16];
           }
 
           while (v34);
 
-          if (v99)
+          if (v98)
           {
-            v30 = v102;
-            v14 = v97;
+            v30 = v101;
+            v14 = v96;
 LABEL_43:
             v32 = [v25 mutableCopy];
             [v32 minusSet:v30];
 LABEL_44:
             if ([v32 count])
             {
-              v114 = 0u;
-              v115 = 0u;
-              v112 = 0u;
               v113 = 0u;
+              v114 = 0u;
+              v111 = 0u;
+              v112 = 0u;
               v13 = v32;
-              v46 = [v13 countByEnumeratingWithState:&v112 objects:v121 count:16];
+              v46 = [v13 countByEnumeratingWithState:&v111 objects:v120 count:16];
               if (v46)
               {
                 v47 = v46;
-                v96 = v32;
-                v103 = v30;
-                v100 = v10;
-                v48 = *v113;
+                v95 = v32;
+                v102 = v30;
+                v99 = v10;
+                v48 = *v112;
                 do
                 {
                   for (j = 0; j != v47; ++j)
                   {
-                    if (*v113 != v48)
+                    if (*v112 != v48)
                     {
                       objc_enumerationMutation(v13);
                     }
@@ -369,7 +364,7 @@ LABEL_44:
                     v50 = p_superclass[285];
                     if (os_log_type_enabled(v50, OS_LOG_TYPE_INFO))
                     {
-                      v51 = *(*(&v112 + 1) + 8 * j);
+                      v51 = *(*(&v111 + 1) + 8 * j);
                       v52 = v13;
                       v53 = self->_itemsByID;
                       v54 = v50;
@@ -377,22 +372,22 @@ LABEL_44:
                       p_superclass = (AFSpeechPackage + 8);
                       v56 = [(NSDictionary *)v53 objectForKey:v55];
                       *buf = 136315394;
-                      v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-                      v125 = 2112;
-                      v126 = v56;
+                      v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+                      v124 = 2112;
+                      v125 = v56;
                       _os_log_impl(&dword_1912FE000, v54, OS_LOG_TYPE_INFO, "%s itemsByID: [-] %@", buf, 0x16u);
 
                       v13 = v52;
                     }
                   }
 
-                  v47 = [v13 countByEnumeratingWithState:&v112 objects:v121 count:16];
+                  v47 = [v13 countByEnumeratingWithState:&v111 objects:v120 count:16];
                 }
 
                 while (v47);
-                v10 = v100;
-                v30 = v103;
-                v32 = v96;
+                v10 = v99;
+                v30 = v102;
+                v32 = v95;
               }
             }
 
@@ -407,33 +402,33 @@ LABEL_44:
               [v57 intersectSet:v30];
               if ([v57 count])
               {
-                v104 = v30;
-                v105 = v25;
-                v98 = v13;
-                v101 = v10;
+                v103 = v30;
+                v104 = v25;
+                v97 = v13;
+                v100 = v10;
                 v45 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+                v107 = 0u;
                 v108 = 0u;
                 v109 = 0u;
                 v110 = 0u;
-                v111 = 0u;
-                v96 = v57;
+                v95 = v57;
                 v58 = v57;
-                v59 = [v58 countByEnumeratingWithState:&v108 objects:v120 count:16];
+                v59 = [v58 countByEnumeratingWithState:&v107 objects:v119 count:16];
                 if (v59)
                 {
                   v60 = v59;
-                  v61 = *v109;
+                  v61 = *v108;
                   do
                   {
                     for (k = 0; k != v60; ++k)
                     {
-                      if (*v109 != v61)
+                      if (*v108 != v61)
                       {
                         objc_enumerationMutation(v58);
                       }
 
-                      v63 = *(*(&v108 + 1) + 8 * k);
-                      v64 = [(NSDictionary *)self->_itemsByID objectForKey:v63, v96];
+                      v63 = *(*(&v107 + 1) + 8 * k);
+                      v64 = [(NSDictionary *)self->_itemsByID objectForKey:v63, v95];
                       v65 = [(NSMutableDictionary *)self->_workingItemsByID objectForKey:v63];
                       if (v64 != v65 && ([v64 isEqual:v65] & 1) == 0)
                       {
@@ -441,11 +436,11 @@ LABEL_44:
                         if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
                         {
                           *buf = 136315650;
-                          v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-                          v125 = 2112;
-                          v126 = v64;
-                          v127 = 2112;
-                          v128 = v65;
+                          v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+                          v124 = 2112;
+                          v125 = v64;
+                          v126 = 2112;
+                          v127 = v65;
                           _os_log_impl(&dword_1912FE000, v66, OS_LOG_TYPE_INFO, "%s itemsByID: [*] %@ -> %@", buf, 0x20u);
                         }
 
@@ -453,7 +448,7 @@ LABEL_44:
                       }
                     }
 
-                    v60 = [v58 countByEnumeratingWithState:&v108 objects:v120 count:16];
+                    v60 = [v58 countByEnumeratingWithState:&v107 objects:v119 count:16];
                   }
 
                   while (v60);
@@ -466,11 +461,11 @@ LABEL_44:
                   v45 = 0;
                 }
 
-                v13 = v98;
-                v10 = v101;
-                v30 = v104;
-                v25 = v105;
-                v57 = v96;
+                v13 = v97;
+                v10 = v100;
+                v30 = v103;
+                v25 = v104;
+                v57 = v95;
               }
 
               else
@@ -486,10 +481,10 @@ LABEL_44:
 
           v13 = 0;
           v45 = 0;
-          v30 = v102;
+          v30 = v101;
 LABEL_77:
           v67 = [v10 count];
-          v107 = v45;
+          v106 = v45;
           v68 = [v45 count] + v67;
           if (!(v68 + [v13 count]))
           {
@@ -497,7 +492,7 @@ LABEL_77:
             if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v124 = "[AFClockItemStorage endGroupingWithOptions:]";
+              v123 = "[AFClockItemStorage endGroupingWithOptions:]";
               _os_log_error_impl(&dword_1912FE000, v69, OS_LOG_TYPE_ERROR, "%s Item changes detected, but there is no inserted, updated or deleted items.", buf, 0xCu);
             }
           }
@@ -518,11 +513,11 @@ LABEL_81:
             if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
             {
               *buf = 136315650;
-              v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-              v125 = 2048;
-              v126 = generation;
-              v127 = 2048;
-              v128 = workingGeneration;
+              v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+              v124 = 2048;
+              v125 = generation;
+              v126 = 2048;
+              v127 = workingGeneration;
               _os_log_impl(&dword_1912FE000, v75, OS_LOG_TYPE_INFO, "%s generation: %llu -> %llu", buf, 0x20u);
               v76 = self->_workingGeneration;
             }
@@ -549,11 +544,11 @@ LABEL_81:
               v80 = self->_date;
               workingDate = self->_workingDate;
               *buf = 136315650;
-              v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-              v125 = 2112;
-              v126 = v80;
-              v127 = 2112;
-              v128 = workingDate;
+              v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+              v124 = 2112;
+              v125 = v80;
+              v126 = 2112;
+              v127 = workingDate;
               _os_log_impl(&dword_1912FE000, v79, OS_LOG_TYPE_INFO, "%s date: %@ -> %@", buf, 0x20u);
             }
 
@@ -574,11 +569,11 @@ LABEL_81:
               if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315650;
-                v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-                v125 = 2048;
-                v126 = v85;
-                v127 = 2048;
-                v128 = v85 + 1;
+                v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+                v124 = 2048;
+                v125 = v85;
+                v126 = 2048;
+                v127 = v85 + 1;
                 _os_log_impl(&dword_1912FE000, v86, OS_LOG_TYPE_INFO, "%s generation: %llu -> %llu", buf, 0x20u);
               }
 
@@ -597,17 +592,17 @@ LABEL_81:
             if ((v78 | v11 | v74) != 1)
             {
               v87 = p_superclass[285];
-              v88 = v107;
+              v88 = v106;
               if (os_log_type_enabled(v87, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315138;
-                v124 = "[AFClockItemStorage endGroupingWithOptions:]";
+                v123 = "[AFClockItemStorage endGroupingWithOptions:]";
                 _os_log_impl(&dword_1912FE000, v87, OS_LOG_TYPE_INFO, "%s There's no generation, date or item changes.", buf, 0xCu);
               }
 
 LABEL_107:
 
-              goto LABEL_108;
+              return;
             }
           }
 
@@ -619,11 +614,11 @@ LABEL_107:
             {
               v91 = self->_date;
               *buf = 136315650;
-              v124 = "[AFClockItemStorage endGroupingWithOptions:]";
-              v125 = 2112;
-              v126 = v91;
-              v127 = 2112;
-              v128 = date;
+              v123 = "[AFClockItemStorage endGroupingWithOptions:]";
+              v124 = 2112;
+              v125 = v91;
+              v126 = 2112;
+              v127 = date;
               _os_log_impl(&dword_1912FE000, v90, OS_LOG_TYPE_INFO, "%s date: %@ -> %@", buf, 0x20u);
             }
 
@@ -632,11 +627,11 @@ LABEL_107:
             self->_date = v92;
           }
 
-          v88 = v107;
-          if ((v106 & 1) == 0)
+          v88 = v106;
+          if ((v105 & 1) == 0)
           {
             WeakRetained = objc_loadWeakRetained(&self->_delegate);
-            [WeakRetained clockItemStorageDidUpdate:self insertedItemIDs:v10 updatedItemIDs:v107 deletedItemIDs:v84];
+            [WeakRetained clockItemStorageDidUpdate:self insertedItemIDs:v10 updatedItemIDs:v106 deletedItemIDs:v84];
           }
 
           goto LABEL_107;
@@ -665,26 +660,23 @@ LABEL_76:
       goto LABEL_77;
     }
   }
-
-LABEL_108:
-  v95 = *MEMORY[0x1E69E9840];
 }
 
 - (void)beginGrouping
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   groupingDepth = self->_groupingDepth;
   v4 = groupingDepth + 1;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v13 = 136315650;
-    v14 = "[AFClockItemStorage beginGrouping]";
-    v15 = 2048;
-    v16 = groupingDepth;
-    v17 = 2048;
-    v18 = groupingDepth + 1;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s grouping depth: %ld -> %ld", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "[AFClockItemStorage beginGrouping]";
+    v14 = 2048;
+    v15 = groupingDepth;
+    v16 = 2048;
+    v17 = groupingDepth + 1;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s grouping depth: %ld -> %ld", &v12, 0x20u);
     groupingDepth = self->_groupingDepth;
   }
 
@@ -712,7 +704,6 @@ LABEL_108:
   }
 
   self->_groupingDepth = v4;
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setItemsByID:(id)d

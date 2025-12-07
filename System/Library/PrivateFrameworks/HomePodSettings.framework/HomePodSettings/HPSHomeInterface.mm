@@ -24,30 +24,30 @@
   v32.receiver = self;
   v32.super_class = HPSHomeInterface;
   v4 = [(HPSHomeInterface *)&v32 init];
+  v5 = v4;
   if (v4)
   {
-    v5 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _HPSLoggingFacility(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v34 = "[HPSHomeInterface initWithDelegate:]";
-      _os_log_impl(&dword_2542B7000, v5, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
+      _os_log_impl(&dword_2542B7000, v6, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
     }
 
-    objc_storeWeak(&v4->_delegate, obj);
-    v6 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.homepodsettings.server" options:4096];
-    hpsConnection = v4->_hpsConnection;
-    v4->_hpsConnection = v6;
+    objc_storeWeak(&v5->_delegate, obj);
+    v7 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.homepodsettings.server" options:4096];
+    hpsConnection = v5->_hpsConnection;
+    v5->_hpsConnection = v7;
 
-    v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286666248];
-    [(NSXPCConnection *)v4->_hpsConnection setRemoteObjectInterface:v8];
+    v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286666248];
+    [(NSXPCConnection *)v5->_hpsConnection setRemoteObjectInterface:v9];
 
-    v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286658B40];
-    [(NSXPCConnection *)v4->_hpsConnection setExportedInterface:v9];
+    v10 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286658B40];
+    [(NSXPCConnection *)v5->_hpsConnection setExportedInterface:v10];
 
     v26 = MEMORY[0x277CBEB98];
     v25 = objc_opt_class();
-    v10 = objc_opt_class();
     v11 = objc_opt_class();
     v12 = objc_opt_class();
     v13 = objc_opt_class();
@@ -55,43 +55,43 @@
     v15 = objc_opt_class();
     v16 = objc_opt_class();
     v17 = objc_opt_class();
-    v18 = [v26 setWithObjects:{v25, v10, v11, v12, v13, v14, v15, v16, v17, objc_opt_class(), 0}];
-    remoteObjectInterface = [(NSXPCConnection *)v4->_hpsConnection remoteObjectInterface];
-    [remoteObjectInterface setClasses:v18 forSelector:sel_getHomeKitCachedSettings_ argumentIndex:0 ofReply:1];
+    v18 = objc_opt_class();
+    v19 = [v26 setWithObjects:{v25, v11, v12, v13, v14, v15, v16, v17, v18, objc_opt_class(), 0}];
+    remoteObjectInterface = [(NSXPCConnection *)v5->_hpsConnection remoteObjectInterface];
+    [remoteObjectInterface setClasses:v19 forSelector:sel_getHomeKitCachedSettings_ argumentIndex:0 ofReply:1];
 
-    objc_initWeak(buf, v4);
-    v20 = v4->_hpsConnection;
+    objc_initWeak(buf, v5);
+    v21 = v5->_hpsConnection;
     v30[0] = MEMORY[0x277D85DD0];
     v30[1] = 3221225472;
     v30[2] = __37__HPSHomeInterface_initWithDelegate___block_invoke;
     v30[3] = &unk_279774158;
     objc_copyWeak(&v31, buf);
-    [(NSXPCConnection *)v20 setInterruptionHandler:v30];
-    v21 = v4->_hpsConnection;
+    [(NSXPCConnection *)v21 setInterruptionHandler:v30];
+    v22 = v5->_hpsConnection;
     v28[0] = MEMORY[0x277D85DD0];
     v28[1] = 3221225472;
     v28[2] = __37__HPSHomeInterface_initWithDelegate___block_invoke_356;
     v28[3] = &unk_279774158;
     objc_copyWeak(&v29, buf);
-    [(NSXPCConnection *)v21 setInvalidationHandler:v28];
-    v4->_connectionValid = v4->_hpsConnection != 0;
-    v22 = [[HPSHomeInterfaceMediator alloc] initWithInterface:v4];
-    [(NSXPCConnection *)v4->_hpsConnection setExportedObject:v22];
-    [(NSXPCConnection *)v4->_hpsConnection resume];
-    [(HPSHomeInterface *)v4 startConnection];
+    [(NSXPCConnection *)v22 setInvalidationHandler:v28];
+    v5->_connectionValid = v5->_hpsConnection != 0;
+    v23 = [[HPSHomeInterfaceMediator alloc] initWithInterface:v5];
+    [(NSXPCConnection *)v5->_hpsConnection setExportedObject:v23];
+    [(NSXPCConnection *)v5->_hpsConnection resume];
+    [(HPSHomeInterface *)v5 startConnection];
 
     objc_destroyWeak(&v29);
     objc_destroyWeak(&v31);
     objc_destroyWeak(buf);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v5;
 }
 
 void __37__HPSHomeInterface_initWithDelegate___block_invoke(uint64_t a1)
 {
-  v2 = _HPSLoggingFacility();
+  v2 = _HPSLoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __37__HPSHomeInterface_initWithDelegate___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -103,7 +103,7 @@ void __37__HPSHomeInterface_initWithDelegate___block_invoke(uint64_t a1)
 
 void __37__HPSHomeInterface_initWithDelegate___block_invoke_356(uint64_t a1)
 {
-  v2 = _HPSLoggingFacility();
+  v2 = _HPSLoggingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __37__HPSHomeInterface_initWithDelegate___block_invoke_356_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -115,30 +115,29 @@ void __37__HPSHomeInterface_initWithDelegate___block_invoke_356(uint64_t a1)
 
 - (void)startConnection
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _HPSLoggingFacility();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _HPSLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[HPSHomeInterface startConnection]";
-    _os_log_impl(&dword_2542B7000, v3, OS_LOG_TYPE_DEFAULT, "%s Invoked on HPSHomeInterface XPCClient!", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[HPSHomeInterface startConnection]";
+    _os_log_impl(&dword_2542B7000, v3, OS_LOG_TYPE_DEFAULT, "%s Invoked on HPSHomeInterface XPCClient!", &v5, 0xCu);
   }
 
   v4 = [(NSXPCConnection *)self->_hpsConnection remoteObjectProxyWithErrorHandler:&__block_literal_global_1];
   [v4 startConnection];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __35__HPSHomeInterface_startConnection__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _HPSLoggingFacility(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __35__HPSHomeInterface_startConnection__block_invoke_cold_1(v2);
+      __35__HPSHomeInterface_startConnection__block_invoke_cold_1(v3);
     }
   }
 }
@@ -170,7 +169,7 @@ void __35__HPSHomeInterface_startConnection__block_invoke(uint64_t a1, void *a2)
 
   else
   {
-    v12 = _HPSLoggingFacility();
+    v12 = _HPSLoggingFacility(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(HPSHomeInterface *)v12 getHomeAccessoryAttribute:v13 completion:v14, v15, v16, v17, v18, v19];
@@ -181,12 +180,13 @@ void __35__HPSHomeInterface_startConnection__block_invoke(uint64_t a1, void *a2)
 void __57__HPSHomeInterface_getHomeAccessoryAttribute_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _HPSLoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __57__HPSHomeInterface_getHomeAccessoryAttribute_completion___block_invoke_cold_1(v3);
+      __57__HPSHomeInterface_getHomeAccessoryAttribute_completion___block_invoke_cold_1(v4);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -219,7 +219,7 @@ void __57__HPSHomeInterface_getHomeAccessoryAttribute_completion___block_invoke(
 
   else
   {
-    v9 = _HPSLoggingFacility();
+    v9 = _HPSLoggingFacility(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(HPSHomeInterface *)v9 getAirPlaySettings:v10, v11, v12, v13, v14, v15, v16];
@@ -230,12 +230,13 @@ void __57__HPSHomeInterface_getHomeAccessoryAttribute_completion___block_invoke(
 void __39__HPSHomeInterface_getAirPlaySettings___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _HPSLoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __39__HPSHomeInterface_getAirPlaySettings___block_invoke_cold_1(v3);
+      __39__HPSHomeInterface_getAirPlaySettings___block_invoke_cold_1(v4);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -268,7 +269,7 @@ void __39__HPSHomeInterface_getAirPlaySettings___block_invoke(uint64_t a1, void 
 
   else
   {
-    v9 = _HPSLoggingFacility();
+    v9 = _HPSLoggingFacility(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(HPSHomeInterface *)v9 getHomeKitCachedSettings:v10, v11, v12, v13, v14, v15, v16];
@@ -279,12 +280,13 @@ void __39__HPSHomeInterface_getAirPlaySettings___block_invoke(uint64_t a1, void 
 void __45__HPSHomeInterface_getHomeKitCachedSettings___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _HPSLoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __45__HPSHomeInterface_getHomeKitCachedSettings___block_invoke_cold_1(v3);
+      __45__HPSHomeInterface_getHomeKitCachedSettings___block_invoke_cold_1(v4);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -317,7 +319,7 @@ void __45__HPSHomeInterface_getHomeKitCachedSettings___block_invoke(uint64_t a1,
 
   else
   {
-    v9 = _HPSLoggingFacility();
+    v9 = _HPSLoggingFacility(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(HPSHomeInterface *)v9 isHomeKitSyncComplete:v10, v11, v12, v13, v14, v15, v16];
@@ -328,12 +330,13 @@ void __45__HPSHomeInterface_getHomeKitCachedSettings___block_invoke(uint64_t a1,
 void __42__HPSHomeInterface_isHomeKitSyncComplete___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _HPSLoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __42__HPSHomeInterface_isHomeKitSyncComplete___block_invoke_cold_1(v3);
+      __42__HPSHomeInterface_isHomeKitSyncComplete___block_invoke_cold_1(v4);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -366,7 +369,7 @@ void __42__HPSHomeInterface_isHomeKitSyncComplete___block_invoke(uint64_t a1, vo
 
   else
   {
-    v9 = _HPSLoggingFacility();
+    v9 = _HPSLoggingFacility(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(HPSHomeInterface *)v9 isAutomaticSoftwareUpdateEnabled:v10, v11, v12, v13, v14, v15, v16];
@@ -377,12 +380,13 @@ void __42__HPSHomeInterface_isHomeKitSyncComplete___block_invoke(uint64_t a1, vo
 void __53__HPSHomeInterface_isAutomaticSoftwareUpdateEnabled___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _HPSLoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __53__HPSHomeInterface_isAutomaticSoftwareUpdateEnabled___block_invoke_cold_1(v3);
+      __53__HPSHomeInterface_isAutomaticSoftwareUpdateEnabled___block_invoke_cold_1(v4);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -416,7 +420,7 @@ void __53__HPSHomeInterface_isAutomaticSoftwareUpdateEnabled___block_invoke(uint
 
   else
   {
-    v12 = _HPSLoggingFacility();
+    v12 = _HPSLoggingFacility(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(HPSHomeInterface *)v12 getCurrentHomeAttribute:v13 completion:v14, v15, v16, v17, v18, v19];
@@ -427,12 +431,13 @@ void __53__HPSHomeInterface_isAutomaticSoftwareUpdateEnabled___block_invoke(uint
 void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _HPSLoggingFacility(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke_cold_1(v3);
+      __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke_cold_1(v4);
     }
 
     (*(*(a1 + 32) + 16))();
@@ -441,14 +446,12 @@ void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke(ui
 
 + (id)connectionError
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
-  v7 = *MEMORY[0x277CCA450];
-  v8[0] = @"Connection Error";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = *MEMORY[0x277CCA450];
+  v7[0] = @"Connection Error";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [v2 errorWithDomain:@"com.apple.homepodsettings" code:0 userInfo:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -466,10 +469,10 @@ void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke(ui
 
   else
   {
-    v4 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _HPSLoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(HPSHomeInterface *)v4 handleConnectionInvalidated];
+      [(HPSHomeInterface *)v5 handleConnectionInvalidated];
     }
   }
 }
@@ -486,10 +489,10 @@ void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke(ui
 
   else
   {
-    v4 = _HPSLoggingFacility();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _HPSLoggingFacility(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(HPSHomeInterface *)v4 handleConnectionInvalidated];
+      [(HPSHomeInterface *)v5 handleConnectionInvalidated];
     }
   }
 }
@@ -503,13 +506,14 @@ void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke(ui
   {
     v53 = 0;
     v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:contextCopy error:&v53];
-    defaultCenter2 = v53;
-    if (defaultCenter2)
+    v8 = v53;
+    defaultCenter2 = v8;
+    if (v8)
     {
-      defaultCenter = _HPSLoggingFacility();
+      defaultCenter = _HPSLoggingFacility(v8);
       if (os_log_type_enabled(defaultCenter, OS_LOG_TYPE_ERROR))
       {
-        [(HPSHomeInterface *)defaultCenter2 _accessoryDidUpdateAttribute:defaultCenter withContext:v10, v11, v12, v13, v14, v15];
+        [(HPSHomeInterface *)defaultCenter2 _accessoryDidUpdateAttribute:defaultCenter withContext:v11, v12, v13, v14, v15, v16];
       }
     }
 
@@ -517,19 +521,19 @@ void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke(ui
     {
       defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
       v66[0] = @"hasValidHome";
-      v32 = [MEMORY[0x277CCABB0] numberWithBool:{-[__CFString hasValidHomeLoaded](v7, "hasValidHomeLoaded")}];
-      v67[0] = v32;
+      v33 = [MEMORY[0x277CCABB0] numberWithBool:{-[__CFString hasValidHomeLoaded](v7, "hasValidHomeLoaded")}];
+      v67[0] = v33;
       v66[1] = @"OTAEnabled";
-      v33 = [MEMORY[0x277CCABB0] numberWithBool:{-[__CFString isAutoSUEnabled](v7, "isAutoSUEnabled")}];
-      v67[1] = v33;
+      v34 = [MEMORY[0x277CCABB0] numberWithBool:{-[__CFString isAutoSUEnabled](v7, "isAutoSUEnabled")}];
+      v67[1] = v34;
       v66[2] = @"mediaPeerToPeerEnabled";
-      v34 = [MEMORY[0x277CCABB0] numberWithBool:{-[__CFString isMediaPeerToPeerEnabled](v7, "isMediaPeerToPeerEnabled")}];
-      v67[2] = v34;
+      v35 = [MEMORY[0x277CCABB0] numberWithBool:{-[__CFString isMediaPeerToPeerEnabled](v7, "isMediaPeerToPeerEnabled")}];
+      v67[2] = v35;
       v66[3] = @"minimumMediaUserPrivilege";
-      v35 = [MEMORY[0x277CCABB0] numberWithInteger:{-[__CFString minimumMediaUserPrivilege](v7, "minimumMediaUserPrivilege")}];
-      v67[3] = v35;
-      v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:4];
-      [defaultCenter postNotificationName:@"com.apple.homepodsettings.HPHomeKitSetupComplete" object:0 userInfo:v36];
+      v36 = [MEMORY[0x277CCABB0] numberWithInteger:{-[__CFString minimumMediaUserPrivilege](v7, "minimumMediaUserPrivilege")}];
+      v67[3] = v36;
+      v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:4];
+      [defaultCenter postNotificationName:@"com.apple.homepodsettings.HPHomeKitSetupComplete" object:0 userInfo:v37];
     }
 
     goto LABEL_50;
@@ -540,100 +544,100 @@ void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke(ui
     if ([attributeCopy isEqualToString:@"com.apple.homepodsettings.airplayP2PAccess"])
     {
       objc_opt_class();
-      v23 = contextCopy;
+      v24 = contextCopy;
       if (objc_opt_isKindOfClass())
       {
-        v24 = v23;
+        v25 = v24;
       }
 
       else
       {
-        v24 = 0;
+        v25 = 0;
       }
 
-      v25 = v24;
+      v26 = v25;
 
-      v26 = MEMORY[0x277CBEC28];
-      if (v25)
+      v27 = MEMORY[0x277CBEC28];
+      if (v26)
       {
-        v26 = v25;
+        v27 = v26;
       }
 
-      v27 = v26;
+      v28 = v27;
 
       defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-      v28 = @"com.apple.homepodsettings.airplayP2PAccess";
+      v29 = @"com.apple.homepodsettings.airplayP2PAccess";
       v62 = @"mediaPeerToPeerEnabled";
-      v63 = v27;
-      v29 = MEMORY[0x277CBEAC0];
-      v30 = &v63;
-      v31 = &v62;
+      v63 = v28;
+      v30 = MEMORY[0x277CBEAC0];
+      v31 = &v63;
+      v32 = &v62;
     }
 
     else if ([attributeCopy isEqualToString:@"com.apple.homepodsettings.accessoryMoved"])
     {
       objc_opt_class();
-      v37 = contextCopy;
+      v38 = contextCopy;
       if (objc_opt_isKindOfClass())
       {
-        v38 = v37;
+        v39 = v38;
       }
 
       else
       {
-        v38 = 0;
+        v39 = 0;
       }
 
-      v39 = v38;
+      v40 = v39;
 
-      v40 = &stru_28664DBD0;
-      if (v39)
+      v41 = &stru_28664DBD0;
+      if (v40)
       {
-        v40 = v39;
+        v41 = v40;
       }
 
-      v27 = v40;
+      v28 = v41;
 
       defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-      v28 = @"com.apple.homepodsettings.accessoryMoved";
+      v29 = @"com.apple.homepodsettings.accessoryMoved";
       v60 = @"roomName";
-      v61 = v27;
-      v29 = MEMORY[0x277CBEAC0];
-      v30 = &v61;
-      v31 = &v60;
+      v61 = v28;
+      v30 = MEMORY[0x277CBEAC0];
+      v31 = &v61;
+      v32 = &v60;
     }
 
     else if ([attributeCopy isEqualToString:@"com.apple.homepodsettings.airplaySetPassword"])
     {
       objc_opt_class();
-      v43 = contextCopy;
+      v44 = contextCopy;
       if (objc_opt_isKindOfClass())
       {
-        v44 = v43;
+        v45 = v44;
       }
 
       else
       {
-        v44 = 0;
+        v45 = 0;
       }
 
-      v45 = v44;
+      v46 = v45;
 
-      v46 = &stru_28664DBD0;
-      if (v45)
+      v47 = &stru_28664DBD0;
+      if (v46)
       {
-        v46 = v45;
+        v47 = v46;
       }
 
-      v27 = v46;
+      v28 = v47;
 
       defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-      v28 = @"com.apple.homepodsettings.airplaySetPassword";
+      v29 = @"com.apple.homepodsettings.airplaySetPassword";
       v58 = @"airplayPassword";
-      v59 = v27;
-      v29 = MEMORY[0x277CBEAC0];
-      v30 = &v59;
-      v31 = &v58;
+      v59 = v28;
+      v30 = MEMORY[0x277CBEAC0];
+      v31 = &v59;
+      v32 = &v58;
     }
 
     else
@@ -656,79 +660,79 @@ void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke(ui
       }
 
       objc_opt_class();
-      v47 = contextCopy;
+      v48 = contextCopy;
       if (objc_opt_isKindOfClass())
       {
-        v48 = v47;
+        v49 = v48;
       }
 
       else
       {
-        v48 = 0;
+        v49 = 0;
       }
 
-      v49 = v48;
+      v50 = v49;
 
-      v50 = &unk_2866561B0;
-      if (v49)
+      v51 = &unk_2866561B0;
+      if (v50)
       {
-        v50 = v49;
+        v51 = v50;
       }
 
-      v27 = v50;
+      v28 = v51;
 
       defaultCenter2 = [MEMORY[0x277CCAB98] defaultCenter];
-      v28 = @"com.apple.homepodsettings.airplayMinUserPrivilege";
+      v29 = @"com.apple.homepodsettings.airplayMinUserPrivilege";
       v56 = @"minimumMediaUserPrivilege";
-      v57 = v27;
-      v29 = MEMORY[0x277CBEAC0];
-      v30 = &v57;
-      v31 = &v56;
+      v57 = v28;
+      v30 = MEMORY[0x277CBEAC0];
+      v31 = &v57;
+      v32 = &v56;
     }
 
-    v7 = [v29 dictionaryWithObjects:v30 forKeys:v31 count:1];
+    v7 = [v30 dictionaryWithObjects:v31 forKeys:v32 count:1];
 
-    [defaultCenter2 postNotificationName:v28 object:0 userInfo:v7];
+    [defaultCenter2 postNotificationName:v29 object:0 userInfo:v7];
     goto LABEL_50;
   }
 
   objc_opt_class();
-  v16 = contextCopy;
+  v17 = contextCopy;
   if (objc_opt_isKindOfClass())
   {
-    v17 = v16;
+    v18 = v17;
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
-  defaultCenter2 = v17;
+  defaultCenter2 = v18;
 
   if (defaultCenter2)
   {
     objc_opt_class();
-    v18 = [defaultCenter2 objectForKeyedSubscript:@"device_reset_method"];
+    v19 = [defaultCenter2 objectForKeyedSubscript:@"device_reset_method"];
     if (objc_opt_isKindOfClass())
     {
-      v19 = v18;
+      v20 = v19;
     }
 
     else
     {
-      v19 = 0;
+      v20 = 0;
     }
 
-    v20 = v19;
     v21 = v20;
-    v22 = &stru_28664DBD0;
-    if (v20)
+    v22 = v21;
+    v23 = &stru_28664DBD0;
+    if (v21)
     {
-      v22 = v20;
+      v23 = v21;
     }
 
-    v7 = v22;
+    v7 = v23;
   }
 
   else
@@ -739,14 +743,13 @@ void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke(ui
   defaultCenter3 = [MEMORY[0x277CCAB98] defaultCenter];
   v64 = @"device_reset_method";
   v65 = v7;
-  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-  [defaultCenter3 postNotificationName:@"com.apple.homepodsettings.deviceReset" object:0 userInfo:v42];
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+  [defaultCenter3 postNotificationName:@"com.apple.homepodsettings.deviceReset" object:0 userInfo:v43];
 
 LABEL_34:
 LABEL_50:
 
 LABEL_51:
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -769,135 +772,121 @@ LABEL_51:
 
 void __37__HPSHomeInterface_initWithDelegate___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Connection to HomePodSettings server was interrupted!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HPSHomeInterface initWithDelegate:]_block_invoke";
+  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Connection to HomePodSettings server was interrupted!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __37__HPSHomeInterface_initWithDelegate___block_invoke_356_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Connection to HomePodSettings server was invalidated!", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HPSHomeInterface initWithDelegate:]_block_invoke";
+  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Connection to HomePodSettings server was invalidated!", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __35__HPSHomeInterface_startConnection__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 - (void)getHomeAccessoryAttribute:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HPSHomeInterface getHomeAccessoryAttribute:completion:]";
+  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __57__HPSHomeInterface_getHomeAccessoryAttribute_completion___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 - (void)getAirPlaySettings:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HPSHomeInterface getAirPlaySettings:]";
+  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __39__HPSHomeInterface_getAirPlaySettings___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 - (void)getHomeKitCachedSettings:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HPSHomeInterface getHomeKitCachedSettings:]";
+  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __45__HPSHomeInterface_getHomeKitCachedSettings___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 - (void)isHomeKitSyncComplete:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HPSHomeInterface isHomeKitSyncComplete:]";
+  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __42__HPSHomeInterface_isHomeKitSyncComplete___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 - (void)isAutomaticSoftwareUpdateEnabled:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HPSHomeInterface isAutomaticSoftwareUpdateEnabled:]";
+  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __53__HPSHomeInterface_isAutomaticSoftwareUpdateEnabled___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 - (void)getCurrentHomeAttribute:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[HPSHomeInterface getCurrentHomeAttribute:completion:]";
+  OUTLINED_FUNCTION_2(&dword_2542B7000, a1, a3, "%s Nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __55__HPSHomeInterface_getCurrentHomeAttribute_completion___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 description];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_2542B7000, v2, v3, "%s Error..%@", v4, v5, v6, v7, v8);
 }
 
 - (void)_accessoryDidUpdateAttribute:(uint64_t)a3 withContext:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2(&dword_2542B7000, a2, a3, "Error while unarchiving HPSHomeProxy object %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2(&dword_2542B7000, a2, a3, "Error while unarchiving HPSHomeProxy object %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

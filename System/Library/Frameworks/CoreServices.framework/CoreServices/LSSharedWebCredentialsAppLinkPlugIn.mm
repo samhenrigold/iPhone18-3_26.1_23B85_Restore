@@ -5,30 +5,28 @@
 
 uint64_t __101___LSSharedWebCredentialsAppLinkPlugIn_bindingWithContext_forServiceDetails_callingBundleIdentifier___block_invoke(uint64_t a1, id *a2, uint64_t a3)
 {
-  v3 = *(a3 + 8);
-  v4 = *(v3 + 189);
-  if (v4 & 0x100000) != 0 || (v4)
+  v3 = *(*(a3 + 8) + 189);
+  if (v3 & 0x100000) != 0 || (v3)
   {
     return 0;
   }
 
-  v9 = *(v3 + 16);
   [(_LSDatabase *)*a2 store];
-  v10 = _CSStringCopyCFString();
-  v11 = v10;
-  if (v10 && ([v10 isEqual:*(a1 + 32)] & 1) != 0)
+  v8 = _CSStringCopyCFString();
+  v9 = v8;
+  if (v8 && ([v8 isEqual:*(a1 + 32)] & 1) != 0)
   {
-    v5 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v12 = [_LSLazyPropertyList lazyPropertyListWithContext:a2 unit:*(*(a3 + 8) + 140)];
-    v13 = [v12 _applicationIdentifier];
-    v5 = [v13 isEqual:*(a1 + 40)];
+    v10 = [_LSLazyPropertyList lazyPropertyListWithContext:a2 unit:*(*(a3 + 8) + 140)];
+    v11 = [v10 _applicationIdentifier];
+    v4 = [v11 isEqual:*(a1 + 40)];
   }
 
-  return v5;
+  return v4;
 }
 
 void __74___LSSharedWebCredentialsAppLinkPlugIn_appLinksWithContext_forSWCResults___block_invoke(uint64_t a1, unsigned int *a2, void *a3)
@@ -39,72 +37,71 @@ void __74___LSSharedWebCredentialsAppLinkPlugIn_appLinksWithContext_forSWCResult
   {
     v7 = [*(a1 + 32) URLComponents];
     v8 = [v7 URL];
-    v9 = *(a1 + 32);
-    v10 = [(LSAppLink *)_LSSharedWebCredentialsAppLink _appLinkWithURL:v8 applicationRecord:v6 plugInClass:objc_opt_class()];
+    v9 = [(LSAppLink *)_LSSharedWebCredentialsAppLink _appLinkWithURL:v8 applicationRecord:v6 plugInClass:objc_opt_class()];
 
-    if (v10)
+    if (v9)
     {
-      v11 = *(a2 + 1);
-      *(v10 + 32) = *a2;
-      *(v10 + 48) = v11;
-      objc_storeStrong((v10 + 64), *(a2 + 4));
-      objc_storeStrong((v10 + 72), *(a2 + 5));
-      *(v10 + 80) = *(a2 + 6);
-      [v10 setServiceDetails:v5];
-      [*(a1 + 40) addObject:v10];
-      v12 = *(*(a1 + 48) + 8);
-      v14 = v12[7];
-      v13 = v12[8];
-      if (v14 >= v13)
+      v10 = *(a2 + 1);
+      *(v9 + 32) = *a2;
+      *(v9 + 48) = v10;
+      objc_storeStrong((v9 + 64), *(a2 + 4));
+      objc_storeStrong((v9 + 72), *(a2 + 5));
+      *(v9 + 80) = *(a2 + 6);
+      [v9 setServiceDetails:v5];
+      [*(a1 + 40) addObject:v9];
+      v11 = *(*(a1 + 48) + 8);
+      v13 = v11[7];
+      v12 = v11[8];
+      if (v13 >= v12)
       {
-        v16 = v12[6];
-        v17 = (v14 - v16) >> 3;
-        if ((v17 + 1) >> 61)
+        v15 = v11[6];
+        v16 = (v13 - v15) >> 3;
+        if ((v16 + 1) >> 61)
         {
           std::vector<os_eligibility_answer_t>::__throw_length_error[abi:nn200100]();
         }
 
-        v18 = v13 - v16;
-        v19 = v18 >> 2;
-        if (v18 >> 2 <= (v17 + 1))
+        v17 = v12 - v15;
+        v18 = v17 >> 2;
+        if (v17 >> 2 <= (v16 + 1))
         {
-          v19 = v17 + 1;
+          v18 = v16 + 1;
         }
 
-        if (v18 >= 0x7FFFFFFFFFFFFFF8)
+        if (v17 >= 0x7FFFFFFFFFFFFFF8)
         {
-          v20 = 0x1FFFFFFFFFFFFFFFLL;
+          v19 = 0x1FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v20 = v19;
+          v19 = v18;
         }
 
-        v22[4] = v12 + 6;
-        if (v20)
+        v21[4] = v11 + 6;
+        if (v19)
         {
-          std::allocator<LSApplicationRecord * {__strong}>::allocate_at_least[abi:nn200100]((v12 + 6), v20);
+          std::allocator<LSApplicationRecord * {__strong}>::allocate_at_least[abi:nn200100]((v11 + 6), v19);
         }
 
-        v21 = (8 * v17);
-        v22[0] = 0;
-        v22[1] = v21;
-        v22[3] = 0;
-        *v21 = v6;
-        v22[2] = v21 + 1;
-        std::vector<LSApplicationRecord * {__strong}>::__swap_out_circular_buffer((v12 + 6), v22);
-        v15 = v12[7];
-        std::__split_buffer<LSApplicationRecord * {__strong}>::~__split_buffer(v22);
+        v20 = (8 * v16);
+        v21[0] = 0;
+        v21[1] = v20;
+        v21[3] = 0;
+        *v20 = v6;
+        v21[2] = v20 + 1;
+        std::vector<LSApplicationRecord * {__strong}>::__swap_out_circular_buffer((v11 + 6), v21);
+        v14 = v11[7];
+        std::__split_buffer<LSApplicationRecord * {__strong}>::~__split_buffer(v21);
       }
 
       else
       {
-        *v14 = v6;
-        v15 = v14 + 1;
+        *v13 = v6;
+        v14 = v13 + 1;
       }
 
-      v12[7] = v15;
+      v11[7] = v14;
     }
   }
 }

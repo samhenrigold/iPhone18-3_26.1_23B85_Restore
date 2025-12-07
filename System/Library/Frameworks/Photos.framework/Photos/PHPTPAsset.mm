@@ -647,7 +647,7 @@ LABEL_9:
         else
         {
           v78 = MEMORY[0x1E696AD98];
-          [assetCopy duration];
+          objc_msgSend_duration(assetCopy);
           originalDuration = [v78 numberWithDouble:?];
         }
 

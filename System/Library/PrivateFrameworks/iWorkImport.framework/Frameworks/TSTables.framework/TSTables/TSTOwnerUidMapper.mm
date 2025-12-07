@@ -225,156 +225,156 @@
   sub_2210BE918(&self->_uidMap.__table_.__bucket_list_.__ptr_);
   if (*&self->_hiddenStateForRowsOwnerUID != 0)
   {
-    self->_nextHiddenStateForRowsOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 4, v4, v5, v6);
+    self->_nextHiddenStateForRowsOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 4, v4, v5);
     self->_nextHiddenStateForRowsOwnerUID.var0.var0._upper = v3;
   }
 
   if (self->_hiddenStateForColumnsOwnerUID.var0.var0._lower || self->_hiddenStateForColumnsOwnerUID.var0.var0._upper)
   {
-    self->_nextHiddenStateForColumnsOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 0xB, v4, v5, v6);
+    self->_nextHiddenStateForColumnsOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 0xB, v4, v5);
     self->_nextHiddenStateForColumnsOwnerUID.var0.var0._upper = v3;
   }
 
   if (self->_conditionalStyleOwnerUID.var0.var0._lower || self->_conditionalStyleOwnerUID.var0.var0._upper)
   {
-    self->_nextConditionalStyleOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 3, v4, v5, v6);
+    self->_nextConditionalStyleOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 3, v4, v5);
     self->_nextConditionalStyleOwnerUID.var0.var0._upper = v3;
   }
 
   if (self->_sortRuleReferenceTrackerOwnerUID.var0.var0._lower || self->_sortRuleReferenceTrackerOwnerUID.var0.var0._upper)
   {
-    self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 6, v4, v5, v6);
+    self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 6, v4, v5);
     self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._upper = v3;
   }
 
   if (self->_mergeOwnerUID.var0.var0._lower || self->_mergeOwnerUID.var0.var0._upper)
   {
-    self->_nextMergeOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 5, v4, v5, v6);
+    self->_nextMergeOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 5, v4, v5);
     self->_nextMergeOwnerUID.var0.var0._upper = v3;
   }
 
   if (self->_pencilAnnotationOwnerUID.var0.var0._lower || self->_pencilAnnotationOwnerUID.var0.var0._upper)
   {
-    self->_nextPencilAnnotationOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 0xA, v4, v5, v6);
+    self->_nextPencilAnnotationOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 0xA, v4, v5);
     self->_nextPencilAnnotationOwnerUID.var0.var0._upper = v3;
   }
 
   if (self->_categoryAggregatesOwnerUID.var0.var0._lower || self->_categoryAggregatesOwnerUID.var0.var0._upper)
   {
-    self->_nextCategoryAggregatesOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 9, v4, v5, v6);
+    self->_nextCategoryAggregatesOwnerUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 9, v4, v5);
     self->_nextCategoryAggregatesOwnerUID.var0.var0._upper = v3;
   }
 
   if (self->_groupByUID.var0.var0._lower || self->_groupByUID.var0.var0._upper)
   {
-    self->_nextGroupByUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 8, v4, v5, v6);
+    self->_nextGroupByUID.var0.var0._lower = sub_2212C4A30(&self->_nextTableUID, 8, v4, v5);
     self->_nextGroupByUID.var0.var0._upper = v3;
   }
 
-  if ((objc_msgSend_verifySubOwnerUIDsUsed(self, v3, v4, v5, v6) & 1) == 0)
+  if ((objc_msgSend_verifySubOwnerUIDsUsed(self, v3, v4, v5) & 1) == 0)
   {
-    v10 = MEMORY[0x277D81150];
-    v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "[TSTOwnerUidMapper p_recreateUIDs]", v8, v9);
-    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTOwnerUidMapper.mm", v13, v14);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v16, v11, v15, 100, 0, "Check for non subOwner formula UIDs");
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "[TSTOwnerUidMapper p_recreateUIDs]", v7);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTOwnerUidMapper.mm", v11);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v13, v9, v12, 100, 0, "Check for non subOwner formula UIDs");
 
-    v21 = MEMORY[0x277D81150];
+    v17 = MEMORY[0x277D81150];
 
-    objc_msgSend_logBacktraceThrottled(v21, v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(v17, v14, v15, v16);
   }
 }
 
 - (BOOL)usesAllSubOwnerUIDs
 {
-  v13 = 1;
+  v11 = 1;
   if (self->_nextHiddenStateForRowsOwnerUID.var0.var0._lower || self->_nextHiddenStateForRowsOwnerUID.var0.var0._upper)
   {
-    HiddenStateForRowsOwnerUID = objc_msgSend_nextHiddenStateForRowsOwnerUID(self, a2, v2, v3, v4);
-    v8 = v7;
-    if (HiddenStateForRowsOwnerUID != sub_2212C4A30(&self->_nextTableUID, 4, v9, v10, v11) || v8 != a2)
+    HiddenStateForRowsOwnerUID = objc_msgSend_nextHiddenStateForRowsOwnerUID(self, a2, v2, v3);
+    v7 = v6;
+    if (HiddenStateForRowsOwnerUID != sub_2212C4A30(&self->_nextTableUID, 4, v8, v9) || v7 != a2)
     {
-      v13 = 0;
+      v11 = 0;
     }
   }
 
   if (self->_nextHiddenStateForColumnsOwnerUID.var0.var0._lower || self->_nextHiddenStateForColumnsOwnerUID.var0.var0._upper)
   {
-    HiddenStateForColumnsOwnerUID = objc_msgSend_nextHiddenStateForColumnsOwnerUID(self, a2, v2, v3, v4);
-    v16 = v15;
-    if (HiddenStateForColumnsOwnerUID != sub_2212C4A30(&self->_nextTableUID, 0xB, v17, v18, v19) || v16 != a2)
+    HiddenStateForColumnsOwnerUID = objc_msgSend_nextHiddenStateForColumnsOwnerUID(self, a2, v2, v3);
+    v14 = v13;
+    if (HiddenStateForColumnsOwnerUID != sub_2212C4A30(&self->_nextTableUID, 0xB, v15, v16) || v14 != a2)
     {
-      v13 = 0;
+      v11 = 0;
     }
   }
 
   if (self->_nextConditionalStyleOwnerUID.var0.var0._lower || self->_nextConditionalStyleOwnerUID.var0.var0._upper)
   {
-    ConditionalStyleOwnerUID = objc_msgSend_nextConditionalStyleOwnerUID(self, a2, v2, v3, v4);
-    v23 = v22;
-    if (ConditionalStyleOwnerUID != sub_2212C4A30(&self->_nextTableUID, 3, v24, v25, v26) || v23 != a2)
+    ConditionalStyleOwnerUID = objc_msgSend_nextConditionalStyleOwnerUID(self, a2, v2, v3);
+    v20 = v19;
+    if (ConditionalStyleOwnerUID != sub_2212C4A30(&self->_nextTableUID, 3, v21, v22) || v20 != a2)
     {
-      v13 = 0;
+      v11 = 0;
     }
   }
 
   if (self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._lower || self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._upper)
   {
-    SortRuleReferenceTrackerOwnerUID = objc_msgSend_nextSortRuleReferenceTrackerOwnerUID(self, a2, v2, v3, v4);
-    v30 = v29;
-    if (SortRuleReferenceTrackerOwnerUID != sub_2212C4A30(&self->_nextTableUID, 6, v31, v32, v33) || v30 != a2)
+    SortRuleReferenceTrackerOwnerUID = objc_msgSend_nextSortRuleReferenceTrackerOwnerUID(self, a2, v2, v3);
+    v26 = v25;
+    if (SortRuleReferenceTrackerOwnerUID != sub_2212C4A30(&self->_nextTableUID, 6, v27, v28) || v26 != a2)
     {
-      v13 = 0;
+      v11 = 0;
     }
   }
 
   if (self->_nextMergeOwnerUID.var0.var0._lower || self->_nextMergeOwnerUID.var0.var0._upper)
   {
-    MergeOwnerUID = objc_msgSend_nextMergeOwnerUID(self, a2, v2, v3, v4);
-    v36 = v35;
-    if (MergeOwnerUID != sub_2212C4A30(&self->_nextTableUID, 5, v37, v38, v39) || v36 != a2)
+    MergeOwnerUID = objc_msgSend_nextMergeOwnerUID(self, a2, v2, v3);
+    v31 = v30;
+    if (MergeOwnerUID != sub_2212C4A30(&self->_nextTableUID, 5, v32, v33) || v31 != a2)
     {
-      v13 = 0;
+      v11 = 0;
     }
   }
 
   if (self->_nextPencilAnnotationOwnerUID.var0.var0._lower || self->_nextPencilAnnotationOwnerUID.var0.var0._upper)
   {
-    PencilAnnotationOwnerUID = objc_msgSend_nextPencilAnnotationOwnerUID(self, a2, v2, v3, v4);
-    v42 = v41;
-    if (PencilAnnotationOwnerUID != sub_2212C4A30(&self->_nextTableUID, 0xA, v43, v44, v45) || v42 != a2)
+    PencilAnnotationOwnerUID = objc_msgSend_nextPencilAnnotationOwnerUID(self, a2, v2, v3);
+    v36 = v35;
+    if (PencilAnnotationOwnerUID != sub_2212C4A30(&self->_nextTableUID, 0xA, v37, v38) || v36 != a2)
     {
-      v13 = 0;
+      v11 = 0;
     }
   }
 
   if (self->_nextCategoryAggregatesOwnerUID.var0.var0._lower || self->_nextCategoryAggregatesOwnerUID.var0.var0._upper)
   {
-    CategoryAggregatesOwnerUID = objc_msgSend_nextCategoryAggregatesOwnerUID(self, a2, v2, v3, v4);
-    v48 = v47;
-    if (CategoryAggregatesOwnerUID != sub_2212C4A30(&self->_nextTableUID, 9, v49, v50, v51) || v48 != a2)
+    CategoryAggregatesOwnerUID = objc_msgSend_nextCategoryAggregatesOwnerUID(self, a2, v2, v3);
+    v41 = v40;
+    if (CategoryAggregatesOwnerUID != sub_2212C4A30(&self->_nextTableUID, 9, v42, v43) || v41 != a2)
     {
-      v13 = 0;
+      v11 = 0;
     }
   }
 
   if (self->_nextGroupByUID.var0.var0._lower || self->_nextGroupByUID.var0.var0._upper)
   {
-    GroupByUID = objc_msgSend_nextGroupByUID(self, a2, v2, v3, v4);
-    v54 = v53;
-    if (GroupByUID != sub_2212C4A30(&self->_nextTableUID, 8, v55, v56, v57) || v54 != v58)
+    GroupByUID = objc_msgSend_nextGroupByUID(self, a2, v2, v3);
+    v46 = v45;
+    if (GroupByUID != sub_2212C4A30(&self->_nextTableUID, 8, v47, v48) || v46 != v49)
     {
       return 0;
     }
   }
 
-  return v13;
+  return v11;
 }
 
 - (TSTOwnerUidMapper)initWithTableUID:(const TSKUIDStruct *)d pasteBoardTableUID:(const TSKUIDStruct *)iD hiddenStateOwnerForRowsUID:(const TSKUIDStruct *)uID hiddenStateOwnerForColumnsUID:(const TSKUIDStruct *)columnsUID conditionalStyleOwnerUID:(const TSKUIDStruct *)ownerUID sortRuleReferenceTrackerOwnerUID:(const TSKUIDStruct *)trackerOwnerUID mergeOwnerUID:(const TSKUIDStruct *)mergeOwnerUID pencilAnnotationOwnerUID:(const TSKUIDStruct *)self0 categoryAggregatesOwnerUID:(const TSKUIDStruct *)self1 groupByUID:(const TSKUIDStruct *)self2
 {
-  v26.receiver = self;
-  v26.super_class = TSTOwnerUidMapper;
-  v18 = [(TSTOwnerUidMapper *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = TSTOwnerUidMapper;
+  v18 = [(TSTOwnerUidMapper *)&v25 init];
   v19 = v18;
   if (v18)
   {
@@ -393,9 +393,9 @@
     *(v18 + 200) = *annotationOwnerUID;
     *(v18 + 232) = *aggregatesOwnerUID;
     *(v18 + 264) = *byUID;
-    uuid_generate_random(&v25);
-    *(v19 + 24) = v25;
-    objc_msgSend_p_recreateUIDs(v19, v20, v21, v22, v23);
+    uuid_generate_random(&v24);
+    *(v19 + 24) = v24;
+    objc_msgSend_p_recreateUIDs(v19, v20, v21, v22);
   }
 
   return v19;
@@ -404,47 +404,47 @@
 - (id)pivotDataTableMapper
 {
   v3 = [TSTOwnerUidMapper alloc];
-  v7 = objc_msgSend_initForPivotDataTableWithMapper_(v3, v4, self, v5, v6);
+  v6 = objc_msgSend_initForPivotDataTableWithMapper_(v3, v4, self, v5);
 
-  return v7;
+  return v6;
 }
 
 - (id)initForPivotDataTableWithMapper:(id)mapper
 {
   mapperCopy = mapper;
-  v57.receiver = self;
-  v57.super_class = TSTOwnerUidMapper;
-  v9 = [(TSTOwnerUidMapper *)&v57 init];
-  if (v9)
+  v46.receiver = self;
+  v46.super_class = TSTOwnerUidMapper;
+  v8 = [(TSTOwnerUidMapper *)&v46 init];
+  if (v8)
   {
-    v53 = objc_msgSend_tableUID(mapperCopy, v5, v6, v7, v8);
-    v55 = v10;
-    *(v9 + 1) = TSKUIDStruct::operator+();
-    *(v9 + 2) = v11;
-    TableUID = objc_msgSend_nextTableUID(mapperCopy, v11, v12, v13, v14, v53, v55);
-    v56 = v15;
-    *(v9 + 3) = TSKUIDStruct::operator+();
-    *(v9 + 4) = v16;
-    *(v9 + 5) = sub_2212C4A30((v9 + 8), 4, v17, v18, v19);
-    *(v9 + 6) = v20;
-    *(v9 + 9) = sub_2212C4A30((v9 + 8), 0xB, v21, v22, v23);
-    *(v9 + 10) = v24;
-    *(v9 + 13) = sub_2212C4A30((v9 + 8), 3, v25, v26, v27);
-    *(v9 + 14) = v28;
-    *(v9 + 17) = sub_2212C4A30((v9 + 8), 6, v29, v30, v31);
-    *(v9 + 18) = v32;
-    *(v9 + 21) = sub_2212C4A30((v9 + 8), 5, v33, v34, v35);
-    *(v9 + 22) = v36;
-    *(v9 + 25) = sub_2212C4A30((v9 + 8), 0xA, v37, v38, v39);
-    *(v9 + 26) = v40;
-    *(v9 + 29) = sub_2212C4A30((v9 + 8), 9, v41, v42, v43);
-    *(v9 + 30) = v44;
-    *(v9 + 33) = sub_2212C4A30((v9 + 8), 8, v45, v46, v47);
-    *(v9 + 34) = v48;
-    objc_msgSend_p_recreateUIDs(v9, v48, v49, v50, v51, TableUID, v56);
+    v42 = objc_msgSend_tableUID(mapperCopy, v5, v6, v7);
+    v44 = v9;
+    *(v8 + 1) = TSKUIDStruct::operator+();
+    *(v8 + 2) = v10;
+    TableUID = objc_msgSend_nextTableUID(mapperCopy, v10, v11, v12, v42, v44);
+    v45 = v13;
+    *(v8 + 3) = TSKUIDStruct::operator+();
+    *(v8 + 4) = v14;
+    *(v8 + 5) = sub_2212C4A30((v8 + 8), 4, v15, v16);
+    *(v8 + 6) = v17;
+    *(v8 + 9) = sub_2212C4A30((v8 + 8), 0xB, v18, v19);
+    *(v8 + 10) = v20;
+    *(v8 + 13) = sub_2212C4A30((v8 + 8), 3, v21, v22);
+    *(v8 + 14) = v23;
+    *(v8 + 17) = sub_2212C4A30((v8 + 8), 6, v24, v25);
+    *(v8 + 18) = v26;
+    *(v8 + 21) = sub_2212C4A30((v8 + 8), 5, v27, v28);
+    *(v8 + 22) = v29;
+    *(v8 + 25) = sub_2212C4A30((v8 + 8), 0xA, v30, v31);
+    *(v8 + 26) = v32;
+    *(v8 + 29) = sub_2212C4A30((v8 + 8), 9, v33, v34);
+    *(v8 + 30) = v35;
+    *(v8 + 33) = sub_2212C4A30((v8 + 8), 8, v36, v37);
+    *(v8 + 34) = v38;
+    objc_msgSend_p_recreateUIDs(v8, v38, v39, v40, TableUID, v45);
   }
 
-  return v9;
+  return v8;
 }
 
 - (TSTOwnerUidMapper)initWithFormulaOwnerUID:(const TSKUIDStruct *)d
@@ -456,29 +456,29 @@
 
 - (TSTOwnerUidMapper)initWithIdentityMapping
 {
-  *&v51 = TSKMakeUIDStructRandom();
-  *(&v51 + 1) = v3;
-  v50[0] = sub_2212C4930(&v51, 4, v4, v5, v6);
-  v50[1] = v7;
-  v49[0] = sub_2212C4930(&v51, 0xB, v8, v9, v10);
-  v49[1] = v11;
-  v48[0] = sub_2212C4930(&v51, 3, v12, v13, v14);
-  v48[1] = v15;
-  v47[0] = sub_2212C4930(&v51, 6, v16, v17, v18);
-  v47[1] = v19;
-  v46[0] = sub_2212C4930(&v51, 5, v20, v21, v22);
-  v46[1] = v23;
-  v45[0] = sub_2212C4930(&v51, 0xA, v24, v25, v26);
-  v45[1] = v27;
-  v44[0] = sub_2212C4930(&v51, 9, v28, v29, v30);
-  v44[1] = v31;
-  v43[0] = sub_2212C4930(&v51, 8, v32, v33, v34);
-  v43[1] = v35;
-  v42[0] = 0;
-  v42[1] = 0;
-  v36 = objc_msgSend_initWithTableUID_pasteBoardTableUID_hiddenStateOwnerForRowsUID_hiddenStateOwnerForColumnsUID_conditionalStyleOwnerUID_sortRuleReferenceTrackerOwnerUID_mergeOwnerUID_pencilAnnotationOwnerUID_categoryAggregatesOwnerUID_groupByUID_(self, v35, &v51, v42, v50, v49, v48, v47, v46, v45, v44, v43);
-  objc_msgSend_setToIdentityMapping(v36, v37, v38, v39, v40);
-  return v36;
+  *&v42 = TSKMakeUIDStructRandom();
+  *(&v42 + 1) = v3;
+  v41[0] = sub_2212C4930(&v42, 4, v4, v5);
+  v41[1] = v6;
+  v40[0] = sub_2212C4930(&v42, 0xB, v7, v8);
+  v40[1] = v9;
+  v39[0] = sub_2212C4930(&v42, 3, v10, v11);
+  v39[1] = v12;
+  v38[0] = sub_2212C4930(&v42, 6, v13, v14);
+  v38[1] = v15;
+  v37[0] = sub_2212C4930(&v42, 5, v16, v17);
+  v37[1] = v18;
+  v36[0] = sub_2212C4930(&v42, 0xA, v19, v20);
+  v36[1] = v21;
+  v35[0] = sub_2212C4930(&v42, 9, v22, v23);
+  v35[1] = v24;
+  v34[0] = sub_2212C4930(&v42, 8, v25, v26);
+  v34[1] = v27;
+  v33[0] = 0;
+  v33[1] = 0;
+  v28 = objc_msgSend_initWithTableUID_pasteBoardTableUID_hiddenStateOwnerForRowsUID_hiddenStateOwnerForColumnsUID_conditionalStyleOwnerUID_sortRuleReferenceTrackerOwnerUID_mergeOwnerUID_pencilAnnotationOwnerUID_categoryAggregatesOwnerUID_groupByUID_(self, v27, &v42, v33, v41, v40, v39, v38, v37, v36, v35, v34);
+  objc_msgSend_setToIdentityMapping(v28, v29, v30, v31);
+  return v28;
 }
 
 - (void)setToIdentityMapping
@@ -504,65 +504,65 @@
 
 - (void)setToUpgradeMapping
 {
-  objc_msgSend_setToIdentityMapping(self, a2, v2, v3, v4);
-  *&v60 = objc_msgSend_nextTableUID(self, v6, v7, v8, v9);
-  *(&v60 + 1) = v10;
-  self->_nextHiddenStateForRowsOwnerUID.var0.var0._lower = sub_2212C4930(&v60, 4, v11, v12, v13);
-  self->_nextHiddenStateForRowsOwnerUID.var0.var0._upper = v14;
-  self->_nextHiddenStateForColumnsOwnerUID.var0.var0._lower = sub_2212C4930(&v60, 0xB, v15, v16, v17);
-  self->_nextHiddenStateForColumnsOwnerUID.var0.var0._upper = v18;
-  self->_nextConditionalStyleOwnerUID.var0.var0._lower = sub_2212C4930(&v60, 3, v19, v20, v21);
-  self->_nextConditionalStyleOwnerUID.var0.var0._upper = v22;
-  self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._lower = sub_2212C4930(&v60, 6, v23, v24, v25);
-  self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._upper = v26;
-  self->_nextMergeOwnerUID.var0.var0._lower = sub_2212C4930(&v60, 5, v27, v28, v29);
-  self->_nextMergeOwnerUID.var0.var0._upper = v30;
-  self->_nextPencilAnnotationOwnerUID.var0.var0._lower = sub_2212C4930(&v60, 0xA, v31, v32, v33);
-  self->_nextPencilAnnotationOwnerUID.var0.var0._upper = v34;
-  self->_nextCategoryAggregatesOwnerUID.var0.var0._lower = sub_2212C4930(&v60, 9, v35, v36, v37);
-  self->_nextCategoryAggregatesOwnerUID.var0.var0._upper = v38;
-  self->_nextGroupByUID.var0.var0._lower = sub_2212C4930(&v60, 8, v39, v40, v41);
-  self->_nextGroupByUID.var0.var0._upper = v42;
-  if ((objc_msgSend_verifySubOwnerUIDsUsed(self, v42, v43, v44, v45) & 1) == 0)
+  objc_msgSend_setToIdentityMapping(self, a2, v2, v3);
+  *&v46 = objc_msgSend_nextTableUID(self, v5, v6, v7);
+  *(&v46 + 1) = v8;
+  self->_nextHiddenStateForRowsOwnerUID.var0.var0._lower = sub_2212C4930(&v46, 4, v9, v10);
+  self->_nextHiddenStateForRowsOwnerUID.var0.var0._upper = v11;
+  self->_nextHiddenStateForColumnsOwnerUID.var0.var0._lower = sub_2212C4930(&v46, 0xB, v12, v13);
+  self->_nextHiddenStateForColumnsOwnerUID.var0.var0._upper = v14;
+  self->_nextConditionalStyleOwnerUID.var0.var0._lower = sub_2212C4930(&v46, 3, v15, v16);
+  self->_nextConditionalStyleOwnerUID.var0.var0._upper = v17;
+  self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._lower = sub_2212C4930(&v46, 6, v18, v19);
+  self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._upper = v20;
+  self->_nextMergeOwnerUID.var0.var0._lower = sub_2212C4930(&v46, 5, v21, v22);
+  self->_nextMergeOwnerUID.var0.var0._upper = v23;
+  self->_nextPencilAnnotationOwnerUID.var0.var0._lower = sub_2212C4930(&v46, 0xA, v24, v25);
+  self->_nextPencilAnnotationOwnerUID.var0.var0._upper = v26;
+  self->_nextCategoryAggregatesOwnerUID.var0.var0._lower = sub_2212C4930(&v46, 9, v27, v28);
+  self->_nextCategoryAggregatesOwnerUID.var0.var0._upper = v29;
+  self->_nextGroupByUID.var0.var0._lower = sub_2212C4930(&v46, 8, v30, v31);
+  self->_nextGroupByUID.var0.var0._upper = v32;
+  if ((objc_msgSend_verifySubOwnerUIDsUsed(self, v32, v33, v34) & 1) == 0)
   {
-    v49 = MEMORY[0x277D81150];
-    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v46, "[TSTOwnerUidMapper setToUpgradeMapping]", v47, v48);
-    v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTOwnerUidMapper.mm", v52, v53);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v55, v50, v54, 342, 0, "Check for non subOwner formula UIDs");
+    v37 = MEMORY[0x277D81150];
+    v38 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "[TSTOwnerUidMapper setToUpgradeMapping]", v36);
+    v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v39, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTOwnerUidMapper.mm", v40);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v42, v38, v41, 342, 0, "Check for non subOwner formula UIDs");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v56, v57, v58, v59);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v43, v44, v45);
   }
 }
 
 - (id)makeInverse
 {
   v3 = [TSTOwnerUidMapper alloc];
-  v67[0] = objc_msgSend_nextTableUID(self, v4, v5, v6, v7);
-  v67[1] = v8;
-  v66[0] = objc_msgSend_nextTableUID(self, v8, v9, v10, v11);
-  v66[1] = v12;
-  v65[0] = objc_msgSend_nextHiddenStateForRowsOwnerUID(self, v12, v13, v14, v15);
-  v65[1] = v16;
-  v64[0] = objc_msgSend_nextHiddenStateForColumnsOwnerUID(self, v16, v17, v18, v19);
-  v64[1] = v20;
-  v63[0] = objc_msgSend_nextConditionalStyleOwnerUID(self, v20, v21, v22, v23);
-  v63[1] = v24;
-  v62[0] = objc_msgSend_nextSortRuleReferenceTrackerOwnerUID(self, v24, v25, v26, v27);
-  v62[1] = v28;
-  v61[0] = objc_msgSend_nextMergeOwnerUID(self, v28, v29, v30, v31);
-  v61[1] = v32;
-  v60[0] = objc_msgSend_nextPencilAnnotationOwnerUID(self, v32, v33, v34, v35);
-  v60[1] = v36;
-  v59[0] = objc_msgSend_nextCategoryAggregatesOwnerUID(self, v36, v37, v38, v39);
-  v59[1] = v40;
-  v58[0] = objc_msgSend_nextGroupByUID(self, v40, v41, v42, v43);
-  v58[1] = v44;
-  v45 = objc_msgSend_initWithTableUID_pasteBoardTableUID_hiddenStateOwnerForRowsUID_hiddenStateOwnerForColumnsUID_conditionalStyleOwnerUID_sortRuleReferenceTrackerOwnerUID_mergeOwnerUID_pencilAnnotationOwnerUID_categoryAggregatesOwnerUID_groupByUID_(v3, v44, v67, v66, v65, v64, v63, v62, v61, v60, v59, v58);
-  v50 = objc_msgSend_tableUID(self, v46, v47, v48, v49);
-  objc_msgSend_setNextTableUID_(v45, v51, v50, v51, v52);
-  objc_msgSend_p_recreateUIDs(v45, v53, v54, v55, v56);
+  v54[0] = objc_msgSend_nextTableUID(self, v4, v5, v6);
+  v54[1] = v7;
+  v53[0] = objc_msgSend_nextTableUID(self, v7, v8, v9);
+  v53[1] = v10;
+  v52[0] = objc_msgSend_nextHiddenStateForRowsOwnerUID(self, v10, v11, v12);
+  v52[1] = v13;
+  v51[0] = objc_msgSend_nextHiddenStateForColumnsOwnerUID(self, v13, v14, v15);
+  v51[1] = v16;
+  v50[0] = objc_msgSend_nextConditionalStyleOwnerUID(self, v16, v17, v18);
+  v50[1] = v19;
+  v49[0] = objc_msgSend_nextSortRuleReferenceTrackerOwnerUID(self, v19, v20, v21);
+  v49[1] = v22;
+  v48[0] = objc_msgSend_nextMergeOwnerUID(self, v22, v23, v24);
+  v48[1] = v25;
+  v47[0] = objc_msgSend_nextPencilAnnotationOwnerUID(self, v25, v26, v27);
+  v47[1] = v28;
+  v46[0] = objc_msgSend_nextCategoryAggregatesOwnerUID(self, v28, v29, v30);
+  v46[1] = v31;
+  v45[0] = objc_msgSend_nextGroupByUID(self, v31, v32, v33);
+  v45[1] = v34;
+  v35 = objc_msgSend_initWithTableUID_pasteBoardTableUID_hiddenStateOwnerForRowsUID_hiddenStateOwnerForColumnsUID_conditionalStyleOwnerUID_sortRuleReferenceTrackerOwnerUID_mergeOwnerUID_pencilAnnotationOwnerUID_categoryAggregatesOwnerUID_groupByUID_(v3, v34, v54, v53, v52, v51, v50, v49, v48, v47, v46, v45);
+  v39 = objc_msgSend_tableUID(self, v36, v37, v38);
+  objc_msgSend_setNextTableUID_(v35, v40, v39, v40);
+  objc_msgSend_p_recreateUIDs(v35, v41, v42, v43);
 
-  return v45;
+  return v35;
 }
 
 - (id)description
@@ -591,168 +591,168 @@
     p_tableUID = &self->_tableUID;
     if (self->_tableUID.var0.var0._lower || self->_tableUID.var0.var0._upper)
     {
-      TableUID = objc_msgSend_nextTableUID(self, a2, v2, v3, v4);
-      v10 = v9;
-      p_pbTableUID = objc_msgSend_tableUID(self, v9, v11, v12, v13);
-      v135 = v14;
-      p_p_pbTableUID = &p_pbTableUID;
-      v15 = sub_22123067C(p_uidMap, &p_pbTableUID);
-      v15[4] = TableUID;
-      v15[5] = v10;
+      TableUID = objc_msgSend_nextTableUID(self, a2, v2, v3);
+      v9 = v8;
+      p_lower = objc_msgSend_tableUID(self, v8, v10, v11);
+      v118 = v12;
+      p_p_lower = &p_lower;
+      v13 = sub_22123067C(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+      v13[4] = TableUID;
+      v13[5] = v9;
     }
 
     if (self->_pbTableUID._lower || self->_pbTableUID._upper)
     {
-      v16 = objc_msgSend_nextTableUID(self, a2, v2, v3, v4);
-      v18 = v17;
-      p_pbTableUID = &self->_pbTableUID;
-      v19 = sub_221230440(p_uidMap, &self->_pbTableUID._lower);
-      v19[4] = v16;
-      v19[5] = v18;
+      v14 = objc_msgSend_nextTableUID(self, a2, v2, v3);
+      v16 = v15;
+      p_lower = &self->_pbTableUID._lower;
+      v17 = sub_221230440(p_uidMap, &self->_pbTableUID._lower, &unk_2217E0D80, &p_lower);
+      v17[4] = v14;
+      v17[5] = v16;
     }
 
     lower = self->_sortRuleReferenceTrackerOwnerUID.var0.var0._lower;
     if ((lower || self->_sortRuleReferenceTrackerOwnerUID.var0.var0._upper) && (lower != self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._lower || self->_sortRuleReferenceTrackerOwnerUID.var0.var0._upper != self->_nextSortRuleReferenceTrackerOwnerUID.var0.var0._upper))
     {
-      SortRuleReferenceTrackerOwnerUID = objc_msgSend_nextSortRuleReferenceTrackerOwnerUID(self, a2, v2, v3, v4);
-      v23 = v22;
-      p_pbTableUID = objc_msgSend_sortRuleReferenceTrackerOwnerUID(self, v22, v24, v25, v26);
-      v135 = v27;
-      p_p_pbTableUID = &p_pbTableUID;
-      v28 = sub_22123067C(p_uidMap, &p_pbTableUID);
-      v28[4] = SortRuleReferenceTrackerOwnerUID;
-      v28[5] = v23;
+      SortRuleReferenceTrackerOwnerUID = objc_msgSend_nextSortRuleReferenceTrackerOwnerUID(self, a2, v2, v3);
+      v21 = v20;
+      p_lower = objc_msgSend_sortRuleReferenceTrackerOwnerUID(self, v20, v22, v23);
+      v118 = v24;
+      p_p_lower = &p_lower;
+      v25 = sub_22123067C(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+      v25[4] = SortRuleReferenceTrackerOwnerUID;
+      v25[5] = v21;
     }
 
-    v29 = self->_hiddenStateForRowsOwnerUID.var0.var0._lower;
-    if (v29 || self->_hiddenStateForRowsOwnerUID.var0.var0._upper || self->_hiddenStateForColumnsOwnerUID.var0.var0._lower || self->_hiddenStateForColumnsOwnerUID.var0.var0._upper)
+    v26 = self->_hiddenStateForRowsOwnerUID.var0.var0._lower;
+    if (v26 || self->_hiddenStateForRowsOwnerUID.var0.var0._upper || self->_hiddenStateForColumnsOwnerUID.var0.var0._lower || self->_hiddenStateForColumnsOwnerUID.var0.var0._upper)
     {
-      if (v29 != self->_nextHiddenStateForRowsOwnerUID.var0.var0._lower || self->_hiddenStateForRowsOwnerUID.var0.var0._upper != self->_nextHiddenStateForRowsOwnerUID.var0.var0._upper)
+      if (v26 != self->_nextHiddenStateForRowsOwnerUID.var0.var0._lower || self->_hiddenStateForRowsOwnerUID.var0.var0._upper != self->_nextHiddenStateForRowsOwnerUID.var0.var0._upper)
       {
-        HiddenStateForRowsOwnerUID = objc_msgSend_nextHiddenStateForRowsOwnerUID(self, a2, v2, v3, v4);
-        v32 = v31;
-        p_pbTableUID = objc_msgSend_hiddenStateForRowsOwnerUID(self, v31, v33, v34, v35);
-        v135 = v36;
-        p_p_pbTableUID = &p_pbTableUID;
-        v37 = sub_22123067C(p_uidMap, &p_pbTableUID);
-        v37[4] = HiddenStateForRowsOwnerUID;
-        v37[5] = v32;
+        HiddenStateForRowsOwnerUID = objc_msgSend_nextHiddenStateForRowsOwnerUID(self, a2, v2, v3);
+        v29 = v28;
+        p_lower = objc_msgSend_hiddenStateForRowsOwnerUID(self, v28, v30, v31);
+        v118 = v32;
+        p_p_lower = &p_lower;
+        v33 = sub_22123067C(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+        v33[4] = HiddenStateForRowsOwnerUID;
+        v33[5] = v29;
       }
 
       if (self->_hiddenStateForColumnsOwnerUID.var0.var0._lower != self->_nextHiddenStateForColumnsOwnerUID.var0.var0._lower || self->_hiddenStateForColumnsOwnerUID.var0.var0._upper != self->_nextHiddenStateForColumnsOwnerUID.var0.var0._upper)
       {
-        HiddenStateForColumnsOwnerUID = objc_msgSend_nextHiddenStateForColumnsOwnerUID(self, a2, v2, v3, v4);
-        v40 = v39;
-        p_pbTableUID = objc_msgSend_hiddenStateForColumnsOwnerUID(self, v39, v41, v42, v43);
-        v135 = v44;
-        p_p_pbTableUID = &p_pbTableUID;
-        v45 = sub_22123067C(p_uidMap, &p_pbTableUID);
-        v45[4] = HiddenStateForColumnsOwnerUID;
-        v45[5] = v40;
+        HiddenStateForColumnsOwnerUID = objc_msgSend_nextHiddenStateForColumnsOwnerUID(self, a2, v2, v3);
+        v36 = v35;
+        p_lower = objc_msgSend_hiddenStateForColumnsOwnerUID(self, v35, v37, v38);
+        v118 = v39;
+        p_p_lower = &p_lower;
+        v40 = sub_22123067C(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+        v40[4] = HiddenStateForColumnsOwnerUID;
+        v40[5] = v36;
       }
     }
 
-    v46 = self->_conditionalStyleOwnerUID.var0.var0._lower;
-    if ((v46 || self->_conditionalStyleOwnerUID.var0.var0._upper) && (v46 != self->_nextConditionalStyleOwnerUID.var0.var0._lower || self->_conditionalStyleOwnerUID.var0.var0._upper != self->_nextConditionalStyleOwnerUID.var0.var0._upper))
+    v41 = self->_conditionalStyleOwnerUID.var0.var0._lower;
+    if ((v41 || self->_conditionalStyleOwnerUID.var0.var0._upper) && (v41 != self->_nextConditionalStyleOwnerUID.var0.var0._lower || self->_conditionalStyleOwnerUID.var0.var0._upper != self->_nextConditionalStyleOwnerUID.var0.var0._upper))
     {
-      ConditionalStyleOwnerUID = objc_msgSend_nextConditionalStyleOwnerUID(self, a2, v2, v3, v4);
-      v49 = v48;
-      p_pbTableUID = objc_msgSend_conditionalStyleOwnerUID(self, v48, v50, v51, v52);
-      v135 = v53;
-      p_p_pbTableUID = &p_pbTableUID;
-      v54 = sub_22123067C(p_uidMap, &p_pbTableUID);
-      v54[4] = ConditionalStyleOwnerUID;
-      v54[5] = v49;
+      ConditionalStyleOwnerUID = objc_msgSend_nextConditionalStyleOwnerUID(self, a2, v2, v3);
+      v44 = v43;
+      p_lower = objc_msgSend_conditionalStyleOwnerUID(self, v43, v45, v46);
+      v118 = v47;
+      p_p_lower = &p_lower;
+      v48 = sub_22123067C(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+      v48[4] = ConditionalStyleOwnerUID;
+      v48[5] = v44;
     }
 
-    v55 = self->_mergeOwnerUID.var0.var0._lower;
-    if ((v55 || self->_mergeOwnerUID.var0.var0._upper) && (v55 != self->_nextMergeOwnerUID.var0.var0._lower || self->_mergeOwnerUID.var0.var0._upper != self->_nextMergeOwnerUID.var0.var0._upper))
+    v49 = self->_mergeOwnerUID.var0.var0._lower;
+    if ((v49 || self->_mergeOwnerUID.var0.var0._upper) && (v49 != self->_nextMergeOwnerUID.var0.var0._lower || self->_mergeOwnerUID.var0.var0._upper != self->_nextMergeOwnerUID.var0.var0._upper))
     {
-      MergeOwnerUID = objc_msgSend_nextMergeOwnerUID(self, a2, v2, v3, v4);
-      v58 = v57;
-      p_pbTableUID = objc_msgSend_mergeOwnerUID(self, v57, v59, v60, v61);
-      v135 = v62;
-      p_p_pbTableUID = &p_pbTableUID;
-      v63 = sub_22123067C(p_uidMap, &p_pbTableUID);
-      v63[4] = MergeOwnerUID;
-      v63[5] = v58;
+      MergeOwnerUID = objc_msgSend_nextMergeOwnerUID(self, a2, v2, v3);
+      v52 = v51;
+      p_lower = objc_msgSend_mergeOwnerUID(self, v51, v53, v54);
+      v118 = v55;
+      p_p_lower = &p_lower;
+      v56 = sub_22123067C(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+      v56[4] = MergeOwnerUID;
+      v56[5] = v52;
     }
 
-    v64 = self->_pencilAnnotationOwnerUID.var0.var0._lower;
-    if ((v64 || self->_pencilAnnotationOwnerUID.var0.var0._upper) && (v64 != self->_nextPencilAnnotationOwnerUID.var0.var0._lower || self->_pencilAnnotationOwnerUID.var0.var0._upper != self->_nextPencilAnnotationOwnerUID.var0.var0._upper))
+    v57 = self->_pencilAnnotationOwnerUID.var0.var0._lower;
+    if ((v57 || self->_pencilAnnotationOwnerUID.var0.var0._upper) && (v57 != self->_nextPencilAnnotationOwnerUID.var0.var0._lower || self->_pencilAnnotationOwnerUID.var0.var0._upper != self->_nextPencilAnnotationOwnerUID.var0.var0._upper))
     {
-      PencilAnnotationOwnerUID = objc_msgSend_nextPencilAnnotationOwnerUID(self, a2, v2, v3, v4);
-      v67 = v66;
-      p_pbTableUID = objc_msgSend_pencilAnnotationOwnerUID(self, v66, v68, v69, v70);
-      v135 = v71;
-      p_p_pbTableUID = &p_pbTableUID;
-      v72 = sub_22123067C(p_uidMap, &p_pbTableUID);
-      v72[4] = PencilAnnotationOwnerUID;
-      v72[5] = v67;
+      PencilAnnotationOwnerUID = objc_msgSend_nextPencilAnnotationOwnerUID(self, a2, v2, v3);
+      v60 = v59;
+      p_lower = objc_msgSend_pencilAnnotationOwnerUID(self, v59, v61, v62);
+      v118 = v63;
+      p_p_lower = &p_lower;
+      v64 = sub_22123067C(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+      v64[4] = PencilAnnotationOwnerUID;
+      v64[5] = v60;
     }
 
-    v73 = self->_categoryAggregatesOwnerUID.var0.var0._lower;
-    if ((v73 || self->_categoryAggregatesOwnerUID.var0.var0._upper) && (v73 != self->_nextCategoryAggregatesOwnerUID.var0.var0._lower || self->_categoryAggregatesOwnerUID.var0.var0._upper != self->_nextCategoryAggregatesOwnerUID.var0.var0._upper))
+    v65 = self->_categoryAggregatesOwnerUID.var0.var0._lower;
+    if ((v65 || self->_categoryAggregatesOwnerUID.var0.var0._upper) && (v65 != self->_nextCategoryAggregatesOwnerUID.var0.var0._lower || self->_categoryAggregatesOwnerUID.var0.var0._upper != self->_nextCategoryAggregatesOwnerUID.var0.var0._upper))
     {
-      CategoryAggregatesOwnerUID = objc_msgSend_nextCategoryAggregatesOwnerUID(self, a2, v2, v3, v4);
+      CategoryAggregatesOwnerUID = objc_msgSend_nextCategoryAggregatesOwnerUID(self, a2, v2, v3);
+      v68 = v67;
+      p_lower = objc_msgSend_categoryAggregatesOwnerUID(self, v67, v69, v70);
+      v118 = v71;
+      p_p_lower = &p_lower;
+      v72 = sub_22123067C(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+      v72[4] = CategoryAggregatesOwnerUID;
+      v72[5] = v68;
+    }
+
+    v73 = self->_groupByUID.var0.var0._lower;
+    if ((v73 || self->_groupByUID.var0.var0._upper) && (v73 != self->_nextGroupByUID.var0.var0._lower || self->_groupByUID.var0.var0._upper != self->_nextGroupByUID.var0.var0._upper))
+    {
+      GroupByUID = objc_msgSend_nextGroupByUID(self, a2, v2, v3);
       v76 = v75;
-      p_pbTableUID = objc_msgSend_categoryAggregatesOwnerUID(self, v75, v77, v78, v79);
-      v135 = v80;
-      p_p_pbTableUID = &p_pbTableUID;
-      v81 = sub_22123067C(p_uidMap, &p_pbTableUID);
-      v81[4] = CategoryAggregatesOwnerUID;
-      v81[5] = v76;
+      p_lower = objc_msgSend_groupByUID(self, v75, v77, v78);
+      v118 = v79;
+      p_p_lower = &p_lower;
+      v80 = sub_22123067C(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+      v80[4] = GroupByUID;
+      v80[5] = v76;
     }
 
-    v82 = self->_groupByUID.var0.var0._lower;
-    if ((v82 || self->_groupByUID.var0.var0._upper) && (v82 != self->_nextGroupByUID.var0.var0._lower || self->_groupByUID.var0.var0._upper != self->_nextGroupByUID.var0.var0._upper))
+    v81 = objc_msgSend_nextGroupByUID(self, a2, v2, v3);
+    v83 = v82;
+    if (v81 == sub_2212C4A30(&self->_nextTableUID, 8, v84, v85) && v83 == v86)
     {
-      GroupByUID = objc_msgSend_nextGroupByUID(self, a2, v2, v3, v4);
-      v85 = v84;
-      p_pbTableUID = objc_msgSend_groupByUID(self, v84, v86, v87, v88);
-      v135 = v89;
-      p_p_pbTableUID = &p_pbTableUID;
-      v90 = sub_22123067C(p_uidMap, &p_pbTableUID);
-      v90[4] = GroupByUID;
-      v90[5] = v85;
-    }
-
-    v91 = objc_msgSend_nextGroupByUID(self, a2, v2, v3, v4);
-    v93 = v92;
-    if (v91 == sub_2212C4A30(&self->_nextTableUID, 8, v94, v95, v96) && v93 == v97)
-    {
-      p_pbTableUID = sub_2212C4A30(p_tableUID, 0x64, v98, v99, v100);
-      v135 = v101;
-      v105 = sub_2212C4A30(&self->_nextTableUID, 0x64, v102, v103, v104);
-      v107 = v106;
-      p_p_pbTableUID = &p_pbTableUID;
-      v108 = sub_221230440(p_uidMap, &p_pbTableUID);
-      v108[4] = v105;
-      v108[5] = v107;
-      p_pbTableUID = sub_2212C4A30(p_tableUID, 0x11, v109, v110, v111);
-      v135 = v112;
-      v116 = sub_2212C4A30(&self->_nextTableUID, 0x11, v113, v114, v115);
-      v118 = v117;
-      p_p_pbTableUID = &p_pbTableUID;
-      v119 = sub_221230440(p_uidMap, &p_pbTableUID);
-      v119[4] = v116;
-      v119[5] = v118;
-      v123 = 205;
+      p_lower = sub_2212C4A30(p_tableUID, 0x64, v87, v88);
+      v118 = v89;
+      v92 = sub_2212C4A30(&self->_nextTableUID, 0x64, v90, v91);
+      v94 = v93;
+      p_p_lower = &p_lower;
+      v95 = sub_221230440(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+      v95[4] = v92;
+      v95[5] = v94;
+      p_lower = sub_2212C4A30(p_tableUID, 0x11, v96, v97);
+      v118 = v98;
+      v101 = sub_2212C4A30(&self->_nextTableUID, 0x11, v99, v100);
+      v103 = v102;
+      p_p_lower = &p_lower;
+      v104 = sub_221230440(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+      v104[4] = v101;
+      v104[5] = v103;
+      v107 = 205;
       do
       {
-        v124 = v123;
-        p_pbTableUID = sub_2212C4A30(p_tableUID, v123, v120, v121, v122);
-        v135 = v125;
-        v129 = sub_2212C4A30(&self->_nextTableUID, v123, v126, v127, v128);
-        v131 = v130;
-        p_p_pbTableUID = &p_pbTableUID;
-        v132 = sub_221230440(p_uidMap, &p_pbTableUID);
-        v132[4] = v129;
-        v132[5] = v131;
-        ++v123;
+        v108 = v107;
+        p_lower = sub_2212C4A30(p_tableUID, v107, v105, v106);
+        v118 = v109;
+        v112 = sub_2212C4A30(&self->_nextTableUID, v107, v110, v111);
+        v114 = v113;
+        p_p_lower = &p_lower;
+        v115 = sub_221230440(p_uidMap, &p_lower, &unk_2217E0D80, &p_p_lower);
+        v115[4] = v112;
+        v115[5] = v114;
+        ++v107;
       }
 
-      while (v124 < 0x519);
+      while (v108 < 0x519);
     }
   }
 
@@ -990,283 +990,283 @@
 
 - (void)saveToArchive:(void *)archive
 {
-  pbTableUID._lower = objc_msgSend_tableUID(self, a2, archive, v3, v4);
-  pbTableUID._upper = v7;
-  if (!(pbTableUID._lower | v7))
+  pbTableUID._lower = objc_msgSend_tableUID(self, a2, archive, v3);
+  pbTableUID._upper = v6;
+  if (!(pbTableUID._lower | v6))
   {
     pbTableUID = self->_pbTableUID;
   }
 
   *(archive + 4) |= 1u;
-  v8 = *(archive + 3);
-  if (!v8)
+  v7 = *(archive + 3);
+  if (!v7)
   {
-    v9 = *(archive + 1);
-    if (v9)
+    v8 = *(archive + 1);
+    if (v8)
     {
-      v9 = *(v9 & 0xFFFFFFFFFFFFFFFELL);
+      v8 = *(v8 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v8 = MEMORY[0x223DA0360](v9);
-    *(archive + 3) = v8;
+    v7 = MEMORY[0x223DA0360](v8);
+    *(archive + 3) = v7;
   }
 
-  TSKUIDStruct::saveToMessage(&pbTableUID, v8);
+  TSKUIDStruct::saveToMessage(&pbTableUID, v7);
   *(archive + 4) |= 2u;
-  v10 = *(archive + 4);
-  if (!v10)
+  v9 = *(archive + 4);
+  if (!v9)
   {
-    v11 = *(archive + 1);
-    if (v11)
+    v10 = *(archive + 1);
+    if (v10)
     {
-      v11 = *(v11 & 0xFFFFFFFFFFFFFFFELL);
+      v10 = *(v10 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v10 = MEMORY[0x223DA0360](v11);
-    *(archive + 4) = v10;
+    v9 = MEMORY[0x223DA0360](v10);
+    *(archive + 4) = v9;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_nextTableUID, v10);
+  TSP::UUIDData::saveToMessage(&self->_nextTableUID, v9);
   *(archive + 4) |= 4u;
-  v12 = *(archive + 5);
-  if (!v12)
+  v11 = *(archive + 5);
+  if (!v11)
   {
-    v13 = *(archive + 1);
-    if (v13)
+    v12 = *(archive + 1);
+    if (v12)
     {
-      v13 = *(v13 & 0xFFFFFFFFFFFFFFFELL);
+      v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v12 = MEMORY[0x223DA0360](v13);
-    *(archive + 5) = v12;
+    v11 = MEMORY[0x223DA0360](v12);
+    *(archive + 5) = v11;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_hiddenStateForRowsOwnerUID, v12);
+  TSP::UUIDData::saveToMessage(&self->_hiddenStateForRowsOwnerUID, v11);
   *(archive + 4) |= 8u;
-  v14 = *(archive + 6);
-  if (!v14)
+  v13 = *(archive + 6);
+  if (!v13)
   {
-    v15 = *(archive + 1);
-    if (v15)
+    v14 = *(archive + 1);
+    if (v14)
     {
-      v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+      v14 = *(v14 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v14 = MEMORY[0x223DA0360](v15);
-    *(archive + 6) = v14;
+    v13 = MEMORY[0x223DA0360](v14);
+    *(archive + 6) = v13;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_nextHiddenStateForRowsOwnerUID, v14);
+  TSP::UUIDData::saveToMessage(&self->_nextHiddenStateForRowsOwnerUID, v13);
   *(archive + 4) |= 0x10u;
-  v16 = *(archive + 7);
-  if (!v16)
+  v15 = *(archive + 7);
+  if (!v15)
   {
-    v17 = *(archive + 1);
-    if (v17)
+    v16 = *(archive + 1);
+    if (v16)
     {
-      v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
+      v16 = *(v16 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v16 = MEMORY[0x223DA0360](v17);
-    *(archive + 7) = v16;
+    v15 = MEMORY[0x223DA0360](v16);
+    *(archive + 7) = v15;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_hiddenStateForColumnsOwnerUID, v16);
+  TSP::UUIDData::saveToMessage(&self->_hiddenStateForColumnsOwnerUID, v15);
   *(archive + 4) |= 0x20u;
-  v18 = *(archive + 8);
-  if (!v18)
+  v17 = *(archive + 8);
+  if (!v17)
   {
-    v19 = *(archive + 1);
-    if (v19)
+    v18 = *(archive + 1);
+    if (v18)
     {
-      v19 = *(v19 & 0xFFFFFFFFFFFFFFFELL);
+      v18 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v18 = MEMORY[0x223DA0360](v19);
-    *(archive + 8) = v18;
+    v17 = MEMORY[0x223DA0360](v18);
+    *(archive + 8) = v17;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_nextHiddenStateForColumnsOwnerUID, v18);
+  TSP::UUIDData::saveToMessage(&self->_nextHiddenStateForColumnsOwnerUID, v17);
   *(archive + 4) |= 0x40u;
-  v20 = *(archive + 9);
-  if (!v20)
+  v19 = *(archive + 9);
+  if (!v19)
   {
-    v21 = *(archive + 1);
-    if (v21)
+    v20 = *(archive + 1);
+    if (v20)
     {
-      v21 = *(v21 & 0xFFFFFFFFFFFFFFFELL);
+      v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v20 = MEMORY[0x223DA0360](v21);
-    *(archive + 9) = v20;
+    v19 = MEMORY[0x223DA0360](v20);
+    *(archive + 9) = v19;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_conditionalStyleOwnerUID, v20);
+  TSP::UUIDData::saveToMessage(&self->_conditionalStyleOwnerUID, v19);
   *(archive + 4) |= 0x80u;
-  v22 = *(archive + 10);
-  if (!v22)
+  v21 = *(archive + 10);
+  if (!v21)
   {
-    v23 = *(archive + 1);
-    if (v23)
+    v22 = *(archive + 1);
+    if (v22)
     {
-      v23 = *(v23 & 0xFFFFFFFFFFFFFFFELL);
+      v22 = *(v22 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v22 = MEMORY[0x223DA0360](v23);
-    *(archive + 10) = v22;
+    v21 = MEMORY[0x223DA0360](v22);
+    *(archive + 10) = v21;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_nextConditionalStyleOwnerUID, v22);
+  TSP::UUIDData::saveToMessage(&self->_nextConditionalStyleOwnerUID, v21);
   *(archive + 4) |= 0x100u;
-  v24 = *(archive + 11);
-  if (!v24)
+  v23 = *(archive + 11);
+  if (!v23)
   {
-    v25 = *(archive + 1);
-    if (v25)
+    v24 = *(archive + 1);
+    if (v24)
     {
-      v25 = *(v25 & 0xFFFFFFFFFFFFFFFELL);
+      v24 = *(v24 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v24 = MEMORY[0x223DA0360](v25);
-    *(archive + 11) = v24;
+    v23 = MEMORY[0x223DA0360](v24);
+    *(archive + 11) = v23;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_sortRuleReferenceTrackerOwnerUID, v24);
+  TSP::UUIDData::saveToMessage(&self->_sortRuleReferenceTrackerOwnerUID, v23);
   *(archive + 4) |= 0x200u;
-  v26 = *(archive + 12);
-  if (!v26)
+  v25 = *(archive + 12);
+  if (!v25)
   {
-    v27 = *(archive + 1);
-    if (v27)
+    v26 = *(archive + 1);
+    if (v26)
     {
-      v27 = *(v27 & 0xFFFFFFFFFFFFFFFELL);
+      v26 = *(v26 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v26 = MEMORY[0x223DA0360](v27);
-    *(archive + 12) = v26;
+    v25 = MEMORY[0x223DA0360](v26);
+    *(archive + 12) = v25;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_nextSortRuleReferenceTrackerOwnerUID, v26);
+  TSP::UUIDData::saveToMessage(&self->_nextSortRuleReferenceTrackerOwnerUID, v25);
   *(archive + 4) |= 0x400u;
-  v28 = *(archive + 13);
-  if (!v28)
+  v27 = *(archive + 13);
+  if (!v27)
   {
-    v29 = *(archive + 1);
-    if (v29)
+    v28 = *(archive + 1);
+    if (v28)
     {
-      v29 = *(v29 & 0xFFFFFFFFFFFFFFFELL);
+      v28 = *(v28 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v28 = MEMORY[0x223DA0360](v29);
-    *(archive + 13) = v28;
+    v27 = MEMORY[0x223DA0360](v28);
+    *(archive + 13) = v27;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_mergeOwnerUID, v28);
+  TSP::UUIDData::saveToMessage(&self->_mergeOwnerUID, v27);
   *(archive + 4) |= 0x800u;
-  v30 = *(archive + 14);
-  if (!v30)
+  v29 = *(archive + 14);
+  if (!v29)
   {
-    v31 = *(archive + 1);
-    if (v31)
+    v30 = *(archive + 1);
+    if (v30)
     {
-      v31 = *(v31 & 0xFFFFFFFFFFFFFFFELL);
+      v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v30 = MEMORY[0x223DA0360](v31);
-    *(archive + 14) = v30;
+    v29 = MEMORY[0x223DA0360](v30);
+    *(archive + 14) = v29;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_nextMergeOwnerUID, v30);
+  TSP::UUIDData::saveToMessage(&self->_nextMergeOwnerUID, v29);
   *(archive + 4) |= 0x10000u;
-  v32 = *(archive + 19);
-  if (!v32)
+  v31 = *(archive + 19);
+  if (!v31)
   {
-    v33 = *(archive + 1);
-    if (v33)
+    v32 = *(archive + 1);
+    if (v32)
     {
-      v33 = *(v33 & 0xFFFFFFFFFFFFFFFELL);
+      v32 = *(v32 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v32 = MEMORY[0x223DA0360](v33);
-    *(archive + 19) = v32;
+    v31 = MEMORY[0x223DA0360](v32);
+    *(archive + 19) = v31;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_pencilAnnotationOwnerUID, v32);
+  TSP::UUIDData::saveToMessage(&self->_pencilAnnotationOwnerUID, v31);
   *(archive + 4) |= 0x20000u;
-  v34 = *(archive + 20);
-  if (!v34)
+  v33 = *(archive + 20);
+  if (!v33)
   {
-    v35 = *(archive + 1);
-    if (v35)
+    v34 = *(archive + 1);
+    if (v34)
     {
-      v35 = *(v35 & 0xFFFFFFFFFFFFFFFELL);
+      v34 = *(v34 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v34 = MEMORY[0x223DA0360](v35);
-    *(archive + 20) = v34;
+    v33 = MEMORY[0x223DA0360](v34);
+    *(archive + 20) = v33;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_nextPencilAnnotationOwnerUID, v34);
+  TSP::UUIDData::saveToMessage(&self->_nextPencilAnnotationOwnerUID, v33);
   *(archive + 4) |= 0x1000u;
-  v36 = *(archive + 15);
-  if (!v36)
+  v35 = *(archive + 15);
+  if (!v35)
   {
-    v37 = *(archive + 1);
-    if (v37)
+    v36 = *(archive + 1);
+    if (v36)
     {
-      v37 = *(v37 & 0xFFFFFFFFFFFFFFFELL);
+      v36 = *(v36 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v36 = MEMORY[0x223DA0360](v37);
-    *(archive + 15) = v36;
+    v35 = MEMORY[0x223DA0360](v36);
+    *(archive + 15) = v35;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_categoryAggregatesOwnerUID, v36);
+  TSP::UUIDData::saveToMessage(&self->_categoryAggregatesOwnerUID, v35);
   *(archive + 4) |= 0x2000u;
-  v38 = *(archive + 16);
-  if (!v38)
+  v37 = *(archive + 16);
+  if (!v37)
   {
-    v39 = *(archive + 1);
-    if (v39)
+    v38 = *(archive + 1);
+    if (v38)
     {
-      v39 = *(v39 & 0xFFFFFFFFFFFFFFFELL);
+      v38 = *(v38 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v38 = MEMORY[0x223DA0360](v39);
-    *(archive + 16) = v38;
+    v37 = MEMORY[0x223DA0360](v38);
+    *(archive + 16) = v37;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_nextCategoryAggregatesOwnerUID, v38);
+  TSP::UUIDData::saveToMessage(&self->_nextCategoryAggregatesOwnerUID, v37);
   *(archive + 4) |= 0x4000u;
-  v40 = *(archive + 17);
-  if (!v40)
+  v39 = *(archive + 17);
+  if (!v39)
   {
-    v41 = *(archive + 1);
-    if (v41)
+    v40 = *(archive + 1);
+    if (v40)
     {
-      v41 = *(v41 & 0xFFFFFFFFFFFFFFFELL);
+      v40 = *(v40 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v40 = MEMORY[0x223DA0360](v41);
-    *(archive + 17) = v40;
+    v39 = MEMORY[0x223DA0360](v40);
+    *(archive + 17) = v39;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_groupByUID, v40);
+  TSP::UUIDData::saveToMessage(&self->_groupByUID, v39);
   *(archive + 4) |= 0x8000u;
-  v42 = *(archive + 18);
-  if (!v42)
+  v41 = *(archive + 18);
+  if (!v41)
   {
-    v43 = *(archive + 1);
-    if (v43)
+    v42 = *(archive + 1);
+    if (v42)
     {
-      v43 = *(v43 & 0xFFFFFFFFFFFFFFFELL);
+      v42 = *(v42 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v42 = MEMORY[0x223DA0360](v43);
-    *(archive + 18) = v42;
+    v41 = MEMORY[0x223DA0360](v42);
+    *(archive + 18) = v41;
   }
 
-  TSP::UUIDData::saveToMessage(&self->_nextGroupByUID, v42);
+  TSP::UUIDData::saveToMessage(&self->_nextGroupByUID, v41);
 }
 
 - (TSKUIDStruct)pbTableUID

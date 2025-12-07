@@ -52,67 +52,64 @@
 
 - (id)objectValue
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   data = [(SidecarItem *)self data];
-  v14 = 0;
-  v3 = SidecarOPACKDecode(data, &v14);
-  v4 = v14;
+  v13 = 0;
+  v3 = SidecarOPACKDecode(data, &v13);
+  v4 = v13;
 
   v5 = v4;
   if (v5)
   {
-    v8 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v8)
+    v7 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v7)
     {
-      log = v8;
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-      v8 = log;
-      if (v9)
+      log = v7;
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+      v7 = log;
+      if (v8)
       {
         domain = [v5 domain];
         code = [v5 code];
         localizedDescription = [v5 localizedDescription];
         *buf = 138543875;
-        v16 = domain;
-        v17 = 2048;
-        v18 = code;
-        v19 = 2113;
-        v20 = localizedDescription;
+        v15 = domain;
+        v16 = 2048;
+        v17 = code;
+        v18 = 2113;
+        v19 = localizedDescription;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v8 = log;
+        v7 = log;
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (SidecarItem)initWithObject:(id)object type:(id)type
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   typeCopy = type;
-  v18 = 0;
-  v7 = SidecarOPACKEncode(object, &v18);
-  v8 = v18;
+  v17 = 0;
+  v7 = SidecarOPACKEncode(object, &v17);
+  v8 = v17;
   v9 = v8;
   if (!v7 || v8)
   {
     v10 = MEMORY[0x277CBEAD8];
     v11 = *MEMORY[0x277CCA2A0];
     localizedDescription = [v8 localizedDescription];
-    v19 = *MEMORY[0x277CCA7E8];
-    v20[0] = v9;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA7E8];
+    v19[0] = v9;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     v14 = [v10 exceptionWithName:v11 reason:localizedDescription userInfo:v13];
     [v14 raise];
   }
 
   v15 = [(SidecarItem *)self initWithData:v7 type:typeCopy];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

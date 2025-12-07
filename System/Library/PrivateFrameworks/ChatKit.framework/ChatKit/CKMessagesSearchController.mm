@@ -24,7 +24,7 @@
 
 + (id)sectionTitle
 {
-  v2 = CKFrameworkBundle();
+  v2 = CKFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"SEARCH_MESSAGES_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v3;

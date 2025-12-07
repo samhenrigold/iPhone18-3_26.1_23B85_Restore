@@ -4,6 +4,8 @@
 - (void)forwardMessageToHost:(id)host completionHandler:(id)handler;
 - (void)getFrameWithCompletionBlock:(id)block;
 - (void)presentActivityViewControllerFromView:(id)view withURL:(id)l;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
+- (void)setFullScreen:(BOOL)screen;
 @end
 
 @implementation QLCustomItemViewController
@@ -54,6 +56,13 @@ void __76__QLCustomItemViewController_presentActivityViewControllerFromView_with
   }
 }
 
+- (void)setFullScreen:(BOOL)screen
+{
+  screenCopy = screen;
+  hostViewControllerProxy = [(QLCustomItemViewController *)self hostViewControllerProxy];
+  [hostViewControllerProxy setFullScreen:screenCopy];
+}
+
 - (void)forwardMessageToHost:(id)host completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -93,6 +102,20 @@ void __69__QLCustomItemViewController_forwardMessageToHost_completionHandler___b
   v8 = v6;
   v9 = v5;
   QLRunInMainThread(v10);
+}
+
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  appearanceCopy = appearance;
+  presentationMode = [(QLAppearance *)appearanceCopy presentationMode];
+  if (presentationMode != [(QLAppearance *)self->_lastAppearance presentationMode])
+  {
+    [(QLCustomItemViewController *)self presentationModeDidChange:[(QLAppearance *)appearanceCopy presentationMode] animated:animatedCopy];
+  }
+
+  lastAppearance = self->_lastAppearance;
+  self->_lastAppearance = appearanceCopy;
 }
 
 - (void)getFrameWithCompletionBlock:(id)block

@@ -167,7 +167,7 @@
 
 - (id)_normalizeGradientLocations:(id)locations
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   array = [MEMORY[0x277CBEB18] array];
   v6 = self->_drawingBeginAngle + -1.57079633;
@@ -192,38 +192,36 @@
     v9 = v7 + 6.28318531;
   }
 
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v10 = locationsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = v8 / 6.28318531;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v20 + 1) + 8 * i) doubleValue];
+        [*(*(&v19 + 1) + 8 * i) doubleValue];
         v17 = [MEMORY[0x277CCABB0] numberWithDouble:v13 + (v9 / 6.28318531 - v13) * v16];
         [array addObject:v17];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v12);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return array;
 }

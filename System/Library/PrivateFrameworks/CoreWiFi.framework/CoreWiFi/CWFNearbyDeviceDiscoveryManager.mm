@@ -35,7 +35,7 @@
 
 - (void)setSendNDDRequest:(id)request
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v4 = [request copy];
   sendNDDRequest = self->_sendNDDRequest;
   self->_sendNDDRequest = v4;
@@ -45,33 +45,43 @@
   if (v6)
   {
     [(CWFNearbyDeviceDiscoveryParameter *)v6 setOperation:2];
-    if ([(CWFNearbyDeviceDiscoveryManager *)self handleNDDRequestWithParams:v7 clientName:0 interface:0])
+    v8 = [(CWFNearbyDeviceDiscoveryManager *)self handleNDDRequestWithParams:v7 clientName:0 interface:0];
+    if (v8)
     {
-      v8 = CWFGetOSLog();
-      if (v8)
+      v9 = v8;
+      v10 = CWFGetOSLog();
+      if (v10)
       {
-        v9 = CWFGetOSLog();
+        v11 = CWFGetOSLog();
       }
 
       else
       {
-        v9 = MEMORY[0x1E69E9C10];
-        v10 = MEMORY[0x1E69E9C10];
+        v11 = MEMORY[0x1E69E9C10];
+        v12 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        _os_log_send_and_compose_impl();
+        v13 = 136447234;
+        v14 = "[CWFNearbyDeviceDiscoveryManager setSendNDDRequest:]";
+        v15 = 2082;
+        v16 = "CWFNearbyDeviceDiscoveryManager.m";
+        v17 = 1024;
+        v18 = 93;
+        v19 = 2114;
+        v20 = v7;
+        v21 = 1024;
+        v22 = v9;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to set NDD stop request %{public}@ to driver[%d]", &v13, 44);
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (int)handleEvent:(int64_t)event withData:(id)data interface:(id)interface
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   interfaceCopy = interface;
   if (!dataCopy)
@@ -88,17 +98,17 @@
       v17 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_18;
+      v34 = 136446722;
+      v35 = "[CWFNearbyDeviceDiscoveryManager handleEvent:withData:interface:]";
+      v36 = 2082;
+      v37 = "CWFNearbyDeviceDiscoveryManager.m";
+      v38 = 1024;
+      v39 = 105;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[corewifi] %{public}s (%{public}s:%u) NULL data", &v34, 28);
     }
 
-    v35 = 136446722;
-    v36 = "[CWFNearbyDeviceDiscoveryManager handleEvent:withData:interface:]";
-    v37 = 2082;
-    v38 = "CWFNearbyDeviceDiscoveryManager.m";
-    v39 = 1024;
-    v40 = 105;
     goto LABEL_17;
   }
 
@@ -108,62 +118,15 @@
     if (objc_opt_isKindOfClass())
     {
       _serviceQueue = [(CWFNearbyDeviceDiscoveryManager *)self _serviceQueue];
-      v26[0] = MEMORY[0x1E69E9820];
-      v26[1] = 3221225472;
-      v26[2] = sub_1E0D03E64;
-      v26[3] = &unk_1E86E6420;
-      v27 = dataCopy;
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = sub_1E0D03E64;
+      v25[3] = &unk_1E86E6420;
+      v26 = dataCopy;
       selfCopy = self;
-      dispatch_sync(_serviceQueue, v26);
+      dispatch_sync(_serviceQueue, v25);
 
-      v11 = v27;
-      goto LABEL_11;
-    }
-
-    v21 = CWFGetOSLog();
-    if (v21)
-    {
-      v16 = CWFGetOSLog();
-    }
-
-    else
-    {
-      v16 = MEMORY[0x1E69E9C10];
-      v24 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_18;
-    }
-
-    v35 = 136446978;
-    v36 = "[CWFNearbyDeviceDiscoveryManager handleEvent:withData:interface:]";
-    v37 = 2082;
-    v38 = "CWFNearbyDeviceDiscoveryManager.m";
-    v39 = 1024;
-    v40 = 134;
-    v41 = 2114;
-    v42 = dataCopy;
-    goto LABEL_17;
-  }
-
-  if (event == 239)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      _serviceQueue2 = [(CWFNearbyDeviceDiscoveryManager *)self _serviceQueue];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = sub_1E0D03D34;
-      v29[3] = &unk_1E86E6060;
-      v29[4] = self;
-      v30 = dataCopy;
-      v31 = interfaceCopy;
-      dispatch_sync(_serviceQueue2, v29);
-
-      v11 = v30;
+      v11 = v26;
       goto LABEL_11;
     }
 
@@ -179,34 +142,43 @@
       v23 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_18;
+      v34 = 136446978;
+      v35 = "[CWFNearbyDeviceDiscoveryManager handleEvent:withData:interface:]";
+      v36 = 2082;
+      v37 = "CWFNearbyDeviceDiscoveryManager.m";
+      v38 = 1024;
+      v39 = 134;
+      v40 = 2114;
+      v41 = dataCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[corewifi] %{public}s (%{public}s:%u) APPLE80211_M_DRIVER_AVAILABLE data not valid %{public}@", &v34, 38);
     }
 
-    v35 = 136446978;
-    v36 = "[CWFNearbyDeviceDiscoveryManager handleEvent:withData:interface:]";
-    v37 = 2082;
-    v38 = "CWFNearbyDeviceDiscoveryManager.m";
-    v39 = 1024;
-    v40 = 123;
-    v41 = 2114;
-    v42 = dataCopy;
     goto LABEL_17;
   }
 
-  if (event != 238)
+  if (event == 239)
   {
-LABEL_19:
-    v14 = -3900;
-    goto LABEL_20;
-  }
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      _serviceQueue2 = [(CWFNearbyDeviceDiscoveryManager *)self _serviceQueue];
+      v28[0] = MEMORY[0x1E69E9820];
+      v28[1] = 3221225472;
+      v28[2] = sub_1E0D03D34;
+      v28[3] = &unk_1E86E6060;
+      v28[4] = self;
+      v29 = dataCopy;
+      v30 = interfaceCopy;
+      dispatch_sync(_serviceQueue2, v28);
 
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v22 = CWFGetOSLog();
-    if (v22)
+      v11 = v29;
+      goto LABEL_11;
+    }
+
+    v19 = CWFGetOSLog();
+    if (v19)
     {
       v16 = CWFGetOSLog();
     }
@@ -214,27 +186,63 @@ LABEL_19:
     else
     {
       v16 = MEMORY[0x1E69E9C10];
-      v25 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_18;
+      v34 = 136446978;
+      v35 = "[CWFNearbyDeviceDiscoveryManager handleEvent:withData:interface:]";
+      v36 = 2082;
+      v37 = "CWFNearbyDeviceDiscoveryManager.m";
+      v38 = 1024;
+      v39 = 123;
+      v40 = 2114;
+      v41 = dataCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[corewifi] %{public}s (%{public}s:%u) APPLE80211_M_NDD_REPORT data not valid %{public}@", &v34, 38);
     }
 
-    v35 = 136446978;
-    v36 = "[CWFNearbyDeviceDiscoveryManager handleEvent:withData:interface:]";
-    v37 = 2082;
-    v38 = "CWFNearbyDeviceDiscoveryManager.m";
-    v39 = 1024;
-    v40 = 112;
-    v41 = 2114;
-    v42 = dataCopy;
-LABEL_17:
-    _os_log_send_and_compose_impl();
-LABEL_18:
+    goto LABEL_17;
+  }
 
+  if (event != 238)
+  {
+LABEL_18:
+    v14 = -3900;
     goto LABEL_19;
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v21 = CWFGetOSLog();
+    if (v21)
+    {
+      v16 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v16 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v34 = 136446978;
+      v35 = "[CWFNearbyDeviceDiscoveryManager handleEvent:withData:interface:]";
+      v36 = 2082;
+      v37 = "CWFNearbyDeviceDiscoveryManager.m";
+      v38 = 1024;
+      v39 = 112;
+      v40 = 2114;
+      v41 = dataCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[corewifi] %{public}s (%{public}s:%u) APPLE80211_M_NDD_DONE data not valid %{public}@", &v34, 38);
+    }
+
+LABEL_17:
+
+    goto LABEL_18;
   }
 
   _serviceQueue3 = [(CWFNearbyDeviceDiscoveryManager *)self _serviceQueue];
@@ -243,52 +251,51 @@ LABEL_18:
   block[2] = sub_1E0D03C04;
   block[3] = &unk_1E86E6060;
   block[4] = self;
-  v33 = dataCopy;
-  v34 = interfaceCopy;
+  v32 = dataCopy;
+  v33 = interfaceCopy;
   dispatch_sync(_serviceQueue3, block);
 
-  v11 = v33;
+  v11 = v32;
 LABEL_11:
 
   v14 = 0;
-LABEL_20:
+LABEL_19:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (int)handleRequest:(int64_t)request withData:(id)data interface:(id)interface
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   interfaceCopy = interface;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
   if (!dataCopy)
   {
-    v14 = CWFGetOSLog();
-    if (v14)
+    v13 = CWFGetOSLog();
+    if (v13)
     {
-      v15 = CWFGetOSLog();
+      v14 = CWFGetOSLog();
     }
 
     else
     {
-      v15 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
+      v16 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v27 = 136446722;
-      v28 = "[CWFNearbyDeviceDiscoveryManager handleRequest:withData:interface:]";
-      v29 = 2082;
-      v30 = "CWFNearbyDeviceDiscoveryManager.m";
-      v31 = 1024;
-      v32 = 163;
-      _os_log_send_and_compose_impl();
+      v26 = 136446722;
+      v27 = "[CWFNearbyDeviceDiscoveryManager handleRequest:withData:interface:]";
+      v28 = 2082;
+      v29 = "CWFNearbyDeviceDiscoveryManager.m";
+      v30 = 1024;
+      v31 = 163;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 16, "[corewifi] %{public}s (%{public}s:%u) NULL data", &v26, 28);
     }
 
     goto LABEL_18;
@@ -303,35 +310,35 @@ LABEL_20:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v16 = CWFGetOSLog();
-    if (v16)
+    v15 = CWFGetOSLog();
+    if (v15)
     {
-      v15 = CWFGetOSLog();
+      v14 = CWFGetOSLog();
     }
 
     else
     {
-      v15 = MEMORY[0x1E69E9C10];
-      v18 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
+      v17 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v27 = 136446978;
-      v28 = "[CWFNearbyDeviceDiscoveryManager handleRequest:withData:interface:]";
-      v29 = 2082;
-      v30 = "CWFNearbyDeviceDiscoveryManager.m";
-      v31 = 1024;
-      v32 = 170;
-      v33 = 2114;
-      v34 = dataCopy;
-      _os_log_send_and_compose_impl();
+      v26 = 136446978;
+      v27 = "[CWFNearbyDeviceDiscoveryManager handleRequest:withData:interface:]";
+      v28 = 2082;
+      v29 = "CWFNearbyDeviceDiscoveryManager.m";
+      v30 = 1024;
+      v31 = 170;
+      v32 = 2114;
+      v33 = dataCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 16, "[corewifi] %{public}s (%{public}s:%u) Data not valid %{public}@", &v26, 38);
     }
 
 LABEL_18:
 
     v11 = -3900;
-    *(v24 + 6) = -3900;
+    *(v23 + 6) = -3900;
     goto LABEL_6;
   }
 
@@ -340,23 +347,22 @@ LABEL_18:
   block[1] = 3221225472;
   block[2] = sub_1E0D04278;
   block[3] = &unk_1E86E92B8;
-  v22 = &v23;
+  v21 = &v22;
   block[4] = self;
-  v20 = dataCopy;
-  v21 = interfaceCopy;
+  v19 = dataCopy;
+  v20 = interfaceCopy;
   dispatch_sync(_serviceQueue, block);
 
-  v11 = *(v24 + 6);
+  v11 = *(v23 + 6);
 LABEL_6:
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (int)isNDDRequestValid:(id)valid
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   v4 = validCopy;
   if (!validCopy)
@@ -373,12 +379,20 @@ LABEL_6:
       v37 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_37;
+      v42 = 136446978;
+      v43 = "[CWFNearbyDeviceDiscoveryManager isNDDRequestValid:]";
+      v44 = 2082;
+      *v45 = "CWFNearbyDeviceDiscoveryManager.m";
+      *&v45[8] = 1024;
+      *&v45[10] = 194;
+      v46 = 2114;
+      v47 = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %{public}s (%{public}s:%u) NULL request %{public}@", &v42, 38);
     }
 
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
   if ([validCopy operation] < 1 || objc_msgSend(v4, "operation") >= 3)
@@ -395,12 +409,20 @@ LABEL_6:
       v36 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_37;
+      v42 = 136446978;
+      v43 = "[CWFNearbyDeviceDiscoveryManager isNDDRequestValid:]";
+      v44 = 2082;
+      *v45 = "CWFNearbyDeviceDiscoveryManager.m";
+      *&v45[8] = 1024;
+      *&v45[10] = 199;
+      v46 = 2114;
+      v47 = v4;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid operation mode %{public}@", &v42, 38);
     }
 
-    goto LABEL_36;
+    goto LABEL_37;
   }
 
   if ([v4 operation] != 2 && (objc_msgSend(v4, "type") < 1 || objc_msgSend(v4, "type") >= 4))
@@ -417,166 +439,186 @@ LABEL_6:
       v29 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_37;
+      v42 = 136446978;
+      v43 = "[CWFNearbyDeviceDiscoveryManager isNDDRequestValid:]";
+      v44 = 2082;
+      *v45 = "CWFNearbyDeviceDiscoveryManager.m";
+      *&v45[8] = 1024;
+      *&v45[10] = 204;
+      v46 = 2114;
+      v47 = v4;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid type %{public}@", &v42, 38);
     }
-
-    goto LABEL_36;
-  }
-
-  if ([v4 operation] != 1)
-  {
-LABEL_28:
-    v26 = 0;
-    goto LABEL_38;
-  }
-
-  filters = [v4 filters];
-  if (![filters count])
-  {
-
-LABEL_10:
-    v8 = CWFGetOSLog();
-    if (v8)
-    {
-      v9 = CWFGetOSLog();
-    }
-
-    else
-    {
-      v9 = MEMORY[0x1E69E9C10];
-      v28 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_37;
-    }
-
-    goto LABEL_36;
-  }
-
-  filters2 = [v4 filters];
-  v7 = [filters2 count];
-
-  if (v7 > 8)
-  {
-    goto LABEL_10;
-  }
-
-  filters3 = [v4 filters];
-  v11 = [filters3 count];
-
-  if (!v11)
-  {
-LABEL_25:
-    if ([v4 type] != 2 || objc_msgSend(v4, "channel") >= 1 && objc_msgSend(v4, "band") > 0)
-    {
-      goto LABEL_28;
-    }
-
-    v38 = CWFGetOSLog();
-    if (v38)
-    {
-      v9 = CWFGetOSLog();
-    }
-
-    else
-    {
-      v9 = MEMORY[0x1E69E9C10];
-      v39 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_37;
-    }
-
-LABEL_36:
-    _os_log_send_and_compose_impl();
-    goto LABEL_37;
-  }
-
-  v12 = 0;
-  v13 = 0;
-  while (1)
-  {
-    filters4 = [v4 filters];
-    v15 = [filters4 objectAtIndexedSubscript:v12];
-    receiverMacAddress = [v15 receiverMacAddress];
-    if (!receiverMacAddress)
-    {
-      break;
-    }
-
-LABEL_19:
-
-LABEL_20:
-    v12 = ++v13;
-    filters5 = [v4 filters];
-    v23 = [filters5 count];
-
-    if (v23 <= v13)
-    {
-      goto LABEL_25;
-    }
-  }
-
-  receiverMacAddress = [v4 filters];
-  v17 = [receiverMacAddress objectAtIndexedSubscript:v12];
-  transmitterMacAddress = [v17 transmitterMacAddress];
-  if (transmitterMacAddress)
-  {
-LABEL_18:
-
-    goto LABEL_19;
-  }
-
-  filters6 = [v4 filters];
-  v20 = [filters6 objectAtIndexedSubscript:v12];
-  bssid = [v20 bssid];
-  if (bssid)
-  {
-
-    transmitterMacAddress = 0;
-    goto LABEL_18;
-  }
-
-  filters7 = [v4 filters];
-  v24 = [filters7 objectAtIndexedSubscript:v12];
-  frameType = [v24 frameType];
-
-  if (frameType)
-  {
-    goto LABEL_20;
-  }
-
-  v25 = CWFGetOSLog();
-  if (v25)
-  {
-    v9 = CWFGetOSLog();
-  }
-
-  else
-  {
-    v9 = MEMORY[0x1E69E9C10];
-    v32 = MEMORY[0x1E69E9C10];
-  }
-
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-  {
-    filters8 = [v4 filters];
-    v42 = [filters8 objectAtIndexedSubscript:v12];
-    _os_log_send_and_compose_impl();
-  }
 
 LABEL_37:
 
-  v26 = -3900;
+    v26 = -3900;
+    goto LABEL_38;
+  }
+
+  if ([v4 operation] == 1)
+  {
+    filters = [v4 filters];
+    if (![filters count])
+    {
+
+      goto LABEL_10;
+    }
+
+    filters2 = [v4 filters];
+    v7 = [filters2 count];
+
+    if (v7 > 8)
+    {
+LABEL_10:
+      v8 = CWFGetOSLog();
+      if (v8)
+      {
+        v9 = CWFGetOSLog();
+      }
+
+      else
+      {
+        v9 = MEMORY[0x1E69E9C10];
+        v28 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        v42 = 136315650;
+        v43 = "[CWFNearbyDeviceDiscoveryManager isNDDRequestValid:]";
+        v44 = 1024;
+        *v45 = 210;
+        *&v45[4] = 2114;
+        *&v45[6] = v4;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %s:CWFNDDManager[%d]: Invalid macId list %{public}@\n", &v42, 28);
+      }
+
+      goto LABEL_37;
+    }
+
+    filters3 = [v4 filters];
+    v11 = [filters3 count];
+
+    if (v11)
+    {
+      v12 = 0;
+      v13 = 0;
+      while (1)
+      {
+        filters4 = [v4 filters];
+        v15 = [filters4 objectAtIndexedSubscript:v12];
+        receiverMacAddress = [v15 receiverMacAddress];
+        if (receiverMacAddress)
+        {
+          goto LABEL_19;
+        }
+
+        receiverMacAddress = [v4 filters];
+        v17 = [receiverMacAddress objectAtIndexedSubscript:v12];
+        transmitterMacAddress = [v17 transmitterMacAddress];
+        if (transmitterMacAddress)
+        {
+          goto LABEL_18;
+        }
+
+        filters5 = [v4 filters];
+        v20 = [filters5 objectAtIndexedSubscript:v12];
+        bssid = [v20 bssid];
+        if (bssid)
+        {
+          break;
+        }
+
+        filters6 = [v4 filters];
+        v24 = [filters6 objectAtIndexedSubscript:v12];
+        frameType = [v24 frameType];
+
+        if (!frameType)
+        {
+          v25 = CWFGetOSLog();
+          if (v25)
+          {
+            v9 = CWFGetOSLog();
+          }
+
+          else
+          {
+            v9 = MEMORY[0x1E69E9C10];
+            v31 = MEMORY[0x1E69E9C10];
+          }
+
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          {
+            filters7 = [v4 filters];
+            v33 = [filters7 objectAtIndexedSubscript:v12];
+            v42 = 136315650;
+            v43 = "[CWFNearbyDeviceDiscoveryManager isNDDRequestValid:]";
+            v44 = 1024;
+            *v45 = 216;
+            *&v45[4] = 2112;
+            *&v45[6] = v33;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %s:CWFNDDManager[%d]: Invalid filter %@\n", &v42, 28);
+          }
+
+          goto LABEL_37;
+        }
+
+LABEL_20:
+        v12 = ++v13;
+        filters8 = [v4 filters];
+        v23 = [filters8 count];
+
+        if (v23 <= v13)
+        {
+          goto LABEL_25;
+        }
+      }
+
+      transmitterMacAddress = 0;
+LABEL_18:
+
+LABEL_19:
+      goto LABEL_20;
+    }
+
+LABEL_25:
+    if ([v4 type] == 2 && (objc_msgSend(v4, "channel") < 1 || objc_msgSend(v4, "band") <= 0))
+    {
+      v38 = CWFGetOSLog();
+      if (v38)
+      {
+        v9 = CWFGetOSLog();
+      }
+
+      else
+      {
+        v9 = MEMORY[0x1E69E9C10];
+        v39 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        v42 = 136446978;
+        v43 = "[CWFNearbyDeviceDiscoveryManager isNDDRequestValid:]";
+        v44 = 2082;
+        *v45 = "CWFNearbyDeviceDiscoveryManager.m";
+        *&v45[8] = 1024;
+        *&v45[10] = 223;
+        v46 = 2114;
+        v47 = v4;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid channel and band for active request %{public}@", &v42, 38);
+      }
+
+      goto LABEL_37;
+    }
+  }
+
+  v26 = 0;
 LABEL_38:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v26;
 }
 
@@ -747,7 +789,7 @@ LABEL_28:
 
 - (int)handleNDDRequestWithParams:(id)params clientName:(id)name interface:(id)interface
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   paramsCopy = params;
   nameCopy = name;
   interfaceCopy = interface;
@@ -755,21 +797,31 @@ LABEL_28:
   if (v11)
   {
     v18 = v11;
-    v26 = CWFGetOSLog();
-    if (v26)
+    v25 = CWFGetOSLog();
+    if (v25)
     {
-      v27 = CWFGetOSLog();
+      v26 = CWFGetOSLog();
     }
 
     else
     {
-      v27 = MEMORY[0x1E69E9C10];
-      v34 = MEMORY[0x1E69E9C10];
+      v26 = MEMORY[0x1E69E9C10];
+      v33 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v37 = 136447234;
+      v38 = "[CWFNearbyDeviceDiscoveryManager handleNDDRequestWithParams:clientName:interface:]";
+      v39 = 2082;
+      v40 = "CWFNearbyDeviceDiscoveryManager.m";
+      v41 = 1024;
+      v42 = 296;
+      v43 = 2114;
+      v44 = paramsCopy;
+      v45 = 1024;
+      v46 = v18;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v26, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid NDDRequest %{public}@[%d]", &v37, 44);
     }
 
     v14 = 0;
@@ -817,41 +869,59 @@ LABEL_13:
             goto LABEL_13;
           }
 
-          v32 = CWFGetOSLog();
-          if (v32)
+          v31 = CWFGetOSLog();
+          if (v31)
           {
-            v33 = CWFGetOSLog();
+            v32 = CWFGetOSLog();
           }
 
           else
           {
-            v33 = MEMORY[0x1E69E9C10];
-            v37 = MEMORY[0x1E69E9C10];
+            v32 = MEMORY[0x1E69E9C10];
+            v36 = MEMORY[0x1E69E9C10];
           }
 
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
-            _os_log_send_and_compose_impl();
+            v37 = 136447234;
+            v38 = "[CWFNearbyDeviceDiscoveryManager handleNDDRequestWithParams:clientName:interface:]";
+            v39 = 2082;
+            v40 = "CWFNearbyDeviceDiscoveryManager.m";
+            v41 = 1024;
+            v42 = 317;
+            v43 = 2114;
+            v44 = paramsCopy;
+            v45 = 1024;
+            v46 = v18;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v32, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to set NDDRequest %{public}@ to driver[%d]", &v37, 44);
           }
         }
 
         else
         {
-          v23 = CWFGetOSLog();
-          if (v23)
+          v22 = CWFGetOSLog();
+          if (v22)
           {
-            v24 = CWFGetOSLog();
+            v23 = CWFGetOSLog();
           }
 
           else
           {
+            v23 = MEMORY[0x1E69E9C10];
             v24 = MEMORY[0x1E69E9C10];
-            v25 = MEMORY[0x1E69E9C10];
           }
 
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            _os_log_send_and_compose_impl();
+            v37 = 136446978;
+            v38 = "[CWFNearbyDeviceDiscoveryManager handleNDDRequestWithParams:clientName:interface:]";
+            v39 = 2082;
+            v40 = "CWFNearbyDeviceDiscoveryManager.m";
+            v41 = 1024;
+            v42 = 311;
+            v43 = 2114;
+            v44 = paramsCopy;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v23, 16, "[corewifi] %{public}s (%{public}s:%u) NDD not allowed %{public}@", &v37, 38);
           }
 
           v18 = -3930;
@@ -860,21 +930,29 @@ LABEL_13:
 
       else
       {
-        v30 = CWFGetOSLog();
-        if (v30)
+        v29 = CWFGetOSLog();
+        if (v29)
         {
-          v31 = CWFGetOSLog();
+          v30 = CWFGetOSLog();
         }
 
         else
         {
-          v31 = MEMORY[0x1E69E9C10];
-          v36 = MEMORY[0x1E69E9C10];
+          v30 = MEMORY[0x1E69E9C10];
+          v35 = MEMORY[0x1E69E9C10];
         }
 
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          _os_log_send_and_compose_impl();
+          v37 = 136446978;
+          v38 = "[CWFNearbyDeviceDiscoveryManager handleNDDRequestWithParams:clientName:interface:]";
+          v39 = 2082;
+          v40 = "CWFNearbyDeviceDiscoveryManager.m";
+          v41 = 1024;
+          v42 = 306;
+          v43 = 2114;
+          v44 = paramsCopy;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v30, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to get NDDData from params %{public}@", &v37, 38);
         }
 
         v14 = 0;
@@ -884,21 +962,27 @@ LABEL_13:
 
     else
     {
-      v28 = CWFGetOSLog();
-      if (v28)
+      v27 = CWFGetOSLog();
+      if (v27)
       {
-        v29 = CWFGetOSLog();
+        v28 = CWFGetOSLog();
       }
 
       else
       {
-        v29 = MEMORY[0x1E69E9C10];
-        v35 = MEMORY[0x1E69E9C10];
+        v28 = MEMORY[0x1E69E9C10];
+        v34 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        _os_log_send_and_compose_impl();
+        v37 = 136446722;
+        v38 = "[CWFNearbyDeviceDiscoveryManager handleNDDRequestWithParams:clientName:interface:]";
+        v39 = 2082;
+        v40 = "CWFNearbyDeviceDiscoveryManager.m";
+        v41 = 1024;
+        v42 = 300;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid sendRequest callback", &v37, 28);
       }
 
       v14 = 0;
@@ -908,62 +992,74 @@ LABEL_13:
 
 LABEL_14:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (id)getEDSResultFromReport:(id)report
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   reportCopy = report;
   v4 = objc_alloc_init(CWFNearbyDeviceDiscoveryReport);
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   if (!reportCopy || ![reportCopy bytes] || objc_msgSend(reportCopy, "length") != 48)
   {
-    v19 = CWFGetOSLog();
-    if (v19)
+    v18 = CWFGetOSLog();
+    if (v18)
     {
-      v20 = CWFGetOSLog();
+      v19 = CWFGetOSLog();
     }
 
     else
     {
+      v19 = MEMORY[0x1E69E9C10];
       v20 = MEMORY[0x1E69E9C10];
-      v21 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_31;
+      *v23 = 136446722;
+      *&v23[4] = "[CWFNearbyDeviceDiscoveryManager getEDSResultFromReport:]";
+      *&v23[12] = 2082;
+      *&v23[14] = "CWFNearbyDeviceDiscoveryManager.m";
+      *&v23[22] = 1024;
+      LODWORD(v24) = 339;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid reportData", v23, 28, *v23, *&v23[8], v24, v25);
     }
 
-LABEL_30:
-    _os_log_send_and_compose_impl();
-LABEL_31:
-
-    goto LABEL_18;
+    goto LABEL_31;
   }
 
   if (!v4 || !v5)
   {
-    v22 = CWFGetOSLog();
-    if (v22)
+    v21 = CWFGetOSLog();
+    if (v21)
     {
-      v20 = CWFGetOSLog();
+      v19 = CWFGetOSLog();
     }
 
     else
     {
-      v20 = MEMORY[0x1E69E9C10];
-      v23 = MEMORY[0x1E69E9C10];
+      v19 = MEMORY[0x1E69E9C10];
+      v22 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_31;
+      *v23 = 136447234;
+      *&v23[4] = "[CWFNearbyDeviceDiscoveryManager getEDSResultFromReport:]";
+      *&v23[12] = 2082;
+      *&v23[14] = "CWFNearbyDeviceDiscoveryManager.m";
+      *&v23[22] = 1024;
+      LODWORD(v24) = 343;
+      WORD2(v24) = 2048;
+      *(&v24 + 6) = v4;
+      HIWORD(v24) = 2048;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] %{public}s (%{public}s:%u) unable to allocate result %p and rssi object %p", v23, 48, *v23, *&v23[8], v24, v5);
     }
 
-    goto LABEL_30;
+LABEL_31:
+
+    goto LABEL_18;
   }
 
   bytes = [reportCopy bytes];
@@ -1023,20 +1119,46 @@ LABEL_13:
   [(CWFNearbyDeviceDiscoveryReport *)v4 setRateMbps:*(bytes + 12)];
 LABEL_18:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 - (int)handleNDDResultEvent:(id)event interface:(id)interface
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   interfaceCopy = interface;
   v8 = objc_alloc_init(CWFXPCEvent);
   sendNDDXPCEvent = [(CWFNearbyDeviceDiscoveryManager *)self sendNDDXPCEvent];
 
   if (!sendNDDXPCEvent)
+  {
+    v17 = CWFGetOSLog();
+    if (v17)
+    {
+      v11 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v11 = MEMORY[0x1E69E9C10];
+      v20 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      v25 = 136446722;
+      v26 = "[CWFNearbyDeviceDiscoveryManager handleNDDResultEvent:interface:]";
+      v27 = 2082;
+      v28 = "CWFNearbyDeviceDiscoveryManager.m";
+      v29 = 1024;
+      v30 = 386;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid sendReport callback", &v25, 28);
+    }
+
+    goto LABEL_21;
+  }
+
+  if (!eventCopy)
   {
     v18 = CWFGetOSLog();
     if (v18)
@@ -1050,21 +1172,24 @@ LABEL_18:
       v21 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_22;
+      v25 = 136446978;
+      v26 = "[CWFNearbyDeviceDiscoveryManager handleNDDResultEvent:interface:]";
+      v27 = 2082;
+      v28 = "CWFNearbyDeviceDiscoveryManager.m";
+      v29 = 1024;
+      v30 = 391;
+      v31 = 2048;
+      v32 = 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid report data %p", &v25, 38);
     }
 
-    v26 = 136446722;
-    v27 = "[CWFNearbyDeviceDiscoveryManager handleNDDResultEvent:interface:]";
-    v28 = 2082;
-    v29 = "CWFNearbyDeviceDiscoveryManager.m";
-    v30 = 1024;
-    v31 = 386;
     goto LABEL_21;
   }
 
-  if (!eventCopy)
+  v10 = [(CWFNearbyDeviceDiscoveryManager *)self getEDSResultFromReport:eventCopy];
+  if (!v10)
   {
     v19 = CWFGetOSLog();
     if (v19)
@@ -1078,53 +1203,20 @@ LABEL_18:
       v22 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_22;
+      v25 = 136446978;
+      v26 = "[CWFNearbyDeviceDiscoveryManager handleNDDResultEvent:interface:]";
+      v27 = 2082;
+      v28 = "CWFNearbyDeviceDiscoveryManager.m";
+      v29 = 1024;
+      v30 = 397;
+      v31 = 2048;
+      v32 = eventCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to get result from report %p", &v25, 38);
     }
 
-    v26 = 136446978;
-    v27 = "[CWFNearbyDeviceDiscoveryManager handleNDDResultEvent:interface:]";
-    v28 = 2082;
-    v29 = "CWFNearbyDeviceDiscoveryManager.m";
-    v30 = 1024;
-    v31 = 391;
-    v32 = 2048;
-    v33 = 0;
-    goto LABEL_21;
-  }
-
-  v10 = [(CWFNearbyDeviceDiscoveryManager *)self getEDSResultFromReport:eventCopy];
-  if (!v10)
-  {
-    v20 = CWFGetOSLog();
-    if (v20)
-    {
-      v11 = CWFGetOSLog();
-    }
-
-    else
-    {
-      v11 = MEMORY[0x1E69E9C10];
-      v23 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_22;
-    }
-
-    v26 = 136446978;
-    v27 = "[CWFNearbyDeviceDiscoveryManager handleNDDResultEvent:interface:]";
-    v28 = 2082;
-    v29 = "CWFNearbyDeviceDiscoveryManager.m";
-    v30 = 1024;
-    v31 = 397;
-    v32 = 2048;
-    v33 = eventCopy;
 LABEL_21:
-    _os_log_send_and_compose_impl();
-LABEL_22:
     v15 = -3931;
     goto LABEL_5;
   }
@@ -1135,9 +1227,9 @@ LABEL_22:
   [(CWFXPCEvent *)v8 setTimestamp:date];
 
   [(CWFXPCEvent *)v8 setInterfaceName:interfaceCopy];
-  v24 = @"NDDResult";
-  v25 = v11;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v23 = @"NDDResult";
+  v24 = v11;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
   [(CWFXPCEvent *)v8 setInfo:v13];
 
   sendNDDXPCEvent2 = [(CWFNearbyDeviceDiscoveryManager *)self sendNDDXPCEvent];
@@ -1146,13 +1238,12 @@ LABEL_22:
   v15 = 0;
 LABEL_5:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (int)handleNDDDoneEvent:(id)event interface:(id)interface
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   interfaceCopy = interface;
   eventCopy = event;
   v8 = objc_alloc_init(CWFXPCEvent);
@@ -1172,9 +1263,9 @@ LABEL_5:
     [(CWFXPCEvent *)v8 setTimestamp:date];
 
     [(CWFXPCEvent *)v8 setInterfaceName:interfaceCopy];
-    v24 = @"NDDDone";
-    v25 = v13;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+    v23 = @"NDDDone";
+    v24 = v13;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
     [(CWFXPCEvent *)v8 setInfo:v16];
 
     sendNDDXPCEvent2 = [(CWFNearbyDeviceDiscoveryManager *)self sendNDDXPCEvent];
@@ -1187,33 +1278,32 @@ LABEL_5:
 
   else
   {
-    v21 = CWFGetOSLog();
-    if (v21)
+    v20 = CWFGetOSLog();
+    if (v20)
     {
-      v22 = CWFGetOSLog();
+      v21 = CWFGetOSLog();
     }
 
     else
     {
+      v21 = MEMORY[0x1E69E9C10];
       v22 = MEMORY[0x1E69E9C10];
-      v23 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v26 = 136446722;
-      v27 = "[CWFNearbyDeviceDiscoveryManager handleNDDDoneEvent:interface:]";
-      v28 = 2082;
-      v29 = "CWFNearbyDeviceDiscoveryManager.m";
-      v30 = 1024;
-      v31 = 417;
-      _os_log_send_and_compose_impl();
+      v25 = 136446722;
+      v26 = "[CWFNearbyDeviceDiscoveryManager handleNDDDoneEvent:interface:]";
+      v27 = 2082;
+      v28 = "CWFNearbyDeviceDiscoveryManager.m";
+      v29 = 1024;
+      v30 = 417;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid sendDone callback", &v25, 28);
     }
 
     v18 = -3931;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -1238,59 +1328,40 @@ LABEL_5:
 
 - (void)handleDriverAvailableEvent
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if (![(CWFNearbyDeviceDiscoveryManager *)self _didDriverCrash])
+  v25 = *MEMORY[0x1E69E9840];
+  if (-[CWFNearbyDeviceDiscoveryManager _didDriverCrash](self, "_didDriverCrash") && (-[CWFNearbyDeviceDiscoveryManager _currentNDDRequest](self, "_currentNDDRequest"), (v3 = objc_claimAutoreleasedReturnValue()) != 0) && (v4 = v3, -[CWFNearbyDeviceDiscoveryManager _currentNDDRequest](self, "_currentNDDRequest"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 type], v5, v4, v6 == 3) && (-[CWFNearbyDeviceDiscoveryManager sendNDDRequest](self, "sendNDDRequest"), v7 = objc_claimAutoreleasedReturnValue(), -[CWFNearbyDeviceDiscoveryManager _currentNDDRequest](self, "_currentNDDRequest"), v8 = objc_claimAutoreleasedReturnValue(), -[CWFNearbyDeviceDiscoveryManager getRequestDataFromParams:](self, "getRequestDataFromParams:", v8), v9 = objc_claimAutoreleasedReturnValue(), v10 = (v7)[2](v7, v9), v9, v8, v7, v10 != -3931))
   {
-    goto LABEL_5;
-  }
-
-  _currentNDDRequest = [(CWFNearbyDeviceDiscoveryManager *)self _currentNDDRequest];
-  if (!_currentNDDRequest)
-  {
-    goto LABEL_5;
-  }
-
-  v4 = _currentNDDRequest;
-  _currentNDDRequest2 = [(CWFNearbyDeviceDiscoveryManager *)self _currentNDDRequest];
-  type = [_currentNDDRequest2 type];
-
-  if (type != 3)
-  {
-    goto LABEL_5;
-  }
-
-  sendNDDRequest = [(CWFNearbyDeviceDiscoveryManager *)self sendNDDRequest];
-  _currentNDDRequest3 = [(CWFNearbyDeviceDiscoveryManager *)self _currentNDDRequest];
-  v9 = [(CWFNearbyDeviceDiscoveryManager *)self getRequestDataFromParams:_currentNDDRequest3];
-  v10 = (sendNDDRequest)[2](sendNDDRequest, v9);
-
-  if (v10 != -3931)
-  {
-    v12 = CWFGetOSLog();
-    if (v12)
+    v11 = CWFGetOSLog();
+    if (v11)
     {
-      v13 = CWFGetOSLog();
+      v12 = CWFGetOSLog();
     }
 
     else
     {
+      v12 = MEMORY[0x1E69E9C10];
       v13 = MEMORY[0x1E69E9C10];
-      v14 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      _currentNDDRequest4 = [(CWFNearbyDeviceDiscoveryManager *)self _currentNDDRequest];
-      _os_log_send_and_compose_impl();
+      _currentNDDRequest = [(CWFNearbyDeviceDiscoveryManager *)self _currentNDDRequest];
+      v15 = 136447234;
+      v16 = "[CWFNearbyDeviceDiscoveryManager handleDriverAvailableEvent]";
+      v17 = 2082;
+      v18 = "CWFNearbyDeviceDiscoveryManager.m";
+      v19 = 1024;
+      v20 = 447;
+      v21 = 2114;
+      v22 = _currentNDDRequest;
+      v23 = 1024;
+      v24 = v10;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to set NDDRequest %{public}@ to driver[%d]", &v15, 44);
     }
-
-    v15 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-LABEL_5:
-    v11 = *MEMORY[0x1E69E9840];
 
     [(CWFNearbyDeviceDiscoveryManager *)self set_didDriverCrash:0];
   }

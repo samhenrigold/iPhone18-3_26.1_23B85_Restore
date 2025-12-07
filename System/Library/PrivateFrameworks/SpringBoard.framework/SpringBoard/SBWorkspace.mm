@@ -95,32 +95,32 @@ void __86__SBWorkspace_createRequestForApplicationActivation_withDisplayConfigur
 - (id)createRequestWithOptions:(unint64_t)options
 {
   OUTLINED_FUNCTION_1_2();
-  objc_opt_class();
-  OUTLINED_FUNCTION_6();
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_6(v3);
   return 0;
 }
 
 - (id)createRequestWithOptions:(unint64_t)options displayConfiguration:(id)configuration
 {
   OUTLINED_FUNCTION_1_2();
-  objc_opt_class();
-  OUTLINED_FUNCTION_6();
+  v4 = objc_opt_class();
+  OUTLINED_FUNCTION_6(v4);
   return 0;
 }
 
 - (id)transactionForTransitionRequest:(id)request
 {
   OUTLINED_FUNCTION_1_2();
-  objc_opt_class();
-  OUTLINED_FUNCTION_6();
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_6(v3);
   return 0;
 }
 
 - (id)coordinatorRequestedIdleTimerBehavior:(id)behavior
 {
   OUTLINED_FUNCTION_1_2();
-  objc_opt_class();
-  OUTLINED_FUNCTION_6();
+  v3 = objc_opt_class();
+  OUTLINED_FUNCTION_6(v3);
 
   return +[SBIdleTimerBehavior disabledBehavior];
 }
@@ -128,18 +128,18 @@ void __86__SBWorkspace_createRequestForApplicationActivation_withDisplayConfigur
 - (id)idleTimerProvider:(id)provider didProposeBehavior:(id)behavior forReason:(id)reason
 {
   OUTLINED_FUNCTION_1_2();
-  objc_opt_class();
-  OUTLINED_FUNCTION_6();
-  v5 = objc_alloc_init(SBDisabledIdleTimer);
+  v5 = objc_opt_class();
+  OUTLINED_FUNCTION_6(v5);
+  v6 = objc_alloc_init(SBDisabledIdleTimer);
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)_executeTransitionRequest:(id)request options:(unint64_t)options validator:(id)validator
 {
   OUTLINED_FUNCTION_1_2();
-  objc_opt_class();
-  OUTLINED_FUNCTION_6();
+  v5 = objc_opt_class();
+  OUTLINED_FUNCTION_6(v5);
   return 0;
 }
 

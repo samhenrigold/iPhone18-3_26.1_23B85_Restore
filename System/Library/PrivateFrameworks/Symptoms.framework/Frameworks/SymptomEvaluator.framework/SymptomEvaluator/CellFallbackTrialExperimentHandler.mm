@@ -24,7 +24,7 @@
 
 - (void)trialExperimentWithProjectIDHasBegun:(int)begun namespaceName:(id)name factorName:(id)factorName treatmentID:(id)d trialConfiguration:(id)configuration
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   factorNameCopy = factorName;
   dCopy = d;
@@ -32,23 +32,23 @@
   v16 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 67109890;
-    *v23 = begun;
-    *&v23[4] = 2112;
-    *&v23[6] = nameCopy;
-    v24 = 2112;
-    v25 = factorNameCopy;
-    v26 = 2112;
-    v27 = dCopy;
-    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "CFSM: trialExperimentWithProjectIDHasBegun for %d/%@/%@/%@", &v22, 0x26u);
+    v21 = 67109890;
+    *v22 = begun;
+    *&v22[4] = 2112;
+    *&v22[6] = nameCopy;
+    v23 = 2112;
+    v24 = factorNameCopy;
+    v25 = 2112;
+    v26 = dCopy;
+    _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEFAULT, "CFSM: trialExperimentWithProjectIDHasBegun for %d/%@/%@/%@", &v21, 0x26u);
   }
 
   v17 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v22 = 138412290;
-    *v23 = configurationCopy;
-    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "CFSM: Trial configuration: %@", &v22, 0xCu);
+    v21 = 138412290;
+    *v22 = configurationCopy;
+    _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_DEFAULT, "CFSM: Trial configuration: %@", &v21, 0xCu);
   }
 
   v18 = [dCopy copy];
@@ -60,38 +60,34 @@
     v20 = rnfLogHandle;
     if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      *v23 = v19;
-      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "CFSM: trialExperimentWithProjectIDHasBegun forceTurboRNFNum is %@", &v22, 0xCu);
+      v21 = 138412290;
+      *v22 = v19;
+      _os_log_impl(&dword_23255B000, v20, OS_LOG_TYPE_DEFAULT, "CFSM: trialExperimentWithProjectIDHasBegun forceTurboRNFNum is %@", &v21, 0xCu);
     }
 
     -[CellFallbackTrialExperimentHandler setTrialTurboRNF:](self, "setTrialTurboRNF:", [v19 unsignedIntValue]);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)trialExperimentWithProjectIDHasEnded:(int)ended namespaceName:(id)name factorName:(id)factorName
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   factorNameCopy = factorName;
   v10 = rnfLogHandle;
   if (os_log_type_enabled(rnfLogHandle, OS_LOG_TYPE_DEFAULT))
   {
-    v12[0] = 67109634;
-    v12[1] = ended;
-    v13 = 2112;
-    v14 = nameCopy;
-    v15 = 2112;
-    v16 = factorNameCopy;
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "CFSM: trialExperimentWithProjectIDHasEnded for %d/%@/%@", v12, 0x1Cu);
+    v11[0] = 67109634;
+    v11[1] = ended;
+    v12 = 2112;
+    v13 = nameCopy;
+    v14 = 2112;
+    v15 = factorNameCopy;
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEFAULT, "CFSM: trialExperimentWithProjectIDHasEnded for %d/%@/%@", v11, 0x1Cu);
   }
 
   [(CellFallbackTrialExperimentHandler *)self setTreatmentID:0];
   [(CellFallbackTrialExperimentHandler *)self setTrialTurboRNF:0];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

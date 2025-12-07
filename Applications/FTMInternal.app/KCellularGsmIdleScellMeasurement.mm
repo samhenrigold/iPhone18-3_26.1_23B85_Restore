@@ -198,7 +198,6 @@ LABEL_8:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -218,7 +217,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  scellArfcn = self->_scellArfcn;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -233,7 +231,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  simplifiedL1State = self->_simplifiedL1State;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -248,7 +245,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  currentAntenna = self->_currentAntenna;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -263,12 +259,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  idleRxlevDBm = self->_idleRxlevDBm;
   PBDataWriterWriteSint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_7:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

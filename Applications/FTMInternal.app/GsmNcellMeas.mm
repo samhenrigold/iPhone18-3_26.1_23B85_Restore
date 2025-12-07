@@ -230,7 +230,6 @@ LABEL_9:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    mcc = self->_mcc;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x20) == 0)
@@ -250,7 +249,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mnc = self->_mnc;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -265,7 +263,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  lac = self->_lac;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -280,7 +277,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  ci = self->_ci;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -295,7 +291,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  bsic = self->_bsic;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -310,12 +305,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  arfcn = self->_arfcn;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_8:
-    rxlev = self->_rxlev;
     PBDataWriterWriteUint32Field();
   }
 

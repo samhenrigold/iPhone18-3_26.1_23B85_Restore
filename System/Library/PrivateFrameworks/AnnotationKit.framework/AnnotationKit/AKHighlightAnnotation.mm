@@ -113,60 +113,60 @@ LABEL_9:
 {
   height = size.height;
   width = size.width;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   [AKGeometryHelper adjustOriginalExifOrientationOnAnnotation:self flatteningOriginalModelExif:orientation];
-  v28 = 0u;
-  v29 = 0u;
   v27 = 0u;
-  [AKGeometryHelper affineTransformFlatteningOriginalModelExif:orientation withOriginalModelSize:width, height];
-  v8 = MEMORY[0x277CBEB18];
-  quadPoints = [(AKHighlightAnnotation *)self quadPoints];
-  v10 = [v8 arrayWithCapacity:{objc_msgSend(quadPoints, "count")}];
-
-  v25 = 0u;
+  v28 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  objc_msgSend_affineTransformFlatteningOriginalModelExif_withOriginalModelSize_(AKGeometryHelper, width, height);
+  v7 = MEMORY[0x277CBEB18];
+  quadPoints = [(AKHighlightAnnotation *)self quadPoints];
+  v9 = [v7 arrayWithCapacity:{objc_msgSend(quadPoints, "count")}];
+
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   quadPoints2 = [(AKHighlightAnnotation *)self quadPoints];
-  v12 = [quadPoints2 countByEnumeratingWithState:&v23 objects:v30 count:16];
-  if (v12)
+  v11 = [quadPoints2 countByEnumeratingWithState:&v22 objects:v29 count:16];
+  if (v11)
   {
-    v13 = v12;
-    v14 = *v24;
+    v12 = v11;
+    v13 = *v23;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v24 != v14)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(quadPoints2);
         }
 
-        v16 = *(*(&v23 + 1) + 8 * i);
-        v21 = 0u;
-        v22 = 0u;
-        v19 = 0u;
+        v15 = *(*(&v22 + 1) + 8 * i);
         v20 = 0u;
-        if (v16)
+        v21 = 0u;
+        v18 = 0u;
+        v19 = 0u;
+        if (v15)
         {
-          [v16 quadrilateralValue];
+          objc_msgSend_quadrilateralValue(v15);
         }
 
-        v18[0] = v19;
-        v18[1] = v20;
-        v18[2] = v21;
-        v18[3] = v22;
-        v17 = [MEMORY[0x277CCAE60] valueWithQuadrilateral:v18];
-        [v10 addObject:v17];
+        v17[0] = v18;
+        v17[1] = v19;
+        v17[2] = v20;
+        v17[3] = v21;
+        v16 = [MEMORY[0x277CCAE60] valueWithQuadrilateral:v17];
+        [v9 addObject:v16];
       }
 
-      v13 = [quadPoints2 countByEnumeratingWithState:&v23 objects:v30 count:16];
+      v12 = [quadPoints2 countByEnumeratingWithState:&v22 objects:v29 count:16];
     }
 
-    while (v13);
+    while (v12);
   }
 
-  [(AKHighlightAnnotation *)self setQuadPoints:v10];
+  [(AKHighlightAnnotation *)self setQuadPoints:v9];
 }
 
 - (void)translateBy:(CGPoint)by
@@ -212,7 +212,7 @@ LABEL_9:
           v26 = 0u;
           if (v15)
           {
-            [v15 quadrilateralValue];
+            objc_msgSend_quadrilateralValue(v15);
             v16 = v25;
             v17 = v26;
             v19 = v27;
@@ -294,7 +294,7 @@ LABEL_9:
           v20 = 0u;
           if (v15)
           {
-            [v15 quadrilateralValue];
+            objc_msgSend_quadrilateralValue(v15);
           }
 
           v18[0] = v19;

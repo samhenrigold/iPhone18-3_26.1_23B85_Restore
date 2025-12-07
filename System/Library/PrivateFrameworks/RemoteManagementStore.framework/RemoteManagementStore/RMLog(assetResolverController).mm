@@ -11,9 +11,9 @@
     +[RMLog(assetResolverController) assetResolverController];
   }
 
-  v1 = assetResolverController_result;
+  v2 = assetResolverController_result;
 
-  return v1;
+  return v2;
 }
 
 @end

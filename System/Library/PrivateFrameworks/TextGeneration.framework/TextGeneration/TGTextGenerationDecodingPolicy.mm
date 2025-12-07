@@ -15,15 +15,15 @@
 
 - (TGTextGenerationDecodingPolicy)initWithType:(unint64_t)type
 {
-  v14[1] = *MEMORY[0x277D85DE8];
-  v12.receiver = self;
-  v12.super_class = TGTextGenerationDecodingPolicy;
-  v4 = [(TGTextGenerationDecodingPolicy *)&v12 init];
+  v13[1] = *MEMORY[0x277D85DE8];
+  v11.receiver = self;
+  v11.super_class = TGTextGenerationDecodingPolicy;
+  v4 = [(TGTextGenerationDecodingPolicy *)&v11 init];
   v5 = v4;
   if (v4)
   {
     v4->_type = type;
-    v13 = @"type";
+    v12 = @"type";
     if (type)
     {
       type = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown decoding policy type: %d", type];
@@ -34,14 +34,13 @@
       type = @"Greedy";
     }
 
-    v14[0] = type;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v13[0] = type;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v8 = [v7 description];
     description = v5->_description;
     v5->_description = v8;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

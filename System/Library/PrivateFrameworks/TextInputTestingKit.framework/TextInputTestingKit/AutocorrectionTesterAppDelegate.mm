@@ -973,9 +973,11 @@ void __59__AutocorrectionTesterAppDelegate_runAutocorrectionTester___block_invok
 
 - (void)resetOptions:(id)options
 {
-  self->_options = [MEMORY[0x277CBEB38] dictionaryWithDictionary:options];
+  v4 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:options];
+  options = self->_options;
+  self->_options = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, options);
 }
 
 - (AutocorrectionTesterAppDelegate)initWithLocale:(id)locale andText:(id)text

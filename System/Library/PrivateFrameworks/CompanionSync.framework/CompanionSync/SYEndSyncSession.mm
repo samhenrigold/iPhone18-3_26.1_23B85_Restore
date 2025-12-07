@@ -63,7 +63,7 @@
     [SYEndSyncSession writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteSubmessage();
   if (!self->_sessionID)
   {
@@ -78,7 +78,6 @@
 
   if (*&self->_has)
   {
-    rollback = self->_rollback;
     PBDataWriterWriteBOOLField();
   }
 }

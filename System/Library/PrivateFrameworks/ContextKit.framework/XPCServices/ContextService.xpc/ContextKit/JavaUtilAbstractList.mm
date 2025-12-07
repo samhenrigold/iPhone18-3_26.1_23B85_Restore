@@ -1,4 +1,5 @@
 @interface JavaUtilAbstractList
+- (BOOL)addAllWithInt:(int)int withJavaUtilCollection:(id)collection;
 - (BOOL)isEqual:(id)equal;
 - (id)iterator;
 - (id)listIteratorWithInt:(int)int;
@@ -12,6 +13,28 @@
 
 @implementation JavaUtilAbstractList
 
+- (BOOL)addAllWithInt:(int)int withJavaUtilCollection:(id)collection
+{
+  if (!collection || (v5 = *&int, (v7 = [collection iterator]) == 0))
+  {
+    JreThrowNullPointerException();
+  }
+
+  v8 = v7;
+  if ([v7 hasNext])
+  {
+    do
+    {
+      -[JavaUtilAbstractList addWithInt:withId:](self, "addWithInt:withId:", v5, [v8 next]);
+      v5 = (v5 + 1);
+    }
+
+    while (([v8 hasNext] & 1) != 0);
+  }
+
+  return [collection isEmpty] ^ 1;
+}
+
 - (void)clear
 {
   v3 = [(JavaUtilAbstractCollection *)self size];
@@ -23,29 +46,30 @@
 {
   if (self == equal)
   {
-    v14 = 1;
+    v16 = 1;
   }
 
   else
   {
-    if (![JavaUtilList_class_() isInstance:equal])
+    v5 = [JavaUtilList_class_(self a2)];
+    if (!v5)
     {
       goto LABEL_15;
     }
 
-    v5 = JavaUtilList_class_();
+    v7 = JavaUtilList_class_(v5, v6);
     if (!equal)
     {
       goto LABEL_18;
     }
 
-    if (([v5 isInstance:equal] & 1) == 0)
+    if (([v7 isInstance:equal] & 1) == 0)
     {
       JreThrowClassCastException();
     }
 
-    v6 = [equal size];
-    if (v6 == [(JavaUtilAbstractCollection *)self size])
+    v8 = [equal size];
+    if (v8 == [(JavaUtilAbstractCollection *)self size])
     {
       iterator = [(JavaUtilAbstractList *)self iterator];
       iterator2 = [equal iterator];
@@ -54,23 +78,23 @@
         goto LABEL_18;
       }
 
-      v9 = iterator2;
+      v11 = iterator2;
       hasNext = [iterator hasNext];
       if (hasNext)
       {
         while (1)
         {
           next = [iterator next];
-          if (!v9)
+          if (!v11)
           {
             break;
           }
 
-          v12 = next;
-          next2 = [v9 next];
-          if (v12)
+          v14 = next;
+          next2 = [v11 next];
+          if (v14)
           {
-            if (![v12 isEqual:next2])
+            if (![v14 isEqual:next2])
             {
               goto LABEL_14;
             }
@@ -93,17 +117,17 @@ LABEL_18:
       }
 
 LABEL_14:
-      v14 = hasNext ^ 1;
+      v16 = hasNext ^ 1;
     }
 
     else
     {
 LABEL_15:
-      v14 = 0;
+      v16 = 0;
     }
   }
 
-  return v14 & 1;
+  return v16 & 1;
 }
 
 - (unint64_t)hash
@@ -263,30 +287,30 @@ LABEL_9:
 
 - (id)subListWithInt:(int)int withInt:(int)withInt
 {
-  if (int < 0 || [(JavaUtilAbstractCollection *)self size]< withInt)
+  if (int < 0 || (v7 = [(JavaUtilAbstractCollection *)self size], v7 < withInt))
   {
-    v11 = new_JavaLangIndexOutOfBoundsException_init();
+    v13 = new_JavaLangIndexOutOfBoundsException_init();
     goto LABEL_11;
   }
 
   if (int > withInt)
   {
-    v11 = new_JavaLangIllegalArgumentException_init();
+    v13 = new_JavaLangIllegalArgumentException_init();
 LABEL_11:
-    objc_exception_throw(v11);
+    objc_exception_throw(v13);
   }
 
-  v7 = [JavaUtilRandomAccess_class_() isInstance:self];
-  v8 = off_1003E8CD8;
-  if (!v7)
+  v9 = [JavaUtilRandomAccess_class_(v7 v8)];
+  v10 = off_1003E8CD8;
+  if (!v9)
   {
-    v8 = off_1003E8CD0;
+    v10 = off_1003E8CD0;
   }
 
-  v9 = objc_alloc(*v8);
-  sub_100264B18(v9, self, int, withInt);
+  v11 = objc_alloc(*v10);
+  sub_100264B18(v11, self, int, withInt);
 
-  return v9;
+  return v11;
 }
 
 @end

@@ -274,7 +274,7 @@ LABEL_16:
   messageGUID = [(IMMessagePartGUID *)self messageGUID];
   prefix = [(IMMessagePartGUID *)self prefix];
   partNumber = [(IMMessagePartGUID *)self partNumber];
-  [(IMMessagePartGUID *)self ranges];
+  objc_msgSend_ranges(self);
   v9 = [v4 initWithEncodedMessagePartGUID:encodedMessagePartGUID messageGUID:messageGUID prefix:prefix partNumber:partNumber ranges:&v11];
 
   return v9;

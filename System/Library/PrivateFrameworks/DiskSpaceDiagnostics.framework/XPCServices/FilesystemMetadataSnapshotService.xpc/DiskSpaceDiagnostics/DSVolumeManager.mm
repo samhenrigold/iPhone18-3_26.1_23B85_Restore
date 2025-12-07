@@ -16,68 +16,69 @@
   volumesCopy = volumes;
   listCopy = list;
   v7 = +[NSMutableArray array];
-  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v8 = volumesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v25;
+    v12 = *v26;
     *&v10 = 138543618;
-    v23 = v10;
+    v24 = v10;
     do
     {
       for (i = 0; i != v11; i = i + 1)
       {
-        if (*v25 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v24 + 1) + 8 * i);
-        if (![v14 shouldListContents] || listCopy && objc_msgSend(listCopy, "count") && (objc_msgSend(v14, "mountPoint"), v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(listCopy, "containsObject:", v15), v15, (v16 & 1) == 0))
+        v14 = *(*(&v25 + 1) + 8 * i);
+        shouldListContents = [v14 shouldListContents];
+        if (!shouldListContents || listCopy && (shouldListContents = [listCopy count]) != 0 && (objc_msgSend(v14, "mountPoint"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(listCopy, "containsObject:", v16), v16, (v17 & 1) == 0))
         {
-          v19 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+          v20 = shared_filesystem_metadata_snapshot_service_log_handle(shouldListContents);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             _flags = [v14 _flags];
-            *buf = v23;
-            v29 = v14;
-            v30 = 1024;
-            v31 = _flags;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Skipping volume %{public}@ (flags: %u)", buf, 0x12u);
+            *buf = v24;
+            v30 = v14;
+            v31 = 1024;
+            v32 = _flags;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Skipping volume %{public}@ (flags: %u)", buf, 0x12u);
           }
         }
 
         else
         {
-          v17 = shared_filesystem_metadata_snapshot_service_log_handle();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = shared_filesystem_metadata_snapshot_service_log_handle(shouldListContents);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             _flags2 = [v14 _flags];
-            *buf = v23;
-            v29 = v14;
-            v30 = 1024;
-            v31 = _flags2;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Including volume %{public}@ (flags: %u)", buf, 0x12u);
+            *buf = v24;
+            v30 = v14;
+            v31 = 1024;
+            v32 = _flags2;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Including volume %{public}@ (flags: %u)", buf, 0x12u);
           }
 
           [v7 addObject:v14];
         }
       }
 
-      v11 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v11);
   }
 
-  v21 = [v7 copy];
+  v22 = [v7 copy];
 
-  return v21;
+  return v22;
 }
 
 - (id)__stockStatFSProvider
@@ -209,7 +210,7 @@
 {
   providerCopy = provider;
   bytesProviderCopy = bytesProvider;
-  v10 = shared_filesystem_metadata_snapshot_service_log_handle();
+  v10 = shared_filesystem_metadata_snapshot_service_log_handle(bytesProviderCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -218,119 +219,119 @@
 
   if (!providerCopy)
   {
-    v31 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v35 = shared_filesystem_metadata_snapshot_service_log_handle(v11);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      sub_1000316D8(v31, v32, v33, v34, v35, v36, v37, v38);
+      sub_1000316D8(v35, v36, v37, v38, v39, v40, v41, v42);
     }
 
-    v62 = NSLocalizedDescriptionKey;
-    v63 = @"StatFS provider cannot be nil";
-    v39 = &v63;
-    v40 = &v62;
+    v66 = NSLocalizedDescriptionKey;
+    v67 = @"StatFS provider cannot be nil";
+    v43 = &v67;
+    v44 = &v66;
     goto LABEL_25;
   }
 
   if (!bytesProviderCopy)
   {
-    v41 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v45 = shared_filesystem_metadata_snapshot_service_log_handle(v11);
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
     {
-      sub_100031660(v41, v42, v43, v44, v45, v46, v47, v48);
+      sub_100031660(v45, v46, v47, v48, v49, v50, v51, v52);
     }
 
-    v60 = NSLocalizedDescriptionKey;
-    v61 = @"Used bytes provider cannot be nil";
-    v39 = &v61;
-    v40 = &v60;
+    v64 = NSLocalizedDescriptionKey;
+    v65 = @"Used bytes provider cannot be nil";
+    v43 = &v65;
+    v44 = &v64;
 LABEL_25:
-    v49 = [NSDictionary dictionaryWithObjects:v39 forKeys:v40 count:1];
-    v13 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65540 userInfo:v49];
+    v53 = [NSDictionary dictionaryWithObjects:v43 forKeys:v44 count:1];
+    v14 = [NSError errorWithDomain:@"com.apple.FilesystemMetadataSnapshot" code:65540 userInfo:v53];
 
     if (error)
     {
-      v50 = v13;
-      v14 = 0;
-      *error = v13;
+      v54 = v14;
+      v16 = 0;
+      *error = v14;
     }
 
     else
     {
-      v14 = 0;
+      v16 = 0;
     }
 
     goto LABEL_34;
   }
 
-  v55 = 0;
-  v54 = 0;
-  v11 = objc_autoreleasePoolPush();
-  v53 = 0;
-  v12 = providerCopy[2](providerCopy, &v55, &v54, &v53);
-  v13 = v53;
-  objc_autoreleasePoolPop(v11);
-  if (v13)
+  v59 = 0;
+  v58 = 0;
+  v12 = objc_autoreleasePoolPush();
+  v57 = 0;
+  v13 = providerCopy[2](providerCopy, &v59, &v58, &v57);
+  v14 = v57;
+  objc_autoreleasePoolPop(v12);
+  if (v14)
   {
-    v14 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v14 = v12;
+    v16 = v13;
   }
 
-  v15 = shared_filesystem_metadata_snapshot_service_log_handle();
-  v16 = v15;
-  if (v14)
+  v17 = shared_filesystem_metadata_snapshot_service_log_handle(v15);
+  v18 = v17;
+  if (v16)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      LODWORD(v57) = v54;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Found %d volumes", buf, 8u);
+      LODWORD(v61) = v58;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Found %d volumes", buf, 8u);
     }
 
-    v17 = objc_autoreleasePoolPush();
-    v18 = [DSVolume _volumeInfoFromStatFS:v55 count:v54 usedBytesProvider:bytesProviderCopy volumeManager:self];
+    v19 = objc_autoreleasePoolPush();
+    v20 = [DSVolume _volumeInfoFromStatFS:v59 count:v58 usedBytesProvider:bytesProviderCopy volumeManager:self];
     allVolumes = self->__allVolumes;
-    self->__allVolumes = v18;
+    self->__allVolumes = v20;
 
-    if (v55)
+    if (v59)
     {
-      free(v55);
+      free(v59);
     }
 
     _snapshotRequest = [(DSVolumeManager *)self _snapshotRequest];
     options = [_snapshotRequest options];
-    v22 = [options objectForKeyedSubscript:@"FilesystemMetadatSnapshotOptionMountPointsAllowListArray"];
+    v24 = [options objectForKeyedSubscript:@"FilesystemMetadatSnapshotOptionMountPointsAllowListArray"];
 
-    v23 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v26 = shared_filesystem_metadata_snapshot_service_log_handle(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       _allVolumes = [(DSVolumeManager *)self _allVolumes];
       *buf = 138412546;
-      v57 = _allVolumes;
-      v58 = 2112;
-      v59 = v22;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "All Volumes List: %@\nMount Points Allow List: %@", buf, 0x16u);
+      v61 = _allVolumes;
+      v62 = 2112;
+      v63 = v24;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "All Volumes List: %@\nMount Points Allow List: %@", buf, 0x16u);
     }
 
-    v25 = objc_opt_class();
+    v28 = objc_opt_class();
     _allVolumes2 = [(DSVolumeManager *)self _allVolumes];
-    v27 = [v25 _filterVolumes:_allVolumes2 usingAllowList:v22];
+    v30 = [v28 _filterVolumes:_allVolumes2 usingAllowList:v24];
     volumesForSnapshotting = self->_volumesForSnapshotting;
-    self->_volumesForSnapshotting = v27;
+    self->_volumesForSnapshotting = v30;
 
-    v29 = shared_filesystem_metadata_snapshot_service_log_handle();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v33 = shared_filesystem_metadata_snapshot_service_log_handle(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       volumesForSnapshotting = [(DSVolumeManager *)self volumesForSnapshotting];
       *buf = 138543362;
-      v57 = volumesForSnapshotting;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Volumes for snapshotting: %{public}@", buf, 0xCu);
+      v61 = volumesForSnapshotting;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Volumes for snapshotting: %{public}@", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v17);
+    objc_autoreleasePoolPop(v19);
     if (error)
     {
       *error = 0;
@@ -339,26 +340,26 @@ LABEL_25:
 
   else
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_10003153C(v13);
+      sub_10003153C(v14);
     }
 
     if (error)
     {
-      v51 = v13;
-      *error = v13;
+      v55 = v14;
+      *error = v14;
     }
 
-    if (v55)
+    if (v59)
     {
-      free(v55);
+      free(v59);
     }
   }
 
 LABEL_34:
 
-  return v14;
+  return v16;
 }
 
 - (BOOL)discoverVolumesWithError:(id *)error

@@ -88,7 +88,7 @@
 
 - (id)fileURLForResourceInfo:(id)info
 {
-  v63[3] = *MEMORY[0x277D85DE8];
+  v62[3] = *MEMORY[0x277D85DE8];
   infoCopy = info;
   objc_opt_class();
   v5 = TSUDynamicCast();
@@ -131,12 +131,12 @@
       goto LABEL_12;
     }
 
-    v62 = v24;
-    v61 = objc_msgSend_bundle(TSPResourceLocationProvider, v31, v32);
+    v61 = v24;
+    v60 = objc_msgSend_bundle(TSPResourceLocationProvider, v31, v32);
     v33 = v5;
     v36 = objc_msgSend_digestString(v33, v34, v35);
     v39 = objc_msgSend_fileExtension(v33, v37, v38);
-    v60 = v33;
+    v59 = v33;
 
     v40 = v36;
     v42 = objc_msgSend_substringToIndex_(v40, v41, 2);
@@ -146,11 +146,11 @@
     v48 = objc_msgSend_stringByAppendingPathExtension_(v46, v47, v39);
 
     v49 = MEMORY[0x277CBEBC0];
-    v52 = objc_msgSend_sharedSupportPath(v61, v50, v51);
-    v63[0] = v52;
-    v63[1] = @"DocumentResources";
-    v63[2] = v48;
-    v54 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v53, v63, 3);
+    v52 = objc_msgSend_sharedSupportPath(v60, v50, v51);
+    v62[0] = v52;
+    v62[1] = @"DocumentResources";
+    v62[2] = v48;
+    v54 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v53, v62, 3);
     v24 = objc_msgSend_fileURLWithPathComponents_(v49, v55, v54);
 
     if (objc_msgSend_checkResourceIsReachableAndReturnError_(v24, v56, 0))
@@ -159,14 +159,13 @@
       goto LABEL_12;
     }
 
-    v27 = objc_msgSend_fileURLInCacheForResourceInfo_(self, v59, v60);
+    v27 = objc_msgSend_fileURLInCacheForResourceInfo_(self, v58, v59);
   }
 
   v24 = v27;
 LABEL_12:
 
 LABEL_13:
-  v57 = *MEMORY[0x277D85DE8];
 
   return v24;
 }

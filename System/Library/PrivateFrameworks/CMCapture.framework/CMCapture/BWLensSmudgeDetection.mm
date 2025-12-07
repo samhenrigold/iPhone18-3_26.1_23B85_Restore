@@ -179,136 +179,130 @@
 
 - (void)updateDetectionUsingSampleBuffer:(opaqueCMSampleBuffer *)buffer detectionUpdatedBlock:(id)block
 {
-  memset(&v38, 0, sizeof(v38));
-  CMSampleBufferGetPresentationTimeStamp(&v38, buffer);
+  memset(&v40, 0, sizeof(v40));
+  CMSampleBufferGetPresentationTimeStamp(&v40, buffer);
   v6 = OUTLINED_FUNCTION_0_70();
   [(BWLensSmudgeDetection *)v6 _updateInternalStateUsingPTS:v7];
   v8 = [(BWLensSmudgeDetection *)self _getLensSmudgeInferenceResultUsingSampleBuffer:buffer];
   v9 = CMGetAttachment(buffer, @"InferenceHistogramData", 0);
-  if (!v9)
+  if (v9)
   {
-    return;
-  }
-
-  v10 = v9;
-  if ([v9 length] != 1536)
-  {
-    return;
-  }
-
-  v11 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
-  if (!v11)
-  {
-    goto LABEL_26;
-  }
-
-  v12 = v11;
-  v13 = [v11 objectForKey:*off_1E798B698];
-  if (!(v13 | v8))
-  {
-    return;
-  }
-
-  v14 = v13;
-  v15 = -[NSMutableDictionary objectForKeyedSubscript:](self->_tuningParametersByPortType, "objectForKeyedSubscript:", [v12 objectForKeyedSubscript:*off_1E798C0E0]);
-  if (!v15)
-  {
-    return;
-  }
-
-  v16 = v15;
-  v17 = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B0A8), "intValue"}];
-  v18 = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B078), "BOOLValue"}];
-  v19 = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B148), "BOOLValue"}];
-  v20 = v17 == 4;
-  if ([objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B3E0), "unsignedIntValue"}])
-  {
-    return;
-  }
-
-  if ([(BWLensSmudgeDetection *)self _updateISPMotionDataUsingMetadata:v12])
-  {
-LABEL_26:
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_1_8();
-    FigDebugAssert3();
-    return;
-  }
-
-  v21 = v20 & v18 & v19;
-  ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
-  PixelFormatType = CVPixelBufferGetPixelFormatType(ImageBuffer);
-  v24 = [(BWLensSmudgeDetection *)self _calculateKLDistanceUsingHistogramData:v10 pixelFormat:PixelFormatType];
-  if (v8)
-  {
-    [objc_msgSend(objc_msgSend(objc_msgSend(v8 "inferences")];
-    self->_cmcData.observedConfidence = v30;
-    if (v21)
+    v10 = v9;
+    if ([v9 length] == 1536)
     {
-      [(BWLensSmudgeDetection *)self _processDetectionIntermediateData:v16 TuningParameters:v24 KLDistance:?];
-      if (self->_cmcData.smudgeProbUpdated)
+      v11 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+      if (!v11)
       {
-        *&v31 = self->_cmcData.smudgeProb;
-        [MEMORY[0x1E696AD98] numberWithFloat:v31];
-        [OUTLINED_FUNCTION_24() setObject:? forKeyedSubscript:?];
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_1_8();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+        return;
       }
 
-      *&v31 = self->_cmcData.observedConfidence;
-      [MEMORY[0x1E696AD98] numberWithFloat:v31];
-      [OUTLINED_FUNCTION_24() setObject:? forKeyedSubscript:?];
-    }
-
-    v32 = OUTLINED_FUNCTION_0_70();
-    [(BWLensSmudgeDetection *)v32 _updateDetectionStatusUsingPTS:v33];
-    v34 = OUTLINED_FUNCTION_0_70();
-    [(BWLensSmudgeDetection *)v34 _triggerInferenceToTearDownOrPauseUsingPTS:v35];
-    if (!v14)
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_10;
-  }
-
-  if (v14)
-  {
-LABEL_10:
-    [v14 floatValue];
-    v26 = v25 / 1000.0;
-    if (v26 > 1.0)
-    {
-      v26 = 1.0;
-    }
-
-    self->_anstData.observedConfidence = fmaxf(v26, 0.0);
-    if (v21)
-    {
-      [(BWLensSmudgeDetection *)self _processDetectionIntermediateData:v16 TuningParameters:v24 KLDistance:?];
-      if (self->_anstData.smudgeProbUpdated)
+      v12 = v11;
+      v13 = [v11 objectForKey:*off_1E798B698];
+      if (v13 | v8)
       {
-        *&v36 = self->_anstData.smudgeProb;
-        [MEMORY[0x1E696AD98] numberWithFloat:v36];
-        [OUTLINED_FUNCTION_24() setObject:? forKeyedSubscript:?];
-      }
+        v14 = v13;
+        v15 = -[NSMutableDictionary objectForKeyedSubscript:](self->_tuningParametersByPortType, "objectForKeyedSubscript:", [v12 objectForKeyedSubscript:*off_1E798C0E0]);
+        if (v15)
+        {
+          v16 = v15;
+          v17 = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B0A8), "intValue"}];
+          v18 = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B078), "BOOLValue"}];
+          v19 = [objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B148), "BOOLValue"}];
+          v20 = v17 == 4;
+          if (([objc_msgSend(v12 objectForKeyedSubscript:{*off_1E798B3E0), "unsignedIntValue"}] & 1) == 0)
+          {
+            v21 = [(BWLensSmudgeDetection *)self _updateISPMotionDataUsingMetadata:v12];
+            if (v21)
+            {
+              v38 = v21;
+              fig_log_get_emitter();
+              OUTLINED_FUNCTION_1_8();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v38);
+              return;
+            }
 
-      *&v36 = self->_anstData.observedConfidence;
-      [MEMORY[0x1E696AD98] numberWithFloat:v36];
-      [OUTLINED_FUNCTION_24() setObject:? forKeyedSubscript:?];
-    }
-  }
+            v22 = v20 & v18 & v19;
+            ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
+            PixelFormatType = CVPixelBufferGetPixelFormatType(ImageBuffer);
+            v25 = [(BWLensSmudgeDetection *)self _calculateKLDistanceUsingHistogramData:v10 pixelFormat:PixelFormatType];
+            if (v8)
+            {
+              [objc_msgSend(objc_msgSend(objc_msgSend(v8 "inferences")];
+              self->_cmcData.observedConfidence = v31;
+              if (v22)
+              {
+                [(BWLensSmudgeDetection *)self _processDetectionIntermediateData:v16 TuningParameters:v25 KLDistance:?];
+                if (self->_cmcData.smudgeProbUpdated)
+                {
+                  *&v32 = self->_cmcData.smudgeProb;
+                  [MEMORY[0x1E696AD98] numberWithFloat:v32];
+                  [OUTLINED_FUNCTION_24() setObject:? forKeyedSubscript:?];
+                }
 
+                *&v32 = self->_cmcData.observedConfidence;
+                [MEMORY[0x1E696AD98] numberWithFloat:v32];
+                [OUTLINED_FUNCTION_24() setObject:? forKeyedSubscript:?];
+              }
+
+              v33 = OUTLINED_FUNCTION_0_70();
+              [(BWLensSmudgeDetection *)v33 _updateDetectionStatusUsingPTS:v34];
+              v35 = OUTLINED_FUNCTION_0_70();
+              [(BWLensSmudgeDetection *)v35 _triggerInferenceToTearDownOrPauseUsingPTS:v36];
+              if (!v14)
+              {
+                goto LABEL_13;
+              }
+            }
+
+            else if (!v14)
+            {
 LABEL_13:
-  if (block)
-  {
-    v27 = [(NSMutableDictionary *)self->_detectionInfo copy];
-    v28 = OUTLINED_FUNCTION_5_56();
-    v29(v28);
-  }
+              if (block)
+              {
+                v28 = [(NSMutableDictionary *)self->_detectionInfo copy];
+                v29 = OUTLINED_FUNCTION_5_56();
+                v30(v29);
+              }
 
-  self->_cmcData.smudgeConfUpdated = 0;
-  self->_cmcData.smudgeProbUpdated = 0;
-  self->_anstData.smudgeConfUpdated = 0;
-  self->_anstData.smudgeProbUpdated = 0;
+              self->_cmcData.smudgeConfUpdated = 0;
+              self->_cmcData.smudgeProbUpdated = 0;
+              self->_anstData.smudgeConfUpdated = 0;
+              self->_anstData.smudgeProbUpdated = 0;
+              return;
+            }
+
+            [v14 floatValue];
+            v27 = v26 / 1000.0;
+            if (v27 > 1.0)
+            {
+              v27 = 1.0;
+            }
+
+            self->_anstData.observedConfidence = fmaxf(v27, 0.0);
+            if (v22)
+            {
+              [(BWLensSmudgeDetection *)self _processDetectionIntermediateData:v16 TuningParameters:v25 KLDistance:?];
+              if (self->_anstData.smudgeProbUpdated)
+              {
+                *&v37 = self->_anstData.smudgeProb;
+                [MEMORY[0x1E696AD98] numberWithFloat:v37];
+                [OUTLINED_FUNCTION_24() setObject:? forKeyedSubscript:?];
+              }
+
+              *&v37 = self->_anstData.observedConfidence;
+              [MEMORY[0x1E696AD98] numberWithFloat:v37];
+              [OUTLINED_FUNCTION_24() setObject:? forKeyedSubscript:?];
+            }
+
+            goto LABEL_13;
+          }
+        }
+      }
+    }
+  }
 }
 
 - (CMTime)_updateInternalStateUsingPTS:(CMTime *)result
@@ -384,7 +378,7 @@ LABEL_3:
   }
 
   v3 = AttachedInferenceResult;
-  if (([objc_msgSend(AttachedInferenceResult "preventionReason")] & 1) != 0 || (objc_msgSend(objc_msgSend(v3, "preventionReason"), "isEqualToString:", @"BlurryInputBuffer") & 1) != 0 || (objc_msgSend(v3, "isValid") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_([AttachedInferenceResult preventionReason]) & 1) != 0 || (objc_msgSend_isEqualToString_(objc_msgSend(v3, "preventionReason")) & 1) != 0 || (objc_msgSend(v3, "isValid") & 1) == 0)
   {
     return 0;
   }
@@ -399,28 +393,28 @@ LABEL_3:
     return 0;
   }
 
-  v8 = 0uLL;
-  v9 = 0.0;
-  v3 = [metadata readISPMotionDataUsingMetadata:a2 attitude:&v8];
+  v10 = 0uLL;
+  v11 = 0;
+  v3 = [metadata readISPMotionDataUsingMetadata:a2 attitude:&v10];
   if (v3)
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_8();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v3, v8, v9, v10, DWORD2(v10), v11, v12, v13);
   }
 
   else
   {
-    if (*(&v8 + 1) != 0.0)
+    if (*(&v10 + 1) != 0.0)
     {
-      v4 = *(&v8 + 1) - *(metadata + 120);
-      v5 = vabdd_f64(*&v8, *(metadata + 112)) + fabsf(v4);
-      v6 = vabdd_f64(v9, *(metadata + 128)) + v5;
+      v4 = *(&v10 + 1) - *(metadata + 120);
+      v5 = vabdd_f64(*&v10, *(metadata + 112)) + fabsf(v4);
+      v6 = vabdd_f64(*&v11, *(metadata + 128)) + v5;
       *(metadata + 136) = v6;
     }
 
-    *(metadata + 112) = v8;
-    *(metadata + 128) = v9;
+    *(metadata + 112) = v10;
+    *(metadata + 128) = v11;
   }
 
   return v3;
@@ -646,20 +640,6 @@ LABEL_16:
   }
 
   return result;
-}
-
-- (uint64_t)readISPMotionDataUsingMetadata:attitude:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_8();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)readISPMotionDataUsingMetadata:attitude:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_8();
-  return FigDebugAssert3();
 }
 
 @end

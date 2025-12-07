@@ -38,35 +38,36 @@ uint64_t __35__SOSStatusReporter_sharedInstance__block_invoke(uint64_t a1)
 {
   if ([SOSEntitlement currentProcessHasEntitlement:@"com.apple.sos.trigger"])
   {
-    v13.receiver = self;
-    v13.super_class = SOSStatusReporter;
-    v3 = [(SOSStatusReporter *)&v13 init];
+    v14.receiver = self;
+    v14.super_class = SOSStatusReporter;
+    v3 = [(SOSStatusReporter *)&v14 init];
+    v4 = v3;
     if (v3)
     {
-      v4 = sos_default_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = sos_default_log(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "initializing SOSStatusReporter", buf, 2u);
+        _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "initializing SOSStatusReporter", buf, 2u);
       }
 
-      v3->_flowState = 0;
-      objc_initWeak(buf, v3);
-      v5 = SOSD_CONNECTION_REQUEST_NOTIFICATION_NAME;
-      v6 = MEMORY[0x277D85CD0];
+      v4->_flowState = 0;
+      objc_initWeak(buf, v4);
+      v6 = SOSD_CONNECTION_REQUEST_NOTIFICATION_NAME;
       v7 = MEMORY[0x277D85CD0];
+      v8 = MEMORY[0x277D85CD0];
       handler[0] = MEMORY[0x277D85DD0];
       handler[1] = 3221225472;
       handler[2] = __25__SOSStatusReporter_init__block_invoke;
       handler[3] = &unk_279B53E40;
-      objc_copyWeak(&v11, buf);
-      notify_register_dispatch(v5, &v3->_connectionRequestNotificationToken, v6, handler);
+      objc_copyWeak(&v12, buf);
+      notify_register_dispatch(v6, &v4->_connectionRequestNotificationToken, v7, handler);
 
-      objc_destroyWeak(&v11);
+      objc_destroyWeak(&v12);
       objc_destroyWeak(buf);
     }
 
-    self = v3;
+    self = v4;
     selfCopy = self;
   }
 
@@ -80,44 +81,41 @@ uint64_t __35__SOSStatusReporter_sharedInstance__block_invoke(uint64_t a1)
 
 void __25__SOSStatusReporter_init__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 136315138;
-    *&v5[4] = SOSD_CONNECTION_REQUEST_NOTIFICATION_NAME;
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by requesting current state", v5, 0xCu);
+    *v4 = 136315138;
+    *&v4[4] = SOSD_CONNECTION_REQUEST_NOTIFICATION_NAME;
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "Handling %s by requesting current state", v4, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  *v5 = 0;
-  notify_get_state([WeakRetained connectionRequestNotificationToken], v5);
-  if (*v5)
+  *v4 = 0;
+  notify_get_state([WeakRetained connectionRequestNotificationToken], v4);
+  if (*v4)
   {
     [WeakRetained handleSosdLaunch];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSosdLaunch
 {
   v8 = *MEMORY[0x277D85DE8];
-  if ([(SOSStatusReporter *)self flowState])
+  flowState = [(SOSStatusReporter *)self flowState];
+  if (flowState)
   {
-    v3 = sos_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sos_default_log(flowState);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = SOSStringForSOSFlowState([(SOSStatusReporter *)self flowState]);
+      v5 = SOSStringForSOSFlowState([(SOSStatusReporter *)self flowState]);
       v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "SOSStatusReporter, sosd launched, updating state %@", &v6, 0xCu);
+      v7 = v5;
+      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "SOSStatusReporter, sosd launched, updating state %@", &v6, 0xCu);
     }
 
     [(SOSStatusReporter *)self _updateSOSFlowState];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSOSFlowState:(int64_t)state
@@ -133,20 +131,18 @@ void __25__SOSStatusReporter_init__block_invoke(uint64_t a1)
 
 uint64_t __40__SOSStatusReporter_updateSOSFlowState___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = sos_default_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = SOSStringForSOSFlowState(*(a1 + 40));
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "SOSStatusReporter, updateSOSFlowState with state %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_264323000, v2, OS_LOG_TYPE_DEFAULT, "SOSStatusReporter, updateSOSFlowState with state %@", &v5, 0xCu);
   }
 
   [*(a1 + 32) setFlowState:*(a1 + 40)];
-  result = [*(a1 + 32) _updateSOSFlowState];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _updateSOSFlowState];
 }
 
 - (void)_updateSOSFlowState
@@ -159,7 +155,7 @@ uint64_t __40__SOSStatusReporter_updateSOSFlowState___block_invoke(uint64_t a1)
 void __40__SOSStatusReporter__updateSOSFlowState__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = sos_default_log();
+  v3 = sos_default_log(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __40__SOSStatusReporter__updateSOSFlowState__block_invoke_cold_1(v2, v3);
@@ -169,7 +165,7 @@ void __40__SOSStatusReporter__updateSOSFlowState__block_invoke(uint64_t a1, void
 - (void)setConnection:(id)connection
 {
   connectionCopy = connection;
-  v6 = sos_default_log();
+  v6 = sos_default_log(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -229,19 +225,19 @@ void __40__SOSStatusReporter__updateSOSFlowState__block_invoke(uint64_t a1, void
   return connection;
 }
 
-void __31__SOSStatusReporter_connection__block_invoke()
+void __31__SOSStatusReporter_connection__block_invoke(uint64_t a1)
 {
-  v0 = sos_default_log();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = sos_default_log(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_264323000, v0, OS_LOG_TYPE_DEFAULT, "SOSStatusReporter, connection interrupted", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_264323000, v1, OS_LOG_TYPE_DEFAULT, "SOSStatusReporter, connection interrupted", v2, 2u);
   }
 }
 
 void __31__SOSStatusReporter_connection__block_invoke_6(uint64_t a1)
 {
-  v2 = sos_default_log();
+  v2 = sos_default_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -265,11 +261,10 @@ void __31__SOSStatusReporter_connection__block_invoke_7(uint64_t a1)
 
 void __40__SOSStatusReporter__updateSOSFlowState__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_264323000, a2, OS_LOG_TYPE_ERROR, "Could not send a flow state update due to connection error %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_264323000, a2, OS_LOG_TYPE_ERROR, "Could not send a flow state update due to connection error %@", &v2, 0xCu);
 }
 
 @end

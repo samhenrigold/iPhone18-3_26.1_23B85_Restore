@@ -259,7 +259,7 @@ LABEL_8:
   {
     [tick timestamp];
     [tick targetTimestamp];
-    [tick duration];
+    objc_msgSend_duration(tick);
     (*(self->_handler + 2))();
   }
 }
@@ -463,7 +463,7 @@ LABEL_8:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to create CADisplayLink", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d Failed to create CADisplayLink", v5, v6, v7, v8);
     }
   }
 
@@ -479,7 +479,7 @@ LABEL_8:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d nil displayLinkTickHandler", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d nil displayLinkTickHandler", v5, v6, v7, v8);
     }
   }
 
@@ -496,7 +496,7 @@ LABEL_8:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d VCRealTimeThread_Start failed", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v3, v4, " [%s] %s:%d VCRealTimeThread_Start failed", v5, v6, v7, v8);
     }
   }
 

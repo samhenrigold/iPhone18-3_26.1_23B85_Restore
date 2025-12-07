@@ -1,6 +1,5 @@
 @interface PSBufferIndexer
 - (PSBufferIndexer)initWithResourceStream:(id)stream;
-- (uint64_t)allocateResources;
 - (void)allocateResources;
 @end
 
@@ -8,29 +7,35 @@
 
 - (void)allocateResources
 {
-  if (![(PSBufferIndexer *)self currentIndex])
+  *self = 0;
+  v4 = [*a2 key];
+  asprintf(self, "Unsupported resource stream type sent to allocator for key:%s", [v4 UTF8String]);
+
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v14 = 0;
-    p_resourceStream = &self->_resourceStream;
-    v4 = [(PSResourceStreamProtocol *)self->_resourceStream key];
-    [PSConstants getBufferDepthsForKey:v4 writerDepth:&v14 + 4 readerDepth:&v14];
+    v7 = [*a2 key];
+    [v7 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Unsupported resource stream type sent to allocator for key:%s", v10, v11, v12, v13, v23, v24);
+  }
 
-    resourceClass = [(PSResourceStreamProtocol *)self->_resourceStream resourceClass];
-    if (resourceClass == 8 || resourceClass == 7 || resourceClass == 4)
+  v14 = OSLogFlushBuffers();
+  if (v14)
+  {
+    v15 = __PLSLogSharedInstance(v14);
+    if (OUTLINED_FUNCTION_6(v15))
     {
-      v6 = *p_resourceStream;
-      allocator = [(PSResourceStreamProtocol *)v6 allocator];
-      v8 = allocator(*p_resourceStream, (HIDWORD(v14) + v14));
-      resPointerArr = self->_resPointerArr;
-      self->_resPointerArr = v8;
-    }
-
-    else
-    {
-      allocateResources = [(PSBufferIndexer *)&v13 allocateResources];
-      [(PSBufferIndexer *)allocateResources initWithResourceStream:v11, v12];
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21, v23, v24);
     }
   }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v22 = OUTLINED_FUNCTION_0();
+  [(PSDeviceManager *)v22 setNotificationPort];
 }
 
 - (PSBufferIndexer)initWithResourceStream:(id)stream
@@ -47,39 +52,6 @@
   }
 
   return v7;
-}
-
-- (uint64_t)allocateResources
-{
-  v24 = *MEMORY[0x277D85DE8];
-  *self = 0;
-  v4 = [*a2 key];
-  asprintf(self, "Unsupported resource stream type sent to allocator for key:%s", [v4 UTF8String]);
-
-  v5 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
-  {
-    v6 = [*a2 key];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Unsupported resource stream type sent to allocator for key:%s", v9, v10, v11, v12, v22, v23, 2u);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v13 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
-    {
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, 2u);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v20 = OUTLINED_FUNCTION_0();
-  return [(PSDeviceManager *)v20 setNotificationPort];
 }
 
 @end

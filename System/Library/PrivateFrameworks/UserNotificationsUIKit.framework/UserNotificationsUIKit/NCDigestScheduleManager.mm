@@ -304,7 +304,7 @@ uint64_t __62__NCDigestScheduleManager__updateDigestInfosForScheduleTimes___bloc
 
 void __62__NCDigestScheduleManager__updateDigestInfosForScheduleTimes___block_invoke_2(void *a1, void *a2, uint64_t a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a1[4];
   v6 = a2;
   v7 = [v5 _scheduleDateFromScheduleTime:v6];
@@ -313,158 +313,178 @@ void __62__NCDigestScheduleManager__updateDigestInfosForScheduleTimes___block_in
 
   [(NCMutableDigestInfo *)v8 setScheduleDate:v7];
   v9 = v7;
-  if ([v9 nc_isMorning])
+  v10 = [v9 nc_isMorning];
+  if (v10)
   {
-    v10 = NCUserNotificationsUIKitFrameworkBundle();
-    v11 = v10;
-    v12 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_MORNING";
-  }
-
-  else if ([v9 nc_isAfternoon])
-  {
-    v10 = NCUserNotificationsUIKitFrameworkBundle();
-    v11 = v10;
-    v12 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_AFTERNOON";
-  }
-
-  else if ([v9 nc_isEvening])
-  {
-    v10 = NCUserNotificationsUIKitFrameworkBundle();
-    v11 = v10;
-    v12 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_EVENING";
+    v11 = NCUserNotificationsUIKitFrameworkBundle(v10);
+    v12 = v11;
+    v13 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_MORNING";
   }
 
   else
   {
-    v37 = [v9 nc_isNight];
-    v10 = NCUserNotificationsUIKitFrameworkBundle();
-    v11 = v10;
-    if (v37)
+    v14 = [v9 nc_isAfternoon];
+    if (v14)
     {
-      v12 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_NIGHT";
+      v11 = NCUserNotificationsUIKitFrameworkBundle(v14);
+      v12 = v11;
+      v13 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_AFTERNOON";
     }
 
     else
     {
-      v12 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_OVERNIGHT";
+      v15 = [v9 nc_isEvening];
+      if (v15)
+      {
+        v11 = NCUserNotificationsUIKitFrameworkBundle(v15);
+        v12 = v11;
+        v13 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_EVENING";
+      }
+
+      else
+      {
+        v43 = [v9 nc_isNight];
+        v44 = v43;
+        v11 = NCUserNotificationsUIKitFrameworkBundle(v43);
+        v12 = v11;
+        if (v44)
+        {
+          v13 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_NIGHT";
+        }
+
+        else
+        {
+          v13 = @"NOTIFICATION_SUMMARY_SECTION_TITLE_OVERNIGHT";
+        }
+      }
     }
   }
 
-  v13 = [v10 localizedStringForKey:v12 value:&stru_282FE84F8 table:0];
+  v16 = [v11 localizedStringForKey:v13 value:&stru_282FE84F8 table:0];
 
-  [(NCMutableDigestInfo *)v8 setTitleString:v13];
-  v14 = v9;
-  if ([v14 nc_isMorning])
+  [(NCMutableDigestInfo *)v8 setTitleString:v16];
+  v17 = v9;
+  v18 = [v17 nc_isMorning];
+  if (v18)
   {
-    v15 = NCUserNotificationsUIKitFrameworkBundle();
-    v16 = v15;
-    v17 = @"NOTIFICATION_SUMMARY_HEADER_MORNING";
-  }
-
-  else if ([v14 nc_isAfternoon])
-  {
-    v15 = NCUserNotificationsUIKitFrameworkBundle();
-    v16 = v15;
-    v17 = @"NOTIFICATION_SUMMARY_HEADER_AFTERNOON";
-  }
-
-  else if ([v14 nc_isEvening])
-  {
-    v15 = NCUserNotificationsUIKitFrameworkBundle();
-    v16 = v15;
-    v17 = @"NOTIFICATION_SUMMARY_HEADER_EVENING";
+    v19 = NCUserNotificationsUIKitFrameworkBundle(v18);
+    v20 = v19;
+    v21 = @"NOTIFICATION_SUMMARY_HEADER_MORNING";
   }
 
   else
   {
-    v38 = [v14 nc_isNight];
-    v15 = NCUserNotificationsUIKitFrameworkBundle();
-    v16 = v15;
-    if (v38)
+    v22 = [v17 nc_isAfternoon];
+    if (v22)
     {
-      v17 = @"NOTIFICATION_SUMMARY_HEADER_NIGHT";
+      v19 = NCUserNotificationsUIKitFrameworkBundle(v22);
+      v20 = v19;
+      v21 = @"NOTIFICATION_SUMMARY_HEADER_AFTERNOON";
     }
 
     else
     {
-      v17 = @"NOTIFICATION_SUMMARY_HEADER_OVERNIGHT";
+      v23 = [v17 nc_isEvening];
+      if (v23)
+      {
+        v19 = NCUserNotificationsUIKitFrameworkBundle(v23);
+        v20 = v19;
+        v21 = @"NOTIFICATION_SUMMARY_HEADER_EVENING";
+      }
+
+      else
+      {
+        v45 = [v17 nc_isNight];
+        v46 = v45;
+        v19 = NCUserNotificationsUIKitFrameworkBundle(v45);
+        v20 = v19;
+        if (v46)
+        {
+          v21 = @"NOTIFICATION_SUMMARY_HEADER_NIGHT";
+        }
+
+        else
+        {
+          v21 = @"NOTIFICATION_SUMMARY_HEADER_OVERNIGHT";
+        }
+      }
     }
   }
 
-  v18 = [v15 localizedStringForKey:v17 value:&stru_282FE84F8 table:0];
+  v24 = [v19 localizedStringForKey:v21 value:&stru_282FE84F8 table:0];
 
-  [(NCMutableDigestInfo *)v8 setHeaderString:v18];
-  v19 = a1[6];
-  if (a3 || v19 <= 1)
+  [(NCMutableDigestInfo *)v8 setHeaderString:v24];
+  v25 = a1[6];
+  if (a3 || v25 <= 1)
   {
-    v21 = v19 > 1;
-    v22 = v19 - 1;
-    v23 = v21;
-    v24 = 2 * v23;
-    if (v22 == a3)
+    v27 = v25 > 1;
+    v28 = v25 - 1;
+    v29 = v27;
+    v30 = 2 * v29;
+    if (v28 == a3)
     {
-      v20 = v24;
+      v26 = v30;
     }
 
     else
     {
-      v20 = 0;
+      v26 = 0;
     }
   }
 
   else
   {
-    v20 = 1;
+    v26 = 1;
   }
 
-  [(NCMutableDigestInfo *)v8 setDeliveryOrder:v20];
+  [(NCMutableDigestInfo *)v8 setDeliveryOrder:v26];
   [*(a1[4] + 48) addObject:v8];
-  v25 = *MEMORY[0x277D77DD0];
+  v31 = *MEMORY[0x277D77DD0];
   if (os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_DEFAULT))
   {
-    v39 = 138543362;
-    v40 = v8;
-    _os_log_impl(&dword_21E77E000, v25, OS_LOG_TYPE_DEFAULT, "Added notification digest [info=%{public}@]", &v39, 0xCu);
+    v47 = 138543362;
+    v48 = v8;
+    _os_log_impl(&dword_21E77E000, v31, OS_LOG_TYPE_DEFAULT, "Added notification digest [info=%{public}@]", &v47, 0xCu);
   }
 
-  [v14 timeIntervalSinceDate:a1[5]];
-  v27 = v26;
-  v28 = a1[4];
-  v29 = *(v28 + 16);
-  if (v29)
+  [v17 timeIntervalSinceDate:a1[5]];
+  v33 = v32;
+  v34 = a1[4];
+  v35 = *(v34 + 16);
+  if (v35)
   {
-    v30 = [v29 scheduleDate];
-    [v30 timeIntervalSinceDate:a1[5]];
-    v32 = v31;
+    v36 = [v35 scheduleDate];
+    [v36 timeIntervalSinceDate:a1[5]];
+    v38 = v37;
 
-    v28 = a1[4];
+    v34 = a1[4];
   }
 
   else
   {
-    v32 = 2147483650.0;
+    v38 = 2147483650.0;
   }
 
-  if (v27 < v32)
+  if (v33 < v38)
   {
-    objc_storeStrong((v28 + 16), v8);
-    v28 = a1[4];
+    objc_storeStrong((v34 + 16), v8);
+    v34 = a1[4];
   }
 
-  v33 = *(v28 + 24);
-  if (v33)
+  v39 = *(v34 + 24);
+  if (v39)
   {
-    v34 = [v33 scheduleDate];
-    [v34 timeIntervalSinceDate:a1[5]];
-    v36 = v35;
+    v40 = [v39 scheduleDate];
+    [v40 timeIntervalSinceDate:a1[5]];
+    v42 = v41;
   }
 
   else
   {
-    v36 = -2147483650.0;
+    v42 = -2147483650.0;
   }
 
-  if (v27 > v36)
+  if (v33 > v42)
   {
     objc_storeStrong((a1[4] + 24), v8);
   }

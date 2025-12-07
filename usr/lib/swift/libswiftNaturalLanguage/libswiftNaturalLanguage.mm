@@ -1,20 +1,10 @@
-uint64_t partial apply for thunk for @callee_guaranteed (@unowned _NSRange, @unowned NLTokenizerAttributes, @unowned UnsafeMutablePointer<ObjCBool>) -> ()()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
 uint64_t partial apply for closure #1 in NLTokenizer.enumerateTokens(in:using:)(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = v4[2];
-  v7 = v4[3];
-  v9 = v4[4];
-  v8 = v4[5];
+  v6 = *(v4 + 32);
   result = Range<>.init(_:in:)();
-  if ((v11 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    result = v9(result);
+    result = v6(result);
     if ((result & 1) == 0)
     {
       *a4 = 1;
@@ -24,7 +14,7 @@ uint64_t partial apply for closure #1 in NLTokenizer.enumerateTokens(in:using:)(
   return result;
 }
 
-uint64_t NLTagger.tag(at:unit:scheme:)(uint64_t a1, uint64_t a2, uint64_t a3)
+id NLTagger.tag(at:unit:scheme:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
   v7 = [v4 string];
@@ -47,10 +37,8 @@ uint64_t NLTagger.tag(at:unit:scheme:)(uint64_t a1, uint64_t a2, uint64_t a3)
   *v13 = 0;
   v13[1] = 0;
   v14 = [v4 tagAtIndex:v12 unit:a2 scheme:a3 tokenRange:{v13, v9, v11}];
-  v15 = *v13;
-  v16 = v13[1];
   result = Range<>.init(_:in:)();
-  if (v18)
+  if (v16)
   {
     __break(1u);
   }
@@ -113,7 +101,6 @@ id NLTokenizer.enumerateTokens(in:using:)(uint64_t a1, uint64_t a2, uint64_t a3,
 
 uint64_t sub_232D572B4()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
@@ -192,7 +179,7 @@ void *NLLanguageRecognizer.languageHypotheses(withMaximum:)(uint64_t a1)
 
   v9 = v8 & *(v3 + 64);
   v10 = (v7 + 63) >> 6;
-  v11 = (result + 8);
+  v11 = result + 8;
   if (v9)
   {
     while (1)
@@ -204,7 +191,7 @@ LABEL_10:
       v16 = *(*(v3 + 56) + 8 * v15);
       v17 = *(*(v3 + 48) + 8 * v15);
       result = [v16 doubleValue];
-      *&v11[(v15 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v15;
+      *(v11 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
       *(v5[6] + 8 * v15) = v17;
       *(v5[7] + 8 * v15) = v18;
       v19 = v5[2];
@@ -258,12 +245,12 @@ LABEL_5:
   return result;
 }
 
-void type metadata accessor for NLLanguage(uint64_t a1, unint64_t *a2)
+void type metadata accessor for NLLanguage(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -456,79 +443,67 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
 uint64_t _sSo5NLTagaSYSCSY8rawValue03RawC0QzvgTW_0@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_232D57B34()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
 uint64_t sub_232D57B7C()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
-void *sub_232D57BF8@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *sub_232D57BF8@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *a1;
   result = NLLanguageRecognizer.languageHints.getter();
-  *a2 = result;
+  *a1 = result;
   return result;
 }
 
-void sub_232D57C24(uint64_t *a1, uint64_t *a2)
+uint64_t NLTokenizer.tokenRange(at:)(uint64_t a1)
 {
-  v2 = *a1;
-  v3 = *a2;
-
-  NLLanguageRecognizer.languageHints.setter(v4);
-}
-
-uint64_t NLTokenizer.tokenRange(at:)()
-{
-  v1 = [v0 string];
-  if (v1)
+  v2 = [v1 string];
+  if (v2)
   {
-    v2 = v1;
-    v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v5 = v4;
+    v3 = v2;
+    v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v6 = v5;
   }
 
   else
   {
-    v3 = 0;
-    v5 = 0xE000000000000000;
+    v4 = 0;
+    v6 = 0xE000000000000000;
   }
 
   lazy protocol witness table accessor for type String and conformance String();
-  [v0 tokenRangeAtIndex_];
+  [v1 tokenRangeAtIndex_];
   NSNotFound.getter();
   result = Range<>.init(_:in:)();
-  if (v7)
+  if (v8)
   {
     __break(1u);
   }
 
   else
   {
-    v8 = result;
+    v9 = result;
 
-    return v8;
+    return v9;
   }
 
   return result;
 }
 
-uint64_t NLTokenizer.tokenRange(for:)(uint64_t a1, uint64_t a2)
+uint64_t NLTokenizer.tokenRange(for:)(uint64_t a1, unint64_t a2)
 {
   v3 = v2;
   v6 = [v2 string];
@@ -576,7 +551,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -589,7 +563,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -659,71 +632,66 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v3 & 1;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance NLTag@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance NLTag@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x238393F80](v2);
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = MEMORY[0x238393F80](v3);
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
 uint64_t protocol witness for Hashable.hashValue.getter in conformance NLTag()
 {
-  v1 = *v0;
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x238393FF0](v2);
+  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v1 = MEMORY[0x238393FF0](v0);
 
-  return v3;
+  return v1;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NLTag()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NLTag(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NLTag()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NLTag(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v2 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v2;
+  return v1;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NLTag(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NLTag(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NLTag(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NLTag and conformance NLTag(&lazy protocol witness table cache variable for type NLTag and conformance NLTag, type metadata accessor for NLTag);
-  v3 = lazy protocol witness table accessor for type NLTag and conformance NLTag(&lazy protocol witness table cache variable for type NLTag and conformance NLTag, type metadata accessor for NLTag);
+  v2 = lazy protocol witness table accessor for type NLTag and conformance NLTag(&lazy protocol witness table cache variable for type NLTag and conformance NLTag, type metadata accessor for NLTag, &protocol conformance descriptor for NLTag);
+  v3 = lazy protocol witness table accessor for type NLTag and conformance NLTag(&lazy protocol witness table cache variable for type NLTag and conformance NLTag, type metadata accessor for NLTag, &protocol conformance descriptor for NLTag);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-uint64_t lazy protocol witness table accessor for type NLTag and conformance NLTag(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NLTag and conformance NLTag(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -746,106 +714,104 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance NL
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NLLanguage(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NLTag and conformance NLTag(&lazy protocol witness table cache variable for type NLLanguage and conformance NLLanguage, type metadata accessor for NLLanguage);
-  v3 = lazy protocol witness table accessor for type NLTag and conformance NLTag(&lazy protocol witness table cache variable for type NLLanguage and conformance NLLanguage, type metadata accessor for NLLanguage);
+  v2 = lazy protocol witness table accessor for type NLTag and conformance NLTag(&lazy protocol witness table cache variable for type NLLanguage and conformance NLLanguage, type metadata accessor for NLLanguage, &protocol conformance descriptor for NLLanguage);
+  v3 = lazy protocol witness table accessor for type NLTag and conformance NLTag(&lazy protocol witness table cache variable for type NLLanguage and conformance NLLanguage, type metadata accessor for NLLanguage, &protocol conformance descriptor for NLLanguage);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-uint64_t NLContextualEmbeddingResult.tokenVector(at:)()
+id NLContextualEmbeddingResult.tokenVector(at:)(uint64_t a1)
 {
-  v1 = [v0 string];
+  v2 = [v1 string];
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
   lazy protocol witness table accessor for type String and conformance String();
-  v2 = String.Index.utf16Offset<A>(in:)();
-  v3 = swift_slowAlloc();
-  *v3 = 0;
-  v3[1] = 0;
-  v4 = [v0 tokenVectorAtIndex:v2 tokenRange:v3];
-  if (!v4)
+  v3 = String.Index.utf16Offset<A>(in:)();
+  v4 = swift_slowAlloc();
+  *v4 = 0;
+  v4[1] = 0;
+  v5 = [v1 tokenVectorAtIndex:v3 tokenRange:v4];
+  if (!v5)
   {
 
-    MEMORY[0x238394470](v3, -1, -1);
-    return v4;
+    MEMORY[0x238394470](v4, -1, -1);
+    return v5;
   }
 
   type metadata accessor for NSNumber();
-  v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if (v5 >> 62)
+  if (v6 >> 62)
   {
-    if (v5 < 0)
+    if (v6 < 0)
     {
-      v18 = v5;
+      v17 = v6;
     }
 
     else
     {
-      v18 = v5 & 0xFFFFFFFFFFFFFF8;
+      v17 = v6 & 0xFFFFFFFFFFFFFF8;
     }
 
-    v6 = MEMORY[0x2383940E0](v18);
+    v7 = MEMORY[0x2383940E0](v17);
   }
 
   else
   {
-    v6 = *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v7 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  v4 = MEMORY[0x277D84F90];
-  if (v6)
+  v5 = MEMORY[0x277D84F90];
+  if (v7)
   {
-    v19 = MEMORY[0x277D84F90];
-    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6 & ~(v6 >> 63), 0);
-    if (v6 < 0)
+    v18 = MEMORY[0x277D84F90];
+    result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v7 & ~(v7 >> 63), 0);
+    if (v7 < 0)
     {
       __break(1u);
       goto LABEL_22;
     }
 
-    v8 = 0;
-    v4 = v19;
+    v9 = 0;
+    v5 = v18;
     do
     {
-      if ((v5 & 0xC000000000000001) != 0)
+      if ((v6 & 0xC000000000000001) != 0)
       {
-        v9 = MEMORY[0x238394060](v8, v5);
+        v10 = MEMORY[0x238394060](v9, v6);
       }
 
       else
       {
-        v9 = *(v5 + 8 * v8 + 32);
+        v10 = *(v6 + 8 * v9 + 32);
       }
 
-      v10 = v9;
-      [v9 doubleValue];
-      v12 = v11;
+      v11 = v10;
+      [v10 doubleValue];
+      v13 = v12;
 
-      v14 = v19[2];
-      v13 = v19[3];
-      if (v14 >= v13 >> 1)
+      v15 = v18[2];
+      v14 = v18[3];
+      if (v15 >= v14 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v13 > 1), v14 + 1, 1);
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v14 > 1), v15 + 1, 1);
       }
 
-      ++v8;
-      v19[2] = v14 + 1;
-      v19[v14 + 4] = v12;
+      ++v9;
+      v18[2] = v15 + 1;
+      v18[v15 + 4] = v13;
     }
 
-    while (v6 != v8);
+    while (v7 != v9);
   }
 
-  v15 = *v3;
-  v16 = v3[1];
   result = Range<>.init(_:in:)();
-  if ((v17 & 1) == 0)
+  if ((v16 & 1) == 0)
   {
 
-    MEMORY[0x238394470](v3, -1, -1);
-    return v4;
+    MEMORY[0x238394470](v4, -1, -1);
+    return v5;
   }
 
 LABEL_22:
@@ -895,7 +861,7 @@ uint64_t NLContextualEmbeddingResult.enumerateTokenVectors(in:using:)(uint64_t a
   return result;
 }
 
-uint64_t closure #1 in NLContextualEmbeddingResult.enumerateTokenVectors(in:using:)(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(void, void, void))
+uint64_t closure #1 in NLContextualEmbeddingResult.enumerateTokenVectors(in:using:)(unint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(void, void, void))
 {
   result = Range<>.init(_:in:)();
   if ((v12 & 1) == 0)
@@ -904,7 +870,7 @@ uint64_t closure #1 in NLContextualEmbeddingResult.enumerateTokenVectors(in:usin
     v14 = v11;
     if (a1 >> 62)
     {
-      if (a1 < 0)
+      if ((a1 & 0x8000000000000000) != 0)
       {
         v25 = a1;
       }
@@ -983,28 +949,20 @@ uint64_t closure #1 in NLContextualEmbeddingResult.enumerateTokenVectors(in:usin
 
 uint64_t thunk for @escaping @callee_guaranteed (@guaranteed [NSNumber], @unowned _NSRange, @unowned UnsafeMutablePointer<ObjCBool>) -> ()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = *(a1 + 32);
-  v8 = *(a1 + 40);
+  v8 = *(a1 + 32);
   type metadata accessor for NSNumber();
-  v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v9(v10, a3, a4, a5);
+  v9 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v8(v9, a3, a4, a5);
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
   return result;
 }
 
-uint64_t partial apply for thunk for @callee_guaranteed (@guaranteed [NSNumber], @unowned _NSRange, @unowned UnsafeMutablePointer<ObjCBool>) -> ()()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
   *v3 = result;
@@ -1254,98 +1212,96 @@ id _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySo5NLTag
     return v2;
   }
 
-  v30 = MEMORY[0x277D84F90];
+  v28 = MEMORY[0x277D84F90];
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-  v2 = v30;
+  v2 = v28;
   v4 = a1 + 64;
-  v5 = -1 << *(a1 + 32);
   result = _HashTable.startBucket.getter();
-  v7 = result;
-  v8 = 0;
-  v29 = *(a1 + 36);
-  v27 = v1;
-  while ((v7 & 0x8000000000000000) == 0 && v7 < 1 << *(a1 + 32))
+  v6 = result;
+  v7 = 0;
+  v27 = *(a1 + 36);
+  v25 = v1;
+  while ((v6 & 0x8000000000000000) == 0 && v6 < 1 << *(a1 + 32))
   {
-    v10 = v7 >> 6;
-    if ((*(v4 + 8 * (v7 >> 6)) & (1 << v7)) == 0)
+    v9 = v6 >> 6;
+    if ((*(v4 + 8 * (v6 >> 6)) & (1 << v6)) == 0)
     {
       goto LABEL_22;
     }
 
-    if (v29 != *(a1 + 36))
+    if (v27 != *(a1 + 36))
     {
       goto LABEL_23;
     }
 
-    v11 = *(*(a1 + 48) + 8 * v7);
-    v12 = *(*(a1 + 56) + 8 * v7);
-    v13 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v28 = v14;
-    result = [v12 doubleValue];
-    v17 = *(v30 + 16);
-    v16 = *(v30 + 24);
-    if (v17 >= v16 >> 1)
+    v10 = *(*(a1 + 56) + 8 * v6);
+    v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v26 = v12;
+    result = [v10 doubleValue];
+    v15 = *(v28 + 16);
+    v14 = *(v28 + 24);
+    if (v15 >= v14 >> 1)
     {
-      v26 = v15;
-      result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1);
-      v15 = v26;
+      v24 = v13;
+      result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v14 > 1), v15 + 1, 1);
+      v13 = v24;
     }
 
-    *(v30 + 16) = v17 + 1;
-    v18 = (v30 + 24 * v17);
-    v18[4] = v13;
-    v18[5] = v28;
-    v18[6] = v15;
-    v9 = 1 << *(a1 + 32);
-    if (v7 >= v9)
+    *(v28 + 16) = v15 + 1;
+    v16 = (v28 + 24 * v15);
+    v16[4] = v11;
+    v16[5] = v26;
+    v16[6] = v13;
+    v8 = 1 << *(a1 + 32);
+    if (v6 >= v8)
     {
       goto LABEL_24;
     }
 
     v4 = a1 + 64;
-    v19 = *(a1 + 64 + 8 * v10);
-    if ((v19 & (1 << v7)) == 0)
+    v17 = *(a1 + 64 + 8 * v9);
+    if ((v17 & (1 << v6)) == 0)
     {
       goto LABEL_25;
     }
 
-    if (v29 != *(a1 + 36))
+    if (v27 != *(a1 + 36))
     {
       goto LABEL_26;
     }
 
-    v20 = v19 & (-2 << (v7 & 0x3F));
-    if (v20)
+    v18 = v17 & (-2 << (v6 & 0x3F));
+    if (v18)
     {
-      v9 = __clz(__rbit64(v20)) | v7 & 0x7FFFFFFFFFFFFFC0;
+      v8 = __clz(__rbit64(v18)) | v6 & 0x7FFFFFFFFFFFFFC0;
     }
 
     else
     {
-      v21 = v10 << 6;
-      v22 = v10 + 1;
-      v23 = (a1 + 72 + 8 * v10);
-      while (v22 < (v9 + 63) >> 6)
+      v19 = v9 << 6;
+      v20 = v9 + 1;
+      v21 = (a1 + 72 + 8 * v9);
+      while (v20 < (v8 + 63) >> 6)
       {
-        v25 = *v23++;
-        v24 = v25;
-        v21 += 64;
-        ++v22;
-        if (v25)
+        v23 = *v21++;
+        v22 = v23;
+        v19 += 64;
+        ++v20;
+        if (v23)
         {
-          result = outlined consume of [NLTag : NSNumber].Index._Variant(v7, v29, 0);
-          v9 = __clz(__rbit64(v24)) + v21;
+          result = outlined consume of [NLTag : NSNumber].Index._Variant(v6, v27, 0);
+          v8 = __clz(__rbit64(v22)) + v19;
           goto LABEL_4;
         }
       }
 
-      result = outlined consume of [NLTag : NSNumber].Index._Variant(v7, v29, 0);
+      result = outlined consume of [NLTag : NSNumber].Index._Variant(v6, v27, 0);
     }
 
 LABEL_4:
-    ++v8;
-    v7 = v9;
-    if (v8 == v27)
+    ++v7;
+    v6 = v8;
+    if (v7 == v25)
     {
       return v2;
     }
@@ -1401,7 +1357,7 @@ uint64_t NLTagger.tokenRange(at:unit:)(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t NLTagger.tokenRange(for:unit:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t NLTagger.tokenRange(for:unit:)(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   v4 = v3;
   v8 = [v3 string];
@@ -1461,8 +1417,8 @@ uint64_t NLTagger.tagHypotheses(at:unit:scheme:maximumCount:)(uint64_t a1, uint6
     v13 = 0xE000000000000000;
   }
 
-  v25[0] = v11;
-  v25[1] = v13;
+  v23[0] = v11;
+  v23[1] = v13;
   lazy protocol witness table accessor for type String and conformance String();
   v14 = String.Index.utf16Offset<A>(in:)();
   v15 = swift_slowAlloc();
@@ -1485,15 +1441,13 @@ uint64_t NLTagger.tagHypotheses(at:unit:scheme:maximumCount:)(uint64_t a1, uint6
     v18 = MEMORY[0x277D84F98];
   }
 
-  v25[0] = v18;
+  v23[0] = v18;
 
-  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v19, 1, v25);
+  specialized _NativeDictionary.merge<A>(_:isUnique:uniquingKeysWith:)(v19, 1, v23);
 
-  v20 = v25[0];
-  v21 = *v15;
-  v22 = v15[1];
+  v20 = v23[0];
   Range<>.init(_:in:)();
-  if (v23)
+  if (v21)
   {
     __break(1u);
     result = swift_unexpectedError();
@@ -1573,10 +1527,9 @@ id NLTagger.enumerateTags(in:unit:scheme:options:using:)(uint64_t a1, uint64_t a
 
 void thunk for @escaping @callee_guaranteed (@guaranteed NLTag?, @unowned _NSRange, @unowned UnsafeMutablePointer<ObjCBool>) -> ()(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v10 = *(a1 + 32);
-  v9 = *(a1 + 40);
-  v11 = a2;
-  v10(a2, a3, a4, a5);
+  v9 = *(a1 + 32);
+  v10 = a2;
+  v9(a2, a3, a4, a5);
 }
 
 uint64_t NLTagger.tags(in:unit:scheme:options:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1633,7 +1586,7 @@ uint64_t NLTagger.tags(in:unit:scheme:options:)(uint64_t a1, uint64_t a2, uint64
   return result;
 }
 
-uint64_t closure #1 in NLTagger.tags(in:unit:scheme:options:)(void *a1, uint64_t a2, uint64_t a3, void **a4)
+uint64_t closure #1 in NLTagger.tags(in:unit:scheme:options:)(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v8 = *a4;
   v9 = a1;
@@ -1710,9 +1663,8 @@ LABEL_22:
   if (v10[3] < v16)
   {
     specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v16, v6 & 1);
-    v18 = *a3;
     v11 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
-    if ((v17 & 1) == (v19 & 1))
+    if ((v17 & 1) == (v18 & 1))
     {
       goto LABEL_7;
     }
@@ -1733,15 +1685,15 @@ LABEL_7:
     goto LABEL_11;
   }
 
-  v22 = v11;
+  v21 = v11;
   specialized _NativeDictionary.copy()();
-  v11 = v22;
+  v11 = v21;
   if (v17)
   {
 LABEL_8:
-    v20 = swift_allocError();
+    v19 = swift_allocError();
     swift_willThrow();
-    v21 = v20;
+    v20 = v19;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     if ((swift_dynamicCast() & 1) == 0)
     {
@@ -1753,46 +1705,45 @@ LABEL_8:
   }
 
 LABEL_11:
-  v23 = *a3;
+  v22 = *a3;
   *(*a3 + 8 * (v11 >> 6) + 64) |= 1 << v11;
-  v24 = (v23[6] + 16 * v11);
-  *v24 = v8;
-  v24[1] = v7;
-  *(v23[7] + 8 * v11) = v9;
-  v25 = v23[2];
-  v15 = __OFADD__(v25, 1);
-  v26 = v25 + 1;
+  v23 = (v22[6] + 16 * v11);
+  *v23 = v8;
+  v23[1] = v7;
+  *(v22[7] + 8 * v11) = v9;
+  v24 = v22[2];
+  v15 = __OFADD__(v24, 1);
+  v25 = v24 + 1;
   if (!v15)
   {
-    v23[2] = v26;
+    v22[2] = v25;
     if (v4 != 1)
     {
       v6 = a1 + 9;
-      v27 = 1;
-      while (v27 < a1[2])
+      v26 = 1;
+      while (v26 < a1[2])
       {
         v8 = *(v6 - 2);
         v7 = *(v6 - 1);
         v9 = *v6;
-        v28 = *a3;
+        v27 = *a3;
 
-        v29 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
-        v31 = v28[2];
-        v32 = (v30 & 1) == 0;
-        v15 = __OFADD__(v31, v32);
-        v33 = v31 + v32;
+        v28 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
+        v30 = v27[2];
+        v31 = (v29 & 1) == 0;
+        v15 = __OFADD__(v30, v31);
+        v32 = v30 + v31;
         if (v15)
         {
           goto LABEL_22;
         }
 
-        v17 = v30;
-        if (v28[3] < v33)
+        v17 = v29;
+        if (v27[3] < v32)
         {
-          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v33, 1);
-          v34 = *a3;
-          v29 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
-          if ((v17 & 1) != (v35 & 1))
+          specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v32, 1);
+          v28 = specialized __RawDictionaryStorage.find<A>(_:)(v8, v7);
+          if ((v17 & 1) != (v33 & 1))
           {
             goto LABEL_5;
           }
@@ -1803,24 +1754,24 @@ LABEL_11:
           goto LABEL_8;
         }
 
-        v36 = *a3;
-        *(*a3 + 8 * (v29 >> 6) + 64) |= 1 << v29;
-        v37 = (v36[6] + 16 * v29);
-        *v37 = v8;
-        v37[1] = v7;
-        *(v36[7] + 8 * v29) = v9;
-        v38 = v36[2];
-        v15 = __OFADD__(v38, 1);
-        v39 = v38 + 1;
+        v34 = *a3;
+        *(*a3 + 8 * (v28 >> 6) + 64) |= 1 << v28;
+        v35 = (v34[6] + 16 * v28);
+        *v35 = v8;
+        v35[1] = v7;
+        *(v34[7] + 8 * v28) = v9;
+        v36 = v34[2];
+        v15 = __OFADD__(v36, 1);
+        v37 = v36 + 1;
         if (v15)
         {
           goto LABEL_23;
         }
 
-        ++v27;
-        v36[2] = v39;
+        ++v26;
+        v34[2] = v37;
         v6 += 3;
-        if (v4 == v27)
+        if (v4 == v26)
         {
           goto LABEL_21;
         }
@@ -1847,23 +1798,13 @@ LABEL_25:
   __break(1u);
 }
 
-uint64_t partial apply for thunk for @callee_guaranteed (@guaranteed NLTag?, @unowned _NSRange, @unowned UnsafeMutablePointer<ObjCBool>) -> ()()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
 uint64_t partial apply for closure #1 in NLTagger.enumerateTags(in:unit:scheme:options:using:)(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v7 = v4[2];
-  v8 = v4[3];
-  v10 = v4[4];
-  v9 = v4[5];
+  v7 = *(v4 + 32);
   result = Range<>.init(_:in:)();
-  if ((v13 & 1) == 0)
+  if ((v10 & 1) == 0)
   {
-    result = v10(a1, result, v12);
+    result = v7(a1, result, v9);
     if ((result & 1) == 0)
     {
       *a4 = 1;
@@ -1875,12 +1816,11 @@ uint64_t partial apply for closure #1 in NLTagger.enumerateTags(in:unit:scheme:o
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v6);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v4);
 }
 
 void *specialized _NativeDictionary.copy()()
@@ -1968,145 +1908,138 @@ LABEL_19:
   return result;
 }
 
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
+Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSdGMd, &_ss18_DictionaryStorageCySSSdGMR);
-  v37 = a2;
+  v33 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v36 = v3;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = *(*(v5 + 56) + 8 * v21);
-      if ((v37 & 1) == 0)
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = *(*(v5 + 56) + 8 * v20);
+      if ((v33 & 1) == 0)
       {
-        v26 = v22[1];
       }
 
-      v27 = *(v8 + 40);
       Hasher.init(_seed:)();
       String.hash(into:)();
       result = Hasher._finalize()();
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
       {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
         {
-          v33 = v30 == v32;
-          if (v30 == v32)
+          v30 = v27 == v29;
+          if (v27 == v29)
           {
-            v30 = 0;
+            v27 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
           {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      *(*(v8 + 56) + 8 * v16) = v25;
-      ++*(v8 + 16);
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      *(*(v7 + 56) + 8 * v15) = v24;
+      ++*(v7 + 16);
     }
 
-    v19 = v9;
+    v18 = v8;
     while (1)
     {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
       {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
       }
     }
 
-    if ((v37 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
 
-      v3 = v36;
-      goto LABEL_35;
+      v3 = v2;
+      goto LABEL_33;
     }
 
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
     {
-      bzero((v5 + 64), ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero((v5 + 64), ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v35;
+      *v9 = -1 << v32;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_35:
-  *v3 = v8;
+LABEL_33:
+  *v3 = v7;
   return result;
 }
 
@@ -2141,7 +2074,7 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
 
 void *NLModel.predictedLabelHypotheses(for:maximumCount:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = MEMORY[0x238393F80]();
+  v5 = MEMORY[0x238393F80](a1, a2);
   v6 = [v3 predictedLabelHypothesesForString:v5 maximumCount:a3];
 
   type metadata accessor for NSNumber();
@@ -2161,7 +2094,7 @@ void *NLModel.predictedLabelHypotheses(for:maximumCount:)(uint64_t a1, uint64_t 
 
   v14 = v13 & *(v7 + 64);
   v15 = (v12 + 63) >> 6;
-  v29 = (result + 8);
+  v29 = result + 8;
   v30 = v7;
   if (v14)
   {
@@ -2177,7 +2110,7 @@ LABEL_10:
       v23 = *(*(v30 + 56) + 8 * v19);
 
       result = [v23 doubleValue];
-      *&v29[(v19 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v19;
+      *(v29 + ((v19 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v19;
       v24 = (v9[6] + 16 * v19);
       *v24 = v21;
       v24[1] = v22;
@@ -2387,7 +2320,7 @@ Swift::Double __swiftcall NLEmbedding.distance(between:and:distanceType:)(Swift:
 uint64_t NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v7 = v6;
-  v12 = MEMORY[0x238393F80]();
+  v12 = MEMORY[0x238393F80](a1, a2);
   v13 = swift_allocObject();
   *(v13 + 16) = a5;
   *(v13 + 24) = a6;
@@ -2417,9 +2350,7 @@ uint64_t NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)(ui
 
 uint64_t partial apply for closure #1 in NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v5 = *(v3 + 16);
-  v6 = *(v3 + 24);
-  result = v5();
+  result = (*(v3 + 16))(a1, a2);
   if ((result & 1) == 0)
   {
     *a3 = 1;
@@ -2428,19 +2359,11 @@ uint64_t partial apply for closure #1 in NLEmbedding.enumerateNeighbors(for:maxi
   return result;
 }
 
-uint64_t partial apply for thunk for @callee_guaranteed (@guaranteed String, @unowned Double, @unowned UnsafeMutablePointer<ObjCBool>) -> ()()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
-uint64_t thunk for @escaping @callee_guaranteed (@guaranteed String, @unowned Double, @unowned UnsafeMutablePointer<ObjCBool>) -> ()(uint64_t a1, double a2)
+uint64_t thunk for @escaping @callee_guaranteed (@guaranteed String, @unowned Double, @unowned UnsafeMutablePointer<ObjCBool>) -> ()(uint64_t a1, uint64_t a2, double a3)
 {
   v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
   v5 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v4(v5, a2);
+  v4(v5, a3);
 }
 
 uint64_t NLEmbedding.neighbors(for:maximumCount:distanceType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2448,7 +2371,7 @@ uint64_t NLEmbedding.neighbors(for:maximumCount:distanceType:)(uint64_t a1, uint
   v5 = v4;
   v15 = MEMORY[0x277D84F90];
   v13[2] = &v15;
-  v8 = MEMORY[0x238393F80]();
+  v8 = MEMORY[0x238393F80](a1, a2);
   v9 = swift_allocObject();
   *(v9 + 16) = partial apply for closure #1 in NLEmbedding.neighbors(for:maximumCount:distanceType:);
   *(v9 + 24) = v13;
@@ -2493,7 +2416,6 @@ uint64_t NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)(ui
       v15 = *v14++;
       [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithDouble_];
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v16 = *(aBlock[0] + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -2508,23 +2430,23 @@ uint64_t NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)(ui
   type metadata accessor for NSNumber();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
+  v17 = swift_allocObject();
+  *(v17 + 16) = a4;
+  *(v17 + 24) = a5;
   v18 = swift_allocObject();
-  *(v18 + 16) = a4;
-  *(v18 + 24) = a5;
-  v19 = swift_allocObject();
-  *(v19 + 16) = closure #1 in NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)partial apply;
-  *(v19 + 24) = v18;
+  *(v18 + 16) = closure #1 in NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)partial apply;
+  *(v18 + 24) = v17;
   aBlock[4] = thunk for @callee_guaranteed (@guaranteed String, @unowned Double, @unowned UnsafeMutablePointer<ObjCBool>) -> ()partial apply;
-  aBlock[5] = v19;
+  aBlock[5] = v18;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed String, @unowned Double, @unowned UnsafeMutablePointer<ObjCBool>) -> ();
   aBlock[3] = &block_descriptor_24;
-  v20 = _Block_copy(aBlock);
+  v19 = _Block_copy(aBlock);
 
-  [v6 enumerateNeighborsForVector:isa maximumCount:v10 distanceType:v9 usingBlock:v20];
+  [v6 enumerateNeighborsForVector:isa maximumCount:v10 distanceType:v9 usingBlock:v19];
 
-  _Block_release(v20);
+  _Block_release(v19);
   isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
   if (isEscapingClosureAtFileLocation)
@@ -2538,8 +2460,8 @@ uint64_t NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)(ui
 uint64_t NLEmbedding.neighbors(for:maximumCount:distanceType:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v20 = MEMORY[0x277D84F90];
-  v18[2] = &v20;
+  v19 = MEMORY[0x277D84F90];
+  v17[2] = &v19;
   v7 = *(a1 + 16);
   if (v7)
   {
@@ -2551,7 +2473,6 @@ uint64_t NLEmbedding.neighbors(for:maximumCount:distanceType:)(uint64_t a1, uint
       v10 = *v9++;
       [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithDouble_];
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v11 = *(aBlock[0] + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
@@ -2564,35 +2485,35 @@ uint64_t NLEmbedding.neighbors(for:maximumCount:distanceType:)(uint64_t a1, uint
   type metadata accessor for NSNumber();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
+  v12 = swift_allocObject();
+  *(v12 + 16) = partial apply for closure #1 in NLEmbedding.neighbors(for:maximumCount:distanceType:);
+  *(v12 + 24) = v17;
   v13 = swift_allocObject();
-  *(v13 + 16) = partial apply for closure #1 in NLEmbedding.neighbors(for:maximumCount:distanceType:);
-  *(v13 + 24) = v18;
-  v14 = swift_allocObject();
-  *(v14 + 16) = closure #1 in NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)partial apply;
-  *(v14 + 24) = v13;
+  *(v13 + 16) = closure #1 in NLEmbedding.enumerateNeighbors(for:maximumCount:distanceType:using:)partial apply;
+  *(v13 + 24) = v12;
   aBlock[4] = thunk for @callee_guaranteed (@guaranteed String, @unowned Double, @unowned UnsafeMutablePointer<ObjCBool>) -> ()partial apply;
-  aBlock[5] = v14;
+  aBlock[5] = v13;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed String, @unowned Double, @unowned UnsafeMutablePointer<ObjCBool>) -> ();
   aBlock[3] = &block_descriptor_35;
-  v15 = _Block_copy(aBlock);
+  v14 = _Block_copy(aBlock);
 
-  [v4 enumerateNeighborsForVector:isa maximumCount:a2 distanceType:a3 usingBlock:v15];
+  [v4 enumerateNeighborsForVector:isa maximumCount:a2 distanceType:a3 usingBlock:v14];
 
-  _Block_release(v15);
+  _Block_release(v14);
   isEscapingClosureAtFileLocation = swift_isEscapingClosureAtFileLocation();
 
   if ((isEscapingClosureAtFileLocation & 1) == 0)
   {
-    return v20;
+    return v19;
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t closure #1 in NLEmbedding.neighbors(for:maximumCount:distanceType:)(uint64_t a1, uint64_t a2, void **a3, double a4)
+uint64_t closure #1 in NLEmbedding.neighbors(for:maximumCount:distanceType:)(uint64_t a1, uint64_t a2, uint64_t *a3, double a4)
 {
   v8 = *a3;
 
@@ -2714,12 +2635,12 @@ LABEL_20:
 
 id static NLEmbedding.write(_:language:revision:to:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v50[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSaySo8NSNumberCGGMd, &_ss18_DictionaryStorageCySSSaySo8NSNumberCGGMR);
   v4 = static _DictionaryStorage.copy(original:)();
   v5 = v4;
   v6 = 0;
-  v46 = a1;
+  v44 = a1;
   v9 = *(a1 + 64);
   v8 = a1 + 64;
   v7 = v9;
@@ -2732,10 +2653,10 @@ id static NLEmbedding.write(_:language:revision:to:)(uint64_t a1, uint64_t a2, u
 
   v12 = v11 & v7;
   v13 = (v10 + 63) >> 6;
-  v44 = v4;
-  v45 = v4 + 64;
-  v42 = v8;
-  v43 = v13;
+  v42 = v4;
+  v43 = v4 + 64;
+  v40 = v8;
+  v41 = v13;
   if ((v11 & v7) != 0)
   {
     goto LABEL_4;
@@ -2749,7 +2670,7 @@ LABEL_5:
     if (__OFADD__(v15, 1))
     {
       __break(1u);
-      goto LABEL_23;
+      goto LABEL_22;
     }
 
     if (v6 >= v13)
@@ -2757,7 +2678,7 @@ LABEL_5:
       break;
     }
 
-    v16 = *(v42 + 8 * v6);
+    v16 = *(v40 + 8 * v6);
     ++v15;
     if (v16)
     {
@@ -2766,17 +2687,16 @@ LABEL_5:
       while (2)
       {
         v17 = v14 | (v6 << 6);
-        v18 = (*(v46 + 48) + 16 * v17);
+        v18 = (*(v44 + 48) + 16 * v17);
         v20 = *v18;
         v19 = v18[1];
-        v21 = *(*(v46 + 56) + 8 * v17);
+        v21 = *(*(v44 + 56) + 8 * v17);
         v22 = *(v21 + 16);
         if (v22)
         {
-          v48 = *v18;
-          v49 = v17;
-          v50[0] = MEMORY[0x277D84F90];
-          v47 = v19;
+          v46 = *v18;
+          v47[0] = MEMORY[0x277D84F90];
+          v45 = v19;
 
           specialized ContiguousArray.reserveCapacity(_:)();
           v23 = 32;
@@ -2784,7 +2704,6 @@ LABEL_5:
           {
             [objc_allocWithZone(MEMORY[0x277CCABB0]) initWithDouble_];
             specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-            v24 = *(v50[0] + 2);
             specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
             specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
             specialized ContiguousArray._endMutation()();
@@ -2794,31 +2713,30 @@ LABEL_5:
 
           while (v22);
 
-          v25 = v50[0];
-          v13 = v43;
-          v5 = v44;
-          v17 = v49;
-          v26 = v47;
-          v20 = v48;
+          v24 = v47[0];
+          v13 = v41;
+          v5 = v42;
+          v25 = v45;
+          v20 = v46;
         }
 
         else
         {
 
-          v25 = MEMORY[0x277D84F90];
+          v24 = MEMORY[0x277D84F90];
         }
 
-        *(v45 + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v17;
-        v27 = (v5[6] + 16 * v17);
-        *v27 = v20;
-        v27[1] = v26;
-        *(v5[7] + 8 * v17) = v25;
-        v28 = v5[2];
-        v29 = __OFADD__(v28, 1);
-        v30 = v28 + 1;
-        if (!v29)
+        *(v43 + ((v17 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v17;
+        v26 = (v5[6] + 16 * v17);
+        *v26 = v20;
+        v26[1] = v25;
+        *(v5[7] + 8 * v17) = v24;
+        v27 = v5[2];
+        v28 = __OFADD__(v27, 1);
+        v29 = v27 + 1;
+        if (!v28)
         {
-          v5[2] = v30;
+          v5[2] = v29;
           if (!v12)
           {
             goto LABEL_5;
@@ -2833,7 +2751,7 @@ LABEL_4:
         break;
       }
 
-LABEL_23:
+LABEL_22:
       __break(1u);
     }
   }
@@ -2842,26 +2760,20 @@ LABEL_23:
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo8NSNumberCGMd, &_sSaySo8NSNumberCGMR);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-  URL._bridgeToObjectiveC()(v33);
-  v35 = v34;
-  v50[0] = 0;
-  v36 = [ObjCClassFromMetadata writeEmbeddingForDictionary:isa language:a2 revision:a3 toURL:v34 error:v50];
+  URL._bridgeToObjectiveC()(v32);
+  v34 = v33;
+  v47[0] = 0;
+  v35 = [ObjCClassFromMetadata writeEmbeddingForDictionary:isa language:a2 revision:a3 toURL:v33 error:v47];
 
-  if (v36)
+  if (v35)
   {
-    result = v50[0];
+    return v47[0];
   }
 
-  else
-  {
-    v39 = v50[0];
-    _convertNSErrorToError(_:)();
+  v37 = v47[0];
+  _convertNSErrorToError(_:)();
 
-    result = swift_willThrow();
-  }
-
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
+  return swift_willThrow();
 }
 
 void *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
@@ -3028,7 +2940,7 @@ void *NLLanguageRecognizer.languageHints.getter()
 
   v8 = v7 & *(v2 + 64);
   v9 = (v6 + 63) >> 6;
-  v10 = (result + 8);
+  v10 = result + 8;
   if (v8)
   {
     while (1)
@@ -3040,7 +2952,7 @@ LABEL_10:
       v15 = *(*(v2 + 56) + 8 * v14);
       v16 = *(*(v2 + 48) + 8 * v14);
       result = [v15 doubleValue];
-      *&v10[(v14 >> 3) & 0x1FFFFFFFFFFFFFF8] |= 1 << v14;
+      *(v10 + ((v14 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v14;
       *(v4[6] + 8 * v14) = v16;
       *(v4[7] + 8 * v14) = v17;
       v18 = v4[2];
@@ -3191,13 +3103,10 @@ void (*NLLanguageRecognizer.languageHints.modify(void *a1))(uint64_t *a1, char a
 
 void NLLanguageRecognizer.languageHints.modify(uint64_t *a1, char a2)
 {
-  v2 = *a1;
-  v3 = a1[1];
   if (a2)
   {
-    v4 = *a1;
 
-    NLLanguageRecognizer.languageHints.setter(v5);
+    NLLanguageRecognizer.languageHints.setter(v2);
   }
 
   else

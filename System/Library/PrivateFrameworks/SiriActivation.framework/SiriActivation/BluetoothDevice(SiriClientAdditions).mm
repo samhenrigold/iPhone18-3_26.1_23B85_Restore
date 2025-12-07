@@ -7,37 +7,51 @@
 
 - (BOOL)ac_isEyesFree
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v2 = [self getServiceSetting:1 key:@"BT_KEY_SIRI_EYESFREE_MODE"];
   if ([v2 BOOLValue])
   {
 
-LABEL_4:
-    v4 = 1;
-    goto LABEL_9;
+    return 1;
   }
 
   v3 = AFPreferencesAlwaysEyesFreeEnabled();
 
   if (v3)
   {
-    goto LABEL_4;
+    return 1;
   }
 
-  if (![self isServiceSupported:128] || (v11 = 0, v12[0] = 0, *(v12 + 7) = 0, objc_msgSend(self, "device"), BTDeviceGetAddressString()) || (v10 = 0, *bytes = 0, BTDeviceAddressFromString()) || (v7 = CFDataCreate(0, bytes, 6)) == 0)
+  if (![self isServiceSupported:128])
   {
-    v4 = 0;
+    return 0;
   }
 
-  else
+  v10 = 0;
+  v11[0] = 0;
+  *(v11 + 7) = 0;
+  [self device];
+  if (BTDeviceGetAddressString())
   {
-    v8 = v7;
-    v4 = IAPBluetoothDeviceMode() == 2;
-    CFRelease(v8);
+    return 0;
   }
 
-LABEL_9:
-  v5 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  *bytes = 0;
+  if (BTDeviceAddressFromString())
+  {
+    return 0;
+  }
+
+  v6 = CFDataCreate(0, bytes, 6);
+  if (!v6)
+  {
+    return 0;
+  }
+
+  v7 = v6;
+  v4 = IAPBluetoothDeviceMode() == 2;
+  CFRelease(v7);
   return v4;
 }
 

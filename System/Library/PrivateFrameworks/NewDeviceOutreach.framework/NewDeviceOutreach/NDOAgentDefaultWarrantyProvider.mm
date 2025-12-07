@@ -5,12 +5,14 @@
 - (id)cachedWarrantyVersionForSerialNumber:(id)number;
 - (id)lastUpdatedDateForSerialNumber:(id)number;
 - (id)refreshAllFollowupsWithDeviceInfos:(id)infos;
+- (id)refreshFollowupWithDeviceInfo:(id)info andForcePostFollowup:(BOOL)followup;
 - (id)refreshFollowupWithDeviceInfos:(id)infos;
 - (int)migrationVersion;
 - (void)dismissFollowUpForSerialNumber:(id)number;
 - (void)dismissNotificationForSerialNumber:(id)number;
 - (void)downloadWarrantyForSerialNumber:(id)number sessionID:(id)d params:(id)params completionHandler:(id)handler;
 - (void)migrateLegacyFollowUpIfNeededWithDeviceInfo:(id)info;
+- (void)setMigrationVersion:(int)version;
 @end
 
 @implementation NDOAgentDefaultWarrantyProvider
@@ -61,6 +63,16 @@
   v5 = [v4 refreshALLFollowupsWithDeviceInfos:infosCopy andForcePostFollowup:0];
 
   return v5;
+}
+
+- (id)refreshFollowupWithDeviceInfo:(id)info andForcePostFollowup:(BOOL)followup
+{
+  followupCopy = followup;
+  infoCopy = info;
+  v6 = objc_opt_new();
+  v7 = [v6 refreshFollowupWithDeviceInfo:infoCopy andForcePostFollowup:followupCopy];
+
+  return v7;
 }
 
 - (void)dismissFollowUpForSerialNumber:(id)number
@@ -140,6 +152,14 @@
   intValue = [v3 intValue];
 
   return intValue;
+}
+
+- (void)setMigrationVersion:(int)version
+{
+  v3 = *&version;
+  v5 = +[NSUserDefaults standardUserDefaults];
+  v4 = [NSNumber numberWithInt:v3];
+  [v5 setObject:v4 forKey:@"NDOMigrationVersion"];
 }
 
 - (void)migrateLegacyFollowUpIfNeededWithDeviceInfo:(id)info

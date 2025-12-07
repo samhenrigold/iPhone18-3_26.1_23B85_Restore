@@ -68,7 +68,7 @@
 - (void)_runGoalCompletionsForNewActivitySummary:(id)summary forChangedFields:(unint64_t)fields
 {
   fieldsCopy = fields;
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   previousActivitySummary = self->_previousActivitySummary;
   if (previousActivitySummary)
@@ -142,18 +142,16 @@ LABEL_14:
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
     v11 = self->_previousActivitySummary;
-    v39 = 138412546;
-    v40 = v11;
-    v41 = 2112;
-    v42 = summaryCopy;
-    _os_log_impl(&dword_24B55B000, v10, OS_LOG_TYPE_DEFAULT, "FCGoalCompletionActivitySummaryObserver running for goal completions and previous summary (%@) is either nil, doesn't have the same index as newSummary (%@)", &v39, 0x16u);
+    v38 = 138412546;
+    v39 = v11;
+    v40 = 2112;
+    v41 = summaryCopy;
+    _os_log_impl(&dword_24B55B000, v10, OS_LOG_TYPE_DEFAULT, "FCGoalCompletionActivitySummaryObserver running for goal completions and previous summary (%@) is either nil, doesn't have the same index as newSummary (%@)", &v38, 0x16u);
   }
 
 LABEL_19:
   v37 = self->_previousActivitySummary;
   self->_previousActivitySummary = summaryCopy;
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_runGoalCompletionForMoveWithNewActivitySummary:(id)summary
@@ -171,8 +169,7 @@ LABEL_19:
   v5 = ;
   v6 = FIMoveGoalQuantityForActivitySummary();
   v7 = FIMoveQuantityForActivitySummary();
-  previousActivitySummary = self->_previousActivitySummary;
-  v9 = FIMoveQuantityForActivitySummary();
+  v8 = FIMoveQuantityForActivitySummary();
   if ([(HKActivitySummary *)self->_previousActivitySummary activityMoveMode]== HKActivityMoveModeAppleMoveTime)
   {
     [MEMORY[0x277CCDAB0] minuteUnit];
@@ -182,28 +179,28 @@ LABEL_19:
   {
     [MEMORY[0x277CCDAB0] kilocalorieUnit];
   }
-  v10 = ;
+  v9 = ;
   [v6 doubleValueForUnit:v5];
-  v12 = v11;
+  v11 = v10;
   [v7 doubleValueForUnit:v5];
-  v14 = v13;
-  [v9 doubleValueForUnit:v10];
-  v16 = v15;
+  v13 = v12;
+  [v8 doubleValueForUnit:v9];
+  v15 = v14;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v18 = [WeakRetained runDailyGoalCompletionDetectionForGoalType:1 activitySummaryIndex:objc_msgSend(summaryCopy previousValue:"_activitySummaryIndex") currentValue:objc_msgSend(summaryCopy goalValue:"isPaused") ^ 1 shouldAlert:&__block_literal_global_0 goalMetHandler:{v16, v14, v12}];
+  v17 = [WeakRetained runDailyGoalCompletionDetectionForGoalType:1 activitySummaryIndex:objc_msgSend(summaryCopy previousValue:"_activitySummaryIndex") currentValue:objc_msgSend(summaryCopy goalValue:"isPaused") ^ 1 shouldAlert:&__block_literal_global_0 goalMetHandler:{v15, v13, v11}];
 
-  if (v18)
+  if (v17)
   {
     _HKInitializeLogging();
-    v19 = *MEMORY[0x277CCC290];
+    v18 = *MEMORY[0x277CCC290];
     if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 0;
-      _os_log_impl(&dword_24B55B000, v19, OS_LOG_TYPE_DEFAULT, "Move goal complete!", v21, 2u);
+      *v20 = 0;
+      _os_log_impl(&dword_24B55B000, v18, OS_LOG_TYPE_DEFAULT, "Move goal complete!", v20, 2u);
     }
   }
 
-  return v18;
+  return v17;
 }
 
 - (BOOL)_runGoalCompletionForExerciseWithNewActivitySummary:(id)summary
@@ -297,16 +294,16 @@ LABEL_19:
 
 void __116__FCGoalCompletionActivitySummaryObserver_currentActivitySummaryHelper_didUpdateTodayActivitySummary_changedFields___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = MEMORY[0x277CCC290];
   v3 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_impl(&dword_24B55B000, v3, OS_LOG_TYPE_DEFAULT, "FCGoalCompletionActivitySummaryObserver got today activity summary: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_impl(&dword_24B55B000, v3, OS_LOG_TYPE_DEFAULT, "FCGoalCompletionActivitySummaryObserver got today activity summary: %@", &v7, 0xCu);
   }
 
   v5 = *(a1 + 32);
@@ -321,12 +318,10 @@ void __116__FCGoalCompletionActivitySummaryObserver_currentActivitySummaryHelper
     v6 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_24B55B000, v6, OS_LOG_TYPE_DEFAULT, "FCGoalCompletionActivitySummaryObserver today activity summary is either nil or still loading data", &v8, 2u);
+      LOWORD(v7) = 0;
+      _os_log_impl(&dword_24B55B000, v6, OS_LOG_TYPE_DEFAULT, "FCGoalCompletionActivitySummaryObserver today activity summary is either nil or still loading data", &v7, 2u);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (FCDailyActivityGoalDetectionDelegate)delegate

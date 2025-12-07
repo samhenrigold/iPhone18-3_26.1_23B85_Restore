@@ -344,7 +344,7 @@
 {
   v22 = *MEMORY[0x1E69E9840];
   mapCopy = map;
-  v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(mapCopy, "count")}];
+  v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(mapCopy)];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
@@ -417,7 +417,7 @@ void __93__PLCloudPhotoLibraryManager_getCloudScopedIdentifiersForLocalIdentifie
   v2 = [a1[4] cplLibrary];
   if (v2)
   {
-    v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(a1[5], "count")}];
+    v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(a1[5])];
     WeakRetained = objc_loadWeakRetained(a1[4] + 58);
     v5 = [WeakRetained mainScopeIdentifier];
 
@@ -552,7 +552,7 @@ void __91__PLCloudPhotoLibraryManager_resolveLocalIdentifiersForCloudIdentifiers
   v2 = [a1[4] cplLibrary];
   if (v2)
   {
-    v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(a1[5], "count")}];
+    v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(a1[5])];
     WeakRetained = objc_loadWeakRetained(a1[4] + 58);
     v5 = [WeakRetained mainScopeIdentifier];
 
@@ -1862,7 +1862,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v7 = [v5 count];
+  v7 = objc_msgSend_count(v5);
   v8 = *(a1 + 32);
   if (!v7)
   {
@@ -1970,7 +1970,7 @@ void __87__PLCloudPhotoLibraryManager__unshareBatchOfPendingAssetsSharedToScopeW
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         v21 = *(a1 + 40);
-        v22 = [v16 count];
+        v22 = objc_msgSend_count(v16);
         *buf = 138412546;
         v47 = v21;
         v48 = 1024;
@@ -2066,7 +2066,7 @@ uint64_t __87__PLCloudPhotoLibraryManager__unshareBatchOfPendingAssetsSharedToSc
   return [v2 _runAsyncOnIsolationQueueWithTransaction:v1 block:v4];
 }
 
-uint64_t __87__PLCloudPhotoLibraryManager__unshareBatchOfPendingAssetsSharedToScopeWithTransaction___block_invoke_2_577(uint64_t a1)
+void *__87__PLCloudPhotoLibraryManager__unshareBatchOfPendingAssetsSharedToScopeWithTransaction___block_invoke_2_577(uint64_t a1)
 {
   result = [*(a1 + 32) _canExternallyTransitionToNewLibraryStateIgnoringPause:0];
   if (result)
@@ -2855,7 +2855,7 @@ void __145__PLCloudPhotoLibraryManager_removeParticipantsWithParticipantUUIDs_fr
 {
   v22 = *MEMORY[0x1E69E9840];
   v2 = [PLShareParticipant participantsWithUUIDs:*(a1 + 32) inPhotoLibrary:*(a1 + 40)];
-  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(*(a1 + 32))];
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
@@ -3744,7 +3744,6 @@ uint64_t __67__PLCloudPhotoLibraryManager__setToDownloadCountsForImages_videos__
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v4 = [defaultManager enumeratorAtPath:incomingDirectoryPath];
   v5 = 0;
-  v6 = *MEMORY[0x1E69C00B0];
   while (1)
   {
     nextObject = [v4 nextObject];
@@ -3755,17 +3754,17 @@ uint64_t __67__PLCloudPhotoLibraryManager__setToDownloadCountsForImages_videos__
     }
 
     pathExtension = [nextObject pathExtension];
-    v9 = [pathExtension isEqualToString:v6];
+    isEqualToString = objc_msgSend_isEqualToString_(pathExtension);
 
     v5 = nextObject;
-    v10 = nextObject;
-    if (v9)
+    v9 = nextObject;
+    if (isEqualToString)
     {
       goto LABEL_6;
     }
   }
 
-  v10 = 0;
+  v9 = 0;
 LABEL_6:
 
   return nextObject != 0;
@@ -4164,7 +4163,7 @@ uint64_t __66__PLCloudPhotoLibraryManager_endUserSessionWithCompletionHandler___
   result = self->_uploadTracker;
   if (result)
   {
-    return [($3CC19D079FD0B010EE84973AA846B91B *)result currentTransferProgress];
+    return objc_msgSend_currentTransferProgress(result, a3);
   }
 
   return result;
@@ -4245,16 +4244,16 @@ void __73__PLCloudPhotoLibraryManager__inq_numberOfOtherItemsToDownloadInLibrary
   v9 = a2;
   v5 = a3;
   v6 = [*MEMORY[0x1E6982EE8] identifier];
-  if ([v9 isEqualToString:v6])
+  if (objc_msgSend_isEqualToString_(v9))
   {
   }
 
   else
   {
     v7 = [*MEMORY[0x1E6982E30] identifier];
-    v8 = [v9 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-    if ((v8 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       *(*(*(a1 + 32) + 8) + 24) += [v5 unsignedIntegerValue];
     }
@@ -4379,7 +4378,7 @@ void __69__PLCloudPhotoLibraryManager__inq_numberOfVideosToDownloadInLibrary___b
   }
 }
 
-uint64_t __69__PLCloudPhotoLibraryManager__inq_numberOfVideosToDownloadInLibrary___block_invoke_2(uint64_t a1)
+void *__69__PLCloudPhotoLibraryManager__inq_numberOfVideosToDownloadInLibrary___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) numberOfCPLSupportedAssetsOfKind:1 includingTrashedSinceDate:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -4471,7 +4470,7 @@ void __69__PLCloudPhotoLibraryManager__inq_numberOfPhotosToDownloadInLibrary___b
   }
 }
 
-uint64_t __69__PLCloudPhotoLibraryManager__inq_numberOfPhotosToDownloadInLibrary___block_invoke_2(uint64_t a1)
+void *__69__PLCloudPhotoLibraryManager__inq_numberOfPhotosToDownloadInLibrary___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) numberOfCPLSupportedAssetsOfKind:0 includingTrashedSinceDate:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -4558,7 +4557,7 @@ void __67__PLCloudPhotoLibraryManager__inq_numberOfVideosToUploadInLibrary___blo
   }
 }
 
-uint64_t __67__PLCloudPhotoLibraryManager__inq_numberOfVideosToUploadInLibrary___block_invoke_2(uint64_t a1)
+void *__67__PLCloudPhotoLibraryManager__inq_numberOfVideosToUploadInLibrary___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) numberOfUnpushedAssetsOfKind:1];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -4645,7 +4644,7 @@ void __67__PLCloudPhotoLibraryManager__inq_numberOfPhotosToUploadInLibrary___blo
   }
 }
 
-uint64_t __67__PLCloudPhotoLibraryManager__inq_numberOfPhotosToUploadInLibrary___block_invoke_2(uint64_t a1)
+void *__67__PLCloudPhotoLibraryManager__inq_numberOfPhotosToUploadInLibrary___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) numberOfUnpushedAssetsOfKind:0];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -6565,7 +6564,7 @@ LABEL_173:
         v66 = v179;
         v79 = [v71 initWithAssetUuid:v73 bundleScope:v78 uti:v172 resourceVersion:0 resourceType:v75 recipeID:v76 originalFilename:v67 customSuffix:v77];
 
-        if (([v70 isEqualToString:v179]& 1) != 0)
+        if (objc_msgSend_isEqualToString_(v70))
         {
           v1 = v180;
           v80 = [*(v180 + 40) pathManager];
@@ -6609,7 +6608,7 @@ LABEL_173:
 LABEL_105:
       v82 = v86;
       v81 = v170;
-      if (([v63 isEqualToString:v66]& 1) != 0)
+      if (objc_msgSend_isEqualToString_(v63))
       {
         v79 = v173;
         [(PLValidatedExternalResource *)v173 persistResourceTypeToFileURL];
@@ -7601,10 +7600,10 @@ LABEL_44:
   lCopy = l;
   handlerCopy = handler;
   v12 = [MEMORY[0x1E69BF360] transaction:"-[PLCloudPhotoLibraryManager libraryManager:providePayloadForComputeStates:inFolderWithURL:completionHandler:]"];
-  v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(statesCopy, "count")}];
-  v14 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:{objc_msgSend(statesCopy, "count")}];
-  v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(statesCopy, "count")}];
-  v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(statesCopy, "count")}];
+  v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(statesCopy)];
+  v14 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:objc_msgSend_count(statesCopy)];
+  v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(statesCopy)];
+  v16 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(statesCopy)];
   v24[0] = MEMORY[0x1E69E9820];
   v24[1] = 3221225472;
   v24[2] = __110__PLCloudPhotoLibraryManager_libraryManager_providePayloadForComputeStates_inFolderWithURL_completionHandler___block_invoke;
@@ -7789,8 +7788,8 @@ uint64_t __110__PLCloudPhotoLibraryManager_libraryManager_providePayloadForCompu
     v5 = v4;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 40) count];
-      v7 = [*(a1 + 48) count];
+      v6 = objc_msgSend_count(*(a1 + 40));
+      v7 = objc_msgSend_count(*(a1 + 48));
       v17 = 134218240;
       v18 = v6;
       v19 = 2048;
@@ -7799,7 +7798,7 @@ uint64_t __110__PLCloudPhotoLibraryManager_libraryManager_providePayloadForCompu
     }
   }
 
-  if ([*(a1 + 56) count] && (*v2 & 1) == 0)
+  if (objc_msgSend_count(*(a1 + 56)) && (*v2 & 1) == 0)
   {
     v8 = *(*(a1 + 32) + 96);
     if (v8 == 2)
@@ -7831,7 +7830,7 @@ uint64_t __110__PLCloudPhotoLibraryManager_libraryManager_providePayloadForCompu
     }
   }
 
-  if ([*(a1 + 64) count] && (*v2 & 1) == 0)
+  if (objc_msgSend_count(*(a1 + 64)) && (*v2 & 1) == 0)
   {
     v12 = *(*(a1 + 32) + 96);
     if (v12 == 2)
@@ -8195,7 +8194,7 @@ LABEL_3:
       v6 = [*(a1 + 32) identity];
       v7 = [v5 fingerPrint];
       v8 = [v6 fingerPrint];
-      if ([v7 isEqualToString:v8])
+      if (objc_msgSend_isEqualToString_(v7))
       {
         [v5 fileUTI];
         v9 = v30 = v2;
@@ -8203,14 +8202,14 @@ LABEL_3:
         v10 = v4;
         v11 = v3;
         v13 = v12 = v6;
-        v14 = [v9 isEqualToString:v13];
+        isEqualToString = objc_msgSend_isEqualToString_(v9);
 
         v6 = v12;
         v3 = v11;
         v4 = v10;
 
         v2 = v30;
-        if (v14)
+        if (isEqualToString)
         {
           if ((*MEMORY[0x1E6994D48] & 1) == 0)
           {
@@ -9023,7 +9022,7 @@ void __81__PLCloudPhotoLibraryManager_libraryManager_pushAllChangesWithCompletio
       [v8 addObject:v9];
     }
 
-    if ([*(*(a1 + 32) + 288) count] == 1)
+    if (objc_msgSend_count(*(*(a1 + 32) + 288)) == 1)
     {
       if ((*MEMORY[0x1E6994D48] & 1) == 0)
       {
@@ -9308,7 +9307,7 @@ void __93__PLCloudPhotoLibraryManager__getStatusChanges_transaction_notification
 void __93__PLCloudPhotoLibraryManager__getStatusChanges_transaction_notificationGeneration_inLibrary___block_invoke_2(uint64_t a1)
 {
   v38 = *MEMORY[0x1E69E9840];
-  if ([*(a1 + 32) count])
+  if (objc_msgSend_count(*(a1 + 32)))
   {
     v29[0] = MEMORY[0x1E69E9820];
     v29[1] = 3221225472;
@@ -9491,7 +9490,7 @@ void __93__PLCloudPhotoLibraryManager__getStatusChanges_transaction_notification
     v4 = v3;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(a1 + 40) count];
+      v5 = objc_msgSend_count(*(a1 + 40));
       v6 = *(a1 + 72);
       *buf = 134218240;
       v126 = v5;
@@ -9878,7 +9877,7 @@ LABEL_58:
   v72 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K > %d", @"localAvailability", 0xFFFFFFFFLL];
   [v56 filterUsingPredicate:v72];
 
-  if ([v56 count] && (*MEMORY[0x1E6994D48] & 1) == 0)
+  if (objc_msgSend_count(v56) && (*MEMORY[0x1E6994D48] & 1) == 0)
   {
     v73 = *(*(a1 + 32) + 96);
     if (v73 == 2)
@@ -9937,7 +9936,7 @@ LABEL_58:
 
 uint64_t __93__PLCloudPhotoLibraryManager__getStatusChanges_transaction_notificationGeneration_inLibrary___block_invoke_517(uint64_t a1)
 {
-  if ([*(a1 + 32) count])
+  if (objc_msgSend_count(*(a1 + 32)))
   {
     v4 = MEMORY[0x1E69E9820];
     v5 = 3221225472;
@@ -10167,7 +10166,7 @@ void __61__PLCloudPhotoLibraryManager_libraryManagerHasStatusChanges___block_inv
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v22 = [purgeableCopy count];
+      v22 = objc_msgSend_count(purgeableCopy);
       _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_DEFAULT, "Marking %lu resources as purgeable", buf, 0xCu);
     }
   }
@@ -10196,7 +10195,7 @@ void __82__PLCloudPhotoLibraryManager__markResourceObjectIDsAsPurgeable_urgency_
   v5 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", *(a1 + 32)];
   [v4 setPredicate:v5];
 
-  if ([*(a1 + 32) count] >= 0x65)
+  if (objc_msgSend_count(*(a1 + 32)) >= 0x65)
   {
     [v4 setFetchBatchSize:100];
   }
@@ -10205,8 +10204,8 @@ void __82__PLCloudPhotoLibraryManager__markResourceObjectIDsAsPurgeable_urgency_
   v24 = 0;
   v7 = [v6 executeFetchRequest:v4 error:&v24];
   v8 = v24;
-  v9 = [v7 count];
-  if (v9 != [*(a1 + 32) count] && (*MEMORY[0x1E6994D48] & 1) == 0)
+  v9 = objc_msgSend_count(v7);
+  if (v9 != objc_msgSend_count(*(a1 + 32)) && (*MEMORY[0x1E6994D48] & 1) == 0)
   {
     v10 = *(*(a1 + 48) + 96);
     if (v10 == 2)
@@ -10231,8 +10230,8 @@ void __82__PLCloudPhotoLibraryManager__markResourceObjectIDsAsPurgeable_urgency_
     v12 = v11;
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = [v7 count];
-      v14 = [*(a1 + 32) count];
+      v13 = objc_msgSend_count(v7);
+      v14 = objc_msgSend_count(*(a1 + 32));
       v15 = *(a1 + 32);
       *buf = 134218498;
       v26 = v13;
@@ -10246,7 +10245,7 @@ void __82__PLCloudPhotoLibraryManager__markResourceObjectIDsAsPurgeable_urgency_
 
   if (v7)
   {
-    v16 = [v7 count];
+    v16 = objc_msgSend_count(v7);
     v17 = *(a1 + 48);
     v18 = [MEMORY[0x1E695DFD8] setWithArray:v7];
     v23[0] = MEMORY[0x1E69E9820];
@@ -10498,7 +10497,7 @@ void __73__PLCloudPhotoLibraryManager__processDownloadBatchWithSession_inLibrary
       }
 
       v28 = [v23 cmmUUIDsToNotify];
-      if ([v28 count])
+      if (objc_msgSend_count(v28))
       {
         v29 = *(a1 + 56);
         v79[0] = MEMORY[0x1E69E9820];
@@ -11175,7 +11174,7 @@ void __73__PLCloudPhotoLibraryManager__processDownloadBatchWithSession_inLibrary
     }
 
     v19 = [*(a1 + 56) confirmedResourceIDs];
-    if ([v19 count])
+    if (objc_msgSend_count(v19))
     {
       [*(a1 + 40) _markResourceObjectIDsAsPurgeable:v19 urgency:1 inLibrary:*(a1 + 64)];
     }
@@ -12675,7 +12674,7 @@ void __99__PLCloudPhotoLibraryManager__processUploadBatchWithStartupFailureCount
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           v13 = [*(a1 + 56) records];
-          v14 = [v13 count];
+          v14 = objc_msgSend_count(v13);
           *buf = 134217984;
           v47 = v14;
           _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_DEFAULT, "uploaded %lu records", buf, 0xCu);
@@ -12996,7 +12995,7 @@ void __130__PLCloudPhotoLibraryManager__handleFinalizeSessionError_commitError_u
       }
 
       v20 = [PLMomentShare momentSharesReferencedInUploadBatchContainer:*(a1 + 56) inPhotoLibrary:*(a1 + 64)];
-      if ([v20 count])
+      if (objc_msgSend_count(v20))
       {
         [*(*(a1 + 32) + 8) recordMomentSharesNeedingForceSync:v20 inLibrary:*(a1 + 64)];
       }
@@ -13004,7 +13003,7 @@ void __130__PLCloudPhotoLibraryManager__handleFinalizeSessionError_commitError_u
       if ([PLManagedAsset isComputeSyncEnabledForDirection:0 library:*(a1 + 64)])
       {
         v21 = [*(a1 + 56) computeSyncRelevantAssetsInBatch];
-        v22 = [v21 count];
+        v22 = objc_msgSend_count(v21);
 
         if (v22)
         {
@@ -13012,7 +13011,7 @@ void __130__PLCloudPhotoLibraryManager__handleFinalizeSessionError_commitError_u
           v24 = [v23 allObjects];
 
           v25 = [PLManagedAsset createSparseComputeStateRecordsForAssets:v24 inPhotoLibrary:*(a1 + 64)];
-          if ([v25 count])
+          if (objc_msgSend_count(v25))
           {
             v46 = v24;
             v47 = v20;
@@ -13075,7 +13074,7 @@ void __130__PLCloudPhotoLibraryManager__handleFinalizeSessionError_commitError_u
               v38 = v36;
               if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
               {
-                v39 = [v27 count];
+                v39 = objc_msgSend_count(v27);
                 *buf = 134218242;
                 v64 = v39;
                 v65 = 2112;
@@ -13217,7 +13216,7 @@ void __130__PLCloudPhotoLibraryManager__handleFinalizeSessionError_commitError_u
         goto LABEL_21;
       }
 
-      v9 = [*(a1 + 40) count];
+      v9 = objc_msgSend_count(*(a1 + 40));
       v10 = *(a1 + 40);
       v16 = 134218498;
       v17 = v9;
@@ -13263,7 +13262,7 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v15 = [*(a1 + 40) count];
+    v15 = objc_msgSend_count(*(a1 + 40));
     v16 = 134217984;
     v17 = v15;
     v11 = "[CCSS] Successfully attached %lu sparse compute state records to cpl library";
@@ -13661,7 +13660,7 @@ void __62__PLCloudPhotoLibraryManager__checkForPushedMastersInLibrary___block_in
           v16 = [*(*(&v21 + 1) + 8 * i) scopedIdentifier];
           [v10 addObject:v16];
 
-          if (__ROR8__(0x8F5C28F5C28F5C29 * [v10 count], 1) <= 0x51EB851EB851EB8uLL)
+          if (__ROR8__(0x8F5C28F5C28F5C29 * objc_msgSend_count(v10), 1) <= 0x51EB851EB851EB8uLL)
           {
             [*(a1 + 40) _fixMasterStatusIn:v10 inLibrary:*(a1 + 48)];
             [v10 removeAllObjects];
@@ -13674,7 +13673,7 @@ void __62__PLCloudPhotoLibraryManager__checkForPushedMastersInLibrary___block_in
       while (v13);
     }
 
-    if ([v10 count])
+    if (objc_msgSend_count(v10))
     {
       [*(a1 + 40) _fixMasterStatusIn:v10 inLibrary:*(a1 + 48)];
       [v10 removeAllObjects];
@@ -13727,7 +13726,7 @@ LABEL_24:
 {
   inCopy = in;
   libraryCopy = library;
-  if ([inCopy count])
+  if (objc_msgSend_count(inCopy))
   {
     v8 = [inCopy copy];
     cplLibrary = [(PLCloudPhotoLibraryManager *)self cplLibrary];
@@ -13782,7 +13781,7 @@ void __59__PLCloudPhotoLibraryManager__fixMasterStatusIn_inLibrary___block_invok
     }
   }
 
-  else if ([v5 count])
+  else if (objc_msgSend_count(v5))
   {
     v9 = *(a1 + 40);
     v13[0] = MEMORY[0x1E69E9820];
@@ -14356,7 +14355,7 @@ void __61__PLCloudPhotoLibraryManager__processRulesEvaluationIfNeeded__block_inv
   v2 = [*(*(a1 + 32) + 40) fetchObjectsNeedingEvaluation];
   v3 = [v2 assetObjectIDs];
   v4 = [v2 detectedFaceObjectIDs];
-  if ([v3 count] || objc_msgSend(v4, "count"))
+  if (objc_msgSend_count(v3) || objc_msgSend_count(v4))
   {
     v5 = *(a1 + 40);
     v8 = MEMORY[0x1E69E9820];
@@ -14382,7 +14381,7 @@ void __61__PLCloudPhotoLibraryManager__processRulesEvaluationIfNeeded__block_inv
   v3 = [PLLibraryScope activeLibraryScopeInManagedObjectContext:v2];
 
   v4 = [[PLLibraryScopeRuleManager alloc] initWithLibraryScope:v3];
-  v5 = [*(a1 + 40) count];
+  v5 = objc_msgSend_count(*(a1 + 40));
   v6 = MEMORY[0x1E6994D48];
   if (v5)
   {
@@ -14411,7 +14410,7 @@ void __61__PLCloudPhotoLibraryManager__processRulesEvaluationIfNeeded__block_inv
       v9 = v8;
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = [*(a1 + 40) count];
+        v10 = objc_msgSend_count(*(a1 + 40));
         v15 = 134217984;
         v16 = v10;
         _os_log_impl(&dword_19BF1F000, v9, OS_LOG_TYPE_DEFAULT, "Rules change tracker: %lu assets need evaluation, sending to library scope rule manager", &v15, 0xCu);
@@ -14421,7 +14420,7 @@ void __61__PLCloudPhotoLibraryManager__processRulesEvaluationIfNeeded__block_inv
     [(PLLibraryScopeRuleManager *)v4 evaluateAssetObjectIDs:*(a1 + 40) withResultEnumerationBlock:0];
   }
 
-  if ([*(a1 + 56) count])
+  if (objc_msgSend_count(*(a1 + 56)))
   {
     if ((*v6 & 1) == 0)
     {
@@ -14448,7 +14447,7 @@ void __61__PLCloudPhotoLibraryManager__processRulesEvaluationIfNeeded__block_inv
       v13 = v12;
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = [*(a1 + 40) count];
+        v14 = objc_msgSend_count(*(a1 + 40));
         v15 = 134217984;
         v16 = v14;
         _os_log_impl(&dword_19BF1F000, v13, OS_LOG_TYPE_DEFAULT, "Rules change tracker: %lu faces need evaluation, sending to library scope rule manager", &v15, 0xCu);
@@ -16140,8 +16139,8 @@ void __71__PLCloudPhotoLibraryManager_fetchResourcesForAsset_completionHandler__
       v6 = v5;
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v8 = 0;
-        _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_ERROR, "CPL Library is not yet enabled", &v8, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_ERROR, "CPL Library is not yet enabled", v8, 2u);
       }
     }
 
@@ -16249,8 +16248,8 @@ void __76__PLCloudPhotoLibraryManager_fetchAdjustmentDataForAsset_completionHand
       v6 = v5;
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v8 = 0;
-        _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_ERROR, "CPL Library is not yet enabled", &v8, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_19BF1F000, v6, OS_LOG_TYPE_ERROR, "CPL Library is not yet enabled", v8, 2u);
       }
     }
 
@@ -16419,7 +16418,7 @@ void __34__PLCloudPhotoLibraryManager_sync__block_invoke(uint64_t a1)
   [(PLCloudPhotoLibraryManager *)self _runAsyncOnIsolationQueueWithTransaction:transaction block:v3];
 }
 
-uint64_t __81__PLCloudPhotoLibraryManager_cloudChangeTrackerDidReceiveChangesWithTransaction___block_invoke(uint64_t a1)
+void *__81__PLCloudPhotoLibraryManager_cloudChangeTrackerDidReceiveChangesWithTransaction___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _canExternallyTransitionToNewLibraryStateIgnoringPause:0];
   if (result)
@@ -16689,9 +16688,9 @@ uint64_t __81__PLCloudPhotoLibraryManager_cloudChangeTrackerDidReceiveChangesWit
 
   if (v11)
   {
-    v24 = [v11 isEqualToString:v23];
-    self->_wasRebuild = v24 ^ 1;
-    if (v24)
+    isEqualToString = objc_msgSend_isEqualToString_(v11);
+    self->_wasRebuild = isEqualToString ^ 1;
+    if (isEqualToString)
     {
       libraryServicesManager2 = [(PLCloudPhotoLibraryManager *)self libraryServicesManager];
       libraryBundle2 = [libraryServicesManager2 libraryBundle];
@@ -16860,7 +16859,7 @@ uint64_t __81__PLCloudPhotoLibraryManager_cloudChangeTrackerDidReceiveChangesWit
     [cplSettings setRunOnceFlag:4 error:0];
   }
 
-  if (([v23 isEqualToString:v11] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(v23) & 1) == 0)
   {
     v45 = MEMORY[0x1E69BF1C0];
     pathManager3 = [(PLCloudPhotoLibraryManager *)self pathManager];
@@ -17800,14 +17799,14 @@ uint64_t __53__PLCloudPhotoLibraryManager__processNextTransaction__block_invoke_
   resourcesCopy = resources;
   handlerCopy = handler;
   cplLibrary = [(PLCloudPhotoLibraryManager *)self cplLibrary];
-  if (safe || ![resourcesCopy count])
+  if (safe || !objc_msgSend_count(resourcesCopy))
   {
-    if (cplLibrary && [resourcesCopy count])
+    if (cplLibrary && objc_msgSend_count(resourcesCopy))
     {
       anyObject = [resourcesCopy anyObject];
       photoLibrary = [anyObject photoLibrary];
 
-      v19 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(resourcesCopy, "count")}];
+      v19 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(resourcesCopy)];
       v29[0] = MEMORY[0x1E69E9820];
       v29[1] = 3221225472;
       v29[2] = __123__PLCloudPhotoLibraryManager__checkAndMarkPurgeableResources_checkIfSafe_checkServerIfNecessary_urgency_completionHandler___block_invoke_3;
@@ -17945,7 +17944,7 @@ void __123__PLCloudPhotoLibraryManager__checkAndMarkPurgeableResources_checkIfSa
   v2 = PLResourceCachingGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) count];
+    v3 = objc_msgSend_count(*(a1 + 32));
     *buf = 134217984;
     v15 = v3;
     _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "%lu resources safe to purge", buf, 0xCu);
@@ -18038,7 +18037,7 @@ void __113__PLCloudPhotoLibraryManager__markPurgeableNextBatchOfResources_urgenc
   }
 
   while (v3);
-  if ([v2 count])
+  if (objc_msgSend_count(v2))
   {
     v6 = *(a1 + 72);
     v13[0] = MEMORY[0x1E69E9820];
@@ -18441,7 +18440,7 @@ void __95__PLCloudPhotoLibraryManager__reconcileSharedStreamCollectionShareParti
     v4 = v3;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(a1 + 48) count];
+      v5 = objc_msgSend_count(*(a1 + 48));
       v6 = 134217984;
       v7 = v5;
       _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "Fixed %lu collection shares missing the current user", &v6, 0xCu);
@@ -18477,7 +18476,7 @@ void __95__PLCloudPhotoLibraryManager__reconcileSharedStreamCollectionShareParti
     v4 = v3;
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(a1 + 40) count];
+      v5 = objc_msgSend_count(*(a1 + 40));
       v6 = 134217984;
       v7 = v5;
       _os_log_impl(&dword_19BF1F000, v4, OS_LOG_TYPE_DEFAULT, "Fixed %lu other collection shares", &v6, 0xCu);
@@ -19694,11 +19693,11 @@ void __58__PLCloudPhotoLibraryManager__handleOptimizeSettingChange__block_invoke
   [v1 _runAsyncOnIsolationQueueWithTransaction:v2 block:v4];
 }
 
-uint64_t __58__PLCloudPhotoLibraryManager__handleOptimizeSettingChange__block_invoke_4(uint64_t result)
+id *__58__PLCloudPhotoLibraryManager__handleOptimizeSettingChange__block_invoke_4(id *result)
 {
-  if (*(result + 48) == *(*(result + 32) + 440))
+  if (result[6] == *(result[4] + 55))
   {
-    return [*(result + 40) clearRunOnceFlag:1 error:0];
+    return [result[5] clearRunOnceFlag:1 error:0];
   }
 
   return result;
@@ -19957,34 +19956,34 @@ LABEL_22:
     }
 
     v20 = [v17 objectForKey:@"type"];
-    if ([v20 isEqualToString:@"soft"])
+    if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 1;
     }
 
-    else if ([v20 isEqualToString:@"hard"])
+    else if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 2;
     }
 
-    else if ([v20 isEqualToString:@"recover"])
+    else if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 3;
     }
 
-    else if ([v20 isEqualToString:@"anchor"])
+    else if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 4;
     }
 
-    else if ([v20 isEqualToString:@"globalAnchor"])
+    else if (objc_msgSend_isEqualToString_(v20))
     {
       v21 = 5;
     }
 
     else
     {
-      if (![v20 isEqualToString:@"wipe"])
+      if (!objc_msgSend_isEqualToString_(v20))
       {
 LABEL_21:
 
@@ -20444,7 +20443,7 @@ LABEL_31:
   _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __62__PLCloudPhotoLibraryManager__callBlocksWaitingForLibraryOpen__block_invoke(uint64_t a1)
+void *__62__PLCloudPhotoLibraryManager__callBlocksWaitingForLibraryOpen__block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 312) copy];
   v3 = *(*(a1 + 40) + 8);
@@ -22632,11 +22631,11 @@ uint64_t __86__PLCloudPhotoLibraryManager_cplHasBackgroundDownloadOperationsWith
   [(PLCloudPhotoLibraryManager *)self _createDeletionRecordsIfNecessary];
 }
 
-uint64_t __76__PLCloudPhotoLibraryManager__runOneTimeMigrationStepsIfNecessaryInLibrary___block_invoke_2(uint64_t result)
+id *__76__PLCloudPhotoLibraryManager__runOneTimeMigrationStepsIfNecessaryInLibrary___block_invoke_2(id *result)
 {
-  if (*(result + 48) == *(*(result + 32) + 440))
+  if (result[6] == *(result[4] + 55))
   {
-    return [*(result + 40) clearRunOnceFlag:1 error:0];
+    return [result[5] clearRunOnceFlag:1 error:0];
   }
 
   return result;
@@ -25150,9 +25149,9 @@ void __61__PLCloudPhotoLibraryManager_initWithLibraryServicesManager___block_inv
   }
 }
 
-uint64_t __61__PLCloudPhotoLibraryManager_initWithLibraryServicesManager___block_invoke_97(uint64_t result)
+void *__61__PLCloudPhotoLibraryManager_initWithLibraryServicesManager___block_invoke_97(void *result)
 {
-  v3 = *(result + 32);
+  v3 = result[4];
   if (!*(v3 + 80))
   {
     v9 = v1;
@@ -25187,11 +25186,11 @@ uint64_t __61__PLCloudPhotoLibraryManager_initWithLibraryServicesManager___block
         _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "Opening CPL library after ready for CPL", v8, 2u);
       }
 
-      v3 = *(v4 + 32);
+      v3 = v4[4];
     }
 
     *(v3 + 80) = 1;
-    return [*(v4 + 32) _openCPLLibrary];
+    return [v4[4] _openCPLLibrary];
   }
 
   return result;

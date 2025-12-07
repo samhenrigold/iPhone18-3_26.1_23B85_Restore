@@ -713,13 +713,13 @@ void __53__SKUIStorePageSection_reloadVisibleCellsWithReason___block_invoke(uint
     else
     {
       targetString = [linkCopy targetString];
-      v12 = [targetString isEqualToString:@"external"];
+      isEqualToString = objc_msgSend_isEqualToString_(targetString);
 
-      if (v12)
+      if (isEqualToString)
       {
-        v13 = SKUIMobileCoreServicesFramework();
-        v14 = [SKUIWeakLinkedClassForString(&cfstr_Lsapplicationw.isa v13)];
-        [(SKUIURL *)v14 openSensitiveURL:v7 withOptions:0];
+        v15 = SKUIMobileCoreServicesFramework(v13, v14);
+        v16 = [SKUIWeakLinkedClassForString(&cfstr_Lsapplicationw.isa v15)];
+        [(SKUIURL *)v16 openSensitiveURL:v7 withOptions:0];
 LABEL_15:
 
 LABEL_16:
@@ -727,15 +727,16 @@ LABEL_16:
       }
     }
 
-    v14 = [[SKUIURL alloc] initWithURL:v7];
-    actionString = [(SKUIURL *)v14 actionString];
+    v16 = [[SKUIURL alloc] initWithURL:v7];
+    actionString = [(SKUIURL *)v16 actionString];
 
     if (actionString)
     {
       mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
       delegate2 = [mEMORY[0x277D75128] delegate];
 
-      if (objc_opt_respondsToSelector())
+      v20 = objc_opt_respondsToSelector();
+      if (v20)
       {
         mEMORY[0x277D75128]2 = [MEMORY[0x277D75128] sharedApplication];
         [delegate2 application:mEMORY[0x277D75128]2 openURL:v7 sourceApplication:0 annotation:MEMORY[0x277CBEC10]];
@@ -743,22 +744,22 @@ LABEL_16:
 
       else
       {
-        v19 = SKUIMobileCoreServicesFramework();
-        mEMORY[0x277D75128]2 = [SKUIWeakLinkedClassForString(&cfstr_Lsapplicationw.isa v19)];
+        v23 = SKUIMobileCoreServicesFramework(v20, v21);
+        mEMORY[0x277D75128]2 = [SKUIWeakLinkedClassForString(&cfstr_Lsapplicationw.isa v23)];
         [mEMORY[0x277D75128]2 openSensitiveURL:v7 withOptions:0];
       }
     }
 
     else
     {
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __41__SKUIStorePageSection_showPageWithLink___block_invoke;
-      v20[3] = &unk_2781FB588;
-      v21 = parentViewController;
-      v22 = linkCopy;
-      v23 = v7;
-      [(SKUIStorePageSection *)self sendXEventWithLink:v22 completionBlock:v20];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __41__SKUIStorePageSection_showPageWithLink___block_invoke;
+      v24[3] = &unk_2781FB588;
+      v25 = parentViewController;
+      v26 = linkCopy;
+      v27 = v7;
+      [(SKUIStorePageSection *)self sendXEventWithLink:v26 completionBlock:v24];
     }
 
     goto LABEL_15;
@@ -867,11 +868,11 @@ void __58__SKUIStorePageSection_showProductViewControllerWithItem___block_invoke
   }
 }
 
-uint64_t __58__SKUIStorePageSection_showProductViewControllerWithItem___block_invoke_2(uint64_t result, char a2)
+id *__58__SKUIStorePageSection_showProductViewControllerWithItem___block_invoke_2(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) dismissViewControllerAnimated:1 completion:0];
+    return [result[4] dismissViewControllerAnimated:1 completion:0];
   }
 
   return result;

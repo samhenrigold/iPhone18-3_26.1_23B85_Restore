@@ -31,22 +31,20 @@
 
 + (id)RequestMetricsRecord
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForRequestMetricsRecord = [self configurationForRequestMetricsRecord];
   v3 = +[BMASRRequestMetricsRecord columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Siri.ASR.RequestMetricsRecord" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Siri.ASR.RequestMetricsRecord" schema:v9 configuration:configurationForRequestMetricsRecord];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -66,48 +64,44 @@
 
 + (id)ContextualReplayRecord
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForContextualReplayRecord = [self configurationForContextualReplayRecord];
   v3 = +[BMASRContextualReplayRecord columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Siri.ASR.ContextualReplayRecord" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Siri.ASR.ContextualReplayRecord" schema:v9 configuration:configurationForContextualReplayRecord];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)configurationForContextualReplayRecord
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   storeConfigurationForContextualReplayRecord = [self storeConfigurationForContextualReplayRecord];
   syncPolicyForContextualReplayRecord = [self syncPolicyForContextualReplayRecord];
   v5 = objc_alloc(MEMORY[0x1E698F330]);
   v6 = [MEMORY[0x1E696AE18] predicateWithFormat:@"donatedBySiri == YES" argumentArray:0];
   v7 = [v5 initWithIdentifier:@"delete-siri-dictation-history" predicate:v6];
-  v18[0] = v7;
+  v17[0] = v7;
   v8 = objc_alloc(MEMORY[0x1E698F330]);
   v9 = [MEMORY[0x1E696AE18] predicateWithFormat:@"donatedBySiri == YES" argumentArray:0];
   v10 = [v8 initWithIdentifier:@"disable-siri" predicate:v9];
-  v18[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
+  v17[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
 
   v12 = MEMORY[0x1E698F338];
   v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"FDD87131-94FB-4643-AAB8-9264039F5F56"];
-  BYTE2(v17) = 0;
-  LOWORD(v17) = 0;
-  v14 = [v12 _libraryStreamConfigurationWithUUID:v13 streamIdentifier:@"Siri.ASR.ContextualReplayRecord" eventClass:objc_opt_class() storeConfig:storeConfigurationForContextualReplayRecord syncPolicy:syncPolicyForContextualReplayRecord legacyNames:0 internalMetadata:0 enableSubscriptions:v17 enableSubscriptionSubstream:0 enableTombstoneSubstream:v11 allowedClients:0 pruningTriggers:v18[0] spaceAttributionOwner:?];
-
-  v15 = *MEMORY[0x1E69E9840];
+  BYTE2(v16) = 0;
+  LOWORD(v16) = 0;
+  v14 = [v12 _libraryStreamConfigurationWithUUID:v13 streamIdentifier:@"Siri.ASR.ContextualReplayRecord" eventClass:objc_opt_class() storeConfig:storeConfigurationForContextualReplayRecord syncPolicy:syncPolicyForContextualReplayRecord legacyNames:0 internalMetadata:0 enableSubscriptions:v16 enableSubscriptionSubstream:0 enableTombstoneSubstream:v11 allowedClients:0 pruningTriggers:v17[0] spaceAttributionOwner:?];
 
   return v14;
 }

@@ -403,7 +403,7 @@ void __67__WFSlotTemplateLayoutManager_drawBackgroundForGlyphRange_atPoint___blo
   [v1 addObject:v2];
 }
 
-void __67__WFSlotTemplateLayoutManager_drawBackgroundForGlyphRange_atPoint___block_invoke_3(uint64_t a1, void *a2, uint64_t a3)
+void __67__WFSlotTemplateLayoutManager_drawBackgroundForGlyphRange_atPoint___block_invoke_3(uint64_t a1, void *a2, _BYTE *a3)
 {
   [a2 wf_CGRectValue];
   v6 = v5;
@@ -432,7 +432,7 @@ void __67__WFSlotTemplateLayoutManager_drawBackgroundForGlyphRange_atPoint___blo
     }
 
 LABEL_9:
-    if ([*(a1 + 40) count] - 1 != a3)
+    if (([*(a1 + 40) count] - 1) != a3)
     {
       goto LABEL_19;
     }
@@ -587,13 +587,13 @@ void __123__WFSlotTemplateLayoutManager_enumerateEnclosingRectsForGlyphRange_ins
   [v19 enumerateEnclosingRectsForGlyphRange:v18.location withinSelectedGlyphRange:v18.length inTextContainer:0x7FFFFFFFFFFFFFFFLL usingBlock:{0, v20, v21}];
 }
 
-uint64_t __123__WFSlotTemplateLayoutManager_enumerateEnclosingRectsForGlyphRange_insetForBackground_standaloneTextAttachment_usingBlock___block_invoke_2(uint64_t result, CGFloat a2, CGFloat a3, double a4, CGFloat a5)
+_BYTE *__123__WFSlotTemplateLayoutManager_enumerateEnclosingRectsForGlyphRange_insetForBackground_standaloneTextAttachment_usingBlock___block_invoke_2(_BYTE *result, CGFloat a2, CGFloat a3, double a4, CGFloat a5)
 {
   if (a4 != 0.0)
   {
     v6 = a4;
     v9 = result;
-    if (*(result + 144) == 1 && *(result + 64) + *(result + 56) > *(result + 80) + *(result + 72))
+    if (result[144] == 1 && *(result + 8) + *(result + 7) > *(result + 10) + *(result + 9))
     {
       if (WFShouldReverseLayoutDirection())
       {
@@ -603,7 +603,7 @@ uint64_t __123__WFSlotTemplateLayoutManager_enumerateEnclosingRectsForGlyphRange
         v23.size.height = a5;
         MaxX = CGRectGetMaxX(v23);
         MinX = CGRectGetMinX(*(v9 + 88));
-        [*(v9 + 32) lineFragmentPadding];
+        [*(v9 + 4) lineFragmentPadding];
         a2 = MinX + v12;
         v6 = MaxX - a2;
       }
@@ -611,14 +611,14 @@ uint64_t __123__WFSlotTemplateLayoutManager_enumerateEnclosingRectsForGlyphRange
       else
       {
         v13 = CGRectGetMaxX(*(v9 + 88)) - a2;
-        [*(v9 + 32) lineFragmentPadding];
+        [*(v9 + 4) lineFragmentPadding];
         v6 = v13 - v14;
       }
     }
 
-    if (*(v9 + 144) == 1)
+    if (v9[144] == 1)
     {
-      result = [*(v9 + 40) slotBackgroundInsetsAtCharIndex:{objc_msgSend(*(v9 + 40), "characterRangeForGlyphRange:actualGlyphRange:", *(v9 + 120), *(v9 + 128), 0)}];
+      result = [*(v9 + 5) slotBackgroundInsetsAtCharIndex:{objc_msgSend(*(v9 + 5), "characterRangeForGlyphRange:actualGlyphRange:", *(v9 + 15), *(v9 + 16), 0)}];
       v15 = v20.n128_f64[0];
       v17 = a2 + v16;
       a3 = a3 + v18;
@@ -628,15 +628,15 @@ uint64_t __123__WFSlotTemplateLayoutManager_enumerateEnclosingRectsForGlyphRange
 
     else
     {
-      [*(v9 + 32) lineFragmentPadding];
+      [*(v9 + 4) lineFragmentPadding];
       v17 = a2 - v21;
-      result = [*(v9 + 32) lineFragmentPadding];
+      result = [*(v9 + 4) lineFragmentPadding];
       v20.n128_f64[0] = v6 + v22 * 2.0;
     }
 
     if (v20.n128_f64[0] != 0.0)
     {
-      return (*(*(v9 + 48) + 16))(v17, a3, v20, a5);
+      return (*(*(v9 + 6) + 16))(v17, a3, v20, a5);
     }
   }
 

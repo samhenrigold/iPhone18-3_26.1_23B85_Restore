@@ -65,8 +65,7 @@ LABEL_21:
   {
     if (dword_1001D41D0 <= 10 && (dword_1001D41D0 != -1 || _LogCategory_Initialize()))
     {
-      activeClients = selfCopy->_activeClients;
-      LogPrintF();
+      LogPrintF(&dword_1001D41D0, "[RPWiFiP2PTransaction invalidateForClient:]", 10, "WiFi P2P transaction invalidate failed because client '%@' is not active, current clients %@\n", clientCopy, selfCopy->_activeClients);
     }
 
     goto LABEL_21;
@@ -75,16 +74,14 @@ LABEL_21:
   [(NSMutableSet *)selfCopy->_activeClients removeObject:clientCopy];
   if (dword_1001D41D0 <= 30 && (dword_1001D41D0 != -1 || _LogCategory_Initialize()))
   {
-    v6 = clientCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001D41D0, "[RPWiFiP2PTransaction invalidateForClient:]", 30, "WiFi P2P transaction invalidate for client '%@'\n", clientCopy);
   }
 
   if ([(NSMutableSet *)selfCopy->_activeClients count])
   {
     if (dword_1001D41D0 <= 30 && (dword_1001D41D0 != -1 || _LogCategory_Initialize()))
     {
-      v7 = selfCopy->_activeClients;
-      LogPrintF();
+      LogPrintF(&dword_1001D41D0, "[RPWiFiP2PTransaction invalidateForClient:]", 30, "WiFi P2P transacton remains active, current clients %@\n", selfCopy->_activeClients);
     }
 
     goto LABEL_21;

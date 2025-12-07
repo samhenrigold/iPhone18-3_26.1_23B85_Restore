@@ -58,16 +58,15 @@
 - (BOOL)displaysAfterAppearance
 {
   v3 = sub_100001DFC(&qword_100034798, &qword_100029618);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v11 - v5;
-  v7 = *((swift_isaMask & self->super.super.super.super.super.isa) + 0xB0);
+  v5 = &v10 - v4;
+  v6 = *((swift_isaMask & self->super.super.super.super.super.isa) + 0xB0);
   selfCopy = self;
-  v7();
+  v6();
 
-  v9 = type metadata accessor for InviteMessageDetails();
-  LOBYTE(selfCopy) = (*(*(v9 - 8) + 48))(v6, 1, v9) != 1;
-  sub_100008800(v6, &qword_100034798, &qword_100029618);
+  v8 = type metadata accessor for InviteMessageDetails(0);
+  LOBYTE(selfCopy) = (*(*(v8 - 8) + 48))(v5, 1, v8) != 1;
+  sub_100008800(v5, &qword_100034798, &qword_100029618);
   return selfCopy;
 }
 

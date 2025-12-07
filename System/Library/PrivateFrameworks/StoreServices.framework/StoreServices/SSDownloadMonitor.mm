@@ -193,9 +193,9 @@ LABEL_6:
     }
   }
 
-  objc_opt_class();
-  v8 = SSXPCDictionaryCopyCFObjectWithClass(reply, "1");
-  v13 = v8;
+  v13 = objc_opt_class();
+  v8 = SSXPCDictionaryCopyCFObjectWithClass(reply, "1", v13);
+  v14 = v8;
   if (error)
   {
 LABEL_7:

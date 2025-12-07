@@ -26,19 +26,19 @@
 
 - (id)toMessagePayload
 {
-  v22[3] = *MEMORY[0x277D85DE8];
-  v21[0] = @"r";
+  v21[3] = *MEMORY[0x277D85DE8];
+  v20[0] = @"r";
   responder = [(HMDPrimaryElectionMeshInformation *)self responder];
   identifier = [responder identifier];
   uUIDString = [identifier UUIDString];
-  v22[0] = uUIDString;
-  v21[1] = @"rip";
+  v21[0] = uUIDString;
+  v20[1] = @"rip";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDPrimaryElectionMeshInformation reachableIPAccessories](self, "reachableIPAccessories")}];
-  v22[1] = v6;
-  v21[2] = @"res";
+  v21[1] = v6;
+  v20[2] = @"res";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDPrimaryElectionMeshInformation residentsInMesh](self, "residentsInMesh")}];
-  v22[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+  v21[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
   v9 = [v8 mutableCopy];
 
   leader = [(HMDPrimaryElectionMeshInformation *)self leader];
@@ -61,9 +61,7 @@
     [v9 setObject:uUIDString3 forKeyedSubscript:@"p"];
   }
 
-  v18 = [v9 copy];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = objc_msgSend_copy(v9);
 
   return v18;
 }
@@ -94,7 +92,7 @@
 
 + (id)meshInformationFromMessagePayload:(id)payload home:(id)home
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   homeCopy = home;
   residentDeviceManager = [homeCopy residentDeviceManager];
@@ -109,7 +107,7 @@
       v12 = findResidentDevice(residentDevices, v11);
       if (!v12)
       {
-        v44 = v11;
+        v43 = v11;
         v13 = objc_autoreleasePoolPush();
         v14 = objc_opt_class();
         v15 = HMFGetOSLogHandle();
@@ -117,15 +115,15 @@
         {
           v16 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v51 = v16;
-          v52 = 2114;
-          v53 = v44;
+          v50 = v16;
+          v51 = 2114;
+          v52 = v43;
           _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Unable to find leader identifier: %{public}@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v13);
         v17 = 0;
-        v11 = v44;
+        v11 = v43;
         goto LABEL_26;
       }
     }
@@ -136,13 +134,13 @@
     }
 
     v22 = [payloadCopy hmf_UUIDForKey:@"p"];
-    v47 = v22;
+    v46 = v22;
     if (v22)
     {
       v22 = findResidentDevice(residentDevices, v22);
       if (!v22)
       {
-        v46 = v11;
+        v45 = v11;
         v33 = homeCopy;
         v34 = objc_autoreleasePoolPush();
         v35 = objc_opt_class();
@@ -150,76 +148,76 @@
         if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v37 = v43 = v12;
+          v37 = v42 = v12;
           *buf = 138543618;
-          v51 = v37;
-          v52 = 2114;
-          v53 = v47;
+          v50 = v37;
+          v51 = 2114;
+          v52 = v46;
           _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_ERROR, "%{public}@Unable to find leader identifier: %{public}@", buf, 0x16u);
 
-          v12 = v43;
+          v12 = v42;
         }
 
         objc_autoreleasePoolPop(v34);
         v17 = 0;
         homeCopy = v33;
-        v11 = v46;
+        v11 = v45;
         goto LABEL_25;
       }
     }
 
-    v41 = v22;
-    v42 = v12;
-    v49 = 0;
-    v23 = [payloadCopy hmf_integerForKey:@"rip" error:&v49];
-    v24 = v49;
+    v40 = v22;
+    v41 = v12;
+    v48 = 0;
+    v23 = [payloadCopy hmf_integerForKey:@"rip" error:&v48];
+    v24 = v48;
     if (v24)
     {
       v25 = v24;
-      v40 = homeCopy;
+      v39 = homeCopy;
       v26 = objc_autoreleasePoolPush();
       v27 = objc_opt_class();
       v28 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v29 = v45 = v11;
+        v29 = v44 = v11;
         *buf = 138543618;
-        v51 = v29;
-        v52 = 2112;
-        v53 = v25;
+        v50 = v29;
+        v51 = 2112;
+        v52 = v25;
         v30 = "%{public}@Unable to find reachable IP accessories: %@";
 LABEL_19:
         _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, v30, buf, 0x16u);
 
-        v11 = v45;
+        v11 = v44;
       }
     }
 
     else
     {
-      v48 = 0;
-      v31 = [payloadCopy hmf_integerForKey:@"res" error:&v48];
-      v32 = v48;
+      v47 = 0;
+      v31 = [payloadCopy hmf_integerForKey:@"res" error:&v47];
+      v32 = v47;
       if (!v32)
       {
-        v17 = [[HMDPrimaryElectionMeshInformation alloc] initWithResponder:v10 leader:v42 primary:v41 reachableIPAccessories:v23 residentsInMesh:v31];
+        v17 = [[HMDPrimaryElectionMeshInformation alloc] initWithResponder:v10 leader:v41 primary:v40 reachableIPAccessories:v23 residentsInMesh:v31];
         goto LABEL_21;
       }
 
       v25 = v32;
-      v40 = homeCopy;
+      v39 = homeCopy;
       v26 = objc_autoreleasePoolPush();
       v27 = objc_opt_class();
       v28 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v29 = v45 = v11;
+        v29 = v44 = v11;
         *buf = 138543618;
-        v51 = v29;
-        v52 = 2112;
-        v53 = v25;
+        v50 = v29;
+        v51 = 2112;
+        v52 = v25;
         v30 = "%{public}@Unable to find residents in mesh: %@";
         goto LABEL_19;
       }
@@ -227,10 +225,10 @@ LABEL_19:
 
     objc_autoreleasePoolPop(v26);
     v17 = 0;
-    homeCopy = v40;
+    homeCopy = v39;
 LABEL_21:
 
-    v12 = v42;
+    v12 = v41;
 LABEL_25:
 
 LABEL_26:
@@ -244,9 +242,9 @@ LABEL_26:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v51 = v21;
-    v52 = 2114;
-    v53 = v9;
+    v50 = v21;
+    v51 = 2114;
+    v52 = v9;
     _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Unable to find responder identifier: %{public}@", buf, 0x16u);
   }
 
@@ -254,14 +252,12 @@ LABEL_26:
   v17 = 0;
 LABEL_27:
 
-  v38 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 + (id)meshInformationWithMeshController:(id)controller home:(id)home
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   homeCopy = home;
   residentDeviceManager = [homeCopy residentDeviceManager];
@@ -282,15 +278,15 @@ LABEL_27:
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v26 = 0x2020000000;
-    v27 = 0;
+    v25 = 0x2020000000;
+    v26 = 0;
     accessories = [homeCopy accessories];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __76__HMDPrimaryElectionMeshInformation_meshInformationWithMeshController_home___block_invoke_1;
-    v24[3] = &unk_278684FE8;
-    v24[4] = &buf;
-    [accessories hmf_enumerateWithAutoreleasePoolUsingBlock:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __76__HMDPrimaryElectionMeshInformation_meshInformationWithMeshController_home___block_invoke_1;
+    v23[3] = &unk_278684FE8;
+    v23[4] = &buf;
+    [accessories hmf_enumerateWithAutoreleasePoolUsingBlock:v23];
 
     meshNodes = [controllerCopy meshNodes];
     v19 = [meshNodes count];
@@ -318,8 +314,6 @@ LABEL_27:
     objc_autoreleasePoolPop(v11);
     v15 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

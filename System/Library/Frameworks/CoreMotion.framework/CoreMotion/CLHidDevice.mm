@@ -84,16 +84,16 @@
       reportCopy2 = report;
       v20 = 2112;
       v21 = v17;
-      v13 = _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C838, 16, "[CLHidManager] setReport: id=0x%lx, failed=%@", &v18, 22);
+      v14 = v13;
       sub_19B6BB7CC("Generic", 1, 0, 0, "[CLHidDevice setReport:payload:length:]", "CoreLocation: %s\n", v13);
-      if (v13 != buf)
+      if (v14 != buf)
       {
-        free(v13);
+        free(v14);
       }
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

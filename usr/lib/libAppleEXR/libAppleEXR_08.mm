@@ -3889,7 +3889,7 @@ unint64_t CompressedInterleave4<unsigned short,(StreamType)0,(StreamType)0,(Stre
           v52 = a11;
           do
           {
-            v50 = (v52 + 32);
+            v50 = v52 + 32;
             vst2q_s16(v52, *v45.i8);
             v53 = v52 + 16;
             vst2q_s16(v53, *v44.i8);
@@ -3911,7 +3911,8 @@ unint64_t CompressedInterleave4<unsigned short,(StreamType)0,(StreamType)0,(Stre
         v55 = v49 | 2;
         while (v55 <= a9)
         {
-          *v50++ = v48;
+          *v50 = v48;
+          v50 += 8;
           v55 = v49 + 4;
           v49 += 2;
         }
@@ -3922,8 +3923,8 @@ unint64_t CompressedInterleave4<unsigned short,(StreamType)0,(StreamType)0,(Stre
         {
           do
           {
-            *v50->i8 = v39;
-            v50 = (v50 + 8);
+            *v50 = v39;
+            v50 += 4;
             --v56;
           }
 

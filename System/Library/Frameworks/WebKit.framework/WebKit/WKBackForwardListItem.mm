@@ -25,7 +25,7 @@
   v3 = objc_opt_class();
   if ((WebCoreObjCScheduleDeallocateOnMainRunLoop(v3, self) & 1) == 0)
   {
-    [(WKBackForwardListItem *)self _protectedItem];
+    objc_msgSend__protectedItem(self);
     (**v6)(v6);
     v4 = v6;
     v6 = 0;
@@ -45,7 +45,7 @@
   v2 = MEMORY[0x1E695DFF8];
   if (self)
   {
-    [(WKBackForwardListItem *)self _protectedItem];
+    objc_msgSend__protectedItem(self, a2);
     v3 = v7;
   }
 
@@ -124,7 +124,7 @@ LABEL_10:
   v2 = MEMORY[0x1E695DFF8];
   if (self)
   {
-    [(WKBackForwardListItem *)self _protectedItem];
+    objc_msgSend__protectedItem(self, a2);
     v3 = v7;
   }
 
@@ -163,7 +163,7 @@ LABEL_10:
 
   v3 = v2 + 1;
   ++*(v2 + 2);
-  WebKit::ViewSnapshot::asImageForTesting(v2, &v6);
+  WebKit::ViewSnapshot::asImageForTesting(&v6, v2);
   v4 = v6;
   WTF::RefCounted<WebKit::ViewSnapshot>::deref(v3);
   return v4;
@@ -172,11 +172,11 @@ LABEL_10:
 - (CGPoint)_scrollPosition
 {
   CFRetain(*&self->_item.m_storage.data[8]);
-  WebKit::WebBackForwardListFrameItem::copyFrameStateWithChildren(self[1].super.isa, &v10);
-  v3 = v10[24];
-  WebKit::WebBackForwardListFrameItem::copyFrameStateWithChildren(self[1].super.isa, &v9);
+  WebKit::WebBackForwardListFrameItem::copyFrameStateWithChildren(&v10, self[1].super.isa);
+  v3 = *(v10 + 24);
+  WebKit::WebBackForwardListFrameItem::copyFrameStateWithChildren(&v9, self[1].super.isa);
   v4 = v9;
-  v5 = v9[25];
+  v5 = *(v9 + 25);
   v9 = 0;
   WTF::RefCounted<WebKit::FrameState>::deref(v4);
   v6 = v10;
@@ -198,7 +198,7 @@ LABEL_10:
 {
   if (self)
   {
-    [(WKBackForwardListItem *)self _protectedItem];
+    objc_msgSend__protectedItem(self, a2);
     self = v4;
   }
 

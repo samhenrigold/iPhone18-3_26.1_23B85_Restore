@@ -15,7 +15,7 @@
   {
     if (!categoriesCopy)
     {
-      v6 = sub_100003824();
+      v6 = sub_100003824(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_10003487C(v6);
@@ -45,7 +45,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v6 = sub_100003824();
+  v6 = sub_100003824(categoriesCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_1000347F8(v6);
@@ -75,26 +75,26 @@ LABEL_13:
   responseCopy = response;
   selfCopy = self;
   handlerCopy = handler;
-  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
   responseHandlers = [(HTUserNotificationHelper *)self responseHandlers];
-  v9 = [responseHandlers countByEnumeratingWithState:&v30 objects:v38 count:16];
+  v9 = [responseHandlers countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v32;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v31 != v11)
+      if (*v32 != v11)
       {
         objc_enumerationMutation(responseHandlers);
       }
 
-      v13 = *(*(&v30 + 1) + 8 * v12);
+      v13 = *(*(&v31 + 1) + 8 * v12);
       notification = [responseCopy notification];
       request = [notification request];
       identifier = [request identifier];
@@ -107,7 +107,7 @@ LABEL_3:
 
       if (v10 == ++v12)
       {
-        v10 = [responseHandlers countByEnumeratingWithState:&v30 objects:v38 count:16];
+        v10 = [responseHandlers countByEnumeratingWithState:&v31 objects:v39 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -118,28 +118,28 @@ LABEL_3:
     }
 
     responseHandlers2 = [(HTUserNotificationHelper *)selfCopy responseHandlers];
-    v19 = [responseHandlers2 objectForKeyedSubscript:v13];
+    v20 = [responseHandlers2 objectForKeyedSubscript:v13];
 
-    if (!v19)
+    if (!v20)
     {
       goto LABEL_14;
     }
 
-    v20 = sub_100003824();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v21 = sub_100003824(v18);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       notification2 = [responseCopy notification];
       request2 = [notification2 request];
       identifier2 = [request2 identifier];
       actionIdentifier = [responseCopy actionIdentifier];
       *buf = 138412546;
-      v35 = identifier2;
-      v36 = 2112;
-      v37 = actionIdentifier;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "ResponseHandler invoked, request %@, action %@", buf, 0x16u);
+      v36 = identifier2;
+      v37 = 2112;
+      v38 = actionIdentifier;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "ResponseHandler invoked, request %@, action %@", buf, 0x16u);
     }
 
-    (*(v19 + 16))(v19, responseCopy);
+    (*(v20 + 16))(v20, responseCopy);
   }
 
   else
@@ -147,15 +147,15 @@ LABEL_3:
 LABEL_9:
 
 LABEL_14:
-    v19 = sub_100003824();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v20 = sub_100003824(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
       notification3 = [responseCopy notification];
       request3 = [notification3 request];
       identifier3 = [request3 identifier];
       *buf = 138412290;
-      v35 = identifier3;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Request identifier %@ using default handler", buf, 0xCu);
+      v36 = identifier3;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Request identifier %@ using default handler", buf, 0xCu);
     }
   }
 

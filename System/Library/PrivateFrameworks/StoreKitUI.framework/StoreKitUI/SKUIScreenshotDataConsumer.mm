@@ -1,6 +1,7 @@
 @interface SKUIScreenshotDataConsumer
 + (id)consumer;
 + (id)consumerWithScreenshotSize:(CGSize)size;
++ (void)consumer;
 - (id)imageForColor:(id)color size:(CGSize)size;
 - (id)imageForImage:(id)image;
 @end
@@ -136,6 +137,30 @@
   v19 = [(SKUIStyledImageDataConsumer *)&v21 imageForImage:imageCopy];
 
   return v19;
+}
+
++ (void)consumer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIScreenshotDataConsumer consumer]";
+}
+
++ (void)consumerWithScreenshotSize:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIScreenshotDataConsumer consumerWithScreenshotSize:]";
+}
+
+- (void)imageForColor:(uint64_t)a3 size:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIScreenshotDataConsumer imageForColor:size:]";
+}
+
+- (void)imageForImage:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIScreenshotDataConsumer imageForImage:]";
 }
 
 @end

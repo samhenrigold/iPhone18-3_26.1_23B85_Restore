@@ -1,4 +1,10 @@
 @interface JavaNetDatagramPacket
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int;
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt withJavaNetInetAddress:(id)address withInt:(int)a7;
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt withJavaNetSocketAddress:(id)address;
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withJavaNetInetAddress:(id)address withInt:(int)withInt;
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withJavaNetSocketAddress:(id)address;
 - (id)getAddress;
 - (id)getData;
 - (id)getSocketAddress;
@@ -15,6 +21,40 @@
 @end
 
 @implementation JavaNetDatagramPacket
+
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int
+{
+  *&self->port_ = 0xFFFFFFFFLL;
+  [(JavaNetDatagramPacket *)self setDataWithByteArray:array withInt:0 withInt:*&int];
+  return self;
+}
+
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  *&self->port_ = 0xFFFFFFFFLL;
+  [(JavaNetDatagramPacket *)self setDataWithByteArray:array withInt:*&int withInt:*&withInt];
+  return self;
+}
+
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt withJavaNetInetAddress:(id)address withInt:(int)a7
+{
+  v7 = *&a7;
+  *&self->port_ = 0xFFFFFFFFLL;
+  [(JavaNetDatagramPacket *)self setDataWithByteArray:array withInt:*&int withInt:*&withInt];
+  [(JavaNetDatagramPacket *)self setPortWithInt:v7];
+  JreStrongAssign(&self->address_, address);
+  return self;
+}
+
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withJavaNetInetAddress:(id)address withInt:(int)withInt
+{
+  v6 = *&withInt;
+  *&self->port_ = 0xFFFFFFFFLL;
+  [(JavaNetDatagramPacket *)self setDataWithByteArray:array withInt:0 withInt:*&int];
+  [(JavaNetDatagramPacket *)self setPortWithInt:v6];
+  JreStrongAssign(&self->address_, address);
+  return self;
+}
 
 - (id)getAddress
 {
@@ -121,8 +161,6 @@ LABEL_11:
     if (data)
     {
 LABEL_8:
-      size = data->super.size_;
-      offset = self->offset_;
       v13 = JreStrcat("$I$I$I", v5, v6, v7, v8, v9, v10, v11, @"length=");
       v14 = new_JavaLangIndexOutOfBoundsException_initWithNSString_(v13);
       objc_exception_throw(v14);
@@ -161,6 +199,22 @@ LABEL_9:
   self->port_ = int;
 
   objc_sync_exit(self);
+}
+
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withJavaNetSocketAddress:(id)address
+{
+  *&self->port_ = 0xFFFFFFFFLL;
+  [(JavaNetDatagramPacket *)self setDataWithByteArray:array withInt:0 withInt:*&int];
+  [(JavaNetDatagramPacket *)self setSocketAddressWithJavaNetSocketAddress:address];
+  return self;
+}
+
+- (JavaNetDatagramPacket)initWithByteArray:(id)array withInt:(int)int withInt:(int)withInt withJavaNetSocketAddress:(id)address
+{
+  *&self->port_ = 0xFFFFFFFFLL;
+  [(JavaNetDatagramPacket *)self setDataWithByteArray:array withInt:*&int withInt:*&withInt];
+  [(JavaNetDatagramPacket *)self setSocketAddressWithJavaNetSocketAddress:address];
+  return self;
 }
 
 - (id)getSocketAddress

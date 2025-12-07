@@ -19,15 +19,14 @@
 
 void __51__HMDAppleAccountSettingsMessageFilter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_173160;
-  logCategory__hmf_once_v5_173160 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_173160;
+  logCategory__hmf_once_v5_173160 = v0;
 }
 
 + (int64_t)filterMessage:(id)message withPolicies:(id)policies error:(id *)error
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   policiesCopy = policies;
   appleAccountSettingsOverride = [objc_opt_class() appleAccountSettingsOverride];
@@ -45,9 +44,9 @@ void __51__HMDAppleAccountSettingsMessageFilter_logCategory__block_invoke()
   v13 = v12;
 
   v14 = MEMORY[0x277CCA9B8];
-  v28 = *MEMORY[0x277CD00D8];
-  v29[0] = &unk_283E737F0;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v27 = *MEMORY[0x277CD00D8];
+  v28[0] = &unk_283E737F0;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   v16 = [v14 hmPrivateErrorWithCode:2041 userInfo:v15];
 
   if ([v13 isManaged])
@@ -58,11 +57,11 @@ void __51__HMDAppleAccountSettingsMessageFilter_logCategory__block_invoke()
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v20;
+      v25 = 138543362;
+      v26 = v20;
       v21 = "%{public}@Rejecting message because primary account is a managed account";
 LABEL_10:
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEFAULT, v21, &v26, 0xCu);
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEFAULT, v21, &v25, 0xCu);
     }
   }
 
@@ -80,8 +79,8 @@ LABEL_10:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v20;
+      v25 = 138543362;
+      v26 = v20;
       v21 = "%{public}@Rejecting message because primary account is multi-user";
       goto LABEL_10;
     }
@@ -97,7 +96,6 @@ LABEL_10:
   v23 = -1;
 LABEL_15:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v23;
 }
 

@@ -1,4 +1,4 @@
-uint64_t SharePlaySettingsLog()
+uint64_t SharePlaySettingsLog(uint64_t a1, uint64_t a2)
 {
   if (qword_118A8[0] != -1)
   {
@@ -8,9 +8,9 @@ uint64_t SharePlaySettingsLog()
   return qword_118A0;
 }
 
-void sub_2184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -57,9 +57,9 @@ void sub_2350(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_2530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -173,14 +173,13 @@ uint64_t SharePlaySettingsBundleController.isStateDrivenNavigationPossible(paren
 {
   v2 = sub_5BA4();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin();
-  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = [a1 traitCollection];
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = [a1 traitCollection];
   sub_5C14();
 
   LOBYTE(a1) = sub_5B84();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   return a1 & 1;
 }
 
@@ -188,25 +187,23 @@ uint64_t SharePlaySettingsBundleController.handleUserDidTapOnMainSpecifier(_:par
 {
   v3 = sub_5BA4();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   __chkstk_darwin();
-  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(*(sub_5C34() - 8) + 64);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_5C34();
   __chkstk_darwin();
-  v9 = sub_5B74();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
+  v7 = sub_5B74();
+  v8 = *(v7 - 8);
   __chkstk_darwin();
-  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_5C24();
   sub_5B64();
-  v14 = [a2 traitCollection];
+  v11 = [a2 traitCollection];
   sub_5C14();
 
   sub_51D8();
   sub_5B94();
-  (*(v4 + 8))(v7, v3);
-  return (*(v10 + 8))(v13, v9);
+  (*(v4 + 8))(v6, v3);
+  return (*(v8 + 8))(v10, v7);
 }
 
 unint64_t sub_51D8()
@@ -236,7 +233,7 @@ unint64_t sub_54F0()
 
 uint64_t sub_5560()
 {
-  v0 = *(*(sub_5B54() - 8) + 64);
+  sub_5B54();
   __chkstk_darwin();
   sub_5C04();
   sub_5BF4();
@@ -287,7 +284,7 @@ id sub_5738()
   v3.super.isa = v2;
   v16._countAndFlagsBits = 0;
   v16._object = 0xE000000000000000;
-  sub_5B14(v14, v15, v3, v16, v13);
+  sub_5B14(v14, v15, v3, v16, 0, v13);
 
   v4 = sub_5BC4();
 
@@ -321,12 +318,11 @@ id sub_5738()
   return v0;
 }
 
-uint64_t sub_5970(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_5970(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -353,7 +349,6 @@ uint64_t sub_5A30(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

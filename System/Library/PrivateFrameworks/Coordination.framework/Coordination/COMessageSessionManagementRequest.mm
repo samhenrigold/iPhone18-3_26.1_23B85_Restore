@@ -53,57 +53,20 @@
 - (COMessageSessionManagementRequest)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v19.receiver = self;
-  v19.super_class = COMessageSessionManagementRequest;
-  v5 = [(COMessageChannelRequest *)&v19 initWithCoder:coderCopy];
-  if (!v5)
+  v18.receiver = self;
+  v18.super_class = COMessageSessionManagementRequest;
+  v5 = [(COMessageChannelRequest *)&v18 initWithCoder:coderCopy];
+  if (v5 && ((v5->_commandType = [coderCopy decodeIntegerForKey:@"requestCommandType"], objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"payload"), v6 = objc_claimAutoreleasedReturnValue(), payload = v5->_payload, v5->_payload = v6, payload, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"payloadType"), v8 = objc_claimAutoreleasedReturnValue(), payloadType = v5->_payloadType, v5->_payloadType = v8, payloadType, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"topic"), v10 = objc_claimAutoreleasedReturnValue(), topic = v5->_topic, v5->_topic = v10, topic, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"subTopic"), v12 = objc_claimAutoreleasedReturnValue(), subTopic = v5->_subTopic, v5->_subTopic = v12, subTopic, objc_msgSend(coderCopy, "decodeObjectOfClass:forKey:", objc_opt_class(), @"remoteError"), v14 = objc_claimAutoreleasedReturnValue(), remoteError = v5->_remoteError, v5->_remoteError = v14, remoteError, v5->_payload) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || v5->_payloadType && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || v5->_remoteError && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0)))
   {
-    goto LABEL_9;
-  }
-
-  v5->_commandType = [coderCopy decodeIntegerForKey:@"requestCommandType"];
-  v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payload"];
-  payload = v5->_payload;
-  v5->_payload = v6;
-
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"payloadType"];
-  payloadType = v5->_payloadType;
-  v5->_payloadType = v8;
-
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"topic"];
-  topic = v5->_topic;
-  v5->_topic = v10;
-
-  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"subTopic"];
-  subTopic = v5->_subTopic;
-  v5->_subTopic = v12;
-
-  v14 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"remoteError"];
-  remoteError = v5->_remoteError;
-  v5->_remoteError = v14;
-
-  if (v5->_payload)
-  {
-    objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  if (v5->_payloadType && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || v5->_remoteError && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v16 = v5->_topic, objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-  {
-LABEL_10:
-    v17 = 0;
+    v16 = 0;
   }
 
   else
   {
-LABEL_9:
-    v17 = v5;
+    v16 = v5;
   }
 
-  return v17;
+  return v16;
 }
 
 - (void)encodeWithCoder:(id)coder

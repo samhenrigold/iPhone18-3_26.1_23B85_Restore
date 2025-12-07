@@ -41,7 +41,7 @@
 - (void)setShareParticipantKeyFetchedBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -72,7 +72,7 @@ LABEL_9:
 
 - (id)shareParticipantKeyFetchedBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -109,7 +109,7 @@ LABEL_9:
 - (void)setShareParticipantKeyCompletionBlock:(id)block
 {
   blockCopy = block;
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, v4, v5))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], v4, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -140,7 +140,7 @@ LABEL_9:
 
 - (id)shareParticipantKeyCompletionBlock
 {
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend__ckRaiseInGeneratedCallbackImplementation(self, a2, v2))
   {
     objc_msgSend_raise_format_(MEMORY[0x1E695DF30], a2, *MEMORY[0x1E695D920], @"Callback check triggered");
   }
@@ -234,46 +234,46 @@ LABEL_9:
 
 - (BOOL)CKOperationShouldRun:(id *)run
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_shareIDs(self, a2, run);
   v8 = objc_msgSend_count(v5, v6, v7);
 
   if (v8)
   {
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v11 = objc_msgSend_shareIDs(self, v9, v10);
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v28, v32, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v27, v31, 16);
     if (v13)
     {
       v16 = v13;
-      v17 = *v29;
+      v17 = *v28;
       while (2)
       {
         v18 = 0;
         do
         {
-          if (*v29 != v17)
+          if (*v28 != v17)
           {
             objc_enumerationMutation(v11);
           }
 
-          v19 = objc_msgSend_zoneID(*(*(&v28 + 1) + 8 * v18), v14, v15);
+          v19 = objc_msgSend_zoneID(*(*(&v27 + 1) + 8 * v18), v14, v15);
           v21 = objc_msgSend_zoneIDHasCorrectDatabaseScope_error_(self, v20, v19, run);
 
           if (!v21)
           {
 
-            goto LABEL_14;
+            return 0;
           }
 
           ++v18;
         }
 
         while (v16 != v18);
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v28, v32, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v27, v31, 16);
         if (v16)
         {
           continue;
@@ -283,9 +283,9 @@ LABEL_9:
       }
     }
 
-    v27.receiver = self;
-    v27.super_class = CKFetchShareParticipantKeyOperation;
-    result = [(CKDatabaseOperation *)&v27 CKOperationShouldRun:run];
+    v26.receiver = self;
+    v26.super_class = CKFetchShareParticipantKeyOperation;
+    return [(CKDatabaseOperation *)&v26 CKOperationShouldRun:run];
   }
 
   else
@@ -297,17 +297,13 @@ LABEL_9:
       *run = objc_msgSend_errorWithDomain_code_format_(CKPrettyError, v25, @"CKErrorDomain", 12, @"No share IDs were passed to %@", v24);
     }
 
-LABEL_14:
-    result = 0;
+    return 0;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)handleParticipantKeyFetchForRecordID:(id)d participantKey:(id)key error:(id)error
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   dCopy = d;
   keyCopy = key;
   v12 = objc_msgSend_CKClientSuitableError(error, v10, v11);
@@ -355,11 +351,11 @@ LABEL_14:
 
       if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
       {
-        v43 = 138412546;
-        v44 = dCopy;
-        v45 = 2112;
-        v46 = v12;
-        _os_signpost_emit_with_name_impl(&dword_1883EA000, v21, OS_SIGNPOST_EVENT, v26, "CKFetchShareParticipantKeyOperation", "Share %@ fetched participant key with error: %@", &v43, 0x16u);
+        v42 = 138412546;
+        v43 = dCopy;
+        v44 = 2112;
+        v45 = v12;
+        _os_signpost_emit_with_name_impl(&dword_1883EA000, v21, OS_SIGNPOST_EVENT, v26, "CKFetchShareParticipantKeyOperation", "Share %@ fetched participant key with error: %@", &v42, 0x16u);
       }
     }
 
@@ -374,35 +370,35 @@ LABEL_14:
   {
     if (self)
     {
-      v34 = self->super.super._signpost;
+      v33 = self->super.super._signpost;
     }
 
     else
     {
-      v34 = 0;
+      v33 = 0;
     }
 
-    v35 = v34;
-    v27 = objc_msgSend_log(v35, v36, v37);
+    v34 = v33;
+    v27 = objc_msgSend_log(v34, v35, v36);
 
     if (self)
     {
-      v38 = self->super.super._signpost;
+      v37 = self->super.super._signpost;
     }
 
     else
     {
-      v38 = 0;
+      v37 = 0;
     }
 
-    v39 = v38;
-    v42 = objc_msgSend_identifier(v39, v40, v41);
+    v38 = v37;
+    v41 = objc_msgSend_identifier(v38, v39, v40);
 
-    if (v42 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
+    if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
-      v43 = 138412290;
-      v44 = dCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v27, OS_SIGNPOST_EVENT, v42, "CKFetchShareParticipantKeyOperation", "Share %@ fetched participant key", &v43, 0xCu);
+      v42 = 138412290;
+      v43 = dCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v27, OS_SIGNPOST_EVENT, v41, "CKFetchShareParticipantKeyOperation", "Share %@ fetched participant key", &v42, 0xCu);
     }
 
     goto LABEL_14;
@@ -416,8 +412,6 @@ LABEL_15:
     v32 = objc_msgSend_shareParticipantKeyFetchedBlock(self, v30, v31);
     (v32)[2](v32, dCopy, keyCopy, v12);
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishOnCallbackQueueWithError:(id)error
@@ -525,7 +519,7 @@ LABEL_15:
 
 - (void)ckSignpostBegin
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   if (self)
   {
     signpost = self->super.super._signpost;
@@ -578,28 +572,26 @@ LABEL_15:
       v36 = CKStringForDiscretionaryNetworkBehavior(v35);
       v39 = objc_msgSend_qualityOfService(self, v37, v38);
       v41 = CKStringForQOS(v39, v40);
-      v43 = 138413570;
-      v44 = v17;
-      v45 = 2112;
-      v46 = v20;
-      v47 = 2112;
-      v48 = v26;
-      v49 = 2114;
-      v50 = v29;
-      v51 = 2114;
-      v52 = v36;
-      v53 = 2114;
-      v54 = v41;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKFetchShareParticipantKeyOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v43, 0x3Eu);
+      v42 = 138413570;
+      v43 = v17;
+      v44 = 2112;
+      v45 = v20;
+      v46 = 2112;
+      v47 = v26;
+      v48 = 2114;
+      v49 = v29;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 2114;
+      v53 = v41;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v14, "CKFetchShareParticipantKeyOperation", "ID=%{signpost.description:attribute}@ Container=%{signpost.description:attribute}@ GroupID=%{signpost.description:attribute}@ GroupName=%{signpost.description:attribute,public}@ Behavior=%{signpost.description:attribute,public}@ QoS=%{signpost.description:attribute,public}@ ", &v42, 0x3Eu);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 - (void)ckSignpostEndWithError:(id)error
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (self)
   {
@@ -643,13 +635,11 @@ LABEL_15:
 
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
-      v18 = 138412290;
-      v19 = errorCopy;
-      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKFetchShareParticipantKeyOperation", "Error=%{signpost.description:attribute}@ ", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = errorCopy;
+      _os_signpost_emit_with_name_impl(&dword_1883EA000, v11, OS_SIGNPOST_INTERVAL_END, v16, "CKFetchShareParticipantKeyOperation", "Error=%{signpost.description:attribute}@ ", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)activityCreate

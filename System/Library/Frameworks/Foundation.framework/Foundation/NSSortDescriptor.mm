@@ -524,13 +524,23 @@ LABEL_8:
   ascending = [(NSSortDescriptor *)self ascending];
   if (ascending == [descriptor ascending] && (v6 = -[NSSortDescriptor reverseNullOrder](self, "reverseNullOrder"), v6 == objc_msgSend(descriptor, "reverseNullOrder")))
   {
-    v12 = [(NSSortDescriptor *)self key];
-    v7 = v12 == [descriptor key] || -[NSString isEqualToString:](-[NSSortDescriptor key](self, "key"), "isEqualToString:", objc_msgSend(descriptor, "key"));
+    v13 = [(NSSortDescriptor *)self key];
+    if (v13 == [descriptor key])
+    {
+      isEqualToString = 1;
+    }
+
+    else
+    {
+      v14 = [(NSSortDescriptor *)self key];
+      [descriptor key];
+      isEqualToString = objc_msgSend_isEqualToString_(v14);
+    }
   }
 
   else
   {
-    v7 = 0;
+    isEqualToString = 0;
   }
 
   sortDescriptorFlags = self->_sortDescriptorFlags;
@@ -547,10 +557,12 @@ LABEL_8:
 
   else
   {
-    v10 = [-[NSSortDescriptor _selectorName](self "_selectorName")];
+    _selectorName = [(NSSortDescriptor *)self _selectorName];
+    [descriptor _selectorName];
+    v10 = objc_msgSend_isEqualToString_(_selectorName);
   }
 
-  return v7 & v10;
+  return isEqualToString & v10;
 }
 
 - (BOOL)isEqual:(id)equal

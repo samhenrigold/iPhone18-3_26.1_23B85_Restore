@@ -58,7 +58,7 @@ LABEL_4:
 LABEL_8:
   sub_19A763A24(v10, v12, v18, v15, context);
 
-  sub_19A5F2B54(v18, &unk_1EAFCD750);
+  sub_19A5F2B54(v18, &unk_1EAFCD750, &unk_19A7B87D0);
 }
 
 - (_TtC10StickerKit13LivePhotoView)initWithCoder:(id)coder

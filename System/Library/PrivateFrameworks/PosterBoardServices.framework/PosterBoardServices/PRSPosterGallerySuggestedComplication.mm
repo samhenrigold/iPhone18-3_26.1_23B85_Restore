@@ -234,17 +234,16 @@ LABEL_38:
 
 - (id)dictionaryRepresentation
 {
-  v15[4] = *MEMORY[0x1E69E9840];
-  widgetFamily = self->_widgetFamily;
-  v4 = NSStringFromWidgetFamily();
-  v5 = NSStringFromSelector(sel_extensionBundleIdentifier);
-  v14[0] = v5;
-  v15[0] = self->_extensionBundleIdentifier;
-  v6 = NSStringFromSelector(sel_kind);
-  v14[1] = v6;
-  v15[1] = self->_kind;
-  v7 = NSStringFromSelector(sel_containerBundleIdentifier);
-  v14[2] = v7;
+  v13[4] = *MEMORY[0x1E69E9840];
+  v3 = NSStringFromWidgetFamily();
+  v4 = NSStringFromSelector(sel_extensionBundleIdentifier);
+  v12[0] = v4;
+  v13[0] = self->_extensionBundleIdentifier;
+  v5 = NSStringFromSelector(sel_kind);
+  v12[1] = v5;
+  v13[1] = self->_kind;
+  v6 = NSStringFromSelector(sel_containerBundleIdentifier);
+  v12[2] = v6;
   containerBundleIdentifier = self->_containerBundleIdentifier;
   null = containerBundleIdentifier;
   if (!containerBundleIdentifier)
@@ -252,19 +251,17 @@ LABEL_38:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null;
-  v10 = NSStringFromSelector(sel_widgetFamily);
-  v14[3] = v10;
-  v15[3] = v4;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v13[2] = null;
+  v9 = NSStringFromSelector(sel_widgetFamily);
+  v12[3] = v9;
+  v13[3] = v3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   if (!containerBundleIdentifier)
   {
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
-  return v11;
+  return v10;
 }
 
 - (BOOL)matchesPersonality:(id)personality

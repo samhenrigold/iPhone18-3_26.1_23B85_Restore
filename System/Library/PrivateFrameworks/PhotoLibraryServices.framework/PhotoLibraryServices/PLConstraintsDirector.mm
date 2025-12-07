@@ -99,7 +99,7 @@ int64_t __63__PLConstraintsDirector_informAssetDeferredProcessingOccurring__bloc
   dispatch_sync(isolationQueue, block);
 }
 
-uint64_t __63__PLConstraintsDirector_informAssetsFinishedDeferredProcessing__block_invoke(uint64_t a1)
+void *__63__PLConstraintsDirector_informAssetsFinishedDeferredProcessing__block_invoke(uint64_t a1)
 {
   *(*(a1 + 32) + 8) = 0;
   *(*(a1 + 32) + 12) = 1;

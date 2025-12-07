@@ -9,7 +9,7 @@
 + (void)writeExperimentUpdateWithRecord:(id)record withExperimentStateIsActive:(BOOL)active withUserId:(id)id
 {
   activeCopy = active;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   idCopy = id;
   experimentDeployment = [recordCopy experimentDeployment];
@@ -21,30 +21,30 @@
   }
 
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   namespaces = [recordCopy namespaces];
-  v13 = [namespaces countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v13 = [namespaces countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v40;
+    v15 = *v39;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v40 != v15)
+        if (*v39 != v15)
         {
           objc_enumerationMutation(namespaces);
         }
 
-        name = [*(*(&v39 + 1) + 8 * i) name];
+        name = [*(*(&v38 + 1) + 8 * i) name];
         [v11 addObject:name];
       }
 
-      v14 = [namespaces countByEnumeratingWithState:&v39 objects:v43 count:16];
+      v14 = [namespaces countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v14);
@@ -66,7 +66,7 @@
   experimentId = [experimentDeployment2 experimentId];
   v23 = recordCopy;
   v24 = MEMORY[0x277CCABB0];
-  v37 = v23;
+  v36 = v23;
   experimentDeployment3 = [v23 experimentDeployment];
   v26 = [v24 numberWithInt:{objc_msgSend(experimentDeployment3, "deploymentId")}];
   stringValue = [v26 stringValue];
@@ -80,8 +80,6 @@
 
   source = [namespaceUpdates source];
   [source sendEvent:v29];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 + (void)clearExperimentUpdatesStream
@@ -97,14 +95,14 @@
 
 + (void)deleteObsoleteEventsFromExperimentsUpdateStream
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   v2 = [objc_alloc(MEMORY[0x277CF1A88]) initWithUseCase:@"NamespaceUpdates"];
   date = [MEMORY[0x277CBEAA8] date];
   v4 = [date dateByAddingTimeInterval:-2592000.0];
 
   [v4 timeIntervalSince1970];
-  v28 = v2;
+  v27 = v2;
   v6 = [v2 executeQuery:{@"SELECT * FROM Trial.Experiment.NamespaceUpdates WHERE experimentStatus=2 AND eventTimestamp < '%f'", v5}];
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([v6 next])
@@ -143,7 +141,7 @@
       error2 = [v6 error];
       localizedDescription = [error2 localizedDescription];
       *buf = 138412290;
-      v35 = localizedDescription;
+      v34 = localizedDescription;
       _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Error querying Obsolete Biome Events: %@", buf, 0xCu);
     }
   }
@@ -154,18 +152,17 @@
   namespaceUpdates = [experiment NamespaceUpdates];
 
   pruner = [namespaceUpdates pruner];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __87__TRIBiomeExperimentUpdateStreamWriter_deleteObsoleteEventsFromExperimentsUpdateStream__block_invoke;
-  v30[3] = &unk_279DE5190;
-  v32 = a2;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __87__TRIBiomeExperimentUpdateStreamWriter_deleteObsoleteEventsFromExperimentsUpdateStream__block_invoke;
+  v29[3] = &unk_279DE5190;
+  v31 = a2;
   selfCopy = self;
-  v31 = v7;
+  v30 = v7;
   v22 = v7;
-  [pruner deleteWithPolicy:@"delete-obsolete-events" eventsPassingTest:v30];
+  [pruner deleteWithPolicy:@"delete-obsolete-events" eventsPassingTest:v29];
 
   objc_autoreleasePoolPop(context);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__TRIBiomeExperimentUpdateStreamWriter_deleteObsoleteEventsFromExperimentsUpdateStream__block_invoke(uint64_t a1, void *a2)

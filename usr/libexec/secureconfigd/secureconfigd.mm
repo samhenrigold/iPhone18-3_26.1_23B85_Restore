@@ -1,51 +1,50 @@
 id sub_1000010A0(void *a1)
 {
-  memset(v12, 0, sizeof(v12));
+  memset(v11, 0, sizeof(v11));
   v1 = a1;
   v2 = ccsha384_di();
-  v3 = (((*(v2 + 8) + *(v2 + 16) + 19) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v5 = &buf[-v4];
+  __chkstk_darwin(v2);
+  v4 = &buf[-v3];
   ccdigest_init();
   [v1 length];
   [v1 bytes];
 
   ccdigest_update();
-  (*(v2 + 56))(v2, v5, v12);
+  (*(v2 + 56))(v2, v4, v11);
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *v2;
+    v5 = *v2;
     *buf = 68157954;
-    LODWORD(v11[0]) = v6;
-    WORD2(v11[0]) = 2096;
-    *(v11 + 6) = v12;
+    LODWORD(v10[0]) = v5;
+    WORD2(v10[0]) = 2096;
+    *(v10 + 6) = v11;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "computed manifest hash: %.*P", buf, 0x12u);
   }
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *v2;
+    v6 = *v2;
     *buf = 134217984;
-    v11[0] = v7;
+    v10[0] = v6;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "expected size %zu", buf, 0xCu);
   }
 
-  v8 = [NSData dataWithBytes:v12 length:*v2];
+  v7 = [NSData dataWithBytes:v11 length:*v2];
 
-  return v8;
+  return v7;
 }
 
-id sub_100001280(void *a1)
+id sub_100001280(void *a1, uint64_t a2)
 {
-  v1 = sub_1000010A0(a1);
-  v2 = v1;
-  if (v1)
+  v2 = sub_1000010A0(a1);
+  v3 = v2;
+  if (v2)
   {
-    v8 = xmmword_100004650;
-    [v1 bytes];
-    [v2 length];
-    v3 = aks_sealed_hashes_set();
-    if (v3 == -31)
+    v9 = xmmword_100004650;
+    [v2 bytes];
+    [v3 length];
+    v4 = aks_sealed_hashes_set();
+    if (v4 == -31)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
@@ -55,8 +54,8 @@ id sub_100001280(void *a1)
 
     else
     {
-      v4 = v3;
-      if (v3 == -28)
+      v5 = v4;
+      if (v4 == -28)
       {
         if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
         {
@@ -66,13 +65,13 @@ id sub_100001280(void *a1)
 
       else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
-        v7[0] = 67109120;
-        v7[1] = v4;
-        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "aks_sealed_hashes_set: %#x", v7, 8u);
+        v8[0] = 67109120;
+        v8[1] = v5;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "aks_sealed_hashes_set: %#x", v8, 8u);
       }
     }
 
-    v5 = v2;
+    v6 = v3;
   }
 
   else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -80,7 +79,7 @@ id sub_100001280(void *a1)
     sub_1000039D8();
   }
 
-  return v2;
+  return v3;
 }
 
 id sub_1000013FC(void *a1)
@@ -90,7 +89,7 @@ id sub_1000013FC(void *a1)
   v6[0] = 0;
   v6[1] = 0;
   memset(v5, 0, sizeof(v5));
-  __chkstk_darwin();
+  __chkstk_darwin(v2);
   [v1 getUUIDBytes:v6];
   if (aks_ref_key_create())
   {
@@ -166,10 +165,10 @@ int main(int argc, const char **argv, const char **envp)
   dispatch_main();
 }
 
-uint64_t sub_10000175C(uint64_t a1, uint64_t a2)
+uint64_t sub_10000175C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_1000018A8(0xAuLL, 0xE100000000000000);
-  if (v3)
+  v7 = sub_1000018A8(0xAuLL, 0xE100000000000000);
+  if (v4)
   {
     type metadata accessor for SCConfig();
     result = swift_deallocPartialClassInstance();
@@ -178,26 +177,26 @@ uint64_t sub_10000175C(uint64_t a1, uint64_t a2)
 
   else
   {
-    v7 = v6;
-    v8 = sub_100001ED0();
-    v10 = v9;
+    v8 = v7;
+    v9 = sub_100001ED0();
+    v11 = v10;
 
-    *&v14 = v8;
-    *(&v14 + 1) = v10;
-    if (*(v7 + 2))
+    *&v15 = v9;
+    *(&v15 + 1) = v11;
+    if (*(v8 + 2))
     {
       Data._Representation.append(contentsOf:)();
     }
 
-    v13[3] = &type metadata for Data;
-    v13[4] = &protocol witness table for Data;
-    v13[0] = a1;
-    v13[1] = a2;
-    v11 = sub_10000202C(v13, &type metadata for Data);
-    sub_100001C88(*v11, v11[1]);
-    sub_100002070(v13);
-    *(v2 + 16) = v14;
-    return v2;
+    v14[3] = &type metadata for Data;
+    v14[4] = &protocol witness table for Data;
+    v14[0] = a1;
+    v14[1] = a2;
+    v12 = sub_10000202C(v14, &type metadata for Data);
+    sub_100001C88(*v12, v12[1], &v15);
+    sub_100002070(v14);
+    *(v3 + 16) = v15;
+    return v3;
   }
 
   return result;
@@ -370,7 +369,7 @@ uint64_t sub_100001B18()
   return _swift_deallocClassInstance(v0, 32, 7);
 }
 
-char *sub_100001B74(char *a1, int64_t a2, char a3)
+char *sub_100001B74(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_100001B94(a1, a2, a3, *v3);
   *v3 = result;
@@ -450,31 +449,31 @@ char *sub_100001B94(char *result, int64_t a2, char a3, char *a4)
   return v10;
 }
 
-uint64_t sub_100001C88(uint64_t a1, unint64_t a2)
+uint64_t sub_100001C88(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v2 = a2 >> 62;
+  v3 = a2 >> 62;
   if ((a2 >> 62) <= 1)
   {
-    if (!v2)
+    if (!v3)
     {
       return Data._Representation.append(contentsOf:)();
     }
 
-    v3 = a1;
-    v4 = a1 >> 32;
+    v4 = a1;
+    v5 = a1 >> 32;
     if (a1 >> 32 < a1)
     {
       __break(1u);
     }
 
-    return sub_100001DC0(v3, v4);
+    return sub_100001DC0(v4, v5);
   }
 
-  if (v2 == 2)
+  if (v3 == 2)
   {
-    v3 = *(a1 + 16);
-    v4 = *(a1 + 24);
-    return sub_100001DC0(v3, v4);
+    v4 = *(a1 + 16);
+    v5 = *(a1 + 24);
+    return sub_100001DC0(v4, v5);
   }
 
   return Data._Representation.append(contentsOf:)();
@@ -498,7 +497,7 @@ uint64_t sub_100001DC0(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100001E54(unsigned __int16 a1, uint64_t a2, uint64_t a3)
+unint64_t sub_100001E54(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -555,13 +554,13 @@ void *sub_100001ED0()
   return v4;
 }
 
-uint64_t sub_100001FD8(uint64_t a1, unint64_t a2)
+uint64_t sub_100001FD8(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -576,15 +575,17 @@ void *sub_10000202C(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t sub_100002070(uint64_t *a1)
+uint64_t sub_100002070(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_1000020BC(uint64_t *a1, uint64_t *a2)
@@ -592,7 +593,6 @@ uint64_t sub_1000020BC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -603,11 +603,11 @@ uint64_t sub_1000020BC(uint64_t *a1, uint64_t *a2)
 id sub_1000021FC()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for SecureConfigXPCDelegate();
+  v2.super_class = type metadata accessor for SecureConfigXPCDelegate(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for SecureConfigXPCDelegate()
+uint64_t type metadata accessor for SecureConfigXPCDelegate(uint64_t a1)
 {
   result = qword_10000C820;
   if (!qword_10000C820)
@@ -618,12 +618,11 @@ uint64_t type metadata accessor for SecureConfigXPCDelegate()
   return result;
 }
 
-uint64_t sub_100002304()
+uint64_t sub_100002304(uint64_t a1, uint64_t a2)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v3 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -663,11 +662,11 @@ uint64_t sub_10000239C(void *a1)
   return 1;
 }
 
-uint64_t sub_100002504()
+uint64_t sub_100002504(uint64_t a1, uint64_t a2)
 {
-  v0 = type metadata accessor for Logger();
-  sub_100003864(v0, qword_10000C890);
-  sub_100003768(v0, qword_10000C890);
+  v2 = type metadata accessor for Logger();
+  sub_100003864(v2, qword_10000C890);
+  sub_100003768(v2, qword_10000C890);
   return Logger.init(subsystem:category:)();
 }
 
@@ -676,11 +675,10 @@ uint64_t sub_100002578()
   v1 = v0;
   v2 = type metadata accessor for UUID();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = (__chkstk_darwin)();
-  v7 = &v27[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v5);
-  v9 = &v27[-v8];
+  v4 = __chkstk_darwin(v2);
+  v6 = &v22[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v4);
+  v8 = &v22[-v7];
   *(v0 + 16) = 0xD000000000000017;
   *(v0 + 24) = 0x8000000100004B10;
   if (qword_10000C6E0 != -1)
@@ -688,42 +686,39 @@ uint64_t sub_100002578()
     swift_once();
   }
 
-  v10 = type metadata accessor for Logger();
-  sub_100003768(v10, qword_10000C890);
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v11, v12))
+  v9 = type metadata accessor for Logger();
+  sub_100003768(v9, qword_10000C890);
+  v10 = Logger.logObject.getter();
+  v11 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v10, v11))
   {
-    v13 = swift_slowAlloc();
-    *v13 = 0;
-    _os_log_impl(&_mh_execute_header, v11, v12, "setting up everything", v13, 2u);
+    v12 = swift_slowAlloc();
+    *v12 = 0;
+    _os_log_impl(&_mh_execute_header, v10, v11, "setting up everything", v12, 2u);
   }
 
-  v14 = *(v1 + 16);
-  v15 = *(v1 + 24);
-  v16 = objc_allocWithZone(NSXPCListener);
+  v13 = objc_allocWithZone(NSXPCListener);
 
-  v17 = String._bridgeToObjectiveC()();
+  v14 = String._bridgeToObjectiveC()();
 
-  v18 = [v16 initWithMachServiceName:v17];
+  v15 = [v13 initWithMachServiceName:v14];
 
-  *(v1 + 40) = v18;
-  v19 = [objc_allocWithZone(type metadata accessor for SecureConfigXPCDelegate()) init];
-  *(v1 + 48) = v19;
-  [*(v1 + 40) setDelegate:v19];
+  *(v1 + 40) = v15;
+  v16 = [objc_allocWithZone(type metadata accessor for SecureConfigXPCDelegate(0)) init];
+  *(v1 + 48) = v16;
+  [*(v1 + 40) setDelegate:v16];
   type metadata accessor for SCDataBase();
-  v20 = SCDataBase.__allocating_init()();
-  v21 = sub_100001694();
-  if (v21)
+  v17 = SCDataBase.__allocating_init()();
+  v18 = sub_100001694();
+  if (v18)
   {
-    v22 = v21;
+    v19 = v18;
     static UUID._unconditionallyBridgeFromObjectiveC(_:)();
 
-    (*(v3 + 32))(v9, v7, v2);
-    v23 = dispatch thunk of SCDataBase.slot(slotID:algorithm:recordType:)();
-    (*(v3 + 8))(v9, v2);
-    *(v1 + 32) = v23;
-    v24 = *(v1 + 48);
+    (*(v3 + 32))(v8, v6, v2);
+    v20 = dispatch thunk of SCDataBase.slot(slotID:algorithm:recordType:)();
+    (*(v3 + 8))(v8, v2);
+    *(v1 + 32) = v20;
     swift_weakAssign();
     [*(v1 + 40) resume];
 
@@ -733,9 +728,8 @@ uint64_t sub_100002578()
   else
   {
     __break(1u);
-    (*(v3 + 8))(v9, v2);
+    (*(v3 + 8))(v8, v2);
     swift_unexpectedError();
-    v26 = *(v1 + 24);
 
     type metadata accessor for SecureConfigDaemon();
     result = swift_deallocPartialClassInstance();
@@ -747,7 +741,6 @@ uint64_t sub_100002578()
 
 uint64_t sub_100002AC8()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocClassInstance(v0, 56, 7);
 }
@@ -768,7 +761,7 @@ _BYTE **sub_100002B88(_BYTE **result, uint64_t a2, uint64_t a3, char a4)
   return result;
 }
 
-uint64_t sub_100002B98(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100002B98(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_100002C64(v11, 0, 0, 1, a1, a2);
@@ -868,11 +861,9 @@ LABEL_8:
 
 char *sub_100002D70(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100002DBC(a1, a2);
+  v3 = sub_100002DBC(a1, a2);
   sub_100002EEC(&off_100008450);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100002DBC(uint64_t a1, unint64_t a2)
@@ -972,7 +963,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -986,15 +976,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_10000304C(result, v12, 1, v3);
+  result = sub_10000304C(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1009,15 +999,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1026,12 +1016,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1145,31 +1135,31 @@ void sub_100003140(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t
   swift_allocObject();
 
   sub_1000038C8(a1, a2);
-  v9 = sub_10000175C(a1, a2);
-  v10 = *(v9 + 16);
-  v11 = *(v9 + 24);
-  sub_1000038C8(v10, v11);
+  v10 = sub_10000175C(a1, a2, a3);
+  v11 = *(v10 + 16);
+  v12 = *(v10 + 24);
+  sub_1000038C8(v11, v12);
   isa = Data._bridgeToObjectiveC()().super.isa;
-  v13 = sub_1000013EC(isa);
+  v14 = sub_1000013EC(isa);
 
-  if (v13)
+  if (v14)
   {
-    v14 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-    v16 = v15;
+    v15 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+    v17 = v16;
 
-    sub_100001FD8(v10, v11);
-    sub_100001FD8(v14, v16);
-    v17 = *(v9 + 16);
-    v18 = *(v9 + 24);
-    v19 = objc_allocWithZone(type metadata accessor for SCEntry());
-    sub_1000038C8(v17, v18);
-    v20 = SCEntry.init(data:metadata:)();
-    v21 = *(a4 + 32);
+    sub_100001FD8(v11, v12);
+    sub_100001FD8(v15, v17);
+    v18 = *(v10 + 16);
+    v19 = *(v10 + 24);
+    v20 = objc_allocWithZone(type metadata accessor for SCEntry());
+    sub_1000038C8(v18, v19);
+    v21 = SCEntry.init(data:metadata:)();
+    v22 = *(a4 + 32);
     dispatch thunk of SCSlot.append(_:)();
 
-    v22 = *(a5 + 16);
+    v23 = *(a5 + 16);
 
-    v22(a5, 0);
+    v23(a5, 0);
   }
 
   else
@@ -1274,26 +1264,23 @@ uint64_t sub_100003808(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_100003864(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
 }
 
-uint64_t sub_1000038C8(uint64_t a1, unint64_t a2)
+uint64_t sub_1000038C8(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }

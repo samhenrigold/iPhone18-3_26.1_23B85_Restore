@@ -45,29 +45,30 @@
 
 - (CUIPSDLayerEffectGradientOverlay)initWithEffectFromPreset:(id)preset atIndex:(unsigned int)index
 {
-  v16.receiver = self;
-  v16.super_class = CUIPSDLayerEffectGradientOverlay;
-  v6 = [(CUIPSDLayerEffectGradientOverlay *)&v16 init];
+  v18.receiver = self;
+  v18.super_class = CUIPSDLayerEffectGradientOverlay;
+  v6 = [(CUIPSDLayerEffectGradientOverlay *)&v18 init];
   indexCopy = index;
   v8 = [preset valueForParameter:2 inEffectAtIndex:index];
-  v9.i32[0] = [preset valueForParameter:0 inEffectAtIndex:indexCopy];
-  v9.i32[1] = v9.i32[0] >> 8;
-  v10 = vdup_n_s32(0x437F0000u);
-  *components = vcvtq_f64_f32(vdiv_f32(vcvt_f32_u32(vand_s8(v9, 0xFF000000FFLL)), v10));
-  v18 = (v9.u8[2] / 255.0);
-  v19 = v8;
-  SRGB = _CUIColorSpaceGetSRGB();
-  v12 = CGColorCreate(SRGB, components);
-  v13.i32[0] = [preset valueForParameter:1 inEffectAtIndex:indexCopy];
-  v13.i32[1] = v13.i32[0] >> 8;
-  *components = vcvtq_f64_f32(vdiv_f32(vcvt_f32_u32(vand_s8(v13, 0xFF000000FFLL)), v10));
-  v18 = (v13.u8[2] / 255.0);
-  v19 = v8;
+  v9 = [preset valueForParameter:0 inEffectAtIndex:indexCopy];
+  v10.i32[0] = v9;
+  v10.i32[1] = v9 >> 8;
+  v11 = vdup_n_s32(0x437F0000u);
+  *components = vcvtq_f64_f32(vdiv_f32(vcvt_f32_u32(vand_s8(v10, 0xFF000000FFLL)), v11));
+  v20 = (BYTE2(v9) / 255.0);
+  v21 = v8;
+  SRGB = _CUIColorSpaceGetSRGB(v9, v12);
   v14 = CGColorCreate(SRGB, components);
-  [(CUIPSDLayerEffectGradientOverlay *)v6 setGradient:[CUIPSDGradient cuiPSDGradientWithColors:[NSArray arrayWithObjects:v12 locations:v14 midpointLocations:0] angle:&unk_1F00F7E58 isRadial:0, 0, 90.0]];
+  v15.i32[0] = [preset valueForParameter:1 inEffectAtIndex:indexCopy];
+  v15.i32[1] = v15.i32[0] >> 8;
+  *components = vcvtq_f64_f32(vdiv_f32(vcvt_f32_u32(vand_s8(v15, 0xFF000000FFLL)), v11));
+  v20 = (v15.u8[2] / 255.0);
+  v21 = v8;
+  v16 = CGColorCreate(SRGB, components);
+  [(CUIPSDLayerEffectGradientOverlay *)v6 setGradient:[CUIPSDGradient cuiPSDGradientWithColors:[NSArray arrayWithObjects:v14 locations:v16 midpointLocations:0] angle:&unk_1F00F7E58 isRadial:0, 0, 90.0]];
   [(CUIPSDLayerEffectComponent *)v6 setVisible:1];
+  CFRelease(v16);
   CFRelease(v14);
-  CFRelease(v12);
   return v6;
 }
 

@@ -458,14 +458,14 @@ LABEL_48:
 
 + (id)requiredPropertiesForBatchLoadType:(int)type
 {
-  v63[34] = *MEMORY[0x1E69E9840];
+  v61[34] = *MEMORY[0x1E69E9840];
   if (type > 4)
   {
     if (type > 6)
     {
       if (type == 7)
       {
-        v32 = EKPersistentEvent;
+        v31 = EKPersistentEvent;
       }
 
       else
@@ -475,62 +475,62 @@ LABEL_48:
           goto LABEL_25;
         }
 
-        v32 = EKPersistentLocation;
+        v31 = EKPersistentLocation;
       }
 
-      defaultPropertiesToLoad = [(__objc2_class *)v32 defaultPropertiesToLoad];
+      defaultPropertiesToLoad = [(__objc2_class *)v31 defaultPropertiesToLoad];
       goto LABEL_24;
     }
 
     if (type == 5)
     {
-      v44 = *MEMORY[0x1E6992B60];
-      v59[0] = *MEMORY[0x1E6992B50];
-      v59[1] = v44;
-      v45 = *MEMORY[0x1E6992B08];
-      v59[2] = *MEMORY[0x1E6992B70];
-      v59[3] = v45;
-      v46 = *MEMORY[0x1E6992B78];
-      v59[4] = *MEMORY[0x1E6992B58];
-      v59[5] = v46;
-      v47 = *MEMORY[0x1E6992538];
-      v59[6] = *MEMORY[0x1E6992B38];
-      v59[7] = v47;
-      v48 = *MEMORY[0x1E6992B80];
-      v59[8] = *MEMORY[0x1E6992508];
-      v59[9] = v48;
-      v49 = *MEMORY[0x1E6992B40];
-      v59[10] = *MEMORY[0x1E6992B88];
-      v59[11] = v49;
-      v50 = *MEMORY[0x1E6992510];
-      v59[12] = *MEMORY[0x1E6992528];
-      v59[13] = v50;
-      v59[14] = *MEMORY[0x1E6992B68];
-      v30 = MEMORY[0x1E695DEC8];
-      v31 = v59;
-      v39 = 15;
+      v43 = *MEMORY[0x1E6992B60];
+      v57[0] = *MEMORY[0x1E6992B50];
+      v57[1] = v43;
+      v44 = *MEMORY[0x1E6992B08];
+      v57[2] = *MEMORY[0x1E6992B70];
+      v57[3] = v44;
+      v45 = *MEMORY[0x1E6992B78];
+      v57[4] = *MEMORY[0x1E6992B58];
+      v57[5] = v45;
+      v46 = *MEMORY[0x1E6992538];
+      v57[6] = *MEMORY[0x1E6992B38];
+      v57[7] = v46;
+      v47 = *MEMORY[0x1E6992B80];
+      v57[8] = *MEMORY[0x1E6992508];
+      v57[9] = v47;
+      v48 = *MEMORY[0x1E6992B40];
+      v57[10] = *MEMORY[0x1E6992B88];
+      v57[11] = v48;
+      v49 = *MEMORY[0x1E6992510];
+      v57[12] = *MEMORY[0x1E6992528];
+      v57[13] = v49;
+      v57[14] = *MEMORY[0x1E6992B68];
+      v29 = MEMORY[0x1E695DEC8];
+      v30 = v57;
+      v38 = 15;
       goto LABEL_23;
     }
 
-    v26 = *MEMORY[0x1E6992B60];
-    v58[0] = *MEMORY[0x1E6992B50];
-    v58[1] = v26;
-    v27 = *MEMORY[0x1E6992B08];
-    v58[2] = *MEMORY[0x1E6992B70];
-    v58[3] = v27;
-    v28 = *MEMORY[0x1E6992B78];
-    v58[4] = *MEMORY[0x1E6992B58];
-    v58[5] = v28;
-    v29 = *MEMORY[0x1E6992B28];
-    v58[6] = *MEMORY[0x1E6992B38];
-    v58[7] = v29;
-    v58[8] = *MEMORY[0x1E6992B40];
-    v30 = MEMORY[0x1E695DEC8];
-    v31 = v58;
+    v25 = *MEMORY[0x1E6992B60];
+    v56[0] = *MEMORY[0x1E6992B50];
+    v56[1] = v25;
+    v26 = *MEMORY[0x1E6992B08];
+    v56[2] = *MEMORY[0x1E6992B70];
+    v56[3] = v26;
+    v27 = *MEMORY[0x1E6992B78];
+    v56[4] = *MEMORY[0x1E6992B58];
+    v56[5] = v27;
+    v28 = *MEMORY[0x1E6992B28];
+    v56[6] = *MEMORY[0x1E6992B38];
+    v56[7] = v28;
+    v56[8] = *MEMORY[0x1E6992B40];
+    v29 = MEMORY[0x1E695DEC8];
+    v30 = v56;
 LABEL_18:
-    v39 = 9;
+    v38 = 9;
 LABEL_23:
-    defaultPropertiesToLoad = [v30 arrayWithObjects:v31 count:v39];
+    defaultPropertiesToLoad = [v29 arrayWithObjects:v30 count:v38];
 LABEL_24:
     v3 = defaultPropertiesToLoad;
     goto LABEL_25;
@@ -540,47 +540,47 @@ LABEL_24:
   {
     if (type == 3)
     {
-      v52 = *MEMORY[0x1E6992B00];
-      v61[0] = *MEMORY[0x1E6992AF0];
-      v61[1] = v52;
-      v53 = *MEMORY[0x1E6992AE0];
-      v61[2] = *MEMORY[0x1E6992AD8];
-      v61[3] = v53;
-      v54 = *MEMORY[0x1E6992AF8];
-      v61[4] = *MEMORY[0x1E6992AE8];
-      v61[5] = v54;
-      v55 = *MEMORY[0x1E6992AC0];
-      v61[6] = *MEMORY[0x1E6992A90];
-      v61[7] = v55;
-      v30 = MEMORY[0x1E695DEC8];
-      v31 = v61;
-      v39 = 8;
+      v51 = *MEMORY[0x1E6992B00];
+      v59[0] = *MEMORY[0x1E6992AF0];
+      v59[1] = v51;
+      v52 = *MEMORY[0x1E6992AE0];
+      v59[2] = *MEMORY[0x1E6992AD8];
+      v59[3] = v52;
+      v53 = *MEMORY[0x1E6992AF8];
+      v59[4] = *MEMORY[0x1E6992AE8];
+      v59[5] = v53;
+      v54 = *MEMORY[0x1E6992AC0];
+      v59[6] = *MEMORY[0x1E6992A90];
+      v59[7] = v54;
+      v29 = MEMORY[0x1E695DEC8];
+      v30 = v59;
+      v38 = 8;
     }
 
     else
     {
-      v33 = *MEMORY[0x1E6992BF0];
-      v60[0] = *MEMORY[0x1E6992BF8];
-      v60[1] = v33;
-      v34 = *MEMORY[0x1E6992C40];
-      v60[2] = *MEMORY[0x1E6992C00];
-      v60[3] = v34;
-      v35 = *MEMORY[0x1E6992C18];
-      v60[4] = *MEMORY[0x1E6992C10];
-      v60[5] = v35;
-      v36 = *MEMORY[0x1E6992C08];
-      v60[6] = *MEMORY[0x1E6992C20];
-      v60[7] = v36;
-      v37 = *MEMORY[0x1E6992C30];
-      v60[8] = *MEMORY[0x1E6992BE8];
-      v60[9] = v37;
-      v38 = *MEMORY[0x1E6992C38];
-      v60[10] = *MEMORY[0x1E6992C60];
-      v60[11] = v38;
-      v60[12] = *MEMORY[0x1E6992C28];
-      v30 = MEMORY[0x1E695DEC8];
-      v31 = v60;
-      v39 = 13;
+      v32 = *MEMORY[0x1E6992BF0];
+      v58[0] = *MEMORY[0x1E6992BF8];
+      v58[1] = v32;
+      v33 = *MEMORY[0x1E6992C40];
+      v58[2] = *MEMORY[0x1E6992C00];
+      v58[3] = v33;
+      v34 = *MEMORY[0x1E6992C18];
+      v58[4] = *MEMORY[0x1E6992C10];
+      v58[5] = v34;
+      v35 = *MEMORY[0x1E6992C08];
+      v58[6] = *MEMORY[0x1E6992C20];
+      v58[7] = v35;
+      v36 = *MEMORY[0x1E6992C30];
+      v58[8] = *MEMORY[0x1E6992BE8];
+      v58[9] = v36;
+      v37 = *MEMORY[0x1E6992C38];
+      v58[10] = *MEMORY[0x1E6992C60];
+      v58[11] = v37;
+      v58[12] = *MEMORY[0x1E6992C28];
+      v29 = MEMORY[0x1E695DEC8];
+      v30 = v58;
+      v38 = 13;
     }
 
     goto LABEL_23;
@@ -589,147 +589,145 @@ LABEL_24:
   if (type < 2)
   {
     v5 = *MEMORY[0x1E6992988];
-    v63[0] = *MEMORY[0x1E69929E0];
-    v63[1] = v5;
+    v61[0] = *MEMORY[0x1E69929E0];
+    v61[1] = v5;
     v6 = *MEMORY[0x1E6992580];
-    v63[2] = *MEMORY[0x1E6992708];
-    v63[3] = v6;
+    v61[2] = *MEMORY[0x1E6992708];
+    v61[3] = v6;
     v7 = *MEMORY[0x1E6992628];
-    v63[4] = *MEMORY[0x1E69926D8];
-    v63[5] = v7;
+    v61[4] = *MEMORY[0x1E69926D8];
+    v61[5] = v7;
     v8 = *MEMORY[0x1E6992990];
-    v63[6] = *MEMORY[0x1E6992650];
-    v63[7] = v8;
+    v61[6] = *MEMORY[0x1E6992650];
+    v61[7] = v8;
     v9 = *MEMORY[0x1E6992700];
-    v63[8] = *MEMORY[0x1E6992570];
-    v63[9] = v9;
+    v61[8] = *MEMORY[0x1E6992570];
+    v61[9] = v9;
     v10 = *MEMORY[0x1E6992968];
-    v63[10] = *MEMORY[0x1E69926C8];
-    v63[11] = v10;
+    v61[10] = *MEMORY[0x1E69926C8];
+    v61[11] = v10;
     v11 = *MEMORY[0x1E69926D0];
-    v63[12] = *MEMORY[0x1E6992600];
-    v63[13] = v11;
+    v61[12] = *MEMORY[0x1E6992600];
+    v61[13] = v11;
     v12 = *MEMORY[0x1E69929B0];
-    v63[14] = *MEMORY[0x1E6992648];
-    v63[15] = v12;
+    v61[14] = *MEMORY[0x1E6992648];
+    v61[15] = v12;
     v13 = *MEMORY[0x1E6992630];
-    v63[16] = *MEMORY[0x1E6992928];
-    v63[17] = v13;
+    v61[16] = *MEMORY[0x1E6992928];
+    v61[17] = v13;
     v14 = *MEMORY[0x1E69925E0];
-    v63[18] = *MEMORY[0x1E6992B08];
-    v63[19] = v14;
+    v61[18] = *MEMORY[0x1E6992B08];
+    v61[19] = v14;
     v15 = *MEMORY[0x1E69925E8];
     v16 = *MEMORY[0x1E6992658];
-    v63[20] = *MEMORY[0x1E69925E8];
-    v63[21] = v16;
+    v61[20] = *MEMORY[0x1E69925E8];
+    v61[21] = v16;
     v17 = *MEMORY[0x1E69925F0];
-    v63[22] = *MEMORY[0x1E69925B0];
-    v63[23] = v17;
+    v61[22] = *MEMORY[0x1E69925B0];
+    v61[23] = v17;
     v18 = *MEMORY[0x1E69929B8];
-    v63[24] = *MEMORY[0x1E69929F8];
-    v63[25] = v18;
+    v61[24] = *MEMORY[0x1E69929F8];
+    v61[25] = v18;
     v19 = *MEMORY[0x1E69929A0];
-    v63[26] = *MEMORY[0x1E69929C0];
-    v63[27] = v19;
+    v61[26] = *MEMORY[0x1E69929C0];
+    v61[27] = v19;
     v20 = *MEMORY[0x1E69926E8];
-    v63[28] = *MEMORY[0x1E69926F8];
-    v63[29] = v20;
+    v61[28] = *MEMORY[0x1E69926F8];
+    v61[29] = v20;
     v21 = *MEMORY[0x1E69929D8];
-    v63[30] = *MEMORY[0x1E6992950];
-    v63[31] = v21;
+    v61[30] = *MEMORY[0x1E6992950];
+    v61[31] = v21;
     v22 = *MEMORY[0x1E69929A8];
-    v63[32] = *MEMORY[0x1E69925D8];
-    v63[33] = v22;
-    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:34];
+    v61[32] = *MEMORY[0x1E69925D8];
+    v61[33] = v22;
+    v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:34];
     v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v23, "count") + 1}];
     [v3 addObjectsFromArray:v23];
-    v24 = *MEMORY[0x1E6992568];
     if (type)
     {
-      v25 = *MEMORY[0x1E6992568];
+      v24 = *MEMORY[0x1E6992568];
     }
 
     else
     {
-      v25 = v15;
+      v24 = v15;
     }
 
-    [v3 addObject:v25];
+    [v3 addObject:v24];
 
     goto LABEL_25;
   }
 
   if (type == 2)
   {
-    v40 = *MEMORY[0x1E6992760];
-    v62[0] = *MEMORY[0x1E69928A8];
-    v62[1] = v40;
-    v41 = *MEMORY[0x1E6992718];
-    v62[2] = *MEMORY[0x1E6992870];
-    v62[3] = v41;
-    v42 = *MEMORY[0x1E6992848];
-    v62[4] = *MEMORY[0x1E6992770];
-    v62[5] = v42;
-    v43 = *MEMORY[0x1E6992860];
-    v62[6] = *MEMORY[0x1E6992850];
-    v62[7] = v43;
-    v62[8] = *MEMORY[0x1E6992B08];
-    v30 = MEMORY[0x1E695DEC8];
-    v31 = v62;
+    v39 = *MEMORY[0x1E6992760];
+    v60[0] = *MEMORY[0x1E69928A8];
+    v60[1] = v39;
+    v40 = *MEMORY[0x1E6992718];
+    v60[2] = *MEMORY[0x1E6992870];
+    v60[3] = v40;
+    v41 = *MEMORY[0x1E6992848];
+    v60[4] = *MEMORY[0x1E6992770];
+    v60[5] = v41;
+    v42 = *MEMORY[0x1E6992860];
+    v60[6] = *MEMORY[0x1E6992850];
+    v60[7] = v42;
+    v60[8] = *MEMORY[0x1E6992B08];
+    v29 = MEMORY[0x1E695DEC8];
+    v30 = v60;
     goto LABEL_18;
   }
 
 LABEL_25:
-  v56 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (id)batchLoadTypeForRelationsOfObjectType:(int)type
 {
-  v19[4] = *MEMORY[0x1E69E9840];
+  v18[4] = *MEMORY[0x1E69E9840];
   switch(type)
   {
     case 4:
-      v14 = *MEMORY[0x1E6992BF8];
-      v15 = &unk_1F1B6AAE0;
+      v13 = *MEMORY[0x1E6992BF8];
+      v14 = &unk_1F1B6AAE0;
       v5 = MEMORY[0x1E695DF20];
-      v6 = &v15;
-      v7 = &v14;
+      v6 = &v14;
+      v7 = &v13;
       v8 = 1;
       goto LABEL_7;
     case 1:
       v9 = *MEMORY[0x1E6992650];
-      v16[0] = *MEMORY[0x1E6992628];
-      v16[1] = v9;
-      v17[0] = &unk_1F1B6AA98;
-      v17[1] = &unk_1F1B6AAB0;
+      v15[0] = *MEMORY[0x1E6992628];
+      v15[1] = v9;
+      v16[0] = &unk_1F1B6AA98;
+      v16[1] = &unk_1F1B6AAB0;
       v10 = *MEMORY[0x1E6992580];
-      v16[2] = *MEMORY[0x1E6992568];
-      v16[3] = v10;
-      v17[2] = &unk_1F1B6AAB0;
-      v17[3] = &unk_1F1B6AAC8;
-      v16[4] = *MEMORY[0x1E69926D8];
-      v17[4] = &unk_1F1B6AAC8;
+      v15[2] = *MEMORY[0x1E6992568];
+      v15[3] = v10;
+      v16[2] = &unk_1F1B6AAB0;
+      v16[3] = &unk_1F1B6AAC8;
+      v15[4] = *MEMORY[0x1E69926D8];
+      v16[4] = &unk_1F1B6AAC8;
       v5 = MEMORY[0x1E695DF20];
-      v6 = v17;
-      v7 = v16;
+      v6 = v16;
+      v7 = v15;
       v8 = 5;
       goto LABEL_7;
     case 0:
       v3 = *MEMORY[0x1E6992650];
-      v18[0] = *MEMORY[0x1E6992628];
-      v18[1] = v3;
-      v19[0] = &unk_1F1B6AA98;
-      v19[1] = &unk_1F1B6AAB0;
+      v17[0] = *MEMORY[0x1E6992628];
+      v17[1] = v3;
+      v18[0] = &unk_1F1B6AA98;
+      v18[1] = &unk_1F1B6AAB0;
       v4 = *MEMORY[0x1E69926D8];
-      v18[2] = *MEMORY[0x1E6992580];
-      v18[3] = v4;
-      v19[2] = &unk_1F1B6AAC8;
-      v19[3] = &unk_1F1B6AAC8;
+      v17[2] = *MEMORY[0x1E6992580];
+      v17[3] = v4;
+      v18[2] = &unk_1F1B6AAC8;
+      v18[3] = &unk_1F1B6AAC8;
       v5 = MEMORY[0x1E695DF20];
-      v6 = v19;
-      v7 = v18;
+      v6 = v18;
+      v7 = v17;
       v8 = 4;
 LABEL_7:
       v11 = [v5 dictionaryWithObjects:v6 forKeys:v7 count:v8];
@@ -738,41 +736,40 @@ LABEL_7:
 
   v11 = 0;
 LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)batchLoadNotifications:(id)notifications
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   notificationsCopy = notifications;
   firstObject = [notificationsCopy firstObject];
   eventStore = [firstObject eventStore];
 
-  v88 = 0;
-  memset(v87, 0, sizeof(v87));
+  v87 = 0;
+  memset(v86, 0, sizeof(v86));
+  v77 = 0u;
   v78 = 0u;
   v79 = 0u;
   v80 = 0u;
-  v81 = 0u;
   obj = notificationsCopy;
-  v5 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
+  v5 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v79;
+    v8 = *v78;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v79 != v8)
+        if (*v78 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v78 + 1) + 8 * i);
+        v10 = *(*(&v77 + 1) + 8 * i);
         if (([v10 loaded] & 1) == 0)
         {
           objectID = [v10 objectID];
@@ -786,11 +783,11 @@ LABEL_9:
             }
 
             [v7 addObject:objectID];
-            v14 = *(v87 + batchLoadType);
+            v14 = *(v86 + batchLoadType);
             if (!v14)
             {
               v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              *(v87 + batchLoadType) = v14;
+              *(v86 + batchLoadType) = v14;
             }
 
             [v14 addObject:v13];
@@ -798,7 +795,7 @@ LABEL_9:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v78 objects:v86 count:16];
+      v6 = [obj countByEnumeratingWithState:&v77 objects:v85 count:16];
     }
 
     while (v6);
@@ -813,7 +810,7 @@ LABEL_9:
   v16 = 0;
   do
   {
-    v17 = *(v87 + v15);
+    v17 = *(v86 + v15);
     v18 = [v17 count];
     v19 = v16;
     if (v18)
@@ -821,85 +818,85 @@ LABEL_9:
       v20 = [self requiredPropertiesForBatchLoadType:v15];
       [eventStore ensureLoadedProperties:v20 forObjects:v17];
 
-      *(v87 + v15) = 0;
-      v50 = v15;
-      v55 = [self batchLoadTypeForRelationsOfObjectType:v15];
+      *(v86 + v15) = 0;
+      v49 = v15;
+      v54 = [self batchLoadTypeForRelationsOfObjectType:v15];
+      v73 = 0u;
       v74 = 0u;
       v75 = 0u;
       v76 = 0u;
-      v77 = 0u;
-      v53 = v17;
-      v56 = [v53 countByEnumeratingWithState:&v74 objects:v85 count:16];
-      if (v56)
+      v52 = v17;
+      v55 = [v52 countByEnumeratingWithState:&v73 objects:v84 count:16];
+      if (v55)
       {
-        v54 = *v75;
+        v53 = *v74;
         do
         {
           v21 = 0;
           do
           {
-            if (*v75 != v54)
+            if (*v74 != v53)
             {
-              objc_enumerationMutation(v53);
+              objc_enumerationMutation(v52);
             }
 
-            v57 = v21;
-            v59 = *(*(&v74 + 1) + 8 * v21);
+            v56 = v21;
+            v58 = *(*(&v73 + 1) + 8 * v21);
+            v69 = 0u;
             v70 = 0u;
             v71 = 0u;
             v72 = 0u;
-            v73 = 0u;
-            v61 = v55;
-            v60 = [v61 countByEnumeratingWithState:&v70 objects:v84 count:16];
-            if (v60)
+            v60 = v54;
+            v59 = [v60 countByEnumeratingWithState:&v69 objects:v83 count:16];
+            if (v59)
             {
-              v58 = *v71;
+              v57 = *v70;
               do
               {
-                for (j = 0; j != v60; ++j)
+                for (j = 0; j != v59; ++j)
                 {
-                  if (*v71 != v58)
+                  if (*v70 != v57)
                   {
-                    objc_enumerationMutation(v61);
+                    objc_enumerationMutation(v60);
                   }
 
-                  v23 = *(*(&v70 + 1) + 8 * j);
-                  v24 = [v59 valueForKey:v23];
+                  v23 = *(*(&v69 + 1) + 8 * j);
+                  v24 = [v58 valueForKey:v23];
                   if (v24)
                   {
-                    v25 = [v61 objectForKeyedSubscript:v23];
+                    v25 = [v60 objectForKeyedSubscript:v23];
                     intValue = [v25 intValue];
 
-                    v27 = *(v87 + intValue);
+                    v27 = *(v86 + intValue);
                     if (!v27)
                     {
                       v27 = objc_alloc_init(MEMORY[0x1E695DF70]);
-                      *(v87 + intValue) = v27;
+                      *(v86 + intValue) = v27;
                     }
 
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
-                      v68 = 0u;
-                      v69 = 0u;
-                      v66 = 0u;
                       v67 = 0u;
+                      v68 = 0u;
+                      v65 = 0u;
+                      v66 = 0u;
                       v28 = v24;
-                      v29 = [v28 countByEnumeratingWithState:&v66 objects:v83 count:16];
+                      v29 = [v28 countByEnumeratingWithState:&v65 objects:v82 count:16];
                       if (v29)
                       {
                         v30 = v29;
-                        v31 = *v67;
+                        v31 = *v66;
                         do
                         {
                           for (k = 0; k != v30; ++k)
                           {
-                            if (*v67 != v31)
+                            if (*v66 != v31)
                             {
                               objc_enumerationMutation(v28);
                             }
 
-                            v33 = *(*(&v66 + 1) + 8 * k);
+                            v33 = *(*(&v65 + 1) + 8 * k);
                             objectID2 = [v33 objectID];
                             if (([v7 containsObject:objectID2] & 1) == 0)
                             {
@@ -908,7 +905,7 @@ LABEL_9:
                             }
                           }
 
-                          v30 = [v28 countByEnumeratingWithState:&v66 objects:v83 count:16];
+                          v30 = [v28 countByEnumeratingWithState:&v65 objects:v82 count:16];
                         }
 
                         while (v30);
@@ -928,24 +925,24 @@ LABEL_9:
                   }
                 }
 
-                v60 = [v61 countByEnumeratingWithState:&v70 objects:v84 count:16];
+                v59 = [v60 countByEnumeratingWithState:&v69 objects:v83 count:16];
               }
 
-              while (v60);
+              while (v59);
             }
 
-            v21 = v57 + 1;
+            v21 = v56 + 1;
           }
 
-          while (v57 + 1 != v56);
-          v56 = [v53 countByEnumeratingWithState:&v74 objects:v85 count:16];
+          while (v56 + 1 != v55);
+          v55 = [v52 countByEnumeratingWithState:&v73 objects:v84 count:16];
         }
 
-        while (v56);
+        while (v55);
       }
 
       v19 = 1;
-      v15 = v50;
+      v15 = v49;
     }
 
     v37 = v15 == 8;
@@ -965,33 +962,33 @@ LABEL_9:
 
   while (!v37 || (v19 & 1) != 0);
   v39 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(obj, "count")}];
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   v40 = obj;
-  v41 = [v40 countByEnumeratingWithState:&v62 objects:v82 count:16];
+  v41 = [v40 countByEnumeratingWithState:&v61 objects:v81 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v63;
+    v43 = *v62;
     do
     {
       for (m = 0; m != v42; ++m)
       {
-        if (*v63 != v43)
+        if (*v62 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        notification = [*(*(&v62 + 1) + 8 * m) notification];
+        notification = [*(*(&v61 + 1) + 8 * m) notification];
         if (notification)
         {
           [v39 addObject:notification];
         }
       }
 
-      v42 = [v40 countByEnumeratingWithState:&v62 objects:v82 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v61 objects:v81 count:16];
     }
 
     while (v42);
@@ -1000,8 +997,6 @@ LABEL_9:
   for (n = 64; n != -8; n -= 8)
   {
   }
-
-  v47 = *MEMORY[0x1E69E9840];
 
   return v39;
 }

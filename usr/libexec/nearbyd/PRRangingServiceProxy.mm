@@ -248,15 +248,15 @@ LABEL_3:
 
   if (!rangingCopy)
   {
-    v61 = +[NSAssertionHandler currentHandler];
-    [v61 handleFailureInMethod:a2 object:self file:@"PRRangingServiceProxy.mm" lineNumber:150 description:{@"Invalid parameter not satisfying: %@", @"remoteDevice"}];
+    v55 = +[NSAssertionHandler currentHandler];
+    [v55 handleFailureInMethod:a2 object:self file:@"PRRangingServiceProxy.mm" lineNumber:150 description:{@"Invalid parameter not satisfying: %@", @"remoteDevice"}];
   }
 
   v14 = sub_10035D02C();
   v15 = (*(*v14[814] + 72))(v14[814]);
   v16 = v15;
   sub_100004A08(buf, (&off_10098BC60)[v15 >> 32]);
-  if (v78 >= 0)
+  if (v72 >= 0)
   {
     v17 = buf;
   }
@@ -267,16 +267,16 @@ LABEL_3:
   }
 
   v18 = [NSString stringWithFormat:@"Ranging service is not ready. Reason: %s", v17];
-  if (v78 < 0)
+  if (v72 < 0)
   {
     operator delete(*buf);
   }
 
   if ((v16 - 3) <= 0xFFFFFFFD)
   {
-    v98 = NSLocalizedDescriptionKey;
-    v99 = v18;
-    v19 = [NSDictionary dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+    v92 = NSLocalizedDescriptionKey;
+    v93 = v18;
+    v19 = [NSDictionary dictionaryWithObjects:&v93 forKeys:&v92 count:1];
     v20 = PRErrorWithCodeAndUserInfo(101, v19);
 
     replyCopy[2](replyCopy, 0, v20);
@@ -287,17 +287,17 @@ LABEL_3:
   {
     v21 = sub_10035D02C();
     sub_10003E810(buf, self->_rangingManagerClient.__ptr_ + 1);
-    v71 = *buf;
-    v72 = *&buf[8];
+    v65 = *buf;
+    v66 = *&buf[8];
     if (*&buf[8])
     {
       atomic_fetch_add_explicit((*&buf[8] + 16), 1uLL, memory_order_relaxed);
     }
 
-    v22 = sub_10035DEEC(v21, &v71, self->_p2pServiceId);
-    if (v72)
+    v22 = sub_10035DEEC(v21, &v65, self->_p2pServiceId);
+    if (v66)
     {
-      std::__shared_weak_count::__release_weak(v72);
+      std::__shared_weak_count::__release_weak(v66);
     }
 
     if (*&buf[8])
@@ -307,10 +307,10 @@ LABEL_3:
 
     if ((v22 & 1) == 0)
     {
-      v96 = NSLocalizedDescriptionKey;
-      v97 = @"Failed to override P2P job.";
-      v38 = [NSDictionary dictionaryWithObjects:&v97 forKeys:&v96 count:1];
-      v20 = PRErrorWithCodeAndUserInfo(105, v38);
+      v90 = NSLocalizedDescriptionKey;
+      v91 = @"Failed to override P2P job.";
+      v32 = [NSDictionary dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+      v20 = PRErrorWithCodeAndUserInfo(105, v32);
 
       replyCopy[2](replyCopy, 0, v20);
       goto LABEL_78;
@@ -320,23 +320,23 @@ LABEL_3:
   v20 = [optionsCopy objectForKey:PRP2PArgsRangingRole];
   if (!v20 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
-    v94 = NSLocalizedDescriptionKey;
-    v95 = @"No session role provided.";
-    v36 = [NSDictionary dictionaryWithObjects:&v95 forKeys:&v94 count:1];
-    v37 = PRErrorWithCodeAndUserInfo(100, v36);
+    v88 = NSLocalizedDescriptionKey;
+    v89 = @"No session role provided.";
+    v30 = [NSDictionary dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+    v31 = PRErrorWithCodeAndUserInfo(100, v30);
 
-    replyCopy[2](replyCopy, 0, v37);
+    replyCopy[2](replyCopy, 0, v31);
     goto LABEL_78;
   }
 
   if ([v20 intValue] && objc_msgSend(v20, "intValue") != 1)
   {
-    v92 = NSLocalizedDescriptionKey;
-    v93 = @"Invalid session role provided.";
-    v39 = [NSDictionary dictionaryWithObjects:&v93 forKeys:&v92 count:1];
-    v40 = PRErrorWithCodeAndUserInfo(100, v39);
+    v86 = NSLocalizedDescriptionKey;
+    v87 = @"Invalid session role provided.";
+    v33 = [NSDictionary dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+    v34 = PRErrorWithCodeAndUserInfo(100, v33);
 
-    replyCopy[2](replyCopy, 0, v40);
+    replyCopy[2](replyCopy, 0, v34);
     goto LABEL_78;
   }
 
@@ -348,175 +348,175 @@ LABEL_3:
     atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v62 = v25;
+  v56 = v25;
   if (!v24)
   {
-    v90 = NSLocalizedDescriptionKey;
-    v91 = @"Configuration Manager Error.";
-    v42 = [NSDictionary dictionaryWithObjects:&v91 forKeys:&v90 count:1];
-    v63 = PRErrorWithCodeAndUserInfo(999, v42);
+    v84 = NSLocalizedDescriptionKey;
+    v85 = @"Configuration Manager Error.";
+    v36 = [NSDictionary dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+    v57 = PRErrorWithCodeAndUserInfo(999, v36);
 
-    replyCopy[2](replyCopy, 0, v63);
+    replyCopy[2](replyCopy, 0, v57);
     goto LABEL_76;
   }
 
-  v63 = [optionsCopy objectForKey:PRDebugConfigArgUWBChannel];
-  if (v63 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v57 = [optionsCopy objectForKey:PRDebugConfigArgUWBChannel];
+  if (v57 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    intValue = [v63 intValue];
-    v34 = sub_1004282F4(intValue, v27, v28, v29, v30, v31, v32, v33);
-    v35 = 256;
+    intValue = [v57 intValue];
+    v28 = sub_1004282F4(intValue, v27);
+    v29 = 256;
   }
 
   else
   {
-    v34 = 0;
-    v35 = 0;
+    v28 = 0;
+    v29 = 0;
   }
 
   roseMACAddress = [rangingCopy roseMACAddress];
-  [roseMACAddress getBytes:&v89 length:8];
+  [roseMACAddress getBytes:&v83 length:8];
 
-  v83 = 1;
-  v84 = 0;
-  v85 = 0;
-  v86 = v89;
-  v87 = 1;
-  v88 = 0;
-  v69 = 0;
-  v70 = &v83;
-  if (!sub_1003299D8(v24, &v68, &v69, v35 | v34))
+  v77 = 1;
+  v78 = 0;
+  v79 = 0;
+  v80 = v83;
+  v81 = 1;
+  v82 = 0;
+  v63 = 0;
+  v64 = &v77;
+  if (!sub_1003299D8(v24, &v62, &v63, v29 | v28))
   {
-    v81 = NSLocalizedDescriptionKey;
-    v82 = @"Failed to find usable UWB channel for service request.";
-    v43 = [NSDictionary dictionaryWithObjects:&v82 forKeys:&v81 count:1];
-    v44 = PRErrorWithCodeAndUserInfo(999, v43);
+    v75 = NSLocalizedDescriptionKey;
+    v76 = @"Failed to find usable UWB channel for service request.";
+    v37 = [NSDictionary dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    v38 = PRErrorWithCodeAndUserInfo(999, v37);
 
-    replyCopy[2](replyCopy, 0, v44);
+    replyCopy[2](replyCopy, 0, v38);
     goto LABEL_76;
   }
 
   if ([v20 intValue])
   {
-    sub_10019C27C(&v68, buf);
+    sub_10019C27C(&v62, buf);
   }
 
   else
   {
-    sub_10019BF40(&v68, buf);
+    sub_10019BF40(&v62, buf);
   }
 
-  v45 = qword_1009F9820;
-  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+  v39 = qword_1009F9820;
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
-    if ((v80[57] & 1) == 0)
+    if ((v74[57] & 1) == 0)
     {
       sub_1000195BC();
     }
 
-    *v75 = 67109120;
-    *&v75[4] = v80[56];
-    _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "[P2PDEBUG] post prep req uwbChannel %hhu", v75, 8u);
+    *v69 = 67109120;
+    *&v69[4] = v74[56];
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "[P2PDEBUG] post prep req uwbChannel %hhu", v69, 8u);
   }
 
-  v46 = optionsCopy;
+  v40 = optionsCopy;
   if (optionsCopy)
   {
-    v67 = 0;
-    v47 = sub_10002A358(optionsCopy, v80, &v67);
-    v48 = v67;
-    v49 = v48;
-    if ((v47 & 1) == 0)
+    v61 = 0;
+    v41 = sub_10002A358(optionsCopy, v74, &v61);
+    v42 = v61;
+    v43 = v42;
+    if ((v41 & 1) == 0)
     {
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_ERROR))
       {
         sub_10049D39C();
       }
 
-      replyCopy[2](replyCopy, 0, v49);
+      replyCopy[2](replyCopy, 0, v43);
       goto LABEL_75;
     }
 
-    v46 = optionsCopy;
+    v40 = optionsCopy;
   }
 
-  v49 = [v46 objectForKey:PRDebugConfigArgSolutionVariant];
-  if (v49)
+  v43 = [v40 objectForKey:PRDebugConfigArgSolutionVariant];
+  if (v43)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v50 = qword_1009F9820;
+      v44 = qword_1009F9820;
       if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
       {
-        *v75 = 0;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "P2P Ranging: PRDebugConfigArgSolutionVariant passed as an option.", v75, 2u);
+        *v69 = 0;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "P2P Ranging: PRDebugConfigArgSolutionVariant passed as an option.", v69, 2u);
       }
 
-      intValue2 = [v49 intValue];
+      intValue2 = [v43 intValue];
       switch(intValue2)
       {
         case 0u:
-          v55 = qword_1009F9820;
+          v49 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
-            *v75 = 0;
-            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "   PRRoseSolutionNotSensorFused", v75, 2u);
+            *v69 = 0;
+            _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "   PRRoseSolutionNotSensorFused", v69, 2u);
           }
 
-          v53 = 1;
+          v47 = 1;
           goto LABEL_65;
         case 2u:
-          v54 = qword_1009F9820;
+          v48 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
-            *v75 = 0;
-            _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "   PRRoseSolutionRawRangeSensorFusionAngle", v75, 2u);
+            *v69 = 0;
+            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "   PRRoseSolutionRawRangeSensorFusionAngle", v69, 2u);
           }
 
-          v53 = 5;
+          v47 = 5;
           goto LABEL_65;
         case 1u:
-          v52 = qword_1009F9820;
+          v46 = qword_1009F9820;
           if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
           {
-            *v75 = 0;
-            _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "   PRRoseSolutionSensorFused", v75, 2u);
+            *v69 = 0;
+            _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "   PRRoseSolutionSensorFused", v69, 2u);
           }
 
-          v53 = 3;
+          v47 = 3;
 LABEL_65:
-          v79 = v53;
+          v73 = v47;
           break;
       }
     }
   }
 
-  v56 = sub_10035D02C();
-  sub_10003E810(v75, self->_rangingManagerClient.__ptr_ + 1);
-  v65 = *v75;
-  v66 = v76;
-  if (v76)
+  v50 = sub_10035D02C();
+  sub_10003E810(v69, self->_rangingManagerClient.__ptr_ + 1);
+  v59 = *v69;
+  v60 = v70;
+  if (v70)
   {
-    atomic_fetch_add_explicit(&v76->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v70->__shared_weak_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v57 = sub_10035D888(v56, &v65);
-  if (v66)
+  v51 = sub_10035D888(v50, &v59);
+  if (v60)
   {
-    std::__shared_weak_count::__release_weak(v66);
+    std::__shared_weak_count::__release_weak(v60);
   }
 
-  if (v76)
+  if (v70)
   {
-    sub_10000AD84(v76);
+    sub_10000AD84(v70);
   }
 
-  if ((v57 & 0x10000) != 0)
+  if ((v51 & 0x10000) != 0)
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    self->_p2pServiceId = v57;
+    self->_p2pServiceId = v51;
     objc_sync_exit(selfCopy);
 
     replyCopy[2](replyCopy, 1, 0);
@@ -525,20 +525,20 @@ LABEL_65:
 
   else
   {
-    v73 = NSLocalizedDescriptionKey;
-    v74 = @"Register for service failed";
-    v58 = [NSDictionary dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-    v59 = PRErrorWithCodeAndUserInfo(101, v58);
+    v67 = NSLocalizedDescriptionKey;
+    v68 = @"Register for service failed";
+    v52 = [NSDictionary dictionaryWithObjects:&v68 forKeys:&v67 count:1];
+    v53 = PRErrorWithCodeAndUserInfo(101, v52);
 
-    replyCopy[2](replyCopy, 0, v59);
+    replyCopy[2](replyCopy, 0, v53);
   }
 
 LABEL_75:
 
 LABEL_76:
-  if (v62)
+  if (v56)
   {
-    sub_10000AD84(v62);
+    sub_10000AD84(v56);
   }
 
 LABEL_78:

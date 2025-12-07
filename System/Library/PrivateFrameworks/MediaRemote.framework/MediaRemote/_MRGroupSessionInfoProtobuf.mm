@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)routeTypeAsString:(int)string;
 - (int)StringAsRouteType:(id)type;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -12,40 +13,55 @@
 
 @implementation _MRGroupSessionInfoProtobuf
 
+- (id)routeTypeAsString:(int)string
+{
+  if (string < 0xC && ((0xB27u >> string) & 1) != 0)
+  {
+    v4 = off_1E76A37C8[string];
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsRouteType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"GroupSessionRouteTypeUnknown"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeCarKit"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeCarPlay"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeSpeaker"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 5;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeHomePod"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 8;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeHomePodMini"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 9;
   }
 
-  else if ([typeCopy isEqualToString:@"GroupSessionRouteTypeAppleTV"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 11;
   }
@@ -125,7 +141,7 @@
     [_MRGroupSessionInfoProtobuf writeTo:];
   }
 
-  v8 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
   if (!self->_hostDisplayName)
   {
@@ -133,9 +149,7 @@
   }
 
   PBDataWriterWriteStringField();
-  routeType = self->_routeType;
   PBDataWriterWriteInt32Field();
-  hosted = self->_hosted;
   PBDataWriterWriteBOOLField();
   if (self->_equivalentMediaIdentifier)
   {
@@ -144,7 +158,6 @@
 
   if (*&self->_has)
   {
-    placeholder = self->_placeholder;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -227,7 +240,6 @@
     goto LABEL_15;
   }
 
-  v7 = *(equalCopy + 36);
   if (self->_hosted)
   {
     if ((*(equalCopy + 36) & 1) == 0)
@@ -247,7 +259,7 @@
     goto LABEL_15;
   }
 
-  v9 = (*(equalCopy + 40) & 1) == 0;
+  v8 = (*(equalCopy + 40) & 1) == 0;
   if (*&self->_has)
   {
     if (*(equalCopy + 40))
@@ -265,17 +277,17 @@
         goto LABEL_15;
       }
 
-      v9 = 1;
+      v8 = 1;
       goto LABEL_16;
     }
 
 LABEL_15:
-    v9 = 0;
+    v8 = 0;
   }
 
 LABEL_16:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

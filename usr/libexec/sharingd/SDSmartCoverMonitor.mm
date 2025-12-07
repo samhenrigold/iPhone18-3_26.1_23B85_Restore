@@ -60,57 +60,64 @@
   {
     if (v5)
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Starting smart cover monitor", v12, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Starting smart cover monitor", v10, 2u);
     }
 
     os_unfair_lock_lock(&self->_lock);
     v6 = [NSNumber numberWithInteger:65280];
-    v13[0] = v6;
-    v14[0] = @"PrimaryUsagePage";
+    v11[0] = v6;
+    v12[0] = @"PrimaryUsagePage";
     v7 = [NSNumber numberWithInteger:6];
-    v13[1] = v7;
-    v14[1] = @"PrimaryUsage";
-    v4 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v11[1] = v7;
+    v12[1] = @"PrimaryUsage";
+    v4 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
 
     v8 = IOHIDEventSystemClientCreateWithType();
     self->_mHIDClient = v8;
     if (v8)
     {
       IOHIDEventSystemClientSetMatching();
-      mHIDClient = self->_mHIDClient;
       IOHIDEventSystemClientRegisterEventCallback();
-      v10 = self->_mHIDClient;
       CFRunLoopGetMain();
       IOHIDEventSystemClientScheduleWithRunLoop();
-      v11 = self->_mHIDClient;
+      mHIDClient = self->_mHIDClient;
     }
 
     else
     {
-      v11 = 0;
+      mHIDClient = 0;
     }
 
-    [(SDSmartCoverMonitor *)self updateSmartCoverIsClosed:[(SDSmartCoverMonitor *)self isSmartCoverClosed:v11]];
+    [(SDSmartCoverMonitor *)self updateSmartCoverIsClosed:[(SDSmartCoverMonitor *)self isSmartCoverClosed:mHIDClient]];
     os_unfair_lock_unlock(&self->_lock);
   }
 
   else if (v5)
   {
-    *v12 = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not starting smart cover monitor", v12, 2u);
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not starting smart cover monitor", v10, 2u);
   }
 }
 
 - (id)description
 {
-  NSAppendPrintF();
-  v3 = 0;
-  [(SDSmartCoverMonitor *)self smartCoverIsClosed];
-  NSAppendPrintF();
-  v4 = v3;
+  v10 = 0;
+  NSAppendPrintF(&v10, "-- SDSmartCoverMonitor --\n");
+  v3 = v10;
+  v9 = v3;
+  smartCoverIsClosed = [(SDSmartCoverMonitor *)self smartCoverIsClosed];
+  v5 = "no";
+  if (smartCoverIsClosed)
+  {
+    v5 = "yes";
+  }
 
-  return v3;
+  NSAppendPrintF(&v9, "Smart Cover Closed:           %@\n", v5);
+  v6 = v9;
+  v7 = v9;
+
+  return v6;
 }
 
 - (void)updateSmartCoverIsClosed:(BOOL)closed
@@ -211,7 +218,7 @@ LABEL_21:
 
 LABEL_23:
   v13 = self->_flap1StateIsEngaged && self->_openStateIsEngaged;
-  [(SDSmartCoverMonitor *)self updateSmartCoverIsClosed:v13, *v14, *&v14[16]];
+  [(SDSmartCoverMonitor *)self updateSmartCoverIsClosed:v13, *v14, *&v14[8]];
 }
 
 - (void)handleEvent:(__IOHIDEvent *)event

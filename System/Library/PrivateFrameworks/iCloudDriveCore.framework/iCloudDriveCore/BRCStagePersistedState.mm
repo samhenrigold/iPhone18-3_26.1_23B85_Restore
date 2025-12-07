@@ -89,12 +89,10 @@
 
 - (void)timeSinceLatestGCStartTime
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_16();
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_9();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -140,10 +140,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v8 = [(UIColor *)roundedFillView isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(roundedFillView, v7, v7);
 
   v9 = v10;
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_effectiveForegroundColor, color);
@@ -184,9 +184,9 @@ LABEL_10:
     goto LABEL_8;
   }
 
-  v8 = [(UIColor *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     objc_storeStrong(&self->_foregroundColor, color);
@@ -257,22 +257,22 @@ LABEL_9:
   v5 = _Block_copy(aBlock);
   if (animatedCopy)
   {
+    v7 = 0u;
     v8 = 0u;
-    v9 = 0u;
     _visualStyle = [(_UIScrollViewScrollIndicator *)self _visualStyle];
-    expandedForDirectManipulation = [(_UIScrollViewScrollIndicator *)self expandedForDirectManipulation];
+    [(_UIScrollViewScrollIndicator *)self expandedForDirectManipulation];
     if (_visualStyle)
     {
-      [_visualStyle valuesForLayoutSizeAnimationWhenExpanding:expandedForDirectManipulation];
+      objc_msgSend_valuesForLayoutSizeAnimationWhenExpanding_(_visualStyle);
     }
 
     else
     {
+      v7 = 0u;
       v8 = 0u;
-      v9 = 0u;
     }
 
-    [UIView animateWithDuration:"animateWithDuration:delay:usingSpringWithDamping:initialSpringVelocity:options:animations:completion:" delay:0 usingSpringWithDamping:v5 initialSpringVelocity:0 options:v8 animations:v9 completion:?];
+    [UIView animateWithDuration:"animateWithDuration:delay:usingSpringWithDamping:initialSpringVelocity:options:animations:completion:" delay:0 usingSpringWithDamping:v5 initialSpringVelocity:0 options:v7 animations:v8 completion:?];
   }
 
   else

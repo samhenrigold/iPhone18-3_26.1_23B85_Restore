@@ -402,7 +402,7 @@ void __46__SFFormAutocompleteState__updateSuggestions___block_invoke_2(uint64_t 
 void __46__SFFormAutocompleteState__updateSuggestions___block_invoke_3(uint64_t a1)
 {
   v1 = a1;
-  v68 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   if (*(*(*(a1 + 88) + 8) + 24) == 1 && [MEMORY[0x1E69C8F30] shouldDisplayOneTimeCodeForControl:*(*(a1 + 32) + 240) inForm:*(*(a1 + 32) + 232)])
   {
     WeakRetained = [MEMORY[0x1E695DF70] array];
@@ -428,29 +428,29 @@ void __46__SFFormAutocompleteState__updateSuggestions___block_invoke_3(uint64_t 
       }
     }
 
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
-    v64 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
     obj = *(*(*(v1 + 96) + 8) + 40);
-    v7 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+    v7 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = v1;
       v10 = 0;
-      v11 = *v64;
+      v11 = *v68;
 LABEL_11:
       v12 = 0;
       while (1)
       {
         v13 = v10;
-        if (*v64 != v11)
+        if (*v68 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v63 + 1) + 8 * v12);
+        v14 = *(*(&v67 + 1) + 8 * v12);
         v15 = [_SFTextSuggestion textSuggestionWithCredentialIdentity:v14 submitForm:1];
         v16 = [MEMORY[0x1E69C8E18] titleForCredentialIdentity:v14 formURL:*(v9 + 48)];
         [v15 setHeaderText:v16];
@@ -468,7 +468,7 @@ LABEL_11:
 
         if (v8 == ++v12)
         {
-          v8 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+          v8 = [obj countByEnumeratingWithState:&v67 objects:v71 count:16];
           if (v8)
           {
             goto LABEL_11;
@@ -489,39 +489,39 @@ LABEL_11:
 
     if ([*(v1 + 40) count])
     {
-      v37 = v4 - v10;
+      v39 = v4 - v10;
       if (v4 != v10)
       {
-        v38 = 0;
+        v40 = 0;
         do
         {
-          v39 = [*(v1 + 40) objectAtIndexedSubscript:v38];
-          v40 = [_SFTextSuggestion textSuggestionWithOneTimeCode:v39];
-          v41 = [v39 localizedTitleForContext:0];
-          [v40 setHeaderText:v41];
+          v41 = [*(v1 + 40) objectAtIndexedSubscript:v40];
+          v42 = [_SFTextSuggestion textSuggestionWithOneTimeCode:v41];
+          v43 = [v41 localizedTitleForContext:0];
+          [v42 setHeaderText:v43];
 
-          v42 = [v39 localizedSubtitleForContext:0];
-          [v40 setDisplayText:v42];
+          v44 = [v41 localizedSubtitleForContext:0];
+          [v42 setDisplayText:v44];
 
-          [WeakRetained addObject:v40];
-          ++v38;
+          [WeakRetained addObject:v42];
+          ++v40;
         }
 
-        while (v37 != v38);
+        while (v39 != v40);
       }
     }
 
     [*(v1 + 32) _addPasswordsAutoFillSuggestionToSuggestions:WeakRetained forPurpose:1];
     if ([WeakRetained count])
     {
-      v43 = *(v1 + 56);
-      v44 = [*(*(v1 + 32) + 240) uniqueID];
-      [v43 reportAutoFillOfferedType:2 forTextFieldWithID:v44 forFormMetadata:*(*(v1 + 32) + 232)];
+      v45 = *(v1 + 56);
+      v46 = [*(*(v1 + 32) + 240) uniqueID];
+      [v45 reportAutoFillOfferedType:2 forTextFieldWithID:v46 forFormMetadata:*(*(v1 + 32) + 232)];
     }
 
-    [*(v1 + 64) setSuggestions:WeakRetained];
-    v45 = WBS_LOG_CHANNEL_PREFIXOneTimeCodeAutoFill();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
+    v47 = [*(v1 + 64) setSuggestions:WeakRetained];
+    v49 = WBS_LOG_CHANNEL_PREFIXOneTimeCodeAutoFill(v47, v48);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
       __46__SFFormAutocompleteState__updateSuggestions___block_invoke_3_cold_2();
     }
@@ -529,73 +529,74 @@ LABEL_11:
     goto LABEL_78;
   }
 
-  if ([*(v1 + 40) count])
+  v18 = [*(v1 + 40) count];
+  if (v18)
   {
-    v18 = *(*(v1 + 32) + 240);
-    v19 = WBS_LOG_CHANNEL_PREFIXOneTimeCodeAutoFill();
-    v20 = v19;
-    if (v18)
+    v20 = *(*(v1 + 32) + 240);
+    v21 = WBS_LOG_CHANNEL_PREFIXOneTimeCodeAutoFill(v18, v19);
+    v22 = v21;
+    if (v20)
     {
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1D4644000, v20, OS_LOG_TYPE_INFO, "Did not suggested verification code autofill because current text field is not verification code friendly", buf, 2u);
+        _os_log_impl(&dword_1D4644000, v22, OS_LOG_TYPE_INFO, "Did not suggested verification code autofill because current text field is not verification code friendly", buf, 2u);
       }
     }
 
-    else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
-      __46__SFFormAutocompleteState__updateSuggestions___block_invoke_3_cold_1(v20);
+      __46__SFFormAutocompleteState__updateSuggestions___block_invoke_3_cold_1(v22);
     }
   }
 
-  v21 = [*(v1 + 32) _shouldShowPasswordOptions];
-  v22 = *(v1 + 32);
-  if (v21)
+  v23 = [*(v1 + 32) _shouldShowPasswordOptions];
+  v24 = *(v1 + 32);
+  if (v23)
   {
-    if ([v22 action] == 7)
+    if ([v24 action] == 7)
     {
       if ([MEMORY[0x1E69BC7D8] shouldShowLoginIntroduction])
       {
-        v23 = [*(v1 + 72) firstResponder];
-        [v23 reloadInputViews];
+        v25 = [*(v1 + 72) firstResponder];
+        [v25 reloadInputViews];
       }
 
       WeakRetained = [MEMORY[0x1E695DF70] array];
-      v24 = [*(v1 + 56) automaticPasswordForPasswordField:*(*(v1 + 32) + 240) inForm:*(*(v1 + 32) + 232) isFrame:*(*(v1 + 32) + 224)];
-      if (!v24)
+      v26 = [*(v1 + 56) automaticPasswordForPasswordField:*(*(v1 + 32) + 240) inForm:*(*(v1 + 32) + 232) isFrame:*(*(v1 + 32) + 224)];
+      if (!v26)
       {
         goto LABEL_73;
       }
 
-      v25 = [_SFTextSuggestion textSuggestionWithGeneratedPassword:v24];
+      v27 = [_SFTextSuggestion textSuggestionWithGeneratedPassword:v26];
       if ([MEMORY[0x1E69C8880] isPasswordsAppInstalled])
       {
         if ([*(v1 + 56) shouldSuggestToCustomizeStrongPassword])
         {
-          v26 = +[_SFTextSuggestion textSuggestionToCustomizeGeneratedPassword];
+          v28 = +[_SFTextSuggestion textSuggestionToCustomizeGeneratedPassword];
 
-          v25 = v26;
+          v27 = v28;
         }
 
-        v52 = _WBSLocalizedString();
-        [v25 setDisplayText:v52];
+        v56 = _WBSLocalizedString();
+        [v27 setDisplayText:v56];
       }
 
-      v53 = [v25 displayText];
+      v57 = [v27 displayText];
 
-      if (!v53)
+      if (!v57)
       {
-        v54 = _WBSLocalizedString();
-        [v25 setHeaderText:v54];
+        v58 = _WBSLocalizedString();
+        [v27 setHeaderText:v58];
 
-        [v25 setDisplayText:v24];
+        [v27 setDisplayText:v26];
       }
 
-      [WeakRetained addObject:v25];
-      v55 = [MEMORY[0x1E69C8880] isPasswordsAppInstalled];
+      [WeakRetained addObject:v27];
+      v59 = [MEMORY[0x1E69C8880] isPasswordsAppInstalled];
 
-      if ((v55 & 1) == 0)
+      if ((v59 & 1) == 0)
       {
 LABEL_73:
         [*(v1 + 32) _addPasswordsAutoFillSuggestionToSuggestions:WeakRetained forPurpose:0];
@@ -603,49 +604,49 @@ LABEL_73:
 
       if ([WeakRetained count])
       {
-        v56 = *(v1 + 56);
-        v57 = [*(*(v1 + 32) + 240) uniqueID];
-        [v56 reportAutoFillOfferedType:1 forTextFieldWithID:v57 forFormMetadata:*(*(v1 + 32) + 232)];
+        v60 = *(v1 + 56);
+        v61 = [*(*(v1 + 32) + 240) uniqueID];
+        [v60 reportAutoFillOfferedType:1 forTextFieldWithID:v61 forFormMetadata:*(*(v1 + 32) + 232)];
       }
 
-      v58 = [*(*(v1 + 32) + 64) formInputSession];
-      [v58 setSuggestions:WeakRetained];
+      v62 = [*(*(v1 + 32) + 64) formInputSession];
+      [v62 setSuggestions:WeakRetained];
 
       goto LABEL_77;
     }
 
     if ([*(v1 + 32) action] == 8 && objc_msgSend(MEMORY[0x1E69BC7D8], "shouldShowLoginIntroduction"))
     {
-      v27 = [*(v1 + 72) firstResponder];
-      v28 = v27;
-      if (v27)
+      v29 = [*(v1 + 72) firstResponder];
+      v30 = v29;
+      if (v29)
       {
-        [v27 reloadInputViews];
+        [v29 reloadInputViews];
       }
     }
 
     WeakRetained = objc_loadWeakRetained((*(v1 + 32) + 16));
-    v29 = +[_SFFormDataController sharedController];
-    v30 = [WeakRetained tabIDForAutoFill];
-    v31 = [*(*(v1 + 32) + 224) webui_URL];
-    v32 = [v29 canShowSavedAccountHistoryItemInTabWithID:v30 currentURL:v31];
+    v31 = +[_SFFormDataController sharedController];
+    v32 = [WeakRetained tabIDForAutoFill];
+    v33 = [*(*(v1 + 32) + 224) webui_URL];
+    v34 = [v31 canShowSavedAccountHistoryItemInTabWithID:v32 currentURL:v33];
 
-    if (v32)
+    if (v34)
     {
-      v24 = [*(v1 + 80) lastFilledSavedAccount];
-      v33 = [v24 historyItems];
-      if ([v33 count])
+      v26 = [*(v1 + 80) lastFilledSavedAccount];
+      v35 = [v26 historyItems];
+      if ([v35 count])
       {
-        v34 = +[_SFTextSuggestion textSuggestionToOpenPasswordsPocketWithHistorySection];
-        v35 = *(v1 + 32);
-        v60[0] = MEMORY[0x1E69E9820];
-        v60[1] = 3221225472;
-        v60[2] = __46__SFFormAutocompleteState__updateSuggestions___block_invoke_51;
-        v60[3] = &unk_1E8491FF0;
-        v60[4] = v35;
-        v61 = v34;
-        v36 = v34;
-        [v35 _getMatchingKeychainCredentialsIncludingCredentialsWithEmptyUsernames:0 withCompletion:v60];
+        v36 = +[_SFTextSuggestion textSuggestionToOpenPasswordsPocketWithHistorySection];
+        v37 = *(v1 + 32);
+        v64[0] = MEMORY[0x1E69E9820];
+        v64[1] = 3221225472;
+        v64[2] = __46__SFFormAutocompleteState__updateSuggestions___block_invoke_51;
+        v64[3] = &unk_1E8491FF0;
+        v64[4] = v37;
+        v65 = v36;
+        v38 = v36;
+        [v37 _getMatchingKeychainCredentialsIncludingCredentialsWithEmptyUsernames:0 withCompletion:v64];
 
 LABEL_77:
 LABEL_78:
@@ -662,7 +663,7 @@ LABEL_78:
     goto LABEL_78;
   }
 
-  if ([v22 _shouldOfferCreditCardDataAfterUserHasFilledCreditCardData:v22[30]])
+  if ([v24 _shouldOfferCreditCardDataAfterUserHasFilledCreditCardData:v24[30]])
   {
     [*(v1 + 32) _showCreditCardDataSuggestionsAfterUserHasFilledCreditCardData];
   }
@@ -674,20 +675,20 @@ LABEL_78:
 
   else if ([*(v1 + 32) currentControlCanInitiateFillingForRelatedCreditCardFields] && objc_msgSend(*(v1 + 32), "_canAutoFillCreditCardData"))
   {
-    v46 = [*(*(v1 + 32) + 240) value];
-    v47 = [v46 safari_stringByTrimmingWhitespace];
-    v48 = *(*(v1 + 104) + 8);
-    v49 = *(v48 + 40);
-    *(v48 + 40) = v47;
+    v50 = [*(*(v1 + 32) + 240) value];
+    v51 = [v50 safari_stringByTrimmingWhitespace];
+    v52 = *(*(v1 + 104) + 8);
+    v53 = *(v52 + 40);
+    *(v52 + 40) = v51;
 
     if (![*(*(*(v1 + 104) + 8) + 40) length] && (objc_opt_respondsToSelector() & 1) != 0)
     {
       [*(v1 + 72) webui_setInputDashboardViewController:*(*(v1 + 32) + 176)];
     }
 
-    v50 = *(v1 + 56);
-    v51 = [*(*(v1 + 32) + 240) uniqueID];
-    [v50 reportAutoFillOfferedType:3 forTextFieldWithID:v51 forFormMetadata:*(*(v1 + 32) + 232)];
+    v54 = *(v1 + 56);
+    v55 = [*(*(v1 + 32) + 240) uniqueID];
+    [v54 reportAutoFillOfferedType:3 forTextFieldWithID:v55 forFormMetadata:*(*(v1 + 32) + 232)];
   }
 
   else if (((*(v1 + 112) & 1) == 0 || ([*(v1 + 32) _suggestUsernamesForRegistrationIfPossible:?] & 1) == 0) && (!objc_msgSend(*(v1 + 56), "shouldAutofillESimInformation") || (objc_msgSend(*(v1 + 32), "_didGatherESimInformation") & 1) == 0) && objc_msgSend(*(v1 + 80), "shouldAutoFillFromAddressBook"))
@@ -715,16 +716,16 @@ void __46__SFFormAutocompleteState__updateSuggestions___block_invoke_51(uint64_t
 
 - (BOOL)_didGatherESimInformation
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v3 = [objc_alloc(MEMORY[0x1E69650A0]) initWithQueue:0];
   classification = [(WBSFormControlMetadata *)self->_textFieldMetadata classification];
   if (WBSIsEqual())
   {
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
-    v18 = 0;
-    v7 = [v3 retrieveDeviceIdentifier:1 clientBundleIdentifier:bundleIdentifier error:&v18];
-    v8 = v18;
+    v20 = 0;
+    v7 = [v3 retrieveDeviceIdentifier:1 clientBundleIdentifier:bundleIdentifier error:&v20];
+    v8 = v20;
 
     v9 = [_SFTextSuggestion textSuggestionWithESimDataType:0];
     _SFDeviceIsPad();
@@ -739,9 +740,9 @@ void __46__SFFormAutocompleteState__updateSuggestions___block_invoke_51(uint64_t
 
     mainBundle2 = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier2 = [mainBundle2 bundleIdentifier];
-    v17 = 0;
-    v7 = [v3 retrieveDeviceIdentifier:2 clientBundleIdentifier:bundleIdentifier2 error:&v17];
-    v8 = v17;
+    v19 = 0;
+    v7 = [v3 retrieveDeviceIdentifier:2 clientBundleIdentifier:bundleIdentifier2 error:&v19];
+    v8 = v19;
 
     v9 = [_SFTextSuggestion textSuggestionWithESimDataType:1];
     _SFDeviceIsPad();
@@ -751,13 +752,13 @@ void __46__SFFormAutocompleteState__updateSuggestions___block_invoke_51(uint64_t
   [v9 setHeaderText:v12];
 
   [v9 setDisplayText:v7];
-  v13 = v8 == 0;
+  v15 = v8 == 0;
   if (v8)
   {
-    v14 = WBS_LOG_CHANNEL_PREFIXESim();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = WBS_LOG_CHANNEL_PREFIXESim(v13, v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(SFFormAutocompleteState *)v14 _didGatherESimInformation];
+      [(SFFormAutocompleteState *)v16 _didGatherESimInformation];
     }
 
     goto LABEL_10;
@@ -766,19 +767,19 @@ void __46__SFFormAutocompleteState__updateSuggestions___block_invoke_51(uint64_t
   if (!v9)
   {
 LABEL_11:
-    v13 = 0;
+    v15 = 0;
     goto LABEL_12;
   }
 
-  v19[0] = v9;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v21[0] = v9;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   formInputSession = [(_SFFormAutoFillInputSession *)self->_inputSession formInputSession];
   [formInputSession setSuggestions:v8];
 
 LABEL_10:
 LABEL_12:
 
-  return v13;
+  return v15;
 }
 
 - (void)autoFill
@@ -1083,11 +1084,11 @@ LABEL_22:
   return action;
 }
 
-uint64_t __33__SFFormAutocompleteState_action__block_invoke(uint64_t result, int a2)
+id *__33__SFFormAutocompleteState_action__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) updateAutoFillButton];
+    return [result[4] updateAutoFillButton];
   }
 
   return result;
@@ -1643,13 +1644,13 @@ LABEL_20:
 
 - (void)_presentOtherPasswordsView
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v90 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&self->_dataController);
   webui_URL = [(SFFormAutoFillFrameHandle *)self->_frame webui_URL];
   v4 = objc_loadWeakRetained(&self->_autoFillController);
   webView = [v4 webView];
 
-  v55 = webView;
+  v57 = webView;
   webui_presentingViewController = [webView webui_presentingViewController];
   safari_userVisibleString = [webui_URL safari_userVisibleString];
   v7 = [safari_userVisibleString safari_simplifiedUserVisibleURLStringWithSimplifications:511 forDisplayOnly:1 simplifiedStringOffset:0];
@@ -1661,144 +1662,144 @@ LABEL_20:
   autoFillQuirksManager = [v10 autoFillQuirksManager];
   associatedDomainsManager = [autoFillQuirksManager associatedDomainsManager];
 
-  v62 = associatedDomainsManager;
-  v65 = safari_highLevelDomainFromHost;
+  v64 = associatedDomainsManager;
+  v67 = safari_highLevelDomainFromHost;
   v13 = [associatedDomainsManager domainsWithAssociatedCredentialsForDomain:safari_highLevelDomainFromHost];
   allObjects = [v13 allObjects];
 
   v15 = MEMORY[0x1E69C8990];
-  v57 = webui_URL;
+  v59 = webui_URL;
   safari_originalDataAsString = [webui_URL safari_originalDataAsString];
-  v78 = 0;
-  v79 = 0;
-  [v15 getHintStringsForAppID:0 appNames:0 matchedSites:allObjects urlString:safari_originalDataAsString outServiceNameHintStrings:&v79 outDomainHintStrings:&v78];
-  v17 = v79;
-  v18 = v78;
+  v80 = 0;
+  v81 = 0;
+  [v15 getHintStringsForAppID:0 appNames:0 matchedSites:allObjects urlString:safari_originalDataAsString outServiceNameHintStrings:&v81 outDomainHintStrings:&v80];
+  v17 = v81;
+  v18 = v80;
 
-  v19 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v21 = WBS_LOG_CHANNEL_PREFIXAppPasswordAutoFill(v19, v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
-    v52 = v19;
-    v53 = [allObjects count];
+    v54 = v21;
+    v55 = [allObjects count];
     *buf = 134218498;
-    v83 = v53;
-    v84 = 2112;
-    v85 = v17;
+    v85 = v55;
     v86 = 2112;
-    v87 = v18;
-    _os_log_debug_impl(&dword_1D4644000, v52, OS_LOG_TYPE_DEBUG, "Requested hint strings for number of matchedSites %lu, got service name hint strings: %@ and domain hint strings: %@", buf, 0x20u);
+    v87 = v17;
+    v88 = 2112;
+    v89 = v18;
+    _os_log_debug_impl(&dword_1D4644000, v54, OS_LOG_TYPE_DEBUG, "Requested hint strings for number of matchedSites %lu, got service name hint strings: %@ and domain hint strings: %@", buf, 0x20u);
   }
 
-  v61 = allObjects;
-  v66 = objc_loadWeakRetained(&self->_autoFillController);
-  v20 = objc_alloc_init(SFAccountPickerConfiguration);
-  v21 = MEMORY[0x1E696AEC0];
-  v22 = _WBSLocalizedString();
-  v23 = [v21 stringWithFormat:v22, v7];
-  [(SFAccountPickerConfiguration *)v20 setPrompt:v23];
+  v63 = allObjects;
+  v68 = objc_loadWeakRetained(&self->_autoFillController);
+  v22 = objc_alloc_init(SFAccountPickerConfiguration);
+  v23 = MEMORY[0x1E696AEC0];
+  v24 = _WBSLocalizedString();
+  v25 = [v23 stringWithFormat:v24, v7];
+  [(SFAccountPickerConfiguration *)v22 setPrompt:v25];
 
-  v24 = MEMORY[0x1E696AEC0];
-  v25 = _WBSLocalizedString();
-  v63 = v7;
-  v26 = [v24 stringWithFormat:v25, v7];
-  [(SFAccountPickerConfiguration *)v20 setPromptWhenPasskeysAreAvailable:v26];
+  v26 = MEMORY[0x1E696AEC0];
+  v27 = _WBSLocalizedString();
+  v65 = v7;
+  v28 = [v26 stringWithFormat:v27, v7];
+  [(SFAccountPickerConfiguration *)v22 setPromptWhenPasskeysAreAvailable:v28];
 
-  [(SFAccountPickerConfiguration *)v20 setMinimumNumberOfCredentialsToShowLikelyMatchesSection:10];
+  [(SFAccountPickerConfiguration *)v22 setMinimumNumberOfCredentialsToShowLikelyMatchesSection:10];
   passwordElementUniqueID = [(WBSFormMetadata *)self->_formMetadata passwordElementUniqueID];
-  -[SFAccountPickerConfiguration setForUserNamesOnly:](v20, "setForUserNamesOnly:", [passwordElementUniqueID length] == 0);
+  -[SFAccountPickerConfiguration setForUserNamesOnly:](v22, "setForUserNamesOnly:", [passwordElementUniqueID length] == 0);
 
-  v60 = v17;
-  [(SFAccountPickerConfiguration *)v20 setServiceNameHintStrings:v17];
-  v59 = v18;
-  [(SFAccountPickerConfiguration *)v20 setDomainHintStrings:v18];
-  [(SFAccountPickerConfiguration *)v20 setShouldEnableAddingNewPasswordsIfPossible:1];
+  v62 = v17;
+  [(SFAccountPickerConfiguration *)v22 setServiceNameHintStrings:v17];
+  v61 = v18;
+  [(SFAccountPickerConfiguration *)v22 setDomainHintStrings:v18];
+  [(SFAccountPickerConfiguration *)v22 setShouldEnableAddingNewPasswordsIfPossible:1];
   ancestorFrameURLs = [(WBSFormControlMetadata *)self->_textFieldMetadata ancestorFrameURLs];
-  v29 = WeakRetained;
-  LOBYTE(v25) = [WeakRetained frameIsKnownToAskForCredentialsFromOtherServicesFromAncestorFrameURLs:ancestorFrameURLs];
+  v31 = WeakRetained;
+  LOBYTE(v27) = [WeakRetained frameIsKnownToAskForCredentialsFromOtherServicesFromAncestorFrameURLs:ancestorFrameURLs];
 
-  if ((v25 & 1) == 0)
+  if ((v27 & 1) == 0)
   {
-    [(SFAccountPickerConfiguration *)v20 setAddPasswordSuggestedDomain:v65];
+    [(SFAccountPickerConfiguration *)v22 setAddPasswordSuggestedDomain:v67];
   }
 
   mEMORY[0x1E698E018] = [MEMORY[0x1E698E018] sharedManager];
   isDeviceConfiguredToAllowPasskeys = [mEMORY[0x1E698E018] isDeviceConfiguredToAllowPasskeys];
 
-  [(SFAccountPickerConfiguration *)v20 setShouldShowAutoFillPasskeys:isDeviceConfiguredToAllowPasskeys];
+  [(SFAccountPickerConfiguration *)v22 setShouldShowAutoFillPasskeys:isDeviceConfiguredToAllowPasskeys];
   frameHandle = [(_SFFormAutoFillInputSession *)self->_inputSession frameHandle];
   webFrameIdentifier = [frameHandle webFrameIdentifier];
-  [(SFAccountPickerConfiguration *)v20 setCurrentWebFrameIdentifierForAutoFillPasskeys:webFrameIdentifier];
+  [(SFAccountPickerConfiguration *)v22 setCurrentWebFrameIdentifierForAutoFillPasskeys:webFrameIdentifier];
 
-  [(SFAccountPickerConfiguration *)v20 setShouldShowPasskeysInAccountPicker:isDeviceConfiguredToAllowPasskeys];
-  savedAccountContext = [v66 savedAccountContext];
-  [(SFAccountPickerConfiguration *)v20 setSavedAccountContext:savedAccountContext];
+  [(SFAccountPickerConfiguration *)v22 setShouldShowPasskeysInAccountPicker:isDeviceConfiguredToAllowPasskeys];
+  savedAccountContext = [v68 savedAccountContext];
+  [(SFAccountPickerConfiguration *)v22 setSavedAccountContext:savedAccountContext];
 
-  v35 = +[_SFFormDataController sharedController];
-  tabIDForAutoFill = [v66 tabIDForAutoFill];
+  v37 = +[_SFFormDataController sharedController];
+  tabIDForAutoFill = [v68 tabIDForAutoFill];
   webui_URL2 = [(SFFormAutoFillFrameHandle *)self->_frame webui_URL];
-  v38 = [v35 canShowSavedAccountHistoryItemInTabWithID:tabIDForAutoFill currentURL:webui_URL2];
+  v40 = [v37 canShowSavedAccountHistoryItemInTabWithID:tabIDForAutoFill currentURL:webui_URL2];
 
-  if (v38)
-  {
-    lastFilledSavedAccount = [WeakRetained lastFilledSavedAccount];
-    [(SFAccountPickerConfiguration *)v20 setSavedAccountForHistorySection:lastFilledSavedAccount];
-  }
-
-  v40 = [SFAccountPickerViewController alloc];
-  v74[0] = MEMORY[0x1E69E9820];
-  v74[1] = 3221225472;
-  v74[2] = __53__SFFormAutocompleteState__presentOtherPasswordsView__block_invoke;
-  v74[3] = &unk_1E8492D98;
-  v41 = v57;
-  v75 = v41;
-  selfCopy = self;
-  v42 = v55;
-  v77 = v42;
-  v43 = [(SFAccountPickerViewController *)v40 initWithConfiguration:v20 completionHandler:v74];
-  [(SFAccountPickerViewController *)v43 setModalPresentationStyle:2];
-  v44 = objc_alloc_init(MEMORY[0x1E696EE50]);
-  v45 = WBSAuthenticationPolicyForPasswordManager();
-  v73 = 0;
-  LOBYTE(v40) = [v44 canEvaluatePolicy:v45 error:&v73];
-  v46 = v73;
-  v58 = v46;
   if (v40)
   {
-    v80[0] = &unk_1F50231A0;
-    v47 = +[SFAutoFillAuthenticationUtilities passcodePromptForViewingSavedAccounts];
-    v80[1] = &unk_1F50231B8;
-    v81[0] = v47;
-    +[SFAutoFillAuthenticationUtilities customAuthenticationTitleForViewingSavedAccounts];
-    v48 = v56 = v41;
-    v81[1] = v48;
-    v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v81 forKeys:v80 count:2];
+    lastFilledSavedAccount = [WeakRetained lastFilledSavedAccount];
+    [(SFAccountPickerConfiguration *)v22 setSavedAccountForHistorySection:lastFilledSavedAccount];
+  }
 
-    v29 = WeakRetained;
-    v67[0] = MEMORY[0x1E69E9820];
-    v67[1] = 3221225472;
-    v67[2] = __53__SFFormAutocompleteState__presentOtherPasswordsView__block_invoke_136;
-    v67[3] = &unk_1E8492DE8;
-    v68 = v43;
-    v69 = v44;
+  v42 = [SFAccountPickerViewController alloc];
+  v76[0] = MEMORY[0x1E69E9820];
+  v76[1] = 3221225472;
+  v76[2] = __53__SFFormAutocompleteState__presentOtherPasswordsView__block_invoke;
+  v76[3] = &unk_1E8492D98;
+  v43 = v59;
+  v77 = v43;
+  selfCopy = self;
+  v44 = v57;
+  v79 = v44;
+  v45 = [(SFAccountPickerViewController *)v42 initWithConfiguration:v22 completionHandler:v76];
+  [(SFAccountPickerViewController *)v45 setModalPresentationStyle:2];
+  v46 = objc_alloc_init(MEMORY[0x1E696EE50]);
+  v47 = WBSAuthenticationPolicyForPasswordManager();
+  v75 = 0;
+  LOBYTE(v42) = [v46 canEvaluatePolicy:v47 error:&v75];
+  v48 = v75;
+  v60 = v48;
+  if (v42)
+  {
+    v82[0] = &unk_1F50231A0;
+    v49 = +[SFAutoFillAuthenticationUtilities passcodePromptForViewingSavedAccounts];
+    v82[1] = &unk_1F50231B8;
+    v83[0] = v49;
+    +[SFAutoFillAuthenticationUtilities customAuthenticationTitleForViewingSavedAccounts];
+    v50 = v58 = v43;
+    v83[1] = v50;
+    v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v83 forKeys:v82 count:2];
+
+    v31 = WeakRetained;
+    v69[0] = MEMORY[0x1E69E9820];
+    v69[1] = 3221225472;
+    v69[2] = __53__SFFormAutocompleteState__presentOtherPasswordsView__block_invoke_136;
+    v69[3] = &unk_1E8492DE8;
+    v70 = v45;
+    v71 = v46;
     selfCopy2 = self;
-    v50 = webui_presentingViewController;
-    v71 = webui_presentingViewController;
-    v72 = v42;
-    v41 = v56;
-    [v69 evaluatePolicy:v45 options:v49 reply:v67];
+    v52 = webui_presentingViewController;
+    v73 = webui_presentingViewController;
+    v74 = v44;
+    v43 = v58;
+    [v71 evaluatePolicy:v47 options:v51 reply:v69];
   }
 
   else
   {
-    v50 = webui_presentingViewController;
-    if ([v46 code] == -5)
+    v52 = webui_presentingViewController;
+    if ([v48 code] == -5)
     {
-      [(SFFormAutocompleteState *)self _presentViewController:v43 presentingViewController:webui_presentingViewController animated:1 completion:0];
+      [(SFFormAutocompleteState *)self _presentViewController:v45 presentingViewController:webui_presentingViewController animated:1 completion:0];
     }
 
     else
     {
-      webui_preventNavigationDuringAutoFillPrompt = [v42 webui_preventNavigationDuringAutoFillPrompt];
+      webui_preventNavigationDuringAutoFillPrompt = [v44 webui_preventNavigationDuringAutoFillPrompt];
     }
   }
 }
@@ -1884,15 +1885,16 @@ id __53__SFFormAutocompleteState__presentOtherPasswordsView__block_invoke_2(uint
     v8 = 1;
   }
 
-  v29 = 0;
-  v28 = [v6 retrieveDeviceIdentifier:v8 error:&v29];
-  v9 = v29;
+  v31 = 0;
+  v30 = [v6 retrieveDeviceIdentifier:v8 error:&v31];
+  v9 = v31;
+  v11 = v9;
   if (v9)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXESim();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = WBS_LOG_CHANNEL_PREFIXESim(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(SFFormAutocompleteState *)v10 _autofillESimData:v9];
+      [(SFFormAutocompleteState *)v12 _autofillESimData:v11];
     }
   }
 
@@ -1900,57 +1902,57 @@ id __53__SFFormAutocompleteState__presentOtherPasswordsView__block_invoke_2(uint
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     controls = [(WBSFormMetadata *)self->_formMetadata controls];
-    v12 = [controls count];
-    if (v12)
+    v14 = [controls count];
+    if (v14)
     {
-      v13 = v12;
+      v15 = v14;
       selfCopy = self;
-      v26 = v7;
-      v14 = 0;
-      v15 = 0x7FFFFFFFFFFFFFFFLL;
+      v28 = v7;
+      v16 = 0;
+      v17 = 0x7FFFFFFFFFFFFFFFLL;
       do
       {
-        v16 = [controls objectAtIndexedSubscript:v14];
-        classification = [v16 classification];
-        v18 = WBSIsEqual();
-        if (!data && (v18 & 1) != 0 || (v19 = WBSIsEqual(), data == 1) && v19)
+        v18 = [controls objectAtIndexedSubscript:v16];
+        classification = [v18 classification];
+        v20 = WBSIsEqual();
+        if (!data && (v20 & 1) != 0 || (v21 = WBSIsEqual(), data == 1) && v21)
         {
-          uniqueID = [v16 uniqueID];
-          [dictionary setObject:v28 forKeyedSubscript:uniqueID];
+          uniqueID = [v18 uniqueID];
+          [dictionary setObject:v30 forKeyedSubscript:uniqueID];
 
-          if (v14 + 1 < v13)
+          if (v16 + 1 < v15)
           {
-            v21 = v14 + 1;
+            v23 = v16 + 1;
           }
 
           else
           {
-            v21 = 0x7FFFFFFFFFFFFFFFLL;
+            v23 = 0x7FFFFFFFFFFFFFFFLL;
           }
 
-          if (v15 == 0x7FFFFFFFFFFFFFFFLL)
+          if (v17 == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v15 = v21;
+            v17 = v23;
           }
         }
 
-        ++v14;
+        ++v16;
       }
 
-      while (v13 != v14);
-      if (v15 == 0x7FFFFFFFFFFFFFFFLL)
+      while (v15 != v16);
+      if (v17 == 0x7FFFFFFFFFFFFFFFLL)
       {
         uniqueID2 = 0;
       }
 
       else
       {
-        v23 = [controls objectAtIndexedSubscript:v15];
-        uniqueID2 = [v23 uniqueID];
+        v25 = [controls objectAtIndexedSubscript:v17];
+        uniqueID2 = [v25 uniqueID];
       }
 
-      v9 = 0;
-      v7 = v26;
+      v11 = 0;
+      v7 = v28;
       self = selfCopy;
     }
 
@@ -2350,7 +2352,7 @@ void __74__SFFormAutocompleteState__fetchPotentialCredentialMatchesWithCompletio
   filledCopy = filled;
   fillingCopy = filling;
   credentialCopy = credential;
-  v66[1] = *MEMORY[0x1E69E9840];
+  v68[1] = *MEMORY[0x1E69E9840];
   accountCopy = account;
   WeakRetained = objc_loadWeakRetained(&self->_dataController);
   user = [accountCopy user];
@@ -2358,7 +2360,7 @@ void __74__SFFormAutocompleteState__fetchPotentialCredentialMatchesWithCompletio
   formType = self->_formType;
   if (formType == 5 || formType == 3)
   {
-    v59 = [objc_opt_class() valuesFromUser:user password:password forLoginOrChangePasswordForm:self->_formMetadata];
+    v61 = [objc_opt_class() valuesFromUser:user password:password forLoginOrChangePasswordForm:self->_formMetadata];
   }
 
   else
@@ -2373,9 +2375,9 @@ void __74__SFFormAutocompleteState__fetchPotentialCredentialMatchesWithCompletio
         v18 = password;
       }
 
-      v65 = uniqueID;
-      v66[0] = v18;
-      v59 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:&v65 count:1];
+      v67 = uniqueID;
+      v68[0] = v18;
+      v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:&v67 count:1];
     }
 
     else
@@ -2383,117 +2385,117 @@ void __74__SFFormAutocompleteState__fetchPotentialCredentialMatchesWithCompletio
       dictionaryRepresentation = [(WBSFormControlMetadata *)self->_textFieldMetadata dictionaryRepresentation];
       v20 = [dictionaryRepresentation mutableCopy];
 
-      [v20 removeObjectForKey:*MEMORY[0x1E69C9318]];
-      v21 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v21 = [v20 removeObjectForKey:*MEMORY[0x1E69C9318]];
+      v23 = WBS_LOG_CHANNEL_PREFIXAutoFill(v21, v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [SFFormAutocompleteState _fillSavedAccount:setAutoFilled:setAsDefaultCredential:focusFieldAfterFilling:submitForm:];
       }
 
-      v59 = MEMORY[0x1E695E0F8];
+      v61 = MEMORY[0x1E695E0F8];
     }
   }
 
   [WeakRetained setLastFilledSavedAccount:accountCopy];
-  if (self->_performingPageLevelAutoFill && ![v59 count])
+  if (self->_performingPageLevelAutoFill && ![v61 count])
   {
     [(SFFormAutocompleteState *)self _finishPageLevelAutoFillWithResult:5];
   }
 
   else
   {
-    v54 = fillingCopy;
-    v22 = objc_loadWeakRetained(&self->_autoFillController);
-    v23 = [WeakRetained annotationsFromUsername:user forLoginOrChangePasswordForm:self->_formMetadata];
-    if (v23)
+    v56 = fillingCopy;
+    v24 = objc_loadWeakRetained(&self->_autoFillController);
+    v25 = [WeakRetained annotationsFromUsername:user forLoginOrChangePasswordForm:self->_formMetadata];
+    if (v25)
     {
-      [v22 annotateForm:-[WBSFormMetadata uniqueID](self->_formMetadata inFrame:"uniqueID") withValues:{self->_frame, v23}];
+      [v24 annotateForm:-[WBSFormMetadata uniqueID](self->_formMetadata inFrame:"uniqueID") withValues:{self->_frame, v25}];
     }
 
-    v53 = v23;
+    v55 = v25;
     webui_URL = [(SFFormAutoFillFrameHandle *)self->_frame webui_URL];
     user2 = [accountCopy user];
-    v26 = [WeakRetained hasAssociatedDomainSavedForURL:webui_URL userName:user2];
+    v28 = [WeakRetained hasAssociatedDomainSavedForURL:webui_URL userName:user2];
 
-    v57 = password;
-    v58 = user;
-    if (credentialCopy && (v26 & 1) == 0)
+    v59 = password;
+    v60 = user;
+    if (credentialCopy && (v28 & 1) == 0)
     {
       webui_URL2 = [(SFFormAutoFillFrameHandle *)self->_frame webui_URL];
-      v28 = [MEMORY[0x1E695AC58] safari_HTMLFormProtectionSpaceForURL:webui_URL2];
+      v30 = [MEMORY[0x1E695AC58] safari_HTMLFormProtectionSpaceForURL:webui_URL2];
       mEMORY[0x1E69C8A38] = [MEMORY[0x1E69C8A38] sharedStore];
       protectionSpaces = [accountCopy protectionSpaces];
       protectionSpacesForAdditionalSites = [accountCopy protectionSpacesForAdditionalSites];
-      v32 = [protectionSpaces arrayByAddingObjectsFromArray:protectionSpacesForAdditionalSites];
+      v34 = [protectionSpaces arrayByAddingObjectsFromArray:protectionSpacesForAdditionalSites];
 
-      v52 = v32;
-      if ([v32 containsObject:v28])
+      v54 = v34;
+      if ([v34 containsObject:v30])
       {
         host = objc_loadWeakRetained(&self->_dataController);
-        savedAccountContext = [v22 savedAccountContext];
+        savedAccountContext = [v24 savedAccountContext];
         autoFillQuirksManager = [host autoFillQuirksManager];
         [autoFillQuirksManager associatedDomainsManager];
-        v51 = WeakRetained;
-        v37 = v36 = webui_URL2;
-        [mEMORY[0x1E69C8A38] setSavedAccountAsDefault:accountCopy forProtectionSpace:v28 context:savedAccountContext associatedDomainsManager:v37];
+        v53 = WeakRetained;
+        v39 = v38 = webui_URL2;
+        [mEMORY[0x1E69C8A38] setSavedAccountAsDefault:accountCopy forProtectionSpace:v30 context:savedAccountContext associatedDomainsManager:v39];
 
-        webui_URL2 = v36;
-        WeakRetained = v51;
+        webui_URL2 = v38;
+        WeakRetained = v53;
       }
 
       else
       {
-        host = [v28 host];
+        host = [v30 host];
         savedAccountContext = [host safari_highLevelDomainForPasswordManager];
         autoFillQuirksManager = [accountCopy sharedGroupID];
-        v38 = [mEMORY[0x1E69C8A38] saveUser:v58 password:v57 forProtectionSpace:v28 highLevelDomain:savedAccountContext groupID:autoFillQuirksManager];
+        v40 = [mEMORY[0x1E69C8A38] saveUser:v60 password:v59 forProtectionSpace:v30 highLevelDomain:savedAccountContext groupID:autoFillQuirksManager];
       }
 
-      password = v57;
-      user = v58;
+      password = v59;
+      user = v60;
     }
 
     webui_URL3 = [(SFFormAutoFillFrameHandle *)self->_frame webui_URL];
     if (formCopy)
     {
-      v40 = [WeakRetained shouldSubmitForm:self->_formMetadata withUser:user password:password onURL:webui_URL3];
+      v42 = [WeakRetained shouldSubmitForm:self->_formMetadata withUser:user password:password onURL:webui_URL3];
     }
 
     else
     {
-      v40 = 0;
+      v42 = 0;
     }
 
+    v64 = 0u;
+    v65 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    allKeys = [v59 allKeys];
-    v42 = [allKeys countByEnumeratingWithState:&v60 objects:v64 count:16];
-    if (v42)
+    allKeys = [v61 allKeys];
+    v44 = [allKeys countByEnumeratingWithState:&v62 objects:v66 count:16];
+    if (v44)
     {
-      v43 = v42;
-      v44 = *v61;
+      v45 = v44;
+      v46 = *v63;
       do
       {
-        for (i = 0; i != v43; ++i)
+        for (i = 0; i != v45; ++i)
         {
-          if (*v61 != v44)
+          if (*v63 != v46)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          [v22 reportAutoFillOfferedType:1 forTextFieldWithID:*(*(&v60 + 1) + 8 * i) forFormMetadata:self->_formMetadata];
+          [v24 reportAutoFillOfferedType:1 forTextFieldWithID:*(*(&v62 + 1) + 8 * i) forFormMetadata:self->_formMetadata];
         }
 
-        v43 = [allKeys countByEnumeratingWithState:&v60 objects:v64 count:16];
+        v45 = [allKeys countByEnumeratingWithState:&v62 objects:v66 count:16];
       }
 
-      while (v43);
+      while (v45);
     }
 
-    [v22 autoFillFormInFrame:self->_frame withValues:v59 setAutoFilled:filledCopy focusFieldAfterFilling:v54 fieldToFocus:0 submitForm:v40];
-    if (v40)
+    [v24 autoFillFormInFrame:self->_frame withValues:v61 setAutoFilled:filledCopy focusFieldAfterFilling:v56 fieldToFocus:0 submitForm:v42];
+    if (v42)
     {
       [WeakRetained didAutomaticallySubmitFormWhenFillingOnURL:webui_URL3 formMetadata:self->_formMetadata];
     }
@@ -2503,15 +2505,15 @@ void __74__SFFormAutocompleteState__fetchPotentialCredentialMatchesWithCompletio
       [(SFFormAutocompleteState *)self _finishPageLevelAutoFillWithResult:0];
     }
 
-    v46 = +[_SFFormDataController sharedController];
+    v48 = +[_SFFormDataController sharedController];
     user3 = [accountCopy user];
-    v48 = *MEMORY[0x1E69C8CC0];
-    tabIDForAutoFill = [v22 tabIDForAutoFill];
-    webView = [v22 webView];
-    [v46 didFillPasswordForUsername:user3 fromProviderWithBundleIdentifier:v48 inTabWithID:tabIDForAutoFill currentURL:webui_URL3 isPrivate:objc_msgSend(webView formMetadata:"webui_privateBrowsingEnabled") requester:{self->_formMetadata, 0}];
+    v50 = *MEMORY[0x1E69C8CC0];
+    tabIDForAutoFill = [v24 tabIDForAutoFill];
+    webView = [v24 webView];
+    [v48 didFillPasswordForUsername:user3 fromProviderWithBundleIdentifier:v50 inTabWithID:tabIDForAutoFill currentURL:webui_URL3 isPrivate:objc_msgSend(webView formMetadata:"webui_privateBrowsingEnabled") requester:{self->_formMetadata, 0}];
 
-    password = v57;
-    user = v58;
+    password = v59;
+    user = v60;
   }
 }
 
@@ -2521,14 +2523,14 @@ void __74__SFFormAutocompleteState__fetchPotentialCredentialMatchesWithCompletio
   filledCopy = filled;
   fillingCopy = filling;
   defaultCredentialCopy = defaultCredential;
-  v52[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   credentialCopy = credential;
   WeakRetained = objc_loadWeakRetained(&self->_dataController);
   user = [credentialCopy user];
   password = [credentialCopy password];
   formType = self->_formType;
   v15 = formType == 5 || formType == 3;
-  v44 = user;
+  v46 = user;
   if (v15)
   {
     v16 = [objc_opt_class() valuesFromUser:user password:password forLoginOrChangePasswordForm:self->_formMetadata];
@@ -2547,9 +2549,9 @@ void __74__SFFormAutocompleteState__fetchPotentialCredentialMatchesWithCompletio
         v20 = password;
       }
 
-      v51 = uniqueID;
-      v52[0] = v20;
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+      v53 = uniqueID;
+      v54[0] = v20;
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v54 forKeys:&v53 count:1];
     }
 
     else
@@ -2557,15 +2559,15 @@ void __74__SFFormAutocompleteState__fetchPotentialCredentialMatchesWithCompletio
       dictionaryRepresentation = [(WBSFormControlMetadata *)self->_textFieldMetadata dictionaryRepresentation];
       v22 = [dictionaryRepresentation mutableCopy];
 
-      [v22 removeObjectForKey:*MEMORY[0x1E69C9318]];
-      v23 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v23 = [v22 removeObjectForKey:*MEMORY[0x1E69C9318]];
+      v25 = WBS_LOG_CHANNEL_PREFIXAutoFill(v23, v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [SFFormAutocompleteState _fillSavedAccount:setAutoFilled:setAsDefaultCredential:focusFieldAfterFilling:submitForm:];
       }
 
       v16 = MEMORY[0x1E695E0F8];
-      user = v44;
+      user = v46;
     }
 
     fillingCopy = v17;
@@ -2578,88 +2580,88 @@ void __74__SFFormAutocompleteState__fetchPotentialCredentialMatchesWithCompletio
 
   else
   {
-    v24 = objc_loadWeakRetained(&self->_autoFillController);
-    v25 = [WeakRetained annotationsFromUsername:user forLoginOrChangePasswordForm:self->_formMetadata];
-    if (v25)
+    v26 = objc_loadWeakRetained(&self->_autoFillController);
+    v27 = [WeakRetained annotationsFromUsername:user forLoginOrChangePasswordForm:self->_formMetadata];
+    if (v27)
     {
-      [v24 annotateForm:-[WBSFormMetadata uniqueID](self->_formMetadata inFrame:"uniqueID") withValues:{self->_frame, v25}];
+      [v26 annotateForm:-[WBSFormMetadata uniqueID](self->_formMetadata inFrame:"uniqueID") withValues:{self->_frame, v27}];
     }
 
-    v39 = v25;
-    v45 = password;
+    v41 = v27;
+    v47 = password;
     if (defaultCredentialCopy)
     {
       [(SFFormAutoFillFrameHandle *)self->_frame webui_URL];
-      v27 = v26 = user;
-      [MEMORY[0x1E695AC58] safari_HTMLFormProtectionSpaceForURL:v27];
-      v29 = v28 = v16;
+      v29 = v28 = user;
+      [MEMORY[0x1E695AC58] safari_HTMLFormProtectionSpaceForURL:v29];
+      v31 = v30 = v16;
       mEMORY[0x1E695AC50] = [MEMORY[0x1E695AC50] sharedCredentialStorage];
-      [mEMORY[0x1E695AC50] safari_setDefaultCredential:credentialCopy forHTMLFormProtectionSpace:v29];
+      [mEMORY[0x1E695AC50] safari_setDefaultCredential:credentialCopy forHTMLFormProtectionSpace:v31];
 
-      v16 = v28;
-      user = v26;
-      password = v45;
+      v16 = v30;
+      user = v28;
+      password = v47;
       fillingCopy = fillingCopy;
     }
 
     webui_URL = [(SFFormAutoFillFrameHandle *)self->_frame webui_URL];
-    v40 = WeakRetained;
-    v41 = credentialCopy;
+    v42 = WeakRetained;
+    v43 = credentialCopy;
     if (formCopy)
     {
-      v32 = [WeakRetained shouldSubmitForm:self->_formMetadata withUser:user password:password onURL:webui_URL];
+      v34 = [WeakRetained shouldSubmitForm:self->_formMetadata withUser:user password:password onURL:webui_URL];
     }
 
     else
     {
-      v32 = 0;
+      v34 = 0;
     }
 
+    v50 = 0u;
+    v51 = 0u;
     v48 = 0u;
     v49 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v33 = v16;
+    v35 = v16;
     allKeys = [v16 allKeys];
-    v35 = [allKeys countByEnumeratingWithState:&v46 objects:v50 count:16];
-    if (v35)
+    v37 = [allKeys countByEnumeratingWithState:&v48 objects:v52 count:16];
+    if (v37)
     {
-      v36 = v35;
-      v37 = *v47;
+      v38 = v37;
+      v39 = *v49;
       do
       {
-        for (i = 0; i != v36; ++i)
+        for (i = 0; i != v38; ++i)
         {
-          if (*v47 != v37)
+          if (*v49 != v39)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          [v24 reportAutoFillOfferedType:1 forTextFieldWithID:*(*(&v46 + 1) + 8 * i) forFormMetadata:self->_formMetadata];
+          [v26 reportAutoFillOfferedType:1 forTextFieldWithID:*(*(&v48 + 1) + 8 * i) forFormMetadata:self->_formMetadata];
         }
 
-        v36 = [allKeys countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v38 = [allKeys countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
-      while (v36);
+      while (v38);
     }
 
-    v16 = v33;
-    [v24 autoFillFormInFrame:self->_frame withValues:v33 setAutoFilled:filledCopy focusFieldAfterFilling:fillingCopy fieldToFocus:0 submitForm:v32];
-    WeakRetained = v40;
-    if (v32)
+    v16 = v35;
+    [v26 autoFillFormInFrame:self->_frame withValues:v35 setAutoFilled:filledCopy focusFieldAfterFilling:fillingCopy fieldToFocus:0 submitForm:v34];
+    WeakRetained = v42;
+    if (v34)
     {
-      [v40 didAutomaticallySubmitFormWhenFillingOnURL:webui_URL formMetadata:self->_formMetadata];
+      [v42 didAutomaticallySubmitFormWhenFillingOnURL:webui_URL formMetadata:self->_formMetadata];
     }
 
-    credentialCopy = v41;
-    user = v44;
+    credentialCopy = v43;
+    user = v46;
     if (self->_performingPageLevelAutoFill)
     {
       [(SFFormAutocompleteState *)self _finishPageLevelAutoFillWithResult:0];
     }
 
-    password = v45;
+    password = v47;
   }
 }
 
@@ -3731,11 +3733,11 @@ void __111__SFFormAutocompleteState__fillSavedAccountMatchAfterAuthenticationIfN
   [WeakRetained authenticateIfNeededForAutoFillAuthenticationType:0 user:user shouldForceAuthentication:0 withCompletion:v12];
 }
 
-uint64_t __104__SFFormAutocompleteState__fillCredentialAfterAuthenticationIfNeeded_setAsDefaultCredential_submitForm___block_invoke(uint64_t result, int a2)
+id *__104__SFFormAutocompleteState__fillCredentialAfterAuthenticationIfNeeded_setAsDefaultCredential_submitForm___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _fillCredential:*(result + 40) setAutoFilled:1 setAsDefaultCredential:*(result + 48) focusFieldAfterFilling:*(result + 49) submitForm:*(result + 49)];
+    return [result[4] _fillCredential:result[5] setAutoFilled:1 setAsDefaultCredential:*(result + 48) focusFieldAfterFilling:*(result + 49) submitForm:*(result + 49)];
   }
 
   return result;
@@ -4917,11 +4919,11 @@ LABEL_15:
   }
 }
 
-uint64_t __74__SFFormAutocompleteState__fillCreditCardDataAfterAuthenticationIfNeeded___block_invoke(uint64_t result, int a2)
+id *__74__SFFormAutocompleteState__fillCreditCardDataAfterAuthenticationIfNeeded___block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _fillCreditCardData:*(result + 40)];
+    return [result[4] _fillCreditCardData:result[5]];
   }
 
   return result;
@@ -5538,7 +5540,7 @@ void __57__SFFormAutocompleteState__autoFillSingleCreditCardData___block_invoke_
   objc_destroyWeak(&v12);
 }
 
-void __57__SFFormAutocompleteState__autoFillSingleCreditCardData___block_invoke_4(uint64_t a1, uint64_t a2)
+void __57__SFFormAutocompleteState__autoFillSingleCreditCardData___block_invoke_4(uint64_t a1, void *a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (a2 != -1 && WeakRetained)
@@ -7261,12 +7263,12 @@ void __100__SFFormAutocompleteState_getTextSuggestionForStreamlinedAutoFillWithC
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __59__SFFormAutocompleteState_oneTimeCodeProviderReceivedCode___block_invoke(uint64_t a1)
+uint64_t __59__SFFormAutocompleteState_oneTimeCodeProviderReceivedCode___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXOneTimeCodeAutoFill();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXOneTimeCodeAutoFill(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __59__SFFormAutocompleteState_oneTimeCodeProviderReceivedCode___block_invoke_cold_1(v2);
+    __59__SFFormAutocompleteState_oneTimeCodeProviderReceivedCode___block_invoke_cold_1(v3);
   }
 
   return [*(a1 + 32) updateSuggestions];
@@ -7282,14 +7284,14 @@ uint64_t __59__SFFormAutocompleteState_oneTimeCodeProviderReceivedCode___block_i
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __60__SFFormAutocompleteState_newAutoFillablePasskeysAvailable___block_invoke(uint64_t a1)
+void __60__SFFormAutocompleteState_newAutoFillablePasskeysAvailable___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
-  v3 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+  v13[1] = *MEMORY[0x1E69E9840];
+  v4 = WBS_LOG_CHANNEL_PREFIXAutoFill(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_1D4644000, v3, OS_LOG_TYPE_INFO, "Received new passkeys available notification. Refreshing AutoFill state.", buf, 2u);
+    _os_log_impl(&dword_1D4644000, v4, OS_LOG_TYPE_INFO, "Received new passkeys available notification. Refreshing AutoFill state.", buf, 2u);
   }
 
   [*(a1 + 32) _clearCachedCredentials];
@@ -7299,28 +7301,28 @@ void __60__SFFormAutocompleteState_newAutoFillablePasskeysAvailable___block_invo
   aBlock[2] = __60__SFFormAutocompleteState_newAutoFillablePasskeysAvailable___block_invoke_440;
   aBlock[3] = &unk_1E848F758;
   aBlock[4] = *(a1 + 32);
-  v4 = _Block_copy(aBlock);
-  v5 = *(*(a1 + 32) + 96);
-  v6 = _Block_copy(v4);
-  v7 = v6;
-  if (v5)
+  v5 = _Block_copy(aBlock);
+  v6 = *(*(a1 + 32) + 96);
+  v7 = _Block_copy(v5);
+  v8 = v7;
+  if (v6)
   {
-    v12[0] = v6;
-    v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
-    [v1 arrayByAddingObjectsFromArray:*(*(a1 + 32) + 96)];
+    v13[0] = v7;
+    v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    [v2 arrayByAddingObjectsFromArray:*(*(a1 + 32) + 96)];
   }
 
   else
   {
-    v11 = v6;
-    [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
+    v12 = v7;
+    [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
   }
-  v8 = ;
-  objc_storeStrong((*(a1 + 32) + 96), v8);
-  if (v5)
+  v9 = ;
+  objc_storeStrong((*(a1 + 32) + 96), v9);
+  if (v6)
   {
 
-    v8 = v1;
+    v9 = v2;
   }
 }
 
@@ -7464,13 +7466,13 @@ void __62__SFFormAutocompleteState__fillCredentialIdentity_submitForm___block_in
       v13 = [v12 bundleIdentifier];
       v14 = [v11 serviceIdentifier];
       v15 = [v11 credentialID];
-      v29[0] = MEMORY[0x1E69E9820];
-      v29[1] = 3221225472;
-      v29[2] = __62__SFFormAutocompleteState__fillCredentialIdentity_submitForm___block_invoke_3;
-      v29[3] = &unk_1E84934C0;
-      v29[4] = *(a1 + 32);
-      v30 = *(a1 + 48);
-      [v9 getExternalPasskeyRequestForApplicationIdentifier:v13 relyingPartyIdentifier:v14 credentialID:v15 completionHandler:v29];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __62__SFFormAutocompleteState__fillCredentialIdentity_submitForm___block_invoke_3;
+      v31[3] = &unk_1E84934C0;
+      v31[4] = *(a1 + 32);
+      v32 = *(a1 + 48);
+      [v9 getExternalPasskeyRequestForApplicationIdentifier:v13 relyingPartyIdentifier:v14 credentialID:v15 completionHandler:v31];
 
       return;
     }
@@ -7497,46 +7499,46 @@ void __62__SFFormAutocompleteState__fillCredentialIdentity_submitForm___block_in
 
   if (v18)
   {
-    v19 = objc_alloc(MEMORY[0x1E695A978]);
-    v20 = *(a1 + 48);
-    v21 = objc_alloc(MEMORY[0x1E695A930]);
-    v22 = [objc_alloc(MEMORY[0x1E695A928]) _initWithFoundationCredentialIdentity:*(a1 + 40)];
-    v23 = [v21 initWithCredentialIdentity:v22];
-    v24 = [v19 initWithExtension:v20 oneTimeCodeCredentialRequest:v23];
-    v25 = *(a1 + 32);
-    v26 = *(v25 + 144);
-    *(v25 + 144) = v24;
+    v21 = objc_alloc(MEMORY[0x1E695A978]);
+    v22 = *(a1 + 48);
+    v23 = objc_alloc(MEMORY[0x1E695A930]);
+    v24 = [objc_alloc(MEMORY[0x1E695A928]) _initWithFoundationCredentialIdentity:*(a1 + 40)];
+    v25 = [v23 initWithCredentialIdentity:v24];
+    v26 = [v21 initWithExtension:v22 oneTimeCodeCredentialRequest:v25];
+    v27 = *(a1 + 32);
+    v28 = *(v27 + 144);
+    *(v27 + 144) = v26;
 
 LABEL_8:
     [*(*(a1 + 32) + 144) setDelegate:?];
-    v27 = *(*(a1 + 32) + 144);
+    v29 = *(*(a1 + 32) + 144);
 
-    [v27 setDismissOnBackground:1];
+    [v29 setDismissOnBackground:1];
     return;
   }
 
-  v28 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v30 = WBS_LOG_CHANNEL_PREFIXAutoFill(v19, v20);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
-    __62__SFFormAutocompleteState__fillCredentialIdentity_submitForm___block_invoke_2_cold_1(v17, v28);
+    __62__SFFormAutocompleteState__fillCredentialIdentity_submitForm___block_invoke_2_cold_1(v17, v30);
   }
 }
 
-uint64_t __62__SFFormAutocompleteState__fillCredentialIdentity_submitForm___block_invoke_3(uint64_t result, void *a2)
+void *__62__SFFormAutocompleteState__fillCredentialIdentity_submitForm___block_invoke_3(void *result, void *a2)
 {
   if (a2)
   {
     v2 = result;
     v3 = MEMORY[0x1E695A978];
     v4 = a2;
-    v5 = [[v3 alloc] initWithExtension:*(v2 + 40) passkeyAssertionRequest:v4];
+    v5 = [[v3 alloc] initWithExtension:v2[5] passkeyAssertionRequest:v4];
 
-    v6 = *(v2 + 32);
+    v6 = v2[4];
     v7 = *(v6 + 144);
     *(v6 + 144) = v5;
 
-    [*(*(v2 + 32) + 144) setDelegate:?];
-    v8 = *(*(v2 + 32) + 144);
+    [*(v2[4] + 144) setDelegate:?];
+    v8 = *(v2[4] + 144);
 
     return [v8 setDismissOnBackground:1];
   }
@@ -8031,7 +8033,7 @@ void __46__SFFormAutocompleteState__updateSuggestions___block_invoke_3_cold_2()
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Did not retrieve device identifier from CoreTelephony with error %{public}@.", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Did not retrieve device identifier from CoreTelephony with error %{public}@.", v7, v8, v9, v10);
 }
 
 - (void)_autofillESimData:(void *)a1 .cold.1(void *a1, void *a2)
@@ -8039,7 +8041,7 @@ void __46__SFFormAutocompleteState__updateSuggestions___block_invoke_3_cold_2()
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Did not retrieve autofill value from CoreTelephony with error %@.", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Did not retrieve autofill value from CoreTelephony with error %@.", v7, v8, v9, v10);
 }
 
 - (void)_fillSavedAccount:setAutoFilled:setAsDefaultCredential:focusFieldAfterFilling:submitForm:.cold.1()
@@ -8078,7 +8080,7 @@ void __62__SFFormAutocompleteState__fillCredentialIdentity_submitForm___block_in
   v3 = a2;
   v4 = [v2 identifier];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Fetched one time code credential identities for extension that does not support one time codes: %{public}@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_0_0(&dword_1D4644000, v5, v6, "Fetched one time code credential identities for extension that does not support one time codes: %{public}@", v7, v8, v9, v10);
 }
 
 @end

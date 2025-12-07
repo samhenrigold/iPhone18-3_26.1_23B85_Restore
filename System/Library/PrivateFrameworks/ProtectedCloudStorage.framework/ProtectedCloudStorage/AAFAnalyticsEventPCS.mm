@@ -21,7 +21,7 @@
 
 void __42__AAFAnalyticsEventPCS_isAuthKitAvailable__block_invoke()
 {
-  if (AuthKitLibraryCore())
+  if (AuthKitLibraryCore(0))
   {
     isAuthKitAvailable_available = 1;
   }
@@ -105,7 +105,7 @@ void __42__AAFAnalyticsEventPCS_isAuthKitAvailable__block_invoke()
 - (AAFAnalyticsEventPCS)initWithPCSMetrics:(id)metrics altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID eventName:(id)name testsAreEnabled:(BOOL)enabled canSendMetrics:(BOOL)sendMetrics category:(id)self0
 {
   enabledCopy = enabled;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   metricsCopy = metrics;
   dCopy = d;
   iDCopy = iD;
@@ -114,14 +114,14 @@ void __42__AAFAnalyticsEventPCS_isAuthKitAvailable__block_invoke()
   categoryCopy = category;
   if (+[AAFAnalyticsEventPCS isAAAFoundationAvailable](AAFAnalyticsEventPCS, "isAAAFoundationAvailable") && +[AAFAnalyticsEventPCS isAuthKitAvailable]&& sendMetrics && !enabledCopy)
   {
-    v47.receiver = self;
-    v47.super_class = AAFAnalyticsEventPCS;
-    v22 = [(AAFAnalyticsEventPCS *)&v47 init];
+    v46.receiver = self;
+    v46.super_class = AAFAnalyticsEventPCS;
+    v22 = [(AAFAnalyticsEventPCS *)&v46 init];
     if (v22)
     {
-      v41 = iDCopy;
+      v40 = iDCopy;
       dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v23 = v42 = dCopy;
+      v23 = v41 = dCopy;
       v24 = dispatch_queue_create("com.apple.pcs.aafanalyticsevent.queue", v23);
       queue = v22->_queue;
       v22->_queue = v24;
@@ -129,8 +129,8 @@ void __42__AAFAnalyticsEventPCS_isAuthKitAvailable__block_invoke()
       v22->_areTestsEnabled = 0;
       v22->_canSendMetrics = sendMetrics;
       v22->_isAuthKitAvailable = 1;
-      dCopy = v42;
-      v26 = [objc_alloc(MEMORY[0x1E6985DB0]) initWithEventName:nameCopy eventCategory:categoryCopy initData:0 altDSID:v42];
+      dCopy = v41;
+      v26 = [objc_alloc(MEMORY[0x1E6985DB0]) initWithEventName:nameCopy eventCategory:categoryCopy initData:0 altDSID:v41];
       if (iDCopy && ([iDCopy isEqualToString:&stru_1F297D620] & 1) == 0)
       {
         [v26 setObject:iDCopy forKeyedSubscript:*MEMORY[0x1E6985E50]];
@@ -151,59 +151,59 @@ LABEL_24:
 
       else
       {
-        v27 = [AAFAnalyticsEventPCS fetchDeviceSessionIDFromAuthKit:v42];
+        v27 = [AAFAnalyticsEventPCS fetchDeviceSessionIDFromAuthKit:v41];
         [v26 setObject:v27 forKeyedSubscript:*MEMORY[0x1E6985E38]];
 
-        dCopy = v42;
+        dCopy = v41;
         if (!metricsCopy)
         {
           goto LABEL_24;
         }
       }
 
-      v45 = 0u;
-      v46 = 0u;
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
       allKeys = [metricsCopy allKeys];
-      v29 = [allKeys countByEnumeratingWithState:&v43 objects:v49 count:16];
+      v29 = [allKeys countByEnumeratingWithState:&v42 objects:v48 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v44;
+        v31 = *v43;
         do
         {
           for (i = 0; i != v30; ++i)
           {
-            if (*v44 != v31)
+            if (*v43 != v31)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            v33 = *(*(&v43 + 1) + 8 * i);
+            v33 = *(*(&v42 + 1) + 8 * i);
             v34 = [metricsCopy objectForKeyedSubscript:v33];
             [v26 setObject:v34 forKeyedSubscript:v33];
           }
 
-          v30 = [allKeys countByEnumeratingWithState:&v43 objects:v49 count:16];
+          v30 = [allKeys countByEnumeratingWithState:&v42 objects:v48 count:16];
         }
 
         while (v30);
       }
 
-      iDCopy = v41;
-      dCopy = v42;
-      categoryCopy = v39;
-      nameCopy = v40;
+      iDCopy = v40;
+      dCopy = v41;
+      categoryCopy = v38;
+      nameCopy = v39;
       goto LABEL_24;
     }
   }
 
   else
   {
-    v48.receiver = self;
-    v48.super_class = AAFAnalyticsEventPCS;
-    v22 = [(AAFAnalyticsEventPCS *)&v48 init];
+    v47.receiver = self;
+    v47.super_class = AAFAnalyticsEventPCS;
+    v22 = [(AAFAnalyticsEventPCS *)&v47 init];
     if (v22)
     {
       v22->_isAuthKitAvailable = +[AAFAnalyticsEventPCS isAuthKitAvailable];
@@ -215,7 +215,6 @@ LABEL_24:
 LABEL_25:
   v36 = v22;
 
-  v37 = *MEMORY[0x1E69E9840];
   return v36;
 }
 
@@ -259,48 +258,45 @@ void __70__AAFAnalyticsEventPCS_populateUnderlyingErrorsStartingWithRootError___
 
 void __35__AAFAnalyticsEventPCS_addMetrics___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = [*(a1 + 32) allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         v8 = [*(a1 + 32) objectForKeyedSubscript:v7];
         v9 = [*(a1 + 40) event];
         [v9 setObject:v8 forKeyedSubscript:v7];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fetchDeviceSessionIDFromAuthKit:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B229C000, a2, OS_LOG_TYPE_ERROR, "authKitAccountWithAltDSID returned error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B229C000, a2, OS_LOG_TYPE_ERROR, "authKitAccountWithAltDSID returned error: %@", &v2, 0xCu);
 }
 
 @end

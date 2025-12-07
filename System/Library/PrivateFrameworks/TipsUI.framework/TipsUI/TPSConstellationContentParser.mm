@@ -42,12 +42,12 @@
   return v2;
 }
 
-void __59__TPSConstellationContentParser_inlineIconPlaceHolderImage__block_invoke()
+void __59__TPSConstellationContentParser_inlineIconPlaceHolderImage__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v0 = [MEMORY[0x277D755B8] imageNamed:@"InlineIconPlaceHolder" inBundle:v2 compatibleWithTraitCollection:0];
-  v1 = inlineIconPlaceHolderImage_gInlineIconPlaceHolderImage;
-  inlineIconPlaceHolderImage_gInlineIconPlaceHolderImage = v0;
+  v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v1 = [MEMORY[0x277D755B8] imageNamed:@"InlineIconPlaceHolder" inBundle:v3 compatibleWithTraitCollection:0];
+  v2 = inlineIconPlaceHolderImage_gInlineIconPlaceHolderImage;
+  inlineIconPlaceHolderImage_gInlineIconPlaceHolderImage = v1;
 }
 
 - (void)dealloc

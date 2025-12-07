@@ -18,7 +18,7 @@ uint64_t mlir::mps::DepthwiseConv3DOp::inferReturnTypes(mlir::UnknownLoc *this, 
   }
 
   v184 = a6;
-  v185[0] = 0;
+  LOBYTE(v185) = 0;
   v186 = 0;
   v187 = v14;
   v188 = v15;
@@ -34,14 +34,14 @@ uint64_t mlir::mps::DepthwiseConv3DOp::inferReturnTypes(mlir::UnknownLoc *this, 
       v186 = 0;
     }
 
-    mlir::OperationName::OperationName(v185, "mps.depthwise_conv_3d", 21, Context);
+    mlir::OperationName::OperationName(&v185, "mps.depthwise_conv_3d", 21, Context);
     v186 = 1;
     v17 = v195;
   }
 
   v192 = a4;
   v193 = a5;
-  if (v17 < 2 || (v19.var0.var0 = mlir::UnknownLoc::get(this, a2), !mlir::mps::DepthwiseConv3DOpAdaptor::verify(&v184, v19)))
+  if (v17 < 2 || (v19.var0.var0 = mlir::UnknownLoc::get(this, a2), (mlir::mps::DepthwiseConv3DOpAdaptor::verify(&v184, v19) & 1) == 0))
   {
     v39 = mlir::Float32Type::get(this, a2);
 LABEL_21:
@@ -954,7 +954,7 @@ LABEL_22:
   if (v41 >= *(a11 + 12))
   {
     v116 = v40;
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a11, a11 + 16, v41 + 1, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a11, (a11 + 16), v41 + 1, 8);
     v40 = v116;
     v41 = *(a11 + 8);
   }
@@ -964,7 +964,7 @@ LABEL_22:
   return 1;
 }
 
-BOOL mlir::mps::DepthwiseConv3DOpAdaptor::verify(mlir::mps::DepthwiseConv3DOpAdaptor *this, Location a2)
+uint64_t mlir::mps::DepthwiseConv3DOpAdaptor::verify(mlir::mps::DepthwiseConv3DOpAdaptor *this, Location a2)
 {
   v70 = *MEMORY[0x1E69E9840];
   v3 = *(this + 3);
@@ -1342,20 +1342,20 @@ LABEL_87:
   return v19;
 }
 
-uint64_t mlir::mps::DepthwiseConv3DDataGradientOp::verify(mlir::mps::DepthwiseConv3DDataGradientOp *this)
+uint64_t mlir::mps::DepthwiseConv3DDataGradientOp::verify(uint64_t **this)
 {
   v273 = *MEMORY[0x1E69E9840];
   v2 = *this;
-  v3 = *(*this + 72);
+  v3 = (*this)[9];
   v4 = v3[3];
   v5 = v3[7];
-  if (*(*this + 68) == 2)
+  if (*(*this + 17) == 2)
   {
     v6 = 0;
-    v252 = v2[14];
+    v252 = *(v2 + 14);
     v253 = v2;
-    v7 = v2[11];
-    v250 = v2[12];
+    v7 = *(v2 + 11);
+    v250 = *(v2 + 12);
     v251 = v7;
     if (v252)
     {
@@ -1585,10 +1585,10 @@ LABEL_137:
   else
   {
     v6 = v3[11];
-    v252 = v2[14];
+    v252 = *(v2 + 14);
     v253 = v2;
-    v9 = v2[11];
-    v250 = v2[12];
+    v9 = *(v2 + 11);
+    v250 = *(v2 + 12);
     v251 = v9;
     if (v252)
     {
@@ -2051,7 +2051,7 @@ LABEL_223:
 
 LABEL_14:
   v257 = v253[2 * ((*(v253 + 11) >> 23) & 1) + 8];
-  mlir::IntegerAttr::getValue(&v257, &__p);
+  mlir::IntegerAttr::getValue(&__p, &v257);
   if (v262[0] > 0x40)
   {
     v14 = *__p;
@@ -3146,7 +3146,7 @@ uint64_t mlir::mps::DepthwiseConv3DDataGradientOp::inferReturnTypes(mlir::Unknow
   }
 
   v179 = a6;
-  v180[0] = 0;
+  LOBYTE(v180) = 0;
   v181 = 0;
   v182 = v16;
   v183 = v17;
@@ -3162,14 +3162,14 @@ uint64_t mlir::mps::DepthwiseConv3DDataGradientOp::inferReturnTypes(mlir::Unknow
       v181 = 0;
     }
 
-    mlir::OperationName::OperationName(v180, "mps.depthwise_conv_3d_data_gradient", 35, Context);
+    mlir::OperationName::OperationName(&v180, "mps.depthwise_conv_3d_data_gradient", 35, Context);
     v181 = 1;
     v19 = v190;
   }
 
   v187 = a4;
   v188 = a5;
-  if (v19 < 2 || (v21.var0.var0 = mlir::UnknownLoc::get(this, a2), !mlir::mps::DepthwiseConv3DDataGradientOpAdaptor::verify(&v179, v21)))
+  if (v19 < 2 || (v21.var0.var0 = mlir::UnknownLoc::get(this, a2), (mlir::mps::DepthwiseConv3DDataGradientOpAdaptor::verify(&v179, v21) & 1) == 0))
   {
     v42 = mlir::Float32Type::get(this, a2);
 LABEL_25:
@@ -3608,7 +3608,7 @@ LABEL_131:
 
           if (v127 != v128)
           {
-            bzero(&v129[v128], 8 * (v127 - v128));
+            bzero(v129 + 8 * v128, 8 * (v127 - v128));
           }
 
           LODWORD(v217) = v127;
@@ -3686,7 +3686,7 @@ LABEL_256:
 
             v133 = v132 & 0xFFFFFFFFFFFFFFFCLL;
             v134 = (v210 + 16);
-            v135 = v129 + 2;
+            v135 = (v129 + 16);
             v136 = v132 & 0xFFFFFFFFFFFFFFFCLL;
             do
             {
@@ -3704,7 +3704,7 @@ LABEL_256:
 LABEL_207:
               v138 = v127 - v133 - 4;
               v139 = v133;
-              v140 = &v129[v133];
+              v140 = (v129 + 8 * v133);
               v141 = &v131[v139];
               do
               {
@@ -3718,7 +3718,7 @@ LABEL_207:
           }
 
           v143 = __p;
-          v129[v132] = *__p;
+          *(v129 + v132) = *__p;
           v144 = v201;
           v145 = v198;
           v146 = v204;
@@ -3771,7 +3771,7 @@ LABEL_220:
           }
 
 LABEL_221:
-          v129[v130] = v149;
+          *(v129 + v130) = v149;
           v153 = v131[v127 - 2];
           if (v153 == 0x8000000000000000)
           {
@@ -3797,7 +3797,7 @@ LABEL_221:
               if (v155 == 0x8000000000000000)
               {
 LABEL_233:
-                v129[v127 - 2] = v148;
+                *(v129 + v127 - 2) = v148;
                 v157 = v131[v127 - 1];
                 v158 = 0x8000000000000000;
                 if (v157 != 0x8000000000000000)
@@ -3846,7 +3846,7 @@ LABEL_244:
                 }
 
 LABEL_245:
-                v129[v127 - 1] = v158;
+                *(v129 + v127 - 1) = v158;
                 v162 = v192;
                 if (v192 != v127)
                 {
@@ -3873,7 +3873,7 @@ LABEL_245:
                 do
                 {
                   v165 = *v163++;
-                  *v164++ = v129[v165];
+                  *v164++ = *(v129 + v165);
                   --v127;
                 }
 
@@ -4169,7 +4169,7 @@ LABEL_62:
     v43 = v70;
   }
 
-  v71 = v69 ^ 1;
+  v71 = !v69;
 LABEL_271:
   if (v213 != v215)
   {
@@ -4188,7 +4188,7 @@ LABEL_26:
   if (v44 >= *(a11 + 12))
   {
     v168 = v43;
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a11, a11 + 16, v44 + 1, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a11, (a11 + 16), v44 + 1, 8);
     v43 = v168;
     v44 = *(a11 + 8);
   }
@@ -4198,7 +4198,7 @@ LABEL_26:
   return 1;
 }
 
-BOOL mlir::mps::DepthwiseConv3DDataGradientOpAdaptor::verify(mlir::mps::DepthwiseConv3DDataGradientOpAdaptor *this, Location a2)
+uint64_t mlir::mps::DepthwiseConv3DDataGradientOpAdaptor::verify(mlir::mps::DepthwiseConv3DDataGradientOpAdaptor *this, Location a2)
 {
   v70 = *MEMORY[0x1E69E9840];
   v3 = *(this + 3);
@@ -4576,15 +4576,15 @@ LABEL_87:
   return v19;
 }
 
-uint64_t mlir::mps::DepthwiseConv3DWeightsGradientOp::verify(mlir::mps::DepthwiseConv3DWeightsGradientOp *this)
+uint64_t mlir::mps::DepthwiseConv3DWeightsGradientOp::verify(uint64_t **this)
 {
   v245 = *MEMORY[0x1E69E9840];
   v2 = *this;
-  v3 = *(*this + 72);
+  v3 = (*this)[9];
   v4 = v3[7];
   v5 = v3[3];
   v6 = v3[11];
-  v224 = *(*this + 112);
+  v224 = (*this)[14];
   v225 = v2;
   v7 = *(v2 + 88);
   v222 = *(v2 + 96);
@@ -5266,8 +5266,8 @@ LABEL_211:
   }
 
 LABEL_12:
-  v229 = *(v225 + 16 * ((*(v225 + 44) >> 23) & 1) + 64);
-  mlir::IntegerAttr::getValue(&v229, &__p);
+  v229 = v225[2 * ((*(v225 + 11) >> 23) & 1) + 8];
+  mlir::IntegerAttr::getValue(&__p, &v229);
   if (v234 > 0x40)
   {
     v15 = *__p;
@@ -6250,7 +6250,7 @@ BOOL mlir::mps::DepthwiseConv3DWeightsGradientOp::inferReturnTypes(uint64_t a1, 
     if (v25 >= *(a11 + 12))
     {
       v27 = v21;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a11, a11 + 16, v25 + 1, 8);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a11, (a11 + 16), v25 + 1, 8);
       v21 = v27;
       LODWORD(v25) = *(a11 + 8);
     }
@@ -6267,7 +6267,7 @@ BOOL mlir::mps::DepthwiseConv3DWeightsGradientOp::inferReturnTypes(uint64_t a1, 
   }
 }
 
-uint64_t mlir::mps::inferPool4DShape(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, void *a5, void *a6, void *a7, int a8, unsigned __int8 a9, uint64_t a10)
+uint64_t mlir::mps::inferPool4DShape(uint64_t a1, uint64_t a2, void *a3, uint64_t *a4, void *a5, void *a6, void *a7, int a8, unsigned __int8 a9, uint64_t *a10)
 {
   v10 = *(a4 + 2);
   if (v10 >= 4)
@@ -6290,7 +6290,7 @@ uint64_t mlir::mps::inferPool4DShape(uint64_t a1, uint64_t a2, void *a3, uint64_
     v12 = v10 - v11;
   }
 
-  v13 = *(a10 + 8);
+  v13 = *(a10 + 2);
   if (v10 != v13)
   {
     v14 = *(a4 + 2);
@@ -6303,13 +6303,13 @@ uint64_t mlir::mps::inferPool4DShape(uint64_t a1, uint64_t a2, void *a3, uint64_
       v16 = a6;
       v17 = a7;
       v18 = a8;
-      v19 = *(a10 + 8);
-      v20 = *(a10 + 8);
-      if (*(a10 + 12) < v10)
+      v19 = *(a10 + 2);
+      v20 = *(a10 + 2);
+      if (*(a10 + 3) < v10)
       {
-        llvm::SmallVectorBase<unsigned int>::grow_pod(a10, a10 + 16, v10, 8);
-        v19 = *(a10 + 8);
-        v20 = *(a10 + 8);
+        llvm::SmallVectorBase<unsigned int>::grow_pod(a10, a10 + 2, v10, 8);
+        v19 = *(a10 + 2);
+        v20 = *(a10 + 2);
       }
 
       bzero((*a10 + 8 * v19), 8 * (v10 - v13));
@@ -6323,7 +6323,7 @@ uint64_t mlir::mps::inferPool4DShape(uint64_t a1, uint64_t a2, void *a3, uint64_
       v11 = v122;
     }
 
-    *(a10 + 8) = v14;
+    *(a10 + 2) = v14;
   }
 
   if (v12)
@@ -6838,14 +6838,14 @@ LABEL_15:
     if (v43 >= 4)
     {
       v21 = v42;
-      v23 = v42 + 8 * v43;
+      v23 = (v42 + 8 * v43);
       v24 = 8 * v43 - 8;
       if (v24 >= 0x18)
       {
 LABEL_21:
         v25 = (v24 >> 3) + 1;
-        v26 = &v21->i64[v25 & 0x3FFFFFFFFFFFFFFCLL];
-        v27 = v21 + 1;
+        v26 = (v21 + 8 * (v25 & 0x3FFFFFFFFFFFFFFCLL));
+        v27 = (v21 + 16);
         v28.i64[0] = -1;
         v28.i64[1] = -1;
         v29 = v25 & 0x3FFFFFFFFFFFFFFCLL;
@@ -6929,7 +6929,7 @@ LABEL_22:
         goto LABEL_43;
       }
 
-      v23 = &v21->i8[8 * v19];
+      v23 = (v21 + 8 * v19);
       v24 = 8 * v19 - 8;
       if (v24 >= 0x18)
       {
@@ -6946,7 +6946,7 @@ LABEL_40:
         *v26 = 0x8000000000000000;
       }
 
-      ++v26;
+      v26 = (v26 + 8);
     }
 
     while (v26 != v23);
@@ -6965,7 +6965,7 @@ LABEL_43:
   if (v38 >= *(a5 + 12))
   {
     v39 = v33;
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a5, a5 + 16, v38 + 1, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a5, (a5 + 16), v38 + 1, 8);
     v33 = v39;
     LODWORD(v38) = *(a5 + 8);
   }
@@ -7015,13 +7015,13 @@ uint64_t mlir::mps::PoolAvgOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::ML
       v28[0] = 0;
     }
 
-    mlir::OperationName::OperationName(&v27 + 8, "mps.pooling_average", 19, Context);
+    mlir::OperationName::OperationName(&v27 + 1, "mps.pooling_average", 19, Context);
     v28[0] = 1;
   }
 
   *&v30 = a4;
   *(&v30 + 1) = a5;
-  if (a5 && (v20.var0.var0 = mlir::UnknownLoc::get(this, a2), mlir::mps::PoolAvgOpAdaptor::verify(&v27, v20)))
+  if (a5 && (v20.var0.var0 = mlir::UnknownLoc::get(this, a2), (mlir::mps::PoolAvgOpAdaptor::verify(&v27, v20) & 1) != 0))
   {
     v26[4] = *&v28[48];
     v26[5] = v29;
@@ -7041,7 +7041,7 @@ uint64_t mlir::mps::PoolAvgOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::ML
     if (v24 >= *(a10 + 12))
     {
       v25 = v23;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a10, a10 + 16, v24 + 1, 8);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a10, (a10 + 16), v24 + 1, 8);
       v23 = v25;
       LODWORD(v24) = *(a10 + 8);
     }
@@ -7052,7 +7052,7 @@ uint64_t mlir::mps::PoolAvgOp::inferReturnTypes(mlir::UnknownLoc *this, mlir::ML
   }
 }
 
-BOOL mlir::mps::PoolAvgOpAdaptor::verify(mlir::mps::PoolAvgOpAdaptor *this, Location a2)
+uint64_t mlir::mps::PoolAvgOpAdaptor::verify(mlir::mps::PoolAvgOpAdaptor *this, Location a2)
 {
   v142 = *MEMORY[0x1E69E9840];
   v3 = *(this + 4);
@@ -7832,7 +7832,7 @@ uint64_t mlir::mps::inferPooling4DOpReturnTypes<mlir::mps::PoolAvgOpAdaptor>(uin
   v13 = *(a4 + 8);
   if (v13 >= *(a4 + 12))
   {
-    llvm::SmallVectorBase<unsigned int>::grow_pod(a4, a4 + 16, v13 + 1, 8);
+    llvm::SmallVectorBase<unsigned int>::grow_pod(a4, (a4 + 16), v13 + 1, 8);
     LODWORD(v13) = *(a4 + 8);
   }
 
@@ -8727,7 +8727,7 @@ LABEL_229:
   }
 
 LABEL_66:
-  v34 = *(*(v159 + 16 * ((*(v159 + 44) >> 23) & 1) + 96) + 8);
+  v34 = *(v159[2 * ((*(v159 + 11) >> 23) & 1) + 12] + 2);
   if (v34 == 3)
   {
     v146 = 259;
@@ -8746,7 +8746,7 @@ LABEL_66:
           v141 = &v152 - v164;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v164, v167, v165 + 1, 24);
           v40 = v164;
-          v39 = (v164 + v141);
+          v39 = v164 + v141;
         }
 
         else
@@ -8759,7 +8759,7 @@ LABEL_66:
 
       v41 = &v40[24 * v165];
       v42 = *v39;
-      *(v41 + 2) = v39[2];
+      *(v41 + 2) = *(v39 + 2);
       *v41 = v42;
       ++v165;
     }
@@ -8913,7 +8913,7 @@ LABEL_94:
           v142 = &v152 - v164;
           llvm::SmallVectorBase<unsigned int>::grow_pod(&v164, v167, v165 + 1, 24);
           v119 = v164;
-          v118 = (v164 + v142);
+          v118 = v164 + v142;
         }
 
         else
@@ -8926,7 +8926,7 @@ LABEL_94:
 
       v120 = &v119[24 * v165];
       v121 = *v118;
-      *(v120 + 2) = v118[2];
+      *(v120 + 2) = *(v118 + 2);
       *v120 = v121;
       v122 = ++v165;
       if (v163[0])
@@ -8942,7 +8942,7 @@ LABEL_94:
             v143 = &v152 - v164;
             llvm::SmallVectorBase<unsigned int>::grow_pod(&v164, v167, v122 + 1, 24);
             v124 = v164;
-            v123 = (v164 + v143);
+            v123 = v164 + v143;
           }
 
           else
@@ -8955,7 +8955,7 @@ LABEL_94:
 
         v125 = &v124[24 * v165];
         v126 = *v123;
-        *(v125 + 2) = v123[2];
+        *(v125 + 2) = *(v123 + 2);
         *v125 = v126;
         ++v165;
       }
@@ -9072,13 +9072,13 @@ uint64_t mlir::mps::PoolL2NormOp::inferReturnTypes(mlir::UnknownLoc *this, mlir:
       v28[0] = 0;
     }
 
-    mlir::OperationName::OperationName(&v27 + 8, "mps.pooling_l2_norm", 19, Context);
+    mlir::OperationName::OperationName(&v27 + 1, "mps.pooling_l2_norm", 19, Context);
     v28[0] = 1;
   }
 
   *&v30 = a4;
   *(&v30 + 1) = a5;
-  if (a5 && (v20.var0.var0 = mlir::UnknownLoc::get(this, a2), mlir::mps::PoolL2NormOpAdaptor::verify(&v27, v20)))
+  if (a5 && (v20.var0.var0 = mlir::UnknownLoc::get(this, a2), (mlir::mps::PoolL2NormOpAdaptor::verify(&v27, v20) & 1) != 0))
   {
     v26[4] = *&v28[48];
     v26[5] = v29;
@@ -9098,7 +9098,7 @@ uint64_t mlir::mps::PoolL2NormOp::inferReturnTypes(mlir::UnknownLoc *this, mlir:
     if (v24 >= *(a10 + 12))
     {
       v25 = v23;
-      llvm::SmallVectorBase<unsigned int>::grow_pod(a10, a10 + 16, v24 + 1, 8);
+      llvm::SmallVectorBase<unsigned int>::grow_pod(a10, (a10 + 16), v24 + 1, 8);
       v23 = v25;
       LODWORD(v24) = *(a10 + 8);
     }
@@ -9109,7 +9109,7 @@ uint64_t mlir::mps::PoolL2NormOp::inferReturnTypes(mlir::UnknownLoc *this, mlir:
   }
 }
 
-BOOL mlir::mps::PoolL2NormOpAdaptor::verify(mlir::mps::PoolL2NormOpAdaptor *this, Location a2)
+uint64_t mlir::mps::PoolL2NormOpAdaptor::verify(mlir::mps::PoolL2NormOpAdaptor *this, Location a2)
 {
   v142 = *MEMORY[0x1E69E9840];
   v3 = *(this + 4);

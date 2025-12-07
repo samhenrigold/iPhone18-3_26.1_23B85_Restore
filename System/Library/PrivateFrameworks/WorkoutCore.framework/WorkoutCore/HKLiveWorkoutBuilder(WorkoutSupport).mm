@@ -220,7 +220,6 @@ LABEL_25:
   }
 
   objc_storeStrong(&nl_currentActivityStartDate, 0);
-  *MEMORY[0x277D85DE8];
   v8 = date;
 
   return v8;

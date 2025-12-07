@@ -115,26 +115,22 @@ LABEL_8:
 
 - (unint64_t)hash
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   payloadData = [(SKPresencePayload *)self payloadData];
 
-  if (payloadData)
+  if (!payloadData)
   {
-    payloadData2 = [(SKPresencePayload *)self payloadData];
-    bytes = [payloadData2 bytes];
-    payloadData3 = [(SKPresencePayload *)self payloadData];
-    CC_SHA256(bytes, [payloadData3 length], md);
-
-    v7 = [MEMORY[0x277CBEA90] dataWithBytes:md length:32];
-    v8 = [v7 hash];
+    return 0;
   }
 
-  else
-  {
-    v8 = 0;
-  }
+  payloadData2 = [(SKPresencePayload *)self payloadData];
+  bytes = [payloadData2 bytes];
+  payloadData3 = [(SKPresencePayload *)self payloadData];
+  CC_SHA256(bytes, [payloadData3 length], md);
 
-  v9 = *MEMORY[0x277D85DE8];
+  v7 = [MEMORY[0x277CBEA90] dataWithBytes:md length:32];
+  v8 = [v7 hash];
+
   return v8;
 }
 

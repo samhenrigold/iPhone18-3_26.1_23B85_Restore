@@ -82,7 +82,7 @@
       if (selfCopy)
       {
         v14 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v12 count]);
-        v15 = sub_100227468();
+        v15 = sub_100227468(NetworkMonitor);
         isConnected = [v15 isConnected];
 
         if (isConnected)

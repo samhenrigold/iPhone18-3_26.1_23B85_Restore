@@ -88,12 +88,13 @@
 
 - (id)objectValue:(id)value ofClass:(Class)class
 {
-  sub_1D32770C0();
-  swift_getObjCClassMetadata();
+  v5 = sub_1D32770C0();
+  v7 = v6;
+  ObjCClassMetadata = swift_getObjCClassMetadata();
   selfCopy = self;
-  v6 = MNTraceSelectStatement.objectValue<A>(_:of:)();
+  v10 = MNTraceSelectStatement.objectValue<A>(_:of:)(v5, v7, ObjCClassMetadata, ObjCClassMetadata);
 
-  return v6;
+  return v10;
 }
 
 - (id)objectsValue:(id)value ofClasses:(id)classes

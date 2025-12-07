@@ -3,7 +3,7 @@
 
 @implementation CFStringCreateImmutableFunnel3
 
-uint64_t ____CFStringCreateImmutableFunnel3_block_invoke()
+char *____CFStringCreateImmutableFunnel3_block_invoke()
 {
   result = getenv("CFStringDisableROM");
   __CFStringCreateImmutableFunnel3_sDisableStringROM = result != 0;

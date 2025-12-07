@@ -325,7 +325,7 @@ uint64_t __55__STSZKWBrowserHeaderView_searchBarShouldBeginEditing___block_invok
   _Block_object_dispose(&v40, 8);
 }
 
-void __41__STSZKWBrowserHeaderView_layoutSubviews__block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __41__STSZKWBrowserHeaderView_layoutSubviews__block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v5 = *(*(a1 + 32) + 432);
   v6 = a2;
@@ -356,7 +356,7 @@ void __41__STSZKWBrowserHeaderView_layoutSubviews__block_invoke(uint64_t a1, voi
   [v6 setFrame:{*&v15.origin, __PAIR128__(*&v15.size.height, *&v14)}];
 }
 
-void __41__STSZKWBrowserHeaderView_layoutSubviews__block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
+void __41__STSZKWBrowserHeaderView_layoutSubviews__block_invoke_2(uint64_t a1, void *a2, char *a3)
 {
   v5 = *(*(a1 + 32) + 440);
   v6 = a2;

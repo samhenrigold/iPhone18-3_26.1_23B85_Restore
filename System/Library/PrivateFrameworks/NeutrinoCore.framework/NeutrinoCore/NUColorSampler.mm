@@ -141,7 +141,7 @@ void __43__NUColorSampler_sampleColorAt_completion___block_invoke(void *a1, void
   result = self->_request;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result time];
+    return objc_msgSend_time(result, a3);
   }
 
   retstr->var0 = 0;

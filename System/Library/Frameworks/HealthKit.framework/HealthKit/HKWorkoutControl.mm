@@ -59,13 +59,13 @@
   v27 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   completionCopy = completion;
-  _HKInitializeLogging();
-  v10 = HKLogWorkouts;
+  _HKInitializeLogging(completionCopy, v10);
+  v11 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@: Pause/resume event requested.", buf, 0xCu);
+    _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Pause/resume event requested.", buf, 0xCu);
   }
 
   proxyProvider = self->_proxyProvider;
@@ -75,65 +75,61 @@
   v23[3] = &unk_1E73766A0;
   v23[4] = self;
   v24 = completionCopy;
-  v12 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v23];
-  v13 = self->_proxyProvider;
+  v13 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v23];
+  v14 = self->_proxyProvider;
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
   v19[2] = __94__HKWorkoutControl_generatePauseOrResumeRequestAllowingBackgroundRuntime_metadata_completion___block_invoke_8;
   v19[3] = &unk_1E737BB00;
   runtimeCopy = runtime;
   v20 = metadataCopy;
-  v21 = v12;
+  v21 = v13;
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
   v17[2] = __94__HKWorkoutControl_generatePauseOrResumeRequestAllowingBackgroundRuntime_metadata_completion___block_invoke_2;
   v17[3] = &unk_1E7376960;
   v18 = v21;
-  v14 = v21;
-  v15 = metadataCopy;
-  [(HKProxyProvider *)v13 fetchProxyWithHandler:v19 errorHandler:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = v21;
+  v16 = metadataCopy;
+  [(HKProxyProvider *)v14 fetchProxyWithHandler:v19 errorHandler:v17];
 }
 
 void __94__HKWorkoutControl_generatePauseOrResumeRequestAllowingBackgroundRuntime_metadata_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogWorkouts;
-  v7 = os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT);
+  _HKInitializeLogging(v5, v6);
+  v7 = HKLogWorkouts;
+  v8 = os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
-    if (v7)
+    if (v8)
     {
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
       v15 = 138543362;
-      v16 = v9;
-      v10 = "%{public}@: Generated pause or resume request";
-      v11 = v6;
-      v12 = 12;
+      v16 = v10;
+      v11 = "%{public}@: Generated pause or resume request";
+      v12 = v7;
+      v13 = 12;
 LABEL_6:
-      _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, v10, &v15, v12);
+      _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, v11, &v15, v13);
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
-    v13 = *(a1 + 32);
+    v14 = *(a1 + 32);
     v15 = 138543618;
-    v16 = v13;
+    v16 = v14;
     v17 = 2114;
     v18 = v5;
-    v10 = "%{public}@: Pause/resume event generation failed: %{public}@";
-    v11 = v6;
-    v12 = 22;
+    v11 = "%{public}@: Pause/resume event generation failed: %{public}@";
+    v12 = v7;
+    v13 = 22;
     goto LABEL_6;
   }
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), a2, v5, v8);
-
-  v14 = *MEMORY[0x1E69E9840];
+  (*(*(a1 + 40) + 16))(*(a1 + 40), a2, v5, v9);
 }
 
 - (void)generateFakeDataForActivityType:(int64_t)type minutes:(double)minutes completion:(id)completion

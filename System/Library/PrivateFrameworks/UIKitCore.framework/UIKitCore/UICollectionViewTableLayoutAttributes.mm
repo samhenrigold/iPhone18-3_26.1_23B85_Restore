@@ -23,13 +23,13 @@
 {
   v10.receiver = self;
   v10.super_class = UICollectionViewTableLayoutAttributes;
-  v5 = [(UICollectionViewLayoutAttributes *)&v10 isEqual:?];
-  if (v5)
+  isEqual = [(UICollectionViewLayoutAttributes *)&v10 isEqual:?];
+  if (isEqual)
   {
     if (equal == self)
     {
-      LOBYTE(v5) = 1;
-      return v5;
+      LOBYTE(isEqual) = 1;
+      return isEqual;
     }
 
     objc_opt_class();
@@ -39,7 +39,7 @@
     }
 
     backgroundColor = self->_backgroundColor;
-    if (backgroundColor == *(equal + 49) || (v5 = [(UIColor *)backgroundColor isEqual:?]) != 0)
+    if (backgroundColor == *(equal + 49) || (isEqual = objc_msgSend_isEqual_(backgroundColor)) != 0)
     {
       if (self->_separatorStyle != *(equal + 46) || (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(*&self->_separatorInset.top, *(equal + 29)), vceqq_f64(*&self->_separatorInset.bottom, *(equal + 30))))) & 1) == 0 || self->_separatorInsetIsRelativeToCellEdges != *(equal + 352))
       {
@@ -47,25 +47,25 @@
       }
 
       separatorColor = self->_separatorColor;
-      if (separatorColor == *(equal + 47) || (v5 = [(UIColor *)separatorColor isEqual:?]) != 0)
+      if (separatorColor == *(equal + 47) || (isEqual = objc_msgSend_isEqual_(separatorColor)) != 0)
       {
         separatorEffect = self->_separatorEffect;
-        if (separatorEffect == *(equal + 48) || (v5 = [(UIVisualEffect *)separatorEffect isEqual:?]) != 0)
+        if (separatorEffect == *(equal + 48) || (isEqual = objc_msgSend_isEqual_(separatorEffect)) != 0)
         {
           if (self->_sectionLocation == *(equal + 91))
           {
-            LOBYTE(v5) = self->_preferredAttributesCached == *(equal + 359);
-            return v5;
+            LOBYTE(isEqual) = self->_preferredAttributesCached == *(equal + 359);
+            return isEqual;
           }
 
 LABEL_33:
-          LOBYTE(v5) = 0;
+          LOBYTE(isEqual) = 0;
         }
       }
     }
   }
 
-  return v5;
+  return isEqual;
 }
 
 + (void)applyValuesFromAttributes:(id)attributes toAttributes:(id)toAttributes valueOptions:(int64_t)options

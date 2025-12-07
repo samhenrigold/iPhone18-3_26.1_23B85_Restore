@@ -3,25 +3,25 @@
 
 @implementation ParavirtualizedVideoDecoder
 
-uint64_t __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke(uint64_t a1, OpaqueCMBlockBuffer *a2)
+uint64_t __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke(uint64_t a1, OpaqueCMBlockBuffer *a2, uint64_t a3)
 {
-  v163[16] = *MEMORY[0x1E69E9840];
-  v147 = 0;
-  MessageTypeAndFlagsAndGuestUUID = VTParavirtualizationMessageGetMessageTypeAndFlagsAndGuestUUID(a2, &v147, 0, 0);
+  v179[16] = *MEMORY[0x1E69E9840];
+  HIDWORD(v163) = 0;
+  MessageTypeAndFlagsAndGuestUUID = VTParavirtualizationMessageGetMessageTypeAndFlagsAndGuestUUID(a2, &v163 + 1, 0, 0);
   if (!MessageTypeAndFlagsAndGuestUUID)
   {
-    v4 = FigCFWeakReferenceHolderCopyReferencedObject();
-    if (v4)
+    v5 = FigCFWeakReferenceHolderCopyReferencedObject();
+    if (v5)
     {
-      v5 = v4;
-      v6 = v147;
-      if (v147 <= 1148021093)
+      v6 = v5;
+      v7 = HIDWORD(v163);
+      if (SHIDWORD(v163) <= 1148021093)
       {
-        if (v147 > 1147433056)
+        if (SHIDWORD(v163) > 1147433056)
         {
-          if (v147 == 1147433057)
+          if (HIDWORD(v163) == 1147433057)
           {
-            VTVideoDecoderGetCMBaseObject(v4);
+            VTVideoDecoderGetCMBaseObject();
             DerivedStorage = CMBaseObjectGetDerivedStorage();
             theArray = 0;
             cf = 0;
@@ -37,62 +37,64 @@ uint64_t __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_inv
             }
 
             os_unfair_lock_unlock((DerivedStorage + 16));
-            appended = VTParavirtualizationCreateReplyAndByteStream(a2, 8, &cf, &theArray);
-            if (!appended && (!DestinationPixelBufferAttributes || (appended = VTParavirtualizationMessageAppendCFDictionary(theArray, 745562721, DestinationPixelBufferAttributes)) == 0))
+            appended = VTParavirtualizationCreateReplyAndByteStream(a2, 8u, &cf, &theArray);
+            if (!appended && (!DestinationPixelBufferAttributes || (appended = VTParavirtualizationMessageAppendCFDictionary(theArray, 0x2C706261u, DestinationPixelBufferAttributes)) == 0))
             {
               appended = VTParavirtualizationGuestSendMessageToHostAsync(cf);
               if (!appended)
               {
-                goto LABEL_262;
+                goto LABEL_265;
               }
             }
 
-            v78 = appended;
+            v80 = appended;
             LODWORD(pixelBuffer) = 0;
             type[0] = OS_LOG_TYPE_DEFAULT;
             os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v80 = pixelBuffer;
+            v82 = pixelBuffer;
+            v83 = type[0];
             if (os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, type[0]))
             {
-              v81 = v80;
+              v84 = v82;
             }
 
             else
             {
-              v81 = v80 & 0xFFFFFFFE;
+              v84 = v82 & 0xFFFFFFFE;
             }
 
-            if (v81)
+            if (v84)
             {
-              *v158 = 136315650;
-              *&v158[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionGetDestinationPixelBufferAttributes";
-              v159 = 2048;
-              *v160 = v5;
-              *&v160[8] = 1024;
-              *v161 = v78;
-              _os_log_send_and_compose_impl();
+              *v174 = 136315650;
+              *&v174[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionGetDestinationPixelBufferAttributes";
+              v175 = 2048;
+              *v176 = v6;
+              *&v176[8] = 1024;
+              *v177 = v80;
+              LODWORD(v154) = 28;
+              _os_log_send_and_compose_impl(v84, 0, v179, 128, &dword_18F99C000, os_log_and_send_and_compose_flags_and_os_log_type, v83, "<<<< ParavirtualizedVideoDecoder >>>> %s: (decoder %p) VTDecoderSessionGetDestinationPixelBufferAttributes failed with error %d", v174, v154, v155);
             }
 
-            goto LABEL_261;
+            goto LABEL_264;
           }
 
-          if (v147 != 1147497844)
+          if (HIDWORD(v163) != 1147497844)
           {
-            if (v147 == 1147565410)
+            if (HIDWORD(v163) == 1147565410)
             {
-              v163[0] = 0;
+              v179[0] = 0;
               if (!VTParavirtualizationMessageCopyCFUUIDArray())
               {
-                if (!v163[0])
+                if (!v179[0])
                 {
-LABEL_262:
-                  CFRelease(v5);
+LABEL_265:
+                  CFRelease(v6);
                   return MessageTypeAndFlagsAndGuestUUID;
                 }
 
-                if (CFArrayGetCount(v163[0]) >= 1)
+                if (CFArrayGetCount(v179[0]) >= 1)
                 {
-                  paravirtualizedVideoDecoder_lookupRetainAndForgetPendingFramePixelBuffersByUUIDs(v5, v163[0], 0);
+                  paravirtualizedVideoDecoder_lookupRetainAndForgetPendingFramePixelBuffersByUUIDs(v6, v179[0], 0);
                 }
               }
 
@@ -102,306 +104,311 @@ LABEL_262:
             goto LABEL_85;
           }
 
-          VTVideoDecoderGetCMBaseObject(v4);
-          v40 = CMBaseObjectGetDerivedStorage();
+          VTVideoDecoderGetCMBaseObject();
+          v41 = CMBaseObjectGetDerivedStorage();
           theArray = 0;
           cf = 0;
-          LODWORD(v152) = 0;
+          LODWORD(v168) = 0;
           LODWORD(IOSurface) = 0;
           *type = 0;
           pixelBuffer = 0;
           SInt64 = VTParavirtualizationMessageGetSInt64();
           if (!SInt64)
           {
-            v42 = cf;
+            v43 = cf;
             VTParavirtualizationMessageGetSInt32();
-            if (v43)
+            if (v44)
             {
-              v53 = v43;
-              v143 = v42;
-              v51 = 0;
-              v141 = 0;
-              LODWORD(v44) = 0;
-              goto LABEL_316;
+              v54 = v44;
+              v159 = v43;
+              v52 = 0;
+              v158 = 0;
+              LODWORD(v45) = 0;
+              goto LABEL_319;
             }
 
-            v44 = v152;
+            v45 = v168;
             VTParavirtualizationMessageGetUInt32();
-            if (v45)
+            if (v46)
             {
-              v53 = v45;
-              v143 = v42;
-              v51 = 0;
-              v141 = 0;
-              goto LABEL_316;
+              v54 = v46;
+              v159 = v43;
+              v52 = 0;
+              v158 = 0;
+              goto LABEL_319;
             }
 
-            v46 = IOSurface;
-            v47 = VTParavirtualizationMessageCopyCFUUID();
-            if (v47)
+            v47 = IOSurface;
+            v48 = VTParavirtualizationMessageCopyCFUUID();
+            if (v48)
             {
-              v53 = v47;
-              v141 = v46;
-              v143 = v42;
-              v51 = 0;
-              goto LABEL_316;
+              v54 = v48;
+              v158 = v47;
+              v159 = v43;
+              v52 = 0;
+              goto LABEL_319;
             }
 
-            v48 = theArray;
+            v49 = theArray;
             if (theArray)
             {
-              VTVideoDecoderGetCMBaseObject(v5);
-              v49 = CMBaseObjectGetDerivedStorage();
-              os_unfair_lock_lock((v49 + 64));
-              Value = CFDictionaryGetValue(*(v49 + 72), v48);
-              v51 = Value;
+              VTVideoDecoderGetCMBaseObject();
+              v50 = CMBaseObjectGetDerivedStorage();
+              os_unfair_lock_lock((v50 + 64));
+              Value = CFDictionaryGetValue(*(v50 + 72), v49);
+              v52 = Value;
               if (Value)
               {
                 CFRetain(Value);
-                CFDictionaryRemoveValue(*(v49 + 72), v48);
-                os_unfair_lock_unlock((v49 + 64));
-                v52 = VTParavirtualizationMessageSetAttachmentsOnPixelBufferAndIOSurfaceIfPresent(a2, v51);
-                if (v52)
+                CFDictionaryRemoveValue(*(v50 + 72), v49);
+                os_unfair_lock_unlock((v50 + 64));
+                v53 = VTParavirtualizationMessageSetAttachmentsOnPixelBufferAndIOSurfaceIfPresent(a2, v52);
+                if (v53)
                 {
-                  v53 = v52;
-                  v141 = v46;
-                  v143 = v42;
-LABEL_316:
-                  LODWORD(v150) = 0;
-                  v153[4] = OS_LOG_TYPE_DEFAULT;
-                  v137 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                  v138 = v150;
-                  if (os_log_type_enabled(v137, v153[4]))
+                  v54 = v53;
+                  v158 = v47;
+                  v159 = v43;
+LABEL_319:
+                  LODWORD(v166) = 0;
+                  v169[4] = OS_LOG_TYPE_DEFAULT;
+                  v149 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                  v150 = v166;
+                  v151 = v169[4];
+                  v152 = v149;
+                  if (os_log_type_enabled(v149, v169[4]))
                   {
-                    v139 = v138;
+                    v153 = v150;
                   }
 
                   else
                   {
-                    v139 = v138 & 0xFFFFFFFE;
+                    v153 = v150 & 0xFFFFFFFE;
                   }
 
-                  if (v139)
+                  if (v153)
                   {
-                    *v158 = 136315650;
-                    *&v158[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionEmitDecodedFrameMessage";
-                    v159 = 2048;
-                    *v160 = v5;
-                    *&v160[8] = 1024;
-                    *v161 = v53;
-                    _os_log_send_and_compose_impl();
+                    *v174 = 136315650;
+                    *&v174[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionEmitDecodedFrameMessage";
+                    v175 = 2048;
+                    *v176 = v6;
+                    *&v176[8] = 1024;
+                    *v177 = v54;
+                    LODWORD(v154) = 28;
+                    _os_log_send_and_compose_impl(v153, 0, v179, 128, &dword_18F99C000, v152, v151, "<<<< ParavirtualizedVideoDecoder >>>> %s: decoder %p -> %d", v174, v154, v155);
                   }
 
                   fig_log_call_emit_and_clean_up_after_send_and_compose();
-                  os_unfair_lock_lock((v40 + 16));
-                  if (*v40)
+                  os_unfair_lock_lock((v41 + 16));
+                  if (*v41)
                   {
-                    VTDecoderSessionEmitDecodedFrame(*v40, v143, v53, v141, 0);
+                    VTDecoderSessionEmitDecodedFrame(*v41, v159, v54, v158, 0);
                   }
 
-                  os_unfair_lock_unlock((v40 + 16));
-                  LODWORD(v42) = v143;
-                  LODWORD(v46) = v141;
-                  goto LABEL_160;
+                  os_unfair_lock_unlock((v41 + 16));
+                  LODWORD(v43) = v159;
+                  LODWORD(v47) = v158;
+                  goto LABEL_163;
                 }
               }
 
               else
               {
-                v141 = v46;
-                v143 = v42;
-                if (!__ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_6((v49 + 64), v163))
+                v158 = v47;
+                v159 = v43;
+                if (!__ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_6((v50 + 64), v179))
                 {
-                  v53 = LODWORD(v163[0]);
-                  goto LABEL_316;
+                  v54 = LODWORD(v179[0]);
+                  goto LABEL_319;
                 }
 
-                v46 = v46;
+                v47 = v47;
               }
             }
 
             else
             {
-              v51 = 0;
+              v52 = 0;
             }
 
-            os_unfair_lock_lock((v40 + 16));
-            if (*v40)
+            os_unfair_lock_lock((v41 + 16));
+            if (*v41)
             {
-              v93 = VTDecoderSessionEmitDecodedFrame(*v40, v42, v44, v46, v51);
-            }
-
-            else
-            {
-              v93 = 0;
-            }
-
-            os_unfair_lock_unlock((v40 + 16));
-            v107 = VTParavirtualizationCreateReplyAndByteStream(a2, 8, &pixelBuffer, type);
-            if (v107 || (v107 = VTParavirtualizationMessageAppendSInt32()) != 0)
-            {
-              LODWORD(v53) = v107;
+              v99 = VTDecoderSessionEmitDecodedFrame(*v41, v43, v45, v47, v52);
             }
 
             else
             {
-              v108 = VTParavirtualizationGuestSendMessageToHostAsync(pixelBuffer);
-              if (v108)
+              v99 = 0;
+            }
+
+            os_unfair_lock_unlock((v41 + 16));
+            v115 = VTParavirtualizationCreateReplyAndByteStream(a2, 8u, &pixelBuffer, type);
+            if (v115 || (v115 = VTParavirtualizationMessageAppendSInt32(*type, 744845938, v99)) != 0)
+            {
+              LODWORD(v54) = v115;
+            }
+
+            else
+            {
+              v116 = VTParavirtualizationGuestSendMessageToHostAsync(pixelBuffer);
+              if (v116)
               {
-                LODWORD(v53) = v108;
+                LODWORD(v54) = v116;
               }
 
               else
               {
-                LODWORD(v53) = v93;
+                LODWORD(v54) = v99;
               }
 
-              if (!v53)
+              if (!v54)
               {
-                goto LABEL_186;
+                goto LABEL_189;
               }
             }
 
-LABEL_160:
-            LODWORD(v150) = 0;
-            v153[4] = OS_LOG_TYPE_DEFAULT;
-            v109 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-            v110 = v150;
-            if (os_log_type_enabled(v109, v153[4]))
+LABEL_163:
+            LODWORD(v166) = 0;
+            v169[4] = OS_LOG_TYPE_DEFAULT;
+            v117 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+            v118 = v166;
+            v119 = v169[4];
+            if (os_log_type_enabled(v117, v169[4]))
             {
-              v111 = v110;
+              v120 = v118;
             }
 
             else
             {
-              v111 = v110 & 0xFFFFFFFE;
+              v120 = v118 & 0xFFFFFFFE;
             }
 
-            if (v111)
+            if (v120)
             {
-              *v158 = 136316674;
-              *&v158[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionEmitDecodedFrameMessage";
-              v159 = 2048;
-              *v160 = v5;
-              *&v160[8] = 1024;
-              *v161 = v53;
-              *&v161[4] = 1024;
-              *v162 = v42;
-              *&v162[4] = 1024;
-              *&v162[6] = v44;
-              *&v162[10] = 1024;
-              *&v162[12] = v46;
-              *&v162[16] = 2048;
-              *&v162[18] = v51;
-              _os_log_send_and_compose_impl();
+              *v174 = 136316674;
+              *&v174[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionEmitDecodedFrameMessage";
+              v175 = 2048;
+              *v176 = v6;
+              *&v176[8] = 1024;
+              *v177 = v54;
+              *&v177[4] = 1024;
+              *v178 = v43;
+              *&v178[4] = 1024;
+              *&v178[6] = v45;
+              *&v178[10] = 1024;
+              *&v178[12] = v47;
+              *&v178[16] = 2048;
+              *&v178[18] = v52;
+              LODWORD(v154) = 56;
+              _os_log_send_and_compose_impl(v120, 0, v179, 128, &dword_18F99C000, v117, v119, "<<<< ParavirtualizedVideoDecoder >>>> %s: (decoder %p) VTDecoderSessionEmitDecodedFrame failed with error %d, frame %d, status %d, infoFlags 0x%x, pixelBuffer %p", v174, v154, v155, v156, v157, v159, v163);
             }
 
             fig_log_call_emit_and_clean_up_after_send_and_compose();
-LABEL_186:
-            if (v51)
+LABEL_189:
+            if (v52)
             {
-              CFRelease(v51);
+              CFRelease(v52);
             }
 
-            v121 = theArray;
+            v131 = theArray;
             if (!theArray)
             {
-              goto LABEL_196;
+              goto LABEL_199;
             }
 
-            goto LABEL_195;
+            goto LABEL_198;
           }
 
-          v53 = SInt64;
-          v51 = 0;
-          v141 = 0;
-          LODWORD(v44) = 0;
-          v143 = 0;
-          goto LABEL_316;
+          v54 = SInt64;
+          v52 = 0;
+          v158 = 0;
+          LODWORD(v45) = 0;
+          v159 = 0;
+          goto LABEL_319;
         }
 
-        if (v147 == 1115252001)
+        if (HIDWORD(v163) == 1115252001)
         {
-          VTVideoDecoderGetCMBaseObject(v4);
-          v23 = CMBaseObjectGetDerivedStorage();
-          os_unfair_lock_lock((v23 + 64));
-          CFDictionaryRemoveAllValues(*(v23 + 72));
-          os_unfair_lock_unlock((v23 + 64));
-          VTVideoDecoderGetCMBaseObject(v5);
+          VTVideoDecoderGetCMBaseObject();
           v24 = CMBaseObjectGetDerivedStorage();
-          os_unfair_lock_lock((v24 + 80));
-          CFDictionaryRemoveAllValues(*(v24 + 88));
-          os_unfair_lock_unlock((v24 + 80));
-          VTVideoDecoderGetCMBaseObject(v5);
+          os_unfair_lock_lock((v24 + 64));
+          CFDictionaryRemoveAllValues(*(v24 + 72));
+          os_unfair_lock_unlock((v24 + 64));
+          VTVideoDecoderGetCMBaseObject();
           v25 = CMBaseObjectGetDerivedStorage();
-          v26 = VTParavirtualizationCopyNotificationQueueForGuestUUID(v25 + 2);
+          os_unfair_lock_lock((v25 + 80));
+          CFDictionaryRemoveAllValues(*(v25 + 88));
+          os_unfair_lock_unlock((v25 + 80));
+          VTVideoDecoderGetCMBaseObject();
+          v26 = CMBaseObjectGetDerivedStorage();
+          v27 = VTParavirtualizationCopyNotificationQueueForGuestUUID(v26 + 2);
           CMNotificationCenterGetDefaultLocalCenter();
           FigDispatchAsyncPostNotification();
-          if (v26)
+          if (v27)
           {
-            dispatch_release(v26);
+            dispatch_release(v27);
           }
 
-          goto LABEL_262;
+          goto LABEL_265;
         }
 
-        if (v147 == 1147303270)
+        if (HIDWORD(v163) == 1147303270)
         {
-          VTVideoDecoderGetCMBaseObject(v4);
-          v15 = CMBaseObjectGetDerivedStorage();
+          VTVideoDecoderGetCMBaseObject();
+          v16 = CMBaseObjectGetDerivedStorage();
           theArray = 0;
           cf = 0;
           *type = 0;
           pixelBuffer = 0;
           IOSurface = 0;
-          v152 = 0;
-          v16 = VTParavirtualizationMessageGetSInt64();
-          if (v16)
+          v168 = 0;
+          v17 = VTParavirtualizationMessageGetSInt64();
+          if (v17)
           {
-            v97 = v16;
-            LODWORD(v17) = 0;
+            v103 = v17;
+            LODWORD(v18) = 0;
           }
 
           else
           {
-            v17 = cf;
-            v18 = VTParavirtualizationMessageCopyCFDictionary(a2, 745566064, &theArray);
-            if (!v18)
+            v18 = cf;
+            v19 = VTParavirtualizationMessageCopyCFDictionary(a2, 745566064, &theArray);
+            if (!v19)
             {
-              os_unfair_lock_lock((v15 + 16));
-              if (*v15)
+              os_unfair_lock_lock((v16 + 16));
+              if (*v16)
               {
-                v19 = VTDecoderSessionCreatePixelBufferWithOptions(*v15, v17, theArray, &pixelBuffer);
+                v20 = VTDecoderSessionCreatePixelBufferWithOptions(*v16, v18, theArray, &pixelBuffer);
               }
 
               else
               {
-                v19 = 0;
+                v20 = 0;
               }
 
-              os_unfair_lock_unlock((v15 + 16));
+              os_unfair_lock_unlock((v16 + 16));
               if (pixelBuffer)
               {
-                v84 = CFUUIDCreate(*MEMORY[0x1E695E480]);
-                v85 = pixelBuffer;
-                VTVideoDecoderGetCMBaseObject(v5);
-                v86 = CMBaseObjectGetDerivedStorage();
-                os_unfair_lock_lock((v86 + 64));
-                CFDictionarySetValue(*(v86 + 72), v84, v85);
-                CFDictionaryGetCount(*(v86 + 72));
-                os_unfair_lock_unlock((v86 + 64));
-                v19 = 0;
+                v87 = CFUUIDCreate(*MEMORY[0x1E695E480]);
+                v88 = pixelBuffer;
+                VTVideoDecoderGetCMBaseObject();
+                v89 = CMBaseObjectGetDerivedStorage();
+                os_unfair_lock_lock((v89 + 64));
+                CFDictionarySetValue(*(v89 + 72), v87, v88);
+                CFDictionaryGetCount(*(v89 + 72));
+                os_unfair_lock_unlock((v89 + 64));
+                v20 = 0;
               }
 
               else
               {
-                v84 = 0;
+                v87 = 0;
               }
 
-              v87 = VTParavirtualizationCreateReplyAndByteStream(a2, 8, type, &v152);
-              if (v87 || (v87 = VTParavirtualizationMessageAppendSInt32()) != 0 || v84 && (v87 = VTParavirtualizationMessageAppendCFUUID()) != 0)
+              v90 = VTParavirtualizationCreateReplyAndByteStream(a2, 8u, type, &v168);
+              if (v90 || (v90 = VTParavirtualizationMessageAppendSInt32(v168, 744845938, v20)) != 0 || v87 && (v90 = VTParavirtualizationMessageAppendCFUUID()) != 0)
               {
-                v97 = v87;
+                v103 = v90;
               }
 
               else
@@ -409,229 +416,247 @@ LABEL_186:
                 if (pixelBuffer)
                 {
                   IOSurface = CVPixelBufferGetIOSurface(pixelBuffer);
-                }
+                  v91 = IOSurface != 0;
+                  if (IOSurface)
+                  {
+                    p_IOSurface = &IOSurface;
+                  }
 
-                v96 = VTParavirtualizationGuestSendMessageWithIOSurfacesToHostAsync(*type);
-                if (v96)
-                {
-                  v97 = v96;
+                  else
+                  {
+                    p_IOSurface = 0;
+                  }
                 }
 
                 else
                 {
-                  v97 = v19;
+                  v91 = 0;
+                  p_IOSurface = 0;
                 }
 
-                if (!v97)
+                v102 = VTParavirtualizationGuestSendMessageWithIOSurfacesToHostAsync(*type, p_IOSurface, v91);
+                if (v102)
                 {
-LABEL_202:
-                  if (pixelBuffer)
-                  {
-                    CFRelease(pixelBuffer);
-                  }
+                  v103 = v102;
+                }
 
-                  if (v84)
-                  {
-                    CFRelease(v84);
-                  }
+                else
+                {
+                  v103 = v20;
+                }
 
-                  if (*type)
-                  {
-                    CFRelease(*type);
-                  }
-
-                  if (v152)
-                  {
-                    CFRelease(v152);
-                  }
-
-                  v39 = theArray;
-                  if (!theArray)
-                  {
-                    goto LABEL_262;
-                  }
-
-                  goto LABEL_237;
+                if (!v103)
+                {
+                  goto LABEL_205;
                 }
               }
 
-LABEL_136:
-              v98 = FigCFCopyCompactDescription();
-              LODWORD(v150) = 0;
-              v153[4] = OS_LOG_TYPE_DEFAULT;
-              v99 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v100 = v150;
-              if (os_log_type_enabled(v99, v153[4]))
+LABEL_139:
+              v104 = FigCFCopyCompactDescription();
+              LODWORD(v166) = 0;
+              v169[4] = OS_LOG_TYPE_DEFAULT;
+              v105 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v106 = v166;
+              v107 = v169[4];
+              if (os_log_type_enabled(v105, v169[4]))
               {
-                v101 = v100;
+                v108 = v106;
               }
 
               else
               {
-                v101 = v100 & 0xFFFFFFFE;
+                v108 = v106 & 0xFFFFFFFE;
               }
 
-              if (v101)
+              if (v108)
               {
-                *v158 = 136316162;
-                *&v158[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionCreatePixelBufferMessage";
-                v159 = 2048;
-                *v160 = v5;
-                *&v160[8] = 1024;
-                *v161 = v97;
-                *&v161[4] = 1024;
-                *v162 = v17;
-                *&v162[4] = 2114;
-                *&v162[6] = v98;
-                _os_log_send_and_compose_impl();
+                *v174 = 136316162;
+                *&v174[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionCreatePixelBufferMessage";
+                v175 = 2048;
+                *v176 = v6;
+                *&v176[8] = 1024;
+                *v177 = v103;
+                *&v177[4] = 1024;
+                *v178 = v18;
+                *&v178[4] = 2114;
+                *&v178[6] = v104;
+                _os_log_send_and_compose_impl(v108, 0, v179, 128, &dword_18F99C000, v105, v107, "<<<< ParavirtualizedVideoDecoder >>>> %s: (decoder %p) VTDecoderSessionCreatePixelBufferWithOptions failed with err %d for frame %d options %{public}@", v174, 44);
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              if (v98)
+              if (v104)
               {
-                CFRelease(v98);
+                CFRelease(v104);
               }
 
-              goto LABEL_202;
+LABEL_205:
+              if (pixelBuffer)
+              {
+                CFRelease(pixelBuffer);
+              }
+
+              if (v87)
+              {
+                CFRelease(v87);
+              }
+
+              if (*type)
+              {
+                CFRelease(*type);
+              }
+
+              if (v168)
+              {
+                CFRelease(v168);
+              }
+
+              v40 = theArray;
+              if (!theArray)
+              {
+                goto LABEL_265;
+              }
+
+              goto LABEL_240;
             }
 
-            v97 = v18;
+            v103 = v19;
           }
 
-          v84 = 0;
-          goto LABEL_136;
+          v87 = 0;
+          goto LABEL_139;
         }
 
 LABEL_85:
         LODWORD(cf) = 0;
         LOBYTE(theArray) = 0;
-        v72 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v73 = cf;
-        if (os_log_type_enabled(v72, theArray))
+        v73 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v74 = cf;
+        v75 = theArray;
+        if (os_log_type_enabled(v73, theArray))
         {
-          v74 = v73;
+          v76 = v74;
         }
 
         else
         {
-          v74 = v73 & 0xFFFFFFFE;
+          v76 = v74 & 0xFFFFFFFE;
         }
 
-        if (v74)
+        if (v76)
         {
-          v75 = MEMORY[0x1E69E9830];
-          if ((v6 & 0x80000000) != 0)
+          v77 = MEMORY[0x1E69E9830];
+          if ((v7 & 0x80000000) != 0)
           {
-            v76 = __maskrune(v6 >> 24, 0x40000uLL);
+            v78 = __maskrune(v7 >> 24, 0x40000uLL);
           }
 
           else
           {
-            v76 = *(MEMORY[0x1E69E9830] + 4 * (v6 >> 24) + 60) & 0x40000;
+            v78 = *(MEMORY[0x1E69E9830] + 4 * (v7 >> 24) + 60) & 0x40000;
           }
 
-          if (v76)
+          if (v78)
           {
-            v122 = v6 >> 24;
+            v132 = v7 >> 24;
           }
 
           else
           {
-            v122 = 46;
+            v132 = 46;
           }
 
-          v145 = v122;
-          if (BYTE2(v6) > 0x7Fu)
+          v161 = v132;
+          if (BYTE2(v7) > 0x7Fu)
           {
-            v123 = __maskrune(BYTE2(v6), 0x40000uLL);
+            v133 = __maskrune(BYTE2(v7), 0x40000uLL);
           }
 
           else
           {
-            v123 = *(v75 + 4 * BYTE2(v6) + 60) & 0x40000;
+            v133 = *(v77 + 4 * BYTE2(v7) + 60) & 0x40000;
           }
 
-          if (v123)
+          if (v133)
           {
-            v124 = BYTE2(v6);
+            v134 = BYTE2(v7);
           }
 
           else
           {
-            v124 = 46;
+            v134 = 46;
           }
 
-          v125 = v75;
-          if (BYTE1(v6) > 0x7Fu)
+          v135 = v77;
+          if (BYTE1(v7) > 0x7Fu)
           {
-            v126 = __maskrune(BYTE1(v6), 0x40000uLL);
+            v136 = __maskrune(BYTE1(v7), 0x40000uLL);
           }
 
           else
           {
-            v126 = *(v75 + 4 * BYTE1(v6) + 60) & 0x40000;
+            v136 = *(v77 + 4 * BYTE1(v7) + 60) & 0x40000;
           }
 
-          if (v126)
+          if (v136)
           {
-            v127 = BYTE1(v6);
+            v137 = BYTE1(v7);
           }
 
           else
           {
-            v127 = 46;
+            v137 = 46;
           }
 
-          if (v6 > 0x7Fu)
+          if (v7 > 0x7Fu)
           {
-            v128 = __maskrune(v6, 0x40000uLL);
+            v138 = __maskrune(v7, 0x40000uLL);
           }
 
           else
           {
-            v128 = *(v125 + 4 * v6 + 60) & 0x40000;
+            v138 = *(v135 + 4 * v7 + 60) & 0x40000;
           }
 
-          *&v158[4] = "paravirtualizedVideoDecoder_HandleMessageFromHost";
-          *v158 = 136316162;
-          if (v128)
+          *&v174[4] = "paravirtualizedVideoDecoder_HandleMessageFromHost";
+          *v174 = 136316162;
+          if (v138)
           {
-            v129 = v6;
+            v139 = v7;
           }
 
           else
           {
-            v129 = 46;
+            v139 = 46;
           }
 
-          v159 = 1024;
-          *v160 = v145;
-          *&v160[4] = 1024;
-          *&v160[6] = v124;
-          *v161 = 1024;
-          *&v161[2] = v127;
-          *v162 = 1024;
-          *&v162[2] = v129;
-          _os_log_send_and_compose_impl();
+          v175 = 1024;
+          *v176 = v161;
+          *&v176[4] = 1024;
+          *&v176[6] = v134;
+          *v177 = 1024;
+          *&v177[2] = v137;
+          *v178 = 1024;
+          *&v178[2] = v139;
+          _os_log_send_and_compose_impl(v76, 0, v179, 128, &dword_18F99C000, v73, v75, "<<<< ParavirtualizedVideoDecoder >>>> %s: unhandled message %c%c%c%c", v174, 36, v155, v156, v157);
         }
 
-LABEL_261:
+LABEL_264:
         fig_log_call_emit_and_clean_up_after_send_and_compose();
-        goto LABEL_262;
+        goto LABEL_265;
       }
 
-      if (v147 > 1148350560)
+      if (SHIDWORD(v163) > 1148350560)
       {
-        if (v147 == 1148350561)
+        if (HIDWORD(v163) == 1148350561)
         {
-          VTVideoDecoderGetCMBaseObject(v4);
-          v38 = CMBaseObjectGetDerivedStorage();
-          v163[0] = 0;
+          VTVideoDecoderGetCMBaseObject();
+          v39 = CMBaseObjectGetDerivedStorage();
+          v179[0] = 0;
           cf = 0;
-          *v158 = 0;
-          if (!VTDecoderSessionCopyResolvedPixelBufferAttributes(*v38, *MEMORY[0x1E695E480], v163) && !VTParavirtualizationCreateReplyAndByteStream(a2, 8, v158, &cf) && (!v163[0] || !VTParavirtualizationMessageAppendCFDictionary(cf, 745562721, v163[0])))
+          *v174 = 0;
+          if (!VTDecoderSessionCopyResolvedPixelBufferAttributes(*v39, *MEMORY[0x1E695E480], v179) && !VTParavirtualizationCreateReplyAndByteStream(a2, 8u, v174, &cf) && (!v179[0] || !VTParavirtualizationMessageAppendCFDictionary(cf, 0x2C706261u, v179[0])))
           {
-            VTParavirtualizationGuestSendMessageToHostAsync(*v158);
+            VTParavirtualizationGuestSendMessageToHostAsync(*v174);
           }
 
           if (cf)
@@ -639,71 +664,71 @@ LABEL_261:
             CFRelease(cf);
           }
 
-          if (*v158)
+          if (*v174)
           {
-            CFRelease(*v158);
+            CFRelease(*v174);
           }
 
 LABEL_57:
-          v39 = v163[0];
-          if (!v163[0])
+          v40 = v179[0];
+          if (!v179[0])
           {
-            goto LABEL_262;
+            goto LABEL_265;
           }
 
-          goto LABEL_237;
+          goto LABEL_240;
         }
 
-        if (v147 != 1413768557)
+        if (HIDWORD(v163) != 1413768557)
         {
-          if (v147 != 1413772146)
+          if (HIDWORD(v163) != 1413772146)
           {
             goto LABEL_85;
           }
 
-          VTVideoDecoderGetCMBaseObject(v4);
-          v7 = CMBaseObjectGetDerivedStorage();
+          VTVideoDecoderGetCMBaseObject();
+          v8 = CMBaseObjectGetDerivedStorage();
           theArray = 0;
           cf = 0;
-          v8 = VTParavirtualizationMessageCopyCFDictionary(a2, 744710753, &cf);
-          if (v8)
-          {
-            v14 = v8;
-            v9 = 0;
-            v11 = 0;
-            goto LABEL_121;
-          }
-
-          v9 = CFDictionaryCreate(*MEMORY[0x1E695E480], 0, 0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+          v9 = VTParavirtualizationMessageCopyCFDictionary(a2, 744710753, &cf);
           if (v9)
           {
+            v15 = v9;
+            v10 = 0;
+            v12 = 0;
+            goto LABEL_123;
+          }
+
+          v10 = CFDictionaryCreate(*MEMORY[0x1E695E480], 0, 0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+          if (v10)
+          {
             MutableCopy = FigCFDictionaryCreateMutableCopy();
-            v11 = MutableCopy;
+            v12 = MutableCopy;
             if (MutableCopy)
             {
-              CFDictionaryAddValue(MutableCopy, *MEMORY[0x1E69660D8], v9);
-              v12 = VTParavirtualizationMessageCopyCFDictionary(a2, 745825394, &theArray);
-              if (!v12)
+              CFDictionaryAddValue(MutableCopy, *MEMORY[0x1E69660D8], v10);
+              v13 = VTParavirtualizationMessageCopyCFDictionary(a2, 745825394, &theArray);
+              if (!v13)
               {
-                os_unfair_lock_lock((v7 + 16));
-                v13 = *(v7 + 8);
-                if (v13)
+                os_unfair_lock_lock((v8 + 16));
+                v14 = *(v8 + 8);
+                if (v14)
                 {
-                  v14 = VTTileDecoderSessionSetTileDecodeRequirements(v13, cf, theArray);
+                  v15 = VTTileDecoderSessionSetTileDecodeRequirements(v14, cf, theArray);
                 }
 
                 else
                 {
-                  v14 = 0;
+                  v15 = 0;
                 }
 
-                os_unfair_lock_unlock((v7 + 16));
-                if (v14)
+                os_unfair_lock_unlock((v8 + 16));
+                if (v15)
                 {
-                  goto LABEL_121;
+                  goto LABEL_123;
                 }
 
-LABEL_216:
+LABEL_219:
                 if (cf)
                 {
                   CFRelease(cf);
@@ -714,358 +739,362 @@ LABEL_216:
                   CFRelease(theArray);
                 }
 
-                if (v9)
+                if (v10)
                 {
-                  CFRelease(v9);
+                  CFRelease(v10);
                 }
 
-                if (!v11)
+                if (!v12)
                 {
-                  goto LABEL_262;
+                  goto LABEL_265;
                 }
 
-                v39 = v11;
-                goto LABEL_237;
+                v40 = v12;
+                goto LABEL_240;
               }
 
-              v14 = v12;
-LABEL_121:
-              v88 = FigCFCopyCompactDescription();
-              v89 = FigCFCopyCompactDescription();
+              v15 = v13;
+LABEL_123:
+              v93 = FigCFCopyCompactDescription();
+              v94 = FigCFCopyCompactDescription();
               LODWORD(pixelBuffer) = 0;
               type[0] = OS_LOG_TYPE_DEFAULT;
-              v90 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v91 = pixelBuffer;
-              if (os_log_type_enabled(v90, type[0]))
+              v95 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v96 = pixelBuffer;
+              v97 = type[0];
+              if (os_log_type_enabled(v95, type[0]))
               {
-                v92 = v91;
+                v98 = v96;
               }
 
               else
               {
-                v92 = v91 & 0xFFFFFFFE;
+                v98 = v96 & 0xFFFFFFFE;
               }
 
-              if (v92)
+              if (v98)
               {
-                *v158 = 136316162;
-                *&v158[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionSetTileDecodeRequirementsMessage";
-                v159 = 2048;
-                *v160 = v5;
-                *&v160[8] = 1024;
-                *v161 = v14;
-                *&v161[4] = 2114;
-                *v162 = v88;
-                *&v162[8] = 2114;
-                *&v162[10] = v89;
-                _os_log_send_and_compose_impl();
+                *v174 = 136316162;
+                *&v174[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionSetTileDecodeRequirementsMessage";
+                v175 = 2048;
+                *v176 = v6;
+                *&v176[8] = 1024;
+                *v177 = v15;
+                *&v177[4] = 2114;
+                *v178 = v93;
+                *&v178[8] = 2114;
+                *&v178[10] = v94;
+                _os_log_send_and_compose_impl(v98, 0, v179, 128, &dword_18F99C000, v95, v97, "<<<< ParavirtualizedVideoDecoder >>>> %s: (decoder %p) VTTileDecoderSessionSetTileDecodeRequirements failed with error %d for canvasPixelBufferAttributes=%{public}@ tileDecodeRequirementsDesc=%{public}@", v174, 48);
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              if (v89)
+              if (v94)
               {
-                CFRelease(v89);
+                CFRelease(v94);
               }
 
-              if (v88)
+              if (v93)
               {
-                CFRelease(v88);
+                CFRelease(v93);
               }
 
-              goto LABEL_216;
+              goto LABEL_219;
             }
 
-            __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_3(v163);
+            __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_3(v179);
           }
 
           else
           {
-            __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_4(v163);
-            v11 = 0;
+            __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_4(v179);
+            v12 = 0;
           }
 
-          v14 = v163[0];
-          if (!LODWORD(v163[0]))
+          v15 = v179[0];
+          if (!LODWORD(v179[0]))
           {
-            goto LABEL_216;
+            goto LABEL_219;
           }
 
-          goto LABEL_121;
+          goto LABEL_123;
         }
 
-        VTVideoDecoderGetCMBaseObject(v4);
-        v54 = CMBaseObjectGetDerivedStorage();
+        VTVideoDecoderGetCMBaseObject();
+        v55 = CMBaseObjectGetDerivedStorage();
         theArray = 0;
         cf = 0;
-        LODWORD(v152) = 0;
+        LODWORD(v168) = 0;
         LODWORD(IOSurface) = 0;
         *type = 0;
         pixelBuffer = 0;
-        v55 = VTParavirtualizationMessageGetSInt64();
-        if (v55)
+        v56 = VTParavirtualizationMessageGetSInt64();
+        if (v56)
         {
-          v71 = v55;
-          v56 = 0;
+          v72 = v56;
+          v57 = 0;
         }
 
         else
         {
-          v56 = cf;
+          v57 = cf;
           VTParavirtualizationMessageGetSInt32();
-          if (!v57)
+          if (!v58)
           {
-            v142 = v152;
+            HIDWORD(v157) = v168;
             VTParavirtualizationMessageGetUInt32();
-            if (!v58)
+            if (!v59)
             {
-              v144 = IOSurface;
-              v59 = VTParavirtualizationMessageCopyCFUUID();
-              if (!v59)
+              v160 = IOSurface;
+              v60 = VTParavirtualizationMessageCopyCFUUID();
+              if (!v60)
               {
-                v60 = theArray;
+                v61 = theArray;
                 if (!theArray)
                 {
-                  v66 = 0;
-LABEL_130:
-                  os_unfair_lock_lock((v54 + 16));
-                  v94 = *(v54 + 8);
-                  if (v94)
+                  v67 = 0;
+LABEL_132:
+                  os_unfair_lock_lock((v55 + 16));
+                  v100 = *(v55 + 8);
+                  if (v100)
                   {
-                    v95 = VTTileDecoderSessionEmitDecodedTile(v94, v56, v142, v144, v66);
+                    v101 = VTTileDecoderSessionEmitDecodedTile(v100, v57, HIDWORD(v157), v160, v67);
                   }
 
                   else
                   {
-                    v95 = 0;
+                    v101 = 0;
                   }
 
-                  os_unfair_lock_unlock((v54 + 16));
-                  v102 = VTParavirtualizationCreateReplyAndByteStream(a2, 8, &pixelBuffer, type);
-                  if (v102 || (v102 = VTParavirtualizationMessageAppendSInt32()) != 0)
+                  os_unfair_lock_unlock((v55 + 16));
+                  v109 = VTParavirtualizationCreateReplyAndByteStream(a2, 8u, &pixelBuffer, type);
+                  if (v109 || (v109 = VTParavirtualizationMessageAppendSInt32(*type, 744845938, v101)) != 0)
                   {
-                    v71 = v102;
+                    v72 = v109;
                   }
 
                   else
                   {
-                    v103 = VTParavirtualizationGuestSendMessageToHostAsync(pixelBuffer);
-                    if (v103)
+                    v110 = VTParavirtualizationGuestSendMessageToHostAsync(pixelBuffer);
+                    if (v110)
                     {
-                      v71 = v103;
+                      v72 = v110;
                     }
 
                     else
                     {
-                      v71 = v95;
+                      v72 = v101;
                     }
 
-                    if (!v71)
+                    if (!v72)
                     {
-LABEL_191:
+LABEL_194:
                       if (theArray)
                       {
                         CFRelease(theArray);
                       }
 
-                      if (!v66)
+                      if (!v67)
                       {
-LABEL_196:
+LABEL_199:
                         if (pixelBuffer)
                         {
                           CFRelease(pixelBuffer);
                         }
 
-                        v39 = *type;
+                        v40 = *type;
                         if (!*type)
                         {
-                          goto LABEL_262;
+                          goto LABEL_265;
                         }
 
-                        goto LABEL_237;
+                        goto LABEL_240;
                       }
 
-                      v121 = v66;
-LABEL_195:
-                      CFRelease(v121);
-                      goto LABEL_196;
+                      v131 = v67;
+LABEL_198:
+                      CFRelease(v131);
+                      goto LABEL_199;
                     }
                   }
 
-LABEL_148:
-                  LODWORD(v150) = 0;
-                  v153[4] = OS_LOG_TYPE_DEFAULT;
-                  v104 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-                  v105 = v150;
-                  if (os_log_type_enabled(v104, v153[4]))
+LABEL_151:
+                  LODWORD(v166) = 0;
+                  v169[4] = OS_LOG_TYPE_DEFAULT;
+                  v111 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+                  v112 = v166;
+                  v113 = v169[4];
+                  if (os_log_type_enabled(v111, v169[4]))
                   {
-                    v106 = v105;
+                    v114 = v112;
                   }
 
                   else
                   {
-                    v106 = v105 & 0xFFFFFFFE;
+                    v114 = v112 & 0xFFFFFFFE;
                   }
 
-                  if (v106)
+                  if (v114)
                   {
-                    *v158 = 136316674;
-                    *&v158[4] = "ParavirtualizationVideoDecoder_HandleDecoderSessionEmitDecodedTileMessage";
-                    v159 = 2048;
-                    *v160 = v5;
-                    *&v160[8] = 1024;
-                    *v161 = v71;
-                    *&v161[4] = 2048;
-                    *v162 = v56;
-                    *&v162[8] = 1024;
-                    *&v162[10] = v142;
-                    *&v162[14] = 1024;
-                    *&v162[16] = v144;
-                    *&v162[20] = 2048;
-                    *&v162[22] = v66;
-                    _os_log_send_and_compose_impl();
+                    *v174 = 136316674;
+                    *&v174[4] = "ParavirtualizationVideoDecoder_HandleDecoderSessionEmitDecodedTileMessage";
+                    v175 = 2048;
+                    *v176 = v6;
+                    *&v176[8] = 1024;
+                    *v177 = v72;
+                    *&v177[4] = 2048;
+                    *v178 = v57;
+                    *&v178[8] = 1024;
+                    *&v178[10] = HIDWORD(v157);
+                    *&v178[14] = 1024;
+                    *&v178[16] = v160;
+                    *&v178[20] = 2048;
+                    *&v178[22] = v67;
+                    LODWORD(v154) = 60;
+                    _os_log_send_and_compose_impl(v114, 0, v179, 128, &dword_18F99C000, v111, v113, "<<<< ParavirtualizedVideoDecoder >>>> %s: (decoder %p) VTTileDecoderSessionEmitDecodedTile failed with error %d for tile %p: status %d decodeFlags 0x%x pixelBuffer %p", v174, v154, v155, v156, v157, v160, v163);
                   }
 
                   fig_log_call_emit_and_clean_up_after_send_and_compose();
-                  goto LABEL_191;
+                  goto LABEL_194;
                 }
 
-                VTVideoDecoderGetCMBaseObject(v5);
-                v61 = CMBaseObjectGetDerivedStorage();
-                v140 = v56;
-                v62 = FigCFNumberCreateSInt64();
-                os_unfair_lock_lock((v61 + 80));
-                v63 = CFDictionaryGetValue(*(v61 + 88), v60);
-                if (v63)
+                VTVideoDecoderGetCMBaseObject();
+                v62 = CMBaseObjectGetDerivedStorage();
+                v156 = v57;
+                v63 = FigCFNumberCreateSInt64();
+                os_unfair_lock_lock((v62 + 80));
+                v64 = CFDictionaryGetValue(*(v62 + 88), v61);
+                if (v64)
                 {
-                  v64 = v63;
-                  v65 = CFDictionaryGetValue(v63, @"PixelBufferKey");
-                  v66 = v65;
-                  if (v65)
+                  v65 = v64;
+                  v66 = CFDictionaryGetValue(v64, @"PixelBufferKey");
+                  v67 = v66;
+                  if (v66)
                   {
-                    CFRetain(v65);
-                    v67 = CFDictionaryGetValue(v64, @"TilesUsingPixelBuffer");
-                    if (v67)
+                    CFRetain(v66);
+                    v68 = CFDictionaryGetValue(v65, @"TilesUsingPixelBuffer");
+                    if (v68)
                     {
-                      v68 = v67;
-                      Count = CFArrayGetCount(v67);
+                      v69 = v68;
+                      Count = CFArrayGetCount(v68);
                       if (Count)
                       {
-                        v164.length = Count;
-                        v164.location = 0;
-                        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v68, v164, v62);
+                        v180.length = Count;
+                        v180.location = 0;
+                        FirstIndexOfValue = CFArrayGetFirstIndexOfValue(v69, v180, v63);
                         if (FirstIndexOfValue != -1)
                         {
-                          CFArrayRemoveValueAtIndex(v68, FirstIndexOfValue);
+                          CFArrayRemoveValueAtIndex(v69, FirstIndexOfValue);
                         }
 
-                        if (!CFArrayGetCount(v68))
+                        if (!CFArrayGetCount(v69))
                         {
-                          CFDictionaryRemoveValue(*(v61 + 88), v60);
+                          CFDictionaryRemoveValue(*(v62 + 88), v61);
                         }
                       }
                     }
 
-                    v71 = 0;
+                    v72 = 0;
 LABEL_81:
-                    v56 = v140;
-                    os_unfair_lock_unlock((v61 + 80));
-                    if (v62)
+                    v57 = v156;
+                    os_unfair_lock_unlock((v62 + 80));
+                    if (v63)
                     {
-                      CFRelease(v62);
+                      CFRelease(v63);
                     }
 
-                    if (v71)
+                    if (v72)
                     {
-                      goto LABEL_148;
+                      goto LABEL_151;
                     }
 
-                    goto LABEL_130;
+                    goto LABEL_132;
                   }
 
-                  __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_1(v163);
+                  __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_1(v179);
                 }
 
                 else
                 {
-                  __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_2(v163);
-                  v66 = 0;
+                  __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_2(v179);
+                  v67 = 0;
                 }
 
-                v71 = v163[0];
+                v72 = v179[0];
                 goto LABEL_81;
               }
 
-              v71 = v59;
-LABEL_297:
-              v66 = 0;
-              goto LABEL_148;
+              v72 = v60;
+LABEL_300:
+              v67 = 0;
+              goto LABEL_151;
             }
 
-            v71 = v58;
-LABEL_293:
-            v144 = 0;
-            goto LABEL_297;
+            v72 = v59;
+LABEL_296:
+            v160 = 0;
+            goto LABEL_300;
           }
 
-          v71 = v57;
+          v72 = v58;
         }
 
-        v142 = 0;
-        goto LABEL_293;
+        HIDWORD(v157) = 0;
+        goto LABEL_296;
       }
 
-      if (v147 != 1148021094)
+      if (HIDWORD(v163) != 1148021094)
       {
-        if (v147 != 1148215905)
+        if (HIDWORD(v163) != 1148215905)
         {
           goto LABEL_85;
         }
 
-        VTVideoDecoderGetCMBaseObject(v4);
-        v20 = CMBaseObjectGetDerivedStorage();
+        VTVideoDecoderGetCMBaseObject();
+        v21 = CMBaseObjectGetDerivedStorage();
         cf = 0;
-        v21 = VTParavirtualizationMessageCopyCFDictionary(a2, 745562721, &cf);
-        if (!v21)
+        v22 = VTParavirtualizationMessageCopyCFDictionary(a2, 745562721, &cf);
+        if (!v22)
         {
-          *(v20 + 113) = VTParavirtualizationPixelBufferAttributesContainIOSurfaceProtectionOptions();
-          os_unfair_lock_lock((v20 + 16));
-          if (*v20)
+          *(v21 + 113) = VTParavirtualizationPixelBufferAttributesContainIOSurfaceProtectionOptions(cf);
+          os_unfair_lock_lock((v21 + 16));
+          if (*v21)
           {
-            v22 = VTDecoderSessionSetPixelBufferAttributes(*v20, cf);
-            os_unfair_lock_unlock((v20 + 16));
-            if (v22)
+            v23 = VTDecoderSessionSetPixelBufferAttributes(*v21, cf);
+            os_unfair_lock_unlock((v21 + 16));
+            if (v23)
             {
-LABEL_271:
-              v82 = FigCFCopyCompactDescription();
+LABEL_274:
+              v85 = FigCFCopyCompactDescription();
               LODWORD(theArray) = 0;
               LOBYTE(pixelBuffer) = 0;
-              v131 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-              v132 = theArray;
-              if (os_log_type_enabled(v131, pixelBuffer))
+              v141 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+              v142 = theArray;
+              v143 = pixelBuffer;
+              if (os_log_type_enabled(v141, pixelBuffer))
               {
-                v133 = v132;
+                v144 = v142;
               }
 
               else
               {
-                v133 = v132 & 0xFFFFFFFE;
+                v144 = v142 & 0xFFFFFFFE;
               }
 
-              if (v133)
+              if (v144)
               {
-                *v158 = 136315906;
-                *&v158[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionSetPixelBufferAttributesMessage";
-                v159 = 2048;
-                *v160 = v5;
-                *&v160[8] = 1024;
-                *v161 = v22;
-                *&v161[4] = 2114;
-                *v162 = v82;
-                _os_log_send_and_compose_impl();
+                *v174 = 136315906;
+                *&v174[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionSetPixelBufferAttributesMessage";
+                v175 = 2048;
+                *v176 = v6;
+                *&v176[8] = 1024;
+                *v177 = v23;
+                *&v177[4] = 2114;
+                *v178 = v85;
+                _os_log_send_and_compose_impl(v144, 0, v179, 128, &dword_18F99C000, v141, v143, "<<<< ParavirtualizedVideoDecoder >>>> %s: (decoder %p) VTDecoderSessionSetPixelBufferAttributes failed with error %d for %{public}@", v174, 38);
               }
 
               fig_log_call_emit_and_clean_up_after_send_and_compose();
-              if (!v82)
+              if (!v85)
               {
                 goto LABEL_107;
               }
@@ -1076,202 +1105,203 @@ LABEL_271:
 
           else
           {
-            os_unfair_lock_unlock((v20 + 16));
+            os_unfair_lock_unlock((v21 + 16));
           }
 
-          *(v20 + 112) = 0;
-          v82 = *(v20 + 104);
-          v83 = cf;
-          *(v20 + 104) = cf;
-          if (v83)
+          *(v21 + 112) = 0;
+          v85 = *(v21 + 104);
+          v86 = cf;
+          *(v21 + 104) = cf;
+          if (v86)
           {
-            CFRetain(v83);
+            CFRetain(v86);
           }
 
-          if (!v82)
+          if (!v85)
           {
 LABEL_107:
-            v39 = cf;
+            v40 = cf;
             if (!cf)
             {
-              goto LABEL_262;
+              goto LABEL_265;
             }
 
-            goto LABEL_237;
+            goto LABEL_240;
           }
 
 LABEL_106:
-          CFRelease(v82);
+          CFRelease(v85);
           goto LABEL_107;
         }
 
-        v22 = v21;
-        goto LABEL_271;
+        v23 = v22;
+        goto LABEL_274;
       }
 
-      VTVideoDecoderGetCMBaseObject(v4);
-      v27 = CMBaseObjectGetDerivedStorage();
+      VTVideoDecoderGetCMBaseObject();
+      v28 = CMBaseObjectGetDerivedStorage();
       theArray = 0;
       cf = 0;
-      *v153 = 0;
+      *v169 = 0;
       *type = 0;
       pixelBuffer = 0;
       IOSurface = 0;
-      v152 = 0;
-      v150 = 0;
-      v28 = VTParavirtualizationMessageGetSInt64();
-      if (v28)
+      v168 = 0;
+      v166 = 0;
+      v29 = VTParavirtualizationMessageGetSInt64();
+      if (v29)
       {
-        v116 = v28;
-        v33 = 0;
-        LODWORD(v31) = 0;
-        v146 = 0;
+        v125 = v29;
+        v34 = 0;
+        LODWORD(v32) = 0;
+        v162 = 0;
       }
 
       else
       {
-        v29 = cf;
+        v30 = cf;
         VTParavirtualizationMessageGetSInt32();
-        if (v30)
+        if (v31)
         {
-          v116 = v30;
-          v146 = v29;
-          v33 = 0;
-          LODWORD(v31) = 0;
+          v125 = v31;
+          v162 = v30;
+          v34 = 0;
+          LODWORD(v32) = 0;
         }
 
         else
         {
-          v31 = *&v153[4];
+          v32 = *&v169[4];
           VTParavirtualizationMessageGetUInt32();
-          if (v32)
+          if (v33)
           {
-            v116 = v32;
-            v146 = v29;
-            v33 = 0;
+            v125 = v33;
+            v162 = v30;
+            v34 = 0;
           }
 
           else
           {
-            v33 = *v153;
-            v34 = VTParavirtualizationMessageCopyCFUUIDArray();
-            if (v34 || theArray && CFArrayGetCount(theArray) >= 1 && (v34 = paravirtualizedVideoDecoder_lookupRetainAndForgetPendingFramePixelBuffersByUUIDs(v5, theArray, &pixelBuffer), v34) || (v34 = VTParavirtualizationMessageCopyFigTagCollectionArray(a2, 745825067, &IOSurface), v34))
+            v34 = *v169;
+            v35 = VTParavirtualizationMessageCopyCFUUIDArray();
+            if (v35 || theArray && CFArrayGetCount(theArray) >= 1 && (v35 = paravirtualizedVideoDecoder_lookupRetainAndForgetPendingFramePixelBuffersByUUIDs(v6, theArray, &pixelBuffer), v35) || (v35 = VTParavirtualizationMessageCopyFigTagCollectionArray(a2, 745825067, &IOSurface), v35))
             {
-LABEL_264:
-              v116 = v34;
-              v146 = v29;
-              goto LABEL_299;
+LABEL_267:
+              v125 = v35;
+              v162 = v30;
+              goto LABEL_302;
             }
 
             if (pixelBuffer)
             {
-              v35 = CFArrayGetCount(pixelBuffer);
+              v36 = CFArrayGetCount(pixelBuffer);
             }
 
             else
             {
-              v35 = 0;
+              v36 = 0;
             }
 
-            v112 = IOSurface;
+            v121 = IOSurface;
             if (IOSurface)
             {
-              v112 = CFArrayGetCount(IOSurface);
+              v121 = CFArrayGetCount(IOSurface);
             }
 
-            if (v35 == v112)
+            if (v36 == v121)
             {
-              if (!pixelBuffer || (v34 = MEMORY[0x193AE2F70](*MEMORY[0x1E695E480], IOSurface, pixelBuffer, &v150), !v34))
+              if (!pixelBuffer || (v35 = MEMORY[0x193AE2F70](*MEMORY[0x1E695E480], IOSurface, pixelBuffer, &v166), !v35))
               {
-                os_unfair_lock_lock((v27 + 16));
-                if (*v27)
+                os_unfair_lock_lock((v28 + 16));
+                if (*v28)
                 {
-                  v113 = VTDecoderSessionEmitDecodedMultiImageFrame(*v27, v29, v31, v33, v150);
+                  v122 = VTDecoderSessionEmitDecodedMultiImageFrame(*v28, v30, v32, v34, v166);
                 }
 
                 else
                 {
-                  v113 = 0;
+                  v122 = 0;
                 }
 
-                os_unfair_lock_unlock((v27 + 16));
-                v114 = VTParavirtualizationCreateReplyAndByteStream(a2, 8, type, &v152);
-                if (v114 || (v114 = VTParavirtualizationMessageAppendSInt32()) != 0)
+                os_unfair_lock_unlock((v28 + 16));
+                v123 = VTParavirtualizationCreateReplyAndByteStream(a2, 8u, type, &v168);
+                if (v123 || (v123 = VTParavirtualizationMessageAppendSInt32(v168, 744845938, v122)) != 0)
                 {
-                  LODWORD(v116) = v114;
+                  LODWORD(v125) = v123;
                 }
 
                 else
                 {
-                  v115 = VTParavirtualizationGuestSendMessageToHostAsync(*type);
-                  if (v115)
+                  v124 = VTParavirtualizationGuestSendMessageToHostAsync(*type);
+                  if (v124)
                   {
-                    LODWORD(v116) = v115;
+                    LODWORD(v125) = v124;
                   }
 
                   else
                   {
-                    LODWORD(v116) = v113;
+                    LODWORD(v125) = v122;
                   }
 
-                  if (!v116)
+                  if (!v125)
                   {
-                    goto LABEL_226;
+                    goto LABEL_229;
                   }
                 }
 
-                goto LABEL_180;
+                goto LABEL_183;
               }
 
-              goto LABEL_264;
+              goto LABEL_267;
             }
 
-            v146 = v29;
-            __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_5(v163);
-            v116 = LODWORD(v163[0]);
+            v162 = v30;
+            __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_5(v179);
+            v125 = LODWORD(v179[0]);
           }
         }
       }
 
-LABEL_299:
-      v149 = 0;
-      v148 = OS_LOG_TYPE_DEFAULT;
-      v134 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v135 = v149;
-      if (os_log_type_enabled(v134, v148))
+LABEL_302:
+      v165 = 0;
+      v164 = OS_LOG_TYPE_DEFAULT;
+      v145 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v146 = v165;
+      v147 = v164;
+      if (os_log_type_enabled(v145, v164))
       {
-        v136 = v135;
+        v148 = v146;
       }
 
       else
       {
-        v136 = v135 & 0xFFFFFFFE;
+        v148 = v146 & 0xFFFFFFFE;
       }
 
-      if (v136)
+      if (v148)
       {
-        *v158 = 136315394;
-        *&v158[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionEmitDecodedMultiImageFrame";
-        v159 = 1024;
-        *v160 = v116;
-        _os_log_send_and_compose_impl();
+        *v174 = 136315394;
+        *&v174[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionEmitDecodedMultiImageFrame";
+        v175 = 1024;
+        *v176 = v125;
+        _os_log_send_and_compose_impl(v148, 0, v179, 128, &dword_18F99C000, v145, v147, "<<<< ParavirtualizedVideoDecoder >>>> %s: -> %d", v174, 18);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      os_unfair_lock_lock((v27 + 16));
-      if (*v27)
+      os_unfair_lock_lock((v28 + 16));
+      if (*v28)
       {
-        VTDecoderSessionEmitDecodedMultiImageFrame(*v27, v146, v116, v33, 0);
+        VTDecoderSessionEmitDecodedMultiImageFrame(*v28, v162, v125, v34, 0);
       }
 
-      os_unfair_lock_unlock((v27 + 16));
-      LODWORD(v29) = v146;
-      if (!v116)
+      os_unfair_lock_unlock((v28 + 16));
+      LODWORD(v30) = v162;
+      if (!v125)
       {
-LABEL_226:
-        if (v150)
+LABEL_229:
+        if (v166)
         {
-          CFRelease(v150);
+          CFRelease(v166);
         }
 
         if (IOSurface)
@@ -1294,59 +1324,61 @@ LABEL_226:
           CFRelease(*type);
         }
 
-        v39 = v152;
-        if (!v152)
+        v40 = v168;
+        if (!v168)
         {
-          goto LABEL_262;
+          goto LABEL_265;
         }
 
-LABEL_237:
-        CFRelease(v39);
-        goto LABEL_262;
+LABEL_240:
+        CFRelease(v40);
+        goto LABEL_265;
       }
 
-LABEL_180:
-      v117 = FigCFCopyCompactDescription();
-      v149 = 0;
-      v148 = OS_LOG_TYPE_DEFAULT;
-      v118 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      v119 = v149;
-      if (os_log_type_enabled(v118, v148))
+LABEL_183:
+      v126 = FigCFCopyCompactDescription();
+      v165 = 0;
+      v164 = OS_LOG_TYPE_DEFAULT;
+      v127 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      v128 = v165;
+      v129 = v164;
+      if (os_log_type_enabled(v127, v164))
       {
-        v120 = v119;
+        v130 = v128;
       }
 
       else
       {
-        v120 = v119 & 0xFFFFFFFE;
+        v130 = v128 & 0xFFFFFFFE;
       }
 
-      if (v120)
+      if (v130)
       {
-        *v158 = 136316674;
-        *&v158[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionEmitDecodedMultiImageFrame";
-        v159 = 2048;
-        *v160 = v5;
-        *&v160[8] = 1024;
-        *v161 = v116;
-        *&v161[4] = 1024;
-        *v162 = v29;
-        *&v162[4] = 1024;
-        *&v162[6] = v31;
-        *&v162[10] = 1024;
-        *&v162[12] = v33;
-        *&v162[16] = 2114;
-        *&v162[18] = v117;
-        _os_log_send_and_compose_impl();
+        *v174 = 136316674;
+        *&v174[4] = "ParavirtualizedVideoDecoder_HandleDecoderSessionEmitDecodedMultiImageFrame";
+        v175 = 2048;
+        *v176 = v6;
+        *&v176[8] = 1024;
+        *v177 = v125;
+        *&v177[4] = 1024;
+        *v178 = v30;
+        *&v178[4] = 1024;
+        *&v178[6] = v32;
+        *&v178[10] = 1024;
+        *&v178[12] = v34;
+        *&v178[16] = 2114;
+        *&v178[18] = v126;
+        LODWORD(v154) = 56;
+        _os_log_send_and_compose_impl(v130, 0, v179, 128, &dword_18F99C000, v127, v129, "<<<< ParavirtualizedVideoDecoder >>>> %s: (decoder %p) VTDecoderSessionEmitDecodedMultiImageFrame failed with error %d for frame %d: status %d decodeFlags 0x%x taggedBufferGroup %{public}@", v174, v154);
       }
 
       fig_log_call_emit_and_clean_up_after_send_and_compose();
-      if (v117)
+      if (v126)
       {
-        CFRelease(v117);
+        CFRelease(v126);
       }
 
-      goto LABEL_226;
+      goto LABEL_229;
     }
   }
 
@@ -1355,42 +1387,42 @@ LABEL_180:
 
 uint64_t __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_1(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 uint64_t __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_2(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 uint64_t __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_3(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 uint64_t __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_4(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 uint64_t __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_5(_DWORD *a1)
 {
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *a1 = result;
   return result;
 }
 
 BOOL __ParavirtualizedVideoDecoder_CreateInstanceWithSpecification_block_invoke_cold_6(os_unfair_lock_s *a1, _DWORD *a2)
 {
-  v4 = FigSignalErrorAtGM();
+  v4 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v6, v7, v8);
   *a2 = v4;
   os_unfair_lock_unlock(a1);
   return v4 == 0;

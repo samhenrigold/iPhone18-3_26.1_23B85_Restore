@@ -220,26 +220,27 @@
 
 - (__CFString)localizedStringForKey:()ABAdditions formatArg:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v6 = _ABBundle();
   v7 = CFBundleCopyLocalizedString(v6, a3, 0, @"Localized");
   if (v7)
   {
     v8 = v7;
-    v12 = 0;
-    v9 = [MEMORY[0x1E696AEC0] stringWithValidatedFormat:v7 validFormatSpecifiers:@"%@" error:&v12, a4];
-    if (v12)
+    v14 = 0;
+    v9 = [MEMORY[0x1E696AEC0] stringWithValidatedFormat:v7 validFormatSpecifiers:@"%@" error:&v14, a4];
+    v11 = v9;
+    if (v14)
     {
-      v10 = ABOSLogGeneral();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = ABOSLogGeneral(v9, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543874;
-        v14 = v8;
-        v15 = 2114;
-        v16 = a4;
+        v16 = v8;
         v17 = 2114;
-        v18 = v12;
-        _os_log_error_impl(&dword_1B7EFB000, v10, OS_LOG_TYPE_ERROR, "Error creating localized string from format = %{public}@, value = %{public}@, error = %{public}@", buf, 0x20u);
+        v18 = a4;
+        v19 = 2114;
+        v20 = v14;
+        _os_log_error_impl(&dword_1B7EFB000, v12, OS_LOG_TYPE_ERROR, "Error creating localized string from format = %{public}@, value = %{public}@, error = %{public}@", buf, 0x20u);
       }
     }
 
@@ -248,12 +249,12 @@
 
   else
   {
-    v9 = 0;
+    v11 = 0;
   }
 
-  if (v9)
+  if (v11)
   {
-    return v9;
+    return v11;
   }
 
   else

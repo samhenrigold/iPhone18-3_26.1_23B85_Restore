@@ -36,8 +36,7 @@
   v8 = *MEMORY[0x277D85DE8];
   v3 = [CRKExecutionTimer startedTimerWithDescription:@"Housekeep ASM credentials"];
   [(CRKASMCredentialHousekeeper *)self housekeepUserIdentities];
-  [(CRKASMCredentialHousekeeper *)self housekeepTrustedUserCertificates];
-  v4 = _CRKLogASM_18();
+  v4 = _CRKLogASM_18([(CRKASMCredentialHousekeeper *)self housekeepTrustedUserCertificates]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     stop = [v3 stop];
@@ -139,7 +138,7 @@
   if ([identitiesCopy count])
   {
     v8 = [(CRKASMCredentialHousekeeper *)self entriesInManifest:manifestCopy forPersistentIDs:identitiesCopy];
-    v9 = _CRKLogASM_18();
+    v9 = _CRKLogASM_18(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [CRKASMCredentialHousekeeper removeUserIdentities:identitiesCopy manifest:?];
@@ -201,7 +200,7 @@
   if ([certificatesCopy count])
   {
     v8 = [(CRKASMCredentialHousekeeper *)self entriesInManifest:manifestCopy forPersistentIDs:certificatesCopy];
-    v9 = _CRKLogASM_18();
+    v9 = _CRKLogASM_18(v8);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [CRKASMCredentialHousekeeper removeTrustedUserCertificates:certificatesCopy manifest:?];
@@ -364,14 +363,14 @@
 {
   [a1 count];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_2(&dword_243550000, v1, v2, "Housekeeping %lu user identities. Manifest entries: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_2(&dword_243550000, v1, v2, "Housekeeping %lu user identities. Manifest entries: %@", v3, v4, v5, v6);
 }
 
 - (void)removeTrustedUserCertificates:(void *)a1 manifest:.cold.1(void *a1)
 {
   [a1 count];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_2(&dword_243550000, v1, v2, "Housekeeping %lu trusted user certificates. Manifest entries: %@", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_1_2(&dword_243550000, v1, v2, "Housekeeping %lu trusted user certificates. Manifest entries: %@", v3, v4, v5, v6);
 }
 
 @end

@@ -29,9 +29,9 @@
     objc_msgSend_addFragmentDeclaration_statement_(intoCopy, v47, v48, v49, v50, v22, @"tsch_vec4(1.0)");
   }
 
-  v55 = objc_msgSend_color(self->super._variables, v51, v52, v53, v54);
-  v60 = objc_msgSend_factor(self->super._variables, v56, v57, v58, v59);
-  objc_msgSend_addVertexDeclaration_statement_(intoCopy, v61, v62, v63, v64, v55, @"@@", v60);
+  v54 = objc_msgSend_color(self->super._variables, v51, v52, v53);
+  v59 = objc_msgSend_factor(self->super._variables, v55, v56, v57, v58);
+  objc_msgSend_addVertexDeclaration_statement_(intoCopy, v60, v61, v62, v63, v54, @"@@", v59);
 }
 
 @end

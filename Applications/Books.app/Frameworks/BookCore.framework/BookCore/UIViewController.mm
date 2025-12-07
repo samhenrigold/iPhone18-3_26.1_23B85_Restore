@@ -2051,11 +2051,11 @@ LABEL_7:
 
       if (!window && windowCopy)
       {
-        v21 = BCSceneLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        v22 = BCSceneLog(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          v23[0] = 0;
-          _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "No window in view hierarchy, falling back to use UIApplication keyWindow", v23, 2u);
+          v24[0] = 0;
+          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "No window in view hierarchy, falling back to use UIApplication keyWindow", v24, 2u);
         }
 
         window = +[UIWindow _applicationKeyWindow];
@@ -2187,34 +2187,34 @@ LABEL_10:
 - (id)im_traitCollectionAdjustedForMedusaLevels:(id)levels
 {
   v4 = [levels traitCollectionByModifyingTraits:&stru_2CAFF8];
-  if (isPad())
+  if (isPad(v4, v5))
   {
     bc_windowForViewController = [(UIViewController *)self bc_windowForViewController];
-    v6 = bc_windowForViewController;
+    v7 = bc_windowForViewController;
     if (bc_windowForViewController)
     {
       [bc_windowForViewController bounds];
-      v8 = v7;
-      v10 = v9;
-      v12 = v11;
-      v14 = v13;
-      v15 = +[UIScreen mainScreen];
-      [v15 bounds];
-      v25.origin.x = v16;
-      v25.origin.y = v17;
-      v25.size.width = v18;
-      v25.size.height = v19;
-      v24.origin.x = v8;
-      v24.origin.y = v10;
-      v24.size.width = v12;
-      v24.size.height = v14;
-      v20 = CGRectEqualToRect(v24, v25);
+      v9 = v8;
+      v11 = v10;
+      v13 = v12;
+      v15 = v14;
+      v16 = +[UIScreen mainScreen];
+      [v16 bounds];
+      v26.origin.x = v17;
+      v26.origin.y = v18;
+      v26.size.width = v19;
+      v26.size.height = v20;
+      v25.origin.x = v9;
+      v25.origin.y = v11;
+      v25.size.width = v13;
+      v25.size.height = v15;
+      v21 = CGRectEqualToRect(v25, v26);
 
-      if (!v20)
+      if (!v21)
       {
-        v21 = [v4 traitCollectionByModifyingTraits:&stru_2CB018];
+        v22 = [v4 traitCollectionByModifyingTraits:&stru_2CB018];
 
-        v4 = v21;
+        v4 = v22;
       }
     }
   }
@@ -2491,25 +2491,26 @@ LABEL_33:
   [searchBar _setAutoDisableCancelButton:0];
 
   navigationItem = [(UIViewController *)self navigationItem];
-  if (_UISolariumEnabled())
+  v6 = _UISolariumEnabled();
+  if (v6)
   {
-    if (isPhone())
+    if (isPhone(v6))
     {
-      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v6 = 2;
+      v7 = 2;
     }
   }
 
   else
   {
-    v6 = 2;
+    v7 = 2;
   }
 
-  [navigationItem setPreferredSearchBarPlacement:v6];
+  [navigationItem setPreferredSearchBarPlacement:v7];
   navigationItem2 = [(UIViewController *)self navigationItem];
   [navigationItem2 setSearchController:v3];
 
@@ -2619,21 +2620,21 @@ LABEL_33:
 
 - (id)ba_effectiveViewControllerForAnalyticsTracking
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_12C338;
-  v17 = sub_12C348;
-  v18 = 0;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_12C350;
-  v10[3] = &unk_2C7BC0;
-  v12 = &v13;
-  v10[4] = self;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = sub_12C338;
+  v18 = sub_12C348;
+  v19 = 0;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_12C350;
+  v11[3] = &unk_2C7BC0;
+  v13 = &v14;
+  v11[4] = self;
   v2 = dispatch_semaphore_create(0);
-  v11 = v2;
-  v3 = objc_retainBlock(v10);
+  v12 = v2;
+  v3 = objc_retainBlock(v11);
   if (v3)
   {
     if (+[NSThread isMainThread])
@@ -2643,29 +2644,30 @@ LABEL_33:
 
     else
     {
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_12C550;
-      v8[3] = &unk_2C8398;
-      v9 = v3;
-      dispatch_async(&_dispatch_main_q, v8);
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_12C550;
+      v9[3] = &unk_2C8398;
+      v10 = v3;
+      dispatch_async(&_dispatch_main_q, v9);
     }
   }
 
   v4 = dispatch_time(0, 300000000);
-  if (dispatch_semaphore_wait(v2, v4))
+  v5 = dispatch_semaphore_wait(v2, v4);
+  if (v5)
   {
-    v5 = BALog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = BALog(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1EA5A0(v5);
+      sub_1EA5A0(v6);
     }
   }
 
-  v6 = v14[5];
-  _Block_object_dispose(&v13, 8);
+  v7 = v15[5];
+  _Block_object_dispose(&v14, 8);
 
-  return v6;
+  return v7;
 }
 
 - (id)_ba_effectiveViewControllerForAnalyticsTrackingIgnoringViewController:(id)controller
@@ -2800,42 +2802,43 @@ LABEL_33:
 {
   nameCopy = name;
   ba_analyticsTracker = [(UIViewController *)self ba_analyticsTracker];
+  v6 = ba_analyticsTracker;
   if (ba_analyticsTracker)
   {
-    v6 = BALog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = BALog(ba_analyticsTracker);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      name = [ba_analyticsTracker name];
-      v13 = 138412546;
-      v14 = name;
-      v15 = 2112;
-      v16 = nameCopy;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "ba_setupAnalyticsTrackerWithName: replacing existing tracker: %@ with: %@", &v13, 0x16u);
+      name = [v6 name];
+      v14 = 138412546;
+      v15 = name;
+      v16 = 2112;
+      v17 = nameCopy;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "ba_setupAnalyticsTrackerWithName: replacing existing tracker: %@ with: %@", &v14, 0x16u);
     }
   }
 
   ba_overrideParentAnalyticsTracker = [(UIViewController *)self ba_overrideParentAnalyticsTracker];
   if (ba_overrideParentAnalyticsTracker || ([(UIViewController *)self ba_effectiveAnalyticsTracker], (ba_overrideParentAnalyticsTracker = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    v9 = ba_overrideParentAnalyticsTracker;
+    v10 = ba_overrideParentAnalyticsTracker;
   }
 
   else
   {
-    v12 = BALog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = BALog(0);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_1EA5E4(v12);
+      sub_1EA5E4(v13);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = [v9 chainWithName:nameCopy];
+  v11 = [v10 chainWithName:nameCopy];
 
-  [(UIViewController *)self ba_setAnalyticsTracker:v10];
+  [(UIViewController *)self ba_setAnalyticsTracker:v11];
 
-  return v10;
+  return v11;
 }
 
 - (id)bc_effectiveViewControllerForNavBarVisibility

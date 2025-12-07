@@ -126,7 +126,7 @@
 
 - (void)_returnCameraOutput:(id)output error:(id)error
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   outputCopy = output;
   errorCopy = error;
   [outputCopy setError:errorCopy];
@@ -136,16 +136,21 @@
     shouldLog = [mEMORY[0x1E69D4938] shouldLog];
     if ([mEMORY[0x1E69D4938] shouldLogToDisk])
     {
-      v10 = shouldLog | 2;
+      LODWORD(v10) = shouldLog | 2;
     }
 
     else
     {
-      v10 = shouldLog;
+      LODWORD(v10) = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v10 = v10;
+    }
+
+    else
     {
       v10 &= 2u;
     }
@@ -154,41 +159,40 @@
     {
       *location = 138543618;
       *&location[4] = objc_opt_class();
-      v21 = 2114;
-      v22 = errorCopy;
+      v20 = 2114;
+      v21 = errorCopy;
       v12 = *&location[4];
-      LODWORD(v16) = 22;
-      v13 = _os_log_send_and_compose_impl();
+      v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1C21AF000, oSLogObject, 16, "[%{public}@] Credit card reader returning with error: %{public}@", location, 22);
 
       if (!v13)
       {
-LABEL_11:
+LABEL_12:
 
-        goto LABEL_12;
+        goto LABEL_13;
       }
 
-      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, location, v16}];
+      oSLogObject = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
       free(v13);
       SSFileLog();
     }
 
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-LABEL_12:
+LABEL_13:
   objc_initWeak(location, self);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __62__SUCreditCardReaderViewController__returnCameraOutput_error___block_invoke;
   block[3] = &unk_1E8164948;
-  objc_copyWeak(&v19, location);
-  v18 = outputCopy;
+  objc_copyWeak(&v18, location);
+  v17 = outputCopy;
   v14 = outputCopy;
   dispatch_async(MEMORY[0x1E69E96A0], block);
   pendingOutput = self->pendingOutput;
   self->pendingOutput = 0;
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(location);
 }
 

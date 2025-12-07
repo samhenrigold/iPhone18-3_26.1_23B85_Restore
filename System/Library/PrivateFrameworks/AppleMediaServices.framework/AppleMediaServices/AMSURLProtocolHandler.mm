@@ -1295,7 +1295,7 @@ id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_compl
   return v14;
 }
 
-id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_2(uint64_t a1, void *a2)
+id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_2(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -1382,7 +1382,7 @@ id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_compl
   return v8;
 }
 
-id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_100(uint64_t a1, void *a2)
+id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_100(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -1454,7 +1454,7 @@ id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_compl
   return v7;
 }
 
-id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_2_102(uint64_t a1, void *a2)
+id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_2_102(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -1518,7 +1518,7 @@ id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_compl
   return v7;
 }
 
-id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_2_104(uint64_t a1, void *a2)
+id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_2_104(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -1598,7 +1598,7 @@ id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_compl
   return v13;
 }
 
-id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_2_107(uint64_t a1, void *a2)
+id __87__AMSURLProtocolHandler_reconfigureNewRequest_originalTask_redirect_completionHandler___block_invoke_2_107(void *a1, void *a2)
 {
   v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -2732,7 +2732,7 @@ id __54__AMSURLProtocolHandler__pingURL_session_account_bag___block_invoke_2(uin
   return v15;
 }
 
-void __54__AMSURLProtocolHandler__pingURL_session_account_bag___block_invoke_174(uint64_t a1, void *a2, void *a3)
+void __54__AMSURLProtocolHandler__pingURL_session_account_bag___block_invoke_174(void *a1, void *a2, void *a3)
 {
   v25 = *MEMORY[0x1E69E9840];
   v5 = a2;

@@ -1,7 +1,7 @@
-uint64_t next #1 () in Calendar.DatesByRecurring.Iterator.nextGroup()@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+double *next #1 () in Calendar.DatesByRecurring.Iterator.nextGroup()@<X0>(void *__return_ptr a1@<X8>, double *result@<X0>)
 {
   v2 = result;
-  if (!*(result + 576))
+  if (!*(result + 72))
   {
     v4 = 0;
     v3 = *result;
@@ -9,13 +9,13 @@ uint64_t next #1 () in Calendar.DatesByRecurring.Iterator.nextGroup()@<X0>(uint6
   }
 
   v3 = 0.0;
-  if (*(result + 568))
+  if (result[71])
   {
     v4 = 1;
     goto LABEL_67;
   }
 
-  v5 = *(result + 192);
+  v5 = *(result + 24);
   v6 = __OFADD__(v5, 1);
   v7 = v5 + 1;
   if (v6)
@@ -24,28 +24,28 @@ uint64_t next #1 () in Calendar.DatesByRecurring.Iterator.nextGroup()@<X0>(uint6
     goto LABEL_74;
   }
 
-  v35 = a2;
-  v8 = *(result + 216);
+  v35 = a1;
+  v8 = result[27];
   while (1)
   {
-    *(v2 + 192) = v7;
-    v9 = *(v2 + 256);
-    v10 = *(v2 + 264);
-    v11 = *(v2 + 248);
-    memcpy(__dst, (v2 + 272), 0x11BuLL);
+    *(v2 + 24) = v7;
+    v9 = *(v2 + 32);
+    v10 = *(v2 + 33);
+    v11 = v2[31];
+    memcpy(__dst, v2 + 34, 0x11BuLL);
     v12 = *(v2 + 555);
     v13 = *(v2 + 556);
     v14 = *(v2 + 557);
-    v15 = *(v2 + 200);
+    v15 = v2[25];
     v16 = *(v2 + 208);
     v41[0] = v9;
     v41[1] = v10;
-    memcpy(v46, (v2 + 272), 0x11BuLL);
+    memcpy(v46, v2 + 34, 0x11BuLL);
     *v36 = v8;
     LOBYTE(v44) = v14;
     swift_unknownObjectRetain();
     outlined init with copy of DateComponents(__dst, __src);
-    Calendar._adjustedComponents(_:date:direction:)(v46, v36, &v44, __src);
+    Calendar._adjustedComponents(_:date:direction:)(__src, v46, v36, &v44);
     memcpy(v49, __src, 0x11BuLL);
     *&v46[0] = v9;
     *(&v46[0] + 1) = v10;
@@ -61,7 +61,7 @@ uint64_t next #1 () in Calendar.DatesByRecurring.Iterator.nextGroup()@<X0>(uint6
       swift_unknownObjectRelease();
       outlined destroy of DateComponents(v49);
 LABEL_12:
-      *(v2 + 216) = v8;
+      v2[27] = v8;
       goto LABEL_13;
     }
 
@@ -282,20 +282,20 @@ LABEL_41:
       goto LABEL_12;
     }
 
-    *(v2 + 216) = v8;
+    v2[27] = v8;
     if (v22)
     {
       break;
     }
 
 LABEL_13:
-    v19 = *(v2 + 192);
-    if (v19 >= *(v2 + 560))
+    v19 = *(v2 + 24);
+    if (v19 >= *(v2 + 70))
     {
-      *&v44 = *(v2 + 248);
-      *v36 = *(v2 + 256);
-      memcpy(v46, (v2 + 272), 0x11BuLL);
-      memcpy(v41, (v2 + 272), 0x11BuLL);
+      *&v44 = v2[31];
+      *v36 = *(v2 + 16);
+      memcpy(v46, v2 + 34, 0x11BuLL);
+      memcpy(v41, v2 + 34, 0x11BuLL);
       LOBYTE(v42[0]) = *(v2 + 557);
       LOBYTE(v45[0]) = *(v2 + 555);
       LOBYTE(v43) = *(v2 + 556);
@@ -311,30 +311,30 @@ LABEL_65:
       goto LABEL_66;
     }
 
-    *(v2 + 216) = v8;
+    v2[27] = v8;
     v7 = v19 + 1;
   }
 
-  if ((*(v2 + 240) & 1) == 0 && (*(v2 + 224) > v18 || *(v2 + 232) <= v18))
+  if ((v2[30] & 1) == 0 && (v2[28] > v18 || v2[29] <= v18))
   {
     goto LABEL_65;
   }
 
   v4 = 0;
-  *(v2 + 200) = v18;
+  v2[25] = v18;
   *(v2 + 208) = 0;
   v3 = v18;
 LABEL_66:
-  a2 = v35;
+  a1 = v35;
 LABEL_67:
-  v33 = *(v2 + 576);
+  v33 = *(v2 + 72);
   v6 = __OFADD__(v33, 1);
   v34 = v33 + 1;
   if (!v6)
   {
-    *(v2 + 576) = v34;
-    *a2 = v3;
-    *(a2 + 8) = v4;
+    *(v2 + 72) = v34;
+    *a1 = v3;
+    *(a1 + 8) = v4;
     return result;
   }
 
@@ -346,7 +346,7 @@ LABEL_74:
   return result;
 }
 
-char *Calendar._dates(startingAfter:matching:in:matchingPolicy:repeatedTimePolicy:)(double *a1, uint64_t *a2, double *a3, unsigned __int8 *a4, unsigned __int8 *a5)
+char *Calendar._dates(startingAfter:matching:in:matchingPolicy:repeatedTimePolicy:)(double *a1, void **a2, double *a3, unsigned __int8 *a4, unsigned __int8 *a5)
 {
   v8 = *a1;
   v9 = *a3;
@@ -407,14 +407,14 @@ char *Calendar._dates(startingAfter:matching:in:matchingPolicy:repeatedTimePolic
         v23 = v19;
         memcpy(__dst, (v19 + v22), 0x123uLL);
         memcpy(__src, (v23 + v22), 0x123uLL);
-        outlined init with copy of FloatingPointRoundingRule?(__dst, v40, &_s10Foundation4DateV_AA0B10ComponentsVtMd);
+        outlined init with copy of FloatingPointRoundingRule?(__dst, v40, &_s10Foundation4DateV_AA0B10ComponentsVtMd, &_s10Foundation4DateV_AA0B10ComponentsVtMR);
         v6 = 0;
         closure #1 in Calendar._dates(startingAfter:matching:in:matchingPolicy:repeatedTimePolicy:)(v42, &v42[3], __src, &__src[1], v14, v13, v11, v12, v8);
         v24 = v14;
         v25 = v12;
         v26 = v11;
         memcpy(v39, __src, 0x123uLL);
-        outlined destroy of TermOfAddress?(v39, &_s10Foundation4DateV_AA0B10ComponentsVtMd);
+        outlined destroy of TermOfAddress?(v39, &_s10Foundation4DateV_AA0B10ComponentsVtMd, &_s10Foundation4DateV_AA0B10ComponentsVtMR);
         memcpy(v40, v42, 0x133uLL);
         v44 = v21;
         v28 = *(v21 + 16);
@@ -526,8 +526,8 @@ Swift::Void __swiftcall Calendar.RecurrenceRule._limitMonths(dates:anchor:)(Swif
     ObjectType = swift_getObjectType();
     v11 = 0;
     v34 = *(v6 + 192);
-    v12 = *(v8 + 16);
-    v31 = (v8 + 40);
+    v12 = *(v8 + 2);
+    v31 = v8 + 40;
     v32 = v8;
     v33 = MEMORY[0x1E69E7CC0];
     v30 = v6;
@@ -590,7 +590,7 @@ Swift::Void __swiftcall Calendar.RecurrenceRule._limitMonths(dates:anchor:)(Swif
       if (v12)
       {
         v21 = v31;
-        v22 = *(v32 + 16);
+        v22 = *(v32 + 2);
         v23 = v12;
         v24 = v33;
         while (1)
@@ -1115,7 +1115,7 @@ Swift::Void __swiftcall Calendar.RecurrenceRule._limitWeekdays(dates:anchor:)(Sw
 
         memcpy(v206, (v153 + 288 * v15), 0x11BuLL);
         v156 = v15 + 1;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMd, &_ss11_SetStorageCy10Foundation8CalendarV9ComponentOGMR);
         v16 = static _SetStorage.allocate(capacity:)();
         v17 = 0;
         v18 = v16 + 56;
@@ -2054,10 +2054,10 @@ Swift::Void __swiftcall Calendar.RecurrenceRule._limitTimeComponent(_:dates:anch
   v4->_rawValue = v11;
 }
 
-uint64_t specialized Sequence.reversed()(uint64_t result)
+char *specialized Sequence.reversed()(char *result)
 {
   v1 = result;
-  v2 = *(result + 16);
+  v2 = *(result + 2);
   if (v2 < 2)
   {
     return v1;
@@ -2072,7 +2072,7 @@ uint64_t specialized Sequence.reversed()(uint64_t result)
       goto LABEL_5;
     }
 
-    v6 = *(v1 + 16);
+    v6 = *(v1 + 2);
     if (i - 4 >= v6)
     {
       break;
@@ -2083,8 +2083,8 @@ uint64_t specialized Sequence.reversed()(uint64_t result)
       goto LABEL_12;
     }
 
-    v7 = *(v1 + 8 * i);
-    v8 = *(v1 + 8 * v4);
+    v7 = *&v1[8 * i];
+    v8 = *&v1[8 * v4];
     result = swift_isUniquelyReferenced_nonNull_native();
     if ((result & 1) == 0)
     {
@@ -2092,8 +2092,8 @@ uint64_t specialized Sequence.reversed()(uint64_t result)
       v1 = result;
     }
 
-    *(v1 + 8 * i) = v8;
-    *(v1 + 8 * v4) = v7;
+    *&v1[8 * i] = v8;
+    *&v1[8 * v4] = v7;
 LABEL_5:
     --v4;
     if (!--v3)
@@ -2108,9 +2108,10 @@ LABEL_12:
   return result;
 }
 
+void *specialized Sequence.reversed()(void *result)
 {
   v1 = result;
-  v2 = *(result + 16);
+  v2 = result[2];
   if (v2 < 2)
   {
     return v1;
@@ -2152,7 +2153,7 @@ LABEL_12:
       goto LABEL_15;
     }
 
-    __swift_destroy_boxed_opaque_existential_1(v1 + v6);
+    __swift_destroy_boxed_opaque_existential_1((v1 + v6));
     result = outlined init with take of Equatable(v10, v1 + v6);
 LABEL_5:
     ++v3;
@@ -2333,29 +2334,29 @@ uint64_t protocol witness for Sequence.makeIterator() in conformance Calendar.Da
   return outlined destroy of Calendar.DatesByRecurring(v19);
 }
 
-uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance Calendar.DatesByRecurring()
+uint64_t protocol witness for Sequence._copyToContiguousArray() in conformance Calendar.DatesByRecurring(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(v0 + 112);
-  v8[6] = *(v0 + 96);
-  v8[7] = v1;
-  v8[8] = *(v0 + 128);
-  v9 = *(v0 + 144);
-  v2 = *(v0 + 48);
-  v8[2] = *(v0 + 32);
-  v8[3] = v2;
-  v3 = *(v0 + 80);
-  v8[4] = *(v0 + 64);
-  v8[5] = v3;
-  v4 = *(v0 + 16);
-  v8[0] = *v0;
-  v8[1] = v4;
-  specialized _copySequenceToContiguousArray<A>(_:)(v8);
-  v6 = v5;
-  outlined destroy of Calendar.DatesByRecurring(v8);
-  return v6;
+  v9 = *(v8 + 112);
+  v16[6] = *(v8 + 96);
+  v16[7] = v9;
+  v16[8] = *(v8 + 128);
+  v17 = *(v8 + 144);
+  v10 = *(v8 + 48);
+  v16[2] = *(v8 + 32);
+  v16[3] = v10;
+  v11 = *(v8 + 80);
+  v16[4] = *(v8 + 64);
+  v16[5] = v11;
+  v12 = *(v8 + 16);
+  v16[0] = *v8;
+  v16[1] = v12;
+  specialized _copySequenceToContiguousArray<A>(_:)(v16, a2, a3, a4, a5, a6, a7, a8);
+  v14 = v13;
+  outlined destroy of Calendar.DatesByRecurring(v16);
+  return v14;
 }
 
-uint64_t Calendar._normalizedMonths(_:for:)(uint64_t a1, double *a2)
+char *Calendar._normalizedMonths(_:for:)(uint64_t a1, double *a2)
 {
   v3 = *a2;
   v4 = *v2;
@@ -2469,7 +2470,7 @@ Swift::OpaquePointer_optional __swiftcall Calendar._weekdayComponents(for:in:anc
       v25 = v14 & 0x7F;
       if (!*(v11 + 16) || (v26 = specialized __RawDictionaryStorage.find<A>(_:)(v25), (v27 & 1) == 0))
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
         v40 = swift_allocObject();
         *(v40 + 16) = xmmword_181218E20;
         *(v40 + 32) = v13;
@@ -2497,7 +2498,7 @@ Swift::OpaquePointer_optional __swiftcall Calendar._weekdayComponents(for:in:anc
           {
             v135 = v42;
             v139 = v8;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation6LocaleV7WeekdayOSaySiGGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation6LocaleV7WeekdayOSaySiGGMd, &_ss18_DictionaryStorageCy10Foundation6LocaleV7WeekdayOSaySiGGMR);
             v65 = static _DictionaryStorage.copy(original:)();
             v23 = v65;
             if (*(v9 + 16))
@@ -2612,7 +2613,7 @@ LABEL_38:
       v28 = *(*(v11 + 56) + 8 * v26);
       if (*(v28 + 16))
       {
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySiGMd, &_ss23_ContiguousArrayStorageCySiGMR);
         v29 = swift_allocObject();
         *(v29 + 16) = xmmword_181218E20;
         *(v29 + 32) = v13;
@@ -2649,7 +2650,7 @@ LABEL_16:
           {
             v136 = v31;
             v140 = v8;
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation6LocaleV7WeekdayOSaySiGGMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation6LocaleV7WeekdayOSaySiGGMd, &_ss18_DictionaryStorageCy10Foundation6LocaleV7WeekdayOSaySiGGMR);
             v78 = static _DictionaryStorage.copy(original:)();
             v23 = v78;
             if (*(v9 + 16))
@@ -2826,7 +2827,7 @@ LABEL_8:
       {
         v134 = v16;
         v138 = v8;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation6LocaleV7WeekdayOSaySiGGMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy10Foundation6LocaleV7WeekdayOSaySiGGMd, &_ss18_DictionaryStorageCy10Foundation6LocaleV7WeekdayOSaySiGGMR);
         v51 = static _DictionaryStorage.copy(original:)();
         v23 = v51;
         if (*(v9 + 16))
@@ -3556,7 +3557,7 @@ uint64_t specialized getter of lastWeek #1 in Calendar._weekdayComponents(for:in
   return result;
 }
 
-uint64_t Calendar._normalizedDaysOfMonth(_:for:)(uint64_t a1, double *a2, char a3)
+char *Calendar._normalizedDaysOfMonth(_:for:)(uint64_t a1, double *a2, uint64_t a3)
 {
   v4 = *a2;
   v6 = *v3;
@@ -3570,6 +3571,7 @@ uint64_t Calendar._normalizedDaysOfMonth(_:for:)(uint64_t a1, double *a2, char a
     return MEMORY[0x1E69E7CC0];
   }
 
+  v8 = a3;
   v9 = (a1 + 32);
   v10 = MEMORY[0x1E69E7CC0];
   while (1)
@@ -3581,7 +3583,7 @@ uint64_t Calendar._normalizedDaysOfMonth(_:for:)(uint64_t a1, double *a2, char a
       goto LABEL_11;
     }
 
-    result = specialized getter of monthRange #1 in Calendar._normalizedMonths(_:for:)(&v19, v4, v6, v5, 3, a3);
+    result = specialized getter of monthRange #1 in Calendar._normalizedMonths(_:for:)(&v19, v4, v6, v5, 3, v8);
     if (v15)
     {
       goto LABEL_19;
@@ -3966,7 +3968,7 @@ uint64_t specialized getter of lastWeekIdx #1 in Calendar._normalizedWeeksOfYear
   return result;
 }
 
-uint64_t Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(double *a1, uint64_t *a2, unsigned __int8 *a3, unsigned __int8 *a4)
+uint64_t Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(double *a1, void **a2, unsigned __int8 *a3, unsigned __int8 *a4)
 {
   v6 = v5;
   v8 = *a1;
@@ -3974,7 +3976,7 @@ uint64_t Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePol
   v133 = *a4;
   v9 = *v4;
   v10 = v4[1];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4DateV4date_AC0E10ComponentsV10componentstGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4DateV4date_AC0E10ComponentsV10componentstGMd, &_ss23_ContiguousArrayStorageCy10Foundation4DateV4date_AC0E10ComponentsV10componentstGMR);
   v11 = swift_allocObject();
   *(v11 + 16) = xmmword_181218E20;
   *(v11 + 32) = v8;
@@ -4056,14 +4058,14 @@ uint64_t Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePol
 
   memcpy(__dst, v12, sizeof(__dst));
   memcpy(v187, v12, sizeof(v187));
-  outlined init with copy of FloatingPointRoundingRule?(__dst, v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+  outlined init with copy of FloatingPointRoundingRule?(__dst, v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
   v15 = closure #1 in Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(v187, &v187[8], v9, v10, v14);
   if (v5)
   {
 LABEL_3:
 
     memcpy(v186, v187, 0x123uLL);
-    outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+    outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
 LABEL_170:
 
     return v14;
@@ -4071,7 +4073,7 @@ LABEL_170:
 
   v14 = v15;
   memcpy(v186, v187, 0x123uLL);
-  result = outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+  result = outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
   v17 = *(MEMORY[0x1E69E7CC0] + 16);
   v191 = v14[2];
   v18 = v17 + v191;
@@ -4121,7 +4123,7 @@ LABEL_202:
   }
 
   v23 = v20;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
   swift_arrayInitWithCopy();
 
   if (!v22)
@@ -4150,7 +4152,7 @@ LABEL_19:
         {
           memcpy(__dst, &v16[v30], sizeof(__dst));
           memcpy(v187, __dst, sizeof(v187));
-          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, v31);
+          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, v31, v32);
           v33 = closure #2 in Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(v187, &v187[8], v9, v191, fora);
           if (v6)
           {
@@ -4161,7 +4163,7 @@ LABEL_19:
           memcpy(v186, v187, 0x123uLL);
           v35 = v31;
           v14 = v32;
-          result = outlined destroy of TermOfAddress?(v186, v31);
+          result = outlined destroy of TermOfAddress?(v186, v31, v32);
           v36 = v34[2];
           v37 = v29[2];
           v38 = v37 + v36;
@@ -4196,7 +4198,7 @@ LABEL_19:
               goto LABEL_183;
             }
 
-            __swift_instantiateConcreteTypeFromMangledNameV2(v35);
+            __swift_instantiateConcreteTypeFromMangledNameV2(v35, v14);
             v32 = v14;
             swift_arrayInitWithCopy();
 
@@ -4268,7 +4270,7 @@ LABEL_39:
         {
           memcpy(__dst, &v16[v44], sizeof(__dst));
           memcpy(v187, __dst, sizeof(v187));
-          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, v45);
+          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, v45, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
           v46 = closure #3 in Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(v187, &v187[8], v9, v191, forb, v144 == 3);
           if (v6)
           {
@@ -4278,7 +4280,7 @@ LABEL_39:
           v47 = v46;
           memcpy(v186, v187, 0x123uLL);
           v48 = v45;
-          result = outlined destroy of TermOfAddress?(v186, v45);
+          result = outlined destroy of TermOfAddress?(v186, v45, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
           v49 = v47[2];
           v50 = v43[2];
           v51 = v50 + v49;
@@ -4313,7 +4315,7 @@ LABEL_39:
               goto LABEL_187;
             }
 
-            __swift_instantiateConcreteTypeFromMangledNameV2(v48);
+            __swift_instantiateConcreteTypeFromMangledNameV2(v48, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
             v45 = v48;
             swift_arrayInitWithCopy();
 
@@ -4410,7 +4412,7 @@ LABEL_61:
         {
           memcpy(__dst, &v16[v58], sizeof(__dst));
           memcpy(v187, __dst, sizeof(v187));
-          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, v56);
+          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, v56, v57);
           v59._rawValue = forc;
           v61 = closure #4 in Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(v187, &v187[8], v154, v10, v60, v59);
           if (v6)
@@ -4423,7 +4425,7 @@ LABEL_61:
           memcpy(v186, v187, 0x123uLL);
           v63 = v56;
           v64 = v57;
-          result = outlined destroy of TermOfAddress?(v186, v56);
+          result = outlined destroy of TermOfAddress?(v186, v56, v57);
           v65 = v62[2];
           v66 = v145[2];
           v67 = v66 + v65;
@@ -4433,7 +4435,7 @@ LABEL_61:
           }
 
           result = swift_isUniquelyReferenced_nonNull_native();
-          if ((result & 1) == 0 || v67 > v145[3] >> 1)
+          if ((result & 1) == 0 || v67 > (v145[3] >> 1))
           {
             if (v66 <= v67)
             {
@@ -4453,12 +4455,12 @@ LABEL_61:
           v57 = v64;
           if (v62[2])
           {
-            if ((v145[3] >> 1) - v145[2] < v65)
+            if (((v145[3] >> 1) - v145[2]) < v65)
             {
               goto LABEL_188;
             }
 
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV_AA0B10ComponentsVtMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV_AA0B10ComponentsVtMd, &_s10Foundation4DateV_AA0B10ComponentsVtMR);
             v57 = v64;
             swift_arrayInitWithCopy();
 
@@ -4532,13 +4534,13 @@ LABEL_83:
         {
           memcpy(__dst, (v71 + v74), sizeof(__dst));
           memcpy(v187, __dst, sizeof(v187));
-          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, v75);
+          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, v75, v76);
           v77 = closure #5 in Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(v187, &v187[8], v9, v191, ford, v8);
           if (v146)
           {
 
             memcpy(v186, v187, 0x123uLL);
-            outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+            outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
 
             return v14;
           }
@@ -4547,7 +4549,7 @@ LABEL_83:
           memcpy(v186, v187, 0x123uLL);
           v79 = v75;
           v14 = v76;
-          result = outlined destroy of TermOfAddress?(v186, v75);
+          result = outlined destroy of TermOfAddress?(v186, v75, v76);
           v80 = v78[2];
           v81 = v73[2];
           v82 = v81 + v80;
@@ -4582,7 +4584,7 @@ LABEL_83:
               goto LABEL_190;
             }
 
-            __swift_instantiateConcreteTypeFromMangledNameV2(v79);
+            __swift_instantiateConcreteTypeFromMangledNameV2(v79, v14);
             v76 = v14;
             swift_arrayInitWithCopy();
 
@@ -4655,14 +4657,14 @@ LABEL_106:
           v89 = *__dst;
           if (v189 == 18 || v189 == 3)
           {
-            outlined init with copy of FloatingPointRoundingRule?(__dst, v187, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+            outlined init with copy of FloatingPointRoundingRule?(__dst, v187, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
             v90 = v89;
           }
 
           else
           {
             LOBYTE(v165[0]) = 3;
-            outlined init with copy of FloatingPointRoundingRule?(__dst, v187, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+            outlined init with copy of FloatingPointRoundingRule?(__dst, v187, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
             if (one-time initialization token for validCalendarRange != -1)
             {
               swift_once();
@@ -4695,7 +4697,7 @@ LABEL_106:
             v90 = *v187;
           }
 
-          v94 = *(v138 + 16);
+          v94 = v138[2];
           if (v94)
           {
             v131 = v86;
@@ -4703,7 +4705,7 @@ LABEL_106:
             specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v94, 0);
             v147 = v185;
             fore._rawValue = (v94 - 1);
-            v95 = (v138 + 32);
+            v95 = v138 + 4;
             while (1)
             {
               v97 = *v95++;
@@ -4757,7 +4759,7 @@ LABEL_106:
               memcpy(v159, v165, 0x11BuLL);
               v158 = 0;
               v157 = v144;
-              outlined init with copy of FloatingPointRoundingRule?(__dst, v187, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+              outlined init with copy of FloatingPointRoundingRule?(__dst, v187, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
               outlined init with copy of DateComponents(v165, v187);
               v14 = v162;
               Calendar.dateAfterMatchingHour(startingAt:originalStartDate:components:direction:findLastMatch:isStrictMatching:matchingPolicy:)(&v161, &v160, v159, &v158, v133, v144 == 3, &v157, &v163);
@@ -4861,7 +4863,7 @@ LABEL_106:
               v10 = v191;
               if (!fore._rawValue)
               {
-                result = outlined destroy of TermOfAddress?(__dst, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+                result = outlined destroy of TermOfAddress?(__dst, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
                 v86 = v131;
                 goto LABEL_140;
               }
@@ -4894,11 +4896,11 @@ LABEL_106:
             *&v187[153] = v168;
             outlined destroy of DateComponents(v187);
 
-            outlined destroy of TermOfAddress?(__dst, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+            outlined destroy of TermOfAddress?(__dst, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
             goto LABEL_170;
           }
 
-          result = outlined destroy of TermOfAddress?(__dst, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+          result = outlined destroy of TermOfAddress?(__dst, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
           v101 = MEMORY[0x1E69E7CC0];
 LABEL_140:
           v148 = v101;
@@ -4936,7 +4938,7 @@ LABEL_140:
               goto LABEL_202;
             }
 
-            __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV_AA0B10ComponentsVtMd);
+            __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV_AA0B10ComponentsVtMd, &_s10Foundation4DateV_AA0B10ComponentsVtMR);
             swift_arrayInitWithCopy();
 
             v88 = v130;
@@ -5007,21 +5009,21 @@ LABEL_153:
         {
           memcpy(__dst, (v114 + v117), sizeof(__dst));
           memcpy(v187, __dst, sizeof(v187));
-          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
           v118 = closure #7 in Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(v187, &v187[8], &v189, v154, v191, v113);
           if (v6)
           {
 LABEL_169:
 
             memcpy(v186, v187, 0x123uLL);
-            outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+            outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
             goto LABEL_170;
           }
 
           v119 = v118;
           ++v116;
           memcpy(v186, v187, 0x123uLL);
-          outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+          outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
           v14 = v165;
           result = specialized Array.append<A>(contentsOf:)(v119);
           v117 += 296;
@@ -5062,7 +5064,7 @@ LABEL_160:
         {
           memcpy(__dst, (v121 + v124), sizeof(__dst));
           memcpy(v187, __dst, sizeof(v187));
-          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+          outlined init with copy of FloatingPointRoundingRule?(__dst, v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
           v125 = closure #8 in Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(v187, &v187[8], &v189, v154, v191, v120, v8);
           if (v6)
           {
@@ -5072,7 +5074,7 @@ LABEL_160:
           v126 = v125;
           ++v123;
           memcpy(v186, v187, 0x123uLL);
-          outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd);
+          outlined destroy of TermOfAddress?(v186, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMd, &_s10Foundation4DateV4date_AA0B10ComponentsV10componentstMR);
           v14 = v165;
           result = specialized Array.append<A>(contentsOf:)(v126);
           v124 += 296;
@@ -5105,12 +5107,12 @@ LABEL_167:
     return v14;
   }
 
-  v24 = v23[2];
+  v24 = *(v23 + 16);
   v25 = __OFADD__(v24, v22);
   v26 = v24 + v22;
   if (!v25)
   {
-    v23[2] = v26;
+    *(v23 + 16) = v26;
     goto LABEL_18;
   }
 
@@ -5143,7 +5145,7 @@ void *closure #1 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
   v38 = v10;
   specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
   result = v38;
-  if (*(v38 + 16))
+  if (v38[2])
   {
     v13 = 0;
     v14 = v92;
@@ -5361,7 +5363,7 @@ void *closure #1 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
 
       ++v13;
       a4 = v20;
-      if (v13 >= *(v38 + 16))
+      if (v13 >= v38[2])
       {
         goto LABEL_22;
       }
@@ -5383,7 +5385,7 @@ void *closure #2 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
   *(&__src[0] + 1) = a4;
   v29[0] = v9;
   v10 = Calendar._normalizedDaysOfMonth(_:for:)(a5, v29, 1);
-  v11 = *(v10 + 16);
+  v11 = *(v10 + 2);
   if (!v11)
   {
 
@@ -5393,7 +5395,7 @@ void *closure #2 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
   v56 = v5;
   v54 = MEMORY[0x1E69E7CC0];
   result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
-  if (*(v10 + 16))
+  if (*(v10 + 2))
   {
     v13 = 0;
     v14 = v54;
@@ -5418,7 +5420,7 @@ void *closure #2 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
       v44 = *(&__dst[15] + 9);
       v43 = *(&__dst[14] + 9);
       v15 = v10;
-      v16 = *(v10 + 8 * v13 + 32);
+      v16 = *&v10[8 * v13 + 32];
       __src[2] = __dst[2];
       __src[3] = __dst[3];
       __src[4] = __dst[4];
@@ -5589,7 +5591,7 @@ void *closure #2 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
       }
 
       v10 = v15;
-      if (++v13 >= *(v15 + 16))
+      if (++v13 >= *(v15 + 2))
       {
         goto LABEL_20;
       }
@@ -5612,7 +5614,7 @@ void *closure #3 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
   *(&__src[0] + 1) = a4;
   v38[0] = v10;
   v11 = Calendar._normalizedMonths(_:for:)(a5, v38);
-  v12 = *(v11 + 16);
+  v12 = *(v11 + 2);
   if (!v12)
   {
 
@@ -5623,11 +5625,11 @@ void *closure #3 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
   v63 = MEMORY[0x1E69E7CC0];
   v13 = v11;
   result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
-  if (*(v13 + 16))
+  if (*(v13 + 2))
   {
     v15 = 0;
     v16 = v63;
-    v17 = (v13 + 40);
+    v17 = v13 + 40;
     v28 = v12 - 1;
     v29 = v13;
     while (1)
@@ -5832,7 +5834,7 @@ void *closure #3 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
 
       v15 = v32 + 1;
       v17 += 16;
-      if ((v32 + 1) >= v29[2])
+      if ((v32 + 1) >= *(v29 + 16))
       {
         goto LABEL_20;
       }
@@ -5846,7 +5848,7 @@ LABEL_20:
   return result;
 }
 
-int64_t *closure #4 in Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(double *a1, int a2, uint64_t a3, uint64_t a4, double a5, Swift::OpaquePointer a6)
+uint64_t *closure #4 in Calendar._unadjustedDates(after:matching:matchingPolicy:repeatedTimePolicy:)(double *a1, int a2, uint64_t a3, uint64_t a4, double a5, Swift::OpaquePointer a6)
 {
   v7 = a4;
   v9 = *a1;
@@ -5867,20 +5869,20 @@ int64_t *closure #4 in Calendar._unadjustedDates(after:matching:matchingPolicy:r
 
     v36 = MEMORY[0x1E69E7CC0];
     result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12, 0);
-    if (v11[2])
+    if (*(v11 + 16))
     {
       v13 = 0;
       v14 = v36;
       v24 = v12 - 1;
-      v15 = 4;
+      v15 = 32;
       while (1)
       {
         v16 = v14;
-        memcpy(__dst, &v11[v15], 0x11BuLL);
-        v30 = *&a3;
+        memcpy(__dst, (v11 + v15), 0x11BuLL);
+        v30 = a3;
         v31 = v7;
         v29 = v9;
-        memcpy(v28, &v11[v15], 0x11BuLL);
+        memcpy(v28, (v11 + v15), 0x11BuLL);
         v27 = 0;
         outlined init with copy of DateComponents(__dst, &v25);
         v14 = &v30;
@@ -5911,7 +5913,7 @@ int64_t *closure #4 in Calendar._unadjustedDates(after:matching:matchingPolicy:r
         Calendar.dateAfterMatchingWeekOfMonth(startingAt:components:direction:)(&v32, v28, &v29, &v30);
         if (!v31)
         {
-          v17 = v30;
+          v17 = *&v30;
         }
 
         v25 = a3;
@@ -5922,7 +5924,7 @@ int64_t *closure #4 in Calendar._unadjustedDates(after:matching:matchingPolicy:r
         Calendar.dateAfterMatchingWeekdayOrdinal(startingAt:components:direction:)(&v32, v28, &v29, &v30);
         if (!v31)
         {
-          v17 = v30;
+          v17 = *&v30;
         }
 
         v25 = a3;
@@ -5935,14 +5937,14 @@ int64_t *closure #4 in Calendar._unadjustedDates(after:matching:matchingPolicy:r
         v19 = v11;
         if (!v31)
         {
-          v17 = v30;
+          v17 = *&v30;
         }
 
         memcpy(__src, __dst, 0x11BuLL);
         v14 = v16;
         v36 = v16;
-        v21 = *(v16 + 2);
-        v20 = *(v16 + 3);
+        v21 = v16[2];
+        v20 = v16[3];
         if (v21 >= v20 >> 1)
         {
           specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v20 > 1), v21 + 1, 1);
@@ -5950,9 +5952,9 @@ int64_t *closure #4 in Calendar._unadjustedDates(after:matching:matchingPolicy:r
         }
 
         memcpy(v28, __src, 0x11BuLL);
-        *(v14 + 2) = v21 + 1;
+        v14[2] = v21 + 1;
         v22 = &v14[37 * v21];
-        v22[4] = v17;
+        *(v22 + 4) = v17;
         result = memcpy(v22 + 5, v28, 0x11BuLL);
         if (v24 == v13)
         {
@@ -5960,8 +5962,8 @@ int64_t *closure #4 in Calendar._unadjustedDates(after:matching:matchingPolicy:r
         }
 
         v11 = v19;
-        v23 = v19[2];
-        v15 += 36;
+        v23 = *(v19 + 16);
+        v15 += 288;
         ++v13;
         v7 = v18;
         if (v13 >= v23)
@@ -5989,7 +5991,7 @@ void *closure #5 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
   *(&__src[0] + 1) = a4;
   v30[0] = v11;
   v12 = Calendar._normalizedDaysOfMonth(_:for:)(a5, v30, 2);
-  v13 = *(v12 + 16);
+  v13 = *(v12 + 2);
   if (!v13)
   {
 
@@ -5998,7 +6000,7 @@ void *closure #5 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
 
   v56 = MEMORY[0x1E69E7CC0];
   result = specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v13, 0);
-  if (*(v12 + 16))
+  if (*(v12 + 2))
   {
     v15 = 0;
     v16 = v56;
@@ -6023,7 +6025,7 @@ void *closure #5 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
       v38 = *(&__dst[6] + 9);
       v37 = *(&__dst[5] + 9);
       v17 = v12;
-      v18 = *(v12 + 8 * v15 + 32);
+      v18 = *&v12[8 * v15 + 32];
       __src[2] = __dst[2];
       __src[3] = __dst[3];
       __src[4] = __dst[4];
@@ -6193,7 +6195,7 @@ void *closure #5 in Calendar._unadjustedDates(after:matching:matchingPolicy:repe
       }
 
       v12 = v17;
-      if (++v15 >= *(v17 + 16))
+      if (++v15 >= *(v17 + 2))
       {
         goto LABEL_20;
       }
@@ -6875,7 +6877,7 @@ uint64_t closure #1 in Calendar._dates(startingAfter:matching:in:matchingPolicy:
   memcpy(v46, __src, 0x11BuLL);
   *v33 = a9;
   LOBYTE(v41) = 0;
-  Calendar._adjustedComponents(_:date:direction:)(v46, v33, &v41, __srca);
+  Calendar._adjustedComponents(_:date:direction:)(__srca, v46, v33, &v41);
   v45 = 1;
   v44 = 0;
   v43 = 0;
@@ -7129,7 +7131,7 @@ uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(uint
           memmove(a2, (v7 + 8 * v9), 8 * v10 - 8 * v9);
         }
 
-        v20 = (a2 + v4);
+        v20 = a2 + v4;
         if (v4 < 1 || v14 <= v12)
         {
           v23 = a2;
@@ -7148,7 +7150,7 @@ uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(uint
             v30 = v20;
             while (1)
             {
-              v31 = v17 + 1;
+              v31 = (v17 + 1);
               v32 = *(v30 - 8);
               v30 -= 8;
               v33 = v32;
@@ -7198,7 +7200,7 @@ uint64_t specialized UnsafeMutableBufferPointer._finalizeRuns(_:buffer:by:)(uint
           memmove(a2, (v7 + 8 * v8), 8 * v9 - 8 * v8);
         }
 
-        v20 = (a2 + v18);
+        v20 = a2 + v18;
         v21 = v18 < 1 || v16 <= v14;
         v22 = v41;
         v23 = a2;
@@ -7683,22 +7685,22 @@ double Date.init<A>(_:strategy:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64
   return result;
 }
 
-double Date.init<A, B>(_:strategy:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, double *a6@<X8>)
+double Date.init<A, B>(_:strategy:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, double *a7@<X8>)
 {
-  v19 = a6;
-  v12 = *(a4 - 8);
-  v13 = MEMORY[0x1EEE9AC00](a1);
-  (*(v12 + 16))(&v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v15, v13);
-  v20[0] = String.init<A>(_:)();
-  v20[1] = v16;
-  (*(a5 + 48))(&v21, v20, a3, a5);
+  v20 = a7;
+  v13 = *(a4 - 8);
+  v14 = MEMORY[0x1EEE9AC00](a1);
+  (*(v13 + 16))(&v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0), a1, v16, v14);
+  v21[0] = String.init<A>(_:)();
+  v21[1] = v17;
+  (*(a5 + 48))(&v22, v21, a3, a5);
   (*(*(a3 - 8) + 8))(a2, a3);
-  (*(v12 + 8))(a1, a4);
+  (*(v13 + 8))(a1, a4);
 
-  if (!v6)
+  if (!v7)
   {
-    result = v21;
-    *v19 = v21;
+    result = v22;
+    *v20 = v22;
   }
 
   return result;
@@ -7865,250 +7867,250 @@ double DateComponents.init<A>(_:strategy:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X
   return result;
 }
 
-double DateComponents.init<A, B>(_:strategy:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+double DateComponents.init<A, B>(_:strategy:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a7@<X8>)
 {
-  v23 = a2;
-  v10 = *(a4 - 8);
-  v11 = MEMORY[0x1EEE9AC00](a1);
-  v155 = 1;
-  v153 = 1;
-  v151 = 1;
-  v149 = 1;
-  v147 = 1;
-  v145 = 1;
-  v143 = 1;
-  v141 = 1;
-  v139 = 1;
-  v137 = 1;
-  v135 = 1;
-  v133 = 1;
-  v131 = 1;
-  v129 = 1;
-  v127 = 1;
-  v125 = 1;
-  v13 = *(v10 + 16);
-  v156 = v14;
-  v13(&v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0), v11);
-  v75[0] = String.init<A>(_:)();
-  v75[1] = v15;
-  v16 = a5;
-  v17 = *(a5 + 48);
-  v18 = v24;
-  v19 = v23;
-  v17(v76, v75, a3, v16);
-  if (v18)
+  v24 = a2;
+  v11 = *(a4 - 8);
+  v12 = MEMORY[0x1EEE9AC00](a1);
+  v156 = 1;
+  v154 = 1;
+  v152 = 1;
+  v150 = 1;
+  v148 = 1;
+  v146 = 1;
+  v144 = 1;
+  v142 = 1;
+  v140 = 1;
+  v138 = 1;
+  v136 = 1;
+  v134 = 1;
+  v132 = 1;
+  v130 = 1;
+  v128 = 1;
+  v126 = 1;
+  v14 = *(v11 + 16);
+  v157 = v15;
+  v14(&v24 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0), v12);
+  v76[0] = String.init<A>(_:)();
+  v76[1] = v16;
+  v17 = a5;
+  v18 = *(a5 + 48);
+  v19 = v25;
+  v20 = v24;
+  v18(v77, v76, a3, v17);
+  if (v19)
   {
-    (*(*(a3 - 8) + 8))(v19, a3);
-    (*(v10 + 8))(v156, a4);
+    (*(*(a3 - 8) + 8))(v20, a3);
+    (*(v11 + 8))(v157, a4);
 
-    v27 = 0;
-    v25 = 0u;
+    v28 = 0;
     v26 = 0u;
-    v28 = v155;
-    *v29 = v154[0];
-    *&v29[3] = *(v154 + 3);
-    v30 = 0;
-    v31 = v153;
-    *v32 = *v152;
-    *&v32[3] = *&v152[3];
-    v33 = 0;
-    v34 = v151;
-    *v35 = *v150;
-    *&v35[3] = *&v150[3];
-    v36 = 0;
-    v37 = v149;
-    *v38 = *v148;
-    *&v38[3] = *&v148[3];
-    v39 = 0;
-    v40 = v147;
-    *v41 = *v146;
-    *&v41[3] = *&v146[3];
-    v42 = 0;
-    v43 = v145;
-    *&v44[3] = *&v144[3];
-    *v44 = *v144;
-    v45 = 0;
-    v46 = v143;
-    *&v47[3] = *&v142[3];
-    *v47 = *v142;
-    v48 = 0;
-    v49 = v141;
-    *&v50[3] = *&v140[3];
-    *v50 = *v140;
-    v51 = 0;
-    v52 = v139;
-    *&v53[3] = *&v138[3];
-    *v53 = *v138;
-    v54 = 0;
-    v55 = v137;
-    *&v56[3] = *&v136[3];
-    *v56 = *v136;
-    v57 = 0;
-    v58 = v135;
-    *&v59[3] = *&v134[3];
-    *v59 = *v134;
-    v60 = 0;
-    v61 = v133;
-    *&v62[3] = *&v132[3];
-    *v62 = *v132;
-    v63 = 0;
-    v64 = v131;
-    *&v65[3] = *&v130[3];
-    *v65 = *v130;
-    v66 = 0;
-    v67 = v129;
-    *&v68[3] = *&v128[3];
-    *v68 = *v128;
-    v69 = 0;
-    v70 = v127;
-    *v71 = *v126;
-    *&v71[3] = *&v126[3];
-    v72 = 0;
-    v73 = v125;
-    v74 = 514;
-    outlined destroy of DateComponents(&v25);
+    v27 = 0u;
+    v29 = v156;
+    *v30 = v155[0];
+    *&v30[3] = *(v155 + 3);
+    v31 = 0;
+    v32 = v154;
+    *v33 = *v153;
+    *&v33[3] = *&v153[3];
+    v34 = 0;
+    v35 = v152;
+    *v36 = *v151;
+    *&v36[3] = *&v151[3];
+    v37 = 0;
+    v38 = v150;
+    *v39 = *v149;
+    *&v39[3] = *&v149[3];
+    v40 = 0;
+    v41 = v148;
+    *v42 = *v147;
+    *&v42[3] = *&v147[3];
+    v43 = 0;
+    v44 = v146;
+    *&v45[3] = *&v145[3];
+    *v45 = *v145;
+    v46 = 0;
+    v47 = v144;
+    *&v48[3] = *&v143[3];
+    *v48 = *v143;
+    v49 = 0;
+    v50 = v142;
+    *&v51[3] = *&v141[3];
+    *v51 = *v141;
+    v52 = 0;
+    v53 = v140;
+    *&v54[3] = *&v139[3];
+    *v54 = *v139;
+    v55 = 0;
+    v56 = v138;
+    *&v57[3] = *&v137[3];
+    *v57 = *v137;
+    v58 = 0;
+    v59 = v136;
+    *&v60[3] = *&v135[3];
+    *v60 = *v135;
+    v61 = 0;
+    v62 = v134;
+    *&v63[3] = *&v133[3];
+    *v63 = *v133;
+    v64 = 0;
+    v65 = v132;
+    *&v66[3] = *&v131[3];
+    *v66 = *v131;
+    v67 = 0;
+    v68 = v130;
+    *&v69[3] = *&v129[3];
+    *v69 = *v129;
+    v70 = 0;
+    v71 = v128;
+    *v72 = *v127;
+    *&v72[3] = *&v127[3];
+    v73 = 0;
+    v74 = v126;
+    v75 = 514;
+    outlined destroy of DateComponents(&v26);
   }
 
   else
   {
-    v24 = 0;
-    (*(*(a3 - 8) + 8))(v19, a3);
-    (*(v10 + 8))(v156, a4);
+    v25 = 0;
+    (*(*(a3 - 8) + 8))(v20, a3);
+    (*(v11 + 8))(v157, a4);
 
-    v27 = 0;
-    v25 = 0u;
+    v28 = 0;
     v26 = 0u;
-    v28 = v155;
-    *v29 = v154[0];
-    *&v29[3] = *(v154 + 3);
-    v30 = 0;
-    v31 = v153;
-    *v32 = *v152;
-    *&v32[3] = *&v152[3];
-    v33 = 0;
-    v34 = v151;
-    *v35 = *v150;
-    *&v35[3] = *&v150[3];
-    v36 = 0;
-    v37 = v149;
-    *v38 = *v148;
-    *&v38[3] = *&v148[3];
-    v39 = 0;
-    v40 = v147;
-    *v41 = *v146;
-    *&v41[3] = *&v146[3];
-    v42 = 0;
-    v43 = v145;
-    *&v44[3] = *&v144[3];
-    *v44 = *v144;
-    v45 = 0;
-    v46 = v143;
-    *&v47[3] = *&v142[3];
-    *v47 = *v142;
-    v48 = 0;
-    v49 = v141;
-    *&v50[3] = *&v140[3];
-    *v50 = *v140;
-    v51 = 0;
-    v52 = v139;
-    *&v53[3] = *&v138[3];
-    *v53 = *v138;
-    v54 = 0;
-    v55 = v137;
-    *&v56[3] = *&v136[3];
-    *v56 = *v136;
-    v57 = 0;
-    v58 = v135;
-    *&v59[3] = *&v134[3];
-    *v59 = *v134;
-    v60 = 0;
-    v61 = v133;
-    *&v62[3] = *&v132[3];
-    *v62 = *v132;
-    v63 = 0;
-    v64 = v131;
-    *&v65[3] = *&v130[3];
-    *v65 = *v130;
-    v66 = 0;
-    v67 = v129;
-    *&v68[3] = *&v128[3];
-    *v68 = *v128;
-    v69 = 0;
-    v70 = v127;
-    *v71 = *v126;
-    *&v71[3] = *&v126[3];
-    v72 = 0;
-    v73 = v125;
-    v74 = 514;
-    outlined destroy of DateComponents(&v25);
-    v21 = *&v79[3];
-    *(a6 + 268) = *&v121[3];
-    *(a6 + 265) = *v121;
-    *(a6 + 32) = v77;
-    *(a6 + 40) = v78;
-    *(a6 + 41) = *v79;
-    *(a6 + 44) = v21;
-    *(a6 + 48) = v80;
-    *(a6 + 56) = v81;
-    *(a6 + 57) = *v82;
-    *(a6 + 60) = *&v82[3];
-    *(a6 + 64) = v83;
-    *(a6 + 72) = v84;
-    *(a6 + 76) = *&v85[3];
-    *(a6 + 73) = *v85;
-    *(a6 + 80) = v86;
-    *(a6 + 88) = v87;
-    *(a6 + 92) = *&v88[3];
-    *(a6 + 89) = *v88;
-    *(a6 + 96) = v89;
-    *(a6 + 104) = v90;
-    *(a6 + 105) = *v91;
-    *(a6 + 108) = *&v91[3];
-    *(a6 + 112) = v92;
-    *(a6 + 120) = v93;
-    *(a6 + 124) = *&v94[3];
-    *(a6 + 121) = *v94;
-    *(a6 + 128) = v95;
-    *(a6 + 136) = v96;
-    *(a6 + 137) = *v97;
-    *(a6 + 140) = *&v97[3];
-    *(a6 + 144) = v98;
-    *(a6 + 152) = v99;
-    *(a6 + 153) = *v100;
-    *(a6 + 156) = *&v100[3];
-    *(a6 + 160) = v101;
-    *(a6 + 168) = v102;
-    *(a6 + 172) = *&v103[3];
-    *(a6 + 169) = *v103;
-    *(a6 + 176) = v104;
-    *(a6 + 184) = v105;
-    *(a6 + 188) = *&v106[3];
-    *(a6 + 185) = *v106;
-    *(a6 + 192) = v107;
-    *(a6 + 200) = v108;
-    *(a6 + 204) = *&v109[3];
-    *(a6 + 201) = *v109;
-    *(a6 + 208) = v110;
-    *(a6 + 216) = v111;
-    *(a6 + 220) = *&v112[3];
-    *(a6 + 217) = *v112;
-    *(a6 + 224) = v113;
-    *(a6 + 232) = v114;
-    *(a6 + 236) = *&v115[3];
-    *(a6 + 233) = *v115;
-    *(a6 + 240) = v116;
-    *(a6 + 248) = v117;
-    *(a6 + 252) = *&v118[3];
-    *(a6 + 249) = *v118;
-    *(a6 + 256) = v119;
-    *(a6 + 264) = v120;
-    *(a6 + 272) = v122;
-    *(a6 + 280) = v123;
-    *(a6 + 282) = v124;
-    result = *v76;
-    v22 = v76[1];
-    *a6 = v76[0];
-    *(a6 + 16) = v22;
+    v27 = 0u;
+    v29 = v156;
+    *v30 = v155[0];
+    *&v30[3] = *(v155 + 3);
+    v31 = 0;
+    v32 = v154;
+    *v33 = *v153;
+    *&v33[3] = *&v153[3];
+    v34 = 0;
+    v35 = v152;
+    *v36 = *v151;
+    *&v36[3] = *&v151[3];
+    v37 = 0;
+    v38 = v150;
+    *v39 = *v149;
+    *&v39[3] = *&v149[3];
+    v40 = 0;
+    v41 = v148;
+    *v42 = *v147;
+    *&v42[3] = *&v147[3];
+    v43 = 0;
+    v44 = v146;
+    *&v45[3] = *&v145[3];
+    *v45 = *v145;
+    v46 = 0;
+    v47 = v144;
+    *&v48[3] = *&v143[3];
+    *v48 = *v143;
+    v49 = 0;
+    v50 = v142;
+    *&v51[3] = *&v141[3];
+    *v51 = *v141;
+    v52 = 0;
+    v53 = v140;
+    *&v54[3] = *&v139[3];
+    *v54 = *v139;
+    v55 = 0;
+    v56 = v138;
+    *&v57[3] = *&v137[3];
+    *v57 = *v137;
+    v58 = 0;
+    v59 = v136;
+    *&v60[3] = *&v135[3];
+    *v60 = *v135;
+    v61 = 0;
+    v62 = v134;
+    *&v63[3] = *&v133[3];
+    *v63 = *v133;
+    v64 = 0;
+    v65 = v132;
+    *&v66[3] = *&v131[3];
+    *v66 = *v131;
+    v67 = 0;
+    v68 = v130;
+    *&v69[3] = *&v129[3];
+    *v69 = *v129;
+    v70 = 0;
+    v71 = v128;
+    *v72 = *v127;
+    *&v72[3] = *&v127[3];
+    v73 = 0;
+    v74 = v126;
+    v75 = 514;
+    outlined destroy of DateComponents(&v26);
+    v22 = *&v80[3];
+    *(a7 + 268) = *&v122[3];
+    *(a7 + 265) = *v122;
+    *(a7 + 32) = v78;
+    *(a7 + 40) = v79;
+    *(a7 + 41) = *v80;
+    *(a7 + 44) = v22;
+    *(a7 + 48) = v81;
+    *(a7 + 56) = v82;
+    *(a7 + 57) = *v83;
+    *(a7 + 60) = *&v83[3];
+    *(a7 + 64) = v84;
+    *(a7 + 72) = v85;
+    *(a7 + 76) = *&v86[3];
+    *(a7 + 73) = *v86;
+    *(a7 + 80) = v87;
+    *(a7 + 88) = v88;
+    *(a7 + 92) = *&v89[3];
+    *(a7 + 89) = *v89;
+    *(a7 + 96) = v90;
+    *(a7 + 104) = v91;
+    *(a7 + 105) = *v92;
+    *(a7 + 108) = *&v92[3];
+    *(a7 + 112) = v93;
+    *(a7 + 120) = v94;
+    *(a7 + 124) = *&v95[3];
+    *(a7 + 121) = *v95;
+    *(a7 + 128) = v96;
+    *(a7 + 136) = v97;
+    *(a7 + 137) = *v98;
+    *(a7 + 140) = *&v98[3];
+    *(a7 + 144) = v99;
+    *(a7 + 152) = v100;
+    *(a7 + 153) = *v101;
+    *(a7 + 156) = *&v101[3];
+    *(a7 + 160) = v102;
+    *(a7 + 168) = v103;
+    *(a7 + 172) = *&v104[3];
+    *(a7 + 169) = *v104;
+    *(a7 + 176) = v105;
+    *(a7 + 184) = v106;
+    *(a7 + 188) = *&v107[3];
+    *(a7 + 185) = *v107;
+    *(a7 + 192) = v108;
+    *(a7 + 200) = v109;
+    *(a7 + 204) = *&v110[3];
+    *(a7 + 201) = *v110;
+    *(a7 + 208) = v111;
+    *(a7 + 216) = v112;
+    *(a7 + 220) = *&v113[3];
+    *(a7 + 217) = *v113;
+    *(a7 + 224) = v114;
+    *(a7 + 232) = v115;
+    *(a7 + 236) = *&v116[3];
+    *(a7 + 233) = *v116;
+    *(a7 + 240) = v117;
+    *(a7 + 248) = v118;
+    *(a7 + 252) = *&v119[3];
+    *(a7 + 249) = *v119;
+    *(a7 + 256) = v120;
+    *(a7 + 264) = v121;
+    *(a7 + 272) = v123;
+    *(a7 + 280) = v124;
+    *(a7 + 282) = v125;
+    result = *v77;
+    v23 = v77[1];
+    *a7 = v77[0];
+    *(a7 + 16) = v23;
   }
 
   return result;
@@ -8854,18 +8856,18 @@ LABEL_90:
   return result;
 }
 
-uint64_t key path setter for DateComponents.calendar : DateComponents(_OWORD *a1, uint64_t a2)
+uint64_t key path setter for DateComponents.calendar : DateComponents(__int128 *a1, uint64_t *a2)
 {
   *a2 = *a1;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
-  result = *(a2 + 16);
+  result = a2[2];
   if (result)
   {
     if (*a2)
     {
-      v4 = *(a2 + 24);
-      v5[0] = *(a2 + 16);
+      v4 = a2[3];
+      v5[0] = a2[2];
       v5[1] = v4;
       swift_unknownObjectRetain();
       return Calendar.timeZone.setter(v5);
@@ -9674,14 +9676,14 @@ uint64_t *DateComponents.yearForWeekOfYear.modify(uint64_t *result)
   return result;
 }
 
-_BYTE *(*DateComponents.isLeapMonth.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*DateComponents.isLeapMonth.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 281);
   return DateComponents.isLeapMonth.modify;
 }
 
-_BYTE *(*DateComponents.isRepeatedDay.modify(uint64_t a1))(_BYTE *result)
+uint64_t (*DateComponents.isRepeatedDay.modify(uint64_t a1))()
 {
   *a1 = v1;
   *(a1 + 8) = *(v1 + 282);

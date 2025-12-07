@@ -214,15 +214,15 @@
 
 + (void)_setTopicIdentifiersForUNMutableNotificationContent:(id)content usingCALNNotificationContent:(id)notificationContent
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   contentCopy = content;
   sectionIdentifier = [notificationContent sectionIdentifier];
   v7 = sectionIdentifier;
   v8 = MEMORY[0x277CBEB98];
   if (sectionIdentifier)
   {
-    v12[0] = sectionIdentifier;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = sectionIdentifier;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
     v10 = [v8 setWithArray:v9];
   }
 
@@ -232,8 +232,6 @@
   }
 
   [contentCopy setTopicIdentifiers:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_setUserInfoForUNMutableNotificationContent:(id)content usingCALNNotificationContent:(id)notificationContent
@@ -324,15 +322,14 @@
 
 + (void)_sectionIdentifierFromTopicIdentifiers:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v7 = 134218498;
-  v8 = [a1 count];
-  v9 = 2114;
-  v10 = a2;
-  v11 = 2114;
-  v12 = a1;
-  _os_log_error_impl(&dword_242909000, a3, OS_LOG_TYPE_ERROR, "Unexpected number of topic identifiers. Expected: 1. Actual: %lu. Resolved section identifier: %{public}@. Topic identifiers: %{public}@.", &v7, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v6 = 134218498;
+  v7 = [a1 count];
+  v8 = 2114;
+  v9 = a2;
+  v10 = 2114;
+  v11 = a1;
+  _os_log_error_impl(&dword_242909000, a3, OS_LOG_TYPE_ERROR, "Unexpected number of topic identifiers. Expected: 1. Actual: %lu. Resolved section identifier: %{public}@. Topic identifiers: %{public}@.", &v6, 0x20u);
 }
 
 @end

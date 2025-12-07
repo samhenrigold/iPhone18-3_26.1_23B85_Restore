@@ -50,7 +50,7 @@
 - (void)extendApplePayTimeout
 {
   selfCopy = self;
-  sub_10002263C();
+  sub_10002263C(selfCopy);
 }
 
 - (void)handlePaymentAuthorizationRetryWithTimer:(id)timer

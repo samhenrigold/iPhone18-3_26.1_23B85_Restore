@@ -29,11 +29,11 @@
 {
   v4 = objc_alloc(objc_opt_class());
   activeEpoch = [(HDCloudSyncCachedStoreEpochs *)self activeEpoch];
-  v6 = [activeEpoch copy];
+  v6 = objc_msgSend_copy(activeEpoch);
   pendingEpoch = [(HDCloudSyncCachedStoreEpochs *)self pendingEpoch];
-  v8 = [pendingEpoch copy];
+  v8 = objc_msgSend_copy(pendingEpoch);
   tombstoneEpoch = [(HDCloudSyncCachedStoreEpochs *)self tombstoneEpoch];
-  v10 = [tombstoneEpoch copy];
+  v10 = objc_msgSend_copy(tombstoneEpoch);
   v11 = [v4 initWithActiveEpoch:v6 pendingEpoch:v8 tombstoneEpoch:v10];
 
   return v11;

@@ -24,10 +24,16 @@
 {
   if (name)
   {
-    sub_5B80();
+    v4 = sub_5B80();
   }
 
-  return sub_56F4();
+  else
+  {
+    v4 = 0;
+    v5 = 0;
+  }
+
+  return sub_56F4(v4, v5);
 }
 
 - (_TtC24OxygenSaturationSettings22SettingsViewController)initWithCoder:(id)coder
@@ -79,8 +85,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_2414(disappear);
+  sub_2414(disappearCopy, selfCopy);
 }
 
 - (id)specifiers
@@ -121,7 +128,7 @@
   valueCopy = value;
   specifierCopy = specifier;
   selfCopy = self;
-  sub_57D8();
+  sub_57D8(valueCopy);
 }
 
 - (id)recordingsEnabledValueWithSpecifier:(id)specifier
@@ -186,35 +193,35 @@
 {
   v2 = sub_5AF0();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin();
-  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v3 + 104))(v6, enum case for ExternalDeepLink.watchPasscodeSettings(_:), v2);
+  v5 = &v6 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v3 + 104))(v5, enum case for ExternalDeepLink.watchPasscodeSettings(_:), v2);
   sub_5AE0();
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
 }
 
 - (void)oxygenSaturationSettingsDidChange:(id)change
 {
   selfCopy = self;
-  sub_5C20();
+  v4 = sub_5C20();
   if (qword_C940 != -1)
   {
     swift_once();
   }
 
-  sub_5080();
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_6A20;
+  v5 = qword_CC78;
+  sub_5080(0);
+  v6 = swift_allocObject();
+  *(v6 + 16) = xmmword_6A20;
   swift_getObjectType();
   sub_50E8();
-  v5 = sub_5BA0();
-  v7 = v6;
-  *(v4 + 56) = &type metadata for String;
-  *(v4 + 64) = sub_512C();
-  *(v4 + 32) = v5;
-  *(v4 + 40) = v7;
-  sub_5B30();
+  v7 = sub_5BA0();
+  v9 = v8;
+  *(v6 + 56) = &type metadata for String;
+  *(v6 + 64) = sub_512C();
+  *(v6 + 32) = v7;
+  *(v6 + 40) = v9;
+  sub_5B30(v4, &dword_0, v5, "[%{public}@] settings changed, reloading settings list", 54, 2, v6);
 
   [(SettingsViewController *)selfCopy reloadSpecifiers];
 }

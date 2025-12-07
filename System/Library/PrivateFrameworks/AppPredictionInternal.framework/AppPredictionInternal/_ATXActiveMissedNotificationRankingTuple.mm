@@ -28,7 +28,7 @@
 
 - (_ATXActiveMissedNotificationRankingTuple)initWithPreviousTuple:(id)tuple nextRankingEvent:(id)event
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   tupleCopy = tuple;
   eventCopy = event;
   v8 = MEMORY[0x277CBEAA8];
@@ -39,7 +39,7 @@
   {
     if (eventType < 2)
     {
-      v20 = __atxlog_handle_metrics();
+      v20 = __atxlog_handle_metrics(eventType);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         v21 = objc_opt_class();
@@ -48,13 +48,13 @@
         missedNotificationRanking = [eventCopy missedNotificationRanking];
         uuid = [missedNotificationRanking uuid];
         uUIDString = [uuid UUIDString];
-        v72 = 138412802;
-        v73 = v22;
-        v74 = 2048;
-        v75 = eventType2;
-        v76 = 2112;
-        v77 = uUIDString;
-        _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_INFO, "%@ - Received unsupported deprecated event type %ld on ranking with UUID %@", &v72, 0x20u);
+        v71 = 138412802;
+        v72 = v22;
+        v73 = 2048;
+        v74 = eventType2;
+        v75 = 2112;
+        v76 = uUIDString;
+        _os_log_impl(&dword_2263AA000, v20, OS_LOG_TYPE_INFO, "%@ - Received unsupported deprecated event type %ld on ranking with UUID %@", &v71, 0x20u);
       }
 
       v27 = [(_ATXActiveMissedNotificationRankingTuple *)self initWithActiveUpcomingRanking:0 activeDeliveredRanking:0 justCompletedRanking:0];
@@ -164,17 +164,7 @@ LABEL_15:
       else
       {
         activeDeliveredRanking6 = [tupleCopy activeDeliveredRanking];
-        if (!activeDeliveredRanking6)
-        {
-          goto LABEL_40;
-        }
-
-        v65 = activeDeliveredRanking6;
-        activeDeliveredRanking7 = [tupleCopy activeDeliveredRanking];
-        missedNotificationRanking6 = [eventCopy missedNotificationRanking];
-        v68 = [activeDeliveredRanking7 doesRankingShareContentWithOtherRanking:missedNotificationRanking6];
-
-        if (v68)
+        if (activeDeliveredRanking6 && (v65 = activeDeliveredRanking6, [tupleCopy activeDeliveredRanking], v66 = objc_claimAutoreleasedReturnValue(), objc_msgSend(eventCopy, "missedNotificationRanking"), v67 = objc_claimAutoreleasedReturnValue(), v68 = objc_msgSend(v66, "doesRankingShareContentWithOtherRanking:", v67), v67, v66, v65, v68))
         {
           missedNotificationRanking3 = [tupleCopy activeDeliveredRanking];
           digestTimeline8 = [missedNotificationRanking3 digestTimeline];
@@ -186,7 +176,6 @@ LABEL_15:
 
         else
         {
-LABEL_40:
           missedNotificationRanking3 = [tupleCopy activeUpcomingRanking];
           activeUpcomingRanking4 = [tupleCopy activeDeliveredRanking];
           v19 = [(_ATXActiveMissedNotificationRankingTuple *)self initWithActiveUpcomingRanking:missedNotificationRanking3 activeDeliveredRanking:activeUpcomingRanking4 justCompletedRanking:0];
@@ -215,8 +204,8 @@ LABEL_9:
       }
 
       activeUpcomingRanking8 = [tupleCopy activeUpcomingRanking];
-      missedNotificationRanking7 = [eventCopy missedNotificationRanking];
-      v14 = [activeUpcomingRanking8 doesRankingShareContentWithOtherRanking:missedNotificationRanking7];
+      missedNotificationRanking6 = [eventCopy missedNotificationRanking];
+      v14 = [activeUpcomingRanking8 doesRankingShareContentWithOtherRanking:missedNotificationRanking6];
 
       missedNotificationRanking3 = [eventCopy missedNotificationRanking];
       if (v14)
@@ -242,11 +231,11 @@ LABEL_41:
       digestTimeline12 = [activeUpcomingRanking4 digestTimeline];
       [digestTimeline12 setFirstScheduledViewTimestamp:v9];
 
-      activeDeliveredRanking8 = [tupleCopy activeDeliveredRanking];
-      activeUpcomingRanking5 = activeDeliveredRanking8;
-      if (activeDeliveredRanking8)
+      activeDeliveredRanking7 = [tupleCopy activeDeliveredRanking];
+      activeUpcomingRanking5 = activeDeliveredRanking7;
+      if (activeDeliveredRanking7)
       {
-        digestTimeline13 = [activeDeliveredRanking8 digestTimeline];
+        digestTimeline13 = [activeDeliveredRanking7 digestTimeline];
         [digestTimeline13 setDigestRemovedTimestamp:v9];
       }
 
@@ -259,7 +248,7 @@ LABEL_42:
   }
 
 LABEL_25:
-  v49 = __atxlog_handle_metrics();
+  v49 = __atxlog_handle_metrics(eventType);
   if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
   {
     [(_ATXActiveMissedNotificationRankingTuple *)self initWithPreviousTuple:eventCopy nextRankingEvent:v49];
@@ -270,7 +259,6 @@ LABEL_28:
   v50 = v27;
 LABEL_43:
 
-  v70 = *MEMORY[0x277D85DE8];
   return v50;
 }
 
@@ -292,17 +280,17 @@ LABEL_43:
   v4 = MEMORY[0x277D42620];
   coderCopy = coder;
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_notification_management();
+  v7 = __atxlog_handle_notification_management(v6);
   v8 = [v4 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForActiveUpcomingMNR" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXCompletedMNRBiomeStream" errorCode:-1 logHandle:v7];
 
   v9 = MEMORY[0x277D42620];
   v10 = objc_opt_class();
-  v11 = __atxlog_handle_notification_management();
+  v11 = __atxlog_handle_notification_management(v10);
   v12 = [v9 robustDecodeObjectOfClass:v10 forKey:@"codingKeyForActiveDeliveredMNR" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXCompletedMNRBiomeStream" errorCode:-1 logHandle:v11];
 
   v13 = MEMORY[0x277D42620];
   v14 = objc_opt_class();
-  v15 = __atxlog_handle_notification_management();
+  v15 = __atxlog_handle_notification_management(v14);
   v16 = [v13 robustDecodeObjectOfClass:v14 forKey:@"codingKeyForJustCompletedMNR" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.ATXCompletedMNRBiomeStream" errorCode:-1 logHandle:v15];
 
   v17 = [(_ATXActiveMissedNotificationRankingTuple *)self initWithActiveUpcomingRanking:v8 activeDeliveredRanking:v12 justCompletedRanking:v16];
@@ -311,22 +299,20 @@ LABEL_43:
 
 - (void)initWithPreviousTuple:(NSObject *)a3 nextRankingEvent:.cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   v7 = [a2 eventType];
   v8 = [a2 missedNotificationRanking];
   v9 = [v8 uuid];
   v10 = [v9 UUIDString];
-  v12 = 138412802;
-  v13 = v6;
-  v14 = 2048;
-  v15 = v7;
-  v16 = 2112;
-  v17 = v10;
-  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ - Received unknown event type %ld on ranking with UUID %@", &v12, 0x20u);
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11 = 138412802;
+  v12 = v6;
+  v13 = 2048;
+  v14 = v7;
+  v15 = 2112;
+  v16 = v10;
+  _os_log_error_impl(&dword_2263AA000, a3, OS_LOG_TYPE_ERROR, "%@ - Received unknown event type %ld on ranking with UUID %@", &v11, 0x20u);
 }
 
 @end

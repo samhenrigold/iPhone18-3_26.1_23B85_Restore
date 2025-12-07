@@ -109,7 +109,7 @@
 
 - (id)buildDescriptions
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   appType = [(SPUISPurchaseRequestResultBuilder *)self appType];
 
@@ -135,8 +135,8 @@
   if ([v3 length])
   {
     v8 = [MEMORY[0x277D4C598] textWithString:v3];
-    v12[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+    v11[0] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   }
 
   else
@@ -144,14 +144,12 @@
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (id)buildFootnote
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   requestStatus = [(SPUISPurchaseRequestResultBuilder *)self requestStatus];
   requestStatus2 = [(SPUISPurchaseRequestResultBuilder *)self requestStatus];
   if (requestStatus == 3 || requestStatus2 == 2)
@@ -202,13 +200,12 @@
     v12 = [v9 localizedStringWithFormat:@"%@%@", v10, ageRating2];
 
     firstObject = [MEMORY[0x277D4C3A0] textWithString:v12];
-    v22[0] = firstObject;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+    v21[0] = firstObject;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
     [v5 setFormattedTextPieces:v14];
   }
 
 LABEL_12:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -244,7 +241,7 @@ LABEL_12:
 
 - (id)buildButtonItems
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if ([(SPUISPurchaseRequestResultBuilder *)self requestStatus]== 3 || [(SPUISPurchaseRequestResultBuilder *)self requestStatus]== 2)
   {
     v3 = 0;
@@ -255,14 +252,12 @@ LABEL_12:
     buildCommand = [(SPUISPurchaseRequestResultBuilder *)self buildCommand];
     v5 = objc_opt_new();
     v6 = [SPUISUtilities localizedStringForKey:@"VIEW"];
-    [v5 setTitle:v6];
+    objc_msgSend_setTitle_(v5);
 
     [v5 setCommand:buildCommand];
-    v9[0] = v5;
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

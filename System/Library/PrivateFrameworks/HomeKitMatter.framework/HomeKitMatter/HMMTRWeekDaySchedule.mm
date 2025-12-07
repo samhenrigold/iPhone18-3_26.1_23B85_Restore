@@ -87,43 +87,7 @@
   }
 
   v6 = v5;
-  if (!v6)
-  {
-    goto LABEL_10;
-  }
-
-  daysMask = [(HMMTRWeekDaySchedule *)self daysMask];
-  daysMask2 = [v6 daysMask];
-  v9 = HMFEqualObjects();
-
-  if (!v9)
-  {
-    goto LABEL_10;
-  }
-
-  startHour = [(HMMTRWeekDaySchedule *)self startHour];
-  startHour2 = [v6 startHour];
-  v12 = HMFEqualObjects();
-
-  if (!v12)
-  {
-    goto LABEL_10;
-  }
-
-  endHour = [(HMMTRWeekDaySchedule *)self endHour];
-  endHour2 = [v6 endHour];
-  v15 = HMFEqualObjects();
-
-  if (!v15)
-  {
-    goto LABEL_10;
-  }
-
-  endMinute = [(HMMTRWeekDaySchedule *)self endMinute];
-  endMinute2 = [v6 endMinute];
-  v18 = HMFEqualObjects();
-
-  if (v18)
+  if (v6 && (-[HMMTRWeekDaySchedule daysMask](self, "daysMask"), v7 = objc_claimAutoreleasedReturnValue(), [v6 daysMask], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && (-[HMMTRWeekDaySchedule startHour](self, "startHour"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "startHour"), v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && (-[HMMTRWeekDaySchedule endHour](self, "endHour"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "endHour"), v14 = objc_claimAutoreleasedReturnValue(), v15 = HMFEqualObjects(), v14, v13, v15) && (-[HMMTRWeekDaySchedule endMinute](self, "endMinute"), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "endMinute"), v17 = objc_claimAutoreleasedReturnValue(), v18 = HMFEqualObjects(), v17, v16, v18))
   {
     startMinute = [(HMMTRWeekDaySchedule *)self startMinute];
     startMinute2 = [v6 startMinute];
@@ -132,7 +96,6 @@
 
   else
   {
-LABEL_10:
     v21 = 0;
   }
 

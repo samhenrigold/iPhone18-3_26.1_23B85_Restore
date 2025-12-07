@@ -9,6 +9,7 @@
 - (void)_clientRun;
 - (void)_clientSFSessionStart;
 - (void)_clientTryPIN:(id)n;
+- (void)_completed:(int)_completed;
 - (void)_handleServerRequest:(id)request;
 - (void)_hearbeatTimer;
 - (void)_invalidate;
@@ -26,25 +27,24 @@
 
 - (SFPINPairSession)init
 {
-  v7.receiver = self;
-  v7.super_class = SFPINPairSession;
-  v2 = [(SFPINPairSession *)&v7 init];
-  v3 = v2;
+  v6.receiver = self;
+  v6.super_class = SFPINPairSession;
+  v2 = [(SFPINPairSession *)&v6 init];
   if (v2)
   {
-    v4 = SFMainQueue(v2);
-    dispatchQueue = v3->_dispatchQueue;
-    v3->_dispatchQueue = v4;
+    v3 = SFMainQueue();
+    dispatchQueue = v2->_dispatchQueue;
+    v2->_dispatchQueue = v3;
   }
 
-  return v3;
+  return v2;
 }
 
 - (void)dealloc
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    v7 = [SFRemoteAutoFillService dealloc];
+    [SFRemoteAutoFillService dealloc];
     [(SFPINPairSession *)v7 activate];
   }
 
@@ -87,38 +87,45 @@
   }
 
   self->_activateCalled = 1;
-  self->_startTicks = mach_absolute_time();
+  _activate = mach_absolute_time();
+  self->_startTicks = _activate;
   if (!self->_transaction)
   {
-    v3 = os_transaction_create();
+    v6 = os_transaction_create();
     transaction = self->_transaction;
-    self->_transaction = v3;
+    self->_transaction = v6;
 
-    if (!self->_transaction && gLogCategory_SFPINPairSession <= 60 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (!self->_transaction && gLogCategory_SFPINPairSession <= 60)
     {
-      [SFPINPairSession _activate];
+      if (gLogCategory_SFPINPairSession != -1 || (_activate = _LogCategory_Initialize(), _activate))
+      {
+        _activate = [(SFPINPairSession *)_activate _activate];
+      }
     }
   }
 
   if (!self->_heartbeatTimer)
   {
-    if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPINPairSession <= 30)
     {
-      [SFPINPairSession _activate];
+      if (gLogCategory_SFPINPairSession != -1 || (_activate = _LogCategory_Initialize(), _activate))
+      {
+        [(SFPINPairSession *)_activate _activate];
+      }
     }
 
     self->_heartbeatLastTicks = mach_absolute_time();
-    v5 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
+    v8 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_dispatchQueue);
     heartbeatTimer = self->_heartbeatTimer;
-    self->_heartbeatTimer = v5;
+    self->_heartbeatTimer = v8;
 
-    v7 = self->_heartbeatTimer;
+    v10 = self->_heartbeatTimer;
     handler[0] = MEMORY[0x1E69E9820];
     handler[1] = 3221225472;
     handler[2] = __29__SFPINPairSession__activate__block_invoke;
     handler[3] = &unk_1E788B198;
     handler[4] = self;
-    dispatch_source_set_event_handler(v7, handler);
+    dispatch_source_set_event_handler(v10, handler);
     SFDispatchTimerSet(self->_heartbeatTimer, 1.0, 1.0, -4.0);
     dispatch_resume(self->_heartbeatTimer);
   }
@@ -147,47 +154,51 @@
 
 - (void)_invalidate
 {
-  if (!self->_invalidateCalled && gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (!self->_invalidateCalled && gLogCategory_SFPINPairSession <= 30)
   {
-    [SFPINPairSession _invalidate];
+    if (gLogCategory_SFPINPairSession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFPINPairSession *)self _invalidate];
+    }
   }
 
-  self->_invalidateCalled = 1;
-  heartbeatTimer = self->_heartbeatTimer;
+  selfCopy->_invalidateCalled = 1;
+  heartbeatTimer = selfCopy->_heartbeatTimer;
   if (heartbeatTimer)
   {
-    v4 = heartbeatTimer;
-    dispatch_source_cancel(v4);
-    v5 = self->_heartbeatTimer;
-    self->_heartbeatTimer = 0;
+    v5 = heartbeatTimer;
+    dispatch_source_cancel(v5);
+    v6 = selfCopy->_heartbeatTimer;
+    selfCopy->_heartbeatTimer = 0;
   }
 
-  [(SFPINPairSession *)self _cleanup];
-  completionHandler = self->_completionHandler;
+  [(SFPINPairSession *)selfCopy _cleanup];
+  completionHandler = selfCopy->_completionHandler;
   if (completionHandler)
   {
     completionHandler[2](completionHandler, 0);
-    v7 = self->_completionHandler;
+    v8 = selfCopy->_completionHandler;
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  self->_completionHandler = 0;
+  selfCopy->_completionHandler = 0;
 
-  promptForPINHandler = self->_promptForPINHandler;
-  self->_promptForPINHandler = 0;
+  promptForPINHandler = selfCopy->_promptForPINHandler;
+  selfCopy->_promptForPINHandler = 0;
 
-  showPINHandler = self->_showPINHandler;
-  self->_showPINHandler = 0;
+  showPINHandler = selfCopy->_showPINHandler;
+  selfCopy->_showPINHandler = 0;
 
-  hidePINHandler = self->_hidePINHandler;
-  self->_hidePINHandler = 0;
+  hidePINHandler = selfCopy->_hidePINHandler;
+  selfCopy->_hidePINHandler = 0;
 
-  transaction = self->_transaction;
-  self->_transaction = 0;
+  transaction = selfCopy->_transaction;
+  selfCopy->_transaction = 0;
 }
 
 - (void)_cleanup
@@ -215,17 +226,89 @@
   self->_sfSessionActivated = 0;
 }
 
+- (void)_completed:(int)_completed
+{
+  v3 = *&_completed;
+  v26[1] = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(self->_dispatchQueue);
+  mach_absolute_time();
+  v5 = UpTicksToMilliseconds();
+  if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _completed:]", 30, "Completed (%llu ms): %#m\n", v5);
+  }
+
+  completionHandler = self->_completionHandler;
+  v7 = 0x1E695D000uLL;
+  if (completionHandler)
+  {
+    if (v3)
+    {
+      v8 = MEMORY[0x1E696ABC0];
+      v9 = *MEMORY[0x1E696A768];
+      v25 = *MEMORY[0x1E696A578];
+      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:DebugGetErrorString()];
+      v11 = v10;
+      v12 = @"?";
+      if (v10)
+      {
+        v12 = v10;
+      }
+
+      v26[0] = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+      v14 = [v8 errorWithDomain:v9 code:v3 userInfo:v13];
+      completionHandler[2](completionHandler, v14);
+
+      v7 = 0x1E695D000;
+    }
+
+    else
+    {
+      completionHandler[2](self->_completionHandler, 0);
+    }
+
+    v15 = self->_completionHandler;
+    self->_completionHandler = 0;
+  }
+
+  v23[0] = @"_cat";
+  v23[1] = @"_op";
+  v24[0] = @"PINPair";
+  v24[1] = @"Done";
+  v23[2] = @"error";
+  v16 = [MEMORY[0x1E696AD98] numberWithInt:v3];
+  v24[2] = v16;
+  v23[3] = @"ms";
+  v17 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v5];
+  v24[3] = v17;
+  v18 = [*(v7 + 3872) dictionaryWithObjects:v24 forKeys:v23 count:4];
+  SFDashboardLogJSON(v18);
+
+  heartbeatTimer = self->_heartbeatTimer;
+  if (heartbeatTimer)
+  {
+    v20 = heartbeatTimer;
+    dispatch_source_cancel(v20);
+    v21 = self->_heartbeatTimer;
+    self->_heartbeatTimer = 0;
+  }
+
+  [(SFPINPairSession *)self _cleanup];
+  transaction = self->_transaction;
+  self->_transaction = 0;
+}
+
 - (void)_hearbeatTimer
 {
   mach_absolute_time();
-  heartbeatLastTicks = self->_heartbeatLastTicks;
-  v4 = UpTicksToMilliseconds();
+  v3 = UpTicksToMilliseconds();
   if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
   {
-    [SFPINPairSession _hearbeatTimer];
+    [(SFPINPairSession *)v3 _hearbeatTimer];
   }
 
-  if (self->_pairSetupWaitingForUser || v4 >> 3 < 0x753)
+  if (self->_pairSetupWaitingForUser || v3 >> 3 < 0x753)
   {
     if (self->_sfSessionActivated)
     {
@@ -238,15 +321,15 @@
   {
     if (gLogCategory_SFPINPairSession <= 60 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
     {
-      [SFPINPairSession _hearbeatTimer];
+      [(SFPINPairSession *)v3 _hearbeatTimer];
     }
 
     heartbeatTimer = self->_heartbeatTimer;
     if (heartbeatTimer)
     {
-      v6 = heartbeatTimer;
-      dispatch_source_cancel(v6);
-      v7 = self->_heartbeatTimer;
+      v5 = heartbeatTimer;
+      dispatch_source_cancel(v5);
+      v6 = self->_heartbeatTimer;
       self->_heartbeatTimer = 0;
     }
 
@@ -262,16 +345,19 @@
   {
     v8[0] = 0;
     v8[1] = 0;
-    if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPINPairSession <= 30)
     {
-      [SFPINPairSession _clientRun];
+      if (gLogCategory_SFPINPairSession != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        [(SFPINPairSession *)v3 _clientRun];
+      }
     }
 
     [(SFPINPairSession *)self _cleanup];
     UUIDGet();
-    v3 = [MEMORY[0x1E695DEF0] dataWithBytes:v8 length:16];
+    v6 = [MEMORY[0x1E695DEF0] dataWithBytes:v8 length:16];
     clientSessionUUID = self->_clientSessionUUID;
-    self->_clientSessionUUID = v3;
+    self->_clientSessionUUID = v6;
 
     self->_clientStarted = 1;
   }
@@ -279,12 +365,11 @@
   if (!self->_sfSession)
   {
     [(SFPINPairSession *)self _clientSFSessionStart];
-    goto LABEL_29;
+    return;
   }
 
   if (self->_sfSessionActivated)
   {
-    pairVerifyDone = self->_pairVerifyDone;
     if (self->_pairVerifySession)
     {
       if (!self->_pairVerifyDone)
@@ -294,17 +379,16 @@
           [SFPINPairSession _clientRun];
         }
 
-        goto LABEL_29;
+        return;
       }
     }
 
     else if (!self->_pairVerifyDone)
     {
       [(SFPINPairSession *)self _clientPairVerify:0 start:1];
-      goto LABEL_29;
+      return;
     }
 
-    pairSetupDone = self->_pairSetupDone;
     if (self->_pairSetupSession)
     {
       if (!self->_pairSetupDone && gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
@@ -323,9 +407,6 @@
   {
     [SFPINPairSession _clientRun];
   }
-
-LABEL_29:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_clientHeartbeatSend
@@ -333,34 +414,36 @@ LABEL_29:
   v9[2] = *MEMORY[0x1E69E9840];
   if (self->_heartbeatSending)
   {
-    if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPINPairSession <= 30)
     {
-      [SFPINPairSession _clientHeartbeatSend];
+      if (gLogCategory_SFPINPairSession != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(SFPINPairSession *)self _clientHeartbeatSend];
+      }
     }
   }
 
   else
   {
+    selfCopy = self;
     self->_heartbeatSending = 1;
-    v3 = objc_alloc_init(SFRequestMessage);
+    v4 = objc_alloc_init(SFRequestMessage);
     v8[0] = @"op";
     v8[1] = @"sid";
-    clientSessionUUID = self->_clientSessionUUID;
+    clientSessionUUID = selfCopy->_clientSessionUUID;
     v9[0] = &unk_1F1D7D078;
     v9[1] = clientSessionUUID;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-    [(SFMessage *)v3 setHeaderFields:v5];
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
+    [(SFMessage *)v4 setHeaderFields:v6];
 
     v7[0] = MEMORY[0x1E69E9820];
     v7[1] = 3221225472;
     v7[2] = __40__SFPINPairSession__clientHeartbeatSend__block_invoke;
     v7[3] = &unk_1E78902C0;
-    v7[4] = self;
-    [(SFRequestMessage *)v3 setResponseHandler:v7];
-    [(SFSession *)self->_sfSession sendRequest:v3];
+    v7[4] = selfCopy;
+    [(SFRequestMessage *)v4 setResponseHandler:v7];
+    [(SFSession *)selfCopy->_sfSession sendRequest:v4];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __40__SFPINPairSession__clientHeartbeatSend__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -369,7 +452,7 @@ void __40__SFPINPairSession__clientHeartbeatSend__block_invoke(uint64_t a1, void
   v5 = a3;
   if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _clientHeartbeatSend]_block_invoke", 30, "Heartbeat response %@, error %{error}\n", v5, v6);
   }
 
   *(*(a1 + 32) + 32) = mach_absolute_time();
@@ -378,80 +461,108 @@ void __40__SFPINPairSession__clientHeartbeatSend__block_invoke(uint64_t a1, void
 
 - (void)_clientSFSessionStart
 {
-  if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (gLogCategory_SFPINPairSession <= 30)
   {
-    [SFPINPairSession _clientSFSessionStart];
+    if (gLogCategory_SFPINPairSession != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      [(SFPINPairSession *)self _clientSFSessionStart];
+    }
   }
 
-  [(SFSession *)self->_sfSession invalidate];
-  v3 = objc_alloc_init(SFSession);
-  sfSession = self->_sfSession;
-  self->_sfSession = v3;
+  [(SFSession *)selfCopy->_sfSession invalidate];
+  v4 = objc_alloc_init(SFSession);
+  sfSession = selfCopy->_sfSession;
+  selfCopy->_sfSession = v4;
 
-  [(SFSession *)self->_sfSession setDispatchQueue:self->_dispatchQueue];
-  [(SFSession *)self->_sfSession setPeerDevice:self->_peerDevice];
-  [(SFSession *)self->_sfSession setServiceIdentifier:@"com.apple.sharing.PINPair"];
+  [(SFSession *)selfCopy->_sfSession setDispatchQueue:selfCopy->_dispatchQueue];
+  [(SFSession *)selfCopy->_sfSession setPeerDevice:selfCopy->_peerDevice];
+  [(SFSession *)selfCopy->_sfSession setServiceIdentifier:@"com.apple.sharing.PINPair"];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __41__SFPINPairSession__clientSFSessionStart__block_invoke;
+  v9[3] = &unk_1E788B238;
+  v9[4] = selfCopy;
+  [(SFSession *)selfCopy->_sfSession setErrorHandler:v9];
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
-  v8[2] = __41__SFPINPairSession__clientSFSessionStart__block_invoke;
-  v8[3] = &unk_1E788B238;
-  v8[4] = self;
-  [(SFSession *)self->_sfSession setErrorHandler:v8];
+  v8[2] = __41__SFPINPairSession__clientSFSessionStart__block_invoke_2;
+  v8[3] = &unk_1E788B198;
+  v8[4] = selfCopy;
+  [(SFSession *)selfCopy->_sfSession setInterruptionHandler:v8];
+  [(SFSession *)selfCopy->_sfSession setInvalidationHandler:&__block_literal_global_61];
+  v6 = selfCopy->_sfSession;
   v7[0] = MEMORY[0x1E69E9820];
   v7[1] = 3221225472;
-  v7[2] = __41__SFPINPairSession__clientSFSessionStart__block_invoke_2;
-  v7[3] = &unk_1E788B198;
-  v7[4] = self;
-  [(SFSession *)self->_sfSession setInterruptionHandler:v7];
-  [(SFSession *)self->_sfSession setInvalidationHandler:&__block_literal_global_61];
-  v5 = self->_sfSession;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __41__SFPINPairSession__clientSFSessionStart__block_invoke_4;
-  v6[3] = &unk_1E788B238;
-  v6[4] = self;
-  [(SFSession *)v5 activateWithCompletion:v6];
+  v7[2] = __41__SFPINPairSession__clientSFSessionStart__block_invoke_4;
+  v7[3] = &unk_1E788B238;
+  v7[4] = selfCopy;
+  [(SFSession *)v6 activateWithCompletion:v7];
 }
 
 void __41__SFPINPairSession__clientSFSessionStart__block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (gLogCategory_SFPINPairSession <= 90 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+  v5 = v3;
+  if (gLogCategory_SFPINPairSession <= 90)
   {
-    __41__SFPINPairSession__clientSFSessionStart__block_invoke_cold_1();
+    if (gLogCategory_SFPINPairSession != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
+    {
+      __41__SFPINPairSession__clientSFSessionStart__block_invoke_cold_1(v3);
+    }
   }
 
   [*(a1 + 32) _completed:NSErrorToOSStatus()];
 }
 
-uint64_t __41__SFPINPairSession__clientSFSessionStart__block_invoke_2(uint64_t a1)
+uint64_t __41__SFPINPairSession__clientSFSessionStart__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFPINPairSession <= 60 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+  v3 = a1;
+  if (gLogCategory_SFPINPairSession <= 60)
   {
-    __41__SFPINPairSession__clientSFSessionStart__block_invoke_2_cold_1();
+    if (gLogCategory_SFPINPairSession != -1 || (a1 = _LogCategory_Initialize(), a1))
+    {
+      __41__SFPINPairSession__clientSFSessionStart__block_invoke_2_cold_1(a1, a2, a3);
+    }
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(v3 + 32);
 
-  return [v2 _completed:4294960534];
+  return [v4 _completed:4294960534];
 }
 
-void __41__SFPINPairSession__clientSFSessionStart__block_invoke_3()
+uint64_t __41__SFPINPairSession__clientSFSessionStart__block_invoke_3(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_SFPINPairSession <= 30)
   {
-    __41__SFPINPairSession__clientSFSessionStart__block_invoke_3_cold_1();
+    if (gLogCategory_SFPINPairSession != -1)
+    {
+      return __41__SFPINPairSession__clientSFSessionStart__block_invoke_3_cold_1(result, a2, a3);
+    }
+
+    result = _LogCategory_Initialize();
+    if (result)
+    {
+      return __41__SFPINPairSession__clientSFSessionStart__block_invoke_3_cold_1(result, a2, a3);
+    }
   }
+
+  return result;
 }
 
 void __41__SFPINPairSession__clientSFSessionStart__block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v8 = v3;
   if (v3)
   {
-    if (gLogCategory_SFPINPairSession <= 90 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    v6 = v3;
+    if (gLogCategory_SFPINPairSession <= 90)
     {
-      __41__SFPINPairSession__clientSFSessionStart__block_invoke_4_cold_1();
+      if (gLogCategory_SFPINPairSession != -1 || (v7 = _LogCategory_Initialize(), v6 = v8, v7))
+      {
+        __41__SFPINPairSession__clientSFSessionStart__block_invoke_4_cold_1(v6);
+      }
     }
 
     [*(a1 + 32) _completed:NSErrorToOSStatus()];
@@ -459,9 +570,12 @@ void __41__SFPINPairSession__clientSFSessionStart__block_invoke_4(uint64_t a1, v
 
   else
   {
-    if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPINPairSession <= 30)
     {
-      __41__SFPINPairSession__clientSFSessionStart__block_invoke_4_cold_2();
+      if (gLogCategory_SFPINPairSession != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        __41__SFPINPairSession__clientSFSessionStart__block_invoke_4_cold_2(v3, v4, v5);
+      }
     }
 
     *(*(a1 + 32) + 88) = 1;
@@ -472,69 +586,73 @@ void __41__SFPINPairSession__clientSFSessionStart__block_invoke_4(uint64_t a1, v
 - (void)_clientPairVerify:(id)verify start:(BOOL)start
 {
   startCopy = start;
-  v31[3] = *MEMORY[0x1E69E9840];
+  v28[3] = *MEMORY[0x1E69E9840];
   verifyCopy = verify;
-  Int64Ranged = 0;
-  v27 = 0;
-  v28 = 0;
+  v9 = verifyCopy;
   v26 = 0;
+  v24 = 0;
+  v25 = 0;
+  v23 = 0;
   if (startCopy)
   {
-    if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPINPairSession <= 30)
     {
-      [SFPINPairSession _clientPairVerify:start:];
+      if (gLogCategory_SFPINPairSession != -1 || (verifyCopy = _LogCategory_Initialize(), verifyCopy))
+      {
+        [(SFPINPairSession *)verifyCopy _clientPairVerify:v7 start:v8];
+      }
     }
 
-    p_pairVerifySession = &self->_pairVerifySession;
     pairVerifySession = self->_pairVerifySession;
     if (pairVerifySession)
     {
       CFRelease(pairVerifySession);
-      *p_pairVerifySession = 0;
+      self->_pairVerifySession = 0;
     }
 
-    v9 = PairingSessionCreate();
-    Int64Ranged = v9;
-    if (v9)
+    v11 = PairingSessionCreate();
+    v26 = v11;
+    if (v11)
     {
-      v10 = 0;
-      v11 = 0;
+      v12 = 0;
+      v13 = 0;
       goto LABEL_34;
     }
 
-    v20 = self->_pairVerifySession;
     PairingSessionSetFlags();
-    v21 = self->_pairVerifySession;
     PairingSessionSetLogging();
     if ([(SFDevice *)self->_peerDevice osVersion]>= 9)
     {
-      v22 = *p_pairVerifySession;
       PairingSessionSetACL();
     }
   }
 
   else
   {
-    if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPINPairSession <= 30)
     {
-      [SFPINPairSession _clientPairVerify:start:];
+      if (gLogCategory_SFPINPairSession != -1 || (verifyCopy = _LogCategory_Initialize(), verifyCopy))
+      {
+        [(SFPINPairSession *)verifyCopy _clientPairVerify:v7 start:v8];
+      }
     }
 
     if (!self->_pairVerifySession)
     {
-      v10 = 0;
-      v11 = 0;
-      v9 = 4294960551;
+      v12 = 0;
+      v13 = 0;
+      v11 = 4294960551;
 LABEL_54:
-      Int64Ranged = v9;
+      v26 = v11;
       goto LABEL_34;
     }
   }
 
-  if (verifyCopy)
+  if (v9)
   {
-    headerFields = [verifyCopy headerFields];
+    headerFields = [v9 headerFields];
     Int64Ranged = CFDictionaryGetInt64Ranged();
+    v26 = Int64Ranged;
 
     if (Int64Ranged)
     {
@@ -542,25 +660,25 @@ LABEL_54:
       {
         if (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize())
         {
-          [SFPINPairSession _clientPairVerify:start:];
+          [SFPINPairSession _clientPairVerify:? start:?];
         }
 
         goto LABEL_51;
       }
 
 LABEL_52:
-      v11 = 0;
-      v10 = 0;
+      v13 = 0;
+      v12 = 0;
       goto LABEL_40;
     }
 
-    headerFields2 = [verifyCopy headerFields];
+    headerFields2 = [v9 headerFields];
     CFDataGetTypeID();
-    v10 = CFDictionaryGetTypedValue();
+    v12 = CFDictionaryGetTypedValue();
 
-    if (!v10)
+    if (!v12)
     {
-      Int64Ranged = -6762;
+      v26 = -6762;
       if (gLogCategory_SFPINPairSession <= 60)
       {
         if (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize())
@@ -569,8 +687,8 @@ LABEL_52:
         }
 
 LABEL_51:
-        v11 = 0;
-        v10 = 0;
+        v13 = 0;
+        v12 = 0;
         goto LABEL_33;
       }
 
@@ -580,15 +698,14 @@ LABEL_51:
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  v14 = self->_pairVerifySession;
-  [v10 bytes];
-  [v10 length];
-  v15 = PairingSessionExchange();
-  Int64Ranged = v15;
-  if (v26 && !v15)
+  [v12 bytes];
+  [v12 length];
+  v17 = PairingSessionExchange();
+  v26 = v17;
+  if (v23 && !v17)
   {
     if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
     {
@@ -599,49 +716,49 @@ LABEL_51:
     goto LABEL_27;
   }
 
-  if (v15)
+  if (v17)
   {
 LABEL_27:
-    v11 = 0;
+    v13 = 0;
     goto LABEL_33;
   }
 
-  if (!v28)
+  if (!v25)
   {
-    v11 = 0;
-    v9 = 4294960534;
+    v13 = 0;
+    v11 = 4294960534;
     goto LABEL_54;
   }
 
-  v11 = objc_alloc_init(SFRequestMessage);
-  v16 = &unk_1F1D7D0A8;
+  v13 = objc_alloc_init(SFRequestMessage);
+  v18 = &unk_1F1D7D0A8;
   if (startCopy)
   {
-    v16 = &unk_1F1D7D090;
+    v18 = &unk_1F1D7D090;
   }
 
-  v31[0] = v16;
-  v30[0] = @"op";
-  v30[1] = @"pd";
-  v17 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v28 length:v27 freeWhenDone:1];
-  v30[2] = @"sid";
+  v28[0] = v18;
+  v27[0] = @"op";
+  v27[1] = @"pd";
+  v19 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v25 length:v24 freeWhenDone:1];
+  v27[2] = @"sid";
   clientSessionUUID = self->_clientSessionUUID;
-  v31[1] = v17;
-  v31[2] = clientSessionUUID;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:3];
-  [(SFMessage *)v11 setHeaderFields:v19];
+  v28[1] = v19;
+  v28[2] = clientSessionUUID;
+  v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:3];
+  [(SFMessage *)v13 setHeaderFields:v21];
 
-  v28 = 0;
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __44__SFPINPairSession__clientPairVerify_start___block_invoke;
-  v25[3] = &unk_1E78902C0;
-  v25[4] = self;
-  [(SFRequestMessage *)v11 setResponseHandler:v25];
-  [(SFSession *)self->_sfSession sendRequest:v11];
+  v25 = 0;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __44__SFPINPairSession__clientPairVerify_start___block_invoke;
+  v22[3] = &unk_1E78902C0;
+  v22[4] = self;
+  [(SFRequestMessage *)v13 setResponseHandler:v22];
+  [(SFSession *)self->_sfSession sendRequest:v13];
 LABEL_33:
-  v9 = Int64Ranged;
-  if (!Int64Ranged)
+  v11 = v26;
+  if (!v26)
   {
     goto LABEL_41;
   }
@@ -656,41 +773,36 @@ LABEL_34:
         goto LABEL_40;
       }
 
-      v9 = Int64Ranged;
+      v11 = v26;
     }
 
-    v24 = v9;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _clientPairVerify:start:]", 30, "PairVerify failed (not paired): %#m\n", v11);
   }
 
 LABEL_40:
   self->_pairVerifyDone = 1;
   [(SFPINPairSession *)self _clientRun];
 LABEL_41:
-  if (v28)
+  if (v25)
   {
-    free(v28);
+    free(v25);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __44__SFPINPairSession__clientPairVerify_start___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v8 = a2;
+  v6 = a2;
   v5 = a3;
   if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
   {
-    v6 = v5;
-    v7 = v8;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _clientPairVerify:start:]_block_invoke", 30, "PairVerify response %@, error %{error}\n", v5, v6);
   }
 
-  if (v8 || !v5)
+  if (v6 || !v5)
   {
     if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
     {
-      __44__SFPINPairSession__clientPairVerify_start___block_invoke_cold_1();
+      __44__SFPINPairSession__clientPairVerify_start___block_invoke_cold_1(v6);
     }
 
     *(*(a1 + 32) + 65) = 1;
@@ -706,50 +818,60 @@ void __44__SFPINPairSession__clientPairVerify_start___block_invoke(uint64_t a1, 
 - (void)_clientPairSetup:(id)setup start:(BOOL)start
 {
   startCopy = start;
-  v39[3] = *MEMORY[0x1E69E9840];
+  v34[3] = *MEMORY[0x1E69E9840];
   setupCopy = setup;
+  v9 = setupCopy;
   Int64Ranged = 0;
-  v35 = 0;
-  v36 = 0;
-  v34 = 0;
+  v30 = 0;
+  v31 = 0;
+  v29 = 0;
   if (startCopy)
   {
-    if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPINPairSession <= 30)
     {
-      [SFPINPairSession _clientPairSetup:start:];
+      if (gLogCategory_SFPINPairSession != -1 || (setupCopy = _LogCategory_Initialize(), setupCopy))
+      {
+        [(SFPINPairSession *)setupCopy _clientPairSetup:v7 start:v8];
+      }
     }
 
-    v31 = 0;
-    v33 = 0u;
-    v32 = 0u;
-    v29 = 0u;
-    v28[5] = self;
-    v30 = _clientPairSetupPromptForPIN;
-    p_pairSetupSession = &self->_pairSetupSession;
+    v26 = 0;
+    v28 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v23[5] = self;
+    v25 = _clientPairSetupPromptForPIN;
     pairSetupSession = self->_pairSetupSession;
     if (pairSetupSession)
     {
       CFRelease(pairSetupSession);
-      *p_pairSetupSession = 0;
+      self->_pairSetupSession = 0;
     }
 
-    v9 = PairingSessionCreate();
-    Int64Ranged = v9;
-    if (v9)
+    v11 = PairingSessionCreate();
+    Int64Ranged = v11;
+    if (v11)
     {
-      v10 = v9;
-      v11 = 0;
-      v12 = 0;
-      goto LABEL_38;
+      v12 = v11;
+      v13 = 0;
+      v14 = 0;
+LABEL_38:
+      if (gLogCategory_SFPINPairSession <= 60)
+      {
+        if (gLogCategory_SFPINPairSession != -1 || (v22 = _LogCategory_Initialize(), v12 = Int64Ranged, v22))
+        {
+          LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _clientPairSetup:start:]", 60, "### PairSetup failed: %#m\n", v12);
+          v12 = Int64Ranged;
+        }
+      }
+
+      goto LABEL_42;
     }
 
-    v13 = self->_pairSetupSession;
     PairingSessionSetFlags();
-    v14 = self->_pairSetupSession;
     PairingSessionSetLogging();
     if ([(SFDevice *)self->_peerDevice osVersion]>= 9)
     {
-      v15 = *p_pairSetupSession;
       PairingSessionSetACL();
     }
   }
@@ -758,28 +880,31 @@ void __44__SFPINPairSession__clientPairVerify_start___block_invoke(uint64_t a1, 
   {
     if (!self->_pairSetupSession)
     {
-      v11 = 0;
-      v12 = 0;
-      v10 = 4294960551;
+      v13 = 0;
+      v14 = 0;
+      v12 = 4294960551;
       goto LABEL_58;
     }
 
-    if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPINPairSession <= 30)
     {
-      [SFPINPairSession _clientPairSetup:start:];
+      if (gLogCategory_SFPINPairSession != -1 || (setupCopy = _LogCategory_Initialize(), setupCopy))
+      {
+        [(SFPINPairSession *)setupCopy _clientPairSetup:v7 start:v8];
+      }
     }
   }
 
-  if (!setupCopy)
+  if (!v9)
   {
-    v11 = 0;
+    v13 = 0;
     goto LABEL_24;
   }
 
-  headerFields = [setupCopy headerFields];
+  headerFields = [v9 headerFields];
   Int64Ranged = CFDictionaryGetInt64Ranged();
 
-  v10 = Int64Ranged;
+  v12 = Int64Ranged;
   if (Int64Ranged)
   {
     if (gLogCategory_SFPINPairSession > 60)
@@ -794,24 +919,23 @@ void __44__SFPINPairSession__clientPairVerify_start___block_invoke(uint64_t a1, 
         goto LABEL_61;
       }
 
-      v10 = Int64Ranged;
+      v12 = Int64Ranged;
     }
 
-    v26 = v10;
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _clientPairSetup:start:]", 60, "### PairSetup response error: %#m\n", v12);
 LABEL_61:
-    v12 = 0;
-    v11 = 0;
+    v14 = 0;
+    v13 = 0;
     goto LABEL_37;
   }
 
-  headerFields2 = [setupCopy headerFields];
+  headerFields2 = [v9 headerFields];
   CFDataGetTypeID();
-  v11 = CFDictionaryGetTypedValue();
+  v13 = CFDictionaryGetTypedValue();
 
-  if (!v11)
+  if (!v13)
   {
-    v10 = 4294960534;
+    v12 = 4294960534;
     Int64Ranged = -6762;
     if (gLogCategory_SFPINPairSession <= 60)
     {
@@ -824,20 +948,19 @@ LABEL_61:
     }
 
 LABEL_52:
-    v12 = 0;
-    v11 = 0;
+    v14 = 0;
+    v13 = 0;
 LABEL_42:
-    [(SFPINPairSession *)self _completed:v10, v26];
+    [(SFPINPairSession *)self _completed:v12];
     goto LABEL_43;
   }
 
 LABEL_24:
-  v18 = self->_pairSetupSession;
-  [v11 bytes];
-  [v11 length];
-  v19 = PairingSessionExchange();
-  Int64Ranged = v19;
-  if (v34 && !v19)
+  [v13 bytes];
+  [v13 length];
+  v17 = PairingSessionExchange();
+  Int64Ranged = v17;
+  if (v29 && !v17)
   {
     if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
     {
@@ -848,69 +971,57 @@ LABEL_24:
     goto LABEL_30;
   }
 
-  if (v19 != -6771)
+  if (v17 != -6771)
   {
-    if (v19)
+    if (v17)
     {
 LABEL_30:
-      v12 = 0;
+      v14 = 0;
       goto LABEL_37;
     }
 
-    if (v36)
+    if (v31)
     {
-      v12 = objc_alloc_init(SFRequestMessage);
-      v20 = &unk_1F1D7D0D8;
+      v14 = objc_alloc_init(SFRequestMessage);
+      v18 = &unk_1F1D7D0D8;
       if (startCopy)
       {
-        v20 = &unk_1F1D7D0C0;
+        v18 = &unk_1F1D7D0C0;
       }
 
-      v39[0] = v20;
-      v38[0] = @"op";
-      v38[1] = @"pd";
-      v21 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v36 length:v35 freeWhenDone:1];
-      v38[2] = @"sid";
+      v34[0] = v18;
+      v33[0] = @"op";
+      v33[1] = @"pd";
+      v19 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v31 length:v30 freeWhenDone:1];
+      v33[2] = @"sid";
       clientSessionUUID = self->_clientSessionUUID;
-      v39[1] = v21;
-      v39[2] = clientSessionUUID;
-      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:3];
-      [(SFMessage *)v12 setHeaderFields:v23];
+      v34[1] = v19;
+      v34[2] = clientSessionUUID;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:3];
+      [(SFMessage *)v14 setHeaderFields:v21];
 
-      v36 = 0;
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __43__SFPINPairSession__clientPairSetup_start___block_invoke;
-      v28[3] = &unk_1E78902C0;
-      v28[4] = self;
-      [(SFRequestMessage *)v12 setResponseHandler:v28];
-      [(SFSession *)self->_sfSession sendRequest:v12];
+      v31 = 0;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __43__SFPINPairSession__clientPairSetup_start___block_invoke;
+      v23[3] = &unk_1E78902C0;
+      v23[4] = self;
+      [(SFRequestMessage *)v14 setResponseHandler:v23];
+      [(SFSession *)self->_sfSession sendRequest:v14];
 LABEL_37:
-      v10 = Int64Ranged;
+      v12 = Int64Ranged;
       if (!Int64Ranged)
       {
         goto LABEL_43;
       }
 
-LABEL_38:
-      if (gLogCategory_SFPINPairSession <= 60)
-      {
-        if (gLogCategory_SFPINPairSession != -1 || (v24 = _LogCategory_Initialize(), v10 = Int64Ranged, v24))
-        {
-          v27 = v10;
-          LogPrintF();
-          [(SFPINPairSession *)self _completed:Int64Ranged, v27];
-          goto LABEL_43;
-        }
-      }
-
-      goto LABEL_42;
+      goto LABEL_38;
     }
 
-    v12 = 0;
-    v10 = 4294960534;
+    v14 = 0;
+    v12 = 4294960534;
 LABEL_58:
-    Int64Ranged = v10;
+    Int64Ranged = v12;
     goto LABEL_38;
   }
 
@@ -925,30 +1036,32 @@ LABEL_58:
     goto LABEL_30;
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_43:
-  if (v36)
+  if (v31)
   {
-    free(v36);
+    free(v31);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __43__SFPINPairSession__clientPairSetup_start___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v6 = a2;
+  v8 = a2;
   v5 = a3;
   if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _clientPairSetup:start:]_block_invoke", 30, "PairSetup response %@, error %{error}\n", v5, v8);
   }
 
-  if (v6 || !v5)
+  v6 = v8;
+  if (v8 || !v5)
   {
-    if (gLogCategory_SFPINPairSession <= 60 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_SFPINPairSession <= 60)
     {
-      __43__SFPINPairSession__clientPairSetup_start___block_invoke_cold_1();
+      if (gLogCategory_SFPINPairSession != -1 || (v7 = _LogCategory_Initialize(), v6 = v8, v7))
+      {
+        __43__SFPINPairSession__clientPairSetup_start___block_invoke_cold_1(v6);
+      }
     }
 
     [*(a1 + 32) _completed:NSErrorToOSStatus()];
@@ -979,29 +1092,29 @@ void __43__SFPINPairSession__clientPairSetup_start___block_invoke(uint64_t a1, v
   nCopy = n;
   if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
   {
-    [SFPINPairSession _clientTryPIN:];
+    [(SFPINPairSession *)nCopy _clientTryPIN:v4];
   }
 
   self->_pairSetupWaitingForUser = 0;
   if (self->_pairSetupSession)
   {
-    [nCopy UTF8String];
-    v4 = PairingSessionSetSetupCode();
-    if (!v4)
+    [(__CFString *)nCopy UTF8String];
+    v5 = PairingSessionSetSetupCode();
+    if (!v5)
     {
       [(SFPINPairSession *)self _clientPairSetup:0 start:0];
       goto LABEL_7;
     }
 
-    v5 = v4;
+    v6 = v5;
   }
 
   else
   {
-    v5 = 4294960551;
+    v6 = 4294960551;
   }
 
-  [(SFPINPairSession *)self _clientTryPIN:v5];
+  [(SFPINPairSession *)self _clientTryPIN:v6];
 LABEL_7:
 }
 
@@ -1026,7 +1139,7 @@ LABEL_7:
   Int64Ranged = CFDictionaryGetInt64Ranged();
   if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
   {
-    [(SFPINPairSession *)Int64Ranged _handleServerRequest:?];
+    [(SFPINPairSession *)Int64Ranged _handleServerRequest:requestCopy];
   }
 
   if (Int64Ranged > 2u)
@@ -1079,7 +1192,7 @@ LABEL_13:
 LABEL_17:
   if (gLogCategory_SFPINPairSession <= 30 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
   {
-    [SFPINPairSession _handleServerRequest:];
+    [SFPINPairSession _handleServerRequest:?];
   }
 
 LABEL_20:
@@ -1096,17 +1209,16 @@ LABEL_20:
 
 - (void)handleServerPairVerify:(id)verify reset:(BOOL)reset
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   verifyCopy = verify;
-  v21 = 0;
-  p_pairVerifySession = &self->_pairVerifySession;
+  v16 = 0;
   pairVerifySession = self->_pairVerifySession;
   if (reset)
   {
     if (pairVerifySession)
     {
       CFRelease(pairVerifySession);
-      *p_pairVerifySession = 0;
+      self->_pairVerifySession = 0;
     }
   }
 
@@ -1115,30 +1227,56 @@ LABEL_20:
     goto LABEL_11;
   }
 
-  v21 = PairingSessionCreate();
-  if (v21)
+  v8 = PairingSessionCreate();
+  v16 = v8;
+  if (v8)
   {
     v9 = 0;
     v10 = 0;
-LABEL_7:
-    if (gLogCategory_SFPINPairSession <= 60 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
-    {
-      LogPrintF();
-    }
-
-    goto LABEL_21;
+    goto LABEL_7;
   }
 
-  v11 = *p_pairVerifySession;
   PairingSessionSetFlags();
-  v12 = *p_pairVerifySession;
   PairingSessionSetLogging();
 LABEL_11:
   headerFields = [verifyCopy headerFields];
   CFDataGetTypeID();
   v10 = CFDictionaryGetTypedValue();
 
-  if (!v10)
+  if (v10)
+  {
+    [v10 bytes];
+    [v10 length];
+    v16 = PairingSessionExchange();
+    v9 = [[SFResponseMessage alloc] initWithRequestMessage:verifyCopy];
+    v12 = v16;
+    if (v16)
+    {
+      if (gLogCategory_SFPINPairSession <= 30)
+      {
+        if (gLogCategory_SFPINPairSession != -1 || (v13 = _LogCategory_Initialize(), v12 = v16, v13))
+        {
+          LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession handleServerPairVerify:reset:]", 30, "PairVerify failed: %#m\n", v12);
+          v12 = v16;
+        }
+      }
+
+      v17 = @"err";
+      v14 = [MEMORY[0x1E696AD98] numberWithInt:v12];
+      v18[0] = v14;
+      v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      [(SFMessage *)v9 setHeaderFields:v15];
+
+      [(SFService *)self->_sfService sendResponse:v9];
+      v16 = 0;
+      goto LABEL_21;
+    }
+
+    v8 = 4294960534;
+    v16 = -6762;
+  }
+
+  else
   {
     v9 = 0;
     if (([SFPINPairSession handleServerPairVerify:? reset:?]& 1) != 0)
@@ -1147,92 +1285,85 @@ LABEL_11:
       goto LABEL_21;
     }
 
-    if (!v21)
+    v8 = v16;
+    if (!v16)
     {
       goto LABEL_21;
     }
-
-    goto LABEL_7;
   }
 
-  v14 = *p_pairVerifySession;
-  [v10 bytes];
-  [v10 length];
-  v21 = PairingSessionExchange();
-  v9 = [[SFResponseMessage alloc] initWithRequestMessage:verifyCopy];
-  v15 = v21;
-  if (!v21)
+LABEL_7:
+  if (gLogCategory_SFPINPairSession <= 60)
   {
-    v21 = -6762;
-    goto LABEL_7;
-  }
-
-  if (gLogCategory_SFPINPairSession <= 30)
-  {
-    if (gLogCategory_SFPINPairSession != -1 || (v16 = _LogCategory_Initialize(), v15 = v21, v16))
+    if (gLogCategory_SFPINPairSession == -1)
     {
-      v20 = v15;
-      LogPrintF();
-      v15 = v21;
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_21;
+      }
+
+      v8 = v16;
     }
+
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession handleServerPairVerify:reset:]", 60, "### PairVerify failed: %#m\n", v8);
   }
 
-  v22 = @"err";
-  v17 = [MEMORY[0x1E696AD98] numberWithInt:{v15, v20}];
-  v23[0] = v17;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
-  [(SFMessage *)v9 setHeaderFields:v18];
-
-  [(SFService *)self->_sfService sendResponse:v9];
-  v21 = 0;
 LABEL_21:
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleServerPairSetup:(id)setup reset:(BOOL)reset
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   setupCopy = setup;
-  v31 = 0;
-  v29 = 0;
-  v30 = 0;
-  v28 = 0;
-  p_pairSetupSession = &self->_pairSetupSession;
+  v25 = 0;
+  v23 = 0;
+  v24 = 0;
+  v22 = 0;
   pairSetupSession = self->_pairSetupSession;
   if (reset || !pairSetupSession)
   {
-    v27 = 0u;
-    v26 = 0u;
-    v25 = 0u;
-    v24[0] = self;
-    v24[1] = _handleServerPairSetupShowPIN;
-    v24[2] = _handleServerPairSetupHidePIN;
+    v21 = 0u;
+    v20 = 0u;
+    v19 = 0u;
+    v18[0] = self;
+    v18[1] = _handleServerPairSetupShowPIN;
+    v18[2] = _handleServerPairSetupHidePIN;
     if (pairSetupSession)
     {
       CFRelease(pairSetupSession);
-      *p_pairSetupSession = 0;
+      self->_pairSetupSession = 0;
     }
 
-    v31 = PairingSessionCreate();
-    if (v31)
+    v8 = PairingSessionCreate();
+    v25 = v8;
+    if (v8)
     {
       v9 = 0;
       v10 = 0;
 LABEL_7:
-      if (gLogCategory_SFPINPairSession <= 60 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
+      if (gLogCategory_SFPINPairSession > 60)
       {
-        LogPrintF();
+        goto LABEL_23;
+      }
+
+      if (gLogCategory_SFPINPairSession != -1)
+      {
+        goto LABEL_9;
+      }
+
+      if (_LogCategory_Initialize())
+      {
+        v8 = v25;
+LABEL_9:
+        LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession handleServerPairSetup:reset:]", 60, "### PairSetup failed: %#m\n", v8);
+        goto LABEL_23;
       }
 
       goto LABEL_23;
     }
 
-    v11 = *p_pairSetupSession;
     PairingSessionSetFlags();
-    v12 = *p_pairSetupSession;
     PairingSessionSetLogging();
-    v13 = *p_pairSetupSession;
     PairingSessionSetACL();
   }
 
@@ -1242,114 +1373,129 @@ LABEL_7:
 
   if (v10)
   {
-    v15 = *p_pairSetupSession;
     [v10 bytes];
     [v10 length];
-    v31 = PairingSessionExchange();
+    v25 = PairingSessionExchange();
     v9 = [[SFResponseMessage alloc] initWithRequestMessage:setupCopy];
-    v16 = v31;
-    if (v31)
+    v12 = v25;
+    if (v25)
     {
       if (gLogCategory_SFPINPairSession <= 60)
       {
-        if (gLogCategory_SFPINPairSession != -1 || (v19 = _LogCategory_Initialize(), v16 = v31, v19))
+        if (gLogCategory_SFPINPairSession != -1 || (v15 = _LogCategory_Initialize(), v12 = v25, v15))
         {
-          v23 = v16;
-          LogPrintF();
-          v16 = v31;
+          LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession handleServerPairSetup:reset:]", 60, "## PairSetup failed: %#m\n", v12);
+          v12 = v25;
         }
       }
 
-      v34 = @"err";
-      v20 = [MEMORY[0x1E696AD98] numberWithInt:{v16, v23}];
-      v35[0] = v20;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
-      [(SFMessage *)v9 setHeaderFields:v21];
+      v28 = @"err";
+      v16 = [MEMORY[0x1E696AD98] numberWithInt:v12];
+      v29[0] = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+      [(SFMessage *)v9 setHeaderFields:v17];
     }
 
     else
     {
-      if (!v30)
+      if (!v24)
       {
-        v31 = -6762;
+        v8 = 4294960534;
+        v25 = -6762;
         goto LABEL_7;
       }
 
-      v32 = @"pd";
-      v17 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v30 length:v29 freeWhenDone:1];
-      v33 = v17;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-      [(SFMessage *)v9 setHeaderFields:v18];
+      v26 = @"pd";
+      v13 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v24 length:v23 freeWhenDone:1];
+      v27 = v13;
+      v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      [(SFMessage *)v9 setHeaderFields:v14];
 
-      v30 = 0;
+      v24 = 0;
     }
 
     [(SFService *)self->_sfService sendResponse:v9];
-    v31 = 0;
+    v25 = 0;
     goto LABEL_23;
   }
 
-  if (([SFPINPairSession handleServerPairSetup:v24 reset:?]& 1) != 0)
+  if (([SFPINPairSession handleServerPairSetup:v18 reset:?]& 1) != 0)
   {
     v9 = 0;
     v10 = 0;
     goto LABEL_23;
   }
 
-  v10 = v24[0];
+  v10 = v18[0];
   v9 = 0;
-  if (v31)
+  v8 = v25;
+  if (v25)
   {
     goto LABEL_7;
   }
 
 LABEL_23:
-  if (v30)
+  if (v24)
   {
-    free(v30);
+    free(v24);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_activate
 {
   if (gLogCategory_SFPINPairSession <= 60 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _activate]", 60, "### No peer device or service\n");
   }
 
   return [self _completed:4294960591];
+}
+
+- (uint64_t)_clientTryPIN:(__CFString *)a1 .cold.1(__CFString *a1, uint64_t a2)
+{
+  v3 = IsAppleInternalBuild();
+  v4 = @"*";
+  if (v3)
+  {
+    v4 = a1;
+  }
+
+  return LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _clientTryPIN:]", 30, "Try PIN %@\n", v4);
 }
 
 - (uint64_t)_clientTryPIN:(void *)a1 .cold.2(void *a1, uint64_t a2)
 {
   if (gLogCategory_SFPINPairSession <= 60 && (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _clientTryPIN:]", 60, "### TryPIN failed: %#m\n", a2);
   }
 
   return [a1 _completed:a2];
 }
 
-- (uint64_t)_handleServerRequest:(unsigned __int8)a1 .cold.1(unsigned __int8 a1, char a2)
+- (uint64_t)_handleServerRequest:(uint64_t)a3 .cold.1(unsigned __int8 a1, char a2, uint64_t a3)
 {
-  if (a1 <= 5u)
+  if (a1 > 5u)
   {
-    v2 = off_1E78902E0[a2 & 7];
+    v5 = "?";
   }
 
-  return LogPrintF();
+  else
+  {
+    v5 = off_1E78902E0[a2 & 7];
+  }
+
+  return LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _handleServerRequest:]", 30, "Handle server request %s: %@\n", v5, a3, v3, v4);
 }
 
-- (uint64_t)_handleServerRequest:(uint64_t)result .cold.2(uint64_t result)
+- (unsigned)_handleServerRequest:(unsigned int *)result .cold.2(unsigned int *result, uint64_t a2)
 {
   if (gLogCategory_SFPINPairSession > 90)
   {
     return result;
   }
 
-  v1 = result;
+  v2 = result;
   if (gLogCategory_SFPINPairSession == -1)
   {
     result = _LogCategory_Initialize();
@@ -1358,30 +1504,31 @@ LABEL_23:
       goto LABEL_5;
     }
 
-    v2 = *v1;
+    a2 = *v2;
   }
 
-  result = LogPrintF();
+  result = LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _handleServerRequest:]", 90, "### No request opcode: %#m\n", a2);
 LABEL_5:
-  if (*v1 && gLogCategory_SFPINPairSession <= 60)
+  v3 = *v2;
+  if (v3 && gLogCategory_SFPINPairSession <= 60)
   {
     if (gLogCategory_SFPINPairSession != -1)
     {
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _handleServerRequest:]", 60, "### Server request error: %#m\n", v3);
     }
 
     result = _LogCategory_Initialize();
     if (result)
     {
-      v3 = *v1;
-      return LogPrintF();
+      v3 = *v2;
+      return LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession _handleServerRequest:]", 60, "### Server request error: %#m\n", v3);
     }
   }
 
   return result;
 }
 
-- (uint64_t)handleServerPairVerify:(unsigned int *)a1 reset:.cold.1(unsigned int *a1)
+- (uint64_t)handleServerPairVerify:(unsigned int *)a1 reset:(uint64_t)a2 .cold.1(unsigned int *a1, uint64_t a2)
 {
   if (gLogCategory_SFPINPairSession > 60)
   {
@@ -1391,14 +1538,14 @@ LABEL_5:
   if (gLogCategory_SFPINPairSession != -1)
   {
 LABEL_3:
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession handleServerPairVerify:reset:]", 60, "### PairVerify request no pairing data: %#m\n", a2);
     return 0;
   }
 
   result = _LogCategory_Initialize();
   if (result)
   {
-    v3 = *a1;
+    a2 = *a1;
     goto LABEL_3;
   }
 
@@ -1415,7 +1562,7 @@ LABEL_3:
 
   if (gLogCategory_SFPINPairSession != -1 || (result = _LogCategory_Initialize(), result))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession handleServerPairVerify:reset:]", 60, "### PairVerify request no pairing data?\n", v1, v2);
     return 0;
   }
 
@@ -1436,10 +1583,10 @@ LABEL_3:
       goto LABEL_6;
     }
 
-    v8 = *a1;
+    a2 = *a1;
   }
 
-  LogPrintF();
+  LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession handleServerPairSetup:reset:]", 60, "### PairSetup request no pairing data: %#m\n", a2);
 LABEL_6:
   result = 0;
   *a4 = a3;
@@ -1454,9 +1601,10 @@ LABEL_6:
     return 1;
   }
 
+  v8 = v2;
   if (gLogCategory_SFPINPairSession != -1 || _LogCategory_Initialize())
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_SFPINPairSession, "[SFPINPairSession handleServerPairSetup:reset:]", 60, "### PairSetup request no pairing data?\n", v3, v8, v4, v5);
   }
 
   result = 0;

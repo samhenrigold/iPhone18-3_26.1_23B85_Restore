@@ -37,38 +37,38 @@
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v11.receiver = self;
-  v11.super_class = BWScalerProcessorControllerInput;
-  v4 = [(BWStillImageProcessorControllerInput *)&v11 description];
-  v5 = BWStillImageBufferTypeToShortString(self->_bufferType);
+  v12.receiver = self;
+  v12.super_class = BWScalerProcessorControllerInput;
+  v4 = [(BWStillImageProcessorControllerInput *)&v12 description];
+  v6 = BWStillImageBufferTypeToShortString(self->_bufferType);
   processingMode = self->_processingMode;
-  v7 = @"ApplyZoom";
+  v8 = @"ApplyZoom";
   if (processingMode == 1)
   {
-    v7 = @"ResizeToOutput";
+    v8 = @"ResizeToOutput";
   }
 
   if (processingMode == 2)
   {
-    v8 = @"CropToOutput";
+    v9 = @"CropToOutput";
   }
 
   else
   {
-    v8 = v7;
+    v9 = v8;
   }
 
   if (self->_processingModeSet)
   {
-    v9 = &stru_1F216A3D0;
+    v10 = &stru_1F216A3D0;
   }
 
   else
   {
-    v9 = @" (unresolved)";
+    v10 = @" (unresolved)";
   }
 
-  return [v3 stringWithFormat:@"%@ bufferType:%@, processingMode:%@%@, frame:%@", v4, v5, v8, v9, BWStillImageSampleBufferToDisplayString(self->_frame)];
+  return [v3 stringWithFormat:@"%@ bufferType:%@, processingMode:%@%@, frame:%@", v4, v6, v9, v10, BWStillImageSampleBufferToDisplayString(self->_frame, v5)];
 }
 
 - (void)addFrame:(opaqueCMSampleBuffer *)frame bufferType:(unint64_t)type

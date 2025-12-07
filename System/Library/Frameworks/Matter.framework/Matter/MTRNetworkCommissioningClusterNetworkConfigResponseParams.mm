@@ -90,11 +90,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:49 commandID:5 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -157,17 +157,17 @@ LABEL_6:
 
   if (*(struct + 8) == 1)
   {
-    v6 = sub_238DE36B8(struct + 8);
-    v7 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v6 length:v6[1] encoding:4];
-    [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setDebugText:v7];
+    v7 = sub_238DE36B8(struct + 8, v6);
+    v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v7 length:v7[1] encoding:4];
+    [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setDebugText:v8];
 
     debugText = [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self debugText];
 
     if (!debugText)
     {
-      v9 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-      v10 = 0x17C500000000;
-      v11 = 47;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+      v12 = 0x17C500000000;
+      v13 = 47;
       goto LABEL_15;
     }
   }
@@ -179,8 +179,8 @@ LABEL_6:
 
   if (*(struct + 32) == 1)
   {
-    v12 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:*sub_238DE36D8(struct + 32)];
-    [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setNetworkIndex:v12];
+    v14 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{LOBYTE(sub_238DE36D8(struct + 32, v10)->super.isa)}];
+    [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setNetworkIndex:v14];
   }
 
   else
@@ -190,9 +190,9 @@ LABEL_6:
 
   if (*(struct + 40) == 1)
   {
-    v13 = sub_238DE36B8(struct + 40);
-    v14 = [MEMORY[0x277CBEA90] dataWithBytes:*v13 length:v13[1]];
-    [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setClientIdentity:v14];
+    v16 = sub_238DE36B8(struct + 40, v15);
+    v17 = [MEMORY[0x277CBEA90] dataWithBytes:*v16 length:v16[1]];
+    [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setClientIdentity:v17];
   }
 
   else
@@ -200,13 +200,13 @@ LABEL_6:
     [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setClientIdentity:0];
   }
 
-  v16 = *(struct + 64);
-  v15 = struct + 64;
-  if (v16 == 1)
+  v20 = *(struct + 64);
+  v19 = struct + 64;
+  if (v20 == 1)
   {
-    v17 = sub_238DE36B8(v15);
-    v18 = [MEMORY[0x277CBEA90] dataWithBytes:*v17 length:v17[1]];
-    [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setPossessionSignature:v18];
+    v21 = sub_238DE36B8(v19, v18);
+    v22 = [MEMORY[0x277CBEA90] dataWithBytes:*v21 length:v21[1]];
+    [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setPossessionSignature:v22];
   }
 
   else
@@ -214,14 +214,14 @@ LABEL_6:
     [(MTRNetworkCommissioningClusterNetworkConfigResponseParams *)self setPossessionSignature:0];
   }
 
-  v10 = 0;
+  v12 = 0;
+  v13 = 0;
   v11 = 0;
-  v9 = 0;
 LABEL_15:
-  v19 = v11 | v10;
-  result.mFile = v9;
-  result.mError = v19;
-  result.mLine = HIDWORD(v19);
+  v23 = v13 | v12;
+  result.mFile = v11;
+  result.mError = v23;
+  result.mLine = HIDWORD(v23);
   return result;
 }
 

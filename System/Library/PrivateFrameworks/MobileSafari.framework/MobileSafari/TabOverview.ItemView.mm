@@ -7,10 +7,10 @@
 
 - (_TtCC12MobileSafari11TabOverview8ItemView)initWithCoder:(id)coder
 {
-  v4 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtCC12MobileSafari11TabOverview8ItemView_closeHandler);
+  v4 = (self + OBJC_IVAR____TtCC12MobileSafari11TabOverview8ItemView_closeHandler);
   *v4 = CGRectMake;
   v4[1] = 0;
-  v5 = (&self->super.super.super.super.super.isa + OBJC_IVAR____TtCC12MobileSafari11TabOverview8ItemView_unpinHandler);
+  v5 = (self + OBJC_IVAR____TtCC12MobileSafari11TabOverview8ItemView_unpinHandler);
   *v5 = CGRectMake;
   v5[1] = 0;
   v9.receiver = self;

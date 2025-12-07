@@ -91,7 +91,7 @@
 
 - (id)_tableNameForClass:(Class)class
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   sFSQLiteClassName = [(objc_class *)class SFSQLiteClassName];
   if ([sFSQLiteClassName hasPrefix:self->_objectClassPrefix])
   {
@@ -104,17 +104,15 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       objectClassPrefix = self->_objectClassPrefix;
-      v10 = 138412546;
-      v11 = sFSQLiteClassName;
-      v12 = 2112;
-      v13 = objectClassPrefix;
-      _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "sfsqlite: Object class %@ does not have prefix %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = sFSQLiteClassName;
+      v11 = 2112;
+      v12 = objectClassPrefix;
+      _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "sfsqlite: Object class %@ does not have prefix %@", &v9, 0x16u);
     }
 
     v5 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -735,41 +733,39 @@ LABEL_8:
 
 - (void)dropAllTables
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allTableNames = [(SFSQLite *)self allTableNames];
-  v4 = [allTableNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [allTableNames countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(allTableNames);
         }
 
-        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"drop table %@", *(*(&v10 + 1) + 8 * v7)];
+        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"drop table %@", *(*(&v9 + 1) + 8 * v7)];
         [(SFSQLite *)self executeSQL:v8];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [allTableNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [allTableNames countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)allTableNames
@@ -804,7 +800,7 @@ LABEL_8:
 
 - (id)statementForSQL:(id)l
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   lCopy = l;
   if (!self->_db)
   {
@@ -825,8 +821,8 @@ LABEL_8:
     v9 = lCopy;
     if (!sqlite3_prepare_v2(self->_db, [v9 UTF8String], -1, &ppStmt, 0))
     {
-      v13 = [SFSQLiteStatement alloc];
-      v7 = [(SFSQLiteStatement *)v13 initWithSQLite:self SQL:v9 handle:ppStmt];
+      v12 = [SFSQLiteStatement alloc];
+      v7 = [(SFSQLiteStatement *)v12 initWithSQLite:self SQL:v9 handle:ppStmt];
       [(NSMutableDictionary *)self->_statementsBySQL setObject:v7 forKeyedSubscript:v9];
 
       goto LABEL_12;
@@ -836,7 +832,7 @@ LABEL_8:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v9;
+      v15 = v9;
       _os_log_impl(&dword_1887D2000, v10, OS_LOG_TYPE_DEFAULT, "Error preparing statement: %@", buf, 0xCu);
     }
 
@@ -854,14 +850,12 @@ LABEL_11:
 
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (BOOL)executeSQL:(id)l
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = lCopy;
   db = self->_db;
@@ -870,7 +864,7 @@ LABEL_12:
     v10 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
+      LOWORD(v16) = 0;
       v11 = "sfsqlite: Database is closed";
       v12 = v10;
       v13 = 2;
@@ -895,15 +889,15 @@ LABEL_12:
     v10 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138412546;
-      v18 = v5;
-      v19 = 1024;
-      v20 = v8;
+      v16 = 138412546;
+      v17 = v5;
+      v18 = 1024;
+      v19 = v8;
       v11 = "sfsqlite: Error executing SQL: %@ (%d)";
       v12 = v10;
       v13 = 18;
 LABEL_11:
-      _os_log_impl(&dword_1887D2000, v12, OS_LOG_TYPE_DEFAULT, v11, &v17, v13);
+      _os_log_impl(&dword_1887D2000, v12, OS_LOG_TYPE_DEFAULT, v11, &v16, v13);
       goto LABEL_12;
     }
 
@@ -914,7 +908,6 @@ LABEL_13:
   v14 = 0;
 LABEL_14:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -968,7 +961,7 @@ LABEL_14:
 
 - (void)remove
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self->_openCount)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -978,26 +971,26 @@ LABEL_14:
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   [defaultManager removeItemAtPath:self->_path error:0];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
-  v4 = [&unk_1EFAAC580 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v4 = [&unk_1EFAAC580 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       v7 = 0;
       do
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(&unk_1EFAAC580);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v7);
+        v8 = *(*(&v13 + 1) + 8 * v7);
         defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
         v10 = [(NSString *)self->_path stringByAppendingString:v8];
         [defaultManager2 removeItemAtPath:v10 error:0];
@@ -1006,13 +999,11 @@ LABEL_14:
       }
 
       while (v5 != v7);
-      v5 = [&unk_1EFAAC580 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [&unk_1EFAAC580 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)close
@@ -1054,10 +1045,10 @@ LABEL_10:
 
 - (void)open
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v3 = [(SFSQLite *)self openWithError:&v9];
-  v4 = v9;
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  v3 = [(SFSQLite *)self openWithError:&v8];
+  v4 = v8;
   v5 = v4;
   if (!v3 && (!v4 || [v4 code] != 23))
   {
@@ -1066,19 +1057,17 @@ LABEL_10:
     {
       path = [(SFSQLite *)self path];
       *buf = 138412546;
-      v11 = path;
-      v12 = 2112;
-      v13 = v5;
+      v10 = path;
+      v11 = 2112;
+      v12 = v5;
       _os_log_impl(&dword_1887D2000, v6, OS_LOG_TYPE_DEFAULT, "sfsqlite: Error opening db at %@: %@", buf, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)openWithError:(id *)error
 {
-  v75[1] = *MEMORY[0x1E69E9840];
+  v74[1] = *MEMORY[0x1E69E9840];
   v6 = self->_path;
   openCount = self->_openCount;
   if (openCount)
@@ -1101,9 +1090,9 @@ LABEL_10:
 
   stringByDeletingLastPathComponent = [(NSString *)self->_path stringByDeletingLastPathComponent];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v69 = 0;
-  v13 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v69];
-  v14 = v69;
+  v68 = 0;
+  v13 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v68];
+  v14 = v68;
   v15 = v14;
   if (v13)
   {
@@ -1130,11 +1119,11 @@ LABEL_13:
 
 LABEL_6:
   errorCopy = error;
-  v68 = v15;
+  v67 = v15;
   v16 = v6;
   v17 = stringByDeletingLastPathComponent;
-  v18 = [defaultManager attributesOfItemAtPath:stringByDeletingLastPathComponent error:&v68];
-  v19 = v68;
+  v18 = [defaultManager attributesOfItemAtPath:stringByDeletingLastPathComponent error:&v67];
+  v19 = v67;
 
   v20 = *MEMORY[0x1E696A3A0];
   v21 = [v18 objectForKeyedSubscript:*MEMORY[0x1E696A3A0]];
@@ -1143,9 +1132,9 @@ LABEL_6:
 
   if ((v23 & 1) == 0)
   {
-    v74 = v20;
-    v75[0] = v22;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:&v74 count:1];
+    v73 = v20;
+    v74[0] = v22;
+    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v74 forKeys:&v73 count:1];
     [defaultManager setAttributes:v24 ofItemAtPath:v17 error:0];
   }
 
@@ -1170,10 +1159,10 @@ LABEL_14:
     v32 = MEMORY[0x1E696ABC0];
     v33 = *MEMORY[0x1E696A250];
     v34 = v30;
-    v72 = *MEMORY[0x1E696A578];
+    v71 = *MEMORY[0x1E696A578];
     v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error opening db at %@, rc=%d(0x%x), errno=%d(0x%x)", self->_path, v30, v30, v31, v31];
-    v73 = v35;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+    v72 = v35;
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
     v37 = v36 = stringByDeletingLastPathComponent;
     v38 = [v32 errorWithDomain:v33 code:v34 userInfo:v37];
 
@@ -1237,8 +1226,8 @@ LABEL_45:
 
               if ([(SFSQLite *)self userVersion])
               {
-                v65 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pragma user_version = %ld", -[SFSQLite userVersion](self, "userVersion")];
-                [(SFSQLite *)self executeSQL:v65];
+                v64 = [MEMORY[0x1E696AEC0] stringWithFormat:@"pragma user_version = %ld", -[SFSQLite userVersion](self, "userVersion")];
+                [(SFSQLite *)self executeSQL:v64];
               }
 
               goto LABEL_47;
@@ -1252,11 +1241,11 @@ LABEL_45:
           delegate = [(SFSQLite *)self delegate];
           if (delegate)
           {
-            v56 = delegate;
+            v55 = delegate;
             delegate2 = [(SFSQLite *)self delegate];
-            v58 = [delegate2 migrateDatabase:self fromVersion:v45];
+            v57 = [delegate2 migrateDatabase:self fromVersion:v45];
 
-            if (v58)
+            if (v57)
             {
               self->_hasMigrated = 1;
             }
@@ -1276,12 +1265,12 @@ LABEL_45:
         schema = [(SFSQLite *)self schema];
         [(SFSQLite *)self executeSQL:schema];
 
-        v60 = MEMORY[0x1E696AEC0];
+        v59 = MEMORY[0x1E696AEC0];
         date = [MEMORY[0x1E695DF00] date];
         [date timeIntervalSinceReferenceDate];
-        v63 = [v60 stringWithFormat:@"%f", v62];
+        v62 = [v59 stringWithFormat:@"%f", v61];
 
-        [(SFSQLite *)self setProperty:v63 forKey:@"Created"];
+        [(SFSQLite *)self setProperty:v62 forKey:@"Created"];
         [(SFSQLite *)self end];
         goto LABEL_45;
       }
@@ -1297,10 +1286,10 @@ LABEL_30:
     {
       v48 = MEMORY[0x1E696ABC0];
       v49 = *MEMORY[0x1E696A250];
-      v70 = *MEMORY[0x1E696A578];
+      v69 = *MEMORY[0x1E696A578];
       v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error opening db at %@", self->_path];
-      v71 = v50;
-      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
+      v70 = v50;
+      v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
       v10 = [v48 errorWithDomain:v49 code:0 userInfo:v51];
     }
 
@@ -1318,50 +1307,45 @@ LABEL_30:
 
 LABEL_35:
 
-  v53 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)attemptProperDatabasePermissions
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v18 = *MEMORY[0x1E696A370];
-  v4 = v18;
+  v17 = *MEMORY[0x1E696A370];
+  v4 = v17;
   v5 = [MEMORY[0x1E696AD98] numberWithShort:438];
-  v19[0] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+  v18[0] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
   [defaultManager setAttributes:v6 ofItemAtPath:self->_path error:0];
 
-  v16 = v4;
+  v15 = v4;
   v7 = [MEMORY[0x1E696AD98] numberWithShort:438];
-  v17 = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
+  v16 = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-wal", self->_path];
   [defaultManager setAttributes:v8 ofItemAtPath:v9 error:0];
 
-  v14 = v4;
+  v13 = v4;
   v10 = [MEMORY[0x1E696AD98] numberWithShort:438];
-  v15 = v10;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
+  v14 = v10;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
   v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@-shm", self->_path];
   [defaultManager setAttributes:v11 ofItemAtPath:v12 error:0];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_createSchemaHash
 {
-  v10 = *MEMORY[0x1E69E9840];
-  memset(v9, 0, sizeof(v9));
-  v3 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v9 length:32 freeWhenDone:0];
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v8, 0, sizeof(v8));
+  v3 = [MEMORY[0x1E695DEF0] dataWithBytesNoCopy:v8 length:32 freeWhenDone:0];
   schema = [(SFSQLite *)self schema];
   v5 = [schema dataUsingEncoding:4];
 
-  CC_SHA256([v5 bytes], objc_msgSend(v5, "length"), v9);
+  CC_SHA256([v5 bytes], objc_msgSend(v5, "length"), v8);
   cKUppercaseHexStringWithoutSpaces = [v3 CKUppercaseHexStringWithoutSpaces];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return cKUppercaseHexStringWithoutSpaces;
 }
@@ -1374,7 +1358,7 @@ LABEL_35:
     return off_1E70D46D8[synchronousMode];
   }
 
-  __security_simulatecrash(@"Execution has encountered an unexpected state", 1405091854);
+  __security_simulatecrash(@"Execution has encountered an unexpected state", 0x53C0000Eu);
   return @"normal";
 }
 

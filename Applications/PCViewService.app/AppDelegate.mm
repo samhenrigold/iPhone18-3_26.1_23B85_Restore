@@ -7,18 +7,19 @@
 
 - (BOOL)application:(id)application didFinishLaunchingWithOptions:(id)options
 {
+  optionsCopy = options;
   if (options)
   {
     type metadata accessor for LaunchOptionsKey(0);
     sub_10002C94C();
-    static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    optionsCopy = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   applicationCopy = application;
   selfCopy = self;
-  v8 = sub_10002C7D4();
+  v9 = sub_10002C7D4(optionsCopy);
 
-  return v8 & 1;
+  return v9 & 1;
 }
 
 - (_TtC13PCViewService11AppDelegate)init

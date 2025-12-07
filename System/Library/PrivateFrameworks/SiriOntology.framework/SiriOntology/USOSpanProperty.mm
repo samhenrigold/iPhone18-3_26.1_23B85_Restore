@@ -2,6 +2,7 @@
 - (USOSpanProperty)initWithCoder:(id)coder;
 - (USOSpanProperty)initWithKey:(id)key;
 - (USOSpanProperty)initWithKey:(id)key valueFloat:(float)float;
+- (USOSpanProperty)initWithKey:(id)key valueInt:(int)int;
 - (USOSpanProperty)initWithKey:(id)key valueString:(id)string;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -66,6 +67,25 @@
     v11 = [MEMORY[0x1E696AD98] numberWithFloat:v10];
     valueFloat = v9->_valueFloat;
     v9->_valueFloat = v11;
+  }
+
+  return v9;
+}
+
+- (USOSpanProperty)initWithKey:(id)key valueInt:(int)int
+{
+  v4 = *&int;
+  keyCopy = key;
+  v13.receiver = self;
+  v13.super_class = USOSpanProperty;
+  v8 = [(USOSpanProperty *)&v13 init];
+  v9 = v8;
+  if (v8)
+  {
+    objc_storeStrong(&v8->_key, key);
+    v10 = [MEMORY[0x1E696AD98] numberWithInt:v4];
+    valueInt = v9->_valueInt;
+    v9->_valueInt = v10;
   }
 
   return v9;

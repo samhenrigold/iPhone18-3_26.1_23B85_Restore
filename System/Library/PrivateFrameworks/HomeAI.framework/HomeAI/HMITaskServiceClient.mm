@@ -47,13 +47,13 @@
   completionHandlerCopy = completionHandler;
   if (handlerCopy)
   {
-    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE658] reason:@"Progress handler is not available in the client task service." userInfo:0];
+    v19 = [MEMORY[0x277CBEAD8] exceptionWithName:? reason:? userInfo:?];
     objc_exception_throw(v19);
   }
 
   v11 = completionHandlerCopy;
   remote = [(HMITaskServiceClient *)self remote];
-  v13 = [remote requestResidentMaintenanceWithOptions:optionsCopy andCompletionHandler:v11];
+  v13 = [remote requestResidentMaintenanceWithOptions:? andCompletionHandler:?];
 
   if (v13 == -1)
   {
@@ -76,9 +76,8 @@
 
 - (BOOL)cancelTask:(int)task
 {
-  v3 = *&task;
   remote = [(HMITaskServiceClient *)self remote];
-  [remote cancelRequest:v3];
+  [remote cancelRequest:?];
 
   return 1;
 }

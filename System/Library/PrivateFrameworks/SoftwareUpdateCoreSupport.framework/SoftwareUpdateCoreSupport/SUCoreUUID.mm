@@ -63,22 +63,20 @@ void __35__SUCoreUUID_UUIDForSoftwareUpdate__block_invoke(uint64_t a1)
   stringCopy = string;
   v5 = [[v3 alloc] initWithUUIDString:@"60EF4694-4272-4276-B9A6-DA4F8FFF93F1"];
   [v5 getUUIDBytes:data];
-  memset(&v11, 0, sizeof(v11));
-  CC_SHA1_Init(&v11);
-  CC_SHA1_Update(&v11, data, 0x10u);
+  memset(&v10, 0, sizeof(v10));
+  CC_SHA1_Init(&v10);
+  CC_SHA1_Update(&v10, data, 0x10u);
   uTF8String = [stringCopy UTF8String];
   v7 = [stringCopy length];
 
-  CC_SHA1_Update(&v11, uTF8String, v7);
+  CC_SHA1_Update(&v10, uTF8String, v7);
   memset(md, 0, sizeof(md));
-  v13 = 0;
-  CC_SHA1_Final(md, &v11);
-  v14 = *md;
-  BYTE6(v14) = md[6] & 0xF | 0x50;
-  BYTE8(v14) = md[8] & 0x3F | 0x80;
-  v8 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v14];
-
-  v9 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  CC_SHA1_Final(md, &v10);
+  v13 = *md;
+  BYTE6(v13) = md[6] & 0xF | 0x50;
+  BYTE8(v13) = md[8] & 0x3F | 0x80;
+  v8 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v13];
 
   return v8;
 }

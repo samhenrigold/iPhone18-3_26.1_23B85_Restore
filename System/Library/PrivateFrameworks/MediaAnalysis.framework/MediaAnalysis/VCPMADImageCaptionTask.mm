@@ -61,7 +61,7 @@
 
 - (int)run
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -76,27 +76,27 @@
 
   modelType = [(MADImageCaptionRequest *)self->_request modelType];
   safetyType = [(MADImageCaptionRequest *)self->_request safetyType];
-  v7 = VCPSignPostLog();
+  v7 = VCPSignPostLog(safetyType);
   v8 = os_signpost_id_generate(v7);
 
-  v9 = VCPSignPostLog();
-  v10 = v9;
-  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = VCPSignPostLog(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     signpostPayload = self->_signpostPayload;
     *buf = 138412290;
-    v78 = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADImageCaptionTask_modelPrepare", "%@", buf, 0xCu);
+    v83 = signpostPayload;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "VCPMADImageCaptionTask_modelPrepare", "%@", buf, 0xCu);
   }
 
-  v12 = [VCPMADImageCaptionResource sharedResourceForModelType:modelType safetyType:safetyType];
-  v13 = +[VCPMADResourceManager sharedManager];
-  v14 = [v13 activateResource:v12];
+  v13 = [VCPMADImageCaptionResource sharedResourceForModelType:modelType safetyType:safetyType];
+  v14 = +[VCPMADResourceManager sharedManager];
+  v15 = [v14 activateResource:v13];
 
-  imageCaptionAnalyzer = [v12 imageCaptionAnalyzer];
-  LODWORD(v13) = imageCaptionAnalyzer == 0;
+  imageCaptionAnalyzer = [v13 imageCaptionAnalyzer];
+  LODWORD(v14) = imageCaptionAnalyzer == 0;
 
-  if (v13)
+  if (v14)
   {
     if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
     {
@@ -105,32 +105,33 @@
     }
 
     request = self->_request;
-    v25 = MEMORY[0x1E696ABC0];
-    v75 = *MEMORY[0x1E696A578];
-    v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPImageCaptionAnalyzer init fail"];
-    v76 = v26;
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-    v28 = [v25 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v27];
-    [(MADImageCaptionRequest *)request setError:v28];
+    v28 = MEMORY[0x1E696ABC0];
+    v80 = *MEMORY[0x1E696A578];
+    v29 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPImageCaptionAnalyzer init fail"];
+    v81 = v29;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v81 forKeys:&v80 count:1];
+    v31 = [v28 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v30];
+    [(MADImageCaptionRequest *)request setError:v31];
 
-    [v14 reset];
+    [v15 reset];
   }
 
   else
   {
-    v16 = VCPSignPostLog();
-    v17 = v16;
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    v18 = VCPSignPostLog(v17);
+    v19 = v18;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
-      v18 = self->_signpostPayload;
+      v20 = self->_signpostPayload;
       *buf = 138412290;
-      v78 = v18;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v8, "VCPMADImageCaptionTask_modelPrepare", "%@", buf, 0xCu);
+      v83 = v20;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_END, v8, "VCPMADImageCaptionTask_modelPrepare", "%@", buf, 0xCu);
     }
 
-    v69 = 0;
-    v68 = 0;
-    if ([(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v69 orientation:&v68])
+    v74 = 0;
+    v73 = 0;
+    v21 = [(VCPMADServiceImageAsset *)self->_imageAsset loadPixelBuffer:&v74 orientation:&v73];
+    if (v21)
     {
       if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
       {
@@ -138,44 +139,44 @@
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "VCPMADImageCaptionTask image loading failed", buf, 2u);
       }
 
-      v19 = self->_request;
-      v20 = MEMORY[0x1E696ABC0];
-      v73 = *MEMORY[0x1E696A578];
-      v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
-      v74 = v21;
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-      v23 = [v20 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v22];
-      [(MADImageCaptionRequest *)v19 setError:v23];
+      v22 = self->_request;
+      v23 = MEMORY[0x1E696ABC0];
+      v78 = *MEMORY[0x1E696A578];
+      v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Image loading failed"];
+      v79 = v24;
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+      v26 = [v23 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v25];
+      [(MADImageCaptionRequest *)v22 setError:v26];
 
-      [v14 reset];
+      [v15 reset];
     }
 
     else
     {
-      v29 = VCPSignPostLog();
-      v30 = os_signpost_id_generate(v29);
+      v32 = VCPSignPostLog(v21);
+      v33 = os_signpost_id_generate(v32);
 
-      v31 = VCPSignPostLog();
-      v32 = v31;
-      if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+      v35 = VCPSignPostLog(v34);
+      v36 = v35;
+      if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
       {
-        v33 = self->_signpostPayload;
+        v37 = self->_signpostPayload;
         *buf = 138412290;
-        v78 = v33;
-        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_BEGIN, v30, "VCPMADImageCaptionTask_requestCaption", "%@", buf, 0xCu);
+        v83 = v37;
+        _os_signpost_emit_with_name_impl(&dword_1C9B70000, v36, OS_SIGNPOST_INTERVAL_BEGIN, v33, "VCPMADImageCaptionTask_requestCaption", "%@", buf, 0xCu);
       }
 
-      imageCaptionAnalyzer2 = [v12 imageCaptionAnalyzer];
-      v66[4] = self;
-      v67 = 0;
-      v66[0] = MEMORY[0x1E69E9820];
-      v66[1] = 3221225472;
-      v66[2] = __29__VCPMADImageCaptionTask_run__block_invoke;
-      v66[3] = &unk_1E834C078;
-      v35 = [imageCaptionAnalyzer2 analyzePixelBuffer:v69 flags:0 results:&v67 cancel:v66];
-      v36 = v67;
+      imageCaptionAnalyzer2 = [v13 imageCaptionAnalyzer];
+      v71[4] = self;
+      v72 = 0;
+      v71[0] = MEMORY[0x1E69E9820];
+      v71[1] = 3221225472;
+      v71[2] = __29__VCPMADImageCaptionTask_run__block_invoke;
+      v71[3] = &unk_1E834C078;
+      v39 = [imageCaptionAnalyzer2 analyzePixelBuffer:v74 flags:0 results:&v72 cancel:v71];
+      v40 = v72;
 
-      if (v35)
+      if (v39)
       {
         if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
         {
@@ -183,64 +184,64 @@
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "VCPMADImageCaptionTask image caption analysis failed", buf, 2u);
         }
 
-        v37 = self->_request;
-        v38 = MEMORY[0x1E696ABC0];
-        v71 = *MEMORY[0x1E696A578];
-        v39 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPMADImageCaptionTask image caption analysis failed"];
-        v72 = v39;
-        v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-        v41 = [v38 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v40];
-        [(MADImageCaptionRequest *)v37 setError:v41];
+        v42 = self->_request;
+        v43 = MEMORY[0x1E696ABC0];
+        v76 = *MEMORY[0x1E696A578];
+        v44 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VCPMADImageCaptionTask image caption analysis failed"];
+        v77 = v44;
+        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
+        v46 = [v43 errorWithDomain:*MEMORY[0x1E696A768] code:-18 userInfo:v45];
+        [(MADImageCaptionRequest *)v42 setError:v46];
 
-        [v14 reset];
+        [v15 reset];
       }
 
       else
       {
-        v42 = VCPSignPostLog();
-        v43 = v42;
-        if (v30 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v42))
+        v47 = VCPSignPostLog(v41);
+        v48 = v47;
+        if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
         {
-          v44 = self->_signpostPayload;
+          v49 = self->_signpostPayload;
           *buf = 138412290;
-          v78 = v44;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v43, OS_SIGNPOST_INTERVAL_END, v30, "VCPMADImageCaptionTask_requestCaption", "%@", buf, 0xCu);
+          v83 = v49;
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v48, OS_SIGNPOST_INTERVAL_END, v33, "VCPMADImageCaptionTask_requestCaption", "%@", buf, 0xCu);
         }
 
-        v45 = &MediaAnalysisImageCaptionResultsKey;
+        v50 = &MediaAnalysisImageCaptionResultsKey;
         if ((modelType - 1) >= 2)
         {
-          v45 = &MediaAnalysisMiCaImageCaptionResultsKey;
+          v50 = &MediaAnalysisMiCaImageCaptionResultsKey;
         }
 
-        v46 = [v36 objectForKeyedSubscript:*v45];
-        if ([v46 count])
+        v51 = [v40 objectForKeyedSubscript:*v50];
+        if ([v51 count])
         {
-          v47 = [v46 objectAtIndexedSubscript:0];
-          v48 = [v47 objectForKeyedSubscript:@"attributes"];
-          v49 = v48 == 0;
+          v52 = [v51 objectAtIndexedSubscript:0];
+          v53 = [v52 objectForKeyedSubscript:@"attributes"];
+          v54 = v53 == 0;
 
-          if (!v49)
+          if (!v54)
           {
-            v50 = [v46 objectAtIndexedSubscript:0];
-            v51 = [v50 objectForKeyedSubscript:@"attributes"];
+            v55 = [v51 objectAtIndexedSubscript:0];
+            v56 = [v55 objectForKeyedSubscript:@"attributes"];
 
-            v63 = [v51 objectForKeyedSubscript:@"imageCaptionText"];
-            v65 = [v51 objectForKeyedSubscript:@"imageCaptionConfidence"];
-            v64 = [v51 objectForKeyedSubscript:@"imageCaptionUnsafeContent"];
-            v52 = [v51 objectForKeyedSubscript:@"imageCaptionLowConfidence"];
-            v53 = [v51 objectForKeyedSubscript:@"classificationIdentifiers"];
-            v54 = objc_alloc(MEMORY[0x1E69AE2F8]);
-            [v65 floatValue];
-            v56 = v55;
-            bOOLValue = [v64 BOOLValue];
-            bOOLValue2 = [v52 BOOLValue];
-            LODWORD(v59) = v56;
-            v60 = [v54 initWithCaption:v63 score:bOOLValue containsUnsafeContent:bOOLValue2 isLowConfidence:v53 classificationIdentifiers:v59];
-            v61 = self->_request;
-            v70 = v60;
-            v62 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v70 count:1];
-            [(MADImageCaptionRequest *)v61 setResults:v62];
+            v68 = [v56 objectForKeyedSubscript:@"imageCaptionText"];
+            v70 = [v56 objectForKeyedSubscript:@"imageCaptionConfidence"];
+            v69 = [v56 objectForKeyedSubscript:@"imageCaptionUnsafeContent"];
+            v57 = [v56 objectForKeyedSubscript:@"imageCaptionLowConfidence"];
+            v58 = [v56 objectForKeyedSubscript:@"classificationIdentifiers"];
+            v59 = objc_alloc(MEMORY[0x1E69AE2F8]);
+            [v70 floatValue];
+            v61 = v60;
+            bOOLValue = [v69 BOOLValue];
+            bOOLValue2 = [v57 BOOLValue];
+            LODWORD(v64) = v61;
+            v65 = [v59 initWithCaption:v68 score:bOOLValue containsUnsafeContent:bOOLValue2 isLowConfidence:v58 classificationIdentifiers:v64];
+            v66 = self->_request;
+            v75 = v65;
+            v67 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
+            [(MADImageCaptionRequest *)v66 setResults:v67];
           }
         }
 
@@ -250,11 +251,11 @@
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "VCPMADImageCaptionTask complete", buf, 2u);
         }
 
-        [v14 reset];
+        [v15 reset];
       }
     }
 
-    CF<__CVBuffer *>::~CF(&v69);
+    CF<__CVBuffer *>::~CF(&v74);
   }
 
   return 0;

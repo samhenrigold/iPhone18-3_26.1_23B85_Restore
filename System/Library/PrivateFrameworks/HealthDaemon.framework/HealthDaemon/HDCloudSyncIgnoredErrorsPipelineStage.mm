@@ -71,23 +71,21 @@
 
 void __45__HDCloudSyncIgnoredErrorsPipelineStage_main__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = a3;
   _HKInitializeLogging();
   v5 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v8 = 138543618;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v4;
-    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Underlying pipeline stage failed with an ignored error: %{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v6;
+    v9 = 2114;
+    v10 = v4;
+    _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Underlying pipeline stage failed with an ignored error: %{public}@", &v7, 0x16u);
   }
 
   [*(a1 + 32) finishWithSuccess:1 error:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

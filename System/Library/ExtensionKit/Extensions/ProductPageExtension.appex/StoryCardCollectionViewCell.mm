@@ -60,7 +60,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for StoryCardCollectionViewCell();
+  v7.super_class = type metadata accessor for StoryCardCollectionViewCell(0);
   [(StoryCardCollectionViewCell *)&v7 setAccessibilityElements:v5.super.isa];
 }
 

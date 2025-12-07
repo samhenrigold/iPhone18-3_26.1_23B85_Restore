@@ -177,13 +177,11 @@
   toCopy = to;
   if ([(_INPBHomeAttributeRange *)self hasLowerValue])
   {
-    lowerValue = self->_lowerValue;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_INPBHomeAttributeRange *)self hasUpperValue])
   {
-    upperValue = self->_upperValue;
     PBDataWriterWriteDoubleField();
   }
 }

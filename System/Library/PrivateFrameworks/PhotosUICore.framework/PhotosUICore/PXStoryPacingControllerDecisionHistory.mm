@@ -95,7 +95,7 @@ void __69___PXStoryPacingControllerDecisionHistory_descriptionWithShortStyle___b
   v22 = [v3 resetReason];
   if (v3)
   {
-    [v3 targetRemainingDuration];
+    objc_msgSend_targetRemainingDuration(v3);
   }
 
   else

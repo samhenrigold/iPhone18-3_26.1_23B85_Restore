@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for EmergencyAccessBuddyDoneViewController();
+  v3.super_class = type metadata accessor for EmergencyAccessBuddyDoneViewController(0);
   v2 = v3.receiver;
   [(OBBaseWelcomeController *)&v3 viewDidLoad];
   sub_1BA337C38();
@@ -25,7 +25,7 @@
   swift_unknownObjectRelease();
   sub_1BA338540();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (_TtC18HealthExperienceUI38EmergencyAccessBuddyDoneViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

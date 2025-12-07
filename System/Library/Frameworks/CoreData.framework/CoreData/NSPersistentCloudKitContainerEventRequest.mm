@@ -36,35 +36,36 @@
 
 + (NSPersistentCloudKitContainerEventRequest)fetchEventsMatchingFetchRequest:(NSFetchRequest *)fetchRequest
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   v5 = 0x1E6EC0000uLL;
   objc_opt_self();
-  v66 = 0;
+  v68 = 0;
   entityName = [(NSFetchRequest *)fetchRequest entityName];
   v7 = objc_opt_class();
   if (![(NSString *)entityName isEqualToString:NSStringFromClass(v7)])
   {
-    v40 = MEMORY[0x1E696AEC0];
-    v41 = objc_opt_class();
-    v42 = NSStringFromClass(v41);
-    v43 = objc_opt_class();
-    v44 = NSStringFromClass(v43);
+    v39 = MEMORY[0x1E696AEC0];
+    v40 = objc_opt_class();
+    v41 = NSStringFromClass(v40);
+    v42 = objc_opt_class();
+    v43 = NSStringFromClass(v42);
     entityName2 = [(NSFetchRequest *)fetchRequest entityName];
-    v46 = objc_opt_class();
-    v47 = NSStringFromClass(v46);
-    v66 = [v40 stringWithFormat:@"Fetch requests for '%@' must use '%@' as the entity name, '%@' is not valid. Please consider using +[%@ %@].", v42, v44, entityName2, v47, NSStringFromSelector(sel_fetchRequest)];
-    if (!v66)
+    v45 = objc_opt_class();
+    v46 = NSStringFromClass(v45);
+    v47 = NSStringFromSelector(sel_fetchRequest);
+    v68 = objc_msgSend_stringWithFormat_(v39, v41, v43, entityName2, v46, v47);
+    if (!v68)
     {
       goto LABEL_30;
     }
 
-    v58 = 0;
+    v60 = 0;
     goto LABEL_36;
   }
 
   v8 = [[NSFetchRequest alloc] initWithEntityName:+[NSCKEvent entityPath]];
   [(NSFetchRequest *)v8 setAffectedStores:[(NSFetchRequest *)fetchRequest affectedStores]];
-  v58 = v8;
+  v60 = v8;
   if (([(NSFetchRequest *)fetchRequest resultType]| 4) == 4)
   {
     [(NSFetchRequest *)v8 setResultType:[(NSFetchRequest *)fetchRequest resultType]];
@@ -73,94 +74,97 @@
 
   v9 = MEMORY[0x1E696AEC0];
   v10 = objc_opt_class();
+  v11 = NSStringFromClass(v10);
   v5 = 0x1E6EC0000uLL;
-  v66 = [v9 stringWithFormat:@"'%@' only supports fetch requests with the following result types: %@, %@", NSStringFromClass(v10), +[NSFetchRequest _stringForFetchRequestResultType:](NSFetchRequest, "_stringForFetchRequestResultType:", 0), +[NSFetchRequest _stringForFetchRequestResultType:](NSFetchRequest, "_stringForFetchRequestResultType:", 4)];
-  if (v66)
+  v68 = objc_msgSend_stringWithFormat_(v9, v11, [NSFetchRequest _stringForFetchRequestResultType:0], [NSFetchRequest _stringForFetchRequestResultType:4]);
+  if (v68)
   {
 LABEL_36:
 
     v50 = MEMORY[0x1E695DF30];
     v51 = *MEMORY[0x1E695D940];
-    v52 = v66;
+    v52 = v68;
     goto LABEL_37;
   }
 
 LABEL_5:
   selfCopy = self;
-  v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](-[NSFetchRequest sortDescriptors](fetchRequest, "sortDescriptors"), "count")}];
-  v62 = 0u;
-  v63 = 0u;
+  v12 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](-[NSFetchRequest sortDescriptors](fetchRequest, "sortDescriptors"), "count")}];
   v64 = 0u;
   v65 = 0u;
-  v57 = fetchRequest;
+  v66 = 0u;
+  v67 = 0u;
+  v59 = fetchRequest;
   obj = [(NSFetchRequest *)fetchRequest sortDescriptors];
-  v12 = [(NSArray *)obj countByEnumeratingWithState:&v62 objects:v67 count:16];
-  if (v12)
+  v13 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = 0;
-    v15 = *v63;
+    v14 = v13;
+    v15 = 0;
+    v16 = *v65;
     while (2)
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v63 != v15)
+        if (*v65 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v62 + 1) + 8 * i);
-        v18 = +[NSPersistentCloudKitContainerEventRequest ckEventKeyForKey:](*(v5 + 2784), [v17 key]);
-        if (v18)
+        v18 = *(*(&v64 + 1) + 8 * i);
+        v19 = +[NSPersistentCloudKitContainerEventRequest ckEventKeyForKey:](*(v5 + 2784), [v18 key]);
+        if (v19)
         {
-          [v11 addObject:{objc_msgSend(MEMORY[0x1E696AEB0], "sortDescriptorWithKey:ascending:", v18, objc_msgSend(v17, "ascending"))}];
+          [v12 addObject:{objc_msgSend(MEMORY[0x1E696AEB0], "sortDescriptorWithKey:ascending:", v19, objc_msgSend(v18, "ascending"))}];
         }
 
         else
         {
-          v19 = v13;
-          if ([objc_msgSend(v17 "key")])
+          v20 = v14;
+          if ([objc_msgSend(v18 "key")])
           {
-            v59 = MEMORY[0x1E696AEC0];
-            v20 = [v17 key];
-            v21 = objc_opt_class();
-            v22 = NSStringFromClass(v21);
-            v23 = *(v5 + 2784);
+            v61 = MEMORY[0x1E696AEC0];
+            v21 = [v18 key];
+            v22 = objc_opt_class();
+            v23 = NSStringFromClass(v22);
             v24 = objc_opt_class();
             v25 = NSStringFromClass(v24);
             v26 = NSStringFromSelector(sel_affectedStores);
             v27 = objc_opt_class();
-            v54 = NSStringFromClass(v27);
+            v55 = NSStringFromClass(v27);
+            v57 = NSStringFromSelector(sel_affectedStores);
             v5 = 0x1E6EC0000;
-            v28 = [v59 stringWithFormat:@"Cannot sort events by '%@', it is not a persisted property of '%@'. Use '%@.%@' or '%@.%@' instead.", v20, v22, v25, v26, v54, NSStringFromSelector(sel_affectedStores)];
+            v28 = objc_msgSend_stringWithFormat_(v61, v21, v23, v25, v26, v55, v57);
           }
 
           else
           {
-            v29 = [objc_msgSend(v17 "key")];
+            v29 = [objc_msgSend(v18 "key")];
             v30 = MEMORY[0x1E696AEC0];
-            v31 = [v17 key];
+            v31 = [v18 key];
             v32 = objc_opt_class();
             v33 = NSStringFromClass(v32);
             v34 = v33;
             if (!v29)
             {
-              v14 = [v30 stringWithFormat:@"Cannot sort events by '%@', it is not an attribute of '%@'.", v31, v33];
-              v66 = v14;
+              v15 = objc_msgSend_stringWithFormat_(v30, v31, v33);
+              v68 = v15;
               goto LABEL_22;
             }
 
             v35 = NSStringFromSelector(sel_domain);
+            v53 = NSStringFromSelector(sel_code);
+            v28 = objc_msgSend_stringWithFormat_(v30, v31, v34, v35, v53, v54, v56);
           }
 
-          v14 = v28;
-          v66 = v28;
-          v13 = v19;
+          v15 = v28;
+          v68 = v28;
+          v14 = v20;
         }
       }
 
-      v13 = [(NSArray *)obj countByEnumeratingWithState:&v62 objects:v67 count:16];
-      if (v13)
+      v14 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+      if (v14)
       {
         continue;
       }
@@ -171,29 +175,29 @@ LABEL_5:
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
 LABEL_22:
-  [(NSFetchRequest *)v58 setSortDescriptors:v11];
+  [(NSFetchRequest *)v60 setSortDescriptors:v12];
 
-  if (v14)
+  if (v15)
   {
     goto LABEL_36;
   }
 
-  if ([(NSFetchRequest *)v57 predicate])
+  if ([(NSFetchRequest *)v59 predicate])
   {
-    v36 = [NSPersistentCloudKitContainerEventRequest translatePredicate:&v66 orReturnFailureReason:?];
-    [(NSFetchRequest *)v58 setPredicate:v36];
+    v36 = [NSPersistentCloudKitContainerEventRequest translatePredicate:&v68 orReturnFailureReason:?];
+    [(NSFetchRequest *)v60 setPredicate:v36];
 
-    if (v66)
+    if (v68)
     {
       goto LABEL_36;
     }
   }
 
-  if (!v58)
+  if (!v60)
   {
 LABEL_30:
     LogStream = _PFLogGetLogStream(17);
@@ -217,9 +221,7 @@ LABEL_37:
     objc_exception_throw([v50 exceptionWithName:v51 reason:v52 userInfo:0]);
   }
 
-  v37 = [[selfCopy alloc] initWithCKEventFetchRequest:v58];
-
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = [[selfCopy alloc] initWithCKEventFetchRequest:v60];
 
   return v37;
 }
@@ -305,18 +307,18 @@ LABEL_37:
 
 + (uint64_t)translatePredicate:(uint64_t *)predicate orReturnFailureReason:
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   objc_opt_self();
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(objc_msgSend(a2, "subpredicates"), "count")}];
-    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
     subpredicates = [a2 subpredicates];
-    v7 = [subpredicates countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v7 = [subpredicates countByEnumeratingWithState:&v27 objects:v33 count:16];
     if (!v7)
     {
 LABEL_10:
@@ -325,12 +327,12 @@ LABEL_10:
     }
 
     v8 = v7;
-    v9 = *v27;
+    v9 = *v28;
 LABEL_4:
     v10 = 0;
     while (1)
     {
-      if (*v27 != v9)
+      if (*v28 != v9)
       {
         objc_enumerationMutation(subpredicates);
       }
@@ -346,7 +348,7 @@ LABEL_4:
 
       if (v8 == ++v10)
       {
-        v8 = [subpredicates countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v8 = [subpredicates countByEnumeratingWithState:&v27 objects:v33 count:16];
         if (v8)
         {
           goto LABEL_4;
@@ -364,7 +366,8 @@ LABEL_4:
     v18 = objc_opt_class();
     v19 = NSStringFromClass(v18);
     v20 = objc_opt_class();
-    v16 = [v17 stringWithFormat:@"'%@' does not support predicates of type '%@'.", v19, NSStringFromClass(v20)];
+    v26 = NSStringFromClass(v20);
+    v16 = objc_msgSend_stringWithFormat_(v17, v19, v26);
     goto LABEL_15;
   }
 
@@ -372,11 +375,12 @@ LABEL_4:
   {
     v14 = MEMORY[0x1E696AEC0];
     v15 = objc_opt_class();
-    v16 = [v14 stringWithFormat:@"'%@' does not support predicates with custom selectors: %@", NSStringFromClass(v15), a2];
+    v25 = NSStringFromClass(v15);
+    v16 = objc_msgSend_stringWithFormat_(v14, v25, a2);
 LABEL_15:
     v13 = 0;
     *predicate = v16;
-    goto LABEL_26;
+    return v13;
   }
 
   v5 = +[NSPersistentCloudKitContainerEventRequest translateExpression:orReturnFailureReason:](NSPersistentCloudKitContainerEventRequest, [a2 leftExpression], predicate);
@@ -405,7 +409,7 @@ LABEL_20:
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v31 = a2;
+      v32 = a2;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: NSPersistentCloudKitContainerEventRequest predicate translation failed but did not return a failure reason: %@\n", buf, 0xCu);
     }
 
@@ -413,15 +417,13 @@ LABEL_20:
     if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v31 = a2;
+      v32 = a2;
       _os_log_fault_impl(&dword_18565F000, v23, OS_LOG_TYPE_FAULT, "CoreData: NSPersistentCloudKitContainerEventRequest predicate translation failed but did not return a failure reason: %@", buf, 0xCu);
     }
 
-    v13 = 0;
+    return 0;
   }
 
-LABEL_26:
-  v24 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -464,7 +466,8 @@ LABEL_26:
       v15 = NSStringFromSelector(sel_affectedStores);
       v16 = objc_opt_class();
       v17 = NSStringFromClass(v16);
-      v18 = [v10 stringWithFormat:@"Cannot query events by '%@', it is not a persisted property of '%@'. Use '%@.%@' or '%@.%@' instead.", keyPath, v12, v14, v15, v17, NSStringFromSelector(sel_affectedStores)];
+      v26 = NSStringFromSelector(sel_affectedStores);
+      v18 = objc_msgSend_stringWithFormat_(v10, keyPath, v12, v14, v15, v17, v26);
     }
 
     else
@@ -477,11 +480,13 @@ LABEL_26:
       if (v19)
       {
         v24 = NSStringFromSelector(sel_domain);
+        v25 = NSStringFromSelector(sel_code);
+        v18 = objc_msgSend_stringWithFormat_(v20, keyPath, v23, v24, v25);
       }
 
       else
       {
-        v18 = [v20 stringWithFormat:@"Cannot query events by '%@', it is not an attribute of '%@'.", keyPath, v22, v25, v26, v27, v28];
+        v18 = objc_msgSend_stringWithFormat_(v20, keyPath, v22);
       }
     }
 

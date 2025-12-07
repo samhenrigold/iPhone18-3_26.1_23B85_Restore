@@ -191,7 +191,7 @@
       v18 = v17;
       if (locationCopy)
       {
-        [locationCopy clientLocation];
+        objc_msgSend_clientLocation(locationCopy);
         v19 = *(&v46 + 4);
       }
 

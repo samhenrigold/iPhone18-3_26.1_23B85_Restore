@@ -27,6 +27,7 @@
 - (int64_t)visibility;
 - (void)addSubproperties:(id)subproperties;
 - (void)addSubproperty:(id)subproperty;
+- (void)setBoolValue:(BOOL)value;
 - (void)setCGFloatValue:(double)value;
 - (void)setIntegerValue:(int64_t)value;
 - (void)setPointValue:(CGPoint)value;
@@ -327,6 +328,21 @@
   bOOLValue = [value3 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setBoolValue:(BOOL)value
+{
+  valueCopy = value;
+  value = [(DBGSnapshotProperty *)self value];
+  if (value)
+  {
+    value2 = [(DBGSnapshotProperty *)self value];
+    objc_opt_class();
+    objc_opt_isKindOfClass();
+  }
+
+  value3 = [(DBGSnapshotProperty *)self value];
+  [value3 setBoolValue:valueCopy];
 }
 
 - (int64_t)integerValue

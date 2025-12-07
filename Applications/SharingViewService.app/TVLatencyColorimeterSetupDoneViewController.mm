@@ -11,7 +11,7 @@
 {
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupDoneViewController _handleDismissButton]", 30, "Done button\n");
   }
 
   mainController = [(TVLatencyColorimeterSetupBaseViewController *)self mainController];
@@ -23,7 +23,7 @@
   disappearCopy = disappear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupDoneViewController viewDidDisappear:]", 30, "Done ViewDidDisappear\n");
   }
 
   v5.receiver = self;
@@ -36,7 +36,7 @@
   appearCopy = appear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupDoneViewController viewWillAppear:]", 30, "Done ViewWillAppear\n");
   }
 
   v20.receiver = self;

@@ -218,7 +218,7 @@
 - (void)manualCurlFinished:(id)finished
 {
   finishedCopy = finished;
-  v5 = _AESwipeLog();
+  v5 = _AESwipeLog(finishedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -244,7 +244,7 @@
     {
       do
       {
-        v7 = _AESwipeLog();
+        v7 = _AESwipeLog(self);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
@@ -264,7 +264,7 @@
     {
       do
       {
-        v5 = _AESwipeLog();
+        v5 = _AESwipeLog(self);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           *v9 = 0;
@@ -363,7 +363,7 @@ LABEL_8:
 {
   if (self->_manualCurl)
   {
-    v3 = _AESwipeLog();
+    v3 = _AESwipeLog(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       manualCurl = self->_manualCurl;
@@ -595,11 +595,11 @@ LABEL_8:
   self->_manualCurlIsRightSide = side;
   if (self->_manualCurl && self->_swipeBeforeManualCurl)
   {
-    v6 = _AESwipeLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v7 = _AESwipeLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "started so not swiping", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "started so not swiping", v8, 2u);
     }
 
     self->_swipeBeforeManualCurl = 0;
@@ -609,13 +609,14 @@ LABEL_8:
 - (void)manualCurlGesture:(id)gesture
 {
   gestureCopy = gesture;
-  if ([(BKBookContainerView *)self ignoreNextGesture])
+  ignoreNextGesture = [(BKBookContainerView *)self ignoreNextGesture];
+  if (ignoreNextGesture)
   {
-    v5 = _AESwipeLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AESwipeLog(ignoreNextGesture);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Ignoring gesture for manual curl", buf, 2u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Ignoring gesture for manual curl", buf, 2u);
     }
 
 LABEL_4:
@@ -632,32 +633,32 @@ LABEL_4:
         goto LABEL_5;
       }
 
-      [(BKIndirectPanGestureRecognizer *)gestureCopy locationInView:self];
-      v12 = v11;
-      v14 = v13;
+      bounds = [(BKIndirectPanGestureRecognizer *)gestureCopy locationInView:self];
+      v15 = v14;
+      v17 = v16;
       if (self->_indirectManualCurlRecognizer == gestureCopy)
       {
         [(BKIndirectPanGestureRecognizer *)gestureCopy translationInView:self];
-        v56 = v55;
-        v58 = v57;
+        v65 = v64;
+        v67 = v66;
         [(BKBookContainerView *)self bounds];
-        v59 = CGRectGetWidth(v111) * 0.05;
-        if (fabs(v56) < fmaxf(fminf(v59, 10.0), 3.0))
+        v69 = CGRectGetWidth(v122) * 0.05;
+        if (fabs(v65) < fmaxf(fminf(v69, 10.0), 3.0))
         {
-          v60 = _AESwipeLog();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+          v70 = _AESwipeLog(v68);
+          if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
           {
-            *v101 = v12;
-            *&v101[1] = v14;
-            v61 = [NSValue valueWithBytes:v101 objCType:"{CGPoint=dd}"];
-            *v100 = v56;
-            *&v100[1] = v58;
-            v62 = [NSValue valueWithBytes:v100 objCType:"{CGPoint=dd}"];
+            *v112 = v15;
+            *&v112[1] = v17;
+            v71 = [NSValue valueWithBytes:v112 objCType:"{CGPoint=dd}"];
+            *v111 = v65;
+            *&v111[1] = v67;
+            v72 = [NSValue valueWithBytes:v111 objCType:"{CGPoint=dd}"];
             *buf = 138412546;
-            *v107 = v61;
-            *&v107[8] = 2112;
-            v108 = v62;
-            _os_log_impl(&dword_0, v60, OS_LOG_TYPE_DEFAULT, "indirect translation/location was insufficient to update curl location:%@ translation:%@", buf, 0x16u);
+            *v118 = v71;
+            *&v118[8] = 2112;
+            v119 = v72;
+            _os_log_impl(&dword_0, v70, OS_LOG_TYPE_DEFAULT, "indirect translation/location was insufficient to update curl location:%@ translation:%@", buf, 0x16u);
           }
 
           goto LABEL_5;
@@ -665,91 +666,100 @@ LABEL_4:
 
         if (!self->_manualCurl)
         {
-          [(BKBookContainerView *)self _setupManualCurlForIndirectRecognizerForTranslation:v56, v58];
+          [(BKBookContainerView *)self _setupManualCurlForIndirectRecognizerForTranslation:v65, v67];
         }
 
-        v65 = 0.0;
+        v75 = 0.0;
         if (self->_manualCurlIsRightSide)
         {
           [(BKBookContainerView *)self bounds];
-          v65 = v66;
+          v75 = v76;
         }
 
-        [(BKBookContainerView *)self bounds];
+        bounds = [(BKBookContainerView *)self bounds];
         manualCurlIsRightSide = self->_manualCurlIsRightSide;
-        if (manualCurlIsRightSide && v56 > 0.0)
+        if (manualCurlIsRightSide && v65 > 0.0)
         {
-          v5 = _AESwipeLog();
-          if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+          v6 = _AESwipeLog(bounds);
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Swiping left, capping right translation", buf, 2u);
+            _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Swiping left, capping right translation", buf, 2u);
           }
 
           goto LABEL_4;
         }
 
-        if (!manualCurlIsRightSide && v56 < 0.0)
+        if (!manualCurlIsRightSide && v65 < 0.0)
         {
-          v5 = _AESwipeLog();
-          if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+          v6 = _AESwipeLog(bounds);
+          if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "Swiping right, capping left translation", buf, 2u);
+            _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Swiping right, capping left translation", buf, 2u);
           }
 
           goto LABEL_4;
         }
 
-        v12 = v56 + v65;
-        v14 = v58 + v67 * 0.5;
+        v15 = v65 + v75;
+        v17 = v67 + v77 * 0.5;
       }
 
-      v15 = _AESwipeLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v18 = _AESwipeLog(bounds);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
       {
-        v109.x = v12;
-        v109.y = v14;
-        v16 = NSStringFromCGPoint(v109);
+        v120.x = v15;
+        v120.y = v17;
+        v19 = NSStringFromCGPoint(v120);
         *buf = 138412290;
-        *v107 = v16;
-        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "Update toLocation:%@", buf, 0xCu);
+        *v118 = v19;
+        _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Update toLocation:%@", buf, 0xCu);
       }
 
       kdebug_trace();
       delegate = [(BKBookContainerView *)self delegate];
-      [delegate bookContainerView:self updateManualCurl:self->_manualCurl toLocation:{v12, v14}];
+      [delegate bookContainerView:self updateManualCurl:self->_manualCurl toLocation:{v15, v17}];
 
       goto LABEL_5;
     }
 
-    if ([(BKIndirectPanGestureRecognizer *)gestureCopy state]!= &dword_0 + 3 && [(BKIndirectPanGestureRecognizer *)gestureCopy state]!= &dword_4 && [(BKIndirectPanGestureRecognizer *)gestureCopy state]!= &dword_4 + 1)
+    state = [(BKIndirectPanGestureRecognizer *)gestureCopy state];
+    if (state != (&dword_0 + 3))
     {
-      goto LABEL_5;
+      state = [(BKIndirectPanGestureRecognizer *)gestureCopy state];
+      if (state != &dword_4)
+      {
+        state = [(BKIndirectPanGestureRecognizer *)gestureCopy state];
+        if (state != (&dword_4 + 1))
+        {
+          goto LABEL_5;
+        }
+      }
     }
 
-    v18 = _AESwipeLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v22 = _AESwipeLog(state);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = self->_manualCurl != 0;
+      v23 = self->_manualCurl != 0;
       trackingManualCurl = self->_trackingManualCurl;
       swipeBeforeManualCurl = self->_swipeBeforeManualCurl;
       *buf = 67109632;
-      *v107 = v19;
-      *&v107[4] = 1024;
-      *&v107[6] = trackingManualCurl;
-      LOWORD(v108) = 1024;
-      *(&v108 + 2) = swipeBeforeManualCurl;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Ended curl gesture.  Have manual Curl? %d. tracking? %d. _swipeBeforeManual? %d", buf, 0x14u);
+      *v118 = v23;
+      *&v118[4] = 1024;
+      *&v118[6] = trackingManualCurl;
+      LOWORD(v119) = 1024;
+      *(&v119 + 2) = swipeBeforeManualCurl;
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Ended curl gesture.  Have manual Curl? %d. tracking? %d. _swipeBeforeManual? %d", buf, 0x14u);
     }
 
     if (self->_swipeBeforeManualCurl)
     {
-      v22 = _AESwipeLog();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v27 = _AESwipeLog(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "swiping before curl", buf, 2u);
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "swiping before curl", buf, 2u);
       }
 
       self->_swipeBeforeManualCurl = 0;
@@ -758,7 +768,7 @@ LABEL_4:
       {
         chapterTurn = self->_chapterTurn;
         delegate2 = [(BKBookContainerView *)self delegate];
-        v25 = delegate2;
+        v30 = delegate2;
         swipeDirection = self->_swipeDirection;
         if (chapterTurn)
         {
@@ -776,38 +786,38 @@ LABEL_4:
 
     if (self->_startedWhilePreviousFinishing)
     {
-      v34 = _AESwipeLog();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v40 = _AESwipeLog(v26);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v34, OS_LOG_TYPE_DEFAULT, "Started another curl while previous was finishing", buf, 2u);
+        _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "Started another curl while previous was finishing", buf, 2u);
       }
 
       self->_startedWhilePreviousFinishing = 0;
-      v35 = [(BKBookContainerView *)self _tapLocationForTouchLocation:self->_startPoint.x, self->_startPoint.y];
-      if (v35 == 1)
+      v41 = [(BKBookContainerView *)self _tapLocationForTouchLocation:self->_startPoint.x, self->_startPoint.y];
+      if (v41 == 1)
       {
-        v36 = -1;
+        v42 = -1;
       }
 
       else
       {
-        v36 = 0;
+        v42 = 0;
       }
 
-      if (v35 == 2)
+      if (v41 == 2)
       {
-        v36 = 1;
+        v42 = 1;
       }
 
-      self->_pagesToTurnAfterFinishing += v36;
+      self->_pagesToTurnAfterFinishing += v42;
       if (!self->_finishingManualCurl)
       {
-        v37 = _AESwipeLog();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v43 = _AESwipeLog(v41);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v37, OS_LOG_TYPE_DEFAULT, "finished curl before ending previous curl", buf, 2u);
+          _os_log_impl(&dword_0, v43, OS_LOG_TYPE_DEFAULT, "finished curl before ending previous curl", buf, 2u);
         }
 
         if (self->_pagesToTurnAfterFinishing)
@@ -830,11 +840,11 @@ LABEL_4:
     {
       if (manualCurl)
       {
-        v63 = _AESwipeLog();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+        v73 = _AESwipeLog(v26);
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v63, OS_LOG_TYPE_ERROR, "Not tracking but we have a manual curl, cancelling", buf, 2u);
+          _os_log_impl(&dword_0, v73, OS_LOG_TYPE_ERROR, "Not tracking but we have a manual curl, cancelling", buf, 2u);
         }
 
         delegate4 = [(BKBookContainerView *)self delegate];
@@ -846,11 +856,11 @@ LABEL_4:
 
     if (!manualCurl)
     {
-      v74 = _AESwipeLog();
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+      v84 = _AESwipeLog(v26);
+      if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v74, OS_LOG_TYPE_ERROR, "Tracking a manual curl but no manual curl created when gesture recognizer hit an ending state. No longer tracking manual curl", buf, 2u);
+        _os_log_impl(&dword_0, v84, OS_LOG_TYPE_ERROR, "Tracking a manual curl but no manual curl created when gesture recognizer hit an ending state. No longer tracking manual curl", buf, 2u);
       }
 
       self->_trackingManualCurl = 0;
@@ -860,29 +870,29 @@ LABEL_4:
     if (self->_manualCurlRecognizer == gestureCopy)
     {
       [(BKIndirectPanGestureRecognizer *)gestureCopy locationInView:self];
-      v77 = v76;
-      v79 = v78;
-      v80 = [(BKBookContainerView *)self _tapLocationForTouchLocation:self->_startPoint.x, self->_startPoint.y];
+      v87 = v86;
+      v89 = v88;
+      v90 = [(BKBookContainerView *)self _tapLocationForTouchLocation:self->_startPoint.x, self->_startPoint.y];
       [(BKBookContainerView *)self bounds];
-      v82 = v80 == 2 && v81 * 0.5 > v77;
+      v92 = v90 == 2 && v91 * 0.5 > v87;
       [(BKBookContainerView *)self bounds];
-      v84 = v80 == 1 && v83 * 0.5 < v77;
-      [(BKIndirectPanGestureRecognizer *)gestureCopy velocityInView:self, v83 * 0.5];
-      v86 = v85;
-      if (v87 > 300.0 && v80 == 1 || v87 < -300.0 && v80 == 2 || v84 || v82)
+      v94 = v90 == 1 && v93 * 0.5 < v87;
+      [(BKIndirectPanGestureRecognizer *)gestureCopy velocityInView:self, v93 * 0.5];
+      v96 = v95;
+      if (v97 > 300.0 && v90 == 1 || v97 < -300.0 && v90 == 2 || v94 || v92)
       {
 LABEL_135:
-        v39 = 1;
+        v45 = 1;
         goto LABEL_136;
       }
 
-      v88 = [(BKBookContainerView *)self _tapLocationForTouchLocation:v77, v79];
-      if (!v88)
+      v98 = [(BKBookContainerView *)self _tapLocationForTouchLocation:v87, v89];
+      if (!v98)
       {
         goto LABEL_53;
       }
 
-      v39 = v86 > 300.0 && v88 == v80;
+      v45 = v96 > 300.0 && v98 == v90;
     }
 
     else
@@ -890,17 +900,17 @@ LABEL_135:
       if (self->_indirectManualCurlRecognizer != gestureCopy)
       {
 LABEL_53:
-        v39 = 0;
+        v45 = 0;
         goto LABEL_136;
       }
 
       [(BKIndirectPanGestureRecognizer *)gestureCopy velocityInView:self];
-      v39 = v90 > 300.0 && !self->_manualCurlIsRightSide || v90 < -300.0 && self->_manualCurlIsRightSide;
+      v45 = v100 > 300.0 && !self->_manualCurlIsRightSide || v100 < -300.0 && self->_manualCurlIsRightSide;
       [(BKIndirectPanGestureRecognizer *)gestureCopy translationInView:self];
-      v92 = v91;
+      v102 = v101;
       [(BKBookContainerView *)self bounds];
-      v93 = CGRectGetWidth(v112) * 0.4;
-      if (v92 > v93 && !self->_manualCurlIsRightSide || v92 < -v93 && self->_manualCurlIsRightSide)
+      v103 = CGRectGetWidth(v123) * 0.4;
+      if (v102 > v103 && !self->_manualCurlIsRightSide || v102 < -v103 && self->_manualCurlIsRightSide)
       {
         goto LABEL_135;
       }
@@ -908,15 +918,16 @@ LABEL_53:
 
 LABEL_136:
     self->_finishingManualCurl = 1;
-    v94 = [(BKIndirectPanGestureRecognizer *)gestureCopy state]== &dword_0 + 3 && v39;
-    v95 = _AESwipeLog();
-    v96 = os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT);
-    if (v94)
+    state2 = [(BKIndirectPanGestureRecognizer *)gestureCopy state];
+    v105 = state2 == &dword_0 + 3 && v45;
+    v106 = _AESwipeLog(state2);
+    v107 = os_log_type_enabled(v106, OS_LOG_TYPE_DEFAULT);
+    if (v105)
     {
-      if (v96)
+      if (v107)
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v95, OS_LOG_TYPE_DEFAULT, "finishing manual curl gesture", buf, 2u);
+        _os_log_impl(&dword_0, v106, OS_LOG_TYPE_DEFAULT, "finishing manual curl gesture", buf, 2u);
       }
 
       delegate5 = [(BKBookContainerView *)self delegate];
@@ -925,12 +936,12 @@ LABEL_136:
 
     else
     {
-      if (v96)
+      if (v107)
       {
-        v98 = [NSNumber numberWithBool:v39];
+        v109 = [NSNumber numberWithBool:v45];
         *buf = 138412290;
-        *v107 = v98;
-        _os_log_impl(&dword_0, v95, OS_LOG_TYPE_DEFAULT, "Cancelling manual curl. Valid location? %@", buf, 0xCu);
+        *v118 = v109;
+        _os_log_impl(&dword_0, v106, OS_LOG_TYPE_DEFAULT, "Cancelling manual curl. Valid location? %@", buf, 0xCu);
       }
 
       delegate6 = [(BKBookContainerView *)self delegate];
@@ -941,44 +952,44 @@ LABEL_136:
   }
 
   delegate7 = [(BKBookContainerView *)self delegate];
-  v7 = [delegate7 bookContainerViewShouldBeginManualCurl:self];
+  v8 = [delegate7 bookContainerViewShouldBeginManualCurl:self];
 
-  if (v7)
+  if (v8)
   {
     if (self->_finishingManualCurl)
     {
       self->_startedWhilePreviousFinishing = 1;
-      v8 = _AESwipeLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = _AESwipeLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "began while previous finishing", buf, 2u);
+        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "began while previous finishing", buf, 2u);
       }
 
       [(BKBookContainerView *)self _startLocationInViewWithGesture:gestureCopy];
-      self->_lastPoint.x = v9;
-      self->_lastPoint.y = v10;
+      self->_lastPoint.x = v11;
+      self->_lastPoint.y = v12;
       self->_startPoint = self->_lastPoint;
       goto LABEL_64;
     }
 
     p_startPoint = &self->_startPoint;
-    [(BKBookContainerView *)self _startLocationInViewWithGesture:gestureCopy];
-    self->_lastPoint.x = v28;
-    self->_lastPoint.y = v29;
+    v33 = [(BKBookContainerView *)self _startLocationInViewWithGesture:gestureCopy];
+    self->_lastPoint.x = v34;
+    self->_lastPoint.y = v35;
     self->_startPoint = self->_lastPoint;
-    v30 = _AESwipeLog();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v36 = _AESwipeLog(v33);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v110.x = p_startPoint->x;
-      v110.y = self->_startPoint.y;
-      v31 = NSStringFromCGPoint(v110);
+      v121.x = p_startPoint->x;
+      v121.y = self->_startPoint.y;
+      v37 = NSStringFromCGPoint(v121);
       *buf = 138412290;
-      *v107 = v31;
-      _os_log_impl(&dword_0, v30, OS_LOG_TYPE_INFO, "curl began with start %@", buf, 0xCu);
+      *v118 = v37;
+      _os_log_impl(&dword_0, v36, OS_LOG_TYPE_INFO, "curl began with start %@", buf, 0xCu);
     }
 
-    v32 = [(BKBookContainerView *)self _tapLocationForTouchLocation:p_startPoint->x, self->_startPoint.y];
+    v38 = [(BKBookContainerView *)self _tapLocationForTouchLocation:p_startPoint->x, self->_startPoint.y];
     if (self->_indirectManualCurlRecognizer == gestureCopy)
     {
       p_trackingManualCurl = &self->_trackingManualCurl;
@@ -988,36 +999,36 @@ LABEL_136:
     else
     {
       p_trackingManualCurl = &self->_trackingManualCurl;
-      self->_trackingManualCurl = v32 - 1 < 2;
-      if (v32 - 1 > 1)
+      self->_trackingManualCurl = (v38 - 1) < 2;
+      if ((v38 - 1) > 1)
       {
         goto LABEL_58;
       }
     }
 
-    v40 = +[AETestDriver shared];
-    [v40 postEvent:kBETestDriverPageTurnStart sender:self];
+    v46 = +[AETestDriver shared];
+    [v46 postEvent:kBETestDriverPageTurnStart sender:self];
 
-    v41 = +[AETestDriver shared];
-    [v41 postEvent:kBETestDriverPageTurnSetupStart sender:self];
+    v47 = +[AETestDriver shared];
+    [v47 postEvent:kBETestDriverPageTurnSetupStart sender:self];
 
 LABEL_58:
-    v42 = _AESwipeLog();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v48 = _AESwipeLog(v38);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
       if (*p_trackingManualCurl)
       {
-        v43 = &stru_1E7188;
+        v49 = &stru_1E7188;
       }
 
       else
       {
-        v43 = @" but not tracking";
+        v49 = @" but not tracking";
       }
 
       *buf = 138412290;
-      *v107 = v43;
-      _os_log_impl(&dword_0, v42, OS_LOG_TYPE_DEFAULT, "began new manual curl%@", buf, 0xCu);
+      *v118 = v49;
+      _os_log_impl(&dword_0, v48, OS_LOG_TYPE_DEFAULT, "began new manual curl%@", buf, 0xCu);
     }
   }
 
@@ -1027,77 +1038,79 @@ LABEL_64:
     goto LABEL_5;
   }
 
-  [(BKIndirectPanGestureRecognizer *)gestureCopy translationInView:self];
-  v46 = v44;
-  v47 = v45;
+  v50 = [(BKIndirectPanGestureRecognizer *)gestureCopy translationInView:self];
+  v53 = v51;
+  v54 = v52;
   p_lastPoint = &self->_lastPoint;
-  if (v44 == self->_lastPoint.x && v45 == self->_lastPoint.y)
+  if (v51 == self->_lastPoint.x && v52 == self->_lastPoint.y)
   {
-    v5 = _AESwipeLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AESwipeLog(v50);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v54 = NSStringFromCGPoint(*p_lastPoint);
+      v63 = NSStringFromCGPoint(*p_lastPoint);
       *buf = 138412290;
-      *v107 = v54;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Tracking manual curl - translation was the same as _lastPoint - %@", buf, 0xCu);
+      *v118 = v63;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Tracking manual curl - translation was the same as _lastPoint - %@", buf, 0xCu);
     }
 
     goto LABEL_4;
   }
 
-  p_lastPoint->x = v44;
-  self->_lastPoint.y = v45;
+  p_lastPoint->x = v51;
+  self->_lastPoint.y = v52;
   if (!self->_manualCurl && self->_indirectManualCurlRecognizer != gestureCopy)
   {
-    v50 = [(BKBookContainerView *)self _tapLocationForTouchLocation:self->_startPoint.x, self->_startPoint.y];
+    bounds2 = [(BKBookContainerView *)self _tapLocationForTouchLocation:self->_startPoint.x, self->_startPoint.y];
+    v58 = bounds2;
     x = self->_startPoint.x;
     y = self->_startPoint.y;
-    if (v50 == 2)
+    v61 = bounds2 == 2;
+    if (bounds2 == 2)
     {
-      [(BKBookContainerView *)self bounds];
-      v69 = v53 - x + 20.0;
+      bounds2 = [(BKBookContainerView *)self bounds];
+      v79 = v62 - x + 20.0;
     }
 
     else
     {
-      v69 = -(x + 20.0);
+      v79 = -(x + 20.0);
     }
 
-    v70 = _AESwipeLog();
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
+    v80 = _AESwipeLog(bounds2);
+    if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
     {
-      if (v50 == 2)
+      if (v58 == 2)
       {
-        v71 = @"Right";
+        v81 = @"Right";
       }
 
       else
       {
-        v71 = @"Left";
+        v81 = @"Left";
       }
 
-      *v105 = v46;
-      *&v105[1] = v47;
-      v72 = [NSValue valueWithBytes:v105 objCType:"{CGPoint=dd}"];
+      *v116 = v53;
+      *&v116[1] = v54;
+      v82 = [NSValue valueWithBytes:v116 objCType:"{CGPoint=dd}"];
       *buf = 138412546;
-      *v107 = v71;
-      *&v107[8] = 2112;
-      v108 = v72;
-      _os_log_impl(&dword_0, v70, OS_LOG_TYPE_DEFAULT, "started on %@, with translation:%@", buf, 0x16u);
+      *v118 = v81;
+      *&v118[8] = 2112;
+      v119 = v82;
+      _os_log_impl(&dword_0, v80, OS_LOG_TYPE_DEFAULT, "started on %@, with translation:%@", buf, 0x16u);
     }
 
     kdebug_trace();
     objc_initWeak(buf, self);
     delegate8 = [(BKBookContainerView *)self delegate];
-    v102[0] = _NSConcreteStackBlock;
-    v102[1] = 3221225472;
-    v102[2] = sub_32940;
-    v102[3] = &unk_1E3770;
-    objc_copyWeak(&v103, buf);
-    v104 = v50 == 2;
-    [delegate8 bookContainerView:self beginManualCurl:v50 == 2 atLocation:v102 completion:{x + v69, y}];
+    v113[0] = _NSConcreteStackBlock;
+    v113[1] = 3221225472;
+    v113[2] = sub_32940;
+    v113[3] = &unk_1E3770;
+    objc_copyWeak(&v114, buf);
+    v115 = v61;
+    [delegate8 bookContainerView:self beginManualCurl:v58 == 2 atLocation:v113 completion:{x + v79, y}];
 
-    objc_destroyWeak(&v103);
+    objc_destroyWeak(&v114);
     objc_destroyWeak(buf);
   }
 
@@ -1117,63 +1130,64 @@ LABEL_5:
       v6 = v7;
     }
 
-    [(BKBookContainerView *)self bounds];
-    v9 = v8;
+    bounds = [(BKBookContainerView *)self bounds];
+    v10 = v9;
     if (self->_usePageCurlAnimation)
     {
       if (x >= 0.0)
       {
-        v11 = -(v6 + 20.0);
+        v12 = -(v6 + 20.0);
       }
 
       else
       {
-        [(BKBookContainerView *)self bounds];
-        v11 = v10 - v6 + 20.0;
+        bounds = [(BKBookContainerView *)self bounds];
+        v12 = v11 - v6 + 20.0;
       }
 
-      v6 = v6 + v11;
+      v6 = v6 + v12;
     }
 
-    v12 = _AESwipeLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _AESwipeLog(bounds);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = @"Left";
+      v14 = @"Left";
       if (x < 0.0)
       {
-        v13 = @"Right";
+        v14 = @"Right";
       }
 
       *buf = 138412290;
-      v19 = v13;
-      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Indirect started on %@", buf, 0xCu);
+      v20 = v14;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Indirect started on %@", buf, 0xCu);
     }
 
     kdebug_trace();
     objc_initWeak(buf, self);
     delegate = [(BKBookContainerView *)self delegate];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_32C04;
-    v15[3] = &unk_1E3770;
-    objc_copyWeak(&v16, buf);
-    v17 = v5;
-    [delegate bookContainerView:self beginManualCurl:x < 0.0 atLocation:v15 completion:{v6, v9 * 0.5}];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_32C04;
+    v16[3] = &unk_1E3770;
+    objc_copyWeak(&v17, buf);
+    v18 = v5;
+    [delegate bookContainerView:self beginManualCurl:x < 0.0 atLocation:v16 completion:{v6, v10 * 0.5}];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v17);
     objc_destroyWeak(buf);
   }
 }
 
 - (void)leftPageGesture:(id)gesture
 {
-  if ([(BKBookContainerView *)self shouldHandleSwipeGesture:gesture])
+  v4 = [(BKBookContainerView *)self shouldHandleSwipeGesture:gesture];
+  if (v4)
   {
-    v4 = _AESwipeLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _AESwipeLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "swiping page reverse", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "swiping page reverse", v7, 2u);
     }
 
     delegate = [(BKBookContainerView *)self delegate];
@@ -1183,13 +1197,14 @@ LABEL_5:
 
 - (void)rightPageGesture:(id)gesture
 {
-  if ([(BKBookContainerView *)self shouldHandleSwipeGesture:gesture])
+  v4 = [(BKBookContainerView *)self shouldHandleSwipeGesture:gesture];
+  if (v4)
   {
-    v4 = _AESwipeLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _AESwipeLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "swiping page forward", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "swiping page forward", v7, 2u);
     }
 
     delegate = [(BKBookContainerView *)self delegate];
@@ -1199,13 +1214,14 @@ LABEL_5:
 
 - (void)leftChapterGesture:(id)gesture
 {
-  if ([(BKBookContainerView *)self shouldHandleSwipeGesture:gesture])
+  v4 = [(BKBookContainerView *)self shouldHandleSwipeGesture:gesture];
+  if (v4)
   {
-    v4 = _AESwipeLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _AESwipeLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "swiping chapter reverse", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "swiping chapter reverse", v7, 2u);
     }
 
     delegate = [(BKBookContainerView *)self delegate];
@@ -1215,13 +1231,14 @@ LABEL_5:
 
 - (void)rightChapterGesture:(id)gesture
 {
-  if ([(BKBookContainerView *)self shouldHandleSwipeGesture:gesture])
+  v4 = [(BKBookContainerView *)self shouldHandleSwipeGesture:gesture];
+  if (v4)
   {
-    v4 = _AESwipeLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    v5 = _AESwipeLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "swiping chapter forward", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "swiping chapter forward", v7, 2u);
     }
 
     delegate = [(BKBookContainerView *)self delegate];
@@ -1302,14 +1319,14 @@ LABEL_32:
 
   if (!v11)
   {
-    v19 = _AESwipeLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = _AESwipeLog(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v26 = 138412290;
-      v27 = v21;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_DEFAULT, "Location for (%@) began in 'center'. Blocking touch events to gesture", &v26, 0xCu);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v27 = 138412290;
+      v28 = v22;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "Location for (%@) began in 'center'. Blocking touch events to gesture", &v27, 0xCu);
     }
 
     goto LABEL_32;
@@ -1317,8 +1334,8 @@ LABEL_32:
 
   if (self->_leftTapRecognizer == recognizerCopy && v11 == 1)
   {
-    v17 = &OBJC_IVAR___BKBookContainerView__cancelLeftTapTimer;
-    v18 = &OBJC_IVAR___BKBookContainerView__cancelLeftTap;
+    v18 = &OBJC_IVAR___BKBookContainerView__cancelLeftTapTimer;
+    v19 = &OBJC_IVAR___BKBookContainerView__cancelLeftTap;
   }
 
   else
@@ -1334,19 +1351,19 @@ LABEL_32:
       goto LABEL_32;
     }
 
-    v17 = &OBJC_IVAR___BKBookContainerView__cancelRightTapTimer;
-    v18 = &OBJC_IVAR___BKBookContainerView__cancelRightTap;
+    v18 = &OBJC_IVAR___BKBookContainerView__cancelRightTapTimer;
+    v19 = &OBJC_IVAR___BKBookContainerView__cancelRightTap;
   }
 
   if (self->_manualCurlRecognizer != recognizerCopy)
   {
-    v22 = *v17;
-    if (!*(&self->super.super.super.isa + v22))
+    v23 = *v18;
+    if (!*(&self->super.super.super.isa + v23))
     {
-      *(&self->super.super.super.isa + *v18) = 0;
-      v23 = [NSTimer scheduledTimerWithTimeInterval:self target:"cancelTapTimer:" selector:0 userInfo:0 repeats:0.3];
-      v24 = *(&self->super.super.super.isa + v22);
-      *(&self->super.super.super.isa + v22) = v23;
+      *(&self->super.super.super.isa + *v19) = 0;
+      v24 = [NSTimer scheduledTimerWithTimeInterval:self target:"cancelTapTimer:" selector:0 userInfo:0 repeats:0.3];
+      v25 = *(&self->super.super.super.isa + v23);
+      *(&self->super.super.super.isa + v23) = v24;
     }
   }
 
@@ -1567,17 +1584,17 @@ LABEL_6:
 - (BOOL)shouldHandleSwipeGesture:(id)gesture
 {
   gestureCopy = gesture;
-  if ([(BKBookContainerView *)self ignoreNextGesture])
+  ignoreNextGesture = [(BKBookContainerView *)self ignoreNextGesture];
+  if (ignoreNextGesture)
   {
-    [(BKBookContainerView *)self setIgnoreNextGesture:0];
-    v5 = _AESwipeLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AESwipeLog([(BKBookContainerView *)self setIgnoreNextGesture:0]);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 0;
-      v6 = "Swipe Gesture was ignored";
-      v7 = &v19;
+      v22 = 0;
+      v7 = "Swipe Gesture was ignored";
+      v8 = &v22;
 LABEL_24:
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
       goto LABEL_25;
     }
 
@@ -1591,17 +1608,17 @@ LABEL_24:
       goto LABEL_22;
     }
 
-    v8 = _AESwipeLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = _AESwipeLog(ignoreNextGesture);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "swipe before curl", buf, 2u);
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "swipe before curl", buf, 2u);
     }
 
     self->_swipeBeforeManualCurl = 1;
     if ([gestureCopy direction] == &dword_0 + 2)
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     else
@@ -1609,35 +1626,37 @@ LABEL_24:
       if ([gestureCopy direction] != &dword_0 + 1)
       {
 LABEL_21:
-        self->_chapterTurn = [gestureCopy numberOfTouchesRequired] > 1;
+        ignoreNextGesture = [gestureCopy numberOfTouchesRequired];
+        self->_chapterTurn = ignoreNextGesture > 1;
 LABEL_22:
-        v5 = _AESwipeLog();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        v6 = _AESwipeLog(ignoreNextGesture);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
         {
-          *v17 = 0;
-          v6 = "Tracking manual curl -- won't swipe";
-          v7 = v17;
+          *v20 = 0;
+          v7 = "Tracking manual curl -- won't swipe";
+          v8 = v20;
           goto LABEL_24;
         }
 
         goto LABEL_25;
       }
 
-      v9 = 1;
+      v10 = 1;
     }
 
-    self->_swipeDirection = v9;
+    self->_swipeDirection = v10;
     goto LABEL_21;
   }
 
   [gestureCopy locationInView:self];
-  if ([(BKBookContainerView *)self _tapLocationForTouchLocation:?])
+  v11 = [(BKBookContainerView *)self _tapLocationForTouchLocation:?];
+  if (v11)
   {
-    v10 = _AESwipeLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = _AESwipeLog(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "swipe in the gutter", v16, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "swipe in the gutter", v19, 2u);
     }
 
     if ([gestureCopy numberOfTouchesRequired] < 2)
@@ -1647,30 +1666,30 @@ LABEL_22:
   }
 
   delegate = [(BKBookContainerView *)self delegate];
-  v12 = [delegate bookContainerViewShouldTurnPage:self];
+  v14 = [delegate bookContainerViewShouldTurnPage:self];
 
-  if ((v12 & 1) == 0)
+  if ((v14 & 1) == 0)
   {
-    v5 = _AESwipeLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AESwipeLog(v15);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 0;
-      v6 = "Delegate told us to not swipe";
-      v7 = &v15;
+      v18 = 0;
+      v7 = "Delegate told us to not swipe";
+      v8 = &v18;
       goto LABEL_24;
     }
 
 LABEL_25:
 
 LABEL_26:
-    v13 = 0;
+    v16 = 0;
     goto LABEL_27;
   }
 
-  v13 = 1;
+  v16 = 1;
 LABEL_27:
 
-  return v13;
+  return v16;
 }
 
 - (void)addGestureRecognizer:(id)recognizer

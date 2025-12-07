@@ -57,9 +57,9 @@
     dispatch_once(&qword_1ED6A5098, &__block_literal_global_30);
   }
 
-  v0 = _MergedGlobals_132;
+  v1 = _MergedGlobals_132;
 
-  return v0;
+  return v1;
 }
 
 + (void)addRecognitionSession:(void *)session forUUID:

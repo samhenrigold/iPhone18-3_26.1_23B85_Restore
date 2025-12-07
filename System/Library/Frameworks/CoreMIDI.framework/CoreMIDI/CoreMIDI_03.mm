@@ -18,76 +18,76 @@ void sub_237200D9C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237200D74);
 }
 
-uint64_t _MIDIGetDestination(MIDIServer *a1)
+uint64_t _MIDIGetDestination(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = v3;
-  IntegerProperty = SetupManager::instance(v3);
-  v6 = *(*IntegerProperty + 112);
-  v7 = *(*IntegerProperty + 120);
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = v4;
+  IntegerProperty = SetupManager::instance(v4);
+  v7 = *(*IntegerProperty + 112);
+  v8 = *(*IntegerProperty + 120);
   while (1)
   {
-    if (v6 == v7)
+    if (v7 == v8)
     {
       goto LABEL_10;
     }
 
-    v8 = *v6;
-    v14 = 0;
-    IntegerProperty = MIDIObject::GetIntegerProperty(v8, kMIDIPropertyOffline, &v14);
-    if (!v14)
+    v9 = *v7;
+    v15 = 0;
+    IntegerProperty = MIDIObject::GetIntegerProperty(v9, kMIDIPropertyOffline, &v15);
+    if (!v15)
     {
-      v14 = 0;
-      IntegerProperty = MIDIObject::GetIntegerProperty(v8, kMIDIPropertyPrivate, &v14);
-      if (!v14)
+      v15 = 0;
+      IntegerProperty = MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v15);
+      if (!v15)
       {
         break;
       }
     }
 
 LABEL_7:
-    ++v6;
+    ++v7;
   }
 
-  if (v1)
+  if (v2)
   {
-    --v1;
+    --v2;
     goto LABEL_7;
   }
 
-  if (v8)
+  if (v9)
   {
 LABEL_18:
-    v12 = v8[2];
-    if (!v4)
+    v13 = v9[2];
+    if (!v5)
     {
-      return v12;
+      return v13;
     }
 
     goto LABEL_21;
   }
 
-  v1 = -1;
+  v2 = -1;
 LABEL_10:
-  v9 = SetupManager::instance(IntegerProperty);
-  v10 = *(v9 + 32);
-  v11 = *(v9 + 40);
-  while (v10 != v11)
+  v10 = SetupManager::instance(IntegerProperty);
+  v11 = *(v10 + 32);
+  v12 = *(v10 + 40);
+  while (v11 != v12)
   {
-    v8 = *v10;
-    v14 = 0;
-    MIDIObject::GetIntegerProperty(v8, kMIDIPropertyOffline, &v14);
-    if (!v14)
+    v9 = *v11;
+    v15 = 0;
+    MIDIObject::GetIntegerProperty(v9, kMIDIPropertyOffline, &v15);
+    if (!v15)
     {
-      v14 = 0;
-      MIDIObject::GetIntegerProperty(v8, kMIDIPropertyPrivate, &v14);
-      if (!v14)
+      v15 = 0;
+      MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v15);
+      if (!v15)
       {
-        if (!v1)
+        if (!v2)
         {
-          if (v8)
+          if (v9)
           {
             goto LABEL_18;
           }
@@ -95,21 +95,21 @@ LABEL_10:
           break;
         }
 
-        --v1;
+        --v2;
       }
     }
 
-    ++v10;
+    ++v11;
   }
 
-  v12 = 0;
-  if (v4)
+  v13 = 0;
+  if (v5)
   {
 LABEL_21:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  return v12;
+  return v13;
 }
 
 void sub_237200FC0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10)
@@ -132,46 +132,46 @@ void sub_237200FC0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237200F9CLL);
 }
 
-uint64_t _MIDIGetNumberOfExternalDevices(MIDIServer *a1)
+uint64_t _MIDIGetNumberOfExternalDevices(MIDIServer *a1, int a2)
 {
-  v1 = MIDIServer::defaultInstance(a1) + 2;
-  v2 = (*(*v1 + 16))(v1);
-  v3 = v2;
-  v4 = *SetupManager::instance(v2);
-  if (!v4 || (v5 = *(v4 + 152), v6 = *(v4 + 160), v5 == v6))
+  v2 = MIDIServer::defaultInstance(a1) + 2;
+  v3 = (*(*v2 + 16))(v2);
+  v4 = v3;
+  v5 = *SetupManager::instance(v3);
+  if (!v5 || (v6 = *(v5 + 152), v7 = *(v5 + 160), v6 == v7))
   {
-    v7 = 0;
-    if (!v3)
+    v8 = 0;
+    if (!v4)
     {
-      return v7;
+      return v8;
     }
 
 LABEL_10:
-    (*(*v1 + 24))(v1);
-    return v7;
+    (*(*v2 + 24))(v2);
+    return v8;
   }
 
-  v7 = 0;
+  v8 = 0;
   do
   {
-    v8 = *v5;
-    v10 = 0;
-    MIDIObject::GetIntegerProperty(v8, kMIDIPropertyPrivate, &v10);
-    if (!v10)
+    v9 = *v6;
+    v11 = 0;
+    MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v11);
+    if (!v11)
     {
-      ++v7;
+      ++v8;
     }
 
-    ++v5;
+    ++v6;
   }
 
-  while (v5 != v6);
-  if (v3)
+  while (v6 != v7);
+  if (v4)
   {
     goto LABEL_10;
   }
 
-  return v7;
+  return v8;
 }
 
 void sub_237201148(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10)
@@ -194,64 +194,64 @@ void sub_237201148(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237201128);
 }
 
-uint64_t _MIDIGetExternalDevice(MIDIServer *a1)
+uint64_t _MIDIGetExternalDevice(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = v3;
-  v5 = SetupManager::instance(v3);
-  v6 = *(*v5 + 152);
-  v7 = *(*v5 + 160);
-  if (v6 == v7)
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = v4;
+  v6 = SetupManager::instance(v4);
+  v7 = *(*v6 + 152);
+  v8 = *(*v6 + 160);
+  if (v7 == v8)
   {
     goto LABEL_6;
   }
 
   while (1)
   {
-    v8 = *v6;
-    v11 = 0;
-    MIDIObject::GetIntegerProperty(v8, kMIDIPropertyPrivate, &v11);
-    if (!v11)
+    v9 = *v7;
+    v12 = 0;
+    MIDIObject::GetIntegerProperty(v9, kMIDIPropertyPrivate, &v12);
+    if (!v12)
     {
       break;
     }
 
 LABEL_5:
-    if (++v6 == v7)
+    if (++v7 == v8)
     {
       goto LABEL_6;
     }
   }
 
-  if (v1)
+  if (v2)
   {
-    v1 = (v1 - 1);
+    v2 = (v2 - 1);
     goto LABEL_5;
   }
 
-  if (!v8)
+  if (!v9)
   {
 LABEL_6:
-    v9 = 0;
-    if (v4)
+    v10 = 0;
+    if (v5)
     {
       goto LABEL_7;
     }
 
-    return v9;
+    return v10;
   }
 
-  v9 = v8[2];
-  if (!v4)
+  v10 = v9[2];
+  if (!v5)
   {
-    return v9;
+    return v10;
   }
 
 LABEL_7:
-  (*(*v2 + 24))(v2);
-  return v9;
+  (*(*v3 + 24))(v3);
+  return v10;
 }
 
 void sub_2372012DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10)
@@ -277,7 +277,7 @@ void sub_2372012DC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 uint64_t _MIDISend(MIDIServer *a1, unsigned int a2, const MIDI::EventList *a3)
 {
   v5 = a1;
-  v6 = MIDIServer::defaultInstance(a1, a2) + 104;
+  v6 = MIDIServer::defaultInstance(a1) + 13;
   v7 = (*(*v6 + 16))(v6);
   v8 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIEndpoint>::sRTTI, a2);
   if (!v8)
@@ -367,9 +367,9 @@ LABEL_11:
   JUMPOUT(0x237201494);
 }
 
-void sub_23720155C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_23720155C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   CADeprecated::CAMutex::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
@@ -464,19 +464,19 @@ uint64_t _MIDIFlushOutput(unsigned int a1)
   return 0;
 }
 
-uint64_t _MIDIDestinationCreate(MIDIServer *a1)
+uint64_t _MIDIDestinationCreate(MIDIServer *a1, const __CFString *a2, MIDIProtocolID a3, _DWORD *a4, const void *a5, const void *a6)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  if (BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v1))
+  v6 = a1;
+  v7 = MIDIServer::defaultInstance(a1) + 2;
+  v8 = (*(*v7 + 16))(v7);
+  if (BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v6))
   {
     operator new();
   }
 
-  if (v3)
+  if (v8)
   {
-    (*(*v2 + 24))(v2);
+    (*(*v7 + 24))(v7);
   }
 
   return 4294967246;
@@ -492,11 +492,11 @@ void sub_237201CDC(_Unwind_Exception *exception_object, int a2)
   __clang_call_terminate(exception_object);
 }
 
-void sub_237201CF8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::exception a11)
+void sub_237201CF8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::exception a11)
 {
   if (a2)
   {
-    MEMORY[0x2383C8250](v11, 0x10E1C40A029A42BLL);
+    MEMORY[0x2383C8250](v11, 0x10E1C40A029A42BLL, a3, a4, a5, a6, a7, a8);
     CADeprecated::CAMutex::Locker::~Locker(&a9);
     if (a2 != 2)
     {
@@ -516,19 +516,19 @@ void sub_237201CF8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237201CE8);
 }
 
-uint64_t _MIDISourceCreate(MIDIServer *a1)
+uint64_t _MIDISourceCreate(MIDIServer *a1, const __CFString *a2, MIDIProtocolID a3, _DWORD *a4)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  if (BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v1))
+  v4 = a1;
+  v5 = MIDIServer::defaultInstance(a1) + 2;
+  v6 = (*(*v5 + 16))(v5);
+  if (BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIClient>::sRTTI, v4))
   {
     operator new();
   }
 
-  if (v3)
+  if (v6)
   {
-    (*(*v2 + 24))(v2);
+    (*(*v5 + 24))(v5);
   }
 
   return 4294967246;
@@ -544,11 +544,11 @@ void sub_2372021CC(_Unwind_Exception *exception_object, int a2)
   __clang_call_terminate(exception_object);
 }
 
-void sub_2372021E8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::exception a11)
+void sub_2372021E8(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::exception a11)
 {
   if (a2)
   {
-    MEMORY[0x2383C8250](v11, 0x10E1C409E4C3976);
+    MEMORY[0x2383C8250](v11, 0x10E1C409E4C3976, a3, a4, a5, a6, a7, a8);
     CADeprecated::CAMutex::Locker::~Locker(&a9);
     if (a2 != 2)
     {
@@ -568,90 +568,90 @@ void sub_2372021E8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2372021D8);
 }
 
-uint64_t _MIDIEndpointDispose(MIDIServer *a1)
+uint64_t _MIDIEndpointDispose(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIEndpoint>::sRTTI, v1);
-  if (v4)
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIEndpoint>::sRTTI, v2);
+  if (v5)
   {
-    v5 = v4;
-    v6 = SetupManager::instance(v4);
-    v7 = (*(*v5 + 80))(v5);
-    if (v7)
+    v6 = v5;
+    v7 = SetupManager::instance(v5);
+    v8 = (*(*v6 + 80))(v6);
+    if (v8)
     {
-      v9 = *(v6 + 8);
-      v8 = *(v6 + 16);
-      if (v9 != v8)
+      v10 = *(v7 + 8);
+      v9 = *(v7 + 16);
+      if (v10 != v9)
       {
-        while (*v9 != v7)
+        while (*v10 != v8)
         {
-          v9 += 8;
-          if (v9 == v8)
+          v10 += 8;
+          if (v10 == v9)
           {
             goto LABEL_23;
           }
         }
       }
 
-      if (v9 != v8)
+      if (v10 != v9)
       {
-        v11 = v8 - (v9 + 8);
-        if (v8 != v9 + 8)
+        v12 = v9 - (v10 + 8);
+        if (v9 != v10 + 8)
         {
-          memmove(v9, v9 + 8, v8 - (v9 + 8));
+          memmove(v10, v10 + 8, v9 - (v10 + 8));
         }
 
-        *(v6 + 16) = &v9[v11];
+        *(v7 + 16) = &v10[v12];
       }
     }
 
     else
     {
-      v12 = (*(*v5 + 88))(v5);
-      if (v12)
+      v13 = (*(*v6 + 88))(v6);
+      if (v13)
       {
-        v14 = *(v6 + 32);
-        v13 = *(v6 + 40);
-        if (v14 != v13)
+        v15 = *(v7 + 32);
+        v14 = *(v7 + 40);
+        if (v15 != v14)
         {
-          while (*v14 != v12)
+          while (*v15 != v13)
           {
-            v14 += 8;
-            if (v14 == v13)
+            v15 += 8;
+            if (v15 == v14)
             {
               goto LABEL_23;
             }
           }
         }
 
-        if (v14 != v13)
+        if (v15 != v14)
         {
-          v15 = v13 - (v14 + 8);
-          if (v13 != v14 + 8)
+          v16 = v14 - (v15 + 8);
+          if (v14 != v15 + 8)
           {
-            memmove(v14, v14 + 8, v13 - (v14 + 8));
+            memmove(v15, v15 + 8, v14 - (v15 + 8));
           }
 
-          *(v6 + 40) = &v14[v15];
+          *(v7 + 40) = &v15[v16];
         }
       }
     }
 
 LABEL_23:
-    MIDISetup::ObjectRemoved(*v6, v5);
-    v17 = MIDIServer::defaultInstance(v16) + 13;
-    v18 = (*(*v17 + 16))(v17);
-    (*(*v5 + 8))(v5);
-    if (v18)
+    MIDISetup::ObjectRemoved(*v7, v6);
+    v18 = MIDIServer::defaultInstance(v17) + 13;
+    v19 = (*(*v18 + 16))(v18);
+    (*(*v6 + 8))(v6);
+    if (v19)
     {
-      (*(*v17 + 24))(v17);
+      (*(*v18 + 24))(v18);
     }
 
-    if (v3)
+    if (v4)
     {
-      (*(*v2 + 24))(v2);
+      (*(*v3 + 24))(v3);
     }
 
     return 0;
@@ -659,9 +659,9 @@ LABEL_23:
 
   else
   {
-    if (v3)
+    if (v4)
     {
-      (*(*v2 + 24))(v2);
+      (*(*v3 + 24))(v3);
     }
 
     return 4294967246;
@@ -704,46 +704,46 @@ CFRunLoopRef MIDIGetDriverIORunLoop(void)
   }
 }
 
-uint64_t _MIDISetupAddExternalDevice(MIDIServer *a1)
+uint64_t _MIDISetupAddExternalDevice(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v1);
-  if (v4 && (v5 = v4, !*(v4 + 6)))
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v2);
+  if (v5 && (v6 = v5, !*(v5 + 6)))
   {
-    v9 = *SetupManager::instance(v4);
-    if (v9)
+    v10 = *SetupManager::instance(v5);
+    if (v10)
     {
-      MIDISetup::AddDevice(v9, v5);
-      v7 = 4294956459;
-      v6 = 1;
+      MIDISetup::AddDevice(v10, v6);
+      v8 = 4294956459;
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
-      v7 = 4294956459;
+      v7 = 0;
+      v8 = 4294956459;
     }
   }
 
   else
   {
-    v6 = 0;
-    v7 = 4294967246;
+    v7 = 0;
+    v8 = 4294967246;
   }
 
-  if (v3)
+  if (v4)
   {
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  if (v6)
+  if (v7)
   {
     return 0;
   }
 
-  return v7;
+  return v8;
 }
 
 void sub_2372027A8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -776,46 +776,46 @@ void sub_2372027A8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237202764);
 }
 
-uint64_t _MIDISetupRemoveExternalDevice(MIDIServer *a1)
+uint64_t _MIDISetupRemoveExternalDevice(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v1);
-  if (v4 && (v5 = v4, !*(v4 + 6)))
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v2);
+  if (v5 && (v6 = v5, !*(v5 + 6)))
   {
-    v9 = *SetupManager::instance(v4);
-    if (v9)
+    v10 = *SetupManager::instance(v5);
+    if (v10)
     {
-      MIDISetup::RemoveDevice(v9, v5);
-      v7 = 4294956459;
-      v6 = 1;
+      MIDISetup::RemoveDevice(v10, v6);
+      v8 = 4294956459;
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
-      v7 = 4294956459;
+      v7 = 0;
+      v8 = 4294956459;
     }
   }
 
   else
   {
-    v6 = 0;
-    v7 = 4294967246;
+    v7 = 0;
+    v8 = 4294967246;
   }
 
-  if (v3)
+  if (v4)
   {
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
   }
 
-  if (v6)
+  if (v7)
   {
     return 0;
   }
 
-  return v7;
+  return v8;
 }
 
 void sub_23720293C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -848,17 +848,17 @@ void sub_23720293C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x2372028F8);
 }
 
-uint64_t _MIDISetupAddDevice(MIDIServer *a1)
+uint64_t _MIDISetupAddDevice(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v1);
-  if (!v4 || (v5 = v4, !*(v4 + 6)))
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v2);
+  if (!v5 || (v6 = v5, !*(v5 + 6)))
   {
-    v8 = 0;
-    v7 = 4294967246;
-    if (!v3)
+    v9 = 0;
+    v8 = 4294967246;
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -866,36 +866,36 @@ uint64_t _MIDISetupAddDevice(MIDIServer *a1)
     goto LABEL_7;
   }
 
-  v6 = *SetupManager::instance(v4);
-  if (v6)
+  v7 = *SetupManager::instance(v5);
+  if (v7)
   {
-    MIDISetup::AddDevice(v6, v5);
-    v7 = 4294956459;
-    v8 = 1;
-    if (!v3)
+    MIDISetup::AddDevice(v7, v6);
+    v8 = 4294956459;
+    v9 = 1;
+    if (!v4)
     {
       goto LABEL_8;
     }
 
 LABEL_7:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
     goto LABEL_8;
   }
 
-  v8 = 0;
-  v7 = 4294956459;
-  if (v3)
+  v9 = 0;
+  v8 = 4294956459;
+  if (v4)
   {
     goto LABEL_7;
   }
 
 LABEL_8:
-  if (v8)
+  if (v9)
   {
     return 0;
   }
 
-  return v7;
+  return v8;
 }
 
 void sub_237202ADC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -928,17 +928,17 @@ void sub_237202ADC(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237202AB0);
 }
 
-uint64_t _MIDISetupRemoveDevice(MIDIServer *a1)
+uint64_t _MIDISetupRemoveDevice(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v1);
-  if (!v4 || (v5 = v4, !*(v4 + 6)))
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIDevice>::sRTTI, v2);
+  if (!v5 || (v6 = v5, !*(v5 + 6)))
   {
-    v8 = 0;
-    v7 = 4294967246;
-    if (!v3)
+    v9 = 0;
+    v8 = 4294967246;
+    if (!v4)
     {
       goto LABEL_8;
     }
@@ -946,36 +946,36 @@ uint64_t _MIDISetupRemoveDevice(MIDIServer *a1)
     goto LABEL_7;
   }
 
-  v6 = *SetupManager::instance(v4);
-  if (v6)
+  v7 = *SetupManager::instance(v5);
+  if (v7)
   {
-    MIDISetup::RemoveDevice(v6, v5);
-    v7 = 4294956459;
-    v8 = 1;
-    if (!v3)
+    MIDISetup::RemoveDevice(v7, v6);
+    v8 = 4294956459;
+    v9 = 1;
+    if (!v4)
     {
       goto LABEL_8;
     }
 
 LABEL_7:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
     goto LABEL_8;
   }
 
-  v8 = 0;
-  v7 = 4294956459;
-  if (v3)
+  v9 = 0;
+  v8 = 4294956459;
+  if (v4)
   {
     goto LABEL_7;
   }
 
 LABEL_8:
-  if (v8)
+  if (v9)
   {
     return 0;
   }
 
-  return v7;
+  return v8;
 }
 
 void sub_237202C78(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -1369,17 +1369,17 @@ OSStatus MIDIDeviceListDispose(MIDIDeviceListRef devList)
     return -50;
   }
 
-  v3 = MIDIServer::defaultInstance(*&devList, v1) + 16;
-  v4 = (*(*v3 + 16))(v3);
-  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<DeviceList>::sRTTI, devList);
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
+  v2 = MIDIServer::defaultInstance(*&devList) + 2;
+  v3 = (*(*v2 + 16))(v2);
+  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<DeviceList>::sRTTI, devList);
   if (v4)
   {
-    (*(*v3 + 24))(v3);
+    (*(*v4 + 8))(v4);
+  }
+
+  if (v3)
+  {
+    (*(*v2 + 24))(v2);
   }
 
   return 0;
@@ -1441,21 +1441,21 @@ void sub_237203A88(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237203A6CLL);
 }
 
-uint64_t _MIDIRestart(MIDIServer *a1)
+uint64_t _MIDIRestart(MIDIServer *a1, int a2)
 {
-  v1 = MIDIServer::defaultInstance(a1) + 2;
-  v2 = (*(*v1 + 16))(v1);
+  v2 = MIDIServer::defaultInstance(a1) + 2;
+  v3 = (*(*v2 + 16))(v2);
   Scheduler::FlushAllOutput(gScheduler);
-  v4 = MIDIServer::defaultInstance(v3);
-  MIDIDriverMgr::StopMIDI(v4[33]);
-  v6 = *SetupManager::instance(v5);
-  if (v6)
+  v5 = MIDIServer::defaultInstance(v4);
+  MIDIDriverMgr::StopMIDI(v5[33]);
+  v7 = *SetupManager::instance(v6);
+  if (v7)
   {
-    MIDISetup::ScanForDriverDevices(v6);
-    MIDIServer::startMIDI(v7, v8);
-    if (v2)
+    MIDISetup::ScanForDriverDevices(v7);
+    MIDIServer::startMIDI(v8);
+    if (v3)
     {
-      (*(*v1 + 24))(v1);
+      (*(*v2 + 24))(v2);
     }
 
     return 0;
@@ -1463,9 +1463,9 @@ uint64_t _MIDIRestart(MIDIServer *a1)
 
   else
   {
-    if (v2)
+    if (v3)
     {
-      (*(*v1 + 24))(v1);
+      (*(*v2 + 24))(v2);
     }
 
     return 4294956459;
@@ -1501,7 +1501,7 @@ void sub_237203C24(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237203C08);
 }
 
-uint64_t _MIDIThruConnectionCreate(MIDIServer *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t _MIDIThruConnectionCreate(MIDIServer *a1, const void *a2, const __CFData *a3, _DWORD *a4)
 {
   v6 = a1;
   v7 = MIDIServer::defaultInstance(a1) + 2;
@@ -1585,18 +1585,18 @@ void sub_237203FA8(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
   JUMPOUT(0x237203EA8);
 }
 
-uint64_t _MIDIThruConnectionDispose(MIDIServer *a1)
+uint64_t _MIDIThruConnectionDispose(MIDIServer *a1, int a2)
 {
-  v1 = a1;
-  v2 = MIDIServer::defaultInstance(a1) + 2;
-  v3 = (*(*v2 + 16))(v2);
-  v4 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIConnection>::sRTTI, v1);
-  if (!v4)
+  v2 = a1;
+  v3 = MIDIServer::defaultInstance(a1) + 2;
+  v4 = (*(*v3 + 16))(v3);
+  v5 = BaseOpaqueObject::ResolveOpaqueRef(&TOpaqueRTTI<MIDIConnection>::sRTTI, v2);
+  if (!v5)
   {
-    v9 = 0;
-    v6 = 0;
-    v10 = 4294967246;
-    if (!v3)
+    v10 = 0;
+    v7 = 0;
+    v11 = 4294967246;
+    if (!v4)
     {
       goto LABEL_18;
     }
@@ -1604,67 +1604,68 @@ uint64_t _MIDIThruConnectionDispose(MIDIServer *a1)
     goto LABEL_17;
   }
 
-  v5 = v4;
-  v6 = *SetupManager::instance(v4);
-  if (!v6)
+  v6 = v5;
+  v7 = *SetupManager::instance(v5);
+  if (!v7)
   {
-    v9 = 0;
-    v10 = 4294956459;
-    if (!v3)
+    v10 = 0;
+    v11 = 4294956459;
+    if (!v4)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    (*(*v2 + 24))(v2);
+    (*(*v3 + 24))(v3);
     goto LABEL_18;
   }
 
-  v7 = *(v6 + 184);
-  v8 = *(v6 + 192);
-  if (v7 != v8)
+  v8 = *(v7 + 184);
+  v9 = *(v7 + 192);
+  if (v8 != v9)
   {
-    while (*v7 != v5)
+    while (*v8 != v6)
     {
-      if (++v7 == v8)
+      if (++v8 == v9)
       {
         goto LABEL_15;
       }
     }
   }
 
-  if (v7 == v8)
+  if (v8 == v9)
   {
 LABEL_15:
-    v10 = 4294956459;
-    v6 = 4294956463;
+    v11 = 4294956459;
+    v7 = 4294956463;
   }
 
   else
   {
-    OwnedPtrVector<MIDIClient *>::erase(v6 + 176, v7);
-    if (*(v5 + 2))
+    OwnedPtrVector<MIDIClient *>::erase(v7 + 176, v8);
+    if (*(v6 + 2))
     {
-      MIDISetup::GenerateNotification(v6);
+      v13[0] = 0x800000005;
+      MIDISetup::GenerateNotification(v7, v13);
     }
 
-    v6 = 0;
-    v10 = 4294956459;
+    v7 = 0;
+    v11 = 4294956459;
   }
 
-  v9 = 1;
-  if (v3)
+  v10 = 1;
+  if (v4)
   {
     goto LABEL_17;
   }
 
 LABEL_18:
-  if (v9)
+  if (v10)
   {
-    return v6;
+    return v7;
   }
 
-  return v10;
+  return v11;
 }
 
 void sub_23720421C(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10)
@@ -1932,15 +1933,14 @@ void sub_237204780(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int
 
 uint64_t _MIDIObjectFindByUniqueID(MIDIServer *a1, _DWORD *a2, _DWORD *a3)
 {
-  v5 = a1;
   v6 = MIDIServer::defaultInstance(a1) + 2;
   v7 = (*(*v6 + 16))(v6);
   v8 = v7;
   v9 = *SetupManager::instance(v7);
   if (!v9)
   {
-    v12 = 0;
-    v11 = 4294956459;
+    v13 = 0;
+    v12 = 4294956459;
     if (!v8)
     {
       goto LABEL_13;
@@ -1949,11 +1949,11 @@ uint64_t _MIDIObjectFindByUniqueID(MIDIServer *a1, _DWORD *a2, _DWORD *a3)
     goto LABEL_12;
   }
 
-  ObjectByUniqueID = MIDISetup::FindObjectByUniqueID(v9, v5, 0);
+  ObjectByUniqueID = MIDISetup::FindObjectByUniqueID(v9, a1, 0, v10);
   if (!ObjectByUniqueID)
   {
-    v12 = 0;
-    v11 = 4294956454;
+    v13 = 0;
+    v12 = 4294956454;
     if (!v8)
     {
       goto LABEL_13;
@@ -1972,8 +1972,8 @@ uint64_t _MIDIObjectFindByUniqueID(MIDIServer *a1, _DWORD *a2, _DWORD *a3)
     *a3 = (*(*ObjectByUniqueID + 72))(ObjectByUniqueID);
   }
 
-  v11 = 4294956454;
-  v12 = 1;
+  v12 = 4294956454;
+  v13 = 1;
   if (v8)
   {
 LABEL_12:
@@ -1981,12 +1981,12 @@ LABEL_12:
   }
 
 LABEL_13:
-  if (v12)
+  if (v13)
   {
     return 0;
   }
 
-  return v11;
+  return v12;
 }
 
 void sub_237204950(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9)
@@ -2131,7 +2131,7 @@ void MIDIServer::Init(MIDIServer *this, int a2)
     _os_log_impl(&dword_2371C2000, v7, OS_LOG_TYPE_INFO, "%25s:%-5d [-] MIDIServer::Init()", &v14, 0x12u);
   }
 
-  v8 = MIDIClientCreateWithBlockInternal(@"MIDI_UMPCI_CLIENT", this + 168, &__block_literal_global_69);
+  v8 = MIDIClientCreateWithBlockInternal(@"MIDI_UMPCI_CLIENT", this + 168, &__block_literal_global_69, 0);
   if (v8)
   {
     v9 = v8;
@@ -2410,7 +2410,7 @@ LABEL_7:
   std::unique_ptr<caulk::thread>::reset[abi:ne200100](this, 0);
 }
 
-void **std::unique_ptr<MIDIDriverMgr>::reset[abi:ne200100](void **result, void *a2)
+void ***std::unique_ptr<MIDIDriverMgr>::reset[abi:ne200100](void ***result, void **a2)
 {
   v2 = *result;
   *result = a2;
@@ -3505,7 +3505,7 @@ uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObj
     v4 = *(result + 8);
   }
 
-  v5 = (v3 + v4 - 3);
+  v5 = v3 + v4 - 3;
   v6 = 0xFFFFFFFFLL;
   v7 = 1;
   v8 = a2 % v2;
@@ -4217,9 +4217,9 @@ void std::__function::__func<UMPCIServerContext::UMPCIServerContext(void)::{lamb
   }
 }
 
-void sub_23720AC68(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23720AC68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   applesauce::CF::DictionaryRef::~DictionaryRef(va);
   _Unwind_Resume(a1);
 }
@@ -4227,18 +4227,34 @@ void sub_23720AC68(_Unwind_Exception *a1, uint64_t a2, ...)
 void ___ZZN18UMPCIServerContextC1EvENKUl16UMPCIObjectEventjN10applesauce2CF13DictionaryRefEE_clES0_jS3__block_invoke(uint64_t a1)
 {
   _MIDIObjectSetDictionaryProperty(*(a1 + 48), @"object description", *(a1 + 40));
-  v2 = *(a1 + 40);
-  if (v2)
+  v2 = *(a1 + 48);
+  v3 = *(a1 + 52);
+  v4 = *(a1 + 40);
+  if (v4)
   {
-    CFRetain(v2);
+    CFRetain(v4);
   }
 
-  v4 = CFRetain(v2);
-  v3 = SetupManager::instance(v4);
-  SetupManager::AddNotification(v3);
-  if (v2)
+  if (v3 > 2)
   {
-    CFRelease(v2);
+    v5 = -1;
+  }
+
+  else
+  {
+    v5 = dword_23726C56C[v3];
+  }
+
+  v10 = 0u;
+  v7[0] = v5;
+  v7[1] = 40;
+  v8 = v2;
+  v9 = CFRetain(v4);
+  v6 = SetupManager::instance(v9);
+  SetupManager::AddNotification(v6, v7);
+  if (v4)
+  {
+    CFRelease(v4);
   }
 }
 
@@ -4540,7 +4556,7 @@ LABEL_36:
   }
 
 LABEL_37:
-  (v66[3])(&v67);
+  v66[3]();
   std::recursive_mutex::unlock(*(v5 + 160));
   std::recursive_mutex::unlock(*(v5 + 160));
   std::recursive_mutex::lock(*(v5 + 160));
@@ -4548,7 +4564,7 @@ LABEL_37:
   std::vector<std::shared_ptr<MIDICIServerResponder>>::erase((v5 + 176), v14, *(v5 + 184));
   std::recursive_mutex::unlock(*(v5 + 160));
   std::recursive_mutex::unlock(*(v5 + 160));
-  v22 = (*(cf + 3))(v65);
+  (*(cf + 3))();
   v23 = MIDIServer::defaultInstance(v22);
   std::mutex::lock((v23 + 114));
   v66 = 0;
@@ -4615,7 +4631,7 @@ LABEL_51:
         CFRelease(cf);
       }
 
-      ++v32;
+      v32 = (v32 + 4);
     }
 
     while (v32 != v30);
@@ -4693,7 +4709,7 @@ LABEL_72:
         CFRelease(cf);
       }
 
-      ++v45;
+      v45 = (v45 + 4);
     }
 
     while (v45 != v43);
@@ -4712,7 +4728,7 @@ LABEL_72:
 LABEL_80:
     for (m = *(v50 + 184); m != *(v50 + 192); ++m)
     {
-      if (!*(*m + 16) && *(*m + 32) == this)
+      if (!*(*m + 2) && *(*m + 4) == this)
       {
         v49 = OwnedPtrVector<MIDIClient *>::erase(v50 + 176, m);
         goto LABEL_80;
@@ -4801,9 +4817,9 @@ LABEL_11:
   JUMPOUT(0x23720B6A8);
 }
 
-void sub_23720B928(uint64_t a1, uint64_t a2, uint64_t a3, ...)
+void sub_23720B928(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a3);
+  va_start(va, a6);
   CADeprecated::CAMutex::Locker::~Locker(va);
   JUMPOUT(0x23720B848);
 }
@@ -4824,37 +4840,37 @@ BOOL caulk::inplace_function_detail::rt_vtable<BOOL,std::shared_ptr<MIDICIServer
   return v5 == v6;
 }
 
-void MIDIServer::startMIDI(MIDIServer *this, int a2)
+void MIDIServer::startMIDI(MIDIServer *this)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = *(MIDIServer::defaultInstance(this, a2) + 264);
+  v13 = *MEMORY[0x277D85DE8];
+  v1 = MIDIServer::defaultInstance(this)[33];
   gDriverTable();
-  v3 = gDriverTable(void)::drvtbl;
-  v4 = os_log_type_enabled(gDriverTable(void)::drvtbl, OS_LOG_TYPE_DEBUG);
-  if (v4)
+  v2 = gDriverTable(void)::drvtbl;
+  v3 = os_log_type_enabled(gDriverTable(void)::drvtbl, OS_LOG_TYPE_DEBUG);
+  if (v3)
   {
-    v6 = *v2;
-    v9 = 136315650;
-    v10 = "DriverTable.cpp";
+    v5 = *v1;
+    v7 = 136315650;
+    v8 = "DriverTable.cpp";
+    v9 = 1024;
+    v10 = 144;
     v11 = 1024;
-    v12 = 144;
-    v13 = 1024;
-    v14 = v6;
-    _os_log_impl(&dword_2371C2000, v3, OS_LOG_TYPE_DEBUG, "%25s:%-5d StartMIDI: (already running: %d)", &v9, 0x18u);
+    v12 = v5;
+    _os_log_impl(&dword_2371C2000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d StartMIDI: (already running: %d)", &v7, 0x18u);
   }
 
-  if ((*v2 & 1) == 0)
+  if ((*v1 & 1) == 0)
   {
-    v7 = *(v2 + 2);
-    if (v7 != *(v2 + 3))
+    v6 = *(v1 + 2);
+    if (v6 != *(v1 + 3))
     {
-      MIDIDriverMgr::GetDriverDeviceList(*v7, v5);
+      MIDIDriverMgr::GetDriverDeviceList(*v6, v4);
     }
 
-    *v2 = 1;
-    if (*SetupManager::instance(v4))
+    *v1 = 1;
+    if (*SetupManager::instance(v3))
     {
-      MIDISetup::SetMIDIRunning(*v2, v8);
+      MIDISetup::SetMIDIRunning(*v1);
     }
   }
 }
@@ -4998,9 +5014,9 @@ void *std::construct_at[abi:ne200100]<CASmartPreferences::Pref,__CFString const*
   return a1;
 }
 
-void sub_23720BF5C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23720BF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5055,21 +5071,21 @@ pthread_t CADeprecated::Task::Run(pthread_t this)
     v2 = &this->__opaque[128];
     do
     {
-      v3 = (*(*(v1 + 144) + 16))(v2);
-      if (*(v1 + 280) == 1)
+      v3 = (*(*&v1->__opaque[128] + 16))(v2);
+      if (v1->__opaque[264] == 1)
       {
         mach_absolute_time();
         v4 = __udivti3();
-        if (*(v1 + 296) <= v4)
+        if (*&v1->__opaque[280] <= v4)
         {
-          *(v1 + 280) = 0;
-          (*(*v1 + 40))(v1, v4);
+          v1->__opaque[264] = 0;
+          (*(v1->__sig + 40))(v1, v4);
         }
       }
 
-      if (*(v1 + 280) == 1)
+      if (v1->__opaque[264] == 1)
       {
-        this = CADeprecated::CAGuard::WaitUntil(v2, *(v1 + 296));
+        this = CADeprecated::CAGuard::WaitUntil(v2, *&v1->__opaque[280]);
       }
 
       else
@@ -5083,7 +5099,7 @@ pthread_t CADeprecated::Task::Run(pthread_t this)
       }
     }
 
-    while ((*(v1 + 136) & 1) == 0);
+    while ((v1->__opaque[120] & 1) == 0);
   }
 
   return this;
@@ -5223,13 +5239,13 @@ uint64_t std::__tree<std::__value_type<std::pair<unsigned int,unsigned char>,Pro
   return v6;
 }
 
-void std::__tree<std::__value_type<std::pair<unsigned int,unsigned char>,PropertyExchange::Request>,std::__map_value_compare<std::pair<unsigned int,unsigned char>,std::__value_type<std::pair<unsigned int,unsigned char>,PropertyExchange::Request>,std::less<std::pair<unsigned int,unsigned char>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,unsigned char>,PropertyExchange::Request>>>::__erase_unique<std::pair<unsigned int,unsigned char>>(void *a1, unsigned int a2, unsigned __int8 a3)
+void std::__tree<std::__value_type<std::pair<unsigned int,unsigned char>,PropertyExchange::Request>,std::__map_value_compare<std::pair<unsigned int,unsigned char>,std::__value_type<std::pair<unsigned int,unsigned char>,PropertyExchange::Request>,std::less<std::pair<unsigned int,unsigned char>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,unsigned char>,PropertyExchange::Request>>>::__erase_unique<std::pair<unsigned int,unsigned char>>(uint64_t **a1, unsigned int a2, unsigned __int8 a3)
 {
   v4 = std::__tree<std::__value_type<std::pair<unsigned int,unsigned char>,PropertyExchange::Request>,std::__map_value_compare<std::pair<unsigned int,unsigned char>,std::__value_type<std::pair<unsigned int,unsigned char>,PropertyExchange::Request>,std::less<std::pair<unsigned int,unsigned char>>,true>,std::allocator<std::__value_type<std::pair<unsigned int,unsigned char>,PropertyExchange::Request>>>::find<std::pair<unsigned int,unsigned char>>(a1, a2, a3);
   if (a1 + 1 != v4)
   {
     v5 = v4;
-    v6 = *(v4 + 8);
+    v6 = v4[1];
     if (v6)
     {
       do
@@ -5260,7 +5276,7 @@ void std::__tree<std::__value_type<std::pair<unsigned int,unsigned char>,Propert
     }
 
     v10 = a1[1];
-    --a1[2];
+    a1[2] = (a1[2] - 1);
     std::__tree_remove[abi:ne200100]<std::__tree_node_base<void *> *>(v10, v5);
     std::__destroy_at[abi:ne200100]<std::pair<std::pair<unsigned int,unsigned char> const,PropertyExchange::Request>,0>((v5 + 4));
 
@@ -5343,12 +5359,13 @@ uint64_t nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,un
   return std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](v11);
 }
 
-void sub_23720C6BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, char a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_23720C6BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _Unwind_Exception *exception_object, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
-  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::~lexer(v16 + 40);
-  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](&a15);
+  va_start(va, a14);
+  nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::~lexer(v15 + 40);
+  std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<BOOL ()(int,nlohmann::detail::parse_event_t,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>> &)>::~__value_func[abi:ne200100](&a11);
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v15);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::~basic_json(v14);
   _Unwind_Resume(a1);
 }
 
@@ -5450,7 +5467,7 @@ LABEL_15:
   return result;
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(uint64_t **a1, int a2)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(void ****a1, int a2)
 {
   v29 = 0;
   v30 = 0;
@@ -5540,9 +5557,9 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__base_destruct_at_end[abi:ne200100](&v29, (v30 - 16));
     if (v15 == 1)
     {
-      v19 = (v16 + 8);
+      v19 = v16 + 1;
       v20 = *v16;
-      if (*v16 == v16 + 8)
+      if (*v16 == v16 + 1)
       {
         v13 = 1;
       }
@@ -5601,16 +5618,16 @@ void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsign
         v13 = v27;
       }
 
-      std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*(v16 + 8));
-      *v16 = v16 + 8;
-      *(v16 + 16) = 0;
-      *(v16 + 8) = 0;
+      std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(v16[1]);
+      *v16 = v16 + 1;
+      v16[2] = 0;
+      v16[1] = 0;
     }
 
     else if (v13 == 2)
     {
       v17 = *v16;
-      v18 = *(v16 + 8);
+      v18 = v16[1];
       if (*v16 != v18)
       {
         do
@@ -5687,7 +5704,7 @@ LABEL_53:
   std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](&v27);
 }
 
-void *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::reserve(uint64_t *result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -5702,17 +5719,17 @@ void *std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,lon
   return result;
 }
 
-void sub_23720CCD4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23720CCD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  if (v4 >= *(a1 + 16))
+  v4 = a1[1];
+  if (v4 >= a1[2])
   {
     result = std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(a1, a2);
   }
@@ -5728,20 +5745,20 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
     result = v4 + 16;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
-uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__emplace_back_slow_path<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>(uint64_t *a1, uint64_t a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 4;
+  v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
   if ((v2 + 1) >> 60)
   {
     std::vector<CADeprecated::XMachServer::Client *>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 3 > v3)
   {
     v3 = v6 >> 3;
@@ -5774,14 +5791,14 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   *(a2 + 8) = 0;
   nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v8);
   *&v17 = v8 + 16;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = v8 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -5790,9 +5807,9 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return v14;
 }
 
-void sub_23720CE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23720CE70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5810,7 +5827,7 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v5);
       v7 = *v6;
       v6 -= 16;
-      result = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v5 + 8, v7);
+      result = nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v5 + 1, v7);
       v8 = v5 == a2;
       v5 = v6;
     }
@@ -5822,14 +5839,14 @@ uint64_t std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,
   return result;
 }
 
-void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(char *a1)
+void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(unsigned __int8 *a1)
 {
   if (a1)
   {
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*a1);
     std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::destroy(*(a1 + 1));
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(a1 + 56);
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(a1 + 64, a1[56]);
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(a1 + 8, a1[56]);
     if (a1[55] < 0)
     {
       operator delete(*(a1 + 4));
@@ -5839,7 +5856,7 @@ void std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std
   }
 }
 
-void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__destroy_vector::operator()[abi:ne200100](unsigned __int8 ***a1)
 {
   v2 = *a1;
   if (*v2)
@@ -5899,7 +5916,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nl
       nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v6);
       v9 = *v8;
       v8 += 16;
-      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v6 + 8, v9);
+      nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v6 + 1, v9);
       v6 = v8;
     }
 
@@ -5916,7 +5933,7 @@ uint64_t std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::stri
   {
     *(a1 + 16) = i - 16;
     nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant((i - 16));
-    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(i - 8, *(i - 16));
+    nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy((i - 8), *(i - 16));
   }
 
   if (*a1)
@@ -5942,7 +5959,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v4);
         v6 = *v5;
         v5 -= 16;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v4 + 8, v6);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::destroy(v4 + 1, v6);
         v7 = v4 == v3;
         v4 = v5;
       }
@@ -5954,10 +5971,11 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void nlohmann::detail::type_error::create(nlohmann::detail::exception *a1, int a2, uint64_t a3)
+void nlohmann::detail::type_error::create(nlohmann::detail::exception *a1, uint64_t a2, uint64_t a3)
 {
+  v4 = a2;
   std::string::basic_string[abi:ne200100]<0>(__p, "type_error");
-  nlohmann::detail::exception::name(&v14, __p, a2);
+  nlohmann::detail::exception::name(&v14, __p, v4);
   v6 = *(a3 + 23);
   if (v6 >= 0)
   {
@@ -6006,7 +6024,7 @@ void nlohmann::detail::type_error::create(nlohmann::detail::exception *a1, int a
     v11 = v15[0];
   }
 
-  nlohmann::detail::exception::exception(a1, a2, v11);
+  nlohmann::detail::exception::exception(a1, v4, v11);
   *a1 = &unk_284A48CE0;
   if (SHIBYTE(v16) < 0)
   {
@@ -6183,7 +6201,7 @@ uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map
   return v5;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(const void **a1, char *__s)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(const void ***a1, char *__s)
 {
   v3 = *(a1 + 23);
   if (v3 >= 0)
@@ -6306,7 +6324,7 @@ void nlohmann::detail::parser<nlohmann::basic_json<std::map,std::vector,std::str
         {
           if (v15 == 4)
           {
-            nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(&v52);
+            nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(&v52, a1 + 112);
           }
 
           v47.__vftable = *(a1 + 152);
@@ -6501,7 +6519,7 @@ LABEL_76:
 
         v28 = *(*(v23 - 8) + 8);
         v47.__vftable = (a1 + 112);
-        *(&v54 + 1) = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v28, (a1 + 112)) + 56;
+        *(&v54 + 1) = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v28, (a1 + 112), &v47) + 56;
         v29 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(a1 + 40);
         *(a1 + 32) = v29;
         if (v29 != 12)
@@ -6561,7 +6579,7 @@ LABEL_125:
       {
         v17 = *(*(*(&v53 + 1) - 8) + 8);
         v47.__vftable = (a1 + 112);
-        *(&v54 + 1) = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v17, (a1 + 112)) + 56;
+        *(&v54 + 1) = std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(v17, (a1 + 112), &v47) + 56;
         v18 = nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::scan(a1 + 40);
         *(a1 + 32) = v18;
         if (v18 == 12)
@@ -6635,7 +6653,7 @@ LABEL_3:
 
         else if (v4 == 4)
         {
-          nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(&v52);
+          nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(&v52, a1 + 112);
         }
 
         else
@@ -6681,7 +6699,7 @@ LABEL_3:
         {
           if (v5 == 4)
           {
-            nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key();
+            nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key(&v52, (a1 + 112));
           }
 
           goto LABEL_135;
@@ -6827,7 +6845,7 @@ LABEL_35:
   *(a1 + 32) = v13;
   if (v13 == 4)
   {
-    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key();
+    nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::key(&v52, (a1 + 112));
   }
 
 LABEL_135:
@@ -6932,7 +6950,7 @@ LABEL_120:
   nlohmann::detail::json_sax_dom_callback_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~json_sax_dom_callback_parser(&v52);
 }
 
-void sub_23720E8C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, std::runtime_error a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, void *a54)
+void sub_23720E8C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, void *a27, uint64_t a28, int a29, __int16 a30, char a31, char a32, std::runtime_error a33, uint64_t a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, char a54, void *a55)
 {
   nlohmann::detail::parse_error::~parse_error(&a33);
   if (a26 < 0)
@@ -6945,19 +6963,19 @@ void sub_23720E8C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a15);
   }
 
-  if (a42 < 0)
+  if (a43 < 0)
   {
-    operator delete(a37);
+    operator delete(a38);
   }
 
-  if (a43)
+  if (a44)
   {
-    operator delete(a43);
+    operator delete(a44);
   }
 
-  if (a54)
+  if (a55)
   {
-    operator delete(a54);
+    operator delete(a55);
   }
 
   _Unwind_Resume(a1);
@@ -8672,7 +8690,7 @@ uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std
       v8 = *(v7 + 16);
       if (v9 >= v8)
       {
-        v21 = (v9 - *v7) >> 4;
+        v21 = &v9[-*v7] >> 4;
         if ((v21 + 1) >> 60)
         {
           std::vector<CADeprecated::XMachServer::Client *>::__throw_length_error[abi:ne200100]();
@@ -8701,17 +8719,17 @@ uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std
           std::__allocate_at_least[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(v24);
         }
 
-        v25 = 16 * v21;
+        v25 = (16 * v21);
         v36 = 0;
         v37 = v25;
         v38 = v25;
         v26 = *a2;
         *v25 = v26;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value((v25 + 8), v26);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(v25 + 8, v26);
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v25);
         *&v38 = v38 + 16;
         v27 = *(v7 + 8);
-        v28 = v37 + *v7 - v27;
+        v28 = &v37[*v7 - v27];
         std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>*>(v7, *v7, v27, v28);
         v29 = *v7;
         *v7 = v28;
@@ -8730,7 +8748,7 @@ uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std
       {
         v10 = *a2;
         *v9 = v10;
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value((v9 + 8), v10);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(v9 + 8, v10);
         nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::assert_invariant(v9);
         v11 = v9 + 16;
         *(v7 + 8) = v9 + 16;
@@ -8772,21 +8790,21 @@ uint64_t nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, uint64_t ***a2, __int128 **a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t *std::vector<BOOL>::push_back(uint64_t *result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t *a1, _BYTE *a2)
 {
-  v3 = result[1];
-  v2 = result[2];
+  v3 = a1[1];
+  v2 = a1[2];
   if (v3 == v2 << 6)
   {
     if ((v3 + 1) < 0)
@@ -8818,8 +8836,8 @@ LABEL_8:
     }
   }
 
-  result[1] = v3 + 1;
-  v5 = *result;
+  a1[1] = v3 + 1;
+  v5 = *a1;
   v6 = v3 >> 6;
   v7 = 1 << v3;
   if (*a2 == 1)
@@ -8833,7 +8851,6 @@ LABEL_8:
   }
 
   *(v5 + 8 * v6) = v8;
-  return result;
 }
 
 void nlohmann::detail::out_of_range::create(nlohmann::detail::exception *a1, uint64_t a2)
@@ -9041,9 +9058,9 @@ LABEL_9:
   *(v6 + 8) = v10;
 }
 
-void sub_237211348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_237211348(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9183,9 +9200,9 @@ LABEL_9:
   *(v6 + 8) = v10;
 }
 
-void sub_2372115DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2372115DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9319,9 +9336,9 @@ LABEL_9:
   *(v5 + 8) = v8;
 }
 
-void sub_23721183C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_23721183C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9461,68 +9478,68 @@ LABEL_9:
   *(v6 + 8) = v10;
 }
 
-void sub_237211AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_237211AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(void *a1)
+void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<std::string&>(uint64_t *a1, uint64_t a2)
 {
-  v1 = a1[2];
-  if (a1[1] != v1)
+  v2 = a1[2];
+  if (a1[1] != v2)
   {
-    v2 = *(v1 - 8);
-    v3 = *v2;
-    if (v3 == 2)
+    v3 = *(v2 - 8);
+    v4 = *v3;
+    if (v4 == 2)
     {
-      v4 = *(v2 + 1);
-      v6 = v4[1];
-      v5 = v4[2];
-      if (v6 < v5)
+      v5 = *(v3 + 1);
+      v7 = v5[1];
+      v6 = v5[2];
+      if (v7 < v6)
       {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v4[1]);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v5[1], a2);
       }
 
-      v7 = (v6 - *v4) >> 4;
-      if (!((v7 + 1) >> 60))
+      v8 = (v7 - *v5) >> 4;
+      if (!((v8 + 1) >> 60))
       {
-        v8 = v5 - *v4;
-        v9 = v8 >> 3;
-        if (v8 >> 3 <= (v7 + 1))
+        v9 = v6 - *v5;
+        v10 = v9 >> 3;
+        if (v9 >> 3 <= (v8 + 1))
         {
-          v9 = v7 + 1;
+          v10 = v8 + 1;
         }
 
-        if (v8 >= 0x7FFFFFFFFFFFFFF0)
+        if (v9 >= 0x7FFFFFFFFFFFFFF0)
         {
-          v10 = 0xFFFFFFFFFFFFFFFLL;
+          v11 = 0xFFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v10 = v9;
+          v11 = v10;
         }
 
-        v14 = v4;
-        if (v10)
+        v15 = v5;
+        if (v11)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(v10);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>(v11);
         }
 
-        v13 = (16 * v7);
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(16 * v7);
+        v14 = (16 * v8);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(16 * v8, a2);
       }
 
       std::vector<CADeprecated::XMachServer::Client *>::__throw_length_error[abi:ne200100]();
     }
 
-    if (v3 == 1)
+    if (v4 == 1)
     {
       if (a1[4])
       {
-        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v11);
+        nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v12, a2);
       }
 
       __assert_rtn("handle_value", "json_sax.hpp", 321, "object_element");
@@ -9531,7 +9548,7 @@ void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::ve
     __assert_rtn("handle_value", "json_sax.hpp", 312, "ref_stack.back()->is_array() or ref_stack.back()->is_object()");
   }
 
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v12);
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(v13, a2);
 }
 
 void nlohmann::detail::json_sax_dom_parser<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::handle_value<unsigned long long &>(unsigned __int8 **a1, uint64_t *a2)
@@ -9669,21 +9686,21 @@ LABEL_9:
   *(v6 + 8) = v10;
 }
 
-void sub_237211FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_237211FC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__split_buffer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(uint64_t a1)
+void nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::basic_json<std::string&,std::string,0>(uint64_t a1, uint64_t a2)
 {
   *(a1 + 8) = 0;
   *a1 = 3;
-  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>();
+  nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::create<std::string,std::string const&>(a2);
 }
 
-void *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+char *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::__map_value_compare<std::string,std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>,std::less<void>,true>,std::allocator<std::__value_type<std::string,nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -9694,7 +9711,7 @@ void *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,st
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -9712,8 +9729,8 @@ void *std::__tree<std::__value_type<std::string,nlohmann::basic_json<std::map,st
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -9749,7 +9766,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   operator delete(a2);
 }
 
-void *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(void *result, int a2)
+_BYTE *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>::json_value::json_value(_BYTE *a1, int a2)
 {
   if (a2 <= 3)
   {
@@ -9784,12 +9801,12 @@ void *nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsig
   if (a2 != 4)
   {
 LABEL_11:
-    *result = 0;
-    return result;
+    *a1 = 0;
+    return a1;
   }
 
-  *result = 0;
-  return result;
+  *a1 = 0;
+  return a1;
 }
 
 uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>,nlohmann::detail::iterator_input_adapter<char const*>>::get(unsigned __int8 **a1)
@@ -9828,7 +9845,7 @@ uint64_t nlohmann::detail::lexer<nlohmann::basic_json<std::map,std::vector,std::
   result = *(a1 + 4);
   if (result == 10)
   {
-    v5 = (a1[5] + 1);
+    v5 = a1[5] + 1;
     a1[4] = 0;
     a1[5] = v5;
   }

@@ -53,33 +53,33 @@
 
 - (uint64_t)hkspWriteData:()HKSPFileManager toCacheFileWithName:error:
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
   if (([self hkspFileWithNameExistsInCache:v9] & 1) == 0)
   {
     _bundleCacheDirectory = [objc_opt_class() _bundleCacheDirectory];
-    v36 = *MEMORY[0x277CCA1B0];
-    v37[0] = *MEMORY[0x277CCA198];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-    v29 = 0;
-    [self createDirectoryAtPath:_bundleCacheDirectory withIntermediateDirectories:1 attributes:v11 error:&v29];
-    v12 = v29;
+    v35 = *MEMORY[0x277CCA1B0];
+    v36[0] = *MEMORY[0x277CCA198];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v28 = 0;
+    [self createDirectoryAtPath:_bundleCacheDirectory withIntermediateDirectories:1 attributes:v11 error:&v28];
+    v12 = v28;
 
     if (v12)
     {
       v13 = HKSPLogForCategory(7uLL);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v25 = objc_opt_class();
-        v26 = v25;
+        v24 = objc_opt_class();
+        v25 = v24;
         _bundleCacheDirectory2 = [objc_opt_class() _bundleCacheDirectory];
         *buf = 138543874;
-        v31 = v25;
-        v32 = 2114;
-        v33 = _bundleCacheDirectory2;
-        v34 = 2114;
-        v35 = v12;
+        v30 = v24;
+        v31 = 2114;
+        v32 = _bundleCacheDirectory2;
+        v33 = 2114;
+        v34 = v12;
         _os_log_error_impl(&dword_269A84000, v13, OS_LOG_TYPE_ERROR, "[%{public}@] failed to create directory at %{public}@ with error %{public}@", buf, 0x20u);
       }
 
@@ -100,7 +100,7 @@ LABEL_12:
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v31 = v14;
+        v30 = v14;
         _os_log_error_impl(&dword_269A84000, v20, OS_LOG_TYPE_ERROR, "Dropping error because caller did not provide an errorOut pointer: %{public}@", buf, 0xCu);
       }
 
@@ -109,22 +109,22 @@ LABEL_12:
   }
 
   v16 = [objc_opt_class() _bundleCachePathForFile:v9];
-  v28 = 0;
+  v27 = 0;
   v17 = 1;
-  v18 = [v8 writeToFile:v16 options:1 error:&v28];
-  v14 = v28;
+  v18 = [v8 writeToFile:v16 options:1 error:&v27];
+  v14 = v27;
 
   if ((v18 & 1) == 0)
   {
     v19 = HKSPLogForCategory(7uLL);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v23 = objc_opt_class();
+      v22 = objc_opt_class();
       *buf = 138543618;
-      v31 = v23;
-      v32 = 2114;
-      v33 = v14;
-      v24 = v23;
+      v30 = v22;
+      v31 = 2114;
+      v32 = v14;
+      v23 = v22;
       _os_log_error_impl(&dword_269A84000, v19, OS_LOG_TYPE_ERROR, "[%{public}@] failed to write data to file with error %{public}@", buf, 0x16u);
     }
 
@@ -144,7 +144,6 @@ LABEL_12:
 
 LABEL_16:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

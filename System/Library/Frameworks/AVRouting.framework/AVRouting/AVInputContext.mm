@@ -215,10 +215,10 @@ void *__42__AVInputContext_getApplicationProcessID___block_invoke(void *result)
 
 - (void)setApplicationProcessID:(int)d
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B28)
   {
-    v11 = 0;
+    v10 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -234,7 +234,6 @@ void *__42__AVInputContext_getApplicationProcessID___block_invoke(void *result)
   dCopy = d;
   av_readwrite_dispatch_queue_write(ivarAccessQueue, block);
   [-[AVInputContext impl](self "impl")];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__AVInputContext_setApplicationProcessID___block_invoke(uint64_t result)
@@ -265,10 +264,10 @@ uint64_t __42__AVInputContext_setApplicationProcessID___block_invoke(uint64_t re
 
 - (void)inputContextImpl:(id)impl didInitiateDestinationChange:(id)change
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10 = @"AVInputContextDestinationChangeKey";
-  v11[0] = change;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v8[1] = *MEMORY[0x1E69E9840];
+  v7 = @"AVInputContextDestinationChangeKey";
+  v8[0] = change;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   if (dword_1ED6F6B28)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -276,18 +275,17 @@ uint64_t __42__AVInputContext_setApplicationProcessID___block_invoke(uint64_t re
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v7 = *MEMORY[0x1E69E9840];
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)inputContextImpl:(id)impl didChangeInputDeviceWithInitiator:(id)initiator
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if (initiator)
   {
-    v10 = @"AVInputContextDestinationChangeInitiatorKey";
-    v11[0] = initiator;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v7 = @"AVInputContextDestinationChangeInitiatorKey";
+    v8[0] = initiator;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
@@ -302,8 +300,7 @@ uint64_t __42__AVInputContext_setApplicationProcessID___block_invoke(uint64_t re
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v7 = *MEMORY[0x1E69E9840];
+  [objc_msgSend(MEMORY[0x1E696AD88] "defaultCenter")];
 }
 
 - (void)inputContextImpl:(id)impl didExpireWithReplacement:(id)replacement
@@ -342,52 +339,49 @@ id __60__AVInputContext_inputContextImpl_didExpireWithReplacement___block_invoke
 
 - (void)setInputDevice:(id)device options:(id)options completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v9 = [options objectForKeyedSubscript:@"AVInputContextSetInputDeviceInitiatorKey"];
   UpTimeNanoseconds = FigGetUpTimeNanoseconds();
   v11 = [device description];
   if (dword_1ED6F6B28)
   {
-    v19 = 0;
+    v16 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v13 = [(AVInputContext *)self impl:v15];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __59__AVInputContext_setInputDevice_options_completionHandler___block_invoke;
-  v17[3] = &unk_1E794F050;
-  v17[7] = handler;
-  v17[8] = UpTimeNanoseconds;
-  v17[4] = self;
-  v17[5] = v11;
-  v17[6] = v9;
-  [v13 setInputDevice:device options:options completionHandler:v17];
-  v14 = *MEMORY[0x1E69E9840];
+  impl = [(AVInputContext *)self impl];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __59__AVInputContext_setInputDevice_options_completionHandler___block_invoke;
+  v14[3] = &unk_1E794F050;
+  v14[7] = handler;
+  v14[8] = UpTimeNanoseconds;
+  v14[4] = self;
+  v14[5] = v11;
+  v14[6] = v9;
+  [impl setInputDevice:device options:options completionHandler:v14];
 }
 
-uint64_t __59__AVInputContext_setInputDevice_options_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t __59__AVInputContext_setInputDevice_options_completionHandler___block_invoke(void *a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   FigGetUpTimeNanoseconds();
   if (dword_1ED6F6B28)
   {
-    v4 = *(a1 + 64);
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  result = *(a1 + 56);
+  result = a1[7];
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -407,7 +401,7 @@ uint64_t __59__AVInputContext_setInputDevice_options_completionHandler___block_i
 
 - (void)inputContextImplDidChangeCanSetInputGain:(id)gain
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B28)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -416,12 +410,11 @@ uint64_t __59__AVInputContext_setInputDevice_options_completionHandler___block_i
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)inputContextImplDidChangeInputGain:(id)gain
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (dword_1ED6F6B28)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -430,7 +423,6 @@ uint64_t __59__AVInputContext_setInputDevice_options_completionHandler___block_i
   }
 
   [objc_msgSend(MEMORY[0x1E696AD88] defaultCenter];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canSetInputGain

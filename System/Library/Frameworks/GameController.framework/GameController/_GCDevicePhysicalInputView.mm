@@ -6,18 +6,18 @@
 - (_GCDevicePhysicalInputView)initWithParameters:(id)parameters;
 - (_GCDevicePhysicalInputView)initWithTemplate:(id)template context:(id)context;
 - (_GCDevicePhysicalInputView)retain;
-- (uint64_t)_objectValueForSlot:(uint64_t)result;
-- (uint64_t)_primitiveValueForSlot:(uint64_t)result;
-- (uint64_t)_setObjectValue:(uint64_t)value forSlot:(uint64_t)slot policy:;
-- (uint64_t)_setPrimitiveValue:(uint64_t)value forSlot:;
-- (uint64_t)_testAndSetObjectValue:(uint64_t)value forSlot:(uint64_t)slot policy:;
-- (uint64_t)_testAndSetPrimitiveValue:(uint64_t)value forSlot:;
+- (id)_objectValueForSlot:(id *)result;
+- (id)_primitiveValueForSlot:(id *)result;
+- (id)_setObjectValue:(uint64_t)value forSlot:(uint64_t)slot policy:;
+- (id)_setPrimitiveValue:(uint64_t)value forSlot:;
+- (id)_testAndSetObjectValue:(uint64_t)value forSlot:(uint64_t)slot policy:;
+- (id)_testAndSetPrimitiveValue:(uint64_t)value forSlot:;
 - (uint64_t)dataSource;
 - (uint64_t)isSnapshot;
 - (uint64_t)physicalInput;
 - (unint64_t)retainCount;
-- (void)_didChangeValueForKey:(void *)key;
-- (void)_willChangeValueForKey:(void *)key;
+- (unsigned)_didChangeValueForKey:(unsigned __int8 *)result;
+- (unsigned)_willChangeValueForKey:(unsigned __int8 *)result;
 - (void)addObserver:(id)observer forKeyPath:(id)path options:(unint64_t)options context:(void *)context;
 - (void)dealloc;
 - (void)release;
@@ -304,92 +304,92 @@ LABEL_9:
   return v1 & 1;
 }
 
-- (uint64_t)_primitiveValueForSlot:(uint64_t)result
+- (id)_primitiveValueForSlot:(id *)result
 {
   if (result)
   {
-    return [*(result + 8) view:result primitiveValueForSlot:a2];
+    return [result[1] view:result primitiveValueForSlot:a2];
   }
 
   return result;
 }
 
-- (uint64_t)_setPrimitiveValue:(uint64_t)value forSlot:
+- (id)_setPrimitiveValue:(uint64_t)value forSlot:
 {
   if (result)
   {
-    return [*(result + 8) view:result setPrimitiveValue:a2 forSlot:value];
+    return [result[1] view:result setPrimitiveValue:a2 forSlot:value];
   }
 
   return result;
 }
 
-- (uint64_t)_testAndSetPrimitiveValue:(uint64_t)value forSlot:
+- (id)_testAndSetPrimitiveValue:(uint64_t)value forSlot:
 {
   if (result)
   {
-    return [*(result + 8) view:result testAndSetPrimitiveValue:a2 forSlot:value];
+    return [result[1] view:result testAndSetPrimitiveValue:a2 forSlot:value];
   }
 
   return result;
 }
 
-- (uint64_t)_objectValueForSlot:(uint64_t)result
+- (id)_objectValueForSlot:(id *)result
 {
   if (result)
   {
-    return [*(result + 8) view:result objectValueForSlot:a2];
+    return [result[1] view:result objectValueForSlot:a2];
   }
 
   return result;
 }
 
-- (uint64_t)_setObjectValue:(uint64_t)value forSlot:(uint64_t)slot policy:
+- (id)_setObjectValue:(uint64_t)value forSlot:(uint64_t)slot policy:
 {
   if (result)
   {
-    return [*(result + 8) view:result setObjectValue:a2 forSlot:value policy:slot];
+    return [result[1] view:result setObjectValue:a2 forSlot:value policy:slot];
   }
 
   return result;
 }
 
-- (uint64_t)_testAndSetObjectValue:(uint64_t)value forSlot:(uint64_t)slot policy:
+- (id)_testAndSetObjectValue:(uint64_t)value forSlot:(uint64_t)slot policy:
 {
   if (result)
   {
-    return [*(result + 8) view:result testAndSetObjectValue:a2 forSlot:value policy:slot];
+    return [result[1] view:result testAndSetObjectValue:a2 forSlot:value policy:slot];
   }
 
   return result;
 }
 
-- (void)_willChangeValueForKey:(void *)key
+- (unsigned)_willChangeValueForKey:(unsigned __int8 *)result
 {
-  if (key)
+  if (result)
   {
-    v2 = atomic_load(key + 18);
+    v2 = atomic_load(result + 18);
     if (v2)
     {
-      return [key willChangeValueForKey:a2];
+      return [result willChangeValueForKey:a2];
     }
   }
 
-  return key;
+  return result;
 }
 
-- (void)_didChangeValueForKey:(void *)key
+- (unsigned)_didChangeValueForKey:(unsigned __int8 *)result
 {
-  if (key)
+  if (result)
   {
-    v2 = atomic_load(key + 18);
+    v2 = atomic_load(result + 18);
     if (v2)
     {
-      return [key didChangeValueForKey:a2];
+      return [result didChangeValueForKey:a2];
     }
   }
 
-  return key;
+  return result;
 }
 
 - (uint64_t)dataSource

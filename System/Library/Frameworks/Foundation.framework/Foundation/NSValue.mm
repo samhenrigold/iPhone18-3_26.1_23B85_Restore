@@ -108,8 +108,8 @@
     [(NSValue *)self getValue:&v8];
     v6 = *(&v8 + 1);
     v7 = *&v8;
-    v4 = v9[1];
     v5 = v9[0];
+    v4 = v9[1];
   }
 
   result.size.height = v4;
@@ -174,8 +174,8 @@
     [(NSValue *)self getValue:&v8];
     v6 = *(&v8 + 1);
     v7 = *&v8;
-    v4 = v9[1];
     v5 = v9[0];
+    v4 = v9[1];
   }
 
   result.right = v4;

@@ -307,23 +307,21 @@ LABEL_20:
 
 - (id)treeOfAllMailboxUidsSortedWithSpecialsAtTopIncludingLocals:()MailboxSorting client:outbox:
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = a4;
   v9 = a5;
   v10 = [MEMORY[0x277D28280] log];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [self ef_publicDescription];
-    v15 = 138543618;
-    v16 = ef_publicDescription;
-    v17 = 2114;
-    v18 = v8;
-    _os_log_impl(&dword_2149C9000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> client:%{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = ef_publicDescription;
+    v16 = 2114;
+    v17 = v8;
+    _os_log_impl(&dword_2149C9000, v10, OS_LOG_TYPE_DEFAULT, "<%{public}@> client:%{public}@", &v14, 0x16u);
   }
 
   v12 = [self _treeOfAllMailboxesIncludingLocals:a3 withOutbox:v9 hideInbox:objc_msgSend(v8 hideNotes:{"shouldHideInbox"), objc_msgSend(v8, "shouldHideNotesForAccount:", self)}];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

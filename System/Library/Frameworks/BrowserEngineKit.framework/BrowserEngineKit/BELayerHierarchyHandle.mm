@@ -1,4 +1,5 @@
 @interface BELayerHierarchyHandle
++ (BELayerHierarchyHandle)handleWithPort:(unsigned int)port data:(id)data error:(id *)error;
 + (BELayerHierarchyHandle)handleWithXPCRepresentation:(id)representation error:(id *)error;
 - (BELayerHierarchyHandle)init;
 - (BELayerHierarchyHandle)initWithCoder:(id)coder;
@@ -70,6 +71,41 @@
   return token;
 }
 
++ (BELayerHierarchyHandle)handleWithPort:(unsigned int)port data:(id)data error:(id *)error
+{
+  v12 = 0;
+  v6 = [MEMORY[0x1E6979388] tokenWithPort:*&port data:data error:&v12];
+  v7 = v12;
+  v8 = v7;
+  if (v6)
+  {
+    v9 = [[BELayerHierarchyHandle alloc] _initWithToken:v6];
+  }
+
+  else if (error)
+  {
+    if (v7)
+    {
+      v11 = v7;
+      v9 = 0;
+      *error = v8;
+    }
+
+    else
+    {
+      [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:4866 userInfo:0];
+      *error = v9 = 0;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
 + (BELayerHierarchyHandle)handleWithXPCRepresentation:(id)representation error:(id *)error
 {
   v11 = 0;
@@ -118,7 +154,7 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [BELayerHierarchyHandle initWithCoder:a2];
+    [(BELayerHierarchyHandle *)a2 initWithCoder:?];
   }
 
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"token"];
@@ -142,7 +178,7 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [BELayerHierarchyHandle encodeWithCoder:a2];
+    [(BELayerHierarchyHandle *)a2 encodeWithCoder:?];
   }
 
   [coderCopy encodeObject:self->_token forKey:@"token"];
@@ -219,46 +255,46 @@
   __break(0);
 }
 
-- (void)initWithCoder:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithCoder:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BELayerHierarchyHandle only supports NSXPCCoder"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BELayerHierarchyHandle only supports NSXPCCoder"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v9 = @"BELayerHierarchyHandle.m";
-    v10 = 1024;
-    v11 = 89;
-    v12 = v6;
-    v13 = v2;
-    OUTLINED_FUNCTION_1(&dword_19D4FF000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8);
+    v10 = @"BELayerHierarchyHandle.m";
+    v11 = 1024;
+    v12 = 89;
+    v13 = v7;
+    v14 = v3;
+    OUTLINED_FUNCTION_1(&dword_19D4FF000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)encodeWithCoder:(const char *)a1 .cold.1(const char *a1)
+- (void)encodeWithCoder:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BELayerHierarchyHandle only supports NSXPCCoder"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BELayerHierarchyHandle only supports NSXPCCoder"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    v9 = @"BELayerHierarchyHandle.m";
-    v10 = 1024;
-    v11 = 99;
-    v12 = v6;
-    v13 = v2;
-    OUTLINED_FUNCTION_1(&dword_19D4FF000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8);
+    v10 = @"BELayerHierarchyHandle.m";
+    v11 = 1024;
+    v12 = 99;
+    v13 = v7;
+    v14 = v3;
+    OUTLINED_FUNCTION_1(&dword_19D4FF000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

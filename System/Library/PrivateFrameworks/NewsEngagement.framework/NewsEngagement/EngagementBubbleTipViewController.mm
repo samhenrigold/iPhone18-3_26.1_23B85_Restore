@@ -17,7 +17,7 @@
   v6.super_class = swift_getObjectType();
   v2 = v6.receiver;
   [(AMSUIBaseMessageViewController *)&v6 viewDidLoad];
-  sub_25BE8CFD0();
+  sub_25BE8CFD0(0);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_25BEB60E0;
   v4 = sub_25BEB4794();
@@ -31,7 +31,7 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_25BE8C6A8(appear);
+  sub_25BE8C6A8(appear, selfCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
@@ -50,7 +50,7 @@
   width = size.width;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_25BE8C8D4(coordinator, width, height);
+  sub_25BE8C8D4(coordinator, selfCopy, width, height);
   swift_unknownObjectRelease();
 }
 

@@ -40,7 +40,7 @@
 - (uint64_t)cps_sizeToFitWithinSize:()ClipServicesUIExtras
 {
   [self sizeThatFits:?];
-  [self transform];
+  objc_msgSend_transform(self);
   if (CGAffineTransformIsIdentity(&v3))
   {
     [self frame];

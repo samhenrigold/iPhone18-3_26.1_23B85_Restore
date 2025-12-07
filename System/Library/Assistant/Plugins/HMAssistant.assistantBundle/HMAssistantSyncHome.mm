@@ -76,7 +76,7 @@ LABEL_8:
 
 - (void)beginSyncWithAnchor:(id)anchor validity:(id)validity count:(int64_t)count forKey:(id)key beginInfo:(id)info
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   validityCopy = validity;
   keyCopy = key;
@@ -97,9 +97,9 @@ LABEL_8:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v63 = v19;
-      v64 = 2112;
-      v65 = defaultPrivateConfiguration;
+      v62 = v19;
+      v63 = 2112;
+      v64 = defaultPrivateConfiguration;
       _os_log_impl(&dword_2334D2000, v18, OS_LOG_TYPE_INFO, "%{public}@Started initialization of home manager with configuration %@", buf, 0x16u);
     }
 
@@ -119,35 +119,35 @@ LABEL_8:
     {
       if ([(HMAssistantSyncHome *)selfCopy shouldSyncForAnchor:anchorCopy])
       {
-        v60[0] = 0;
-        v60[1] = v60;
-        v60[2] = 0x3032000000;
-        v60[3] = sub_2334D3A74;
-        v60[4] = sub_2334D3A84;
+        v59[0] = 0;
+        v59[1] = v59;
+        v59[2] = 0x3032000000;
+        v59[3] = sub_2334D3A74;
+        v59[4] = sub_2334D3A84;
         array = [MEMORY[0x277CBEB18] array];
-        v58[0] = 0;
-        v58[1] = v58;
-        v58[2] = 0x3032000000;
-        v58[3] = sub_2334D3A74;
-        v58[4] = sub_2334D3A84;
+        v57[0] = 0;
+        v57[1] = v57;
+        v57[2] = 0x3032000000;
+        v57[3] = sub_2334D3A74;
+        v57[4] = sub_2334D3A84;
         array2 = [MEMORY[0x277CBEB18] array];
-        v48 = getLastSyncedAssistantConfigurationVersion();
+        v47 = getLastSyncedAssistantConfigurationVersion();
         v23 = objc_autoreleasePoolPush();
         v24 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
         {
           v25 = HMFGetLogIdentifier();
           *buf = 138544642;
-          v63 = v25;
-          v64 = 2112;
-          v65 = v48;
-          v66 = 2112;
-          v67 = anchorCopy;
-          v68 = 2112;
-          v69 = validityCopy;
-          v70 = 2112;
-          v71 = keyCopy;
-          v72 = 2048;
+          v62 = v25;
+          v63 = 2112;
+          v64 = v47;
+          v65 = 2112;
+          v66 = anchorCopy;
+          v67 = 2112;
+          v68 = validityCopy;
+          v69 = 2112;
+          v70 = keyCopy;
+          v71 = 2048;
           countCopy = count;
           _os_log_impl(&dword_2334D2000, v24, OS_LOG_TYPE_INFO, "%{public}@lastSyncedVersion %@  beginAnchor is %@  validity %@  key %@  count %tu", buf, 0x3Eu);
         }
@@ -159,15 +159,15 @@ LABEL_8:
         waitGroup2 = [(HMAssistantSyncHome *)selfCopy waitGroup];
         dispatch_group_enter(waitGroup2);
 
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = sub_2334D3A8C;
-        v52[3] = &unk_2789D9E38;
-        objc_copyWeak(&v56, &location);
-        v54 = v60;
-        v55 = v58;
-        v53 = infoCopy;
-        [initWithNoValidation requestSiriSyncDataWithValidity:validityCopy completion:v52];
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = sub_2334D3A8C;
+        v51[3] = &unk_2789D9E38;
+        objc_copyWeak(&v55, &location);
+        v53 = v59;
+        v54 = v57;
+        v52 = infoCopy;
+        [initWithNoValidation requestSiriSyncDataWithValidity:validityCopy completion:v51];
         waitGroup3 = [(HMAssistantSyncHome *)selfCopy waitGroup];
         v29 = dispatch_time(0, 42000000000);
         v30 = dispatch_group_wait(waitGroup3, v29);
@@ -180,7 +180,7 @@ LABEL_8:
           {
             v33 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v63 = v33;
+            v62 = v33;
             _os_log_impl(&dword_2334D2000, v32, OS_LOG_TYPE_INFO, "%{public}@Timed out waiting for homed", buf, 0xCu);
           }
 
@@ -195,11 +195,11 @@ LABEL_8:
         block[4] = selfCopy;
         dispatch_async(queue, block);
 
-        objc_destroyWeak(&v56);
+        objc_destroyWeak(&v55);
         objc_destroyWeak(&location);
 
-        _Block_object_dispose(v58, 8);
-        _Block_object_dispose(v60, 8);
+        _Block_object_dispose(v57, 8);
+        _Block_object_dispose(v59, 8);
 
         goto LABEL_26;
       }
@@ -211,11 +211,11 @@ LABEL_8:
         v45 = HMFGetLogIdentifier();
         v46 = getAssistantConfigurationSnapshot();
         *buf = 138543874;
-        v63 = v45;
-        v64 = 2112;
-        v65 = anchorCopy;
-        v66 = 2112;
-        v67 = v46;
+        v62 = v45;
+        v63 = 2112;
+        v64 = anchorCopy;
+        v65 = 2112;
+        v66 = v46;
         _os_log_impl(&dword_2334D2000, v43, OS_LOG_TYPE_INFO, "%{public}@lastSyncedSnapshot %@ at same as assistantConfigurationSnapshot %@ - skipping sync...", buf, 0x20u);
       }
     }
@@ -231,11 +231,11 @@ LABEL_8:
         {
           v41 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v63 = v41;
-          v64 = 2112;
-          v65 = validityCopy;
-          v66 = 2112;
-          v67 = v38;
+          v62 = v41;
+          v63 = 2112;
+          v64 = validityCopy;
+          v65 = 2112;
+          v66 = v38;
           _os_log_impl(&dword_2334D2000, v40, OS_LOG_TYPE_INFO, "%{public}@lastSyncValidity '%@' different from assistantConfigurationSnapshot %@ - reset all data so that full sync attempted next time", buf, 0x20u);
         }
 
@@ -249,7 +249,7 @@ LABEL_8:
       {
         v44 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v63 = v44;
+        v62 = v44;
         _os_log_impl(&dword_2334D2000, v43, OS_LOG_TYPE_INFO, "%{public}@No accessories configured - skipping sync request from Siri client...", buf, 0xCu);
       }
     }
@@ -266,18 +266,16 @@ LABEL_26:
   {
     v37 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v63 = v37;
-    v64 = 2112;
-    v65 = keyCopy;
-    v66 = 2112;
-    v67 = @"com.apple.homekit.name";
+    v62 = v37;
+    v63 = 2112;
+    v64 = keyCopy;
+    v65 = 2112;
+    v66 = @"com.apple.homekit.name";
     _os_log_impl(&dword_2334D2000, v36, OS_LOG_TYPE_INFO, "%{public}@Incoming key '%@' does not match plug-in key '%@'", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v35);
 LABEL_27:
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldSyncForAnchor:(id)anchor
@@ -291,7 +289,7 @@ LABEL_27:
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -299,21 +297,20 @@ LABEL_27:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v10 = v6;
+    v9 = v6;
     _os_log_impl(&dword_2334D2000, v5, OS_LOG_TYPE_INFO, "%{public}@Indicating syncDidEnd from dealloc", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMAssistantSyncHome *)selfCopy syncDidEnd];
-  v8.receiver = selfCopy;
-  v8.super_class = HMAssistantSyncHome;
-  [(HMAssistantSyncHome *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMAssistantSyncHome;
+  [(HMAssistantSyncHome *)&v7 dealloc];
 }
 
 - (void)homeManagerDidUpdateHomes:(id)homes
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   homesCopy = homes;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -323,18 +320,16 @@ LABEL_27:
     v8 = HMFGetLogIdentifier();
     mach_absolute_time();
     v9 = UpTicksToMilliseconds();
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2048;
-    v15 = v9 - [(HMAssistantSyncHome *)selfCopy fetchHomeConfigurationStartTime];
-    _os_log_impl(&dword_2334D2000, v7, OS_LOG_TYPE_INFO, "%{public}@Home manager did update homes in %llu milliseconds", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2048;
+    v14 = v9 - [(HMAssistantSyncHome *)selfCopy fetchHomeConfigurationStartTime];
+    _os_log_impl(&dword_2334D2000, v7, OS_LOG_TYPE_INFO, "%{public}@Home manager did update homes in %llu milliseconds", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   waitGroup = [(HMAssistantSyncHome *)selfCopy waitGroup];
   dispatch_group_leave(waitGroup);
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMAssistantSyncHome)init

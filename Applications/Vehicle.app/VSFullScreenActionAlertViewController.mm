@@ -17,7 +17,6 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC7Vehicle37VSFullScreenActionAlertViewController_action);
   if (v2)
   {
-    v3 = *&self->action[OBJC_IVAR____TtC7Vehicle37VSFullScreenActionAlertViewController_action];
     selfCopy = self;
     v2();
   }

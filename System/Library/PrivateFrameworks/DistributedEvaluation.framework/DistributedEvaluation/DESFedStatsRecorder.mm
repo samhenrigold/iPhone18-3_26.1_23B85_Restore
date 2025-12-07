@@ -11,7 +11,7 @@
   recordCopy = record;
   dataCopy = data;
   contentCopy = content;
-  if (PrivateFederatedLearningLibraryCore())
+  if (PrivateFederatedLearningLibraryCore(0))
   {
     if ([dataCopy count])
     {

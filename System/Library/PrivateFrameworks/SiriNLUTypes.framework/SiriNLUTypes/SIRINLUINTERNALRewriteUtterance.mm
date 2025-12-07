@@ -15,7 +15,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   asrId = self->_asrId;
   v6 = *(fromCopy + 2);
@@ -37,29 +37,29 @@
     [(SIRINLUINTERNALRewriteUtterance *)self setUtterance:?];
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v7 = *(fromCopy + 3);
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(SIRINLUINTERNALRewriteUtterance *)self addAsrUtteranceTokens:*(*(&v22 + 1) + 8 * i)];
+        [(SIRINLUINTERNALRewriteUtterance *)self addAsrUtteranceTokens:*(*(&v21 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v9);
@@ -71,35 +71,33 @@
     *&self->_has |= 1u;
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = *(fromCopy + 4);
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(SIRINLUINTERNALRewriteUtterance *)self addNluInternalTokens:*(*(&v18 + 1) + 8 * j), v18];
+        [(SIRINLUINTERNALRewriteUtterance *)self addNluInternalTokens:*(*(&v17 + 1) + 8 * j), v17];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)hash
@@ -178,7 +176,6 @@
     }
   }
 
-  v8 = *(equalCopy + 48);
   if (*&self->_has)
   {
     if ((*(equalCopy + 48) & 1) == 0 || self->_confidence != *(equalCopy + 1))
@@ -190,29 +187,29 @@
   else if (*(equalCopy + 48))
   {
 LABEL_15:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_16;
   }
 
   nluInternalTokens = self->_nluInternalTokens;
   if (nluInternalTokens | *(equalCopy + 4))
   {
-    v10 = [(NSMutableArray *)nluInternalTokens isEqual:?];
+    v9 = [(NSMutableArray *)nluInternalTokens isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_16:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(SIRINLUEXTERNALUUID *)self->_asrId copyWithZone:zone];
   v7 = *(v5 + 16);
@@ -222,34 +219,34 @@ LABEL_16:
   v9 = *(v5 + 40);
   *(v5 + 40) = v8;
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v10 = self->_asrUtteranceTokens;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v29;
+    v13 = *v28;
     do
     {
       v14 = 0;
       do
       {
-        if (*v29 != v13)
+        if (*v28 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v28 + 1) + 8 * v14) copyWithZone:zone];
+        v15 = [*(*(&v27 + 1) + 8 * v14) copyWithZone:zone];
         [v5 addAsrUtteranceTokens:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v12);
@@ -261,40 +258,39 @@ LABEL_16:
     *(v5 + 48) |= 1u;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v16 = self->_nluInternalTokens;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v25;
+    v19 = *v24;
     do
     {
       v20 = 0;
       do
       {
-        if (*v25 != v19)
+        if (*v24 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [*(*(&v24 + 1) + 8 * v20) copyWithZone:{zone, v24}];
+        v21 = [*(*(&v23 + 1) + 8 * v20) copyWithZone:{zone, v23}];
         [v5 addNluInternalTokens:v21];
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v18);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -350,7 +346,7 @@ LABEL_16:
 
 - (void)writeTo:(id)to
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if (self->_asrId)
   {
@@ -362,33 +358,32 @@ LABEL_16:
     PBDataWriterWriteStringField();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v5 = self->_asrUtteranceTokens;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v24;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v24 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v7);
@@ -396,48 +391,44 @@ LABEL_16:
 
   if (*&self->_has)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteDoubleField();
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v12 = self->_nluInternalTokens;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
-  if (v13)
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v10 = self->_nluInternalTokens;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v20;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v16 = 0;
+      v14 = 0;
       do
       {
-        if (*v20 != v15)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v19 + 1) + 8 * v16);
         PBDataWriterWriteSubmessage();
-        ++v16;
+        ++v14;
       }
 
-      while (v14 != v16);
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v23 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dictionaryRepresentation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   asrId = self->_asrId;
   if (asrId)
@@ -455,30 +446,30 @@ LABEL_16:
   if ([(NSMutableArray *)self->_asrUtteranceTokens count])
   {
     v7 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_asrUtteranceTokens, "count")}];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
     v8 = self->_asrUtteranceTokens;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v29;
+      v11 = *v28;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v29 != v11)
+          if (*v28 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dictionaryRepresentation2 = [*(*(&v28 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v27 + 1) + 8 * i) dictionaryRepresentation];
           [v7 addObject:dictionaryRepresentation2];
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v10);
@@ -496,30 +487,30 @@ LABEL_16:
   if ([(NSMutableArray *)self->_nluInternalTokens count])
   {
     v15 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSMutableArray count](self->_nluInternalTokens, "count")}];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v16 = self->_nluInternalTokens;
-    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v25;
+      v19 = *v24;
       do
       {
         for (j = 0; j != v18; ++j)
         {
-          if (*v25 != v19)
+          if (*v24 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          dictionaryRepresentation3 = [*(*(&v24 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v23 + 1) + 8 * j) dictionaryRepresentation];
           [v15 addObject:dictionaryRepresentation3];
         }
 
-        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v18);
@@ -527,8 +518,6 @@ LABEL_16:
 
     [dictionary setObject:v15 forKey:@"nlu_internal_tokens"];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }

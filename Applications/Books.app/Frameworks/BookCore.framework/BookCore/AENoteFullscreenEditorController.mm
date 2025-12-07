@@ -197,7 +197,7 @@
   width = CGRectZero.size.width;
   height = CGRectZero.size.height;
   v8 = [v4 initWithFrame:{CGRectZero.origin.x, y, width, height}];
-  v9 = IMCommonCoreBundle();
+  v9 = IMCommonCoreBundle(v8);
   v10 = [v9 localizedStringForKey:@"Note_Editor_Title" value:@"Note" table:@"BCCommonCoreLocalizable"];
   [v8 setText:v10];
 
@@ -312,16 +312,16 @@
 
 - (void)viewDidLoad
 {
-  v93.receiver = self;
-  v93.super_class = AENoteFullscreenEditorController;
-  [(AENoteFullscreenEditorController *)&v93 viewDidLoad];
+  v94.receiver = self;
+  v94.super_class = AENoteFullscreenEditorController;
+  [(AENoteFullscreenEditorController *)&v94 viewDidLoad];
   highlightedTextFont = [(AENoteFullscreenEditorController *)self highlightedTextFont];
   if (!highlightedTextFont)
   {
     highlightedTextFont = [UIFont systemFontOfSize:17.0];
   }
 
-  v92 = highlightedTextFont;
+  v93 = highlightedTextFont;
   v4 = [UIScrollView alloc];
   view = [(AENoteFullscreenEditorController *)self view];
   [view bounds];
@@ -397,12 +397,12 @@
   textView3 = [(AENoteFullscreenEditorController *)self textView];
   [textView3 setDelegate:self];
 
-  v49 = IMCommonCoreBundle();
-  v91 = [v49 localizedStringForKey:@"Note_Editor_Placeholder" value:@"Add a note…" table:@"BCCommonCoreLocalizable"];
+  v50 = IMCommonCoreBundle(v49);
+  v92 = [v50 localizedStringForKey:@"Note_Editor_Placeholder" value:@"Add a note…" table:@"BCCommonCoreLocalizable"];
 
-  v50 = [[NSAttributedString alloc] initWithString:v91];
+  v51 = [[NSAttributedString alloc] initWithString:v92];
   textView4 = [(AENoteFullscreenEditorController *)self textView];
-  [textView4 setAttributedPlaceholder:v50];
+  [textView4 setAttributedPlaceholder:v51];
 
   scrollView6 = [(AENoteFullscreenEditorController *)self scrollView];
   textView5 = [(AENoteFullscreenEditorController *)self textView];
@@ -422,50 +422,50 @@
 
   [(AENoteFullscreenEditorController *)self _setupNavigationBarItems:0];
   view3 = [(AENoteFullscreenEditorController *)self view];
-  v61 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
-  [v61 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [view3 addSubview:v61];
-  [v61 setHidden:1];
-  heightAnchor = [v61 heightAnchor];
-  v63 = [heightAnchor constraintEqualToConstant:0.0];
-  v95 = v63;
-  v64 = [NSArray arrayWithObjects:&v95 count:1];
-  [NSLayoutConstraint activateConstraints:v64];
+  v62 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
+  [v62 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [view3 addSubview:v62];
+  [v62 setHidden:1];
+  heightAnchor = [v62 heightAnchor];
+  v64 = [heightAnchor constraintEqualToConstant:0.0];
+  v96 = v64;
+  v65 = [NSArray arrayWithObjects:&v96 count:1];
+  [NSLayoutConstraint activateConstraints:v65];
 
   leadingAnchor = [(UIScrollView *)self->_scrollView leadingAnchor];
-  v65 = view3;
+  v66 = view3;
   safeAreaLayoutGuide = [view3 safeAreaLayoutGuide];
   leadingAnchor2 = [safeAreaLayoutGuide leadingAnchor];
-  v87 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v94[0] = v87;
+  v88 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v95[0] = v88;
   trailingAnchor = [(UIScrollView *)self->_scrollView trailingAnchor];
   safeAreaLayoutGuide2 = [view3 safeAreaLayoutGuide];
   trailingAnchor2 = [safeAreaLayoutGuide2 trailingAnchor];
-  v83 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v94[1] = v83;
+  v84 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v95[1] = v84;
   topAnchor = [(UIScrollView *)self->_scrollView topAnchor];
-  v79 = view3;
+  v80 = view3;
   topAnchor2 = [view3 topAnchor];
-  v80 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v94[2] = v80;
+  v81 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v95[2] = v81;
   bottomAnchor = [(UIScrollView *)self->_scrollView bottomAnchor];
-  topAnchor3 = [v61 topAnchor];
-  v76 = [bottomAnchor constraintEqualToAnchor:topAnchor3];
-  v94[3] = v76;
-  leadingAnchor3 = [v61 leadingAnchor];
+  topAnchor3 = [v62 topAnchor];
+  v77 = [bottomAnchor constraintEqualToAnchor:topAnchor3];
+  v95[3] = v77;
+  leadingAnchor3 = [v62 leadingAnchor];
   leadingAnchor4 = [view3 leadingAnchor];
-  v66 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-  v94[4] = v66;
-  trailingAnchor3 = [v61 trailingAnchor];
-  trailingAnchor4 = [v65 trailingAnchor];
-  v69 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-  v94[5] = v69;
-  bottomAnchor2 = [v61 bottomAnchor];
-  bottomAnchor3 = [v65 bottomAnchor];
-  v72 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v94[6] = v72;
-  v73 = [NSArray arrayWithObjects:v94 count:7];
-  [NSLayoutConstraint activateConstraints:v73];
+  v67 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+  v95[4] = v67;
+  trailingAnchor3 = [v62 trailingAnchor];
+  trailingAnchor4 = [v66 trailingAnchor];
+  v70 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
+  v95[5] = v70;
+  bottomAnchor2 = [v62 bottomAnchor];
+  bottomAnchor3 = [v66 bottomAnchor];
+  v73 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
+  v95[6] = v73;
+  v74 = [NSArray arrayWithObjects:v95 count:7];
+  [NSLayoutConstraint activateConstraints:v74];
 
   [(AENoteFullscreenEditorController *)self updateScrollViewContent];
   [(AENoteFullscreenEditorController *)self _updateColors];

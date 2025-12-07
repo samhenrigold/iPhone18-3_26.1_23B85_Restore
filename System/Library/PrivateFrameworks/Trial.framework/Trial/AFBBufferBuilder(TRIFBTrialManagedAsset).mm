@@ -11,7 +11,7 @@
 
 - (id)trifbCreateTrialManagedAssetUsingBlock:()TRIFBTrialManagedAsset
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   if (!v5)
@@ -25,13 +25,13 @@
   selfCopy = self;
   if (v7)
   {
-    v29.receiver = v7;
-    v29.super_class = TRIFBTrialManagedAssetBuilder;
-    v9 = objc_msgSendSuper2(&v29, sel_init);
+    v28.receiver = v7;
+    v28.super_class = TRIFBTrialManagedAssetBuilder;
+    v9 = objc_msgSendSuper2(&v28, sel_init);
     v7 = v9;
     if (v9)
     {
-      objc_storeStrong(&v9->_owner, self);
+      objc_storeStrong(v9 + 1, self);
       firstError = [selfCopy firstError];
       v11 = firstError == 0;
 
@@ -66,9 +66,9 @@
         currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler2 handleFailureInMethod:sel__finish object:v7 file:@"TRIFBFastFactorLevels_generated.mm" lineNumber:1505 description:{@"%@", @"Failed to set required field cloudKitMetadata on a table of type: TRIFBTrialManagedAssetBuilder"}];
 
-        v30[0] = *MEMORY[0x277CCA450];
-        v29.receiver = @"Failed to set required field cloudKitMetadata on a table of type: TRIFBTrialManagedAssetBuilder";
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:v30 count:1];
+        v29[0] = *MEMORY[0x277CCA450];
+        v28.receiver = @"Failed to set required field cloudKitMetadata on a table of type: TRIFBTrialManagedAssetBuilder";
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:v29 count:1];
         v25 = objc_alloc(MEMORY[0x277CCA9B8]);
         v23 = [v25 initWithDomain:*MEMORY[0x277CED160] code:4 userInfo:v21];
         [(AFBBufferBuilder *)v7->_owner setError:v23];
@@ -79,9 +79,9 @@
         currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
         [currentHandler3 handleFailureInMethod:sel__finish object:v7 file:@"TRIFBFastFactorLevels_generated.mm" lineNumber:1494 description:{@"%@", @"Failed to set required field assetId on a table of type: TRIFBTrialManagedAssetBuilder"}];
 
-        v30[0] = *MEMORY[0x277CCA450];
-        v29.receiver = @"Failed to set required field assetId on a table of type: TRIFBTrialManagedAssetBuilder";
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:v30 count:1];
+        v29[0] = *MEMORY[0x277CCA450];
+        v28.receiver = @"Failed to set required field assetId on a table of type: TRIFBTrialManagedAssetBuilder";
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:v29 count:1];
         v22 = objc_alloc(MEMORY[0x277CCA9B8]);
         v23 = [v22 initWithDomain:*MEMORY[0x277CED160] code:4 userInfo:v21];
         [(AFBBufferBuilder *)v7->_owner setError:v23];
@@ -99,7 +99,6 @@
 LABEL_18:
 
   objc_autoreleasePoolPop(v6);
-  v26 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

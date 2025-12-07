@@ -17,6 +17,8 @@
 - (id)completionHandlerForAppLaunchCommand:(id)command withCompletion:(id)completion;
 - (void)_extensionRequestDidFinishForIntent:(id)intent error:(id)error;
 - (void)_extensionRequestWillStartForIntent:(id)intent;
+- (void)_logEventWithType:(int64_t)type context:(id)context contextNoCopy:(BOOL)copy;
+- (void)_logPrewarmDidEndWithCommand:(id)command applicationIdentifier:(id)identifier wasPrewarmed:(BOOL)prewarmed completionHandler:(id)handler;
 - (void)_requiresHandlingCommand:(id)command completion:(id)completion;
 - (void)handleCommand:(id)command fromRemoteDevice:(id)device completionHandler:(id)handler;
 - (void)resetExternalResources;
@@ -49,7 +51,7 @@
 
 - (id)_siriLanguageCode
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   delegate = [(INSExtensionService *)self delegate];
   if (objc_opt_respondsToSelector())
   {
@@ -61,22 +63,20 @@
     v5 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v8 = 136315138;
-      v9 = "[INSExtensionService _siriLanguageCode]";
-      _os_log_error_impl(&dword_25553C000, v5, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to siriLanguageCodeForExtensionService:", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[INSExtensionService _siriLanguageCode]";
+      _os_log_error_impl(&dword_25553C000, v5, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to siriLanguageCodeForExtensionService:", &v7, 0xCu);
     }
 
     v4 = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_extensionInputItems
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v4 = MEMORY[0x277CCAAB0];
   extensionContext = [(INSExtensionService *)self extensionContext];
@@ -88,10 +88,8 @@
 
   v8 = objc_alloc_init(MEMORY[0x277CCA9D8]);
   [v8 setUserInfo:v3];
-  v12[0] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
 
   return v9;
 }
@@ -144,7 +142,7 @@ uint64_t __75__INSExtensionService_completionHandlerForAppLaunchCommand_withComp
 
 - (id)analytics:(id)analytics contextDictionaryForError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   delegate = [(INSExtensionService *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -157,22 +155,20 @@ uint64_t __75__INSExtensionService_completionHandlerForAppLaunchCommand_withComp
     v8 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[INSExtensionService analytics:contextDictionaryForError:]";
-      _os_log_error_impl(&dword_25553C000, v8, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to extensionService:contextDictionaryForError:", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[INSExtensionService analytics:contextDictionaryForError:]";
+      _os_log_error_impl(&dword_25553C000, v8, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to extensionService:contextDictionaryForError:", &v10, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)analytics:(id)analytics contextDictionaryForCommand:(id)command
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   delegate = [(INSExtensionService *)self delegate];
   if (objc_opt_respondsToSelector())
@@ -185,22 +181,20 @@ uint64_t __75__INSExtensionService_completionHandlerForAppLaunchCommand_withComp
     v8 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[INSExtensionService analytics:contextDictionaryForCommand:]";
-      _os_log_error_impl(&dword_25553C000, v8, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to extensionService:contextDictionaryForCommand:", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[INSExtensionService analytics:contextDictionaryForCommand:]";
+      _os_log_error_impl(&dword_25553C000, v8, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to extensionService:contextDictionaryForCommand:", &v10, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (BOOL)_shouldPrepareAudioSessionForCommand:(id)command intent:(id)intent
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   intentCopy = intent;
   extensionBundleId = [intentCopy extensionBundleId];
@@ -215,9 +209,9 @@ uint64_t __75__INSExtensionService_completionHandlerForAppLaunchCommand_withComp
       v11 = *MEMORY[0x277CD38C8];
       if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
       {
-        v15 = 136315138;
-        v16 = "[INSExtensionService _shouldPrepareAudioSessionForCommand:intent:]";
-        _os_log_impl(&dword_25553C000, v11, OS_LOG_TYPE_INFO, "%s Suppressing audio session preparation for internal media extension", &v15, 0xCu);
+        v14 = 136315138;
+        v15 = "[INSExtensionService _shouldPrepareAudioSessionForCommand:intent:]";
+        _os_log_impl(&dword_25553C000, v11, OS_LOG_TYPE_INFO, "%s Suppressing audio session preparation for internal media extension", &v14, 0xCu);
       }
 
       goto LABEL_7;
@@ -235,13 +229,12 @@ LABEL_7:
   ins_shouldPrepareAudioSession = [intentCopy ins_shouldPrepareAudioSession];
 LABEL_8:
 
-  v13 = *MEMORY[0x277D85DE8];
   return ins_shouldPrepareAudioSession;
 }
 
 - (void)_requiresHandlingCommand:(id)command completion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   completionCopy = completion;
   delegate = [(INSExtensionService *)self delegate];
@@ -255,18 +248,69 @@ LABEL_8:
     v9 = *MEMORY[0x277CD38C8];
     if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
     {
-      v11 = 136315138;
-      v12 = "[INSExtensionService _requiresHandlingCommand:completion:]";
-      _os_log_error_impl(&dword_25553C000, v9, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to extensionService:requiresHandlingCommand:completion:", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = "[INSExtensionService _requiresHandlingCommand:completion:]";
+      _os_log_error_impl(&dword_25553C000, v9, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to extensionService:requiresHandlingCommand:completion:", &v10, 0xCu);
     }
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (void)_logEventWithType:(int64_t)type context:(id)context contextNoCopy:(BOOL)copy
+{
+  copyCopy = copy;
+  v13 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  delegate = [(INSExtensionService *)self delegate];
+  if (objc_opt_respondsToSelector())
+  {
+    [delegate extensionService:self logEventWithType:type context:contextCopy contextNoCopy:copyCopy];
+  }
+
+  else
+  {
+    v10 = *MEMORY[0x277CD38C8];
+    if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
+    {
+      v11 = 136315138;
+      v12 = "[INSExtensionService _logEventWithType:context:contextNoCopy:]";
+      _os_log_error_impl(&dword_25553C000, v10, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to extensionService:logEventWithType:context:contextNoCopy:", &v11, 0xCu);
+    }
+  }
+}
+
+- (void)_logPrewarmDidEndWithCommand:(id)command applicationIdentifier:(id)identifier wasPrewarmed:(BOOL)prewarmed completionHandler:(id)handler
+{
+  prewarmedCopy = prewarmed;
+  commandCopy = command;
+  handlerCopy = handler;
+  v11 = [identifier isEqualToString:*MEMORY[0x277D21510]];
+  ins_afAnalyticsContext = [commandCopy ins_afAnalyticsContext];
+  if (v11)
+  {
+    v13 = [(INSExtensionService *)self _updatedEventContextWithExtensionLoadType:ins_afAnalyticsContext wasPrewarmed:prewarmedCopy];
+
+    ins_afAnalyticsContext = v13;
+  }
+
+  v14 = objc_alloc_init(MEMORY[0x277D47218]);
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v14, 0);
+  }
+
+  v15 = +[INSAnalytics sharedAnalytics];
+  v16 = [v15 contextDictionaryForCommand:v14];
+
+  ins_analyticsEndEventType = [commandCopy ins_analyticsEndEventType];
+  v18 = IFMergeDictionaries();
+  [(INSExtensionService *)self _logEventWithType:ins_analyticsEndEventType context:v18 contextNoCopy:1, v16, 0];
+
+  kdebug_trace();
 }
 
 - (BOOL)_prewarmExtensionWithIntent:(id)intent applicationIdentifier:(id)identifier command:(id)command completionHandler:(id)handler
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   identifierCopy = identifier;
   commandCopy = command;
@@ -301,20 +345,20 @@ LABEL_8:
         v25 = extensionBundleId;
         *buf = 136316162;
         v26 = @"no extensionBundleId";
-        v41 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]";
-        v42 = 2112;
+        v40 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]";
+        v41 = 2112;
         if (extensionBundleId)
         {
           v26 = extensionBundleId;
         }
 
-        v43 = _className;
-        v44 = 2112;
-        v45 = v32;
-        v46 = 2112;
-        v47 = v26;
-        v48 = 2112;
-        v49 = uUIDString;
+        v42 = _className;
+        v43 = 2112;
+        v44 = v31;
+        v45 = 2112;
+        v46 = v26;
+        v47 = 2112;
+        v48 = uUIDString;
         _os_log_impl(&dword_25553C000, log, OS_LOG_TYPE_INFO, "%s About to prewarm an extension for %@ (%@:%@) without an identifier. Assigning a new identifier: %@", buf, 0x34u);
 
         v15 = MEMORY[0x277CD38C8];
@@ -324,16 +368,16 @@ LABEL_8:
     }
 
     v27 = [objc_alloc(MEMORY[0x277D21520]) initWithIntent:intentCopy];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier_command_completionHandler___block_invoke;
-    v34[3] = &unk_2797EAC00;
-    v35 = commandCopy;
-    v39 = handlerCopy;
-    v36 = intentCopy;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier_command_completionHandler___block_invoke;
+    v33[3] = &unk_2797EAC00;
+    v34 = commandCopy;
+    v38 = handlerCopy;
+    v35 = intentCopy;
     selfCopy = self;
-    v38 = identifierCopy;
-    [v27 resumeWithCompletionHandler:v34];
+    v37 = identifierCopy;
+    [v27 resumeWithCompletionHandler:v33];
   }
 
   v28 = *v15;
@@ -346,19 +390,18 @@ LABEL_8:
     }
 
     *buf = 136315394;
-    v41 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]";
-    v42 = 2112;
-    v43 = v29;
+    v40 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]";
+    v41 = 2112;
+    v42 = v29;
     _os_log_impl(&dword_25553C000, v28, OS_LOG_TYPE_INFO, "%s Is prewarm: %@.", buf, 0x16u);
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return isKindOfClass & 1;
 }
 
 void __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier_command_completionHandler___block_invoke(id *a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = MEMORY[0x277CD38C8];
@@ -368,13 +411,13 @@ void __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v18 = v8;
-      v19 = [v6 localizedDescription];
+      v17 = v8;
+      v18 = [v6 localizedDescription];
       *buf = 136315394;
-      v26 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
-      v27 = 2112;
-      v28 = v19;
-      _os_log_error_impl(&dword_25553C000, v18, OS_LOG_TYPE_ERROR, "%s Error finding extension for prewarming: %@", buf, 0x16u);
+      v25 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
+      v26 = 2112;
+      v27 = v18;
+      _os_log_error_impl(&dword_25553C000, v17, OS_LOG_TYPE_ERROR, "%s Error finding extension for prewarming: %@", buf, 0x16u);
     }
 
     v15 = a1[4];
@@ -388,9 +431,9 @@ void __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier
     v10 = v8;
     v11 = [v5 _extension];
     *buf = 136315394;
-    v26 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
-    v27 = 2112;
-    v28 = v11;
+    v25 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
+    v26 = 2112;
+    v27 = v11;
     _os_log_impl(&dword_25553C000, v10, OS_LOG_TYPE_INFO, "%s Prewarmed extension: %@", buf, 0x16u);
   }
 
@@ -399,9 +442,9 @@ void __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier
   if (os_log_type_enabled(*v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v26 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
-    v27 = 1024;
-    LODWORD(v28) = v12;
+    v25 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
+    v26 = 1024;
+    LODWORD(v27) = v12;
     _os_log_impl(&dword_25553C000, v13, OS_LOG_TYPE_INFO, "%s Should prewarm app: %hhd", buf, 0x12u);
   }
 
@@ -415,25 +458,24 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier_command_completionHandler___block_invoke_66;
-  v20[3] = &unk_2797EABD8;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier_command_completionHandler___block_invoke_66;
+  v19[3] = &unk_2797EABD8;
   v14 = a1[5];
-  v20[4] = a1[6];
-  v21 = a1[4];
-  v22 = a1[7];
-  v24 = a1[8];
-  v23 = v5;
-  [v23 prewarmAppWithIntent:v14 completionHandler:v20];
+  v19[4] = a1[6];
+  v20 = a1[4];
+  v21 = a1[7];
+  v23 = a1[8];
+  v22 = v5;
+  [v22 prewarmAppWithIntent:v14 completionHandler:v19];
 
 LABEL_13:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier_command_completionHandler___block_invoke_66(uint64_t a1, int a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = *MEMORY[0x277CD38C8];
   v7 = *MEMORY[0x277CD38C8];
@@ -441,41 +483,39 @@ void __99__INSExtensionService__prewarmExtensionWithIntent_applicationIdentifier
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 136315138;
-      v11 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
-      _os_log_impl(&dword_25553C000, v6, OS_LOG_TYPE_INFO, "%s Prewarmed app completed successfully", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_25553C000, v6, OS_LOG_TYPE_INFO, "%s Prewarmed app completed successfully", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 136315394;
-    v11 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    _os_log_error_impl(&dword_25553C000, v6, OS_LOG_TYPE_ERROR, "%s Prewarmed app failed with error: %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[INSExtensionService _prewarmExtensionWithIntent:applicationIdentifier:command:completionHandler:]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    _os_log_error_impl(&dword_25553C000, v6, OS_LOG_TYPE_ERROR, "%s Prewarmed app failed with error: %@", &v9, 0x16u);
   }
 
   [*(a1 + 32) _logPrewarmDidEndWithCommand:*(a1 + 40) applicationIdentifier:*(a1 + 48) wasPrewarmed:1 completionHandler:*(a1 + 64)];
   v8 = [*(a1 + 56) _connection];
   [v8 reset];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_connectionForIntent:(id)intent
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   v5 = MEMORY[0x277CD38C8];
   v6 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
-    v32 = 136315394;
-    v33 = "[INSExtensionService _connectionForIntent:]";
-    v34 = 2112;
-    v35 = intentCopy;
-    _os_log_impl(&dword_25553C000, v6, OS_LOG_TYPE_INFO, "%s Getting connection for intent: %@", &v32, 0x16u);
+    v31 = 136315394;
+    v32 = "[INSExtensionService _connectionForIntent:]";
+    v33 = 2112;
+    v34 = intentCopy;
+    _os_log_impl(&dword_25553C000, v6, OS_LOG_TYPE_INFO, "%s Getting connection for intent: %@", &v31, 0x16u);
   }
 
   if (!intentCopy)
@@ -489,13 +529,13 @@ LABEL_12:
     }
 
     currentConnection = self->_currentConnection;
-    v32 = 136315394;
-    v33 = "[INSExtensionService _connectionForIntent:]";
-    v34 = 2112;
-    v35 = currentConnection;
+    v31 = 136315394;
+    v32 = "[INSExtensionService _connectionForIntent:]";
+    v33 = 2112;
+    v34 = currentConnection;
     v21 = "%s Using the current connection %@ because the intent is nil.";
 LABEL_22:
-    _os_log_error_impl(&dword_25553C000, v19, OS_LOG_TYPE_ERROR, v21, &v32, 0x16u);
+    _os_log_error_impl(&dword_25553C000, v19, OS_LOG_TYPE_ERROR, v21, &v31, 0x16u);
     goto LABEL_12;
   }
 
@@ -509,11 +549,11 @@ LABEL_22:
       goto LABEL_12;
     }
 
-    v31 = self->_currentConnection;
-    v32 = 136315394;
-    v33 = "[INSExtensionService _connectionForIntent:]";
-    v34 = 2112;
-    v35 = v31;
+    v30 = self->_currentConnection;
+    v31 = 136315394;
+    v32 = "[INSExtensionService _connectionForIntent:]";
+    v33 = 2112;
+    v34 = v30;
     v21 = "%s Using the current connection %@ because the intent identifier is nil.";
     goto LABEL_22;
   }
@@ -534,13 +574,13 @@ LABEL_22:
       v16 = *p_currentConnection;
       v17 = v14;
       identifier4 = [(INCExtensionConnection *)intentCopy identifier];
-      v32 = 136315650;
-      v33 = "[INSExtensionService _connectionForIntent:]";
-      v34 = 2112;
-      v35 = v16;
-      v36 = 2112;
-      v37 = identifier4;
-      _os_log_impl(&dword_25553C000, v17, OS_LOG_TYPE_INFO, "%s Using the current connection %@ because the intent identifier matches intent identifier: %@.", &v32, 0x20u);
+      v31 = 136315650;
+      v32 = "[INSExtensionService _connectionForIntent:]";
+      v33 = 2112;
+      v34 = v16;
+      v35 = 2112;
+      v36 = identifier4;
+      _os_log_impl(&dword_25553C000, v17, OS_LOG_TYPE_INFO, "%s Using the current connection %@ because the intent identifier matches intent identifier: %@.", &v31, 0x20u);
     }
 
     [*p_currentConnection setIntent:intentCopy];
@@ -553,13 +593,13 @@ LABEL_22:
       v22 = *p_currentConnection;
       v23 = v14;
       identifier5 = [(INCExtensionConnection *)intentCopy identifier];
-      v32 = 136315650;
-      v33 = "[INSExtensionService _connectionForIntent:]";
-      v34 = 2112;
-      v35 = v22;
-      v36 = 2112;
-      v37 = identifier5;
-      _os_log_impl(&dword_25553C000, v23, OS_LOG_TYPE_INFO, "%s Replacing the current connection %@ because the intent identifier is %@.", &v32, 0x20u);
+      v31 = 136315650;
+      v32 = "[INSExtensionService _connectionForIntent:]";
+      v33 = 2112;
+      v34 = v22;
+      v35 = 2112;
+      v36 = identifier5;
+      _os_log_impl(&dword_25553C000, v23, OS_LOG_TYPE_INFO, "%s Replacing the current connection %@ because the intent identifier is %@.", &v31, 0x20u);
     }
 
     [*p_currentConnection reset];
@@ -573,21 +613,19 @@ LABEL_16:
   v28 = *v5;
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_INFO))
   {
-    v32 = 136315394;
-    v33 = "[INSExtensionService _connectionForIntent:]";
-    v34 = 2112;
-    v35 = v27;
-    _os_log_impl(&dword_25553C000, v28, OS_LOG_TYPE_INFO, "%s Returning connection: %@", &v32, 0x16u);
+    v31 = 136315394;
+    v32 = "[INSExtensionService _connectionForIntent:]";
+    v33 = 2112;
+    v34 = v27;
+    _os_log_impl(&dword_25553C000, v28, OS_LOG_TYPE_INFO, "%s Returning connection: %@", &v31, 0x16u);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
 
 - (id)_updatedEventContextWithExtensionLoadType:(id)type wasPrewarmed:(BOOL)prewarmed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCACA8];
   if (prewarmed)
   {
@@ -605,16 +643,15 @@ LABEL_16:
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v13 = "[INSExtensionService _updatedEventContextWithExtensionLoadType:wasPrewarmed:]";
-    v14 = 2112;
-    v15 = v7;
+    v12 = "[INSExtensionService _updatedEventContextWithExtensionLoadType:wasPrewarmed:]";
+    v13 = 2112;
+    v14 = v7;
     _os_log_impl(&dword_25553C000, v8, OS_LOG_TYPE_INFO, "%s Extension load type = %@", buf, 0x16u);
   }
 
   v9 = [typeCopy mutableCopy];
 
   [v9 setObject:v7 forKey:@"ExtensionLoadType"];
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -766,7 +803,7 @@ void __45__INSExtensionService_resetExternalResources__block_invoke(uint64_t a1)
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke(id *a1)
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   v2 = MEMORY[0x277CD38C8];
   v3 = *MEMORY[0x277CD38C8];
@@ -774,271 +811,268 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
   {
     v4 = a1[4];
     *buf = 136315394;
-    v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-    v96 = 2112;
-    v97 = v4;
+    v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+    v91 = 2112;
+    v92 = v4;
     _os_log_impl(&dword_25553C000, v3, OS_LOG_TYPE_INFO, "%s Received handleCommand: %@", buf, 0x16u);
   }
 
-  v5 = a1[4];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v6 = a1[4];
+    v5 = a1[4];
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = a1[5];
-  v8 = [v6 ins_analyticsBeginEventType];
-  v9 = [v6 ins_afAnalyticsContext];
-  [v7 _logEventWithType:v8 context:v9 contextNoCopy:1];
+  v6 = a1[5];
+  v7 = [v5 ins_analyticsBeginEventType];
+  v8 = [v5 ins_afAnalyticsContext];
+  [v6 _logEventWithType:v7 context:v8 contextNoCopy:1];
 
-  v10 = a1[4];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v11 = [v6 ins_aceIntent];
+    v9 = [v5 ins_aceIntent];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v12 = [v11 hashedRouteUIDs];
-      v13 = [v11 airPlayRouteIds];
-      v14 = [a1[5] extensionContext];
-      v15 = [v14 _airPlayRouteIdentifiers];
+      v10 = [v9 hashedRouteUIDs];
+      v11 = [v9 airPlayRouteIds];
+      v12 = [a1[5] extensionContext];
+      v13 = [v12 _airPlayRouteIdentifiers];
 
-      v16 = *v2;
+      v14 = *v2;
       if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315906;
-        v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-        v96 = 2112;
-        v97 = v13;
-        v98 = 2112;
-        v99 = v12;
-        v100 = 2112;
-        v101 = v15;
-        _os_log_debug_impl(&dword_25553C000, v16, OS_LOG_TYPE_DEBUG, "%s Examining AirPlay routes passed with INPlayMediaIntent airPlayRouteIds: %@, hashedRouteUIDs: %@, extensionContextAirPlayRouteIdentifiers: %@", buf, 0x2Au);
+        v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+        v91 = 2112;
+        v92 = v11;
+        v93 = 2112;
+        v94 = v10;
+        v95 = 2112;
+        v96 = v13;
+        _os_log_debug_impl(&dword_25553C000, v14, OS_LOG_TYPE_DEBUG, "%s Examining AirPlay routes passed with INPlayMediaIntent airPlayRouteIds: %@, hashedRouteUIDs: %@, extensionContextAirPlayRouteIdentifiers: %@", buf, 0x2Au);
       }
 
-      if ([v12 count] || objc_msgSend(v13, "count"))
+      if ([v10 count] || objc_msgSend(v11, "count"))
       {
-        v17 = 0;
+        v15 = 0;
       }
 
       else
       {
-        v60 = *v2;
+        v57 = *v2;
         if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-          v96 = 2112;
-          v97 = v15;
-          _os_log_debug_impl(&dword_25553C000, v60, OS_LOG_TYPE_DEBUG, "%s Setting intent airPlayRouteIds from extension context: %@", buf, 0x16u);
+          v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+          v91 = 2112;
+          v92 = v13;
+          _os_log_debug_impl(&dword_25553C000, v57, OS_LOG_TYPE_DEBUG, "%s Setting intent airPlayRouteIds from extension context: %@", buf, 0x16u);
         }
 
-        v17 = v15;
+        v15 = v13;
       }
     }
 
     else
     {
-      v18 = [v11 airPlayRouteIds];
-      v19 = v18;
-      if (v18)
+      v16 = [v9 airPlayRouteIds];
+      v17 = v16;
+      if (v16)
       {
-        v20 = v18;
+        v18 = v16;
       }
 
       else
       {
-        v20 = MEMORY[0x277CBEBF8];
+        v18 = MEMORY[0x277CBEBF8];
       }
 
-      v21 = [a1[5] extensionContext];
-      v22 = [v21 _airPlayRouteIdentifiers];
-      v17 = [v20 arrayByAddingObjectsFromArray:v22];
+      v19 = [a1[5] extensionContext];
+      v20 = [v19 _airPlayRouteIdentifiers];
+      v15 = [v18 arrayByAddingObjectsFromArray:v20];
 
-      v23 = *v2;
+      v21 = *v2;
       if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
-        v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-        v96 = 2112;
-        v97 = v17;
-        _os_log_debug_impl(&dword_25553C000, v23, OS_LOG_TYPE_DEBUG, "%s Setting intent airPlayRouteIds for non-INPlayMediaIntent: %@", buf, 0x16u);
+        v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+        v91 = 2112;
+        v92 = v15;
+        _os_log_debug_impl(&dword_25553C000, v21, OS_LOG_TYPE_DEBUG, "%s Setting intent airPlayRouteIds for non-INPlayMediaIntent: %@", buf, 0x16u);
       }
     }
 
-    v24 = *v2;
+    v22 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-      v96 = 2112;
-      v97 = v17;
-      _os_log_debug_impl(&dword_25553C000, v24, OS_LOG_TYPE_DEBUG, "%s Setting intent airPlayRouteIds: %@", buf, 0x16u);
+      v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      v91 = 2112;
+      v92 = v15;
+      _os_log_debug_impl(&dword_25553C000, v22, OS_LOG_TYPE_DEBUG, "%s Setting intent airPlayRouteIds: %@", buf, 0x16u);
     }
 
-    v25 = [MEMORY[0x277CBEB98] setWithArray:v17];
-    v26 = [v25 allObjects];
+    v23 = [MEMORY[0x277CBEB98] setWithArray:v15];
+    v24 = [v23 allObjects];
 
-    [v11 _setAirPlayRouteIds:v26];
+    [v9 _setAirPlayRouteIds:v24];
+    v25 = [a1[5] extensionContext];
+    v26 = [v25 _recordRoute];
+    [v9 _setRecordRoute:v26];
+
     v27 = [a1[5] extensionContext];
-    v28 = [v27 _recordRoute];
-    [v11 _setRecordRoute:v28];
+    v28 = [v27 _recordDeviceUID];
+    [v9 _setRecordDeviceUID:v28];
 
     v29 = [a1[5] extensionContext];
-    v30 = [v29 _recordDeviceUID];
-    [v11 _setRecordDeviceUID:v30];
+    v30 = [v29 _recordDeviceIdentifier];
+    [v9 _setRecordDeviceIdentifier:v30];
 
     v31 = [a1[5] extensionContext];
-    v32 = [v31 _recordDeviceIdentifier];
-    [v11 _setRecordDeviceIdentifier:v32];
+    [v9 _setAudioSessionID:{objc_msgSend(v31, "_audioSessionID")}];
 
-    v33 = [a1[5] extensionContext];
-    [v11 _setAudioSessionID:{objc_msgSend(v33, "_audioSessionID")}];
-
-    if (![v11 _executionContext])
+    if (![v9 _executionContext])
     {
-      [v11 _setExecutionContext:1];
+      [v9 _setExecutionContext:1];
     }
 
-    v34 = a1[4];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v35 = [a1[5] _connectionForIntent:0];
-      [v35 setIntent:v11];
-      v36 = a1[4];
-      v37 = [v36 userActivityIdentifier];
-      [v36 ins_launchAppWithConnection:v35 userActivityIdentifier:v37 delegate:a1[5] completionHandler:a1[7]];
+      v32 = [a1[5] _connectionForIntent:0];
+      [v32 setIntent:v9];
+      v33 = a1[4];
+      v34 = [v33 userActivityIdentifier];
+      [v33 ins_launchAppWithConnection:v32 userActivityIdentifier:v34 delegate:a1[5] completionHandler:a1[7]];
 
       goto LABEL_70;
     }
 
-    v38 = *v2;
-    v39 = *v2;
-    if (!v11)
+    v35 = *v2;
+    v36 = *v2;
+    if (!v9)
     {
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        v78 = a1[4];
+        v73 = a1[4];
         *buf = 136315394;
-        v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-        v96 = 2112;
-        v97 = v78;
-        _os_log_error_impl(&dword_25553C000, v38, OS_LOG_TYPE_ERROR, "%s Unable to get INIntent from command %@", buf, 0x16u);
+        v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+        v91 = 2112;
+        v92 = v73;
+        _os_log_error_impl(&dword_25553C000, v35, OS_LOG_TYPE_ERROR, "%s Unable to get INIntent from command %@", buf, 0x16u);
       }
 
-      v35 = INSExtensionServiceTraceCompletionHandlerWithCode(a1[7], 722470896);
-      [v6 ins_invokeErrorCompletionHandler:v35 withErrorCode:1303 underlyingError:0];
+      v32 = INSExtensionServiceTraceCompletionHandlerWithCode(a1[7], 722470896);
+      [v5 ins_invokeErrorCompletionHandler:v32 withErrorCode:1303 underlyingError:0];
       goto LABEL_70;
     }
 
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-      v96 = 2112;
-      v97 = v11;
-      _os_log_impl(&dword_25553C000, v38, OS_LOG_TYPE_INFO, "%s Generated intent object %@", buf, 0x16u);
-      v38 = *v2;
+      v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      v91 = 2112;
+      v92 = v9;
+      _os_log_impl(&dword_25553C000, v35, OS_LOG_TYPE_INFO, "%s Generated intent object %@", buf, 0x16u);
+      v35 = *v2;
     }
 
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v40 = v38;
-      v41 = [v11 backingStore];
+      v37 = v35;
+      v38 = [v9 backingStore];
       *buf = 136315394;
-      v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-      v96 = 2112;
-      v97 = v41;
-      _os_log_impl(&dword_25553C000, v40, OS_LOG_TYPE_INFO, "%s Raw intent = %@", buf, 0x16u);
+      v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      v91 = 2112;
+      v92 = v38;
+      _os_log_impl(&dword_25553C000, v37, OS_LOG_TYPE_INFO, "%s Raw intent = %@", buf, 0x16u);
     }
 
-    v42 = [v11 launchId];
-    v93 = 0;
+    v39 = [v9 launchId];
+    v88 = 0;
     INExtractAppInfoFromSiriLaunchId();
-    v35 = 0;
+    v32 = 0;
 
-    if ([a1[5] _prewarmExtensionWithIntent:v11 applicationIdentifier:v35 command:v6 completionHandler:a1[7]])
+    if ([a1[5] _prewarmExtensionWithIntent:v9 applicationIdentifier:v32 command:v5 completionHandler:a1[7]])
     {
 LABEL_70:
 
       goto LABEL_71;
     }
 
-    v43 = *v2;
+    v40 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-      _os_log_impl(&dword_25553C000, v43, OS_LOG_TYPE_INFO, "%s Not prewarm, continuing...", buf, 0xCu);
+      v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_25553C000, v40, OS_LOG_TYPE_INFO, "%s Not prewarm, continuing...", buf, 0xCu);
     }
 
-    if (a1[6] && [v11 _type] == 2)
+    if (a1[6] && [v9 _type] == 2)
     {
-      v44 = *v2;
+      v41 = *v2;
       if (os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-        _os_log_impl(&dword_25553C000, v44, OS_LOG_TYPE_INFO, "%s This is a remote device, and the intent type is custom. Checking for version incompatibility if the intent is sent from a remote device...", buf, 0xCu);
+        v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+        _os_log_impl(&dword_25553C000, v41, OS_LOG_TYPE_INFO, "%s This is a remote device, and the intent type is custom. Checking for version incompatibility if the intent is sent from a remote device...", buf, 0xCu);
       }
 
-      v45 = [v11 typeName];
-      v91 = 0;
-      v92 = 0;
-      v46 = INSchemaWithTypeName();
-      v47 = 0;
-      v48 = 0;
+      v42 = [v9 typeName];
+      v86 = 0;
+      v87 = 0;
+      v43 = INSchemaWithTypeName();
+      v44 = 0;
+      v45 = 0;
 
-      v49 = [v11 _className];
-      v50 = [v46 intentCodableDescriptionWithIntentClassName:v49];
+      v46 = [v9 _className];
+      v47 = [v43 intentCodableDescriptionWithIntentClassName:v46];
 
-      v84 = v50;
-      v51 = [v50 versioningHash];
-      v83 = [v51 unsignedLongValue];
+      v79 = v47;
+      v48 = [v47 versioningHash];
+      v78 = [v48 unsignedLongValue];
 
-      v52 = [v11 _metadata];
-      v53 = [v52 versioningHash];
+      v49 = [v9 _metadata];
+      v50 = [v49 versioningHash];
 
-      v54 = *MEMORY[0x277D47C38];
-      v55 = INSGetAceVersionNumberFromString(*MEMORY[0x277D47C38]);
-      v56 = [a1[6] aceVersion];
-      v57 = INSGetAceVersionNumberFromString(v56);
+      v51 = *MEMORY[0x277D47C38];
+      v52 = INSGetAceVersionNumberFromString(*MEMORY[0x277D47C38]);
+      v53 = [a1[6] aceVersion];
+      v54 = INSGetAceVersionNumberFromString(v53);
 
-      if (v55 != 0.0 && v57 != 0.0 && v83 && v53 && v83 != v53 && (v55 - v57) >= 2.0)
+      if (v52 != 0.0 && v54 != 0.0 && v78 && v50 && v78 != v50 && (v52 - v54) >= 2.0)
       {
-        v58 = *MEMORY[0x277CD38C8];
+        v55 = *MEMORY[0x277CD38C8];
         if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
         {
-          v79 = v58;
-          v80 = a1[6];
-          v82 = v79;
-          v81 = [v80 aceVersion];
+          v74 = v55;
+          v75 = a1[6];
+          v77 = v74;
+          v76 = [v75 aceVersion];
           *buf = 136316418;
-          v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-          v96 = 2048;
-          v97 = v53;
-          v98 = 2112;
-          v99 = v81;
-          v100 = 2048;
-          v101 = v83;
-          v102 = 2112;
-          v103 = v54;
-          v104 = 2112;
-          v105 = v11;
-          _os_log_error_impl(&dword_25553C000, v82, OS_LOG_TYPE_ERROR, "%s Intent was sent from an old device with (intentVersionHash=%llu, aceVersion=%@), current device has (intentVersionHash=%llu, aceVersion=%@), intent: %@", buf, 0x3Eu);
+          v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+          v91 = 2048;
+          v92 = v50;
+          v93 = 2112;
+          v94 = v76;
+          v95 = 2048;
+          v96 = v78;
+          v97 = 2112;
+          v98 = v51;
+          v99 = 2112;
+          v100 = v9;
+          _os_log_error_impl(&dword_25553C000, v77, OS_LOG_TYPE_ERROR, "%s Intent was sent from an old device with (intentVersionHash=%llu, aceVersion=%@), current device has (intentVersionHash=%llu, aceVersion=%@), intent: %@", buf, 0x3Eu);
         }
 
-        v59 = INSExtensionServiceTraceCompletionHandlerWithCode(a1[7], 722470896);
-        [v6 ins_invokeErrorCompletionHandler:v59 withErrorCode:1316 underlyingError:0];
+        v56 = INSExtensionServiceTraceCompletionHandlerWithCode(a1[7], 722470896);
+        [v5 ins_invokeErrorCompletionHandler:v56 withErrorCode:1316 underlyingError:0];
 
 LABEL_69:
         goto LABEL_70;
@@ -1047,98 +1081,95 @@ LABEL_69:
       v2 = MEMORY[0x277CD38C8];
     }
 
-    v61 = a1[4];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v62 = *v2;
+      v58 = *v2;
       if (os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
       {
-        v63 = v62;
-        v64 = objc_opt_class();
-        v65 = NSStringFromClass(v64);
+        v59 = v58;
+        v60 = objc_opt_class();
+        v61 = NSStringFromClass(v60);
         *buf = 136315394;
-        v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-        v96 = 2112;
-        v97 = v65;
-        _os_log_impl(&dword_25553C000, v63, OS_LOG_TYPE_INFO, "%s ins_recordPreInteractionSignals for command: %@", buf, 0x16u);
+        v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+        v91 = 2112;
+        v92 = v61;
+        _os_log_impl(&dword_25553C000, v59, OS_LOG_TYPE_INFO, "%s ins_recordPreInteractionSignals for command: %@", buf, 0x16u);
       }
 
-      [v11 ins_recordPreInteractionSignals];
+      [v9 ins_recordPreInteractionSignals];
     }
 
-    v66 = objc_alloc(MEMORY[0x277CCACA8]);
-    v67 = [v11 intentId];
-    v68 = [v11 typeName];
-    v69 = [v11 launchId];
-    v47 = [v66 initWithFormat:@"%@-%@-%@", v67, v68, v69];
+    v62 = objc_alloc(MEMORY[0x277CCACA8]);
+    v63 = [v9 intentId];
+    v64 = [v9 typeName];
+    v65 = [v9 launchId];
+    v44 = [v62 initWithFormat:@"%@-%@-%@", v63, v64, v65];
 
-    v48 = [v47 dataUsingEncoding:4];
-    v70 = *v2;
+    v45 = [v44 dataUsingEncoding:4];
+    v66 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-      v96 = 2112;
-      v97 = v47;
-      _os_log_impl(&dword_25553C000, v70, OS_LOG_TYPE_INFO, "%s Raw intent ID = %@", buf, 0x16u);
-      v70 = *v2;
+      v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      v91 = 2112;
+      v92 = v44;
+      _os_log_impl(&dword_25553C000, v66, OS_LOG_TYPE_INFO, "%s Raw intent ID = %@", buf, 0x16u);
+      v66 = *v2;
     }
 
-    if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-      _os_log_impl(&dword_25553C000, v70, OS_LOG_TYPE_INFO, "%s Start digesting raw intent ID with in-memory salt...", buf, 0xCu);
+      v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_25553C000, v66, OS_LOG_TYPE_INFO, "%s Start digesting raw intent ID with in-memory salt...", buf, 0xCu);
     }
 
-    v85[0] = MEMORY[0x277D85DD0];
-    v85[1] = 3221225472;
-    v85[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_15;
-    v85[3] = &unk_2797EAB88;
-    v71 = v11;
-    v72 = a1[5];
-    v86 = v71;
-    v87 = v72;
-    v88 = v6;
-    v90 = a1[7];
-    v89 = a1[4];
-    v73 = MEMORY[0x259C379F0](v85);
-    v74 = [a1[5] delegate];
-    v75 = objc_opt_respondsToSelector();
-    v76 = *v2;
-    if (v75)
+    v80[0] = MEMORY[0x277D85DD0];
+    v80[1] = 3221225472;
+    v80[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_15;
+    v80[3] = &unk_2797EAB88;
+    v67 = v9;
+    v68 = a1[5];
+    v81 = v67;
+    v82 = v68;
+    v83 = v5;
+    v85 = a1[7];
+    v84 = a1[4];
+    v69 = MEMORY[0x259C379F0](v80);
+    v70 = [a1[5] delegate];
+    v71 = objc_opt_respondsToSelector();
+    v72 = *v2;
+    if (v71)
     {
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-        _os_log_impl(&dword_25553C000, v76, OS_LOG_TYPE_INFO, "%s Extension service delegate responds to extensionService:processDataUsingSHA256WithInMemorySalt:completionHandler:", buf, 0xCu);
+        v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+        _os_log_impl(&dword_25553C000, v72, OS_LOG_TYPE_INFO, "%s Extension service delegate responds to extensionService:processDataUsingSHA256WithInMemorySalt:completionHandler:", buf, 0xCu);
       }
 
-      [v74 extensionService:a1[5] processDataUsingSHA256WithInMemorySalt:v48 completionHandler:v73];
+      [v70 extensionService:a1[5] processDataUsingSHA256WithInMemorySalt:v45 completionHandler:v69];
     }
 
-    else if (os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v95 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-      _os_log_error_impl(&dword_25553C000, v76, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to extensionService:processDataUsingSHA256WithInMemorySalt:completionHandler:", buf, 0xCu);
+      v90 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      _os_log_error_impl(&dword_25553C000, v72, OS_LOG_TYPE_ERROR, "%s Extension service delegate does not respond to extensionService:processDataUsingSHA256WithInMemorySalt:completionHandler:", buf, 0xCu);
     }
 
-    v46 = v86;
+    v43 = v81;
     goto LABEL_69;
   }
 
   [a1[4] ins_getIntentDefinitionsWithCompletionHandler:a1[7]];
 LABEL_71:
-
-  v77 = *MEMORY[0x277D85DE8];
 }
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_15(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = [MEMORY[0x277CCACA8] if_hexStringFromData:a2];
   v7 = MEMORY[0x277CD38C8];
@@ -1146,7 +1177,7 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v25 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+    v24 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
     _os_log_impl(&dword_25553C000, v8, OS_LOG_TYPE_INFO, "%s Finished digesting raw intent ID with in-memory salt.", buf, 0xCu);
   }
 
@@ -1155,34 +1186,32 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
   block[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_16;
   block[3] = &unk_2797EAB60;
   v9 = v6;
-  v19 = v9;
-  v20 = *(a1 + 32);
+  v18 = v9;
+  v19 = *(a1 + 32);
   v10 = v5;
-  v21 = v10;
-  v17 = *(a1 + 40);
-  v11 = *(&v17 + 1);
+  v20 = v10;
+  v16 = *(a1 + 40);
+  v11 = *(&v16 + 1);
   v12 = *(a1 + 64);
   *&v13 = *(a1 + 56);
   *(&v13 + 1) = v12;
-  v22 = v17;
-  v23 = v13;
+  v21 = v16;
+  v22 = v13;
   v14 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
   v15 = *v7;
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v25 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_2";
+    v24 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_2";
     _os_log_impl(&dword_25553C000, v15, OS_LOG_TYPE_INFO, "%s Submitting pkdBlock", buf, 0xCu);
   }
 
   dispatch_async(*(*(a1 + 40) + 8), v14);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_16(uint64_t a1)
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = MEMORY[0x277CD38C8];
   v4 = *MEMORY[0x277CD38C8];
@@ -1192,9 +1221,9 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
     if (v5)
     {
       *buf = 136315394;
-      v50 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-      v51 = 2112;
-      v52 = v2;
+      v46 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      v47 = 2112;
+      v48 = v2;
       _os_log_impl(&dword_25553C000, v4, OS_LOG_TYPE_INFO, "%s Set facade intent identifier = %@", buf, 0x16u);
       v2 = *(a1 + 32);
     }
@@ -1206,9 +1235,9 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
   {
     v6 = *(a1 + 48);
     *buf = 136315394;
-    v50 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-    v51 = 2112;
-    v52 = v6;
+    v46 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+    v47 = 2112;
+    v48 = v6;
     _os_log_impl(&dword_25553C000, v4, OS_LOG_TYPE_INFO, "%s Unable to generate facade intent ID due to %@", buf, 0x16u);
   }
 
@@ -1216,7 +1245,7 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+    v46 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
     _os_log_impl(&dword_25553C000, v7, OS_LOG_TYPE_INFO, "%s About to prepare intent...", buf, 0xCu);
   }
 
@@ -1230,16 +1259,13 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
   if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v50 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+    v46 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
     _os_log_impl(&dword_25553C000, v9, OS_LOG_TYPE_INFO, "%s Finished preparing intent", buf, 0xCu);
   }
 
   v10 = [*(a1 + 56) _connectionForIntent:*(a1 + 40)];
-  v11 = *(a1 + 64);
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v13 = *(a1 + 64);
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
     [*(a1 + 64) ins_launchAppWithConnection:v10 delegate:*(a1 + 56) completionHandler:*(a1 + 80)];
   }
@@ -1254,117 +1280,115 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
 
     else
     {
-      v14 = [*(a1 + 56) _extensionInputItems];
-      v15 = *v3;
+      v11 = [*(a1 + 56) _extensionInputItems];
+      v12 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v50 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-        v51 = 2112;
-        v52 = v14;
-        _os_log_impl(&dword_25553C000, v15, OS_LOG_TYPE_INFO, "%s Setting extension input items: %@", buf, 0x16u);
+        v46 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+        v47 = 2112;
+        v48 = v11;
+        _os_log_impl(&dword_25553C000, v12, OS_LOG_TYPE_INFO, "%s Setting extension input items: %@", buf, 0x16u);
       }
 
-      v16 = [v10 extensionInputItems];
-      v17 = v16 == 0;
+      v13 = [v10 extensionInputItems];
+      v14 = v13 == 0;
 
-      if (v17)
+      if (v14)
       {
-        [v10 setExtensionInputItems:v14];
+        [v10 setExtensionInputItems:v11];
       }
 
       objc_initWeak(&location, v10);
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_21;
-      v41[3] = &unk_2797EAA20;
-      objc_copyWeak(&v47, &location);
-      v41[4] = *(a1 + 56);
-      v42 = *(a1 + 40);
-      v43 = *(a1 + 72);
-      v46 = *(a1 + 80);
-      v18 = v8;
-      v44 = v18;
-      v45 = *(a1 + 64);
-      [v10 setTimeoutHandler:v41];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_24;
-      v36[3] = &unk_2797EAA48;
-      v36[4] = *(a1 + 56);
-      v37 = *(a1 + 40);
-      v38 = *(a1 + 64);
-      v40 = *(a1 + 80);
-      v19 = v18;
-      v39 = v19;
-      [v10 setInterruptionHandler:v36];
-      v20 = *v3;
+      v37[0] = MEMORY[0x277D85DD0];
+      v37[1] = 3221225472;
+      v37[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_21;
+      v37[3] = &unk_2797EAA20;
+      objc_copyWeak(&v43, &location);
+      v37[4] = *(a1 + 56);
+      v38 = *(a1 + 40);
+      v39 = *(a1 + 72);
+      v42 = *(a1 + 80);
+      v15 = v8;
+      v40 = v15;
+      v41 = *(a1 + 64);
+      [v10 setTimeoutHandler:v37];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_24;
+      v32[3] = &unk_2797EAA48;
+      v32[4] = *(a1 + 56);
+      v33 = *(a1 + 40);
+      v34 = *(a1 + 64);
+      v36 = *(a1 + 80);
+      v16 = v15;
+      v35 = v16;
+      [v10 setInterruptionHandler:v32];
+      v17 = *v3;
       if (os_log_type_enabled(*v3, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v50 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_2";
-        _os_log_impl(&dword_25553C000, v20, OS_LOG_TYPE_INFO, "%s Configured timeout and interruption handlers", buf, 0xCu);
+        v46 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_2";
+        _os_log_impl(&dword_25553C000, v17, OS_LOG_TYPE_INFO, "%s Configured timeout and interruption handlers", buf, 0xCu);
       }
 
       kdebug_trace();
       [*(a1 + 56) _extensionRequestWillStartForIntent:*(a1 + 40)];
-      v21 = *(a1 + 56);
-      v22 = [*(a1 + 64) ins_afAnalyticsContext];
-      [v21 _logEventWithType:601 context:v22 contextNoCopy:0];
+      v18 = *(a1 + 56);
+      v19 = [*(a1 + 64) ins_afAnalyticsContext];
+      [v18 _logEventWithType:601 context:v19 contextNoCopy:0];
 
-      v23 = *v3;
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v20 = *v3;
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
-        v24 = [*(a1 + 40) identifier];
+        v21 = [*(a1 + 40) identifier];
         *buf = 136315394;
-        v50 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-        v51 = 2112;
-        v52 = v24;
-        _os_log_impl(&dword_25553C000, v23, OS_LOG_TYPE_INFO, "%s Resuming connection for intent with identifier: %@", buf, 0x16u);
+        v46 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+        v47 = 2112;
+        v48 = v21;
+        _os_log_impl(&dword_25553C000, v20, OS_LOG_TYPE_INFO, "%s Resuming connection for intent with identifier: %@", buf, 0x16u);
       }
 
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_25;
-      v29[3] = &unk_2797EAB38;
-      v25 = *(a1 + 40);
-      v26 = *(a1 + 56);
-      v27 = *(a1 + 64);
-      v30 = v25;
-      v31 = v26;
-      v32 = v27;
-      v35 = *(a1 + 80);
-      v33 = v19;
-      v34 = *(a1 + 72);
-      [v10 resumeWithCompletionHandler:v29];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_25;
+      v25[3] = &unk_2797EAB38;
+      v22 = *(a1 + 40);
+      v23 = *(a1 + 56);
+      v24 = *(a1 + 64);
+      v26 = v22;
+      v27 = v23;
+      v28 = v24;
+      v31 = *(a1 + 80);
+      v29 = v16;
+      v30 = *(a1 + 72);
+      [v10 resumeWithCompletionHandler:v25];
 
-      objc_destroyWeak(&v47);
+      objc_destroyWeak(&v43);
       objc_destroyWeak(&location);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_21(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 80));
   [*(a1 + 32) _extensionRequestDidFinishForIntent:*(a1 + 40) error:v3];
   v5 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
   {
-    v14 = v5;
+    v13 = v5;
     [WeakRetained requestTimeoutInterval];
-    v15 = *(a1 + 48);
+    v14 = *(a1 + 48);
     *buf = 136315650;
-    v18 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-    v19 = 2050;
-    v20 = v16;
-    v21 = 2112;
-    v22 = v15;
-    _os_log_error_impl(&dword_25553C000, v14, OS_LOG_TYPE_ERROR, "%s Extension Request timed out after %{public}f seconds for command %@", buf, 0x20u);
+    v17 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+    v18 = 2050;
+    v19 = v15;
+    v20 = 2112;
+    v21 = v14;
+    _os_log_error_impl(&dword_25553C000, v13, OS_LOG_TYPE_ERROR, "%s Extension Request timed out after %{public}f seconds for command %@", buf, 0x20u);
   }
 
   v6 = INSExtensionServiceTraceCompletionHandlerWithCode(*(a1 + 72), 722470908);
@@ -1378,8 +1402,6 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
   v11 = [v10 contextDictionaryForError:v3];
   v12 = IFMergeDictionaries();
   [v8 _logEventWithType:605 context:v12 contextNoCopy:{0, v11, 0}];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_24(uint64_t a1, uint64_t a2)
@@ -1397,21 +1419,21 @@ uint64_t __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHand
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_25(id *a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_2;
-  v41[3] = &unk_2797EAA70;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_2;
+  v40[3] = &unk_2797EAA70;
   v7 = a1[4];
   v8 = a1[5];
   v9 = a1[6];
-  v42 = v7;
-  v43 = v8;
-  v44 = v9;
-  v45 = a1[9];
-  v10 = MEMORY[0x259C379F0](v41);
+  v41 = v7;
+  v42 = v8;
+  v43 = v9;
+  v44 = a1[9];
+  v10 = MEMORY[0x259C379F0](v40);
   v11 = v10;
   if (!v5 || v6)
   {
@@ -1427,9 +1449,9 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
       v14 = v12;
       v15 = [v13 identifier];
       *buf = 136315394;
-      v47 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
-      v48 = 2112;
-      v49 = v15;
+      v46 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      v47 = 2112;
+      v48 = v15;
       _os_log_impl(&dword_25553C000, v14, OS_LOG_TYPE_INFO, "%s Resumed connection for intent with identifier: %@", buf, 0x16u);
     }
 
@@ -1439,41 +1461,41 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
     [v16 _logEventWithType:602 context:v17 contextNoCopy:0];
 
     [a1[7] extensionService:a1[5] suspendTimeout:{objc_msgSend(v5, "_isExtensionBeingDebugged")}];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_26;
-    v38[3] = &unk_2797EAA98;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_26;
+    v37[3] = &unk_2797EAA98;
     v18 = a1[7];
     v19 = a1[5];
-    v39 = v18;
-    v40 = v19;
-    [v5 setImageProcessingHandler:v38];
+    v38 = v18;
+    v39 = v19;
+    [v5 setImageProcessingHandler:v37];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_2_28;
     block[3] = &unk_2797EAB60;
     v20 = a1[6];
     block[4] = a1[5];
-    v32 = v20;
-    v33 = a1[4];
-    v34 = v5;
-    v35 = a1[8];
-    v36 = a1[7];
-    v37 = a1[9];
+    v31 = v20;
+    v32 = a1[4];
+    v33 = v5;
+    v34 = a1[8];
+    v35 = a1[7];
+    v36 = a1[9];
     v21 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
     if ([a1[5] _shouldPrepareAudioSessionForCommand:a1[8] intent:a1[4]])
     {
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_3;
-      v26[3] = &unk_2797EAB10;
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_3;
+      v25[3] = &unk_2797EAB10;
       v22 = a1[4];
       v23 = a1[5];
-      v27 = v22;
-      v28 = v23;
-      v30 = v21;
-      v29 = a1[7];
-      v24 = MEMORY[0x259C379F0](v26);
+      v26 = v22;
+      v27 = v23;
+      v29 = v21;
+      v28 = a1[7];
+      v24 = MEMORY[0x259C379F0](v25);
       [a1[7] extensionService:a1[5] prepareForStartPlaybackWithDestination:1 intent:a1[4] completion:v24];
     }
 
@@ -1482,27 +1504,25 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
       dispatch_async(*(a1[5] + 1), v21);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
   {
-    v15 = *(a1 + 32);
-    v16 = v4;
-    v17 = [v15 identifier];
-    v18 = 136315650;
-    v19 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_2";
-    v20 = 2112;
-    v21 = v17;
-    v22 = 2112;
-    v23 = v3;
-    _os_log_error_impl(&dword_25553C000, v16, OS_LOG_TYPE_ERROR, "%s Error resuming connection for intent with id: %@ - %@", &v18, 0x20u);
+    v14 = *(a1 + 32);
+    v15 = v4;
+    v16 = [v14 identifier];
+    v17 = 136315650;
+    v18 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_2";
+    v19 = 2112;
+    v20 = v16;
+    v21 = 2112;
+    v22 = v3;
+    _os_log_error_impl(&dword_25553C000, v15, OS_LOG_TYPE_ERROR, "%s Error resuming connection for intent with id: %@ - %@", &v17, 0x20u);
   }
 
   [*(a1 + 40) _extensionRequestDidFinishForIntent:*(a1 + 32) error:v3];
@@ -1541,8 +1561,6 @@ LABEL_10:
 LABEL_8:
   [*(a1 + 48) ins_invokeErrorCompletionHandler:*(a1 + 56) forUnderlyingError:v3];
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_26(uint64_t a1, uint64_t a2, void *a3)
@@ -1556,7 +1574,7 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_2_28(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) ins_afAnalyticsContext];
@@ -1570,49 +1588,46 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
     v7 = v5;
     v8 = [v6 identifier];
     *buf = 136315394;
-    v22 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_2";
-    v23 = 2112;
-    v24 = v8;
+    v21 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_2";
+    v22 = 2112;
+    v23 = v8;
     _os_log_impl(&dword_25553C000, v7, OS_LOG_TYPE_INFO, "%s Created intent executor for intent with id %@. Sending intent for execution to execution proxy.", buf, 0x16u);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_30;
-  v13[3] = &unk_2797EAAC0;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_30;
+  v12[3] = &unk_2797EAAC0;
   v9 = *(a1 + 64);
   v10 = *(a1 + 56);
   v11 = *(a1 + 32);
-  v14 = v10;
-  v15 = v11;
-  v16 = *(a1 + 64);
-  v17 = *(a1 + 48);
-  v18 = *(a1 + 72);
-  v20 = *(a1 + 80);
-  v19 = *(a1 + 40);
-  [(INSExtensionServiceIntentExecutor *)v4 sendAceCommand:v9 completionHandler:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = v10;
+  v14 = v11;
+  v15 = *(a1 + 64);
+  v16 = *(a1 + 48);
+  v17 = *(a1 + 72);
+  v19 = *(a1 + 80);
+  v18 = *(a1 + 40);
+  [(INSExtensionServiceIntentExecutor *)v4 sendAceCommand:v9 completionHandler:v12];
 }
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_3(uint64_t a1, int a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CD38C8];
   v4 = *MEMORY[0x277CD38C8];
   if (a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 32);
-      v6 = v3;
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v5 = v3;
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
       *buf = 136315394;
-      v15 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_3";
-      v16 = 2112;
-      v17 = v8;
-      _os_log_impl(&dword_25553C000, v6, OS_LOG_TYPE_INFO, "%s Prepared to start playback for %@", buf, 0x16u);
+      v13 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke_3";
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&dword_25553C000, v5, OS_LOG_TYPE_INFO, "%s Prepared to start playback for %@", buf, 0x16u);
     }
 
     dispatch_async(*(*(a1 + 40) + 8), *(a1 + 56));
@@ -1623,22 +1638,20 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v15 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
+      v13 = "[INSExtensionService handleCommand:fromRemoteDevice:completionHandler:]_block_invoke";
       _os_log_error_impl(&dword_25553C000, v3, OS_LOG_TYPE_ERROR, "%s Failed to prepare for audio playback", buf, 0xCu);
     }
 
-    v10 = *(a1 + 40);
-    v9 = *(a1 + 48);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_35;
-    v12[3] = &unk_2797EAAE8;
-    v12[4] = v10;
-    v13 = *(a1 + 56);
-    [v9 extensionService:v10 handleFailedStartPlaybackWithDestination:1 completion:v12];
+    v9 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_35;
+    v10[3] = &unk_2797EAAE8;
+    v10[4] = v9;
+    v11 = *(a1 + 56);
+    [v8 extensionService:v9 handleFailedStartPlaybackWithDestination:1 completion:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler___block_invoke_30(uint64_t a1, void *a2, void *a3)
@@ -1670,22 +1683,21 @@ void __72__INSExtensionService_handleCommand_fromRemoteDevice_completionHandler_
 
 - (NSArray)commandIdentifiers
 {
-  v9[9] = *MEMORY[0x277D85DE8];
+  v8[9] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D484F8];
-  v9[0] = *MEMORY[0x277D484B8];
-  v9[1] = v2;
+  v8[0] = *MEMORY[0x277D484B8];
+  v8[1] = v2;
   v3 = *MEMORY[0x277D484D0];
-  v9[2] = *MEMORY[0x277D48480];
-  v9[3] = v3;
+  v8[2] = *MEMORY[0x277D48480];
+  v8[3] = v3;
   v4 = *MEMORY[0x277D484F0];
-  v9[4] = *MEMORY[0x277D484D8];
-  v9[5] = v4;
+  v8[4] = *MEMORY[0x277D484D8];
+  v8[5] = v4;
   v5 = *MEMORY[0x277D484E8];
-  v9[6] = *MEMORY[0x277D484C8];
-  v9[7] = v5;
-  v9[8] = *MEMORY[0x277D484A8];
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:9];
-  v7 = *MEMORY[0x277D85DE8];
+  v8[6] = *MEMORY[0x277D484C8];
+  v8[7] = v5;
+  v8[8] = *MEMORY[0x277D484A8];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:9];
 
   return v6;
 }

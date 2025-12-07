@@ -49,7 +49,7 @@
 
 - (id)suggestionsByBoostingNearbySuggestions:(id)suggestions
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   suggestionsCopy = suggestions;
   v5 = [MEMORY[0x1E695DFA8] set];
   peopleDiscovery = [(_PSProximityBooster *)self peopleDiscovery];
@@ -59,33 +59,33 @@
   block[2] = __62___PSProximityBooster_suggestionsByBoostingNearbySuggestions___block_invoke;
   block[3] = &unk_1E7C25528;
   block[4] = self;
-  v42 = v5;
-  v56 = v42;
+  v41 = v5;
+  v55 = v41;
   dispatch_sync(dispatchQueue, block);
 
-  v41 = [suggestionsCopy mutableCopy];
+  v40 = [suggestionsCopy mutableCopy];
   obj = [MEMORY[0x1E695DFA8] set];
-  v45 = suggestionsCopy;
+  v44 = suggestionsCopy;
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   reverseObjectEnumerator = [suggestionsCopy reverseObjectEnumerator];
-  v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v51 objects:v64 count:16];
+  v9 = [reverseObjectEnumerator countByEnumeratingWithState:&v50 objects:v63 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v52;
+    v11 = *v51;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v52 != v11)
+        if (*v51 != v11)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v13 = *(*(&v51 + 1) + 8 * i);
+        v13 = *(*(&v50 + 1) + 8 * i);
         recipients = [v13 recipients];
         v15 = [recipients count];
 
@@ -97,10 +97,10 @@
           contact = [firstObject contact];
           identifier = [contact identifier];
 
-          if (identifier && [v42 containsObject:identifier])
+          if (identifier && [v41 containsObject:identifier])
           {
-            [v41 removeObject:v13];
-            [v41 insertObject:v13 atIndex:0];
+            [v40 removeObject:v13];
+            [v40 insertObject:v13 atIndex:0];
             reason = [v13 reason];
             [reason stringByAppendingString:@" - "];
             v22 = v21 = reverseObjectEnumerator;
@@ -118,40 +118,40 @@
         }
       }
 
-      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v51 objects:v64 count:16];
+      v10 = [reverseObjectEnumerator countByEnumeratingWithState:&v50 objects:v63 count:16];
     }
 
     while (v10);
   }
 
-  v27 = [v41 copy];
+  v27 = [v40 copy];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
   obja = obj;
-  v28 = [obja countByEnumeratingWithState:&v47 objects:v63 count:16];
+  v28 = [obja countByEnumeratingWithState:&v46 objects:v62 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v48;
+    v30 = *v47;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v48 != v30)
+        if (*v47 != v30)
         {
           objc_enumerationMutation(obja);
         }
 
-        v32 = *(*(&v47 + 1) + 8 * j);
-        v46[0] = MEMORY[0x1E69E9820];
-        v46[1] = 3221225472;
-        v46[2] = __62___PSProximityBooster_suggestionsByBoostingNearbySuggestions___block_invoke_38;
-        v46[3] = &unk_1E7C25690;
-        v46[4] = v32;
-        v33 = MEMORY[0x1B8C8C060](v46);
-        v34 = [v45 indexOfObjectPassingTest:v33];
+        v32 = *(*(&v46 + 1) + 8 * j);
+        v45[0] = MEMORY[0x1E69E9820];
+        v45[1] = 3221225472;
+        v45[2] = __62___PSProximityBooster_suggestionsByBoostingNearbySuggestions___block_invoke_38;
+        v45[3] = &unk_1E7C25690;
+        v45[4] = v32;
+        v33 = MEMORY[0x1B8C8C060](v45);
+        v34 = [v44 indexOfObjectPassingTest:v33];
         v35 = [v27 indexOfObjectPassingTest:v33];
         v36 = +[_PSLogging heuristicsChannel];
         if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
@@ -159,22 +159,20 @@
           v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v34];
           v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v35];
           *buf = 138412802;
-          v58 = v32;
-          v59 = 2112;
-          v60 = v37;
-          v61 = 2112;
-          v62 = v38;
+          v57 = v32;
+          v58 = 2112;
+          v59 = v37;
+          v60 = 2112;
+          v61 = v38;
           _os_log_debug_impl(&dword_1B5ED1000, v36, OS_LOG_TYPE_DEBUG, "Boosting suggestion with contactID %@ from index %@ to index %@", buf, 0x20u);
         }
       }
 
-      v29 = [obja countByEnumeratingWithState:&v47 objects:v63 count:16];
+      v29 = [obja countByEnumeratingWithState:&v46 objects:v62 count:16];
     }
 
     while (v29);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v27;
 }

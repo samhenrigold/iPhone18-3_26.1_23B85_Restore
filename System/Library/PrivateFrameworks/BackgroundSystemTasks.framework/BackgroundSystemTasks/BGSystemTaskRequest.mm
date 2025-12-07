@@ -48,7 +48,7 @@
 
 + (BGSystemTaskRequest)taskRequestWithDescriptor:(id)descriptor withIdentifier:(id)identifier
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   identifierCopy = identifier;
   v7 = MEMORY[0x1B27477C0](descriptorCopy);
@@ -113,7 +113,7 @@
             *&buf[12] = 2048;
             *&buf[14] = v28;
             *&buf[22] = 2048;
-            v119 = v29;
+            v118 = v29;
             _os_log_impl(&dword_1B236A000, v26, OS_LOG_TYPE_INFO, "%{public}@: trySchedulingBefore %f is earlier than scheduleAfter %f. Adjusting.", buf, 0x20u);
           }
 
@@ -466,16 +466,16 @@ LABEL_44:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v119 = __Block_byref_object_copy__1;
-    v120 = __Block_byref_object_dispose__1;
-    v121 = [MEMORY[0x1E695DFA8] set];
-    v112 = MEMORY[0x1E69E9820];
-    v113 = 3221225472;
-    v114 = __64__BGSystemTaskRequest_taskRequestWithDescriptor_withIdentifier___block_invoke;
-    v115 = &unk_1E7B244B0;
-    v116 = identifierCopy;
-    v117 = buf;
-    if (!xpc_array_apply(v10, &v112))
+    v118 = __Block_byref_object_copy__1;
+    v119 = __Block_byref_object_dispose__1;
+    v120 = [MEMORY[0x1E695DFA8] set];
+    v111 = MEMORY[0x1E69E9820];
+    v112 = 3221225472;
+    v113 = __64__BGSystemTaskRequest_taskRequestWithDescriptor_withIdentifier___block_invoke;
+    v114 = &unk_1E7B244B0;
+    v115 = identifierCopy;
+    v116 = buf;
+    if (!xpc_array_apply(v10, &v111))
     {
 
       _Block_object_dispose(buf, 8);
@@ -484,7 +484,7 @@ LABEL_130:
       goto LABEL_182;
     }
 
-    [(BGSystemTaskRequest *)v30 setDependencies:*(*&buf[8] + 40), v112, v113, v114, v115];
+    [(BGSystemTaskRequest *)v30 setDependencies:*(*&buf[8] + 40), v111, v112, v113, v114];
 
     _Block_object_dispose(buf, 8);
   }
@@ -699,25 +699,25 @@ LABEL_168:
         [(BGSystemTaskRequest *)v30 setTargetDevice:v103];
       }
 
-      v107 = xpc_dictionary_get_BOOL(descriptorCopy, "CommunicatesWithPairedDevice");
-      [(BGSystemTaskRequest *)v30 setCommunicatesWithPairedDevice:v107];
+      v106 = xpc_dictionary_get_BOOL(descriptorCopy, "CommunicatesWithPairedDevice");
+      [(BGSystemTaskRequest *)v30 setCommunicatesWithPairedDevice:v106];
       targetDevice = [(BGSystemTaskRequest *)v30 targetDevice];
-      v109 = !v107;
+      v108 = !v106;
       if (targetDevice)
       {
-        v109 = 1;
+        v108 = 1;
       }
 
-      if ((v109 & 1) == 0)
+      if ((v108 & 1) == 0)
       {
         [(BGSystemTaskRequest *)v30 setTargetDevice:1];
       }
 
-      v110 = xpc_dictionary_get_string(descriptorCopy, "RemoteDeviceIdentifier");
-      if (v110)
+      v109 = xpc_dictionary_get_string(descriptorCopy, "RemoteDeviceIdentifier");
+      if (v109)
       {
-        v111 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v110];
-        [(BGSystemTaskRequest *)v30 setRemoteDevice:v111];
+        v110 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v109];
+        [(BGSystemTaskRequest *)v30 setRemoteDevice:v110];
       }
 
       [(BGSystemTaskRequest *)v30 setRequiresRemoteDeviceWake:xpc_dictionary_get_BOOL(descriptorCopy, "RequiresRemoteDeviceWake")];
@@ -746,8 +746,6 @@ LABEL_180:
 LABEL_181:
   v10 = v31;
 LABEL_182:
-
-  v105 = *MEMORY[0x1E69E9840];
 
   return v90;
 }
@@ -830,7 +828,7 @@ LABEL_5:
 
 + (id)descriptorWithTaskRequest:(id)request
 {
-  v153 = *MEMORY[0x1E69E9840];
+  v152 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if ([requestCopy isMemberOfClass:objc_opt_class()])
@@ -1243,30 +1241,30 @@ LABEL_43:
     if (v99)
     {
       array = [MEMORY[0x1E695DF70] array];
+      v147 = 0u;
       v148 = 0u;
       v149 = 0u;
       v150 = 0u;
-      v151 = 0u;
       dependencies3 = [requestCopy dependencies];
-      v102 = [dependencies3 countByEnumeratingWithState:&v148 objects:v152 count:16];
+      v102 = [dependencies3 countByEnumeratingWithState:&v147 objects:v151 count:16];
       if (v102)
       {
         v103 = v102;
-        v104 = *v149;
+        v104 = *v148;
         do
         {
           for (i = 0; i != v103; ++i)
           {
-            if (*v149 != v104)
+            if (*v148 != v104)
             {
               objc_enumerationMutation(dependencies3);
             }
 
-            asDictionary = [*(*(&v148 + 1) + 8 * i) asDictionary];
+            asDictionary = [*(*(&v147 + 1) + 8 * i) asDictionary];
             [array addObject:asDictionary];
           }
 
-          v103 = [dependencies3 countByEnumeratingWithState:&v148 objects:v152 count:16];
+          v103 = [dependencies3 countByEnumeratingWithState:&v147 objects:v151 count:16];
         }
 
         while (v103);
@@ -1504,7 +1502,6 @@ LABEL_155:
   v113 = v139;
 
 LABEL_185:
-  v146 = *MEMORY[0x1E69E9840];
 
   return v113;
 }
@@ -1714,194 +1711,118 @@ LABEL_185:
   __break(1u);
 }
 
-+ (void)taskRequestWithDescriptor:withIdentifier:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "%{public}@: Feature codes, if present, must have entries", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)taskRequestWithDescriptor:(uint64_t)a1 withIdentifier:(uint64_t)a2 .cold.3(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a2];
+  v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:a2];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)taskRequestWithDescriptor:(void *)a1 withIdentifier:(void *)a2 .cold.4(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)taskRequestWithDescriptor:(void *)a1 withIdentifier:(void *)a2 .cold.5(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)taskRequestWithDescriptor:(void *)a1 withIdentifier:(void *)a2 .cold.6(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (void)taskRequestWithDescriptor:(void *)a1 withIdentifier:(void *)a2 .cold.7(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)taskRequestWithDescriptor:withIdentifier:.cold.8()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "%{public}@: Non-consuming producer activities are not allowed to be submitted via plists", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)taskRequestWithDescriptor:(void *)a1 withIdentifier:.cold.9(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)taskRequestWithDescriptor:(void *)a1 withIdentifier:.cold.10(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)taskRequestWithDescriptor:(void *)a1 withIdentifier:.cold.11(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)taskRequestWithDescriptor:withIdentifier:.cold.12()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "%{public}@: Feature codes are mandatory for FastPass", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)taskRequestWithDescriptor:withIdentifier:.cold.13()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1B236A000, v0, v1, "%{public}@: Could not form task request", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __64__BGSystemTaskRequest_taskRequestWithDescriptor_withIdentifier___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_3_0(&dword_1B236A000, a2, a3, "%{public}@: %{public}@ is an invalid dependency form, must be a dictionary", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __64__BGSystemTaskRequest_taskRequestWithDescriptor_withIdentifier___block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3_0(&dword_1B236A000, v0, v1, "%{public}@: Dependency type is of invalid form: %s");
-  v2 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_3_0(&dword_1B236A000, a2, a3, "%{public}@: %{public}@ is an invalid dependency form, must be a dictionary", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 void __64__BGSystemTaskRequest_taskRequestWithDescriptor_withIdentifier___block_invoke_cold_3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_3(&dword_1B236A000, a2, a3, "%{public}@: Dependencies require a valid identifier", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_3(&dword_1B236A000, a2, a3, "%{public}@: Dependencies require a valid identifier", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __64__BGSystemTaskRequest_taskRequestWithDescriptor_withIdentifier___block_invoke_cold_4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_3(&dword_1B236A000, a2, a3, "%{public}@: Dependencies require a valid object type", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_3(&dword_1B236A000, a2, a3, "%{public}@: Dependencies require a valid object type", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)descriptorWithTaskRequest:(void *)a1 .cold.2(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 identifier];
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4_0(&dword_1B236A000, v5, v6, "%{public}@: Repeating activites must have an interval of more than 300 sec", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_0(&dword_1B236A000, v5, v6, "%{public}@: Repeating activites must have an interval of more than 300 sec", v7, v8, v9, v10);
 }
 
 + (void)descriptorWithTaskRequest:(void *)a1 .cold.3(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 identifier];
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)descriptorWithTaskRequest:(void *)a1 .cold.4(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 identifier];
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4_0(&dword_1B236A000, v5, v6, "%{public}@: Feature codes are mandatory for FastPass", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4_0(&dword_1B236A000, v5, v6, "%{public}@: Feature codes are mandatory for FastPass", v7, v8, v9, v10);
 }
 
 @end

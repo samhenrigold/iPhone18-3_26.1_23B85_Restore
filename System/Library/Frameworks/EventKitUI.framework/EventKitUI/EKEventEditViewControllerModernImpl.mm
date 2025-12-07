@@ -939,7 +939,7 @@ void __72__EKEventEditViewControllerModernImpl__presentDetachSheetFromBarButton_
   return v3;
 }
 
-uint64_t __58__EKEventEditViewControllerModernImpl__detachSheetHandler__block_invoke(uint64_t result, uint64_t a2)
+void *__58__EKEventEditViewControllerModernImpl__detachSheetHandler__block_invoke(void *result, uint64_t a2)
 {
   v4 = 0;
   if (a2 > 3)
@@ -963,7 +963,7 @@ uint64_t __58__EKEventEditViewControllerModernImpl__detachSheetHandler__block_in
 LABEL_11:
     v8[5] = v2;
     v8[6] = v3;
-    v6 = *(result + 32);
+    v6 = result[4];
     v7 = *(v6 + 992);
     v8[0] = MEMORY[0x1E69E9820];
     v8[1] = 3221225472;
@@ -973,7 +973,7 @@ LABEL_11:
     return [v7 save:v4 completion:v8];
   }
 
-  v5 = *(result + 32);
+  v5 = result[4];
 
   return [v5 _updateResponse];
 }
@@ -2107,20 +2107,20 @@ void __50__EKEventEditViewControllerModernImpl_deleteEvent__block_invoke(uint64_
   [v11 performWithOptions:v7 block:v10];
 }
 
-uint64_t __50__EKEventEditViewControllerModernImpl_deleteEvent__block_invoke_2(uint64_t result)
+void *__50__EKEventEditViewControllerModernImpl_deleteEvent__block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
+  v1 = result[6];
   if (v1 == 2)
   {
-    v3 = *(result + 40);
-    v4 = *(result + 32);
+    v3 = result[5];
+    v4 = result[4];
     v2 = 2;
   }
 
   else if (v1 == 1)
   {
-    v3 = *(result + 40);
-    v4 = *(result + 32);
+    v3 = result[5];
+    v4 = result[4];
     v2 = 1;
   }
 
@@ -2141,8 +2141,8 @@ uint64_t __50__EKEventEditViewControllerModernImpl_deleteEvent__block_invoke_2(u
       v2 = 0;
     }
 
-    v3 = *(result + 40);
-    v4 = *(result + 32);
+    v3 = result[5];
+    v4 = result[4];
   }
 
   return [v4 _performDelete:v2 editor:v3];
@@ -3675,20 +3675,20 @@ void __54__EKEventEditViewControllerModernImpl__deleteClicked___block_invoke(uin
   [v11 performWithOptions:v7 block:v10];
 }
 
-uint64_t __54__EKEventEditViewControllerModernImpl__deleteClicked___block_invoke_2(uint64_t result)
+void *__54__EKEventEditViewControllerModernImpl__deleteClicked___block_invoke_2(void *result)
 {
-  v1 = *(result + 48);
+  v1 = result[6];
   if (v1 == 2)
   {
-    v3 = *(result + 40);
-    v4 = *(result + 32);
+    v3 = result[5];
+    v4 = result[4];
     v2 = 2;
   }
 
   else if (v1 == 1)
   {
-    v3 = *(result + 40);
-    v4 = *(result + 32);
+    v3 = result[5];
+    v4 = result[4];
     v2 = 1;
   }
 
@@ -3709,8 +3709,8 @@ uint64_t __54__EKEventEditViewControllerModernImpl__deleteClicked___block_invoke
       v2 = 0;
     }
 
-    v3 = *(result + 40);
-    v4 = *(result + 32);
+    v3 = result[5];
+    v4 = result[4];
   }
 
   return [v4 _performDelete:v2 editor:v3];

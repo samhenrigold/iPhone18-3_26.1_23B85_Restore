@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)initiatedSharePasswordOutcomeAsString:(int)string;
+- (id)passwordSharingMechanismAsString:(int)string;
+- (id)receivedSharedPasswordOutcomeAsString:(int)string;
 - (int)StringAsInitiatedSharePasswordOutcome:(id)outcome;
 - (int)StringAsReceivedSharedPasswordOutcome:(id)outcome;
 - (int)initiatedSharePasswordOutcome;
@@ -45,6 +48,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)initiatedSharePasswordOutcomeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32E78[string];
+  }
 }
 
 - (int)StringAsInitiatedSharePasswordOutcome:(id)outcome
@@ -100,6 +116,19 @@
   *&self->_has = *&self->_has & 0xF7 | v3;
 }
 
+- (id)receivedSharedPasswordOutcomeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32E98[string];
+  }
+}
+
 - (int)StringAsReceivedSharedPasswordOutcome:(id)outcome
 {
   if ([outcome isEqualToString:@"NO_CONFLICT"])
@@ -146,6 +175,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)passwordSharingMechanismAsString:(int)string
+{
+  if (string)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return @"AIRDROP";
+  }
 }
 
 - (id)description
@@ -241,7 +283,6 @@ LABEL_15:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -253,7 +294,6 @@ LABEL_3:
       }
 
 LABEL_8:
-      receivedSharedPasswordOutcome = self->_receivedSharedPasswordOutcome;
       PBDataWriterWriteInt32Field();
       if ((*&self->_has & 4) == 0)
       {
@@ -269,7 +309,6 @@ LABEL_8:
     goto LABEL_3;
   }
 
-  initiatedSharePasswordOutcome = self->_initiatedSharePasswordOutcome;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -284,7 +323,6 @@ LABEL_4:
   }
 
 LABEL_9:
-  passwordSharingMechanism = self->_passwordSharingMechanism;
 
   PBDataWriterWriteInt32Field();
 }

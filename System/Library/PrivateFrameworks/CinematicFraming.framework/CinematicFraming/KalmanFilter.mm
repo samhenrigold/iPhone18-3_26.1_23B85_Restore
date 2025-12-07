@@ -78,7 +78,7 @@
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_9:
     v16 = 0;
     goto LABEL_7;

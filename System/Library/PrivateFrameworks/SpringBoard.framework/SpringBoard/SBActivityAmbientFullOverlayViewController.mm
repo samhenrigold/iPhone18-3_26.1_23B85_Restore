@@ -190,7 +190,7 @@ LABEL_8:
 
   v5 = +[SBActivityManager sharedInstance];
   firstPartyActivityGroupingIdentifiers = [v5 firstPartyActivityGroupingIdentifiers];
-  v7 = [firstPartyActivityGroupingIdentifiers containsObject:platterTargetBundleIdentifier];
+  v7 = objc_msgSend_containsObject_(firstPartyActivityGroupingIdentifiers);
 
   return v7;
 }

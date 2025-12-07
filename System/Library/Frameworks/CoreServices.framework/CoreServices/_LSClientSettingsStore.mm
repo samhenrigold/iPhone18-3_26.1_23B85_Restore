@@ -1,5 +1,6 @@
 @interface _LSClientSettingsStore
 - (BOOL)resetUserElectionsWithError:(id *)error;
+- (BOOL)setUserElection:(unsigned __int8)election forExtensionKey:(id)key error:(id *)error;
 - (_LSClientSettingsStore)init;
 - (id)__internalQueue_xpcConnectionWithError:(id *)error;
 - (unsigned)userElectionForExtensionKey:(id)key;
@@ -108,12 +109,12 @@
   v28 = __Block_byref_object_copy__30;
   v29 = __Block_byref_object_dispose__30;
   v30 = 0;
-  v22 = 0;
-  v23[0] = &v22;
-  v23[1] = 0x3032000000;
-  v23[2] = __Block_byref_object_copy__30;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = __Block_byref_object_copy__30;
   internalQueue = self->_internalQueue;
-  v23[3] = __Block_byref_object_dispose__30;
+  v23[4] = __Block_byref_object_dispose__30;
   v24 = 0;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -121,48 +122,134 @@
   block[3] = &unk_1E6A19158;
   block[4] = self;
   block[5] = &v25;
-  block[6] = &v22;
+  block[6] = v23;
   dispatch_sync(internalQueue, block);
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x2020000000;
-  v20 = 0;
-  v6 = v26[5];
-  if (v6)
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x2020000000;
+  v21 = 0;
+  v7 = v26[5];
+  if (v7)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __54___LSClientSettingsStore_userElectionForExtensionKey___block_invoke_2;
-    v15[3] = &unk_1E6A192C8;
-    v7 = keyCopy;
-    v16 = v7;
-    v8 = [v6 synchronousRemoteObjectProxyWithErrorHandler:v15];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __54___LSClientSettingsStore_userElectionForExtensionKey___block_invoke_220;
-    v12[3] = &unk_1E6A1CFE8;
-    v13 = v7;
-    v14 = &v17;
-    [v8 userElectionForExtensionKey:v13 reply:v12];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __54___LSClientSettingsStore_userElectionForExtensionKey___block_invoke_2;
+    v16[3] = &unk_1E6A192C8;
+    v8 = keyCopy;
+    v17 = v8;
+    v9 = [v7 synchronousRemoteObjectProxyWithErrorHandler:v16];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __54___LSClientSettingsStore_userElectionForExtensionKey___block_invoke_220;
+    v13[3] = &unk_1E6A1CFE8;
+    v14 = v8;
+    v15 = &v18;
+    [v9 userElectionForExtensionKey:v14 reply:v13];
 
-    v9 = v16;
+    v10 = v17;
   }
 
   else
   {
-    v9 = _LSExtensionsLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _LSExtensionsLog(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [(_LSClientSettingsStore *)keyCopy userElectionForExtensionKey:v23];
+      [_LSClientSettingsStore userElectionForExtensionKey:];
     }
   }
 
-  v10 = *(v18 + 24);
-  _Block_object_dispose(&v17, 8);
-  _Block_object_dispose(&v22, 8);
+  v11 = *(v19 + 24);
+  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(v23, 8);
 
   _Block_object_dispose(&v25, 8);
-  return v10;
+  return v11;
+}
+
+- (BOOL)setUserElection:(unsigned __int8)election forExtensionKey:(id)key error:(id *)error
+{
+  electionCopy = election;
+  keyCopy = key;
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__30;
+  v46 = __Block_byref_object_dispose__30;
+  v47 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__30;
+  internalQueue = self->_internalQueue;
+  v40 = __Block_byref_object_dispose__30;
+  v41 = 0;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __64___LSClientSettingsStore_setUserElection_forExtensionKey_error___block_invoke;
+  block[3] = &unk_1E6A19158;
+  block[4] = self;
+  block[5] = &v42;
+  block[6] = &v36;
+  dispatch_sync(internalQueue, block);
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 1;
+  v11 = v43[5];
+  if (v11)
+  {
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x3032000000;
+    v28 = __Block_byref_object_copy__30;
+    v29 = __Block_byref_object_dispose__30;
+    v30 = 0;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __64___LSClientSettingsStore_setUserElection_forExtensionKey_error___block_invoke_2;
+    v21[3] = &unk_1E6A1D010;
+    v12 = keyCopy;
+    v22 = v12;
+    v23 = &v25;
+    v24 = &v31;
+    v13 = [v11 synchronousRemoteObjectProxyWithErrorHandler:v21];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __64___LSClientSettingsStore_setUserElection_forExtensionKey_error___block_invoke_222;
+    v17[3] = &unk_1E6A1D010;
+    v18 = v12;
+    v19 = &v25;
+    v20 = &v31;
+    [v13 setUserElection:electionCopy forExtensionKey:v18 reply:v17];
+    if (error && (v32[3] & 1) == 0)
+    {
+      *error = v26[5];
+    }
+
+    _Block_object_dispose(&v25, 8);
+  }
+
+  else
+  {
+    v34 = 0;
+    v14 = _LSExtensionsLog(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [_LSClientSettingsStore setUserElection:forExtensionKey:error:];
+    }
+
+    if (error)
+    {
+      *error = v37[5];
+    }
+  }
+
+  v15 = *(v32 + 24);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v36, 8);
+
+  _Block_object_dispose(&v42, 8);
+  return v15;
 }
 
 - (BOOL)resetUserElectionsWithError:(id *)error
@@ -226,7 +313,7 @@
   else
   {
     v27 = 0;
-    v7 = _LSExtensionsLog();
+    v7 = _LSExtensionsLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(_LSClientSettingsStore *)v30 resetUserElectionsWithError:v7, v8, v9, v10, v11, v12, v13];
@@ -246,32 +333,25 @@
   return v14;
 }
 
-- (void)userElectionForExtensionKey:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
+- (void)userElectionForExtensionKey:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(*a2 + 40);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-- (void)setUserElection:(uint64_t)a1 forExtensionKey:(uint64_t)a2 error:.cold.1(uint64_t a1, uint64_t a2)
+- (void)setUserElection:forExtensionKey:error:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v2 = *(*a2 + 40);
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_5();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 - (void)resetUserElectionsWithError:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(*a1 + 40));
-  OUTLINED_FUNCTION_0_7(&dword_18162D000, a2, a3, "Failed to reset user elections, failure creating connection: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*a1 + 40);
+  OUTLINED_FUNCTION_0_7(&dword_18162D000, a2, a3, "Failed to reset user elections, failure creating connection: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

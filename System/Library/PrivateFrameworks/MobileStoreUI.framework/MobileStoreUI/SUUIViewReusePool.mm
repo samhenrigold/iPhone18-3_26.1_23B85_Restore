@@ -71,15 +71,15 @@ uint64_t __60__SUUIViewReusePool_dequeueReusableViewWithReuseIdentifier___block_
   v3 = objc_getAssociatedObject(object, "com.apple.iTunesStoreUI.viewReuse.ID");
   if (v3)
   {
-    v4 = [*(a1 + 32) isEqualToString:v3];
+    isEqualToString = objc_msgSend_isEqualToString_(*(a1 + 32));
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)hideUnusedViews

@@ -1,5 +1,6 @@
 @interface PMiOSScrubberViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate;
 - (void)scrollViewDidScroll:(id)scroll;
 @end
 
@@ -40,6 +41,14 @@
       }
     }
   }
+}
+
+- (void)scrollViewDidEndDragging:(id)dragging willDecelerate:(BOOL)decelerate
+{
+  v5.receiver = self;
+  v5.super_class = PMiOSScrubberViewControllerAccessibility;
+  [(PMiOSScrubberViewControllerAccessibility *)&v5 scrollViewDidEndDragging:dragging willDecelerate:decelerate];
+  [(PMiOSScrubberViewControllerAccessibility *)self _setAXLastScrolledTimeInterval:-1.0];
 }
 
 @end

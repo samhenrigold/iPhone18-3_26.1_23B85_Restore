@@ -487,37 +487,33 @@ LABEL_29:
       if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
       {
         buf = 68289282;
-        v22 = 2082;
-        v23 = "";
-        v24 = 2082;
+        v17 = 2082;
+        v18 = "";
+        v19 = 2082;
         uTF8String = [v6 UTF8String];
         _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#slv Client is interested, key:%{public, location:escape_only}s}", &buf, 0x1Cu);
       }
 
       [(CLSignificantVisitManager *)self removeOldVisits];
-      v18 = 0u;
-      v19 = 0u;
-      v16 = 0u;
-      v17 = 0u;
       recentVisits = [(CLSignificantVisitManager *)self recentVisits];
-      v9 = [(NSMutableArray *)recentVisits countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(recentVisits);
       if (v9)
       {
         v10 = v9;
-        v11 = *v17;
+        v11 = MEMORY[0];
         do
         {
           for (i = 0; i != v10; i = i + 1)
           {
-            if (*v17 != v11)
+            if (MEMORY[0] != v11)
             {
               objc_enumerationMutation(recentVisits);
             }
 
-            [(CLSignificantVisitManager *)self deliverVisit:*(*(&v16 + 1) + 8 * i) toClient:client];
+            [(CLSignificantVisitManager *)self deliverVisit:*(8 * i) toClient:client];
           }
 
-          v10 = [(NSMutableArray *)recentVisits countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(recentVisits);
         }
 
         while (v10);
@@ -535,9 +531,9 @@ LABEL_29:
       if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_INFO))
       {
         buf = 68289282;
-        v22 = 2082;
-        v23 = "";
-        v24 = 2082;
+        v17 = 2082;
+        v18 = "";
+        v19 = 2082;
         uTF8String = [v6 UTF8String];
         _os_log_impl(dword_100000000, v15, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#slv Client has no interest, key:%{public, location:escape_only}s}", &buf, 0x1Cu);
       }
@@ -555,8 +551,8 @@ LABEL_29:
     if (os_log_type_enabled(off_1025D47A8, OS_LOG_TYPE_FAULT))
     {
       buf = 68289026;
-      v22 = 2082;
-      v23 = "";
+      v17 = 2082;
+      v18 = "";
       _os_log_impl(dword_100000000, v13, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#slv Can't deliver visit to client that hasn't connected}", &buf, 0x12u);
       if (qword_1025D47A0 != -1)
       {
@@ -568,8 +564,8 @@ LABEL_29:
     if (os_signpost_enabled(off_1025D47A8))
     {
       buf = 68289026;
-      v22 = 2082;
-      v23 = "";
+      v17 = 2082;
+      v18 = "";
       _os_signpost_emit_with_name_impl(dword_100000000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "#slv Can't deliver visit to client that hasn't connected", "{msg%{public}.0s:#slv Can't deliver visit to client that hasn't connected}", &buf, 0x12u);
     }
   }
@@ -685,7 +681,7 @@ LABEL_29:
   }
 
   *buf = &clientCopy;
-  sub_1007C3B34(&self->_clientToKey, &clientCopy)[5] = key;
+  sub_1007C3B34(&self->_clientToKey, &clientCopy, &unk_101C66300, buf)[5] = key;
   v13 = clientCopy;
   keyCopy = key;
   [(CLSignificantVisitManager *)self sendVisitsToClient:clientCopy];
@@ -712,7 +708,7 @@ LABEL_29:
       v17 = 2082;
       v18 = "";
       v19 = 2082;
-      uTF8String = [v8 UTF8String];
+      v20[0] = [v8 UTF8String];
       _os_log_impl(dword_100000000, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#slv Client start, key:%{public, location:escape_only}s}", buf, 0x1Cu);
     }
 
@@ -721,8 +717,8 @@ LABEL_29:
     [(CLSignificantVisitManager *)self flushInterest];
     if ([(CLSignificantVisitManager *)self authorizationDateForClientWithKey:v8])
     {
-      uTF8String2 = [v8 UTF8String];
-      v11 = strlen(uTF8String2);
+      uTF8String = [v8 UTF8String];
+      v11 = strlen(uTF8String);
       if (v11 < 0x7FFFFFFFFFFFFFF8)
       {
         v12 = v11;
@@ -731,7 +727,7 @@ LABEL_29:
           *(&__dst.__r_.__value_.__s + 23) = v11;
           if (v11)
           {
-            memmove(&__dst, uTF8String2, v11);
+            memmove(&__dst, uTF8String, v11);
           }
 
           __dst.__r_.__value_.__s.__data_[v12] = 0;
@@ -741,7 +737,7 @@ LABEL_29:
             operator delete(__dst.__r_.__value_.__l.__data_);
           }
 
-          sub_10079ADEC();
+          sub_10079ADEC(self->_clientManagerClient.__ptr_, buf, 1);
         }
 
         operator new();
@@ -916,7 +912,7 @@ LABEL_29:
       _os_log_impl(dword_100000000, v7, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#slv programmer error.  Only call this function after setting client interest to PendingDelete, event:%{public, location:escape_only}s, condition:%{private, location:escape_only}s}", &buf, 0x26u);
     }
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/CoreLocation/Daemon/Core/Fence/CLSignificantVisitManager.mm", 555, "[CLSignificantVisitManager actOnPendingDeleteForClientKey:]");
   }
 
   v9[0] = _NSConcreteStackBlock;
@@ -1068,15 +1064,13 @@ LABEL_29:
     {
       *buf = 68289026;
       *&buf[4] = 0;
-      v9 = 2082;
-      v10 = "";
+      v7 = 2082;
+      v8 = "";
       _os_log_impl(dword_100000000, v3, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#slv Checking if SLV should be active}", buf, 0x12u);
     }
 
-    v5 = 0;
-    v6 = 0;
-    v7 = 0;
-    sub_1004FAFA0([(CLSignificantVisitManager *)self clientInterest]);
+    memset(v5, 0, sizeof(v5));
+    sub_1004FAFA0([(CLSignificantVisitManager *)self clientInterest], v5);
   }
 
   if (qword_1025D47A0 != -1)
@@ -1089,8 +1083,8 @@ LABEL_29:
   {
     *buf = 68289026;
     *&buf[4] = 0;
-    v9 = 2082;
-    v10 = "";
+    v7 = 2082;
+    v8 = "";
     _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_INFO, "{msg%{public}.0s:#slv Not checking for monitoring... not armed}", buf, 0x12u);
   }
 }
@@ -1098,10 +1092,8 @@ LABEL_29:
 - (void)migrateClientInterestData
 {
   [-[CLSignificantVisitManager universe](self "universe")];
-  v3 = 0;
-  v4 = 0;
-  v5 = 0;
-  sub_1004FAFA0([(CLSignificantVisitManager *)self clientInterest]);
+  memset(v3, 0, sizeof(v3));
+  sub_1004FAFA0([(CLSignificantVisitManager *)self clientInterest], v3);
 }
 
 - (BOOL)interestForClientKey:(const char *)key outInterest:(int *)interest
@@ -1121,8 +1113,8 @@ LABEL_29:
 - (BOOL)clientInterestStoreGetValueForClientKey:(const char *)key parameterKey:(const char *)parameterKey value:(int *)value
 {
   [-[CLSignificantVisitManager universe](self "universe")];
-  sub_10004FD18(v11);
-  if (sub_100185ADC([(CLSignificantVisitManager *)self clientInterest], key, v11))
+  sub_10004FD18();
+  if (sub_100185ADC([(CLSignificantVisitManager *)self clientInterest], key, v11, 0xFFFFFFFFLL))
   {
     v9 = sub_10005BBE4(v11, parameterKey, value);
   }
@@ -1132,7 +1124,7 @@ LABEL_29:
     v9 = 0;
   }
 
-  sub_100005DA4(v11);
+  sub_100005DA4();
   return v9;
 }
 
@@ -1140,10 +1132,10 @@ LABEL_29:
 {
   valueCopy = value;
   [-[CLSignificantVisitManager universe](self "universe")];
-  sub_10004FD18(v10);
-  sub_100185ADC([(CLSignificantVisitManager *)self clientInterest], key, v10);
+  sub_10004FD18();
+  sub_100185ADC([(CLSignificantVisitManager *)self clientInterest], key, v10, 0xFFFFFFFFLL);
   v8 = sub_10004345C(v10, parameterKey, &valueCopy) && sub_1004FD480([(CLSignificantVisitManager *)self clientInterest], key, v10);
-  sub_100005DA4(v10);
+  sub_100005DA4();
   return v8;
 }
 

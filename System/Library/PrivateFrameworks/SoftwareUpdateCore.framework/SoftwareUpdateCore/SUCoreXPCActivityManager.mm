@@ -21,14 +21,14 @@
 
 - (void)eventHandler:(id)handler
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__6;
-  v21 = __Block_byref_object_dispose__6;
-  v22 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__6;
+  v20 = __Block_byref_object_dispose__6;
+  v21 = 0;
   v5 = xpc_activity_copy_identifier();
   if (v5)
   {
@@ -38,22 +38,22 @@
     block[2] = __41__SUCoreXPCActivityManager_eventHandler___block_invoke;
     block[3] = &unk_27892D570;
     block[4] = self;
-    block[5] = &v17;
+    block[5] = &v16;
     block[6] = v5;
     dispatch_sync(managerQueue, block);
 
-    if (v18[5])
+    if (v17[5])
     {
       activityQueue = [(SUCoreXPCActivityManager *)self activityQueue];
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __41__SUCoreXPCActivityManager_eventHandler___block_invoke_49;
-      v13[3] = &unk_27892C8D0;
-      v15 = &v17;
-      v14 = handlerCopy;
-      dispatch_sync(activityQueue, v13);
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __41__SUCoreXPCActivityManager_eventHandler___block_invoke_49;
+      v12[3] = &unk_27892C8D0;
+      v14 = &v16;
+      v13 = handlerCopy;
+      dispatch_sync(activityQueue, v12);
 
-      oslog = v14;
+      oslog = v13;
     }
 
     else
@@ -64,7 +64,7 @@
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v24 = v5;
+        v23 = v5;
         _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "No registered activity found for event %s", buf, 0xCu);
       }
     }
@@ -82,34 +82,32 @@
     }
   }
 
-  _Block_object_dispose(&v17, 8);
-
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v16, 8);
 }
 
 void __41__SUCoreXPCActivityManager_eventHandler___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v2 = [*(a1 + 32) activities];
-  v3 = [v2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v19;
+    v5 = *v18;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v5)
+        if (*v18 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v18 + 1) + 8 * i);
+        v7 = *(*(&v17 + 1) + 8 * i);
         v8 = [v7 activityName];
         v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(a1 + 48)];
         v10 = [v8 isEqualToString:v9];
@@ -123,7 +121,7 @@ void __41__SUCoreXPCActivityManager_eventHandler___block_invoke(uint64_t a1)
           {
             v13 = [v7 activityName];
             *buf = 138412290;
-            v23 = v13;
+            v22 = v13;
             _os_log_impl(&dword_23193C000, v12, OS_LOG_TYPE_DEFAULT, "Invoking activity handler for %@", buf, 0xCu);
           }
 
@@ -136,7 +134,7 @@ void __41__SUCoreXPCActivityManager_eventHandler___block_invoke(uint64_t a1)
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v4)
       {
         continue;
@@ -147,8 +145,6 @@ void __41__SUCoreXPCActivityManager_eventHandler___block_invoke(uint64_t a1)
   }
 
 LABEL_13:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sharedInstance
@@ -233,12 +229,12 @@ LABEL_14:
 
 - (SUCoreXPCActivityManager)initWithNameAndPersistedStateFilePath:(id)path persistedStateFilePath:(id)filePath
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   filePathCopy = filePath;
-  v55.receiver = self;
-  v55.super_class = SUCoreXPCActivityManager;
-  v7 = [(SUCoreXPCActivityManager *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = SUCoreXPCActivityManager;
+  v7 = [(SUCoreXPCActivityManager *)&v54 init];
   v8 = v7;
   if (v7)
   {
@@ -246,8 +242,7 @@ LABEL_14:
     v9 = [objc_alloc(MEMORY[0x277D64460]) initWithCategory:@"SUCoreXPCActivityManager"];
     [(SUCoreXPCActivityManager *)v8 setLogger:v9];
 
-    memset(v73, 0, sizeof(v73));
-    v72 = 0u;
+    memset(v72, 0, sizeof(v72));
     v71 = 0u;
     v70 = 0u;
     v69 = 0u;
@@ -260,6 +255,7 @@ LABEL_14:
     v62 = 0u;
     v61 = 0u;
     v60 = 0u;
+    v59 = 0u;
     *label = 0u;
     pathCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s.%@", "com.apple.sucore.sucoreactivitymanagerqueue", pathCopy];
     [pathCopy getCString:label maxLength:254 encoding:4];
@@ -267,8 +263,7 @@ LABEL_14:
     managerQueue = v8->_managerQueue;
     v8->_managerQueue = v11;
 
-    memset(v73, 0, sizeof(v73));
-    v72 = 0u;
+    memset(v72, 0, sizeof(v72));
     v71 = 0u;
     v70 = 0u;
     v69 = 0u;
@@ -281,6 +276,7 @@ LABEL_14:
     v62 = 0u;
     v61 = 0u;
     v60 = 0u;
+    v59 = 0u;
     *label = 0u;
     pathCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s.%@", "com.apple.sucorexpcactivitymanager.persistedStateQueue", pathCopy];
 
@@ -289,8 +285,7 @@ LABEL_14:
     persistedStateDispatchQueue = v8->_persistedStateDispatchQueue;
     v8->_persistedStateDispatchQueue = v14;
 
-    memset(v73, 0, sizeof(v73));
-    v72 = 0u;
+    memset(v72, 0, sizeof(v72));
     v71 = 0u;
     v70 = 0u;
     v69 = 0u;
@@ -303,6 +298,7 @@ LABEL_14:
     v62 = 0u;
     v61 = 0u;
     v60 = 0u;
+    v59 = 0u;
     *label = 0u;
     pathCopy3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s.%@", "com.apple.sucorexpcactivitymanager.activityQueue", pathCopy];
 
@@ -319,48 +315,48 @@ LABEL_14:
     persistedState = v8->_persistedState;
     v8->_persistedState = v20;
 
-    v49 = 0;
-    v50 = &v49;
-    v51 = 0x3032000000;
-    v52 = __Block_byref_object_copy__90;
-    v53 = __Block_byref_object_dispose__91;
-    v54 = 0;
+    v48 = 0;
+    v49 = &v48;
+    v50 = 0x3032000000;
+    v51 = __Block_byref_object_copy__90;
+    v52 = __Block_byref_object_dispose__91;
+    v53 = 0;
     persistedStateDispatchQueue = [(SUCoreXPCActivityManager *)v8 persistedStateDispatchQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __89__SUCoreXPCActivityManager_initWithNameAndPersistedStateFilePath_persistedStateFilePath___block_invoke;
     block[3] = &unk_27892C880;
     v23 = v8;
-    v47 = v23;
-    v48 = &v49;
+    v46 = v23;
+    v47 = &v48;
     dispatch_sync(persistedStateDispatchQueue, block);
 
-    if (v50[5])
+    if (v49[5])
     {
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
-      v24 = v50[5];
-      v25 = [v24 countByEnumeratingWithState:&v42 objects:v58 count:16];
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
+      v24 = v49[5];
+      v25 = [v24 countByEnumeratingWithState:&v41 objects:v57 count:16];
       if (v25)
       {
-        v26 = *v43;
+        v26 = *v42;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v43 != v26)
+            if (*v42 != v26)
             {
               objc_enumerationMutation(v24);
             }
 
-            v28 = *(*(&v42 + 1) + 8 * i);
+            v28 = *(*(&v41 + 1) + 8 * i);
             oslog = [v23[2] oslog];
             if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v57 = v28;
+              v56 = v28;
               _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "Found perisistedActivity %@. Unregistering from XPC", buf, 0xCu);
             }
 
@@ -381,7 +377,7 @@ LABEL_14:
             [(NSMutableArray *)v8->_activities addObject:v30];
           }
 
-          v25 = [v24 countByEnumeratingWithState:&v42 objects:v58 count:16];
+          v25 = [v24 countByEnumeratingWithState:&v41 objects:v57 count:16];
         }
 
         while (v25);
@@ -395,14 +391,13 @@ LABEL_14:
     {
       v36 = v8->_persistedState;
       *buf = 138412290;
-      v57 = v36;
+      v56 = v36;
       _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "Loaded persisted State: %@", buf, 0xCu);
     }
 
-    _Block_object_dispose(&v49, 8);
+    _Block_object_dispose(&v48, 8);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -425,93 +420,6 @@ void __89__SUCoreXPCActivityManager_initWithNameAndPersistedStateFilePath_persis
 }
 
 - (BOOL)_isActivityTrackedButUnsheduledInternal:(id)internal
-{
-  v23 = *MEMORY[0x277D85DE8];
-  internalCopy = internal;
-  managerQueue = [(SUCoreXPCActivityManager *)self managerQueue];
-  dispatch_assert_queue_V2(managerQueue);
-
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v6 = self->_activities;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v7)
-  {
-    v8 = v7;
-    v9 = 0;
-    v10 = *v19;
-    do
-    {
-      for (i = 0; i != v8; ++i)
-      {
-        if (*v19 != v10)
-        {
-          objc_enumerationMutation(v6);
-        }
-
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = MEMORY[0x277D643F8];
-        activityName = [v12 activityName];
-        if ([v13 stringIsEqual:activityName to:internalCopy])
-        {
-          isRegisteredWithXPC = [v12 isRegisteredWithXPC];
-
-          v9 |= isRegisteredWithXPC ^ 1;
-        }
-
-        else
-        {
-        }
-      }
-
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
-    }
-
-    while (v8);
-  }
-
-  else
-  {
-    v9 = 0;
-  }
-
-  v16 = *MEMORY[0x277D85DE8];
-  return v9 & 1;
-}
-
-- (BOOL)isActivityTrackedButUnsheduled:(id)unsheduled
-{
-  unsheduledCopy = unsheduled;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
-  managerQueue = [(SUCoreXPCActivityManager *)self managerQueue];
-  block[0] = MEMORY[0x277D85DD0];
-  block[1] = 3221225472;
-  block[2] = __59__SUCoreXPCActivityManager_isActivityTrackedButUnsheduled___block_invoke;
-  block[3] = &unk_27892D598;
-  v9 = unsheduledCopy;
-  v10 = &v11;
-  block[4] = self;
-  v6 = unsheduledCopy;
-  dispatch_sync(managerQueue, block);
-
-  LOBYTE(unsheduledCopy) = *(v12 + 24);
-  _Block_object_dispose(&v11, 8);
-  return unsheduledCopy;
-}
-
-uint64_t __59__SUCoreXPCActivityManager_isActivityTrackedButUnsheduled___block_invoke(uint64_t a1)
-{
-  result = [*(a1 + 32) _isActivityTrackedButUnsheduledInternal:*(a1 + 40)];
-  *(*(*(a1 + 48) + 8) + 24) = result;
-  return result;
-}
-
-- (BOOL)isActivityScheduledInternal:(id)internal
 {
   v22 = *MEMORY[0x277D85DE8];
   internalCopy = internal;
@@ -539,12 +447,13 @@ uint64_t __59__SUCoreXPCActivityManager_isActivityTrackedButUnsheduled___block_i
         }
 
         v12 = *(*(&v17 + 1) + 8 * i);
+        v13 = MEMORY[0x277D643F8];
         activityName = [v12 activityName];
-        if ([activityName isEqualToString:internalCopy])
+        if ([v13 stringIsEqual:activityName to:internalCopy])
         {
           isRegisteredWithXPC = [v12 isRegisteredWithXPC];
 
-          v9 |= isRegisteredWithXPC;
+          v9 |= isRegisteredWithXPC ^ 1;
         }
 
         else
@@ -563,7 +472,91 @@ uint64_t __59__SUCoreXPCActivityManager_isActivityTrackedButUnsheduled___block_i
     v9 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
+  return v9 & 1;
+}
+
+- (BOOL)isActivityTrackedButUnsheduled:(id)unsheduled
+{
+  unsheduledCopy = unsheduled;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  managerQueue = [(SUCoreXPCActivityManager *)self managerQueue];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __59__SUCoreXPCActivityManager_isActivityTrackedButUnsheduled___block_invoke;
+  block[3] = &unk_27892D598;
+  v9 = unsheduledCopy;
+  v10 = &v11;
+  block[4] = self;
+  v6 = unsheduledCopy;
+  dispatch_sync(managerQueue, block);
+
+  LOBYTE(unsheduledCopy) = *(v12 + 24);
+  _Block_object_dispose(&v11, 8);
+  return unsheduledCopy;
+}
+
+void *__59__SUCoreXPCActivityManager_isActivityTrackedButUnsheduled___block_invoke(uint64_t a1)
+{
+  result = [*(a1 + 32) _isActivityTrackedButUnsheduledInternal:*(a1 + 40)];
+  *(*(*(a1 + 48) + 8) + 24) = result;
+  return result;
+}
+
+- (BOOL)isActivityScheduledInternal:(id)internal
+{
+  v21 = *MEMORY[0x277D85DE8];
+  internalCopy = internal;
+  managerQueue = [(SUCoreXPCActivityManager *)self managerQueue];
+  dispatch_assert_queue_V2(managerQueue);
+
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v6 = self->_activities;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = 0;
+    v10 = *v17;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v17 != v10)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        v12 = *(*(&v16 + 1) + 8 * i);
+        activityName = [v12 activityName];
+        if ([activityName isEqualToString:internalCopy])
+        {
+          isRegisteredWithXPC = [v12 isRegisteredWithXPC];
+
+          v9 |= isRegisteredWithXPC;
+        }
+
+        else
+        {
+        }
+      }
+
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v8);
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
   return v9 & 1;
 }
 
@@ -590,7 +583,7 @@ uint64_t __59__SUCoreXPCActivityManager_isActivityTrackedButUnsheduled___block_i
   return scheduledCopy;
 }
 
-uint64_t __48__SUCoreXPCActivityManager_isActivityScheduled___block_invoke(uint64_t a1)
+void *__48__SUCoreXPCActivityManager_isActivityScheduled___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isActivityScheduledInternal:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -599,27 +592,27 @@ uint64_t __48__SUCoreXPCActivityManager_isActivityScheduled___block_invoke(uint6
 
 - (BOOL)addActivityInfoToPersistedState:(id)state
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   managerQueue = [(SUCoreXPCActivityManager *)self managerQueue];
   dispatch_assert_queue_V2(managerQueue);
 
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
-  v38 = 0;
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = __Block_byref_object_copy__90;
-  v33[4] = __Block_byref_object_dispose__91;
   v34 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = __Block_byref_object_copy__90;
-  v31 = __Block_byref_object_dispose__91;
-  v32 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = __Block_byref_object_copy__90;
+  v32[4] = __Block_byref_object_dispose__91;
+  v33 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__90;
+  v30 = __Block_byref_object_dispose__91;
+  v31 = 0;
   v6 = objc_alloc_init(SUCorePersistedActivity);
   activityOptions = [stateCopy activityOptions];
   [(SUCorePersistedActivity *)v6 setActivityOptions:activityOptions];
@@ -633,30 +626,30 @@ uint64_t __48__SUCoreXPCActivityManager_isActivityScheduled___block_invoke(uint6
   block[2] = __60__SUCoreXPCActivityManager_addActivityInfoToPersistedState___block_invoke;
   block[3] = &unk_27892D5C0;
   block[4] = self;
-  block[5] = v33;
-  block[6] = &v27;
+  block[5] = v32;
+  block[6] = &v26;
   dispatch_sync(persistedStateDispatchQueue, block);
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
-  v10 = v28[5];
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v39 count:16];
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v10 = v27[5];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v38 count:16];
   if (v11)
   {
     v12 = 0;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
+        v15 = *(*(&v21 + 1) + 8 * i);
         if ([v15 isEqual:v6])
         {
           v16 = v15;
@@ -665,14 +658,14 @@ uint64_t __48__SUCoreXPCActivityManager_isActivityScheduled___block_invoke(uint6
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v22 objects:v39 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v21 objects:v38 count:16];
     }
 
     while (v11);
 
     if (v12)
     {
-      [v28[5] removeObject:v12];
+      [v27[5] removeObject:v12];
     }
   }
 
@@ -682,53 +675,52 @@ uint64_t __48__SUCoreXPCActivityManager_isActivityScheduled___block_invoke(uint6
     v12 = 0;
   }
 
-  [v28[5] addObject:v6];
+  [v27[5] addObject:v6];
   persistedStateDispatchQueue2 = [(SUCoreXPCActivityManager *)self persistedStateDispatchQueue];
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __60__SUCoreXPCActivityManager_addActivityInfoToPersistedState___block_invoke_2;
-  v21[3] = &unk_27892D5E8;
-  v21[4] = self;
-  v21[5] = &v27;
-  v21[6] = &v35;
-  dispatch_sync(persistedStateDispatchQueue2, v21);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __60__SUCoreXPCActivityManager_addActivityInfoToPersistedState___block_invoke_2;
+  v20[3] = &unk_27892D5E8;
+  v20[4] = self;
+  v20[5] = &v26;
+  v20[6] = &v34;
+  dispatch_sync(persistedStateDispatchQueue2, v20);
 
-  v18 = *(v36 + 24);
-  _Block_object_dispose(&v27, 8);
+  v18 = *(v35 + 24);
+  _Block_object_dispose(&v26, 8);
 
-  _Block_object_dispose(v33, 8);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(v32, 8);
+  _Block_object_dispose(&v34, 8);
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18 & 1;
 }
 
-void __60__SUCoreXPCActivityManager_addActivityInfoToPersistedState___block_invoke(void *a1)
+void __60__SUCoreXPCActivityManager_addActivityInfoToPersistedState___block_invoke(void *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CBEB98];
-  v3 = objc_opt_class();
-  v10 = [v2 setWithObjects:{v3, objc_opt_class(), 0}];
-  v4 = [*(a1[4] + 56) secureCodedObjectForKey:@"ActivityArray" ofClass:objc_opt_class() encodeClasses:v10];
-  v5 = *(a1[5] + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v3 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
+  v11 = [v3 setWithObjects:{v4, objc_opt_class(), 0}];
+  v5 = [*(a1[4] + 56) secureCodedObjectForKey:@"ActivityArray" ofClass:objc_opt_class() encodeClasses:v11];
+  v6 = *(a1[5] + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
 
   if (*(*(a1[5] + 8) + 40) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v7 = [*(*(a1[5] + 8) + 40) mutableCopy];
+    v8 = [*(*(a1[5] + 8) + 40) mutableCopy];
   }
 
   else
   {
-    v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
   }
 
-  v8 = *(a1[6] + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
+  v9 = *(a1[6] + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v8;
 }
 
-uint64_t __60__SUCoreXPCActivityManager_addActivityInfoToPersistedState___block_invoke_2(void *a1)
+void *__60__SUCoreXPCActivityManager_addActivityInfoToPersistedState___block_invoke_2(void *a1)
 {
   result = [*(a1[4] + 56) persistSecureCodedObject:*(*(a1[5] + 8) + 40) forKey:@"ActivityArray" shouldPersist:1];
   *(*(a1[6] + 8) + 24) = 1;
@@ -770,86 +762,84 @@ uint64_t __60__SUCoreXPCActivityManager_addActivityInfoToPersistedState___block_
   return stateCopy;
 }
 
-void __61__SUCoreXPCActivityManager_removeActivityFromPersistedState___block_invoke(uint64_t a1)
+void __61__SUCoreXPCActivityManager_removeActivityFromPersistedState___block_invoke(uint64_t a1, uint64_t a2)
 {
   v29 = *MEMORY[0x277D85DE8];
-  v2 = MEMORY[0x277CBEB98];
-  v3 = objc_opt_class();
-  v4 = [v2 setWithObjects:{v3, objc_opt_class(), 0}];
-  v5 = [*(*(a1 + 32) + 56) secureCodedObjectForKey:@"ActivityArray" ofClass:objc_opt_class() encodeClasses:v4];
-  v6 = *(*(a1 + 48) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v3 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
+  v5 = [v3 setWithObjects:{v4, objc_opt_class(), 0}];
+  v6 = [*(*(a1 + 32) + 56) secureCodedObjectForKey:@"ActivityArray" ofClass:objc_opt_class() encodeClasses:v5];
+  v7 = *(*(a1 + 48) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
   if (*(*(*(a1 + 48) + 8) + 40) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
-    v8 = objc_alloc_init(SUCorePersistedActivity);
-    v9 = [*(a1 + 40) activityOptions];
-    [(SUCorePersistedActivity *)v8 setActivityOptions:v9];
+    v9 = objc_alloc_init(SUCorePersistedActivity);
+    v10 = [*(a1 + 40) activityOptions];
+    [(SUCorePersistedActivity *)v9 setActivityOptions:v10];
 
-    v10 = [*(a1 + 40) activityName];
-    [(SUCorePersistedActivity *)v8 setActivityName:v10];
+    v11 = [*(a1 + 40) activityName];
+    [(SUCorePersistedActivity *)v9 setActivityName:v11];
 
-    v11 = [*(*(*(a1 + 48) + 8) + 40) mutableCopy];
+    v12 = [*(*(*(a1 + 48) + 8) + 40) mutableCopy];
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v12 = v11;
-    v13 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
-    if (v13)
+    v13 = v12;
+    v14 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    if (v14)
     {
-      v14 = v13;
-      v15 = 0;
-      v16 = *v24;
+      v15 = v14;
+      v16 = 0;
+      v17 = *v24;
       do
       {
-        for (i = 0; i != v14; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v24 != v17)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
-          if ([v18 isEqual:v8])
+          v19 = *(*(&v23 + 1) + 8 * i);
+          if ([v19 isEqual:v9])
           {
-            v19 = v18;
+            v20 = v19;
 
-            v15 = v19;
+            v16 = v20;
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
-      while (v14);
+      while (v15);
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
-    [v12 removeObject:v15];
+    [v13 removeObject:v16];
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
 
   else
   {
-    v20 = [*(a1 + 32) logger];
-    v21 = [v20 oslog];
+    v21 = [*(a1 + 32) logger];
+    v22 = [v21 oslog];
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23193C000, v21, OS_LOG_TYPE_DEFAULT, "No persisted activities found", buf, 2u);
+      _os_log_impl(&dword_23193C000, v22, OS_LOG_TYPE_DEFAULT, "No persisted activities found", buf, 2u);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 1;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (int)scheduleActivity:(id)activity
@@ -875,10 +865,9 @@ void __61__SUCoreXPCActivityManager_removeActivityFromPersistedState___block_inv
   return activityCopy;
 }
 
-void __45__SUCoreXPCActivityManager_scheduleActivity___block_invoke(uint64_t a1)
+void __45__SUCoreXPCActivityManager_scheduleActivity___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v79 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v77 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || ([*(a1 + 32) handler], (v3 = objc_claimAutoreleasedReturnValue()) == 0) || (v4 = v3, objc_msgSend(*(a1 + 32), "activityName"), v5 = objc_claimAutoreleasedReturnValue(), v5, v4, !v5))
   {
@@ -887,46 +876,45 @@ void __45__SUCoreXPCActivityManager_scheduleActivity___block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 32);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v16 = @"OK";
+        v15 = @"OK";
       }
 
       else
       {
-        v16 = @"Invalid";
+        v15 = @"Invalid";
       }
 
-      v17 = [*(a1 + 32) handler];
-      if (v17)
+      v16 = [*(a1 + 32) handler];
+      if (v16)
       {
-        v18 = @"OK";
+        v17 = @"OK";
       }
 
       else
       {
-        v18 = @"Invalid";
+        v17 = @"Invalid";
       }
 
-      v19 = [*(a1 + 32) activityName];
+      v18 = [*(a1 + 32) activityName];
       *buf = 138412802;
-      if (v19)
+      if (v18)
       {
-        v20 = @"OK";
+        v19 = @"OK";
       }
 
       else
       {
-        v20 = @"Invalid";
+        v19 = @"Invalid";
       }
 
-      v74 = v16;
+      v72 = v15;
+      v73 = 2112;
+      v74 = v17;
       v75 = 2112;
-      v76 = v18;
-      v77 = 2112;
-      v78 = v20;
+      v76 = v19;
       _os_log_impl(&dword_23193C000, v14, OS_LOG_TYPE_DEFAULT, "The activity object passed to scheduleActivity is invalid : Class : %@ Handler: %@ Name: %@", buf, 0x20u);
     }
 
@@ -948,7 +936,7 @@ void __45__SUCoreXPCActivityManager_scheduleActivity___block_invoke(uint64_t a1)
     {
       v10 = [*(a1 + 32) activityName];
       *buf = 138412290;
-      v74 = v10;
+      v72 = v10;
       _os_log_impl(&dword_23193C000, v9, OS_LOG_TYPE_DEFAULT, "The activity named %@ is already scheduled", buf, 0xCu);
     }
 
@@ -956,143 +944,143 @@ void __45__SUCoreXPCActivityManager_scheduleActivity___block_invoke(uint64_t a1)
     v12 = 5;
 LABEL_20:
     *(v11 + 24) = v12;
-    goto LABEL_21;
+    return;
   }
 
-  v22 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v22, *MEMORY[0x277D86270], 0);
-  v23 = [*(a1 + 32) activityOptions];
-  v24 = [v23 priority];
-  v25 = MEMORY[0x277D86340];
-  if (!v24)
+  v20 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v20, *MEMORY[0x277D86270], 0);
+  v21 = [*(a1 + 32) activityOptions];
+  v22 = [v21 priority];
+  v23 = MEMORY[0x277D86340];
+  if (!v22)
   {
 
-    goto LABEL_26;
+    goto LABEL_25;
+  }
+
+  v24 = [*(a1 + 32) activityOptions];
+  v25 = [v24 priority];
+
+  if (v25 == 2)
+  {
+LABEL_25:
+    xpc_dictionary_set_string(v20, *v23, *MEMORY[0x277D86350]);
   }
 
   v26 = [*(a1 + 32) activityOptions];
   v27 = [v26 priority];
 
-  if (v27 == 2)
+  if (v27 == 1)
   {
-LABEL_26:
-    xpc_dictionary_set_string(v22, *v25, *MEMORY[0x277D86350]);
+    xpc_dictionary_set_string(v20, *v23, *MEMORY[0x277D86348]);
   }
 
   v28 = [*(a1 + 32) activityOptions];
-  v29 = [v28 priority];
-
-  if (v29 == 1)
+  v29 = [v28 batteryLevelGreaterThan];
+  if (v29)
   {
-    xpc_dictionary_set_string(v22, *v25, *MEMORY[0x277D86348]);
-  }
-
-  v30 = [*(a1 + 32) activityOptions];
-  v31 = [v30 batteryLevelGreaterThan];
-  if (v31)
-  {
-    v32 = v31;
-    v33 = [*(a1 + 32) activityOptions];
-    v34 = [v33 batteryLevelGreaterThan];
+    v30 = v29;
+    v31 = [*(a1 + 32) activityOptions];
+    v32 = [v31 batteryLevelGreaterThan];
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
 
     if ((isKindOfClass & 1) == 0)
     {
-      goto LABEL_33;
+      goto LABEL_32;
     }
 
-    v36 = *MEMORY[0x277D86388];
-    v30 = [*(a1 + 32) activityOptions];
-    v37 = [v30 batteryLevelGreaterThan];
-    xpc_dictionary_set_int64(v22, v36, [v37 integerValue]);
+    v34 = *MEMORY[0x277D86388];
+    v28 = [*(a1 + 32) activityOptions];
+    v35 = [v28 batteryLevelGreaterThan];
+    xpc_dictionary_set_int64(v20, v34, [v35 integerValue]);
   }
 
-LABEL_33:
-  v38 = [*(a1 + 32) activityOptions];
-  v39 = [v38 plugInState];
+LABEL_32:
+  v36 = [*(a1 + 32) activityOptions];
+  v37 = [v36 plugInState];
 
-  if (v39)
+  if (v37)
   {
-    v40 = [*(a1 + 32) activityOptions];
-    v41 = [v40 plugInState] != 2;
+    v38 = [*(a1 + 32) activityOptions];
+    v39 = [v38 plugInState] != 2;
 
-    xpc_dictionary_set_BOOL(v22, *MEMORY[0x277D86230], v41);
+    xpc_dictionary_set_BOOL(v20, *MEMORY[0x277D86230], v39);
   }
 
-  v42 = [*(a1 + 32) activityOptions];
-  v43 = [v42 networkState];
+  v40 = [*(a1 + 32) activityOptions];
+  v41 = [v40 networkState];
 
-  if (v43)
+  if (v41)
   {
-    v44 = [*(a1 + 32) activityOptions];
-    v45 = [v44 networkState] == 2;
+    v42 = [*(a1 + 32) activityOptions];
+    v43 = [v42 networkState] == 2;
 
-    xpc_dictionary_set_BOOL(v22, *MEMORY[0x277D86398], v45);
+    xpc_dictionary_set_BOOL(v20, *MEMORY[0x277D86398], v43);
   }
 
-  v46 = [*(a1 + 32) activityOptions];
-  v47 = [v46 runDate];
-  if (v47)
+  v44 = [*(a1 + 32) activityOptions];
+  v45 = [v44 runDate];
+  if (v45)
   {
-    v48 = v47;
-    v49 = [*(a1 + 32) activityOptions];
-    v50 = [v49 runDate];
+    v46 = v45;
+    v47 = [*(a1 + 32) activityOptions];
+    v48 = [v47 runDate];
     objc_opt_class();
-    v51 = objc_opt_isKindOfClass();
+    v49 = objc_opt_isKindOfClass();
 
-    v52 = 0.0;
-    if ((v51 & 1) == 0)
+    v50 = 0.0;
+    if ((v49 & 1) == 0)
     {
-      goto LABEL_43;
+      goto LABEL_42;
     }
 
-    v53 = [*(a1 + 32) activityOptions];
-    v54 = [v53 runDate];
-    [v54 timeIntervalSinceNow];
-    v52 = v55;
+    v51 = [*(a1 + 32) activityOptions];
+    v52 = [v51 runDate];
+    [v52 timeIntervalSinceNow];
+    v50 = v53;
 
-    if (v52 >= 0.0)
+    if (v50 >= 0.0)
     {
-      goto LABEL_43;
+      goto LABEL_42;
     }
 
-    v56 = [*(a1 + 40) logger];
-    v46 = [v56 oslog];
+    v54 = [*(a1 + 40) logger];
+    v44 = [v54 oslog];
 
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
     {
-      v57 = [*(a1 + 32) activityName];
-      v58 = [*(a1 + 32) activityOptions];
-      v59 = [v58 runDate];
+      v55 = [*(a1 + 32) activityName];
+      v56 = [*(a1 + 32) activityOptions];
+      v57 = [v56 runDate];
       *buf = 138412546;
+      v72 = v55;
+      v73 = 2112;
       v74 = v57;
-      v75 = 2112;
-      v76 = v59;
-      _os_log_impl(&dword_23193C000, v46, OS_LOG_TYPE_DEFAULT, "The activity named %@ has a requested run date which is in the past(%@). Scheduling to run immediately", buf, 0x16u);
+      _os_log_impl(&dword_23193C000, v44, OS_LOG_TYPE_DEFAULT, "The activity named %@ has a requested run date which is in the past(%@). Scheduling to run immediately", buf, 0x16u);
     }
   }
 
-  v52 = 0.0;
-LABEL_43:
-  xpc_dictionary_set_int64(v22, *MEMORY[0x277D86250], v52);
+  v50 = 0.0;
+LABEL_42:
+  xpc_dictionary_set_int64(v20, *MEMORY[0x277D86250], v50);
   bzero(buf, 0x400uLL);
-  v60 = [*(a1 + 32) activityName];
-  [v60 getCString:buf maxLength:1023 encoding:4];
+  v58 = [*(a1 + 32) activityName];
+  [v58 getCString:buf maxLength:1023 encoding:4];
 
-  v61 = buf[0];
-  v62 = [*(a1 + 40) logger];
-  v63 = [v62 oslog];
+  v59 = buf[0];
+  v60 = [*(a1 + 40) logger];
+  v61 = [v60 oslog];
 
-  v64 = os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT);
-  if (v61)
+  v62 = os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT);
+  if (v59)
   {
-    if (v64)
+    if (v62)
     {
-      v65 = [*(a1 + 32) activityName];
-      *v71 = 138412290;
-      v72 = v65;
-      _os_log_impl(&dword_23193C000, v63, OS_LOG_TYPE_DEFAULT, "Registering Activity %@", v71, 0xCu);
+      v63 = [*(a1 + 32) activityName];
+      *v69 = 138412290;
+      v70 = v63;
+      _os_log_impl(&dword_23193C000, v61, OS_LOG_TYPE_DEFAULT, "Registering Activity %@", v69, 0xCu);
     }
 
     handler[0] = MEMORY[0x277D85DD0];
@@ -1100,38 +1088,35 @@ LABEL_43:
     handler[2] = __45__SUCoreXPCActivityManager_scheduleActivity___block_invoke_107;
     handler[3] = &unk_27892D638;
     handler[4] = *(a1 + 40);
-    xpc_activity_register(buf, v22, handler);
+    xpc_activity_register(buf, v20, handler);
     *(*(*(a1 + 48) + 8) + 24) = 0;
     [*(*(a1 + 40) + 48) addObject:*(a1 + 32)];
     [*(a1 + 40) addActivityInfoToPersistedState:*(a1 + 32)];
     [*(a1 + 32) setIsRegisteredWithXPC:1];
-    v66 = [*(a1 + 40) logger];
-    v67 = [v66 oslog];
+    v64 = [*(a1 + 40) logger];
+    v65 = [v64 oslog];
 
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
     {
-      v68 = *(a1 + 32);
-      *v71 = 138412290;
-      v72 = v68;
-      _os_log_impl(&dword_23193C000, v67, OS_LOG_TYPE_DEFAULT, "Activity successfully registered : {%@}", v71, 0xCu);
+      v66 = *(a1 + 32);
+      *v69 = 138412290;
+      v70 = v66;
+      _os_log_impl(&dword_23193C000, v65, OS_LOG_TYPE_DEFAULT, "Activity successfully registered : {%@}", v69, 0xCu);
     }
   }
 
   else
   {
-    if (v64)
+    if (v62)
     {
-      v69 = *(a1 + 32);
-      *v71 = 138412290;
-      v72 = v69;
-      _os_log_impl(&dword_23193C000, v63, OS_LOG_TYPE_DEFAULT, "Failed to register activity since we could not extract its name: {%@}", v71, 0xCu);
+      v67 = *(a1 + 32);
+      *v69 = 138412290;
+      v70 = v67;
+      _os_log_impl(&dword_23193C000, v61, OS_LOG_TYPE_DEFAULT, "Failed to register activity since we could not extract its name: {%@}", v69, 0xCu);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 4;
   }
-
-LABEL_21:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (int)unscheduleActivity:(id)activity
@@ -1159,7 +1144,7 @@ LABEL_21:
 
 void __47__SUCoreXPCActivityManager_unscheduleActivity___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isActivityScheduledInternal:*(a1 + 40)] & 1) != 0 || objc_msgSend(*(a1 + 32), "_isActivityTrackedButUnsheduledInternal:", *(a1 + 40)))
   {
     bzero(identifier, 0x400uLL);
@@ -1184,8 +1169,6 @@ void __47__SUCoreXPCActivityManager_unscheduleActivity___block_invoke(uint64_t a
   {
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getActivityForName:(id)name
@@ -1216,40 +1199,37 @@ void __47__SUCoreXPCActivityManager_unscheduleActivity___block_invoke(uint64_t a
 
 uint64_t __47__SUCoreXPCActivityManager_getActivityForName___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _getActivityForNameInternal:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _getActivityForNameInternal:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)_getActivityForNameInternal:(id)internal
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   internalCopy = internal;
   managerQueue = [(SUCoreXPCActivityManager *)self managerQueue];
   dispatch_assert_queue_V2(managerQueue);
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v6 = self->_activities;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = MEMORY[0x277D643F8];
         activityName = [v10 activityName];
         LOBYTE(v11) = [v11 stringIsEqual:activityName to:internalCopy];
@@ -1261,7 +1241,7 @@ uint64_t __47__SUCoreXPCActivityManager_getActivityForName___block_invoke(uint64
         }
       }
 
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -1272,8 +1252,6 @@ uint64_t __47__SUCoreXPCActivityManager_getActivityForName___block_invoke(uint64
   }
 
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1348,7 +1326,7 @@ void __51__SUCoreXPCActivityManager_copyOptionsForActivity___block_invoke(uint64
 
 void __58__SUCoreXPCActivityManager_getExpectedRunDateForActivity___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _getActivityForNameInternal:*(a1 + 40)];
   v3 = v2;
   if (v2)
@@ -1366,43 +1344,41 @@ void __58__SUCoreXPCActivityManager_getExpectedRunDateForActivity___block_invoke
     {
       v10 = *(a1 + 40);
       v11 = *(*(*(a1 + 48) + 8) + 40);
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2112;
-      v16 = v11;
-      _os_log_impl(&dword_23193C000, v9, OS_LOG_TYPE_DEFAULT, "Activity '%@' has a predicted run date of %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&dword_23193C000, v9, OS_LOG_TYPE_DEFAULT, "Activity '%@' has a predicted run date of %@", &v12, 0x16u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Name: %@ NumActivicies: %lu {\n", self->_managerName, -[NSMutableArray count](self->_activities, "count")];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = self->_activities;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       v9 = v3;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"{\n\t%@\n}", *(*(&v14 + 1) + 8 * v8)];
+        v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"{\n\t%@\n}", *(*(&v13 + 1) + 8 * v8)];
         v3 = [v9 stringByAppendingString:v10];
 
         ++v8;
@@ -1410,7 +1386,7 @@ void __58__SUCoreXPCActivityManager_getExpectedRunDateForActivity___block_invoke
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -1418,20 +1394,17 @@ void __58__SUCoreXPCActivityManager_getExpectedRunDateForActivity___block_invoke
 
   v11 = [v3 stringByAppendingString:@"}"];
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 void __42__SUCoreXPCActivityManager_sharedInstance__block_invoke_cold_2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_23193C000, log, OS_LOG_TYPE_ERROR, "Persisted state file path for manager %@ is %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_23193C000, log, OS_LOG_TYPE_ERROR, "Persisted state file path for manager %@ is %@", &v3, 0x16u);
 }
 
 @end

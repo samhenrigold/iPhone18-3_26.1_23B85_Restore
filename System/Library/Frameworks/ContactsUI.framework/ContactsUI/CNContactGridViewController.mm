@@ -138,8 +138,8 @@
   else
   {
     dataSource2 = [(CNContactGridViewController *)self dataSource];
-    contacts = [dataSource2 contacts];
-    v10 = [contacts count];
+    v11 = objc_msgSend_contacts(dataSource2);
+    v10 = [v11 count];
   }
 
   return v10;
@@ -313,8 +313,8 @@
     do
     {
       dataSource = [(CNContactGridViewController *)self dataSource];
-      contacts = [dataSource contacts];
-      v10 = [contacts objectAtIndexedSubscript:v7];
+      v9 = objc_msgSend_contacts(dataSource);
+      v10 = [v9 objectAtIndexedSubscript:v7];
 
       v11 = [CNQuickActionsView actionsManagerForContact:v10];
       inlineActionsCategories = [(CNContactGridViewController *)self inlineActionsCategories];
@@ -524,8 +524,8 @@ uint64_t __87__CNContactGridViewController_setIndexPathOfContactWithExpandedInli
   v11[1] = *MEMORY[0x1E69E9840];
   v4 = [(CNContactGridViewController *)self _globalIndexForIndexPath:path];
   dataSource = [(CNContactGridViewController *)self dataSource];
-  contacts = [dataSource contacts];
-  v7 = [contacts objectAtIndexedSubscript:v4];
+  v6 = objc_msgSend_contacts(dataSource);
+  v7 = [v6 objectAtIndexedSubscript:v4];
 
   descriptorForRequiredKeys = [(CNContactGridViewController *)self descriptorForRequiredKeys];
   v11[0] = descriptorForRequiredKeys;

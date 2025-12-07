@@ -193,13 +193,13 @@
           if (objc_opt_isKindOfClass())
           {
             v50 = v7;
-            v51 = [v49 isEqualToString:@"appsApple"];
+            isEqualToString = objc_msgSend_isEqualToString_(v49);
             v52 = [SUUIItemContentRating alloc];
             v53 = [v122 objectForKey:v49];
             v54 = [v49 copy];
             v55 = [(SUUIItemContentRating *)v52 initWithContentRatingDictionary:v53 systemName:v54];
             v56 = v55;
-            if (v51)
+            if (isEqualToString)
             {
               contentRating = v121->_contentRating;
               v121->_contentRating = v55;

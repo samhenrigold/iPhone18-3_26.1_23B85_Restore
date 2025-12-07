@@ -4,6 +4,7 @@
 - (id)applyToArray:(id)array;
 - (void)addToCurrentScriptAtomEditOperation:(int64_t)operation editIndex:(unint64_t)index newText:(id)text indexInArrayB:(unint64_t)b;
 - (void)finalizeCurrentScriptAtom;
+- (void)initializeCurrentScriptAtom;
 @end
 
 @implementation _SUICEditScriptIndexed
@@ -112,6 +113,13 @@
   }
 
   return v6;
+}
+
+- (void)initializeCurrentScriptAtom
+{
+  currentScriptAtom = self->_currentScriptAtom;
+  self->_currentScriptAtom = 0;
+  MEMORY[0x1EEE66BB8](self, currentScriptAtom);
 }
 
 - (void)addToCurrentScriptAtomEditOperation:(int64_t)operation editIndex:(unint64_t)index newText:(id)text indexInArrayB:(unint64_t)b

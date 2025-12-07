@@ -31,11 +31,11 @@
 
 - (NSArray)accessibilityElements
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE58680);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CE58680, &qword_21DC0C030);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_21DC08D00;
   v4 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC15RemindersUICore27TTRICalendarPickerTableCell_datePicker);
-  *(v3 + 56) = sub_21D0D8CF0(0, &qword_27CE60890);
+  *(v3 + 56) = sub_21D0D8CF0(0, &qword_27CE60890, 0x277D753E8);
   *(v3 + 32) = v4;
   v5 = v4;
   v6 = sub_21DBFA5DC();

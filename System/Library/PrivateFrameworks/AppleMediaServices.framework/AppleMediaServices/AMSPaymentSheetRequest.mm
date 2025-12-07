@@ -174,7 +174,7 @@ LABEL_6:
 
   PKPaymentSummaryItemClass = getPKPaymentSummaryItemClass();
   v19 = MEMORY[0x1E696AB90];
-  [v17 decimalValue];
+  objc_msgSend_decimalValue(v17);
 
   v20 = [v19 decimalNumberWithDecimal:v24];
   v21 = [PKPaymentSummaryItemClass summaryItemWithLabel:v6 amount:v20];
@@ -1739,7 +1739,7 @@ void __114__AMSPaymentSheetRequest_PassKit___replaceImagePlaceholderTag_withAttr
 
 void __114__AMSPaymentSheetRequest_PassKit___replaceImagePlaceholderTag_withAttributes_foregroundColor_forAttributedString___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [a2 objectForKeyedSubscript:*(a1 + 32)];
+  v7 = [a2 objectForKeyedSubscript:{*(a1 + 32), a4}];
   v8 = [v7 BOOLValue];
 
   if (v8)
@@ -1955,7 +1955,7 @@ LABEL_12:
 
     PKPaymentSummaryItemClass = getPKPaymentSummaryItemClass();
     v26 = MEMORY[0x1E696AB90];
-    [v24 decimalValue];
+    objc_msgSend_decimalValue(v24);
 
     v27 = [v26 decimalNumberWithDecimal:buf];
     v28 = [PKPaymentSummaryItemClass summaryItemWithLabel:v12 amount:v27];
@@ -2111,10 +2111,10 @@ void __81__AMSPaymentSheetRequest_PassKit___summaryItemsForAttributedList_assetC
   *(*(*(a1 + 56) + 8) + 24) += [v5 length] + 1;
 }
 
-void __81__AMSPaymentSheetRequest_PassKit___summaryItemsForAttributedList_assetCache_bag___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void __81__AMSPaymentSheetRequest_PassKit___summaryItemsForAttributedList_assetCache_bag___block_invoke_4(uint64_t a1, void *a2, unint64_t a3, unint64_t a4, _BYTE *a5)
 {
   v9 = a2;
-  if (a3 == *(a1 + 40) && a4 == *(a1 + 48))
+  if (__PAIR128__(a4, a3) == *(a1 + 40))
   {
     v10 = v9;
     [*(a1 + 32) setUseLargeFont:1];

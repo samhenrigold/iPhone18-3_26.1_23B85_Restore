@@ -81,57 +81,57 @@ void __47__PKPassViewUserActivityManager_sharedInstance__block_invoke()
   }
 }
 
-void __52__PKPassViewUserActivityManager_startedViewingPass___block_invoke(uint64_t a1)
+void __52__PKPassViewUserActivityManager_startedViewingPass___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 24) == 1)
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 40);
+      v4 = *(a1 + 40);
       *buf = 138412290;
-      v21 = v3;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "PKPassViewUserActivityManager: startedViewingPass - %@", buf, 0xCu);
+      v22 = v4;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "PKPassViewUserActivityManager: startedViewingPass - %@", buf, 0xCu);
     }
 
-    v4 = [*(a1 + 32) _currentUserActivityPassUniqueID];
-    if (v4 && ([*(a1 + 40) isEqualToString:v4] & 1) == 0)
+    v5 = [*(a1 + 32) _currentUserActivityPassUniqueID];
+    if (v5 && ([*(a1 + 40) isEqualToString:v5] & 1) == 0)
     {
       [*(a1 + 32) _endedViewingPass];
     }
 
-    v5 = *(a1 + 32);
-    if (!v5[1])
+    v6 = *(a1 + 32);
+    if (!v6[1])
     {
-      if ([v5 _shouldDonateActivity:*(a1 + 48)])
+      if ([v6 _shouldDonateActivity:*(a1 + 48)])
       {
-        v6 = objc_alloc(MEMORY[0x1E69636A8]);
-        v7 = [v6 initWithActivityType:*MEMORY[0x1E69BC6C8]];
-        v8 = [*(a1 + 32) _displayNameForPass:*(a1 + 48)];
-        v9 = [*(a1 + 32) _passViewTemplateNameForPass:*(a1 + 48)];
-        v10 = PKCoreLocalizedString(&cfstr_PassViewUserAc.isa, &stru_1F3BD6370.isa, v8, v9);
-        [v7 setTitle:v10];
+        v7 = objc_alloc(MEMORY[0x1E69636A8]);
+        v8 = [v7 initWithActivityType:*MEMORY[0x1E69BC6C8]];
+        v9 = [*(a1 + 32) _displayNameForPass:*(a1 + 48)];
+        v10 = [*(a1 + 32) _passViewTemplateNameForPass:*(a1 + 48)];
+        v11 = PKCoreLocalizedString(&cfstr_PassViewUserAc.isa, &stru_1F3BD6370.isa, v9, v10);
+        [v8 setTitle:v11];
 
-        [v7 setEligibleForSearch:1];
-        [v7 setEligibleForHandoff:0];
-        v11 = *(a1 + 40);
-        v18 = *MEMORY[0x1E69BC6C0];
-        v19 = v11;
-        v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-        [v7 setUserInfo:v12];
+        [v8 setEligibleForSearch:1];
+        [v8 setEligibleForHandoff:0];
+        v12 = *(a1 + 40);
+        v19 = *MEMORY[0x1E69BC6C0];
+        v20 = v12;
+        v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+        [v8 setUserInfo:v13];
 
-        [v7 setEligibleForPrediction:1];
-        v13 = MEMORY[0x1E69B8768];
-        v14 = *(a1 + 48);
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __52__PKPassViewUserActivityManager_startedViewingPass___block_invoke_27;
-        v16[3] = &unk_1E80198E8;
-        v16[4] = *(a1 + 32);
-        v17 = v7;
-        v15 = v7;
-        [v13 searchableItemForPass:v14 completion:v16];
+        [v8 setEligibleForPrediction:1];
+        v14 = MEMORY[0x1E69B8768];
+        v15 = *(a1 + 48);
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __52__PKPassViewUserActivityManager_startedViewingPass___block_invoke_27;
+        v17[3] = &unk_1E80198E8;
+        v17[4] = *(a1 + 32);
+        v18 = v8;
+        v16 = v8;
+        [v14 searchableItemForPass:v15 completion:v17];
       }
     }
   }
@@ -192,12 +192,12 @@ void __52__PKPassViewUserActivityManager_startedViewingPass___block_invoke_2(uin
   dispatch_async(queue, v5);
 }
 
-uint64_t __88__PKPassViewUserActivityManager_foregroundActiveArbiter_didUpdateForegroundActiveState___block_invoke(uint64_t result)
+void *__88__PKPassViewUserActivityManager_foregroundActiveArbiter_didUpdateForegroundActiveState___block_invoke(void *result)
 {
-  *(*(result + 32) + 24) = *(result + 41);
+  *(*(result + 4) + 24) = *(result + 41);
   if ((*(result + 40) & 1) == 0)
   {
-    return [*(result + 32) _endedViewingPass];
+    return [*(result + 4) _endedViewingPass];
   }
 
   return result;

@@ -215,7 +215,7 @@ LABEL_4:
   [alertCopy setPresenter:v13];
 }
 
-uint64_t __68__WFUIAlertControllerAlertPresenter_presentAlert_withUserInterface___block_invoke_2(uint64_t a1)
+void *__68__WFUIAlertControllerAlertPresenter_presentAlert_withUserInterface___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) canBecomeFirstResponder];
   if (result)

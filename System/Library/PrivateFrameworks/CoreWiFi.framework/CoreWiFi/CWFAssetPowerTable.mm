@@ -29,10 +29,10 @@
 
 - (CWFAssetPowerTable)init
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v6.receiver = self;
-  v6.super_class = CWFAssetPowerTable;
-  v2 = [(CWFAssetPowerTable *)&v6 init];
+  v12 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = CWFAssetPowerTable;
+  v2 = [(CWFAssetPowerTable *)&v5 init];
   if (v2)
   {
     if (MEMORY[0x1EEE84668])
@@ -47,17 +47,16 @@
       if (os_log_type_enabled(&v3->super.super, OS_LOG_TYPE_INFO))
       {
         *buf = 136446722;
-        v8 = "[CWFAssetPowerTable init]";
-        v9 = 1024;
-        v10 = 95;
-        v11 = 2080;
-        v12 = "[CWFAssetPowerTable init]";
+        v7 = "[CWFAssetPowerTable init]";
+        v8 = 1024;
+        v9 = 95;
+        v10 = 2080;
+        v11 = "[CWFAssetPowerTable init]";
         _os_log_impl(&dword_1E0BBF000, &v3->super.super, OS_LOG_TYPE_INFO, "%{public}s::%d:%s: No elector, symbols not found", buf, 0x1Cu);
       }
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -75,60 +74,64 @@
 
 - (id)assetSpecifierToTrack
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = MGCopyAnswer();
   v4 = MGCopyAnswer();
-  if (!v3 || [v3 isEqualToString:&stru_1F5B8FC80])
+  if (!v3 || [(NSString *)v3 isEqualToString:&stru_1F5B8FC80])
   {
-    v10 = CWFGetOTAOSLog();
-    if (v10)
+    v9 = CWFGetOTAOSLog();
+    if (v9)
     {
-      v11 = CWFGetOTAOSLog();
+      v10 = CWFGetOTAOSLog();
     }
 
     else
     {
-      v11 = MEMORY[0x1E69E9C10];
+      v10 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v21 = 136315394;
+      v22 = "[CWFAssetPowerTable assetSpecifierToTrack]";
+      v23 = 2112;
+      v24 = v3;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[OTA] %s: wifiChipSet is '%@'", &v21, 22);
+    }
+
+    goto LABEL_39;
+  }
+
+  if (!v4 || [(NSString *)v4 isEqualToString:&stru_1F5B8FC80])
+  {
+    v11 = CWFGetOTAOSLog();
+    if (v11)
+    {
+      v10 = CWFGetOTAOSLog();
+    }
+
+    else
+    {
+      v10 = MEMORY[0x1E69E9C10];
       v16 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_39;
+      v21 = 136315394;
+      v22 = "[CWFAssetPowerTable assetSpecifierToTrack]";
+      v23 = 2112;
+      v24 = v4;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[OTA] %s: wifiChipSetRevision is '%@'", &v21, 22);
     }
 
-LABEL_38:
-    _os_log_send_and_compose_impl();
-LABEL_39:
-
-    goto LABEL_40;
+    goto LABEL_39;
   }
 
-  if (!v4 || [v4 isEqualToString:&stru_1F5B8FC80])
+  if ([(NSString *)v4 containsString:@"="])
   {
-    v12 = CWFGetOTAOSLog();
-    if (v12)
-    {
-      v11 = CWFGetOTAOSLog();
-    }
-
-    else
-    {
-      v11 = MEMORY[0x1E69E9C10];
-      v17 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_39;
-    }
-
-    goto LABEL_38;
-  }
-
-  if ([v4 containsString:@"="])
-  {
-    v5 = [v4 stringByReplacingOccurrencesOfString:@"=" withString:@"EQ"];
+    v5 = [(NSString *)v4 stringByReplacingOccurrencesOfString:@"=" withString:@"EQ"];
 
     v4 = v5;
   }
@@ -141,24 +144,28 @@ LABEL_39:
 
   if (!+[CWFAssetPowerTable isChipsetFullySupported])
   {
-    v15 = CWFGetOTAOSLog();
-    if (v15)
+    v14 = CWFGetOTAOSLog();
+    if (v14)
     {
-      v11 = CWFGetOTAOSLog();
+      v10 = CWFGetOTAOSLog();
     }
 
     else
     {
-      v11 = MEMORY[0x1E69E9C10];
+      v10 = MEMORY[0x1E69E9C10];
       v19 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_39;
+      v21 = 136315138;
+      v22 = "[CWFAssetPowerTable assetSpecifierToTrack]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[OTA] %s: Chipset not fully supported.", &v21);
     }
 
-    goto LABEL_38;
+LABEL_39:
+
+    goto LABEL_40;
   }
 
   powerTableAPIMajorVersion = self->_powerTableAPIMajorVersion;
@@ -169,29 +176,31 @@ LABEL_39:
     goto LABEL_14;
   }
 
-  v13 = CWFGetOTAOSLog();
-  if (v13)
+  v12 = CWFGetOTAOSLog();
+  if (v12)
   {
-    v14 = CWFGetOTAOSLog();
+    v13 = CWFGetOTAOSLog();
   }
 
   else
   {
-    v14 = MEMORY[0x1E69E9C10];
-    v18 = MEMORY[0x1E69E9C10];
+    v13 = MEMORY[0x1E69E9C10];
+    v17 = MEMORY[0x1E69E9C10];
   }
 
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    v21 = self->_powerTableAPIMajorVersion;
-    _os_log_send_and_compose_impl();
+    v18 = self->_powerTableAPIMajorVersion;
+    v21 = 136315394;
+    v22 = "[CWFAssetPowerTable assetSpecifierToTrack]";
+    v23 = 2112;
+    v24 = v18;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v13, 16, "[OTA] %s: powerTableAPIMajorVersion is '%@'", &v21, 22);
   }
 
 LABEL_40:
   v7 = 0;
 LABEL_14:
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -272,6 +281,28 @@ LABEL_14:
   v3 = v2;
   if (!v2)
   {
+    v11 = CWFGetOTAOSLog();
+    if (v11)
+    {
+      v7 = CWFGetOTAOSLog();
+    }
+
+    else
+    {
+      v7 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 16, "[OTA] %s: deviceSKUdata = nil", v16);
+    }
+
+    goto LABEL_28;
+  }
+
+  if ([v2 length] != 16)
+  {
     v12 = CWFGetOTAOSLog();
     if (v12)
     {
@@ -284,37 +315,13 @@ LABEL_14:
       v15 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_29;
+      [v3 length];
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 16, "[OTA] %s: incorrect length %lu", v16, 22);
     }
 
-    goto LABEL_28;
-  }
-
-  if ([v2 length] != 16)
-  {
-    v13 = CWFGetOTAOSLog();
-    if (v13)
-    {
-      v7 = CWFGetOTAOSLog();
-    }
-
-    else
-    {
-      v7 = MEMORY[0x1E69E9C10];
-      v16 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_29;
-    }
-
-    [v3 length];
 LABEL_28:
-    _os_log_send_and_compose_impl();
-LABEL_29:
     v5 = 0;
     goto LABEL_10;
   }
@@ -335,16 +342,20 @@ LABEL_29:
       v8 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_10;
+      *v16 = 136315394;
+      *&v16[4] = "+[CWFAssetPowerTable getDeviceSKU]";
+      *&v16[12] = 2112;
+      *&v16[14] = v5;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[OTA] %s: deviceSKUdata = %@ ", v16, 22, *v16, *&v16[8], v17);
     }
   }
 
   else
   {
-    v11 = CWFGetOTAOSLog();
-    if (v11)
+    v10 = CWFGetOTAOSLog();
+    if (v10)
     {
       v7 = CWFGetOTAOSLog();
     }
@@ -352,38 +363,39 @@ LABEL_29:
     else
     {
       v7 = MEMORY[0x1E69E9C10];
-      v14 = MEMORY[0x1E69E9C10];
+      v13 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_10;
+      *v16 = 136315394;
+      *&v16[4] = "+[CWFAssetPowerTable getDeviceSKU]";
+      *&v16[12] = 2112;
+      *&v16[14] = v5;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 16, "[OTA] %s: deviceSKUdata = nil or lesser bytes, %@ ", v16, 22, *v16, *&v16[8], v17);
     }
   }
 
-  _os_log_send_and_compose_impl();
 LABEL_10:
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getPowerTableVersionFromDict:(id)dict
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v4 = dictCopy;
   if (!dictCopy)
   {
-    v18 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446466;
-      v22 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
-      v23 = 1024;
-      v24 = 215;
-      _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_ERROR, "%{public}s::%d:infoDict doesn't exist", &v21, 0x12u);
+      v20 = 136446466;
+      v21 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
+      v22 = 1024;
+      v23 = 215;
+      _os_log_impl(&dword_1E0BBF000, v17, OS_LOG_TYPE_ERROR, "%{public}s::%d:infoDict doesn't exist", &v20, 0x12u);
     }
 
     v10 = 0;
@@ -396,18 +408,18 @@ LABEL_10:
   v6 = allKeys;
   if (!allKeys || ![allKeys count])
   {
-    v16 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446722;
-      v22 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
-      v23 = 1024;
-      v24 = 218;
-      v25 = 2112;
-      v26 = v4;
-      v17 = "%{public}s::%d:infoDict bad %@";
+      v20 = 136446722;
+      v21 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
+      v22 = 1024;
+      v23 = 218;
+      v24 = 2112;
+      v25 = v4;
+      v16 = "%{public}s::%d:infoDict bad %@";
 LABEL_16:
-      _os_log_impl(&dword_1E0BBF000, v16, OS_LOG_TYPE_ERROR, v17, &v21, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v15, OS_LOG_TYPE_ERROR, v16, &v20, 0x1Cu);
     }
 
 LABEL_17:
@@ -422,16 +434,16 @@ LABEL_24:
   lastObject = [v6 lastObject];
   if (!lastObject)
   {
-    v16 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446722;
-      v22 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
-      v23 = 1024;
-      v24 = 221;
-      v25 = 2112;
-      v26 = v4;
-      v17 = "%{public}s::%d:lastKey bad %@";
+      v20 = 136446722;
+      v21 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
+      v22 = 1024;
+      v23 = 221;
+      v24 = 2112;
+      v25 = v4;
+      v16 = "%{public}s::%d:lastKey bad %@";
       goto LABEL_16;
     }
 
@@ -442,16 +454,16 @@ LABEL_24:
   v9 = [v4 objectForKeyedSubscript:lastObject];
   if (!v9)
   {
-    v19 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446722;
-      v22 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
-      v23 = 1024;
-      v24 = 224;
-      v25 = 2112;
-      v26 = v4;
-      _os_log_impl(&dword_1E0BBF000, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:lastValue bad %@", &v21, 0x1Cu);
+      v20 = 136446722;
+      v21 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
+      v22 = 1024;
+      v23 = 224;
+      v24 = 2112;
+      v25 = v4;
+      _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_ERROR, "%{public}s::%d:lastValue bad %@", &v20, 0x1Cu);
     }
 
     v10 = 0;
@@ -463,16 +475,16 @@ LABEL_24:
 
   if (!v11)
   {
-    v20 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446722;
-      v22 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
-      v23 = 1024;
-      v24 = 226;
-      v25 = 2112;
-      v26 = v4;
-      _os_log_impl(&dword_1E0BBF000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:lastValue bad %@", &v21, 0x1Cu);
+      v20 = 136446722;
+      v21 = "+[CWFAssetPowerTable getPowerTableVersionFromDict:]";
+      v22 = 1024;
+      v23 = 226;
+      v24 = 2112;
+      v25 = v4;
+      _os_log_impl(&dword_1E0BBF000, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:lastValue bad %@", &v20, 0x1Cu);
     }
 
     goto LABEL_24;
@@ -482,25 +494,24 @@ LABEL_24:
 LABEL_8:
   v13 = v12;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 + (id)getPowerTableAssemblyDateFromDict:(id)dict
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v4 = dictCopy;
   if (!dictCopy)
   {
-    v18 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446466;
-      v22 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
-      v23 = 1024;
-      v24 = 241;
-      _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_ERROR, "%{public}s::%d:infoDict doesn't exist", &v21, 0x12u);
+      v20 = 136446466;
+      v21 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
+      v22 = 1024;
+      v23 = 241;
+      _os_log_impl(&dword_1E0BBF000, v17, OS_LOG_TYPE_ERROR, "%{public}s::%d:infoDict doesn't exist", &v20, 0x12u);
     }
 
     v10 = 0;
@@ -513,18 +524,18 @@ LABEL_8:
   v6 = allKeys;
   if (!allKeys || ![allKeys count])
   {
-    v16 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446722;
-      v22 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
-      v23 = 1024;
-      v24 = 244;
-      v25 = 2112;
-      v26 = v4;
-      v17 = "%{public}s::%d:infoDict bad %@";
+      v20 = 136446722;
+      v21 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
+      v22 = 1024;
+      v23 = 244;
+      v24 = 2112;
+      v25 = v4;
+      v16 = "%{public}s::%d:infoDict bad %@";
 LABEL_16:
-      _os_log_impl(&dword_1E0BBF000, v16, OS_LOG_TYPE_ERROR, v17, &v21, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v15, OS_LOG_TYPE_ERROR, v16, &v20, 0x1Cu);
     }
 
 LABEL_17:
@@ -539,16 +550,16 @@ LABEL_24:
   lastObject = [v6 lastObject];
   if (!lastObject)
   {
-    v16 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446722;
-      v22 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
-      v23 = 1024;
-      v24 = 247;
-      v25 = 2112;
-      v26 = v4;
-      v17 = "%{public}s::%d:lastKey bad %@";
+      v20 = 136446722;
+      v21 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
+      v22 = 1024;
+      v23 = 247;
+      v24 = 2112;
+      v25 = v4;
+      v16 = "%{public}s::%d:lastKey bad %@";
       goto LABEL_16;
     }
 
@@ -559,16 +570,16 @@ LABEL_24:
   v9 = [v4 objectForKeyedSubscript:lastObject];
   if (!v9)
   {
-    v19 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446722;
-      v22 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
-      v23 = 1024;
-      v24 = 250;
-      v25 = 2112;
-      v26 = v4;
-      _os_log_impl(&dword_1E0BBF000, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:lastValue bad %@", &v21, 0x1Cu);
+      v20 = 136446722;
+      v21 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
+      v22 = 1024;
+      v23 = 250;
+      v24 = 2112;
+      v25 = v4;
+      _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_ERROR, "%{public}s::%d:lastValue bad %@", &v20, 0x1Cu);
     }
 
     v10 = 0;
@@ -580,16 +591,16 @@ LABEL_24:
 
   if (!v11)
   {
-    v20 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = 136446722;
-      v22 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
-      v23 = 1024;
-      v24 = 252;
-      v25 = 2112;
-      v26 = v4;
-      _os_log_impl(&dword_1E0BBF000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:lastValue bad %@", &v21, 0x1Cu);
+      v20 = 136446722;
+      v21 = "+[CWFAssetPowerTable getPowerTableAssemblyDateFromDict:]";
+      v22 = 1024;
+      v23 = 252;
+      v24 = 2112;
+      v25 = v4;
+      _os_log_impl(&dword_1E0BBF000, v19, OS_LOG_TYPE_ERROR, "%{public}s::%d:lastValue bad %@", &v20, 0x1Cu);
     }
 
     goto LABEL_24;
@@ -599,13 +610,12 @@ LABEL_24:
 LABEL_8:
   v13 = v12;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 + (id)currentLatestPowerTableVersion
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = +[CWFAssetPowerTable currentLatestPowerTableVersionInfoDict];
   if (v2)
   {
@@ -614,27 +624,25 @@ LABEL_8:
 
   else
   {
-    v6 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136446466;
-      v8 = "+[CWFAssetPowerTable currentLatestPowerTableVersion]";
-      v9 = 1024;
-      v10 = 265;
-      _os_log_impl(&dword_1E0BBF000, v6, OS_LOG_TYPE_ERROR, "%{public}s::%d:currentLatestPowerTableVersionInfoDict doesn't exist", &v7, 0x12u);
+      v6 = 136446466;
+      v7 = "+[CWFAssetPowerTable currentLatestPowerTableVersion]";
+      v8 = 1024;
+      v9 = 265;
+      _os_log_impl(&dword_1E0BBF000, v5, OS_LOG_TYPE_ERROR, "%{public}s::%d:currentLatestPowerTableVersionInfoDict doesn't exist", &v6, 0x12u);
     }
 
     v3 = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (id)currentLatestPowerTableAssemblyDate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = +[CWFAssetPowerTable currentLatestPowerTableVersionInfoDict];
   if (v2)
   {
@@ -643,27 +651,25 @@ LABEL_8:
 
   else
   {
-    v6 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v5 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136446466;
-      v8 = "+[CWFAssetPowerTable currentLatestPowerTableAssemblyDate]";
-      v9 = 1024;
-      v10 = 278;
-      _os_log_impl(&dword_1E0BBF000, v6, OS_LOG_TYPE_ERROR, "%{public}s::%d:currentLatestPowerTableVersionInfoDict doesn't exist", &v7, 0x12u);
+      v6 = 136446466;
+      v7 = "+[CWFAssetPowerTable currentLatestPowerTableAssemblyDate]";
+      v8 = 1024;
+      v9 = 278;
+      _os_log_impl(&dword_1E0BBF000, v5, OS_LOG_TYPE_ERROR, "%{public}s::%d:currentLatestPowerTableVersionInfoDict doesn't exist", &v6, 0x12u);
     }
 
     v3 = 0;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 + (id)currentLatestPowerTableVersionFromPT:(id)t
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tCopy = t;
   v4 = +[CWFAssetPowerTable currentLatestPowerTableVersionInfoDict];
   v5 = [v4 objectForKeyedSubscript:tCopy];
@@ -681,47 +687,45 @@ LABEL_8:
       goto LABEL_4;
     }
 
-    v13 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136446978;
-      v15 = "+[CWFAssetPowerTable currentLatestPowerTableVersionFromPT:]";
-      v16 = 1024;
-      v17 = 293;
-      v18 = 2112;
-      v19 = tCopy;
-      v20 = 2112;
-      v21 = @"TableVersion";
-      _os_log_impl(&dword_1E0BBF000, v13, OS_LOG_TYPE_ERROR, "%{public}s::%d:PowerTable Name %@ doesn't have %@ key", &v14, 0x26u);
+      v13 = 136446978;
+      v14 = "+[CWFAssetPowerTable currentLatestPowerTableVersionFromPT:]";
+      v15 = 1024;
+      v16 = 293;
+      v17 = 2112;
+      v18 = tCopy;
+      v19 = 2112;
+      v20 = @"TableVersion";
+      _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:PowerTable Name %@ doesn't have %@ key", &v13, 0x26u);
     }
   }
 
   else
   {
-    v12 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136446722;
-      v15 = "+[CWFAssetPowerTable currentLatestPowerTableVersionFromPT:]";
-      v16 = 1024;
-      v17 = 291;
-      v18 = 2112;
-      v19 = tCopy;
-      _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:PowerTable Name %@ doesn't exist", &v14, 0x1Cu);
+      v13 = 136446722;
+      v14 = "+[CWFAssetPowerTable currentLatestPowerTableVersionFromPT:]";
+      v15 = 1024;
+      v16 = 291;
+      v17 = 2112;
+      v18 = tCopy;
+      _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:PowerTable Name %@ doesn't exist", &v13, 0x1Cu);
     }
   }
 
   v9 = 0;
 LABEL_4:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)currentLatestPowerTableAssemblyDateFromPT:(id)t
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   tCopy = t;
   v4 = +[CWFAssetPowerTable currentLatestPowerTableVersionInfoDict];
   v5 = [v4 objectForKeyedSubscript:tCopy];
@@ -739,52 +743,50 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v13 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v12 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136446978;
-      v15 = "+[CWFAssetPowerTable currentLatestPowerTableAssemblyDateFromPT:]";
-      v16 = 1024;
-      v17 = 308;
-      v18 = 2112;
-      v19 = tCopy;
-      v20 = 2112;
-      v21 = @"TableDate";
-      _os_log_impl(&dword_1E0BBF000, v13, OS_LOG_TYPE_ERROR, "%{public}s::%d:PowerTable Name %@ doesn't have %@ key", &v14, 0x26u);
+      v13 = 136446978;
+      v14 = "+[CWFAssetPowerTable currentLatestPowerTableAssemblyDateFromPT:]";
+      v15 = 1024;
+      v16 = 308;
+      v17 = 2112;
+      v18 = tCopy;
+      v19 = 2112;
+      v20 = @"TableDate";
+      _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:PowerTable Name %@ doesn't have %@ key", &v13, 0x26u);
     }
   }
 
   else
   {
-    v12 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = 136446722;
-      v15 = "+[CWFAssetPowerTable currentLatestPowerTableAssemblyDateFromPT:]";
-      v16 = 1024;
-      v17 = 306;
-      v18 = 2112;
-      v19 = tCopy;
-      _os_log_impl(&dword_1E0BBF000, v12, OS_LOG_TYPE_ERROR, "%{public}s::%d:PowerTable Name %@ doesn't exist", &v14, 0x1Cu);
+      v13 = 136446722;
+      v14 = "+[CWFAssetPowerTable currentLatestPowerTableAssemblyDateFromPT:]";
+      v15 = 1024;
+      v16 = 306;
+      v17 = 2112;
+      v18 = tCopy;
+      _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_ERROR, "%{public}s::%d:PowerTable Name %@ doesn't exist", &v13, 0x1Cu);
     }
   }
 
   v9 = 0;
 LABEL_4:
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)currentLatestPowerTableVersionInfoDict
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFF8];
-  v18[0] = @"/private/var/db/ConnectivityPowerTableUpdates/";
-  v18[1] = @"WiFi/";
-  v18[2] = @"wifi_powertable_info.plist";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
+  v17[0] = @"/private/var/db/ConnectivityPowerTableUpdates/";
+  v17[1] = @"WiFi/";
+  v17[2] = @"wifi_powertable_info.plist";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
   v4 = [v2 fileURLWithPathComponents:v3];
 
   v5 = [CWFAssetPowerTable getPowerTableVersionInfoDict:v4];
@@ -796,28 +798,26 @@ LABEL_4:
 
   else
   {
-    v10 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       path = [v4 path];
-      v12 = 136446722;
-      v13 = "+[CWFAssetPowerTable currentLatestPowerTableVersionInfoDict]";
-      v14 = 1024;
-      v15 = 325;
-      v16 = 2112;
-      v17 = path;
-      _os_log_impl(&dword_1E0BBF000, v10, OS_LOG_TYPE_ERROR, "%{public}s::%d:Power table version info file empty %@", &v12, 0x1Cu);
+      v11 = 136446722;
+      v12 = "+[CWFAssetPowerTable currentLatestPowerTableVersionInfoDict]";
+      v13 = 1024;
+      v14 = 325;
+      v15 = 2112;
+      v16 = path;
+      _os_log_impl(&dword_1E0BBF000, v9, OS_LOG_TYPE_ERROR, "%{public}s::%d:Power table version info file empty %@", &v11, 0x1Cu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)getPowerTableVersionInfoDict:(id)dict
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   path = [dictCopy path];
@@ -832,50 +832,48 @@ LABEL_4:
       goto LABEL_4;
     }
 
-    v11 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       path2 = [dictCopy path];
-      v14 = 136446722;
-      v15 = "+[CWFAssetPowerTable getPowerTableVersionInfoDict:]";
-      v16 = 1024;
-      v17 = 342;
-      v18 = 2112;
-      v19 = path2;
-      v13 = "%{public}s::%d:Power table version info file empty %@";
+      v13 = 136446722;
+      v14 = "+[CWFAssetPowerTable getPowerTableVersionInfoDict:]";
+      v15 = 1024;
+      v16 = 342;
+      v17 = 2112;
+      v18 = path2;
+      v12 = "%{public}s::%d:Power table version info file empty %@";
       goto LABEL_11;
     }
   }
 
   else
   {
-    v11 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v10 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       path2 = [dictCopy path];
-      v14 = 136446722;
-      v15 = "+[CWFAssetPowerTable getPowerTableVersionInfoDict:]";
-      v16 = 1024;
-      v17 = 339;
-      v18 = 2112;
-      v19 = path2;
-      v13 = "%{public}s::%d:Path doesn't exist %@";
+      v13 = 136446722;
+      v14 = "+[CWFAssetPowerTable getPowerTableVersionInfoDict:]";
+      v15 = 1024;
+      v16 = 339;
+      v17 = 2112;
+      v18 = path2;
+      v12 = "%{public}s::%d:Path doesn't exist %@";
 LABEL_11:
-      _os_log_impl(&dword_1E0BBF000, v11, OS_LOG_TYPE_ERROR, v13, &v14, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v10, OS_LOG_TYPE_ERROR, v12, &v13, 0x1Cu);
     }
   }
 
   v8 = 0;
 LABEL_4:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (void)createTopLevelDir
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   if ([defaultManager fileExistsAtPath:@"/private/var/db/ConnectivityPowerTableUpdates/"])
   {
@@ -898,18 +896,16 @@ LABEL_4:
 
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v25 = 136315394;
-      v26 = "[CWFAssetPowerTable createTopLevelDir]";
-      v27 = 2112;
-      v28 = @"/private/var/db/ConnectivityPowerTableUpdates/";
-      LODWORD(v20) = 22;
-      v19 = &v25;
-      _os_log_send_and_compose_impl();
+      v23 = 136315394;
+      v24 = "[CWFAssetPowerTable createTopLevelDir]";
+      v25 = 2112;
+      v26 = @"/private/var/db/ConnectivityPowerTableUpdates/";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v5, 2, "[OTA] %s: createTopLevelDir %@ not found, calling createDirectoryAtPath", &v23, 22);
     }
 
-    v22 = 0;
-    v7 = [defaultManager createDirectoryAtPath:@"/private/var/db/ConnectivityPowerTableUpdates/" withIntermediateDirectories:0 attributes:0 error:&v22];
-    v3 = v22;
+    v20 = 0;
+    v7 = [defaultManager createDirectoryAtPath:@"/private/var/db/ConnectivityPowerTableUpdates/" withIntermediateDirectories:0 attributes:0 error:&v20];
+    v3 = v20;
     if ((v7 & 1) == 0)
     {
       v8 = CWFGetOTAOSLog();
@@ -926,28 +922,27 @@ LABEL_4:
 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v25 = 136315650;
-        v26 = "[CWFAssetPowerTable createTopLevelDir]";
+        v23 = 136315650;
+        v24 = "[CWFAssetPowerTable createTopLevelDir]";
+        v25 = 2112;
+        v26 = @"/private/var/db/ConnectivityPowerTableUpdates/";
         v27 = 2112;
-        v28 = @"/private/var/db/ConnectivityPowerTableUpdates/";
-        v29 = 2112;
-        v30 = v3;
-        LODWORD(v20) = 32;
-        v19 = &v25;
-        _os_log_send_and_compose_impl();
+        v28 = v3;
+        LODWORD(v18) = 32;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[OTA] %s: Failed to create new folder %@, error: %@", &v23, v18);
       }
     }
   }
 
   v11 = *MEMORY[0x1E696A328];
-  v23[0] = *MEMORY[0x1E696A360];
-  v23[1] = v11;
-  v24[0] = @"mobile";
-  v24[1] = @"mobile";
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:{2, v19, v20}];
-  v21 = v3;
-  v13 = [defaultManager setAttributes:v12 ofItemAtPath:@"/private/var/db/ConnectivityPowerTableUpdates/" error:&v21];
-  v14 = v21;
+  v21[0] = *MEMORY[0x1E696A360];
+  v21[1] = v11;
+  v22[0] = @"mobile";
+  v22[1] = @"mobile";
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v19 = v3;
+  v13 = [defaultManager setAttributes:v12 ofItemAtPath:@"/private/var/db/ConnectivityPowerTableUpdates/" error:&v19];
+  v14 = v19;
 
   if ((v13 & 1) == 0)
   {
@@ -965,22 +960,21 @@ LABEL_4:
 
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v25 = 136315650;
-      v26 = "[CWFAssetPowerTable createTopLevelDir]";
+      v23 = 136315650;
+      v24 = "[CWFAssetPowerTable createTopLevelDir]";
+      v25 = 2112;
+      v26 = @"/private/var/db/ConnectivityPowerTableUpdates/";
       v27 = 2112;
-      v28 = @"/private/var/db/ConnectivityPowerTableUpdates/";
-      v29 = 2112;
-      v30 = v14;
-      _os_log_send_and_compose_impl();
+      v28 = v14;
+      LODWORD(v18) = 32;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v16, 16, "[OTA] %s: Not able to change ownership of %@, error: %@", &v23, v18);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processLocalAsset:(id)asset
 {
-  v47[2] = *MEMORY[0x1E69E9840];
+  v68[2] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   v5 = objc_autoreleasePoolPush();
   v6 = CWFGetOTAOSLog();
@@ -997,7 +991,9 @@ LABEL_4:
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v47 = 136315138;
+    v48 = "[CWFAssetPowerTable processLocalAsset:]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[OTA] %s: Entered", &v47);
   }
 
   if (assetCopy)
@@ -1018,22 +1014,23 @@ LABEL_4:
 
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-LABEL_19:
-        _os_log_send_and_compose_impl();
+        v47 = 136315138;
+        v48 = "[CWFAssetPowerTable processLocalAsset:]";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[OTA] %s: Valid Asset but download only support, exiting without transferring asset to hand-off folder", &v47);
       }
     }
 
     else
     {
-      v39 = v5;
+      v40 = v5;
       [(CWFAssetPowerTable *)self createTopLevelDir];
       localURL = [assetCopy localURL];
       selfCopy = self;
       v12 = MEMORY[0x1E695DFF8];
-      v47[0] = @"/private/var/db/ConnectivityPowerTableUpdates/";
-      v47[1] = @"WiFi/";
-      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:2];
-      v42 = [v12 fileURLWithPathComponents:v13];
+      v68[0] = @"/private/var/db/ConnectivityPowerTableUpdates/";
+      v68[1] = @"WiFi/";
+      v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v68 count:2];
+      v43 = [v12 fileURLWithPathComponents:v13];
 
       assetID = [assetCopy assetID];
       assetVersion = [assetCopy assetVersion];
@@ -1045,18 +1042,18 @@ LABEL_19:
       v17 = MEMORY[0x1E695DFF8];
       localURL2 = [assetCopy localURL];
       path = [localURL2 path];
-      v46[0] = path;
-      v46[1] = @"wifi_powertable_info.plist";
-      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
+      v67[0] = path;
+      v67[1] = @"wifi_powertable_info.plist";
+      v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v67 count:2];
       v21 = [v17 fileURLWithPathComponents:v20];
       v22 = [CWFAssetPowerTable getPowerTableVersionInfoDict:v21];
 
       lastTimeCatalogChecked = [assetCopy lastTimeCatalogChecked];
       catalogPostedDate = [assetCopy catalogPostedDate];
-      v36 = lastSupportedBuild;
-      v40 = lastSupportedBuild;
+      v37 = lastSupportedBuild;
+      v41 = lastSupportedBuild;
       v25 = firstSupportedOS;
-      v26 = [(CWFAssetPowerTable *)selfCopy transferAssetFromSrc:localURL toDst:v42 withAsseID:assetID withVersion:assetVersion assetBuild:assetBuild firstSupportedOS:firstSupportedOS lastSupportedOS:lastSupportedOS firstSupportedBuild:firstSupportedBuild lastSupportedBuild:v36 ptVersionInfo:v22 lastTimeCatalogChecked:lastTimeCatalogChecked catalogPostedDate:catalogPostedDate];
+      v26 = [(CWFAssetPowerTable *)selfCopy transferAssetFromSrc:localURL toDst:v43 withAsseID:assetID withVersion:assetVersion assetBuild:assetBuild firstSupportedOS:firstSupportedOS lastSupportedOS:lastSupportedOS firstSupportedBuild:firstSupportedBuild lastSupportedBuild:v37 ptVersionInfo:v22 lastTimeCatalogChecked:lastTimeCatalogChecked catalogPostedDate:catalogPostedDate];
       v27 = CWFGetOTAOSLog();
       if (v27)
       {
@@ -1071,27 +1068,56 @@ LABEL_19:
 
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        _os_log_send_and_compose_impl();
+        v32 = @"Failed";
+        v47 = 136317442;
+        v48 = "[CWFAssetPowerTable processLocalAsset:]";
+        if (!v26)
+        {
+          v32 = @"Successfull";
+        }
+
+        v49 = 2112;
+        v50 = v32;
+        v51 = 2112;
+        v52 = localURL;
+        v53 = 2112;
+        v54 = assetID;
+        v55 = 2112;
+        v56 = assetVersion;
+        v57 = 2112;
+        v58 = v25;
+        v59 = 2112;
+        v60 = lastSupportedOS;
+        v61 = 2112;
+        v62 = firstSupportedBuild;
+        v63 = 2112;
+        v64 = v41;
+        v65 = 2112;
+        v66 = v26;
+        LODWORD(v36) = 102;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v28, 16, "[OTA] %s: %@: localURL: %@, assetID: %@, assetVersion: %@, firstSupportedOS: %@, lastSupportedOS: %@, firstSupportedBuild: %@, lastSupportedBuild: %@, error: %@", &v47, v36);
       }
 
-      v32 = CWFGetOTAOSLog();
-      if (v32)
+      v33 = CWFGetOTAOSLog();
+      if (v33)
       {
-        v33 = CWFGetOTAOSLog();
+        v34 = CWFGetOTAOSLog();
       }
 
       else
       {
-        v33 = MEMORY[0x1E69E9C10];
         v34 = MEMORY[0x1E69E9C10];
+        v35 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v47 = 136315138;
+        v48 = "[CWFAssetPowerTable processLocalAsset:]";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 0, "[OTA] %s: Exiting", &v47);
       }
 
-      v5 = v39;
+      v5 = v40;
       v10 = localURL;
     }
   }
@@ -1112,17 +1138,18 @@ LABEL_19:
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_19;
+      v47 = 136315138;
+      v48 = "[CWFAssetPowerTable processLocalAsset:]";
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[OTA] %s: Existing, nil localAsset", &v47);
     }
   }
 
   objc_autoreleasePoolPop(v5);
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (id)transferAssetFromSrc:(id)src toDst:(id)dst withAsseID:(id)d withVersion:(id)version assetBuild:(id)build firstSupportedOS:(id)s lastSupportedOS:(id)oS firstSupportedBuild:(id)self0 lastSupportedBuild:(id)self1 ptVersionInfo:(id)self2 lastTimeCatalogChecked:(id)self3 catalogPostedDate:(id)self4
 {
-  v120[2] = *MEMORY[0x1E69E9840];
+  v118[2] = *MEMORY[0x1E69E9840];
   srcCopy = src;
   dstCopy = dst;
   dCopy = d;
@@ -1136,81 +1163,79 @@ LABEL_19:
   infoCopy = info;
   checkedCopy = checked;
   dateCopy = date;
-  v110 = 0;
+  v108 = 0;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v102 = [MEMORY[0x1E695DF00] now];
+  v100 = [MEMORY[0x1E695DF00] now];
   selfCopy = self;
   ++self->numberOfCallsToCopyAsset;
-  v109 = 0;
-  LOBYTE(build) = [defaultManager createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:0 error:&v109];
-  v25 = v109;
-  v93 = supportedBuildCopy;
-  v88 = defaultManager;
-  v89 = v22;
+  v107 = 0;
+  LOBYTE(build) = [defaultManager createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:0 error:&v107];
+  v25 = v107;
+  v91 = supportedBuildCopy;
+  v86 = defaultManager;
+  v87 = v22;
   if (build)
   {
     v26 = MEMORY[0x1E695DFF8];
     path = [v22 path];
-    v120[0] = path;
-    v120[1] = dCopy;
-    v94 = dCopy;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v120 count:2];
+    v118[0] = path;
+    v118[1] = dCopy;
+    v92 = dCopy;
+    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v118 count:2];
     v29 = [v26 fileURLWithPathComponents:v28];
 
     v30 = +[CWFAssetPowerTable currentLatestAssetVersion];
-    v105 = v29;
+    v103 = v29;
     path2 = [v29 path];
-    LODWORD(path) = [defaultManager fileExistsAtPath:path2 isDirectory:&v110];
+    LODWORD(path) = [defaultManager fileExistsAtPath:path2 isDirectory:&v108];
 
-    v87 = v30;
-    v90 = path;
+    v85 = v30;
+    v88 = path;
     if (path)
     {
       v32 = versionCopy;
       if (v30 && ([v30 isEqual:versionCopy] & 1) != 0)
       {
-        v79 = CWFGetOTAOSLog();
-        if (v79)
+        v78 = CWFGetOTAOSLog();
+        if (v78)
         {
-          v80 = CWFGetOTAOSLog();
+          v79 = CWFGetOTAOSLog();
         }
 
         else
         {
-          v80 = MEMORY[0x1E69E9C10];
-          v83 = MEMORY[0x1E69E9C10];
+          v79 = MEMORY[0x1E69E9C10];
+          v82 = MEMORY[0x1E69E9C10];
         }
 
-        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT))
         {
-          v113 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
-          v112 = 136315650;
-          if (v110)
+          v111 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+          v110 = 136315650;
+          if (v108)
           {
-            v84 = "YES";
+            v83 = "YES";
           }
 
           else
           {
-            v84 = "NO";
+            v83 = "NO";
           }
 
-          v114 = 2112;
-          v115 = v105;
-          v116 = 2080;
-          v117 = v84;
-          LODWORD(v86) = 32;
-          v85 = &v112;
-          _os_log_send_and_compose_impl();
+          v112 = 2112;
+          v113 = v103;
+          v114 = 2080;
+          v115 = v83;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v79, 0, "[OTA] %s: The URL %@ for new asset already exist, isDirectory:%s. Nothing to do, returning.", &v110, 32);
         }
 
         v58 = 0;
-        v90 = 0;
+        v88 = 0;
         v53 = 0;
         v54 = 0;
         v52 = 0;
         v50 = 0;
-        v92 = 0;
+        v90 = 0;
         v41 = 0;
         v57 = 1;
         goto LABEL_79;
@@ -1231,9 +1256,9 @@ LABEL_19:
 
       if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
-        v113 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
-        v112 = 136315650;
-        if (v110)
+        v111 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+        v110 = 136315650;
+        if (v108)
         {
           v36 = "YES";
         }
@@ -1243,45 +1268,42 @@ LABEL_19:
           v36 = "NO";
         }
 
-        v114 = 2112;
-        v115 = v105;
-        v116 = 2080;
-        v117 = v36;
-        LODWORD(v86) = 32;
-        v85 = &v112;
-        _os_log_send_and_compose_impl();
+        v112 = 2112;
+        v113 = v103;
+        v114 = 2080;
+        v115 = v36;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 0, "[OTA] %s: The URL %@ for new asset already exist, isDirectory:%s. Remvoing it.", &v110, 32);
       }
 
-      v108 = v25;
-      v37 = [defaultManager removeItemAtURL:v105 error:&v108];
-      v38 = v108;
+      v106 = v25;
+      v37 = [defaultManager removeItemAtURL:v103 error:&v106];
+      v38 = v106;
 
       if ((v37 & 1) == 0)
       {
-        v70 = CWFGetOTAOSLog();
-        if (v70)
+        v69 = CWFGetOTAOSLog();
+        if (v69)
         {
-          v71 = CWFGetOTAOSLog();
+          v70 = CWFGetOTAOSLog();
         }
 
         else
         {
-          v71 = MEMORY[0x1E69E9C10];
-          v81 = MEMORY[0x1E69E9C10];
+          v70 = MEMORY[0x1E69E9C10];
+          v80 = MEMORY[0x1E69E9C10];
         }
 
-        if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
         {
           localizedDescription = [v38 localizedDescription];
-          v112 = 136315650;
-          v113 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+          v110 = 136315650;
+          v111 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+          v112 = 2112;
+          v113 = v103;
           v114 = 2112;
-          v115 = v105;
-          v116 = 2112;
-          v117 = localizedDescription;
-          LODWORD(v86) = 32;
-          v85 = &v112;
-          _os_log_send_and_compose_impl();
+          v115 = localizedDescription;
+          LODWORD(v84) = 32;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v70, 16, "[OTA] %s: Failed to remove sub-dir %@ with error: %@", &v110, v84);
         }
 
         v58 = 0;
@@ -1290,14 +1312,14 @@ LABEL_19:
         v54 = 0;
         v52 = 0;
         v50 = 0;
-        v92 = 0;
+        v90 = 0;
         v41 = 0;
-        v90 = 1;
+        v88 = 1;
         goto LABEL_78;
       }
 
       v25 = v38;
-      supportedBuildCopy = v93;
+      supportedBuildCopy = v91;
     }
 
     else
@@ -1306,38 +1328,37 @@ LABEL_19:
     }
 
     v39 = v25;
-    v107 = v25;
-    v40 = [defaultManager copyItemAtURL:srcCopy toURL:v105 error:{&v107, v85, v86}];
-    v25 = v107;
+    v105 = v25;
+    v40 = [defaultManager copyItemAtURL:srcCopy toURL:v103 error:&v105];
+    v25 = v105;
 
     if ((v40 & 1) == 0)
     {
-      v65 = CWFGetOTAOSLog();
-      if (v65)
+      v64 = CWFGetOTAOSLog();
+      if (v64)
       {
-        v66 = CWFGetOTAOSLog();
+        v65 = CWFGetOTAOSLog();
       }
 
       else
       {
-        v66 = MEMORY[0x1E69E9C10];
-        v74 = MEMORY[0x1E69E9C10];
+        v65 = MEMORY[0x1E69E9C10];
+        v73 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
         localizedDescription2 = [v25 localizedDescription];
-        v112 = 136315906;
-        v113 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+        v110 = 136315906;
+        v111 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+        v112 = 2112;
+        v113 = srcCopy;
         v114 = 2112;
-        v115 = srcCopy;
+        v115 = v103;
         v116 = 2112;
-        v117 = v105;
-        v118 = 2112;
-        v119 = localizedDescription2;
-        LODWORD(v86) = 42;
-        v85 = &v112;
-        _os_log_send_and_compose_impl();
+        v117 = localizedDescription2;
+        LODWORD(v84) = 42;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v65, 16, "[OTA] %s: Failed to copy assets recursively from %@ to %@ with error: %@", &v110, v84);
       }
 
       v58 = 0;
@@ -1346,13 +1367,13 @@ LABEL_19:
       v54 = 0;
       v52 = 0;
       v50 = 0;
-      v92 = 0;
+      v90 = 0;
       v41 = 0;
       goto LABEL_79;
     }
 
     v41 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    [v41 setObject:v102 forKey:@"datePowerTableAvailable"];
+    [v41 setObject:v100 forKey:@"datePowerTableAvailable"];
     if (supportedBuildCopy && lastSupportedBuildCopy)
     {
       [v41 setObject:supportedBuildCopy forKey:@"_MinOSRestoreVersion"];
@@ -1382,8 +1403,8 @@ LABEL_19:
       [v41 setObject:dateCopy forKey:@"postedDate"];
     }
 
-    [v105 URLByAppendingPathComponent:@"Info.plist"];
-    v92 = v106[1] = v25;
+    [v103 URLByAppendingPathComponent:@"Info.plist"];
+    v90 = v104[1] = v25;
     v42 = [v41 writeToURL:? error:?];
     v38 = v25;
 
@@ -1404,22 +1425,21 @@ LABEL_19:
 
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        v112 = 136315650;
-        v113 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+        v110 = 136315650;
+        v111 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+        v112 = 2112;
+        v113 = v90;
         v114 = 2112;
-        v115 = v92;
-        v116 = 2112;
-        v117 = v41;
-        LODWORD(v86) = 32;
-        v85 = &v112;
-        _os_log_send_and_compose_impl();
+        v115 = v41;
+        LODWORD(v84) = 32;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v45, 0, "[OTA] %s: Created .plist %@ with content %@", &v110, v84);
       }
 
       v47 = MEMORY[0x1E695DFF8];
       path3 = [v22 path];
-      v111[0] = path3;
-      v111[1] = @"Latest.plist";
-      v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v111 count:2];
+      v109[0] = path3;
+      v109[1] = @"Latest.plist";
+      v49 = [MEMORY[0x1E695DEC8] arrayWithObjects:v109 count:2];
       v50 = [v47 fileURLWithPathComponents:v49];
 
       v51 = [objc_alloc(MEMORY[0x1E695DF90]) initWithContentsOfURL:v50];
@@ -1432,12 +1452,12 @@ LABEL_19:
       else
       {
         v52 = objc_alloc_init(MEMORY[0x1E695DF90]);
-        [v52 setObject:v102 forKey:@"datePowerTableAvailable"];
+        [v52 setObject:v100 forKey:@"datePowerTableAvailable"];
         v53 = 0;
       }
 
-      v54 = [v52 objectForKey:{@"latestAssetSubDir", v85, v86}];
-      [v52 setObject:v94 forKey:@"latestAssetSubDir"];
+      v54 = [v52 objectForKey:@"latestAssetSubDir"];
+      [v52 setObject:v92 forKey:@"latestAssetSubDir"];
       [v52 setObject:v32 forKey:@"assetVersion"];
       if (buildCopy)
       {
@@ -1449,45 +1469,44 @@ LABEL_19:
         [v52 setObject:infoCopy forKey:@"PowerTableVersionInfoDict"];
       }
 
-      v106[0] = v38;
-      v55 = [v52 writeToURL:v50 error:v106];
-      v25 = v106[0];
+      v104[0] = v38;
+      v55 = [v52 writeToURL:v50 error:v104];
+      v25 = v104[0];
 
       if (v55)
       {
-        v56 = v94;
-        [(CWFAssetPowerTable *)selfCopy garbageCollectWithNewAsset:v94 prevAsset:v54];
+        v56 = v92;
+        [(CWFAssetPowerTable *)selfCopy garbageCollectWithNewAsset:v92 prevAsset:v54];
         v57 = 0;
         ++selfCopy->numberOfSuccessfullAssetCopy;
         v58 = 1;
         goto LABEL_43;
       }
 
-      v68 = CWFGetOTAOSLog();
-      if (v68)
+      v67 = CWFGetOTAOSLog();
+      if (v67)
       {
-        v69 = CWFGetOTAOSLog();
+        v68 = CWFGetOTAOSLog();
       }
 
       else
       {
-        v69 = MEMORY[0x1E69E9C10];
-        v78 = MEMORY[0x1E69E9C10];
+        v68 = MEMORY[0x1E69E9C10];
+        v77 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
-        v112 = 136315906;
-        v113 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+        v110 = 136315906;
+        v111 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+        v112 = 2112;
+        v113 = v50;
         v114 = 2112;
-        v115 = v50;
+        v115 = v52;
         v116 = 2112;
-        v117 = v52;
-        v118 = 2112;
-        v119 = v25;
-        LODWORD(v86) = 42;
-        v85 = &v112;
-        _os_log_send_and_compose_impl();
+        v117 = v25;
+        LODWORD(v84) = 42;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v68, 16, "[OTA] %s: Failed to update .plist %@ atomically with content %@ - error %@", &v110, v84);
       }
 
       v58 = 0;
@@ -1497,29 +1516,28 @@ LABEL_19:
 
     if (v43)
     {
-      v67 = CWFGetOTAOSLog();
+      v66 = CWFGetOTAOSLog();
     }
 
     else
     {
-      v67 = MEMORY[0x1E69E9C10];
-      v76 = MEMORY[0x1E69E9C10];
+      v66 = MEMORY[0x1E69E9C10];
+      v75 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
     {
       localizedDescription3 = [v38 localizedDescription];
-      v112 = 136315906;
-      v113 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+      v110 = 136315906;
+      v111 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+      v112 = 2112;
+      v113 = v90;
       v114 = 2112;
-      v115 = v92;
+      v115 = v41;
       v116 = 2112;
-      v117 = v41;
-      v118 = 2112;
-      v119 = localizedDescription3;
-      LODWORD(v86) = 42;
-      v85 = &v112;
-      _os_log_send_and_compose_impl();
+      v117 = localizedDescription3;
+      LODWORD(v84) = 42;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v66, 16, "[OTA] %s: Failed to create .plist %@ with content %@ with error: %@", &v110, v84);
     }
 
     v58 = 0;
@@ -1531,74 +1549,71 @@ LABEL_19:
 LABEL_78:
     v25 = v38;
 LABEL_79:
-    v56 = v94;
+    v56 = v92;
     goto LABEL_43;
   }
 
-  v63 = CWFGetOTAOSLog();
-  if (v63)
+  v62 = CWFGetOTAOSLog();
+  if (v62)
   {
-    v64 = CWFGetOTAOSLog();
+    v63 = CWFGetOTAOSLog();
   }
 
   else
   {
-    v64 = MEMORY[0x1E69E9C10];
-    v72 = MEMORY[0x1E69E9C10];
+    v63 = MEMORY[0x1E69E9C10];
+    v71 = MEMORY[0x1E69E9C10];
   }
 
   v56 = dCopy;
 
-  if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
   {
     localizedDescription4 = [v25 localizedDescription];
-    v112 = 136315650;
-    v113 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+    v110 = 136315650;
+    v111 = "[CWFAssetPowerTable transferAssetFromSrc:toDst:withAsseID:withVersion:assetBuild:firstSupportedOS:lastSupportedOS:firstSupportedBuild:lastSupportedBuild:ptVersionInfo:lastTimeCatalogChecked:catalogPostedDate:]";
+    v112 = 2112;
+    v113 = v22;
     v114 = 2112;
-    v115 = v22;
-    v116 = 2112;
-    v117 = localizedDescription4;
-    LODWORD(v86) = 32;
-    v85 = &v112;
-    _os_log_send_and_compose_impl();
+    v115 = localizedDescription4;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v63, 16, "[OTA] %s: Failed to create new folder %@ with error: %@", &v110, 32);
   }
 
   v58 = 0;
-  v90 = 0;
+  v88 = 0;
   v57 = 0;
   v53 = 0;
   v54 = 0;
   v52 = 0;
   v50 = 0;
-  v92 = 0;
+  v90 = 0;
   v41 = 0;
-  v87 = 0;
-  v105 = 0;
+  v85 = 0;
+  v103 = 0;
 LABEL_43:
-  v59 = [CWFAssetPowerTableTelemetry sharedObj:v85];
-  [v59 setAssetHandoffInfo:v58 assetAlreadyHere:v57 previousAssetCleanedUp:v90 previousLatestPlist:v53 latestPlistDict:v52 newPlist:v41 error:v25];
+  v59 = +[CWFAssetPowerTableTelemetry sharedObj];
+  [v59 setAssetHandoffInfo:v58 assetAlreadyHere:v57 previousAssetCleanedUp:v88 previousLatestPlist:v53 latestPlistDict:v52 newPlist:v41 error:v25];
 
   v60 = v25;
-  v61 = *MEMORY[0x1E69E9840];
 
   return v60;
 }
 
 - (void)garbageCollectWithNewAsset:(id)asset prevAsset:(id)prevAsset
 {
-  v58[2] = *MEMORY[0x1E69E9840];
+  v56[2] = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   prevAssetCopy = prevAsset;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v8 = MEMORY[0x1E695DFF8];
-  v58[0] = @"/private/var/db/ConnectivityPowerTableUpdates/";
-  v58[1] = @"WiFi/";
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
+  v56[0] = @"/private/var/db/ConnectivityPowerTableUpdates/";
+  v56[1] = @"WiFi/";
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
   v10 = [v8 fileURLWithPathComponents:v9];
 
-  v49 = 0;
-  v43 = [defaultManager contentsOfDirectoryAtURL:v10 includingPropertiesForKeys:0 options:5 error:&v49];
-  v11 = v49;
+  v47 = 0;
+  v41 = [defaultManager contentsOfDirectoryAtURL:v10 includingPropertiesForKeys:0 options:5 error:&v47];
+  v11 = v47;
   if (v11)
   {
     v12 = v11;
@@ -1616,22 +1631,22 @@ LABEL_43:
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v52 = 136315650;
-      v53 = "[CWFAssetPowerTable garbageCollectWithNewAsset:prevAsset:]";
+      v50 = 136315650;
+      v51 = "[CWFAssetPowerTable garbageCollectWithNewAsset:prevAsset:]";
+      v52 = 2112;
+      v53 = v10;
       v54 = 2112;
-      v55 = v10;
-      v56 = 2112;
-      v57 = v12;
-      _os_log_send_and_compose_impl();
+      v55 = v12;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 16, "[OTA] %s: Failed to enumerate all sub-dirs in %@ with error: %@", &v50, 32);
     }
   }
 
   else
   {
     v15 = objc_alloc(MEMORY[0x1E695DF70]);
-    v51[0] = @"Latest.plist";
-    v51[1] = @"LastKnownGood";
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:2];
+    v49[0] = @"Latest.plist";
+    v49[1] = @"LastKnownGood";
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:2];
     v14 = [v15 initWithArray:v16];
 
     if (assetCopy)
@@ -1655,17 +1670,15 @@ LABEL_43:
 
       if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        v52 = 136315138;
-        v53 = "[CWFAssetPowerTable garbageCollectWithNewAsset:prevAsset:]";
-        LODWORD(v39) = 12;
-        v38 = &v52;
-        _os_log_send_and_compose_impl();
+        v50 = 136315138;
+        v51 = "[CWFAssetPowerTable garbageCollectWithNewAsset:prevAsset:]";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[OTA] %s: newAssetUUIDString is nil", &v50);
       }
     }
 
-    v41 = prevAssetCopy;
-    v42 = assetCopy;
-    v40 = v10;
+    v39 = prevAssetCopy;
+    v40 = assetCopy;
+    v38 = v10;
     if (prevAssetCopy)
     {
       [v14 addObject:prevAssetCopy];
@@ -1687,43 +1700,41 @@ LABEL_43:
 
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        v52 = 136315138;
-        v53 = "[CWFAssetPowerTable garbageCollectWithNewAsset:prevAsset:]";
-        LODWORD(v39) = 12;
-        v38 = &v52;
-        _os_log_send_and_compose_impl();
+        v50 = 136315138;
+        v51 = "[CWFAssetPowerTable garbageCollectWithNewAsset:prevAsset:]";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 16, "[OTA] %s: previousLatestUUIDString is nil", &v50);
       }
     }
 
-    v47 = 0u;
-    v48 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v24 = v43;
-    v25 = [v24 countByEnumeratingWithState:&v45 objects:v50 count:16];
+    v43 = 0u;
+    v44 = 0u;
+    v24 = v41;
+    v25 = [v24 countByEnumeratingWithState:&v43 objects:v48 count:16];
     if (v25)
     {
       v26 = v25;
       v12 = 0;
-      v27 = *v46;
+      v27 = *v44;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v46 != v27)
+          if (*v44 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v45 + 1) + 8 * i);
+          v29 = *(*(&v43 + 1) + 8 * i);
           lastPathComponent = [v29 lastPathComponent];
           v31 = [v14 containsObject:lastPathComponent];
 
           if ((v31 & 1) == 0)
           {
-            v44 = v12;
-            v32 = [defaultManager removeItemAtURL:v29 error:&v44];
-            v33 = v44;
+            v42 = v12;
+            v32 = [defaultManager removeItemAtURL:v29 error:&v42];
+            v33 = v42;
 
             if ((v32 & 1) == 0)
             {
@@ -1741,15 +1752,14 @@ LABEL_43:
 
               if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
               {
-                v52 = 136315650;
-                v53 = "[CWFAssetPowerTable garbageCollectWithNewAsset:prevAsset:]";
+                v50 = 136315650;
+                v51 = "[CWFAssetPowerTable garbageCollectWithNewAsset:prevAsset:]";
+                v52 = 2112;
+                v53 = v29;
                 v54 = 2112;
-                v55 = v29;
-                v56 = 2112;
-                v57 = v33;
-                LODWORD(v39) = 32;
-                v38 = &v52;
-                _os_log_send_and_compose_impl();
+                v55 = v33;
+                LODWORD(v37) = 32;
+                _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v35, 16, "[OTA] %s: Failed to remove sub-dir %@ with error: %@", &v50, v37);
               }
             }
 
@@ -1757,7 +1767,7 @@ LABEL_43:
           }
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v45 objects:v50 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v43 objects:v48 count:16];
       }
 
       while (v26);
@@ -1768,22 +1778,20 @@ LABEL_43:
       v12 = 0;
     }
 
-    prevAssetCopy = v41;
-    assetCopy = v42;
-    v10 = v40;
+    prevAssetCopy = v39;
+    assetCopy = v40;
+    v10 = v38;
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 + (id)currentLatestAssetVersion
 {
-  v11[3] = *MEMORY[0x1E69E9840];
+  v10[3] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFF8];
-  v11[0] = @"/private/var/db/ConnectivityPowerTableUpdates/";
-  v11[1] = @"WiFi/";
-  v11[2] = @"Latest.plist";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:3];
+  v10[0] = @"/private/var/db/ConnectivityPowerTableUpdates/";
+  v10[1] = @"WiFi/";
+  v10[2] = @"Latest.plist";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:3];
   v4 = [v2 fileURLWithPathComponents:v3];
 
   v5 = [objc_alloc(MEMORY[0x1E695DF90]) initWithContentsOfURL:v4];
@@ -1806,8 +1814,6 @@ LABEL_43:
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

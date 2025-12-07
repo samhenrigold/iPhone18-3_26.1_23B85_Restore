@@ -18,6 +18,7 @@
 - (void)setConfigurationCardViewFrame:(CGRect)frame;
 - (void)setupChildViewController:(id)controller;
 - (void)startConfigurationWithRequest:(id)request completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 - (void)widgetConfigurationContainerViewControllerDidRequestToCancel:(id)cancel;
 @end
@@ -839,6 +840,17 @@ LABEL_5:
   }
 
 LABEL_6:
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = WFWidgetConfigurationServiceViewController;
+  [(WFWidgetConfigurationServiceViewController *)&v7 viewDidAppear:appear];
+  view = [(WFWidgetConfigurationServiceViewController *)self view];
+  window = [view window];
+  _rootSheetPresentationController = [window _rootSheetPresentationController];
+  [_rootSheetPresentationController _setShouldScaleDownBehindDescendantSheets:0];
 }
 
 - (void)viewDidLoad

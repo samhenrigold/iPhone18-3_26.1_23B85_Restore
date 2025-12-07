@@ -80,44 +80,60 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v13 = [objc_opt_class() description];
-  CUAppendF();
-  v4 = 0;
+  v23 = 12;
+  v22 = 0;
+  v4 = [objc_opt_class() description];
+  CUAppendF(&v22, &v23, "%@", v4);
+  v5 = v22;
 
   extensionID = self->_extensionID;
   if (extensionID)
   {
-    v14 = extensionID;
-    CUAppendF();
-    v6 = v4;
+    v21 = v5;
+    v7 = extensionID;
+    CUAppendF(&v21, &v23, "%@", v7);
+    v8 = v21;
 
-    v4 = v6;
+    v5 = v8;
   }
 
   discoveryClient = self->_discoveryClient;
   if (discoveryClient)
   {
-    v15 = discoveryClient;
-    CUAppendF();
-    v8 = v4;
+    v20 = v5;
+    v10 = discoveryClient;
+    CUAppendF(&v20, &v23, "%@", v10);
+    v11 = v20;
 
-    v4 = v8;
+    v5 = v11;
   }
 
-  CUAppendF();
-  v9 = v4;
+  v19 = v5;
+  if (self->_allowRSSI)
+  {
+    v12 = "yes";
+  }
+
+  else
+  {
+    v12 = "no";
+  }
+
+  CUAppendF(&v19, &v23, "AllowRSSI %s", v12);
+  v13 = v19;
 
   sceneIdentifier = self->_sceneIdentifier;
   if (sceneIdentifier)
   {
-    v16 = sceneIdentifier;
-    CUAppendF();
-    v11 = v9;
+    v18 = v13;
+    v15 = sceneIdentifier;
+    CUAppendF(&v18, &v23, "scene %@", v15);
+    v16 = v18;
 
-    v9 = v11;
+    v13 = v16;
   }
 
-  return v9;
+  return v13;
 }
 
 - (void)invalidate
@@ -129,14 +145,12 @@
     {
       if (dword_100B50698 != -1 || (v4 = _LogCategory_Initialize(), discoveryClient = self->_discoveryClient, v4))
       {
-        extensionID = self->_extensionID;
-        v7 = discoveryClient;
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_100B50698, "[CBExtension invalidate]", 30, "CBExtension: discovery stop: %@, %@", self->_extensionID, discoveryClient);
         discoveryClient = self->_discoveryClient;
       }
     }
 
-    [(CBDiscovery *)discoveryClient invalidate:extensionID];
+    [(CBDiscovery *)discoveryClient invalidate];
     v5 = self->_discoveryClient;
     self->_discoveryClient = 0;
   }
@@ -222,22 +236,22 @@
 
     [(CBDiscovery *)v7 setAppID:self->_extensionID];
     [(CBDiscovery *)v7 setDispatchQueue:self->_dispatchQueue];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_1000EE8DC;
-    v23[3] = &unk_100ADF718;
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1000EE8DC;
+    v18[3] = &unk_100ADF718;
     v9 = v7;
-    v24 = v9;
+    v19 = v9;
     selfCopy = self;
-    [(CBDiscovery *)v9 setDeviceFoundHandler:v23];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_1000EE8F8;
-    v20[3] = &unk_100ADF718;
+    [(CBDiscovery *)v9 setDeviceFoundHandler:v18];
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000EE8F8;
+    v15[3] = &unk_100ADF718;
     v6 = v9;
-    v21 = v6;
+    v16 = v6;
     selfCopy2 = self;
-    [(CBDiscovery *)v6 setDeviceLostHandler:v20];
+    [(CBDiscovery *)v6 setDeviceLostHandler:v15];
   }
 
   v10 = [(CBDiscovery *)v6 updateWithXPCSubscriberInfo:infoCopy];
@@ -257,13 +271,11 @@
     {
       if (dword_100B50698 <= 30 && (dword_100B50698 != -1 || _LogCategory_Initialize()))
       {
-        extensionID = self->_extensionID;
-        v13 = v6;
-        LogPrintF_safe();
+        LogPrintF_safe(&dword_100B50698, "[CBExtension updateWithXPCDiscoveryInfo:]", 30, "CBExtension: discovery updated: %@, %@", self->_extensionID, v6);
       }
 
-      v11 = [(CBExtensionsDaemon *)self->_extensionsDaemon daemonServer:extensionID];
-      [v11 scheduleDiscoveryUpdateImmediate:0];
+      daemonServer = [(CBExtensionsDaemon *)self->_extensionsDaemon daemonServer];
+      [daemonServer scheduleDiscoveryUpdateImmediate:0];
     }
 
     else if (dword_100B50698 <= 20 && (dword_100B50698 != -1 || _LogCategory_Initialize()))
@@ -276,21 +288,19 @@
   {
     if (dword_100B50698 <= 30 && (dword_100B50698 != -1 || _LogCategory_Initialize()))
     {
-      extensionID = self->_extensionID;
-      v13 = v6;
-      LogPrintF_safe();
+      LogPrintF_safe(&dword_100B50698, "[CBExtension updateWithXPCDiscoveryInfo:]", 30, "CBExtension: discovery starting: %@, %@", self->_extensionID, v6);
     }
 
-    v14 = _NSConcreteStackBlock;
-    v15 = 3221225472;
-    v16 = sub_1000EE914;
-    v17 = &unk_100ADF740;
-    v18 = v6;
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000EE914;
+    v12[3] = &unk_100ADF740;
+    v13 = v6;
     selfCopy3 = self;
-    [(CBDiscovery *)v18 activateWithCompletion:&v14];
+    [(CBDiscovery *)v13 activateWithCompletion:v12];
   }
 
-  self->_allowRSSI = ([(CBDiscovery *)self->_discoveryClient bleRSSIThresholdHint:extensionID]& 0x80) != 0;
+  self->_allowRSSI = ([(CBDiscovery *)self->_discoveryClient bleRSSIThresholdHint]& 0x80) != 0;
   [(CBExtension *)self _updateRSSIFilter];
 }
 
@@ -326,13 +336,13 @@
         {
 LABEL_23:
           sub_1000E0A40();
-          if (!(v19 ^ v20 | v18) || v24 == -1 && !_LogCategory_Initialize())
+          if (!(v19 ^ v20 | v18) || v25 == -1 && !_LogCategory_Initialize())
           {
             goto LABEL_48;
           }
 
           prefFilterNearbyActionExtraData = CUPrintNSDataHex();
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceFound:]", 30, "CBExtension: ignore nearbyActionAuthTag mismatch: %@ vs %@", prefFilterNearbyActionExtraData, foundCopy);
 LABEL_47:
 
 LABEL_48:
@@ -354,127 +364,124 @@ LABEL_48:
       if (bleRSSIThresholdHint < 0 && (!rssi || rssi < bleRSSIThresholdHint))
       {
         sub_1000E0A40();
-        if (v19 ^ v20 | v18 && (v25 != -1 || _LogCategory_Initialize()))
+        if (v19 ^ v20 | v18 && (v26 != -1 || _LogCategory_Initialize()))
         {
-          extensionID = self->_extensionID;
-          v47 = foundCopy;
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceFound:]", 30, "CBExtension: device found: out-of-range, %@, %@", self->_extensionID, foundCopy);
         }
 
         deviceMap = self->_deviceMap;
         if (!deviceMap)
         {
-          v35 = objc_alloc_init(NSMutableDictionary);
-          v36 = self->_deviceMap;
-          self->_deviceMap = v35;
+          v36 = objc_alloc_init(NSMutableDictionary);
+          v37 = self->_deviceMap;
+          self->_deviceMap = v36;
 
           deviceMap = self->_deviceMap;
         }
 
-        [(NSMutableDictionary *)deviceMap setObject:foundCopy forKeyedSubscript:identifier, extensionID, v47];
-        v37 = [(NSMutableDictionary *)self->_triggeredDeviceMap objectForKeyedSubscript:identifier];
-        v26 = v37;
-        if (v37)
+        [(NSMutableDictionary *)deviceMap setObject:foundCopy forKeyedSubscript:identifier];
+        v38 = [(NSMutableDictionary *)self->_triggeredDeviceMap objectForKeyedSubscript:identifier];
+        v27 = v38;
+        if (v38)
         {
-          [(CBTriggeredDevice *)v37 setPresent:0];
+          [(CBTriggeredDevice *)v38 setPresent:0];
           sub_1000E0A40();
           if (v19 ^ v20 | v18)
           {
-            if (v38 != -1 || _LogCategory_Initialize())
+            if (v39 != -1 || _LogCategory_Initialize())
             {
-              v39 = self->_extensionID;
-              [(CBTriggeredDevice *)v26 device];
-              v48 = v46 = v39;
-              LogPrintF_safe();
+              extensionID = self->_extensionID;
+              device = [(CBTriggeredDevice *)v27 device];
+              LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceFound:]", 30, "CBExtension: reset old triggered device: %@, %@", extensionID, device);
             }
           }
         }
 
-        [(CBExtension *)self _updateRSSIFilter:v46];
+        [(CBExtension *)self _updateRSSIFilter];
       }
 
       else
       {
         sub_1000E0A40();
-        if (v19 ^ v20 | v18 && (v23 != -1 || _LogCategory_Initialize()))
+        if (v19 ^ v20 | v18 && (v24 != -1 || _LogCategory_Initialize()))
         {
-          extensionID = self->_extensionID;
-          v47 = foundCopy;
-          LogPrintF_safe();
+          LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceFound:]", 30, "CBExtension: device found: %@, %@", self->_extensionID, foundCopy);
         }
 
-        v26 = [(NSMutableDictionary *)self->_triggeredDeviceMap objectForKeyedSubscript:identifier, extensionID, v47];
-        if (!v26)
+        v27 = [(NSMutableDictionary *)self->_triggeredDeviceMap objectForKeyedSubscript:identifier];
+        if (!v27)
         {
-          v26 = objc_alloc_init(CBTriggeredDevice);
+          v27 = objc_alloc_init(CBTriggeredDevice);
           triggeredDeviceMap = self->_triggeredDeviceMap;
           if (!triggeredDeviceMap)
           {
-            v28 = objc_alloc_init(NSMutableDictionary);
-            v29 = self->_triggeredDeviceMap;
-            self->_triggeredDeviceMap = v28;
+            v29 = objc_alloc_init(NSMutableDictionary);
+            v30 = self->_triggeredDeviceMap;
+            self->_triggeredDeviceMap = v29;
 
             triggeredDeviceMap = self->_triggeredDeviceMap;
           }
 
-          [(NSMutableDictionary *)triggeredDeviceMap setObject:v26 forKeyedSubscript:identifier];
+          [(NSMutableDictionary *)triggeredDeviceMap setObject:v27 forKeyedSubscript:identifier];
         }
 
-        [(CBTriggeredDevice *)v26 setDevice:foundCopy];
-        [(CBTriggeredDevice *)v26 setPresent:1];
-        v30 = mach_absolute_time();
-        [(CBTriggeredDevice *)v26 setTriggerTicks:v30];
-        if ([(CBTriggeredDevice *)v26 uiTicks])
+        [(CBTriggeredDevice *)v27 setDevice:foundCopy];
+        [(CBTriggeredDevice *)v27 setPresent:1];
+        v31 = mach_absolute_time();
+        [(CBTriggeredDevice *)v27 setTriggerTicks:v31];
+        if ([(CBTriggeredDevice *)v27 uiTicks])
         {
           sub_1000E0A40();
-          if (v19 ^ v20 | v18 && (v40 != -1 || _LogCategory_Initialize()))
+          if (v19 ^ v20 | v18 && (v42 != -1 || _LogCategory_Initialize()))
           {
-            device = [(CBTriggeredDevice *)v26 device];
-            [(CBTriggeredDevice *)v26 uiTicks];
+            v43 = self->_extensionID;
+            device2 = [(CBTriggeredDevice *)v27 device];
+            [(CBTriggeredDevice *)v27 uiTicks];
             UpTicksToSecondsF();
-            v50 = CUPrintDurationDouble();
-            LogPrintF_safe();
+            v45 = CUPrintDurationDouble();
+            LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceFound:]", 30, "CBExtension: ignore already-triggered device: %@, %@, %@ ago", v43, device2, v45);
           }
         }
 
         else if (self->_triggeredUI)
         {
           sub_1000E0A40();
-          if (v19 ^ v20 | v18 && (v42 != -1 || _LogCategory_Initialize()))
+          if (v19 ^ v20 | v18 && (v46 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceFound:]", 30, "CBExtension: UI already triggered: %@, %@", self->_extensionID, foundCopy);
           }
         }
 
         else
         {
-          v52 = @"unknown";
-          if ([(CBExtensionsDaemon *)self->_extensionsDaemon remoteAlertAllowedAndReturnReason:&v52 extension:self])
+          v51 = @"unknown";
+          if ([(CBExtensionsDaemon *)self->_extensionsDaemon remoteAlertAllowedAndReturnReason:&v51 extension:self])
           {
             extensionsDaemon = self->_extensionsDaemon;
-            v51 = 0;
-            v32 = [(CBExtensionsDaemon *)extensionsDaemon remoteAlertStartWithCBExtension:self device:foundCopy error:&v51];
-            v33 = v51;
-            if (v32)
+            v50 = 0;
+            v33 = [(CBExtensionsDaemon *)extensionsDaemon remoteAlertStartWithCBExtension:self device:foundCopy error:&v50];
+            v34 = v50;
+            if (v33)
             {
-              [(CBTriggeredDevice *)v26 setUiTicks:v30];
+              [(CBTriggeredDevice *)v27 setUiTicks:v31];
               self->_triggeredUI = 1;
               [(CBExtension *)self _updateRSSIFilter];
             }
 
             else if (dword_100B50698 <= 90 && (dword_100B50698 != -1 || _LogCategory_Initialize()))
             {
+              v48 = self->_extensionID;
               v49 = CUPrintNSError();
-              LogPrintF_safe();
+              LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceFound:]", 90, "### CBExtension: UI start failed: %@, %@", v48, v49);
             }
           }
 
           else
           {
             sub_1000E0A40();
-            if (v19 ^ v20 | v18 && (v43 != -1 || _LogCategory_Initialize()))
+            if (v19 ^ v20 | v18 && (v47 != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF_safe();
+              LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceFound:]", 30, "CBExtension: UI start not allowed: %@, %@", self->_extensionID, v51);
             }
           }
         }
@@ -486,8 +493,8 @@ LABEL_48:
       sub_1000E0A40();
       if (v19 ^ v20 | v18 && (v17 != -1 || _LogCategory_Initialize()))
       {
-        v45 = CUPrintNSDataHex();
-        LogPrintF_safe();
+        v21 = CUPrintNSDataHex();
+        LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceFound:]", 30, "CBExtension: ignore NearbyActionExtraData mismatch: %@ vs %@", v21, foundCopy);
       }
     }
 
@@ -512,10 +519,7 @@ LABEL_49:
       v5 = "no";
     }
 
-    v13 = lostCopy;
-    v14 = v5;
-    extensionID = self->_extensionID;
-    LogPrintF_safe();
+    LogPrintF_safe(&dword_100B50698, "[CBExtension _deviceLost:]", 30, "CBExtension: device lost: %@, %@, triggered %s", self->_extensionID, lostCopy, v5);
   }
 
   identifier = [lostCopy identifier];
@@ -531,17 +535,17 @@ LABEL_49:
       if (self->_triggeredUI)
       {
         v9 = +[NSDistributedNotificationCenter defaultCenter];
-        v15[0] = @"deviceIdentifier";
-        v15[1] = @"extensionID";
-        v10 = self->_extensionID;
-        if (!v10)
+        v12[0] = @"deviceIdentifier";
+        v12[1] = @"extensionID";
+        extensionID = self->_extensionID;
+        if (!extensionID)
         {
-          v10 = @"?";
+          extensionID = @"?";
         }
 
-        v16[0] = identifier;
-        v16[1] = v10;
-        v11 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2];
+        v13[0] = identifier;
+        v13[1] = extensionID;
+        v11 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2];
         [v9 postNotificationName:@"com.apple.bluetooth.extensionDeviceLost" object:0 userInfo:v11 deliverImmediately:1];
       }
     }

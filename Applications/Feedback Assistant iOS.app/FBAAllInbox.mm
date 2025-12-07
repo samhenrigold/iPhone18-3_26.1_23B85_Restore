@@ -1,6 +1,6 @@
 @interface FBAAllInbox
 - (id)predicateForTeam:(id)team;
-- (uint64_t)unreadCountForTeam:;
+- (uint64_t)unreadCountForTeam:(uint64_t)team;
 @end
 
 @implementation FBAAllInbox
@@ -12,7 +12,7 @@
   return v3;
 }
 
-- (uint64_t)unreadCountForTeam:
+- (uint64_t)unreadCountForTeam:(uint64_t)team
 {
   sharedInstance = [objc_opt_self() sharedInstance];
   currentUser = [sharedInstance currentUser];
@@ -31,19 +31,19 @@
 
   sub_1000497E4(0, &qword_100109990, FBKContentItem_ptr);
   sub_1000869B8();
-  v3 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
 
-  if ((v3 & 0xC000000000000001) == 0)
+  if ((v5 & 0xC000000000000001) == 0)
   {
-    v6 = *(v3 + 16);
+    v8 = *(v5 + 16);
 
-    return v6;
+    return v8;
   }
 
-  v4 = __CocoaSet.count.getter();
+  v6 = __CocoaSet.count.getter();
 
-  result = v4;
-  if (v4 < 0)
+  result = v6;
+  if (v6 < 0)
   {
     __break(1u);
     return 0;

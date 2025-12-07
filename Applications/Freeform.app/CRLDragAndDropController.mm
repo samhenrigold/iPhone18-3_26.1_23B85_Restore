@@ -386,7 +386,7 @@ LABEL_24:
   {
     if (!self->_dragState)
     {
-      +[CRLAssertionHandler _atomicIncrementAssertCount];
+      v10 = +[CRLAssertionHandler _atomicIncrementAssertCount];
       if (qword_101AD5A10 != -1)
       {
         sub_10136D8A4();
@@ -402,52 +402,52 @@ LABEL_24:
         sub_10136D940();
       }
 
-      v10 = off_1019EDA68;
+      v11 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        sub_10136D968(v10);
+        sub_10136D968(v11, v10);
       }
 
-      v11 = [NSString stringWithUTF8String:"[CRLDragAndDropController draggingUpdated:atScaledPoint:]"];
-      v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLDragAndDropController.m"];
-      [CRLAssertionHandler handleFailureInFunction:v11 file:v12 lineNumber:317 isFatal:0 description:"draggingUpdated called without draggingEntered called first!"];
+      v12 = [NSString stringWithUTF8String:"[CRLDragAndDropController draggingUpdated:atScaledPoint:]"];
+      v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLDragAndDropController.m"];
+      [CRLAssertionHandler handleFailureInFunction:v12 file:v13 lineNumber:317 isFatal:0 description:"draggingUpdated called without draggingEntered called first!"];
 
       [(CRLDragAndDropController *)self draggingEntered:updatedCopy atScaledPoint:x, y];
     }
 
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x2020000000;
-    v59 = 0;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
+    v60 = 0;
     infosToBeInsertedAccessQueue = self->_infosToBeInsertedAccessQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10040BBC0;
     block[3] = &unk_101839FF8;
     block[4] = self;
-    block[5] = &v56;
+    block[5] = &v57;
     dispatch_sync(infosToBeInsertedAccessQueue, block);
-    v53 = 0u;
     v54 = 0u;
-    v51 = 0u;
+    v55 = 0u;
     v52 = 0u;
+    v53 = 0u;
     inProcessDraggingSources = [updatedCopy inProcessDraggingSources];
-    v21 = [inProcessDraggingSources countByEnumeratingWithState:&v51 objects:v65 count:16];
-    if (v21)
+    v22 = [inProcessDraggingSources countByEnumeratingWithState:&v52 objects:v66 count:16];
+    if (v22)
     {
-      v22 = *v52;
+      v23 = *v53;
       while (2)
       {
-        for (i = 0; i != v21; i = i + 1)
+        for (i = 0; i != v22; i = i + 1)
         {
-          if (*v52 != v22)
+          if (*v53 != v23)
           {
             objc_enumerationMutation(inProcessDraggingSources);
           }
 
-          v24 = sub_1003035DC(*(*(&v51 + 1) + 8 * i), 1, v15, v16, v17, v18, v19, v20, &OBJC_PROTOCOL___CRLDragOperationCallback);
-          v25 = v24;
-          if (v24 && ([v24 draggingWantsForcedUpdate] & 1) != 0)
+          v25 = sub_1003035DC(*(*(&v52 + 1) + 8 * i), 1, v16, v17, v18, v19, v20, v21, &OBJC_PROTOCOL___CRLDragOperationCallback);
+          v26 = v25;
+          if (v25 && ([v25 draggingWantsForcedUpdate] & 1) != 0)
           {
 
             canvasDidLayoutSinceLastUpdate = 1;
@@ -455,8 +455,8 @@ LABEL_24:
           }
         }
 
-        v21 = [inProcessDraggingSources countByEnumeratingWithState:&v51 objects:v65 count:16];
-        if (v21)
+        v22 = [inProcessDraggingSources countByEnumeratingWithState:&v52 objects:v66 count:16];
+        if (v22)
         {
           continue;
         }
@@ -468,83 +468,83 @@ LABEL_24:
     canvasDidLayoutSinceLastUpdate = self->_canvasDidLayoutSinceLastUpdate;
 LABEL_24:
     self->_canvasDidLayoutSinceLastUpdate = 0;
-    if (self->_lastProvidedDragPoint.x != x || self->_lastProvidedDragPoint.y != y || ((*(v57 + 24) | canvasDidLayoutSinceLastUpdate) & 1) != 0)
+    if (self->_lastProvidedDragPoint.x != x || self->_lastProvidedDragPoint.y != y || ((*(v58 + 24) | canvasDidLayoutSinceLastUpdate) & 1) != 0)
     {
-      v28 = [(CRLDragAndDropController *)self p_dragOperationForDragInsideWithDraggingInfo:updatedCopy atScaledPoint:x, y];
-      if (v28 != self->_lastReturnedDragOperation)
+      v29 = [(CRLDragAndDropController *)self p_dragOperationForDragInsideWithDraggingInfo:updatedCopy atScaledPoint:x, y];
+      if (v29 != self->_lastReturnedDragOperation)
       {
         if (qword_101AD5B68 != -1)
         {
           sub_10136DA18();
         }
 
-        v29 = off_1019EDBC0;
+        v30 = off_1019EDBC0;
         if (os_log_type_enabled(off_1019EDBC0, OS_LOG_TYPE_DEFAULT))
         {
           lastReturnedDragOperation = self->_lastReturnedDragOperation;
           *buf = 134218240;
-          v62 = lastReturnedDragOperation;
-          v63 = 2048;
-          v64 = v28;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "-draggingUpdated. Operation changed from %lu to %lu", buf, 0x16u);
+          v63 = lastReturnedDragOperation;
+          v64 = 2048;
+          v65 = v29;
+          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "-draggingUpdated. Operation changed from %lu to %lu", buf, 0x16u);
         }
 
-        self->_lastReturnedDragOperation = v28;
-        v47 = 0u;
+        self->_lastReturnedDragOperation = v29;
         v48 = 0u;
         v49 = 0u;
         v50 = 0u;
+        v51 = 0u;
         inProcessDraggingSources2 = [updatedCopy inProcessDraggingSources];
-        v38 = [inProcessDraggingSources2 countByEnumeratingWithState:&v47 objects:v60 count:16];
-        if (v38)
+        v39 = [inProcessDraggingSources2 countByEnumeratingWithState:&v48 objects:v61 count:16];
+        if (v39)
         {
-          v39 = *v48;
+          v40 = *v49;
           do
           {
-            for (j = 0; j != v38; j = j + 1)
+            for (j = 0; j != v39; j = j + 1)
             {
-              if (*v48 != v39)
+              if (*v49 != v40)
               {
                 objc_enumerationMutation(inProcessDraggingSources2);
               }
 
-              v41 = sub_1003035DC(*(*(&v47 + 1) + 8 * j), 1, v32, v33, v34, v35, v36, v37, &OBJC_PROTOCOL___CRLDragOperationCallback);
-              if (v41)
+              v42 = sub_1003035DC(*(*(&v48 + 1) + 8 * j), 1, v33, v34, v35, v36, v37, v38, &OBJC_PROTOCOL___CRLDragOperationCallback);
+              if (v42)
               {
-                v42 = self->_lastReturnedDragOperation;
+                v43 = self->_lastReturnedDragOperation;
                 interactiveCanvasController = [(CRLDragAndDropController *)self interactiveCanvasController];
-                [v41 draggingUpdatedWithOperation:v42 targetInteractiveCanvasController:interactiveCanvasController];
+                [v42 draggingUpdatedWithOperation:v43 targetInteractiveCanvasController:interactiveCanvasController];
               }
             }
 
-            v38 = [inProcessDraggingSources2 countByEnumeratingWithState:&v47 objects:v60 count:16];
+            v39 = [inProcessDraggingSources2 countByEnumeratingWithState:&v48 objects:v61 count:16];
           }
 
-          while (v38);
+          while (v39);
         }
       }
 
       self->_lastProvidedDragPoint.x = x;
       self->_lastProvidedDragPoint.y = y;
-      v44 = self->_infosToBeInsertedAccessQueue;
-      v46[0] = _NSConcreteStackBlock;
-      v46[1] = 3221225472;
-      v46[2] = sub_10040BC18;
-      v46[3] = &unk_10183AB38;
-      v46[4] = self;
-      dispatch_sync(v44, v46);
+      v45 = self->_infosToBeInsertedAccessQueue;
+      v47[0] = _NSConcreteStackBlock;
+      v47[1] = 3221225472;
+      v47[2] = sub_10040BC18;
+      v47[3] = &unk_10183AB38;
+      v47[4] = self;
+      dispatch_sync(v45, v47);
     }
 
-    v27 = self->_lastReturnedDragOperation;
-    _Block_object_dispose(&v56, 8);
+    v28 = self->_lastReturnedDragOperation;
+    _Block_object_dispose(&v57, 8);
   }
 
   else
   {
-    v27 = 0;
+    v28 = 0;
   }
 
-  return v27;
+  return v28;
 }
 
 - (void)draggingExited:(id)exited
@@ -848,7 +848,7 @@ LABEL_24:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [onInfoCopy fullTransformInRoot];
+      objc_msgSend_fullTransformInRoot(onInfoCopy);
       __asm { FMOV            V3.2D, #0.5 }
 
       v36 = vaddq_f64(0, vmlaq_f64(vmulq_f64(0, _Q3), _Q3, 0));
@@ -1194,16 +1194,16 @@ LABEL_24:
   v30 = v29;
   v32 = v31;
 
-  v91.origin.x = v26;
-  v91.origin.y = v28;
-  v91.size.width = v30;
-  v91.size.height = v32;
-  v90.x = x;
-  v90.y = y;
-  v33 = CGRectContainsPoint(v91, v90);
+  v93.origin.x = v26;
+  v93.origin.y = v28;
+  v93.size.width = v30;
+  v93.size.height = v32;
+  v92.x = x;
+  v92.y = y;
+  v33 = CGRectContainsPoint(v93, v92);
   if (!infoCopy)
   {
-    +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v34 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_10136E250();
@@ -1219,39 +1219,39 @@ LABEL_24:
       sub_10136E300();
     }
 
-    v34 = off_1019EDA68;
+    v35 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10136E328(v34);
+      sub_10136E328(v35, v34);
     }
 
-    v35 = [NSString stringWithUTF8String:"[CRLDragAndDropController p_dragOperationForDragInsideWithDraggingInfo:atScaledPoint:]"];
-    v36 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLDragAndDropController.m"];
-    [CRLAssertionHandler handleFailureInFunction:v35 file:v36 lineNumber:778 isFatal:0 description:"invalid nil value for '%{public}s'", "dragInfo"];
+    v36 = [NSString stringWithUTF8String:"[CRLDragAndDropController p_dragOperationForDragInsideWithDraggingInfo:atScaledPoint:]"];
+    v37 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLDragAndDropController.m"];
+    [CRLAssertionHandler handleFailureInFunction:v36 file:v37 lineNumber:778 isFatal:0 description:"invalid nil value for '%{public}s'", "dragInfo"];
   }
 
   if (!v33)
   {
-    v38 = 0;
+    v39 = 0;
 LABEL_20:
-    [(CRLDragAndDropController *)self p_updateHighlightStateForDragInfo:infoCopy atUnscaledPoint:64 dragOperation:v38 dragDestination:v10, v12];
+    [(CRLDragAndDropController *)self p_updateHighlightStateForDragInfo:infoCopy atUnscaledPoint:64 dragOperation:v39 dragDestination:v10, v12];
 LABEL_21:
-    v40 = 0;
+    v41 = 0;
     goto LABEL_22;
   }
 
-  v37 = [(CRLDragAndDropController *)self p_dragDestinationForDragInfo:infoCopy atUnscaledPoint:v10, v12];
-  v38 = v37;
-  if (!v37)
+  v38 = [(CRLDragAndDropController *)self p_dragDestinationForDragInfo:infoCopy atUnscaledPoint:v10, v12];
+  v39 = v38;
+  if (!v38)
   {
     goto LABEL_32;
   }
 
-  v39 = [v37 dragOperationForDragInfo:infoCopy atUnscaledPoint:{v10, v12}];
-  v40 = v39;
-  if (!v39)
+  v40 = [v38 dragOperationForDragInfo:infoCopy atUnscaledPoint:{v10, v12}];
+  v41 = v40;
+  if (!v40)
   {
-    +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v44 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_10136E3D8();
@@ -1267,30 +1267,30 @@ LABEL_21:
       sub_10136E488();
     }
 
-    v43 = off_1019EDA68;
+    v45 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10136E4B0(v43);
+      sub_10136E4B0(v45, v44);
     }
 
-    v44 = [NSString stringWithUTF8String:"[CRLDragAndDropController p_dragOperationForDragInsideWithDraggingInfo:atScaledPoint:]"];
-    v45 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLDragAndDropController.m"];
-    [CRLAssertionHandler handleFailureInFunction:v44 file:v45 lineNumber:801 isFatal:0 description:"If we have a drag destination, our drag operation should not be None"];
+    v46 = [NSString stringWithUTF8String:"[CRLDragAndDropController p_dragOperationForDragInsideWithDraggingInfo:atScaledPoint:]"];
+    v47 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLDragAndDropController.m"];
+    [CRLAssertionHandler handleFailureInFunction:v46 file:v47 lineNumber:801 isFatal:0 description:"If we have a drag destination, our drag operation should not be None"];
 
 LABEL_32:
     delegate = [(CRLDragAndDropController *)self delegate];
-    v47 = [delegate canInsertBoardItemsFromDragOperationForDragInfo:infoCopy];
+    v49 = [delegate canInsertBoardItemsFromDragOperationForDragInfo:infoCopy];
 
-    if ((v47 & 1) == 0)
+    if ((v49 & 1) == 0)
     {
-      [(CRLDragAndDropController *)self p_updateHighlightStateForDragInfo:infoCopy atUnscaledPoint:0 dragOperation:v38 dragDestination:v10, v12];
+      [(CRLDragAndDropController *)self p_updateHighlightStateForDragInfo:infoCopy atUnscaledPoint:0 dragOperation:v39 dragDestination:v10, v12];
       goto LABEL_21;
     }
 
-    v84 = 0;
-    v85 = &v84;
-    v86 = 0x2020000000;
-    v87 = 0;
+    v86 = 0;
+    v87 = &v86;
+    v88 = 0x2020000000;
+    v89 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
@@ -1303,49 +1303,49 @@ LABEL_32:
     block[2] = sub_10040E978;
     block[3] = &unk_101855C38;
     block[4] = self;
-    block[5] = &v84;
+    block[5] = &v86;
     block[6] = buf;
     dispatch_sync(infosToBeInsertedAccessQueue, block);
-    if (*(v85 + 24) == 1 && [*(*&buf[8] + 40) count])
+    if (*(v87 + 24) == 1 && [*(*&buf[8] + 40) count])
     {
-      v40 = [objc_opt_class() p_dragOperationForSupportedDragOperations:dragOperationMask];
-      if (v40)
+      v41 = [objc_opt_class() p_dragOperationForSupportedDragOperations:dragOperationMask];
+      if (v41)
       {
         dragToInsertController = self->_dragToInsertController;
         if (!dragToInsertController)
         {
+          v83 = 0u;
+          v84 = 0u;
           v81 = 0u;
           v82 = 0u;
-          v79 = 0u;
-          v80 = 0u;
           inProcessDraggingSources = [infoCopy inProcessDraggingSources];
-          v57 = [inProcessDraggingSources countByEnumeratingWithState:&v79 objects:v89 count:16];
-          if (v57)
+          v59 = [inProcessDraggingSources countByEnumeratingWithState:&v81 objects:v91 count:16];
+          if (v59)
           {
             obj = inProcessDraggingSources;
-            v58 = *v80;
+            v60 = *v82;
             while (2)
             {
-              for (i = 0; i != v57; i = (i + 1))
+              for (i = 0; i != v59; i = (i + 1))
               {
-                if (*v80 != v58)
+                if (*v82 != v60)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v60 = sub_1003035DC(*(*(&v79 + 1) + 8 * i), 1, v51, v52, v53, v54, v55, v56, &OBJC_PROTOCOL___CRLDynamicDragInsertDragOperationCallback);
-                v61 = v60;
-                if (v60)
+                v62 = sub_1003035DC(*(*(&v81 + 1) + 8 * i), 1, v53, v54, v55, v56, v57, v58, &OBJC_PROTOCOL___CRLDynamicDragInsertDragOperationCallback);
+                v63 = v62;
+                if (v62)
                 {
-                  v57 = [v60 postInsertBlockForDragAndDropWithBoardItemsToInsert:*(*&buf[8] + 40) targetInteractiveCanvasController:interactiveCanvasController];
+                  v59 = [v62 postInsertBlockForDragAndDropWithBoardItemsToInsert:*(*&buf[8] + 40) targetInteractiveCanvasController:interactiveCanvasController];
 
                   inProcessDraggingSources = obj;
                   goto LABEL_59;
                 }
               }
 
-              v57 = [obj countByEnumeratingWithState:&v79 objects:v89 count:16];
-              if (v57)
+              v59 = [obj countByEnumeratingWithState:&v81 objects:v91 count:16];
+              if (v59)
               {
                 continue;
               }
@@ -1358,22 +1358,22 @@ LABEL_32:
 
 LABEL_59:
 
-          v66 = [CRLDragToInsertController alloc];
-          v67 = *(*&buf[8] + 40);
+          v68 = [CRLDragToInsertController alloc];
+          v69 = *(*&buf[8] + 40);
           canvasEditor = [interactiveCanvasController canvasEditor];
-          if (v57)
+          if (v59)
           {
-            v69 = v57;
+            v71 = v59;
           }
 
           else
           {
-            v69 = &stru_101860AF8;
+            v71 = &stru_101860AF8;
           }
 
-          v70 = [(CRLDragToInsertController *)v66 initWithBoardItems:v67 canvasEditor:canvasEditor atPoint:v69 withPostInsertionBlock:v10, v12];
-          v71 = self->_dragToInsertController;
-          self->_dragToInsertController = v70;
+          v72 = [(CRLDragToInsertController *)v68 initWithBoardItems:v69 canvasEditor:canvasEditor atPoint:v71 withPostInsertionBlock:v10, v12];
+          v73 = self->_dragToInsertController;
+          self->_dragToInsertController = v72;
 
           dragToInsertController = self->_dragToInsertController;
         }
@@ -1384,30 +1384,30 @@ LABEL_59:
 
     else if ([(CRLDragAndDropController *)self canCreateBoardItemsFromDragInfo:infoCopy])
     {
-      v40 = [objc_opt_class() p_dragOperationForSupportedDragOperations:dragOperationMask];
+      v41 = [objc_opt_class() p_dragOperationForSupportedDragOperations:dragOperationMask];
       delegate2 = [(CRLDragAndDropController *)self delegate];
-      v63 = [delegate2 shouldAllowDynamicInsertForDragInfo:infoCopy];
-      if (v40 == 1)
+      v65 = [delegate2 shouldAllowDynamicInsertForDragInfo:infoCopy];
+      if (v41 == 1)
       {
-        v64 = v63;
+        v66 = v65;
       }
 
       else
       {
-        v64 = 0;
+        v66 = 0;
       }
 
-      if (v64 == 1)
+      if (v66 == 1)
       {
 
         if ((dragOperationMask & 2) != 0)
         {
-          v40 = 2;
+          v41 = 2;
         }
 
         else
         {
-          v40 = 1;
+          v41 = 1;
         }
       }
 
@@ -1417,58 +1417,58 @@ LABEL_59:
 
       canvasEditor2 = [interactiveCanvasController canvasEditor];
 
-      v38 = canvasEditor2;
+      v39 = canvasEditor2;
     }
 
     else
     {
-      v40 = 0;
+      v41 = 0;
     }
 
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(&v84, 8);
+    _Block_object_dispose(&v86, 8);
     goto LABEL_65;
   }
 
-  if (v39 == 64)
+  if (v40 == 64)
   {
     if (qword_101AD5B68 != -1)
     {
       sub_10136E560();
     }
 
-    v41 = off_1019EDBC0;
+    v42 = off_1019EDBC0;
     if (os_log_type_enabled(off_1019EDBC0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *&buf[4] = v38;
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "drag destination is disallowing drag: %@", buf, 0xCu);
+      *&buf[4] = v39;
+      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "drag destination is disallowing drag: %@", buf, 0xCu);
     }
 
     goto LABEL_20;
   }
 
 LABEL_65:
-  [(CRLDragAndDropController *)self p_updateHighlightStateForDragInfo:infoCopy atUnscaledPoint:v40 dragOperation:v38 dragDestination:v10, v12];
-  if (v40 == 64)
+  [(CRLDragAndDropController *)self p_updateHighlightStateForDragInfo:infoCopy atUnscaledPoint:v41 dragOperation:v39 dragDestination:v10, v12];
+  if (v41 == 64)
   {
     goto LABEL_21;
   }
 
-  if (v40 && (v40 & dragOperationMask) == 0)
+  if (v41 && (v41 & dragOperationMask) == 0)
   {
-    v72 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v74 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_10136E588();
     }
 
-    v73 = off_1019EDA68;
+    v75 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
       *buf = 67110402;
-      *&buf[4] = v72;
+      *&buf[4] = v74;
       *&buf[8] = 2082;
       *&buf[10] = "[CRLDragAndDropController p_dragOperationForDragInsideWithDraggingInfo:atScaledPoint:]";
       *&buf[18] = 2082;
@@ -1476,10 +1476,10 @@ LABEL_65:
       *&buf[28] = 1024;
       *&buf[30] = 870;
       *&buf[34] = 2048;
-      *&buf[36] = v40;
+      *&buf[36] = v41;
       *&buf[44] = 2048;
       *&buf[46] = dragOperationMask;
-      _os_log_error_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Drag operation %zi not supported by the sender with mask %zi.", buf, 0x36u);
+      _os_log_error_impl(&_mh_execute_header, v75, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Drag operation %zi not supported by the sender with mask %zi.", buf, 0x36u);
     }
 
     if (qword_101AD5A10 != -1)
@@ -1487,20 +1487,20 @@ LABEL_65:
       sub_10136E5B0();
     }
 
-    v74 = off_1019EDA68;
+    v76 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
-      sub_10136E5D8(v74);
+      sub_10136E5D8(v76, v74);
     }
 
-    v75 = [NSString stringWithUTF8String:"[CRLDragAndDropController p_dragOperationForDragInsideWithDraggingInfo:atScaledPoint:]"];
-    v76 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLDragAndDropController.m"];
-    [CRLAssertionHandler handleFailureInFunction:v75 file:v76 lineNumber:870 isFatal:0 description:"Drag operation %zi not supported by the sender with mask %zi.", v40, dragOperationMask];
+    v77 = [NSString stringWithUTF8String:"[CRLDragAndDropController p_dragOperationForDragInsideWithDraggingInfo:atScaledPoint:]"];
+    v78 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLKit/CRLDragAndDropController.m"];
+    [CRLAssertionHandler handleFailureInFunction:v77 file:v78 lineNumber:870 isFatal:0 description:"Drag operation %zi not supported by the sender with mask %zi.", v41, dragOperationMask];
   }
 
 LABEL_22:
 
-  return v40;
+  return v41;
 }
 
 - (void)targetScrollViewDidScroll

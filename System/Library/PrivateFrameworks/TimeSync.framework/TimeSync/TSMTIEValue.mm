@@ -27,7 +27,7 @@
   [(TSMTIEValue *)self observationInterval];
   v7 = v6;
   [(TSMTIEValue *)self mtie];
-  v9 = [v3 stringWithFormat:@"<%@: %p: {%.9f, %.9f}>", v5, self, v7, v8];
+  v9 = [v3 stringWithFormat:v5, self, v7, v8];
 
   return v9;
 }

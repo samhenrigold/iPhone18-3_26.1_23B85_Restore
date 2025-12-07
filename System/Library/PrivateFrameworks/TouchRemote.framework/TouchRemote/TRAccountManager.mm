@@ -14,7 +14,7 @@
 
 + (id)idmsAccountForAccountService:(unint64_t)service
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   switch(service)
   {
     case 3uLL:
@@ -29,21 +29,19 @@
     default:
       if (_TRLogEnabled == 1)
       {
-        v5 = TRLogHandle();
+        v5 = TRLogHandle(self);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           v6 = StringFromTRAccountService(service);
-          v9 = 138412290;
-          v10 = v6;
-          _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "Unknown account service: %@", &v9, 0xCu);
+          v8 = 138412290;
+          v9 = v6;
+          _os_log_impl(&dword_26F2A2000, v5, OS_LOG_TYPE_DEFAULT, "Unknown account service: %@", &v8, 0xCu);
         }
       }
 
       _idmsAccountForGameCenterService = 0;
       break;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return _idmsAccountForGameCenterService;
 }
@@ -109,7 +107,7 @@
 
 + (id)_idmsAccountForAccountWithUsername:(id)username altDSID:(id)d DSID:(id)iD
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   usernameCopy = username;
   dCopy = d;
   iDCopy = iD;
@@ -117,119 +115,120 @@
   store = [mEMORY[0x277CF0130] store];
   v9 = [store accountTypeWithAccountTypeIdentifier:*MEMORY[0x277CB8C58]];
 
-  v49 = 0;
-  v10 = [mEMORY[0x277CF0130] allAuthKitAccountsWithError:&v49];
-  v11 = v49;
+  v50 = 0;
+  v10 = [mEMORY[0x277CF0130] allAuthKitAccountsWithError:&v50];
+  v11 = v50;
+  v12 = v11;
   if (v11)
   {
     if (_TRLogEnabled != 1)
     {
-      v31 = 0;
+      v33 = 0;
       goto LABEL_49;
     }
 
-    v12 = TRLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = TRLogHandle(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v52 = "+[TRAccountManager _idmsAccountForAccountWithUsername:altDSID:DSID:]";
-      _os_log_impl(&dword_26F2A2000, v12, OS_LOG_TYPE_DEFAULT, "%s [ERROR] accounts could not be fetched.", buf, 0xCu);
+      v53 = "+[TRAccountManager _idmsAccountForAccountWithUsername:altDSID:DSID:]";
+      _os_log_impl(&dword_26F2A2000, v13, OS_LOG_TYPE_DEFAULT, "%s [ERROR] accounts could not be fetched.", buf, 0xCu);
     }
 
     goto LABEL_38;
   }
 
-  v37 = mEMORY[0x277CF0130];
-  v12 = objc_opt_new();
-  v45 = 0u;
+  v38 = mEMORY[0x277CF0130];
+  v13 = objc_opt_new();
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v35 = v10;
-  v13 = v10;
-  v14 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
-  if (v14)
+  v49 = 0u;
+  v36 = v10;
+  v14 = v10;
+  v15 = [v14 countByEnumeratingWithState:&v46 objects:v56 count:16];
+  if (v15)
   {
-    v15 = v14;
-    v16 = *v46;
+    v16 = v15;
+    v17 = *v47;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v46 != v16)
+        if (*v47 != v17)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v18 = *(*(&v45 + 1) + 8 * i);
-        accountType = [v18 accountType];
-        v20 = [accountType isEqual:v9];
+        v19 = *(*(&v46 + 1) + 8 * i);
+        accountType = [v19 accountType];
+        v21 = [accountType isEqual:v9];
 
-        if (v20)
+        if (v21)
         {
-          [v12 addObject:v18];
+          [v13 addObject:v19];
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v45 objects:v55 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v46 objects:v56 count:16];
     }
 
-    while (v15);
+    while (v16);
   }
 
   if (_TRLogEnabled == 1)
   {
-    v21 = TRLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v23 = TRLogHandle(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v52 = "+[TRAccountManager _idmsAccountForAccountWithUsername:altDSID:DSID:]";
-      v53 = 2112;
-      v54 = v12;
-      _os_log_impl(&dword_26F2A2000, v21, OS_LOG_TYPE_DEFAULT, "%s accounts: %@.", buf, 0x16u);
+      v53 = "+[TRAccountManager _idmsAccountForAccountWithUsername:altDSID:DSID:]";
+      v54 = 2112;
+      v55 = v13;
+      _os_log_impl(&dword_26F2A2000, v23, OS_LOG_TYPE_DEFAULT, "%s accounts: %@.", buf, 0x16u);
     }
   }
 
-  if ([v12 count])
+  if ([v13 count])
   {
-    v43 = 0u;
     v44 = 0u;
-    v41 = 0u;
+    v45 = 0u;
     v42 = 0u;
-    v12 = v12;
-    v22 = [v12 countByEnumeratingWithState:&v41 objects:v50 count:16];
-    if (v22)
+    v43 = 0u;
+    v13 = v13;
+    v24 = [v13 countByEnumeratingWithState:&v42 objects:v51 count:16];
+    if (v24)
     {
-      v23 = v22;
-      v24 = *v42;
+      v25 = v24;
+      v26 = *v43;
       while (2)
       {
-        for (j = 0; j != v23; ++j)
+        for (j = 0; j != v25; ++j)
         {
-          if (*v42 != v24)
+          if (*v43 != v26)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v13);
           }
 
-          v26 = *(*(&v41 + 1) + 8 * j);
-          aa_altDSID = [v26 aa_altDSID];
+          v28 = *(*(&v42 + 1) + 8 * j);
+          aa_altDSID = [v28 aa_altDSID];
           if (aa_altDSID && [dCopy isEqualToString:aa_altDSID])
           {
-            v30 = v26;
+            v32 = v28;
             goto LABEL_45;
           }
 
-          v28 = [v26 accountPropertyForKey:@"DSID"];
-          if (v28 && [iDCopy isEqualToNumber:v28])
+          v30 = [v28 accountPropertyForKey:@"DSID"];
+          if (v30 && [iDCopy isEqualToNumber:v30])
           {
-            v30 = v26;
+            v32 = v28;
             goto LABEL_44;
           }
 
-          username = [v26 username];
+          username = [v28 username];
           if (username && ([usernameCopy isEqualToString:username] & 1) != 0)
           {
-            v30 = v26;
+            v32 = v28;
 
 LABEL_44:
 LABEL_45:
@@ -238,9 +237,9 @@ LABEL_45:
           }
         }
 
-        v23 = [v12 countByEnumeratingWithState:&v41 objects:v50 count:16];
-        v30 = 0;
-        if (v23)
+        v25 = [v13 countByEnumeratingWithState:&v42 objects:v51 count:16];
+        v32 = 0;
+        if (v25)
         {
           continue;
         }
@@ -251,44 +250,43 @@ LABEL_45:
 
     else
     {
-      v30 = 0;
+      v32 = 0;
     }
 
 LABEL_46:
 
-    v31 = v30;
-    v11 = 0;
-    mEMORY[0x277CF0130] = v37;
+    v33 = v32;
+    v12 = 0;
+    mEMORY[0x277CF0130] = v38;
     goto LABEL_47;
   }
 
-  v11 = 0;
-  mEMORY[0x277CF0130] = v37;
+  v12 = 0;
+  mEMORY[0x277CF0130] = v38;
   if (_TRLogEnabled != 1)
   {
-    v31 = 0;
+    v33 = 0;
 LABEL_47:
-    v10 = v36;
+    v10 = v37;
     goto LABEL_48;
   }
 
-  v32 = TRLogHandle();
-  v10 = v36;
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+  v34 = TRLogHandle(0);
+  v10 = v37;
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v52 = "+[TRAccountManager _idmsAccountForAccountWithUsername:altDSID:DSID:]";
-    _os_log_impl(&dword_26F2A2000, v32, OS_LOG_TYPE_DEFAULT, "%s No IDMS accounts found.", buf, 0xCu);
+    v53 = "+[TRAccountManager _idmsAccountForAccountWithUsername:altDSID:DSID:]";
+    _os_log_impl(&dword_26F2A2000, v34, OS_LOG_TYPE_DEFAULT, "%s No IDMS accounts found.", buf, 0xCu);
   }
 
 LABEL_38:
-  v31 = 0;
+  v33 = 0;
 LABEL_48:
 
 LABEL_49:
-  v33 = *MEMORY[0x277D85DE8];
 
-  return v31;
+  return v33;
 }
 
 + (id)associatedAccountServicesForIDMSAccount:(id)account

@@ -18,24 +18,24 @@ void __61___SFAirDropTransferObserver_updateActionHandlersOnTransfer___block_inv
 
   if (v6)
   {
-    v7 = *(a1 + 32);
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __61___SFAirDropTransferObserver_updateActionHandlersOnTransfer___block_invoke_2;
-    v9[3] = &unk_1E788A680;
-    v10 = v6;
-    v11 = v3;
-    [v7 _getRemoteObjectProxyOnQueue:v9];
+    v8 = *(a1 + 32);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __61___SFAirDropTransferObserver_updateActionHandlersOnTransfer___block_invoke_2;
+    v10[3] = &unk_1E788A680;
+    v11 = v6;
+    v12 = v3;
+    [v8 _getRemoteObjectProxyOnQueue:v10];
 
-    v8 = v10;
+    v9 = v11;
   }
 
   else
   {
-    v8 = airdrop_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = airdrop_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __61___SFAirDropTransferObserver_updateActionHandlersOnTransfer___block_invoke_cold_1(v3, a1, v8);
+      __61___SFAirDropTransferObserver_updateActionHandlersOnTransfer___block_invoke_cold_1(v3, a1, v9);
     }
   }
 }
@@ -118,15 +118,13 @@ void __61___SFAirDropTransferObserver_updateActionHandlersOnTransfer___block_inv
 
 void __61___SFAirDropTransferObserver_updateActionHandlersOnTransfer___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a2 + 40));
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2112;
-  v10 = WeakRetained;
-  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "Unable to trigger action %@ for unknown transfer: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2112;
+  v9 = WeakRetained;
+  _os_log_error_impl(&dword_1A9662000, a3, OS_LOG_TYPE_ERROR, "Unable to trigger action %@ for unknown transfer: %@", &v6, 0x16u);
 }
 
 @end

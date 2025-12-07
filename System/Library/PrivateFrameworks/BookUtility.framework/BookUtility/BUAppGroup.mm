@@ -53,23 +53,23 @@
   if (containerURL)
   {
 LABEL_8:
-    v17 = containerURL;
+    v18 = containerURL;
   }
 
   else
   {
-    v19 = BookUtilityLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    v20 = BookUtilityLog(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      sub_241DCFD90(self, v19, v20);
+      sub_241DCFD90(self, v20, v21);
     }
 
-    v21 = MEMORY[0x277CBEBC0];
-    v22 = NSTemporaryDirectory();
-    v17 = objc_msgSend_fileURLWithPath_isDirectory_(v21, v23, v22, 1);
+    v22 = MEMORY[0x277CBEBC0];
+    v23 = NSTemporaryDirectory();
+    v18 = objc_msgSend_fileURLWithPath_isDirectory_(v22, v24, v23, 1);
   }
 
-  return v17;
+  return v18;
 }
 
 + (BOOL)isUnitTesting

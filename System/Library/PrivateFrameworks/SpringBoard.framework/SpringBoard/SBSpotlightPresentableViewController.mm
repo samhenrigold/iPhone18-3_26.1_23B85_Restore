@@ -329,7 +329,7 @@ LABEL_18:
   spotlightMultiplexingViewController = self->_spotlightMultiplexingViewController;
   if (spotlightMultiplexingViewController)
   {
-    [(SBSpotlightMultiplexingViewController *)spotlightMultiplexingViewController spotlightHostedContentMetrics];
+    objc_msgSend_spotlightHostedContentMetrics(spotlightMultiplexingViewController, a2);
   }
 
   keyboardHeight = self->_hostedContentMetrics.keyboardHeight;
@@ -908,59 +908,50 @@ id __84__SBSpotlightPresentableViewController_initWithSpotlightMultiplexingViewC
     self->_searchAffordanceReferenceFrame.origin.y = v8;
     self->_searchAffordanceReferenceFrame.size.width = v9;
     self->_searchAffordanceReferenceFrame.size.height = v10;
-    v43 = 0;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
-    v40 = 0u;
+    v38 = 0;
+    v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     presentationProgress = self->_presentationProgress;
     presentationOffset = self->_presentationOffset;
-    presentationState = self->_presentationState;
-    v37 = 0u;
-    v38 = 0u;
-    previousPresentationState = self->_previousPresentationState;
-    v35 = 0u;
-    v36 = 0u;
-    anticipatedPresentationState = self->_anticipatedPresentationState;
-    v33 = 0;
-    v34 = 0u;
-    searchAffordancePresentationState = self->_searchAffordancePresentationState;
+    v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
     v31 = 0u;
-    v32 = 0;
-    searchBarSize = self->_hostedContentMetrics.searchBarSize;
-    v18 = *&self->_hostedContentMetrics.keyboardHeight;
-    v19 = searchBarSize;
-    dockedSearchBarSize = self->_hostedContentMetrics.dockedSearchBarSize;
-    *&v21 = self->_hostedContentMetrics.searchBarCornerRadius;
-    [(SBSpotlightPresentableViewController *)self _presentationMetricsWithProgress:presentationState offset:previousPresentationState velocity:anticipatedPresentationState presentationState:presentationState previousPresentationState:searchAffordancePresentationState anticipatedPresentationState:&v18 searchContentPresentationState:presentationProgress searchAffordancePresentationState:presentationOffset hostedContentMetrics:0.0];
-    v28 = v41;
-    v29 = v42;
-    v30 = v43;
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    objc_msgSend__presentationMetricsWithProgress_offset_velocity_presentationState_previousPresentationState_anticipatedPresentationState_searchContentPresentationState_searchAffordancePresentationState_hostedContentMetrics_(self, presentationProgress, presentationOffset, 0.0, *&self->_hostedContentMetrics.keyboardHeight, *&self->_hostedContentMetrics.keyboardProtectorHeight, *&self->_hostedContentMetrics.searchBarSize.width, *&self->_hostedContentMetrics.searchBarSize.height, *&self->_hostedContentMetrics.dockedSearchBarSize.width, *&self->_hostedContentMetrics.dockedSearchBarSize.height, *&self->_hostedContentMetrics.searchBarCornerRadius);
+    v23 = v36;
     v24 = v37;
     v25 = v38;
-    v26 = v39;
-    v27 = v40;
-    dockedSearchBarSize = v33;
+    v19 = v32;
+    v20 = v33;
     v21 = v34;
     v22 = v35;
-    v23 = v36;
+    v15 = v28;
+    v16 = v29;
+    v17 = v30;
     v18 = v31;
-    v19 = v32;
-    [(SBSpotlightPresentableViewController *)self _layoutSearchAffordanceWithMetrics:&v18];
-    v28 = v41;
-    v29 = v42;
-    v30 = v43;
+    v13 = v26;
+    v14 = v27;
+    [(SBSpotlightPresentableViewController *)self _layoutSearchAffordanceWithMetrics:&v13];
+    v23 = v36;
     v24 = v37;
     v25 = v38;
-    v26 = v39;
-    v27 = v40;
-    dockedSearchBarSize = v33;
+    v19 = v32;
+    v20 = v33;
     v21 = v34;
     v22 = v35;
-    v23 = v36;
+    v15 = v28;
+    v16 = v29;
+    v17 = v30;
     v18 = v31;
-    v19 = v32;
-    [(SBSpotlightPresentableViewController *)self _positionKeyboardAlignedElementsWithMetrics:&v18];
+    v13 = v26;
+    v14 = v27;
+    [(SBSpotlightPresentableViewController *)self _positionKeyboardAlignedElementsWithMetrics:&v13];
   }
 }
 
@@ -998,11 +989,11 @@ id __84__SBSpotlightPresentableViewController_initWithSpotlightMultiplexingViewC
   [MEMORY[0x277D75D18] sb_animateWithSettings:scaleSettings mode:v7 animations:v11 completion:v9];
 }
 
-uint64_t __70__SBSpotlightPresentableViewController_setSpotlightScale_interactive___block_invoke_2(uint64_t result)
+id *__70__SBSpotlightPresentableViewController_setSpotlightScale_interactive___block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _setCornerRounded:0];
+    return [result[4] _setCornerRounded:0];
   }
 
   return result;
@@ -1181,17 +1172,17 @@ LABEL_10:
 {
   view = [(SBSpotlightPresentableViewController *)self view];
   searchBackgroundView = self->_searchBackgroundView;
-  v31 = view;
+  v29 = view;
   [view bounds];
   [(SBSpotlightBackgroundWeighting *)searchBackgroundView setFrame:?];
   isSearchContentAvailable = [(SBSpotlightMultiplexingViewController *)self->_spotlightMultiplexingViewController isSearchContentAvailable];
-  v16 = [(NSMutableSet *)self->_searchBarPortalRequirementReasons count];
+  v15 = [(NSMutableSet *)self->_searchBarPortalRequirementReasons count];
   self->_searchContentFadeInStartValue = 0.0;
   if (state == 2)
   {
-    v17 = (v16 != 0) & ~isSearchContentAvailable;
-    self->_waitingForSearchContentAvailabilityForFadeIn = v17;
-    if (v17 && !self->_searchBarPortalView)
+    v16 = (v15 != 0) & ~isSearchContentAvailable;
+    self->_waitingForSearchContentAvailabilityForFadeIn = v16;
+    if (v16 && !self->_searchBarPortalView)
     {
       stateCopy = 2 * (self->_searchBarBackgroundPortalView != 0);
     }
@@ -1208,39 +1199,38 @@ LABEL_10:
     stateCopy = state;
   }
 
-  v19 = self->_outstandingAnimationCount != 0;
+  v18 = self->_outstandingAnimationCount != 0;
   searchAffordancePresentationState = self->_searchAffordancePresentationState;
-  v21 = [(SBSpotlightPresentableViewController *)self _searchAffordancePresentationStateWithOffset:state presentationState:searchAffordancePresentationState previousSearchAffordancePresentationState:offset];
-  v72 = 0;
-  v70 = 0u;
-  v71 = 0u;
+  v20 = [(SBSpotlightPresentableViewController *)self _searchAffordancePresentationStateWithOffset:state presentationState:searchAffordancePresentationState previousSearchAffordancePresentationState:offset];
+  v70 = 0;
   v68 = 0u;
   v69 = 0u;
   v66 = 0u;
   v67 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v62 = 0;
+  v62 = 0u;
   v63 = 0u;
-  anticipatedPresentationState = self->_anticipatedPresentationState;
-  v60 = 0u;
-  v61 = 0;
+  v60 = 0;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0;
   searchBarSize = self->_hostedContentMetrics.searchBarSize;
-  v47 = *&self->_hostedContentMetrics.keyboardHeight;
-  v48 = searchBarSize;
+  v45 = *&self->_hostedContentMetrics.keyboardHeight;
+  v46 = searchBarSize;
   dockedSearchBarSize = self->_hostedContentMetrics.dockedSearchBarSize;
-  *&v50 = self->_hostedContentMetrics.searchBarCornerRadius;
-  [(SBSpotlightPresentableViewController *)self _presentationMetricsWithProgress:state offset:presentationState velocity:anticipatedPresentationState presentationState:stateCopy previousPresentationState:v21 anticipatedPresentationState:&v47 searchContentPresentationState:progress searchAffordancePresentationState:offset hostedContentMetrics:velocity];
-  v24 = stateCopy == 1 && v19;
-  if (stateCopy != 1 || v21 == searchAffordancePresentationState || v21 == 1)
+  *&v48 = self->_hostedContentMetrics.searchBarCornerRadius;
+  objc_msgSend__presentationMetricsWithProgress_offset_velocity_presentationState_previousPresentationState_anticipatedPresentationState_searchContentPresentationState_searchAffordancePresentationState_hostedContentMetrics_(self, progress, offset, velocity);
+  v22 = stateCopy == 1 && v18;
+  if (stateCopy != 1 || v20 == searchAffordancePresentationState || v20 == 1)
   {
-    v26 = v24 ^ 1;
-    if (v21 != 2)
+    v24 = v22 ^ 1;
+    if (v20 != 2)
     {
-      v26 = 1;
+      v24 = 1;
     }
 
-    if ((v26 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
       layer = [(UIView *)self->_keyboardView layer];
       presentationLayer = [layer presentationLayer];
@@ -1248,111 +1238,111 @@ LABEL_10:
       if (presentationLayer)
       {
         [presentationLayer position];
-        v24 = BSFloatGreaterThanOrEqualToFloat() ^ 1;
+        v22 = BSFloatGreaterThanOrEqualToFloat() ^ 1;
       }
 
       else
       {
-        v24 = 1;
+        v22 = 1;
       }
     }
 
-    v25 = 4;
+    v23 = 4;
   }
 
   else
   {
-    v24 = 1;
-    v25 = 3;
+    v22 = 1;
+    v23 = 3;
   }
 
-  v57 = v70;
-  v58 = v71;
-  v59 = v72;
-  v53 = v66;
-  v54 = v67;
   v55 = v68;
   v56 = v69;
-  dockedSearchBarSize = v62;
-  v50 = v63;
+  v57 = v70;
   v51 = v64;
   v52 = v65;
-  v47 = v60;
+  v53 = v66;
+  v54 = v67;
+  dockedSearchBarSize = v60;
   v48 = v61;
-  [(SBSpotlightPresentableViewController *)self _layoutSearchContentWithMetrics:&v47];
-  self->_searchAffordancePresentationState = v21;
+  v49 = v62;
+  v50 = v63;
+  v45 = v58;
+  v46 = v59;
+  [(SBSpotlightPresentableViewController *)self _layoutSearchContentWithMetrics:&v45];
+  self->_searchAffordancePresentationState = v20;
   self->_keyboardFadeInStartValue = 0.0;
-  if (v21 == 2)
+  if (v20 == 2)
   {
-    v29 = ![(SBSpotlightMultiplexingViewController *)self->_spotlightMultiplexingViewController externalKeyboardViewContainsKeyboard];
+    v27 = ![(SBSpotlightMultiplexingViewController *)self->_spotlightMultiplexingViewController externalKeyboardViewContainsKeyboard];
   }
 
   else
   {
-    v29 = 0;
+    v27 = 0;
   }
 
-  self->_waitingForKeyboardPresentationForFadeIn = v29;
-  if (v24)
+  self->_waitingForKeyboardPresentationForFadeIn = v27;
+  if (v22)
   {
     ++self->_outstandingAnimationCount;
     searchAnimationSettings = self->_searchAnimationSettings;
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v43 = v69;
-    v44 = v70;
-    v45 = v71;
-    v39 = v65;
-    v40 = v66;
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
     v41 = v67;
     v42 = v68;
-    v35 = v61;
-    v36 = v62;
+    v43 = v69;
     v37 = v63;
     v38 = v64;
-    v33[2] = __132__SBSpotlightPresentableViewController__updatePresentationProgress_withOffset_velocity_presentationState_previousPresentationState___block_invoke;
-    v33[3] = &unk_2783C1478;
-    v33[4] = self;
-    v46 = v72;
+    v39 = v65;
+    v40 = v66;
+    v33 = v59;
     v34 = v60;
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __132__SBSpotlightPresentableViewController__updatePresentationProgress_withOffset_velocity_presentationState_previousPresentationState___block_invoke_2;
-    v32[3] = &unk_2783AE4B8;
-    v32[4] = self;
-    [MEMORY[0x277D75D18] sb_animateWithSettings:searchAnimationSettings mode:v25 animations:v33 completion:v32];
+    v35 = v61;
+    v36 = v62;
+    v31[2] = __132__SBSpotlightPresentableViewController__updatePresentationProgress_withOffset_velocity_presentationState_previousPresentationState___block_invoke;
+    v31[3] = &unk_2783C1478;
+    v31[4] = self;
+    v44 = v70;
+    v32 = v58;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = __132__SBSpotlightPresentableViewController__updatePresentationProgress_withOffset_velocity_presentationState_previousPresentationState___block_invoke_2;
+    v30[3] = &unk_2783AE4B8;
+    v30[4] = self;
+    [MEMORY[0x277D75D18] sb_animateWithSettings:searchAnimationSettings mode:v23 animations:v31 completion:v30];
   }
 
   else
   {
-    v57 = v70;
-    v58 = v71;
-    v59 = v72;
-    v53 = v66;
-    v54 = v67;
     v55 = v68;
     v56 = v69;
-    dockedSearchBarSize = v62;
-    v50 = v63;
+    v57 = v70;
     v51 = v64;
     v52 = v65;
-    v47 = v60;
-    v48 = v61;
-    [(SBSpotlightPresentableViewController *)self _layoutSearchAffordanceWithMetrics:&v47];
-    v57 = v70;
-    v58 = v71;
-    v59 = v72;
     v53 = v66;
     v54 = v67;
+    dockedSearchBarSize = v60;
+    v48 = v61;
+    v49 = v62;
+    v50 = v63;
+    v45 = v58;
+    v46 = v59;
+    [(SBSpotlightPresentableViewController *)self _layoutSearchAffordanceWithMetrics:&v45];
     v55 = v68;
     v56 = v69;
-    dockedSearchBarSize = v62;
-    v50 = v63;
+    v57 = v70;
     v51 = v64;
     v52 = v65;
-    v47 = v60;
+    v53 = v66;
+    v54 = v67;
+    dockedSearchBarSize = v60;
     v48 = v61;
-    [(SBSpotlightPresentableViewController *)self _positionKeyboardAlignedElementsWithMetrics:&v47];
+    v49 = v62;
+    v50 = v63;
+    v45 = v58;
+    v46 = v59;
+    [(SBSpotlightPresentableViewController *)self _positionKeyboardAlignedElementsWithMetrics:&v45];
   }
 }
 
@@ -1645,9 +1635,9 @@ uint64_t __132__SBSpotlightPresentableViewController__updatePresentationProgress
   (v16)[2](v16, self->_homeAffordance);
 }
 
-uint64_t __84__SBSpotlightPresentableViewController__positionKeyboardAlignedElementsWithMetrics___block_invoke(uint64_t result, void *a2)
+void *__84__SBSpotlightPresentableViewController__positionKeyboardAlignedElementsWithMetrics___block_invoke(void *result, void *a2)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if (v2)
   {
     return [a2 _setVelocity:v2 forKey:@"position"];
@@ -2356,54 +2346,51 @@ void __115__SBSpotlightPresentableViewController_willBeginModifyingPresentationP
       [v3[137] alpha];
       if ((BSFloatEqualToFloat() & 1) == 0)
       {
-        v43 = 0;
-        v41 = 0u;
-        v42 = 0u;
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
+        v40 = 0;
         v38 = 0u;
-        v35 = 0u;
+        v39 = 0u;
         v36 = 0u;
-        v33 = 0u;
+        v37 = 0u;
         v34 = 0u;
-        v31 = 0u;
+        v35 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
+        v28 = 0u;
+        v29 = 0u;
         v4 = *(a1 + 40);
-        v5 = *(v4 + 1216);
-        v6 = *(v4 + 1208);
-        v7 = *(v4 + 1200);
-        v8 = *(v4 + 1192);
-        v9 = *(v4 + 1184);
-        v10 = *(v4 + 1608);
-        v11 = *(v4 + 1624);
-        v12 = *(v4 + 1640);
-        v30 = *(v4 + 1656);
-        v29[1] = v11;
-        v29[2] = v12;
-        v29[0] = v10;
-        [v3 _presentationMetricsWithProgress:v7 offset:v6 velocity:v5 presentationState:v7 previousPresentationState:v7 anticipatedPresentationState:v29 searchContentPresentationState:v9 searchAffordancePresentationState:v8 hostedContentMetrics:0.0];
-        v13 = MEMORY[0x277D75D18];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __115__SBSpotlightPresentableViewController_willBeginModifyingPresentationProgressForState_animated_needsInitialLayout___block_invoke_2;
-        v14[3] = &unk_2783C14C8;
-        v14[4] = *(a1 + 40);
-        v15 = v3;
-        v26 = v41;
-        v27 = v42;
-        v28 = v43;
-        v22 = v37;
+        v5 = *(v4 + 1192);
+        v6 = *(v4 + 1184);
+        v7 = *(v4 + 1608);
+        v8 = *(v4 + 1624);
+        v9 = *(v4 + 1640);
+        v27 = *(v4 + 1656);
+        v26[1] = v8;
+        v26[2] = v9;
+        v26[0] = v7;
+        objc_msgSend__presentationMetricsWithProgress_offset_velocity_presentationState_previousPresentationState_anticipatedPresentationState_searchContentPresentationState_searchAffordancePresentationState_hostedContentMetrics_(v3, v6, v5, 0.0);
+        v10 = MEMORY[0x277D75D18];
+        v11[0] = MEMORY[0x277D85DD0];
+        v11[1] = 3221225472;
+        v11[2] = __115__SBSpotlightPresentableViewController_willBeginModifyingPresentationProgressForState_animated_needsInitialLayout___block_invoke_2;
+        v11[3] = &unk_2783C14C8;
+        v11[4] = *(a1 + 40);
+        v12 = v3;
         v23 = v38;
-        v25 = v40;
         v24 = v39;
-        v18 = v33;
+        v25 = v40;
         v19 = v34;
-        v21 = v36;
         v20 = v35;
-        v17 = v32;
+        v22 = v37;
+        v21 = v36;
+        v15 = v30;
         v16 = v31;
-        [v13 performWithoutAnimation:v14];
+        v18 = v33;
+        v17 = v32;
+        v14 = v29;
+        v13 = v28;
+        [v10 performWithoutAnimation:v11];
       }
     }
   }
@@ -2485,7 +2472,7 @@ uint64_t __115__SBSpotlightPresentableViewController_willBeginModifyingPresentat
       {
         if (![(SBSpotlightPresentableViewController *)self _setUpHostedContentMetrics])
         {
-          goto LABEL_17;
+          goto LABEL_14;
         }
 
         v8 = 0;
@@ -2499,25 +2486,25 @@ uint64_t __115__SBSpotlightPresentableViewController_willBeginModifyingPresentat
 
       [(SBSpotlightPresentableViewController *)self _beginRequiringSearchBarPortalViewForReason:@"SBWaitingForSearchBarPortalReason"];
       presentationState = self->_presentationState;
-      if ((v8 & 1) == 0 && presentationState != 1 || ((v10 = self->_searchAffordanceReferenceView != 0, v50 = 0, v48 = 0u, v49 = 0u, presentationState == 1) ? (v11 = 1) : (v11 = 2), v46 = 0uLL, v47 = 0uLL, v44 = 0uLL, v45 = 0uLL, presentationProgress = self->_presentationProgress, v42 = 0uLL, v43 = 0uLL, presentationOffset = self->_presentationOffset, v40 = 0uLL, v41 = 0uLL, previousPresentationState = self->_previousPresentationState, v38 = 0uLL, v39 = 0uLL, searchBarSize = self->_hostedContentMetrics.searchBarSize, v36[0] = *&self->_hostedContentMetrics.keyboardHeight, v36[1] = searchBarSize, v36[2] = self->_hostedContentMetrics.dockedSearchBarSize, searchBarCornerRadius = self->_hostedContentMetrics.searchBarCornerRadius, -[SBSpotlightPresentableViewController _presentationMetricsWithProgress:offset:velocity:presentationState:previousPresentationState:anticipatedPresentationState:searchContentPresentationState:searchAffordancePresentationState:hostedContentMetrics:](self, "_presentationMetricsWithProgress:offset:velocity:presentationState:previousPresentationState:anticipatedPresentationState:searchContentPresentationState:searchAffordancePresentationState:hostedContentMetrics:", v11, previousPresentationState, v11, presentationState == 1, v10, v36, presentationProgress, presentationOffset, 0.0), v16 = self->_searchAnimationSettings, v22[0] = MEMORY[0x277D85DD0], v22[1] = 3221225472, v32 = v47, v33 = v48, v34 = v49, v28 = v43, v29 = v44, v30 = v45, v31 = v46, v24 = v39, v25 = v40, v26 = v41, v27 = v42, v22[2] = __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke, v22[3] = &unk_2783C1478, v22[4] = self, v35 = v50, v23 = v38, v20[0] = MEMORY[0x277D85DD0], v20[1] = 3221225472, v20[2] = __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke_2, v20[3] = &unk_2783AD430, v21 = presentationState == 1, v20[4] = self, [MEMORY[0x277D75D18] sb_animateWithSettings:v16 mode:2 animations:v22 completion:v20], presentationState != 1))
+      if ((v8 & 1) == 0 && presentationState != 1 || (v49 = 0, v47 = 0u, v48 = 0u, v45 = 0uLL, v46 = 0uLL, v43 = 0uLL, v44 = 0uLL, presentationProgress = self->_presentationProgress, v41 = 0uLL, v42 = 0uLL, presentationOffset = self->_presentationOffset, v39 = 0uLL, v40 = 0uLL, v37 = 0uLL, v38 = 0uLL, searchBarSize = self->_hostedContentMetrics.searchBarSize, v33 = *&self->_hostedContentMetrics.keyboardHeight, v34 = searchBarSize, dockedSearchBarSize = self->_hostedContentMetrics.dockedSearchBarSize, searchBarCornerRadius = self->_hostedContentMetrics.searchBarCornerRadius, objc_msgSend__presentationMetricsWithProgress_offset_velocity_presentationState_previousPresentationState_anticipatedPresentationState_searchContentPresentationState_searchAffordancePresentationState_hostedContentMetrics_(self, presentationProgress, presentationOffset, 0.0), v13 = self->_searchAnimationSettings, v19[0] = MEMORY[0x277D85DD0], v19[1] = 3221225472, v29 = v46, v30 = v47, v31 = v48, v25 = v42, v26 = v43, v27 = v44, v28 = v45, v21 = v38, v22 = v39, v23 = v40, v24 = v41, v19[2] = __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke, v19[3] = &unk_2783C1478, v19[4] = self, v32 = v49, v20 = v37, v17[0] = MEMORY[0x277D85DD0], v17[1] = 3221225472, v17[2] = __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke_2, v17[3] = &unk_2783AD430, v18 = presentationState == 1, v17[4] = self, [MEMORY[0x277D75D18] sb_animateWithSettings:v13 mode:2 animations:v19 completion:v17], presentationState != 1))
       {
         searchAnimationSettings = self->_searchAnimationSettings;
-        v18[4] = self;
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke_3;
-        v19[3] = &unk_2783A8C18;
-        v19[4] = self;
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke_4;
-        v18[3] = &unk_2783AE4B8;
-        [MEMORY[0x277D75D18] sb_animateWithSettings:searchAnimationSettings mode:3 animations:v19 completion:v18];
+        v15[4] = self;
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke_3;
+        v16[3] = &unk_2783A8C18;
+        v16[4] = self;
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke_4;
+        v15[3] = &unk_2783AE4B8;
+        [MEMORY[0x277D75D18] sb_animateWithSettings:searchAnimationSettings mode:3 animations:v16 completion:v15];
       }
     }
   }
 
-LABEL_17:
+LABEL_14:
 }
 
 uint64_t __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke(uint64_t a1)
@@ -2545,11 +2532,11 @@ uint64_t __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewCo
   return [v1 _layoutWithMetrics:v9];
 }
 
-uint64_t __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke_2(uint64_t result)
+id *__111__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_searchContentAvailabilityDidChange___block_invoke_2(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) _endRequiringSearchBarPortalViewForReason:@"SBWaitingForSearchBarPortalReason"];
+    return [result[4] _endRequiringSearchBarPortalViewForReason:@"SBWaitingForSearchBarPortalReason"];
   }
 
   return result;
@@ -2573,9 +2560,7 @@ uint64_t __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewCo
       [(SBSpotlightPresentableViewController *)self _setUpHostedContentMetrics];
       if ((BSFloatEqualToFloat() & 1) == 0)
       {
-        v47 = 0;
-        v45 = 0u;
-        v46 = 0u;
+        v45 = 0;
         v43 = 0u;
         v44 = 0u;
         v41 = 0u;
@@ -2586,55 +2571,53 @@ uint64_t __111__SBSpotlightPresentableViewController_spotlightMultiplexingViewCo
         v38 = 0u;
         v35 = 0u;
         v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         presentationProgress = self->_presentationProgress;
         presentationOffset = self->_presentationOffset;
-        presentationState = self->_presentationState;
-        previousPresentationState = self->_previousPresentationState;
-        anticipatedPresentationState = self->_anticipatedPresentationState;
-        searchAffordancePresentationState = self->_searchAffordancePresentationState;
         searchBarSize = self->_hostedContentMetrics.searchBarSize;
-        v33[0] = *&self->_hostedContentMetrics.keyboardHeight;
-        v33[1] = searchBarSize;
-        v33[2] = self->_hostedContentMetrics.dockedSearchBarSize;
+        v29 = *&self->_hostedContentMetrics.keyboardHeight;
+        v30 = searchBarSize;
+        dockedSearchBarSize = self->_hostedContentMetrics.dockedSearchBarSize;
         searchBarCornerRadius = self->_hostedContentMetrics.searchBarCornerRadius;
-        [(SBSpotlightPresentableViewController *)self _presentationMetricsWithProgress:presentationState offset:previousPresentationState velocity:anticipatedPresentationState presentationState:presentationState previousPresentationState:searchAffordancePresentationState anticipatedPresentationState:v33 searchContentPresentationState:presentationProgress searchAffordancePresentationState:presentationOffset hostedContentMetrics:0.0];
+        objc_msgSend__presentationMetricsWithProgress_offset_velocity_presentationState_previousPresentationState_anticipatedPresentationState_searchContentPresentationState_searchAffordancePresentationState_hostedContentMetrics_(self, presentationProgress, presentationOffset, 0.0);
         [(SBSpotlightPresentableViewController *)self _beginRequiringSearchBarPortalViewForReason:@"SBKeyboardAdjustmentAnimationReason"];
-        v15 = self->_presentationState;
+        presentationState = self->_presentationState;
         searchAnimationSettings = self->_searchAnimationSettings;
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v29 = v44;
-        v30 = v45;
-        v31 = v46;
-        v25 = v40;
-        v26 = v41;
-        v27 = v42;
-        v28 = v43;
-        v21 = v36;
-        v22 = v37;
-        v23 = v38;
-        v24 = v39;
-        if (v15 == 1)
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v25 = 0u;
+        v26 = 0u;
+        v27 = 0u;
+        v21 = 0u;
+        v22 = 0u;
+        v23 = 0u;
+        v24 = 0u;
+        v17 = 0u;
+        v18 = 0u;
+        v19 = 0u;
+        v20 = 0u;
+        if (presentationState == 1)
         {
-          v17 = 2;
+          v13 = 2;
         }
 
         else
         {
-          v17 = 3;
+          v13 = 3;
         }
 
-        v19[2] = __122__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_externalKeyboardViewContainsKeyboardDidChange___block_invoke;
-        v19[3] = &unk_2783C1478;
-        v19[4] = self;
-        v32 = v47;
-        v20 = v35;
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __122__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_externalKeyboardViewContainsKeyboardDidChange___block_invoke_2;
-        v18[3] = &unk_2783AE4B8;
-        v18[4] = self;
-        [MEMORY[0x277D75D18] sb_animateWithSettings:searchAnimationSettings mode:v17 animations:v19 completion:v18];
+        v15[2] = __122__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_externalKeyboardViewContainsKeyboardDidChange___block_invoke;
+        v15[3] = &unk_2783C1478;
+        v15[4] = self;
+        v28 = v45;
+        v16 = v33;
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __122__SBSpotlightPresentableViewController_spotlightMultiplexingViewController_externalKeyboardViewContainsKeyboardDidChange___block_invoke_2;
+        v14[3] = &unk_2783AE4B8;
+        v14[4] = self;
+        [MEMORY[0x277D75D18] sb_animateWithSettings:searchAnimationSettings mode:v13 animations:v15 completion:v14];
       }
     }
   }

@@ -109,10 +109,7 @@
 
 - (void)setBundleID:(id)d
 {
-  v4 = [d copy];
-  accessControlEntryInternal = self->_accessControlEntryInternal;
-  v6 = accessControlEntryInternal[1];
-  accessControlEntryInternal[1] = v4;
+  *(self->_accessControlEntryInternal + 1) = [d copy];
 
   MEMORY[0x2821F96F8]();
 }

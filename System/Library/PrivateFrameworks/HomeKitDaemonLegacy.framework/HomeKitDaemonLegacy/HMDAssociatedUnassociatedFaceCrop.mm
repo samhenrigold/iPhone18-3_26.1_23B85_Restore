@@ -19,7 +19,7 @@
   v7 = [v5 initWithName:@"Person Face Crop UUID" value:personFaceCropUUID];
   [v4 addObject:v7];
 
-  v8 = [v4 copy];
+  v8 = objc_msgSend_copy(v4);
 
   return v8;
 }
@@ -105,7 +105,7 @@ LABEL_11:
   height = [(HMDAssociatedUnassociatedFaceCrop *)&v25 initWithUUID:dCopy dataRepresentation:representationCopy dateCreated:createdCopy faceBoundingBox:x, y, width, height];
   if (height)
   {
-    v21 = [v19 copy];
+    v21 = objc_msgSend_copy(v19);
     personFaceCropUUID = height->_personFaceCropUUID;
     height->_personFaceCropUUID = v21;
   }

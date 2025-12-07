@@ -2,6 +2,7 @@
 - (_TtC14PASViewService26PASVSPrimaryViewController)initWithNibName:(id)name bundle:(id)bundle;
 - (void)configureWithContext:(id)context completion:(id)completion;
 - (void)didInvalidateForRemoteAlert;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PASVSPrimaryViewController
@@ -24,7 +25,17 @@
   contextCopy = context;
   selfCopy = self;
   sub_10000FDEC(context, v6, v7);
-  sub_100015794(v6);
+  sub_100015794(v6, v7);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for PASVSPrimaryViewController(0);
+  v4 = v5.receiver;
+  [(PASVSPrimaryViewController *)&v5 viewDidAppear:appearCopy];
+  sub_100012960();
 }
 
 - (void)didInvalidateForRemoteAlert

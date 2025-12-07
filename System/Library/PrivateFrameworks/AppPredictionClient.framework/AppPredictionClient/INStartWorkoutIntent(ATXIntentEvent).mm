@@ -20,7 +20,7 @@
     v10 = goalValue2;
     if (goalValue2)
     {
-      [goalValue2 decimalValue];
+      objc_msgSend_decimalValue(goalValue2);
     }
 
     else

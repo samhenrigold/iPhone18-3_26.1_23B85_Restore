@@ -8,13 +8,13 @@
 {
   v3 = sub_1BA4A1018();
   v4 = *(v3 - 8);
-  MEMORY[0x1EEE9AC00](v3);
-  v6 = &v7 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3, v5);
+  v7 = &v8 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BA4A0FC8();
 
   sub_1BA223460();
 
-  (*(v4 + 8))(v6, v3);
+  (*(v4 + 8))(v7, v3);
 }
 
 @end

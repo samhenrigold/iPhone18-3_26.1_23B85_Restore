@@ -11,7 +11,7 @@
 - (CHSpotlightReindexManager)initWithSpotlightIndexManager:(id)manager
 {
   managerCopy = manager;
-  v4 = sub_10002C350();
+  v4 = sub_10002C350(managerCopy);
 
   return v4;
 }

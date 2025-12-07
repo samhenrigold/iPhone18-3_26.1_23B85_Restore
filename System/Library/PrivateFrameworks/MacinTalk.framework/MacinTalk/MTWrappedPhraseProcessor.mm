@@ -6,6 +6,9 @@
 - (id)nextBuffer;
 - (void)dealloc;
 - (void)finishedSampleGeneration;
+- (void)generatedSampleForPhoneme:(signed __int16)phoneme;
+- (void)generatedSampleForSync:(unsigned int)sync;
+- (void)generatedSampleForWord:(unint64_t)word length:(unsigned __int16)length;
 - (void)setPitchModulation:(id)modulation;
 @end
 
@@ -86,6 +89,27 @@ uint64_t __38__MTWrappedPhraseProcessor_nextBuffer__block_invoke(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)generatedSampleForWord:(unint64_t)word length:(unsigned __int16)length
+{
+  lengthCopy = length;
+  delegate = [(MTWrappedPhraseProcessor *)self delegate];
+  [delegate didGenerateSamplesForWord:-[MTWrappedPhraseProcessor currentSampleCount](self stringPosition:"currentSampleCount") length:{word, lengthCopy}];
+}
+
+- (void)generatedSampleForPhoneme:(signed __int16)phoneme
+{
+  phonemeCopy = phoneme;
+  delegate = [(MTWrappedPhraseProcessor *)self delegate];
+  [delegate didGenerateSamplesForPhoneme:-[MTWrappedPhraseProcessor currentSampleCount](self phonemeOpcode:{"currentSampleCount"), phonemeCopy}];
+}
+
+- (void)generatedSampleForSync:(unsigned int)sync
+{
+  v3 = *&sync;
+  delegate = [(MTWrappedPhraseProcessor *)self delegate];
+  [delegate didGenerateSamplesForSync:-[MTWrappedPhraseProcessor currentSampleCount](self message:{"currentSampleCount"), v3}];
 }
 
 - (void)finishedSampleGeneration

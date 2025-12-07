@@ -1,52 +1,14 @@
 @interface MCMCommandOpenPrimordialDataContainer
 + (Class)incomingMessageClass;
-+ (unint64_t)command;
-- (BOOL)extension;
-- (BOOL)preflightClientAllowed;
-- (BOOL)testMode;
 - (MCMCommandOpenPrimordialDataContainer)initWithMessage:(id)message context:(id)context reply:(id)reply;
-- (MCMContainerIdentity)containerIdentity;
-- (MCMError)error;
 - (void)execute;
 @end
 
 @implementation MCMCommandOpenPrimordialDataContainer
 
-- (BOOL)extension
-{
-  result = self->_extension;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (BOOL)testMode
-{
-  result = self->_testMode;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMError)error
-{
-  result = self->_error;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMContainerIdentity)containerIdentity
-{
-  result = self->_containerIdentity;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)execute
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = container_log_handle_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
@@ -59,25 +21,25 @@
     containerClass = [containerIdentity containerClass];
     containerIdentity2 = [(MCMCommandOpenPrimordialDataContainer *)self containerIdentity];
     [containerIdentity2 identifier];
-    v41 = v40 = v3;
+    v40 = v39 = v3;
     extension = [(MCMCommandOpenPrimordialDataContainer *)self extension];
-    v43 = "app";
+    v42 = "app";
     *buf = 138544130;
     *&buf[12] = 2048;
     *&buf[4] = identifier;
     if (extension)
     {
-      v43 = "extension";
+      v42 = "extension";
     }
 
     *&buf[14] = containerClass;
     *&buf[22] = 2114;
-    *&buf[24] = v41;
-    v55 = 2082;
-    v56 = v43;
+    *&buf[24] = v40;
+    v54 = 2082;
+    v55 = v42;
     _os_log_debug_impl(&dword_1DF2C3000, v4, OS_LOG_TYPE_DEBUG, "Fetching primordial container for '%{public}@' with identifier '%llu:%{public}@' (%{public}s)", buf, 0x2Au);
 
-    v3 = v40;
+    v3 = v39;
   }
 
   error = [(MCMCommandOpenPrimordialDataContainer *)self error];
@@ -103,9 +65,9 @@ LABEL_5:
   context2 = [(MCMCommand *)self context];
   containerFactory = [context2 containerFactory];
   containerIdentity3 = [(MCMCommandOpenPrimordialDataContainer *)self containerIdentity];
-  v53 = 0;
-  v8 = [containerFactory containerForContainerIdentity:containerIdentity3 createIfNecessary:1 error:&v53];
-  error2 = v53;
+  v52 = 0;
+  v8 = [containerFactory containerForContainerIdentity:containerIdentity3 createIfNecessary:1 error:&v52];
+  error2 = v52;
 
   if (!v8)
   {
@@ -127,7 +89,7 @@ LABEL_5:
     v30 = proximateClient;
     if (proximateClient)
     {
-      [proximateClient auditToken];
+      objc_msgSend_auditToken(proximateClient);
     }
 
     else
@@ -136,27 +98,27 @@ LABEL_5:
     }
 
     [containerDataURL fileSystemRepresentation];
-    v44 = sandbox_set_container_path_for_audit_token();
+    v43 = sandbox_set_container_path_for_audit_token();
 
-    if (v44)
+    if (v43)
     {
       v8 = v26;
       if (![(MCMCommandOpenPrimordialDataContainer *)self testMode]&& ((_os_feature_enabled_impl() & 1) != 0 || (_os_feature_enabled_impl() & 1) == 0 && *__error() != 45))
       {
-        v45 = container_log_handle_for_category();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_FAULT))
+        v44 = container_log_handle_for_category();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
         {
-          v47 = *__error();
+          v46 = *__error();
           *buf = 67109376;
-          *&buf[4] = v44;
+          *&buf[4] = v43;
           *&buf[8] = 1024;
-          *&buf[10] = v47;
-          _os_log_fault_impl(&dword_1DF2C3000, v45, OS_LOG_TYPE_FAULT, "sandbox_set_container_path_for_audit_token() failed with error %d / %d.", buf, 0xEu);
+          *&buf[10] = v46;
+          _os_log_fault_impl(&dword_1DF2C3000, v44, OS_LOG_TYPE_FAULT, "sandbox_set_container_path_for_audit_token() failed with error %d / %d.", buf, 0xEu);
         }
 
-        v46 = [[MCMError alloc] initWithErrorType:65];
+        v45 = [[MCMError alloc] initWithErrorType:65];
         containerDataURL = 0;
-        error2 = v46;
+        error2 = v45;
       }
     }
 
@@ -184,12 +146,12 @@ LABEL_6:
 
     context4 = [(MCMCommand *)self context];
     [context4 clientIdentity];
-    v14 = v50 = v8;
+    v14 = v49 = v8;
     codeSignInfo2 = [v14 codeSignInfo];
     identifier2 = [codeSignInfo2 identifier];
     [(MCMCommandOpenPrimordialDataContainer *)self containerIdentity];
     selfCopy = self;
-    v17 = v49 = v3;
+    v17 = v48 = v3;
     [v17 identifier];
     v19 = v18 = existed;
     *buf = 138544130;
@@ -200,15 +162,15 @@ LABEL_6:
     *&buf[14] = identifier2;
     *&buf[22] = 2114;
     *&buf[24] = v19;
-    v55 = 2112;
-    v56 = error2;
+    v54 = 2112;
+    v55 = error2;
     _os_log_impl(&dword_1DF2C3000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ primordial container for '%{public}@' with identifier '%{public}@': error = %@", buf, 0x2Au);
 
     existed = v18;
-    v3 = v49;
+    v3 = v48;
     self = selfCopy;
 
-    v8 = v50;
+    v8 = v49;
   }
 
   if (containerDataURL)
@@ -231,31 +193,23 @@ LABEL_6:
   [resultPromise completeWithResult:v31];
 
   objc_autoreleasePoolPop(v3);
-  v33 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)preflightClientAllowed
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 1;
 }
 
 - (MCMCommandOpenPrimordialDataContainer)initWithMessage:(id)message context:(id)context reply:(id)reply
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   contextCopy = context;
-  v55.receiver = self;
-  v55.super_class = MCMCommandOpenPrimordialDataContainer;
-  v10 = [(MCMCommand *)&v55 initWithMessage:messageCopy context:contextCopy reply:reply];
+  v54.receiver = self;
+  v54.super_class = MCMCommandOpenPrimordialDataContainer;
+  v10 = [(MCMCommand *)&v54 initWithMessage:messageCopy context:contextCopy reply:reply];
   if (v10)
   {
     v11 = messageCopy;
     useCodeSignDatabase = [v11 useCodeSignDatabase];
     clientIdentity = [contextCopy clientIdentity];
     codeSignInfo = [clientIdentity codeSignInfo];
-    v54 = 1;
+    v53 = 1;
     entitlements = [codeSignInfo entitlements];
     containerRequiredIdentifier = [entitlements containerRequiredIdentifier];
 
@@ -270,15 +224,15 @@ LABEL_3:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v57 = containerRequiredIdentifier;
+          v56 = containerRequiredIdentifier;
           _os_log_impl(&dword_1DF2C3000, v18, OS_LOG_TYPE_DEFAULT, "Unknown data container type for identifier (%{public}@), assuming app", buf, 0xCu);
         }
 
         v17 = 2;
       }
 
-      v52 = contextCopy;
-      v53 = codeSignInfo;
+      v51 = contextCopy;
+      v52 = codeSignInfo;
       v10->_extension = v17 == 4;
       context = [(MCMCommand *)v10 context];
       globalConfiguration = [context globalConfiguration];
@@ -286,7 +240,7 @@ LABEL_3:
       v22 = [staticConfig configForContainerClass:v17];
 
       userIdentity = [clientIdentity userIdentity];
-      v51 = messageCopy;
+      v50 = messageCopy;
       if ([userIdentity isNoSpecificPersona])
       {
         userIdentityCache = [contextCopy userIdentityCache];
@@ -298,7 +252,7 @@ LABEL_3:
         clientIdentity = v26;
       }
 
-      codeSignInfo = v53;
+      codeSignInfo = v52;
       if (userIdentity)
       {
         v28 = clientIdentity;
@@ -306,25 +260,25 @@ LABEL_3:
         context2 = [(MCMCommand *)v10 context];
         [context2 userIdentityCache];
         v32 = v31 = v11;
-        codeSignInfo = v53;
+        codeSignInfo = v52;
         v33 = platform;
         clientIdentity = v28;
-        v34 = [MCMContainerIdentity containerIdentityWithUserIdentity:userIdentity identifier:containerRequiredIdentifier containerConfig:v22 platform:v33 transient:0 userIdentityCache:v32 error:&v54];
+        v34 = [MCMContainerIdentity containerIdentityWithUserIdentity:userIdentity identifier:containerRequiredIdentifier containerConfig:v22 platform:v33 transient:0 userIdentityCache:v32 error:&v53];
         containerIdentity = v10->_containerIdentity;
         v10->_containerIdentity = v34;
 
         v11 = v31;
-        if (v54 != 1)
+        if (v53 != 1)
         {
           v36 = [MCMError alloc];
-          v37 = [(MCMError *)v36 initWithErrorType:v54];
+          v37 = [(MCMError *)v36 initWithErrorType:v53];
           error = v10->_error;
           v10->_error = v37;
         }
       }
 
-      messageCopy = v51;
-      contextCopy = v52;
+      messageCopy = v50;
+      contextCopy = v51;
       goto LABEL_23;
     }
 
@@ -338,9 +292,9 @@ LABEL_3:
       {
         posixPID = [clientIdentity posixPID];
         *buf = 138543618;
-        v57 = codeSignInfo;
-        v58 = 1024;
-        v59 = posixPID;
+        v56 = codeSignInfo;
+        v57 = 1024;
+        v58 = posixPID;
         _os_log_impl(&dword_1DF2C3000, v41, OS_LOG_TYPE_DEFAULT, "Client (%{public}@, %d) requests no container with no-container entitlement", buf, 0x12u);
       }
 
@@ -362,7 +316,7 @@ LABEL_3:
       {
         posixPID2 = [clientIdentity posixPID];
         *buf = 67109120;
-        LODWORD(v57) = posixPID2;
+        LODWORD(v56) = posixPID2;
         _os_log_impl(&dword_1DF2C3000, v46, OS_LOG_TYPE_DEFAULT, "No container-required or codesign identifier -- no container possible for client %d", buf, 8u);
       }
 
@@ -376,23 +330,13 @@ LABEL_3:
 LABEL_23:
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 + (Class)incomingMessageClass
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E69E9840];
 
   return objc_opt_class();
-}
-
-+ (unint64_t)command
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return 45;
 }
 
 @end

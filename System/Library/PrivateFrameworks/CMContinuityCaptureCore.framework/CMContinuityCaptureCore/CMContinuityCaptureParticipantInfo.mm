@@ -20,7 +20,7 @@
   identity2 = [participantCopy identity];
 
   displayName = [identity2 displayName];
-  v9 = [(CMContinuityCaptureParticipantInfo *)self initWithSocialProfileIdentifier:identifier displayName:displayName];
+  v9 = [CMContinuityCaptureParticipantInfo initWithSocialProfileIdentifier:"initWithSocialProfileIdentifier:displayName:" displayName:?];
 
   return v9;
 }
@@ -69,10 +69,10 @@ LABEL_3:
 - (CMContinuityCaptureParticipantInfo)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v5 = [dictionaryCopy objectForKey:@"displayName"];
-  v6 = [dictionaryCopy objectForKey:@"socialProfileIdentifier"];
+  v5 = [dictionaryCopy objectForKey:?];
+  v6 = [dictionaryCopy objectForKey:?];
 
-  v7 = [(CMContinuityCaptureParticipantInfo *)self initWithSocialProfileIdentifier:v6 displayName:v5];
+  v7 = [CMContinuityCaptureParticipantInfo initWithSocialProfileIdentifier:"initWithSocialProfileIdentifier:displayName:" displayName:?];
   return v7;
 }
 
@@ -84,11 +84,13 @@ LABEL_3:
   v5 = [(CMContinuityCaptureParticipantInfo *)&v11 init];
   if (v5)
   {
-    v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"socialProfileIdentifier"];
+    objc_opt_class();
+    v6 = [coderCopy decodeObjectOfClass:? forKey:?];
     socialProfileIdentifier = v5->_socialProfileIdentifier;
     v5->_socialProfileIdentifier = v6;
 
-    v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"displayName"];
+    objc_opt_class();
+    v8 = [coderCopy decodeObjectOfClass:? forKey:?];
     displayName = v5->_displayName;
     v5->_displayName = v8;
   }
@@ -100,22 +102,22 @@ LABEL_3:
 {
   coderCopy = coder;
   socialProfileIdentifier = [(CMContinuityCaptureParticipantInfo *)self socialProfileIdentifier];
-  [coderCopy encodeObject:socialProfileIdentifier forKey:@"socialProfileIdentifier"];
+  [coderCopy encodeObject:? forKey:?];
 
   displayName = [(CMContinuityCaptureParticipantInfo *)self displayName];
-  [coderCopy encodeObject:displayName forKey:@"displayName"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
+  v4 = [objc_opt_class() allocWithZone:?];
   socialProfileIdentifier = [(CMContinuityCaptureParticipantInfo *)self socialProfileIdentifier];
   v6 = [socialProfileIdentifier copy];
-  [v4 setSocialProfileIdentifier:v6];
+  [v4 setSocialProfileIdentifier:?];
 
   displayName = [(CMContinuityCaptureParticipantInfo *)self displayName];
   v8 = [displayName copy];
-  [v4 setDisplayName:v8];
+  [v4 setDisplayName:?];
 
   return v4;
 }
@@ -128,35 +130,39 @@ LABEL_3:
     v10 = 1;
   }
 
-  else if ([(CMContinuityCaptureParticipantInfo *)equalCopy isMemberOfClass:objc_opt_class()])
+  else
   {
-    v5 = equalCopy;
-    displayName = [(CMContinuityCaptureParticipantInfo *)self displayName];
-    displayName2 = [(CMContinuityCaptureParticipantInfo *)v5 displayName];
-    if (displayName | displayName2 && ![displayName isEqual:displayName2])
+    objc_opt_class();
+    if ([(CMContinuityCaptureParticipantInfo *)equalCopy isMemberOfClass:?])
     {
-      v10 = 0;
-    }
-
-    else
-    {
-      socialProfileIdentifier = [(CMContinuityCaptureParticipantInfo *)self socialProfileIdentifier];
-      socialProfileIdentifier2 = [(CMContinuityCaptureParticipantInfo *)v5 socialProfileIdentifier];
-      if (socialProfileIdentifier | socialProfileIdentifier2)
+      v5 = equalCopy;
+      displayName = [(CMContinuityCaptureParticipantInfo *)self displayName];
+      displayName2 = [(CMContinuityCaptureParticipantInfo *)v5 displayName];
+      if (displayName | displayName2 && ![displayName isEqual:?])
       {
-        v10 = [socialProfileIdentifier isEqual:socialProfileIdentifier2];
+        v10 = 0;
       }
 
       else
       {
-        v10 = 1;
+        socialProfileIdentifier = [(CMContinuityCaptureParticipantInfo *)self socialProfileIdentifier];
+        socialProfileIdentifier2 = [(CMContinuityCaptureParticipantInfo *)v5 socialProfileIdentifier];
+        if (socialProfileIdentifier | socialProfileIdentifier2)
+        {
+          v10 = [socialProfileIdentifier isEqual:?];
+        }
+
+        else
+        {
+          v10 = 1;
+        }
       }
     }
-  }
 
-  else
-  {
-    v10 = 0;
+    else
+    {
+      v10 = 0;
+    }
   }
 
   return v10;
@@ -167,7 +173,7 @@ LABEL_3:
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   displayName = [(CMContinuityCaptureParticipantInfo *)self displayName];
   socialProfileIdentifier = [(CMContinuityCaptureParticipantInfo *)self socialProfileIdentifier];
-  v6 = [v3 initWithFormat:@"<CMContinuityCaptureParticipantInfo displayName:%@ socialProfileIdentifier:%@>", displayName, socialProfileIdentifier];
+  v6 = [v3 initWithFormat:displayName, socialProfileIdentifier];
 
   return v6;
 }
@@ -181,7 +187,7 @@ LABEL_3:
   {
     socialProfileIdentifier2 = [(CMContinuityCaptureParticipantInfo *)self socialProfileIdentifier];
     v6 = [socialProfileIdentifier2 copy];
-    [v3 setObject:v6 forKeyedSubscript:@"socialProfileIdentifier"];
+    [v3 setObject:? forKeyedSubscript:?];
   }
 
   displayName = [(CMContinuityCaptureParticipantInfo *)self displayName];
@@ -190,7 +196,7 @@ LABEL_3:
   {
     displayName2 = [(CMContinuityCaptureParticipantInfo *)self displayName];
     v9 = [displayName2 copy];
-    [v3 setObject:v9 forKeyedSubscript:@"displayName"];
+    [v3 setObject:? forKeyedSubscript:?];
   }
 
   return v3;
@@ -198,14 +204,14 @@ LABEL_3:
 
 - (void)initWithSocialProfileIdentifier:(uint64_t)a1 displayName:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x277CCA890] currentHandler];
-  [v4 handleFailureInMethod:a1 object:a2 file:@"CMContinuityCaptureParticipantInfo.m" lineNumber:39 description:{@"Invalid parameter not satisfying: %@", @"socialProfileIdentifier"}];
+  v2 = [MEMORY[0x277CCA890] currentHandler];
+  [v2 handleFailureInMethod:@"socialProfileIdentifier" object:? file:? lineNumber:? description:?];
 }
 
 - (void)initWithSocialProfileIdentifier:(uint64_t)a1 displayName:(uint64_t)a2 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v4 = [MEMORY[0x277CCA890] currentHandler];
-  [v4 handleFailureInMethod:a1 object:a2 file:@"CMContinuityCaptureParticipantInfo.m" lineNumber:40 description:{@"Invalid parameter not satisfying: %@", @"displayName"}];
+  v2 = [MEMORY[0x277CCA890] currentHandler];
+  [v2 handleFailureInMethod:@"displayName" object:? file:? lineNumber:? description:?];
 }
 
 @end

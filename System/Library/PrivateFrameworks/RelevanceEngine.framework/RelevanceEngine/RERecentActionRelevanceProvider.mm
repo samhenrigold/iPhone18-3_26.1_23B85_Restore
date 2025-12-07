@@ -98,13 +98,12 @@ LABEL_12:
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = RERecentActionRelevanceProvider;
-  v4 = [(RERecentActionRelevanceProvider *)&v8 description];
-  bundleIdentifier = self->_bundleIdentifier;
-  v6 = [v3 stringWithFormat:@"%@ bundleIdentifier=%@, actionIdentifier=%llu", v4, bundleIdentifier, self->_actionIdentifier];
+  v7.receiver = self;
+  v7.super_class = RERecentActionRelevanceProvider;
+  v4 = [(RERecentActionRelevanceProvider *)&v7 description];
+  v5 = [v3 stringWithFormat:@"%@ bundleIdentifier=%@, actionIdentifier=%llu", v4, self->_bundleIdentifier, self->_actionIdentifier];
 
-  return v6;
+  return v5;
 }
 
 @end

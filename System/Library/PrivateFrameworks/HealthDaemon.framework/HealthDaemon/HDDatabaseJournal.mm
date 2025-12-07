@@ -26,7 +26,7 @@
 
 - (HDDatabaseJournal)initWithType:(int64_t)type path:(id)path
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (!type)
   {
@@ -34,9 +34,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HDDatabaseJournal.m" lineNumber:91 description:{@"Invalid parameter not satisfying: %@", @"type != HDDatabaseJournalTypeDefault"}];
   }
 
-  v25.receiver = self;
-  v25.super_class = HDDatabaseJournal;
-  v8 = [(HDDatabaseJournal *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = HDDatabaseJournal;
+  v8 = [(HDDatabaseJournal *)&v24 init];
   v9 = v8;
   if (v8)
   {
@@ -65,9 +65,9 @@
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     if (([defaultManager fileExistsAtPath:pathCopy isDirectory:0] & 1) == 0)
     {
-      v24 = 0;
-      v18 = [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:&v24];
-      v19 = v24;
+      v23 = 0;
+      v18 = [defaultManager createDirectoryAtPath:pathCopy withIntermediateDirectories:1 attributes:0 error:&v23];
+      v19 = v23;
       if ((v18 & 1) == 0)
       {
         _HKInitializeLogging();
@@ -75,16 +75,15 @@
         if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v27 = pathCopy;
-          v28 = 2114;
-          v29 = v19;
+          v26 = pathCopy;
+          v27 = 2114;
+          v28 = v19;
           _os_log_error_impl(&dword_228986000, v20, OS_LOG_TYPE_ERROR, "Error creating journal directory %{public}@: %{public}@", buf, 0x16u);
         }
       }
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -136,7 +135,7 @@
 
 - (BOOL)addJournalEntries:(id)entries profile:(id)profile error:(id *)error
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   entriesCopy = entries;
   profileCopy = profile;
   os_unfair_lock_assert_owner(&self->_journalLock);
@@ -151,18 +150,18 @@
   self->_journalStatus = 2;
   _HKInitializeLogging();
   v10 = *MEMORY[0x277CCC2A0];
-  v57 = entriesCopy;
+  v56 = entriesCopy;
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
   {
-    v49 = v10;
-    v50 = [entriesCopy count];
+    v48 = v10;
+    v49 = [entriesCopy count];
     path = [(NSURL *)self->_URL path];
     *buf = 134218242;
-    v80 = v50;
-    entriesCopy = v57;
-    v81 = 2114;
-    v82 = path;
-    _os_log_debug_impl(&dword_228986000, v49, OS_LOG_TYPE_DEBUG, "Appending %lu journal entries to %{public}@", buf, 0x16u);
+    v79 = v49;
+    entriesCopy = v56;
+    v80 = 2114;
+    v81 = path;
+    _os_log_debug_impl(&dword_228986000, v48, OS_LOG_TYPE_DEBUG, "Appending %lu journal entries to %{public}@", buf, 0x16u);
   }
 
   maximumJournalBytes = [(HDDatabaseJournal *)self maximumJournalBytes];
@@ -176,38 +175,38 @@
     sizeOnDisk = 0;
   }
 
-  v59 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v58 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
   v77 = 0u;
-  v78 = 0u;
   obj = entriesCopy;
-  v64 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
-  if (!v64)
+  v63 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
+  if (!v63)
   {
-    v61 = 0;
-    v65 = 0;
+    v60 = 0;
+    v64 = 0;
     goto LABEL_44;
   }
 
-  v61 = 0;
-  v65 = 0;
-  v63 = *v76;
-  v62 = maximumJournalBytes;
+  v60 = 0;
+  v64 = 0;
+  v62 = *v75;
+  v61 = maximumJournalBytes;
 LABEL_10:
   v12 = 0;
   while (1)
   {
-    if (*v76 != v63)
+    if (*v75 != v62)
     {
       objc_enumerationMutation(obj);
     }
 
-    v13 = *(*(&v75 + 1) + 8 * v12);
+    v13 = *(*(&v74 + 1) + 8 * v12);
     v14 = objc_autoreleasePoolPush();
-    v74 = 0;
-    v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v74];
-    v16 = v74;
+    v73 = 0;
+    v15 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v13 requiringSecureCoding:1 error:&v73];
+    v16 = v73;
     if (maximumJournalBytes)
     {
       unsignedLongValue = [maximumJournalBytes unsignedLongValue];
@@ -217,8 +216,8 @@ LABEL_10:
       }
     }
 
-    v67 = v12;
-    v68 = v14;
+    v66 = v12;
+    v67 = v14;
     if (v15)
     {
       v18 = 1;
@@ -226,7 +225,7 @@ LABEL_10:
       {
         v19 = v18;
         v20 = objc_opt_class();
-        v73 = v16;
+        v72 = v16;
         v21 = v15;
         if ([v21 length])
         {
@@ -238,7 +237,7 @@ LABEL_10:
           if (([(HDJournalChapter *)self->_currentJournalChapter isOpen]& 1) != 0)
           {
 LABEL_25:
-            LOBYTE(v22) = [(HDJournalChapter *)self->_currentJournalChapter appendData:v21 entryClass:v20 error:&v73];
+            LOBYTE(v22) = [(HDJournalChapter *)self->_currentJournalChapter appendData:v21 entryClass:v20 error:&v72];
             goto LABEL_29;
           }
 
@@ -257,11 +256,11 @@ LABEL_25:
             {
               v30 = self->_currentJournalChapter;
               *buf = 138543362;
-              v80 = v30;
+              v79 = v30;
               _os_log_debug_impl(&dword_228986000, v27, OS_LOG_TYPE_DEBUG, "Creating new journal chapter %{public}@", buf, 0xCu);
             }
 
-            v28 = [(HDJournalChapter *)self->_currentJournalChapter createAndOpenForWritingWithError:&v73];
+            v28 = [(HDJournalChapter *)self->_currentJournalChapter createAndOpenForWritingWithError:&v72];
 
             if (v28)
             {
@@ -273,7 +272,7 @@ LABEL_25:
 
           else
           {
-            [MEMORY[0x277CCA9B8] hk_assignError:&v73 code:102 format:@"Unable to create journal name"];
+            [MEMORY[0x277CCA9B8] hk_assignError:&v72 code:102 format:@"Unable to create journal name"];
           }
         }
 
@@ -284,13 +283,13 @@ LABEL_25:
 
 LABEL_29:
 
-        v29 = v73;
+        v29 = v72;
         if (v22)
         {
-          ++v61;
+          ++v60;
           v31 = objc_opt_class();
           v32 = NSStringFromClass(v31);
-          v33 = [v59 objectForKeyedSubscript:v32];
+          v33 = [v58 objectForKeyedSubscript:v32];
           integerValue = [v33 integerValue];
           v35 = [v21 length];
           if (integerValue <= v35)
@@ -304,7 +303,7 @@ LABEL_29:
           }
 
           v37 = [MEMORY[0x277CCABB0] numberWithInteger:v36 >> 10];
-          [v59 setObject:v37 forKeyedSubscript:v32];
+          [v58 setObject:v37 forKeyedSubscript:v32];
 
           sizeOnDisk += [v21 length];
           goto LABEL_39;
@@ -321,21 +320,21 @@ LABEL_29:
 
     v29 = v16;
 LABEL_33:
-    if (!v65)
+    if (!v64)
     {
       v29 = v29;
-      v65 = v29;
+      v64 = v29;
     }
 
 LABEL_39:
-    maximumJournalBytes = v62;
+    maximumJournalBytes = v61;
 
-    objc_autoreleasePoolPop(v68);
-    v12 = v67 + 1;
-    if (v67 + 1 == v64)
+    objc_autoreleasePoolPop(v67);
+    v12 = v66 + 1;
+    if (v66 + 1 == v63)
     {
-      v64 = [obj countByEnumeratingWithState:&v75 objects:v87 count:16];
-      if (!v64)
+      v63 = [obj countByEnumeratingWithState:&v74 objects:v86 count:16];
+      if (!v63)
       {
         goto LABEL_44;
       }
@@ -347,60 +346,60 @@ LABEL_39:
   v38 = [MEMORY[0x277CCA9B8] hk_error:123 format:{@"Cannot append journal entry of %lu bytes: current size is %lu and maximum is %zu", objc_msgSend(v15, "length"), sizeOnDisk, unsignedLongValue}];
 
   objc_autoreleasePoolPop(v14);
-  v65 = v38;
+  v64 = v38;
 LABEL_44:
 
-  v70[0] = MEMORY[0x277D85DD0];
-  v70[1] = 3221225472;
-  v70[2] = __53__HDDatabaseJournal_addJournalEntries_profile_error___block_invoke;
-  v70[3] = &unk_278621358;
-  v71 = profileCopy;
+  v69[0] = MEMORY[0x277D85DD0];
+  v69[1] = 3221225472;
+  v69[2] = __53__HDDatabaseJournal_addJournalEntries_profile_error___block_invoke;
+  v69[3] = &unk_278621358;
+  v70 = profileCopy;
   selfCopy = self;
-  [v59 enumerateKeysAndObjectsUsingBlock:v70];
-  v9 = v65 == 0;
-  if (v65)
+  [v58 enumerateKeysAndObjectsUsingBlock:v69];
+  v9 = v64 == 0;
+  if (v64)
   {
     _HKInitializeLogging();
     v39 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v52 = v39;
-      v53 = [obj count];
+      v51 = v39;
+      v52 = [obj count];
       path2 = [(NSURL *)self->_URL path];
       *buf = 134218754;
-      v80 = v61;
-      v81 = 2048;
-      v82 = v53;
-      v83 = 2114;
-      v84 = path2;
-      v85 = 2114;
-      v86 = v65;
-      _os_log_error_impl(&dword_228986000, v52, OS_LOG_TYPE_ERROR, "Added %lu of %lu entries to %{public}@, error: %{public}@", buf, 0x2Au);
+      v79 = v60;
+      v80 = 2048;
+      v81 = v52;
+      v82 = 2114;
+      v83 = path2;
+      v84 = 2114;
+      v85 = v64;
+      _os_log_error_impl(&dword_228986000, v51, OS_LOG_TYPE_ERROR, "Added %lu of %lu entries to %{public}@, error: %{public}@", buf, 0x2Au);
     }
   }
 
   v40 = self->_currentJournalChapter;
-  v69 = 0;
-  v41 = [(HDJournalChapter *)v40 flushDataToDisk:&v69];
-  v42 = v69;
+  v68 = 0;
+  v41 = [(HDJournalChapter *)v40 flushDataToDisk:&v68];
+  v42 = v68;
   if ((v41 & 1) == 0)
   {
     _HKInitializeLogging();
     v43 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
-      v55 = self->_currentJournalChapter;
+      v54 = self->_currentJournalChapter;
       *buf = 138543618;
-      v80 = v55;
-      v81 = 2114;
-      v82 = v42;
+      v79 = v54;
+      v80 = 2114;
+      v81 = v42;
       _os_log_error_impl(&dword_228986000, v43, OS_LOG_TYPE_ERROR, "Failed to flush data to %{public}@: %{public}@", buf, 0x16u);
     }
   }
 
-  v44 = v65;
+  v44 = v64;
   v45 = v44;
-  if (v65)
+  if (v64)
   {
     if (errorCopy)
     {
@@ -414,10 +413,9 @@ LABEL_44:
     }
   }
 
-  entriesCopy = v57;
+  entriesCopy = v56;
 LABEL_55:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -555,498 +553,492 @@ LABEL_7:
 
 void __69__HDDatabaseJournal_mergeWithProfile_activity_shouldContinueHandler___block_invoke(uint64_t a1)
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v124 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 65) == 1)
   {
     *(*(*(a1 + 64) + 8) + 24) = 0;
-LABEL_4:
-    v3 = *MEMORY[0x277D85DE8];
-    return;
   }
 
-  if (*(v2 + 56) == 1)
+  else if (*(v2 + 56) != 1)
   {
-    goto LABEL_4;
-  }
+    v3 = [*(a1 + 40) database];
+    v4 = [v3 contentProtectionManager];
+    v5 = [v4 observedState];
 
-  v4 = [*(a1 + 40) database];
-  v5 = [v4 contentProtectionManager];
-  v6 = [v5 observedState];
-
-  if (v6 == 2)
-  {
-    *(*(*(a1 + 64) + 8) + 24) = 0;
-    _HKInitializeLogging();
-    v7 = *MEMORY[0x277CCC2A0];
-    if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
+    if (v5 == 2)
     {
-      v8 = *(a1 + 32);
-      *buf = 138543362;
-      *&buf[4] = v8;
-      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Trying to merge journals when device is locked", buf, 0xCu);
-    }
-
-    goto LABEL_4;
-  }
-
-  v9 = [*(a1 + 40) daemon];
-  v10 = [v9 maintenanceWorkCoordinator];
-  v11 = [v10 takeMaintenanceSuspensionAssertionForOwner:@"HDDatabaseJournal.mergeWithProfile:activity:shouldContinueHandler:"];
-  v12 = *(*(a1 + 72) + 8);
-  v13 = *(v12 + 40);
-  *(v12 + 40) = v11;
-
-  v89 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:*(a1 + 32)];
-  *(*(a1 + 32) + 96) = 1;
-  v14 = *(a1 + 32);
-  v15 = *(a1 + 56);
-  v93 = *(a1 + 48);
-  v97 = *(a1 + 40);
-  v94 = v15;
-  if (v14)
-  {
-    v98 = [[HDJournalChapterEnumerator alloc] initWithURL:*(v14 + 136)];
-    v103 = v14;
-    if ([(HDJournalChapterEnumerator *)v98 hasJournalChapters])
-    {
-      v16 = objc_opt_class();
-      v87 = NSStringFromClass(v16);
-      v17 = [v97 database];
-      v106 = 0;
-      v92 = [v17 takeAccessibilityAssertionWithOwnerIdentifier:v87 shouldPerformTransaction:0 timeout:&v106 error:600.0];
-      v86 = v106;
-
-      if (v92)
+      *(*(*(a1 + 64) + 8) + 24) = 0;
+      _HKInitializeLogging();
+      v6 = *MEMORY[0x277CCC2A0];
+      if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
       {
-        v105 = 0;
-        v18 = [(HDJournalChapterEnumerator *)v98 loadSortedJournalChaptersWithError:&v105];
-        v85 = v105;
-        if (v18)
-        {
-          v19 = v14;
-          os_unfair_lock_lock((v14 + 8));
-          if (!*(v14 + 16))
-          {
-            v20 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:1];
-            v21 = *(v14 + 16);
-            *(v14 + 16) = v20;
-
-            v19 = v14;
-          }
-
-          v22 = *(v19 + 24);
-          if (v22)
-          {
-            [*(v14 + 24) setTotalUnitCount:{-[HDJournalChapterEnumerator totalJournalChapterCount](v98, "totalJournalChapterCount") + objc_msgSend(v22, "completedUnitCount")}];
-          }
-
-          else
-          {
-            v27 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{-[HDJournalChapterEnumerator totalJournalChapterCount](v98, "totalJournalChapterCount")}];
-            v28 = *(v14 + 24);
-            *(v14 + 24) = v27;
-
-            [*(v14 + 16) addChild:*(v14 + 24) withPendingUnitCount:1];
-          }
-
-          v84 = *(v14 + 24);
-          os_unfair_lock_unlock((v14 + 8));
-          if (![(HDJournalChapterEnumerator *)v98 hasMoreJournalChapters])
-          {
-            v74 = 0;
-            goto LABEL_92;
-          }
-
-LABEL_28:
-          v104 = 0;
-          v88 = [(HDJournalChapterEnumerator *)v98 nextOpenJournalChapterError:&v104];
-          v83 = v104;
-          if (v88)
-          {
-            v96 = 0;
-            v29 = 0;
-            while (1)
-            {
-              os_unfair_lock_lock((v103 + 40));
-              os_unfair_lock_unlock((v103 + 40));
-              v100 = v29;
-              if (v29 < 1)
-              {
-                v102 = 0;
-              }
-
-              else
-              {
-                if (v93)
-                {
-                  [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", v29 + 1];
-                }
-
-                else
-                {
-                  [MEMORY[0x277CCACA8] stringWithFormat:@"(%ld / %ld)", v29 + 1, 10];
-                }
-                v30 = ;
-                v102 = [MEMORY[0x277CCACA8] stringWithFormat:@"Retrying, attempt %@", v30];
-              }
-
-              if (v96 >= 1)
-              {
-                v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"Continuing (%ld)", v96];
-
-                v102 = v31;
-              }
-
-              _HKInitializeLogging();
-              v32 = *MEMORY[0x277CCC2A0];
-              if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
-              {
-                if (v102)
-                {
-                  v33 = v102;
-                }
-
-                else
-                {
-                  v33 = @"Starting";
-                }
-
-                v34 = v32;
-                v35 = [(HDJournalChapterEnumerator *)v98 currentJournalChapterIndex];
-                v36 = [(HDJournalChapterEnumerator *)v98 totalJournalChapterCount];
-                *buf = 138413058;
-                *&buf[4] = v33;
-                *&buf[12] = 2114;
-                *&buf[14] = v88;
-                *&buf[22] = 2048;
-                v116 = v35;
-                LOWORD(v117) = 2048;
-                *(&v117 + 2) = v36;
-                _os_log_impl(&dword_228986000, v34, OS_LOG_TYPE_DEFAULT, "%@ journal merge for %{public}@ (%ld of %ld)", buf, 0x2Au);
-              }
-
-              v37 = v88;
-              v38 = v97;
-              v99 = v92;
-              v39 = v94;
-              v40 = objc_alloc_init(MEMORY[0x277CBEAA8]);
-              v41 = objc_alloc_init(HDDatabaseJournalMetrics);
-              v42 = *MEMORY[0x277CCC2A0];
-              v43 = _HKLogSignpostIDGenerate();
-              _HKInitializeLogging();
-              v44 = *MEMORY[0x277CCC2A0];
-              if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
-              {
-                v45 = v44;
-                v46 = v45;
-                if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
-                {
-                  v47 = [v37 name];
-                  LODWORD(v124) = 138543362;
-                  *(&v124 + 4) = v47;
-                  _os_signpost_emit_with_name_impl(&dword_228986000, v46, OS_SIGNPOST_INTERVAL_BEGIN, v43, "merge-journal-chapter", "chapter=%{public}@", &v124, 0xCu);
-                }
-              }
-
-              *&v124 = 0;
-              *(&v124 + 1) = &v124;
-              v125 = 0x2020000000;
-              v126 = 0;
-              *buf = MEMORY[0x277D85DD0];
-              *&buf[8] = 3221225472;
-              *&buf[16] = __95__HDDatabaseJournal__mergeJournalChapter_profile_accessibilityAssertion_shouldContinueHandler___block_invoke;
-              v116 = &unk_2786213F8;
-              *&v117 = v103;
-              v122 = &v124;
-              v95 = v37;
-              *(&v117 + 1) = v95;
-              v123 = v43;
-              v48 = v38;
-              v118 = v48;
-              v90 = v39;
-              v121 = v90;
-              v49 = v41;
-              v119 = v49;
-              v91 = v40;
-              v120 = v91;
-              v50 = _Block_copy(buf);
-              v51 = [v48 dataManager];
-              [v51 openObserverTransaction];
-
-              v52 = [v48 userDomainConceptManager];
-              [v52 openObserverTransaction];
-
-              v53 = *(v103 + 72);
-              *(v103 + 72) = 0;
-
-              v54 = objc_alloc_init(HDMutableDatabaseTransactionContext);
-              [(HDMutableDatabaseTransactionContext *)v54 setCacheScope:1];
-              [(HDMutableDatabaseTransactionContext *)v54 addAccessibilityAssertion:v99];
-              v108 = 0;
-              v55 = [v103 performMergeTransactionWithProfile:v48 transactionContext:v54 error:&v108 block:v50];
-              v56 = v108;
-              [(HDDatabaseJournal *)v103 _setActiveTransactionAndReturnInterrupted:?];
-              v57 = [v48 dataManager];
-              [v57 closeObserverTransaction];
-
-              v58 = [v48 userDomainConceptManager];
-              [v58 closeObserverTransaction];
-
-              _HKInitializeLogging();
-              v59 = *MEMORY[0x277CCC2A0];
-              if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
-              {
-                v60 = v59;
-                v61 = v60;
-                if (v43 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v60))
-                {
-                  v62 = [v95 name];
-                  *v109 = 138543618;
-                  v110 = v62;
-                  v111 = 1024;
-                  LODWORD(v112) = v55;
-                  _os_signpost_emit_with_name_impl(&dword_228986000, v61, OS_SIGNPOST_INTERVAL_END, v43, "merge-journal-chapter", "chapter=%{public}@ success=%{BOOL}d", v109, 0x12u);
-                }
-              }
-
-              if (v55)
-              {
-                if ((*(*(&v124 + 1) + 24) - 2) > 2 || ([*(v103 + 144) close], *(*(&v124 + 1) + 24) == 4))
-                {
-                  v63 = v56;
-                }
-
-                else
-                {
-                  [v95 close];
-                  v107 = v56;
-                  v71 = [v95 removeWithError:&v107];
-                  v63 = v107;
-
-                  if ((v71 & 1) == 0)
-                  {
-                    _HKInitializeLogging();
-                    v72 = *MEMORY[0x277CCC2A0];
-                    if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
-                    {
-                      *v109 = 138543618;
-                      v110 = v88;
-                      v111 = 2114;
-                      v112 = v63;
-                      _os_log_error_impl(&dword_228986000, v72, OS_LOG_TYPE_ERROR, "An error occurred while removing %{public}@: %{public}@", v109, 0x16u);
-                    }
-                  }
-                }
-
-                v64 = *(*(&v124 + 1) + 24);
-                v56 = v63;
-              }
-
-              else if ([v56 hk_isTransactionInterruptedError])
-              {
-                _HKInitializeLogging();
-                v65 = *MEMORY[0x277CCC2A0];
-                if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
-                {
-                  v66 = [*(v103 + 136) path];
-                  v67 = *(v103 + 72);
-                  v68 = [MEMORY[0x277CCACA8] stringWithFormat:@" with original error: %@", v56];
-                  *v109 = 138543874;
-                  v110 = v66;
-                  v111 = 2114;
-                  v112 = v67;
-                  v113 = 2112;
-                  v114 = v68;
-                  _os_log_impl(&dword_228986000, v65, OS_LOG_TYPE_DEFAULT, "Journal merge transaction for %{public}@ (%{public}@) was interrupted%@", v109, 0x20u);
-                }
-
-                v64 = 1;
-              }
-
-              else
-              {
-                _HKInitializeLogging();
-                v69 = *MEMORY[0x277CCC2A0];
-                if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
-                {
-                  *v109 = 138543618;
-                  v110 = v88;
-                  v111 = 2114;
-                  v112 = v56;
-                  _os_log_error_impl(&dword_228986000, v69, OS_LOG_TYPE_ERROR, "Merge transaction aborted for %{public}@; bailing out of journal merge: %{public}@", v109, 0x16u);
-                }
-
-                v64 = 0;
-              }
-
-              _Block_object_dispose(&v124, 8);
-              if (v64 == 1)
-              {
-                v96 = 0;
-                v101 = v100 + 1;
-              }
-
-              else
-              {
-                if (v64 != 4)
-                {
-                  if (v64)
-                  {
-
-                    if (v100 <= 9 || v93 != 0)
-                    {
-                      if (v84)
-                      {
-                        [v84 setCompletedUnitCount:{objc_msgSend(v84, "completedUnitCount") + 1}];
-                      }
-
-                      v74 = 0;
-                      if ([(HDJournalChapterEnumerator *)v98 hasMoreJournalChapters])
-                      {
-                        goto LABEL_28;
-                      }
-
-                      goto LABEL_92;
-                    }
-                  }
-
-                  else
-                  {
-
-                    v75 = v93 != 0;
-                    if (v100 < 10)
-                    {
-                      v75 = 1;
-                    }
-
-                    if (v75)
-                    {
-                      goto LABEL_91;
-                    }
-                  }
-
-LABEL_90:
-                  _HKInitializeLogging();
-                  v76 = *MEMORY[0x277CCC2A0];
-                  if (!os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
-                  {
-                    goto LABEL_91;
-                  }
-
-                  *buf = 138412290;
-                  *&buf[4] = v88;
-                  v82 = "Used maximum retry attempts for %@";
-                  goto LABEL_102;
-                }
-
-                v101 = 0;
-                ++v96;
-              }
-
-              v29 = v101;
-              if (v101 >= 10 && v93 == 0)
-              {
-                goto LABEL_90;
-              }
-            }
-          }
-
-          _HKInitializeLogging();
-          v76 = *MEMORY[0x277CCC2A0];
-          if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138543362;
-            *&buf[4] = v83;
-            v82 = "Could not get next journal chapter %{public}@";
-LABEL_102:
-            _os_log_error_impl(&dword_228986000, v76, OS_LOG_TYPE_ERROR, v82, buf, 0xCu);
-          }
-
-LABEL_91:
-
-          v74 = 1;
-LABEL_92:
-          [v92 invalidate];
-          [(HDJournalChapterEnumerator *)v98 closeJournalChapters];
-          if ((v74 & 1) == 0)
-          {
-            os_unfair_lock_lock((v103 + 8));
-            v77 = *(v103 + 24);
-            *(v103 + 24) = 0;
-
-            v78 = *(v103 + 16);
-            *(v103 + 16) = 0;
-
-            os_unfair_lock_unlock((v103 + 8));
-            *(v103 + 56) = 1;
-          }
-
-          v24 = v74 ^ 1;
-        }
-
-        else
-        {
-          _HKInitializeLogging();
-          v26 = *MEMORY[0x277CCC2A0];
-          if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
-          {
-            *buf = 138543362;
-            *&buf[4] = v85;
-            _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "Failed to load sorted journal chapters: %{public}@", buf, 0xCu);
-          }
-
-          [v92 invalidate];
-          v24 = 0;
-        }
-      }
-
-      else
-      {
-        _HKInitializeLogging();
-        v25 = *MEMORY[0x277CCC2A0];
-        if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
-        {
-          *buf = 138543362;
-          *&buf[4] = v86;
-          _os_log_debug_impl(&dword_228986000, v25, OS_LOG_TYPE_DEBUG, "Failed to acquire database accessibility assertion for journal merge: %{public}@", buf, 0xCu);
-        }
-
-        v24 = 0;
+        v7 = *(a1 + 32);
+        *buf = 138543362;
+        *&buf[4] = v7;
+        _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Trying to merge journals when device is locked", buf, 0xCu);
       }
     }
 
     else
     {
-      if (*(v14 + 104) != 1)
+      v8 = [*(a1 + 40) daemon];
+      v9 = [v8 maintenanceWorkCoordinator];
+      v10 = [v9 takeMaintenanceSuspensionAssertionForOwner:@"HDDatabaseJournal.mergeWithProfile:activity:shouldContinueHandler:"];
+      v11 = *(*(a1 + 72) + 8);
+      v12 = *(v11 + 40);
+      *(v11 + 40) = v10;
+
+      v86 = [(HKDaemonTransaction *)HDDaemonTransaction transactionWithOwner:*(a1 + 32)];
+      *(*(a1 + 32) + 96) = 1;
+      v13 = *(a1 + 32);
+      v14 = *(a1 + 56);
+      v90 = *(a1 + 48);
+      v94 = *(a1 + 40);
+      v91 = v14;
+      if (v13)
       {
-        _HKInitializeLogging();
-        v23 = *MEMORY[0x277CCC2A0];
-        if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
+        v95 = [[HDJournalChapterEnumerator alloc] initWithURL:*(v13 + 136)];
+        v100 = v13;
+        if ([(HDJournalChapterEnumerator *)v95 hasJournalChapters])
         {
-          v80 = *(v14 + 136);
-          *buf = 138543362;
-          *&buf[4] = v80;
-          v81 = v23;
-          _os_log_debug_impl(&dword_228986000, v81, OS_LOG_TYPE_DEBUG, "No journal chapter files to merge in %{public}@", buf, 0xCu);
+          v15 = objc_opt_class();
+          v84 = NSStringFromClass(v15);
+          v16 = [v94 database];
+          v103 = 0;
+          v89 = [v16 takeAccessibilityAssertionWithOwnerIdentifier:v84 shouldPerformTransaction:0 timeout:&v103 error:600.0];
+          v83 = v103;
+
+          if (v89)
+          {
+            v102 = 0;
+            v17 = [(HDJournalChapterEnumerator *)v95 loadSortedJournalChaptersWithError:&v102];
+            v82 = v102;
+            if (v17)
+            {
+              v18 = v13;
+              os_unfair_lock_lock((v13 + 8));
+              if (!*(v13 + 16))
+              {
+                v19 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:1];
+                v20 = *(v13 + 16);
+                *(v13 + 16) = v19;
+
+                v18 = v13;
+              }
+
+              v21 = *(v18 + 24);
+              if (v21)
+              {
+                [*(v13 + 24) setTotalUnitCount:{-[HDJournalChapterEnumerator totalJournalChapterCount](v95, "totalJournalChapterCount") + objc_msgSend(v21, "completedUnitCount")}];
+              }
+
+              else
+              {
+                v26 = [MEMORY[0x277CCAC48] discreteProgressWithTotalUnitCount:{-[HDJournalChapterEnumerator totalJournalChapterCount](v95, "totalJournalChapterCount")}];
+                v27 = *(v13 + 24);
+                *(v13 + 24) = v26;
+
+                [*(v13 + 16) addChild:*(v13 + 24) withPendingUnitCount:1];
+              }
+
+              v81 = *(v13 + 24);
+              os_unfair_lock_unlock((v13 + 8));
+              if (![(HDJournalChapterEnumerator *)v95 hasMoreJournalChapters])
+              {
+                v72 = 0;
+                goto LABEL_92;
+              }
+
+LABEL_28:
+              v101 = 0;
+              v85 = [(HDJournalChapterEnumerator *)v95 nextOpenJournalChapterError:&v101];
+              v80 = v101;
+              if (v85)
+              {
+                v93 = 0;
+                v28 = 0;
+                while (1)
+                {
+                  os_unfair_lock_lock((v100 + 40));
+                  os_unfair_lock_unlock((v100 + 40));
+                  v97 = v28;
+                  if (v28 < 1)
+                  {
+                    v99 = 0;
+                  }
+
+                  else
+                  {
+                    if (v90)
+                    {
+                      [MEMORY[0x277CCACA8] stringWithFormat:@"%ld", v28 + 1];
+                    }
+
+                    else
+                    {
+                      [MEMORY[0x277CCACA8] stringWithFormat:@"(%ld / %ld)", v28 + 1, 10];
+                    }
+                    v29 = ;
+                    v99 = [MEMORY[0x277CCACA8] stringWithFormat:@"Retrying, attempt %@", v29];
+                  }
+
+                  if (v93 >= 1)
+                  {
+                    v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"Continuing (%ld)", v93];
+
+                    v99 = v30;
+                  }
+
+                  _HKInitializeLogging();
+                  v31 = *MEMORY[0x277CCC2A0];
+                  if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
+                  {
+                    if (v99)
+                    {
+                      v32 = v99;
+                    }
+
+                    else
+                    {
+                      v32 = @"Starting";
+                    }
+
+                    v33 = v31;
+                    v34 = [(HDJournalChapterEnumerator *)v95 currentJournalChapterIndex];
+                    v35 = [(HDJournalChapterEnumerator *)v95 totalJournalChapterCount];
+                    *buf = 138413058;
+                    *&buf[4] = v32;
+                    *&buf[12] = 2114;
+                    *&buf[14] = v85;
+                    *&buf[22] = 2048;
+                    v113 = v34;
+                    LOWORD(v114) = 2048;
+                    *(&v114 + 2) = v35;
+                    _os_log_impl(&dword_228986000, v33, OS_LOG_TYPE_DEFAULT, "%@ journal merge for %{public}@ (%ld of %ld)", buf, 0x2Au);
+                  }
+
+                  v36 = v85;
+                  v37 = v94;
+                  v96 = v89;
+                  v38 = v91;
+                  v39 = objc_alloc_init(MEMORY[0x277CBEAA8]);
+                  v40 = objc_alloc_init(HDDatabaseJournalMetrics);
+                  v41 = _HKLogSignpostIDGenerate();
+                  _HKInitializeLogging();
+                  v42 = *MEMORY[0x277CCC2A0];
+                  if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
+                  {
+                    v43 = v42;
+                    v44 = v43;
+                    if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+                    {
+                      v45 = [v36 name];
+                      LODWORD(v121) = 138543362;
+                      *(&v121 + 4) = v45;
+                      _os_signpost_emit_with_name_impl(&dword_228986000, v44, OS_SIGNPOST_INTERVAL_BEGIN, v41, "merge-journal-chapter", "chapter=%{public}@", &v121, 0xCu);
+                    }
+                  }
+
+                  *&v121 = 0;
+                  *(&v121 + 1) = &v121;
+                  v122 = 0x2020000000;
+                  v123 = 0;
+                  *buf = MEMORY[0x277D85DD0];
+                  *&buf[8] = 3221225472;
+                  *&buf[16] = __95__HDDatabaseJournal__mergeJournalChapter_profile_accessibilityAssertion_shouldContinueHandler___block_invoke;
+                  v113 = &unk_2786213F8;
+                  *&v114 = v100;
+                  v119 = &v121;
+                  v92 = v36;
+                  *(&v114 + 1) = v92;
+                  v120 = v41;
+                  v46 = v37;
+                  v115 = v46;
+                  v87 = v38;
+                  v118 = v87;
+                  v47 = v40;
+                  v116 = v47;
+                  v88 = v39;
+                  v117 = v88;
+                  v48 = _Block_copy(buf);
+                  v49 = [v46 dataManager];
+                  [v49 openObserverTransaction];
+
+                  v50 = [v46 userDomainConceptManager];
+                  [v50 openObserverTransaction];
+
+                  v51 = *(v100 + 72);
+                  *(v100 + 72) = 0;
+
+                  v52 = objc_alloc_init(HDMutableDatabaseTransactionContext);
+                  [(HDMutableDatabaseTransactionContext *)v52 setCacheScope:1];
+                  [(HDMutableDatabaseTransactionContext *)v52 addAccessibilityAssertion:v96];
+                  v105 = 0;
+                  v53 = [v100 performMergeTransactionWithProfile:v46 transactionContext:v52 error:&v105 block:v48];
+                  v54 = v105;
+                  [(HDDatabaseJournal *)v100 _setActiveTransactionAndReturnInterrupted:?];
+                  v55 = [v46 dataManager];
+                  [v55 closeObserverTransaction];
+
+                  v56 = [v46 userDomainConceptManager];
+                  [v56 closeObserverTransaction];
+
+                  _HKInitializeLogging();
+                  v57 = *MEMORY[0x277CCC2A0];
+                  if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
+                  {
+                    v58 = v57;
+                    v59 = v58;
+                    if (v41 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
+                    {
+                      v60 = [v92 name];
+                      *v106 = 138543618;
+                      v107 = v60;
+                      v108 = 1024;
+                      LODWORD(v109) = v53;
+                      _os_signpost_emit_with_name_impl(&dword_228986000, v59, OS_SIGNPOST_INTERVAL_END, v41, "merge-journal-chapter", "chapter=%{public}@ success=%{BOOL}d", v106, 0x12u);
+                    }
+                  }
+
+                  if (v53)
+                  {
+                    if ((*(*(&v121 + 1) + 24) - 2) > 2 || ([*(v100 + 144) close], *(*(&v121 + 1) + 24) == 4))
+                    {
+                      v61 = v54;
+                    }
+
+                    else
+                    {
+                      [v92 close];
+                      v104 = v54;
+                      v69 = [v92 removeWithError:&v104];
+                      v61 = v104;
+
+                      if ((v69 & 1) == 0)
+                      {
+                        _HKInitializeLogging();
+                        v70 = *MEMORY[0x277CCC2A0];
+                        if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
+                        {
+                          *v106 = 138543618;
+                          v107 = v85;
+                          v108 = 2114;
+                          v109 = v61;
+                          _os_log_error_impl(&dword_228986000, v70, OS_LOG_TYPE_ERROR, "An error occurred while removing %{public}@: %{public}@", v106, 0x16u);
+                        }
+                      }
+                    }
+
+                    v62 = *(*(&v121 + 1) + 24);
+                    v54 = v61;
+                  }
+
+                  else if ([v54 hk_isTransactionInterruptedError])
+                  {
+                    _HKInitializeLogging();
+                    v63 = *MEMORY[0x277CCC2A0];
+                    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v64 = [*(v100 + 136) path];
+                      v65 = *(v100 + 72);
+                      v66 = [MEMORY[0x277CCACA8] stringWithFormat:@" with original error: %@", v54];
+                      *v106 = 138543874;
+                      v107 = v64;
+                      v108 = 2114;
+                      v109 = v65;
+                      v110 = 2112;
+                      v111 = v66;
+                      _os_log_impl(&dword_228986000, v63, OS_LOG_TYPE_DEFAULT, "Journal merge transaction for %{public}@ (%{public}@) was interrupted%@", v106, 0x20u);
+                    }
+
+                    v62 = 1;
+                  }
+
+                  else
+                  {
+                    _HKInitializeLogging();
+                    v67 = *MEMORY[0x277CCC2A0];
+                    if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
+                    {
+                      *v106 = 138543618;
+                      v107 = v85;
+                      v108 = 2114;
+                      v109 = v54;
+                      _os_log_error_impl(&dword_228986000, v67, OS_LOG_TYPE_ERROR, "Merge transaction aborted for %{public}@; bailing out of journal merge: %{public}@", v106, 0x16u);
+                    }
+
+                    v62 = 0;
+                  }
+
+                  _Block_object_dispose(&v121, 8);
+                  if (v62 == 1)
+                  {
+                    v93 = 0;
+                    v98 = v97 + 1;
+                  }
+
+                  else
+                  {
+                    if (v62 != 4)
+                    {
+                      if (v62)
+                      {
+
+                        if (v97 <= 9 || v90 != 0)
+                        {
+                          if (v81)
+                          {
+                            [v81 setCompletedUnitCount:{objc_msgSend(v81, "completedUnitCount") + 1}];
+                          }
+
+                          v72 = 0;
+                          if ([(HDJournalChapterEnumerator *)v95 hasMoreJournalChapters])
+                          {
+                            goto LABEL_28;
+                          }
+
+                          goto LABEL_92;
+                        }
+                      }
+
+                      else
+                      {
+
+                        v73 = v90 != 0;
+                        if (v97 < 10)
+                        {
+                          v73 = 1;
+                        }
+
+                        if (v73)
+                        {
+                          goto LABEL_91;
+                        }
+                      }
+
+LABEL_90:
+                      _HKInitializeLogging();
+                      v74 = *MEMORY[0x277CCC2A0];
+                      if (!os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
+                      {
+                        goto LABEL_91;
+                      }
+
+                      *buf = 138412290;
+                      *&buf[4] = v85;
+                      v79 = "Used maximum retry attempts for %@";
+                      goto LABEL_102;
+                    }
+
+                    v98 = 0;
+                    ++v93;
+                  }
+
+                  v28 = v98;
+                  if (v98 >= 10 && v90 == 0)
+                  {
+                    goto LABEL_90;
+                  }
+                }
+              }
+
+              _HKInitializeLogging();
+              v74 = *MEMORY[0x277CCC2A0];
+              if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
+              {
+                *buf = 138543362;
+                *&buf[4] = v80;
+                v79 = "Could not get next journal chapter %{public}@";
+LABEL_102:
+                _os_log_error_impl(&dword_228986000, v74, OS_LOG_TYPE_ERROR, v79, buf, 0xCu);
+              }
+
+LABEL_91:
+
+              v72 = 1;
+LABEL_92:
+              [v89 invalidate];
+              [(HDJournalChapterEnumerator *)v95 closeJournalChapters];
+              if ((v72 & 1) == 0)
+              {
+                os_unfair_lock_lock((v100 + 8));
+                v75 = *(v100 + 24);
+                *(v100 + 24) = 0;
+
+                v76 = *(v100 + 16);
+                *(v100 + 16) = 0;
+
+                os_unfair_lock_unlock((v100 + 8));
+                *(v100 + 56) = 1;
+              }
+
+              v23 = v72 ^ 1;
+            }
+
+            else
+            {
+              _HKInitializeLogging();
+              v25 = *MEMORY[0x277CCC2A0];
+              if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
+              {
+                *buf = 138543362;
+                *&buf[4] = v82;
+                _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "Failed to load sorted journal chapters: %{public}@", buf, 0xCu);
+              }
+
+              [v89 invalidate];
+              v23 = 0;
+            }
+          }
+
+          else
+          {
+            _HKInitializeLogging();
+            v24 = *MEMORY[0x277CCC2A0];
+            if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 138543362;
+              *&buf[4] = v83;
+              _os_log_debug_impl(&dword_228986000, v24, OS_LOG_TYPE_DEBUG, "Failed to acquire database accessibility assertion for journal merge: %{public}@", buf, 0xCu);
+            }
+
+            v23 = 0;
+          }
+        }
+
+        else
+        {
+          if (*(v13 + 104) != 1)
+          {
+            _HKInitializeLogging();
+            v22 = *MEMORY[0x277CCC2A0];
+            if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEBUG))
+            {
+              v77 = *(v13 + 136);
+              *buf = 138543362;
+              *&buf[4] = v77;
+              v78 = v22;
+              _os_log_debug_impl(&dword_228986000, v78, OS_LOG_TYPE_DEBUG, "No journal chapter files to merge in %{public}@", buf, 0xCu);
+            }
+          }
+
+          v23 = 1;
+          *(v13 + 56) = 1;
         }
       }
 
-      v24 = 1;
-      *(v14 + 56) = 1;
+      else
+      {
+        v23 = 0;
+      }
+
+      *(*(*(a1 + 64) + 8) + 24) = v23;
+      *(*(a1 + 32) + 96) = 0;
+      [v86 invalidate];
+      *(*(*(a1 + 80) + 8) + 24) = 1;
     }
   }
-
-  else
-  {
-    v24 = 0;
-  }
-
-  *(*(*(a1 + 64) + 8) + 24) = v24;
-  *(*(a1 + 32) + 96) = 0;
-  [v89 invalidate];
-  *(*(*(a1 + 80) + 8) + 24) = 1;
-  v79 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_executeAtomically:(os_unfair_lock_s *)atomically
@@ -1062,7 +1054,7 @@ LABEL_92:
 
 - (void)interruptJournalMerge
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_interruptionsInfoLock);
   v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:dispatch_queue_get_label(0)];
   v4 = [(NSMutableDictionary *)self->_journalMergeInterruptions objectForKeyedSubscript:v3];
@@ -1082,19 +1074,17 @@ LABEL_92:
     v8 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543618;
+      v9 = 138543618;
       selfCopy = self;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Journal merge interruption requested on %@", &v10, 0x16u);
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Journal merge interruption requested on %@", &v9, 0x16u);
     }
 
     [(HDDatabaseTransaction *)self->_activeMergeTransaction requestTransactionInterruption];
   }
 
   os_unfair_lock_unlock(&self->_activeTransactionLock);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resumeJournalMerge
@@ -1143,7 +1133,7 @@ int64_t __40__HDDatabaseJournal_journalChapterCount__block_invoke(uint64_t a1)
 
 - (unint64_t)sizeOnDisk
 {
-  v47[2] = *MEMORY[0x277D85DE8];
+  v46[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAA00]);
   if (self)
   {
@@ -1157,43 +1147,43 @@ int64_t __40__HDDatabaseJournal_journalChapterCount__block_invoke(uint64_t a1)
 
   v5 = *MEMORY[0x277CBE8A8];
   v6 = *MEMORY[0x277CBE910];
-  v47[0] = *MEMORY[0x277CBE8A8];
-  v47[1] = v6;
-  v31 = v6;
+  v46[0] = *MEMORY[0x277CBE8A8];
+  v46[1] = v6;
+  v30 = v6;
   v7 = MEMORY[0x277CBEA60];
   v8 = URL;
-  v9 = [v7 arrayWithObjects:v47 count:2];
-  v30 = v3;
+  v9 = [v7 arrayWithObjects:v46 count:2];
+  v29 = v3;
   v10 = [v3 enumeratorAtURL:v8 includingPropertiesForKeys:v9 options:0 errorHandler:&__block_literal_global_104];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v12)
   {
     v13 = v12;
-    v32 = 0;
-    v14 = *v39;
+    v31 = 0;
+    v14 = *v38;
     while (1)
     {
       v15 = 0;
-      v33 = v13;
+      v32 = v13;
       do
       {
-        if (*v39 != v14)
+        if (*v38 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v38 + 1) + 8 * v15);
+        v16 = *(*(&v37 + 1) + 8 * v15);
+        v35 = 0;
         v36 = 0;
-        v37 = 0;
-        v17 = [v16 getResourceValue:&v37 forKey:v5 error:&v36];
-        v18 = v37;
-        v19 = v36;
+        v17 = [v16 getResourceValue:&v36 forKey:v5 error:&v35];
+        v18 = v36;
+        v19 = v35;
         if ((v17 & 1) == 0)
         {
           _HKInitializeLogging();
@@ -1201,9 +1191,9 @@ int64_t __40__HDDatabaseJournal_journalChapterCount__block_invoke(uint64_t a1)
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v43 = v16;
-            v44 = 2114;
-            v45 = v19;
+            v42 = v16;
+            v43 = 2114;
+            v44 = v19;
             _os_log_impl(&dword_228986000, v26, OS_LOG_TYPE_INFO, "Failed to retrieve file type during size computation: %{public}@ (%{public}@)", buf, 0x16u);
           }
 
@@ -1220,15 +1210,15 @@ LABEL_14:
         v20 = v14;
         v21 = v5;
         v22 = v11;
+        v33 = 0;
         v34 = 0;
-        v35 = 0;
-        v23 = [v16 getResourceValue:&v35 forKey:v31 error:&v34];
-        v24 = v35;
-        v25 = v34;
+        v23 = [v16 getResourceValue:&v34 forKey:v30 error:&v33];
+        v24 = v34;
+        v25 = v33;
 
         if (v23)
         {
-          v32 += [v24 longLongValue];
+          v31 += [v24 longLongValue];
         }
 
         else
@@ -1238,9 +1228,9 @@ LABEL_14:
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
           {
             *buf = 138543618;
-            v43 = v16;
-            v44 = 2114;
-            v45 = v25;
+            v42 = v16;
+            v43 = 2114;
+            v44 = v25;
             _os_log_impl(&dword_228986000, v27, OS_LOG_TYPE_INFO, "Failed to retrieve file size during size computation: %{public}@ (%{public}@)", buf, 0x16u);
           }
         }
@@ -1249,14 +1239,14 @@ LABEL_14:
 
         v5 = v21;
         v14 = v20;
-        v13 = v33;
+        v13 = v32;
 LABEL_18:
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v37 objects:v45 count:16];
       if (!v13)
       {
         goto LABEL_22;
@@ -1264,36 +1254,34 @@ LABEL_18:
     }
   }
 
-  v32 = 0;
+  v31 = 0;
 LABEL_22:
 
-  v28 = *MEMORY[0x277D85DE8];
-  return v32;
+  return v31;
 }
 
 uint64_t __31__HDDatabaseJournal_sizeOnDisk__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_INFO))
   {
-    v9 = 138543618;
-    v10 = v4;
-    v11 = 2114;
-    v12 = v5;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "Failed to enumerate URL during size computation: %{public}@ (%{public}@)", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v5;
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_INFO, "Failed to enumerate URL during size computation: %{public}@ (%{public}@)", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (double)ageOfOldestJournal
 {
-  v54[2] = *MEMORY[0x277D85DE8];
+  v53[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAA00]);
   if (self)
   {
@@ -1307,48 +1295,48 @@ uint64_t __31__HDDatabaseJournal_sizeOnDisk__block_invoke(uint64_t a1, void *a2,
 
   v5 = *MEMORY[0x277CBE8A8];
   v6 = *MEMORY[0x277CBE7C0];
-  v54[0] = *MEMORY[0x277CBE8A8];
-  v54[1] = v6;
-  v35 = v6;
+  v53[0] = *MEMORY[0x277CBE8A8];
+  v53[1] = v6;
+  v34 = v6;
   v7 = MEMORY[0x277CBEA60];
   v8 = URL;
-  v9 = [v7 arrayWithObjects:v54 count:2];
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __39__HDDatabaseJournal_ageOfOldestJournal__block_invoke;
-  v44[3] = &unk_2786213A8;
-  v44[4] = self;
-  v32 = v3;
-  v10 = [v3 enumeratorAtURL:v8 includingPropertiesForKeys:v9 options:0 errorHandler:v44];
+  v9 = [v7 arrayWithObjects:v53 count:2];
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __39__HDDatabaseJournal_ageOfOldestJournal__block_invoke;
+  v43[3] = &unk_2786213A8;
+  v43[4] = self;
+  v31 = v3;
+  v10 = [v3 enumeratorAtURL:v8 includingPropertiesForKeys:v9 options:0 errorHandler:v43];
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v40 objects:v53 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v39 objects:v52 count:16];
   if (v12)
   {
     v13 = v12;
     selfCopy = self;
-    v14 = *v41;
+    v14 = *v40;
     v15 = 0.0;
-    v34 = *v41;
+    v33 = *v40;
     while (1)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v41 != v14)
+        if (*v40 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v40 + 1) + 8 * i);
+        v17 = *(*(&v39 + 1) + 8 * i);
+        v37 = 0;
         v38 = 0;
-        v39 = 0;
-        v18 = [v17 getResourceValue:&v39 forKey:v5 error:&v38];
-        v19 = v39;
-        v20 = v38;
+        v18 = [v17 getResourceValue:&v38 forKey:v5 error:&v37];
+        v19 = v38;
+        v20 = v37;
         if ((v18 & 1) == 0)
         {
           _HKInitializeLogging();
@@ -1356,11 +1344,11 @@ uint64_t __31__HDDatabaseJournal_sizeOnDisk__block_invoke(uint64_t a1, void *a2,
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543874;
-            v46 = selfCopy;
-            v47 = 2114;
-            v48 = v17;
-            v49 = 2114;
-            v50 = v20;
+            v45 = selfCopy;
+            v46 = 2114;
+            v47 = v17;
+            v48 = 2114;
+            v49 = v20;
             _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to retrieve file type during journal age computation: %{public}@ (%{public}@)", buf, 0x20u);
           }
 
@@ -1376,11 +1364,11 @@ LABEL_17:
 
         v21 = v5;
         v22 = v11;
+        v35 = 0;
         v36 = 0;
-        v37 = 0;
-        v23 = [v17 getResourceValue:&v37 forKey:v35 error:&v36];
-        v24 = v37;
-        v25 = v36;
+        v23 = [v17 getResourceValue:&v36 forKey:v34 error:&v35];
+        v24 = v36;
+        v25 = v35;
 
         if (v23)
         {
@@ -1395,13 +1383,13 @@ LABEL_17:
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138544130;
-            v46 = selfCopy;
-            v47 = 2112;
-            v48 = v17;
-            v49 = 2114;
-            v50 = v24;
-            v51 = 2050;
-            v52 = v15;
+            v45 = selfCopy;
+            v46 = 2112;
+            v47 = v17;
+            v48 = 2114;
+            v49 = v24;
+            v50 = 2050;
+            v51 = v15;
             _os_log_impl(&dword_228986000, v27, OS_LOG_TYPE_DEFAULT, "[%{public}@] Journal file %@ creation date %{public}@, oldest age %{public}f", buf, 0x2Au);
           }
         }
@@ -1413,11 +1401,11 @@ LABEL_17:
           if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543874;
-            v46 = selfCopy;
-            v47 = 2114;
-            v48 = v17;
-            v49 = 2114;
-            v50 = v25;
+            v45 = selfCopy;
+            v46 = 2114;
+            v47 = v17;
+            v48 = 2114;
+            v49 = v25;
             _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to retrieve file size during journal age computation: %{public}@ (%{public}@)", buf, 0x20u);
           }
         }
@@ -1425,11 +1413,11 @@ LABEL_17:
         v11 = v22;
 
         v5 = v21;
-        v14 = v34;
+        v14 = v33;
 LABEL_21:
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v40 objects:v53 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v39 objects:v52 count:16];
       if (!v13)
       {
         goto LABEL_25;
@@ -1440,36 +1428,34 @@ LABEL_21:
   v15 = 0.0;
 LABEL_25:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 uint64_t __39__HDDatabaseJournal_ageOfOldestJournal__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC2A0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
   {
-    v10 = *(a1 + 32);
-    v11 = 138543874;
-    v12 = v10;
-    v13 = 2114;
-    v14 = v5;
-    v15 = 2114;
-    v16 = v6;
-    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to enumerate URL during journal age computation: %{public}@ (%{public}@)", &v11, 0x20u);
+    v9 = *(a1 + 32);
+    v10 = 138543874;
+    v11 = v9;
+    v12 = 2114;
+    v13 = v5;
+    v14 = 2114;
+    v15 = v6;
+    _os_log_error_impl(&dword_228986000, v7, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to enumerate URL during journal age computation: %{public}@ (%{public}@)", &v10, 0x20u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __95__HDDatabaseJournal__mergeJournalChapter_profile_accessibilityAssertion_shouldContinueHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([(HDDatabaseJournal *)*(a1 + 32) _setActiveTransactionAndReturnInterrupted:v5])
   {
@@ -1516,38 +1502,38 @@ LABEL_19:
     {
       v15 = [*(a1 + 40) name];
       *buf = 138543362;
-      v57 = v15;
+      v56 = v15;
       _os_signpost_emit_with_name_impl(&dword_228986000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v14, "merge-journal-chapter-load-entries", "chapter=%{public}@", buf, 0xCu);
     }
   }
 
-  v52 = 0;
-  v53 = &v52;
-  v54 = 0x2020000000;
-  v55 = 0;
   v51 = 0;
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __95__HDDatabaseJournal__mergeJournalChapter_profile_accessibilityAssertion_shouldContinueHandler___block_invoke_365;
-  v43[3] = &unk_2786213D0;
-  v49 = *(a1 + 88);
+  v52 = &v51;
+  v53 = 0x2020000000;
+  v54 = 0;
+  v50 = 0;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __95__HDDatabaseJournal__mergeJournalChapter_profile_accessibilityAssertion_shouldContinueHandler___block_invoke_365;
+  v42[3] = &unk_2786213D0;
+  v48 = *(a1 + 88);
   v16 = *(a1 + 48);
   v17 = *(a1 + 40);
-  v47 = *(a1 + 72);
-  v48 = &v52;
+  v46 = *(a1 + 72);
+  v47 = &v51;
   *&v18 = v17;
   *(&v18 + 1) = *(a1 + 32);
-  v42 = v18;
+  v41 = v18;
   v19 = *(a1 + 56);
   v20 = *(a1 + 48);
   *&v21 = v19;
   *(&v21 + 1) = v20;
-  v44 = v42;
-  v45 = v21;
-  v50 = v9;
-  v46 = v5;
-  LODWORD(v16) = [v17 enumerateEntriesWithProfile:v16 transaction:v46 error:&v51 handler:v43];
-  v22 = COERCE_DOUBLE(v51);
+  v43 = v41;
+  v44 = v21;
+  v49 = v9;
+  v45 = v5;
+  LODWORD(v16) = [v17 enumerateEntriesWithProfile:v16 transaction:v45 error:&v50 handler:v42];
+  v22 = COERCE_DOUBLE(v50);
   *(*(*(a1 + 80) + 8) + 24) = v16;
   v23 = *(*(*(a1 + 80) + 8) + 24);
   if (v23 < 2)
@@ -1559,11 +1545,11 @@ LABEL_19:
       v33 = HDStringFromJournalProcessingResult(*(*(*(a1 + 80) + 8) + 24));
       v34 = *(a1 + 40);
       *buf = 138543874;
-      v57 = v33;
-      v58 = 2114;
-      v59 = v34;
-      v60 = 2114;
-      v61 = v22;
+      v56 = v33;
+      v57 = 2114;
+      v58 = v34;
+      v59 = 2114;
+      v60 = v22;
       _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_DEFAULT, "A transient error (%{public}@) was encountered processing %{public}@, error: %{public}@", buf, 0x20u);
     }
   }
@@ -1578,11 +1564,11 @@ LABEL_19:
         v35 = *v10;
         if (os_log_type_enabled(*v10, OS_LOG_TYPE_ERROR))
         {
-          v41 = *(a1 + 40);
+          v40 = *(a1 + 40);
           *buf = 138543618;
-          v57 = v41;
-          v58 = 2114;
-          v59 = v22;
+          v56 = v40;
+          v57 = 2114;
+          v58 = v22;
           _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "A fatal error occurred while processing %{public}@, error: %{public}@", buf, 0x16u);
         }
       }
@@ -1596,20 +1582,20 @@ LABEL_19:
     {
       v25 = HDStringFromJournalProcessingResult(*(*(*(a1 + 80) + 8) + 24));
       v26 = *(a1 + 40);
-      v27 = v53[3];
+      v27 = v52[3];
       [*(a1 + 64) timeIntervalSinceNow];
       v29 = v28;
       v30 = [*(a1 + 56) loggingDescription];
       *buf = 138544386;
-      v57 = v25;
-      v58 = 2114;
-      v59 = v26;
-      v60 = 2048;
-      v61 = v27 * 0.0009765625;
-      v62 = 2048;
-      v63 = -v29;
-      v64 = 2114;
-      v65 = v30;
+      v56 = v25;
+      v57 = 2114;
+      v58 = v26;
+      v59 = 2048;
+      v60 = v27 * 0.0009765625;
+      v61 = 2048;
+      v62 = -v29;
+      v63 = 2114;
+      v64 = v30;
       _os_log_impl(&dword_228986000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ processing %{public}@ (%0.1lfkb), time: %.2f sec.\n%{public}@", buf, 0x34u);
     }
   }
@@ -1634,10 +1620,9 @@ LABEL_26:
     }
   }
 
-  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v51, 8);
 LABEL_33:
 
-  v39 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1666,13 +1651,13 @@ LABEL_33:
   return v5 & 1;
 }
 
-uint64_t __95__HDDatabaseJournal__mergeJournalChapter_profile_accessibilityAssertion_shouldContinueHandler___block_invoke_365(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
+uint64_t __95__HDDatabaseJournal__mergeJournalChapter_profile_accessibilityAssertion_shouldContinueHandler___block_invoke_365(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t (***a5)(id, id *))
 {
-  v107 = *MEMORY[0x277D85DE8];
-  v76 = a2;
+  v106 = *MEMORY[0x277D85DE8];
+  v75 = a2;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC2A0];
-  v77 = a1;
+  v76 = a1;
   if (os_signpost_enabled(*MEMORY[0x277CCC2A0]))
   {
     v8 = v7;
@@ -1680,19 +1665,19 @@ uint64_t __95__HDDatabaseJournal__mergeJournalChapter_profile_accessibilityAsser
     v10 = *(a1 + 88);
     if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
-      v11 = [*(v77 + 32) name];
+      v11 = [*(v76 + 32) name];
       *buf = 138543362;
       *&buf[4] = v11;
       _os_signpost_emit_with_name_impl(&dword_228986000, v9, OS_SIGNPOST_INTERVAL_END, v10, "merge-journal-chapter-load-entries", "chapter=%{public}@", buf, 0xCu);
     }
 
-    a1 = v77;
+    a1 = v76;
   }
 
   v12 = *(a1 + 72);
   if (!v12)
   {
-    v75 = 0;
+    v74 = 0;
 LABEL_10:
     _HKInitializeLogging();
     v15 = *MEMORY[0x277CCC2A0];
@@ -1700,62 +1685,62 @@ LABEL_10:
     {
       v16 = v15;
       v17 = v16;
-      v18 = *(v77 + 88);
+      v18 = *(v76 + 88);
       if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
       {
-        v19 = [*(v77 + 32) name];
+        v19 = [*(v76 + 32) name];
         *buf = 138543362;
         *&buf[4] = v19;
         _os_signpost_emit_with_name_impl(&dword_228986000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v18, "merge-journal-chapter-merge-entries", "chapter=%{public}@", buf, 0xCu);
       }
     }
 
-    *(*(*(v77 + 80) + 8) + 24) += a3;
-    v21 = *(v77 + 40);
-    v20 = *(v77 + 48);
-    v22 = *(v77 + 56);
-    v74 = v76;
-    v79 = v20;
-    v78 = v22;
-    v81 = v21;
+    *(*(*(v76 + 80) + 8) + 24) += a3;
+    v21 = *(v76 + 40);
+    v20 = *(v76 + 48);
+    v22 = *(v76 + 56);
+    v73 = v75;
+    v78 = v20;
+    v77 = v22;
+    v80 = v21;
     if (v21)
     {
-      v98 = 0;
-      v99 = &v98;
-      v100 = 0x3032000000;
-      v101 = __Block_byref_object_copy__95;
-      v102 = __Block_byref_object_dispose__95;
-      v103 = objc_alloc_init(MEMORY[0x277CBEAA8]);
-      v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v94 = 0;
-      v95 = &v94;
-      v96 = 0x2020000000;
       v97 = 0;
+      v98 = &v97;
+      v99 = 0x3032000000;
+      v100 = __Block_byref_object_copy__95;
+      v101 = __Block_byref_object_dispose__95;
+      v102 = objc_alloc_init(MEMORY[0x277CBEAA8]);
+      v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v93 = 0;
+      v94 = &v93;
+      v95 = 0x2020000000;
+      v96 = 0;
+      v89 = 0u;
       v90 = 0u;
       v91 = 0u;
       v92 = 0u;
-      v93 = 0u;
-      obj = v74;
+      obj = v73;
       v24 = 0;
-      v25 = [obj countByEnumeratingWithState:&v90 objects:buf count:16];
+      v25 = [obj countByEnumeratingWithState:&v89 objects:buf count:16];
       if (!v25)
       {
         goto LABEL_37;
       }
 
-      v26 = *v91;
+      v26 = *v90;
       while (1)
       {
         v27 = 0;
         v28 = v24;
         do
         {
-          if (*v91 != v26)
+          if (*v90 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v90 + 1) + 8 * v27);
+          v29 = *(*(&v89 + 1) + 8 * v27);
           v30 = [v29 entryClassName];
           v31 = v30 != v28;
           if (v30 == v28)
@@ -1773,8 +1758,8 @@ LABEL_10:
           if ([v21 isEqualToString:v28])
           {
 LABEL_24:
-            v32 = v95[3];
-            if ([v29 size] + v32 <= v81[10])
+            v32 = v94[3];
+            if ([v29 size] + v32 <= v80[10])
             {
               if (v30 != v28)
               {
@@ -1803,19 +1788,19 @@ LABEL_29:
 
           if (!v34)
           {
-            v83[0] = MEMORY[0x277D85DD0];
-            v83[1] = 3221225472;
-            v83[2] = __58__HDDatabaseJournal__mergeJournalEntries_metrics_profile___block_invoke;
-            v83[3] = &unk_278621420;
-            v84 = v23;
+            v82[0] = MEMORY[0x277D85DD0];
+            v82[1] = 3221225472;
+            v82[2] = __58__HDDatabaseJournal__mergeJournalEntries_metrics_profile___block_invoke;
+            v82[3] = &unk_278621420;
+            v83 = v23;
+            v84 = v77;
             v85 = v78;
-            v86 = v79;
-            v87 = v28;
-            v88 = &v94;
-            v89 = &v98;
+            v86 = v28;
+            v87 = &v93;
+            v88 = &v97;
             HKWithAutoreleasePool();
 
-            v30 = v84;
+            v30 = v83;
 LABEL_34:
           }
 
@@ -1823,13 +1808,13 @@ LABEL_34:
 
           [v23 addObject:v29];
           v35 = [v29 size];
-          v95[3] += v35;
+          v94[3] += v35;
           ++v27;
           v28 = v24;
         }
 
         while (v25 != v27);
-        v25 = [obj countByEnumeratingWithState:&v90 objects:buf count:16];
+        v25 = [obj countByEnumeratingWithState:&v89 objects:buf count:16];
         if (!v25)
         {
 LABEL_37:
@@ -1838,31 +1823,31 @@ LABEL_37:
           {
             v36 = [HDDatabaseJournal _journalEntriesFromChapterEnties:v23];
             v37 = [v36 firstObject];
-            [objc_opt_class() applyEntries:v36 withProfile:v78];
+            [objc_opt_class() applyEntries:v36 withProfile:v77];
 
             v38 = [v36 firstObject];
             v39 = [v38 entryClassName];
-            v40 = v95[3];
-            [v99[5] timeIntervalSinceNow];
-            [v79 addWithClassName:v39 size:v40 duration:-v41];
+            v40 = v94[3];
+            [v98[5] timeIntervalSinceNow];
+            [v78 addWithClassName:v39 size:v40 duration:-v41];
           }
 
-          v42 = [v24 copy];
-          v43 = v81[9];
-          v81[9] = v42;
+          v42 = objc_msgSend_copy(v24);
+          v43 = v80[9];
+          v80[9] = v42;
 
-          _Block_object_dispose(&v94, 8);
-          _Block_object_dispose(&v98, 8);
+          _Block_object_dispose(&v93, 8);
+          _Block_object_dispose(&v97, 8);
 
           break;
         }
       }
     }
 
-    v44 = *(v77 + 40);
-    v45 = *(v77 + 96);
-    v46 = *(v77 + 64);
-    v47 = *(v77 + 56);
+    v44 = *(v76 + 40);
+    v45 = *(v76 + 96);
+    v46 = *(v76 + 64);
+    v47 = *(v76 + 56);
     v48 = v46;
     v49 = v48;
     if (!v44)
@@ -1882,14 +1867,14 @@ LABEL_61:
       {
         v67 = v66;
         v68 = v67;
-        v69 = *(v77 + 88);
+        v69 = *(v76 + 88);
         if (v69 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v67))
         {
-          v70 = [*(v77 + 32) name];
+          v70 = [*(v76 + 32) name];
           *buf = 138543618;
           *&buf[4] = v70;
-          v105 = 1024;
-          v106 = v59;
+          v104 = 1024;
+          v105 = v59;
           _os_signpost_emit_with_name_impl(&dword_228986000, v68, OS_SIGNPOST_INTERVAL_END, v69, "merge-journal-chapter-merge-entries", "chapter=%{public}@ success=%{BOOL}d", buf, 0x12u);
         }
       }
@@ -1916,9 +1901,9 @@ LABEL_61:
     {
       v54 = [v51 longLongValue];
       v55 = [v47 currentSyncIdentityPersistentID];
-      v83[0] = 0;
-      v56 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity setOkemoZursObjectAnchor:v54 syncIdentity:v55 database:v50 error:v83];
-      v57 = v83[0];
+      v82[0] = 0;
+      v56 = [(HDKeyValueEntity *)HDProtectedKeyValueEntity setOkemoZursObjectAnchor:v54 syncIdentity:v55 database:v50 error:v82];
+      v57 = v82[0];
       v58 = v57;
       if (v56)
       {
@@ -1955,12 +1940,12 @@ LABEL_60:
     goto LABEL_60;
   }
 
-  v82 = 0;
-  v13 = (*(v12 + 16))(v12, &v82);
-  v14 = v82;
+  v81 = 0;
+  v13 = (*(v12 + 16))(v12, &v81);
+  v14 = v81;
   if (v13)
   {
-    v75 = v14;
+    v74 = v14;
     goto LABEL_10;
   }
 
@@ -1975,27 +1960,26 @@ LABEL_60:
   }
 
   v62 = v60;
-  v75 = v62;
+  v74 = v62;
   if (v62)
   {
     if (a5)
     {
       v63 = v62;
-      v62 = v75;
-      *a5 = v75;
+      v62 = v74;
+      *a5 = v74;
     }
 
     else
     {
       _HKLogDroppedError();
-      v62 = v75;
+      v62 = v74;
     }
   }
 
   v65 = 0;
 LABEL_69:
 
-  v71 = *MEMORY[0x277D85DE8];
   return v65;
 }
 
@@ -2031,10 +2015,10 @@ uint64_t __58__HDDatabaseJournal__mergeJournalEntries_metrics_profile___block_in
 
 id __54__HDDatabaseJournal__journalEntriesFromChapterEnties___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7 = 0;
-  v2 = [a2 deserializedEntryWithError:&v7];
-  v3 = v7;
+  v9 = *MEMORY[0x277D85DE8];
+  v6 = 0;
+  v2 = [a2 deserializedEntryWithError:&v6];
+  v3 = v6;
   if (!v2)
   {
     _HKInitializeLogging();
@@ -2042,12 +2026,10 @@ id __54__HDDatabaseJournal__journalEntriesFromChapterEnties___block_invoke(uint6
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v9 = v3;
+      v8 = v3;
       _os_log_error_impl(&dword_228986000, v4, OS_LOG_TYPE_ERROR, "Unable to deserialize journal entry: %{public}@", buf, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -2063,7 +2045,7 @@ id __54__HDDatabaseJournal__journalEntriesFromChapterEnties___block_invoke(uint6
 - (id)journalMergeInterruptions
 {
   os_unfair_lock_lock(&self->_interruptionsInfoLock);
-  v3 = [(NSMutableDictionary *)self->_journalMergeInterruptions copy];
+  v3 = objc_msgSend_copy(self->_journalMergeInterruptions);
   os_unfair_lock_unlock(&self->_interruptionsInfoLock);
 
   return v3;

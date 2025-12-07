@@ -46,19 +46,19 @@
     tintColor = self->_tintColor;
     if (v7 == tintColor)
     {
-      v10 = 1;
+      isEqual = 1;
       goto LABEL_12;
     }
 
     if (!v7 || tintColor == 0)
     {
 LABEL_9:
-      v10 = 0;
+      isEqual = 0;
     }
 
     else
     {
-      v10 = [(UIColor *)v7 isEqual:?];
+      isEqual = objc_msgSend_isEqual_(v7);
     }
 
 LABEL_12:
@@ -66,10 +66,10 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v10 = 0;
+  isEqual = 0;
 LABEL_13:
 
-  return v10;
+  return isEqual;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

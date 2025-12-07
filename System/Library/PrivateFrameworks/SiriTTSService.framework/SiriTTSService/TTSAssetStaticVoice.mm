@@ -62,7 +62,7 @@
 - (NSNumber)diskSize
 {
   selfCopy = self;
-  v3 = sub_1B1B61A5C();
+  v3 = sub_1B1B61A5C(selfCopy);
 
   return v3;
 }

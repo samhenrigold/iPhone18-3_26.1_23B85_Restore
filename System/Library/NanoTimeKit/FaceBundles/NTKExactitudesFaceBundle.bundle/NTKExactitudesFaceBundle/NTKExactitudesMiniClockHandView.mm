@@ -1,4 +1,5 @@
 @interface NTKExactitudesMiniClockHandView
+- (_TtC24NTKExactitudesFaceBundle31NTKExactitudesMiniClockHandView)initWithConfiguration:(id)configuration forDevice:(id)device maskedShadow:(BOOL)shadow;
 - (_TtC24NTKExactitudesFaceBundle31NTKExactitudesMiniClockHandView)initWithFrame:(CGRect)frame;
 - (void)_layoutInlayLayer;
 @end
@@ -17,6 +18,24 @@
 
   selfCopy = self;
   sub_1F168();
+}
+
+- (_TtC24NTKExactitudesFaceBundle31NTKExactitudesMiniClockHandView)initWithConfiguration:(id)configuration forDevice:(id)device maskedShadow:(BOOL)shadow
+{
+  shadowCopy = shadow;
+  sub_216EC();
+  sub_216DC();
+  sub_216CC();
+  if ((swift_task_isCurrentExecutor() & 1) == 0)
+  {
+    swift_task_reportUnexpectedExecutor();
+  }
+
+  v11.receiver = self;
+  v11.super_class = type metadata accessor for NTKExactitudesMiniClockHandView();
+  v9 = [(NTKExactitudesHandView *)&v11 initWithConfiguration:configuration forDevice:device maskedShadow:shadowCopy];
+
+  return v9;
 }
 
 - (_TtC24NTKExactitudesFaceBundle31NTKExactitudesMiniClockHandView)initWithFrame:(CGRect)frame

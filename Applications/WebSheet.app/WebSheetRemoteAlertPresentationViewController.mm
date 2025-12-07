@@ -2,6 +2,7 @@
 - (void)_willAppearInRemoteViewController;
 - (void)dismissPresentationController:(BOOL)controller;
 - (void)handleHomeButtonPressed;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation WebSheetRemoteAlertPresentationViewController
@@ -43,6 +44,26 @@
   delegate = [v3 delegate];
 
   [delegate setRemotePresentationController:self];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = WebSheetRemoteAlertPresentationViewController;
+  [(WebSheetRemoteAlertPresentationViewController *)&v9 viewDidAppear:appear];
+  v4 = +[UIApplication sharedApplication];
+  delegate = [v4 delegate];
+
+  webSheetCont = [delegate webSheetCont];
+  [webSheetCont setModalPresentationStyle:0];
+
+  webSheetCont2 = [delegate webSheetCont];
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100002610;
+  v8[3] = &unk_100008328;
+  v8[4] = self;
+  [(WebSheetRemoteAlertPresentationViewController *)self presentViewController:webSheetCont2 animated:1 completion:v8];
 }
 
 @end

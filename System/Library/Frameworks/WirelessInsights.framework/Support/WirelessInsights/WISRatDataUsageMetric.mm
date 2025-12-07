@@ -1,14 +1,18 @@
 @interface WISRatDataUsageMetric
 + (id)getSharedInstance;
 - (WISRatDataUsageMetric)init;
+- (void)airplaneModeStateChanged:(BOOL)changed;
 - (void)cellularRadioTechChangedForContext:(id)context To:(id)to;
 - (void)currentDataContextChangedTo:(id)to;
 - (void)dealloc;
 - (void)handleUpdate:(id)update forKey:(int)key withState:(id)state;
+- (void)interfaceCostExpensiveChangedForContext:(id)context To:(BOOL)to;
+- (void)lowDataModeChangedForContext:(id)context To:(BOOL)to;
 - (void)networkPathMonitorUpdate:(nw_path *)update;
 - (void)populateActiveDataContextInfo;
 - (void)populateInfoForContext:(id)context;
 - (void)registrationStatusChangedForContext:(id)context To:(id)to;
+- (void)satelliteRegistrationStatusChangedForContext:(id)context To:(BOOL)to;
 - (void)stewieStateChangedTo:(id)to;
 - (void)subscriptionInfoDidChange;
 @end
@@ -407,6 +411,75 @@ LABEL_7:
   }
 }
 
+- (void)lowDataModeChangedForContext:(id)context To:(BOOL)to
+{
+  toCopy = to;
+  contextCopy = context;
+  uuid = [contextCopy uuid];
+  state = [(WISRatDataUsageMetric *)self state];
+  contextUUID = [state contextUUID];
+  v10 = [uuid isEqual:contextUUID];
+
+  if (v10)
+  {
+    state2 = [(WISRatDataUsageMetric *)self state];
+    [state2 updateIsLowDataModeEnabledTo:toCopy];
+  }
+
+  else if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
+  {
+    [contextCopy uuid];
+    objc_claimAutoreleasedReturnValue();
+    sub_1001FC720();
+  }
+}
+
+- (void)interfaceCostExpensiveChangedForContext:(id)context To:(BOOL)to
+{
+  toCopy = to;
+  contextCopy = context;
+  uuid = [contextCopy uuid];
+  state = [(WISRatDataUsageMetric *)self state];
+  contextUUID = [state contextUUID];
+  v10 = [uuid isEqual:contextUUID];
+
+  if (v10)
+  {
+    state2 = [(WISRatDataUsageMetric *)self state];
+    [state2 updateIsCellularInterfaceExpensiveTo:toCopy];
+  }
+
+  else if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
+  {
+    [contextCopy uuid];
+    objc_claimAutoreleasedReturnValue();
+    sub_1001FC764();
+  }
+}
+
+- (void)satelliteRegistrationStatusChangedForContext:(id)context To:(BOOL)to
+{
+  toCopy = to;
+  contextCopy = context;
+  uuid = [contextCopy uuid];
+  state = [(WISRatDataUsageMetric *)self state];
+  contextUUID = [state contextUUID];
+  v10 = [uuid isEqual:contextUUID];
+
+  if (v10)
+  {
+    state2 = [(WISRatDataUsageMetric *)self state];
+    [state2 updateIsSatelliteSystemTo:toCopy];
+  }
+
+  else if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
+  {
+    [contextCopy uuid];
+    objc_claimAutoreleasedReturnValue();
+    sub_1001FC7A8();
+  }
+}
+
 - (void)stewieStateChangedTo:(id)to
 {
   toCopy = to;
@@ -417,6 +490,18 @@ LABEL_7:
 
   state = [(WISRatDataUsageMetric *)self state];
   [state updateIsStewieActiveTo:{objc_msgSend(toCopy, "isStewieActive")}];
+}
+
+- (void)airplaneModeStateChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  if (os_log_type_enabled(*(qword_1002DBE98 + 48), OS_LOG_TYPE_DEBUG))
+  {
+    sub_1001FC85C();
+  }
+
+  state = [(WISRatDataUsageMetric *)self state];
+  [state updateIsAirplaneModeActiveTo:changedCopy];
 }
 
 - (void)handleUpdate:(id)update forKey:(int)key withState:(id)state

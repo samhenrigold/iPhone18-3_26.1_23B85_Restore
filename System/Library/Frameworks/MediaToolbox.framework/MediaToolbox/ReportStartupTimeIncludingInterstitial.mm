@@ -14,11 +14,12 @@ void __fpic_ReportStartupTimeIncludingInterstitial_block_invoke(uint64_t a1)
     {
       if (!*(*(v1 + 32) + 1196) && fpic_GetFirstCurrentItem() == *(v1 + 56) && FigCFDictionaryGetValueIfPresent())
       {
-        FigBaseObject = FigPlaybackItemGetFigBaseObject(*(*(v1 + 32) + 160));
-        v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-        if (v4)
+        FigPlaybackItemGetFigBaseObject();
+        v4 = v3;
+        v5 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+        if (v5)
         {
-          v4(FigBaseObject, @"TimestampInterstitialReadyToPlay", 0);
+          v5(v4, @"TimestampInterstitialReadyToPlay", 0);
         }
       }
     }

@@ -208,7 +208,7 @@ LABEL_13:
     }
   }
 
-  [(VCTextTransmitter *)self->_textTransmitter sendCharacter:characterCopy, *v15, *&v15[16], v16, selfCopy2, v18, v19];
+  [(VCTextTransmitter *)self->_textTransmitter sendCharacter:characterCopy, *v15, *&v15[8], v16, selfCopy2, v18, v19];
 }
 
 - (void)sendText:(id)text
@@ -307,7 +307,7 @@ LABEL_13:
     }
   }
 
-  [(VCTextTransmitter *)self->_textTransmitter sendText:text, *v15, *&v15[16], v16, selfCopy2, v18];
+  [(VCTextTransmitter *)self->_textTransmitter sendText:text, *v15, *&v15[8], v16, selfCopy2, v18];
 }
 
 - (void)didReceiveCharacter:(unsigned __int16)character

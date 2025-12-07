@@ -54,22 +54,22 @@ void __70___UIScreenBasedWindowScene__unassociatedWindowSceneForScreen_create___
   }
 }
 
-void __62___UIScreenBasedWindowScene_initWithScreen_session_lookupKey___block_invoke(uint64_t a1, void *a2, objc_class *a3)
+void __62___UIScreenBasedWindowScene_initWithScreen_session_lookupKey___block_invoke(uint64_t *a1, void *a2, objc_class *a3)
 {
   v5 = a2;
   if (([(objc_class *)a3 conformsToProtocol:&unk_1EFE5A310]& 1) == 0)
   {
     v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 32);
+    v7 = a1[6];
+    v8 = a1[4];
     v9 = NSStringFromClass(a3);
     v10 = objc_opt_class();
     v11 = NSStringFromClass(v10);
     [v6 handleFailureInMethod:v7 object:v8 file:@"_UIScreenBasedWindowScene.m" lineNumber:242 description:{@"class: %@ included in baseSceneComponentClassDictionary of %@ but does not confirm to _UISceneComponentProviding!", v9, v11}];
   }
 
-  v12 = [[a3 alloc] initWithScene:*(a1 + 32)];
-  [*(a1 + 32) _registerSceneComponent:v12 forKey:v5];
+  v12 = [[a3 alloc] initWithScene:a1[4]];
+  [a1[4] _registerSceneComponent:v12 forKey:v5];
 }
 
 void __57___UIScreenBasedWindowScene__performInvalidationIfNeeded__block_invoke(uint64_t a1)
@@ -144,7 +144,7 @@ void __67___UIScreenBasedWindowScene__registerInvalidationEvaluatorIfNeeded__blo
   }
 }
 
-uint64_t __67___UIScreenBasedWindowScene__registerInvalidationEvaluatorIfNeeded__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
+void *__67___UIScreenBasedWindowScene__registerInvalidationEvaluatorIfNeeded__block_invoke_2(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 _extendsScreenSceneLifetime];
   if (result)

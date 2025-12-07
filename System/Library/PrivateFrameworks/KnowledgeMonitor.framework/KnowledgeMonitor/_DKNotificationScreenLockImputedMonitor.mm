@@ -1,5 +1,6 @@
 @interface _DKNotificationScreenLockImputedMonitor
 + (id)_eventWithState:(id)state;
++ (void)setIsLocked:(BOOL)locked;
 - (id)fetchMostRecentScreenLockStateEventFromKnowledgeStore;
 - (void)dealloc;
 - (void)fetchMostRecentScreenLockStateEventFromKnowledgeStore;
@@ -18,6 +19,14 @@
   v3.receiver = self;
   v3.super_class = _DKNotificationScreenLockImputedMonitor;
   [(_DKMonitor *)&v3 dealloc];
+}
+
++ (void)setIsLocked:(BOOL)locked
+{
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:locked];
+  userContext = [MEMORY[0x277CFE318] userContext];
+  keyPathForDeviceLockStatus = [MEMORY[0x277CFE338] keyPathForDeviceLockStatus];
+  [userContext setObject:v5 forKeyedSubscript:keyPathForDeviceLockStatus];
 }
 
 + (id)_eventWithState:(id)state
@@ -47,20 +56,20 @@
 
 - (id)fetchMostRecentScreenLockStateEventFromKnowledgeStore
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:0];
   v3 = MEMORY[0x277CFE1E0];
   deviceIsLockedImputedStream = [MEMORY[0x277CFE298] deviceIsLockedImputedStream];
-  v18[0] = deviceIsLockedImputedStream;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
-  v17 = v2;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+  v17[0] = deviceIsLockedImputedStream;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16 = v2;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
   v7 = [v3 eventQueryWithPredicate:0 eventStreams:v5 offset:0 limit:1 sortDescriptors:v6];
 
   knowledgeStore = [MEMORY[0x277CFE208] knowledgeStore];
-  v16 = 0;
-  v9 = [knowledgeStore executeQuery:v7 error:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [knowledgeStore executeQuery:v7 error:&v15];
+  v10 = v15;
 
   if (!v9)
   {
@@ -78,8 +87,6 @@
   }
 
   firstObject = [v9 firstObject];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -203,16 +210,14 @@
 
 - (void)fetchMostRecentScreenLockStateEventFromKnowledgeStore
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = [self count];
   firstObject = [self firstObject];
-  v7 = 134218242;
-  v8 = v4;
-  v9 = 2112;
-  v10 = firstObject;
-  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "ScreenLockStateImputed: length of query results: %lu, %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 134218242;
+  v7 = v4;
+  v8 = 2112;
+  v9 = firstObject;
+  _os_log_debug_impl(&dword_22595A000, a2, OS_LOG_TYPE_DEBUG, "ScreenLockStateImputed: length of query results: %lu, %@", &v6, 0x16u);
 }
 
 @end

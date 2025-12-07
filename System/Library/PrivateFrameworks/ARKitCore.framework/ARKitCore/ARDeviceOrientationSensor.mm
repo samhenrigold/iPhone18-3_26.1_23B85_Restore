@@ -14,47 +14,48 @@
 
 - (ARDeviceOrientationSensor)initWithMotionManager:(id)manager alignment:(int64_t)alignment
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   managerCopy = manager;
-  if (([managerCopy isDeviceMotionAvailable] & 1) == 0)
+  isDeviceMotionAvailable = [managerCopy isDeviceMotionAvailable];
+  if ((isDeviceMotionAvailable & 1) == 0)
   {
     if (ARShouldUseLogTypeError_onceToken_0 != -1)
     {
       [ARDeviceOrientationSensor initWithMotionManager:alignment:];
     }
 
-    v13 = ARShouldUseLogTypeError_internalOSVersion_0;
-    v14 = _ARLogSensor_0();
-    v15 = v14;
-    if (v13 == 1)
+    v14 = ARShouldUseLogTypeError_internalOSVersion_0;
+    v15 = _ARLogSensor_0(isDeviceMotionAvailable);
+    v16 = v15;
+    if (v14 == 1)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
+        v17 = objc_opt_class();
+        v18 = NSStringFromClass(v17);
         *buf = 138543618;
-        v25 = v17;
-        v26 = 2048;
+        v26 = v18;
+        v27 = 2048;
         selfCopy2 = self;
-        v18 = "%{public}@ <%p>: Unable to initialize ARDeviceOrientationSensor: Device motion from CMMotionManager not available.";
-        v19 = v15;
-        v20 = OS_LOG_TYPE_ERROR;
+        v19 = "%{public}@ <%p>: Unable to initialize ARDeviceOrientationSensor: Device motion from CMMotionManager not available.";
+        v20 = v16;
+        v21 = OS_LOG_TYPE_ERROR;
 LABEL_12:
-        _os_log_impl(&dword_1C241C000, v19, v20, v18, buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v20, v21, v19, buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v21 = objc_opt_class();
-      v17 = NSStringFromClass(v21);
+      v22 = objc_opt_class();
+      v18 = NSStringFromClass(v22);
       *buf = 138543618;
-      v25 = v17;
-      v26 = 2048;
+      v26 = v18;
+      v27 = 2048;
       selfCopy2 = self;
-      v18 = "Error: %{public}@ <%p>: Unable to initialize ARDeviceOrientationSensor: Device motion from CMMotionManager not available.";
-      v19 = v15;
-      v20 = OS_LOG_TYPE_INFO;
+      v19 = "Error: %{public}@ <%p>: Unable to initialize ARDeviceOrientationSensor: Device motion from CMMotionManager not available.";
+      v20 = v16;
+      v21 = OS_LOG_TYPE_INFO;
       goto LABEL_12;
     }
 
@@ -62,17 +63,17 @@ LABEL_12:
     goto LABEL_14;
   }
 
-  v23.receiver = self;
-  v23.super_class = ARDeviceOrientationSensor;
-  v8 = [(ARDeviceOrientationSensor *)&v23 init];
-  p_isa = &v8->super.isa;
-  if (v8)
+  v24.receiver = self;
+  v24.super_class = ARDeviceOrientationSensor;
+  v9 = [(ARDeviceOrientationSensor *)&v24 init];
+  p_isa = &v9->super.isa;
+  if (v9)
   {
-    v8->_worldAlignment = alignment;
-    objc_storeStrong(&v8->_motionManager, manager);
-    v10 = objc_alloc_init(MEMORY[0x1E696ADC8]);
-    v11 = p_isa[2];
-    p_isa[2] = v10;
+    v9->_worldAlignment = alignment;
+    objc_storeStrong(&v9->_motionManager, manager);
+    v11 = objc_alloc_init(MEMORY[0x1E696ADC8]);
+    v12 = p_isa[2];
+    p_isa[2] = v11;
 
     [p_isa[2] setQualityOfService:33];
     [p_isa[2] setMaxConcurrentOperationCount:1];
@@ -88,7 +89,7 @@ LABEL_14:
 - (void)dealloc
 {
   v14 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor_0();
+  v3 = _ARLogSensor_0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
@@ -111,61 +112,62 @@ LABEL_14:
 
 - (void)start
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v3 = _ARLogSensor_0();
+  v46 = *MEMORY[0x1E69E9840];
+  v3 = _ARLogSensor_0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     motionManager = self->_motionManager;
     *buf = 138543874;
-    v38 = v5;
-    v39 = 2048;
+    v41 = v5;
+    v42 = 2048;
     selfCopy6 = self;
-    v41 = 2048;
-    v42 = motionManager;
+    v44 = 2048;
+    v45 = motionManager;
     _os_log_impl(&dword_1C241C000, v3, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: start (%p)", buf, 0x20u);
   }
 
   [(ARDeviceOrientationSensor *)self preferredInterval];
-  [(ARDeviceOrientationSensor *)self setInterval:?];
+  v7 = [(ARDeviceOrientationSensor *)self setInterval:?];
   if (self->_worldAlignment == 1)
   {
-    v7 = 8;
+    v8 = 8;
   }
 
   else
   {
-    v7 = 1;
+    v8 = 1;
   }
 
-  v8 = _ARLogSensor_0();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _ARLogSensor_0(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = NSStringFromAttitudeReferenceFrame(v7);
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
+    v12 = NSStringFromAttitudeReferenceFrame(v8);
     *buf = 138543874;
-    v38 = v10;
-    v39 = 2048;
+    v41 = v11;
+    v42 = 2048;
     selfCopy6 = self;
-    v41 = 2112;
-    v42 = v11;
-    _os_log_impl(&dword_1C241C000, v8, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: starting with reference frame: %@", buf, 0x20u);
+    v44 = 2112;
+    v45 = v12;
+    _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: starting with reference frame: %@", buf, 0x20u);
   }
 
-  if (([MEMORY[0x1E69634D0] availableAttitudeReferenceFrames] & v7) != 0)
+  availableAttitudeReferenceFrames = [MEMORY[0x1E69634D0] availableAttitudeReferenceFrames];
+  if ((availableAttitudeReferenceFrames & v8) != 0)
   {
     objc_initWeak(buf, self);
-    v13 = self->_motionManager;
+    v15 = self->_motionManager;
     taskDeviceMotion = self->_taskDeviceMotion;
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __34__ARDeviceOrientationSensor_start__block_invoke;
-    v35[3] = &unk_1E817BC78;
-    objc_copyWeak(&v36, buf);
-    [(CMMotionManager *)v13 startDeviceMotionUpdatesUsingReferenceFrame:v7 toQueue:taskDeviceMotion withHandler:v35];
-    objc_destroyWeak(&v36);
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 3221225472;
+    v38[2] = __34__ARDeviceOrientationSensor_start__block_invoke;
+    v38[3] = &unk_1E817BC78;
+    objc_copyWeak(&v39, buf);
+    [(CMMotionManager *)v15 startDeviceMotionUpdatesUsingReferenceFrame:v8 toQueue:taskDeviceMotion withHandler:v38];
+    objc_destroyWeak(&v39);
     objc_destroyWeak(buf);
     delegate = [(ARDeviceOrientationSensor *)self delegate];
     LOBYTE(taskDeviceMotion) = objc_opt_respondsToSelector();
@@ -185,38 +187,38 @@ LABEL_14:
     [ARDeviceOrientationSensor start];
   }
 
-  v16 = ARShouldUseLogTypeError_internalOSVersion_0;
-  v17 = _ARLogSensor_0();
-  v18 = v17;
-  if (v16 == 1)
+  v18 = ARShouldUseLogTypeError_internalOSVersion_0;
+  v19 = _ARLogSensor_0(availableAttitudeReferenceFrames);
+  v20 = v19;
+  if (v18 == 1)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
-      v21 = NSStringFromAttitudeReferenceFrame(v7);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      v23 = NSStringFromAttitudeReferenceFrame(v8);
       *buf = 138543874;
-      v38 = v20;
-      v39 = 2048;
+      v41 = v22;
+      v42 = 2048;
       selfCopy6 = self;
-      v41 = 2112;
-      v42 = v21;
-      _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Device motion is not available for reference frame: %@", buf, 0x20u);
+      v44 = 2112;
+      v45 = v23;
+      _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Device motion is not available for reference frame: %@", buf, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
-    v24 = NSStringFromAttitudeReferenceFrame(v7);
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
+    v26 = NSStringFromAttitudeReferenceFrame(v8);
     *buf = 138543874;
-    v38 = v23;
-    v39 = 2048;
+    v41 = v25;
+    v42 = 2048;
     selfCopy6 = self;
-    v41 = 2112;
-    v42 = v24;
-    _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Device motion is not available for reference frame: %@", buf, 0x20u);
+    v44 = 2112;
+    v45 = v26;
+    _os_log_impl(&dword_1C241C000, v20, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Device motion is not available for reference frame: %@", buf, 0x20u);
   }
 
   if (ARShouldUseLogTypeError_onceToken_0 != -1)
@@ -224,42 +226,42 @@ LABEL_14:
     [ARDeviceOrientationSensor start];
   }
 
-  v25 = ARShouldUseLogTypeError_internalOSVersion_0;
-  v26 = _ARLogSensor_0();
-  v27 = v26;
-  if (v25 == 1)
+  v28 = ARShouldUseLogTypeError_internalOSVersion_0;
+  v29 = _ARLogSensor_0(v27);
+  v30 = v29;
+  if (v28 == 1)
   {
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
+      v31 = objc_opt_class();
+      v32 = NSStringFromClass(v31);
       *buf = 138543618;
-      v38 = v29;
-      v39 = 2048;
+      v41 = v32;
+      v42 = 2048;
       selfCopy6 = self;
-      _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to start.", buf, 0x16u);
+      _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_ERROR, "%{public}@ <%p>: Failed to start.", buf, 0x16u);
     }
   }
 
-  else if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
-    v30 = objc_opt_class();
-    v31 = NSStringFromClass(v30);
+    v33 = objc_opt_class();
+    v34 = NSStringFromClass(v33);
     *buf = 138543618;
-    v38 = v31;
-    v39 = 2048;
+    v41 = v34;
+    v42 = 2048;
     selfCopy6 = self;
-    _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to start.", buf, 0x16u);
+    _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_INFO, "Error: %{public}@ <%p>: Failed to start.", buf, 0x16u);
   }
 
   delegate3 = [(ARDeviceOrientationSensor *)self delegate];
-  v33 = objc_opt_respondsToSelector();
+  v36 = objc_opt_respondsToSelector();
 
-  if (v33)
+  if (v36)
   {
     delegate2 = [(ARDeviceOrientationSensor *)self delegate];
-    v34 = ARErrorWithCodeAndUserInfo(101, 0);
-    [delegate2 sensor:self didFailWithError:v34];
+    v37 = ARErrorWithCodeAndUserInfo(101, 0);
+    [delegate2 sensor:self didFailWithError:v37];
 
 LABEL_27:
   }
@@ -302,87 +304,91 @@ void __50__ARDeviceOrientationSensor_changeReferenceFrame___block_invoke(uint64_
 
 - (void)handleDeviceMotionUpdateWithMotion:(id)motion error:(id)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   motionCopy = motion;
   errorCopy = error;
-  kdebug_trace();
-  if (errorCopy && [errorCopy code] != 101)
+  code = kdebug_trace();
+  if (errorCopy)
   {
-    if (ARShouldUseLogTypeError_onceToken_0 != -1)
+    code = [errorCopy code];
+    if (code != 101)
     {
-      [ARDeviceOrientationSensor initWithMotionManager:alignment:];
-    }
-
-    v13 = ARShouldUseLogTypeError_internalOSVersion_0;
-    v14 = _ARLogSensor_0();
-    v15 = v14;
-    if (v13 == 1)
-    {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (ARShouldUseLogTypeError_onceToken_0 != -1)
       {
-        v16 = objc_opt_class();
-        v17 = NSStringFromClass(v16);
-        v18 = [errorCopy description];
-        *buf = 138543874;
-        v39 = v17;
-        v40 = 2048;
-        selfCopy5 = self;
-        v42 = 2112;
-        v43 = v18;
-        v19 = "%{public}@ <%p>: error received from motion manager: %@";
-        v20 = v15;
-        v21 = OS_LOG_TYPE_ERROR;
-LABEL_22:
-        _os_log_impl(&dword_1C241C000, v20, v21, v19, buf, 0x20u);
+        [ARDeviceOrientationSensor initWithMotionManager:alignment:];
       }
+
+      v16 = ARShouldUseLogTypeError_internalOSVersion_0;
+      v17 = _ARLogSensor_0(code);
+      v18 = v17;
+      if (v16 == 1)
+      {
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        {
+          v19 = objc_opt_class();
+          v20 = NSStringFromClass(v19);
+          v21 = [errorCopy description];
+          *buf = 138543874;
+          v42 = v20;
+          v43 = 2048;
+          selfCopy5 = self;
+          v45 = 2112;
+          v46 = v21;
+          v22 = "%{public}@ <%p>: error received from motion manager: %@";
+          v23 = v18;
+          v24 = OS_LOG_TYPE_ERROR;
+LABEL_22:
+          _os_log_impl(&dword_1C241C000, v23, v24, v22, buf, 0x20u);
+        }
+      }
+
+      else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      {
+        v33 = objc_opt_class();
+        v20 = NSStringFromClass(v33);
+        v21 = [errorCopy description];
+        *buf = 138543874;
+        v42 = v20;
+        v43 = 2048;
+        selfCopy5 = self;
+        v45 = 2112;
+        v46 = v21;
+        v22 = "Error: %{public}@ <%p>: error received from motion manager: %@";
+        v23 = v18;
+        v24 = OS_LOG_TYPE_INFO;
+        goto LABEL_22;
+      }
+
+      delegate = [(ARDeviceOrientationSensor *)self delegate];
+      v39 = *MEMORY[0x1E696AA08];
+      v40 = errorCopy;
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+      v34 = ARErrorWithCodeAndUserInfo(102, v27);
+      [delegate sensor:self didFailWithError:v34];
+
+      goto LABEL_24;
     }
-
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
-    {
-      v30 = objc_opt_class();
-      v17 = NSStringFromClass(v30);
-      v18 = [errorCopy description];
-      *buf = 138543874;
-      v39 = v17;
-      v40 = 2048;
-      selfCopy5 = self;
-      v42 = 2112;
-      v43 = v18;
-      v19 = "Error: %{public}@ <%p>: error received from motion manager: %@";
-      v20 = v15;
-      v21 = OS_LOG_TYPE_INFO;
-      goto LABEL_22;
-    }
-
-    delegate = [(ARDeviceOrientationSensor *)self delegate];
-    v36 = *MEMORY[0x1E696AA08];
-    v37 = errorCopy;
-    v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v31 = ARErrorWithCodeAndUserInfo(102, v24);
-    [delegate sensor:self didFailWithError:v31];
-
-    goto LABEL_24;
   }
 
   if (!motionCopy)
   {
-    delegate = _ARLogSensor_0();
+    delegate = _ARLogSensor_0(code);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEBUG))
     {
-      v23 = objc_opt_class();
-      v24 = NSStringFromClass(v23);
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
       motionManager = self->_motionManager;
       *buf = 138543874;
-      v39 = v24;
-      v40 = 2048;
+      v42 = v27;
+      v43 = 2048;
       selfCopy5 = self;
-      v42 = 2048;
-      v43 = motionManager;
-      v26 = "%{public}@ <%p>: Failed to get device motion from motion manager (%p)";
-      v27 = delegate;
-      v28 = 32;
+      v45 = 2048;
+      v46 = motionManager;
+      v29 = "%{public}@ <%p>: Failed to get device motion from motion manager (%p)";
+      v30 = delegate;
+      v31 = 32;
 LABEL_19:
-      _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_DEBUG, v26, buf, v28);
+      _os_log_impl(&dword_1C241C000, v30, OS_LOG_TYPE_DEBUG, v29, buf, v31);
 LABEL_24:
     }
 
@@ -391,21 +397,21 @@ LABEL_25:
     goto LABEL_30;
   }
 
-  [motionCopy timestamp];
-  if (v8 <= self->_previousCaptureEndingTimestamp)
+  v9 = objc_msgSend_timestamp(motionCopy);
+  if (v10 <= self->_previousCaptureEndingTimestamp)
   {
-    delegate = _ARLogSensor_0();
+    delegate = _ARLogSensor_0(v9);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEBUG))
     {
-      v29 = objc_opt_class();
-      v24 = NSStringFromClass(v29);
+      v32 = objc_opt_class();
+      v27 = NSStringFromClass(v32);
       *buf = 138543618;
-      v39 = v24;
-      v40 = 2048;
+      v42 = v27;
+      v43 = 2048;
       selfCopy5 = self;
-      v26 = "%{public}@ <%p>: Rejected stale device motion data";
-      v27 = delegate;
-      v28 = 22;
+      v29 = "%{public}@ <%p>: Rejected stale device motion data";
+      v30 = delegate;
+      v31 = 22;
       goto LABEL_19;
     }
 
@@ -414,41 +420,41 @@ LABEL_25:
 
   if (self->_worldAlignment == 1)
   {
-    [motionCopy magneticField];
-    if (v35 != 2)
+    v11 = objc_msgSend_magneticField(motionCopy);
+    if (v38 != 2)
     {
-      v9 = _ARLogSensor_0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v12 = _ARLogSensor_0(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        v10 = objc_opt_class();
-        v11 = NSStringFromClass(v10);
-        [motionCopy magneticField];
-        if ((v34 + 1) > 3)
+        v13 = objc_opt_class();
+        v14 = NSStringFromClass(v13);
+        objc_msgSend_magneticField(motionCopy);
+        if ((v37 + 1) > 3)
         {
-          v12 = &stru_1F4208A80;
+          v15 = &stru_1F4208A80;
         }
 
         else
         {
-          v12 = off_1E817BC98[v34 + 1];
+          v15 = off_1E817BC98[v37 + 1];
         }
 
         *buf = 138543874;
-        v39 = v11;
-        v40 = 2048;
+        v42 = v14;
+        v43 = 2048;
         selfCopy5 = self;
-        v42 = 2112;
-        v43 = v12;
-        _os_log_impl(&dword_1C241C000, v9, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Warning: Magnetic calibration accuracy is %@", buf, 0x20u);
+        v45 = 2112;
+        v46 = v15;
+        _os_log_impl(&dword_1C241C000, v12, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: Warning: Magnetic calibration accuracy is %@", buf, 0x20u);
       }
     }
   }
 
   delegate2 = [(ARDeviceOrientationSensor *)self delegate];
-  v33 = [[ARDeviceOrientationData alloc] initWithMotionData:motionCopy];
-  [delegate2 sensor:self didOutputSensorData:v33];
+  v36 = [[ARDeviceOrientationData alloc] initWithMotionData:motionCopy];
+  [delegate2 sensor:self didOutputSensorData:v36];
 
-  [motionCopy timestamp];
+  objc_msgSend_timestamp(motionCopy);
   kdebug_trace();
 LABEL_30:
 }
@@ -463,8 +469,7 @@ LABEL_30:
 
   if (self->_interval != interval)
   {
-    [(CMMotionManager *)self->_motionManager setDeviceMotionUpdateInterval:fmax(interval, 0.0)];
-    v5 = _ARLogSensor_0();
+    v5 = _ARLogSensor_0([(CMMotionManager *)self->_motionManager setDeviceMotionUpdateInterval:fmax(interval, 0.0)]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       v6 = objc_opt_class();
@@ -489,12 +494,11 @@ LABEL_30:
   v4 = deviceMotion;
   if (deviceMotion)
   {
-    [deviceMotion timestamp];
+    objc_msgSend_timestamp(deviceMotion);
     self->_previousCaptureEndingTimestamp = v5;
   }
 
-  [(ARDeviceOrientationSensor *)self setInterval:0.0];
-  v6 = _ARLogSensor_0();
+  v6 = _ARLogSensor_0([(ARDeviceOrientationSensor *)self setInterval:0.0]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v7 = objc_opt_class();

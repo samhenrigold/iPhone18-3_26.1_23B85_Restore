@@ -31,18 +31,11 @@
 - (AVTSerializedAvatarRecord)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeBoolForKey:@"isPuppet"];
-  v6 = off_278CF9B38;
-  if (!v5)
-  {
-    v6 = off_278CF9B40;
-  }
+  [coderCopy decodeBoolForKey:@"isPuppet"];
+  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"avatarRecord"];
 
-  v7 = *v6;
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"avatarRecord"];
-
-  v9 = [(AVTSerializedAvatarRecord *)self initWithAvatarRecord:v8];
-  return v9;
+  v6 = [(AVTSerializedAvatarRecord *)self initWithAvatarRecord:v5];
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -7,7 +7,7 @@
 - (void)executionDidBegin
 {
   v16 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -51,20 +51,20 @@ LABEL_8:
 
 void __42__VSAMSBagLoadOperation_executionDidBegin__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = VSDefaultLogObject();
+  v7 = VSDefaultLogObject(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = [*(a1 + 32) bagKey];
-    v12 = 138412802;
-    v13 = v5;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v6;
-    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Finished loading value %@ for AMS bag key %@ with error %@", &v12, 0x20u);
+    v13 = 138412802;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_23AB8E000, v7, OS_LOG_TYPE_DEFAULT, "Finished loading value %@ for AMS bag key %@ with error %@", &v13, 0x20u);
   }
 
   [*(a1 + 32) setValue:v5];
@@ -84,11 +84,11 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v11 = VSDefaultLogObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = VSDefaultLogObject(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_23AB8E000, v11, OS_LOG_TYPE_DEFAULT, "Bag error was AMSErrorCodeBagValueMissing, ignoring error", &v12, 2u);
+    LOWORD(v13) = 0;
+    _os_log_impl(&dword_23AB8E000, v12, OS_LOG_TYPE_DEFAULT, "Bag error was AMSErrorCodeBagValueMissing, ignoring error", &v13, 2u);
   }
 
 LABEL_10:

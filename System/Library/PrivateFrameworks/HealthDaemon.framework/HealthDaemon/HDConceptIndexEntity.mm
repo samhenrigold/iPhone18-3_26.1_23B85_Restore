@@ -14,36 +14,32 @@
 
 + (id)indices
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D10B40]);
   v3 = objc_opt_class();
-  v14 = @"object_id";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = @"object_id";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
   v5 = [v2 initWithEntity:v3 name:@"objects" columns:v4];
-  v15[0] = v5;
+  v14[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D10B40]);
   v7 = objc_opt_class();
-  v13[0] = @"concept_identifier";
-  v13[1] = @"key_path";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = @"concept_identifier";
+  v12[1] = @"key_path";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v9 = [v6 initWithEntity:v7 name:@"concept_identifier_key_paths" columns:v8];
-  v15[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v14[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
   return v10;
 }
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"object_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"object_id";
   v2 = +[HDDataEntity defaultForeignKey];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -113,62 +109,61 @@ LABEL_3:
 
 uint64_t __64__HDConceptIndexEntity_insertConceptIndexEntries_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38[7] = *MEMORY[0x277D85DE8];
-  v28 = a2;
+  v36[7] = *MEMORY[0x277D85DE8];
+  v26 = a2;
+  v27 = 0u;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
   obj = *(a1 + 32);
-  v26 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v26)
+  v24 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+  if (v24)
   {
-    v25 = *v30;
+    v23 = *v28;
     while (2)
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v24; ++i)
       {
-        if (*v30 != v25)
+        if (*v28 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v29 + 1) + 8 * i);
-        v6 = *(a1 + 40);
-        v7 = [v28 protectedDatabase];
-        v8 = v5;
-        v9 = v7;
-        v10 = objc_opt_self();
-        v38[0] = @"object_id";
-        v38[1] = @"concept_identifier";
-        v38[2] = @"version";
-        v38[3] = @"key_path";
-        v38[4] = @"compound_index";
-        v38[5] = @"type";
-        v38[6] = @"ontology_version";
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:7];
-        v12 = [v8 sampleUUID];
-        v13 = HDDataEntityPredicateForDataUUID();
-        v36 = 0;
-        v14 = [(HDDataEntity *)HDSampleEntity anyInDatabase:v9 predicate:v13 error:&v36];
-        v15 = v36;
+        v5 = *(*(&v27 + 1) + 8 * i);
+        v6 = [v26 protectedDatabase];
+        v7 = v5;
+        v8 = v6;
+        v9 = objc_opt_self();
+        v36[0] = @"object_id";
+        v36[1] = @"concept_identifier";
+        v36[2] = @"version";
+        v36[3] = @"key_path";
+        v36[4] = @"compound_index";
+        v36[5] = @"type";
+        v36[6] = @"ontology_version";
+        v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:7];
+        v11 = [v7 sampleUUID];
+        v12 = HDDataEntityPredicateForDataUUID();
+        v34 = 0;
+        v13 = [(HDDataEntity *)HDSampleEntity anyInDatabase:v8 predicate:v12 error:&v34];
+        v14 = v34;
 
-        if (v14)
+        if (v13)
         {
-          v16 = 1;
+          v15 = 1;
         }
 
         else
         {
-          v16 = v15 == 0;
+          v15 = v14 == 0;
         }
 
-        if (!v16)
+        if (!v15)
         {
           if (a3)
           {
-            v21 = v15;
-            *a3 = v15;
+            v20 = v14;
+            *a3 = v14;
           }
 
           else
@@ -177,29 +172,29 @@ uint64_t __64__HDConceptIndexEntity_insertConceptIndexEntries_profile_error___bl
           }
 
 LABEL_20:
-          v20 = 0;
+          v19 = 0;
           goto LABEL_21;
         }
 
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __64__HDConceptIndexEntity__insertConceptIndexEntry_database_error___block_invoke;
-        v33[3] = &unk_278613DE8;
-        v17 = v14;
-        v34 = v17;
-        v18 = v8;
-        v35 = v18;
-        v19 = [v10 insertOrReplaceEntity:1 database:v9 properties:v11 error:a3 bindingHandler:v33];
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __64__HDConceptIndexEntity__insertConceptIndexEntry_database_error___block_invoke;
+        v31[3] = &unk_278613DE8;
+        v16 = v13;
+        v32 = v16;
+        v17 = v7;
+        v33 = v17;
+        v18 = [v9 insertOrReplaceEntity:1 database:v8 properties:v10 error:a3 bindingHandler:v31];
 
-        if (!v19)
+        if (!v18)
         {
           goto LABEL_20;
         }
       }
 
-      v20 = 1;
-      v26 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
-      if (v26)
+      v19 = 1;
+      v24 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+      if (v24)
       {
         continue;
       }
@@ -210,13 +205,12 @@ LABEL_20:
 
   else
   {
-    v20 = 1;
+    v19 = 1;
   }
 
 LABEL_21:
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v19;
 }
 
 + (BOOL)removeAllConceptIndexEntriesWithProfile:(id)profile error:(id *)error
@@ -241,15 +235,14 @@ LABEL_21:
 
 uint64_t __70__HDConceptIndexEntity_removeAllConceptIndexEntriesWithProfile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = *(a1 + 32);
-  v5 = a2;
-  v6 = objc_opt_class();
-  v7 = [v5 protectedDatabase];
+  v4 = a2;
+  v5 = objc_opt_class();
+  v6 = [v4 protectedDatabase];
 
-  v8 = [v6 queryWithDatabase:v7 predicate:0];
+  v7 = [v5 queryWithDatabase:v6 predicate:0];
 
-  v9 = [v8 deleteAllEntitiesWithError:a3];
-  return v9;
+  v8 = [v7 deleteAllEntitiesWithError:a3];
+  return v8;
 }
 
 + (id)conceptIndexEntriesForSampleUUID:(id)d type:(unint64_t)type profile:(id)profile error:(id *)error
@@ -329,60 +322,58 @@ LABEL_3:
 
 uint64_t __99__HDConceptIndexEntity_enumerateConceptIndexEntriesWithPredicate_profile_error_enumerationHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 32);
-  v7 = *(a1 + 40);
-  v8 = a2;
-  v9 = v6;
-  v10 = objc_opt_self();
-  if (!v8)
+  v26 = *MEMORY[0x277D85DE8];
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v7 = a2;
+  v8 = v5;
+  v9 = objc_opt_self();
+  if (!v7)
   {
-    v19 = [MEMORY[0x277CCA890] currentHandler];
-    [v19 handleFailureInMethod:sel__enumerateConceptIndexEntriesWithPredicate_transaction_error_handler_ object:v10 file:@"HDConceptIndexEntity.m" lineNumber:259 description:{@"Invalid parameter not satisfying: %@", @"transaction"}];
+    v17 = [MEMORY[0x277CCA890] currentHandler];
+    [v17 handleFailureInMethod:sel__enumerateConceptIndexEntriesWithPredicate_transaction_error_handler_ object:v9 file:@"HDConceptIndexEntity.m" lineNumber:259 description:{@"Invalid parameter not satisfying: %@", @"transaction"}];
 
-    if (v7)
+    if (v6)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v20 = [MEMORY[0x277CCA890] currentHandler];
-    [v20 handleFailureInMethod:sel__enumerateConceptIndexEntriesWithPredicate_transaction_error_handler_ object:v10 file:@"HDConceptIndexEntity.m" lineNumber:260 description:{@"Invalid parameter not satisfying: %@", @"handler"}];
+    v18 = [MEMORY[0x277CCA890] currentHandler];
+    [v18 handleFailureInMethod:sel__enumerateConceptIndexEntriesWithPredicate_transaction_error_handler_ object:v9 file:@"HDConceptIndexEntity.m" lineNumber:260 description:{@"Invalid parameter not satisfying: %@", @"handler"}];
 
     goto LABEL_3;
   }
 
-  if (!v7)
+  if (!v6)
   {
     goto LABEL_5;
   }
 
 LABEL_3:
-  v11 = objc_opt_class();
-  v12 = [v8 protectedDatabase];
+  v10 = objc_opt_class();
+  v11 = [v7 protectedDatabase];
 
-  v13 = [v11 queryWithDatabase:v12 predicate:v9];
+  v12 = [v10 queryWithDatabase:v11 predicate:v8];
 
   objc_opt_self();
-  v21 = @"uuid";
-  v22 = @"concept_identifier";
-  v23 = @"version";
-  v24 = @"key_path";
-  v25 = @"compound_index";
-  v26 = @"type";
-  v27 = @"ontology_version";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:7];
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __93__HDConceptIndexEntity__enumerateConceptIndexEntriesWithPredicate_transaction_error_handler___block_invoke;
-  v24 = &unk_278616A78;
-  v25 = v7;
-  v15 = v7;
-  v16 = [v13 enumeratePersistentIDsAndProperties:v14 error:a3 enumerationHandler:&v21];
+  v19 = @"uuid";
+  v20 = @"concept_identifier";
+  v21 = @"version";
+  v22 = @"key_path";
+  v23 = @"compound_index";
+  v24 = @"type";
+  v25 = @"ontology_version";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:7];
+  v19 = MEMORY[0x277D85DD0];
+  v20 = 3221225472;
+  v21 = __93__HDConceptIndexEntity__enumerateConceptIndexEntriesWithPredicate_transaction_error_handler___block_invoke;
+  v22 = &unk_278616A78;
+  v23 = v6;
+  v14 = v6;
+  v15 = [v12 enumeratePersistentIDsAndProperties:v13 error:a3 enumerationHandler:&v19];
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v15;
 }
 
 + (id)numberOfIndexedConceptsWithProfile:(id)profile error:(id *)error

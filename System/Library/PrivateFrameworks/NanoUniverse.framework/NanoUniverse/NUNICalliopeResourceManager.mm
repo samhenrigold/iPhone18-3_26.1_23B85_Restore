@@ -77,9 +77,9 @@
 
 - (NUNICalliopeResourceManager)initWithDisplayPixelFormat:(unint64_t)format
 {
-  v23.receiver = self;
-  v23.super_class = NUNICalliopeResourceManager;
-  v4 = [(NUNICalliopeResourceManager *)&v23 init];
+  v24.receiver = self;
+  v24.super_class = NUNICalliopeResourceManager;
+  v4 = [(NUNICalliopeResourceManager *)&v24 init];
   if (v4)
   {
     v5 = objc_opt_new();
@@ -91,25 +91,25 @@
     v4->_device = mEMORY[0x277CFA798];
 
     v9 = v4->_device;
-    v10 = NUNIBundle();
-    v11 = [(MTLDevice *)v9 newDefaultLibraryWithBundle:v10 error:0];
+    v11 = NUNIBundle(v10);
+    v12 = [(MTLDevice *)v9 newDefaultLibraryWithBundle:v11 error:0];
     library = v4->_library;
-    v4->_library = v11;
+    v4->_library = v12;
 
     v4->_displayPixelFormat = format;
     strongToWeakObjectsMapTable = [MEMORY[0x277CCAB00] strongToWeakObjectsMapTable];
     textureGroupHashTable = v4->_textureGroupHashTable;
     v4->_textureGroupHashTable = strongToWeakObjectsMapTable;
 
-    v15 = [_TtC12NanoUniverse22AegirCloudCoverService alloc];
-    LODWORD(v16) = 0.25;
-    v17 = [(AegirCloudCoverService *)v15 initWithImageScale:v16];
+    v16 = [_TtC12NanoUniverse22AegirCloudCoverService alloc];
+    LODWORD(v17) = 0.25;
+    v18 = [(AegirCloudCoverService *)v16 initWithImageScale:v17];
     cloudsService = v4->_cloudsService;
-    v4->_cloudsService = v17;
+    v4->_cloudsService = v18;
 
-    v19 = v4->_cloudsService;
-    v20 = objc_opt_new();
-    [(AegirCloudCoverService *)v19 setFileConverter:v20];
+    v20 = v4->_cloudsService;
+    v21 = objc_opt_new();
+    [(AegirCloudCoverService *)v20 setFileConverter:v21];
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v4 selector:sel__handleCloudCoverTextureExpired name:@"CloudCoverExpiredNotification" object:0];
@@ -647,125 +647,125 @@
   configCopy = config;
   nameCopy = name;
   fshNameCopy = fshName;
-  v48 = (configCopy & 3) == 1;
-  v47 = (configCopy & 2) != 0;
+  v49 = (configCopy & 3) == 1;
+  v48 = (configCopy & 2) != 0;
   v17 = [(MTLFunctionConstantValues *)self->_pipelineConstants copy];
-  [v17 setConstantValue:&v48 type:53 atIndex:35];
-  [v17 setConstantValue:&v47 type:53 atIndex:36];
+  [v17 setConstantValue:&v49 type:53 atIndex:35];
+  v18 = [v17 setConstantValue:&v48 type:53 atIndex:36];
   blend1Copy = blend1;
   blend0Copy = blend0;
-  v18 = MEMORY[0x277CFA788];
-  v19 = NUNIBundle();
-  v20 = [v18 archiveWithName:@"NUNICalliopeShadersCompanion" bundle:v19 device:self->_device];
+  v19 = MEMORY[0x277CFA788];
+  v20 = NUNIBundle(v18);
+  v21 = [v19 archiveWithName:@"NUNICalliopeShadersCompanion" bundle:v20 device:self->_device];
 
   functionDescriptor = [MEMORY[0x277CD6D78] functionDescriptor];
-  v41 = v17;
+  v42 = v17;
   [functionDescriptor setConstantValues:v17];
   [functionDescriptor setName:nameCopy];
-  v22 = [v20 newFunctionInLibrary:self->_library withDescriptor:functionDescriptor];
+  v23 = [v21 newFunctionInLibrary:self->_library withDescriptor:functionDescriptor];
   [functionDescriptor setName:fshNameCopy];
-  v44 = v20;
-  v23 = [v20 newFunctionInLibrary:self->_library withDescriptor:functionDescriptor];
-  v24 = objc_opt_new();
-  v42 = fshNameCopy;
-  v43 = nameCopy;
+  v45 = v21;
+  v24 = [v21 newFunctionInLibrary:self->_library withDescriptor:functionDescriptor];
+  v25 = objc_opt_new();
+  v43 = fshNameCopy;
+  v44 = nameCopy;
   fshNameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"(%@)+(%@)", nameCopy, fshNameCopy];
-  [v24 setLabel:fshNameCopy];
+  [v25 setLabel:fshNameCopy];
 
-  v40 = v22;
-  [v24 setVertexFunction:v22];
-  [v24 setFragmentFunction:v23];
-  v26 = 0;
-  v27 = &blend0Copy;
-  v28 = 1;
+  v41 = v23;
+  [v25 setVertexFunction:v23];
+  [v25 setFragmentFunction:v24];
+  v27 = 0;
+  v28 = &blend0Copy;
+  v29 = 1;
   do
   {
-    v29 = v28;
+    v30 = v29;
     if (!format0)
     {
       goto LABEL_15;
     }
 
-    colorAttachments = [v24 colorAttachments];
-    v31 = [colorAttachments objectAtIndexedSubscript:v26];
+    colorAttachments = [v25 colorAttachments];
+    v32 = [colorAttachments objectAtIndexedSubscript:v27];
 
-    [v31 setPixelFormat:format0];
-    [v31 setBlendingEnabled:0];
-    v32 = *v27;
-    if (*v27 > 2)
+    [v32 setPixelFormat:format0];
+    [v32 setBlendingEnabled:0];
+    v33 = *v28;
+    if (*v28 > 2)
     {
-      if (v32 != 3)
+      if (v33 != 3)
       {
-        if (v32 == 4)
+        if (v33 == 4)
         {
-          [v31 setWriteMask:0];
+          [v32 setWriteMask:0];
         }
 
         goto LABEL_14;
       }
 
-      [v31 setBlendingEnabled:1];
-      [v31 setRgbBlendOperation:2];
-      v33 = v31;
-      v34 = 2;
+      [v32 setBlendingEnabled:1];
+      [v32 setRgbBlendOperation:2];
+      v34 = v32;
+      v35 = 2;
       goto LABEL_12;
     }
 
-    if (v32 == 1)
+    if (v33 == 1)
     {
-      [v31 setBlendingEnabled:1];
-      [v31 setRgbBlendOperation:0];
-      [v31 setAlphaBlendOperation:0];
-      [v31 setSourceRGBBlendFactor:4];
-      [v31 setSourceAlphaBlendFactor:4];
-      [v31 setDestinationRGBBlendFactor:5];
-      v35 = v31;
-      v36 = 5;
+      [v32 setBlendingEnabled:1];
+      [v32 setRgbBlendOperation:0];
+      [v32 setAlphaBlendOperation:0];
+      [v32 setSourceRGBBlendFactor:4];
+      [v32 setSourceAlphaBlendFactor:4];
+      [v32 setDestinationRGBBlendFactor:5];
+      v36 = v32;
+      v37 = 5;
 LABEL_13:
-      [v35 setDestinationAlphaBlendFactor:v36];
+      [v36 setDestinationAlphaBlendFactor:v37];
       goto LABEL_14;
     }
 
-    if (v32 == 2)
+    if (v33 == 2)
     {
-      [v31 setBlendingEnabled:1];
-      [v31 setRgbBlendOperation:0];
-      v33 = v31;
-      v34 = 0;
+      [v32 setBlendingEnabled:1];
+      [v32 setRgbBlendOperation:0];
+      v34 = v32;
+      v35 = 0;
 LABEL_12:
-      [v33 setAlphaBlendOperation:v34];
-      [v31 setSourceRGBBlendFactor:1];
-      [v31 setSourceAlphaBlendFactor:1];
-      [v31 setDestinationRGBBlendFactor:1];
-      v35 = v31;
-      v36 = 1;
+      [v34 setAlphaBlendOperation:v35];
+      [v32 setSourceRGBBlendFactor:1];
+      [v32 setSourceAlphaBlendFactor:1];
+      [v32 setDestinationRGBBlendFactor:1];
+      v36 = v32;
+      v37 = 1;
       goto LABEL_13;
     }
 
 LABEL_14:
 
 LABEL_15:
-    v28 = 0;
-    v27 = &blend1Copy;
+    v29 = 0;
+    v28 = &blend1Copy;
     format0 = format1;
-    v26 = 1;
+    v27 = 1;
   }
 
-  while ((v29 & 1) != 0);
-  v37 = [v44 newRenderPipelineStateForDevice:self->_device withDescriptor:v24];
-  if (!v37)
+  while ((v30 & 1) != 0);
+  v38 = [v45 newRenderPipelineStateForDevice:self->_device withDescriptor:v25];
+  if (!v38)
   {
     [NUNICalliopeResourceManager _generatePipelineVshName:fshName:config:blend0:blend1:pixelFormat0:pixelFormat1:];
   }
 
-  v38 = v37;
+  v39 = v38;
 
-  return v38;
+  return v39;
 }
 
 - (id)_generatePipelineTshName:(id)name pixelFormat0:(unint64_t)format0 pixelFormat1:(unint64_t)format1
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v9 = objc_opt_new();
   nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"(%@)", nameCopy];
@@ -795,33 +795,31 @@ LABEL_15:
 
   while ((v14 & 1) != 0);
   device = self->_device;
-  v24 = 0;
-  v18 = [(MTLDevice *)device newRenderPipelineStateWithTileDescriptor:v9 options:0 reflection:0 error:&v24];
-  v19 = v24;
+  v23 = 0;
+  v18 = [(MTLDevice *)device newRenderPipelineStateWithTileDescriptor:v9 options:0 reflection:0 error:&v23];
+  v19 = v23;
   if (!v18)
   {
     v20 = NUNILoggingObjectForDomain(0);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v23 = self->_device;
+      v22 = self->_device;
       *buf = 138412802;
-      v26 = nameCopy;
-      v27 = 2112;
-      v28 = v23;
-      v29 = 2112;
-      v30 = v19;
+      v25 = nameCopy;
+      v26 = 2112;
+      v27 = v22;
+      v28 = 2112;
+      v29 = v19;
       _os_log_error_impl(&dword_25B6D4000, v20, OS_LOG_TYPE_ERROR, "CalliopeResourceManager: Metal compilation failure Shader=%@ Device=%@ Error=%@", buf, 0x20u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (id)_generatePipelineCshName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = objc_opt_new();
   nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"(%@)", nameCopy];
@@ -831,26 +829,24 @@ LABEL_15:
   [v5 setComputeFunction:v7];
 
   device = self->_device;
-  v15 = 0;
-  v9 = [(MTLDevice *)device newComputePipelineStateWithDescriptor:v5 options:0 reflection:0 error:&v15];
-  v10 = v15;
+  v14 = 0;
+  v9 = [(MTLDevice *)device newComputePipelineStateWithDescriptor:v5 options:0 reflection:0 error:&v14];
+  v10 = v14;
   if (!v9)
   {
     v11 = NUNILoggingObjectForDomain(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v14 = self->_device;
+      v13 = self->_device;
       *buf = 138412802;
-      v17 = nameCopy;
-      v18 = 2112;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v10;
+      v16 = nameCopy;
+      v17 = 2112;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v10;
       _os_log_error_impl(&dword_25B6D4000, v11, OS_LOG_TYPE_ERROR, "CalliopeResourceManager: Metal compilation failure Shader=%@ Device=%@ Error=%@", buf, 0x20u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -879,28 +875,28 @@ uint64_t __62__NUNICalliopeResourceManager__handleCloudCoverTextureExpired__bloc
 
 - (void)purgeAllCloudCoverTextures
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   allCloudLevelFileNames = [(AegirCloudCoverService *)self->_cloudsService allCloudLevelFileNames];
-  v3 = [allCloudLevelFileNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [allCloudLevelFileNames countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(allCloudLevelFileNames);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         mEMORY[0x277CFA7B0] = [MEMORY[0x277CFA7B0] sharedInstance];
         [mEMORY[0x277CFA7B0] purge:v7];
 
@@ -908,13 +904,11 @@ uint64_t __62__NUNICalliopeResourceManager__handleCloudCoverTextureExpired__bloc
       }
 
       while (v4 != v6);
-      v4 = [allCloudLevelFileNames countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [allCloudLevelFileNames countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deferredCloudDataFetchIfNeeded
@@ -970,65 +964,61 @@ uint64_t __62__NUNICalliopeResourceManager__handleCloudCoverTextureExpired__bloc
 
   if (v6)
   {
-    v7 = [(NUNICalliopeResourceManager *)self _provideEarthCloudsAtlasBacking:backingCopy];
+    v8 = [(NUNICalliopeResourceManager *)self _provideEarthCloudsAtlasBacking:backingCopy];
   }
 
   else
   {
-    v8 = NUNIBundle();
-    v9 = [v8 pathForResource:backingCopy ofType:@"art"];
+    v9 = NUNIBundle(v7);
+    v10 = [v9 pathForResource:backingCopy ofType:@"art"];
 
-    v10 = NUNILoggingObjectForDomain(0);
-    v11 = v10;
-    if (v9)
+    v11 = NUNILoggingObjectForDomain(0);
+    v12 = v11;
+    if (v10)
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v14 = 138412546;
         v15 = backingCopy;
         v16 = 2112;
-        v17 = v9;
-        _os_log_impl(&dword_25B6D4000, v11, OS_LOG_TYPE_DEFAULT, "providing artwork for %@ at %@", &v14, 0x16u);
+        v17 = v10;
+        _os_log_impl(&dword_25B6D4000, v12, OS_LOG_TYPE_DEFAULT, "providing artwork for %@ at %@", &v14, 0x16u);
       }
 
-      v7 = [MEMORY[0x277CFA750] atlasBackingWithArt:v9 uuid:backingCopy];
+      v8 = [MEMORY[0x277CFA750] atlasBackingWithArt:v10 uuid:backingCopy];
     }
 
     else
     {
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(NUNICalliopeResourceManager *)backingCopy provideAtlasBacking:v11];
+        [(NUNICalliopeResourceManager *)backingCopy provideAtlasBacking:v12];
       }
 
-      v7 = 0;
+      v8 = 0;
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v7;
+  return v8;
 }
 
 + (void)sharedInstanceWithDisplayPixelFormat:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = *(__sharedInstance_0 + 32);
-  v4[0] = 67109376;
-  v4[1] = v2;
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_25B6D4000, a2, OS_LOG_TYPE_ERROR, "CalliopeResourceManager: DisplayPixelFormat %d != %d", v4, 0xEu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = v2;
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_25B6D4000, a2, OS_LOG_TYPE_ERROR, "CalliopeResourceManager: DisplayPixelFormat %d != %d", v3, 0xEu);
 }
 
 - (void)provideAtlasBacking:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_25B6D4000, a2, OS_LOG_TYPE_ERROR, "CalliopeResourceManager: missing artwork for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_25B6D4000, a2, OS_LOG_TYPE_ERROR, "CalliopeResourceManager: missing artwork for %@", &v2, 0xCu);
 }
 
 @end

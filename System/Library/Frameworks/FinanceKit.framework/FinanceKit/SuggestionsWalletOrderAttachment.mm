@@ -110,7 +110,7 @@
   v4 = sub_1B77FF4F8();
   v5 = *(v4 - 8);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = (&v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_1B77FF478();
   swift_getObjCClassMetadata();
   v8 = static SuggestionsWalletOrderAttachment.readContentsOfOrder(at:)(v7);

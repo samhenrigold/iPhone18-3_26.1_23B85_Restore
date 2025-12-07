@@ -1,5 +1,6 @@
 @interface SCLState
 - (BOOL)isEqual:(id)equal;
+- (SCLState)initWithActive:(BOOL)active scheduleEnabled:(BOOL)enabled inSchedule:(BOOL)schedule;
 - (SCLState)initWithActiveState:(unint64_t)state scheduleEnabled:(BOOL)enabled inSchedule:(BOOL)schedule;
 - (SCLState)initWithCoder:(id)coder;
 - (id)description;
@@ -22,6 +23,21 @@
   }
 
   return result;
+}
+
+- (SCLState)initWithActive:(BOOL)active scheduleEnabled:(BOOL)enabled inSchedule:(BOOL)schedule
+{
+  if (active)
+  {
+    v5 = 2;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  return [(SCLState *)self initWithActiveState:v5 scheduleEnabled:enabled inSchedule:schedule];
 }
 
 - (SCLState)initWithCoder:(id)coder

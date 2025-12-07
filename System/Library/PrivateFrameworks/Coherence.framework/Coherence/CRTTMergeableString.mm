@@ -40,6 +40,7 @@
 - (void)_updateCache;
 - (void)addNewAddedByFor:(void *)for;
 - (void)addedRefsInRangesTo:(id)to newRange:(id)range;
+- (void)apply:(id)apply skipRetain:(BOOL)retain alwaysApply:(BOOL)alwaysApply;
 - (void)applyRenamesAndRetainOrRelease:(id)release context:(id)context;
 - (void)applyTimestampRenames:(id)renames;
 - (void)coalesce;
@@ -63,7 +64,6 @@
 - (void)removeAll;
 - (void)removeObjectsInRange:(_NSRange)range;
 - (void)replaceStorageInRange:(_NSRange)range withStorage:(id)storage;
-- (void)sortSplitNodes;
 - (void)stealReplicaFrom:(id)from;
 - (void)undeleteSubstrings:(void *)substrings;
 - (void)updateAttributedStringAfterMerge;
@@ -246,12 +246,12 @@
   }
 }
 
-uint64_t __31__CRTTMergeableString_coalesce__block_invoke(uint64_t result, char **this)
+void *__31__CRTTMergeableString_coalesce__block_invoke(void *result, void **this)
 {
-  if (*(*(result + 32) + 120) != this)
+  if (*(result[4] + 120) != this)
   {
     v3 = this[7];
-    v4 = this + 7;
+    v4 = (this + 7);
     if (this[8] - v3 == 8)
     {
       v5 = result;
@@ -273,12 +273,12 @@ uint64_t __31__CRTTMergeableString_coalesce__block_invoke(uint64_t result, char 
         v7 = v8;
         if (v8 != this)
         {
-          std::vector<Coherence_namespace::TopoSubstring *>::__assign_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(v4, v8[7], v8[8], (v8[8] - v8[7]) >> 3);
+          std::vector<Coherence_namespace::TopoSubstring *>::__assign_with_size[abi:ne200100]<Coherence_namespace::TopoSubstring **,Coherence_namespace::TopoSubstring **>(v4, *v8[2].charID.replica.uuid, *&v8[2].charID.replica.uuid[8], (*&v8[2].charID.replica.uuid[8] - *v8[2].charID.replica.uuid) >> 3);
           v7 = v8;
         }
 
-        *(this + 6) += *(v7 + 6);
-        result = std::__hash_table<Coherence_namespace::TopoSubstring *,std::hash<Coherence_namespace::TopoSubstring *>,std::equal_to<Coherence_namespace::TopoSubstring *>,std::allocator<Coherence_namespace::TopoSubstring *>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring * const&>((*(*(v5 + 40) + 8) + 48), &v8);
+        *(this + 6) += v7->length;
+        result = std::__hash_table<Coherence_namespace::TopoSubstring *,std::hash<Coherence_namespace::TopoSubstring *>,std::equal_to<Coherence_namespace::TopoSubstring *>,std::allocator<Coherence_namespace::TopoSubstring *>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring * const&>((*(v5[5] + 8) + 48), &v8, &v8);
         v3 = this[7];
       }
 
@@ -323,7 +323,7 @@ uint64_t __31__CRTTMergeableString_coalesce__block_invoke(uint64_t result, char 
 
 - (_TtC9Coherence19CRTTMergeableString)initWithDecoder:(id)decoder error:(id *)error
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   decoderCopy = decoder;
   uUID = [MEMORY[0x1E696AFB0] UUID];
   v7 = [(CRTTMergeableString *)self initWithStorage:0 uuid:uUID createInitialNodes:0];
@@ -345,9 +345,9 @@ uint64_t __31__CRTTMergeableString_coalesce__block_invoke(uint64_t result, char 
 
     [(CRTTMergeableString *)v7 invalidateCache];
     __p = 0;
-    v40 = 0;
+    v39 = 0;
     substringCount = [decoderCopy substringCount];
-    v41 = 0;
+    v40 = 0;
     std::vector<Coherence_namespace::TopoSubstring *>::reserve(&__p, substringCount);
     if (substringCount)
     {
@@ -372,38 +372,38 @@ uint64_t __31__CRTTMergeableString_coalesce__block_invoke(uint64_t result, char 
       version2 = [(CRTTMergeableString *)v7 version];
       sortedUUIDs = [version2 sortedUUIDs];
 
-      v37 = 0u;
-      v38 = 0u;
-      v35 = 0u;
       v36 = 0u;
+      v37 = 0u;
+      v34 = 0u;
+      v35 = 0u;
       v18 = sortedUUIDs;
-      v19 = [v18 countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v34 objects:v41 count:16];
       if (v19)
       {
-        v20 = *v36;
+        v20 = *v35;
         while (2)
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v36 != v20)
+            if (*v35 != v20)
             {
               objc_enumerationMutation(v18);
             }
 
-            v22 = *(*(&v35 + 1) + 8 * i);
+            v22 = *(*(&v34 + 1) + 8 * i);
             coherence_zero = [MEMORY[0x1E696AFB0] Coherence_zero];
             LOBYTE(v22) = [v22 isEqual:coherence_zero];
 
             if (v22)
             {
 
+              v32 = 0;
               v33 = 0;
-              v34 = 0;
               goto LABEL_20;
             }
           }
 
-          v19 = [v18 countByEnumeratingWithState:&v35 objects:v42 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v34 objects:v41 count:16];
           if (v19)
           {
             continue;
@@ -413,12 +413,12 @@ uint64_t __31__CRTTMergeableString_coalesce__block_invoke(uint64_t result, char 
         }
       }
 
+      v32 = 0;
       v33 = 0;
-      v34 = 0;
       attributedString2 = [(CRTTMergeableString *)v7 attributedString];
-      v25 = Coherence_namespace::decodeSubstrings(0, [attributedString2 length], decoderCopy, &__p, &v34, &v33, error);
+      v25 = Coherence_namespace::decodeSubstrings(0, [attributedString2 length], decoderCopy, &__p, &v33, &v32, error);
 
-      if (!v34 || !v33)
+      if (!v33 || !v32)
       {
 LABEL_20:
         NSLog(&cfstr_CorruptMergeab_2.isa);
@@ -426,7 +426,7 @@ LABEL_20:
       }
 
       [(CRTTMergeableString *)v7 setStartNode:?];
-      [(CRTTMergeableString *)v7 setEndNode:v33];
+      [(CRTTMergeableString *)v7 setEndNode:v32];
       if ((v25 & 1) == 0)
       {
         [(CRTTMergeableString *)v7 setStartNode:0];
@@ -437,7 +437,7 @@ LABEL_20:
 
     if (__p)
     {
-      v40 = __p;
+      v39 = __p;
       operator delete(__p);
     }
 
@@ -460,7 +460,6 @@ LABEL_30:
   v27 = 0;
 LABEL_31:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -488,7 +487,7 @@ LABEL_31:
     {
       v27 = *v9;
       v30 = &v27;
-      *(std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::__unordered_map_hasher<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::hash<Coherence_namespace::TopoSubstring const*>,std::equal_to<Coherence_namespace::TopoSubstring const*>,true>,std::__unordered_map_equal<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::equal_to<Coherence_namespace::TopoSubstring const*>,std::hash<Coherence_namespace::TopoSubstring const*>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring const*,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoSubstring const* const&>,std::tuple<>>(v28, &v27) + 6) = v10++;
+      *(std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::__unordered_map_hasher<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::hash<Coherence_namespace::TopoSubstring const*>,std::equal_to<Coherence_namespace::TopoSubstring const*>,true>,std::__unordered_map_equal<Coherence_namespace::TopoSubstring const*,std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>,std::equal_to<Coherence_namespace::TopoSubstring const*>,std::hash<Coherence_namespace::TopoSubstring const*>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoSubstring const*,unsigned int>>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring const*,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoSubstring const* const&>,std::tuple<>>(v28, &v27, &std::piecewise_construct, &v30) + 6) = v10++;
       ++v9;
     }
 
@@ -522,7 +521,7 @@ LABEL_31:
       {
         v27 = *v17;
         v30 = &v27;
-        [encoderCopy addChildWithId:{*(std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoSubstring const*, unsigned int>, std::__unordered_map_hasher<Coherence_namespace::TopoSubstring const*, std::__hash_value_type<Coherence_namespace::TopoSubstring const*, unsigned int>, std::hash<Coherence_namespace::TopoSubstring const*>, std::equal_to<Coherence_namespace::TopoSubstring const*>, true>, std::__unordered_map_equal<Coherence_namespace::TopoSubstring const*, std::__hash_value_type<Coherence_namespace::TopoSubstring const*, unsigned int>, std::equal_to<Coherence_namespace::TopoSubstring const*>, std::hash<Coherence_namespace::TopoSubstring const*>, true>, std::allocator<std::__hash_value_type<Coherence_namespace::TopoSubstring const*, unsigned int>>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring const*, std::piecewise_construct_t const&, std::tuple<Coherence_namespace::TopoSubstring const* const&>, std::tuple<>>(v28, &v27) + 6), errorCopy}];
+        [encoderCopy addChildWithId:{*(std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoSubstring const*, unsigned int>, std::__unordered_map_hasher<Coherence_namespace::TopoSubstring const*, std::__hash_value_type<Coherence_namespace::TopoSubstring const*, unsigned int>, std::hash<Coherence_namespace::TopoSubstring const*>, std::equal_to<Coherence_namespace::TopoSubstring const*>, true>, std::__unordered_map_equal<Coherence_namespace::TopoSubstring const*, std::__hash_value_type<Coherence_namespace::TopoSubstring const*, unsigned int>, std::equal_to<Coherence_namespace::TopoSubstring const*>, std::hash<Coherence_namespace::TopoSubstring const*>, true>, std::allocator<std::__hash_value_type<Coherence_namespace::TopoSubstring const*, unsigned int>>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring const*, std::piecewise_construct_t const&, std::tuple<Coherence_namespace::TopoSubstring const* const&>, std::tuple<>>(v28, &v27, &std::piecewise_construct, &v30) + 6), errorCopy}];
         ++v17;
       }
 
@@ -577,39 +576,38 @@ LABEL_31:
     objc_storeStrong(&v11->_uuid, uuid);
     v13 = [_TtC9Coherence19CRGlobalContextObjC newObjCReplicaFor:v12->_uuid];
     uuid = [v13 uuid];
-    Coherence_namespace::TopoReplica::TopoReplica(&__src, uuid, [v13 index]);
+    v15 = objc_msgSend_index(v13);
+    Coherence_namespace::TopoReplica::TopoReplica(&__src, uuid, v15);
     *v12->_replica.uuid = __src;
     v12->_replica.index = v26;
 
-    v15 = [(NSUUID *)v12->_uuid Coherence_xorWith:[CRTTMergeableString initWithStorage:uuid:createInitialNodes:]::timestampMixUUID];
-    v16 = [_TtC9Coherence19CRGlobalContextObjC newObjCReplicaFor:v15];
+    v16 = [(NSUUID *)v12->_uuid Coherence_xorWith:[CRTTMergeableString initWithStorage:uuid:createInitialNodes:]::timestampMixUUID];
+    v17 = [_TtC9Coherence19CRGlobalContextObjC newObjCReplicaFor:v16];
     addedByReplica = v12->_addedByReplica;
-    v12->_addedByReplica = v16;
+    v12->_addedByReplica = v17;
 
     if (nodesCopy)
     {
       operator new();
     }
 
-    v18 = objc_alloc_init(_TtC9Coherence11ObjCVersion);
+    v19 = objc_alloc_init(_TtC9Coherence11ObjCVersion);
     version = v12->_version;
-    v12->_version = v18;
+    v12->_version = v19;
 
-    v20 = objc_alloc_init(_TtC9Coherence11ObjCVersion);
+    v21 = objc_alloc_init(_TtC9Coherence11ObjCVersion);
     addedByVersion = v12->_addedByVersion;
-    v12->_addedByVersion = v20;
+    v12->_addedByVersion = v21;
 
     v12->_cacheInvalid = 1;
     objc_storeStrong(&v12->_attributedString, storage);
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)stealReplicaFrom:(id)from
 {
-  v15 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   os_unfair_lock_lock(&replicaLock);
   index = self->_replica.index;
@@ -635,8 +633,6 @@ LABEL_31:
   addedByLocalCounter = self->_addedByLocalCounter;
   self->_addedByLocalCounter = *(fromCopy + 14);
   *(fromCopy + 14) = addedByLocalCounter;
-
-  v14 = *MEMORY[0x1E69E9840];
 
   os_unfair_lock_unlock(&replicaLock);
 }
@@ -714,58 +710,54 @@ LABEL_31:
 {
   length = range.length;
   location = range.location;
-  v14 = *MEMORY[0x1E69E9840];
+  *&v13 = *MEMORY[0x1E69E9840];
   [(CRTTMergeableString *)self useRenameIfAvailable];
   if (length)
   {
+    v9 = 0;
     v10 = 0;
     v11 = 0;
-    v12 = 0;
-    v13[0] = location;
-    v13[1] = length;
+    *&v12 = location;
+    *(&v12 + 1) = length;
+    v7 = 0;
     v8 = 0;
-    v9 = 0;
     __p = 0;
-    std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(&__p, v13, &v14, 1uLL);
-    [(CRTTMergeableString *)self getSubstrings:&v10 forCharacterRange:location, length];
-    [(CRTTMergeableString *)self deleteSubstrings:&v10 withCharacterRanges:&__p];
+    std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(&__p, &v12, &v13, 1uLL);
+    [(CRTTMergeableString *)self getSubstrings:&v9 forCharacterRange:location, length];
+    [(CRTTMergeableString *)self deleteSubstrings:&v9 withCharacterRanges:&__p];
     if (__p)
     {
-      v8 = __p;
+      v7 = __p;
       operator delete(__p);
     }
 
-    if (v10)
+    if (v9)
     {
-      v11 = v10;
-      operator delete(v10);
+      v10 = v9;
+      operator delete(v9);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAll
 {
-  v8 = *MEMORY[0x1E69E9840];
+  *&v7 = *MEMORY[0x1E69E9840];
   if ([(CRTTMergeableString *)self length])
   {
     [(CRTTMergeableString *)self useRenameIfAvailable];
-    v7[0] = 0;
-    v7[1] = [(CRTTMergeableString *)self length];
+    *&v6 = 0;
+    *(&v6 + 1) = [(CRTTMergeableString *)self length];
+    v4 = 0;
     v5 = 0;
-    v6 = 0;
     __p = 0;
-    std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(&__p, v7, &v8, 1uLL);
+    std::vector<_NSRange>::__init_with_size[abi:ne200100]<_NSRange const*,_NSRange const*>(&__p, &v6, &v7, 1uLL);
     [(CRTTMergeableString *)self deleteSubstrings:[(CRTTMergeableString *)self orderedSubstrings] withCharacterRanges:&__p];
     if (__p)
     {
-      v5 = __p;
+      v4 = __p;
       operator delete(__p);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)insertAtIndex:(int64_t)index length:(int64_t)length getStorage:(id)storage
@@ -779,26 +771,27 @@ LABEL_31:
       if ([(CRTTMergeableString *)self length]== index)
       {
         orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
-        v10 = orderedSubstrings[1] - *orderedSubstrings - 16;
+        v9 = orderedSubstrings[1] - *orderedSubstrings - 16;
         do
         {
-          v11 = v10;
-          startNode = *(*[(CRTTMergeableString *)self orderedSubstrings]+ v10);
+          v10 = v9;
+          startNode = *(*[(CRTTMergeableString *)self orderedSubstrings]+ v9);
           if (*(startNode + 5) != *(startNode + 4))
           {
             break;
           }
 
-          v10 = v11 - 8;
+          v9 = v10 - 8;
         }
 
         while (startNode != self->_startNode);
-        v13 = *[(CRTTMergeableString *)self orderedSubstrings]+ v11;
+        v12 = *[(CRTTMergeableString *)self orderedSubstrings]+ v10;
       }
 
       else
       {
-        v14 = Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32(index, v8);
+        Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32(index);
+        v14 = v13;
         for (i = 0; ; i += 8)
         {
           startNode = *(*[(CRTTMergeableString *)self orderedSubstrings]+ i);
@@ -822,17 +815,17 @@ LABEL_31:
           }
         }
 
-        v13 = *[(CRTTMergeableString *)self orderedSubstrings]+ i;
+        v12 = *[(CRTTMergeableString *)self orderedSubstrings]+ i;
       }
     }
 
     else
     {
       startNode = self->_startNode;
-      v13 = *[(CRTTMergeableString *)self orderedSubstrings];
+      v12 = *[(CRTTMergeableString *)self orderedSubstrings];
     }
 
-    v19 = *(v13 + 8);
+    v19 = *(v12 + 8);
 LABEL_17:
     [(CRTTMergeableString *)self insertStorageLength:length after:startNode before:v19 getStorage:storageCopy];
   }
@@ -903,19 +896,19 @@ LABEL_11:
 
 - (id)selectionForCharacterRanges:(id)ranges selectionAffinity:(unint64_t)affinity
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   rangesCopy = ranges;
-  v46 = objc_alloc_init(_TtC9Coherence28CRTTMergeableStringSelection);
-  [(CRTTMergeableStringSelection *)v46 setSelectionAffinity:affinity];
+  v45 = objc_alloc_init(_TtC9Coherence28CRTTMergeableStringSelection);
+  [(CRTTMergeableStringSelection *)v45 setSelectionAffinity:affinity];
   if (![rangesCopy count])
   {
     goto LABEL_44;
   }
 
   orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
-  v45 = *orderedSubstrings;
-  v43 = orderedSubstrings[1];
-  if (*orderedSubstrings == v43)
+  v44 = *orderedSubstrings;
+  v42 = orderedSubstrings[1];
+  if (*orderedSubstrings == v42)
   {
     goto LABEL_44;
   }
@@ -926,15 +919,15 @@ LABEL_11:
   affinityCopy = affinity;
   do
   {
-    v11 = *v45;
-    if (*(*v45 + 5) == *(*v45 + 4))
+    v11 = *v44;
+    if (*(*v44 + 5) == *(*v44 + 4))
     {
       goto LABEL_43;
     }
 
     while (1)
     {
-      v12 = [rangesCopy objectAtIndexedSubscript:{v9, v43}];
+      v12 = [rangesCopy objectAtIndexedSubscript:{v9, v42}];
       rangeValue = [v12 rangeValue];
       v15 = v14;
 
@@ -950,12 +943,12 @@ LABEL_11:
         goto LABEL_41;
       }
 
-      v50 = *v11;
+      v49 = *v11;
       v21 = *(v11 + 5);
-      LODWORD(v51) = *(v11 + 4);
-      v22 = *([(CRTTMergeableStringSelection *)v46 selectionRanges]+ 8);
-      *(v22 - 24) = v50;
-      *(v22 - 8) = v51;
+      LODWORD(v50) = *(v11 + 4);
+      v22 = *([(CRTTMergeableStringSelection *)v45 selectionRanges]+ 8);
+      *(v22 - 24) = v49;
+      *(v22 - 8) = v50;
       *(v22 - 4) = v21 + v20 + ~v8;
       v10 = 1;
       v23 = 1;
@@ -999,16 +992,16 @@ LABEL_37:
     v24 = rangeValue - v17;
     if (v8 + *(v11 + 6) > v24 || isEndNode || isStartNode)
     {
-      v52 = *v11;
+      v51 = *v11;
       v25 = *(v11 + 5);
-      v53 = *(v11 + 4);
+      v52 = *(v11 + 4);
       coherence_zero = [MEMORY[0x1E696AFB0] Coherence_zero];
-      Coherence_namespace::TopoReplica::TopoReplica(&v47, coherence_zero, 0);
-      v49 = 0;
+      Coherence_namespace::TopoReplica::TopoReplica(&v46, coherence_zero, 0);
+      v48 = 0;
+      v49 = v46;
       v50 = v47;
-      v51 = v48;
 
-      selectionRanges = [(CRTTMergeableStringSelection *)v46 selectionRanges];
+      selectionRanges = [(CRTTMergeableStringSelection *)v45 selectionRanges];
       v28 = selectionRanges;
       v29 = v25 + v24 - v8;
       v30 = *(selectionRanges + 8);
@@ -1044,11 +1037,11 @@ LABEL_37:
         }
 
         v37 = 48 * v33;
-        *v37 = v52;
-        *(v37 + 16) = v53;
+        *v37 = v51;
+        *(v37 + 16) = v52;
         *(v37 + 20) = v29;
-        *(v37 + 24) = v50;
-        *(v37 + 40) = v51;
+        *(v37 + 24) = v49;
+        *(v37 + 40) = v50;
         v32 = 48 * v33 + 48;
         v38 = *(selectionRanges + 8) - *selectionRanges;
         v39 = v37 - v38;
@@ -1067,11 +1060,11 @@ LABEL_37:
 
       else
       {
-        *v30 = v52;
-        *(v30 + 16) = v53;
+        *v30 = v51;
+        *(v30 + 16) = v52;
         *(v30 + 20) = v29;
-        *(v30 + 24) = v50;
-        *(v30 + 40) = v51;
+        *(v30 + 24) = v49;
+        *(v30 + 40) = v50;
         v32 = v30 + 48;
       }
 
@@ -1089,15 +1082,13 @@ LABEL_41:
 
     v8 += *(v11 + 6);
 LABEL_43:
-    ++v45;
+    ++v44;
   }
 
-  while (v45 != v43);
+  while (v44 != v42);
 LABEL_44:
 
-  v41 = *MEMORY[0x1E69E9840];
-
-  return v46;
+  return v45;
 }
 
 - (id)characterRangesForSelection:(id)selection
@@ -1110,15 +1101,15 @@ LABEL_44:
 - (id)characterRangesForSelection:(id)selection selectedSubstringsBlock:(id)block
 {
   selfCopy = self;
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   selectionCopy = selection;
   blockCopy = block;
   selectionRanges = [selectionCopy selectionRanges];
   if (selectionRanges[1] == *selectionRanges)
   {
     v31 = [MEMORY[0x1E696B098] valueWithRange:{0, 0}];
-    v40[0] = v31;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+    v39[0] = v31;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
 
     goto LABEL_38;
   }
@@ -1126,8 +1117,8 @@ LABEL_44:
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   orderedSubstrings = [(CRTTMergeableString *)selfCopy orderedSubstrings];
   v11 = *orderedSubstrings;
-  v35 = *(orderedSubstrings + 8);
-  if (*orderedSubstrings == v35)
+  v34 = *(orderedSubstrings + 8);
+  if (*orderedSubstrings == v34)
   {
     goto LABEL_38;
   }
@@ -1137,19 +1128,19 @@ LABEL_44:
   LOBYTE(v14) = 1;
   do
   {
-    v36 = v11;
+    v35 = v11;
     v15 = *v11;
     do
     {
       v16 = (*[selectionCopy selectionRanges] + 48 * v13);
       v17 = *v16;
       v18 = v16[2];
-      v38 = v16[1];
-      v39 = v18;
+      v37 = v16[1];
+      v38 = v18;
       *uu2 = v17;
       if ((v14 & 1) == 0)
       {
-        if (!Coherence_namespace::TopoIDRange::contains(v15, (&v38 + 8)))
+        if (!Coherence_namespace::TopoIDRange::contains(v15, (&v37 + 8)))
         {
           break;
         }
@@ -1157,7 +1148,7 @@ LABEL_44:
         v23 = v12;
         if (*(v15 + 40) != *(v15 + 32))
         {
-          v23 = v12 + (HIDWORD(v39) - *(v15 + 20) + 1);
+          v23 = v12 + (HIDWORD(v38) - *(v15 + 20) + 1);
         }
 
         v24 = [MEMORY[0x1E696B098] valueWithRange:{v4, v23 - v4}];
@@ -1172,7 +1163,7 @@ LABEL_44:
         goto LABEL_24;
       }
 
-      if (!Coherence_namespace::TopoIDRange::contains(v15, uu2) && (*(v15 + 16) != v38 || uuid_compare(v15, uu2)))
+      if (!Coherence_namespace::TopoIDRange::contains(v15, uu2) && (*(v15 + 16) != v37 || uuid_compare(v15, uu2)))
       {
         break;
       }
@@ -1180,13 +1171,13 @@ LABEL_44:
       v4 = v12;
       if (*(v15 + 40) != *(v15 + 32))
       {
-        v4 = v12 + (DWORD1(v38) - *(v15 + 20));
+        v4 = v12 + (DWORD1(v37) - *(v15 + 20));
       }
 
-      v19 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v38 + 8];
+      v19 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v37 + 8];
       coherence_zero = [MEMORY[0x1E696AFB0] Coherence_zero];
       v21 = [v19 isEqual:coherence_zero];
-      if (HIDWORD(v39))
+      if (HIDWORD(v38))
       {
         v14 = 0;
       }
@@ -1236,148 +1227,141 @@ LABEL_25:
       }
 
       v28 = *(v15 + 84);
-      v43.length = [(CRTTMergeableString *)selfCopy length]- v4;
-      v42.location = v28;
-      v42.length = v27;
-      v43.location = v4;
-      v29 = NSIntersectionRange(v42, v43);
+      v42.length = [(CRTTMergeableString *)selfCopy length]- v4;
+      v41.location = v28;
+      v41.length = v27;
+      v42.location = v4;
+      v29 = NSIntersectionRange(v41, v42);
       blockCopy[2](blockCopy, v15, v29.location, v29.length);
     }
 
     v30 = *(v15 + 40) == *(v15 + 32) ? 0 : *(v15 + 24);
     v12 += v30;
-    v11 = v36 + 1;
+    v11 = v35 + 1;
   }
 
-  while (v36 + 1 != v35);
+  while (v35 + 1 != v34);
 LABEL_38:
-
-  v32 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)characterRangesForMergeableRange:(id)range
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   rangeCopy = range;
   v5 = rangeCopy;
   if (rangeCopy)
   {
-    [rangeCopy range];
+    objc_msgSend_range(rangeCopy);
   }
 
   else
   {
-    memset(v33, 0, 28);
+    memset(v32, 0, 28);
   }
 
   renameGeneration = [v5 renameGeneration];
   if (renameGeneration == [(CRTTMergeableString *)self renameGeneration])
   {
-    *v28 = v33[0];
-    *&v28[12] = *(v33 + 12);
-    v7 = [(CRTTMergeableString *)self characterRangesForIDRange:v28];
+    *v27 = v32[0];
+    *&v27[12] = *(v32 + 12);
+    v7 = [(CRTTMergeableString *)self characterRangesForIDRange:v27];
     goto LABEL_12;
   }
 
   v8 = +[_TtC9Coherence19CRGlobalContextObjC objCRenames];
   v9 = [(CRTTMergeableString *)self renamed:v8];
-  if (!LODWORD(v33[1]))
+  if (!LODWORD(v32[1]))
   {
     goto LABEL_10;
   }
 
-  v10 = Coherence_namespace::TopoReplica::objc(v33);
-  v11 = [v8 renamedWithRange:DWORD1(v33[1]) replica:{DWORD2(v33[1]), v10}];
+  v10 = Coherence_namespace::TopoReplica::objc(v32);
+  v11 = [v8 renamedWithRange:DWORD1(v32[1]) replica:{DWORD2(v32[1]), v10}];
   if (![v11 rangeCount])
   {
 
 LABEL_10:
-    *v28 = v33[0];
-    *&v28[12] = *(v33 + 12);
-    v7 = [v9 characterRangesForIDRange:v28];
+    *v27 = v32[0];
+    *&v27[12] = *(v32 + 12);
+    v7 = [v9 characterRangesForIDRange:v27];
     goto LABEL_11;
   }
 
-  v23 = v10;
-  v22 = [MEMORY[0x1E696AD50] indexSetWithIndexesInRange:{DWORD1(v33[1]), DWORD2(v33[1])}];
+  v22 = v10;
+  v21 = [MEMORY[0x1E696AD50] indexSetWithIndexesInRange:{DWORD1(v32[1]), DWORD2(v32[1])}];
   v12 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v14 = DWORD1(v33[1]);
-  v13 = DWORD2(v33[1]);
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __56__CRTTMergeableString_characterRangesForMergeableRange___block_invoke;
-  v24[3] = &unk_1E7A123C0;
-  v15 = v22;
-  v25 = v15;
+  v14 = DWORD1(v32[1]);
+  v13 = DWORD2(v32[1]);
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __56__CRTTMergeableString_characterRangesForMergeableRange___block_invoke;
+  v23[3] = &unk_1E7A123C0;
+  v15 = v21;
+  v24 = v15;
   v16 = v12;
-  v26 = v16;
+  v25 = v16;
   v17 = v9;
-  v27 = v17;
-  [v11 enumerateRangesIn:v14 :{v13, v24}];
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __56__CRTTMergeableString_characterRangesForMergeableRange___block_invoke_2;
-  v29[3] = &unk_1E7A123E8;
-  v32[0] = v33[0];
-  *(v32 + 12) = *(v33 + 12);
+  v26 = v17;
+  [v11 enumerateRangesIn:v14 :{v13, v23}];
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __56__CRTTMergeableString_characterRangesForMergeableRange___block_invoke_2;
+  v28[3] = &unk_1E7A123E8;
+  v31[0] = v32[0];
+  *(v31 + 12) = *(v32 + 12);
   v18 = v16;
-  v30 = v18;
-  v31 = v17;
-  [v15 enumerateRangesUsingBlock:v29];
-  v19 = v31;
+  v29 = v18;
+  v30 = v17;
+  [v15 enumerateRangesUsingBlock:v28];
+  v19 = v30;
   v7 = v18;
 
 LABEL_11:
 LABEL_12:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 uint64_t __56__CRTTMergeableString_characterRangesForMergeableRange___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v9 = a4;
   if ((a5 & 0x8000000000000000) == 0)
   {
     [*(a1 + 32) removeIndexesInRange:{a2, a3}];
-    Coherence_namespace::TopoReplica::TopoReplica(&v19, v9, 0);
-    v15 = v19;
+    Coherence_namespace::TopoReplica::TopoReplica(&v18, v9, 0);
+    v14 = v18;
     v11 = *(a1 + 40);
     v10 = *(a1 + 48);
-    v16 = v20;
-    v17 = a5;
-    v18 = a3;
-    v12 = [v10 characterRangesForIDRange:&v15];
+    v15 = v19;
+    v16 = a5;
+    v17 = a3;
+    v12 = [v10 characterRangesForIDRange:&v14];
     [v11 addObjectsFromArray:v12];
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 void __56__CRTTMergeableString_characterRangesForMergeableRange___block_invoke_2(uint64_t a1, int a2, int a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v8 = *(a1 + 48);
+  v11 = *MEMORY[0x1E69E9840];
+  v7 = *(a1 + 48);
   v3 = *(a1 + 64);
   v5 = *(a1 + 32);
   v4 = *(a1 + 40);
-  v9 = v3;
-  v10 = a2;
-  v11 = a3;
-  v6 = [v4 characterRangesForIDRange:&v8];
+  v8 = v3;
+  v9 = a2;
+  v10 = a3;
+  v6 = [v4 characterRangesForIDRange:&v7];
   [v5 addObjectsFromArray:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)characterRangesForIDRange:(TopoIDRange *)range
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
   orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
   v7 = *orderedSubstrings;
@@ -1389,22 +1373,22 @@ void __56__CRTTMergeableString_characterRangesForMergeableRange___block_invoke_2
     {
       v10 = *v7;
       v11 = **v7;
-      *&v20[12] = *(*v7 + 12);
-      *v20 = v11;
-      v22 = 0;
-      v23 = 0;
+      *&v19[12] = *(*v7 + 12);
+      *v19 = v11;
       v21 = 0;
-      std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v21, *(v10 + 4), *(v10 + 5), 0xAAAAAAAAAAAAAAABLL * ((*(v10 + 5) - *(v10 + 4)) >> 3));
+      v22 = 0;
+      v20 = 0;
+      std::vector<Coherence_namespace::TopoID>::__init_with_size[abi:ne200100]<Coherence_namespace::TopoID*,Coherence_namespace::TopoID*>(&v20, *(v10 + 4), *(v10 + 5), 0xAAAAAAAAAAAAAAABLL * ((*(v10 + 5) - *(v10 + 4)) >> 3));
       __p = 0;
-      v25 = 0;
-      v27 = 0;
+      v24 = 0;
       v26 = 0;
-      v28 = *(v10 + 21);
-      v12 = v21;
-      if (v22 == v21)
+      v25 = 0;
+      v27 = *(v10 + 21);
+      v12 = v20;
+      if (v21 == v20)
       {
         v14 = 3;
-        if (!v21)
+        if (!v20)
         {
           goto LABEL_13;
         }
@@ -1412,13 +1396,13 @@ void __56__CRTTMergeableString_characterRangesForMergeableRange___block_invoke_2
 
       else
       {
-        Coherence_namespace::TopoIDRange::intersection(v20, range, v17);
-        if (v19)
+        Coherence_namespace::TopoIDRange::intersection(&v16, v19, range);
+        if (v18)
         {
-          v13 = [MEMORY[0x1E696B098] valueWithRange:(v18 + v28 - *&v20[20])];
+          v13 = [MEMORY[0x1E696B098] valueWithRange:(v17 + v27 - *&v19[20])];
           [v5 addObject:v13];
 
-          v9 += v19;
+          v9 += v18;
           v14 = 2 * (v9 >= range->length);
         }
 
@@ -1429,18 +1413,18 @@ void __56__CRTTMergeableString_characterRangesForMergeableRange___block_invoke_2
 
         if (__p)
         {
-          v25 = __p;
+          v24 = __p;
           operator delete(__p);
         }
 
-        v12 = v21;
-        if (!v21)
+        v12 = v20;
+        if (!v20)
         {
           goto LABEL_13;
         }
       }
 
-      v22 = v12;
+      v21 = v12;
       operator delete(v12);
 LABEL_13:
       if ((v14 == 3 || !v14) && ++v7 != v8)
@@ -1451,8 +1435,6 @@ LABEL_13:
       break;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1467,20 +1449,19 @@ LABEL_13:
 
 - (void)addNewAddedByFor:(void *)for
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   addedByVersion = [(CRTTMergeableString *)self addedByVersion];
   [addedByVersion insertWithRange:self->_addedByLocalCounter replica:{*(for + 6), self->_addedByReplica}];
 
   addedByReplica = [(CRTTMergeableString *)self addedByReplica];
-  Coherence_namespace::TopoReplica::TopoReplica(&v9, addedByReplica);
+  Coherence_namespace::TopoReplica::TopoReplica();
   addedByLocalCounter = self->_addedByLocalCounter;
+  v10 = v8;
   v11 = v9;
-  v12 = v10;
-  v13 = addedByLocalCounter;
-  Coherence_namespace::TopoSubstring::addAddedBy(for, &v11);
+  v12 = addedByLocalCounter;
+  Coherence_namespace::TopoSubstring::addAddedBy(for, &v10);
 
   self->_addedByLocalCounter += *(for + 6);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteSubstrings:(void *)substrings withCharacterRanges:(void *)ranges
@@ -1532,14 +1513,12 @@ LABEL_13:
 
 - (void)insertStorageLength:(int64_t)length after:(void *)after before:(void *)before getStorage:(id)storage
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
   if (length >= 1)
   {
     operator new();
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSubstrings:(void *)substrings forCharacterRange:(_NSRange)range
@@ -1572,7 +1551,7 @@ LABEL_13:
   while (1)
   {
     v14 = *v8;
-    v20 = v14;
+    v24 = v14;
     if (*(v14 + 40) == *(v14 + 32))
     {
       v15 = v12;
@@ -1603,14 +1582,17 @@ LABEL_14:
 
   if (location > v12)
   {
-    v19 = [(CRTTMergeableString *)self splitTopoSubstring:v14 atIndex:Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32((location - v12), a2)];
-    v8 = std::vector<Coherence_namespace::TopoSubstring *>::insert(orderedSubstrings, v8 + 8, &v19);
-    std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, &v19);
+    Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32((location - v12));
+    v23 = [(CRTTMergeableString *)self splitTopoSubstring:v14 atIndex:v16];
+    v8 = std::vector<Coherence_namespace::TopoSubstring *>::insert(orderedSubstrings, v8 + 8, &v23);
+    std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, &v23);
     if (v13 < v15)
     {
-      v18 = [(CRTTMergeableString *)self splitTopoSubstring:v19 atIndex:Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32(length, a2)];
-      v16 = v8 + 8;
-      v17 = &v18;
+      v18 = v23;
+      Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32(length);
+      v22 = [(CRTTMergeableString *)self splitTopoSubstring:v18 atIndex:v19];
+      v20 = v8 + 8;
+      v21 = &v22;
       goto LABEL_17;
     }
 
@@ -1619,23 +1601,24 @@ LABEL_14:
 
   if (v15 <= v13)
   {
-    std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, &v20);
+    std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, &v24);
     goto LABEL_13;
   }
 
-  v19 = [(CRTTMergeableString *)self splitTopoSubstring:v14 atIndex:Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32((v13 - v12), a2)];
-  std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, &v20);
-  v16 = v8 + 8;
-  v17 = &v19;
+  Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32((v13 - v12));
+  v23 = [(CRTTMergeableString *)self splitTopoSubstring:v14 atIndex:v17];
+  std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, &v24);
+  v20 = v8 + 8;
+  v21 = &v23;
 LABEL_17:
-  std::vector<Coherence_namespace::TopoSubstring *>::insert(orderedSubstrings, v16, v17);
+  std::vector<Coherence_namespace::TopoSubstring *>::insert(orderedSubstrings, v20, v21);
 LABEL_18:
   [(CRTTMergeableString *)self invalidateCache];
 }
 
 - (void)getSubstringBeforeTopoID:(TopoID *)d
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   startNode = self->_startNode;
   orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
   v7 = *orderedSubstrings;
@@ -1644,8 +1627,7 @@ LABEL_18:
   {
     if (v7 == v8)
     {
-      startNode = 0;
-      goto LABEL_12;
+      return 0;
     }
 
     v9 = *v7;
@@ -1656,15 +1638,15 @@ LABEL_18:
     {
       if (*&uu2[20] == d->clock)
       {
-        goto LABEL_12;
+        return startNode;
       }
 
       if (Coherence_namespace::TopoID::operator>(d, uu2))
       {
-        v13 = *uu2;
-        v14 = *&uu2[16];
-        v15 = *&uu2[24] + *&uu2[20];
-        if (Coherence_namespace::TopoID::operator<(d, &v13))
+        v12 = *uu2;
+        v13 = *&uu2[16];
+        v14 = *&uu2[24] + *&uu2[20];
+        if (Coherence_namespace::TopoID::operator<(d, &v12))
         {
           break;
         }
@@ -1683,104 +1665,109 @@ LABEL_18:
   {
     [(CRTTMergeableString *)self splitTopoSubstring:v9 atIndex:d->clock - *&uu2[20]];
     [(CRTTMergeableString *)self invalidateCache];
-    startNode = v9;
+    return v9;
   }
 
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
   return startNode;
 }
 
 - (void)getSubstrings:(void *)substrings forTopoIDRange:(TopoIDRange *)range
 {
-  v27 = *MEMORY[0x1E69E9840];
-  if (!range->length)
+  v26 = *MEMORY[0x1E69E9840];
+  if (range->length)
   {
-    goto LABEL_19;
-  }
-
-  orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
-  v8 = *orderedSubstrings;
-  v9 = orderedSubstrings[1];
-  if (*orderedSubstrings == v9)
-  {
-    goto LABEL_19;
-  }
-
-  v10 = 0;
-  do
-  {
-    v19 = *v8;
-    v11 = *v19;
-    *&uu2[12] = *(v19 + 12);
-    *uu2 = v11;
-    if (range->charID.replica.index == *&uu2[16] && !uuid_compare(range->charID.replica.uuid, uu2))
+    orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
+    v8 = *orderedSubstrings;
+    v9 = orderedSubstrings[1];
+    if (*orderedSubstrings != v9)
     {
-      *uu1 = *uu2;
-      v24 = *&uu2[16];
-      v25 = *&uu2[24] + *&uu2[20];
-      if ((Coherence_namespace::TopoID::operator<=(uu1, range->charID.replica.uuid) & 1) == 0)
+      v10 = 0;
+      while (1)
       {
-        *v20 = *range->charID.replica.uuid;
+        v18 = *v8;
+        v11 = *v18;
+        *&uu2[12] = *(v18 + 12);
+        *uu2 = v11;
+        if (range->charID.replica.index != *&uu2[16])
+        {
+          goto LABEL_16;
+        }
+
+        if (uuid_compare(range->charID.replica.uuid, uu2))
+        {
+          goto LABEL_16;
+        }
+
+        *uu1 = *uu2;
+        v23 = *&uu2[16];
+        v24 = *&uu2[24] + *&uu2[20];
+        if (Coherence_namespace::TopoID::operator<=(uu1, range->charID.replica.uuid))
+        {
+          goto LABEL_16;
+        }
+
+        *v19 = *range->charID.replica.uuid;
         v12 = range->length + range->charID.clock;
         index = range->charID.replica.index;
-        v22 = v12;
-        if ((Coherence_namespace::TopoID::operator>=(uu2, v20) & 1) == 0)
+        v21 = v12;
+        if (Coherence_namespace::TopoID::operator>=(uu2, v19))
         {
-          clock = range->charID.clock;
-          if (clock > *&uu2[20])
-          {
-            v18 = [(CRTTMergeableString *)self splitTopoSubstring:v19 atIndex:clock - *&uu2[20]];
-            v14 = range->length + range->charID.clock;
-            v24 = range->charID.replica.index;
-            v25 = v14;
-            *uu1 = *range->charID.replica.uuid;
-            *v20 = *uu2;
-            index = *&uu2[16];
-            v22 = *&uu2[24] + *&uu2[20];
-            if (Coherence_namespace::TopoID::operator<(uu1, v20))
-            {
-              [(CRTTMergeableString *)self splitTopoSubstring:v18 atIndex:range->length];
-            }
+          goto LABEL_16;
+        }
 
-            v15 = &v18;
-            goto LABEL_14;
-          }
-
+        clock = range->charID.clock;
+        if (clock <= *&uu2[20])
+        {
           *uu1 = *uu2;
-          v24 = *&uu2[16];
-          v25 = *&uu2[24] + *&uu2[20];
-          *v20 = *range->charID.replica.uuid;
+          v23 = *&uu2[16];
+          v24 = *&uu2[24] + *&uu2[20];
+          *v19 = *range->charID.replica.uuid;
           v16 = range->length + clock;
           index = range->charID.replica.index;
-          v22 = v16;
-          if (Coherence_namespace::TopoID::operator>(uu1, v20))
+          v21 = v16;
+          if (!Coherence_namespace::TopoID::operator>(uu1, v19))
           {
-            [(CRTTMergeableString *)self splitTopoSubstring:v19 atIndex:range->length + range->charID.clock - *&uu2[20]];
-            v15 = &v19;
-LABEL_14:
-            std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, v15);
-            v10 = 1;
+            std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, &v18);
             goto LABEL_16;
           }
 
-          std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, &v19);
+          [(CRTTMergeableString *)self splitTopoSubstring:v18 atIndex:range->length + range->charID.clock - *&uu2[20]];
+          v15 = &v18;
+        }
+
+        else
+        {
+          v17 = [(CRTTMergeableString *)self splitTopoSubstring:v18 atIndex:clock - *&uu2[20]];
+          v14 = range->length + range->charID.clock;
+          v23 = range->charID.replica.index;
+          v24 = v14;
+          *uu1 = *range->charID.replica.uuid;
+          *v19 = *uu2;
+          index = *&uu2[16];
+          v21 = *&uu2[24] + *&uu2[20];
+          if (Coherence_namespace::TopoID::operator<(uu1, v19))
+          {
+            [(CRTTMergeableString *)self splitTopoSubstring:v17 atIndex:range->length];
+          }
+
+          v15 = &v17;
+        }
+
+        std::vector<Coherence_namespace::TopoSubstring *>::push_back[abi:ne200100](substrings, v15);
+        v10 = 1;
+LABEL_16:
+        if (++v8 == v9)
+        {
+          if (v10)
+          {
+            [(CRTTMergeableString *)self invalidateCache];
+          }
+
+          return;
         }
       }
     }
-
-LABEL_16:
-    ++v8;
   }
-
-  while (v8 != v9);
-  if (v10)
-  {
-    [(CRTTMergeableString *)self invalidateCache];
-  }
-
-LABEL_19:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getCharacterRanges:(void *)ranges forSubstrings:(void *)substrings
@@ -1793,7 +1780,8 @@ LABEL_19:
   v8 = *(substrings + 1);
   while (v7 != v8)
   {
-    std::__hash_table<Coherence_namespace::TopoSubstring *,std::hash<Coherence_namespace::TopoSubstring *>,std::equal_to<Coherence_namespace::TopoSubstring *>,std::allocator<Coherence_namespace::TopoSubstring *>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring * const&>(&v28, v7++);
+    std::__hash_table<Coherence_namespace::TopoSubstring *,std::hash<Coherence_namespace::TopoSubstring *>,std::equal_to<Coherence_namespace::TopoSubstring *>,std::allocator<Coherence_namespace::TopoSubstring *>>::__emplace_unique_key_args<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring * const&>(&v28, v7, v7);
+    ++v7;
   }
 
   orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
@@ -1901,7 +1889,7 @@ LABEL_24:
 
 - (void)enumerateIndexes:(id)indexes
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   indexesCopy = indexes;
   orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
   v6 = *orderedSubstrings;
@@ -1915,17 +1903,17 @@ LABEL_24:
       {
         v10 = *(v8 + 4);
         v9 = *(v8 + 5);
-        v15 = *v8;
-        v16 = v10;
-        v17 = v9;
+        v14 = *v8;
+        v15 = v10;
+        v16 = v9;
         if (*(v8 + 6))
         {
           v11 = 0;
           do
           {
             v12 = *(v8 + 21);
-            v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v15];
-            indexesCopy[2](indexesCopy, v11 + v12, v13, v16, v11 + v17);
+            v13 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v14];
+            indexesCopy[2](indexesCopy, v11 + v12, v13, v15, v11 + v16);
 
             ++v11;
           }
@@ -1939,20 +1927,18 @@ LABEL_24:
 
     while (v6 != v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)mergeableIndexForCharacterIndex:(int64_t)index affinity:(unint64_t)affinity
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v34 = 0;
+  v40 = *MEMORY[0x1E69E9840];
+  v33 = 0;
   uuid_clear(uu);
-  v35 = 0;
-  *v36 = 0u;
+  v34 = 0;
+  *v35 = 0u;
   *__p = 0u;
-  v38 = 0u;
-  v39 = 0;
+  v37 = 0u;
+  v38 = 0;
   indexCopy = index;
   v7 = *[(CRTTMergeableString *)self orderedSubstrings];
   v8 = *([(CRTTMergeableString *)self orderedSubstrings]+ 8);
@@ -2045,47 +2031,45 @@ LABEL_14:
     v24 = *(*i + 21);
     v26 = *(*i + 4);
     v25 = *(*i + 5);
-    v31 = **i;
-    LODWORD(v32) = v26;
-    HIDWORD(v32) = index - v24 + v25;
-    v27 = [(CRTTMergeableString *)self renameGeneration:v31];
+    v30 = **i;
+    LODWORD(v31) = v26;
+    HIDWORD(v31) = index - v24 + v25;
+    v27 = [(CRTTMergeableString *)self renameGeneration:v30];
     version = [(CRTTMergeableString *)self version];
-    v16 = -[CRTTMergeableStringIndex initWithTopoID:affinity:renameGeneration:maxCounter:](v23, "initWithTopoID:affinity:renameGeneration:maxCounter:", &v31, affinity, v27, [version maxCounter]);
+    v16 = -[CRTTMergeableStringIndex initWithTopoID:affinity:renameGeneration:maxCounter:](v23, "initWithTopoID:affinity:renameGeneration:maxCounter:", &v30, affinity, v27, [version maxCounter]);
   }
 
   if (__p[1])
   {
-    *&v38 = __p[1];
+    *&v37 = __p[1];
     operator delete(__p[1]);
   }
 
-  if (v36[0])
+  if (v35[0])
   {
-    v36[1] = v36[0];
-    operator delete(v36[0]);
+    v35[1] = v35[0];
+    operator delete(v35[0]);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (unint64_t)_characterIndexForIndex:(id)index
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   v5 = indexCopy;
   if (indexCopy)
   {
-    [indexCopy index];
+    objc_msgSend_index(indexCopy);
   }
 
   else
   {
-    memset(&v16, 0, sizeof(v16));
+    memset(&v15, 0, sizeof(v15));
   }
 
-  v6 = [(CRTTMergeableString *)self orderedSubstrings:*v16.replica.uuid];
+  v6 = [(CRTTMergeableString *)self orderedSubstrings:*v15.replica.uuid];
   v7 = *v6;
   v8 = v6[1];
   while (1)
@@ -2096,7 +2080,7 @@ LABEL_14:
     }
 
     v9 = *v7;
-    if (Coherence_namespace::TopoIDRange::contains(*v7, &v16) || *(v9 + 2) == *&v16.replica.index && !uuid_compare(v9, v16.replica.uuid))
+    if (Coherence_namespace::TopoIDRange::contains(*v7, &v15) || *(v9 + 2) == *&v15.replica.index && !uuid_compare(v9, v15.replica.uuid))
     {
       break;
     }
@@ -2119,7 +2103,7 @@ LABEL_15:
   else
   {
     v10 = *(v9 + 21);
-    clock = v16.clock;
+    clock = v15.clock;
     v12 = *(v9 + 5);
     if ([v5 affinity])
     {
@@ -2134,7 +2118,6 @@ LABEL_15:
 
 LABEL_16:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -2160,7 +2143,7 @@ LABEL_16:
 
 - (void)enumerateSubstrings:(id)substrings
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   substringsCopy = substrings;
   orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
   v6 = *orderedSubstrings;
@@ -2177,9 +2160,9 @@ LABEL_16:
         {
           v10 = *(v8 + 21);
           v11 = *v8;
-          *&v13[12] = *(v8 + 12);
-          *v13 = v11;
-          substringsCopy[2](substringsCopy, v10, v9, v13);
+          *&v12[12] = *(v8 + 12);
+          *v12 = v11;
+          substringsCopy[2](substringsCopy, v10, v9, v12);
         }
       }
 
@@ -2188,8 +2171,6 @@ LABEL_16:
 
     while (v6 != v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAttributedStringAfterMerge
@@ -2201,13 +2182,14 @@ LABEL_16:
   while (v5 != v6)
   {
     v7 = *v5;
-    v9 = [coherence_emptyCopy length];
+    v8 = [coherence_emptyCopy length];
     if (*(v7 + 40) != *(v7 + 32))
     {
       [coherence_emptyCopy Coherence_appendStorage:self->_attributedString fromRange:{*(v7 + 84), *(v7 + 24)}];
     }
 
-    *(v7 + 84) = Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32(v9, v8);
+    Coherence_namespace::CRTTBoundedCheckedCastNSUIntegerToUInt32(v8);
+    *(v7 + 84) = v9;
     ++v5;
   }
 
@@ -2317,15 +2299,15 @@ uint64_t __50__CRTTMergeableString_hasDeltaTo_compareElements___block_invoke(uin
 - (unint64_t)mergeWithString:(id)string optimized:(BOOL)optimized suggestedContext:(id)context
 {
   optimizedCopy = optimized;
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   contextCopy = context;
   [(CRTTMergeableString *)self useRenameIfAvailable];
   version = [(CRTTMergeableString *)self version];
-  v50 = [version copy];
+  v49 = [version copy];
 
   addedByVersion = [(CRTTMergeableString *)self addedByVersion];
-  v51 = [addedByVersion copy];
+  v50 = [addedByVersion copy];
 
   renameGeneration = [(CRTTMergeableString *)self renameGeneration];
   if (renameGeneration != [stringCopy renameGeneration])
@@ -2337,45 +2319,31 @@ uint64_t __50__CRTTMergeableString_hasDeltaTo_compareElements___block_invoke(uin
     stringCopy = v13;
   }
 
-  v52 = stringCopy;
-  if (!optimizedCopy)
-  {
-    goto LABEL_6;
-  }
-
-  version2 = [(CRTTMergeableString *)self version];
-  version3 = [stringCopy version];
-  v16 = [version2 compareTo:version3];
-
-  addedByVersion2 = [(CRTTMergeableString *)self addedByVersion];
-  addedByVersion3 = [stringCopy addedByVersion];
-  v19 = [addedByVersion2 compareTo:addedByVersion3] | v16;
-
-  if (v19 < 3)
+  v51 = stringCopy;
+  if (optimizedCopy && (-[CRTTMergeableString version](self, "version"), v14 = objc_claimAutoreleasedReturnValue(), [stringCopy version], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "compareTo:", v15), v15, v14, -[CRTTMergeableString addedByVersion](self, "addedByVersion"), v17 = objc_claimAutoreleasedReturnValue(), objc_msgSend(stringCopy, "addedByVersion"), v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v17, "compareTo:", v18) | v16, v18, v17, v19 < 3))
   {
     v20 = qword_1AE240B30[v19];
   }
 
   else
   {
-LABEL_6:
     orderedSubstrings = [stringCopy orderedSubstrings];
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x4812000000;
-    v62 = __Block_byref_object_copy__19;
-    v63 = __Block_byref_object_dispose__20;
-    v64 = &unk_1AE2A3E8A;
-    v66[0] = 0;
-    v66[1] = 0;
-    v65 = v66;
+    v58 = 0;
+    v59 = &v58;
+    v60 = 0x4812000000;
+    v61 = __Block_byref_object_copy__19;
+    v62 = __Block_byref_object_dispose__20;
+    v63 = &unk_1AE2A3E8A;
+    v65[0] = 0;
+    v65[1] = 0;
+    v64 = v65;
     orderedSubstrings2 = [(CRTTMergeableString *)self orderedSubstrings];
     v23 = *orderedSubstrings2;
     v24 = orderedSubstrings2[1];
     while (v23 != v24)
     {
       v25 = *v23;
-      *std::map<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *,Coherence_namespace::$_0,std::allocator<std::pair<Coherence_namespace::TopoIDRange const,Coherence_namespace::TopoSubstring *>>>::operator[]((v60 + 6), *v23++) = v25;
+      *std::map<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *,Coherence_namespace::$_0,std::allocator<std::pair<Coherence_namespace::TopoIDRange const,Coherence_namespace::TopoSubstring *>>>::operator[]((v59 + 6), *v23++) = v25;
     }
 
     v26 = orderedSubstrings[1];
@@ -2384,64 +2352,64 @@ LABEL_6:
       v27 = MEMORY[0x1E69E9820];
       do
       {
-        v56[0] = v27;
-        v56[1] = 3221225472;
-        v56[2] = __66__CRTTMergeableString_mergeWithString_optimized_suggestedContext___block_invoke;
-        v56[3] = &unk_1E7A12488;
-        v56[4] = self;
-        v57 = v52;
-        v58 = &v59;
-        v53[0] = MEMORY[0x1E69E9820];
-        v53[1] = 3221225472;
-        v53[2] = __66__CRTTMergeableString_mergeWithString_optimized_suggestedContext___block_invoke_2;
-        v53[3] = &unk_1E7A124B0;
-        v53[4] = self;
-        v54 = v57;
-        v55 = &v59;
+        v55[0] = v27;
+        v55[1] = 3221225472;
+        v55[2] = __66__CRTTMergeableString_mergeWithString_optimized_suggestedContext___block_invoke;
+        v55[3] = &unk_1E7A12488;
+        v55[4] = self;
+        v56 = v51;
+        v57 = &v58;
+        v52[0] = MEMORY[0x1E69E9820];
+        v52[1] = 3221225472;
+        v52[2] = __66__CRTTMergeableString_mergeWithString_optimized_suggestedContext___block_invoke_2;
+        v52[3] = &unk_1E7A124B0;
+        v52[4] = self;
+        v53 = v56;
+        v54 = &v58;
         v28 = *(v26 - 8);
         v26 -= 8;
-        mergeSubstring(v56, v53, v28, (v60 + 6), 0, 1);
+        mergeSubstring(v55, v52, v28, (v59 + 6), 0, 1);
       }
 
       while (v26 != *orderedSubstrings);
     }
 
+    version2 = [(CRTTMergeableString *)self version];
+    version3 = [v51 version];
+    [version2 merge:version3];
+
+    addedByVersion2 = [(CRTTMergeableString *)self addedByVersion];
+    addedByVersion3 = [v51 addedByVersion];
+    [addedByVersion2 merge:addedByVersion3];
+
     version4 = [(CRTTMergeableString *)self version];
-    version5 = [v52 version];
-    [version4 merge:version5];
-
-    addedByVersion4 = [(CRTTMergeableString *)self addedByVersion];
-    addedByVersion5 = [v52 addedByVersion];
-    [addedByVersion4 merge:addedByVersion5];
-
-    version6 = [(CRTTMergeableString *)self version];
     v34 = Coherence_namespace::TopoReplica::objc(&self->_replica);
-    if (v52)
+    if (v51)
     {
-      [v52 replica];
+      objc_msgSend_replica(v51);
     }
 
     else
     {
-      v67[0] = 0;
-      v67[1] = 0;
-      v68 = 0;
+      v66[0] = 0;
+      v66[1] = 0;
+      v67 = 0;
     }
 
-    v35 = Coherence_namespace::TopoReplica::objc(v67);
-    [_TtC9Coherence19CRGlobalContextObjC retainOrReleaseWithInitial:v50 current:version6 forReplica:v34 copyingFrom:v35];
+    v35 = Coherence_namespace::TopoReplica::objc(v66);
+    [_TtC9Coherence19CRGlobalContextObjC retainOrReleaseWithInitial:v49 current:version4 forReplica:v34 copyingFrom:v35];
 
-    addedByVersion6 = [(CRTTMergeableString *)self addedByVersion];
+    addedByVersion4 = [(CRTTMergeableString *)self addedByVersion];
     addedByReplica = [(CRTTMergeableString *)self addedByReplica];
-    addedByReplica2 = [v52 addedByReplica];
-    [_TtC9Coherence19CRGlobalContextObjC retainOrReleaseWithInitial:v51 current:addedByVersion6 forReplica:addedByReplica copyingFrom:addedByReplica2];
+    addedByReplica2 = [v51 addedByReplica];
+    [_TtC9Coherence19CRGlobalContextObjC retainOrReleaseWithInitial:v50 current:addedByVersion4 forReplica:addedByReplica copyingFrom:addedByReplica2];
 
     context = [(CRTTMergeableString *)self context];
     v40 = context == 0;
 
     if (v40)
     {
-      context2 = [v52 context];
+      context2 = [v51 context];
       [(CRTTMergeableString *)self setContext:context2];
     }
 
@@ -2479,12 +2447,11 @@ LABEL_6:
     [(CRTTMergeableString *)self updateAttributedStringAfterMerge];
     [(CRTTMergeableString *)self coalesce];
 
-    _Block_object_dispose(&v59, 8);
-    std::__tree<std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>,std::__map_value_compare<Coherence_namespace::TopoIDRange,std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>,Coherence_namespace::$_0,true>,std::allocator<std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>>>::destroy(v66[0]);
+    _Block_object_dispose(&v58, 8);
+    std::__tree<std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>,std::__map_value_compare<Coherence_namespace::TopoIDRange,std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>,Coherence_namespace::$_0,true>,std::allocator<std::__value_type<Coherence_namespace::TopoIDRange,Coherence_namespace::TopoSubstring *>>>::destroy(v65[0]);
     v20 = 3;
   }
 
-  v47 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -2492,32 +2459,31 @@ void __66__CRTTMergeableString_mergeWithString_optimized_suggestedContext___bloc
 {
   v5 = *(a1 + 40);
   v6 = *(*(a1 + 48) + 8);
-  v14 = *(a1 + 32);
+  v15 = *(a1 + 32);
   v7 = v5;
-  v8 = v7;
+  v9 = v7;
   if (*(a2 + 24))
   {
-    v10 = *(a2 + 32);
-    v9 = *(a2 + 40);
-    v11 = [v7 addedByVersion];
-    Coherence_namespace::TopoSubstring::removeAddsNotIn(a2, a3, v11);
+    v11 = *(a2 + 32);
+    v10 = *(a2 + 40);
+    v12 = [v7 addedByVersion];
+    Coherence_namespace::TopoSubstring::removeAddsNotIn(a2, a3, v12);
 
-    v12 = [v14 addedByVersion];
-    Coherence_namespace::TopoSubstring::addAddsIn(a2, a3, v12);
+    v13 = [v15 addedByVersion];
+    Coherence_namespace::TopoSubstring::addAddsIn(a2, a3, v13);
 
-    v13 = [v8 attributedString];
-    mergeStringData(v14, v9 == v10, a2, a3, v13, 0);
+    v14 = [v9 attributedString];
+    mergeStringData(v15, v10 == v11, a2, a3, v14, 0);
   }
 
-  mergeAddChildren(a2, a3, v6 + 48);
+  mergeAddChildren(a2, a3, v6 + 48, v8);
 }
 
-void __66__CRTTMergeableString_mergeWithString_optimized_suggestedContext___block_invoke_2(uint64_t a1)
+void __66__CRTTMergeableString_mergeWithString_optimized_suggestedContext___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) attributedString];
-  v4 = *(*(a1 + 48) + 8);
-  mergeAddNewSubstring(v2, v3);
+  v4 = *(a1 + 32);
+  v5 = [*(a1 + 40) attributedString];
+  mergeAddNewSubstring(v4, v5, a2, *(*(a1 + 48) + 8) + 48);
 }
 
 - (BOOL)canDeltaMerge:(id)merge
@@ -2709,27 +2675,26 @@ void __34__CRTTMergeableString_deltaMerge___block_invoke(uint64_t a1, uint64_t a
   v7 = [*(a1 + 40) attributedString];
   v8 = *(*(a1 + 48) + 8);
   v9 = v6;
-  v13 = v7;
+  v14 = v7;
   if (*(a2 + 24))
   {
-    v11 = *(a2 + 32);
-    v10 = *(a2 + 40);
+    v12 = *(a2 + 32);
+    v11 = *(a2 + 40);
     Coherence_namespace::TopoSubstring::removeDeltaAddsNotIn(a2, a3);
-    v12 = [v9 addedByVersion];
-    Coherence_namespace::TopoSubstring::addAddsIn(a2, a3, v12);
+    v13 = [v9 addedByVersion];
+    Coherence_namespace::TopoSubstring::addAddsIn(a2, a3, v13);
 
-    mergeStringData(v9, v10 == v11, a2, a3, v13, 1);
+    mergeStringData(v9, v11 == v12, a2, a3, v14, 1);
   }
 
-  mergeAddChildren(a2, a3, v8 + 48);
+  mergeAddChildren(a2, a3, v8 + 48, v10);
 }
 
-void __34__CRTTMergeableString_deltaMerge___block_invoke_2(uint64_t a1)
+void __34__CRTTMergeableString_deltaMerge___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) attributedString];
-  v4 = *(*(a1 + 48) + 8);
-  mergeAddNewSubstring(v2, v3);
+  v4 = *(a1 + 32);
+  v5 = [*(a1 + 40) attributedString];
+  mergeAddNewSubstring(v4, v5, a2, *(*(a1 + 48) + 8) + 48);
 }
 
 - (id)undoCommandToChangeFrom:(id)from unedited:(id)unedited
@@ -2894,160 +2859,156 @@ void __34__CRTTMergeableString_deltaMerge___block_invoke_2(uint64_t a1)
   return v14;
 }
 
-void __54__CRTTMergeableString_undoCommandToChangeTo_unedited___block_invoke(uint64_t a1, uint64_t a2, __int128 *a3)
+void __54__CRTTMergeableString_undoCommandToChangeTo_unedited___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (!*(a2 + 24))
   {
-LABEL_34:
-    v36 = *MEMORY[0x1E69E9840];
     return;
   }
 
   v7 = *(a2 + 32);
   v6 = *(a2 + 40);
-  if (*(a3 + 5) == *(a3 + 4))
+  if (*(a3 + 40) != *(a3 + 32))
   {
-    if (v6 != v7)
+    if (v6 == v7)
     {
-      v10 = [*(a1 + 32) insertStrings];
-      v11 = [*(a1 + 40) attributedString];
-      v12 = v11;
-      if (*(a2 + 40) == *(a2 + 32))
-      {
-        v13 = 0;
-      }
+      v8 = [*(a1 + 32) deleteRanges];
 
-      else
-      {
-        v13 = *(a2 + 24);
-      }
-
-      v14 = [v11 Coherence_storageFromRange:{*(a2 + 84), v13}];
-      *v37 = *a3;
-      *&v37[12] = *(a3 + 12);
-      v15 = v10[1];
-      v16 = v10[2];
-      if (v15 >= v16)
-      {
-        v31 = 0xCCCCCCCCCCCCCCCDLL * ((v15 - *v10) >> 3);
-        v32 = v31 + 1;
-        if (v31 + 1 > 0x666666666666666)
-        {
-          std::vector<Coherence_namespace::TopoSubstring *>::__throw_length_error[abi:ne200100]();
-        }
-
-        v33 = 0xCCCCCCCCCCCCCCCDLL * ((v16 - *v10) >> 3);
-        if (2 * v33 > v32)
-        {
-          v32 = 2 * v33;
-        }
-
-        if (v33 >= 0x333333333333333)
-        {
-          v34 = 0x666666666666666;
-        }
-
-        else
-        {
-          v34 = v32;
-        }
-
-        v39 = v10;
-        if (v34)
-        {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<Coherence_namespace::TopoIDRange,objc_object  {objcproto26CRTTMergeableStringStorage}* {__strong}>>>(v10, v34);
-        }
-
-        v35 = 40 * v31;
-        *v38 = 0;
-        *&v38[8] = v35;
-        *&v38[24] = 0;
-        *v35 = *v37;
-        *(v35 + 12) = *&v37[12];
-        *(v35 + 32) = v14;
-        *&v38[16] = 40 * v31 + 40;
-        std::vector<std::pair<Coherence_namespace::TopoIDRange,objc_object  {objcproto26CRTTMergeableStringStorage}* {__strong}>>::__swap_out_circular_buffer(v10, v38);
-        v19 = v10[1];
-        std::__split_buffer<std::pair<Coherence_namespace::TopoIDRange,objc_object  {objcproto26CRTTMergeableStringStorage}* {__strong}>>::~__split_buffer(v38);
-      }
-
-      else
-      {
-        v17 = *a3;
-        v18 = *(a3 + 2);
-        *(v15 + 24) = *(a3 + 6);
-        *(v15 + 16) = v18;
-        *v15 = v17;
-        *(v15 + 32) = v14;
-        v19 = v15 + 40;
-      }
-
-      v10[1] = v19;
-
-      goto LABEL_34;
+      std::vector<Coherence_namespace::TopoIDRange>::push_back[abi:ne200100](v8, a3);
+      return;
     }
 
     goto LABEL_13;
   }
 
-  if (v6 != v7)
+  if (v6 == v7)
   {
 LABEL_13:
-    v20 = *(a1 + 56);
-    if (v20)
+    v19 = *(a1 + 56);
+    if (v19)
     {
-      v21 = [_TtC9Coherence24CRTTMergeableStringRange alloc];
-      *v38 = *a3;
-      *&v38[12] = *(a3 + 12);
-      v22 = [*(a1 + 40) renameGeneration];
-      v23 = [*(a1 + 40) version];
-      v24 = [v23 maxCounter];
+      v20 = [_TtC9Coherence24CRTTMergeableStringRange alloc];
+      *v36 = *a3;
+      *&v36[12] = *(a3 + 12);
+      v21 = [*(a1 + 40) renameGeneration];
+      v22 = [*(a1 + 40) version];
+      v23 = [v22 maxCounter];
 
-      v25 = [*(a1 + 48) version];
-      v26 = [v25 maxCounter];
+      v24 = [*(a1 + 48) version];
+      v25 = [v24 maxCounter];
 
-      if (v24 <= v26)
+      if (v23 <= v25)
       {
-        v27 = v26;
+        v26 = v25;
       }
 
       else
       {
-        v27 = v24;
+        v26 = v23;
       }
 
-      v28 = [(CRTTMergeableStringRange *)v21 initWithTopoIDRange:v38 renameGeneration:v22 maxCounter:v27];
-      if (*(a3 + 5) == *(a3 + 4))
+      v27 = [(CRTTMergeableStringRange *)v20 initWithTopoIDRange:v36 renameGeneration:v21 maxCounter:v26];
+      if (*(a3 + 40) == *(a3 + 32))
+      {
+        v28 = 0;
+      }
+
+      else
+      {
+        v28 = *(a3 + 24);
+      }
+
+      if (*(a2 + 40) == *(a2 + 32))
       {
         v29 = 0;
       }
 
       else
       {
-        v29 = *(a3 + 6);
+        v29 = *(a2 + 24);
       }
 
-      if (*(a2 + 40) == *(a2 + 32))
-      {
-        v30 = 0;
-      }
-
-      else
-      {
-        v30 = *(a2 + 24);
-      }
-
-      (*(v20 + 16))(v20, v28, *(a3 + 21), v29, *(a2 + 84), v30);
+      (*(v19 + 16))(v19, v27, *(a3 + 84), v28, *(a2 + 84), v29);
     }
 
-    goto LABEL_34;
+    return;
   }
 
-  v8 = [*(a1 + 32) deleteRanges];
-  v9 = *MEMORY[0x1E69E9840];
+  v9 = [*(a1 + 32) insertStrings];
+  v10 = [*(a1 + 40) attributedString];
+  v11 = v10;
+  if (*(a2 + 40) == *(a2 + 32))
+  {
+    v12 = 0;
+  }
 
-  std::vector<Coherence_namespace::TopoIDRange>::push_back[abi:ne200100](v8, a3);
+  else
+  {
+    v12 = *(a2 + 24);
+  }
+
+  v13 = [v10 Coherence_storageFromRange:{*(a2 + 84), v12}];
+  *v35 = *a3;
+  *&v35[12] = *(a3 + 12);
+  v14 = v9[1];
+  v15 = v9[2];
+  if (v14 >= v15)
+  {
+    v30 = 0xCCCCCCCCCCCCCCCDLL * ((v14 - *v9) >> 3);
+    v31 = v30 + 1;
+    if (v30 + 1 > 0x666666666666666)
+    {
+      std::vector<Coherence_namespace::TopoSubstring *>::__throw_length_error[abi:ne200100]();
+    }
+
+    v32 = 0xCCCCCCCCCCCCCCCDLL * ((v15 - *v9) >> 3);
+    if (2 * v32 > v31)
+    {
+      v31 = 2 * v32;
+    }
+
+    if (v32 >= 0x333333333333333)
+    {
+      v33 = 0x666666666666666;
+    }
+
+    else
+    {
+      v33 = v31;
+    }
+
+    v37 = v9;
+    if (v33)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<Coherence_namespace::TopoIDRange,objc_object  {objcproto26CRTTMergeableStringStorage}* {__strong}>>>(v9, v33);
+    }
+
+    v34 = 40 * v30;
+    *v36 = 0;
+    *&v36[8] = v34;
+    *&v36[24] = 0;
+    *v34 = *v35;
+    *(v34 + 12) = *&v35[12];
+    *(v34 + 32) = v13;
+    *&v36[16] = 40 * v30 + 40;
+    std::vector<std::pair<Coherence_namespace::TopoIDRange,objc_object  {objcproto26CRTTMergeableStringStorage}* {__strong}>>::__swap_out_circular_buffer(v9, v36);
+    v18 = v9[1];
+    std::__split_buffer<std::pair<Coherence_namespace::TopoIDRange,objc_object  {objcproto26CRTTMergeableStringStorage}* {__strong}>>::~__split_buffer(v36);
+  }
+
+  else
+  {
+    v16 = *a3;
+    v17 = *(a3 + 16);
+    *(v14 + 24) = *(a3 + 24);
+    *(v14 + 16) = v17;
+    *v14 = v16;
+    *(v14 + 32) = v13;
+    v18 = v14 + 40;
+  }
+
+  v9[1] = v18;
 }
 
 void __54__CRTTMergeableString_undoCommandToChangeTo_unedited___block_invoke_2(uint64_t a1, uint64_t a2)
@@ -3127,7 +3088,6 @@ uint64_t __52__CRTTMergeableString_addedRefsInRangesTo_newRange___block_invoke_2
   {
     if (*(a2 + 24))
     {
-      v2 = *(a2 + 84);
       return (*(*(result + 32) + 16))();
     }
   }
@@ -3213,16 +3173,16 @@ uint64_t __52__CRTTMergeableString_addedRefsInRangesTo_newRange___block_invoke_2
 
 void __47__CRTTMergeableString_deltaTo_edited_unedited___block_invoke(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  if (*(*(*(a1 + 48) + 8) + 24) != 1 || a2 > *(*(*(a1 + 56) + 8) + 56) + *(*(*(a1 + 56) + 8) + 48) + *(*(*(a1 + 64) + 8) + 24) && (v12 = *(a1 + 40), v13 = *(*(*(a1 + 72) + 8) + 40), (*(*(a1 + 40) + 16))(), *(*(*(a1 + 48) + 8) + 24) = 0, (*(*(*(a1 + 48) + 8) + 24) & 1) == 0))
+  if (*(*(*(a1 + 48) + 8) + 24) != 1 || a2 > *(*(*(a1 + 56) + 8) + 56) + *(*(*(a1 + 56) + 8) + 48) + *(*(*(a1 + 64) + 8) + 24) && ((*(*(a1 + 40) + 16))(), *(*(*(a1 + 48) + 8) + 24) = 0, (*(*(*(a1 + 48) + 8) + 24) & 1) == 0))
   {
-    v14 = *(*(a1 + 56) + 8);
-    *(v14 + 48) = a2;
-    *(v14 + 56) = 0;
+    v12 = *(*(a1 + 56) + 8);
+    *(v12 + 48) = a2;
+    *(v12 + 56) = 0;
     *(*(*(a1 + 64) + 8) + 24) = 0;
     *(*(*(a1 + 48) + 8) + 24) = 1;
-    v15 = *(*(a1 + 72) + 8);
-    v16 = *(v15 + 40);
-    *(v15 + 40) = 0;
+    v13 = *(*(a1 + 72) + 8);
+    v14 = *(v13 + 40);
+    *(v13 + 40) = 0;
   }
 
   if (a4 < 0)
@@ -3236,20 +3196,20 @@ void __47__CRTTMergeableString_deltaTo_edited_unedited___block_invoke(uint64_t a
     *(*(*(a1 + 64) + 8) + 24) += a4;
     if (a4)
     {
-      v17 = *(*(*(a1 + 72) + 8) + 40);
-      v18 = [*(a1 + 32) attributedString];
-      v22 = v18;
-      if (v17)
+      v15 = *(*(*(a1 + 72) + 8) + 40);
+      v16 = [*(a1 + 32) attributedString];
+      v20 = v16;
+      if (v15)
       {
-        [v17 Coherence_appendStorage:v18 fromRange:{a5, a6}];
+        [v15 Coherence_appendStorage:v16 fromRange:{a5, a6}];
       }
 
       else
       {
-        v19 = [v18 Coherence_storageFromRange:{a5, a6}];
-        v20 = *(*(a1 + 72) + 8);
-        v21 = *(v20 + 40);
-        *(v20 + 40) = v19;
+        v17 = [v16 Coherence_storageFromRange:{a5, a6}];
+        v18 = *(*(a1 + 72) + 8);
+        v19 = *(v18 + 40);
+        *(v18 + 40) = v17;
       }
     }
   }
@@ -3269,12 +3229,9 @@ uint64_t __47__CRTTMergeableString_deltaTo_edited_unedited___block_invoke_2(uint
     {
       if (v9 != v10)
       {
-        v18 = *(result + 32);
-        v19 = *(*(v6[7] + 8) + 24);
-        v20 = -*(a3 + 24);
-        v21 = *(v6[4] + 16);
+        v13 = *(*(result + 32) + 16);
 
-        return v21();
+        return v13();
       }
     }
 
@@ -3282,11 +3239,7 @@ uint64_t __47__CRTTMergeableString_deltaTo_edited_unedited___block_invoke_2(uint
     {
       if (v9 == v10)
       {
-        v22 = *(a3 + 24);
-        v23 = *(result + 32);
-        v24 = *(*(v6[7] + 8) + 24);
-        v25 = *(a3 + 84);
-        result = (*(v6[4] + 16))();
+        result = (*(*(result + 32) + 16))();
       }
 
       else
@@ -3296,11 +3249,6 @@ uint64_t __47__CRTTMergeableString_deltaTo_edited_unedited___block_invoke_2(uint
         {
           if (*(*(v6[8] + 8) + 24) == 1)
           {
-            v11 = *(v6[9] + 8);
-            v12 = *(v11 + 48);
-            v13 = *(v11 + 56);
-            v14 = *(*(v6[10] + 8) + 24);
-            v15 = *(*(v6[11] + 8) + 40);
             (*(v6[6] + 16))();
             *(*(v6[8] + 8) + 24) = 0;
             result = v6[5];
@@ -3313,25 +3261,25 @@ uint64_t __47__CRTTMergeableString_deltaTo_edited_unedited___block_invoke_2(uint
 
           if (v7 == v8)
           {
-            v16 = 0;
+            v11 = 0;
           }
 
           else
           {
-            v16 = *(a3 + 24);
+            v11 = *(a3 + 24);
           }
 
           if (v9 == v10)
           {
-            v17 = 0;
+            v12 = 0;
           }
 
           else
           {
-            v17 = v3;
+            v12 = v3;
           }
 
-          result = (*(result + 16))(result, *(a3 + 84), v16, *(a2 + 84), v17);
+          result = (*(result + 16))(result, *(a3 + 84), v11, *(a2 + 84), v12);
         }
       }
 
@@ -3348,20 +3296,11 @@ uint64_t __47__CRTTMergeableString_deltaTo_edited_unedited___block_invoke_3(uint
   {
     v2 = result;
     v3 = *(a2 + 24);
-    v4 = *(*(*(result + 40) + 8) + 24);
-    v5 = *(a2 + 84);
     result = (*(*(result + 32) + 16))();
     *(*(*(v2 + 40) + 8) + 24) += v3;
   }
 
   return result;
-}
-
-- (void)sortSplitNodes
-{
-  v3[5] = *MEMORY[0x1E69E9840];
-  minIdPath(self->_startNode, 0, v3);
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -3553,10 +3492,14 @@ LABEL_31:
   return self;
 }
 
-uint64_t *__36__CRTTMergeableString_graphIsEqual___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t *__36__CRTTMergeableString_graphIsEqual___block_invoke(uint64_t a1, _OWORD *a2)
 {
-  std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::__unordered_map_hasher<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::hash<Coherence_namespace::TopoID>,std::equal_to<Coherence_namespace::TopoID>,true>,std::__unordered_map_equal<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::equal_to<Coherence_namespace::TopoID>,std::hash<Coherence_namespace::TopoID>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>>>::__emplace_unique_key_args<Coherence_namespace::TopoID,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoID const&>,std::tuple<>>((*(*(a1 + 32) + 8) + 48), a2)[5] = a2;
-  result = std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::__unordered_map_hasher<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::hash<Coherence_namespace::TopoID>,std::equal_to<Coherence_namespace::TopoID>,true>,std::__unordered_map_equal<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::equal_to<Coherence_namespace::TopoID>,std::hash<Coherence_namespace::TopoID>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>>>::__emplace_unique_key_args<Coherence_namespace::TopoID,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoID const&>,std::tuple<>>((*(*(a1 + 32) + 8) + 48), a2);
+  v4 = *(*(a1 + 32) + 8);
+  v7 = a2;
+  std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::__unordered_map_hasher<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::hash<Coherence_namespace::TopoID>,std::equal_to<Coherence_namespace::TopoID>,true>,std::__unordered_map_equal<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::equal_to<Coherence_namespace::TopoID>,std::hash<Coherence_namespace::TopoID>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>>>::__emplace_unique_key_args<Coherence_namespace::TopoID,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoID const&>,std::tuple<>>((v4 + 48), a2, &std::piecewise_construct, &v7)[5] = a2;
+  v5 = *(*(a1 + 32) + 8);
+  v7 = a2;
+  result = std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::__unordered_map_hasher<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::hash<Coherence_namespace::TopoID>,std::equal_to<Coherence_namespace::TopoID>,true>,std::__unordered_map_equal<Coherence_namespace::TopoID,std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>,std::equal_to<Coherence_namespace::TopoID>,std::hash<Coherence_namespace::TopoID>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoID,std::pair<Coherence_namespace::TopoSubstring *,Coherence_namespace::TopoSubstring *>>>>::__emplace_unique_key_args<Coherence_namespace::TopoID,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoID const&>,std::tuple<>>((v5 + 48), a2, &std::piecewise_construct, &v7);
   result[6] = 0;
   return result;
 }
@@ -3580,31 +3523,31 @@ uint64_t *__36__CRTTMergeableString_graphIsEqual___block_invoke_2(uint64_t a1, u
 
 - (id)dotDescription:(unint64_t)description
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
   [v5 appendFormat:@"subgraph cluster_%ld%p_%ld {\n  rankdir=LR;\n", description, self, description];
   selfCopy = self;
   attributedString = [(CRTTMergeableString *)self attributedString];
   v7 = [attributedString description];
 
-  v34 = [v7 stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
+  v31 = [v7 stringByReplacingOccurrencesOfString:@"\n" withString:@"\\n"];
 
-  [(CRTTMergeableString *)self replica];
-  v8 = Coherence_namespace::TopoReplica::toString(&v38);
-  [v5 appendFormat:@"  label=%@_%ld version=(%@) addedBy=(%@)    '%@'\n", v8, description, selfCopy->_version, selfCopy->_addedByVersion, v34];
+  objc_msgSend_replica(self);
+  v8 = Coherence_namespace::TopoReplica::toString(&v35);
+  [v5 appendFormat:@"  label=%@_%ld version=(%@) addedBy=(%@)    '%@'\n", v8, description, selfCopy->_version, selfCopy->_addedByVersion, v31];
 
   [v5 appendFormat:@"  color=lightgrey;\n"];
   orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
   v10 = *orderedSubstrings;
-  v35 = orderedSubstrings[1];
-  if (*orderedSubstrings != v35)
+  v32 = orderedSubstrings[1];
+  if (*orderedSubstrings != v32)
   {
     do
     {
       v11 = *v10;
       if (selfCopy->_startNode == *v10)
       {
-        v17 = @"  N%ld%p [label=Start];\n";
+        v16 = @"  N%ld%p [label=Start];\n";
       }
 
       else
@@ -3613,100 +3556,126 @@ uint64_t *__36__CRTTMergeableString_graphIsEqual___block_invoke_2(uint64_t a1, u
         {
           if (v11[5] == v11[4])
           {
-            v36 = &stru_1F23CB0F8;
+            v33 = &stru_1F23CB0F8;
           }
 
           else
           {
-            attributedString = selfCopy->_attributedString;
             if (objc_opt_respondsToSelector())
             {
-              v13 = MEMORY[0x1E696AEC0];
+              v12 = MEMORY[0x1E696AEC0];
               string = [selfCopy->_attributedString string];
-              v15 = string;
+              v14 = string;
               if (v11[5] == v11[4])
               {
-                v16 = 0;
+                v15 = 0;
               }
 
               else
               {
-                v16 = *(v11 + 6);
+                v15 = *(v11 + 6);
               }
 
-              v20 = [string substringWithRange:{*(v11 + 21), v16}];
-              v36 = [v13 stringWithFormat:@"%@", v20];
+              v18 = [string substringWithRange:{*(v11 + 21), v15}];
+              v33 = [v12 stringWithFormat:@"%@", v18];
 
               goto LABEL_19;
             }
 
-            v18 = selfCopy->_attributedString;
             objc_opt_class();
-            v36 = @"?";
+            v33 = @"?";
             if (objc_opt_isKindOfClass())
             {
               if (v11[5] == v11[4])
               {
-                v19 = 0;
+                v17 = 0;
               }
 
               else
               {
-                v19 = *(v11 + 6);
+                v17 = *(v11 + 6);
               }
 
-              v21 = MEMORY[0x1E696AEC0];
-              v15 = [selfCopy->_attributedString substringWithRange:{*(v11 + 21), v19}];
-              v36 = [v21 stringWithFormat:@"%@", v15];
+              v19 = MEMORY[0x1E696AEC0];
+              v14 = [selfCopy->_attributedString substringWithRange:{*(v11 + 21), v17}];
+              v33 = [v19 stringWithFormat:@"%@", v14];
 LABEL_19:
             }
           }
 
-          v22 = objc_alloc_init(MEMORY[0x1E696AD60]);
-          v23 = v11[4];
-          v24 = v11[5];
-          while (v23 != v24)
+          v20 = objc_alloc_init(MEMORY[0x1E696AD60]);
+          v21 = v11[4];
+          v22 = v11[5];
+          while (v21 != v22)
           {
-            v25 = *v23;
-            v39 = *(v23 + 2);
-            v38 = v25;
-            v26 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v38];
-            coherence_shortDescription = [v26 Coherence_shortDescription];
-            [v22 appendFormat:@"%@.%d, %d ", coherence_shortDescription, v39, HIDWORD(v39)];
+            v23 = *v21;
+            v36 = *(v21 + 2);
+            v35 = v23;
+            v24 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:&v35];
+            coherence_shortDescription = [v24 Coherence_shortDescription];
+            [v20 appendFormat:@"%@.%d, %d ", coherence_shortDescription, v36, HIDWORD(v36)];
 
-            v23 = (v23 + 24);
+            v21 = (v21 + 24);
           }
 
-          v28 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v11];
-          coherence_shortDescription2 = [v28 Coherence_shortDescription];
-          [v5 appendFormat:@"  N%ld%p [label=%@ %@.%d, %d-%u (%@)];\n", description, v11, v36, coherence_shortDescription2, *(v11 + 4), *(v11 + 5), (*(v11 + 5) + *(v11 + 6) - 1), v22];
+          v26 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDBytes:v11];
+          coherence_shortDescription2 = [v26 Coherence_shortDescription];
+          [v5 appendFormat:@"  N%ld%p [label=%@ %@.%d, %d-%u (%@)];\n", description, v11, v33, coherence_shortDescription2, *(v11 + 4), *(v11 + 5), (*(v11 + 5) + *(v11 + 6) - 1), v20];
 
           goto LABEL_24;
         }
 
-        v17 = @"  N%ld%p [label=End];\n";
+        v16 = @"  N%ld%p [label=End];\n";
       }
 
-      [v5 appendFormat:v17, description, v11];
+      [v5 appendFormat:v16, description, v11];
 LABEL_24:
-      v30 = v11[7];
-      v31 = v11[8];
-      while (v30 != v31)
+      v28 = v11[7];
+      v29 = v11[8];
+      while (v28 != v29)
       {
-        [v5 appendFormat:@"  N%ld%p -> N%ld%p;\n", description, v11, description, *v30++];
+        [v5 appendFormat:@"  N%ld%p -> N%ld%p;\n", description, v11, description, *v28++];
       }
 
       ++v10;
     }
 
-    while (v10 != v35);
+    while (v10 != v32);
   }
 
   [v5 appendString:@"}\n"];
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v5;
+}
+
+- (void)apply:(id)apply skipRetain:(BOOL)retain alwaysApply:(BOOL)alwaysApply
+{
+  alwaysApplyCopy = alwaysApply;
+  retainCopy = retain;
+  applyCopy = apply;
+  v17 = applyCopy;
+  if (retainCopy)
+  {
+    [(CRTTMergeableString *)self _apply:applyCopy alwaysApply:alwaysApplyCopy];
+  }
+
+  else
+  {
+    version = [(CRTTMergeableString *)self version];
+    v10 = [version copy];
+
+    addedByVersion = [(CRTTMergeableString *)self addedByVersion];
+    v12 = [addedByVersion copy];
+
+    [(CRTTMergeableString *)self _apply:v17 alwaysApply:alwaysApplyCopy];
+    version2 = [(CRTTMergeableString *)self version];
+    v14 = Coherence_namespace::TopoReplica::objc(&self->_replica);
+    [_TtC9Coherence19CRGlobalContextObjC retainOrReleaseWithInitial:v10 current:version2 forReplica:v14];
+
+    addedByVersion2 = [(CRTTMergeableString *)self addedByVersion];
+    addedByReplica = [(CRTTMergeableString *)self addedByReplica];
+    [_TtC9Coherence19CRGlobalContextObjC retainOrReleaseWithInitial:v12 current:addedByVersion2 forReplica:addedByReplica];
+  }
 }
 
 - (void)_apply:(id)_apply alwaysApply:(BOOL)apply
@@ -3761,7 +3730,7 @@ LABEL_24:
 
 uint64_t __42__CRTTMergeableString__apply_alwaysApply___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3, void *a4, uint64_t a5)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v8 = a4;
   if (a3 >= *(*(*(*(a1 + 40) + 8) + 24) + 24))
   {
@@ -3778,12 +3747,12 @@ uint64_t __42__CRTTMergeableString__apply_alwaysApply___block_invoke(uint64_t a1
   if ((a5 & 0x8000000000000000) == 0)
   {
 LABEL_5:
-    Coherence_namespace::TopoReplica::TopoReplica(&v14, v8, 0);
+    Coherence_namespace::TopoReplica::TopoReplica(&v13, v8, 0);
+    v15 = v13;
+    v10 = v14;
     v16 = v14;
-    v10 = v15;
-    v17 = v15;
     v11 = *(*(*(a1 + 40) + 8) + 24);
-    *v11 = v14;
+    *v11 = v13;
     *(v11 + 16) = v10;
     *(v11 + 20) = a5;
   }
@@ -3794,7 +3763,6 @@ LABEL_6:
     *(*(*(a1 + 40) + 8) + 24) = v9;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -3891,21 +3859,20 @@ LABEL_16:
 
 uint64_t __45__CRTTMergeableString_applyTimestampRenames___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v7 = a4;
   if ((a5 & 0x8000000000000000) == 0)
   {
-    Coherence_namespace::TopoReplica::TopoReplica(&v12, v7, 0);
+    Coherence_namespace::TopoReplica::TopoReplica(&v11, v7, 0);
+    v13 = v11;
+    v8 = v12;
     v14 = v12;
-    v8 = v13;
-    v15 = v13;
     v9 = *(a1 + 32);
-    *v9 = v12;
+    *v9 = v11;
     *(v9 + 16) = v8;
     *(v9 + 20) = a5;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -3915,7 +3882,7 @@ void __45__CRTTMergeableString_applyTimestampRenames___block_invoke_2(uint64_t a
   v7 = *(a1 + 40);
   if (a3 < v7[6])
   {
-    Coherence_namespace::TopoSubstring::splitAt(v7);
+    Coherence_namespace::TopoSubstring::splitAt(v7, a3);
   }
 
   __assert_rtn("[CRTTMergeableString applyTimestampRenames:]_block_invoke_2", "TTMergeableString.mm", 2607, "0");
@@ -3984,14 +3951,14 @@ LABEL_14:
 - (id)temporaryNamesExcludingSelf:(BOOL)self
 {
   selfCopy = self;
-  v36 = *MEMORY[0x1E69E9840];
-  v32 = objc_alloc_init(_TtC9Coherence18ObjCRenameSequence);
-  v31 = objc_alloc_init(_TtC9Coherence11ObjCVersion);
+  v35 = *MEMORY[0x1E69E9840];
+  v31 = objc_alloc_init(_TtC9Coherence18ObjCRenameSequence);
+  v30 = objc_alloc_init(_TtC9Coherence11ObjCVersion);
   selfCopy2 = self;
   orderedSubstrings = [(CRTTMergeableString *)self orderedSubstrings];
   v6 = *orderedSubstrings;
-  v29 = orderedSubstrings[1];
-  if (*orderedSubstrings != v29)
+  v28 = orderedSubstrings[1];
+  if (*orderedSubstrings != v28)
   {
     v7 = 0;
     do
@@ -4006,8 +3973,8 @@ LABEL_14:
           v12 = *(v7 + 4);
           v13 = *(v7 + 5);
           *uu2 = *v7;
-          v34 = v12;
-          v35 = v11 + v13 - 1;
+          v33 = v12;
+          v34 = v11 + v13 - 1;
           v14 = Coherence_namespace::TopoID::objc(uu2);
         }
 
@@ -4016,7 +3983,7 @@ LABEL_14:
           v14 = 0;
         }
 
-        [(ObjCRenameSequence *)v32 addWithReplica:v10 range:*(v8 + 5) lastTimestamp:*(v8 + 6), v14, v29];
+        [(ObjCRenameSequence *)v31 addWithReplica:v10 range:*(v8 + 5) lastTimestamp:*(v8 + 6), v14, v28];
       }
 
       v16 = *(v8 + 4);
@@ -4025,7 +3992,7 @@ LABEL_14:
       {
         if (*(v16 + 4))
         {
-          if (!selfCopy || (Coherence_namespace::TopoReplica::TopoReplica(uu2, selfCopy2->_addedByReplica), *(v16 + 4) != v34) || uuid_compare(v16, uu2))
+          if (!selfCopy || (Coherence_namespace::TopoReplica::TopoReplica(), *(v16 + 4) != v33) || uuid_compare(v16, uu2))
           {
             v17 = Coherence_namespace::TopoReplica::objc(v16);
             v18 = *(v16 + 5);
@@ -4040,8 +4007,8 @@ LABEL_14:
               v21 = 0;
             }
 
-            [(ObjCRenameSequence *)v32 addAddedByReplica:v17 range:v18 lastTimestamp:v19, v21, v29];
-            [(ObjCVersion *)v31 insertWithRange:v18 replica:v19, v17];
+            [(ObjCRenameSequence *)v31 addAddedByReplica:v17 range:v18 lastTimestamp:v19, v21, v28];
+            [(ObjCVersion *)v30 insertWithRange:v18 replica:v19, v17];
           }
         }
 
@@ -4052,13 +4019,13 @@ LABEL_14:
       v7 = v8;
     }
 
-    while (v6 != v29);
+    while (v6 != v28);
   }
 
   addedByVersion = [(CRTTMergeableString *)selfCopy2 addedByVersion];
   if (selfCopy)
   {
-    [(CRTTMergeableString *)selfCopy2 replica];
+    objc_msgSend_replica(selfCopy2);
     v23 = Coherence_namespace::TopoReplica::objc(uu2);
   }
 
@@ -4072,49 +4039,43 @@ LABEL_14:
   {
   }
 
-  [v24 subtract:v31];
-  [(ObjCRenameSequence *)v32 addTemporaryAddedByVersion:v24];
+  [v24 subtract:v30];
+  [(ObjCRenameSequence *)v31 addTemporaryAddedByVersion:v24];
   addedByVersion2 = [(CRTTMergeableString *)selfCopy2 addedByVersion];
-  [(ObjCRenameSequence *)v32 addAddedByVersion:addedByVersion2];
+  [(ObjCRenameSequence *)v31 addAddedByVersion:addedByVersion2];
 
   version = [(CRTTMergeableString *)selfCopy2 version];
-  [(ObjCRenameSequence *)v32 addVersion:version];
+  [(ObjCRenameSequence *)v31 addVersion:version];
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v32;
+  return v31;
 }
 
 - (id)temporaryConcurrentNames
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(_TtC9Coherence18ObjCRenameSequence);
   startNode = self->_startNode;
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __47__CRTTMergeableString_temporaryConcurrentNames__block_invoke;
-  v10[3] = &unk_1E7A12680;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __47__CRTTMergeableString_temporaryConcurrentNames__block_invoke;
+  v9[3] = &unk_1E7A12680;
   v5 = v3;
-  v11 = v5;
-  minIdPath(startNode, v10, v12);
+  v10 = v5;
+  minIdPath(startNode, v9, v11);
   addedByVersion = [(CRTTMergeableString *)self addedByVersion];
   [(ObjCRenameSequence *)v5 addAddedByVersion:addedByVersion];
 
   version = [(CRTTMergeableString *)self version];
   [(ObjCRenameSequence *)v5 addVersion:version];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 void __47__CRTTMergeableString_temporaryConcurrentNames__block_invoke(uint64_t a1, Coherence_namespace::TopoReplica *this)
 {
-  v3 = *(a1 + 32);
-  v4 = Coherence_namespace::TopoReplica::objc(this);
-  v5 = *(this + 5);
-  v6 = v4;
-  [v3 addWithReplica:? range:? lastTimestamp:?];
+  v2 = *(a1 + 32);
+  v3 = Coherence_namespace::TopoReplica::objc(this);
+  [v2 addWithReplica:? range:? lastTimestamp:?];
 }
 
 - (id)fullyRenamed:(id)renamed
@@ -4243,7 +4204,7 @@ LABEL_1:
   while (1)
   {
     self = selfCopy;
-    v13 = (a2 - selfCopy) >> 4;
+    v13 = a2 - selfCopy;
     if (v13 <= 2)
     {
       if (v13 < 2)
@@ -4255,7 +4216,7 @@ LABEL_1:
       {
         v58 = a2[-1].n128_u64[0];
         v57 = a2 - 1;
-        if (*selfCopy >= v58)
+        if (selfCopy->n128_u64[0] >= v58)
         {
           return result;
         }
@@ -4279,18 +4240,18 @@ LABEL_108:
 
     if (v13 == 4)
     {
-      v59 = (selfCopy + 16);
-      v63 = *(selfCopy + 16);
-      v64 = (selfCopy + 32);
-      v65 = *(selfCopy + 32);
-      if (*selfCopy >= v63)
+      v59 = selfCopy + 1;
+      v63 = selfCopy[1].n128_u64[0];
+      v64 = selfCopy + 2;
+      v65 = selfCopy[2].n128_u64[0];
+      if (selfCopy->n128_u64[0] >= v63)
       {
         if (v63 < v65)
         {
           result = *v59;
           *v59 = *v64;
           *v64 = result;
-          if (*selfCopy < *(selfCopy + 16))
+          if (selfCopy->n128_u64[0] < selfCopy[1].n128_u64[0])
           {
             v131 = *selfCopy;
             *selfCopy = *v59;
@@ -4314,7 +4275,7 @@ LABEL_108:
         *selfCopy = *v59;
         result = v133;
         *v59 = v133;
-        if (*(selfCopy + 16) < v65)
+        if (selfCopy[1].n128_u64[0] < v65)
         {
           result = *v59;
           *v59 = *v64;
@@ -4340,7 +4301,7 @@ LABEL_180:
       *v59 = *v64;
       *v64 = result;
 LABEL_184:
-      if (*selfCopy < *(selfCopy + 16))
+      if (selfCopy->n128_u64[0] < selfCopy[1].n128_u64[0])
       {
         v134 = *selfCopy;
         *selfCopy = *v59;
@@ -4354,14 +4315,14 @@ LABEL_184:
     if (v13 == 5)
     {
 
-      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[CRTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *,0>(selfCopy, (selfCopy + 16), (selfCopy + 32), (selfCopy + 48), a2[-1].n128_u64, result).n128_u64[0];
+      result.n128_u64[0] = std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,-[CRTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *,0>(selfCopy, selfCopy + 1, selfCopy[2].n128_u64, selfCopy[3].n128_u64, a2[-1].n128_u64, result).n128_u64[0];
       return result;
     }
 
 LABEL_9:
     if (v13 <= 23)
     {
-      v66 = (selfCopy + 16);
+      v66 = selfCopy + 1;
       v68 = selfCopy == a2 || v66 == a2;
       if (ranges)
       {
@@ -4372,10 +4333,10 @@ LABEL_9:
           do
           {
             v71 = v66;
-            v72 = v70[2];
-            if (*v70 < v72)
+            v72 = v70[1].n128_u64[0];
+            if (v70->n128_u64[0] < v72)
             {
-              v73 = v70[3];
+              v73 = v70[1].n128_u64[1];
               v74 = v69;
               while (1)
               {
@@ -4386,7 +4347,7 @@ LABEL_9:
                   break;
                 }
 
-                v75 = *(selfCopy + v74 - 16);
+                v75 = *(selfCopy[-1].n128_u64 + v74);
                 v74 -= 16;
                 if (v75 >= v72)
                 {
@@ -4397,8 +4358,8 @@ LABEL_9:
 
               v76 = selfCopy;
 LABEL_127:
-              *v76 = v72;
-              v76[1] = v73;
+              v76->n128_u64[0] = v72;
+              v76->n128_u64[1] = v73;
             }
 
             v66 = v71 + 1;
@@ -4455,19 +4416,19 @@ LABEL_127:
           if (v77 >= v78)
           {
             v80 = (2 * v78) | 1;
-            v81 = (selfCopy + 16 * v80);
-            v82 = *v81;
-            if (2 * v79 + 2 < v13 && v81[2] < v82)
+            v81 = &selfCopy[v80];
+            v82 = v81->n128_u64[0];
+            if (2 * v79 + 2 < v13 && v81[1].n128_u64[0] < v82)
             {
-              v82 = v81[2];
-              v81 += 2;
+              v82 = v81[1].n128_u64[0];
+              ++v81;
               v80 = 2 * v79 + 2;
             }
 
-            v83 = (selfCopy + 16 * v79);
+            v83 = &selfCopy[v79];
             v84 = *v83;
-            v85 = *v83;
-            if (*v83 >= v82)
+            v85 = v83->n128_u64[0];
+            if (v83->n128_u64[0] >= v82)
             {
               do
               {
@@ -4479,23 +4440,23 @@ LABEL_127:
                 }
 
                 v87 = (2 * v80) | 1;
-                v81 = (selfCopy + 16 * v87);
+                v81 = &selfCopy[v87];
                 v80 = 2 * v80 + 2;
-                v88 = *v81;
+                v88 = v81->n128_u64[0];
                 if (v80 >= v13)
                 {
                   v80 = v87;
                 }
 
-                else if (v81[2] >= v88)
+                else if (v81[1].n128_u64[0] >= v88)
                 {
                   v80 = v87;
                 }
 
                 else
                 {
-                  v88 = v81[2];
-                  v81 += 2;
+                  v88 = v81[1].n128_u64[0];
+                  ++v81;
                 }
 
                 v83 = v86;
@@ -4557,13 +4518,13 @@ LABEL_127:
             *v92 = *a2;
             result = v130;
             *a2 = v130;
-            v96 = (&v92[1] - selfCopy) >> 4;
+            v96 = (v92 - selfCopy + 16) >> 4;
             v97 = v96 < 2;
             v98 = v96 - 2;
             if (!v97)
             {
               v99 = v98 >> 1;
-              v100 = (selfCopy + 16 * v99);
+              v100 = &selfCopy[v99];
               v101 = v92->n128_u64[0];
               if (v92->n128_u64[0] < v100->n128_u64[0])
               {
@@ -4579,7 +4540,7 @@ LABEL_127:
                   }
 
                   v99 = (v99 - 1) >> 1;
-                  v100 = (selfCopy + 16 * v99);
+                  v100 = &selfCopy[v99];
                   v92 = v103;
                 }
 
@@ -4599,20 +4560,20 @@ LABEL_127:
       return result;
     }
 
-    v14 = (selfCopy + 16 * (v13 >> 1));
+    v14 = &selfCopy[v13 >> 1];
     v15 = v14;
     v16 = v9->n128_u64[0];
     if (v13 >= 0x81)
     {
       v17 = v14->n128_u64[0];
-      if (*selfCopy >= v14->n128_u64[0])
+      if (selfCopy->n128_u64[0] >= v14->n128_u64[0])
       {
         if (v17 < v16)
         {
           v111 = *v14;
           *v14 = *v9;
           *v9 = v111;
-          if (*selfCopy < v14->n128_u64[0])
+          if (selfCopy->n128_u64[0] < v14->n128_u64[0])
           {
             v112 = *selfCopy;
             *selfCopy = *v14;
@@ -4642,11 +4603,11 @@ LABEL_26:
         }
       }
 
-      v19 = (selfCopy + 16);
+      v19 = selfCopy + 1;
       v20 = v14 - 1;
       v21 = v14[-1].n128_u64[0];
       v22 = v10->n128_u64[0];
-      if (*(selfCopy + 16) >= v21)
+      if (selfCopy[1].n128_u64[0] >= v21)
       {
         if (v21 < v22)
         {
@@ -4684,12 +4645,12 @@ LABEL_38:
         }
       }
 
-      v26 = (selfCopy + 32);
+      v26 = selfCopy + 2;
       v29 = v14[1].n128_u64[0];
       v27 = v14 + 1;
       v28 = v29;
       v30 = v11->n128_u64[0];
-      if (*(selfCopy + 32) >= v29)
+      if (selfCopy[2].n128_u64[0] >= v29)
       {
         if (v28 < v30)
         {
@@ -4773,8 +4734,8 @@ LABEL_56:
       goto LABEL_58;
     }
 
-    v18 = *selfCopy;
-    if (v14->n128_u64[0] >= *selfCopy)
+    v18 = selfCopy->n128_u64[0];
+    if (v14->n128_u64[0] >= selfCopy->n128_u64[0])
     {
       if (v18 < v16)
       {
@@ -4782,7 +4743,7 @@ LABEL_56:
         *selfCopy = *v9;
         result = v113;
         *v9 = v113;
-        if (v14->n128_u64[0] < *selfCopy)
+        if (v14->n128_u64[0] < selfCopy->n128_u64[0])
         {
           v114 = *v14;
           *v14 = *selfCopy;
@@ -4808,7 +4769,7 @@ LABEL_35:
     *v14 = *selfCopy;
     result = v117;
     *selfCopy = v117;
-    if (*selfCopy < v9->n128_u64[0])
+    if (selfCopy->n128_u64[0] < v9->n128_u64[0])
     {
       v110 = *selfCopy;
       *selfCopy = *v9;
@@ -4817,22 +4778,21 @@ LABEL_35:
 
 LABEL_58:
     --substrings;
-    v36 = *selfCopy;
+    v36 = selfCopy->n128_u64[0];
     if (ranges)
     {
-      v37 = *(selfCopy + 8);
+      v37 = selfCopy->n128_u64[1];
 LABEL_61:
       v38 = 0;
       do
       {
-        v39 = *(selfCopy + v38 + 16);
-        v38 += 16;
+        v39 = selfCopy[++v38].n128_u64[0];
       }
 
       while (v36 < v39);
-      v40 = selfCopy + v38;
+      v40 = &selfCopy[v38];
       v41 = a2;
-      if (v38 == 16)
+      if (v38 == 1)
       {
         v41 = a2;
         do
@@ -4860,7 +4820,7 @@ LABEL_61:
         while (v36 >= v42);
       }
 
-      selfCopy += v38;
+      selfCopy = (selfCopy + v38 * 16);
       if (v40 < v41)
       {
         v44 = v41;
@@ -4872,8 +4832,8 @@ LABEL_61:
           *v44 = v126;
           do
           {
-            v45 = *(selfCopy + 16);
-            selfCopy += 16;
+            v45 = selfCopy[1].n128_u64[0];
+            ++selfCopy;
           }
 
           while (v36 < v45);
@@ -4889,24 +4849,24 @@ LABEL_61:
         while (selfCopy < v44);
       }
 
-      v47 = (selfCopy - 16);
-      if ((selfCopy - 16) != self)
+      v47 = selfCopy - 1;
+      if (&selfCopy[-1] != self)
       {
         result = *v47;
         *self = *v47;
       }
 
-      *(selfCopy - 16) = v36;
-      *(selfCopy - 8) = v37;
+      selfCopy[-1].n128_u64[0] = v36;
+      selfCopy[-1].n128_u64[1] = v37;
       if (v40 < v41)
       {
         goto LABEL_80;
       }
 
-      v48 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[CRTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *>(self, (selfCopy - 16), result);
+      v48 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[CRTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *>(self, selfCopy - 1, result);
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,-[CRTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *>(selfCopy, a2, v49))
       {
-        a2 = (selfCopy - 16);
+        a2 = selfCopy - 1;
         if (!v48)
         {
           goto LABEL_1;
@@ -4918,42 +4878,42 @@ LABEL_61:
       if (!v48)
       {
 LABEL_80:
-        std::__introsort<std::_ClassicAlgPolicy,[CRTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *,false>(self, selfCopy - 16, substrings, ranges & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,[CRTTMergeableString deleteSubstrings:withCharacterRanges:]::$_1 &,_NSRange *,false>(self, selfCopy - 1, substrings, ranges & 1, result);
         ranges = 0;
       }
     }
 
     else
     {
-      v37 = *(selfCopy + 8);
-      if (v36 < *(selfCopy - 16))
+      v37 = selfCopy->n128_u64[1];
+      if (v36 < selfCopy[-1].n128_u64[0])
       {
         goto LABEL_61;
       }
 
       if (v9->n128_u64[0] >= v36)
       {
-        v51 = selfCopy + 16;
+        n128_u64 = selfCopy[1].n128_u64;
         do
         {
-          selfCopy = v51;
-          if (v51 >= a2)
+          selfCopy = n128_u64;
+          if (n128_u64 >= a2)
           {
             break;
           }
 
-          v51 += 16;
+          n128_u64 += 16;
         }
 
-        while (*selfCopy >= v36);
+        while (selfCopy->n128_u64[0] >= v36);
       }
 
       else
       {
         do
         {
-          v50 = *(selfCopy + 16);
-          selfCopy += 16;
+          v50 = selfCopy[1].n128_u64[0];
+          ++selfCopy;
         }
 
         while (v50 >= v36);
@@ -4980,8 +4940,8 @@ LABEL_80:
         *v52 = v127;
         do
         {
-          v54 = *(selfCopy + 16);
-          selfCopy += 16;
+          v54 = selfCopy[1].n128_u64[0];
+          ++selfCopy;
         }
 
         while (v54 >= v36);
@@ -4994,25 +4954,25 @@ LABEL_80:
         while (v55 < v36);
       }
 
-      v56 = (selfCopy - 16);
-      if ((selfCopy - 16) != self)
+      v56 = selfCopy - 1;
+      if (&selfCopy[-1] != self)
       {
         result = *v56;
         *self = *v56;
       }
 
       ranges = 0;
-      *(selfCopy - 16) = v36;
-      *(selfCopy - 8) = v37;
+      selfCopy[-1].n128_u64[0] = v36;
+      selfCopy[-1].n128_u64[1] = v37;
     }
   }
 
-  v59 = (selfCopy + 16);
-  v60 = *(selfCopy + 16);
+  v59 = selfCopy + 1;
+  v60 = selfCopy[1].n128_u64[0];
   v62 = a2[-1].n128_u64[0];
   v57 = a2 - 1;
   v61 = v62;
-  if (*selfCopy >= v60)
+  if (selfCopy->n128_u64[0] >= v60)
   {
     if (v60 >= v61)
     {
@@ -5034,7 +4994,7 @@ LABEL_80:
   *selfCopy = *v59;
   result = v132;
   *v59 = v132;
-  if (*(selfCopy + 16) < v57->n128_u64[0])
+  if (selfCopy[1].n128_u64[0] < v57->n128_u64[0])
   {
     result = *v59;
     *v59 = *v57;
@@ -5046,10 +5006,10 @@ LABEL_80:
 
 - (BOOL)hasAllIDsIn:(void *)in
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 1065353216;
+  v21 = 1065353216;
   v4 = *in;
   v5 = *(in + 1);
   if (*in != v5)
@@ -5057,22 +5017,22 @@ LABEL_80:
     do
     {
       v6 = *v4;
-      *&v24[12] = *(v4 + 12);
-      *v24 = v6;
-      v25 = *(v4 + 4);
-      if (v25)
+      *&v23[12] = *(v4 + 12);
+      *v23 = v6;
+      v24 = *(v4 + 4);
+      if (v24)
       {
-        v7 = std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::__unordered_map_hasher<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::hash<Coherence_namespace::TopoReplica>,std::equal_to<Coherence_namespace::TopoReplica>,true>,std::__unordered_map_equal<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::equal_to<Coherence_namespace::TopoReplica>,std::hash<Coherence_namespace::TopoReplica>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>>>::find<Coherence_namespace::TopoReplica>(&v20, v24);
+        v7 = std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::__unordered_map_hasher<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::hash<Coherence_namespace::TopoReplica>,std::equal_to<Coherence_namespace::TopoReplica>,true>,std::__unordered_map_equal<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::equal_to<Coherence_namespace::TopoReplica>,std::hash<Coherence_namespace::TopoReplica>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>>>::find<Coherence_namespace::TopoReplica>(&v19, v23);
         if (v7)
         {
-          [v7[5] addIndexesInRange:{*&v24[20], *&v24[24]}];
+          [v7[5] addIndexesInRange:{*&v23[20], *&v23[24]}];
         }
 
         else
         {
-          v8 = [MEMORY[0x1E696AD50] indexSetWithIndexesInRange:{*&v24[20], *&v24[24], v20, v21}];
-          v23[0] = v24;
-          v9 = std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::__unordered_map_hasher<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::hash<Coherence_namespace::TopoReplica>,std::equal_to<Coherence_namespace::TopoReplica>,true>,std::__unordered_map_equal<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::equal_to<Coherence_namespace::TopoReplica>,std::hash<Coherence_namespace::TopoReplica>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>>>::__emplace_unique_key_args<Coherence_namespace::TopoReplica,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoReplica const&>,std::tuple<>>(&v20, v24);
+          v8 = [MEMORY[0x1E696AD50] indexSetWithIndexesInRange:{*&v23[20], *&v23[24], v19, v20}];
+          v22[0] = v23;
+          v9 = std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::__unordered_map_hasher<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::hash<Coherence_namespace::TopoReplica>,std::equal_to<Coherence_namespace::TopoReplica>,true>,std::__unordered_map_equal<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::equal_to<Coherence_namespace::TopoReplica>,std::hash<Coherence_namespace::TopoReplica>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>>>::__emplace_unique_key_args<Coherence_namespace::TopoReplica,std::piecewise_construct_t const&,std::tuple<Coherence_namespace::TopoReplica const&>,std::tuple<>>(&v19, v23, &std::piecewise_construct, v22);
           v10 = v9[5];
           v9[5] = v8;
         }
@@ -5084,62 +5044,61 @@ LABEL_80:
     while (v4 != v5);
   }
 
-  v11 = [(CRTTMergeableString *)self orderedSubstrings:v20];
+  v11 = [(CRTTMergeableString *)self orderedSubstrings:v19];
   v12 = *v11;
   v13 = v11[1];
   while (v12 != v13)
   {
     v14 = **v12;
-    *&v24[12] = *(*v12 + 12);
-    *v24 = v14;
-    v15 = std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::__unordered_map_hasher<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::hash<Coherence_namespace::TopoReplica>,std::equal_to<Coherence_namespace::TopoReplica>,true>,std::__unordered_map_equal<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::equal_to<Coherence_namespace::TopoReplica>,std::hash<Coherence_namespace::TopoReplica>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>>>::find<Coherence_namespace::TopoReplica>(&v20, v24);
+    *&v23[12] = *(*v12 + 12);
+    *v23 = v14;
+    v15 = std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::__unordered_map_hasher<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::hash<Coherence_namespace::TopoReplica>,std::equal_to<Coherence_namespace::TopoReplica>,true>,std::__unordered_map_equal<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::equal_to<Coherence_namespace::TopoReplica>,std::hash<Coherence_namespace::TopoReplica>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>>>::find<Coherence_namespace::TopoReplica>(&v19, v23);
     v16 = v15;
     if (v15)
     {
-      [v15[5] removeIndexesInRange:{*&v24[20], *&v24[24]}];
+      [v15[5] removeIndexesInRange:{*&v23[20], *&v23[24]}];
       if (![v16[5] count])
       {
-        std::__hash_table<Coherence_namespace::TopoSubstring *,std::hash<Coherence_namespace::TopoSubstring *>,std::equal_to<Coherence_namespace::TopoSubstring *>,std::allocator<Coherence_namespace::TopoSubstring *>>::remove(&v20, v16, v23);
-        std::unique_ptr<std::__hash_node<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](v23);
+        std::__hash_table<Coherence_namespace::TopoSubstring *,std::hash<Coherence_namespace::TopoSubstring *>,std::equal_to<Coherence_namespace::TopoSubstring *>,std::allocator<Coherence_namespace::TopoSubstring *>>::remove(&v19, v16, v22);
+        std::unique_ptr<std::__hash_node<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](v22);
       }
     }
 
     ++v12;
   }
 
-  v17 = *(&v21 + 1) == 0;
-  std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::__unordered_map_hasher<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::hash<Coherence_namespace::TopoReplica>,std::equal_to<Coherence_namespace::TopoReplica>,true>,std::__unordered_map_equal<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::equal_to<Coherence_namespace::TopoReplica>,std::hash<Coherence_namespace::TopoReplica>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>>>::~__hash_table(&v20);
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *(&v20 + 1) == 0;
+  std::__hash_table<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::__unordered_map_hasher<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::hash<Coherence_namespace::TopoReplica>,std::equal_to<Coherence_namespace::TopoReplica>,true>,std::__unordered_map_equal<Coherence_namespace::TopoReplica,std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>,std::equal_to<Coherence_namespace::TopoReplica>,std::hash<Coherence_namespace::TopoReplica>,true>,std::allocator<std::__hash_value_type<Coherence_namespace::TopoReplica,NSMutableIndexSet * {__strong}>>>::~__hash_table(&v19);
   return v17;
 }
 
 - (void)undeleteSubstrings:(void *)substrings
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = *substrings;
   v4 = *(substrings + 1);
   if (*substrings != v4)
   {
     do
     {
-      v23 = *v3;
-      *(&v6 + 1) = *(&v23 + 1);
-      v24 = *(v3 + 4);
+      v22 = *v3;
+      *(&v6 + 1) = *(&v22 + 1);
+      v23 = *(v3 + 4);
       *&v6 = *(v3 + 20);
-      v16 = v6;
+      v15 = v6;
       v7 = *(v3 + 4);
       if (v7)
       {
         __p = 0;
+        v17 = 0;
         v18 = 0;
-        v19 = 0;
+        v19 = v22;
         v20 = v23;
-        v21 = v24;
-        v22 = v16;
-        [(CRTTMergeableString *)self getSubstrings:&__p forTopoIDRange:&v20];
+        v21 = v15;
+        [(CRTTMergeableString *)self getSubstrings:&__p forTopoIDRange:&v19];
         v8 = __p;
-        v9 = v18;
-        if (v18 != __p)
+        v9 = v17;
+        if (v17 != __p)
         {
           do
           {
@@ -5151,7 +5110,7 @@ LABEL_80:
               v13 = v10[5];
               v12 = v10[6];
               attributedString = [(CRTTMergeableString *)self attributedString];
-              [attributedString Coherence_replaceStorageInRange:v10[21] withStorage:0 fromRange:{v7, (v13 - v16), v12}];
+              [attributedString Coherence_replaceStorageInRange:v10[21] withStorage:0 fromRange:{v7, (v13 - v15), v12}];
 
               [(CRTTMergeableString *)self addNewAddedByFor:v10];
               v8 = __p;
@@ -5164,7 +5123,7 @@ LABEL_80:
         [(CRTTMergeableString *)self updateSubstringIndexes];
         if (__p)
         {
-          v18 = __p;
+          v17 = __p;
           operator delete(__p);
         }
       }
@@ -5174,8 +5133,6 @@ LABEL_80:
 
     while (v3 != v4);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

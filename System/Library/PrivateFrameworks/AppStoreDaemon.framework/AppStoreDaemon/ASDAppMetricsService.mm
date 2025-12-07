@@ -49,9 +49,11 @@
 
 uint64_t __38__ASDAppMetricsService_defaultService__block_invoke(uint64_t a1)
 {
-  _MergedGlobals_24 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = _MergedGlobals_24;
+  _MergedGlobals_24 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (id)_initWithServiceBroker:(id)broker
@@ -86,25 +88,25 @@ uint64_t __38__ASDAppMetricsService_defaultService__block_invoke(uint64_t a1)
 
 void __65__ASDAppMetricsService_getMetricsEventsForType_withReplyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __65__ASDAppMetricsService_getMetricsEventsForType_withReplyHandler___block_invoke_2;
-    v15[3] = &unk_1E7CDBAB8;
-    v6 = *(a1 + 40);
-    v15[4] = *(a1 + 32);
-    v16 = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v15];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
     v13[2] = __65__ASDAppMetricsService_getMetricsEventsForType_withReplyHandler___block_invoke_2;
-    v13[3] = &unk_1E7CDB7A8;
+    v13[3] = &unk_1E7CDBAB8;
+    v6 = *(a1 + 40);
+    v13[4] = *(a1 + 32);
+    v14 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v13];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __65__ASDAppMetricsService_getMetricsEventsForType_withReplyHandler___block_invoke_2;
+    v11[3] = &unk_1E7CDB7A8;
     v8 = *(a1 + 48);
-    v14 = *(a1 + 40);
-    [v7 getMetricsEventsForType:v8 withReplyHandler:v13];
+    v12 = *(a1 + 40);
+    [v7 getMetricsEventsForType:v8 withReplyHandler:v11];
   }
 
   else
@@ -112,39 +114,34 @@ void __65__ASDAppMetricsService_getMetricsEventsForType_withReplyHandler___block
     v9 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
       *buf = 138543618;
-      v18 = objc_opt_class();
-      v19 = 2114;
-      v20 = v5;
-      v12 = v18;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v5;
+      v10 = v16;
       _os_log_error_impl(&dword_1B8220000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get results due to error: %{public}@", buf, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __65__ASDAppMetricsService_getMetricsEventsForType_withReplyHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = v3;
-    v8 = v10;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get events due to error: %{public}@", &v9, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = v3;
+    v6 = v8;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to get events due to error: %{public}@", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v3, v5);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __65__ASDAppMetricsService_getMetricsEventsForType_withReplyHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -182,25 +179,25 @@ void __65__ASDAppMetricsService_getMetricsEventsForType_withReplyHandler___block
 
 void __66__ASDAppMetricsService_postMetricsEventsForType_withReplyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __66__ASDAppMetricsService_postMetricsEventsForType_withReplyHandler___block_invoke_2;
-    v15[3] = &unk_1E7CDBAB8;
-    v6 = *(a1 + 40);
-    v15[4] = *(a1 + 32);
-    v16 = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v15];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __66__ASDAppMetricsService_postMetricsEventsForType_withReplyHandler___block_invoke_6;
-    v13[3] = &unk_1E7CDB758;
+    v13[2] = __66__ASDAppMetricsService_postMetricsEventsForType_withReplyHandler___block_invoke_2;
+    v13[3] = &unk_1E7CDBAB8;
+    v6 = *(a1 + 40);
+    v13[4] = *(a1 + 32);
+    v14 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v13];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __66__ASDAppMetricsService_postMetricsEventsForType_withReplyHandler___block_invoke_6;
+    v11[3] = &unk_1E7CDB758;
     v8 = *(a1 + 48);
-    v14 = *(a1 + 40);
-    [v7 postMetricsEventsForType:v8 withReplyHandler:v13];
+    v12 = *(a1 + 40);
+    [v7 postMetricsEventsForType:v8 withReplyHandler:v11];
   }
 
   else
@@ -208,39 +205,34 @@ void __66__ASDAppMetricsService_postMetricsEventsForType_withReplyHandler___bloc
     v9 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
       *buf = 138543618;
-      v18 = objc_opt_class();
-      v19 = 2114;
-      v20 = v5;
-      v12 = v18;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v5;
+      v10 = v16;
       _os_log_error_impl(&dword_1B8220000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to post due to error: %{public}@", buf, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __66__ASDAppMetricsService_postMetricsEventsForType_withReplyHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = v3;
-    v8 = v10;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to post due to error: %{public}@", &v9, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = v3;
+    v6 = v8;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to post due to error: %{public}@", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v3, v5);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __66__ASDAppMetricsService_postMetricsEventsForType_withReplyHandler___block_invoke_6(uint64_t a1, char a2, void *a3)
@@ -276,25 +268,25 @@ void __66__ASDAppMetricsService_postMetricsEventsForType_withReplyHandler___bloc
 
 void __68__ASDAppMetricsService_recordMetricsEventsForType_withReplyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __68__ASDAppMetricsService_recordMetricsEventsForType_withReplyHandler___block_invoke_2;
-    v15[3] = &unk_1E7CDBAB8;
-    v6 = *(a1 + 40);
-    v15[4] = *(a1 + 32);
-    v16 = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v15];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __68__ASDAppMetricsService_recordMetricsEventsForType_withReplyHandler___block_invoke_9;
-    v13[3] = &unk_1E7CDB758;
+    v13[2] = __68__ASDAppMetricsService_recordMetricsEventsForType_withReplyHandler___block_invoke_2;
+    v13[3] = &unk_1E7CDBAB8;
+    v6 = *(a1 + 40);
+    v13[4] = *(a1 + 32);
+    v14 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v13];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __68__ASDAppMetricsService_recordMetricsEventsForType_withReplyHandler___block_invoke_9;
+    v11[3] = &unk_1E7CDB758;
     v8 = *(a1 + 48);
-    v14 = *(a1 + 40);
-    [v7 recordMetricsEventsForType:v8 withReplyHandler:v13];
+    v12 = *(a1 + 40);
+    [v7 recordMetricsEventsForType:v8 withReplyHandler:v11];
   }
 
   else
@@ -302,39 +294,34 @@ void __68__ASDAppMetricsService_recordMetricsEventsForType_withReplyHandler___bl
     v9 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
       *buf = 138543618;
-      v18 = objc_opt_class();
-      v19 = 2114;
-      v20 = v5;
-      v12 = v18;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v5;
+      v10 = v16;
       _os_log_error_impl(&dword_1B8220000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to record due to error: %{public}@", buf, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __68__ASDAppMetricsService_recordMetricsEventsForType_withReplyHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = v3;
-    v8 = v10;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to record due to error: %{public}@", &v9, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = v3;
+    v6 = v8;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to record due to error: %{public}@", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v3, v5);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __68__ASDAppMetricsService_recordMetricsEventsForType_withReplyHandler___block_invoke_9(uint64_t a1, char a2, void *a3)
@@ -370,25 +357,25 @@ void __68__ASDAppMetricsService_recordMetricsEventsForType_withReplyHandler___bl
 
 void __67__ASDAppMetricsService_resetMetricsEventsForType_withReplyHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __67__ASDAppMetricsService_resetMetricsEventsForType_withReplyHandler___block_invoke_2;
-    v15[3] = &unk_1E7CDBAB8;
-    v6 = *(a1 + 40);
-    v15[4] = *(a1 + 32);
-    v16 = v6;
-    v7 = [a2 remoteObjectProxyWithErrorHandler:v15];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __67__ASDAppMetricsService_resetMetricsEventsForType_withReplyHandler___block_invoke_11;
-    v13[3] = &unk_1E7CDB758;
+    v13[2] = __67__ASDAppMetricsService_resetMetricsEventsForType_withReplyHandler___block_invoke_2;
+    v13[3] = &unk_1E7CDBAB8;
+    v6 = *(a1 + 40);
+    v13[4] = *(a1 + 32);
+    v14 = v6;
+    v7 = [a2 remoteObjectProxyWithErrorHandler:v13];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __67__ASDAppMetricsService_resetMetricsEventsForType_withReplyHandler___block_invoke_11;
+    v11[3] = &unk_1E7CDB758;
     v8 = *(a1 + 48);
-    v14 = *(a1 + 40);
-    [v7 resetMetricsEventsForType:v8 withReplyHandler:v13];
+    v12 = *(a1 + 40);
+    [v7 resetMetricsEventsForType:v8 withReplyHandler:v11];
   }
 
   else
@@ -396,39 +383,34 @@ void __67__ASDAppMetricsService_resetMetricsEventsForType_withReplyHandler___blo
     v9 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
       *buf = 138543618;
-      v18 = objc_opt_class();
-      v19 = 2114;
-      v20 = v5;
-      v12 = v18;
+      v16 = objc_opt_class();
+      v17 = 2114;
+      v18 = v5;
+      v10 = v16;
       _os_log_error_impl(&dword_1B8220000, v9, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to reset due to error: %{public}@", buf, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __67__ASDAppMetricsService_resetMetricsEventsForType_withReplyHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = ASDLogHandleForCategory(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = *(a1 + 32);
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = v3;
-    v8 = v10;
-    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to reset due to error: %{public}@", &v9, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = v3;
+    v6 = v8;
+    _os_log_error_impl(&dword_1B8220000, v4, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to reset due to error: %{public}@", &v7, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40), 0, v3, v5);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __67__ASDAppMetricsService_resetMetricsEventsForType_withReplyHandler___block_invoke_11(uint64_t a1, char a2, void *a3)

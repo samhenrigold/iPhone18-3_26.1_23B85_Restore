@@ -274,27 +274,21 @@ LABEL_18:
 
 - (void)setLeagueIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  leagueIdentifier = self->_leagueIdentifier;
-  self->_leagueIdentifier = v4;
+  self->_leagueIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSportIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  sportIdentifier = self->_sportIdentifier;
-  self->_sportIdentifier = v4;
+  self->_sportIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setCanonicalIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  canonicalIdentifier = self->_canonicalIdentifier;
-  self->_canonicalIdentifier = v4;
+  self->_canonicalIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

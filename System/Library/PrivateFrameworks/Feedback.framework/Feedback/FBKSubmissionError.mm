@@ -43,7 +43,6 @@
 
   v5 = OBJC_IVAR____TtC8Feedback18FBKSubmissionError_serverErrorDetails;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

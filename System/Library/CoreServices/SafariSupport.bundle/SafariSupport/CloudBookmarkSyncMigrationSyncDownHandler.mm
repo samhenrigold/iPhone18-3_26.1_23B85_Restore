@@ -29,16 +29,16 @@
   locallyCopy = locally;
   groupCopy = group;
   handlerCopy = handler;
-  v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(handlerCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 67109120;
-    v13 = locallyCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Sync down handler starting sync, keep records marked as deleted locally = %d", buf, 8u);
+    v14 = locallyCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Sync down handler starting sync, keep records marked as deleted locally = %d", buf, 8u);
   }
 
-  v10 = groupCopy;
-  v11 = handlerCopy;
+  v11 = groupCopy;
+  v12 = handlerCopy;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
 
@@ -46,13 +46,13 @@
 {
   namesCopy = names;
   errorCopy = error;
-  v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v9 = v8;
+  v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(errorCopy, v8);
+  v10 = v9;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100087964(v9);
+      sub_100087964(v10);
     }
 
     recordNamesToDelete = 0;
@@ -60,39 +60,40 @@
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Sync down handler did succcessfully sync down", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Sync down handler did succcessfully sync down", buf, 2u);
     }
 
     recordNamesToDelete = self->_recordNamesToDelete;
   }
 
-  v11 = recordNamesToDelete;
-  v12 = self->_recordNamesToDelete;
+  v12 = recordNamesToDelete;
+  v13 = self->_recordNamesToDelete;
   self->_recordNamesToDelete = 0;
 
-  v13 = objc_retainBlock(self->_completionHandler);
+  v14 = objc_retainBlock(self->_completionHandler);
   completionHandler = self->_completionHandler;
   self->_completionHandler = 0;
 
   self->_isSyncing = 0;
-  v19 = namesCopy;
-  v20 = v11;
-  v21 = errorCopy;
-  v15 = errorCopy;
-  v16 = v11;
-  v17 = namesCopy;
-  v18 = v13;
+  v20 = namesCopy;
+  v21 = v12;
+  v22 = errorCopy;
+  v16 = errorCopy;
+  v17 = v12;
+  v18 = namesCopy;
+  v19 = v14;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
 
 - (void)_performSyncDownInOperationGroup:(id)group
 {
   groupCopy = group;
-  v5 = [[WBSCloudKitOperationRetryManager alloc] initWithLog:-[CloudTabGroupSyncCoordinator _bookmarksLog]_0()];
-  [(CloudBookmarkSyncMigrationSyncDownHandler *)self _performSyncDownInOperationGroup:groupCopy withRetryManager:v5];
+  v5 = [WBSCloudKitOperationRetryManager alloc];
+  v7 = [v5 initWithLog:{-[CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6)}];
+  [(CloudBookmarkSyncMigrationSyncDownHandler *)self _performSyncDownInOperationGroup:groupCopy withRetryManager:v7];
 }
 
 - (void)_performSyncDownInOperationGroup:(id)group withRetryManager:(id)manager
@@ -109,45 +110,45 @@
   v13 = [v10 lastServerChangeTokenForRecordZoneID:bookmarksRecordZoneID];
 
   v14 = +[NSMutableSet set];
-  v15 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+  v16 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v14, v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    v34 = v13;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Sync down handler fetching record changes from server change token: %{public}@", buf, 0xCu);
+    v35 = v13;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Sync down handler fetching record changes from server change token: %{public}@", buf, 0xCu);
   }
 
   bookmarkStore2 = [(CloudBookmarkDatabaseHandler *)self bookmarkStore];
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_100086B70;
-  v30[3] = &unk_100134AC8;
-  v30[4] = self;
-  v31 = v14;
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100086C7C;
-  v28[3] = &unk_100134AF0;
-  v28[4] = self;
-  v17 = v31;
-  v29 = v17;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_100086D88;
-  v22[3] = &unk_100135420;
-  v22[4] = self;
-  v18 = managerCopy;
-  v23 = v18;
-  objc_copyWeak(&v27, &location);
-  v19 = groupCopy;
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_100086B70;
+  v31[3] = &unk_100134AC8;
+  v31[4] = self;
+  v32 = v14;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_100086C7C;
+  v29[3] = &unk_100134AF0;
+  v29[4] = self;
+  v18 = v32;
+  v30 = v18;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100086D88;
+  v23[3] = &unk_100135420;
+  v23[4] = self;
+  v19 = managerCopy;
   v24 = v19;
-  v20 = v13;
+  objc_copyWeak(&v28, &location);
+  v20 = groupCopy;
   v25 = v20;
-  v21 = v17;
+  v21 = v13;
   v26 = v21;
-  [bookmarkStore2 fetchBookmarksRecordChangesSinceServerChangeToken:v20 inOperationGroup:v19 recordChangedBlock:v30 recordWithIDWasDeletedBlock:v28 completionHandler:v22];
+  v22 = v18;
+  v27 = v22;
+  [bookmarkStore2 fetchBookmarksRecordChangesSinceServerChangeToken:v21 inOperationGroup:v20 recordChangedBlock:v31 recordWithIDWasDeletedBlock:v29 completionHandler:v23];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v28);
   objc_destroyWeak(&location);
 }
 
@@ -161,8 +162,8 @@
 - (void)_updateLocalBookmarkWithCKRecord:(id)record
 {
   recordCopy = record;
-  v15 = 0;
-  v5 = [(CloudBookmarkSyncMigrationSyncDownHandler *)self _cloudBookmarkForRecord:recordCopy isNewBookmark:&v15];
+  v17 = 0;
+  v5 = [(CloudBookmarkSyncMigrationSyncDownHandler *)self _cloudBookmarkForRecord:recordCopy isNewBookmark:&v17];
   if (v5)
   {
     bookmarkStore = [(CloudBookmarkDatabaseHandler *)self bookmarkStore];
@@ -170,7 +171,7 @@
     configuration = [v5 configuration];
     [bookmarkHashGenerator verifyIdentityHashInBookmarkRecord:recordCopy configuration:configuration];
 
-    if (v15 == 1)
+    if (v17 == 1)
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
       [WeakRetained cloudBookmarkSyncMigrationSyncDownHandler:self didMoveBookmark:v5];
@@ -180,35 +181,36 @@
     }
 
     v10 = [v5 resultFromMergingRecord:recordCopy usingUpdater:self];
-    if ((v10 & 1) != 0 && (v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(), os_log_type_enabled(v11, OS_LOG_TYPE_ERROR)))
+    v12 = v10;
+    if ((v10 & 1) != 0 && (v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v10, v11), v10 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR), v10))
     {
-      sub_100087B14(v11, v5);
-      if ((v10 & 0x10) == 0)
+      sub_100087B14(v13, v5);
+      if ((v12 & 0x10) == 0)
       {
         goto LABEL_9;
       }
     }
 
-    else if ((v10 & 0x10) == 0)
+    else if ((v12 & 0x10) == 0)
     {
       goto LABEL_9;
     }
 
-    v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v10, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_100087BC4(v12, v5);
+      sub_100087BC4(v14, v5);
     }
 
 LABEL_9:
-    if ((v10 & 2) != 0)
+    if ((v12 & 2) != 0)
     {
       [v5 updateLocalItemWithUpdater:self];
       [v5 saveAssetsIfNeededWithUpdater:self];
-      if ((v10 & 4) == 0)
+      if ((v12 & 4) == 0)
       {
 LABEL_11:
-        if ((v10 & 8) == 0)
+        if ((v12 & 8) == 0)
         {
           goto LABEL_13;
         }
@@ -221,15 +223,15 @@ LABEL_12:
       }
     }
 
-    else if ((v10 & 4) == 0)
+    else if ((v12 & 4) == 0)
     {
       goto LABEL_11;
     }
 
-    v14 = objc_loadWeakRetained(&self->_delegate);
-    [v14 cloudBookmarkSyncMigrationSyncDownHandler:self didMoveBookmark:v5];
+    v16 = objc_loadWeakRetained(&self->_delegate);
+    [v16 cloudBookmarkSyncMigrationSyncDownHandler:self didMoveBookmark:v5];
 
-    if ((v10 & 8) == 0)
+    if ((v12 & 8) == 0)
     {
       goto LABEL_13;
     }
@@ -265,49 +267,50 @@ LABEL_13:
 
   if (!v8)
   {
-    if ([recordCopy safari_minimumAPIVersion] > 4)
+    safari_minimumAPIVersion = [recordCopy safari_minimumAPIVersion];
+    if (safari_minimumAPIVersion > 4)
     {
-      v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(safari_minimumAPIVersion, v14);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
 LABEL_9:
         v8 = 0;
         goto LABEL_10;
       }
 
-      v21 = 138543362;
-      v22 = safari_recordName;
-      v14 = "Record %{public}@ does not locally exist and cannot be saved locally because of its minimum API version";
-      v15 = v13;
+      v24 = 138543362;
+      v25 = safari_recordName;
+      v16 = "Record %{public}@ does not locally exist and cannot be saved locally because of its minimum API version";
+      v17 = v15;
 LABEL_8:
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, v14, &v21, 0xCu);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, v16, &v24, 0xCu);
       goto LABEL_9;
     }
 
     if ([recordCopy safari_state] == 1)
     {
       recordNamesToDelete = self->_recordNamesToDelete;
-      v18 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_INFO);
+      v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(1, v19);
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
       if (!recordNamesToDelete)
       {
-        if (!v19)
+        if (!v22)
         {
           goto LABEL_9;
         }
 
-        v21 = 138543362;
-        v22 = safari_recordName;
-        v14 = "Record %{public}@ does not exist locally and is deleted remotely";
-        v15 = v18;
+        v24 = 138543362;
+        v25 = safari_recordName;
+        v16 = "Record %{public}@ does not exist locally and is deleted remotely";
+        v17 = v21;
         goto LABEL_8;
       }
 
-      if (v19)
+      if (v22)
       {
-        v21 = 138543362;
-        v22 = safari_recordName;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "Writing locally record %{public}@ despite the record not existing locally and being deleted remotely for merging", &v21, 0xCu);
+        v24 = 138543362;
+        v25 = safari_recordName;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Writing locally record %{public}@ despite the record not existing locally and being deleted remotely for merging", &v24, 0xCu);
       }
 
       [(NSMutableSet *)self->_recordNamesToDelete addObject:safari_recordName];

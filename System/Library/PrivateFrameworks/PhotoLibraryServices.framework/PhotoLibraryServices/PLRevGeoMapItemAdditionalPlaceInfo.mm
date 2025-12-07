@@ -46,7 +46,7 @@
     {
       v7 = equalCopy;
       dominantOrderType = self->_dominantOrderType;
-      if (dominantOrderType == [(PLRevGeoMapItemAdditionalPlaceInfo *)v7 dominantOrderType]&& (areaInSquareMeters = self->_areaInSquareMeters, [(PLRevGeoMapItemAdditionalPlaceInfo *)v7 areaInSquareMeters], areaInSquareMeters == v10) && (name = self->_name, [(PLRevGeoMapItemAdditionalPlaceInfo *)v7 name], v12 = objc_claimAutoreleasedReturnValue(), LODWORD(name) = [(NSString *)name isEqualToString:v12], v12, name))
+      if (dominantOrderType == [(PLRevGeoMapItemAdditionalPlaceInfo *)v7 dominantOrderType]&& (areaInSquareMeters = self->_areaInSquareMeters, [(PLRevGeoMapItemAdditionalPlaceInfo *)v7 areaInSquareMeters], areaInSquareMeters == v10) && (name = self->_name, [(PLRevGeoMapItemAdditionalPlaceInfo *)v7 name], v12 = objc_claimAutoreleasedReturnValue(), LODWORD(name) = objc_msgSend_isEqualToString_(name), v12, name))
       {
         placeType = self->_placeType;
         placeType = [(PLRevGeoMapItemAdditionalPlaceInfo *)v7 placeType];

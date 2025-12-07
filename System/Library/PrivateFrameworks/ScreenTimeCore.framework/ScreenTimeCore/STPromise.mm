@@ -219,16 +219,16 @@ LABEL_8:
   switch(state)
   {
     case 2:
-      v14 = +[STLog promise];
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v12 = +[STLog promise];
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10011A8EC();
       }
 
       goto LABEL_16;
     case 1:
-      v14 = +[STLog promise];
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v12 = +[STLog promise];
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_10011A954();
       }
@@ -237,40 +237,38 @@ LABEL_8:
     case 0:
       self->_state = 1;
       objc_storeStrong(&self->_result, resolve);
-      v18 = 0u;
-      v19 = 0u;
       v16 = 0u;
       v17 = 0u;
+      v14 = 0u;
+      v15 = 0u;
       v8 = self->_observers;
-      v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v9)
       {
-        v10 = *v17;
+        v10 = *v15;
         do
         {
           v11 = 0;
           do
           {
-            if (*v17 != v10)
+            if (*v15 != v10)
             {
               objc_enumerationMutation(v8);
             }
 
-            v12 = self->_state;
-            result = self->_result;
-            (*(*(*(&v16 + 1) + 8 * v11) + 16))(*(*(&v16 + 1) + 8 * v11));
+            (*(*(*(&v14 + 1) + 8 * v11) + 16))(*(*(&v14 + 1) + 8 * v11));
             v11 = v11 + 1;
           }
 
           while (v9 != v11);
-          v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
         }
 
         while (v9);
       }
 
-      v14 = +[STPromise dispatchGroup];
-      dispatch_group_leave(v14);
+      v12 = +[STPromise dispatchGroup];
+      dispatch_group_leave(v12);
 LABEL_16:
 
       break;
@@ -290,16 +288,16 @@ LABEL_16:
   switch(state)
   {
     case 2:
-      v12 = +[STLog promise];
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v10 = +[STLog promise];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10011A9BC();
       }
 
       goto LABEL_16;
     case 1:
-      v12 = +[STLog promise];
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v10 = +[STLog promise];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10011AA24();
       }
@@ -310,40 +308,38 @@ LABEL_16:
       result = self->_result;
       self->_result = 0;
 
-      v16 = 0u;
-      v17 = 0u;
       v14 = 0u;
       v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       v6 = self->_observers;
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
-        v8 = *v15;
+        v8 = *v13;
         do
         {
           v9 = 0;
           do
           {
-            if (*v15 != v8)
+            if (*v13 != v8)
             {
               objc_enumerationMutation(v6);
             }
 
-            v10 = self->_state;
-            v11 = self->_result;
-            (*(*(*(&v14 + 1) + 8 * v9) + 16))(*(*(&v14 + 1) + 8 * v9));
+            (*(*(*(&v12 + 1) + 8 * v9) + 16))(*(*(&v12 + 1) + 8 * v9));
             v9 = v9 + 1;
           }
 
           while (v7 != v9);
-          v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+          v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v7);
       }
 
-      v12 = +[STPromise dispatchGroup];
-      dispatch_group_leave(v12);
+      v10 = +[STPromise dispatchGroup];
+      dispatch_group_leave(v10);
 LABEL_16:
 
       break;

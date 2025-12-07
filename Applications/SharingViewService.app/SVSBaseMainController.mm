@@ -17,7 +17,7 @@
 {
   if (dword_1001BF128 <= 30 && (dword_1001BF128 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF128, "[SVSBaseMainController _willAppearInRemoteViewController]", 30, "BaseMain WillAppearInRemoteViewController\n");
   }
 
   _remoteViewControllerProxy = [(SVSBaseMainController *)self _remoteViewControllerProxy];
@@ -30,7 +30,7 @@
   disappearCopy = disappear;
   if (dword_1001BF128 <= 30 && (dword_1001BF128 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF128, "[SVSBaseMainController viewDidDisappear:]", 30, "BaseMain ViewDidDisappear\n");
   }
 
   proxCardSessionServer = self->_proxCardSessionServer;
@@ -53,7 +53,7 @@
   completionCopy = completion;
   if (dword_1001BF128 <= 30 && (dword_1001BF128 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF128, "[SVSBaseMainController configureWithContext:completion:]", 30, "BaseMain Configure\n");
   }
 
   userInfo = [contextCopy userInfo];

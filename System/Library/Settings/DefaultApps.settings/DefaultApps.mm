@@ -12,10 +12,10 @@ unint64_t sub_1178()
 
 uint64_t sub_11E8()
 {
-  v0 = (*(*(sub_1660(&qword_8148, &qword_1B10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_1660(&qword_8148, &qword_1B10);
   __chkstk_darwin();
-  v2 = &v6 - v1;
-  v3 = (*(*(sub_1660(&unk_8150, &qword_1B18) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v1 = &v4 - v0;
+  sub_1660(&unk_8150, &qword_1B18);
   __chkstk_darwin();
   sub_1938();
   sub_1928();
@@ -25,10 +25,10 @@ uint64_t sub_11E8()
     swift_task_reportUnexpectedExecutor();
   }
 
-  v4 = sub_1888();
-  (*(*(v4 - 8) + 56))(v2, 1, 1, v4);
+  v2 = sub_1888();
+  (*(*(v2 - 8) + 56))(v1, 1, 1, v2);
   sub_18C8();
-  sub_17AC(v2);
+  sub_17AC(v1);
   sub_1898();
 }
 
@@ -38,48 +38,42 @@ uint64_t sub_1388(uint64_t a1, uint64_t a2)
   v2[3] = a2;
   v3 = sub_18B8();
   v2[4] = v3;
-  v4 = *(v3 - 8);
-  v2[5] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[5] = *(v3 - 8);
   v2[6] = swift_task_alloc();
   sub_1938();
   v2[7] = sub_1928();
-  v7 = sub_1918();
+  v5 = sub_1918();
 
-  return _swift_task_switch(sub_147C, v7, v6);
+  return _swift_task_switch(sub_147C, v5, v4);
 }
 
 uint64_t sub_147C()
 {
-  v2 = v0[6];
-  v1 = v0[7];
-  v3 = v0[4];
-  v4 = v0[5];
-  v6 = v0[2];
-  v5 = v0[3];
+  v1 = v0[6];
+  v2 = v0[4];
+  v3 = v0[5];
 
   sub_18E8();
   sub_18F8();
-  (*(v4 + 8))(v2, v3);
+  (*(v3 + 8))(v1, v2);
 
-  v7 = v0[1];
+  v4 = v0[1];
 
-  return v7();
+  return v4();
 }
 
 uint64_t sub_1528()
 {
   v0 = sub_1660(&qword_8130, &qword_1B00);
   v1 = *(v0 - 8);
-  v2 = (*(v1 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v4 = &v6 - v3;
+  v3 = &v5 - v2;
   sub_18A8();
   sub_16A8();
   sub_1908();
   sub_1700();
   sub_18D8();
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }
 
 uint64_t sub_1660(uint64_t *a1, uint64_t *a2)
@@ -87,7 +81,6 @@ uint64_t sub_1660(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -126,7 +119,6 @@ uint64_t sub_1764(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

@@ -18,7 +18,7 @@ void __80___TVCollectionViewLockupCell_didUpdateFocusInContext_withAnimationCoor
     v11 = v10;
     if (v3)
     {
-      [v3 cellMetrics];
+      objc_msgSend_cellMetrics(v3);
       v12 = *(&v13 + 1);
     }
 

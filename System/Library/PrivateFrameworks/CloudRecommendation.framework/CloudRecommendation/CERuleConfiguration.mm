@@ -26,166 +26,174 @@
 - (CERuleConfiguration)initWithDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v40.receiver = self;
-  v40.super_class = CERuleConfiguration;
-  v5 = [(CERuleConfiguration *)&v40 init];
+  v48.receiver = self;
+  v48.super_class = CERuleConfiguration;
+  v5 = [(CERuleConfiguration *)&v48 init];
   v6 = v5;
   if (v5)
   {
     v5->_lock._os_unfair_lock_opaque = 0;
     v7 = [dictionaryCopy objectForKeyedSubscript:@"displayUrl"];
     objc_opt_class();
-    v36 = v7;
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    v44 = v7;
+    if (isKindOfClass)
     {
-      v8 = [MEMORY[0x277CBEBC0] URLWithString:v7];
+      v9 = [MEMORY[0x277CBEBC0] URLWithString:v7];
       p_super = &v6->_displayURL->super;
-      v6->_displayURL = v8;
+      v6->_displayURL = v9;
     }
 
     else
     {
-      p_super = _CELogSystem();
+      p_super = _CELogSystem(isKindOfClass);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleConfiguration initWithDictionary:];
+        [CERuleConfiguration initWithDictionary:v6];
       }
     }
 
-    v10 = [dictionaryCopy objectForKeyedSubscript:@"dismissUrl"];
+    v11 = [dictionaryCopy objectForKeyedSubscript:@"dismissUrl"];
     objc_opt_class();
-    v35 = v10;
-    if (objc_opt_isKindOfClass())
+    v12 = objc_opt_isKindOfClass();
+    v43 = v11;
+    if (v12)
     {
-      v11 = [MEMORY[0x277CBEBC0] URLWithString:{v10, v10, v36}];
-      v12 = &v6->_dismissURL->super;
-      v6->_dismissURL = v11;
+      v13 = [MEMORY[0x277CBEBC0] URLWithString:{v11, v11, v44}];
+      v14 = &v6->_dismissURL->super;
+      v6->_dismissURL = v13;
     }
 
     else
     {
-      v12 = _CELogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v14 = _CELogSystem(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleConfiguration initWithDictionary:];
+        [CERuleConfiguration initWithDictionary:v6];
       }
     }
 
-    v13 = [dictionaryCopy objectForKeyedSubscript:@"actionUrl"];
+    v15 = [dictionaryCopy objectForKeyedSubscript:@"actionUrl"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v16 = objc_opt_isKindOfClass();
+    if (v16)
     {
-      v14 = [MEMORY[0x277CBEBC0] URLWithString:v13];
-      v15 = &v6->_actionURL->super;
-      v6->_actionURL = v14;
+      v17 = [MEMORY[0x277CBEBC0] URLWithString:v15];
+      v18 = &v6->_actionURL->super;
+      v6->_actionURL = v17;
     }
 
     else
     {
-      v15 = _CELogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v18 = _CELogSystem(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        [(CERuleConfiguration *)v6 initWithDictionary:v15];
+        [(CERuleConfiguration *)v6 initWithDictionary:v18];
       }
     }
 
-    v16 = [dictionaryCopy objectForKeyedSubscript:@"completedUrl"];
+    v19 = [dictionaryCopy objectForKeyedSubscript:@"completedUrl"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v20 = objc_opt_isKindOfClass();
+    if (v20)
     {
-      v17 = [MEMORY[0x277CBEBC0] URLWithString:v16];
-      v18 = &v6->_completedURL->super;
-      v6->_completedURL = v17;
+      v21 = [MEMORY[0x277CBEBC0] URLWithString:v19];
+      v22 = &v6->_completedURL->super;
+      v6->_completedURL = v21;
     }
 
     else
     {
-      v18 = _CELogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v22 = _CELogSystem(v20);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleConfiguration initWithDictionary:];
+        [CERuleConfiguration initWithDictionary:v6];
       }
     }
 
-    v19 = [dictionaryCopy objectForKeyedSubscript:@"maxTipsShown"];
+    v23 = [dictionaryCopy objectForKeyedSubscript:@"maxTipsShown"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v24 = objc_opt_isKindOfClass();
+    if (v24)
     {
-      v20 = v19;
-      v21 = &v6->_maxRecommendationsToShow->super.super;
-      v6->_maxRecommendationsToShow = v20;
+      v25 = v23;
+      v26 = &v6->_maxRecommendationsToShow->super.super;
+      v6->_maxRecommendationsToShow = v25;
     }
 
     else
     {
-      v21 = _CELogSystem();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v26 = _CELogSystem(v24);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleConfiguration initWithDictionary:];
+        [CERuleConfiguration initWithDictionary:v6];
       }
     }
 
-    v22 = [dictionaryCopy objectForKeyedSubscript:@"thresholds"];
+    v27 = [dictionaryCopy objectForKeyedSubscript:@"thresholds"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v28 = objc_opt_isKindOfClass();
+    if (v28)
     {
-      v23 = v22;
-      v24 = &v6->_thresholds->super;
-      v6->_thresholds = v23;
+      v29 = v27;
+      v30 = &v6->_thresholds->super;
+      v6->_thresholds = v29;
     }
 
     else
     {
-      v24 = _CELogSystem();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      v30 = _CELogSystem(v28);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleConfiguration initWithDictionary:];
+        [CERuleConfiguration initWithDictionary:v6];
       }
     }
 
-    v25 = [dictionaryCopy objectForKeyedSubscript:@"recommendationsInfo"];
+    v31 = [dictionaryCopy objectForKeyedSubscript:@"recommendationsInfo"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v32 = objc_opt_isKindOfClass();
+    if (v32)
     {
-      v26 = [[CERecommendationInfo alloc] initWithDictionary:v25];
-      v27 = &v6->_recommendationInfo->super;
-      v6->_recommendationInfo = v26;
+      v33 = [[CERecommendationInfo alloc] initWithDictionary:v31];
+      v34 = &v6->_recommendationInfo->super;
+      v6->_recommendationInfo = v33;
     }
 
     else
     {
-      v27 = _CELogSystem();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+      v34 = _CELogSystem(v32);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleConfiguration initWithDictionary:];
+        [CERuleConfiguration initWithDictionary:v6];
       }
     }
 
-    v28 = [dictionaryCopy objectForKeyedSubscript:@"ruleset"];
+    v35 = [dictionaryCopy objectForKeyedSubscript:@"ruleset"];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    v36 = objc_opt_isKindOfClass();
+    if (v36)
     {
-      v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __42__CERuleConfiguration_initWithDictionary___block_invoke;
-      v37[3] = &unk_278DE0560;
-      v30 = v6;
-      v38 = v30;
-      v39 = v29;
-      v31 = v29;
-      [v28 enumerateObjectsUsingBlock:v37];
-      v32 = [v31 copy];
-      ruleset = v30->_ruleset;
-      v30->_ruleset = v32;
+      v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __42__CERuleConfiguration_initWithDictionary___block_invoke;
+      v45[3] = &unk_278DE0560;
+      v38 = v6;
+      v46 = v38;
+      v47 = v37;
+      v39 = v37;
+      [v35 enumerateObjectsUsingBlock:v45];
+      v40 = [v39 copy];
+      ruleset = v38->_ruleset;
+      v38->_ruleset = v40;
     }
 
     else
     {
-      v31 = _CELogSystem();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      v39 = _CELogSystem(v36);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
       {
-        [CERuleConfiguration initWithDictionary:];
+        [(CERuleConfiguration *)v6 initWithDictionary:v35];
       }
     }
   }
@@ -197,20 +205,21 @@ void __42__CERuleConfiguration_initWithDictionary___block_invoke(uint64_t a1, vo
 {
   v3 = a2;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v4 = v3;
-    v5 = [[CERuleset alloc] initWithDictionary:v4];
+    v5 = v3;
+    v6 = [[CERuleset alloc] initWithDictionary:v5];
 
-    [*(a1 + 40) addObject:v5];
+    [*(a1 + 40) addObject:v6];
   }
 
   else
   {
-    v5 = _CELogSystem();
-    if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_DEBUG))
+    v6 = _CELogSystem(isKindOfClass);
+    if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_DEBUG))
     {
-      __42__CERuleConfiguration_initWithDictionary___block_invoke_cold_1(a1);
+      __42__CERuleConfiguration_initWithDictionary___block_invoke_cold_1(a1, v3);
     }
   }
 }
@@ -245,11 +254,11 @@ void __42__CERuleConfiguration_initWithDictionary___block_invoke(uint64_t a1, vo
 
 - (CERuleConfiguration)initWithCoder:(id)coder
 {
-  v33[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = CERuleConfiguration;
-  v5 = [(CERuleConfiguration *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = CERuleConfiguration;
+  v5 = [(CERuleConfiguration *)&v30 init];
   v6 = v5;
   if (v5)
   {
@@ -275,10 +284,10 @@ void __42__CERuleConfiguration_initWithDictionary___block_invoke(uint64_t a1, vo
     v6->_maxRecommendationsToShow = v15;
 
     v17 = MEMORY[0x277CBEB98];
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v33[2] = objc_opt_class();
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:3];
+    v32[0] = objc_opt_class();
+    v32[1] = objc_opt_class();
+    v32[2] = objc_opt_class();
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
     v19 = [v17 setWithArray:v18];
 
     v20 = [coderCopy decodeObjectOfClasses:v19 forKey:@"thresholds"];
@@ -286,9 +295,9 @@ void __42__CERuleConfiguration_initWithDictionary___block_invoke(uint64_t a1, vo
     v6->_thresholds = v20;
 
     v22 = MEMORY[0x277CBEB98];
-    v32[0] = objc_opt_class();
-    v32[1] = objc_opt_class();
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+    v31[0] = objc_opt_class();
+    v31[1] = objc_opt_class();
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     v24 = [v22 setWithArray:v23];
 
     v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"ruleset"];
@@ -300,7 +309,6 @@ void __42__CERuleConfiguration_initWithDictionary___block_invoke(uint64_t a1, vo
     v6->_recommendationInfo = v27;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -499,105 +507,78 @@ void __42__CERuleConfiguration_initWithDictionary___block_invoke(uint64_t a1, vo
   os_unfair_lock_unlock(&self->_lock);
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-- (void)initWithDictionary:.cold.2()
+- (void)initWithDictionary:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 - (void)initWithDictionary:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = OUTLINED_FUNCTION_1(v3);
-  _os_log_error_impl(&dword_2439E1000, a2, OS_LOG_TYPE_ERROR, "%@ Unable to parse actionURL from dictionary", v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2439E1000, a2, OS_LOG_TYPE_ERROR, "%@ Unable to parse actionURL from dictionary", v5, 0xCu);
 }
 
-- (void)initWithDictionary:.cold.4()
+- (void)initWithDictionary:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_1(v0);
-  OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDictionary:.cold.8()
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
   v1 = objc_opt_class();
-  v2 = OUTLINED_FUNCTION_1_1(v1);
+  v2 = OUTLINED_FUNCTION_1(v1);
   OUTLINED_FUNCTION_0_2();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
-void __42__CERuleConfiguration_initWithDictionary___block_invoke_cold_1(uint64_t a1)
+- (void)initWithDictionary:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0_2();
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
+}
+
+- (void)initWithDictionary:(uint64_t)a1 .cold.6(uint64_t a1)
+{
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0_2();
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
+}
+
+- (void)initWithDictionary:(uint64_t)a1 .cold.7(uint64_t a1)
+{
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_1(v1);
+  OUTLINED_FUNCTION_0_2();
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
+}
+
+- (void)initWithDictionary:(uint64_t)a1 .cold.8(uint64_t a1, uint64_t a2)
+{
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = OUTLINED_FUNCTION_1_1(v3);
   OUTLINED_FUNCTION_0_2();
   _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+void __42__CERuleConfiguration_initWithDictionary___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+{
+  v2 = objc_opt_class();
+  v3 = objc_opt_class();
+  v4 = OUTLINED_FUNCTION_1_1(v3);
+  OUTLINED_FUNCTION_0_2();
+  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 @end

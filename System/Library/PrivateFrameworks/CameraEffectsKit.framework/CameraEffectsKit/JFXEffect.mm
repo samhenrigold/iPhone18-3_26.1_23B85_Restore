@@ -50,8 +50,7 @@
 - (id)serializableEffectParameters;
 - (int64_t)playableAspectRatio;
 - (int64_t)playableAspectRatioPreservationMode;
-- (uint64_t)setTopLevelTransform:(__n128)transform relativeTo:(uint64_t)to basisOrigin:(__int128 *)origin;
-- (uint64_t)topLevelTransformRelativeTo:(void *)to@<X0> basisOrigin:(_OWORD *)origin@<X8>;
+- (uint64_t)topLevelTransformRelativeTo:(uint64_t)to@<X2> basisOrigin:(_OWORD *)origin@<X8>;
 - (unint64_t)contentAvailability;
 - (unint64_t)hash;
 - (void)_convertRenderEffectPoints:(CGPoint *)points numPoints:(unint64_t)numPoints fromBasisRect:(CGRect)rect basisOrigin:(int)origin;
@@ -81,6 +80,7 @@
 - (void)setRenderStartOffset:(id *)offset;
 - (void)setTopLevelAdditionalScale:(CGPoint)scale;
 - (void)setTopLevelTransform:(_OWORD *)transform;
+- (void)setTopLevelTransform:(__n128)transform relativeTo:(uint64_t)to basisOrigin:(__int128 *)origin;
 - (void)topLevelTransform;
 - (void)updatePriorityForAssetRequest:(id)request newPriority:(int64_t)priority;
 @end
@@ -1459,12 +1459,10 @@ LABEL_17:
   return v3;
 }
 
-void __37__JFXEffect_parametersClassWhitelist__block_invoke()
+void __37__JFXEffect_parametersClassWhitelist__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x277CBEB98];
-  v4 = objc_opt_class();
-  v5 = objc_opt_class();
+  v19 = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x277CBEB98];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
@@ -1476,10 +1474,12 @@ void __37__JFXEffect_parametersClassWhitelist__block_invoke()
   v14 = objc_opt_class();
   v15 = objc_opt_class();
   v16 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:13];
-  v2 = [v0 setWithArray:{v1, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15}];
-  v3 = parametersClassWhitelist_parametersClassWhitelist;
-  parametersClassWhitelist_parametersClassWhitelist = v2;
+  v17 = objc_opt_class();
+  v18 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v6 count:13];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17}];
+  v5 = parametersClassWhitelist_parametersClassWhitelist;
+  parametersClassWhitelist_parametersClassWhitelist = v4;
 }
 
 - (id)serializableEffectParameters
@@ -1506,7 +1506,7 @@ void __37__JFXEffect_parametersClassWhitelist__block_invoke()
   if (topLevelTransformObject)
   {
     v9 = topLevelTransformObject;
-    [topLevelTransformObject SIMDDouble4x4];
+    objc_msgSend_SIMDDouble4x4(topLevelTransformObject);
     topLevelTransformObject = v9;
   }
 
@@ -1546,13 +1546,13 @@ void __37__JFXEffect_parametersClassWhitelist__block_invoke()
   [self setTopLevelTransformObject:v8];
 }
 
-- (uint64_t)topLevelTransformRelativeTo:(void *)to@<X0> basisOrigin:(_OWORD *)origin@<X8>
+- (uint64_t)topLevelTransformRelativeTo:(uint64_t)to@<X2> basisOrigin:(_OWORD *)origin@<X8>
 {
-  [to topLevelTransform];
-  renderEffect = [to renderEffect];
+  objc_msgSend_topLevelTransform(self, a2);
+  renderEffect = [self renderEffect];
   [renderEffect origin];
 
-  renderEffect2 = [to renderEffect];
+  renderEffect2 = [self renderEffect];
   [renderEffect2 outputSize];
 
   origin[6] = 0u;
@@ -1566,7 +1566,7 @@ void __37__JFXEffect_parametersClassWhitelist__block_invoke()
   return pv_simd_matrix_convert_coordinate_system();
 }
 
-- (uint64_t)setTopLevelTransform:(__n128)transform relativeTo:(uint64_t)to basisOrigin:(__int128 *)origin
+- (void)setTopLevelTransform:(__n128)transform relativeTo:(uint64_t)to basisOrigin:(__int128 *)origin
 {
   renderEffect = [self renderEffect];
   [renderEffect origin];
@@ -1613,7 +1613,7 @@ void __37__JFXEffect_parametersClassWhitelist__block_invoke()
   v10[1] = v7;
   v10[2] = *&time->tx;
   v9 = *to;
-  return [(JFXEffect *)self addTransform:v10 withComponentTime:&v9 relativeTo:*&a7 basisOrigin:0 ignoreTranslation:origin.origin.x, origin.origin.y, origin.size.width, origin.size.height];
+  return objc_msgSend_addTransform_withComponentTime_relativeTo_basisOrigin_ignoreTranslation_(self, transform, v10, &v9, *&a7, 0, origin.origin.x, origin.origin.y, origin.size.width, origin.size.height);
 }
 
 - (CGAffineTransform)addTransform:(SEL)transform withComponentTime:(CGAffineTransform *)time relativeTo:(id *)to basisOrigin:(CGRect)origin ignoreTranslation:(int)translation
@@ -1621,188 +1621,186 @@ void __37__JFXEffect_parametersClassWhitelist__block_invoke()
   v8 = a8;
   height = origin.size.height;
   width = origin.size.width;
-  v16 = [(JFXEffect *)self renderEffect:origin.origin.x];
-  [v16 outputSize];
-  v18 = v17;
-  v20 = v19;
+  v15 = [(JFXEffect *)self renderEffect:origin.origin.x];
+  [v15 outputSize];
+  v17 = v16;
+  v19 = v18;
 
   renderEffect = [(JFXEffect *)self renderEffect];
   origin = [renderEffect origin];
 
-  v24 = *&time->a;
-  v23 = *&time->c;
+  v23 = *&time->a;
+  v22 = *&time->c;
   p_ty = &time->ty;
-  v27 = *&time->tx;
+  v26 = *&time->tx;
   p_tx = &time->tx;
-  v54 = *(MEMORY[0x277D41B90] + 80);
-  v55 = *(MEMORY[0x277D41B90] + 64);
-  v75 = v55;
-  v76 = v54;
-  v52 = *(MEMORY[0x277D41B90] + 112);
-  v53 = *(MEMORY[0x277D41B90] + 96);
-  v77 = v53;
-  v78 = v52;
-  v50 = *(MEMORY[0x277D41B90] + 16);
-  v51 = *MEMORY[0x277D41B90];
-  *&v73.a = *MEMORY[0x277D41B90];
-  *&v73.c = v50;
-  v48 = *(MEMORY[0x277D41B90] + 48);
-  v49 = *(MEMORY[0x277D41B90] + 32);
-  *&v73.tx = v49;
-  v74 = v48;
-  *&t1.a = v24;
+  v53 = *(MEMORY[0x277D41B90] + 80);
+  v54 = *(MEMORY[0x277D41B90] + 64);
+  v74 = v54;
+  v75 = v53;
+  v51 = *(MEMORY[0x277D41B90] + 112);
+  v52 = *(MEMORY[0x277D41B90] + 96);
+  v76 = v52;
+  v77 = v51;
+  v49 = *(MEMORY[0x277D41B90] + 16);
+  v50 = *MEMORY[0x277D41B90];
+  *&v72.a = *MEMORY[0x277D41B90];
+  *&v72.c = v49;
+  v47 = *(MEMORY[0x277D41B90] + 48);
+  v48 = *(MEMORY[0x277D41B90] + 32);
+  *&v72.tx = v48;
+  v73 = v47;
+  *&t1.a = v23;
   *&t1.c = 0u;
-  __x = v24;
-  *&t1.tx = v23;
+  __x = v23;
+  *&t1.tx = v22;
+  v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v70 = xmmword_242B5B860;
-  v71 = v27;
-  v72 = xmmword_242B5B850;
+  v69 = xmmword_242B5B860;
+  v70 = v26;
+  v71 = xmmword_242B5B850;
   pv_transform_info_make();
   if (v8)
   {
-    v28 = MEMORY[0x277CBF3A8];
+    v27 = MEMORY[0x277CBF3A8];
   }
 
   else
   {
-    v28 = p_tx;
+    v27 = p_tx;
   }
 
-  v29 = *MEMORY[0x277CBF3A8];
-  v30 = (MEMORY[0x277CBF3A8] + 8);
-  v59 = v75;
-  v58 = vextq_s8(v75, v75, 8uLL);
+  v28 = *MEMORY[0x277CBF3A8];
+  v29 = (MEMORY[0x277CBF3A8] + 8);
+  v58 = *v74.i64;
+  v57 = vextq_s8(v74, v74, 8uLL);
   if (!v8)
   {
-    v30 = p_ty;
+    v29 = p_ty;
   }
 
-  v31 = *v28;
-  v32 = *v30;
-  v33 = *(MEMORY[0x277CBF3A8] + 8) == *v30 && v29 == v31;
-  if (!v33 && !v8)
+  v30 = *v27;
+  v31 = *v29;
+  v32 = *(MEMORY[0x277CBF3A8] + 8) == *v29 && v28 == v30;
+  if (!v32 && !v8)
   {
     transformAnimation = [(JFXEffect *)self transformAnimation];
-    v35 = transformAnimation;
+    v34 = transformAnimation;
     if (transformAnimation)
     {
-      *&v74 = 0;
-      memset(&v73, 0, sizeof(v73));
-      *&t1.a = *&to->var0;
-      *&t1.c = to->var3;
-      [transformAnimation transformInfoAtTime:&t1];
-      t1 = v73;
-      *&v68 = v74;
+      *&v73 = 0;
+      memset(&v72, 0, sizeof(v72));
+      objc_msgSend_transformInfoAtTime_(transformAnimation);
+      memset(&t1, 0, sizeof(t1));
+      *&v67 = 0;
       if ((PVTransformAnimationInfoIsIdentity() & 1) == 0)
       {
-        v31 = v31 / v73.ty;
-        v32 = v32 / v73.ty;
+        v30 = v30 / v72.ty;
+        v31 = v31 / v72.ty;
       }
     }
 
-    [(JFXEffect *)self playableScaleInOutputSize:width, height, v48, v49, v50, v51, v52, v53, v54, *&v55, __x, *&v58, *&v59];
-    v37 = fabs(v36 + -1.0) < 0.0001;
-    v38 = v31 / v36;
-    v39 = v32 / v36;
-    if (v37)
+    [(JFXEffect *)self playableScaleInOutputSize:width, height, v47, v48, v49, v50, v51, v52, v53, *&v54, __x, *&v57, *&v74];
+    v36 = fabs(v35 + -1.0) < 0.0001;
+    v37 = v30 / v35;
+    v38 = v31 / v35;
+    if (v36)
     {
-      v40 = v31;
+      v39 = v30;
     }
 
     else
     {
-      v32 = v39;
-      v40 = v38;
+      v31 = v38;
+      v39 = v37;
     }
 
     if (translation != 2)
     {
       if (translation == 1)
       {
-        v41 = (origin & 0xFFFFFFFD) == 0;
+        v40 = (origin & 0xFFFFFFFD) == 0;
         goto LABEL_22;
       }
 
       if (translation)
       {
-        memset(&v79, 0, sizeof(v79));
-        CGAffineTransformMakeScale(&v79, v18 / width, v20 / height);
+        memset(&v78, 0, sizeof(v78));
+        CGAffineTransformMakeScale(&v78, v17 / width, v19 / height);
 LABEL_28:
-        v31 = v32 * v79.c + v79.a * v40;
-        v32 = v32 * v79.d + v79.b * v40;
+        v30 = v31 * v78.c + v78.a * v39;
+        v31 = v31 * v78.d + v78.b * v39;
 
         goto LABEL_29;
       }
     }
 
-    v41 = origin == 1;
+    v40 = origin == 1;
 LABEL_22:
-    v42 = v41;
-    memset(&v79, 0, sizeof(v79));
-    CGAffineTransformMakeScale(&v79, v18 / width, v20 / height);
-    if (v42)
+    v41 = v40;
+    memset(&v78, 0, sizeof(v78));
+    CGAffineTransformMakeScale(&v78, v17 / width, v19 / height);
+    if (v41)
     {
-      t1 = v79;
-      CGAffineTransformScale(&v73, &t1, 1.0, -1.0);
-      v79 = v73;
+      t1 = v78;
+      CGAffineTransformScale(&v72, &t1, 1.0, -1.0);
+      v78 = v72;
     }
 
     goto LABEL_28;
   }
 
 LABEL_29:
-  v43 = atan2(*(&__x + 1), *&__x);
-  v75 = v55;
-  v76 = v54;
-  v77 = v53;
-  v78 = v52;
-  *&v73.a = v51;
-  *&v73.c = v50;
-  *&v73.tx = v49;
-  v74 = v48;
-  [(JFXEffect *)self topLevelTransform];
+  v42 = atan2(*(&__x + 1), *&__x);
+  v74 = v54;
+  v75 = v53;
+  v76 = v52;
+  v77 = v51;
+  *&v72.a = v50;
+  *&v72.c = v49;
+  *&v72.tx = v48;
+  v73 = v47;
+  objc_msgSend_topLevelTransform(self);
   pv_transform_info_make();
-  memset(&v79, 0, sizeof(v79));
-  __xa = v73.a;
-  b = v73.b;
-  CGAffineTransformMakeTranslation(&v79, -v73.a, -v73.b);
-  memset(&v66, 0, sizeof(v66));
-  CGAffineTransformMakeTranslation(&v66, v31, v32);
+  memset(&v78, 0, sizeof(v78));
+  __xa = v72.a;
+  b = v72.b;
+  CGAffineTransformMakeTranslation(&v78, -v72.a, -v72.b);
   memset(&v65, 0, sizeof(v65));
-  CGAffineTransformMakeRotation(&v65, -v43);
+  CGAffineTransformMakeTranslation(&v65, v30, v31);
   memset(&v64, 0, sizeof(v64));
-  CGAffineTransformMakeScale(&v64, *v59.i64, *v58.i64);
+  CGAffineTransformMakeRotation(&v64, -v42);
   memset(&v63, 0, sizeof(v63));
-  CGAffineTransformMakeTranslation(&v63, __xa, b);
+  CGAffineTransformMakeScale(&v63, v58, *v57.i64);
+  memset(&v62, 0, sizeof(v62));
+  CGAffineTransformMakeTranslation(&v62, __xa, b);
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  [(JFXEffect *)self topLevelTransform];
-  *&v62.a = *&t1.a;
-  *&v62.c = *&t1.tx;
-  *&v62.tx = v71;
-  t1 = v64;
-  t2 = v63;
-  CGAffineTransformConcat(&v61, &t1, &t2);
+  objc_msgSend_topLevelTransform(self);
+  *&v61.a = *&t1.a;
+  *&v61.c = *&t1.tx;
+  *&v61.tx = v70;
+  t1 = v63;
+  t2 = v62;
+  CGAffineTransformConcat(&v60, &t1, &t2);
+  t2 = v64;
+  CGAffineTransformConcat(&t1, &t2, &v60);
   t2 = v65;
-  CGAffineTransformConcat(&t1, &t2, &v61);
-  t2 = v66;
-  CGAffineTransformConcat(&v61, &t2, &t1);
-  t2 = v79;
-  CGAffineTransformConcat(&t1, &t2, &v61);
-  CGAffineTransformConcat(retstr, &v62, &t1);
-  v45 = *&retstr->c;
-  v46 = *&retstr->tx;
+  CGAffineTransformConcat(&v60, &t2, &t1);
+  t2 = v78;
+  CGAffineTransformConcat(&t1, &t2, &v60);
+  CGAffineTransformConcat(retstr, &v61, &t1);
+  v44 = *&retstr->c;
+  v45 = *&retstr->tx;
   *&t1.a = *&retstr->a;
   *&t1.c = 0u;
-  *&t1.tx = v45;
+  *&t1.tx = v44;
+  v67 = 0u;
   v68 = 0u;
-  v69 = 0u;
-  v70 = xmmword_242B5B860;
-  v71 = v46;
-  v72 = xmmword_242B5B850;
+  v69 = xmmword_242B5B860;
+  v70 = v45;
+  v71 = xmmword_242B5B850;
   return [(JFXEffect *)self setTopLevelTransform:&t1];
 }
 
@@ -1886,13 +1884,13 @@ LABEL_29:
   return v16;
 }
 
-uint64_t __108__JFXEffect_AssetDownloading__requestAllAssetsWithOptions_progressAndCancellationHandler_completionHandler___block_invoke(uint64_t a1)
+uint64_t (**__108__JFXEffect_AssetDownloading__requestAllAssetsWithOptions_progressAndCancellationHandler_completionHandler___block_invoke(uint64_t a1))(void *, _BYTE *)
 {
   result = *(a1 + 40);
   if (result)
   {
     v3 = 0;
-    result = (*(result + 16))(result, &v3);
+    result = result[2](result, &v3);
     if (v3 == 1)
     {
       if (*(*(*(a1 + 48) + 8) + 40))
@@ -1946,13 +1944,13 @@ uint64_t __108__JFXEffect_AssetDownloading__requestAllAssetsWithOptions_progress
   return v16;
 }
 
-uint64_t __104__JFXEffect_AssetDownloading__requestAssetWithOptions_progressAndCancellationHandler_completionHandler___block_invoke(uint64_t a1)
+uint64_t (**__104__JFXEffect_AssetDownloading__requestAssetWithOptions_progressAndCancellationHandler_completionHandler___block_invoke(uint64_t a1))(void *, _BYTE *)
 {
   result = *(a1 + 40);
   if (result)
   {
     v3 = 0;
-    result = (*(result + 16))(result, &v3);
+    result = result[2](result, &v3);
     if (v3 == 1)
     {
       if (*(*(*(a1 + 48) + 8) + 40))

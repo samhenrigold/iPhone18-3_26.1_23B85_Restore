@@ -7,18 +7,17 @@ void sub_1FFC(uint64_t a1, uint64_t a2)
   {
     if (v6)
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = *(a1 + 32);
-      v13 = 136315906;
-      v14 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]_block_invoke";
-      v15 = 2114;
+      v7 = objc_opt_class();
+      v8 = *(a1 + 32);
+      v11 = 136315906;
+      v12 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]_block_invoke";
+      v13 = 2114;
+      v14 = v7;
+      v15 = 2048;
       v16 = v8;
-      v17 = 2048;
-      v18 = v9;
-      v19 = 2112;
-      v20 = a2;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> sending response = %@", &v13, 0x2Au);
+      v17 = 2112;
+      v18 = a2;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> sending response = %@", &v11, 0x2Au);
       v4 = *(a1 + 40);
     }
 
@@ -27,69 +26,39 @@ void sub_1FFC(uint64_t a1, uint64_t a2)
 
   else if (v6)
   {
+    v9 = objc_opt_class();
     v10 = *(a1 + 32);
-    v11 = objc_opt_class();
-    v12 = *(a1 + 32);
-    v13 = 136315906;
-    v14 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]_block_invoke";
-    v15 = 2114;
-    v16 = v11;
-    v17 = 2048;
-    v18 = v12;
-    v19 = 2112;
-    v20 = a2;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> no completion block - dropping response = %@", &v13, 0x2Au);
+    v11 = 136315906;
+    v12 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]_block_invoke";
+    v13 = 2114;
+    v14 = v9;
+    v15 = 2048;
+    v16 = v10;
+    v17 = 2112;
+    v18 = a2;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> no completion block - dropping response = %@", &v11, 0x2Au);
   }
 }
 
 void sub_2178(uint64_t a1, uint64_t a2, void *a3)
 {
-  if (!a3)
+  if (!a3 || (v4 = a3, (v5 = [objc_msgSend(a3 "userInfo")]) != 0) && (v6 = v5, objc_msgSend(v5, "code") == &dword_4 + 2) && (v7 = objc_msgSend(objc_msgSend(v6, "userInfo"), "objectForKey:", NSUnderlyingErrorKey)) != 0 && ((v8 = v7, v9 = objc_msgSend(v7, "domain"), v10 = objc_msgSend(v8, "code"), objc_msgSend_isEqualToString_(v9)) ? (v11 = v10 == &dword_8) : (v11 = 0), v11))
   {
-    goto LABEL_13;
-  }
-
-  v4 = a3;
-  v5 = [objc_msgSend(a3 "userInfo")];
-  if (!v5)
-  {
-    goto LABEL_21;
-  }
-
-  v6 = v5;
-  if ([v5 code] != &dword_4 + 2)
-  {
-    goto LABEL_21;
-  }
-
-  v7 = [objc_msgSend(v6 "userInfo")];
-  if (!v7)
-  {
-    goto LABEL_21;
-  }
-
-  v8 = v7;
-  v9 = [v7 domain];
-  v10 = [v8 code];
-  if ([v9 isEqualToString:RBSRequestErrorDomain] && v10 == &dword_8)
-  {
-LABEL_13:
     v14 = AFSiriLogContextPlugin;
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_INFO))
     {
-      v15 = *(a1 + 32);
-      v16 = objc_opt_class();
-      v17 = *(a1 + 32);
-      v18 = *(a1 + 40);
-      v19 = 136315906;
-      v20 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]_block_invoke";
-      v21 = 2114;
-      v22 = v16;
-      v23 = 2048;
-      v24 = v17;
-      v25 = 2112;
-      v26 = v18;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> launched app (%@)", &v19, 0x2Au);
+      v15 = objc_opt_class();
+      v16 = *(a1 + 32);
+      v17 = *(a1 + 40);
+      v18 = 136315906;
+      v19 = "[AAPCommandLaunch performWithCompletion:serviceHelper:executionInfo:]_block_invoke";
+      v20 = 2114;
+      v21 = v15;
+      v22 = 2048;
+      v23 = v16;
+      v24 = 2112;
+      v25 = v17;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> launched app (%@)", &v18, 0x2Au);
     }
 
     v12 = objc_alloc_init(SACommandSucceeded);
@@ -97,7 +66,6 @@ LABEL_13:
 
   else
   {
-LABEL_21:
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_ERROR))
     {
       sub_F5B4(a1, v4);
@@ -198,18 +166,17 @@ void sub_3158(uint64_t a1, uint64_t a2)
       v6 = [*(a1 + 32) foundItemCount];
       v7 = *(a1 + 32);
       v8 = *(a1 + 40);
-      v10 = 136315906;
-      v11 = "[AAPCommandSearch performWithCompletion:]_block_invoke";
-      v12 = 2048;
-      v13 = v6;
-      v14 = 2112;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v8;
-      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%s Found %tu apps matching query %@: %@", &v10, 0x2Au);
+      v9 = 136315906;
+      v10 = "[AAPCommandSearch performWithCompletion:]_block_invoke";
+      v11 = 2048;
+      v12 = v6;
+      v13 = 2112;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "%s Found %tu apps matching query %@: %@", &v9, 0x2Au);
     }
 
-    v9 = *(a1 + 40);
     (*(*(a1 + 56) + 16))();
   }
 }
@@ -251,24 +218,23 @@ void sub_37C0(uint64_t a1)
 id sub_3E28(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 16) state];
-  v3 = *(a1 + 32);
-  v4 = objc_opt_class();
-  v5 = *(a1 + 40);
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 56);
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_3ED4;
-  v9[3] = &unk_20868;
-  v9[4] = *(a1 + 32);
-  v10 = *(a1 + 64);
-  v11 = v2;
-  return [v4 _checkIfResetIsNeededForKey:v5 withStartAnchorString:v6 validity:v7 lastState:v2 completion:v9];
+  v3 = objc_opt_class();
+  v4 = *(a1 + 40);
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 56);
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_3ED4;
+  v8[3] = &unk_20868;
+  v8[4] = *(a1 + 32);
+  v9 = *(a1 + 64);
+  v10 = v2;
+  return [v3 _checkIfResetIsNeededForKey:v4 withStartAnchorString:v5 validity:v6 lastState:v2 completion:v8];
 }
 
 void sub_3ED4(uint64_t a1, int a2, void *a3, void *a4, void *a5)
 {
-  v7 = (a1 + 32);
+  v7 = a1 + 32;
   *(*(a1 + 32) + 24) = 0;
   if (!a4 || !a5)
   {
@@ -315,7 +281,7 @@ LABEL_16:
       v12 = *(a1 + 32);
       v14 = a3;
 LABEL_17:
-      *(*(a1 + 32) + 24) = [(AAPSyncMetaDataSource *)v10 initWithLastState:v13 startAnchor:v14 keyAnchor:a4 validity:a5 configuration:v11 observer:v12, *v27, *&v27[16], v28, *v29, *&v29[16]];
+      *(*(a1 + 32) + 24) = [(AAPSyncMetaDataSource *)v10 initWithLastState:v13 startAnchor:v14 keyAnchor:a4 validity:a5 configuration:v11 observer:v12, *v27, *&v27[8], v28, *v29, *&v29[8]];
 LABEL_18:
       v21 = *(*v7 + 32);
       if (v21)
@@ -417,7 +383,7 @@ LABEL_22:
     *(*v7 + 32) = [[AAPSyncMetaDataProcessor alloc] initWithSource:*(*v7 + 24)];
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG))
     {
-      sub_FE48(v7);
+      sub_FE48();
     }
   }
 }
@@ -466,37 +432,33 @@ void sub_4594(uint64_t a1)
   }
 }
 
-void sub_46D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_46D0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_46EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_46EC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-uint64_t *sub_4718@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
+void sub_47FC(id *a1)
 {
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-void sub_47FC(uint64_t a1)
-{
-  [*(a1 + 32) waitUntilReady];
-  v2 = [objc_msgSend(*(a1 + 32) "metaData")];
-  v4 = *(a1 + 40);
-  v3 = (a1 + 40);
-  *(v4 + 16) = v2;
-  *(*v3 + 3) = 0x7FFFFFFFFFFFFFFFLL;
-  [*v3 _queue_updateCache];
+  v1 = a1;
+  [a1[4] waitUntilReady];
+  v2 = [objc_msgSend(v1[4] "metaData")];
+  v3 = v1[5];
+  v1 += 5;
+  v3[2] = v2;
+  *(*v1 + 3) = 0x7FFFFFFFFFFFFFFFLL;
+  [*v1 _queue_updateCache];
   if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG))
   {
-    sub_101D4(v3);
+    sub_101D4();
   }
 }
 
@@ -511,7 +473,7 @@ id sub_4E98(uint64_t a1)
   {
     if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG))
     {
-      sub_10708(a1);
+      sub_10708();
     }
   }
 
@@ -540,23 +502,23 @@ id sub_4E98(uint64_t a1)
 id sub_5320(uint64_t a1)
 {
   v2 = objc_alloc_init(NSAutoreleasePool);
-  v3 = *(a1 + 32);
-  *(v3 + 16) = [objc_opt_class() _createSourceInfoForLastState:*(a1 + 40) startAnchor:*(a1 + 48) keyAnchor:*(a1 + 56) validity:*(a1 + 64) configuration:*(a1 + 72)];
-  *(*(a1 + 32) + 8) = v4;
+  *(*(a1 + 32) + 16) = [objc_opt_class() _createSourceInfoForLastState:*(a1 + 40) startAnchor:*(a1 + 48) keyAnchor:*(a1 + 56) validity:*(a1 + 64) configuration:*(a1 + 72)];
+  *(*(a1 + 32) + 8) = v3;
   [*(a1 + 80) sourceIsReady:*(a1 + 32)];
-  v5 = AFSiriLogContextPlugin;
+  v4 = AFSiriLogContextPlugin;
   if (os_log_type_enabled(AFSiriLogContextPlugin, OS_LOG_TYPE_DEBUG))
   {
-    sub_10788(v5);
+    sub_10788(v4);
   }
 
   return [v2 drain];
 }
 
-void sub_5C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_5C64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
+  va_start(va, a56);
   _Block_object_dispose(&a53, 8);
-  _Block_object_dispose(&a57, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -603,10 +565,11 @@ int64_t sub_5EAC(id a1, id a2, id a3)
   return [v4 compare:v5];
 }
 
-void sub_5F08(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_5F08(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 id AAPSyncInfoIdentifierForAppId(uint64_t a1)
@@ -628,7 +591,7 @@ id AAPSyncInfoIsValidForItem(void *a1, void *a2)
   }
 
   v5 = v4;
-  if (![objc_msgSend(v4 "scheme")] || !objc_msgSend(objc_msgSend(v5, "host"), "length"))
+  if (!objc_msgSend_isEqualToString_([v4 scheme]) || !objc_msgSend(objc_msgSend(v5, "host"), "length"))
   {
     return 0;
   }
@@ -641,7 +604,8 @@ id AAPSyncInfoIsValidForItem(void *a1, void *a2)
       v7 = v6;
       if ([v6 length])
       {
-        if ([v7 isEqualToString:{objc_msgSend(a2, "appId")}])
+        [a2 appId];
+        if (objc_msgSend_isEqualToString_(v7))
         {
 
           return _AAPSyncInfoHasSomeName(a1);
@@ -734,9 +698,9 @@ id sub_6108(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_6D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_6D84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1241,9 +1205,9 @@ LABEL_16:
   return v8;
 }
 
-void sub_9858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_9858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1338,19 +1302,19 @@ LABEL_13:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        if ([v14 isEqualToString:@"Default"])
+        if (objc_msgSend_isEqualToString_(v14))
         {
           goto LABEL_18;
         }
 
-        v16 = [v14 isEqualToString:@"Siri"];
+        v16 = objc_msgSend_isEqualToString_(v14);
         v15 = &SAStarkDisplayModeSiriValue;
         if (v16)
         {
           goto LABEL_21;
         }
 
-        if ([v14 isEqualToString:@"GeoSupported"])
+        if (objc_msgSend_isEqualToString_(v14))
         {
 LABEL_18:
           v15 = &SAStarkDisplayModeFullScreenValue;
@@ -1487,7 +1451,7 @@ id AAPAggregateSyncIdentityParser(void *a1, uint64_t a2, uint64_t a3, uint64_t a
     sub_11C18();
   }
 
-  v8 = [a1 objectForKey:kCFBundleIdentifierKey];
+  v8 = [a1 objectForKey:{kCFBundleIdentifierKey, a4, a5}];
   v10 = AAPPlistStringParser(v8, v9, a6);
   if (v10)
   {
@@ -1524,7 +1488,7 @@ char *AAPAlternativeAppNamesMapParser(void *a1, uint64_t a2, uint64_t a3, uint64
     sub_11C88();
   }
 
-  v9 = [a1 objectForKey:_INAlternativeAppNamesKey];
+  v9 = [a1 objectForKey:{_INAlternativeAppNamesKey, a4}];
   result = [v9 count];
   if (!result)
   {
@@ -1570,7 +1534,7 @@ char *AAPAlternativeAppNamesMapParser(void *a1, uint64_t a2, uint64_t a3, uint64
             v20 = v19;
           }
 
-          if ([(__CFString *)v20 isEqualToString:CanonicalLocaleIdentifierFromString])
+          if (objc_msgSend_isEqualToString_(v20))
           {
             if (v43)
             {
@@ -1834,7 +1798,7 @@ void *AAPPlistBrowsableMediaParser(uint64_t a1, uint64_t a2, uint64_t a3, void *
     sub_11EC4();
   }
 
-  v8 = [a4 objectForKey:@"com.apple.developer.playable-content"];
+  v8 = [a4 objectForKey:{@"com.apple.developer.playable-content", a4, a5}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -1869,18 +1833,17 @@ void sub_C1E8(uint64_t a1, uint64_t a2)
   {
     if (v6)
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = *(a1 + 32);
-      v13 = 136315906;
-      v14 = "[AAPCommandCheckRestriction performWithCompletion:]_block_invoke";
-      v15 = 2114;
+      v7 = objc_opt_class();
+      v8 = *(a1 + 32);
+      v11 = 136315906;
+      v12 = "[AAPCommandCheckRestriction performWithCompletion:]_block_invoke";
+      v13 = 2114;
+      v14 = v7;
+      v15 = 2048;
       v16 = v8;
-      v17 = 2048;
-      v18 = v9;
-      v19 = 2112;
-      v20 = a2;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> sending response = %@", &v13, 0x2Au);
+      v17 = 2112;
+      v18 = a2;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> sending response = %@", &v11, 0x2Au);
       v4 = *(a1 + 40);
     }
 
@@ -1889,18 +1852,17 @@ void sub_C1E8(uint64_t a1, uint64_t a2)
 
   else if (v6)
   {
+    v9 = objc_opt_class();
     v10 = *(a1 + 32);
-    v11 = objc_opt_class();
-    v12 = *(a1 + 32);
-    v13 = 136315906;
-    v14 = "[AAPCommandCheckRestriction performWithCompletion:]_block_invoke";
-    v15 = 2114;
-    v16 = v11;
-    v17 = 2048;
-    v18 = v12;
-    v19 = 2112;
-    v20 = a2;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> no completion block - dropping response = %@", &v13, 0x2Au);
+    v11 = 136315906;
+    v12 = "[AAPCommandCheckRestriction performWithCompletion:]_block_invoke";
+    v13 = 2114;
+    v14 = v9;
+    v15 = 2048;
+    v16 = v10;
+    v17 = 2112;
+    v18 = a2;
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_INFO, "%s com.apple.siri.applications: <%{public}@:%p> no completion block - dropping response = %@", &v11, 0x2Au);
   }
 }
 
@@ -1987,29 +1949,26 @@ uint64_t sub_D588(uint64_t a1)
   return (*(v4 + 8))(a1, v2);
 }
 
-uint64_t (*sub_D67C())()
+uint64_t (*sub_D67C(uint64_t a1))(uint64_t a1)
 {
   if (qword_29140 != -1)
   {
     swift_once();
   }
 
-  v0 = sub_1244C();
-  sub_D490(v0, qword_29150);
+  v1 = sub_1244C();
+  sub_D490(v1, qword_29150);
   swift_beginAccess();
   return j__swift_endAccess;
 }
 
 uint64_t *sub_D714(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -2058,40 +2017,35 @@ id AAPCommandSearchMarketplaceWrapper.init(marketplace:keyword:)(uint64_t a1, ui
 uint64_t sub_D964(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v8[11] = a8;
-  v8[12] = v20;
+  v8[12] = v17;
   v13 = sub_1244C();
   v8[13] = v13;
-  v14 = *(v13 - 8);
-  v8[14] = v14;
-  v15 = *(v14 + 64) + 15;
+  v8[14] = *(v13 - 8);
   v8[15] = swift_task_alloc();
   v8[16] = swift_task_alloc();
-  v16 = async function pointer to static AppDistributor.requestSearchPage(_:searchString:)[1];
-  v17 = swift_task_alloc();
-  v8[17] = v17;
-  *v17 = v8;
-  v17[1] = sub_DA98;
+  v14 = swift_task_alloc();
+  v8[17] = v14;
+  *v14 = v8;
+  v14[1] = sub_DA98;
 
   return (static AppDistributor.requestSearchPage(_:searchString:))(a4, a5, a6, a7);
 }
 
 uint64_t sub_DA98()
 {
-  v2 = *(*v1 + 136);
-  v5 = *v1;
   *(*v1 + 144) = v0;
 
   if (v0)
   {
-    v3 = sub_DD80;
+    v2 = sub_DD80;
   }
 
   else
   {
-    v3 = sub_DBAC;
+    v2 = sub_DBAC;
   }
 
-  return _swift_task_switch(v3, 0, 0);
+  return _swift_task_switch(v2, 0, 0);
 }
 
 uint64_t sub_DBAC()
@@ -2119,26 +2073,22 @@ uint64_t sub_DBAC()
   result = (*(v10 + 8))(v8, v9);
   if (v11)
   {
-    v14 = v0[11];
-    v13 = v0[12];
-    v15 = [objc_allocWithZone(SACommandSucceeded) init];
-    v16 = [v15 dictionary];
+    v13 = v0[11];
+    v14 = [objc_allocWithZone(SACommandSucceeded) init];
+    v15 = [v14 dictionary];
 
-    if (v16)
+    if (v15)
     {
       sub_1247C();
 
-      v16 = 0;
+      v15 = 0;
     }
 
-    v14(v16);
+    v13(v15);
 
-    v18 = v0[15];
-    v17 = v0[16];
+    v16 = v0[1];
 
-    v19 = v0[1];
-
-    return v19();
+    return v16();
   }
 
   else
@@ -2151,89 +2101,80 @@ uint64_t sub_DBAC()
 
 void sub_DD80()
 {
-  v1 = v0[18];
-  v3 = v0[14];
-  v2 = v0[15];
-  v4 = v0[13];
-  v5 = sub_D42C();
+  v2 = v0[14];
+  v1 = v0[15];
+  v3 = v0[13];
+  v4 = sub_D42C();
   swift_beginAccess();
-  (*(v3 + 16))(v2, v5, v4);
+  (*(v2 + 16))(v1, v4, v3);
   swift_errorRetain();
-  v6 = sub_1243C();
-  v7 = sub_124FC();
+  v5 = sub_1243C();
+  v6 = sub_124FC();
 
-  if (os_log_type_enabled(v6, v7))
+  if (os_log_type_enabled(v5, v6))
   {
-    v8 = v0[18];
-    v9 = swift_slowAlloc();
-    v10 = swift_slowAlloc();
-    *v9 = 138412290;
+    v7 = swift_slowAlloc();
+    v8 = swift_slowAlloc();
+    *v7 = 138412290;
     swift_errorRetain();
-    v11 = _swift_stdlib_bridgeErrorToNSError();
-    *(v9 + 4) = v11;
-    *v10 = v11;
-    _os_log_impl(&dword_0, v6, v7, "AAPCommandSearchMarketplace error: %@", v9, 0xCu);
-    sub_F2F0(v10, &qword_29130, &unk_15820);
+    v9 = _swift_stdlib_bridgeErrorToNSError();
+    *(v7 + 4) = v9;
+    *v8 = v9;
+    _os_log_impl(&dword_0, v5, v6, "AAPCommandSearchMarketplace error: %@", v7, 0xCu);
+    sub_F2F0(v8, &qword_29130, &unk_15820);
   }
 
-  v13 = v0[14];
-  v12 = v0[15];
-  v14 = v0[13];
-  v15 = v0[11];
+  v11 = v0[14];
+  v10 = v0[15];
+  v12 = v0[13];
+  v13 = v0[11];
 
-  (*(v13 + 8))(v12, v14);
-  if (!v15)
+  (*(v11 + 8))(v10, v12);
+  if (!v13)
   {
     __break(1u);
     goto LABEL_11;
   }
 
-  v16 = v0[18];
-  v18 = v0[11];
-  v17 = v0[12];
+  v14 = v0[18];
+  v15 = v0[11];
   v0[8] = 0;
   v0[9] = 0xE000000000000000;
-  v0[10] = v16;
+  v0[10] = v14;
   sub_EE70(&qword_29128, &qword_15818);
   sub_1251C();
-  v19 = v0[8];
-  v20 = v0[9];
-  v21 = objc_allocWithZone(SACommandFailed);
-  v22 = sub_1248C();
+  v16 = objc_allocWithZone(SACommandFailed);
+  v17 = sub_1248C();
 
-  v23 = [v21 initWithReason:v22];
+  v18 = [v16 initWithReason:v17];
 
-  if (!v23)
+  if (!v18)
   {
 LABEL_11:
     __break(1u);
     return;
   }
 
-  v24 = [v23 dictionary];
+  v19 = [v18 dictionary];
 
-  if (v24)
+  if (v19)
   {
     sub_1247C();
   }
 
-  v25 = v0[18];
-  v18(0);
+  v15(0);
 
-  v27 = v0[15];
-  v26 = v0[16];
+  v20 = v0[1];
 
-  v28 = v0[1];
-
-  v28();
+  v20();
 }
 
 uint64_t sub_E05C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v9 = (*(*(sub_EE70(&qword_29120, &qword_157E8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v11 = v26 - v10;
-  sub_F0D8(a3, v26 - v10);
+  v9 = sub_EE70(&qword_29120, &qword_157E8);
+  __chkstk_darwin(v9 - 8);
+  v11 = v25 - v10;
+  sub_F0D8(a3, v25 - v10);
   v12 = sub_124DC();
   v13 = *(v12 - 8);
   v14 = (*(v13 + 48))(v11, 1, v12);
@@ -2249,53 +2190,52 @@ uint64_t sub_E05C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
     (*(v13 + 8))(v11, v12);
   }
 
-  v16 = *(a5 + 16);
-  v15 = *(a5 + 24);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v16)
+  if (v15)
   {
     swift_getObjectType();
-    v17 = sub_124BC();
-    v19 = v18;
+    v16 = sub_124BC();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v20 = sub_124AC() + 32;
-      v21 = swift_allocObject();
-      *(v21 + 16) = a4;
-      *(v21 + 24) = a5;
+      v19 = sub_124AC() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
-      if (v19 | v17)
+      if (v18 | v16)
       {
-        v27[0] = 0;
-        v27[1] = 0;
-        v22 = v27;
-        v27[2] = v17;
-        v27[3] = v19;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
       else
       {
-        v22 = 0;
+        v21 = 0;
       }
 
-      v26[1] = 7;
-      v26[2] = v22;
-      v26[3] = v20;
-      v24 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v23 = swift_task_create();
 
       sub_F2F0(a3, &qword_29120, &qword_157E8);
 
-      return v24;
+      return v23;
     }
   }
 
   else
   {
-    v17 = 0;
-    v19 = 0;
+    v16 = 0;
+    v18 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -2303,15 +2243,15 @@ LABEL_6:
   }
 
   sub_F2F0(a3, &qword_29120, &qword_157E8);
-  v23 = swift_allocObject();
-  *(v23 + 16) = a4;
-  *(v23 + 24) = a5;
-  if (v19 | v17)
+  v22 = swift_allocObject();
+  *(v22 + 16) = a4;
+  *(v22 + 24) = a5;
+  if (v18 | v16)
   {
-    v27[4] = 0;
-    v27[5] = 0;
-    v27[6] = v17;
-    v27[7] = v19;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
@@ -2349,110 +2289,107 @@ id AAPCommandSearchMarketplaceWrapper.__deallocating_deinit()
 
 uint64_t sub_E5C8(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_E6C0;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = sub_E6C0;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t sub_E6C0()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 void _s12Applications34AAPCommandSearchMarketplaceWrapperC7perform10completion13serviceHelper13executionInfoyySDys11AnyHashableVypGSgcSg_So09AFServiceI0_pSgSo018AFCommandExecutionK0CSgtF_0(void (*a1)(id), uint64_t a2)
 {
-  v50 = a2;
-  v52 = a1;
-  v2 = (*(*(sub_EE70(&qword_29120, &qword_157E8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v48 = &v48 - v3;
+  v49 = a2;
+  v51 = a1;
+  v2 = sub_EE70(&qword_29120, &qword_157E8);
+  __chkstk_darwin(v2 - 8);
+  v47 = &v47 - v3;
   v4 = sub_1244C();
   v5 = *(v4 - 8);
-  v6 = v5[8];
-  v7 = (__chkstk_darwin)();
-  v9 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __chkstk_darwin(v7);
-  v12 = &v48 - v11;
-  __chkstk_darwin(v10);
-  v14 = &v48 - v13;
-  v15 = sub_D42C();
+  v6 = __chkstk_darwin(v4);
+  v8 = &v47 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __chkstk_darwin(v6);
+  v11 = &v47 - v10;
+  __chkstk_darwin(v9);
+  v13 = &v47 - v12;
+  v14 = sub_D42C();
   swift_beginAccess();
-  v49 = v5[2];
-  v49(v14, v15, v4);
-  v16 = sub_1243C();
-  v17 = sub_124EC();
-  if (os_log_type_enabled(v16, v17))
+  v48 = *(v5 + 16);
+  v48(v13, v14, v4);
+  v15 = sub_1243C();
+  v16 = sub_124EC();
+  if (os_log_type_enabled(v15, v16))
   {
-    v18 = swift_slowAlloc();
-    *v18 = 0;
-    _os_log_impl(&dword_0, v16, v17, "AAPCommandSearchMarketplace executing...", v18, 2u);
+    v17 = swift_slowAlloc();
+    *v17 = 0;
+    _os_log_impl(&dword_0, v15, v16, "AAPCommandSearchMarketplace executing...", v17, 2u);
   }
 
-  v19 = v5[1];
-  v19(v14, v4);
-  v20 = *(v51 + OBJC_IVAR____TtC12Applications34AAPCommandSearchMarketplaceWrapper_marketplace + 8);
-  if (!v20)
+  v18 = *(v5 + 8);
+  v18(v13, v4);
+  v19 = *(v50 + OBJC_IVAR____TtC12Applications34AAPCommandSearchMarketplaceWrapper_marketplace + 8);
+  if (!v19)
   {
     goto LABEL_12;
   }
 
-  v21 = *(v51 + OBJC_IVAR____TtC12Applications34AAPCommandSearchMarketplaceWrapper_marketplace);
-  v22 = HIBYTE(v20) & 0xF;
-  if ((v20 & 0x2000000000000000) == 0)
+  v20 = *(v50 + OBJC_IVAR____TtC12Applications34AAPCommandSearchMarketplaceWrapper_marketplace);
+  v21 = HIBYTE(v19) & 0xF;
+  if ((v19 & 0x2000000000000000) == 0)
   {
-    v22 = v21 & 0xFFFFFFFFFFFFLL;
+    v21 = v20 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v22)
+  if (!v21)
   {
 LABEL_12:
     swift_beginAccess();
-    v49(v9, v15, v4);
-    v31 = sub_1243C();
-    v32 = sub_124FC();
-    if (os_log_type_enabled(v31, v32))
+    v48(v8, v14, v4);
+    v30 = sub_1243C();
+    v31 = sub_124FC();
+    if (os_log_type_enabled(v30, v31))
     {
-      v33 = swift_slowAlloc();
-      *v33 = 0;
-      _os_log_impl(&dword_0, v31, v32, "AAPCommandSearchMarketplace: failure - missing marketplace data", v33, 2u);
+      v32 = swift_slowAlloc();
+      *v32 = 0;
+      _os_log_impl(&dword_0, v30, v31, "AAPCommandSearchMarketplace: failure - missing marketplace data", v32, 2u);
     }
 
-    v19(v9, v4);
-    v34 = v52;
-    if (v52)
+    v18(v8, v4);
+    v33 = v51;
+    if (v51)
     {
-      v35 = objc_allocWithZone(SACommandFailed);
-      v36 = sub_1248C();
-      v37 = [v35 initWithReason:v36];
+      v34 = objc_allocWithZone(SACommandFailed);
+      v35 = sub_1248C();
+      v36 = [v34 initWithReason:v35];
 
-      if (v37)
+      if (v36)
       {
-        v38 = [v37 dictionary];
+        v37 = [v36 dictionary];
 
-        if (v38)
+        if (v37)
         {
-          v53 = 0;
+          v52 = 0;
           sub_1247C();
 
-          v39 = v53;
+          v38 = v52;
         }
 
         else
         {
-          v39 = 0;
+          v38 = 0;
         }
 
-        v47 = v39;
+        v46 = v38;
         goto LABEL_27;
       }
     }
@@ -2466,88 +2403,88 @@ LABEL_12:
     goto LABEL_31;
   }
 
-  v23 = *(v51 + OBJC_IVAR____TtC12Applications34AAPCommandSearchMarketplaceWrapper_keyword + 8);
-  if (v23)
+  v22 = *(v50 + OBJC_IVAR____TtC12Applications34AAPCommandSearchMarketplaceWrapper_keyword + 8);
+  if (v22)
   {
-    v24 = *(v51 + OBJC_IVAR____TtC12Applications34AAPCommandSearchMarketplaceWrapper_keyword);
-    v25 = HIBYTE(v23) & 0xF;
-    if ((v23 & 0x2000000000000000) == 0)
+    v23 = *(v50 + OBJC_IVAR____TtC12Applications34AAPCommandSearchMarketplaceWrapper_keyword);
+    v24 = HIBYTE(v22) & 0xF;
+    if ((v22 & 0x2000000000000000) == 0)
     {
-      v25 = v24 & 0xFFFFFFFFFFFFLL;
+      v24 = v23 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v25)
+    if (v24)
     {
-      v26 = sub_124DC();
-      v27 = v48;
-      (*(*(v26 - 8) + 56))(v48, 1, 1, v26);
-      v28 = swift_allocObject();
-      v28[2] = 0;
-      v28[3] = 0;
-      v28[4] = v21;
-      v28[5] = v20;
-      v28[6] = v24;
-      v28[7] = v23;
-      v29 = v52;
-      v30 = v50;
-      v28[8] = v52;
-      v28[9] = v30;
+      v25 = sub_124DC();
+      v26 = v47;
+      (*(*(v25 - 8) + 56))(v47, 1, 1, v25);
+      v27 = swift_allocObject();
+      v27[2] = 0;
+      v27[3] = 0;
+      v27[4] = v20;
+      v27[5] = v19;
+      v27[6] = v23;
+      v27[7] = v22;
+      v28 = v51;
+      v29 = v49;
+      v27[8] = v51;
+      v27[9] = v29;
 
-      sub_F0C8(v29);
-      sub_E05C(0, 0, v27, &unk_157F8, v28);
+      sub_F0C8(v28, v29);
+      sub_E05C(0, 0, v26, &unk_157F8, v27);
 
       return;
     }
   }
 
   swift_beginAccess();
-  v49(v12, v15, v4);
+  v48(v11, v14, v4);
 
-  v40 = sub_1243C();
-  v41 = sub_124FC();
-  if (os_log_type_enabled(v40, v41))
+  v39 = sub_1243C();
+  v40 = sub_124FC();
+  if (os_log_type_enabled(v39, v40))
   {
-    v42 = swift_slowAlloc();
-    *v42 = 0;
-    _os_log_impl(&dword_0, v40, v41, "AAPCommandSearchMarketplace: failure - missing search string data", v42, 2u);
+    v41 = swift_slowAlloc();
+    *v41 = 0;
+    _os_log_impl(&dword_0, v39, v40, "AAPCommandSearchMarketplace: failure - missing search string data", v41, 2u);
   }
 
-  v19(v12, v4);
-  v34 = v52;
-  if (!v52)
+  v18(v11, v4);
+  v33 = v51;
+  if (!v51)
   {
 LABEL_31:
     __break(1u);
     goto LABEL_32;
   }
 
-  v43 = objc_allocWithZone(SACommandFailed);
-  v44 = sub_1248C();
-  v45 = [v43 initWithReason:v44];
+  v42 = objc_allocWithZone(SACommandFailed);
+  v43 = sub_1248C();
+  v44 = [v42 initWithReason:v43];
 
-  if (!v45)
+  if (!v44)
   {
 LABEL_32:
     __break(1u);
     return;
   }
 
-  v46 = [v45 dictionary];
+  v45 = [v44 dictionary];
 
-  if (v46)
+  if (v45)
   {
-    v53 = 0;
+    v52 = 0;
     sub_1247C();
 
-    v46 = v53;
+    v45 = v52;
   }
 
-  v47 = v46;
+  v46 = v45;
 LABEL_27:
-  v34(v47);
+  v33(v46);
 }
 
-uint64_t sub_EE20(uint64_t result)
+uint64_t sub_EE20(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -2568,7 +2505,6 @@ uint64_t sub_EE70(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2578,15 +2514,10 @@ uint64_t sub_EE70(uint64_t *a1, uint64_t *a2)
 
 uint64_t sub_EEB8()
 {
-  v1 = v0[2];
   swift_unknownObjectRelease();
-  v2 = v0[5];
 
-  v3 = v0[7];
-
-  if (v0[8])
+  if (*(v0 + 64))
   {
-    v4 = v0[9];
   }
 
   return _swift_deallocObject(v0, 80, 7);
@@ -2598,27 +2529,25 @@ uint64_t sub_EF10()
   v3 = v0[5];
   v4 = v0[6];
   v5 = v0[7];
-  v7 = v0[8];
-  v6 = v0[9];
-  v8 = swift_task_alloc();
-  *(v1 + 16) = v8;
-  *v8 = v1;
-  v8[1] = sub_EFD4;
+  v6 = v0[8];
+  v7 = swift_task_alloc();
+  *(v1 + 16) = v7;
+  *v7 = v1;
+  v7[1] = sub_EFD4;
 
-  return sub_D964(v8, v9, v10, v2, v3, v4, v5, v7);
+  return sub_D964(v7, v8, v9, v2, v3, v4, v5, v6);
 }
 
 uint64_t sub_EFD4()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
-uint64_t sub_F0C8(uint64_t result)
+uint64_t sub_F0C8(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -2636,33 +2565,30 @@ uint64_t sub_F0D8(uint64_t a1, uint64_t a2)
 
 uint64_t sub_F148(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_F354;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_F354;
 
-  return sub_E5C8(a1, v5);
+  return sub_E5C8(a1, v4);
 }
 
 uint64_t sub_F200()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
 
 uint64_t sub_F238(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = sub_EFD4;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = sub_EFD4;
 
-  return sub_E5C8(a1, v5);
+  return sub_E5C8(a1, v4);
 }
 
 uint64_t sub_F2F0(uint64_t a1, uint64_t *a2, uint64_t *a3)
@@ -2687,33 +2613,30 @@ void sub_F3DC(os_log_t log)
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "%s Missing turnId for UUFR event", &v1, 0xCu);
 }
 
-void sub_F460()
+void sub_F460(uint64_t a1)
 {
   objc_opt_class();
   sub_2474();
   sub_2484();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Au);
 }
 
-void sub_F514()
+void sub_F514(uint64_t a1)
 {
   objc_opt_class();
   sub_2474();
   sub_2484();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
 }
 
 void sub_F5B4(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
   objc_opt_class();
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
   [a2 domain];
   [a2 code];
   sub_2474();
   sub_2484();
-  _os_log_error_impl(v7, v8, v9, v10, v11, 0x48u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x48u);
 }
 
 void sub_F6AC(os_log_t log)
@@ -2766,18 +2689,20 @@ void sub_F920(uint64_t a1)
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void sub_F9B4(uint64_t *a1)
+void sub_F9B4()
 {
-  sub_4718(a1, __stack_chk_guard);
+  sub_4718(__stack_chk_guard);
+  v6 = 136315394;
   sub_46AC();
-  sub_46D0(&dword_0, v1, v2, "%s com.apple.siri.applications: Error: LS didn't return a knowledge UUID -> %{public}@", v3, v4, v5, v6, 2u);
+  sub_46D0(&dword_0, v0, v1, "%s com.apple.siri.applications: Error: LS didn't return a knowledge UUID -> %{public}@", v2, v3, v4, v5, v6);
 }
 
-void sub_FA28(uint64_t *a1)
+void sub_FA28()
 {
-  sub_4718(a1, __stack_chk_guard);
+  sub_4718(__stack_chk_guard);
+  v6 = 136315394;
   sub_46AC();
-  sub_46D0(&dword_0, v1, v2, "%s com.apple.siri.applications: Error: LS didn't return a sequenceNumber -> %{public}@", v3, v4, v5, v6, 2u);
+  sub_46D0(&dword_0, v0, v1, "%s com.apple.siri.applications: Error: LS didn't return a sequenceNumber -> %{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_FA9C(os_log_t log)
@@ -2787,11 +2712,19 @@ void sub_FA9C(os_log_t log)
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "%s com.apple.siri.applications: Error: LS didn't return a workspace", &v1, 0xCu);
 }
 
-void sub_FB20(uint64_t *a1)
+void sub_FB20()
 {
-  sub_4718(a1, __stack_chk_guard);
+  sub_4718(__stack_chk_guard);
+  v6 = 136315394;
   sub_46AC();
-  sub_46D0(&dword_0, v1, v2, "%s com.apple.siri.applications: Error: startAnchorString decode failed - resetting -> error=%{public}@", v3, v4, v5, v6, 2u);
+  sub_46D0(&dword_0, v0, v1, "%s com.apple.siri.applications: Error: startAnchorString decode failed - resetting -> error=%{public}@", v2, v3, v4, v5, v6);
+}
+
+void sub_FB94(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[AAPSyncHandler _checkIfResetIsNeededForKey:withStartAnchorString:validity:lastState:completion:]";
+  sub_46EC(&dword_0, a1, a3, "%s com.apple.siri.applications: validity checks out", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_FC0C(void *a1)
@@ -2799,6 +2732,13 @@ void sub_FC0C(void *a1)
   [a1 version];
   sub_4708();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
+}
+
+void sub_FCB0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "+[AAPSyncHandler _checkIfResetIsNeededForKey:withStartAnchorString:validity:lastState:completion:]";
+  sub_46EC(&dword_0, a1, a3, "%s com.apple.siri.applications: version checks out", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_FD28()
@@ -2821,26 +2761,27 @@ void sub_FDB8()
   _os_log_error_impl(&dword_0, v3, OS_LOG_TYPE_ERROR, "%s com.apple.siri.applications: Error: MI state is bad -> validity = '%{public}@' , anchor = %{public}@", v4, 0x20u);
 }
 
-void sub_FE48(uint64_t *a1)
+void sub_FE48()
 {
-  sub_4718(a1, __stack_chk_guard);
-  v3 = v1 + 24;
-  v4 = *(v1 + 24);
-  v2 = *(v3 + 8);
-  v6 = 136315650;
-  v7 = "[AAPSyncHandler beginSyncWithAnchor:validity:count:forKey:beginInfo:configuration:]_block_invoke";
-  v8 = 2048;
-  v9 = v2;
-  v10 = 2048;
-  v11 = v4;
-  _os_log_debug_impl(&dword_0, v5, OS_LOG_TYPE_DEBUG, "%s com.apple.siri.applications: created processor for source -> processor=%p source=%p", &v6, 0x20u);
+  sub_4718(__stack_chk_guard);
+  v2 = v0 + 24;
+  v3 = *(v0 + 24);
+  v1 = *(v2 + 8);
+  v5 = 136315650;
+  v6 = "[AAPSyncHandler beginSyncWithAnchor:validity:count:forKey:beginInfo:configuration:]_block_invoke";
+  v7 = 2048;
+  v8 = v1;
+  v9 = 2048;
+  v10 = v3;
+  _os_log_debug_impl(&dword_0, v4, OS_LOG_TYPE_DEBUG, "%s com.apple.siri.applications: created processor for source -> processor=%p source=%p", &v5, 0x20u);
 }
 
-void sub_FEE0(uint64_t *a1)
+void sub_FEE0()
 {
-  sub_4718(a1, __stack_chk_guard);
+  sub_4718(__stack_chk_guard);
+  v6 = 136315394;
   sub_46AC();
-  sub_46D0(&dword_0, v1, v2, "%s com.apple.siri.applications: Error: preAnchorString decode failed - terminating sync -> error=%{public}@", v3, v4, v5, v6, 2u);
+  sub_46D0(&dword_0, v0, v1, "%s com.apple.siri.applications: Error: preAnchorString decode failed - terminating sync -> error=%{public}@", v2, v3, v4, v5, v6);
 }
 
 void sub_FF54(os_log_t log)
@@ -2848,6 +2789,20 @@ void sub_FF54(os_log_t log)
   v1 = 136315138;
   v2 = "[AAPSyncHandler getChangeAfterAnchor:changeInfo:]";
   _os_log_error_impl(&dword_0, log, OS_LOG_TYPE_ERROR, "%s com.apple.siri.applications: Error: called without a processor - terminating sync", &v1, 0xCu);
+}
+
+void sub_FFD8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AAPSyncHandler sourceIsReady:]_block_invoke";
+  sub_46EC(&dword_0, a1, a3, "%s com.apple.siri.applications: not applying state from source observer since the observer is out of date", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10050()
+{
+  v6 = 136315394;
+  sub_46C0();
+  sub_46D0(&dword_0, v0, v1, "%s com.apple.siri.applications: Error: persistence save error (%{public}@)", v2, v3, v4, v5, v6);
 }
 
 void sub_100C8(uint64_t a1)
@@ -2858,12 +2813,18 @@ void sub_100C8(uint64_t a1)
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void sub_101D4(uint64_t a1)
+void sub_1015C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = *(*a1 + 16);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[AAPSyncHandler sourceIsReady:]_block_invoke";
+  sub_46EC(&dword_0, a1, a3, "%s com.apple.siri.applications: not saving state from source observer since it's the same as the current state", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_101D4()
+{
   sub_502C();
   sub_5014();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_104D8()
@@ -2900,12 +2861,11 @@ void sub_10684()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10708(uint64_t a1)
+void sub_10708()
 {
-  v1 = *(a1 + 48);
   sub_502C();
   sub_5014();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_10788(os_log_t log)
@@ -2920,6 +2880,27 @@ void sub_1080C()
   v1[0] = 136315394;
   sub_4724();
   _os_log_error_impl(&dword_0, v0, OS_LOG_TYPE_ERROR, "%s com.apple.siri.applications: Error: failed constraint - if we don't think we need to reconcile then we shouldn't have any new deletes -> %@", v1, 0x16u);
+}
+
+void sub_1088C()
+{
+  v6 = 136315394;
+  sub_4724();
+  sub_5F08(&dword_0, v0, v1, "%s com.apple.siri.applications: retained old state because there was no need to reconcile -> %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10900()
+{
+  v6 = 136315394;
+  sub_4724();
+  sub_5F08(&dword_0, v0, v1, "%s com.apple.siri.applications: applied new state -> %@", v2, v3, v4, v5, v6);
+}
+
+void sub_10974()
+{
+  v6 = 136315394;
+  sub_4724();
+  sub_5F08(&dword_0, v0, v1, "%s com.apple.siri.applications: gathered metaDataItem=%@", v2, v3, v4, v5, v6);
 }
 
 id sub_109E8(uint64_t a1, uint64_t a2)
@@ -3026,6 +3007,13 @@ void sub_10EA8(uint64_t a1, uint64_t a2, os_log_t log)
   _os_log_debug_impl(&dword_0, log, OS_LOG_TYPE_DEBUG, "%s com.apple.siri.applications: could not load %{public}@ info file for metaDataItem=%@", &v3, 0x20u);
 }
 
+void sub_10F44()
+{
+  v6 = 136315394;
+  sub_4724();
+  sub_46D0(&dword_0, v0, v1, "%s com.apple.siri.applications: Error: could not load info file for metaDataItem=%@", v2, v3, v4, v5, v6);
+}
+
 void sub_10FB8(uint64_t a1, uint64_t a2, NSObject *a3)
 {
   *v3 = 136315650;
@@ -3060,12 +3048,26 @@ void sub_11154()
   sub_8528(&dword_0, v0, v1, "%s com.apple.siri.applications: Error: the Info.plist identifier (%@) did not agree with metaDataItem=%@", v2);
 }
 
+void sub_111D0()
+{
+  v6 = 136315394;
+  sub_4724();
+  sub_46D0(&dword_0, v0, v1, "%s com.apple.siri.applications: Error: no Info.plist identifier for metaDataItem=%@", v2, v3, v4, v5, v6);
+}
+
 id sub_11244()
 {
   sub_84F4();
   +[NSAssertionHandler currentHandler];
   sub_851C();
   return [v1 handleFailureInMethod:v0 object:? file:? lineNumber:? description:?];
+}
+
+void sub_112A0()
+{
+  v6 = 136315394;
+  sub_4724();
+  sub_46D0(&dword_0, v0, v1, "%s com.apple.siri.applications: Error: could not get the bundle for metaDataItem=%@", v2, v3, v4, v5, v6);
 }
 
 id sub_11314()

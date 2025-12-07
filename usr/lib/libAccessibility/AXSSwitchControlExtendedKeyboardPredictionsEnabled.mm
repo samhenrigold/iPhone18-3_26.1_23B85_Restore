@@ -3,7 +3,7 @@
 
 @implementation AXSSwitchControlExtendedKeyboardPredictionsEnabled
 
-uint64_t ___AXSSwitchControlExtendedKeyboardPredictionsEnabled_block_invoke()
+void *___AXSSwitchControlExtendedKeyboardPredictionsEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

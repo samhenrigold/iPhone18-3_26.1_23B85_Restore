@@ -20,49 +20,48 @@
 - (id)openICloudDriveSettingsPage
 {
   v0 = sub_10000281C(&qword_10003A430, &unk_10002B930);
-  v1 = *(*(v0 - 8) + 64);
-  v2 = __chkstk_darwin(v0 - 8);
-  v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v2);
-  v6 = &v19 - v5;
+  v1 = __chkstk_darwin(v0 - 8);
+  v3 = &v18 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v1);
+  v5 = &v18 - v4;
   if (qword_100039C20 != -1)
   {
     swift_once();
   }
 
-  v7 = type metadata accessor for Logger();
-  sub_100001F70(v7, static Logger.daemon);
-  v8 = Logger.logObject.getter();
-  v9 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v8, v9))
+  v6 = type metadata accessor for Logger();
+  sub_100001F70(v6, static Logger.daemon);
+  v7 = Logger.logObject.getter();
+  v8 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v7, v8))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v8, v9, "Opening iCloud Drive Settings Page", v10, 2u);
+    v9 = swift_slowAlloc();
+    *v9 = 0;
+    _os_log_impl(&_mh_execute_header, v7, v8, "Opening iCloud Drive Settings Page", v9, 2u);
   }
 
   URL.init(string:)();
   result = [objc_opt_self() defaultWorkspace];
   if (result)
   {
-    v12 = result;
-    sub_100016C80(v6, v4);
-    v13 = type metadata accessor for URL();
-    v14 = *(v13 - 8);
-    v16 = 0;
-    if ((*(v14 + 48))(v4, 1, v13) != 1)
+    v11 = result;
+    sub_100016C80(v5, v3);
+    v12 = type metadata accessor for URL();
+    v13 = *(v12 - 8);
+    v15 = 0;
+    if ((*(v13 + 48))(v3, 1, v12) != 1)
     {
-      URL._bridgeToObjectiveC()(v15);
-      v16 = v17;
-      (*(v14 + 8))(v4, v13);
+      URL._bridgeToObjectiveC()(v14);
+      v15 = v16;
+      (*(v13 + 8))(v3, v12);
     }
 
     sub_1000108BC(_swiftEmptyArrayStorage);
     isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
-    [v12 openSensitiveURL:v16 withOptions:isa];
+    [v11 openSensitiveURL:v15 withOptions:isa];
 
-    return sub_100014CFC(v6, &qword_10003A430, &unk_10002B930);
+    return sub_100014CFC(v5, &qword_10003A430, &unk_10002B930);
   }
 
   else

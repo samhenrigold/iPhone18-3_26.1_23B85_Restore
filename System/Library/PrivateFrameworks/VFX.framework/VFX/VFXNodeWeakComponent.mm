@@ -8,17 +8,17 @@
 - (VFXNodeWeakComponent)initWithType:(int64_t)type component:(id)component
 {
   componentCopy = component;
-  v14.receiver = self;
-  v14.super_class = VFXNodeWeakComponent;
-  v7 = [(VFXNodeWeakComponent *)&v14 init];
-  v10 = v7;
+  v12.receiver = self;
+  v12.super_class = VFXNodeWeakComponent;
+  v7 = [(VFXNodeWeakComponent *)&v12 init];
+  v9 = v7;
   if (v7)
   {
-    objc_msgSend_setType_(v7, v8, type, v9);
-    objc_msgSend_setComponent_(v10, v11, componentCopy, v12);
+    objc_msgSend_setType_(v7, v8, type);
+    objc_msgSend_setComponent_(v9, v10, componentCopy);
   }
 
-  return v10;
+  return v9;
 }
 
 - (id)component

@@ -9,15 +9,12 @@
 
 - (id)description
 {
-  v9.receiver = self;
-  v9.super_class = ICDResponse;
-  v3 = [(ICDResponse *)&v9 description];
-  responseCode = self->_responseCode;
-  v5 = [(NSData *)self->_responseData length];
-  MIMEType = self->_MIMEType;
-  v7 = [v3 stringByAppendingFormat:@" [%ld]: %ld bytes (%@)\n%@", responseCode, v5, MIMEType, self->_responseHeaderFields];
+  v6.receiver = self;
+  v6.super_class = ICDResponse;
+  v3 = [(ICDResponse *)&v6 description];
+  v4 = [v3 stringByAppendingFormat:@" [%ld]: %ld bytes (%@)\n%@", self->_responseCode, -[NSData length](self->_responseData, "length"), self->_MIMEType, self->_responseHeaderFields];
 
-  return v7;
+  return v4;
 }
 
 - (ICDResponse)initWithCode:(unint64_t)code headerFields:(id)fields data:(id)data MIMEType:(id)type error:(id)error

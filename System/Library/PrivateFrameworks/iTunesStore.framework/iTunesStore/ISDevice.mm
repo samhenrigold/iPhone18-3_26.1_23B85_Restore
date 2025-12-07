@@ -23,7 +23,7 @@
 
 - (ISDevice)init
 {
-  __ISRecordSPIClassUsage(self);
+  __ISRecordSPIClassUsage(self, "/Library/Caches/com.apple.xbs/Sources/iTunesStore/src/ISDevice.m", 45, a2);
   v6.receiver = self;
   v6.super_class = ISDevice;
   v3 = [(ISDevice *)&v6 init];
@@ -235,7 +235,7 @@ id __16__ISDevice_guid__block_invoke(uint64_t a1)
 
 - (BOOL)releasePowerAssertion:(id)assertion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -245,39 +245,42 @@ id __16__ISDevice_guid__block_invoke(uint64_t a1)
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (v6)
   {
-    v12 = 138412546;
-    v13 = objc_opt_class();
-    v14 = 2112;
+    v11 = 138412546;
+    v12 = objc_opt_class();
+    v13 = 2112;
     assertionCopy = assertion;
-    LODWORD(v11) = 22;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: Releasing power assertion: %@", &v11, 22);
+    if (v8)
     {
-      v8 = v7;
-      [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:{4, &v12, v11}];
-      free(v8);
+      v9 = v8;
+      [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:4];
+      free(v9);
       SSFileLog();
     }
   }
 
-  result = CPSetPowerAssertionWithIdentifier();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return CPSetPowerAssertionWithIdentifier();
 }
 
 - (NSString)serialNumber
@@ -297,7 +300,7 @@ id __16__ISDevice_guid__block_invoke(uint64_t a1)
 
 - (BOOL)takePowerAssertion:(id)assertion
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharediTunesStoreConfig];
   if (!mEMORY[0x277D69B38])
   {
@@ -307,62 +310,64 @@ id __16__ISDevice_guid__block_invoke(uint64_t a1)
   shouldLog = [mEMORY[0x277D69B38] shouldLog];
   if ([mEMORY[0x277D69B38] shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (v6)
   {
-    v12 = 138412546;
-    v13 = objc_opt_class();
-    v14 = 2112;
+    v11 = 138412546;
+    v12 = objc_opt_class();
+    v13 = 2112;
     assertionCopy = assertion;
-    LODWORD(v11) = 22;
-    v7 = _os_log_send_and_compose_impl();
-    if (v7)
+    v8 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_275BC3000, oSLogObject, 0, "%@: Taking power assertion: %@", &v11, 22);
+    if (v8)
     {
-      v8 = v7;
-      [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:{4, &v12, v11}];
-      free(v8);
+      v9 = v8;
+      [MEMORY[0x277CCACA8] stringWithCString:v8 encoding:4];
+      free(v9);
       SSFileLog();
     }
   }
 
-  result = CPSetPowerAssertionWithIdentifier();
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return CPSetPowerAssertionWithIdentifier();
 }
 
 - (void)requestFreeSpace:(unint64_t)space atPath:(id)path withOptions:(id)options completionBlock:(id)block
 {
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3052000000;
-  v12 = __Block_byref_object_copy_;
-  v13 = __Block_byref_object_dispose_;
-  v14 = 0;
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3052000000;
+  v11 = __Block_byref_object_copy_;
+  v12 = __Block_byref_object_dispose_;
+  v13 = 0;
   dispatchQueue = self->_dispatchQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __64__ISDevice_requestFreeSpace_atPath_withOptions_completionBlock___block_invoke;
   block[3] = &unk_27A670618;
   block[5] = self;
-  block[6] = &v9;
+  block[6] = &v8;
   block[4] = options;
   dispatch_sync(dispatchQueue, block);
-  v7 = v10[5];
   CPFreeSpaceRequestBytesAtPathWithCompletionBlock();
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v8, 8);
 }
 
 void *__64__ISDevice_requestFreeSpace_atPath_withOptions_completionBlock___block_invoke(void *a1)
@@ -415,28 +420,27 @@ LABEL_6:
     v4 = shouldLog;
   }
 
-  if (os_log_type_enabled([mEMORY[0x277D69B38] OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    v5 = v4;
+    v6 = v4;
   }
 
   else
   {
-    v5 = v4 & 2;
+    v6 = v4 & 2;
   }
 
-  if (v5)
+  if (v6)
   {
     v12[0] = 0;
-    LODWORD(v11) = 2;
-    v10 = v12;
-    v6 = _os_log_send_and_compose_impl();
-    if (v6)
+    v7 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_275BC3000, oSLogObject, 1, "[Device]: Reset location and privacy", v12, 2);
+    if (v7)
     {
-      v7 = v6;
-      v8 = [MEMORY[0x277CCACA8] stringWithCString:v6 encoding:{4, v12, v11}];
-      free(v7);
-      v10 = v8;
+      v8 = v7;
+      v9 = [MEMORY[0x277CCACA8] stringWithCString:v7 encoding:4];
+      free(v8);
+      v11 = v9;
       SSFileLog();
     }
   }
@@ -447,27 +451,27 @@ LABEL_6:
 
 - (id)supportedOfferDeviceForDevices:(id)devices
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   _deviceClass = [(ISDevice *)self _deviceClass];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [devices countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [devices countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(devices);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         deviceIdentifier = [v9 deviceIdentifier];
         if (deviceIdentifier <= 2)
         {
@@ -475,13 +479,13 @@ LABEL_6:
           {
             if (_deviceClass == 1)
             {
-              goto LABEL_23;
+              return v9;
             }
           }
 
           else if (deviceIdentifier == 1)
           {
-            goto LABEL_23;
+            return v9;
           }
         }
 
@@ -489,26 +493,23 @@ LABEL_6:
         {
           if (deviceIdentifier == 9 && _deviceClass == 3)
           {
-            goto LABEL_23;
+            return v9;
           }
         }
 
         else if (_deviceClass == 2)
         {
-          goto LABEL_23;
+          return v9;
         }
       }
 
-      v6 = [devices countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [devices countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
-  v9 = 0;
-LABEL_23:
-  v12 = *MEMORY[0x277D85DE8];
-  return v9;
+  return 0;
 }
 
 - (int)_deviceClass

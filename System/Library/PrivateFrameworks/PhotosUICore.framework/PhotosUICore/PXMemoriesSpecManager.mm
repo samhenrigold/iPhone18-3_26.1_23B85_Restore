@@ -9,7 +9,7 @@
 - (id)createSpec
 {
   extendedTraitCollection = [(PXFeatureSpecManager *)self extendedTraitCollection];
-  v4 = [[PXMemoriesSpec alloc] initWithExtendedTraitCollection:extendedTraitCollection options:[(PXFeatureSpecManager *)self options] style:[(PXMemoriesSpecManager *)self style]];
+  v4 = [[PXMemoriesSpec alloc] initWithExtendedTraitCollection:extendedTraitCollection options:objc_msgSend_options(self) style:[(PXMemoriesSpecManager *)self style]];
 
   return v4;
 }

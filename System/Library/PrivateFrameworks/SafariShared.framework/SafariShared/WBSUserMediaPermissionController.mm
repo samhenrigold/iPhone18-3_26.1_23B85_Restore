@@ -234,7 +234,7 @@ uint64_t __53__WBSUserMediaPermissionController_reloadPreferences__block_invoke(
   return v10;
 }
 
-uint64_t __71__WBSUserMediaPermissionController_permissionForOrigin_topLevelOrigin___block_invoke(uint64_t a1)
+void *__71__WBSUserMediaPermissionController_permissionForOrigin_topLevelOrigin___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _permissionForOrigin:*(a1 + 40) topLevelOrigin:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -465,40 +465,40 @@ void __81__WBSUserMediaPermissionController_saltForOrigin_topLevelOrigin_frameId
 {
   originCopy = origin;
   levelOriginCopy = levelOrigin;
-  v10 = originHash(originCopy, levelOriginCopy);
-  if (v10)
+  v11 = originHash(originCopy, levelOriginCopy);
+  if (v11)
   {
-    v11 = [(NSMutableDictionary *)self->_cachedSettings objectForKeyedSubscript:v10];
-    v12 = v11;
-    if (v11)
+    v12 = [(NSMutableDictionary *)self->_cachedSettings objectForKeyedSubscript:v11];
+    v13 = v12;
+    if (v12)
     {
-      if (![(WBSUserMediaCapturePolicyEntry *)v11 isValid])
+      if (![(WBSUserMediaCapturePolicyEntry *)v12 isValid])
       {
-        [(WBSUserMediaPermissionController *)self _invalidateCachedSettingsForOriginHash:v10];
+        [(WBSUserMediaPermissionController *)self _invalidateCachedSettingsForOriginHash:v11];
       }
     }
 
     else
     {
-      v12 = [[WBSUserMediaCapturePolicyEntry alloc] initWithPermission:0 expirationPolicy:1 forOrigin:originCopy topLevelOrigin:levelOriginCopy];
+      v13 = [[WBSUserMediaCapturePolicyEntry alloc] initWithPermission:0 expirationPolicy:1 forOrigin:originCopy topLevelOrigin:levelOriginCopy];
       [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
     }
 
-    v14 = [(WBSUserMediaPermissionController *)self _saltWithPolicyEntry:v12 computedPermission:[(WBSUserMediaPermissionController *)self _permissionByApplyingDefaultsForMissingValuesInPermission:[(WBSUserMediaCapturePolicyEntry *)v12 permission]] frameIdentifier:identifier];
+    v15 = [(WBSUserMediaPermissionController *)self _saltWithPolicyEntry:v13 computedPermission:[(WBSUserMediaPermissionController *)self _permissionByApplyingDefaultsForMissingValuesInPermission:[(WBSUserMediaCapturePolicyEntry *)v13 permission]] frameIdentifier:identifier];
   }
 
   else
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXUserMediaCapture();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXUserMediaCapture(0, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [WBSUserMediaPermissionController _saltForOrigin:v13 topLevelOrigin:? frameIdentifier:?];
+      [WBSUserMediaPermissionController _saltForOrigin:v14 topLevelOrigin:? frameIdentifier:?];
     }
 
-    v14 = &stru_1F3A5E418;
+    v15 = &stru_1F3A5E418;
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)_saltWithPolicyEntry:(id)entry computedPermission:(unint64_t)permission frameIdentifier:(unint64_t)identifier

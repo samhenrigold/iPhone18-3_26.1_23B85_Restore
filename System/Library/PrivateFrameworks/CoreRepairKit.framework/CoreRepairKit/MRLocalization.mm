@@ -103,13 +103,12 @@
 
 - (void)locKeyWithFormat:(os_log_t)log component:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_24785F000, log, OS_LOG_TYPE_ERROR, "component %ld not defined: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_24785F000, log, OS_LOG_TYPE_ERROR, "component %ld not defined: %@", &v3, 0x16u);
 }
 
 @end

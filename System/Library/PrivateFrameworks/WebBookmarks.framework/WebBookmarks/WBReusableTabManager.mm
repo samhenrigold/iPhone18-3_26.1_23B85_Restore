@@ -35,9 +35,11 @@
 
 uint64_t __37__WBReusableTabManager_sharedManager__block_invoke(uint64_t a1)
 {
-  +[WBReusableTabManager sharedManager]::sharedManager = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = +[WBReusableTabManager sharedManager]::sharedManager;
+  +[WBReusableTabManager sharedManager]::sharedManager = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (WBReusableTabManager)init
@@ -140,13 +142,13 @@ uint64_t __37__WBReusableTabManager_sharedManager__block_invoke(uint64_t a1)
     cleanupTimer = self->_cleanupTimer;
     self->_cleanupTimer = v7;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v7, cleanupTimer);
   }
 }
 
 - (void)_cleanUp
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   cleanupTimer = self->_cleanupTimer;
   self->_cleanupTimer = 0;
 
@@ -155,25 +157,25 @@ uint64_t __37__WBReusableTabManager_sharedManager__block_invoke(uint64_t a1)
   allObjects = [(NSCache *)selfCopy->_uuidToTabCache allObjects];
   v6 = [allObjects copy];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
-    v8 = *v27;
+    v8 = *v26;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v26 + 1) + 8 * i);
+        v10 = *(*(&v25 + 1) + 8 * i);
         reusableTab = [v10 reusableTab];
         uuid = [reusableTab uuid];
         v13 = [allGroupsTabsUUIDs containsObject:uuid];
@@ -202,7 +204,7 @@ uint64_t __37__WBReusableTabManager_sharedManager__block_invoke(uint64_t a1)
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v7);
@@ -213,100 +215,97 @@ uint64_t __37__WBReusableTabManager_sharedManager__block_invoke(uint64_t a1)
     selfCopy->_pendingCleanup = 0;
     [(WBReusableTabManager *)selfCopy _scheduleCleanup];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)allGroupsTabsUUIDs
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CBEB58] set];
   tabGroupManager = [(WBReusableTabManager *)self tabGroupManager];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   allNamedTabGroupsUnsorted = [tabGroupManager allNamedTabGroupsUnsorted];
-  v6 = [allNamedTabGroupsUnsorted countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v6 = [allNamedTabGroupsUnsorted countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v6)
   {
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(allNamedTabGroupsUnsorted);
         }
 
-        [(WBReusableTabManager *)self _addTabUUIDsFromGroup:*(*(&v21 + 1) + 8 * i) toSet:v3];
+        [(WBReusableTabManager *)self _addTabUUIDsFromGroup:*(*(&v20 + 1) + 8 * i) toSet:v3];
       }
 
-      v6 = [allNamedTabGroupsUnsorted countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [allNamedTabGroupsUnsorted countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   windowStates = [(WBReusableTabManager *)self windowStates];
-  v10 = [windowStates countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v10 = [windowStates countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v10)
   {
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (j = 0; j != v10; ++j)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(windowStates);
         }
 
-        localTabGroup = [*(*(&v17 + 1) + 8 * j) localTabGroup];
+        localTabGroup = [*(*(&v16 + 1) + 8 * j) localTabGroup];
         [(WBReusableTabManager *)self _addTabUUIDsFromGroup:localTabGroup toSet:v3];
       }
 
-      v10 = [windowStates countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v10 = [windowStates countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v10);
   }
 
   v14 = [v3 copy];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)_addTabUUIDsFromGroup:(id)group toSet:(id)set
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   setCopy = set;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   tabs = [group tabs];
-  v7 = [tabs countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [tabs countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(tabs);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * v9);
+        v10 = *(*(&v14 + 1) + 8 * v9);
         v11 = objc_alloc(MEMORY[0x277CCAD78]);
         uuid = [v10 uuid];
         v13 = [v11 initWithUUIDString:uuid];
@@ -316,13 +315,11 @@ uint64_t __37__WBReusableTabManager_sharedManager__block_invoke(uint64_t a1)
       }
 
       while (v7 != v9);
-      v7 = [tabs countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [tabs countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enumerateReusableTabs:(id)tabs

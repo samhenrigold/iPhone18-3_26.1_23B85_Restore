@@ -534,44 +534,44 @@
   libraryAssetProvider = [(BKBookFlowController *)self libraryAssetProvider];
   v21 = [libraryAssetProvider libraryAssetOnMainQueueWithAssetIdentifier:identifierCopy];
 
-  v22 = sub_100089C18();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_100089C18(v22);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 141558530;
-    v48 = 1752392040;
-    v49 = 2112;
-    v50 = identifierCopy;
-    v51 = 2112;
-    v52 = v21;
-    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] _largeCoverViewControllerForAssetIdentifier: %@", buf, 0x20u);
+    v49 = 1752392040;
+    v50 = 2112;
+    v51 = identifierCopy;
+    v52 = 2112;
+    v53 = v21;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[%{mask.hash}@] _largeCoverViewControllerForAssetIdentifier: %@", buf, 0x20u);
   }
 
   contentType = [v21 contentType];
-  v34 = _NSConcreteStackBlock;
-  v35 = 3221225472;
-  v36 = sub_10008BE44;
-  v37 = &unk_100A04FC0;
-  v24 = (contentType - 7) != 65534 && (contentType - 7) != 0xFFFF;
-  v45 = v24;
-  v38 = optionsCopy;
-  v39 = identifierCopy;
-  v40 = assertionCopy;
+  v35 = _NSConcreteStackBlock;
+  v36 = 3221225472;
+  v37 = sub_10008BE44;
+  v38 = &unk_100A04FC0;
+  v25 = (contentType - 7) != 65534 && (contentType - 7) != 0xFFFF;
+  v46 = v25;
+  v39 = optionsCopy;
+  v40 = identifierCopy;
+  v41 = assertionCopy;
   selfCopy = self;
   downloadCopy = download;
-  v42 = presenterCopy;
-  v43 = transactionCopy;
-  v25 = v19;
-  v44 = v25;
-  v26 = transactionCopy;
-  v27 = presenterCopy;
-  v28 = assertionCopy;
-  v29 = identifierCopy;
-  v30 = optionsCopy;
-  v31 = objc_retainBlock(&v34);
-  [(BKBookFlowController *)self _obtainImageForAsset:v21 withAssetIdentifier:v29 options:v30 withTransaction:v26 completion:v31, v34, v35, v36, v37];
-  v32 = v25;
+  v43 = presenterCopy;
+  v44 = transactionCopy;
+  v26 = v19;
+  v45 = v26;
+  v27 = transactionCopy;
+  v28 = presenterCopy;
+  v29 = assertionCopy;
+  v30 = identifierCopy;
+  v31 = optionsCopy;
+  v32 = objc_retainBlock(&v35);
+  [(BKBookFlowController *)self _obtainImageForAsset:v21 withAssetIdentifier:v30 options:v31 withTransaction:v27 completion:v32, v35, v36, v37, v38];
+  v33 = v26;
 
-  return v25;
+  return v26;
 }
 
 - (id)_bookFlowAssetPresentingForShowAssetAction:(id)action
@@ -602,7 +602,7 @@
   viewCopy = view;
   optionsCopy = options;
   completionCopy = completion;
-  v19 = sub_100089C18();
+  v19 = sub_100089C18(completionCopy);
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -1151,20 +1151,21 @@ LABEL_27:
 {
   transactionCopy = transaction;
   v5 = +[(BKBasePresentingViewController *)BKAssetPresentingViewController];
-  if ([v5 length])
+  v6 = [v5 length];
+  if (v6)
   {
-    v6 = sub_100089C18();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100089C18(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Open Last Known Book. last ID: %@", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Open Last Known Book. last ID: %@", &v10, 0xCu);
     }
 
-    v7 = +[BKLastOpenBookManager sharedInstance];
-    v8 = [v7 shouldAutoOpenAsset:v5];
+    v8 = +[BKLastOpenBookManager sharedInstance];
+    v9 = [v8 shouldAutoOpenAsset:v5];
 
-    if ((v8 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
       +[(BKBasePresentingViewController *)BKAssetPresentingViewController];
     }
@@ -1526,7 +1527,7 @@ LABEL_11:
   transactionCopy = transaction;
   identifierCopy = identifier;
   optionsCopy = options;
-  v11 = sub_100089C18();
+  v11 = sub_100089C18(optionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = [optionsCopy objectForKeyedSubscript:AEAssetLogID];
@@ -1730,180 +1731,181 @@ LABEL_11:
   locationCopy = location;
   optionsCopy = options;
   completionCopy = completion;
-  v17 = sub_100089C18();
+  v17 = sub_100089C18(completionCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     v18 = [transactionCopy debugDescription];
     v19 = [optionsCopy objectForKeyedSubscript:AEAssetLogID];
     *buf = 138544130;
-    v81 = v18;
-    v82 = 2160;
-    v83 = 1752392040;
-    v84 = 2112;
-    v85 = identifierCopy;
-    v86 = 2114;
-    v87 = v19;
+    v82 = v18;
+    v83 = 2160;
+    v84 = 1752392040;
+    v85 = 2112;
+    v86 = identifierCopy;
+    v87 = 2114;
+    v88 = v19;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction: %{public}@ assetID: %{mask.hash}@ logID: %{public}@", buf, 0x2Au);
   }
 
-  v56 = locationCopy;
-  if ([(BKBookFlowController *)self isOpeningFromCard:transactionCopy options:optionsCopy])
+  v20 = [(BKBookFlowController *)self isOpeningFromCard:transactionCopy options:optionsCopy];
+  v57 = locationCopy;
+  if (v20)
   {
-    v20 = sub_100089C18();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100089C18(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = [optionsCopy objectForKeyedSubscript:AEAssetLogID];
+      v22 = [optionsCopy objectForKeyedSubscript:AEAssetLogID];
       *buf = 141558530;
-      v81 = 1752392040;
-      v82 = 2112;
-      v83 = identifierCopy;
-      v84 = 2114;
-      v85 = v21;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 0: open asset %{mask.hash}@ from card logID: %{public}@", buf, 0x20u);
+      v82 = 1752392040;
+      v83 = 2112;
+      v84 = identifierCopy;
+      v85 = 2114;
+      v86 = v22;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 0: open asset %{mask.hash}@ from card logID: %{public}@", buf, 0x20u);
     }
 
     permanentOrTemporaryAssetID = [identifierCopy permanentOrTemporaryAssetID];
-    v23 = [(BKBookFlowController *)self _currentPresenterFromAllScenesForAssetID:permanentOrTemporaryAssetID];
+    v24 = [(BKBookFlowController *)self _currentPresenterFromAllScenesForAssetID:permanentOrTemporaryAssetID];
 
-    presentedViewController = [v23 presentedViewController];
+    presentedViewController = [v24 presentedViewController];
     if (presentedViewController)
     {
-      v25 = presentedViewController;
-      v26 = sub_100089C18();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v26 = presentedViewController;
+      v27 = sub_100089C18(presentedViewController);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = [optionsCopy objectForKeyedSubscript:AEAssetLogID];
+        v28 = [optionsCopy objectForKeyedSubscript:AEAssetLogID];
         *buf = 141558530;
-        v81 = 1752392040;
-        v82 = 2112;
-        v83 = identifierCopy;
-        v84 = 2114;
-        v85 = v27;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 0: asset %{mask.hash}@ already open logID: %{public}@", buf, 0x20u);
+        v82 = 1752392040;
+        v83 = 2112;
+        v84 = identifierCopy;
+        v85 = 2114;
+        v86 = v28;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 0: asset %{mask.hash}@ already open logID: %{public}@", buf, 0x20u);
       }
 
       objc_opt_class();
-      presentedViewController2 = [v25 presentedViewController];
-      v29 = BUDynamicCast();
+      presentedViewController2 = [v26 presentedViewController];
+      v30 = BUDynamicCast();
 
-      v77[0] = _NSConcreteStackBlock;
-      v77[1] = 3221225472;
-      v77[2] = sub_100090CFC;
-      v77[3] = &unk_100A04160;
-      v78 = v23;
-      v79 = completionCopy;
-      v30 = completionCopy;
-      v31 = v23;
-      [(BKBookFlowController *)self _optionallyCloseCardStack:v29 inPresentedVC:v25 completion:v77];
+      v78[0] = _NSConcreteStackBlock;
+      v78[1] = 3221225472;
+      v78[2] = sub_100090CFC;
+      v78[3] = &unk_100A04160;
+      v79 = v24;
+      v80 = completionCopy;
+      v31 = completionCopy;
+      v32 = v24;
+      [(BKBookFlowController *)self _optionallyCloseCardStack:v30 inPresentedVC:v26 completion:v78];
 
       goto LABEL_19;
     }
 
-    v32 = [(BKBookFlowController *)self _prepareOpenFromCardOverlayWithTransaction:transactionCopy assetIdentifier:identifierCopy options:optionsCopy];
+    v33 = [(BKBookFlowController *)self _prepareOpenFromCardOverlayWithTransaction:transactionCopy assetIdentifier:identifierCopy options:optionsCopy];
 
-    optionsCopy = v32;
+    optionsCopy = v33;
   }
 
-  v71[0] = _NSConcreteStackBlock;
-  v71[1] = 3221225472;
-  v71[2] = sub_100090D70;
-  v71[3] = &unk_100A05268;
-  v71[4] = self;
-  v55 = transactionCopy;
-  v72 = transactionCopy;
-  v33 = completionCopy;
-  v76 = v33;
-  v54 = identifierCopy;
-  v34 = identifierCopy;
-  v73 = v34;
-  v74 = locationCopy;
-  v35 = optionsCopy;
-  v75 = v35;
-  v36 = objc_retainBlock(v71);
-  v67[0] = _NSConcreteStackBlock;
-  v67[1] = 3221225472;
-  v67[2] = sub_100091034;
-  v67[3] = &unk_100A052B8;
-  v67[4] = self;
-  v37 = v34;
-  v68 = v37;
-  optionsCopy = v35;
-  v69 = optionsCopy;
-  v38 = v36;
-  v70 = v38;
-  v39 = objc_retainBlock(v67);
-  v40 = +[BKAppDelegate delegate];
-  appLaunchCoordinator = [v40 appLaunchCoordinator];
+  v72[0] = _NSConcreteStackBlock;
+  v72[1] = 3221225472;
+  v72[2] = sub_100090D70;
+  v72[3] = &unk_100A05268;
+  v72[4] = self;
+  v56 = transactionCopy;
+  v73 = transactionCopy;
+  v34 = completionCopy;
+  v77 = v34;
+  v55 = identifierCopy;
+  v35 = identifierCopy;
+  v74 = v35;
+  v75 = locationCopy;
+  v36 = optionsCopy;
+  v76 = v36;
+  v37 = objc_retainBlock(v72);
+  v68[0] = _NSConcreteStackBlock;
+  v68[1] = 3221225472;
+  v68[2] = sub_100091034;
+  v68[3] = &unk_100A052B8;
+  v68[4] = self;
+  v38 = v35;
+  v69 = v38;
+  optionsCopy = v36;
+  v70 = optionsCopy;
+  v39 = v37;
+  v71 = v39;
+  v40 = objc_retainBlock(v68);
+  v41 = +[BKAppDelegate delegate];
+  appLaunchCoordinator = [v41 appLaunchCoordinator];
 
-  v62[0] = _NSConcreteStackBlock;
-  v62[1] = 3221225472;
-  v62[2] = sub_1000915EC;
-  v62[3] = &unk_100A05308;
-  v65 = v39;
-  v42 = appLaunchCoordinator;
-  v63 = v42;
-  v43 = v37;
+  v63[0] = _NSConcreteStackBlock;
+  v63[1] = 3221225472;
+  v63[2] = sub_1000915EC;
+  v63[3] = &unk_100A05308;
+  v66 = v40;
+  v43 = appLaunchCoordinator;
   v64 = v43;
-  v44 = v33;
-  v66 = v44;
-  v53 = v39;
-  v45 = objc_retainBlock(v62);
-  v46 = [optionsCopy objectForKeyedSubscript:@"BKBookPresentingForceOpenBeforeWelcomeCompleted"];
-  LODWORD(v39) = [v46 BOOLValue];
+  v44 = v38;
+  v65 = v44;
+  v45 = v34;
+  v67 = v45;
+  v54 = v40;
+  v46 = objc_retainBlock(v63);
+  v47 = [optionsCopy objectForKeyedSubscript:@"BKBookPresentingForceOpenBeforeWelcomeCompleted"];
+  LODWORD(v40) = [v47 BOOLValue];
 
-  v47 = [optionsCopy objectForKeyedSubscript:AEAssetLogID];
-  v48 = sub_100089C18();
-  v49 = os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT);
-  if (v39)
+  v48 = [optionsCopy objectForKeyedSubscript:AEAssetLogID];
+  v49 = sub_100089C18(v48);
+  v50 = os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
+  if (v40)
   {
-    if (v49)
+    if (v50)
     {
       *buf = 141558530;
-      v81 = 1752392040;
-      v82 = 2112;
-      v83 = v43;
-      v84 = 2114;
-      v85 = v47;
-      v50 = 32;
-      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 2: force open asset %{mask.hash}@ before welcome logID: %{public}@", buf, 0x20u);
+      v82 = 1752392040;
+      v83 = 2112;
+      v84 = v44;
+      v85 = 2114;
+      v86 = v48;
+      v51 = 32;
+      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 2: force open asset %{mask.hash}@ before welcome logID: %{public}@", buf, 0x20u);
     }
 
     else
     {
-      v50 = 32;
+      v51 = 32;
     }
   }
 
   else
   {
-    if (v49)
+    if (v50)
     {
       *buf = 141558274;
-      v81 = 1752392040;
-      v82 = 2112;
-      v83 = v43;
-      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 2: appLaunchCoordinatorOnConditionMask begin. assetID: %{mask.hash}@", buf, 0x16u);
+      v82 = 1752392040;
+      v83 = 2112;
+      v84 = v44;
+      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "showAssetWithTransaction step 2: appLaunchCoordinatorOnConditionMask begin. assetID: %{mask.hash}@", buf, 0x16u);
     }
 
-    v50 = 40;
+    v51 = 40;
   }
 
-  v57[0] = _NSConcreteStackBlock;
-  v57[1] = 3221225472;
-  v57[2] = sub_100091748;
-  v57[3] = &unk_100A05330;
-  v57[4] = self;
-  v58 = v43;
-  v59 = v42;
-  v60 = v45;
-  v61 = v44;
-  v25 = v44;
-  v51 = v42;
-  v52 = v45;
-  [v51 appLaunchCoordinatorOnConditionMask:v50 blockID:@"showAsset:onLaunch" performBlock:v57];
+  v58[0] = _NSConcreteStackBlock;
+  v58[1] = 3221225472;
+  v58[2] = sub_100091748;
+  v58[3] = &unk_100A05330;
+  v58[4] = self;
+  v59 = v44;
+  v60 = v43;
+  v61 = v46;
+  v62 = v45;
+  v26 = v45;
+  v52 = v43;
+  v53 = v46;
+  [v52 appLaunchCoordinatorOnConditionMask:v51 blockID:@"showAsset:onLaunch" performBlock:v58];
 
-  identifierCopy = v54;
-  transactionCopy = v55;
+  identifierCopy = v55;
+  transactionCopy = v56;
 LABEL_19:
 }
 
@@ -1914,7 +1916,7 @@ LABEL_19:
   locationCopy = location;
   optionsCopy = options;
   completionCopy = completion;
-  v17 = sub_100089C18();
+  v17 = sub_100089C18(completionCopy);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 141558274;
@@ -1940,7 +1942,7 @@ LABEL_19:
   if (v23 && ([v23 sceneController], v24 = objc_claimAutoreleasedReturnValue(), v24, !v24))
   {
     sceneHosting2 = [(BKBookFlowController *)self sceneHosting];
-    v26 = sub_100089C18();
+    v26 = sub_100089C18(sceneHosting2);
     v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
     if (sceneHosting2)
     {
@@ -1998,7 +2000,7 @@ LABEL_19:
   locationCopy = location;
   optionsCopy = options;
   completionCopy = completion;
-  v15 = sub_100089C18();
+  v15 = sub_100089C18(completionCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = [optionsCopy objectForKeyedSubscript:AEAssetLogID];

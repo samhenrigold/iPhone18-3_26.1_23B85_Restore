@@ -123,34 +123,33 @@
 - (id)description
 {
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:3];
-  lanes = self->_lanes;
-  v5 = descriptionForLaneInfos();
-  [v3 addObject:v5];
+  v4 = descriptionForLaneInfos();
+  [v3 addObject:v4];
   firstObject = [(NSArray *)self->_titles firstObject];
   if (firstObject)
   {
-    v7 = [MEMORY[0x1E696AEC0] _navigation_stringForServerFormattedString:firstObject abbreviatedUnits:0 detail:0 spoken:0 overrideVariables:self->_variableOverrides];
-    if (v7)
+    v6 = [MEMORY[0x1E696AEC0] _navigation_stringForServerFormattedString:firstObject abbreviatedUnits:0 detail:0 spoken:0 overrideVariables:self->_variableOverrides];
+    if (v6)
     {
-      [v3 addObject:v7];
+      [v3 addObject:v6];
     }
   }
 
   firstObject2 = [(NSArray *)self->_instructions firstObject];
-  v9 = firstObject2;
+  v8 = firstObject2;
   if (firstObject2)
   {
     formatTokens = [firstObject2 formatTokens];
     firstObject3 = [formatTokens firstObject];
 
     type = [firstObject3 type];
-    v13 = MEMORY[0x1E696AEC0];
+    v12 = MEMORY[0x1E696AEC0];
     if (type == 11)
     {
       stringValue = [firstObject3 stringValue];
-      v15 = [v13 stringWithFormat:@"{%@}", stringValue];
+      v14 = [v12 stringWithFormat:@"{%@}", stringValue];
 
-      if (!v15)
+      if (!v14)
       {
         goto LABEL_11;
       }
@@ -158,8 +157,8 @@
 
     else
     {
-      v15 = [MEMORY[0x1E696AEC0] _navigation_stringForServerFormattedString:v9 abbreviatedUnits:0 detail:0 spoken:0 overrideVariables:self->_variableOverrides];
-      if (!v15)
+      v14 = [MEMORY[0x1E696AEC0] _navigation_stringForServerFormattedString:v8 abbreviatedUnits:0 detail:0 spoken:0 overrideVariables:self->_variableOverrides];
+      if (!v14)
       {
 LABEL_11:
 
@@ -167,14 +166,14 @@ LABEL_11:
       }
     }
 
-    [v3 addObject:v15];
+    [v3 addObject:v14];
     goto LABEL_11;
   }
 
 LABEL_12:
-  v16 = [v3 componentsJoinedByString:{@", "}];
+  v15 = [v3 componentsJoinedByString:{@", "}];
 
-  return v16;
+  return v15;
 }
 
 - (MNGuidanceLaneInfo)initWithID:(id)d isForManeuver:(BOOL)maneuver lanes:(id)lanes titles:(id)titles instructions:(id)instructions variableOverrides:(id)overrides distanceDetailLevel:(int64_t)level composedGuidanceEventIndex:(int)self0

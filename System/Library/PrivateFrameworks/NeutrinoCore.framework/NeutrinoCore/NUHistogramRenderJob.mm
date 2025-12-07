@@ -96,7 +96,7 @@
     v10 = parameters;
     if (parameters)
     {
-      [parameters colorMatrix];
+      objc_msgSend_colorMatrix(parameters);
     }
 
     else
@@ -354,7 +354,7 @@ void __33__NUHistogramRenderJob_complete___block_invoke(uint64_t a1, void *a2)
   v8 = parameters;
   if (parameters)
   {
-    [parameters colorMatrix];
+    objc_msgSend_colorMatrix(parameters);
   }
 
   else

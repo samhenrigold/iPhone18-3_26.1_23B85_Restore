@@ -43,13 +43,14 @@
 {
   eventCopy = event;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v5 = eventCopy;
-    connected = [v5 connected];
-    adapterType = [v5 adapterType];
-    startTime = [v5 startTime];
-    endTime = [v5 endTime];
+    v6 = eventCopy;
+    connected = [v6 connected];
+    adapterType = [v6 adapterType];
+    startTime = [v6 startTime];
+    endTime = [v6 endTime];
 
     self = [(ATXChargerPluggedInDuetEvent *)self initWithChargerPluggedInState:connected adapterType:adapterType startDate:startTime endDate:endTime];
     selfCopy = self;
@@ -57,10 +58,10 @@
 
   else
   {
-    v11 = __atxlog_handle_default();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(ATXChargerPluggedInDuetEvent *)eventCopy initWithATXEvent:v11];
+      [(ATXChargerPluggedInDuetEvent *)eventCopy initWithATXEvent:v12];
     }
 
     selfCopy = 0;
@@ -78,31 +79,32 @@
   if (v5)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
       batteryExternalConnectedKey = [MEMORY[0x277CFE338] batteryExternalConnectedKey];
-      v7 = [v5 objectForKeyedSubscript:batteryExternalConnectedKey];
+      v9 = [v5 objectForKeyedSubscript:batteryExternalConnectedKey];
       objc_opt_class();
-      isKindOfClass = objc_opt_isKindOfClass();
+      v10 = objc_opt_isKindOfClass();
 
-      if (isKindOfClass)
+      if (v10)
       {
         batteryExternalConnectedKey2 = [MEMORY[0x277CFE338] batteryExternalConnectedKey];
-        v10 = [v5 objectForKeyedSubscript:batteryExternalConnectedKey2];
-        integerValue = [v10 integerValue];
+        v13 = [v5 objectForKeyedSubscript:batteryExternalConnectedKey2];
+        integerValue = [v13 integerValue];
 
         batteryAdapterTypeKey = [MEMORY[0x277CFE338] batteryAdapterTypeKey];
-        v13 = [v5 objectForKeyedSubscript:batteryAdapterTypeKey];
+        v16 = [v5 objectForKeyedSubscript:batteryAdapterTypeKey];
 
-        if (v13)
+        if (v16)
         {
           objc_opt_class();
-          v14 = objc_opt_isKindOfClass();
-          v15 = v13;
-          if ((v14 & 1) == 0)
+          v17 = objc_opt_isKindOfClass();
+          v18 = v16;
+          if ((v17 & 1) == 0)
           {
-            v16 = __atxlog_handle_default();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+            v19 = __atxlog_handle_default(v17);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               [ATXChargerPluggedInDuetEvent initWithCurrentContextStoreValues];
             }
@@ -115,52 +117,52 @@
 
         else
         {
-          v15 = &unk_283A569F0;
+          v18 = &unk_283A569F0;
         }
 
-        v25 = MEMORY[0x277CBEAA8];
-        v26 = v15;
-        date = [v25 date];
-        v28 = [(ATXChargerPluggedInDuetEvent *)self initWithChargerPluggedInState:integerValue adapterType:v26 startDate:date endDate:date];
+        v28 = MEMORY[0x277CBEAA8];
+        v29 = v18;
+        date = [v28 date];
+        v31 = [(ATXChargerPluggedInDuetEvent *)self initWithChargerPluggedInState:integerValue adapterType:v29 startDate:date endDate:date];
 
-        self = v28;
+        self = v31;
         selfCopy = self;
 LABEL_23:
 
         goto LABEL_20;
       }
 
-      v23 = __atxlog_handle_default();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v26 = __atxlog_handle_default(v11);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [ATXChargerPluggedInDuetEvent initWithCurrentContextStoreValues];
       }
 
-      v20 = MEMORY[0x277CBEAD8];
-      v21 = *MEMORY[0x277CBE658];
-      v22 = @"Value for 'batteryExternalConnectedKey' in ContextStore's 'keyPathForBatteryStateDataDictionary' is not an NSNumber.";
+      v23 = MEMORY[0x277CBEAD8];
+      v24 = *MEMORY[0x277CBE658];
+      v25 = @"Value for 'batteryExternalConnectedKey' in ContextStore's 'keyPathForBatteryStateDataDictionary' is not an NSNumber.";
     }
 
     else
     {
-      v19 = __atxlog_handle_default();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v22 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         [ATXChargerPluggedInDuetEvent initWithCurrentContextStoreValues];
       }
 
-      v20 = MEMORY[0x277CBEAD8];
-      v21 = *MEMORY[0x277CBE658];
-      v22 = @"ContextStore's 'keyPathForBatteryStateDataDictionary' is not an NSDictionary.";
+      v23 = MEMORY[0x277CBEAD8];
+      v24 = *MEMORY[0x277CBE658];
+      v25 = @"ContextStore's 'keyPathForBatteryStateDataDictionary' is not an NSDictionary.";
     }
 
-    [v20 raise:v21 format:v22];
+    [v23 raise:v24 format:v25];
   }
 
   else
   {
-    v18 = __atxlog_handle_default();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [ATXChargerPluggedInDuetEvent initWithCurrentContextStoreValues];
     }
@@ -193,7 +195,7 @@ LABEL_20:
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForNSInteger:(int64_t)integer key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -210,11 +212,11 @@ LABEL_20:
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -225,7 +227,6 @@ LABEL_20:
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -248,14 +249,14 @@ LABEL_7:
   coderCopy = coder;
   v5 = MEMORY[0x277D42620];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_anchor();
+  v7 = __atxlog_handle_anchor(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"codingKeyForStartDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v7];
 
   if (v8 && ([coderCopy error], v9 = objc_claimAutoreleasedReturnValue(), v9, !v9))
   {
     v11 = MEMORY[0x277D42620];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_anchor();
+    v13 = __atxlog_handle_anchor(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"codingKeyForEndDate" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v13];
 
     if (!v14 || ([coderCopy error], v15 = objc_claimAutoreleasedReturnValue(), v15, v15) || (v16 = objc_msgSend(coderCopy, "decodeIntegerForKey:", @"codingKeyForChargerPluggedInState"), -[ATXChargerPluggedInDuetEvent checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:](self, "checkAndReportDecodingFailureIfNeededForNSInteger:key:coder:errorDomain:errorCode:", v16, @"codingKeyForChargerPluggedInState", coderCopy, @"com.apple.proactive.ATXDuetEvent", -1)))
@@ -267,7 +268,7 @@ LABEL_7:
     {
       v18 = MEMORY[0x277D42620];
       v19 = objc_opt_class();
-      v20 = __atxlog_handle_anchor();
+      v20 = __atxlog_handle_anchor(v19);
       v21 = [v18 robustDecodeObjectOfClass:v19 forKey:@"codingKeyForAdapterType" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.proactive.ATXDuetEvent" errorCode:-1 logHandle:v20];
 
       if (v21 && ([coderCopy error], v22 = objc_claimAutoreleasedReturnValue(), v22, !v22))
@@ -293,18 +294,16 @@ LABEL_7:
 
 - (void)initWithATXEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value of event was %@, not %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Value of event was %@, not %@", &v7, 0x16u);
 }
 
 @end

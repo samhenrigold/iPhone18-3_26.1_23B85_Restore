@@ -33,7 +33,7 @@
   v151 = 0x3FF0000000000000;
   if (geometryCopy)
   {
-    [geometryCopy imageQuad];
+    objc_msgSend_imageQuad(geometryCopy);
   }
 
   else

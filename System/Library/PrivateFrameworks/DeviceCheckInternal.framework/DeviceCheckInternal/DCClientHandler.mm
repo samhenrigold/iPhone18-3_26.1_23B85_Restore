@@ -130,20 +130,20 @@
 {
   keyCopy = key;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v8 = sub_100000F04();
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100001C3C;
-  v11[3] = &unk_10000C470;
-  objc_copyWeak(&v14, &location);
-  v12 = keyCopy;
-  v13 = completionCopy;
-  v9 = completionCopy;
-  v10 = keyCopy;
-  dispatch_async(v8, v11);
+  inited = objc_initWeak(&location, self);
+  v9 = sub_100000F04(inited);
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100001C3C;
+  v12[3] = &unk_10000C470;
+  objc_copyWeak(&v15, &location);
+  v13 = keyCopy;
+  v14 = completionCopy;
+  v10 = completionCopy;
+  v11 = keyCopy;
+  dispatch_async(v9, v12);
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(&location);
 }
 
@@ -152,22 +152,22 @@
   identifierCopy = identifier;
   dCopy = d;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v11 = sub_100000F04();
+  inited = objc_initWeak(&location, self);
+  v12 = sub_100000F04(inited);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100001E9C;
   block[3] = &unk_10000C498;
-  objc_copyWeak(&v19, &location);
-  v16 = identifierCopy;
-  v17 = dCopy;
-  v18 = completionCopy;
-  v12 = completionCopy;
-  v13 = dCopy;
-  v14 = identifierCopy;
-  dispatch_async(v11, block);
+  objc_copyWeak(&v20, &location);
+  v17 = identifierCopy;
+  v18 = dCopy;
+  v19 = completionCopy;
+  v13 = completionCopy;
+  v14 = dCopy;
+  v15 = identifierCopy;
+  dispatch_async(v12, block);
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
 }
 
@@ -177,24 +177,24 @@
   idCopy = id;
   hashCopy = hash;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v14 = sub_100000F04();
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100002128;
-  v19[3] = &unk_10000C4C0;
-  objc_copyWeak(&v24, &location);
-  v20 = keyCopy;
-  v21 = idCopy;
-  v22 = hashCopy;
-  v23 = completionCopy;
-  v15 = completionCopy;
-  v16 = hashCopy;
-  v17 = idCopy;
-  v18 = keyCopy;
-  dispatch_async(v14, v19);
+  inited = objc_initWeak(&location, self);
+  v15 = sub_100000F04(inited);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100002128;
+  v20[3] = &unk_10000C4C0;
+  objc_copyWeak(&v25, &location);
+  v21 = keyCopy;
+  v22 = idCopy;
+  v23 = hashCopy;
+  v24 = completionCopy;
+  v16 = completionCopy;
+  v17 = hashCopy;
+  v18 = idCopy;
+  v19 = keyCopy;
+  dispatch_async(v15, v20);
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
 }
 
@@ -205,26 +205,26 @@
   idCopy = id;
   hashCopy = hash;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v17 = sub_100000F04();
+  inited = objc_initWeak(&location, self);
+  v18 = sub_100000F04(inited);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000023D8;
   block[3] = &unk_10000C4E8;
-  objc_copyWeak(&v29, &location);
-  v24 = identifierCopy;
-  v25 = dCopy;
-  v26 = idCopy;
-  v27 = hashCopy;
-  v28 = completionCopy;
-  v18 = completionCopy;
-  v19 = hashCopy;
-  v20 = idCopy;
-  v21 = dCopy;
-  v22 = identifierCopy;
-  dispatch_async(v17, block);
+  objc_copyWeak(&v30, &location);
+  v25 = identifierCopy;
+  v26 = dCopy;
+  v27 = idCopy;
+  v28 = hashCopy;
+  v29 = completionCopy;
+  v19 = completionCopy;
+  v20 = hashCopy;
+  v21 = idCopy;
+  v22 = dCopy;
+  v23 = identifierCopy;
+  dispatch_async(v18, block);
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&location);
 }
 
@@ -234,7 +234,7 @@
   hashCopy = hash;
   dataCopy = data;
   completionCopy = completion;
-  v13 = sub_100000F04();
+  v13 = sub_100000F04(completionCopy);
   v18[0] = _NSConcreteStackBlock;
   v18[1] = 3221225472;
   v18[2] = sub_100002634;
@@ -255,23 +255,23 @@
   keyCopy = key;
   optionsCopy = options;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v14 = sub_100000F04();
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100002CB8;
-  v18[3] = &unk_10000C580;
-  objc_copyWeak(&v22, &location);
+  inited = objc_initWeak(&location, self);
+  v15 = sub_100000F04(inited);
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_100002CB8;
+  v19[3] = &unk_10000C580;
+  objc_copyWeak(&v23, &location);
   keychainCopy = keychain;
-  v19 = keyCopy;
-  v20 = optionsCopy;
-  v21 = completionCopy;
-  v15 = completionCopy;
-  v16 = optionsCopy;
-  v17 = keyCopy;
-  dispatch_async(v14, v18);
+  v20 = keyCopy;
+  v21 = optionsCopy;
+  v22 = completionCopy;
+  v16 = completionCopy;
+  v17 = optionsCopy;
+  v18 = keyCopy;
+  dispatch_async(v15, v19);
 
-  objc_destroyWeak(&v22);
+  objc_destroyWeak(&v23);
   objc_destroyWeak(&location);
 }
 
@@ -281,24 +281,24 @@
   idCopy = id;
   hashCopy = hash;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v14 = sub_100000F04();
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_100003454;
-  v19[3] = &unk_10000C4C0;
-  objc_copyWeak(&v24, &location);
-  v20 = assertCopy;
-  v21 = idCopy;
-  v22 = hashCopy;
-  v23 = completionCopy;
-  v15 = completionCopy;
-  v16 = hashCopy;
-  v17 = idCopy;
-  v18 = assertCopy;
-  dispatch_async(v14, v19);
+  inited = objc_initWeak(&location, self);
+  v15 = sub_100000F04(inited);
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100003454;
+  v20[3] = &unk_10000C4C0;
+  objc_copyWeak(&v25, &location);
+  v21 = assertCopy;
+  v22 = idCopy;
+  v23 = hashCopy;
+  v24 = completionCopy;
+  v16 = completionCopy;
+  v17 = hashCopy;
+  v18 = idCopy;
+  v19 = assertCopy;
+  dispatch_async(v15, v20);
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
 }
 
@@ -309,26 +309,26 @@
   idCopy = id;
   hashCopy = hash;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v17 = sub_100000F04();
+  inited = objc_initWeak(&location, self);
+  v18 = sub_100000F04(inited);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100003704;
   block[3] = &unk_10000C4E8;
-  objc_copyWeak(&v29, &location);
-  v24 = identifierCopy;
-  v25 = dCopy;
-  v26 = idCopy;
-  v27 = hashCopy;
-  v28 = completionCopy;
-  v18 = completionCopy;
-  v19 = hashCopy;
-  v20 = idCopy;
-  v21 = dCopy;
-  v22 = identifierCopy;
-  dispatch_async(v17, block);
+  objc_copyWeak(&v30, &location);
+  v25 = identifierCopy;
+  v26 = dCopy;
+  v27 = idCopy;
+  v28 = hashCopy;
+  v29 = completionCopy;
+  v19 = completionCopy;
+  v20 = hashCopy;
+  v21 = idCopy;
+  v22 = dCopy;
+  v23 = identifierCopy;
+  dispatch_async(v18, block);
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&location);
 }
 
@@ -339,33 +339,33 @@
   idCopy = id;
   teamIdCopy = teamId;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v17 = sub_100000F04();
+  inited = objc_initWeak(&location, self);
+  v18 = sub_100000F04(inited);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000039B8;
   block[3] = &unk_10000C4E8;
-  objc_copyWeak(&v29, &location);
-  v24 = dCopy;
-  v25 = idCopy;
-  v26 = teamIdCopy;
-  v27 = signCopy;
-  v28 = completionCopy;
-  v18 = completionCopy;
-  v19 = signCopy;
-  v20 = teamIdCopy;
-  v21 = idCopy;
-  v22 = dCopy;
-  dispatch_async(v17, block);
+  objc_copyWeak(&v30, &location);
+  v25 = dCopy;
+  v26 = idCopy;
+  v27 = teamIdCopy;
+  v28 = signCopy;
+  v29 = completionCopy;
+  v19 = completionCopy;
+  v20 = signCopy;
+  v21 = teamIdCopy;
+  v22 = idCopy;
+  v23 = dCopy;
+  dispatch_async(v18, block);
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&location);
 }
 
 - (void)appAttestationIsSupportedWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100000F04();
+  v5 = sub_100000F04(completionCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100003BAC;
@@ -379,7 +379,7 @@
 - (void)appAttestationPrivIsSupportedWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_100000F04();
+  v5 = sub_100000F04(completionCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_100003C6C;
@@ -393,7 +393,7 @@
 - (void)appAttestationWebIsSupportedWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v4 = sub_100000F04();
+  v4 = sub_100000F04(completionCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100003D20;
@@ -406,18 +406,18 @@
 - (void)appAttestationDeviceIsSupportedWithCompletion:(id)completion
 {
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v5 = sub_100000F04();
+  inited = objc_initWeak(&location, self);
+  v6 = sub_100000F04(inited);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100003E40;
   block[3] = &unk_10000C5F8;
-  objc_copyWeak(&v9, &location);
-  v8 = completionCopy;
-  v6 = completionCopy;
-  dispatch_async(v5, block);
+  objc_copyWeak(&v10, &location);
+  v9 = completionCopy;
+  v7 = completionCopy;
+  dispatch_async(v6, block);
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v10);
   objc_destroyWeak(&location);
 }
 
@@ -427,25 +427,25 @@
   idCopy = id;
   identifierCopy = identifier;
   completionCopy = completion;
-  objc_initWeak(&location, self);
-  v14 = sub_100000F04();
+  inited = objc_initWeak(&location, self);
+  v15 = sub_100000F04(inited);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000040E0;
   block[3] = &unk_10000C648;
-  objc_copyWeak(&v25, &location);
-  v20 = endpointCopy;
-  v21 = idCopy;
+  objc_copyWeak(&v26, &location);
+  v21 = endpointCopy;
+  v22 = idCopy;
   selfCopy = self;
-  v24 = completionCopy;
-  v22 = identifierCopy;
-  v15 = completionCopy;
-  v16 = identifierCopy;
-  v17 = idCopy;
-  v18 = endpointCopy;
-  dispatch_async(v14, block);
+  v25 = completionCopy;
+  v23 = identifierCopy;
+  v16 = completionCopy;
+  v17 = identifierCopy;
+  v18 = idCopy;
+  v19 = endpointCopy;
+  dispatch_async(v15, block);
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v26);
   objc_destroyWeak(&location);
 }
 
@@ -632,7 +632,7 @@ LABEL_10:
     connection = self->_connection;
     if (connection)
     {
-      [(NSXPCConnection *)connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     IsSupported = AppAttest_AppAttestation_IsSupported();
@@ -711,7 +711,7 @@ LABEL_21:
   v7 = self->_connection;
   if (v7)
   {
-    [(NSXPCConnection *)v7 auditToken];
+    objc_msgSend_auditToken(v7);
   }
 
   IsSupportedAndEligibleApplication = AppAttest_AppAttestation_IsSupportedAndEligibleApplication();
@@ -725,7 +725,7 @@ LABEL_22:
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   if ([(__CFString *)v3 length]|| (memset(&token, 0, sizeof(token)), (v6 = SecTaskCreateWithAuditToken(kCFAllocatorDefault, &token)) == 0))

@@ -3,6 +3,7 @@
 + (BOOL)isAppAnalyticsEnabled;
 + (BOOL)isMetricKitClient:(id)client;
 + (BOOL)isMetricKitClient:(id)client forUser:(unsigned int)user;
++ (id)getSignpostDataforPid:(int)pid forClient:(id)client andEventTimestamp:(id)timestamp;
 + (id)regionFormat;
 @end
 
@@ -39,12 +40,13 @@ void __33__MXSourceUtilities_regionFormat__block_invoke()
 + (BOOL)isMetricKitClient:(id)client
 {
   clientCopy = client;
-  v14 = 0;
-  v4 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:clientCopy error:&v14];
-  v5 = v14;
+  v15 = 0;
+  v4 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:clientCopy error:&v15];
+  v5 = v15;
+  v6 = v5;
   if (v5)
   {
-    containingBundleRecord = _MXSourceUtilitiesLog();
+    containingBundleRecord = _MXSourceUtilitiesLog(v5);
     if (os_log_type_enabled(containingBundleRecord, OS_LOG_TYPE_ERROR))
     {
       +[MXSourceUtilities isMetricKitClient:];
@@ -58,8 +60,8 @@ void __33__MXSourceUtilities_regionFormat__block_invoke()
       goto LABEL_9;
     }
 
-    v7 = _MXSourceUtilitiesLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _MXSourceUtilitiesLog(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       +[MXSourceUtilities isMetricKitClient:];
     }
@@ -71,31 +73,32 @@ void __33__MXSourceUtilities_regionFormat__block_invoke()
   }
 
 LABEL_9:
-  v9 = CFPreferencesCopyValue(@"MXClientDataRetrieved", @"com.apple.metrickitd", @"mobile", *MEMORY[0x277CBF030]);
-  v10 = v9;
-  if (v9)
+  v10 = CFPreferencesCopyValue(@"MXClientDataRetrieved", @"com.apple.metrickitd", @"mobile", *MEMORY[0x277CBF030]);
+  v11 = v10;
+  if (v10)
   {
-    v11 = [v9 objectForKeyedSubscript:clientCopy];
-    v12 = v11 != 0;
+    v12 = [v10 objectForKeyedSubscript:clientCopy];
+    v13 = v12 != 0;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 + (BOOL)isMetricKitClient:(id)client forUser:(unsigned int)user
 {
   clientCopy = client;
-  v15 = 0;
-  v5 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:clientCopy error:&v15];
-  v6 = v15;
+  v16 = 0;
+  v5 = [objc_alloc(MEMORY[0x277CC1E50]) initWithBundleIdentifier:clientCopy error:&v16];
+  v6 = v16;
+  v7 = v6;
   if (v6)
   {
-    containingBundleRecord = _MXSourceUtilitiesLog();
+    containingBundleRecord = _MXSourceUtilitiesLog(v6);
     if (os_log_type_enabled(containingBundleRecord, OS_LOG_TYPE_ERROR))
     {
       +[MXSourceUtilities isMetricKitClient:];
@@ -112,8 +115,8 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v9 = _MXSourceUtilitiesLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _MXSourceUtilitiesLog(0);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       +[MXSourceUtilities isMetricKitClient:];
     }
@@ -123,20 +126,20 @@ LABEL_9:
   }
 
 LABEL_10:
-  v10 = CFPreferencesCopyValue(@"MXClientDataRetrieved", @"com.apple.metrickitd", @"mobile", *MEMORY[0x277CBF030]);
-  v11 = v10;
-  if (v10)
+  v11 = CFPreferencesCopyValue(@"MXClientDataRetrieved", @"com.apple.metrickitd", @"mobile", *MEMORY[0x277CBF030]);
+  v12 = v11;
+  if (v11)
   {
-    v12 = [v10 objectForKeyedSubscript:bundleIdentifier];
-    v13 = v12 != 0;
+    v13 = [v11 objectForKeyedSubscript:bundleIdentifier];
+    v14 = v13 != 0;
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 + (BOOL)isAppAnalyticsEnabled
@@ -172,6 +175,114 @@ uint64_t __42__MXSourceUtilities_isAppAnalyticsEnabled__block_invoke()
   return bOOLValue;
 }
 
++ (id)getSignpostDataforPid:(int)pid forClient:(id)client andEventTimestamp:(id)timestamp
+{
+  v6 = *&pid;
+  v46 = *MEMORY[0x277D85DE8];
+  clientCopy = client;
+  timestampCopy = timestamp;
+  v8 = timestampCopy;
+  if (v6)
+  {
+    v38 = 0;
+    v39 = &v38;
+    v40 = 0x3032000000;
+    v41 = __Block_byref_object_copy_;
+    v42 = __Block_byref_object_dispose_;
+    array = [MEMORY[0x277CBEB18] array];
+    v9 = objc_alloc_init(MEMORY[0x277D55040]);
+    v10 = objc_alloc_init(MEMORY[0x277D55038]);
+    v11 = [MEMORY[0x277CCABB0] numberWithInt:v6];
+    [v10 addPIDNumber:v11];
+
+    [v9 addSubsystem:@"com.apple.metrickit.log" category:0];
+    v12 = objc_alloc_init(MEMORY[0x277D55030]);
+    [v12 setSubsystemCategoryFilter:v9];
+    [v12 setPidFilter:v10];
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke;
+    v35[3] = &unk_2798C8A30;
+    v13 = clientCopy;
+    v36 = v13;
+    v37 = &v38;
+    [v12 setEmitEventProcessingBlock:v35];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_37;
+    v32[3] = &unk_2798C8A58;
+    v33 = v13;
+    v34 = &v38;
+    [v12 setIntervalCompletionProcessingBlock:v32];
+    v14 = v8;
+    v15 = [v14 dateByAddingTimeInterval:-5.0];
+    v16 = objc_alloc_init(MEMORY[0x277CCA968]);
+    v17 = [objc_alloc(MEMORY[0x277CBEAF8]) initWithLocaleIdentifier:@"en_US_POSIX"];
+    [v16 setLocale:v17];
+    [v16 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    v18 = MEMORY[0x277D86220];
+    v19 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      v20 = [v16 stringFromDate:v15];
+      v21 = [v16 stringFromDate:v14];
+      [MXSourceUtilities getSignpostDataforPid:v20 forClient:v21 andEventTimestamp:buf];
+    }
+
+    v31 = 0;
+    v22 = [v12 processLogArchiveWithPath:0 startDate:v15 endDate:v14 errorOut:&v31];
+    v23 = v31;
+    v24 = v23;
+    if (v22)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      {
+        +[MXSourceUtilities getSignpostDataforPid:forClient:andEventTimestamp:];
+      }
+    }
+
+    else
+    {
+      v27 = _MXSourceUtilitiesLog(v23);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      {
+        v28 = [v24 description];
+        [MXSourceUtilities getSignpostDataforPid:v28 forClient:v44 andEventTimestamp:v27];
+      }
+    }
+
+    if ([v39[5] count])
+    {
+      v26 = v39[5];
+    }
+
+    else
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      {
+        +[MXSourceUtilities getSignpostDataforPid:forClient:andEventTimestamp:];
+      }
+
+      v26 = 0;
+    }
+
+    _Block_object_dispose(&v38, 8);
+  }
+
+  else
+  {
+    v25 = _MXSourceUtilitiesLog(timestampCopy);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    {
+      [MXSourceUtilities getSignpostDataforPid:v25 forClient:? andEventTimestamp:?];
+    }
+
+    v26 = 0;
+  }
+
+  return v26;
+}
+
 uint64_t __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
@@ -184,7 +295,7 @@ uint64_t __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimesta
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_cold_1(v7, (a1 + 32));
+      __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_cold_1();
     }
 
     v16 = *(a1 + 32);
@@ -217,12 +328,11 @@ uint64_t __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimesta
 
 id __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_29(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5 = @"clientOfInterest";
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = @"clientOfInterest";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -240,7 +350,7 @@ uint64_t __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimesta
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_37_cold_1(v8, (a1 + 32));
+      __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_37_cold_1();
     }
 
     v26 = *(a1 + 32);
@@ -286,12 +396,11 @@ uint64_t __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimesta
 
 id __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_38(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v5 = @"clientOfInterest";
-  v6[0] = v1;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = @"clientOfInterest";
+  v5[0] = v1;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -299,26 +408,20 @@ id __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___b
 + (void)isMetricKitClient:.cold.1()
 {
   OUTLINED_FUNCTION_3_0();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_5(v1 v2)];
+  v2 = [OUTLINED_FUNCTION_5(v0 v1)];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0x16u);
 }
 
 + (void)isMetricKitClient:.cold.2()
 {
   OUTLINED_FUNCTION_3_0();
-  v0 = *MEMORY[0x277D85DE8];
-  v3 = [OUTLINED_FUNCTION_5(v1 v2)];
-  v4 = [v3 bundleIdentifier];
+  v2 = [OUTLINED_FUNCTION_5(v0 v1)];
+  v3 = [v2 bundleIdentifier];
   OUTLINED_FUNCTION_0_0();
   OUTLINED_FUNCTION_4();
-  _os_log_debug_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x16u);
 }
 
 + (void)getSignpostDataforPid:(void *)a1 forClient:(void *)a2 andEventTimestamp:(uint8_t *)buf .cold.1(void *a1, void *a2, uint8_t *buf)
@@ -337,24 +440,18 @@ id __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___b
   _os_log_error_impl(&dword_258D9F000, log, OS_LOG_TYPE_ERROR, "MXSignpost Readback failed to start with error %@", buf, 0xCu);
 }
 
-void __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_37_cold_1(uint64_t a1, uint64_t *a2)
+void __71__MXSourceUtilities_getSignpostDataforPid_forClient_andEventTimestamp___block_invoke_37_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 @end

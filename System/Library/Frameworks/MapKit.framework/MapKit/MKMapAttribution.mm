@@ -224,8 +224,8 @@
         v64 = [MEMORY[0x1E69A1DB8] urlFor:20];
         v65 = [v64 URLByAppendingPathComponent:lastPathComponent];
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-        path = [v65 path];
-        v68 = [defaultManager fileExistsAtPath:path];
+        v67 = objc_msgSend_path(v65);
+        v68 = [defaultManager fileExistsAtPath:v67];
 
         if (v68)
         {

@@ -17,17 +17,17 @@
     dispatch_once(&instance_onceToken, &__block_literal_global_10168);
   }
 
-  v0 = instance__instance;
+  v1 = instance__instance;
 
-  return v0;
+  return v1;
 }
 
 - (PPQuickTypeMetrics)init
 {
-  v25[12] = *MEMORY[0x277D85DE8];
-  v23.receiver = self;
-  v23.super_class = PPQuickTypeMetrics;
-  v2 = [(PPQuickTypeMetrics *)&v23 init];
+  v24[12] = *MEMORY[0x277D85DE8];
+  v22.receiver = self;
+  v22.super_class = PPQuickTypeMetrics;
+  v2 = [(PPQuickTypeMetrics *)&v22 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -37,25 +37,25 @@
     v2->_queue = v5;
 
     v7 = MEMORY[0x277D41DA0];
-    v25[0] = @"SG";
-    v25[1] = @"CD";
-    v25[2] = @"EK";
-    v25[3] = @"CN_PS";
-    v25[4] = @"CN_DS";
-    v25[5] = @"CN_AD";
-    v25[6] = @"CN_CS";
-    v25[7] = @"CNAC";
-    v25[8] = @"GEONoData";
-    v25[9] = @"GEOTimeout";
-    v25[10] = @"MK";
-    v25[11] = @"PB";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:12];
+    v24[0] = @"SG";
+    v24[1] = @"CD";
+    v24[2] = @"EK";
+    v24[3] = @"CN_PS";
+    v24[4] = @"CN_DS";
+    v24[5] = @"CN_AD";
+    v24[6] = @"CN_CS";
+    v24[7] = @"CNAC";
+    v24[8] = @"GEONoData";
+    v24[9] = @"GEOTimeout";
+    v24[10] = @"MK";
+    v24[11] = @"PB";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:12];
     v9 = [v7 propertyWithName:@"framework" possibleValues:v8];
 
     v10 = [MEMORY[0x277D41DA0] propertyWithName:@"errorCode" range:{0, 0x7FFFFFFFFFFFFFFFLL}];
-    v24[0] = v9;
-    v24[1] = v10;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+    v23[0] = v9;
+    v23[1] = v10;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
     v12 = @"frameworkErrors";
     objc_opt_self();
     v13 = [objc_alloc(MEMORY[0x277D41DB8]) initWithFeatureId:@"ProactiveExperts" event:@"frameworkErrors" registerProperties:v11];
@@ -76,7 +76,6 @@
     v2->_eventsMatches = v19;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -93,7 +92,7 @@
 
 + (void)eventsMatches:(unint64_t)matches
 {
-  v4 = +[PPQuickTypeMetrics instance];
+  v4 = +[(PPQuickTypeMetrics *)self];
   if (v4)
   {
     v5 = v4[1];
@@ -134,7 +133,7 @@ uint64_t __30__PPQuickTypeMetrics_instance__block_invoke()
 
 + (void)contactMatchesWithContactsCount:(unint64_t)count foundInAppsCount:(unint64_t)appsCount
 {
-  v6 = +[PPQuickTypeMetrics instance];
+  v6 = +[(PPQuickTypeMetrics *)self];
   if (v6)
   {
     v7 = v6[1];
@@ -190,33 +189,33 @@ uint64_t __71__PPQuickTypeMetrics_contactMatchesWithContactsCount_foundInAppsCou
 + (void)frameworkError:(id)error errorCode:(int64_t)code
 {
   errorCopy = error;
-  v6 = +[PPQuickTypeMetrics instance];
-  v7 = v6;
-  if (v6)
+  v7 = +[(PPQuickTypeMetrics *)self];
+  v8 = v7;
+  if (v7)
   {
-    v8 = v6[1];
+    v9 = v7[1];
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __47__PPQuickTypeMetrics_frameworkError_errorCode___block_invoke;
   block[3] = &unk_278978A80;
-  v12 = v6;
-  v13 = errorCopy;
+  v13 = v7;
+  v14 = errorCopy;
   codeCopy = code;
-  v9 = errorCopy;
-  v10 = v7;
-  dispatch_async(v8, block);
+  v10 = errorCopy;
+  v11 = v8;
+  dispatch_async(v9, block);
 }
 
 void __47__PPQuickTypeMetrics_frameworkError_errorCode___block_invoke(void *a1)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v1 = a1[4];
   if (v1)
   {
@@ -224,15 +223,13 @@ void __47__PPQuickTypeMetrics_frameworkError_errorCode___block_invoke(void *a1)
   }
 
   v2 = a1[6];
-  v8[0] = a1[5];
+  v7[0] = a1[5];
   v3 = MEMORY[0x277CCABB0];
   v4 = v1;
   v5 = [v3 numberWithInteger:v2];
-  v8[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v7[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
   [v4 trackEventWithPropertyValues:v6];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

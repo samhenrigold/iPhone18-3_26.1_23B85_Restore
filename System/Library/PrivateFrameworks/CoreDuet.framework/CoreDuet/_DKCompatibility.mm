@@ -39,16 +39,14 @@
 
 - (id)serialize
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"min";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"min";
   v3 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[_DKCompatibility min](self, "min")}];
-  v8[1] = @"max";
-  v9[0] = v3;
+  v7[1] = @"max";
+  v8[0] = v3;
   v4 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[_DKCompatibility max](self, "max")}];
-  v9[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -76,7 +74,7 @@
 
 - (id)filterIncompatibleEvents:(id)events
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   eventsCopy = events;
   eventPredicate = [(_DKCompatibility *)self eventPredicate];
   v6 = [eventsCopy filteredArrayUsingPredicate:eventPredicate];
@@ -89,15 +87,13 @@
     v9 = +[_CDLogging knowledgeChannel];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v12 = 138412546;
+      v11 = 138412546;
       selfCopy = self;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_INFO, "%@ Filtered incompatible events: %@", &v12, 0x16u);
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_191750000, v9, OS_LOG_TYPE_INFO, "%@ Filtered incompatible events: %@", &v11, 0x16u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

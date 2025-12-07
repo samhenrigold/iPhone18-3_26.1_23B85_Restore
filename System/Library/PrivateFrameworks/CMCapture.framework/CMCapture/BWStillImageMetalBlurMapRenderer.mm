@@ -4,8 +4,8 @@
 - (int)prepareForRenderingWithParameters:(id)parameters inputVideoFormat:(id)format inputMediaPropertiesByAttachedMediaKey:(id)key;
 - (uint64_t)_allocateBlurMapPixelBufferPoolForBuffersOfWidth:(uint64_t)width height:(int)height enableForegroundBlur:;
 - (uint64_t)_loadAndConfigureSDOFBlurMapRenderer;
-- (uint64_t)bundleOptionsDictionary;
 - (uint64_t)shouldEnableForegroundBlur;
+- (void)bundleOptionsDictionary;
 - (void)dealloc;
 - (void)renderUsingParameters:(id)parameters inputPixelBuffer:(__CVBuffer *)buffer inputSampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer originalPixelBuffer:(__CVBuffer *)pixelBuffer processedPixelBuffer:(__CVBuffer *)processedPixelBuffer completionHandler:(id)handler;
 @end
@@ -14,9 +14,9 @@
 
 - (BWStillImageMetalBlurMapRenderer)initWithSDOFRenderingTuningParameters:(id)parameters imageDimensions:(id)dimensions depthDataMapDimensions:(id)mapDimensions portraitRenderQuality:(int)quality metalCommandQueue:(id)queue backPressureDrivenPipelining:(BOOL)pipelining
 {
-  v16.receiver = self;
-  v16.super_class = BWStillImageMetalBlurMapRenderer;
-  v14 = [(BWStillImageMetalBlurMapRenderer *)&v16 init];
+  v17.receiver = self;
+  v17.super_class = BWStillImageMetalBlurMapRenderer;
+  v14 = [(BWStillImageMetalBlurMapRenderer *)&v17 init];
   if (v14)
   {
     v14->_sdofRenderingTuningParameters = parameters;
@@ -43,62 +43,62 @@
   bundleOptionsDictionary = [(BWStillImageMetalBlurMapRenderer *)self bundleOptionsDictionary];
   if (bundleOptionsDictionary)
   {
-    v3 = [bundleOptionsDictionary objectForKeyedSubscript:*off_1E798A9D0];
-    if (v3)
+    v10 = [bundleOptionsDictionary objectForKeyedSubscript:*off_1E798A9D0];
+    if (v10)
     {
-      v4 = v3;
-      v5 = [v3 objectForKeyedSubscript:*off_1E798A9D8];
-      if (v5)
+      v18 = v10;
+      v19 = [v10 objectForKeyedSubscript:*off_1E798A9D8];
+      if (v19)
       {
-        v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v5, "unsignedIntValue")}];
-        v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RenderingV%@", v6];
-        if (v7)
+        v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{objc_msgSend(v19, "unsignedIntValue")}];
+        v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RenderingV%@"];
+        if (v28)
         {
-          v8 = v7;
-          v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RenderingV%@_NMP", v6];
-          if (v9)
+          v36 = v28;
+          v37 = [MEMORY[0x1E696AEC0] stringWithFormat:@"RenderingV%@_NMP"];
+          if (v37)
           {
-            v10 = v9;
-            v11 = [objc_msgSend(v4 objectForKeyedSubscript:{v8), "objectForKeyedSubscript:", @"fgNRings"}];
-            v12 = [objc_msgSend(v4 objectForKeyedSubscript:{v10), "objectForKeyedSubscript:", @"fgNRings"}];
-            if (v11 && [v11 unsignedIntValue])
+            v45 = v37;
+            v46 = [objc_msgSend(v18 objectForKeyedSubscript:{v36), "objectForKeyedSubscript:", @"fgNRings"}];
+            v47 = [objc_msgSend(v18 objectForKeyedSubscript:{v45), "objectForKeyedSubscript:", @"fgNRings"}];
+            if (v46 && [v46 unsignedIntValue])
             {
               return 1;
             }
 
-            if (v12)
+            if (v47)
             {
-              return [v12 unsignedIntValue] != 0;
+              return [v47 unsignedIntValue] != 0;
             }
           }
 
           else
           {
-            [BWStillImageMetalBlurMapRenderer shouldEnableForegroundBlur];
+            [(BWStillImageMetalBlurMapRenderer *)0 shouldEnableForegroundBlur:v38];
           }
         }
 
         else
         {
-          [BWStillImageMetalBlurMapRenderer shouldEnableForegroundBlur];
+          [(BWStillImageMetalBlurMapRenderer *)0 shouldEnableForegroundBlur:v29];
         }
       }
 
       else
       {
-        [BWStillImageMetalBlurMapRenderer shouldEnableForegroundBlur];
+        [(BWStillImageMetalBlurMapRenderer *)0 shouldEnableForegroundBlur:v20];
       }
     }
 
     else
     {
-      [BWStillImageMetalBlurMapRenderer shouldEnableForegroundBlur];
+      [(BWStillImageMetalBlurMapRenderer *)0 shouldEnableForegroundBlur:v11];
     }
   }
 
   else
   {
-    [BWStillImageMetalBlurMapRenderer shouldEnableForegroundBlur];
+    [(BWStillImageMetalBlurMapRenderer *)0 shouldEnableForegroundBlur:v3];
   }
 
   return 0;
@@ -233,60 +233,141 @@ LABEL_22:
 
 - (uint64_t)_loadAndConfigureSDOFBlurMapRenderer
 {
-  if (result)
+  if (!result)
   {
-    v1 = result;
-    v12 = 0;
-    bundleOptionsDictionary = [(BWStillImageMetalBlurMapRenderer *)result bundleOptionsDictionary];
-    if (!bundleOptionsDictionary || (v3 = bundleOptionsDictionary, (v4 = [bundleOptionsDictionary objectForKeyedSubscript:*off_1E798A9D0]) == 0) || (v5 = objc_msgSend(v4, "objectForKeyedSubscript:", *off_1E798A9D8)) == 0 || ((v6 = objc_msgSend(v5, "intValue"), v6 >= 5) ? (v7 = 5) : (v7 = v6), v8 = objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"%@/%@V%d.bundle", @"/System/Library/VideoProcessors", @"SDOFRendering", v7, v12), (v9 = objc_msgSend(MEMORY[0x1E696AAE8], "bundleWithPath:", v8)) == 0))
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_0_2();
-      FigDebugAssert3();
-      OUTLINED_FUNCTION_2();
-      return FigSignalErrorAtGM();
-    }
-
-    v10 = v9;
-    if ([v9 loadAndReturnError:&v12])
-    {
-      v11 = [objc_alloc(objc_msgSend(v10 classNamed:{@"FigSDOFBlurMapRendering", "initWithCommandQueue:", *(v1 + 56)}];
-      *(v1 + 16) = v11;
-      if (v11 && ![v11 setOptions:v3] && (objc_msgSend(*(v1 + 16), "allocateResourcesForInputImageWidth:inputImageHeight:shiftMapWidth:shiftMapHeight:enableForegroundBlur:", *(v1 + 40), *(v1 + 44), *(v1 + 48), *(v1 + 52), objc_msgSend(v1, "shouldEnableForegroundBlur")) & 1) != 0)
-      {
-        return 0;
-      }
-
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_0_2();
-      FigDebugAssert3();
-      OUTLINED_FUNCTION_2();
-      return FigSignalErrorAtGM();
-    }
-
-    return 4294954510;
+    return result;
   }
 
-  return result;
+  v3 = result;
+  v26 = 0;
+  bundleOptionsDictionary = [(BWStillImageMetalBlurMapRenderer *)result bundleOptionsDictionary];
+  if (!bundleOptionsDictionary)
+  {
+    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_0_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v19, v22, v24, v26, v27, v28, v29, v30);
+    v14 = OUTLINED_FUNCTION_2();
+    v17 = 4294954510;
+    v18 = 281;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v17, "<<<< BWStillImageMetalBlurMapRenderer >>>>", v18, v2, v15, v16, v21);
+  }
+
+  v5 = bundleOptionsDictionary;
+  v6 = [bundleOptionsDictionary objectForKeyedSubscript:*off_1E798A9D0];
+  if (!v6)
+  {
+    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_0_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v19, v22, v24, v26, v27, v28, v29, v30);
+    v14 = OUTLINED_FUNCTION_2();
+    v17 = 4294954516;
+    v18 = 285;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v17, "<<<< BWStillImageMetalBlurMapRenderer >>>>", v18, v2, v15, v16, v21);
+  }
+
+  v7 = [v6 objectForKeyedSubscript:*off_1E798A9D8];
+  if (!v7)
+  {
+    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_0_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v19, v22, v24, v26, v27, v28, v29, v30);
+    v14 = OUTLINED_FUNCTION_2();
+    v17 = 4294954516;
+    v18 = 289;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v17, "<<<< BWStillImageMetalBlurMapRenderer >>>>", v18, v2, v15, v16, v21);
+  }
+
+  intValue = [v7 intValue];
+  if (intValue >= 5)
+  {
+    v9 = 5;
+  }
+
+  else
+  {
+    v9 = intValue;
+  }
+
+  v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@V%d.bundle", @"/System/Library/VideoProcessors", @"SDOFRendering", v9, v26];
+  v11 = [MEMORY[0x1E696AAE8] bundleWithPath:v10];
+  if (!v11)
+  {
+    OUTLINED_FUNCTION_2();
+    OUTLINED_FUNCTION_0_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20, v23, v25, v26, v27, v28, v29, v30);
+    v14 = OUTLINED_FUNCTION_2();
+    v17 = 4294954510;
+    v18 = 308;
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v17, "<<<< BWStillImageMetalBlurMapRenderer >>>>", v18, v2, v15, v16, v21);
+  }
+
+  v12 = v11;
+  if ([v11 loadAndReturnError:&v26])
+  {
+    v13 = [objc_alloc(objc_msgSend(v12 classNamed:{@"FigSDOFBlurMapRendering", "initWithCommandQueue:", *(v3 + 56)}];
+    *(v3 + 16) = v13;
+    if (v13)
+    {
+      if ([v13 setOptions:v5])
+      {
+        OUTLINED_FUNCTION_2();
+        OUTLINED_FUNCTION_0_2();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20, v23, v25, v26, v27, v28, v29, v30);
+        v14 = OUTLINED_FUNCTION_2();
+        v17 = 4294954510;
+        v18 = 323;
+      }
+
+      else
+      {
+        if ([*(v3 + 16) allocateResourcesForInputImageWidth:*(v3 + 40) inputImageHeight:*(v3 + 44) shiftMapWidth:*(v3 + 48) shiftMapHeight:*(v3 + 52) enableForegroundBlur:{objc_msgSend(v3, "shouldEnableForegroundBlur")}])
+        {
+          return 0;
+        }
+
+        OUTLINED_FUNCTION_2();
+        OUTLINED_FUNCTION_0_2();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20, v23, v25, v26, v27, v28, v29, v30);
+        v14 = OUTLINED_FUNCTION_2();
+        v17 = 4294954510;
+        v18 = 334;
+      }
+    }
+
+    else
+    {
+      OUTLINED_FUNCTION_2();
+      OUTLINED_FUNCTION_0_2();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v20, v23, v25, v26, v27, v28, v29, v30);
+      v14 = OUTLINED_FUNCTION_2();
+      v17 = 4294954510;
+      v18 = 320;
+    }
+
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v14, v17, "<<<< BWStillImageMetalBlurMapRenderer >>>>", v18, v2, v15, v16, v21);
+  }
+
+  return 4294954510;
 }
 
-- (uint64_t)bundleOptionsDictionary
+- (void)bundleOptionsDictionary
 {
   if (result)
   {
-    v1 = *(result + 8);
+    v1 = result[1];
     if (v1)
     {
-      v2 = *off_1E798A9D0;
-      v3 = v1;
-      return [MEMORY[0x1E695DF20] dictionaryWithObjects:&v3 forKeys:&v2 count:1];
+      v4 = *off_1E798A9D0;
+      v5 = v1;
+      return [MEMORY[0x1E695DF20] dictionaryWithObjects:&v5 forKeys:&v4 count:1];
     }
 
     else
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_6();
-      FigDebugAssert3();
+      v2 = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v2, v3, v4, v5, v6, v7, vars0, vars8);
       return 0;
     }
   }
@@ -308,24 +389,24 @@ LABEL_22:
       v6 = 1278226488;
     }
 
-    v21[0] = *MEMORY[0x1E6966208];
-    v22[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a2];
-    v21[1] = *MEMORY[0x1E69660B8];
-    v22[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:width];
-    v21[2] = *MEMORY[0x1E6966130];
+    v24[0] = *MEMORY[0x1E6966208];
+    v25[0] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:a2];
+    v24[1] = *MEMORY[0x1E69660B8];
+    v25[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:width];
+    v24[2] = *MEMORY[0x1E6966130];
     v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v6];
-    v21[3] = *MEMORY[0x1E69660D8];
-    v22[2] = v7;
-    v22[3] = MEMORY[0x1E695E0F8];
-    v8 = -[BWVideoFormatRequirements initWithPixelBufferAttributes:]([BWVideoFormatRequirements alloc], "initWithPixelBufferAttributes:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:4]);
-    v20 = v8;
-    v9 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1]);
+    v24[3] = *MEMORY[0x1E69660D8];
+    v25[2] = v7;
+    v25[3] = MEMORY[0x1E695E0F8];
+    v8 = -[BWVideoFormatRequirements initWithPixelBufferAttributes:]([BWVideoFormatRequirements alloc], "initWithPixelBufferAttributes:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:4]);
+    v23 = v8;
+    v9 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1]);
 
-    v18 = *MEMORY[0x1E6965C70];
-    v16 = *MEMORY[0x1E6965F30];
-    v17 = *MEMORY[0x1E6965F60];
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v21 = *MEMORY[0x1E6965C70];
+    v19 = *MEMORY[0x1E6965F30];
+    v20 = *MEMORY[0x1E6965F60];
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     v11 = [BWPixelBufferPool alloc];
     v12 = +[BWMemoryPool sharedMemoryPool];
     LOBYTE(v15) = *(self + 32);
@@ -335,7 +416,8 @@ LABEL_22:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_6();
-      FigDebugAssert3();
+      LODWORD(v16) = 0;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16, v17, v18, v19, v20, v21, v22, v23);
     }
   }
 
@@ -346,24 +428,10 @@ LABEL_22:
 {
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_2();
-  FigDebugAssert3();
-  OUTLINED_FUNCTION_2();
+  FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v15, v16, v17, v18, v19, vars0, vars8);
+  v10 = OUTLINED_FUNCTION_2();
 
-  return FigSignalErrorAtGM();
-}
-
-- (uint64_t)renderUsingParameters:inputPixelBuffer:inputSampleBuffer:originalPixelBuffer:processedPixelBuffer:completionHandler:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderUsingParameters:inputPixelBuffer:inputSampleBuffer:originalPixelBuffer:processedPixelBuffer:completionHandler:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v10, 0xFFFFCE0ELL, "<<<< BWStillImageMetalBlurMapRenderer >>>>", 0x82, v9, v11, v12, a9);
 }
 
 @end

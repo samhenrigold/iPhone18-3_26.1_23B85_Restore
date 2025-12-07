@@ -28,16 +28,16 @@
   return v3;
 }
 
-void __25__PAStimulus_sinStimulus__block_invoke()
+void __25__PAStimulus_sinStimulus__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = paBundle();
-  v5 = [v0 pathForResource:@"Enrollment_1" ofType:@"mp3"];
+  v2 = paBundle(a1, a2);
+  v7 = [v2 pathForResource:@"Enrollment_1" ofType:@"mp3"];
 
-  v1 = [PAStimulus alloc];
-  v2 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-  v3 = [(PAStimulus *)v1 initWithFile:v2];
-  v4 = sinStimulus_SIN;
-  sinStimulus_SIN = v3;
+  v3 = [PAStimulus alloc];
+  v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:v7];
+  v5 = [(PAStimulus *)v3 initWithFile:v4];
+  v6 = sinStimulus_SIN;
+  sinStimulus_SIN = v5;
 
   [sinStimulus_SIN setLevelMultiplier:10.0];
 }
@@ -54,16 +54,16 @@ void __25__PAStimulus_sinStimulus__block_invoke()
   return v3;
 }
 
-void __31__PAStimulus_louderSinStimulus__block_invoke()
+void __31__PAStimulus_louderSinStimulus__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = paBundle();
-  v5 = [v0 pathForResource:@"Enrollment_1+15dB" ofType:@"mp3"];
+  v2 = paBundle(a1, a2);
+  v7 = [v2 pathForResource:@"Enrollment_1+15dB" ofType:@"mp3"];
 
-  v1 = [PAStimulus alloc];
-  v2 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-  v3 = [(PAStimulus *)v1 initWithFile:v2];
-  v4 = louderSinStimulus_SIN;
-  louderSinStimulus_SIN = v3;
+  v3 = [PAStimulus alloc];
+  v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:v7];
+  v5 = [(PAStimulus *)v3 initWithFile:v4];
+  v6 = louderSinStimulus_SIN;
+  louderSinStimulus_SIN = v5;
 
   [louderSinStimulus_SIN setLevelMultiplier:10.0];
 }
@@ -80,16 +80,16 @@ void __31__PAStimulus_louderSinStimulus__block_invoke()
   return v3;
 }
 
-void __27__PAStimulus_musicStimulus__block_invoke()
+void __27__PAStimulus_musicStimulus__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = paBundle();
-  v5 = [v0 pathForResource:@"Enrollment_2" ofType:@"caf"];
+  v2 = paBundle(a1, a2);
+  v7 = [v2 pathForResource:@"Enrollment_2" ofType:@"caf"];
 
-  v1 = [PAStimulus alloc];
-  v2 = [MEMORY[0x277CBEBC0] fileURLWithPath:v5];
-  v3 = [(PAStimulus *)v1 initWithFile:v2];
-  v4 = musicStimulus_MUSIC;
-  musicStimulus_MUSIC = v3;
+  v3 = [PAStimulus alloc];
+  v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:v7];
+  v5 = [(PAStimulus *)v3 initWithFile:v4];
+  v6 = musicStimulus_MUSIC;
+  musicStimulus_MUSIC = v5;
 
   [musicStimulus_MUSIC setRampStep:0.3];
 }
@@ -171,11 +171,10 @@ void __27__PAStimulus_musicStimulus__block_invoke()
 
 - (void)play
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_25E445000, a2, OS_LOG_TYPE_ERROR, "Error starting PAStimulus: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25E445000, a2, OS_LOG_TYPE_ERROR, "Error starting PAStimulus: %@", &v2, 0xCu);
 }
 
 - (BOOL)isPlaying

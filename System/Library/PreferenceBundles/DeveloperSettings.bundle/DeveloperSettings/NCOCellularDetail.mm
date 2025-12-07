@@ -4,6 +4,7 @@
 - (void)confirmInexpensiveSelection;
 - (void)selectDefaultSpecifier:(id)specifier;
 - (void)selectInexpensiveSpecifier:(id)specifier;
+- (void)updateCellularToInexpensive:(BOOL)inexpensive;
 @end
 
 @implementation NCOCellularDetail
@@ -101,6 +102,15 @@
   v5 = [NCOSettings ncoAlertWithText:v4 cancelHandler:0 defaultHandler:v6];
 
   [(NCOCellularDetail *)self presentViewController:v5 animated:1 completion:0];
+}
+
+- (void)updateCellularToInexpensive:(BOOL)inexpensive
+{
+  inexpensiveCopy = inexpensive;
+  ncoData = [(NCOCellularDetail *)self ncoData];
+  [ncoData setCellularInexpensive:inexpensiveCopy];
+
+  [(NCOCellularDetail *)self reloadSpecifiers];
 }
 
 @end

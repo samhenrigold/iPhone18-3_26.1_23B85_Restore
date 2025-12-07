@@ -147,7 +147,7 @@
                   if (v40)
                   {
                     v41 = v40;
-                    v42 = sub_2770952E8(v19, v52);
+                    v42 = sub_2770952E8(v19, v52, mappings, v40);
                     self->super.mErrorType = v42;
                     if (!v42)
                     {

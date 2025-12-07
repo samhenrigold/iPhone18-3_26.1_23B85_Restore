@@ -30,7 +30,7 @@
   }
 
   memset(&v31, 0, sizeof(v31));
-  [self transform];
+  objc_msgSend_transform(self);
   v30 = v31;
   if (CATransform3DIsIdentity(&v30))
   {
@@ -43,7 +43,7 @@
   }
 
   memset(&v30, 0, sizeof(v30));
-  [self sublayerTransform];
+  objc_msgSend_sublayerTransform(self);
   v29 = v30;
   v24 = v8;
   if (CATransform3DIsIdentity(&v29))

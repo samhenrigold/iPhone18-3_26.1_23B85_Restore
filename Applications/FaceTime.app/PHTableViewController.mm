@@ -116,7 +116,7 @@
 
 - (void)didReceiveMemoryWarning
 {
-  v3 = sub_100003B9C();
+  v3 = sub_100003B9C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -493,7 +493,7 @@
 - (void)handleUIContentSizeCategoryDidChangeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100003B9C();
+  v5 = sub_100003B9C(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;

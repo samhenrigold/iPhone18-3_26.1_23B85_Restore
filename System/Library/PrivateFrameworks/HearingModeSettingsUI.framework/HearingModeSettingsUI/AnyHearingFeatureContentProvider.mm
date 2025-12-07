@@ -49,17 +49,17 @@
 - (UIImage)faultcheckUnknownImage
 {
   selfCopy = self;
-  v3 = AnyHearingFeatureContentProvider.faultcheckUnknownImage.getter();
+  v4 = AnyHearingFeatureContentProvider.faultcheckUnknownImage.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (UIImage)faultcheckFailedImage
 {
   selfCopy = self;
-  v3 = AnyHearingFeatureContentProvider.faultcheckFailedImage.getter();
+  v4 = AnyHearingFeatureContentProvider.faultcheckFailedImage.getter(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (UIImage)occlusionLeftImage

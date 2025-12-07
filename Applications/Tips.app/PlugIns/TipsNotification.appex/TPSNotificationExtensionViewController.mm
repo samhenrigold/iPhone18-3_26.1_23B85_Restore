@@ -7,6 +7,7 @@
 - (void)didReceiveNotification:(id)notification;
 - (void)markTipViewed:(id)viewed;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TPSNotificationExtensionViewController
@@ -71,6 +72,15 @@
   }
 
   [(TPSNotificationExtensionViewController *)self clearNotificationIgnoreCount];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = TPSNotificationExtensionViewController;
+  [(TPSNotificationExtensionViewController *)&v4 viewWillDisappear:disappear];
+  v3 = +[TPSAssetCacheController sharedInstance];
+  [v3 syncCacheImmediately];
 }
 
 - (void)didReceiveNotification:(id)notification

@@ -176,15 +176,15 @@
 
 - (id)emailAddressStrings
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   username = [(MFAccount *)self username];
   v5 = [v3 emailAddressWithUsername:username];
 
   if (v5)
   {
-    v9[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -192,28 +192,24 @@
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)transferDisabledMailboxUids
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v2 = [(MailAccount *)self mailboxUidOfType:1 createIfNeeded:0];
   v3 = v2;
   if (v2)
   {
-    v7[0] = v2;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = v2;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

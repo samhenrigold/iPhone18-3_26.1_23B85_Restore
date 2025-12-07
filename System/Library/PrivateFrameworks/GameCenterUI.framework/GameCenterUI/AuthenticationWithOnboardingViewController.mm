@@ -43,7 +43,7 @@
 - (void)onboardingFlowFinishedWithAction:(unint64_t)action
 {
   selfCopy = self;
-  sub_24E004708(action);
+  sub_24E004708(action, v4);
 }
 
 @end

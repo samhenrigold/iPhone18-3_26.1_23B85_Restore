@@ -271,28 +271,28 @@ LABEL_19:
   return v20;
 }
 
-uint64_t __63__SBIconListViewAccessibility__accessibilityHitTest_withEvent___block_invoke(uint64_t a1)
+void *__63__SBIconListViewAccessibility__accessibilityHitTest_withEvent___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) rowAtPoint:{*(a1 + 48), *(a1 + 56)}];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __63__SBIconListViewAccessibility__accessibilityHitTest_withEvent___block_invoke_2(uint64_t a1)
+void *__63__SBIconListViewAccessibility__accessibilityHitTest_withEvent___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) columnAtPoint:{*(a1 + 48), *(a1 + 56)}];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __63__SBIconListViewAccessibility__accessibilityHitTest_withEvent___block_invoke_3(uint64_t a1)
+void *__63__SBIconListViewAccessibility__accessibilityHitTest_withEvent___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) rowAtPoint:{*(a1 + 48), *(a1 + 56)}];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __63__SBIconListViewAccessibility__accessibilityHitTest_withEvent___block_invoke_4(uint64_t a1)
+void *__63__SBIconListViewAccessibility__accessibilityHitTest_withEvent___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) indexForCoordinate:*(a1 + 48) + 1 forOrientation:{*(a1 + 56) + 1, objc_msgSend(*(a1 + 32), "safeIntegerForKey:", @"_orientation"}];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -416,7 +416,7 @@ uint64_t __63__SBIconListViewAccessibility__accessibilityHitTest_withEvent___blo
   return array;
 }
 
-void __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke(uint64_t a1, void *a2)
+void __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke(void *a1, void *a2)
 {
   v3 = a2;
   v8 = 0;
@@ -425,20 +425,20 @@ void __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block
   v11 = &unk_29C40BC2F;
   v12 = 0;
   v13 = 0;
-  v7 = *(a1 + 40);
+  v7 = a1[5];
   v4 = v3;
   AXPerformSafeBlock();
   v5 = v9[5];
 
   _Block_object_dispose(&v8, 8);
-  v6 = *(*(a1 + 48) + 8);
+  v6 = *(a1[6] + 8);
   if (v5 > *(v6 + 24))
   {
     *(v6 + 24) = v5;
   }
 }
 
-uint64_t __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_2(uint64_t a1)
+void *__65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) coordinateForIconAtIndex:{objc_msgSend(*(a1 + 40), "indexForIcon:", *(a1 + 48))}];
   v3 = *(*(a1 + 56) + 8);
@@ -447,7 +447,7 @@ uint64_t __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__b
   return result;
 }
 
-BOOL __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_3(uint64_t a1, void *a2)
+BOOL __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_3(void *a1, void *a2)
 {
   v3 = a2;
   v9 = 0;
@@ -456,18 +456,18 @@ BOOL __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block
   v12 = &unk_29C40BC2F;
   v13 = 0;
   v14 = 0;
-  v7 = *(a1 + 40);
+  v7 = a1[5];
   v8 = v3;
   AXPerformSafeBlock();
   v4 = v10[5];
 
   _Block_object_dispose(&v9, 8);
-  v5 = v4 == *(a1 + 48);
+  v5 = v4 == a1[6];
 
   return v5;
 }
 
-uint64_t __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_4(uint64_t a1)
+void *__65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) coordinateForIconAtIndex:{objc_msgSend(*(a1 + 40), "indexForIcon:", *(a1 + 48))}];
   v3 = *(*(a1 + 56) + 8);
@@ -486,14 +486,14 @@ uint64_t __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__b
   return v7;
 }
 
-uint64_t __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_6(uint64_t a1)
+void *__65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_6(uint64_t a1)
 {
   result = [*(a1 + 32) iconGridSizeForClass:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 32) = result;
   return result;
 }
 
-BOOL __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_7(uint64_t a1, void *a2)
+BOOL __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_7(void *a1, void *a2)
 {
   v3 = a2;
   v9 = 0;
@@ -502,18 +502,18 @@ BOOL __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block
   v12 = &unk_29C40BC2F;
   v13 = 0;
   v14 = 0;
-  v8 = *(a1 + 40);
+  v8 = a1[5];
   v4 = v3;
   AXPerformSafeBlock();
   v5 = v10[5];
 
   _Block_object_dispose(&v9, 8);
-  v6 = v5 >= *(a1 + 48) && v5 <= *(a1 + 56);
+  v6 = v5 >= a1[6] && v5 <= a1[7];
 
   return v6;
 }
 
-uint64_t __65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_8(uint64_t a1)
+void *__65__SBIconListViewAccessibility__accessibilityScannerGroupElements__block_invoke_8(uint64_t a1)
 {
   result = [*(a1 + 32) coordinateForIconAtIndex:{objc_msgSend(*(a1 + 40), "indexForIcon:", *(a1 + 48))}];
   v3 = *(*(a1 + 56) + 8);
@@ -691,7 +691,7 @@ void __47__SBIconListViewAccessibility___axDragElements__block_invoke_3(id *a1, 
   [a1[5] addObject:v12];
 }
 
-uint64_t __47__SBIconListViewAccessibility___axDragElements__block_invoke_4(uint64_t a1)
+void *__47__SBIconListViewAccessibility___axDragElements__block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) coordinateForGridCellIndex:*(a1 + 48) gridCellInfoOptions:0];
   v3 = *(*(a1 + 40) + 8);

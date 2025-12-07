@@ -21,8 +21,7 @@
     v5 = *(self->super.super.isa + 7);
     if (v5)
     {
-      v6 = *(self->super.super.isa + 7);
-      v5(self, v7, 2048);
+      v5(self, v6, 2048);
     }
 
     else
@@ -34,7 +33,7 @@
     result = [v4 stringWithUTF8String:"<%s: %s>"];
     if (result)
     {
-      return [v4 stringWithFormat:result, object_getClassName(self), v7];
+      return [v4 stringWithFormat:result, object_getClassName(self), v6];
     }
   }
 

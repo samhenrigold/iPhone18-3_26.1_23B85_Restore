@@ -14,11 +14,11 @@
 
 - (CRSUIPunchThroughService)initWithDelegate:(id)delegate
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v23.receiver = self;
-  v23.super_class = CRSUIPunchThroughService;
-  v5 = [(CRSUIPunchThroughService *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = CRSUIPunchThroughService;
+  v5 = [(CRSUIPunchThroughService *)&v22 init];
   v6 = v5;
   if (v5)
   {
@@ -37,13 +37,13 @@
     v6->_connectionToPunchThroughIdentifierMap = strongToStrongObjectsMapTable;
 
     v13 = MEMORY[0x277CF32A0];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __45__CRSUIPunchThroughService_initWithDelegate___block_invoke;
-    v21[3] = &unk_278DA0B08;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __45__CRSUIPunchThroughService_initWithDelegate___block_invoke;
+    v20[3] = &unk_278DA0B08;
     v14 = v6;
-    v22 = v14;
-    v15 = [v13 listenerWithConfigurator:v21];
+    v21 = v14;
+    v15 = [v13 listenerWithConfigurator:v20];
     v16 = v14[3];
     v14[3] = v15;
 
@@ -52,14 +52,13 @@
     {
       v18 = v14[3];
       *buf = 138412290;
-      v25 = v18;
+      v24 = v18;
       _os_log_impl(&dword_243218000, v17, OS_LOG_TYPE_DEFAULT, "Activating listener! %@", buf, 0xCu);
     }
 
     [v14[3] activate];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -75,29 +74,29 @@ void __45__CRSUIPunchThroughService_initWithDelegate___block_invoke(uint64_t a1,
 
 - (void)punchThroughIdentifierDidDismiss:(id)dismiss
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dismissCopy = dismiss;
   os_unfair_lock_lock(&self->_lock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_connectionToPunchThroughIdentifierMap;
-  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v14 objects:v22 count:16];
+  v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v13 objects:v21 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [(NSMapTable *)self->_connectionToPunchThroughIdentifierMap objectForKey:v9, v14];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [(NSMapTable *)self->_connectionToPunchThroughIdentifierMap objectForKey:v9, v13];
         if ([v10 isEqual:dismissCopy])
         {
           v6 = v9;
@@ -106,7 +105,7 @@ void __45__CRSUIPunchThroughService_initWithDelegate___block_invoke(uint64_t a1,
         }
       }
 
-      v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v6 = [(NSMapTable *)v5 countByEnumeratingWithState:&v13 objects:v21 count:16];
       if (v6)
       {
         continue;
@@ -125,17 +124,15 @@ LABEL_11:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v19 = dismissCopy;
-      v20 = 2114;
-      v21 = v6;
+      v18 = dismissCopy;
+      v19 = 2114;
+      v20 = v6;
       _os_log_impl(&dword_243218000, v11, OS_LOG_TYPE_DEFAULT, "Punch through %{public}@ dismissed by server, informing client %{public}@", buf, 0x16u);
     }
 
     remoteTarget = [v6 remoteTarget];
     [remoteTarget serverDismissedPunchThroughIdentifier:dismissCopy];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -153,7 +150,7 @@ LABEL_11:
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   contextCopy = context;
@@ -161,7 +158,7 @@ LABEL_11:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v29 = connectionCopy;
+    v28 = connectionCopy;
     _os_log_impl(&dword_243218000, v11, OS_LOG_TYPE_INFO, "Received connection! %@", buf, 0xCu);
   }
 
@@ -171,32 +168,32 @@ LABEL_11:
   if (v13)
   {
     objc_initWeak(&location, self);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __70__CRSUIPunchThroughService_listener_didReceiveConnection_withContext___block_invoke;
-    v25[3] = &unk_278DA0CF0;
-    objc_copyWeak(&v26, &location);
-    [connectionCopy configureConnection:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __70__CRSUIPunchThroughService_listener_didReceiveConnection_withContext___block_invoke;
+    v24[3] = &unk_278DA0CF0;
+    objc_copyWeak(&v25, &location);
+    [connectionCopy configureConnection:v24];
     v14 = CRSUILogForCategory(5uLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = connectionCopy;
+      v28 = connectionCopy;
       _os_log_impl(&dword_243218000, v14, OS_LOG_TYPE_DEFAULT, "Activating connection... %@", buf, 0xCu);
     }
 
     connectionQueue = [(CRSUIPunchThroughService *)self connectionQueue];
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __70__CRSUIPunchThroughService_listener_didReceiveConnection_withContext___block_invoke_13;
-    v22 = &unk_278DA0D18;
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __70__CRSUIPunchThroughService_listener_didReceiveConnection_withContext___block_invoke_13;
+    v21 = &unk_278DA0D18;
     selfCopy = self;
     v16 = connectionCopy;
-    v24 = v16;
-    dispatch_async(connectionQueue, &v19);
+    v23 = v16;
+    dispatch_async(connectionQueue, &v18);
 
     [v16 activate];
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v25);
     objc_destroyWeak(&location);
   }
 
@@ -210,8 +207,6 @@ LABEL_11:
 
     [connectionCopy invalidate];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __70__CRSUIPunchThroughService_listener_didReceiveConnection_withContext___block_invoke(uint64_t a1, void *a2)
@@ -359,13 +354,11 @@ void __62__CRSUIPunchThroughService__connectionQueue_removeConnection___block_in
 
 - (void)listener:(void *)a1 didReceiveConnection:(NSObject *)a2 withContext:.cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 remoteProcess];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Process does not have the required entitlement: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_243218000, a2, OS_LOG_TYPE_ERROR, "Process does not have the required entitlement: %@", &v4, 0xCu);
 }
 
 @end

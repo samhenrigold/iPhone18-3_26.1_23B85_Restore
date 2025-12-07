@@ -16,9 +16,9 @@
   dCopy = d;
   operationCopy = operation;
   sessionCopy = session;
-  v22.receiver = self;
-  v22.super_class = TGITextGenerationInferenceRunner;
-  v15 = [(TGITextGenerationInferenceRunner *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = TGITextGenerationInferenceRunner;
+  v15 = [(TGITextGenerationInferenceRunner *)&v21 init];
   if (v15)
   {
     v16 = [operationCopy copy];
@@ -32,7 +32,7 @@
     executionUUID = v15->_executionUUID;
     v15->_executionUUID = v18;
 
-    TGITextGenerationInferenceDecodingPolicy::create(v20);
+    TGITextGenerationInferenceDecodingPolicy::create();
   }
 
   return 0;
@@ -63,7 +63,7 @@
     v8 = session;
     if (session)
     {
-      [session stateCache];
+      objc_msgSend_stateCache(session);
       session = __p[0];
     }
 
@@ -82,8 +82,8 @@
     if (v27)
     {
       v9 = *v28;
-      [v4 model];
-      (*(*v23 + 64))(__p);
+      objc_msgSend_model(v4);
+      (*(*v23 + 8))(__p);
       if (v24)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v24);
@@ -101,8 +101,8 @@
         *(&retstr->var1.var0.var1 + 2) = v22;
       }
 
-      [v4 model];
-      (*(*v23 + 16))(v23, v3[1], &v25);
+      objc_msgSend_model(v4);
+      (*(*v23 + 2))(v23, v3[1], &v25);
       result = v24;
       if (v24)
       {
@@ -122,18 +122,18 @@
   }
 
   v10 = *(*v3 + 4 * v3[1] - 4);
-  [v4 model];
+  objc_msgSend_model(v4);
   (*(*v25 + 48))(v25, v10);
   if (*(&v25 + 1))
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](*(&v25 + 1));
   }
 
-  [v4 decodingPolicy];
+  objc_msgSend_decodingPolicy(v4);
   v11 = v23;
-  [v4 model];
+  objc_msgSend_model(v4);
   (*(*v19 + 32))(&v25);
-  TGITextGenerationInferenceDecodingPolicy::stateWithLogits(v11, v25, *(&v25 + 1), __p);
+  TGITextGenerationInferenceDecodingPolicy::stateWithLogits(__p, v11, v25, *(&v25 + 1));
   if (v20)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v20);
@@ -148,7 +148,7 @@
   v13 = session2;
   if (session2)
   {
-    [session2 stateCache];
+    objc_msgSend_stateCache(session2);
     v14 = v23;
   }
 
@@ -159,7 +159,7 @@
     v24 = 0;
   }
 
-  [v4 model];
+  objc_msgSend_model(v4);
   (*(*v19 + 24))(&v25);
   TGITextGenerationInferenceSessionStateCache::addCacheEntryForStepState(v14, &v25, __p);
   if (v20)
@@ -173,8 +173,8 @@
   }
 
   v15 = *__p[0];
-  [v4 model];
-  (*(*v23 + 64))(&v25);
+  objc_msgSend_model(v4);
+  (*(*v23 + 8))(&v25);
   result = v24;
   if (v24)
   {

@@ -20,7 +20,7 @@
 
 - (void)updateSettingWithKeyPath:(id)path primaryUserInfo:(id)info completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   infoCopy = info;
   completionCopy = completion;
@@ -30,23 +30,21 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v14 = HMFGetLogIdentifier();
-    v17 = 138543618;
-    v18 = v14;
-    v19 = 2112;
-    v20 = pathCopy;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Primary user info is not supported for keyPath: %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v14;
+    v18 = 2112;
+    v19 = pathCopy;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Primary user info is not supported for keyPath: %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
   v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
   completionCopy[2](completionCopy, v15);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSettingWithKeyPath:(id)path languageSettingValue:(id)value completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   valueCopy = value;
   completionCopy = completion;
@@ -56,23 +54,21 @@
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     v14 = HMFGetLogIdentifier();
-    v17 = 138543618;
-    v18 = v14;
-    v19 = 2112;
-    v20 = pathCopy;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Only BOOL settings are supported keyPath: %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v14;
+    v18 = 2112;
+    v19 = pathCopy;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Only BOOL settings are supported keyPath: %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v11);
   v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
   completionCopy[2](completionCopy, v15);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSettingWithKeyPath:(id)path integerSettingValue:(id)value completion:(id)completion
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   valueCopy = value;
   completionCopy = completion;
@@ -98,11 +94,11 @@
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v58 = v18;
-      v59 = 2114;
-      v60 = pathCopy;
-      v61 = 2112;
-      v62 = valueCopy;
+      v57 = v18;
+      v58 = 2114;
+      v59 = pathCopy;
+      v60 = 2112;
+      v61 = valueCopy;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Updating %{public}@ to %@", buf, 0x20u);
     }
 
@@ -137,7 +133,7 @@
 
     else
     {
-      v55 = pathCopy;
+      v54 = pathCopy;
       v28 = objc_autoreleasePoolPush();
       v29 = selfCopy;
       v30 = HMFGetOSLogHandle();
@@ -148,11 +144,11 @@
         v32 = v25;
         v34 = v33 = valueCopy;
         *buf = 138543874;
-        v58 = v34;
-        v59 = 2114;
-        v60 = v55;
-        v61 = 2112;
-        v62 = v33;
+        v57 = v34;
+        v58 = 2114;
+        v59 = v54;
+        v60 = 2112;
+        v61 = v33;
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Changing %{public}@ to %@", buf, 0x20u);
 
         valueCopy = v33;
@@ -171,38 +167,38 @@
         v36 = 0;
       }
 
-      pathCopy = v55;
+      pathCopy = v54;
       v37 = v36;
       [v37 setInteger:objc_msgSend(valueCopy forKey:{"integerValue"), v22}];
 
       completionCopy[2](completionCopy, 0);
-      v38 = [MEMORY[0x277CD1790] defaultSettingsConstraintsForKeyPath:v55];
+      v38 = [MEMORY[0x277CD1790] defaultSettingsConstraintsForKeyPath:v54];
       if (v38)
       {
-        v53 = objc_alloc(MEMORY[0x277CD1870]);
+        v52 = objc_alloc(MEMORY[0x277CD1870]);
         integerValue = [valueCopy integerValue];
         v39 = [v38 objectAtIndexedSubscript:1];
         integerValue2 = [v39 integerValue];
         [v38 objectAtIndexedSubscript:0];
-        v41 = v54 = v25;
+        v41 = v53 = v25;
         integerValue3 = [v41 integerValue];
         [v38 objectAtIndexedSubscript:3];
         v43 = v29;
         v44 = completionCopy;
         v46 = v45 = valueCopy;
-        v47 = [v53 initWithKeyPath:v55 readOnly:0 integerValue:integerValue maxValue:integerValue2 minValue:integerValue3 valueStepSize:{objc_msgSend(v46, "integerValue")}];
+        v47 = [v52 initWithKeyPath:v54 readOnly:0 integerValue:integerValue maxValue:integerValue2 minValue:integerValue3 valueStepSize:{objc_msgSend(v46, "integerValue")}];
 
         valueCopy = v45;
         completionCopy = v44;
 
         delegate = [(HMDFetchedSettingsDriverPreferences *)v43 delegate];
-        v56 = v47;
-        v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
+        v55 = v47;
+        v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
         v50 = v43;
-        pathCopy = v55;
+        pathCopy = v54;
         [delegate driver:v50 didUpdateSettings:v49];
 
-        v25 = v54;
+        v25 = v53;
       }
     }
   }
@@ -213,9 +209,9 @@
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v58 = v27;
-      v59 = 2114;
-      v60 = pathCopy;
+      v57 = v27;
+      v58 = 2114;
+      v59 = pathCopy;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Key %{public}@ not part of expected integer keys", buf, 0x16u);
     }
 
@@ -223,13 +219,11 @@
     v22 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     (completionCopy)[2](completionCopy, v22);
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateSettingWithKeyPath:(id)path BOOLSettingValue:(id)value completion:(id)completion
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   valueCopy = value;
   completionCopy = completion;
@@ -255,11 +249,11 @@
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v41 = v18;
-      v42 = 2114;
-      v43 = pathCopy;
-      v44 = 2112;
-      v45 = valueCopy;
+      v40 = v18;
+      v41 = 2114;
+      v42 = pathCopy;
+      v43 = 2112;
+      v44 = valueCopy;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Updating %{public}@ to %@", buf, 0x20u);
     }
 
@@ -301,11 +295,11 @@
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v41 = v30;
-        v42 = 2114;
-        v43 = pathCopy;
-        v44 = 2112;
-        v45 = valueCopy;
+        v40 = v30;
+        v41 = 2114;
+        v42 = pathCopy;
+        v43 = 2112;
+        v44 = valueCopy;
         _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_DEFAULT, "%{public}@Changing %{public}@ to %@", buf, 0x20u);
       }
 
@@ -326,8 +320,8 @@
       completionCopy[2](completionCopy, 0);
       v34 = [objc_alloc(MEMORY[0x277CD1868]) initWithKeyPath:pathCopy readOnly:0 BOOLValue:{objc_msgSend(valueCopy, "BOOLValue")}];
       delegate = [(HMDFetchedSettingsDriverPreferences *)v28 delegate];
-      v39 = v34;
-      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+      v38 = v34;
+      v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
       [delegate driver:v28 didUpdateSettings:v36];
     }
   }
@@ -338,9 +332,9 @@
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v41 = v37;
-      v42 = 2114;
-      v43 = pathCopy;
+      v40 = v37;
+      v41 = 2114;
+      v42 = pathCopy;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Key %{public}@ not part of expected BOOL keys", buf, 0x16u);
     }
 
@@ -348,13 +342,11 @@
     v22 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     (completionCopy)[2](completionCopy, v22);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSettingsForKeyPaths:(id)paths completion:(id)completion
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   completionCopy = completion;
   if (self)
@@ -375,42 +367,42 @@
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v83 = v12;
-    v84 = 2114;
-    v85 = pathsCopy;
+    v82 = v12;
+    v83 = 2114;
+    v84 = pathsCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Got fetch request for keyPaths:%{public}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v72 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+  v71 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(pathsCopy, "count")}];
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   obj = pathsCopy;
-  v76 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
-  if (!v76)
+  v75 = [obj countByEnumeratingWithState:&v76 objects:v80 count:16];
+  if (!v75)
   {
     v15 = 0;
     goto LABEL_57;
   }
 
-  v75 = *v78;
+  v74 = *v77;
   v14 = 0x277CD1000uLL;
   v15 = 0;
   selfCopy2 = self;
-  v73 = selfCopy;
+  v72 = selfCopy;
   do
   {
     v16 = 0;
     do
     {
-      if (*v78 != v75)
+      if (*v77 != v74)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(*(&v77 + 1) + 8 * v16);
+      v17 = *(*(&v76 + 1) + 8 * v16);
       if (self)
       {
         v18 = objc_getProperty(selfCopy, v13, 32, 1);
@@ -444,9 +436,9 @@
           HMFGetLogIdentifier();
           v36 = v35 = v15;
           *buf = 138543618;
-          v83 = v36;
-          v84 = 2114;
-          v85 = v17;
+          v82 = v36;
+          v83 = 2114;
+          v84 = v17;
           _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_ERROR, "%{public}@Key %{public}@ not found", buf, 0x16u);
 
           v15 = v35;
@@ -483,16 +475,16 @@
           {
             v31 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v83 = v31;
-            v84 = 2114;
-            v85 = v17;
+            v82 = v31;
+            v83 = 2114;
+            v84 = v17;
             _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@BOOL %{public}@", buf, 0x16u);
 
-            selfCopy = v73;
+            selfCopy = v72;
           }
 
           objc_autoreleasePoolPop(v27);
-          [v72 addObject:v26];
+          [v71 addObject:v26];
         }
 
         else
@@ -501,9 +493,9 @@
           {
             v58 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v83 = v58;
-            v84 = 2114;
-            v85 = v17;
+            v82 = v58;
+            v83 = 2114;
+            v84 = v17;
             _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Boolean data type for Key %{public}@ had no integer setting", buf, 0x16u);
           }
 
@@ -527,9 +519,9 @@
             HMFGetLogIdentifier();
             v57 = v56 = v15;
             *buf = 138543618;
-            v83 = v57;
-            v84 = 2114;
-            v85 = v17;
+            v82 = v57;
+            v83 = 2114;
+            v84 = v17;
             _os_log_impl(&dword_229538000, v55, OS_LOG_TYPE_ERROR, "%{public}@Data type of key %{public}@ is neither a BOOL nor a number", buf, 0x16u);
 
             v15 = v56;
@@ -548,7 +540,7 @@ LABEL_36:
         v26 = [*(v14 + 1936) defaultSettingsConstraintsForKeyPath:v17];
         if (v26)
         {
-          v71 = v15;
+          v70 = v15;
           if (self)
           {
             v40 = objc_getProperty(selfCopy, v39, 24, 1);
@@ -559,17 +551,17 @@ LABEL_36:
             v40 = 0;
           }
 
-          v70 = [v40 integerForKey:v20];
+          v69 = [v40 integerForKey:v20];
           v41 = objc_alloc(MEMORY[0x277CD1870]);
           v42 = [v26 objectAtIndexedSubscript:1];
           integerValue = [v42 integerValue];
           v44 = [v26 objectAtIndexedSubscript:0];
           integerValue2 = [v44 integerValue];
           v46 = [v26 objectAtIndexedSubscript:3];
-          v47 = [v41 initWithKeyPath:v17 readOnly:0 integerValue:v70 maxValue:integerValue minValue:integerValue2 valueStepSize:{objc_msgSend(v46, "integerValue")}];
+          v47 = [v41 initWithKeyPath:v17 readOnly:0 integerValue:v69 maxValue:integerValue minValue:integerValue2 valueStepSize:{objc_msgSend(v46, "integerValue")}];
 
           v48 = objc_autoreleasePoolPush();
-          v49 = v73;
+          v49 = v72;
           v50 = HMFGetOSLogHandle();
           v51 = v50;
           if (v47)
@@ -578,16 +570,16 @@ LABEL_36:
             {
               v52 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v83 = v52;
-              v84 = 2114;
-              v85 = v17;
+              v82 = v52;
+              v83 = 2114;
+              v84 = v17;
               _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_DEFAULT, "%{public}@int %{public}@", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v48);
-            [v72 addObject:v47];
+            [v71 addObject:v47];
             self = selfCopy2;
-            v15 = v71;
+            v15 = v70;
           }
 
           else
@@ -596,9 +588,9 @@ LABEL_36:
             {
               v64 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v83 = v64;
-              v84 = 2114;
-              v85 = v17;
+              v82 = v64;
+              v83 = 2114;
+              v84 = v17;
               _os_log_impl(&dword_229538000, v51, OS_LOG_TYPE_ERROR, "%{public}@Integer data type for Key %{public}@ had no integer setting", buf, 0x16u);
             }
 
@@ -620,9 +612,9 @@ LABEL_36:
           {
             v63 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v83 = v63;
-            v84 = 2114;
-            v85 = v17;
+            v82 = v63;
+            v83 = 2114;
+            v84 = v17;
             _os_log_impl(&dword_229538000, v62, OS_LOG_TYPE_DEFAULT, "%{public}@Default settings constraints for Key %{public}@ not found", buf, 0x16u);
           }
 
@@ -631,7 +623,7 @@ LABEL_36:
           v15 = v47 = v15;
         }
 
-        selfCopy = v73;
+        selfCopy = v72;
       }
 
       v14 = 0x277CD1000;
@@ -640,64 +632,63 @@ LABEL_48:
       ++v16;
     }
 
-    while (v76 != v16);
-    v66 = [obj countByEnumeratingWithState:&v77 objects:v81 count:16];
-    v76 = v66;
+    while (v75 != v16);
+    v66 = [obj countByEnumeratingWithState:&v76 objects:v80 count:16];
+    v75 = v66;
   }
 
   while (v66);
 LABEL_57:
 
-  completionCopy[2](completionCopy, v72, v15);
-  v67 = *MEMORY[0x277D85DE8];
+  completionCopy[2](completionCopy, v71, v15);
 }
 
 - (HMDFetchedSettingsDriverPreferences)initWithQueue:(id)queue userDefaults:(id)defaults prefix:(id)prefix defaultValues:(id)values
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   defaultsCopy = defaults;
   prefixCopy = prefix;
   valuesCopy = values;
-  v55.receiver = self;
-  v55.super_class = HMDFetchedSettingsDriverPreferences;
-  v15 = [(HMDFetchedSettingsDriverPreferences *)&v55 init];
+  v54.receiver = self;
+  v54.super_class = HMDFetchedSettingsDriverPreferences;
+  v15 = [(HMDFetchedSettingsDriverPreferences *)&v54 init];
   v16 = v15;
   if (v15)
   {
-    v45 = defaultsCopy;
-    v46 = queueCopy;
+    v44 = defaultsCopy;
+    v45 = queueCopy;
     objc_storeStrong(&v15->_queue, queue);
     objc_storeStrong(&v16->_userDefaults, defaults);
     objc_storeStrong(&v16->_prefix, prefix);
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     obj = valuesCopy;
-    v17 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
+    v17 = [obj countByEnumeratingWithState:&v50 objects:v61 count:16];
     if (!v17)
     {
       goto LABEL_23;
     }
 
     v18 = v17;
-    v19 = *v52;
+    v19 = *v51;
     v20 = 0x277CD1000uLL;
-    v47 = prefixCopy;
-    v48 = *v52;
-    v49 = valuesCopy;
+    v46 = prefixCopy;
+    v47 = *v51;
+    v48 = valuesCopy;
     while (1)
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v52 != v19)
+        if (*v51 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = *(*(&v51 + 1) + 8 * i);
-        v23 = [prefixCopy stringByAppendingString:{v22, v45, v46}];
+        v22 = *(*(&v50 + 1) + 8 * i);
+        v23 = [prefixCopy stringByAppendingString:{v22, v44, v45}];
         v25 = [objc_getProperty(v16 v24];
 
         if (!v25)
@@ -712,14 +703,14 @@ LABEL_57:
               v29 = HMFGetLogIdentifier();
               v30 = [obj objectForKeyedSubscript:v22];
               *buf = 138543874;
-              v57 = v29;
-              v58 = 2112;
-              v59 = v30;
-              v60 = 2114;
-              v61 = v22;
+              v56 = v29;
+              v57 = 2112;
+              v58 = v30;
+              v59 = 2114;
+              v60 = v22;
               _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@Setting default BOOL value %@ for Key: %{public}@", buf, 0x20u);
 
-              prefixCopy = v47;
+              prefixCopy = v46;
             }
 
             objc_autoreleasePoolPop(v26);
@@ -741,14 +732,14 @@ LABEL_57:
               v39 = HMFGetLogIdentifier();
               v40 = [obj objectForKeyedSubscript:v22];
               *buf = 138543874;
-              v57 = v39;
-              v58 = 2112;
-              v59 = v40;
-              v60 = 2114;
-              v61 = v22;
+              v56 = v39;
+              v57 = 2112;
+              v58 = v40;
+              v59 = 2114;
+              v60 = v22;
               _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@Setting default integer value %@ for Key: %{public}@", buf, 0x20u);
 
-              prefixCopy = v47;
+              prefixCopy = v46;
             }
 
             objc_autoreleasePoolPop(v35);
@@ -764,34 +755,33 @@ LABEL_16:
             {
               v42 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v57 = v42;
-              v58 = 2114;
-              v59 = v22;
+              v56 = v42;
+              v57 = 2114;
+              v58 = v22;
               _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Data type for Key %{public}@ not supported", buf, 0x16u);
             }
 
             objc_autoreleasePoolPop(v35);
           }
 
-          v19 = v48;
-          valuesCopy = v49;
+          v19 = v47;
+          valuesCopy = v48;
           v20 = 0x277CD1000;
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
+      v18 = [obj countByEnumeratingWithState:&v50 objects:v61 count:16];
       if (!v18)
       {
 LABEL_23:
 
-        defaultsCopy = v45;
-        queueCopy = v46;
+        defaultsCopy = v44;
+        queueCopy = v45;
         break;
       }
     }
   }
 
-  v43 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -809,10 +799,9 @@ LABEL_23:
 
 void __50__HMDFetchedSettingsDriverPreferences_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_53927;
-  logCategory__hmf_once_v4_53927 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_53927;
+  logCategory__hmf_once_v4_53927 = v0;
 }
 
 @end

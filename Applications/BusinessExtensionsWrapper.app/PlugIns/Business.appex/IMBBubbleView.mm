@@ -20,7 +20,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1000AA5C4();
+  sub_1000AA5C4(selfCopy);
 }
 
 - (void)touchesCancelled:(id)cancelled withEvent:(id)event

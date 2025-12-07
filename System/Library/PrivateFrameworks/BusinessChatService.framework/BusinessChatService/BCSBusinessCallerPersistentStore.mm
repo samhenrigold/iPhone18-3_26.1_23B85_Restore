@@ -47,15 +47,15 @@
 
 - (void)schemaVersionWillChangeForDatabase:(sqlite3 *)database fromSchemaVersion:(int64_t)version toSchemaVersion:(int64_t)schemaVersion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = ABSLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v14 = "[BCSBusinessCallerPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
-    v15 = 2048;
+    v13 = "[BCSBusinessCallerPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
+    v14 = 2048;
     versionCopy = version;
-    v17 = 2048;
+    v16 = 2048;
     schemaVersionCopy = schemaVersion;
     _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s schema version will change from '%ld' to '%ld', dropping link_items table", buf, 0x20u);
   }
@@ -68,22 +68,20 @@
       v9 = ABSLogCommon();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = sqlite3_errmsg(database);
+        v10 = sqlite3_errmsg(database);
         *buf = 136315138;
-        v14 = v11;
+        v13 = v10;
         _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "error while dropping link_items table: %s", buf, 0xCu);
       }
     }
 
     sqlite3_finalize(ppStmt);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteExpiredItemsOfType:(int64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -110,13 +108,11 @@
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteItemMatching:(id)matching
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -141,13 +137,11 @@
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteItemsOfType:(int64_t)type
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -168,13 +162,11 @@
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)itemMatching:(id)matching
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -215,21 +207,19 @@
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (void)updateItem:(id)item withItemIdentifier:(id)identifier
 {
-  *&v19[5] = *MEMORY[0x277D85DE8];
+  *&v18[5] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   identifierCopy = identifier;
   v8 = ABSLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    *v19 = "[BCSBusinessCallerPersistentStore updateItem:withItemIdentifier:]";
+    *v18 = "[BCSBusinessCallerPersistentStore updateItem:withItemIdentifier:]";
     _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -243,9 +233,9 @@
       v10 = ABSLogCommon();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v15 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
+        v14 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
         *buf = 136315138;
-        *v19 = v15;
+        *v18 = v14;
         _os_log_error_impl(&dword_242072000, v10, OS_LOG_TYPE_ERROR, "Failed to update item: %s", buf, 0xCu);
       }
     }
@@ -260,11 +250,11 @@
         v13 = ABSLogCommon();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v16 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
+          v15 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
           *buf = 67109378;
-          v19[0] = v12;
-          LOWORD(v19[1]) = 2080;
-          *(&v19[1] + 2) = v16;
+          v18[0] = v12;
+          LOWORD(v18[1]) = 2080;
+          *(&v18[1] + 2) = v15;
           _os_log_error_impl(&dword_242072000, v13, OS_LOG_TYPE_ERROR, "Failed to insert business caller item: %d (%s)", buf, 0x12u);
         }
       }
@@ -274,8 +264,6 @@
 
     [(BCSPersistentStore *)self endBatch];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

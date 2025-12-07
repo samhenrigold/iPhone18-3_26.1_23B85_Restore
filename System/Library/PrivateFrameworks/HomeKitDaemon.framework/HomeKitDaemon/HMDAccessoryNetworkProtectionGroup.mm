@@ -30,7 +30,7 @@
 
 - (void)transactionObjectUpdated:(id)updated newValues:(id)values message:(id)message
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   valuesCopy = values;
   messageCopy = message;
@@ -64,11 +64,11 @@
 
         [transactionResult markChanged];
         uuid = [(HMDAccessoryNetworkProtectionGroup *)self uuid];
-        v42[0] = uuid;
-        v41[1] = *MEMORY[0x277CCEBF0];
+        v41[0] = uuid;
+        v40[1] = *MEMORY[0x277CCEBF0];
         v20 = [MEMORY[0x277CCABB0] numberWithInteger:{-[HMDAccessoryNetworkProtectionGroup targetProtectionMode](self, "targetProtectionMode")}];
-        v42[1] = v20;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:2];
+        v41[1] = v20;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:2];
 
         defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
         [defaultCenter postNotificationName:@"HMDAccessoryNetworkProtectionGroupProtectionModeUpdated" object:self userInfo:v21];
@@ -121,12 +121,12 @@
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v44 = v38;
-      v45 = 2112;
-      v46 = v11;
-      v47 = 2112;
-      v48 = objc_opt_class();
-      v39 = v48;
+      v43 = v38;
+      v44 = 2112;
+      v45 = v11;
+      v46 = 2112;
+      v47 = objc_opt_class();
+      v39 = v47;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectUpdated]", buf, 0x20u);
     }
 
@@ -134,13 +134,11 @@
     transactionResult = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [messageCopy respondWithError:transactionResult];
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)transactionObjectRemoved:(id)removed message:(id)message
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   messageCopy = message;
   v8 = objc_autoreleasePoolPush();
@@ -149,21 +147,19 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     v11 = HMFGetLogIdentifier();
-    v15 = 138543874;
-    v16 = v11;
-    v17 = 2112;
-    v18 = removedCopy;
-    v19 = 2112;
-    v20 = objc_opt_class();
-    v12 = v20;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectRemoved]", &v15, 0x20u);
+    v14 = 138543874;
+    v15 = v11;
+    v16 = 2112;
+    v17 = removedCopy;
+    v18 = 2112;
+    v19 = objc_opt_class();
+    v12 = v19;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unknown model object (%@) sent to [%@ transactionObjectRemoved]", &v14, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   v13 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
   [messageCopy respondWithError:v13];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)modelForVersion:(int64_t)version

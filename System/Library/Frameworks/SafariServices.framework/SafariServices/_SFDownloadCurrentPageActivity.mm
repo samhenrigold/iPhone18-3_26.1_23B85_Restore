@@ -8,15 +8,16 @@
 {
   viewCopy = view;
   v6 = *MEMORY[0x1E69CDB00];
-  v16 = 0;
-  v7 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:v6 error:&v16];
-  v8 = v16;
+  v18 = 0;
+  v7 = [MEMORY[0x1E696ABD0] extensionWithIdentifier:v6 error:&v18];
+  v8 = v18;
+  v10 = v8;
   if (!v7)
   {
-    v13 = WBS_LOG_CHANNEL_PREFIXDownloads();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXDownloads(v8, v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(_SFDownloadCurrentPageActivity *)v13 initWithWebView:v8];
+      [(_SFDownloadCurrentPageActivity *)v15 initWithWebView:v10];
     }
 
     goto LABEL_6;
@@ -32,11 +33,11 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v15.receiver = self;
-  v15.super_class = _SFDownloadCurrentPageActivity;
-  v11 = [(UIApplicationExtensionActivity *)&v15 initWithApplicationExtension:v7];
-  objc_storeStrong(&v11->_webView, view);
-  self = v11;
+  v17.receiver = self;
+  v17.super_class = _SFDownloadCurrentPageActivity;
+  v13 = [(UIApplicationExtensionActivity *)&v17 initWithApplicationExtension:v7];
+  objc_storeStrong(&v13->_webView, view);
+  self = v13;
   selfCopy = self;
 LABEL_7:
 

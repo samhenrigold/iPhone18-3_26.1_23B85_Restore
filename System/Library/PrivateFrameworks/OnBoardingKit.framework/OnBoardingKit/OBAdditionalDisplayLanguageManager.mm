@@ -27,19 +27,19 @@
 
 - (void)configureNavigationItemRightBarButtonItemForWelcomeController:(id)controller currentDisplayLanguage:(id)language action:(SEL)action
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   languageCopy = language;
-  v10 = _OBLoggingFacility();
+  v10 = _OBLoggingFacility(languageCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     additionalDisplayLanguage = [(OBAdditionalDisplayLanguageManager *)self additionalDisplayLanguage];
     *buf = 138412802;
-    v36 = controllerCopy;
-    v37 = 2112;
-    v38 = languageCopy;
-    v39 = 2112;
-    v40 = additionalDisplayLanguage;
+    v39 = controllerCopy;
+    v40 = 2112;
+    v41 = languageCopy;
+    v42 = 2112;
+    v43 = additionalDisplayLanguage;
     _os_log_impl(&dword_1B4FB6000, v10, OS_LOG_TYPE_DEFAULT, "configure toggle button with welcomeController %@ displayLanguage %@ self.additionalDisplayLanguage %@", buf, 0x20u);
   }
 
@@ -48,9 +48,9 @@
   if (additionalDisplayLanguage2)
   {
     additionalDisplayLanguage3 = [(OBAdditionalDisplayLanguageManager *)self additionalDisplayLanguage];
-    v14 = [languageCopy isEqualToString:additionalDisplayLanguage3];
+    v15 = [languageCopy isEqualToString:additionalDisplayLanguage3];
 
-    if (v14)
+    if (v15)
     {
       [(OBAdditionalDisplayLanguageManager *)self originalDisplayLanguage];
     }
@@ -59,78 +59,76 @@
     {
       [(OBAdditionalDisplayLanguageManager *)self additionalDisplayLanguage];
     }
-    v15 = ;
-    v16 = _OBLoggingFacility();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v16 = ;
+    v17 = _OBLoggingFacility(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v36 = v15;
-      _os_log_impl(&dword_1B4FB6000, v16, OS_LOG_TYPE_DEFAULT, "configure toggle button using language %@", buf, 0xCu);
+      v39 = v16;
+      _os_log_impl(&dword_1B4FB6000, v17, OS_LOG_TYPE_DEFAULT, "configure toggle button using language %@", buf, 0xCu);
     }
 
-    v17 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    v18 = [OBUtilities localizedString:@"ALTERNATE_LANGUAGE_BUTTON_TITLE" forTable:@"Localizable" inBundle:v17 forLanguage:v15];
+    v18 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+    v19 = [OBUtilities localizedString:@"ALTERNATE_LANGUAGE_BUTTON_TITLE" forTable:@"Localizable" inBundle:v18 forLanguage:v16];
 
-    v19 = _OBLoggingFacility();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v21 = _OBLoggingFacility(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v36 = v18;
-      _os_log_impl(&dword_1B4FB6000, v19, OS_LOG_TYPE_DEFAULT, "configure toggle button title %@", buf, 0xCu);
+      v39 = v19;
+      _os_log_impl(&dword_1B4FB6000, v21, OS_LOG_TYPE_DEFAULT, "configure toggle button title %@", buf, 0xCu);
     }
 
-    v20 = _OBLoggingFacility();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v23 = _OBLoggingFacility(v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
       navigationItem = [controllerCopy navigationItem];
       *buf = 138412290;
-      v36 = navigationItem;
-      _os_log_impl(&dword_1B4FB6000, v20, OS_LOG_TYPE_DEFAULT, "configure toggle button navigation item %@", buf, 0xCu);
+      v39 = navigationItem;
+      _os_log_impl(&dword_1B4FB6000, v23, OS_LOG_TYPE_DEFAULT, "configure toggle button navigation item %@", buf, 0xCu);
     }
 
-    v22 = [objc_alloc(MEMORY[0x1E69DC708]) initWithTitle:v18 style:0 target:controllerCopy action:action];
+    v25 = [objc_alloc(MEMORY[0x1E69DC708]) initWithTitle:v19 style:0 target:controllerCopy action:action];
     navigationItem2 = [controllerCopy navigationItem];
     rightBarButtonItem = [navigationItem2 rightBarButtonItem];
 
     navigationItem3 = [controllerCopy navigationItem];
-    v26 = navigationItem3;
+    v29 = navigationItem3;
     if (rightBarButtonItem)
     {
       rightBarButtonItem2 = [navigationItem3 rightBarButtonItem];
-      v34[0] = rightBarButtonItem2;
-      v34[1] = v22;
-      v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+      v37[0] = rightBarButtonItem2;
+      v37[1] = v25;
+      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:v37 count:2];
       navigationItem4 = [controllerCopy navigationItem];
-      [navigationItem4 setRightBarButtonItems:v28];
+      [navigationItem4 setRightBarButtonItems:v31];
     }
 
     else
     {
-      [navigationItem3 setRightBarButtonItem:v22];
+      [navigationItem3 setRightBarButtonItem:v25];
     }
 
-    v30 = _OBLoggingFacility();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v34 = _OBLoggingFacility(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       navigationItem5 = [controllerCopy navigationItem];
       rightBarButtonItem3 = [navigationItem5 rightBarButtonItem];
       *buf = 138412290;
-      v36 = rightBarButtonItem3;
-      _os_log_impl(&dword_1B4FB6000, v30, OS_LOG_TYPE_DEFAULT, "configure toggle button navigation item right bar button item %@", buf, 0xCu);
+      v39 = rightBarButtonItem3;
+      _os_log_impl(&dword_1B4FB6000, v34, OS_LOG_TYPE_DEFAULT, "configure toggle button navigation item right bar button item %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v15 = _OBLoggingFacility();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _OBLoggingFacility(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B4FB6000, v15, OS_LOG_TYPE_DEFAULT, "configure toggle button short-circuiting", buf, 2u);
+      _os_log_impl(&dword_1B4FB6000, v16, OS_LOG_TYPE_DEFAULT, "configure toggle button short-circuiting", buf, 2u);
     }
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (id)didTapRightBarButtonItemForWelcomeController:(id)controller currentDisplayLanguage:(id)language

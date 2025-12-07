@@ -2,44 +2,44 @@
 - (BOOL)generateBSplineInComputeForStroke:(uint64_t)stroke;
 - (BOOL)setViewScissor:(CGFloat)scissor;
 - (BOOL)setupAlphaBlendingForAlphaBlendFactor:(void *)factor renderEncoder:(double)encoder;
+- (CGSize)setupClippingForStrokeClipRect:(CGFloat *)rect clippedToPixelSpaceRect:(CGFloat)spaceRect renderEncoder:(CGFloat)encoder outNewClipRect:(CGFloat)clipRect;
 - (PKMetalStrokeRenderCache)generateCacheForStroke:(unint64_t)stroke points:(double *)points segmentSteps:(void *)steps;
 - (__n128)setCombineStrokesAllowed:(uint64_t)allowed;
 - (double)alphaForStroke:(uint64_t)stroke;
 - (double)antialiasingThresholdForStroke:(uint64_t)stroke;
 - (double)calculateSourceRectForTile:(void *)tile tileTransform:(float64x2_t *)transform destinationQuadOut:(_OWORD *)out;
 - (double)dirtyClipRectForAnimatingStrokeVertices:(uint64_t)vertices newSize:(unint64_t)size;
-- (double)particleOffsetAtEndOfStroke:(uint64_t)stroke forSecondaryParticles:(void *)particles;
+- (double)particleOffsetAtEndOfStroke:(_BOOL4)stroke forSecondaryParticles:;
 - (double)updateActualSize:(double)size pixelSize:(double)pixelSize;
 - (float)clipRectForVertices:(float *)result numVertices:(uint64_t)vertices vertexSize:(uint64_t)size;
 - (id).cxx_construct;
 - (id)blitShader;
 - (id)colorForStroke:(uint64_t)stroke;
 - (id)generateParticleCacheForStroke:(double *)stroke animatingStroke:(uint64_t)animatingStroke starts:(int)starts ends:(int)ends secondaryParticles:(int)particles;
-- (id)initWithDrawingPixelSize:(void *)size actualSize:(void *)actualSize device:(uint64_t)device resourceHandler:(char)handler sixChannelBlendingMode:pixelFormat:wantsExtendedDynamicRangeContent:;
-- (id)initWithDrawingPixelSize:(void *)size actualSize:(void *)actualSize device:resourceHandler:sixChannelBlendingMode:;
+- (id)initWithDrawingPixelSize:(void *)size actualSize:(char *)actualSize device:(double)device resourceHandler:(double)handler sixChannelBlendingMode:(double)mode;
+- (id)initWithDrawingPixelSize:(void *)size actualSize:(char *)actualSize device:(void *)device resourceHandler:(char)handler sixChannelBlendingMode:(double)mode pixelFormat:(double)format wantsExtendedDynamicRangeContent:(double)content;
 - (id)renderCacheItemForStroke:(uint64_t)stroke bsplineFilter:(void *)filter purgeableResources:(void *)resources strokeRenderCache:;
 - (id)renderCommandEncoderForCommandBuffer:(id *)buffer renderStateConfig:(void *)config renderState:;
 - (uint64_t)_renderStrokes:(_OWORD *)strokes clippedToStrokeSpaceRect:(void *)rect strokeTransform:(double)transform stopBlock:(double)block;
 - (uint64_t)applyStrokeSpaceClipRect:(double)rect strokeTransform:(double)transform;
 - (uint64_t)clearAndRenderStrokes:(__int128 *)strokes clippedToStrokeSpaceRect:(void *)rect strokeTransform:(CGFloat)transform stopBlock:(CGFloat)block;
-- (uint64_t)newCGImageWithClipRect:(CGFloat)rect;
-- (uint64_t)newCGImageWithClipRect:(CGFloat)rect framebuffer:(CGFloat)framebuffer;
-- (uint64_t)newSixChannelMultiplyCGImageWithClipRect:(CGFloat)rect;
 - (uint64_t)renderParticleRenderCache:(void *)cache renderEncoder:(void *)encoder computeEncoder:(id *)computeEncoder animatingStroke:(int)stroke secondaryParticles:;
-- (uint64_t)renderParticleStroke:(unint64_t)stroke animatingStroke:(uint64_t)animatingStroke starts:(int)starts ends:(char)ends secondaryParticles:(int)particles renderEncoder:(void *)encoder;
-- (uint64_t)renderPenStroke:(unint64_t)stroke animatingStroke:(uint64_t)animatingStroke renderEncoder:(void *)encoder;
+- (uint64_t)renderParticleStroke:(float *)stroke animatingStroke:(uint64_t *)animatingStroke starts:(int)starts ends:(char)ends secondaryParticles:(uint64_t)particles renderEncoder:(void *)encoder;
+- (uint64_t)renderPenStroke:(double *)stroke animatingStroke:(uint64_t *)animatingStroke renderEncoder:(void *)encoder;
 - (uint64_t)renderSDFPenStroke:(uint64_t)stroke animatingStroke:(uint64_t)animatingStroke renderEncoder:(void *)encoder;
-- (uint64_t)renderStroke:(unint64_t)stroke animatingStroke:(uint64_t)animatingStroke renderEncoder:(void *)encoder computeEncoder:(void *)computeEncoder renderCache:(void *)cache;
+- (uint64_t)renderStroke:(float *)stroke animatingStroke:(_anonymous_namespace_:(void *)animatingStroke :(void *)a6 AnimatingStroke *)a4 renderEncoder:(void *)encoder computeEncoder:renderCache:;
 - (uint64_t)renderStrokeRenderCache:(void *)cache renderEncoder:(uint64_t)encoder animatingStroke:(int)stroke indexed:;
 - (uint64_t)renderStrokeRenderCacheBuffers:(void *)buffers renderEncoder:(_anonymous_namespace_:(int)encoder :AnimatingStroke *)a4 animatingStroke:indexed:;
 - (uint64_t)renderStrokes:(__int128 *)strokes clippedToStrokeSpaceRect:(void *)rect strokeTransform:(double)transform stopBlock:(double)block;
 - (uint64_t)renderStrokes:(void *)strokes stopBlock:;
 - (uint64_t)renderVerticies:(unint64_t)verticies size:(uint64_t)size numRenderedVertices:(void *)vertices vertexSize:(uint64_t)vertexSize numIndices:(uint64_t)indices localClipRect:(char)rect animatingStroke:(CGFloat)stroke secondaryParticles:(CGFloat)self0 renderEncoder:(CGFloat)self1;
 - (uint64_t)renderZoomFactorForStroke:(uint64_t)stroke;
-- (uint64_t)setupClippingForStrokeClipRect:(CGFloat *)rect clippedToPixelSpaceRect:(CGFloat)spaceRect renderEncoder:(CGFloat)encoder outNewClipRect:(CGFloat)clipRect;
 - (uint64_t)setupForDefaultUberVertexShaderInRenderEncoder:(uint64_t)encoder;
 - (uint64_t)shouldRenderDebugColorForStroke:(uint64_t)stroke;
 - (unint64_t)fadeOutLimitFromPoints:(uint64_t)points animatingStroke:;
+- (unsigned)newCGImageWithClipRect:(CGFloat)rect;
+- (unsigned)newCGImageWithClipRect:(CGFloat)rect framebuffer:(CGFloat)framebuffer;
+- (unsigned)newSixChannelMultiplyCGImageWithClipRect:(CGFloat)rect;
 - (void)addBufferForRenderCache:(uint64_t)cache strokeVertices:(unint64_t)vertices numVertices:(void *)numVertices vertexSize:(char)size bounds:(void *)bounds secondaryParticles:(double)particles renderEncoder:(double)encoder;
 - (void)addStrokeSpaceDrawableDirtyRect:(double)rect;
 - (void)allocateAndClearAddMultiplyFramebuffersIfNecessary;
@@ -53,7 +53,7 @@
 - (void)dealloc;
 - (void)disableClippingForRenderEncoder:(uint64_t)encoder;
 - (void)drawNewPointsAt:(uint64_t)at drawCount:(uint64_t)count;
-- (void)drawingBeganWithStroke:(uint64_t)stroke forPreview:(void *)preview;
+- (void)drawingBeganWithStroke:(int)stroke forPreview:;
 - (void)drawingCancelledForPreview:(uint64_t)preview;
 - (void)drawingEnded:(void *)ended finishStrokeBlock:;
 - (void)eraseShaderForAttachmentIndex:(void *)index;
@@ -62,7 +62,7 @@
 - (void)finishRenderingNoTeardownForStroke:(void *)stroke clippedToPixelSpaceRect:(CGFloat)rect renderEncoder:(CGFloat)encoder;
 - (void)flushMemoryIfPossible;
 - (void)framebufferForTile:(char)tile createIfNeeded:;
-- (void)generateLiveStrokeCachesForStrokes:(uint64_t)strokes destinationLocations:(void *)locations startTime:duration:;
+- (void)generateLiveStrokeCachesForStrokes:(uint64_t *)strokes destinationLocations:(double)locations startTime:(double)time duration:;
 - (void)generatePaintCacheForStroke:(unint64_t)stroke animatingStroke:(uint64_t)animatingStroke segmentSteps:(void *)steps liveStrokePoints:(uint64_t)points liveStrokeStartTime:(double)time duration:(double)duration;
 - (void)generateRenderMaskForPaths:(void *)paths renderCache:;
 - (void)getAndRenderNewPoints:(uint64_t)points;
@@ -73,7 +73,7 @@
 - (void)renderAheadWithTransform:(int)transform onPaper:(void *)paper renderBufferSize:(void *)size destinationTexture:(float64_t)texture destinationMultiplyTexture:(float64_t)multiplyTexture;
 - (void)renderBrushIndicatorForStroke:(__int128 *)stroke withTransform:(unint64_t)transform mode:;
 - (void)renderFullscreenQuadWithShader:(void *)shader renderEncoder:;
-- (void)renderImageTexture:(__int128 *)texture imageTextureTransform:(void *)transform withTiles:(uint64_t)tiles tileTransform:(char)tileTransform waitUntilCompleted:;
+- (void)renderImageTexture:(__int128 *)texture imageTextureTransform:(void *)transform withTiles:(uint64_t)tiles tileTransform:(uint64_t)tileTransform waitUntilCompleted:;
 - (void)renderLiveStrokeWithTransform:(float64_t)transform renderBufferSize:(float64_t)size;
 - (void)renderPaperTransform:(_OWORD *)transform paperTransform:(int)paperTransform flipped:(void *)flipped multiply:(double)multiply renderEncoder:;
 - (void)renderStroke:(uint64_t)stroke withTransform:(unint64_t)transform mode:(int)mode flipped:(void *)flipped renderBufferSize:(int)size renderEncoder:(float64_t)encoder currentClipRect:(float64_t)rect needRenderMask:(CGFloat)self0;
@@ -162,38 +162,38 @@ void __59__PKMetalRenderer_disableClearOriginalBackbufferWorkaround__block_invok
   _MergedGlobals_145 = [v0 BOOLForKey:@"PKDisableClearOriginalBackbufferWorkaround"];
 }
 
-- (id)initWithDrawingPixelSize:(void *)size actualSize:(void *)actualSize device:resourceHandler:sixChannelBlendingMode:
+- (id)initWithDrawingPixelSize:(void *)size actualSize:(char *)actualSize device:(double)device resourceHandler:(double)handler sixChannelBlendingMode:(double)mode
 {
-  v7 = a2;
+  v15 = a2;
   sizeCopy = size;
   if (self)
   {
-    v9 = [PKMetalRenderer initWithDrawingPixelSize:self actualSize:v7 device:sizeCopy resourceHandler:actualSize sixChannelBlendingMode:80 pixelFormat:0 wantsExtendedDynamicRangeContent:?];
+    v17 = [(PKMetalRenderer *)self initWithDrawingPixelSize:v15 actualSize:sizeCopy device:actualSize resourceHandler:0x50 sixChannelBlendingMode:0 pixelFormat:device wantsExtendedDynamicRangeContent:handler, mode, a8];
   }
 
   else
   {
-    v9 = 0;
+    v17 = 0;
   }
 
-  return v9;
+  return v17;
 }
 
-- (id)initWithDrawingPixelSize:(void *)size actualSize:(void *)actualSize device:(uint64_t)device resourceHandler:(char)handler sixChannelBlendingMode:pixelFormat:wantsExtendedDynamicRangeContent:
+- (id)initWithDrawingPixelSize:(void *)size actualSize:(char *)actualSize device:(void *)device resourceHandler:(char)handler sixChannelBlendingMode:(double)mode pixelFormat:(double)format wantsExtendedDynamicRangeContent:(double)content
 {
-  v11 = a2;
+  v15 = a2;
   sizeCopy = size;
   if (self)
   {
-    v15.receiver = self;
-    v15.super_class = PKMetalRenderer;
-    v13 = objc_msgSendSuper2(&v15, sel_init);
-    self = v13;
-    if (v13)
+    v19.receiver = self;
+    v19.super_class = PKMetalRenderer;
+    v17 = objc_msgSendSuper2(&v19, sel_init);
+    self = v17;
+    if (v17)
     {
-      *(v13 + 497) = handler;
-      v13[129] = 0x3FF0000000000000;
-      objc_storeStrong(v13 + 3, a2);
+      *(v17 + 497) = handler;
+      v17[129] = 0x3FF0000000000000;
+      objc_storeStrong(v17 + 3, a2);
       self[91] = actualSize;
       *(self + 1006) = 0;
       self[133] = 0x3FF0000000000000;
@@ -264,16 +264,16 @@ LABEL_6:
 
 - (void)flushMemoryIfPossible
 {
-  if (self)
+  if (result)
   {
-    strokeRenderCache = [(PKMetalResourceHandler *)*(self + 192) strokeRenderCache];
+    strokeRenderCache = [(PKMetalResourceHandler *)*(result + 192) strokeRenderCache];
     [(PKLRUCache *)strokeRenderCache removeAllObjects];
 
-    [(PKMetalResourceHandler *)*(self + 192) deallocateReusableBuffers];
-    if (!*(self + 8))
+    [(PKMetalResourceHandler *)*(result + 192) deallocateReusableBuffers];
+    if (!*(result + 8))
     {
 
-      [(PKMetalRenderer *)self teardownDrawingFramebuffers];
+      [(PKMetalRenderer *)result teardownDrawingFramebuffers];
     }
   }
 }
@@ -343,71 +343,71 @@ LABEL_6:
   return v9;
 }
 
-- (void)drawingBeganWithStroke:(uint64_t)stroke forPreview:(void *)preview
+- (void)drawingBeganWithStroke:(int)stroke forPreview:
 {
-  previewCopy = preview;
-  v5 = previewCopy;
-  if (stroke)
+  v5 = a2;
+  v6 = v5;
+  if (self)
   {
-    v6 = *(stroke + 632);
-    v7 = *(stroke + 640) - v6;
-    if (v7)
+    v7 = *(self + 632);
+    v8 = *(self + 640) - v7;
+    if (v8)
     {
-      v8 = 0x4FA4FA4FA4FA4FA5 * (v7 >> 3);
-      if (v8 <= 1)
+      v9 = 0x4FA4FA4FA4FA4FA5 * (v8 >> 3);
+      if (v9 <= 1)
       {
-        v8 = 1;
+        v9 = 1;
       }
 
-      v9 = (v6 + 304);
+      v10 = (v7 + 304);
       do
       {
-        *(v9 - 1) = 0;
-        *v9 = 0x3FF0000000000000;
-        v9 += 45;
-        --v8;
+        *(v10 - 1) = 0;
+        *v10 = 0x3FF0000000000000;
+        v10 += 45;
+        --v9;
       }
 
-      while (v8);
+      while (v9);
     }
 
-    [previewCopy _renderMask];
+    [v5 _renderMask];
     objc_claimAutoreleasedReturnValue();
-    *(stroke + 352) = 0;
-    if (*(stroke + 1007) == 1)
+    *(self + 352) = 0;
+    if (*(self + 1007) == 1)
     {
-      v10 = *(stroke + 656);
-      if (v10)
+      v11 = *(self + 656);
+      if (v11)
       {
-        _renderGroupID = [v10 _renderGroupID];
-        _renderGroupID2 = [v5 _renderGroupID];
-        v13 = [_renderGroupID isEqual:_renderGroupID2];
+        _renderGroupID = [v11 _renderGroupID];
+        _renderGroupID2 = [v6 _renderGroupID];
+        v14 = [_renderGroupID isEqual:_renderGroupID2];
 
-        if ((v13 & 1) == 0)
+        if ((v14 & 1) == 0)
         {
-          [(PKMetalRenderer *)stroke purgePaintFramebuffers];
-          *(stroke + 121) = 1;
-          *(stroke + 153) = 1;
-          *(stroke + 137) = 1;
-          *(stroke + 169) = 1;
-          v14 = *(MEMORY[0x1E695F050] + 16);
-          *(stroke + 672) = *MEMORY[0x1E695F050];
-          *(stroke + 688) = v14;
-          v15 = os_log_create("com.apple.pencilkit", "Sketching");
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          [(PKMetalRenderer *)self purgePaintFramebuffers];
+          *(self + 121) = 1;
+          *(self + 153) = 1;
+          *(self + 137) = 1;
+          *(self + 169) = 1;
+          v15 = *(MEMORY[0x1E695F050] + 16);
+          *(self + 672) = *MEMORY[0x1E695F050];
+          *(self + 688) = v15;
+          v16 = os_log_create("com.apple.pencilkit", "Sketching");
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C7CCA000, v15, OS_LOG_TYPE_DEFAULT, "Clearing paint framebuffers to switching to a new render group.", buf, 2u);
+            _os_log_impl(&dword_1C7CCA000, v16, OS_LOG_TYPE_DEFAULT, "Clearing paint framebuffers to switching to a new render group.", buf, 2u);
           }
         }
       }
     }
 
-    objc_storeStrong((stroke + 656), preview);
-    v16 = *(stroke + 664);
-    *(stroke + 664) = 0;
+    objc_storeStrong((self + 656), a2);
+    v17 = *(self + 664);
+    *(self + 664) = 0;
 
-    [(PKMetalRenderer *)stroke renderZoomFactorForStroke:v5];
+    [(PKMetalRenderer *)self renderZoomFactorForStroke:v6];
     operator new();
   }
 }
@@ -451,7 +451,7 @@ LABEL_6:
     {
       if (endedCopy)
       {
-        (*(endedCopy + 2))(endedCopy);
+        endedCopy[2](endedCopy);
       }
     }
 
@@ -482,7 +482,7 @@ LABEL_9:
 - (void)setAlternativeStrokes:(double)strokes alpha:(double)alpha originalStrokeAlpha:
 {
   v38 = *MEMORY[0x1E69E9840];
-  v8 = x1_0;
+  v8 = a2;
   if (!self)
   {
     goto LABEL_29;
@@ -560,7 +560,7 @@ LABEL_9:
   *(v9 + v19) = v20;
   *(v9 + v17) = v20;
 LABEL_19:
-  objc_storeStrong((v9 - 72), x1_0);
+  objc_storeStrong((v9 - 72), a2);
   *(v9 - 64) = strokes;
   *(v9 - 56) = alpha;
   if (v8)
@@ -807,7 +807,7 @@ LABEL_27:
         }
 
         v40 = *(v7 + 88);
-        v39 = *(v7 + 80) + 96 * v41 - 96;
+        v39 = (*(v7 + 80) + 96 * v41 - 96);
       }
 
       [(PKMetalRenderer *)at setupViewScissorClippingIfNecessaryForRenderEncoder:v43];
@@ -815,7 +815,7 @@ LABEL_27:
       {
         do
         {
-          [(PKMetalRenderer *)at renderStroke:v39 animatingStroke:v40 renderEncoder:v6 - 360 computeEncoder:v43 renderCache:0, 0];
+          [(PKMetalRenderer *)at renderStroke:v39 animatingStroke:v40 renderEncoder:(v6 - 360) computeEncoder:v43 renderCache:0, 0];
           --count;
         }
 
@@ -894,38 +894,38 @@ LABEL_27:
   }
 }
 
-- (uint64_t)renderStroke:(unint64_t)stroke animatingStroke:(uint64_t)animatingStroke renderEncoder:(void *)encoder computeEncoder:(void *)computeEncoder renderCache:(void *)cache
+- (uint64_t)renderStroke:(float *)stroke animatingStroke:(_anonymous_namespace_:(void *)animatingStroke :(void *)a6 AnimatingStroke *)a4 renderEncoder:(void *)encoder computeEncoder:renderCache:
 {
   v163 = *MEMORY[0x1E69E9840];
+  animatingStrokeCopy = animatingStroke;
+  v129 = a6;
   encoderCopy = encoder;
-  computeEncoderCopy = computeEncoder;
-  cacheCopy = cache;
   *(self + 352) = 0;
   v134 = x1_0;
   strokeCopy = stroke;
-  v131 = cacheCopy;
-  v14 = 0xAAAAAAAAAAAAAAABLL * ((stroke - x1_0) >> 5) <= 1 && cacheCopy == 0;
-  if (v14 && *(animatingStroke + 336) != 1)
+  v131 = encoderCopy;
+  v14 = 0xAAAAAAAAAAAAAAABLL * ((stroke - x1_0) >> 5) <= 1 && encoderCopy == 0;
+  if (v14 && *(a4 + 336) != 1)
   {
-    encoderCopy = 0;
+    animatingStrokeCopy = 0;
     goto LABEL_139;
   }
 
-  v15 = *(animatingStroke + 248);
-  v16 = *(animatingStroke + 256);
-  v126 = (animatingStroke + 268);
-  v17 = *(animatingStroke + 268);
+  v15 = *(a4 + 31);
+  v16 = *(a4 + 32);
+  v126 = (a4 + 268);
+  v17 = *(a4 + 268);
   v18 = *(MEMORY[0x1E695F050] + 16);
-  *(animatingStroke + 184) = *MEMORY[0x1E695F050];
-  *(animatingStroke + 200) = v18;
-  v19 = [*(animatingStroke + 80) ink];
+  *(a4 + 184) = *MEMORY[0x1E695F050];
+  *(a4 + 200) = v18;
+  v19 = [*(a4 + 10) ink];
   behavior = [v19 behavior];
   if (behavior && behavior[9] == 1)
   {
 
     if (stroke != x1_0)
     {
-      memmove((self + 360), (stroke - 96), 0x60uLL);
+      memmove((self + 360), stroke - 24, 0x60uLL);
       *(self + 352) = 1;
     }
   }
@@ -934,18 +934,18 @@ LABEL_27:
   {
   }
 
-  if (*(animatingStroke + 336))
+  if (*(a4 + 336))
   {
     v21 = 1;
   }
 
   else
   {
-    v21 = *(animatingStroke + 72);
+    v21 = *(a4 + 72);
   }
 
   v127 = v21;
-  v22 = [*(animatingStroke + 80) ink];
+  v22 = [*(a4 + 10) ink];
   behavior2 = [v22 behavior];
   renderingDescriptor = [behavior2 renderingDescriptor];
   type = [renderingDescriptor type];
@@ -957,14 +957,14 @@ LABEL_27:
     v128 = v27;
     if (v27)
     {
-      encoderCopy = [(PKMetalRenderer *)self renderParticleRenderCache:v27 renderEncoder:encoderCopy computeEncoder:computeEncoderCopy animatingStroke:animatingStroke secondaryParticles:0];
-      v29 = [*(animatingStroke + 80) ink];
+      animatingStrokeCopy = [(PKMetalRenderer *)self renderParticleRenderCache:v27 renderEncoder:animatingStrokeCopy computeEncoder:v129 animatingStroke:a4 secondaryParticles:0];
+      v29 = [*(a4 + 10) ink];
       behavior3 = [v29 behavior];
       secondaryParticleDescriptor = [behavior3 secondaryParticleDescriptor];
 
       if (secondaryParticleDescriptor)
       {
-        encoderCopy += [(PKMetalRenderer *)self renderParticleRenderCache:v128 renderEncoder:encoderCopy computeEncoder:computeEncoderCopy animatingStroke:animatingStroke secondaryParticles:1];
+        animatingStrokeCopy += [(PKMetalRenderer *)self renderParticleRenderCache:v128 renderEncoder:animatingStrokeCopy computeEncoder:v129 animatingStroke:a4 secondaryParticles:1];
       }
 
       goto LABEL_136;
@@ -974,23 +974,23 @@ LABEL_27:
     {
       v60 = objc_opt_class();
       particleDescriptor = PKDynamicCast(v60, v131);
-      encoderCopy = [(PKMetalRenderer *)self renderStrokeRenderCache:particleDescriptor renderEncoder:encoderCopy animatingStroke:animatingStroke indexed:1];
+      animatingStrokeCopy = [(PKMetalRenderer *)self renderStrokeRenderCache:particleDescriptor renderEncoder:animatingStrokeCopy animatingStroke:a4 indexed:1];
 LABEL_135:
 
       v128 = 0;
       goto LABEL_136;
     }
 
-    v112 = [*(animatingStroke + 80) ink];
+    v112 = [*(a4 + 10) ink];
     behavior4 = [v112 behavior];
     particleDescriptor = [behavior4 particleDescriptor];
 
-    if ([particleDescriptor adjustEndCapParticleAlpha] && (*(animatingStroke + 337) & 1) == 0)
+    if ([particleDescriptor adjustEndCapParticleAlpha] && (*(a4 + 337) & 1) == 0)
     {
-      v117 = *(animatingStroke + 168);
-      if (v117 <= *(animatingStroke + 160))
+      v117 = *(a4 + 21);
+      if (v117 <= *(a4 + 20))
       {
-        v117 = *(animatingStroke + 160);
+        v117 = *(a4 + 20);
       }
 
       v114 = v117 == 0;
@@ -1006,28 +1006,28 @@ LABEL_135:
       goto LABEL_132;
     }
 
-    v118 = *(animatingStroke + 337) ^ 1;
-    if ((*(animatingStroke + 337) & 1) == 0 && ((v127 ^ 1) & 1) == 0)
+    v118 = *(a4 + 337) ^ 1;
+    if ((*(a4 + 337) & 1) == 0 && ((v127 ^ 1) & 1) == 0)
     {
-      if (*(animatingStroke + 176))
+      if (*(a4 + 176))
       {
 LABEL_132:
         v118 = 0;
         goto LABEL_133;
       }
 
-      v118 = *(*(animatingStroke + 96) + 88) == strokeCopy;
+      v118 = *(*(a4 + 12) + 88) == strokeCopy;
     }
 
 LABEL_133:
-    encoderCopy = [(PKMetalRenderer *)self renderParticleStroke:v134 animatingStroke:strokeCopy starts:animatingStroke ends:v114 secondaryParticles:v118 renderEncoder:0, encoderCopy];
-    v119 = [*(animatingStroke + 80) ink];
+    animatingStrokeCopy = [(PKMetalRenderer *)self renderParticleStroke:v134 animatingStroke:strokeCopy starts:a4 ends:v114 secondaryParticles:v118 renderEncoder:0, animatingStrokeCopy];
+    v119 = [*(a4 + 10) ink];
     behavior5 = [v119 behavior];
     secondaryParticleDescriptor2 = [behavior5 secondaryParticleDescriptor];
 
     if (secondaryParticleDescriptor2)
     {
-      encoderCopy += [(PKMetalRenderer *)self renderParticleStroke:v134 animatingStroke:strokeCopy starts:animatingStroke ends:0 secondaryParticles:0 renderEncoder:1, encoderCopy];
+      animatingStrokeCopy += [(PKMetalRenderer *)self renderParticleStroke:v134 animatingStroke:strokeCopy starts:a4 ends:0 secondaryParticles:0 renderEncoder:1, animatingStrokeCopy];
     }
 
     goto LABEL_135;
@@ -1039,13 +1039,13 @@ LABEL_133:
   v125 = PKDynamicCast(v33, v131);
   v34 = objc_opt_class();
   v124 = PKDynamicCast(v34, v131);
-  animatingStrokeCopy = animatingStroke;
+  v148 = a4;
   selfCopy = self;
   if (v128)
   {
     v132 = v128;
-    v35 = encoderCopy;
-    v36 = computeEncoderCopy;
+    v35 = animatingStrokeCopy;
+    v36 = v129;
     sdfPenShaderKernelPipelineState = [(PKMetalResourceHandler *)*(self + 192) sdfPenShaderKernelPipelineState];
     [v36 setComputePipelineState:sdfPenShaderKernelPipelineState];
     v38 = [(PKMetalRenderer *)self antialiasingThresholdForStroke:?];
@@ -1134,7 +1134,7 @@ LABEL_133:
           *&v152.a = threadExecutionWidth;
           *&v152.b = *&v160.b;
           [v36 dispatchThreadgroups:&v160 threadsPerThreadgroup:&v152];
-          [PKMetalRenderer setupRenderEncoder:selfCopy forSDFPenStroke:v35 alphaFactor:animatingStrokeCopy];
+          [PKMetalRenderer setupRenderEncoder:selfCopy forSDFPenStroke:v35 alphaFactor:v148];
           [v35 setVertexBuffer:v46 offset:*&v151.a atIndex:0];
           if (v41)
           {
@@ -1161,21 +1161,21 @@ LABEL_133:
       while (v39);
     }
 
-    [*(animatingStrokeCopy + 10) _bounds];
+    [*(v148 + 10) _bounds];
     v56 = *(selfCopy + 288);
     *&v160.a = *(selfCopy + 272);
     *&v160.c = v56;
     *&v160.tx = *(selfCopy + 304);
 
-    animatingStroke = animatingStrokeCopy;
+    a4 = v148;
     self = selfCopy;
   }
 
   if (v125)
   {
     v137 = v125;
-    v57 = encoderCopy;
-    v58 = computeEncoderCopy;
+    v57 = animatingStrokeCopy;
+    v58 = v129;
     v59 = *(self + 192);
     if (*(self + 1003) == 1)
     {
@@ -1191,7 +1191,7 @@ LABEL_133:
     v154 = 0u;
     memset(&v153, 0, sizeof(v153));
     objb = [(PKMetalSDFPenRenderCache *)v137 buffers];
-    encoderCopy = 0;
+    animatingStrokeCopy = 0;
     v93 = [objb countByEnumeratingWithState:&v153 objects:v162 count:16];
     if (v93)
     {
@@ -1274,7 +1274,7 @@ LABEL_133:
           *&v152.a = threadExecutionWidth2;
           *&v152.b = *&v160.b;
           [v58 dispatchThreadgroups:&v160 threadsPerThreadgroup:&v152];
-          [(PKMetalRenderer *)selfCopy setupRenderEncoder:v57 forPenStroke:animatingStrokeCopy alphaFactor:1.0];
+          [(PKMetalRenderer *)selfCopy setupRenderEncoder:v57 forPenStroke:v148 alphaFactor:1.0];
           [v57 setVertexBuffer:v100 offset:*&v151.a atIndex:0];
           if (v95)
           {
@@ -1296,7 +1296,7 @@ LABEL_133:
             v95 = v95[5];
           }
 
-          encoderCopy += v95;
+          animatingStrokeCopy += v95;
           ++v94;
         }
 
@@ -1308,7 +1308,7 @@ LABEL_133:
       while (v110);
     }
 
-    [*(animatingStrokeCopy + 10) _bounds];
+    [*(v148 + 10) _bounds];
     v111 = *(selfCopy + 288);
     *&v160.a = *(selfCopy + 272);
     *&v160.c = v111;
@@ -1323,35 +1323,35 @@ LABEL_133:
       {
         v115 = objc_opt_class();
         v116 = PKDynamicCast(v115, v131);
-        encoderCopy = [(PKMetalRenderer *)self renderStrokeRenderCache:v116 renderEncoder:encoderCopy animatingStroke:animatingStroke indexed:1];
+        animatingStrokeCopy = [(PKMetalRenderer *)self renderStrokeRenderCache:v116 renderEncoder:animatingStrokeCopy animatingStroke:a4 indexed:1];
       }
 
       else
       {
         {
-          encoderCopy2 = [(PKMetalRenderer *)self renderSDFPenStroke:v134 animatingStroke:strokeCopy renderEncoder:animatingStroke, encoderCopy];
+          animatingStrokeCopy2 = [(PKMetalRenderer *)self renderSDFPenStroke:v134 animatingStroke:strokeCopy renderEncoder:a4, animatingStrokeCopy];
         }
 
         else
         {
-          encoderCopy2 = [(PKMetalRenderer *)self renderPenStroke:v134 animatingStroke:strokeCopy renderEncoder:animatingStroke, encoderCopy];
+          animatingStrokeCopy2 = [(PKMetalRenderer *)self renderPenStroke:v134 animatingStroke:strokeCopy renderEncoder:a4, animatingStrokeCopy];
         }
 
-        encoderCopy = encoderCopy2;
+        animatingStrokeCopy = animatingStrokeCopy2;
       }
 
       goto LABEL_119;
     }
 
     obja = v124;
-    v138 = encoderCopy;
-    v62 = computeEncoderCopy;
+    v138 = animatingStrokeCopy;
+    v62 = v129;
     paintShaderKernelPipelineStateWithLiveStrokeParticles = [(PKMetalResourceHandler *)*(self + 192) paintShaderKernelPipelineStateWithLiveStrokeParticles];
     [v62 setComputePipelineState:?];
     v161 = 0u;
     memset(&v160, 0, sizeof(v160));
     buffers = [(PKMetalSDFPenRenderCache *)obja buffers];
-    encoderCopy = 0;
+    animatingStrokeCopy = 0;
     v63 = [buffers countByEnumeratingWithState:&v160 objects:v162 count:16];
     if (v63)
     {
@@ -1428,15 +1428,15 @@ LABEL_133:
           v76 = v74;
           *&v77 = v75;
           *&v153.c = v76;
-          v78 = *(animatingStrokeCopy + 67);
+          v78 = *(v148 + 67);
           HIDWORD(v153.a) = v73;
           *&v153.b = __PAIR64__(v77, v78);
           v79 = 0uLL;
           memset(&v152, 0, sizeof(v152));
-          v80 = *(animatingStrokeCopy + 10);
+          v80 = *(v148 + 10);
           if (v80)
           {
-            [v80 _inkTransform];
+            objc_msgSend__inkTransform(v80);
             v81 = COERCE_DOUBLE(vcvt_f32_f64(*&v152.a));
             v79 = vcvt_hight_f32_f64(vcvt_f32_f64(*&v152.c), *&v152.tx);
           }
@@ -1496,7 +1496,7 @@ LABEL_133:
           *&v150.a = threadExecutionWidth3;
           *&v150.b = *&v151.b;
           [v62 dispatchThreadgroups:&v151 threadsPerThreadgroup:&v150];
-          [(PKMetalRenderer *)selfCopy setupRenderEncoder:v138 forPenStroke:animatingStrokeCopy alphaFactor:fmax(fmin((*(&v153.b + 1) - *&v153.c * 0.5) / (0.0 - *&v153.c * 0.5), 1.0), 0.0)];
+          [(PKMetalRenderer *)selfCopy setupRenderEncoder:v138 forPenStroke:v148 alphaFactor:fmax(fmin((*(&v153.b + 1) - *&v153.c * 0.5) / (0.0 - *&v153.c * 0.5), 1.0), 0.0)];
           [v138 setVertexBuffer:v70 offset:v159 atIndex:0];
           if (v65)
           {
@@ -1518,7 +1518,7 @@ LABEL_133:
             v65 = *(v65 + 40);
           }
 
-          encoderCopy += v65;
+          animatingStrokeCopy += v65;
           ++v64;
           self = selfCopy;
         }
@@ -1531,7 +1531,7 @@ LABEL_133:
       while (v89);
     }
 
-    [*(animatingStrokeCopy + 10) _bounds];
+    [*(v148 + 10) _bounds];
     v90 = *(selfCopy + 288);
     *&v153.a = *(selfCopy + 272);
     *&v153.c = v90;
@@ -1543,22 +1543,22 @@ LABEL_133:
     *&v153.tx = *(selfCopy + 304);
   }
 
-  animatingStroke = animatingStrokeCopy;
+  a4 = v148;
   self = selfCopy;
 LABEL_119:
 
 LABEL_136:
   if ((v127 & 1) == 0)
   {
-    *(animatingStroke + 248) = v15;
-    *(animatingStroke + 256) = v16;
+    *(a4 + 31) = v15;
+    *(a4 + 32) = v16;
     *v126 = v17;
   }
 
-  *(self + 736) = CGRectUnion(*(self + 736), *(animatingStroke + 184));
+  *(self + 736) = CGRectUnion(*(self + 736), *(a4 + 184));
 LABEL_139:
 
-  return encoderCopy;
+  return animatingStrokeCopy;
 }
 
 - (void)disableClippingForRenderEncoder:(uint64_t)encoder
@@ -3358,7 +3358,7 @@ LABEL_41:
             v37 = [(PKMetalRenderer *)self renderZoomFactorForStroke:v36];
             if (v36)
             {
-              [(PKStroke *)v36 _transform];
+              objc_msgSend__transform(v36);
             }
 
             else
@@ -3475,7 +3475,7 @@ LABEL_41:
           v64 = v63;
         }
 
-        [(PKMetalRenderer *)selfCopy renderStroke:v61 + 96 * v62 animatingStroke:v58 renderEncoder:v46 computeEncoder:0 renderCache:0];
+        [(PKMetalRenderer *)selfCopy renderStroke:(v61 + 96 * v62) animatingStroke:v58 renderEncoder:v46 computeEncoder:0 renderCache:0];
         [(PKMetalRenderer *)selfCopy disableClippingForRenderEncoder:v46];
         v65 = *(selfCopy + 8);
         if (v65)
@@ -3534,7 +3534,7 @@ LABEL_41:
       }
 
       v72 = *(v70 + 88);
-      v73 = *(v70 + 80) + 96 * v71 - 96;
+      v73 = (*(v70 + 80) + 96 * v71 - 96);
       if (0xAAAAAAAAAAAAAAABLL * ((v72 - v73) >> 5) < 2)
       {
         v76 = (v69 + 338);
@@ -3733,7 +3733,7 @@ LABEL_111:
 
       while (v89 != v88)
       {
-        v89 = (v89 - 360);
+        v89 -= 45;
       }
 
       v117 = selfCopy;
@@ -4112,7 +4112,7 @@ LABEL_22:
       v17 = v15;
     }
 
-    v18 = v13 + 96 * v17;
+    v18 = (v13 + 96 * v17);
     if (v12 <= 1)
     {
       v19 = 1;
@@ -4624,11 +4624,11 @@ LABEL_24:
 
 - (void)purgePaintFramebuffers
 {
-  if (self)
+  if (result)
   {
     v1 = 0;
-    v2 = self + 112;
-    v3 = self + 144;
+    v2 = result + 112;
+    v3 = result + 144;
     v4 = 1;
     do
     {
@@ -4824,7 +4824,7 @@ LABEL_110:
 
         d = t2.d;
         behavior = [v160 behavior];
-        v168 = [behavior version] < 3;
+        v168 = objc_msgSend_version(behavior) < 3;
 
         if (v168)
         {
@@ -4880,7 +4880,7 @@ LABEL_110:
             else
             {
               behavior5 = [v160 behavior];
-              v185 = [behavior5 version] < 3;
+              v185 = objc_msgSend_version(behavior5) < 3;
 
               if (v185)
               {
@@ -5787,7 +5787,7 @@ LABEL_187:
 
     v40 = t2.d;
     behavior7 = [v33 behavior];
-    if ([behavior7 version] <= 2)
+    if (objc_msgSend_version(behavior7) <= 2)
     {
       behavior8 = [v33 behavior];
       renderingDescriptor3 = [behavior8 renderingDescriptor];
@@ -6393,58 +6393,58 @@ LABEL_12:
 
 - (void)renderUberVertexShaderWithSourceRect:(CGFloat)rect destinationQuad:(CGFloat)quad renderEncoder:(CGFloat)encoder sourcePixelSize:(CGFloat)size destPixelSize:(double)pixelSize texCoordTransform:(double)transform
 {
-  *v40 = pixelSize;
-  *&v40[1] = transform;
-  *&v40[2] = a9;
-  *&v40[3] = a10;
+  *v34 = pixelSize;
+  *&v34[1] = transform;
+  *&v34[2] = a9;
+  *&v34[3] = a10;
   selfCopy = self;
-  v41.origin.x = rect;
-  v41.origin.y = quad;
-  v41.size.width = encoder;
-  v41.size.height = size;
-  CGAffineTransformMakeScale(&v38, 1.0 / a11, 1.0 / a12);
-  v26 = 0;
-  v27 = *&v38.a;
-  v28 = *&v38.c;
-  v29 = *&v38.tx;
+  v35.origin.x = rect;
+  v35.origin.y = quad;
+  v35.size.width = encoder;
+  v35.size.height = size;
+  CGAffineTransformMakeScale(&v32, 1.0 / a11, 1.0 / a12);
+  v20 = 0;
+  v21 = *&v32.a;
+  v22 = *&v32.c;
+  v23 = *&v32.tx;
   do
   {
-    v39[v26] = vcvt_f32_f64(vaddq_f64(v29, vmlaq_n_f64(vmulq_n_f64(v28, COERCE_FLOAT(HIDWORD(*&v39[v26]))), v27, COERCE_FLOAT(*&v39[v26]))));
-    ++v26;
+    v33[v20] = vcvt_f32_f64(vaddq_f64(v23, vmlaq_n_f64(vmulq_n_f64(v22, COERCE_FLOAT(HIDWORD(*&v33[v20]))), v21, COERCE_FLOAT(*&v33[v20]))));
+    ++v20;
   }
 
-  while (v26 != 4);
+  while (v20 != 4);
   CGAffineTransformMakeScale(&t1, 1.0 / a13, 1.0 / a14);
-  v36.c = 0.0;
-  *&v36.a = 0x4000000000000000uLL;
-  *&v36.d = xmmword_1C801DE70;
-  v36.ty = 1.0;
-  CGAffineTransformConcat(&v38, &t1, &v36);
-  v30 = 0;
-  v31 = *&v38.a;
-  v32 = *&v38.c;
-  v33 = *&v38.tx;
+  v30.c = 0.0;
+  *&v30.a = 0x4000000000000000uLL;
+  *&v30.d = xmmword_1C801DE70;
+  v30.ty = 1.0;
+  CGAffineTransformConcat(&v32, &t1, &v30);
+  v24 = 0;
+  v25 = *&v32.a;
+  v26 = *&v32.c;
+  v27 = *&v32.tx;
   do
   {
-    v40[v30] = vcvt_f32_f64(vaddq_f64(v33, vmlaq_n_f64(vmulq_n_f64(v32, COERCE_FLOAT(HIDWORD(v40[v30]))), v31, COERCE_FLOAT(v40[v30]))));
-    ++v30;
+    v34[v24] = vcvt_f32_f64(vaddq_f64(v27, vmlaq_n_f64(vmulq_n_f64(v26, COERCE_FLOAT(HIDWORD(v34[v24]))), v25, COERCE_FLOAT(v34[v24]))));
+    ++v24;
   }
 
-  while (v30 != 4);
-  v34 = *(MEMORY[0x1E695EFD0] + 16);
-  *&v38.a = *MEMORY[0x1E695EFD0];
-  *&v38.c = v34;
-  *&v38.tx = *(MEMORY[0x1E695EFD0] + 32);
-  *&t1.a = *&v38.a;
-  *&t1.c = v34;
-  *&t1.tx = *&v38.tx;
-  v35 = a2[1];
-  *&v36.a = *a2;
-  *&v36.c = v35;
-  *&v36.tx = a2[2];
-  [PKMetalRenderer setupUberVertexShaderWithTransform:&t1 paperTransform:&v36 texCoordTransform:selfCopy renderEncoder:?];
-  [selfCopy setVertexBytes:v40 length:32 atIndex:0];
-  [selfCopy setVertexBytes:v39 length:32 atIndex:1];
+  while (v24 != 4);
+  v28 = *(MEMORY[0x1E695EFD0] + 16);
+  *&v32.a = *MEMORY[0x1E695EFD0];
+  *&v32.c = v28;
+  *&v32.tx = *(MEMORY[0x1E695EFD0] + 32);
+  *&t1.a = *&v32.a;
+  *&t1.c = v28;
+  *&t1.tx = *&v32.tx;
+  v29 = a2[1];
+  *&v30.a = *a2;
+  *&v30.c = v29;
+  *&v30.tx = a2[2];
+  [PKMetalRenderer setupUberVertexShaderWithTransform:&t1 paperTransform:&v30 texCoordTransform:selfCopy renderEncoder:?];
+  [selfCopy setVertexBytes:v34 length:32 atIndex:0];
+  [selfCopy setVertexBytes:v33 length:32 atIndex:1];
   [selfCopy drawPrimitives:4 vertexStart:0 vertexCount:4];
 }
 
@@ -6756,21 +6756,21 @@ LABEL_47:
   return v5;
 }
 
-- (uint64_t)newCGImageWithClipRect:(CGFloat)rect
+- (unsigned)newCGImageWithClipRect:(CGFloat)rect
 {
   selfCopy = self;
   if (self)
   {
     v10 = *(self + 40);
-    if (!v10 || (*(selfCopy + 72) & 1) != 0)
+    if (!v10 || (selfCopy[72] & 1) != 0)
     {
       goto LABEL_4;
     }
 
-    if ((*(selfCopy + 48) & 1) == 0)
+    if ((selfCopy[48] & 1) == 0)
     {
       incrementNonPurgeableCount = [(PKMetalFramebuffer *)v10 incrementNonPurgeableCount];
-      *(selfCopy + 48) = incrementNonPurgeableCount;
+      selfCopy[48] = incrementNonPurgeableCount;
       if (!incrementNonPurgeableCount)
       {
 LABEL_4:
@@ -6781,7 +6781,7 @@ LABEL_9:
         return selfCopy;
       }
 
-      v10 = *(selfCopy + 40);
+      v10 = *(selfCopy + 5);
     }
 
     v11 = v10;
@@ -6791,7 +6791,7 @@ LABEL_9:
   return selfCopy;
 }
 
-- (uint64_t)newSixChannelMultiplyCGImageWithClipRect:(CGFloat)rect
+- (unsigned)newSixChannelMultiplyCGImageWithClipRect:(CGFloat)rect
 {
   selfCopy = self;
   if (self)
@@ -6799,7 +6799,7 @@ LABEL_9:
     v10 = *(self + 56);
     if (v10)
     {
-      if (*(selfCopy + 64))
+      if (selfCopy[64])
       {
 LABEL_6:
         v12 = v10;
@@ -6810,10 +6810,10 @@ LABEL_8:
       }
 
       incrementNonPurgeableCount = [(PKMetalFramebuffer *)v10 incrementNonPurgeableCount];
-      *(selfCopy + 64) = incrementNonPurgeableCount;
+      selfCopy[64] = incrementNonPurgeableCount;
       if (incrementNonPurgeableCount)
       {
-        v10 = *(selfCopy + 56);
+        v10 = *(selfCopy + 7);
         goto LABEL_6;
       }
     }
@@ -6825,7 +6825,7 @@ LABEL_8:
   return selfCopy;
 }
 
-- (uint64_t)newCGImageWithClipRect:(CGFloat)rect framebuffer:(CGFloat)framebuffer
+- (unsigned)newCGImageWithClipRect:(CGFloat)rect framebuffer:(CGFloat)framebuffer
 {
   v57 = *MEMORY[0x1E69E9840];
   v11 = a2;
@@ -6836,16 +6836,16 @@ LABEL_8:
     v58.size.width = a5;
     v58.size.height = a6;
     IsNull = CGRectIsNull(v58);
-    width = *(Image + 224);
-    height = *(Image + 232);
+    width = *(Image + 28);
+    height = *(Image + 29);
     x = 0.0;
     if (IsNull)
     {
       rect = 0.0;
       rect = 0.0;
       framebuffer = 0.0;
-      a5 = *(Image + 224);
-      a6 = *(Image + 232);
+      a5 = *(Image + 28);
+      a6 = *(Image + 29);
     }
 
     else
@@ -6856,8 +6856,8 @@ LABEL_8:
       v59.origin.y = framebuffer;
       v59.size.width = a5;
       v59.size.height = a6;
-      v65.size.width = *(Image + 224);
-      v65.size.height = *(Image + 232);
+      v65.size.width = *(Image + 28);
+      v65.size.height = *(Image + 29);
       v60 = CGRectIntersection(v59, v65);
       rect = v60.origin.y;
       x = v60.origin.x;
@@ -6928,7 +6928,7 @@ LABEL_10:
       goto LABEL_10;
     }
 
-    v25 = *(Image + 497);
+    v25 = Image[497];
     v26 = [PKMetalFramebuffer alloc];
     if (v25)
     {
@@ -6940,16 +6940,16 @@ LABEL_10:
       v27 = 80;
     }
 
-    v28 = [(PKMetalFramebuffer *)&v26->super.isa initWithSize:v27 pixelFormat:*(Image + 24) device:0 memoryless:1 backedByIOSurface:1 sampleCount:0 purgeable:v17, v18];
-    v29 = *(Image + 224);
-    v30 = *(Image + 232);
+    v28 = [(PKMetalFramebuffer *)&v26->super.isa initWithSize:v27 pixelFormat:*(Image + 3) device:0 memoryless:1 backedByIOSurface:1 sampleCount:0 purgeable:v17, v18];
+    v29 = *(Image + 28);
+    v30 = *(Image + 29);
     v53 = 0u;
     v54 = 0u;
     v52 = 0u;
-    commandBuffer = [*(Image + 32) commandBuffer];
-    v32 = *(Image + 497);
-    v33 = *(Image + 192);
-    v34 = *(Image + 816);
+    commandBuffer = [*(Image + 4) commandBuffer];
+    v32 = Image[497];
+    v33 = *(Image + 24);
+    v34 = *(Image + 102);
     *&v55[20] = 0;
     *&v55[12] = 0;
     v19 = v32 == 0;
@@ -7645,7 +7645,7 @@ LABEL_14:
   }
 }
 
-- (uint64_t)setupClippingForStrokeClipRect:(CGFloat *)rect clippedToPixelSpaceRect:(CGFloat)spaceRect renderEncoder:(CGFloat)encoder outNewClipRect:(CGFloat)clipRect
+- (CGSize)setupClippingForStrokeClipRect:(CGFloat *)rect clippedToPixelSpaceRect:(CGFloat)spaceRect renderEncoder:(CGFloat)encoder outNewClipRect:(CGFloat)clipRect
 {
   v21 = a2;
   if (self)
@@ -7858,7 +7858,7 @@ LABEL_14:
   v3 = *(stroke + 280);
   if (a2)
   {
-    [a2 transform];
+    objc_msgSend_transform(a2);
     v5 = v7;
     v4 = v8;
   }
@@ -8396,7 +8396,7 @@ LABEL_14:
   v27 = *(factor + 80);
   if (v27)
   {
-    [v27 _inkTransform];
+    objc_msgSend__inkTransform(v27);
     d = t1.d;
   }
 
@@ -8686,7 +8686,7 @@ LABEL_14:
   v48 = *(encoder + 80);
   if (v48)
   {
-    [v48 _inkTransform];
+    objc_msgSend__inkTransform(v48);
     v49 = vcvt_f32_f64(*&t1.a);
     v47 = vcvt_hight_f32_f64(vcvt_f32_f64(*&t1.c), *&t1.tx);
   }
@@ -8742,7 +8742,7 @@ LABEL_14:
   encoderCopy = encoder;
   v42 = v10;
   v13 = [computeEncoder[10] ink];
-  version = [v13 version];
+  v14 = objc_msgSend_version(v13);
 
   v15 = [computeEncoder[10] ink];
   behavior = [v15 behavior];
@@ -9107,7 +9107,7 @@ LABEL_14:
             *(&v70 + 1) = _S19;
             __asm { FCVT            H19, D23 }
 
-            v72 = &v18[9 * v14];
+            v72 = &v18[36 * v14];
             *v72 = v70;
             *(v72 + 1) = *&v56.f64[0];
             *(v72 + 2) = v60;
@@ -9120,9 +9120,9 @@ LABEL_14:
             *&v70 = v58;
             *&v58 = v89.f64[1] - _D4 * v57.f64[0];
             HIDWORD(v70) = LODWORD(v58);
-            *(v72 + 9) = v70;
-            *(v72 + 11) = v56.f64[0];
-            *(v72 + 13) = v60;
+            *(v72 + 36) = v70;
+            *(v72 + 44) = v56.f64[0];
+            *(v72 + 52) = v60;
             *(v72 + 30) = _H6;
             *(v72 + 31) = _H1;
             *(v72 + 32) = _H7;
@@ -9142,9 +9142,9 @@ LABEL_14:
             v74 = v91.f64[1] + v73.f64[0];
             *(&v70 + 1) = v74;
             *(v72 + 9) = v70;
-            *(v72 + 27) = vcvt_f32_f64(vsubq_f64(v91, v73));
-            *(v72 + 29) = v56.f64[0];
-            *(v72 + 31) = v60;
+            *(v72 + 108) = vcvt_f32_f64(vsubq_f64(v91, v73));
+            *(v72 + 116) = v56.f64[0];
+            *(v72 + 124) = v60;
             *(v72 + 66) = _H6;
             *(v72 + 67) = _H1;
             *(v72 + 68) = _H7;
@@ -9156,7 +9156,7 @@ LABEL_14:
               _D4 = *(v19 + 80);
               *&v76 = v91.f64[0] - _D3;
               *&v77 = v91.f64[1] - _D3;
-              v78 = &v18[9 * v14 + 36];
+              v78 = &v18[36 * v14 + 144];
               *v78 = __PAIR64__(v77, v76);
               v78[1] = v60;
               v78[2] = v60;
@@ -9170,9 +9170,9 @@ LABEL_14:
               v78[4].i16[1] = _D4;
               v79 = v91.f64[1] + _D3;
               *(&v76 + 1) = v79;
-              *(v72 + 45) = v76;
-              *(v72 + 47) = v60;
-              *(v72 + 49) = v60;
+              *(v72 + 180) = v76;
+              *(v72 + 188) = v60;
+              *(v72 + 196) = v60;
               *(v72 + 102) = _H1;
               *(v72 + 103) = v22;
               *(v72 + 104) = _H2;
@@ -9191,9 +9191,9 @@ LABEL_14:
               *(v72 + 125) = _D4;
               *(&v80 + 1) = v79;
               v14 += 8;
-              *(v72 + 63) = v80;
-              *(v72 + 65) = v60;
-              *(v72 + 67) = v60;
+              *(v72 + 252) = v80;
+              *(v72 + 260) = v60;
+              *(v72 + 268) = v60;
               *(v72 + 138) = _H1;
               *(v72 + 139) = v22;
               *(v72 + 140) = _H2;
@@ -9226,12 +9226,12 @@ LABEL_14:
   return v13;
 }
 
-- (uint64_t)renderPenStroke:(unint64_t)stroke animatingStroke:(uint64_t)animatingStroke renderEncoder:(void *)encoder
+- (uint64_t)renderPenStroke:(double *)stroke animatingStroke:(uint64_t *)animatingStroke renderEncoder:(void *)encoder
 {
   v144[0] = a2;
   v144[1] = stroke;
   encoderCopy = encoder;
-  if (*(animatingStroke + 336) == 1 && ([*(animatingStroke + 344) buffers], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "count"), v10, v11))
+  if (*(animatingStroke + 336) == 1 && ([animatingStroke[43] buffers], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "count"), v10, v11))
   {
     v12 = 1;
     encoderCopy = [(PKMetalRenderer *)self renderStrokeRenderCache:encoderCopy renderEncoder:animatingStroke animatingStroke:1 indexed:?];
@@ -9243,7 +9243,7 @@ LABEL_14:
     v12 = 0;
   }
 
-  v14 = *(animatingStroke + 328);
+  v14 = animatingStroke[41];
   v143 = v14;
   if (v14 || 0xAAAAAAAAAAAAAAABLL * ((stroke - a2) >> 5) >= 2)
   {
@@ -9265,17 +9265,17 @@ LABEL_14:
     v141 = 0u;
     v142 = 0u;
     v140 = 0u;
-    v16 = *(animatingStroke + 80);
+    v16 = animatingStroke[10];
     if (v16)
     {
-      [v16 _inkTransform];
+      objc_msgSend__inkTransform(v16);
       v17 = v140.f64[1];
       v18 = v140.f64[0];
       v19 = v141.f64[1];
       v20 = v141.f64[0];
       v21 = v142.f64[1];
       v22 = v142.f64[0];
-      v23 = *(animatingStroke + 80);
+      v23 = animatingStroke[10];
     }
 
     else
@@ -9296,14 +9296,14 @@ LABEL_14:
     CGAffineTransformInvert(&v139, &v138);
     if ([v23 _pointsCount])
     {
-      [*(animatingStroke + 80) timestamp];
+      [animatingStroke[10] timestamp];
       v124 = v24;
     }
 
     else
     {
-      v25 = *(*(animatingStroke + 96) + 80);
-      if (*(*(animatingStroke + 96) + 88) == v25)
+      v25 = *(animatingStroke[12] + 80);
+      if (*(animatingStroke[12] + 88) == v25)
       {
         v26 = 0.0;
       }
@@ -9316,7 +9316,7 @@ LABEL_14:
       v124 = v26;
     }
 
-    v27 = *(animatingStroke + 16);
+    v27 = animatingStroke[2];
     if (!v27)
     {
       v27 = *animatingStroke;
@@ -9334,7 +9334,7 @@ LABEL_14:
       v30 = [(PKMetalRenderer *)self fadeOutLimitFromPoints:v144 animatingStroke:animatingStroke];
       v37 = v30;
       v38 = (v30 + 96);
-      if (stroke != v30 + 96)
+      if (stroke != (v30 + 96))
       {
         v118 = encoderCopy;
         v132 = v21 + v19 * 0.0 + v17;
@@ -9369,7 +9369,7 @@ LABEL_14:
             v52 = v143;
             if (v143 + 12 >= v39)
             {
-              v53 = *(animatingStroke + 88);
+              v53 = animatingStroke[11];
               if (v53)
               {
                 [PKMetalRenderer clipRectForVertices:v28 numVertices:v143 vertexSize:24];
@@ -9378,7 +9378,7 @@ LABEL_14:
 
               else if (v118)
               {
-                v58 = *(animatingStroke + 344);
+                v58 = animatingStroke[43];
                 if (v58)
                 {
                   [PKMetalRenderer clipRectForVertices:v28 numVertices:v143 vertexSize:24];
@@ -9407,7 +9407,7 @@ LABEL_14:
 
               encoderCopy += v52;
               v143 = 0;
-              *(animatingStroke + 328) = 0;
+              animatingStroke[41] = 0;
             }
 
             v66 = v50 - v124;
@@ -9564,8 +9564,9 @@ LABEL_14:
   return encoderCopy;
 }
 
-- (uint64_t)renderParticleStroke:(unint64_t)stroke animatingStroke:(uint64_t)animatingStroke starts:(int)starts ends:(char)ends secondaryParticles:(int)particles renderEncoder:(void *)encoder
+- (uint64_t)renderParticleStroke:(float *)stroke animatingStroke:(uint64_t *)animatingStroke starts:(int)starts ends:(char)ends secondaryParticles:(uint64_t)particles renderEncoder:(void *)encoder
 {
+  particlesCopy = particles;
   v247[0] = a2;
   v247[1] = stroke;
   encoderCopy = encoder;
@@ -9575,7 +9576,7 @@ LABEL_14:
     goto LABEL_6;
   }
 
-  buffers = [*(animatingStroke + 344) buffers];
+  buffers = [animatingStroke[43] buffers];
   encoderCopy = [buffers count];
 
   if (!encoderCopy)
@@ -9585,9 +9586,9 @@ LABEL_6:
     goto LABEL_9;
   }
 
-  [(PKMetalRenderer *)self setupRenderEncoder:encoderCopy forParticleStroke:animatingStroke secondaryParticles:particles];
-  v15 = *(animatingStroke + 344);
-  if (particles)
+  [(PKMetalRenderer *)self setupRenderEncoder:encoderCopy forParticleStroke:animatingStroke secondaryParticles:particlesCopy];
+  v15 = animatingStroke[43];
+  if (particlesCopy)
   {
     [v15 secondaryBuffers];
   }
@@ -9601,7 +9602,7 @@ LABEL_6:
 
   v16 = 1;
 LABEL_9:
-  v18 = *(animatingStroke + 328);
+  v18 = animatingStroke[41];
   if (!v18 && 0xAAAAAAAAAAAAAAABLL * ((stroke - a2) >> 5) < 2)
   {
     goto LABEL_107;
@@ -9614,19 +9615,19 @@ LABEL_9:
 
   if ((v16 & 1) == 0)
   {
-    [(PKMetalRenderer *)self setupRenderEncoder:encoderCopy forParticleStroke:animatingStroke secondaryParticles:particles];
+    [(PKMetalRenderer *)self setupRenderEncoder:encoderCopy forParticleStroke:animatingStroke secondaryParticles:particlesCopy];
   }
 
-  v194 = [*(animatingStroke + 80) ink];
-  v19 = 248;
-  if (particles)
+  v194 = [animatingStroke[10] ink];
+  v19 = 31;
+  if (particlesCopy)
   {
-    v19 = 256;
+    v19 = 32;
   }
 
-  v20 = *(animatingStroke + v19);
+  v20 = *&animatingStroke[v19];
   v199 = [(PKMetalRenderer *)self alphaForStroke:?];
-  v21 = *(animatingStroke + 16);
+  v21 = animatingStroke[2];
   if (!v21)
   {
     v21 = *animatingStroke;
@@ -9639,7 +9640,7 @@ LABEL_9:
   *&v204[24] = *(MEMORY[0x1E695F050] + 24);
   v242 = *(v21 + 8);
   behavior = [v194 behavior];
-  if (particles)
+  if (particlesCopy)
   {
     [behavior secondaryParticleDescriptor];
   }
@@ -9651,10 +9652,10 @@ LABEL_9:
   v189 = ;
 
   particleCount = [v189 particleCount];
-  v25 = *(animatingStroke + 168);
-  if (v25 <= *(animatingStroke + 160))
+  v25 = animatingStroke[21];
+  if (v25 <= animatingStroke[20])
   {
-    v25 = *(animatingStroke + 160);
+    v25 = animatingStroke[20];
   }
 
   v188 = encoderCopy;
@@ -9666,13 +9667,13 @@ LABEL_9:
 
   else
   {
-    [v189 particleSpacingForRadius:*(*(*(animatingStroke + 96) + 80) + 24)];
+    [v189 particleSpacingForRadius:*(*(animatingStroke[12] + 80) + 24)];
   }
 
   v190 = v26;
   endsCopy = ends;
   v28 = 268;
-  if (particles)
+  if (particlesCopy)
   {
     v28 = 272;
   }
@@ -9709,7 +9710,7 @@ LABEL_9:
   v238 = v45;
   v47 = v46;
   v48 = *(animatingStrokeCopy + 80);
-  if (particles)
+  if (particlesCopy)
   {
     v49 = v189;
     [v48 _secondaryParticleOffset];
@@ -9744,7 +9745,7 @@ LABEL_37:
   {
     v55 = *(v244 + 24);
     v56 = [(PKMetalRenderer *)self fadeOutLimitFromPoints:v247 animatingStroke:animatingStrokeCopy];
-    if (stroke != v56 + 96)
+    if (stroke != (v56 + 96))
     {
       v209 = 0xAAAAAAAAAAAAAAABLL * ((v242 - v22) >> 3);
       v200 = 1.0 / (v39 + v240 * v37);
@@ -9759,7 +9760,7 @@ LABEL_37:
         v58 = 8;
       }
 
-      v59 = v56 + 96;
+      v59 = (v56 + 96);
       v191 = v58;
       v232 = -(v55 * v205);
       v233 = v206 * v55;
@@ -9782,18 +9783,18 @@ LABEL_37:
         v62 = *(v60 + 72);
         v237 = *(v60 + 80);
         v63 = *(v60 + 88);
-        v65 = *(v59 + 8);
-        v64 = *(v59 + 16);
-        v66 = *(v59 + 24);
-        v222 = *(v59 + 32);
-        v225 = *(v59 + 56);
+        v65 = v59[1];
+        v64 = v59[2];
+        v66 = v59[3];
+        v222 = v59[4];
+        v225 = v59[7];
         v226 = *(v60 + 56);
-        v67 = *(v59 + 80);
-        v216 = *(v59 + 40);
-        v218 = *(v59 + 72);
+        v67 = v59[10];
+        v216 = v59[5];
+        v218 = v59[9];
         v193 = v59;
-        v213 = *(v59 + 88);
-        if ([v194 version] >= 3)
+        v213 = v59[11];
+        if (objc_msgSend_version(v194) >= 3)
         {
           v68 = 1.0;
           v69 = v237;
@@ -9807,7 +9808,7 @@ LABEL_37:
             v68 = v239;
           }
 
-          if (!particles)
+          if (!particlesCopy)
           {
             v69 = v68;
           }
@@ -9827,7 +9828,7 @@ LABEL_37:
         v96 = v20;
 LABEL_91:
         v173 = v192;
-        if (stroke != v196 + 192)
+        if (stroke != (v196 + 192))
         {
           v173 = 1;
         }
@@ -9835,7 +9836,7 @@ LABEL_91:
         if ((v173 & 1) == 0 && v18 >= v191)
         {
           v174 = &v22[6 * v18];
-          v175 = (*(v193 + 16) - *(v195 + 16)) * (*(v174 - 5) - *(v174 - 11)) + (*(v174 - 6) - *(v174 - 12)) * (*(v193 + 8) - *(v195 + 8));
+          v175 = (v193[2] - v195[2]) * (*(v174 - 5) - *(v174 - 11)) + (*(v174 - 6) - *(v174 - 12)) * (v193[1] - v195[1]);
           v176 = v175 < 0.0;
           v177 = 2.5;
           if (v175 >= 0.0)
@@ -9880,10 +9881,10 @@ LABEL_91:
         }
 
         v20 = v96 - v72;
-        v59 = v195 + 192;
-        v196 = v195 + 96;
-        v60 = v195 + 96;
-        if (stroke == v195 + 192)
+        v59 = v195 + 24;
+        v196 = (v195 + 12);
+        v60 = (v195 + 12);
+        if (stroke == (v195 + 24))
         {
           goto LABEL_103;
         }
@@ -9912,7 +9913,7 @@ LABEL_91:
             if (v79)
             {
               [PKMetalRenderer clipRectForVertices:v22 numVertices:v18 vertexSize:24];
-              [(PKMetalRenderer *)self addBufferForRenderCache:v79 strokeVertices:v22 numVertices:v18 vertexSize:0x18 bounds:particles secondaryParticles:encoderCopy renderEncoder:v80, v81, v82, v83];
+              [(PKMetalRenderer *)self addBufferForRenderCache:v79 strokeVertices:v22 numVertices:v18 vertexSize:0x18 bounds:particlesCopy secondaryParticles:encoderCopy renderEncoder:v80, v81, v82, v83];
             }
 
             else
@@ -9933,7 +9934,7 @@ LABEL_91:
             if (v84)
             {
               [PKMetalRenderer clipRectForVertices:v22 numVertices:v18 vertexSize:24];
-              [(PKMetalRenderer *)self addBufferForRenderCache:v84 strokeVertices:v22 numVertices:v18 vertexSize:0x18 bounds:particles secondaryParticles:0 renderEncoder:v85, v86, v87, v88];
+              [(PKMetalRenderer *)self addBufferForRenderCache:v84 strokeVertices:v22 numVertices:v18 vertexSize:0x18 bounds:particlesCopy secondaryParticles:0 renderEncoder:v85, v86, v87, v88];
             }
           }
 
@@ -9958,7 +9959,7 @@ LABEL_91:
         v245 = v95;
         v237 = v93;
         v239 = v92;
-        if (particles)
+        if (particlesCopy)
         {
           v92 = v93;
         }
@@ -10000,7 +10001,7 @@ LABEL_71:
         v74 = v77 + v219 * v20;
         v112 = 1.0;
         v113 = 1.0;
-        if ((particles & 1) == 0)
+        if ((particlesCopy & 1) == 0)
         {
           v114 = 2.5;
           if ((startsCopy & 1) == 0)
@@ -10232,7 +10233,7 @@ LABEL_70:
   }
 
 LABEL_103:
-  if (particles)
+  if (particlesCopy)
   {
     *(animatingStrokeCopy + 256) = v20;
     *(animatingStrokeCopy + 272) = v30;
@@ -10244,7 +10245,7 @@ LABEL_103:
     *(animatingStrokeCopy + 268) = v30;
   }
 
-  encoderCopy = [(PKMetalRenderer *)self renderVerticies:v22 size:v18 numRenderedVertices:v188 vertexSize:0x18 numIndices:6 * (v18 >> 2) localClipRect:animatingStrokeCopy animatingStroke:particles secondaryParticles:*v204 renderEncoder:*&v204[8], *&v204[16], *&v204[24], encoderCopy];
+  encoderCopy = [(PKMetalRenderer *)self renderVerticies:v22 size:v18 numRenderedVertices:v188 vertexSize:0x18 numIndices:6 * (v18 >> 2) localClipRect:animatingStrokeCopy animatingStroke:particlesCopy secondaryParticles:*v204 renderEncoder:*&v204[8], *&v204[16], *&v204[24], encoderCopy];
 
 LABEL_107:
   return encoderCopy;
@@ -10434,7 +10435,7 @@ LABEL_6:
       __p = 0;
       v21 = 0;
       v22 = 0;
-      std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(&__p, *v6, v6[1], 0xAAAAAAAAAAAAAAABLL * ((v6[1] - *v6) >> 3));
+      std::vector<ClipperLib::IntPoint>::__init_with_size[abi:ne200100]<ClipperLib::IntPoint*,ClipperLib::IntPoint*>(&__p, *v6, *(v6 + 8), 0xAAAAAAAAAAAAAAABLL * ((*(v6 + 8) - *v6) >> 3));
       v9 = __p;
       v10 = 0xAAAAAAAAAAAAAAABLL * ((v21 - __p) >> 3);
       if (v21 != __p)
@@ -10478,7 +10479,7 @@ LABEL_6:
         operator delete(__p);
       }
 
-      v6 += 3;
+      v6 += 24;
     }
 
     while (v6 != v7);
@@ -10520,7 +10521,7 @@ LABEL_6:
   v18 = *(animatingStroke + 80);
   if (v18)
   {
-    [v18 _inkTransform];
+    objc_msgSend__inkTransform(v18);
     v15 = v120;
     v17 = vcvt_f32_f64(v116);
     v16 = vcvt_hight_f32_f64(vcvt_f32_f64(v117), v118);
@@ -11032,7 +11033,7 @@ LABEL_16:
   *v37.f64 = v12;
   v122 = LODWORD(v37.f64[0]);
   v126 = particleCount;
-  if ([v110 version] <= 2)
+  if (objc_msgSend_version(v110) <= 2)
   {
     v38 = v30;
   }
@@ -11152,7 +11153,7 @@ LABEL_32:
         __asm { FCVT            H0, D11 }
 
         WORD2(v118[1]) = _H0;
-        if ([v110 version] >= 3)
+        if (objc_msgSend_version(v110) >= 3)
         {
           v75 = 24;
           if (particles)
@@ -11959,7 +11960,7 @@ LABEL_38:
   }
 }
 
-uint64_t __85__PKMetalRenderer__renderStrokes_clippedToStrokeSpaceRect_strokeTransform_stopBlock___block_invoke(uint64_t a1)
+void *__85__PKMetalRenderer__renderStrokes_clippedToStrokeSpaceRect_strokeTransform_stopBlock___block_invoke(uint64_t a1)
 {
   [(PKMetalRenderState *)*(a1 + 32) commitAndPurgeResourceSet:?];
   result = [*(a1 + 40) removeAllObjects];
@@ -12465,7 +12466,7 @@ LABEL_17:
 
 - (void)updateTile:(void *)tile strokes:(uint64_t)strokes clear:(char)clear waitUntilCompleted:(uint64_t)completed offscreen:(void *)offscreen stopBlock:
 {
-  v143 = *MEMORY[0x1E69E9840];
+  v145 = *MEMORY[0x1E69E9840];
   v13 = a2;
   tileCopy = tile;
   offscreenCopy = offscreen;
@@ -12476,7 +12477,7 @@ LABEL_17:
       v15 = *(v13 + 200);
       v16 = COERCE_DOUBLE(atomic_load(v13 + 1));
       size = vrndaq_f64(vmulq_n_f64(v15, v16));
-      memset(&v141, 0, sizeof(v141));
+      memset(&v143, 0, sizeof(v143));
       CGAffineTransformMakeTranslation(&t1, -*(v13 + 23), -*(v13 + 24));
       *&v17 = COERCE_DOUBLE(atomic_load(v13 + 1));
       v18 = *&v17;
@@ -12486,7 +12487,7 @@ LABEL_17:
 
     else
     {
-      memset(&v141, 0, sizeof(v141));
+      memset(&v143, 0, sizeof(v143));
       size = 0;
       CGAffineTransformMakeTranslation(&t1, -0.0, -0.0);
       v18 = 0.0;
@@ -12494,14 +12495,14 @@ LABEL_17:
     }
 
     CGAffineTransformMakeScale(&t2, v18, v20);
-    CGAffineTransformConcat(&v141, &t1, &t2);
+    CGAffineTransformConcat(&v143, &t1, &t2);
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __83__PKMetalRenderer_updateTile_strokes_clear_waitUntilCompleted_offscreen_stopBlock___block_invoke;
     aBlock[3] = &unk_1E82DA2E8;
     v21 = offscreenCopy;
-    v139 = v21;
-    v134 = _Block_copy(aBlock);
+    v141 = v21;
+    v136 = _Block_copy(aBlock);
     v22 = *(self + 224);
     v23 = *(self + 232);
     if (!v21 && (size.width == v22 ? (v24 = size.height == v23) : (v24 = 0), v24))
@@ -12509,8 +12510,8 @@ LABEL_17:
       *&t2.a = *(self + 40);
       LOWORD(t2.b) = *(self + 48);
       v25 = (self + 56);
-      v136 = *(self + 56);
-      v137 = *(self + 64);
+      v138 = *(self + 56);
+      v139 = *(self + 64);
       v26 = *(self + 72);
       *&t1.a = [(PKMetalRenderer *)self framebufferForTile:v13 createIfNeeded:1];
       LOWORD(t1.b) = 0;
@@ -12573,7 +12574,7 @@ LABEL_17:
         v32 = 0.0;
       }
 
-      t1 = v141;
+      t1 = v143;
       [(PKMetalRenderer *)self renderStrokes:tileCopy clippedToStrokeSpaceRect:&t1 strokeTransform:0 stopBlock:v32, v33, v34, v35];
       [(PKMetalRenderer *)self teardownRenderStateIfNecessary];
       *(self + 72) = v26;
@@ -12607,17 +12608,19 @@ LABEL_17:
           _os_log_impl(&dword_1C7CCA000, v41, OS_LOG_TYPE_DEFAULT, "Created a one off tile  renderer: %@ => %@", &t1, 0x16u);
         }
 
-        v45 = objc_autoreleasePoolPush();
-        v46 = [PKMetalRenderer initWithDrawingPixelSize:*(self + 24) actualSize:*(self + 192) device:*(self + 728) resourceHandler:? sixChannelBlendingMode:?];
-        v47 = v46;
-        if (v46)
+        v45 = *(self + 248);
+        v46 = *(self + 224);
+        v47 = objc_autoreleasePoolPush();
+        v48 = [[PKMetalRenderer alloc] initWithDrawingPixelSize:*(self + 192) actualSize:*(self + 728) device:size.width resourceHandler:size.height sixChannelBlendingMode:size.width * (v45 / v46), size.height * (v45 / v46)];
+        v49 = v48;
+        if (v48)
         {
-          *(v46 + 1006) = *(self + 1006);
+          *(v48 + 1006) = *(self + 1006);
         }
 
-        [(PKMetalRenderer *)v46 updateTile:v13 strokes:tileCopy clear:strokes waitUntilCompleted:1 offscreen:completed stopBlock:v21];
+        [(PKMetalRenderer *)v48 updateTile:v13 strokes:tileCopy clear:strokes waitUntilCompleted:1 offscreen:completed stopBlock:v21];
 
-        objc_autoreleasePoolPop(v45);
+        objc_autoreleasePoolPop(v47);
       }
     }
 
@@ -12637,53 +12640,40 @@ LABEL_17:
       *(self + 72) = strokes;
       if (v40)
       {
-        v48 = *(v40 + 88);
-        v49 = *(v40 + 104);
+        v50 = *(v40 + 88);
+        v51 = *(v40 + 104);
       }
 
       else
       {
-        v48 = 0uLL;
-        v49 = 0uLL;
+        v50 = 0uLL;
+        v51 = 0uLL;
       }
 
-      *(self + 80) = v48;
-      *(self + 96) = v49;
+      *(self + 80) = v50;
+      *(self + 96) = v51;
       [(PKMetalRenderer *)self setupRenderStateForRenderingStrokes:tileCopy];
       if ((strokes & 1) == 0)
       {
         if (*(self + 728))
         {
-          t1 = v141;
-          v50 = [PKMetalRenderer calculateSourceRectForTile:v13 tileTransform:&t1 destinationQuadOut:&t2];
-          v52 = v51;
+          t1 = v143;
+          v52 = [PKMetalRenderer calculateSourceRectForTile:v13 tileTransform:&t1 destinationQuadOut:&t2];
           v54 = v53;
           v56 = v55;
-          v57 = *(self + 8);
-          if (v57)
+          v58 = v57;
+          v59 = *(self + 8);
+          if (v59)
           {
-            v57 = v57[10];
+            v59 = v59[10];
           }
 
-          v130 = v57;
+          v132 = v59;
           blitShader = [(PKMetalRenderer *)self blitShader];
-          v59 = blitShader;
+          v61 = blitShader;
           if (blitShader)
           {
-            v60 = *(blitShader + 24);
-          }
-
-          else
-          {
-            v60 = 0;
-          }
-
-          v61 = v60;
-          [v130 setRenderPipelineState:v61];
-
-          if (v40)
-          {
-            v62 = *(v40 + 24);
+            v62 = *(blitShader + 24);
           }
 
           else
@@ -12692,25 +12682,38 @@ LABEL_17:
           }
 
           v63 = v62;
-          [v130 setFragmentTexture:v63 atIndex:0];
+          [v132 setRenderPipelineState:v63];
 
-          v64 = [(PKMetalFramebuffer *)v40 size];
+          if (v40)
+          {
+            v64 = *(v40 + 24);
+          }
+
+          else
+          {
+            v64 = 0;
+          }
+
+          v65 = v64;
+          [v132 setFragmentTexture:v65 atIndex:0];
+
+          v66 = [(PKMetalFramebuffer *)v40 size];
           c = t2.c;
           d = t2.d;
           a = t2.a;
           b = t2.b;
-          v69 = *(self + 224);
-          v70 = *(self + 232);
-          v71 = MEMORY[0x1E695EFD0];
-          v72 = *(MEMORY[0x1E695EFD0] + 16);
+          v71 = *(self + 224);
+          v72 = *(self + 232);
+          v73 = MEMORY[0x1E695EFD0];
+          v74 = *(MEMORY[0x1E695EFD0] + 16);
           *&t1.a = *MEMORY[0x1E695EFD0];
-          *&t1.c = v72;
+          *&t1.c = v74;
           *&t1.tx = *(MEMORY[0x1E695EFD0] + 32);
-          [(PKMetalRenderer *)v130 renderUberVertexShaderWithSourceRect:v50 destinationQuad:v52 renderEncoder:v54 sourcePixelSize:v56 destPixelSize:t2.a texCoordTransform:t2.b, t2.c, t2.d, v64, v73, v69, v70];
-          v74 = *(self + 8);
-          if (v74)
+          [(PKMetalRenderer *)v132 renderUberVertexShaderWithSourceRect:v52 destinationQuad:v54 renderEncoder:v56 sourcePixelSize:v58 destPixelSize:t2.a texCoordTransform:t2.b, t2.c, t2.d, v66, v75, v71, v72];
+          v76 = *(self + 8);
+          if (v76)
           {
-            pipelineConfig = [(PKMetalRenderState *)v74 pipelineConfig];
+            pipelineConfig = [(PKMetalRenderState *)v76 pipelineConfig];
           }
 
           else
@@ -12718,143 +12721,143 @@ LABEL_17:
             pipelineConfig = *(self + 800);
           }
 
-          v76 = *(self + 192);
+          v78 = *(self + 192);
           *&t1.a = 7;
           memset(&t1.b + 4, 0, 20);
           LODWORD(t1.b) = 3;
           *&t1.tx = pipelineConfig;
-          v77 = [(PKMetalResourceHandler *)v76 namedShaderForKey:?];
-          v78 = v77;
-          if (v77)
+          v79 = [(PKMetalResourceHandler *)v78 namedShaderForKey:?];
+          v80 = v79;
+          if (v79)
           {
-            v79 = *(v77 + 24);
+            v81 = *(v79 + 24);
           }
 
           else
           {
-            v79 = 0;
-          }
-
-          v80 = v79;
-          [v130 setRenderPipelineState:v80];
-
-          v81 = sizea;
-          if (sizea)
-          {
-            v81 = sizea[3];
+            v81 = 0;
           }
 
           v82 = v81;
-          [v130 setFragmentTexture:v82 atIndex:0];
+          [v132 setRenderPipelineState:v82];
 
-          v83 = [(PKMetalFramebuffer *)v40 size];
-          v84 = *(self + 224);
-          v85 = *(self + 232);
-          v86 = v71[1];
-          *&t1.a = *v71;
-          *&t1.c = v86;
-          *&t1.tx = v71[2];
-          [(PKMetalRenderer *)v130 renderUberVertexShaderWithSourceRect:v50 destinationQuad:v52 renderEncoder:v54 sourcePixelSize:v56 destPixelSize:a texCoordTransform:b, c, d, v83, v87, v84, v85];
+          v83 = sizea;
+          if (sizea)
+          {
+            v83 = sizea[3];
+          }
+
+          v84 = v83;
+          [v132 setFragmentTexture:v84 atIndex:0];
+
+          v85 = [(PKMetalFramebuffer *)v40 size];
+          v86 = *(self + 224);
+          v87 = *(self + 232);
+          v88 = v73[1];
+          *&t1.a = *v73;
+          *&t1.c = v88;
+          *&t1.tx = v73[2];
+          [(PKMetalRenderer *)v132 renderUberVertexShaderWithSourceRect:v52 destinationQuad:v54 renderEncoder:v56 sourcePixelSize:v58 destPixelSize:a texCoordTransform:b, c, d, v85, v89, v86, v87];
         }
 
         else
         {
-          t1 = v141;
+          t1 = v143;
           [(PKMetalRenderer *)self renderTile:v13 tileFramebuffer:v40 tileTransform:&t1 renderState:*(self + 8) shouldComposite:0];
         }
       }
 
       if (v13)
       {
-        v88 = *(v13 + 23);
-        v89 = *(v13 + 24);
-        v90 = *(v13 + 25);
-        v91 = *(v13 + 26);
+        v90 = *(v13 + 23);
+        v91 = *(v13 + 24);
+        v92 = *(v13 + 25);
+        v93 = *(v13 + 26);
       }
 
       else
       {
-        v89 = 0.0;
-        v90 = 0.0;
         v91 = 0.0;
-        v88 = 0.0;
+        v92 = 0.0;
+        v93 = 0.0;
+        v90 = 0.0;
       }
 
-      t1 = v141;
-      [(PKMetalRenderer *)self renderStrokes:tileCopy clippedToStrokeSpaceRect:&t1 strokeTransform:v21 stopBlock:v88, v89, v90, v91];
+      t1 = v143;
+      [(PKMetalRenderer *)self renderStrokes:tileCopy clippedToStrokeSpaceRect:&t1 strokeTransform:v21 stopBlock:v90, v91, v92, v93];
       [(PKMetalRenderer *)self teardownRenderStateIfNecessary];
-      if ((v134[2]() & 1) == 0)
+      if ((v136[2]() & 1) == 0)
       {
         if (v13)
         {
-          v92 = *(v13 + 23);
-          v93 = *(v13 + 24);
-          v94 = *(v13 + 25);
-          v95 = *(v13 + 26);
+          v94 = *(v13 + 23);
+          v95 = *(v13 + 24);
+          v96 = *(v13 + 25);
+          v97 = *(v13 + 26);
         }
 
         else
         {
-          v93 = 0;
-          v94 = 0;
           v95 = 0;
-          v92 = 0;
+          v96 = 0;
+          v97 = 0;
+          v94 = 0;
         }
 
-        t1 = v141;
-        v144 = CGRectApplyAffineTransform(*&v92, &t1);
-        x = v144.origin.x;
-        height = v144.size.height;
-        v146.size.width = *(self + 224);
-        v146.size.height = *(self + 232);
-        v146.origin.x = 0.0;
-        v146.origin.y = 0.0;
-        y = v144.origin.y;
-        width = v144.size.width;
-        v145 = CGRectIntersection(v144, v146);
-        v98 = v145.origin.x;
-        v99 = v145.origin.y;
-        v100 = v145.size.width;
-        v101 = v145.size.height;
-        v102 = [(PKMetalFramebuffer *)v40 size];
-        v104 = v103;
-        v105 = DKDRoundedRectForScale(v98, v99, v100, v101, 1.0);
-        DKDNormalizedSubrectInRect(v105, v106, v107, v108);
-        DKDRectFromNormalizedSubrect(0.0, 0.0, v102, v104, v109, v110, v111, v112);
-        v117 = DKDRoundedRectForScale(v113, v114, v115, v116, 1.0);
-        v119 = v118;
+        t1 = v143;
+        v146 = CGRectApplyAffineTransform(*&v94, &t1);
+        x = v146.origin.x;
+        height = v146.size.height;
+        v148.size.width = *(self + 224);
+        v148.size.height = *(self + 232);
+        v148.origin.x = 0.0;
+        v148.origin.y = 0.0;
+        y = v146.origin.y;
+        width = v146.size.width;
+        v147 = CGRectIntersection(v146, v148);
+        v100 = v147.origin.x;
+        v101 = v147.origin.y;
+        v102 = v147.size.width;
+        v103 = v147.size.height;
+        v104 = [(PKMetalFramebuffer *)v40 size];
+        v106 = v105;
+        v107 = DKDRoundedRectForScale(v100, v101, v102, v103, 1.0);
+        DKDNormalizedSubrectInRect(v107, v108, v109, v110);
+        DKDRectFromNormalizedSubrect(0.0, 0.0, v104, v106, v111, v112, v113, v114);
+        v119 = DKDRoundedRectForScale(v115, v116, v117, v118, 1.0);
         v121 = v120;
         v123 = v122;
-        v124 = [[PKMetalRenderState alloc] initWithCommandQueue:0 liveRendering:*(self + 800) defaultPipelineConfig:?];
+        v125 = v124;
+        v126 = [[PKMetalRenderState alloc] initWithCommandQueue:0 liveRendering:*(self + 800) defaultPipelineConfig:?];
         if (*(self + 728))
         {
-          v125 = *(self + 56);
-          if (v125)
+          v127 = *(self + 56);
+          if (v127)
           {
-            v125 = v125[3];
+            v127 = v127[3];
           }
 
-          v126 = v125;
-          [(PKMetalRenderer *)self renderTexture:v126 intoFramebuffer:sizea sourceRect:v124 destinationRect:0 renderState:x blendMode:y, width, height, v117, v119, v121, v123];
+          v128 = v127;
+          [(PKMetalRenderer *)self renderTexture:v128 intoFramebuffer:sizea sourceRect:v126 destinationRect:0 renderState:x blendMode:y, width, height, v119, v121, v123, v125];
         }
 
-        if (v124)
+        if (v126)
         {
-          *(v124 + 41) = clear;
+          *(v126 + 41) = clear;
         }
 
-        v127 = *(self + 40);
-        if (v127)
+        v129 = *(self + 40);
+        if (v129)
         {
-          v127 = v127[3];
+          v129 = v129[3];
         }
 
-        v128 = v127;
-        [(PKMetalRenderer *)self renderTexture:v128 intoFramebuffer:v40 sourceRect:v124 destinationRect:0 renderState:x blendMode:y, width, height, v117, v119, v121, v123];
+        v130 = v129;
+        [(PKMetalRenderer *)self renderTexture:v130 intoFramebuffer:v40 sourceRect:v126 destinationRect:0 renderState:x blendMode:y, width, height, v119, v121, v123, v125];
 
-        if (v124)
+        if (v126)
         {
-          [(PKMetalRenderState *)v124 commitAndPurgeResourceSet:?];
+          [(PKMetalRenderState *)v126 commitAndPurgeResourceSet:?];
         }
       }
 
@@ -12995,18 +12998,18 @@ uint64_t __83__PKMetalRenderer_updateTile_strokes_clear_waitUntilCompleted_offsc
   if (strokes)
   {
     memset(v4, 0, sizeof(v4));
-    [PKMetalRenderer generateLiveStrokeCachesForStrokes:strokes destinationLocations:v3 startTime:? duration:?];
+    [(PKMetalRenderer *)strokes generateLiveStrokeCachesForStrokes:v3 destinationLocations:v4 startTime:0.0 duration:0.0];
     v5 = v4;
     std::vector<std::vector<ClipperLib::IntPoint>>::__destroy_vector::operator()[abi:ne200100](&v5);
   }
 }
 
-- (void)generateLiveStrokeCachesForStrokes:(uint64_t)strokes destinationLocations:(void *)locations startTime:duration:
+- (void)generateLiveStrokeCachesForStrokes:(uint64_t *)strokes destinationLocations:(double)locations startTime:(double)time duration:
 {
-  locationsCopy = locations;
-  if (strokes)
+  v6 = a2;
+  if (self)
   {
-    *(strokes + 16) = 0;
+    *(self + 16) = 0;
     operator new();
   }
 }
@@ -13054,37 +13057,38 @@ uint64_t __83__PKMetalRenderer_updateTile_strokes_clear_waitUntilCompleted_offsc
 
 - (void)purgeOriginalBackFramebuffer
 {
-  if (self)
+  if (result)
   {
-    if (*(self + 48) == 1)
+    if (*(result + 48) == 1)
     {
-      [(PKMetalFramebuffer *)*(self + 40) decrementNonPurgeableCount];
-      *(self + 48) = 0;
+      [(PKMetalFramebuffer *)*(result + 40) decrementNonPurgeableCount];
+      *(result + 48) = 0;
     }
 
-    *(self + 72) = 1;
-    if (*(self + 64) == 1)
+    *(result + 72) = 1;
+    if (*(result + 64) == 1)
     {
-      [(PKMetalFramebuffer *)*(self + 56) decrementNonPurgeableCount];
-      *(self + 64) = 0;
+      [(PKMetalFramebuffer *)*(result + 56) decrementNonPurgeableCount];
+      *(result + 64) = 0;
     }
 
-    if (*(self + 976) == 1)
+    if (*(result + 976) == 1)
     {
-      [(PKMetalFramebuffer *)*(self + 968) decrementNonPurgeableCount];
-      *(self + 976) = 0;
+      [(PKMetalFramebuffer *)*(result + 968) decrementNonPurgeableCount];
+      *(result + 976) = 0;
     }
 
-    if (*(self + 992) == 1)
+    if (*(result + 992) == 1)
     {
-      [(PKMetalFramebuffer *)*(self + 984) decrementNonPurgeableCount];
-      *(self + 992) = 0;
+      [(PKMetalFramebuffer *)*(result + 984) decrementNonPurgeableCount];
+      *(result + 992) = 0;
     }
   }
 }
 
-- (void)renderImageTexture:(__int128 *)texture imageTextureTransform:(void *)transform withTiles:(uint64_t)tiles tileTransform:(char)tileTransform waitUntilCompleted:
+- (void)renderImageTexture:(__int128 *)texture imageTextureTransform:(void *)transform withTiles:(uint64_t)tiles tileTransform:(uint64_t)tileTransform waitUntilCompleted:
 {
+  tileTransformCopy = tileTransform;
   v82 = *MEMORY[0x1E69E9840];
   v65 = a2;
   transformCopy = transform;
@@ -13115,7 +13119,7 @@ uint64_t __83__PKMetalRenderer_updateTile_strokes_clear_waitUntilCompleted_offsc
         v15 = *(self + 8);
         if (v15)
         {
-          *(v15 + 41) = tileTransform;
+          *(v15 + 41) = tileTransformCopy;
         }
 
         [(PKMetalRenderer *)self setupDrawingFramebuffersIfNecessaryWantMemorylessPaint:?];
@@ -13290,7 +13294,7 @@ uint64_t __83__PKMetalRenderer_updateTile_strokes_clear_waitUntilCompleted_offsc
       v70 = *tiles;
       v71 = v63;
       v72 = *(tiles + 32);
-      [(PKMetalRenderer *)self renderTiles:transformCopy clearBackBuffer:v65 == 0 tileTransform:&v70 waitUntilCompleted:tileTransform];
+      [(PKMetalRenderer *)self renderTiles:transformCopy clearBackBuffer:v65 == 0 tileTransform:&v70 waitUntilCompleted:tileTransformCopy];
     }
   }
 }
@@ -13749,10 +13753,10 @@ LABEL_49:
   return encoder < 1.0;
 }
 
-- (double)particleOffsetAtEndOfStroke:(uint64_t)stroke forSecondaryParticles:(void *)particles
+- (double)particleOffsetAtEndOfStroke:(_BOOL4)stroke forSecondaryParticles:
 {
-  particlesCopy = particles;
-  if (stroke)
+  v4 = a2;
+  if (self)
   {
     operator new();
   }

@@ -131,17 +131,17 @@
 - (int)StringAsNearby:(id)nearby
 {
   nearbyCopy = nearby;
-  if ([nearbyCopy isEqualToString:@"UNKNOWN"])
+  if (objc_msgSend_isEqualToString_(nearbyCopy))
   {
     v4 = 0;
   }
 
-  else if ([nearbyCopy isEqualToString:@"NEARBY"])
+  else if (objc_msgSend_isEqualToString_(nearbyCopy))
   {
     v4 = 1;
   }
 
-  else if ([nearbyCopy isEqualToString:@"DISTANT"])
+  else if (objc_msgSend_isEqualToString_(nearbyCopy))
   {
     v4 = 2;
   }

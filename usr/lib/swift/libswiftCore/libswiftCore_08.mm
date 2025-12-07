@@ -1,783 +1,3 @@
-void _gatherGenericParameters(_DWORD *a1@<X0>, _BYTE *a2@<X1>, uint64_t a3@<X2>, unint64_t *a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
-{
-  v108[8] = *MEMORY[0x1E69E9840];
-  swift::_gatherGenericParameterCounts(a1, a5, a7);
-  v16 = *(a5 + 8);
-  if (v16)
-  {
-    v17 = *(*a5 + 4 * v16 - 4);
-  }
-
-  else
-  {
-    GenericContext = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(a1);
-    if (GenericContext)
-    {
-      v17 = *(GenericContext + 2);
-    }
-
-    else
-    {
-      v17 = 0;
-    }
-  }
-
-  if ((*a1 & 0x80) == 0)
-  {
-    if (!a3)
-    {
-      goto LABEL_21;
-    }
-
-    goto LABEL_19;
-  }
-
-  v20 = a1 + 1;
-  v19 = a1[1];
-  if (!v19)
-  {
-    goto LABEL_17;
-  }
-
-  v21 = (v20 + (v19 & 0xFFFFFFFFFFFFFFFELL));
-  if (v19)
-  {
-    if (!*v21)
-    {
-      goto LABEL_17;
-    }
-
-    v22 = *v21;
-  }
-
-  else
-  {
-    if (!v21)
-    {
-      goto LABEL_17;
-    }
-
-    v22 = (v20 + (v19 & 0xFFFFFFFFFFFFFFFELL));
-  }
-
-  v23 = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v22);
-  if (v23)
-  {
-    v24 = *(v23 + 2);
-    goto LABEL_18;
-  }
-
-LABEL_17:
-  v24 = 0;
-LABEL_18:
-  if (a3 == *(swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(a1) + 2) - v24)
-  {
-    goto LABEL_21;
-  }
-
-LABEL_19:
-  if (a4 || a3 != v17)
-  {
-    if (!a3)
-    {
-      operator new();
-    }
-
-    if ((a3 & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    goto LABEL_147;
-  }
-
-LABEL_21:
-  if (!*(a5 + 8))
-  {
-LABEL_127:
-    *a8 = 0;
-    *(a8 + 16) = 0;
-    return;
-  }
-
-  __src = a2;
-  v106 = v108;
-  v107 = 0x800000000;
-  v25 = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(a1);
-  if (a4)
-  {
-    if (swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(a4))
-    {
-      TypeContextDescriptor = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(a4);
-      if (swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(TypeContextDescriptor))
-      {
-        v92 = a8;
-        v94 = a4;
-        v91 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(a4);
-        v27 = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v91);
-        v28 = v27;
-        if (v27[5])
-        {
-          v29 = *(((v27 + v27[2] + 15) & 0xFFFFFFFFFFFFFFFCLL) + 12 * v27[3] + 2);
-        }
-
-        else
-        {
-          v29 = 0;
-        }
-
-        v30 = swift::TargetMetadata<swift::InProcess>::getTypeContextDescriptor(v94);
-        if (!v30 || (v32 = v30, !swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v30)))
-        {
-          v37 = 0;
-          v36 = v91;
-LABEL_39:
-          v38 = &v37[v29];
-          v39 = v28[2];
-          if (!v28[2])
-          {
-            v42 = 0;
-            a8 = v92;
-LABEL_64:
-            if (swift::_gatherWrittenGenericParameters(v36, v38, v42, &v106, a7))
-            {
-              goto LABEL_65;
-            }
-
-            if (!a3)
-            {
-              operator new();
-            }
-
-            if ((a3 & 0x8000000000000000) == 0)
-            {
-              operator new();
-            }
-
-LABEL_147:
-            std::string::__throw_length_error[abi:nn200100]();
-          }
-
-          v40 = (v28 + 6);
-          if (v39 < 4)
-          {
-            v41 = 0;
-            a8 = v92;
-            goto LABEL_61;
-          }
-
-          if (v39 >= 0x20)
-          {
-            v44 = 0uLL;
-            v43 = v39 & 0xFFE0;
-            v45 = 0uLL;
-            v46 = (v28 + 14);
-            v47 = v43;
-            v48 = 0uLL;
-            v49 = 0uLL;
-            v50 = 0uLL;
-            v51 = 0uLL;
-            v52 = 0uLL;
-            v53 = 0uLL;
-            a8 = v92;
-            do
-            {
-              v54 = vshrq_n_u8(v46[-1], 7uLL);
-              v55 = vshrq_n_u8(*v46, 7uLL);
-              v56 = vmovl_u8(*v54.i8);
-              v57 = vmovl_high_u8(v54);
-              v58 = vmovl_u8(*v55.i8);
-              v59 = vmovl_high_u8(v55);
-              v49 = vaddw_high_u16(v49, v57);
-              v48 = vaddw_u16(v48, *v57.i8);
-              v45 = vaddw_high_u16(v45, v56);
-              v44 = vaddw_u16(v44, *v56.i8);
-              v53 = vaddw_high_u16(v53, v59);
-              v52 = vaddw_u16(v52, *v59.i8);
-              v51 = vaddw_high_u16(v51, v58);
-              v50 = vaddw_u16(v50, *v58.i8);
-              v46 += 2;
-              v47 -= 32;
-            }
-
-            while (v47);
-            v31 = vaddq_s32(vaddq_s32(v51, v45), vaddq_s32(v53, v49));
-            v41 = vaddvq_s32(vaddq_s32(vaddq_s32(vaddq_s32(v50, v44), vaddq_s32(v52, v48)), v31));
-            if (v43 == v39)
-            {
-              goto LABEL_63;
-            }
-
-            if ((v39 & 0x1C) == 0)
-            {
-              v40 += v43;
-LABEL_61:
-              v66 = v28 + v39 + 12;
-              do
-              {
-                v67 = *v40++;
-                v41 += v67 >> 7;
-              }
-
-              while (v40 != v66);
-LABEL_63:
-              v42 = v41;
-              goto LABEL_64;
-            }
-          }
-
-          else
-          {
-            v41 = 0;
-            v43 = 0;
-            a8 = v92;
-          }
-
-          v40 += v39 & 0xFFFC;
-          v60 = v41;
-          v61 = (v28 + v43 + 12);
-          v62 = v43 - (v39 & 0xFFFC);
-          do
-          {
-            v63 = *v61++;
-            v31.i32[0] = v63;
-            *v31.i8 = vshr_n_u16(*&vmovl_u8(*v31.i8), 7uLL);
-            v60 = vaddw_u16(v60, *v31.i8);
-            v62 += 4;
-          }
-
-          while (v62);
-          v41 = vaddvq_s32(v60);
-          if ((v39 & 0xFFFC) == v39)
-          {
-            goto LABEL_63;
-          }
-
-          goto LABEL_61;
-        }
-
-        v33 = *v32;
-        v34 = *v32 & 0x1F;
-        if ((v34 - 17) >= 2)
-        {
-          if (v34 != 16)
-          {
-            __break(1u);
-            return;
-          }
-
-          if ((v33 & 0x20000000) == 0)
-          {
-            if ((v33 & 0x10000000) != 0)
-            {
-              v64 = 0;
-              v65 = 6;
-            }
-
-            else
-            {
-              v64 = v32[7];
-              v65 = 8;
-            }
-
-            v36 = v91;
-            ResilientImmediateMembersOffset = v64 - v32[v65];
-            goto LABEL_37;
-          }
-
-          ResilientImmediateMembersOffset = swift::getResilientImmediateMembersOffset(v32);
-        }
-
-        else
-        {
-          ResilientImmediateMembersOffset = 2;
-        }
-
-        v36 = v91;
-LABEL_37:
-        v37 = &v94[ResilientImmediateMembersOffset];
-        goto LABEL_39;
-      }
-    }
-  }
-
-LABEL_65:
-  __swift::__runtime::llvm::SmallVectorImpl<swift::MetadataPackOrValue>::insert<swift::MetadataPackOrValue const*,void>(&v106, &v106[v107], __src, &__src[8 * a3]);
-  if (v25[5])
-  {
-    v68 = *(((v25 + v25[2] + 15) & 0xFFFFFFFFFFFFFFFCLL) + 12 * v25[3]);
-    if (v68 >= 0x10000)
-    {
-      v69 = v68 >> 16;
-      v70 = *(a6 + 8);
-      if (v70 > v69)
-      {
-LABEL_68:
-        *(a6 + 8) = v69;
-        goto LABEL_78;
-      }
-
-      if (v70 < v69)
-      {
-        if (*(a6 + 12) < v69)
-        {
-          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a6, a6 + 16, v69, 8);
-          v70 = *(a6 + 8);
-        }
-
-        if (v70 != v69)
-        {
-          bzero((*a6 + 8 * v70), 8 * (v69 - v70));
-        }
-
-        goto LABEL_68;
-      }
-    }
-  }
-
-LABEL_78:
-  v71 = v25[2];
-  if (v107 != v71)
-  {
-    if (!a3)
-    {
-      operator new();
-    }
-
-    if ((a3 & 0x8000000000000000) == 0)
-    {
-      operator new();
-    }
-
-    goto LABEL_147;
-  }
-
-  v72 = (v25 + 6);
-  if ((v25[5] & 1) != 0 && (v73 = (((v72 + v71 + 3) & 0xFFFFFFFFFFFFFFFCLL) + 12 * v25[3]), *v73))
-  {
-    v74 = &v73[2 * (v25[5] & 1)];
-    if (!v25[2])
-    {
-LABEL_82:
-      v75 = 0;
-      goto LABEL_110;
-    }
-  }
-
-  else
-  {
-    v74 = 0;
-    if (!v25[2])
-    {
-      goto LABEL_82;
-    }
-  }
-
-  v93 = a8;
-  v76 = 0;
-  v77 = 0;
-  do
-  {
-    v78 = v106[v76];
-    v79 = *(v72 + v76);
-    v80 = *(v72 + v76) & 0x3F;
-    if (v80 == 2)
-    {
-      goto LABEL_91;
-    }
-
-    if (v80 != 1)
-    {
-      if ((*(v72 + v76) & 0x3F) != 0)
-      {
-        if (!a3)
-        {
-          operator new();
-        }
-
-        if ((a3 & 0x8000000000000000) == 0)
-        {
-          operator new();
-        }
-
-        goto LABEL_147;
-      }
-
-      if (v78)
-      {
-        v81 = (v106[v76] & 1) == 0;
-      }
-
-      else
-      {
-        v81 = 0;
-      }
-
-      if (!v81)
-      {
-        if (!a3)
-        {
-          operator new();
-        }
-
-        if ((a3 & 0x8000000000000000) == 0)
-        {
-          operator new();
-        }
-
-        goto LABEL_147;
-      }
-
-LABEL_91:
-      if (v79 < 0)
-      {
-        v83 = *(a6 + 8);
-        if (v83 >= *(a6 + 12))
-        {
-          v89 = v72;
-          v84 = v74;
-          __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a6, a6 + 16, v83 + 1, 8);
-          v74 = v84;
-          v72 = v89;
-          v83 = *(a6 + 8);
-        }
-
-        *(*a6 + 8 * v83) = v78;
-        ++*(a6 + 8);
-      }
-
-      goto LABEL_92;
-    }
-
-    if ((v78 & 1) == 0)
-    {
-      if (!a3)
-      {
-        operator new();
-      }
-
-      if ((a3 & 0x8000000000000000) == 0)
-      {
-        operator new();
-      }
-
-      goto LABEL_147;
-    }
-
-    if (v79 < 0)
-    {
-      *(*a6 + 8 * v74[4 * v77 + 2]) = *((v78 & 0xFFFFFFFFFFFFFFFELL) - 8);
-      v82 = *(a6 + 8);
-      if (v82 >= *(a6 + 12))
-      {
-        v90 = v72;
-        v85 = v74;
-        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a6, a6 + 16, v82 + 1, 8);
-        v74 = v85;
-        v72 = v90;
-        v82 = *(a6 + 8);
-      }
-
-      *(*a6 + 8 * v82) = v78;
-      ++*(a6 + 8);
-      ++v77;
-    }
-
-LABEL_92:
-    ++v76;
-  }
-
-  while (v71 != v76);
-  v75 = v25[2];
-  a8 = v93;
-LABEL_110:
-  v99[0] = &v106;
-  v99[1] = a5;
-  v86 = v25[3];
-  v104[0] = &unk_1EEEACF18;
-  v104[1] = v99;
-  v105 = v104;
-  v102[0] = &unk_1EEEACF60;
-  v102[1] = v99;
-  v103 = v102;
-  v100[0] = &unk_1EEEACFA8;
-  v100[1] = v99;
-  v101 = v100;
-  swift::_checkGenericRequirements(v72, v75, &v75[v72 + 3] & 0xFFFFFFFFFFFFFFFCLL, v86, a6, v104, v102, v100, &v96, 0);
-  if (v101 == v100)
-  {
-    (*(*v101 + 32))(v101);
-  }
-
-  else if (v101)
-  {
-    (*(*v101 + 40))();
-  }
-
-  if (v103 == v102)
-  {
-    (*(*v103 + 32))(v103);
-  }
-
-  else if (v103)
-  {
-    (*(*v103 + 40))();
-  }
-
-  if (v105 == v104)
-  {
-    (*(*v105 + 32))(v105);
-  }
-
-  else if (v105)
-  {
-    (*(*v105 + 40))();
-  }
-
-  if (v98 != 1)
-  {
-    if (*(a6 + 8) != v25[4])
-    {
-      if (!a3)
-      {
-        operator new();
-      }
-
-      if ((a3 & 0x8000000000000000) == 0)
-      {
-        operator new();
-      }
-
-      goto LABEL_147;
-    }
-
-    if (v106 != v108)
-    {
-      free(v106);
-    }
-
-    goto LABEL_127;
-  }
-
-  v87 = v96;
-  v88 = v97;
-  *(a8 + 8) = v97;
-  *a8 = v88(v87, 2, 0);
-  *(a8 + 16) = 1;
-  if (v98 == 1)
-  {
-    v97(v96, 3, 0);
-  }
-
-  if (v106 != v108)
-  {
-    free(v106);
-  }
-}
-
-uint64_t getObjCClassByMangledName(char *__s, objc_class **a2)
-{
-  v66 = *MEMORY[0x1E69E9840];
-  if (__s)
-  {
-    v4 = strlen(__s);
-    if (v4 < 3 || (*__s == 21599 ? (v5 = __s[2] == 116) : (v5 = 0), !v5))
-    {
-      v6 = strlen(__s);
-      goto LABEL_9;
-    }
-
-    v26[1] = 0;
-    v26[2] = 0;
-    v27 = 0;
-    v28 = 2400;
-    v29 = 0;
-    v30 = 0;
-    v65 = 0;
-    v26[0] = &unk_1EEEADB90;
-    v31 = 0;
-    v32 = 0;
-    v33 = 0;
-    v34 = 0;
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v50 = 0u;
-    v51 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v54 = 0u;
-    v55 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v58 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    v35 = 0u;
-    v36 = 0u;
-    v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v63 = 0;
-    v11 = strlen(__s);
-    v25 = 0;
-    v12 = swift::Demangle::__runtime::Demangler::demangleSymbol(v26, __s, v11, v24);
-    if (v25 == v24)
-    {
-      (*(*v25 + 32))(v25);
-      if (v12)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    else
-    {
-      if (v25)
-      {
-        (*(*v25 + 40))();
-      }
-
-      if (v12)
-      {
-LABEL_23:
-        v13 = *(v12 + 18);
-        switch(v13)
-        {
-          case 1:
-            v15 = 0;
-            break;
-          case 2:
-            v15 = 1;
-            break;
-          case 5:
-            v14 = *(v12 + 8);
-            if (!v14)
-            {
-              goto LABEL_35;
-            }
-
-            v15 = v14 - 1;
-            v16 = *v12;
-LABEL_33:
-            if (*(*(v16 + 8 * v15) + 16) == 232)
-            {
-              v17 = 0;
-              v12 = 0;
-              goto LABEL_48;
-            }
-
-LABEL_35:
-            v20[0] = &unk_1EEEACFF0;
-            v21 = v20;
-            v18[0] = &unk_1EEEAD038;
-            v19 = v18;
-            swift_getTypeByMangledNode(0, v26, v12, 0, v20, v18, v22);
-            if (v23 == 1)
-            {
-              (v22[1])(v22[0], 3, 0);
-              v12 = 0;
-            }
-
-            else
-            {
-              v12 = 0;
-              if (!v23)
-              {
-                v12 = v22[0];
-              }
-            }
-
-            if (v19 == v18)
-            {
-              (*(*v19 + 32))(v19);
-            }
-
-            else if (v19)
-            {
-              (*(*v19 + 40))();
-            }
-
-            if (v21 == v20)
-            {
-              (*(*v21 + 32))(v21);
-            }
-
-            else if (v21)
-            {
-              (*(*v21 + 40))();
-            }
-
-            v17 = 1;
-LABEL_48:
-            v26[0] = &unk_1EEEADB90;
-            if (v65 == &v64)
-            {
-              (*(*v65 + 32))(v65);
-            }
-
-            else if (v65)
-            {
-              (*(*v65 + 40))();
-            }
-
-            v26[0] = &unk_1EEEADB68;
-            swift::Demangle::__runtime::NodeFactory::freeSlabs(v27);
-            if (v29)
-            {
-              *(v29 + 48) = 0;
-            }
-
-            TypeByMangledNameUntrusted = v12;
-            if ((v17 & 1) == 0)
-            {
-              return 0;
-            }
-
-            goto LABEL_14;
-          default:
-            goto LABEL_35;
-        }
-
-        v16 = v12;
-        goto LABEL_33;
-      }
-    }
-
-    v17 = 0;
-    goto LABEL_48;
-  }
-
-  v4 = 0;
-  v6 = 0;
-LABEL_9:
-  if (swift::Demangle::__runtime::getManglingPrefixLength(__s, v6) || (v7 = *__s, (v7 & 0x8000000000000000) == 0) && (*(MEMORY[0x1E69E9830] + 4 * v7 + 60) & 0x400) != 0 || strchr(__s, 46))
-  {
-    TypeByMangledNameUntrusted = swift_stdlib_getTypeByMangledNameUntrusted(__s, v4);
-LABEL_14:
-    if (TypeByMangledNameUntrusted)
-    {
-      ObjCClassFromMetadataConditional = swift::swift_getObjCClassFromMetadataConditional(TypeByMangledNameUntrusted);
-      if (ObjCClassFromMetadataConditional)
-      {
-        *a2 = ObjCClassFromMetadataConditional;
-        return 1;
-      }
-    }
-  }
-
-  return OldGetClassHook(__s, a2);
-}
-
 uint64_t swift::SubstGenericParametersFromMetadata::buildDescriptorPath(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   v3 = a2;
@@ -1234,7 +454,7 @@ LABEL_18:
     v39 = vdup_n_s16(v16);
     v17 = &v11->i8[v13 & 0xFFFFFFFC];
     v40 = v15;
-    v41 = (v11->u32 + v18);
+    v41 = (v11->i32 + v18);
     v42 = v18 - (v13 & 0xFFFFFFFC);
     do
     {
@@ -1383,7 +603,7 @@ unsigned int **swift::SubstGenericParametersFromMetadata::setup(unsigned int **t
     v8 = this;
     this = swift::SubstGenericParametersFromMetadata::buildEnvironmentPath(this, this[1], a2, a3, a4);
 LABEL_10:
-    *(v8 + 296) = this;
+    *(v8 + 74) = this;
     return this;
   }
 
@@ -1431,7 +651,7 @@ LABEL_10:
     v9[0] = &unk_1EEEACE60;
     v5 = this;
     *(this + 74) = swift::SubstGenericParametersFromMetadata::buildDescriptorPath(this, this[1], v9);
-    GenericContext = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(*(v5 + 8));
+    GenericContext = swift::TargetContextDescriptor<swift::InProcess>::getGenericContext(v5[1]);
     if (GenericContext)
     {
       if (GenericContext[5])
@@ -1444,7 +664,7 @@ LABEL_10:
         v7 = 0;
       }
 
-      *(v5 + 300) = v7;
+      *(v5 + 75) = v7;
     }
 
     v9[0] = &unk_1EEEADB90;
@@ -2086,12 +1306,12 @@ void swift_disableDynamicReplacementScope(uint64_t a1)
   os_unfair_lock_unlock(&DynamicReplacementLock);
 }
 
-uint64_t swift_getTypeByMangledNodeImpl@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+_BYTE *swift_getTypeByMangledNodeImpl@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   v38 = *MEMORY[0x1E69E9840];
   if (*(a3 + 16) == 313)
   {
-    result = (*a3)(a4);
+    result = (*a3)(a4, a2);
     *(a7 + 24) = 0;
     *a7 = result;
     *(a7 + 8) = 0;
@@ -2303,7 +1523,7 @@ LABEL_41:
   return result;
 }
 
-uint64_t swift_getTypeByMangledNodeSlow@<X0>(swift *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+_BYTE *swift_getTypeByMangledNodeSlow@<X0>(swift *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   v29 = *MEMORY[0x1E69E9840];
   TypeByMangledNode = swift::getOverride_getTypeByMangledNode(a1);
@@ -2751,7 +1971,7 @@ LABEL_55:
   return result;
 }
 
-uint64_t swift_getTypeByMangledNameSlow@<X0>(swift *a1@<X0>, unsigned __int8 *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+_BYTE *swift_getTypeByMangledNameSlow@<X0>(swift *a1@<X0>, unsigned __int8 *a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   v29 = *MEMORY[0x1E69E9840];
   TypeByMangledName = swift::getOverride_getTypeByMangledName(a1);
@@ -3015,11 +2235,11 @@ void swift::ConcurrentReadableArray<anonymous namespace::TypeMetadataSection>::p
   os_unfair_lock_unlock((a1 + 24));
 }
 
-void DemanglerForRuntimeTypeResolution<swift::Demangle::__runtime::Demangler>::~DemanglerForRuntimeTypeResolution(uint64_t a1)
+void DemanglerForRuntimeTypeResolution<swift::Demangle::__runtime::Demangler>::~DemanglerForRuntimeTypeResolution(void *a1)
 {
   *a1 = &unk_1EEEADB90;
-  v2 = a1 + 544;
-  v3 = *(a1 + 568);
+  v2 = a1 + 68;
+  v3 = a1[71];
   if (v3 == v2)
   {
     (*(*v3 + 32))(v3);
@@ -3031,8 +2251,8 @@ void DemanglerForRuntimeTypeResolution<swift::Demangle::__runtime::Demangler>::~
   }
 
   *a1 = &unk_1EEEADB68;
-  swift::Demangle::__runtime::NodeFactory::freeSlabs(*(a1 + 24));
-  v4 = *(a1 + 40);
+  swift::Demangle::__runtime::NodeFactory::freeSlabs(a1[3]);
+  v4 = a1[5];
   if (v4)
   {
     *(v4 + 48) = 0;
@@ -3575,7 +2795,7 @@ StructDescriptor *descriptorFromStandardMangling(unsigned __int8 *a1)
   return 0;
 }
 
-uint64_t swift::ConcurrentReadableHashMap<anonymous namespace::NominalTypeDescriptorCacheEntry,swift::LazyMutex>::find<__swift::__runtime::llvm::StringRef>(const void **a1, unint64_t a2, unint64_t a3, uint64_t a4)
+const void **swift::ConcurrentReadableHashMap<anonymous namespace::NominalTypeDescriptorCacheEntry,swift::LazyMutex>::find<__swift::__runtime::llvm::StringRef>(const void **a1, unint64_t a2, unint64_t a3, uint64_t a4)
 {
   v8 = __swift::__runtime::llvm::hash_value(*a1, a1[1]);
   v9 = (a2 & 0xFFFFFFFFFFFFFFFCLL);
@@ -3627,9 +2847,9 @@ LABEL_21:
     v15 = (v14 - 1);
     if (v15 < a3)
     {
-      v16 = a4 + 24 * v15;
+      v16 = (a4 + 24 * v15);
       v17 = a1[1];
-      if (v17 == *(v16 + 8) && (!v17 || !memcmp(*a1, *v16, v17)))
+      if (v17 == v16[1] && (!v17 || !memcmp(*a1, *v16, v17)))
       {
         return v16;
       }
@@ -3659,7 +2879,7 @@ LABEL_21:
   return 0;
 }
 
-void swift::runtime::trace::metadata_scan_begin(swift::runtime::trace *this@<X0>, uint64_t a2@<X8>)
+void swift::runtime::trace::metadata_scan_begin(uint64_t *__return_ptr a1@<X8>, swift::runtime::trace *this@<X0>)
 {
   v24 = *MEMORY[0x1E69E9840];
   if (qword_1ED426300 != -1)
@@ -3680,7 +2900,7 @@ void swift::runtime::trace::metadata_scan_begin(swift::runtime::trace *this@<X0>
   if (swift::runtime::trace::TracingEnabled == 1)
   {
     v5 = os_signpost_id_generate(swift::runtime::trace::ScanLog);
-    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+    if ((v5 - 1) <= 0xFFFFFFFFFFFFFFFDLL)
     {
       v6 = swift::runtime::trace::ScanLog;
       if (os_signpost_enabled(swift::runtime::trace::ScanLog))
@@ -3699,7 +2919,7 @@ void swift::runtime::trace::metadata_scan_begin(swift::runtime::trace *this@<X0>
           v20[0] = &unk_1EEEAA698;
           v20[1] = swift::Demangle::__runtime::genericParameterName;
           v21 = v20;
-          swift::Demangle::__runtime::nodeToString(this, &v11, v7, __p);
+          swift::Demangle::__runtime::nodeToString(__p, this, &v11, v7);
           if (v10 >= 0)
           {
             v8 = __p;
@@ -3745,8 +2965,8 @@ LABEL_19:
     v5 = 0;
   }
 
-  *a2 = v5;
-  *(a2 + 8) = 0;
+  *a1 = v5;
+  *(a1 + 8) = 0;
 }
 
 uint64_t _searchTypeMetadataRecordsInSections<swift::ConcurrentReadableArray<anonymous namespace::TypeMetadataSection>>(uint64_t a1, const char *a2)
@@ -4179,11 +3399,11 @@ uint64_t std::__function::__func<swift_getTypeByMangledNameInContextInMetadataSt
   return *(*(v6 + 16) + 8 * (*(v6 + 296) + v7 + *(v6 + 300)));
 }
 
-void DemanglerForRuntimeTypeResolution<swift::Demangle::__runtime::StackAllocatedDemangler<2048ul>>::~DemanglerForRuntimeTypeResolution(uint64_t a1)
+void DemanglerForRuntimeTypeResolution<swift::Demangle::__runtime::StackAllocatedDemangler<2048ul>>::~DemanglerForRuntimeTypeResolution(void *a1)
 {
   *a1 = &unk_1EEEADB90;
-  v2 = a1 + 544;
-  v3 = *(a1 + 568);
+  v2 = a1 + 68;
+  v3 = a1[71];
   if (v3 == v2)
   {
     (*(*v3 + 32))(v3);
@@ -4195,8 +3415,8 @@ void DemanglerForRuntimeTypeResolution<swift::Demangle::__runtime::StackAllocate
   }
 
   *a1 = &unk_1EEEADB68;
-  swift::Demangle::__runtime::NodeFactory::freeSlabs(*(a1 + 24));
-  v4 = *(a1 + 40);
+  swift::Demangle::__runtime::NodeFactory::freeSlabs(a1[3]);
+  v4 = a1[5];
   if (v4)
   {
     *(v4 + 48) = 0;
@@ -4205,7 +3425,7 @@ void DemanglerForRuntimeTypeResolution<swift::Demangle::__runtime::StackAllocate
   JUMPOUT(0x1865C92E0);
 }
 
-uint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetOpaqueTypeDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetOpaqueTypeDescriptor<swift::InProcess>,swift::TargetGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::RelativeDirectPointer<char const,true,int,void>,swift::InvertibleProtocolSet>,swift::GenericValueDescriptor,swift::RelativeDirectPointer<char const,true,int,void>,swift::InvertibleProtocolSet>::getTrailingObjectsImpl(_BYTE *a1)
+unint64_t swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetOpaqueTypeDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetOpaqueTypeDescriptor<swift::InProcess>,swift::TargetGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::RelativeDirectPointer<char const,true,int,void>,swift::InvertibleProtocolSet>,swift::GenericValueDescriptor,swift::RelativeDirectPointer<char const,true,int,void>,swift::InvertibleProtocolSet>::getTrailingObjectsImpl(_BYTE *a1)
 {
   TrailingObjectsImpl = swift::ABI::trailing_objects_internal::TrailingObjectsImpl<4,swift::TargetOpaqueTypeDescriptor<swift::InProcess>,swift::ABI::TrailingObjects<swift::TargetOpaqueTypeDescriptor<swift::InProcess>,swift::TargetGenericContextDescriptorHeader<swift::InProcess>,swift::GenericParamDescriptor,swift::TargetGenericRequirementDescriptor<swift::InProcess>,swift::GenericPackShapeHeader,swift::GenericPackShapeDescriptor,swift::ConditionalInvertibleProtocolSet,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::RelativeDirectPointer<char const,true,int,void>,swift::InvertibleProtocolSet>,swift::ConditionalInvertibleProtocolsRequirementCount,swift::TargetConditionalInvertibleProtocolRequirement<swift::InProcess>,swift::GenericValueHeader,swift::GenericValueDescriptor,swift::RelativeDirectPointer<char const,true,int,void>,swift::InvertibleProtocolSet>::getTrailingObjectsImpl(a1);
   ConditionalInvertibleProtocolRequirementCounts = swift::TrailingGenericContextObjects<swift::TargetOpaqueTypeDescriptor<swift::InProcess>,swift::TargetGenericContextDescriptorHeader,swift::RelativeDirectPointer<char const,true,int,void>,swift::InvertibleProtocolSet>::getConditionalInvertibleProtocolRequirementCounts(a1);
@@ -4831,13 +4051,13 @@ uint64_t std::__function::__func<swift_getOpaqueTypeMetadataImpl(swift::Metadata
   return *(*(v6 + 16) + 8 * (*(v6 + 296) + v7 + *(v6 + 300)));
 }
 
-void *__swift::__runtime::llvm::SmallVectorImpl<swift::MetadataPackOrValue>::insert<swift::MetadataPackOrValue const*,void>(uint64_t a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
+void *__swift::__runtime::llvm::SmallVectorImpl<swift::MetadataPackOrValue>::insert<swift::MetadataPackOrValue const*,void>(uint64_t *a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
 {
   v6 = *a1;
   v7 = *a1;
   v8 = a2 - *a1;
-  v9 = *(a1 + 8);
-  v10 = *(a1 + 12);
+  v9 = *(a1 + 2);
+  v10 = *(a1 + 3);
   v11 = a4 - __src;
   v12 = (a4 - __src) >> 3;
   v13 = v12 + v9;
@@ -4846,20 +4066,20 @@ void *__swift::__runtime::llvm::SmallVectorImpl<swift::MetadataPackOrValue>::ins
     if (v13 > v10)
     {
       v23 = a4;
-      __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v13, 8);
+      __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 2), v13, 8);
       a4 = v23;
-      LODWORD(v9) = *(a1 + 8);
+      LODWORD(v9) = *(a1 + 2);
       v7 = *a1;
     }
 
     if (__src != a4)
     {
       memcpy((v7 + 8 * v9), __src, v11);
-      LODWORD(v9) = *(a1 + 8);
+      LODWORD(v9) = *(a1 + 2);
       v7 = *a1;
     }
 
-    *(a1 + 8) = v9 + (v11 >> 3);
+    *(a1 + 2) = v9 + (v11 >> 3);
     return (v7 + v8);
   }
 
@@ -4868,9 +4088,9 @@ void *__swift::__runtime::llvm::SmallVectorImpl<swift::MetadataPackOrValue>::ins
   v48 = a4;
   if (v13 > v10)
   {
-    __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v13, 8);
+    __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 2), v13, 8);
     v7 = *a1;
-    v9 = *(a1 + 8);
+    v9 = *(a1 + 2);
   }
 
   __srca = (v7 + v8);
@@ -4881,7 +4101,7 @@ void *__swift::__runtime::llvm::SmallVectorImpl<swift::MetadataPackOrValue>::ins
   if (v17 >> 3 < v12)
   {
     v19 = v9 + (__len >> 3);
-    *(a1 + 8) = v19;
+    *(a1 + 2) = v19;
     if (v15 == v8)
     {
       v20 = v46;
@@ -4957,10 +4177,10 @@ LABEL_33:
   }
 
   v24 = 8 * v12;
-  if (v12 + v9 > *(a1 + 12))
+  if (v12 + v9 > *(a1 + 3))
   {
-    __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a1, a1 + 16, v12 + v9, 8);
-    LODWORD(v9) = *(a1 + 8);
+    __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a1, (a1 + 2), v12 + v9, 8);
+    LODWORD(v9) = *(a1 + 2);
   }
 
   v25 = &v16[-v24];
@@ -5015,7 +4235,7 @@ LABEL_23:
   }
 
 LABEL_24:
-  *(a1 + 8) = v9 + (v24 >> 3);
+  *(a1 + 2) = v9 + (v24 >> 3);
   if (v25 != __srca)
   {
     memmove(&__srca[v24], __srca, &v16[-v24] - __srca);
@@ -5039,7 +4259,7 @@ uint64_t swift::TargetPackPointer<swift::InProcess,swift::TargetMetadata>::getNu
   return *((*a1 & 0xFFFFFFFFFFFFFFFELL) - 8);
 }
 
-char *swift::TypeLookupError::TypeLookupError<_gatherGenericParameters(swift::TargetContextDescriptor<swift::InProcess> const*,__swift::__runtime::llvm::ArrayRef<swift::MetadataPackOrValue>,swift::TargetMetadata<swift::InProcess> const*,__swift::__runtime::llvm::SmallVectorImpl<unsigned int> &,__swift::__runtime::llvm::SmallVectorImpl<void const*> &,swift::Demangle::__runtime::Demangler &)::$_3>(_gatherGenericParameters(swift::TargetContextDescriptor<swift::InProcess> const*,__swift::__runtime::llvm::ArrayRef<swift::MetadataPackOrValue>,swift::TargetMetadata<swift::InProcess> const*,__swift::__runtime::llvm::SmallVectorImpl<unsigned int> &,__swift::__runtime::llvm::SmallVectorImpl<void const*> &,swift::Demangle::__runtime::Demangler &)::$_3 const&)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke(uint64_t a1, int a2, void *a3)
+char *swift::TypeLookupError::TypeLookupError<_gatherGenericParameters(swift::TargetContextDescriptor<swift::InProcess> const*,__swift::__runtime::llvm::ArrayRef<swift::MetadataPackOrValue>,swift::TargetMetadata<swift::InProcess> const*,__swift::__runtime::llvm::SmallVectorImpl<unsigned int> &,__swift::__runtime::llvm::SmallVectorImpl<void const*> &,swift::Demangle::__runtime::Demangler &)::$_3>(_gatherGenericParameters(swift::TargetContextDescriptor<swift::InProcess> const*,__swift::__runtime::llvm::ArrayRef<swift::MetadataPackOrValue>,swift::TargetMetadata<swift::InProcess> const*,__swift::__runtime::llvm::SmallVectorImpl<unsigned int> &,__swift::__runtime::llvm::SmallVectorImpl<void const*> &,swift::Demangle::__runtime::Demangler &)::$_3 const&)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a2 > 1)
   {
@@ -5364,10 +4584,9 @@ LABEL_49:
   return result;
 }
 
-std::string *_gatherGenericParameters(swift::TargetContextDescriptor<swift::InProcess> const*,__swift::__runtime::llvm::ArrayRef<swift::MetadataPackOrValue>,swift::TargetMetadata<swift::InProcess> const*,__swift::__runtime::llvm::SmallVectorImpl<unsigned int> &,__swift::__runtime::llvm::SmallVectorImpl<void const*> &,swift::Demangle::__runtime::Demangler &)::$_10::operator() const(void)::{lambda(void)#1}::operator()@<X0>(const void **a1@<X0>, std::string *a2@<X8>)
+std::string *_gatherGenericParameters(swift::TargetContextDescriptor<swift::InProcess> const*,__swift::__runtime::llvm::ArrayRef<swift::MetadataPackOrValue>,swift::TargetMetadata<swift::InProcess> const*,__swift::__runtime::llvm::SmallVectorImpl<unsigned int> &,__swift::__runtime::llvm::SmallVectorImpl<void const*> &,swift::Demangle::__runtime::Demangler &)::$_10::operator() const(void)::{lambda(void)#1}::operator()@<X0>(swift::SymbolInfo **a1@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::append(a2, "_gatherGenericParameters: context: ");
   if (*a1)
@@ -5380,7 +4599,7 @@ std::string *_gatherGenericParameters(swift::TargetContextDescriptor<swift::InPr
     v4 = 0;
   }
 
-  swift::SymbolInfo::lookup(v4, v18);
+  swift::SymbolInfo::lookup(v18, v4);
   if (v20 == 1)
   {
     SymbolName = swift::SymbolInfo::getSymbolName(v18);
@@ -5425,7 +4644,7 @@ std::string *_gatherGenericParameters(swift::TargetContextDescriptor<swift::InPr
   v13 = a1[3];
   if (v13)
   {
-    swift::nameForMetadata(v18, v13);
+    swift::nameForMetadata(v13, 1, v18);
     if ((v19 & 0x80u) == 0)
     {
       v14 = v18;
@@ -6448,7 +5667,7 @@ LABEL_37:
   return result;
 }
 
-void swift::Demangle::__runtime::TypeDecoder<anonymous namespace::DecodedMetadataBuilder>::decodeMangledType(swift::Demangle::__runtime::Demangler ***a1@<X0>, unsigned __int16 **a2@<X1>, unsigned int a3@<W2>, void *a4@<X8>)
+void swift::Demangle::__runtime::TypeDecoder<anonymous namespace::DecodedMetadataBuilder>::decodeMangledType(_anonymous_namespace_::DecodedMetadataBuilder **a1@<X0>, unsigned __int16 **a2@<X1>, unsigned int a3@<W2>, void *a4@<X8>)
 {
   v423[16] = *MEMORY[0x1E69E9840];
   if (a3 > 0x400)
@@ -6537,7 +5756,7 @@ LABEL_114:
           v161 = *a2;
           if (*(a2 + 2))
           {
-            v162 = *v161 + 16;
+            v162 = (*v161 + 8);
           }
 
           else
@@ -6546,7 +5765,7 @@ LABEL_114:
           }
 
           v169 = *v162;
-          v170 = *(v161[v169 == 24] + 16) == 137;
+          v170 = v161[v169 == 24][8] == 137;
           v166 = 16 * v170;
           if (v169 == 24)
           {
@@ -6555,10 +5774,10 @@ LABEL_114:
 
           else
           {
-            v167 = *(v161[v169 == 24] + 16) == 137;
+            v167 = v161[v169 == 24][8] == 137;
           }
 
-          v168 = *(v161[v167] + 16);
+          v168 = v161[v167][8];
           v163 = *a2;
         }
 
@@ -6655,7 +5874,7 @@ LABEL_698:
             v237 = a2;
           }
 
-          if (*(v237[v167] + 16) == 70)
+          if (v237[v167][8] == 70)
           {
             v238 = a2;
             if ((v236 & 1) == 0)
@@ -6690,7 +5909,7 @@ LABEL_698:
             v242 = *a2;
           }
 
-          if (*(v242[v234] + 16) == 285)
+          if (v242[v234][8] == 285)
           {
             v243 = a4;
             v244 = 0;
@@ -6705,7 +5924,7 @@ LABEL_698:
             v246 = *a2;
           }
 
-          if (*(v246[v234] + 16) != 286)
+          if (v246[v234][8] != 286)
           {
             v243 = a4;
             v244 = 0;
@@ -6873,9 +6092,9 @@ LABEL_927:
 LABEL_916:
             if (v423[0])
             {
-              *(v243 + 16) = 1;
+              *(v243 + 8) = 1;
               v309 = v422;
-              *(v243 + 8) = *(&v422 + 1);
+              v243[1] = *(&v422 + 1);
               *v243 = (*(&v309 + 1))(v309, 2, 0);
               (*(&v309 + 1))(v309, 3, 0);
               goto LABEL_944;
@@ -6935,7 +6154,7 @@ LABEL_933:
 LABEL_934:
                 if (v416[0] == 1)
                 {
-                  *(v243 + 16) = 1;
+                  *(v243 + 8) = 1;
                   *v243 = *v415;
                   v415[0] = 0;
                   v415[1] = swift::TypeLookupError::nop;
@@ -6992,7 +6211,7 @@ LABEL_915:
           goto LABEL_916;
         }
 
-        if (*(v161[v167] + 16) == 135)
+        if (v161[v167][8] == 135)
         {
           v172 = 0;
           v166 |= 2u;
@@ -7113,7 +6332,7 @@ LABEL_79:
             v23 = *a2;
 LABEL_76:
             v24 = a2;
-            v25 = *(v23 + 1);
+            v25 = v23[1];
             goto LABEL_77;
           }
         }
@@ -7161,7 +6380,7 @@ LABEL_54:
         goto LABEL_66;
       case 0x14:
         v105 = a2;
-        swift::Demangle::__runtime::mangleNode(a2);
+        swift::Demangle::__runtime::mangleNode(a2, 0);
         if (LODWORD(v418[0]))
         {
           operator new();
@@ -7821,10 +7040,10 @@ LABEL_811:
               v88 = v87[v81];
             }
 
-            v89 = *(v88 + 16);
+            v89 = v88[8];
             if (v89 <= 0x74)
             {
-              if (*(v88 + 16) <= 0x6Cu)
+              if (v88[8] <= 0x6Cu)
               {
                 if (v89 != 107)
                 {
@@ -7863,7 +7082,7 @@ LABEL_192:
               continue;
             }
 
-            if (*(v88 + 16) > 0x7Cu)
+            if (v88[8] > 0x7Cu)
             {
               switch(v89)
               {
@@ -7905,7 +7124,7 @@ LABEL_192:
               v101 = v88;
               if ((v100 - 1) >= 2)
               {
-                if (v100 != 5 || !*(v88 + 8))
+                if (v100 != 5 || !*(v88 + 2))
                 {
                   operator new();
                 }
@@ -7955,7 +7174,7 @@ LABEL_192:
             }
 
             v94 = *v88;
-            v95 = *(v88 + 8);
+            v95 = *(v88 + 1);
             if (v95 == 12)
             {
               v97 = *(v94 + 8);
@@ -8417,7 +7636,7 @@ LABEL_1064:
         while (v325 != v270)
         {
           v347 = *v325;
-          if (*(*v325 + 16) != 43)
+          if ((*v325)[8] != 43)
           {
             goto LABEL_1063;
           }
@@ -8487,16 +7706,16 @@ LABEL_1063:
               {
                 v357 = v8;
                 v358 = *v8;
-                v359 = v358[4];
+                v359 = *(v358 + 4);
                 if (v359)
                 {
                   LODWORD(v403) = v354;
                   LODWORD(v402) = v356;
                   v359 = (*(*v359 + 48))(v359, &v403, &v402);
-                  v363 = v358[11];
-                  if (v358[10] != v363 && (v359 & 1) != 0)
+                  v363 = *(v358 + 11);
+                  if (*(v358 + 10) != v363 && (v359 & 1) != 0)
                   {
-                    v364 = *(v363 - 1);
+                    v364 = *(v363 - 8);
                     v403 = v359;
                     if (v364 >= *((v359 & 0xFFFFFFFFFFFFFFFELL) - 8))
                     {
@@ -8666,8 +7885,8 @@ LABEL_386:
 LABEL_387:
         v150 = *a2;
 LABEL_388:
-        v151 = v150 + 2;
-        if (*(v150 + 8) != 223)
+        v151 = (v150 + 16);
+        if (*(v150 + 16) != 223)
         {
           operator new();
         }
@@ -8688,7 +7907,7 @@ LABEL_388:
 
         if (v152 == 1)
         {
-          v151 = v150 + 1;
+          v151 = (v150 + 8);
         }
 
         else if (v152 != 2)
@@ -8697,7 +7916,7 @@ LABEL_388:
           {
             v154 = *v150;
 LABEL_961:
-            v151 = &v154[4 * *(v150 + 2)];
+            v151 = &v154[*(v150 + 8)];
           }
 
           else
@@ -8719,7 +7938,7 @@ LABEL_1005:
           while (1)
           {
             v329 = *v153;
-            v330 = (*v153)[8];
+            v330 = *(*v153 + 8);
             if (v330 == 224)
             {
               v331 = 1;
@@ -8826,7 +8045,7 @@ LABEL_1054:
           v56 = *a2;
           v55 = *a2;
 LABEL_571:
-          v194 = &v56[*(a2 + 2)];
+          v194 = (v56 + 8 * *(a2 + 2));
           goto LABEL_614;
         }
 
@@ -8916,7 +8135,7 @@ LABEL_729:
           v404 = &v422;
           v405 = v418;
           v406[0] = v410;
-          v207 = *(v206 + 8);
+          v207 = v206[8];
           if (v207 == 243)
           {
             if (*(v206 + 18) - 1 >= 2)
@@ -8925,7 +8144,7 @@ LABEL_729:
             }
 
             v206 = *v206;
-            v207 = *(v206 + 8);
+            v207 = v206[8];
           }
 
           if (v207 == 240)
@@ -8975,13 +8194,13 @@ LABEL_964:
                 v215 = 0;
                 while (1)
                 {
-                  v221 = (*v8)[11];
-                  if ((*v8)[10] == v221)
+                  v221 = *(*v8 + 11);
+                  if (*(*v8 + 10) == v221)
                   {
                     goto LABEL_1130;
                   }
 
-                  *(v221 - 1) = v220;
+                  *(v221 - 8) = v220;
                   v222 = v414[0];
                   if (v414[0] == 1)
                   {
@@ -9050,15 +8269,15 @@ LABEL_964:
               {
                 v215 = 0;
 LABEL_675:
-                v227 = (*v8)[11];
+                v227 = *(*v8 + 11);
                 a4 = v398;
                 v194 = v388;
-                if ((*v8)[10] == v227)
+                if (*(*v8 + 10) == v227)
                 {
                   goto LABEL_1132;
                 }
 
-                (*v8)[11] = (v227 - 16);
+                *(*v8 + 11) = v227 - 16;
                 v214 = 1;
               }
             }
@@ -9208,7 +8427,7 @@ LABEL_575:
           v39 = *a2;
           v38 = *a2;
 LABEL_279:
-          v112 = &v39[*(a2 + 2)];
+          v112 = (v39 + 8 * *(a2 + 2));
           goto LABEL_306;
         }
 
@@ -9233,7 +8452,7 @@ LABEL_275:
 LABEL_306:
         if (v38 != v112)
         {
-          v387 = (a2 + 2);
+          v387 = a2 + 2;
           v397 = a4;
           v392 = v112;
           while (1)
@@ -9287,11 +8506,11 @@ LABEL_685:
                 }
 
                 v128 = *v8;
-                v130 = (*v8)[11];
-                v129 = (*v8)[12];
+                v130 = *(*v8 + 11);
+                v129 = *(*v8 + 12);
                 if (v130 >= v129)
                 {
-                  v132 = v128[10];
+                  v132 = *(v128 + 10);
                   v133 = v130 - v132;
                   v134 = (v130 - v132) >> 4;
                   v135 = v134 + 1;
@@ -9331,9 +8550,9 @@ LABEL_685:
                   v138[1] = 0;
                   v131 = 16 * v134 + 16;
                   memcpy(0, v132, v133);
-                  v128[10] = 0;
-                  v128[11] = v131;
-                  v128[12] = 0;
+                  *(v128 + 10) = 0;
+                  *(v128 + 11) = v131;
+                  *(v128 + 12) = 0;
                   if (v132)
                   {
                     operator delete(v132);
@@ -9347,7 +8566,7 @@ LABEL_685:
                   v131 = (v130 + 16);
                 }
 
-                v128[11] = v131;
+                *(v128 + 11) = v131;
                 v139 = *((v127 & 0xFFFFFFFFFFFFFFFELL) - 8);
                 if (v139)
                 {
@@ -9356,14 +8575,14 @@ LABEL_685:
                   v8 = a1;
                   while (1)
                   {
-                    v141 = (*v8)[11];
-                    if ((*v8)[10] == v141)
+                    v141 = *(*v8 + 11);
+                    if (*(*v8 + 10) == v141)
                     {
 LABEL_1130:
                       swift::fatalError(0, "advancePackExpansion() without beginPackExpansion()\n", v120, v121);
                     }
 
-                    *(v141 - 1) = v140;
+                    *(v141 - 8) = v140;
                     v142 = v416[0];
                     if (v416[0] == 1)
                     {
@@ -9422,15 +8641,15 @@ LABEL_1130:
                   v123 = 0;
                   v8 = a1;
 LABEL_366:
-                  v146 = (*v8)[11];
+                  v146 = *(*v8 + 11);
                   v112 = v392;
-                  if ((*v8)[10] == v146)
+                  if (*(*v8 + 10) == v146)
                   {
 LABEL_1132:
                     swift::fatalError(0, "endPackExpansion() without beginPackExpansion()\n", v120, v121);
                   }
 
-                  (*v8)[11] = (v146 - 16);
+                  *(*v8 + 11) = v146 - 16;
                   v122 = 1;
                 }
               }
@@ -9901,13 +9120,13 @@ LABEL_442:
 
             v283 = v282[v277];
 LABEL_856:
-            if (*(v283 + 8) == 246)
+            if (*(v283 + 16) == 246)
             {
               v395 = v277;
               v284 = *(v283 + 18);
               v285 = v283;
               v286 = v278;
-              v287 = v283 + 2;
+              v287 = (v283 + 16);
               if ((v284 - 1) >= 2)
               {
                 if (v284 == 5)
@@ -9922,7 +9141,7 @@ LABEL_856:
 
               if (v284 == 1)
               {
-                v287 = v283 + 1;
+                v287 = (v283 + 8);
                 goto LABEL_868;
               }
 
@@ -10010,7 +9229,7 @@ LABEL_1041:
 
               v288 = *v283;
 LABEL_865:
-              v287 = (v288 + 8 * *(v283 + 2));
+              v287 = &v288[*(v283 + 8)];
               goto LABEL_868;
             }
 
@@ -10122,4 +9341,941 @@ LABEL_687:
         operator new();
     }
   }
+}
+
+char *anonymous namespace::DecodedMetadataBuilder::createObjCClassType@<X0>(const char *a1@<X0>, uint64_t a2@<X8>)
+{
+  if (a1[23] < 0)
+  {
+    a1 = *a1;
+  }
+
+  Class = objc_getClass(a1);
+  result = swift_getObjCClassMetadata(Class);
+  *(a2 + 16) = 0;
+  *a2 = result;
+  if (!result)
+  {
+    *a2 = "unknown error";
+    *(a2 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
+    *(a2 + 16) = 1;
+  }
+
+  return result;
+}
+
+_anonymous_namespace_::DecodedMetadataBuilder **swift::Demangle::__runtime::TypeDecoder<anonymous namespace::DecodedMetadataBuilder>::decodeMangledTypeDecl@<X0>(uint64_t *__return_ptr a1@<X8>, swift::Demangle::__runtime::Node *a2@<X1>, _anonymous_namespace_::DecodedMetadataBuilder **result@<X0>, unsigned int a4@<W2>, _anonymous_namespace_::DecodedMetadataBuilder ***a5@<X3>, void *a6@<X4>)
+{
+  v25 = *MEMORY[0x1E69E9840];
+  if (a4 > 0x400)
+  {
+LABEL_2:
+    *a1 = "Mangled type is too complex";
+    a1[1] = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
+    *(a1 + 16) = 1;
+    return result;
+  }
+
+  v6 = a4 + 1;
+  while (1)
+  {
+    v7 = *(a2 + 8);
+    if (v7 != 243)
+    {
+      break;
+    }
+
+    v8 = *(a2 + 18);
+    if ((v8 - 1) >= 2)
+    {
+      if (v8 != 5 || !*(a2 + 2))
+      {
+        a2 = 0;
+        goto LABEL_7;
+      }
+
+      a2 = *a2;
+    }
+
+    a2 = *a2;
+LABEL_7:
+    if (++v6 == 1026)
+    {
+      goto LABEL_2;
+    }
+  }
+
+  if (v7 == 244)
+  {
+    v9 = a5;
+    v10 = a1;
+    goto LABEL_14;
+  }
+
+  v11 = *(a2 + 18);
+  v10 = a1;
+  if (v11 > 2)
+  {
+    if (v11 != 5 || *(a2 + 2) <= 1u)
+    {
+LABEL_25:
+      operator new();
+    }
+
+    v12 = *a2;
+  }
+
+  else
+  {
+    if (v11 == 1)
+    {
+      goto LABEL_25;
+    }
+
+    v12 = a2;
+    if (v11 != 2)
+    {
+      goto LABEL_25;
+    }
+  }
+
+  v14 = *v12;
+  v15 = *(*v12 + 16);
+  if (v15 == 163)
+  {
+    v9 = a5;
+  }
+
+  else
+  {
+    if (v15 == 73)
+    {
+      v16 = *(v14 + 18);
+      if (v16 != 2)
+      {
+        if (v16 != 5 || *(v14 + 2) < 2u)
+        {
+          operator new();
+        }
+
+        v14 = *v14;
+      }
+
+      v17 = a6;
+      v9 = a5;
+      v18 = a2;
+      v14 = *(v14 + 1);
+    }
+
+    else
+    {
+      v17 = a6;
+      v9 = a5;
+      v18 = a2;
+    }
+
+    v19 = result;
+    v20 = v23;
+    if (v23)
+    {
+      *v17 = 0;
+      v21 = v18;
+      if (v20 == 1)
+      {
+        (v22[1])(v22[0], 3, 0);
+        goto LABEL_42;
+      }
+    }
+
+    else
+    {
+      *v17 = v22[0];
+LABEL_42:
+      v21 = v18;
+    }
+
+    result = swift::Demangle::__runtime::getUnspecialized(v22, v21, **v19);
+    if (LODWORD(v22[0]))
+    {
+      v13 = "Failed to unspecialize type";
+LABEL_24:
+      *v10 = v13;
+      v10[1] = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
+      *(v10 + 16) = 1;
+      return result;
+    }
+
+    a2 = v24;
+    result = v19;
+  }
+
+LABEL_14:
+  result = _findContextDescriptor(a2, **result);
+  *v9 = result;
+  if (!result)
+  {
+    v13 = "Failed to create type decl";
+    goto LABEL_24;
+  }
+
+  *v10 = 0;
+  *(v10 + 16) = 0;
+  return result;
+}
+
+void swift::Demangle::__runtime::TypeDecoder<anonymous namespace::DecodedMetadataBuilder>::decodeGenericArgs(_anonymous_namespace_::DecodedMetadataBuilder **a1@<X0>, uint64_t a2@<X1>, unsigned int a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+{
+  v22 = *MEMORY[0x1E69E9840];
+  v6 = (a2 + 16);
+  if (*(a2 + 16) != 246)
+  {
+    operator new();
+  }
+
+  v10 = *(a2 + 18);
+  v11 = a2;
+  if ((v10 - 1) >= 2)
+  {
+    if (v10 == 5)
+    {
+      v12 = *a2;
+      v11 = *a2;
+      goto LABEL_11;
+    }
+
+    v11 = 0;
+  }
+
+  switch(v10)
+  {
+    case 1:
+      v6 = (a2 + 8);
+      if (v11 == (a2 + 8))
+      {
+        goto LABEL_29;
+      }
+
+      goto LABEL_16;
+    case 2:
+      goto LABEL_16;
+    case 5:
+      v12 = *a2;
+LABEL_11:
+      v6 = &v12[*(a2 + 8)];
+      if (v11 == v6)
+      {
+        goto LABEL_29;
+      }
+
+      goto LABEL_16;
+  }
+
+  v6 = 0;
+  if (!v11)
+  {
+LABEL_29:
+    *a5 = 0;
+    *(a5 + 16) = 0;
+    return;
+  }
+
+LABEL_16:
+  v13 = *(a5 + 16);
+  while (1)
+  {
+    v14 = v21;
+    if (v21 == 1)
+    {
+      v15 = v19;
+      v16 = v20;
+      *(a5 + 8) = v20;
+      *a5 = v16(v15, 2, 0);
+      v13 = 1;
+    }
+
+    else
+    {
+      if (v21)
+      {
+        v17 = 0;
+      }
+
+      else
+      {
+        v17 = v19;
+      }
+
+      v18 = *(a4 + 8);
+      if (v18 >= *(a4 + 12))
+      {
+        __swift::__runtime::llvm::SmallVectorBase<unsigned int>::grow_pod(a4, a4 + 16, v18 + 1, 8);
+        v18 = *(a4 + 8);
+      }
+
+      *(*a4 + 8 * v18) = v17;
+      ++*(a4 + 8);
+    }
+
+    if (v21 == 1)
+    {
+      v20(v19, 3, 0);
+    }
+
+    if (v14 == 1)
+    {
+      break;
+    }
+
+    if (++v11 == v6)
+    {
+      goto LABEL_29;
+    }
+  }
+
+  *(a5 + 16) = v13;
+}
+
+void anonymous namespace::DecodedMetadataBuilder::createBoundGenericType(uint64_t *a1@<X0>, _DWORD *a2@<X1>, _BYTE *a3@<X2>, uint64_t a4@<X3>, unint64_t *a5@<X4>, uint64_t a6@<X8>)
+{
+  v24[4] = *MEMORY[0x1E69E9840];
+  if (a2 && (*a2 & 0x10) != 0)
+  {
+    if (a5)
+    {
+      operator new();
+    }
+
+    v23[0] = v24;
+    v23[1] = 0x800000000;
+    v20 = v22;
+    v21 = 0x800000000;
+    _gatherGenericParameters(a2, a3, a4, a5, v23, &v20, *a1, &v17);
+    if (v19 == 1)
+    {
+      *(a6 + 16) = v19;
+      v8 = v17;
+      v9 = v18;
+      *(a6 + 8) = v18;
+      *a6 = v9(v8, 2, 0);
+      v9(v8, 3, 0);
+LABEL_24:
+      if (v20 != v22)
+      {
+        free(v20);
+      }
+
+      if (v23[0] != v24)
+      {
+        free(v23[0]);
+      }
+
+      return;
+    }
+
+    v13 = a2[3];
+    v12 = a2 + 3;
+    v11 = v13;
+    if (!v13 || !(v12 + v11))
+    {
+LABEL_23:
+      *a6 = "unknown error";
+      *(a6 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
+      *(a6 + 16) = 1;
+      goto LABEL_24;
+    }
+
+    v14 = (v12 + v11);
+    v15 = v20;
+    if (v21 > 1)
+    {
+      if (v21 == 2)
+      {
+        v16 = (v14)(255, *v20, *(v20 + 1));
+LABEL_22:
+        *(a6 + 16) = 0;
+        *a6 = v16;
+        if (v16)
+        {
+          goto LABEL_24;
+        }
+
+        goto LABEL_23;
+      }
+
+      if (v21 == 3)
+      {
+        v16 = (v14)(255, *v20, *(v20 + 1), *(v20 + 2));
+        goto LABEL_22;
+      }
+    }
+
+    else if (v21 == 1)
+    {
+      v15 = *v20;
+    }
+
+    v16 = (v14)(255, v15);
+    goto LABEL_22;
+  }
+
+  if (!a2 || (*a2 & 0x1F) != 3 || (SimpleProtocolTypeMetadata = swift::_getSimpleProtocolTypeMetadata(a2), *(a6 + 16) = 0, (*a6 = SimpleProtocolTypeMetadata) == 0))
+  {
+    *a6 = "unknown error";
+    *(a6 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
+    *(a6 + 16) = 1;
+  }
+}
+
+uint64_t anonymous namespace::DecodedMetadataBuilder::createBuiltinType@<X0>(size_t __n@<X1>, const char *a2@<X0>, uint64_t a3@<X8>)
+{
+  result = strncmp(a2, "Bi1_", __n);
+  if (__n == 4 && !result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int1;
+LABEL_143:
+    *a3 = v7 + 1;
+    return result;
+  }
+
+  result = strncmp(a2, "Bi7_", __n);
+  if (__n == 4 && !result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int7;
+    goto LABEL_143;
+  }
+
+  result = strncmp(a2, "Bi8_", __n);
+  if (__n == 4 && !result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int8;
+    goto LABEL_143;
+  }
+
+  result = strncmp(a2, "Bi16_", __n);
+  if (__n == 5 && !result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int16;
+    goto LABEL_143;
+  }
+
+  result = strncmp(a2, "Bi32_", __n);
+  if (__n == 5 && !result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int32;
+    goto LABEL_143;
+  }
+
+  result = strncmp(a2, "Bi63_", __n);
+  if (__n == 5 && !result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int63;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi64_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi128_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int128;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi256_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int256;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi512_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Int512;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bw");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Word;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf16_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.FPIEEE16;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf32_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.FPIEEE32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf64_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.FPIEEE64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf80_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.FPIEEE80;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf128_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.FPIEEE128;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bo");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.NativeObject;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bb");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.BridgeObject;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bp");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.RawPointer;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "BB");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.UnsafeValueBuffer;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "BO");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.UnknownObject;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bc");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.RawUnsafeContinuation;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "BD");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.DefaultActorStorage;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bd");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.NonDefaultDistributedActorStorage;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Be");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Executor;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bj");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Job;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi8_Bv2_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec2xInt8;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi8_Bv3_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec3xInt8;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi8_Bv4_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec4xInt8;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi8_Bv8_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec8xInt8;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi8_Bv16_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec16xInt8;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi8_Bv32_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec32xInt8;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi8_Bv64_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec64xInt8;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi16_Bv2_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec2xInt16;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi16_Bv3_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec3xInt16;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi16_Bv4_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec4xInt16;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi16_Bv8_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec8xInt16;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi16_Bv16_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec16xInt16;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi16_Bv32_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec32xInt16;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi16_Bv64_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec64xInt16;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi32_Bv2_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec2xInt32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi32_Bv3_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec3xInt32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi32_Bv4_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec4xInt32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi32_Bv8_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec8xInt32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi32_Bv16_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec16xInt32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi32_Bv32_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec32xInt32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi32_Bv64_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec64xInt32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi64_Bv2_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec2xInt64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi64_Bv3_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec3xInt64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi64_Bv4_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec4xInt64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi64_Bv8_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec8xInt64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi64_Bv16_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec16xInt64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi64_Bv32_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec32xInt64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bi64_Bv64_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec64xInt64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf32_Bv2_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec2xFPIEEE32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf32_Bv3_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec3xFPIEEE32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf32_Bv4_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec4xFPIEEE32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf32_Bv8_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec8xFPIEEE32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf32_Bv16_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec16xFPIEEE32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf32_Bv32_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec32xFPIEEE32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf32_Bv64_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec64xFPIEEE32;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf64_Bv2_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec2xFPIEEE64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf64_Bv3_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec3xFPIEEE64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf64_Bv4_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec4xFPIEEE64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf64_Bv8_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec8xFPIEEE64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf64_Bv16_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec16xFPIEEE64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf64_Bv32_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec32xFPIEEE64;
+    goto LABEL_143;
+  }
+
+  result = stringRefEqualsCString(a2, __n, "Bf64_Bv64_");
+  if (result)
+  {
+    *(a3 + 16) = 0;
+    v7 = &type metadata for Builtin.Vec64xFPIEEE64;
+    goto LABEL_143;
+  }
+
+  *a3 = "unknown error";
+  *(a3 + 8) = swift::TypeLookupError::TypeLookupError(char const*)::{lambda(void *,swift::TypeLookupError::Command,void *)#1}::__invoke;
+  *(a3 + 16) = 1;
+  return result;
 }

@@ -4,6 +4,7 @@
 - (id)attachmentList;
 - (id)attachmentsForParameters:(id)parameters;
 - (id)latestArchiveWithinTimeCutoff:(double)cutoff nameExclude:(id)exclude;
+- (id)photosDiagnosticIncludingDatabases:(BOOL)databases bundleID:(id)d;
 - (void)diagnosticServiceStateDidChange:(char)change outputURL:(id)l error:(id)error;
 - (void)photosDiagnosticDone;
 @end
@@ -219,6 +220,73 @@ LABEL_13:
     v4 = self->_doneHandler;
     self->_doneHandler = 0;
   }
+}
+
+- (id)photosDiagnosticIncludingDatabases:(BOOL)databases bundleID:(id)d
+{
+  databasesCopy = databases;
+  dCopy = d;
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "run photos diagnostics", buf, 2u);
+  }
+
+  v7 = [NSXPCConnection alloc];
+  v8 = [v7 initWithServiceName:CPLDiagnosticsService];
+  v9 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___CPLDiagnoseServiceProtocol];
+  [v8 setRemoteObjectInterface:v9];
+
+  v10 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___CPLDiagnoseServiceClientProtocol];
+  [v8 setExportedInterface:v10];
+
+  [v8 setExportedObject:self];
+  [v8 resume];
+  v11 = objc_alloc_init(NSMutableDictionary);
+  v12 = [NSNumber numberWithBool:databasesCopy];
+  [v11 setObject:v12 forKeyedSubscript:@"IncludeDatabases"];
+
+  if (dCopy)
+  {
+    [v11 setObject:dCopy forKeyedSubscript:@"DiagnosticBundleID"];
+    [v11 setObject:&__kCFBooleanTrue forKeyedSubscript:@"ExcludeSPLAndSyndication"];
+  }
+
+  [v11 setObject:&__kCFBooleanFalse forKeyedSubscript:@"IncludeSysdiagnose"];
+  v13 = dispatch_block_create(0, &stru_100004200);
+  doneHandler = self->_doneHandler;
+  self->_doneHandler = v13;
+
+  v15 = objc_retainBlock(v13);
+  *buf = 0;
+  v22 = buf;
+  v23 = 0x3032000000;
+  v24 = sub_100001808;
+  v25 = sub_100001818;
+  v26 = 0;
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_100001820;
+  v20[3] = &unk_100004228;
+  v20[4] = self;
+  v16 = [v8 synchronousRemoteObjectProxyWithErrorHandler:v20];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1000018FC;
+  v19[3] = &unk_100004250;
+  v19[4] = buf;
+  [v16 runDiagnoseWithOptions:v11 replyHandler:v19];
+
+  if (*(v22 + 5))
+  {
+    dispatch_block_wait(v15, 0xFFFFFFFFFFFFFFFFLL);
+  }
+
+  [v8 invalidate];
+  v17 = *(v22 + 5);
+  _Block_object_dispose(buf, 8);
+
+  return v17;
 }
 
 - (id)latestArchiveWithinTimeCutoff:(double)cutoff nameExclude:(id)exclude

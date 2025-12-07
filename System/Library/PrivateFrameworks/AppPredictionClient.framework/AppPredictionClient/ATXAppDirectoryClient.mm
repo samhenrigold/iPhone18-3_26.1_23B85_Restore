@@ -40,7 +40,7 @@
 {
   v2 = objc_alloc(MEMORY[0x1E698AFF0]);
   v3 = [MEMORY[0x1E698B010] appPredictionDirectoryFile:@"ATXAppDirectoryHiddenAppsCache"];
-  v4 = __atxlog_handle_app_library();
+  v4 = __atxlog_handle_app_library(v3);
   v5 = [v2 initWithCacheFilePath:v3 loggingHandle:v4 debugName:@"hidden apps"];
 
   v6 = objc_autoreleasePoolPush();
@@ -48,30 +48,30 @@
   v8 = objc_opt_class();
   v9 = [v7 initWithObjects:{v8, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v6);
-  v16 = 0;
-  v10 = [v5 readSecureCodedObjectWithMaxValidAge:v9 allowableClasses:&v16 error:-1.0];
-  v11 = v16;
+  v17 = 0;
+  v10 = [v5 readSecureCodedObjectWithMaxValidAge:v9 allowableClasses:&v17 error:-1.0];
+  v11 = v17;
 
   if (v10)
   {
-    v12 = v11 == 0;
+    v13 = v11 == 0;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  if (!v12)
+  if (!v13)
   {
-    v13 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = __atxlog_handle_app_library(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient _hiddenAppsFromCache];
     }
 
-    v14 = objc_opt_new();
-    v10 = v14;
+    v15 = objc_opt_new();
+    v10 = v15;
   }
 
   return v10;
@@ -129,19 +129,19 @@ void __39__ATXAppDirectoryClient_sharedInstance__block_invoke()
   return v2;
 }
 
-void __30__ATXAppDirectoryClient__init__block_invoke()
+void __30__ATXAppDirectoryClient__init__block_invoke(uint64_t a1)
 {
-  v0 = __atxlog_handle_app_library();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_app_library(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __30__ATXAppDirectoryClient__init__block_invoke_cold_1();
   }
 }
 
-void __30__ATXAppDirectoryClient__init__block_invoke_17()
+void __30__ATXAppDirectoryClient__init__block_invoke_17(uint64_t a1)
 {
-  v0 = __atxlog_handle_app_library();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = __atxlog_handle_app_library(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __30__ATXAppDirectoryClient__init__block_invoke_17_cold_1();
   }
@@ -158,87 +158,87 @@ void __30__ATXAppDirectoryClient__init__block_invoke_17()
 - (void)categoriesWithShouldUseDefault:(BOOL)default reply:(id)reply
 {
   defaultCopy = default;
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v7 = __atxlog_handle_app_library();
+  v7 = __atxlog_handle_app_library(replyCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v28 = defaultCopy;
+    v30 = defaultCopy;
     _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Starting requesting for categorization with shouldUseDefault: %{BOOL}d", buf, 8u);
   }
 
-  if (defaultCopy && !+[ATXDemoAppLibraryProvider isAppLibraryDemoModeEnabled])
+  if (defaultCopy && (v8 = +[ATXDemoAppLibraryProvider isAppLibraryDemoModeEnabled], (v8 & 1) == 0))
   {
-    v13 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = __atxlog_handle_app_library(v8);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v13, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Using default categories", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Using default categories", buf, 2u);
     }
 
     xpcConnection = self->_xpcConnection;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke;
-    v24[3] = &unk_1E80C1558;
-    v26 = defaultCopy;
-    v25 = replyCopy;
-    v15 = replyCopy;
-    v16 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v24];
-    [v16 requestNotificationWhenCategoriesAreReady];
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke;
+    v26[3] = &unk_1E80C1558;
+    v28 = defaultCopy;
+    v27 = replyCopy;
+    v16 = replyCopy;
+    v17 = [(NSXPCConnection *)xpcConnection remoteObjectProxyWithErrorHandler:v26];
+    [v17 requestNotificationWhenCategoriesAreReady];
 
     _sortedDefaultCategories = [objc_opt_class() _sortedDefaultCategories];
-    v18 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = __atxlog_handle_app_library(_sortedDefaultCategories);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v28 = _sortedDefaultCategories != 0;
-      _os_log_impl(&dword_1BF549000, v18, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Obtained non-nil categories: %{BOOL}d", buf, 8u);
+      v30 = _sortedDefaultCategories != 0;
+      _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Obtained non-nil categories: %{BOOL}d", buf, 8u);
     }
 
     if (_sortedDefaultCategories)
     {
-      [(ATXAppDirectoryClient *)self _updateTopAppsVisibilityWithCategories:_sortedDefaultCategories];
+      v20 = [(ATXAppDirectoryClient *)self _updateTopAppsVisibilityWithCategories:_sortedDefaultCategories];
     }
 
-    v9 = &v25;
-    v19 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v10 = &v27;
+    v21 = __atxlog_handle_app_library(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Sending reply with default categories", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Sending reply with default categories", buf, 2u);
     }
 
-    v15[2](v15, _sortedDefaultCategories, 0);
+    v16[2](v16, _sortedDefaultCategories, 0);
   }
 
   else
   {
-    v8 = self->_xpcConnection;
+    v9 = self->_xpcConnection;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke_24;
+    v24[3] = &unk_1E80C08E0;
+    v10 = &v25;
+    v11 = replyCopy;
+    v25 = v11;
+    v12 = [(NSXPCConnection *)v9 remoteObjectProxyWithErrorHandler:v24];
     v22[0] = MEMORY[0x1E69E9820];
     v22[1] = 3221225472;
-    v22[2] = __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke_24;
-    v22[3] = &unk_1E80C08E0;
-    v9 = &v23;
-    v10 = replyCopy;
-    v23 = v10;
-    v11 = [(NSXPCConnection *)v8 remoteObjectProxyWithErrorHandler:v22];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke_25;
-    v20[3] = &unk_1E80C1260;
-    v20[4] = self;
-    v21 = v10;
-    v12 = v10;
-    [v11 categoriesWithReply:v20];
+    v22[2] = __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke_25;
+    v22[3] = &unk_1E80C1260;
+    v22[4] = self;
+    v23 = v11;
+    v13 = v11;
+    [v12 categoriesWithReply:v22];
   }
 }
 
 void __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_app_library();
+  v4 = __atxlog_handle_app_library(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke_cold_1();
@@ -253,7 +253,7 @@ void __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_in
 void __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke_24(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_app_library();
+  v4 = __atxlog_handle_app_library(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_invoke_24_cold_1();
@@ -266,7 +266,7 @@ void __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_in
 {
   v5 = a2;
   v6 = a3;
-  v7 = __atxlog_handle_app_library();
+  v7 = __atxlog_handle_app_library(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -279,30 +279,31 @@ void __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_in
   }
 
   v8 = +[ATXDemoAppLibraryProvider isAppLibraryDemoModeEnabled];
-  v9 = __atxlog_handle_app_library();
-  v10 = v9;
-  if (v8)
+  v9 = v8;
+  v10 = __atxlog_handle_app_library(v8);
+  v11 = v10;
+  if (v9)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_INFO, "ATXAppDirectoryClient: Using Demo app categories", v14, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_INFO, "ATXAppDirectoryClient: Using Demo app categories", v15, 2u);
     }
 
-    v11 = *(a1 + 40);
-    if (v11)
+    v12 = *(a1 + 40);
+    if (v12)
     {
-      v12 = [ATXDemoAppLibraryProvider demoAppCategoriesForRealAppCategories:v5];
-      (*(v11 + 16))(v11, v12, v6);
+      v13 = [ATXDemoAppLibraryProvider demoAppCategoriesForRealAppCategories:v5];
+      (*(v12 + 16))(v12, v13, v6);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Received successful categorization response from server", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Received successful categorization response from server", v14, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -312,31 +313,32 @@ void __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_in
 - (void)predictedAppsAndRecentAppsWithMaxNumberOfPredictedApps:(unint64_t)apps shouldUseDefaultCategories:(BOOL)categories reply:(id)reply
 {
   categoriesCopy = categories;
-  v34 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   replyCopy = reply;
-  v9 = __atxlog_handle_app_library();
+  v9 = __atxlog_handle_app_library(replyCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v33 = categoriesCopy;
+    v35 = categoriesCopy;
     _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Starting loading predicted app with shouldUseDefaultCategories: %{BOOL}d", buf, 8u);
   }
 
   v10 = +[ATXDemoAppLibraryProvider isAppLibraryDemoModeEnabled];
-  v11 = __atxlog_handle_app_library();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
-  if (v10)
+  v11 = v10;
+  v12 = __atxlog_handle_app_library(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+  if (v11)
   {
-    if (v12)
+    if (v13)
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_INFO, "ATXAppDirectoryClient: Using Demo suggestions and recents", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_INFO, "ATXAppDirectoryClient: Using Demo suggestions and recents", buf, 2u);
     }
 
     if (replyCopy)
     {
-      v13 = +[ATXDemoAppLibraryProvider demoSuggestionsAndRecents];
-      replyCopy[2](replyCopy, v13);
+      v14 = +[ATXDemoAppLibraryProvider demoSuggestionsAndRecents];
+      replyCopy[2](replyCopy, v14);
 
       goto LABEL_21;
     }
@@ -344,69 +346,69 @@ void __62__ATXAppDirectoryClient_categoriesWithShouldUseDefault_reply___block_in
 
   else
   {
-    if (v12)
+    if (v13)
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_INFO, "ATXAppDirectoryClient: Using non-demo suggestions and recents", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v12, OS_LOG_TYPE_INFO, "ATXAppDirectoryClient: Using non-demo suggestions and recents", buf, 2u);
     }
   }
 
   if (!self->_blendingClient)
   {
-    v14 = [[ATXProactiveSuggestionClient alloc] initWithConsumerSubType:35];
+    v15 = [[ATXProactiveSuggestionClient alloc] initWithConsumerSubType:35];
     blendingClient = self->_blendingClient;
-    self->_blendingClient = v14;
+    self->_blendingClient = v15;
   }
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredictedApps_shouldUseDefaultCategories_reply___block_invoke;
-  v31[3] = &unk_1E80C1580;
-  v31[4] = self;
-  v31[5] = apps;
-  v16 = MEMORY[0x1BFB5BA40](v31);
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredictedApps_shouldUseDefaultCategories_reply___block_invoke;
+  v33[3] = &unk_1E80C1580;
+  v33[4] = self;
+  v33[5] = apps;
+  v17 = MEMORY[0x1BFB5BA40](v33);
   topAppsVisible = [(ATXAppDirectoryClient *)self topAppsVisible];
 
-  v18 = __atxlog_handle_app_library();
-  v19 = v18;
+  v20 = __atxlog_handle_app_library(v19);
+  v21 = v20;
   if (topAppsVisible)
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BF549000, v19, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Top apps are visible, will send reply", buf, 2u);
+      _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Top apps are visible, will send reply", buf, 2u);
     }
 
-    v20 = dispatch_get_global_queue(21, 0);
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredictedApps_shouldUseDefaultCategories_reply___block_invoke_30;
-    v25[3] = &unk_1E80C15D0;
-    v21 = &v26;
-    v22 = &v27;
-    v26 = replyCopy;
-    v27 = v16;
-    v23 = v16;
-    dispatch_async(v20, v25);
+    v22 = dispatch_get_global_queue(21, 0);
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredictedApps_shouldUseDefaultCategories_reply___block_invoke_30;
+    v27[3] = &unk_1E80C15D0;
+    v23 = &v28;
+    v24 = &v29;
+    v28 = replyCopy;
+    v29 = v17;
+    v25 = v17;
+    dispatch_async(v22, v27);
   }
 
   else
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient predictedAppsAndRecentAppsWithMaxNumberOfPredictedApps:shouldUseDefaultCategories:reply:];
     }
 
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredictedApps_shouldUseDefaultCategories_reply___block_invoke_29;
-    v28[3] = &unk_1E80C15A8;
-    v21 = &v29;
-    v22 = &v30;
-    v29 = replyCopy;
-    v30 = v16;
-    v24 = v16;
-    [(ATXAppDirectoryClient *)self categoriesWithShouldUseDefault:categoriesCopy reply:v28];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredictedApps_shouldUseDefaultCategories_reply___block_invoke_29;
+    v30[3] = &unk_1E80C15A8;
+    v23 = &v31;
+    v24 = &v32;
+    v31 = replyCopy;
+    v32 = v17;
+    v26 = v17;
+    [(ATXAppDirectoryClient *)self categoriesWithShouldUseDefault:categoriesCopy reply:v30];
   }
 
 LABEL_21:
@@ -419,11 +421,11 @@ id __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredict
   v4 = [v2 recentAppsVisible];
   [v3 setRecentAppsVisible:v4];
 
-  v5 = __atxlog_handle_app_library();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = __atxlog_handle_app_library(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&dword_1BF549000, v5, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Finished processing recent apps", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&dword_1BF549000, v6, OS_LOG_TYPE_DEFAULT, "ATXAppDirectoryClient: Finished processing recent apps", v8, 2u);
   }
 
   return v2;
@@ -433,7 +435,7 @@ void __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredi
 {
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = __atxlog_handle_app_library();
+  v4 = __atxlog_handle_app_library(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -448,7 +450,7 @@ void __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredi
 
 void __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredictedApps_shouldUseDefaultCategories_reply___block_invoke_30(uint64_t a1)
 {
-  v2 = __atxlog_handle_app_library();
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -462,8 +464,8 @@ void __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredi
 
 - (id)getDirectoryResponseFromCacheWithMaxNumberOfAppsToPredict:(unint64_t)predict
 {
-  v65 = *MEMORY[0x1E69E9840];
-  v4 = __atxlog_handle_app_library();
+  v70 = *MEMORY[0x1E69E9840];
+  v4 = __atxlog_handle_app_library(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -474,7 +476,7 @@ void __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredi
   suggestionLayoutFromCache = [(ATXProactiveSuggestionClient *)self->_blendingClient suggestionLayoutFromCache];
   v5 = objc_alloc(MEMORY[0x1E698AFF0]);
   v6 = [MEMORY[0x1E698B010] appPredictionDirectoryFile:@"ATXAppDirectoryRecentsCache"];
-  v7 = __atxlog_handle_app_library();
+  v7 = __atxlog_handle_app_library(v6);
   v8 = [v5 initWithCacheFilePath:v6 loggingHandle:v7 debugName:@"ATXAppDirectoryClient.DiskRead"];
 
   v9 = objc_autoreleasePoolPush();
@@ -484,37 +486,38 @@ void __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredi
   v13 = objc_opt_class();
   v14 = [v10 initWithObjects:{v11, v12, v13, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v9);
-  v60 = 0;
-  v15 = [v8 readSecureCodedObjectWithMaxValidAge:v14 allowableClasses:&v60 error:-1.0];
-  v16 = v60;
+  v65 = 0;
+  v15 = [v8 readSecureCodedObjectWithMaxValidAge:v14 allowableClasses:&v65 error:-1.0];
+  v16 = v65;
 
-  v47 = v8;
-  if (v15 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  v52 = v8;
+  if (v15 && (objc_opt_class(), v17 = objc_opt_isKindOfClass(), (v17 & 1) != 0))
   {
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v57 = 0u;
-    v17 = v15;
-    v18 = [v17 countByEnumeratingWithState:&v56 objects:v64 count:16];
-    if (v18)
+    v63 = 0u;
+    v64 = 0u;
+    v61 = 0u;
+    v62 = 0u;
+    v18 = v15;
+    v19 = [v18 countByEnumeratingWithState:&v61 objects:v69 count:16];
+    if (v19)
     {
-      v19 = v18;
-      v20 = *v57;
+      v20 = v19;
+      v21 = *v62;
       while (2)
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v20; ++i)
         {
-          if (*v57 != v20)
+          if (*v62 != v21)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v18);
           }
 
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          isKindOfClass = objc_opt_isKindOfClass();
+          if ((isKindOfClass & 1) == 0)
           {
-            v22 = __atxlog_handle_app_library();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+            v24 = __atxlog_handle_app_library(isKindOfClass);
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               [ATXAppDirectoryClient getDirectoryResponseFromCacheWithMaxNumberOfAppsToPredict:];
             }
@@ -523,8 +526,8 @@ void __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredi
           }
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v56 objects:v64 count:16];
-        if (v19)
+        v20 = [v18 countByEnumeratingWithState:&v61 objects:v69 count:16];
+        if (v20)
         {
           continue;
         }
@@ -533,134 +536,137 @@ void __113__ATXAppDirectoryClient_predictedAppsAndRecentAppsWithMaxNumberOfPredi
       }
     }
 
-    v15 = v17;
+    v15 = v18;
   }
 
   else
   {
-    v17 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = __atxlog_handle_app_library(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient getDirectoryResponseFromCacheWithMaxNumberOfAppsToPredict:];
     }
 
 LABEL_19:
 
-    v17 = objc_opt_new();
+    v18 = objc_opt_new();
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v52 = 0u;
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v23 = v17;
-  v24 = [v23 countByEnumeratingWithState:&v52 objects:v63 count:16];
-  if (v24)
+  v57 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v60 = 0u;
+  v25 = v18;
+  v26 = [v25 countByEnumeratingWithState:&v57 objects:v68 count:16];
+  if (v26)
   {
-    v25 = v24;
-    v26 = *v53;
+    v27 = v26;
+    v28 = *v58;
     do
     {
-      for (j = 0; j != v25; ++j)
+      for (j = 0; j != v27; ++j)
       {
-        if (*v53 != v26)
+        if (*v58 != v28)
         {
-          objc_enumerationMutation(v23);
+          objc_enumerationMutation(v25);
         }
 
-        v28 = *(*(&v52 + 1) + 8 * j);
-        if ([(__CFString *)v28 count]== 2)
+        v30 = *(*(&v57 + 1) + 8 * j);
+        v31 = [(__CFString *)v30 count];
+        if (v31 == 2)
         {
-          v29 = [(__CFString *)v28 objectForKeyedSubscript:@"bundleId"];
+          v32 = [(__CFString *)v30 objectForKeyedSubscript:@"bundleId"];
           objc_opt_class();
-          if (objc_opt_isKindOfClass())
+          v33 = objc_opt_isKindOfClass();
+          if (v33)
           {
-            v30 = [(__CFString *)v28 objectForKeyedSubscript:@"installDate"];
+            v34 = [(__CFString *)v30 objectForKeyedSubscript:@"installDate"];
             objc_opt_class();
-            if (objc_opt_isKindOfClass())
+            v35 = objc_opt_isKindOfClass();
+            if (v35)
             {
-              [array addObject:v28];
+              [array addObject:v30];
             }
 
             else
             {
-              v31 = __atxlog_handle_app_library();
-              if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+              v36 = __atxlog_handle_app_library(v35);
+              if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412290;
-                v62 = @"installDate";
-                _os_log_error_impl(&dword_1BF549000, v31, OS_LOG_TYPE_ERROR, "ATXAppDirectoryClient: Recent apps cache element doesn't have expected install date key: '%@'", buf, 0xCu);
+                v67 = @"installDate";
+                _os_log_error_impl(&dword_1BF549000, v36, OS_LOG_TYPE_ERROR, "ATXAppDirectoryClient: Recent apps cache element doesn't have expected install date key: '%@'", buf, 0xCu);
               }
             }
           }
 
           else
           {
-            v30 = __atxlog_handle_app_library();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+            v34 = __atxlog_handle_app_library(v33);
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v62 = @"bundleId";
-              _os_log_error_impl(&dword_1BF549000, v30, OS_LOG_TYPE_ERROR, "ATXAppDirectoryClient: Recent apps cache element doesn't have expected bundleId key: '%@'", buf, 0xCu);
+              v67 = @"bundleId";
+              _os_log_error_impl(&dword_1BF549000, v34, OS_LOG_TYPE_ERROR, "ATXAppDirectoryClient: Recent apps cache element doesn't have expected bundleId key: '%@'", buf, 0xCu);
             }
           }
         }
 
         else
         {
-          v29 = __atxlog_handle_app_library();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v32 = __atxlog_handle_app_library(v31);
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v62 = v28;
-            _os_log_error_impl(&dword_1BF549000, v29, OS_LOG_TYPE_ERROR, "ATXAppDirectoryClient: Recent apps cache element does not have expected number of keys: %@", buf, 0xCu);
+            v67 = v30;
+            _os_log_error_impl(&dword_1BF549000, v32, OS_LOG_TYPE_ERROR, "ATXAppDirectoryClient: Recent apps cache element does not have expected number of keys: %@", buf, 0xCu);
           }
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v52 objects:v63 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v57 objects:v68 count:16];
     }
 
-    while (v25);
+    while (v27);
   }
 
-  v32 = [array copy];
-  v33 = [ATXAppDirectoryResponse alloc];
+  v37 = [array copy];
+  v38 = [ATXAppDirectoryResponse alloc];
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
-  v36 = [bundleIdentifier isEqualToString:@"com.apple.Spotlight"];
+  v41 = [bundleIdentifier isEqualToString:@"com.apple.Spotlight"];
 
-  if (v36)
-  {
-    v37 = 0;
-  }
-
-  else
-  {
-    v37 = @"com.apple.Spotlight";
-  }
-
-  v38 = MEMORY[0x1E695E000];
-  v39 = v37;
-  v40 = [[v38 alloc] initWithSuiteName:v39];
-
-  v41 = [v40 stringArrayForKey:@"EnabledPreferenceRules"];
-  if ([v41 containsObject:@"System.onenessApps"])
+  if (v41)
   {
     v42 = 0;
   }
 
   else
   {
-    v42 = [v41 containsObject:@"System.iphoneApps"] ^ 1;
+    v42 = @"com.apple.Spotlight";
+  }
+
+  v43 = MEMORY[0x1E695E000];
+  v44 = v42;
+  v45 = [[v43 alloc] initWithSuiteName:v44];
+
+  v46 = [v45 stringArrayForKey:@"EnabledPreferenceRules"];
+  if (objc_msgSend_containsObject_(v46))
+  {
+    v47 = 0;
+  }
+
+  else
+  {
+    v47 = objc_msgSend_containsObject_(v46) ^ 1;
   }
 
   _hiddenAppsFromCache = [(ATXAppDirectoryClient *)selfCopy _hiddenAppsFromCache];
   topAppsVisible = [(ATXAppDirectoryClient *)selfCopy topAppsVisible];
-  v45 = [(ATXAppDirectoryResponse *)v33 initWithSuggestionLayout:suggestionLayoutFromCache includeRemoteApps:v42 recentApps:v32 hiddenApps:_hiddenAppsFromCache otherAppsOnScreen:topAppsVisible numAppsToPredict:predict error:v16];
+  v50 = [(ATXAppDirectoryResponse *)v38 initWithSuggestionLayout:suggestionLayoutFromCache includeRemoteApps:v47 recentApps:v37 hiddenApps:_hiddenAppsFromCache otherAppsOnScreen:topAppsVisible numAppsToPredict:predict error:v16];
 
-  return v45;
+  return v50;
 }
 
 - (void)appLaunchDatesWithReply:(id)reply
@@ -680,7 +686,7 @@ LABEL_19:
 void __49__ATXAppDirectoryClient_appLaunchDatesWithReply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_app_library();
+  v4 = __atxlog_handle_app_library(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __49__ATXAppDirectoryClient_appLaunchDatesWithReply___block_invoke_cold_1();
@@ -698,7 +704,7 @@ void __49__ATXAppDirectoryClient_appLaunchDatesWithReply___block_invoke(uint64_t
 void __49__ATXAppDirectoryClient_notifyBookmarksDidChange__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_app_library();
+  v3 = __atxlog_handle_app_library(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __49__ATXAppDirectoryClient_appLaunchDatesWithReply___block_invoke_cold_1();
@@ -714,7 +720,7 @@ void __49__ATXAppDirectoryClient_notifyBookmarksDidChange__block_invoke(uint64_t
 void __66__ATXAppDirectoryClient_requestNotificationWhenCategoriesAreReady__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_app_library();
+  v3 = __atxlog_handle_app_library(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __49__ATXAppDirectoryClient_appLaunchDatesWithReply___block_invoke_cold_1();
@@ -810,21 +816,21 @@ void __64__ATXAppDirectoryClient__updateTopAppsVisibilityWithCategories___block_
 
   if (v3)
   {
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v3];
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithContentsOfFile:v3];
   }
 
   else
   {
-    v5 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = __atxlog_handle_app_library(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       +[ATXAppDirectoryClient hardcodedAppCategoryMappings];
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 + (id)_sortedBundleIDsByCategoryWithHardcodedAppCategoryMappings:(id)mappings
@@ -907,27 +913,28 @@ uint64_t __84__ATXAppDirectoryClient__sortedBundleIDsByCategoryWithHardcodedAppC
 
 + (id)_sortedDefaultCategories
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   hardcodedAppCategoryMappings = [self hardcodedAppCategoryMappings];
   v5 = [hardcodedAppCategoryMappings mutableCopy];
 
   Current = CFAbsoluteTimeGetCurrent();
   v7 = objc_alloc_init(MEMORY[0x1E69D4240]);
-  v8 = __atxlog_handle_app_library();
+  v8 = __atxlog_handle_app_library(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v43 = CFAbsoluteTimeGetCurrent() - Current;
+    v44 = CFAbsoluteTimeGetCurrent() - Current;
     _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "Time to initialize home screen service: %f seconds", buf, 0xCu);
   }
 
   v9 = CFAbsoluteTimeGetCurrent();
   v10 = +[ATXAppDisplayIdentifiers appIdentifiers];
-  if (![v10 count])
+  v11 = [v10 count];
+  if (!v11)
   {
-    v11 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = __atxlog_handle_app_library(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
     }
@@ -942,85 +949,85 @@ uint64_t __84__ATXAppDirectoryClient__sortedBundleIDsByCategoryWithHardcodedAppC
     {
       [MEMORY[0x1E695DFD8] set];
     }
-    v13 = ;
+    v14 = ;
 
-    v10 = v13;
+    v10 = v14;
   }
 
-  v14 = __atxlog_handle_app_library();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = __atxlog_handle_app_library(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = CFAbsoluteTimeGetCurrent();
+    v16 = CFAbsoluteTimeGetCurrent();
     *buf = 134217984;
-    v43 = v15 - v9;
-    _os_log_impl(&dword_1BF549000, v14, OS_LOG_TYPE_DEFAULT, "Time to copy app identifiers: %f seconds", buf, 0xCu);
+    v44 = v16 - v9;
+    _os_log_impl(&dword_1BF549000, v15, OS_LOG_TYPE_DEFAULT, "Time to copy app identifiers: %f seconds", buf, 0xCu);
   }
 
-  v39 = 0u;
   v40 = 0u;
-  v37 = 0u;
+  v41 = 0u;
   v38 = 0u;
+  v39 = 0u;
   allKeys = [v5 allKeys];
-  v17 = [allKeys countByEnumeratingWithState:&v37 objects:v41 count:16];
-  if (v17)
+  v18 = [allKeys countByEnumeratingWithState:&v38 objects:v42 count:16];
+  if (v18)
   {
-    v18 = v17;
-    v19 = *v38;
+    v19 = v18;
+    v20 = *v39;
     do
     {
-      for (i = 0; i != v18; ++i)
+      for (i = 0; i != v19; ++i)
       {
-        if (*v38 != v19)
+        if (*v39 != v20)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v21 = *(*(&v37 + 1) + 8 * i);
-        if (([v10 containsObject:v21] & 1) == 0)
+        v22 = *(*(&v38 + 1) + 8 * i);
+        if ((objc_msgSend_containsObject_(v10) & 1) == 0)
         {
-          [v5 removeObjectForKey:v21];
+          [v5 removeObjectForKey:v22];
         }
       }
 
-      v18 = [allKeys countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v19 = [allKeys countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
 
-  v22 = objc_opt_new();
-  v23 = [self _sortedBundleIDsByCategoryWithHardcodedAppCategoryMappings:v5];
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __49__ATXAppDirectoryClient__sortedDefaultCategories__block_invoke;
-  v35[3] = &unk_1E80C1690;
-  v24 = v22;
-  v36 = v24;
-  [v23 enumerateKeysAndObjectsUsingBlock:v35];
+  v23 = objc_opt_new();
+  v24 = [self _sortedBundleIDsByCategoryWithHardcodedAppCategoryMappings:v5];
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __49__ATXAppDirectoryClient__sortedDefaultCategories__block_invoke;
+  v36[3] = &unk_1E80C1690;
+  v25 = v23;
+  v37 = v25;
+  [v24 enumerateKeysAndObjectsUsingBlock:v36];
 
-  [v24 sortUsingComparator:&__block_literal_global_68];
-  v25 = CFAbsoluteTimeGetCurrent();
-  v26 = [self _allPlaceholderBundleIdsFromHomeScreenService:v7];
-  v27 = __atxlog_handle_app_library();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  [v25 sortUsingComparator:&__block_literal_global_68];
+  v26 = CFAbsoluteTimeGetCurrent();
+  v27 = [self _allPlaceholderBundleIdsFromHomeScreenService:v7];
+  v28 = __atxlog_handle_app_library(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = CFAbsoluteTimeGetCurrent();
+    v29 = CFAbsoluteTimeGetCurrent();
     *buf = 134217984;
-    v43 = v28 - v25;
-    _os_log_impl(&dword_1BF549000, v27, OS_LOG_TYPE_DEFAULT, "Time to retrieve app placeholders: %f seconds", buf, 0xCu);
+    v44 = v29 - v26;
+    _os_log_impl(&dword_1BF549000, v28, OS_LOG_TYPE_DEFAULT, "Time to retrieve app placeholders: %f seconds", buf, 0xCu);
   }
 
-  v29 = [self _sortedAllOtherBundleIDsFromAllBundleIDs:v10 allPlaceholderBundleIDs:v26 hardcodedAppCategoryMappings:v5];
-  v30 = [ATXAppDirectoryCategory alloc];
-  appIdentitiesFromBundleIDs = [v29 appIdentitiesFromBundleIDs];
-  v32 = [(ATXAppDirectoryCategory *)v30 initWithCategoryID:1008 appIdentities:appIdentitiesFromBundleIDs];
+  v30 = [self _sortedAllOtherBundleIDsFromAllBundleIDs:v10 allPlaceholderBundleIDs:v27 hardcodedAppCategoryMappings:v5];
+  v31 = [ATXAppDirectoryCategory alloc];
+  appIdentitiesFromBundleIDs = [v30 appIdentitiesFromBundleIDs];
+  v33 = [(ATXAppDirectoryCategory *)v31 initWithCategoryID:1008 appIdentities:appIdentitiesFromBundleIDs];
 
-  [v24 addObject:v32];
-  v33 = v24;
+  [v25 addObject:v33];
+  v34 = v25;
 
   objc_autoreleasePoolPop(v3);
 
-  return v33;
+  return v34;
 }
 
 void __49__ATXAppDirectoryClient__sortedDefaultCategories__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1194,7 +1201,7 @@ uint64_t __119__ATXAppDirectoryClient__sortedAllOtherBundleIDsFromAllBundleIDs_a
   dCopy = d;
   dateCopy = date;
   dispatch_assert_queue_V2(queue);
-  v44 = visibleCopy;
+  v45 = visibleCopy;
   if (visibleCopy | leavingCopy)
   {
     v27 = [[ATXAppDirectoryEventMetadata alloc] initWithBundleIdInTopAppsVisible:visibleCopy userLaunchedAppBeforeLeaving:leavingCopy];
@@ -1205,8 +1212,8 @@ uint64_t __119__ATXAppDirectoryClient__sortedAllOtherBundleIDsFromAllBundleIDs_a
     v27 = 0;
   }
 
-  v42 = v27;
-  v40 = [[ATXAppDirectoryEvent alloc] initWithDate:dateCopy eventType:type categoryID:iDCopy categoryIndex:indexCopy bundleId:idCopy bundleIndex:bundleIndexCopy searchQueryLength:lengthCopy searchTab:tabCopy blendingCacheUUID:dCopy shownSuggestionIds:idsCopy engagedSuggestionIds:suggestionIdsCopy metadata:v27];
+  v43 = v27;
+  v41 = [[ATXAppDirectoryEvent alloc] initWithDate:dateCopy eventType:type categoryID:iDCopy categoryIndex:indexCopy bundleId:idCopy bundleIndex:bundleIndexCopy searchQueryLength:lengthCopy searchTab:tabCopy blendingCacheUUID:dCopy shownSuggestionIds:idsCopy engagedSuggestionIds:suggestionIdsCopy metadata:v27];
 
   uiStream = selfCopy->_uiStream;
   if (!uiStream)
@@ -1218,13 +1225,13 @@ uint64_t __119__ATXAppDirectoryClient__sortedAllOtherBundleIDsFromAllBundleIDs_a
     uiStream = selfCopy->_uiStream;
   }
 
-  v31 = [ATXUIEvent uiEventWithAppDirectoryEvent:v40];
+  v31 = [ATXUIEvent uiEventWithAppDirectoryEvent:v41];
   [(ATXUniversalBiomeUIStream *)uiStream donateGenericUIEvent:v31];
 
-  v32 = __atxlog_handle_app_library();
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v33 = __atxlog_handle_app_library(v32);
+  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
   {
-    [ATXAppDirectoryClient _logToBiomeWithEventType:v40 date:v32 blendingCacheUUID:? shownSuggestionIds:? engagedSuggestionIds:? categoryID:? categoryIndex:? bundleId:? bundleIndex:? searchQueryLength:? searchTab:? bundleIdInTopAppsVisible:? userLaunchedAppBeforeLeaving:?];
+    [ATXAppDirectoryClient _logToBiomeWithEventType:v41 date:v33 blendingCacheUUID:? shownSuggestionIds:? engagedSuggestionIds:? categoryID:? categoryIndex:? bundleId:? bundleIndex:? searchQueryLength:? searchTab:? bundleIdInTopAppsVisible:? userLaunchedAppBeforeLeaving:?];
   }
 }
 
@@ -1275,7 +1282,7 @@ uint64_t __119__ATXAppDirectoryClient__sortedAllOtherBundleIDsFromAllBundleIDs_a
 
   else
   {
-    v7 = __atxlog_handle_app_library();
+    v7 = __atxlog_handle_app_library(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient logDidEnterAppDirectoryWithDate:];
@@ -1286,7 +1293,7 @@ uint64_t __119__ATXAppDirectoryClient__sortedAllOtherBundleIDsFromAllBundleIDs_a
 uint64_t __57__ATXAppDirectoryClient_logDidEnterAppDirectoryWithDate___block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_app_library();
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -1318,7 +1325,7 @@ uint64_t __57__ATXAppDirectoryClient_logDidEnterAppDirectoryWithDate___block_inv
 
   else
   {
-    v11 = __atxlog_handle_app_library();
+    v11 = __atxlog_handle_app_library(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient logCategoryExpansionWithDate:categoryID:categoryIndex:];
@@ -1329,7 +1336,7 @@ uint64_t __57__ATXAppDirectoryClient_logDidEnterAppDirectoryWithDate___block_inv
 void __79__ATXAppDirectoryClient_logCategoryExpansionWithDate_categoryID_categoryIndex___block_invoke(void *a1)
 {
   v15 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_app_library();
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = a1[6];
@@ -1370,7 +1377,7 @@ void __79__ATXAppDirectoryClient_logCategoryExpansionWithDate_categoryID_categor
 
   else
   {
-    v11 = __atxlog_handle_app_library();
+    v11 = __atxlog_handle_app_library(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient logCategoryExitWithDate:categoryID:categoryIndex:];
@@ -1381,7 +1388,7 @@ void __79__ATXAppDirectoryClient_logCategoryExpansionWithDate_categoryID_categor
 void __74__ATXAppDirectoryClient_logCategoryExitWithDate_categoryID_categoryIndex___block_invoke(void *a1)
 {
   v15 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_app_library();
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = a1[6];
@@ -1407,12 +1414,13 @@ void __74__ATXAppDirectoryClient_logCategoryExitWithDate_categoryID_categoryInde
   dateCopy = date;
   iDCopy = iD;
   responseCopy = response;
+  v17 = responseCopy;
   if (dateCopy)
   {
     if (!iDCopy)
     {
-      v17 = __atxlog_handle_app_library();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_app_library(responseCopy);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [ATXAppDirectoryClient logLaunchFromExpandedCategoryWithDate:categoryID:categoryIndex:bundleID:bundleIndex:appDirectoryResponse:];
       }
@@ -1428,20 +1436,20 @@ void __74__ATXAppDirectoryClient_logCategoryExitWithDate_categoryID_categoryInde
     dCopy = d;
     indexCopy = index;
     iDCopy = iDCopy;
-    v21 = iDCopy;
+    v22 = iDCopy;
     bundleIndexCopy = bundleIndex;
-    v22 = responseCopy;
+    v23 = v17;
     selfCopy = self;
-    v24 = dateCopy;
+    v25 = dateCopy;
     dispatch_async(loggingQueue, block);
 
-    v19 = v21;
+    v20 = v22;
   }
 
   else
   {
-    v19 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_app_library(responseCopy);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient logLaunchFromExpandedCategoryWithDate:categoryID:categoryIndex:bundleID:bundleIndex:appDirectoryResponse:];
     }
@@ -1451,7 +1459,7 @@ void __74__ATXAppDirectoryClient_logCategoryExitWithDate_categoryID_categoryInde
 void __130__ATXAppDirectoryClient_logLaunchFromExpandedCategoryWithDate_categoryID_categoryIndex_bundleID_bundleIndex_appDirectoryResponse___block_invoke(uint64_t a1)
 {
   v43 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_app_library();
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 64);
@@ -1493,7 +1501,7 @@ void __130__ATXAppDirectoryClient_logLaunchFromExpandedCategoryWithDate_category
 
   v14 = MEMORY[0x1E696AD98];
   v15 = [*(a1 + 48) _suggestionsPodDedupableBundleIds];
-  v16 = [v14 numberWithBool:{objc_msgSend(v15, "containsObject:", *(a1 + 32))}];
+  v16 = [v14 numberWithBool:objc_msgSend_containsObject_(v15)];
 
   v17 = *(a1 + 48);
   v29 = *(a1 + 56);
@@ -1544,12 +1552,13 @@ void __130__ATXAppDirectoryClient_logLaunchFromExpandedCategoryWithDate_category
   dateCopy = date;
   iDCopy = iD;
   responseCopy = response;
+  v17 = responseCopy;
   if (dateCopy)
   {
     if (!iDCopy)
     {
-      v17 = __atxlog_handle_app_library();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_app_library(responseCopy);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [ATXAppDirectoryClient logLaunchFromCategoryPreviewWithDate:categoryID:categoryIndex:bundleID:bundleIndex:appDirectoryResponse:];
       }
@@ -1565,20 +1574,20 @@ void __130__ATXAppDirectoryClient_logLaunchFromExpandedCategoryWithDate_category
     dCopy = d;
     indexCopy = index;
     iDCopy = iDCopy;
-    v21 = iDCopy;
+    v22 = iDCopy;
     bundleIndexCopy = bundleIndex;
-    v22 = responseCopy;
+    v23 = v17;
     selfCopy = self;
-    v24 = dateCopy;
+    v25 = dateCopy;
     dispatch_async(loggingQueue, block);
 
-    v19 = v21;
+    v20 = v22;
   }
 
   else
   {
-    v19 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_app_library(responseCopy);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient logLaunchFromCategoryPreviewWithDate:categoryID:categoryIndex:bundleID:bundleIndex:appDirectoryResponse:];
     }
@@ -1587,8 +1596,8 @@ void __130__ATXAppDirectoryClient_logLaunchFromExpandedCategoryWithDate_category
 
 void __129__ATXAppDirectoryClient_logLaunchFromCategoryPreviewWithDate_categoryID_categoryIndex_bundleID_bundleIndex_appDirectoryResponse___block_invoke(uint64_t a1)
 {
-  v54 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_app_library();
+  v55 = *MEMORY[0x1E69E9840];
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 64);
@@ -1597,17 +1606,17 @@ void __129__ATXAppDirectoryClient_logLaunchFromCategoryPreviewWithDate_categoryI
     v6 = *(a1 + 32);
     v7 = *(a1 + 40);
     *buf = 136316418;
-    v43 = "[ATXAppDirectoryClient logLaunchFromCategoryPreviewWithDate:categoryID:categoryIndex:bundleID:bundleIndex:appDirectoryResponse:]_block_invoke";
-    v44 = 2048;
-    v45 = v3;
-    v46 = 2048;
-    v47 = v4;
-    v48 = 2112;
-    v49 = v6;
-    v50 = 2048;
-    v51 = v5;
-    v52 = 2112;
-    v53 = v7;
+    v44 = "[ATXAppDirectoryClient logLaunchFromCategoryPreviewWithDate:categoryID:categoryIndex:bundleID:bundleIndex:appDirectoryResponse:]_block_invoke";
+    v45 = 2048;
+    v46 = v3;
+    v47 = 2048;
+    v48 = v4;
+    v49 = 2112;
+    v50 = v6;
+    v51 = 2048;
+    v52 = v5;
+    v53 = 2112;
+    v54 = v7;
     _os_log_impl(&dword_1BF549000, v2, OS_LOG_TYPE_INFO, "ATXAppDirectoryClient: %s, categoryId: %lu, categoryIndex: %lu, bundleId: %@, bundleIndex: %lu, response: %@", buf, 0x3Eu);
   }
 
@@ -1630,23 +1639,23 @@ void __129__ATXAppDirectoryClient_logLaunchFromCategoryPreviewWithDate_categoryI
 
   v14 = MEMORY[0x1E696AD98];
   v15 = [*(a1 + 48) _suggestionsPodDedupableBundleIds];
-  v40 = [v14 numberWithBool:{objc_msgSend(v15, "containsObject:", *(a1 + 32))}];
+  v41 = [v14 numberWithBool:objc_msgSend_containsObject_(v15)];
 
-  v16 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v13, "containsObject:", *(a1 + 32))}];
+  v16 = [MEMORY[0x1E696AD98] numberWithBool:objc_msgSend_containsObject_(v13)];
   v17 = *(a1 + 64);
-  v34 = *(a1 + 48);
-  v35 = *(a1 + 56);
-  v37 = [*(a1 + 40) suggestionLayout];
-  v18 = [v37 uuid];
+  v35 = *(a1 + 48);
+  v36 = *(a1 + 56);
+  v38 = [*(a1 + 40) suggestionLayout];
+  v18 = [v38 uuid];
   v19 = [*(a1 + 40) uuidsForBundleIds:v13];
-  v38 = v16;
-  v39 = v13;
-  v36 = v18;
+  v39 = v16;
+  v40 = v13;
+  v37 = v18;
   if (v17 == 3)
   {
     v20 = *(a1 + 40);
-    v41 = *(a1 + 32);
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
+    v42 = *(a1 + 32);
+    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v42 count:1];
     v21 = [v20 uuidsForBundleIds:?];
   }
 
@@ -1659,62 +1668,63 @@ void __129__ATXAppDirectoryClient_logLaunchFromCategoryPreviewWithDate_categoryI
   v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 72)];
   v24 = *(a1 + 32);
   v25 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 80)];
-  v26 = v40;
-  [v34 _logToBiomeWithEventType:4 date:v35 blendingCacheUUID:v36 shownSuggestionIds:v19 engagedSuggestionIds:v21 categoryID:v22 categoryIndex:v23 bundleId:v24 bundleIndex:v25 searchQueryLength:0 searchTab:0 bundleIdInTopAppsVisible:v40 userLaunchedAppBeforeLeaving:0];
+  v26 = v41;
+  [v35 _logToBiomeWithEventType:4 date:v36 blendingCacheUUID:v37 shownSuggestionIds:v19 engagedSuggestionIds:v21 categoryID:v22 categoryIndex:v23 bundleId:v24 bundleIndex:v25 searchQueryLength:0 searchTab:0 bundleIdInTopAppsVisible:v41 userLaunchedAppBeforeLeaving:0];
 
   if (v17 == 3)
   {
 
-    v27 = v38;
-    v28 = v39;
-    if (([v38 BOOLValue] & 1) == 0)
+    v27 = v39;
+    v28 = [v39 BOOLValue];
+    v29 = v40;
+    if ((v28 & 1) == 0)
     {
-      v29 = __atxlog_handle_app_library();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
+      v30 = __atxlog_handle_app_library(v28);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
       {
         __129__ATXAppDirectoryClient_logLaunchFromCategoryPreviewWithDate_categoryID_categoryIndex_bundleID_bundleIndex_appDirectoryResponse___block_invoke_cold_1();
       }
     }
 
     [*(a1 + 48) _logCaptureRateCapture];
-    v30 = *(a1 + 48);
-    v31 = [*(a1 + 40) proactiveSuggestionForBundleId:*(a1 + 32)];
-    [v30 _addEngagedSuggestionToERM:v31];
+    v31 = *(a1 + 48);
+    v32 = [*(a1 + 40) proactiveSuggestionForBundleId:*(a1 + 32)];
+    [v31 _addEngagedSuggestionToERM:v32];
 
-    v26 = v40;
+    v26 = v41;
   }
 
   else
   {
 
-    if ([v40 BOOLValue])
+    if ([v41 BOOLValue])
     {
-      v32 = 4005;
+      v33 = 4005;
     }
 
     else
     {
-      v32 = 4001;
+      v33 = 4001;
     }
 
-    v27 = v38;
-    v28 = v39;
+    v27 = v39;
+    v29 = v40;
     if (v17 == 4)
     {
-      if ([v40 BOOLValue])
+      if ([v41 BOOLValue])
       {
-        v32 = 4007;
+        v33 = 4007;
       }
 
       else
       {
-        v32 = 4003;
+        v33 = 4003;
       }
     }
 
-    if ([v39 count])
+    if ([v40 count])
     {
-      [*(a1 + 48) _logCaptureRateDiversionWithType:v32];
+      [*(a1 + 48) _logCaptureRateDiversionWithType:v33];
     }
   }
 
@@ -1726,12 +1736,13 @@ void __129__ATXAppDirectoryClient_logLaunchFromCategoryPreviewWithDate_categoryI
   dateCopy = date;
   dCopy = d;
   responseCopy = response;
+  v17 = responseCopy;
   if (dateCopy)
   {
     if (!dCopy)
     {
-      v17 = __atxlog_handle_app_library();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __atxlog_handle_app_library(responseCopy);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [ATXAppDirectoryClient logLaunchFromSearchWithDate:bundleID:bundleIndex:searchQueryLength:searchTab:appDirectoryResponse:];
       }
@@ -1745,22 +1756,22 @@ void __129__ATXAppDirectoryClient_logLaunchFromCategoryPreviewWithDate_categoryI
     block[2] = __123__ATXAppDirectoryClient_logLaunchFromSearchWithDate_bundleID_bundleIndex_searchQueryLength_searchTab_appDirectoryResponse___block_invoke;
     block[3] = &unk_1E80C1700;
     dCopy = dCopy;
-    v21 = dCopy;
+    v22 = dCopy;
     indexCopy = index;
     lengthCopy = length;
     tabCopy = tab;
-    v22 = responseCopy;
+    v23 = v17;
     selfCopy = self;
-    v24 = dateCopy;
+    v25 = dateCopy;
     dispatch_async(loggingQueue, block);
 
-    v19 = v21;
+    v20 = v22;
   }
 
   else
   {
-    v19 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_app_library(responseCopy);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient logLaunchFromSearchWithDate:bundleID:bundleIndex:searchQueryLength:searchTab:appDirectoryResponse:];
     }
@@ -1770,7 +1781,7 @@ void __129__ATXAppDirectoryClient_logLaunchFromCategoryPreviewWithDate_categoryI
 void __123__ATXAppDirectoryClient_logLaunchFromSearchWithDate_bundleID_bundleIndex_searchQueryLength_searchTab_appDirectoryResponse___block_invoke(uint64_t a1)
 {
   v40 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_app_library();
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 64);
@@ -1812,7 +1823,7 @@ void __123__ATXAppDirectoryClient_logLaunchFromSearchWithDate_bundleID_bundleInd
 
   v14 = MEMORY[0x1E696AD98];
   v15 = [*(a1 + 48) _suggestionsPodDedupableBundleIds];
-  v16 = [v14 numberWithBool:{objc_msgSend(v15, "containsObject:", *(a1 + 32))}];
+  v16 = [v14 numberWithBool:objc_msgSend_containsObject_(v15)];
 
   v26 = *(a1 + 48);
   v27 = *(a1 + 56);
@@ -1862,7 +1873,7 @@ void __123__ATXAppDirectoryClient_logLaunchFromSearchWithDate_bundleID_bundleInd
 
   else
   {
-    v7 = __atxlog_handle_app_library();
+    v7 = __atxlog_handle_app_library(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient logOpenSearchWithDate:];
@@ -1873,7 +1884,7 @@ void __123__ATXAppDirectoryClient_logLaunchFromSearchWithDate_bundleID_bundleInd
 uint64_t __47__ATXAppDirectoryClient_logOpenSearchWithDate___block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_app_library();
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -1888,28 +1899,29 @@ uint64_t __47__ATXAppDirectoryClient_logOpenSearchWithDate___block_invoke(uint64
 {
   dateCopy = date;
   responseCopy = response;
+  v8 = responseCopy;
   if (dateCopy)
   {
-    v8 = +[ATXHomeScreenSuggestionClient sharedInstance];
-    [v8 logSpecialPageDidDisappear:1];
+    v9 = +[ATXHomeScreenSuggestionClient sharedInstance];
+    [v9 logSpecialPageDidDisappear:1];
 
     loggingQueue = self->_loggingQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __78__ATXAppDirectoryClient_logDidLeaveAppDirectoryWithDate_appDirectoryResponse___block_invoke;
     block[3] = &unk_1E80C1728;
-    v12 = responseCopy;
+    v13 = v8;
     selfCopy = self;
-    v14 = dateCopy;
+    v15 = dateCopy;
     dispatch_async(loggingQueue, block);
 
-    v10 = v12;
+    v11 = v13;
   }
 
   else
   {
-    v10 = __atxlog_handle_app_library();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __atxlog_handle_app_library(responseCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient logDidLeaveAppDirectoryWithDate:appDirectoryResponse:];
     }
@@ -1919,7 +1931,7 @@ uint64_t __47__ATXAppDirectoryClient_logOpenSearchWithDate___block_invoke(uint64
 void __78__ATXAppDirectoryClient_logDidLeaveAppDirectoryWithDate_appDirectoryResponse___block_invoke(uint64_t a1)
 {
   v17 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_app_library();
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
@@ -1973,7 +1985,7 @@ void __78__ATXAppDirectoryClient_logDidLeaveAppDirectoryWithDate_appDirectoryRes
 
   else
   {
-    v7 = __atxlog_handle_app_library();
+    v7 = __atxlog_handle_app_library(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [ATXAppDirectoryClient logCloseSearchWithDate:];
@@ -1984,7 +1996,7 @@ void __78__ATXAppDirectoryClient_logDidLeaveAppDirectoryWithDate_appDirectoryRes
 uint64_t __48__ATXAppDirectoryClient_logCloseSearchWithDate___block_invoke(uint64_t a1)
 {
   v6 = *MEMORY[0x1E69E9840];
-  v2 = __atxlog_handle_app_library();
+  v2 = __atxlog_handle_app_library(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;

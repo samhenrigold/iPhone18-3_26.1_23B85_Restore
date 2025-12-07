@@ -52,7 +52,7 @@ LABEL_7:
 - (id)description
 {
   __ret = 0;
-  v3 = printf_domain();
+  v3 = printf_domain(self, a2);
   asxprintf(&__ret, v3, 0, "NWSQUICSource %N<->%N@%I", &self->_descriptor.local, &self->_descriptor.remote, self->_descriptor.ifindex);
   if (__ret)
   {

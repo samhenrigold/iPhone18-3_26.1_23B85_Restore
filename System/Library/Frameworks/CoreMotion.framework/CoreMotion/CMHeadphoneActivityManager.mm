@@ -310,7 +310,7 @@
 
 - (void)resumeStatusStreamingPrivate
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_internal->_dispatchQueue);
   if (objc_msgSend_isStatusAvailable(self, v3, v4))
   {
@@ -318,25 +318,23 @@
     if (!internal->_statusStreaming)
     {
       objc_msgSend_connectStatus(internal, v5, v6);
-      v17 = @"RequireActivitySupport";
-      v18[0] = MEMORY[0x1E695E118];
-      v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v18, &v17, 1);
+      v16 = @"RequireActivitySupport";
+      v17[0] = MEMORY[0x1E695E118];
+      v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v17, &v16, 1);
       v11 = objc_msgSend_archivedDataWithRootObject_requiringSecureCoding_error_(MEMORY[0x1E696ACC8], v10, v9, 1, 0);
       objc_initWeak(&location, self);
       statusConnectionClient = self->_internal->_statusConnectionClient;
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = sub_19B73790C;
-      v14[3] = &unk_1E7535990;
-      objc_copyWeak(&v15, &location);
-      sub_19B60A584(statusConnectionClient, @"kRMStartStreamingHeadphoneStatus", v11, v14);
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = sub_19B73790C;
+      v13[3] = &unk_1E7535990;
+      objc_copyWeak(&v14, &location);
+      sub_19B60A584(statusConnectionClient, @"kRMStartStreamingHeadphoneStatus", v11, v13);
       self->_internal->_statusStreaming = 1;
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v14);
       objc_destroyWeak(&location);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pauseStatusStreamingPrivate
@@ -366,7 +364,6 @@
   if (objc_msgSend_isEqualToString_(v6, v7, @"Connect"))
   {
     self->_internal->_startTime = CFAbsoluteTimeGetCurrent() + 1.0;
-    v10 = *MEMORY[0x1E69E9840];
 
     MEMORY[0x1EEE66B58](self, sel_notifyDeviceConnectedEventToClientPrivate, v9);
   }
@@ -374,9 +371,8 @@
   else if (objc_msgSend_isEqualToString_(v6, v8, @"Disconnect"))
   {
     self->_internal->_startTime = 1.79769313e308;
-    v13 = *MEMORY[0x1E69E9840];
 
-    objc_msgSend_notifyDeviceDisconnectedEventToClientPrivate(self, v11, v12);
+    objc_msgSend_notifyDeviceDisconnectedEventToClientPrivate(self, v10, v11);
   }
 
   else
@@ -386,16 +382,16 @@
       dispatch_once(&qword_1ED71C800, &unk_1F0E3B3A8);
     }
 
-    v14 = off_1ED71C808;
+    v12 = off_1ED71C808;
     if (os_log_type_enabled(off_1ED71C808, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
       v19 = v6;
-      _os_log_impl(&dword_19B41C000, v14, OS_LOG_TYPE_ERROR, "[CMHeadphoneActivityManager] Unknown eventType: %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_19B41C000, v12, OS_LOG_TYPE_ERROR, "[CMHeadphoneActivityManager] Unknown eventType: %{public}@", buf, 0xCu);
     }
 
-    v15 = sub_19B420058();
-    if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
+    v13 = sub_19B420058();
+    if ((*(v13 + 160) & 0x80000000) == 0 || (*(v13 + 164) & 0x80000000) == 0 || (*(v13 + 168) & 0x80000000) == 0 || *(v13 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C800 != -1)
@@ -403,15 +399,16 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E3B3A8);
       }
 
-      v16 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHeadphoneActivityManager onStatusEventPrivate:]", "CoreLocation: %s\n", v16);
-      if (v16 != buf)
+      v16 = 138543362;
+      v17 = v6;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 16, "[CMHeadphoneActivityManager] Unknown eventType: %{public}@", &v16, 12);
+      v15 = v14;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMHeadphoneActivityManager onStatusEventPrivate:]", "CoreLocation: %s\n", v14);
+      if (v15 != buf)
       {
-        free(v16);
+        free(v15);
       }
     }
-
-    v17 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -442,12 +439,13 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E3B3A8);
       }
 
-      v12 = 0;
-      v6 = _os_log_send_and_compose_impl();
+      v12[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "[CMHeadphoneActivityManager] Device connected", v12, 2);
+      v7 = v6;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHeadphoneActivityManager notifyDeviceConnectedEventToClientPrivate]", "CoreLocation: %s\n", v6);
-      if (v6 != buf)
+      if (v7 != buf)
       {
-        free(v6);
+        free(v7);
       }
     }
 
@@ -465,8 +463,6 @@
       objc_msgSend_addOperationWithBlock_(statusCallbackQueue, v5, v11);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyDeviceDisconnectedEventToClientPrivate
@@ -496,12 +492,13 @@
         dispatch_once(&qword_1ED71C800, &unk_1F0E3B3A8);
       }
 
-      v12 = 0;
-      v6 = _os_log_send_and_compose_impl();
+      v12[0] = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, off_1ED71C808, 0, "[CMHeadphoneActivityManager] Device disconnected", v12, 2);
+      v7 = v6;
       sub_19B6BB7CC("Generic", 1, 0, 2, "[CMHeadphoneActivityManager notifyDeviceDisconnectedEventToClientPrivate]", "CoreLocation: %s\n", v6);
-      if (v6 != buf)
+      if (v7 != buf)
       {
-        free(v6);
+        free(v7);
       }
     }
 
@@ -519,8 +516,6 @@
       objc_msgSend_addOperationWithBlock_(statusCallbackQueue, v5, v11);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

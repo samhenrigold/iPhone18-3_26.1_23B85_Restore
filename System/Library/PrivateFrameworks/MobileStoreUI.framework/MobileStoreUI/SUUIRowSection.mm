@@ -989,7 +989,7 @@ void __72__SUUIRowSection_missingItemLoader_didLoadItems_invalidItemIdentifiers_
   return v7;
 }
 
-uint64_t __48__SUUIRowSection__cellContentHeightForRowWidth___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+void *__48__SUUIRowSection__cellContentHeightForRowWidth___block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
 {
   result = [*(a1 + 32) _heightForComponent:a2 columnIndex:a3 rowWidth:*(a1 + 48)];
   v6 = *(*(a1 + 40) + 8);
@@ -1244,7 +1244,7 @@ LABEL_8:
 
       v19 = 0uLL;
       v20 = 0;
-      [(SUUIRowSection *)self _lockupStyleForComponent:lockupCopy columnIndex:index];
+      objc_msgSend__lockupStyleForComponent_columnIndex_(self);
       [context portraitPageWidth];
       [(SUUIRowSection *)self _columnWidthForColumnIndex:index rowWidth:?];
       v17 = v19;
@@ -1467,7 +1467,7 @@ LABEL_14:
   editorial = [componentCopy editorial];
   v24 = 0uLL;
   v25 = 0;
-  [(SUUIRowSection *)self _lockupStyleForComponent:componentCopy columnIndex:index];
+  objc_msgSend__lockupStyleForComponent_columnIndex_(self);
   item = [componentCopy item];
   parentViewController = [context parentViewController];
   clientContext = [parentViewController clientContext];
@@ -1619,7 +1619,7 @@ LABEL_6:
   item = [componentCopy item];
   if (componentCopy)
   {
-    [componentCopy lockupStyle];
+    objc_msgSend_lockupStyle(componentCopy);
   }
 
   v13 = SUUILockupImageSizeForLockupSize(0, [item itemKind]);
@@ -1656,7 +1656,7 @@ LABEL_12:
   item = [componentCopy item];
   if (componentCopy)
   {
-    [componentCopy lockupStyle];
+    objc_msgSend_lockupStyle(componentCopy);
     v6 = v11;
   }
 
@@ -1682,7 +1682,7 @@ LABEL_12:
   v16 = indexCopy;
   if (indexCopy)
   {
-    [indexCopy lockupStyle];
+    objc_msgSend_lockupStyle(indexCopy);
     indexCopy = v16;
   }
 
@@ -1909,7 +1909,7 @@ LABEL_13:
   v23 = 0;
   v24 = 0;
   v25 = 0;
-  [(SUUIRowSection *)self _lockupStyleForComponent:componentCopy columnIndex:index];
+  objc_msgSend__lockupStyleForComponent_columnIndex_(self);
   [layout setLayoutStyle:v24];
   [layout setVisibleFields:v25];
   item = [(SUUILockupComponent *)componentCopy item];
@@ -1951,7 +1951,7 @@ LABEL_13:
   v19 = 0;
   v20 = 0;
   v21 = 0;
-  [(SUUIRowSection *)self _lockupStyleForComponent:componentCopy columnIndex:index];
+  objc_msgSend__lockupStyleForComponent_columnIndex_(self);
   [layout setClientContext:self->_clientContext];
   [(SUUIRowSection *)self _edgeInsetsForColumnIndex:index];
   [layout setContentInsets:?];
@@ -2088,31 +2088,31 @@ LABEL_9:
   }
 }
 
-uint64_t __53__SUUIRowSection__selectLockupComponent_columnIndex___block_invoke(uint64_t result, char a2)
+void *__53__SUUIRowSection__selectLockupComponent_columnIndex___block_invoke(void *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
     v3 = result;
-    v4 = *(result + 32);
+    v4 = result[4];
     if (!*(v4 + 168))
     {
-      v5 = [[SUUIProductPageOverlayController alloc] initWithParentViewController:*(result + 40)];
-      v6 = *(v3 + 32);
+      v5 = [[SUUIProductPageOverlayController alloc] initWithParentViewController:result[5]];
+      v6 = v3[4];
       v7 = *(v6 + 168);
       *(v6 + 168) = v5;
 
-      v8 = *(*(v3 + 32) + 168);
-      v9 = [*(v3 + 40) clientContext];
+      v8 = *(v3[4] + 168);
+      v9 = [v3[5] clientContext];
       [v8 setClientContext:v9];
 
-      [*(*(v3 + 32) + 168) setDelegate:?];
-      v4 = *(v3 + 32);
+      [*(v3[4] + 168) setDelegate:?];
+      v4 = v3[4];
     }
 
-    objc_storeStrong((v4 + 176), *(v3 + 48));
-    [*(*(v3 + 32) + 168) showWithInitialItem:*(v3 + 56)];
-    v10 = *(v3 + 40);
-    v11 = *(*(v3 + 32) + 168);
+    objc_storeStrong((v4 + 176), v3[6]);
+    [*(v3[4] + 168) showWithInitialItem:v3[7]];
+    v10 = v3[5];
+    v11 = *(v3[4] + 168);
 
     return [v10 _setActiveProductPageOverlayController:v11];
   }

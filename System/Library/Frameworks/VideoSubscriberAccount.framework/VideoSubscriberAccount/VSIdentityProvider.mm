@@ -20,43 +20,45 @@
 
 - (VSIdentityProvider)init
 {
-  v5.receiver = self;
-  v5.super_class = VSIdentityProvider;
-  v2 = [(VSIdentityProvider *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = VSIdentityProvider;
+  v2 = [(VSIdentityProvider *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = VSIdentityProviderValueType();
-    VSValueTypeInit(v3, v2);
+    v4 = VSIdentityProviderValueType(v2);
+    VSValueTypeInit(v4, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (VSIdentityProvider)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v8.receiver = self;
-  v8.super_class = VSIdentityProvider;
-  v5 = [(VSIdentityProvider *)&v8 init];
+  v9.receiver = self;
+  v9.super_class = VSIdentityProvider;
+  v5 = [(VSIdentityProvider *)&v9 init];
+  v6 = v5;
   if (v5)
   {
-    v6 = VSIdentityProviderValueType();
-    VSValueTypeInitWithCoder(v6, v5, coderCopy);
+    v7 = VSIdentityProviderValueType(v5);
+    VSValueTypeInitWithCoder(v7, v6, coderCopy);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = VSIdentityProviderValueType();
+  v5 = VSIdentityProviderValueType(coderCopy);
   VSValueTypeEncodeWithCoder(v5, self, coderCopy);
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v5 = VSIdentityProviderValueType();
+  v5 = VSIdentityProviderValueType(self);
   v6 = VSValueTypeCopyWithZone(v5, self, zone);
 
   return v6;
@@ -64,7 +66,7 @@
 
 - (unint64_t)hash
 {
-  v3 = VSIdentityProviderValueType();
+  v3 = VSIdentityProviderValueType(self);
   v4 = VSValueTypeHash(v3, self);
 
   return v4;
@@ -73,7 +75,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v5 = VSIdentityProviderValueType();
+  v5 = VSIdentityProviderValueType(equalCopy);
   LOBYTE(self) = VSValueTypeIsEqual(v5, self, equalCopy);
 
   return self;
@@ -81,7 +83,7 @@
 
 - (id)description
 {
-  v3 = VSIdentityProviderValueType();
+  v3 = VSIdentityProviderValueType(self);
   v4 = VSValueTypeDescription(v3, self);
 
   return v4;
@@ -91,26 +93,27 @@
 {
   providerCopy = provider;
   v5 = [(VSIdentityProvider *)self init];
+  v6 = v5;
   if (v5)
   {
-    v6 = VSIdentityProviderValueType();
-    VSValueTypeInit(v6, v5);
+    v7 = VSIdentityProviderValueType(v5);
+    VSValueTypeInit(v7, v6);
 
-    v5->_application = 1;
+    v6->_application = 1;
     identifier = [providerCopy identifier];
-    v8 = [VSOptional optionalWithObject:identifier];
-    providerID = v5->_providerID;
-    v5->_providerID = v8;
+    v9 = [VSOptional optionalWithObject:identifier];
+    providerID = v6->_providerID;
+    v6->_providerID = v9;
 
     localizedDisplayName = [providerCopy localizedDisplayName];
-    nameForSorting = v5->_nameForSorting;
-    v5->_nameForSorting = localizedDisplayName;
+    nameForSorting = v6->_nameForSorting;
+    v6->_nameForSorting = localizedDisplayName;
 
-    supportedAuthenticationSchemes = v5->_supportedAuthenticationSchemes;
-    v5->_supportedAuthenticationSchemes = MEMORY[0x277CBEBF8];
+    supportedAuthenticationSchemes = v6->_supportedAuthenticationSchemes;
+    v6->_supportedAuthenticationSchemes = MEMORY[0x277CBEBF8];
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setNameForSorting:(id)sorting
@@ -240,45 +243,50 @@
 
 - (BOOL)isFullySupportedForRequestsExpectingAuthenticationSchemes:(id)schemes
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   schemesCopy = schemes;
-  if ([(VSIdentityProvider *)self isProhibitedByStore])
+  isProhibitedByStore = [(VSIdentityProvider *)self isProhibitedByStore];
+  if (isProhibitedByStore)
   {
-    v5 = VSDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = VSDefaultLogObject(isProhibitedByStore);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315138;
-      v10 = "[VSIdentityProvider isFullySupportedForRequestsExpectingAuthenticationSchemes:]";
-      v6 = "%s: prohibited by store";
+      v11 = 136315138;
+      v12 = "[VSIdentityProvider isFullySupportedForRequestsExpectingAuthenticationSchemes:]";
+      v7 = "%s: prohibited by store";
 LABEL_9:
-      _os_log_impl(&dword_23AB8E000, v5, OS_LOG_TYPE_DEFAULT, v6, &v9, 0xCu);
+      _os_log_impl(&dword_23AB8E000, v6, OS_LOG_TYPE_DEFAULT, v7, &v11, 0xCu);
       goto LABEL_10;
     }
 
     goto LABEL_10;
   }
 
-  if (schemesCopy && ![(VSIdentityProvider *)self supportsRequestsExpectingAuthenticationSchemes:schemesCopy])
+  if (schemesCopy)
   {
-    v5 = VSDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v8 = [(VSIdentityProvider *)self supportsRequestsExpectingAuthenticationSchemes:schemesCopy];
+    if ((v8 & 1) == 0)
     {
-      v9 = 136315138;
-      v10 = "[VSIdentityProvider isFullySupportedForRequestsExpectingAuthenticationSchemes:]";
-      v6 = "%s: does not support expected auth schemes";
-      goto LABEL_9;
-    }
+      v6 = VSDefaultLogObject(v8);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = 136315138;
+        v12 = "[VSIdentityProvider isFullySupportedForRequestsExpectingAuthenticationSchemes:]";
+        v7 = "%s: does not support expected auth schemes";
+        goto LABEL_9;
+      }
 
 LABEL_10:
 
-    v7 = 0;
-    goto LABEL_11;
+      v9 = 0;
+      goto LABEL_11;
+    }
   }
 
-  v7 = 1;
+  v9 = 1;
 LABEL_11:
 
-  return v7;
+  return v9;
 }
 
 @end

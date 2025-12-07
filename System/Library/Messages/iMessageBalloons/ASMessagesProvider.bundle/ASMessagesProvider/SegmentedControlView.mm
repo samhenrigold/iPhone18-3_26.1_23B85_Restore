@@ -59,12 +59,13 @@
   v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider20SegmentedControlView_segmentDidChangeHandler);
   if (v3)
   {
+    v5 = *&self->segmentedControl[OBJC_IVAR____TtC18ASMessagesProvider20SegmentedControlView_segmentDidChangeHandler];
     inCopy = in;
     selfCopy = self;
-    sub_F714(v3);
-    v3(inCopy);
+    v8 = sub_F714(v3, v5);
+    v3(inCopy, v8);
 
-    sub_F704(v3);
+    sub_F704(v3, v5);
   }
 }
 

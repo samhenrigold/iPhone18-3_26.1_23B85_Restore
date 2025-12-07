@@ -5,7 +5,9 @@
 - (NSArray)allParameters;
 - (id)copyNodeWithOffset:(unint64_t)offset;
 - (id)valueForKey:(id)key;
+- (void)_deserialize:(CADeserializer *)_deserialize fromSetFullState:(BOOL)state;
 - (void)_indexChildren;
+- (void)_observersChanged:(BOOL)changed deltaCount:(int)count;
 - (void)_serialize:(CASerializer *)_serialize;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -13,32 +15,96 @@
 
 @implementation AUParameterGroup
 
+- (void)_deserialize:(CADeserializer *)_deserialize fromSetFullState:(BOOL)state
+{
+  stateCopy = state;
+  v7 = *MEMORY[0x1E695D930];
+  if (state)
+  {
+    v8 = 6;
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  while (1)
+  {
+    v18 = 0;
+    CADeserializer::Read(_deserialize, &v18);
+    if (v18 == 255)
+    {
+      break;
+    }
+
+    if (v18 >= 2u)
+    {
+      v9 = MEMORY[0x1E695DF30];
+      keyPath = [(AUParameterNode *)self keyPath];
+      [v9 raise:v7 format:{@"Archive under %@: corrupt type: %d", keyPath, v18}];
+    }
+
+    cf = 0;
+    operator>>();
+    v11 = [(AUParameterGroup *)self valueForKey:cf];
+    if (cf)
+    {
+      CFRelease(cf);
+    }
+
+    if (v11)
+    {
+      v12 = v18;
+      if (v12 != [v11 isGroup])
+      {
+        v13 = MEMORY[0x1E695DF30];
+        keyPath2 = [v11 keyPath];
+        [v13 raise:v7 format:{@"Is-group inconsistency in archive for %@", keyPath2}];
+      }
+
+      if (v18)
+      {
+        [v11 _deserialize:_deserialize fromSetFullState:stateCopy];
+      }
+
+      else
+      {
+        v16 = 0;
+        CADeserializer::Read(_deserialize, &v16);
+        LODWORD(v15) = v16;
+        [v11 setValue:v8 originator:v15];
+      }
+    }
+  }
+}
+
 - (void)_serialize:(CASerializer *)_serialize
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   children = [(AUParameterGroup *)self children];
-  v5 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(children);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         isGroup = [v8 isGroup];
         CASerializer::Write(_serialize, &isGroup);
         identifier = [v8 identifier];
-        v12 = identifier;
+        v11 = identifier;
         operator<<();
 
         if (isGroup)
@@ -49,20 +115,19 @@
         else
         {
           [v8 value];
-          LODWORD(v12) = v10;
-          CASerializer::Write(_serialize, &v12);
+          LODWORD(v11) = v10;
+          CASerializer::Write(_serialize, &v11);
         }
       }
 
-      v5 = [children countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
   }
 
-  LOBYTE(v12) = -1;
-  CASerializer::Write(_serialize, &v12);
-  v11 = *MEMORY[0x1E69E9840];
+  LOBYTE(v11) = -1;
+  CASerializer::Write(_serialize, &v11);
 }
 
 - (AUParameterGroup)initWithCoder:(id)coder
@@ -143,29 +208,64 @@
   return v10;
 }
 
-- (NSArray)allParameters
+- (void)_observersChanged:(BOOL)changed deltaCount:(int)count
 {
-  v17 = *MEMORY[0x1E69E9840];
-  array = [MEMORY[0x1E695DF70] array];
-  v14 = 0u;
-  v15 = 0u;
+  v4 = *&count;
+  changedCopy = changed;
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
+  v6 = self->_children;
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v7)
+  {
+    v8 = *v11;
+    do
+    {
+      v9 = 0;
+      do
+      {
+        if (*v11 != v8)
+        {
+          objc_enumerationMutation(v6);
+        }
+
+        [*(*(&v10 + 1) + 8 * v9++) _observersChanged:changedCopy deltaCount:{v4, v10}];
+      }
+
+      while (v7 != v9);
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    }
+
+    while (v7);
+  }
+}
+
+- (NSArray)allParameters
+{
+  v16 = *MEMORY[0x1E69E9840];
+  array = [MEMORY[0x1E695DF70] array];
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v4 = self->_children;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * i);
+        v8 = *(*(&v11 + 1) + 8 * i);
         if ([v8 isGroup])
         {
           allParameters = [v8 allParameters];
@@ -178,13 +278,11 @@
         }
       }
 
-      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -198,36 +296,36 @@
 
 - (AUParameterGroup)initWithTemplate:(id)template identifier:(id)identifier name:(id)name addressOffset:(unint64_t)offset
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   templateCopy = template;
-  v27.receiver = self;
-  v27.super_class = AUParameterGroup;
-  v11 = [(AUParameterNode *)&v27 initWithID:identifier name:name];
+  v26.receiver = self;
+  v26.super_class = AUParameterGroup;
+  v11 = [(AUParameterNode *)&v26 initWithID:identifier name:name];
   if (v11)
   {
     children = [templateCopy children];
     v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(children, "count")}];
     objc_storeStrong(&v11->_children, v13);
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v14 = children;
-    v15 = [v14 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v15)
     {
-      v16 = *v24;
+      v16 = *v23;
       do
       {
         v17 = 0;
         do
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          v18 = [*(*(&v23 + 1) + 8 * v17) copyNodeWithOffset:{offset, v23}];
+          v18 = [*(*(&v22 + 1) + 8 * v17) copyNodeWithOffset:{offset, v22}];
           [v13 addObject:v18];
           [v18 setParentNode:v11];
 
@@ -235,7 +333,7 @@
         }
 
         while (v15 != v17);
-        v15 = [v14 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v15);
@@ -246,7 +344,6 @@
     v11->_childIndicesByIdentifier = childIndicesByIdentifier;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -280,7 +377,7 @@
 
 - (void)_indexChildren
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   childIndicesByIdentifier = self->_childIndicesByIdentifier;
   if (!childIndicesByIdentifier)
   {
@@ -289,26 +386,26 @@
     self->_childIndicesByIdentifier = v4;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v6 = self->_children;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = 0;
-    v9 = *v23;
+    v9 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
+        v11 = *(*(&v21 + 1) + 8 * i);
         [v11 setIndexInGroup:v8];
         if (!childIndicesByIdentifier)
         {
@@ -321,12 +418,12 @@
 
             if (!v15)
             {
-              v18 = MEMORY[0x1E695DF30];
-              v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Multiple nodes with identifier '%@'", v13];
-              v20 = [v18 exceptionWithName:@"AUInvalidNodeInfoException" reason:v19 userInfo:0];
-              v21 = v20;
+              v17 = MEMORY[0x1E695DF30];
+              v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Multiple nodes with identifier '%@'", v13];
+              v19 = [v17 exceptionWithName:@"AUInvalidNodeInfoException" reason:v18 userInfo:0];
+              v20 = v19;
 
-              objc_exception_throw(v20);
+              objc_exception_throw(v19);
             }
 
             v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
@@ -339,13 +436,11 @@
         ++v8;
       }
 
-      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [(NSArray *)v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v7);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

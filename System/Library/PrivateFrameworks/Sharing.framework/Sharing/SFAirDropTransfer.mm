@@ -41,28 +41,27 @@
 
     if (v9->_usedByTransferManager)
     {
-      v12 = airdrop_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+      v13 = airdrop_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
-        v13 = v9->_identifier;
+        v14 = v9->_identifier;
         *buf = 138543618;
-        v20 = v13;
+        v20 = v14;
         v21 = 2112;
         v22 = informationCopy;
-        _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Initialized with initial information: %@", buf, 0x16u);
+        _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Initialized with initial information: %@", buf, 0x16u);
       }
     }
 
     v9->_transferState = 0;
-    v14 = [[SFAirDropTransferMetaData alloc] initWithInformation:informationCopy];
+    v15 = [[SFAirDropTransferMetaData alloc] initWithInformation:informationCopy];
     metaData = v9->_metaData;
-    v9->_metaData = v14;
+    v9->_metaData = v15;
 
     [(SFAirDropTransfer *)v9 updateWithInformation:informationCopy];
     [(SFAirDropTransfer *)v9 setUpProgressToBroadcast:v9->_usedByTransferManager];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -107,7 +106,7 @@
 - (void)setUpProgressToBroadcast:(BOOL)broadcast
 {
   broadcastCopy = broadcast;
-  v35[3] = *MEMORY[0x1E69E9840];
+  v34[3] = *MEMORY[0x1E69E9840];
   v5 = SFAirDropDownloadsURL();
   v6 = v5;
   if (v5)
@@ -120,49 +119,49 @@
     {
       v10 = objc_alloc(MEMORY[0x1E696AE38]);
       v11 = *MEMORY[0x1E696A858];
-      v34[0] = *MEMORY[0x1E696A880];
-      v34[1] = v11;
+      v33[0] = *MEMORY[0x1E696A880];
+      v33[1] = v11;
       v12 = *MEMORY[0x1E696A860];
-      v35[0] = v8;
-      v35[1] = v12;
-      v34[2] = *MEMORY[0x1E696A878];
+      v34[0] = v8;
+      v34[1] = v12;
+      v33[2] = *MEMORY[0x1E696A878];
       v13 = MEMORY[0x1E696AD98];
       metaData = [(SFAirDropTransfer *)self metaData];
       rawFiles = [metaData rawFiles];
       v16 = [v13 numberWithUnsignedInteger:{objc_msgSend(rawFiles, "count")}];
-      v35[2] = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:3];
+      v34[2] = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:3];
       v18 = [v10 initWithParent:0 userInfo:v17];
       transferProgress = self->_transferProgress;
       self->_transferProgress = v18;
 
       [(NSProgress *)self->_transferProgress setCancellable:1];
       [(NSProgress *)self->_transferProgress setPausable:0];
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke;
-      v30[3] = &unk_1E788AEA0;
-      v20 = &v32;
-      objc_copyWeak(&v32, &location);
-      v31 = v8;
-      [(NSProgress *)self->_transferProgress setCancellationHandler:v30];
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke;
+      v29[3] = &unk_1E788AEA0;
+      v20 = &v31;
+      objc_copyWeak(&v31, &location);
+      v30 = v8;
+      [(NSProgress *)self->_transferProgress setCancellationHandler:v29];
       [(NSProgress *)self->_transferProgress publish];
-      v21 = &v31;
+      v21 = &v30;
     }
 
     else
     {
-      v24 = MEMORY[0x1E69E9820];
-      v25 = 3221225472;
-      v26 = __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_152;
-      v27 = &unk_1E788C238;
-      v20 = &v29;
-      objc_copyWeak(&v29, &location);
-      v28 = v8;
-      v22 = [v9 addSubscriberForFileURL:v28 withPublishingHandler:&v24];
-      [(SFAirDropTransfer *)self setProgressToken:v22, v24, v25, v26, v27];
+      v23 = MEMORY[0x1E69E9820];
+      v24 = 3221225472;
+      v25 = __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_152;
+      v26 = &unk_1E788C238;
+      v20 = &v28;
+      objc_copyWeak(&v28, &location);
+      v27 = v8;
+      v22 = [v9 addSubscriberForFileURL:v27 withPublishingHandler:&v23];
+      [(SFAirDropTransfer *)self setProgressToken:v22, v23, v24, v25, v26];
 
-      v21 = &v28;
+      v21 = &v27;
     }
 
     objc_destroyWeak(v20);
@@ -174,7 +173,7 @@ LABEL_9:
 
   if (self->_usedByTransferManager)
   {
-    v7 = airdrop_log();
+    v7 = airdrop_log(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(SFAirDropTransfer *)self setUpProgressToBroadcast:v7];
@@ -184,30 +183,26 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v2 = airdrop_log();
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = airdrop_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     v4 = [WeakRetained identifier];
     v5 = *(a1 + 32);
-    v8 = 138543619;
-    v9 = v4;
-    v10 = 2113;
-    v11 = v5;
-    _os_log_impl(&dword_1A9662000, v2, OS_LOG_TYPE_INFO, "[Transfer: %{public}@]: SFAirDropTransfer: cancellation handler called %{private}@", &v8, 0x16u);
+    v7 = 138543619;
+    v8 = v4;
+    v9 = 2113;
+    v10 = v5;
+    _os_log_impl(&dword_1A9662000, v2, OS_LOG_TYPE_INFO, "[Transfer: %{public}@]: SFAirDropTransfer: cancellation handler called %{private}@", &v7, 0x16u);
   }
 
   v6 = objc_loadWeakRetained((a1 + 40));
   [v6 setUserResponse:2];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 id __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_152(uint64_t a1, void *a2)
@@ -230,7 +225,7 @@ id __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_152(uint64_t 
 void __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_2(uint64_t a1)
 {
   v14 = *MEMORY[0x1E69E9840];
-  v2 = airdrop_log();
+  v2 = airdrop_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = [*(a1 + 32) identifier];
@@ -245,7 +240,7 @@ void __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_2(uint64_t 
   v6 = *(a1 + 32);
   v5 = (a1 + 32);
   v7 = [v6 progressToken];
-  [*v5 setProgressToken:0];
+  v8 = [*v5 setProgressToken:0];
   if (v7)
   {
     [*v5 setTransferProgress:0];
@@ -253,48 +248,46 @@ void __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_2(uint64_t 
 
   else
   {
-    v8 = airdrop_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = airdrop_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_2_cold_1(v5, v8);
+      __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_2_cold_1(v5, v9);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isJustFiles
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   metaData = [(SFAirDropTransfer *)self metaData];
   items = [metaData items];
 
-  v4 = [items countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [items countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(items);
         }
 
-        if (![*(*(&v11 + 1) + 8 * i) isFile])
+        if (![*(*(&v10 + 1) + 8 * i) isFile])
         {
           v8 = 0;
           goto LABEL_11;
         }
       }
 
-      v5 = [items countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [items countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v5)
       {
         continue;
@@ -307,39 +300,38 @@ void __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_2(uint64_t 
   v8 = 1;
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (unint64_t)itemCount
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   metaData = [(SFAirDropTransfer *)self metaData];
   items = [metaData items];
 
-  v4 = [items countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [items countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(items);
         }
 
-        v6 += [*(*(&v11 + 1) + 8 * i) count];
+        v6 += [*(*(&v10 + 1) + 8 * i) count];
       }
 
-      v5 = [items countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [items countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -350,7 +342,6 @@ LABEL_11:
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -409,99 +400,110 @@ LABEL_11:
 
 - (id)description
 {
-  objc_opt_class();
-  identifier = self->_identifier;
-  NSAppendPrintF();
-  v28 = 0;
-  v20 = SFAirDropTransferStateToString(self->_transferState);
-  NSAppendPrintF();
-  v3 = v28;
+  v35 = 0;
+  v3 = objc_opt_class();
+  NSAppendPrintF(&v35, "<%@: identifier: %@", v3, self->_identifier);
+  v4 = v35;
+  v34 = v4;
+  v5 = SFAirDropTransferStateToString(self->_transferState);
+  NSAppendPrintF(&v34, ", transferState: %@", v5);
+  v6 = v34;
 
   if (self->_transferState == 9)
   {
-    error = self->_error;
-    NSAppendPrintF();
-    v4 = v3;
+    v33 = v6;
+    NSAppendPrintF(&v33, ", error: %{error}", self->_error);
+    v7 = v33;
 
-    v5 = self->_failureReason - 1;
-    if (v5 <= 2)
+    v32 = v7;
+    v8 = self->_failureReason - 1;
+    if (v8 > 2)
     {
-      v6 = off_1E788C278[v5];
+      v9 = @"Unknown";
     }
 
-    NSAppendPrintF();
-    v3 = v4;
+    else
+    {
+      v9 = off_1E788C278[v8];
+    }
+
+    NSAppendPrintF(&v32, ", failureReason: %@", v9);
+    v6 = v32;
   }
 
+  v31 = v6;
   userResponse = self->_userResponse;
   if (userResponse > 3)
   {
-    v8 = @"Unknown";
+    v11 = @"Unknown";
   }
 
   else
   {
-    v8 = off_1E788C258[userResponse];
+    v11 = off_1E788C258[userResponse];
   }
 
-  v22 = v8;
-  NSAppendPrintF();
-  v9 = v3;
+  NSAppendPrintF(&v31, ", userResponse: %@", v11);
+  v12 = v31;
 
-  if ([(SFAirDropTransfer *)self needsAction:v22])
+  v30 = v12;
+  if ([(SFAirDropTransfer *)self needsAction])
   {
-    v10 = "yes";
+    v13 = "yes";
   }
 
   else
   {
-    v10 = "no";
+    v13 = "no";
   }
 
-  v23 = v10;
-  NSAppendPrintF();
-  v11 = v9;
+  NSAppendPrintF(&v30, ", needsAction: %s", v13);
+  v14 = v30;
 
+  v29 = v14;
   if ([(SFAirDropTransfer *)self willOpenInMRQL])
   {
-    v12 = "yes";
+    v15 = "yes";
   }
 
   else
   {
-    v12 = "no";
+    v15 = "no";
   }
 
-  v24 = v12;
-  NSAppendPrintF();
-  v13 = v11;
+  NSAppendPrintF(&v29, ", willOpenInMRQL: %s", v15);
+  v16 = v29;
 
   selectedAction = self->_selectedAction;
   if (selectedAction)
   {
+    v28 = v16;
     localizedTitle = [(SFAirDropAction *)selectedAction localizedTitle];
-    NSAppendPrintF();
-    v16 = v13;
+    NSAppendPrintF(&v28, ", selectedAction: %@", localizedTitle);
+    v19 = v28;
   }
 
   else
   {
-    localizedTitle = [(NSArray *)self->_possibleActions valueForKeyPath:@"@unionOfObjects.localizedTitle", v24];
-    v25 = SFCompactStringFromCollection(localizedTitle);
-    NSAppendPrintF();
-    v16 = v13;
+    v27 = v16;
+    localizedTitle = [(NSArray *)self->_possibleActions valueForKeyPath:@"@unionOfObjects.localizedTitle"];
+    v20 = SFCompactStringFromCollection(localizedTitle);
+    NSAppendPrintF(&v27, ", possibleActions: %@", v20);
+    v19 = v27;
 
-    v13 = v25;
+    v16 = v20;
   }
 
-  metaData = self->_metaData;
-  NSAppendPrintF();
-  v17 = v16;
+  v26 = v19;
+  NSAppendPrintF(&v26, ", metadata: %@", self->_metaData);
+  v21 = v26;
 
-  NSAppendPrintF();
-  v18 = v17;
+  v25 = v21;
+  NSAppendPrintF(&v25, ">");
+  v22 = v25;
+  v23 = v25;
 
-  return v17;
+  return v22;
 }
 
 - (unint64_t)hash
@@ -558,14 +560,14 @@ LABEL_11:
 
 - (BOOL)updateUsingCoder:(id)coder
 {
-  v55[2] = *MEMORY[0x1E69E9840];
+  v54[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   identifier = [(SFAirDropTransfer *)self identifier];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   [(SFAirDropTransfer *)self setIdentifier:v6];
 
   identifier2 = [(SFAirDropTransfer *)self identifier];
-  v53 = SFNilEqual(identifier, identifier2);
+  v52 = SFNilEqual(identifier, identifier2);
 
   metaData = [(SFAirDropTransfer *)self metaData];
 
@@ -573,24 +575,24 @@ LABEL_11:
   [(SFAirDropTransfer *)self setMetaData:v9];
 
   metaData2 = [(SFAirDropTransfer *)self metaData];
-  v52 = SFNilEqual(metaData, metaData2);
+  v51 = SFNilEqual(metaData, metaData2);
 
   userResponse = [(SFAirDropTransfer *)self userResponse];
   -[SFAirDropTransfer setUserResponse:](self, "setUserResponse:", [coderCopy decodeIntegerForKey:@"userResponse"]);
-  v51 = userResponse != [(SFAirDropTransfer *)self userResponse];
+  v50 = userResponse != [(SFAirDropTransfer *)self userResponse];
   transferState = [(SFAirDropTransfer *)self transferState];
   -[SFAirDropTransfer setTransferState:](self, "setTransferState:", [coderCopy decodeIntegerForKey:@"transferState"]);
-  v50 = transferState != [(SFAirDropTransfer *)self transferState];
+  v49 = transferState != [(SFAirDropTransfer *)self transferState];
   failureReason = [(SFAirDropTransfer *)self failureReason];
   -[SFAirDropTransfer setFailureReason:](self, "setFailureReason:", [coderCopy decodeIntegerForKey:@"failureReason"]);
-  v49 = failureReason != [(SFAirDropTransfer *)self failureReason];
+  v48 = failureReason != [(SFAirDropTransfer *)self failureReason];
   error = [(SFAirDropTransfer *)self error];
 
   v15 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"error"];
   [(SFAirDropTransfer *)self setError:v15];
 
   error2 = [(SFAirDropTransfer *)self error];
-  v48 = SFNilEqual(error, error2);
+  v47 = SFNilEqual(error, error2);
 
   contentsTitle = [(SFAirDropTransfer *)self contentsTitle];
 
@@ -598,7 +600,7 @@ LABEL_11:
   [(SFAirDropTransfer *)self setContentsTitle:v18];
 
   contentsTitle2 = [(SFAirDropTransfer *)self contentsTitle];
-  v47 = SFNilEqual(contentsTitle, contentsTitle2);
+  v46 = SFNilEqual(contentsTitle, contentsTitle2);
 
   contentsDescription = [(SFAirDropTransfer *)self contentsDescription];
 
@@ -606,7 +608,7 @@ LABEL_11:
   [(SFAirDropTransfer *)self setContentsDescription:v21];
 
   contentsDescription2 = [(SFAirDropTransfer *)self contentsDescription];
-  v46 = SFNilEqual(contentsDescription, contentsDescription2);
+  v45 = SFNilEqual(contentsDescription, contentsDescription2);
 
   selectedAction = [(SFAirDropTransfer *)self selectedAction];
 
@@ -614,14 +616,14 @@ LABEL_11:
   [(SFAirDropTransfer *)self setSelectedAction:v24];
 
   selectedAction2 = [(SFAirDropTransfer *)self selectedAction];
-  v45 = SFNilEqual(selectedAction, selectedAction2);
+  v44 = SFNilEqual(selectedAction, selectedAction2);
 
   possibleActions = [(SFAirDropTransfer *)self possibleActions];
 
   v27 = MEMORY[0x1E695DFD8];
-  v55[0] = objc_opt_class();
-  v55[1] = objc_opt_class();
-  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
+  v54[0] = objc_opt_class();
+  v54[1] = objc_opt_class();
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
   v29 = [v27 setWithArray:v28];
   v30 = [coderCopy decodeObjectOfClasses:v29 forKey:@"possibleActions"];
   [(SFAirDropTransfer *)self setPossibleActions:v30];
@@ -643,9 +645,9 @@ LABEL_11:
   completedURLs = [(SFAirDropTransfer *)self completedURLs];
 
   v38 = MEMORY[0x1E695DFD8];
-  v54[0] = objc_opt_class();
-  v54[1] = objc_opt_class();
-  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:2];
+  v53[0] = objc_opt_class();
+  v53[1] = objc_opt_class();
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:2];
   v40 = [v38 setWithArray:v39];
   v41 = [coderCopy decodeObjectOfClasses:v40 forKey:@"completedURLs"];
 
@@ -653,13 +655,12 @@ LABEL_11:
   completedURLs2 = [(SFAirDropTransfer *)self completedURLs];
   LOBYTE(self) = SFNilEqual(completedURLs, completedURLs2);
 
-  v43 = *MEMORY[0x1E69E9840];
-  return (v51 || (v53 & v52 & 1) == 0 || v50 || v49 || (v48 & v47 & v46 & v45 & v32 & v36 & 1) == 0) | (cancelAction2 ^ possibleActions2) & 1 | ((self & 1) == 0);
+  return (v50 || (v52 & v51 & 1) == 0 || v49 || v48 || (v47 & v46 & v45 & v44 & v32 & v36 & 1) == 0) | (cancelAction2 ^ possibleActions2) & 1 | ((self & 1) == 0);
 }
 
 - (void)updateWithInformation:(id)information
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   informationCopy = information;
   v5 = [informationCopy objectForKeyedSubscript:@"Items"];
   [(SFAirDropTransfer *)self setCompletedURLs:v5];
@@ -671,66 +672,65 @@ LABEL_11:
 
   if (error && self->_usedByTransferManager)
   {
-    v8 = airdrop_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = airdrop_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       identifier = self->_identifier;
       error2 = [(SFAirDropTransfer *)self error];
-      v19 = 138543618;
-      v20 = identifier;
-      v21 = 2112;
-      v22 = error2;
-      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] updateWithInformation: Error was set: %@", &v19, 0x16u);
+      v20 = 138543618;
+      v21 = identifier;
+      v22 = 2112;
+      v23 = error2;
+      _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] updateWithInformation: Error was set: %@", &v20, 0x16u);
     }
   }
 
-  v11 = [informationCopy objectForKeyedSubscript:@"TotalBytes"];
-  v12 = v11;
-  if (v11)
+  v12 = [informationCopy objectForKeyedSubscript:@"TotalBytes"];
+  v13 = v12;
+  if (v12)
   {
-    -[NSProgress setTotalUnitCount:](self->_transferProgress, "setTotalUnitCount:", [v11 longLongValue]);
+    -[NSProgress setTotalUnitCount:](self->_transferProgress, "setTotalUnitCount:", [v12 longLongValue]);
   }
 
-  v13 = [informationCopy objectForKeyedSubscript:@"BytesCopied"];
-  if (v13)
+  v14 = [informationCopy objectForKeyedSubscript:@"BytesCopied"];
+  v15 = v14;
+  if (v14)
   {
     if (self->_usedByTransferManager)
     {
-      v14 = airdrop_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v16 = airdrop_log(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
-        v15 = self->_identifier;
-        v19 = 138543874;
-        v20 = v15;
-        v21 = 2112;
-        v22 = v13;
-        v23 = 2112;
-        v24 = v12;
-        _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Updating completedUnitCount: %@ bytesCopied / %@ totalBytes", &v19, 0x20u);
+        v17 = self->_identifier;
+        v20 = 138543874;
+        v21 = v17;
+        v22 = 2112;
+        v23 = v15;
+        v24 = 2112;
+        v25 = v13;
+        _os_log_impl(&dword_1A9662000, v16, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Updating completedUnitCount: %@ bytesCopied / %@ totalBytes", &v20, 0x20u);
       }
     }
 
-    -[NSProgress setCompletedUnitCount:](self->_transferProgress, "setCompletedUnitCount:", [v13 longLongValue]);
+    -[NSProgress setCompletedUnitCount:](self->_transferProgress, "setCompletedUnitCount:", [v15 longLongValue]);
   }
 
-  v16 = [informationCopy objectForKeyedSubscript:@"TimeRemaining"];
-  if (v16)
+  v18 = [informationCopy objectForKeyedSubscript:@"TimeRemaining"];
+  if (v18)
   {
-    [(NSProgress *)self->_transferProgress setUserInfoObject:v16 forKey:*MEMORY[0x1E696A808]];
+    [(NSProgress *)self->_transferProgress setUserInfoObject:v18 forKey:*MEMORY[0x1E696A808]];
   }
 
-  v17 = [informationCopy objectForKeyedSubscript:@"FilesCopied"];
-  if (v17)
+  v19 = [informationCopy objectForKeyedSubscript:@"FilesCopied"];
+  if (v19)
   {
-    [(NSProgress *)self->_transferProgress setUserInfoObject:v17 forKey:*MEMORY[0x1E696A810]];
+    [(NSProgress *)self->_transferProgress setUserInfoObject:v19 forKey:*MEMORY[0x1E696A810]];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setUserResponse:(unint64_t)response
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   userResponse = self->_userResponse;
   if (userResponse != response)
   {
@@ -754,88 +754,24 @@ LABEL_11:
       v7 = off_1E788C258[response];
     }
 
-    usedByTransferManager = self->_usedByTransferManager;
-    if (self->_userResponse < response)
-    {
-      if (self->_usedByTransferManager)
-      {
-        v9 = airdrop_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-        {
-          identifier = self->_identifier;
-          v15 = 138543874;
-          v16 = identifier;
-          v17 = 2112;
-          v18 = v6;
-          v19 = 2112;
-          v20 = v7;
-          _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Changing user response from %@ to %@", &v15, 0x20u);
-        }
-      }
-
-      v11 = NSStringFromSelector(sel_userResponse);
-      [(SFAirDropTransfer *)self willChangeValueForKey:v11];
-
-      self->_userResponse = response;
-      v12 = NSStringFromSelector(sel_userResponse);
-      [(SFAirDropTransfer *)self didChangeValueForKey:v12];
-LABEL_17:
-
-      goto LABEL_18;
-    }
-
-    if (self->_usedByTransferManager)
-    {
-      v12 = airdrop_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        v14 = self->_identifier;
-        v15 = 138543874;
-        v16 = v14;
-        v17 = 2112;
-        v18 = v6;
-        v19 = 2112;
-        v20 = v7;
-        _os_log_error_impl(&dword_1A9662000, v12, OS_LOG_TYPE_ERROR, "[Transfer: %{public}@] Cannot change userResponse from %@ to %@", &v15, 0x20u);
-      }
-
-      goto LABEL_17;
-    }
-  }
-
-LABEL_18:
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setTransferState:(unint64_t)state
-{
-  v21 = *MEMORY[0x1E69E9840];
-  transferState = self->_transferState;
-  if (transferState != state)
-  {
-    v6 = SFAirDropTransferStateToString(transferState);
-    v7 = SFAirDropTransferStateToString(state);
-    usedByTransferManager = self->_usedByTransferManager;
-    if (self->_transferState >= state)
+    if (self->_userResponse >= response)
     {
       if (!self->_usedByTransferManager)
       {
-LABEL_12:
-
-        goto LABEL_13;
+        return;
       }
 
-      v12 = airdrop_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = airdrop_log(self);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         identifier = self->_identifier;
-        v15 = 138543874;
-        v16 = identifier;
+        v13 = 138543874;
+        v14 = identifier;
+        v15 = 2112;
+        v16 = v6;
         v17 = 2112;
-        v18 = v6;
-        v19 = 2112;
-        v20 = v7;
-        _os_log_error_impl(&dword_1A9662000, v12, OS_LOG_TYPE_ERROR, "[Transfer: %{public}@] Cannot change transferState from %@ to %@", &v15, 0x20u);
+        v18 = v7;
+        _os_log_error_impl(&dword_1A9662000, v11, OS_LOG_TYPE_ERROR, "[Transfer: %{public}@] Cannot change userResponse from %@ to %@", &v13, 0x20u);
       }
     }
 
@@ -843,17 +779,77 @@ LABEL_12:
     {
       if (self->_usedByTransferManager)
       {
-        v9 = airdrop_log();
+        v8 = airdrop_log(self);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+        {
+          v9 = self->_identifier;
+          v13 = 138543874;
+          v14 = v9;
+          v15 = 2112;
+          v16 = v6;
+          v17 = 2112;
+          v18 = v7;
+          _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Changing user response from %@ to %@", &v13, 0x20u);
+        }
+      }
+
+      v10 = NSStringFromSelector(sel_userResponse);
+      [(SFAirDropTransfer *)self willChangeValueForKey:v10];
+
+      self->_userResponse = response;
+      v11 = NSStringFromSelector(sel_userResponse);
+      [(SFAirDropTransfer *)self didChangeValueForKey:v11];
+    }
+  }
+}
+
+- (void)setTransferState:(unint64_t)state
+{
+  v20 = *MEMORY[0x1E69E9840];
+  transferState = self->_transferState;
+  if (transferState != state)
+  {
+    v6 = SFAirDropTransferStateToString(transferState);
+    v7 = SFAirDropTransferStateToString(state);
+    v8 = v7;
+    if (self->_transferState >= state)
+    {
+      if (!self->_usedByTransferManager)
+      {
+LABEL_12:
+
+        return;
+      }
+
+      v12 = airdrop_log(v7);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        identifier = self->_identifier;
+        v14 = 138543874;
+        v15 = identifier;
+        v16 = 2112;
+        v17 = v6;
+        v18 = 2112;
+        v19 = v8;
+        _os_log_error_impl(&dword_1A9662000, v12, OS_LOG_TYPE_ERROR, "[Transfer: %{public}@] Cannot change transferState from %@ to %@", &v14, 0x20u);
+      }
+    }
+
+    else
+    {
+      if (self->_usedByTransferManager)
+      {
+        v9 = airdrop_log(v7);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           v10 = self->_identifier;
-          v15 = 138543874;
-          v16 = v10;
-          v17 = 2112;
-          v18 = v6;
-          v19 = 2112;
-          v20 = v7;
-          _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Changing transfer state from %@ to %@", &v15, 0x20u);
+          v14 = 138543874;
+          v15 = v10;
+          v16 = 2112;
+          v17 = v6;
+          v18 = 2112;
+          v19 = v8;
+          _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Changing transfer state from %@ to %@", &v14, 0x20u);
         }
       }
 
@@ -867,14 +863,11 @@ LABEL_12:
 
     goto LABEL_12;
   }
-
-LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setFailureReason:(unint64_t)reason
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   failureReason = self->_failureReason;
   if (failureReason != reason)
   {
@@ -900,17 +893,17 @@ LABEL_13:
 
     if (self->_usedByTransferManager)
     {
-      v8 = airdrop_log();
+      v8 = airdrop_log(self);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         identifier = self->_identifier;
-        v13 = 138543874;
-        v14 = identifier;
-        v15 = 2112;
-        v16 = v6;
-        v17 = 2112;
-        v18 = v7;
-        _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Setting failure reason from %@ to %@", &v13, 0x20u);
+        v12 = 138543874;
+        v13 = identifier;
+        v14 = 2112;
+        v15 = v6;
+        v16 = 2112;
+        v17 = v7;
+        _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_INFO, "[Transfer: %{public}@] Setting failure reason from %@ to %@", &v12, 0x20u);
       }
     }
 
@@ -921,24 +914,20 @@ LABEL_13:
     v11 = NSStringFromSelector(sel_failureReason);
     [(SFAirDropTransfer *)self didChangeValueForKey:v11];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)keyPathsForValuesAffectingNeedsAction
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = NSStringFromSelector(sel_selectedAction);
-  v10 = v3;
+  v9 = v3;
   v4 = NSStringFromSelector(sel_possibleActions);
-  v11 = v4;
+  v10 = v4;
   v5 = NSStringFromSelector(sel_userResponse);
-  v12 = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:3];
-  v7 = [v2 setWithArray:{v6, v10, v11}];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v11 = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:3];
+  v7 = [v2 setWithArray:{v6, v9, v10}];
 
   return v7;
 }
@@ -970,25 +959,22 @@ LABEL_13:
 
 - (void)setUpProgressToBroadcast:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 24);
-  v4 = 138543618;
-  v5 = v2;
-  v6 = 2114;
-  v7 = v2;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "[Transfer: %{public}@] [Transfer: %{public}@] Failed to set up progress object (Downloads URL not available)", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = v2;
+  v5 = 2114;
+  v6 = v2;
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "[Transfer: %{public}@] [Transfer: %{public}@] Failed to set up progress object (Downloads URL not available)", &v3, 0x16u);
 }
 
 void __46__SFAirDropTransfer_setUpProgressToBroadcast___block_invoke_2_cold_1(id *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [*a1 identifier];
-  v5 = 138543362;
-  v6 = v3;
-  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "[Transfer: %{public}@] Progress token not available.", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  _os_log_error_impl(&dword_1A9662000, a2, OS_LOG_TYPE_ERROR, "[Transfer: %{public}@] Progress token not available.", &v4, 0xCu);
 }
 
 @end

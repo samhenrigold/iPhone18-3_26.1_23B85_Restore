@@ -1,5 +1,5 @@
 @interface NWConcrete_tcp_connection
-- (char)initWithParameters:(char *)parameters;
+- (uint64_t)initWithParameters:(uint64_t *)parameters;
 - (void)dealloc;
 @end
 
@@ -7,7 +7,7 @@
 
 - (void)dealloc
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
   networkd_settings_init();
   v3 = gLogObj;
@@ -15,9 +15,9 @@
   {
     tc_id = self->tc_id;
     *buf = 136446466;
-    v21 = "[NWConcrete_tcp_connection dealloc]";
-    v22 = 2048;
-    v23 = tc_id;
+    v19 = "[NWConcrete_tcp_connection dealloc]";
+    v20 = 2048;
+    v21 = tc_id;
     _os_log_impl(&dword_181A37000, v3, OS_LOG_TYPE_DEBUG, "%{public}s %llu", buf, 0x16u);
   }
 
@@ -27,14 +27,12 @@
     networkd_settings_init();
     v5 = gLogObj;
     *buf = 136446210;
-    v21 = "[NWConcrete_tcp_connection dealloc]";
-    v16 = 12;
-    v15 = buf;
-    v6 = _os_log_send_and_compose_impl();
+    v19 = "[NWConcrete_tcp_connection dealloc]";
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s over-release of tcp_connection_t. Object should not be internally retained while deallocating", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v18 = 0;
-    if (__nwlog_fault(v6, &type, &v18))
+    v16 = 0;
+    if (__nwlog_fault(v6, &type, &v16))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -48,7 +46,7 @@
         }
 
         *buf = 136446210;
-        v21 = "[NWConcrete_tcp_connection dealloc]";
+        v19 = "[NWConcrete_tcp_connection dealloc]";
         v9 = "%{public}s over-release of tcp_connection_t. Object should not be internally retained while deallocating";
 LABEL_18:
         v13 = v7;
@@ -56,7 +54,7 @@ LABEL_18:
         goto LABEL_19;
       }
 
-      if (v18 != 1)
+      if (v16 != 1)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
@@ -68,7 +66,7 @@ LABEL_18:
         }
 
         *buf = 136446210;
-        v21 = "[NWConcrete_tcp_connection dealloc]";
+        v19 = "[NWConcrete_tcp_connection dealloc]";
         v9 = "%{public}s over-release of tcp_connection_t. Object should not be internally retained while deallocating, backtrace limit exceeded";
         goto LABEL_18;
       }
@@ -94,7 +92,7 @@ LABEL_20:
         }
 
         *buf = 136446210;
-        v21 = "[NWConcrete_tcp_connection dealloc]";
+        v19 = "[NWConcrete_tcp_connection dealloc]";
         v9 = "%{public}s over-release of tcp_connection_t. Object should not be internally retained while deallocating, no backtrace";
         v13 = v7;
         v14 = v11;
@@ -106,9 +104,9 @@ LABEL_19:
       if (v12)
       {
         *buf = 136446466;
-        v21 = "[NWConcrete_tcp_connection dealloc]";
-        v22 = 2082;
-        v23 = backtrace_string;
+        v19 = "[NWConcrete_tcp_connection dealloc]";
+        v20 = 2082;
+        v21 = backtrace_string;
         _os_log_impl(&dword_181A37000, v7, v11, "%{public}s over-release of tcp_connection_t. Object should not be internally retained while deallocating, dumping backtrace:%{public}s", buf, 0x16u);
       }
 
@@ -123,12 +121,12 @@ LABEL_14:
   }
 
 LABEL_15:
-  v17.receiver = self;
-  v17.super_class = NWConcrete_tcp_connection;
-  [(NWConcrete_tcp_connection *)&v17 dealloc:v15];
+  v15.receiver = self;
+  v15.super_class = NWConcrete_tcp_connection;
+  [(NWConcrete_tcp_connection *)&v15 dealloc];
 }
 
-- (char)initWithParameters:(char *)parameters
+- (uint64_t)initWithParameters:(uint64_t *)parameters
 {
   v38 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -145,7 +143,7 @@ LABEL_15:
     v24 = __nwlog_obj();
     *buf = 136446210;
     v35 = "[NWConcrete_tcp_connection initWithParameters:]";
-    v25 = _os_log_send_and_compose_impl();
+    v25 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v24, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v31 = 0;
@@ -228,11 +226,11 @@ LABEL_60:
   *(v4 + 28) = 16;
   if (v3)
   {
-    v5 = _nw_parameters_copy(v3);
-    v6 = *(parameters + 6);
-    *(parameters + 6) = v5;
+    v5 = _nw_parameters_copy();
+    v6 = parameters[6];
+    parameters[6] = v5;
 
-    v7 = *(parameters + 6);
+    v7 = parameters[6];
     if (!v7)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -240,7 +238,7 @@ LABEL_60:
       v8 = gLogObj;
       *buf = 136446210;
       v35 = "[NWConcrete_tcp_connection initWithParameters:]";
-      v9 = _os_log_send_and_compose_impl();
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s nw_parameters_copy failed", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v31 = 0;
@@ -336,10 +334,10 @@ LABEL_36:
   else
   {
     secure_tcp = nw_parameters_create_secure_tcp(&__block_literal_global_19409, &__block_literal_global_2);
-    v14 = *(parameters + 6);
-    *(parameters + 6) = secure_tcp;
+    v14 = parameters[6];
+    parameters[6] = secure_tcp;
 
-    v7 = *(parameters + 6);
+    v7 = parameters[6];
     if (!v7)
     {
       pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -347,7 +345,7 @@ LABEL_36:
       v15 = gLogObj;
       *buf = 136446210;
       v35 = "[NWConcrete_tcp_connection initWithParameters:]";
-      v9 = _os_log_send_and_compose_impl();
+      v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s nw_parameters_create failed", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v31 = 0;
@@ -434,14 +432,14 @@ LABEL_44:
   }
 
   _nw_parameters_set_data_mode(v7, 2);
-  nw_parameters_set_https_proxy_is_opaque(*(parameters + 6), 1);
-  nw_parameters_set_no_fullstack_fallback(*(parameters + 6), 1);
-  if ((nw_parameters_get_indefinite_set(*(parameters + 6)) & 1) == 0)
+  nw_parameters_set_https_proxy_is_opaque(parameters[6]);
+  nw_parameters_set_no_fullstack_fallback(parameters[6]);
+  if ((nw_parameters_get_indefinite_set(parameters[6]) & 1) == 0)
   {
-    nw_parameters_set_indefinite(*(parameters + 6));
+    nw_parameters_set_indefinite(parameters[6]);
   }
 
-  parameters[156] = 0;
+  *(parameters + 156) = 0;
   *(parameters + 116) = 0xFFFFFFFFLL;
 LABEL_39:
 

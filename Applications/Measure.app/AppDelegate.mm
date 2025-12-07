@@ -13,7 +13,7 @@
 {
   v3 = OBJC_IVAR____TtC7Measure11AppDelegate__appState;
   KeyPath = swift_getKeyPath();
-  v5 = sub_10000F974(&unk_1004A1940);
+  v5 = sub_10000F974(&unk_1004A1940, &unk_1003D65A0);
   if (qword_1004A04D8 != -1)
   {
     swift_once();
@@ -79,7 +79,7 @@
 
 - (unint64_t)application:(id)application supportedInterfaceOrientationsForWindow:(id)window
 {
-  sub_100018630(0, &qword_1004A1930);
+  sub_100018630(0, &qword_1004A1930, UIDevice_ptr);
   if ((static UIDevice.isIPhone()() & 1) != 0 && ![objc_opt_self() _hasHomeButton])
   {
     return 2;

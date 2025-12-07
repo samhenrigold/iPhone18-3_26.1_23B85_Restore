@@ -229,15 +229,15 @@
 
   if (v9)
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqual) = 0;
 LABEL_32:
 
     goto LABEL_33;
   }
 
-  v10 = [(_UIBarAppearanceData *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6);
 
-  if (v10)
+  if (isEqual)
   {
 LABEL_11:
     _data = [(UIBarButtonItemAppearance *)self->_buttonAppearance _data];
@@ -263,13 +263,13 @@ LABEL_11:
 
       if (v14)
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         goto LABEL_31;
       }
 
-      v15 = [(_UIBarAppearanceData *)v6 isEqual:v13];
+      v15 = objc_msgSend_isEqual_(v6);
 
-      if (!v15)
+      if ((v15 & 1) == 0)
       {
         goto LABEL_24;
       }
@@ -291,30 +291,30 @@ LABEL_26:
       v8 = v22;
       if (v6 == v22)
       {
-        LOBYTE(v10) = 1;
+        LOBYTE(isEqual) = 1;
       }
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         if (v6 && v22)
         {
-          LOBYTE(v10) = [(_UIBarAppearanceData *)v6 isEqual:v22];
+          LOBYTE(isEqual) = objc_msgSend_isEqual_(v6);
         }
       }
 
       goto LABEL_31;
     }
 
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqual) = 0;
     if (v6 && v18)
     {
-      v19 = [(_UIBarAppearanceData *)v6 isEqual:v18];
+      v19 = objc_msgSend_isEqual_(v6);
 
-      if (!v19)
+      if ((v19 & 1) == 0)
       {
 LABEL_24:
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         goto LABEL_33;
       }
 
@@ -328,7 +328,7 @@ LABEL_31:
 
 LABEL_33:
 
-  return v10;
+  return isEqual;
 }
 
 - (void)setTitleTextAttributes:(NSDictionary *)titleTextAttributes
@@ -349,9 +349,9 @@ LABEL_33:
     goto LABEL_8;
   }
 
-  v7 = [(NSDictionary *)titleTextAttributes isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(titleTextAttributes, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     writableInstance = [(_UIBarAppearanceData *)self->_barTitleData writableInstance];
@@ -408,9 +408,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSDictionary *)largeTitleTextAttributes isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(largeTitleTextAttributes, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     writableInstance = [(_UIBarAppearanceData *)self->_barTitleData writableInstance];
@@ -457,9 +457,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [subtitleTextAttributes isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(subtitleTextAttributes, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     writableInstance = [(_UIBarAppearanceData *)self->_barTitleData writableInstance];
@@ -491,9 +491,9 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [largeSubtitleTextAttributes isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(largeSubtitleTextAttributes, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     writableInstance = [(_UIBarAppearanceData *)self->_barTitleData writableInstance];
@@ -531,9 +531,9 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v8 = [(UIBarButtonItemAppearance *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     [(UIBarButtonItemAppearance *)self->_buttonAppearance _setChangeObserver:0];
@@ -575,9 +575,9 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v8 = [(UIBarButtonItemAppearance *)v6 isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(v6, v7, v7);
 
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     [(UIBarButtonItemAppearance *)self->_prominentButtonAppearance _setChangeObserver:0];
@@ -618,10 +618,10 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v8 = [(UIBarButtonItemAppearance *)_data isEqual:v7];
+  isEqual = objc_msgSend_isEqual_(_data, v7, v7);
 
   v9 = v14;
-  if (!v8)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     [(UIBarButtonItemAppearance *)self->_backButtonAppearance _setChangeObserver:0];
@@ -724,9 +724,9 @@ LABEL_26:
       goto LABEL_27;
     }
 
-    v23 = [(UIImage *)backIndicatorImage isEqual:v20];
+    isEqual = objc_msgSend_isEqual_(backIndicatorImage);
 
-    if (!v23)
+    if (!isEqual)
     {
       goto LABEL_26;
     }
@@ -748,9 +748,9 @@ LABEL_26:
     goto LABEL_25;
   }
 
-  v27 = [(UIImage *)backIndicatorTransitionMaskImage isEqual:v25];
+  v27 = objc_msgSend_isEqual_(backIndicatorTransitionMaskImage);
 
-  if (!v27)
+  if ((v27 & 1) == 0)
   {
 LABEL_27:
     [(UIBarButtonItemAppearance *)self->_backButtonAppearance _setBackIndicatorImage:v21 transitionMaskImage:v15];

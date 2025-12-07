@@ -10,10 +10,10 @@
 
 - (BCSCoachingMessageView)init
 {
-  v52[8] = *MEMORY[0x277D85DE8];
-  v51.receiver = self;
-  v51.super_class = BCSCoachingMessageView;
-  v2 = [(BCSCoachingMessageView *)&v51 init];
+  v51[8] = *MEMORY[0x277D85DE8];
+  v50.receiver = self;
+  v50.super_class = BCSCoachingMessageView;
+  v2 = [(BCSCoachingMessageView *)&v50 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277D756B8]);
@@ -38,7 +38,7 @@
 
     fontDescriptor = v2->_fontDescriptor;
     v2->_fontDescriptor = v7;
-    v50 = v7;
+    v49 = v7;
 
     [(UILabel *)v3 setTranslatesAutoresizingMaskIntoConstraints:0];
     coachingMessageLabel = v2->_coachingMessageLabel;
@@ -71,41 +71,40 @@
     coachingLabelBottomAnchorConstraint = v2->_coachingLabelBottomAnchorConstraint;
     v2->_coachingLabelBottomAnchorConstraint = v24;
 
-    v41 = MEMORY[0x277CCAAD0];
-    v39 = v11;
+    v40 = MEMORY[0x277CCAAD0];
+    v38 = v11;
     leadingAnchor = [(UILabel *)v11 leadingAnchor];
     leadingAnchor2 = [(UIVisualEffectView *)v17 leadingAnchor];
-    v47 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:15.0];
-    v52[0] = v47;
+    v46 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:15.0];
+    v51[0] = v46;
     trailingAnchor = [(UILabel *)v11 trailingAnchor];
     trailingAnchor2 = [(UIVisualEffectView *)v17 trailingAnchor];
-    v44 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-15.0];
-    v52[1] = v44;
-    v52[2] = v2->_coachingLabelTopAnchorConstraint;
-    v52[3] = v2->_coachingLabelBottomAnchorConstraint;
+    v43 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-15.0];
+    v51[1] = v43;
+    v51[2] = v2->_coachingLabelTopAnchorConstraint;
+    v51[3] = v2->_coachingLabelBottomAnchorConstraint;
     leadingAnchor3 = [(UIVisualEffectView *)v17 leadingAnchor];
     leadingAnchor4 = [(BCSCoachingMessageView *)v2 leadingAnchor];
-    v40 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
-    v52[4] = v40;
+    v39 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4];
+    v51[4] = v39;
     trailingAnchor3 = [(UIVisualEffectView *)v17 trailingAnchor];
     trailingAnchor4 = [(BCSCoachingMessageView *)v2 trailingAnchor];
     v26 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4];
-    v52[5] = v26;
+    v51[5] = v26;
     topAnchor3 = [(UIVisualEffectView *)v17 topAnchor];
     topAnchor4 = [(BCSCoachingMessageView *)v2 topAnchor];
     v29 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
-    v52[6] = v29;
+    v51[6] = v29;
     bottomAnchor3 = [(UIVisualEffectView *)v17 bottomAnchor];
     bottomAnchor4 = [(BCSCoachingMessageView *)v2 bottomAnchor];
     v32 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-    v52[7] = v32;
-    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:8];
-    [v41 activateConstraints:v33];
+    v51[7] = v32;
+    v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:8];
+    [v40 activateConstraints:v33];
 
     v34 = v2;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

@@ -34,47 +34,41 @@
 
 + (NSDate)date
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = [self alloc];
   __tp.tv_sec = 0;
   __tp.tv_nsec = 0;
   clock_gettime(_CLOCK_REALTIME, &__tp);
-  result = [v2 initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v2 initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001];
 }
 
 + (NSTimeInterval)timeIntervalSinceReferenceDate
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   __tp.tv_sec = 0;
   __tp.tv_nsec = 0;
   clock_gettime(_CLOCK_REALTIME, &__tp);
-  v2 = *MEMORY[0x1E69E9840];
   return __tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001;
 }
 
 + (NSDate)now
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = [NSDate alloc];
   __tp.tv_sec = 0;
   __tp.tv_nsec = 0;
   clock_gettime(_CLOCK_REALTIME, &__tp);
-  result = [(NSDate *)v2 initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001];
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(NSDate *)v2 initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001];
 }
 
 - (NSTimeInterval)timeIntervalSinceNow
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   [(NSDate *)self timeIntervalSinceReferenceDate];
   v3 = v2;
   __tp.tv_sec = 0;
   __tp.tv_nsec = 0;
   clock_gettime(_CLOCK_REALTIME, &__tp);
-  v4 = *MEMORY[0x1E69E9840];
   return v3 - (__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001);
 }
 
@@ -410,21 +404,15 @@ LABEL_46:
 
 + (NSDate)allocWithZone:(_NSZone *)zone
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (NSDate == self)
   {
-    result = &___immutablePlaceholderDate;
+    return &___immutablePlaceholderDate;
   }
 
-  else
-  {
-    v5.receiver = self;
-    v5.super_class = &OBJC_METACLASS___NSDate;
-    result = objc_msgSendSuper2(&v5, sel_allocWithZone_, zone);
-  }
-
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  v4.receiver = self;
+  v4.super_class = &OBJC_METACLASS___NSDate;
+  return objc_msgSendSuper2(&v4, sel_allocWithZone_, zone);
 }
 
 + (NSDate)dateWithTimeIntervalSinceReferenceDate:(NSTimeInterval)ti
@@ -436,25 +424,21 @@ LABEL_46:
 
 + (NSDate)dateWithTimeIntervalSinceNow:(NSTimeInterval)secs
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = [self alloc];
   __tp.tv_sec = 0;
   __tp.tv_nsec = 0;
   clock_gettime(_CLOCK_REALTIME, &__tp);
-  result = [v4 initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001 + secs];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [v4 initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001 + secs];
 }
 
 - (NSDate)initWithTimeIntervalSinceNow:(NSTimeInterval)secs
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   __tp.tv_sec = 0;
   __tp.tv_nsec = 0;
   clock_gettime(_CLOCK_REALTIME, &__tp);
-  result = [(NSDate *)self initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001 + secs];
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return [(NSDate *)self initWithTimeIntervalSinceReferenceDate:__tp.tv_sec + -978307200.0 + __tp.tv_nsec * 0.000000001 + secs];
 }
 
 + (NSDate)dateWithTimeIntervalSince1970:(NSTimeInterval)secs

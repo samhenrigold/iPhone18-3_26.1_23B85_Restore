@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFSettingsSectionObservable.settingsSectionService(_:didUpdateSortOrder:)();
+  CAFSettingsSectionObservable.settingsSectionService(_:didUpdateSortOrder:)(selfCopy, order);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

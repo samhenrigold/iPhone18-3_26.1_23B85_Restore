@@ -69,7 +69,7 @@ uint64_t __50__PRUISTestingDeviceMotionProvider_motionProvider__block_invoke(uin
 
 - (void)stopGeneratingMotionEvents
 {
-  v3 = PRUISLogMotionEvents();
+  v3 = PRUISLogMotionEvents(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -86,7 +86,8 @@ uint64_t __50__PRUISTestingDeviceMotionProvider_motionProvider__block_invoke(uin
   motionUpdateTimer = self->_motionUpdateTimer;
   if (motionUpdateTimer)
   {
-    if (([(BSAbsoluteMachTimer *)motionUpdateTimer isScheduled]& 1) != 0)
+    isScheduled = [(BSAbsoluteMachTimer *)motionUpdateTimer isScheduled];
+    if (isScheduled)
     {
       return;
     }
@@ -94,34 +95,34 @@ uint64_t __50__PRUISTestingDeviceMotionProvider_motionProvider__block_invoke(uin
 
   else
   {
-    v4 = objc_alloc(MEMORY[0x1E698E5E8]);
-    v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRUISTestingDeviceMotionProvider._motionUpdateTimer"];
-    v6 = [v4 initWithIdentifier:v5];
-    v7 = self->_motionUpdateTimer;
-    self->_motionUpdateTimer = v6;
+    v5 = objc_alloc(MEMORY[0x1E698E5E8]);
+    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PRUISTestingDeviceMotionProvider._motionUpdateTimer"];
+    v7 = [v5 initWithIdentifier:v6];
+    v8 = self->_motionUpdateTimer;
+    self->_motionUpdateTimer = v7;
   }
 
-  v8 = PRUISLogMotionEvents();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = PRUISLogMotionEvents(isScheduled);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_1CAE63000, v8, OS_LOG_TYPE_DEFAULT, "Starting motion updates (testing provider)", buf, 2u);
+    _os_log_impl(&dword_1CAE63000, v9, OS_LOG_TYPE_DEFAULT, "Starting motion updates (testing provider)", buf, 2u);
   }
 
   objc_initWeak(buf, self);
-  v9 = self->_motionUpdateTimer;
+  v10 = self->_motionUpdateTimer;
   motionUpdateInterval = self->_motionUpdateInterval;
-  v11 = MEMORY[0x1E69E96A0];
   v12 = MEMORY[0x1E69E96A0];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __58__PRUISTestingDeviceMotionProvider__scheduleTimerIfNeeded__block_invoke;
-  v13[3] = &unk_1E83A8DD8;
-  objc_copyWeak(&v14, buf);
-  v13[4] = self;
-  [(BSAbsoluteMachTimer *)v9 scheduleRepeatingWithFireInterval:v11 repeatInterval:v13 leewayInterval:motionUpdateInterval queue:motionUpdateInterval handler:0.0];
+  v13 = MEMORY[0x1E69E96A0];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __58__PRUISTestingDeviceMotionProvider__scheduleTimerIfNeeded__block_invoke;
+  v14[3] = &unk_1E83A8DD8;
+  objc_copyWeak(&v15, buf);
+  v14[4] = self;
+  [(BSAbsoluteMachTimer *)v10 scheduleRepeatingWithFireInterval:v12 repeatInterval:v14 leewayInterval:motionUpdateInterval queue:motionUpdateInterval handler:0.0];
 
-  objc_destroyWeak(&v14);
+  objc_destroyWeak(&v15);
   objc_destroyWeak(buf);
 }
 
@@ -129,31 +130,31 @@ void __58__PRUISTestingDeviceMotionProvider__scheduleTimerIfNeeded__block_invoke
 {
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = objc_loadWeakRetained(WeakRetained + 4);
-  v8 = 0u;
   v9 = 0u;
+  v10 = 0u;
   v4 = *(a1 + 32);
-  [v4 _truncatingReminderOfValue:CACurrentMediaTime() dividingBy:1.0];
+  v5 = [v4 _truncatingReminderOfValue:CACurrentMediaTime() dividingBy:1.0];
   if (v4)
   {
-    [v4 _circularRotationWithProgress:? radius:?];
+    v5 = objc_msgSend__circularRotationWithProgress_radius_(v4);
   }
 
   else
   {
-    v8 = 0u;
     v9 = 0u;
+    v10 = 0u;
   }
 
-  v5 = PRUISLogMotionEvents();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = PRUISLogMotionEvents(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    __58__PRUISTestingDeviceMotionProvider__scheduleTimerIfNeeded__block_invoke_cold_1(&v8, v5);
+    __58__PRUISTestingDeviceMotionProvider__scheduleTimerIfNeeded__block_invoke_cold_1(&v9, v6);
   }
 
-  v6 = *(a1 + 32);
-  v7[0] = v8;
-  v7[1] = v9;
-  [v3 motionProvider:v6 motionDidUpdateWithRotation:v7];
+  v7 = *(a1 + 32);
+  v8[0] = v9;
+  v8[1] = v10;
+  [v3 motionProvider:v7 motionDidUpdateWithRotation:v8];
 }
 
 - (void)_rescheduleTimer

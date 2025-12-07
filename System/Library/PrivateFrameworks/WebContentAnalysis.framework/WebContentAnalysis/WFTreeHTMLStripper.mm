@@ -24,7 +24,7 @@
 
 - (WFTreeHTMLStripper)initWithData:(id)data
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (data)
   {
     bytes = [data bytes];
@@ -66,11 +66,9 @@
     Memory = 0;
   }
 
-  v15.receiver = self;
-  v15.super_class = WFTreeHTMLStripper;
-  result = [(WFTreeXMLDocumentStripper *)&v15 initWithXMLDocument:Memory];
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
+  v14.receiver = self;
+  v14.super_class = WFTreeHTMLStripper;
+  return [(WFTreeXMLDocumentStripper *)&v14 initWithXMLDocument:Memory];
 }
 
 - (WFTreeHTMLStripper)initWithString:(id)string
@@ -89,11 +87,10 @@
 
 - (void)initWithData:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136446210;
-  v3 = "[WFTreeHTMLStripper initWithData:]";
-  _os_log_error_impl(&dword_272D73000, log, OS_LOG_TYPE_ERROR, "**** %{public}s, error reading html data", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136446210;
+  v2 = "[WFTreeHTMLStripper initWithData:]";
+  _os_log_error_impl(&dword_272D73000, log, OS_LOG_TYPE_ERROR, "**** %{public}s, error reading html data", &v1, 0xCu);
 }
 
 @end

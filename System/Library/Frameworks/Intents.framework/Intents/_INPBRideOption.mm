@@ -21,35 +21,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_availablePartySizeOptions count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v5 = self->_availablePartySizeOptions;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v44;
+      v8 = *v43;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v44 != v8)
+          if (*v43 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v43 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v42 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v7);
@@ -79,30 +79,30 @@
   if ([(NSArray *)self->_fareLineItems count])
   {
     array2 = [MEMORY[0x1E695DF70] array];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v18 = self->_fareLineItems;
-    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v38 objects:v46 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v40;
+      v21 = *v39;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v40 != v21)
+          if (*v39 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          dictionaryRepresentation3 = [*(*(&v39 + 1) + 8 * j) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v38 + 1) + 8 * j) dictionaryRepresentation];
           [array2 addObject:dictionaryRepresentation3];
         }
 
-        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v39 objects:v47 count:16];
+        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v38 objects:v46 count:16];
       }
 
       while (v20);
@@ -149,8 +149,6 @@
     v36 = [MEMORY[0x1E696AD98] numberWithBool:{-[_INPBRideOption usesMeteredFare](self, "usesMeteredFare")}];
     [dictionary setObject:v36 forKeyedSubscript:@"usesMeteredFare"];
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -553,35 +551,34 @@ LABEL_58:
 
 - (void)writeTo:(id)to
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v5 = self->_availablePartySizeOptions;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v42;
+    v8 = *v33;
     do
     {
       v9 = 0;
       do
       {
-        if (*v42 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v41 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v7);
@@ -591,7 +588,6 @@ LABEL_58:
 
   if (availablePartySizeOptionsSelectionPrompt)
   {
-    availablePartySizeOptionsSelectionPrompt = self->_availablePartySizeOptionsSelectionPrompt;
     PBDataWriterWriteStringField();
   }
 
@@ -599,7 +595,6 @@ LABEL_58:
 
   if (disclaimerMessage)
   {
-    disclaimerMessage = self->_disclaimerMessage;
     PBDataWriterWriteStringField();
   }
 
@@ -611,43 +606,41 @@ LABEL_58:
     PBDataWriterWriteSubmessage();
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v17 = self->_fareLineItems;
-  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v37 objects:v45 count:16];
-  if (v18)
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v14 = self->_fareLineItems;
+  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  if (v15)
   {
-    v19 = v18;
-    v20 = *v38;
+    v16 = v15;
+    v17 = *v29;
     do
     {
-      v21 = 0;
+      v18 = 0;
       do
       {
-        if (*v38 != v20)
+        if (*v29 != v17)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v14);
         }
 
-        v22 = *(*(&v37 + 1) + 8 * v21);
         PBDataWriterWriteSubmessage();
-        ++v21;
+        ++v18;
       }
 
-      while (v19 != v21);
-      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      while (v16 != v18);
+      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
-    while (v19);
+    while (v16);
   }
 
   name = [(_INPBRideOption *)self name];
 
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
   }
 
@@ -663,7 +656,6 @@ LABEL_58:
 
   if (specialPricing)
   {
-    specialPricing = self->_specialPricing;
     PBDataWriterWriteStringField();
   }
 
@@ -679,7 +671,6 @@ LABEL_58:
 
   if (subtitle)
   {
-    subtitle = self->_subtitle;
     PBDataWriterWriteStringField();
   }
 
@@ -693,11 +684,8 @@ LABEL_58:
 
   if ([(_INPBRideOption *)self hasUsesMeteredFare])
   {
-    usesMeteredFare = self->_usesMeteredFare;
     PBDataWriterWriteBOOLField();
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSubtitle:(id)subtitle

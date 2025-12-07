@@ -434,7 +434,7 @@ LABEL_12:
 - (BOOL)createInstallationKeybagForDescriptor:(id)descriptor withLASecret:(id)secret forUnattendedInstall:(BOOL)install
 {
   installCopy = install;
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   secretCopy = secret;
   if (!secretCopy)
@@ -456,12 +456,12 @@ LABEL_12:
     }
 
     productBuildVersion = [descriptorCopy productBuildVersion];
-    v49 = stringForStashMode(v17);
+    v48 = stringForStashMode(v17);
     SULogInfo(@"createInstallationKeybag - Creating stashbag with LAContext secret. descriptor productBuildVersion: %@; stashMode: %@; manifest: %@", v19, v20, v21, v22, v23, v24, v25, productBuildVersion);
 
-    v50 = @"Manifest";
-    v51[0] = v16;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v51 forKeys:&v50 count:1];
+    v49 = @"Manifest";
+    v50[0] = v16;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:&v49 count:1];
     externalizedContext = [secretCopy externalizedContext];
     v28 = MKBKeyBagKeyStashCreateWithOpts();
 
@@ -483,11 +483,10 @@ LABEL_12:
 
   else
   {
-    SULogInfo(@"createInstallationKeybag - Unable to create stashbag because manifest was required but no manifest was provided.", v9, v10, v11, v12, v13, v14, v15, v48);
+    SULogInfo(@"createInstallationKeybag - Unable to create stashbag because manifest was required but no manifest was provided.", v9, v10, v11, v12, v13, v14, v15, v47);
     v36 = 0;
   }
 
-  v46 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
@@ -509,22 +508,22 @@ LABEL_12:
 
 - (id)createPreventLockAssertionWithDuration:(int64_t)duration
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   SULogInfo(@"Trying to create prevent lock assertion for duration: %llds", a2, duration, v3, v4, v5, v6, v7, duration);
   if ([(SUKeybagInterface *)self isPasscodeLocked])
   {
-    SULogError(@"Failed to create prevent lock assertion when the device is passcode locked", v10, v11, v12, v13, v14, v15, v16, v37);
+    SULogError(@"Failed to create prevent lock assertion when the device is passcode locked", v10, v11, v12, v13, v14, v15, v16, v36);
     v17 = 0;
   }
 
   else
   {
-    v38[0] = @"MKBAssertionKey";
-    v38[1] = @"MKBAssertionTimeout";
-    v39[0] = @"RemoteProfile";
+    v37[0] = @"MKBAssertionKey";
+    v37[1] = @"MKBAssertionTimeout";
+    v38[0] = @"RemoteProfile";
     v18 = [MEMORY[0x277CCABB0] numberWithLongLong:duration];
-    v39[1] = v18;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+    v38[1] = v18;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
 
     v27 = MKBDeviceLockAssertion();
     if (v27)
@@ -533,7 +532,7 @@ LABEL_12:
       CFRelease(v27);
       if (!v17)
       {
-        SULogError(@"Failed to create SUKeybagPreventLockAssertion", v28, v29, v30, v31, v32, v33, v34, v37);
+        SULogError(@"Failed to create SUKeybagPreventLockAssertion", v28, v29, v30, v31, v32, v33, v34, v36);
       }
     }
 
@@ -543,8 +542,6 @@ LABEL_12:
       v17 = 0;
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -584,58 +581,55 @@ LABEL_12:
 
 void __43__SUKeybagInterface__queue_passcodeChanged__block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 keybagInterfacePasscodeDidChange:{*(a1 + 40), v9}];
+          [v7 keybagInterfacePasscodeDidChange:{*(a1 + 40), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (int)_queue_fetchKeybagState
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
-  v6[0] = *MEMORY[0x277D28B10];
-  v6[1] = @"ExtendedDeviceLockState";
-  v7[0] = &unk_287B6F658;
-  v7[1] = MEMORY[0x277CBEC38];
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v5[0] = *MEMORY[0x277D28B10];
+  v5[1] = @"ExtendedDeviceLockState";
+  v6[0] = &unk_287B6F658;
+  v6[1] = MEMORY[0x277CBEC38];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
   v3 = MKBGetDeviceLockState();
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -663,44 +657,42 @@ void __43__SUKeybagInterface__queue_passcodeChanged__block_invoke(uint64_t a1)
 
 void __46__SUKeybagInterface__queue_setHasPasscodeSet___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 keybagInterface:*(a1 + 40) hasPasscodeSetDidChange:{*(a1 + 48), v9}];
+          [v7 keybagInterface:*(a1 + 40) hasPasscodeSetDidChange:{*(a1 + 48), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_setIsPasscodeLocked:(BOOL)locked
@@ -727,44 +719,42 @@ void __46__SUKeybagInterface__queue_setHasPasscodeSet___block_invoke(uint64_t a1
 
 void __48__SUKeybagInterface__queue_setIsPasscodeLocked___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 keybagInterface:*(a1 + 40) passcodeLockedStateDidChange:{*(a1 + 48), v9}];
+          [v7 keybagInterface:*(a1 + 40) passcodeLockedStateDidChange:{*(a1 + 48), v8}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:.cold.1()

@@ -3,7 +3,7 @@
 
 @implementation NSArray
 
-uint64_t __58__NSArray_TSUAdditions__tsu_arrayByTransformingWithBlock___block_invoke(uint64_t a1)
+void *__58__NSArray_TSUAdditions__tsu_arrayByTransformingWithBlock___block_invoke(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -17,7 +17,7 @@ uint64_t __58__NSArray_TSUAdditions__tsu_arrayByTransformingWithBlock___block_in
   return result;
 }
 
-uint64_t __46__NSArray_TSUAdditions__tsu_arrayByFlattening__block_invoke(uint64_t a1, void *a2, void *a3)
+void *__46__NSArray_TSUAdditions__tsu_arrayByFlattening__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v16 = *MEMORY[0x277D85DE8];
   v11 = 0u;
@@ -51,7 +51,7 @@ uint64_t __46__NSArray_TSUAdditions__tsu_arrayByFlattening__block_invoke(uint64_
           [a3 addObject:v10];
         }
 
-        ++v9;
+        v9 = v9 + 1;
       }
 
       while (v7 != v9);

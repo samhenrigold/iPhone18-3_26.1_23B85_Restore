@@ -206,65 +206,65 @@ LABEL_19:
   {
     deviceRef = [(OSDCaptureDevice *)self deviceRef];
     v8 = *(CMBaseObjectGetVTable() + 16);
-    if (*v8 < 2uLL || (v9 = v8[2]) == 0 || (v10 = v8[2], (v11 = v9(deviceRef, v5, 0), v11 != -12782) ? (v12 = v11 == 0) : (v12 = 1), v12))
+    if (*v8 < 2uLL || (v9 = v8[2]) == 0 || ((v10 = v9(deviceRef, v5, 0), v10 != -12782) ? (v11 = v10 == 0) : (v11 = 1), v11))
     {
       v6 = 1;
     }
 
     else
     {
-      v27 = v11;
-      v28 = DiagnosticLogHandleForCategory();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v26 = v10;
+      v27 = DiagnosticLogHandleForCategory();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         selfCopy = self;
-        v39 = 1024;
-        v40 = v27;
-        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "%@: Failed to request control of the streams! %d", buf, 0x12u);
+        v38 = 1024;
+        v39 = v26;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%@: Failed to request control of the streams! %d", buf, 0x12u);
       }
 
       v6 = 0;
     }
 
-    v13 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(v5, "count")}];
+    v12 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(v5, "count")}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v14 = v5;
-    v15 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
-    if (v15)
+    v13 = v5;
+    v14 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    if (v14)
     {
-      v16 = v15;
-      v30 = v6;
-      v31 = v5;
-      v17 = *v33;
+      v15 = v14;
+      v29 = v6;
+      v30 = v5;
+      v16 = *v32;
       while (2)
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v15; i = i + 1)
         {
-          if (*v33 != v17)
+          if (*v32 != v16)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v13);
           }
 
-          v19 = [[OSDCaptureStream alloc] initWithStream:*(*(&v32 + 1) + 8 * i)];
-          v20 = [(OSDCaptureStream *)v19 name:streams];
-          if (!v20)
+          v18 = [[OSDCaptureStream alloc] initWithStream:*(*(&v31 + 1) + 8 * i)];
+          v19 = [(OSDCaptureStream *)v18 name:streams];
+          if (!v19)
           {
 
             v6 = 0;
-            v5 = v31;
-            goto LABEL_23;
+            v5 = v30;
+            goto LABEL_22;
           }
 
-          v21 = v20;
-          [v13 setObject:v19 forKeyedSubscript:v20];
+          v20 = v19;
+          [v12 setObject:v18 forKeyedSubscript:v19];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v32 objects:v36 count:16];
-        if (v16)
+        v15 = [v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        if (v15)
         {
           continue;
         }
@@ -272,23 +272,23 @@ LABEL_19:
         break;
       }
 
-      v5 = v31;
-      v6 = v30;
+      v5 = v30;
+      v6 = v29;
     }
 
-LABEL_23:
+LABEL_22:
 
-    v22 = [v13 copy];
+    v21 = [v12 copy];
     portToStreamMap = self->_portToStreamMap;
-    self->_portToStreamMap = v22;
+    self->_portToStreamMap = v21;
 
-    v24 = DiagnosticLogHandleForCategory();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v23 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = [(NSDictionary *)self->_portToStreamMap count];
+      v24 = [(NSDictionary *)self->_portToStreamMap count];
       *buf = 134217984;
-      selfCopy = v25;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "OSDCaptureDevice has %lu streams", buf, 0xCu);
+      selfCopy = v24;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "OSDCaptureDevice has %lu streams", buf, 0xCu);
     }
   }
 
@@ -327,31 +327,26 @@ LABEL_23:
 
 - (int)backingSetProperty:(__CFString *)property value:(void *)value
 {
-  deviceRef = self->_deviceRef;
   FigBaseObject = FigCaptureDeviceGetFigBaseObject();
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 8) + 56);
-  if (!v9)
+  v7 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+  if (!v7)
   {
     return -12782;
   }
 
-  v10 = *(VTable + 8) + 56;
-
-  return v9(FigBaseObject, property, value);
+  return v7(FigBaseObject, property, value);
 }
 
 - (int)backingCopyProperty:(__CFString *)property dest:(const void *)dest
 {
-  deviceRef = self->_deviceRef;
   FigBaseObject = FigCaptureDeviceGetFigBaseObject();
-  v8 = *(*(CMBaseObjectGetVTable() + 8) + 48);
-  if (!v8)
+  v7 = *(*(CMBaseObjectGetVTable() + 8) + 48);
+  if (!v7)
   {
     return -12782;
   }
 
-  return v8(FigBaseObject, property, kCFAllocatorDefault, dest);
+  return v7(FigBaseObject, property, kCFAllocatorDefault, dest);
 }
 
 @end

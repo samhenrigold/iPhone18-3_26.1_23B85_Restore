@@ -66,7 +66,7 @@
   return v3;
 }
 
-uint64_t __20__AVOperation_error__block_invoke(uint64_t a1)
+void *__20__AVOperation_error__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 264) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

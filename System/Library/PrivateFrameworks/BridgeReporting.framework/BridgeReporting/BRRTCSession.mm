@@ -69,24 +69,21 @@ void __73__BRRTCSession_startRTCReportingSessionWithConfiguration_andComplection
 
 uint64_t __73__BRRTCSession_startRTCReportingSessionWithConfiguration_andComplection___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    v3 = br_metriccollection_log();
+    v3 = br_metriccollection_log(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR) && os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136315394;
-      v8 = "+[BRRTCSession startRTCReportingSessionWithConfiguration:andComplection:]_block_invoke_2";
-      v9 = 2112;
-      v10 = 0;
-      _os_log_impl(&dword_241ECA000, v3, OS_LOG_TYPE_DEFAULT, "%s backends is nil, we will attempt to submit anyway %@", &v7, 0x16u);
+      v5 = 136315394;
+      v6 = "+[BRRTCSession startRTCReportingSessionWithConfiguration:andComplection:]_block_invoke_2";
+      v7 = 2112;
+      v8 = 0;
+      _os_log_impl(&dword_241ECA000, v3, OS_LOG_TYPE_DEFAULT, "%s backends is nil, we will attempt to submit anyway %@", &v5, 0x16u);
     }
   }
 
-  v4 = *(a1 + 32);
-  result = (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 + (id)_parentRTCReportingSession:(id)session
@@ -114,19 +111,18 @@ uint64_t __73__BRRTCSession_startRTCReportingSessionWithConfiguration_andComplec
   v10 = objc_alloc(MEMORY[0x277D43FE0]);
 
   v11 = [v10 initWithSessionInfo:v7 userInfo:v9 frameworksToCheck:MEMORY[0x277CBEBF8]];
+  v12 = v11;
   if (v11)
   {
-    v12 = br_metriccollection_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = br_metriccollection_log(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *v15 = 0;
-      _os_log_impl(&dword_241ECA000, v12, OS_LOG_TYPE_DEFAULT, "RTC session instance created", v15, 2u);
+      _os_log_impl(&dword_241ECA000, v13, OS_LOG_TYPE_DEFAULT, "RTC session instance created", v15, 2u);
     }
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
 @end

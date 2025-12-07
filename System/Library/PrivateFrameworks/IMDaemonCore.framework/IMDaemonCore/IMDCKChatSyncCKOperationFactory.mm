@@ -56,7 +56,7 @@
 
 - (id)fetchChatZoneChangesCKOperationUsingToken:(id)token zone:(id)zone resultsLimit:(unint64_t)limit groupName:(id)name activity:(id)activity
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   zoneCopy = zone;
   nameCopy = name;
@@ -81,9 +81,9 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         operationID = [v19 operationID];
-        v27 = 138412290;
-        v28 = operationID;
-        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Created fetch chat operation ID %@", &v27, 0xCu);
+        v26 = 138412290;
+        v27 = operationID;
+        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "Created fetch chat operation ID %@", &v26, 0xCu);
       }
     }
   }
@@ -95,15 +95,13 @@
       v24 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v27) = 0;
-        _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "fetchChatZoneChangesCKOperationUsingToken was passed in a nil zone", &v27, 2u);
+        LOWORD(v26) = 0;
+        _os_log_impl(&dword_22B4CC000, v24, OS_LOG_TYPE_INFO, "fetchChatZoneChangesCKOperationUsingToken was passed in a nil zone", &v26, 2u);
       }
     }
 
     v19 = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -122,7 +120,7 @@
 
 - (id)saveChatsCKOperationUsingRecordsToSave:(id)save activity:(id)activity
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   activityCopy = activity;
   if (saveCopy)
@@ -145,9 +143,9 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         operationID = [v8 operationID];
-        v17 = 138412290;
-        v18 = operationID;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Created modify chat operation ID %@", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = operationID;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "Created modify chat operation ID %@", &v16, 0xCu);
       }
     }
   }
@@ -159,22 +157,20 @@
       v14 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "writeChatsOperationUsingRecordsToSave was passed in a nil records array", &v17, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "writeChatsOperationUsingRecordsToSave was passed in a nil records array", &v16, 2u);
       }
     }
 
     v8 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)deleteChatCKOperationUsingRecordIDstoDelete:(id)delete
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   deleteCopy = delete;
   v5 = [objc_alloc(MEMORY[0x277CBC4A0]) initWithRecordsToSave:0 recordIDsToDelete:deleteCopy];
   [v5 setAtomic:0];
@@ -191,20 +187,18 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       operationID = [v5 operationID];
-      v12 = 138412290;
-      v13 = operationID;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Created deleted chat operation ID %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = operationID;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Created deleted chat operation ID %@", &v11, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)fetchChatCKOperationUsingRecordIDs:(id)ds
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   v5 = [objc_alloc(MEMORY[0x277CBC3E0]) initWithRecordIDs:dsCopy];
   v6 = objc_alloc_init(MEMORY[0x277CBC4F0]);
@@ -220,13 +214,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       operationID = [v5 operationID];
-      v12 = 138412290;
-      v13 = operationID;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Created fetch chat operation ID %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = operationID;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Created fetch chat operation ID %@", &v11, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

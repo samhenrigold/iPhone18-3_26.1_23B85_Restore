@@ -249,7 +249,7 @@ uint64_t __73__FigCameraViewfinderLocal__updateActiveViewfinderSession_sessionSt
   return [a2 cameraViewfinder:v4 viewfinderSessionDidEnd:v5];
 }
 
-uint64_t __73__FigCameraViewfinderLocal__updateActiveViewfinderSession_sessionStatus___block_invoke_2(uint64_t a1)
+void *__73__FigCameraViewfinderLocal__updateActiveViewfinderSession_sessionStatus___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) setDelegateActiveViewfinderSession:*(a1 + 40)];
   v3 = *(a1 + 48);

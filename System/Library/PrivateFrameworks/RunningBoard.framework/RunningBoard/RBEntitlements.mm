@@ -97,7 +97,7 @@ uint64_t __42__RBEntitlements_rb_hasEntitlementDomain___block_invoke(uint64_t a1
 
 + (id)_entitlementsForOption:(uint64_t)option
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_self();
   v4 = v3;
   if ((a2 ^ (a2 - 1)) <= a2 - 1)
@@ -111,24 +111,24 @@ uint64_t __42__RBEntitlements_rb_hasEntitlementDomain___block_invoke(uint64_t a1
     switch(a2)
     {
       case 1:
-        v20[0] = @"com.apple.runningboard.process-state";
-        v20[1] = @"com.apple.assertiond.app-state-monitor";
-        v20[2] = @"com.apple.multitasking.termination";
-        v8 = MEMORY[0x277CBEA60];
-        v9 = v20;
-        break;
-      case 2:
-        v19[0] = @"com.apple.runningboard.launchprocess";
-        v19[1] = @"com.apple.assertiond.system-shell";
-        v19[2] = @"com.apple.private.xpc.launchd.app-server";
+        v19[0] = @"com.apple.runningboard.process-state";
+        v19[1] = @"com.apple.assertiond.app-state-monitor";
+        v19[2] = @"com.apple.multitasking.termination";
         v8 = MEMORY[0x277CBEA60];
         v9 = v19;
         break;
-      case 4:
-        v18[0] = @"com.apple.runningboard.terminateprocess";
-        v18[1] = @"com.apple.multitasking.termination";
+      case 2:
+        v18[0] = @"com.apple.runningboard.launchprocess";
+        v18[1] = @"com.apple.assertiond.system-shell";
+        v18[2] = @"com.apple.private.xpc.launchd.app-server";
         v8 = MEMORY[0x277CBEA60];
         v9 = v18;
+        break;
+      case 4:
+        v17[0] = @"com.apple.runningboard.terminateprocess";
+        v17[1] = @"com.apple.multitasking.termination";
+        v8 = MEMORY[0x277CBEA60];
+        v9 = v17;
         goto LABEL_17;
       default:
         goto LABEL_22;
@@ -142,13 +142,13 @@ uint64_t __42__RBEntitlements_rb_hasEntitlementDomain___block_invoke(uint64_t a1
   {
     if (a2 == 32)
     {
-      v15[0] = @"com.apple.multitasking.unlimitedassertions";
-      v15[1] = @"com.apple.multitasking.systemappassertions";
-      v15[2] = @"com.apple.multitasking.newsstandassertions";
-      v15[3] = @"com.apple.multitasking.voipassertions";
-      v15[4] = @"com.apple.assertiond.system-shell";
+      v14[0] = @"com.apple.multitasking.unlimitedassertions";
+      v14[1] = @"com.apple.multitasking.systemappassertions";
+      v14[2] = @"com.apple.multitasking.newsstandassertions";
+      v14[3] = @"com.apple.multitasking.voipassertions";
+      v14[4] = @"com.apple.assertiond.system-shell";
       v8 = MEMORY[0x277CBEA60];
-      v9 = v15;
+      v9 = v14;
       v11 = 5;
       goto LABEL_21;
     }
@@ -159,10 +159,10 @@ uint64_t __42__RBEntitlements_rb_hasEntitlementDomain___block_invoke(uint64_t a1
     }
 
     v10 = *MEMORY[0x277D47040];
-    v14[0] = @"com.apple.runningboard.trustedtarget";
-    v14[1] = v10;
+    v13[0] = @"com.apple.runningboard.trustedtarget";
+    v13[1] = v10;
     v8 = MEMORY[0x277CBEA60];
-    v9 = v14;
+    v9 = v13;
 LABEL_17:
     v11 = 2;
 LABEL_21:
@@ -172,23 +172,22 @@ LABEL_21:
 
   if (a2 == 8)
   {
-    v17[0] = @"com.apple.backboardd.debugapplications";
-    v17[1] = @"com.apple.springboard.debugapplications";
+    v16[0] = @"com.apple.backboardd.debugapplications";
+    v16[1] = @"com.apple.springboard.debugapplications";
     v8 = MEMORY[0x277CBEA60];
-    v9 = v17;
+    v9 = v16;
     goto LABEL_17;
   }
 
   if (a2 == 16)
   {
-    v16 = @"com.apple.runningboard.endowment-originator";
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
+    v15 = @"com.apple.runningboard.endowment-originator";
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
     v7 = [(RBEntitlements *)v4 _entitlementsForOption:?];
     v5 = [v6 arrayByAddingObjectsFromArray:v7];
   }
 
 LABEL_22:
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

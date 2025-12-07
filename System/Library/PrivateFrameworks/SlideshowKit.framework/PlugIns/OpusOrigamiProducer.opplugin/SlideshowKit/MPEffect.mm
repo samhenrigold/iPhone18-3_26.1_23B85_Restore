@@ -4103,7 +4103,7 @@ LABEL_72:
 
 - (void)scaleMainDuration
 {
-  [(MPEffectContainer *)self->_parentContainer duration];
+  objc_msgSend_duration(self->_parentContainer, a2);
   v4 = v3;
   [(MPEffect *)self phaseInDuration];
   v6 = v5;

@@ -6,6 +6,7 @@
 - (BOOL)removeRecordID:(id)d error:(id *)error;
 - (BOOL)removeRecordsWithShareRowID:(id)d error:(id *)error;
 - (CKDShareIDCacheRecordTable)initWithShareIDTable:(id)table;
+- (id)entryForRecordID:(id)d addIfNotFound:(BOOL)found error:(id *)error;
 - (id)shareIDForRecordID:(id)d error:(id *)error;
 - (id)shareIDsForZoneID:(id)d error:(id *)error;
 - (unint64_t)removeRecordsWithZoneRowID:(id)d error:(id *)error;
@@ -16,19 +17,18 @@
 
 + (id)dbProperties
 {
-  v6[5] = *MEMORY[0x277D85DE8];
-  v5[0] = @"rowID";
-  v5[1] = @"zoneRowID";
-  v6[0] = &unk_2838C82B0;
-  v6[1] = &unk_2838C82E0;
-  v5[2] = @"recordName";
-  v5[3] = @"shareRowID";
-  v6[2] = &unk_2838C82F8;
-  v6[3] = &unk_2838C8328;
-  v5[4] = @"parentRowID";
-  v6[4] = &unk_2838C8328;
-  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v6, v5, 5);
-  v3 = *MEMORY[0x277D85DE8];
+  v5[5] = *MEMORY[0x277D85DE8];
+  v4[0] = @"rowID";
+  v4[1] = @"zoneRowID";
+  v5[0] = &unk_2838C82B0;
+  v5[1] = &unk_2838C82E0;
+  v4[2] = @"recordName";
+  v4[3] = @"shareRowID";
+  v5[2] = &unk_2838C82F8;
+  v5[3] = &unk_2838C8328;
+  v4[4] = @"parentRowID";
+  v5[4] = &unk_2838C8328;
+  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v5, v4, 5);
 
   return v2;
 }
@@ -50,6 +50,74 @@
   }
 
   return v19;
+}
+
+- (id)entryForRecordID:(id)d addIfNotFound:(BOOL)found error:(id *)error
+{
+  foundCopy = found;
+  v39[2] = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  v11 = objc_msgSend_recordName(dCopy, v9, v10);
+  v14 = objc_msgSend_zoneID(dCopy, v12, v13);
+
+  v17 = 0;
+  if (v11 && v14)
+  {
+    v18 = objc_msgSend_shareIDTable(self, v15, v16);
+    v21 = objc_msgSend_zoneIDTable(v18, v19, v20);
+    v37 = 0;
+    v23 = objc_msgSend_rowIDForZoneID_addIfNotFound_error_(v21, v22, v14, foundCopy, &v37);
+    v24 = v37;
+
+    v26 = 0;
+    if (!v24 && v23)
+    {
+      v38[0] = @"zoneRowID";
+      v38[1] = @"recordName";
+      v39[0] = v23;
+      v39[1] = v11;
+      v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, v39, v38, 2);
+      v36 = 0;
+      v29 = objc_msgSend_entryWithValues_label_error_setupBlock_(self, v28, v27, off_27D719DA8, &v36, &unk_28385C900);
+      v30 = v36;
+      if (v30 | v29)
+      {
+        v24 = v30;
+      }
+
+      else
+      {
+        v24 = 0;
+      }
+
+      if (!(v30 | v29) && foundCopy)
+      {
+        v31 = [CKDShareIDCacheRecordEntry alloc];
+        v29 = objc_msgSend_initWithZoneRowID_recordName_(v31, v32, v23, v11);
+        v24 = objc_msgSend_insertObject_(self, v33, v29);
+      }
+
+      if (v24)
+      {
+        v26 = 0;
+      }
+
+      else
+      {
+        v26 = v29;
+      }
+    }
+
+    if (error)
+    {
+      v34 = v24;
+      *error = v24;
+    }
+
+    v17 = v26;
+  }
+
+  return v17;
 }
 
 - (id)shareIDForRecordID:(id)d error:(id *)error
@@ -213,12 +281,12 @@ LABEL_14:
 
 - (BOOL)propagateShareRowID:(id)d toChildrenOfRowID:(id)iD error:(id *)error
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
-  v39 = @"parentRowID";
-  v40[0] = iDCopy;
-  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v40, &v39, 1);
+  v38 = @"parentRowID";
+  v39[0] = iDCopy;
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v39, &v38, 1);
   v12 = objc_msgSend_entriesWithValues_label_setupBlock_(self, v11, v10, off_280D53290, &unk_28385C920);
 
   context = objc_autoreleasePoolPush();
@@ -239,16 +307,16 @@ LABEL_14:
       else
       {
         objc_msgSend_setShareRowID_(v18, v22, dCopy);
-        v38 = @"shareRowID";
-        v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v25, &v38, 1);
+        v37 = @"shareRowID";
+        v26 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v25, &v37, 1);
         v24 = objc_msgSend_updateProperties_usingObject_label_(self, v27, v26, v18, off_280D532A8);
 
         if (!v24)
         {
           v28 = objc_msgSend_rowID(v18, v22, v23);
-          v37 = 0;
-          objc_msgSend_propagateShareRowID_toChildrenOfRowID_error_(self, v29, dCopy, v28, &v37);
-          v24 = v37;
+          v36 = 0;
+          objc_msgSend_propagateShareRowID_toChildrenOfRowID_error_(self, v29, dCopy, v28, &v36);
+          v24 = v36;
         }
       }
 
@@ -280,20 +348,19 @@ LABEL_14:
     *error = v31;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v31 == 0;
 }
 
 - (BOOL)removeRecordsWithShareRowID:(id)d error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v19 = @"shareRowID";
-  v20[0] = dCopy;
-  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v20, &v19, 1);
-  v16 = 0;
-  v10 = objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v9, v8, off_27D719DD8, &v16, &unk_28385C940);
-  v11 = v16;
+  v18 = @"shareRowID";
+  v19[0] = dCopy;
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v7, v19, &v18, 1);
+  v15 = 0;
+  v10 = objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v9, v8, off_27D719DD8, &v15, &unk_28385C940);
+  v11 = v15;
 
   if (v10)
   {
@@ -306,7 +373,7 @@ LABEL_14:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      v18 = v10;
+      v17 = v10;
       _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Deleted %zu records for the share from the shareID records cache.", buf, 0xCu);
       if (!error)
       {
@@ -326,7 +393,6 @@ LABEL_6:
 
 LABEL_7:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11 == 0;
 }
 
@@ -387,15 +453,15 @@ LABEL_7:
 
 - (unint64_t)removeRecordsWithZoneRowID:(id)d error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  v17 = @"zoneRowID";
-  v18[0] = d;
+  v17[1] = *MEMORY[0x277D85DE8];
+  v16 = @"zoneRowID";
+  v17[0] = d;
   v6 = MEMORY[0x277CBEAC0];
   dCopy = d;
-  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v6, v8, v18, &v17, 1);
-  v16 = 0;
-  v11 = objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v10, v9, off_27D719DF0, &v16, &unk_28385C960);
-  v12 = v16;
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v6, v8, v17, &v16, 1);
+  v15 = 0;
+  v11 = objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v10, v9, off_27D719DF0, &v15, &unk_28385C960);
+  v12 = v15;
 
   if (error)
   {
@@ -403,7 +469,6 @@ LABEL_7:
     *error = v12;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

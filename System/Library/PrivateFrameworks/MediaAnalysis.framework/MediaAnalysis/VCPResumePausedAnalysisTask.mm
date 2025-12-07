@@ -400,7 +400,7 @@ LABEL_129:
     analysis = [v6 analysis];
     v19 = analysis;
     memset(&v88, 0, sizeof(v88));
-    if (!analysis || ([analysis vcp_syncPoint], (v88.flags & 1) == 0))
+    if (!analysis || (objc_msgSend_vcp_syncPoint(analysis), (v88.flags & 1) == 0))
     {
       if (MediaAnalysisLogLevel() >= 4)
       {
@@ -640,7 +640,7 @@ LABEL_126:
     }
 
     memset(&v72, 0, sizeof(v72));
-    [v57 vcp_syncPoint];
+    objc_msgSend_vcp_syncPoint(v57);
     if (!(0 >> 96))
     {
       if (MediaAnalysisLogLevel() < 4)

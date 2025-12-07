@@ -10,14 +10,12 @@
 
 + (id)supportedFeatures
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [REFeatureSet alloc];
   v3 = +[REFeature appUsageFeature];
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   v5 = [(REFeatureSet *)v2 initWithFeatures:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

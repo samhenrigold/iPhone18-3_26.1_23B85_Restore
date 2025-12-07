@@ -174,21 +174,19 @@ void __42__FCHealthService__postSampleNotification__block_invoke(uint64_t a1, vo
 
 void __62__FCHealthService_coordinator_postGoalCompletionNotification___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_24B55B000, v4, OS_LOG_TYPE_DEFAULT, "Posted goal completion notification: %@, error: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_24B55B000, v4, OS_LOG_TYPE_DEFAULT, "Posted goal completion notification: %@, error: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coordinator:(id)coordinator eventFiredWithContent:(id)content
@@ -206,21 +204,19 @@ void __62__FCHealthService_coordinator_postGoalCompletionNotification___block_in
 
 void __53__FCHealthService_coordinator_eventFiredWithContent___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC290];
   if (os_log_type_enabled(*MEMORY[0x277CCC290], OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v7 = 138412546;
-    v8 = v5;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_24B55B000, v4, OS_LOG_TYPE_DEFAULT, "Posted goal progress notification: %@, error: %@", &v7, 0x16u);
+    v6 = 138412546;
+    v7 = v5;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_24B55B000, v4, OS_LOG_TYPE_DEFAULT, "Posted goal progress notification: %@, error: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)coordinator:(id)coordinator postMoveModeNotification:(id)notification
@@ -279,7 +275,7 @@ void __64__FCHealthService__onqueue_registerForStandalonePhoneModeChange__block_
 
 - (void)_onqueue_updateService
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serviceQueue);
   _HKInitializeLogging();
   v3 = MEMORY[0x277CCC290];
@@ -292,9 +288,9 @@ void __64__FCHealthService__onqueue_registerForStandalonePhoneModeChange__block_
     isStandalonePhoneFitnessMode = [sharedBehavior isStandalonePhoneFitnessMode];
     fitnessAppInstalled = [(FCAppInstallationObserver *)self->_appInstallationObserver fitnessAppInstalled];
     *buf = 67109376;
-    v65 = isStandalonePhoneFitnessMode;
-    v66 = 1024;
-    v67 = fitnessAppInstalled;
+    v64 = isStandalonePhoneFitnessMode;
+    v65 = 1024;
+    v66 = fitnessAppInstalled;
     _os_log_impl(&dword_24B55B000, v6, OS_LOG_TYPE_DEFAULT, "FCHealthService updating with standalone %{BOOL}d, app installed %{BOOL}d", buf, 0xEu);
   }
 
@@ -373,16 +369,14 @@ void __64__FCHealthService__onqueue_registerForStandalonePhoneModeChange__block_
       self->_serviceEnabled = 1;
       _HKInitializeLogging();
       v51 = *v3;
-      if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
       {
-        *buf = 0;
-        v52 = "FCHealthService enabled";
-LABEL_13:
-        _os_log_impl(&dword_24B55B000, v51, OS_LOG_TYPE_DEFAULT, v52, buf, 2u);
-        goto LABEL_14;
+        return;
       }
 
-      goto LABEL_14;
+      *buf = 0;
+      v52 = "FCHealthService enabled";
+      goto LABEL_13;
     }
   }
 
@@ -438,21 +432,18 @@ LABEL_13:
     {
       *buf = 0;
       v52 = "FCHealthService disabled";
-      goto LABEL_13;
+LABEL_13:
+      _os_log_impl(&dword_24B55B000, v51, OS_LOG_TYPE_DEFAULT, v52, buf, 2u);
     }
   }
-
-LABEL_14:
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 void __42__FCHealthService__postSampleNotification__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B55B000, a2, OS_LOG_TYPE_ERROR, "Failed to post notification: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B55B000, a2, OS_LOG_TYPE_ERROR, "Failed to post notification: %@", &v2, 0xCu);
 }
 
 @end

@@ -30,12 +30,13 @@
   v15 = MBGetDefaultLog();
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
+    v16 = v14 - Current;
     *buf = 138412546;
     selfCopy = self;
-    v19 = 2048;
-    v20 = v14 - Current;
+    v20 = 2048;
+    v21 = v16;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Opened %@ as PlaceholderFileList in %.3fs", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"I ", "Opened %@ as PlaceholderFileList in %.3fs", self, *&v16);
   }
 
   return v13;

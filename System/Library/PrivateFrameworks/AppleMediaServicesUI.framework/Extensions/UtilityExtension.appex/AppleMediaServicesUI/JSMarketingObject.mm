@@ -8,7 +8,7 @@
 {
   itemCopy = item;
   selfCopy = self;
-  v6 = sub_10001F250();
+  v6 = sub_10001F250(itemCopy);
 
   return v6;
 }

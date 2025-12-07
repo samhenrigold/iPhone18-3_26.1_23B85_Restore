@@ -13,7 +13,7 @@
 {
   sub_199DF9CEC();
   sub_199DF9C5C();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAF74790);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAF74790, &qword_199E38F80);
   v2 = sub_199DFA0BC();
 
   return v2;
@@ -27,17 +27,17 @@
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   *(&self->super.isa + OBJC_IVAR____TtC10ContactsUI33ContactListMergeUnifyActionHelper_contactStore) = store;
   v9.receiver = self;
-  v9.super_class = type metadata accessor for ContactListMergeUnifyActionHelper();
+  v9.super_class = type metadata accessor for ContactListMergeUnifyActionHelper(0);
   storeCopy = store;
   return [(ContactListMergeUnifyActionHelper *)&v9 init];
 }
 
 - (void)mergeContacts:(id)contacts withContainerIdentifiers:(id)identifiers withContactIDToParentGroupsDict:(id)dict
 {
-  sub_199A7A02C(0, &qword_1ED615BF0);
+  sub_199A7A02C(0, &qword_1ED615BF0, 0x1E695CD58);
   v6 = sub_199DFA0CC();
   v7 = sub_199DFA0CC();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAF72740);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAF72740, qword_199E37DD8);
   v8 = sub_199DF9E9C();
   selfCopy = self;
   sub_199AA2600(v6, v7, v8);
@@ -47,7 +47,7 @@
 {
   requestCopy = request;
   selfCopy = self;
-  LOBYTE(self) = sub_199AA2B10();
+  LOBYTE(self) = sub_199AA2B10(requestCopy);
 
   return self & 1;
 }

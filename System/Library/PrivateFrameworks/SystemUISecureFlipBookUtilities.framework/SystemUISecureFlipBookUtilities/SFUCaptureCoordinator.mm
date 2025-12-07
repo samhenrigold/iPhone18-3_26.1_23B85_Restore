@@ -54,13 +54,13 @@
   if (options)
   {
     type metadata accessor for CaptureCoordinatorOption(0);
-    sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
+    sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
     options = sub_26C64D9A8();
   }
 
   if (boxes)
   {
-    sub_26C6431E0(0, &qword_2804A7720);
+    sub_26C6431E0(0, &qword_2804A7720, 0x277CCAE60);
     boxes = sub_26C64DA58();
   }
 
@@ -92,7 +92,7 @@
 
   if (boxes)
   {
-    sub_26C6431E0(0, &qword_2804A7720);
+    sub_26C6431E0(0, &qword_2804A7720, 0x277CCAE60);
     sub_26C64DA58();
   }
 
@@ -274,7 +274,7 @@
   v20 = sub_26C64D9F8();
   v22 = v21;
   type metadata accessor for CaptureCoordinatorOption(0);
-  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
+  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
   v23 = sub_26C64D9A8();
   _Block_copy(v16);
   swift_unknownObjectRetain();
@@ -302,7 +302,7 @@
   v14 = sub_26C64D9F8();
   v16 = v15;
   type metadata accessor for CaptureCoordinatorOption(0);
-  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
+  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
   v17 = sub_26C64D9A8();
   v18 = swift_allocObject();
   *(v18 + 16) = v10;
@@ -328,7 +328,7 @@
   v9 = sub_26C64D9F8();
   v11 = v10;
   type metadata accessor for CaptureCoordinatorOption(0);
-  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
+  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
   v12 = sub_26C64D9A8();
   selfCopy = self;
   sub_26C646AE4(v6, v8, v9, v11, v12);
@@ -372,7 +372,7 @@
   swift_unknownObjectRelease();
 
   type metadata accessor for CaptureCoordinatorOption(0);
-  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption);
+  sub_26C64CD48(&qword_2804A73A8, type metadata accessor for CaptureCoordinatorOption, &unk_26C64EFC8);
   v14 = sub_26C64D998();
 
   return v14;

@@ -39,8 +39,8 @@
 {
   explicitCopy = explicit;
   selfCopy = self;
-  v16 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD0FAE8, &qword_25EA22018) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD0FAE8, &qword_25EA22018);
+  MEMORY[0x28223BE20](v16 - 8);
   v18 = &v37 - v17;
   v19 = sub_25EA1E648();
   v37 = v20;
@@ -113,18 +113,16 @@ LABEL_9:
 
 - (NSString)title
 {
-  v2 = *(self + OBJC_IVAR___PKEpisode_title);
-  v3 = *(self + OBJC_IVAR___PKEpisode_title + 8);
 
-  v4 = sub_25EA1E638();
+  v2 = sub_25EA1E638();
 
-  return v4;
+  return v2;
 }
 
 - (NSDate)releaseDate
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD0FAE8, &qword_25EA22018) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD0FAE8, &qword_25EA22018);
+  MEMORY[0x28223BE20](v3 - 8);
   v5 = &v12 - v4;
   sub_25EA0D398(self + OBJC_IVAR___PKEpisode_releaseDate, &v12 - v4);
   v6 = sub_25EA1E4D8();

@@ -167,22 +167,7 @@
 {
   equalCopy = equal;
   v5 = objc_opt_class();
-  if (!objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
-  {
-    goto LABEL_12;
-  }
-
-  version = self->_version;
-  v9 = equalCopy[5];
-  if (version | v9)
-  {
-    if (!objc_msgSend_isEqual_(version, v7, v9))
-    {
-      goto LABEL_12;
-    }
-  }
-
-  if (((icloudVersion = self->_icloudVersion, v11 = equalCopy[3], !(icloudVersion | v11)) || objc_msgSend_isEqual_(icloudVersion, v7, v11)) && ((countryCode = self->_countryCode, v13 = equalCopy[2], !(countryCode | v13)) || objc_msgSend_isEqual_(countryCode, v7, v13)) && ((metadata = self->_metadata, v15 = equalCopy[4], !(metadata | v15)) || objc_msgSend_isEqual_(metadata, v7, v15)))
+  if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5) && ((version = self->_version, v9 = equalCopy[5], !(version | v9)) || objc_msgSend_isEqual_(version, v7, v9)) && ((icloudVersion = self->_icloudVersion, v11 = equalCopy[3], !(icloudVersion | v11)) || objc_msgSend_isEqual_(icloudVersion, v7, v11)) && ((countryCode = self->_countryCode, v13 = equalCopy[2], !(countryCode | v13)) || objc_msgSend_isEqual_(countryCode, v7, v13)) && ((metadata = self->_metadata, v15 = equalCopy[4], !(metadata | v15)) || objc_msgSend_isEqual_(metadata, v7, v15)))
   {
     altDSID = self->_altDSID;
     v17 = equalCopy[1];
@@ -199,7 +184,6 @@
 
   else
   {
-LABEL_12:
     isEqual = 0;
   }
 

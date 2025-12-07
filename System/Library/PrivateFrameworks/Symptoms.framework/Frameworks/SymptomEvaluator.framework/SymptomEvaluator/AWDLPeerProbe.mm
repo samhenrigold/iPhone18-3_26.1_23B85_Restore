@@ -33,24 +33,24 @@
 
 - (void)periodicTimerFired:(id)fired
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   firedCopy = fired;
   if (![(TestProbe *)self isRunning])
   {
     goto LABEL_60;
   }
 
-  v51 = firedCopy;
+  v50 = firedCopy;
   v5 = +[WiFiShim sharedInstance];
   getAWDLPeerList = [v5 getAWDLPeerList];
 
-  v52 = [(NSMutableDictionary *)self->_peerList mutableCopy];
+  v51 = [(NSMutableDictionary *)self->_peerList mutableCopy];
+  v76 = 0u;
   v77 = 0u;
   v78 = 0u;
   v79 = 0u;
-  v80 = 0u;
   obj = getAWDLPeerList;
-  v7 = [obj countByEnumeratingWithState:&v77 objects:v84 count:16];
+  v7 = [obj countByEnumeratingWithState:&v76 objects:v83 count:16];
   selfCopy = self;
   if (!v7)
   {
@@ -62,19 +62,19 @@
   v8 = v7;
   v9 = 0;
   v10 = 0;
-  v57 = *v78;
+  v56 = *v77;
   do
   {
     v11 = 0;
-    v53 = v8;
+    v52 = v8;
     do
     {
-      if (*v78 != v57)
+      if (*v77 != v56)
       {
         objc_enumerationMutation(obj);
       }
 
-      v12 = *(*(&v77 + 1) + 8 * v11);
+      v12 = *(*(&v76 + 1) + 8 * v11);
       v13 = [v12 objectForKeyedSubscript:@"STATION_MAC"];
       if ([v13 length])
       {
@@ -89,66 +89,66 @@
 
       if ([(NSArray *)self->_servicesOfInterest count])
       {
-        v62 = [v12 objectForKeyedSubscript:@"STATION_AWDL_SERVICES"];
+        v61 = [v12 objectForKeyedSubscript:@"STATION_AWDL_SERVICES"];
+        v72 = 0u;
         v73 = 0u;
         v74 = 0u;
         v75 = 0u;
-        v76 = 0u;
         v16 = self->_servicesOfInterest;
-        v56 = [(NSArray *)v16 countByEnumeratingWithState:&v73 objects:v83 count:16];
-        if (v56)
+        v55 = [(NSArray *)v16 countByEnumeratingWithState:&v72 objects:v82 count:16];
+        if (v55)
         {
-          v17 = *v74;
-          v60 = v9;
-          v61 = v10;
-          v58 = v12;
-          v59 = v13;
-          v55 = *v74;
+          v17 = *v73;
+          v59 = v9;
+          v60 = v10;
+          v57 = v12;
+          v58 = v13;
+          v54 = *v73;
           do
           {
             v18 = 0;
             do
             {
-              if (*v74 != v17)
+              if (*v73 != v17)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v19 = *(*(&v73 + 1) + 8 * v18);
+              v19 = *(*(&v72 + 1) + 8 * v18);
+              v68 = 0u;
               v69 = 0u;
               v70 = 0u;
               v71 = 0u;
-              v72 = 0u;
-              v20 = v62;
-              v21 = [v20 countByEnumeratingWithState:&v69 objects:v82 count:16];
+              v20 = v61;
+              v21 = [v20 countByEnumeratingWithState:&v68 objects:v81 count:16];
               if (v21)
               {
                 v22 = v21;
-                v23 = *v70;
+                v23 = *v69;
                 while (2)
                 {
                   for (i = 0; i != v22; ++i)
                   {
-                    if (*v70 != v23)
+                    if (*v69 != v23)
                     {
                       objc_enumerationMutation(v20);
                     }
 
-                    v25 = *(*(&v69 + 1) + 8 * i);
+                    v25 = *(*(&v68 + 1) + 8 * i);
                     if ([v25 hasPrefix:@"PTR"] && objc_msgSend(v25, "containsString:", v19))
                     {
 
                       self = selfCopy;
-                      v9 = v60;
-                      v10 = v61;
-                      v8 = v53;
-                      v12 = v58;
-                      v13 = v59;
+                      v9 = v59;
+                      v10 = v60;
+                      v8 = v52;
+                      v12 = v57;
+                      v13 = v58;
                       goto LABEL_34;
                     }
                   }
 
-                  v22 = [v20 countByEnumeratingWithState:&v69 objects:v82 count:16];
+                  v22 = [v20 countByEnumeratingWithState:&v68 objects:v81 count:16];
                   if (v22)
                   {
                     continue;
@@ -159,20 +159,20 @@
               }
 
               ++v18;
-              v17 = v55;
+              v17 = v54;
               self = selfCopy;
-              v9 = v60;
-              v10 = v61;
-              v12 = v58;
-              v13 = v59;
+              v9 = v59;
+              v10 = v60;
+              v12 = v57;
+              v13 = v58;
             }
 
-            while (v18 != v56);
-            v8 = v53;
-            v56 = [(NSArray *)v16 countByEnumeratingWithState:&v73 objects:v83 count:16];
+            while (v18 != v55);
+            v8 = v52;
+            v55 = [(NSArray *)v16 countByEnumeratingWithState:&v72 objects:v82 count:16];
           }
 
-          while (v56);
+          while (v55);
         }
 
         v26 = [v12 objectForKeyedSubscript:@"STATION_HOSTNAME"];
@@ -196,7 +196,7 @@
 
         [v26 length];
 
-        delegate2 = v62;
+        delegate2 = v61;
         goto LABEL_41;
       }
 
@@ -211,7 +211,7 @@ LABEL_34:
       if (!v31)
       {
         [(NSMutableDictionary *)self->_peerList setObject:v12 forKeyedSubscript:v10];
-        [v52 removeObjectForKey:v10];
+        [v51 removeObjectForKey:v10];
         delegate = [(AWDLPeerProbe *)self delegate];
         v35 = objc_opt_respondsToSelector();
 
@@ -232,7 +232,7 @@ LABEL_42:
       if (([v31 isEqual:v12] & 1) == 0)
       {
         [(NSMutableDictionary *)self->_peerList setObject:v12 forKeyedSubscript:v10];
-        [v52 removeObjectForKey:v10];
+        [v51 removeObjectForKey:v10];
         delegate3 = [(AWDLPeerProbe *)self delegate];
         v33 = objc_opt_respondsToSelector();
 
@@ -250,22 +250,22 @@ LABEL_43:
     }
 
     while (v11 != v8);
-    v8 = [obj countByEnumeratingWithState:&v77 objects:v84 count:16];
+    v8 = [obj countByEnumeratingWithState:&v76 objects:v83 count:16];
   }
 
   while (v8);
 LABEL_47:
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
-  v36 = v52;
-  v37 = [v36 countByEnumeratingWithState:&v65 objects:v81 count:16];
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
+  v36 = v51;
+  v37 = [v36 countByEnumeratingWithState:&v64 objects:v80 count:16];
   if (v37)
   {
     v38 = v37;
-    v63 = *v66;
+    v62 = *v65;
     do
     {
       v39 = 0;
@@ -273,12 +273,12 @@ LABEL_47:
       v41 = v10;
       do
       {
-        if (*v66 != v63)
+        if (*v65 != v62)
         {
           objc_enumerationMutation(v36);
         }
 
-        v42 = *(*(&v65 + 1) + 8 * v39);
+        v42 = *(*(&v64 + 1) + 8 * v39);
 
         v43 = v42;
         v9 = [v36 objectForKeyedSubscript:v42];
@@ -300,7 +300,7 @@ LABEL_47:
       }
 
       while (v38 != v39);
-      v38 = [v36 countByEnumeratingWithState:&v65 objects:v81 count:16];
+      v38 = [v36 countByEnumeratingWithState:&v64 objects:v80 count:16];
     }
 
     while (v38);
@@ -321,15 +321,13 @@ LABEL_47:
     }
   }
 
-  firedCopy = v51;
+  firedCopy = v50;
 LABEL_60:
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startAWDLPeerPollingForServices:(id)services withCount:(unint64_t)count interval:(unint64_t)interval
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   servicesCopy = services;
   [(AWDLPeerProbe *)self setPollCount:count];
   objc_opt_class();
@@ -340,16 +338,14 @@ LABEL_60:
 
   else
   {
-    v11[0] = servicesCopy;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = servicesCopy;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
     [(AWDLPeerProbe *)self setServicesOfInterest:v9];
   }
 
   [(TestProbe *)self setRunning:1];
   [(TestProbe *)self startPeriodicTimerAt:0 repeatInterval:1000000000 * interval];
   [(TestProbe *)self setStatus:1];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopTest

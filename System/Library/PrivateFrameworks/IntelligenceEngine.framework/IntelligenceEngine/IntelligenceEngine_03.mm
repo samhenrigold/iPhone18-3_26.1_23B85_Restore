@@ -1,28 +1,28 @@
-uint64_t siri::intelligence::UpdateTo_1_0_7(uint64_t this, protobuf::Intelligence *a2)
+std::string *siri::intelligence::UpdateTo_1_0_7(std::string *this, protobuf::Intelligence *a2)
 {
   v2 = this;
-  if (*(this + 56) >= 1)
+  if (SLODWORD(this[2].__r_.__value_.__r.__words[1]) >= 1)
   {
     v3 = 0;
     do
     {
-      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_DialogResponse>::TypeHandler>((v2 + 12), v3);
-      v4 = *(this + 16);
+      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_DialogResponse>::TypeHandler>(&v2[2], v3);
+      v4 = this->__r_.__value_.__r.__words[2];
       if ((v4 & 0x20) != 0)
       {
         v5 = this;
-        v8 = *(this + 216);
-        v6 = this + 216;
-        v7 = v8;
-        v9 = *(v6 - 56);
-        *(v6 - 200) = v4 | 0x1000;
-        if (v8 == &google::protobuf::internal::fixed_address_empty_string)
+        data = this[9].__r_.__value_.__l.__data_;
+        v6 = &this[9];
+        v7 = data;
+        v9 = *(v6 - 7);
+        *(v6 - 50) = v4 | 0x1000;
+        if (data == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v6, v9);
         }
 
         this = std::string::operator=(v7, v9);
-        v10 = *(v5 + 160);
+        v10 = v5[6].__r_.__value_.__r.__words[2];
         if (v10 != &google::protobuf::internal::fixed_address_empty_string)
         {
           if (*(v10 + 23) < 0)
@@ -38,37 +38,37 @@ uint64_t siri::intelligence::UpdateTo_1_0_7(uint64_t this, protobuf::Intelligenc
           }
         }
 
-        *(v5 + 16) &= ~0x20u;
+        LODWORD(v5->__r_.__value_.__r.__words[2]) &= ~0x20u;
       }
 
       ++v3;
     }
 
-    while (v3 < v2[14]);
+    while (v3 < SLODWORD(v2[2].__r_.__value_.__r.__words[1]));
   }
 
-  if (v2[20] >= 1)
+  if (SLODWORD(v2[3].__r_.__value_.__r.__words[1]) >= 1)
   {
     v11 = 0;
     do
     {
-      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_BehaviorResponse>::TypeHandler>((v2 + 18), v11);
-      v12 = *(this + 16);
+      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_BehaviorResponse>::TypeHandler>(&v2[3], v11);
+      v12 = this->__r_.__value_.__r.__words[2];
       if ((v12 & 0x20) != 0)
       {
         v13 = this;
-        v16 = *(this + 144);
-        v14 = this + 144;
+        v16 = this[6].__r_.__value_.__l.__data_;
+        v14 = &this[6];
         v15 = v16;
-        v17 = *(v14 - 32);
-        *(v14 - 128) = v12 | 0x200;
+        v17 = *(v14 - 4);
+        *(v14 - 32) = v12 | 0x200;
         if (v16 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v14, v17);
         }
 
         this = std::string::operator=(v15, v17);
-        v18 = *(v13 + 112);
+        v18 = v13[4].__r_.__value_.__r.__words[2];
         if (v18 != &google::protobuf::internal::fixed_address_empty_string)
         {
           if (*(v18 + 23) < 0)
@@ -84,37 +84,37 @@ uint64_t siri::intelligence::UpdateTo_1_0_7(uint64_t this, protobuf::Intelligenc
           }
         }
 
-        *(v13 + 16) &= ~0x20u;
+        LODWORD(v13->__r_.__value_.__r.__words[2]) &= ~0x20u;
       }
 
       ++v11;
     }
 
-    while (v11 < v2[20]);
+    while (v11 < SLODWORD(v2[3].__r_.__value_.__r.__words[1]));
   }
 
-  if (v2[26] >= 1)
+  if (SLODWORD(v2[4].__r_.__value_.__r.__words[1]) >= 1)
   {
     v19 = 0;
     do
     {
-      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_ReferenceResponse>::TypeHandler>((v2 + 24), v19);
-      v20 = *(this + 16);
+      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_ReferenceResponse>::TypeHandler>(&v2[4], v19);
+      v20 = this->__r_.__value_.__r.__words[2];
       if ((v20 & 0x20) != 0)
       {
         v21 = this;
-        v24 = *(this + 128);
-        v22 = this + 128;
-        v23 = v24;
-        v25 = *(v22 - 40);
-        *(v22 - 112) = v20 | 0x400;
-        if (v24 == &google::protobuf::internal::fixed_address_empty_string)
+        size = this[5].__r_.__value_.__l.__size_;
+        p_size = &this[5].__r_.__value_.__l.__size_;
+        v23 = size;
+        v25 = *(p_size - 5);
+        *(p_size - 28) = v20 | 0x400;
+        if (size == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v22, v25);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(p_size, v25);
         }
 
         this = std::string::operator=(v23, v25);
-        v26 = *(v21 + 88);
+        v26 = v21[3].__r_.__value_.__r.__words[2];
         if (v26 != &google::protobuf::internal::fixed_address_empty_string)
         {
           if (*(v26 + 23) < 0)
@@ -130,37 +130,37 @@ uint64_t siri::intelligence::UpdateTo_1_0_7(uint64_t this, protobuf::Intelligenc
           }
         }
 
-        *(v21 + 16) &= ~0x20u;
+        LODWORD(v21->__r_.__value_.__r.__words[2]) &= ~0x20u;
       }
 
       ++v19;
     }
 
-    while (v19 < v2[26]);
+    while (v19 < SLODWORD(v2[4].__r_.__value_.__r.__words[1]));
   }
 
-  if (v2[104] >= 1)
+  if (SLODWORD(v2[17].__r_.__value_.__r.__words[1]) >= 1)
   {
     v27 = 0;
     do
     {
-      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_ResponseGroup>::TypeHandler>((v2 + 102), v27);
-      v28 = *(this + 16);
+      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_ResponseGroup>::TypeHandler>(&v2[17], v27);
+      v28 = this->__r_.__value_.__r.__words[2];
       if ((v28 & 0x20) != 0)
       {
         v29 = this;
-        v32 = *(this + 112);
-        v30 = this + 112;
+        v32 = this[4].__r_.__value_.__r.__words[2];
+        v30 = &this[4].__r_.__value_.__r.__words[2];
         v31 = v32;
-        v33 = *(v30 - 24);
-        *(v30 - 96) = v28 | 0x100;
+        v33 = *(v30 - 3);
+        *(v30 - 24) = v28 | 0x100;
         if (v32 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v30, v33);
         }
 
         this = std::string::operator=(v31, v33);
-        v34 = *(v29 + 88);
+        v34 = v29[3].__r_.__value_.__r.__words[2];
         if (v34 != &google::protobuf::internal::fixed_address_empty_string)
         {
           if (*(v34 + 23) < 0)
@@ -176,59 +176,59 @@ uint64_t siri::intelligence::UpdateTo_1_0_7(uint64_t this, protobuf::Intelligenc
           }
         }
 
-        *(v29 + 16) &= ~0x20u;
+        LODWORD(v29->__r_.__value_.__r.__words[2]) &= ~0x20u;
       }
 
       ++v27;
     }
 
-    while (v27 < v2[104]);
+    while (v27 < SLODWORD(v2[17].__r_.__value_.__r.__words[1]));
   }
 
-  if (v2[44] >= 1)
+  if (SLODWORD(v2[7].__r_.__value_.__r.__words[1]) >= 1)
   {
     v35 = 0;
     do
     {
-      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Activity>::TypeHandler>((v2 + 42), v35);
-      v36 = *(this + 16);
+      this = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Activity>::TypeHandler>(&v2[7], v35);
+      v36 = this->__r_.__value_.__r.__words[2];
       if ((v36 & 8) != 0)
       {
         v37 = this;
-        v40 = *(this + 80);
-        v38 = this + 80;
+        v40 = this[3].__r_.__value_.__l.__size_;
+        v38 = &this[3].__r_.__value_.__l.__size_;
         v39 = v40;
-        v41 = *(v38 - 8);
-        *(v38 - 64) = v36 | 0x10;
+        v41 = *(v38 - 1);
+        *(v38 - 16) = v36 | 0x10;
         if (v40 == &google::protobuf::internal::fixed_address_empty_string)
         {
           google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v38, v41);
         }
 
         this = std::string::operator=(v39, v41);
-        v42 = *(v37 + 72);
+        v42 = v37[3].__r_.__value_.__l.__data_;
         if (v42 != &google::protobuf::internal::fixed_address_empty_string)
         {
-          if (*(v42 + 23) < 0)
+          if (v42[23] < 0)
           {
             **v42 = 0;
-            *(v42 + 8) = 0;
+            *(v42 + 1) = 0;
           }
 
           else
           {
             *v42 = 0;
-            *(v42 + 23) = 0;
+            v42[23] = 0;
           }
         }
 
-        *(v37 + 16) &= ~8u;
+        LODWORD(v37->__r_.__value_.__r.__words[2]) &= ~8u;
       }
 
       ++v35;
     }
 
-    while (v35 < v2[44]);
+    while (v35 < SLODWORD(v2[7].__r_.__value_.__r.__words[1]));
   }
 
   return this;
@@ -784,31 +784,31 @@ LABEL_261:
   }
 }
 
-void sub_254CBD304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBD304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (*(v3 - 121) < 0)
+  va_start(va, a5);
+  if (*(v5 - 121) < 0)
   {
-    operator delete(*(v3 - 144));
+    operator delete(*(v5 - 144));
   }
 
   protobuf::Intelligence_KeyValueParameter::~Intelligence_KeyValueParameter(va);
-  if (*(v3 - 153) < 0)
+  if (*(v5 - 153) < 0)
   {
-    operator delete(*(v3 - 176));
+    operator delete(*(v5 - 176));
   }
 
   _Unwind_Resume(a1);
 }
 
-void siri::intelligence::UpdateTo_1_4_1(siri::intelligence *this, protobuf::Intelligence *a2)
+void siri::intelligence::UpdateTo_1_4_1(_DWORD *this, protobuf::Intelligence *a2)
 {
-  if (*(this + 14) >= 1)
+  if (this[14] >= 1)
   {
     v3 = 0;
     do
     {
-      v4 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_DialogResponse>::TypeHandler>(this + 48, v3);
+      v4 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_DialogResponse>::TypeHandler>((this + 12), v3);
       if (*(v4 + 32) >= 1)
       {
         v5 = 0;
@@ -838,15 +838,15 @@ void siri::intelligence::UpdateTo_1_4_1(siri::intelligence *this, protobuf::Inte
       ++v3;
     }
 
-    while (v3 < *(this + 14));
+    while (v3 < this[14]);
   }
 
-  if (*(this + 20) >= 1)
+  if (this[20] >= 1)
   {
     v11 = 0;
     do
     {
-      v12 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_BehaviorResponse>::TypeHandler>(this + 72, v11);
+      v12 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_BehaviorResponse>::TypeHandler>((this + 18), v11);
       if (*(v12 + 32) >= 1)
       {
         v13 = v12;
@@ -864,15 +864,15 @@ void siri::intelligence::UpdateTo_1_4_1(siri::intelligence *this, protobuf::Inte
       ++v11;
     }
 
-    while (v11 < *(this + 20));
+    while (v11 < this[20]);
   }
 
-  if (*(this + 98) >= 1)
+  if (this[98] >= 1)
   {
     v17 = 0;
     do
     {
-      v18 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Variable>::TypeHandler>(this + 384, v17);
+      v18 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Variable>::TypeHandler>((this + 96), v17);
       v20 = *(v18 + 16);
       if ((v20 & 0x10) != 0)
       {
@@ -895,15 +895,15 @@ void siri::intelligence::UpdateTo_1_4_1(siri::intelligence *this, protobuf::Inte
       ++v17;
     }
 
-    while (v17 < *(this + 98));
+    while (v17 < this[98]);
   }
 
-  if (*(this + 68) >= 1)
+  if (this[68] >= 1)
   {
     v24 = 0;
     do
     {
-      v25 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Condition>::TypeHandler>(this + 264, v24);
+      v25 = google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Condition>::TypeHandler>((this + 66), v24);
       v27 = *(v25 + 16);
       if ((v27 & 2) != 0)
       {
@@ -926,20 +926,20 @@ void siri::intelligence::UpdateTo_1_4_1(siri::intelligence *this, protobuf::Inte
       ++v24;
     }
 
-    while (v24 < *(this + 68));
+    while (v24 < this[68]);
   }
 }
 
-void sub_254CBD5FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBD5FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void siri::intelligence::UpdateTo_1_4_4(siri::intelligence *this, protobuf::Intelligence *a2)
+void siri::intelligence::UpdateTo_1_4_4(uint64_t this, protobuf::Intelligence *a2)
 {
-  if (*(this + 20) >= 1)
+  if (*(this + 80) >= 1)
   {
     v3 = 0;
     do
@@ -965,13 +965,13 @@ void siri::intelligence::UpdateTo_1_4_4(siri::intelligence *this, protobuf::Inte
       ++v3;
     }
 
-    while (v3 < *(this + 20));
+    while (v3 < *(this + 80));
   }
 }
 
-void sub_254CBD6F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBD6F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -1039,7 +1039,7 @@ LABEL_12:
         *(v10 + 4) |= 1u;
         if (v14 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v10 + 48, v13);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v10 + 6, v13);
         }
 
         std::string::operator=(v14, v13);
@@ -1052,7 +1052,7 @@ LABEL_12:
         *(v10 + 4) |= 4u;
         if (v16 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v10 + 64, v15);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v10 + 8, v15);
         }
 
         std::string::operator=(v16, v15);
@@ -1065,7 +1065,7 @@ LABEL_12:
         *(v10 + 4) |= 2u;
         if (v18 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v10 + 56, v17);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v10 + 7, v17);
         }
 
         std::string::operator=(v18, v17);
@@ -1128,7 +1128,7 @@ LABEL_12:
             if (v27 == *(v10 + 9))
             {
 LABEL_41:
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v10 + 6, v27 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v10 + 24), v27 + 1);
               v25 = *(v10 + 5);
               v27 = *v25;
             }
@@ -1235,7 +1235,7 @@ LABEL_61:
         *(v39 + 4) |= 1u;
         if (v43 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v39 + 120, v42);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v39 + 15, v42);
         }
 
         std::string::operator=(v43, v42);
@@ -1248,7 +1248,7 @@ LABEL_61:
         *(v39 + 4) |= 2u;
         if (v45 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v39 + 128, v44);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v39 + 16, v44);
         }
 
         std::string::operator=(v45, v44);
@@ -1310,7 +1310,7 @@ LABEL_61:
             if (v53 == *(v39 + 9))
             {
 LABEL_86:
-              google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v39 + 6, v53 + 1);
+              google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v39 + 24), v53 + 1);
               v51 = *(v39 + 5);
               v53 = *v51;
             }
@@ -1357,7 +1357,7 @@ LABEL_91:
 
     v38 = *(v2 + 129);
 LABEL_59:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve(v2 + 126, v38 + 1);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v2 + 504), v38 + 1);
     v36 = *(v2 + 65);
     v38 = *v36;
     goto LABEL_60;
@@ -1367,9 +1367,9 @@ LABEL_92:
   google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::RepeatedPtrField<protobuf::Intelligence_Intent>::TypeHandler>(v2 + 240);
 }
 
-void sub_254CBDD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBDD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2175,7 +2175,7 @@ LABEL_295:
       *(v5 + 16) |= 4u;
       if (v156 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v5 + 136, &v179);
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((v5 + 136), &v179);
       }
 
       std::string::operator=(v156, &v179);
@@ -2193,7 +2193,7 @@ LABEL_295:
       *(v5 + 16) |= 8u;
       if (v158 == &google::protobuf::internal::fixed_address_empty_string)
       {
-        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v5 + 144, &v178);
+        google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((v5 + 144), &v178);
       }
 
       std::string::operator=(v158, &v178);
@@ -2368,29 +2368,29 @@ void sub_254CBEC8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a56);
   }
 
-  if (a67 < 0)
+  if (a65 < 0)
   {
     operator delete(a62);
   }
 
-  if (*(v67 - 209) < 0)
+  if (*(v65 - 209) < 0)
   {
-    operator delete(*(v67 - 232));
+    operator delete(*(v65 - 232));
   }
 
-  if (*(v67 - 185) < 0)
+  if (*(v65 - 185) < 0)
   {
-    operator delete(*(v67 - 208));
+    operator delete(*(v65 - 208));
   }
 
-  if (*(v67 - 161) < 0)
+  if (*(v65 - 161) < 0)
   {
-    operator delete(*(v67 - 184));
+    operator delete(*(v65 - 184));
   }
 
-  if (*(v67 - 137) < 0)
+  if (*(v65 - 137) < 0)
   {
-    operator delete(*(v67 - 160));
+    operator delete(*(v65 - 160));
   }
 
   _Unwind_Resume(a1);
@@ -2464,9 +2464,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBF048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2497,9 +2497,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CBF100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2525,9 +2525,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBF1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2558,9 +2558,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CBF290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2586,14 +2586,14 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBF368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF368(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(uint64_t a1, uint64_t a2)
+void google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(std::string **a1, uint64_t a2)
 {
   if (!a2)
   {
@@ -2606,9 +2606,9 @@ void google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(uint64_t 
   operator new();
 }
 
-void sub_254CBF448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF448(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2634,9 +2634,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBF534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2662,9 +2662,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBF614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2690,9 +2690,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBF6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2718,9 +2718,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBF7D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF7D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2746,9 +2746,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBF8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF8B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2774,9 +2774,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBF994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBF994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2807,9 +2807,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CBFA4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBFA4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2835,9 +2835,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBFB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBFB24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2868,9 +2868,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CBFBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBFBDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2896,9 +2896,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBFCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBFCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2929,9 +2929,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CBFD6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBFD6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2957,9 +2957,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CBFE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBFE44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2990,14 +2990,14 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CBFEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CBFEFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t siri::intelligence::IsNewStyleCondition(uint64_t a1)
+BOOL siri::intelligence::IsNewStyleCondition(uint64_t a1)
 {
   v1 = *(a1 + 23);
   if ((v1 & 0x80u) != 0)
@@ -3010,7 +3010,7 @@ uint64_t siri::intelligence::IsNewStyleCondition(uint64_t a1)
     return 0;
   }
 
-  siri::intelligence::StringTrim(" \t\n\r", a1, &v9);
+  siri::intelligence::StringTrim(&v9, " \t\n\r", a1);
   std::string::basic_string[abi:ne200100]<0>(__p, " ");
   v3 = siri::intelligence::StringContains(&v9.__r_.__value_.__l.__data_, __p);
   if (v8 < 0)
@@ -3047,7 +3047,7 @@ uint64_t siri::intelligence::IsNewStyleCondition(uint64_t a1)
       operator delete(__p[0]);
     }
 
-    v4 = v5 ^ 1u;
+    v4 = !v5;
   }
 
   if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
@@ -3141,7 +3141,7 @@ LABEL_12:
         if (v10 == *(this + 21))
         {
 LABEL_21:
-          google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 18, v10 + 1);
+          google::protobuf::internal::RepeatedPtrFieldBase::Reserve((this + 72), v10 + 1);
           v8 = *(this + 11);
           v10 = *v8;
         }
@@ -3224,9 +3224,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CC0304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC0304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3257,9 +3257,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CC03BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC03BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3285,9 +3285,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CC0494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC0494(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3313,9 +3313,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CC0574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC0574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3341,28 +3341,28 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CC0654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC0654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void siri::intelligence::UpdateConditionEntryTo_1_0_3(siri::intelligence *this, protobuf::Intelligence_Condition_ConditionEntry *a2)
+void siri::intelligence::UpdateConditionEntryTo_1_0_3(uint64_t this, protobuf::Intelligence_Condition_ConditionEntry *a2)
 {
-  v3 = *(this + 4);
+  v3 = *(this + 16);
   if (v3)
   {
-    *(this + 4) = v3 | 0x10;
-    v4 = *(this + 13);
+    *(this + 16) = v3 | 0x10;
+    v4 = *(this + 104);
     if (!v4)
     {
       v4 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(0);
-      *(this + 13) = v4;
+      *(this + 104) = v4;
     }
 
-    siri::intelligence::CreateConditionKeyValueParameter_1_0_3(v4, *(this + 9));
-    v5 = *(this + 9);
+    siri::intelligence::CreateConditionKeyValueParameter_1_0_3(v4, *(this + 72));
+    v5 = *(this + 72);
     if (v5 != &google::protobuf::internal::fixed_address_empty_string)
     {
       if (*(v5 + 23) < 0)
@@ -3378,22 +3378,22 @@ void siri::intelligence::UpdateConditionEntryTo_1_0_3(siri::intelligence *this, 
       }
     }
 
-    v3 = *(this + 4) & 0xFFFFFFFE;
-    *(this + 4) = v3;
+    v3 = *(this + 16) & 0xFFFFFFFE;
+    *(this + 16) = v3;
   }
 
   if ((v3 & 4) != 0)
   {
-    *(this + 4) = v3 | 0x20;
-    v6 = *(this + 14);
+    *(this + 16) = v3 | 0x20;
+    v6 = *(this + 112);
     if (!v6)
     {
       v6 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(0);
-      *(this + 14) = v6;
+      *(this + 112) = v6;
     }
 
-    siri::intelligence::CreateConditionKeyValueParameter_1_0_3(v6, *(this + 11));
-    v7 = *(this + 11);
+    siri::intelligence::CreateConditionKeyValueParameter_1_0_3(v6, *(this + 88));
+    v7 = *(this + 88);
     if (v7 != &google::protobuf::internal::fixed_address_empty_string)
     {
       if (*(v7 + 23) < 0)
@@ -3409,10 +3409,10 @@ void siri::intelligence::UpdateConditionEntryTo_1_0_3(siri::intelligence *this, 
       }
     }
 
-    *(this + 4) &= ~4u;
+    *(this + 16) &= ~4u;
   }
 
-  if (*(this + 8) >= 1)
+  if (*(this + 32) >= 1)
   {
     v8 = 0;
     do
@@ -3422,10 +3422,10 @@ void siri::intelligence::UpdateConditionEntryTo_1_0_3(siri::intelligence *this, 
       ++v8;
     }
 
-    while (v8 < *(this + 8));
+    while (v8 < *(this + 32));
   }
 
-  if (*(this + 14) >= 1)
+  if (*(this + 56) >= 1)
   {
     v11 = 0;
     do
@@ -3435,31 +3435,31 @@ void siri::intelligence::UpdateConditionEntryTo_1_0_3(siri::intelligence *this, 
       ++v11;
     }
 
-    while (v11 < *(this + 14));
+    while (v11 < *(this + 56));
   }
 
-  v14 = *(this + 4);
+  v14 = *(this + 16);
   if ((v14 & 8) != 0)
   {
-    v15 = *(this + 12);
+    v15 = *(this + 96);
     if (!v15)
     {
       google::protobuf::internal::LogMessage::LogMessage(v18, 3, "/Library/Caches/com.apple.xbs/Sources/SiriIntelligenceEngine/fileformat/intelligence.pb.h", 21511);
       v16 = google::protobuf::internal::LogMessage::operator<<(v18, "CHECK failed: !value || not_child_ != nullptr: ");
       google::protobuf::internal::LogFinisher::operator=(&v17, &v16->__r_.__value_.__l.__data_);
       google::protobuf::internal::LogMessage::~LogMessage(&v18[0].__r_.__value_.__l.__data_);
-      v15 = *(this + 12);
-      v14 = *(this + 4) | 8;
+      v15 = *(this + 96);
+      v14 = *(this + 16) | 8;
     }
 
-    *(this + 4) = v14;
+    *(this + 16) = v14;
     siri::intelligence::UpdateConditionEntryTo_1_0_3(v15, a2);
   }
 }
 
-void sub_254CC0828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC0828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3485,9 +3485,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CC0900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC0900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -3607,7 +3607,7 @@ LABEL_21:
     siri::intelligence::Entity::FindNext(&v25);
     if (v28)
     {
-      siri::intelligence::Entity::GetName(&v25, &__p);
+      siri::intelligence::Entity::GetName(&__p, &v25);
       *(a1 + 16) |= 8u;
       google::protobuf::internal::ArenaStringPtr::SetNoArena((a1 + 144), &google::protobuf::internal::fixed_address_empty_string, &__p);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -3630,9 +3630,9 @@ LABEL_21:
 
       siri::intelligence::Log::Error("Unable to update old-style condition: %s", v14, v15);
       v18 = *(a1 + 128);
-      v17 = a1 + 128;
+      v17 = (a1 + 128);
       v16 = v18;
-      *(v17 - 112) |= 2u;
+      *(v17 - 28) |= 2u;
       if (v18 == &google::protobuf::internal::fixed_address_empty_string)
       {
         google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v17, a2);
@@ -3650,9 +3650,9 @@ LABEL_21:
   }
 
   v21 = *(a1 + 128);
-  v20 = a1 + 128;
+  v20 = (a1 + 128);
   v19 = v21;
-  *(v20 - 112) |= 2u;
+  *(v20 - 28) |= 2u;
   if (v21 == &google::protobuf::internal::fixed_address_empty_string)
   {
     google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(v20, a2);
@@ -3697,14 +3697,14 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CC0D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC0D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(signed int **this, uint64_t a2)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(int **this, uint64_t a2)
 {
   if (a2 == this)
   {
@@ -3730,16 +3730,15 @@ void google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<google::protobu
   }
 }
 
-void sub_254CC0DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC0DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(std::string *result, atomic_ullong ***a2, atomic_ullong ***a3, unsigned int a4, unsigned int a5)
+void google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoop<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(google::protobuf::internal::ArenaImpl **result, protobuf::Intelligence_KeyValueParameter **a2, uint64_t *a3, int a4, int a5)
 {
-  v9 = result;
   if (a5 >= a4)
   {
     v10 = a4;
@@ -3759,7 +3758,7 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoo
       v14 = *v11++;
       v13 = v14;
       v15 = *v12++;
-      result = google::protobuf::internal::GenericTypeHandler<protobuf::Intelligence_KeyValueParameter>::Merge(v13, v15);
+      google::protobuf::internal::GenericTypeHandler<protobuf::Intelligence_KeyValueParameter>::Merge(v13, v15);
       --v10;
     }
 
@@ -3770,22 +3769,20 @@ std::string *google::protobuf::internal::RepeatedPtrFieldBase::MergeFromInnerLoo
   v17 = a4 - a5;
   if (!((v17 < 0) ^ v16 | (v17 == 0)))
   {
-    v18 = *v9;
+    v18 = *result;
     v19 = &a2[a5];
     v20 = &a3[a5];
     do
     {
       v21 = *v20++;
       v22 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(v18);
-      result = google::protobuf::internal::GenericTypeHandler<protobuf::Intelligence_KeyValueParameter>::Merge(v21, v22);
+      google::protobuf::internal::GenericTypeHandler<protobuf::Intelligence_KeyValueParameter>::Merge(v21, v22);
       *v19++ = v22;
       --v17;
     }
 
     while (v17);
   }
-
-  return result;
 }
 
 void google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::~RepeatedPtrField(google::protobuf::internal::ArenaImpl **a1)
@@ -3846,51 +3843,51 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CC1054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC1054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void siri::intelligence::ConvertPositionalArgToDictionary(uint64_t a1, uint64_t a2, int a3, char *a4)
+void siri::intelligence::ConvertPositionalArgToDictionary(uint64_t result, uint64_t a2, int a3, char *a4)
 {
   if (*(a2 + 56) <= a3)
   {
     return;
   }
 
-  v9 = *(a1 + 88);
+  v9 = *(result + 88);
   if (!v9)
   {
-    v11 = *(a1 + 84);
+    v11 = *(result + 84);
     goto LABEL_8;
   }
 
-  v10 = *(a1 + 80);
+  v10 = *(result + 80);
   v11 = *v9;
   if (v10 >= *v9)
   {
-    if (v11 != *(a1 + 84))
+    if (v11 != *(result + 84))
     {
 LABEL_9:
       *v9 = v11 + 1;
-      v12 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(a1 + 72));
-      v13 = *(a1 + 80);
-      v14 = *(a1 + 88) + 8 * v13;
-      *(a1 + 80) = v13 + 1;
+      v12 = google::protobuf::Arena::CreateMaybeMessage<protobuf::Intelligence_KeyValueParameter>(*(result + 72));
+      v13 = *(result + 80);
+      v14 = *(result + 88) + 8 * v13;
+      *(result + 80) = v13 + 1;
       *(v14 + 8) = v12;
       goto LABEL_10;
     }
 
 LABEL_8:
-    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((a1 + 72), v11 + 1);
-    v9 = *(a1 + 88);
+    google::protobuf::internal::RepeatedPtrFieldBase::Reserve((result + 72), v11 + 1);
+    v9 = *(result + 88);
     v11 = *v9;
     goto LABEL_9;
   }
 
-  *(a1 + 80) = v10 + 1;
+  *(result + 80) = v10 + 1;
   v12 = *&v9[2 * v10 + 2];
 LABEL_10:
   v15 = google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf::RepeatedPtrField<protobuf::Intelligence_KeyValueParameter>::TypeHandler>(a2 + 48, a3);
@@ -4661,9 +4658,9 @@ void siri::intelligence::UpdateFunctionInCondition(siri::intelligence *this, pro
   }
 }
 
-void sub_254CC1E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC1E70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4713,9 +4710,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CC1F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC1F88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4741,9 +4738,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CC2060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC2060(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4774,9 +4771,9 @@ void google::protobuf::internal::RepeatedPtrFieldBase::Clear<google::protobuf::R
   }
 }
 
-void sub_254CC2118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC2118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4802,9 +4799,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*(a1 + 16) + 8 * a2 + 8);
 }
 
-void sub_254CC21F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_254CC21F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -4829,7 +4826,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::vector<std::pair<std::string,void (*)(protobuf::Intelligence *)>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::pair<std::string,void (*)(protobuf::Intelligence *)>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -5118,8 +5115,7 @@ void siri::intelligence::TestCase::GetTemplateDir(siri::intelligence::TestCase *
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
@@ -5132,16 +5128,15 @@ void siri::intelligence::TestCase::GetFlowId(siri::intelligence::TestCase *this@
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 24);
-    a2->__r_.__value_.__r.__words[2] = *(this + 5);
+    *a2 = *(this + 1);
   }
 }
 
 void siri::intelligence::TestCase::GetTestFilename(siri::intelligence::TestCase *this)
 {
   std::string::basic_string[abi:ne200100]<0>(&v3, ".flowtest");
-  std::string::basic_string[abi:ne200100]<0>(&v2, ".flow");
-  siri::intelligence::Configuration::GetPathFromFlowId(this + 24);
+  std::string::basic_string[abi:ne200100]<0>(v2, ".flow");
+  siri::intelligence::Configuration::GetPathFromFlowId(this + 24, v2);
 }
 
 void sub_254CC2934(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
@@ -5178,8 +5173,7 @@ void siri::intelligence::TestCase::GetName(siri::intelligence::TestCase *this@<X
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 3);
-    a2->__r_.__value_.__r.__words[2] = *(this + 8);
+    *a2 = *(this + 2);
   }
 }
 
@@ -5192,12 +5186,11 @@ void siri::intelligence::TestCase::GetDescription(siri::intelligence::TestCase *
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 72);
-    a2->__r_.__value_.__r.__words[2] = *(this + 11);
+    *a2 = *(this + 3);
   }
 }
 
-uint64_t siri::intelligence::TestCase::GetSteps@<X0>(siri::intelligence::TestCase *this@<X0>, void *a2@<X8>)
+uint64_t *siri::intelligence::TestCase::GetSteps@<X0>(siri::intelligence::TestCase *this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -5205,7 +5198,7 @@ uint64_t siri::intelligence::TestCase::GetSteps@<X0>(siri::intelligence::TestCas
   return std::vector<protobuf::FlowTest_Step>::__init_with_size[abi:ne200100]<protobuf::FlowTest_Step*,protobuf::FlowTest_Step*>(a2, *(this + 13), *(this + 14), 0xCCCCCCCCCCCCCCCDLL * ((*(this + 14) - *(this + 13)) >> 4));
 }
 
-_BYTE *siri::intelligence::TestCase::GetSkipReason@<X0>(siri::intelligence::TestCase *this@<X0>, _BYTE *a2@<X8>)
+void *siri::intelligence::TestCase::GetSkipReason@<X0>(siri::intelligence::TestCase *this@<X0>, void *a2@<X8>)
 {
   if (*(this + 96))
   {
@@ -5438,13 +5431,12 @@ void YAML::Scanner::InsertPotentialSimpleKey(YAML::Scanner *this)
 
     else
     {
-      v8 = *(this + 4);
-      v9 = YAML::Scanner::PushIndentTo(this);
-      v7 = v9;
-      if (v9)
+      v8 = YAML::Scanner::PushIndentTo(this, *(this + 4), 0);
+      v7 = v8;
+      if (v8)
       {
-        *(v9 + 8) = 2;
-        v6 = *(v9 + 16);
+        *(v8 + 8) = 2;
+        v6 = *(v8 + 16);
         *v6 = 2;
       }
 
@@ -5454,79 +5446,78 @@ void YAML::Scanner::InsertPotentialSimpleKey(YAML::Scanner *this)
       }
     }
 
-    v10 = *(this + 1);
-    v11 = *(this + 4);
-    *&v24 = 0xE00000000;
-    *(&v24 + 1) = v10;
-    v25 = v11;
+    v9 = *(this + 1);
+    v10 = *(this + 4);
+    *&v22 = 0xE00000000;
+    *(&v22 + 1) = v9;
+    v23 = v10;
     *__p = 0u;
-    memset(v27, 0, sizeof(v27));
-    v28 = 0;
-    std::deque<YAML::Token>::push_back(this + 96, &v24);
-    v29 = v27 + 1;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v29);
-    if (SBYTE7(v27[0]) < 0)
+    memset(v25, 0, sizeof(v25));
+    v26 = 0;
+    std::deque<YAML::Token>::push_back(this + 12, &v22);
+    v27 = v25 + 1;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v27);
+    if (SBYTE7(v25[0]) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v12 = *(this + 10);
-    v13 = *(this + 21);
-    v14 = *(this + 20);
-    if (v13 == v14)
+    v11 = *(this + 21);
+    v12 = *(this + 20);
+    if (v11 == v12)
     {
-      v16 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v16 = 85 * ((v13 - v14) >> 3) - 1;
+      v14 = 85 * ((v11 - v12) >> 3) - 1;
     }
 
-    v15 = *(this + 17) + *(this + 16);
-    v17 = (*(*(this + 13) + 8 * ((v15 - 1) / 0x33uLL)) + 80 * ((v15 - 1) % 0x33uLL));
-    *v17 = 2;
-    v18 = *(this + 23);
-    v19 = *(this + 24) + v18;
-    if (v16 == v19)
+    v13 = *(this + 17) + *(this + 16);
+    v15 = (*(*(this + 13) + 8 * ((v13 - 1) / 0x33uLL)) + 80 * ((v13 - 1) % 0x33uLL));
+    *v15 = 2;
+    v16 = *(this + 23);
+    v17 = *(this + 24) + v16;
+    if (v14 == v17)
     {
-      if (v18 < 0x55)
+      if (v16 < 0x55)
       {
-        v20 = *(this + 22);
-        v21 = *(this + 19);
-        if (v13 - v14 < (v20 - v21))
+        v18 = *(this + 22);
+        v19 = *(this + 19);
+        if (v11 - v12 < (v18 - v19))
         {
           operator new();
         }
 
-        if (v20 == v21)
+        if (v18 == v19)
         {
-          v22 = 1;
+          v20 = 1;
         }
 
         else
         {
-          v22 = (v20 - v21) >> 2;
+          v20 = (v18 - v19) >> 2;
         }
 
-        std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::SimpleKey *>>(v22);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::SimpleKey *>>(v20);
       }
 
-      *(this + 23) = v18 - 85;
-      *&v24 = *v14;
-      *(this + 20) = v14 + 8;
-      std::__split_buffer<YAML::Scanner::SimpleKey *>::emplace_back<YAML::Scanner::SimpleKey *&>(this + 19, &v24);
-      v14 = *(this + 20);
-      v19 = *(this + 24) + *(this + 23);
+      *(this + 23) = v16 - 85;
+      *&v22 = *v12;
+      *(this + 20) = v12 + 8;
+      std::__split_buffer<YAML::Scanner::SimpleKey *>::emplace_back<YAML::Scanner::SimpleKey *&>(this + 19, &v22);
+      v12 = *(this + 20);
+      v17 = *(this + 24) + *(this + 23);
     }
 
-    v23 = *&v14[8 * (v19 / 0x55)] + 48 * (v19 % 0x55);
-    *v23 = v4;
-    *(v23 + 8) = v5;
-    *(v23 + 16) = v3;
-    *(v23 + 24) = v7;
-    *(v23 + 32) = v6;
-    *(v23 + 40) = v17;
+    v21 = *&v12[8 * (v17 / 0x55)] + 48 * (v17 % 0x55);
+    *v21 = v4;
+    *(v21 + 8) = v5;
+    *(v21 + 16) = v3;
+    *(v21 + 24) = v7;
+    *(v21 + 32) = v6;
+    *(v21 + 40) = v15;
     ++*(this + 24);
   }
 }
@@ -5672,62 +5663,61 @@ void YAML::Token::~Token(void **this)
   }
 }
 
-__n128 std::deque<YAML::Token>::push_back(uint64_t a1, __int128 *a2)
+__n128 std::deque<YAML::Token>::push_back(unint64_t *a1, __int128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 51 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 51 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<YAML::Token>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x33)) + 80 * (v8 % 0x33);
-  v10 = *a2;
-  *(v9 + 16) = *(a2 + 4);
-  *v9 = v10;
-  v11 = *(a2 + 24);
-  *(v9 + 40) = *(a2 + 5);
-  *(v9 + 24) = v11;
+  v8 = *(v5 + 8 * (v7 / 0x33)) + 80 * (v7 % 0x33);
+  v9 = *a2;
+  *(v8 + 16) = *(a2 + 4);
+  *v8 = v9;
+  v10 = *(a2 + 24);
+  *(v8 + 40) = *(a2 + 5);
+  *(v8 + 24) = v10;
   *(a2 + 4) = 0;
   *(a2 + 5) = 0;
   *(a2 + 3) = 0;
-  *(v9 + 48) = 0;
-  *(v9 + 56) = 0;
-  *(v9 + 64) = 0;
+  *(v8 + 48) = 0;
+  *(v8 + 56) = 0;
+  *(v8 + 64) = 0;
   result = a2[3];
-  *(v9 + 48) = result;
-  *(v9 + 64) = *(a2 + 8);
+  *(v8 + 48) = result;
+  *(v8 + 64) = *(a2 + 8);
   *(a2 + 7) = 0;
   *(a2 + 8) = 0;
   *(a2 + 6) = 0;
-  *(v9 + 72) = *(a2 + 18);
-  ++*(a1 + 40);
+  *(v8 + 72) = *(a2 + 18);
+  ++a1[5];
   return result;
 }
 
-void *std::deque<YAML::Token>::__add_back_capacity(void *a1)
+void std::deque<YAML::Token>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x33;
   v3 = v1 - 51;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -5735,25 +5725,25 @@ void *std::deque<YAML::Token>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *&>(a1, &v9);
 }
 
 void sub_254CC3864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -5767,27 +5757,26 @@ void sub_254CC3864(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *&>(void *result, void *a2)
+void std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -5796,28 +5785,26 @@ void *std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *&>(void *res
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<YAML::Token *>::emplace_front<YAML::Token *>(const void **result, void *a2)
+void std::__split_buffer<YAML::Token *>::emplace_front<YAML::Token *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -5830,52 +5817,50 @@ const void **std::__split_buffer<YAML::Token *>::emplace_front<YAML::Token *>(co
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *>(void *result, void *a2)
+void std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -5884,28 +5869,26 @@ void *std::__split_buffer<YAML::Token *>::emplace_back<YAML::Token *>(void *resu
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<YAML::Token *>::emplace_front<YAML::Token *&>(const void **result, void *a2)
+void std::__split_buffer<YAML::Token *>::emplace_front<YAML::Token *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -5918,29 +5901,28 @@ const void **std::__split_buffer<YAML::Token *>::emplace_front<YAML::Token *&>(c
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(uint64_t a1, unint64_t a2)
@@ -5953,24 +5935,23 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Token *>>(uint6
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__split_buffer<YAML::Scanner::SimpleKey *>::emplace_back<YAML::Scanner::SimpleKey *&>(void *result, void *a2)
+void std::__split_buffer<YAML::Scanner::SimpleKey *>::emplace_back<YAML::Scanner::SimpleKey *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::SimpleKey *>>(v11);
@@ -5982,18 +5963,17 @@ void *std::__split_buffer<YAML::Scanner::SimpleKey *>::emplace_back<YAML::Scanne
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::SimpleKey *>>(unint64_t a1)
@@ -6075,8 +6055,7 @@ void siri::intelligence::Activity::GetId(siri::intelligence::Activity *this@<X0>
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
@@ -6089,8 +6068,7 @@ void siri::intelligence::Activity::GetName(siri::intelligence::Activity *this@<X
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 24);
-    a2->__r_.__value_.__r.__words[2] = *(this + 5);
+    *a2 = *(this + 1);
   }
 }
 
@@ -6103,8 +6081,7 @@ void siri::intelligence::Activity::GetInputGroup(siri::intelligence::Activity *t
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 3);
-    a2->__r_.__value_.__r.__words[2] = *(this + 8);
+    *a2 = *(this + 2);
   }
 }
 
@@ -6117,7 +6094,7 @@ void siri::intelligence::Activity::SetResponseIds(std::vector<std::string> *a1, 
   }
 }
 
-uint64_t siri::intelligence::Activity::GetResponseIds@<X0>(siri::intelligence::Activity *this@<X0>, void *a2@<X8>)
+uint64_t *siri::intelligence::Activity::GetResponseIds@<X0>(siri::intelligence::Activity *this@<X0>, uint64_t *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -6125,24 +6102,24 @@ uint64_t siri::intelligence::Activity::GetResponseIds@<X0>(siri::intelligence::A
   return std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a2, *(this + 9), *(this + 10), 0xAAAAAAAAAAAAAAABLL * ((*(this + 10) - *(this + 9)) >> 3));
 }
 
-void YAML::Scanner::ScanDirective(YAML::Scanner *this)
+void YAML::Scanner::ScanDirective(void ***this)
 {
   memset(v26, 0, 24);
   YAML::Scanner::PopAllIndents(this);
   while (1)
   {
-    v2 = *(this + 24);
+    v2 = this[24];
     if (!v2)
     {
       break;
     }
 
-    *(this + 24) = v2 - 1;
+    this[24] = (v2 - 1);
     std::deque<YAML::Scanner::SimpleKey>::__maybe_remove_back_spare[abi:ne200100](this + 19, 1);
   }
 
   *(this + 73) = 0;
-  v3 = *(this + 1);
+  v3 = this[1];
   v4 = *(this + 4);
   *&v21 = 0;
   *(&v21 + 1) = v3;
@@ -6158,14 +6135,14 @@ void YAML::Scanner::ScanDirective(YAML::Scanner *this)
       {
         v7 = YAML::Exp::Blank(v6);
         v8 = YAML::Exp::Break(v7);
-        YAML::operator|(v7, v8, &YAML::Exp::BlankOrBreak(void)::e);
-        __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::BlankOrBreak(void)::e, &dword_254C81000);
+        YAML::operator|(YAML::Exp::BlankOrBreak(void)::e, v7, v8);
+        __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::BlankOrBreak(void)::e, &dword_254C81000);
       }
     }
 
     v19.__r_.__value_.__r.__words[0] = 0;
     v19.__r_.__value_.__l.__size_ = this;
-    if ((*(this + 8) || YAML::Stream::_ReadAheadTo(this, 0)) && (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(&YAML::Exp::BlankOrBreak(void)::e, &v19) & 0x80000000) == 0)
+    if ((this[8] || YAML::Stream::_ReadAheadTo(this, 0)) && (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(YAML::Exp::BlankOrBreak(void)::e, &v19) & 0x80000000) == 0)
     {
       break;
     }
@@ -6183,19 +6160,19 @@ void YAML::Scanner::ScanDirective(YAML::Scanner *this)
         {
           v17 = YAML::Exp::Space(v16);
           v18 = YAML::Exp::Tab(v17);
-          YAML::operator|(v17, v18, &YAML::Exp::Blank(void)::e);
-          __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::Blank(void)::e, &dword_254C81000);
+          YAML::operator|(YAML::Exp::Blank(void)::e, v17, v18);
+          __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::Blank(void)::e, &dword_254C81000);
         }
       }
 
       v19.__r_.__value_.__r.__words[0] = 0;
       v19.__r_.__value_.__l.__size_ = this;
-      if (!*(this + 8) && !YAML::Stream::_ReadAheadTo(this, 0))
+      if (!this[8] && !YAML::Stream::_ReadAheadTo(this, 0))
       {
         break;
       }
 
-      if ((YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(&YAML::Exp::Blank(void)::e, &v19) & 0x80000000) != 0)
+      if ((YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(YAML::Exp::Blank(void)::e, &v19) & 0x80000000) != 0)
       {
         break;
       }
@@ -6212,7 +6189,7 @@ void YAML::Scanner::ScanDirective(YAML::Scanner *this)
     v10 = YAML::Exp::Break(v9);
     v19.__r_.__value_.__r.__words[0] = 0;
     v19.__r_.__value_.__l.__size_ = this;
-    if ((*(this + 8) || YAML::Stream::_ReadAheadTo(this, 0)) && (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(v10, &v19) & 0x80000000) == 0)
+    if ((this[8] || YAML::Stream::_ReadAheadTo(this, 0)) && (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(v10, &v19) & 0x80000000) == 0)
     {
       break;
     }
@@ -6233,7 +6210,7 @@ void YAML::Scanner::ScanDirective(YAML::Scanner *this)
     std::vector<YAML::RegEx>::__init_with_size[abi:ne200100]<YAML::RegEx*,YAML::RegEx*>(&v19.__r_.__value_.__l.__size_, qword_27F7539C0, qword_27F7539C8, (qword_27F7539C8 - qword_27F7539C0) >> 5);
     p_size = 0;
     v28 = this;
-    if (*(this + 8) || YAML::Stream::_ReadAheadTo(this, 0))
+    if (this[8] || YAML::Stream::_ReadAheadTo(this, 0))
     {
       v11 = YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(&v19, &p_size);
       p_size = &v19.__r_.__value_.__l.__size_;
@@ -6258,14 +6235,14 @@ void YAML::Scanner::ScanDirective(YAML::Scanner *this)
         {
           v14 = YAML::Exp::Blank(v13);
           v15 = YAML::Exp::Break(v14);
-          YAML::operator|(v14, v15, &YAML::Exp::BlankOrBreak(void)::e);
-          __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::BlankOrBreak(void)::e, &dword_254C81000);
+          YAML::operator|(YAML::Exp::BlankOrBreak(void)::e, v14, v15);
+          __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::BlankOrBreak(void)::e, &dword_254C81000);
         }
       }
 
       p_size = 0;
       v28 = this;
-      if ((*(this + 8) || YAML::Stream::_ReadAheadTo(this, 0)) && (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(&YAML::Exp::BlankOrBreak(void)::e, &p_size) & 0x80000000) == 0)
+      if ((this[8] || YAML::Stream::_ReadAheadTo(this, 0)) && (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(YAML::Exp::BlankOrBreak(void)::e, &p_size) & 0x80000000) == 0)
       {
         break;
       }
@@ -6281,7 +6258,7 @@ void YAML::Scanner::ScanDirective(YAML::Scanner *this)
     }
   }
 
-  std::deque<YAML::Token>::push_back(this + 96, &v21);
+  std::deque<YAML::Token>::push_back(this + 12, &v21);
   v19.__r_.__value_.__r.__words[0] = v24 + 8;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v19);
   if (SBYTE7(v24[0]) < 0)
@@ -6308,12 +6285,12 @@ void *YAML::Exp::BlankOrBreak(YAML::Exp *this)
     {
       v3 = YAML::Exp::Blank(v2);
       v4 = YAML::Exp::Break(v3);
-      YAML::operator|(v3, v4, &YAML::Exp::BlankOrBreak(void)::e);
-      __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::BlankOrBreak(void)::e, &dword_254C81000);
+      YAML::operator|(YAML::Exp::BlankOrBreak(void)::e, v3, v4);
+      __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::BlankOrBreak(void)::e, &dword_254C81000);
     }
   }
 
-  return &YAML::Exp::BlankOrBreak(void)::e;
+  return YAML::Exp::BlankOrBreak(void)::e;
 }
 
 void *YAML::Exp::Blank(YAML::Exp *this)
@@ -6323,12 +6300,12 @@ void *YAML::Exp::Blank(YAML::Exp *this)
     {
       v3 = YAML::Exp::Space(v2);
       v4 = YAML::Exp::Tab(v3);
-      YAML::operator|(v3, v4, &YAML::Exp::Blank(void)::e);
-      __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::Blank(void)::e, &dword_254C81000);
+      YAML::operator|(YAML::Exp::Blank(void)::e, v3, v4);
+      __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::Blank(void)::e, &dword_254C81000);
     }
   }
 
-  return &YAML::Exp::Blank(void)::e;
+  return YAML::Exp::Blank(void)::e;
 }
 
 void *YAML::Exp::Break(YAML::Exp *this)
@@ -6339,7 +6316,7 @@ void *YAML::Exp::Break(YAML::Exp *this)
     memset(v8, 0, sizeof(v8));
     std::string::basic_string[abi:ne200100]<0>(__p, "\r\n");
     YAML::RegEx::RegEx(&v4, __p, 6);
-    YAML::operator|(&v6, &v4, &YAML::Exp::Break(void)::e);
+    YAML::operator|(YAML::Exp::Break(void)::e, &v6, &v4);
     v9 = &v5;
     std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v9);
     if (v3 < 0)
@@ -6349,10 +6326,10 @@ void *YAML::Exp::Break(YAML::Exp *this)
 
     v4 = v8;
     std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v4);
-    __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::Break(void)::e, &dword_254C81000);
+    __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::Break(void)::e, &dword_254C81000);
   }
 
-  return &YAML::Exp::Break(void)::e;
+  return YAML::Exp::Break(void)::e;
 }
 
 void sub_254CC4780(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15)
@@ -6368,12 +6345,12 @@ void sub_254CC4780(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t YAML::Exp::Comment@<X0>(uint64_t a1@<X8>)
+uint64_t *YAML::Exp::Comment@<X0>(uint64_t a1@<X8>)
 {
-  v3 = a1;
+  v2 = a1;
   {
-    v3 = a1;
-    if (v9)
+    v2 = a1;
+    if (v8)
     {
       YAML::Exp::Comment(void)::e = 1;
       word_27F7539BC = 35;
@@ -6381,21 +6358,21 @@ uint64_t YAML::Exp::Comment@<X0>(uint64_t a1@<X8>)
       unk_27F7539D0 = 0;
       qword_27F7539C0 = 0;
       __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::Comment(void)::e, &dword_254C81000);
-      v3 = a1;
+      v2 = a1;
     }
   }
 
-  *v3 = YAML::Exp::Comment(void)::e;
-  *(v3 + 4) = word_27F7539BC;
-  *(v3 + 16) = 0;
-  *(v3 + 24) = 0;
-  *(v3 + 8) = 0;
-  v4 = v3 + 8;
-  v5 = qword_27F7539C0;
-  v6 = qword_27F7539C8;
-  v7 = (qword_27F7539C8 - qword_27F7539C0) >> 5;
+  *v2 = YAML::Exp::Comment(void)::e;
+  *(v2 + 4) = word_27F7539BC;
+  *(v2 + 16) = 0;
+  *(v2 + 24) = 0;
+  *(v2 + 8) = 0;
+  v3 = (v2 + 8);
+  v4 = qword_27F7539C0;
+  v5 = qword_27F7539C8;
+  v6 = (qword_27F7539C8 - qword_27F7539C0) >> 5;
 
-  return std::vector<YAML::RegEx>::__init_with_size[abi:ne200100]<YAML::RegEx*,YAML::RegEx*>(v4, v5, v6, v7);
+  return std::vector<YAML::RegEx>::__init_with_size[abi:ne200100]<YAML::RegEx*,YAML::RegEx*>(v3, v4, v5, v6);
 }
 
 void YAML::Scanner::ScanDocStart(YAML::Scanner *this)
@@ -6430,7 +6407,7 @@ void YAML::Scanner::ScanDocStart(YAML::Scanner *this)
   *__p = 0u;
   memset(v9, 0, sizeof(v9));
   v10 = 0;
-  std::deque<YAML::Token>::push_back(this + 96, &v6);
+  std::deque<YAML::Token>::push_back(this + 12, &v6);
   v11 = v9 + 1;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v11);
   if (SBYTE7(v9[0]) < 0)
@@ -6439,9 +6416,9 @@ void YAML::Scanner::ScanDocStart(YAML::Scanner *this)
   }
 }
 
-void sub_254CC49C4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CC49C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   YAML::Token::~Token(va);
   _Unwind_Resume(a1);
 }
@@ -6478,7 +6455,7 @@ void YAML::Scanner::ScanDocEnd(YAML::Scanner *this)
   *__p = 0u;
   memset(v9, 0, sizeof(v9));
   v10 = 0;
-  std::deque<YAML::Token>::push_back(this + 96, &v6);
+  std::deque<YAML::Token>::push_back(this + 12, &v6);
   v11 = v9 + 1;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v11);
   if (SBYTE7(v9[0]) < 0)
@@ -6487,9 +6464,9 @@ void YAML::Scanner::ScanDocEnd(YAML::Scanner *this)
   }
 }
 
-void sub_254CC4AA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CC4AA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   YAML::Token::~Token(va);
   _Unwind_Resume(a1);
 }
@@ -6519,7 +6496,7 @@ void YAML::Scanner::ScanFlowStart(YAML::Scanner *this)
   *__p = 0u;
   memset(v8, 0, sizeof(v8));
   v9 = 0;
-  std::deque<YAML::Token>::push_back(this + 96, &v5);
+  std::deque<YAML::Token>::push_back(this + 12, &v5);
   v11 = v8 + 1;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v11);
   if (SBYTE7(v8[0]) < 0)
@@ -6556,7 +6533,7 @@ void YAML::Scanner::ScanFlowEnd(YAML::Scanner *this)
       v22 = 0u;
       v23 = 0u;
       v24 = 0;
-      std::deque<YAML::Token>::push_back(this + 96, &v19);
+      std::deque<YAML::Token>::push_back(this + 12, &v19);
       v25 = &v22 + 1;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v25);
       if (SBYTE7(v22) < 0)
@@ -6630,7 +6607,7 @@ LABEL_9:
   v22 = 0u;
   v23 = 0u;
   v24 = 0;
-  std::deque<YAML::Token>::push_back(this + 96, &v19);
+  std::deque<YAML::Token>::push_back(this + 12, &v19);
   v27 = &v22 + 1;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v27);
   if (SBYTE7(v22) < 0)
@@ -6661,7 +6638,7 @@ void YAML::Scanner::ScanFlowEntry(YAML::Scanner *this)
       v12 = 0u;
       v13 = 0u;
       v14 = 0;
-      std::deque<YAML::Token>::push_back(this + 96, &v9);
+      std::deque<YAML::Token>::push_back(this + 12, &v9);
       v15 = &v12 + 1;
       std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v15);
       if (SBYTE7(v12) < 0)
@@ -6693,7 +6670,7 @@ LABEL_9:
   v12 = 0u;
   v13 = 0u;
   v14 = 0;
-  std::deque<YAML::Token>::push_back(this + 96, &v9);
+  std::deque<YAML::Token>::push_back(this + 12, &v9);
   v15 = &v12 + 1;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v15);
   if (SBYTE7(v12) < 0)
@@ -6702,9 +6679,9 @@ LABEL_9:
   }
 }
 
-void sub_254CC5038(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_254CC5038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   YAML::Token::~Token(va);
   _Unwind_Resume(a1);
 }
@@ -6714,41 +6691,40 @@ void YAML::Scanner::ScanBlockEntry(YAML::Scanner *this)
   if (*(this + 39))
   {
     exception = __cxa_allocate_exception(0x38uLL);
-    v6 = *(this + 4);
-    v14 = *(this + 1);
-    v15 = v6;
-    std::string::basic_string[abi:ne200100]<0>(&v9, "illegal block entry");
-    YAML::Exception::Exception(exception, &v14, &v9);
+    v5 = *(this + 4);
+    v13 = *(this + 1);
+    v14 = v5;
+    std::string::basic_string[abi:ne200100]<0>(&v8, "illegal block entry");
+    YAML::Exception::Exception(exception, &v13, &v8);
     *exception = &unk_28671C278;
   }
 
   if ((*(this + 146) & 1) == 0)
   {
-    v7 = __cxa_allocate_exception(0x38uLL);
-    v8 = *(this + 4);
-    v14 = *(this + 1);
-    v15 = v8;
-    std::string::basic_string[abi:ne200100]<0>(&v9, "illegal block entry");
-    YAML::Exception::Exception(v7, &v14, &v9);
-    *v7 = &unk_28671C278;
+    v6 = __cxa_allocate_exception(0x38uLL);
+    v7 = *(this + 4);
+    v13 = *(this + 1);
+    v14 = v7;
+    std::string::basic_string[abi:ne200100]<0>(&v8, "illegal block entry");
+    YAML::Exception::Exception(v6, &v13, &v8);
+    *v6 = &unk_28671C278;
   }
 
-  v2 = *(this + 4);
-  YAML::Scanner::PushIndentTo(this);
+  YAML::Scanner::PushIndentTo(this, *(this + 4), 1);
   *(this + 73) = 1;
-  v3 = *(this + 1);
-  v4 = *(this + 4);
+  v2 = *(this + 1);
+  v3 = *(this + 4);
   YAML::Stream::get(this);
-  *&v9 = 0x700000000;
-  *(&v9 + 1) = v3;
-  v10 = v4;
+  *&v8 = 0x700000000;
+  *(&v8 + 1) = v2;
+  v9 = v3;
   *__p = 0u;
-  memset(v12, 0, sizeof(v12));
-  v13 = 0;
-  std::deque<YAML::Token>::push_back(this + 96, &v9);
-  v14 = v12 + 1;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v14);
-  if (SBYTE7(v12[0]) < 0)
+  memset(v11, 0, sizeof(v11));
+  v12 = 0;
+  std::deque<YAML::Token>::push_back(this + 12, &v8);
+  v13 = v11 + 1;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v13);
+  if (SBYTE7(v11[0]) < 0)
   {
     operator delete(__p[0]);
   }
@@ -6787,36 +6763,35 @@ void YAML::Scanner::ScanKey(YAML::Scanner *this)
     if ((*(this + 146) & 1) == 0)
     {
       exception = __cxa_allocate_exception(0x38uLL);
-      v7 = this;
-      v8 = exception;
-      v9 = *(v7 + 1);
-      LODWORD(v7) = *(v7 + 4);
-      v15 = v9;
-      v16 = v7;
-      std::string::basic_string[abi:ne200100]<0>(&v10, "illegal map key");
-      YAML::Exception::Exception(v8, &v15, &v10);
-      *v8 = &unk_28671C278;
+      v6 = this;
+      v7 = exception;
+      v8 = *(v6 + 1);
+      LODWORD(v6) = *(v6 + 4);
+      v14 = v8;
+      v15 = v6;
+      std::string::basic_string[abi:ne200100]<0>(&v9, "illegal map key");
+      YAML::Exception::Exception(v7, &v14, &v9);
+      *v7 = &unk_28671C278;
     }
 
-    v3 = *(this + 4);
-    YAML::Scanner::PushIndentTo(this);
+    YAML::Scanner::PushIndentTo(this, *(this + 4), 0);
     v2 = *(this + 39) == 0;
   }
 
   *(this + 146) = v2;
-  v4 = *(this + 1);
-  v5 = *(this + 4);
+  v3 = *(this + 1);
+  v4 = *(this + 4);
   YAML::Stream::get(this);
-  *&v10 = 0xE00000000;
-  *(&v10 + 1) = v4;
-  v11 = v5;
+  *&v9 = 0xE00000000;
+  *(&v9 + 1) = v3;
+  v10 = v4;
   *__p = 0u;
-  memset(v13, 0, sizeof(v13));
-  v14 = 0;
-  std::deque<YAML::Token>::push_back(this + 96, &v10);
-  v15 = v13 + 1;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v15);
-  if (SBYTE7(v13[0]) < 0)
+  memset(v12, 0, sizeof(v12));
+  v13 = 0;
+  std::deque<YAML::Token>::push_back(this + 12, &v9);
+  v14 = v12 + 1;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v14);
+  if (SBYTE7(v12[0]) < 0)
   {
     operator delete(__p[0]);
   }
@@ -6864,38 +6839,37 @@ void YAML::Scanner::ScanValue(YAML::Scanner *this)
       if ((*(this + 146) & 1) == 0)
       {
         exception = __cxa_allocate_exception(0x38uLL);
-        v8 = this;
-        v9 = exception;
-        v10 = *(v8 + 1);
-        LODWORD(v8) = *(v8 + 4);
-        v16 = v10;
-        v17 = v8;
-        std::string::basic_string[abi:ne200100]<0>(&v11, "illegal map value");
-        YAML::Exception::Exception(v9, &v16, &v11);
-        *v9 = &unk_28671C278;
+        v7 = this;
+        v8 = exception;
+        v9 = *(v7 + 1);
+        LODWORD(v7) = *(v7 + 4);
+        v15 = v9;
+        v16 = v7;
+        std::string::basic_string[abi:ne200100]<0>(&v10, "illegal map value");
+        YAML::Exception::Exception(v8, &v15, &v10);
+        *v8 = &unk_28671C278;
       }
 
-      v4 = *(this + 4);
-      YAML::Scanner::PushIndentTo(this);
+      YAML::Scanner::PushIndentTo(this, *(this + 4), 0);
       v3 = *(this + 39) == 0;
     }
 
     *(this + 146) = v3;
   }
 
-  v5 = *(this + 1);
-  v6 = *(this + 4);
+  v4 = *(this + 1);
+  v5 = *(this + 4);
   YAML::Stream::get(this);
-  *&v11 = 0xF00000000;
-  *(&v11 + 1) = v5;
-  v12 = v6;
+  *&v10 = 0xF00000000;
+  *(&v10 + 1) = v4;
+  v11 = v5;
   *__p = 0u;
-  memset(v14, 0, sizeof(v14));
-  v15 = 0;
-  std::deque<YAML::Token>::push_back(this + 96, &v11);
-  v16 = v14 + 1;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v16);
-  if (SBYTE7(v14[0]) < 0)
+  memset(v13, 0, sizeof(v13));
+  v14 = 0;
+  std::deque<YAML::Token>::push_back(this + 12, &v10);
+  v15 = v13 + 1;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v15);
+  if (SBYTE7(v13[0]) < 0)
   {
     operator delete(__p[0]);
   }
@@ -6937,8 +6911,8 @@ void YAML::Scanner::ScanAnchorOrAlias(void **this)
       std::string::basic_string[abi:ne200100]<0>(__p, "[]{},");
       v6 = YAML::RegEx::RegEx(&v26, __p, 3);
       v7 = YAML::Exp::BlankOrBreak(v6);
-      YAML::operator|(&v26, v7, &v18);
-      YAML::operator!(&v18, &unk_280AF4280);
+      YAML::operator|(&v18, &v26, v7);
+      YAML::operator!(&v18, qword_280AF4280);
       v29[0] = &v18 + 1;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](v29);
       v29[0] = &v27;
@@ -6948,7 +6922,7 @@ void YAML::Scanner::ScanAnchorOrAlias(void **this)
         operator delete(__p[0]);
       }
 
-      __cxa_atexit(YAML::RegEx::~RegEx, &unk_280AF4280, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, qword_280AF4280, &dword_254C81000);
       __cxa_guard_release(&_MergedGlobals_7);
     }
 
@@ -6959,7 +6933,7 @@ void YAML::Scanner::ScanAnchorOrAlias(void **this)
       break;
     }
 
-    if ((YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(&unk_280AF4280, &v18) & 0x80000000) != 0)
+    if ((YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(qword_280AF4280, &v18) & 0x80000000) != 0)
     {
       break;
     }
@@ -7001,7 +6975,7 @@ void YAML::Scanner::ScanAnchorOrAlias(void **this)
     {
       v16 = YAML::RegEx::RegEx(&v18, &v26, 3);
       v17 = YAML::Exp::BlankOrBreak(v16);
-      YAML::operator|(&v18, v17, &unk_280AF42A0);
+      YAML::operator|(qword_280AF42A0, &v18, v17);
       __p[0] = &v18 + 8;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](__p);
       if (v28 < 0)
@@ -7009,13 +6983,13 @@ void YAML::Scanner::ScanAnchorOrAlias(void **this)
         operator delete(v26);
       }
 
-      __cxa_atexit(YAML::RegEx::~RegEx, &unk_280AF42A0, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, qword_280AF42A0, &dword_254C81000);
       __cxa_guard_release(&qword_280AF4250);
     }
 
     *&v18 = 0;
     *(&v18 + 1) = this;
-    if (!this[8] && !YAML::Stream::_ReadAheadTo(this, 0) || (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(&unk_280AF42A0, &v18) & 0x80000000) != 0)
+    if (!this[8] && !YAML::Stream::_ReadAheadTo(this, 0) || (YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(qword_280AF42A0, &v18) & 0x80000000) != 0)
     {
       v13 = __cxa_allocate_exception(0x38uLL);
       v14 = *(this + 4);
@@ -7055,7 +7029,7 @@ void YAML::Scanner::ScanAnchorOrAlias(void **this)
   memset(v21, 0, sizeof(v21));
   v22 = 0;
   std::string::operator=(v20, &__str);
-  std::deque<YAML::Token>::push_back((this + 12), &v18);
+  std::deque<YAML::Token>::push_back(this + 12, &v18);
   v26 = v21 + 8;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v26);
   if (SBYTE7(v21[0]) < 0)
@@ -7100,7 +7074,7 @@ void YAML::Scanner::ScanTag(YAML::Scanner *this)
   YAML::Stream::get(this);
   if (YAML::Stream::operator BOOL(this) && *(this + 8) && *(*(*(this + 4) + ((*(this + 7) >> 9) & 0x7FFFFFFFFFFFF8)) + (*(this + 7) & 0xFFFLL)) == 60)
   {
-    YAML::ScanVerbatimTag(this, &__str);
+    YAML::ScanVerbatimTag(&__str, this);
     std::string::operator=(__p, &__str);
     v13 = 0;
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -7112,7 +7086,7 @@ void YAML::Scanner::ScanTag(YAML::Scanner *this)
   }
 
   v7 = 0;
-  YAML::ScanTagHandle(this, &v7, &__str);
+  YAML::ScanTagHandle(&__str, this, &v7);
   std::string::operator=(__p, &__str);
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -7159,7 +7133,7 @@ void YAML::Scanner::ScanTag(YAML::Scanner *this)
   if (*(this + 8) && *(*(*(this + 4) + ((*(this + 7) >> 9) & 0x7FFFFFFFFFFFF8)) + (*(this + 7) & 0xFFFLL)) == 33)
   {
     YAML::Stream::get(this);
-    YAML::ScanTagSuffix(this, &__str);
+    YAML::ScanTagSuffix(&__str, this);
     std::vector<std::string>::push_back[abi:ne200100](v12 + 8, &__str);
     if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -7172,7 +7146,7 @@ LABEL_24:
   }
 
 LABEL_25:
-  std::deque<YAML::Token>::push_back(this + 96, &v9);
+  std::deque<YAML::Token>::push_back(this + 12, &v9);
   __str.__r_.__value_.__r.__words[0] = v12 + 8;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&__str);
   if (SBYTE7(v12[0]) < 0)
@@ -7200,7 +7174,7 @@ void YAML::Scanner::ScanPlainScalar(YAML::Scanner *this)
   v27 = 0;
   if (*(this + 39))
   {
-    v2 = &unk_280AF42C0;
+    v2 = qword_280AF42C0;
     if ((atomic_load_explicit(&qword_280AF4258, memory_order_acquire) & 1) == 0)
     {
       v13 = &qword_280AF4258;
@@ -7210,13 +7184,13 @@ void YAML::Scanner::ScanPlainScalar(YAML::Scanner *this)
         v4 = YAML::Exp::EndScalarInFlow(v3);
         v5 = YAML::Exp::BlankOrBreak(v4);
         YAML::Exp::Comment(&v29);
-        YAML::operator+(v5, &v29, &v14);
-        YAML::operator|(v4, &v14, &unk_280AF42C0);
+        YAML::operator+(&v14, v5, &v29);
+        YAML::operator|(qword_280AF42C0, v4, &v14);
         p_size = &v14.__r_.__value_.__l.__size_;
         std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&p_size);
         p_size = v30;
         std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&p_size);
-        v2 = &unk_280AF42C0;
+        v2 = qword_280AF42C0;
 LABEL_17:
         __cxa_atexit(YAML::RegEx::~RegEx, v2, &dword_254C81000);
         __cxa_guard_release(v13);
@@ -7226,7 +7200,7 @@ LABEL_17:
 
   else
   {
-    v2 = &unk_280AF42E0;
+    v2 = qword_280AF42E0;
     if ((atomic_load_explicit(&qword_280AF4260, memory_order_acquire) & 1) == 0)
     {
       v13 = &qword_280AF4260;
@@ -7236,13 +7210,13 @@ LABEL_17:
         v11 = YAML::Exp::EndScalar(v10);
         v12 = YAML::Exp::BlankOrBreak(v11);
         YAML::Exp::Comment(&v29);
-        YAML::operator+(v12, &v29, &v14);
-        YAML::operator|(v11, &v14, &unk_280AF42E0);
+        YAML::operator+(&v14, v12, &v29);
+        YAML::operator|(qword_280AF42E0, v11, &v14);
         p_size = &v14.__r_.__value_.__l.__size_;
         std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&p_size);
         p_size = v30;
         std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&p_size);
-        v2 = &unk_280AF42E0;
+        v2 = qword_280AF42E0;
         goto LABEL_17;
       }
     }
@@ -7285,7 +7259,7 @@ LABEL_17:
   memset(v16, 0, sizeof(v16));
   v17 = 0;
   std::string::operator=(__p, &__str);
-  std::deque<YAML::Token>::push_back(this + 96, &v14);
+  std::deque<YAML::Token>::push_back(this + 12, &v14);
   v29 = v16 + 1;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v29);
   if (SBYTE7(v16[0]) < 0)
@@ -7349,7 +7323,7 @@ void YAML::Scanner::ScanQuotedScalar(YAML::Scanner *this)
     }
 
     YAML::operator!(dword_280AF4300, &p_size);
-    YAML::operator&(&v6, &p_size, &v12);
+    YAML::operator&(&v12, &v6, &p_size);
     v23[0] = &v11;
     std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](v23);
     p_size = &v6.__r_.__value_.__l.__size_;
@@ -7388,7 +7362,7 @@ void YAML::Scanner::ScanQuotedScalar(YAML::Scanner *this)
   memset(v8, 0, sizeof(v8));
   v9 = 0;
   std::string::operator=(__p, &__str);
-  std::deque<YAML::Token>::push_back(this + 96, &v6);
+  std::deque<YAML::Token>::push_back(this + 12, &v6);
   p_size = v8 + 1;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&p_size);
   if (SBYTE7(v8[0]) < 0)
@@ -7404,12 +7378,12 @@ void YAML::Scanner::ScanQuotedScalar(YAML::Scanner *this)
   }
 }
 
-void sub_254CC6360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_254CC6360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
-  if (*(v11 - 49) < 0)
+  va_start(va, a18);
+  if (*(v18 - 49) < 0)
   {
-    operator delete(*(v11 - 72));
+    operator delete(*(v18 - 72));
   }
 
   __cxa_guard_abort(&qword_280AF4268);
@@ -7439,15 +7413,15 @@ void YAML::Scanner::ScanBlockScalar(YAML::Scanner *this)
     {
       YAML::Exp::ChompIndicator(v20);
       v22 = YAML::Exp::Digit(v21);
-      v23 = YAML::operator+(dword_280AF4340, v22, &v49);
+      v23 = YAML::operator+(&v49, dword_280AF4340, v22);
       v24 = YAML::Exp::Digit(v23);
       YAML::Exp::ChompIndicator(v24);
-      YAML::operator+(v24, dword_280AF4340, &v47);
-      v25 = YAML::operator|(&v49, &v47, &v51);
+      YAML::operator+(&v47, v24, dword_280AF4340);
+      v25 = YAML::operator|(&v51, &v49, &v47);
       YAML::Exp::ChompIndicator(v25);
-      v26 = YAML::operator|(&v51, dword_280AF4340, &v32);
+      v26 = YAML::operator|(&v32, &v51, dword_280AF4340);
       v27 = YAML::Exp::Digit(v26);
-      YAML::operator|(&v32, v27, &unk_280AF4320);
+      YAML::operator|(qword_280AF4320, &v32, v27);
       v52[0] = &v32.__r_.__value_.__l.__size_;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](v52);
       v52[0] = &v51.__r_.__value_.__l.__size_;
@@ -7456,7 +7430,7 @@ void YAML::Scanner::ScanBlockScalar(YAML::Scanner *this)
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](v52);
       v47 = &v50;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v47);
-      __cxa_atexit(YAML::RegEx::~RegEx, &unk_280AF4320, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, qword_280AF4320, &dword_254C81000);
       __cxa_guard_release(&qword_280AF4270);
     }
   }
@@ -7465,7 +7439,7 @@ void YAML::Scanner::ScanBlockScalar(YAML::Scanner *this)
   v32.__r_.__value_.__l.__size_ = this;
   if (*(this + 8) || YAML::Stream::_ReadAheadTo(this, 0))
   {
-    v2 = YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(&unk_280AF4320, &v32);
+    v2 = YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(qword_280AF4320, &v32);
     if (v2 >= 1)
     {
       while (1)
@@ -7569,8 +7543,8 @@ LABEL_28:
       {
         v10 = YAML::Exp::Space(v9);
         v11 = YAML::Exp::Tab(v10);
-        YAML::operator|(v10, v11, &YAML::Exp::Blank(void)::e);
-        __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::Blank(void)::e, &dword_254C81000);
+        YAML::operator|(YAML::Exp::Blank(void)::e, v10, v11);
+        __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::Blank(void)::e, &dword_254C81000);
       }
     }
 
@@ -7581,7 +7555,7 @@ LABEL_28:
       break;
     }
 
-    if ((YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(&YAML::Exp::Blank(void)::e, &v32) & 0x80000000) != 0)
+    if ((YAML::RegEx::MatchUnchecked<YAML::StreamCharSource>(YAML::Exp::Blank(void)::e, &v32) & 0x80000000) != 0)
     {
       break;
     }
@@ -7672,7 +7646,7 @@ LABEL_28:
   memset(v34, 0, sizeof(v34));
   v35 = 0;
   std::string::operator=(v33, &__p);
-  std::deque<YAML::Token>::push_back(this + 96, &v32);
+  std::deque<YAML::Token>::push_back(this + 12, &v32);
   v51.__r_.__value_.__r.__words[0] = v34 + 8;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v51);
   if (SBYTE7(v34[0]) < 0)
@@ -7743,7 +7717,7 @@ int *YAML::Exp::Tab(YAML::Exp *this)
   return &YAML::Exp::Tab(void)::e;
 }
 
-uint64_t std::vector<YAML::RegEx>::__init_with_size[abi:ne200100]<YAML::RegEx*,YAML::RegEx*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<YAML::RegEx>::__init_with_size[abi:ne200100]<YAML::RegEx*,YAML::RegEx*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7753,14 +7727,14 @@ uint64_t std::vector<YAML::RegEx>::__init_with_size[abi:ne200100]<YAML::RegEx*,Y
   return result;
 }
 
-void sub_254CC6ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_254CC6ED0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<YAML::RegEx>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<YAML::RegEx>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 59))
   {
@@ -7783,12 +7757,12 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::RegEx>>(uint64_
 uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<YAML::RegEx>,YAML::RegEx*,YAML::RegEx*,YAML::RegEx*>(uint64_t a1, int *a2, int *a3, uint64_t a4)
 {
   v4 = a4;
-  v13 = a4;
-  v14 = a4;
-  v11[0] = a1;
-  v11[1] = &v13;
-  v11[2] = &v14;
-  v12 = 0;
+  v11 = a4;
+  v12 = a4;
+  v9[0] = a1;
+  v9[1] = &v11;
+  v9[2] = &v12;
+  v10 = 0;
   if (a2 != a3)
   {
     v6 = a2;
@@ -7800,19 +7774,17 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<Y
       *(v4 + 16) = 0;
       *(v4 + 24) = 0;
       *(v4 + 8) = 0;
-      v8 = *(v6 + 1);
-      v9 = *(v6 + 2);
-      std::vector<YAML::RegEx>::__init_with_size[abi:ne200100]<YAML::RegEx*,YAML::RegEx*>(v4 + 8);
+      std::vector<YAML::RegEx>::__init_with_size[abi:ne200100]<YAML::RegEx*,YAML::RegEx*>(v4 + 8, *(v6 + 1), *(v6 + 2), (*(v6 + 2) - *(v6 + 1)) >> 5);
       v6 += 8;
-      v4 = v14 + 32;
-      v14 += 32;
+      v4 = v12 + 32;
+      v12 += 32;
     }
 
     while (v6 != a3);
   }
 
-  v12 = 1;
-  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<YAML::RegEx>,YAML::RegEx*>>::~__exception_guard_exceptions[abi:ne200100](v11);
+  v10 = 1;
+  std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<std::allocator<YAML::RegEx>,YAML::RegEx*>>::~__exception_guard_exceptions[abi:ne200100](v9);
   return v4;
 }
 
@@ -7826,10 +7798,10 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
   return a1;
 }
 
-void std::_AllocatorDestroyRangeReverse<std::allocator<YAML::RegEx>,YAML::RegEx*>::operator()[abi:ne200100](uint64_t a1)
+void std::_AllocatorDestroyRangeReverse<std::allocator<YAML::RegEx>,YAML::RegEx*>::operator()[abi:ne200100](uint64_t result)
 {
-  v1 = **(a1 + 16);
-  v2 = **(a1 + 8);
+  v1 = **(result + 16);
+  v2 = **(result + 8);
   if (v1 != v2)
   {
     do
@@ -7857,7 +7829,7 @@ void std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](void *
       do
       {
         v6 = v4 - 32;
-        v7 = v4 - 24;
+        v7 = (v4 - 24);
         std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v7);
         v4 = v6;
       }
@@ -7902,14 +7874,14 @@ void *YAML::Exp::EndScalarInFlow(YAML::Exp *this)
       v12 = 0;
       v13 = 0;
       memset(v14, 0, sizeof(v14));
-      YAML::operator|(v3, &v12, &v15);
+      YAML::operator|(&v15, v3, &v12);
       std::string::basic_string[abi:ne200100]<0>(v8, ",]}");
       YAML::RegEx::RegEx(&v10, v8, 3);
-      YAML::operator|(&v15, &v10, &v17);
-      YAML::operator+(&v19, &v17, &v22);
+      YAML::operator|(&v17, &v15, &v10);
+      YAML::operator+(&v22, &v19, &v17);
       std::string::basic_string[abi:ne200100]<0>(__p, ",?[]{}");
       YAML::RegEx::RegEx(&v6, __p, 3);
-      YAML::operator|(&v22, &v6, &YAML::Exp::EndScalarInFlow(void)::e);
+      YAML::operator|(YAML::Exp::EndScalarInFlow(void)::e, &v22, &v6);
       v24 = &v7;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v24);
       if (v5 < 0)
@@ -7934,11 +7906,11 @@ void *YAML::Exp::EndScalarInFlow(YAML::Exp *this)
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v10);
       v17 = v21;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v17);
-      __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::EndScalarInFlow(void)::e, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::EndScalarInFlow(void)::e, &dword_254C81000);
     }
   }
 
-  return &YAML::Exp::EndScalarInFlow(void)::e;
+  return YAML::Exp::EndScalarInFlow(void)::e;
 }
 
 void sub_254CC74B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t *a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35)
@@ -7981,28 +7953,28 @@ void *YAML::Exp::EndScalar(YAML::Exp *this)
       v4 = 0;
       v5 = 0;
       memset(v6, 0, sizeof(v6));
-      YAML::operator|(v3, &v4, &v7);
-      YAML::operator+(&v9, &v7, &YAML::Exp::EndScalar(void)::e);
+      YAML::operator|(&v7, v3, &v4);
+      YAML::operator+(YAML::Exp::EndScalar(void)::e, &v9, &v7);
       v12 = &v8;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v12);
       v12 = v6;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v12);
       v7 = v11;
       std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](&v7);
-      __cxa_atexit(YAML::RegEx::~RegEx, &YAML::Exp::EndScalar(void)::e, &dword_254C81000);
+      __cxa_atexit(YAML::RegEx::~RegEx, YAML::Exp::EndScalar(void)::e, &dword_254C81000);
     }
   }
 
-  return &YAML::Exp::EndScalar(void)::e;
+  return YAML::Exp::EndScalar(void)::e;
 }
 
-void sub_254CC76B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_254CC76B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
-  *(v8 - 40) = v7 + 8;
-  std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100]((v8 - 40));
-  *(v8 - 40) = v6;
-  std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100]((v8 - 40));
+  va_start(va, a11);
+  *(v13 - 40) = v12 + 8;
+  std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100]((v13 - 40));
+  *(v13 - 40) = v11;
+  std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100]((v13 - 40));
   std::vector<YAML::RegEx>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8399,47 +8371,46 @@ uint64_t YAML::RegEx::MatchUnchecked<YAML::StringCharSource>(uint64_t a1, void *
   return v5;
 }
 
-uint64_t std::deque<YAML::Token>::push_back(uint64_t a1, __int128 *a2)
+uint64_t *std::deque<YAML::Token>::push_back(unint64_t *a1, __int128 *a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 51 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 51 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<YAML::Token>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x33)) + 80 * (v8 % 0x33);
-  v10 = *a2;
-  *(v9 + 16) = *(a2 + 4);
-  *v9 = v10;
+  v8 = *(v5 + 8 * (v7 / 0x33)) + 80 * (v7 % 0x33);
+  v9 = *a2;
+  *(v8 + 16) = *(a2 + 4);
+  *v8 = v9;
   if (*(a2 + 47) < 0)
   {
-    std::string::__init_copy_ctor_external((v9 + 24), *(a2 + 3), *(a2 + 4));
+    std::string::__init_copy_ctor_external((v8 + 24), *(a2 + 3), *(a2 + 4));
   }
 
   else
   {
-    v11 = *(a2 + 24);
-    *(v9 + 40) = *(a2 + 5);
-    *(v9 + 24) = v11;
+    v10 = *(a2 + 24);
+    *(v8 + 40) = *(a2 + 5);
+    *(v8 + 24) = v10;
   }
 
-  *(v9 + 48) = 0;
-  *(v9 + 56) = 0;
-  *(v9 + 64) = 0;
-  result = std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v9 + 48, *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 3));
-  *(v9 + 72) = *(a2 + 18);
-  ++*(a1 + 40);
+  *(v8 + 48) = 0;
+  *(v8 + 56) = 0;
+  *(v8 + 64) = 0;
+  result = std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((v8 + 48), *(a2 + 6), *(a2 + 7), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 7) - *(a2 + 6)) >> 3));
+  *(v8 + 72) = *(a2 + 18);
+  ++a1[5];
   return result;
 }
 
@@ -8453,70 +8424,67 @@ void sub_254CC7D7C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::deque<YAML::Scanner::FLOW_MARKER>::push_back(void *result, _DWORD *a2)
+void std::deque<YAML::Scanner::FLOW_MARKER>::push_back(unint64_t *result, _DWORD *a2)
 {
-  v3 = result;
-  v4 = *(result + 1);
-  v5 = result[2];
-  v6 = result[1];
-  if (v5 == v6)
+  v4 = result[2];
+  v5 = result[1];
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = ((v5 - v6) << 7) - 1;
+    v6 = ((v4 - v5) << 7) - 1;
   }
 
-  v8 = result[5];
-  v9 = v8 + result[4];
-  if (v7 == v9)
+  v7 = result[5];
+  v8 = v7 + result[4];
+  if (v6 == v8)
   {
-    result = std::deque<YAML::Scanner::FLOW_MARKER>::__add_back_capacity(result);
-    v6 = v3[1];
-    v8 = v3[5];
-    v9 = v3[4] + v8;
+    std::deque<YAML::Scanner::FLOW_MARKER>::__add_back_capacity(result);
+    v5 = result[1];
+    v7 = result[5];
+    v8 = result[4] + v7;
   }
 
-  *(*(v6 + ((v9 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v9 & 0x3FF)) = *a2;
-  v3[5] = v8 + 1;
-  return result;
+  *(*(v5 + ((v8 >> 7) & 0x1FFFFFFFFFFFFF8)) + 4 * (v8 & 0x3FF)) = *a2;
+  result[5] = v7 + 1;
 }
 
-void *std::deque<YAML::Scanner::FLOW_MARKER>::__add_back_capacity(void *a1)
+void std::deque<YAML::Scanner::FLOW_MARKER>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x400;
   v3 = v1 - 1024;
   if (!v2)
   {
-    v6 = a1[3];
-    v7 = v6 - *a1;
-    if (a1[2] - a1[1] < v7)
+    v5 = a1[3];
+    v6 = v5 - *a1;
+    if (a1[2] - a1[1] < v6)
     {
       operator new();
     }
 
-    v8 = v7 >> 2;
-    if (v6 == *a1)
+    v7 = v6 >> 2;
+    if (v5 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8;
+      v8 = v7;
     }
 
-    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::FLOW_MARKER *>>(v9);
+    std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::FLOW_MARKER *>>(v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<YAML::Scanner::FLOW_MARKER *>::emplace_back<YAML::Scanner::FLOW_MARKER *&>(a1, &v10);
+  v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<YAML::Scanner::FLOW_MARKER *>::emplace_back<YAML::Scanner::FLOW_MARKER *&>(a1, &v9);
 }
 
 void sub_254CC8248(_Unwind_Exception *a1)
@@ -8530,24 +8498,23 @@ void sub_254CC8248(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<YAML::Scanner::FLOW_MARKER *>::emplace_back<YAML::Scanner::FLOW_MARKER *&>(void *result, void *a2)
+void std::__split_buffer<YAML::Scanner::FLOW_MARKER *>::emplace_back<YAML::Scanner::FLOW_MARKER *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
       std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::FLOW_MARKER *>>(v11);
@@ -8559,18 +8526,17 @@ void *std::__split_buffer<YAML::Scanner::FLOW_MARKER *>::emplace_back<YAML::Scan
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<YAML::Scanner::FLOW_MARKER *>>(unint64_t a1)
@@ -8613,8 +8579,7 @@ void siri::intelligence::Undo::GetIdentifier(siri::intelligence::Undo *this@<X0>
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
@@ -8657,7 +8622,7 @@ void std::__shared_ptr_emplace<siri::intelligence::Undo>::~__shared_ptr_emplace(
   JUMPOUT(0x259C29D90);
 }
 
-uint64_t YAML::Exp::ParseHex(uint64_t result, _DWORD *a2)
+uint64_t YAML::Exp::ParseHex(uint64_t result, uint64_t *a2)
 {
   v2 = *(result + 23);
   v3 = v2;
@@ -8690,8 +8655,8 @@ uint64_t YAML::Exp::ParseHex(uint64_t result, _DWORD *a2)
         if ((v5 - 48) >= 0xA)
         {
           exception = __cxa_allocate_exception(0x38uLL);
-          std::string::basic_string[abi:ne200100]<0>(v10, "bad character found while scanning hex number");
-          YAML::Exception::Exception(exception, a2, v10);
+          std::string::basic_string[abi:ne200100]<0>(&v10, "bad character found while scanning hex number");
+          YAML::Exception::Exception(exception, a2, &v10);
           *exception = &unk_28671C278;
         }
 
@@ -8746,7 +8711,7 @@ uint64_t YAML::Exp::Str@<X0>(uint64_t this@<X0>, _BYTE *a2@<X8>)
   return this;
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c)
+void *std::string::basic_string[abi:ne200100](void *__b, size_t __len, int __c)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -8758,13 +8723,13 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__b, size_t __len, int __c
     operator new();
   }
 
-  __b[23] = __len;
+  *(__b + 23) = __len;
   if (__len)
   {
     memset(__b, __c, __len);
   }
 
-  __b[__len] = 0;
+  *(__b + __len) = 0;
   return __b;
 }
 
@@ -8977,51 +8942,51 @@ LABEL_6:
   goto LABEL_6;
 }
 
-void YAML::Exp::Escape(YAML::Exp *this@<X0>, _BYTE *a2@<X8>)
+void YAML::Exp::Escape(YAML::Exp *this@<X0>, uint64_t a2@<X8>)
 {
+  v4 = YAML::Stream::get(this);
   v5 = YAML::Stream::get(this);
-  v6 = YAML::Stream::get(this);
-  if (v5 == 39 && v6 == 39)
+  if (v4 == 39 && v5 == 39)
   {
 LABEL_3:
-    v7 = "'";
+    v6 = "'";
 LABEL_4:
 
-    std::string::basic_string[abi:ne200100]<0>(a2, v7);
+    std::string::basic_string[abi:ne200100]<0>(a2, v6);
     return;
   }
 
-  if (v6 > 0x5Eu)
+  if (v5 > 0x5Eu)
   {
-    if (v6 <= 0x6Du)
+    if (v5 <= 0x6Du)
     {
-      if (v6 <= 0x61u)
+      if (v5 <= 0x61u)
       {
-        if (v6 == 95)
+        if (v5 == 95)
         {
-          v7 = "\xA0";
+          v6 = "\xA0";
           goto LABEL_4;
         }
 
-        if (v6 == 97)
+        if (v5 == 97)
         {
-          v7 = "\a";
+          v6 = "\a";
           goto LABEL_4;
         }
       }
 
       else
       {
-        switch(v6)
+        switch(v5)
         {
           case 'b':
-            v7 = "\b";
+            v6 = "\b";
             goto LABEL_4;
           case 'e':
-            v7 = "\x1B";
+            v6 = "\x1B";
             goto LABEL_4;
           case 'f':
-            v7 = "\f";
+            v6 = "\f";
             goto LABEL_4;
         }
       }
@@ -9029,22 +8994,22 @@ LABEL_4:
       goto LABEL_60;
     }
 
-    if (v6 > 0x74u)
+    if (v5 > 0x74u)
     {
-      switch(v6)
+      switch(v5)
       {
         case 'u':
-          v8 = a2;
-          v9 = this;
-          v10 = 4;
+          v7 = a2;
+          v8 = this;
+          v9 = 4;
           break;
         case 'v':
-          v7 = "\v";
+          v6 = "\v";
           goto LABEL_4;
         case 'x':
-          v8 = a2;
-          v9 = this;
-          v10 = 2;
+          v7 = a2;
+          v8 = this;
+          v9 = 2;
           break;
         default:
           goto LABEL_60;
@@ -9053,64 +9018,64 @@ LABEL_4:
       goto LABEL_56;
     }
 
-    if (v6 == 110)
+    if (v5 == 110)
     {
-      v7 = "\n";
+      v6 = "\n";
       goto LABEL_4;
     }
 
-    if (v6 == 114)
+    if (v5 == 114)
     {
-      v7 = "\r";
+      v6 = "\r";
       goto LABEL_4;
     }
 
-    if (v6 != 116)
+    if (v5 != 116)
     {
       goto LABEL_60;
     }
 
 LABEL_44:
-    v7 = "\t";
+    v6 = "\t";
     goto LABEL_4;
   }
 
-  if (v6 <= 0x2Fu)
+  if (v5 <= 0x2Fu)
   {
-    if (v6 > 0x21u)
+    if (v5 > 0x21u)
     {
-      switch(v6)
+      switch(v5)
       {
         case '""':
-          v7 = "";
+          v6 = "";
           goto LABEL_4;
         case '\'':
           goto LABEL_3;
         case '/':
-          v7 = "/";
+          v6 = "/";
           goto LABEL_4;
       }
 
 LABEL_60:
-      v11 = v6;
-      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v18);
+      v10 = v5;
+      std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v17);
       exception = __cxa_allocate_exception(0x38uLL);
-      v13 = *(this + 4);
-      v16 = *(this + 1);
-      v17 = v13;
-      std::string::basic_string[abi:ne200100]<0>(&v14, "unknown escape character: ");
-      std::string::push_back(&v14, v11);
-      v15 = v14;
-      memset(&v14, 0, sizeof(v14));
-      YAML::Exception::Exception(exception, &v16, &v15);
+      v12 = *(this + 4);
+      v15 = *(this + 1);
+      v16 = v12;
+      std::string::basic_string[abi:ne200100]<0>(&v13, "unknown escape character: ");
+      std::string::push_back(&v13, v10);
+      v14 = v13;
+      memset(&v13, 0, sizeof(v13));
+      YAML::Exception::Exception(exception, &v15, &v14);
       *exception = &unk_28671C278;
     }
 
-    if (v6 != 9)
+    if (v5 != 9)
     {
-      if (v6 == 32)
+      if (v5 == 32)
       {
-        v7 = " ";
+        v6 = " ";
         goto LABEL_4;
       }
 
@@ -9120,48 +9085,48 @@ LABEL_60:
     goto LABEL_44;
   }
 
-  if (v6 <= 0x4Fu)
+  if (v5 <= 0x4Fu)
   {
-    switch(v6)
+    switch(v5)
     {
       case '0':
-        a2[23] = 1;
+        *(a2 + 23) = 1;
         *a2 = 0;
         return;
       case 'L':
-        v7 = "\u2028";
+        v6 = "\u2028";
         goto LABEL_4;
       case 'N':
-        v7 = "\x85";
+        v6 = "\x85";
         goto LABEL_4;
     }
 
     goto LABEL_60;
   }
 
-  if (v6 == 80)
+  if (v5 == 80)
   {
-    v7 = "\u2029";
+    v6 = "\u2029";
     goto LABEL_4;
   }
 
-  if (v6 != 85)
+  if (v5 != 85)
   {
-    if (v6 == 92)
+    if (v5 == 92)
     {
-      v7 = "\";
+      v6 = "\"";
       goto LABEL_4;
     }
 
     goto LABEL_60;
   }
 
-  v8 = a2;
-  v9 = this;
-  v10 = 8;
+  v7 = a2;
+  v8 = this;
+  v9 = 8;
 LABEL_56:
 
-  YAML::Exp::Escape(v9, v10, v8);
+  YAML::Exp::Escape(v8, v9, v7);
 }
 
 void sub_254CC916C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, char a24)
@@ -9219,8 +9184,7 @@ void siri::intelligence::Interjection::GetSegueResponseId(siri::intelligence::In
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 8);
-    a2->__r_.__value_.__r.__words[2] = *(this + 3);
+    *a2 = *(this + 8);
   }
 }
 
@@ -9233,8 +9197,7 @@ void siri::intelligence::Interjection::GetReturnResponseId(siri::intelligence::I
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 2);
-    a2->__r_.__value_.__r.__words[2] = *(this + 6);
+    *a2 = *(this + 32);
   }
 }
 
@@ -9578,7 +9541,7 @@ protobuf::Intelligence_Meta *protobuf::Intelligence_Meta::Intelligence_Meta(prot
     v6 = *(a2 + 3);
     if (v6 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 24, v6);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 3, v6);
     }
   }
 
@@ -9588,7 +9551,7 @@ protobuf::Intelligence_Meta *protobuf::Intelligence_Meta::Intelligence_Meta(prot
     v7 = *(a2 + 4);
     if (v7 != &google::protobuf::internal::fixed_address_empty_string)
     {
-      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 32, v7);
+      google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(this + 4, v7);
     }
   }
 
@@ -9687,7 +9650,7 @@ LABEL_6:
 
 LABEL_11:
   v5 = *(this + 8);
-  v4 = this + 8;
+  v4 = (this + 8);
   *(v4 + 2) = 0;
   if (v5)
   {
@@ -9695,7 +9658,7 @@ LABEL_11:
   }
 }
 
-google::protobuf::internal *protobuf::Intelligence_Meta::_InternalParse(uint64_t a1, google::protobuf::internal *a2, google::protobuf::internal::EpsCopyInputStream *this)
+std::string::value_type *protobuf::Intelligence_Meta::_InternalParse(uint64_t a1, google::protobuf::internal *a2, google::protobuf::internal::EpsCopyInputStream *this)
 {
   v13 = a2;
   v5 = google::protobuf::internal::EpsCopyInputStream::DoneWithCheck(this, &v13, *(this + 23));
@@ -9735,7 +9698,7 @@ LABEL_7:
           v10 = *(a1 + 32);
           if (v10 == &google::protobuf::internal::fixed_address_empty_string)
           {
-            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 32, &google::protobuf::internal::fixed_address_empty_string);
+            google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 32), &google::protobuf::internal::fixed_address_empty_string);
           }
 
           goto LABEL_20;
@@ -9748,7 +9711,7 @@ LABEL_7:
         v10 = *(a1 + 24);
         if (v10 == &google::protobuf::internal::fixed_address_empty_string)
         {
-          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena(a1 + 24, &google::protobuf::internal::fixed_address_empty_string);
+          google::protobuf::internal::ArenaStringPtr::CreateInstanceNoArena((a1 + 24), &google::protobuf::internal::fixed_address_empty_string);
         }
 
 LABEL_20:
@@ -9787,7 +9750,7 @@ LABEL_6:
   return result;
 }
 
-unsigned __int8 *protobuf::Intelligence_Meta::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_Meta *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
+char *protobuf::Intelligence_Meta::InternalSerializeWithCachedSizesToArray(protobuf::Intelligence_Meta *this, char *a2, google::protobuf::io::EpsCopyOutputStream *a3)
 {
   v4 = a2;
   v6 = *(this + 4);
@@ -9829,4 +9792,86 @@ unsigned __int8 *protobuf::Intelligence_Meta::InternalSerializeWithCachedSizesTo
   }
 
   return google::protobuf::io::EpsCopyOutputStream::WriteRawFallback(a3, v11, v10, v4);
+}
+
+char *google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliased(google::protobuf::io::EpsCopyOutputStream *a1, int a2, const void ***a3, char *a4)
+{
+  v4 = *(a3 + 23);
+  if ((v4 & 0x8000000000000000) == 0 || (v4 = a3[1], v4 <= 127))
+  {
+    v5 = *a1;
+    v6 = 8 * a2;
+    if ((8 * a2) >= 0x80)
+    {
+      v8 = 2;
+      v9 = 3;
+      v10 = 4;
+      if (v6 >> 28)
+      {
+        v10 = 5;
+      }
+
+      if (v6 >= 0x200000)
+      {
+        v9 = v10;
+      }
+
+      if (v6 >= 0x4000)
+      {
+        v8 = v9;
+      }
+
+      if ((v5 + ~&a4[v8] + 16) >= v4)
+      {
+        *a4 = v6 | 0x82;
+        v11 = v6 >> 7;
+        if (v6 >> 14)
+        {
+          v7 = a4 + 2;
+          do
+          {
+            *(v7 - 1) = v11 | 0x80;
+            v12 = v11 >> 7;
+            ++v7;
+            v13 = v11 >> 14;
+            v11 >>= 7;
+          }
+
+          while (v13);
+          *(v7 - 1) = v12;
+        }
+
+        else
+        {
+          a4[1] = v11;
+          v7 = a4 + 2;
+        }
+
+LABEL_18:
+        *v7 = v4;
+        v14 = v7 + 1;
+        if (*(a3 + 23) >= 0)
+        {
+          v15 = a3;
+        }
+
+        else
+        {
+          v15 = *a3;
+        }
+
+        memcpy(v14, v15, v4);
+        return &v14[v4];
+      }
+    }
+
+    else if (v5 - a4 + 14 >= v4)
+    {
+      *a4 = v6 | 2;
+      v7 = a4 + 1;
+      goto LABEL_18;
+    }
+  }
+
+  return google::protobuf::io::EpsCopyOutputStream::WriteStringMaybeAliasedOutline(a1, a2, a3, a4);
 }

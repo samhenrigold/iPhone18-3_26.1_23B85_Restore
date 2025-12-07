@@ -71,9 +71,11 @@
 {
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    OUTLINED_FUNCTION_4_0(&dword_273ECD000, v2, v3, "Failed to create NSURLCredentialStorage", v4, v5, v6, v7, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_4_0(&dword_273ECD000, v4, v5, "Failed to create NSURLCredentialStorage", v6, v7, v8, v9, v10);
   }
 }
 

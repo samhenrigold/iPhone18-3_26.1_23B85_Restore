@@ -5,6 +5,7 @@
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)_axSetupLabel;
 - (void)setAXBatteryType:(id)type;
+- (void)setChargePercent:(unsigned __int8)percent;
 @end
 
 @implementation HPCUIBatteryGroupViewAccessibility
@@ -74,6 +75,14 @@
   result.origin.y = v18;
   result.origin.x = v17;
   return result;
+}
+
+- (void)setChargePercent:(unsigned __int8)percent
+{
+  v4.receiver = self;
+  v4.super_class = HPCUIBatteryGroupViewAccessibility;
+  [(HPCUIBatteryGroupViewAccessibility *)&v4 setChargePercent:percent];
+  [(HPCUIBatteryGroupViewAccessibility *)self _axSetupLabel];
 }
 
 - (void)setAXBatteryType:(id)type

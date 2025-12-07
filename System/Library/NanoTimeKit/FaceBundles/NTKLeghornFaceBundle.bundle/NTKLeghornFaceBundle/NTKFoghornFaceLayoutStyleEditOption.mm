@@ -24,15 +24,15 @@
 {
   if (value > 5)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = objc_msgSend_stringByAppendingString_(@"EDIT_OPTION_LABEL_FOGHORN_STYLE_", a2, v5, off_278BA1590[value], device);
+    v5 = objc_msgSend_stringByAppendingString_(@"EDIT_OPTION_LABEL_FOGHORN_STYLE_", a2, off_278BA1590[value], device);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id)localizedName
@@ -40,21 +40,21 @@
   v3 = objc_opt_class();
   v6 = objc_msgSend__value(self, v4, v5);
   v9 = objc_msgSend_device(self, v7, v8);
-  v12 = objc_msgSend__nameLocalizationKeyForValue_forDevice_(v3, v10, v11, v6, v9);
+  v11 = objc_msgSend__nameLocalizationKeyForValue_forDevice_(v3, v10, v6, v9);
 
-  v15 = objc_msgSend_stringByAppendingString_(v12, v13, v14, @"_COMPANION");
+  v13 = objc_msgSend_stringByAppendingString_(v11, v12, @"_COMPANION");
 
-  if (v15)
+  if (v13)
   {
-    v16 = NTKFoghornFaceLocalizedString(v15);
+    v14 = NTKFoghornFaceLocalizedString(v13);
   }
 
   else
   {
-    v16 = 0;
+    v14 = 0;
   }
 
-  return v16;
+  return v14;
 }
 
 - (id)_valueToFaceBundleStringDict

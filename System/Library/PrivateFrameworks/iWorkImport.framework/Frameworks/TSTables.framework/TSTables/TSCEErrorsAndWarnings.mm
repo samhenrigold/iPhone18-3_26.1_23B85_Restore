@@ -32,91 +32,92 @@
 - (void)replaceErrorForCell:(const TSUCellCoord *)cell error:(id)error errDueToCellRef:(const TSCEInternalCellReference *)ref
 {
   errorCopy = error;
-  v13 = errorCopy;
-  if (errorCopy && objc_msgSend_errorType(errorCopy, v9, v10, v11, v12))
+  v12 = errorCopy;
+  if (errorCopy && objc_msgSend_errorType(errorCopy, v9, v10, v11))
   {
-    v24[0] = cell->row | (cell->column << 32);
+    v23 = cell->row | (cell->column << 32);
     if (ref->tableID == -1 || (*&ref->coordinate & 0x101FFFFFFFFFFFFLL) == 0x7FFF7FFFFFFFLL)
     {
-      v14 = v13;
-      v15 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, v24);
-      v16 = v15[3];
-      v15[3] = v14;
+      v13 = v12;
+      coordinate = &v23;
+      v14 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v23, &unk_2217E213D, &coordinate);
+      v15 = v14[3];
+      v14[3] = v13;
 
-      v17 = v15[4];
-      v15[4] = 0;
+      v16 = v14[4];
+      v14[4] = 0;
 
-      v15[5] = 0x7FFF7FFFFFFFLL;
-      v18 = 0xFFFF;
+      v14[5] = 0x7FFF7FFFFFFFLL;
+      v17 = 0xFFFF;
     }
 
     else
     {
-      v19 = v13;
+      v18 = v12;
       coordinate = ref->coordinate;
-      v23 = *&ref->tableID;
-      v24[2] = v24;
-      v15 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, v24);
-      v20 = v15[3];
-      v15[3] = v19;
+      v22 = *&ref->tableID;
+      v24 = &v23;
+      v14 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v23, &unk_2217E213D, &v24);
+      v19 = v14[3];
+      v14[3] = v18;
 
-      v21 = v15[4];
-      v15[4] = 0;
+      v20 = v14[4];
+      v14[4] = 0;
 
-      v15[5] = coordinate;
-      v18 = v23;
+      v14[5] = coordinate;
+      v17 = v22;
     }
 
-    *(v15 + 12) = v18;
+    *(v14 + 12) = v17;
   }
 
   else
   {
-    objc_msgSend_clearErrorAndWarningsForCell_(self, v9, cell, v11, v12);
+    objc_msgSend_clearErrorAndWarningsForCell_(self, v9, cell, v11);
   }
 }
 
 - (void)setWarnings:(id)warnings forCell:(const TSUCellCoord *)cell
 {
   warningsCopy = warnings;
-  v24[0] = cell->row | (cell->column << 32);
-  v11 = objc_msgSend_count(warningsCopy, v7, v8, v9, v10);
-  v12 = sub_221087F14(&self->_errorForCell.__table_.__bucket_list_.__ptr_, v24);
-  if (v12)
+  v23 = cell->row | (cell->column << 32);
+  v10 = objc_msgSend_count(warningsCopy, v7, v8, v9);
+  v11 = sub_221087F14(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v23);
+  if (v11)
   {
-    v13 = warningsCopy;
-    if (!v11)
+    v12 = warningsCopy;
+    if (!v10)
     {
-      if (!v12[3])
+      if (!v11[3])
       {
-        sub_2214D0B10(&self->_errorForCell.__table_.__bucket_list_.__ptr_, v24);
+        sub_2214D0B10(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v23);
         goto LABEL_9;
       }
 
-      v13 = 0;
+      v12 = 0;
     }
 
-    sub_2214CF598((v12 + 3), v13);
+    sub_2214CF598((v11 + 3), v12);
   }
 
-  else if (v11)
+  else if (v10)
   {
-    sub_2214D07E4(&v20, warningsCopy);
-    v24[2] = cell;
-    v14 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, cell);
-    v15 = v20;
+    sub_2214D07E4(&v19, warningsCopy);
+    cellCopy = cell;
+    v13 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, cell, &unk_2217E213D, &cellCopy);
+    v14 = v19;
+    v19 = 0;
+    v15 = v13[3];
+    v13[3] = v14;
+
+    v16 = v20;
     v20 = 0;
-    v16 = v14[3];
-    v14[3] = v15;
+    v17 = v13[4];
+    v13[4] = v16;
 
-    v17 = v21;
-    v21 = 0;
-    v18 = v14[4];
-    v14[4] = v17;
-
-    v19 = v21;
-    v14[5] = v22;
-    *(v14 + 12) = v23;
+    v18 = v20;
+    v13[5] = v21;
+    *(v13 + 12) = v22;
   }
 
 LABEL_9:
@@ -190,7 +191,7 @@ LABEL_9:
     self = *(*&i + 24);
     if (self)
     {
-      self = objc_msgSend_errorType(self, a3, v3, v4, v5);
+      self = objc_msgSend_errorType(self, a3, v3, v4);
       if (&self[-4]._rowsPerColumn.__tree_.__begin_node_ + 6 < 3)
       {
         self = TSCECellCoordSet::addCellCoord(retstr, (*&i + 16));
@@ -213,7 +214,7 @@ LABEL_9:
     self = *(*&i + 24);
     if (self)
     {
-      self = objc_msgSend_errorType(self, error, a4, v4, v5);
+      self = objc_msgSend_errorType(self, error, a4, v4);
     }
 
     if (self == a4)
@@ -227,27 +228,27 @@ LABEL_9:
 
 - (TSKUIDStruct)ownerUID
 {
-  v4 = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(self->_dependencyTracker, a2, self->_internalOwnerID, v2, v3);
-  result._upper = v5;
-  result._lower = v4;
+  v3 = objc_msgSend_formulaOwnerUIDForInternalFormulaOwnerID_(self->_dependencyTracker, a2, self->_internalOwnerID, v2);
+  result._upper = v4;
+  result._lower = v3;
   return result;
 }
 
 - (void)readFromArchive:(const void *)archive
 {
-  v44 = *(archive + 12);
-  if (v44 >= 1)
+  v41 = *(archive + 12);
+  if (v41 >= 1)
   {
     v5 = 8;
     v6 = *(archive + 12);
     do
     {
       v7 = *(*(archive + 7) + v5);
-      v46 = 0;
-      v47 = 0;
-      v48 = 0x7FFF7FFFFFFFLL;
-      v49 = 0xFFFF;
-      v45 = 0;
+      v43 = 0;
+      v44 = 0;
+      v45 = 0x7FFF7FFFFFFFLL;
+      v46 = 0xFFFF;
+      v42 = 0;
       if (*(v7 + 48))
       {
         v8 = *(v7 + 48);
@@ -258,22 +259,22 @@ LABEL_9:
         v8 = &TSCE::_CellCoordinateArchive_default_instance_;
       }
 
-      v45 = sub_2212697C0(v8);
-      sub_2214CFB50(&v46, v7, self->_dependencyTracker);
-      v50 = &v45;
-      v9 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v45);
-      v10 = v46;
+      v42 = sub_2212697C0(v8);
+      sub_2214CFB50(&v43, v7, self->_dependencyTracker);
+      v47 = &v42;
+      v9 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v42, &unk_2217E213D, &v47);
+      v10 = v43;
       v11 = v9[3];
-      v9[3] = v46;
+      v9[3] = v43;
       v12 = v10;
 
-      v13 = v47;
+      v13 = v44;
       v14 = v9[4];
-      v9[4] = v47;
+      v9[4] = v44;
       v15 = v13;
 
-      v9[5] = v48;
-      *(v9 + 12) = v49;
+      v9[5] = v45;
+      *(v9 + 12) = v46;
 
       v5 += 8;
       --v6;
@@ -283,7 +284,7 @@ LABEL_9:
   }
 
   v16 = *(archive + 6);
-  if (v44)
+  if (v41)
   {
     v17 = 1;
   }
@@ -299,7 +300,7 @@ LABEL_9:
     do
     {
       v19 = *(*(archive + 4) + 8 * v18 + 8);
-      v50 = 0;
+      v47 = 0;
       if (*(v19 + 24))
       {
         v20 = *(v19 + 24);
@@ -310,49 +311,49 @@ LABEL_9:
         v20 = &TSCE::_CellCoordinateArchive_default_instance_;
       }
 
-      v50 = sub_2212697C0(v20);
-      v24 = objc_msgSend_possibleErrorTypeForErrorFlavor_(TSCEError, v21, *(v19 + 40), v22, v23);
-      v28 = objc_msgSend_errorForErrorType_(TSCEError, v25, v24, v26, v27);
-      v29 = v28;
+      v47 = sub_2212697C0(v20);
+      v23 = objc_msgSend_possibleErrorTypeForErrorFlavor_(TSCEError, v21, *(v19 + 40), v22);
+      v26 = objc_msgSend_errorForErrorType_(TSCEError, v24, v23, v25);
+      v27 = v26;
       if ((*(v19 + 16) & 2) != 0)
       {
-        v33 = sub_2215C3954(*(v19 + 32));
-        v32 = v34;
+        v31 = sub_2215C3954(*(v19 + 32));
+        v30 = v32;
         dependencyTracker = self->_dependencyTracker;
         if (dependencyTracker)
         {
-          v39 = objc_msgSend_idMap(dependencyTracker, v34, v35, v36, v37);
-          v40 = v32;
-          if (*(v39 + 144))
+          v36 = objc_msgSend_idMap(dependencyTracker, v32, v33, v34);
+          v37 = v30;
+          if (*(v36 + 144))
           {
-            v40 = sub_2212602C8(v39, v32);
+            v37 = sub_2212602C8(v36, v30);
           }
 
-          v32 = v32 & 0xFFFF0000 | v40;
+          v30 = v30 & 0xFFFF0000 | v37;
         }
 
-        v41 = v29;
-        v46 = &v50;
-        v31 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v50);
+        v38 = v27;
+        v43 = &v47;
+        v29 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v47, &unk_2217E213D, &v43);
       }
 
       else
       {
-        v30 = v28;
-        v46 = &v50;
-        v31 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v50);
-        v32 = 0xFFFF;
-        v33 = 0x7FFF7FFFFFFFLL;
+        v28 = v26;
+        v43 = &v47;
+        v29 = sub_2214D082C(&self->_errorForCell.__table_.__bucket_list_.__ptr_, &v47, &unk_2217E213D, &v43);
+        v30 = 0xFFFF;
+        v31 = 0x7FFF7FFFFFFFLL;
       }
 
-      v42 = v31[3];
-      v31[3] = v29;
+      v39 = v29[3];
+      v29[3] = v27;
 
-      v43 = v31[4];
-      v31[4] = 0;
+      v40 = v29[4];
+      v29[4] = 0;
 
-      v31[5] = v33;
-      *(v31 + 12) = v32;
+      v29[5] = v31;
+      *(v29 + 12) = v30;
 
       ++v18;
     }
@@ -462,38 +463,38 @@ LABEL_23:
       }
 
       sub_221269820(v14 + 4, v21);
-      v27 = *(v14 + 3);
-      if (v27)
+      v26 = *(v14 + 3);
+      if (v26)
       {
-        v28 = objc_msgSend_errorType(v27, v23, v24, v25, v26);
-        v32 = objc_msgSend_errorFlavorForErrorType_(TSCEError, v29, v28, v30, v31);
+        v27 = objc_msgSend_errorType(v26, v23, v24, v25);
+        v30 = objc_msgSend_errorFlavorForErrorType_(TSCEError, v28, v27, v29);
       }
 
       else
       {
-        v32 = objc_msgSend_errorFlavorForErrorType_(TSCEError, v23, 0, v25, v26);
+        v30 = objc_msgSend_errorFlavorForErrorType_(TSCEError, v23, 0, v25);
       }
 
-      v33 = *(v18 + 16);
-      *(v18 + 16) = v33 | 4;
-      *(v18 + 40) = v32;
+      v31 = *(v18 + 16);
+      *(v18 + 16) = v31 | 4;
+      *(v18 + 40) = v30;
       if (v14[24] != -1 && (*(v14 + 5) & 0x101FFFFFFFFFFFFLL) != 0x7FFF7FFFFFFFLL)
       {
-        *(v18 + 16) = v33 | 6;
-        v34 = *(v18 + 32);
-        if (!v34)
+        *(v18 + 16) = v31 | 6;
+        v32 = *(v18 + 32);
+        if (!v32)
         {
-          v35 = *(v18 + 8);
-          if (v35)
+          v33 = *(v18 + 8);
+          if (v33)
           {
-            v35 = *(v35 & 0xFFFFFFFFFFFFFFFELL);
+            v33 = *(v33 & 0xFFFFFFFFFFFFFFFELL);
           }
 
-          v34 = google::protobuf::Arena::CreateMaybeMessage<TSCE::InternalCellReferenceArchive>(v35);
-          *(v18 + 32) = v34;
+          v32 = google::protobuf::Arena::CreateMaybeMessage<TSCE::InternalCellReferenceArchive>(v33);
+          *(v18 + 32) = v32;
         }
 
-        sub_2215C38E0((v14 + 20), v34);
+        sub_2215C38E0((v14 + 20), v32);
       }
 
       goto LABEL_37;

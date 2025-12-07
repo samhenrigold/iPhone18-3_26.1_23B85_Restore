@@ -415,24 +415,24 @@ LABEL_16:
     share2 = [v6 share2];
     [(_DPPrioRecord *)self setShare2:share2];
 
-    -[_DPPrioRecord setDimension:](self, "setDimension:", [v6 dimension]);
-    v10 = MEMORY[0x277CCAAC8];
-    v11 = _DPMetadataExpectedClasses();
+    v10 = -[_DPPrioRecord setDimension:](self, "setDimension:", [v6 dimension]);
+    v11 = MEMORY[0x277CCAAC8];
+    v12 = _DPMetadataExpectedClasses(v10);
     metadata = [v6 metadata];
-    v18 = 0;
-    v13 = [v10 unarchivedObjectOfClasses:v11 fromData:metadata error:&v18];
-    v14 = v18;
+    v19 = 0;
+    v14 = [v11 unarchivedObjectOfClasses:v12 fromData:metadata error:&v19];
+    v15 = v19;
 
-    if (v14)
+    if (v15)
     {
-      v15 = +[_DPLog framework];
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = +[_DPLog framework];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(_DPPrioRecord *)v14 copyFromManagedObject:v15];
+        [(_DPPrioRecord *)v15 copyFromManagedObject:v16];
       }
     }
 
-    [(_DPPrioRecord *)self setMetadata:v13];
+    [(_DPPrioRecord *)self setMetadata:v14];
     [v6 creationDate];
     [(_DPPrioRecord *)self setCreationDate:?];
     -[_DPPrioRecord setSubmitted:](self, "setSubmitted:", [v6 submitted]);
@@ -446,20 +446,18 @@ LABEL_16:
 
 - (void)copyToManagedObject:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Unable to securely archive metadata Dictionary! error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Unable to securely archive metadata Dictionary! error: %@", &v2, 0xCu);
 }
 
 - (void)copyFromManagedObject:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Unable to securely unarchive metadata Dictionary! error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "Unable to securely unarchive metadata Dictionary! error: %@", &v2, 0xCu);
 }
 
 @end

@@ -10,43 +10,41 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"udc_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"udc_id";
   v2 = +[HDUserDomainConceptEntity defaultForeignKey];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (BOOL)insertDataForUserDomainConcept:(id)concept userDomainConceptID:(int64_t)d transaction:(id)transaction error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   propertyCollection = [concept propertyCollection];
   properties = [propertyCollection properties];
 
-  v9 = [properties countByEnumeratingWithState:&v24 objects:v31 count:16];
+  v9 = [properties countByEnumeratingWithState:&v23 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v25;
+    v11 = *v24;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(properties);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -58,14 +56,14 @@
             objc_opt_self();
             protectedDatabase = [v15 protectedDatabase];
 
-            v28[0] = MEMORY[0x277D85DD0];
-            v28[1] = 3221225472;
-            v28[2] = __101__HDUserDomainConceptNamedQuantityEntity__insertNamedQuantity_userDomainConceptID_transaction_error___block_invoke_2;
-            v28[3] = &unk_278613B58;
-            v29 = v14;
+            v27[0] = MEMORY[0x277D85DD0];
+            v27[1] = 3221225472;
+            v27[2] = __101__HDUserDomainConceptNamedQuantityEntity__insertNamedQuantity_userDomainConceptID_transaction_error___block_invoke_2;
+            v27[3] = &unk_278613B58;
+            v28 = v14;
             dCopy = d;
             v17 = v14;
-            LODWORD(v15) = [protectedDatabase executeCachedStatementForKey:&_insertNamedQuantity_userDomainConceptID_transaction_error__statementKey error:error SQLGenerator:&__block_literal_global_78 bindingHandler:v28 enumerationHandler:0];
+            LODWORD(v15) = [protectedDatabase executeCachedStatementForKey:&_insertNamedQuantity_userDomainConceptID_transaction_error__statementKey error:error SQLGenerator:&__block_literal_global_78 bindingHandler:v27 enumerationHandler:0];
 
             if (!v15)
             {
@@ -76,7 +74,7 @@
         }
       }
 
-      v10 = [properties countByEnumeratingWithState:&v24 objects:v31 count:16];
+      v10 = [properties countByEnumeratingWithState:&v23 objects:v30 count:16];
       if (v10)
       {
         continue;
@@ -89,7 +87,6 @@
   v18 = 1;
 LABEL_13:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -130,26 +127,26 @@ LABEL_13:
   return error;
 }
 
-uint64_t __105__HDUserDomainConceptNamedQuantityEntity_addPropertyDataToCodable_userDomainConceptID_transaction_error___block_invoke(uint64_t a1)
+uint64_t __105__HDUserDomainConceptNamedQuantityEntity_addPropertyDataToCodable_userDomainConceptID_transaction_error___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithNameAsString();
+  v3 = HDSQLiteColumnWithNameAsString();
   HDSQLiteColumnWithNameAsDouble();
-  v4 = v3;
-  v5 = HDSQLiteColumnWithNameAsString();
-  v6 = HDSQLiteColumnWithNameAsInt64();
+  v5 = v4;
+  v6 = HDSQLiteColumnWithNameAsString();
   v7 = HDSQLiteColumnWithNameAsInt64();
+  v8 = HDSQLiteColumnWithNameAsInt64();
   HDSQLiteColumnWithNameAsDouble();
-  v9 = v8;
-  v10 = HDSQLiteColumnWithNameAsBoolean();
-  v11 = objc_alloc_init(HDCodableUserDomainConceptNamedQuantity);
-  [(HDCodableUserDomainConceptNamedQuantity *)v11 setName:v2];
-  [(HDCodableUserDomainConceptNamedQuantity *)v11 setValue:v4];
-  [(HDCodableUserDomainConceptNamedQuantity *)v11 setUnit:v5];
-  [(HDCodableUserDomainConceptNamedQuantity *)v11 setType:v6];
-  [(HDCodableUserDomainConceptNamedQuantity *)v11 setVersion:v7];
-  [(HDCodableUserDomainConceptNamedQuantity *)v11 setTimestamp:v9];
-  [(HDCodableUserDomainConceptNamedQuantity *)v11 setDeleted:v10];
-  [*(a1 + 32) addNamedQuantities:v11];
+  v10 = v9;
+  v11 = HDSQLiteColumnWithNameAsBoolean();
+  v12 = objc_alloc_init(HDCodableUserDomainConceptNamedQuantity);
+  [(HDCodableUserDomainConceptNamedQuantity *)v12 setName:v3];
+  [(HDCodableUserDomainConceptNamedQuantity *)v12 setValue:v5];
+  [(HDCodableUserDomainConceptNamedQuantity *)v12 setUnit:v6];
+  [(HDCodableUserDomainConceptNamedQuantity *)v12 setType:v7];
+  [(HDCodableUserDomainConceptNamedQuantity *)v12 setVersion:v8];
+  [(HDCodableUserDomainConceptNamedQuantity *)v12 setTimestamp:v10];
+  [(HDCodableUserDomainConceptNamedQuantity *)v12 setDeleted:v11];
+  [*(a1 + 32) addNamedQuantities:v12];
 
   return 1;
 }
@@ -191,19 +188,19 @@ uint64_t __101__HDUserDomainConceptNamedQuantityEntity__insertNamedQuantity_user
   return sqlite3_bind_int(a2, 8, v8);
 }
 
-uint64_t __128__HDUserDomainConceptNamedQuantityEntity__enumerateNamedQuantitiesWithUserDomainConceptID_transaction_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __128__HDUserDomainConceptNamedQuantityEntity__enumerateNamedQuantitiesWithUserDomainConceptID_transaction_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = HDSQLiteColumnWithNameAsString();
+  v3 = HDSQLiteColumnWithNameAsString();
   HDSQLiteColumnWithNameAsDouble();
-  v4 = v3;
-  v5 = HDSQLiteColumnWithNameAsString();
-  v6 = HDSQLiteColumnWithNameAsInt64();
+  v5 = v4;
+  v6 = HDSQLiteColumnWithNameAsString();
   v7 = HDSQLiteColumnWithNameAsInt64();
+  v8 = HDSQLiteColumnWithNameAsInt64();
   HDSQLiteColumnWithNameAsDouble();
-  v9 = [objc_alloc(MEMORY[0x277CCDB18]) initWithName:v2 value:v5 unitString:v6 type:v7 version:HDSQLiteColumnWithNameAsBoolean() timestamp:v4 deleted:v8];
-  v10 = (*(*(a1 + 32) + 16))();
+  v10 = [objc_alloc(MEMORY[0x277CCDB18]) initWithName:v3 value:v6 unitString:v7 type:v8 version:HDSQLiteColumnWithNameAsBoolean() timestamp:v5 deleted:v9];
+  v11 = (*(*(a1 + 32) + 16))();
 
-  return v10;
+  return v11;
 }
 
 @end

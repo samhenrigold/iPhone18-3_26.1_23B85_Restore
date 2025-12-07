@@ -52,7 +52,11 @@
 - (void)setActiveLayoutMode:(int64_t)mode;
 - (void)setBannerTimer;
 - (void)setCanRequestAlertingAssertion:(BOOL)assertion;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillLayoutSubviewsWithTransitionCoordinator:(id)coordinator;
 @end
@@ -218,18 +222,21 @@
 
 - (void)_showInUseBanner
 {
-  if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_10001EA10 <= 30)
   {
-    sub_10000D6B4();
+    if (dword_10001EA10 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10000D6B4(self, a2, v2);
+    }
   }
 
-  self->_isInUseBanner = 1;
-  v3 = +[NSBundle mainBundle];
-  v4 = [v3 localizedStringForKey:self->_ccText value:&stru_1000188D8 table:0];
+  selfCopy->_isInUseBanner = 1;
+  v4 = +[NSBundle mainBundle];
+  v5 = [v4 localizedStringForKey:selfCopy->_ccText value:&stru_1000188D8 table:0];
 
-  if ([(NSString *)self->_ccItemsText containsString:@"Mac"]|| [(NSString *)self->_ccItemsText containsString:@"iPad"]|| [(NSString *)self->_ccItemsText containsString:@"iPhone"])
+  if ([(NSString *)selfCopy->_ccItemsText containsString:@"Mac"]|| [(NSString *)selfCopy->_ccItemsText containsString:@"iPad"]|| [(NSString *)selfCopy->_ccItemsText containsString:@"iPhone"])
   {
-    ccItemsText = self->_ccItemsText;
     GestaltProductTypeStringToDeviceClass();
     v6 = CUAddSuffixForDeviceClass();
   }
@@ -242,338 +249,362 @@
   v7 = +[NSBundle mainBundle];
   v8 = [v7 localizedStringForKey:v6 value:&stru_1000188D8 table:0];
 
-  if (SBUIIsSystemApertureEnabled())
+  v9 = SBUIIsSystemApertureEnabled();
+  if (v9)
   {
-    [(BluetoothUIServiceBanner *)self _createInUseBannerTextLabel:v4 bottomLabel:v8];
-    if ([(BluetoothUIServiceBanner *)self checkifVideoAssetExists])
+    [(BluetoothUIServiceBanner *)selfCopy _createInUseBannerTextLabel:v5 bottomLabel:v8];
+    if ([(BluetoothUIServiceBanner *)selfCopy checkifVideoAssetExists])
     {
-      self->_isFirstInstance = 1;
-      [(BluetoothUIServiceBanner *)self createCustomAVPlayerLayerView:self->_leadingAccessoryView WithCustomIconName:self->_leadingAccessoryIconName];
+      selfCopy->_isFirstInstance = 1;
+      [(BluetoothUIServiceBanner *)selfCopy createCustomAVPlayerLayerView:selfCopy->_leadingAccessoryView WithCustomIconName:selfCopy->_leadingAccessoryIconName];
     }
 
     else
     {
-      [(BluetoothUIServiceBanner *)self createCustomStaticImageView:self->_leadingAccessoryView WithCustomIconName:self->_leadingAccessoryIconName];
+      [(BluetoothUIServiceBanner *)selfCopy createCustomStaticImageView:selfCopy->_leadingAccessoryView WithCustomIconName:selfCopy->_leadingAccessoryIconName];
     }
 
     if (SBUIIsSystemApertureEnabled())
     {
-      createInUseConnectButton = [(BluetoothUIServiceBanner *)self createInUseConnectButton];
-      [(UIView *)self->_trailingAccessoryView addSubview:createInUseConnectButton];
+      createInUseConnectButton = [(BluetoothUIServiceBanner *)selfCopy createInUseConnectButton];
+      [(UIView *)selfCopy->_trailingAccessoryView addSubview:createInUseConnectButton];
       [createInUseConnectButton setTranslatesAutoresizingMaskIntoConstraints:0];
       widthAnchor = [createInUseConnectButton widthAnchor];
-      widthAnchor2 = [(UIView *)self->_trailingAccessoryView widthAnchor];
-      v16 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-      [v16 setActive:1];
-
-      heightAnchor = [createInUseConnectButton heightAnchor];
-      heightAnchor2 = [(UIView *)self->_trailingAccessoryView heightAnchor];
-      v19 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-      [v19 setActive:1];
-
-      centerXAnchor = [createInUseConnectButton centerXAnchor];
-      centerXAnchor2 = [(UIView *)self->_trailingAccessoryView centerXAnchor];
-      v22 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+      widthAnchor2 = [(UIView *)selfCopy->_trailingAccessoryView widthAnchor];
+      v22 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
       [v22 setActive:1];
 
-      centerYAnchor = [createInUseConnectButton centerYAnchor];
-      centerYAnchor2 = [(UIView *)self->_trailingAccessoryView centerYAnchor];
-      v25 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+      heightAnchor = [createInUseConnectButton heightAnchor];
+      heightAnchor2 = [(UIView *)selfCopy->_trailingAccessoryView heightAnchor];
+      v25 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
       [v25 setActive:1];
+
+      centerXAnchor = [createInUseConnectButton centerXAnchor];
+      centerXAnchor2 = [(UIView *)selfCopy->_trailingAccessoryView centerXAnchor];
+      v28 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+      [v28 setActive:1];
+
+      centerYAnchor = [createInUseConnectButton centerYAnchor];
+      centerYAnchor2 = [(UIView *)selfCopy->_trailingAccessoryView centerYAnchor];
+      v31 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+      [v31 setActive:1];
     }
 
-    objc_storeStrong(&self->_leadingView, self->_leadingAccessoryView);
-    objc_storeStrong(&self->_trailingView, self->_trailingAccessoryView);
+    objc_storeStrong(&selfCopy->_leadingView, selfCopy->_leadingAccessoryView);
+    objc_storeStrong(&selfCopy->_trailingView, selfCopy->_trailingAccessoryView);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100004540;
     block[3] = &unk_1000185C8;
-    block[4] = self;
+    block[4] = selfCopy;
     dispatch_async(&_dispatch_main_q, block);
   }
 
   else
   {
-    if (dword_10001EA10 <= 90 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+    if (dword_10001EA10 <= 90)
     {
-      sub_10000D6D0();
+      if (dword_10001EA10 != -1 || (v9 = _LogCategory_Initialize(), v9))
+      {
+        sub_10000D6D0(v9, v10, v11);
+      }
     }
 
-    v9 = [[PLPillContentItem alloc] initWithText:v4 style:1];
-    v10 = [[PLPillContentItem alloc] initWithText:v8 style:2];
-    if (v9)
+    v12 = [[PLPillContentItem alloc] initWithText:v5 style:1];
+    v13 = [[PLPillContentItem alloc] initWithText:v8 style:2];
+    if (v12)
     {
-      [(NSMutableArray *)self->_centerContentItems addObject:v9];
+      [(NSMutableArray *)selfCopy->_centerContentItems addObject:v12];
     }
 
-    if (v10)
+    if (v13)
     {
-      [(NSMutableArray *)self->_centerContentItems addObject:v10];
+      [(NSMutableArray *)selfCopy->_centerContentItems addObject:v13];
     }
 
-    [(BluetoothUIServiceBanner *)self createCustomView:self->_leadingAccessoryView WithCustomIconName:self->_leadingAccessoryIconName];
-    createInUseConnectButton2 = [(BluetoothUIServiceBanner *)self createInUseConnectButton];
+    [(BluetoothUIServiceBanner *)selfCopy createCustomView:selfCopy->_leadingAccessoryView WithCustomIconName:selfCopy->_leadingAccessoryIconName];
+    createInUseConnectButton2 = [(BluetoothUIServiceBanner *)selfCopy createInUseConnectButton];
     [createInUseConnectButton2 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v12 = [[PLPillView alloc] initWithLeadingAccessoryView:self->_leadingAccessoryView trailingAccessoryView:createInUseConnectButton2];
-    [v12 setTranslatesAutoresizingMaskIntoConstraints:0];
-    objc_storeStrong(&self->_pillView, v12);
-    if (self->_centerContentItems)
+    v15 = [[PLPillView alloc] initWithLeadingAccessoryView:selfCopy->_leadingAccessoryView trailingAccessoryView:createInUseConnectButton2];
+    [v15 setTranslatesAutoresizingMaskIntoConstraints:0];
+    objc_storeStrong(&selfCopy->_pillView, v15);
+    centerContentItems = selfCopy->_centerContentItems;
+    if (centerContentItems)
     {
-      [(PLPillView *)self->_pillView setCenterContentItems:?];
+      [(PLPillView *)selfCopy->_pillView setCenterContentItems:?];
     }
 
-    else if (dword_10001EA10 <= 90 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+    else if (dword_10001EA10 <= 90)
     {
-      sub_10000D6EC();
+      if (dword_10001EA10 != -1 || (v16 = _LogCategory_Initialize(), v16))
+      {
+        sub_10000D6EC(v16, v17, centerContentItems);
+      }
     }
   }
 }
 
 - (void)_showMuteBanner
 {
-  if (dword_10001EA10 <= 50 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_10001EA10 <= 50)
   {
-    sub_10000D708();
+    if (dword_10001EA10 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10000D708(self, a2, v2);
+    }
   }
 
-  objc_storeStrong(&self->_receivedMuteAction, self->_ccItemsText);
-  if ([(NSString *)self->_ccItemsText isEqualToString:@"mute"])
+  objc_storeStrong(&selfCopy->_receivedMuteAction, selfCopy->_ccItemsText);
+  if ([(NSString *)selfCopy->_ccItemsText isEqualToString:@"mute"])
   {
-    v3 = +[NSBundle mainBundle];
-    v4 = v3;
-    v5 = @"MICROPHONE_OFF";
+    v4 = +[NSBundle mainBundle];
+    v5 = v4;
+    v6 = @"MICROPHONE_OFF";
 LABEL_8:
-    v7 = [v3 localizedStringForKey:v5 value:&stru_1000188D8 table:0];
+    v8 = [v4 localizedStringForKey:v6 value:&stru_1000188D8 table:0];
     goto LABEL_12;
   }
 
-  v6 = [(NSString *)self->_ccItemsText isEqualToString:@"unmute"];
-  v3 = +[NSBundle mainBundle];
-  v4 = v3;
-  if (v6)
+  v7 = [(NSString *)selfCopy->_ccItemsText isEqualToString:@"unmute"];
+  v4 = +[NSBundle mainBundle];
+  v5 = v4;
+  if (v7)
   {
-    v5 = @"MICROPHONE_ON";
+    v6 = @"MICROPHONE_ON";
     goto LABEL_8;
   }
 
-  v7 = &stru_1000188D8;
-  v8 = [v3 localizedStringForKey:@"REJECTED_WITH_DEVICE_FORMAT" value:&stru_1000188D8 table:0];
+  v8 = &stru_1000188D8;
+  v9 = [v4 localizedStringForKey:@"REJECTED_WITH_DEVICE_FORMAT" value:&stru_1000188D8 table:0];
 
-  if (v8)
+  if (v9)
   {
-    v7 = [NSString stringWithFormat:v8, self->_ccItemsText];
+    v8 = [NSString stringWithFormat:v9, selfCopy->_ccItemsText];
   }
 
-  v4 = v8;
+  v5 = v9;
 LABEL_12:
-  ccItemsText = self->_ccItemsText;
-  self->_ccItemsText = &v7->isa;
+  ccItemsText = selfCopy->_ccItemsText;
+  selfCopy->_ccItemsText = &v8->isa;
 
   if (SBUIIsSystemApertureEnabled())
   {
-    v10 = self->_ccItemsText;
-    v11 = v10;
-    objc_storeStrong(&self->_ccItemsText, self->_ccText);
-    objc_storeStrong(&self->_ccText, v10);
-    v12 = +[UIColor systemWhiteColor];
-    [(BluetoothUIServiceBanner *)self _createccBottomViewLabel:v12 labelString:self->_ccText];
-    v13 = +[UIColor systemGrayColor];
+    v11 = selfCopy->_ccItemsText;
+    v12 = v11;
+    objc_storeStrong(&selfCopy->_ccItemsText, selfCopy->_ccText);
+    objc_storeStrong(&selfCopy->_ccText, v11);
+    v13 = +[UIColor systemWhiteColor];
+    [(BluetoothUIServiceBanner *)selfCopy _createccBottomViewLabel:v13 labelString:selfCopy->_ccText];
+    v14 = +[UIColor systemGrayColor];
 
-    [(BluetoothUIServiceBanner *)self _createccTopViewLabel:v13 labelString:self->_ccItemsText];
-    v14 = [(BluetoothUIServiceBanner *)self getAppIcon:self->_bannerAppID];
-    v15 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
-    leadingAccessoryView = self->_leadingAccessoryView;
-    self->_leadingAccessoryView = v15;
+    [(BluetoothUIServiceBanner *)selfCopy _createccTopViewLabel:v14 labelString:selfCopy->_ccItemsText];
+    v15 = [(BluetoothUIServiceBanner *)selfCopy getAppIcon:selfCopy->_bannerAppID];
+    v16 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
+    leadingAccessoryView = selfCopy->_leadingAccessoryView;
+    selfCopy->_leadingAccessoryView = v16;
 
-    [(BluetoothUIServiceBanner *)self createCustomView:self->_leadingAccessoryView WithImage:v14];
-    v17 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
-    trailingAccessoryView = self->_trailingAccessoryView;
-    self->_trailingAccessoryView = v17;
+    [(BluetoothUIServiceBanner *)selfCopy createCustomView:selfCopy->_leadingAccessoryView WithImage:v15];
+    v18 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
+    trailingAccessoryView = selfCopy->_trailingAccessoryView;
+    selfCopy->_trailingAccessoryView = v18;
 
-    if ([(NSString *)self->_receivedMuteAction isEqualToString:@"mute"]|| [(NSString *)self->_receivedMuteAction isEqualToString:@"unmute"])
+    if ([(NSString *)selfCopy->_receivedMuteAction isEqualToString:@"mute"]|| [(NSString *)selfCopy->_receivedMuteAction isEqualToString:@"unmute"])
     {
-      v19 = [(BluetoothUIServiceBanner *)self createMuteUnmuteButton:self->_receivedMuteAction];
-      muteUnmuteButton = self->_muteUnmuteButton;
-      self->_muteUnmuteButton = v19;
+      v20 = [(BluetoothUIServiceBanner *)selfCopy createMuteUnmuteButton:selfCopy->_receivedMuteAction];
+      muteUnmuteButton = selfCopy->_muteUnmuteButton;
+      selfCopy->_muteUnmuteButton = v20;
 
-      [(UIView *)self->_trailingAccessoryView addSubview:self->_muteUnmuteButton];
-      [(UIButton *)self->_muteUnmuteButton setTranslatesAutoresizingMaskIntoConstraints:0];
-      widthAnchor = [(UIButton *)self->_muteUnmuteButton widthAnchor];
-      widthAnchor2 = [(UIView *)self->_trailingAccessoryView widthAnchor];
-      v23 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-      [v23 setActive:1];
+      [(UIView *)selfCopy->_trailingAccessoryView addSubview:selfCopy->_muteUnmuteButton];
+      [(UIButton *)selfCopy->_muteUnmuteButton setTranslatesAutoresizingMaskIntoConstraints:0];
+      widthAnchor = [(UIButton *)selfCopy->_muteUnmuteButton widthAnchor];
+      widthAnchor2 = [(UIView *)selfCopy->_trailingAccessoryView widthAnchor];
+      v24 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
+      [v24 setActive:1];
 
-      heightAnchor = [(UIButton *)self->_muteUnmuteButton heightAnchor];
-      heightAnchor2 = [(UIView *)self->_trailingAccessoryView heightAnchor];
-      v26 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-      [v26 setActive:1];
+      heightAnchor = [(UIButton *)selfCopy->_muteUnmuteButton heightAnchor];
+      heightAnchor2 = [(UIView *)selfCopy->_trailingAccessoryView heightAnchor];
+      v27 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
+      [v27 setActive:1];
 
-      centerXAnchor = [(UIButton *)self->_muteUnmuteButton centerXAnchor];
-      centerXAnchor2 = [(UIView *)self->_trailingAccessoryView centerXAnchor];
-      v29 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-      [v29 setActive:1];
+      centerXAnchor = [(UIButton *)selfCopy->_muteUnmuteButton centerXAnchor];
+      centerXAnchor2 = [(UIView *)selfCopy->_trailingAccessoryView centerXAnchor];
+      v30 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+      [v30 setActive:1];
 
-      centerYAnchor = [(UIButton *)self->_muteUnmuteButton centerYAnchor];
-      centerYAnchor2 = [(UIView *)self->_trailingAccessoryView centerYAnchor];
-      v32 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-      [v32 setActive:1];
+      centerYAnchor = [(UIButton *)selfCopy->_muteUnmuteButton centerYAnchor];
+      centerYAnchor2 = [(UIView *)selfCopy->_trailingAccessoryView centerYAnchor];
+      v33 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+      [v33 setActive:1];
     }
 
-    [(BluetoothUIServiceBanner *)self createCustomStaticImageView:self->_leadingAccessoryView withIcon:v14];
-    [(BluetoothUIServiceBanner *)self createCustomStaticImageView:self->_minimalAccessoryView withIcon:v14];
-    objc_storeStrong(&self->_leadingView, self->_leadingAccessoryView);
-    objc_storeStrong(&self->_trailingView, self->_trailingAccessoryView);
+    [(BluetoothUIServiceBanner *)selfCopy createCustomStaticImageView:selfCopy->_leadingAccessoryView withIcon:v15];
+    [(BluetoothUIServiceBanner *)selfCopy createCustomStaticImageView:selfCopy->_minimalAccessoryView withIcon:v15];
+    objc_storeStrong(&selfCopy->_leadingView, selfCopy->_leadingAccessoryView);
+    objc_storeStrong(&selfCopy->_trailingView, selfCopy->_trailingAccessoryView);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100004DEC;
     block[3] = &unk_1000185C8;
-    block[4] = self;
+    block[4] = selfCopy;
     dispatch_async(&_dispatch_main_q, block);
   }
 
   else
   {
-    v33 = [[PLPillContentItem alloc] initWithText:self->_ccText style:1];
-    centerContentText = self->_centerContentText;
-    self->_centerContentText = v33;
+    v34 = [[PLPillContentItem alloc] initWithText:selfCopy->_ccText style:1];
+    centerContentText = selfCopy->_centerContentText;
+    selfCopy->_centerContentText = v34;
 
-    [(NSMutableArray *)self->_centerContentItems addObject:self->_centerContentText];
-    v35 = [[PLPillContentItem alloc] initWithText:self->_ccItemsText style:2 accessoryView:self->_customView];
-    customItems = self->_customItems;
-    self->_customItems = v35;
+    [(NSMutableArray *)selfCopy->_centerContentItems addObject:selfCopy->_centerContentText];
+    v36 = [[PLPillContentItem alloc] initWithText:selfCopy->_ccItemsText style:2 accessoryView:selfCopy->_customView];
+    customItems = selfCopy->_customItems;
+    selfCopy->_customItems = v36;
 
-    if (self->_customItems)
+    if (selfCopy->_customItems)
     {
-      [(NSMutableArray *)self->_centerContentItems addObject:?];
+      [(NSMutableArray *)selfCopy->_centerContentItems addObject:?];
     }
 
-    v55 = [(BluetoothUIServiceBanner *)self getAppIcon:self->_bannerAppID];
-    v37 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
-    v38 = self->_leadingAccessoryView;
-    self->_leadingAccessoryView = v37;
+    v59 = [(BluetoothUIServiceBanner *)selfCopy getAppIcon:selfCopy->_bannerAppID];
+    v38 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
+    v39 = selfCopy->_leadingAccessoryView;
+    selfCopy->_leadingAccessoryView = v38;
 
-    [(BluetoothUIServiceBanner *)self createCustomView:self->_leadingAccessoryView WithImage:v55];
-    v39 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
-    v40 = self->_trailingAccessoryView;
-    self->_trailingAccessoryView = v39;
+    [(BluetoothUIServiceBanner *)selfCopy createCustomView:selfCopy->_leadingAccessoryView WithImage:v59];
+    v40 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
+    v41 = selfCopy->_trailingAccessoryView;
+    selfCopy->_trailingAccessoryView = v40;
 
-    if ([(NSString *)self->_receivedMuteAction isEqualToString:@"mute"]|| [(NSString *)self->_receivedMuteAction isEqualToString:@"unmute"])
+    if ([(NSString *)selfCopy->_receivedMuteAction isEqualToString:@"mute"]|| [(NSString *)selfCopy->_receivedMuteAction isEqualToString:@"unmute"])
     {
-      v41 = [(BluetoothUIServiceBanner *)self createMuteUnmuteButton:self->_receivedMuteAction];
-      [(UIView *)self->_trailingAccessoryView addSubview:v41];
-      [v41 setTranslatesAutoresizingMaskIntoConstraints:0];
-      widthAnchor3 = [v41 widthAnchor];
-      widthAnchor4 = [(UIView *)self->_trailingAccessoryView widthAnchor];
-      v44 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4];
-      [v44 setActive:1];
+      v42 = [(BluetoothUIServiceBanner *)selfCopy createMuteUnmuteButton:selfCopy->_receivedMuteAction];
+      [(UIView *)selfCopy->_trailingAccessoryView addSubview:v42];
+      [v42 setTranslatesAutoresizingMaskIntoConstraints:0];
+      widthAnchor3 = [v42 widthAnchor];
+      widthAnchor4 = [(UIView *)selfCopy->_trailingAccessoryView widthAnchor];
+      v45 = [widthAnchor3 constraintEqualToAnchor:widthAnchor4];
+      [v45 setActive:1];
 
-      heightAnchor3 = [v41 heightAnchor];
-      heightAnchor4 = [(UIView *)self->_trailingAccessoryView heightAnchor];
-      v47 = [heightAnchor3 constraintEqualToAnchor:heightAnchor4];
-      [v47 setActive:1];
+      heightAnchor3 = [v42 heightAnchor];
+      heightAnchor4 = [(UIView *)selfCopy->_trailingAccessoryView heightAnchor];
+      v48 = [heightAnchor3 constraintEqualToAnchor:heightAnchor4];
+      [v48 setActive:1];
 
-      centerXAnchor3 = [v41 centerXAnchor];
-      centerXAnchor4 = [(UIView *)self->_trailingAccessoryView centerXAnchor];
-      v50 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-      [v50 setActive:1];
+      centerXAnchor3 = [v42 centerXAnchor];
+      centerXAnchor4 = [(UIView *)selfCopy->_trailingAccessoryView centerXAnchor];
+      v51 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
+      [v51 setActive:1];
 
-      centerYAnchor3 = [v41 centerYAnchor];
-      centerYAnchor4 = [(UIView *)self->_trailingAccessoryView centerYAnchor];
-      v53 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-      [v53 setActive:1];
+      centerYAnchor3 = [v42 centerYAnchor];
+      centerYAnchor4 = [(UIView *)selfCopy->_trailingAccessoryView centerYAnchor];
+      v54 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+      [v54 setActive:1];
 
-      [v41 addTarget:self action:"handleTap:" forControlEvents:64];
+      [v42 addTarget:selfCopy action:"handleTap:" forControlEvents:64];
     }
 
-    v54 = [[PLPillView alloc] initWithLeadingAccessoryView:self->_leadingAccessoryView trailingAccessoryView:self->_trailingAccessoryView];
-    [v54 setTranslatesAutoresizingMaskIntoConstraints:0];
-    objc_storeStrong(&self->_pillView, v54);
-    if (self->_centerContentItems)
+    v55 = [[PLPillView alloc] initWithLeadingAccessoryView:selfCopy->_leadingAccessoryView trailingAccessoryView:selfCopy->_trailingAccessoryView];
+    [v55 setTranslatesAutoresizingMaskIntoConstraints:0];
+    objc_storeStrong(&selfCopy->_pillView, v55);
+    centerContentItems = selfCopy->_centerContentItems;
+    if (centerContentItems)
     {
-      [(PLPillView *)self->_pillView setCenterContentItems:?];
+      [(PLPillView *)selfCopy->_pillView setCenterContentItems:?];
     }
 
-    else if (dword_10001EA10 <= 90 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+    else if (dword_10001EA10 <= 90)
     {
-      sub_10000D724();
+      if (dword_10001EA10 != -1 || (v56 = _LogCategory_Initialize(), v56))
+      {
+        sub_10000D724(v56, v57, centerContentItems);
+      }
     }
   }
 }
 
 - (void)_showHIDConnectedBanner
 {
-  if (dword_10001EA10 <= 50 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_10001EA10 <= 50)
   {
-    sub_10000D740();
+    if (dword_10001EA10 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10000D740(self, a2, v2);
+    }
   }
 
-  if (SBUIIsSystemApertureEnabled())
+  v4 = SBUIIsSystemApertureEnabled();
+  if (v4)
   {
-    if (self->_ccItemsText)
+    if (selfCopy->_ccItemsText)
     {
-      v3 = +[UIColor systemGrayColor];
-      [(BluetoothUIServiceBanner *)self _createccTopViewLabel:v3 labelString:self->_ccItemsText];
-      v4 = +[UIColor systemWhiteColor];
+      v7 = +[UIColor systemGrayColor];
+      [(BluetoothUIServiceBanner *)selfCopy _createccTopViewLabel:v7 labelString:selfCopy->_ccItemsText];
+      v8 = +[UIColor systemWhiteColor];
 
-      [(BluetoothUIServiceBanner *)self _createccBottomViewLabel:v4 labelString:self->_ccText];
-      v5 = [UIImage systemImageNamed:self->_leadingAccessoryIconName];
-      v6 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
-      leadingAccessoryView = self->_leadingAccessoryView;
-      self->_leadingAccessoryView = v6;
-
-      v8 = self->_leadingAccessoryView;
-      v9 = +[UIColor whiteColor];
-      [(UIView *)v8 setTintColor:v9];
-
-      [(BluetoothUIServiceBanner *)self createCustomView:self->_leadingAccessoryView WithImage:v5 WithMode:1];
+      [(BluetoothUIServiceBanner *)selfCopy _createccBottomViewLabel:v8 labelString:selfCopy->_ccText];
+      v9 = [UIImage systemImageNamed:selfCopy->_leadingAccessoryIconName];
       v10 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
-      trailingAccessoryView = self->_trailingAccessoryView;
-      self->_trailingAccessoryView = v10;
+      leadingAccessoryView = selfCopy->_leadingAccessoryView;
+      selfCopy->_leadingAccessoryView = v10;
 
-      [(BluetoothUIServiceBanner *)self _createBatteryView];
-      v12 = [NSString stringWithFormat:@"%.2f", *&self->_batteryLevel];
-      [v12 doubleValue];
-      v14 = v13;
-      batteryLevelIndicator = [(BluetoothUIServiceBanner *)self batteryLevelIndicator];
-      [batteryLevelIndicator setPercentageLevel:v14];
+      v12 = selfCopy->_leadingAccessoryView;
+      v13 = +[UIColor whiteColor];
+      [(UIView *)v12 setTintColor:v13];
 
-      [(BluetoothUIServiceBanner *)self _checkValidBatteryRange];
-      [(BluetoothUIServiceBanner *)self _fillBatteryPercentage];
-      v16 = [UIColor colorWithRed:0.2728 green:0.9028 blue:0.4567 alpha:1.0];
-      batteryLevelIndicator2 = [(BluetoothUIServiceBanner *)self batteryLevelIndicator];
+      [(BluetoothUIServiceBanner *)selfCopy createCustomView:selfCopy->_leadingAccessoryView WithImage:v9 WithMode:1];
+      v14 = [[UIView alloc] initWithFrame:{0.0, 0.0, 28.0, 28.0}];
+      trailingAccessoryView = selfCopy->_trailingAccessoryView;
+      selfCopy->_trailingAccessoryView = v14;
+
+      [(BluetoothUIServiceBanner *)selfCopy _createBatteryView];
+      v16 = [NSString stringWithFormat:@"%.2f", *&selfCopy->_batteryLevel];
+      [v16 doubleValue];
+      v18 = v17;
+      batteryLevelIndicator = [(BluetoothUIServiceBanner *)selfCopy batteryLevelIndicator];
+      [batteryLevelIndicator setPercentageLevel:v18];
+
+      [(BluetoothUIServiceBanner *)selfCopy _checkValidBatteryRange];
+      [(BluetoothUIServiceBanner *)selfCopy _fillBatteryPercentage];
+      v20 = [UIColor colorWithRed:0.2728 green:0.9028 blue:0.4567 alpha:1.0];
+      batteryLevelIndicator2 = [(BluetoothUIServiceBanner *)selfCopy batteryLevelIndicator];
       [batteryLevelIndicator2 percentageLevel];
-      v19 = v18;
+      v23 = v22;
 
-      batteryLevelIndicator3 = [(BluetoothUIServiceBanner *)self batteryLevelIndicator];
-      v21 = batteryLevelIndicator3;
-      if (v19 <= 0.2)
+      batteryLevelIndicator3 = [(BluetoothUIServiceBanner *)selfCopy batteryLevelIndicator];
+      v25 = batteryLevelIndicator3;
+      if (v23 <= 0.2)
       {
-        v22 = +[UIColor systemRedColor];
-        [v21 setColorforPercentageLabel:v22];
+        v26 = +[UIColor systemRedColor];
+        [v25 setColorforPercentageLabel:v26];
       }
 
       else
       {
-        [batteryLevelIndicator3 setColorforPercentageLabel:v16];
+        [batteryLevelIndicator3 setColorforPercentageLabel:v20];
       }
 
-      batteryLevelIndicator4 = [(BluetoothUIServiceBanner *)self batteryLevelIndicator];
+      batteryLevelIndicator4 = [(BluetoothUIServiceBanner *)selfCopy batteryLevelIndicator];
       [batteryLevelIndicator4 setShowsPercentageLabel:0];
 
-      [(BluetoothUIServiceBanner *)self createCustomView:self->_minimalAccessoryView WithImage:v5 WithMode:1];
-      objc_storeStrong(&self->_leadingView, self->_leadingAccessoryView);
-      objc_storeStrong(&self->_trailingView, self->_trailingAccessoryView);
+      [(BluetoothUIServiceBanner *)selfCopy createCustomView:selfCopy->_minimalAccessoryView WithImage:v9 WithMode:1];
+      objc_storeStrong(&selfCopy->_leadingView, selfCopy->_leadingAccessoryView);
+      objc_storeStrong(&selfCopy->_trailingView, selfCopy->_trailingAccessoryView);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000051E8;
       block[3] = &unk_1000185C8;
-      block[4] = self;
+      block[4] = selfCopy;
       dispatch_async(&_dispatch_main_q, block);
     }
 
-    else if (dword_10001EA10 <= 50 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+    else if (dword_10001EA10 <= 50)
     {
-      sub_10000D75C();
+      if (dword_10001EA10 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_10000D75C(v4, v5, v6);
+      }
     }
   }
 }
@@ -601,6 +632,7 @@ LABEL_12:
   v7 = [[UILabel alloc] initWithFrame:{0.0, 0.0, 30.0, 30.0}];
   [v7 setText:stringCopy];
 
+  v10 = labelCopy;
   if (labelCopy)
   {
     [v7 setTextColor:labelCopy];
@@ -608,17 +640,20 @@ LABEL_12:
 
   else
   {
-    if (dword_10001EA10 <= 90 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+    if (dword_10001EA10 <= 90)
     {
-      sub_10000D778();
+      if (dword_10001EA10 != -1 || (v8 = _LogCategory_Initialize(), v8))
+      {
+        sub_10000D778(v8, v10, v9);
+      }
     }
 
-    v8 = +[UIColor whiteColor];
-    [v7 setTextColor:v8];
+    v11 = +[UIColor whiteColor];
+    [v7 setTextColor:v11];
   }
 
-  v9 = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
-  [v7 setFont:v9];
+  v12 = [UIFont systemFontOfSize:16.0 weight:UIFontWeightMedium];
+  [v7 setFont:v12];
 
   [v7 setMarqueeEnabled:1];
   [(BluetoothUIServiceBanner *)self setCcBottomViewLabel:v7];
@@ -1384,7 +1419,7 @@ LABEL_11:
     {
       if (dword_10001EA10 <= 90 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
       {
-        sub_10000D7E0();
+        sub_10000D7E0(v26);
       }
     }
 
@@ -1398,7 +1433,7 @@ LABEL_11:
   {
     if (dword_10001EA10 <= 90 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
     {
-      sub_10000D820();
+      sub_10000D820(v14);
     }
 
     v26 = v14;
@@ -1506,7 +1541,7 @@ LABEL_11:
   iconCopy = icon;
   if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000D860();
+    sub_10000D860(iconCopy);
   }
 
   v4 = +[UIScreen mainScreen];
@@ -1729,55 +1764,54 @@ LABEL_11:
 - (void)createCustomStaticImageView:(id)view WithCustomIconName:(id)name
 {
   viewCopy = view;
-  v31 = objc_alloc_init(UIImageView);
-  [viewCopy addSubview:v31];
-  [v31 setBackgroundColor:0];
-  [v31 setTranslatesAutoresizingMaskIntoConstraints:0];
-  objc_storeStrong(&self->_imageView, v31);
+  v30 = objc_alloc_init(UIImageView);
+  [viewCopy addSubview:v30];
+  [v30 setBackgroundColor:0];
+  [v30 setTranslatesAutoresizingMaskIntoConstraints:0];
+  objc_storeStrong(&self->_imageView, v30);
   v6 = sub_100009354(self->_leadingAccessoryIconName);
   v7 = [NSString alloc];
-  leadingAccessoryIconName = self->_leadingAccessoryIconName;
   if (v6)
   {
-    v9 = @"%@-Seed";
+    v8 = @"%@-Seed";
   }
 
   else
   {
-    v9 = @"%@";
+    v8 = @"%@";
   }
 
-  v30 = [v7 initWithFormat:v9, self->_leadingAccessoryIconName];
-  v10 = [NSString alloc];
-  v11 = [(BluetoothUIServiceBanner *)self removedAccessoryColorCode:self->_leadingAccessoryIconName];
-  v29 = [v10 initWithFormat:v9, v11];
+  v29 = [v7 initWithFormat:v8, self->_leadingAccessoryIconName];
+  v9 = [NSString alloc];
+  v10 = [(BluetoothUIServiceBanner *)self removedAccessoryColorCode:self->_leadingAccessoryIconName];
+  v28 = [v9 initWithFormat:v8, v10];
 
-  v12 = [NSBundle bundleForClass:objc_opt_class()];
-  v28 = [v12 pathForResource:v30 ofType:@"png" inDirectory:v29];
+  v11 = [NSBundle bundleForClass:objc_opt_class()];
+  v27 = [v11 pathForResource:v29 ofType:@"png" inDirectory:v28];
 
-  v13 = [UIImage imageWithContentsOfFile:v28];
-  [(UIImageView *)self->_imageView setImage:v13];
+  v12 = [UIImage imageWithContentsOfFile:v27];
+  [(UIImageView *)self->_imageView setImage:v12];
 
   centerXAnchor = [(UIImageView *)self->_imageView centerXAnchor];
   centerXAnchor2 = [viewCopy centerXAnchor];
-  v25 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v32[0] = v25;
+  v24 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+  v31[0] = v24;
   centerYAnchor = [(UIImageView *)self->_imageView centerYAnchor];
   centerYAnchor2 = [viewCopy centerYAnchor];
-  v16 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v32[1] = v16;
+  v15 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v31[1] = v15;
   widthAnchor = [(UIImageView *)self->_imageView widthAnchor];
-  v24 = viewCopy;
+  v23 = viewCopy;
   widthAnchor2 = [viewCopy widthAnchor];
-  v19 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-  v32[2] = v19;
+  v18 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
+  v31[2] = v18;
   heightAnchor = [(UIImageView *)self->_imageView heightAnchor];
   heightAnchor2 = [viewCopy heightAnchor];
-  v22 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-  v32[3] = v22;
-  v23 = [NSArray arrayWithObjects:v32 count:4];
+  v21 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
+  v31[3] = v21;
+  v22 = [NSArray arrayWithObjects:v31 count:4];
 
-  [NSLayoutConstraint activateConstraints:v23];
+  [NSLayoutConstraint activateConstraints:v22];
 }
 
 - (void)createCustomStaticImageView:(id)view withIcon:(id)icon
@@ -1817,69 +1851,73 @@ LABEL_11:
 
 - (id)createInUseConnectButton
 {
-  if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_10001EA10 <= 30)
   {
-    sub_10000D8A0();
+    if (dword_10001EA10 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10000D8A0(self, a2, v2);
+    }
   }
 
-  v3 = +[NSBundle mainBundle];
-  v4 = [v3 localizedStringForKey:@"CONNECT" value:&stru_1000188D8 table:0];
+  v4 = +[NSBundle mainBundle];
+  v5 = [v4 localizedStringForKey:@"CONNECT" value:&stru_1000188D8 table:0];
 
-  v5 = SBUIIsSystemApertureEnabled();
-  v6 = [UIButton buttonWithType:1];
-  [v6 setTitle:v4 forState:0];
-  v7 = [UIFont _preferredFontForTextStyle:UIFontTextStyleSubheadline variant:1024];
-  titleLabel = [v6 titleLabel];
-  [titleLabel setFont:v7];
+  v6 = SBUIIsSystemApertureEnabled();
+  v7 = [UIButton buttonWithType:1];
+  [v7 setTitle:v5 forState:0];
+  v8 = [UIFont _preferredFontForTextStyle:UIFontTextStyleSubheadline variant:1024];
+  titleLabel = [v7 titleLabel];
+  [titleLabel setFont:v8];
 
-  if (v5)
+  if (v6)
   {
-    titleLabel2 = [v6 titleLabel];
+    titleLabel2 = [v7 titleLabel];
     [titleLabel2 setAdjustsFontSizeToFitWidth:1];
 
-    titleLabel3 = [v6 titleLabel];
+    titleLabel3 = [v7 titleLabel];
     [titleLabel3 setMinimumScaleFactor:0.5];
 
-    v11 = +[UIColor systemBlueColor];
-    v12 = [v11 colorWithAlphaComponent:0.4];
-    [v6 setBackgroundColor:v12];
+    v12 = +[UIColor systemBlueColor];
+    v13 = [v12 colorWithAlphaComponent:0.4];
+    [v7 setBackgroundColor:v13];
 
-    [v6 _setCornerRadius:15.0];
-    [v6 setUserInteractionEnabled:1];
-    [v6 setContentEdgeInsets:{8.0, 16.0, 8.0, 16.0}];
-    [v6 setTranslatesAutoresizingMaskIntoConstraints:0];
-    widthAnchor = [v6 widthAnchor];
-    [v6 intrinsicContentSize];
-    v14 = [widthAnchor constraintEqualToConstant:?];
-    v21 = v14;
-    v15 = &v21;
+    [v7 _setCornerRadius:15.0];
+    [v7 setUserInteractionEnabled:1];
+    [v7 setContentEdgeInsets:{8.0, 16.0, 8.0, 16.0}];
+    [v7 setTranslatesAutoresizingMaskIntoConstraints:0];
+    widthAnchor = [v7 widthAnchor];
+    [v7 intrinsicContentSize];
+    v15 = [widthAnchor constraintEqualToConstant:?];
+    v22 = v15;
+    v16 = &v22;
   }
 
   else
   {
-    v16 = +[UIColor labelColor];
-    [v6 setTintColor:v16];
+    v17 = +[UIColor labelColor];
+    [v7 setTintColor:v17];
 
-    v17 = +[UIColor secondarySystemFillColor];
-    [v6 setBackgroundColor:v17];
+    v18 = +[UIColor secondarySystemFillColor];
+    [v7 setBackgroundColor:v18];
 
-    [v6 _setCornerRadius:15.0];
-    [v6 setUserInteractionEnabled:1];
-    [v6 setContentEdgeInsets:{8.0, 16.0, 8.0, 16.0}];
-    [v6 setTranslatesAutoresizingMaskIntoConstraints:0];
-    widthAnchor = [v6 widthAnchor];
-    [v6 intrinsicContentSize];
-    v14 = [widthAnchor constraintEqualToConstant:?];
-    v20 = v14;
-    v15 = &v20;
+    [v7 _setCornerRadius:15.0];
+    [v7 setUserInteractionEnabled:1];
+    [v7 setContentEdgeInsets:{8.0, 16.0, 8.0, 16.0}];
+    [v7 setTranslatesAutoresizingMaskIntoConstraints:0];
+    widthAnchor = [v7 widthAnchor];
+    [v7 intrinsicContentSize];
+    v15 = [widthAnchor constraintEqualToConstant:?];
+    v21 = v15;
+    v16 = &v21;
   }
 
-  v18 = [NSArray arrayWithObjects:v15 count:1];
-  [NSLayoutConstraint activateConstraints:v18];
+  v19 = [NSArray arrayWithObjects:v16 count:1];
+  [NSLayoutConstraint activateConstraints:v19];
 
-  [v6 addTarget:self action:"handleTap:" forControlEvents:64];
+  [v7 addTarget:selfCopy action:"handleTap:" forControlEvents:64];
 
-  return v6;
+  return v7;
 }
 
 - (id)createReverseButton
@@ -1946,7 +1984,7 @@ LABEL_11:
 
           if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
           {
-            sub_10000D8BC();
+            sub_10000D8BC(v13);
           }
 
           goto LABEL_16;
@@ -1968,7 +2006,7 @@ LABEL_11:
 
   if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000D8FC();
+    sub_10000D8FC(v13);
   }
 
 LABEL_16:
@@ -2145,22 +2183,104 @@ LABEL_11:
 
 - (void)viewWillLayoutSubviews
 {
-  if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_10001EA10 <= 30)
   {
-    sub_10000D93C();
+    if (dword_10001EA10 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_10000D93C(self, a2, v2);
+    }
   }
 
+  v4.receiver = selfCopy;
+  v4.super_class = BluetoothUIServiceBanner;
+  [(BluetoothUIServiceBanner *)&v4 viewWillLayoutSubviews];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
   v3.receiver = self;
   v3.super_class = BluetoothUIServiceBanner;
-  [(BluetoothUIServiceBanner *)&v3 viewWillLayoutSubviews];
+  [(BluetoothUIServiceBanner *)&v3 viewWillAppear:appear];
+  if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  {
+    sub_10000D958();
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = BluetoothUIServiceBanner;
+  [(BluetoothUIServiceBanner *)&v4 viewDidAppear:appear];
+  if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  {
+    sub_10000D98C();
+  }
+
+  [(BluetoothUIServiceBanner *)self setBannerTimer];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v3.receiver = self;
+  v3.super_class = BluetoothUIServiceBanner;
+  [(BluetoothUIServiceBanner *)&v3 viewWillDisappear:disappear];
+  if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  {
+    sub_10000D9C0();
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v8.receiver = self;
+  v8.super_class = BluetoothUIServiceBanner;
+  [(BluetoothUIServiceBanner *)&v8 viewDidDisappear:disappear];
+  if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  {
+    sub_10000D9F4();
+  }
+
+  if ((SBUIIsSystemApertureEnabled() & 1) == 0)
+  {
+    if (dword_10001EA10 <= 30 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+    {
+      sub_10000DA28();
+    }
+
+    if (self->_bannerActive)
+    {
+      self->_bannerActive = 0;
+      actionHandler = self->_actionHandler;
+      if (actionHandler)
+      {
+        v5 = objc_retainBlock(actionHandler);
+        v6 = v5;
+        if (v5)
+        {
+          (*(v5 + 2))(v5, 2, 0);
+        }
+
+        v7 = self->_actionHandler;
+        self->_actionHandler = 0;
+      }
+    }
+  }
 }
 
 - (void)handleTap:(id)tap
 {
-  tapCopy = tap;
-  if (dword_10001EA10 <= 50 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
+  actionHandler = tap;
+  v6 = actionHandler;
+  if (dword_10001EA10 <= 50)
   {
-    sub_10000DA5C();
+    v10 = actionHandler;
+    if (dword_10001EA10 != -1 || (actionHandler = _LogCategory_Initialize(), v6 = v10, actionHandler))
+    {
+      actionHandler = sub_10000DA5C(actionHandler, v6, v5);
+      v6 = v10;
+    }
   }
 
   if (self->_bannerActive)
@@ -2168,36 +2288,39 @@ LABEL_11:
     actionHandler = self->_actionHandler;
     if (actionHandler)
     {
-      v6 = objc_retainBlock(actionHandler);
-      v7 = v6;
-      if (v6)
+      v11 = v6;
+      v7 = objc_retainBlock(actionHandler);
+      v8 = v7;
+      if (v7)
       {
-        (*(v6 + 2))(v6, 1, 0);
+        (*(v7 + 2))(v7, 1, 0);
       }
 
-      v8 = self->_actionHandler;
+      v9 = self->_actionHandler;
       self->_actionHandler = 0;
+
+      v6 = v11;
     }
   }
 
-  _objc_release_x1();
+  _objc_release_x1(actionHandler, v6);
 }
 
 - (void)bannerDidDismiss:(id)dismiss
 {
   dismissCopy = dismiss;
-  v4 = dismissCopy;
+  v5 = dismissCopy;
   if (dword_10001EA10 <= 50)
   {
-    v5 = dismissCopy;
-    if (dword_10001EA10 != -1 || (dismissCopy = _LogCategory_Initialize(), v4 = v5, dismissCopy))
+    v6 = dismissCopy;
+    if (dword_10001EA10 != -1 || (dismissCopy = _LogCategory_Initialize(), v5 = v6, dismissCopy))
     {
-      dismissCopy = sub_10000DA78();
-      v4 = v5;
+      dismissCopy = sub_10000DA78(dismissCopy, v5, v4);
+      v5 = v6;
     }
   }
 
-  _objc_release_x1(dismissCopy, v4);
+  _objc_release_x1(dismissCopy, v5);
 }
 
 - (void)dismissBanner
@@ -2222,7 +2345,7 @@ LABEL_11:
     {
       if (dword_10001EA10 <= 90 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
       {
-        sub_10000DA94();
+        sub_10000DA94(v10);
       }
     }
 
@@ -2265,7 +2388,7 @@ LABEL_11:
       {
         if (dword_10001EA10 != -1 || (v4 = _LogCategory_Initialize(), bannerTimeoutInSeconds = self->_bannerTimeoutInSeconds, v4))
         {
-          LogPrintF();
+          LogPrintF(&dword_10001EA10, "[BluetoothUIServiceBanner setBannerTimer]", 50, "Starting timer of %.0f", bannerTimeoutInSeconds);
           bannerTimeoutInSeconds = self->_bannerTimeoutInSeconds;
         }
       }
@@ -2408,9 +2531,9 @@ LABEL_11:
 - (BluetoothUIServiceBanner)initWithXPCObject:(id)object error:(id *)error
 {
   objectCopy = object;
-  v213.receiver = self;
-  v213.super_class = BluetoothUIServiceBanner;
-  v7 = [(BluetoothUIServiceBanner *)&v213 initWithNibName:0 bundle:0];
+  v218.receiver = self;
+  v218.super_class = BluetoothUIServiceBanner;
+  v7 = [(BluetoothUIServiceBanner *)&v218 initWithNibName:0 bundle:0];
   if (!v7)
   {
 LABEL_182:
@@ -2418,10 +2541,10 @@ LABEL_182:
     block[1] = 3221225472;
     block[2] = sub_100003F94;
     block[3] = &unk_1000185C8;
-    v143 = v7;
-    v212 = v143;
+    v142 = v7;
+    v217 = v142;
     dispatch_async(&_dispatch_main_q, block);
-    v32 = v143;
+    v32 = v142;
 
     goto LABEL_183;
   }
@@ -2430,7 +2553,7 @@ LABEL_182:
   {
     if (error)
     {
-      NSErrorF();
+      NSErrorF(NSOSStatusErrorDomain, 4294960540, "XPC non-dict");
       *error = v32 = 0;
       goto LABEL_183;
     }
@@ -2474,7 +2597,7 @@ LABEL_182:
     v16 = v8;
 
     v19 = *(v7 + 35);
-    LODWORD(v208) = 280;
+    LODWORD(v213) = 280;
     *(v7 + 35) = v17;
     v20 = v17;
 
@@ -2498,15 +2621,15 @@ LABEL_182:
     v15 = objc_alloc_init(NSMutableArray);
     v16 = *(v7 + 14);
     *(v7 + 14) = v15;
-    LODWORD(v208) = 280;
+    LODWORD(v213) = 280;
   }
 
   batteryLevelIndicator2 = 320;
-  v214 = 0;
+  v219 = 0;
   v24 = CUXPCDecodeUInt64RangedEx();
   if (v24 == 6)
   {
-    v7[80] = v214;
+    v7[80] = v219;
   }
 
   else if (v24 == 5)
@@ -2544,7 +2667,7 @@ LABEL_182:
     goto LABEL_120;
   }
 
-  v214 = 0;
+  v219 = 0;
   v25 = CUXPCDecodeSInt64RangedEx();
   if (v25 != 6)
   {
@@ -2559,7 +2682,7 @@ LABEL_120:
     goto LABEL_183;
   }
 
-  v26 = v214;
+  v26 = v219;
 LABEL_27:
   v7[8] = v26;
   sub_10000BA34();
@@ -2568,7 +2691,7 @@ LABEL_27:
     goto LABEL_120;
   }
 
-  v210 = 208;
+  v215 = 208;
   sub_10000BA34();
   if (!CUXPCDecodeNSString())
   {
@@ -2581,28 +2704,28 @@ LABEL_27:
     goto LABEL_120;
   }
 
-  v209 = 256;
+  v214 = 256;
   sub_10000BA34();
   if (!CUXPCDecodeNSString())
   {
     goto LABEL_120;
   }
 
-  v206 = 216;
+  v211 = 216;
   sub_10000BA44();
   if (!CUXPCDecodeNSString())
   {
     goto LABEL_120;
   }
 
-  v205 = 264;
+  v210 = 264;
   sub_10000BA44();
   if (!CUXPCDecodeNSString())
   {
     goto LABEL_120;
   }
 
-  LODWORD(v207) = 200;
+  LODWORD(v212) = 200;
   sub_10000BA44();
   if (!CUXPCDecodeDouble())
   {
@@ -2630,14 +2753,13 @@ LABEL_27:
       v30 = (&off_100018630)[v29];
     }
 
-    v177 = *(v7 + 32);
-    v184 = v30;
-    v163 = *(v7 + 26);
-    v170 = *(v7 + 34);
-    v149 = *(v7 + 12);
-    v156 = *(v7 + 13);
-    v148 = *(v7 + 11);
-    LogPrintF();
+    v182 = *(v7 + 32);
+    v189 = v30;
+    v168 = *(v7 + 26);
+    v175 = *(v7 + 34);
+    v154 = *(v7 + 12);
+    v161 = *(v7 + 13);
+    LogPrintF(&dword_10001EA10, "[BluetoothUIServiceBanner initWithXPCObject:error:]", 50, "Post Banner ccText %@, ccItemsIcon %@ ccItemsText %@ leadingAccessoryIconName %@ trailingAccessoryText %@ trailingAccessoryIconName %@ bannerType: %s", *(v7 + 11));
   }
 
   v31 = v7[80];
@@ -2658,12 +2780,12 @@ LABEL_27:
     v33 = *(v7 + 11);
     if (!v33)
     {
-      HIDWORD(v198) = 0;
+      HIDWORD(v203) = 0;
       goto LABEL_62;
     }
 
-    HIDWORD(v198) = [v33 isEqualToString:@"AirPods Case"];
-    if (!HIDWORD(v198))
+    HIDWORD(v203) = [v33 isEqualToString:@"AirPods Case"];
+    if (!HIDWORD(v203))
     {
 LABEL_57:
       if (SBUIIsSystemApertureEnabled())
@@ -2699,12 +2821,12 @@ LABEL_62:
             [v44 setChargingState:0];
             [v44 setChargePercent:*(v7 + 28)];
             v45 = 0.2;
-            if (HIDWORD(v198))
+            if (HIDWORD(v203))
             {
               v45 = 0.25;
             }
 
-            [v44 setLowBatteryChargePercentThreshold:{v45, v148}];
+            [v44 setLowBatteryChargePercentThreshold:v45];
             if (SBUIIsSystemApertureEnabled())
             {
               sub_10000BA88(195);
@@ -2733,9 +2855,9 @@ LABEL_62:
 
             else
             {
-              v67 = [[PLPillContentItem alloc] initWithText:*(v7 + 13) style:2 accessoryView:v44];
+              v66 = [[PLPillContentItem alloc] initWithText:*(v7 + 13) style:2 accessoryView:v44];
               v47 = *(v7 + 20);
-              *(v7 + 20) = v67;
+              *(v7 + 20) = v66;
             }
 
             goto LABEL_147;
@@ -2747,17 +2869,17 @@ LABEL_148:
             [*(v7 + 14) addObject:?];
           }
 
-          v134 = *&v7[v210 / 4];
-          if (v134)
+          v133 = *&v7[v215 / 4];
+          if (v133)
           {
-            if ([v134 containsString:@"Headset"])
+            if ([v133 containsString:@"Headset"])
             {
-              [v7 createGenericHeadphoneView:*(v7 + v207)];
+              [v7 createGenericHeadphoneView:*(v7 + v212)];
             }
 
-            else if ([*&v7[v210 / 4] containsString:@"Speaker"])
+            else if ([*&v7[v215 / 4] containsString:@"Speaker"])
             {
-              [v7 createGenericSpeakerView:*(v7 + v207)];
+              [v7 createGenericSpeakerView:*(v7 + v212)];
             }
 
             else if (SBUIIsSystemApertureEnabled())
@@ -2768,7 +2890,7 @@ LABEL_148:
                 [sub_10000BA6C() createCustomAVPlayerLayerView:? WithCustomIconName:?];
                 if ((v7[49] & 1) == 0)
                 {
-                  [v7 createCustomAVPlayerLayerView:*(v7 + 31) WithCustomIconName:*&v7[v210 / 4]];
+                  [v7 createCustomAVPlayerLayerView:*(v7 + 31) WithCustomIconName:*&v7[v215 / 4]];
                 }
               }
 
@@ -2777,7 +2899,7 @@ LABEL_148:
                 [sub_10000BA6C() createCustomStaticImageView:? WithCustomIconName:?];
                 if ((v7[49] & 1) == 0)
                 {
-                  [v7 createCustomStaticImageView:*(v7 + 31) WithCustomIconName:*&v7[v210 / 4]];
+                  [v7 createCustomStaticImageView:*(v7 + 31) WithCustomIconName:*&v7[v215 / 4]];
                 }
               }
             }
@@ -2788,32 +2910,32 @@ LABEL_148:
             }
           }
 
-          else if (*&v7[v206 / 4])
+          else if (*&v7[v211 / 4])
           {
-            [v7 createCustomView:*(v7 + v207) WithCustomIconPath:?];
+            [v7 createCustomView:*(v7 + v212) WithCustomIconPath:?];
           }
 
-          if (*&v7[v209 / 4])
+          if (*&v7[v214 / 4])
           {
-            [v7 createCustomView:*(v7 + v208) WithCustomIconName:?];
+            [v7 createCustomView:*(v7 + v213) WithCustomIconName:?];
           }
 
-          else if (*&v7[v205 / 4])
+          else if (*&v7[v210 / 4])
           {
-            [v7 createCustomView:*(v7 + v208) WithCustomIconPath:?];
+            [v7 createCustomView:*(v7 + v213) WithCustomIconPath:?];
           }
 
           else
           {
-            v137 = *(v7 + 34);
-            if (v137)
+            v136 = *(v7 + 34);
+            if (v136)
             {
-              if ([v137 containsString:@"Reverse"])
+              if ([v136 containsString:@"Reverse"])
               {
                 if (SBUIIsSystemApertureEnabled())
                 {
                   createReverseButton = [v7 createReverseButton];
-                  [*(v7 + v208) addSubview:createReverseButton];
+                  [*(v7 + v213) addSubview:createReverseButton];
                   [createReverseButton setTranslatesAutoresizingMaskIntoConstraints:0];
                   [createReverseButton widthAnchor];
                   objc_claimAutoreleasedReturnValue();
@@ -2822,7 +2944,7 @@ LABEL_148:
                   [sub_10000BA50() constraintEqualToAnchor:?];
                   objc_claimAutoreleasedReturnValue();
                   sub_10000BA7C();
-                  [v139 setActive:?];
+                  [v138 setActive:?];
 
                   [createReverseButton heightAnchor];
                   objc_claimAutoreleasedReturnValue();
@@ -2831,7 +2953,7 @@ LABEL_148:
                   [sub_10000BA50() constraintEqualToAnchor:?];
                   objc_claimAutoreleasedReturnValue();
                   sub_10000BA7C();
-                  [v140 setActive:?];
+                  [v139 setActive:?];
 
                   [createReverseButton centerXAnchor];
                   objc_claimAutoreleasedReturnValue();
@@ -2840,7 +2962,7 @@ LABEL_148:
                   [sub_10000BA50() constraintEqualToAnchor:?];
                   objc_claimAutoreleasedReturnValue();
                   sub_10000BA7C();
-                  [v141 setActive:?];
+                  [v140 setActive:?];
 
                   [createReverseButton centerYAnchor];
                   objc_claimAutoreleasedReturnValue();
@@ -2849,39 +2971,39 @@ LABEL_148:
                   [sub_10000BA50() constraintEqualToAnchor:?];
                   objc_claimAutoreleasedReturnValue();
                   sub_10000BA7C();
-                  [v142 setActive:?];
+                  [v141 setActive:?];
                 }
 
                 else
                 {
-                  v145 = [[UIView alloc] initWithFrame:{0.0, 0.0, 22.0, 22.0}];
-                  v146 = *(v7 + v208);
-                  *(v7 + v208) = v145;
+                  v144 = [[UIView alloc] initWithFrame:{0.0, 0.0, 22.0, 22.0}];
+                  v145 = *(v7 + v213);
+                  *(v7 + v213) = v144;
 
-                  [v7 createCustomViewForNativeReverseSymbol:*(v7 + v208)];
+                  [v7 createCustomViewForNativeReverseSymbol:*(v7 + v213)];
                 }
               }
 
               else
               {
-                [v7 createCustomViewFromUILabel:*(v7 + v208) WithStr:*(v7 + 34)];
+                [v7 createCustomViewFromUILabel:*(v7 + v213) WithStr:*(v7 + 34)];
               }
             }
           }
 
           if (SBUIIsSystemApertureEnabled())
           {
-            objc_storeStrong(v7 + 45, *(v7 + v207));
-            v135 = *(v7 + v208);
-            v136 = *(v7 + 46);
-            *(v7 + 46) = v135;
+            objc_storeStrong(v7 + 45, *(v7 + v212));
+            v134 = *(v7 + v213);
+            v135 = *(v7 + 46);
+            *(v7 + 46) = v134;
           }
 
           else
           {
-            v136 = [[PLPillView alloc] initWithLeadingAccessoryView:*(v7 + v207) trailingAccessoryView:*(v7 + v208)];
-            [v136 setTranslatesAutoresizingMaskIntoConstraints:0];
-            objc_storeStrong(v7 + 38, v136);
+            v135 = [[PLPillView alloc] initWithLeadingAccessoryView:*(v7 + v212) trailingAccessoryView:*(v7 + v213)];
+            [v135 setTranslatesAutoresizingMaskIntoConstraints:0];
+            objc_storeStrong(v7 + 38, v135);
             if (*(v7 + 14))
             {
               [*(v7 + 38) setCenterContentItems:?];
@@ -2889,7 +3011,7 @@ LABEL_148:
 
             else if (dword_10001EA10 <= 90 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
             {
-              LogPrintF();
+              LogPrintF(&dword_10001EA10, "[BluetoothUIServiceBanner initWithXPCObject:error:]", 90, "PLPillView center items are empty");
             }
           }
 
@@ -2916,25 +3038,24 @@ LABEL_148:
         if ([*(v7 + 34) containsString:@"Reverse"])
         {
           sub_10000BA88(196);
-          v65 = *(v7 + 13);
           GestaltProductTypeStringToDeviceClass();
           v44 = CUAddSuffixForDeviceClass();
           if (SBUIIsSystemApertureEnabled())
           {
-            v66 = +[UIColor systemWhiteColor];
+            v65 = +[UIColor systemWhiteColor];
             v27 = +[NSBundle mainBundle];
             batteryLevelIndicator2 = [v27 localizedStringForKey:v44 value:&stru_1000188D8 table:0];
-            [v7 _createccTopViewLabel:v66 labelString:batteryLevelIndicator2];
+            [v7 _createccTopViewLabel:v65 labelString:batteryLevelIndicator2];
           }
 
           else
           {
-            v68 = [PLPillContentItem alloc];
-            v66 = +[NSBundle mainBundle];
-            v27 = [v66 localizedStringForKey:v44 value:&stru_1000188D8 table:0];
-            v69 = [v68 initWithText:v27 style:2 accessoryView:*(v7 + 21)];
+            v67 = [PLPillContentItem alloc];
+            v65 = +[NSBundle mainBundle];
+            v27 = [v65 localizedStringForKey:v44 value:&stru_1000188D8 table:0];
+            v68 = [v67 initWithText:v27 style:2 accessoryView:*(v7 + 21)];
             batteryLevelIndicator2 = *(v7 + 20);
-            *(v7 + 20) = v69;
+            *(v7 + 20) = v68;
           }
 
           goto LABEL_147;
@@ -2956,42 +3077,42 @@ LABEL_147:
           v61 = *(v28 + 644);
           if (v61 <= 50 && (v61 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_10001EA10, "[BluetoothUIServiceBanner initWithXPCObject:error:]", 50, "CONNECTED_EARBUDS");
           }
 
-          v70 = +[NSBundle mainBundle];
-          v71 = v70;
-          v72 = @"CONNECTED_EARBUDS";
+          v69 = +[NSBundle mainBundle];
+          v70 = v69;
+          v71 = @"CONNECTED_EARBUDS";
 LABEL_139:
-          batteryLevelIndicator2 = [(__CFString *)v70 localizedStringForKey:v72 value:&stru_1000188D8 table:0];
+          batteryLevelIndicator2 = [(__CFString *)v69 localizedStringForKey:v71 value:&stru_1000188D8 table:0];
           v44 = [NSString stringWithFormat:batteryLevelIndicator2, *(v7 + 13)];
 LABEL_140:
 
           if (SBUIIsSystemApertureEnabled())
           {
             sub_10000BA88(136);
-            v122 = +[UIColor systemGrayColor];
-            [v7 _createccTopViewLabel:v122 labelString:v44];
+            v121 = +[UIColor systemGrayColor];
+            [v7 _createccTopViewLabel:v121 labelString:v44];
             [v7 _createBatteryView];
-            v123 = [NSString stringWithFormat:@"%.2f", *(v7 + 10)];
-            [v123 doubleValue];
-            v125 = v124;
+            v122 = [NSString stringWithFormat:@"%.2f", *(v7 + 10)];
+            [v122 doubleValue];
+            v124 = v123;
             batteryLevelIndicator3 = [v7 batteryLevelIndicator];
-            [batteryLevelIndicator3 setPercentageLevel:v125];
+            [batteryLevelIndicator3 setPercentageLevel:v124];
 
             [v7 _checkValidBatteryRange];
             [v7 _fillBatteryPercentage];
             v27 = [UIColor colorWithRed:0.2728 green:0.9028 blue:0.4567 alpha:1.0];
             batteryLevelIndicator4 = [v7 batteryLevelIndicator];
             [batteryLevelIndicator4 percentageLevel];
-            v129 = v128;
+            v128 = v127;
 
             batteryLevelIndicator5 = [v7 batteryLevelIndicator];
-            v131 = batteryLevelIndicator5;
-            if (v129 <= 0.2)
+            v130 = batteryLevelIndicator5;
+            if (v128 <= 0.2)
             {
-              v133 = +[UIColor systemRedColor];
-              [v131 setColorforPercentageLabel:v133];
+              v132 = +[UIColor systemRedColor];
+              [v130 setColorforPercentageLabel:v132];
             }
 
             else
@@ -3005,9 +3126,9 @@ LABEL_140:
 
           else
           {
-            v132 = [[PLPillContentItem alloc] initWithText:v44 style:2 accessoryView:*(v7 + 21)];
-            v122 = *(v7 + 20);
-            *(v7 + 20) = v132;
+            v131 = [[PLPillContentItem alloc] initWithText:v44 style:2 accessoryView:*(v7 + 21)];
+            v121 = *(v7 + 20);
+            *(v7 + 20) = v131;
           }
 
           goto LABEL_147;
@@ -3015,45 +3136,44 @@ LABEL_140:
 
         if (*(v7 + 11))
         {
-          v73 = [sub_10000BA60(v53 v54];
-          if (v73 & 1) != 0 || (v81 = [sub_10000BA60(v73 v74], (v81) || (v89 = objc_msgSend(sub_10000BA60(v81, v82, v83, v84, v85, v86, v87, v88, v148, v151, v158, v165, v172, v179, v186, v193, v200, v205, v206, v207, v208, v209, v210), "containsString:", @"8204"), (v89) || (v97 = objc_msgSend(sub_10000BA60(v89, v90, v91, v92, v93, v94, v95, v96, v148, v152, v159, v166, v173, v180, v187, v194, v201, v205, v206, v207, v208, v209, v210), "containsString:", @"8202"), (v97) || (v105 = objc_msgSend(sub_10000BA60(v97, v98, v99, v100, v101, v102, v103, v104, v148, v153, v160, v167, v174, v181, v188, v195, v202, v205, v206, v207, v208, v209, v210), "containsString:", @"8223"), (v105) || (v113 = objc_msgSend(sub_10000BA60(v105, v106, v107, v108, v109, v110, v111, v112, v148, v154, v161, v168, v175, v182, v189, v196, v203, v205, v206, v207, v208, v209, v210), "containsString:", @"8229"), (v113) || objc_msgSend(sub_10000BA60(v113, v114, v115, v116, v117, v118, v119, v120, v148, v155, v162, v169, v176, v183, v190, v197, v204, v205, v206, v207, v208, v209, v210), "containsString:", @"8201"))
+          v72 = [sub_10000BA60(v53 v54];
+          if (v72 & 1) != 0 || (v80 = [sub_10000BA60(v72 v73], (v80) || (v88 = objc_msgSend(sub_10000BA60(v80, v81, v82, v83, v84, v85, v86, v87, v149, v156, v163, v170, v177, v184, v191, v198, v205, v210, v211, v212, v213, v214, v215), "containsString:", @"8204"), (v88) || (v96 = objc_msgSend(sub_10000BA60(v88, v89, v90, v91, v92, v93, v94, v95, v150, v157, v164, v171, v178, v185, v192, v199, v206, v210, v211, v212, v213, v214, v215), "containsString:", @"8202"), (v96) || (v104 = objc_msgSend(sub_10000BA60(v96, v97, v98, v99, v100, v101, v102, v103, v151, v158, v165, v172, v179, v186, v193, v200, v207, v210, v211, v212, v213, v214, v215), "containsString:", @"8223"), (v104) || (v112 = objc_msgSend(sub_10000BA60(v104, v105, v106, v107, v108, v109, v110, v111, v152, v159, v166, v173, v180, v187, v194, v201, v208, v210, v211, v212, v213, v214, v215), "containsString:", @"8229"), (v112) || objc_msgSend(sub_10000BA60(v112, v113, v114, v115, v116, v117, v118, v119, v153, v160, v167, v174, v181, v188, v195, v202, v209, v210, v211, v212, v213, v214, v215), "containsString:", @"8201"))
           {
-            v71 = @"CONNECTED_OVEREAR_HEADPHONES";
+            v70 = @"CONNECTED_OVEREAR_HEADPHONES";
             if (v7[80] == 4)
             {
-              v71 = [NSString stringWithFormat:@"%@_%@", @"CONNECTED_OVEREAR_HEADPHONES", @"VIA_USB"];
+              v70 = [NSString stringWithFormat:@"%@_%@", @"CONNECTED_OVEREAR_HEADPHONES", @"VIA_USB"];
             }
 
             if (dword_10001EA10 <= 50 && (dword_10001EA10 != -1 || _LogCategory_Initialize()))
             {
-              v148 = v71;
-              LogPrintF();
+              LogPrintF(&dword_10001EA10, "[BluetoothUIServiceBanner initWithXPCObject:error:]", 50, "Getting localization from key %@", v70);
             }
 
             batteryLevelIndicator2 = +[NSBundle mainBundle];
-            v147 = [batteryLevelIndicator2 localizedStringForKey:v71 value:&stru_1000188D8 table:0];
-            v44 = [NSString stringWithFormat:v147, *(v7 + 13)];
+            v146 = [batteryLevelIndicator2 localizedStringForKey:v70 value:&stru_1000188D8 table:0];
+            v44 = [NSString stringWithFormat:v146, *(v7 + 13)];
 
             goto LABEL_140;
           }
         }
       }
 
-      v121 = *(v28 + 644);
-      if (v121 <= 50 && (v121 != -1 || _LogCategory_Initialize()))
+      v120 = *(v28 + 644);
+      if (v120 <= 50 && (v120 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_10001EA10, "[BluetoothUIServiceBanner initWithXPCObject:error:]", 50, "CONNECTED");
       }
 
-      v70 = +[NSBundle mainBundle];
-      v71 = v70;
-      v72 = @"CONNECTED";
+      v69 = +[NSBundle mainBundle];
+      v70 = v69;
+      v71 = @"CONNECTED";
       goto LABEL_139;
     }
 
     if (([*(v7 + 26) containsString:@"8203"] & 1) != 0 || objc_msgSend(*(v7 + 26), "containsString:", @"8221"))
     {
-      v34 = [NSBundle mainBundle:v148];
+      v34 = +[NSBundle mainBundle];
       v35 = v34;
       v36 = @"POWERBEATS_PRO_CASE";
     }
@@ -3081,10 +3201,10 @@ LABEL_140:
 
     else
     {
-      LODWORD(v198) = [*(v7 + 26) containsString:@"8239"];
+      LODWORD(v203) = [*(v7 + 26) containsString:@"8239"];
       v34 = +[NSBundle mainBundle];
       v35 = v34;
-      if (v198)
+      if (v203)
       {
         v36 = @"POWERBEATS_FIT_CASE";
         v37 = @"Localizable-B494b";
@@ -3096,7 +3216,7 @@ LABEL_140:
 
     v37 = 0;
 LABEL_56:
-    v38 = [v34 localizedStringForKey:v36 value:&stru_1000188D8 table:{v37, v148}];
+    v38 = [v34 localizedStringForKey:v36 value:&stru_1000188D8 table:v37];
     v39 = *(v7 + 11);
     *(v7 + 11) = v38;
 

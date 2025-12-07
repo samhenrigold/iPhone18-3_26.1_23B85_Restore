@@ -78,7 +78,7 @@
   companionLinkProvider = self->_companionLinkProvider;
   self->_companionLinkProvider = v4;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v4, companionLinkProvider);
 }
 
 - (id)companionLinkProvider

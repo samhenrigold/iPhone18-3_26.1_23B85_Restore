@@ -117,8 +117,8 @@ uint64_t __24__SCDAUtilities_isPhone__block_invoke()
   _Block_object_dispose(&v10, 8);
   if (!v2)
   {
-    dlerror();
-    abort_report_np();
+    v9 = dlerror();
+    abort_report_np("%s", v9);
     __break(1u);
   }
 
@@ -126,17 +126,16 @@ uint64_t __24__SCDAUtilities_isPhone__block_invoke()
   v4 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v7 = MEMORY[0x1E696AD98];
-    v8 = v4;
-    v9 = [v7 numberWithBool:v3];
+    v6 = MEMORY[0x1E696AD98];
+    v7 = v4;
+    v8 = [v6 numberWithBool:v3];
     *buf = 136315394;
     *&buf[4] = "+[SCDAUtilities accessibilitySupportsAttentionAwareFeatures]";
     *&buf[12] = 2112;
-    *&buf[14] = v9;
-    _os_log_debug_impl(&dword_1DA758000, v8, OS_LOG_TYPE_DEBUG, "%s #scda _AXSAttentionAwarenessFeaturesEnabled %@", buf, 0x16u);
+    *&buf[14] = v8;
+    _os_log_debug_impl(&dword_1DA758000, v7, OS_LOG_TYPE_DEBUG, "%s #scda _AXSAttentionAwarenessFeaturesEnabled %@", buf, 0x16u);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

@@ -63,10 +63,10 @@
 
 - (void)didMoveToSuperview
 {
-  v34[8] = *MEMORY[0x277D85DE8];
-  v33.receiver = self;
-  v33.super_class = WFLockView;
-  [(WFLockView *)&v33 didMoveToSuperview];
+  v33[8] = *MEMORY[0x277D85DE8];
+  v32.receiver = self;
+  v32.super_class = WFLockView;
+  [(WFLockView *)&v32 didMoveToSuperview];
   superview = [(WFLockView *)self superview];
 
   if (superview)
@@ -74,44 +74,42 @@
     superview2 = [(WFLockView *)self superview];
     safeAreaLayoutGuide = [superview2 safeAreaLayoutGuide];
 
-    v23 = MEMORY[0x277CCAAD0];
+    v22 = MEMORY[0x277CCAAD0];
     centerXAnchor = [(UILabel *)self->titleLabel centerXAnchor];
     centerXAnchor2 = [safeAreaLayoutGuide centerXAnchor];
-    v30 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v34[0] = v30;
+    v29 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v33[0] = v29;
     topAnchor = [(UILabel *)self->titleLabel topAnchor];
     centerYAnchor = [safeAreaLayoutGuide centerYAnchor];
-    v27 = [topAnchor constraintEqualToAnchor:centerYAnchor];
-    v34[1] = v27;
+    v26 = [topAnchor constraintEqualToAnchor:centerYAnchor];
+    v33[1] = v26;
     leadingAnchor = [(UILabel *)self->titleLabel leadingAnchor];
     leadingAnchor2 = [safeAreaLayoutGuide leadingAnchor];
-    v24 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v34[2] = v24;
+    v23 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v33[2] = v23;
     trailingAnchor = [(UILabel *)self->titleLabel trailingAnchor];
     trailingAnchor2 = [safeAreaLayoutGuide trailingAnchor];
-    v20 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v34[3] = v20;
+    v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+    v33[3] = v19;
     bottomAnchor = [(UILabel *)self->titleLabel bottomAnchor];
     bottomAnchor2 = [safeAreaLayoutGuide bottomAnchor];
-    v17 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
-    v34[4] = v17;
+    v16 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2];
+    v33[4] = v16;
     centerXAnchor3 = [(UIImageView *)self->lockImage centerXAnchor];
     centerXAnchor4 = [safeAreaLayoutGuide centerXAnchor];
     v7 = [centerXAnchor3 constraintEqualToAnchor:centerXAnchor4];
-    v34[5] = v7;
+    v33[5] = v7;
     topAnchor2 = [(UIImageView *)self->lockImage topAnchor];
     topAnchor3 = [safeAreaLayoutGuide topAnchor];
     v10 = [topAnchor2 constraintGreaterThanOrEqualToAnchor:topAnchor3];
-    v34[6] = v10;
+    v33[6] = v10;
     bottomAnchor3 = [(UIImageView *)self->lockImage bottomAnchor];
     centerYAnchor2 = [safeAreaLayoutGuide centerYAnchor];
     v13 = [bottomAnchor3 constraintEqualToAnchor:centerYAnchor2];
-    v34[7] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:8];
-    [v23 activateConstraints:v14];
+    v33[7] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:8];
+    [v22 activateConstraints:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

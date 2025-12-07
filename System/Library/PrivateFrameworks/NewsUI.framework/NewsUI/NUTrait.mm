@@ -121,7 +121,7 @@ LABEL_7:
   height = size.height;
   width = size.width;
   collectionCopy = collection;
-  v8 = NUDeviceTraitLookup();
+  v8 = NUDeviceTraitLookup(collectionCopy);
   [(NUTrait *)self valueForTraitCollection:collectionCopy size:v8 deviceTrait:width, height];
   v10 = v9;
 

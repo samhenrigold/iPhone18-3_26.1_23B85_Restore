@@ -14,7 +14,7 @@
   v7 = *((swift_isaMask & self->super.isa) + 0x50);
   selfCopy = self;
   v7();
-  sub_100085D40(&qword_10059C808);
+  sub_100085D40(&qword_10059C808, &qword_1004355F0);
   XPCDictionary.withUnsafeUnderlyingDictionary<A>(_:)();
 
   (*(v4 + 8))(v6, v3);

@@ -191,15 +191,15 @@
 
 - (void)_commitAppearance
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v72.receiver = self;
-  v72.super_class = AMSUIDashboardMessageViewController;
-  [(AMSUIBaseMessageViewController *)&v72 _commitAppearance];
+  v73 = *MEMORY[0x1E69E9840];
+  v71.receiver = self;
+  v71.super_class = AMSUIDashboardMessageViewController;
+  [(AMSUIBaseMessageViewController *)&v71 _commitAppearance];
   viewIfLoaded = [(AMSUIDashboardMessageViewController *)self viewIfLoaded];
 
   if (!viewIfLoaded)
   {
-    goto LABEL_62;
+    return;
   }
 
   _messageView = [(AMSUIBaseMessageViewController *)self _messageView];
@@ -234,7 +234,7 @@
     [v7 setPreferredBackgroundColor:accessoryButtonBackgroundColor2];
   }
 
-  v66 = accessoryButtonBackgroundColor2;
+  v65 = accessoryButtonBackgroundColor2;
   requestAppearance2 = [(AMSUIDashboardMessageViewController *)self requestAppearance];
   accessoryButtonColor = [requestAppearance2 accessoryButtonColor];
   v15 = accessoryButtonColor;
@@ -277,7 +277,7 @@
 LABEL_21:
   requestAppearance4 = [(AMSUIDashboardMessageViewController *)self requestAppearance];
   backgroundColor = [requestAppearance4 backgroundColor];
-  v65 = accessoryButtonColor2;
+  v64 = accessoryButtonColor2;
   if (backgroundColor)
   {
     backgroundColor2 = backgroundColor;
@@ -341,7 +341,7 @@ LABEL_25:
     footerButtonColor2 = [preferredAppearance7 footerButtonColor];
   }
 
-  v67 = v7;
+  v66 = v7;
 
   requestAppearance8 = [(AMSUIDashboardMessageViewController *)self requestAppearance];
   footerButtonFont = [requestAppearance8 footerButtonFont];
@@ -358,28 +358,28 @@ LABEL_25:
   }
 
   footerButtons = [_messageView footerButtons];
+  v67 = 0u;
   v68 = 0u;
   v69 = 0u;
   v70 = 0u;
-  v71 = 0u;
-  v46 = [footerButtons countByEnumeratingWithState:&v68 objects:v73 count:16];
+  v46 = [footerButtons countByEnumeratingWithState:&v67 objects:v72 count:16];
   if (v46)
   {
     v47 = v46;
-    v48 = *v69;
+    v48 = *v68;
     do
     {
       for (i = 0; i != v47; ++i)
       {
-        if (*v69 != v48)
+        if (*v68 != v48)
         {
           objc_enumerationMutation(footerButtons);
         }
 
-        v50 = *(*(&v68 + 1) + 8 * i);
+        v50 = *(*(&v67 + 1) + 8 * i);
         if (footerButtonColor2)
         {
-          [*(*(&v68 + 1) + 8 * i) setPreferredForegroundColor:footerButtonColor2];
+          [*(*(&v67 + 1) + 8 * i) setPreferredForegroundColor:footerButtonColor2];
         }
 
         if (footerButtonFont2)
@@ -393,7 +393,7 @@ LABEL_25:
         }
       }
 
-      v47 = [footerButtons countByEnumeratingWithState:&v68 objects:v73 count:16];
+      v47 = [footerButtons countByEnumeratingWithState:&v67 objects:v72 count:16];
     }
 
     while (v47);
@@ -405,7 +405,7 @@ LABEL_25:
   {
     imageTintColor2 = imageTintColor;
 
-    v54 = v67;
+    v54 = v66;
   }
 
   else
@@ -413,7 +413,7 @@ LABEL_25:
     preferredAppearance9 = [(AMSUIDashboardMessageViewController *)self preferredAppearance];
     imageTintColor2 = [preferredAppearance9 imageTintColor];
 
-    v54 = v67;
+    v54 = v66;
     if (!imageTintColor2)
     {
       goto LABEL_55;
@@ -455,9 +455,6 @@ LABEL_59:
   }
 
   [(AMSUIBaseMessageViewController *)self _updateTextWithAttributes];
-
-LABEL_62:
-  v64 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)_iconAnimationPlayCount

@@ -13,7 +13,7 @@
 {
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupStartViewController _handleDismissButton]", 30, "Dismiss button\n");
   }
 
   mainController = [(TVLatencyColorimeterSetupBaseViewController *)self mainController];
@@ -24,7 +24,7 @@
 {
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupStartViewController _handleContinueButton]", 30, "Start button\n");
   }
 
   mainController = [(TVLatencyColorimeterSetupBaseViewController *)self mainController];
@@ -68,9 +68,7 @@
       v6 = userInfo;
     }
 
-    v14 = name;
-    v15 = v6;
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupStartViewController handleDeviceSetupNotification:]", 30, "DeviceSetup notification '%@', %##@\n", name, v6);
   }
 
   name2 = [notificationCopy name];
@@ -89,7 +87,7 @@
     {
       if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupStartViewController handleDeviceSetupNotification:]", 30, "Auto-dismissing on setup started\n");
       }
 
       mainController2 = [(TVLatencyColorimeterSetupBaseViewController *)self mainController];
@@ -103,7 +101,7 @@
   disappearCopy = disappear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupStartViewController viewDidDisappear:]", 30, "Start ViewDidDisappear\n");
   }
 
   v6.receiver = self;
@@ -118,7 +116,7 @@
   appearCopy = appear;
   if (dword_1001BEA68 <= 30 && (dword_1001BEA68 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEA68, "[TVLatencyColorimeterSetupStartViewController viewWillAppear:]", 30, "Start ViewWillAppear\n");
   }
 
   v8.receiver = self;

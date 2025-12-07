@@ -339,10 +339,8 @@ BOOL __55__VKCVisualSearchCornerView_showVisualSearchResultView__block_invoke(ui
   }
 
   [(VKCVisualSearchCornerView *)self frame];
-  v10 = v9;
-  v12 = v11;
-  intrinsicContentSize = [(VKCVisualSearchCornerView *)self intrinsicContentSize];
-  VKMRectWithOriginAndSize(intrinsicContentSize, v10, v12, v14, v15);
+  [(VKCVisualSearchCornerView *)self intrinsicContentSize];
+  VKMRectWithOriginAndSize();
 
   [(VKCVisualSearchCornerView *)self setFrame:?];
 }

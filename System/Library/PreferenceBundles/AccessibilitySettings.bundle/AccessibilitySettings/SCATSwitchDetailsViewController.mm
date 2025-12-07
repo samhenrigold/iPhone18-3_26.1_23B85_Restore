@@ -367,17 +367,17 @@
 {
   modelSwitch = [(SCATSwitchDetailsViewController *)self modelSwitch];
   midiEvent = [modelSwitch midiEvent];
-  v5 = AXLocalizedNameForMIDIChannel([midiEvent channel]);
+  channel = [midiEvent channel];
+  v7 = AXLocalizedNameForMIDIChannel(channel, v6);
 
-  return v5;
+  return v7;
 }
 
 - (id)_getSwitchMIDIKeyDescription:(id)description
 {
   modelSwitch = [(SCATSwitchDetailsViewController *)self modelSwitch];
   midiEvent = [modelSwitch midiEvent];
-  [midiEvent note];
-  v5 = AXLocalizedNameForMIDINote();
+  v5 = AXLocalizedNameForMIDINote([midiEvent note]);
 
   return v5;
 }

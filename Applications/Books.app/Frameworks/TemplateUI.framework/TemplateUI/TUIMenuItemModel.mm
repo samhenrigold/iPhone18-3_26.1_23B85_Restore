@@ -54,7 +54,7 @@
   v5 = objc_opt_class();
   v6 = TUIDynamicCast(v5, equalCopy);
 
-  if (v6 && ((title = self->_title, title == *(v6 + 16)) || [(NSString *)title isEqualToString:?]) && ((imageModel = self->_imageModel, imageModel == *(v6 + 24)) || [(TUIImageModel *)imageModel isEqual:?]) && self->_isEnabled == *(v6 + 8) && self->_isOn == *(v6 + 9))
+  if (v6 && ((title = self->_title, title == *(v6 + 16)) || objc_msgSend_isEqualToString_(title)) && ((imageModel = self->_imageModel, imageModel == *(v6 + 24)) || [(TUIImageModel *)imageModel isEqual:?]) && self->_isEnabled == *(v6 + 8) && self->_isOn == *(v6 + 9))
   {
     action = self->_action;
     if (action == *(v6 + 32))

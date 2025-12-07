@@ -26,7 +26,7 @@
 
 - (void)timerDidFire:(id)fire
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   home = [(HMDAccessoryRetrievalCompletionTuple *)self home];
   v6 = home;
@@ -55,13 +55,13 @@
       }
 
       v20 = v15;
-      v25 = 138543874;
-      v26 = v11;
-      v27 = 2112;
-      v28 = shortDescription;
-      v29 = 2112;
-      v30 = v20;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Accessory retrieval timed out for accessory %@/%@", &v25, 0x20u);
+      v24 = 138543874;
+      v25 = v11;
+      v26 = 2112;
+      v27 = shortDescription;
+      v28 = 2112;
+      v29 = v20;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Accessory retrieval timed out for accessory %@/%@", &v24, 0x20u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -79,15 +79,13 @@
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v19;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Accessory retrieval lost reference to home", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v19;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Accessory retrieval lost reference to home", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop

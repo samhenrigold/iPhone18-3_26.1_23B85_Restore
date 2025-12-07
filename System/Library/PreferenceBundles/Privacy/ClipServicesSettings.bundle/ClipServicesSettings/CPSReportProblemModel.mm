@@ -93,36 +93,36 @@
 - (void)obtainSupportURLWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_59B0();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_59B0(completionCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "RAP: Obtaining developer support URL", buf, 2u);
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "RAP: Obtaining developer support URL", buf, 2u);
   }
 
-  v6 = [AMSMediaTask alloc];
+  v7 = [AMSMediaTask alloc];
   sharedAMSBag = [objc_opt_class() sharedAMSBag];
-  v8 = [v6 initWithType:0 clientIdentifier:@"com.apple.ClipServices.clipserviced" clientVersion:@"1" bag:sharedAMSBag];
+  v9 = [v7 initWithType:0 clientIdentifier:@"com.apple.ClipServices.clipserviced" clientVersion:@"1" bag:sharedAMSBag];
 
-  v9 = [NSNumber numberWithUnsignedLongLong:self->_itemIdentifier];
-  stringValue = [v9 stringValue];
-  v20 = stringValue;
-  v11 = [NSArray arrayWithObjects:&v20 count:1];
-  [v8 setItemIdentifiers:v11];
+  v10 = [NSNumber numberWithUnsignedLongLong:self->_itemIdentifier];
+  stringValue = [v10 stringValue];
+  v21 = stringValue;
+  v12 = [NSArray arrayWithObjects:&v21 count:1];
+  [v9 setItemIdentifiers:v12];
 
-  v18 = @"extend";
-  v19 = @"supportURLForLanguage";
-  v12 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  [v8 setAdditionalQueryParams:v12];
+  v19 = @"extend";
+  v20 = @"supportURLForLanguage";
+  v13 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  [v9 setAdditionalQueryParams:v13];
 
-  perform = [v8 perform];
-  v15[0] = _NSConcreteStackBlock;
-  v15[1] = 3221225472;
-  v15[2] = sub_23B0;
-  v15[3] = &unk_147D0;
-  v16 = completionCopy;
-  v14 = completionCopy;
-  [perform addFinishBlock:v15];
+  perform = [v9 perform];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_23B0;
+  v16[3] = &unk_147D0;
+  v17 = completionCopy;
+  v15 = completionCopy;
+  [perform addFinishBlock:v16];
 }
 
 - (void)obtainBagValuesWithCompletion:(id)completion
@@ -132,22 +132,22 @@
   sharedAMSBag = [objc_opt_class() sharedAMSBag];
   v6 = [sharedAMSBag dictionaryForKey:@"app-clips-report-problem"];
 
-  v7 = sub_59B0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_59B0(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "RAP: Obtaining problem types", buf, 2u);
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "RAP: Obtaining problem types", buf, 2u);
   }
 
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_2750;
-  v10[3] = &unk_147F8;
-  v11 = v4;
-  v12 = completionCopy;
-  v8 = v4;
-  v9 = completionCopy;
-  [v6 valueWithCompletion:v10];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_2750;
+  v12[3] = &unk_147F8;
+  v13 = v4;
+  v14 = completionCopy;
+  v10 = v4;
+  v11 = completionCopy;
+  [v6 valueWithCompletion:v12];
 }
 
 - (void)submitResponseForProblemType:(id)type userNote:(id)note completion:(id)completion

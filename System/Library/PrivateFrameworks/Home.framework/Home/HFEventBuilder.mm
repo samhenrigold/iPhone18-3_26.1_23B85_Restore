@@ -20,78 +20,25 @@
 
 + (id)eventBuilderForEvent:(id)event
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  if ((objc_opt_isKindOfClass() & 1) == 0 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v4 = objc_opt_class()) == 0)
   {
-    v4 = off_277DEFCA8;
-    goto LABEL_15;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v4 = off_277DEFF38;
-    goto LABEL_15;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v4 = off_277DEFA18;
-    goto LABEL_15;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v4 = off_277DEF688;
-    goto LABEL_15;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v4 = off_277DF00F8;
-    goto LABEL_15;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v4 = off_277DEF850;
-    goto LABEL_15;
-  }
-
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v4 = off_277DEF878;
-LABEL_15:
-    v5 = *v4;
-    v6 = objc_opt_class();
-    if (v6)
+    v5 = HFLogForCategory(0x2BuLL);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_19;
+      v8 = 138412290;
+      v9 = eventCopy;
+      _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "No HFEventBuilder can handle the event: %@", &v8, 0xCu);
     }
+
+    v4 = 0;
   }
 
-  v7 = HFLogForCategory(0x2BuLL);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-  {
-    v11 = 138412290;
-    v12 = eventCopy;
-    _os_log_error_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_ERROR, "No HFEventBuilder can handle the event: %@", &v11, 0xCu);
-  }
+  v6 = [[v4 alloc] initWithEvent:eventCopy];
 
-  v6 = 0;
-LABEL_19:
-  v8 = [[v6 alloc] initWithEvent:eventCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8;
+  return v6;
 }
 
 - (HFEventBuilder)initWithEvent:(id)event

@@ -1,10 +1,10 @@
 @interface NSMutableDictionary(AVCaptureMovieFileOutputAdditions)
-- (uint64_t)mfo_addEntriesFromDictionaryWithRecursion:()AVCaptureMovieFileOutputAdditions;
+- (void)mfo_addEntriesFromDictionaryWithRecursion:()AVCaptureMovieFileOutputAdditions;
 @end
 
 @implementation NSMutableDictionary(AVCaptureMovieFileOutputAdditions)
 
-- (uint64_t)mfo_addEntriesFromDictionaryWithRecursion:()AVCaptureMovieFileOutputAdditions
+- (void)mfo_addEntriesFromDictionaryWithRecursion:()AVCaptureMovieFileOutputAdditions
 {
   keyEnumerator = [a3 keyEnumerator];
   result = [keyEnumerator nextObject];

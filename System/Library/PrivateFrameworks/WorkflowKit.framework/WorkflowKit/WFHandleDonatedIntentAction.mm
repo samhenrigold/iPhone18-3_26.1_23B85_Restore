@@ -2,6 +2,7 @@
 + (id)intentActionWithShortcut:(id)shortcut forceExecutionOnPhone:(BOOL)phone groupIdentifier:(id)identifier error:(id *)error;
 - (BOOL)requiresRemoteExecution;
 - (WFHandleDonatedIntentAction)initWithIdentifier:(id)identifier definition:(id)definition serializedParameters:(id)parameters stringLocalizer:(id)localizer;
+- (WFHandleDonatedIntentAction)initWithIntent:(id)intent forceExecutionOnPhone:(BOOL)phone;
 - (WFHandleDonatedIntentAction)initWithInteraction:(id)interaction forceExecutionOnPhone:(BOOL)phone;
 - (id)appIdentifier;
 - (id)executorWithIntent:(id)intent groupIdentifier:(id)identifier;
@@ -57,19 +58,19 @@ void __84__WFHandleDonatedIntentAction_WFLCompatibility__continueInAppWithComple
 - (WFHandleDonatedIntentAction)initWithInteraction:(id)interaction forceExecutionOnPhone:(BOOL)phone
 {
   phoneCopy = phone;
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   interactionCopy = interaction;
   intent = [interactionCopy intent];
   if (intent)
   {
-    v27 = 0;
-    v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:intent requiringSecureCoding:1 error:&v27];
-    v9 = v27;
+    v26 = 0;
+    v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:intent requiringSecureCoding:1 error:&v26];
+    v9 = v26;
     if (v8)
     {
-      v29 = @"IntentData";
-      v30 = v8;
-      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v28 = @"IntentData";
+      v29 = v8;
+      v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
       v11 = [v10 mutableCopy];
 
       if (phoneCopy)
@@ -88,8 +89,8 @@ void __84__WFHandleDonatedIntentAction_WFLCompatibility__continueInAppWithComple
 
       v15 = [[WFActionRequest alloc] initWithActionIdentifier:@"is.workflow.actions.sirikit.donation.handle" serializedParameters:v11];
       v16 = objc_opt_new();
-      v28 = v15;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
+      v27 = v15;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v27 count:1];
       [v16 createActionsForRequests:v17];
 
       result = [(WFActionRequest *)v15 result];
@@ -102,13 +103,13 @@ void __84__WFHandleDonatedIntentAction_WFLCompatibility__continueInAppWithComple
         {
           v23 = objc_opt_class();
           *buf = 136315906;
-          v32 = "WFEnforceClass";
-          v33 = 2114;
-          v34 = v20;
-          v35 = 2114;
-          v36 = v23;
-          v37 = 2114;
-          v38 = v19;
+          v31 = "WFEnforceClass";
+          v32 = 2114;
+          v33 = v20;
+          v34 = 2114;
+          v35 = v23;
+          v36 = 2114;
+          v37 = v19;
           v24 = v23;
           _os_log_impl(&dword_1CA256000, v22, OS_LOG_TYPE_FAULT, "%s Failed to create WFL-compatible WFHandleDonatedIntentAction because intent was nil", buf, 0x2Au);
         }
@@ -128,9 +129,9 @@ void __84__WFHandleDonatedIntentAction_WFLCompatibility__continueInAppWithComple
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v32 = "[WFHandleDonatedIntentAction(WFLCompatibility) initWithInteraction:forceExecutionOnPhone:]";
-        v33 = 2114;
-        v34 = v9;
+        v31 = "[WFHandleDonatedIntentAction(WFLCompatibility) initWithInteraction:forceExecutionOnPhone:]";
+        v32 = 2114;
+        v33 = v9;
         _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s Failed to create WFL-compatible WFHandleDonatedIntentAction due to error serizlializing the intent: %{public}@", buf, 0x16u);
       }
 
@@ -144,15 +145,25 @@ void __84__WFHandleDonatedIntentAction_WFLCompatibility__continueInAppWithComple
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v32 = "[WFHandleDonatedIntentAction(WFLCompatibility) initWithInteraction:forceExecutionOnPhone:]";
+      v31 = "[WFHandleDonatedIntentAction(WFLCompatibility) initWithInteraction:forceExecutionOnPhone:]";
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Failed to create WFL-compatible WFHandleDonatedIntentAction because intent was nil", buf, 0xCu);
     }
 
     v21 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v21;
+}
+
+- (WFHandleDonatedIntentAction)initWithIntent:(id)intent forceExecutionOnPhone:(BOOL)phone
+{
+  phoneCopy = phone;
+  v6 = MEMORY[0x1E696E8B8];
+  intentCopy = intent;
+  v8 = [[v6 alloc] initWithIntent:intentCopy response:0];
+
+  v9 = [(WFHandleDonatedIntentAction *)self initWithInteraction:v8 forceExecutionOnPhone:phoneCopy];
+  return v9;
 }
 
 - (id)smartPromptWithContentDescription:(id)description contentDestination:(id)destination workflowName:(id)name
@@ -448,13 +459,13 @@ LABEL_8:
 
   if ([v16 length])
   {
-    v65 = 0;
-    v23 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v16 error:&v65];
-    v24 = v65;
+    v64 = 0;
+    v23 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v16 error:&v64];
+    v24 = v64;
     v25 = v24;
     if (v23)
     {
-      v58 = v13;
+      v57 = v13;
       v26 = bOOLValue;
       selfCopy = self;
       v28 = v16;
@@ -471,7 +482,7 @@ LABEL_8:
       v16 = v28;
       self = selfCopy;
       bOOLValue = v26;
-      v13 = v58;
+      v13 = v57;
       definitionCopy = v34;
       identifierCopy = v31;
     }
@@ -483,13 +494,13 @@ LABEL_8:
     v23 = 0;
   }
 
-  v64.receiver = self;
-  v64.super_class = WFHandleDonatedIntentAction;
-  v35 = [(WFHandleIntentAction *)&v64 initWithIdentifier:identifierCopy definition:definitionCopy serializedParameters:v13 stringLocalizer:localizerCopy];
+  v63.receiver = self;
+  v63.super_class = WFHandleDonatedIntentAction;
+  v35 = [(WFHandleIntentAction *)&v63 initWithIdentifier:identifierCopy definition:definitionCopy serializedParameters:v13 stringLocalizer:localizerCopy];
   v36 = v35;
   if (v35)
   {
-    v59 = identifierCopy;
+    v58 = identifierCopy;
     objc_storeStrong(&v35->_intent, v23);
     v36->_forceExecutionOnPhone = bOOLValue;
     objc_storeStrong(&v36->_groupIdentifier, obj);
@@ -500,21 +511,21 @@ LABEL_8:
       mEMORY[0x1E696E878] = [MEMORY[0x1E696E878] sharedConnection];
       v39 = MEMORY[0x1E695DFD8];
       [(INIntent *)v36->_intent launchId];
-      v57 = definitionCopy;
+      v56 = definitionCopy;
       v40 = v16;
       v42 = v41 = v25;
       v43 = [v39 setWithObject:v42];
-      v61[0] = MEMORY[0x1E69E9820];
-      v61[1] = 3221225472;
-      v61[2] = __98__WFHandleDonatedIntentAction_initWithIdentifier_definition_serializedParameters_stringLocalizer___block_invoke;
-      v61[3] = &unk_1E837F870;
-      v62 = v36;
-      v63 = localizerCopy;
-      [mEMORY[0x1E696E878] wf_accessBundleContentForBundleIdentifiers:v43 withBlock:v61];
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __98__WFHandleDonatedIntentAction_initWithIdentifier_definition_serializedParameters_stringLocalizer___block_invoke;
+      v60[3] = &unk_1E837F870;
+      v61 = v36;
+      v62 = localizerCopy;
+      [mEMORY[0x1E696E878] wf_accessBundleContentForBundleIdentifiers:v43 withBlock:v60];
 
       v25 = v41;
       v16 = v40;
-      definitionCopy = v57;
+      definitionCopy = v56;
     }
 
     title = v36->_title;
@@ -549,15 +560,14 @@ LABEL_8:
       v36->_subtitle = v52;
     }
 
-    intent = v36->_intent;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       [(INIntent *)v36->_intent _setLaunchId:*MEMORY[0x1E69E0F60]];
     }
 
-    v55 = v36;
-    identifierCopy = v59;
+    v54 = v36;
+    identifierCopy = v58;
   }
 
   return v36;
@@ -589,7 +599,7 @@ void __98__WFHandleDonatedIntentAction_initWithIdentifier_definition_serializedP
 + (id)intentActionWithShortcut:(id)shortcut forceExecutionOnPhone:(BOOL)phone groupIdentifier:(id)identifier error:(id *)error
 {
   phoneCopy = phone;
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   intent = [shortcut intent];
   if (intent)
@@ -628,16 +638,14 @@ void __98__WFHandleDonatedIntentAction_initWithIdentifier_definition_serializedP
     if (error)
     {
       v18 = MEMORY[0x1E696ABC0];
-      v22 = *MEMORY[0x1E696A578];
-      v23[0] = @"Could not create action because the intent was missing";
-      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v21 = *MEMORY[0x1E696A578];
+      v22[0] = @"Could not create action because the intent was missing";
+      v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       *error = [v18 errorWithDomain:@"WFActionErrorDomain" code:5 userInfo:v19];
     }
 
     v17 = 0;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

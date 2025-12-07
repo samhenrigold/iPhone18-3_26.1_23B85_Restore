@@ -15,7 +15,7 @@
 
 - (CGPoint)calibratedGazePointForGazePoint:(CGPoint)point
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   x = point.x;
   y = point.y;
   __A[0] = x;
@@ -33,48 +33,47 @@
   v9 = __C[0];
   v10 = __C[1];
 
-  v11 = *MEMORY[0x277D85DE8];
-  v12 = v9;
-  v13 = v10;
-  result.y = v13;
-  result.x = v12;
+  v11 = v9;
+  v12 = v10;
+  result.y = v12;
+  result.x = v11;
   return result;
 }
 
 - (id)learnCalibrationForPoints:(id)points
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   pointsCopy = points;
   [pointsCopy enumerateKeysAndObjectsUsingBlock:&__block_literal_global_0];
   allKeys = [pointsCopy allKeys];
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __66__ASTUILinearMatrixCalibrationStrategy_learnCalibrationForPoints___block_invoke_2;
-  v54[3] = &unk_278CDC698;
-  v44 = pointsCopy;
-  v55 = v44;
-  v5 = [allKeys ax_mappedArrayUsingBlock:v54];
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __66__ASTUILinearMatrixCalibrationStrategy_learnCalibrationForPoints___block_invoke_2;
+  v53[3] = &unk_278CDC698;
+  v43 = pointsCopy;
+  v54 = v43;
+  v5 = [allKeys ax_mappedArrayUsingBlock:v53];
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v49 = 0u;
   v50 = 0u;
   v51 = 0u;
   v52 = 0u;
-  v53 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v50 objects:v60 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v49 objects:v59 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v51;
+    v10 = *v50;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v51 != v10)
+        if (*v50 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v50 + 1) + 8 * i) CGPointValue];
+        [*(*(&v49 + 1) + 8 * i) CGPointValue];
         v13 = v12;
         v14 = [MEMORY[0x277CCABB0] numberWithDouble:?];
         [v6 addObject:v14];
@@ -85,33 +84,33 @@
         [v6 addObject:&unk_28532E090];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v50 objects:v60 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v49 objects:v59 count:16];
     }
 
     while (v9);
   }
 
   v16 = objc_opt_new();
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   v17 = allKeys;
-  v18 = [v17 countByEnumeratingWithState:&v46 objects:v59 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v45 objects:v58 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v47;
+    v20 = *v46;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v47 != v20)
+        if (*v46 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        [*(*(&v46 + 1) + 8 * j) CGPointValue];
+        [*(*(&v45 + 1) + 8 * j) CGPointValue];
         v23 = v22;
         v24 = [MEMORY[0x277CCABB0] numberWithDouble:?];
         [v16 addObject:v24];
@@ -120,14 +119,14 @@
         [v16 addObject:v25];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v46 objects:v59 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v45 objects:v58 count:16];
     }
 
     while (v19);
   }
 
-  v43[1] = v43;
-  v26 = (v43 - ((4 * [v6 count] + 15) & 0xFFFFFFFFFFFFFFF0));
+  v42[1] = v42;
+  v26 = (v42 - ((4 * [v6 count] + 15) & 0xFFFFFFFFFFFFFFF0));
   if ([v6 count])
   {
     v27 = 0;
@@ -143,7 +142,7 @@
     while ([v6 count] > v27);
   }
 
-  v30 = (v43 - ((4 * [v16 count] + 15) & 0xFFFFFFFFFFFFFFF0));
+  v30 = (v42 - ((4 * [v16 count] + 15) & 0xFFFFFFFFFFFFFFF0));
   if ([v16 count])
   {
     v31 = 0;
@@ -159,26 +158,24 @@
     while ([v16 count] > v31);
   }
 
-  v34 = (v43 - ((4 * [v6 count] + 15) & 0xFFFFFFFFFFFFFFF0));
+  v34 = (v42 - ((4 * [v6 count] + 15) & 0xFFFFFFFFFFFFFFF0));
   vDSP_mtrans(v26, 1, v34, 1, 3uLL, [v7 count]);
-  vDSP_mtrans(v30, 1, (v43 - ((4 * [v16 count] + 15) & 0xFFFFFFFFFFFFFFF0)), 1, 2uLL, objc_msgSend(v17, "count"));
-  vDSP_mmul(v34, 1, v26, 1, v58, 1, 3uLL, 3uLL, [v7 count]);
-  vDSP_mmul(v34, 1, v30, 1, v57, 1, 3uLL, 2uLL, [v7 count]);
-  v45 = 3;
+  vDSP_mtrans(v30, 1, (v42 - ((4 * [v16 count] + 15) & 0xFFFFFFFFFFFFFFF0)), 1, 2uLL, objc_msgSend(v17, "count"));
+  vDSP_mmul(v34, 1, v26, 1, v57, 1, 3uLL, 3uLL, [v7 count]);
+  vDSP_mmul(v34, 1, v30, 1, v56, 1, 3uLL, 2uLL, [v7 count]);
+  v44 = 3;
   v35 = malloc_type_malloc(0xCuLL, 0x100004052888210uLL);
   v36 = malloc_type_malloc(0xCuLL, 0x100004052888210uLL);
-  sgetrf_(&v45, &v45, v58, &v45, v35, &v45 + 1);
-  sgetri_(&v45, v58, &v45, v35, v36, &v45, &v45 + 1);
-  vDSP_mmul(v58, 1, v57, 1, v56, 1, 3uLL, 2uLL, 3uLL);
+  sgetrf_(&v44, &v44, v57, &v44, v35, &v44 + 1);
+  sgetri_(&v44, v57, &v44, v35, v36, &v44, &v44 + 1);
+  vDSP_mmul(v57, 1, v56, 1, v55, 1, 3uLL, 2uLL, 3uLL);
   v37 = [MEMORY[0x277CBEB18] arrayWithCapacity:6];
   for (k = 0; k != 6; ++k)
   {
-    *&v38 = v56[k];
+    *&v38 = v55[k];
     v40 = [MEMORY[0x277CCABB0] numberWithFloat:v38];
     [v37 addObject:v40];
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v37;
 }

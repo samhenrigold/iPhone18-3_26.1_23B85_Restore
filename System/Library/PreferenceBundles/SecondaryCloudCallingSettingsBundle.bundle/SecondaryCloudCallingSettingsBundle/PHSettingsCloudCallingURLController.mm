@@ -52,23 +52,23 @@ LABEL_15:
       callingCapabilityInfo = [(PHSettingsCloudCallingURLController *)self callingCapabilityInfo];
       isEnabled = [callingCapabilityInfo isEnabled];
 
-      v18 = PHDefaultLog();
-      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+      v22 = PHDefaultLog(v21);
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
       if (isEnabled)
       {
-        if (v19)
+        if (v23)
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Asked to load a provision capability web view controller for a capability that is already enabled. Skipping loading web view", buf, 2u);
+          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Asked to load a provision capability web view controller for a capability that is already enabled. Skipping loading web view", buf, 2u);
         }
       }
 
       else
       {
-        if (v19)
+        if (v23)
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEFAULT, "Asked to load a provision capability web view controller for a capability that should be enabled automatically. Skipping loading web view and enabling capability now", buf, 2u);
+          _os_log_impl(&dword_0, v22, OS_LOG_TYPE_DEFAULT, "Asked to load a provision capability web view controller for a capability that should be enabled automatically. Skipping loading web view and enabling capability now", buf, 2u);
         }
 
         [(PHSettingsCloudCallingURLController *)self enableCapability];
@@ -102,13 +102,13 @@ LABEL_15:
 
     if (isPresentingURL)
     {
-      webViewController2 = PHDefaultLog();
+      webViewController2 = PHDefaultLog(v8);
       if (os_log_type_enabled(webViewController2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v9 = "[WARN] Asked to load web view with spinner when web view controller was already presenting a URL";
+        v10 = "[WARN] Asked to load web view with spinner when web view controller was already presenting a URL";
 LABEL_13:
-        _os_log_impl(&dword_0, webViewController2, OS_LOG_TYPE_DEFAULT, v9, buf, 2u);
+        _os_log_impl(&dword_0, webViewController2, OS_LOG_TYPE_DEFAULT, v10, buf, 2u);
         goto LABEL_23;
       }
 
@@ -116,12 +116,12 @@ LABEL_13:
     }
 
     webViewController4 = [(PHSettingsCloudCallingURLController *)self webViewController];
-    v28[0] = _NSConcreteStackBlock;
-    v28[1] = 3221225472;
-    v28[2] = sub_285C;
-    v28[3] = &unk_C558;
-    v28[4] = self;
-    [webViewController4 loadWebViewWithSpinner:v28];
+    v32[0] = _NSConcreteStackBlock;
+    v32[1] = 3221225472;
+    v32[2] = sub_285C;
+    v32[3] = &unk_C558;
+    v32[4] = self;
+    [webViewController4 loadWebViewWithSpinner:v32];
   }
 
   else
@@ -136,11 +136,11 @@ LABEL_13:
 
       if (isPresentingURL2)
       {
-        webViewController2 = PHDefaultLog();
+        webViewController2 = PHDefaultLog(v16);
         if (os_log_type_enabled(webViewController2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v9 = "[WARN] Asked to load URL when web view controller was already presenting a URL";
+          v10 = "[WARN] Asked to load URL when web view controller was already presenting a URL";
           goto LABEL_13;
         }
 
@@ -154,18 +154,18 @@ LABEL_23:
       provisioningURL2 = [callingCapabilityInfo5 provisioningURL];
       callingCapabilityInfo6 = [(PHSettingsCloudCallingURLController *)self callingCapabilityInfo];
       provisioningPostData = [callingCapabilityInfo6 provisioningPostData];
-      v27[0] = _NSConcreteStackBlock;
-      v27[1] = 3221225472;
-      v27[2] = sub_28E8;
-      v27[3] = &unk_C558;
-      v27[4] = self;
-      [webViewController4 loadURL:provisioningURL2 body:provisioningPostData completion:v27];
+      v31[0] = _NSConcreteStackBlock;
+      v31[1] = 3221225472;
+      v31[2] = sub_28E8;
+      v31[3] = &unk_C558;
+      v31[4] = self;
+      [webViewController4 loadURL:provisioningURL2 body:provisioningPostData completion:v31];
     }
 
     else
     {
-      v21 = PHDefaultLog();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v25 = PHDefaultLog(v13);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         sub_6428();
       }
@@ -179,19 +179,20 @@ LABEL_23:
 
 - (id)_webViewControllerWithType:(int64_t)type
 {
-  v5 = PHDefaultLog();
+  v5 = PHDefaultLog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
+    v12 = 134217984;
     typeCopy = type;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "_webViewControllerWithType: %ld", &v11, 0xCu);
+    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "_webViewControllerWithType: %ld", &v12, 0xCu);
   }
 
   callingCapabilityInfo = [(PHSettingsCloudCallingURLController *)self callingCapabilityInfo];
-  if ([callingCapabilityInfo provisioningStatus] < 1)
+  provisioningStatus = [callingCapabilityInfo provisioningStatus];
+  if (provisioningStatus < 1)
   {
-    v9 = PHDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PHDefaultLog(provisioningStatus);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_6490();
     }
@@ -201,10 +202,10 @@ LABEL_23:
 
   else
   {
-    v7 = [[PHSettingsWebViewController alloc] initWithType:type];
-    [(PHSettingsCloudCallingURLController *)self setWebViewController:v7];
+    v8 = [[PHSettingsWebViewController alloc] initWithType:type];
+    [(PHSettingsCloudCallingURLController *)self setWebViewController:v8];
     [(PHSettingsCloudCallingURLController *)self loadWebViewController];
-    genericErrorAlertController = [[UINavigationController alloc] initWithRootViewController:v7];
+    genericErrorAlertController = [[UINavigationController alloc] initWithRootViewController:v8];
   }
 
   return genericErrorAlertController;

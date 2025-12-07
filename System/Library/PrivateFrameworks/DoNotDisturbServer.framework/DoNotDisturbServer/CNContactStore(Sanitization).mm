@@ -7,33 +7,33 @@
 
 - (id)sanitizeContacts:()Sanitization
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ([v4 count])
   {
     v5 = [MEMORY[0x277CBEB58] set];
     v6 = [MEMORY[0x277CBEB58] set];
     v7 = [MEMORY[0x277CBEB58] set];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v8 = v4;
-    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v23;
+      v11 = *v22;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v23 != v11)
+          if (*v22 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * i);
+          v13 = *(*(&v21 + 1) + 8 * i);
           if ([v13 needsSanitization])
           {
             contactIdentifier = [v13 contactIdentifier];
@@ -46,7 +46,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v10);
@@ -54,9 +54,9 @@
 
     if ([v7 count])
     {
-      v21 = 0;
-      v15 = [self fetchContactsWithIdentifiers:v7 error:&v21];
-      v16 = v21;
+      v20 = 0;
+      v15 = [self fetchContactsWithIdentifiers:v7 error:&v20];
+      v16 = v20;
       if (v16)
       {
         v17 = DNDSLogSettings;
@@ -86,8 +86,6 @@
   {
     v18 = v4;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -136,11 +134,10 @@
 
 - (void)sanitizeContacts:()Sanitization .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Could not sanitize contacts; will use existing data this time: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_24912E000, a2, OS_LOG_TYPE_ERROR, "Could not sanitize contacts; will use existing data this time: %{public}@", &v2, 0xCu);
 }
 
 @end

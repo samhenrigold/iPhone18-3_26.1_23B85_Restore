@@ -1,6 +1,8 @@
 @interface GSGenerationRow
 + (BOOL)rowExists:(id)exists withStorageID:(int64_t)d andName:(id)name andClientID:(id)iD;
++ (BOOL)setGenerationConflictResolved:(id)resolved rowID:(int64_t)d conflictResolved:(BOOL)conflictResolved error:(id *)error;
 + (BOOL)setGenerationOptions:(id)options rowID:(int64_t)d options:(unint64_t)a5 error:(id *)error;
++ (BOOL)setGenerationStatus:(id)status rowID:(int64_t)d status:(int)a5 error:(id *)error;
 + (id)enumerate:(id)enumerate withOptions:(const GSGenerationEnumeratorOptions *)options;
 + (id)generationRow:(id)row storageID:(int64_t)d name:(id)name clientID:(id)iD error:(id *)error;
 + (int64_t)countOfGenerations:(id)generations storageID:(int64_t)d clientID:(id)iD;
@@ -56,7 +58,7 @@
 - (BOOL)saveToDB:(id)b
 {
   bCopy = b;
-  v5 = sub_100003164();
+  v5 = sub_100003164(bCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_100026180(self, v5);
@@ -113,7 +115,7 @@
     else
     {
       v11 = [NSString stringWithFormat:@"Generation %@ for client %@ has a corrupt path %@", self->generation_name, self->generation_client_id, self->generation_path];
-      v12 = sub_100003164();
+      v12 = sub_100003164(v11);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         sub_1000261F8();
@@ -193,7 +195,7 @@
     if ([lastError isSqliteErrorCode:12])
     {
       v16 = [NSString stringWithFormat:@"Generation not found"];
-      v17 = sub_100003164();
+      v17 = sub_100003164(v16);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         sub_100026274();
@@ -378,6 +380,20 @@ LABEL_13:
   return v25;
 }
 
++ (BOOL)setGenerationStatus:(id)status rowID:(int64_t)d status:(int)a5 error:(id *)error
+{
+  v7 = *&a5;
+  statusCopy = status;
+  v10 = [statusCopy execute:{@"UPDATE generations SET generation_status = %d WHERE generation_id = %lld", v7, d}];
+  v11 = v10;
+  if (error && (v10 & 1) == 0)
+  {
+    *error = [statusCopy translatedError];
+  }
+
+  return v11;
+}
+
 + (BOOL)setGenerationOptions:(id)options rowID:(int64_t)d options:(unint64_t)a5 error:(id *)error
 {
   optionsCopy = options;
@@ -386,6 +402,20 @@ LABEL_13:
   if (error && (v10 & 1) == 0)
   {
     *error = [optionsCopy translatedError];
+  }
+
+  return v11;
+}
+
++ (BOOL)setGenerationConflictResolved:(id)resolved rowID:(int64_t)d conflictResolved:(BOOL)conflictResolved error:(id *)error
+{
+  conflictResolvedCopy = conflictResolved;
+  resolvedCopy = resolved;
+  v10 = [resolvedCopy execute:{@"UPDATE generations SET generation_conflict_resolved = %d WHERE generation_id = %lld", conflictResolvedCopy, d}];
+  v11 = v10;
+  if (error && (v10 & 1) == 0)
+  {
+    *error = [resolvedCopy translatedError];
   }
 
   return v11;

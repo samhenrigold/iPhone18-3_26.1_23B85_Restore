@@ -39,39 +39,39 @@
 
 + (BOOL)shouldShowInPage:(id)page
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pageCopy = page;
   if ([pageCopy hasTableView])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     tableViewOM = [pageCopy tableViewOM];
     sections = [tableViewOM sections];
 
-    v7 = [sections countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [sections countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(sections);
           }
 
-          if ([self _shouldShowInSection:*(*(&v14 + 1) + 8 * i)])
+          if ([self _shouldShowInSection:*(*(&v13 + 1) + 8 * i)])
           {
             v11 = 1;
             goto LABEL_13;
           }
         }
 
-        v8 = [sections countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [sections countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -90,33 +90,32 @@ LABEL_13:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 + (BOOL)_shouldShowInSection:(id)section
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   rows = [section rows];
-  v4 = [rows countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [rows countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(rows);
         }
 
-        attributes = [*(*(&v14 + 1) + 8 * i) attributes];
+        attributes = [*(*(&v13 + 1) + 8 * i) attributes];
         v9 = [attributes objectForKeyedSubscript:@"familyAction"];
         v10 = [v9 isEqual:@"InjectProfileView"];
 
@@ -127,7 +126,7 @@ LABEL_13:
         }
       }
 
-      v5 = [rows countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [rows countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -140,7 +139,6 @@ LABEL_13:
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -262,10 +260,10 @@ LABEL_18:
 
 - (void)_addProfileViewToCell:(id)cell
 {
-  v28[4] = *MEMORY[0x277D85DE8];
+  v27[4] = *MEMORY[0x277D85DE8];
   cellCopy = cell;
   v5 = [(FAProfileViewTableViewDecorator *)self _profileViewForCell:cellCopy];
-  v6 = _FALogSystem();
+  v6 = _FALogSystem(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG);
   if (v5)
   {
@@ -287,32 +285,30 @@ LABEL_18:
     [contentView addSubview:v6];
 
     [v6 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v20 = MEMORY[0x277CCAAD0];
+    v19 = MEMORY[0x277CCAAD0];
     contentView2 = [cellCopy contentView];
     topAnchor = [contentView2 topAnchor];
     topAnchor2 = [v6 topAnchor];
-    v24 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v28[0] = v24;
+    v23 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v27[0] = v23;
     contentView3 = [cellCopy contentView];
     leftAnchor = [contentView3 leftAnchor];
     leftAnchor2 = [v6 leftAnchor];
-    v19 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
-    v28[1] = v19;
+    v18 = [leftAnchor constraintEqualToAnchor:leftAnchor2];
+    v27[1] = v18;
     contentView4 = [cellCopy contentView];
     rightAnchor = [contentView4 rightAnchor];
     rightAnchor2 = [v6 rightAnchor];
     v10 = [rightAnchor constraintEqualToAnchor:rightAnchor2];
-    v28[2] = v10;
+    v27[2] = v10;
     contentView5 = [cellCopy contentView];
     bottomAnchor = [contentView5 bottomAnchor];
     bottomAnchor2 = [v6 bottomAnchor];
     v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v28[3] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
-    [v20 activateConstraints:v15];
+    v27[3] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:4];
+    [v19 activateConstraints:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeProfileViewFromCell:(id)cell

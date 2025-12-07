@@ -1,3 +1,842 @@
+void sub_1001A4684(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::mutex *a11, char a12)
+{
+  std::exception_ptr::~exception_ptr(&a9);
+  if (a12 == 1)
+  {
+    std::mutex::unlock(a11);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void *sub_1001A46B4(void *result)
+{
+  v1 = *result;
+  if (*result)
+  {
+    if ((*(v1 + 136) & 1) == 0)
+    {
+      v11.__ptr_ = 0;
+      v2 = *(v1 + 16);
+      v3 = result;
+      std::exception_ptr::~exception_ptr(&v11);
+      result = v3;
+      v1 = *v3;
+      if (!v2 && *(v1 + 8) >= 1)
+      {
+        v12.__cat_ = std::future_category();
+        *&v12.__val_ = 4;
+        std::future_error::future_error(&v9, v12);
+        exception = __cxa_allocate_exception(0x20uLL);
+        __cxa_init_primary_exception();
+        v5 = std::logic_error::logic_error(exception, &v9);
+        exception[1] = v9.__ec_;
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
+        v7.__ptr_ = &v10;
+        std::__assoc_sub_state::set_exception(v1, v7);
+        std::exception_ptr::~exception_ptr(&v10);
+        std::future_error::~future_error(&v9);
+        result = v3;
+        v1 = *v3;
+      }
+    }
+
+    if (!atomic_fetch_add((v1 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v8 = result;
+      (*(*v1 + 16))(v1);
+      return v8;
+    }
+  }
+
+  return result;
+}
+
+void sub_1001A480C(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  sub_10018C3C0(**(a1 + 40), **(*(a1 + 40) + 8), v3);
+  if (!*v1)
+  {
+    sub_100013504(3u);
+  }
+
+  sub_1001A434C(*v1, v3);
+  if (v3[0] != 1)
+  {
+    return;
+  }
+
+  if (v10 == 1)
+  {
+    v10 = 0;
+    if (v9 != 1)
+    {
+LABEL_5:
+      if (v8 != 1)
+      {
+        goto LABEL_6;
+      }
+
+      goto LABEL_11;
+    }
+  }
+
+  else if (v9 != 1)
+  {
+    goto LABEL_5;
+  }
+
+  v9 = 0;
+  if (v8 != 1)
+  {
+LABEL_6:
+    if (v7 != 1)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_12;
+  }
+
+LABEL_11:
+  v8 = 0;
+  if (v7 != 1)
+  {
+LABEL_7:
+    v2 = v6;
+    if (!v6)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_12:
+  v7 = 0;
+  v2 = v6;
+  if (!v6)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_13:
+  if (!atomic_fetch_add(&v2->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    (v2->__on_zero_shared)(v2);
+    std::__shared_weak_count::__release_weak(v2);
+    if (v5 < 0)
+    {
+      goto LABEL_15;
+    }
+
+    return;
+  }
+
+LABEL_14:
+  if (v5 < 0)
+  {
+LABEL_15:
+    operator delete(__p);
+  }
+}
+
+void sub_1001A4970(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception_ptr a10, char a11)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    v12 = *(v11 + 32);
+    std::current_exception();
+    sub_1001A40BC(v12, &a10);
+    std::exception_ptr::~exception_ptr(&a10);
+    __cxa_end_catch();
+    JUMPOUT(0x1001A4938);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t sub_1001A49EC(uint64_t result)
+{
+  if (*(result + 128) == 1)
+  {
+    *(result + 128) = 0;
+    if (*(result + 112) != 1)
+    {
+LABEL_3:
+      if (*(result + 88) != 1)
+      {
+        goto LABEL_4;
+      }
+
+LABEL_12:
+      *(result + 88) = 0;
+      if (*(result + 64) != 1)
+      {
+        goto LABEL_6;
+      }
+
+      goto LABEL_5;
+    }
+  }
+
+  else if (*(result + 112) != 1)
+  {
+    goto LABEL_3;
+  }
+
+  *(result + 112) = 0;
+  if (*(result + 88) == 1)
+  {
+    goto LABEL_12;
+  }
+
+LABEL_4:
+  if (*(result + 64) == 1)
+  {
+LABEL_5:
+    *(result + 64) = 0;
+  }
+
+LABEL_6:
+  v1 = *(result + 32);
+  if (!v1 || atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  {
+    if ((*(result + 23) & 0x80000000) == 0)
+    {
+      return result;
+    }
+
+LABEL_15:
+    v3 = result;
+    operator delete(*result);
+    return v3;
+  }
+
+  v2 = result;
+  (v1->__on_zero_shared)(v1);
+  std::__shared_weak_count::__release_weak(v1);
+  result = v2;
+  if (*(v2 + 23) < 0)
+  {
+    goto LABEL_15;
+  }
+
+  return result;
+}
+
+void sub_1001A4AF0(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  v3 = *v2;
+  v4 = sub_10018D008(*v2, v2[1]);
+  v6 = v5;
+  if ((v5 & 1) == 0)
+  {
+    sub_10018E8A4(v3, v2[1]);
+  }
+
+  v7 = *v1;
+  if (!*v1)
+  {
+    sub_100013504(3u);
+  }
+
+  std::mutex::lock((v7 + 24));
+  if ((*(v7 + 136) & 1) != 0 || (v9.__ptr_ = 0, v8 = *(v7 + 16), std::exception_ptr::~exception_ptr(&v9), v8))
+  {
+    sub_100013504(2u);
+  }
+
+  *(v7 + 144) = v4;
+  *(v7 + 152) = v6;
+  *(v7 + 136) |= 5u;
+  std::condition_variable::notify_all((v7 + 88));
+  std::mutex::unlock((v7 + 24));
+}
+
+void sub_1001A4BBC(void *a1)
+{
+  std::mutex::unlock((v2 + 24));
+  __cxa_begin_catch(a1);
+  v4 = *(v1 + 32);
+  std::current_exception();
+  sub_1001A4C30(v4, v5);
+  std::exception_ptr::~exception_ptr(v5);
+  __cxa_end_catch();
+}
+
+void sub_1001A4C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception_ptr a9)
+{
+  std::exception_ptr::~exception_ptr(&a9);
+  __cxa_end_catch();
+  _Unwind_Resume(a1);
+}
+
+void sub_1001A4C30(std::__assoc_sub_state **a1, const std::exception_ptr *a2)
+{
+  v2 = *a1;
+  if (!*a1)
+  {
+    sub_100013504(3u);
+  }
+
+  std::exception_ptr::exception_ptr(&v4, a2);
+  v3.__ptr_ = &v4;
+  std::__assoc_sub_state::set_exception(v2, v3);
+  std::exception_ptr::~exception_ptr(&v4);
+}
+
+void sub_1001A4C94(uint64_t a1)
+{
+  v2 = (a1 + 16);
+  std::condition_variable::~condition_variable((a1 + 88));
+  std::mutex::~mutex((a1 + 24));
+  std::exception_ptr::~exception_ptr(v2);
+
+  std::__shared_count::~__shared_count(a1);
+}
+
+void sub_1001A4D00(uint64_t a1)
+{
+  v2 = (a1 + 16);
+  std::condition_variable::~condition_variable((a1 + 88));
+  std::mutex::~mutex((a1 + 24));
+  std::exception_ptr::~exception_ptr(v2);
+  std::__shared_count::~__shared_count(a1);
+
+  operator delete();
+}
+
+void sub_1001A4DA4(std::__assoc_sub_state *a1)
+{
+  __lk.__m_ = &a1->__mut_;
+  __lk.__owns_ = 1;
+  std::mutex::lock(&a1->__mut_);
+  std::__assoc_sub_state::__sub_wait(a1, &__lk);
+  ptr = a1->__exception_.__ptr_;
+  v5.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v5);
+  if (ptr)
+  {
+    std::exception_ptr::exception_ptr(&v4, &a1->__exception_);
+    v3.__ptr_ = &v4;
+    std::rethrow_exception(v3);
+    __break(1u);
+  }
+
+  else if (__lk.__owns_)
+  {
+    std::mutex::unlock(__lk.__m_);
+  }
+}
+
+void sub_1001A4E44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::mutex *a11, char a12)
+{
+  std::exception_ptr::~exception_ptr(&a9);
+  if (a12 == 1)
+  {
+    std::mutex::unlock(a11);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void *sub_1001A4E74(void *result)
+{
+  v1 = *result;
+  if (*result)
+  {
+    if ((*(v1 + 136) & 1) == 0)
+    {
+      v11.__ptr_ = 0;
+      v2 = *(v1 + 16);
+      v3 = result;
+      std::exception_ptr::~exception_ptr(&v11);
+      result = v3;
+      v1 = *v3;
+      if (!v2 && *(v1 + 8) >= 1)
+      {
+        v12.__cat_ = std::future_category();
+        *&v12.__val_ = 4;
+        std::future_error::future_error(&v9, v12);
+        exception = __cxa_allocate_exception(0x20uLL);
+        __cxa_init_primary_exception();
+        v5 = std::logic_error::logic_error(exception, &v9);
+        exception[1] = v9.__ec_;
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
+        v7.__ptr_ = &v10;
+        std::__assoc_sub_state::set_exception(v1, v7);
+        std::exception_ptr::~exception_ptr(&v10);
+        std::future_error::~future_error(&v9);
+        result = v3;
+        v1 = *v3;
+      }
+    }
+
+    if (!atomic_fetch_add((v1 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v8 = result;
+      (*(*v1 + 16))(v1);
+      return v8;
+    }
+  }
+
+  return result;
+}
+
+void sub_1001A4FCC(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  sub_10018FE58(**(a1 + 40), **(*(a1 + 40) + 8), v3);
+  if (!*v1)
+  {
+    sub_100013504(3u);
+  }
+
+  sub_1001A5324(*v1, v3);
+  if (LOBYTE(v3[0]) == 1)
+  {
+    v2 = v4;
+    if (v4)
+    {
+      if (!atomic_fetch_add(&v4->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v2->__on_zero_shared)(v2);
+        std::__shared_weak_count::__release_weak(v2);
+      }
+    }
+  }
+}
+
+void sub_1001A50A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception_ptr a10, char a11)
+{
+  if (a2)
+  {
+    __cxa_begin_catch(exception_object);
+    v12 = *(v11 + 32);
+    std::current_exception();
+    sub_1001A5120(v12, &a10);
+    std::exception_ptr::~exception_ptr(&a10);
+    __cxa_end_catch();
+    JUMPOUT(0x1001A506CLL);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_1001A5120(std::__assoc_sub_state **a1, const std::exception_ptr *a2)
+{
+  v2 = *a1;
+  if (!*a1)
+  {
+    sub_100013504(3u);
+  }
+
+  std::exception_ptr::exception_ptr(&v4, a2);
+  v3.__ptr_ = &v4;
+  std::__assoc_sub_state::set_exception(v2, v3);
+  std::exception_ptr::~exception_ptr(&v4);
+}
+
+void sub_1001A5184(uint64_t a1)
+{
+  v2 = (a1 + 16);
+  std::condition_variable::~condition_variable((a1 + 88));
+  std::mutex::~mutex((a1 + 24));
+  std::exception_ptr::~exception_ptr(v2);
+
+  std::__shared_count::~__shared_count(a1);
+}
+
+void sub_1001A51F0(uint64_t a1)
+{
+  v2 = (a1 + 16);
+  std::condition_variable::~condition_variable((a1 + 88));
+  std::mutex::~mutex((a1 + 24));
+  std::exception_ptr::~exception_ptr(v2);
+  std::__shared_count::~__shared_count(a1);
+
+  operator delete();
+}
+
+uint64_t sub_1001A5270(uint64_t a1)
+{
+  if ((*(a1 + 136) & 1) != 0 && *(a1 + 144) == 1)
+  {
+    v1 = *(a1 + 160);
+    if (v1 && !atomic_fetch_add(&v1->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v2 = a1;
+      (v1->__on_zero_shared)(v1);
+      std::__shared_weak_count::__release_weak(v1);
+      a1 = v2;
+    }
+
+    *(a1 + 144) = 0;
+  }
+
+  v3 = *(*a1 + 8);
+
+  return v3();
+}
+
+void sub_1001A5324(uint64_t a1, uint64_t a2)
+{
+  std::mutex::lock((a1 + 24));
+  if ((*(a1 + 136) & 1) != 0 || (v5.__ptr_ = 0, v4 = *(a1 + 16), std::exception_ptr::~exception_ptr(&v5), v4))
+  {
+    sub_100013504(2u);
+  }
+
+  *(a1 + 144) = 0;
+  if (*a2 == 1)
+  {
+    *(a1 + 152) = *(a2 + 8);
+    *(a2 + 8) = 0;
+    *(a2 + 16) = 0;
+    *(a1 + 144) = 1;
+  }
+
+  *(a1 + 136) |= 5u;
+  std::condition_variable::notify_all((a1 + 88));
+  std::mutex::unlock((a1 + 24));
+}
+
+void sub_1001A53DC(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  __lk.__m_ = (a1 + 24);
+  __lk.__owns_ = 1;
+  std::mutex::lock((a1 + 24));
+  std::__assoc_sub_state::__sub_wait(a1, &__lk);
+  v4 = *(a1 + 16);
+  v7.__ptr_ = 0;
+  std::exception_ptr::~exception_ptr(&v7);
+  if (v4)
+  {
+    std::exception_ptr::exception_ptr(&v6, (a1 + 16));
+    v5.__ptr_ = &v6;
+    std::rethrow_exception(v5);
+    __break(1u);
+    return;
+  }
+
+  *a2 = 0;
+  if (*(a1 + 144) != 1)
+  {
+    if (!__lk.__owns_)
+    {
+      return;
+    }
+
+LABEL_6:
+    std::mutex::unlock(__lk.__m_);
+    return;
+  }
+
+  *(a2 + 8) = *(a1 + 152);
+  *(a1 + 152) = 0;
+  *(a1 + 160) = 0;
+  *a2 = 1;
+  if (__lk.__owns_)
+  {
+    goto LABEL_6;
+  }
+}
+
+void sub_1001A54B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, std::mutex *a11, char a12)
+{
+  std::exception_ptr::~exception_ptr(&a9);
+  if (a12 == 1)
+  {
+    std::mutex::unlock(a11);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void *sub_1001A54E4(void *result)
+{
+  v1 = *result;
+  if (*result)
+  {
+    if ((*(v1 + 136) & 1) == 0)
+    {
+      v11.__ptr_ = 0;
+      v2 = *(v1 + 16);
+      v3 = result;
+      std::exception_ptr::~exception_ptr(&v11);
+      result = v3;
+      v1 = *v3;
+      if (!v2 && *(v1 + 8) >= 1)
+      {
+        v12.__cat_ = std::future_category();
+        *&v12.__val_ = 4;
+        std::future_error::future_error(&v9, v12);
+        exception = __cxa_allocate_exception(0x20uLL);
+        __cxa_init_primary_exception();
+        v5 = std::logic_error::logic_error(exception, &v9);
+        exception[1] = v9.__ec_;
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
+        v7.__ptr_ = &v10;
+        std::__assoc_sub_state::set_exception(v1, v7);
+        std::exception_ptr::~exception_ptr(&v10);
+        std::future_error::~future_error(&v9);
+        result = v3;
+        v1 = *v3;
+      }
+    }
+
+    if (!atomic_fetch_add((v1 + 8), 0xFFFFFFFFFFFFFFFFLL))
+    {
+      v8 = result;
+      (*(*v1 + 16))(v1);
+      return v8;
+    }
+  }
+
+  return result;
+}
+
+void sub_1001A563C(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v1 = *(a1 + 40);
+  v3 = *v1;
+  v4 = v1[1];
+  v5 = sub_1001884F4(*v1, v4);
+  v7 = v6;
+  if (v5)
+  {
+    sub_1001910F8(v3, v4);
+  }
+
+  *&v8 = v5;
+  *(&v8 + 1) = v7;
+  sub_1001A3A98(v2, &v8);
+}
+
+void sub_1001A56B0(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception_ptr a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+{
+  __cxa_begin_catch(a1);
+  v21 = *(v20 + 32);
+  std::current_exception();
+  sub_1001A3B44(v21, v22);
+  std::exception_ptr::~exception_ptr(v22);
+  __cxa_end_catch();
+}
+
+void sub_1001A56F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception_ptr a10)
+{
+  std::exception_ptr::~exception_ptr(&a10);
+  __cxa_end_catch();
+  _Unwind_Resume(a1);
+}
+
+void sub_1001A570C(uint64_t a1)
+{
+  v1 = *(a1 + 32);
+  sub_100192C28(**(a1 + 40), &__p);
+  if (!*v1)
+  {
+    sub_100013504(3u);
+  }
+
+  sub_1001A5A9C(*v1, &__p);
+  v2 = __p;
+  if (!__p)
+  {
+    return;
+  }
+
+  v3 = v8;
+  v4 = __p;
+  if (v8 == __p)
+  {
+    goto LABEL_21;
+  }
+
+  do
+  {
+    while (1)
+    {
+      if (*(v3 - 16) == 1)
+      {
+        *(v3 - 16) = 0;
+        if (*(v3 - 32) != 1)
+        {
+LABEL_9:
+          if (*(v3 - 56) != 1)
+          {
+            goto LABEL_10;
+          }
+
+          goto LABEL_15;
+        }
+      }
+
+      else if (*(v3 - 32) != 1)
+      {
+        goto LABEL_9;
+      }
+
+      *(v3 - 32) = 0;
+      if (*(v3 - 56) != 1)
+      {
+LABEL_10:
+        if (*(v3 - 80) != 1)
+        {
+          goto LABEL_11;
+        }
+
+        goto LABEL_16;
+      }
+
+LABEL_15:
+      *(v3 - 56) = 0;
+      if (*(v3 - 80) != 1)
+      {
+LABEL_11:
+        v6 = *(v3 - 14);
+        if (!v6)
+        {
+          goto LABEL_5;
+        }
+
+        goto LABEL_17;
+      }
+
+LABEL_16:
+      *(v3 - 80) = 0;
+      v6 = *(v3 - 14);
+      if (!v6)
+      {
+        goto LABEL_5;
+      }
+
+LABEL_17:
+      if (!atomic_fetch_add(&v6->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+      {
+        (v6->__on_zero_shared)(v6);
+        std::__shared_weak_count::__release_weak(v6);
+      }
+
+LABEL_5:
+      v5 = v3 - 18;
+      if (*(v3 - 121) < 0)
+      {
+        break;
+      }
+
+      v3 -= 18;
+      if (v5 == v2)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    operator delete(*v5);
+    v3 -= 18;
+  }
+
+  while (v5 != v2);
+LABEL_20:
+  v4 = __p;
+LABEL_21:
+  v8 = v2;
+  operator delete(v4);
+}
+
+void sub_1001A5878(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+{
+  __cxa_begin_catch(a1);
+  v19 = *(v18 + 32);
+  std::current_exception();
+  sub_1001A58E8(v19, v20);
+  std::exception_ptr::~exception_ptr(v20);
+  __cxa_end_catch();
+}
+
+void sub_1001A58CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception_ptr a9)
+{
+  std::exception_ptr::~exception_ptr(&a9);
+  __cxa_end_catch();
+  _Unwind_Resume(a1);
+}
+
+void sub_1001A58E8(std::__assoc_sub_state **a1, const std::exception_ptr *a2)
+{
+  v2 = *a1;
+  if (!*a1)
+  {
+    sub_100013504(3u);
+  }
+
+  std::exception_ptr::exception_ptr(&v4, a2);
+  v3.__ptr_ = &v4;
+  std::__assoc_sub_state::set_exception(v2, v3);
+  std::exception_ptr::~exception_ptr(&v4);
+}
+
+void sub_1001A594C(uint64_t a1)
+{
+  v2 = (a1 + 16);
+  std::condition_variable::~condition_variable((a1 + 88));
+  std::mutex::~mutex((a1 + 24));
+  std::exception_ptr::~exception_ptr(v2);
+
+  std::__shared_count::~__shared_count(a1);
+}
+
+void sub_1001A59B8(uint64_t a1)
+{
+  v2 = (a1 + 16);
+  std::condition_variable::~condition_variable((a1 + 88));
+  std::mutex::~mutex((a1 + 24));
+  std::exception_ptr::~exception_ptr(v2);
+  std::__shared_count::~__shared_count(a1);
+
+  operator delete();
+}
+
+uint64_t sub_1001A5A38(uint64_t a1)
+{
+  if (*(a1 + 136))
+  {
+    v1 = a1;
+    sub_100195308((a1 + 144));
+    a1 = v1;
+  }
+
+  v2 = *(*a1 + 8);
+
+  return v2();
+}
+
+void sub_1001A5A9C(uint64_t a1, uint64_t a2)
+{
+  std::mutex::lock((a1 + 24));
+  if ((*(a1 + 136) & 1) != 0 || (v5.__ptr_ = 0, v4 = *(a1 + 16), std::exception_ptr::~exception_ptr(&v5), v4))
+  {
+    sub_100013504(2u);
+  }
+
+  *(a1 + 144) = 0;
+  *(a1 + 152) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 144) = *a2;
+  *(a1 + 160) = *(a2 + 16);
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *(a1 + 136) |= 5u;
+  std::condition_variable::notify_all((a1 + 88));
+  std::mutex::unlock((a1 + 24));
+}
+
 void sub_1001A5B54(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   __lk.__m_ = (a1 + 24);
@@ -62,7 +901,7 @@ void *sub_1001A5C34(void *result)
         __cxa_init_primary_exception();
         v5 = std::logic_error::logic_error(exception, &v9);
         exception[1] = v9.__ec_;
-        std::exception_ptr::__from_native_exception_pointer(&v10, v5, v6);
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
         v7.__ptr_ = &v10;
         std::__assoc_sub_state::set_exception(v1, v7);
         std::exception_ptr::~exception_ptr(&v10);
@@ -81,13 +920,6 @@ void *sub_1001A5C34(void *result)
   }
 
   return result;
-}
-
-void sub_1001A5D8C(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = **(a1 + 40);
-  sub_10019566C();
 }
 
 void sub_1001A5E34(void *a1)
@@ -295,7 +1127,7 @@ void *sub_1001A6338(void *result)
         __cxa_init_primary_exception();
         v5 = std::logic_error::logic_error(exception, &v9);
         exception[1] = v9.__ec_;
-        std::exception_ptr::__from_native_exception_pointer(&v10, v5, v6);
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
         v7.__ptr_ = &v10;
         std::__assoc_sub_state::set_exception(v1, v7);
         std::exception_ptr::~exception_ptr(&v10);
@@ -341,14 +1173,7 @@ void sub_1001A6548(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1001A6564(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v2 = v1[2];
-  sub_1002C74EC(*v1, v3);
-}
-
-void sub_1001A7414(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, void *a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
+void sub_1001A7414(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, void *a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
   if (!a2)
   {
@@ -392,8 +1217,8 @@ LABEL_12:
   if ((a37 & 0x80000000) == 0)
   {
 LABEL_6:
-    *(v79 - 256) = v77;
-    if ((*(v79 - 225) & 0x80000000) == 0)
+    *(v75 - 256) = v73;
+    if ((*(v75 - 225) & 0x80000000) == 0)
     {
       goto LABEL_7;
     }
@@ -403,8 +1228,8 @@ LABEL_6:
 
 LABEL_13:
   operator delete(a32);
-  *(v79 - 256) = v77;
-  if ((*(v79 - 225) & 0x80000000) == 0)
+  *(v75 - 256) = v73;
+  if ((*(v75 - 225) & 0x80000000) == 0)
   {
 LABEL_7:
     if ((a50 & 0x80000000) == 0)
@@ -416,32 +1241,32 @@ LABEL_7:
   }
 
 LABEL_14:
-  operator delete(*(v79 - 248));
+  operator delete(*(v75 - 248));
   if ((a50 & 0x80000000) == 0)
   {
 LABEL_8:
-    sub_10019FF4C((v79 - 176));
-    v81 = a55;
+    sub_10019FF4C((v75 - 176));
+    v77 = a55;
     if (!a55)
     {
 LABEL_17:
-      std::runtime_error::~runtime_error(&a73);
-      if (a72 < 0)
+      std::runtime_error::~runtime_error(&a69);
+      if (a68 < 0)
       {
-        operator delete(a71.__vftable);
+        operator delete(a67.__vftable);
         if (a63 < 0)
         {
 LABEL_25:
           operator delete(a58);
-          if (a70 < 0)
+          if (a66 < 0)
           {
 LABEL_26:
             operator delete(a65);
-            if (*(v79 - 177) < 0)
+            if (*(v75 - 177) < 0)
             {
 LABEL_27:
-              operator delete(*(v79 - 200));
-              if ((v78 & 1) == 0)
+              operator delete(*(v75 - 200));
+              if ((v74 & 1) == 0)
               {
                 goto LABEL_29;
               }
@@ -450,33 +1275,33 @@ LABEL_27:
             }
 
 LABEL_23:
-            if (!v78)
+            if (!v74)
             {
 LABEL_29:
-              if (a75 < 0)
+              if (a71 < 0)
               {
-                operator delete(a74);
+                operator delete(a70);
               }
 
               sub_1001A8150(&a13);
               sub_100118124(&a16);
               __cxa_begin_catch(a1);
-              v82 = *(v75 + 40);
+              v78 = *(v71 + 40);
               std::current_exception();
-              v83.__ptr_ = &a12;
-              std::promise<void>::set_exception(v82, v83);
+              v79.__ptr_ = &a12;
+              std::promise<void>::set_exception(v78, v79);
               std::exception_ptr::~exception_ptr(&a12);
               __cxa_end_catch();
               JUMPOUT(0x1001A6BF8);
             }
 
 LABEL_28:
-            __cxa_free_exception(v76);
+            __cxa_free_exception(v72);
             goto LABEL_29;
           }
 
 LABEL_22:
-          if (*(v79 - 177) < 0)
+          if (*(v75 - 177) < 0)
           {
             goto LABEL_27;
           }
@@ -490,7 +1315,7 @@ LABEL_22:
         goto LABEL_25;
       }
 
-      if (a70 < 0)
+      if (a66 < 0)
       {
         goto LABEL_26;
       }
@@ -499,15 +1324,15 @@ LABEL_22:
     }
 
 LABEL_16:
-    a56 = v81;
-    operator delete(v81);
+    a56 = v77;
+    operator delete(v77);
     goto LABEL_17;
   }
 
 LABEL_15:
   operator delete(a45);
-  sub_10019FF4C((v79 - 176));
-  v81 = a55;
+  sub_10019FF4C((v75 - 176));
+  v77 = a55;
   if (!a55)
   {
     goto LABEL_17;
@@ -621,7 +1446,7 @@ void sub_1001A7B84(sqlite3 **a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t 
     v19->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v26, &v25);
     v26.__vftable = &off_100440BD8;
-    sub_10010A984(v21);
+    sub_10010A984(&v21);
   }
 
   *(a4 + 8) = *a1;
@@ -683,19 +1508,19 @@ LABEL_11:
   if ((a42 & 0x80000000) == 0)
   {
 LABEL_6:
-    sub_10019FF4C((v71 - 184));
-    v73 = a47;
+    sub_10019FF4C((v69 - 184));
+    v71 = a47;
     if (!a47)
     {
 LABEL_14:
-      std::runtime_error::~runtime_error((v71 - 200));
-      if (*(v71 - 201) < 0)
+      std::runtime_error::~runtime_error((v69 - 200));
+      if (*(v69 - 201) < 0)
       {
-        operator delete(*(v71 - 224));
+        operator delete(*(v69 - 224));
         if ((a55 & 0x80000000) == 0)
         {
 LABEL_16:
-          if ((a67 & 0x80000000) == 0)
+          if ((a65 & 0x80000000) == 0)
           {
             goto LABEL_17;
           }
@@ -710,7 +1535,7 @@ LABEL_16:
       }
 
       operator delete(a50);
-      if ((a67 & 0x80000000) == 0)
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_17:
         if (a61 < 0)
@@ -727,29 +1552,29 @@ LABEL_22:
       {
 LABEL_18:
         operator delete(a56);
-        if ((v70 & 1) == 0)
+        if ((v68 & 1) == 0)
         {
 LABEL_25:
-          if (*(v71 - 97) < 0)
+          if (*(v69 - 97) < 0)
           {
-            operator delete(*(v71 - 120));
-            sub_1001A8150(v68);
+            operator delete(*(v69 - 120));
+            sub_1001A8150(v66);
 
             _Unwind_Resume(a1);
           }
 
-          sub_1001A8150(v68);
+          sub_1001A8150(v66);
 
           _Unwind_Resume(a1);
         }
 
 LABEL_24:
-        __cxa_free_exception(v69);
+        __cxa_free_exception(v67);
         goto LABEL_25;
       }
 
 LABEL_23:
-      if (!v70)
+      if (!v68)
       {
         goto LABEL_25;
       }
@@ -758,14 +1583,14 @@ LABEL_23:
     }
 
 LABEL_13:
-    operator delete(v73);
+    operator delete(v71);
     goto LABEL_14;
   }
 
 LABEL_12:
   operator delete(a37);
-  sub_10019FF4C((v71 - 184));
-  v73 = a47;
+  sub_10019FF4C((v69 - 184));
+  v71 = a47;
   if (!a47)
   {
     goto LABEL_14;
@@ -920,7 +1745,7 @@ void sub_1001A81F8(sqlite3_stmt **a1, int a2, int a3)
     v22->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v35, &v34);
     v35.__vftable = &off_100440BD8;
-    sub_10010A984(v24);
+    sub_10010A984(&v24);
   }
 }
 
@@ -989,19 +1814,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v80 - 152));
-    v82 = a52;
+    sub_10019FF4C((v75 - 152));
+    v77 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v80 - 168));
-      if (*(v80 - 169) < 0)
+      std::runtime_error::~runtime_error((v75 - 168));
+      if (*(v75 - 169) < 0)
       {
-        operator delete(*(v80 - 192));
+        operator delete(*(v75 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v80 - 201) & 0x80000000) == 0)
+          if ((*(v75 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -1016,10 +1841,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v80 - 201) & 0x80000000) == 0)
+      if ((*(v75 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a66 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -1028,11 +1853,11 @@ LABEL_19:
       }
 
 LABEL_29:
-      operator delete(*(v80 - 224));
-      if ((a66 & 0x80000000) == 0)
+      operator delete(*(v75 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v80 - 233) & 0x80000000) == 0)
+        if ((*(v75 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -1042,10 +1867,10 @@ LABEL_20:
 
 LABEL_30:
       operator delete(a61);
-      if ((*(v80 - 233) & 0x80000000) == 0)
+      if ((*(v75 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if ((a72 & 0x80000000) == 0)
+        if ((a67 & 0x80000000) == 0)
         {
           goto LABEL_22;
         }
@@ -1054,11 +1879,11 @@ LABEL_21:
       }
 
 LABEL_31:
-      operator delete(*(v80 - 256));
-      if ((a72 & 0x80000000) == 0)
+      operator delete(*(v75 - 256));
+      if ((a67 & 0x80000000) == 0)
       {
 LABEL_22:
-        if ((a78 & 0x80000000) == 0)
+        if ((a73 & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
@@ -1067,11 +1892,11 @@ LABEL_22:
       }
 
 LABEL_32:
-      operator delete(a67);
-      if ((a78 & 0x80000000) == 0)
+      operator delete(a66);
+      if ((a73 & 0x80000000) == 0)
       {
 LABEL_23:
-        if ((a76 & 0x80000000) == 0)
+        if ((a71 & 0x80000000) == 0)
         {
           goto LABEL_24;
         }
@@ -1080,11 +1905,11 @@ LABEL_23:
       }
 
 LABEL_33:
-      operator delete(a77);
-      if ((a76 & 0x80000000) == 0)
+      operator delete(a72);
+      if ((a71 & 0x80000000) == 0)
       {
 LABEL_24:
-        if (a74 < 0)
+        if (a69 < 0)
         {
           goto LABEL_25;
         }
@@ -1093,29 +1918,29 @@ LABEL_24:
       }
 
 LABEL_34:
-      operator delete(a75);
-      if (a74 < 0)
+      operator delete(a70);
+      if (a69 < 0)
       {
 LABEL_25:
-        operator delete(a73);
-        if ((v79 & 1) == 0)
+        operator delete(a68);
+        if ((v74 & 1) == 0)
         {
 LABEL_37:
-          if (*(v80 - 65) < 0)
+          if (*(v75 - 65) < 0)
           {
-            operator delete(*(v80 - 88));
+            operator delete(*(v75 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_36:
-        __cxa_free_exception(v78);
+        __cxa_free_exception(v73);
         goto LABEL_37;
       }
 
 LABEL_35:
-      if (!v79)
+      if (!v74)
       {
         goto LABEL_37;
       }
@@ -1124,14 +1949,14 @@ LABEL_35:
     }
 
 LABEL_15:
-    operator delete(v82);
+    operator delete(v77);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v80 - 152));
-  v82 = a52;
+  sub_10019FF4C((v75 - 152));
+  v77 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -1140,7 +1965,7 @@ LABEL_14:
   goto LABEL_15;
 }
 
-sqlite3_stmt *sub_1001A88B0@<X0>(sqlite3_stmt **a1@<X0>, _BYTE *a2@<X8>)
+size_t sub_1001A88B0@<X0>(size_t *a1@<X0>, char *a2@<X8>)
 {
   result = *a1;
   if (result)
@@ -1174,7 +1999,7 @@ sqlite3_stmt *sub_1001A88B0@<X0>(sqlite3_stmt **a1@<X0>, _BYTE *a2@<X8>)
       result = memmove(a2, v5, result);
     }
 
-    *(v6 + a2) = 0;
+    a2[v6] = 0;
   }
 
   else
@@ -1186,7 +2011,7 @@ sqlite3_stmt *sub_1001A88B0@<X0>(sqlite3_stmt **a1@<X0>, _BYTE *a2@<X8>)
   return result;
 }
 
-void sub_1001A89A8(sqlite3_stmt **a1, int a2, unint64_t a3)
+void sub_1001A89A8(sqlite3_stmt **a1, int a2, sqlite3_int64 a3)
 {
   v6 = sqlite3_bind_int64(*a1, a2, a3);
   sub_100001838(v6, a1[1]);
@@ -1305,7 +2130,7 @@ void sub_1001A89A8(sqlite3_stmt **a1, int a2, unint64_t a3)
     v22->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v35, &v34);
     v35.__vftable = &off_100440BD8;
-    sub_10010A984(v24);
+    sub_10010A984(&v24);
   }
 }
 
@@ -1374,19 +2199,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v80 - 152));
-    v82 = a52;
+    sub_10019FF4C((v75 - 152));
+    v77 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v80 - 168));
-      if (*(v80 - 169) < 0)
+      std::runtime_error::~runtime_error((v75 - 168));
+      if (*(v75 - 169) < 0)
       {
-        operator delete(*(v80 - 192));
+        operator delete(*(v75 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v80 - 201) & 0x80000000) == 0)
+          if ((*(v75 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -1401,10 +2226,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v80 - 201) & 0x80000000) == 0)
+      if ((*(v75 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a66 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -1413,11 +2238,11 @@ LABEL_19:
       }
 
 LABEL_29:
-      operator delete(*(v80 - 224));
-      if ((a66 & 0x80000000) == 0)
+      operator delete(*(v75 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v80 - 233) & 0x80000000) == 0)
+        if ((*(v75 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -1427,10 +2252,10 @@ LABEL_20:
 
 LABEL_30:
       operator delete(a61);
-      if ((*(v80 - 233) & 0x80000000) == 0)
+      if ((*(v75 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if ((a72 & 0x80000000) == 0)
+        if ((a67 & 0x80000000) == 0)
         {
           goto LABEL_22;
         }
@@ -1439,11 +2264,11 @@ LABEL_21:
       }
 
 LABEL_31:
-      operator delete(*(v80 - 256));
-      if ((a72 & 0x80000000) == 0)
+      operator delete(*(v75 - 256));
+      if ((a67 & 0x80000000) == 0)
       {
 LABEL_22:
-        if ((a78 & 0x80000000) == 0)
+        if ((a73 & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
@@ -1452,11 +2277,11 @@ LABEL_22:
       }
 
 LABEL_32:
-      operator delete(a67);
-      if ((a78 & 0x80000000) == 0)
+      operator delete(a66);
+      if ((a73 & 0x80000000) == 0)
       {
 LABEL_23:
-        if ((a76 & 0x80000000) == 0)
+        if ((a71 & 0x80000000) == 0)
         {
           goto LABEL_24;
         }
@@ -1465,11 +2290,11 @@ LABEL_23:
       }
 
 LABEL_33:
-      operator delete(a77);
-      if ((a76 & 0x80000000) == 0)
+      operator delete(a72);
+      if ((a71 & 0x80000000) == 0)
       {
 LABEL_24:
-        if (a74 < 0)
+        if (a69 < 0)
         {
           goto LABEL_25;
         }
@@ -1478,29 +2303,29 @@ LABEL_24:
       }
 
 LABEL_34:
-      operator delete(a75);
-      if (a74 < 0)
+      operator delete(a70);
+      if (a69 < 0)
       {
 LABEL_25:
-        operator delete(a73);
-        if ((v79 & 1) == 0)
+        operator delete(a68);
+        if ((v74 & 1) == 0)
         {
 LABEL_37:
-          if (*(v80 - 65) < 0)
+          if (*(v75 - 65) < 0)
           {
-            operator delete(*(v80 - 88));
+            operator delete(*(v75 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_36:
-        __cxa_free_exception(v78);
+        __cxa_free_exception(v73);
         goto LABEL_37;
       }
 
 LABEL_35:
-      if (!v79)
+      if (!v74)
       {
         goto LABEL_37;
       }
@@ -1509,14 +2334,14 @@ LABEL_35:
     }
 
 LABEL_15:
-    operator delete(v82);
+    operator delete(v77);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v80 - 152));
-  v82 = a52;
+  sub_10019FF4C((v75 - 152));
+  v77 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -1525,23 +2350,25 @@ LABEL_14:
   goto LABEL_15;
 }
 
-void sub_1001A9060(std::runtime_error *a1, uint64_t a2, uint64_t a3, int a4, void *a5)
+void sub_1001A9060(std::runtime_error *a2, uint64_t a3, uint64_t a4, int a5, void *a6)
 {
-  std::runtime_error::runtime_error(&v10, a1);
-  v12 = 0;
-  v13 = 0;
+  std::runtime_error::runtime_error(&v12, a2);
   v14 = 0;
-  v15 = -1;
-  v10.__vftable = &off_100440F00;
-  v11 = off_100440F28;
-  sub_1001A9E9C(&v16, &v10);
-  v17 = a2;
-  v18 = a3;
-  v19 = a4;
-  v9 = a5[1] - *a5;
-  if (v9)
+  v15 = 0;
+  v16 = 0;
+  v17 = -1;
+  v12.__vftable = &off_100440F00;
+  v13 = off_100440F28;
+  sub_1001A9E9C(&v18, &v12);
+  v19 = a3;
+  v20 = a4;
+  v21 = a5;
+  v11[0] = off_100433458;
+  memset(&v11[1], 0, 24);
+  v10 = a6[1] - *a6;
+  if (v10)
   {
-    if ((v9 & 0x8000000000000000) == 0)
+    if ((v10 & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -1549,7 +2376,7 @@ void sub_1001A9060(std::runtime_error *a1, uint64_t a2, uint64_t a3, int a4, voi
     sub_10000FC84();
   }
 
-  sub_1001A9BBC();
+  sub_1001A9BBC(&v18, v11);
 }
 
 void sub_1001A9384(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12)
@@ -1602,37 +2429,37 @@ void sub_1001A94E0(std::runtime_error *a1)
   std::runtime_error::~runtime_error(a1);
 }
 
-void sub_1001A9814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1001A9814(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_1001A0DEC(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1001A9828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001A9828(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   sub_10003B870(va);
   sub_1001A0DEC(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_1001A9AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1001A9AE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_1001A2814(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1001A9AF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001A9AF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   sub_10003B870(va);
   sub_1001A2814(va1);
   _Unwind_Resume(a1);
@@ -1656,19 +2483,19 @@ void sub_1001A9B28(std::runtime_error *a1)
   std::runtime_error::~runtime_error(a1);
 }
 
-void sub_1001A9E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1001A9E58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_10003B91C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1001A9E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001A9E6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   sub_10003B870(va);
   sub_10003B91C(va1);
   _Unwind_Resume(a1);
@@ -2277,9 +3104,9 @@ LABEL_79:
   sub_1002C7670(v35);
   if ((wireless_diagnostics::google::protobuf::io::CopyingOutputStreamAdaptor::Flush(&v79) & 1) == 0)
   {
-    sub_100384ED4();
+    sub_100384ED4(v80);
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/common/db/sql_privacy_db.mm", 188, "writeBlob");
 LABEL_98:
     __break(1u);
     goto LABEL_99;
@@ -2457,9 +3284,9 @@ LABEL_36:
   sub_1002CE368(v52, &v79);
   if ((wireless_diagnostics::google::protobuf::io::CopyingOutputStreamAdaptor::Flush(&v79) & 1) == 0)
   {
-    sub_100384FF0();
+    sub_100384FF0(&v73);
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/common/db/sql_privacy_db.mm", 188, "writeBlob");
     goto LABEL_98;
   }
 
@@ -2563,7 +3390,7 @@ LABEL_54:
   std::promise<void>::set_value(*(a1 + 40));
 }
 
-void sub_1001ABBB8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, char a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
+void sub_1001ABBB8(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, int a55, __int16 a56, char a57, char a58, void *a59, uint64_t a60, int a61, __int16 a62, char a63)
 {
   if (!a2)
   {
@@ -2607,7 +3434,7 @@ LABEL_12:
   if ((a35 & 0x80000000) == 0)
   {
 LABEL_6:
-    if ((a75 & 0x80000000) == 0)
+    if ((a71 & 0x80000000) == 0)
     {
       goto LABEL_7;
     }
@@ -2617,7 +3444,7 @@ LABEL_6:
 
 LABEL_13:
   operator delete(a30);
-  if ((a75 & 0x80000000) == 0)
+  if ((a71 & 0x80000000) == 0)
   {
 LABEL_7:
     if ((a48 & 0x80000000) == 0)
@@ -2629,23 +3456,23 @@ LABEL_7:
   }
 
 LABEL_14:
-  operator delete(a74);
+  operator delete(a70);
   if ((a48 & 0x80000000) == 0)
   {
 LABEL_8:
-    sub_10019FF4C((v78 - 160));
-    v80 = *(v78 - 216);
-    if (!v80)
+    sub_10019FF4C((v74 - 160));
+    v76 = *(v74 - 216);
+    if (!v76)
     {
 LABEL_17:
-      std::runtime_error::~runtime_error(&a71);
-      if (a70 < 0)
+      std::runtime_error::~runtime_error(&a67);
+      if (a66 < 0)
       {
-        operator delete(a66.__vftable);
-        if (*(v78 - 169) < 0)
+        operator delete(a65.__vftable);
+        if (*(v74 - 169) < 0)
         {
 LABEL_25:
-          operator delete(*(v78 - 192));
+          operator delete(*(v74 - 192));
           if (a64 < 0)
           {
 LABEL_26:
@@ -2654,7 +3481,7 @@ LABEL_26:
             {
 LABEL_27:
               operator delete(a53);
-              if ((v77 & 1) == 0)
+              if ((v73 & 1) == 0)
               {
                 goto LABEL_29;
               }
@@ -2663,27 +3490,27 @@ LABEL_27:
             }
 
 LABEL_23:
-            if (!v77)
+            if (!v73)
             {
 LABEL_29:
-              if (a73 < 0)
+              if (a69 < 0)
               {
-                operator delete(a72);
+                operator delete(a68);
               }
 
               sub_1001AC904(&a13);
               __cxa_begin_catch(a1);
-              v81 = *(v75 + 40);
+              v77 = *(v71 + 40);
               std::current_exception();
-              v82.__ptr_ = &a12;
-              std::promise<void>::set_exception(v81, v82);
+              v78.__ptr_ = &a12;
+              std::promise<void>::set_exception(v77, v78);
               std::exception_ptr::~exception_ptr(&a12);
               __cxa_end_catch();
               JUMPOUT(0x1001AB248);
             }
 
 LABEL_28:
-            __cxa_free_exception(v76);
+            __cxa_free_exception(v72);
             goto LABEL_29;
           }
 
@@ -2697,7 +3524,7 @@ LABEL_22:
         }
       }
 
-      else if (*(v78 - 169) < 0)
+      else if (*(v74 - 169) < 0)
       {
         goto LABEL_25;
       }
@@ -2711,16 +3538,16 @@ LABEL_22:
     }
 
 LABEL_16:
-    *(v78 - 208) = v80;
-    operator delete(v80);
+    *(v74 - 208) = v76;
+    operator delete(v76);
     goto LABEL_17;
   }
 
 LABEL_15:
   operator delete(a43);
-  sub_10019FF4C((v78 - 160));
-  v80 = *(v78 - 216);
-  if (!v80)
+  sub_10019FF4C((v74 - 160));
+  v76 = *(v74 - 216);
+  if (!v76)
   {
     goto LABEL_17;
   }
@@ -2833,7 +3660,7 @@ void sub_1001AC338(sqlite3 **a1@<X0>, uint64_t a2@<X1>, void *a3@<X2>, uint64_t 
     v19->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v26, &v25);
     v26.__vftable = &off_100440BD8;
-    sub_10010A984(v21);
+    sub_10010A984(&v21);
   }
 
   *(a4 + 8) = *a1;
@@ -2895,19 +3722,19 @@ LABEL_11:
   if ((a42 & 0x80000000) == 0)
   {
 LABEL_6:
-    sub_10019FF4C((v71 - 184));
-    v73 = a47;
+    sub_10019FF4C((v69 - 184));
+    v71 = a47;
     if (!a47)
     {
 LABEL_14:
-      std::runtime_error::~runtime_error((v71 - 200));
-      if (*(v71 - 201) < 0)
+      std::runtime_error::~runtime_error((v69 - 200));
+      if (*(v69 - 201) < 0)
       {
-        operator delete(*(v71 - 224));
+        operator delete(*(v69 - 224));
         if ((a55 & 0x80000000) == 0)
         {
 LABEL_16:
-          if ((a67 & 0x80000000) == 0)
+          if ((a65 & 0x80000000) == 0)
           {
             goto LABEL_17;
           }
@@ -2922,7 +3749,7 @@ LABEL_16:
       }
 
       operator delete(a50);
-      if ((a67 & 0x80000000) == 0)
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_17:
         if (a61 < 0)
@@ -2939,29 +3766,29 @@ LABEL_22:
       {
 LABEL_18:
         operator delete(a56);
-        if ((v70 & 1) == 0)
+        if ((v68 & 1) == 0)
         {
 LABEL_25:
-          if (*(v71 - 97) < 0)
+          if (*(v69 - 97) < 0)
           {
-            operator delete(*(v71 - 120));
-            sub_1001AC904(v68);
+            operator delete(*(v69 - 120));
+            sub_1001AC904(v66);
 
             _Unwind_Resume(a1);
           }
 
-          sub_1001AC904(v68);
+          sub_1001AC904(v66);
 
           _Unwind_Resume(a1);
         }
 
 LABEL_24:
-        __cxa_free_exception(v69);
+        __cxa_free_exception(v67);
         goto LABEL_25;
       }
 
 LABEL_23:
-      if (!v70)
+      if (!v68)
       {
         goto LABEL_25;
       }
@@ -2970,14 +3797,14 @@ LABEL_23:
     }
 
 LABEL_13:
-    operator delete(v73);
+    operator delete(v71);
     goto LABEL_14;
   }
 
 LABEL_12:
   operator delete(a37);
-  sub_10019FF4C((v71 - 184));
-  v73 = a47;
+  sub_10019FF4C((v69 - 184));
+  v71 = a47;
   if (!a47)
   {
     goto LABEL_14;
@@ -2993,7 +3820,7 @@ uint64_t sub_1001AC904(uint64_t a1)
   return a1;
 }
 
-void sub_1001AC938(sqlite3_stmt **a1, int a2, unint64_t a3)
+void sub_1001AC938(sqlite3_stmt **a1, int a2, sqlite3_int64 a3)
 {
   v6 = sqlite3_bind_int64(*a1, a2, a3);
   sub_100001838(v6, a1[1]);
@@ -3112,7 +3939,7 @@ void sub_1001AC938(sqlite3_stmt **a1, int a2, unint64_t a3)
     v22->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v35, &v34);
     v35.__vftable = &off_100440BD8;
-    sub_10010A984(v24);
+    sub_10010A984(&v24);
   }
 }
 
@@ -3181,19 +4008,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v80 - 152));
-    v82 = a52;
+    sub_10019FF4C((v75 - 152));
+    v77 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v80 - 168));
-      if (*(v80 - 169) < 0)
+      std::runtime_error::~runtime_error((v75 - 168));
+      if (*(v75 - 169) < 0)
       {
-        operator delete(*(v80 - 192));
+        operator delete(*(v75 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v80 - 201) & 0x80000000) == 0)
+          if ((*(v75 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -3208,10 +4035,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v80 - 201) & 0x80000000) == 0)
+      if ((*(v75 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a66 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -3220,11 +4047,11 @@ LABEL_19:
       }
 
 LABEL_29:
-      operator delete(*(v80 - 224));
-      if ((a66 & 0x80000000) == 0)
+      operator delete(*(v75 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v80 - 233) & 0x80000000) == 0)
+        if ((*(v75 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -3234,10 +4061,10 @@ LABEL_20:
 
 LABEL_30:
       operator delete(a61);
-      if ((*(v80 - 233) & 0x80000000) == 0)
+      if ((*(v75 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if ((a72 & 0x80000000) == 0)
+        if ((a67 & 0x80000000) == 0)
         {
           goto LABEL_22;
         }
@@ -3246,11 +4073,11 @@ LABEL_21:
       }
 
 LABEL_31:
-      operator delete(*(v80 - 256));
-      if ((a72 & 0x80000000) == 0)
+      operator delete(*(v75 - 256));
+      if ((a67 & 0x80000000) == 0)
       {
 LABEL_22:
-        if ((a78 & 0x80000000) == 0)
+        if ((a73 & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
@@ -3259,11 +4086,11 @@ LABEL_22:
       }
 
 LABEL_32:
-      operator delete(a67);
-      if ((a78 & 0x80000000) == 0)
+      operator delete(a66);
+      if ((a73 & 0x80000000) == 0)
       {
 LABEL_23:
-        if ((a76 & 0x80000000) == 0)
+        if ((a71 & 0x80000000) == 0)
         {
           goto LABEL_24;
         }
@@ -3272,11 +4099,11 @@ LABEL_23:
       }
 
 LABEL_33:
-      operator delete(a77);
-      if ((a76 & 0x80000000) == 0)
+      operator delete(a72);
+      if ((a71 & 0x80000000) == 0)
       {
 LABEL_24:
-        if (a74 < 0)
+        if (a69 < 0)
         {
           goto LABEL_25;
         }
@@ -3285,29 +4112,29 @@ LABEL_24:
       }
 
 LABEL_34:
-      operator delete(a75);
-      if (a74 < 0)
+      operator delete(a70);
+      if (a69 < 0)
       {
 LABEL_25:
-        operator delete(a73);
-        if ((v79 & 1) == 0)
+        operator delete(a68);
+        if ((v74 & 1) == 0)
         {
 LABEL_37:
-          if (*(v80 - 65) < 0)
+          if (*(v75 - 65) < 0)
           {
-            operator delete(*(v80 - 88));
+            operator delete(*(v75 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_36:
-        __cxa_free_exception(v78);
+        __cxa_free_exception(v73);
         goto LABEL_37;
       }
 
 LABEL_35:
-      if (!v79)
+      if (!v74)
       {
         goto LABEL_37;
       }
@@ -3316,14 +4143,14 @@ LABEL_35:
     }
 
 LABEL_15:
-    operator delete(v82);
+    operator delete(v77);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v80 - 152));
-  v82 = a52;
+  sub_10019FF4C((v75 - 152));
+  v77 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -3451,7 +4278,7 @@ void sub_1001ACFF0(sqlite3_stmt **a1, int a2, int a3)
     v22->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v35, &v34);
     v35.__vftable = &off_100440BD8;
-    sub_10010A984(v24);
+    sub_10010A984(&v24);
   }
 }
 
@@ -3520,19 +4347,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v80 - 152));
-    v82 = a52;
+    sub_10019FF4C((v75 - 152));
+    v77 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v80 - 168));
-      if (*(v80 - 169) < 0)
+      std::runtime_error::~runtime_error((v75 - 168));
+      if (*(v75 - 169) < 0)
       {
-        operator delete(*(v80 - 192));
+        operator delete(*(v75 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v80 - 201) & 0x80000000) == 0)
+          if ((*(v75 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -3547,10 +4374,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v80 - 201) & 0x80000000) == 0)
+      if ((*(v75 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a66 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -3559,11 +4386,11 @@ LABEL_19:
       }
 
 LABEL_29:
-      operator delete(*(v80 - 224));
-      if ((a66 & 0x80000000) == 0)
+      operator delete(*(v75 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v80 - 233) & 0x80000000) == 0)
+        if ((*(v75 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -3573,10 +4400,10 @@ LABEL_20:
 
 LABEL_30:
       operator delete(a61);
-      if ((*(v80 - 233) & 0x80000000) == 0)
+      if ((*(v75 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if ((a72 & 0x80000000) == 0)
+        if ((a67 & 0x80000000) == 0)
         {
           goto LABEL_22;
         }
@@ -3585,11 +4412,11 @@ LABEL_21:
       }
 
 LABEL_31:
-      operator delete(*(v80 - 256));
-      if ((a72 & 0x80000000) == 0)
+      operator delete(*(v75 - 256));
+      if ((a67 & 0x80000000) == 0)
       {
 LABEL_22:
-        if ((a78 & 0x80000000) == 0)
+        if ((a73 & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
@@ -3598,11 +4425,11 @@ LABEL_22:
       }
 
 LABEL_32:
-      operator delete(a67);
-      if ((a78 & 0x80000000) == 0)
+      operator delete(a66);
+      if ((a73 & 0x80000000) == 0)
       {
 LABEL_23:
-        if ((a76 & 0x80000000) == 0)
+        if ((a71 & 0x80000000) == 0)
         {
           goto LABEL_24;
         }
@@ -3611,11 +4438,11 @@ LABEL_23:
       }
 
 LABEL_33:
-      operator delete(a77);
-      if ((a76 & 0x80000000) == 0)
+      operator delete(a72);
+      if ((a71 & 0x80000000) == 0)
       {
 LABEL_24:
-        if (a74 < 0)
+        if (a69 < 0)
         {
           goto LABEL_25;
         }
@@ -3624,29 +4451,29 @@ LABEL_24:
       }
 
 LABEL_34:
-      operator delete(a75);
-      if (a74 < 0)
+      operator delete(a70);
+      if (a69 < 0)
       {
 LABEL_25:
-        operator delete(a73);
-        if ((v79 & 1) == 0)
+        operator delete(a68);
+        if ((v74 & 1) == 0)
         {
 LABEL_37:
-          if (*(v80 - 65) < 0)
+          if (*(v75 - 65) < 0)
           {
-            operator delete(*(v80 - 88));
+            operator delete(*(v75 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_36:
-        __cxa_free_exception(v78);
+        __cxa_free_exception(v73);
         goto LABEL_37;
       }
 
 LABEL_35:
-      if (!v79)
+      if (!v74)
       {
         goto LABEL_37;
       }
@@ -3655,14 +4482,14 @@ LABEL_35:
     }
 
 LABEL_15:
-    operator delete(v82);
+    operator delete(v77);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v80 - 152));
-  v82 = a52;
+  sub_10019FF4C((v75 - 152));
+  v77 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -3984,7 +4811,7 @@ LABEL_29:
   }
 }
 
-void sub_1001AE43C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, void *a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, void *a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
+void sub_1001AE43C(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::exception_ptr a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37, void *a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44, void *a45, uint64_t a46, int a47, __int16 a48, char a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, void *a58, uint64_t a59, int a60, __int16 a61, char a62, char a63)
 {
   if (a31 < 0)
   {
@@ -4023,8 +4850,8 @@ LABEL_11:
   if ((a37 & 0x80000000) == 0)
   {
 LABEL_5:
-    *(v76 - 192) = v74;
-    if ((*(v76 - 161) & 0x80000000) == 0)
+    *(v71 - 192) = v69;
+    if ((*(v71 - 161) & 0x80000000) == 0)
     {
       goto LABEL_6;
     }
@@ -4034,8 +4861,8 @@ LABEL_5:
 
 LABEL_12:
   operator delete(a32);
-  *(v76 - 192) = v74;
-  if ((*(v76 - 161) & 0x80000000) == 0)
+  *(v71 - 192) = v69;
+  if ((*(v71 - 161) & 0x80000000) == 0)
   {
 LABEL_6:
     if ((a50 & 0x80000000) == 0)
@@ -4047,32 +4874,32 @@ LABEL_6:
   }
 
 LABEL_13:
-  operator delete(*(v76 - 184));
+  operator delete(*(v71 - 184));
   if ((a50 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v76 - 160));
-    v78 = a55;
+    sub_10019FF4C((v71 - 160));
+    v73 = a55;
     if (!a55)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v76 - 232));
-      if (*(v76 - 233) < 0)
+      std::runtime_error::~runtime_error((v71 - 232));
+      if (*(v71 - 233) < 0)
       {
-        operator delete(*(v76 - 256));
+        operator delete(*(v71 - 256));
         if (a63 < 0)
         {
 LABEL_24:
           operator delete(a58);
-          if (a72 < 0)
+          if (a67 < 0)
           {
 LABEL_25:
-            operator delete(a70);
-            if (a69 < 0)
+            operator delete(a66);
+            if (a65 < 0)
             {
 LABEL_26:
               operator delete(a64);
-              if ((v75 & 1) == 0)
+              if ((v70 & 1) == 0)
               {
                 goto LABEL_28;
               }
@@ -4081,37 +4908,37 @@ LABEL_26:
             }
 
 LABEL_22:
-            if (!v75)
+            if (!v70)
             {
 LABEL_28:
-              if (*(v76 - 193) < 0)
+              if (*(v71 - 193) < 0)
               {
-                operator delete(*(v76 - 216));
+                operator delete(*(v71 - 216));
               }
 
-              if (v72)
+              if (v67)
               {
-                operator delete(v72);
+                operator delete(v67);
               }
 
               sub_100184AB0(&a16);
               sub_100048F1C(&a13);
               __cxa_begin_catch(a1);
-              v79 = *(a10 + 32);
+              v74 = *(a10 + 32);
               std::current_exception();
-              sub_1001AE994(v79, &a12);
+              sub_1001AE994(v74, &a12);
               std::exception_ptr::~exception_ptr(&a12);
               __cxa_end_catch();
               JUMPOUT(0x1001ADBB4);
             }
 
 LABEL_27:
-            __cxa_free_exception(v73);
+            __cxa_free_exception(v68);
             goto LABEL_28;
           }
 
 LABEL_21:
-          if (a69 < 0)
+          if (a65 < 0)
           {
             goto LABEL_26;
           }
@@ -4125,7 +4952,7 @@ LABEL_21:
         goto LABEL_24;
       }
 
-      if (a72 < 0)
+      if (a67 < 0)
       {
         goto LABEL_25;
       }
@@ -4134,15 +4961,15 @@ LABEL_21:
     }
 
 LABEL_15:
-    a56 = v78;
-    operator delete(v78);
+    a56 = v73;
+    operator delete(v73);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a45);
-  sub_10019FF4C((v76 - 160));
-  v78 = a55;
+  sub_10019FF4C((v71 - 160));
+  v73 = a55;
   if (!a55)
   {
     goto LABEL_16;
@@ -4251,20 +5078,17 @@ void sub_1001AEBD0(uint64_t a1, uint64_t a2)
   std::mutex::unlock((a1 + 24));
 }
 
-void *sub_1001AEC88(void *result, unint64_t a2)
+void sub_1001AEC88(uint64_t *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 4)
+  if (a2 > (a1[2] - *a1) >> 4)
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
       operator new();
     }
 
     sub_10000FC84();
   }
-
-  return result;
 }
 
 _OWORD *sub_1001AEDD0(void *a1, __int128 *a2)
@@ -4304,8 +5128,7 @@ _OWORD *sub_1001AEDD0(void *a1, __int128 *a2)
 
   v7 = (16 * v2);
   v8 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v9 = *a1;
   v10 = a1[1];
   v11 = *a1 == v10;
@@ -4416,7 +5239,7 @@ void *sub_1001AF018(void *result)
         __cxa_init_primary_exception();
         v5 = std::logic_error::logic_error(exception, &v9);
         exception[1] = v9.__ec_;
-        std::exception_ptr::__from_native_exception_pointer(&v10, v5, v6);
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
         v7.__ptr_ = &v10;
         std::__assoc_sub_state::set_exception(v1, v7);
         std::exception_ptr::~exception_ptr(&v10);
@@ -4443,13 +5266,13 @@ void sub_1001AF170(uint64_t a1)
   v1 = *(a1 + 40);
   v3 = *v1;
   v4 = sub_10019E548(*v1, v1[1]);
-  sub_10019BBFC(v3, v4, v6);
+  sub_10019BBFC(v3, v4, &v6);
   if (!*v2)
   {
     sub_100013504(3u);
   }
 
-  sub_1001AF49C(*v2, v6);
+  sub_1001AF49C(*v2, &v6);
   v5 = v7;
   if (v7)
   {
@@ -4614,7 +5437,7 @@ void *sub_1001AF614(void *result)
         __cxa_init_primary_exception();
         v5 = std::logic_error::logic_error(exception, &v9);
         exception[1] = v9.__ec_;
-        std::exception_ptr::__from_native_exception_pointer(&v10, v5, v6);
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
         v7.__ptr_ = &v10;
         std::__assoc_sub_state::set_exception(v1, v7);
         std::exception_ptr::~exception_ptr(&v10);
@@ -4681,13 +5504,13 @@ void sub_1001AF864(uint64_t a1)
   v1 = *(a1 + 40);
   v3 = *v1;
   v4 = sub_10019CAC4(*v1, v1[1]);
-  sub_10019BF04(v3, v4, v6);
+  sub_10019BF04(v3, v4, &v6);
   if (!*v2)
   {
     sub_100013504(3u);
   }
 
-  sub_1001AFB90(*v2, v6);
+  sub_1001AFB90(*v2, &v6);
   v5 = v7;
   if (v7)
   {
@@ -4852,7 +5675,7 @@ void *sub_1001AFD08(void *result)
         __cxa_init_primary_exception();
         v5 = std::logic_error::logic_error(exception, &v9);
         exception[1] = v9.__ec_;
-        std::exception_ptr::__from_native_exception_pointer(&v10, v5, v6);
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
         v7.__ptr_ = &v10;
         std::__assoc_sub_state::set_exception(v1, v7);
         std::exception_ptr::~exception_ptr(&v10);
@@ -4875,11 +5698,10 @@ void *sub_1001AFD08(void *result)
 
 void sub_1001AFE60(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   v1 = *(a1 + 40);
-  v3 = *v1;
-  v4 = sub_10019CAC4(*v1, v1[1]);
-  sub_10019C958(v3, v4);
+  v2 = *v1;
+  v3 = sub_10019CAC4(*v1, v1[1]);
+  sub_10019C958(v2, v3);
 }
 
 void sub_1001AFF4C(void *a1)
@@ -5068,7 +5890,7 @@ void *sub_1001B044C(void *result)
         __cxa_init_primary_exception();
         v5 = std::logic_error::logic_error(exception, &v9);
         exception[1] = v9.__ec_;
-        std::exception_ptr::__from_native_exception_pointer(&v10, v5, v6);
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
         v7.__ptr_ = &v10;
         std::__assoc_sub_state::set_exception(v1, v7);
         std::exception_ptr::~exception_ptr(&v10);
@@ -5385,7 +6207,7 @@ LABEL_12:
   }
 }
 
-void sub_1001B1148(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::exception_ptr a10, void *a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57, int a58, __int16 a59, char a60, char a61, void *a62, uint64_t a63)
+void sub_1001B1148(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::exception_ptr a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, void *__p, uint64_t a25, int a26, __int16 a27, char a28, char a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, void *a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42, void *a43, uint64_t a44, int a45, __int16 a46, char a47, char a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, void *a53, uint64_t a54, uint64_t a55, void *a56, uint64_t a57, int a58, __int16 a59, char a60, char a61, void *a62, uint64_t a63)
 {
   if (!a2)
   {
@@ -5429,8 +6251,8 @@ LABEL_12:
   if ((a35 & 0x80000000) == 0)
   {
 LABEL_6:
-    *(v77 - 192) = v75;
-    if ((*(v77 - 161) & 0x80000000) == 0)
+    *(v73 - 192) = v71;
+    if ((*(v73 - 161) & 0x80000000) == 0)
     {
       goto LABEL_7;
     }
@@ -5440,8 +6262,8 @@ LABEL_6:
 
 LABEL_13:
   operator delete(a30);
-  *(v77 - 192) = v75;
-  if ((*(v77 - 161) & 0x80000000) == 0)
+  *(v73 - 192) = v71;
+  if ((*(v73 - 161) & 0x80000000) == 0)
   {
 LABEL_7:
     if ((a48 & 0x80000000) == 0)
@@ -5453,32 +6275,32 @@ LABEL_7:
   }
 
 LABEL_14:
-  operator delete(*(v77 - 184));
+  operator delete(*(v73 - 184));
   if ((a48 & 0x80000000) == 0)
   {
 LABEL_8:
-    sub_10019FF4C((v77 - 160));
-    v79 = a53;
+    sub_10019FF4C((v73 - 160));
+    v75 = a53;
     if (!a53)
     {
 LABEL_17:
-      std::runtime_error::~runtime_error((v77 - 240));
-      if (a73 < 0)
+      std::runtime_error::~runtime_error((v73 - 240));
+      if (a69 < 0)
       {
-        operator delete(a72.__vftable);
+        operator delete(a68.__vftable);
         if (a61 < 0)
         {
 LABEL_25:
           operator delete(a56);
-          if (a71 < 0)
+          if (a67 < 0)
           {
 LABEL_26:
-            operator delete(a68);
-            if (a67 < 0)
+            operator delete(a66);
+            if (a65 < 0)
             {
 LABEL_27:
               operator delete(a62);
-              if ((v76 & 1) == 0)
+              if ((v72 & 1) == 0)
               {
                 goto LABEL_29;
               }
@@ -5487,32 +6309,32 @@ LABEL_27:
             }
 
 LABEL_23:
-            if (!v76)
+            if (!v72)
             {
 LABEL_29:
-              if (*(v77 - 193) < 0)
+              if (*(v73 - 193) < 0)
               {
-                operator delete(*(v77 - 216));
+                operator delete(*(v73 - 216));
               }
 
               sub_100184AB0(&a14);
               sub_100048F1C(&a11);
               __cxa_begin_catch(a1);
-              v80 = *(v73 + 32);
+              v76 = *(v69 + 32);
               std::current_exception();
-              sub_1001B179C(v80, &a10);
+              sub_1001B179C(v76, &a10);
               std::exception_ptr::~exception_ptr(&a10);
               __cxa_end_catch();
               JUMPOUT(0x1001B08CCLL);
             }
 
 LABEL_28:
-            __cxa_free_exception(v74);
+            __cxa_free_exception(v70);
             goto LABEL_29;
           }
 
 LABEL_22:
-          if (a67 < 0)
+          if (a65 < 0)
           {
             goto LABEL_27;
           }
@@ -5526,7 +6348,7 @@ LABEL_22:
         goto LABEL_25;
       }
 
-      if (a71 < 0)
+      if (a67 < 0)
       {
         goto LABEL_26;
       }
@@ -5535,15 +6357,15 @@ LABEL_22:
     }
 
 LABEL_16:
-    a54 = v79;
-    operator delete(v79);
+    a54 = v75;
+    operator delete(v75);
     goto LABEL_17;
   }
 
 LABEL_15:
   operator delete(a43);
-  sub_10019FF4C((v77 - 160));
-  v79 = a53;
+  sub_10019FF4C((v73 - 160));
+  v75 = a53;
   if (!a53)
   {
     goto LABEL_17;
@@ -5747,7 +6569,7 @@ void *sub_1001B1C80(void *result)
         __cxa_init_primary_exception();
         v5 = std::logic_error::logic_error(exception, &v9);
         exception[1] = v9.__ec_;
-        std::exception_ptr::__from_native_exception_pointer(&v10, v5, v6);
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
         v7.__ptr_ = &v10;
         std::__assoc_sub_state::set_exception(v1, v7);
         std::exception_ptr::~exception_ptr(&v10);
@@ -6016,7 +6838,7 @@ void *sub_1001B23F0(void *result)
         __cxa_init_primary_exception();
         v5 = std::logic_error::logic_error(exception, &v9);
         exception[1] = v9.__ec_;
-        std::exception_ptr::__from_native_exception_pointer(&v10, v5, v6);
+        std::exception_ptr::__from_native_exception_pointer(v5, v6);
         v7.__ptr_ = &v10;
         std::__assoc_sub_state::set_exception(v1, v7);
         std::exception_ptr::~exception_ptr(&v10);
@@ -6181,19 +7003,19 @@ void sub_1001B2A28(std::runtime_error *a1)
   std::runtime_error::~runtime_error(a1);
 }
 
-void sub_1001B2D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1001B2D58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_10003B91C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1001B2D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001B2D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   sub_10003B870(va);
   sub_10003B91C(va1);
   _Unwind_Resume(a1);
@@ -6432,19 +7254,19 @@ void sub_1001B3904(std::runtime_error *a1)
   std::runtime_error::~runtime_error(a1);
 }
 
-void sub_1001B3C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1001B3C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   sub_10003B91C(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1001B3C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1001B3C48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
   sub_10003B870(va);
   sub_10003B91C(va1);
   _Unwind_Resume(a1);
@@ -6854,7 +7676,7 @@ void sub_1001B48E4(sqlite3_stmt **a1, int a2, uint64_t *a3)
     v23->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v35, &v34);
     v35.__vftable = &off_100440BD8;
-    sub_10010A984(v25);
+    sub_10010A984(&v25);
   }
 }
 
@@ -6923,19 +7745,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v78 - 152));
-    v80 = a52;
+    sub_10019FF4C((v73 - 152));
+    v75 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v78 - 168));
-      if (*(v78 - 169) < 0)
+      std::runtime_error::~runtime_error((v73 - 168));
+      if (*(v73 - 169) < 0)
       {
-        operator delete(*(v78 - 192));
+        operator delete(*(v73 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v78 - 201) & 0x80000000) == 0)
+          if ((*(v73 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -6950,10 +7772,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v78 - 201) & 0x80000000) == 0)
+      if ((*(v73 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a66 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -6962,11 +7784,11 @@ LABEL_19:
       }
 
 LABEL_28:
-      operator delete(*(v78 - 224));
-      if ((a66 & 0x80000000) == 0)
+      operator delete(*(v73 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v78 - 233) & 0x80000000) == 0)
+        if ((*(v73 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -6976,10 +7798,10 @@ LABEL_20:
 
 LABEL_29:
       operator delete(a61);
-      if ((*(v78 - 233) & 0x80000000) == 0)
+      if ((*(v73 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if ((a72 & 0x80000000) == 0)
+        if ((a67 & 0x80000000) == 0)
         {
           goto LABEL_22;
         }
@@ -6988,11 +7810,11 @@ LABEL_21:
       }
 
 LABEL_30:
-      operator delete(*(v78 - 256));
-      if ((a72 & 0x80000000) == 0)
+      operator delete(*(v73 - 256));
+      if ((a67 & 0x80000000) == 0)
       {
 LABEL_22:
-        if ((a76 & 0x80000000) == 0)
+        if ((a71 & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
@@ -7001,11 +7823,11 @@ LABEL_22:
       }
 
 LABEL_31:
-      operator delete(a67);
-      if ((a76 & 0x80000000) == 0)
+      operator delete(a66);
+      if ((a71 & 0x80000000) == 0)
       {
 LABEL_23:
-        if (a74 < 0)
+        if (a69 < 0)
         {
           goto LABEL_24;
         }
@@ -7014,29 +7836,29 @@ LABEL_23:
       }
 
 LABEL_32:
-      operator delete(a75);
-      if (a74 < 0)
+      operator delete(a70);
+      if (a69 < 0)
       {
 LABEL_24:
-        operator delete(a73);
-        if ((v77 & 1) == 0)
+        operator delete(a68);
+        if ((v72 & 1) == 0)
         {
 LABEL_35:
-          if (*(v78 - 65) < 0)
+          if (*(v73 - 65) < 0)
           {
-            operator delete(*(v78 - 88));
+            operator delete(*(v73 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_34:
-        __cxa_free_exception(v76);
+        __cxa_free_exception(v71);
         goto LABEL_35;
       }
 
 LABEL_33:
-      if (!v77)
+      if (!v72)
       {
         goto LABEL_35;
       }
@@ -7045,14 +7867,14 @@ LABEL_33:
     }
 
 LABEL_15:
-    operator delete(v80);
+    operator delete(v75);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v78 - 152));
-  v80 = a52;
+  sub_10019FF4C((v73 - 152));
+  v75 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -7226,7 +8048,7 @@ void sub_1001B50C4(sqlite3_stmt **a1, int a2, uint64_t *a3)
     v23->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v35, &v34);
     v35.__vftable = &off_100440BD8;
-    sub_10010A984(v25);
+    sub_10010A984(&v25);
   }
 }
 
@@ -7295,19 +8117,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v78 - 152));
-    v80 = a52;
+    sub_10019FF4C((v73 - 152));
+    v75 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v78 - 168));
-      if (*(v78 - 169) < 0)
+      std::runtime_error::~runtime_error((v73 - 168));
+      if (*(v73 - 169) < 0)
       {
-        operator delete(*(v78 - 192));
+        operator delete(*(v73 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v78 - 201) & 0x80000000) == 0)
+          if ((*(v73 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -7322,10 +8144,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v78 - 201) & 0x80000000) == 0)
+      if ((*(v73 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a66 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -7334,11 +8156,11 @@ LABEL_19:
       }
 
 LABEL_28:
-      operator delete(*(v78 - 224));
-      if ((a66 & 0x80000000) == 0)
+      operator delete(*(v73 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v78 - 233) & 0x80000000) == 0)
+        if ((*(v73 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -7348,10 +8170,10 @@ LABEL_20:
 
 LABEL_29:
       operator delete(a61);
-      if ((*(v78 - 233) & 0x80000000) == 0)
+      if ((*(v73 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if ((a72 & 0x80000000) == 0)
+        if ((a67 & 0x80000000) == 0)
         {
           goto LABEL_22;
         }
@@ -7360,11 +8182,11 @@ LABEL_21:
       }
 
 LABEL_30:
-      operator delete(*(v78 - 256));
-      if ((a72 & 0x80000000) == 0)
+      operator delete(*(v73 - 256));
+      if ((a67 & 0x80000000) == 0)
       {
 LABEL_22:
-        if ((a76 & 0x80000000) == 0)
+        if ((a71 & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
@@ -7373,11 +8195,11 @@ LABEL_22:
       }
 
 LABEL_31:
-      operator delete(a67);
-      if ((a76 & 0x80000000) == 0)
+      operator delete(a66);
+      if ((a71 & 0x80000000) == 0)
       {
 LABEL_23:
-        if (a74 < 0)
+        if (a69 < 0)
         {
           goto LABEL_24;
         }
@@ -7386,29 +8208,29 @@ LABEL_23:
       }
 
 LABEL_32:
-      operator delete(a75);
-      if (a74 < 0)
+      operator delete(a70);
+      if (a69 < 0)
       {
 LABEL_24:
-        operator delete(a73);
-        if ((v77 & 1) == 0)
+        operator delete(a68);
+        if ((v72 & 1) == 0)
         {
 LABEL_35:
-          if (*(v78 - 65) < 0)
+          if (*(v73 - 65) < 0)
           {
-            operator delete(*(v78 - 88));
+            operator delete(*(v73 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_34:
-        __cxa_free_exception(v76);
+        __cxa_free_exception(v71);
         goto LABEL_35;
       }
 
 LABEL_33:
-      if (!v77)
+      if (!v72)
       {
         goto LABEL_35;
       }
@@ -7417,14 +8239,14 @@ LABEL_33:
     }
 
 LABEL_15:
-    operator delete(v80);
+    operator delete(v75);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v78 - 152));
-  v80 = a52;
+  sub_10019FF4C((v73 - 152));
+  v75 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -7519,7 +8341,7 @@ uint64_t sub_1001B5980(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void sub_1001B59F8(sqlite3_stmt **a1, int a2, unint64_t a3)
+void sub_1001B59F8(sqlite3_stmt **a1, int a2, sqlite3_int64 a3)
 {
   v6 = sqlite3_bind_int64(*a1, a2, a3);
   sub_100001838(v6, a1[1]);
@@ -7638,7 +8460,7 @@ void sub_1001B59F8(sqlite3_stmt **a1, int a2, unint64_t a3)
     v22->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v35, &v34);
     v35.__vftable = &off_100440BD8;
-    sub_10010A984(v24);
+    sub_10010A984(&v24);
   }
 }
 
@@ -7707,19 +8529,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v80 - 152));
-    v82 = a52;
+    sub_10019FF4C((v75 - 152));
+    v77 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v80 - 168));
-      if (*(v80 - 169) < 0)
+      std::runtime_error::~runtime_error((v75 - 168));
+      if (*(v75 - 169) < 0)
       {
-        operator delete(*(v80 - 192));
+        operator delete(*(v75 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v80 - 201) & 0x80000000) == 0)
+          if ((*(v75 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -7734,10 +8556,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v80 - 201) & 0x80000000) == 0)
+      if ((*(v75 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a66 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -7746,11 +8568,11 @@ LABEL_19:
       }
 
 LABEL_29:
-      operator delete(*(v80 - 224));
-      if ((a66 & 0x80000000) == 0)
+      operator delete(*(v75 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v80 - 233) & 0x80000000) == 0)
+        if ((*(v75 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -7760,10 +8582,10 @@ LABEL_20:
 
 LABEL_30:
       operator delete(a61);
-      if ((*(v80 - 233) & 0x80000000) == 0)
+      if ((*(v75 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if ((a72 & 0x80000000) == 0)
+        if ((a67 & 0x80000000) == 0)
         {
           goto LABEL_22;
         }
@@ -7772,11 +8594,11 @@ LABEL_21:
       }
 
 LABEL_31:
-      operator delete(*(v80 - 256));
-      if ((a72 & 0x80000000) == 0)
+      operator delete(*(v75 - 256));
+      if ((a67 & 0x80000000) == 0)
       {
 LABEL_22:
-        if ((a78 & 0x80000000) == 0)
+        if ((a73 & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
@@ -7785,11 +8607,11 @@ LABEL_22:
       }
 
 LABEL_32:
-      operator delete(a67);
-      if ((a78 & 0x80000000) == 0)
+      operator delete(a66);
+      if ((a73 & 0x80000000) == 0)
       {
 LABEL_23:
-        if ((a76 & 0x80000000) == 0)
+        if ((a71 & 0x80000000) == 0)
         {
           goto LABEL_24;
         }
@@ -7798,11 +8620,11 @@ LABEL_23:
       }
 
 LABEL_33:
-      operator delete(a77);
-      if ((a76 & 0x80000000) == 0)
+      operator delete(a72);
+      if ((a71 & 0x80000000) == 0)
       {
 LABEL_24:
-        if (a74 < 0)
+        if (a69 < 0)
         {
           goto LABEL_25;
         }
@@ -7811,29 +8633,29 @@ LABEL_24:
       }
 
 LABEL_34:
-      operator delete(a75);
-      if (a74 < 0)
+      operator delete(a70);
+      if (a69 < 0)
       {
 LABEL_25:
-        operator delete(a73);
-        if ((v79 & 1) == 0)
+        operator delete(a68);
+        if ((v74 & 1) == 0)
         {
 LABEL_37:
-          if (*(v80 - 65) < 0)
+          if (*(v75 - 65) < 0)
           {
-            operator delete(*(v80 - 88));
+            operator delete(*(v75 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_36:
-        __cxa_free_exception(v78);
+        __cxa_free_exception(v73);
         goto LABEL_37;
       }
 
 LABEL_35:
-      if (!v79)
+      if (!v74)
       {
         goto LABEL_37;
       }
@@ -7842,14 +8664,14 @@ LABEL_35:
     }
 
 LABEL_15:
-    operator delete(v82);
+    operator delete(v77);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v80 - 152));
-  v82 = a52;
+  sub_10019FF4C((v75 - 152));
+  v77 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -7868,10 +8690,10 @@ uint64_t sub_1001B6120(uint64_t result, void *a2)
 
 void sub_1001B614C(uint64_t a1, sqlite3_stmt **a2)
 {
-  sub_1001B1A90(a2, v5);
-  *__p = v6;
-  v3 = v7;
-  sub_1001181E4(&v4, __p);
+  sub_1001B1A90(a2, v6);
+  *__p = v7;
+  v4 = v8;
+  sub_1001181E4(&v5, __p);
 }
 
 void sub_1001B61F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
@@ -8225,7 +9047,7 @@ void sub_1001B6710(sqlite3_stmt **a1, int a2, uint64_t *a3)
     v23->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v35, &v34);
     v35.__vftable = &off_100440BD8;
-    sub_10010A984(v25);
+    sub_10010A984(&v25);
   }
 }
 
@@ -8294,19 +9116,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v78 - 152));
-    v80 = a52;
+    sub_10019FF4C((v73 - 152));
+    v75 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v78 - 168));
-      if (*(v78 - 169) < 0)
+      std::runtime_error::~runtime_error((v73 - 168));
+      if (*(v73 - 169) < 0)
       {
-        operator delete(*(v78 - 192));
+        operator delete(*(v73 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v78 - 201) & 0x80000000) == 0)
+          if ((*(v73 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -8321,10 +9143,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v78 - 201) & 0x80000000) == 0)
+      if ((*(v73 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a66 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -8333,11 +9155,11 @@ LABEL_19:
       }
 
 LABEL_28:
-      operator delete(*(v78 - 224));
-      if ((a66 & 0x80000000) == 0)
+      operator delete(*(v73 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v78 - 233) & 0x80000000) == 0)
+        if ((*(v73 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -8347,10 +9169,10 @@ LABEL_20:
 
 LABEL_29:
       operator delete(a61);
-      if ((*(v78 - 233) & 0x80000000) == 0)
+      if ((*(v73 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if ((a72 & 0x80000000) == 0)
+        if ((a67 & 0x80000000) == 0)
         {
           goto LABEL_22;
         }
@@ -8359,11 +9181,11 @@ LABEL_21:
       }
 
 LABEL_30:
-      operator delete(*(v78 - 256));
-      if ((a72 & 0x80000000) == 0)
+      operator delete(*(v73 - 256));
+      if ((a67 & 0x80000000) == 0)
       {
 LABEL_22:
-        if ((a76 & 0x80000000) == 0)
+        if ((a71 & 0x80000000) == 0)
         {
           goto LABEL_23;
         }
@@ -8372,11 +9194,11 @@ LABEL_22:
       }
 
 LABEL_31:
-      operator delete(a67);
-      if ((a76 & 0x80000000) == 0)
+      operator delete(a66);
+      if ((a71 & 0x80000000) == 0)
       {
 LABEL_23:
-        if (a74 < 0)
+        if (a69 < 0)
         {
           goto LABEL_24;
         }
@@ -8385,29 +9207,29 @@ LABEL_23:
       }
 
 LABEL_32:
-      operator delete(a75);
-      if (a74 < 0)
+      operator delete(a70);
+      if (a69 < 0)
       {
 LABEL_24:
-        operator delete(a73);
-        if ((v77 & 1) == 0)
+        operator delete(a68);
+        if ((v72 & 1) == 0)
         {
 LABEL_35:
-          if (*(v78 - 65) < 0)
+          if (*(v73 - 65) < 0)
           {
-            operator delete(*(v78 - 88));
+            operator delete(*(v73 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_34:
-        __cxa_free_exception(v76);
+        __cxa_free_exception(v71);
         goto LABEL_35;
       }
 
 LABEL_33:
-      if (!v77)
+      if (!v72)
       {
         goto LABEL_35;
       }
@@ -8416,14 +9238,14 @@ LABEL_33:
     }
 
 LABEL_15:
-    operator delete(v80);
+    operator delete(v75);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v78 - 152));
-  v80 = a52;
+  sub_10019FF4C((v73 - 152));
+  v75 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -8516,7 +9338,7 @@ void sub_1001B6D98(sqlite3_stmt **a1, int a2, int a3)
     v15->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v25, &v24);
     v25.__vftable = &off_100440BD8;
-    sub_10010A984(v17);
+    sub_10010A984(&v17);
   }
 }
 
@@ -8585,19 +9407,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v74 - 152));
-    v76 = a52;
+    sub_10019FF4C((v69 - 152));
+    v71 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v74 - 168));
-      if (*(v74 - 169) < 0)
+      std::runtime_error::~runtime_error((v69 - 168));
+      if (*(v69 - 169) < 0)
       {
-        operator delete(*(v74 - 192));
+        operator delete(*(v69 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v74 - 201) & 0x80000000) == 0)
+          if ((*(v69 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -8612,10 +9434,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v74 - 201) & 0x80000000) == 0)
+      if ((*(v69 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a67 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -8624,11 +9446,11 @@ LABEL_19:
       }
 
 LABEL_26:
-      operator delete(*(v74 - 224));
-      if ((a67 & 0x80000000) == 0)
+      operator delete(*(v69 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v74 - 233) & 0x80000000) == 0)
+        if ((*(v69 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -8638,10 +9460,10 @@ LABEL_20:
 
 LABEL_27:
       operator delete(a62);
-      if ((*(v74 - 233) & 0x80000000) == 0)
+      if ((*(v69 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if (a72 < 0)
+        if (a67 < 0)
         {
           goto LABEL_22;
         }
@@ -8650,29 +9472,29 @@ LABEL_21:
       }
 
 LABEL_28:
-      operator delete(*(v74 - 256));
-      if (a72 < 0)
+      operator delete(*(v69 - 256));
+      if (a67 < 0)
       {
 LABEL_22:
-        operator delete(a68);
-        if ((v73 & 1) == 0)
+        operator delete(a66);
+        if ((v68 & 1) == 0)
         {
 LABEL_31:
-          if (*(v74 - 65) < 0)
+          if (*(v69 - 65) < 0)
           {
-            operator delete(*(v74 - 88));
+            operator delete(*(v69 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_30:
-        __cxa_free_exception(v72);
+        __cxa_free_exception(v67);
         goto LABEL_31;
       }
 
 LABEL_29:
-      if (!v73)
+      if (!v68)
       {
         goto LABEL_31;
       }
@@ -8681,14 +9503,14 @@ LABEL_29:
     }
 
 LABEL_15:
-    operator delete(v76);
+    operator delete(v71);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v74 - 152));
-  v76 = a52;
+  sub_10019FF4C((v69 - 152));
+  v71 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -8781,7 +9603,7 @@ void sub_1001B7358(sqlite3_stmt **a1, int a2)
     v14->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v24, &v23);
     v24.__vftable = &off_100440BD8;
-    sub_10010A984(v16);
+    sub_10010A984(&v16);
   }
 }
 
@@ -8850,19 +9672,19 @@ LABEL_13:
   if ((a40 & 0x80000000) == 0)
   {
 LABEL_7:
-    sub_10019FF4C((v74 - 152));
-    v76 = a52;
+    sub_10019FF4C((v69 - 152));
+    v71 = a52;
     if (!a52)
     {
 LABEL_16:
-      std::runtime_error::~runtime_error((v74 - 168));
-      if (*(v74 - 169) < 0)
+      std::runtime_error::~runtime_error((v69 - 168));
+      if (*(v69 - 169) < 0)
       {
-        operator delete(*(v74 - 192));
+        operator delete(*(v69 - 192));
         if ((a60 & 0x80000000) == 0)
         {
 LABEL_18:
-          if ((*(v74 - 201) & 0x80000000) == 0)
+          if ((*(v69 - 201) & 0x80000000) == 0)
           {
             goto LABEL_19;
           }
@@ -8877,10 +9699,10 @@ LABEL_18:
       }
 
       operator delete(a55);
-      if ((*(v74 - 201) & 0x80000000) == 0)
+      if ((*(v69 - 201) & 0x80000000) == 0)
       {
 LABEL_19:
-        if ((a67 & 0x80000000) == 0)
+        if ((a65 & 0x80000000) == 0)
         {
           goto LABEL_20;
         }
@@ -8889,11 +9711,11 @@ LABEL_19:
       }
 
 LABEL_26:
-      operator delete(*(v74 - 224));
-      if ((a67 & 0x80000000) == 0)
+      operator delete(*(v69 - 224));
+      if ((a65 & 0x80000000) == 0)
       {
 LABEL_20:
-        if ((*(v74 - 233) & 0x80000000) == 0)
+        if ((*(v69 - 233) & 0x80000000) == 0)
         {
           goto LABEL_21;
         }
@@ -8903,10 +9725,10 @@ LABEL_20:
 
 LABEL_27:
       operator delete(a62);
-      if ((*(v74 - 233) & 0x80000000) == 0)
+      if ((*(v69 - 233) & 0x80000000) == 0)
       {
 LABEL_21:
-        if (a72 < 0)
+        if (a67 < 0)
         {
           goto LABEL_22;
         }
@@ -8915,29 +9737,29 @@ LABEL_21:
       }
 
 LABEL_28:
-      operator delete(*(v74 - 256));
-      if (a72 < 0)
+      operator delete(*(v69 - 256));
+      if (a67 < 0)
       {
 LABEL_22:
-        operator delete(a68);
-        if ((v73 & 1) == 0)
+        operator delete(a66);
+        if ((v68 & 1) == 0)
         {
 LABEL_31:
-          if (*(v74 - 65) < 0)
+          if (*(v69 - 65) < 0)
           {
-            operator delete(*(v74 - 88));
+            operator delete(*(v69 - 88));
           }
 
           _Unwind_Resume(a1);
         }
 
 LABEL_30:
-        __cxa_free_exception(v72);
+        __cxa_free_exception(v67);
         goto LABEL_31;
       }
 
 LABEL_29:
-      if (!v73)
+      if (!v68)
       {
         goto LABEL_31;
       }
@@ -8946,14 +9768,14 @@ LABEL_29:
     }
 
 LABEL_15:
-    operator delete(v76);
+    operator delete(v71);
     goto LABEL_16;
   }
 
 LABEL_14:
   operator delete(a35);
-  sub_10019FF4C((v74 - 152));
-  v76 = a52;
+  sub_10019FF4C((v69 - 152));
+  v71 = a52;
   if (!a52)
   {
     goto LABEL_16;
@@ -9081,970 +9903,6 @@ void sub_1001B7918(sqlite3_stmt **a1, int a2, sqlite3_int64 a3)
     v22->__r_.__value_.__r.__words[0] = 0;
     std::runtime_error::runtime_error(&v35, &v34);
     v35.__vftable = &off_100440BD8;
-    sub_10010A984(v24);
+    sub_10010A984(&v24);
   }
-}
-
-void sub_1001B7CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, void *a61, uint64_t a62, int a63)
-{
-  if (a21 < 0)
-  {
-    operator delete(__p);
-    if ((a14 & 0x80000000) == 0)
-    {
-LABEL_3:
-      if ((a34 & 0x80000000) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_11;
-    }
-  }
-
-  else if ((a14 & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(a9);
-  if ((a34 & 0x80000000) == 0)
-  {
-LABEL_4:
-    if ((a27 & 0x80000000) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_12;
-  }
-
-LABEL_11:
-  operator delete(a29);
-  if ((a27 & 0x80000000) == 0)
-  {
-LABEL_5:
-    if ((a47 & 0x80000000) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_12:
-  operator delete(a22);
-  if ((a47 & 0x80000000) == 0)
-  {
-LABEL_6:
-    if ((a40 & 0x80000000) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_14;
-  }
-
-LABEL_13:
-  operator delete(a42);
-  if ((a40 & 0x80000000) == 0)
-  {
-LABEL_7:
-    sub_10019FF4C((v80 - 152));
-    v82 = a52;
-    if (!a52)
-    {
-LABEL_16:
-      std::runtime_error::~runtime_error((v80 - 168));
-      if (*(v80 - 169) < 0)
-      {
-        operator delete(*(v80 - 192));
-        if ((a60 & 0x80000000) == 0)
-        {
-LABEL_18:
-          if ((*(v80 - 201) & 0x80000000) == 0)
-          {
-            goto LABEL_19;
-          }
-
-          goto LABEL_29;
-        }
-      }
-
-      else if ((a60 & 0x80000000) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      operator delete(a55);
-      if ((*(v80 - 201) & 0x80000000) == 0)
-      {
-LABEL_19:
-        if ((a66 & 0x80000000) == 0)
-        {
-          goto LABEL_20;
-        }
-
-        goto LABEL_30;
-      }
-
-LABEL_29:
-      operator delete(*(v80 - 224));
-      if ((a66 & 0x80000000) == 0)
-      {
-LABEL_20:
-        if ((*(v80 - 233) & 0x80000000) == 0)
-        {
-          goto LABEL_21;
-        }
-
-        goto LABEL_31;
-      }
-
-LABEL_30:
-      operator delete(a61);
-      if ((*(v80 - 233) & 0x80000000) == 0)
-      {
-LABEL_21:
-        if ((a72 & 0x80000000) == 0)
-        {
-          goto LABEL_22;
-        }
-
-        goto LABEL_32;
-      }
-
-LABEL_31:
-      operator delete(*(v80 - 256));
-      if ((a72 & 0x80000000) == 0)
-      {
-LABEL_22:
-        if ((a78 & 0x80000000) == 0)
-        {
-          goto LABEL_23;
-        }
-
-        goto LABEL_33;
-      }
-
-LABEL_32:
-      operator delete(a67);
-      if ((a78 & 0x80000000) == 0)
-      {
-LABEL_23:
-        if ((a76 & 0x80000000) == 0)
-        {
-          goto LABEL_24;
-        }
-
-        goto LABEL_34;
-      }
-
-LABEL_33:
-      operator delete(a77);
-      if ((a76 & 0x80000000) == 0)
-      {
-LABEL_24:
-        if (a74 < 0)
-        {
-          goto LABEL_25;
-        }
-
-        goto LABEL_35;
-      }
-
-LABEL_34:
-      operator delete(a75);
-      if (a74 < 0)
-      {
-LABEL_25:
-        operator delete(a73);
-        if ((v79 & 1) == 0)
-        {
-LABEL_37:
-          if (*(v80 - 65) < 0)
-          {
-            operator delete(*(v80 - 88));
-          }
-
-          _Unwind_Resume(a1);
-        }
-
-LABEL_36:
-        __cxa_free_exception(v78);
-        goto LABEL_37;
-      }
-
-LABEL_35:
-      if (!v79)
-      {
-        goto LABEL_37;
-      }
-
-      goto LABEL_36;
-    }
-
-LABEL_15:
-    operator delete(v82);
-    goto LABEL_16;
-  }
-
-LABEL_14:
-  operator delete(a35);
-  sub_10019FF4C((v80 - 152));
-  v82 = a52;
-  if (!a52)
-  {
-    goto LABEL_16;
-  }
-
-  goto LABEL_15;
-}
-
-void sub_1001B7FD0(uint64_t a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    v3 = sqlite3_sql(v2);
-    if (v3)
-    {
-      v4 = v3;
-    }
-
-    else
-    {
-      v4 = "<unknown query>";
-    }
-
-    v5 = strlen(v4);
-    if (v5 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      sub_10000D39C();
-    }
-
-    v6 = v5;
-    if (v5 >= 0x17)
-    {
-      operator new();
-    }
-
-    v11 = v5;
-    if (v5)
-    {
-      memmove(__dst, v4, v5);
-    }
-
-    *(__dst + v6) = 0;
-    v7 = sqlite3_finalize(*a1);
-    if (v7)
-    {
-      if (qword_10045B080 != -1)
-      {
-        sub_100384BF8();
-      }
-
-      v8 = qword_10045B088;
-      if (os_log_type_enabled(qword_10045B088, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 67240192;
-        v13 = v7;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to finalize with %{public}d", buf, 8u);
-      }
-    }
-
-    *a1 = 0;
-    v9 = *(a1 + 16);
-    if (v9)
-    {
-      *(a1 + 16) = 0;
-    }
-
-    if (v11 < 0)
-    {
-      operator delete(__dst[0]);
-    }
-  }
-}
-
-void sub_1001B816C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1001B8188(sqlite3_stmt **a1, int a2, uint64_t *a3)
-{
-  v5 = *a1;
-  v6 = *(a3 + 23);
-  v7 = *(a3 + 2);
-  if (v6 >= 0)
-  {
-    v8 = v6;
-  }
-
-  else
-  {
-    a3 = *a3;
-    v8 = v7;
-  }
-
-  v9 = sqlite3_bind_text(v5, a2, a3, v8, 0xFFFFFFFFFFFFFFFFLL);
-  sub_100001838(v9, a1[1]);
-  if (v9)
-  {
-    v10 = __error();
-    sub_10023B1C8(*v10, &v36);
-    __cxa_allocate_exception(0x40uLL);
-    std::operator+<char>();
-    v11 = std::string::append(&v30, " to ");
-    v12 = *&v11->__r_.__value_.__l.__data_;
-    v31.__r_.__value_.__r.__words[2] = v11->__r_.__value_.__r.__words[2];
-    *&v31.__r_.__value_.__l.__data_ = v12;
-    v11->__r_.__value_.__l.__size_ = 0;
-    v11->__r_.__value_.__r.__words[2] = 0;
-    v11->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v29, a2);
-    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v13 = &v29;
-    }
-
-    else
-    {
-      v13 = v29.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v29.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v29.__r_.__value_.__l.__size_;
-    }
-
-    v15 = std::string::append(&v31, v13, size);
-    v16 = *&v15->__r_.__value_.__l.__data_;
-    v32.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-    *&v32.__r_.__value_.__l.__data_ = v16;
-    v15->__r_.__value_.__l.__size_ = 0;
-    v15->__r_.__value_.__r.__words[2] = 0;
-    v15->__r_.__value_.__r.__words[0] = 0;
-    sub_1000474A4(v27, " w/ ");
-    if ((v28 & 0x80u) == 0)
-    {
-      v17 = v27;
-    }
-
-    else
-    {
-      v17 = v27[0];
-    }
-
-    if ((v28 & 0x80u) == 0)
-    {
-      v18 = v28;
-    }
-
-    else
-    {
-      v18 = v27[1];
-    }
-
-    v19 = std::string::append(&v32, v17, v18);
-    v20 = *&v19->__r_.__value_.__l.__data_;
-    v33.__r_.__value_.__r.__words[2] = v19->__r_.__value_.__r.__words[2];
-    *&v33.__r_.__value_.__l.__data_ = v20;
-    v19->__r_.__value_.__l.__size_ = 0;
-    v19->__r_.__value_.__r.__words[2] = 0;
-    v19->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
-    {
-      sub_100003228(&v26, v36.__r_.__value_.__l.__data_, v36.__r_.__value_.__l.__size_);
-    }
-
-    else
-    {
-      v26 = v36;
-    }
-
-    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v21 = &v26;
-    }
-
-    else
-    {
-      v21 = v26.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v22 = HIBYTE(v26.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v22 = v26.__r_.__value_.__l.__size_;
-    }
-
-    v23 = std::string::append(&v33, v21, v22);
-    v24 = *&v23->__r_.__value_.__l.__data_;
-    v34.__r_.__value_.__r.__words[2] = v23->__r_.__value_.__r.__words[2];
-    *&v34.__r_.__value_.__l.__data_ = v24;
-    v23->__r_.__value_.__l.__size_ = 0;
-    v23->__r_.__value_.__r.__words[2] = 0;
-    v23->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(&v35, &v34);
-    v35.__vftable = &off_100440BD8;
-    sub_10010A984(v25);
-  }
-}
-
-void sub_1001B854C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, void *a61, uint64_t a62, int a63)
-{
-  if (a21 < 0)
-  {
-    operator delete(__p);
-    if ((a14 & 0x80000000) == 0)
-    {
-LABEL_3:
-      if ((a34 & 0x80000000) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_11;
-    }
-  }
-
-  else if ((a14 & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(a9);
-  if ((a34 & 0x80000000) == 0)
-  {
-LABEL_4:
-    if ((a27 & 0x80000000) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_12;
-  }
-
-LABEL_11:
-  operator delete(a29);
-  if ((a27 & 0x80000000) == 0)
-  {
-LABEL_5:
-    if ((a47 & 0x80000000) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_12:
-  operator delete(a22);
-  if ((a47 & 0x80000000) == 0)
-  {
-LABEL_6:
-    if ((a40 & 0x80000000) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_14;
-  }
-
-LABEL_13:
-  operator delete(a42);
-  if ((a40 & 0x80000000) == 0)
-  {
-LABEL_7:
-    sub_10019FF4C((v78 - 152));
-    v80 = a52;
-    if (!a52)
-    {
-LABEL_16:
-      std::runtime_error::~runtime_error((v78 - 168));
-      if (*(v78 - 169) < 0)
-      {
-        operator delete(*(v78 - 192));
-        if ((a60 & 0x80000000) == 0)
-        {
-LABEL_18:
-          if ((*(v78 - 201) & 0x80000000) == 0)
-          {
-            goto LABEL_19;
-          }
-
-          goto LABEL_28;
-        }
-      }
-
-      else if ((a60 & 0x80000000) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      operator delete(a55);
-      if ((*(v78 - 201) & 0x80000000) == 0)
-      {
-LABEL_19:
-        if ((a66 & 0x80000000) == 0)
-        {
-          goto LABEL_20;
-        }
-
-        goto LABEL_29;
-      }
-
-LABEL_28:
-      operator delete(*(v78 - 224));
-      if ((a66 & 0x80000000) == 0)
-      {
-LABEL_20:
-        if ((*(v78 - 233) & 0x80000000) == 0)
-        {
-          goto LABEL_21;
-        }
-
-        goto LABEL_30;
-      }
-
-LABEL_29:
-      operator delete(a61);
-      if ((*(v78 - 233) & 0x80000000) == 0)
-      {
-LABEL_21:
-        if ((a72 & 0x80000000) == 0)
-        {
-          goto LABEL_22;
-        }
-
-        goto LABEL_31;
-      }
-
-LABEL_30:
-      operator delete(*(v78 - 256));
-      if ((a72 & 0x80000000) == 0)
-      {
-LABEL_22:
-        if ((a76 & 0x80000000) == 0)
-        {
-          goto LABEL_23;
-        }
-
-        goto LABEL_32;
-      }
-
-LABEL_31:
-      operator delete(a67);
-      if ((a76 & 0x80000000) == 0)
-      {
-LABEL_23:
-        if (a74 < 0)
-        {
-          goto LABEL_24;
-        }
-
-        goto LABEL_33;
-      }
-
-LABEL_32:
-      operator delete(a75);
-      if (a74 < 0)
-      {
-LABEL_24:
-        operator delete(a73);
-        if ((v77 & 1) == 0)
-        {
-LABEL_35:
-          if (*(v78 - 65) < 0)
-          {
-            operator delete(*(v78 - 88));
-          }
-
-          _Unwind_Resume(a1);
-        }
-
-LABEL_34:
-        __cxa_free_exception(v76);
-        goto LABEL_35;
-      }
-
-LABEL_33:
-      if (!v77)
-      {
-        goto LABEL_35;
-      }
-
-      goto LABEL_34;
-    }
-
-LABEL_15:
-    operator delete(v80);
-    goto LABEL_16;
-  }
-
-LABEL_14:
-  operator delete(a35);
-  sub_10019FF4C((v78 - 152));
-  v80 = a52;
-  if (!a52)
-  {
-    goto LABEL_16;
-  }
-
-  goto LABEL_15;
-}
-
-void sub_1001B8810(sqlite3_stmt **a1, int a2, unint64_t a3)
-{
-  v6 = sqlite3_bind_int64(*a1, a2, a3);
-  sub_100001838(v6, a1[1]);
-  if (v6)
-  {
-    v7 = __error();
-    sub_10023B1C8(*v7, &v36);
-    __cxa_allocate_exception(0x40uLL);
-    std::to_string(&v29, a3);
-    v8 = std::string::insert(&v29, 0, "Failed to bind ");
-    v9 = *&v8->__r_.__value_.__l.__data_;
-    v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
-    *&v30.__r_.__value_.__l.__data_ = v9;
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    v10 = std::string::append(&v30, " to ");
-    v11 = *&v10->__r_.__value_.__l.__data_;
-    v31.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-    *&v31.__r_.__value_.__l.__data_ = v11;
-    v10->__r_.__value_.__l.__size_ = 0;
-    v10->__r_.__value_.__r.__words[2] = 0;
-    v10->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v28, a2);
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v12 = &v28;
-    }
-
-    else
-    {
-      v12 = v28.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v28.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      size = HIBYTE(v28.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      size = v28.__r_.__value_.__l.__size_;
-    }
-
-    v14 = std::string::append(&v31, v12, size);
-    v15 = *&v14->__r_.__value_.__l.__data_;
-    v32.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
-    *&v32.__r_.__value_.__l.__data_ = v15;
-    v14->__r_.__value_.__l.__size_ = 0;
-    v14->__r_.__value_.__r.__words[2] = 0;
-    v14->__r_.__value_.__r.__words[0] = 0;
-    sub_1000474A4(v26, " w/ ");
-    if ((v27 & 0x80u) == 0)
-    {
-      v16 = v26;
-    }
-
-    else
-    {
-      v16 = v26[0];
-    }
-
-    if ((v27 & 0x80u) == 0)
-    {
-      v17 = v27;
-    }
-
-    else
-    {
-      v17 = v26[1];
-    }
-
-    v18 = std::string::append(&v32, v16, v17);
-    v19 = *&v18->__r_.__value_.__l.__data_;
-    v33.__r_.__value_.__r.__words[2] = v18->__r_.__value_.__r.__words[2];
-    *&v33.__r_.__value_.__l.__data_ = v19;
-    v18->__r_.__value_.__l.__size_ = 0;
-    v18->__r_.__value_.__r.__words[2] = 0;
-    v18->__r_.__value_.__r.__words[0] = 0;
-    if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
-    {
-      sub_100003228(&v25, v36.__r_.__value_.__l.__data_, v36.__r_.__value_.__l.__size_);
-    }
-
-    else
-    {
-      v25 = v36;
-    }
-
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v20 = &v25;
-    }
-
-    else
-    {
-      v20 = v25.__r_.__value_.__r.__words[0];
-    }
-
-    if ((v25.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v21 = HIBYTE(v25.__r_.__value_.__r.__words[2]);
-    }
-
-    else
-    {
-      v21 = v25.__r_.__value_.__l.__size_;
-    }
-
-    v22 = std::string::append(&v33, v20, v21);
-    v23 = *&v22->__r_.__value_.__l.__data_;
-    v34.__r_.__value_.__r.__words[2] = v22->__r_.__value_.__r.__words[2];
-    *&v34.__r_.__value_.__l.__data_ = v23;
-    v22->__r_.__value_.__l.__size_ = 0;
-    v22->__r_.__value_.__r.__words[2] = 0;
-    v22->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(&v35, &v34);
-    v35.__vftable = &off_100440BD8;
-    sub_10010A984(v24);
-  }
-}
-
-void sub_1001B8BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60, void *a61, uint64_t a62, int a63)
-{
-  if (a21 < 0)
-  {
-    operator delete(__p);
-    if ((a14 & 0x80000000) == 0)
-    {
-LABEL_3:
-      if ((a34 & 0x80000000) == 0)
-      {
-        goto LABEL_4;
-      }
-
-      goto LABEL_11;
-    }
-  }
-
-  else if ((a14 & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(a9);
-  if ((a34 & 0x80000000) == 0)
-  {
-LABEL_4:
-    if ((a27 & 0x80000000) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_12;
-  }
-
-LABEL_11:
-  operator delete(a29);
-  if ((a27 & 0x80000000) == 0)
-  {
-LABEL_5:
-    if ((a47 & 0x80000000) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_13;
-  }
-
-LABEL_12:
-  operator delete(a22);
-  if ((a47 & 0x80000000) == 0)
-  {
-LABEL_6:
-    if ((a40 & 0x80000000) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_14;
-  }
-
-LABEL_13:
-  operator delete(a42);
-  if ((a40 & 0x80000000) == 0)
-  {
-LABEL_7:
-    sub_10019FF4C((v80 - 152));
-    v82 = a52;
-    if (!a52)
-    {
-LABEL_16:
-      std::runtime_error::~runtime_error((v80 - 168));
-      if (*(v80 - 169) < 0)
-      {
-        operator delete(*(v80 - 192));
-        if ((a60 & 0x80000000) == 0)
-        {
-LABEL_18:
-          if ((*(v80 - 201) & 0x80000000) == 0)
-          {
-            goto LABEL_19;
-          }
-
-          goto LABEL_29;
-        }
-      }
-
-      else if ((a60 & 0x80000000) == 0)
-      {
-        goto LABEL_18;
-      }
-
-      operator delete(a55);
-      if ((*(v80 - 201) & 0x80000000) == 0)
-      {
-LABEL_19:
-        if ((a66 & 0x80000000) == 0)
-        {
-          goto LABEL_20;
-        }
-
-        goto LABEL_30;
-      }
-
-LABEL_29:
-      operator delete(*(v80 - 224));
-      if ((a66 & 0x80000000) == 0)
-      {
-LABEL_20:
-        if ((*(v80 - 233) & 0x80000000) == 0)
-        {
-          goto LABEL_21;
-        }
-
-        goto LABEL_31;
-      }
-
-LABEL_30:
-      operator delete(a61);
-      if ((*(v80 - 233) & 0x80000000) == 0)
-      {
-LABEL_21:
-        if ((a72 & 0x80000000) == 0)
-        {
-          goto LABEL_22;
-        }
-
-        goto LABEL_32;
-      }
-
-LABEL_31:
-      operator delete(*(v80 - 256));
-      if ((a72 & 0x80000000) == 0)
-      {
-LABEL_22:
-        if ((a78 & 0x80000000) == 0)
-        {
-          goto LABEL_23;
-        }
-
-        goto LABEL_33;
-      }
-
-LABEL_32:
-      operator delete(a67);
-      if ((a78 & 0x80000000) == 0)
-      {
-LABEL_23:
-        if ((a76 & 0x80000000) == 0)
-        {
-          goto LABEL_24;
-        }
-
-        goto LABEL_34;
-      }
-
-LABEL_33:
-      operator delete(a77);
-      if ((a76 & 0x80000000) == 0)
-      {
-LABEL_24:
-        if (a74 < 0)
-        {
-          goto LABEL_25;
-        }
-
-        goto LABEL_35;
-      }
-
-LABEL_34:
-      operator delete(a75);
-      if (a74 < 0)
-      {
-LABEL_25:
-        operator delete(a73);
-        if ((v79 & 1) == 0)
-        {
-LABEL_37:
-          if (*(v80 - 65) < 0)
-          {
-            operator delete(*(v80 - 88));
-          }
-
-          _Unwind_Resume(a1);
-        }
-
-LABEL_36:
-        __cxa_free_exception(v78);
-        goto LABEL_37;
-      }
-
-LABEL_35:
-      if (!v79)
-      {
-        goto LABEL_37;
-      }
-
-      goto LABEL_36;
-    }
-
-LABEL_15:
-    operator delete(v82);
-    goto LABEL_16;
-  }
-
-LABEL_14:
-  operator delete(a35);
-  sub_10019FF4C((v80 - 152));
-  v82 = a52;
-  if (!a52)
-  {
-    goto LABEL_16;
-  }
-
-  goto LABEL_15;
 }

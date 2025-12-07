@@ -98,14 +98,13 @@
   v9 = NSStringFromBLSBacklightDisplayMode(self->_lastSteadyStateDisplayMode);
   [v3 appendString:v9 withName:@"lastSteadyStateDisplayMode"];
 
-  caDisplayState = self->_caDisplayState;
-  v11 = NSStringFromCADisplayState();
-  v12 = [v3 appendObject:v11 withName:@"caDisplayState"];
+  v10 = NSStringFromCADisplayState();
+  v11 = [v3 appendObject:v10 withName:@"caDisplayState"];
 
-  v13 = NSStringFromCBDisplayMode_bls(self->_cbDisplayMode);
-  v14 = [v3 appendObject:v13 withName:@"cbDisplayMode"];
+  v12 = NSStringFromCBDisplayMode_bls(self->_cbDisplayMode);
+  v13 = [v3 appendObject:v12 withName:@"cbDisplayMode"];
 
-  v15 = [v3 appendBool:self->_showingBlankingWindow withName:@"showingBlankingWindow"];
+  v14 = [v3 appendBool:self->_showingBlankingWindow withName:@"showingBlankingWindow"];
   build = [v3 build];
 
   return build;

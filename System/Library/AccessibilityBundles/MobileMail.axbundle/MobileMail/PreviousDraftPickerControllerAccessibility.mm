@@ -1,0 +1,15 @@
+@interface PreviousDraftPickerControllerAccessibility
+- (void)viewDidAppear:(BOOL)appear;
+@end
+
+@implementation PreviousDraftPickerControllerAccessibility
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = PreviousDraftPickerControllerAccessibility;
+  [(PreviousDraftPickerControllerAccessibility *)&v3 viewDidAppear:appear];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7F10], 0);
+}
+
+@end

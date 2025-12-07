@@ -711,10 +711,11 @@ void __63__MFDatePickerViewController_setUpDataSourceForCollectionView___block_i
 
 - (void)_reloadDataSourceAnimated:(void *)animated update:
 {
+  v3 = a2;
   animatedCopy = animated;
   if (self)
   {
-    [(MFDatePickerViewController *)self _reloadDataSourceAnimated:a2 update:animatedCopy completion:0];
+    [(MFDatePickerViewController *)self _reloadDataSourceAnimated:v3 update:animatedCopy completion:0];
   }
 }
 
@@ -1299,35 +1300,35 @@ void __73__MFDatePickerViewController_timeZonePickerViewController_didSelectCity
     isInvalid = [v12 isInvalid];
     if (isInvalid)
     {
-      v30 = _EFLocalizedString();
-      v29 = _EFLocalizedString();
+      v32 = _EFLocalizedString();
+      v31 = _EFLocalizedString();
       v13 = MEMORY[0x1E69DC650];
       v14 = MEMORY[0x1E696AEC0];
       selectedCity = [v12 selectedCity];
       displayName = [selectedCity displayName];
-      v17 = [v14 localizedStringWithFormat:v29, displayName];
-      v18 = [v13 alertControllerWithTitle:v30 message:v17 preferredStyle:0];
+      v17 = [v14 localizedStringWithFormat:v31, displayName];
+      v18 = [v13 alertControllerWithTitle:v32 message:v17 preferredStyle:0];
 
       v19 = _EFLocalizedString();
       v20 = MEMORY[0x1E69DC648];
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __106__MFDatePickerViewController__presentInvalidDateAlertIfNecessaryFromSender_withContinueBlock_cancelBlock___block_invoke;
-      v33[3] = &unk_1E806E0B8;
-      v33[4] = self;
-      v34 = blockCopy;
-      v27 = v19;
-      v28 = [v20 actionWithTitle:v19 style:0 handler:v33];
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __106__MFDatePickerViewController__presentInvalidDateAlertIfNecessaryFromSender_withContinueBlock_cancelBlock___block_invoke;
+      v35[3] = &unk_1E806E0B8;
+      v35[4] = self;
+      v36 = blockCopy;
+      v29 = v19;
+      v30 = [v20 actionWithTitle:v19 style:0 handler:v35];
       v21 = _EFLocalizedString();
       v22 = MEMORY[0x1E69DC648];
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __106__MFDatePickerViewController__presentInvalidDateAlertIfNecessaryFromSender_withContinueBlock_cancelBlock___block_invoke_97;
-      v31[3] = &unk_1E806E0B8;
-      v31[4] = self;
-      v32 = cancelBlockCopy;
-      v23 = [v22 actionWithTitle:v21 style:1 handler:v31];
-      [v18 addAction:v28];
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __106__MFDatePickerViewController__presentInvalidDateAlertIfNecessaryFromSender_withContinueBlock_cancelBlock___block_invoke_97;
+      v33[3] = &unk_1E806E0B8;
+      v33[4] = self;
+      v34 = cancelBlockCopy;
+      v23 = [v22 actionWithTitle:v21 style:1 handler:v33];
+      [v18 addAction:v30];
       [v18 addAction:v23];
       v24 = +[MFDatePickerViewController log];
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
@@ -1335,7 +1336,7 @@ void __73__MFDatePickerViewController_timeZonePickerViewController_didSelectCity
         [MFDatePickerViewController _presentInvalidDateAlertIfNecessaryFromSender:v24 withContinueBlock:? cancelBlock:?];
       }
 
-      if (MFSolariumFeatureEnabled() && [senderCopy conformsToProtocol:&unk_1F3D1AE88])
+      if (MFSolariumFeatureEnabled(v25, v26) && [senderCopy conformsToProtocol:&unk_1F3D1AE88])
       {
         popoverPresentationController = [v18 popoverPresentationController];
         [popoverPresentationController setSourceItem:senderCopy];

@@ -239,23 +239,22 @@ id __64__MessageContentRepresentationRequest_updateItemID_messageList___block_in
 
 - (void)cancel
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = +[MessageContentRepresentationRequest log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     itemID = [(MessageContentRepresentationRequest *)self itemID];
-    v7 = 138412802;
-    v8 = v4;
-    v9 = 2048;
+    v6 = 138412802;
+    v7 = v4;
+    v8 = 2048;
     selfCopy = self;
-    v11 = 2114;
-    v12 = itemID;
-    _os_log_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEFAULT, "<%@: %p> Content request for message %{public}@ being cancelled.", &v7, 0x20u);
+    v10 = 2114;
+    v11 = itemID;
+    _os_log_impl(&dword_2149C9000, v3, OS_LOG_TYPE_DEFAULT, "<%@: %p> Content request for message %{public}@ being cancelled.", &v6, 0x20u);
   }
 
   [(EFManualCancelationToken *)self->_cancelationToken cancel];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (EMMessage)message
@@ -280,7 +279,7 @@ id __64__MessageContentRepresentationRequest_updateItemID_messageList___block_in
 
 - (void)_issueMessageContentRepresentationRequest
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   if (self)
   {
     atomic_store(0, (self + 48));
@@ -306,7 +305,7 @@ id __64__MessageContentRepresentationRequest_updateItemID_messageList___block_in
         {
           itemID = [self itemID];
           *buf = 138543362;
-          v42 = itemID;
+          v41 = itemID;
           _os_signpost_emit_with_name_impl(&dword_2149C9000, v7, OS_SIGNPOST_EVENT, signpostID, "MessageContentRepresentationRequest", "itemID=%{signpost.description:attribute,public}@", buf, 0xCu);
         }
 
@@ -316,7 +315,7 @@ id __64__MessageContentRepresentationRequest_updateItemID_messageList___block_in
         {
           itemID2 = [self itemID];
           *buf = 138543362;
-          v42 = itemID2;
+          v41 = itemID2;
           _os_signpost_emit_with_name_impl(&dword_2149C9000, v10, OS_SIGNPOST_INTERVAL_BEGIN, signpostID2, "MessageContentRepresentationRequest", "itemID=%{signpost.description:attribute,public}@", buf, 0xCu);
         }
 
@@ -326,7 +325,7 @@ id __64__MessageContentRepresentationRequest_updateItemID_messageList___block_in
         {
           itemID3 = [self itemID];
           *buf = 138543362;
-          v42 = itemID3;
+          v41 = itemID3;
           _os_signpost_emit_with_name_impl(&dword_2149C9000, v13, OS_SIGNPOST_INTERVAL_BEGIN, signpostID3, "MessageContentRepresentationRequestFailed", "itemID=%{signpost.description:attribute,public}@", buf, 0xCu);
         }
 
@@ -339,14 +338,14 @@ id __64__MessageContentRepresentationRequest_updateItemID_messageList___block_in
           v19 = +[MessageContentRepresentationRequest log];
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v27 = objc_opt_class();
+            v26 = objc_opt_class();
             itemID4 = [self itemID];
             *buf = 138412802;
-            v42 = v27;
-            v43 = 2048;
+            v41 = v26;
+            v42 = 2048;
             selfCopy3 = self;
-            v45 = 2114;
-            v46 = itemID4;
+            v44 = 2114;
+            v45 = itemID4;
             _os_log_error_impl(&dword_2149C9000, v19, OS_LOG_TYPE_ERROR, "<%@: %p> Issuing content request for message with unavailable message future %{public}@", buf, 0x20u);
           }
         }
@@ -359,11 +358,11 @@ id __64__MessageContentRepresentationRequest_updateItemID_messageList___block_in
             v20 = objc_opt_class();
             itemID5 = [self itemID];
             *buf = 138412802;
-            v42 = v20;
-            v43 = 2048;
+            v41 = v20;
+            v42 = 2048;
             selfCopy3 = self;
-            v45 = 2114;
-            v46 = itemID5;
+            v44 = 2114;
+            v45 = itemID5;
             _os_log_impl(&dword_2149C9000, v19, OS_LOG_TYPE_DEFAULT, "<%@: %p> Issuing content request for message %{public}@", buf, 0x20u);
           }
         }
@@ -371,36 +370,36 @@ id __64__MessageContentRepresentationRequest_updateItemID_messageList___block_in
         v22 = +[MessageContentRepresentationRequest defaultScheduler];
         itemID6 = [self itemID];
         objc_initWeak(buf, self);
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke;
-        v38[3] = &unk_278181808;
-        objc_copyWeak(&v40, buf);
+        v37[0] = MEMORY[0x277D85DD0];
+        v37[1] = 3221225472;
+        v37[2] = __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke;
+        v37[3] = &unk_278181808;
+        objc_copyWeak(&v39, buf);
         v24 = itemID6;
-        v39 = v24;
-        v25 = [messageFuture onScheduler:v22 then:v38];
-        v36[0] = MEMORY[0x277D85DD0];
-        v36[1] = 3221225472;
-        v36[2] = __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke_3;
-        v36[3] = &unk_278181830;
-        objc_copyWeak(&v37, buf);
-        [v25 addSuccessBlock:v36];
+        v38 = v24;
+        v25 = [messageFuture onScheduler:v22 then:v37];
+        v35[0] = MEMORY[0x277D85DD0];
+        v35[1] = 3221225472;
+        v35[2] = __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke_3;
+        v35[3] = &unk_278181830;
+        objc_copyWeak(&v36, buf);
+        [v25 addSuccessBlock:v35];
         objc_initWeak(&location, promise);
-        v29 = MEMORY[0x277D85DD0];
-        v30 = 3221225472;
-        v31 = __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke_95;
-        v32 = &unk_278181858;
-        objc_copyWeak(&v33, buf);
-        objc_copyWeak(&v34, &location);
-        [v25 addFailureBlock:&v29];
-        [promise finishWithFuture:v25, v29, v30, v31, v32];
+        v28 = MEMORY[0x277D85DD0];
+        v29 = 3221225472;
+        v30 = __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke_95;
+        v31 = &unk_278181858;
+        objc_copyWeak(&v32, buf);
+        objc_copyWeak(&v33, &location);
+        [v25 addFailureBlock:&v28];
+        [promise finishWithFuture:v25, v28, v29, v30, v31];
         [*(self + 16) addCancelable:promise];
-        objc_destroyWeak(&v34);
         objc_destroyWeak(&v33);
+        objc_destroyWeak(&v32);
         objc_destroyWeak(&location);
-        objc_destroyWeak(&v37);
+        objc_destroyWeak(&v36);
 
-        objc_destroyWeak(&v40);
+        objc_destroyWeak(&v39);
         objc_destroyWeak(buf);
 
         goto LABEL_22;
@@ -413,18 +412,16 @@ id __64__MessageContentRepresentationRequest_updateItemID_messageList___block_in
       v3 = objc_opt_class();
       itemID7 = [self itemID];
       *buf = 138412802;
-      v42 = v3;
-      v43 = 2048;
+      v41 = v3;
+      v42 = 2048;
       selfCopy3 = self;
-      v45 = 2114;
-      v46 = itemID7;
+      v44 = 2114;
+      v45 = itemID7;
       _os_log_impl(&dword_2149C9000, promise, OS_LOG_TYPE_DEFAULT, "<%@: %p> Content request for message %{public}@ already issued", buf, 0x20u);
     }
 
 LABEL_22:
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 id __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke(uint64_t a1, void *a2)
@@ -467,15 +464,15 @@ id __80__MessageContentRepresentationRequest__issueMessageContentRepresentationR
 
 void __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke_2(uint64_t a1, void *a2)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   [v3 setRequestedRepresentation:*(*(a1 + 32) + 72)];
   [v3 setNetworkUsage:1];
   [v3 setIncludeSuggestionItems:*(*(a1 + 32) + 64)];
   v4 = *MEMORY[0x277D06F98];
-  v10[0] = *MEMORY[0x277D06FA8];
-  v10[1] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[0] = *MEMORY[0x277D06FA8];
+  v9[1] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   [v3 setRequestedHeaderKeys:v5];
 
   [v3 setIncludeCachedMetadataJSON:1];
@@ -497,13 +494,11 @@ void __80__MessageContentRepresentationRequest__issueMessageContentRepresentatio
   }
 
   [v3 setCacheBehavior:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke_3(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
@@ -512,8 +507,8 @@ void __80__MessageContentRepresentationRequest__issueMessageContentRepresentatio
     v6 = [WeakRetained signpostID];
     if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
     {
-      LOWORD(v15) = 0;
-      _os_signpost_emit_with_name_impl(&dword_2149C9000, v5, OS_SIGNPOST_INTERVAL_END, v6, "MessageContentRepresentationRequest", " enableTelemetry=YES ", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_signpost_emit_with_name_impl(&dword_2149C9000, v5, OS_SIGNPOST_INTERVAL_END, v6, "MessageContentRepresentationRequest", " enableTelemetry=YES ", &v14, 2u);
     }
 
     v7 = +[MessageContentRepresentationRequest log];
@@ -521,13 +516,13 @@ void __80__MessageContentRepresentationRequest__issueMessageContentRepresentatio
     {
       v8 = objc_opt_class();
       v9 = [WeakRetained itemID];
-      v15 = 138412802;
-      v16 = v8;
-      v17 = 2048;
-      v18 = WeakRetained;
-      v19 = 2114;
-      v20 = v9;
-      _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "<%@: %p> Content request for message %{public}@ loaded successfully", &v15, 0x20u);
+      v14 = 138412802;
+      v15 = v8;
+      v16 = 2048;
+      v17 = WeakRetained;
+      v18 = 2114;
+      v19 = v9;
+      _os_log_impl(&dword_2149C9000, v7, OS_LOG_TYPE_DEFAULT, "<%@: %p> Content request for message %{public}@ loaded successfully", &v14, 0x20u);
     }
 
     v10 = WeakRetained[3];
@@ -536,13 +531,11 @@ void __80__MessageContentRepresentationRequest__issueMessageContentRepresentatio
     v13 = [v11 pairWithFirst:v3 second:v12];
     [v10 observerDidReceiveResult:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __80__MessageContentRepresentationRequest__issueMessageContentRepresentationRequest__block_invoke_95(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_loadWeakRetained((a1 + 40));
@@ -552,64 +545,63 @@ void __80__MessageContentRepresentationRequest__issueMessageContentRepresentatio
     goto LABEL_2;
   }
 
-  v8 = [v5 future];
-  [(MessageContentRepresentationRequest *)WeakRetained _resetFuture:v8];
+  v7 = [v5 future];
+  [(MessageContentRepresentationRequest *)WeakRetained _resetFuture:v7];
 
-  v9 = +[MessageContentRepresentationRequest signpostLog];
-  v10 = [WeakRetained signpostID];
-  if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v8 = +[MessageContentRepresentationRequest signpostLog];
+  v9 = [WeakRetained signpostID];
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
-    LOWORD(v21) = 0;
-    _os_signpost_emit_with_name_impl(&dword_2149C9000, v9, OS_SIGNPOST_INTERVAL_END, v10, "MessageContentRepresentationRequestFailed", " enableTelemetry=YES ", &v21, 2u);
+    LOWORD(v20) = 0;
+    _os_signpost_emit_with_name_impl(&dword_2149C9000, v8, OS_SIGNPOST_INTERVAL_END, v9, "MessageContentRepresentationRequestFailed", " enableTelemetry=YES ", &v20, 2u);
   }
 
-  v11 = [v3 userInfo];
-  v12 = [v11 objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
-  if (v12)
+  v10 = [v3 userInfo];
+  v11 = [v10 objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
+  if (v11)
   {
     goto LABEL_10;
   }
 
   if (v3)
   {
-    v12 = v3;
+    v11 = v3;
 LABEL_10:
     atomic_store(1u, WeakRetained + 48);
     goto LABEL_11;
   }
 
-  v12 = [MEMORY[0x277CCA9B8] em_internalErrorWithReason:@"MessageContentRepresentationRequest failed without reason"];
-  if (v12)
+  v11 = [MEMORY[0x277CCA9B8] em_internalErrorWithReason:@"MessageContentRepresentationRequest failed without reason"];
+  if (v11)
   {
     goto LABEL_10;
   }
 
 LABEL_11:
-  v13 = +[MessageContentRepresentationRequest log];
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v12 = +[MessageContentRepresentationRequest log];
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = objc_opt_class();
-    v15 = [WeakRetained itemID];
-    v16 = [v12 ef_publicDescription];
-    v21 = 138413058;
-    v22 = v14;
-    v23 = 2048;
-    v24 = WeakRetained;
-    v25 = 2114;
-    v26 = v15;
-    v27 = 2114;
-    v28 = v16;
-    _os_log_impl(&dword_2149C9000, v13, OS_LOG_TYPE_DEFAULT, "<%@: %p> Content request for message %{public}@ failed to load with error: %{public}@", &v21, 0x2Au);
+    v13 = objc_opt_class();
+    v14 = [WeakRetained itemID];
+    v15 = [v11 ef_publicDescription];
+    v20 = 138413058;
+    v21 = v13;
+    v22 = 2048;
+    v23 = WeakRetained;
+    v24 = 2114;
+    v25 = v14;
+    v26 = 2114;
+    v27 = v15;
+    _os_log_impl(&dword_2149C9000, v12, OS_LOG_TYPE_DEFAULT, "<%@: %p> Content request for message %{public}@ failed to load with error: %{public}@", &v20, 0x2Au);
   }
 
-  v17 = *(WeakRetained + 3);
-  v18 = MEMORY[0x277D07190];
-  v19 = [MEMORY[0x277CBEB68] null];
-  v20 = [v18 pairWithFirst:v19 second:v12];
-  [v17 observerDidReceiveResult:v20];
+  v16 = *(WeakRetained + 3);
+  v17 = MEMORY[0x277D07190];
+  v18 = [MEMORY[0x277CBEB68] null];
+  v19 = [v17 pairWithFirst:v18 second:v11];
+  [v16 observerDidReceiveResult:v19];
 
 LABEL_2:
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (EFFuture)contentRepresentationFuture
@@ -623,20 +615,19 @@ LABEL_2:
 
 - (void)retry
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   ++self->_retryAttempt;
   v3 = +[MessageContentRepresentationRequest signpostLog];
   signpostID = [(MessageContentRepresentationRequest *)self signpostID];
   if (signpostID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
   {
     retryAttempt_low = LOBYTE(self->_retryAttempt);
-    v7[0] = 67240192;
-    v7[1] = retryAttempt_low;
-    _os_signpost_emit_with_name_impl(&dword_2149C9000, v3, OS_SIGNPOST_EVENT, signpostID, "MessageContentRepresentationRequest", "retry-attempt=%{signpost.description:attribute,public}hhu", v7, 8u);
+    v6[0] = 67240192;
+    v6[1] = retryAttempt_low;
+    _os_signpost_emit_with_name_impl(&dword_2149C9000, v3, OS_SIGNPOST_EVENT, signpostID, "MessageContentRepresentationRequest", "retry-attempt=%{signpost.description:attribute,public}hhu", v6, 8u);
   }
 
   [(MessageContentRepresentationRequest *)self start];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)resultIfAvailable

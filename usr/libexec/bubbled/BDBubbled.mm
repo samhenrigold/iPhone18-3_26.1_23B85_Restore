@@ -1,14 +1,21 @@
 @interface BDBubbled
 + (id)sharedXPCInterface;
 - (id)keybagdProxy;
+- (void)addUserSwitchBlockingTask:(id)task forPID:(int)d completionHandler:(id)handler;
+- (void)addUserSyncTask:(id)task forPID:(int)d completionHandler:(id)handler;
 - (void)beginNextClient;
 - (void)bubbleIsOkayToPop;
 - (void)bubbleShouldPop;
 - (void)fetchMachServiceNames;
 - (void)kickstartCurrentClient;
+- (void)powerLog:(BOOL)log;
 - (void)removeCurrentClient;
 - (void)removeCurrentClientAndMachServiceName;
+- (void)removeUserSwitchBlockingTask:(id)task forPID:(int)d completionHandler:(id)handler;
+- (void)removeUserSyncTask:(id)task forPID:(int)d completionHandler:(id)handler;
 - (void)start;
+- (void)unregisterStakeholderForPID:(int)d status:(unint64_t)status reason:(id)reason completionHandler:(id)handler;
+- (void)verifyCurrentClientHasPID:(int)d thenCallBlock:(id)block;
 @end
 
 @implementation BDBubbled
@@ -31,6 +38,44 @@
   v3 = [keybagdConnection remoteObjectProxyWithErrorHandler:&stru_10000C538];
 
   return v3;
+}
+
+- (void)powerLog:(BOOL)log
+{
+  logCopy = log;
+  if (qword_100011A00 || (v6 = dlopen("/System/Library/PrivateFrameworks/PowerLog.framework/PowerLog", 2), (qword_100011A00 = v6) == 0))
+  {
+    v4 = off_100011A08;
+    if (!off_100011A08)
+    {
+      return;
+    }
+  }
+
+  else
+  {
+    v4 = dlsym(v6, "PLLogRegisteredEvent");
+    off_100011A08 = v4;
+    if (!v4)
+    {
+      return;
+    }
+  }
+
+  v7 = @"status";
+  v5 = [NSNumber numberWithBool:logCopy];
+  v8 = v5;
+  (v4)(58, @"SYNCBUBBLE STATUS", [NSDictionary dictionaryWithObjects:&v8 forKeys:&v7 count:1], 0);
+
+  if (logCopy)
+  {
+    NSLog(@"Bubbled POWERLOG: YES");
+  }
+
+  else
+  {
+    NSLog(@"Bubbled POWERLOG: NO");
+  }
 }
 
 - (void)start
@@ -240,6 +285,147 @@
   {
 
     [(BDBubbled *)self bubbleIsOkayToPop];
+  }
+}
+
+- (void)verifyCurrentClientHasPID:(int)d thenCallBlock:(id)block
+{
+  v4 = *&d;
+  blockCopy = block;
+  currentClient = [(BDBubbled *)self currentClient];
+  v7 = [currentClient pid];
+
+  if (v7 == v4)
+  {
+    blockCopy[2]();
+  }
+
+  else
+  {
+    currentClient2 = [(BDBubbled *)self currentClient];
+    NSLog(@"BD: Our current client (pid %d) is not pid %d", [currentClient2 pid], v4);
+  }
+}
+
+- (void)addUserSwitchBlockingTask:(id)task forPID:(int)d completionHandler:(id)handler
+{
+  v6 = *&d;
+  taskCopy = task;
+  handlerCopy = handler;
+  NSLog(@"BD: ADD USER SWITCH TASK: %@", taskCopy);
+  objc_initWeak(&location, self);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100004EEC;
+  v11[3] = &unk_10000C5F8;
+  objc_copyWeak(&v13, &location);
+  v10 = taskCopy;
+  v12 = v10;
+  [(BDBubbled *)self verifyCurrentClientHasPID:v6 thenCallBlock:v11];
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, 0);
+  }
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
+}
+
+- (void)removeUserSwitchBlockingTask:(id)task forPID:(int)d completionHandler:(id)handler
+{
+  v6 = *&d;
+  taskCopy = task;
+  handlerCopy = handler;
+  NSLog(@"BD: REMOVE USER SWITCH TASK: %@", taskCopy);
+  objc_initWeak(&location, self);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10000507C;
+  v11[3] = &unk_10000C5F8;
+  objc_copyWeak(&v13, &location);
+  v10 = taskCopy;
+  v12 = v10;
+  [(BDBubbled *)self verifyCurrentClientHasPID:v6 thenCallBlock:v11];
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, 0);
+  }
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
+}
+
+- (void)addUserSyncTask:(id)task forPID:(int)d completionHandler:(id)handler
+{
+  v6 = *&d;
+  taskCopy = task;
+  handlerCopy = handler;
+  NSLog(@"BD: ADD USER SYNC TASK: %@", taskCopy);
+  objc_initWeak(&location, self);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100005278;
+  v11[3] = &unk_10000C5F8;
+  objc_copyWeak(&v13, &location);
+  v10 = taskCopy;
+  v12 = v10;
+  [(BDBubbled *)self verifyCurrentClientHasPID:v6 thenCallBlock:v11];
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, 0);
+  }
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
+}
+
+- (void)removeUserSyncTask:(id)task forPID:(int)d completionHandler:(id)handler
+{
+  v6 = *&d;
+  taskCopy = task;
+  handlerCopy = handler;
+  NSLog(@"BD: REMOVE SYNC TASK: %@", taskCopy);
+  objc_initWeak(&location, self);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100005408;
+  v11[3] = &unk_10000C5F8;
+  objc_copyWeak(&v13, &location);
+  v10 = taskCopy;
+  v12 = v10;
+  [(BDBubbled *)self verifyCurrentClientHasPID:v6 thenCallBlock:v11];
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, 0);
+  }
+
+  objc_destroyWeak(&v13);
+  objc_destroyWeak(&location);
+}
+
+- (void)unregisterStakeholderForPID:(int)d status:(unint64_t)status reason:(id)reason completionHandler:(id)handler
+{
+  v8 = [(BDBubbled *)self currentClient:*&d];
+  if (v8)
+  {
+    v9 = v8;
+    if ((status & 0xFFFFFFFFFFFFFFFDLL) != 0)
+    {
+      if (status == 1)
+      {
+        [(BDBubbled *)self setPopStatus:1];
+      }
+
+      [(BDBubbled *)self removeCurrentClient];
+    }
+
+    else
+    {
+      [(BDBubbled *)self removeCurrentClientAndMachServiceName];
+    }
+
+    [v9 setStakeholderIsRegistered:0];
+    v8 = v9;
   }
 }
 

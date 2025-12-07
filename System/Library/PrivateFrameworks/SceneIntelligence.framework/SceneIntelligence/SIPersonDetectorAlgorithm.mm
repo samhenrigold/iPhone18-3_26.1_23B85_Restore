@@ -1,4 +1,5 @@
 @interface SIPersonDetectorAlgorithm
+- (SIPersonDetectorAlgorithm)initWithComputeEngine:(int64_t)engine andNetworkConfiguration:(int64_t)configuration useE5RT:(BOOL)t;
 - (SIPersonDetectorAlgorithm)initWithNetworkConfiguration:(id)configuration;
 - (int64_t)_preprocessingInputData:(id)data;
 - (int64_t)switchConfiguration:(unint64_t)configuration;
@@ -6,6 +7,18 @@
 @end
 
 @implementation SIPersonDetectorAlgorithm
+
+- (SIPersonDetectorAlgorithm)initWithComputeEngine:(int64_t)engine andNetworkConfiguration:(int64_t)configuration useE5RT:(BOOL)t
+{
+  tCopy = t;
+  v9 = objc_alloc_init(SIPersonDetectorNetworkConfiguration);
+  [(SINetworkConfiguration *)v9 setEngineType:engine];
+  [(SIPersonDetectorNetworkConfiguration *)v9 setNetworkModeEnum:configuration];
+  [(SINetworkConfiguration *)v9 setRunByE5RT:tCopy];
+  v10 = [(SIPersonDetectorAlgorithm *)self initWithNetworkConfiguration:v9];
+
+  return v10;
+}
 
 - (void)runWithInput:(__CVBuffer *)input output:(id)output
 {
@@ -61,32 +74,26 @@
 
 - (int64_t)_preprocessingInputData:(id)data
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = -[SIVideoToolboxScaler createScaledImage:](self->_scaler, "createScaledImage:", [data inputImageBuffer]);
   [(SIImageInputData *)self->_inputData setInputImageBuffer:v4];
   CVPixelBufferRelease(v4);
   if ([(SIImageInputData *)self->_inputData inputImageBuffer])
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v6 = __SceneIntelligenceLogSharedInstance(0);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v6 = __SceneIntelligenceLogSharedInstance();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v8 = 136380931;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetectorAlgorithm.m";
-      v10 = 1025;
-      v11 = 118;
-      _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to scale the input image or input depth ***", &v8, 0x12u);
-    }
-
-    result = 1;
+    v7 = 136380931;
+    v8 = "/Library/Caches/com.apple.xbs/Sources/SceneIntelligence/Source/Features/PersonDetector/SIPersonDetectorAlgorithm.m";
+    v9 = 1025;
+    v10 = 118;
+    _os_log_impl(&dword_21DE0D000, v6, OS_LOG_TYPE_ERROR, " %{private}s:%{private}d *** Failed to scale the input image or input depth ***", &v7, 0x12u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 @end

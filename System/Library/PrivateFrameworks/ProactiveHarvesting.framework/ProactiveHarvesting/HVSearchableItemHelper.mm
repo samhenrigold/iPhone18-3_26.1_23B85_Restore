@@ -165,7 +165,7 @@ LABEL_7:
 
 + (BOOL)mailItemIsTooBig:(id)big
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   bigCopy = big;
   attributeSet = [bigCopy attributeSet];
   hTMLContentDataNoCopy = [attributeSet HTMLContentDataNoCopy];
@@ -177,13 +177,12 @@ LABEL_7:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [bigCopy uniqueIdentifier];
-      v11 = 138543362;
-      v12 = uniqueIdentifier;
-      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ is too big", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = uniqueIdentifier;
+      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ is too big", &v10, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6 > 0xC8000;
 }
 
@@ -253,7 +252,7 @@ LABEL_7:
 
 + (BOOL)mailItemIsSPAM:(id)m emailHeaders:(id)headers mailboxIdentifiers:(id)identifiers
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   mCopy = m;
   headersCopy = headers;
   identifiersCopy = identifiers;
@@ -264,7 +263,7 @@ LABEL_7:
     {
       uniqueIdentifier = [mCopy uniqueIdentifier];
       *buf = 138543362;
-      v72 = uniqueIdentifier;
+      v71 = uniqueIdentifier;
       v12 = "Item %{public}@ spam - in junk mailbox";
 LABEL_45:
       _os_log_impl(&dword_2321EC000, v10, OS_LOG_TYPE_DEFAULT, v12, buf, 0xCu);
@@ -282,7 +281,7 @@ LABEL_45:
     {
       uniqueIdentifier = [mCopy uniqueIdentifier];
       *buf = 138543362;
-      v72 = uniqueIdentifier;
+      v71 = uniqueIdentifier;
       v12 = "invalid item %{public}@ - email headers are nil";
       goto LABEL_45;
     }
@@ -299,7 +298,7 @@ LABEL_46:
     {
       uniqueIdentifier = [mCopy uniqueIdentifier];
       *buf = 138543362;
-      v72 = uniqueIdentifier;
+      v71 = uniqueIdentifier;
       v12 = "invalid item %{public}@ - email headers are not a dictionary";
       goto LABEL_45;
     }
@@ -307,12 +306,12 @@ LABEL_46:
     goto LABEL_46;
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v10 = headersCopy;
-  v13 = [v10 countByEnumeratingWithState:&v67 objects:v76 count:16];
+  v13 = [v10 countByEnumeratingWithState:&v66 objects:v75 count:16];
   if (!v13)
   {
     v40 = 0;
@@ -320,20 +319,20 @@ LABEL_46:
   }
 
   v14 = v13;
-  v56 = identifiersCopy;
-  v57 = headersCopy;
-  v58 = mCopy;
-  v15 = *v68;
+  v55 = identifiersCopy;
+  v56 = headersCopy;
+  v57 = mCopy;
+  v15 = *v67;
 LABEL_8:
   v16 = 0;
   while (1)
   {
-    if (*v68 != v15)
+    if (*v67 != v15)
     {
       objc_enumerationMutation(v10);
     }
 
-    v17 = *(*(&v67 + 1) + 8 * v16);
+    v17 = *(*(&v66 + 1) + 8 * v16);
     v18 = objc_autoreleasePoolPush();
     lowercaseString = [v17 lowercaseString];
     if ([lowercaseString isEqualToString:@"x-spam-level"])
@@ -343,18 +342,18 @@ LABEL_8:
 
       if ([firstObject hasPrefix:@"*****"])
       {
-        v43 = hv_default_log_handle();
-        v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
-        mCopy = v58;
-        if (!v44)
+        v42 = hv_default_log_handle();
+        v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
+        mCopy = v57;
+        if (!v43)
         {
           goto LABEL_62;
         }
 
-        uniqueIdentifier2 = [v58 uniqueIdentifier];
+        uniqueIdentifier2 = [v57 uniqueIdentifier];
         *buf = 138543362;
-        v72 = uniqueIdentifier2;
-        v46 = "Item %{public}@ spam - spam assasin header";
+        v71 = uniqueIdentifier2;
+        v45 = "Item %{public}@ spam - spam assasin header";
         goto LABEL_61;
       }
 
@@ -368,18 +367,18 @@ LABEL_8:
 
       if ([firstObject integerValue] >= 4)
       {
-        v43 = hv_default_log_handle();
-        v49 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
-        mCopy = v58;
-        if (!v49)
+        v42 = hv_default_log_handle();
+        v48 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
+        mCopy = v57;
+        if (!v48)
         {
           goto LABEL_62;
         }
 
-        uniqueIdentifier2 = [v58 uniqueIdentifier];
+        uniqueIdentifier2 = [v57 uniqueIdentifier];
         *buf = 138543362;
-        v72 = uniqueIdentifier2;
-        v46 = "Item %{public}@ spam - exchange pcl header";
+        v71 = uniqueIdentifier2;
+        v45 = "Item %{public}@ spam - exchange pcl header";
         goto LABEL_61;
       }
 
@@ -393,21 +392,21 @@ LABEL_8:
 
       if ([firstObject integerValue] >= 5)
       {
-        v43 = hv_default_log_handle();
-        mCopy = v58;
-        if (!os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        v42 = hv_default_log_handle();
+        mCopy = v57;
+        if (!os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_62:
 
           goto LABEL_63;
         }
 
-        uniqueIdentifier2 = [v58 uniqueIdentifier];
+        uniqueIdentifier2 = [v57 uniqueIdentifier];
         *buf = 138543362;
-        v72 = uniqueIdentifier2;
-        v46 = "Item %{public}@ spam - exchange scl header";
+        v71 = uniqueIdentifier2;
+        v45 = "Item %{public}@ spam - exchange scl header";
 LABEL_61:
-        _os_log_impl(&dword_2321EC000, v43, OS_LOG_TYPE_DEFAULT, v46, buf, 0xCu);
+        _os_log_impl(&dword_2321EC000, v42, OS_LOG_TYPE_DEFAULT, v45, buf, 0xCu);
 
         goto LABEL_62;
       }
@@ -426,40 +425,40 @@ LABEL_19:
         firstObject2 = [v29 firstObject];
 
         v31 = context;
-        v65 = 0u;
-        v66 = 0u;
-        v63 = 0u;
         v64 = 0u;
-        v54 = firstObject2;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
+        v53 = firstObject2;
         obj = [firstObject2 componentsSeparatedByString:@" "];
-        v60 = [obj countByEnumeratingWithState:&v63 objects:v75 count:16];
-        if (v60)
+        v59 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
+        if (v59)
         {
-          v62 = *v64;
-          v53 = v15;
+          v61 = *v63;
+          v52 = v15;
           while (2)
           {
-            for (i = 0; i != v60; ++i)
+            for (i = 0; i != v59; ++i)
             {
-              if (*v64 != v62)
+              if (*v63 != v61)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v33 = *(*(&v63 + 1) + 8 * i);
+              v33 = *(*(&v62 + 1) + 8 * i);
               v34 = objc_autoreleasePoolPush();
               if (([v33 isEqualToString:@"rule=spam"] & 1) != 0 || objc_msgSend(v33, "isEqualToString:", @"rule=probablespam"))
               {
-                v47 = hv_default_log_handle();
-                if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+                v46 = hv_default_log_handle();
+                if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
                 {
-                  mCopy = v58;
-                  uniqueIdentifier3 = [v58 uniqueIdentifier];
+                  mCopy = v57;
+                  uniqueIdentifier3 = [v57 uniqueIdentifier];
                   *buf = 138543618;
-                  v72 = uniqueIdentifier3;
-                  v73 = 2112;
-                  v74 = v33;
-                  _os_log_impl(&dword_2321EC000, v47, OS_LOG_TYPE_DEFAULT, "Item %{public}@ spam - has x-proofpoint-spam-details rule match: %@", buf, 0x16u);
+                  v71 = uniqueIdentifier3;
+                  v72 = 2112;
+                  v73 = v33;
+                  _os_log_impl(&dword_2321EC000, v46, OS_LOG_TYPE_DEFAULT, "Item %{public}@ spam - has x-proofpoint-spam-details rule match: %@", buf, 0x16u);
 
 LABEL_58:
                   objc_autoreleasePoolPop(v34);
@@ -469,7 +468,7 @@ LABEL_58:
                 }
 
 LABEL_57:
-                mCopy = v58;
+                mCopy = v57;
                 goto LABEL_58;
               }
 
@@ -481,16 +480,16 @@ LABEL_57:
 
                 if (integerValue >= 80)
                 {
-                  v47 = hv_default_log_handle();
-                  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+                  v46 = hv_default_log_handle();
+                  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
                   {
-                    mCopy = v58;
-                    uniqueIdentifier4 = [v58 uniqueIdentifier];
+                    mCopy = v57;
+                    uniqueIdentifier4 = [v57 uniqueIdentifier];
                     *buf = 138543618;
-                    v72 = uniqueIdentifier4;
-                    v73 = 2112;
-                    v74 = v33;
-                    _os_log_impl(&dword_2321EC000, v47, OS_LOG_TYPE_DEFAULT, "Item %{public}@ spam - has x-proofpoint-spam-details rule match: %@", buf, 0x16u);
+                    v71 = uniqueIdentifier4;
+                    v72 = 2112;
+                    v73 = v33;
+                    _os_log_impl(&dword_2321EC000, v46, OS_LOG_TYPE_DEFAULT, "Item %{public}@ spam - has x-proofpoint-spam-details rule match: %@", buf, 0x16u);
 
                     goto LABEL_58;
                   }
@@ -502,10 +501,10 @@ LABEL_57:
               objc_autoreleasePoolPop(v34);
             }
 
-            v15 = v53;
+            v15 = v52;
             v31 = context;
-            v60 = [obj countByEnumeratingWithState:&v63 objects:v75 count:16];
-            if (v60)
+            v59 = [obj countByEnumeratingWithState:&v62 objects:v74 count:16];
+            if (v59)
             {
               continue;
             }
@@ -520,7 +519,7 @@ LABEL_57:
       goto LABEL_20;
     }
 
-    v61 = v18;
+    v60 = v18;
     v24 = v15;
     v25 = [v10 objectForKeyedSubscript:v17];
     firstObject3 = [v25 firstObject];
@@ -534,18 +533,18 @@ LABEL_57:
     }
 
     v15 = v24;
-    v18 = v61;
+    v18 = v60;
 LABEL_20:
 
     objc_autoreleasePoolPop(v18);
     if (++v16 == v14)
     {
-      v39 = [v10 countByEnumeratingWithState:&v67 objects:v76 count:16];
+      v39 = [v10 countByEnumeratingWithState:&v66 objects:v75 count:16];
       v14 = v39;
       if (!v39)
       {
         v40 = 0;
-        mCopy = v58;
+        mCopy = v57;
         goto LABEL_64;
       }
 
@@ -553,67 +552,66 @@ LABEL_20:
     }
   }
 
-  v51 = hv_default_log_handle();
-  mCopy = v58;
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+  v50 = hv_default_log_handle();
+  mCopy = v57;
+  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
   {
-    uniqueIdentifier5 = [v58 uniqueIdentifier];
+    uniqueIdentifier5 = [v57 uniqueIdentifier];
     *buf = 138543362;
-    v72 = uniqueIdentifier5;
-    _os_log_impl(&dword_2321EC000, v51, OS_LOG_TYPE_DEFAULT, "Item %{public}@ spam - trend micro header", buf, 0xCu);
+    v71 = uniqueIdentifier5;
+    _os_log_impl(&dword_2321EC000, v50, OS_LOG_TYPE_DEFAULT, "Item %{public}@ spam - trend micro header", buf, 0xCu);
   }
 
-  v18 = v61;
+  v18 = v60;
 LABEL_63:
 
   objc_autoreleasePoolPop(v18);
   v40 = 1;
 LABEL_64:
-  identifiersCopy = v56;
-  headersCopy = v57;
+  identifiersCopy = v55;
+  headersCopy = v56;
 LABEL_47:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
 + (BOOL)searchableItemIsOutgoing:(id)outgoing
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   outgoingCopy = outgoing;
   v4 = objc_alloc(MEMORY[0x277CBEB98]);
   attributeSet = [outgoingCopy attributeSet];
   accountHandles = [attributeSet accountHandles];
   v7 = [v4 initWithArray:accountHandles];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   attributeSet2 = [outgoingCopy attributeSet];
   authorAddresses = [attributeSet2 authorAddresses];
 
-  v10 = [authorAddresses countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v10 = [authorAddresses countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v10)
   {
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(authorAddresses);
         }
 
-        if ([v7 containsObject:*(*(&v17 + 1) + 8 * i)])
+        if ([v7 containsObject:*(*(&v16 + 1) + 8 * i)])
         {
           LODWORD(v10) = 1;
           goto LABEL_11;
         }
       }
 
-      v10 = [authorAddresses countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v10 = [authorAddresses countByEnumeratingWithState:&v16 objects:v24 count:16];
       if (v10)
       {
         continue;
@@ -630,19 +628,18 @@ LABEL_11:
   {
     uniqueIdentifier = [outgoingCopy uniqueIdentifier];
     *buf = 138543618;
-    v22 = uniqueIdentifier;
-    v23 = 1024;
-    v24 = v10;
+    v21 = uniqueIdentifier;
+    v22 = 1024;
+    v23 = v10;
     _os_log_impl(&dword_2321EC000, v13, OS_LOG_TYPE_DEFAULT, "searchableItemIsOutgoing %{public}@: %d", buf, 0x12u);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (BOOL)searchableItemIsEmpty:(id)empty
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   emptyCopy = empty;
   attributeSet = [emptyCopy attributeSet];
   hTMLContentDataNoCopy = [attributeSet HTMLContentDataNoCopy];
@@ -661,25 +658,24 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v10 = hv_default_log_handle();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v9 = hv_default_log_handle();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     uniqueIdentifier = [emptyCopy uniqueIdentifier];
-    v12 = 138543362;
-    v13 = uniqueIdentifier;
-    _os_log_impl(&dword_2321EC000, v10, OS_LOG_TYPE_DEFAULT, "Item %{public}@ is empty", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = uniqueIdentifier;
+    _os_log_impl(&dword_2321EC000, v9, OS_LOG_TYPE_DEFAULT, "Item %{public}@ is empty", &v11, 0xCu);
   }
 
   v7 = 1;
 LABEL_5:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 + (BOOL)mailItemIsFromSupportedAccount:(id)account
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   accountCopy = account;
   attributeSet = [accountCopy attributeSet];
   accountType = [attributeSet accountType];
@@ -690,9 +686,9 @@ LABEL_5:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [accountCopy uniqueIdentifier];
-      v11 = 138543362;
-      v12 = uniqueIdentifier;
-      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ missing account type", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = uniqueIdentifier;
+      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ missing account type", &v10, 0xCu);
     }
 
     goto LABEL_8;
@@ -708,13 +704,12 @@ LABEL_8:
   v6 = [accountType isEqual:*MEMORY[0x277CC2208]];
 LABEL_9:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (BOOL)mailItemIsInTrash:(id)trash mailboxIdentifiers:(id)identifiers
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   trashCopy = trash;
   v6 = [identifiers containsObject:*MEMORY[0x277CC2340]];
   if (v6)
@@ -723,19 +718,18 @@ LABEL_9:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [trashCopy uniqueIdentifier];
-      v11 = 138543362;
-      v12 = uniqueIdentifier;
-      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ in trash mailbox", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = uniqueIdentifier;
+      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ in trash mailbox", &v10, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (BOOL)mailItemIsInSent:(id)sent mailboxIdentifiers:(id)identifiers
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   sentCopy = sent;
   v6 = [identifiers containsObject:*MEMORY[0x277CC2338]];
   if (v6)
@@ -744,19 +738,18 @@ LABEL_9:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [sentCopy uniqueIdentifier];
-      v11 = 138543362;
-      v12 = uniqueIdentifier;
-      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ in sent mailbox", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = uniqueIdentifier;
+      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ in sent mailbox", &v10, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (BOOL)mailItemIsInDrafts:(id)drafts mailboxIdentifiers:(id)identifiers
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   draftsCopy = drafts;
   v6 = [identifiers containsObject:*MEMORY[0x277CC2320]];
   if (v6)
@@ -765,19 +758,18 @@ LABEL_9:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [draftsCopy uniqueIdentifier];
-      v11 = 138543362;
-      v12 = uniqueIdentifier;
-      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ is in draft mailbox", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = uniqueIdentifier;
+      _os_log_impl(&dword_2321EC000, v7, OS_LOG_TYPE_DEFAULT, "Item %{public}@ is in draft mailbox", &v10, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 + (BOOL)mailItemIsValid:(id)valid emailHeaders:(id)headers mailboxIdentifiers:(id)identifiers
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   validCopy = valid;
   identifiersCopy = identifiers;
   bundleID = [validCopy bundleID];
@@ -791,11 +783,11 @@ LABEL_9:
     }
 
     uniqueIdentifier = [validCopy uniqueIdentifier];
-    v21 = 138543362;
-    v22 = uniqueIdentifier;
+    v20 = 138543362;
+    v21 = uniqueIdentifier;
     v16 = "Item %{public}@ is malformed - no bundleID";
 LABEL_14:
-    _os_log_impl(&dword_2321EC000, accountIdentifier, OS_LOG_TYPE_DEFAULT, v16, &v21, 0xCu);
+    _os_log_impl(&dword_2321EC000, accountIdentifier, OS_LOG_TYPE_DEFAULT, v16, &v20, 0xCu);
     goto LABEL_15;
   }
 
@@ -808,8 +800,8 @@ LABEL_14:
     }
 
     uniqueIdentifier = [validCopy uniqueIdentifier];
-    v21 = 138543362;
-    v22 = uniqueIdentifier;
+    v20 = 138543362;
+    v21 = uniqueIdentifier;
     v16 = "Item %{public}@ not valid - no value for emailHeaders";
     goto LABEL_14;
   }
@@ -822,8 +814,8 @@ LABEL_14:
     if (os_log_type_enabled(accountIdentifier, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier = [validCopy uniqueIdentifier];
-      v21 = 138543362;
-      v22 = uniqueIdentifier;
+      v20 = 138543362;
+      v21 = uniqueIdentifier;
       v16 = "Item %{public}@ not valid - no message-id header";
       goto LABEL_14;
     }
@@ -842,11 +834,11 @@ LABEL_16:
     if (os_log_type_enabled(uniqueIdentifier, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier2 = [validCopy uniqueIdentifier];
-      v21 = 138543362;
-      v22 = uniqueIdentifier2;
-      v20 = "Item %{public}@ is malformed - no source";
+      v20 = 138543362;
+      v21 = uniqueIdentifier2;
+      v19 = "Item %{public}@ is malformed - no source";
 LABEL_22:
-      _os_log_impl(&dword_2321EC000, uniqueIdentifier, OS_LOG_TYPE_DEFAULT, v20, &v21, 0xCu);
+      _os_log_impl(&dword_2321EC000, uniqueIdentifier, OS_LOG_TYPE_DEFAULT, v19, &v20, 0xCu);
     }
 
 LABEL_15:
@@ -860,9 +852,9 @@ LABEL_15:
     if (os_log_type_enabled(uniqueIdentifier, OS_LOG_TYPE_DEFAULT))
     {
       uniqueIdentifier2 = [validCopy uniqueIdentifier];
-      v21 = 138543362;
-      v22 = uniqueIdentifier2;
-      v20 = "Item %{public}@ is malformed - mailbox list is present but is not an array";
+      v20 = 138543362;
+      v21 = uniqueIdentifier2;
+      v19 = "Item %{public}@ is malformed - mailbox list is present but is not an array";
       goto LABEL_22;
     }
 
@@ -872,13 +864,12 @@ LABEL_15:
   v14 = 1;
 LABEL_17:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (id)messageIdHeaderValuesFromHeaders:(id)headers
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   headersCopy = headers;
   v4 = objc_autoreleasePoolPush();
   v5 = [headersCopy objectForKeyedSubscript:@"message-id"];
@@ -889,35 +880,35 @@ LABEL_17:
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v9 = headersCopy;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v10)
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v8 = headersCopy;
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v9)
     {
-      v11 = v10;
-      v12 = *v16;
+      v10 = v9;
+      v11 = *v15;
       while (2)
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v10; ++i)
         {
-          if (*v16 != v12)
+          if (*v15 != v11)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v15 + 1) + 8 * i);
-          if ([v14 length] == 10 && !objc_msgSend(v14, "caseInsensitiveCompare:", @"message-id"))
+          v13 = *(*(&v14 + 1) + 8 * i);
+          if ([v13 length] == 10 && !objc_msgSend(v13, "caseInsensitiveCompare:", @"message-id"))
           {
-            v6 = [v9 objectForKeyedSubscript:v14];
+            v6 = [v8 objectForKeyedSubscript:v13];
             goto LABEL_20;
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v11)
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        if (v10)
         {
           continue;
         }
@@ -931,8 +922,6 @@ LABEL_20:
   }
 
   objc_autoreleasePoolPop(v4);
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -957,7 +946,7 @@ LABEL_20:
 
 + (BOOL)mailItemIsRecent:(id)recent emailHeaders:(id)headers
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   recentCopy = recent;
   headersCopy = headers;
   attributeSet = [recentCopy attributeSet];
@@ -973,7 +962,7 @@ LABEL_20:
 
     uniqueIdentifier = [recentCopy uniqueIdentifier];
     *buf = 138543362;
-    v42 = uniqueIdentifier;
+    v41 = uniqueIdentifier;
     _os_log_impl(&dword_2321EC000, date, OS_LOG_TYPE_DEFAULT, "No contentCreationDate on searchable item with id: %{public}@", buf, 0xCu);
 LABEL_8:
 
@@ -1001,13 +990,13 @@ LABEL_32:
 
       uniqueIdentifier2 = [recentCopy uniqueIdentifier];
       *buf = 138544130;
-      v42 = uniqueIdentifier2;
-      v43 = 2114;
-      v44 = contentCreationDate;
-      v45 = 2114;
-      v46 = date;
-      v47 = 2114;
-      v48 = v10;
+      v41 = uniqueIdentifier2;
+      v42 = 2114;
+      v43 = contentCreationDate;
+      v44 = 2114;
+      v45 = date;
+      v46 = 2114;
+      v47 = v10;
       _os_log_impl(&dword_2321EC000, v14, OS_LOG_TYPE_DEFAULT, "Item %{public}@ is older than a year (creationDate: %{public}@, now: %{public}@, cutoff: %{public}@)", buf, 0x2Au);
 LABEL_28:
 
@@ -1027,29 +1016,29 @@ LABEL_28:
 
         if (!v22)
         {
-          v35 = v14;
-          v36 = v10;
+          v34 = v14;
+          v35 = v10;
           context = objc_autoreleasePoolPush();
+          v36 = 0u;
           v37 = 0u;
           v38 = 0u;
           v39 = 0u;
-          v40 = 0u;
           allKeys = [headersCopy allKeys];
-          v24 = [allKeys countByEnumeratingWithState:&v37 objects:buf count:16];
+          v24 = [allKeys countByEnumeratingWithState:&v36 objects:buf count:16];
           if (v24)
           {
             v25 = v24;
-            v26 = *v38;
+            v26 = *v37;
             while (2)
             {
               for (i = 0; i != v25; ++i)
               {
-                if (*v38 != v26)
+                if (*v37 != v26)
                 {
                   objc_enumerationMutation(allKeys);
                 }
 
-                v28 = *(*(&v37 + 1) + 8 * i);
+                v28 = *(*(&v36 + 1) + 8 * i);
                 v29 = objc_autoreleasePoolPush();
                 v30 = [v28 caseInsensitiveCompare:@"list-id"];
                 objc_autoreleasePoolPop(v29);
@@ -1057,13 +1046,13 @@ LABEL_28:
                 {
 
                   objc_autoreleasePoolPop(context);
-                  v14 = v35;
-                  v10 = v36;
+                  v14 = v34;
+                  v10 = v35;
                   goto LABEL_26;
                 }
               }
 
-              v25 = [allKeys countByEnumeratingWithState:&v37 objects:buf count:16];
+              v25 = [allKeys countByEnumeratingWithState:&v36 objects:buf count:16];
               if (v25)
               {
                 continue;
@@ -1075,8 +1064,8 @@ LABEL_28:
 
           objc_autoreleasePoolPop(context);
           v17 = 1;
-          v14 = v35;
-          v10 = v36;
+          v14 = v34;
+          v10 = v35;
           goto LABEL_32;
         }
 
@@ -1086,13 +1075,13 @@ LABEL_26:
         {
           uniqueIdentifier3 = [recentCopy uniqueIdentifier];
           *buf = 138544130;
-          v42 = uniqueIdentifier3;
-          v43 = 2114;
-          v44 = contentCreationDate;
-          v45 = 2114;
-          v46 = date;
-          v47 = 2114;
-          v48 = v14;
+          v41 = uniqueIdentifier3;
+          v42 = 2114;
+          v43 = contentCreationDate;
+          v44 = 2114;
+          v45 = date;
+          v46 = 2114;
+          v47 = v14;
           _os_log_impl(&dword_2321EC000, uniqueIdentifier2, OS_LOG_TYPE_DEFAULT, "Item %{public}@ is a group message older than a month (creationDate: %{public}@, now: %{public}@, cutoff: %{public}@)", buf, 0x2Au);
         }
 
@@ -1109,7 +1098,7 @@ LABEL_26:
   {
     uniqueIdentifier = [recentCopy uniqueIdentifier];
     *buf = 138543362;
-    v42 = uniqueIdentifier;
+    v41 = uniqueIdentifier;
     _os_log_fault_impl(&dword_2321EC000, date, OS_LOG_TYPE_FAULT, "Invalid contentCreationDate on searchable item %{public}@ sent", buf, 0xCu);
     goto LABEL_8;
   }
@@ -1118,7 +1107,6 @@ LABEL_10:
   v17 = 0;
 LABEL_33:
 
-  v32 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

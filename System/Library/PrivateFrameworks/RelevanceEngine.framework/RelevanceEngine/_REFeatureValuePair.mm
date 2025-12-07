@@ -67,26 +67,12 @@
 
       value = self->_value;
       v12 = v5->_value;
-      if (value == v12)
+      if (value == v12 || (v13 = REFeatureValueTypeForTaggedPointer(self->_value), v13 == REFeatureValueTypeForTaggedPointer(v12)) && (REFeatureValueForTaggedPointer(value), v14 = objc_claimAutoreleasedReturnValue(), REFeatureValueForTaggedPointer(v12), v15 = objc_claimAutoreleasedReturnValue(), v16 = [v14 isEqual:v15], v15, v14, v16))
       {
-        goto LABEL_10;
-      }
-
-      v13 = REFeatureValueTypeForTaggedPointer(self->_value);
-      if (v13 == REFeatureValueTypeForTaggedPointer(v12))
-      {
-        v14 = REFeatureValueForTaggedPointer(value);
-        v15 = REFeatureValueForTaggedPointer(v12);
-        v16 = [v14 isEqual:v15];
-
-        if (v16)
-        {
-LABEL_10:
-          v10 = self->_index == v5->_index;
+        v10 = self->_index == v5->_index;
 LABEL_14:
 
-          goto LABEL_15;
-        }
+        goto LABEL_15;
       }
 
 LABEL_13:

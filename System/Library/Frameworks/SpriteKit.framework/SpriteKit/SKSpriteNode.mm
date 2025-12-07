@@ -509,7 +509,7 @@
 - (void)scaleToSize:(CGSize)size
 {
   skcSpriteNode = self->_skcSpriteNode;
-  v4 = *(skcSpriteNode + 21);
+  v4 = skcSpriteNode[21];
   v5 = vceqz_s32(vand_s8(*&v4, 0x6000000060000000));
   if (((v5.i32[0] | v5.i32[1]) & 1) == 0)
   {

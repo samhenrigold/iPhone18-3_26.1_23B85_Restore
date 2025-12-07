@@ -13,13 +13,13 @@ void ___CFBundleCopyFilteredLocalizedStringsForAllLocalizations_block_invoke(uin
   Count = CFSetGetCount(*(a1 + 48));
   Mutable = CFDictionaryCreateMutable(&__kCFAllocatorSystemDefault, Count, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
   v7 = *(a1 + 48);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = ___CFBundleCopyFilteredLocalizedStringsForAllLocalizations_block_invoke_2;
-  v9[3] = &__block_descriptor_48_e13_v24__0r_v8_16l;
-  v9[4] = v4;
-  v9[5] = Mutable;
-  CFSetApply(v7, v9);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = ___CFBundleCopyFilteredLocalizedStringsForAllLocalizations_block_invoke_2;
+  v8[3] = &__block_descriptor_48_e13_v24__0r_v8_16l;
+  v8[4] = v4;
+  v8[5] = Mutable;
+  CFSetApply(v7, v8);
   if (CFDictionaryGetCount(Mutable) >= 1)
   {
     CFDictionarySetValue(*(a1 + 56), values[0], Mutable);
@@ -27,7 +27,6 @@ void ___CFBundleCopyFilteredLocalizedStringsForAllLocalizations_block_invoke(uin
 
   CFRelease(v4);
   CFRelease(Mutable);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void ___CFBundleCopyFilteredLocalizedStringsForAllLocalizations_block_invoke_2(uint64_t a1, const void *a2)

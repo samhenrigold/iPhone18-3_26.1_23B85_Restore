@@ -9,9 +9,11 @@
 - (void)_fetchScreenState;
 - (void)_heartBeatWithListener;
 - (void)_receivedDataRequest:(id)request options:(id)options responseHandler:(id)handler;
+- (void)_removeCurrentListenerWithStopReason:(int)reason;
 - (void)_sendMotionData:(id)data;
 - (void)_sendRequestID:(id)d request:(id)request device:(id)device options:(id)options responseHandler:(id)handler;
 - (void)_startCASessionMetricCollection;
+- (void)_stopCASessionMetricCollectionWithStopReason:(int)reason;
 - (void)_stopProvider;
 - (void)sendMotionData:(id)data;
 - (void)startMotionDataProviderWithOptions:(id)options;
@@ -85,7 +87,7 @@
 
 - (void)startMotionDataProviderWithOptions:(id)options
 {
-  v54[1] = *MEMORY[0x277D85DE8];
+  v53[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   v5 = +[DSLogging sharedInstance];
   dsLogger = [v5 dsLogger];
@@ -101,9 +103,9 @@
     if (notify_register_check("com.apple.springboard.hasBlankedScreen", &self->_screenStateToken))
     {
       v7 = MEMORY[0x277CCA9B8];
-      v51 = *MEMORY[0x277CCA450];
-      v52 = @"Couldn't register for device screen state";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+      v50 = *MEMORY[0x277CCA450];
+      v51 = @"Couldn't register for device screen state";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
       v9 = [v7 errorWithDomain:@"DSErrorDomain" code:5 userInfo:v8];
 
       [(DSProvider *)self failedToStartProviderWithOptions:optionsCopy error:v9];
@@ -115,24 +117,24 @@
       dataSubType = [optionsCopy dataSubType];
       if ((deviceType & 2) != 0)
       {
-        v20 = MEMORY[0x277CCA9B8];
-        v49 = *MEMORY[0x277CCA450];
-        v50 = @"Unrelated devices not supported";
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-        v22 = [v20 errorWithDomain:@"DSErrorDomain" code:5 userInfo:v21];
+        v19 = MEMORY[0x277CCA9B8];
+        v48 = *MEMORY[0x277CCA450];
+        v49 = @"Unrelated devices not supported";
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+        v21 = [v19 errorWithDomain:@"DSErrorDomain" code:5 userInfo:v20];
 
-        [(DSProvider *)self failedToStartProviderWithOptions:optionsCopy error:v22];
+        [(DSProvider *)self failedToStartProviderWithOptions:optionsCopy error:v21];
       }
 
       else
       {
-        v16 = dataSubType;
+        v15 = dataSubType;
         if (deviceType)
         {
           [(DSClientMotionDataOptions *)self->_motionDataOptions setDeviceType:[(DSClientMotionDataOptions *)self->_motionDataOptions deviceType]| 1];
         }
 
-        if (v16)
+        if (v15)
         {
           [(DSClientMotionDataOptions *)self->_motionDataOptions setDataSubType:[(DSClientMotionDataOptions *)self->_motionDataOptions dataSubType]| 1];
         }
@@ -141,85 +143,85 @@
         {
           if (self->_linkClient)
           {
-            v17 = MEMORY[0x277CCA9B8];
-            v45 = *MEMORY[0x277CCA450];
-            v46 = @"Provider companion link already exists";
-            v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-            v19 = [v17 errorWithDomain:@"DSErrorDomain" code:7 userInfo:v18];
+            v16 = MEMORY[0x277CCA9B8];
+            v44 = *MEMORY[0x277CCA450];
+            v45 = @"Provider companion link already exists";
+            v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+            v18 = [v16 errorWithDomain:@"DSErrorDomain" code:7 userInfo:v17];
 
-            [(DSProvider *)self failedToStartProviderWithOptions:optionsCopy error:v19];
+            [(DSProvider *)self failedToStartProviderWithOptions:optionsCopy error:v18];
           }
 
           else
           {
-            v26 = objc_alloc_init(MEMORY[0x277D44160]);
+            v25 = objc_alloc_init(MEMORY[0x277D44160]);
             linkClient = self->_linkClient;
-            self->_linkClient = v26;
+            self->_linkClient = v25;
 
             [(RPCompanionLinkClient *)self->_linkClient setControlFlags:14];
             [(RPCompanionLinkClient *)self->_linkClient setDispatchQueue:self->_clientQueue];
             objc_initWeak(&buf, self);
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke;
-            v42[3] = &unk_278F858D8;
-            objc_copyWeak(&v43, &buf);
-            [(RPCompanionLinkClient *)self->_linkClient setInvalidationHandler:v42];
-            v40[0] = MEMORY[0x277D85DD0];
-            v40[1] = 3221225472;
-            v40[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_72;
-            v40[3] = &unk_278F85900;
-            objc_copyWeak(&v41, &buf);
-            [(RPCompanionLinkClient *)self->_linkClient setDeviceFoundHandler:v40];
-            v38[0] = MEMORY[0x277D85DD0];
-            v38[1] = 3221225472;
-            v38[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_2;
-            v38[3] = &unk_278F85900;
-            objc_copyWeak(&v39, &buf);
-            [(RPCompanionLinkClient *)self->_linkClient setDeviceLostHandler:v38];
-            v28 = self->_linkClient;
-            v36[0] = MEMORY[0x277D85DD0];
-            v36[1] = 3221225472;
-            v36[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_3;
-            v36[3] = &unk_278F85928;
-            objc_copyWeak(&v37, &buf);
-            [(RPCompanionLinkClient *)v28 registerRequestID:@"com.apple.distributedsensing.subscriptionRequest" options:0 handler:v36];
-            v29 = +[DSLogging sharedInstance];
-            dsLogger2 = [v29 dsLogger];
+            v41[0] = MEMORY[0x277D85DD0];
+            v41[1] = 3221225472;
+            v41[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke;
+            v41[3] = &unk_278F858D8;
+            objc_copyWeak(&v42, &buf);
+            [(RPCompanionLinkClient *)self->_linkClient setInvalidationHandler:v41];
+            v39[0] = MEMORY[0x277D85DD0];
+            v39[1] = 3221225472;
+            v39[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_72;
+            v39[3] = &unk_278F85900;
+            objc_copyWeak(&v40, &buf);
+            [(RPCompanionLinkClient *)self->_linkClient setDeviceFoundHandler:v39];
+            v37[0] = MEMORY[0x277D85DD0];
+            v37[1] = 3221225472;
+            v37[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_2;
+            v37[3] = &unk_278F85900;
+            objc_copyWeak(&v38, &buf);
+            [(RPCompanionLinkClient *)self->_linkClient setDeviceLostHandler:v37];
+            v27 = self->_linkClient;
+            v35[0] = MEMORY[0x277D85DD0];
+            v35[1] = 3221225472;
+            v35[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_3;
+            v35[3] = &unk_278F85928;
+            objc_copyWeak(&v36, &buf);
+            [(RPCompanionLinkClient *)v27 registerRequestID:@"com.apple.distributedsensing.subscriptionRequest" options:0 handler:v35];
+            v28 = +[DSLogging sharedInstance];
+            dsLogger2 = [v28 dsLogger];
 
             if (os_log_type_enabled(dsLogger2, OS_LOG_TYPE_DEFAULT))
             {
-              *v35 = 0;
-              _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSProvider] activating CompanionLink\n", v35, 2u);
+              *v34 = 0;
+              _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSProvider] activating CompanionLink\n", v34, 2u);
             }
 
-            v31 = self->_linkClient;
-            v32[0] = MEMORY[0x277D85DD0];
-            v32[1] = 3221225472;
-            v32[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_75;
-            v32[3] = &unk_278F85950;
-            objc_copyWeak(&v34, &buf);
-            v33 = optionsCopy;
-            [(RPCompanionLinkClient *)v31 activateWithCompletion:v32];
+            v30 = self->_linkClient;
+            v31[0] = MEMORY[0x277D85DD0];
+            v31[1] = 3221225472;
+            v31[2] = __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_75;
+            v31[3] = &unk_278F85950;
+            objc_copyWeak(&v33, &buf);
+            v32 = optionsCopy;
+            [(RPCompanionLinkClient *)v30 activateWithCompletion:v31];
 
-            objc_destroyWeak(&v34);
-            objc_destroyWeak(&v37);
-            objc_destroyWeak(&v39);
-            objc_destroyWeak(&v41);
-            objc_destroyWeak(&v43);
+            objc_destroyWeak(&v33);
+            objc_destroyWeak(&v36);
+            objc_destroyWeak(&v38);
+            objc_destroyWeak(&v40);
+            objc_destroyWeak(&v42);
             objc_destroyWeak(&buf);
           }
         }
 
         else
         {
-          v23 = MEMORY[0x277CCA9B8];
-          v47 = *MEMORY[0x277CCA450];
-          v48 = @"Invalid options";
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-          v25 = [v23 errorWithDomain:@"DSErrorDomain" code:2 userInfo:v24];
+          v22 = MEMORY[0x277CCA9B8];
+          v46 = *MEMORY[0x277CCA450];
+          v47 = @"Invalid options";
+          v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+          v24 = [v22 errorWithDomain:@"DSErrorDomain" code:2 userInfo:v23];
 
-          [(DSProvider *)self failedToStartProviderWithOptions:optionsCopy error:v25];
+          [(DSProvider *)self failedToStartProviderWithOptions:optionsCopy error:v24];
         }
       }
     }
@@ -228,15 +230,13 @@
   else
   {
     v10 = MEMORY[0x277CCA9B8];
-    v53 = *MEMORY[0x277CCA450];
-    v54[0] = @"Unsupported feature";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v54 forKeys:&v53 count:1];
+    v52 = *MEMORY[0x277CCA450];
+    v53[0] = @"Unsupported feature";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
     v12 = [v10 errorWithDomain:@"DSErrorDomain" code:5 userInfo:v11];
 
     [(DSProvider *)self failedToStartProviderWithOptions:optionsCopy error:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __49__DSProvider_startMotionDataProviderWithOptions___block_invoke(uint64_t a1)
@@ -292,7 +292,7 @@ void __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_3(uint64
 
 void __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_75(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -305,8 +305,8 @@ void __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_75(uint6
     {
       if (v7)
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_249027000, v6, OS_LOG_TYPE_DEFAULT, "[DSProvider] link activation failed\n", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_249027000, v6, OS_LOG_TYPE_DEFAULT, "[DSProvider] link activation failed\n", &v11, 2u);
       }
 
       [WeakRetained failedToStartProviderWithOptions:*(a1 + 32) error:v3];
@@ -316,8 +316,8 @@ void __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_75(uint6
     {
       if (v7)
       {
-        LOWORD(v12) = 0;
-        _os_log_impl(&dword_249027000, v6, OS_LOG_TYPE_DEFAULT, "[DSProvider] companion link activated\n", &v12, 2u);
+        LOWORD(v11) = 0;
+        _os_log_impl(&dword_249027000, v6, OS_LOG_TYPE_DEFAULT, "[DSProvider] companion link activated\n", &v11, 2u);
       }
 
       [WeakRetained startedProviderWithOptions:WeakRetained[3]];
@@ -330,17 +330,15 @@ void __49__DSProvider_startMotionDataProviderWithOptions___block_invoke_75(uint6
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           v10 = [WeakRetained[4] identifier];
-          v12 = 138412290;
-          v13 = v10;
-          _os_log_impl(&dword_249027000, v9, OS_LOG_TYPE_DEFAULT, "[DSProvider] START data subscription to listener %@\n", &v12, 0xCu);
+          v11 = 138412290;
+          v12 = v10;
+          _os_log_impl(&dword_249027000, v9, OS_LOG_TYPE_DEFAULT, "[DSProvider] START data subscription to listener %@\n", &v11, 0xCu);
         }
 
         [WeakRetained subscribedToMotionDataWithOptions:WeakRetained[3]];
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendMotionData:(id)data
@@ -404,7 +402,7 @@ void __29__DSProvider_sendMotionData___block_invoke(uint64_t a1)
 
 - (void)_didFindDevice:(id)device
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   currentListener = self->_currentListener;
   if (currentListener)
@@ -420,19 +418,17 @@ void __29__DSProvider_sendMotionData___block_invoke(uint64_t a1)
 
       if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = deviceCopy;
-        _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] did find device %@\n", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = deviceCopy;
+        _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] did find device %@\n", &v11, 0xCu);
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_didLoseDevice:(id)device
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   currentListener = self->_currentListener;
   if (currentListener)
@@ -456,20 +452,18 @@ void __29__DSProvider_sendMotionData___block_invoke(uint64_t a1)
 
         if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412290;
-          v13 = deviceCopy;
-          _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] did lose device when screen was OFF %@, ignorning...\n", &v12, 0xCu);
+          v11 = 138412290;
+          v12 = deviceCopy;
+          _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] did lose device when screen was OFF %@, ignorning...\n", &v11, 0xCu);
         }
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_receivedDataRequest:(id)request options:(id)options responseHandler:(id)handler
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   optionsCopy = options;
   handlerCopy = handler;
@@ -483,13 +477,12 @@ void __29__DSProvider_sendMotionData___block_invoke(uint64_t a1)
     _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] Data Request received %@\n", buf, 0xCu);
   }
 
-  v13 = *MEMORY[0x277D442D0];
   CFStringGetTypeID();
-  v14 = CFDictionaryGetTypedValue();
-  if (!v14)
+  v13 = CFDictionaryGetTypedValue();
+  if (!v13)
   {
-    v20 = +[DSLogging sharedInstance];
-    dsLogger2 = [v20 dsLogger];
+    v18 = +[DSLogging sharedInstance];
+    dsLogger2 = [v18 dsLogger];
 
     if (os_log_type_enabled(dsLogger2, OS_LOG_TYPE_DEFAULT))
     {
@@ -501,141 +494,140 @@ void __29__DSProvider_sendMotionData___block_invoke(uint64_t a1)
     goto LABEL_54;
   }
 
-  v15 = *MEMORY[0x277D44270];
   Int64Ranged = CFDictionaryGetInt64Ranged();
-  v17 = +[DSLogging sharedInstance];
-  dsLogger3 = [v17 dsLogger];
+  v15 = +[DSLogging sharedInstance];
+  dsLogger3 = [v15 dsLogger];
 
   if (os_log_type_enabled(dsLogger3, OS_LOG_TYPE_DEFAULT))
   {
     if (Int64Ranged > 0xB)
     {
-      v19 = "?";
+      v17 = "?";
     }
 
     else
     {
-      v19 = off_278F859C0[Int64Ranged & 0xF];
+      v17 = off_278F859C0[Int64Ranged & 0xF];
     }
 
     *buf = 136315138;
-    *&buf[4] = v19;
+    *&buf[4] = v17;
     _os_log_impl(&dword_249027000, dsLogger3, OS_LOG_TYPE_DEFAULT, "[DSProvider] Data link type %s", buf, 0xCu);
   }
 
   if (requestCopy)
   {
-    v22 = [requestCopy objectForKeyedSubscript:@"requestType"];
+    v20 = [requestCopy objectForKeyedSubscript:@"requestType"];
 
-    if (v22)
+    if (v20)
     {
-      v62 = CFDictionaryGetInt64Ranged();
+      v59 = CFDictionaryGetInt64Ranged();
       Int64 = CFDictionaryGetInt64();
-      v23 = CFDictionaryGetInt64Ranged();
+      v21 = CFDictionaryGetInt64Ranged();
       CFStringGetTypeID();
-      v63 = CFDictionaryGetTypedValue();
+      v60 = CFDictionaryGetTypedValue();
       selfCopy = self;
-      v24 = handlerCopy;
-      if ([v63 UTF8String])
+      v22 = handlerCopy;
+      if ([v60 UTF8String])
       {
-        v25 = TextToSourceVersion();
+        v23 = TextToSourceVersion();
       }
 
       else
       {
-        v25 = 0;
+        v23 = 0;
       }
 
-      v26 = +[DSLogging sharedInstance];
-      dsLogger4 = [v26 dsLogger];
+      v24 = +[DSLogging sharedInstance];
+      dsLogger4 = [v24 dsLogger];
 
       if (os_log_type_enabled(dsLogger4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109120;
-        *&buf[4] = v25;
+        *&buf[4] = v23;
         _os_log_impl(&dword_249027000, dsLogger4, OS_LOG_TYPE_DEFAULT, "[DSProvider] Data requested with version key : %d\n", buf, 8u);
       }
 
-      if (!v25 || v25 > TextToSourceVersion())
+      if (!v23 || v23 > TextToSourceVersion())
       {
-        v28 = +[DSLogging sharedInstance];
-        dsLogger5 = [v28 dsLogger];
+        v26 = +[DSLogging sharedInstance];
+        dsLogger5 = [v26 dsLogger];
 
-        handlerCopy = v24;
+        handlerCopy = v22;
         if (os_log_type_enabled(dsLogger5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          *&buf[4] = v25;
+          *&buf[4] = v23;
           _os_log_impl(&dword_249027000, dsLogger5, OS_LOG_TYPE_DEFAULT, "[DSProvider] Unsupported version %d specified\n", buf, 8u);
         }
 
-        v30 = MEMORY[0x277CCA9B8];
-        v31 = 4;
+        v28 = MEMORY[0x277CCA9B8];
+        v29 = 4;
         goto LABEL_52;
       }
 
-      handlerCopy = v24;
-      if ([(DSClientMotionDataOptions *)selfCopy->_motionDataOptions dataSubType]== v23)
+      handlerCopy = v22;
+      if ([(DSClientMotionDataOptions *)selfCopy->_motionDataOptions dataSubType]== v21)
       {
-        if (v62 == 2 && v61)
+        if (v59 == 2 && v58)
         {
           currentListener = selfCopy->_currentListener;
           if (currentListener)
           {
             identifier = [(DSRapportDevice *)currentListener identifier];
-            v34 = [v14 isEqualToString:identifier];
+            v32 = [v13 isEqualToString:identifier];
 
-            v35 = +[DSLogging sharedInstance];
-            dsLogger6 = [v35 dsLogger];
+            v33 = +[DSLogging sharedInstance];
+            dsLogger6 = [v33 dsLogger];
 
-            v37 = os_log_type_enabled(dsLogger6, OS_LOG_TYPE_DEFAULT);
-            if (v34)
+            v35 = os_log_type_enabled(dsLogger6, OS_LOG_TYPE_DEFAULT);
+            if (v32)
             {
-              dsLogger2 = v63;
-              if (v37)
+              dsLogger2 = v60;
+              if (v35)
               {
                 *buf = 0;
                 _os_log_impl(&dword_249027000, dsLogger6, OS_LOG_TYPE_DEFAULT, "[DSProvider] Data re-subscription request received\n", buf, 2u);
               }
 
-              [(DSListenerDevice *)selfCopy->_currentListener setResponseHandler:v24];
+              [(DSListenerDevice *)selfCopy->_currentListener setResponseHandler:v22];
               [(DSProvider *)selfCopy requestedMotionDataWithOption:selfCopy->_motionDataOptions];
             }
 
             else
             {
-              dsLogger2 = v63;
-              if (v37)
+              dsLogger2 = v60;
+              if (v35)
               {
                 *buf = 138412290;
-                *&buf[4] = v14;
+                *&buf[4] = v13;
                 _os_log_impl(&dword_249027000, dsLogger6, OS_LOG_TYPE_DEFAULT, "[DSProvider] Data Subscription request rejected for senderID %@, listener already exists\n", buf, 0xCu);
               }
 
-              v59 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
-              (*(v24 + 2))(v24, 0, 0, v59);
+              v56 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
+              (*(v22 + 2))(v22, 0, 0, v56);
             }
           }
 
           else
           {
-            v50 = objc_alloc_init(MEMORY[0x277D44170]);
-            v51 = v50;
-            if (v50)
+            v48 = objc_alloc_init(MEMORY[0x277D44170]);
+            v49 = v48;
+            if (v48)
             {
-              [v50 setIdentifier:v14];
-              v52 = [[DSListenerDevice alloc] initWithRapportDevice:v51 queue:selfCopy->_clientQueue];
+              [v48 setIdentifier:v13];
+              v50 = [[DSListenerDevice alloc] initWithRapportDevice:v49 queue:selfCopy->_clientQueue];
               selfCopy->_linkType = CFDictionaryGetInt64Ranged();
-              [(DSListenerDevice *)v52 setResponseHandler:v24];
-              [(DSListenerDevice *)v52 setVersion:v25];
-              [(DSListenerDevice *)v52 setInOptions:selfCopy->_motionDataOptions];
-              [(DSProvider *)selfCopy _addNewListener:v52];
-              v53 = +[DSLogging sharedInstance];
-              dsLogger7 = [v53 dsLogger];
+              [(DSListenerDevice *)v50 setResponseHandler:v22];
+              [(DSListenerDevice *)v50 setVersion:v23];
+              [(DSListenerDevice *)v50 setInOptions:selfCopy->_motionDataOptions];
+              [(DSProvider *)selfCopy _addNewListener:v50];
+              v51 = +[DSLogging sharedInstance];
+              dsLogger7 = [v51 dsLogger];
 
               if (os_log_type_enabled(dsLogger7, OS_LOG_TYPE_DEFAULT))
               {
-                identifier2 = [(DSRapportDevice *)v52 identifier];
+                identifier2 = [(DSRapportDevice *)v50 identifier];
                 *buf = 138412290;
                 *&buf[4] = identifier2;
                 _os_log_impl(&dword_249027000, dsLogger7, OS_LOG_TYPE_DEFAULT, "[DSProvider] START data subscription to listener %@\n", buf, 0xCu);
@@ -647,44 +639,44 @@ void __29__DSProvider_sendMotionData___block_invoke(uint64_t a1)
             else
             {
               [DSProvider _receivedDataRequest:buf options:? responseHandler:?];
-              v52 = *buf;
+              v50 = *buf;
             }
 
-            dsLogger2 = v63;
+            dsLogger2 = v60;
           }
 
           goto LABEL_54;
         }
 
-        if (v62 == 2 && !v61)
+        if (v59 == 2 && !v58)
         {
-          v44 = selfCopy->_currentListener;
-          if (v44)
+          v42 = selfCopy->_currentListener;
+          if (v42)
           {
-            identifier3 = [(DSRapportDevice *)v44 identifier];
-            v46 = [identifier3 isEqualToString:v14];
+            identifier3 = [(DSRapportDevice *)v42 identifier];
+            v44 = [identifier3 isEqualToString:v13];
 
-            if (v46)
+            if (v44)
             {
               [(DSProvider *)selfCopy _removeCurrentListenerWithStopReason:1];
-              v47 = +[DSLogging sharedInstance];
-              dsLogger8 = [v47 dsLogger];
+              v45 = +[DSLogging sharedInstance];
+              dsLogger8 = [v45 dsLogger];
 
               if (os_log_type_enabled(dsLogger8, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                *&buf[4] = v14;
+                *&buf[4] = v13;
                 _os_log_impl(&dword_249027000, dsLogger8, OS_LOG_TYPE_DEFAULT, "[DSProvider] STOP data subscription from sender %@\n", buf, 0xCu);
               }
 
-              (*(v24 + 2))(v24, 0, 0, 0);
+              (*(v22 + 2))(v22, 0, 0, 0);
               [(DSProvider *)selfCopy unsubscribed];
               goto LABEL_53;
             }
           }
 
-          v56 = +[DSLogging sharedInstance];
-          dsLogger9 = [v56 dsLogger];
+          v54 = +[DSLogging sharedInstance];
+          dsLogger9 = [v54 dsLogger];
 
           if (!os_log_type_enabled(dsLogger9, OS_LOG_TYPE_DEFAULT))
           {
@@ -692,73 +684,71 @@ void __29__DSProvider_sendMotionData___block_invoke(uint64_t a1)
           }
 
           *buf = 138412290;
-          *&buf[4] = v14;
-          v41 = "[DSProvider] Received stop subscription from unknown listener %@, ignoring\n";
+          *&buf[4] = v13;
+          v39 = "[DSProvider] Received stop subscription from unknown listener %@, ignoring\n";
           goto LABEL_49;
         }
 
-        v49 = +[DSLogging sharedInstance];
-        dsLogger9 = [v49 dsLogger];
+        v47 = +[DSLogging sharedInstance];
+        dsLogger9 = [v47 dsLogger];
 
         if (os_log_type_enabled(dsLogger9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           *&buf[4] = requestCopy;
-          v41 = "[DSProvider] Invalid Data Request %@\n";
+          v39 = "[DSProvider] Invalid Data Request %@\n";
 LABEL_49:
-          v42 = dsLogger9;
-          v43 = 12;
+          v40 = dsLogger9;
+          v41 = 12;
           goto LABEL_50;
         }
       }
 
       else
       {
-        v38 = +[DSLogging sharedInstance];
-        dsLogger9 = [v38 dsLogger];
+        v36 = +[DSLogging sharedInstance];
+        dsLogger9 = [v36 dsLogger];
 
         if (os_log_type_enabled(dsLogger9, OS_LOG_TYPE_DEFAULT))
         {
           dataSubType = [(DSClientMotionDataOptions *)selfCopy->_motionDataOptions dataSubType];
           *buf = 138412546;
-          *&buf[4] = v14;
-          v66 = 1024;
-          v67 = dataSubType;
-          v41 = "[DSProvider] Data Subscription request rejected for senderID %@ with motion datatype %d\n";
-          v42 = dsLogger9;
-          v43 = 18;
+          *&buf[4] = v13;
+          v63 = 1024;
+          v64 = dataSubType;
+          v39 = "[DSProvider] Data Subscription request rejected for senderID %@ with motion datatype %d\n";
+          v40 = dsLogger9;
+          v41 = 18;
 LABEL_50:
-          _os_log_impl(&dword_249027000, v42, OS_LOG_TYPE_DEFAULT, v41, buf, v43);
+          _os_log_impl(&dword_249027000, v40, OS_LOG_TYPE_DEFAULT, v39, buf, v41);
         }
       }
 
 LABEL_51:
 
-      v30 = MEMORY[0x277CCA9B8];
-      v31 = 1;
+      v28 = MEMORY[0x277CCA9B8];
+      v29 = 1;
 LABEL_52:
-      v57 = [v30 errorWithDomain:@"DSErrorDomain" code:v31 userInfo:0];
-      (*(handlerCopy + 2))(handlerCopy, 0, 0, v57);
+      v55 = [v28 errorWithDomain:@"DSErrorDomain" code:v29 userInfo:0];
+      (*(handlerCopy + 2))(handlerCopy, 0, 0, v55);
 
 LABEL_53:
-      dsLogger2 = v63;
+      dsLogger2 = v60;
 LABEL_54:
     }
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendMotionData:(id)data
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v5 = dataCopy;
   if (self->_currentListener)
   {
-    v15 = @"payloadKey";
-    v16[0] = dataCopy;
-    dsLogger = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = @"payloadKey";
+    v15[0] = dataCopy;
+    dsLogger = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     ++self->_numMotionStateMessages;
     responseHandler = [(DSListenerDevice *)self->_currentListener responseHandler];
 
@@ -773,13 +763,13 @@ LABEL_54:
 
     else
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __30__DSProvider__sendMotionData___block_invoke;
-      v13[3] = &unk_278F859A0;
-      v13[4] = self;
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __30__DSProvider__sendMotionData___block_invoke;
+      v12[3] = &unk_278F859A0;
+      v12[4] = self;
       selfCopy = self;
-      [(DSProvider *)selfCopy _sendRequestID:@"com.apple.distributedsensing.dataRequest" request:dsLogger device:currentListener options:0 responseHandler:v13];
+      [(DSProvider *)selfCopy _sendRequestID:@"com.apple.distributedsensing.dataRequest" request:dsLogger device:currentListener options:0 responseHandler:v12];
     }
   }
 
@@ -794,50 +784,47 @@ LABEL_54:
       _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] No Listeners registered\n", buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __30__DSProvider__sendMotionData___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (*(a1 + 32))
   {
-    v10 = *MEMORY[0x277D44270];
     Int64Ranged = CFDictionaryGetInt64Ranged();
     if (*(*(a1 + 32) + 32))
     {
-      v12 = Int64Ranged;
-      v13 = +[DSLogging sharedInstance];
-      v14 = [v13 dsLogger];
+      v11 = Int64Ranged;
+      v12 = +[DSLogging sharedInstance];
+      v13 = [v12 dsLogger];
 
-      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+      v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
       if (v9)
       {
-        if (v15)
+        if (v14)
         {
-          v16 = [*(*(a1 + 32) + 32) rpDevice];
-          v17 = v16;
-          if (v12 > 0xB)
+          v15 = [*(*(a1 + 32) + 32) rpDevice];
+          v16 = v15;
+          if (v11 > 0xB)
           {
-            v18 = "?";
+            v17 = "?";
           }
 
           else
           {
-            v18 = off_278F859C0[v12 & 0xF];
+            v17 = off_278F859C0[v11 & 0xF];
           }
 
-          v21 = 138412802;
-          v22 = v9;
-          v23 = 2112;
-          v24 = v16;
-          v25 = 2080;
-          v26 = v18;
-          _os_log_impl(&dword_249027000, v14, OS_LOG_TYPE_DEFAULT, "[DSProvider] %@ in sending data to device %@ over data link: %s. STOP subscription\n", &v21, 0x20u);
+          v19 = 138412802;
+          v20 = v9;
+          v21 = 2112;
+          v22 = v15;
+          v23 = 2080;
+          v24 = v17;
+          _os_log_impl(&dword_249027000, v13, OS_LOG_TYPE_DEFAULT, "[DSProvider] %@ in sending data to device %@ over data link: %s. STOP subscription\n", &v19, 0x20u);
         }
 
         [*(a1 + 32) _removeCurrentListenerWithStopReason:3];
@@ -846,18 +833,16 @@ void __30__DSProvider__sendMotionData___block_invoke(uint64_t a1, void *a2, void
 
       else
       {
-        if (v15)
+        if (v14)
         {
-          v19 = [*(*(a1 + 32) + 32) rpDevice];
-          v21 = 138412290;
-          v22 = v19;
-          _os_log_impl(&dword_249027000, v14, OS_LOG_TYPE_DEFAULT, "[DSProvider] Sent Data to device %@\n", &v21, 0xCu);
+          v18 = [*(*(a1 + 32) + 32) rpDevice];
+          v19 = 138412290;
+          v20 = v18;
+          _os_log_impl(&dword_249027000, v13, OS_LOG_TYPE_DEFAULT, "[DSProvider] Sent Data to device %@\n", &v19, 0xCu);
         }
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendRequestID:(id)d request:(id)request device:(id)device options:(id)options responseHandler:(id)handler
@@ -891,7 +876,7 @@ void __30__DSProvider__sendMotionData___block_invoke(uint64_t a1, void *a2, void
 
 - (void)_fetchScreenState
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   state64 = 0;
   notify_get_state(self->_screenStateToken, &state64);
   self->_isScreenON = state64 != 1;
@@ -911,16 +896,14 @@ void __30__DSProvider__sendMotionData___block_invoke(uint64_t a1, void *a2, void
     }
 
     *buf = 136315138;
-    v9 = v5;
+    v8 = v5;
     _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] Current screen state is %s\n", buf, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_heartBeatWithListener
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (!self->_isPendingHeartbeat)
   {
     self->_isPendingHeartbeat = 1;
@@ -931,66 +914,63 @@ void __30__DSProvider__sendMotionData___block_invoke(uint64_t a1, void *a2, void
     {
       rpDevice = [(DSRapportDevice *)self->_currentListener rpDevice];
       *buf = 138412290;
-      v11 = rpDevice;
+      v10 = rpDevice;
       _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] Heartbeating with Listener %@\n", buf, 0xCu);
     }
 
     ++self->_numHeartbeats;
     currentListener = self->_currentListener;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __36__DSProvider__heartBeatWithListener__block_invoke;
-    v9[3] = &unk_278F859A0;
-    v9[4] = self;
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __36__DSProvider__heartBeatWithListener__block_invoke;
+    v8[3] = &unk_278F859A0;
+    v8[4] = self;
     selfCopy = self;
-    [(DSProvider *)selfCopy _sendRequestID:@"com.apple.distributedsensing.heartbeatRequest" request:MEMORY[0x277CBEC10] device:currentListener options:0 responseHandler:v9];
+    [(DSProvider *)selfCopy _sendRequestID:@"com.apple.distributedsensing.heartbeatRequest" request:MEMORY[0x277CBEC10] device:currentListener options:0 responseHandler:v8];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __36__DSProvider__heartBeatWithListener__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
   if (*(a1 + 32))
   {
-    v10 = *MEMORY[0x277D44270];
     Int64Ranged = CFDictionaryGetInt64Ranged();
-    v12 = *(a1 + 32);
-    if (*(v12 + 32))
+    v11 = *(a1 + 32);
+    if (*(v11 + 32))
     {
-      v13 = Int64Ranged;
-      *(v12 + 56) = 0;
-      v14 = +[DSLogging sharedInstance];
-      v15 = [v14 dsLogger];
+      v12 = Int64Ranged;
+      *(v11 + 56) = 0;
+      v13 = +[DSLogging sharedInstance];
+      v14 = [v13 dsLogger];
 
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
       if (v9)
       {
-        if (v16)
+        if (v15)
         {
-          v17 = [*(*(a1 + 32) + 32) rpDevice];
-          v18 = v17;
-          if (v13 > 0xB)
+          v16 = [*(*(a1 + 32) + 32) rpDevice];
+          v17 = v16;
+          if (v12 > 0xB)
           {
-            v19 = "?";
+            v18 = "?";
           }
 
           else
           {
-            v19 = off_278F859C0[v13 & 0xF];
+            v18 = off_278F859C0[v12 & 0xF];
           }
 
-          v22 = 138412802;
-          v23 = v9;
-          v24 = 2112;
-          v25 = v17;
-          v26 = 2080;
-          v27 = v19;
-          _os_log_impl(&dword_249027000, v15, OS_LOG_TYPE_DEFAULT, "[DSProvider] %@ in heartbeating with listener %@ over data link: %s. STOP subscription\n", &v22, 0x20u);
+          v20 = 138412802;
+          v21 = v9;
+          v22 = 2112;
+          v23 = v16;
+          v24 = 2080;
+          v25 = v18;
+          _os_log_impl(&dword_249027000, v14, OS_LOG_TYPE_DEFAULT, "[DSProvider] %@ in heartbeating with listener %@ over data link: %s. STOP subscription\n", &v20, 0x20u);
         }
 
         [*(a1 + 32) _removeCurrentListenerWithStopReason:2];
@@ -999,18 +979,16 @@ void __36__DSProvider__heartBeatWithListener__block_invoke(uint64_t a1, void *a2
 
       else
       {
-        if (v16)
+        if (v15)
         {
-          v20 = [*(*(a1 + 32) + 32) rpDevice];
-          v22 = 138412290;
-          v23 = v20;
-          _os_log_impl(&dword_249027000, v15, OS_LOG_TYPE_DEFAULT, "[DSProvider] Listener %@ is still active\n", &v22, 0xCu);
+          v19 = [*(*(a1 + 32) + 32) rpDevice];
+          v20 = 138412290;
+          v21 = v19;
+          _os_log_impl(&dword_249027000, v14, OS_LOG_TYPE_DEFAULT, "[DSProvider] Listener %@ is still active\n", &v20, 0xCu);
         }
       }
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopProvider
@@ -1084,6 +1062,60 @@ void __30__DSProvider__addNewListener___block_invoke(uint64_t a1)
   }
 }
 
+- (void)_removeCurrentListenerWithStopReason:(int)reason
+{
+  self->_isSubscriptionActive = 0;
+  if (self->_currentListener)
+  {
+    v4 = *&reason;
+    [(DSProvider *)self _removePersistedState];
+    [(DSRapportDevice *)self->_currentListener invalidate];
+    currentListener = self->_currentListener;
+    self->_currentListener = 0;
+
+    [(DSProvider *)self _stopCASessionMetricCollectionWithStopReason:v4];
+    caEventHandler = self->_caEventHandler;
+    self->_caEventHandler = 0;
+
+    self->_numHeartbeats = 0;
+    self->_numMotionStateMessages = 0;
+    self->_linkType = 0;
+  }
+
+  if (self->_heartbeatTimer)
+  {
+    v7 = +[DSLogging sharedInstance];
+    dsLogger = [v7 dsLogger];
+
+    if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
+    {
+      *v11 = 0;
+      _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] Cancelling Heartbeat timer\n", v11, 2u);
+    }
+
+    heartbeatTimer = self->_heartbeatTimer;
+    if (!dispatch_source_testcancel(heartbeatTimer))
+    {
+      dispatch_source_cancel(heartbeatTimer);
+      heartbeatTimer = self->_heartbeatTimer;
+    }
+
+    self->_heartbeatTimer = 0;
+  }
+
+  responseTimeoutTimer = self->_responseTimeoutTimer;
+  if (responseTimeoutTimer)
+  {
+    if (!dispatch_source_testcancel(self->_responseTimeoutTimer))
+    {
+      dispatch_source_cancel(responseTimeoutTimer);
+      responseTimeoutTimer = self->_responseTimeoutTimer;
+    }
+
+    self->_responseTimeoutTimer = 0;
+  }
+}
+
 - (void)_startCASessionMetricCollection
 {
   if (!self->_isTestMode)
@@ -1114,14 +1146,44 @@ void __30__DSProvider__addNewListener___block_invoke(uint64_t a1)
   }
 }
 
+- (void)_stopCASessionMetricCollectionWithStopReason:(int)reason
+{
+  if (!self->_isTestMode)
+  {
+    caEventHandler = self->_caEventHandler;
+    if (caEventHandler)
+    {
+      numHeartbeats = self->_numHeartbeats;
+      numMotionStateMessages = self->_numMotionStateMessages;
+      linkType = self->_linkType;
+
+      [(DSCoreAnalyticsEventHandler *)caEventHandler dsSessionCompletedWithStopReason:*&reason numHeartbeats:numHeartbeats numMotionStateMessages:numMotionStateMessages activeProviderLostCount:0 dataLinkType:linkType maxListenerClients:0 avgListenerStartInterval:0.0];
+    }
+
+    else
+    {
+      v13 = v3;
+      v14 = v4;
+      v10 = +[DSLogging sharedInstance];
+      dsLogger = [v10 dsLogger];
+
+      if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
+      {
+        *v12 = 0;
+        _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] Core analytics event handler not initialized\n", v12, 2u);
+      }
+    }
+  }
+}
+
 - (BOOL)_persistListenerState
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [[DSKeychainPersistence alloc] initWithQueue:self->_clientQueue];
   currentListener = self->_currentListener;
-  v11 = 0;
-  v5 = [(DSKeychainPersistence *)v3 saveListenerState:currentListener withError:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [(DSKeychainPersistence *)v3 saveListenerState:currentListener withError:&v10];
+  v6 = v10;
   if (!v5)
   {
     v7 = +[DSLogging sharedInstance];
@@ -1130,24 +1192,23 @@ void __30__DSProvider__addNewListener___block_invoke(uint64_t a1)
     if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] failed to save peristence data with error %@", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)_unPersistListenerState
 {
-  *&v32[5] = *MEMORY[0x277D85DE8];
+  *&v31[5] = *MEMORY[0x277D85DE8];
   v3 = [[DSKeychainPersistence alloc] initWithQueue:self->_clientQueue];
+  v28 = 0;
   v29 = 0;
-  v30 = 0;
-  v4 = [(DSKeychainPersistence *)v3 loadListenerState:&v30 withError:&v29];
-  v5 = v30;
-  v6 = v29;
+  v4 = [(DSKeychainPersistence *)v3 loadListenerState:&v29 withError:&v28];
+  v5 = v29;
+  v6 = v28;
   if (!v4)
   {
     v15 = +[DSLogging sharedInstance];
@@ -1156,7 +1217,7 @@ void __30__DSProvider__addNewListener___block_invoke(uint64_t a1)
     if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v32 = v6;
+      *v31 = v6;
       v17 = "[DSProvider] No persistence data found with error: %@";
       v18 = dsLogger;
       v19 = 12;
@@ -1197,9 +1258,9 @@ LABEL_16:
       version = [v5 version];
       v22 = TextToSourceVersion();
       *buf = 67109376;
-      v32[0] = version;
-      LOWORD(v32[1]) = 1024;
-      *(&v32[1] + 2) = v22;
+      v31[0] = version;
+      LOWORD(v31[1]) = 1024;
+      *(&v31[1] + 2) = v22;
       v17 = "[DSProvider] version %d in persisted listener doesn't match current version: %d\n";
       v18 = dsLogger;
       v19 = 14;
@@ -1215,15 +1276,15 @@ LABEL_16:
 
   if (dataSubType != dataSubType2)
   {
-    v26 = +[DSLogging sharedInstance];
-    dsLogger = [v26 dsLogger];
+    v25 = +[DSLogging sharedInstance];
+    dsLogger = [v25 dsLogger];
 
     if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
     {
       inOptions2 = [v5 inOptions];
       dataSubType3 = [inOptions2 dataSubType];
       *buf = 67109120;
-      v32[0] = dataSubType3;
+      v31[0] = dataSubType3;
       _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] Invalid motion datatype %d in persisted listener\n", buf, 8u);
     }
 
@@ -1238,7 +1299,7 @@ LABEL_16:
   {
     identifier = [v5 identifier];
     *buf = 138412290;
-    *v32 = identifier;
+    *v31 = identifier;
     _os_log_impl(&dword_249027000, dsLogger2, OS_LOG_TYPE_DEFAULT, "[DSProvider] UNTERMINATED session found with listener ID %@", buf, 0xCu);
   }
 
@@ -1246,19 +1307,18 @@ LABEL_16:
   v14 = 1;
 LABEL_17:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)_removePersistedState
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   self->_isUnterminatedSession = 0;
   v3 = [[DSKeychainPersistence alloc] initWithQueue:self->_clientQueue];
   currentListener = self->_currentListener;
-  v11 = 0;
-  v5 = [(DSKeychainPersistence *)v3 removeListenerState:currentListener withError:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [(DSKeychainPersistence *)v3 removeListenerState:currentListener withError:&v10];
+  v6 = v10;
   if (!v5)
   {
     v7 = +[DSLogging sharedInstance];
@@ -1267,12 +1327,11 @@ LABEL_17:
     if (os_log_type_enabled(dsLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v13 = v6;
+      v12 = v6;
       _os_log_impl(&dword_249027000, dsLogger, OS_LOG_TYPE_DEFAULT, "[DSProvider] failed to remove peristence data with error %@", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

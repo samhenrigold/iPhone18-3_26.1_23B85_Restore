@@ -46,10 +46,10 @@
 
     self->_library = library;
     v7 = [VFXMetalLibraryProvider alloc];
-    self->_libraryProvider = objc_msgSend_iniWithLibrary_(v7, v8, library, v9);
-    v13 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v10, v11, v12);
+    self->_libraryProvider = objc_msgSend_iniWithLibrary_(v7, v8, library);
+    v11 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v9, v10);
 
-    objc_msgSend_postNotificationName_object_userInfo_(v13, v14, @"VFXProgramDidChangeNotification", self, 0);
+    objc_msgSend_postNotificationName_object_userInfo_(v11, v12, @"VFXProgramDidChangeNotification", self, 0);
   }
 }
 
@@ -60,18 +60,18 @@
 
     self->_library = 0;
     self->_libraryProvider = provider;
-    v9 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v6, v7, v8);
+    v8 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v6, v7);
 
-    objc_msgSend_postNotificationName_object_userInfo_(v9, v10, @"VFXProgramDidChangeNotification", self, 0);
+    objc_msgSend_postNotificationName_object_userInfo_(v8, v9, @"VFXProgramDidChangeNotification", self, 0);
   }
 }
 
 - (void)setName:(id)name
 {
-  if ((objc_msgSend_isEqualToString_(self->_name, a2, name, v3) & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(self->_name, a2, name) & 1) == 0)
   {
 
-    self->_name = objc_msgSend_copy(name, v6, v7, v8);
+    self->_name = objc_msgSend_copy(name, v5, v6);
   }
 }
 
@@ -85,7 +85,7 @@
 + (VFXProgram)programWithLibrary:(id)library
 {
   v4 = objc_alloc_init(self);
-  objc_msgSend_setLibrary_(v4, v5, library, v6);
+  objc_msgSend_setLibrary_(v4, v5, library);
   return v4;
 }
 
@@ -94,63 +94,63 @@
   if (self->_opaque != opaque)
   {
     self->_opaque = opaque;
-    v6 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, opaque, v3);
+    v5 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, opaque);
 
-    objc_msgSend_postNotificationName_object_userInfo_(v6, v7, @"VFXProgramDidChangeNotification", self, 0);
+    objc_msgSend_postNotificationName_object_userInfo_(v5, v6, @"VFXProgramDidChangeNotification", self, 0);
   }
 }
 
 - (void)setVertexFunctionName:(id)name
 {
-  if ((objc_msgSend_isEqualToString_(self->_vertexFunctionName, a2, name, v3) & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(self->_vertexFunctionName, a2, name) & 1) == 0)
   {
 
-    self->_vertexFunctionName = objc_msgSend_copy(name, v6, v7, v8);
-    v12 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v9, v10, v11);
+    self->_vertexFunctionName = objc_msgSend_copy(name, v5, v6);
+    v9 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v7, v8);
 
-    objc_msgSend_postNotificationName_object_userInfo_(v12, v13, @"VFXProgramDidChangeNotification", self, 0);
+    objc_msgSend_postNotificationName_object_userInfo_(v9, v10, @"VFXProgramDidChangeNotification", self, 0);
   }
 }
 
 - (void)setFragmentFunctionName:(id)name
 {
-  if ((objc_msgSend_isEqualToString_(self->_fragmentFunctionName, a2, name, v3) & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(self->_fragmentFunctionName, a2, name) & 1) == 0)
   {
 
-    self->_fragmentFunctionName = objc_msgSend_copy(name, v6, v7, v8);
-    v12 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v9, v10, v11);
+    self->_fragmentFunctionName = objc_msgSend_copy(name, v5, v6);
+    v9 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v7, v8);
 
-    objc_msgSend_postNotificationName_object_userInfo_(v12, v13, @"VFXProgramDidChangeNotification", self, 0);
+    objc_msgSend_postNotificationName_object_userInfo_(v9, v10, @"VFXProgramDidChangeNotification", self, 0);
   }
 }
 
 - (void)setSource:(id)source
 {
-  if ((objc_msgSend_isEqualToString_(self->_source, a2, source, v3) & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(self->_source, a2, source) & 1) == 0)
   {
 
-    self->_source = objc_msgSend_copy(source, v6, v7, v8);
-    v12 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v9, v10, v11);
+    self->_source = objc_msgSend_copy(source, v5, v6);
+    v9 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v7, v8);
 
-    objc_msgSend_postNotificationName_object_userInfo_(v12, v13, @"VFXProgramDidChangeNotification", self, 0);
+    objc_msgSend_postNotificationName_object_userInfo_(v9, v10, @"VFXProgramDidChangeNotification", self, 0);
   }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  v8 = objc_msgSend_source(self, v5, v6, v7);
-  objc_msgSend_setSource_(v4, v9, v8, v10);
-  v14 = objc_msgSend_vertexFunctionName(self, v11, v12, v13);
-  objc_msgSend_setVertexFunctionName_(v4, v15, v14, v16);
-  v20 = objc_msgSend_fragmentFunctionName(self, v17, v18, v19);
-  objc_msgSend_setFragmentFunctionName_(v4, v21, v20, v22);
-  v26 = objc_msgSend_name(self, v23, v24, v25);
-  objc_msgSend_setName_(v4, v27, v26, v28);
-  v32 = objc_msgSend_library(self, v29, v30, v31);
-  objc_msgSend_setLibrary_(v4, v33, v32, v34);
-  v38 = objc_msgSend_libraryProvider(self, v35, v36, v37);
-  objc_msgSend_setLibraryProvider_(v4, v39, v38, v40);
+  v7 = objc_msgSend_source(self, v5, v6);
+  objc_msgSend_setSource_(v4, v8, v7);
+  v11 = objc_msgSend_vertexFunctionName(self, v9, v10);
+  objc_msgSend_setVertexFunctionName_(v4, v12, v11);
+  v15 = objc_msgSend_fragmentFunctionName(self, v13, v14);
+  objc_msgSend_setFragmentFunctionName_(v4, v16, v15);
+  v19 = objc_msgSend_name(self, v17, v18);
+  objc_msgSend_setName_(v4, v20, v19);
+  v23 = objc_msgSend_library(self, v21, v22);
+  objc_msgSend_setLibrary_(v4, v24, v23);
+  v27 = objc_msgSend_libraryProvider(self, v25, v26);
+  objc_msgSend_setLibraryProvider_(v4, v28, v27);
   return v4;
 }
 
@@ -165,24 +165,24 @@
     }
 
     v10 = objc_alloc_init(VFXBufferBinding);
-    objc_msgSend_setName_(v10, v11, named, v12);
-    objc_msgSend_setFrequency_(v10, v13, frequency, v14);
-    v15 = _Block_copy(block);
-    objc_msgSend_setBlock_(v10, v16, v15, v17);
-    objc_msgSend_setValue_forKey_(self->_bufferBindings, v18, v10, named);
+    objc_msgSend_setName_(v10, v11, named);
+    objc_msgSend_setFrequency_(v10, v12, frequency);
+    v13 = _Block_copy(block);
+    objc_msgSend_setBlock_(v10, v14, v13);
+    objc_msgSend_setValue_forKey_(self->_bufferBindings, v15, v10, named);
 
-    v22 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v19, v20, v21);
+    v18 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v16, v17);
 
-    objc_msgSend_postNotificationName_object_userInfo_(v22, v23, @"VFXProgramDidChangeNotification", self, 0);
+    objc_msgSend_postNotificationName_object_userInfo_(v18, v19, @"VFXProgramDidChangeNotification", self, 0);
   }
 
   else
   {
     objc_msgSend_removeObjectForKey_(bufferBindings, a2, named, frequency);
-    v31 = objc_alloc_init(VFXBufferBinding);
-    objc_msgSend_setName_(v31, v24, named, v25);
-    v29 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v26, v27, v28);
-    objc_msgSend_postNotificationName_object_userInfo_(v29, v30, @"VFXProgramDidChangeNotification", self, 0);
+    v25 = objc_alloc_init(VFXBufferBinding);
+    objc_msgSend_setName_(v25, v20, named);
+    v23 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v21, v22);
+    objc_msgSend_postNotificationName_object_userInfo_(v23, v24, @"VFXProgramDidChangeNotification", self, 0);
   }
 }
 
@@ -219,31 +219,31 @@
 
 - (VFXProgram)initWithCoder:(id)coder
 {
-  v39.receiver = self;
-  v39.super_class = VFXProgram;
-  v7 = [(VFXProgram *)&v39 init];
-  if (v7)
+  v30.receiver = self;
+  v30.super_class = VFXProgram;
+  v6 = [(VFXProgram *)&v30 init];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    v11 = objc_opt_class();
-    v13 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v12, v11, @"source");
-    objc_msgSend_setSource_(v7, v14, v13, v15);
-    v16 = objc_opt_class();
-    v18 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v17, v16, @"vertexFunctionName");
-    objc_msgSend_setVertexFunctionName_(v7, v19, v18, v20);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    v9 = objc_opt_class();
+    v11 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v10, v9, @"source");
+    objc_msgSend_setSource_(v6, v12, v11);
+    v13 = objc_opt_class();
+    v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"vertexFunctionName");
+    objc_msgSend_setVertexFunctionName_(v6, v16, v15);
+    v17 = objc_opt_class();
+    v19 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v18, v17, @"fragmentFunctionName");
+    objc_msgSend_setFragmentFunctionName_(v6, v20, v19);
     v21 = objc_opt_class();
-    v23 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v22, v21, @"fragmentFunctionName");
-    objc_msgSend_setFragmentFunctionName_(v7, v24, v23, v25);
-    v26 = objc_opt_class();
-    v28 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v27, v26, @"name");
-    objc_msgSend_setName_(v7, v29, v28, v30);
-    v33 = objc_msgSend_decodeBoolForKey_(coder, v31, @"opaque", v32);
-    objc_msgSend_setOpaque_(v7, v34, v33, v35);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v36, v8, v37);
+    v23 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v22, v21, @"name");
+    objc_msgSend_setName_(v6, v24, v23);
+    v26 = objc_msgSend_decodeBoolForKey_(coder, v25, @"opaque");
+    objc_msgSend_setOpaque_(v6, v27, v26);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v28, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

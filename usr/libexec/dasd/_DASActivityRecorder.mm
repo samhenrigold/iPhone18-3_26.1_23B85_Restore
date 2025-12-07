@@ -12,6 +12,7 @@
 - (void)deleteActivitiesIfRequired:(id)required;
 - (void)deleteActivity:(id)activity context:(id)context;
 - (void)deleteOldActivities:(id)activities;
+- (void)updateActivity:(id)activity value:(int)value context:(id)context;
 @end
 
 @implementation _DASActivityRecorder
@@ -324,6 +325,36 @@
     v27 = [NSKeyedArchiver archivedDataWithRootObject:userInfo2 requiringSecureCoding:1 error:0];
     [objectCopy setUserInfo:v27];
   }
+}
+
+- (void)updateActivity:(id)activity value:(int)value context:(id)context
+{
+  v5 = *&value;
+  activityCopy = activity;
+  v7 = [_DASActivityRecorder fetchActivity:"fetchActivity:context:" context:?];
+  v8 = v7;
+  if (v7)
+  {
+    [v7 setCurrentState:v5];
+    if ((v5 - 2) >= 2)
+    {
+      if (v5 != 1)
+      {
+        goto LABEL_7;
+      }
+
+      startDate = [activityCopy startDate];
+      [v8 setStartDate:startDate];
+    }
+
+    else
+    {
+      startDate = +[NSDate date];
+      [v8 setCompletedDate:startDate];
+    }
+  }
+
+LABEL_7:
 }
 
 - (void)deleteActivity:(id)activity context:(id)context

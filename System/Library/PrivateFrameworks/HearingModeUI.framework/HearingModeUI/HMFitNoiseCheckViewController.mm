@@ -271,18 +271,17 @@ void *__44__HMFitNoiseCheckViewController_setupPlayer__block_invoke(uint64_t a1)
 + (void)prepareFitTest
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F4C9ED0, &qword_2520682E8);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = &v10 - v4;
-  v6 = sub_252064864();
-  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v4 = &v9 - v3;
+  v5 = sub_252064864();
+  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
   sub_252064844();
-  v7 = sub_252064834();
-  v8 = swift_allocObject();
-  v9 = MEMORY[0x277D85700];
-  *(v8 + 16) = v7;
-  *(v8 + 24) = v9;
-  sub_25205276C(0, 0, v5, &unk_2520689C8, v8);
+  v6 = sub_252064834();
+  v7 = swift_allocObject();
+  v8 = MEMORY[0x277D85700];
+  *(v7 + 16) = v6;
+  *(v7 + 24) = v8;
+  sub_25205276C(0, 0, v4, &unk_2520689C8, v7);
 }
 
 - (void)startListeningForNoiseLevelChange

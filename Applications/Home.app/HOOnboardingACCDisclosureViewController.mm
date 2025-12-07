@@ -3,6 +3,8 @@
 - (HOOnboardingChildViewControllerDelegate)delegate;
 - (HOOnboardingChildViewControllerNavigationBarDelegate)navigationBarDelegate;
 - (void)_done:(id)_done;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HOOnboardingACCDisclosureViewController
@@ -52,6 +54,34 @@
   }
 
   return v13;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = HOOnboardingACCDisclosureViewController;
+  [(HOOnboardingACCDisclosureViewController *)&v5 viewWillAppear:appear];
+  v3 = HFLogForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "[HOOnboardingACCDisclosureViewController-viewWillAppear]", v4, 2u);
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = HOOnboardingACCDisclosureViewController;
+  [(HOOnboardingACCDisclosureViewController *)&v6 viewWillDisappear:disappear];
+  v4 = HFLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *v5 = 0;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[HOOnboardingACCDisclosureViewController-viewWillDisappear]", v5, 2u);
+  }
+
+  [(HOOnboardingACCDisclosureViewController *)self _setUserDisclosed];
 }
 
 - (void)_done:(id)_done

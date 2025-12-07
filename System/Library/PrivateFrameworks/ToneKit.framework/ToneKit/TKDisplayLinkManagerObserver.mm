@@ -48,7 +48,6 @@
   displayDidRefreshCount = self->_displayDidRefreshCount;
   if (!(displayDidRefreshCount % self->_frameInterval))
   {
-    block = self->_block;
     (*(self->_block + 2))();
   }
 

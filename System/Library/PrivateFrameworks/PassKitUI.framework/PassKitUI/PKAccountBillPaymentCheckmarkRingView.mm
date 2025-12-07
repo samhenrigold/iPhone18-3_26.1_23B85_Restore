@@ -32,32 +32,38 @@
 
 - (void)layoutSubviews
 {
-  v23.receiver = self;
-  v23.super_class = PKAccountBillPaymentCheckmarkRingView;
-  [(PKAccountBillPaymentCheckmarkRingView *)&v23 layoutSubviews];
+  v34.receiver = self;
+  v34.super_class = PKAccountBillPaymentCheckmarkRingView;
+  [(PKAccountBillPaymentCheckmarkRingView *)&v34 layoutSubviews];
   [(PKAccountBillPaymentCheckmarkRingView *)self bounds];
   v4 = v3;
   v6 = v5;
-  [(PKBillPaymentRingView *)self->_ringView sizeThatFits:*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)];
   v8 = v7;
   v10 = v9;
-  [(PKBillPaymentRingView *)self->_ringView setBounds:v4, v6, v7, v9];
-  PKSizeScaleAspectFit();
+  [(PKBillPaymentRingView *)self->_ringView sizeThatFits:*MEMORY[0x1E695F060], *(MEMORY[0x1E695F060] + 8)];
   v12 = v11;
   v14 = v13;
+  [(PKBillPaymentRingView *)self->_ringView setBounds:v4, v6, v11, v13];
+  PKSizeScaleAspectFit();
+  v16 = v15;
+  v18 = v17;
   ringView = self->_ringView;
-  CATransform3DMakeScale(&v22, v11 / v8, v13 / v10, 1.0);
-  [(PKBillPaymentRingView *)ringView setTransform3D:&v22];
-  v16 = self->_ringView;
-  v17 = *MEMORY[0x1E695EFF8];
-  v18 = *(MEMORY[0x1E695EFF8] + 8);
-  layer = [(PKBillPaymentRingView *)v16 layer];
+  CATransform3DMakeScale(&v33, v15 / v12, v17 / v14, 1.0);
+  [(PKBillPaymentRingView *)ringView setTransform3D:&v33];
+  v20 = self->_ringView;
+  v21 = *MEMORY[0x1E695EFF8];
+  v22 = *(MEMORY[0x1E695EFF8] + 8);
+  layer = [(PKBillPaymentRingView *)v20 layer];
   [layer anchorPoint];
-  [(PKBillPaymentRingView *)v16 setPosition:v17 + v20 * v12, v18 + v21 * v14];
+  [(PKBillPaymentRingView *)v20 setPosition:v21 + v24 * v16, v22 + v25 * v18];
 
   [(LAUICheckmarkLayer *)self->_checkmarkLayer aspectSize];
   PKSizeScaleAspectFit();
-  PKSizeAlignedInRect();
+  v26.n128_f64[0] = v4;
+  v27.n128_f64[0] = v6;
+  v28.n128_u64[0] = v8;
+  v29.n128_u64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v30, v31, v26, v27, v28, v29, v32);
   [(LAUICheckmarkLayer *)self->_checkmarkLayer setFrame:?];
 }
 

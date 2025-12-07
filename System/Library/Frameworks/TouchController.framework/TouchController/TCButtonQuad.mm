@@ -11,10 +11,10 @@
 
 - (TCButtonQuad)init
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = TCButtonQuad;
-  v2 = [(TCButtonQuad *)&v7 init];
+  v9 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = TCButtonQuad;
+  v2 = [(TCButtonQuad *)&v6 init];
   v3 = v2;
   if (v2)
   {
@@ -24,12 +24,11 @@
     *(v2 + 2) = 0;
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
     *components = xmmword_23AAEE070;
-    v9 = unk_23AAEE080;
+    v8 = unk_23AAEE080;
     v3->_tintColor = CGColorCreate(DeviceRGB, components);
     CGColorSpaceRelease(DeviceRGB);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v3;
 }
 

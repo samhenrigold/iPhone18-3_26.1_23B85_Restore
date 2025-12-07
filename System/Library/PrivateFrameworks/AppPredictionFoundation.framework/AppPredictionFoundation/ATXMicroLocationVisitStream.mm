@@ -2,6 +2,7 @@
 + (id)atxMicroLocationVisitEventFromBiomeEvent:(id)event;
 + (id)convertNumDevicesVectorFromBMArray:(id)array;
 + (id)convertProbabilityVectorFromBMArray:(id)array;
+- (id)_publisherWithStartDate:(id)date endDate:(id)endDate shouldReverse:(BOOL)reverse;
 - (id)mostRecentMicroLocationWithinSeconds:(unint64_t)seconds;
 - (void)enumerateMicroLocationVisitEventsFromStartDate:(id)date endDate:(id)endDate filterBlock:(id)block limit:(unint64_t)limit ascending:(BOOL)ascending block:(id)a8;
 @end
@@ -72,12 +73,13 @@
 void __120__ATXMicroLocationVisitStream_enumerateMicroLocationVisitEventsFromStartDate_endDate_filterBlock_limit_ascending_block___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 state])
+  v3 = [v2 state];
+  if (v3)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_default(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __120__ATXMicroLocationVisitStream_enumerateMicroLocationVisitEventsFromStartDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(v2, v3);
+      __120__ATXMicroLocationVisitStream_enumerateMicroLocationVisitEventsFromStartDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(v2, v4);
     }
   }
 }
@@ -123,68 +125,6 @@ LABEL_9:
 
 + (id)convertProbabilityVectorFromBMArray:(id)array
 {
-  v26 = *MEMORY[0x277D85DE8];
-  arrayCopy = array;
-  v4 = arrayCopy;
-  if (arrayCopy)
-  {
-    v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
-    v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v22;
-      do
-      {
-        for (i = 0; i != v8; ++i)
-        {
-          if (*v22 != v9)
-          {
-            objc_enumerationMutation(v6);
-          }
-
-          v11 = *(*(&v21 + 1) + 8 * i);
-          microLocationIdentifier = [v11 microLocationIdentifier];
-
-          if (microLocationIdentifier)
-          {
-            v13 = [ATXMicroLocationVisitProbabilityPerLocation alloc];
-            microLocationIdentifier2 = [v11 microLocationIdentifier];
-            v15 = MEMORY[0x277CCABB0];
-            [v11 probability];
-            v16 = [v15 numberWithDouble:?];
-            v17 = [(ATXMicroLocationVisitProbabilityPerLocation *)v13 initWithMicroLocationIdentifier:microLocationIdentifier2 probability:v16];
-
-            [v5 addObject:v17];
-          }
-        }
-
-        v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
-      }
-
-      while (v8);
-    }
-
-    v18 = [v5 copy];
-  }
-
-  else
-  {
-    v18 = MEMORY[0x277CBEBF8];
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v18;
-}
-
-+ (id)convertNumDevicesVectorFromBMArray:(id)array
-{
   v25 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v4 = arrayCopy;
@@ -211,6 +151,66 @@ LABEL_9:
           }
 
           v11 = *(*(&v20 + 1) + 8 * i);
+          microLocationIdentifier = [v11 microLocationIdentifier];
+
+          if (microLocationIdentifier)
+          {
+            v13 = [ATXMicroLocationVisitProbabilityPerLocation alloc];
+            microLocationIdentifier2 = [v11 microLocationIdentifier];
+            v15 = MEMORY[0x277CCABB0];
+            [v11 probability];
+            v16 = [v15 numberWithDouble:?];
+            v17 = [(ATXMicroLocationVisitProbabilityPerLocation *)v13 initWithMicroLocationIdentifier:microLocationIdentifier2 probability:v16];
+
+            [v5 addObject:v17];
+          }
+        }
+
+        v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      }
+
+      while (v8);
+    }
+
+    v18 = [v5 copy];
+  }
+
+  else
+  {
+    v18 = MEMORY[0x277CBEBF8];
+  }
+
+  return v18;
+}
+
++ (id)convertNumDevicesVectorFromBMArray:(id)array
+{
+  v24 = *MEMORY[0x277D85DE8];
+  arrayCopy = array;
+  v4 = arrayCopy;
+  if (arrayCopy)
+  {
+    v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v6 = v4;
+    v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v7)
+    {
+      v8 = v7;
+      v9 = *v20;
+      do
+      {
+        for (i = 0; i != v8; ++i)
+        {
+          if (*v20 != v9)
+          {
+            objc_enumerationMutation(v6);
+          }
+
+          v11 = *(*(&v19 + 1) + 8 * i);
           technology = [v11 technology];
 
           if (technology)
@@ -224,7 +224,7 @@ LABEL_9:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v8);
@@ -237,8 +237,6 @@ LABEL_9:
   {
     v17 = MEMORY[0x277CBEBF8];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -277,17 +275,49 @@ LABEL_9:
   return v20;
 }
 
+- (id)_publisherWithStartDate:(id)date endDate:(id)endDate shouldReverse:(BOOL)reverse
+{
+  reverseCopy = reverse;
+  endDateCopy = endDate;
+  dateCopy = date;
+  v9 = BiomeLibrary();
+  location = [v9 Location];
+  microLocationVisit = [location MicroLocationVisit];
+  v12 = microLocationVisit;
+  if (reverseCopy)
+  {
+    v13 = endDateCopy;
+  }
+
+  else
+  {
+    v13 = dateCopy;
+  }
+
+  if (reverseCopy)
+  {
+    v14 = dateCopy;
+  }
+
+  else
+  {
+    v14 = endDateCopy;
+  }
+
+  v15 = [microLocationVisit atx_publisherWithStartDate:v13 endDate:v14 maxEvents:0 lastN:0 reversed:reverseCopy];
+
+  return v15;
+}
+
 void __120__ATXMicroLocationVisitStream_enumerateMicroLocationVisitEventsFromStartDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 136315394;
-  v6 = "[ATXMicroLocationVisitStream enumerateMicroLocationVisitEventsFromStartDate:endDate:filterBlock:limit:ascending:block:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: Error fetching BMLibrary.Location.MicroLocationVisit events %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[ATXMicroLocationVisitStream enumerateMicroLocationVisitEventsFromStartDate:endDate:filterBlock:limit:ascending:block:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: Error fetching BMLibrary.Location.MicroLocationVisit events %@", &v4, 0x16u);
 }
 
 @end

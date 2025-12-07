@@ -80,7 +80,7 @@ void __50__UIBezierPath_Utilities__vk_allPointsFromCGPath___block_invoke(uint64_
   }
 }
 
-uint64_t __53__UIBezierPath_Utilities__vk_pathFromFlippingInRect___block_invoke(uint64_t result, int *a2)
+void *__53__UIBezierPath_Utilities__vk_pathFromFlippingInRect___block_invoke(void *result, int *a2)
 {
   v2 = result;
   v3 = *a2;
@@ -90,7 +90,7 @@ uint64_t __53__UIBezierPath_Utilities__vk_pathFromFlippingInRect___block_invoke(
     {
       if (v3 == 3)
       {
-        v6 = *(result + 32);
+        v6 = result[4];
         VKMFlipPoint();
         v8 = v7;
         v10 = v9;
@@ -101,7 +101,7 @@ uint64_t __53__UIBezierPath_Utilities__vk_pathFromFlippingInRect___block_invoke(
 
       else if (v3 == 4)
       {
-        v4 = *(result + 32);
+        v4 = result[4];
 
         return [v4 closePath];
       }
@@ -121,13 +121,13 @@ uint64_t __53__UIBezierPath_Utilities__vk_pathFromFlippingInRect___block_invoke(
     }
 
 LABEL_12:
-    v5 = *(v2 + 32);
+    v5 = v2[4];
     VKMFlipPoint();
 
     return [v5 vk_addLineToPoint:?];
   }
 
-  v11 = *(result + 32);
+  v11 = result[4];
   VKMFlipPoint();
 
   return [v11 moveToPoint:?];

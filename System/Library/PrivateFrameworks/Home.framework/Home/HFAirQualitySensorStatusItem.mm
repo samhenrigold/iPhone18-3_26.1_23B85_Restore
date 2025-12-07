@@ -15,40 +15,38 @@
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   serviceTypes = [objc_opt_class() serviceTypes];
   anyObject = [serviceTypes anyObject];
 
   v7 = [objc_opt_class() characteristicTypesForServiceType:anyObject includingAssociatedTypes:1];
-  v21[0] = anyObject;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = anyObject;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   allObjects = [v7 allObjects];
   v10 = [(HFStatusItem *)self filteredServicesOfTypes:v8 containingCharacteristicTypes:allObjects];
 
   objc_initWeak(&location, self);
   valueSource = [(HFStatusItem *)self valueSource];
   v12 = [valueSource readValuesForCharacteristicTypes:v7 inServices:v10];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __60__HFAirQualitySensorStatusItem__subclass_updateWithOptions___block_invoke;
-  v17[3] = &unk_277DF61A0;
-  objc_copyWeak(&v19, &location);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __60__HFAirQualitySensorStatusItem__subclass_updateWithOptions___block_invoke;
+  v16[3] = &unk_277DF61A0;
+  objc_copyWeak(&v18, &location);
   v13 = anyObject;
-  v18 = v13;
-  v14 = [v12 flatMap:v17];
+  v17 = v13;
+  v14 = [v12 flatMap:v16];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 id __60__HFAirQualitySensorStatusItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -70,31 +68,31 @@ id __60__HFAirQualitySensorStatusItem__subclass_updateWithOptions___block_invoke
     else
     {
       v15 = *MEMORY[0x277CCF770];
-      v31 = [v3 servicesWithValuesPassingTest:&__block_literal_global_227 forCharacteristicType:*MEMORY[0x277CCF770]];
-      v35 = 0;
-      v36 = &v35;
-      v37 = 0x2020000000;
-      v38 = 0;
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __60__HFAirQualitySensorStatusItem__subclass_updateWithOptions___block_invoke_3;
-      v32[3] = &unk_277DF6178;
+      v30 = [v3 servicesWithValuesPassingTest:&__block_literal_global_227 forCharacteristicType:*MEMORY[0x277CCF770]];
+      v34 = 0;
+      v35 = &v34;
+      v36 = 0x2020000000;
+      v37 = 0;
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __60__HFAirQualitySensorStatusItem__subclass_updateWithOptions___block_invoke_3;
+      v31[3] = &unk_277DF6178;
       v16 = v3;
-      v33 = v16;
-      v34 = &v35;
-      [v31 na_each:v32];
-      if (v36[3])
+      v32 = v16;
+      v33 = &v34;
+      [v30 na_each:v31];
+      if (v35[3])
       {
         v17 = [v16 responseForCharacteristicType:v15];
-        v30 = [v17 characteristic];
+        v29 = [v17 characteristic];
 
-        v18 = [MEMORY[0x277CCAA28] hf_valueFormatterForCharacteristic:v30 options:0];
-        v19 = [MEMORY[0x277CCABB0] numberWithInteger:v36[3]];
+        v18 = [MEMORY[0x277CCAA28] hf_valueFormatterForCharacteristic:v29 options:0];
+        v19 = [MEMORY[0x277CCABB0] numberWithInteger:v35[3]];
         v20 = [v18 stringForObjectValue:v19];
 
         [v7 setObject:v20 forKeyedSubscript:@"description"];
         [v7 setObject:&unk_2825251A0 forKeyedSubscript:@"statusItemCategory"];
-        v21 = [MEMORY[0x277CCABB0] numberWithInteger:6 - v36[3]];
+        v21 = [MEMORY[0x277CCABB0] numberWithInteger:6 - v35[3]];
         v22 = [HFNumberRange valueWithValue:v21];
         [v7 setObject:v22 forKeyedSubscript:@"statusCurrentValue"];
 
@@ -114,21 +112,19 @@ id __60__HFAirQualitySensorStatusItem__subclass_updateWithOptions___block_invoke
       v27 = [HFItemUpdateOutcome outcomeWithResults:v7];
       v12 = [v26 futureWithResult:v27];
 
-      _Block_object_dispose(&v35, 8);
+      _Block_object_dispose(&v34, 8);
     }
   }
 
   else
   {
     v13 = MEMORY[0x277D2C900];
-    v39 = @"hidden";
-    v40[0] = MEMORY[0x277CBEC38];
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v38 = @"hidden";
+    v39[0] = MEMORY[0x277CBEC38];
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v14 = [HFItemUpdateOutcome outcomeWithResults:v7];
     v12 = [v13 futureWithResult:v14];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

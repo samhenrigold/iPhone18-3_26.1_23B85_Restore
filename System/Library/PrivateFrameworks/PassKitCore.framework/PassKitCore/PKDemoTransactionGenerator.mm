@@ -227,20 +227,20 @@ uint64_t __62__PKDemoTransactionGenerator_generateDemoFilesWithCompletion___bloc
           v33 = v27;
           if (serialNumber == v33)
           {
-            v34 = 1;
+            isEqualToString = 1;
           }
 
           else
           {
-            v34 = 0;
+            isEqualToString = 0;
             if (v27 && serialNumber)
             {
-              v34 = [serialNumber isEqualToString:v33];
+              isEqualToString = objc_msgSend_isEqualToString_(serialNumber);
             }
           }
 
           v35 = [self itemIdentifierForPass:v31];
-          v36 = _demoTransactionArrayForItemIdentifier(v35, v34);
+          v36 = _demoTransactionArrayForItemIdentifier(v35, isEqualToString);
           [v25 addObjectsFromArray:v36];
 
           v27 = numberCopy;

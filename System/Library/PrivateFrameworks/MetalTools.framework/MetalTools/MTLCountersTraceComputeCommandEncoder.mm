@@ -88,21 +88,20 @@
 
 - (void)setComputePipelineState:(id)state
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 7937;
-  v9 = 109;
+  v8 = 109;
   stateCopy = state;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSamplerState:(id)state atIndex:(unint64_t)index
@@ -169,59 +168,56 @@
 
 - (void)updateFence:(id)fence
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 29697;
-  v9 = 109;
+  v8 = 109;
   fenceCopy = fence;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)waitForFence:(id)fence
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 32257;
-  v9 = 109;
+  v8 = 109;
   fenceCopy = fence;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)useHeap:(id)heap
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 30209;
-  v9 = 109;
+  v8 = 109;
   heapCopy = heap;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)useHeaps:(const void *)heaps count:(unint64_t)count
@@ -254,21 +250,20 @@
 
 - (void)memoryBarrierWithScope:(unint64_t)scope
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   timer = self->super._timer;
   stream = self->super._stream;
-  v15[1] = v15;
+  v14[1] = v14;
   __src = 10241;
-  v9 = 100;
+  v8 = 100;
   scopeCopy = scope;
   numer = stream->_timebase.numer;
   denom = stream->_timebase.denom;
-  v11 = -108;
-  v12 = timer * numer / denom;
-  v13 = 16;
-  v15[0] = v14;
+  v10 = -108;
+  v11 = timer * numer / denom;
+  v12 = 16;
+  v14[0] = v13;
   AppendBuffer::WriteBytes(stream, &stream->stream, &__src, 0x15uLL);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)memoryBarrierWithResources:(const void *)resources count:(unint64_t)count

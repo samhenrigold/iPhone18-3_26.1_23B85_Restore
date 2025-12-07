@@ -136,7 +136,7 @@
   return build;
 }
 
-uint64_t __38__CHSInlineTextParameters_description__block_invoke(uint64_t a1)
+void *__38__CHSInlineTextParameters_description__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 8) withName:@"showsDate"];
   result = [*(a1 + 32) appendString:*(*(a1 + 40) + 16) withName:@"dateFormat" skipIfEmpty:1];
@@ -297,14 +297,6 @@ uint64_t __38__CHSInlineTextParameters_description__block_invoke(uint64_t a1)
   }
 
   return v44;
-}
-
-double __35__CHSInlineTextParameters_isEqual___block_invoke_10(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  result = *(v1 + 88);
-  v3 = *(v1 + 96);
-  return result;
 }
 
 - (unint64_t)hash

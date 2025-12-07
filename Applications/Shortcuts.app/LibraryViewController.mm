@@ -94,20 +94,20 @@
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  sub_10001A258();
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
+  sub_10001A258(viewCopy, layoutCopy, index);
+  v12 = v11;
+  v14 = v13;
+  v16 = v15;
+  v18 = v17;
 
-  v18 = v11;
-  v19 = v13;
-  v20 = v15;
-  v21 = v17;
-  result.right = v21;
-  result.bottom = v20;
-  result.left = v19;
-  result.top = v18;
+  v19 = v12;
+  v20 = v14;
+  v21 = v16;
+  v22 = v18;
+  result.right = v22;
+  result.bottom = v21;
+  result.left = v20;
+  result.top = v19;
   return result;
 }
 
@@ -132,20 +132,20 @@
   v8 = type metadata accessor for IndexPath();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  sub_10001BF28();
-  v16 = v15;
+  sub_10001BF28(viewCopy, v15, v11, v16);
   v18 = v17;
+  v20 = v19;
 
   (*(v9 + 8))(v11, v8);
-  v19 = v16;
-  v20 = v18;
-  result.height = v20;
-  result.width = v19;
+  v21 = v18;
+  v22 = v20;
+  result.height = v22;
+  result.width = v21;
   return result;
 }
 
@@ -196,14 +196,14 @@
 - (void)moveSelected
 {
   selfCopy = self;
-  sub_100067E58(selfCopy);
+  sub_100067E58();
 }
 
 - (void)removeSelected:(id)selected
 {
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  static String._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100067F40(v4);
+  sub_100067F40();
 }
 
 - (void)deleteSelected:(id)selected
@@ -237,9 +237,10 @@
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v9 = sub_100085340();
+  sub_100085340();
+  v10 = v9;
 
-  return v9;
+  return v10;
 }
 
 - (void)collectionView:(id)view willPerformPreviewActionForMenuWithConfiguration:(id)configuration animator:(id)animator
@@ -256,7 +257,7 @@
 - (void)showShortcutDetails
 {
   selfCopy = self;
-  sub_10008BAE8(selfCopy);
+  sub_10008BAE8();
 }
 
 - (id)collectionView:(id)view itemsForBeginningDragSession:(id)session atIndexPath:(id)path
@@ -273,7 +274,7 @@
 
   swift_unknownObjectRelease();
   (*(v8 + 8))(v10, v7);
-  sub_100002FC4(0, &qword_100102428);
+  sub_100002FC4(0, &qword_100102428, UIDragItem_ptr);
   v14.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v14.super.isa;
@@ -293,7 +294,7 @@
 
   swift_unknownObjectRelease();
   (*(v10 + 8))(v12, v9);
-  sub_100002FC4(0, &qword_100102428);
+  sub_100002FC4(0, &qword_100102428, UIDragItem_ptr);
   v15.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v15.super.isa;
@@ -312,7 +313,7 @@
 
 - (id)collectionView:(id)view dropSessionDidUpdate:(id)update withDestinationIndexPath:(id)path
 {
-  v9 = sub_10002E87C(&qword_100100010);
+  v9 = sub_10002E87C(&qword_100100010, &unk_1000C1290);
   __chkstk_darwin(v9 - 8);
   v11 = &v18 - v10;
   if (path)
@@ -335,7 +336,7 @@
   v16 = sub_1000984F4(viewCopy, update, v11);
 
   swift_unknownObjectRelease();
-  sub_100083220(v11, &qword_100100010);
+  sub_100083220(v11, &qword_100100010, &unk_1000C1290);
 
   return v16;
 }
@@ -425,7 +426,7 @@ LABEL_4:
 LABEL_7:
   sub_10009C294();
 
-  sub_1000069B0(v13, &unk_100100140);
+  sub_1000069B0(v13, &unk_100100140, &qword_1000C5DC0);
 }
 
 - (void)keyboardWillChange:(id)change
@@ -462,7 +463,7 @@ LABEL_7:
 
   if (v3)
   {
-    sub_100002FC4(0, &unk_1001026A0);
+    sub_100002FC4(0, &unk_1001026A0, UIKeyCommand_ptr);
     v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
   }
 
@@ -477,19 +478,19 @@ LABEL_7:
 - (void)duplicateSelectedWorkflowsFromKeyboard
 {
   selfCopy = self;
-  sub_10009E160(selfCopy);
+  sub_10009E160();
 }
 
 - (void)deleteSelectedWorkflowsFromKeyboard
 {
   selfCopy = self;
-  sub_10009E10C(selfCopy);
+  sub_10009E10C();
 }
 
 - (void)openSelectedWorkflowFromKeyboard
 {
   selfCopy = self;
-  sub_10009E370(selfCopy);
+  sub_10009E370();
 }
 
 - (void)handleEscapeKeyboardPress
@@ -501,7 +502,7 @@ LABEL_7:
 - (void)runWorkflowFromKeyPress
 {
   selfCopy = self;
-  sub_10009E500(selfCopy);
+  sub_10009E500();
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
@@ -523,7 +524,7 @@ LABEL_7:
   sub_10009E664();
   v8 = v7;
 
-  sub_1000069B0(v10, &unk_100100140);
+  sub_1000069B0(v10, &unk_100100140, &qword_1000C5DC0);
   return v8 & 1;
 }
 
@@ -569,7 +570,7 @@ LABEL_7:
 {
   actionCopy = action;
   selfCopy = self;
-  sub_1000A08C8();
+  sub_1000A08C8(actionCopy);
 }
 
 - (_TtC9Shortcuts21LibraryViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -593,7 +594,7 @@ LABEL_7:
 
 - (void)databaseDidChange:(id)change modified:(id)modified inserted:(id)inserted removed:(id)removed
 {
-  sub_100002FC4(0, &qword_1001002D8);
+  sub_100002FC4(0, &qword_1001002D8, WFDatabaseObjectDescriptor_ptr);
   sub_1000A4FA8();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();
   static Set._unconditionallyBridgeFromObjectiveC(_:)();

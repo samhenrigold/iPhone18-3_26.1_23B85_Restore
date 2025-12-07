@@ -42,7 +42,7 @@
 
 - (SSURLConnectionResponse)initWithDatabaseEncoding:(id)encoding
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -57,18 +57,18 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v36.receiver = self;
-    v36.super_class = SSURLConnectionResponse;
-    v6 = [(SSURLConnectionResponse *)&v36 init];
+    v35.receiver = self;
+    v35.super_class = SSURLConnectionResponse;
+    v6 = [(SSURLConnectionResponse *)&v35 init];
     if (v6)
     {
       v7 = [v5 objectForKey:@"9"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v35 = 0;
-        v6->_urlResponse = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v35];
-        if (v35)
+        v34 = 0;
+        v6->_urlResponse = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v7 error:&v34];
+        if (v34)
         {
           v8 = +[SSLogConfig sharedStoreServicesConfig];
           if (!v8)
@@ -79,35 +79,39 @@
           shouldLog = [v8 shouldLog];
           if ([v8 shouldLogToDisk])
           {
-            v10 = shouldLog | 2;
+            LODWORD(v10) = shouldLog | 2;
           }
 
           else
           {
-            v10 = shouldLog;
+            LODWORD(v10) = shouldLog;
           }
 
-          if (!os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_ERROR))
+          oSLogObject = [v8 OSLogObject];
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+          {
+            v10 = v10;
+          }
+
+          else
           {
             v10 &= 2u;
           }
 
           if (v10)
           {
-            v11 = objc_opt_class();
-            v37 = 138543618;
-            v38 = v11;
-            v39 = 2114;
-            v40 = v35;
-            LODWORD(v34) = 22;
-            v33 = &v37;
-            v12 = _os_log_send_and_compose_impl();
-            if (v12)
+            v12 = objc_opt_class();
+            v36 = 138543618;
+            v37 = v12;
+            v38 = 2114;
+            v39 = v34;
+            v13 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to unarchive response. Error = %{public}@", &v36, 22);
+            if (v13)
             {
-              v13 = v12;
-              v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v37, v34}];
-              free(v13);
-              SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, v14);
+              v14 = v13;
+              v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+              free(v14);
+              SSFileLog(v8, @"%@", v16, v17, v18, v19, v20, v21, v15);
             }
           }
         }
@@ -115,18 +119,18 @@
 
       else
       {
-        v21 = [v5 objectForKey:@"7"];
+        v22 = [v5 objectForKey:@"7"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v22 = [MEMORY[0x1E695DFF8] URLWithString:v21];
-          if (v22)
+          v23 = [MEMORY[0x1E695DFF8] URLWithString:v22];
+          if (v23)
           {
-            v23 = v22;
-            v24 = [v5 objectForKey:@"4"];
+            v24 = v23;
+            v25 = [v5 objectForKey:@"4"];
             if (objc_opt_respondsToSelector())
             {
-              integerValue = [v24 integerValue];
+              integerValue = [v25 integerValue];
             }
 
             else
@@ -134,16 +138,16 @@
               integerValue = 0;
             }
 
-            v26 = [v5 objectForKey:@"2"];
+            v27 = [v5 objectForKey:@"2"];
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v26 = 0;
+              v27 = 0;
             }
 
-            v27 = objc_alloc(MEMORY[0x1E696AC68]);
-            v28 = [v27 initWithURL:v23 statusCode:integerValue HTTPVersion:*MEMORY[0x1E695ADB8] headerFields:v26];
-            if ([(NSHTTPURLResponse *)v28 _CFURLResponse])
+            v28 = objc_alloc(MEMORY[0x1E696AC68]);
+            v29 = [v28 initWithURL:v24 statusCode:integerValue HTTPVersion:*MEMORY[0x1E695ADB8] headerFields:v27];
+            if ([(NSHTTPURLResponse *)v29 _CFURLResponse])
             {
               [v5 objectForKey:@"3"];
               objc_opt_class();
@@ -152,31 +156,31 @@
                 CFURLResponseSetMIMEType();
               }
 
-              v29 = [v5 objectForKey:@"1"];
+              v30 = [v5 objectForKey:@"1"];
               if (objc_opt_respondsToSelector())
               {
-                [v29 longLongValue];
+                [v30 longLongValue];
                 CFURLResponseSetExpectedContentLength();
               }
             }
 
-            v6->_urlResponse = v28;
+            v6->_urlResponse = v29;
           }
         }
       }
 
-      v30 = [v5 objectForKey:{@"0", v33}];
+      v31 = [v5 objectForKey:@"0"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v6->_bodyData = v30;
+        v6->_bodyData = v31;
       }
 
-      v31 = [v5 objectForKey:@"8"];
+      v32 = [v5 objectForKey:@"8"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v6->_metricsPageEvent = [(SSMetricsMutableEvent *)[SSMetricsPageEvent alloc] initWithBodyDictionary:v31];
+        v6->_metricsPageEvent = [(SSMetricsMutableEvent *)[SSMetricsPageEvent alloc] initWithBodyDictionary:v32];
       }
     }
   }
@@ -192,7 +196,7 @@
 
 - (NSData)databaseEncoding
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v4 = v3;
   bodyData = self->_bodyData;
@@ -210,9 +214,9 @@
   urlResponse = self->_urlResponse;
   if (urlResponse)
   {
-    v26 = 0;
-    v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:urlResponse requiringSecureCoding:1 error:&v26];
-    if (v26)
+    v25 = 0;
+    v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:urlResponse requiringSecureCoding:1 error:&v25];
+    if (v25)
     {
       v9 = +[SSLogConfig sharedStoreServicesConfig];
       if (!v9)
@@ -223,35 +227,39 @@
       shouldLog = [v9 shouldLog];
       if ([v9 shouldLogToDisk])
       {
-        v11 = shouldLog | 2;
+        LODWORD(v11) = shouldLog | 2;
       }
 
       else
       {
-        v11 = shouldLog;
+        LODWORD(v11) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_ERROR))
+      oSLogObject = [v9 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+      {
+        v11 = v11;
+      }
+
+      else
       {
         v11 &= 2u;
       }
 
       if (v11)
       {
-        v12 = objc_opt_class();
-        v27 = 138543618;
-        v28 = v12;
-        v29 = 2114;
-        v30 = v26;
-        LODWORD(v25) = 22;
-        v24 = &v27;
-        v13 = _os_log_send_and_compose_impl();
-        if (v13)
+        v13 = objc_opt_class();
+        v26 = 138543618;
+        v27 = v13;
+        v28 = 2114;
+        v29 = v25;
+        v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1D48BA000, oSLogObject, 16, "%{public}@: Failed to archive response. Error = %{public}@", &v26, 22);
+        if (v14)
         {
-          v14 = v13;
-          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v27, v25}];
-          free(v14);
-          SSFileLog(v9, @"%@", v16, v17, v18, v19, v20, v21, v15);
+          v15 = v14;
+          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+          free(v15);
+          SSFileLog(v9, @"%@", v17, v18, v19, v20, v21, v22, v16);
         }
       }
     }
@@ -262,9 +270,9 @@
     }
   }
 
-  v22 = [MEMORY[0x1E696AE40] dataWithPropertyList:v4 format:200 options:0 error:0];
+  v23 = [MEMORY[0x1E696AE40] dataWithPropertyList:v4 format:200 options:0 error:0];
 
-  return v22;
+  return v23;
 }
 
 - (NSString)storeCorrelationID
@@ -294,19 +302,19 @@
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v9.receiver = self;
-    v9.super_class = SSURLConnectionResponse;
-    v5 = [(SSURLConnectionResponse *)&v9 init];
+    v11.receiver = self;
+    v11.super_class = SSURLConnectionResponse;
+    v5 = [(SSURLConnectionResponse *)&v11 init];
     if (v5)
     {
-      objc_opt_class();
-      v5->_bodyData = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0");
-      objc_opt_class();
-      v7 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "3");
+      v7 = objc_opt_class();
+      v5->_bodyData = SSXPCDictionaryCopyCFObjectWithClass(encoding, "0", v7);
+      v8 = objc_opt_class();
+      v9 = SSXPCDictionaryCopyCFObjectWithClass(encoding, "3", v8);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v5->_metricsPageEvent = [(SSMetricsMutableEvent *)[SSMetricsPageEvent alloc] initWithBodyDictionary:v7];
+        v5->_metricsPageEvent = [(SSMetricsMutableEvent *)[SSMetricsPageEvent alloc] initWithBodyDictionary:v9];
       }
 
       value = xpc_dictionary_get_value(encoding, "9");

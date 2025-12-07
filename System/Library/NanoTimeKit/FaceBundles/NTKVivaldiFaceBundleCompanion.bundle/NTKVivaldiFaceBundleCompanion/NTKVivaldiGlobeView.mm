@@ -319,31 +319,30 @@
   paletteCopy = palette;
   blackColor = [v5 blackColor];
   background = [paletteCopy background];
-  v9 = *MEMORY[0x277D2BF18];
-  v21 = CLKInterpolateBetweenColors();
+  v20 = CLKInterpolateBetweenColors();
 
   background2 = [paletteCopy background];
-  v11 = CLKInterpolateBetweenColors();
+  v10 = CLKInterpolateBetweenColors();
 
   blackColor2 = [MEMORY[0x277D75348] blackColor];
   globeGrid = [paletteCopy globeGrid];
-  v14 = CLKInterpolateBetweenColors();
+  v13 = CLKInterpolateBetweenColors();
 
   globeGrid2 = [paletteCopy globeGrid];
-  v16 = CLKInterpolateBetweenColors();
+  v15 = CLKInterpolateBetweenColors();
 
-  [(UIImageView *)self->_globeView setTintColor:v16];
-  [(UIImageView *)self->_globeOutgoingView setTintColor:v16];
-  [(UIImageView *)self->_globeView setBackgroundColor:v11];
-  [(UIImageView *)self->_globeOutgoingView setBackgroundColor:v11];
+  [(UIImageView *)self->_globeView setTintColor:v15];
+  [(UIImageView *)self->_globeOutgoingView setTintColor:v15];
+  [(UIImageView *)self->_globeView setBackgroundColor:v10];
+  [(UIImageView *)self->_globeOutgoingView setBackgroundColor:v10];
   globeTritiumView = self->_globeTritiumView;
   globeGrid_tritium = [paletteCopy globeGrid_tritium];
   [(UIImageView *)globeTritiumView setTintColor:globeGrid_tritium];
 
-  v19 = self->_globeTritiumView;
+  v18 = self->_globeTritiumView;
   background3 = [paletteCopy background];
 
-  [(UIImageView *)v19 setBackgroundColor:background3];
+  [(UIImageView *)v18 setBackgroundColor:background3];
 }
 
 - (void)setTritiumFraction:(double)fraction

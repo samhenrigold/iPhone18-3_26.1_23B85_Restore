@@ -10,6 +10,7 @@
 - (id)_dateFromObject:(id)object;
 - (id)_numberFromObject:(id)object;
 - (id)_stringFromObject:(id)object;
+- (void)_addDownloadWithMetadata:(id)metadata isRestore:(BOOL)restore completion:(id)completion;
 - (void)_cancelAllPausedDownloads;
 - (void)_purchaseWithRequest:(id)request uiHostProxy:(id)proxy completion:(id)completion;
 - (void)account:(unint64_t)account didChangeWithReason:(unint64_t)reason;
@@ -28,6 +29,8 @@
 - (void)pauseDownloadWithID:(id)d withCompletion:(id)completion;
 - (void)processAutomaticDownloadsWithReply:(id)reply;
 - (void)purchaseWithBuyParameters:(id)parameters storeID:(id)d completion:(id)completion;
+- (void)purchaseWithBuyParameters:(id)parameters storeID:(id)d isAudiobook:(BOOL)audiobook completion:(id)completion;
+- (void)purchaseWithBuyParameters:(id)parameters storeID:(id)d isAudiobook:(BOOL)audiobook userInfo:(id)info completion:(id)completion;
 - (void)purchaseWithRequest:(id)request completion:(id)completion;
 - (void)reloadFromServerWithCompletion:(id)completion;
 - (void)removeObserver:(id)observer;
@@ -158,6 +161,35 @@
   [(BLDownloadQueueNonUI *)self purchaseWithRequest:v12 completion:completionCopy];
 }
 
+- (void)purchaseWithBuyParameters:(id)parameters storeID:(id)d isAudiobook:(BOOL)audiobook completion:(id)completion
+{
+  audiobookCopy = audiobook;
+  v10 = MEMORY[0x277CCABB0];
+  completionCopy = completion;
+  parametersCopy = parameters;
+  v13 = [v10 numberWithLongLong:{objc_msgSend(d, "longLongValue")}];
+  v14 = [BLPurchaseRequest requestWithBuyParameters:parametersCopy storeIdentifier:v13];
+
+  [v14 setAudiobook:audiobookCopy];
+  [(BLDownloadQueueNonUI *)self purchaseWithRequest:v14 completion:completionCopy];
+}
+
+- (void)purchaseWithBuyParameters:(id)parameters storeID:(id)d isAudiobook:(BOOL)audiobook userInfo:(id)info completion:(id)completion
+{
+  audiobookCopy = audiobook;
+  v12 = MEMORY[0x277CCABB0];
+  completionCopy = completion;
+  infoCopy = info;
+  parametersCopy = parameters;
+  v16 = [v12 numberWithLongLong:{objc_msgSend(d, "longLongValue")}];
+  v17 = [BLPurchaseRequest requestWithBuyParameters:parametersCopy storeIdentifier:v16];
+
+  [v17 setAudiobook:audiobookCopy];
+  [v17 setAnalyticsInfo:infoCopy];
+
+  [(BLDownloadQueueNonUI *)self purchaseWithRequest:v17 completion:completionCopy];
+}
+
 - (void)_purchaseWithRequest:(id)request uiHostProxy:(id)proxy completion:(id)completion
 {
   requestCopy = request;
@@ -222,7 +254,7 @@
 
 - (void)addDownloadWithPermlink:(id)permlink title:(id)title completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   permlinkCopy = permlink;
   titleCopy = title;
   completionCopy = completion;
@@ -246,33 +278,33 @@
   v13 = MEMORY[0x245CFF560](v12);
 
   v14 = +[BLLibrary defaultBookLibrary];
-  v28 = 0;
-  v15 = [v14 _bookItemFromPermlink:permlinkCopy error:&v28];
-  v16 = v28;
+  v27 = 0;
+  v15 = [v14 _bookItemFromPermlink:permlinkCopy error:&v27];
+  v16 = v27;
 
   if (!v15)
   {
     serviceProxy = [(BLDownloadQueueNonUI *)self serviceProxy];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = sub_241D749E0;
-    v24[3] = &unk_278D18BF0;
-    v27 = v13;
-    v24[4] = self;
-    v25 = permlinkCopy;
-    v26 = titleCopy;
-    [serviceProxy downloadWithPermlink:v25 title:v26 reply:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_241D749E0;
+    v23[3] = &unk_278D18BF0;
+    v26 = v13;
+    v23[4] = self;
+    v24 = permlinkCopy;
+    v25 = titleCopy;
+    [serviceProxy downloadWithPermlink:v24 title:v25 reply:v23];
 
-    v19 = v27;
+    v19 = v26;
 LABEL_12:
 
     goto LABEL_13;
   }
 
   v17 = +[BLLibrary defaultBookLibrary];
-  v23 = v16;
-  [v17 _addBookItemToEduContainer:v15 error:&v23];
-  v18 = v23;
+  v22 = v16;
+  [v17 _addBookItemToEduContainer:v15 error:&v22];
+  v18 = v22;
 
   if (v18)
   {
@@ -281,9 +313,9 @@ LABEL_12:
     {
       permlink = [v15 permlink];
       *buf = 138412546;
-      v30 = permlink;
-      v31 = 2112;
-      v32 = v18;
+      v29 = permlink;
+      v30 = 2112;
+      v31 = v18;
       _os_log_impl(&dword_241D1F000, v19, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: addDownloadWithPermlink: could not add permlink to container %@.  It may already exist. Recevied error:  %@", buf, 0x16u);
     }
 
@@ -292,8 +324,6 @@ LABEL_12:
   }
 
 LABEL_13:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDownloadWithMetadata:(id)metadata completion:(id)completion
@@ -419,50 +449,12 @@ LABEL_13:
 
 + (void)cancelAllActiveDownloads
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = BLDefaultLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: Cancelling all active book downloads.", buf, 2u);
-  }
-
-  v11 = 0;
-  v3 = [[BLServiceProxy alloc] initWithError:&v11];
-  v4 = v11;
-  if (v4)
-  {
-    v5 = BLDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138412290;
-      v13 = v4;
-      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "[DownloadQueue]: Error encountered creating service proxy: %@", buf, 0xCu);
-    }
-  }
-
-  v6 = dispatch_group_create();
-  dispatch_group_enter(v6);
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = sub_241D7581C;
-  v9[3] = &unk_278D18B30;
-  v10 = v6;
-  v7 = v6;
-  [(BLServiceProxy *)v3 cancelAllActiveDownloadsWithReply:v9];
-  dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)prepareForRemoveApp
-{
   v13 = *MEMORY[0x277D85DE8];
   v2 = BLDefaultLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: prepareForRemoveApp", buf, 2u);
+    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: Cancelling all active book downloads.", buf, 2u);
   }
 
   v10 = 0;
@@ -479,21 +471,55 @@ LABEL_13:
     }
   }
 
+  v6 = dispatch_group_create();
+  dispatch_group_enter(v6);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = sub_241D7581C;
+  v8[3] = &unk_278D18B30;
+  v9 = v6;
+  v7 = v6;
+  [(BLServiceProxy *)v3 cancelAllActiveDownloadsWithReply:v8];
+  dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
+}
+
++ (void)prepareForRemoveApp
+{
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = BLDefaultLog();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_241D1F000, v2, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: prepareForRemoveApp", buf, 2u);
+  }
+
+  v9 = 0;
+  v3 = [[BLServiceProxy alloc] initWithError:&v9];
+  v4 = v9;
+  if (v4)
+  {
+    v5 = BLDefaultLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v11 = v4;
+      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "[DownloadQueue]: Error encountered creating service proxy: %@", buf, 0xCu);
+    }
+  }
+
   else
   {
     v6 = dispatch_group_create();
     dispatch_group_enter(v6);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = sub_241D75AB4;
-    v8[3] = &unk_278D18B30;
-    v9 = v6;
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = sub_241D75AB4;
+    v7[3] = &unk_278D18B30;
+    v8 = v6;
     v5 = v6;
-    [(BLServiceProxy *)v3 prepareForRemoveAppWithReply:v8];
+    [(BLServiceProxy *)v3 prepareForRemoveAppWithReply:v7];
     dispatch_group_wait(v5, 0xFFFFFFFFFFFFFFFFLL);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addDownloadsWithMetadata:(id)metadata completion:(id)completion
@@ -579,14 +605,14 @@ LABEL_13:
 
 - (void)addDownloadsWithManifestRequest:(id)request completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   completionCopy = completion;
   v8 = BLDefaultLog();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = requestCopy;
+    v16 = requestCopy;
     _os_log_impl(&dword_241D1F000, v8, OS_LOG_TYPE_DEFAULT, "[DownloadQueue]: addDownloadsWithManifestRequest:completion: for manifestRequest: %@", buf, 0xCu);
   }
 
@@ -595,14 +621,12 @@ LABEL_13:
   block[1] = 3221225472;
   block[2] = sub_241D75F58;
   block[3] = &unk_278D18CA8;
-  v14 = requestCopy;
-  v15 = completionCopy;
+  v13 = requestCopy;
+  v14 = completionCopy;
   block[4] = self;
   v10 = requestCopy;
   v11 = completionCopy;
   os_activity_apply(v9, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addObserver:(id)observer
@@ -708,9 +732,45 @@ LABEL_13:
   [serviceProxy reloadFromServerWithReply:v7];
 }
 
+- (void)_addDownloadWithMetadata:(id)metadata isRestore:(BOOL)restore completion:(id)completion
+{
+  restoreCopy = restore;
+  if (completion)
+  {
+    completionCopy = completion;
+  }
+
+  else
+  {
+    completionCopy = &unk_2853E2CA8;
+  }
+
+  metadataCopy = metadata;
+  v9 = MEMORY[0x245CFF560](completionCopy);
+  v10 = [[BLDownloadMetadata alloc] initWithDictionary:metadataCopy];
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[BLDownloadMetadata itemIdentifier](v10, "itemIdentifier")}];
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[BLDownloadMetadata collectionIdentifier](v10, "collectionIdentifier")}];
+  kind = [(BLDownloadMetadata *)v10 kind];
+  serviceProxy = [(BLDownloadQueueNonUI *)self serviceProxy];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = sub_241D76530;
+  v19[3] = &unk_278D18CD0;
+  v22 = kind;
+  v23 = v9;
+  v19[4] = self;
+  v20 = v11;
+  v21 = v12;
+  v15 = kind;
+  v16 = v12;
+  v17 = v11;
+  v18 = v9;
+  [serviceProxy requestDownloadWithMetadata:metadataCopy isRestore:restoreCopy reply:v19];
+}
+
 - (id)_stringFromObject:(id)object
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objectCopy)
   {
@@ -735,26 +795,24 @@ LABEL_13:
     v6 = BLDefaultLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412546;
-      v11 = objectCopy;
-      v12 = 2112;
-      v13 = objc_opt_class();
-      v7 = v13;
-      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to neither an NSString nor an NSNumber", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = objectCopy;
+      v11 = 2112;
+      v12 = objc_opt_class();
+      v7 = v12;
+      _os_log_impl(&dword_241D1F000, v6, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to neither an NSString nor an NSNumber", &v9, 0x16u);
     }
   }
 
   stringValue = 0;
 LABEL_10:
 
-  v8 = *MEMORY[0x277D85DE8];
-
   return stringValue;
 }
 
 - (id)_numberFromObject:(id)object
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objectCopy)
   {
@@ -769,26 +827,24 @@ LABEL_10:
     v5 = BLDefaultLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412546;
-      v10 = objectCopy;
-      v11 = 2112;
-      v12 = objc_opt_class();
-      v6 = v12;
-      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to an NSNumber", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = objectCopy;
+      v10 = 2112;
+      v11 = objc_opt_class();
+      v6 = v11;
+      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to an NSNumber", &v8, 0x16u);
     }
   }
 
   v4 = 0;
 LABEL_8:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_dateFromObject:(id)object
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   if (objectCopy)
   {
@@ -803,19 +859,17 @@ LABEL_8:
     v5 = BLDefaultLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412546;
-      v10 = objectCopy;
-      v11 = 2112;
-      v12 = objc_opt_class();
-      v6 = v12;
-      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to an NSDate", &v9, 0x16u);
+      v8 = 138412546;
+      v9 = objectCopy;
+      v10 = 2112;
+      v11 = objc_opt_class();
+      v6 = v11;
+      _os_log_impl(&dword_241D1F000, v5, OS_LOG_TYPE_ERROR, "The object [%@] of class: [%@] could not be converted to an NSDate", &v8, 0x16u);
     }
   }
 
   v4 = 0;
 LABEL_8:
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -826,7 +880,7 @@ LABEL_8:
   {
     v9 = v4;
     v10 = v5;
-    v7 = BLServiceLog();
+    v7 = BLServiceLog(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;

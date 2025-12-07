@@ -204,7 +204,7 @@ void __28__NTKColorSlider_setColors___block_invoke(uint64_t a1, id a2, unint64_t
       v12 = v11 / v10;
       v13 = [(NSArray *)self->_colors objectAtIndexedSubscript:v12];
       v14 = [(NSArray *)self->_colors objectAtIndexedSubscript:v12 + 1];
-      v16 = NTKInterpolateBetweenColors();
+      v16 = NTKInterpolateBetweenColors(v12 - v12);
 
       v8 = v16;
       goto LABEL_9;

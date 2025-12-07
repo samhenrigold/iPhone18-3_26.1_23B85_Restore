@@ -32,14 +32,14 @@ uint64_t __34__CMInferenceUtils_sharedInstance__block_invoke()
 
 - (CMInferenceUtils)init
 {
-  v39.receiver = self;
-  v39.super_class = CMInferenceUtils;
-  v2 = [(CMInferenceUtils *)&v39 init];
+  v41.receiver = self;
+  v41.super_class = CMInferenceUtils;
+  v2 = [(CMInferenceUtils *)&v41 init];
   if (!v2)
   {
     [CMInferenceUtils init];
 LABEL_35:
-    v14 = 0;
+    v16 = 0;
     goto LABEL_36;
   }
 
@@ -67,28 +67,28 @@ LABEL_35:
     goto LABEL_35;
   }
 
+  v39 = 0u;
+  v40 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v9 = [&unk_1F2248940 countByEnumeratingWithState:&v35 objects:v34 count:16];
+  v9 = [&unk_1F2248940 countByEnumeratingWithState:&v37 objects:v36 count:16];
   if (!v9)
   {
     goto LABEL_20;
   }
 
   v10 = v9;
-  v30 = *v36;
+  v32 = *v38;
   while (2)
   {
     for (i = 0; i != v10; ++i)
     {
-      if (*v36 != v30)
+      if (*v38 != v32)
       {
         objc_enumerationMutation(&unk_1F2248940);
       }
 
-      bOOLValue = [*(*(&v35 + 1) + 8 * i) BOOLValue];
+      bOOLValue = [*(*(&v37 + 1) + 8 * i) BOOLValue];
       if (bOOLValue)
       {
         v13 = 32;
@@ -99,38 +99,43 @@ LABEL_35:
         v13 = 24;
       }
 
-      v14 = FigCapturePlatformIdentifierString();
-      if (bOOLValue && FigCapturePlatformGetVariant() == 3)
+      Variant = FigCapturePlatformIdentifierString();
+      v16 = Variant;
+      if (bOOLValue)
       {
-        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@G", v14];
+        Variant = FigCapturePlatformGetVariant();
+        if (Variant == 3)
+        {
+          v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@G", v16];
 
-        v14 = v15;
+          v16 = v17;
+        }
       }
 
-      if (!v14)
+      if (!v16)
       {
         [CMInferenceUtils init];
         goto LABEL_36;
       }
 
-      v16 = FigCaptureGetModelSpecificName();
-      if (!v16)
+      v18 = FigCaptureGetModelSpecificName(Variant, v15);
+      if (!v18)
       {
-        v33 = 0;
+        v35 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v23 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v24 = v33;
-        if (os_log_type_enabled(v23, type))
+        v25 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v26 = v35;
+        if (os_log_type_enabled(v25, type))
         {
-          v25 = v24;
+          v27 = v26;
         }
 
         else
         {
-          v25 = v24 & 0xFFFFFFFE;
+          v27 = v26 & 0xFFFFFFFE;
         }
 
-        if (v25)
+        if (v27)
         {
           _os_log_send_and_compose_impl();
         }
@@ -140,32 +145,32 @@ LABEL_35:
         goto LABEL_34;
       }
 
-      v17 = v16;
-      v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"^.+(\\.|_)(%@|%@)(\\.|_).+$", v14, v16];
-      v19 = objc_alloc(MEMORY[0x1E696AE70]);
-      v31 = 0;
-      v20 = [v19 initWithPattern:v18 options:1 error:&v31];
-      v21 = v31;
-      v22 = *(&v2->super.isa + v13);
-      *(&v2->super.isa + v13) = v20;
+      v19 = v18;
+      v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"^.+(\\.|_)(%@|%@)(\\.|_).+$", v16, v18];
+      v21 = objc_alloc(MEMORY[0x1E696AE70]);
+      v33 = 0;
+      v22 = [v21 initWithPattern:v20 options:1 error:&v33];
+      v23 = v33;
+      v24 = *(&v2->super.isa + v13);
+      *(&v2->super.isa + v13) = v22;
 
       if (!*(&v2->super.isa + v13))
       {
-        v33 = 0;
+        v35 = 0;
         type = OS_LOG_TYPE_DEFAULT;
-        v26 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-        v27 = v33;
-        if (os_log_type_enabled(v26, type))
+        v28 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+        v29 = v35;
+        if (os_log_type_enabled(v28, type))
         {
-          v28 = v27;
+          v30 = v29;
         }
 
         else
         {
-          v28 = v27 & 0xFFFFFFFE;
+          v30 = v29 & 0xFFFFFFFE;
         }
 
-        if (v28)
+        if (v30)
         {
           _os_log_send_and_compose_impl();
         }
@@ -177,7 +182,7 @@ LABEL_34:
       }
     }
 
-    v10 = [&unk_1F2248940 countByEnumeratingWithState:&v35 objects:v34 count:16];
+    v10 = [&unk_1F2248940 countByEnumeratingWithState:&v37 objects:v36 count:16];
     if (v10)
     {
       continue;
@@ -187,10 +192,10 @@ LABEL_34:
   }
 
 LABEL_20:
-  v14 = v2;
+  v16 = v2;
 LABEL_36:
 
-  return v14;
+  return v16;
 }
 
 - (id)_getNetworkPath:(id)path isE5:(BOOL)e5 fsNetworks:(id)networks
@@ -515,28 +520,42 @@ LABEL_8:
 {
   OUTLINED_FUNCTION_0_57();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_4_1(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v9))
+  v9 = OUTLINED_FUNCTION_4_1(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_5_2(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_2_11("[CMInferenceUtils init]");
-    OUTLINED_FUNCTION_3_26();
+    v10 = OUTLINED_FUNCTION_3_26(v17, v18, v19, v20, &dword_1AC90E000, v21, v22, "<<<< CMInferenceUtils >>>> %s: CMINF: Cannot read list of v1 networks", v25);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_1_69();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_1_69(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 - (void)_getNetworkPath:isE5:fsNetworks:.cold.1()
 {
   OUTLINED_FUNCTION_0_57();
   v1 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-  v9 = OUTLINED_FUNCTION_4_1(v1, v2, v3, v4, v5, v6, v7, v8, v10, v11, v12, v13, SWORD2(v13), SBYTE6(v13), HIBYTE(v13));
-  if (OUTLINED_FUNCTION_5_2(v9))
+  v9 = OUTLINED_FUNCTION_4_1(v1, v2, v3, v4, v5, v6, v7, v8, v24, v26, v28, v30, SWORD2(v30), SBYTE6(v30), HIBYTE(v30));
+  v10 = OUTLINED_FUNCTION_5_2(v9);
+  if (v10)
   {
     OUTLINED_FUNCTION_2_11("[CMInferenceUtils _getNetworkPath:isE5:fsNetworks:]");
-    OUTLINED_FUNCTION_3_26();
+    v10 = OUTLINED_FUNCTION_3_26(v17, v18, v19, v20, &dword_1AC90E000, v21, v22, "<<<< CMInferenceUtils >>>> %s: CMINF: fsNetworks nil", v25);
+    v23 = v10;
   }
 
-  OUTLINED_FUNCTION_1_69();
+  else
+  {
+    v23 = 0;
+  }
+
+  OUTLINED_FUNCTION_1_69(v10, v11, v12, v23, v13, v14, v15, v16, v25, v27, v29, v31, SHIDWORD(v31), v32);
 }
 
 @end

@@ -201,11 +201,11 @@ BOOL __25__GCSController_allDpads__block_invoke(uint64_t a1, void *a2, void *a3)
 
 - (GCSController)initWithCoder:(id)coder
 {
-  v40[3] = *MEMORY[0x277D85DE8];
+  v39[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v37.receiver = self;
-  v37.super_class = GCSController;
-  v5 = [(GCSController *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = GCSController;
+  v5 = [(GCSController *)&v36 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_persistentIdentifier"];
@@ -230,20 +230,20 @@ BOOL __25__GCSController_allDpads__block_invoke(uint64_t a1, void *a2, void *a3)
     v5->_shareButton = v14;
 
     v16 = MEMORY[0x277CBEB98];
-    v40[0] = objc_opt_class();
-    v40[1] = objc_opt_class();
-    v40[2] = objc_opt_class();
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
+    v39[0] = objc_opt_class();
+    v39[1] = objc_opt_class();
+    v39[2] = objc_opt_class();
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
     v18 = [v16 setWithArray:v17];
     v19 = [coderCopy decodeObjectOfClasses:v18 forKey:@"_buttons"];
     buttons = v5->_buttons;
     v5->_buttons = v19;
 
     v21 = MEMORY[0x277CBEB98];
-    v39[0] = objc_opt_class();
-    v39[1] = objc_opt_class();
-    v39[2] = objc_opt_class();
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:3];
+    v38[0] = objc_opt_class();
+    v38[1] = objc_opt_class();
+    v38[2] = objc_opt_class();
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
     v23 = [v21 setWithArray:v22];
     v24 = [coderCopy decodeObjectOfClasses:v23 forKey:@"_dpads"];
     dpads = v5->_dpads;
@@ -260,19 +260,18 @@ BOOL __25__GCSController_allDpads__block_invoke(uint64_t a1, void *a2, void *a3)
     v5->_baseProfile = v28;
 
     v30 = MEMORY[0x277CBEB98];
-    v38[0] = objc_opt_class();
-    v38[1] = objc_opt_class();
-    v38[2] = objc_opt_class();
-    v38[3] = objc_opt_class();
-    v38[4] = objc_opt_class();
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:5];
+    v37[0] = objc_opt_class();
+    v37[1] = objc_opt_class();
+    v37[2] = objc_opt_class();
+    v37[3] = objc_opt_class();
+    v37[4] = objc_opt_class();
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:5];
     v32 = [v30 setWithArray:v31];
     v33 = [coderCopy decodeObjectOfClasses:v32 forKey:@"_miscellaneous"];
     miscellaneous = v5->_miscellaneous;
     v5->_miscellaneous = v33;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -389,39 +388,39 @@ BOOL __25__GCSController_allDpads__block_invoke(uint64_t a1, void *a2, void *a3)
 
 - (GCSJSONObject)jsonObject
 {
-  v25[10] = *MEMORY[0x277D85DE8];
+  v24[10] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB38];
   persistentIdentifier = self->_persistentIdentifier;
-  v24[0] = @"persistentIdentifier";
-  v24[1] = @"name";
+  v23[0] = @"persistentIdentifier";
+  v23[1] = @"name";
   name = self->_name;
   productCategoryKey = self->_productCategoryKey;
-  v25[0] = persistentIdentifier;
-  v25[1] = name;
-  v25[2] = productCategoryKey;
-  v24[2] = @"productCategoryKey";
-  v24[3] = @"hidden";
+  v24[0] = persistentIdentifier;
+  v24[1] = name;
+  v24[2] = productCategoryKey;
+  v23[2] = @"productCategoryKey";
+  v23[3] = @"hidden";
   v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_hidden];
-  v25[3] = v7;
-  v24[4] = @"buttons";
+  v24[3] = v7;
+  v23[4] = @"buttons";
   v8 = [MEMORY[0x277CBEAC0] _gcs_jsonObjectForSerializableDictionary:self->_buttons];
-  v25[4] = v8;
-  v24[5] = @"dpads";
+  v24[4] = v8;
+  v23[5] = @"dpads";
   v9 = [MEMORY[0x277CBEAC0] _gcs_jsonObjectForSerializableDictionary:self->_dpads];
   logoSfSymbolsName = self->_logoSfSymbolsName;
-  v25[5] = v9;
-  v25[6] = logoSfSymbolsName;
-  v24[6] = @"logoSfSymbolsName";
-  v24[7] = @"supportsHaptics";
+  v24[5] = v9;
+  v24[6] = logoSfSymbolsName;
+  v23[6] = @"logoSfSymbolsName";
+  v23[7] = @"supportsHaptics";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:self->_supportsHaptics];
-  v25[7] = v11;
-  v24[8] = @"supportsLight";
+  v24[7] = v11;
+  v23[8] = @"supportsLight";
   v12 = [MEMORY[0x277CCABB0] numberWithBool:self->_supportsLight];
-  v25[8] = v12;
-  v24[9] = @"baseProfile";
+  v24[8] = v12;
+  v23[9] = @"baseProfile";
   jsonObject = [(GCSProfile *)self->_baseProfile jsonObject];
-  v25[9] = jsonObject;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:10];
+  v24[9] = jsonObject;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:10];
   v15 = [v3 dictionaryWithDictionary:v14];
 
   shareButton = self->_shareButton;
@@ -444,8 +443,6 @@ BOOL __25__GCSController_allDpads__block_invoke(uint64_t a1, void *a2, void *a3)
     jsonObject4 = [(NSDictionary *)miscellaneous jsonObject];
     [v15 setObject:jsonObject4 forKeyedSubscript:@"miscellaneous"];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

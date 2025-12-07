@@ -209,7 +209,7 @@ LABEL_4:
 
 - (void)_enterRecoveryWindowOrEndGestureWithState:(int64_t)state
 {
-  if ((_UIInternalPreferenceUsesDefault_1(&_UIInternalPreference_B519_RestingTouchRecoveryWindow, @"B519_RestingTouchRecoveryWindow") & 1) != 0 || (v5 = *&qword_1EA95E3F8, *&qword_1EA95E3F8 != 0.0))
+  if (_UIInternalPreferenceUsesDefault_1(&_UIInternalPreference_B519_RestingTouchRecoveryWindow, @"B519_RestingTouchRecoveryWindow") || (v5 = *&qword_1EA95E3F8, *&qword_1EA95E3F8 != 0.0))
   {
     [(_UIRotaryGestureRecognizer *)self setDelta:0.0];
     [(_UIRotaryGestureRecognizer *)self setVelocity:0.0];
@@ -667,7 +667,7 @@ LABEL_2:
     {
       v21 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48B0B8, @"B519_DistanceFromCenterTopQuadrantThreshold");
       v22 = qword_1ED48B0C0;
-      v23 = v21 == 0;
+      v23 = !v21;
       v24 = 0.2;
     }
 
@@ -675,7 +675,7 @@ LABEL_2:
     {
       v25 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48B0C8, @"B519_DistanceFromCenterThreshold");
       v22 = qword_1ED48B0D0;
-      v23 = v25 == 0;
+      v23 = !v25;
       v24 = 0.23;
     }
 
@@ -693,7 +693,7 @@ LABEL_2:
     {
       v27 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48B0B8, @"B519_DistanceFromCenterTopQuadrantThreshold");
       v28 = qword_1ED48B0C0;
-      v29 = v27 == 0;
+      v29 = !v27;
       v30 = 0.2;
     }
 
@@ -701,7 +701,7 @@ LABEL_2:
     {
       v31 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48B0C8, @"B519_DistanceFromCenterThreshold");
       v28 = qword_1ED48B0D0;
-      v29 = v31 == 0;
+      v29 = !v31;
       v30 = 0.23;
     }
 
@@ -1005,7 +1005,7 @@ LABEL_41:
   {
     v2 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48B098, @"B519_RestDirectionalMovementClassificationDistanceThreshold");
     result = *&qword_1ED48B0A0;
-    v4 = v2 == 0;
+    v4 = !v2;
     v5 = 0.1;
   }
 
@@ -1013,7 +1013,7 @@ LABEL_41:
   {
     v6 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48B078, @"B519_StrictDirectionalMovementClassificationDistanceThreshold");
     result = *&qword_1ED48B080;
-    v4 = v6 == 0;
+    v4 = !v6;
     v5 = 0.15;
   }
 
@@ -1031,7 +1031,7 @@ LABEL_41:
   {
     v2 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48B0A8, @"B519_RestMovementClassificationAngleThresholdNumerator");
     result = *&qword_1ED48B0B0;
-    v4 = v2 == 0;
+    v4 = !v2;
     v5 = 6.0;
   }
 
@@ -1039,7 +1039,7 @@ LABEL_41:
   {
     v6 = _UIInternalPreferenceUsesDefault_1(&unk_1ED48B088, @"B519_StrictMovementClassificationAngleThresholdNumerator");
     result = *&qword_1ED48B090;
-    v4 = v6 == 0;
+    v4 = !v6;
     v5 = 15.0;
   }
 

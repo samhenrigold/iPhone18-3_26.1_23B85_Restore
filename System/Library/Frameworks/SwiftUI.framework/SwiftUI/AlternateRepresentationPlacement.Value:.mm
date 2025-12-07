@@ -8,11 +8,11 @@
 {
   if (!lazy cache variable for type metadata for Attribute<[AlternateRepresentationPlacement.Value : AnyView]>)
   {
-    type metadata accessor for [AlternateRepresentationPlacement.Value : AnyView]();
-    v0 = type metadata accessor for Attribute();
-    if (!v1)
+    type metadata accessor for [AlternateRepresentationPlacement.Value : AnyView](255);
+    v1 = type metadata accessor for Attribute();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for Attribute<[AlternateRepresentationPlacement.Value : AnyView]>);
+      atomic_store(v1, &lazy cache variable for type metadata for Attribute<[AlternateRepresentationPlacement.Value : AnyView]>);
     }
   }
 }

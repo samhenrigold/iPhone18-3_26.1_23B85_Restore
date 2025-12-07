@@ -204,12 +204,12 @@
   pathCopy = path;
   v4 = [NSMutableSet setWithCapacity:0];
   v5 = [NSMutableArray arrayWithCapacity:1];
-  v93 = 0;
   v95 = 0;
-  v92 = 0xA200000900000005;
-  v94 = 0x500000002;
+  v97 = 0;
+  v94 = 0xA200000900000005;
+  v96 = 0x500000002;
   v6 = malloc_type_malloc(0x8000uLL, 0xF218F1B2uLL);
-  v84 = pathCopy;
+  v86 = pathCopy;
   if (pathCopy)
   {
     [v5 addObject:pathCopy];
@@ -249,18 +249,16 @@
     goto LABEL_14;
   }
 
-  v96 = 138412290;
-  v97 = objc_opt_class();
-  v12 = v97;
-  LODWORD(v83) = 12;
-  v81 = &v96;
-  v13 = _os_log_send_and_compose_impl();
+  v98 = 138412290;
+  v99 = objc_opt_class();
+  v12 = v99;
+  v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Can't calculate usage if no path given", &v98, 12, 0);
 
   if (v13)
   {
-    oSLogObject = [NSString stringWithCString:v13 encoding:4, &v96, v83, 0];
+    oSLogObject = [NSString stringWithCString:v13 encoding:4];
     free(v13);
-    v81 = oSLogObject;
+    v83 = oSLogObject;
     SSFileLog();
 LABEL_14:
   }
@@ -268,25 +266,25 @@ LABEL_14:
 LABEL_16:
   if ([v5 count])
   {
-    v89 = 0;
-    v88 = v4;
-    v87 = v5;
-    v85 = v6;
+    v91 = 0;
+    v90 = v4;
+    v89 = v5;
+    v87 = v6;
     while (1)
     {
-      v14 = [v5 objectAtIndex:{0, v82}];
+      v14 = [v5 objectAtIndex:{0, v84}];
       [v5 removeObjectAtIndex:0];
-      v91 = v14;
+      v93 = v14;
       v15 = open([v14 fileSystemRepresentation], 1048832);
       if ((v15 & 0x80000000) == 0)
       {
-        v86 = v15;
+        v88 = v15;
         v16 = 0;
 LABEL_20:
-        v6 = v85;
+        v6 = v87;
         while (1)
         {
-          v17 = getattrlistbulk(v86, &v92, v85, 0x8000uLL, 0);
+          v17 = getattrlistbulk(v88, &v94, v87, 0x8000uLL, 0);
           if (v17 == -1)
           {
             break;
@@ -295,12 +293,12 @@ LABEL_20:
           v18 = v17;
           if (!v17)
           {
-            goto LABEL_128;
+            goto LABEL_132;
           }
 
           if (v17 >= 1)
           {
-            v19 = v85;
+            v19 = v87;
             while (1)
             {
               v21 = *v19;
@@ -310,51 +308,50 @@ LABEL_20:
               {
                 if (v19[6])
                 {
-                  v39 = +[SSLogConfig sharedDaemonConfig];
-                  if (!v39)
+                  v40 = +[SSLogConfig sharedDaemonConfig];
+                  if (!v40)
                   {
-                    v39 = +[SSLogConfig sharedConfig];
+                    v40 = +[SSLogConfig sharedConfig];
                   }
 
-                  shouldLog2 = [v39 shouldLog];
-                  if ([v39 shouldLogToDisk])
+                  shouldLog2 = [v40 shouldLog];
+                  if ([v40 shouldLogToDisk])
                   {
                     shouldLog2 |= 2u;
                   }
 
-                  oSLogObject2 = [v39 OSLogObject];
+                  oSLogObject2 = [v40 OSLogObject];
                   if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
                   {
-                    v42 = shouldLog2;
+                    v43 = shouldLog2;
                   }
 
                   else
                   {
-                    v42 = shouldLog2 & 2;
+                    v43 = shouldLog2 & 2;
                   }
 
-                  if (v42)
+                  if (v43)
                   {
-                    v43 = objc_opt_class();
-                    v44 = v43;
-                    v45 = __error();
-                    v46 = strerror(*v45);
-                    v96 = 138413058;
-                    v97 = v43;
-                    v98 = 2080;
-                    v99 = v46;
-                    v100 = 2048;
-                    v101 = v16;
-                    v102 = 2112;
-                    v103 = v91;
-                    LODWORD(v83) = 42;
-                    v82 = &v96;
-                    v47 = _os_log_send_and_compose_impl();
+                    v44 = objc_opt_class();
+                    v45 = v44;
+                    v46 = __error();
+                    v47 = strerror(*v46);
+                    v98 = 138413058;
+                    v99 = v44;
+                    v100 = 2080;
+                    v101 = v47;
+                    v102 = 2048;
+                    v103 = v16;
+                    v104 = 2112;
+                    v105 = v93;
+                    LODWORD(v85) = 42;
+                    v48 = _os_log_send_and_compose_impl(v43, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Got error %s while processing entry %llu in %@", &v98, v85);
 
-                    goto LABEL_96;
+                    goto LABEL_100;
                   }
 
-                  goto LABEL_98;
+                  goto LABEL_102;
                 }
 
                 v23 = (v19 + 7);
@@ -368,7 +365,7 @@ LABEL_27:
                     goto LABEL_28;
                   }
 
-                  goto LABEL_54;
+                  goto LABEL_55;
                 }
               }
 
@@ -381,10 +378,10 @@ LABEL_27:
                 }
               }
 
-              v48 = v23[1];
+              v49 = v23[1];
               v24 = v23 + *v23;
               v23 += 2;
-              v25 = (v48 - 1);
+              v25 = (v49 - 1);
               if ((v20 & 8) != 0)
               {
 LABEL_28:
@@ -395,10 +392,10 @@ LABEL_28:
                   goto LABEL_29;
                 }
 
-                goto LABEL_55;
+                goto LABEL_56;
               }
 
-LABEL_54:
+LABEL_55:
               v27 = 0;
               if ((v20 & 0x2000000) != 0)
               {
@@ -408,118 +405,128 @@ LABEL_29:
                 v28 = v29;
                 if (v27)
                 {
-                  goto LABEL_56;
+                  goto LABEL_57;
                 }
 
                 goto LABEL_30;
               }
 
-LABEL_55:
+LABEL_56:
               v28 = 0;
               if (v27)
               {
-LABEL_56:
+LABEL_57:
                 if ((v19[3] & 2) != 0 && !*v23)
                 {
-                  v39 = +[SSLogConfig sharedDaemonConfig];
-                  if (!v39)
+                  v40 = +[SSLogConfig sharedDaemonConfig];
+                  if (!v40)
                   {
-                    v39 = +[SSLogConfig sharedConfig];
+                    v40 = +[SSLogConfig sharedConfig];
                   }
 
-                  shouldLog3 = [v39 shouldLog];
-                  if ([v39 shouldLogToDisk])
+                  LODWORD(v60) = [v40 shouldLog];
+                  if ([v40 shouldLogToDisk])
                   {
-                    shouldLog3 |= 2u;
+                    LODWORD(v60) = v60 | 2;
                   }
 
-                  oSLogObject2 = [v39 OSLogObject];
-                  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
+                  oSLogObject2 = [v40 OSLogObject];
+                  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEBUG))
                   {
-                    shouldLog3 &= 2u;
+                    v60 = v60;
                   }
 
-                  if (shouldLog3)
+                  else
                   {
-                    v59 = objc_opt_class();
-                    v96 = 138412802;
-                    v97 = v59;
-                    v98 = 2112;
-                    v99 = v91;
-                    v100 = 2080;
-                    v101 = v24;
-                    v54 = v59;
-                    LODWORD(v83) = 32;
-                    v82 = &v96;
-LABEL_95:
-                    v47 = _os_log_send_and_compose_impl();
+                    v60 &= 2u;
+                  }
 
-LABEL_96:
-                    if (v47)
+                  if (v60)
+                  {
+                    v61 = objc_opt_class();
+                    v98 = 138412802;
+                    v99 = v61;
+                    v100 = 2112;
+                    v101 = v93;
+                    v102 = 2080;
+                    v103 = v24;
+                    v55 = v61;
+                    LODWORD(v85) = 32;
+                    v56 = _os_log_send_and_compose_impl(v60, 0, 0, 0, &_mh_execute_header, oSLogObject2, 2, "%@: Skipping empty directory at %@/%s", &v98, v85);
+LABEL_99:
+                    v48 = v56;
+
+LABEL_100:
+                    if (v48)
                     {
-                      oSLogObject2 = [NSString stringWithCString:v47 encoding:4];
-                      free(v47);
-                      v82 = oSLogObject2;
+                      oSLogObject2 = [NSString stringWithCString:v48 encoding:4];
+                      free(v48);
+                      v84 = oSLogObject2;
                       SSFileLog();
-                      goto LABEL_98;
+                      goto LABEL_102;
                     }
 
-LABEL_99:
+LABEL_103:
 
-                    goto LABEL_100;
+                    goto LABEL_104;
                   }
 
-LABEL_98:
+LABEL_102:
 
-                  goto LABEL_99;
+                  goto LABEL_103;
                 }
 
                 if (!v24)
                 {
-                  v39 = +[SSLogConfig sharedDaemonConfig];
-                  if (!v39)
+                  v40 = +[SSLogConfig sharedDaemonConfig];
+                  if (!v40)
                   {
-                    v39 = +[SSLogConfig sharedConfig];
+                    v40 = +[SSLogConfig sharedConfig];
                   }
 
-                  shouldLog4 = [v39 shouldLog];
-                  if ([v39 shouldLogToDisk])
+                  LODWORD(v53) = [v40 shouldLog];
+                  if ([v40 shouldLogToDisk])
                   {
-                    shouldLog4 |= 2u;
+                    LODWORD(v53) = v53 | 2;
                   }
 
-                  oSLogObject2 = [v39 OSLogObject];
-                  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+                  oSLogObject2 = [v40 OSLogObject];
+                  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
                   {
-                    shouldLog4 &= 2u;
+                    v53 = v53;
                   }
 
-                  if (shouldLog4)
+                  else
                   {
-                    v53 = objc_opt_class();
-                    v96 = 138412802;
-                    v97 = v53;
-                    v98 = 2048;
-                    v99 = v16;
-                    v100 = 2112;
-                    v101 = v91;
-                    v54 = v53;
-                    LODWORD(v83) = 32;
-                    v82 = &v96;
-                    goto LABEL_95;
+                    v53 &= 2u;
                   }
 
-                  goto LABEL_98;
+                  if (v53)
+                  {
+                    v54 = objc_opt_class();
+                    v98 = 138412802;
+                    v99 = v54;
+                    v100 = 2048;
+                    v101 = v16;
+                    v102 = 2112;
+                    v103 = v93;
+                    v55 = v54;
+                    LODWORD(v85) = 32;
+                    v56 = _os_log_send_and_compose_impl(v53, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Failed to get name for directory item %llu in %@; not counting its children", &v98, v85);
+                    goto LABEL_99;
+                  }
+
+                  goto LABEL_102;
                 }
 
                 v32 = objc_autoreleasePoolPush();
-                v49 = [(StreamingZipDownloadDataConsumer *)self _stringWithFileSystemRepresentation:v24 length:v25];
-                v33 = [v91 stringByAppendingPathComponent:v49];
+                v50 = [(StreamingZipDownloadDataConsumer *)self _stringWithFileSystemRepresentation:v24 length:v25];
+                v33 = [v93 stringByAppendingPathComponent:v50];
 
                 if (v33)
                 {
-                  v50 = v87;
-                  goto LABEL_73;
+                  v51 = v89;
+                  goto LABEL_75;
                 }
 
                 v34 = +[SSLogConfig sharedDaemonConfig];
@@ -528,57 +535,62 @@ LABEL_98:
                   v34 = +[SSLogConfig sharedConfig];
                 }
 
-                shouldLog5 = [v34 shouldLog];
+                LODWORD(v57) = [v34 shouldLog];
                 if ([v34 shouldLogToDisk])
                 {
-                  shouldLog5 |= 2u;
+                  LODWORD(v57) = v57 | 2;
                 }
 
                 oSLogObject3 = [v34 OSLogObject];
-                if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
                 {
-                  shouldLog5 &= 2u;
+                  v57 = v57;
                 }
 
-                if (!shouldLog5)
+                else
                 {
-                  goto LABEL_84;
+                  v57 &= 2u;
                 }
 
-                v56 = objc_opt_class();
-                v96 = 138412802;
-                v97 = v56;
-                v98 = 2080;
-                v99 = v24;
-                v100 = 2112;
-                v101 = v91;
-                v38 = v56;
-                LODWORD(v83) = 32;
-                v82 = &v96;
-LABEL_82:
-                v57 = _os_log_send_and_compose_impl();
-
-                if (v57)
+                if (!v57)
                 {
-                  oSLogObject3 = [NSString stringWithCString:v57 encoding:4];
-                  free(v57);
-                  v82 = oSLogObject3;
-                  SSFileLog();
-                  goto LABEL_84;
+                  goto LABEL_87;
                 }
 
+                v58 = objc_opt_class();
+                v98 = 138412802;
+                v99 = v58;
+                v100 = 2080;
+                v101 = v24;
+                v102 = 2112;
+                v103 = v93;
+                v38 = v58;
+                LODWORD(v85) = 32;
+                v39 = _os_log_send_and_compose_impl(v57, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Failed to create path to child directory by appending %s to %@", &v98, v85);
 LABEL_85:
+                v59 = v39;
 
-LABEL_86:
+                if (v59)
+                {
+                  oSLogObject3 = [NSString stringWithCString:v59 encoding:4];
+                  free(v59);
+                  v84 = oSLogObject3;
+                  SSFileLog();
+                  goto LABEL_87;
+                }
+
+LABEL_88:
+
+LABEL_89:
                 objc_autoreleasePoolPop(v32);
-                goto LABEL_100;
+                goto LABEL_104;
               }
 
 LABEL_30:
               if (v22)
               {
-                v51 = *v23++;
-                v30 = v51 == 1;
+                v52 = *v23++;
+                v30 = v52 == 1;
                 if ((v22 & 4) != 0)
                 {
 LABEL_32:
@@ -588,7 +600,7 @@ LABEL_32:
                     goto LABEL_33;
                   }
 
-                  goto LABEL_63;
+                  goto LABEL_64;
                 }
               }
 
@@ -607,7 +619,7 @@ LABEL_32:
 LABEL_33:
                 v32 = objc_autoreleasePoolPush();
                 v33 = [NSNumber numberWithUnsignedLongLong:v28];
-                if ([v88 containsObject:v33])
+                if ([v90 containsObject:v33])
                 {
                   v34 = +[SSLogConfig sharedDaemonConfig];
                   if (!v34)
@@ -615,48 +627,53 @@ LABEL_33:
                     v34 = +[SSLogConfig sharedConfig];
                   }
 
-                  shouldLog6 = [v34 shouldLog];
+                  LODWORD(v35) = [v34 shouldLog];
                   if ([v34 shouldLogToDisk])
                   {
-                    shouldLog6 |= 2u;
+                    LODWORD(v35) = v35 | 2;
                   }
 
                   oSLogObject3 = [v34 OSLogObject];
-                  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
+                  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEBUG))
                   {
-                    shouldLog6 &= 2u;
+                    v35 = v35;
                   }
 
-                  if (shouldLog6)
+                  else
+                  {
+                    v35 &= 2u;
+                  }
+
+                  if (v35)
                   {
                     v37 = objc_opt_class();
-                    v96 = 138412802;
-                    v97 = v37;
-                    v98 = 2112;
-                    v99 = v91;
-                    v100 = 2080;
-                    v101 = v24;
+                    v98 = 138412802;
+                    v99 = v37;
+                    v100 = 2112;
+                    v101 = v93;
+                    v102 = 2080;
+                    v103 = v24;
                     v38 = v37;
-                    LODWORD(v83) = 32;
-                    v82 = &v96;
-                    goto LABEL_82;
+                    LODWORD(v85) = 32;
+                    v39 = _os_log_send_and_compose_impl(v35, 0, 0, 0, &_mh_execute_header, oSLogObject3, 2, "%@: Skipping hardlinked file at %@/%s", &v98, v85);
+                    goto LABEL_85;
                   }
 
-LABEL_84:
+LABEL_87:
 
-                  goto LABEL_85;
+                  goto LABEL_88;
                 }
 
-                v89 += v31;
-                v50 = v88;
-LABEL_73:
-                [v50 addObject:{v33, v82}];
-                goto LABEL_86;
+                v91 += v31;
+                v51 = v90;
+LABEL_75:
+                [v51 addObject:{v33, v84}];
+                goto LABEL_89;
               }
 
-LABEL_63:
-              v89 += v31;
-LABEL_100:
+LABEL_64:
+              v91 += v31;
+LABEL_104:
               v19 = (v19 + v21);
               ++v16;
               if (!--v18)
@@ -667,149 +684,147 @@ LABEL_100:
           }
         }
 
-        v70 = +[SSLogConfig sharedDaemonConfig];
-        if (!v70)
+        v72 = +[SSLogConfig sharedDaemonConfig];
+        if (!v72)
         {
-          v70 = +[SSLogConfig sharedConfig];
+          v72 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog7 = [v70 shouldLog];
-        if ([v70 shouldLogToDisk])
+        shouldLog3 = [v72 shouldLog];
+        if ([v72 shouldLogToDisk])
         {
-          v72 = shouldLog7 | 2;
+          v74 = shouldLog3 | 2;
         }
 
         else
         {
-          v72 = shouldLog7;
+          v74 = shouldLog3;
         }
 
-        oSLogObject4 = [v70 OSLogObject];
+        oSLogObject4 = [v72 OSLogObject];
         if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
         {
-          v74 = v72;
+          v76 = v74;
         }
 
         else
         {
-          v74 = v72 & 2;
+          v76 = v74 & 2;
         }
 
-        if (v74)
+        if (v76)
         {
-          v75 = objc_opt_class();
-          v76 = v75;
-          v77 = __error();
-          v78 = strerror(*v77);
-          v96 = 138413058;
-          v97 = v75;
-          v98 = 2048;
-          v99 = v16;
-          v100 = 2112;
-          v101 = v91;
-          v102 = 2080;
-          v103 = v78;
-          LODWORD(v83) = 42;
-          v82 = &v96;
-          v79 = _os_log_send_and_compose_impl();
+          v77 = objc_opt_class();
+          v78 = v77;
+          v79 = __error();
+          v80 = strerror(*v79);
+          v98 = 138413058;
+          v99 = v77;
+          v100 = 2048;
+          v101 = v16;
+          v102 = 2112;
+          v103 = v93;
+          v104 = 2080;
+          v105 = v80;
+          LODWORD(v85) = 42;
+          v81 = _os_log_send_and_compose_impl(v76, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%@: getattrlistbulk on entry %llu in %@ returned error %s", &v98, v85);
 
-          if (v79)
+          if (v81)
           {
-            oSLogObject4 = [NSString stringWithCString:v79 encoding:4, &v96, v83];
-            free(v79);
-            v82 = oSLogObject4;
+            oSLogObject4 = [NSString stringWithCString:v81 encoding:4];
+            free(v81);
+            v84 = oSLogObject4;
             SSFileLog();
-            goto LABEL_126;
+            goto LABEL_130;
           }
         }
 
         else
         {
-LABEL_126:
+LABEL_130:
         }
 
-LABEL_128:
-        close(v86);
-        v4 = v88;
-        v5 = v87;
-        goto LABEL_129;
+LABEL_132:
+        close(v88);
+        v4 = v90;
+        v5 = v89;
+        goto LABEL_133;
       }
 
-      v60 = +[SSLogConfig sharedDaemonConfig];
-      if (!v60)
+      v62 = +[SSLogConfig sharedDaemonConfig];
+      if (!v62)
       {
-        v60 = +[SSLogConfig sharedConfig];
+        v62 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog8 = [v60 shouldLog];
-      if ([v60 shouldLogToDisk])
+      shouldLog4 = [v62 shouldLog];
+      if ([v62 shouldLogToDisk])
       {
-        v62 = shouldLog8 | 2;
+        v64 = shouldLog4 | 2;
       }
 
       else
       {
-        v62 = shouldLog8;
+        v64 = shouldLog4;
       }
 
-      oSLogObject5 = [v60 OSLogObject];
+      oSLogObject5 = [v62 OSLogObject];
       if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
       {
-        v64 = v62;
+        v66 = v64;
       }
 
       else
       {
-        v64 = v62 & 2;
+        v66 = v64 & 2;
       }
 
-      if (!v64)
+      if (!v66)
       {
-        goto LABEL_113;
+        goto LABEL_117;
       }
 
-      v65 = objc_opt_class();
-      v66 = v65;
-      v67 = __error();
-      v68 = strerror(*v67);
-      v96 = 138412802;
-      v97 = v65;
-      v98 = 2112;
-      v99 = v91;
-      v100 = 2080;
-      v101 = v68;
-      LODWORD(v83) = 32;
-      v82 = &v96;
-      v69 = _os_log_send_and_compose_impl();
+      v67 = objc_opt_class();
+      v68 = v67;
+      v69 = __error();
+      v70 = strerror(*v69);
+      v98 = 138412802;
+      v99 = v67;
+      v100 = 2112;
+      v101 = v93;
+      v102 = 2080;
+      v103 = v70;
+      LODWORD(v85) = 32;
+      v71 = _os_log_send_and_compose_impl(v66, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%@: Failed to open directory %@: %s", &v98, v85);
 
-      if (v69)
+      if (v71)
       {
         break;
       }
 
-LABEL_114:
+LABEL_118:
 
-LABEL_129:
+LABEL_133:
       if (![v5 count])
       {
-        goto LABEL_132;
+        goto LABEL_136;
       }
     }
 
-    oSLogObject5 = [NSString stringWithCString:v69 encoding:4, &v96, v83];
-    free(v69);
-    v82 = oSLogObject5;
+    oSLogObject5 = [NSString stringWithCString:v71 encoding:4];
+    free(v71);
+    v84 = oSLogObject5;
     SSFileLog();
-LABEL_113:
+LABEL_117:
 
-    goto LABEL_114;
+    goto LABEL_118;
   }
 
-  v89 = 0;
-LABEL_132:
+  v91 = 0;
+LABEL_136:
   free(v6);
 
-  return v89;
+  return v91;
 }
 
 - (id)_stringWithFileSystemRepresentation:(const char *)representation

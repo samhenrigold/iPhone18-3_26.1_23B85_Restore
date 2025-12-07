@@ -11,19 +11,18 @@
 {
   v3 = sub_24A4AA7F0();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_24A4AB850();
-  v10 = v9;
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = sub_24A4AB850();
+  v9 = v8;
   sub_24A4AA7B0();
   sub_24A4AA7D0();
-  sub_24A45D260(v8, v10, v7);
+  sub_24A45D260(v7, v9, v6);
 
-  (*(v4 + 8))(v7, v3);
-  v11 = sub_24A4AB820();
+  (*(v4 + 8))(v6, v3);
+  v10 = sub_24A4AB820();
 
-  return v11;
+  return v10;
 }
 
 + (BOOL)isEmailValidWithEmail:(id)email

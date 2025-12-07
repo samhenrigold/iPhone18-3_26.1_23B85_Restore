@@ -3,9 +3,11 @@
 - (void)createPrimaryViews;
 - (void)displayMessageUsingViewModel:(id)model;
 - (void)initializePrimaryLayoutConstraints;
+- (void)setBottomSeparatorIsHidden:(BOOL)hidden;
 - (void)setDisplayMetrics:(id)metrics;
 - (void)setSeparatorDrawsFlushWithLeadingEdge:(BOOL)edge;
 - (void)setSeparatorDrawsFlushWithTrailingEdge:(BOOL)edge;
+- (void)setTopSeparatorHidden:(BOOL)hidden;
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateConstraints;
 @end
@@ -76,7 +78,7 @@
 
 - (void)initializePrimaryLayoutConstraints
 {
-  v26[5] = *MEMORY[0x277D85DE8];
+  v25[5] = *MEMORY[0x277D85DE8];
   trailingAccessoryViewLayoutGuide = [(MFMessageHeaderViewBlock *)self trailingAccessoryViewLayoutGuide];
   widthAnchor = [trailingAccessoryViewLayoutGuide widthAnchor];
   +[MFMessageDisplayMetrics avatarDiameter];
@@ -90,28 +92,27 @@
   [(MFMessageHeaderViewBlock *)self setTrailingAccessoryViewLayoutGuideTrailing:v9];
 
   trailingAccessoryViewLayoutGuideWidth = [(MFMessageHeaderViewBlock *)self trailingAccessoryViewLayoutGuideWidth];
-  v26[0] = trailingAccessoryViewLayoutGuideWidth;
+  v25[0] = trailingAccessoryViewLayoutGuideWidth;
   trailingAccessoryViewLayoutGuide3 = [(MFMessageHeaderViewBlock *)self trailingAccessoryViewLayoutGuide];
   heightAnchor = [trailingAccessoryViewLayoutGuide3 heightAnchor];
   heightAnchor2 = [(MFMessageHeaderViewBlock *)self heightAnchor];
-  v21 = [heightAnchor constraintEqualToAnchor:?];
-  v26[1] = v21;
+  v20 = [heightAnchor constraintEqualToAnchor:?];
+  v25[1] = v20;
   trailingAccessoryViewLayoutGuideTrailing = [(MFMessageHeaderViewBlock *)self trailingAccessoryViewLayoutGuideTrailing];
-  v26[2] = trailingAccessoryViewLayoutGuideTrailing;
+  v25[2] = trailingAccessoryViewLayoutGuideTrailing;
   bottomAnchor = [(MFMessageHeaderViewBlock *)self bottomAnchor];
   bottomSeparator = [(MFMessageHeaderViewBlock *)self bottomSeparator];
   bottomAnchor2 = [bottomSeparator bottomAnchor];
   v14 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v26[3] = v14;
+  v25[3] = v14;
   topAnchor = [(MFMessageHeaderViewBlock *)self topAnchor];
   topSeparator = [(MFMessageHeaderViewBlock *)self topSeparator];
   topAnchor2 = [topSeparator topAnchor];
   v18 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v26[4] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:5];
+  v25[4] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:5];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v19];
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateConstraints
@@ -177,6 +178,22 @@
   IsAccessibilityCategory = UIContentSizeCategoryIsAccessibilityCategory(preferredContentSizeCategory);
 
   [(MFMessageHeaderViewBlock *)self setUsingLargeTextLayout:IsAccessibilityCategory];
+}
+
+- (void)setTopSeparatorHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  self->_topSeparatorHidden = hidden;
+  topSeparator = [(MFMessageHeaderViewBlock *)self topSeparator];
+  [topSeparator setHidden:hiddenCopy];
+}
+
+- (void)setBottomSeparatorIsHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  self->_bottomSeparatorIsHidden = hidden;
+  bottomSeparator = [(MFMessageHeaderViewBlock *)self bottomSeparator];
+  [bottomSeparator setHidden:hiddenCopy];
 }
 
 - (void)setSeparatorDrawsFlushWithLeadingEdge:(BOOL)edge

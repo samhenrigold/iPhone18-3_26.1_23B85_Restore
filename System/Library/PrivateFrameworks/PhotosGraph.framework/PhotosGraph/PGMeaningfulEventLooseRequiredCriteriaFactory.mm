@@ -45,7 +45,7 @@
 
 + (id)_publicEventCriteriaForCategoryWithName:(id)name inGraph:(id)graph
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   graphCopy = graph;
   v7 = [graphCopy anyNodeForLabel:nameCopy domain:901];
@@ -122,14 +122,14 @@
 
               if ((v24 & 1) == 0)
               {
-                v31 = +[PGLogging sharedLogging];
-                loggingConnection = [v31 loggingConnection];
+                v30 = +[PGLogging sharedLogging];
+                loggingConnection = [v30 loggingConnection];
 
                 if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
                 {
-                  v32 = 138412290;
-                  v33 = nameCopy;
-                  _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Not handling category with name %@", &v32, 0xCu);
+                  v31 = 138412290;
+                  v32 = nameCopy;
+                  _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Not handling category with name %@", &v31, 0xCu);
                 }
 
                 v12 = 0;
@@ -155,8 +155,6 @@
 
 LABEL_18:
 LABEL_19:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -348,10 +346,10 @@ LABEL_19:
 
 + (id)_socialGroupGatheringCriteriaWithGraph:(id)graph
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   meNode = [graphCopy meNode];
-  v33 = meNode;
+  v32 = meNode;
   if (meNode)
   {
     localIdentifier = [meNode localIdentifier];
@@ -372,57 +370,57 @@ LABEL_19:
   }
 
   array = [MEMORY[0x277CBEB18] array];
-  v55[0] = MEMORY[0x277D85DD0];
-  v55[1] = 3221225472;
-  v55[2] = __88__PGMeaningfulEventLooseRequiredCriteriaFactory__socialGroupGatheringCriteriaWithGraph___block_invoke;
-  v55[3] = &unk_2788815F0;
-  v57 = v5;
-  v35 = array;
-  v56 = v35;
-  [graphCopy enumerateNodesWithLabel:@"SocialGroup" domain:302 usingBlock:v55];
-  v7 = [v35 count];
+  v54[0] = MEMORY[0x277D85DD0];
+  v54[1] = 3221225472;
+  v54[2] = __88__PGMeaningfulEventLooseRequiredCriteriaFactory__socialGroupGatheringCriteriaWithGraph___block_invoke;
+  v54[3] = &unk_2788815F0;
+  v56 = v5;
+  v34 = array;
+  v55 = v34;
+  [graphCopy enumerateNodesWithLabel:@"SocialGroup" domain:302 usingBlock:v54];
+  v7 = [v34 count];
   if (v7 >= 2)
   {
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x2020000000;
-    v54 = 0;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x2020000000;
+    v53 = 0;
     if (v7 > 3)
     {
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __88__PGMeaningfulEventLooseRequiredCriteriaFactory__socialGroupGatheringCriteriaWithGraph___block_invoke_3;
-      v46[3] = &unk_278881638;
-      v46[4] = &v51;
-      v15 = v35;
-      [MEMORY[0x277D27688] calculateStandardDeviationForItems:v35 valueBlock:&__block_literal_global_526 result:v46];
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __88__PGMeaningfulEventLooseRequiredCriteriaFactory__socialGroupGatheringCriteriaWithGraph___block_invoke_3;
+      v45[3] = &unk_278881638;
+      v45[4] = &v50;
+      v15 = v34;
+      [MEMORY[0x277D27688] calculateStandardDeviationForItems:v34 valueBlock:&__block_literal_global_526 result:v45];
     }
 
     else
     {
-      v49 = 0u;
-      v50 = 0u;
-      v47 = 0u;
       v48 = 0u;
-      v9 = v35;
-      v10 = [v9 countByEnumeratingWithState:&v47 objects:v60 count:16];
+      v49 = 0u;
+      v46 = 0u;
+      v47 = 0u;
+      v9 = v34;
+      v10 = [v9 countByEnumeratingWithState:&v46 objects:v59 count:16];
       if (v10)
       {
         v11 = 0;
-        v12 = *v48;
+        v12 = *v47;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v48 != v12)
+            if (*v47 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v11 += [*(*(&v47 + 1) + 8 * i) numberOfMomentNodes];
+            v11 += [*(*(&v46 + 1) + 8 * i) numberOfMomentNodes];
           }
 
-          v10 = [v9 countByEnumeratingWithState:&v47 objects:v60 count:16];
+          v10 = [v9 countByEnumeratingWithState:&v46 objects:v59 count:16];
         }
 
         while (v10);
@@ -434,63 +432,63 @@ LABEL_19:
         v14 = 0.0;
       }
 
-      v52[3] = ceil(v14);
-      v15 = v35;
+      v51[3] = ceil(v14);
+      v15 = v34;
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v16 = [v15 copy];
-    v17 = [v16 countByEnumeratingWithState:&v42 objects:v59 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v41 objects:v58 count:16];
     if (v17)
     {
-      v18 = *v43;
+      v18 = *v42;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v43 != v18)
+          if (*v42 != v18)
           {
             objc_enumerationMutation(v16);
           }
 
-          v20 = *(*(&v42 + 1) + 8 * j);
+          v20 = *(*(&v41 + 1) + 8 * j);
           numberOfMomentNodes = [v20 numberOfMomentNodes];
-          if (v52[3] <= numberOfMomentNodes)
+          if (v51[3] <= numberOfMomentNodes)
           {
-            [v35 removeObject:v20];
+            [v34 removeObject:v20];
           }
         }
 
-        v17 = [v16 countByEnumeratingWithState:&v42 objects:v59 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v41 objects:v58 count:16];
       }
 
       while (v17);
     }
 
-    _Block_object_dispose(&v51, 8);
-    v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v35, "count")}];
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
+    _Block_object_dispose(&v50, 8);
+    v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v34, "count")}];
     v39 = 0u;
-    obj = v35;
-    v22 = [obj countByEnumeratingWithState:&v38 objects:v58 count:16];
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    obj = v34;
+    v22 = [obj countByEnumeratingWithState:&v37 objects:v57 count:16];
     if (v22)
     {
-      v23 = *v39;
+      v23 = *v38;
       do
       {
         for (k = 0; k != v22; ++k)
         {
-          if (*v39 != v23)
+          if (*v38 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v38 + 1) + 8 * k);
+          v25 = *(*(&v37 + 1) + 8 * k);
           v26 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"Gathering" minimumScore:graphCopy graph:0.01];
           v27 = [PGMeaningfulEventCollectionTrait alloc];
           collection = [v25 collection];
@@ -504,7 +502,7 @@ LABEL_19:
           [v8 addObject:v26];
         }
 
-        v22 = [obj countByEnumeratingWithState:&v38 objects:v58 count:16];
+        v22 = [obj countByEnumeratingWithState:&v37 objects:v57 count:16];
       }
 
       while (v22);
@@ -515,8 +513,6 @@ LABEL_19:
   {
     v8 = MEMORY[0x277CBEBF8];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -539,10 +535,10 @@ double __88__PGMeaningfulEventLooseRequiredCriteriaFactory__socialGroupGathering
 
 + (id)_specialAmusementParkCriteriaWithGraph:(id)graph
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
-  v11[0] = @"AmusementPark";
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = @"AmusementPark";
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v5 = [PGGraphPOINodeCollection poiNodesForLabels:v4 inGraph:graphCopy];
 
   if ([v5 count])
@@ -561,8 +557,6 @@ double __88__PGMeaningfulEventLooseRequiredCriteriaFactory__socialGroupGathering
     v6 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
@@ -579,7 +573,7 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
 
 + (id)_amusementParkCriteriaArrayWithGraph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v7 = MEMORY[0x277CBEB18];
   taxonomyCopy = taxonomy;
@@ -595,25 +589,25 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
 
   if (v12)
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __100__PGMeaningfulEventLooseRequiredCriteriaFactory__amusementParkCriteriaArrayWithGraph_sceneTaxonomy___block_invoke;
-    v26[3] = &unk_2788884F0;
-    v27 = v11;
-    [v12 traverseChildrenUsingNameBlock:v26];
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __100__PGMeaningfulEventLooseRequiredCriteriaFactory__amusementParkCriteriaArrayWithGraph_sceneTaxonomy___block_invoke;
+    v25[3] = &unk_2788884F0;
+    v26 = v11;
+    [v12 traverseChildrenUsingNameBlock:v25];
   }
 
   v13 = [graphCopy sceneNodesForSceneNames:v11];
-  v28[0] = @"AmusementPark";
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+  v27[0] = @"AmusementPark";
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
   v15 = [PGGraphPOINodeCollection poiNodesForLabels:v14 inGraph:graphCopy];
 
   if ([v13 count] && objc_msgSend(v15, "count"))
   {
     v16 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"AmusementPark" minimumScore:graphCopy graph:0.4];
-    v25 = [[PGMeaningfulEventSceneCollectionTrait alloc] initWithNodes:v13];
-    -[PGMeaningfulEventTrait setMinimumScore:](v25, "setMinimumScore:", 1.0 / [v13 count]);
-    [(PGMeaningfulEventCriteria *)v16 setScenesTrait:v25];
+    v24 = [[PGMeaningfulEventSceneCollectionTrait alloc] initWithNodes:v13];
+    -[PGMeaningfulEventTrait setMinimumScore:](v24, "setMinimumScore:", 1.0 / [v13 count]);
+    [(PGMeaningfulEventCriteria *)v16 setScenesTrait:v24];
     v17 = [[PGMeaningfulEventCollectionTrait alloc] initWithNodes:v15];
     [(PGMeaningfulEventTrait *)v17 setMinimumScore:0.7];
     [(PGMeaningfulEventCriteria *)v16 setPoisTrait:v17];
@@ -631,19 +625,17 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
     v12 = v18;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 + (id)_entertainmentCriteriaWithGraph:(id)graph
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v4 = +[PGMeaningfulEventRequiredCriteriaFactory entertainmentSceneTaxonomyNames];
   v5 = [graphCopy sceneNodesForSceneNames:v4];
-  v13[0] = @"Entertainment";
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = @"Entertainment";
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v7 = [PGGraphPOINodeCollection poiNodesForLabels:v6 inGraph:graphCopy];
 
   if ([v7 count])
@@ -666,21 +658,19 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
     v8 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 + (id)_beachingCriteriaWithGraph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   taxonomyCopy = taxonomy;
   v8 = [self _beachingSceneNodesWithGraph:graphCopy];
   if ([v8 count])
   {
-    v21[0] = @"Beach";
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+    v20[0] = @"Beach";
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
     v10 = [PGGraphROINodeCollection roiNodesForLabels:v9 inGraph:graphCopy];
 
     v11 = [self _winterSportSceneNodesWithGraph:graphCopy sceneTaxonomy:taxonomyCopy];
@@ -711,25 +701,23 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
     v16 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 + (id)_climbingCriteriaWithGraph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v6 = [MEMORY[0x277CBEB98] setWithObject:@"rock_climbing"];
   v7 = [graphCopy sceneNodesForSceneNames:v6];
 
   if ([v7 count])
   {
-    v17[0] = @"Mountain";
-    v17[1] = @"Nature";
-    v17[2] = @"Beach";
-    v17[3] = @"Water";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
+    v16[0] = @"Mountain";
+    v16[1] = @"Nature";
+    v16[2] = @"Beach";
+    v16[3] = @"Water";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:4];
     v9 = [PGGraphROINodeCollection roiNodesForLabels:v8 inGraph:graphCopy];
 
     v10 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"Climbing" minimumScore:graphCopy graph:0.4];
@@ -757,41 +745,39 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)_hikingCriteriaWithGraph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v6 = [self _hikingSceneNodesWithGraph:graphCopy];
-  v31[0] = @"Hiking";
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
+  v30[0] = @"Hiking";
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
   v8 = [PGGraphPOINodeCollection poiNodesForLabels:v7 inGraph:graphCopy];
 
-  v30[0] = @"Mountain";
-  v30[1] = @"Nature";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+  v29[0] = @"Mountain";
+  v29[1] = @"Nature";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
   v10 = [PGGraphROINodeCollection roiNodesForLabels:v9 inGraph:graphCopy];
 
   if ([v6 count] && (objc_msgSend(v8, "count") || objc_msgSend(v10, "count")))
   {
-    v26 = [MEMORY[0x277CBEB98] setWithObjects:{@"gown", @"suit", @"necktie", @"vineyard", @"cycling", @"bicycle", @"golf", @"skydiving", @"sport", 0}];
-    v11 = [graphCopy sceneNodesForSceneNames:v26];
+    v25 = [MEMORY[0x277CBEB98] setWithObjects:{@"gown", @"suit", @"necktie", @"vineyard", @"cycling", @"bicycle", @"golf", @"skydiving", @"sport", 0}];
+    v11 = [graphCopy sceneNodesForSceneNames:v25];
     v12 = [self _beachingSceneNodesWithGraph:graphCopy];
     v13 = [v11 collectionByFormingUnionWith:v12];
 
     v14 = [self _divingSceneNodesWithGraph:graphCopy];
-    v25 = [v13 collectionByFormingUnionWith:v14];
+    v24 = [v13 collectionByFormingUnionWith:v14];
 
-    v28 = v8;
+    v27 = v8;
     v15 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"Hiking" minimumScore:graphCopy graph:0.4];
-    v16 = [[PGMeaningfulEventSceneCollectionTrait alloc] initWithNodes:v6 negativeNodes:v25];
+    v16 = [[PGMeaningfulEventSceneCollectionTrait alloc] initWithNodes:v6 negativeNodes:v24];
     -[PGMeaningfulEventTrait setMinimumScore:](v16, "setMinimumScore:", 1.0 / [v6 count]);
     [(PGMeaningfulEventCriteria *)v15 setScenesTrait:v16];
-    v27 = v10;
+    v26 = v10;
     v17 = [[PGMeaningfulEventCollectionTrait alloc] initWithNodes:v10];
     [(PGMeaningfulEventTrait *)v17 setMinimumScore:0.5];
     [(PGMeaningfulEventCriteria *)v15 setRoisTrait:v17];
@@ -811,12 +797,12 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
     [(PGMeaningfulEventCriteria *)v20 setLocationMobilityTrait:v18];
     [(PGMeaningfulEventCriteria *)v20 setLocationsTrait:v19];
     [(PGMeaningfulEventRequiredCriteria *)v20 setMustBeInteresting:1];
-    v29[0] = v15;
-    v29[1] = v20;
-    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+    v28[0] = v15;
+    v28[1] = v20;
+    v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
 
-    v8 = v28;
-    v10 = v27;
+    v8 = v27;
+    v10 = v26;
   }
 
   else
@@ -824,177 +810,175 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 + (id)_restaurantCriteriaByCriteriaForIdentifiers:(id)identifiers withGraph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v103[2] = *MEMORY[0x277D85DE8];
+  v102[2] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   graphCopy = graph;
   v9 = [taxonomy nodeForName:@"tableware"];
   v10 = [MEMORY[0x277CBEB58] setWithObjects:{@"restaurant", @"food", 0}];
   v11 = [MEMORY[0x277CBEB58] setWithObjects:{@"wine_bottle", @"wine", 0}];
-  v86[0] = MEMORY[0x277D85DD0];
-  v86[1] = 3221225472;
-  v86[2] = __117__PGMeaningfulEventLooseRequiredCriteriaFactory__restaurantCriteriaByCriteriaForIdentifiers_withGraph_sceneTaxonomy___block_invoke;
-  v86[3] = &unk_2788884F0;
+  v85[0] = MEMORY[0x277D85DD0];
+  v85[1] = 3221225472;
+  v85[2] = __117__PGMeaningfulEventLooseRequiredCriteriaFactory__restaurantCriteriaByCriteriaForIdentifiers_withGraph_sceneTaxonomy___block_invoke;
+  v85[3] = &unk_2788884F0;
   v12 = v11;
-  v87 = v12;
-  v65 = v9;
-  [v9 traverseChildrenUsingNameBlock:v86];
-  v64 = v10;
+  v86 = v12;
+  v64 = v9;
+  [v9 traverseChildrenUsingNameBlock:v85];
+  v63 = v10;
   v13 = [graphCopy sceneNodesForSceneNames:v10];
   v14 = [graphCopy sceneNodesForSceneNames:v12];
-  v73 = v13;
+  v72 = v13;
   v15 = [v13 collectionByFormingUnionWith:v14];
-  v63 = [MEMORY[0x277CBEB98] setWithObjects:{@"aquarium", @"underwater", 0}];
-  v68 = [graphCopy sceneNodesForSceneNames:?];
-  v103[0] = @"Nightlife";
-  v103[1] = @"Restaurant";
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v103 count:2];
+  v62 = [MEMORY[0x277CBEB98] setWithObjects:{@"aquarium", @"underwater", 0}];
+  v67 = [graphCopy sceneNodesForSceneNames:?];
+  v102[0] = @"Nightlife";
+  v102[1] = @"Restaurant";
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v102 count:2];
   v17 = [PGGraphPOINodeCollection poiNodesForLabels:v16 inGraph:graphCopy];
 
-  v102 = @"Museum";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v102 count:1];
-  v74 = graphCopy;
-  v66 = [PGGraphPOINodeCollection poiNodesForLabels:v18 inGraph:graphCopy];
+  v101 = @"Museum";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v101 count:1];
+  v73 = graphCopy;
+  v65 = [PGGraphPOINodeCollection poiNodesForLabels:v18 inGraph:graphCopy];
 
-  v72 = v15;
+  v71 = v15;
   if ([v15 count] && objc_msgSend(v17, "count"))
   {
-    v67 = v17;
-    v61 = v14;
-    v62 = v12;
-    v99[0] = @"label";
-    v99[1] = @"significantPartsOfDay";
-    v71 = identifiersCopy;
-    v100[0] = @"Lunch";
-    v100[1] = &unk_284482EC8;
-    v99[2] = @"forbiddenPartOfDay";
-    v99[3] = @"minimumNumberOfHighConfidenceScenes";
-    v100[2] = &unk_284482EE0;
-    v100[3] = &unk_284482E98;
+    v66 = v17;
+    v60 = v14;
+    v61 = v12;
+    v98[0] = @"label";
+    v98[1] = @"significantPartsOfDay";
+    v70 = identifiersCopy;
+    v99[0] = @"Lunch";
+    v99[1] = &unk_284482EC8;
+    v98[2] = @"forbiddenPartOfDay";
+    v98[3] = @"minimumNumberOfHighConfidenceScenes";
+    v99[2] = &unk_284482EE0;
+    v99[3] = &unk_284482E98;
     v19 = MEMORY[0x277CBEC28];
-    v99[4] = @"usePOIs";
-    v99[5] = @"useNegativePOIs";
-    v100[4] = MEMORY[0x277CBEC28];
-    v100[5] = MEMORY[0x277CBEC28];
-    v80 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:v99 count:6];
-    v101[0] = v80;
-    v97[0] = @"label";
-    v97[1] = @"significantPartsOfDay";
-    v98[0] = @"Lunch";
-    v98[1] = &unk_284482EC8;
-    v97[2] = @"forbiddenPartOfDay";
-    v97[3] = @"minimumNumberOfHighConfidenceScenes";
-    v98[2] = &unk_284482EE0;
-    v98[3] = &unk_284482EF8;
-    v97[4] = @"usePOIs";
-    v97[5] = @"useNegativePOIs";
-    v98[4] = MEMORY[0x277CBEC38];
+    v98[4] = @"usePOIs";
+    v98[5] = @"useNegativePOIs";
+    v99[4] = MEMORY[0x277CBEC28];
+    v99[5] = MEMORY[0x277CBEC28];
+    v79 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:v98 count:6];
+    v100[0] = v79;
+    v96[0] = @"label";
+    v96[1] = @"significantPartsOfDay";
+    v97[0] = @"Lunch";
+    v97[1] = &unk_284482EC8;
+    v96[2] = @"forbiddenPartOfDay";
+    v96[3] = @"minimumNumberOfHighConfidenceScenes";
+    v97[2] = &unk_284482EE0;
+    v97[3] = &unk_284482EF8;
+    v96[4] = @"usePOIs";
+    v96[5] = @"useNegativePOIs";
+    v97[4] = MEMORY[0x277CBEC38];
     v20 = MEMORY[0x277CBEC38];
-    v98[5] = v19;
-    v78 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:v97 count:6];
-    v101[1] = v78;
-    v95[0] = @"label";
-    v95[1] = @"significantPartsOfDay";
-    v96[0] = @"Dinner";
-    v96[1] = &unk_284482EE0;
-    v95[2] = @"forbiddenPartOfDay";
-    v95[3] = @"allPartsOfDay";
-    v96[2] = &unk_284482F10;
-    v96[3] = &unk_284482F28;
-    v95[4] = @"minimumDuration";
-    v95[5] = @"minimumNumberOfHighConfidenceScenes";
-    v96[4] = &unk_2844870F8;
-    v96[5] = &unk_284482E98;
-    v95[6] = @"usePOIs";
-    v95[7] = @"useNegativePOIs";
-    v96[6] = v20;
-    v96[7] = v19;
-    obja = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:8];
-    v101[2] = obja;
-    v93[0] = @"label";
-    v93[1] = @"significantPartsOfDay";
-    v94[0] = @"Dinner";
-    v94[1] = &unk_284482EE0;
-    v93[2] = @"forbiddenPartOfDay";
-    v93[3] = @"allPartsOfDay";
-    v94[2] = &unk_284482F10;
-    v94[3] = &unk_284482F28;
-    v93[4] = @"minimumDuration";
-    v93[5] = @"minimumNumberOfHighConfidenceScenes";
-    v94[4] = &unk_2844870F8;
-    v94[5] = &unk_284482E98;
-    v93[6] = @"usePOIs";
-    v93[7] = @"useNegativePOIs";
-    v94[6] = v19;
-    v94[7] = v19;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:8];
-    v101[3] = v21;
-    v91[0] = @"label";
-    v91[1] = @"forbiddenPartOfDay";
-    v92[0] = @"Breakfast";
-    v92[1] = &unk_284482F40;
-    v91[2] = @"significantPartsOfDay";
-    v91[3] = @"minimumNumberOfHighConfidenceScenes";
-    v92[2] = &unk_284482F58;
-    v92[3] = &unk_284482EF8;
-    v91[4] = @"usePOIs";
-    v91[5] = @"useNegativePOIs";
-    v92[4] = MEMORY[0x277CBEC38];
-    v92[5] = v19;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:6];
-    v101[4] = v22;
-    v89[0] = @"label";
-    v89[1] = @"forbiddenPartOfDay";
-    v90[0] = @"Breakfast";
-    v90[1] = &unk_284482F40;
-    v89[2] = @"significantPartsOfDay";
-    v89[3] = @"minimumNumberOfHighConfidenceScenes";
-    v90[2] = &unk_284482F58;
-    v90[3] = &unk_284482E98;
-    v89[4] = @"usePOIs";
-    v89[5] = @"useNegativePOIs";
-    v90[4] = v19;
-    v90[5] = v19;
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:v89 count:6];
-    v101[5] = v23;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v101 count:6];
+    v97[5] = v19;
+    v77 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:6];
+    v100[1] = v77;
+    v94[0] = @"label";
+    v94[1] = @"significantPartsOfDay";
+    v95[0] = @"Dinner";
+    v95[1] = &unk_284482EE0;
+    v94[2] = @"forbiddenPartOfDay";
+    v94[3] = @"allPartsOfDay";
+    v95[2] = &unk_284482F10;
+    v95[3] = &unk_284482F28;
+    v94[4] = @"minimumDuration";
+    v94[5] = @"minimumNumberOfHighConfidenceScenes";
+    v95[4] = &unk_2844870F8;
+    v95[5] = &unk_284482E98;
+    v94[6] = @"usePOIs";
+    v94[7] = @"useNegativePOIs";
+    v95[6] = v20;
+    v95[7] = v19;
+    obja = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:v94 count:8];
+    v100[2] = obja;
+    v92[0] = @"label";
+    v92[1] = @"significantPartsOfDay";
+    v93[0] = @"Dinner";
+    v93[1] = &unk_284482EE0;
+    v92[2] = @"forbiddenPartOfDay";
+    v92[3] = @"allPartsOfDay";
+    v93[2] = &unk_284482F10;
+    v93[3] = &unk_284482F28;
+    v92[4] = @"minimumDuration";
+    v92[5] = @"minimumNumberOfHighConfidenceScenes";
+    v93[4] = &unk_2844870F8;
+    v93[5] = &unk_284482E98;
+    v92[6] = @"usePOIs";
+    v92[7] = @"useNegativePOIs";
+    v93[6] = v19;
+    v93[7] = v19;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:8];
+    v100[3] = v21;
+    v90[0] = @"label";
+    v90[1] = @"forbiddenPartOfDay";
+    v91[0] = @"Breakfast";
+    v91[1] = &unk_284482F40;
+    v90[2] = @"significantPartsOfDay";
+    v90[3] = @"minimumNumberOfHighConfidenceScenes";
+    v91[2] = &unk_284482F58;
+    v91[3] = &unk_284482EF8;
+    v90[4] = @"usePOIs";
+    v90[5] = @"useNegativePOIs";
+    v91[4] = MEMORY[0x277CBEC38];
+    v91[5] = v19;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:v90 count:6];
+    v100[4] = v22;
+    v88[0] = @"label";
+    v88[1] = @"forbiddenPartOfDay";
+    v89[0] = @"Breakfast";
+    v89[1] = &unk_284482F40;
+    v88[2] = @"significantPartsOfDay";
+    v88[3] = @"minimumNumberOfHighConfidenceScenes";
+    v89[2] = &unk_284482F58;
+    v89[3] = &unk_284482E98;
+    v88[4] = @"usePOIs";
+    v88[5] = @"useNegativePOIs";
+    v89[4] = v19;
+    v89[5] = v19;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:6];
+    v100[5] = v23;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v100 count:6];
 
-    identifiersCopy = v71;
-    v69 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v71, "count")}];
+    identifiersCopy = v70;
+    v68 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v70, "count")}];
+    v81 = 0u;
     v82 = 0u;
     v83 = 0u;
     v84 = 0u;
-    v85 = 0u;
     obj = v24;
-    v25 = [obj countByEnumeratingWithState:&v82 objects:v88 count:16];
+    v25 = [obj countByEnumeratingWithState:&v81 objects:v87 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v83;
-      v70 = *v83;
+      v27 = *v82;
+      v69 = *v82;
       do
       {
         v28 = 0;
-        v75 = v26;
+        v74 = v26;
         do
         {
-          if (*v83 != v27)
+          if (*v82 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v29 = *(*(&v82 + 1) + 8 * v28);
+          v29 = *(*(&v81 + 1) + 8 * v28);
           v30 = [v29 objectForKeyedSubscript:@"label"];
           if ([identifiersCopy containsObject:v30])
           {
-            v81 = [v29 objectForKeyedSubscript:@"significantPartsOfDay"];
-            v79 = [v29 objectForKeyedSubscript:@"forbiddenPartOfDay"];
+            v80 = [v29 objectForKeyedSubscript:@"significantPartsOfDay"];
+            v78 = [v29 objectForKeyedSubscript:@"forbiddenPartOfDay"];
             v31 = [v29 objectForKeyedSubscript:@"allPartsOfDay"];
             v32 = [v29 objectForKeyedSubscript:@"minimumDuration"];
             v33 = [v29 objectForKeyedSubscript:@"minimumNumberOfHighConfidenceScenes"];
@@ -1016,11 +1000,11 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
             v38 = [v29 objectForKeyedSubscript:@"useNegativePOIs"];
             bOOLValue2 = [v38 BOOLValue];
 
-            v40 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:v30 minimumScore:v74 graph:0.6];
-            v41 = v73;
+            v40 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:v30 minimumScore:v73 graph:0.6];
+            v41 = v72;
             if (!bOOLValue)
             {
-              v41 = v72;
+              v41 = v71;
             }
 
             v42 = v41;
@@ -1033,12 +1017,12 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
                 v45 = [PGMeaningfulEventCollectionTrait alloc];
                 if (bOOLValue2)
                 {
-                  v46 = [(PGMeaningfulEventCollectionTrait *)v45 initWithNodes:v67 negativeNodes:v66];
+                  v46 = [(PGMeaningfulEventCollectionTrait *)v45 initWithNodes:v66 negativeNodes:v65];
                 }
 
                 else
                 {
-                  v46 = [(PGMeaningfulEventCollectionTrait *)v45 initWithNodes:v67];
+                  v46 = [(PGMeaningfulEventCollectionTrait *)v45 initWithNodes:v66];
                 }
 
                 v47 = v46;
@@ -1047,15 +1031,15 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
               }
 
               v48 = 1.0 / v44;
-              v49 = [[PGMeaningfulEventSceneCollectionTrait alloc] initWithNodes:v42 negativeNodes:v68];
+              v49 = [[PGMeaningfulEventSceneCollectionTrait alloc] initWithNodes:v42 negativeNodes:v67];
               [(PGMeaningfulEventTrait *)v49 setMinimumScore:v48];
               [(PGMeaningfulEventSceneCollectionTrait *)v49 setMinimumNumberOfHighConfidenceAssets:v35];
               [(PGMeaningfulEventSceneCollectionTrait *)v49 setAccumulateHighConfidenceAssetCounts:1];
               [(PGMeaningfulEventCriteria *)v40 setScenesTrait:v49];
-              unsignedIntegerValue2 = [v81 unsignedIntegerValue];
-              if (v79)
+              unsignedIntegerValue2 = [v80 unsignedIntegerValue];
+              if (v78)
               {
-                unsignedIntegerValue3 = [v79 unsignedIntegerValue];
+                unsignedIntegerValue3 = [v78 unsignedIntegerValue];
               }
 
               else
@@ -1082,48 +1066,46 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
                 [(PGMeaningfulEventCriteria *)v40 setMinimumDurationTrait:v55];
               }
 
-              array = [v69 objectForKeyedSubscript:v30];
+              array = [v68 objectForKeyedSubscript:v30];
               if (!array)
               {
                 array = [MEMORY[0x277CBEB18] array];
-                [v69 setObject:array forKeyedSubscript:v30];
+                [v68 setObject:array forKeyedSubscript:v30];
               }
 
               [array addObject:v40];
             }
 
-            v27 = v70;
-            identifiersCopy = v71;
-            v26 = v75;
+            v27 = v69;
+            identifiersCopy = v70;
+            v26 = v74;
           }
 
           ++v28;
         }
 
         while (v26 != v28);
-        v26 = [obj countByEnumeratingWithState:&v82 objects:v88 count:16];
+        v26 = [obj countByEnumeratingWithState:&v81 objects:v87 count:16];
       }
 
       while (v26);
     }
 
-    v58 = v64;
-    v57 = v65;
-    v14 = v61;
-    v12 = v62;
-    v17 = v67;
+    v58 = v63;
+    v57 = v64;
+    v14 = v60;
+    v12 = v61;
+    v17 = v66;
   }
 
   else
   {
-    v69 = MEMORY[0x277CBEC10];
+    v68 = MEMORY[0x277CBEC10];
     v58 = v10;
-    v57 = v65;
+    v57 = v64;
   }
 
-  v59 = *MEMORY[0x277D85DE8];
-
-  return v69;
+  return v68;
 }
 
 + (id)_anniversaryCriteriaWithGraph:(id)graph
@@ -1166,17 +1148,17 @@ BOOL __88__PGMeaningfulEventLooseRequiredCriteriaFactory__specialAmusementParkCr
   return v11;
 }
 
-void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWithGraph___block_invoke(uint64_t a1, void *a2)
+void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWithGraph___block_invoke(id *a1, void *a2)
 {
   v3 = [a2 calendarUnitValue];
-  if (*(a1 + 56) != v3)
+  if (a1[7] != v3)
   {
-    [*(a1 + 32) setYear:v3];
-    v10 = [MEMORY[0x277D27690] dateFromComponents:*(a1 + 32) inTimeZone:0];
-    v4 = [*(a1 + 40) dateNodeForLocalDate:?];
+    [a1[4] setYear:v3];
+    v10 = [MEMORY[0x277D27690] dateFromComponents:a1[4] inTimeZone:0];
+    v4 = [a1[5] dateNodeForLocalDate:?];
     if (v4)
     {
-      v5 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"Anniversary" minimumScore:*(a1 + 40) graph:0.5];
+      v5 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"Anniversary" minimumScore:a1[5] graph:0.5];
       v6 = [PGMeaningfulEventCollectionTrait alloc];
       v7 = [v4 collection];
       v8 = [(PGMeaningfulEventCollectionTrait *)v6 initWithNodes:v7];
@@ -1185,14 +1167,14 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
       v9 = [(PGMeaningfulEventCriteria *)v5 datesTrait];
       [v9 setMinimumScore:1.0];
 
-      [*(a1 + 48) addObject:v5];
+      [a1[6] addObject:v5];
     }
   }
 }
 
 + (id)_nightOutCriteriaArrayWithGraph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   taxonomyCopy = taxonomy;
   array = [MEMORY[0x277CBEB18] array];
@@ -1207,102 +1189,102 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
     [array addObject:v11];
   }
 
-  v44 = v11;
-  v45 = v9;
-  v51 = array;
-  v50 = [[PGMeaningfulEventPartOfDayTrait alloc] initWithPartOfDay:48 forbiddenPartOfDay:12];
-  [(PGMeaningfulEventTrait *)v50 setMinimumScore:0.3];
-  v52 = [MEMORY[0x277CBEB58] setWithArray:&unk_2844858C8];
+  v43 = v11;
+  v44 = v9;
+  v50 = array;
+  v49 = [[PGMeaningfulEventPartOfDayTrait alloc] initWithPartOfDay:48 forbiddenPartOfDay:12];
+  [(PGMeaningfulEventTrait *)v49 setMinimumScore:0.3];
+  v51 = [MEMORY[0x277CBEB58] setWithArray:&unk_2844858C8];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
-  v12 = [&unk_2844858B0 countByEnumeratingWithState:&v59 objects:v72 count:16];
+  v12 = [&unk_2844858B0 countByEnumeratingWithState:&v58 objects:v71 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v60;
+    v14 = *v59;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v60 != v14)
+        if (*v59 != v14)
         {
           objc_enumerationMutation(&unk_2844858B0);
         }
 
-        v16 = [taxonomyCopy nodeForName:*(*(&v59 + 1) + 8 * i)];
-        v57[0] = MEMORY[0x277D85DD0];
-        v57[1] = 3221225472;
-        v57[2] = __95__PGMeaningfulEventLooseRequiredCriteriaFactory__nightOutCriteriaArrayWithGraph_sceneTaxonomy___block_invoke;
-        v57[3] = &unk_2788884F0;
-        v58 = v52;
-        [v16 traverseChildrenUsingNameBlock:v57];
+        v16 = [taxonomyCopy nodeForName:*(*(&v58 + 1) + 8 * i)];
+        v56[0] = MEMORY[0x277D85DD0];
+        v56[1] = 3221225472;
+        v56[2] = __95__PGMeaningfulEventLooseRequiredCriteriaFactory__nightOutCriteriaArrayWithGraph_sceneTaxonomy___block_invoke;
+        v56[3] = &unk_2788884F0;
+        v57 = v51;
+        [v16 traverseChildrenUsingNameBlock:v56];
       }
 
-      v13 = [&unk_2844858B0 countByEnumeratingWithState:&v59 objects:v72 count:16];
+      v13 = [&unk_2844858B0 countByEnumeratingWithState:&v58 objects:v71 count:16];
     }
 
     while (v13);
   }
 
-  v46 = taxonomyCopy;
-  v17 = [graphCopy sceneNodesForSceneNames:v52];
-  v71[0] = @"Nightlife";
-  v71[1] = @"Restaurant";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:2];
+  v45 = taxonomyCopy;
+  v17 = [graphCopy sceneNodesForSceneNames:v51];
+  v70[0] = @"Nightlife";
+  v70[1] = @"Restaurant";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:2];
   v19 = [PGGraphPOINodeCollection poiNodesForLabels:v18 inGraph:graphCopy];
 
   if ([v17 count])
   {
-    v68[0] = @"minimumDuration";
-    v68[1] = @"minimumNumberOfHighConfidenceScenes";
-    v69[1] = &unk_284482E98;
-    v68[2] = @"usePOIs";
-    v69[0] = &unk_2844870D8;
-    v69[2] = MEMORY[0x277CBEC38];
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:3];
-    v70[0] = v20;
-    v66[0] = @"minimumDuration";
-    v66[1] = @"minimumNumberOfHighConfidenceScenes";
-    v67[0] = &unk_2844870D8;
-    v67[1] = &unk_284482EB0;
-    v66[2] = @"usePOIs";
-    v67[2] = MEMORY[0x277CBEC28];
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:3];
-    v70[1] = v21;
-    v64[0] = @"minimumDuration";
-    v64[1] = @"minimumNumberOfHighConfidenceScenes";
-    v65[0] = &unk_2844870E8;
-    v65[1] = &unk_284482EB0;
-    v64[2] = @"usePOIs";
-    v65[2] = MEMORY[0x277CBEC38];
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:3];
-    v70[2] = v22;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v70 count:3];
+    v67[0] = @"minimumDuration";
+    v67[1] = @"minimumNumberOfHighConfidenceScenes";
+    v68[1] = &unk_284482E98;
+    v67[2] = @"usePOIs";
+    v68[0] = &unk_2844870D8;
+    v68[2] = MEMORY[0x277CBEC38];
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:3];
+    v69[0] = v20;
+    v65[0] = @"minimumDuration";
+    v65[1] = @"minimumNumberOfHighConfidenceScenes";
+    v66[0] = &unk_2844870D8;
+    v66[1] = &unk_284482EB0;
+    v65[2] = @"usePOIs";
+    v66[2] = MEMORY[0x277CBEC28];
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
+    v69[1] = v21;
+    v63[0] = @"minimumDuration";
+    v63[1] = @"minimumNumberOfHighConfidenceScenes";
+    v64[0] = &unk_2844870E8;
+    v64[1] = &unk_284482EB0;
+    v63[2] = @"usePOIs";
+    v64[2] = MEMORY[0x277CBEC38];
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:3];
+    v69[2] = v22;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:3];
 
-    v49 = graphCopy;
-    v48 = [PGMeaningfulEventRequiredCriteriaFactory locationsTraitNotMatchingPeopleHomeWorkLocationsForGraph:graphCopy];
+    v48 = graphCopy;
+    v47 = [PGMeaningfulEventRequiredCriteriaFactory locationsTraitNotMatchingPeopleHomeWorkLocationsForGraph:graphCopy];
+    v52 = 0u;
     v53 = 0u;
     v54 = 0u;
     v55 = 0u;
-    v56 = 0u;
     obj = v23;
-    v24 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
+    v24 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v54;
+      v26 = *v53;
       do
       {
         for (j = 0; j != v25; ++j)
         {
-          if (*v54 != v26)
+          if (*v53 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v28 = *(*(&v53 + 1) + 8 * j);
+          v28 = *(*(&v52 + 1) + 8 * j);
           v29 = [v28 objectForKeyedSubscript:@"minimumDuration"];
           [v29 doubleValue];
           v31 = v30;
@@ -1323,8 +1305,8 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
           v35 = [v28 objectForKeyedSubscript:@"usePOIs"];
           bOOLValue = [v35 BOOLValue];
 
-          v37 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"NightOut" minimumScore:v49 graph:0.6];
-          [(PGMeaningfulEventCriteria *)v37 setLocationsTrait:v48];
+          v37 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"NightOut" minimumScore:v48 graph:0.6];
+          [(PGMeaningfulEventCriteria *)v37 setLocationsTrait:v47];
           v38 = [[PGMeaningfulEventNumberTrait alloc] initWithNumberValue:3.0];
           [(PGMeaningfulEventCriteria *)v37 setNumberOfPeopleTrait:v38];
 
@@ -1343,27 +1325,25 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
           v41 = [[PGMeaningfulEventNumberTrait alloc] initWithNumberValue:v31];
           [(PGMeaningfulEventTrait *)v41 setMinimumScore:1.0];
           [(PGMeaningfulEventCriteria *)v37 setMinimumDurationTrait:v41];
-          [(PGMeaningfulEventCriteria *)v37 setSignificantPartsOfDayTrait:v50];
-          [v51 addObject:v37];
+          [(PGMeaningfulEventCriteria *)v37 setSignificantPartsOfDayTrait:v49];
+          [v50 addObject:v37];
         }
 
-        v25 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
+        v25 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
       }
 
       while (v25);
     }
 
-    graphCopy = v49;
+    graphCopy = v48;
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
-  return v51;
+  return v50;
 }
 
 + (id)_museumCriteriaArrayForMeaningInferenceWithGraph:(id)graph
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   array = [MEMORY[0x277CBEB18] array];
   artsAndMuseums = [MEMORY[0x277D27780] artsAndMuseums];
@@ -1375,9 +1355,9 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
   }
 
   v8 = [self _museumSceneTraitInGraph:graphCopy minimumNumberOfHighConfidenceAssets:6];
-  v18[0] = @"Museum";
-  v18[1] = @"Culture";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+  v17[0] = @"Museum";
+  v17[1] = @"Culture";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
   v10 = [PGGraphPOINodeCollection poiNodesForLabels:v9 inGraph:graphCopy];
 
   if (v8 && [v10 count])
@@ -1398,14 +1378,12 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
     [array addObject:v11];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 + (id)_museumCriteriaArrayForPublicEventInferenceWithGraph:(id)graph
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = [self _museumSceneTraitInGraph:graphCopy minimumNumberOfHighConfidenceAssets:3];
   if (v5)
@@ -1415,16 +1393,14 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
     v7 = [[PGMeaningfulEventPartOfDayTrait alloc] initWithPartOfDay:62];
     [(PGMeaningfulEventTrait *)v7 setMinimumScore:0.2];
     [(PGMeaningfulEventCriteria *)v6 setSignificantPartsOfDayTrait:v7];
-    v11[0] = v6;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v6;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
   {
     v8 = MEMORY[0x277CBEBF8];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1492,7 +1468,7 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
 
 + (id)_concertCriteriaArrayForMeaningInferenceWithGraph:(id)graph
 {
-  v20[5] = *MEMORY[0x277D85DE8];
+  v19[5] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   array = [MEMORY[0x277CBEB18] array];
   musicConcerts = [MEMORY[0x277D27780] musicConcerts];
@@ -1504,12 +1480,12 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
   }
 
   v8 = [self _concertSceneNodesInGraph:graphCopy];
-  v20[0] = @"Nightlife";
-  v20[1] = @"Culture";
-  v20[2] = @"Entertainment";
-  v20[3] = @"Stadium";
-  v20[4] = @"Performance";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
+  v19[0] = @"Nightlife";
+  v19[1] = @"Culture";
+  v19[2] = @"Entertainment";
+  v19[3] = @"Stadium";
+  v19[4] = @"Performance";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:5];
   v10 = [PGGraphPOINodeCollection poiNodesForLabels:v9 inGraph:graphCopy];
 
   v11 = [v8 count];
@@ -1537,24 +1513,22 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
     [array addObject:v13];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 + (id)_performanceCriteriaWithGraph:(id)graph
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v4 = [MEMORY[0x277CBEB98] setWithObjects:{@"entertainer", @"ballet_dancer", @"acrobat", @"clown", @"deejay", @"singer", @"rodeo", @"dancing", @"swing_dancing", @"hula", @"bellydance", @"breakdancing", @"samba", @"karaoke", @"airshow", @"concert", @"orchestra", @"juggling", @"magic", @"circus", @"ballet", @"parade", @"performance", 0}];
   v5 = [graphCopy sceneNodesForSceneNames:v4];
   if ([v5 count])
   {
-    v14[0] = @"Nightlife";
-    v14[1] = @"Culture";
-    v14[2] = @"Entertainment";
-    v14[3] = @"Performance";
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:4];
+    v13[0] = @"Nightlife";
+    v13[1] = @"Culture";
+    v13[2] = @"Entertainment";
+    v13[3] = @"Performance";
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
     v7 = [PGGraphPOINodeCollection poiNodesForLabels:v6 inGraph:graphCopy];
 
     v8 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"Performance" minimumScore:graphCopy graph:0.4];
@@ -1578,8 +1552,6 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
   {
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1606,14 +1578,14 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
 
 + (id)_winterSportCriteriaWithGraph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v7 = [self _winterSportSceneNodesWithGraph:graphCopy sceneTaxonomy:taxonomy];
   if ([v7 count])
   {
-    v15[0] = @"Mountain";
-    v15[1] = @"Nature";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = @"Mountain";
+    v14[1] = @"Nature";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v9 = [PGGraphROINodeCollection roiNodesForLabels:v8 inGraph:graphCopy];
 
     v10 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"WinterSport" minimumScore:graphCopy graph:0.6];
@@ -1635,19 +1607,17 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)_divingCriteriaWithGraph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   taxonomyCopy = taxonomy;
   v8 = [self _divingSceneNodesWithGraph:graphCopy];
-  v22[0] = @"Water";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = @"Water";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v10 = [PGGraphROINodeCollection roiNodesForLabels:v9 inGraph:graphCopy];
 
   if ([v8 count] && objc_msgSend(v10, "count"))
@@ -1675,14 +1645,12 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
     v17 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 + (id)_sportEventCriteriaArrayForPublicEventInferenceWithGraph:(id)graph
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v5 = [self _sportEventScenesTraitWithGraph:graphCopy];
   v6 = v5;
@@ -1695,9 +1663,9 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
     [v8 setMinimumNumberOfHighConfidenceAssets:7];
     v9 = [[PGMeaningfulEventRequiredCriteria alloc] initWithIdentifier:@"SportEvent" minimumScore:graphCopy graph:0.4];
     [(PGMeaningfulEventCriteria *)v9 setScenesTrait:v8];
-    v13[0] = v7;
-    v13[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+    v12[0] = v7;
+    v12[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   }
 
   else
@@ -1705,14 +1673,12 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
     v10 = MEMORY[0x277CBEBF8];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 + (id)_sportEventCriteriaArrayForMeaningInferenceWithGraph:(id)graph
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   array = [MEMORY[0x277CBEB18] array];
   sports = [MEMORY[0x277D27780] sports];
@@ -1724,9 +1690,9 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
   }
 
   v8 = [self _sportEventScenesTraitWithGraph:graphCopy];
-  v20[0] = @"Entertainment";
-  v20[1] = @"Stadium";
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+  v19[0] = @"Entertainment";
+  v19[1] = @"Stadium";
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   v10 = [PGGraphPOINodeCollection poiNodesForLabels:v9 inGraph:graphCopy];
 
   v11 = [graphCopy anyNodeForLabel:@"Park" domain:501 properties:0];
@@ -1742,16 +1708,14 @@ void __79__PGMeaningfulEventLooseRequiredCriteriaFactory__anniversaryCriteriaWit
     [(PGMeaningfulEventCriteria *)v12 setPoisTrait:v14];
     if (v11)
     {
-      v18 = MEMORY[0x277D85DD0];
-      v19 = v11;
-      v15 = [(PGMeaningfulEventCriteria *)v12 poisTrait:v18];
-      [v15 setAdditionalMatchingBlock:&v18];
+      v17 = MEMORY[0x277D85DD0];
+      v18 = v11;
+      v15 = [(PGMeaningfulEventCriteria *)v12 poisTrait:v17];
+      [v15 setAdditionalMatchingBlock:&v17];
     }
 
     [array addObject:v12];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -1844,7 +1808,7 @@ void __102__PGMeaningfulEventLooseRequiredCriteriaFactory__sportEventCriteriaArr
 
 + (id)_weddingCriteriaWithGraph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   graphCopy = graph;
   v7 = [self _weddingSceneNodesWithGraph:graphCopy includeWedding:1 sceneTaxonomy:taxonomy];
   if ([v7 count])
@@ -1880,17 +1844,15 @@ void __102__PGMeaningfulEventLooseRequiredCriteriaFactory__sportEventCriteriaArr
     [(PGMeaningfulEventCriteria *)v13 setMinimumDurationTrait:v16];
     [(PGMeaningfulEventCriteria *)v13 setAllPartsOfDayTrait:v12];
     [(PGMeaningfulEventRequiredCriteria *)v13 setMustBeInteresting:0];
-    v20[0] = v8;
-    v20[1] = v13;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
+    v19[0] = v8;
+    v19[1] = v13;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
   }
 
   else
   {
     v17 = MEMORY[0x277CBEBF8];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -2101,7 +2063,7 @@ void __134__PGMeaningfulEventLooseRequiredCriteriaFactory__birthdayCriteriaWithG
 
 PGMeaningfulEventRequiredCriteria *__134__PGMeaningfulEventLooseRequiredCriteriaFactory__birthdayCriteriaWithGraph_strongBirthdayCriteria_weakBirthdayCriteria_sceneTaxonomy___block_invoke_4(uint64_t a1, int a2, void *a3, int a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = @"Birthday";
   if (a4)
@@ -2129,28 +2091,28 @@ PGMeaningfulEventRequiredCriteria *__134__PGMeaningfulEventLooseRequiredCriteria
 
   if (a2)
   {
-    v35 = v9;
+    v34 = v9;
     [(PGMeaningfulEventRequiredCriteria *)v10 setAdditionalInfoForKey:@"birthday.isOnDate" value:MEMORY[0x277CBEC38]];
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v19 = v7;
-    v20 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v37;
+      v22 = *v36;
 LABEL_6:
       v23 = 0;
       while (1)
       {
-        if (*v37 != v22)
+        if (*v36 != v22)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = [*(*(&v36 + 1) + 8 * v23) localDate];
+        v24 = [*(*(&v35 + 1) + 8 * v23) localDate];
         v25 = [MEMORY[0x277D276A8] isWeekendDate:v24];
 
         if (v25)
@@ -2160,7 +2122,7 @@ LABEL_6:
 
         if (v21 == ++v23)
         {
-          v21 = [v19 countByEnumeratingWithState:&v36 objects:v40 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v35 objects:v39 count:16];
           if (v21)
           {
             goto LABEL_6;
@@ -2170,7 +2132,7 @@ LABEL_6:
         }
       }
 
-      v9 = v35;
+      v9 = v34;
       if (a4)
       {
         goto LABEL_20;
@@ -2194,7 +2156,7 @@ LABEL_12:
     if (a4)
     {
       v26 = 0;
-      v9 = v35;
+      v9 = v34;
       goto LABEL_23;
     }
 
@@ -2202,7 +2164,7 @@ LABEL_12:
     [(PGMeaningfulEventTrait *)v31 setMinimumScore:0.2];
     [(PGMeaningfulEventCriteria *)v10 setSignificantPartsOfDayTrait:v31];
 
-    v9 = v35;
+    v9 = v34;
   }
 
   else
@@ -2233,7 +2195,6 @@ LABEL_20:
   v26 = v10;
 
 LABEL_23:
-  v33 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -2252,7 +2213,7 @@ unint64_t __134__PGMeaningfulEventLooseRequiredCriteriaFactory__birthdayCriteria
 
 + (id)_requiredCriteriaForIdentifiers:(id)identifiers graph:(id)graph sceneTaxonomy:(id)taxonomy
 {
-  v63[3] = *MEMORY[0x277D85DE8];
+  v62[3] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   graphCopy = graph;
   taxonomyCopy = taxonomy;
@@ -2262,7 +2223,7 @@ unint64_t __134__PGMeaningfulEventLooseRequiredCriteriaFactory__birthdayCriteria
   aBlock[2] = __101__PGMeaningfulEventLooseRequiredCriteriaFactory__requiredCriteriaForIdentifiers_graph_sceneTaxonomy___block_invoke;
   aBlock[3] = &unk_2788814B8;
   v12 = dictionary;
-  v62 = v12;
+  v61 = v12;
   v13 = _Block_copy(aBlock);
   v14 = MEMORY[0x277CBEBF8];
   if (identifiersCopy)
@@ -2285,11 +2246,11 @@ unint64_t __134__PGMeaningfulEventLooseRequiredCriteriaFactory__birthdayCriteria
     [v12 setObject:v16 forKeyedSubscript:@"Wedding"];
   }
 
+  v58 = 0;
   v59 = 0;
-  v60 = 0;
-  [self _birthdayCriteriaWithGraph:graphCopy strongBirthdayCriteria:&v60 weakBirthdayCriteria:&v59 sceneTaxonomy:taxonomyCopy];
-  v17 = v60;
-  v18 = v59;
+  [self _birthdayCriteriaWithGraph:graphCopy strongBirthdayCriteria:&v59 weakBirthdayCriteria:&v58 sceneTaxonomy:taxonomyCopy];
+  v17 = v59;
+  v18 = v58;
   if (identifiersCopy)
   {
     if ([identifiersCopy containsObject:@"Birthday"])
@@ -2493,10 +2454,10 @@ LABEL_59:
     v45 = [self _divingCriteriaWithGraph:graphCopy sceneTaxonomy:taxonomyCopy];
     v13[2](v13, @"Diving", v45);
 
-    v63[0] = @"Lunch";
-    v63[1] = @"Dinner";
-    v63[2] = @"Breakfast";
-    array = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:3];
+    v62[0] = @"Lunch";
+    v62[1] = @"Dinner";
+    v62[2] = @"Breakfast";
+    array = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:3];
     goto LABEL_69;
   }
 
@@ -2603,24 +2564,21 @@ LABEL_88:
 
   v56 = v12;
 
-  v57 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 void __101__PGMeaningfulEventLooseRequiredCriteriaFactory__requiredCriteriaForIdentifiers_graph_sceneTaxonomy___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a3)
   {
-    v10 = a3;
+    v9 = a3;
     v5 = MEMORY[0x277CBEA60];
     v6 = a3;
     v7 = a2;
-    v8 = [v5 arrayWithObjects:&v10 count:1];
-    [*(a1 + 32) setObject:v8 forKeyedSubscript:{v7, v10, v11}];
+    v8 = [v5 arrayWithObjects:&v9 count:1];
+    [*(a1 + 32) setObject:v8 forKeyedSubscript:{v7, v9, v10}];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (id)requiredCriteriaForIdentifiers:(id)identifiers graph:(id)graph sceneTaxonomy:(id)taxonomy

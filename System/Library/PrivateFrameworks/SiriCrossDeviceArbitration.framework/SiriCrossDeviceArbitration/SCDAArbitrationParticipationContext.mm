@@ -5,9 +5,42 @@
 + (unint64_t)_convertTriggerType:(int)type;
 - (id)initAdvertisements:(id)advertisements decision:(BOOL)decision requestStartDate:(id)date session:(id)session voiceTriggerTime:(double)time winnerAdvertisement:(id)advertisement;
 - (void)_processAdvertisements:(id)advertisements winnerAdvertisement:(id)advertisement;
+- (void)updateBoosts:(id)boosts triggerType:(int)type lastWin:(unint64_t)win lastDecision:(unint64_t)decision;
 @end
 
 @implementation SCDAArbitrationParticipationContext
+
+- (void)updateBoosts:(id)boosts triggerType:(int)type lastWin:(unint64_t)win lastDecision:(unint64_t)decision
+{
+  v8 = *&type;
+  boostsCopy = boosts;
+  if (win)
+  {
+    v10 = MEMORY[0x1E696AD98];
+    v11 = mach_absolute_time();
+    v12 = [v10 numberWithUnsignedLongLong:SCDAMachAbsoluteTimeGetMilliseconds(v11 - win)];
+    msSinceLastWin = self->_msSinceLastWin;
+    self->_msSinceLastWin = v12;
+  }
+
+  if (decision)
+  {
+    v14 = MEMORY[0x1E696AD98];
+    v15 = mach_absolute_time();
+    v16 = [v14 numberWithUnsignedLongLong:SCDAMachAbsoluteTimeGetMilliseconds(v15 - decision)];
+    msSinceTrigger = self->_msSinceTrigger;
+    self->_msSinceTrigger = v16;
+  }
+
+  self->_triggerType = [SCDAArbitrationParticipationContext _convertTriggerType:v8];
+  v18 = [SCDAArbitrationParticipationContext _convertBoosts:boostsCopy];
+  boosts = self->_boosts;
+  self->_boosts = v18;
+
+  v20 = [SCDAArbitrationParticipationContext _convertTrumpReason:boostsCopy];
+  trumpReasons = self->_trumpReasons;
+  self->_trumpReasons = v20;
+}
 
 - (void)_processAdvertisements:(id)advertisements winnerAdvertisement:(id)advertisement
 {

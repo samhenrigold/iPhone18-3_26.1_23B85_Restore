@@ -32,26 +32,26 @@
 
   [(NCNotificationManagementViewController *)v9 setSettingsDelegate:delegateCopy];
   v10 = objc_alloc_init(NCNotificationManagementAlertController);
-  [(NCNotificationManagementAlertController *)v10 setContentViewController:v9];
-  v11 = MEMORY[0x277D750F8];
-  v12 = NCUserNotificationsUIKitFrameworkBundle();
-  v13 = [v12 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_SETTINGS" value:&stru_282FE84F8 table:0];
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = __138__NCNotificationManagementViewController_notificationManagementAlertControllerForNotificationRequest_withPresentingView_settingsDelegate___block_invoke;
-  v25 = &unk_2783728A8;
-  v26 = v9;
-  v27 = topLevelSectionIdentifier;
-  v14 = topLevelSectionIdentifier;
-  v15 = v9;
-  v16 = [v11 _actionWithTitle:v13 image:0 style:0 handler:0 shouldDismissHandler:&v22];
+  v11 = [(NCNotificationManagementAlertController *)v10 setContentViewController:v9];
+  v12 = MEMORY[0x277D750F8];
+  v13 = NCUserNotificationsUIKitFrameworkBundle(v11);
+  v14 = [v13 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_SETTINGS" value:&stru_282FE84F8 table:0];
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __138__NCNotificationManagementViewController_notificationManagementAlertControllerForNotificationRequest_withPresentingView_settingsDelegate___block_invoke;
+  v27 = &unk_2783728A8;
+  v28 = v9;
+  v29 = topLevelSectionIdentifier;
+  v15 = topLevelSectionIdentifier;
+  v16 = v9;
+  v17 = [v12 _actionWithTitle:v14 image:0 style:0 handler:0 shouldDismissHandler:&v24];
 
-  [(NCNotificationManagementAlertController *)v10 addAction:v16, v22, v23, v24, v25];
-  v17 = MEMORY[0x277D750F8];
-  v18 = NCUserNotificationsUIKitFrameworkBundle();
-  v19 = [v18 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_CANCEL" value:&stru_282FE84F8 table:0];
-  v20 = [v17 actionWithTitle:v19 style:1 handler:0];
-  [(NCNotificationManagementAlertController *)v10 addAction:v20];
+  v18 = [(NCNotificationManagementAlertController *)v10 addAction:v17, v24, v25, v26, v27];
+  v19 = MEMORY[0x277D750F8];
+  v20 = NCUserNotificationsUIKitFrameworkBundle(v18);
+  v21 = [v20 localizedStringForKey:@"NOTIFICATION_MANAGEMENT_CANCEL" value:&stru_282FE84F8 table:0];
+  v22 = [v19 actionWithTitle:v21 style:1 handler:0];
+  [(NCNotificationManagementAlertController *)v10 addAction:v22];
 
   return v10;
 }
@@ -142,24 +142,25 @@ void __138__NCNotificationManagementViewController_notificationManagementAlertCo
 
   displayName = [v8 displayName];
   isCriticalAlert = [(NCNotificationRequest *)self->_request isCriticalAlert];
-  v11 = NCUserNotificationsUIKitFrameworkBundle();
-  v12 = v11;
-  if (isCriticalAlert)
+  v11 = isCriticalAlert;
+  v12 = NCUserNotificationsUIKitFrameworkBundle(isCriticalAlert);
+  v13 = v12;
+  if (v11)
   {
-    v13 = @"NOTIFICATION_MANAGEMENT_SUBTITLE_CRITICAL_ALERTS";
+    v14 = @"NOTIFICATION_MANAGEMENT_SUBTITLE_CRITICAL_ALERTS";
   }
 
   else
   {
-    v13 = @"NOTIFICATION_MANAGEMENT_SUBTITLE_DEFAULT";
+    v14 = @"NOTIFICATION_MANAGEMENT_SUBTITLE_DEFAULT";
   }
 
-  v14 = [v11 localizedStringForKey:v13 value:&stru_282FE84F8 table:0];
+  v15 = [v12 localizedStringForKey:v14 value:&stru_282FE84F8 table:0];
 
   self->_isDeliveredQuietly = [v8 isDeliveredQuietly];
-  v15 = [MEMORY[0x277CBEBC0] nc_notificationSettingsURLForSectionIdentifier:v6 isAppClip:{objc_msgSend(v8, "isAppClip")}];
+  v16 = [MEMORY[0x277CBEBC0] nc_notificationSettingsURLForSectionIdentifier:v6 isAppClip:{objc_msgSend(v8, "isAppClip")}];
   settingsURL = self->_settingsURL;
-  self->_settingsURL = v15;
+  self->_settingsURL = v16;
 
   settingsIcon = [v8 settingsIcon];
   if (!settingsIcon)
@@ -168,9 +169,9 @@ void __138__NCNotificationManagementViewController_notificationManagementAlertCo
     settingsIcon = NCIconImageForApplicationIdentifierWithFormat(v6, 17, [traitCollection userInterfaceStyle]);
   }
 
-  v19 = [[NCNotificationManagementView alloc] initWithIcon:settingsIcon title:displayName subtitle:v14 sectionSettings:v8 criticalAlert:[(NCNotificationRequest *)self->_request isCriticalAlert]];
+  v20 = [[NCNotificationManagementView alloc] initWithIcon:settingsIcon title:displayName subtitle:v15 sectionSettings:v8 criticalAlert:[(NCNotificationRequest *)self->_request isCriticalAlert]];
 
-  return v19;
+  return v20;
 }
 
 - (void)loadView

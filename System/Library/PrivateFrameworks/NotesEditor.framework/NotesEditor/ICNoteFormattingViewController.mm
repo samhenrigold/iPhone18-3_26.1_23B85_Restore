@@ -18,14 +18,16 @@
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
+  appearingCopy = appearing;
   selfCopy = self;
-  sub_2153B2AE0(appearing);
+  sub_2153B2AE0(appearingCopy);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_2153B2C20(disappear);
+  sub_2153B2C20(disappearCopy);
 }
 
 - (void)updateWithDataSource:(id)source ignoreTypingAttributes:(BOOL)attributes

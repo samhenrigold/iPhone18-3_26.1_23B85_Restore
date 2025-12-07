@@ -17,23 +17,22 @@
 
 + (id)dbProperties
 {
-  v6[7] = *MEMORY[0x1E69E9840];
-  v5[0] = CKSQLiteTOCTableGroupTableGroupIDPropertyName;
-  v5[1] = CKSQLiteTOCTableGroupTableGroupNamePropertyName;
-  v6[0] = &unk_1EFA85500;
-  v6[1] = &unk_1EFA85560;
-  v5[2] = CKSQLiteTOCTableGroupTableLastUsedPropertyName;
-  v5[3] = CKSQLiteTOCTableGroupTableCreatingClassPropertyName;
-  v6[2] = &unk_1EFA855D8;
-  v6[3] = &unk_1EFA85548;
-  v5[4] = @"creationDate";
-  v5[5] = CKSQLiteTOCTableGroupTableGroupDataPropertyName;
-  v6[4] = &unk_1EFA855D8;
-  v6[5] = &unk_1EFA855F0;
-  v5[6] = CKSQLiteTOCTableGroupTableFlagsName;
-  v6[6] = &unk_1EFA85608;
-  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v6, v5, 7);
-  v3 = *MEMORY[0x1E69E9840];
+  v5[7] = *MEMORY[0x1E69E9840];
+  v4[0] = CKSQLiteTOCTableGroupTableGroupIDPropertyName;
+  v4[1] = CKSQLiteTOCTableGroupTableGroupNamePropertyName;
+  v5[0] = &unk_1EFA85500;
+  v5[1] = &unk_1EFA85560;
+  v4[2] = CKSQLiteTOCTableGroupTableLastUsedPropertyName;
+  v4[3] = CKSQLiteTOCTableGroupTableCreatingClassPropertyName;
+  v5[2] = &unk_1EFA855D8;
+  v5[3] = &unk_1EFA85548;
+  v4[4] = @"creationDate";
+  v4[5] = CKSQLiteTOCTableGroupTableGroupDataPropertyName;
+  v5[4] = &unk_1EFA855D8;
+  v5[5] = &unk_1EFA855F0;
+  v4[6] = CKSQLiteTOCTableGroupTableFlagsName;
+  v5[6] = &unk_1EFA85608;
+  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v5, v4, 7);
 
   return v2;
 }
@@ -69,7 +68,7 @@
 
 - (id)makeUniqueGroupName:(id)name
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = MEMORY[0x1E696AEC0];
   v8 = objc_msgSend_name(nameCopy, v6, v7);
@@ -78,16 +77,14 @@
 
   v16 = objc_msgSend_name(nameCopy, v14, v15);
   objc_msgSend_setName_(nameCopy, v17, v13);
-  v25[0] = CKSQLiteTOCTableGroupTableGroupNamePropertyName;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v25, 1);
+  v24[0] = CKSQLiteTOCTableGroupTableGroupNamePropertyName;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v18, v24, 1);
   v21 = objc_msgSend_updateProperties_usingObject_label_(self, v20, v19, nameCopy, off_1EA911238);
 
   if (v21)
   {
     objc_msgSend_setName_(nameCopy, v22, v16);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -142,14 +139,14 @@
 
 - (id)entryWithGroupName:(id)name error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v7 = [CKSQLiteTableGroupEntry alloc];
   v9 = objc_msgSend_initWithName_(v7, v8, nameCopy);
   objc_msgSend_setName_(v9, v10, nameCopy);
 
-  v19[0] = CKSQLiteTOCTableGroupTableGroupNamePropertyName;
-  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, v19, 1);
+  v18[0] = CKSQLiteTOCTableGroupTableGroupNamePropertyName;
+  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, v18, 1);
   v14 = objc_msgSend_fetchProperties_inObject_matchingDBProperties_label_(self, v13, 0, v9, v12, off_1EA911268);
 
   if (v14)
@@ -174,14 +171,12 @@
 
 LABEL_7:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)invalidateGroup:(id)group
 {
-  v30[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   groupCopy = group;
   v7 = objc_msgSend_name(groupCopy, v5, v6);
   objc_msgSend_setName_(groupCopy, v8, 0);
@@ -192,10 +187,10 @@ LABEL_7:
   v14 = objc_msgSend_distantPast(MEMORY[0x1E695DF00], v12, v13);
   objc_msgSend_setLastUsed_(groupCopy, v15, v14);
 
-  v30[0] = CKSQLiteTOCTableGroupTableGroupNamePropertyName;
-  v30[1] = CKSQLiteTOCTableGroupTableCreatingClassPropertyName;
-  v30[2] = CKSQLiteTOCTableGroupTableLastUsedPropertyName;
-  v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v16, v30, 3);
+  v29[0] = CKSQLiteTOCTableGroupTableGroupNamePropertyName;
+  v29[1] = CKSQLiteTOCTableGroupTableCreatingClassPropertyName;
+  v29[2] = CKSQLiteTOCTableGroupTableLastUsedPropertyName;
+  v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v16, v29, 3);
   v19 = objc_msgSend_updateProperties_usingObject_label_(self, v18, v17, groupCopy, off_1EA911280);
 
   if (v19)
@@ -209,9 +204,9 @@ LABEL_7:
     if (os_log_type_enabled(ck_log_facility_sql, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v27 = v7;
-      v28 = 2114;
-      v29 = v19;
+      v26 = v7;
+      v27 = 2114;
+      v28 = v19;
       _os_log_error_impl(&dword_1883EA000, v21, OS_LOG_TYPE_ERROR, "failed to invalidate group %{publid}@: %{public}@", buf, 0x16u);
     }
   }
@@ -219,35 +214,29 @@ LABEL_7:
   v22 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v20, @"<invalidated %@>", v7);
   objc_msgSend_setName_(groupCopy, v23, v22);
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (id)updateLastUsedDate:(id)date
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12 = CKSQLiteTOCTableGroupTableLastUsedPropertyName;
+  v12 = *MEMORY[0x1E69E9840];
+  v11 = CKSQLiteTOCTableGroupTableLastUsedPropertyName;
   v4 = MEMORY[0x1E695DEC8];
   dateCopy = date;
-  v7 = objc_msgSend_arrayWithObjects_count_(v4, v6, &v12, 1);
-  v9 = objc_msgSend_updateProperties_usingObject_label_(self, v8, v7, dateCopy, off_1EA911298, v12, v13);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = objc_msgSend_arrayWithObjects_count_(v4, v6, &v11, 1);
+  v9 = objc_msgSend_updateProperties_usingObject_label_(self, v8, v7, dateCopy, off_1EA911298, v11, v12);
 
   return v9;
 }
 
 - (id)updateGroupData:(id)data
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v12 = CKSQLiteTOCTableGroupTableGroupDataPropertyName;
+  v12 = *MEMORY[0x1E69E9840];
+  v11 = CKSQLiteTOCTableGroupTableGroupDataPropertyName;
   v4 = MEMORY[0x1E695DEC8];
   dataCopy = data;
-  v7 = objc_msgSend_arrayWithObjects_count_(v4, v6, &v12, 1);
-  v9 = objc_msgSend_updateProperties_usingObject_label_(self, v8, v7, dataCopy, off_1EA9112B0, v12, v13);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v7 = objc_msgSend_arrayWithObjects_count_(v4, v6, &v11, 1);
+  v9 = objc_msgSend_updateProperties_usingObject_label_(self, v8, v7, dataCopy, off_1EA9112B0, v11, v12);
 
   return v9;
 }

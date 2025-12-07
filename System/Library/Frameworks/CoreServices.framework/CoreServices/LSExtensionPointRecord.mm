@@ -14,6 +14,7 @@
 - (id)nameWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSExtensionPointData *)bytes;
 - (id)parentAppRecordWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSExtensionPointData *)bytes;
 - (id)versionWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSExtensionPointData *)bytes;
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes;
 @end
 
 @implementation LSExtensionPointRecord
@@ -62,18 +63,19 @@ LABEL_22:
   }
 
   v9 = objc_opt_class();
-  v10 = [v7 objectForKey:@"NSExtensionPointIdentifier"];
-  v8 = v10;
-  if (v9 && v10)
+  isKindOfClass = [v7 objectForKey:@"NSExtensionPointIdentifier"];
+  v8 = isKindOfClass;
+  if (v9 && isKindOfClass)
   {
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
 
       goto LABEL_22;
     }
 
 LABEL_13:
-    v11 = _LSDefaultLog();
+    v11 = _LSDefaultLog(isKindOfClass);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       +[(LSExtensionPointRecord *)v8];
@@ -82,10 +84,10 @@ LABEL_13:
     bundlePath = [v3 bundlePath];
     pathExtension = [bundlePath pathExtension];
 
-    if (!pathExtension || [pathExtension caseInsensitiveCompare:@"appex"])
+    if (!pathExtension || (v14 = [pathExtension caseInsensitiveCompare:@"appex"]) != 0)
     {
-      v14 = _LSDefaultLog();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = _LSDefaultLog(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         +[(LSExtensionPointRecord *)v8];
       }
@@ -96,7 +98,7 @@ LABEL_13:
     goto LABEL_23;
   }
 
-  if (v10)
+  if (isKindOfClass)
   {
     goto LABEL_13;
   }
@@ -110,10 +112,9 @@ LABEL_24:
 
 + (id)_propertyClasses
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -286,22 +287,23 @@ LABEL_13:
     {
       v3 = +[LSBundleRecord bundleRecordForCurrentProcess];
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
         extensionPointRecord = [v3 extensionPointRecord];
-        v5 = v12[5];
+        v6 = v12[5];
         v12[5] = extensionPointRecord;
       }
 
       else
       {
-        v5 = _LSExtensionsLog();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+        v6 = _LSExtensionsLog(isKindOfClass);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
         {
-          v6 = getpid();
+          v7 = getpid();
           *buf = 67109120;
-          v18 = v6;
-          _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_INFO, "Bundle record not found for current process %d", buf, 8u);
+          v18 = v7;
+          _os_log_impl(&dword_18162D000, v6, OS_LOG_TYPE_INFO, "Bundle record not found for current process %d", buf, 8u);
         }
       }
     }
@@ -327,12 +329,10 @@ LABEL_13:
     }
   }
 
-  v7 = v2;
+  v8 = v2;
   _Block_object_dispose(&v11, 8);
 
-  v8 = *MEMORY[0x1E69E9840];
-
-  return v7;
+  return v8;
 }
 
 + (void)setExtensionPointRecordForCurrentProcess:(id)process
@@ -345,30 +345,27 @@ LABEL_13:
 
 - (id)identifierWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSExtensionPointData *)bytes
 {
-  var1 = bytes->var1;
   [(_LSDatabase *)context->db store];
-  v7 = _CSStringCopyCFString();
+  v6 = _CSStringCopyCFString();
 
-  return v7;
+  return v6;
 }
 
 - (id)nameWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSExtensionPointData *)bytes
 {
-  var3 = bytes->var3;
   [(_LSDatabase *)context->db store];
-  v7 = _CSStringCopyCFString();
+  v6 = _CSStringCopyCFString();
 
-  return v7;
+  return v6;
 }
 
 - (id)versionWithContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const LSExtensionPointData *)bytes
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v6 = *&bytes->var2._opaque[16];
-  v10[0] = *bytes->var2._opaque;
-  v10[1] = v6;
-  v7 = _LSVersionNumberGetStringRepresentation(v10);
-  v8 = *MEMORY[0x1E69E9840];
+  v9[0] = *bytes->var2._opaque;
+  v9[1] = v6;
+  v7 = _LSVersionNumberGetStringRepresentation(v9);
 
   return v7;
 }
@@ -398,6 +395,15 @@ LABEL_13:
   return v6;
 }
 
+- (void)_detachFromContext:(LSContext *)context tableID:(unsigned int)d unitID:(unsigned int)iD unitBytes:(const void *)bytes
+{
+  bytes = [(LSRecord *)self _resolvedPropertyValueForGetter:sel_SDKDictionary, *&d, *&iD, bytes];
+  if (bytes)
+  {
+    [bytes detach];
+  }
+}
+
 + (id)enumerator
 {
   v2 = [(_LSDBEnumerator *)[_LSExtensionPointRecordEnumerator alloc] _initWithContext:0];
@@ -422,13 +428,12 @@ LABEL_13:
 
 + (void)identifierForCurrentProcess
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
   selfCopy = self;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Suppressing returning extension point identifier %{public}@ because the current process is not an app extension (path extension is %{public}@)", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_18162D000, log, OS_LOG_TYPE_DEBUG, "Suppressing returning extension point identifier %{public}@ because the current process is not an app extension (path extension is %{public}@)", &v3, 0x16u);
 }
 
 @end

@@ -15,8 +15,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"amount";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"amount";
   amount = self->_amount;
   null = amount;
   if (!amount)
@@ -24,17 +24,15 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v9[1] = @"amountType";
-  v10[0] = null;
+  v8[1] = @"amountType";
+  v9[0] = null;
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_amountType];
-  v10[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   if (!amount)
   {
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

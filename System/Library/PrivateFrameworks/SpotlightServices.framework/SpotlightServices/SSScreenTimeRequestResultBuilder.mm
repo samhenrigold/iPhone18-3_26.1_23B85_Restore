@@ -105,21 +105,19 @@
 
 - (id)buildInlineCardSections
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   buildInlineCardSection = [(SSScreenTimeRequestResultBuilder *)self buildInlineCardSection];
   v3 = buildInlineCardSection;
   if (buildInlineCardSection)
   {
-    v7[0] = buildInlineCardSection;
-    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+    v6[0] = buildInlineCardSection;
+    v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -134,7 +132,7 @@
 
 - (id)buildDescriptions
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   requestedItemDescription = [(SSScreenTimeRequestResultBuilder *)self requestedItemDescription];
 
@@ -147,16 +145,14 @@
   if ([v3 length])
   {
     v6 = [MEMORY[0x1E69CA3A0] textWithString:v3];
-    v10[0] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   }
 
   else
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -253,7 +249,7 @@
 
 - (id)buildButtonItems
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if ([(SSScreenTimeRequestResultBuilder *)self requestStatus]== 3 || [(SSScreenTimeRequestResultBuilder *)self requestStatus]== 2)
   {
     v3 = 0;
@@ -269,11 +265,9 @@
     buildCommand = [(SSScreenTimeRequestResultBuilder *)self buildCommand];
     [v4 setCommand:buildCommand];
 
-    v10[0] = v4;
-    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = v4;
+    v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

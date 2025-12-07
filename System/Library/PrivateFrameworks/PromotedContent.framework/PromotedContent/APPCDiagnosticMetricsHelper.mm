@@ -74,9 +74,10 @@
 
 - (void)mediaPlaybackFailedWithReason:(id)reason
 {
-  sub_1C1B94D88();
+  v4 = sub_1C1B94D88();
+  v6 = v5;
   selfCopy = self;
-  sub_1C1B1C9B8();
+  sub_1C1B1C9B8(v4, v6);
 }
 
 - (APPCDiagnosticMetricsHelper)init

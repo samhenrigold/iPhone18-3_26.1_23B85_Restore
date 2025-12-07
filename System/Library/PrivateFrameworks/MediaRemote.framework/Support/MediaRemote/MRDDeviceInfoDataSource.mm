@@ -852,20 +852,19 @@ LABEL_18:
 
 - (void)dealloc
 {
-  gestaltNotificationToken = self->_gestaltNotificationToken;
   MGCancelNotifications();
-  v4 = +[MCProfileConnection sharedConnection];
-  [v4 removeObserver:self];
+  v3 = +[MCProfileConnection sharedConnection];
+  [v3 removeObserver:self];
 
-  v5 = +[NSNotificationCenter defaultCenter];
-  [v5 removeObserver:self];
+  v4 = +[NSNotificationCenter defaultCenter];
+  [v4 removeObserver:self];
   notify_cancel(self->_airplayPerfsNotifyToken);
   notify_cancel(self->_airplayAdvertisingNotifyToken);
   notify_cancel(self->_airplayLeaderInfoNotifyToken);
 
-  v6.receiver = self;
-  v6.super_class = MRDDeviceInfoDataSource;
-  [(MRDDeviceInfoDataSource *)&v6 dealloc];
+  v5.receiver = self;
+  v5.super_class = MRDDeviceInfoDataSource;
+  [(MRDDeviceInfoDataSource *)&v5 dealloc];
 }
 
 - (void)_deviceInfoDidChangeWithDeviceInfo:(id)info

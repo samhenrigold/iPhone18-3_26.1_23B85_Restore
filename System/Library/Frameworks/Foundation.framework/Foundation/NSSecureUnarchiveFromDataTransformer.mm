@@ -27,7 +27,7 @@
   }
 }
 
-uint64_t __62__NSSecureUnarchiveFromDataTransformer_allowedTopLevelClasses__block_invoke()
+void *__62__NSSecureUnarchiveFromDataTransformer_allowedTopLevelClasses__block_invoke()
 {
   v0 = objc_alloc(MEMORY[0x1E695DEC8]);
   result = [v0 initWithObjects:{MEMORY[0x1E695DEC8], MEMORY[0x1E695DF20], MEMORY[0x1E695DFD8], NSString, NSNumber, MEMORY[0x1E695DF00], MEMORY[0x1E695DEF0], objc_opt_class(), NSUUID, MEMORY[0x1E695DFB0], 0}];

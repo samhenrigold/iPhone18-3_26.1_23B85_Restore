@@ -52,7 +52,7 @@
   swift_unknownObjectRetain();
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_1(&v6);
+  __swift_destroy_boxed_opaque_existential_1(v6);
   return 1;
 }
 

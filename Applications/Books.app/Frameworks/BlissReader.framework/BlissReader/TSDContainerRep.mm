@@ -157,7 +157,7 @@ LABEL_27:
         v15 = [objc_msgSend(v14 "layout")];
         if (v15)
         {
-          [v15 inverseTransform];
+          objc_msgSend_inverseTransform(v15);
           v16 = v26;
           v17 = v27;
           v18 = v28;

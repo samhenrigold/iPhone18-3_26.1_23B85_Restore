@@ -11,7 +11,7 @@
   [(SymbolCandidate *)self probability];
   v6 = v5;
   [(SymbolCandidate *)self logProbability];
-  return [v3 stringWithFormat:@"%C : %f (%f)", symbol, v6, v7];
+  return [v3 stringWithFormat:symbol, v6, v7];
 }
 
 @end

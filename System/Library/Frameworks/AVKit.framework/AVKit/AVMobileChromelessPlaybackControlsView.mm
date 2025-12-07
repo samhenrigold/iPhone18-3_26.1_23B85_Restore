@@ -2,7 +2,7 @@
 - (AVMobileChromelessPlaybackControlsView)initWithStyleSheet:(id)sheet;
 - (AVMobileChromelessPlaybackControlsViewDelegate)delegate;
 - (CGSize)intrinsicContentSize;
-- (uint64_t)_updateExtendedDynamicRangeGain;
+- (id)_updateExtendedDynamicRangeGain;
 - (void)_addPlaybackControlViews:(id)views;
 - (void)_setUpShadowAppearance;
 - (void)_setupPointerInteractionForButton:(void *)button;
@@ -437,19 +437,19 @@ id __76__AVMobileChromelessPlaybackControlsView__setupPointerInteractionForButto
   if (self->_extendedDynamicRangeGain != gain)
   {
     self->_extendedDynamicRangeGain = gain;
-    [(AVMobileChromelessPlaybackControlsView *)self _updateExtendedDynamicRangeGain];
+    [(AVMobileChromelessPlaybackControlsView *)&self->super.super.super.super.isa _updateExtendedDynamicRangeGain];
   }
 }
 
-- (uint64_t)_updateExtendedDynamicRangeGain
+- (id)_updateExtendedDynamicRangeGain
 {
   if (result)
   {
     v1 = result;
-    [*(result + 552) setAvkit_extendedDynamicRangeGain:*(result + 488)];
-    [*(v1 + 560) setAvkit_extendedDynamicRangeGain:*(v1 + 488)];
-    v2 = *(v1 + 480);
-    v3 = *(v1 + 488);
+    [result[69] setAvkit_extendedDynamicRangeGain:*(result + 61)];
+    [v1[70] setAvkit_extendedDynamicRangeGain:*(v1 + 61)];
+    v2 = v1[60];
+    v3 = *(v1 + 61);
 
     return [v2 setAvkit_extendedDynamicRangeGain:v3];
   }
@@ -653,58 +653,58 @@ id __76__AVMobileChromelessPlaybackControlsView__setupPointerInteractionForButto
     memset(&v24, 0, sizeof(v24));
     CMTimeMakeWithSeconds(&v24, 10.0, 600);
     v8 = *&v24.value;
-    *(v7 + 584) = v24.epoch;
-    *(v7 + 568) = v8;
+    v7->_backwardSecondaryControlSkipInterval.epoch = v24.epoch;
+    *&v7->_backwardSecondaryControlSkipInterval.value = v8;
     v9 = *&v24.value;
-    *(v7 + 608) = v24.epoch;
-    *(v7 + 592) = v9;
-    *(v7 + 528) = 0;
-    *(v7 + 536) = 0;
+    v7->_forwardSecondaryControlSkipInterval.epoch = v24.epoch;
+    *&v7->_forwardSecondaryControlSkipInterval.value = v9;
+    v7->_backwardSecondaryControlIcon = 0;
+    v7->_forwardSecondaryControlIcon = 0;
     v10 = [AVMobileChromelessPlaybackControlButton playPauseButtonWithStyleSheet:sheetCopy];
-    v11 = *(v7 + 480);
-    *(v7 + 480) = v10;
+    playPauseButton = v7->_playPauseButton;
+    v7->_playPauseButton = v10;
 
-    [*(v7 + 480) addTarget:v7 action:sel_playPauseButtonWasPressed forControlEvents:0x2000];
+    [(AVMobileChromelessPlaybackControlButton *)v7->_playPauseButton addTarget:v7 action:sel_playPauseButtonWasPressed forControlEvents:0x2000];
     v12 = [AVMobileChromelessPlaybackControlButton forwardSecondaryButtonWithStyleSheet:sheetCopy];
-    v13 = *(v7 + 560);
-    *(v7 + 560) = v12;
+    forwardSecondaryButton = v7->_forwardSecondaryButton;
+    v7->_forwardSecondaryButton = v12;
 
-    [*(v7 + 560) addTarget:v7 action:sel_forwardSecondaryControlWasPressed forControlEvents:0x2000];
+    [(AVMobileChromelessPlaybackControlButton *)v7->_forwardSecondaryButton addTarget:v7 action:sel_forwardSecondaryControlWasPressed forControlEvents:0x2000];
     v14 = [AVMobileChromelessPlaybackControlButton backwardSecondaryButtonWithStyleSheet:sheetCopy];
-    v15 = *(v7 + 552);
-    *(v7 + 552) = v14;
+    backwardSecondaryButton = v7->_backwardSecondaryButton;
+    v7->_backwardSecondaryButton = v14;
 
-    [*(v7 + 552) addTarget:v7 action:sel_backwardsSecondaryControlWasPressed forControlEvents:0x2000];
-    [v7 setIgnoresTouches:1];
-    v29[0] = *(v7 + 480);
-    v29[1] = *(v7 + 560);
-    v29[2] = *(v7 + 552);
+    [(AVMobileChromelessPlaybackControlButton *)v7->_backwardSecondaryButton addTarget:v7 action:sel_backwardsSecondaryControlWasPressed forControlEvents:0x2000];
+    [(AVView *)v7 setIgnoresTouches:1];
+    v29[0] = v7->_playPauseButton;
+    v29[1] = v7->_forwardSecondaryButton;
+    v29[2] = v7->_backwardSecondaryButton;
     v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
-    [v7 _addPlaybackControlViews:v16];
+    [(AVMobileChromelessPlaybackControlsView *)v7 _addPlaybackControlViews:v16];
 
-    v17 = *(v7 + 552);
-    v18 = *(v7 + 568);
-    v27 = *(v7 + 584);
+    v17 = v7->_backwardSecondaryButton;
+    v18 = *&v7->_backwardSecondaryControlSkipInterval.value;
+    epoch = v7->_backwardSecondaryControlSkipInterval.epoch;
     v26 = v18;
-    [v17 setSkipInterval:&v26];
-    v19 = *(v7 + 560);
-    v20 = *(v7 + 592);
-    v27 = *(v7 + 608);
+    [(AVMobileChromelessPlaybackControlButton *)v17 setSkipInterval:&v26];
+    v19 = v7->_forwardSecondaryButton;
+    v20 = *&v7->_forwardSecondaryControlSkipInterval.value;
+    epoch = v7->_forwardSecondaryControlSkipInterval.epoch;
     v26 = v20;
-    [v19 setSkipInterval:&v26];
-    [v7 _updateBackwardSecondaryControlIcon];
-    [v7 _updateForwardSecondaryControlIcon];
-    [(AVMobileChromelessPlaybackControlsView *)v7 _updateExtendedDynamicRangeGain];
-    *(v7 + 516) = 1;
-    *(v7 + 517) = 1;
-    *(v7 + 513) = 1;
-    *(v7 + 514) = 1;
-    *(v7 + 515) = 1;
-    objc_storeStrong((v7 + 496), @"State 1");
-    objc_storeStrong((v7 + 504), @"State 1");
+    [(AVMobileChromelessPlaybackControlButton *)v19 setSkipInterval:&v26];
+    [(AVMobileChromelessPlaybackControlsView *)v7 _updateBackwardSecondaryControlIcon];
+    [(AVMobileChromelessPlaybackControlsView *)v7 _updateForwardSecondaryControlIcon];
+    [(AVMobileChromelessPlaybackControlsView *)&v7->super.super.super.super.isa _updateExtendedDynamicRangeGain];
+    v7->_backwardSecondaryControlEnabled = 1;
+    v7->_forwardSecondaryControlEnabled = 1;
+    v7->_showsPlayPauseButton = 1;
+    v7->_showsBackwardSecondaryPlaybackButton = 1;
+    v7->_showsForwardSecondaryPlaybackButton = 1;
+    objc_storeStrong(&v7->_backwardIntervalSkipGlyphState, @"State 1");
+    objc_storeStrong(&v7->_forwardIntervalSkipGlyphState, @"State 1");
     v28 = objc_opt_class();
     v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v28 count:1];
-    v22 = [v7 registerForTraitChanges:v21 withHandler:&__block_literal_global_8061];
+    v22 = [(AVMobileChromelessPlaybackControlsView *)v7 registerForTraitChanges:v21 withHandler:&__block_literal_global_8061];
   }
 
   return v7;

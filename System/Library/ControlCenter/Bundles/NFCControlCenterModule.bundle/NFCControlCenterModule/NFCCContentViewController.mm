@@ -9,10 +9,14 @@
 - (void)_stopTransientModuleStateTimer;
 - (void)_updateContentViewSize;
 - (void)_willExpand;
+- (void)moduleAvailabilityDidChange:(BOOL)change;
 - (void)nfcReaderDidDetectNonNDEFTag;
 - (void)nfcReaderStateDidChange:(int64_t)change;
 - (void)turnOnNFCButtonTapped;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 - (void)willTransitionToExpandedContentMode:(BOOL)mode;
@@ -43,6 +47,40 @@
   v9 = [[NFCCModuleAvailabilityMonitor alloc] initWithDelegate:self readerConnection:self->_readerConnection];
   availabilityMonitor = self->_availabilityMonitor;
   self->_availabilityMonitor = v9;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v9.receiver = self;
+  v9.super_class = NFCCContentViewController;
+  [(NFCCContentViewController *)&v9 viewWillAppear:appear];
+  [(NFCCModuleAvailabilityMonitor *)self->_availabilityMonitor controlCenterWillAppear];
+  buttonView = [(NFCCContentViewController *)self buttonView];
+  isEnabled = [buttonView isEnabled];
+  available = self->_available;
+
+  if (available != isEnabled)
+  {
+    v7 = self->_available;
+    buttonView2 = [(NFCCContentViewController *)self buttonView];
+    [buttonView2 setEnabled:v7];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = NFCCContentViewController;
+  [(NFCCContentViewController *)&v4 viewWillDisappear:disappear];
+  [(NFCCContentViewController *)self _stopReader];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = NFCCContentViewController;
+  [(NFCCContentViewController *)&v4 viewDidDisappear:disappear];
+  [(NFCCModuleAvailabilityMonitor *)self->_availabilityMonitor controlCenterDidDisappear];
 }
 
 - (void)viewWillLayoutSubviews
@@ -213,6 +251,14 @@
   {
     [(NFCCContentViewController *)self _stopReader];
   }
+}
+
+- (void)moduleAvailabilityDidChange:(BOOL)change
+{
+  changeCopy = change;
+  self->_available = change;
+  buttonView = [(NFCCContentViewController *)self buttonView];
+  [buttonView setEnabled:changeCopy];
 }
 
 - (void)turnOnNFCButtonTapped

@@ -6,6 +6,7 @@
 - (CGSize)intrinsicContentSize;
 - (DialerLCDFieldDelegate)delegate;
 - (PHDialerLCDResultDelegate)resultDelegate;
+- (PHHandsetDialerLCDView)initWithFrame:(CGRect)frame forDialerType:(int)type appType:(int64_t)appType enableSmartDialer:(BOOL)dialer enableSmartDialerExpandedSearch:(BOOL)search;
 - (TPPillView)pillView;
 - (double)addContactButtonContentInsetConstant;
 - (double)addContactButtonTopConstraintConstant;
@@ -45,15 +46,20 @@
 - (void)insertStringAtCurrentPosition:(id)position deletingPreviousCharacter:(BOOL)character;
 - (void)launchBusinessMessagesSupport;
 - (void)paste:(id)paste;
+- (void)setBusinessSearchResult:(id)result hasCompleteMatch:(BOOL)match hasMessageAction:(BOOL)action nameOverride:(id)override;
 - (void)setContactSearchResults:(id)results hasCompleteMatch:(BOOL)match;
 - (void)setIsHostedInRemoteViewController:(BOOL)controller;
+- (void)setName:(id)name numberLabel:(id)label source:(id)source suggestion:(BOOL)suggestion;
+- (void)setName:(id)name numberLabel:(id)label suggestion:(BOOL)suggestion;
 - (void)setSenderIdentity:(id)identity;
 - (void)setText:(id)text needsFormat:(BOOL)format name:(id)name label:(id)label;
+- (void)showBusinessGuidedSupportWithMessageAction:(BOOL)action nameOverride:(id)override;
 - (void)textField:(id)field didUpdateString:(id)string;
 - (void)textFieldDidBeginEditing:(id)editing;
 - (void)textFieldDidEndEditing:(id)editing;
 - (void)updateAddAndDeleteButtonForText:(id)text name:(id)name label:(id)label source:(id)source suggestion:(BOOL)suggestion animated:(BOOL)animated;
 - (void)updateContactResultButtons;
+- (void)updateDialerResultGlassBackgroundConstraintsForSecondaryButtonVisibility:(BOOL)visibility;
 - (void)updateNumberAndBusinessNameLabelHorizontalConstraints;
 - (void)updateResultButtonsVisiblityForPrimary:(BOOL)primary secondary:(BOOL)secondary;
 @end
@@ -124,36 +130,360 @@
 
 - (id)generateNumberLabelHorizontalConstraints
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"numberLabel";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"numberLabel";
   numberTextField = [(PHHandsetDialerLCDView *)self numberTextField];
-  v10[0] = numberTextField;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = numberTextField;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   v4 = MEMORY[0x277CCAAD0];
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"|[numberLabel]|"];
   v6 = [v4 constraintsWithVisualFormat:v5 options:0x10000 metrics:0 views:v3];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (id)generateBusinessNameLabelHorizontalConstraints
 {
-  v10[1] = *MEMORY[0x277D85DE8];
-  v9 = @"businessName";
+  v9[1] = *MEMORY[0x277D85DE8];
+  v8 = @"businessName";
   businessNameField = [(PHHandsetDialerLCDView *)self businessNameField];
-  v10[0] = businessNameField;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = businessNameField;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
 
   v4 = MEMORY[0x277CCAAD0];
   v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"|[businessName]|"];
   v6 = [v4 constraintsWithVisualFormat:v5 options:0x10000 metrics:0 views:v3];
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
+}
+
+- (PHHandsetDialerLCDView)initWithFrame:(CGRect)frame forDialerType:(int)type appType:(int64_t)appType enableSmartDialer:(BOOL)dialer enableSmartDialerExpandedSearch:(BOOL)search
+{
+  v10 = *&type;
+  v124.receiver = self;
+  v124.super_class = PHHandsetDialerLCDView;
+  v11 = [(PHHandsetDialerLCDView *)&v124 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v12 = v11;
+  if (v11)
+  {
+    v11->_enableSmartDialer = dialer;
+    v11->_enableSmartDialerExpandedSearch = search;
+    v13 = objc_alloc_init(MEMORY[0x277D6EED8]);
+    featureFlags = v12->_featureFlags;
+    v12->_featureFlags = v13;
+
+    v15 = objc_alloc_init(MPDialerInterceptReporter);
+    dialerReporter = v12->_dialerReporter;
+    v12->_dialerReporter = v15;
+
+    v12->_appType = appType;
+    [(PHHandsetDialerLCDView *)v12 setDialerType:v10];
+    clearColor = [MEMORY[0x277D75348] clearColor];
+    [(PHHandsetDialerLCDView *)v12 setBackgroundColor:clearColor];
+
+    if ([(PHHandsetDialerLCDView *)v12 canBecomeFirstResponder])
+    {
+      [(PHHandsetDialerLCDView *)v12 becomeFirstResponder];
+    }
+
+    v18 = [PHLCDViewTextField alloc];
+    v19 = *MEMORY[0x277CBF3A0];
+    v20 = *(MEMORY[0x277CBF3A0] + 8);
+    v21 = *(MEMORY[0x277CBF3A0] + 16);
+    v22 = *(MEMORY[0x277CBF3A0] + 24);
+    v23 = [(PHLCDViewTextField *)v18 initWithFrame:*MEMORY[0x277CBF3A0], v20, v21, v22];
+    numberTextField = v12->_numberTextField;
+    v12->_numberTextField = v23;
+
+    [(PHLCDViewTextField *)v12->_numberTextField setDelegate:v12];
+    [(PHLCDViewTextField *)v12->_numberTextField setLcdViewTextFieldDelegate:v12];
+    [(PHLCDViewTextField *)v12->_numberTextField setTranslatesAutoresizingMaskIntoConstraints:0];
+    clearColor2 = [MEMORY[0x277D75348] clearColor];
+    [(PHLCDViewTextField *)v12->_numberTextField setBackgroundColor:clearColor2];
+
+    [(PHLCDViewTextField *)v12->_numberTextField setOpaque:0];
+    dynamicLabelColor = [MEMORY[0x277D75348] dynamicLabelColor];
+    [(PHLCDViewTextField *)v12->_numberTextField setTextColor:dynamicLabelColor];
+
+    [(PHLCDViewTextField *)v12->_numberTextField setTextAlignment:1];
+    numberLabelFont = [(PHHandsetDialerLCDView *)v12 numberLabelFont];
+    [(PHLCDViewTextField *)v12->_numberTextField setFont:numberLabelFont];
+
+    [(PHHandsetDialerLCDView *)v12 numberLabelMinimumFontSize];
+    [(PHLCDViewTextField *)v12->_numberTextField setMinimumFontSize:v28];
+    [(PHLCDViewTextField *)v12->_numberTextField setAdjustsFontSizeToFitWidth:1];
+    [(PHLCDViewTextField *)v12->_numberTextField setText:&stru_285532CB8];
+    [(PHLCDViewTextField *)v12->_numberTextField sizeToFit];
+    LODWORD(v29) = 1144750080;
+    [(PHLCDViewTextField *)v12->_numberTextField setContentCompressionResistancePriority:0 forAxis:v29];
+    LODWORD(v30) = 1132068864;
+    [(PHLCDViewTextField *)v12->_numberTextField setContentHuggingPriority:0 forAxis:v30];
+    [(PHHandsetDialerLCDView *)v12 addSubview:v12->_numberTextField];
+    v31 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:v12 action:sel_handleTapGesture_];
+    [(PHHandsetDialerLCDView *)v12 addGestureRecognizer:v31];
+    v32 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:v12 action:sel_handleTapGesture_];
+    [(PHLCDViewTextField *)v12->_numberTextField addGestureRecognizer:v32];
+    v33 = [objc_alloc(MEMORY[0x277D756B8]) initWithFrame:{v19, v20, v21, v22}];
+    businessNameField = v12->_businessNameField;
+    v12->_businessNameField = v33;
+
+    [(UILabel *)v12->_businessNameField setTranslatesAutoresizingMaskIntoConstraints:0];
+    clearColor3 = [MEMORY[0x277D75348] clearColor];
+    [(UILabel *)v12->_businessNameField setBackgroundColor:clearColor3];
+
+    [(UILabel *)v12->_businessNameField setOpaque:0];
+    [(UILabel *)v12->_businessNameField setAlpha:0.0];
+    dynamicLabelColor2 = [MEMORY[0x277D75348] dynamicLabelColor];
+    [(UILabel *)v12->_businessNameField setTextColor:dynamicLabelColor2];
+
+    [(UILabel *)v12->_businessNameField setTextAlignment:1];
+    numberLabelFont2 = [(PHHandsetDialerLCDView *)v12 numberLabelFont];
+    [(UILabel *)v12->_businessNameField setFont:numberLabelFont2];
+
+    [(PHHandsetDialerLCDView *)v12 numberLabelMinimumFontSize];
+    [(UILabel *)v12->_businessNameField setMinimumFontSize:v38];
+    [(UILabel *)v12->_businessNameField setAdjustsFontSizeToFitWidth:1];
+    [(UILabel *)v12->_businessNameField setText:&stru_285532CB8];
+    [(UILabel *)v12->_businessNameField sizeToFit];
+    LODWORD(v39) = 1144750080;
+    [(UILabel *)v12->_businessNameField setContentCompressionResistancePriority:0 forAxis:v39];
+    LODWORD(v40) = 1132068864;
+    [(UILabel *)v12->_businessNameField setContentHuggingPriority:0 forAxis:v40];
+    [(PHHandsetDialerLCDView *)v12 addSubview:v12->_businessNameField];
+    v41 = [[PHLCDViewTextField alloc] initWithFrame:v19, v20, v21, v22];
+    layoutTextField = v12->_layoutTextField;
+    v12->_layoutTextField = &v41->super;
+
+    [(UITextField *)v12->_layoutTextField setTranslatesAutoresizingMaskIntoConstraints:0];
+    [(UITextField *)v12->_layoutTextField setTextAlignment:1];
+    numberLabelFont3 = [(PHHandsetDialerLCDView *)v12 numberLabelFont];
+    [(UITextField *)v12->_layoutTextField setFont:numberLabelFont3];
+
+    [(UITextField *)v12->_layoutTextField setText:@"M"];
+    [(UITextField *)v12->_layoutTextField setHidden:1];
+    [(UITextField *)v12->_layoutTextField sizeToFit];
+    LODWORD(v44) = 1144750080;
+    [(UITextField *)v12->_layoutTextField setContentCompressionResistancePriority:0 forAxis:v44];
+    LODWORD(v45) = 1132068864;
+    [(UITextField *)v12->_layoutTextField setContentHuggingPriority:0 forAxis:v45];
+    [(PHHandsetDialerLCDView *)v12 addSubview:v12->_layoutTextField];
+    newAddContactButton = [(PHHandsetDialerLCDView *)v12 newAddContactButton];
+    [(PHHandsetDialerLCDView *)v12 setAddContactButton:newAddContactButton];
+
+    addContactButton = [(PHHandsetDialerLCDView *)v12 addContactButton];
+    [addContactButton addTarget:v12 action:sel_addContactPressed_ forEvents:64];
+
+    addContactButton2 = [(PHHandsetDialerLCDView *)v12 addContactButton];
+    [addContactButton2 setAlpha:0.0];
+
+    if ([(PHHandsetDialerLCDView *)v12 appType]!= 1 || ![(PHHandsetDialerLCDView *)v12 enableSmartDialer])
+    {
+      addContactButton3 = [(PHHandsetDialerLCDView *)v12 addContactButton];
+      [(PHHandsetDialerLCDView *)v12 addSubview:addContactButton3];
+    }
+
+    v50 = objc_alloc_init(MEMORY[0x277D756B8]);
+    [(PHHandsetDialerLCDView *)v12 setContactLabel:v50];
+
+    dynamicLabelColor3 = [MEMORY[0x277D75348] dynamicLabelColor];
+    contactLabel = [(PHHandsetDialerLCDView *)v12 contactLabel];
+    [contactLabel setTextColor:dynamicLabelColor3];
+
+    contactLabel2 = [(PHHandsetDialerLCDView *)v12 contactLabel];
+    [contactLabel2 setTranslatesAutoresizingMaskIntoConstraints:0];
+
+    v54 = [MEMORY[0x277D74300] systemFontOfSize:36.0];
+    contactLabel3 = [(PHHandsetDialerLCDView *)v12 contactLabel];
+    [contactLabel3 setFont:v54];
+
+    contactLabel4 = [(PHHandsetDialerLCDView *)v12 contactLabel];
+    [contactLabel4 sizeToFit];
+
+    contactLabel5 = [(PHHandsetDialerLCDView *)v12 contactLabel];
+    [contactLabel5 setAlpha:0.0];
+
+    contactLabel6 = [(PHHandsetDialerLCDView *)v12 contactLabel];
+    [(PHHandsetDialerLCDView *)v12 addSubview:contactLabel6];
+
+    v59 = objc_alloc_init(MEMORY[0x277D756B8]);
+    [(PHHandsetDialerLCDView *)v12 setSourceLabel:v59];
+
+    systemGrayColor = [MEMORY[0x277D75348] systemGrayColor];
+    sourceLabel = [(PHHandsetDialerLCDView *)v12 sourceLabel];
+    [sourceLabel setTextColor:systemGrayColor];
+
+    sourceLabel2 = [(PHHandsetDialerLCDView *)v12 sourceLabel];
+    [sourceLabel2 setTranslatesAutoresizingMaskIntoConstraints:0];
+
+    sourceLabel3 = [(PHHandsetDialerLCDView *)v12 sourceLabel];
+    [sourceLabel3 setAlpha:0.0];
+
+    v64 = [objc_alloc(MEMORY[0x277D75078]) initWithShape:2];
+    systemGray5Color = [MEMORY[0x277D75348] systemGray5Color];
+    [v64 setColor:systemGray5Color];
+
+    [v64 setStyle:1];
+    [v64 setScale:2];
+    sourceLabel4 = [(PHHandsetDialerLCDView *)v12 sourceLabel];
+    [sourceLabel4 _setTextEncapsulation:v64];
+
+    sourceLabel5 = [(PHHandsetDialerLCDView *)v12 sourceLabel];
+    [(PHHandsetDialerLCDView *)v12 addSubview:sourceLabel5];
+
+    if ([(PHHandsetDialerLCDView *)v12 appType]== 1 && [(PHHandsetDialerLCDView *)v12 enableSmartDialer])
+    {
+      if (_UISolariumEnabled())
+      {
+        v68 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v19, v20, v21, v22}];
+        [(PHHandsetDialerLCDView *)v12 setDialerResultButtonsGlassBackgroundView:v68];
+
+        dialerResultButtonsGlassBackgroundView = [(PHHandsetDialerLCDView *)v12 dialerResultButtonsGlassBackgroundView];
+        [dialerResultButtonsGlassBackgroundView setTranslatesAutoresizingMaskIntoConstraints:0];
+
+        dialerResultButtonsGlassBackgroundView2 = [(PHHandsetDialerLCDView *)v12 dialerResultButtonsGlassBackgroundView];
+        [dialerResultButtonsGlassBackgroundView2 dialer_applyGlassBackground];
+
+        dialerResultButtonsGlassBackgroundView3 = [(PHHandsetDialerLCDView *)v12 dialerResultButtonsGlassBackgroundView];
+        layer = [dialerResultButtonsGlassBackgroundView3 layer];
+        [layer setCornerRadius:20.0];
+
+        v73 = *MEMORY[0x277CDA138];
+        dialerResultButtonsGlassBackgroundView4 = [(PHHandsetDialerLCDView *)v12 dialerResultButtonsGlassBackgroundView];
+        layer2 = [dialerResultButtonsGlassBackgroundView4 layer];
+        [layer2 setCornerCurve:v73];
+
+        dialerResultButtonsGlassBackgroundView5 = [(PHHandsetDialerLCDView *)v12 dialerResultButtonsGlassBackgroundView];
+        [dialerResultButtonsGlassBackgroundView5 setAlpha:0.0];
+
+        dialerResultButtonsGlassBackgroundView6 = [(PHHandsetDialerLCDView *)v12 dialerResultButtonsGlassBackgroundView];
+        [(PHHandsetDialerLCDView *)v12 addSubview:dialerResultButtonsGlassBackgroundView6];
+      }
+
+      newResultButton = [(PHHandsetDialerLCDView *)v12 newResultButton];
+      [(PHHandsetDialerLCDView *)v12 setPrimaryResultButton:newResultButton];
+
+      primaryResultButton = [(PHHandsetDialerLCDView *)v12 primaryResultButton];
+      [primaryResultButton addTarget:v12 action:sel_handlePrimaryButtonPress_ forControlEvents:64];
+
+      primaryResultButton2 = [(PHHandsetDialerLCDView *)v12 primaryResultButton];
+      [primaryResultButton2 setAlpha:0.0];
+
+      primaryResultButton3 = [(PHHandsetDialerLCDView *)v12 primaryResultButton];
+      [primaryResultButton3 setShowsLargeContentViewer:1];
+
+      primaryResultButton4 = [(PHHandsetDialerLCDView *)v12 primaryResultButton];
+      v83 = objc_alloc_init(MEMORY[0x277D756C8]);
+      [primaryResultButton4 addInteraction:v83];
+
+      primaryResultButton5 = [(PHHandsetDialerLCDView *)v12 primaryResultButton];
+      [(PHHandsetDialerLCDView *)v12 addSubview:primaryResultButton5];
+
+      v85 = [[PHDialerResultButtonView alloc] initWithType:0 delegate:v12];
+      [(PHHandsetDialerLCDView *)v12 setPrimaryResultButtonView:v85];
+
+      primaryResultButtonView = [(PHHandsetDialerLCDView *)v12 primaryResultButtonView];
+      [primaryResultButtonView setUserInteractionEnabled:0];
+
+      primaryResultButtonView2 = [(PHHandsetDialerLCDView *)v12 primaryResultButtonView];
+      [primaryResultButtonView2 sizeToFit];
+
+      primaryResultButtonView3 = [(PHHandsetDialerLCDView *)v12 primaryResultButtonView];
+      [primaryResultButtonView3 setTranslatesAutoresizingMaskIntoConstraints:0];
+
+      primaryResultButtonView4 = [(PHHandsetDialerLCDView *)v12 primaryResultButtonView];
+      LODWORD(v90) = 1148846080;
+      [primaryResultButtonView4 setContentHuggingPriority:1 forAxis:v90];
+
+      primaryResultButtonView5 = [(PHHandsetDialerLCDView *)v12 primaryResultButtonView];
+      LODWORD(v92) = 1148846080;
+      [primaryResultButtonView5 setContentHuggingPriority:0 forAxis:v92];
+
+      primaryResultButton6 = [(PHHandsetDialerLCDView *)v12 primaryResultButton];
+      primaryResultButtonView6 = [(PHHandsetDialerLCDView *)v12 primaryResultButtonView];
+      [primaryResultButton6 addSubview:primaryResultButtonView6];
+
+      v95 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v19, v20, v21, v22}];
+      [(PHHandsetDialerLCDView *)v12 setSeparator:v95];
+
+      separator = [(PHHandsetDialerLCDView *)v12 separator];
+      [separator setTranslatesAutoresizingMaskIntoConstraints:0];
+
+      separatorColor = [MEMORY[0x277D75348] separatorColor];
+      separator2 = [(PHHandsetDialerLCDView *)v12 separator];
+      [separator2 setBackgroundColor:separatorColor];
+
+      separator3 = [(PHHandsetDialerLCDView *)v12 separator];
+      [separator3 setAlpha:0.0];
+
+      separator4 = [(PHHandsetDialerLCDView *)v12 separator];
+      [(PHHandsetDialerLCDView *)v12 addSubview:separator4];
+
+      newResultButton2 = [(PHHandsetDialerLCDView *)v12 newResultButton];
+      [(PHHandsetDialerLCDView *)v12 setSecondaryResultButton:newResultButton2];
+
+      secondaryResultButton = [(PHHandsetDialerLCDView *)v12 secondaryResultButton];
+      [secondaryResultButton setAlpha:0.0];
+
+      secondaryResultButton2 = [(PHHandsetDialerLCDView *)v12 secondaryResultButton];
+      [secondaryResultButton2 setShowsLargeContentViewer:1];
+
+      secondaryResultButton3 = [(PHHandsetDialerLCDView *)v12 secondaryResultButton];
+      v105 = objc_alloc_init(MEMORY[0x277D756C8]);
+      [secondaryResultButton3 addInteraction:v105];
+
+      secondaryResultButton4 = [(PHHandsetDialerLCDView *)v12 secondaryResultButton];
+      [secondaryResultButton4 addTarget:v12 action:sel_handleSecondaryButtonPress_ forControlEvents:64];
+
+      secondaryResultButton5 = [(PHHandsetDialerLCDView *)v12 secondaryResultButton];
+      [(PHHandsetDialerLCDView *)v12 addSubview:secondaryResultButton5];
+
+      v108 = [[PHDialerResultButtonView alloc] initWithType:1 delegate:v12];
+      [(PHHandsetDialerLCDView *)v12 setSecondaryResultButtonView:v108];
+
+      secondaryResultButtonView = [(PHHandsetDialerLCDView *)v12 secondaryResultButtonView];
+      [secondaryResultButtonView setUserInteractionEnabled:0];
+
+      secondaryResultButtonView2 = [(PHHandsetDialerLCDView *)v12 secondaryResultButtonView];
+      [secondaryResultButtonView2 sizeToFit];
+
+      secondaryResultButtonView3 = [(PHHandsetDialerLCDView *)v12 secondaryResultButtonView];
+      [secondaryResultButtonView3 setTranslatesAutoresizingMaskIntoConstraints:0];
+
+      secondaryResultButtonView4 = [(PHHandsetDialerLCDView *)v12 secondaryResultButtonView];
+      LODWORD(v113) = 1148846080;
+      [secondaryResultButtonView4 setContentHuggingPriority:1 forAxis:v113];
+
+      secondaryResultButtonView5 = [(PHHandsetDialerLCDView *)v12 secondaryResultButtonView];
+      LODWORD(v115) = 1148846080;
+      [secondaryResultButtonView5 setContentHuggingPriority:0 forAxis:v115];
+
+      secondaryResultButton6 = [(PHHandsetDialerLCDView *)v12 secondaryResultButton];
+      secondaryResultButtonView6 = [(PHHandsetDialerLCDView *)v12 secondaryResultButtonView];
+      [secondaryResultButton6 addSubview:secondaryResultButtonView6];
+
+      if ([(PHHandsetDialerLCDView *)v12 enableSmartDialerExpandedSearch])
+      {
+        newSearchButton = [(PHHandsetDialerLCDView *)v12 newSearchButton];
+        [(PHHandsetDialerLCDView *)v12 setSearchButton:newSearchButton];
+
+        searchButton = [(PHHandsetDialerLCDView *)v12 searchButton];
+        [searchButton setAlpha:1.0];
+
+        searchButton2 = [(PHHandsetDialerLCDView *)v12 searchButton];
+        [(PHHandsetDialerLCDView *)v12 addSubview:searchButton2];
+      }
+    }
+
+    v121 = objc_alloc_init(MEMORY[0x277D756D0]);
+    [(PHHandsetDialerLCDView *)v12 setHeaderLayoutGuide:v121];
+    headerLayoutGuide = [(PHHandsetDialerLCDView *)v12 headerLayoutGuide];
+    [(PHHandsetDialerLCDView *)v12 addLayoutGuide:headerLayoutGuide];
+
+    [(PHHandsetDialerLCDView *)v12 applyLayoutConstraints];
+  }
+
+  return v12;
 }
 
 - (id)menuForPillView:(id)view
@@ -376,6 +706,53 @@
   }
 }
 
+- (void)setBusinessSearchResult:(id)result hasCompleteMatch:(BOOL)match hasMessageAction:(BOOL)action nameOverride:(id)override
+{
+  actionCopy = action;
+  matchCopy = match;
+  resultCopy = result;
+  overrideCopy = override;
+  if ([(TUFeatureFlags *)self->_featureFlags dialerInterceptEnabled])
+  {
+    [(PHHandsetDialerLCDView *)self setName:0 numberLabel:0];
+    if ([(PHHandsetDialerLCDView *)self appType]== 1)
+    {
+      if ([(PHHandsetDialerLCDView *)self enableSmartDialer])
+      {
+        [(PHHandsetDialerLCDView *)self setBizItem:resultCopy];
+        if (resultCopy && matchCopy)
+        {
+          [(PHHandsetDialerLCDView *)self showBusinessGuidedSupportWithMessageAction:actionCopy nameOverride:overrideCopy];
+        }
+
+        else if (resultCopy)
+        {
+          [(PHHandsetDialerLCDView *)self showBusinessSearchSuggestion];
+        }
+      }
+    }
+  }
+}
+
+- (void)setName:(id)name numberLabel:(id)label suggestion:(BOOL)suggestion
+{
+  suggestionCopy = suggestion;
+  labelCopy = label;
+  nameCopy = name;
+  text = [(PHHandsetDialerLCDView *)self text];
+  [(PHHandsetDialerLCDView *)self updateAddAndDeleteButtonForText:text name:nameCopy label:labelCopy suggestion:suggestionCopy animated:1];
+}
+
+- (void)setName:(id)name numberLabel:(id)label source:(id)source suggestion:(BOOL)suggestion
+{
+  suggestionCopy = suggestion;
+  sourceCopy = source;
+  labelCopy = label;
+  nameCopy = name;
+  text = [(PHHandsetDialerLCDView *)self text];
+  [(PHHandsetDialerLCDView *)self updateAddAndDeleteButtonForText:text name:nameCopy label:labelCopy source:sourceCopy suggestion:suggestionCopy animated:1];
+}
+
 - (id)attributedStringForName:(id)name label:(id)label
 {
   labelCopy = label;
@@ -470,109 +847,114 @@
   }
 
   v48 = labelCopy;
-  if ([(PHHandsetDialerLCDView *)self appType]== 1 && [(PHHandsetDialerLCDView *)self enableSmartDialer])
+  if ([(PHHandsetDialerLCDView *)self appType]== 1)
   {
-    if (v16)
+    enableSmartDialer = [(PHHandsetDialerLCDView *)self enableSmartDialer];
+    if (enableSmartDialer)
     {
-      v22 = [nameCopy length] != 0;
-      v23 = !self->_hasCompleteMatch;
-      v47 = v22;
-    }
-
-    else
-    {
-      v22 = 0;
-      v47 = 0;
-      v23 = 0;
-    }
-
-    v37 = v23;
-    addContactButtonVisible = self->_addContactButtonVisible;
-    deleteButtonVisible = self->_deleteButtonVisible;
-    contactLabelButtonVisible = self->_contactLabelButtonVisible;
-    v41 = PHDefaultLog();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
-    {
-      v42 = @"NO";
-      if (addContactButtonVisible == v37)
+      if (v16)
       {
-        v43 = @"NO";
+        enableSmartDialer = [nameCopy length];
+        v23 = enableSmartDialer != 0;
+        v24 = !self->_hasCompleteMatch;
+        v47 = enableSmartDialer != 0;
       }
 
       else
       {
-        v43 = @"YES";
+        v23 = 0;
+        v47 = 0;
+        v24 = 0;
       }
 
-      if (deleteButtonVisible == v17)
+      v37 = v24;
+      addContactButtonVisible = self->_addContactButtonVisible;
+      deleteButtonVisible = self->_deleteButtonVisible;
+      contactLabelButtonVisible = self->_contactLabelButtonVisible;
+      v41 = PHDefaultLog(enableSmartDialer);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
-        v44 = @"NO";
+        v42 = @"NO";
+        if (addContactButtonVisible == v37)
+        {
+          v43 = @"NO";
+        }
+
+        else
+        {
+          v43 = @"YES";
+        }
+
+        if (deleteButtonVisible == v17)
+        {
+          v44 = @"NO";
+        }
+
+        else
+        {
+          v44 = @"YES";
+        }
+
+        *buf = 138412802;
+        v69 = v43;
+        v70 = 2112;
+        v71 = v44;
+        if (contactLabelButtonVisible != v23)
+        {
+          v42 = @"YES";
+        }
+
+        v72 = 2112;
+        v73 = v42;
+        _os_log_impl(&dword_2429BC000, v41, OS_LOG_TYPE_DEFAULT, "addContactButtonVisibilityChanged: %@, deleteButtonVisibilityChanged: %@, contactLabelVisibilityChanged: %@", buf, 0x20u);
       }
 
-      else
+      if (addContactButtonVisible != v37 || deleteButtonVisible != v17 || contactLabelButtonVisible != v23)
       {
-        v44 = @"YES";
+        if (v47 || !self->_contactLabelButtonVisible)
+        {
+          v57[0] = MEMORY[0x277D85DD0];
+          v57[1] = 3221225472;
+          v57[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_130;
+          v57[3] = &unk_278D74C68;
+          v58 = addContactButtonVisible != v37;
+          v59 = deleteButtonVisible != v17;
+          v60 = contactLabelButtonVisible != v23;
+          v57[4] = self;
+          v61 = v17;
+          v45 = _Block_copy(v57);
+          [MEMORY[0x277D75D18] animateWithDuration:v45 animations:0.150000006];
+        }
+
+        else
+        {
+          v64[0] = MEMORY[0x277D85DD0];
+          v64[1] = 3221225472;
+          v64[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke;
+          v64[3] = &unk_278D74C40;
+          v65 = addContactButtonVisible != v37;
+          v66 = deleteButtonVisible != v17;
+          v64[4] = self;
+          v67 = v17;
+          v45 = _Block_copy(v64);
+          v62[0] = MEMORY[0x277D85DD0];
+          v62[1] = 3221225472;
+          v62[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_129;
+          v62[3] = &unk_278D74A98;
+          v63 = contactLabelButtonVisible != v23;
+          v62[4] = self;
+          v46 = _Block_copy(v62);
+          [MEMORY[0x277D75D18] animateWithDuration:v46 animations:v45 completion:0.150000006];
+        }
+
+        self->_addContactButtonVisible = v37;
+        self->_deleteButtonVisible = v17;
+        self->_contactLabelButtonVisible = v23;
+        self->_hasCompleteMatch = 0;
       }
 
-      *buf = 138412802;
-      v69 = v43;
-      v70 = 2112;
-      v71 = v44;
-      if (contactLabelButtonVisible != v22)
-      {
-        v42 = @"YES";
-      }
-
-      v72 = 2112;
-      v73 = v42;
-      _os_log_impl(&dword_2429BC000, v41, OS_LOG_TYPE_DEFAULT, "addContactButtonVisibilityChanged: %@, deleteButtonVisibilityChanged: %@, contactLabelVisibilityChanged: %@", buf, 0x20u);
+      goto LABEL_26;
     }
-
-    if (addContactButtonVisible != v37 || deleteButtonVisible != v17 || contactLabelButtonVisible != v22)
-    {
-      if ((v47 & 1) != 0 || !self->_contactLabelButtonVisible)
-      {
-        v57[0] = MEMORY[0x277D85DD0];
-        v57[1] = 3221225472;
-        v57[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_130;
-        v57[3] = &unk_278D74C68;
-        v58 = addContactButtonVisible != v37;
-        v59 = deleteButtonVisible != v17;
-        v60 = contactLabelButtonVisible != v22;
-        v57[4] = self;
-        v61 = v17;
-        v45 = _Block_copy(v57);
-        [MEMORY[0x277D75D18] animateWithDuration:v45 animations:0.150000006];
-      }
-
-      else
-      {
-        v64[0] = MEMORY[0x277D85DD0];
-        v64[1] = 3221225472;
-        v64[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke;
-        v64[3] = &unk_278D74C40;
-        v65 = addContactButtonVisible != v37;
-        v66 = deleteButtonVisible != v17;
-        v64[4] = self;
-        v67 = v17;
-        v45 = _Block_copy(v64);
-        v62[0] = MEMORY[0x277D85DD0];
-        v62[1] = 3221225472;
-        v62[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_129;
-        v62[3] = &unk_278D74A98;
-        v63 = contactLabelButtonVisible != v22;
-        v62[4] = self;
-        v46 = _Block_copy(v62);
-        [MEMORY[0x277D75D18] animateWithDuration:v46 animations:v45 completion:0.150000006];
-      }
-
-      self->_addContactButtonVisible = v37;
-      self->_deleteButtonVisible = v17;
-      self->_contactLabelButtonVisible = v22;
-      self->_hasCompleteMatch = 0;
-    }
-
-    goto LABEL_26;
   }
 
   if (self->_addContactButtonVisible && v16 != 0)
@@ -581,25 +963,25 @@
     {
       addContactButton = [(PHHandsetDialerLCDView *)self addContactButton];
       [addContactButton alpha];
-      v27 = v26;
+      v28 = v27;
 
-      if (v27 >= 0.0)
+      if (v28 >= 0.0)
       {
         aBlock[0] = MEMORY[0x277D85DD0];
         aBlock[1] = 3221225472;
         aBlock[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_131;
         aBlock[3] = &unk_278D74C90;
         aBlock[4] = self;
-        v28 = _Block_copy(aBlock);
-        v29 = MEMORY[0x277D75D18];
+        v29 = _Block_copy(aBlock);
+        v30 = MEMORY[0x277D75D18];
         v55[0] = MEMORY[0x277D85DD0];
         v55[1] = 3221225472;
         v55[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_3;
         v55[3] = &unk_278D749E0;
         v55[4] = self;
-        v30 = v55;
+        v31 = v55;
 LABEL_19:
-        [v29 animateWithDuration:v30 animations:v28 completion:0.150000006];
+        [v30 animateWithDuration:v31 animations:v29 completion:0.150000006];
       }
     }
 
@@ -607,23 +989,23 @@ LABEL_19:
     {
       contactLabel2 = [(PHHandsetDialerLCDView *)self contactLabel];
       [contactLabel2 alpha];
-      v33 = v32;
+      v34 = v33;
 
-      if (v33 >= 0.0)
+      if (v34 >= 0.0)
       {
         v54[0] = MEMORY[0x277D85DD0];
         v54[1] = 3221225472;
         v54[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_4;
         v54[3] = &unk_278D74C90;
         v54[4] = self;
-        v28 = _Block_copy(v54);
-        v29 = MEMORY[0x277D75D18];
+        v29 = _Block_copy(v54);
+        v30 = MEMORY[0x277D75D18];
         v53[0] = MEMORY[0x277D85DD0];
         v53[1] = 3221225472;
         v53[2] = __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_6;
         v53[3] = &unk_278D749E0;
         v53[4] = self;
-        v30 = v53;
+        v31 = v53;
         goto LABEL_19;
       }
     }
@@ -639,16 +1021,16 @@ LABEL_19:
     v51 = v17;
     v50 = nameCopy;
     v52 = v17;
-    v34 = _Block_copy(v49);
-    v35 = v34;
+    v35 = _Block_copy(v49);
+    v36 = v35;
     if (animatedCopy)
     {
-      [MEMORY[0x277D75D18] animateWithDuration:v34 animations:0.300000012];
+      [MEMORY[0x277D75D18] animateWithDuration:v35 animations:0.300000012];
     }
 
     else
     {
-      (*(v34 + 2))(v34);
+      (*(v35 + 2))(v35);
     }
 
     self->_addContactButtonVisible = v17;
@@ -656,8 +1038,6 @@ LABEL_19:
   }
 
 LABEL_26:
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke(uint64_t a1)
@@ -674,8 +1054,8 @@ uint64_t __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label
 
 void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_2(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v2 = PHDefaultLog();
+  v14 = *MEMORY[0x277D85DE8];
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = @"NO";
@@ -694,11 +1074,11 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
       v3 = @"YES";
     }
 
-    v11 = 138412546;
-    v12 = v4;
-    v13 = 2112;
-    v14 = v3;
-    _os_log_impl(&dword_2429BC000, v2, OS_LOG_TYPE_DEFAULT, "Updating animations for addContactButtonVisibilityChanged: %@, deleteButtonVisibilityChanged: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = v4;
+    v12 = 2112;
+    v13 = v3;
+    _os_log_impl(&dword_2429BC000, v2, OS_LOG_TYPE_DEFAULT, "Updating animations for addContactButtonVisibilityChanged: %@, deleteButtonVisibilityChanged: %@", &v10, 0x16u);
   }
 
   v5 = *(a1 + 32);
@@ -717,14 +1097,12 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
 
     [v7 setDeleteButtonAlpha:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_129(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = PHDefaultLog();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     if (*(a1 + 40))
@@ -737,9 +1115,9 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
       v3 = @"NO";
     }
 
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_2429BC000, v2, OS_LOG_TYPE_DEFAULT, "Updating animations for contactLabelVisibilityChanged: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_2429BC000, v2, OS_LOG_TYPE_DEFAULT, "Updating animations for contactLabelVisibilityChanged: %@", &v8, 0xCu);
   }
 
   v4 = *(a1 + 32);
@@ -749,14 +1127,12 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
   v6 = *(a1 + 32);
   v7 = [v6 sourceLabel];
   [v6 checkAndUpdateVisibilityForView:v7 shouldInvertVisibility:*(a1 + 40)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_130(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = PHDefaultLog();
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = PHDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = @"NO";
@@ -781,18 +1157,18 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
       v6 = @"NO";
     }
 
-    *v17 = 138412802;
+    *v16 = 138412802;
     if (v5)
     {
       v3 = @"YES";
     }
 
-    *&v17[4] = v4;
-    v18 = 2112;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v3;
-    _os_log_impl(&dword_2429BC000, v2, OS_LOG_TYPE_DEFAULT, "Updating animations for addContactButtonVisibilityChanged: %@, deleteButtonVisibilityChanged: %@, contactLabelVisibilityChanged: %@", v17, 0x20u);
+    *&v16[4] = v4;
+    v17 = 2112;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v3;
+    _os_log_impl(&dword_2429BC000, v2, OS_LOG_TYPE_DEFAULT, "Updating animations for addContactButtonVisibilityChanged: %@, deleteButtonVisibilityChanged: %@, contactLabelVisibilityChanged: %@", v16, 0x20u);
   }
 
   v7 = *(a1 + 32);
@@ -817,10 +1193,8 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
       v15 = 1.0;
     }
 
-    [v13 setDeleteButtonAlpha:{v15, *v17}];
+    [v13 setDeleteButtonAlpha:{v15, *v16}];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_source_suggestion_animated___block_invoke_131(uint64_t a1)
@@ -1181,10 +1555,9 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
 
 - (void)applyLayoutConstraints
 {
-  v106[4] = *MEMORY[0x277D85DE8];
+  v104[4] = *MEMORY[0x277D85DE8];
   if ([(PHHandsetDialerLCDView *)self appType]== 1 && [(PHHandsetDialerLCDView *)self enableSmartDialer])
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [(PHHandsetDialerLCDView *)self applyLayoutConstraintsForSmartDialer];
   }
@@ -1197,8 +1570,8 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
     if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
     {
       heightAnchor = [(PHHandsetDialerLCDView *)self heightAnchor];
-      v7 = [heightAnchor constraintEqualToConstant:80.0];
-      [v7 setActive:1];
+      v6 = [heightAnchor constraintEqualToConstant:80.0];
+      [v6 setActive:1];
     }
 
     if ([(PHHandsetDialerLCDView *)self appType]== 1)
@@ -1208,198 +1581,197 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
 
       if (userInterfaceIdiom2 == 5)
       {
-        v97 = MEMORY[0x277CCAAD0];
+        v95 = MEMORY[0x277CCAAD0];
         headerLayoutGuide = [(PHHandsetDialerLCDView *)self headerLayoutGuide];
         topAnchor = [headerLayoutGuide topAnchor];
         safeAreaLayoutGuide = [(PHHandsetDialerLCDView *)self safeAreaLayoutGuide];
         topAnchor2 = [safeAreaLayoutGuide topAnchor];
-        v101 = [topAnchor constraintEqualToAnchor:topAnchor2];
-        v106[0] = v101;
+        v99 = [topAnchor constraintEqualToAnchor:topAnchor2];
+        v104[0] = v99;
         headerLayoutGuide2 = [(PHHandsetDialerLCDView *)self headerLayoutGuide];
         bottomAnchor = [headerLayoutGuide2 bottomAnchor];
         numberTextField = [(PHHandsetDialerLCDView *)self numberTextField];
         topAnchor3 = [numberTextField topAnchor];
         [(PHHandsetDialerLCDView *)self addContactButtonContentInsetConstant];
-        v95 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:v10 + 5.0];
-        v106[1] = v95;
+        v93 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:v9 + 5.0];
+        v104[1] = v93;
         headerLayoutGuide3 = [(PHHandsetDialerLCDView *)self headerLayoutGuide];
         leadingAnchor = [headerLayoutGuide3 leadingAnchor];
         safeAreaLayoutGuide2 = [(PHHandsetDialerLCDView *)self safeAreaLayoutGuide];
         leadingAnchor2 = [safeAreaLayoutGuide2 leadingAnchor];
-        v12 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-        v106[2] = v12;
+        v11 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+        v104[2] = v11;
         headerLayoutGuide4 = [(PHHandsetDialerLCDView *)self headerLayoutGuide];
         trailingAnchor = [headerLayoutGuide4 trailingAnchor];
         safeAreaLayoutGuide3 = [(PHHandsetDialerLCDView *)self safeAreaLayoutGuide];
         trailingAnchor2 = [safeAreaLayoutGuide3 trailingAnchor];
-        v17 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-        v106[3] = v17;
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v106 count:4];
-        [v97 activateConstraints:v18];
+        v16 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+        v104[3] = v16;
+        v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:4];
+        [v95 activateConstraints:v17];
       }
     }
 
-    v19 = MEMORY[0x277CCAAD0];
+    v18 = MEMORY[0x277CCAAD0];
     addContactButton = [(PHHandsetDialerLCDView *)self addContactButton];
     [(PHHandsetDialerLCDView *)self addContactButtonTopConstraintConstant];
-    v22 = [v19 constraintWithItem:addContactButton attribute:11 relatedBy:0 toItem:self attribute:3 multiplier:1.0 constant:v21];
-    [(PHHandsetDialerLCDView *)self setAddContactButtonTopConstraint:v22];
+    v21 = [v18 constraintWithItem:addContactButton attribute:11 relatedBy:0 toItem:self attribute:3 multiplier:1.0 constant:v20];
+    [(PHHandsetDialerLCDView *)self setAddContactButtonTopConstraint:v21];
 
     addContactButtonTopConstraint = [(PHHandsetDialerLCDView *)self addContactButtonTopConstraint];
     [(PHHandsetDialerLCDView *)self addConstraint:addContactButtonTopConstraint];
 
-    v24 = MEMORY[0x277CCAAD0];
+    v23 = MEMORY[0x277CCAAD0];
     addContactButton2 = [(PHHandsetDialerLCDView *)self addContactButton];
-    v26 = [v24 constraintWithItem:self attribute:4 relatedBy:0 toItem:addContactButton2 attribute:11 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v26];
+    v25 = [v23 constraintWithItem:self attribute:4 relatedBy:0 toItem:addContactButton2 attribute:11 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v25];
 
-    v27 = MEMORY[0x277CCAAD0];
+    v26 = MEMORY[0x277CCAAD0];
     addContactButton3 = [(PHHandsetDialerLCDView *)self addContactButton];
-    v29 = [v27 constraintWithItem:addContactButton3 attribute:9 relatedBy:0 toItem:self attribute:9 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v29];
+    v28 = [v26 constraintWithItem:addContactButton3 attribute:9 relatedBy:0 toItem:self attribute:9 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v28];
 
-    v30 = MEMORY[0x277CCAAD0];
+    v29 = MEMORY[0x277CCAAD0];
     addContactButton4 = [(PHHandsetDialerLCDView *)self addContactButton];
     layoutTextField = [(PHHandsetDialerLCDView *)self layoutTextField];
     [(PHHandsetDialerLCDView *)self spacingBetweenNumberBaselineAndNameBaseline];
-    v34 = [v30 constraintWithItem:addContactButton4 attribute:11 relatedBy:0 toItem:layoutTextField attribute:11 multiplier:1.0 constant:v33];
-    [(PHHandsetDialerLCDView *)self addConstraint:v34];
+    v33 = [v29 constraintWithItem:addContactButton4 attribute:11 relatedBy:0 toItem:layoutTextField attribute:11 multiplier:1.0 constant:v32];
+    [(PHHandsetDialerLCDView *)self addConstraint:v33];
 
-    v35 = MEMORY[0x277CCAAD0];
+    v34 = MEMORY[0x277CCAAD0];
     addContactButton5 = [(PHHandsetDialerLCDView *)self addContactButton];
     layoutTextField2 = [(PHHandsetDialerLCDView *)self layoutTextField];
-    v38 = [v35 constraintWithItem:addContactButton5 attribute:9 relatedBy:0 toItem:layoutTextField2 attribute:9 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v38];
+    v37 = [v34 constraintWithItem:addContactButton5 attribute:9 relatedBy:0 toItem:layoutTextField2 attribute:9 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v37];
 
-    v39 = MEMORY[0x277CCAAD0];
+    v38 = MEMORY[0x277CCAAD0];
     numberTextField2 = [(PHHandsetDialerLCDView *)self numberTextField];
     layoutTextField3 = [(PHHandsetDialerLCDView *)self layoutTextField];
-    v42 = [v39 constraintWithItem:numberTextField2 attribute:10 relatedBy:0 toItem:layoutTextField3 attribute:10 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v42];
+    v41 = [v38 constraintWithItem:numberTextField2 attribute:10 relatedBy:0 toItem:layoutTextField3 attribute:10 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v41];
 
-    v43 = MEMORY[0x277CCAAD0];
+    v42 = MEMORY[0x277CCAAD0];
     numberTextField3 = [(PHHandsetDialerLCDView *)self numberTextField];
     layoutTextField4 = [(PHHandsetDialerLCDView *)self layoutTextField];
-    v46 = [v43 constraintWithItem:numberTextField3 attribute:9 relatedBy:0 toItem:layoutTextField4 attribute:9 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v46];
+    v45 = [v42 constraintWithItem:numberTextField3 attribute:9 relatedBy:0 toItem:layoutTextField4 attribute:9 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v45];
 
-    v47 = MEMORY[0x277CCAAD0];
+    v46 = MEMORY[0x277CCAAD0];
     businessNameField = [(PHHandsetDialerLCDView *)self businessNameField];
     layoutTextField5 = [(PHHandsetDialerLCDView *)self layoutTextField];
-    v50 = [v47 constraintWithItem:businessNameField attribute:10 relatedBy:0 toItem:layoutTextField5 attribute:10 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v50];
+    v49 = [v46 constraintWithItem:businessNameField attribute:10 relatedBy:0 toItem:layoutTextField5 attribute:10 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v49];
 
-    v51 = MEMORY[0x277CCAAD0];
+    v50 = MEMORY[0x277CCAAD0];
     businessNameField2 = [(PHHandsetDialerLCDView *)self businessNameField];
     layoutTextField6 = [(PHHandsetDialerLCDView *)self layoutTextField];
-    v54 = [v51 constraintWithItem:businessNameField2 attribute:9 relatedBy:0 toItem:layoutTextField6 attribute:9 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v54];
+    v53 = [v50 constraintWithItem:businessNameField2 attribute:9 relatedBy:0 toItem:layoutTextField6 attribute:9 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v53];
 
-    v55 = MEMORY[0x277CCAAD0];
+    v54 = MEMORY[0x277CCAAD0];
     contactLabel = [(PHHandsetDialerLCDView *)self contactLabel];
     addContactButton6 = [(PHHandsetDialerLCDView *)self addContactButton];
-    v58 = [v55 constraintWithItem:contactLabel attribute:9 relatedBy:0 toItem:addContactButton6 attribute:9 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v58];
+    v57 = [v54 constraintWithItem:contactLabel attribute:9 relatedBy:0 toItem:addContactButton6 attribute:9 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v57];
 
-    v59 = MEMORY[0x277CCAAD0];
+    v58 = MEMORY[0x277CCAAD0];
     contactLabel2 = [(PHHandsetDialerLCDView *)self contactLabel];
     addContactButton7 = [(PHHandsetDialerLCDView *)self addContactButton];
-    v62 = [v59 constraintWithItem:contactLabel2 attribute:12 relatedBy:0 toItem:addContactButton7 attribute:12 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v62];
+    v61 = [v58 constraintWithItem:contactLabel2 attribute:12 relatedBy:0 toItem:addContactButton7 attribute:12 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v61];
 
-    v63 = MEMORY[0x277CCAAD0];
+    v62 = MEMORY[0x277CCAAD0];
     contactLabel3 = [(PHHandsetDialerLCDView *)self contactLabel];
-    v65 = [v63 constraintWithItem:contactLabel3 attribute:5 relatedBy:1 toItem:self attribute:5 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v65];
+    v64 = [v62 constraintWithItem:contactLabel3 attribute:5 relatedBy:1 toItem:self attribute:5 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v64];
 
-    v66 = MEMORY[0x277CCAAD0];
+    v65 = MEMORY[0x277CCAAD0];
     contactLabel4 = [(PHHandsetDialerLCDView *)self contactLabel];
-    v68 = [v66 constraintWithItem:contactLabel4 attribute:6 relatedBy:-1 toItem:self attribute:6 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v68];
+    v67 = [v65 constraintWithItem:contactLabel4 attribute:6 relatedBy:-1 toItem:self attribute:6 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v67];
 
-    v69 = MEMORY[0x277CCAAD0];
+    v68 = MEMORY[0x277CCAAD0];
     sourceLabel = [(PHHandsetDialerLCDView *)self sourceLabel];
     addContactButton8 = [(PHHandsetDialerLCDView *)self addContactButton];
-    v72 = [v69 constraintWithItem:sourceLabel attribute:9 relatedBy:0 toItem:addContactButton8 attribute:9 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v72];
+    v71 = [v68 constraintWithItem:sourceLabel attribute:9 relatedBy:0 toItem:addContactButton8 attribute:9 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v71];
 
     separator = [(PHHandsetDialerLCDView *)self separator];
 
-    v74 = MEMORY[0x277CCAAD0];
+    v73 = MEMORY[0x277CCAAD0];
     sourceLabel2 = [(PHHandsetDialerLCDView *)self sourceLabel];
     if (separator)
     {
       separator2 = [(PHHandsetDialerLCDView *)self separator];
-      v77 = 1.0;
-      v78 = 10.0;
-      v79 = v74;
-      v80 = sourceLabel2;
-      v81 = 12;
-      v82 = separator2;
-      v83 = 12;
+      v76 = 1.0;
+      v77 = 10.0;
+      v78 = v73;
+      v79 = sourceLabel2;
+      v80 = 12;
+      v81 = separator2;
+      v82 = 12;
     }
 
     else
     {
       separator2 = [(PHHandsetDialerLCDView *)self contactLabel];
-      v77 = 1.0;
-      v78 = 2.0;
-      v79 = v74;
-      v80 = sourceLabel2;
-      v81 = 3;
-      v82 = separator2;
-      v83 = 4;
+      v76 = 1.0;
+      v77 = 2.0;
+      v78 = v73;
+      v79 = sourceLabel2;
+      v80 = 3;
+      v81 = separator2;
+      v82 = 4;
     }
 
-    v84 = [v79 constraintWithItem:v80 attribute:v81 relatedBy:0 toItem:v82 attribute:v83 multiplier:v77 constant:v78];
-    [(PHHandsetDialerLCDView *)self addConstraint:v84];
+    v83 = [v78 constraintWithItem:v79 attribute:v80 relatedBy:0 toItem:v81 attribute:v82 multiplier:v76 constant:v77];
+    [(PHHandsetDialerLCDView *)self addConstraint:v83];
 
-    v85 = MEMORY[0x277CCAAD0];
+    v84 = MEMORY[0x277CCAAD0];
     sourceLabel3 = [(PHHandsetDialerLCDView *)self sourceLabel];
-    v87 = [v85 constraintWithItem:sourceLabel3 attribute:5 relatedBy:1 toItem:self attribute:5 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v87];
+    v86 = [v84 constraintWithItem:sourceLabel3 attribute:5 relatedBy:1 toItem:self attribute:5 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v86];
 
-    v88 = MEMORY[0x277CCAAD0];
+    v87 = MEMORY[0x277CCAAD0];
     sourceLabel4 = [(PHHandsetDialerLCDView *)self sourceLabel];
-    v90 = [v88 constraintWithItem:sourceLabel4 attribute:6 relatedBy:-1 toItem:self attribute:6 multiplier:1.0 constant:0.0];
-    [(PHHandsetDialerLCDView *)self addConstraint:v90];
+    v89 = [v87 constraintWithItem:sourceLabel4 attribute:6 relatedBy:-1 toItem:self attribute:6 multiplier:1.0 constant:0.0];
+    [(PHHandsetDialerLCDView *)self addConstraint:v89];
 
     [(PHHandsetDialerLCDView *)self updateNumberAndBusinessNameLabelHorizontalConstraints];
-    v91 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)applyLayoutConstraintsForSmartDialer
 {
-  v181[4] = *MEMORY[0x277D85DE8];
-  v165 = MEMORY[0x277CCAAD0];
+  v180[4] = *MEMORY[0x277D85DE8];
+  v164 = MEMORY[0x277CCAAD0];
   headerLayoutGuide = [(PHHandsetDialerLCDView *)self headerLayoutGuide];
   topAnchor = [headerLayoutGuide topAnchor];
   safeAreaLayoutGuide = [(PHHandsetDialerLCDView *)self safeAreaLayoutGuide];
   topAnchor2 = [safeAreaLayoutGuide topAnchor];
-  v170 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v181[0] = v170;
+  v169 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v180[0] = v169;
   headerLayoutGuide2 = [(PHHandsetDialerLCDView *)self headerLayoutGuide];
   bottomAnchor = [headerLayoutGuide2 bottomAnchor];
   numberTextField = [(PHHandsetDialerLCDView *)self numberTextField];
   topAnchor3 = [numberTextField topAnchor];
   [(PHHandsetDialerLCDView *)self addContactButtonContentInsetConstant];
-  v163 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:v3 + 5.0];
-  v181[1] = v163;
+  v162 = [bottomAnchor constraintEqualToAnchor:topAnchor3 constant:v3 + 5.0];
+  v180[1] = v162;
   headerLayoutGuide3 = [(PHHandsetDialerLCDView *)self headerLayoutGuide];
   leadingAnchor = [headerLayoutGuide3 leadingAnchor];
   safeAreaLayoutGuide2 = [(PHHandsetDialerLCDView *)self safeAreaLayoutGuide];
   leadingAnchor2 = [safeAreaLayoutGuide2 leadingAnchor];
   v6 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v181[2] = v6;
+  v180[2] = v6;
   headerLayoutGuide4 = [(PHHandsetDialerLCDView *)self headerLayoutGuide];
   trailingAnchor = [headerLayoutGuide4 trailingAnchor];
   safeAreaLayoutGuide3 = [(PHHandsetDialerLCDView *)self safeAreaLayoutGuide];
   trailingAnchor2 = [safeAreaLayoutGuide3 trailingAnchor];
   v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v181[3] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v181 count:4];
-  [v165 activateConstraints:v12];
+  v180[3] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:4];
+  [v164 activateConstraints:v12];
 
   v13 = MEMORY[0x277CCAAD0];
   layoutTextField = [(PHHandsetDialerLCDView *)self layoutTextField];
@@ -1591,28 +1963,28 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
 
   if (_UISolariumEnabled())
   {
-    v169 = MEMORY[0x277CCAAD0];
+    v168 = MEMORY[0x277CCAAD0];
     dialerResultButtonsGlassBackgroundView = [(PHHandsetDialerLCDView *)self dialerResultButtonsGlassBackgroundView];
     topAnchor4 = [dialerResultButtonsGlassBackgroundView topAnchor];
     primaryResultButton14 = [(PHHandsetDialerLCDView *)self primaryResultButton];
     topAnchor5 = [primaryResultButton14 topAnchor];
     [(PHHandsetDialerLCDView *)self spacingBetweenPrimaryResultButtons];
-    v171 = [topAnchor4 constraintEqualToAnchor:topAnchor5 constant:-v137];
-    v180[0] = v171;
+    v170 = [topAnchor4 constraintEqualToAnchor:topAnchor5 constant:-v137];
+    v179[0] = v170;
     dialerResultButtonsGlassBackgroundView2 = [(PHHandsetDialerLCDView *)self dialerResultButtonsGlassBackgroundView];
     leadingAnchor3 = [dialerResultButtonsGlassBackgroundView2 leadingAnchor];
     leadingAnchor4 = [(PHHandsetDialerLCDView *)self leadingAnchor];
     [MEMORY[0x277D6ED70] horizontalPadding];
     v141 = [leadingAnchor3 constraintEqualToAnchor:leadingAnchor4 constant:?];
-    v180[1] = v141;
+    v179[1] = v141;
     dialerResultButtonsGlassBackgroundView3 = [(PHHandsetDialerLCDView *)self dialerResultButtonsGlassBackgroundView];
     trailingAnchor3 = [dialerResultButtonsGlassBackgroundView3 trailingAnchor];
     trailingAnchor4 = [(PHHandsetDialerLCDView *)self trailingAnchor];
     [MEMORY[0x277D6ED70] horizontalPadding];
     v146 = [trailingAnchor3 constraintEqualToAnchor:trailingAnchor4 constant:-v145];
-    v180[2] = v146;
-    v147 = [MEMORY[0x277CBEA60] arrayWithObjects:v180 count:3];
-    [v169 activateConstraints:v147];
+    v179[2] = v146;
+    v147 = [MEMORY[0x277CBEA60] arrayWithObjects:v179 count:3];
+    [v168 activateConstraints:v147];
 
     dialerResultButtonsGlassBackgroundView4 = [(PHHandsetDialerLCDView *)self dialerResultButtonsGlassBackgroundView];
     bottomAnchor2 = [dialerResultButtonsGlassBackgroundView4 bottomAnchor];
@@ -1632,7 +2004,19 @@ void __96__PHHandsetDialerLCDView_updateAddAndDeleteButtonForText_name_label_sou
   }
 
   [(PHHandsetDialerLCDView *)self updateNumberAndBusinessNameLabelHorizontalConstraints];
-  v160 = *MEMORY[0x277D85DE8];
+}
+
+- (void)updateDialerResultGlassBackgroundConstraintsForSecondaryButtonVisibility:(BOOL)visibility
+{
+  visibilityCopy = visibility;
+  if (_UISolariumEnabled())
+  {
+    secondaryVisibleConstraint = [(PHHandsetDialerLCDView *)self secondaryVisibleConstraint];
+    [secondaryVisibleConstraint setActive:visibilityCopy];
+
+    secondaryHiddenConstraint = [(PHHandsetDialerLCDView *)self secondaryHiddenConstraint];
+    [secondaryHiddenConstraint setActive:visibilityCopy ^ 1];
+  }
 }
 
 - (void)updateNumberAndBusinessNameLabelHorizontalConstraints
@@ -1902,7 +2286,7 @@ LABEL_15:
 
 - (void)contactResultButtonPressed
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   if ([(PHHandsetDialerLCDView *)self enableSmartDialer])
   {
     if (self->_contactSearchResult)
@@ -1934,63 +2318,63 @@ LABEL_15:
       if ([(TUFeatureFlags *)self->_featureFlags dialerInterceptEnabled])
       {
         v15 = dispatch_group_create();
-        v43 = 0;
-        v44 = &v43;
-        v45 = 0x3032000000;
-        v46 = __Block_byref_object_copy__1;
-        v47 = __Block_byref_object_dispose__1;
-        v48 = 0;
-        v39 = 0;
-        v40 = &v39;
-        v41 = 0x2020000000;
         v42 = 0;
-        v35 = 0;
-        v36 = &v35;
-        v37 = 0x2020000000;
+        v43 = &v42;
+        v44 = 0x3032000000;
+        v45 = __Block_byref_object_copy__1;
+        v46 = __Block_byref_object_dispose__1;
+        v47 = 0;
         v38 = 0;
+        v39 = &v38;
+        v40 = 0x2020000000;
+        v41 = 0;
+        v34 = 0;
+        v35 = &v34;
+        v36 = 0x2020000000;
+        v37 = 0;
         dispatch_group_enter(v15);
         resultDelegate = [(PHHandsetDialerLCDView *)self resultDelegate];
-        v27 = MEMORY[0x277D85DD0];
-        v28 = 3221225472;
-        v29 = __52__PHHandsetDialerLCDView_contactResultButtonPressed__block_invoke;
-        v30 = &unk_278D74CE0;
-        v32 = &v43;
-        v33 = &v39;
-        v34 = &v35;
+        v26 = MEMORY[0x277D85DD0];
+        v27 = 3221225472;
+        v28 = __52__PHHandsetDialerLCDView_contactResultButtonPressed__block_invoke;
+        v29 = &unk_278D74CE0;
+        v31 = &v42;
+        v32 = &v38;
+        v33 = &v34;
         v17 = v15;
-        v31 = v17;
-        [resultDelegate searchBusinessesFor:stringValue completionHandler:&v27];
+        v30 = v17;
+        [resultDelegate searchBusinessesFor:stringValue completionHandler:&v26];
 
         v18 = dispatch_time(0, 1000000000);
         v19 = dispatch_group_wait(v17, v18);
-        v20 = PHDefaultLog();
+        v20 = PHDefaultLog(v19);
         if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = v44[5];
-          v22 = *(v40 + 24);
+          v21 = v43[5];
+          v22 = *(v39 + 24);
           *buf = 138412802;
-          v50 = v21;
-          v51 = 1024;
-          v52 = v22;
-          v53 = 1024;
-          v54 = v19 != 0;
+          v49 = v21;
+          v50 = 1024;
+          v51 = v22;
+          v52 = 1024;
+          v53 = v19 != 0;
           _os_log_impl(&dword_2429BC000, v20, OS_LOG_TYPE_DEFAULT, "Business search result | businessMatchResult: %@ businessHasCompleteMatch: %d didTimeout: %d", buf, 0x18u);
         }
 
-        if (v19 || *(v40 + 24) != 1)
+        if (v19 || *(v39 + 24) != 1)
         {
           v23 = 1;
         }
 
         else
         {
-          [(PHHandsetDialerLCDView *)self setBusinessSearchResult:v44[5] hasCompleteMatch:1 hasMessageAction:*(v36 + 24) nameOverride:v5, v27, v28, v29, v30];
+          [(PHHandsetDialerLCDView *)self setBusinessSearchResult:v43[5] hasCompleteMatch:1 hasMessageAction:*(v35 + 24) nameOverride:v5, v26, v27, v28, v29];
           v23 = 0;
         }
 
-        _Block_object_dispose(&v35, 8);
-        _Block_object_dispose(&v39, 8);
-        _Block_object_dispose(&v43, 8);
+        _Block_object_dispose(&v34, 8);
+        _Block_object_dispose(&v38, 8);
+        _Block_object_dispose(&v42, 8);
 
         if ((v23 & 1) == 0)
         {
@@ -2006,7 +2390,7 @@ LABEL_15:
       v5 = 0;
     }
 
-    [(PHHandsetDialerLCDView *)self hideResultsButtons:v27];
+    [(PHHandsetDialerLCDView *)self hideResultsButtons:v26];
     [(PHLCDViewTextField *)self->_numberTextField setText:stringValue];
     [(PHHandsetDialerLCDView *)self setName:v5 numberLabel:v11];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -2016,7 +2400,7 @@ LABEL_15:
     {
 LABEL_19:
 
-      goto LABEL_20;
+      return;
     }
 
     resultContactPhoneNumber = objc_loadWeakRetained(&self->_delegate);
@@ -2025,21 +2409,19 @@ LABEL_18:
 
     goto LABEL_19;
   }
-
-LABEL_20:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PHHandsetDialerLCDView_contactResultButtonPressed__block_invoke(uint64_t a1, void *a2, char a3, char a4, void *a5)
 {
   v10 = a2;
   v11 = a5;
+  v12 = v11;
   if (v11)
   {
-    v12 = PHDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = PHDefaultLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __52__PHHandsetDialerLCDView_contactResultButtonPressed__block_invoke_cold_1(v11, v12);
+      __52__PHHandsetDialerLCDView_contactResultButtonPressed__block_invoke_cold_1(v12, v13);
     }
   }
 
@@ -2055,11 +2437,10 @@ void __52__PHHandsetDialerLCDView_contactResultButtonPressed__block_invoke(uint6
 
 - (void)launchBusinessMessagesSupport
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_2429BC000, a2, OS_LOG_TYPE_ERROR, "Error opening Messages url: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2429BC000, a2, OS_LOG_TYPE_ERROR, "Error opening Messages url: %@", &v2, 0xCu);
 }
 
 - (BOOL)textFieldShouldBeginEditing:(id)editing
@@ -2242,6 +2623,81 @@ LABEL_21:
   }
 
   [(PHHandsetDialerLCDView *)self updateResultButtonsVisiblityForPrimary:v8 secondary:contactResultCount != 0];
+}
+
+- (void)showBusinessGuidedSupportWithMessageAction:(BOOL)action nameOverride:(id)override
+{
+  actionCopy = action;
+  overrideCopy = override;
+  bizItem = [(PHHandsetDialerLCDView *)self bizItem];
+
+  if (bizItem)
+  {
+    self->_showingBusinessSupportGuide = 1;
+    if (overrideCopy)
+    {
+      v8 = overrideCopy;
+    }
+
+    else
+    {
+      v8 = @"Apple Support";
+    }
+
+    [(UILabel *)self->_businessNameField setText:v8];
+    [(PHLCDViewTextField *)self->_numberTextField setEnabled:0];
+    v9 = objc_alloc(MEMORY[0x277CCA898]);
+    mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+    v11 = [mainBundle localizedStringForKey:@"GUIDED_HELP" value:&stru_285532CB8 table:@"General"];
+    v12 = [v9 initWithString:v11];
+
+    primaryResultButtonView = self->_primaryResultButtonView;
+    v14 = [MEMORY[0x277D755B8] _systemImageNamed:@"apple.step.by.step.help"];
+    [(PHDialerResultButtonView *)primaryResultButtonView configureWithPrimaryTitle:v12 image:v14 buttonType:3];
+
+    if (actionCopy)
+    {
+      v15 = objc_alloc(MEMORY[0x277CCA898]);
+      mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
+      v17 = [mainBundle2 localizedStringForKey:@"MESSAGE_SUPPORT" value:&stru_285532CB8 table:@"General"];
+      v18 = [v15 initWithString:v17];
+
+      secondaryResultButtonView = self->_secondaryResultButtonView;
+      v20 = [MEMORY[0x277D755B8] systemImageNamed:@"message"];
+      v21 = 4;
+      [(PHDialerResultButtonView *)secondaryResultButtonView configureWithPrimaryTitle:v18 image:v20 buttonType:4];
+    }
+
+    else
+    {
+      v21 = 5;
+    }
+
+    [(MPDialerInterceptReporter *)self->_dialerReporter setFirstShownOption:3];
+    [(MPDialerInterceptReporter *)self->_dialerReporter setSecondShownOption:v21];
+    aBlock[0] = MEMORY[0x277D85DD0];
+    aBlock[1] = 3221225472;
+    aBlock[2] = __82__PHHandsetDialerLCDView_showBusinessGuidedSupportWithMessageAction_nameOverride___block_invoke;
+    aBlock[3] = &unk_278D749E0;
+    aBlock[4] = self;
+    v22 = _Block_copy(aBlock);
+    [MEMORY[0x277D75D18] animateWithDuration:v22 animations:0.300000012];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __82__PHHandsetDialerLCDView_showBusinessGuidedSupportWithMessageAction_nameOverride___block_invoke_2;
+    v24[3] = &unk_278D749E0;
+    v24[4] = self;
+    v23 = _Block_copy(v24);
+
+    [MEMORY[0x277D75D18] animateWithDuration:v23 animations:0.300000012];
+    [(PHHandsetDialerLCDView *)self updateResultButtonsVisiblityForPrimary:1 secondary:actionCopy];
+  }
+
+  else
+  {
+    [(MPDialerInterceptReporter *)self->_dialerReporter setFirstShownOption:0];
+    [(MPDialerInterceptReporter *)self->_dialerReporter setSecondShownOption:0];
+  }
 }
 
 void __82__PHHandsetDialerLCDView_showBusinessGuidedSupportWithMessageAction_nameOverride___block_invoke(uint64_t a1)
@@ -2465,11 +2921,10 @@ LABEL_15:
 
 void __52__PHHandsetDialerLCDView_contactResultButtonPressed__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2429BC000, a2, OS_LOG_TYPE_ERROR, "Error searching for business: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2429BC000, a2, OS_LOG_TYPE_ERROR, "Error searching for business: %@", &v2, 0xCu);
 }
 
 @end

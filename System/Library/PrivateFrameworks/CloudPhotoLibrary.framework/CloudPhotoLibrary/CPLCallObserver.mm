@@ -12,7 +12,7 @@
 
 - (void)callDidFinish
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -22,49 +22,49 @@
   dispatch_sync(queue, block);
   [(NSDate *)self->_startDate timeIntervalSinceNow];
   v5 = -v4;
-  if (v4 >= -2.0)
+  if (v4 < -2.0)
   {
-    if ((_CPLSilentLogging & 1) == 0)
+    if (_CPLSilentLogging)
     {
-      v6 = __CPLObserverOSLogDomain();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-      {
-        _callDescription = [(CPLCallObserver *)self _callDescription];
-        *buf = 138543618;
-        v13 = _callDescription;
-        v14 = 2048;
-        v15 = v5;
-        v8 = v6;
-        v9 = OS_LOG_TYPE_DEBUG;
-        goto LABEL_8;
-      }
-
-LABEL_9:
+      return;
     }
-  }
 
-  else if ((_CPLSilentLogging & 1) == 0)
-  {
     v6 = __CPLObserverOSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      _callDescription = [(CPLCallObserver *)self _callDescription];
-      *buf = 138543618;
-      v13 = _callDescription;
-      v14 = 2048;
-      v15 = v5;
-      v8 = v6;
-      v9 = OS_LOG_TYPE_DEFAULT;
-LABEL_8:
-      _os_log_impl(&dword_1DC05A000, v8, v9, "%{public}@ completed in %.3fs", buf, 0x16u);
-
       goto LABEL_9;
     }
 
-    goto LABEL_9;
+    _callDescription = [(CPLCallObserver *)self _callDescription];
+    *buf = 138543618;
+    v12 = _callDescription;
+    v13 = 2048;
+    v14 = v5;
+    v8 = v6;
+    v9 = OS_LOG_TYPE_DEFAULT;
+    goto LABEL_8;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
+  if (_CPLSilentLogging)
+  {
+    return;
+  }
+
+  v6 = __CPLObserverOSLogDomain();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    _callDescription = [(CPLCallObserver *)self _callDescription];
+    *buf = 138543618;
+    v12 = _callDescription;
+    v13 = 2048;
+    v14 = v5;
+    v8 = v6;
+    v9 = OS_LOG_TYPE_DEBUG;
+LABEL_8:
+    _os_log_impl(&dword_1DC05A000, v8, v9, "%{public}@ completed in %.3fs", buf, 0x16u);
+  }
+
+LABEL_9:
 }
 
 void __32__CPLCallObserver_callDidFinish__block_invoke(uint64_t a1)
@@ -161,12 +161,12 @@ void __35__CPLCallObserver__callDescription__block_invoke(uint64_t a1)
 
 - (CPLCallObserver)initWithObject:(id)object selector:(SEL)selector functionName:(id)name
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   nameCopy = name;
-  v38.receiver = self;
-  v38.super_class = CPLCallObserver;
-  v11 = [(CPLCallObserver *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = CPLCallObserver;
+  v11 = [(CPLCallObserver *)&v37 init];
   v12 = v11;
   if (v11)
   {
@@ -199,7 +199,7 @@ LABEL_9:
       handler[1] = 3221225472;
       handler[2] = __56__CPLCallObserver_initWithObject_selector_functionName___block_invoke;
       handler[3] = &unk_1E861A940;
-      v37 = v12;
+      v36 = v12;
       dispatch_source_set_event_handler(v26, handler);
       dispatch_activate(v12->_timer);
 
@@ -225,40 +225,40 @@ LABEL_9:
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v34 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v33 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          v35 = NSStringFromSelector(a2);
+          v34 = NSStringFromSelector(a2);
           *buf = 138412290;
-          v40 = v35;
-          _os_log_impl(&dword_1DC05A000, v34, OS_LOG_TYPE_ERROR, "Missing selector calling %@", buf, 0xCu);
+          v39 = v34;
+          _os_log_impl(&dword_1DC05A000, v33, OS_LOG_TYPE_ERROR, "Missing selector calling %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLCallObserver.m"];
-      v33 = NSStringFromSelector(a2);
-      [currentHandler handleFailureInMethod:a2 object:v12 file:v32 lineNumber:49 description:{@"Missing selector calling %@", v33}];
+      v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLCallObserver.m"];
+      v32 = NSStringFromSelector(a2);
+      [currentHandler handleFailureInMethod:a2 object:v12 file:v31 lineNumber:49 description:{@"Missing selector calling %@", v32}];
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v29 = __CPLGenericOSLogDomain();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v28 = __CPLGenericOSLogDomain();
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
-          v30 = NSStringFromSelector(a2);
+          v29 = NSStringFromSelector(a2);
           *buf = 138412290;
-          v40 = v30;
-          _os_log_impl(&dword_1DC05A000, v29, OS_LOG_TYPE_ERROR, "Missing object calling %@", buf, 0xCu);
+          v39 = v29;
+          _os_log_impl(&dword_1DC05A000, v28, OS_LOG_TYPE_ERROR, "Missing object calling %@", buf, 0xCu);
         }
       }
 
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLCallObserver.m"];
-      v33 = NSStringFromSelector(a2);
-      [currentHandler handleFailureInMethod:a2 object:v12 file:v32 lineNumber:48 description:{@"Missing object calling %@", v33}];
+      v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLCallObserver.m"];
+      v32 = NSStringFromSelector(a2);
+      [currentHandler handleFailureInMethod:a2 object:v12 file:v31 lineNumber:48 description:{@"Missing object calling %@", v32}];
     }
 
     abort();
@@ -266,13 +266,12 @@ LABEL_9:
 
 LABEL_10:
 
-  v27 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void __56__CPLCallObserver_initWithObject_selector_functionName___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 16) && (_CPLSilentLogging & 1) == 0)
   {
     v2 = __CPLObserverOSLogDomain();
@@ -280,15 +279,13 @@ void __56__CPLCallObserver_initWithObject_selector_functionName___block_invoke(u
     {
       v3 = [*(a1 + 32) _callDescription];
       [*(*(a1 + 32) + 32) timeIntervalSinceNow];
-      v6 = 138543618;
-      v7 = v3;
-      v8 = 2048;
-      v9 = -v4;
-      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "%{public}@ has not completed after %.0fs", &v6, 0x16u);
+      v5 = 138543618;
+      v6 = v3;
+      v7 = 2048;
+      v8 = -v4;
+      _os_log_impl(&dword_1DC05A000, v2, OS_LOG_TYPE_ERROR, "%{public}@ has not completed after %.0fs", &v5, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)observeAsyncCallWithFunction:(id)function block:(id)block

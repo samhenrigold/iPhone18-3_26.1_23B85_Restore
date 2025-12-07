@@ -21,31 +21,32 @@
     [+[TSUAssertionHandler currentHandler](TSUAssertionHandler "currentHandler")];
   }
 
-  v10.receiver = self;
-  v10.super_class = THHighlightTableViewController;
-  v5 = [(THHighlightTableViewController *)&v10 initWithStyle:0];
+  v12.receiver = self;
+  v12.super_class = THHighlightTableViewController;
+  v5 = [(THHighlightTableViewController *)&v12 initWithStyle:0];
   if (v5)
   {
-    v5->_options = options;
-    -[THHighlightTableViewController setTitle:](v5, "setTitle:", [THBundle() localizedStringForKey:@"Highlights and Notes" value:&stru_471858 table:0]);
+    optionsCopy = options;
+    v5->_options = optionsCopy;
+    -[THHighlightTableViewController setTitle:](v5, "setTitle:", [THBundle(optionsCopy v7)]);
     if (+[UIFont bc_accessibilityFontSizesEnabled])
     {
-      v6 = 360.0;
+      v8 = 360.0;
     }
 
     else
     {
-      v6 = 320.0;
+      v8 = 320.0;
     }
 
-    v7 = +[UIFont bc_accessibilityFontSizesEnabled];
-    v8 = 400.0;
-    if (!v7)
+    v9 = +[UIFont bc_accessibilityFontSizesEnabled];
+    v10 = 400.0;
+    if (!v9)
     {
-      v8 = 146.0;
+      v10 = 146.0;
     }
 
-    [(THHighlightTableViewController *)v5 setPreferredContentSize:v6, v8];
+    [(THHighlightTableViewController *)v5 setPreferredContentSize:v8, v10];
     [(THHighlightTableViewController *)v5 registerForTraitChanges:+[UITraitCollection withAction:"bc_allAPITraits"], "_traitCollectionDidChange:previousTraitCollection:"];
   }
 
@@ -125,46 +126,46 @@
       sub_29D0C8();
     }
 
-    v7 = qword_567808;
-    v8 = v7 + 16 * [path row];
-    v9 = *(v8 - 16);
-    v10 = *(v8 - 8);
-    if (v9 == 6)
+    v8 = qword_567808;
+    v9 = v8 + 16 * [path row];
+    v10 = *(v9 - 16);
+    v11 = *(v9 - 8);
+    if (v10 == 6)
     {
-      v11 = +[BCResources iconTextPopupHighlightUnderline];
-      [v11 size];
+      v12 = +[BCResources iconTextPopupHighlightUnderline];
+      [v12 size];
       TSDCenterRectOverRect();
-      v13 = v12;
-      v15 = v14;
-      v17 = v16;
-      v19 = v18;
-      v25.width = 22.0;
-      v25.height = 22.0;
-      UIGraphicsBeginImageContextWithOptions(v25, 0, 0.0);
-      [v11 drawInRect:{v13, v15, v17, v19}];
+      v14 = v13;
+      v16 = v15;
+      v18 = v17;
+      v20 = v19;
+      v26.width = 22.0;
+      v26.height = 22.0;
+      UIGraphicsBeginImageContextWithOptions(v26, 0, 0.0);
+      [v12 drawInRect:{v14, v16, v18, v20}];
       [+[UIColor colorWithWhite:alpha:](UIColor setStroke:0.850980392];
-      v27.origin.x = 0.0;
-      v27.origin.y = 0.0;
-      v27.size.width = 22.0;
-      v27.size.height = 22.0;
-      v28 = CGRectInset(v27, 1.0, 1.0);
-      [+[UIBezierPath bezierPathWithRoundedRect:cornerRadius:](UIBezierPath stroke:v28.origin.x];
+      v28.origin.x = 0.0;
+      v28.origin.y = 0.0;
+      v28.size.width = 22.0;
+      v28.size.height = 22.0;
+      v29 = CGRectInset(v28, 1.0, 1.0);
+      [+[UIBezierPath bezierPathWithRoundedRect:cornerRadius:](UIBezierPath stroke:v29.origin.x];
     }
 
     else
     {
-      v22 = [+[AEAnnotationTheme themeForAnnotationStyle:pageTheme:](AEAnnotationTheme themeForAnnotationStyle:v9 pageTheme:{4), "highlightColor"}];
-      v26.width = 22.0;
-      v26.height = 22.0;
-      UIGraphicsBeginImageContextWithOptions(v26, 0, 0.0);
-      [v22 setFill];
+      v23 = [+[AEAnnotationTheme themeForAnnotationStyle:pageTheme:](AEAnnotationTheme themeForAnnotationStyle:v10 pageTheme:{4), "highlightColor"}];
+      v27.width = 22.0;
+      v27.height = 22.0;
+      UIGraphicsBeginImageContextWithOptions(v27, 0, 0.0);
+      [v23 setFill];
       [+[UIBezierPath bezierPathWithRoundedRect:cornerRadius:](UIBezierPath fill:0.0];
     }
 
     [objc_msgSend(v6 "imageView")];
     UIGraphicsEndImageContext();
     [objc_msgSend(v6 "textLabel")];
-    shouldShowAllAnnotationStyles = [(THStudyOptions *)self->_options shouldShowAnnotationStyle:v9];
+    shouldShowAllAnnotationStyles = [(THStudyOptions *)self->_options shouldShowAnnotationStyle:v10];
   }
 
   else
@@ -173,21 +174,21 @@
     [v6 setIndentationLevel:0];
     [v6 setIndentationWidth:53.0];
     [v6 indentationWidth];
-    [v6 setSeparatorInset:{0.0, v20, 0.0, 0.0}];
+    [v6 setSeparatorInset:{0.0, v21, 0.0, 0.0}];
     shouldShowAllAnnotationStyles = [(THStudyOptions *)self->_options shouldShowAllAnnotationStyles];
   }
 
   if (shouldShowAllAnnotationStyles)
   {
-    v23 = 3;
+    v24 = 3;
   }
 
   else
   {
-    v23 = 0;
+    v24 = 0;
   }
 
-  [v6 setAccessoryType:v23];
+  [v6 setAccessoryType:v24];
   return v6;
 }
 

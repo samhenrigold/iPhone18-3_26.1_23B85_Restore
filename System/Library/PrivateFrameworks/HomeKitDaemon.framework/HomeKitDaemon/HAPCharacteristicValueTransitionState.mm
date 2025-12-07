@@ -5,14 +5,14 @@
 
 BOOL __114__HAPCharacteristicValueTransitionState_NaturalLighting__naturalLightingActiveTransitionContextForCharacteristic___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 controllerContext];
   if (v4)
   {
-    v19 = 0;
-    v5 = [MEMORY[0x277CFEAC8] parsedFromData:v4 error:&v19];
-    v6 = v19;
+    v18 = 0;
+    v5 = [MEMORY[0x277CFEAC8] parsedFromData:v4 error:&v18];
+    v6 = v18;
     v7 = *(*(a1 + 40) + 8);
     v8 = *(v7 + 40);
     *(v7 + 40) = v5;
@@ -42,11 +42,11 @@ BOOL __114__HAPCharacteristicValueTransitionState_NaturalLighting__naturalLighti
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v21 = v16;
-        v22 = 2112;
-        v23 = v4;
-        v24 = 2112;
-        v25 = v6;
+        v20 = v16;
+        v21 = 2112;
+        v22 = v4;
+        v23 = 2112;
+        v24 = v6;
         _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode controller context %@:%@", buf, 0x20u);
       }
 
@@ -60,20 +60,19 @@ BOOL __114__HAPCharacteristicValueTransitionState_NaturalLighting__naturalLighti
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 BOOL __100__HAPCharacteristicValueTransitionState_NaturalLighting__isNaturalLightingEnabledForCharacteristic___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 controllerContext];
   if (v4)
   {
-    v17 = 0;
-    v5 = [MEMORY[0x277CFEAC8] parsedFromData:v4 error:&v17];
-    v6 = v17;
+    v16 = 0;
+    v5 = [MEMORY[0x277CFEAC8] parsedFromData:v4 error:&v16];
+    v6 = v16;
     if (v5)
     {
       v7 = [v3 HAPInstanceID];
@@ -99,11 +98,11 @@ BOOL __100__HAPCharacteristicValueTransitionState_NaturalLighting__isNaturalLigh
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v19 = v14;
-        v20 = 2112;
-        v21 = v4;
-        v22 = 2112;
-        v23 = v6;
+        v18 = v14;
+        v19 = 2112;
+        v20 = v4;
+        v21 = 2112;
+        v22 = v6;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode controller context %@:%@", buf, 0x20u);
       }
 
@@ -117,7 +116,6 @@ BOOL __100__HAPCharacteristicValueTransitionState_NaturalLighting__isNaturalLigh
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

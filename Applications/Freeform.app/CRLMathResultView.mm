@@ -21,7 +21,8 @@
   y = frame.origin.y;
   x = frame.origin.x;
   swift_unknownObjectRetain();
-  return sub_1008969C4(delegate, x, y, width, height);
+  sub_1008969C4(delegate, x, y, width, height);
+  return result;
 }
 
 - (_TtC8Freeform17CRLMathResultView)initWithCoder:(id)coder

@@ -445,7 +445,7 @@ LABEL_17:
 
     else
     {
-      v6 = WBS_LOG_CHANNEL_PREFIXAutoFill();
+      v6 = WBS_LOG_CHANNEL_PREFIXAutoFill(self, a2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         [(_SFAutomaticPasswordInputViewController *)v6 _postContextProviderRequiredNotificationIfNeeded];

@@ -67,4 +67,18 @@ void __68__PSListController_PIN__st_devicePINController_didAcceptChangedPIN___bl
   }
 }
 
+void __64__PSListController_PIN__st_devicePINController_didAcceptSetPIN___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_264BA2000, MEMORY[0x277D86220], a3, "Failed to set Screen Time passcode: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __68__PSListController_PIN__st_devicePINController_didAcceptChangedPIN___block_invoke_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_264BA2000, MEMORY[0x277D86220], a3, "Failed to change Screen Time passcode: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 @end

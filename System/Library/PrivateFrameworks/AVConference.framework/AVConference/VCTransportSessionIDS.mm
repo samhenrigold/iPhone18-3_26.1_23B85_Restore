@@ -809,32 +809,32 @@ void __57__VCTransportSessionIDS_setConnectionSetupPiggybackBlob___block_invoke(
 
 - (void)setPiggybackBlobPreference
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   connectionSetupPiggybackBlob = self->super._connectionSetupPiggybackBlob;
   if (connectionSetupPiggybackBlob)
   {
-    v19 = *MEMORY[0x1E69A4758];
-    v20[0] = connectionSetupPiggybackBlob;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v20 = *MEMORY[0x1E69A4758];
+    v21[0] = connectionSetupPiggybackBlob;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
     if (VRTraceGetErrorLogLevelForModule() > 5)
     {
       v5 = VRTraceErrorLogLevelToCSTR();
       v6 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v7 = self->super._connectionSetupPiggybackBlob;
-        v8 = VCDatagramChannelIDS_Token(self->_datagramChannel);
-        v9 = 136316162;
-        v10 = v5;
-        v11 = 2080;
-        v12 = "[VCTransportSessionIDS setPiggybackBlobPreference]";
-        v13 = 1024;
-        v14 = 437;
-        v15 = 2048;
-        v16 = v7;
-        v17 = 1024;
-        v18 = v8;
-        _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Set piggyback blob %p on datagram channel %d", &v9, 0x2Cu);
+        v8 = self->super._connectionSetupPiggybackBlob;
+        v9 = VCDatagramChannelIDS_Token(self->_datagramChannel, v7);
+        v10 = 136316162;
+        v11 = v5;
+        v12 = 2080;
+        v13 = "[VCTransportSessionIDS setPiggybackBlobPreference]";
+        v14 = 1024;
+        v15 = 437;
+        v16 = 2048;
+        v17 = v8;
+        v18 = 1024;
+        v19 = v9;
+        _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Set piggyback blob %p on datagram channel %d", &v10, 0x2Cu);
       }
     }
 
@@ -1027,7 +1027,7 @@ id __53__VCTransportSessionIDS_connectionSetupPiggybackBlob__block_invoke(uint64
   dispatch_async(stateQueue, v3);
 }
 
-uint64_t __47__VCTransportSessionIDS_setConnectionSetupTime__block_invoke(uint64_t a1)
+void *__47__VCTransportSessionIDS_setConnectionSetupTime__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 64) isValidTimingForKey:26];
   if (result)
@@ -1079,7 +1079,7 @@ uint64_t __47__VCTransportSessionIDS_setConnectionSetupTime__block_invoke(uint64
   }
 }
 
-uint64_t __62__VCTransportSessionIDS_processSessionBasedServerExperiments___block_invoke(uint64_t a1)
+void *__62__VCTransportSessionIDS_processSessionBasedServerExperiments___block_invoke(uint64_t a1)
 {
   v5[1] = *MEMORY[0x1E69E9840];
 
@@ -1493,7 +1493,7 @@ LABEL_16:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d IDS eventHandler called without event type", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d IDS eventHandler called without event type", v2, v3, v4, v5);
 }
 
 void __30__VCTransportSessionIDS_start__block_invoke_cold_1()
@@ -1545,18 +1545,20 @@ void __30__VCTransportSessionIDS_start__block_invoke_cold_6()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d IDS destination not set", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d IDS destination not set", v2, v3, v4, v5);
 }
 
 - (void)handleReportingBlob:.cold.1()
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d IDS reporting blob must be a dictionary", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, " [%s] %s:%d IDS reporting blob must be a dictionary", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }
@@ -1573,18 +1575,20 @@ void __30__VCTransportSessionIDS_start__block_invoke_cold_6()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Stat response received is invalid", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Stat response received is invalid", v2, v3, v4, v5);
 }
 
 - (void)handleEncryptionConfig:.cold.1()
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315650;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d eventInfo must not be nil", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v1, v2, " [%s] %s:%d eventInfo must not be nil", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }

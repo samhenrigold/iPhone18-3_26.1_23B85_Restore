@@ -113,38 +113,36 @@
 
 - (void)updateEpisodesMetadataIdentifiers
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   episodes = [self episodes];
-  v2 = [episodes countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v2 = [episodes countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(episodes);
         }
 
-        [*(*(&v7 + 1) + 8 * v5++) updateUPPIdentifierIfNeeded];
+        [*(*(&v6 + 1) + 8 * v5++) updateUPPIdentifierIfNeeded];
       }
 
       while (v3 != v5);
-      v3 = [episodes countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [episodes countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)prepareForDeletion

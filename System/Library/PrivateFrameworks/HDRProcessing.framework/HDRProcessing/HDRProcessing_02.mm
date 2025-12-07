@@ -82,417 +82,149 @@ LABEL_16:
 
 uint64_t HDRConfig::ReadConfigEntry(uint64_t a1, unsigned int a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
-  if (*(a1 + 1) == 1)
+  v47 = *MEMORY[0x277D85DE8];
+  if (*(a1 + 1) != 1)
   {
-    if (enableLogInstance)
+    return 1;
+  }
+
+  if (enableLogInstance)
+  {
+    if (logInstanceID)
     {
-      if (logInstanceID)
-      {
-        v4 = logInstanceID;
-      }
-
-      else
-      {
-        v4 = prevLogInstanceID;
-      }
-
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        v5 = *(a1 + 88 * a2 + 32);
-        *buf = 134218242;
-        v45 = WORD1(v4);
-        v46 = 2112;
-        v47 = v5;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Warning: Attempting to read defaults writes in release builds! key = %@\n", buf, 0x16u);
-      }
-
-      prevLogInstanceID = v4;
+      v4 = logInstanceID;
     }
 
-    else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    else
     {
-      v7 = *(a1 + 88 * a2 + 32);
-      *buf = 138412290;
-      v45 = v7;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Warning: Attempting to read defaults writes in release builds! key = %@\n", buf, 0xCu);
+      v4 = prevLogInstanceID;
     }
 
-    v8 = (a1 + 88 * a2);
-    if (v8[5])
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = (v8 + 4);
-      keyExistsAndHasValidFormat = 0;
-      v10 = v8[10];
-      if (v10 > 1)
+      v5 = *(a1 + 88 * a2 + 32);
+      *buf = 134218242;
+      v44 = WORD1(v4);
+      v45 = 2112;
+      v46 = v5;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Warning: Attempting to read defaults writes in release builds! key = %@\n", buf, 0x16u);
+    }
+
+    prevLogInstanceID = v4;
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = *(a1 + 88 * a2 + 32);
+    *buf = 138412290;
+    v44 = v7;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Warning: Attempting to read defaults writes in release builds! key = %@\n", buf, 0xCu);
+  }
+
+  v8 = (a1 + 88 * a2);
+  if (!v8[5])
+  {
+    return 0;
+  }
+
+  v9 = (v8 + 4);
+  keyExistsAndHasValidFormat = 0;
+  v10 = v8[10];
+  if (v10 <= 1)
+  {
+    if (!v10)
+    {
+      AppIntegerValue = CFPreferencesGetAppIntegerValue(*(v9 + 2), @"com.apple.hdrprocessing", &keyExistsAndHasValidFormat);
+      if (!keyExistsAndHasValidFormat)
       {
-        if (v10 != 2)
+        v12 = *v9;
+        goto LABEL_58;
+      }
+
+      *(v9 + 40) = AppIntegerValue != 0;
+LABEL_141:
+      result = 1;
+      goto LABEL_142;
+    }
+
+    if (v10 != 1)
+    {
+      goto LABEL_50;
+    }
+
+    v18 = CFPreferencesGetAppIntegerValue(*(v9 + 2), @"com.apple.hdrprocessing", &keyExistsAndHasValidFormat);
+    v12 = *v9;
+    if (!keyExistsAndHasValidFormat)
+    {
+      goto LABEL_58;
+    }
+
+    if ((v12 & 0x400) != 0)
+    {
+      v19 = v9[2];
+      v20 = v9[16];
+      if ((v19 & 1) == 0)
+      {
+        if (v20 > v18)
         {
-          if (v10 != 3)
-          {
-            if (v10 == 4)
-            {
-              AppIntegerValue = CFPreferencesGetAppIntegerValue(*(v9 + 2), @"com.apple.hdrprocessing", &keyExistsAndHasValidFormat);
-              v12 = *v9;
-              if (keyExistsAndHasValidFormat)
-              {
-                v13 = 1.0;
-                if ((v12 & 0x1000) != 0)
-                {
-                  v13 = *(v9 + 10);
-                }
-
-                v14 = AppIntegerValue / v13;
-                if ((v12 & 0x400) != 0)
-                {
-                  v15 = v9[2];
-                  v16 = *(v9 + 8);
-                  if ((v15 & 1) == 0)
-                  {
-                    if (v14 < v16)
-                    {
-                      if ((v12 & 0x800) == 0)
-                      {
-                        goto LABEL_126;
-                      }
-
-                      v17 = 0;
-LABEL_79:
-                      v35 = *(v9 + 9);
-                      if (v14 > v35)
-                      {
-                        goto LABEL_126;
-                      }
-
-                      v36 = (v15 & 4) == 0;
-                      if (v14 != v35)
-                      {
-                        v36 = 1;
-                      }
-
-                      v17 &= v36;
-LABEL_125:
-                      if (v17)
-                      {
-LABEL_128:
-                        *(v9 + 5) = v14;
-                        goto LABEL_141;
-                      }
-
-LABEL_126:
-                      v14 = 0.0;
-                      if ((v12 & 0x200) != 0)
-                      {
-                        v14 = *(v9 + 7);
-                      }
-
-                      goto LABEL_128;
-                    }
-
-                    v17 = (v9[2] & 2) == 0;
-                    if (v14 != v16)
-                    {
-                      v17 = 1;
-                    }
-
-                    if ((v12 & 0x800) == 0)
-                    {
-                      goto LABEL_125;
-                    }
-
-LABEL_78:
-                    v15 = v9[2];
-                    if (v15)
-                    {
-                      if (*(v9 + 9) < v14)
-                      {
-                        v14 = *(v9 + 9);
-                      }
-
-                      goto LABEL_125;
-                    }
-
-                    goto LABEL_79;
-                  }
-
-                  if (v16 > v14)
-                  {
-                    v14 = *(v9 + 8);
-                  }
-                }
-
-                v17 = 1;
-                if ((v12 & 0x800) == 0)
-                {
-                  goto LABEL_125;
-                }
-
-                goto LABEL_78;
-              }
-
-LABEL_58:
-              result = 1;
-              goto LABEL_144;
-            }
-
-LABEL_50:
-            if (enableLogInstance)
-            {
-              if (logInstanceID)
-              {
-                v30 = logInstanceID;
-              }
-
-              else
-              {
-                v30 = prevLogInstanceID;
-              }
-
-              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 134217984;
-                v45 = WORD1(v30);
-                _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1091\n", buf, 0xCu);
-              }
-
-              result = 0;
-              prevLogInstanceID = v30;
-            }
-
-            else
-            {
-              v31 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
-              result = 0;
-              if (v31)
-              {
-                *buf = 0;
-                _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1091\n", buf, 2u);
-                result = 0;
-              }
-            }
-
-LABEL_142:
-            v12 = *v9;
-            if (keyExistsAndHasValidFormat)
-            {
-              v41 = v12 | 0x80;
-LABEL_145:
-              *v9 = v41;
-              goto LABEL_146;
-            }
-
-LABEL_144:
-            v41 = v12 & 0xFFFFFF7F;
-            goto LABEL_145;
-          }
-
-          v23 = CFPreferencesGetAppIntegerValue(*(v9 + 2), @"com.apple.hdrprocessing", &keyExistsAndHasValidFormat);
-          v12 = *v9;
-          if (!keyExistsAndHasValidFormat)
-          {
-            goto LABEL_58;
-          }
-
-          v24 = 1.0;
-          if ((v12 & 0x1000) != 0)
-          {
-            v24 = *(v9 + 10);
-          }
-
-          v25 = v23 / v24;
-          if ((v12 & 0x400) != 0)
-          {
-            v26 = v9[2];
-            v27 = *(v9 + 16);
-            if ((v26 & 1) == 0)
-            {
-              if (v25 < v27)
-              {
-                if ((v12 & 0x800) == 0)
-                {
-                  goto LABEL_119;
-                }
-
-                v28 = 0;
-LABEL_71:
-                v33 = *(v9 + 18);
-                if (v25 > v33)
-                {
-                  goto LABEL_119;
-                }
-
-                v34 = (v26 & 4) == 0;
-                if (v25 != v33)
-                {
-                  v34 = 1;
-                }
-
-                v28 &= v34;
-LABEL_118:
-                if (v28)
-                {
-LABEL_121:
-                  *(v9 + 10) = v25;
-                  goto LABEL_141;
-                }
-
-LABEL_119:
-                v25 = 0.0;
-                if ((v12 & 0x200) != 0)
-                {
-                  v25 = *(v9 + 14);
-                }
-
-                goto LABEL_121;
-              }
-
-              v28 = (v9[2] & 2) == 0;
-              if (v25 != v27)
-              {
-                v28 = 1;
-              }
-
-              if ((v12 & 0x800) == 0)
-              {
-                goto LABEL_118;
-              }
-
-LABEL_70:
-              v26 = v9[2];
-              if (v26)
-              {
-                if (*(v9 + 18) < v25)
-                {
-                  v25 = *(v9 + 18);
-                }
-
-                goto LABEL_118;
-              }
-
-              goto LABEL_71;
-            }
-
-            if (v27 > v25)
-            {
-              v25 = *(v9 + 16);
-            }
-          }
-
-          v28 = 1;
           if ((v12 & 0x800) == 0)
           {
-            goto LABEL_118;
+            goto LABEL_137;
           }
 
-          goto LABEL_70;
+          v21 = 0;
+          goto LABEL_87;
         }
 
-        v18 = CFPreferencesGetAppIntegerValue(*(v9 + 2), @"com.apple.hdrprocessing", &keyExistsAndHasValidFormat);
-        v12 = *v9;
-        if (!keyExistsAndHasValidFormat)
-        {
-          goto LABEL_58;
-        }
-
-        if ((v12 & 0x400) != 0)
-        {
-          v19 = v9[2];
-          v22 = v9[16];
-          if ((v19 & 1) == 0)
-          {
-            if (v22 > v18)
-            {
-              if ((v12 & 0x800) == 0)
-              {
-                goto LABEL_137;
-              }
-
-              v21 = 0;
-LABEL_65:
-              v32 = v9[18];
-              if (v18 > v32)
-              {
-                goto LABEL_137;
-              }
-
-              goto LABEL_88;
-            }
-
-            v21 = (v19 & 2) == 0 || v22 != v18;
-            if ((v12 & 0x800) == 0)
-            {
-LABEL_136:
-              if (v21)
-              {
-LABEL_140:
-                v9[10] = v18;
-                goto LABEL_141;
-              }
-
-LABEL_137:
-              if ((v12 & 0x200) != 0)
-              {
-                v18 = v9[14];
-              }
-
-              else
-              {
-                v18 = 0;
-              }
-
-              goto LABEL_140;
-            }
-
-LABEL_64:
-            v19 = v9[2];
-            if ((v19 & 1) == 0)
-            {
-              goto LABEL_65;
-            }
-
-            if (v9[18] < v18)
-            {
-              v18 = v9[18];
-            }
-
-            goto LABEL_136;
-          }
-
-          if (v22 > v18)
-          {
-            v18 = v9[16];
-          }
-        }
-
-        v21 = 1;
+        v21 = (v19 & 2) == 0 || v20 != v18;
         if ((v12 & 0x800) == 0)
         {
           goto LABEL_136;
         }
 
-        goto LABEL_64;
-      }
-
-      if (!v10)
-      {
-        v29 = CFPreferencesGetAppIntegerValue(*(v9 + 2), @"com.apple.hdrprocessing", &keyExistsAndHasValidFormat);
-        if (!keyExistsAndHasValidFormat)
+LABEL_86:
+        v19 = v9[2];
+        if (v19)
         {
-          v12 = *v9;
-          goto LABEL_58;
+          if (v9[18] < v18)
+          {
+            v18 = v9[18];
+          }
+
+          goto LABEL_136;
         }
 
-        *(v9 + 40) = v29 != 0;
-LABEL_141:
-        result = 1;
-        goto LABEL_142;
+LABEL_87:
+        v32 = v9[18];
+        if (v18 > v32)
+        {
+          goto LABEL_137;
+        }
+
+LABEL_88:
+        v38 = (v19 & 4) == 0 || v18 != v32;
+        v21 &= v38;
+        goto LABEL_136;
       }
 
-      if (v10 != 1)
+      if (v20 > v18)
       {
-        goto LABEL_50;
+        v18 = v9[16];
       }
+    }
 
+    v21 = 1;
+    if ((v12 & 0x800) == 0)
+    {
+      goto LABEL_136;
+    }
+
+    goto LABEL_86;
+  }
+
+  switch(v10)
+  {
+    case 2:
       v18 = CFPreferencesGetAppIntegerValue(*(v9 + 2), @"com.apple.hdrprocessing", &keyExistsAndHasValidFormat);
       v12 = *v9;
       if (!keyExistsAndHasValidFormat)
@@ -503,10 +235,10 @@ LABEL_141:
       if ((v12 & 0x400) != 0)
       {
         v19 = v9[2];
-        v20 = v9[16];
+        v22 = v9[16];
         if ((v19 & 1) == 0)
         {
-          if (v20 > v18)
+          if (v22 > v18)
           {
             if ((v12 & 0x800) == 0)
             {
@@ -514,41 +246,57 @@ LABEL_141:
             }
 
             v21 = 0;
-            goto LABEL_87;
-          }
-
-          v21 = (v19 & 2) == 0 || v20 != v18;
-          if ((v12 & 0x800) == 0)
-          {
-            goto LABEL_136;
-          }
-
-LABEL_86:
-          v19 = v9[2];
-          if (v19)
-          {
-            if (v9[18] < v18)
+LABEL_65:
+            v32 = v9[18];
+            if (v18 > v32)
             {
-              v18 = v9[18];
+              goto LABEL_137;
             }
 
-            goto LABEL_136;
+            goto LABEL_88;
           }
 
-LABEL_87:
-          v32 = v9[18];
-          if (v18 > v32)
+          v21 = (v19 & 2) == 0 || v22 != v18;
+          if ((v12 & 0x800) == 0)
           {
-            goto LABEL_137;
+LABEL_136:
+            if (v21)
+            {
+LABEL_140:
+              v9[10] = v18;
+              goto LABEL_141;
+            }
+
+LABEL_137:
+            if ((v12 & 0x200) != 0)
+            {
+              v18 = v9[14];
+            }
+
+            else
+            {
+              v18 = 0;
+            }
+
+            goto LABEL_140;
           }
 
-LABEL_88:
-          v38 = (v19 & 4) == 0 || v18 != v32;
-          v21 &= v38;
+LABEL_64:
+          v19 = v9[2];
+          if ((v19 & 1) == 0)
+          {
+            goto LABEL_65;
+          }
+
+          if (v9[18] < v18)
+          {
+            v18 = v9[18];
+          }
+
           goto LABEL_136;
         }
 
-        if (v20 > v18)
+        if (v22 > v18)
         {
           v18 = v9[16];
         }
@@ -560,19 +308,259 @@ LABEL_88:
         goto LABEL_136;
       }
 
-      goto LABEL_86;
+      goto LABEL_64;
+    case 3:
+      v23 = CFPreferencesGetAppIntegerValue(*(v9 + 2), @"com.apple.hdrprocessing", &keyExistsAndHasValidFormat);
+      v12 = *v9;
+      if (!keyExistsAndHasValidFormat)
+      {
+        goto LABEL_58;
+      }
+
+      v24 = 1.0;
+      if ((v12 & 0x1000) != 0)
+      {
+        v24 = *(v9 + 10);
+      }
+
+      v25 = v23 / v24;
+      if ((v12 & 0x400) != 0)
+      {
+        v26 = v9[2];
+        v27 = *(v9 + 16);
+        if ((v26 & 1) == 0)
+        {
+          if (v25 < v27)
+          {
+            if ((v12 & 0x800) == 0)
+            {
+              goto LABEL_119;
+            }
+
+            v28 = 0;
+LABEL_71:
+            v33 = *(v9 + 18);
+            if (v25 > v33)
+            {
+              goto LABEL_119;
+            }
+
+            v34 = (v26 & 4) == 0;
+            if (v25 != v33)
+            {
+              v34 = 1;
+            }
+
+            v28 &= v34;
+LABEL_118:
+            if (v28)
+            {
+LABEL_121:
+              *(v9 + 10) = v25;
+              goto LABEL_141;
+            }
+
+LABEL_119:
+            v25 = 0.0;
+            if ((v12 & 0x200) != 0)
+            {
+              v25 = *(v9 + 14);
+            }
+
+            goto LABEL_121;
+          }
+
+          v28 = (v9[2] & 2) == 0;
+          if (v25 != v27)
+          {
+            v28 = 1;
+          }
+
+          if ((v12 & 0x800) == 0)
+          {
+            goto LABEL_118;
+          }
+
+LABEL_70:
+          v26 = v9[2];
+          if (v26)
+          {
+            if (*(v9 + 18) < v25)
+            {
+              v25 = *(v9 + 18);
+            }
+
+            goto LABEL_118;
+          }
+
+          goto LABEL_71;
+        }
+
+        if (v27 > v25)
+        {
+          v25 = *(v9 + 16);
+        }
+      }
+
+      v28 = 1;
+      if ((v12 & 0x800) == 0)
+      {
+        goto LABEL_118;
+      }
+
+      goto LABEL_70;
+    case 4:
+      v11 = CFPreferencesGetAppIntegerValue(*(v9 + 2), @"com.apple.hdrprocessing", &keyExistsAndHasValidFormat);
+      v12 = *v9;
+      if (keyExistsAndHasValidFormat)
+      {
+        v13 = 1.0;
+        if ((v12 & 0x1000) != 0)
+        {
+          v13 = *(v9 + 10);
+        }
+
+        v14 = v11 / v13;
+        if ((v12 & 0x400) != 0)
+        {
+          v15 = v9[2];
+          v16 = *(v9 + 8);
+          if ((v15 & 1) == 0)
+          {
+            if (v14 < v16)
+            {
+              if ((v12 & 0x800) == 0)
+              {
+                goto LABEL_126;
+              }
+
+              v17 = 0;
+LABEL_79:
+              v35 = *(v9 + 9);
+              if (v14 > v35)
+              {
+                goto LABEL_126;
+              }
+
+              v36 = (v15 & 4) == 0;
+              if (v14 != v35)
+              {
+                v36 = 1;
+              }
+
+              v17 &= v36;
+LABEL_125:
+              if (v17)
+              {
+LABEL_128:
+                *(v9 + 5) = v14;
+                goto LABEL_141;
+              }
+
+LABEL_126:
+              v14 = 0.0;
+              if ((v12 & 0x200) != 0)
+              {
+                v14 = *(v9 + 7);
+              }
+
+              goto LABEL_128;
+            }
+
+            v17 = (v9[2] & 2) == 0;
+            if (v14 != v16)
+            {
+              v17 = 1;
+            }
+
+            if ((v12 & 0x800) == 0)
+            {
+              goto LABEL_125;
+            }
+
+LABEL_78:
+            v15 = v9[2];
+            if (v15)
+            {
+              if (*(v9 + 9) < v14)
+              {
+                v14 = *(v9 + 9);
+              }
+
+              goto LABEL_125;
+            }
+
+            goto LABEL_79;
+          }
+
+          if (v16 > v14)
+          {
+            v14 = *(v9 + 8);
+          }
+        }
+
+        v17 = 1;
+        if ((v12 & 0x800) == 0)
+        {
+          goto LABEL_125;
+        }
+
+        goto LABEL_78;
+      }
+
+LABEL_58:
+      result = 1;
+LABEL_144:
+      v41 = v12 & 0xFFFFFF7F;
+      goto LABEL_145;
+  }
+
+LABEL_50:
+  if (enableLogInstance)
+  {
+    if (logInstanceID)
+    {
+      v30 = logInstanceID;
+    }
+
+    else
+    {
+      v30 = prevLogInstanceID;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v44 = WORD1(v30);
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1091\n", buf, 0xCu);
     }
 
     result = 0;
+    prevLogInstanceID = v30;
   }
 
   else
   {
-    result = 1;
+    v31 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
+    result = 0;
+    if (v31)
+    {
+      *buf = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1091\n", buf, 2u);
+      result = 0;
+    }
   }
 
-LABEL_146:
-  v42 = *MEMORY[0x277D85DE8];
+LABEL_142:
+  v12 = *v9;
+  if (!keyExistsAndHasValidFormat)
+  {
+    goto LABEL_144;
+  }
+
+  v41 = v12 | 0x80;
+LABEL_145:
+  *v9 = v41;
   return result;
 }
 
@@ -661,13 +649,11 @@ BOOL HDRConfig::isConfigEntryValueAvailable(uint64_t a1, unsigned int a2, char a
 
 uint64_t HDRConfig::GetConfigEntryValue(uint64_t a1, unsigned int a2, char a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a1 + 88 * a2;
   if (!*(v3 + 20))
   {
-LABEL_18:
-    result = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   v5 = v3 + 16;
@@ -678,14 +664,12 @@ LABEL_18:
 
   if ((*v5 & 0x80) != 0)
   {
-    result = v5 + 40;
-    goto LABEL_19;
+    return v5 + 40;
   }
 
   if ((a3 & 2) == 0 && (*v5 & 0x200) != 0)
   {
-    result = v5 + 56;
-    goto LABEL_19;
+    return v5 + 56;
   }
 
   if (!enableLogInstance)
@@ -693,16 +677,16 @@ LABEL_18:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(v5 + 16);
-      v11 = 136315650;
-      v12 = "HDRConfigValue *HDRConfig::GetConfigEntryValue(HDRConfigID, uint32_t, uint32_t)";
-      v13 = 1024;
-      *v14 = 1191;
-      *&v14[4] = 2112;
-      *&v14[6] = v9;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %s:%d: ERROR: Neither value nor defaults value is available! Key = %@.\n", &v11, 0x1Cu);
+      v10 = 136315650;
+      v11 = "HDRConfigValue *HDRConfig::GetConfigEntryValue(HDRConfigID, uint32_t, uint32_t)";
+      v12 = 1024;
+      *v13 = 1191;
+      *&v13[4] = 2112;
+      *&v13[6] = v9;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %s:%d: ERROR: Neither value nor defaults value is available! Key = %@.\n", &v10, 0x1Cu);
     }
 
-    goto LABEL_18;
+    return 0;
   }
 
   if (logInstanceID)
@@ -718,105 +702,97 @@ LABEL_18:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(v5 + 16);
-    v11 = 134218754;
-    v12 = WORD1(v7);
-    v13 = 2080;
-    *v14 = "HDRConfigValue *HDRConfig::GetConfigEntryValue(HDRConfigID, uint32_t, uint32_t)";
-    *&v14[8] = 1024;
-    *&v14[10] = 1191;
-    v15 = 2112;
-    v16 = v8;
-    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %s:%d: ERROR: Neither value nor defaults value is available! Key = %@.\n", &v11, 0x26u);
+    v10 = 134218754;
+    v11 = WORD1(v7);
+    v12 = 2080;
+    *v13 = "HDRConfigValue *HDRConfig::GetConfigEntryValue(HDRConfigID, uint32_t, uint32_t)";
+    *&v13[8] = 1024;
+    *&v13[10] = 1191;
+    v14 = 2112;
+    v15 = v8;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %s:%d: ERROR: Neither value nor defaults value is available! Key = %@.\n", &v10, 0x26u);
   }
 
   result = 0;
   prevLogInstanceID = v7;
-LABEL_19:
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t HDRConfig::LogConfigEntry(uint64_t a1, unsigned int a2, unsigned int a3, int a4, char a5)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = a1 + 88 * a2;
   if (!*(v5 + 20))
   {
-    goto LABEL_3;
+    return 1;
   }
 
   v6 = v5 + 16;
   v7 = *(v5 + 16);
   if ((v7 & 0x40) == 0)
   {
-    goto LABEL_3;
+    return 1;
   }
 
-  v15 = *(v6 + 32);
-  v16 = v15 == a3;
-  v17 = v15 <= a3;
-  v18 = v16;
+  v14 = *(v6 + 32);
+  v15 = v14 == a3;
+  v16 = v14 <= a3;
+  v17 = v15;
   if ((a5 & 2) == 0)
   {
-    v17 = v18;
+    v16 = v17;
   }
 
-  if ((a5 & 4) == 0 && v17)
+  if ((a5 & 4) == 0 && v16)
   {
     if ((v7 & 0x280) == 0)
     {
-      goto LABEL_3;
+      return 1;
     }
 
 LABEL_15:
     if ((a5 & 1) == 0)
     {
       v8 = 1;
-      goto LABEL_46;
+      goto LABEL_44;
     }
 
     if ((v7 & 0x80) == 0)
     {
       strcpy(__str, "N/A");
-LABEL_31:
+LABEL_30:
       v8 = 1;
-      goto LABEL_32;
+      goto LABEL_31;
     }
 
-    v19 = *(v6 + 24);
-    if (v19 <= 1)
+    v18 = *(v6 + 24);
+    if (v18 <= 1)
     {
-      if (!v19)
+      if (!v18)
       {
-        *(v6 + 40);
         snprintf(__str, 0x40uLL, "%s");
-        goto LABEL_31;
+        goto LABEL_30;
       }
 
-      if (v19 == 1)
+      if (v18 == 1)
       {
-        v21 = *(v6 + 40);
         snprintf(__str, 0x40uLL, "%d");
-        goto LABEL_31;
+        goto LABEL_30;
       }
     }
 
     else
     {
-      switch(v19)
+      if (v18 == 2)
       {
-        case 2:
-          v22 = *(v6 + 40);
-          snprintf(__str, 0x40uLL, "%u");
-          goto LABEL_31;
-        case 3:
-          v23 = *(v6 + 40);
-          goto LABEL_29;
-        case 4:
-          v20 = *(v6 + 40);
-LABEL_29:
-          snprintf(__str, 0x40uLL, "%f");
-          goto LABEL_31;
+        snprintf(__str, 0x40uLL, "%u");
+        goto LABEL_30;
+      }
+
+      if (v18 == 3 || v18 == 4)
+      {
+        snprintf(__str, 0x40uLL, "%f");
+        goto LABEL_30;
       }
     }
 
@@ -825,23 +801,23 @@ LABEL_29:
     {
       if (logInstanceID)
       {
-        v33 = logInstanceID;
+        v21 = logInstanceID;
       }
 
       else
       {
-        v33 = prevLogInstanceID;
+        v21 = prevLogInstanceID;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v66 = WORD1(v33);
+        v52 = WORD1(v21);
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1242\n", buf, 0xCu);
       }
 
       v8 = 0;
-      prevLogInstanceID = v33;
+      prevLogInstanceID = v21;
     }
 
     else
@@ -855,72 +831,141 @@ LABEL_29:
       }
     }
 
-LABEL_32:
-    if ((*(v6 + 1) & 2) == 0)
+LABEL_31:
+    if ((*(v6 + 1) & 2) != 0)
+    {
+      v19 = *(v6 + 24);
+      if (v19 <= 1)
+      {
+        if (!v19)
+        {
+          snprintf(buf, 0x40uLL, "%s");
+          goto LABEL_44;
+        }
+
+        if (v19 == 1)
+        {
+          snprintf(buf, 0x40uLL, "%d");
+          goto LABEL_44;
+        }
+      }
+
+      else
+      {
+        if (v19 == 2)
+        {
+          snprintf(buf, 0x40uLL, "%u");
+          goto LABEL_44;
+        }
+
+        if (v19 == 3 || v19 == 4)
+        {
+          snprintf(buf, 0x40uLL, "%f");
+          goto LABEL_44;
+        }
+      }
+
+      strcpy(buf, "N/A");
+      if (enableLogInstance)
+      {
+        if (logInstanceID)
+        {
+          v22 = logInstanceID;
+        }
+
+        else
+        {
+          v22 = prevLogInstanceID;
+        }
+
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          *v49 = 134217984;
+          v50 = WORD1(v22);
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1269\n", v49, 0xCu);
+        }
+
+        v8 = 0;
+        prevLogInstanceID = v22;
+      }
+
+      else
+      {
+        v8 = 0;
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          *v49 = 0;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1269\n", v49, 2u);
+          v8 = 0;
+        }
+      }
+    }
+
+    else
     {
       strcpy(buf, "N/A");
-      goto LABEL_46;
     }
 
-    v24 = *(v6 + 24);
-    if (v24 <= 1)
-    {
-      if (!v24)
-      {
-        *(v6 + 56);
-        snprintf(buf, 0x40uLL, "%s");
-        goto LABEL_46;
-      }
-
-      if (v24 == 1)
-      {
-        v26 = *(v6 + 56);
-        snprintf(buf, 0x40uLL, "%d");
-        goto LABEL_46;
-      }
-    }
-
-    else
-    {
-      switch(v24)
-      {
-        case 2:
-          v27 = *(v6 + 56);
-          snprintf(buf, 0x40uLL, "%u");
-          goto LABEL_46;
-        case 3:
-          v28 = *(v6 + 56);
-          goto LABEL_44;
-        case 4:
-          v25 = *(v6 + 56);
 LABEL_44:
-          snprintf(buf, 0x40uLL, "%f");
-          goto LABEL_46;
+    if (!*(v6 + 4) || (*v6 & 0x280) == 0 || !HDRConfig::GetConfigEntryValue(a1, a2, 0))
+    {
+      strcpy(v49, "N/A");
+      goto LABEL_73;
+    }
+
+    v20 = *(v6 + 24);
+    if (v20 <= 1)
+    {
+      if (!v20)
+      {
+        snprintf(v49, 0x40uLL, "%s");
+        goto LABEL_73;
+      }
+
+      if (v20 == 1)
+      {
+        snprintf(v49, 0x40uLL, "%d");
+        goto LABEL_73;
       }
     }
 
-    strcpy(buf, "N/A");
+    else
+    {
+      if (v20 == 2)
+      {
+        snprintf(v49, 0x40uLL, "%u");
+        goto LABEL_73;
+      }
+
+      if (v20 == 3 || v20 == 4)
+      {
+        snprintf(v49, 0x40uLL, "%f");
+        goto LABEL_73;
+      }
+    }
+
+    strcpy(v49, "N/A");
     if (enableLogInstance)
     {
       if (logInstanceID)
       {
-        v34 = logInstanceID;
+        v46 = logInstanceID;
       }
 
       else
       {
-        v34 = prevLogInstanceID;
+        v46 = prevLogInstanceID;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v63 = 134217984;
-        v64 = WORD1(v34);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1269\n", v63, 0xCu);
+        *v47 = 134217984;
+        *v48 = WORD1(v46);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1302\n", v47, 0xCu);
       }
 
       v8 = 0;
-      prevLogInstanceID = v34;
+      prevLogInstanceID = v46;
     }
 
     else
@@ -928,92 +973,13 @@ LABEL_44:
       v8 = 0;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v63 = 0;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1269\n", v63, 2u);
+        *v47 = 0;
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1302\n", v47, 2u);
         v8 = 0;
       }
     }
 
-LABEL_46:
-    if (!*(v6 + 4) || (*v6 & 0x280) == 0 || (ConfigEntryValue = HDRConfig::GetConfigEntryValue(a1, a2, 0)) == 0)
-    {
-      strcpy(v63, "N/A");
-      goto LABEL_76;
-    }
-
-    v30 = *(v6 + 24);
-    if (v30 <= 1)
-    {
-      if (!v30)
-      {
-        *ConfigEntryValue;
-        snprintf(v63, 0x40uLL, "%s");
-        goto LABEL_76;
-      }
-
-      if (v30 == 1)
-      {
-        v32 = *ConfigEntryValue;
-        snprintf(v63, 0x40uLL, "%d");
-        goto LABEL_76;
-      }
-    }
-
-    else
-    {
-      switch(v30)
-      {
-        case 2:
-          v35 = *ConfigEntryValue;
-          snprintf(v63, 0x40uLL, "%u");
-          goto LABEL_76;
-        case 3:
-          v36 = *ConfigEntryValue;
-          goto LABEL_74;
-        case 4:
-          v31 = *ConfigEntryValue;
-LABEL_74:
-          snprintf(v63, 0x40uLL, "%f");
-          goto LABEL_76;
-      }
-    }
-
-    strcpy(v63, "N/A");
-    if (enableLogInstance)
-    {
-      if (logInstanceID)
-      {
-        v60 = logInstanceID;
-      }
-
-      else
-      {
-        v60 = prevLogInstanceID;
-      }
-
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        *v61 = 134217984;
-        *v62 = WORD1(v60);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1302\n", v61, 0xCu);
-      }
-
-      v8 = 0;
-      prevLogInstanceID = v60;
-    }
-
-    else
-    {
-      v8 = 0;
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        *v61 = 0;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Config/HDRConfig.cpp at line 1302\n", v61, 2u);
-        v8 = 0;
-      }
-    }
-
-LABEL_76:
+LABEL_73:
     if (a4 != 1)
     {
       if (a5)
@@ -1022,51 +988,51 @@ LABEL_76:
         {
           if (logInstanceID)
           {
-            v39 = logInstanceID;
+            v25 = logInstanceID;
           }
 
           else
           {
-            v39 = prevLogInstanceID;
+            v25 = prevLogInstanceID;
           }
 
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_148;
+            goto LABEL_145;
           }
 
-          v40 = *(v6 + 16);
-          *v61 = 134219010;
-          *v62 = WORD1(v39);
-          *&v62[8] = 2112;
-          *&v62[10] = v40;
-          *&v62[18] = 2080;
-          *&v62[20] = v63;
-          *&v62[28] = 2080;
-          *&v62[30] = __str;
-          *&v62[38] = 2080;
-          *&v62[40] = buf;
-          v41 = MEMORY[0x277D86220];
-          v42 = " [1.450.54] #%04llx  %30@: %-12s    (value=%s, default=%s)\n";
-          v43 = 52;
-          goto LABEL_147;
+          v26 = *(v6 + 16);
+          *v47 = 134219010;
+          *v48 = WORD1(v25);
+          *&v48[8] = 2112;
+          *&v48[10] = v26;
+          *&v48[18] = 2080;
+          *&v48[20] = v49;
+          *&v48[28] = 2080;
+          *&v48[30] = __str;
+          *&v48[38] = 2080;
+          *&v48[40] = buf;
+          v27 = MEMORY[0x277D86220];
+          v28 = " [1.450.54] #%04llx  %30@: %-12s    (value=%s, default=%s)\n";
+          v29 = 52;
+          goto LABEL_144;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v45 = *(v6 + 16);
-          *v61 = 138413058;
-          *v62 = v45;
-          *&v62[8] = 2080;
-          *&v62[10] = v63;
-          *&v62[18] = 2080;
-          *&v62[20] = __str;
-          *&v62[28] = 2080;
-          *&v62[30] = buf;
-          v46 = MEMORY[0x277D86220];
-          v47 = " [1.450.54]  %30@: %-12s    (value=%s, default=%s)\n";
-          v48 = 42;
-          goto LABEL_153;
+          v31 = *(v6 + 16);
+          *v47 = 138413058;
+          *v48 = v31;
+          *&v48[8] = 2080;
+          *&v48[10] = v49;
+          *&v48[18] = 2080;
+          *&v48[20] = __str;
+          *&v48[28] = 2080;
+          *&v48[30] = buf;
+          v32 = MEMORY[0x277D86220];
+          v33 = " [1.450.54]  %30@: %-12s    (value=%s, default=%s)\n";
+          v34 = 42;
+          goto LABEL_150;
         }
       }
 
@@ -1076,151 +1042,151 @@ LABEL_76:
         {
           if (logInstanceID)
           {
-            v39 = logInstanceID;
+            v25 = logInstanceID;
           }
 
           else
           {
-            v39 = prevLogInstanceID;
+            v25 = prevLogInstanceID;
           }
 
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_148;
+            goto LABEL_145;
           }
 
-LABEL_140:
-          v54 = *(v6 + 16);
-          *v61 = 134218498;
-          *v62 = WORD1(v39);
-          *&v62[8] = 2112;
-          *&v62[10] = v54;
-          *&v62[18] = 2080;
-          *&v62[20] = v63;
-          v41 = MEMORY[0x277D86220];
-          v42 = " [1.450.54] #%04llx  %30@: %-12s\n";
-          v43 = 32;
-LABEL_147:
-          _os_log_impl(&dword_250836000, v41, OS_LOG_TYPE_DEFAULT, v42, v61, v43);
-LABEL_148:
-          prevLogInstanceID = v39;
-          goto LABEL_154;
+LABEL_137:
+          v40 = *(v6 + 16);
+          *v47 = 134218498;
+          *v48 = WORD1(v25);
+          *&v48[8] = 2112;
+          *&v48[10] = v40;
+          *&v48[18] = 2080;
+          *&v48[20] = v49;
+          v27 = MEMORY[0x277D86220];
+          v28 = " [1.450.54] #%04llx  %30@: %-12s\n";
+          v29 = 32;
+LABEL_144:
+          _os_log_impl(&dword_250836000, v27, OS_LOG_TYPE_DEFAULT, v28, v47, v29);
+LABEL_145:
+          prevLogInstanceID = v25;
+          goto LABEL_151;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_150;
+          goto LABEL_147;
         }
       }
 
-LABEL_154:
+LABEL_151:
       ++*(a1 + 4);
-      goto LABEL_4;
+      return v8;
     }
 
-    v37 = enableLogInstance;
+    v23 = enableLogInstance;
     if (*(a1 + 2))
     {
-LABEL_134:
+LABEL_131:
       if ((a5 & 1) == 0)
       {
-        if (v37)
+        if (v23)
         {
           if (logInstanceID)
           {
-            v39 = logInstanceID;
+            v25 = logInstanceID;
           }
 
           else
           {
-            v39 = prevLogInstanceID;
+            v25 = prevLogInstanceID;
           }
 
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-            goto LABEL_148;
+            goto LABEL_145;
           }
 
-          goto LABEL_140;
+          goto LABEL_137;
         }
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_154;
+          goto LABEL_151;
         }
 
-LABEL_150:
-        v57 = *(v6 + 16);
-        *v61 = 138412546;
-        *v62 = v57;
-        *&v62[8] = 2080;
-        *&v62[10] = v63;
-        v46 = MEMORY[0x277D86220];
-        v47 = " [1.450.54]  %30@: %-12s\n";
-        v48 = 22;
-        goto LABEL_153;
+LABEL_147:
+        v43 = *(v6 + 16);
+        *v47 = 138412546;
+        *v48 = v43;
+        *&v48[8] = 2080;
+        *&v48[10] = v49;
+        v32 = MEMORY[0x277D86220];
+        v33 = " [1.450.54]  %30@: %-12s\n";
+        v34 = 22;
+        goto LABEL_150;
       }
 
-      if (v37)
+      if (v23)
       {
         if (logInstanceID)
         {
-          v39 = logInstanceID;
+          v25 = logInstanceID;
         }
 
         else
         {
-          v39 = prevLogInstanceID;
+          v25 = prevLogInstanceID;
         }
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_148;
+          goto LABEL_145;
         }
 
-        v55 = *(v6 + 32);
-        v56 = *(v6 + 16);
-        *v61 = 134219266;
-        *v62 = WORD1(v39);
-        *&v62[8] = 1024;
-        *&v62[10] = v55;
-        *&v62[14] = 2112;
-        *&v62[16] = v56;
-        *&v62[24] = 2080;
-        *&v62[26] = v63;
-        *&v62[34] = 2080;
-        *&v62[36] = __str;
-        *&v62[44] = 2080;
-        *&v62[46] = buf;
-        v41 = MEMORY[0x277D86220];
-        v42 = " [1.450.54] #%04llx  %8d %30@ %12s %12s %12s\n";
-        v43 = 58;
-        goto LABEL_147;
+        v41 = *(v6 + 32);
+        v42 = *(v6 + 16);
+        *v47 = 134219266;
+        *v48 = WORD1(v25);
+        *&v48[8] = 1024;
+        *&v48[10] = v41;
+        *&v48[14] = 2112;
+        *&v48[16] = v42;
+        *&v48[24] = 2080;
+        *&v48[26] = v49;
+        *&v48[34] = 2080;
+        *&v48[36] = __str;
+        *&v48[44] = 2080;
+        *&v48[46] = buf;
+        v27 = MEMORY[0x277D86220];
+        v28 = " [1.450.54] #%04llx  %8d %30@ %12s %12s %12s\n";
+        v29 = 58;
+        goto LABEL_144;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_154;
+        goto LABEL_151;
       }
 
-      v58 = *(v6 + 32);
-      v59 = *(v6 + 16);
-      *v61 = 67110146;
-      *v62 = v58;
-      *&v62[4] = 2112;
-      *&v62[6] = v59;
-      *&v62[14] = 2080;
-      *&v62[16] = v63;
-      *&v62[24] = 2080;
-      *&v62[26] = __str;
-      *&v62[34] = 2080;
-      *&v62[36] = buf;
-      v46 = MEMORY[0x277D86220];
-      v47 = " [1.450.54]  %8d %30@ %12s %12s %12s\n";
-      v48 = 48;
-LABEL_153:
-      _os_log_impl(&dword_250836000, v46, OS_LOG_TYPE_DEFAULT, v47, v61, v48);
-      goto LABEL_154;
+      v44 = *(v6 + 32);
+      v45 = *(v6 + 16);
+      *v47 = 67110146;
+      *v48 = v44;
+      *&v48[4] = 2112;
+      *&v48[6] = v45;
+      *&v48[14] = 2080;
+      *&v48[16] = v49;
+      *&v48[24] = 2080;
+      *&v48[26] = __str;
+      *&v48[34] = 2080;
+      *&v48[36] = buf;
+      v32 = MEMORY[0x277D86220];
+      v33 = " [1.450.54]  %8d %30@ %12s %12s %12s\n";
+      v34 = 48;
+LABEL_150:
+      _os_log_impl(&dword_250836000, v32, OS_LOG_TYPE_DEFAULT, v33, v47, v34);
+      goto LABEL_151;
     }
 
     if ((a5 & 1) == 0)
@@ -1229,190 +1195,186 @@ LABEL_153:
       {
         if (logInstanceID)
         {
-          v38 = logInstanceID;
+          v24 = logInstanceID;
         }
 
         else
         {
-          v38 = prevLogInstanceID;
+          v24 = prevLogInstanceID;
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *v61 = 134218498;
-          *v62 = WORD1(v38);
-          *&v62[8] = 2080;
-          *&v62[10] = "Name";
-          *&v62[18] = 2080;
-          *&v62[20] = "Effective";
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %30s %12s\n", v61, 0x20u);
+          *v47 = 134218498;
+          *v48 = WORD1(v24);
+          *&v48[8] = 2080;
+          *&v48[10] = "Name";
+          *&v48[18] = 2080;
+          *&v48[20] = "Effective";
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %30s %12s\n", v47, 0x20u);
         }
 
-        prevLogInstanceID = v38;
+        prevLogInstanceID = v24;
       }
 
       else
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-LABEL_118:
+LABEL_115:
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
-LABEL_133:
+LABEL_130:
             *(a1 + 2) = 1;
-            v37 = enableLogInstance;
-            goto LABEL_134;
+            v23 = enableLogInstance;
+            goto LABEL_131;
           }
 
-          *v61 = 0;
-          v52 = MEMORY[0x277D86220];
-          v53 = " [1.450.54] --------------------------------------------------------\n";
-LABEL_132:
-          _os_log_impl(&dword_250836000, v52, OS_LOG_TYPE_DEFAULT, v53, v61, 2u);
-          goto LABEL_133;
+          *v47 = 0;
+          v38 = MEMORY[0x277D86220];
+          v39 = " [1.450.54] --------------------------------------------------------\n";
+LABEL_129:
+          _os_log_impl(&dword_250836000, v38, OS_LOG_TYPE_DEFAULT, v39, v47, 2u);
+          goto LABEL_130;
         }
 
-        *v61 = 136315394;
-        *v62 = "Name";
-        *&v62[8] = 2080;
-        *&v62[10] = "Effective";
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %30s %12s\n", v61, 0x16u);
+        *v47 = 136315394;
+        *v48 = "Name";
+        *&v48[8] = 2080;
+        *&v48[10] = "Effective";
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %30s %12s\n", v47, 0x16u);
       }
 
       if (enableLogInstance)
       {
         if (logInstanceID)
         {
-          v49 = logInstanceID;
+          v35 = logInstanceID;
         }
 
         else
         {
-          v49 = prevLogInstanceID;
+          v35 = prevLogInstanceID;
         }
 
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_129;
+          goto LABEL_126;
         }
 
-        *v61 = 134217984;
-        *v62 = WORD1(v49);
-        v50 = MEMORY[0x277D86220];
-        v51 = " [1.450.54] #%04llx --------------------------------------------------------\n";
-LABEL_128:
-        _os_log_impl(&dword_250836000, v50, OS_LOG_TYPE_DEFAULT, v51, v61, 0xCu);
-LABEL_129:
-        prevLogInstanceID = v49;
-        goto LABEL_133;
+        *v47 = 134217984;
+        *v48 = WORD1(v35);
+        v36 = MEMORY[0x277D86220];
+        v37 = " [1.450.54] #%04llx --------------------------------------------------------\n";
+LABEL_125:
+        _os_log_impl(&dword_250836000, v36, OS_LOG_TYPE_DEFAULT, v37, v47, 0xCu);
+LABEL_126:
+        prevLogInstanceID = v35;
+        goto LABEL_130;
       }
 
-      goto LABEL_118;
+      goto LABEL_115;
     }
 
     if (enableLogInstance)
     {
       if (logInstanceID)
       {
-        v44 = logInstanceID;
+        v30 = logInstanceID;
       }
 
       else
       {
-        v44 = prevLogInstanceID;
+        v30 = prevLogInstanceID;
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v61 = 134219266;
-        *v62 = WORD1(v44);
-        *&v62[8] = 2080;
-        *&v62[10] = "Level";
-        *&v62[18] = 2080;
-        *&v62[20] = "Name";
-        *&v62[28] = 2080;
-        *&v62[30] = "Effective";
-        *&v62[38] = 2080;
-        *&v62[40] = "Value";
-        *&v62[48] = 2080;
-        *&v62[50] = "Default";
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %8s %30s %12s %12s %12s\n", v61, 0x3Eu);
+        *v47 = 134219266;
+        *v48 = WORD1(v30);
+        *&v48[8] = 2080;
+        *&v48[10] = "Level";
+        *&v48[18] = 2080;
+        *&v48[20] = "Name";
+        *&v48[28] = 2080;
+        *&v48[30] = "Effective";
+        *&v48[38] = 2080;
+        *&v48[40] = "Value";
+        *&v48[48] = 2080;
+        *&v48[50] = "Default";
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx  %8s %30s %12s %12s %12s\n", v47, 0x3Eu);
       }
 
-      prevLogInstanceID = v44;
+      prevLogInstanceID = v30;
     }
 
     else
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-LABEL_130:
+LABEL_127:
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_133;
+          goto LABEL_130;
         }
 
-        *v61 = 0;
-        v52 = MEMORY[0x277D86220];
-        v53 = " [1.450.54] -----------------------------------------------------------------------------------\n";
-        goto LABEL_132;
+        *v47 = 0;
+        v38 = MEMORY[0x277D86220];
+        v39 = " [1.450.54] -----------------------------------------------------------------------------------\n";
+        goto LABEL_129;
       }
 
-      *v61 = 136316162;
-      *v62 = "Level";
-      *&v62[8] = 2080;
-      *&v62[10] = "Name";
-      *&v62[18] = 2080;
-      *&v62[20] = "Effective";
-      *&v62[28] = 2080;
-      *&v62[30] = "Value";
-      *&v62[38] = 2080;
-      *&v62[40] = "Default";
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %8s %30s %12s %12s %12s\n", v61, 0x34u);
+      *v47 = 136316162;
+      *v48 = "Level";
+      *&v48[8] = 2080;
+      *&v48[10] = "Name";
+      *&v48[18] = 2080;
+      *&v48[20] = "Effective";
+      *&v48[28] = 2080;
+      *&v48[30] = "Value";
+      *&v48[38] = 2080;
+      *&v48[40] = "Default";
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]  %8s %30s %12s %12s %12s\n", v47, 0x34u);
     }
 
     if (enableLogInstance)
     {
       if (logInstanceID)
       {
-        v49 = logInstanceID;
+        v35 = logInstanceID;
       }
 
       else
       {
-        v49 = prevLogInstanceID;
+        v35 = prevLogInstanceID;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_129;
+        goto LABEL_126;
       }
 
-      *v61 = 134217984;
-      *v62 = WORD1(v49);
-      v50 = MEMORY[0x277D86220];
-      v51 = " [1.450.54] #%04llx -----------------------------------------------------------------------------------\n";
-      goto LABEL_128;
+      *v47 = 134217984;
+      *v48 = WORD1(v35);
+      v36 = MEMORY[0x277D86220];
+      v37 = " [1.450.54] #%04llx -----------------------------------------------------------------------------------\n";
+      goto LABEL_125;
     }
 
-    goto LABEL_130;
+    goto LABEL_127;
   }
 
-  if (v17)
+  if (v16)
   {
     goto LABEL_15;
   }
 
-LABEL_3:
-  v8 = 1;
-LABEL_4:
-  v9 = *MEMORY[0x277D85DE8];
-  return v8;
+  return 1;
 }
 
 uint64_t HDRConfig::LogAllConfigEntries(uint64_t a1, unsigned int a2, int a3, char a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   *(a1 + 2) = 0;
   *(a1 + 4) = 0;
   if ((a4 & 2) != 0)
@@ -1472,9 +1434,9 @@ LABEL_15:
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 134217984;
-        v23 = WORD1(v14);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx      No entries to dump!\n", &v22, 0xCu);
+        v21 = 134217984;
+        v22 = WORD1(v14);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx      No entries to dump!\n", &v21, 0xCu);
       }
 
       prevLogInstanceID = v14;
@@ -1482,8 +1444,8 @@ LABEL_15:
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]      No entries to dump!\n", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54]      No entries to dump!\n", &v21, 2u);
     }
   }
 
@@ -1508,8 +1470,8 @@ LABEL_15:
           goto LABEL_40;
         }
 
-        v22 = 134217984;
-        v23 = WORD1(v15);
+        v21 = 134217984;
+        v22 = WORD1(v15);
         v16 = MEMORY[0x277D86220];
         v17 = " [1.450.54] #%04llx -----------------------------------------------------------------------------------\n";
         goto LABEL_39;
@@ -1517,10 +1479,10 @@ LABEL_15:
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_46;
+        return v13;
       }
 
-      LOWORD(v22) = 0;
+      LOWORD(v21) = 0;
       v18 = MEMORY[0x277D86220];
       v19 = " [1.450.54] -----------------------------------------------------------------------------------\n";
     }
@@ -1544,43 +1506,41 @@ LABEL_15:
           goto LABEL_40;
         }
 
-        v22 = 134217984;
-        v23 = WORD1(v15);
+        v21 = 134217984;
+        v22 = WORD1(v15);
         v16 = MEMORY[0x277D86220];
         v17 = " [1.450.54] #%04llx --------------------------------------------------------\n";
 LABEL_39:
-        _os_log_impl(&dword_250836000, v16, OS_LOG_TYPE_DEFAULT, v17, &v22, 0xCu);
+        _os_log_impl(&dword_250836000, v16, OS_LOG_TYPE_DEFAULT, v17, &v21, 0xCu);
 LABEL_40:
         prevLogInstanceID = v15;
-        goto LABEL_46;
+        return v13;
       }
 
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_46;
+        return v13;
       }
 
-      LOWORD(v22) = 0;
+      LOWORD(v21) = 0;
       v18 = MEMORY[0x277D86220];
       v19 = " [1.450.54] --------------------------------------------------------\n";
     }
 
-    _os_log_impl(&dword_250836000, v18, OS_LOG_TYPE_DEFAULT, v19, &v22, 2u);
+    _os_log_impl(&dword_250836000, v18, OS_LOG_TYPE_DEFAULT, v19, &v21, 2u);
   }
 
-LABEL_46:
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 void DumpAllConfigs(int a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   GetConfig();
   Config = GetConfig();
   if (*HDRConfig::GetConfigEntryValue(Config, 3u, 0) != 1)
   {
-    goto LABEL_37;
+    return;
   }
 
   GetConfig();
@@ -1606,9 +1566,9 @@ void DumpAllConfigs(int a1)
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 134217984;
-      *v17 = WORD1(v9);
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx \n", &v16, 0xCu);
+      v15 = 134217984;
+      *v16 = WORD1(v9);
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx \n", &v15, 0xCu);
     }
 
     prevLogInstanceID = v9;
@@ -1621,8 +1581,8 @@ void DumpAllConfigs(int a1)
       goto LABEL_22;
     }
 
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] \n", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] \n", &v15, 2u);
   }
 
   if (!enableLogInstance)
@@ -1631,27 +1591,27 @@ LABEL_22:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v12 = "unknown";
-      v16 = 67110146;
-      *v17 = a1;
+      v15 = 67110146;
+      *v16 = a1;
       if (!v6)
       {
         v12 = "list";
       }
 
-      *&v17[4] = 1024;
-      *v18 = 2080;
-      *&v17[6] = v6;
+      *&v16[4] = 1024;
+      *v17 = 2080;
+      *&v16[6] = v6;
       if (v6 == 1)
       {
         v12 = "table";
       }
 
-      *&v18[2] = v12;
-      v19 = 1024;
-      *v20 = v4;
-      *&v20[4] = 1024;
-      *&v20[6] = v8;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] HDRConfig: Frame #%d: configDumpStyle = %d (%s), configDumpLevel = %d, configDumpFlag = %d\n", &v16, 0x24u);
+      *&v17[2] = v12;
+      v18 = 1024;
+      *v19 = v4;
+      *&v19[4] = 1024;
+      *&v19[6] = v8;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] HDRConfig: Frame #%d: configDumpStyle = %d (%s), configDumpLevel = %d, configDumpFlag = %d\n", &v15, 0x24u);
     }
 
     goto LABEL_28;
@@ -1669,30 +1629,30 @@ LABEL_22:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 134219266;
-    *v17 = WORD1(v10);
+    v15 = 134219266;
+    *v16 = WORD1(v10);
     v11 = "list";
-    *&v17[8] = 1024;
-    *v18 = a1;
+    *&v16[8] = 1024;
+    *v17 = a1;
     if (v6)
     {
       v11 = "unknown";
     }
 
-    *&v18[4] = 1024;
+    *&v17[4] = 1024;
     if (v6 == 1)
     {
       v11 = "table";
     }
 
-    *&v18[6] = v6;
-    v19 = 2080;
-    *v20 = v11;
-    *&v20[8] = 1024;
-    v21 = v4;
-    v22 = 1024;
-    v23 = v8;
-    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx HDRConfig: Frame #%d: configDumpStyle = %d (%s), configDumpLevel = %d, configDumpFlag = %d\n", &v16, 0x2Eu);
+    *&v17[6] = v6;
+    v18 = 2080;
+    *v19 = v11;
+    *&v19[8] = 1024;
+    v20 = v4;
+    v21 = 1024;
+    v22 = v8;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx HDRConfig: Frame #%d: configDumpStyle = %d (%s), configDumpLevel = %d, configDumpFlag = %d\n", &v15, 0x2Eu);
   }
 
   prevLogInstanceID = v10;
@@ -1714,9 +1674,9 @@ LABEL_28:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 134217984;
-      *v17 = WORD1(v14);
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx \n", &v16, 0xCu);
+      v15 = 134217984;
+      *v16 = WORD1(v14);
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx \n", &v15, 0xCu);
     }
 
     prevLogInstanceID = v14;
@@ -1724,12 +1684,9 @@ LABEL_28:
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] \n", &v16, 2u);
+    LOWORD(v15) = 0;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] \n", &v15, 2u);
   }
-
-LABEL_37:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void UpdateConfigFromDefaultsWrite(int a1)
@@ -1825,7 +1782,7 @@ float getToneCurveParameters(float a1, float a2, float a3, float a4, float a5, f
   return result;
 }
 
-void generateHeadroomCurve(float *a1, int a2, uint64_t a3, float *a4)
+void generateHeadroomCurve(float *a1, unsigned int a2, uint64_t a3, float *a4)
 {
   if (a2 >= 1)
   {
@@ -2440,18 +2397,18 @@ const char *getFullRangeFlag(int a1)
   }
 }
 
-void *getRGB2YMatrix(uint64_t a1)
+_DWORD *getRGB2YMatrix(uint64_t a1)
 {
   v1 = *(a1 + 60);
-  v2 = &RGB2020toHLGY_coeff;
+  v2 = RGB2020toHLGY_coeff;
   if (v1 == 12)
   {
-    v2 = &RGBP3toHLGY_coeff;
+    v2 = RGBP3toHLGY_coeff;
   }
 
   if (v1 == 1)
   {
-    return &RGB709toHLGY_coeff;
+    return RGB709toHLGY_coeff;
   }
 
   else
@@ -2838,7 +2795,7 @@ float create_s2tratio(float a1, float a2, float a3, float a4, float a5, float a6
 
 uint64_t getProcessingType(int *a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = a1[2];
   v3 = a1[10];
   if (v2)
@@ -2887,9 +2844,9 @@ uint64_t getProcessingType(int *a1, uint64_t a2)
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v16 = 134217984;
-          v17 = WORD1(v10);
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: isGPUtoHDR10TV warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 1377\n", &v16, 0xCu);
+          v15 = 134217984;
+          v16 = WORD1(v10);
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: isGPUtoHDR10TV warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 1377\n", &v15, 0xCu);
         }
 
         prevLogInstanceID = v10;
@@ -2897,8 +2854,8 @@ uint64_t getProcessingType(int *a1, uint64_t a2)
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: isGPUtoHDR10TV warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 1377\n", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: isGPUtoHDR10TV warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 1377\n", &v15, 2u);
       }
     }
 
@@ -2925,18 +2882,17 @@ uint64_t getProcessingType(int *a1, uint64_t a2)
         if (GetConfig())
         {
           v13 = GetConfig();
-          v9 = *HDRConfig::GetConfigEntryValue(v13, 0x85u, 0);
+          return *HDRConfig::GetConfigEntryValue(v13, 0x85u, 0);
         }
 
         else
         {
-          v9 = 0;
+          return 0;
         }
       }
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -3604,23 +3560,22 @@ LABEL_56:
 
 void setDisplayManagementPayload(uint64_t a1, __IOSurface *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = convertMetaDataToPayLoad(a1, bytes);
   v4 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, v3);
   IOSurfaceSetValue(a2, @"DolbyVisionHDMIData", v4);
   CFRelease(v4);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void attachBackwardDisplayManagementMetaDataToBuffer(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, __int128 *a5, __IOSurface *a6, double a7, float32x4_t a8, float32x4_t a9)
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   if (a4[3] == 4)
   {
-    goto LABEL_39;
+    return;
   }
 
-  *&v85[3] = 1.0 / *(a2 + 196);
+  *&v84[3] = 1.0 / *(a2 + 196);
   *bytes = *(a2 + 144);
   v14 = *(a3 + 88);
   if (v14 == *MEMORY[0x277CC4C20])
@@ -3637,10 +3592,10 @@ void attachBackwardDisplayManagementMetaDataToBuffer(uint64_t a1, uint64_t a2, u
     }
   }
 
-  v99 = 0;
+  v98 = 0;
   v16.i32[3] = 0;
+  v96 = 0u;
   v97 = 0u;
-  v98 = 0u;
   v17 = a4[15];
   switch(v17)
   {
@@ -3648,9 +3603,9 @@ void attachBackwardDisplayManagementMetaDataToBuffer(uint64_t a1, uint64_t a2, u
       v18 = &LMStoRGB_coeff_709;
       break;
     case 0xFFFF:
-      v18 = &v97;
-      v19 = &v98 + 8;
-      v20 = &v97 + 12;
+      v18 = &v96;
+      v19 = &v97 + 8;
+      v20 = &v96 + 12;
       *v16.f32 = vcvt_f32_s32(*(a1 + 64));
       v16.f32[2] = *(a1 + 72);
       *a8.f32 = vcvt_f32_s32(*(a1 + 76));
@@ -3658,20 +3613,20 @@ void attachBackwardDisplayManagementMetaDataToBuffer(uint64_t a1, uint64_t a2, u
       *a9.f32 = vcvt_f32_s32(*(a1 + 88));
       a9.f32[2] = *(a1 + 96);
       v21 = vdupq_n_s32(0x38800000u);
-      v101.columns[0] = vmulq_f32(v16, v21);
-      v101.columns[1] = vmulq_f32(a8, v21);
-      v101.columns[2] = vmulq_f32(a9, v21);
-      v102 = __invert_f3(v101);
+      v100.columns[0] = vmulq_f32(v16, v21);
+      v100.columns[1] = vmulq_f32(a8, v21);
+      v100.columns[2] = vmulq_f32(a9, v21);
+      v101 = __invert_f3(v100);
       v22 = 0;
-      v23 = (&v97 | 0xC);
+      v23 = (&v96 | 0xC);
       do
       {
-        v56 = v102.columns[0];
-        *(v23 - 3) = *(&v56 & 0xFFFFFFFFFFFFFFF3 | (4 * (v22 & 3)));
-        v55 = v102.columns[1];
-        *v23 = *(&v55 & 0xFFFFFFFFFFFFFFF3 | (4 * (v22 & 3)));
-        v54 = v102.columns[2];
-        v23[3] = *(&v54 & 0xFFFFFFFFFFFFFFF3 | (4 * (v22++ & 3)));
+        v55 = v101.columns[0];
+        *(v23 - 3) = *(&v55 & 0xFFFFFFFFFFFFFFF3 | (4 * (v22 & 3)));
+        v54 = v101.columns[1];
+        *v23 = *(&v54 & 0xFFFFFFFFFFFFFFF3 | (4 * (v22 & 3)));
+        v53 = v101.columns[2];
+        v23[3] = *(&v53 & 0xFFFFFFFFFFFFFFF3 | (4 * (v22++ & 3)));
         ++v23;
       }
 
@@ -3688,121 +3643,121 @@ void attachBackwardDisplayManagementMetaDataToBuffer(uint64_t a1, uint64_t a2, u
   v19 = v18 + 24;
   v20 = v18 + 12;
 LABEL_18:
-  v65 = *v18;
+  v64 = *v18;
   v24 = *(v18 + 2);
-  v67 = *v20;
+  v66 = *v20;
   v25 = *(v20 + 2);
-  v69 = *v19;
+  v68 = *v19;
   v26 = *(v19 + 2);
-  v68 = v25;
-  v70 = v26;
+  v67 = v25;
+  v69 = v26;
   v27 = *(v15 + 2);
-  v59 = *v15;
+  v58 = *v15;
   v28 = *(v15 + 12);
   v29 = *(v15 + 5);
-  v60 = v27;
-  v62 = v29;
-  v61 = v28;
-  v63 = v15[3];
+  v59 = v27;
+  v61 = v29;
+  v60 = v28;
+  v62 = v15[3];
   v30 = *(v15 + 8);
-  v66 = v24;
-  v64 = v30;
-  v71 = 0x3ECCCCCD3ECCCCCDLL;
-  v72 = 1045220557;
-  v74 = 1053474947;
-  v73 = 0xC09B3B64408E8F5CLL;
-  v75 = 0x3EB6E2EB3F4E3BCDLL;
-  v76 = -1080764767;
-  v78 = 1045571297;
-  v77 = 0x3DC7D2383F800000;
-  v79 = 0xBDE938133F800000;
-  v80 = 1040738836;
-  v82 = -1087551366;
+  v65 = v24;
+  v63 = v30;
+  v70 = 0x3ECCCCCD3ECCCCCDLL;
+  v71 = 1045220557;
+  v73 = 1053474947;
+  v72 = 0xC09B3B64408E8F5CLL;
+  v74 = 0x3EB6E2EB3F4E3BCDLL;
+  v75 = -1080764767;
+  v77 = 1045571297;
+  v76 = 0x3DC7D2383F800000;
+  v78 = 0xBDE938133F800000;
+  v79 = 1040738836;
+  v81 = -1087551366;
   v31 = 1.0 / *(a2 + 112);
-  v103.columns[0] = vmulq_n_f32(*(a2 + 16), v31);
-  v103.columns[1] = vmulq_n_f32(*(a2 + 32), v31);
-  v103.columns[2] = vmulq_n_f32(*(a2 + 48), v31);
-  v81 = 0x3D05976C3F800000;
-  v104 = __invert_f3(v103);
+  v102.columns[0] = vmulq_n_f32(*(a2 + 16), v31);
+  v102.columns[1] = vmulq_n_f32(*(a2 + 32), v31);
+  v102.columns[2] = vmulq_n_f32(*(a2 + 48), v31);
+  v80 = 0x3D05976C3F800000;
+  v103 = __invert_f3(v102);
   v32 = 0;
-  v33 = v83;
+  v33 = v82;
   do
   {
-    v53 = v104.columns[0];
-    *v33 = *(&v53 & 0xFFFFFFFFFFFFFFF3 | (4 * (v32 & 3)));
-    v52 = v104.columns[1];
-    v33[3] = *(&v52 & 0xFFFFFFFFFFFFFFF3 | (4 * (v32 & 3)));
-    v51 = v104.columns[2];
-    v33[6] = *(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (v32++ & 3)));
+    v52 = v103.columns[0];
+    *v33 = *(&v52 & 0xFFFFFFFFFFFFFFF3 | (4 * (v32 & 3)));
+    v51 = v103.columns[1];
+    v33[3] = *(&v51 & 0xFFFFFFFFFFFFFFF3 | (4 * (v32 & 3)));
+    v50 = v103.columns[2];
+    v33[6] = *(&v50 & 0xFFFFFFFFFFFFFFF3 | (4 * (v32++ & 3)));
     ++v33;
   }
 
   while (v32 != 3);
-  *&v83[36] = 0x4500000043800000;
+  *&v82[36] = 0x4500000043800000;
   v34 = *a4;
-  v84 = 1157627904;
-  v85[4] = v34;
-  v88 = a4[38];
+  v83 = 1157627904;
+  v84[4] = v34;
+  v87 = a4[38];
   v35 = *(a3 + 8);
   v36 = *(a3 + 16);
-  v89 = v36;
-  v90 = 0.005;
+  v88 = v36;
+  v89 = 0.005;
   if (v35 > 0.00005)
   {
     v37 = v35;
-    v90 = v37;
+    v89 = v37;
   }
 
   v38 = *(a3 + 148);
-  v94 = v38;
-  v96 = *(a4 + 180);
+  v93 = v38;
+  v95 = *(a4 + 180);
   if (v34 == 1 && a4[10] == 2 && v38)
   {
-    v86 = a4[37];
+    v85 = a4[37];
     v39 = *(a2 + 280);
   }
 
   else
   {
     v39 = a4[37];
-    v86 = v39;
+    v85 = v39;
   }
 
   v40 = 0;
-  v87 = v39;
+  v86 = v39;
   v41 = *(a2 + 384);
   do
   {
-    v50 = v41;
-    v85[v40] = *(&v50 & 0xFFFFFFFFFFFFFFF3 | (4 * (v40 & 3)));
+    v49 = v41;
+    v84[v40] = *(&v49 & 0xFFFFFFFFFFFFFFF3 | (4 * (v40 & 3)));
     ++v40;
   }
 
   while (v40 != 3);
-  v91 = *a5;
-  v92 = *(a5 + 2);
-  v93 = *(a5 + 6);
+  v90 = *a5;
+  v91 = *(a5 + 2);
+  v92 = *(a5 + 6);
   if (*(a1 + 316))
   {
-    LODWORD(v92) = 10000 * *(a1 + 318);
-    HIDWORD(v92) = 10000 * *(a1 + 320);
+    LODWORD(v91) = 10000 * *(a1 + 318);
+    HIDWORD(v91) = 10000 * *(a1 + 320);
     v42 = *(a1 + 322);
     if (!v42)
     {
       v42 = 4000;
     }
 
-    LOWORD(v93) = v42;
+    LOWORD(v92) = v42;
     v43 = *(a1 + 324);
     if (!v43)
     {
       v43 = 1000;
     }
 
-    HIWORD(v93) = v43;
+    HIWORD(v92) = v43;
   }
 
-  v95 = v95 & 0xFE | *(a3 + 152) & 1;
+  v94 = v94 & 0xFE | *(a3 + 152) & 1;
   v44 = a4[10];
   if (v44 <= 6 && ((1 << v44) & 0x47) != 0)
   {
@@ -3822,8 +3777,6 @@ LABEL_18:
   IOSurfaceSetValue(a6, @"DolbyVisionBackwardDMParameter", v47);
   CFRelease(v47);
   setDisplayManagementPayload(a1, a6);
-LABEL_39:
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 float HLG2L(float a1)
@@ -4167,7 +4120,7 @@ void setInverseScalingFactorTable(uint64_t a1, unint64_t a2, float *a3)
 
 void GetRelative_YUV_TM(float *a1, unint64_t a2, float a3, float a4, char a5)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   if (a5)
   {
     v8 = logf(a4 + 1.062);
@@ -4195,8 +4148,8 @@ void GetRelative_YUV_TM(float *a1, unint64_t a2, float a3, float a4, char a5)
     v16 = 1.0 - v15;
     do
     {
-      *&v38[v10 * 4 + 132] = (v15 * GetRelative_YUV_TM(float *,unsigned long,float,float,BOOL)::tmap_b12[v10]) + (GetRelative_YUV_TM(float *,unsigned long,float,float,BOOL)::tmap_b11[v10] * v16);
-      *&v38[v10 * 4] = (v15 * GetRelative_YUV_TM(float *,unsigned long,float,float,BOOL)::tmap_b22[v10]) + (GetRelative_YUV_TM(float *,unsigned long,float,float,BOOL)::tmap_b21[v10] * v16);
+      *&v37[v10 * 4 + 132] = (v15 * GetRelative_YUV_TM(float *,unsigned long,float,float,BOOL)::tmap_b12[v10]) + (GetRelative_YUV_TM(float *,unsigned long,float,float,BOOL)::tmap_b11[v10] * v16);
+      *&v37[v10 * 4] = (v15 * GetRelative_YUV_TM(float *,unsigned long,float,float,BOOL)::tmap_b22[v10]) + (GetRelative_YUV_TM(float *,unsigned long,float,float,BOOL)::tmap_b21[v10] * v16);
       ++v10;
     }
 
@@ -4219,7 +4172,7 @@ void GetRelative_YUV_TM(float *a1, unint64_t a2, float a3, float a4, char a5)
 
     do
     {
-      a1[v17] = ((v18 * *&v38[v17 * 4]) + (*&v38[v17 * 4 + 132] * (1.0 - v18))) / 4095.0;
+      a1[v17] = ((v18 * *&v37[v17 * 4]) + (*&v37[v17 * 4 + 132] * (1.0 - v18))) / 4095.0;
       ++v17;
     }
 
@@ -4243,7 +4196,7 @@ void GetRelative_YUV_TM(float *a1, unint64_t a2, float a3, float a4, char a5)
     v29 = *&v27 * 1.3535 / *&v19 + sqrtf(*&v19) * 0.5241 + -0.33629 + sqrtf(*&v27) * -1.173 + *&v27 * 0.12624;
     do
     {
-      *&v38[v28 + 132] = ((v26 * *(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v28 + 132)) + (*(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v28) * v23)) + (*(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v28 + 264) * v29);
+      *&v37[v28 + 132] = ((v26 * *(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v28 + 132)) + (*(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v28) * v23)) + (*(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v28 + 264) * v29);
       v28 += 4;
     }
 
@@ -4265,22 +4218,20 @@ void GetRelative_YUV_TM(float *a1, unint64_t a2, float a3, float a4, char a5)
       v35 = v34;
     }
 
-    v36 = v39;
+    v36 = v38;
     do
     {
-      a1[v33] = (v35 * *&v38[v33 * 4 + 132]) / v36;
+      a1[v33] = (v35 * *&v37[v33 * 4 + 132]) / v36;
       ++v33;
     }
 
     while (v33 != 33);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void GetRelative_SDR_DOLBY(float *a1, float a2, float a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = log(a2 + 1531.5734);
   v8 = a3;
@@ -4296,7 +4247,7 @@ void GetRelative_SDR_DOLBY(float *a1, float a2, float a3)
   v16 = *&v14 * 1.3535 / *&v6 + sqrtf(*&v6) * 0.5241 + -0.33629 + sqrtf(*&v14) * -1.173 + *&v14 * 0.12624;
   do
   {
-    *&v26[v15] = ((v13 * *(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v15 + 132)) + (*(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v15) * v10)) + (*(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v15 + 264) * v16);
+    *&v25[v15] = ((v13 * *(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v15 + 132)) + (*(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v15) * v10)) + (*(&GetRelative_SDR_DOLBY(float *,unsigned long,float,float)::tmap_bases + v15 + 264) * v16);
     v15 += 4;
   }
 
@@ -4318,21 +4269,20 @@ void GetRelative_SDR_DOLBY(float *a1, float a2, float a3)
     v23 = v21;
   }
 
-  v24 = v27;
+  v24 = v26;
   do
   {
-    a1[v20] = (v23 * *&v26[v20 * 4]) / v24;
+    a1[v20] = (v23 * *&v25[v20 * 4]) / v24;
     ++v20;
   }
 
   while (v20 != 33);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 float linearInterpolation(double a1, double a2, double a3, double a4, double a5)
 {
   v5 = a3;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a1 == a2)
   {
     if (a3 != a4)
@@ -4351,9 +4301,9 @@ float linearInterpolation(double a1, double a2, double a3, double a4, double a5)
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v9 = 134217984;
-          v10 = WORD1(v6);
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: y1 == y2 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2471\n", &v9, 0xCu);
+          v8 = 134217984;
+          v9 = WORD1(v6);
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: y1 == y2 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2471\n", &v8, 0xCu);
         }
 
         prevLogInstanceID = v6;
@@ -4361,24 +4311,23 @@ float linearInterpolation(double a1, double a2, double a3, double a4, double a5)
 
       else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v9) = 0;
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: y1 == y2 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2471\n", &v9, 2u);
+        LOWORD(v8) = 0;
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: y1 == y2 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2471\n", &v8, 2u);
       }
     }
   }
 
   else
   {
-    v5 = (a4 - a3) * (a5 - a1) / (a2 - a1) + a3;
+    return (a4 - a3) * (a5 - a1) / (a2 - a1) + a3;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 void GetToneMap_SDR_DOLBY(float *a1, unint64_t a2, float a3, float a4, float a5, float a6, float a7)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v14 = malloc_type_malloc(0x84uLL, 0x100004052888210uLL);
   v15 = malloc_type_malloc(0x84uLL, 0x100004052888210uLL);
   v16 = v15;
@@ -4398,9 +4347,9 @@ void GetToneMap_SDR_DOLBY(float *a1, unint64_t a2, float a3, float a4, float a5,
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v31 = 134217984;
-        v32 = WORD1(v17);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: bufferT && bufferS warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2498\n", &v31, 0xCu);
+        v30 = 134217984;
+        v31 = WORD1(v17);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: bufferT && bufferS warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2498\n", &v30, 0xCu);
       }
 
       prevLogInstanceID = v17;
@@ -4408,8 +4357,8 @@ void GetToneMap_SDR_DOLBY(float *a1, unint64_t a2, float a3, float a4, float a5,
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: bufferT && bufferS warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2498\n", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: bufferT && bufferS warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2498\n", &v30, 2u);
     }
   }
 
@@ -4480,12 +4429,11 @@ LABEL_23:
   *a1 = a1[2];
   free(v14);
   free(v16);
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void GetToneMap_YUV_TM(_DWORD *a1, unint64_t a2, char a3, int a4, float a5, float a6, float a7, float a8, float a9)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v18 = malloc_type_malloc(0x84uLL, 0x100004052888210uLL);
   v19 = malloc_type_malloc(0x84uLL, 0x100004052888210uLL);
   v21 = v19;
@@ -4505,9 +4453,9 @@ void GetToneMap_YUV_TM(_DWORD *a1, unint64_t a2, char a3, int a4, float a5, floa
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v44 = 134217984;
-        v45 = WORD1(v22);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: bufferT && bufferS warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2546\n", &v44, 0xCu);
+        v43 = 134217984;
+        v44 = WORD1(v22);
+        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: bufferT && bufferS warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2546\n", &v43, 0xCu);
       }
 
       prevLogInstanceID = v22;
@@ -4515,8 +4463,8 @@ void GetToneMap_YUV_TM(_DWORD *a1, unint64_t a2, char a3, int a4, float a5, floa
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v44) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: bufferT && bufferS warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2546\n", &v44, 2u);
+      LOWORD(v43) = 0;
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: bufferT && bufferS warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 2546\n", &v43, 2u);
     }
   }
 
@@ -4622,7 +4570,6 @@ LABEL_23:
 
   free(v18);
   free(v21);
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void dovi_getScalingFactor(float a1, uint64_t a2, uint64_t a3, uint64_t a4, _EdrAdaptationParam *a5, uint64_t a6, int a7)
@@ -4913,7 +4860,6 @@ float hlg_getScalingFactor(float a1, uint64_t a2, uint64_t a3, uint64_t a4, _Edr
     if (v19 == 3)
     {
       v21 = *(a4 + 1396);
-      v22 = *(a4 + 1392) + ((v20 - *(a4 + 1392)) * v21);
       if (v21 != 1.0)
       {
         v20 = *(a4 + 1392) + ((v20 - *(a4 + 1392)) * v21);
@@ -4928,43 +4874,43 @@ float hlg_getScalingFactor(float a1, uint64_t a2, uint64_t a3, uint64_t a4, _Edr
 
   if (a7 == -1 || *(a4 + 1424) != 1)
   {
-    v24 = v20 < 0.00000073096;
+    v23 = v20 < 0.00000073096;
     if (v20 < 0.00000073096)
     {
       v20 = -(v20 + -0.0000014619);
     }
 
-    v25 = flt_2508CD850[v24];
-    v26 = powf(v20, 0.012683);
-    v27 = fmax(((v26 + -0.83594) / ((v26 * -18.688) + 18.852)), 0.0);
-    v23 = v25 * powf(v27, 6.2774);
+    v24 = flt_2508CD850[v23];
+    v25 = powf(v20, 0.012683);
+    v26 = fmax(((v25 + -0.83594) / ((v25 * -18.688) + 18.852)), 0.0);
+    v22 = v24 * powf(v26, 6.2774);
   }
 
   else
   {
-    v23 = applyAmbAdaptationCurveS(a6, v20);
+    v22 = applyAmbAdaptationCurveS(a6, v20);
   }
 
-  v28 = v23 / v15;
+  v27 = v22 / v15;
   if (*(a3 + 465) == 1 && *(a3 + 472) == 1)
   {
-    v29 = *(a3 + 476);
-    v30 = pow((v28 * (v15 / v29)), 1.0 / *(a3 + 468));
-    v28 = (v29 / v15) * v30;
+    v28 = *(a3 + 476);
+    v29 = pow((v27 * (v15 / v28)), 1.0 / *(a3 + 468));
+    v27 = (v28 / v15) * v29;
   }
 
-  v31 = v28 / a1;
+  v30 = v27 / a1;
   if (a1 <= 0.0)
   {
-    v32 = 1.0;
+    v31 = 1.0;
   }
 
   else
   {
-    v32 = v31;
+    v31 = v30;
   }
 
-  return v32;
+  return v31;
 }
 
 void hlg_setScalingFactorTable(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, _EdrAdaptationParam *a6, uint64_t a7, int a8, void *a9)
@@ -4987,7 +4933,7 @@ void hlg_setScalingFactorTable(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t 
 
 void hlg_setScalingFactorTable_C(uint64_t a1, float *a2, unint64_t a3, uint64_t a4, uint64_t a5, _EdrAdaptationParam *a6, uint64_t a7, int a8, void *a9)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v16 = a9;
   v17 = v16;
   if (a3 > 0x400)
@@ -5009,7 +4955,7 @@ void hlg_setScalingFactorTable_C(uint64_t a1, float *a2, unint64_t a3, uint64_t 
       if (v16)
       {
         *buf = 134217984;
-        v34 = WORD1(v25);
+        v33 = WORD1(v25);
         _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 3303\n", buf, 0xCu);
       }
 
@@ -5033,7 +4979,7 @@ void hlg_setScalingFactorTable_C(uint64_t a1, float *a2, unint64_t a3, uint64_t 
 
   if (_MergedGlobals_5 != 1 || qword_280C71968 != a3)
   {
-    v31 = a8;
+    v30 = a8;
     if (a3)
     {
       v19 = hlg_setScalingFactorTable_C::HLG2L_cache;
@@ -5062,7 +5008,7 @@ void hlg_setScalingFactorTable_C(uint64_t a1, float *a2, unint64_t a3, uint64_t 
 
     qword_280C71968 = a3;
     _MergedGlobals_5 = 1;
-    a8 = v31;
+    a8 = v30;
   }
 
   if (a3)
@@ -5097,8 +5043,6 @@ LABEL_25:
 
     while (v26 < a3);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void hdr10_setupTmPreset(uint64_t a1, uint64_t a2, uint64_t a3, int *a4)
@@ -6695,7 +6639,7 @@ void dovi_setupTmPreset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 }
 
-void dovi_setupTmParams(uint64_t a1, uint64_t a2, uint64_t a3, float a4, float a5, float a6, float a7, float a8, uint64_t a9, int a10, void *a11)
+void dovi_setupTmParams(uint64_t a1, uint64_t a2, uint64_t a3, float32_t a4, float a5, float a6, float a7, float a8, uint64_t a9, int a10, void *a11)
 {
   v16 = a11;
   *v17.i32 = a4;
@@ -6889,7 +6833,7 @@ void dovi_setupTmParams(uint64_t a1, uint64_t a2, uint64_t a3, float a4, float a
 
 void hlg_setupTmPreset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = *(a2 + 8);
   v6 = *(a2 + 40);
   v7 = v6 == 2;
@@ -6936,96 +6880,91 @@ void hlg_setupTmPreset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   if ((*(a3 + 152) & 2) != 0)
   {
     v16 = 1;
-LABEL_21:
-    *(a4 + 4) = v16;
-    goto LABEL_22;
+    goto LABEL_21;
   }
 
   if (v14 || v15 && (*(a2 + 180) & 1) == 0)
   {
     *(a4 + 4) = 0;
+    return;
   }
 
-  else
+  if (v6 - 3 >= 3 && *(a2 + 180) != 1 && v6 != 7)
   {
-    if (v6 - 3 < 3 || *(a2 + 180) == 1 || v6 == 7)
-    {
-      v18 = *(a3 + 384);
-      if (v18 == 1)
-      {
-        v16 = 3;
-      }
-
-      else
-      {
-        if (v18)
-        {
-          goto LABEL_22;
-        }
-
-        if (GetConfig() && (Config = GetConfig(), *HDRConfig::GetConfigEntryValue(Config, 0x53u, 0) == 1))
-        {
-          v16 = 12;
-        }
-
-        else
-        {
-          v16 = 11;
-        }
-      }
-
-      goto LABEL_21;
-    }
-
     if (v7)
     {
       v16 = 6;
-      goto LABEL_21;
     }
 
-    if (v13)
+    else if (v13)
     {
       v16 = 10;
-      goto LABEL_21;
     }
 
-    if (v6 <= 8 && ((1 << v6) & 0x142) != 0)
+    else
     {
+      if (v6 > 8 || ((1 << v6) & 0x142) == 0)
+      {
+        if (enableLogInstance)
+        {
+          if (logInstanceID)
+          {
+            v19 = logInstanceID;
+          }
+
+          else
+          {
+            v19 = prevLogInstanceID;
+          }
+
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+          {
+            v20 = 134217984;
+            v21 = WORD1(v19);
+            _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 4186\n", &v20, 0xCu);
+          }
+
+          prevLogInstanceID = v19;
+        }
+
+        else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v20) = 0;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 4186\n", &v20, 2u);
+        }
+
+        return;
+      }
+
       v16 = 5;
-      goto LABEL_21;
     }
 
-    if (enableLogInstance)
-    {
-      if (logInstanceID)
-      {
-        v20 = logInstanceID;
-      }
-
-      else
-      {
-        v20 = prevLogInstanceID;
-      }
-
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        v21 = 134217984;
-        v22 = WORD1(v20);
-        _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 4186\n", &v21, 0xCu);
-      }
-
-      prevLogInstanceID = v20;
-    }
-
-    else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: 0 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 4186\n", &v21, 2u);
-    }
+LABEL_21:
+    *(a4 + 4) = v16;
+    return;
   }
 
-LABEL_22:
-  v17 = *MEMORY[0x277D85DE8];
+  v17 = *(a3 + 384);
+  if (v17 == 1)
+  {
+    v16 = 3;
+    goto LABEL_21;
+  }
+
+  if (!v17)
+  {
+    if (GetConfig() && (Config = GetConfig(), *HDRConfig::GetConfigEntryValue(Config, 0x53u, 0) == 1))
+    {
+      v16 = 12;
+    }
+
+    else
+    {
+      v16 = 11;
+    }
+
+    goto LABEL_21;
+  }
 }
 
 void dovi84_setupTmPreset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -7057,15 +6996,15 @@ void dovi84_setupTmPreset(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   *(a4 + 8) = v5;
 }
 
-uint64_t restoreDefaults(uint64_t Config, uint64_t a2, uint64_t a3)
+uint64_t restoreDefaults(uint64_t Config, int *a2, uint64_t a3)
 {
   v5 = Config;
-  v30 = *MEMORY[0x277D85DE8];
-  v6 = *(a2 + 40);
+  v29 = *MEMORY[0x277D85DE8];
+  v6 = a2[10];
   v7 = *(a3 + 76);
   v8 = *a2;
-  v9 = *a2 == 1 && *(a2 + 176) == 16;
-  v10 = *(a2 + 172);
+  v9 = *a2 == 1 && a2[44] == 16;
+  v10 = a2[43];
   *(a3 + 384) = v10;
   *(Config + 512) = *(a3 + 160);
   v11 = 0.00030136;
@@ -7140,7 +7079,7 @@ LABEL_20:
   if ((v6 - 3) <= 2)
   {
     *(a3 + 252) = 1065353216;
-    v15 = *(a2 + 156);
+    v15 = a2[39];
     if (v15 == 2 || v15 == 1)
     {
       goto LABEL_50;
@@ -7180,7 +7119,7 @@ LABEL_49:
 
 LABEL_47:
       *(a3 + 252) = 1065353216;
-      v15 = *(a2 + 156);
+      v15 = a2[39];
       if (v15 == 2 || v15 == 1)
       {
         goto LABEL_50;
@@ -7198,7 +7137,7 @@ LABEL_47:
   if (v8 != 2 && (!v9 || (*(a3 + 264) & 1) != 0))
   {
 LABEL_27:
-    if ((*(a2 + 156) - 1) <= 1)
+    if ((a2[39] - 1) <= 1)
     {
       if (enableLogInstance)
       {
@@ -7215,9 +7154,9 @@ LABEL_27:
         Config = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
         if (Config)
         {
-          v28 = 134217984;
-          v29 = WORD1(v16);
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: hdrCtrl->displayPipelineCompensationType != kDisplayPipelineCompensationTypeNoneHeadrooomDependent && hdrCtrl->displayPipelineCompensationType != kDisplayPipelineCompensationTypeHeadroomDependent warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 5053\n", &v28, 0xCu);
+          v27 = 134217984;
+          v28 = WORD1(v16);
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: hdrCtrl->displayPipelineCompensationType != kDisplayPipelineCompensationTypeNoneHeadrooomDependent && hdrCtrl->displayPipelineCompensationType != kDisplayPipelineCompensationTypeHeadroomDependent warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 5053\n", &v27, 0xCu);
         }
 
         prevLogInstanceID = v16;
@@ -7228,8 +7167,8 @@ LABEL_27:
         Config = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
         if (Config)
         {
-          LOWORD(v28) = 0;
-          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: hdrCtrl->displayPipelineCompensationType != kDisplayPipelineCompensationTypeNoneHeadrooomDependent && hdrCtrl->displayPipelineCompensationType != kDisplayPipelineCompensationTypeHeadroomDependent warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 5053\n", &v28, 2u);
+          LOWORD(v27) = 0;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: hdrCtrl->displayPipelineCompensationType != kDisplayPipelineCompensationTypeNoneHeadrooomDependent && hdrCtrl->displayPipelineCompensationType != kDisplayPipelineCompensationTypeHeadroomDependent warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Metal/DisplayManagement/DolbyVisionDisplayManagement.mm at line 5053\n", &v27, 2u);
         }
       }
     }
@@ -7288,11 +7227,11 @@ LABEL_79:
       hlg_setupTmPreset(Config, a2, a3, a3 + 216);
       break;
     case 1:
-      v19 = *(a2 + 8) == 1 && *(a2 + 40) == 2;
+      v19 = a2[2] == 1 && a2[10] == 2;
       v22 = 0;
       if ((*(a3 + 152) & 2) == 0 && !v19)
       {
-        v23 = *(a2 + 40) - 6;
+        v23 = a2[10] - 6;
         if (v23 > 2)
         {
           v22 = 7;
@@ -7309,7 +7248,7 @@ LABEL_79:
     default:
       if ((*(a3 + 152) & 2) == 0)
       {
-        if (*(a2 + 40) == 7)
+        if (a2[10] == 7)
         {
           v21 = 4;
         }
@@ -7380,11 +7319,10 @@ LABEL_93:
 
   v5[500] = 0;
   v5[508] = 0;
-  v27 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t overrideDefaults(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+int *overrideDefaults(uint64_t a1, int *a2, uint64_t a3, int a4)
 {
   if (a4)
   {
@@ -7579,9 +7517,9 @@ uint64_t overrideDefaults(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
   if (result)
   {
     result = GetConfig();
-    if (*(result + 5476))
+    if (result[1369])
     {
-      if ((*(result + 5472) & 0x80) != 0)
+      if ((result[1368] & 0x80) != 0)
       {
         result = GetConfig();
         if (result)
@@ -8293,7 +8231,7 @@ float getHLGGamma(float a1, float a2)
   return v7;
 }
 
-float spl_apply(int a1, float *a2, float *a3, uint64_t a4, float a5)
+float spl_apply(unsigned int a1, float *a2, float *a3, uint64_t a4, float a5)
 {
   if (*a2 > a5)
   {
@@ -8333,7 +8271,7 @@ float spl_apply(int a1, float *a2, float *a3, uint64_t a4, float a5)
   return v11 + ((v5 - v11) * (((((v14 * v14) * 3.0) + ((v14 * (v14 * v14)) * -2.0)) + ((v14 + ((v14 * (v14 * v14)) + ((v14 * v14) * -2.0))) * (*(v9 - 1) * (v13 / (v5 - v11))))) + (((v14 * (v14 * v14)) - (v14 * v14)) * (*v9 * (v13 / (v5 - v11))))));
 }
 
-float spl_apply_with_linear_extension(int a1, float *a2, float *a3, float *a4, float a5)
+float spl_apply_with_linear_extension(unsigned int a1, float *a2, float *a3, float *a4, float a5)
 {
   if (*a2 > a5)
   {
@@ -8372,7 +8310,7 @@ float spl_apply_with_linear_extension(int a1, float *a2, float *a3, float *a4, f
   return v10 + ((*v8 - v10) * (((((v13 * v13) * 3.0) + ((v13 * (v13 * v13)) * -2.0)) + ((v13 + ((v13 * (v13 * v13)) + ((v13 * v13) * -2.0))) * (*(v9 - 1) * (v12 / (*v8 - v10))))) + (((v13 * (v13 * v13)) - (v13 * v13)) * (*v9 * (v12 / (*v8 - v10))))));
 }
 
-float spl_apply_with_linear_extension_and_high_clip(float a1, int a2, const float *a3, float *a4, const float *a5)
+float spl_apply_with_linear_extension_and_high_clip(float a1, unsigned int a2, const float *a3, float *a4, const float *a5)
 {
   if (*a3 > a1)
   {
@@ -8424,7 +8362,7 @@ LABEL_7:
   return v14 + ((v5 - v14) * (((((v17 * v17) * 3.0) + ((v17 * (v17 * v17)) * -2.0)) + ((v17 + ((v17 * (v17 * v17)) + ((v17 * v17) * -2.0))) * (*(v9 - 1) * (v16 / (v5 - v14))))) + (((v17 * (v17 * v17)) - (v17 * v17)) * (*v9 * (v16 / (v5 - v14))))));
 }
 
-float spl_apply_with_linear_extension_and_high_clip_monotonic(float a1, int a2, const float *a3, float *a4, float32x2_t *a5, double a6, double a7, double a8, double a9, double a10, double a11)
+float spl_apply_with_linear_extension_and_high_clip_monotonic(float a1, unsigned int a2, const float *a3, float *a4, float32x2_t *a5, double a6, double a7, double a8, double a9, double a10, double a11)
 {
   if (*a3 > a1)
   {
@@ -8546,66 +8484,53 @@ float spl_calculate(float a1, int a2, const float *a3, float (*a4)[2], const flo
   return v11;
 }
 
-void poly_apply(float a1, int a2, const float *a3, float (*a4)[2], const float (*a5)[4])
+void poly_apply(float a1, int a2, const float *a3, const float (*a4)[2], const float (*a5)[4])
 {
-  if (*a3 >= a1)
+  if (*a3 < a1 && a3[a2 - 1] >= a1)
   {
-    v7 = 1;
-    v6 = a4;
-    goto LABEL_5;
-  }
-
-  if (a3[a2 - 1] < a1)
-  {
-    v6 = &(*a4)[2];
-    v7 = 3;
-LABEL_5:
-    v8 = *v6 + ((*a4)[v7] * a1);
-    return;
-  }
-
-  v9 = (a2 - 1) & ~((a2 - 1) >> 31);
-  v10 = &(*a5)[-4];
-  v11 = (a3 + 1);
-  while (v9)
-  {
-    v12 = *v11++;
-    v10 += 4;
-    --v9;
-    if (v12 >= a1)
+    v6 = (a2 - 1) & ~((a2 - 1) >> 31);
+    v7 = &(*a5)[-4];
+    v8 = (a3 + 1);
+    while (v6)
     {
-      if ((a2 & 0x80000000) == 0)
+      v9 = *v8++;
+      v7 += 4;
+      --v6;
+      if (v9 >= a1)
       {
-        v13 = 0;
-        v14 = (a2 + 1);
-        v15 = 0.0;
-        do
+        if ((a2 & 0x80000000) == 0)
         {
-          v16 = *v10++;
-          v15 = v15 + (v16 * powf(a1, v13++));
+          v10 = 0;
+          v11 = (a2 + 1);
+          v12 = 0.0;
+          do
+          {
+            v13 = *v7++;
+            v12 = v12 + (v13 * powf(a1, v10++));
+          }
+
+          while (v11 != v10);
         }
 
-        while (v14 != v13);
+        return;
       }
-
-      return;
     }
   }
 }
 
 float ebz_norm(unsigned int a1, float *a2, float a3)
 {
-  *&v26[52] = *MEMORY[0x277D85DE8];
-  v25 = a3;
+  *&v25[52] = *MEMORY[0x277D85DE8];
+  v24 = a3;
   v3 = a1 - 2;
-  v24[v3] = 1.0 - a3;
+  v23[v3] = 1.0 - a3;
   if (a1 >= 3)
   {
     v4 = v3;
-    v5 = &v24[a1];
+    v5 = &v23[a1];
     v6 = *(v5 - 2);
     v7 = v5 - 3;
-    v8 = v26;
+    v8 = v25;
     v9 = a3;
     do
     {
@@ -8619,13 +8544,13 @@ float ebz_norm(unsigned int a1, float *a2, float a3)
     while (v4);
   }
 
-  v10 = *&v26[4 * v3 - 4] * a3;
+  v10 = *&v25[4 * v3 - 4] * a3;
   if (a1 >= 2)
   {
     v11 = a1 - 1;
-    v12 = (&EBZ_COEFFS + 56 * a1 - 56);
-    v13 = v24;
-    v14 = &v25;
+    v12 = &EBZ_COEFFS[14 * a1 - 14];
+    v13 = v23;
+    v14 = &v24;
     do
     {
       v15 = *v12++;
@@ -8642,25 +8567,24 @@ float ebz_norm(unsigned int a1, float *a2, float a3)
     while (v11);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return fmaxf(fminf(v10, 1.0), 0.0);
 }
 
 float ebz_prime(unsigned int a1, uint64_t a2, float a3)
 {
-  *&v21[52] = *MEMORY[0x277D85DE8];
+  *&v20[52] = *MEMORY[0x277D85DE8];
   v3 = 1.0;
   v4 = 1.0 - a3;
-  v20 = 1065353216;
+  v19 = 1065353216;
   v5 = a1 - 2;
-  v19[v5] = 1.0;
+  v18[v5] = 1.0;
   if (a1 >= 3)
   {
     v6 = v5;
-    v7 = &v19[a1];
+    v7 = &v18[a1];
     v8 = *(v7 - 2);
     v9 = v7 - 3;
-    v10 = v21;
+    v10 = v20;
     do
     {
       v3 = v3 * a3;
@@ -8688,7 +8612,7 @@ float ebz_prime(unsigned int a1, uint64_t a2, float a3)
     v14 = 0.0;
     do
     {
-      v15 = ((*&v21[4 * v11 - 4] * EBZ_COEFFS[14 * a1 - 14 + v11]) * v19[v11]) * *(a2 + 4 * v11);
+      v15 = ((*&v20[4 * v11 - 4] * EBZ_COEFFS[14 * a1 - 14 + v11]) * v18[v11]) * *(a2 + 4 * v11);
       v14 = v14 + (v15 * (++v11 + (v13 * a3)));
     }
 
@@ -8696,8 +8620,7 @@ float ebz_prime(unsigned int a1, uint64_t a2, float a3)
     v16 = v14;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16 + 1.0 / v4 * (*&v21[4 * v5 - 4] * a3) * (v12 + (v13 * a3));
+  return v16 + 1.0 / v4 * (*&v20[4 * v5 - 4] * a3) * (v12 + (v13 * a3));
 }
 
 float piecewiseLinearInterp(float *a1, float *a2, unsigned int a3, float a4)
@@ -8946,9 +8869,9 @@ void calculateEdrAdaptationParamS(int *a1, uint64_t a2, uint64_t a3)
 
       if (v16)
       {
-        v873 = v14;
-        v899 = v13;
-        v908 = v9;
+        v872 = v14;
+        v898 = v13;
+        v907 = v9;
         if (v7 <= v11)
         {
           v251 = v6;
@@ -8965,70 +8888,70 @@ void calculateEdrAdaptationParamS(int *a1, uint64_t a2, uint64_t a3)
           v253 = v18 * powf((v7 - v11) / (v7 - v6), v17);
         }
 
-        v501 = v249 + (((v252 - v908) * v253) * v10);
+        v500 = v249 + (((v252 - v907) * v253) * v10);
         v8 = v250;
         v6 = v251;
-        v13 = v899;
-        v14 = v873;
+        v13 = v898;
+        v14 = v872;
       }
 
       else
       {
-        v501 = v6 + (((v249 + ((v11 - v9) * v10)) - v6) * v19);
+        v500 = v6 + (((v249 + ((v11 - v9) * v10)) - v6) * v19);
       }
 
-      if (v501 >= v8)
+      if (v500 >= v8)
       {
-        v501 = v8;
+        v500 = v8;
       }
 
-      if (v6 >= v501)
+      if (v6 >= v500)
       {
-        v501 = v6;
+        v500 = v6;
       }
 
       *(a3 + 4) = v6;
       *(a3 + 8) = v249;
       *(a3 + 12) = v8;
       *(a3 + 20) = v6;
-      *(a3 + 24) = v501;
+      *(a3 + 24) = v500;
       *(a3 + 28) = v8;
-      v686 = v8 / v8;
-      v687 = 1.0;
+      v685 = v8 / v8;
+      v686 = 1.0;
       if (v8 == 0.0)
       {
-        v686 = 1.0;
+        v685 = 1.0;
       }
 
-      v688 = 1.0;
+      v687 = 1.0;
       if (v249 != v6)
       {
-        v688 = (v501 - v6) / (v249 - v6);
+        v687 = (v500 - v6) / (v249 - v6);
       }
 
       if (v8 != v249)
       {
-        v687 = (v8 - v501) / (v8 - v249);
+        v686 = (v8 - v500) / (v8 - v249);
       }
 
-      if (v249 <= v501)
+      if (v249 <= v500)
       {
-        v692 = v688 - v686;
-        v691 = v686 + ((v688 - v686) * v14);
-        v690 = v686 + (v692 * v13);
-        v403 = (1.0 / v690) * (v687 * v687);
+        v691 = v687 - v685;
+        v690 = v685 + ((v687 - v685) * v14);
+        v689 = v685 + (v691 * v13);
+        v403 = (1.0 / v689) * (v686 * v686);
       }
 
       else
       {
-        v689 = v687 - v686;
-        v403 = v686 + ((v687 - v686) * v15);
-        v690 = v686 + (v689 * v13);
-        v691 = (v688 * v688) * (1.0 / v690);
+        v688 = v686 - v685;
+        v403 = v685 + ((v686 - v685) * v15);
+        v689 = v685 + (v688 * v13);
+        v690 = (v687 * v687) * (1.0 / v689);
       }
 
-      *(a3 + 36) = v691;
-      *(a3 + 40) = v690;
+      *(a3 + 36) = v690;
+      *(a3 + 40) = v689;
       goto LABEL_862;
     case 4:
       *(a3 + 2) = 3;
@@ -9050,8 +8973,8 @@ void calculateEdrAdaptationParamS(int *a1, uint64_t a2, uint64_t a3)
 
       if (v16)
       {
-        v872 = v14;
-        v898 = v13;
+        v871 = v14;
+        v897 = v13;
         v189 = v9;
         if (v7 <= v11)
         {
@@ -9069,74 +8992,74 @@ void calculateEdrAdaptationParamS(int *a1, uint64_t a2, uint64_t a3)
           v193 = v18 * powf((v7 - v11) / (v7 - v6), v17);
         }
 
-        v500 = v188 + (((v192 - v189) * v193) * v10);
+        v499 = v188 + (((v192 - v189) * v193) * v10);
         v8 = v190;
         v6 = v191;
-        v13 = v898;
-        v14 = v872;
+        v13 = v897;
+        v14 = v871;
       }
 
       else
       {
-        v500 = v6 + (((v188 + ((v11 - v9) * v10)) - v6) * v19);
+        v499 = v6 + (((v188 + ((v11 - v9) * v10)) - v6) * v19);
       }
 
-      if (v500 >= v8)
+      if (v499 >= v8)
       {
-        v500 = v8;
+        v499 = v8;
       }
 
-      if (v6 >= v500)
+      if (v6 >= v499)
       {
-        v679 = v6;
+        v678 = v6;
       }
 
       else
       {
-        v679 = v500;
+        v678 = v499;
       }
 
       *(a3 + 4) = v6;
       *(a3 + 8) = v188;
       *(a3 + 12) = v8;
       *(a3 + 20) = v6;
-      *(a3 + 24) = v679;
+      *(a3 + 24) = v678;
       *(a3 + 28) = v8;
-      v680 = v8 / v8;
-      v681 = 1.0;
+      v679 = v8 / v8;
+      v680 = 1.0;
       if (v8 == 0.0)
       {
-        v680 = 1.0;
+        v679 = 1.0;
       }
 
-      v682 = 1.0;
+      v681 = 1.0;
       if (v188 != v6)
       {
-        v682 = (v679 - v6) / (v188 - v6);
+        v681 = (v678 - v6) / (v188 - v6);
       }
 
       if (v8 != v188)
       {
-        v681 = (v8 - v679) / (v8 - v188);
+        v680 = (v8 - v678) / (v8 - v188);
       }
 
-      v683 = v682 - v680;
-      if (v188 <= v679)
+      v682 = v681 - v679;
+      if (v188 <= v678)
       {
-        v685 = v680 + (v683 * v14);
-        v126 = v680 + (v683 * v13);
-        v684 = 1.0 / v126;
+        v684 = v679 + (v682 * v14);
+        v126 = v679 + (v682 * v13);
+        v683 = 1.0 / v126;
       }
 
       else
       {
-        v126 = v680 + (v683 * v13);
-        v684 = 1.0 / v126;
-        v685 = (v682 * v682) * (1.0 / v126);
+        v126 = v679 + (v682 * v13);
+        v683 = 1.0 / v126;
+        v684 = (v681 * v681) * (1.0 / v126);
       }
 
-      v497 = (v681 * v681) * v684;
-      *(a3 + 36) = v685;
+      v496 = (v680 * v680) * v683;
+      *(a3 + 36) = v684;
       goto LABEL_990;
     case 5:
       v221 = v14;
@@ -9286,7 +9209,7 @@ void calculateEdrAdaptationParamS(int *a1, uint64_t a2, uint64_t a3)
         v128 = (v124 * v124) * (1.0 / v126);
       }
 
-      v497 = (v123 * v123) * v127;
+      v496 = (v123 * v123) * v127;
       goto LABEL_989;
     case 7:
       *(a3 + 2) = 3;
@@ -9553,14 +9476,14 @@ LABEL_862:
         v445 = 0.0;
       }
 
-      v577 = powf(v445 * 0.0001, 0.1593);
-      v447 = powf(((v577 * 18.852) + 0.83594) / ((v577 * 18.688) + 1.0), 78.844);
+      v576 = powf(v445 * 0.0001, 0.1593);
+      v447 = powf(((v576 * 18.852) + 0.83594) / ((v576 * 18.688) + 1.0), 78.844);
 LABEL_651:
-      v578 = v443 / v447;
+      v577 = v443 / v447;
       v237 = 1.0;
-      v579 = fmaxf(fminf(v578, 1.0), 0.0);
-      v580 = v579 + (1.0 - v579) * 0.6;
-      v581 = v440 * v580;
+      v578 = fmaxf(fminf(v577, 1.0), 0.0);
+      v579 = v578 + (1.0 - v578) * 0.6;
+      v580 = v440 * v579;
       if (v440 >= v442)
       {
         v242 = v442;
@@ -9576,19 +9499,19 @@ LABEL_651:
         v242 = v441;
       }
 
-      if (v581 >= v442)
+      if (v580 >= v442)
       {
-        v581 = v442;
+        v580 = v442;
       }
 
-      if (v441 >= v581)
+      if (v441 >= v580)
       {
         v243 = v441;
       }
 
       else
       {
-        v243 = v581;
+        v243 = v580;
       }
 
       *(a3 + 4) = v441;
@@ -9618,27 +9541,27 @@ LABEL_667:
       }
 
 LABEL_668:
-      v582 = v244 + (v245 - v244) * 0.0;
+      v581 = v244 + (v245 - v244) * 0.0;
       v293 = v242 > v243;
-      v583 = v244;
+      v582 = v244;
       if (v293)
       {
-        v583 = (v245 * v245) * (1.0 / v582);
+        v582 = (v245 * v245) * (1.0 / v581);
       }
 
-      v576 = v244 + (v237 - v244);
-      *(a3 + 36) = v583;
-      *(a3 + 40) = v582;
+      v575 = v244 + (v237 - v244);
+      *(a3 + 36) = v582;
+      *(a3 + 40) = v581;
 LABEL_672:
-      *(a3 + 44) = v576;
+      *(a3 + 44) = v575;
       return;
     case 0xB:
-      v871 = v14;
-      v897 = v13;
+      v870 = v14;
+      v896 = v13;
       v149 = v7;
-      v907 = v9;
-      v881 = v6;
-      v888 = v8;
+      v906 = v9;
+      v880 = v6;
+      v887 = v8;
       *(a3 + 2) = 3;
       v150 = -(v11 + -0.0000014619);
       v151 = v11;
@@ -9662,133 +9585,133 @@ LABEL_672:
         v157 = 0.0;
       }
 
-      v552 = v155 * v157;
-      if (v552 >= 0.0)
+      v551 = v155 * v157;
+      if (v551 >= 0.0)
       {
-        v555 = powf(v552 * 0.0001, 0.1593);
-        v554 = powf(((v555 * 18.852) + 0.83594) / ((v555 * 18.688) + 1.0), 78.844);
+        v554 = powf(v551 * 0.0001, 0.1593);
+        v553 = powf(((v554 * 18.852) + 0.83594) / ((v554 * 18.688) + 1.0), 78.844);
       }
 
       else
       {
-        v553 = powf(v552 * -0.0001, 0.1593);
-        v554 = 0.0000014619 - powf(((v553 * 18.852) + 0.83594) / ((v553 * 18.688) + 1.0), 78.844);
+        v552 = powf(v551 * -0.0001, 0.1593);
+        v553 = 0.0000014619 - powf(((v552 * 18.852) + 0.83594) / ((v552 * 18.688) + 1.0), 78.844);
       }
 
-      v556 = (v554 - v149) / v149;
-      v557 = fabsf(v556);
-      _NF = v556 < 0.0;
-      v558 = -1.5;
+      v555 = (v553 - v149) / v149;
+      v556 = fabsf(v555);
+      _NF = v555 < 0.0;
+      v557 = -1.5;
       if (_NF)
       {
-        v558 = 0.5;
+        v557 = 0.5;
       }
 
-      v559 = v907 + (-(v907 - (v554 * (v23 + ((((v151 / v888) - v24) * (v25 - v23)) / (v26 - v24))))) * (v557 * v558));
-      if (v907 <= v888)
+      v558 = v906 + (-(v906 - (v553 * (v23 + ((((v151 / v887) - v24) * (v25 - v23)) / (v26 - v24))))) * (v556 * v557));
+      if (v906 <= v887)
       {
-        v560 = v907;
+        v559 = v906;
       }
 
       else
       {
-        v560 = v888;
+        v559 = v887;
       }
 
-      if (v907 >= v881)
+      if (v906 >= v880)
       {
-        v561 = v560;
+        v560 = v559;
       }
 
       else
       {
-        v561 = v881;
+        v560 = v880;
       }
 
-      if (v559 <= v888)
+      if (v558 <= v887)
       {
-        v562 = v559;
+        v561 = v558;
       }
 
       else
       {
-        v562 = v888;
+        v561 = v887;
       }
 
-      if (v559 >= v881)
+      if (v558 >= v880)
       {
-        v563 = v562;
+        v562 = v561;
       }
 
       else
       {
-        v563 = v881;
+        v562 = v880;
       }
 
-      *(a3 + 4) = v881;
-      *(a3 + 8) = v561;
-      *(a3 + 12) = v888;
-      *(a3 + 20) = v881;
-      *(a3 + 24) = v563;
-      *(a3 + 28) = v888;
-      v564 = 1.0;
-      if (v888 == 0.0)
+      *(a3 + 4) = v880;
+      *(a3 + 8) = v560;
+      *(a3 + 12) = v887;
+      *(a3 + 20) = v880;
+      *(a3 + 24) = v562;
+      *(a3 + 28) = v887;
+      v563 = 1.0;
+      if (v887 == 0.0)
       {
-        v565 = 1.0;
+        v564 = 1.0;
       }
 
       else
       {
-        v565 = v888 / v888;
+        v564 = v887 / v887;
       }
 
-      v566 = 1.0;
-      if (v561 != v881)
+      v565 = 1.0;
+      if (v560 != v880)
       {
-        v566 = (v563 - v881) / (v561 - v881);
+        v565 = (v562 - v880) / (v560 - v880);
       }
 
-      if (v888 != v561)
+      if (v887 != v560)
       {
-        v564 = (v888 - v563) / (v888 - v561);
+        v563 = (v887 - v562) / (v887 - v560);
       }
 
-      v567 = v566 - v565;
-      if (v561 <= v563)
+      v566 = v565 - v564;
+      if (v560 <= v562)
       {
-        v570 = v565 + (v567 * v871);
-        v568 = v565 + (v567 * v897);
-        v569 = 1.0 / v568;
+        v569 = v564 + (v566 * v870);
+        v567 = v564 + (v566 * v896);
+        v568 = 1.0 / v567;
       }
 
       else
       {
-        v568 = v565 + (v567 * v897);
-        v569 = 1.0 / v568;
-        v570 = (v566 * v566) * (1.0 / v568);
+        v567 = v564 + (v566 * v896);
+        v568 = 1.0 / v567;
+        v569 = (v565 * v565) * (1.0 / v567);
       }
 
-      v571 = (v564 * v564) * v569;
-      v572 = v566 * 3.0;
-      v293 = v572 <= v570;
-      v573 = v572;
+      v570 = (v563 * v563) * v568;
+      v571 = v565 * 3.0;
+      v293 = v571 <= v569;
+      v572 = v571;
       if (!v293)
       {
-        v573 = v570;
+        v572 = v569;
       }
 
-      *(a3 + 36) = v573;
-      *(a3 + 40) = v568;
-      v574 = v564 * 3.0;
-      if (v574 <= v571)
+      *(a3 + 36) = v572;
+      *(a3 + 40) = v567;
+      v573 = v563 * 3.0;
+      if (v573 <= v570)
       {
+        v574 = v573;
         v575 = v574;
-        v576 = v575;
       }
 
       else
       {
-        v576 = v571;
+        v575 = v570;
       }
 
       goto LABEL_672;
@@ -9814,8 +9737,8 @@ LABEL_479:
         goto LABEL_478;
       }
 
-      v803 = GetConfig();
-      v428 = *HDRConfig::GetConfigEntryValue(v803, 0x7Au, 0);
+      v802 = GetConfig();
+      v428 = *HDRConfig::GetConfigEntryValue(v802, 0x7Au, 0);
       v429 = *(a1 + 8);
       *(a3 + 2) = 3;
       if (v428 >= 0.0)
@@ -9823,8 +9746,8 @@ LABEL_479:
         goto LABEL_479;
       }
 
-      v804 = powf(v428 * -0.0001, 0.1593);
-      v431 = 0.0000014619 - powf(((v804 * 18.852) + 0.83594) / ((v804 * 18.688) + 1.0), 78.844);
+      v803 = powf(v428 * -0.0001, 0.1593);
+      v431 = 0.0000014619 - powf(((v803 * 18.852) + 0.83594) / ((v803 * 18.688) + 1.0), 78.844);
 LABEL_480:
       v432 = v425 / v431;
       v433 = 1.0;
@@ -9916,12 +9839,12 @@ LABEL_480:
         v112 = 0.0;
         if (v101 > 0.0)
         {
-          v879 = v6;
-          v896 = v100;
+          v878 = v6;
+          v895 = v100;
           if (v96 >= 0.0)
           {
-            v714 = powf(v96 * 0.0001, 0.1593);
-            v114 = powf(((v714 * 18.852) + 0.83594) / ((v714 * 18.688) + 1.0), 78.844);
+            v713 = powf(v96 * 0.0001, 0.1593);
+            v114 = powf(((v713 * 18.852) + 0.83594) / ((v713 * 18.688) + 1.0), 78.844);
           }
 
           else
@@ -9930,54 +9853,65 @@ LABEL_480:
             v114 = 0.0000014619 - powf(((v113 * 18.852) + 0.83594) / ((v113 * 18.688) + 1.0), 78.844);
           }
 
-          v894 = v114;
-          v715 = powf(v101 * 0.0001, 0.1593);
-          v716 = powf(((v715 * 18.852) + 0.83594) / ((v715 * 18.688) + 1.0), 78.844);
-          v6 = v879;
-          v112 = fmaxf(fminf(v894 / v716, 1.0), 0.0);
+          v893 = v114;
+          v714 = powf(v101 * 0.0001, 0.1593);
+          v715 = powf(((v714 * 18.852) + 0.83594) / ((v714 * 18.688) + 1.0), 78.844);
+          v6 = v878;
+          v112 = fmaxf(fminf(v893 / v715, 1.0), 0.0);
           v106 = v94 / v93;
-          v100 = v896;
+          v100 = v895;
         }
 
         v99 = (v99 * (1.0 - v112)) + (v112 * v100);
       }
 
-      v717 = v111 - v95;
+      v716 = v111 - v95;
       if (v103)
       {
-        v109 = v717 / (v111 - v6);
+        v109 = v716 / (v111 - v6);
       }
 
-      v718 = 1.0;
-      v719 = fmax(fmin(1.0 - (v717 / (v93 - v94)), 1.0), 0.0);
+      v717 = 1.0;
+      v718 = fmax(fmin(1.0 - (v716 / (v93 - v94)), 1.0), 0.0);
       if (v104)
       {
-        v720 = v719;
+        v719 = v718;
       }
 
       else
       {
-        v720 = 1.0;
+        v719 = 1.0;
       }
 
       if (v95 >= v111)
       {
-        v721 = v111;
+        v720 = v111;
       }
 
       else
       {
-        v721 = v95;
+        v720 = v95;
       }
 
-      if (v6 >= v721)
+      if (v6 >= v720)
       {
-        v721 = v6;
+        v720 = v6;
       }
 
-      v722 = (v100 * v109) + (1.0 - v109) * v99;
-      v723 = v721 - v6;
-      v724 = v6 + (((v6 + ((v721 - v6) * v722)) - v6) * (v108 + 1.0));
+      v721 = (v100 * v109) + (1.0 - v109) * v99;
+      v722 = v720 - v6;
+      v723 = v6 + (((v6 + ((v720 - v6) * v721)) - v6) * (v108 + 1.0));
+      if (v723 >= v111)
+      {
+        v723 = v111;
+      }
+
+      if (v6 >= v723)
+      {
+        v723 = v6;
+      }
+
+      v724 = v6 + (v722 * 0.5);
       if (v724 >= v111)
       {
         v724 = v111;
@@ -9988,7 +9922,7 @@ LABEL_480:
         v724 = v6;
       }
 
-      v725 = v6 + (v723 * 0.5);
+      v725 = v6 + (v722 * 2.0);
       if (v725 >= v111)
       {
         v725 = v111;
@@ -9999,7 +9933,7 @@ LABEL_480:
         v725 = v6;
       }
 
-      v726 = v6 + (v723 * 2.0);
+      v726 = v111 + ((v720 - v111) * 2.0);
       if (v726 >= v111)
       {
         v726 = v111;
@@ -10010,7 +9944,7 @@ LABEL_480:
         v726 = v6;
       }
 
-      v727 = v111 + ((v721 - v111) * 2.0);
+      v727 = v111 + ((v720 - v111) * 0.5);
       if (v727 >= v111)
       {
         v727 = v111;
@@ -10021,78 +9955,67 @@ LABEL_480:
         v727 = v6;
       }
 
-      v728 = v111 + ((v721 - v111) * 0.5);
-      if (v728 >= v111)
+      if (v724 < v726)
       {
-        v728 = v111;
-      }
-
-      if (v6 >= v728)
-      {
-        v728 = v6;
+        v724 = v726;
       }
 
       if (v725 < v727)
       {
-        v725 = v727;
+        v727 = v725;
       }
 
-      if (v726 < v728)
+      if (v723 >= v727)
       {
-        v728 = v726;
+        v723 = v727;
       }
 
-      if (v724 >= v728)
+      if (v724 >= v723)
       {
-        v724 = v728;
-      }
-
-      if (v725 >= v724)
-      {
-        v729 = v725;
+        v728 = v724;
       }
 
       else
       {
-        v729 = v724;
+        v728 = v723;
       }
 
-      v730 = (v111 - v721) + v729;
-      if (v730 >= v111)
+      v729 = (v111 - v720) + v728;
+      if (v729 >= v111)
       {
-        v730 = v111;
+        v729 = v111;
       }
 
       *(a3 + 4) = v6;
-      *(a3 + 8) = v721;
+      *(a3 + 8) = v720;
       *(a3 + 12) = v111;
       *(a3 + 20) = v6;
-      *(a3 + 24) = v729;
-      v731 = (v111 * v720) + ((1.0 - v720) * v730);
-      *(a3 + 28) = v731;
-      v732 = 1.0;
-      if (v721 != v6)
+      *(a3 + 24) = v728;
+      v730 = (v111 * v719) + ((1.0 - v719) * v729);
+      *(a3 + 28) = v730;
+      v731 = 1.0;
+      if (v720 != v6)
       {
-        v732 = (v729 - v6) / v723;
+        v731 = (v728 - v6) / v722;
       }
 
-      if (v111 != v721)
+      if (v111 != v720)
       {
-        v718 = (v731 - v729) / (v111 - v721);
+        v717 = (v730 - v728) / (v111 - v720);
       }
 
       v323 = 1.0;
       if (v105)
       {
-        v323 = (v106 * v718) + (1.0 - v106) * v732;
+        v323 = (v106 * v717) + (1.0 - v106) * v731;
       }
 
-      v324 = (v718 * v718) * (1.0 / v323);
-      *(a3 + 36) = (v732 * v732) * (1.0 / v323);
+      v324 = (v717 * v717) * (1.0 / v323);
+      *(a3 + 36) = (v731 * v731) * (1.0 / v323);
       goto LABEL_941;
     case 0xE:
-      v880 = v6;
-      v887 = v8;
+      v879 = v6;
+      v886 = v8;
       v129 = v11;
       v131 = *(a1 + 58);
       v130 = *(a1 + 59);
@@ -10108,8 +10031,8 @@ LABEL_480:
         goto LABEL_132;
       }
 
-      v799 = GetConfig();
-      v134 = *HDRConfig::GetConfigEntryValue(v799, 0x7Au, 0);
+      v798 = GetConfig();
+      v134 = *HDRConfig::GetConfigEntryValue(v798, 0x7Au, 0);
       if (v134 >= 0.0)
       {
 LABEL_132:
@@ -10119,8 +10042,8 @@ LABEL_132:
         goto LABEL_133;
       }
 
-      v800 = powf(v134 * -0.0001, 0.1593);
-      v136 = 0.0000014619 - powf(((v800 * 18.852) + 0.83594) / ((v800 * 18.688) + 1.0), 78.844);
+      v799 = powf(v134 * -0.0001, 0.1593);
+      v136 = 0.0000014619 - powf(((v799 * 18.852) + 0.83594) / ((v799 * 18.688) + 1.0), 78.844);
       v137 = 1;
 LABEL_133:
       v138 = *(a1 + 8);
@@ -10129,17 +10052,17 @@ LABEL_133:
       {
         if (v137)
         {
-          v498 = powf(v134 * -0.0001, 0.1593);
-          v499 = 0.0000014619 - powf(((v498 * 18.852) + 0.83594) / ((v498 * 18.688) + 1.0), 78.844);
+          v497 = powf(v134 * -0.0001, 0.1593);
+          v498 = 0.0000014619 - powf(((v497 * 18.852) + 0.83594) / ((v497 * 18.688) + 1.0), 78.844);
         }
 
         else
         {
-          v676 = powf(v134 * 0.0001, 0.1593);
-          v499 = powf(((v676 * 18.852) + 0.83594) / ((v676 * 18.688) + 1.0), 78.844);
+          v675 = powf(v134 * 0.0001, 0.1593);
+          v498 = powf(((v675 * 18.852) + 0.83594) / ((v675 * 18.688) + 1.0), 78.844);
         }
 
-        v148 = ((v129 / v499) * 0.35) + 0.65;
+        v148 = ((v129 / v498) * 0.35) + 0.65;
       }
 
       else
@@ -10182,58 +10105,58 @@ LABEL_133:
 
       v433 = 1.0;
       v435 = 0.0;
-      v677 = v138 * (((v148 + -1.0) * ((((1.0 - (v129 / v887)) + -0.1) / 0.4) + 0.0)) + 1.0);
-      if (v138 >= v887)
+      v676 = v138 * (((v148 + -1.0) * ((((1.0 - (v129 / v886)) + -0.1) / 0.4) + 0.0)) + 1.0);
+      if (v138 >= v886)
       {
-        v678 = v887;
+        v677 = v886;
       }
 
       else
       {
-        v678 = v138;
+        v677 = v138;
       }
 
-      if (v880 >= v678)
+      if (v879 >= v677)
       {
-        v678 = v880;
+        v677 = v879;
       }
 
-      if (v677 >= v887)
+      if (v676 >= v886)
       {
-        v677 = v887;
+        v676 = v886;
       }
 
-      if (v880 >= v677)
+      if (v879 >= v676)
       {
-        v677 = v880;
+        v676 = v879;
       }
 
-      *(a3 + 4) = v880;
-      *(a3 + 8) = v678;
-      *(a3 + 12) = v887;
-      *(a3 + 20) = v880;
-      *(a3 + 24) = v677;
-      *(a3 + 28) = v887;
-      if (v678 != v880)
+      *(a3 + 4) = v879;
+      *(a3 + 8) = v677;
+      *(a3 + 12) = v886;
+      *(a3 + 20) = v879;
+      *(a3 + 24) = v676;
+      *(a3 + 28) = v886;
+      if (v677 != v879)
       {
-        v435 = ((v677 - v880) / (v678 - v880)) + -1.0;
+        v435 = ((v676 - v879) / (v677 - v879)) + -1.0;
       }
 
-      if (v887 != v678)
+      if (v886 != v677)
       {
-        v438 = v887 - v677;
-        v439 = v887 - v678;
+        v438 = v886 - v676;
+        v439 = v886 - v677;
 LABEL_827:
         v433 = v438 / v439;
       }
 
 LABEL_828:
       v126 = (v435 * 0.5) + 1.0;
-      v497 = ((((1.0 / v126) * (v433 * v433)) + -1.0) * 0.0) + 1.0;
+      v496 = ((((1.0 / v126) * (v433 * v433)) + -1.0) * 0.0) + 1.0;
       *(a3 + 36) = v126;
 LABEL_990:
       *(a3 + 40) = v126;
-      *(a3 + 44) = v497;
+      *(a3 + 44) = v496;
       return;
     case 0xF:
       v376 = v6;
@@ -10254,8 +10177,8 @@ LABEL_990:
         goto LABEL_434;
       }
 
-      v801 = GetConfig();
-      v384 = *HDRConfig::GetConfigEntryValue(v801, 0x7Au, 0);
+      v800 = GetConfig();
+      v384 = *HDRConfig::GetConfigEntryValue(v800, 0x7Au, 0);
       if (v384 >= 0.0)
       {
 LABEL_434:
@@ -10264,16 +10187,16 @@ LABEL_434:
         goto LABEL_435;
       }
 
-      v802 = powf(v384 * -0.0001, 0.1593);
-      v386 = 0.0000014619 - powf(((v802 * 18.852) + 0.83594) / ((v802 * 18.688) + 1.0), 78.844);
+      v801 = powf(v384 * -0.0001, 0.1593);
+      v386 = 0.0000014619 - powf(((v801 * 18.852) + 0.83594) / ((v801 * 18.688) + 1.0), 78.844);
 LABEL_435:
       *(a3 + 2) = 3;
       v387 = v378;
       if (v378 >= 0.5)
       {
-        v518 = ((v378 / v386) * 0.35) + 0.65;
-        v519 = v377;
-        v520 = v376;
+        v517 = ((v378 / v386) * 0.35) + 0.65;
+        v518 = v377;
+        v519 = v376;
       }
 
       else
@@ -10290,142 +10213,142 @@ LABEL_435:
           v390 = 0.0;
         }
 
-        v519 = v377;
-        v520 = v376;
+        v518 = v377;
+        v519 = v376;
         if (v380 >= v390)
         {
           v390 = v380;
         }
 
-        v693 = v390 - v379;
-        v694 = 0.3;
-        if (v693 <= 0.3)
+        v692 = v390 - v379;
+        v693 = 0.3;
+        if (v692 <= 0.3)
         {
-          v694 = v693;
+          v693 = v692;
         }
 
-        v695 = (((v694 + -0.13) * -0.25) / 0.17) + 0.95;
-        if (v693 >= 0.13)
+        v694 = (((v693 + -0.13) * -0.25) / 0.17) + 0.95;
+        if (v692 >= 0.13)
         {
-          v696 = v695;
+          v695 = v694;
         }
 
         else
         {
-          v696 = 0.95;
+          v695 = 0.95;
         }
 
         v387 = v378;
-        v518 = v696 + (((v378 + -0.3327) * (v388 - v696)) / 0.1673);
+        v517 = v695 + (((v378 + -0.3327) * (v388 - v695)) / 0.1673);
       }
 
-      v697 = 0.0;
-      v698 = v381 * (((v518 + -1.0) * ((((1.0 - (v387 / v519)) + -0.1) / 0.4) + 0.0)) + 1.0);
-      if (v381 >= v519)
+      v696 = 0.0;
+      v697 = v381 * (((v517 + -1.0) * ((((1.0 - (v387 / v518)) + -0.1) / 0.4) + 0.0)) + 1.0);
+      if (v381 >= v518)
+      {
+        v698 = v518;
+      }
+
+      else
+      {
+        v698 = v381;
+      }
+
+      if (v519 >= v698)
       {
         v699 = v519;
       }
 
       else
       {
-        v699 = v381;
+        v699 = v698;
       }
 
-      if (v520 >= v699)
+      if (v697 >= v518)
       {
-        v700 = v520;
+        v697 = v518;
+      }
+
+      if (v519 >= v697)
+      {
+        v700 = v519;
       }
 
       else
       {
-        v700 = v699;
+        v700 = v697;
       }
 
-      if (v698 >= v519)
-      {
-        v698 = v519;
-      }
-
-      if (v520 >= v698)
-      {
-        v701 = v520;
-      }
-
-      else
-      {
-        v701 = v698;
-      }
-
-      v702 = v519;
+      v701 = v518;
       if (*(a2 + 17) == 1)
       {
-        v703 = GetConfig();
-        v520 = v376;
-        v519 = v377;
-        v702 = v377;
-        if (v703)
+        v702 = GetConfig();
+        v519 = v376;
+        v518 = v377;
+        v701 = v377;
+        if (v702)
         {
-          v704 = GetConfig();
-          ConfigEntryValue = HDRConfig::GetConfigEntryValue(v704, 0xE9u, 0);
-          v520 = v376;
-          v519 = v377;
-          v702 = v377;
+          v703 = GetConfig();
+          ConfigEntryValue = HDRConfig::GetConfigEntryValue(v703, 0xE9u, 0);
+          v519 = v376;
+          v518 = v377;
+          v701 = v377;
           if (*ConfigEntryValue == 1)
           {
-            v706 = 1.0 / *(a1 + 1);
-            v707 = -(v378 + -0.0000014619);
+            v705 = 1.0 / *(a1 + 1);
+            v706 = -(v378 + -0.0000014619);
             if (v378 >= 0.00000073096)
             {
-              v707 = v378;
+              v706 = v378;
             }
 
-            v708 = flt_2508CD850[v378 < 0.00000073096];
-            v709 = powf(v707, 0.012683);
-            v710 = fmax(((v709 + -0.83594) / ((v709 * -18.688) + 18.852)), 0.0);
-            v711 = v708 * powf(v710, 6.2774);
-            v712 = v711 * powf(v706, *(a2 + 20));
-            if (v712 >= 0.0)
+            v707 = flt_2508CD850[v378 < 0.00000073096];
+            v708 = powf(v706, 0.012683);
+            v709 = fmax(((v708 + -0.83594) / ((v708 * -18.688) + 18.852)), 0.0);
+            v710 = v707 * powf(v709, 6.2774);
+            v711 = v710 * powf(v705, *(a2 + 20));
+            if (v711 >= 0.0)
             {
-              v734 = powf(v712 * 0.0001, 0.1593);
-              v702 = powf(((v734 * 18.852) + 0.83594) / ((v734 * 18.688) + 1.0), 78.844);
+              v733 = powf(v711 * 0.0001, 0.1593);
+              v701 = powf(((v733 * 18.852) + 0.83594) / ((v733 * 18.688) + 1.0), 78.844);
             }
 
             else
             {
-              v713 = powf(v712 * -0.0001, 0.1593);
-              v702 = 0.0000014619 - powf(((v713 * 18.852) + 0.83594) / ((v713 * 18.688) + 1.0), 78.844);
+              v712 = powf(v711 * -0.0001, 0.1593);
+              v701 = 0.0000014619 - powf(((v712 * 18.852) + 0.83594) / ((v712 * 18.688) + 1.0), 78.844);
             }
 
-            v519 = v377;
-            if (v377 < v702)
+            v518 = v377;
+            if (v377 < v701)
             {
-              v702 = v377;
+              v701 = v377;
             }
 
-            v520 = v376;
+            v519 = v376;
           }
         }
       }
 
-      *(a3 + 4) = v520;
-      *(a3 + 8) = v700;
-      *(a3 + 12) = v519;
-      *(a3 + 20) = v520;
-      *(a3 + 24) = v701;
-      *(a3 + 28) = v702;
-      if (v700 != v520)
+      *(a3 + 4) = v519;
+      *(a3 + 8) = v699;
+      *(a3 + 12) = v518;
+      *(a3 + 20) = v519;
+      *(a3 + 24) = v700;
+      *(a3 + 28) = v701;
+      if (v699 != v519)
       {
-        v697 = ((v701 - v520) / (v700 - v520)) + -1.0;
+        v696 = ((v700 - v519) / (v699 - v519)) + -1.0;
       }
 
-      v735 = 1.0;
-      if (v519 != v700)
+      v734 = 1.0;
+      if (v518 != v699)
       {
-        v735 = (v702 - v701) / (v519 - v700);
+        v734 = (v701 - v700) / (v518 - v699);
       }
 
-      v233 = (v697 * 0.5) + 1.0;
-      v236 = ((((1.0 / v233) * (v735 * v735)) + -1.0) * 0.8) + 1.0;
+      v233 = (v696 * 0.5) + 1.0;
+      v236 = ((((1.0 / v233) * (v734 * v734)) + -1.0) * 0.8) + 1.0;
       *(a3 + 36) = v233;
 LABEL_962:
       *(a3 + 40) = v233;
@@ -10453,8 +10376,8 @@ LABEL_81:
         goto LABEL_80;
       }
 
-      v797 = GetConfig();
-      v83 = *HDRConfig::GetConfigEntryValue(v797, 0x7Au, 0);
+      v796 = GetConfig();
+      v83 = *HDRConfig::GetConfigEntryValue(v796, 0x7Au, 0);
       v84 = *(a1 + 8);
       *(a3 + 2) = 3;
       if (v83 >= 0.0)
@@ -10462,8 +10385,8 @@ LABEL_81:
         goto LABEL_81;
       }
 
-      v798 = powf(v83 * -0.0001, 0.1593);
-      v86 = 0.0000014619 - powf(((v798 * 18.852) + 0.83594) / ((v798 * 18.688) + 1.0), 78.844);
+      v797 = powf(v83 * -0.0001, 0.1593);
+      v86 = 0.0000014619 - powf(((v797 * 18.852) + 0.83594) / ((v797 * 18.688) + 1.0), 78.844);
 LABEL_82:
       v87 = v80 / v86;
       v88 = 1.0;
@@ -10850,16 +10773,16 @@ LABEL_351:
       v67 = (v8 * v55) + ((1.0 - v55) * v66);
       if (*(a2 + 17) == 1)
       {
-        v878 = v6;
-        v886 = v8;
+        v877 = v6;
+        v885 = v8;
         v68 = v11;
         if (GetConfig())
         {
           v69 = GetConfig();
           if (*HDRConfig::GetConfigEntryValue(v69, 0xE9u, 0) == 1)
           {
-            v906 = v65;
-            v895 = 1.0 / *(a1 + 1);
+            v905 = v65;
+            v894 = 1.0 / *(a1 + 1);
             v70 = -(v68 + -0.0000014619);
             if (v68 >= 0.00000073096)
             {
@@ -10870,11 +10793,11 @@ LABEL_351:
             v72 = powf(v70, 0.012683);
             v73 = fmax(((v72 + -0.83594) / ((v72 * -18.688) + 18.852)), 0.0);
             v74 = v71 * powf(v73, 6.2774);
-            v75 = v74 * powf(v895, *(a2 + 20));
+            v75 = v74 * powf(v894, *(a2 + 20));
             if (v75 >= 0.0)
             {
-              v733 = powf(v75 * 0.0001, 0.1593);
-              v77 = powf(((v733 * 18.852) + 0.83594) / ((v733 * 18.688) + 1.0), 78.844);
+              v732 = powf(v75 * 0.0001, 0.1593);
+              v77 = powf(((v732 * 18.852) + 0.83594) / ((v732 * 18.688) + 1.0), 78.844);
             }
 
             else
@@ -10883,7 +10806,7 @@ LABEL_351:
               v77 = 0.0000014619 - powf(((v76 * 18.852) + 0.83594) / ((v76 * 18.688) + 1.0), 78.844);
             }
 
-            v65 = v906;
+            v65 = v905;
             if (v67 >= v77)
             {
               v67 = v77;
@@ -10891,8 +10814,8 @@ LABEL_351:
           }
         }
 
-        v6 = v878;
-        v8 = v886;
+        v6 = v877;
+        v8 = v885;
       }
 
       *(a3 + 4) = v6;
@@ -10907,15 +10830,15 @@ LABEL_351:
       }
 
       v126 = 1.0;
-      v497 = 1.0;
+      v496 = 1.0;
       if (v8 != v56)
       {
-        v497 = (v67 - v64) / v65;
+        v496 = (v67 - v64) / v65;
       }
 
       if (v42)
       {
-        v126 = ((v44 * v497) * 0.82) + (1.0 - v44) * v52;
+        v126 = ((v44 * v496) * 0.82) + (1.0 - v44) * v52;
       }
 
       *(a3 + 36) = v52;
@@ -11088,20 +11011,20 @@ LABEL_351:
       *(a3 + 36) = (v267 * v267) * (1.0 / v35);
       goto LABEL_351;
     case 0x14:
-      v891 = v8;
-      v839 = *(a1 + 73);
-      v843 = *(a1 + 72);
-      v848 = *(a1 + 74);
-      v853 = *(a1 + 75);
-      v868 = *(a1 + 80);
-      v874 = *(a1 + 79);
-      v404 = *(a1 + 81);
+      v890 = v8;
+      v838 = *(a1 + 73);
+      v842 = a1[72];
+      v847 = *(a1 + 74);
+      v852 = *(a1 + 75);
+      v867 = *(a1 + 80);
+      v873 = *(a1 + 79);
+      v404 = a1[81];
       *(a3 + 2) = 3;
-      v834 = *(a1 + 61);
-      v858 = *(a1 + 62);
-      v863 = v404;
+      v833 = *(a1 + 61);
+      v857 = *(a1 + 62);
+      v862 = *&v404;
       v405 = -(v9 + -0.0000014619);
-      v911 = v9;
+      v910 = v9;
       if (v9 < 0.00000073096)
       {
         v406 = -10000.0;
@@ -11113,11 +11036,11 @@ LABEL_351:
         v406 = 10000.0;
       }
 
-      v901 = v406;
+      v900 = v406;
       v407 = v11;
       v408 = powf(v405, 0.012683);
       v409 = fmax(((v408 + -0.83594) / ((v408 * -18.688) + 18.852)), 0.0);
-      v831 = v901 * powf(v409, 6.2774);
+      v830 = v900 * powf(v409, 6.2774);
       v410 = -(v407 + -0.0000014619);
       if (v407 < 0.00000073096)
       {
@@ -11130,30 +11053,30 @@ LABEL_351:
         v411 = 10000.0;
       }
 
-      v824 = v411;
+      v823 = v411;
       v412 = powf(v410, 0.012683);
       v413 = fmax(((v412 + -0.83594) / ((v412 * -18.688) + 18.852)), 0.0);
-      v414 = v824 * powf(v413, 6.2774);
-      v415 = -(v834 + -0.0000014619);
-      if (v834 < 0.00000073096)
+      v414 = v823 * powf(v413, 6.2774);
+      v415 = -(v833 + -0.0000014619);
+      if (v833 < 0.00000073096)
       {
         v416 = -10000.0;
       }
 
       else
       {
-        v415 = v834;
+        v415 = v833;
         v416 = 10000.0;
       }
 
-      v417 = v414 / v831;
+      v417 = v414 / v830;
       v418 = powf(v415, 0.012683);
       v419 = fmax(((v418 + -0.83594) / ((v418 * -18.688) + 18.852)), 0.0);
       v420 = v417 * (v416 * powf(v419, 6.2774));
       if (v420 >= 0.0)
       {
-        v521 = powf(v420 * 0.0001, 0.1593);
-        v422 = powf(((v521 * 18.852) + 0.83594) / ((v521 * 18.688) + 1.0), 78.844);
+        v520 = powf(v420 * 0.0001, 0.1593);
+        v422 = powf(((v520 * 18.852) + 0.83594) / ((v520 * 18.688) + 1.0), 78.844);
       }
 
       else
@@ -11162,62 +11085,62 @@ LABEL_351:
         v422 = 0.0000014619 - powf(((v421 * 18.852) + 0.83594) / ((v421 * 18.688) + 1.0), 78.844);
       }
 
-      v522 = v422 - v834;
-      v523 = 1.0;
-      v524 = v843;
+      v521 = v422 - v833;
+      v522 = 1.0;
+      v523 = *&v842;
       if (v417 >= 1.0)
       {
-        v524 = v839;
+        v523 = v838;
       }
 
-      v525 = v834 + (v522 * v524);
-      v526 = v848 * v834;
-      v527 = v848 * v525;
-      v528 = (v407 / v911) * v858;
-      if (v528 >= v891)
+      v524 = v833 + (v521 * v523);
+      v525 = v847 * v833;
+      v526 = v847 * v524;
+      v527 = (v407 / v910) * v857;
+      if (v527 >= v890)
       {
-        v528 = v891;
+        v527 = v890;
       }
 
-      v529 = v407 + (v858 - v911);
-      if (v529 >= v891)
+      v528 = v407 + (v857 - v910);
+      if (v528 >= v890)
       {
-        v529 = v891;
+        v528 = v890;
       }
 
-      v530 = v528 + (v853 * (v529 - v528));
+      v529 = v527 + (v852 * (v528 - v527));
       *(a3 + 4) = 0;
-      *(a3 + 8) = v526;
-      *(a3 + 12) = v858;
+      *(a3 + 8) = v525;
+      *(a3 + 12) = v857;
       *(a3 + 20) = 0;
-      *(a3 + 24) = v527;
-      *(a3 + 28) = v530;
-      if (v526 != 0.0)
+      *(a3 + 24) = v526;
+      *(a3 + 28) = v529;
+      if (v525 != 0.0)
       {
-        v523 = v527 / v526;
+        v522 = v526 / v525;
       }
 
-      v531 = ((v530 - v527) / (v858 - v526));
-      if (v858 == v526)
+      v530 = ((v529 - v526) / (v857 - v525));
+      if (v857 == v525)
       {
-        v531 = 1.0;
+        v530 = 1.0;
       }
 
-      v532 = v523;
-      v323 = v532 + (1.0 - v532) * v863;
-      if (v868 <= v323)
+      v531 = v522;
+      v323 = v531 + (1.0 - v531) * v862;
+      if (v867 <= v323)
       {
-        v323 = v868;
+        v323 = v867;
       }
 
-      if (v874 >= v323)
+      if (v873 >= v323)
       {
-        v323 = v874;
+        v323 = v873;
       }
 
-      v533 = 1.0 / v323;
-      v322 = v532 * v532 * v533;
-      v324 = v533 * (v531 * v531);
+      v532 = 1.0 / v323;
+      v322 = v531 * v531 * v532;
+      v324 = v532 * (v530 * v530);
 LABEL_585:
       *(a3 + 36) = v322;
 LABEL_941:
@@ -11225,216 +11148,215 @@ LABEL_941:
       *(a3 + 44) = v324;
       return;
     case 0x15:
-      v883 = v6;
-      v892 = v8;
-      v812 = *(a1 + 73);
-      v814 = *(a1 + 72);
-      v816 = *(a1 + 74);
-      v818 = *(a1 + 75);
-      v829 = *(a1 + 78);
-      v832 = *(a1 + 77);
-      v827 = *(a1 + 79);
-      v820 = *(a1 + 81);
-      v822 = *(a1 + 80);
-      v849 = *(a1 + 82);
-      v840 = *(a1 + 76);
-      v844 = *(a1 + 83);
-      v835 = *(a1 + 84);
-      v859 = *(a1 + 86);
-      v864 = *(a1 + 85);
-      v854 = *(a1 + 87);
-      v458 = *(a1 + 88);
-      v808 = v458;
-      v809 = *(a1 + 89);
+      v882 = v6;
+      v891 = v8;
+      v811 = *(a1 + 73);
+      v813 = a1[72];
+      v815 = *(a1 + 74);
+      v817 = *(a1 + 75);
+      v828 = *(a1 + 78);
+      v831 = *(a1 + 77);
+      v826 = *(a1 + 79);
+      v819 = *(a1 + 81);
+      v821 = *(a1 + 80);
+      v848 = *(a1 + 82);
+      v839 = *(a1 + 76);
+      v843 = *(a1 + 83);
+      v834 = *(a1 + 84);
+      v858 = *(a1 + 86);
+      v863 = *(a1 + 85);
+      v853 = *(a1 + 87);
+      v807 = *(a1 + 88);
+      v808 = *(a1 + 89);
       *(a3 + 2) = 4;
-      v459 = -(v7 + -0.0000014619);
-      v876 = v7;
+      v458 = -(v7 + -0.0000014619);
+      v875 = v7;
       if (v7 >= 0.00000073096)
       {
-        v459 = v7;
+        v458 = v7;
       }
 
-      v460 = 10000.0;
+      v459 = 10000.0;
       if (v7 < 0.00000073096)
       {
-        v460 = -10000.0;
+        v459 = -10000.0;
       }
 
-      v903 = v460;
-      v807 = *(a1 + 61);
-      v825 = *(a1 + 62);
-      v461 = v11;
-      v913 = v9;
-      v462 = powf(v459, 0.012683);
-      v463 = fmax(((v462 + -0.83594) / ((v462 * -18.688) + 18.852)), 0.0);
-      v464 = v903 * powf(v463, 6.2774);
-      v465 = -(v461 + -0.0000014619);
-      if (v461 < 0.00000073096)
+      v902 = v459;
+      v806 = *(a1 + 61);
+      v824 = *(a1 + 62);
+      v460 = v11;
+      v912 = v9;
+      v461 = powf(v458, 0.012683);
+      v462 = fmax(((v461 + -0.83594) / ((v461 * -18.688) + 18.852)), 0.0);
+      v463 = v902 * powf(v462, 6.2774);
+      v464 = -(v460 + -0.0000014619);
+      if (v460 < 0.00000073096)
       {
-        v466 = -10000.0;
+        v465 = -10000.0;
       }
 
       else
       {
-        v465 = v461;
-        v466 = 10000.0;
+        v464 = v460;
+        v465 = 10000.0;
       }
 
-      v805 = v466;
-      v806 = v464;
-      v467 = powf(v465, 0.012683);
-      v468 = fmax(((v467 + -0.83594) / ((v467 * -18.688) + 18.852)), 0.0);
-      v469 = (v805 * powf(v468, 6.2774)) / v806;
-      v470 = v913 + ((v807 - v913) * v808);
-      v471 = -(v470 + -0.0000014619);
-      if (v470 < 0.00000073096)
+      v804 = v465;
+      v805 = v463;
+      v466 = powf(v464, 0.012683);
+      v467 = fmax(((v466 + -0.83594) / ((v466 * -18.688) + 18.852)), 0.0);
+      v468 = (v804 * powf(v467, 6.2774)) / v805;
+      v469 = v912 + ((v806 - v912) * v807);
+      v470 = -(v469 + -0.0000014619);
+      if (v469 < 0.00000073096)
       {
-        v472 = -10000.0;
+        v471 = -10000.0;
       }
 
       else
       {
-        v471 = v913 + ((v807 - v913) * v808);
-        v472 = 10000.0;
+        v470 = v912 + ((v806 - v912) * v807);
+        v471 = 10000.0;
       }
 
-      v473 = v469;
-      v474 = powf(v471, 0.012683);
-      v475 = fmax(((v474 + -0.83594) / ((v474 * -18.688) + 18.852)), 0.0);
-      v476 = v473 * (v472 * powf(v475, 6.2774));
-      if (v476 >= 0.0)
+      v472 = v468;
+      v473 = powf(v470, 0.012683);
+      v474 = fmax(((v473 + -0.83594) / ((v473 * -18.688) + 18.852)), 0.0);
+      v475 = v472 * (v471 * powf(v474, 6.2774));
+      if (v475 >= 0.0)
       {
-        v534 = powf(v476 * 0.0001, 0.1593);
-        v478 = powf(((v534 * 18.852) + 0.83594) / ((v534 * 18.688) + 1.0), 78.844);
+        v533 = powf(v475 * 0.0001, 0.1593);
+        v477 = powf(((v533 * 18.852) + 0.83594) / ((v533 * 18.688) + 1.0), 78.844);
       }
 
       else
       {
-        v477 = powf(v476 * -0.0001, 0.1593);
-        v478 = 0.0000014619 - powf(((v477 * 18.852) + 0.83594) / ((v477 * 18.688) + 1.0), 78.844);
+        v476 = powf(v475 * -0.0001, 0.1593);
+        v477 = 0.0000014619 - powf(((v476 * 18.852) + 0.83594) / ((v476 * 18.688) + 1.0), 78.844);
       }
 
-      v535 = v478 - v470;
-      v536 = v814;
-      if (v473 >= 1.0)
+      v534 = v477 - v469;
+      v535 = *&v813;
+      if (v472 >= 1.0)
       {
-        v536 = v812;
+        v535 = v811;
       }
 
-      v537 = v816 * v470;
-      v538 = v816 * (v470 + (v535 * v536));
-      v539 = v825 + ((v892 - v825) * v809);
-      v540 = (v461 / v876) * v825;
-      if (v540 >= v539)
+      v536 = v815 * v469;
+      v537 = v815 * (v469 + (v534 * v535));
+      v538 = v824 + ((v891 - v824) * v808);
+      v539 = (v460 / v875) * v824;
+      if (v539 >= v538)
       {
-        v540 = v825 + ((v892 - v825) * v809);
+        v539 = v824 + ((v891 - v824) * v808);
       }
 
-      if ((v461 + (v825 - v876)) < v539)
+      if ((v460 + (v824 - v875)) < v538)
       {
-        v539 = v461 + (v825 - v876);
+        v538 = v460 + (v824 - v875);
       }
 
-      v541 = v540 + (v818 * (v539 - v540));
-      *(a3 + 4) = v883;
-      *(a3 + 8) = v537;
-      *(a3 + 12) = v825;
-      *(a3 + 16) = v892;
-      *(a3 + 20) = v883;
-      *(a3 + 24) = v538;
-      *(a3 + 28) = v541;
-      *(a3 + 32) = v892;
+      v540 = v539 + (v817 * (v538 - v539));
+      *(a3 + 4) = v882;
+      *(a3 + 8) = v536;
+      *(a3 + 12) = v824;
+      *(a3 + 16) = v891;
+      *(a3 + 20) = v882;
+      *(a3 + 24) = v537;
+      *(a3 + 28) = v540;
+      *(a3 + 32) = v891;
+      v541 = 1.0;
       v542 = 1.0;
-      v543 = 1.0;
-      if (v537 != v883)
+      if (v536 != v882)
       {
-        v543 = ((v538 - v883) / (v537 - v883));
+        v542 = ((v537 - v882) / (v536 - v882));
       }
 
-      if (v825 != v537)
+      if (v824 != v536)
       {
-        v542 = ((v541 - v538) / (v825 - v537));
+        v541 = ((v540 - v537) / (v824 - v536));
       }
 
-      v544 = v543 + (1.0 - v543) * v820;
-      if (v822 <= v544)
+      v543 = v542 + (1.0 - v542) * v819;
+      if (v821 <= v543)
       {
-        v544 = v822;
+        v543 = v821;
       }
 
-      if (v827 >= v544)
+      if (v826 >= v543)
       {
-        v544 = v827;
+        v543 = v826;
       }
 
-      v545 = 1.0 / v544;
-      v546 = v543 * v543 * v545;
-      v547 = v546 + (1.0 - v546) * v829;
-      if (v832 <= v547)
+      v544 = 1.0 / v543;
+      v545 = v542 * v542 * v544;
+      v546 = v545 + (1.0 - v545) * v828;
+      if (v831 <= v546)
       {
-        v547 = v832;
+        v546 = v831;
       }
 
-      if (v840 >= v547)
+      if (v839 >= v546)
       {
-        v547 = v840;
+        v546 = v839;
       }
 
-      v548 = v545 * (v542 * v542);
-      v549 = v548 + (1.0 - v548) * v835;
-      if (v844 <= v549)
+      v547 = v544 * (v541 * v541);
+      v548 = v547 + (1.0 - v547) * v834;
+      if (v843 <= v548)
       {
-        v549 = v844;
+        v548 = v843;
       }
 
-      if (v849 >= v549)
+      if (v848 >= v548)
       {
-        v549 = v849;
+        v548 = v848;
       }
 
-      v550 = v549;
-      if (v892 != v825)
+      v549 = v548;
+      if (v891 != v824)
       {
-        v550 = ((v892 - v541) / (v892 - v825)) * ((v892 - v541) / (v892 - v825)) * (1.0 / v549);
+        v549 = ((v891 - v540) / (v891 - v824)) * ((v891 - v540) / (v891 - v824)) * (1.0 / v548);
       }
 
-      v551 = v550 + (1.0 - v550) * v854;
-      if (v859 <= v551)
+      v550 = v549 + (1.0 - v549) * v853;
+      if (v858 <= v550)
       {
-        v551 = v859;
+        v550 = v858;
       }
 
-      *(a3 + 36) = v547;
-      *(a3 + 40) = v544;
-      if (v864 >= v551)
+      *(a3 + 36) = v546;
+      *(a3 + 40) = v543;
+      if (v863 >= v550)
       {
-        v551 = v864;
+        v550 = v863;
       }
 
-      *(a3 + 44) = v549;
-      *(a3 + 48) = v551;
+      *(a3 + 44) = v548;
+      *(a3 + 48) = v550;
       return;
     case 0x16:
-      v889 = v8;
-      v817 = *(a1 + 73);
-      v819 = *(a1 + 72);
-      v830 = *(a1 + 78);
-      v833 = *(a1 + 77);
-      v826 = *(a1 + 80);
-      v828 = *(a1 + 79);
-      v821 = *(a1 + 74);
-      v823 = *(a1 + 81);
-      v852 = *(a1 + 82);
-      v842 = *(a1 + 76);
-      v847 = *(a1 + 83);
-      v838 = *(a1 + 84);
-      v862 = *(a1 + 86);
-      v867 = *(a1 + 85);
-      v857 = *(a1 + 87);
-      v285 = *(a1 + 88);
+      v888 = v8;
+      v816 = *(a1 + 73);
+      v818 = a1[72];
+      v829 = *(a1 + 78);
+      v832 = *(a1 + 77);
+      v825 = *(a1 + 80);
+      v827 = *(a1 + 79);
+      v820 = *(a1 + 74);
+      v822 = *(a1 + 81);
+      v851 = *(a1 + 82);
+      v841 = *(a1 + 76);
+      v846 = *(a1 + 83);
+      v837 = *(a1 + 84);
+      v861 = *(a1 + 86);
+      v866 = *(a1 + 85);
+      v856 = *(a1 + 87);
+      v285 = a1[88];
       *(a3 + 2) = 4;
-      v813 = *(a1 + 61);
-      v815 = v285;
+      v812 = *(a1 + 61);
+      v814 = *&v285;
       v286 = -(v7 + -0.0000014619);
       if (v7 < 0.00000073096)
       {
@@ -11449,10 +11371,10 @@ LABEL_941:
 
       v288 = v11;
       v289 = v6;
-      v909 = v9;
+      v908 = v9;
       v290 = powf(v286, 0.012683);
       v291 = fmax(((v290 + -0.83594) / ((v290 * -18.688) + 18.852)), 0.0);
-      v810 = v287 * powf(v291, 6.2774);
+      v809 = v287 * powf(v291, 6.2774);
       v292 = -(v288 + -0.0000014619);
       v293 = v288 < 0.00000073096;
       if (v288 >= 0.00000073096)
@@ -11471,10 +11393,10 @@ LABEL_941:
         v295 = 10000.0;
       }
 
-      v882 = v295;
+      v881 = v295;
       v296 = powf(v292, 0.012683);
       v297 = fmax(((v296 + -0.83594) / ((v296 * -18.688) + 18.852)), 0.0);
-      v298 = v882 * powf(v297, 6.2774);
+      v298 = v881 * powf(v297, 6.2774);
       v299 = -(v289 + -0.0000014619);
       if (v289 < 0.00000073096)
       {
@@ -11487,25 +11409,25 @@ LABEL_941:
         v300 = 10000.0;
       }
 
-      v811 = v298 / v810;
+      v810 = v298 / v809;
       v301 = powf(v299, 0.012683);
       v302 = fmax(((v301 + -0.83594) / ((v301 * -18.688) + 18.852)), 0.0);
       v303 = v300 * powf(v302, 6.2774);
-      v304 = v909 + ((v813 - v909) * v815);
+      v304 = v908 + ((v812 - v908) * v814);
       v305 = -(v304 + -0.0000014619);
       if (v304 >= 0.00000073096)
       {
-        v305 = v909 + ((v813 - v909) * v815);
+        v305 = v908 + ((v812 - v908) * v814);
         v294 = 10000.0;
       }
 
       v306 = powf(v305, 0.012683);
       v307 = fmax(((v306 + -0.83594) / ((v306 * -18.688) + 18.852)), 0.0);
-      v308 = v303 + (((v294 * powf(v307, 6.2774)) - v303) * v811);
+      v308 = v303 + (((v294 * powf(v307, 6.2774)) - v303) * v810);
       if (v308 >= 0.0)
       {
-        v502 = powf(v308 * 0.0001, 0.1593);
-        v310 = powf(((v502 * 18.852) + 0.83594) / ((v502 * 18.688) + 1.0), 78.844);
+        v501 = powf(v308 * 0.0001, 0.1593);
+        v310 = powf(((v501 * 18.852) + 0.83594) / ((v501 * 18.688) + 1.0), 78.844);
       }
 
       else
@@ -11514,92 +11436,92 @@ LABEL_941:
         v310 = 0.0000014619 - powf(((v309 * 18.852) + 0.83594) / ((v309 * 18.688) + 1.0), 78.844);
       }
 
-      v503 = v310 - v304;
-      v504 = v819;
-      if (v811 >= 1.0)
+      v502 = v310 - v304;
+      v503 = *&v818;
+      if (v810 >= 1.0)
       {
-        v504 = v817;
+        v503 = v816;
       }
 
-      v505 = v304 + (v503 * v504);
-      v506 = v289 + ((v304 - v289) * v821);
-      v507 = v289 + ((v505 - v289) * v821);
+      v504 = v304 + (v502 * v503);
+      v505 = v289 + ((v304 - v289) * v820);
+      v506 = v289 + ((v504 - v289) * v820);
       *(a3 + 4) = v289;
-      *(a3 + 8) = v506;
-      *(a3 + 12) = v889;
-      *(a3 + 16) = v889;
+      *(a3 + 8) = v505;
+      *(a3 + 12) = v888;
+      *(a3 + 16) = v888;
       *(a3 + 20) = v289;
-      *(a3 + 24) = v507;
-      *(a3 + 28) = v889;
-      *(a3 + 32) = v889;
+      *(a3 + 24) = v506;
+      *(a3 + 28) = v888;
+      *(a3 + 32) = v888;
+      v507 = 1.0;
       v508 = 1.0;
-      v509 = 1.0;
-      if (v506 != v289)
+      if (v505 != v289)
       {
-        v509 = ((v507 - v289) / (v506 - v289));
+        v508 = ((v506 - v289) / (v505 - v289));
       }
 
-      if (v889 != v506)
+      if (v888 != v505)
       {
-        v508 = ((v889 - v507) / (v889 - v506));
+        v507 = ((v888 - v506) / (v888 - v505));
       }
 
-      v510 = v509 + (1.0 - v509) * v823;
-      if (v826 <= v510)
+      v509 = v508 + (1.0 - v508) * v822;
+      if (v825 <= v509)
       {
-        v510 = v826;
+        v509 = v825;
       }
 
-      if (v828 >= v510)
+      if (v827 >= v509)
       {
-        v510 = v828;
+        v509 = v827;
       }
 
-      v511 = 1.0 / v510;
-      v512 = v509 * v509 * v511;
-      v513 = v512 + (1.0 - v512) * v830;
-      if (v833 <= v513)
+      v510 = 1.0 / v509;
+      v511 = v508 * v508 * v510;
+      v512 = v511 + (1.0 - v511) * v829;
+      if (v832 <= v512)
       {
-        v513 = v833;
+        v512 = v832;
       }
 
-      if (v842 >= v513)
+      if (v841 >= v512)
       {
-        v513 = v842;
+        v512 = v841;
       }
 
-      v514 = v511 * (v508 * v508);
-      v515 = v514 + (1.0 - v514) * v838;
-      if (v847 <= v515)
+      v513 = v510 * (v507 * v507);
+      v514 = v513 + (1.0 - v513) * v837;
+      if (v846 <= v514)
       {
-        v515 = v847;
+        v514 = v846;
       }
 
-      if (v852 >= v515)
+      if (v851 >= v514)
       {
-        v515 = v852;
+        v514 = v851;
       }
 
-      v516 = v515 + (1.0 - v515) * v857;
-      if (v862 <= v516)
+      v515 = v514 + (1.0 - v514) * v856;
+      if (v861 <= v515)
       {
-        v516 = v862;
+        v515 = v861;
       }
 
-      *(a3 + 36) = v513;
-      *(a3 + 40) = v510;
-      if (v867 >= v516)
+      *(a3 + 36) = v512;
+      *(a3 + 40) = v509;
+      if (v866 >= v515)
       {
-        v517 = v867;
+        v516 = v866;
       }
 
       else
       {
-        v517 = v516;
+        v516 = v515;
       }
 
-      *(a3 + 44) = v515;
-      *(a3 + 48) = v517;
+      *(a3 + 44) = v514;
+      *(a3 + 48) = v516;
       return;
     case 0x17:
       v325 = v7;
@@ -11609,7 +11531,7 @@ LABEL_941:
       v329 = *(a1 + 73);
       v330 = *(a1 + 74);
       v331 = GetConfig();
-      v910 = 0;
+      v909 = 0;
       v332 = 0;
       if (v331)
       {
@@ -11617,11 +11539,11 @@ LABEL_941:
         v332 = *HDRConfig::GetConfigEntryValue(v333, 0xDBu, 0);
       }
 
-      v900 = v332;
+      v899 = v332;
       if (GetConfig())
       {
         v334 = GetConfig();
-        v910 = *HDRConfig::GetConfigEntryValue(v334, 0xDCu, 0);
+        v909 = *HDRConfig::GetConfigEntryValue(v334, 0xDCu, 0);
       }
 
       v335 = GetConfig();
@@ -11632,7 +11554,7 @@ LABEL_941:
         v336 = *HDRConfig::GetConfigEntryValue(v337, 0xDDu, 0);
       }
 
-      v890 = v336;
+      v889 = v336;
       v338 = GetConfig();
       v339 = 0;
       if (v338)
@@ -11701,7 +11623,7 @@ LABEL_941:
       }
 
       _NF = v346 < 1.0;
-      v354 = vmla_f32(__PAIR64__(v890, v900), vdup_n_s32(0x3DCCCCCDu), vsub_f32(__PAIR64__(v339, v910), __PAIR64__(v890, v900)));
+      v354 = vmla_f32(__PAIR64__(v889, v899), vdup_n_s32(0x3DCCCCCDu), vsub_f32(__PAIR64__(v339, v909), __PAIR64__(v889, v899)));
       v355 = vsqrt_f32(v354);
       *(a3 + 2) = 3;
       v356 = fmaxf(v351, 0.0);
@@ -11775,9 +11697,9 @@ LABEL_941:
       *(a3 + 36) = v371.f64[0];
       goto LABEL_971;
     case 0x18:
-      v875 = v7;
-      v912 = v9;
-      v902 = v11;
+      v874 = v7;
+      v911 = v9;
+      v901 = v11;
       v448 = 0.0;
       v449 = 0.0;
       if (GetConfig())
@@ -11817,53 +11739,53 @@ LABEL_941:
         v457 = 0.0;
       }
 
-      v584 = v452 + (v449 * (v457 - v452));
-      v585 = fabsf(sqrtf(v584));
-      _ZF = v584 == -INFINITY;
-      v586 = INFINITY;
+      v583 = v452 + (v449 * (v457 - v452));
+      v584 = fabsf(sqrtf(v583));
+      _ZF = v583 == -INFINITY;
+      v585 = INFINITY;
       if (!_ZF)
       {
-        v586 = v585;
+        v585 = v584;
       }
 
-      v860 = v586;
+      v859 = v585;
       if (GetConfig())
       {
-        v587 = GetConfig();
-        v588 = *HDRConfig::GetConfigEntryValue(v587, 0xE1u, 0);
+        v586 = GetConfig();
+        v587 = *HDRConfig::GetConfigEntryValue(v586, 0xE1u, 0);
       }
 
       else
       {
-        v588 = 0.0;
+        v587 = 0.0;
       }
 
       *(a3 + 2) = 3;
-      v841 = *(a1 + 58);
-      v589 = *(a1 + 62);
-      v590 = *(a1 + 3);
-      v591 = *(a1 + 4);
-      v893 = *(a1 + 9);
-      v884 = v448;
-      v866 = v453;
-      v870 = v449;
-      v850 = v588;
-      v845 = *(a1 + 59);
+      v840 = *(a1 + 58);
+      v588 = *(a1 + 62);
+      v589 = *(a1 + 3);
+      v590 = *(a1 + 4);
+      v892 = *(a1 + 9);
+      v883 = v448;
+      v865 = v453;
+      v869 = v449;
+      v849 = v587;
+      v844 = *(a1 + 59);
       if ((IsVirtualized() & 1) == 0)
       {
         if (GetConfig())
         {
-          v592 = GetConfig();
-          if (*HDRConfig::GetConfigEntryValue(v592, 0x102u, 0) == 1)
+          v591 = GetConfig();
+          if (*HDRConfig::GetConfigEntryValue(v591, 0x102u, 0) == 1)
           {
-            v875 = *(a1 + 6);
-            v912 = *(a1 + 14);
+            v874 = *(a1 + 6);
+            v911 = *(a1 + 14);
           }
         }
 
-        if (GetConfig() && (v593 = GetConfig(), (*HDRConfig::GetConfigEntryValue(v593, 0x103u, 0) & 1) != 0) || (v594 = *&v893, GetConfig()) && (v595 = GetConfig(), v594 = *&v893, *HDRConfig::GetConfigEntryValue(v595, 0x106u, 0) == 1))
+        if (GetConfig() && (v592 = GetConfig(), (*HDRConfig::GetConfigEntryValue(v592, 0x103u, 0) & 1) != 0) || (v593 = *&v892, GetConfig()) && (v594 = GetConfig(), v593 = *&v892, *HDRConfig::GetConfigEntryValue(v594, 0x106u, 0) == 1))
         {
-          v594 = *(a1 + 11);
+          v593 = *(a1 + 11);
         }
 
         if (!GetConfig())
@@ -11871,605 +11793,605 @@ LABEL_941:
           goto LABEL_698;
         }
 
-        v596 = GetConfig();
-        if (*HDRConfig::GetConfigEntryValue(v596, 0x106u, 0) != 1)
+        v595 = GetConfig();
+        if (*HDRConfig::GetConfigEntryValue(v595, 0x106u, 0) != 1)
         {
           goto LABEL_698;
         }
 
+        v596 = 0.0;
         v597 = 0.0;
-        v598 = 0.0;
+        if (GetConfig())
+        {
+          v598 = GetConfig();
+          v597 = *HDRConfig::GetConfigEntryValue(v598, 0x107u, 0);
+        }
+
         if (GetConfig())
         {
           v599 = GetConfig();
-          v598 = *HDRConfig::GetConfigEntryValue(v599, 0x107u, 0);
+          v596 = *HDRConfig::GetConfigEntryValue(v599, 0x108u, 0);
         }
 
-        if (GetConfig())
+        v600 = *(a1 + 90);
+        if (v600 >= v597)
         {
-          v600 = GetConfig();
-          v597 = *HDRConfig::GetConfigEntryValue(v600, 0x108u, 0);
-        }
-
-        v601 = *(a1 + 90);
-        if (v601 >= v598)
-        {
-          v602 = COERCE_DOUBLE(vmla_n_f32(vmul_n_f32(v893, 1.0 - ((v601 - v598) / (v597 - v598))), *&v594, (v601 - v598) / (v597 - v598)));
-          if (v601 <= v597)
+          v601 = COERCE_DOUBLE(vmla_n_f32(vmul_n_f32(v892, 1.0 - ((v600 - v597) / (v596 - v597))), *&v593, (v600 - v597) / (v596 - v597)));
+          if (v600 <= v596)
           {
-            v603 = v602;
+            v602 = v601;
           }
 
           else
           {
-            v603 = v594;
+            v602 = v593;
           }
         }
 
         else
         {
 LABEL_698:
-          v603 = v594;
+          v602 = v593;
         }
 
-        *&v893 = v603;
+        *&v892 = v602;
       }
 
-      v604 = -(v902 + -0.0000014619);
-      if (v902 >= 0.00000073096)
+      v603 = -(v901 + -0.0000014619);
+      if (v901 >= 0.00000073096)
       {
-        v604 = v902;
+        v603 = v901;
       }
 
-      v605 = powf(v604, 0.012683);
-      v606 = fmax(((v605 + -0.83594) / ((v605 * -18.688) + 18.852)), 0.0);
-      v836 = powf(v606, 6.2774);
-      if (v589 < v591)
+      v604 = powf(v603, 0.012683);
+      v605 = fmax(((v604 + -0.83594) / ((v604 * -18.688) + 18.852)), 0.0);
+      v835 = powf(v605, 6.2774);
+      if (v588 < v590)
       {
-        v589 = v591;
+        v588 = v590;
       }
 
-      if (v590 >= v589)
+      if (v589 >= v588)
       {
-        v607 = v589;
-      }
-
-      else
-      {
-        v607 = v590;
-      }
-
-      v855 = v607;
-      v608 = fmaxf(v912, 0.0);
-      v609 = 1.0;
-      if (v608 <= v589)
-      {
-        v610 = 1.0;
+        v606 = v588;
       }
 
       else
       {
-        v610 = v589 / v608;
+        v606 = v589;
       }
 
-      if (v608 <= v589)
+      v854 = v606;
+      v607 = fmaxf(v911, 0.0);
+      v608 = 1.0;
+      if (v607 <= v588)
       {
-        v611 = v608;
+        v609 = 1.0;
       }
 
       else
       {
-        v611 = v589;
+        v609 = v588 / v607;
+      }
+
+      if (v607 <= v588)
+      {
+        v610 = v607;
+      }
+
+      else
+      {
+        v610 = v588;
       }
 
       if (GetConfig())
       {
-        v612 = GetConfig();
-        if (*HDRConfig::GetConfigEntryValue(v612, 0xE7u, 0) == 1)
+        v611 = GetConfig();
+        if (*HDRConfig::GetConfigEntryValue(v611, 0xE7u, 0) == 1)
         {
-          v613 = fminf(v841 / 0.14995, 1.0);
-          v609 = v613 + (1.0 - v613) * 0.5;
+          v612 = fminf(v840 / 0.14995, 1.0);
+          v608 = v612 + (1.0 - v612) * 0.5;
         }
       }
 
-      v614 = v902 / v912;
-      if (v893.f32[1] >= 0.0)
+      v613 = v901 / v911;
+      if (v892.f32[1] >= 0.0)
       {
-        v617 = powf(v893.f32[1] * 0.0001, 0.1593);
-        v616 = powf(((v617 * 18.852) + 0.83594) / ((v617 * 18.688) + 1.0), 78.844);
+        v616 = powf(v892.f32[1] * 0.0001, 0.1593);
+        v615 = powf(((v616 * 18.852) + 0.83594) / ((v616 * 18.688) + 1.0), 78.844);
       }
 
       else
       {
-        v615 = powf(v893.f32[1] * -0.0001, 0.1593);
-        v616 = 0.0000014619 - powf(((v615 * 18.852) + 0.83594) / ((v615 * 18.688) + 1.0), 78.844);
+        v614 = powf(v892.f32[1] * -0.0001, 0.1593);
+        v615 = 0.0000014619 - powf(((v614 * 18.852) + 0.83594) / ((v614 * 18.688) + 1.0), 78.844);
       }
 
-      v618 = fmaxf(v614, 0.0);
-      v619 = v893.f32[0];
-      if (v893.f32[0] >= v616)
+      v617 = fmaxf(v613, 0.0);
+      v618 = v892.f32[0];
+      if (v892.f32[0] >= v615)
       {
-        v619 = v616;
+        v618 = v615;
       }
 
-      if (v591 != v912)
+      if (v590 != v911)
       {
-        v619 = v912 + (((v902 - v912) * (v619 - v912)) / (v591 - v912));
+        v618 = v911 + (((v901 - v911) * (v618 - v911)) / (v590 - v911));
       }
 
-      v620 = 1.0;
-      if (v902 >= v619)
+      v619 = 1.0;
+      if (v901 >= v618)
       {
-        v621 = v619;
-      }
-
-      else
-      {
-        v621 = v902;
-      }
-
-      if (v618 < 1.0)
-      {
-        v622 = ((v902 * v610) * v609) + (1.0 - v609) * v611;
-        v623 = v622;
+        v620 = v618;
       }
 
       else
       {
-        v623 = v621;
+        v620 = v901;
       }
 
-      if (v611 >= v589)
+      if (v617 < 1.0)
       {
-        v624 = v589;
-      }
-
-      else
-      {
-        v624 = v611;
-      }
-
-      v625 = fmaxf(v624, 0.0);
-      if (v623 >= v591)
-      {
-        v623 = v591;
-      }
-
-      v626 = fmaxf(v623, 0.0);
-      if (v589 == v625)
-      {
-        v627 = v589 - v625;
+        v621 = ((v901 * v609) * v608) + (1.0 - v608) * v610;
+        v622 = v621;
       }
 
       else
       {
-        v627 = v589 - v625;
-        v628 = ((v845 - v875) / (v589 - v625));
-        if (v628 < 1.0)
+        v622 = v620;
+      }
+
+      if (v610 >= v588)
+      {
+        v623 = v588;
+      }
+
+      else
+      {
+        v623 = v610;
+      }
+
+      v624 = fmaxf(v623, 0.0);
+      if (v622 >= v590)
+      {
+        v622 = v590;
+      }
+
+      v625 = fmaxf(v622, 0.0);
+      if (v588 == v624)
+      {
+        v626 = v588 - v624;
+      }
+
+      else
+      {
+        v626 = v588 - v624;
+        v627 = ((v844 - v874) / (v588 - v624));
+        if (v627 < 1.0)
         {
-          v628 = 1.0;
+          v627 = 1.0;
         }
 
-        if (v628 >= v850)
+        if (v627 >= v849)
         {
-          v628 = v850;
+          v627 = v849;
         }
 
-        v620 = v628;
+        v619 = v627;
       }
 
-      v629 = fmaxf(v855, 0.0);
-      v630 = v626 + (v627 * v620);
-      if (v630 >= v591)
+      v628 = fmaxf(v854, 0.0);
+      v629 = v625 + (v626 * v619);
+      if (v629 >= v590)
       {
-        v630 = v591;
+        v629 = v590;
       }
 
-      if (v630 >= v626)
+      if (v629 >= v625)
       {
-        v631 = v630;
+        v630 = v629;
       }
 
       else
       {
-        v631 = v626;
+        v630 = v625;
       }
 
       if (*(a2 + 17) == 1)
       {
         if (GetConfig())
         {
-          v632 = GetConfig();
-          if (*HDRConfig::GetConfigEntryValue(v632, 0xE9u, 0) == 1)
+          v631 = GetConfig();
+          if (*HDRConfig::GetConfigEntryValue(v631, 0xE9u, 0) == 1)
           {
-            v915 = flt_2508CD850[v902 < 0.00000073096] * v836;
-            v633 = v915 * powf(1.0 / *(a1 + 1), *(a2 + 20));
-            if (v633 >= 0.0)
+            v914 = flt_2508CD850[v901 < 0.00000073096] * v835;
+            v632 = v914 * powf(1.0 / *(a1 + 1), *(a2 + 20));
+            if (v632 >= 0.0)
             {
-              v736 = powf(v633 * 0.0001, 0.1593);
-              v635 = powf(((v736 * 18.852) + 0.83594) / ((v736 * 18.688) + 1.0), 78.844);
+              v735 = powf(v632 * 0.0001, 0.1593);
+              v634 = powf(((v735 * 18.852) + 0.83594) / ((v735 * 18.688) + 1.0), 78.844);
             }
 
             else
             {
-              v634 = powf(v633 * -0.0001, 0.1593);
-              v635 = 0.0000014619 - powf(((v634 * 18.852) + 0.83594) / ((v634 * 18.688) + 1.0), 78.844);
+              v633 = powf(v632 * -0.0001, 0.1593);
+              v634 = 0.0000014619 - powf(((v633 * 18.852) + 0.83594) / ((v633 * 18.688) + 1.0), 78.844);
             }
 
-            if (v631 >= v635)
+            if (v630 >= v634)
             {
-              v631 = v635;
+              v630 = v634;
             }
           }
         }
       }
 
-      *(a3 + 4) = v629;
-      *(a3 + 8) = v625;
-      *(a3 + 12) = v589;
-      v737 = 1.0;
-      *(a3 + 20) = v629;
-      *(a3 + 24) = v626;
-      *(a3 + 28) = v631;
-      if (v629 < v625)
+      *(a3 + 4) = v628;
+      *(a3 + 8) = v624;
+      *(a3 + 12) = v588;
+      v736 = 1.0;
+      *(a3 + 20) = v628;
+      *(a3 + 24) = v625;
+      *(a3 + 28) = v630;
+      if (v628 < v624)
       {
-        v737 = (v626 - v629) / (v625 - v629);
+        v736 = (v625 - v628) / (v624 - v628);
       }
 
-      v738 = v737;
-      if (v625 < v589)
+      v737 = v736;
+      if (v624 < v588)
       {
-        v738 = (v631 - v626) / v627;
+        v737 = (v630 - v625) / v626;
       }
 
-      v739 = ((v884 + (v870 * (v866 - v884))) * (v737 * v737)) + (1.0 - (v884 + (v870 * (v866 - v884)))) * v737;
-      v740 = (v860 * v738) + (1.0 - v860) * v614;
-      v375 = v738 * v738 * (1.0 / v740);
-      *(a3 + 36) = v739;
-      *(a3 + 40) = v740;
+      v738 = ((v883 + (v869 * (v865 - v883))) * (v736 * v736)) + (1.0 - (v883 + (v869 * (v865 - v883)))) * v736;
+      v739 = (v859 * v737) + (1.0 - v859) * v613;
+      v375 = v737 * v737 * (1.0 / v739);
+      *(a3 + 36) = v738;
+      *(a3 + 40) = v739;
 LABEL_971:
       *(a3 + 44) = v375;
       return;
     case 0x19:
-      v877 = v7;
-      v914 = v9;
-      v904 = v11;
+      v876 = v7;
+      v913 = v9;
+      v903 = v11;
+      v478 = 0.0;
       v479 = 0.0;
-      v480 = 0.0;
+      if (GetConfig())
+      {
+        v480 = GetConfig();
+        v479 = *HDRConfig::GetConfigEntryValue(v480, 0xE0u, 0);
+      }
+
       if (GetConfig())
       {
         v481 = GetConfig();
-        v480 = *HDRConfig::GetConfigEntryValue(v481, 0xE0u, 0);
+        v478 = *HDRConfig::GetConfigEntryValue(v481, 0xDBu, 0);
       }
 
+      v482 = 0.0;
+      v483 = 0.0;
       if (GetConfig())
       {
-        v482 = GetConfig();
-        v479 = *HDRConfig::GetConfigEntryValue(v482, 0xDBu, 0);
+        v484 = GetConfig();
+        v483 = *HDRConfig::GetConfigEntryValue(v484, 0xDCu, 0);
       }
 
-      v483 = 0.0;
-      v484 = 0.0;
       if (GetConfig())
       {
         v485 = GetConfig();
-        v484 = *HDRConfig::GetConfigEntryValue(v485, 0xDCu, 0);
+        v482 = *HDRConfig::GetConfigEntryValue(v485, 0xDDu, 0);
       }
 
+      v486 = 0.0;
+      v487 = 0.0;
       if (GetConfig())
       {
-        v486 = GetConfig();
-        v483 = *HDRConfig::GetConfigEntryValue(v486, 0xDDu, 0);
+        v488 = GetConfig();
+        v487 = *HDRConfig::GetConfigEntryValue(v488, 0xDEu, 0);
       }
 
-      v487 = 0.0;
-      v488 = 0.0;
       if (GetConfig())
       {
         v489 = GetConfig();
-        v488 = *HDRConfig::GetConfigEntryValue(v489, 0xDEu, 0);
+        v486 = *HDRConfig::GetConfigEntryValue(v489, 0xDFu, 0);
       }
 
-      if (GetConfig())
+      v490 = v482 + (v479 * (v487 - v482));
+      v491 = fabsf(sqrtf(v490));
+      if (v490 == -INFINITY)
       {
-        v490 = GetConfig();
-        v487 = *HDRConfig::GetConfigEntryValue(v490, 0xDFu, 0);
-      }
-
-      v491 = v483 + (v480 * (v488 - v483));
-      v492 = fabsf(sqrtf(v491));
-      if (v491 == -INFINITY)
-      {
-        v493 = INFINITY;
+        v492 = INFINITY;
       }
 
       else
       {
-        v493 = v492;
+        v492 = v491;
       }
 
-      v865 = v484;
-      v869 = v487;
+      v864 = v483;
+      v868 = v486;
       if (GetConfig())
       {
-        v494 = GetConfig();
-        v495 = *HDRConfig::GetConfigEntryValue(v494, 0xE1u, 0);
+        v493 = GetConfig();
+        v494 = *HDRConfig::GetConfigEntryValue(v493, 0xE1u, 0);
       }
 
       else
       {
-        v495 = 0.0;
+        v494 = 0.0;
       }
 
-      v856 = v495;
+      v855 = v494;
       *(a3 + 2) = 3;
-      v846 = *(a1 + 58);
-      v851 = *(a1 + 59);
-      v636 = *(a1 + 62);
-      v637 = *(a1 + 3);
-      v638 = *(a1 + 4);
-      v885 = v480;
-      v861 = v493;
+      v845 = *(a1 + 58);
+      v850 = *(a1 + 59);
+      v635 = *(a1 + 62);
+      v636 = *(a1 + 3);
+      v637 = *(a1 + 4);
+      v884 = v479;
+      v860 = v492;
       if ((IsVirtualized() & 1) == 0)
       {
         if (GetConfig())
         {
-          v639 = GetConfig();
-          if (*HDRConfig::GetConfigEntryValue(v639, 0x102u, 0) == 1)
+          v638 = GetConfig();
+          if (*HDRConfig::GetConfigEntryValue(v638, 0x102u, 0) == 1)
           {
-            v877 = *(a1 + 6);
-            v914 = *(a1 + 14);
+            v876 = *(a1 + 6);
+            v913 = *(a1 + 14);
           }
         }
 
-        if (!GetConfig() || (v640 = GetConfig(), (*HDRConfig::GetConfigEntryValue(v640, 0x103u, 0) & 1) == 0))
+        if (!GetConfig() || (v639 = GetConfig(), (*HDRConfig::GetConfigEntryValue(v639, 0x103u, 0) & 1) == 0))
         {
           if (GetConfig())
           {
-            v641 = GetConfig();
-            HDRConfig::GetConfigEntryValue(v641, 0x106u, 0);
+            v640 = GetConfig();
+            HDRConfig::GetConfigEntryValue(v640, 0x106u, 0);
           }
         }
 
         if (GetConfig())
         {
-          v642 = GetConfig();
-          if (*HDRConfig::GetConfigEntryValue(v642, 0x106u, 0) == 1)
+          v641 = GetConfig();
+          if (*HDRConfig::GetConfigEntryValue(v641, 0x106u, 0) == 1)
           {
             if (GetConfig())
             {
-              v643 = GetConfig();
-              HDRConfig::GetConfigEntryValue(v643, 0x107u, 0);
+              v642 = GetConfig();
+              HDRConfig::GetConfigEntryValue(v642, 0x107u, 0);
             }
 
             if (GetConfig())
             {
-              v644 = GetConfig();
-              HDRConfig::GetConfigEntryValue(v644, 0x108u, 0);
+              v643 = GetConfig();
+              HDRConfig::GetConfigEntryValue(v643, 0x108u, 0);
             }
           }
         }
       }
 
-      v645 = -(v904 + -0.0000014619);
-      if (v904 >= 0.00000073096)
+      v644 = -(v903 + -0.0000014619);
+      if (v903 >= 0.00000073096)
       {
-        v645 = v904;
+        v644 = v903;
       }
 
-      v646 = powf(v645, 0.012683);
-      v647 = fmax(((v646 + -0.83594) / ((v646 * -18.688) + 18.852)), 0.0);
-      v837 = powf(v647, 6.2774);
-      if (v636 >= v638)
+      v645 = powf(v644, 0.012683);
+      v646 = fmax(((v645 + -0.83594) / ((v645 * -18.688) + 18.852)), 0.0);
+      v836 = powf(v646, 6.2774);
+      if (v635 >= v637)
       {
-        v648 = v636;
-      }
-
-      else
-      {
-        v648 = v638;
-      }
-
-      if (v914 >= v648)
-      {
-        v649 = v914;
+        v647 = v635;
       }
 
       else
       {
-        v649 = v648;
+        v647 = v637;
       }
 
-      v650 = *(a1 + 25) / *(a1 + 15);
-      v651 = 1.0;
-      v652 = 0.0;
-      if (v650 != 1.0)
+      if (v913 >= v647)
       {
-        v652 = (((v638 / v904) + -1.0) / (v650 + -1.0));
-      }
-
-      v653 = fmax(fmin(v652, 1.0), 0.0);
-      if (v637 >= v649)
-      {
-        v654 = v649;
+        v648 = v913;
       }
 
       else
       {
-        v654 = v637;
+        v648 = v647;
       }
 
-      v655 = fmaxf(v914, 0.0);
-      if (v655 <= v649)
+      v649 = *(a1 + 25) / *(a1 + 15);
+      v650 = 1.0;
+      v651 = 0.0;
+      if (v649 != 1.0)
       {
-        v656 = 1.0;
+        v651 = (((v637 / v903) + -1.0) / (v649 + -1.0));
+      }
+
+      v652 = fmax(fmin(v651, 1.0), 0.0);
+      if (v636 >= v648)
+      {
+        v653 = v648;
       }
 
       else
       {
-        v656 = v649 / v655;
+        v653 = v636;
       }
 
-      if (v655 <= v649)
+      v654 = fmaxf(v913, 0.0);
+      if (v654 <= v648)
       {
-        v657 = v655;
+        v655 = 1.0;
       }
 
       else
       {
-        v657 = v649;
+        v655 = v648 / v654;
+      }
+
+      if (v654 <= v648)
+      {
+        v656 = v654;
+      }
+
+      else
+      {
+        v656 = v648;
       }
 
       if (GetConfig())
       {
-        v658 = GetConfig();
-        if (*HDRConfig::GetConfigEntryValue(v658, 0xE7u, 0) == 1)
+        v657 = GetConfig();
+        if (*HDRConfig::GetConfigEntryValue(v657, 0xE7u, 0) == 1)
         {
-          v659 = fminf(v846 / 0.14995, 1.0);
-          v651 = v659 + (1.0 - v659) * 0.5;
+          v658 = fminf(v845 / 0.14995, 1.0);
+          v650 = v658 + (1.0 - v658) * 0.5;
         }
       }
 
-      v660 = v904;
-      v661 = v877 * ((v904 / v877) * ((*(a1 + 17) / *(a1 + 15)) + (((*(a1 + 19) / *(a1 + 15)) - (*(a1 + 17) / *(a1 + 15))) * v653)));
-      if (v661 >= v638)
+      v659 = v903;
+      v660 = v876 * ((v903 / v876) * ((*(a1 + 17) / *(a1 + 15)) + (((*(a1 + 19) / *(a1 + 15)) - (*(a1 + 17) / *(a1 + 15))) * v652)));
+      if (v660 >= v637)
       {
-        v661 = v638;
+        v660 = v637;
       }
 
-      v662 = v914;
-      if (v904 < v914)
+      v661 = v913;
+      if (v903 < v913)
       {
-        v661 = (v651 * (v656 * v661)) + v657 * (1.0 - v651);
+        v660 = (v650 * (v655 * v660)) + v656 * (1.0 - v650);
       }
 
-      if (v657 >= v649)
+      if (v656 >= v648)
       {
-        v663 = v649;
+        v662 = v648;
       }
 
       else
       {
-        v663 = v657;
+        v662 = v656;
       }
 
-      v664 = fmaxf(v663, 0.0);
-      if (v661 >= v638)
+      v663 = fmaxf(v662, 0.0);
+      if (v660 >= v637)
       {
-        v661 = v638;
+        v660 = v637;
       }
 
-      v665 = fmaxf(v661, 0.0);
-      if (v649 == v664)
+      v664 = fmaxf(v660, 0.0);
+      if (v648 == v663)
       {
-        v666 = v649 - v664;
-        v668 = 1.0;
+        v665 = v648 - v663;
+        v667 = 1.0;
       }
 
       else
       {
-        v666 = v649 - v664;
-        v667 = ((v851 - v877) / (v649 - v664));
-        if (v667 < 1.0)
+        v665 = v648 - v663;
+        v666 = ((v850 - v876) / (v648 - v663));
+        if (v666 < 1.0)
         {
-          v667 = 1.0;
+          v666 = 1.0;
         }
 
-        if (v667 >= v856)
+        if (v666 >= v855)
         {
-          v667 = v856;
+          v666 = v855;
         }
 
-        v668 = v667;
+        v667 = v666;
       }
 
-      v669 = fmaxf(v654, 0.0);
-      v670 = v665 + (v666 * v668);
-      if (v670 < v638)
+      v668 = fmaxf(v653, 0.0);
+      v669 = v664 + (v665 * v667);
+      if (v669 < v637)
       {
-        v638 = v670;
+        v637 = v669;
       }
 
       if (*(a2 + 17) == 1)
       {
-        if (GetConfig() && (v671 = GetConfig(), *HDRConfig::GetConfigEntryValue(v671, 0xE9u, 0) == 1))
+        if (GetConfig() && (v670 = GetConfig(), *HDRConfig::GetConfigEntryValue(v670, 0xE9u, 0) == 1))
         {
-          v672 = flt_2508CD850[v904 < 0.00000073096] * v837;
-          v673 = v672 * powf(1.0 / *(a1 + 1), *(a2 + 20));
-          if (v673 >= 0.0)
+          v671 = flt_2508CD850[v903 < 0.00000073096] * v836;
+          v672 = v671 * powf(1.0 / *(a1 + 1), *(a2 + 20));
+          if (v672 >= 0.0)
           {
-            v741 = powf(v673 * 0.0001, 0.1593);
-            v675 = powf(((v741 * 18.852) + 0.83594) / ((v741 * 18.688) + 1.0), 78.844);
+            v740 = powf(v672 * 0.0001, 0.1593);
+            v674 = powf(((v740 * 18.852) + 0.83594) / ((v740 * 18.688) + 1.0), 78.844);
           }
 
           else
           {
-            v674 = powf(v673 * -0.0001, 0.1593);
-            v675 = 0.0000014619 - powf(((v674 * 18.852) + 0.83594) / ((v674 * 18.688) + 1.0), 78.844);
+            v673 = powf(v672 * -0.0001, 0.1593);
+            v674 = 0.0000014619 - powf(((v673 * 18.852) + 0.83594) / ((v673 * 18.688) + 1.0), 78.844);
           }
 
-          if (v638 >= v675)
+          if (v637 >= v674)
           {
-            v638 = v675;
+            v637 = v674;
           }
 
-          v660 = v904;
-          v662 = v914;
+          v659 = v903;
+          v661 = v913;
         }
 
         else
         {
-          v660 = v904;
-          v662 = v914;
+          v659 = v903;
+          v661 = v913;
         }
       }
 
-      if (v638 >= v665)
+      if (v637 >= v664)
       {
-        v742 = v638;
+        v741 = v637;
       }
 
       else
       {
-        v742 = v665;
+        v741 = v664;
       }
 
-      *(a3 + 4) = v669;
-      *(a3 + 8) = v664;
-      *(a3 + 12) = v649;
-      *(a3 + 20) = v669;
-      *(a3 + 24) = v665;
-      *(a3 + 28) = v742;
-      v743 = 1.0;
-      if (v669 < v664)
+      *(a3 + 4) = v668;
+      *(a3 + 8) = v663;
+      *(a3 + 12) = v648;
+      *(a3 + 20) = v668;
+      *(a3 + 24) = v664;
+      *(a3 + 28) = v741;
+      v742 = 1.0;
+      if (v668 < v663)
       {
-        v743 = (v665 - v669) / (v664 - v669);
+        v742 = (v664 - v668) / (v663 - v668);
       }
 
-      v744 = v743;
-      if (v664 < v649)
+      v743 = v742;
+      if (v663 < v648)
       {
-        v744 = (v742 - v665) / v666;
+        v743 = (v741 - v664) / v665;
       }
 
-      v128 = ((v479 + (v885 * (v865 - v479))) * (v743 * v743)) + (1.0 - (v479 + (v885 * (v865 - v479)))) * v743;
-      v126 = (v861 * v744) + (1.0 - v861) * (v660 / v662);
-      if (v869 <= v126)
+      v128 = ((v478 + (v884 * (v864 - v478))) * (v742 * v742)) + (1.0 - (v478 + (v884 * (v864 - v478)))) * v742;
+      v126 = (v860 * v743) + (1.0 - v860) * (v659 / v661);
+      if (v868 <= v126)
       {
-        v745 = v869;
+        v744 = v868;
       }
 
       else
       {
-        v745 = (v861 * v744) + (1.0 - v861) * (v660 / v662);
+        v744 = (v860 * v743) + (1.0 - v860) * (v659 / v661);
       }
 
-      if (v869 > 0.0)
+      if (v868 > 0.0)
       {
-        v126 = v745;
+        v126 = v744;
       }
 
-      v497 = v744 * v744 * (1.0 / v126);
+      v496 = v743 * v743 * (1.0 / v126);
 LABEL_989:
       *(a3 + 36) = v128;
       goto LABEL_990;
@@ -12507,91 +12429,91 @@ LABEL_989:
         }
       }
 
+      v745 = 0.0;
       v746 = 0.0;
-      v747 = 0.0;
+      if (GetConfig())
+      {
+        v747 = GetConfig();
+        v746 = *HDRConfig::GetConfigEntryValue(v747, 0xABu, 0);
+      }
+
       if (GetConfig())
       {
         v748 = GetConfig();
-        v747 = *HDRConfig::GetConfigEntryValue(v748, 0xABu, 0);
+        v745 = *HDRConfig::GetConfigEntryValue(v748, 0xACu, 0);
       }
 
+      v749 = 0.0;
+      v750 = 0.0;
       if (GetConfig())
       {
-        v749 = GetConfig();
-        v746 = *HDRConfig::GetConfigEntryValue(v749, 0xACu, 0);
+        v751 = GetConfig();
+        v750 = *HDRConfig::GetConfigEntryValue(v751, 0xAFu, 0);
       }
 
-      v750 = 0.0;
-      v751 = 0.0;
       if (GetConfig())
       {
         v752 = GetConfig();
-        v751 = *HDRConfig::GetConfigEntryValue(v752, 0xAFu, 0);
+        v749 = *HDRConfig::GetConfigEntryValue(v752, 0xAEu, 0);
       }
 
+      v753 = 0.0;
+      v754 = 0.0;
       if (GetConfig())
       {
-        v753 = GetConfig();
-        v750 = *HDRConfig::GetConfigEntryValue(v753, 0xAEu, 0);
+        v755 = GetConfig();
+        v754 = *HDRConfig::GetConfigEntryValue(v755, 0xA9u, 0);
       }
 
-      v754 = 0.0;
-      v755 = 0.0;
       if (GetConfig())
       {
         v756 = GetConfig();
-        v755 = *HDRConfig::GetConfigEntryValue(v756, 0xA9u, 0);
+        v753 = *HDRConfig::GetConfigEntryValue(v756, 0xAAu, 0);
       }
 
-      if (GetConfig())
+      v915 = v749;
+      v757 = GetConfig();
+      v758 = v754;
+      if (v757)
       {
-        v757 = GetConfig();
-        v754 = *HDRConfig::GetConfigEntryValue(v757, 0xAAu, 0);
-      }
-
-      v916 = v750;
-      v758 = GetConfig();
-      v759 = v755;
-      if (v758)
-      {
-        v760 = GetConfig();
-        v761 = HDRConfig::GetConfigEntryValue(v760, 0xB1u, 0);
-        v759 = v755;
-        if (*v761 == 1)
+        v759 = GetConfig();
+        v760 = HDRConfig::GetConfigEntryValue(v759, 0xB1u, 0);
+        v758 = v754;
+        if (*v760 == 1)
         {
-          v759 = v746 * v754;
-          if ((v746 * v754) < v184)
+          v758 = v745 * v753;
+          if ((v745 * v753) < v184)
           {
-            v759 = v184;
+            v758 = v184;
           }
 
-          if (v755 < v759)
+          if (v754 < v758)
           {
-            v759 = v755;
+            v758 = v754;
           }
         }
       }
 
-      v762 = v759 / v754;
-      v763 = v759 / v754;
+      v761 = v758 / v753;
+      v762 = v758 / v753;
       if (GetConfig())
       {
-        v764 = GetConfig();
-        v763 = v762;
-        if (*(v764 + 3811))
+        v763 = GetConfig();
+        v762 = v761;
+        if (*(v763 + 3811))
         {
-          v763 = v762;
-          if ((v764[7620] & 0x80) != 0)
+          v762 = v761;
+          if ((v763[7620] & 0x80) != 0)
           {
             if (GetConfig())
             {
-              v765 = GetConfig();
-              v763 = *HDRConfig::GetConfigEntryValue(v765, 0xADu, 0);
+              v764 = GetConfig();
+              v762 = *HDRConfig::GetConfigEntryValue(v764, 0xADu, 0);
             }
 
             else
             {
-              v763 = 0.0;
+              v762 = 0.0;
             }
           }
         }
@@ -12599,117 +12521,117 @@ LABEL_989:
 
       if (GetConfig())
       {
-        v766 = GetConfig();
-        if (*HDRConfig::GetConfigEntryValue(v766, 0xB2u, 0) == 1)
+        v765 = GetConfig();
+        if (*HDRConfig::GetConfigEntryValue(v765, 0xB2u, 0) == 1)
         {
-          v905 = v184;
+          v904 = v184;
+          v766 = 0.0;
           v767 = 0.0;
-          v768 = 0.0;
+          if (GetConfig())
+          {
+            v768 = GetConfig();
+            v767 = *HDRConfig::GetConfigEntryValue(v768, 0xB3u, 0);
+          }
+
           if (GetConfig())
           {
             v769 = GetConfig();
-            v768 = *HDRConfig::GetConfigEntryValue(v769, 0xB3u, 0);
+            v766 = *HDRConfig::GetConfigEntryValue(v769, 0xB4u, 0);
           }
 
           if (GetConfig())
           {
             v770 = GetConfig();
-            v767 = *HDRConfig::GetConfigEntryValue(v770, 0xB4u, 0);
-          }
-
-          if (GetConfig())
-          {
-            v771 = GetConfig();
-            v772 = *HDRConfig::GetConfigEntryValue(v771, 0xB5u, 0);
+            v771 = *HDRConfig::GetConfigEntryValue(v770, 0xB5u, 0);
           }
 
           else
           {
-            v772 = 0.0;
+            v771 = 0.0;
           }
 
-          v773 = v905;
-          if (v905 < v754)
+          v772 = v904;
+          if (v904 < v753)
           {
-            v773 = v754;
+            v772 = v753;
           }
 
-          if (v755 < v773)
+          if (v754 < v772)
           {
-            v773 = v755;
+            v772 = v754;
           }
 
-          v774 = powf(fminf((v773 - v754) / (v755 - v754), 1.0), v772);
-          v747 = (v768 * v774) + (v767 * (1.0 - v774));
+          v773 = powf(fminf((v772 - v753) / (v754 - v753), 1.0), v771);
+          v746 = (v767 * v773) + (v766 * (1.0 - v773));
         }
       }
 
-      *(a3 + 172) = v754;
-      v775 = *(a1 + 13);
-      v776 = v775 < 0.00000073096;
-      if (v775 < 0.00000073096)
+      *(a3 + 172) = v753;
+      v774 = *(a1 + 13);
+      v775 = v774 < 0.00000073096;
+      if (v774 < 0.00000073096)
       {
-        v775 = -(v775 + -0.0000014619);
+        v774 = -(v774 + -0.0000014619);
       }
 
-      v777 = flt_2508CD850[v776];
-      v778 = powf(v775, 0.012683);
-      v779 = fmax(((v778 + -0.83594) / ((v778 * -18.688) + 18.852)), 0.0);
-      v780 = v777 * powf(v779, 6.2774);
-      v781 = *(a1 + 90);
-      if (v781 >= v762)
+      v776 = flt_2508CD850[v775];
+      v777 = powf(v774, 0.012683);
+      v778 = fmax(((v777 + -0.83594) / ((v777 * -18.688) + 18.852)), 0.0);
+      v779 = v776 * powf(v778, 6.2774);
+      v780 = *(a1 + 90);
+      if (v780 >= v761)
       {
-        v781 = v762;
+        v780 = v761;
       }
 
-      *(a3 + 176) = v780;
-      *(a3 + 180) = v781;
-      v782 = 1.0 - v747;
-      v783 = 1.0 - v782 * fmin(((v762 + -1.0) / (v763 + -1.0)), 1.0);
-      *&v782 = v782 / (v746 + -1.0);
-      v784 = v783 + (*&v782 * (v781 + -1.0));
-      v785 = 1.0;
-      v786 = fminf(v784, 1.0);
-      v787 = v781 - (((v916 / -100.0) + 1.0) * (v781 - (v751 * v786)));
-      v788 = v787 / v786;
-      v789 = (v787 / v786);
-      v790 = (v751 + v762) + v789 * -2.0;
-      v791 = v781 * 0.001 / 3.0;
-      v792 = (v762 + v791) - v790;
-      v793 = fabsf(v790);
-      _NF = v793 < v791;
-      if (v793 >= v791)
+      *(a3 + 176) = v779;
+      *(a3 + 180) = v780;
+      v781 = 1.0 - v746;
+      v782 = 1.0 - v781 * fmin(((v761 + -1.0) / (v762 + -1.0)), 1.0);
+      *&v781 = v781 / (v745 + -1.0);
+      v783 = v782 + (*&v781 * (v780 + -1.0));
+      v784 = 1.0;
+      v785 = fminf(v783, 1.0);
+      v786 = v780 - (((v915 / -100.0) + 1.0) * (v780 - (v750 * v785)));
+      v787 = v786 / v785;
+      v788 = (v786 / v785);
+      v789 = (v750 + v761) + v788 * -2.0;
+      v790 = v780 * 0.001 / 3.0;
+      v791 = (v761 + v790) - v789;
+      v792 = fabsf(v789);
+      _NF = v792 < v790;
+      if (v792 >= v790)
       {
-        v795 = v762;
+        v794 = v761;
       }
 
       else
       {
-        v795 = (v762 + v791) - v790;
+        v794 = (v761 + v790) - v789;
       }
 
       if (_NF)
       {
-        v790 = (v751 + v792) + ((v787 / v786) * -2.0);
+        v789 = (v750 + v791) + ((v786 / v785) * -2.0);
       }
 
-      *(a3 + 216) = v787;
-      *(a3 + 220) = v781;
-      *(a3 + 208) = v795;
-      *(a3 + 212) = v751 * v786;
-      *(a3 + 184) = v786;
-      *(a3 + 188) = v790;
-      v796 = v789 * v789 - (v751 * v795);
-      *(a3 + 192) = v796;
-      *(a3 + 196) = v751 - v788;
-      *(a3 + 200) = v751;
-      if ((v795 - v788) > 0.000000001)
+      *(a3 + 216) = v786;
+      *(a3 + 220) = v780;
+      *(a3 + 208) = v794;
+      *(a3 + 212) = v750 * v785;
+      *(a3 + 184) = v785;
+      *(a3 + 188) = v789;
+      v795 = v788 * v788 - (v750 * v794);
+      *(a3 + 192) = v795;
+      *(a3 + 196) = v750 - v787;
+      *(a3 + 200) = v750;
+      if ((v794 - v787) > 0.000000001)
       {
-        v785 = (v781 - v787) / (v795 - v788);
+        v784 = (v780 - v786) / (v794 - v787);
       }
 
-      *(a3 + 224) = v785;
-      *(a3 + 228) = v787 - (v785 * v788);
+      *(a3 + 224) = v784;
+      *(a3 + 228) = v786 - (v784 * v787);
       return;
     case 0x1B:
       v158 = v9;

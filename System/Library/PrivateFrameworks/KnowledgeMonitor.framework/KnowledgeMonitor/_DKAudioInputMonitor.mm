@@ -19,7 +19,7 @@
 
 + (id)_eventWithState:(id)state type:(id)type name:(id)name identifier:(id)identifier routeChangeReason:(id)reason
 {
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   nameCopy = name;
   identifierCopy = identifier;
@@ -32,18 +32,18 @@
   v15 = reasonCopy;
   stateCopy = state;
   portType = [MEMORY[0x277CFE180] portType];
-  v30[0] = portType;
-  v31[0] = typeCopy;
+  v29[0] = portType;
+  v30[0] = typeCopy;
   portName = [MEMORY[0x277CFE180] portName];
-  v30[1] = portName;
-  v31[1] = nameCopy;
+  v29[1] = portName;
+  v30[1] = nameCopy;
   identifier = [MEMORY[0x277CFE180] identifier];
-  v30[2] = identifier;
-  v31[2] = identifierCopy;
+  v29[2] = identifier;
+  v30[2] = identifierCopy;
   routeChangeReason = [MEMORY[0x277CFE180] routeChangeReason];
-  v30[3] = routeChangeReason;
-  v31[3] = v15;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
+  v29[3] = routeChangeReason;
+  v30[3] = v15;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
 
   LOBYTE(portType) = [stateCopy BOOLValue];
   if (portType)
@@ -61,8 +61,6 @@
   date = [MEMORY[0x277CBEAA8] date];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   v27 = [v23 eventWithStream:audioInputRouteStream startDate:date endDate:distantFuture value:v22 metadata:v21];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

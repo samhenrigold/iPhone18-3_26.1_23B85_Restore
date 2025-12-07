@@ -70,7 +70,6 @@
   }
 
   PBDataWriterWriteStringField();
-  batch = self->_batch;
   PBDataWriterWriteInt32Field();
   if (!self->_contactEvents)
   {
@@ -78,7 +77,6 @@
   }
 
   PBDataWriterWriteSubmessage();
-  mailIntelligenceUserId = self->_mailIntelligenceUserId;
   PBDataWriterWriteUint64Field();
 }
 

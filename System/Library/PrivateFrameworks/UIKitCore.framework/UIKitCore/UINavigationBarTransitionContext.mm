@@ -39,18 +39,18 @@ void __52___UINavigationBarTransitionContext_fadeOutFunction__block_invoke(doubl
   qword_1ED498CD8 = v4;
 }
 
-uint64_t __83___UINavigationBarTransitionContext__animateAsTwoPartsWithOverlap_partOne_partTwo___block_invoke(uint64_t result)
+double *__83___UINavigationBarTransitionContext__animateAsTwoPartsWithOverlap_partOne_partTwo___block_invoke(double *result)
 {
   v1 = result;
-  if (*(result + 40))
+  if (*(result + 5))
   {
-    result = [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:*(*(result + 32) + 128) + *(result + 56) animations:?];
+    result = [UIView addKeyframeWithRelativeStartTime:0.0 relativeDuration:*(*(result + 4) + 128) + result[7] animations:?];
   }
 
-  if (*(v1 + 48))
+  if (*(v1 + 6))
   {
-    v2 = *(*(v1 + 32) + 128);
-    v3 = *(v1 + 56);
+    v2 = *(*(v1 + 4) + 128);
+    v3 = v1[7];
     v4 = v2 - v3;
     v5 = v2 + v3;
 

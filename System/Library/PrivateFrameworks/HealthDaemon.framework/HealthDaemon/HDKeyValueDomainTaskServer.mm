@@ -456,13 +456,13 @@ uint64_t __61__HDKeyValueDomainTaskServer_remote_allValuesWithCompletion___block
 
 - (void)didUpdateKeyValueDomain:(id)domain
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __54__HDKeyValueDomainTaskServer_didUpdateKeyValueDomain___block_invoke;
-  v10[3] = &unk_2786138D0;
-  v10[4] = self;
-  v4 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v10];
+  v14 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __54__HDKeyValueDomainTaskServer_didUpdateKeyValueDomain___block_invoke;
+  v9[3] = &unk_2786138D0;
+  v9[4] = self;
+  v4 = [(HDStandardTaskServer *)self remoteObjectProxyWithErrorHandler:v9];
   if (v4)
   {
     _HKInitializeLogging();
@@ -474,36 +474,32 @@ uint64_t __61__HDKeyValueDomainTaskServer_remote_allValuesWithCompletion___block
       domainName = [(HDKeyValueDomain *)keyValueDomain domainName];
       *buf = 138543618;
       selfCopy = self;
-      v13 = 2114;
-      v14 = domainName;
+      v12 = 2114;
+      v13 = domainName;
       _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_INFO, "%{public}@: Notify client for domain:%{public}@ change", buf, 0x16u);
     }
 
     [v4 clientRemote_didUpdate];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HDKeyValueDomainTaskServer_didUpdateKeyValueDomain___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
   {
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 40);
-    v6 = v2;
-    v7 = [v5 domainName];
-    v8 = 138543618;
-    v9 = v4;
-    v10 = 2114;
-    v11 = v7;
-    _os_log_error_impl(&dword_228986000, v6, OS_LOG_TYPE_ERROR, "%{public}@: Unable to notify client for domain:%{public}@ change", &v8, 0x16u);
+    v3 = *(a1 + 32);
+    v4 = *(v3 + 40);
+    v5 = v2;
+    v6 = [v4 domainName];
+    v7 = 138543618;
+    v8 = v3;
+    v9 = 2114;
+    v10 = v6;
+    _os_log_error_impl(&dword_228986000, v5, OS_LOG_TYPE_ERROR, "%{public}@: Unable to notify client for domain:%{public}@ change", &v7, 0x16u);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -59,8 +59,8 @@
 - (void)viewDidDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  OUTLINED_FUNCTION_0_0();
-  sub_1B81BE020();
+  v4 = OUTLINED_FUNCTION_0_0();
+  sub_1B81BE020(v4);
 }
 
 - (void)presentViewController:(id)controller

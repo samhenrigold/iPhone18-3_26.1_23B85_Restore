@@ -34,17 +34,17 @@
 
 + (double)lifetimeOfFile:(id)file
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v4 = kSecondsIn3Day;
-  v23 = 0;
-  v5 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:fileCopy options:1 error:&v23];
-  v6 = v23;
+  v22 = 0;
+  v5 = [MEMORY[0x277CBEA90] dataWithContentsOfURL:fileCopy options:1 error:&v22];
+  v6 = v22;
   if (v5)
   {
-    v22 = v6;
-    v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v22];
-    v8 = v22;
+    v21 = v6;
+    v7 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v5 options:0 error:&v21];
+    v8 = v21;
 
     if (!v7)
     {
@@ -80,9 +80,9 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v25 = v12;
-        v26 = 2112;
-        v27 = fileCopy;
+        v24 = v12;
+        v25 = 2112;
+        v26 = fileCopy;
         _os_log_impl(&dword_22622D000, v16, OS_LOG_TYPE_INFO, "Found the key %@ in transparency log %@", buf, 0x16u);
       }
 
@@ -132,24 +132,23 @@ LABEL_24:
   v8 = v6;
 LABEL_28:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 + (BOOL)checkAndRemoveFile:(id)file
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   [objc_opt_class() lifetimeOfFile:fileCopy];
   v5 = v4;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   date = [MEMORY[0x277CBEAA8] date];
-  v21 = 0;
-  v8 = *MEMORY[0x277CBE7C0];
   v20 = 0;
-  v9 = [fileCopy getResourceValue:&v21 forKey:v8 error:&v20];
-  v10 = v21;
-  v11 = v20;
+  v8 = *MEMORY[0x277CBE7C0];
+  v19 = 0;
+  v9 = [fileCopy getResourceValue:&v20 forKey:v8 error:&v19];
+  v10 = v20;
+  v11 = v19;
   if ((v9 & 1) == 0)
   {
     v12 = +[_DPLog framework];
@@ -177,24 +176,24 @@ LABEL_9:
   v12 = [v10 dateByAddingTimeInterval:v5];
   if ([v12 compare:date]== -1)
   {
-    v19 = 0;
-    v13 = [defaultManager removeItemAtURL:fileCopy error:&v19];
-    v16 = v19;
-    v17 = +[_DPLog framework];
-    v18 = v17;
+    v18 = 0;
+    v13 = [defaultManager removeItemAtURL:fileCopy error:&v18];
+    v15 = v18;
+    v16 = +[_DPLog framework];
+    v17 = v16;
     if (v13)
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v23 = fileCopy;
-        _os_log_impl(&dword_22622D000, v18, OS_LOG_TYPE_INFO, "Successfully removed transparency log %@.", buf, 0xCu);
+        v22 = fileCopy;
+        _os_log_impl(&dword_22622D000, v17, OS_LOG_TYPE_INFO, "Successfully removed transparency log %@.", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(_DPTransparencyLogMaintainer *)fileCopy checkAndRemoveFile:v16];
+      [(_DPTransparencyLogMaintainer *)fileCopy checkAndRemoveFile:v15];
     }
   }
 
@@ -205,51 +204,49 @@ LABEL_9:
 
 LABEL_10:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)doMaintenance
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   reportsDirectoryPath = [(_DPTransparencyLogMaintainer *)self reportsDirectoryPath];
   v3 = [_DPReportFilesMaintainer reportsInDirectory:reportsDirectoryPath];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * v8);
+        v9 = *(*(&v12 + 1) + 8 * v8);
         v10 = objc_autoreleasePoolPush();
-        [objc_opt_class() checkAndRemoveFile:{v9, v13}];
+        [objc_opt_class() checkAndRemoveFile:{v9, v12}];
         objc_autoreleasePoolPop(v10);
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -269,66 +266,39 @@ LABEL_10:
 
 + (void)lifetimeOfFile:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_3(&dword_22622D000, v3, v4, "Failed to parse the JSON transparency log for file %@ with error %@.", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_22622D000, v3, v4, "Failed to parse the JSON transparency log for file %@ with error %@.", v5, v6, v7, v8);
 }
 
 + (void)lifetimeOfFile:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "No key found in the transparency log %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)lifetimeOfFile:.cold.3()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, v0, v1, "No key properties was found for key %@ in file %@");
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "No key found in the transparency log %@", &v2, 0xCu);
 }
 
 + (void)lifetimeOfFile:(uint64_t)a1 .cold.4(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_3(&dword_22622D000, v3, v4, "Failed to read transparency log file %@ with error %@.", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)checkAndRemoveFile:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_0(&dword_22622D000, v0, v1, "Failed to read NSURLCreationDateKey from %@ with error %@.");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_22622D000, v3, v4, "Failed to read transparency log file %@ with error %@.", v5, v6, v7, v8);
 }
 
 + (void)checkAndRemoveFile:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [a2 localizedDescription];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_3(&dword_22622D000, v3, v4, "Failed to remove transparency log %@ with error %@.", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_22622D000, v3, v4, "Failed to remove transparency log %@ with error %@.", v5, v6, v7, v8);
 }
 
 + (void)checkAndRemoveFile:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "No value for NSURLCreationDateKey from %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22622D000, a2, OS_LOG_TYPE_ERROR, "No value for NSURLCreationDateKey from %@.", &v2, 0xCu);
 }
 
 @end

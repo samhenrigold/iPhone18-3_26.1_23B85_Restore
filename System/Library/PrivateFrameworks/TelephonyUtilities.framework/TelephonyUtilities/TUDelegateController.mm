@@ -47,34 +47,34 @@
 
 - (void)enumerateDelegatesUsingBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   os_unfair_lock_lock(&self->_delegateLock);
-  v17 = 0;
+  v16 = 0;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   delegateToQueue = [(TUDelegateController *)self delegateToQueue];
-  v6 = [delegateToQueue countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v6 = [delegateToQueue countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v14 != v7)
+      if (*v13 != v7)
       {
         objc_enumerationMutation(delegateToQueue);
       }
 
-      v9 = *(*(&v13 + 1) + 8 * v8);
+      v9 = *(*(&v12 + 1) + 8 * v8);
       delegateToQueue2 = [(TUDelegateController *)self delegateToQueue];
       v11 = [delegateToQueue2 objectForKey:v9];
 
-      blockCopy[2](blockCopy, v9, v11, &v17);
-      LOBYTE(v9) = v17;
+      blockCopy[2](blockCopy, v9, v11, &v16);
+      LOBYTE(v9) = v16;
 
       if (v9)
       {
@@ -83,7 +83,7 @@ LABEL_3:
 
       if (v6 == ++v8)
       {
-        v6 = [delegateToQueue countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v6 = [delegateToQueue countByEnumeratingWithState:&v12 objects:v17 count:16];
         if (v6)
         {
           goto LABEL_3;
@@ -95,7 +95,6 @@ LABEL_3:
   }
 
   os_unfair_lock_unlock(&self->_delegateLock);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

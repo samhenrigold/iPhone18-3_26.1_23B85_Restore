@@ -56,25 +56,8 @@
 
   v8 = [firstObject safeValueForKey:@"animatedLabel"];
   v9 = v8;
-  if (!v8)
+  if (!v8 || ([v8 safeValueForKey:@"layer"], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "accessibilityFrame"), v12 = v11, v14 = v13, v16 = v15, v18 = v17, v10, v29.origin.x = v12, v29.origin.y = v14, v29.size.width = v16, v29.size.height = v18, CGRectIsEmpty(v29)))
   {
-    goto LABEL_3;
-  }
-
-  v10 = [v8 safeValueForKey:@"layer"];
-  [v10 accessibilityFrame];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-
-  v29.origin.x = v12;
-  v29.origin.y = v14;
-  v29.size.width = v16;
-  v29.size.height = v18;
-  if (CGRectIsEmpty(v29))
-  {
-LABEL_3:
     v27.receiver = self;
     v27.super_class = _TVCollectionViewLockupCellAccessibility;
     [(_TVCollectionViewLockupCellAccessibility *)&v27 _accessibilityFocusableFrameForZoom];

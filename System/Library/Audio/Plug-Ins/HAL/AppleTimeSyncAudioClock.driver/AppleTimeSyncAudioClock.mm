@@ -20,7 +20,6 @@ id AppleTimeSyncAudioClockFactory(uint64_t a1, const void *a2)
 
 uint64_t sub_1134(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   _sharedPlugin = objc_alloc_init(objc_opt_class());
 
   return _objc_release_x1();
@@ -66,15 +65,14 @@ void sub_170C(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = *(a1 + 32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = [*(a1 + 32) propertyForKey:@"ClockIdentifier"];
-      if (v5)
+      v4 = [*(a1 + 32) propertyForKey:@"ClockIdentifier"];
+      if (v4)
       {
-        v6 = v5;
-        [WeakRetained addClockWithIdentifier:{objc_msgSend(v5, "unsignedLongLongValue")}];
+        v5 = v4;
+        [WeakRetained addClockWithIdentifier:{objc_msgSend(v4, "unsignedLongLongValue")}];
       }
 
       else
@@ -119,15 +117,14 @@ void sub_1884(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v4 = *(a1 + 32);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = [*(a1 + 32) propertyForKey:@"ClockIdentifier"];
-      if (v5)
+      v4 = [*(a1 + 32) propertyForKey:@"ClockIdentifier"];
+      if (v4)
       {
-        v6 = v5;
-        [WeakRetained removeClockWithIdentifier:objc_msgSend(v5 force:{"unsignedLongLongValue"), 1}];
+        v5 = v4;
+        [WeakRetained removeClockWithIdentifier:objc_msgSend(v4 force:{"unsignedLongLongValue"), 1}];
       }
 
       else
@@ -251,9 +248,9 @@ void sub_1BCC(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_1D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -372,10 +369,11 @@ void sub_2190(uint64_t a1)
   objc_autoreleasePoolPop(v2);
 }
 
-void sub_2448(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_2448(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x3Au);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 0x3Au);
 }
 
 uint64_t sub_2BD8(uint64_t a1, double *a2, unint64_t *a3, unint64_t *a4)
@@ -400,237 +398,214 @@ void sub_3184(uint64_t a1)
   if (v3 - v5 <= *(a1 + 48))
   {
     v10 = *(v4 + 32);
-    v77 = *(v4 + 56);
+    v54 = *(v4 + 56);
     v11 = *(v4 + 88);
     *(v4 + 32) = *(a1 + 56) + v10;
     v12 = &NSObject__properties;
-    v13 = *(a1 + 32);
-    v76 = v2;
+    v53 = v2;
     if (v11 == 1)
     {
-      v14 = v10;
-      v13[3] += v13[10];
-      v15 = *(a1 + 32);
-      v16 = (v15[10] + v15[3] + *(a1 + 64));
-      [v15 clockIdentifier];
-      v17 = *(a1 + 32);
-      v18 = *(v17 + 32);
-      v19 = *(v17 + 24);
+      v13 = v10;
+      *(*(a1 + 32) + 24) += *(*(a1 + 32) + 80);
+      v14 = *(a1 + 32);
+      v15 = (v14[10] + v14[3] + *(a1 + 64));
+      [v14 clockIdentifier];
       kdebug_trace();
 LABEL_29:
-      v53 = *(a1 + 32);
-      v54 = v53[5];
-      v53[5] = v54 + [v53 timestampPeriod];
+      v35 = *(a1 + 32);
+      v36 = v35[5];
+      v35[5] = v36 + [v35 timestampPeriod];
       *(*(a1 + 32) + 56) = [*(*(a1 + 32) + 136) addTimestamp:*(*(a1 + 32) + 24)];
-      *(*(a1 + 32) + 72) = *(*(a1 + 32) + 56) - v77;
-      v55 = *(a1 + 32);
-      v56 = v55[5];
-      v57 = v55[7];
-      v58 = v55[6];
-      v55 += 19;
-      v59 = v55 + 4;
-      v60 = atomic_load(v55 + 4);
-      v61 = (v60 + 1) % *v55;
-      v62 = (v55[1] + 24 * v61);
-      *v62 = v56;
-      v62[1] = v57;
-      v62[2] = v58;
-      atomic_store(v61, v59);
-      v63 = *(a1 + 32);
-      entrysize = v12[449].entrysize;
-      v65 = *(v63 + entrysize);
-      LOWORD(v56) = *(v63 + 16);
-      v66 = *(v63 + 24);
-      v67 = *(v63 + 32);
-      v68 = *(v63 + 40);
-      v69 = *(v63 + 56);
-      v70 = *(v63 + 88);
-      v71 = *(v63 + 104);
-      v78[0] = _NSConcreteStackBlock;
-      v78[1] = 3221225472;
-      v78[2] = sub_3F80;
-      v78[3] = &unk_C538;
-      v78[4] = v63;
-      v78[5] = v68;
-      v78[6] = v69;
-      v78[7] = v65;
-      v79 = v56;
-      v78[8] = v67;
-      v78[9] = v66;
-      v78[10] = v14;
-      v78[11] = v5;
-      v80 = v70;
-      dispatch_async(v71, v78);
+      *(*(a1 + 32) + 72) = *(*(a1 + 32) + 56) - v54;
+      v37 = *(a1 + 32);
+      v38 = v37[5];
+      v39 = v37[7];
+      v40 = v37[6];
+      v37 += 19;
+      v41 = v37 + 4;
+      v42 = atomic_load(v37 + 4);
+      v43 = (v42 + 1) % *v37;
+      v44 = (v37[1] + 24 * v43);
+      *v44 = v38;
+      v44[1] = v39;
+      v44[2] = v40;
+      atomic_store(v43, v41);
+      v45 = *(a1 + 32);
+      v46 = *(v45 + v12[449].entrysize);
+      LOWORD(v38) = *(v45 + 16);
+      v47 = *(v45 + 24);
+      v48 = *(v45 + 32);
+      v49 = *(v45 + 40);
+      v50 = *(v45 + 56);
+      v51 = *(v45 + 88);
+      v52 = *(v45 + 104);
+      v55[0] = _NSConcreteStackBlock;
+      v55[1] = 3221225472;
+      v55[2] = sub_3F80;
+      v55[3] = &unk_C538;
+      v55[4] = v45;
+      v55[5] = v49;
+      v55[6] = v50;
+      v55[7] = v46;
+      v56 = v38;
+      v55[8] = v48;
+      v55[9] = v47;
+      v55[10] = v13;
+      v55[11] = v5;
+      v57 = v51;
+      dispatch_async(v52, v55);
       [*(a1 + 32) clockIdentifier];
-      v72 = *(a1 + 32);
-      v73 = *(v72 + 40);
-      v74 = *(v72 + 56);
-      v75 = *(v72 + entrysize);
       kdebug_trace();
-      *(*(a1 + 32) + 144) = v16;
+      *(*(a1 + 32) + 144) = v15;
       dispatch_source_set_timer(*(a1 + 40), *(*(a1 + 32) + 144), 0xFFFFFFFFFFFFFFFFLL, 0);
-      v2 = v76;
+      v2 = v53;
       goto LABEL_30;
     }
 
-    v22 = v13[15];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v14 = v10;
+      v13 = v10;
       *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32)];
-      v16 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000];
+      v15 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000];
       [*(a1 + 32) clockIdentifier];
-      v26 = *(a1 + 32);
-      v27 = *(v26 + 32);
-      v28 = *(v26 + 24);
 LABEL_28:
       kdebug_trace();
       *(*(a1 + 32) + 80) = *(*(a1 + 32) + 24) - v5;
-      v50 = *(a1 + 32);
-      v51 = *(v50 + v12[449].entrysize);
-      v52 = v50[4];
-      v20 = v50[3];
-      v21 = v50[10];
+      v34 = *(a1 + 32);
+      v16 = *(v34 + 24);
+      v17 = *(v34 + 80);
       goto LABEL_29;
     }
 
-    v23 = TSNullgPTPClockIdentity;
-    v97 = TSNullgPTPClockIdentity;
-    v98 = TSNullgPTPClockIdentity;
-    v96 = -1;
-    v95 = -1;
-    *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) grandmasterUsed:&v98 portNumber:&v96];
-    v24 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000 grandmasterUsed:&v97 portNumber:&v95];
-    v25 = v98;
-    if (v98 == v97 && v96 == v95)
+    v18 = TSNullgPTPClockIdentity;
+    v74 = TSNullgPTPClockIdentity;
+    v75 = TSNullgPTPClockIdentity;
+    v73 = -1;
+    v72 = -1;
+    *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) grandmasterUsed:&v75 portNumber:&v73];
+    v19 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000 grandmasterUsed:&v74 portNumber:&v72];
+    v20 = v75;
+    if (v75 == v74 && v73 == v72)
     {
-      v16 = v24;
+      v15 = v19;
     }
 
     else
     {
-      v29 = *(*(a1 + 32) + 104);
-      v92[0] = _NSConcreteStackBlock;
-      v92[1] = 3221225472;
-      v92[2] = sub_3B98;
-      v92[3] = &unk_C4B0;
-      v93 = v96;
-      v92[4] = v98;
-      v92[5] = v97;
-      v94 = v95;
-      dispatch_async(v29, v92);
-      *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) grandmasterUsed:&v98 portNumber:&v96];
-      v16 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000 grandmasterUsed:&v97 portNumber:&v95];
-      v25 = v98;
-      if (v98 != v97 || v96 != v95)
+      v21 = *(*(a1 + 32) + 104);
+      v69[0] = _NSConcreteStackBlock;
+      v69[1] = 3221225472;
+      v69[2] = sub_3B98;
+      v69[3] = &unk_C4B0;
+      v70 = v73;
+      v69[4] = v75;
+      v69[5] = v74;
+      v71 = v72;
+      dispatch_async(v21, v69);
+      *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) grandmasterUsed:&v75 portNumber:&v73];
+      v15 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000 grandmasterUsed:&v74 portNumber:&v72];
+      v20 = v75;
+      if (v75 != v74 || v73 != v72)
       {
-        v30 = *(*(a1 + 32) + 104);
-        v89[0] = _NSConcreteStackBlock;
-        v89[1] = 3221225472;
-        v89[2] = sub_3C64;
-        v89[3] = &unk_C4B0;
-        v90 = v96;
-        v89[4] = v98;
-        v89[5] = v97;
-        v91 = v95;
-        dispatch_async(v30, v89);
-        v25 = v98;
+        v22 = *(*(a1 + 32) + 104);
+        v66[0] = _NSConcreteStackBlock;
+        v66[1] = 3221225472;
+        v66[2] = sub_3C64;
+        v66[3] = &unk_C4B0;
+        v67 = v73;
+        v66[4] = v75;
+        v66[5] = v74;
+        v68 = v72;
+        dispatch_async(v22, v66);
+        v20 = v75;
       }
     }
 
-    if (v23 == v25)
+    if (v18 == v20)
     {
       *(*(a1 + 32) + 32) = *(a1 + 56) + v10;
       *(*(a1 + 32) + 24) = *(*(a1 + 32) + 80) + v5;
-      v31 = *(a1 + 32);
-      v16 = (v31[10] + v31[3] + *(a1 + 64));
-      v32 = v31[13];
-      v33 = &stru_C4F0;
+      v23 = *(a1 + 32);
+      v15 = (v23[10] + v23[3] + *(a1 + 64));
+      v24 = v23[13];
+      v25 = &stru_C4F0;
     }
 
     else
     {
-      v34 = *(a1 + 32);
-      if (*(v34 + 8) == v25 && *(v34 + 16) == v96)
+      v26 = *(a1 + 32);
+      if (*(v26 + 8) == v20 && *(v26 + 16) == v73)
       {
         goto LABEL_27;
       }
 
-      v88 = v23;
-      v87 = -1;
-      v35 = [*(v34 + 120) convertFromMachAbsoluteToDomainTime:v5 grandmasterUsed:&v88 portNumber:&v87];
-      if (v23 != v88)
+      v65 = v18;
+      v64 = -1;
+      v27 = [*(v26 + 120) convertFromMachAbsoluteToDomainTime:v5 grandmasterUsed:&v65 portNumber:&v64];
+      if (v18 != v65)
       {
-        v37 = *(a1 + 32);
-        v38 = v37[1];
-        v39 = v37[4];
-        v40 = v37[3];
-        v37[4] = &v35[*(a1 + 56)];
-        *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) grandmasterUsed:&v98 portNumber:&v96];
-        v41 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000 grandmasterUsed:&v97 portNumber:&v95];
-        v42 = v98;
-        v43 = v96;
-        if (v98 == v97 && v96 == v95)
+        *(*(a1 + 32) + 32) = &v27[*(a1 + 56)];
+        *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) grandmasterUsed:&v75 portNumber:&v73];
+        v29 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000 grandmasterUsed:&v74 portNumber:&v72];
+        v30 = v75;
+        v31 = v73;
+        if (v75 == v74 && v73 == v72)
         {
-          v16 = v41;
+          v15 = v29;
         }
 
         else
         {
-          v44 = *(*(a1 + 32) + 104);
-          v84[0] = _NSConcreteStackBlock;
-          v84[1] = 3221225472;
-          v84[2] = sub_3DE8;
-          v84[3] = &unk_C4B0;
-          v85 = v96;
-          v84[4] = v98;
-          v84[5] = v97;
-          v86 = v95;
-          dispatch_async(v44, v84);
-          *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) grandmasterUsed:&v98 portNumber:&v96];
-          v16 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000 grandmasterUsed:&v97 portNumber:&v95];
-          v42 = v98;
-          v43 = v96;
-          if (v98 != v97 || v96 != v95)
+          v32 = *(*(a1 + 32) + 104);
+          v61[0] = _NSConcreteStackBlock;
+          v61[1] = 3221225472;
+          v61[2] = sub_3DE8;
+          v61[3] = &unk_C4B0;
+          v62 = v73;
+          v61[4] = v75;
+          v61[5] = v74;
+          v63 = v72;
+          dispatch_async(v32, v61);
+          *(*(a1 + 32) + 24) = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) grandmasterUsed:&v75 portNumber:&v73];
+          v15 = [*(*(a1 + 32) + 120) convertFromDomainToMachAbsoluteTime:*(*(a1 + 32) + 32) + *(a1 + 56) + 30000000 grandmasterUsed:&v74 portNumber:&v72];
+          v30 = v75;
+          v31 = v73;
+          if (v75 != v74 || v73 != v72)
           {
-            v45 = *(*(a1 + 32) + 104);
-            v81[0] = _NSConcreteStackBlock;
-            v81[1] = 3221225472;
-            v81[2] = sub_3EB4;
-            v81[3] = &unk_C4B0;
-            v82 = v96;
-            v81[4] = v98;
-            v81[5] = v97;
-            v83 = v95;
-            dispatch_async(v45, v81);
-            v42 = v98;
-            v43 = v96;
+            v33 = *(*(a1 + 32) + 104);
+            v58[0] = _NSConcreteStackBlock;
+            v58[1] = 3221225472;
+            v58[2] = sub_3EB4;
+            v58[3] = &unk_C4B0;
+            v59 = v73;
+            v58[4] = v75;
+            v58[5] = v74;
+            v60 = v72;
+            dispatch_async(v33, v58);
+            v30 = v75;
+            v31 = v73;
           }
         }
 
-        *(*(a1 + 32) + 8) = v42;
-        *(*(a1 + 32) + 16) = v43;
+        *(*(a1 + 32) + 8) = v30;
+        *(*(a1 + 32) + 16) = v31;
         goto LABEL_27;
       }
 
       *(*(a1 + 32) + 32) = *(a1 + 56) + v10;
       *(*(a1 + 32) + 24) = *(*(a1 + 32) + 80) + v5;
-      v36 = *(a1 + 32);
-      v16 = (v36[10] + v36[3] + *(a1 + 64));
-      v32 = v36[13];
-      v33 = &stru_C510;
+      v28 = *(a1 + 32);
+      v15 = (v28[10] + v28[3] + *(a1 + 64));
+      v24 = v28[13];
+      v25 = &stru_C510;
     }
 
-    dispatch_async(v32, v33);
+    dispatch_async(v24, v25);
 LABEL_27:
-    v14 = v10;
+    v13 = v10;
     [*(a1 + 32) clockIdentifier];
-    v46 = *(a1 + 32);
-    v47 = v46[4];
-    v48 = v46[3];
     v12 = &NSObject__properties;
-    v49 = v46[1];
     goto LABEL_28;
   }
 
@@ -834,19 +809,22 @@ double sub_4138(uint64_t a1)
   return sub_41B8(v2);
 }
 
-double sub_41B8(unint64_t *a1)
+double sub_41B8(void *a1)
 {
-  sub_6088(&v4, *a1);
-  v2 = a1[1];
-  if (v2)
+  v2 = *a1;
+  v5 = 0uLL;
+  v6 = 0;
+  sub_6088(&v7, v2, &v5);
+  v3 = a1[1];
+  if (v3)
   {
-    a1[2] = v2;
-    operator delete(v2);
+    a1[2] = v3;
+    operator delete(v3);
   }
 
-  result = *&v4;
-  *(a1 + 1) = v4;
-  a1[3] = v5;
+  result = *&v7;
+  *(a1 + 1) = v7;
+  a1[3] = v8;
   atomic_store(0, a1 + 4);
   return result;
 }
@@ -1096,7 +1074,7 @@ void sub_59C8(uint64_t a1)
   {
     v3 = [*(a1 + 32) clockIdentifier];
     *buf = 134217984;
-    v38 = v3;
+    v37 = v3;
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "0x%016llx: Failed to get the initial timestamp, returned TSInvalidTime.\n", buf, 0xCu);
   }
 
@@ -1116,110 +1094,109 @@ void sub_59C8(uint64_t a1)
     v6 = [*(a1 + 32) clockIdentifier];
     v7 = [(__CFString *)v5 UTF8String];
     *buf = 134218242;
-    v38 = v6;
-    v39 = 2080;
-    *v40 = v7;
+    v37 = v6;
+    v38 = 2080;
+    *v39 = v7;
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "0x%016llx: Clock lock state is %s\n", buf, 0x16u);
   }
 
-  v8 = *(a1 + 40);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v35 = 0;
-    v36 = 0;
-    v33 = 0;
     v34 = 0;
+    v35 = 0;
     v32 = 0;
+    v33 = 0;
     v31 = 0;
-    v9 = *(a1 + 40);
     v30 = 0;
-    v10 = [v9 getMachAbsoluteRateRatioNumerator:&v36 denominator:&v35 machAnchor:&v34 andDomainAnchor:&v33 forGrandmasterIdentity:&v32 portNumber:&v31 withError:&v30];
-    v11 = v30;
-    v12 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
-    if (v10)
+    v8 = *(a1 + 40);
+    v29 = 0;
+    v9 = [v8 getMachAbsoluteRateRatioNumerator:&v35 denominator:&v34 machAnchor:&v33 andDomainAnchor:&v32 forGrandmasterIdentity:&v31 portNumber:&v30 withError:&v29];
+    v10 = v29;
+    v11 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v12)
+      if (v11)
       {
-        v13 = [*(a1 + 32) clockIdentifier];
+        v12 = [*(a1 + 32) clockIdentifier];
         *buf = 134219520;
-        v38 = v13;
-        v39 = 2048;
-        *v40 = v34;
-        *&v40[8] = 2048;
-        *&v40[10] = v33;
-        v41 = 2048;
-        v42 = v36;
-        v43 = 2048;
-        v44 = v35;
-        v45 = 2048;
-        v46 = v32;
-        v47 = 1024;
-        v48 = v31;
+        v37 = v12;
+        v38 = 2048;
+        *v39 = v33;
+        *&v39[8] = 2048;
+        *&v39[10] = v32;
+        v40 = 2048;
+        v41 = v35;
+        v42 = 2048;
+        v43 = v34;
+        v44 = 2048;
+        v45 = v31;
+        v46 = 1024;
+        v47 = v30;
         _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "0x%016llx: Mach anchor %llu domain anchor %llu numerator %llu denominator %llu grandmaster 0x%016llx.%hu\n", buf, 0x44u);
       }
     }
 
-    else if (v12)
+    else if (v11)
     {
-      v19 = [*(a1 + 32) clockIdentifier];
-      v20 = [v11 code];
-      v21 = [v11 description];
-      v22 = v21;
-      v23 = [v21 UTF8String];
+      v18 = [*(a1 + 32) clockIdentifier];
+      v19 = [v10 code];
+      v20 = [v10 description];
+      v21 = v20;
+      v22 = [v20 UTF8String];
       *buf = 134218498;
-      v38 = v19;
-      v39 = 1024;
-      *v40 = v20;
-      *&v40[4] = 2080;
-      *&v40[6] = v23;
+      v37 = v18;
+      v38 = 1024;
+      *v39 = v19;
+      *&v39[4] = 2080;
+      *&v39[6] = v22;
       _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "0x%016llx: Failed to get rate ratio and anchor with error 0x%08x %s\n", buf, 0x1Cu);
     }
   }
 
   else
   {
-    v35 = 0;
-    v36 = 0;
-    v33 = 0;
     v34 = 0;
-    v14 = *(a1 + 40);
-    v29 = 0;
-    v15 = [v14 getMachAbsoluteRateRatioNumerator:&v36 denominator:&v35 machAnchor:&v34 andDomainAnchor:&v33 withError:&v29];
-    v16 = v29;
-    v17 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
-    if (v15)
+    v35 = 0;
+    v32 = 0;
+    v33 = 0;
+    v13 = *(a1 + 40);
+    v28 = 0;
+    v14 = [v13 getMachAbsoluteRateRatioNumerator:&v35 denominator:&v34 machAnchor:&v33 andDomainAnchor:&v32 withError:&v28];
+    v15 = v28;
+    v16 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT);
+    if (v14)
     {
-      if (v17)
+      if (v16)
       {
-        v18 = [*(a1 + 32) clockIdentifier];
+        v17 = [*(a1 + 32) clockIdentifier];
         *buf = 134219008;
-        v38 = v18;
-        v39 = 2048;
-        *v40 = v34;
-        *&v40[8] = 2048;
-        *&v40[10] = v33;
-        v41 = 2048;
-        v42 = v36;
-        v43 = 2048;
-        v44 = v35;
+        v37 = v17;
+        v38 = 2048;
+        *v39 = v33;
+        *&v39[8] = 2048;
+        *&v39[10] = v32;
+        v40 = 2048;
+        v41 = v35;
+        v42 = 2048;
+        v43 = v34;
         _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "0x%016llx: Mach anchor %llu domain anchor %llu numerator %llu denominator %llu\n", buf, 0x34u);
       }
     }
 
-    else if (v17)
+    else if (v16)
     {
-      v24 = [*(a1 + 32) clockIdentifier];
-      v25 = [v16 code];
-      v26 = [v16 description];
-      v27 = v26;
-      v28 = [v26 UTF8String];
+      v23 = [*(a1 + 32) clockIdentifier];
+      v24 = [v15 code];
+      v25 = [v15 description];
+      v26 = v25;
+      v27 = [v25 UTF8String];
       *buf = 134218498;
-      v38 = v24;
-      v39 = 1024;
-      *v40 = v25;
-      *&v40[4] = 2080;
-      *&v40[6] = v28;
+      v37 = v23;
+      v38 = 1024;
+      *v39 = v24;
+      *&v39[4] = 2080;
+      *&v39[6] = v27;
       _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, "0x%016llx: Failed to get rate ratio and anchor with error 0x%08x %s\n", buf, 0x1Cu);
     }
   }
@@ -1236,17 +1213,17 @@ void sub_5EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
   _Unwind_Resume(a1);
 }
 
-void *sub_6088(void *result, unint64_t a2)
+uint64_t *sub_6088(uint64_t *a1, unint64_t a2, __int128 *a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    sub_6118(result, a2);
+    sub_6118(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_60FC(_Unwind_Exception *exception_object)
@@ -1261,7 +1238,7 @@ void sub_60FC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_6118(uint64_t a1, unint64_t a2)
+void sub_6118(uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1303,9 +1280,10 @@ void sub_6298()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_2410();
     sub_2434();
-    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -1313,9 +1291,10 @@ void sub_6348()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_2410();
     sub_2434();
-    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -1323,9 +1302,10 @@ void sub_63F8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_2410();
     sub_2434();
-    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -1333,9 +1313,10 @@ void sub_64A8()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_2410();
     sub_2434();
-    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -1343,9 +1324,10 @@ void sub_6558()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_2410();
     sub_2434();
-    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 
@@ -1353,9 +1335,10 @@ void sub_6608()
 {
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     sub_2410();
     sub_2434();
-    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    sub_2448(&dword_0, &_os_log_default, v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
 }
 

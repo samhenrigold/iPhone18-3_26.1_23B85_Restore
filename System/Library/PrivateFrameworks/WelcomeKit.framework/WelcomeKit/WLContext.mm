@@ -161,42 +161,42 @@
 
 - (BOOL)isEnabled
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v21 = *&self->_application;
+  v32 = *MEMORY[0x277D85DE8];
+  v20 = *&self->_application;
   message = self->_message;
-  v23 = *&self->_contact;
+  v22 = *&self->_contact;
   calendar = self->_calendar;
   v3 = *&self->_image;
-  v25 = *&self->_bookmark;
-  v26 = v3;
+  v24 = *&self->_bookmark;
+  v25 = v3;
   voiceMemo = self->_voiceMemo;
   album = self->_album;
-  v28 = voiceMemo;
+  v27 = voiceMemo;
   accessibilitySetting = self->_accessibilitySetting;
   container = self->_container;
-  v30 = accessibilitySetting;
-  v31 = *&self->_displaySetting;
+  v29 = accessibilitySetting;
+  v30 = *&self->_displaySetting;
   sim = self->_sim;
-  [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:17];
+  [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:17];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v6 = v19 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = v18 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         if ([v11 importCount] || objc_msgSend(v11, "importErrorCount"))
         {
           v12 = 1;
@@ -204,7 +204,7 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
       v12 = 0;
       if (v8)
       {
@@ -223,7 +223,6 @@
 LABEL_13:
 
   isEnabled = self->_isEnabled;
-  v14 = *MEMORY[0x277D85DE8];
   return v12 & isEnabled;
 }
 

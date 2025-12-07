@@ -149,61 +149,60 @@ void __63__PHCallBlockingServiceProviderController_setServiceProviders___block_i
 
 - (id)fetchServiceProviders
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   carrierBundleController = [(PHCallBlockingServiceProviderController *)self carrierBundleController];
   activeSubscriptions = [carrierBundleController activeSubscriptions];
 
-  v20 = 0u;
   v21 = 0u;
-  v18 = 0u;
+  v22 = 0u;
   v19 = 0u;
+  v20 = 0u;
   v6 = activeSubscriptions;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
-        if ([v11 isSimHidden])
+        v11 = *(*(&v19 + 1) + 8 * i);
+        isSimHidden = [v11 isSimHidden];
+        if (isSimHidden)
         {
-          v12 = TPSLog();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+          v14 = TPSLog(isSimHidden, v13);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
           {
-            *v17 = 0;
-            _os_log_impl(&dword_21B8E9000, v12, OS_LOG_TYPE_DEFAULT, "Subscription is hidden", v17, 2u);
+            *v18 = 0;
+            _os_log_impl(&dword_21B8E9000, v14, OS_LOG_TYPE_DEFAULT, "Subscription is hidden", v18, 2u);
           }
         }
 
         else
         {
           carrierBundleController2 = [(PHCallBlockingServiceProviderController *)self carrierBundleController];
-          v12 = [carrierBundleController2 localizedCarrierNameForSubscriptionContext:v11];
+          v14 = [carrierBundleController2 localizedCarrierNameForSubscriptionContext:v11];
 
-          if ([v12 length])
+          if ([v14 length])
           {
-            v14 = [[PHCallBlockingServiceProvider alloc] initWithLocalizedName:v12 supportsSpamBlocking:[(PHCallBlockingServiceProviderController *)self supportsCallBlockingForSubscriptionContext:v11]];
-            [v3 addObject:v14];
+            v16 = [[PHCallBlockingServiceProvider alloc] initWithLocalizedName:v14 supportsSpamBlocking:[(PHCallBlockingServiceProviderController *)self supportsCallBlockingForSubscriptionContext:v11]];
+            [v3 addObject:v16];
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -215,19 +214,19 @@ void __63__PHCallBlockingServiceProviderController_setServiceProviders___block_i
   v13 = 0;
   v5 = [(PHCallBlockingServiceProviderController *)self stringForKeyHierarchy:&unk_282D5D660 subscriptionContext:contextCopy error:&v13];
   v6 = v13;
-  v7 = v6;
+  v8 = v6;
   if (v5)
   {
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v15 = v5;
       v16 = 2112;
       v17 = contextCopy;
-      v9 = "Retrieved call blocking value '%@' for subscription %@";
+      v10 = "Retrieved call blocking value '%@' for subscription %@";
 LABEL_7:
-      _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, v9, buf, 0x16u);
+      _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0x16u);
     }
   }
 
@@ -238,14 +237,14 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    v8 = TPSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSLog(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v15 = contextCopy;
       v16 = 2112;
-      v17 = v7;
-      v9 = "Retrieving call blocking value for subscription %@ failed with error %@";
+      v17 = v8;
+      v10 = "Retrieving call blocking value for subscription %@ failed with error %@";
       goto LABEL_7;
     }
   }
@@ -253,16 +252,15 @@ LABEL_7:
 LABEL_9:
   if ([v5 isEqualToIgnoringCase:@"Enabled"])
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = [v5 isEqualToIgnoringCase:@"Dynamic"];
+    v11 = [v5 isEqualToIgnoringCase:@"Dynamic"];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (id)objectForKeyHierarchy:(id)hierarchy subscriptionContext:(id)context error:(id *)error
@@ -299,12 +297,12 @@ LABEL_9:
 {
   v12 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v6 = TPSLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = TPSLog(contextCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v11 = contextCopy;
-    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Carrier bundle changed for subscription context %@", buf, 0xCu);
+    _os_log_impl(&dword_21B8E9000, v7, OS_LOG_TYPE_DEFAULT, "Carrier bundle changed for subscription context %@", buf, 0xCu);
   }
 
   queue = [(PHCallBlockingServiceProviderController *)self queue];
@@ -314,8 +312,6 @@ LABEL_9:
   block[3] = &unk_2782E3960;
   block[4] = self;
   dispatch_async(queue, block);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __112__PHCallBlockingServiceProviderController_carrierBundleController_carrierBundleDidChangeForSubscriptionContext___block_invoke(uint64_t a1)

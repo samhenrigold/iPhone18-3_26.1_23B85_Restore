@@ -41,26 +41,24 @@
 
 + (id)_insertWithWorkoutUUID:(uint64_t)d seriesKey:(void *)key transaction:(uint64_t)transaction error:
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v8 = a2;
   keyCopy = key;
   v10 = objc_opt_self();
   v11 = [keyCopy databaseForEntityClass:v10];
 
-  v20[0] = @"workout_uuid";
-  v20[1] = @"route_key";
-  v20[2] = @"date_to_delete";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __79__HDRaceRouteWorkoutEntity__insertWithWorkoutUUID_seriesKey_transaction_error___block_invoke;
-  v17[3] = &unk_278616B10;
-  v18 = v8;
+  v19[0] = @"workout_uuid";
+  v19[1] = @"route_key";
+  v19[2] = @"date_to_delete";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:3];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __79__HDRaceRouteWorkoutEntity__insertWithWorkoutUUID_seriesKey_transaction_error___block_invoke;
+  v16[3] = &unk_278616B10;
+  v17 = v8;
   dCopy = d;
   v13 = v8;
-  v14 = [v10 insertOrReplaceEntity:0 database:v11 properties:v12 error:transaction bindingHandler:v17];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = [v10 insertOrReplaceEntity:0 database:v11 properties:v12 error:transaction bindingHandler:v16];
 
   return v14;
 }
@@ -86,7 +84,7 @@
 
 + (id)_routeKeyForPersistentID:(void *)d transaction:(uint64_t)transaction error:
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = objc_opt_self();
   v8 = [dCopy databaseForEntityClass:v7];
@@ -94,26 +92,24 @@
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
   v11 = [v9 predicateWithProperty:@"ROWID" equalToValue:v10];
 
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__128;
-  v22 = __Block_byref_object_dispose__128;
-  v23 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__128;
+  v21 = __Block_byref_object_dispose__128;
+  v22 = 0;
   v12 = [v7 queryWithDatabase:v8 predicate:v11];
-  v24[0] = @"route_key";
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __71__HDRaceRouteWorkoutEntity__routeKeyForPersistentID_transaction_error___block_invoke;
-  v17[3] = &unk_278619E98;
-  v17[4] = &v18;
-  [v12 enumerateProperties:v13 error:transaction enumerationHandler:v17];
+  v23[0] = @"route_key";
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __71__HDRaceRouteWorkoutEntity__routeKeyForPersistentID_transaction_error___block_invoke;
+  v16[3] = &unk_278619E98;
+  v16[4] = &v17;
+  [v12 enumerateProperties:v13 error:transaction enumerationHandler:v16];
 
-  v14 = v19[5];
-  _Block_object_dispose(&v18, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
   return v14;
 }
@@ -182,16 +178,15 @@ id __89__HDRaceRouteWorkoutEntity_markForDeletionWorkoutDataWithPersistentID_tra
 
 uint64_t __89__HDRaceRouteWorkoutEntity_markForDeletionWorkoutDataWithPersistentID_transaction_error___block_invoke_2(uint64_t a1, sqlite3_stmt *a2)
 {
-  v4 = *(a1 + 32);
   HDSQLiteBindFoundationValueToStatement();
-  v5 = *(a1 + 40);
+  v4 = *(a1 + 40);
 
-  return sqlite3_bind_int64(a2, 2, v5);
+  return sqlite3_bind_int64(a2, 2, v4);
 }
 
 + (BOOL)pruneWorkoutsMarkedForDeletionInTransaction:(id)transaction error:(id *)error
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   transactionCopy = transaction;
   v7 = [transactionCopy databaseForEntityClass:self];
   v8 = MEMORY[0x277D10B18];
@@ -199,15 +194,15 @@ uint64_t __89__HDRaceRouteWorkoutEntity_markForDeletionWorkoutDataWithPersistent
   v10 = [v8 predicateWithProperty:@"date_to_delete" lessThanValue:date];
 
   v11 = [self queryWithDatabase:v7 predicate:v10];
-  v20[0] = @"route_key";
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __78__HDRaceRouteWorkoutEntity_pruneWorkoutsMarkedForDeletionInTransaction_error___block_invoke;
-  v18[3] = &unk_27861E4C0;
+  v19[0] = @"route_key";
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __78__HDRaceRouteWorkoutEntity_pruneWorkoutsMarkedForDeletionInTransaction_error___block_invoke;
+  v17[3] = &unk_27861E4C0;
   v13 = transactionCopy;
-  v19 = v13;
-  v14 = [v11 enumerateProperties:v12 error:error enumerationHandler:v18];
+  v18 = v13;
+  v14 = [v11 enumerateProperties:v12 error:error enumerationHandler:v17];
 
   if (v14)
   {
@@ -219,7 +214,6 @@ uint64_t __89__HDRaceRouteWorkoutEntity_markForDeletionWorkoutDataWithPersistent
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -380,20 +374,19 @@ uint64_t __86__HDRaceRouteWorkoutEntity_startingPointForWorkoutWithPersistentID_
 
 + (id)privateSubEntities
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = objc_opt_class();
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
 
-uint64_t __71__HDRaceRouteWorkoutEntity__routeKeyForPersistentID_transaction_error___block_invoke(uint64_t a1)
+uint64_t __71__HDRaceRouteWorkoutEntity__routeKeyForPersistentID_transaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = HDSQLiteColumnWithNameAsNumber();
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v4 = HDSQLiteColumnWithNameAsNumber();
+  v5 = *(*(a1 + 32) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
   return 0;
 }

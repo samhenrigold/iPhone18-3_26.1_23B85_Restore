@@ -738,30 +738,29 @@ LABEL_41:
 {
   dictionaryCopy = dictionary;
   v5 = objc_opt_new();
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   v6 = dictionaryCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
-    v10 = &kSecCMSAdditionalCerts_ptr;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v19 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = [(NSDictionary *)self objectForKeyedSubscript:v12, v18];
-        v14 = [v6 objectForKeyedSubscript:v12];
-        if (!v13)
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [(NSDictionary *)self objectForKeyedSubscript:v11, v16];
+        v13 = [v6 objectForKeyedSubscript:v11];
+        if (!v12)
         {
           goto LABEL_11;
         }
@@ -772,31 +771,28 @@ LABEL_41:
           goto LABEL_11;
         }
 
-        if ([v14 isEqual:v13])
+        if ([v13 isEqual:v12])
         {
           goto LABEL_12;
         }
 
-        v15 = v10[89];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v16 = [v13 MCDictionaryAdditiveDeltaToCreateDictionary:v14];
-          [v5 setObject:v16 forKeyedSubscript:v12];
-
-          v10 = &kSecCMSAdditionalCerts_ptr;
+          v14 = [v12 MCDictionaryAdditiveDeltaToCreateDictionary:v13];
+          [v5 setObject:v14 forKeyedSubscript:v11];
         }
 
         else
         {
 LABEL_11:
-          [v5 setObject:v14 forKeyedSubscript:v12];
+          [v5 setObject:v13 forKeyedSubscript:v11];
         }
 
 LABEL_12:
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -809,56 +805,52 @@ LABEL_12:
 {
   dictionaryCopy = dictionary;
   v5 = objc_opt_new();
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   selfCopy = self;
-  v7 = [(NSDictionary *)selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [(NSDictionary *)selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
-    v10 = &kSecCMSAdditionalCerts_ptr;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v19 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
-        v13 = [(NSDictionary *)selfCopy objectForKeyedSubscript:v12, v18];
-        v14 = [dictionaryCopy objectForKeyedSubscript:v12];
-        if (v14)
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [(NSDictionary *)selfCopy objectForKeyedSubscript:v11, v16];
+        v13 = [dictionaryCopy objectForKeyedSubscript:v11];
+        if (v13)
         {
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) != 0 && ([v14 isEqual:v13] & 1) == 0)
+          if ((objc_opt_isKindOfClass() & 1) != 0 && ([v13 isEqual:v12] & 1) == 0)
           {
-            v15 = v10[89];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v16 = [v13 MCDictionarySubtractiveDeltaToCreateDictionary:v14];
-              if ([v16 count])
+              v14 = [v12 MCDictionarySubtractiveDeltaToCreateDictionary:v13];
+              if ([v14 count])
               {
-                [v5 setObject:v16 forKeyedSubscript:v12];
+                [v5 setObject:v14 forKeyedSubscript:v11];
               }
-
-              v10 = &kSecCMSAdditionalCerts_ptr;
             }
           }
         }
 
         else
         {
-          [v5 setObject:v13 forKeyedSubscript:v12];
+          [v5 setObject:v12 forKeyedSubscript:v11];
         }
       }
 
-      v8 = [(NSDictionary *)selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSDictionary *)selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -871,63 +863,60 @@ LABEL_12:
 {
   dictionaryCopy = dictionary;
   v5 = [NSMutableDictionary dictionaryWithDictionary:self];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   v6 = dictionaryCopy;
-  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
-    v10 = &kSecCMSAdditionalCerts_ptr;
+    v9 = *v20;
     selfCopy = self;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v23 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * i);
-        v13 = [(NSDictionary *)self objectForKeyedSubscript:v12];
-        v14 = [v6 objectForKeyedSubscript:v12];
-        if (v13)
+        v11 = *(*(&v19 + 1) + 8 * i);
+        v12 = [(NSDictionary *)self objectForKeyedSubscript:v11];
+        v13 = [v6 objectForKeyedSubscript:v11];
+        if (v12)
         {
-          v15 = v10[89];
           objc_opt_class();
-          if (objc_opt_isKindOfClass() & 1) != 0 && (v16 = v10[89], objc_opt_class(), (objc_opt_isKindOfClass()))
+          if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
           {
-            v17 = v5;
-            v18 = [NSMutableDictionary dictionaryWithDictionary:v13];
-            v19 = [v18 MCRemovedKeysFromDictionary:v14];
+            v14 = v5;
+            v15 = [NSMutableDictionary dictionaryWithDictionary:v12];
+            v16 = [v15 MCRemovedKeysFromDictionary:v13];
 
-            v5 = v17;
-            if ([v19 count])
+            v5 = v14;
+            if ([v16 count])
             {
-              [v17 setObject:v19 forKeyedSubscript:v12];
+              [v14 setObject:v16 forKeyedSubscript:v11];
             }
 
             else
             {
-              [v17 removeObjectForKey:v12];
+              [v14 removeObjectForKey:v11];
             }
 
             self = selfCopy;
-            v10 = &kSecCMSAdditionalCerts_ptr;
           }
 
           else
           {
-            [v5 removeObjectForKey:v12];
+            [v5 removeObjectForKey:v11];
           }
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);

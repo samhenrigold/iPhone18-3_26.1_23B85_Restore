@@ -9,65 +9,65 @@
 {
   duplicatesCopy = duplicates;
   errorCopy = error;
-  v115 = *MEMORY[0x277D85DE8];
+  v98 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   specCopy = spec;
   contextCopy = context;
-  v96 = contextCopy;
-  v99 = objc_opt_new();
-  v18 = objc_msgSend_count(valueCopy, v14, v15, v16, v17);
-  v97 = objc_msgSend_taggedDecimalList(v99, v19, v20, v21, v22);
-  v100 = objc_msgSend_zero(TSCENumberValue, v23, v24, v25, v26);
+  v79 = contextCopy;
+  v82 = objc_opt_new();
+  v17 = objc_msgSend_count(valueCopy, v14, v15, v16);
+  v80 = objc_msgSend_taggedDecimalList(v82, v18, v19, v20);
+  v83 = objc_msgSend_zero(TSCENumberValue, v21, v22, v23);
   if (!outError)
   {
-    v30 = MEMORY[0x277D81150];
-    v31 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "+[TSCETaggedDecimalListObject createFromGridValue:functionSpec:argumentIndex:evaluationContext:ignoreError:ignoreDuplicates:outError:]", v28, v29);
-    v35 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v32, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCETaggedDecimalList.mm", v33, v34);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v30, v36, v31, v35, 197, 0, "outError is required to be non-nil");
+    v26 = MEMORY[0x277D81150];
+    v27 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "+[TSCETaggedDecimalListObject createFromGridValue:functionSpec:argumentIndex:evaluationContext:ignoreError:ignoreDuplicates:outError:]", v25);
+    v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v28, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCETaggedDecimalList.mm", v29);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v26, v31, v27, v30, 197, 0, "outError is required to be non-nil");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v37, v38, v39, v40);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v32, v33, v34);
   }
 
-  memset(v111, 0, sizeof(v111));
-  v112 = 1065353216;
-  v43 = contextCopy;
-  v105[0] = v43;
-  v105[1] = specCopy;
-  v106 = 0;
-  v107[0] = 0;
-  *(v107 + 7) = 0;
-  v108 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
-  v109 = 0;
-  v110 = 0;
-  if (!v18)
+  memset(v94, 0, sizeof(v94));
+  v95 = 1065353216;
+  v36 = contextCopy;
+  v88[0] = v36;
+  v88[1] = specCopy;
+  v89 = 0;
+  v90[0] = 0;
+  *(v90 + 7) = 0;
+  v91 = vdupq_n_s64(0x7FFF7FFFFFFFuLL);
+  v92 = 0;
+  v93 = 0;
+  if (!v17)
   {
-    v103 = 0;
+    v86 = 0;
 LABEL_40:
-    v87 = v99;
+    v72 = v82;
     goto LABEL_41;
   }
 
-  v101 = 0;
-  v103 = 0;
-  v44 = 0;
+  v84 = 0;
+  v86 = 0;
+  v37 = 0;
   while (1)
   {
-    v45 = objc_msgSend_valueAtIndex_accessContext_(valueCopy, v41, v44, v105, v42);
-    v50 = v45;
-    if (errorCopy && (objc_msgSend_isError(v45, v46, v47, v48, v49) & 1) != 0 || (objc_msgSend_isNil(v50, v46, v47, v48, v49) & 1) != 0)
+    v38 = objc_msgSend_valueAtIndex_accessContext_(valueCopy, v35, v37, v88);
+    v42 = v38;
+    if (errorCopy && (objc_msgSend_isError(v38, v39, v40, v41) & 1) != 0 || (objc_msgSend_isNil(v42, v39, v40, v41) & 1) != 0)
     {
       goto LABEL_8;
     }
 
-    v58 = objc_msgSend_deepType_(v50, v51, v43, v52, v53);
-    if (v58 <= 8u)
+    v48 = objc_msgSend_deepType_(v42, v43, v36, v44);
+    if (v48 <= 8u)
     {
       break;
     }
 
-    if (v58 != 9)
+    if (v48 != 9)
     {
-      if (v58 == 10 || v58 == 12)
+      if (v48 == 10 || v48 == 12)
       {
         goto LABEL_8;
       }
@@ -77,9 +77,9 @@ LABEL_40:
 
     if (!errorCopy)
     {
-      v68 = objc_msgSend_errorWithContext_(v50, v54, v43, v56, v57);
-      *outError = v68;
-      if (v68)
+      v56 = objc_msgSend_errorWithContext_(v42, v45, v36, v47);
+      *outError = v56;
+      if (v56)
       {
         goto LABEL_48;
       }
@@ -87,132 +87,132 @@ LABEL_40:
 
 LABEL_8:
 
-    if (v18 == ++v44)
+    if (v17 == ++v37)
     {
       goto LABEL_40;
     }
   }
 
-  if (v58 == 3)
+  if (v48 == 3)
   {
-    if (v101)
+    if (v84)
     {
 LABEL_44:
-      v63 = objc_msgSend_functionName(specCopy, v54, v55, v56, v57);
-      *outError = objc_msgSend_mixedTypeManipulationErrorForFunctionName_(TSCEError, v89, v63, v90, v91);
+      v52 = objc_msgSend_functionName(specCopy, v45, v46, v47);
+      *outError = objc_msgSend_mixedTypeManipulationErrorForFunctionName_(TSCEError, v74, v52, v75);
       goto LABEL_47;
     }
 
-    v69 = objc_msgSend_asDate_functionSpec_argumentIndex_outError_(v50, v54, v43, specCopy, 0, outError);
+    v57 = objc_msgSend_asDate_functionSpec_argumentIndex_outError_(v42, v45, v36, specCopy, 0, outError);
 
     if (*outError)
     {
-      v103 = v69;
+      v86 = v57;
       goto LABEL_48;
     }
 
-    objc_msgSend_timeIntervalSinceReferenceDate(v69, v70, v71, v72, v73);
+    objc_msgSend_timeIntervalSinceReferenceDate(v57, v58, v59, v60);
     if (duplicatesCopy)
     {
       TSUDecimal::operator=();
-      if (!sub_2214031D4(v111, &v113))
+      if (!sub_2214031D4(v94, &v96))
       {
         TSUDecimal::operator=();
-        sub_221403524(v111, &v113);
+        sub_221403524(v94, &v96, &v96);
         TSUDecimal::operator=();
-        v113 = v104;
-        v114 = v44;
-        sub_221402320(v97, &v113);
+        v96 = v87;
+        v97 = v37;
+        sub_221402320(v80, &v96);
       }
     }
 
     else
     {
       TSUDecimal::operator=();
-      v113 = v104;
-      v114 = v44;
-      sub_221402320(v97, &v113);
+      v96 = v87;
+      v97 = v37;
+      sub_221402320(v80, &v96);
     }
 
-    v101 = 0;
-    v103 = v69;
+    v84 = 0;
+    v86 = v57;
     goto LABEL_8;
   }
 
-  if (v58 != 5)
+  if (v48 != 5)
   {
 LABEL_30:
-    v74 = MEMORY[0x277D81150];
-    v75 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v54, "+[TSCETaggedDecimalListObject createFromGridValue:functionSpec:argumentIndex:evaluationContext:ignoreError:ignoreDuplicates:outError:]", v56, v57);
-    v79 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v76, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCETaggedDecimalList.mm", v77, v78);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v74, v80, v75, v79, 289, 0, "Have to set the type of vector appropriately. currentType = %d", v58, v96);
+    v61 = MEMORY[0x277D81150];
+    v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "+[TSCETaggedDecimalListObject createFromGridValue:functionSpec:argumentIndex:evaluationContext:ignoreError:ignoreDuplicates:outError:]", v47);
+    v65 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCETaggedDecimalList.mm", v64);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v61, v66, v62, v65, 289, 0, "Have to set the type of vector appropriately. currentType = %d", v48, v79);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v81, v82, v83, v84);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v67, v68, v69);
     goto LABEL_8;
   }
 
-  if (v103)
+  if (v86)
   {
     goto LABEL_44;
   }
 
-  v59 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v50, v54, v43, specCopy, 0, outError);
-  v63 = v59;
+  v49 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v42, v45, v36, specCopy, 0, outError);
+  v52 = v49;
   if (*outError)
   {
     goto LABEL_46;
   }
 
-  if ((v101 & 1) == 0)
+  if ((v84 & 1) == 0)
   {
-    v85 = v59;
+    v70 = v49;
 
-    v100 = v85;
+    v83 = v70;
     goto LABEL_32;
   }
 
-  if (objc_msgSend_dimensionsMatchModuloCurrency_(v100, v60, v59, v61, v62))
+  if (objc_msgSend_dimensionsMatchModuloCurrency_(v83, v50, v49, v51))
   {
 LABEL_32:
-    v86 = objc_msgSend_rawDecimalValue(v63, v64, v65, v66, v67);
-    v104 = *v86;
+    v71 = objc_msgSend_rawDecimalValue(v52, v53, v54, v55);
+    v87 = *v71;
     if (duplicatesCopy)
     {
-      if (!sub_2214031D4(v111, &v104))
+      if (!sub_2214031D4(v94, &v87))
       {
-        sub_2214032D4(v111, &v104);
-        v113 = v104;
-        v114 = v44;
-        sub_221402320(v97, &v113);
+        sub_2214032D4(v94, &v87, &v87);
+        v96 = v87;
+        v97 = v37;
+        sub_221402320(v80, &v96);
       }
     }
 
     else
     {
-      v113 = *v86;
-      v114 = v44;
-      sub_221402320(v97, &v113);
+      v96 = *v71;
+      v97 = v37;
+      sub_221402320(v80, &v96);
     }
 
-    v103 = 0;
-    v101 = 1;
+    v86 = 0;
+    v84 = 1;
     goto LABEL_8;
   }
 
-  v92 = objc_msgSend_functionName(specCopy, v64, v65, v66, v67);
-  *outError = objc_msgSend_mixedTypeManipulationErrorForFunctionName_(TSCEError, v93, v92, v94, v95);
+  v76 = objc_msgSend_functionName(specCopy, v53, v54, v55);
+  *outError = objc_msgSend_mixedTypeManipulationErrorForFunctionName_(TSCEError, v77, v76, v78);
 
 LABEL_46:
-  v103 = 0;
+  v86 = 0;
 LABEL_47:
 
 LABEL_48:
-  v87 = 0;
+  v72 = 0;
 LABEL_41:
 
-  sub_2210BDEC0(v111);
+  sub_2210BDEC0(v94);
 
-  return v87;
+  return v72;
 }
 
 - (id).cxx_construct

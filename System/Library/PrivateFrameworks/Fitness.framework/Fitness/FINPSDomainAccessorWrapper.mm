@@ -5,6 +5,7 @@
 - (id)objectForKey:(id)key;
 - (id)synchronize;
 - (void)migrateUserDefaultsToNPS;
+- (void)setBool:(BOOL)bool forKey:(id)key;
 - (void)setInteger:(int64_t)integer forKey:(id)key;
 - (void)setObject:(id)object forKey:(id)key;
 @end
@@ -78,7 +79,7 @@ LABEL_11:
 
 - (void)migrateUserDefaultsToNPS
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   userDefaults = self->_userDefaults;
   if (userDefaults && self->_npsDomainAccessor)
   {
@@ -90,34 +91,34 @@ LABEL_11:
     {
       domain = self->_domain;
       *buf = 138412546;
-      v29 = domain;
-      v30 = 2112;
-      v31 = dictionaryRepresentation;
+      v28 = domain;
+      v29 = 2112;
+      v30 = dictionaryRepresentation;
       _os_log_impl(&dword_24B35E000, v6, OS_LOG_TYPE_DEFAULT, "NSUserDefaults values to be migrated (domain: %@): %@", buf, 0x16u);
     }
 
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v8 = dictionaryRepresentation;
-    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       do
       {
         v12 = 0;
         do
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v23 + 1) + 8 * v12);
-          v14 = [v8 objectForKeyedSubscript:{v13, v23}];
+          v13 = *(*(&v22 + 1) + 8 * v12);
+          v14 = [v8 objectForKeyedSubscript:{v13, v22}];
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) != 0 && (v15 = [v14 objCType], *v15 == 66) && !v15[1])
           {
@@ -133,7 +134,7 @@ LABEL_11:
         }
 
         while (v10 != v12);
-        v16 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v16 = [v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
         v10 = v16;
       }
 
@@ -155,7 +156,7 @@ LABEL_11:
       _os_log_impl(&dword_24B35E000, v20, OS_LOG_TYPE_DEFAULT, "Migration to NPS completed. Set kFIMigrationToNPSCompletedKey to YES", buf, 2u);
     }
 
-    [(NSUserDefaults *)self->_userDefaults removePersistentDomainForName:self->_domain, v23];
+    [(NSUserDefaults *)self->_userDefaults removePersistentDomainForName:self->_domain, v22];
   }
 
   else
@@ -167,8 +168,21 @@ LABEL_11:
       [(FINPSDomainAccessorWrapper *)v21 migrateUserDefaultsToNPS];
     }
   }
+}
 
-  v22 = *MEMORY[0x277D85DE8];
+- (void)setBool:(BOOL)bool forKey:(id)key
+{
+  if (self->_npsDomainAccessor)
+  {
+    npsDomainAccessor = self->_npsDomainAccessor;
+  }
+
+  else
+  {
+    npsDomainAccessor = self->_userDefaults;
+  }
+
+  [npsDomainAccessor setBool:bool forKey:key];
 }
 
 - (BOOL)BOOLForKey:(id)key

@@ -61,15 +61,14 @@ void __56__NSObject_GKBlockKVO___gkRemoveObserverWithBlockToken___block_invoke(u
 
 void __56__NSObject_GKBlockKVO___gkRemoveObserverWithBlockToken___block_invoke_cold_1(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_227904000, log, OS_LOG_TYPE_DEBUG, "Ignoring attempt to remove non-existent observer on %@ for token %@.", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_227904000, log, OS_LOG_TYPE_DEBUG, "Ignoring attempt to remove non-existent observer on %@ for token %@.", &v5, 0x16u);
 }
 
 @end

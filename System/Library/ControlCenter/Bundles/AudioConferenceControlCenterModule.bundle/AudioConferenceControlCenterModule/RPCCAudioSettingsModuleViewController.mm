@@ -527,7 +527,7 @@ LABEL_27:
 
 - (void)disableAutoMicMode
 {
-  if (sub_7B90() && sub_7C60())
+  if (sub_7B90(0) && sub_7C60())
   {
     v6 = self->_applicationBundleID;
     v3 = sub_7C60();
@@ -538,7 +538,7 @@ LABEL_27:
 
     else
     {
-      v4 = sub_1EFEC();
+      sub_1EFEC();
       [(RPCCAudioSettingsModuleViewController *)v4 setupAudioFunctionItems];
     }
   }

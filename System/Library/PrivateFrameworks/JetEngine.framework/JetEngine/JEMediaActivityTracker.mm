@@ -74,44 +74,44 @@
 {
   playActivity = [(JEMediaActivityTracker *)self playActivity];
   v8 = playActivity;
-  if (playActivity && ![playActivity type])
+  if (playActivity && (playActivity = [playActivity type]) == 0)
   {
     v9 = rate <= 0.0;
-    isStopped = [v8 isStopped];
-    if ((isStopped & 1) == 0 && rate > 0.0)
+    playActivity = [v8 isStopped];
+    if ((playActivity & 1) == 0 && rate > 0.0)
     {
       [(JEMediaActivityTracker *)self generatePlaylistTransitionsIfNecessary:position];
       timeTracker = [(JEMediaActivityTracker *)self timeTracker];
-      *&v14 = rate;
-      [timeTracker updatePosition:position playbackRate:v14];
+      *&v13 = rate;
+      [timeTracker updatePosition:position playbackRate:v13];
 
       goto LABEL_9;
     }
 
     if (rate > 0.0)
     {
-      v15 = 1;
+      v14 = 1;
     }
 
     else
     {
-      v15 = isStopped;
+      v14 = playActivity;
     }
 
-    if ((v15 & 1) == 0)
+    if ((v14 & 1) == 0)
     {
-      v10 = JEMetricsOSLog();
+      v10 = JEMetricsOSLog(playActivity);
       if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_8;
       }
 
-      v17 = 0;
-      v11 = &v17;
+      v16 = 0;
+      v11 = &v16;
       goto LABEL_7;
     }
 
-    if ((isStopped ^ 1))
+    if ((playActivity ^ 1))
     {
       goto LABEL_9;
     }
@@ -124,7 +124,7 @@
 
   if (!v9)
   {
-    v10 = JEMetricsOSLog();
+    v10 = JEMetricsOSLog(playActivity);
     if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
 LABEL_8:
@@ -132,8 +132,8 @@ LABEL_8:
       goto LABEL_9;
     }
 
-    v16 = 0;
-    v11 = &v16;
+    v15 = 0;
+    v11 = &v15;
 LABEL_7:
     _os_log_impl(&dword_1AB012000, v10, OS_LOG_TYPE_ERROR, "JetEngine: Inconsistent state: did you forget to call playStopped?", v11, 2u);
     goto LABEL_8;
@@ -274,18 +274,19 @@ LABEL_9:
 
 - (void)stopActivity:(int64_t)activity overallPosition:(unint64_t)position type:(id)type reason:(id)reason eventData:(id)data transitioningEventData:(id)eventData
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   reasonCopy = reason;
   dataCopy = data;
   eventDataCopy = eventData;
+  v18 = eventDataCopy;
   if (activity == 1)
   {
     seekActivity = [(JEMediaActivityTracker *)self seekActivity];
     [(JEMediaActivityTracker *)self setSeekActivity:0];
     playlist = [(JEMediaActivityTracker *)self playlist];
-    v20 = [playlist itemAtOverallPosition:position rangeOptions:2];
-    [seekActivity setPlaylistItem:v20];
+    v21 = [playlist itemAtOverallPosition:position rangeOptions:2];
+    [seekActivity setPlaylistItem:v21];
 
     if (!seekActivity)
     {
@@ -302,29 +303,30 @@ LABEL_9:
     }
 
     seekActivity = [(JEMediaActivityTracker *)self playActivity];
-    [(JEMediaActivityTracker *)self setPlayActivity:0];
+    eventDataCopy = [(JEMediaActivityTracker *)self setPlayActivity:0];
     if (!seekActivity)
     {
       goto LABEL_9;
     }
   }
 
-  if (![seekActivity isStopped])
+  eventDataCopy = [seekActivity isStopped];
+  if (!eventDataCopy)
   {
     playlistItem = [seekActivity playlistItem];
-    v22 = [(JEMediaActivityTracker *)self combineEventData:dataCopy withPlaylistDataForItem:playlistItem];
-    [seekActivity stoppedAtOverallPosition:position type:typeCopy reason:reasonCopy eventData:v22 transitioningEventData:eventDataCopy];
+    v23 = [(JEMediaActivityTracker *)self combineEventData:dataCopy withPlaylistDataForItem:playlistItem];
+    [seekActivity stoppedAtOverallPosition:position type:typeCopy reason:reasonCopy eventData:v23 transitioningEventData:v18];
 
     goto LABEL_12;
   }
 
 LABEL_9:
-  v23 = JEMetricsOSLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v24 = JEMetricsOSLog(eventDataCopy);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    v24 = 134217984;
+    v25 = 134217984;
     activityCopy = activity;
-    _os_log_impl(&dword_1AB012000, v23, OS_LOG_TYPE_ERROR, "JetEngine: There is no %ld activity to stop.", &v24, 0xCu);
+    _os_log_impl(&dword_1AB012000, v24, OS_LOG_TYPE_ERROR, "JetEngine: There is no %ld activity to stop.", &v25, 0xCu);
   }
 
 LABEL_12:

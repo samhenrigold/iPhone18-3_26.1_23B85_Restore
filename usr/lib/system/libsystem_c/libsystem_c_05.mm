@@ -37,11 +37,11 @@ uint64_t first_wday_of(int a1)
   return ((v1 - 2 * v5 + ((v1 + ((v1 >> 13) & 3)) >> 2) + v4 + 7) % 7);
 }
 
-uint64_t timeoff(_DWORD *a1, uint64_t a2)
+uint64_t timeoff(__int128 *a1, uint64_t a2)
 {
   if (a1)
   {
-    a1[8] = 0;
+    *(a1 + 8) = 0;
   }
 
   return _st_time1(a1, gmtsub, a2, 1);
@@ -399,11 +399,11 @@ char *strtoencf16(uint64_t a1, uint64_t a2, uint64_t a3)
   *(&v10 + 1) = a3;
   *&v11 = v4;
   v13 = 0uLL;
-  result = fastParse64(&v7);
+  result = fastParse64(&v7, a2);
   if (result)
   {
     v6 = fegetround();
-    return generalSlowpath(&v7, v6, v14, 8);
+    return generalSlowpath(&v7, v6, v14, 8u);
   }
 
   return result;
@@ -699,7 +699,7 @@ int statvfs(const char *a1, statvfs *a2)
   return result;
 }
 
-uint64_t (*backtrace_set_pcs_func(uint64_t (*result)(uint64_t a1, int a2, unsigned int *a3, int a4, uintptr_t a5)))(uint64_t a1, int a2, unsigned int *a3, int a4, uintptr_t a5)
+uint64_t (*backtrace_set_pcs_func(uint64_t (*result)(uint64_t a1, int a2, _DWORD *a3, int a4, uintptr_t a5)))(uint64_t a1, int a2, _DWORD *a3, int a4, uintptr_t a5)
 {
   if (result)
   {
@@ -2007,7 +2007,7 @@ FTSENT *__cdecl fts_children(FTS *a1, int a2)
   return a1->fts_child;
 }
 
-uint64_t fts_sort(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t fts_sort(uint64_t a1, uint64_t a2, signed int a3)
 {
   v4 = a2;
   if (*(a1 + 48) >= a3)
@@ -4156,9 +4156,9 @@ uint64_t _closeutx(void *a1)
 
 uint64_t _os_debug_log_write_error()
 {
-  v2[0] = 0;
+  v2[16] = 0;
   v0 = __error();
-  strerror_r(*v0, v2, 0xF0uLL);
+  strerror_r(*v0, &v2[16], 0xF0uLL);
   return _simple_asl_log();
 }
 
@@ -4716,7 +4716,7 @@ int digittoint_l(int c, locale_t l)
 {
   if (c < 0x100)
   {
-    v3 = &__c_locale;
+    v3 = __c_locale;
     v4 = &__global_locale;
     if (l != -1)
     {
@@ -4751,7 +4751,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -4783,7 +4783,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -4815,7 +4815,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -4847,7 +4847,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -4879,7 +4879,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -4911,7 +4911,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -4943,7 +4943,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -4975,7 +4975,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5007,7 +5007,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5039,7 +5039,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5071,7 +5071,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5103,7 +5103,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5135,7 +5135,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5161,7 +5161,7 @@ int isrune_l(int c, locale_t l)
   {
     if (c < 0x100)
     {
-      v4 = &__c_locale;
+      v4 = __c_locale;
       v5 = &__global_locale;
       if (l != -1)
       {
@@ -5204,7 +5204,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5236,7 +5236,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5268,7 +5268,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5300,7 +5300,7 @@ LABEL_10:
 
   if (c < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (l != -1)
     {
@@ -5688,7 +5688,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -5720,7 +5720,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -5752,7 +5752,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -5778,7 +5778,7 @@ int iswctype_l(wint_t _wc, wctype_t _charclass, locale_t _l)
   {
     if (_wc < 0x100)
     {
-      v6 = &__c_locale;
+      v6 = __c_locale;
       v7 = &__global_locale;
       if (_l != -1)
       {
@@ -5821,7 +5821,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -5853,7 +5853,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -5885,7 +5885,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -5917,7 +5917,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -5949,7 +5949,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -5981,7 +5981,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -6013,7 +6013,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -6045,7 +6045,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -6292,7 +6292,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -6324,7 +6324,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -6356,7 +6356,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -6388,7 +6388,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -6420,7 +6420,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -6446,7 +6446,7 @@ int iswrune_l(wint_t _wc, locale_t _l)
   {
     if (_wc < 0x100)
     {
-      v4 = &__c_locale;
+      v4 = __c_locale;
       v5 = &__global_locale;
       if (_l != -1)
       {
@@ -6489,7 +6489,7 @@ LABEL_10:
 
   if (_wc < 0x100)
   {
-    v4 = &__c_locale;
+    v4 = __c_locale;
     v5 = &__global_locale;
     if (_l != -1)
     {
@@ -6675,7 +6675,7 @@ int ___mb_cur_max_l(locale_t a1)
 
   if (!a1)
   {
-    v1 = &__c_locale;
+    v1 = __c_locale;
   }
 
   return *(*(v1 + 166) + 64);
@@ -8011,7 +8011,7 @@ LABEL_70:
   return result;
 }
 
-uint64_t raosnprintf(void **a1, uint64_t *a2, void *a3, char *__format, ...)
+char *raosnprintf(char **a1, unint64_t *a2, unint64_t *a3, char *__format, ...)
 {
   va_start(va, __format);
   while (1)
@@ -8019,7 +8019,7 @@ uint64_t raosnprintf(void **a1, uint64_t *a2, void *a3, char *__format, ...)
     v8 = *a2;
     if (*a3 < *a2)
     {
-      result = vsnprintf(*a1 + *a3, *a2 - *a3, __format, va);
+      result = vsnprintf(&(*a1)[*a3], *a2 - *a3, __format, va);
       v8 = *a2;
       if (*a2 - *a3 > result)
       {
@@ -8041,7 +8041,7 @@ uint64_t raosnprintf(void **a1, uint64_t *a2, void *a3, char *__format, ...)
   return result;
 }
 
-uint64_t open_with_subsystem(uint64_t a1, __int16 a2)
+uint64_t open_with_subsystem(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 0x200) != 0)
   {
@@ -8640,7 +8640,7 @@ char *__xprintf_domain_init()
         v1[v6 - 33] = 2;
         v9 = &result[24 * *(v8 - 1) - 496];
         *v9 = v7;
-        *(v9 + 16) = 0;
+        *(v9 + 2) = 0;
         v10 = *v8++;
         v6 = v10;
       }
@@ -9548,21 +9548,21 @@ pid_t tcgetsid(int a1)
   }
 }
 
-uint64_t __libc_init(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, char **a5)
+void __libc_init(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, char **a5)
 {
-  v6[0] = 1;
-  v6[1] = a2;
-  v6[2] = a3;
-  v6[3] = a4;
+  v5[0] = 1;
+  v5[1] = a2;
+  v5[2] = a3;
+  v5[3] = a4;
+  v6 = 0u;
   v7 = 0u;
-  v8 = 0u;
-  return _libc_initializer(v6, a2, a5, a1);
+  _libc_initializer(v5, a2, a5, a1);
 }
 
-void _libc_fork_child(uint64_t a1)
+void _libc_fork_child()
 {
   qword_1EAC9CAC0 = "crashed on child side of fork pre-exec";
-  _arc4_fork_child(a1);
+  _arc4_fork_child();
   _init_clock_port();
   __environ_lock_fork_child();
 
@@ -9651,7 +9651,7 @@ int openx_np(const char *a1, int a2, filesec_t a3)
 {
   if ((a2 & 0x200) != 0 && a3)
   {
-    return _mkfilex_np(0, a1, a2, a3);
+    return _mkfilex_np(0, a1, *&a2, a3);
   }
 
   else
@@ -9660,7 +9660,7 @@ int openx_np(const char *a1, int a2, filesec_t a3)
   }
 }
 
-uint64_t _mkfilex_np(int a1, int a2, int a3, filesec_t a4)
+uint64_t _mkfilex_np(int a1, uint64_t a2, uint64_t a3, filesec_t a4)
 {
   v15 = -101;
   v16 = -101;

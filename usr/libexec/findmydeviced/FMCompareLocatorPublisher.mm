@@ -211,30 +211,30 @@
   fm_logID2 = [(FMCompareLocatorPublisher *)self fm_logID];
   [(FMDEventLoggerEventLocate *)v10 setObject:fm_logID2 forKey:@"instance"];
 
-  v17 = sub_100002880();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100002880(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     fm_logID3 = [publisherCopy fm_logID];
     fm_logID4 = [(FMCompareLocatorPublisher *)self fm_logID];
-    v20 = [NSNumber numberWithInteger:reason];
+    v21 = [NSNumber numberWithInteger:reason];
     *buf = 138413058;
-    v27 = v13;
-    v28 = 2112;
-    v29 = fm_logID3;
-    v30 = 2112;
-    v31 = fm_logID4;
-    v32 = 2112;
-    v33 = v20;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "🛣 FMCompareLocatorPublisher Loc: %@ Pub: %@ Inst: %@ Reason: %@", buf, 0x2Au);
+    v28 = v13;
+    v29 = 2112;
+    v30 = fm_logID3;
+    v31 = 2112;
+    v32 = fm_logID4;
+    v33 = 2112;
+    v34 = v21;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "🛣 FMCompareLocatorPublisher Loc: %@ Pub: %@ Inst: %@ Reason: %@", buf, 0x2Au);
   }
 
-  v21 = +[FMDEventLogger sharedLogger];
-  v22 = +[FMDEventLoggerFacilityOnDiskStats facilityName];
-  v25[0] = v22;
-  v23 = +[FMDEventLoggerFacilityOnDisk facilityName];
-  v25[1] = v23;
-  v24 = [NSArray arrayWithObjects:v25 count:2];
-  [v21 logEvent:v10 toFacilitiesNamed:v24];
+  v22 = +[FMDEventLogger sharedLogger];
+  v23 = +[FMDEventLoggerFacilityOnDiskStats facilityName];
+  v26[0] = v23;
+  v24 = +[FMDEventLoggerFacilityOnDisk facilityName];
+  v26[1] = v24;
+  v25 = [NSArray arrayWithObjects:v26 count:2];
+  [v22 logEvent:v10 toFacilitiesNamed:v25];
 }
 
 - (void)publishers:(id)publishers performBlock:(id)block

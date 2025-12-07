@@ -66,15 +66,15 @@
 
 - (void)receiveCompletion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   selfCopy = self;
   v6 = __biome_log_for_category();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v19 = 138412290;
-    v20 = objc_opt_class();
-    _os_log_impl(&dword_1C871B000, v6, OS_LOG_TYPE_INFO, "%@ - completion", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = objc_opt_class();
+    _os_log_impl(&dword_1C871B000, v6, OS_LOG_TYPE_INFO, "%@ - completion", &v18, 0xCu);
   }
 
   os_unfair_lock_lock(&selfCopy->_lock);
@@ -101,7 +101,7 @@ LABEL_15:
       os_unfair_lock_unlock(&selfCopy->_lock);
       error = [completionCopy error];
       downstream = [(BPSReduceProducer *)selfCopy downstream];
-      v15 = [BPSCompletion failureWithError:error];
+      v14 = [BPSCompletion failureWithError:error];
       goto LABEL_23;
     }
 
@@ -138,10 +138,10 @@ LABEL_15:
       }
 
       downstream = [(BPSReduceProducer *)selfCopy downstream];
-      v15 = +[BPSCompletion success];
+      v14 = +[BPSCompletion success];
 LABEL_23:
-      v17 = v15;
-      [downstream receiveCompletion:v15];
+      v16 = v14;
+      [downstream receiveCompletion:v14];
 
 LABEL_24:
       os_unfair_lock_lock(&selfCopy->_lock);
@@ -156,8 +156,6 @@ LABEL_24:
   }
 
 LABEL_16:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)receiveInput:(id)input
@@ -368,7 +366,7 @@ LABEL_19:
 
 - (id)upstreamSubscriptions
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   status = [(BPSReduceProducer *)self status];
   subscription = [status subscription];
 
@@ -376,8 +374,8 @@ LABEL_19:
   {
     status2 = [(BPSReduceProducer *)self status];
     subscription2 = [status2 subscription];
-    v10[0] = subscription2;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+    v9[0] = subscription2;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   }
 
   else
@@ -391,36 +389,34 @@ LABEL_19:
     v7 = MEMORY[0x1E695E0F0];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)newBookmark
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   upstreamSubscriptions = [(BPSReduceProducer *)self upstreamSubscriptions];
   v3 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = upstreamSubscriptions;
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         if ([v9 conformsToProtocol:&unk_1F4871E60])
         {
           newBookmark = [v9 newBookmark];
@@ -436,7 +432,7 @@ LABEL_19:
           if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v26 = v9;
+            v25 = v9;
             _os_log_error_impl(&dword_1C871B000, v11, OS_LOG_TYPE_ERROR, "Subscription %@ could not create bookmark", buf, 0xCu);
           }
         }
@@ -447,7 +443,7 @@ LABEL_13:
         [v3 addObject:newBookmark];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v6);
@@ -459,19 +455,17 @@ LABEL_13:
   v16 = NSStringFromClass(v15);
   v17 = [(BMBookmarkNode *)v13 initWithValue:v14 upstreams:v3 name:v16];
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (void)receiveInput:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v6 = 138412546;
-  v7 = objc_opt_class();
-  v8 = 2048;
-  v9 = [a2 state];
-  _os_log_fault_impl(&dword_1C871B000, a3, OS_LOG_TYPE_FAULT, "%@ - BPSResultState - %ld is unrecognized", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = 138412546;
+  v6 = objc_opt_class();
+  v7 = 2048;
+  v8 = [a2 state];
+  _os_log_fault_impl(&dword_1C871B000, a3, OS_LOG_TYPE_FAULT, "%@ - BPSResultState - %ld is unrecognized", &v5, 0x16u);
 }
 
 - (void)requestDemand:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
@@ -482,11 +476,10 @@ LABEL_13:
 
 - (void)upstreamSubscriptions
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 138412290;
-  v5 = objc_opt_class();
-  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "%@ - Subscritpion shouldn't be nil while generating bookmark", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = objc_opt_class();
+  _os_log_error_impl(&dword_1C871B000, a2, OS_LOG_TYPE_ERROR, "%@ - Subscritpion shouldn't be nil while generating bookmark", &v3, 0xCu);
 }
 
 @end

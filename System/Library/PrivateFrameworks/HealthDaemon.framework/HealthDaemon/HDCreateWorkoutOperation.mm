@@ -29,48 +29,48 @@
   v32 = [(HDCreateWorkoutOperation *)&v62 init];
   if (v32)
   {
-    v33 = [configurationCopy copy];
+    v33 = objc_msgSend_copy(configurationCopy);
     workoutConfiguration = v32->_workoutConfiguration;
     v32->_workoutConfiguration = v33;
 
-    v35 = [identifierCopy copy];
+    v35 = objc_msgSend_copy(identifierCopy);
     identifier = v32->_identifier;
     v32->_identifier = v35;
 
-    v37 = [intervalCopy copy];
+    v37 = objc_msgSend_copy(intervalCopy);
     dateInterval = v32->_dateInterval;
     v32->_dateInterval = v37;
 
-    v39 = [metadataCopy copy];
+    v39 = objc_msgSend_copy(metadataCopy);
     metadata = v32->_metadata;
     v32->_metadata = v39;
 
-    v41 = [deviceCopy copy];
+    v41 = objc_msgSend_copy(deviceCopy);
     device = v32->_device;
     v32->_device = v41;
 
-    v43 = [sourceCopy copy];
+    v43 = objc_msgSend_copy(sourceCopy);
     source = v32->_source;
     v32->_source = v43;
 
-    v45 = [v30 copy];
+    v45 = objc_msgSend_copy(v30);
     sourceVersion = v32->_sourceVersion;
     v32->_sourceVersion = v45;
 
-    v47 = [eventsCopy copy];
+    v47 = objc_msgSend_copy(eventsCopy);
     events = v32->_events;
     v32->_events = v47;
 
-    v49 = [activitiesCopy copy];
+    v49 = objc_msgSend_copy(activitiesCopy);
     activities = v32->_activities;
     v32->_activities = v49;
 
-    v51 = [zonesCopy copy];
+    v51 = objc_msgSend_copy(zonesCopy);
     zones = v32->_zones;
     v32->_zones = v51;
 
     objc_storeStrong(&v32->_statisticsCalculators, calculators);
-    v53 = [seriesCopy copy];
+    v53 = objc_msgSend_copy(seriesCopy);
     associatedSeries = v32->_associatedSeries;
     v32->_associatedSeries = v53;
 
@@ -84,7 +84,7 @@
 
 - (BOOL)performWithProfile:(id)profile transaction:(id)transaction error:(id *)error
 {
-  v258 = *MEMORY[0x277D85DE8];
+  v256 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   transactionCopy = transaction;
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
@@ -101,23 +101,23 @@ LABEL_7:
     }
 
     identifier = self->_identifier;
-    v211 = 0;
-    v185 = [HDWorkoutBuilderEntity workoutBuilderEntityWithIdentifier:identifier profile:profileCopy error:&v211];
-    v16 = v211;
-    if (!v185)
+    v209 = 0;
+    v183 = [HDWorkoutBuilderEntity workoutBuilderEntityWithIdentifier:identifier profile:profileCopy error:&v209];
+    v16 = v209;
+    if (!v183)
     {
       if (v16)
       {
-        v43 = v16;
+        v42 = v16;
       }
 
       else
       {
-        v43 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:{@"Unable to look up workout builder '%@' during create workout operation.", self->_identifier}];
-        v44 = 0;
-        if (!v43)
+        v42 = [MEMORY[0x277CCA9B8] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:{@"Unable to look up workout builder '%@' during create workout operation.", self->_identifier}];
+        v43 = 0;
+        if (!v42)
         {
-          v183 = 0;
+          v181 = 0;
           LOBYTE(v14) = 0;
 LABEL_133:
 
@@ -126,100 +126,100 @@ LABEL_133:
         }
       }
 
-      v45 = v43;
+      v44 = v42;
       if (error)
       {
-        v46 = v43;
+        v45 = v42;
         LOBYTE(v14) = 0;
-        v47 = v45;
-        *error = v45;
+        v46 = v44;
+        *error = v44;
       }
 
       else
       {
         _HKLogDroppedError();
         LOBYTE(v14) = 0;
-        v47 = v45;
+        v46 = v44;
       }
 
-      v183 = v45;
+      v181 = v44;
 LABEL_132:
 
-      v44 = v185;
+      v43 = v183;
       goto LABEL_133;
     }
 
-    v183 = v16;
-    [v185 setIsFinishingBuilder];
+    v181 = v16;
+    [v183 setIsFinishingBuilder];
     v17 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
     dateInterval = self->_dateInterval;
-    v209[0] = MEMORY[0x277D85DD0];
-    v209[1] = 3221225472;
-    v209[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke;
-    v209[3] = &unk_27861D5D8;
-    v181 = v18;
-    v210 = v181;
     v207[0] = MEMORY[0x277D85DD0];
     v207[1] = 3221225472;
-    v207[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke_2;
-    v207[3] = &unk_27861D600;
-    v182 = v17;
-    v208 = v182;
-    if (![v185 pruneAssociatedSamplesToDateInterval:dateInterval transaction:transactionCopy error:error zonesHandler:v209 sampleHandler:v207])
+    v207[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke;
+    v207[3] = &unk_27861D5D8;
+    v179 = v18;
+    v208 = v179;
+    v205[0] = MEMORY[0x277D85DD0];
+    v205[1] = 3221225472;
+    v205[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke_2;
+    v205[3] = &unk_27861D600;
+    v180 = v17;
+    v206 = v180;
+    if (![v183 pruneAssociatedSamplesToDateInterval:dateInterval transaction:transactionCopy error:error zonesHandler:v207 sampleHandler:v205])
     {
       LOBYTE(v14) = 0;
 LABEL_131:
 
-      v47 = v182;
+      v46 = v180;
       goto LABEL_132;
     }
 
-    v177 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v175 = objc_alloc_init(MEMORY[0x277CBEB38]);
     activities = self->_activities;
-    v206[0] = MEMORY[0x277D85DD0];
-    v206[1] = 3221225472;
-    v206[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke_311;
-    v206[3] = &unk_27861D628;
-    v206[4] = self;
-    v179 = [(NSArray *)activities hk_mapToDictionary:v206];
+    v204[0] = MEMORY[0x277D85DD0];
+    v204[1] = 3221225472;
+    v204[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke_311;
+    v204[3] = &unk_27861D628;
+    v204[4] = self;
+    v177 = [(NSArray *)activities hk_mapToDictionary:v204];
     if ([(HDJournalableOperation *)self didJournal])
     {
       allQuantityTypes = [(HDWorkoutBuilderStatisticsCalculators *)self->_statisticsCalculators allQuantityTypes];
-      v193 = v185;
-      v191 = transactionCopy;
+      v191 = v183;
+      v189 = transactionCopy;
       v22 = profileCopy;
+      v245 = 0u;
+      v246 = 0u;
       v247 = 0u;
       v248 = 0u;
-      v249 = 0u;
-      v250 = 0u;
       obj = allQuantityTypes;
-      v23 = [allQuantityTypes countByEnumeratingWithState:&v247 objects:buf count:16];
+      v23 = [allQuantityTypes countByEnumeratingWithState:&v245 objects:buf count:16];
       if (v23)
       {
-        v24 = *v248;
+        v24 = *v246;
         do
         {
           for (i = 0; i != v23; ++i)
           {
-            if (*v248 != v24)
+            if (*v246 != v24)
             {
               objc_enumerationMutation(obj);
             }
 
-            v26 = *(*(&v247 + 1) + 8 * i);
+            v26 = *(*(&v245 + 1) + 8 * i);
             startDate = [(NSDateInterval *)self->_dateInterval startDate];
             endDate = [(NSDateInterval *)self->_dateInterval endDate];
-            *&v229 = 0;
-            v243[0] = MEMORY[0x277D85DD0];
-            v243[1] = 3221225472;
-            v243[2] = __96__HDCreateWorkoutOperation__associateSamplesForQuantityTypes_builderEntity_transaction_profile___block_invoke;
-            v243[3] = &unk_27861D6C0;
-            v244 = v193;
-            v245 = v191;
-            v246 = v26;
-            v29 = [HDWorkoutUtilities enumerateQuantitiesOfType:v26 from:startDate to:endDate transaction:v245 profile:v22 error:&v229 handler:v243];
-            v30 = v229;
+            *&v227 = 0;
+            v241[0] = MEMORY[0x277D85DD0];
+            v241[1] = 3221225472;
+            v241[2] = __96__HDCreateWorkoutOperation__associateSamplesForQuantityTypes_builderEntity_transaction_profile___block_invoke;
+            v241[3] = &unk_27861D6C0;
+            v242 = v191;
+            v243 = v189;
+            v244 = v26;
+            v29 = [HDWorkoutUtilities enumerateQuantitiesOfType:v26 from:startDate to:endDate transaction:v243 profile:v22 error:&v227 handler:v241];
+            v30 = v227;
 
             if (!v29)
             {
@@ -227,18 +227,18 @@ LABEL_131:
               v31 = *MEMORY[0x277CCC330];
               if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
               {
-                *v236 = 138543874;
+                *v234 = 138543874;
                 selfCopy = self;
+                v236 = 2114;
+                v237 = v26;
                 v238 = 2114;
-                v239 = v26;
-                v240 = 2114;
-                v241 = v30;
-                _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "%{public}@: Failed to enumerate samples of type %{public}@: %{public}@", v236, 0x20u);
+                v239 = v30;
+                _os_log_error_impl(&dword_228986000, v31, OS_LOG_TYPE_ERROR, "%{public}@: Failed to enumerate samples of type %{public}@: %{public}@", v234, 0x20u);
               }
             }
           }
 
-          v23 = [obj countByEnumeratingWithState:&v247 objects:buf count:16];
+          v23 = [obj countByEnumeratingWithState:&v245 objects:buf count:16];
         }
 
         while (v23);
@@ -246,42 +246,41 @@ LABEL_131:
     }
 
     statisticsCalculators = self->_statisticsCalculators;
-    v200[0] = MEMORY[0x277D85DD0];
-    v200[1] = 3221225472;
-    v200[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke_2_313;
-    v200[3] = &unk_27861D650;
+    v198[0] = MEMORY[0x277D85DD0];
+    v198[1] = 3221225472;
+    v198[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke_2_313;
+    v198[3] = &unk_27861D650;
     v33 = profileCopy;
-    v201 = v33;
-    v160 = v185;
-    v202 = v160;
+    v199 = v33;
+    v158 = v183;
+    v200 = v158;
     selfCopy2 = self;
-    v180 = v179;
-    v204 = v180;
-    v175 = v177;
-    v205 = v175;
-    [(HDWorkoutBuilderStatisticsCalculators *)statisticsCalculators enumerateCalculatorsWithHandler:v200];
+    v178 = v177;
+    v202 = v178;
+    v173 = v175;
+    v203 = v173;
+    [(HDWorkoutBuilderStatisticsCalculators *)statisticsCalculators enumerateCalculatorsWithHandler:v198];
     events = self->_events;
-    v199[0] = MEMORY[0x277D85DD0];
-    v199[1] = 3221225472;
-    v199[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke_318;
-    v199[3] = &unk_27861D678;
-    v199[4] = self;
-    v178 = [(NSArray *)events hk_filter:v199];
-    allValues = [v180 allValues];
-    v176 = [allValues sortedArrayUsingComparator:&__block_literal_global_74];
+    v197[0] = MEMORY[0x277D85DD0];
+    v197[1] = 3221225472;
+    v197[2] = __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke_318;
+    v197[3] = &unk_27861D678;
+    v197[4] = self;
+    v176 = [(NSArray *)events hk_filter:v197];
+    allValues = [v178 allValues];
+    v174 = [allValues sortedArrayUsingComparator:&__block_literal_global_74];
 
     v36 = MEMORY[0x277CCDBE8];
     activityType = [(HKWorkoutConfiguration *)self->_workoutConfiguration activityType];
     startDate2 = [(NSDateInterval *)self->_dateInterval startDate];
     endDate2 = [(NSDateInterval *)self->_dateInterval endDate];
-    device = self->_device;
-    v194 = [v36 _workoutWithActivityType:activityType startDate:startDate2 endDate:endDate2 workoutEvents:v178 workoutActivities:v176 duration:v175 statistics:0.0 goalType:self->_goalType goal:self->_goal device:device metadata:self->_metadata];
+    v192 = [v36 _workoutWithActivityType:activityType startDate:startDate2 endDate:endDate2 workoutEvents:v176 workoutActivities:v174 duration:v173 statistics:0.0 goalType:self->_goalType goal:self->_goal device:self->_device metadata:self->_metadata];
 
-    [v194 _setUUID:self->_identifier];
+    [v192 _setUUID:self->_identifier];
     sourceManager = [v33 sourceManager];
-    v192 = [sourceManager sourceEntityForClientSource:self->_source createOrUpdateIfNecessary:0 error:error];
+    v190 = [sourceManager sourceEntityForClientSource:self->_source createOrUpdateIfNecessary:0 error:error];
 
-    if (!v192)
+    if (!v190)
     {
       goto LABEL_26;
     }
@@ -289,9 +288,9 @@ LABEL_131:
     if (self->_device)
     {
       deviceManager = [v33 deviceManager];
-      v170 = [deviceManager deviceEntityForDevice:self->_device error:error];
+      v168 = [deviceManager deviceEntityForDevice:self->_device error:error];
 
-      if (!v170)
+      if (!v168)
       {
 LABEL_26:
         LOBYTE(v14) = 0;
@@ -303,16 +302,16 @@ LABEL_130:
 
     else
     {
-      v170 = 0;
+      v168 = 0;
     }
 
     dataProvenanceManager = [v33 dataProvenanceManager];
-    v165 = [dataProvenanceManager localDataProvenanceForSourceEntity:v192 version:self->_sourceVersion deviceEntity:v170];
+    v163 = [dataProvenanceManager localDataProvenanceForSourceEntity:v190 version:self->_sourceVersion deviceEntity:v168];
 
     dataManager = [v33 dataManager];
-    v233 = v194;
-    v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v233 count:1];
-    v14 = [dataManager insertDataObjects:v50 withProvenance:v165 creationDate:0 skipInsertionFilter:1 updateSourceOrder:1 resolveAssociations:error error:CFAbsoluteTimeGetCurrent()];
+    v231 = v192;
+    v49 = [MEMORY[0x277CBEA60] arrayWithObjects:&v231 count:1];
+    v14 = [dataManager insertDataObjects:v49 withProvenance:v163 creationDate:0 skipInsertionFilter:1 updateSourceOrder:1 resolveAssociations:error error:CFAbsoluteTimeGetCurrent()];
 
     if (!v14)
     {
@@ -321,42 +320,42 @@ LABEL_129:
       goto LABEL_130;
     }
 
-    v198 = 0;
-    v158 = v194;
-    v154 = v182;
-    v195 = v33;
-    v166 = transactionCopy;
+    v196 = 0;
+    v156 = v192;
+    v152 = v180;
+    v193 = v33;
+    v164 = transactionCopy;
+    v223 = 0u;
+    v224 = 0u;
     v225 = 0u;
     v226 = 0u;
-    v227 = 0u;
-    v228 = 0u;
     obja = self->_associatedSeries;
-    v51 = [(NSArray *)obja countByEnumeratingWithState:&v225 objects:&v247 count:16];
-    if (v51)
+    v50 = [(NSArray *)obja countByEnumeratingWithState:&v223 objects:&v245 count:16];
+    if (v50)
     {
-      v52 = *v226;
-      v53 = MEMORY[0x277CBEC10];
+      v51 = *v224;
+      v52 = MEMORY[0x277CBEC10];
       while (2)
       {
-        for (j = 0; j != v51; ++j)
+        for (j = 0; j != v50; ++j)
         {
-          if (*v226 != v52)
+          if (*v224 != v51)
           {
             objc_enumerationMutation(obja);
           }
 
-          v55 = [(HDSeriesBuilderEntity *)HDWorkoutRouteBuilderEntity freezeSeriesWithIdentifier:*(*(&v225 + 1) + 8 * j) metadata:v53 profile:v195 error:&v198];
-          v56 = v55 == 0;
+          v54 = [(HDSeriesBuilderEntity *)HDWorkoutRouteBuilderEntity freezeSeriesWithIdentifier:*(*(&v223 + 1) + 8 * j) metadata:v52 profile:v193 error:&v196];
+          v55 = v54 == 0;
 
-          if (v56)
+          if (v55)
           {
-            v123 = 0;
+            v122 = 0;
             goto LABEL_115;
           }
         }
 
-        v51 = [(NSArray *)obja countByEnumeratingWithState:&v225 objects:&v247 count:16];
-        if (v51)
+        v50 = [(NSArray *)obja countByEnumeratingWithState:&v223 objects:&v245 count:16];
+        if (v50)
         {
           continue;
         }
@@ -366,184 +365,184 @@ LABEL_129:
     }
 
     associatedSeries = self->_associatedSeries;
-    v224 = 0;
-    v58 = associatedSeries;
-    v59 = v195;
-    v60 = self->_identifier;
+    v222 = 0;
+    v57 = associatedSeries;
+    v58 = v193;
+    v59 = self->_identifier;
     *buf = 0;
-    v173 = v59;
-    v61 = [HDAssociationEntity associateSampleUUIDs:v58 withSampleUUID:v60 type:0 behavior:0 destinationSubObjectReference:0 lastInsertedEntityID:buf profile:v59 error:&v224];
+    v171 = v58;
+    v60 = [HDAssociationEntity associateSampleUUIDs:v57 withSampleUUID:v59 type:0 behavior:0 destinationSubObjectReference:0 lastInsertedEntityID:buf profile:v58 error:&v222];
 
-    v62 = v224;
-    obja = v62;
-    if (v61)
+    v61 = v222;
+    obja = v61;
+    if (v60)
     {
-      v222 = 0u;
-      v223 = 0u;
       v220 = 0u;
       v221 = 0u;
-      v153 = v154;
-      v151 = [(NSArray *)v153 countByEnumeratingWithState:&v220 objects:v243 count:16];
-      if (v151)
+      v218 = 0u;
+      v219 = 0u;
+      v151 = v152;
+      v149 = [(NSArray *)v151 countByEnumeratingWithState:&v218 objects:v241 count:16];
+      if (v149)
       {
-        v150 = *v221;
-        v164 = *MEMORY[0x277CCE0E8];
-        v149 = *MEMORY[0x277CCCB68];
-        v148 = *MEMORY[0x277CCCCD8];
-        v155 = *MEMORY[0x277CCE160];
+        v148 = *v219;
+        v162 = *MEMORY[0x277CCE0E8];
+        v147 = *MEMORY[0x277CCCB68];
+        v146 = *MEMORY[0x277CCCCD8];
+        v153 = *MEMORY[0x277CCE160];
         while (2)
         {
-          v63 = 0;
+          v62 = 0;
           do
           {
-            if (*v221 != v150)
+            if (*v219 != v148)
             {
-              v64 = v63;
-              objc_enumerationMutation(v153);
-              v63 = v64;
+              v63 = v62;
+              objc_enumerationMutation(v151);
+              v62 = v63;
             }
 
-            v152 = v63;
-            v65 = *(*(&v220 + 1) + 8 * v63);
-            unsignedIntegerValue = [v65 unsignedIntegerValue];
+            v150 = v62;
+            v64 = *(*(&v218 + 1) + 8 * v62);
+            unsignedIntegerValue = [v64 unsignedIntegerValue];
             if (unsignedIntegerValue == 1)
             {
-              metadata = [(NSArray *)v158 metadata];
-              v162 = [metadata objectForKeyedSubscript:v164];
+              metadata = [(NSArray *)v156 metadata];
+              v160 = [metadata objectForKeyedSubscript:v162];
 
-              v157 = [HDMetadataValueStatement metadataValueStatementWithTransaction:v166];
-              v72 = MEMORY[0x277D10B20];
-              v73 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v149];
-              v74 = HDSampleEntityPredicateForDataType(v73);
-              v242[0] = v74;
-              v75 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v148];
-              v76 = HDSampleEntityPredicateForDataType(v75);
-              v242[1] = v76;
-              v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v242 count:2];
-              v161 = [v72 predicateMatchingAnyPredicates:v77];
+              v155 = [HDMetadataValueStatement metadataValueStatementWithTransaction:v164];
+              v71 = MEMORY[0x277D10B20];
+              v72 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v147];
+              v73 = HDSampleEntityPredicateForDataType(v72);
+              v240[0] = v73;
+              v74 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:v146];
+              v75 = HDSampleEntityPredicateForDataType(v74);
+              v240[1] = v75;
+              v76 = [MEMORY[0x277CBEA60] arrayWithObjects:v240 count:2];
+              v159 = [v71 predicateMatchingAnyPredicates:v76];
 
-              v78 = [(NSArray *)v153 objectForKeyedSubscript:v65];
+              v77 = [(NSArray *)v151 objectForKeyedSubscript:v64];
               _HKInitializeLogging();
-              v79 = *MEMORY[0x277CCC330];
+              v78 = *MEMORY[0x277CCC330];
               if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
               {
-                v80 = v79;
-                v81 = [v78 count];
+                v79 = v78;
+                v80 = [v77 count];
                 *buf = 138543618;
                 *&buf[4] = self;
-                v252 = 2048;
-                v253 = v81;
-                _os_log_impl(&dword_228986000, v80, OS_LOG_TYPE_DEFAULT, "%{public}@: Pending workout has %lu loose associations", buf, 0x16u);
+                v250 = 2048;
+                v251 = v80;
+                _os_log_impl(&dword_228986000, v79, OS_LOG_TYPE_DEFAULT, "%{public}@: Pending workout has %lu loose associations", buf, 0x16u);
               }
 
-              v217 = 0u;
-              v218 = 0u;
               v215 = 0u;
               v216 = 0u;
-              v156 = v78;
-              v163 = [v156 countByEnumeratingWithState:&v215 objects:v236 count:16];
-              if (v163)
+              v213 = 0u;
+              v214 = 0u;
+              v154 = v77;
+              v161 = [v154 countByEnumeratingWithState:&v213 objects:v234 count:16];
+              if (v161)
               {
-                v159 = *v216;
+                v157 = *v214;
                 while (2)
                 {
-                  v82 = 0;
+                  v81 = 0;
                   do
                   {
-                    if (*v216 != v159)
+                    if (*v214 != v157)
                     {
-                      v83 = v82;
-                      objc_enumerationMutation(v156);
-                      v82 = v83;
+                      v82 = v81;
+                      objc_enumerationMutation(v154);
+                      v81 = v82;
                     }
 
-                    v171 = v82;
-                    v84 = MEMORY[0x277D10B20];
-                    v168 = *(*(&v215 + 1) + 8 * v82);
-                    v85 = HDDataEntityPredicateForRowID(v168, 1);
-                    v235[0] = v85;
-                    v235[1] = v161;
-                    metadataManager = [v173 metadataManager];
-                    v87 = [metadataManager predicateWithMetadataKey:v164 value:v162 operatorType:4];
-                    v235[2] = v87;
-                    v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v235 count:3];
-                    v184 = [v84 predicateMatchingAllPredicates:v88];
+                    v169 = v81;
+                    v83 = MEMORY[0x277D10B20];
+                    v166 = *(*(&v213 + 1) + 8 * v81);
+                    v84 = HDDataEntityPredicateForRowID(v166, 1);
+                    v233[0] = v84;
+                    v233[1] = v159;
+                    metadataManager = [v171 metadataManager];
+                    v86 = [metadataManager predicateWithMetadataKey:v162 value:v160 operatorType:4];
+                    v233[2] = v86;
+                    v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v233 count:3];
+                    v182 = [v83 predicateMatchingAllPredicates:v87];
 
-                    v89 = [v166 databaseForEntityClass:objc_opt_class()];
-                    v214 = 0;
-                    v174 = [(HDDataEntity *)HDSampleEntity anyInDatabase:v89 predicate:v184 error:&v214];
-                    v172 = v214;
+                    v88 = [v164 databaseForEntityClass:objc_opt_class()];
+                    v212 = 0;
+                    v172 = [(HDDataEntity *)HDSampleEntity anyInDatabase:v88 predicate:v182 error:&v212];
+                    v170 = v212;
 
-                    if (v174)
+                    if (v172)
                     {
-                      metadataManager2 = [v173 metadataManager];
-                      unsignedIntValue = [v168 unsignedIntValue];
-                      v213 = 0;
-                      v169 = [metadataManager2 metadataForObjectID:unsignedIntValue baseMetadata:0 keyFilter:0 statement:v157 error:&v213];
-                      v92 = v213;
+                      metadataManager2 = [v171 metadataManager];
+                      unsignedIntValue = [v166 unsignedIntValue];
+                      v211 = 0;
+                      v167 = [metadataManager2 metadataForObjectID:unsignedIntValue baseMetadata:0 keyFilter:0 statement:v155 error:&v211];
+                      v91 = v211;
 
-                      if (v92)
+                      if (v91)
                       {
                         _HKInitializeLogging();
-                        v128 = *MEMORY[0x277CCC330];
+                        v127 = *MEMORY[0x277CCC330];
                         if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
                         {
                           *buf = 138543874;
                           *&buf[4] = self;
+                          v250 = 2112;
+                          v251 = v166;
                           v252 = 2112;
-                          v253 = v168;
-                          v254 = 2112;
-                          v255 = v92;
-                          _os_log_error_impl(&dword_228986000, v128, OS_LOG_TYPE_ERROR, "%{public}@ Error retrieving metadata on effort sample:%@, error:%@", buf, 0x20u);
+                          v253 = v91;
+                          _os_log_error_impl(&dword_228986000, v127, OS_LOG_TYPE_ERROR, "%{public}@ Error retrieving metadata on effort sample:%@, error:%@", buf, 0x20u);
                         }
 
-                        v129 = v92;
-                        v123 = 0;
-                        v198 = v92;
-                        v94 = v169;
-                        v169 = v92;
+                        v128 = v91;
+                        v122 = 0;
+                        v196 = v91;
+                        v93 = v167;
+                        v167 = v91;
                         goto LABEL_111;
                       }
 
-                      v93 = [v169 objectForKey:v155];
-                      v167 = v93;
-                      if (v93)
+                      v92 = [v167 objectForKey:v153];
+                      v165 = v92;
+                      if (v92)
                       {
-                        v94 = v93;
-                        v95 = v158;
+                        v93 = v92;
+                        v94 = v156;
+                        v227 = 0u;
+                        v228 = 0u;
                         v229 = 0u;
                         v230 = 0u;
-                        v231 = 0u;
-                        v232 = 0u;
-                        _subActivities = [(NSArray *)v95 _subActivities];
-                        v97 = [_subActivities countByEnumeratingWithState:&v229 objects:buf count:16];
-                        if (v97)
+                        _subActivities = [(NSArray *)v94 _subActivities];
+                        v96 = [_subActivities countByEnumeratingWithState:&v227 objects:buf count:16];
+                        if (v96)
                         {
-                          v98 = *v230;
+                          v97 = *v228;
                           while (2)
                           {
-                            for (k = 0; k != v97; ++k)
+                            for (k = 0; k != v96; ++k)
                             {
-                              if (*v230 != v98)
+                              if (*v228 != v97)
                               {
                                 objc_enumerationMutation(_subActivities);
                               }
 
-                              v100 = *(*(&v229 + 1) + 8 * k);
-                              uUID = [v100 UUID];
+                              v99 = *(*(&v227 + 1) + 8 * k);
+                              uUID = [v99 UUID];
                               uUIDString = [uUID UUIDString];
-                              v103 = [uUIDString isEqual:v94];
+                              v102 = [uUIDString isEqual:v93];
 
-                              if (v103)
+                              if (v102)
                               {
-                                uUID2 = [v100 UUID];
+                                uUID2 = [v99 UUID];
 
                                 goto LABEL_81;
                               }
                             }
 
-                            v97 = [_subActivities countByEnumeratingWithState:&v229 objects:buf count:16];
-                            if (v97)
+                            v96 = [_subActivities countByEnumeratingWithState:&v227 objects:buf count:16];
+                            if (v96)
                             {
                               continue;
                             }
@@ -552,13 +551,13 @@ LABEL_129:
                           }
                         }
 
-                        metadata2 = [(NSArray *)v95 metadata];
-                        v105 = [metadata2 objectForKeyedSubscript:v164];
-                        v106 = [v94 isEqual:v105];
+                        metadata2 = [(NSArray *)v94 metadata];
+                        v104 = [metadata2 objectForKeyedSubscript:v162];
+                        v105 = [v93 isEqual:v104];
 
-                        if (v106)
+                        if (v105)
                         {
-                          uUID2 = [(NSArray *)v95 UUID];
+                          uUID2 = [(NSArray *)v94 UUID];
                         }
 
                         else
@@ -570,41 +569,41 @@ LABEL_81:
 
                         if (uUID2)
                         {
-                          uUID3 = [(NSArray *)v95 UUID];
+                          uUID3 = [(NSArray *)v94 UUID];
                           if ([uUID2 isEqual:uUID3])
                           {
-                            v113 = 0;
+                            v112 = 0;
                           }
 
                           else
                           {
-                            v113 = uUID2;
+                            v112 = uUID2;
                           }
 
-                          v114 = v113;
+                          v113 = v112;
 
-                          v115 = [[HDAssociatableObjectReference alloc] initWithUUID:v114 objectClass:objc_opt_class()];
-                          v116 = self->_identifier;
-                          v234 = v168;
-                          v117 = [MEMORY[0x277CBEA60] arrayWithObjects:&v234 count:1];
-                          currentSyncIdentityPersistentID = [v173 currentSyncIdentityPersistentID];
-                          v212 = 0;
-                          v119 = [HDAssociationEntity bulkInsertAssociationsWithParentUUID:v116 childIDs:v117 type:1 behavior:0 destinationSubObjectReference:v115 syncIdentity:currentSyncIdentityPersistentID profile:v173 error:&v212];
-                          v120 = v212;
+                          v114 = [[HDAssociatableObjectReference alloc] initWithUUID:v113 objectClass:objc_opt_class()];
+                          v115 = self->_identifier;
+                          v232 = v166;
+                          v116 = [MEMORY[0x277CBEA60] arrayWithObjects:&v232 count:1];
+                          currentSyncIdentityPersistentID = [v171 currentSyncIdentityPersistentID];
+                          v210 = 0;
+                          v118 = [HDAssociationEntity bulkInsertAssociationsWithParentUUID:v115 childIDs:v116 type:1 behavior:0 destinationSubObjectReference:v114 syncIdentity:currentSyncIdentityPersistentID profile:v171 error:&v210];
+                          v119 = v210;
 
-                          if (!v119)
+                          if (!v118)
                           {
-                            v130 = v120;
-                            v131 = v130;
-                            v123 = v130 == 0;
-                            if (v130)
+                            v129 = v119;
+                            v130 = v129;
+                            v122 = v129 == 0;
+                            if (v129)
                             {
-                              v132 = v130;
-                              v198 = v131;
+                              v131 = v129;
+                              v196 = v130;
                             }
 
 LABEL_111:
-                            v133 = v157;
+                            v132 = v155;
                             goto LABEL_112;
                           }
                         }
@@ -612,18 +611,18 @@ LABEL_111:
                         else
                         {
                           _HKInitializeLogging();
-                          v121 = *MEMORY[0x277CCC330];
+                          v120 = *MEMORY[0x277CCC330];
                           if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
                           {
                             *buf = 138544130;
                             *&buf[4] = self;
+                            v250 = 2112;
+                            v251 = v153;
                             v252 = 2112;
-                            v253 = v155;
+                            v253 = 0;
                             v254 = 2112;
-                            v255 = 0;
-                            v256 = 2112;
-                            v257 = v158;
-                            _os_log_error_impl(&dword_228986000, v121, OS_LOG_TYPE_ERROR, "%{public}@, Effort samples <%@: %@>, does not match any activity UUID on workout:%@", buf, 0x2Au);
+                            v255 = v156;
+                            _os_log_error_impl(&dword_228986000, v120, OS_LOG_TYPE_ERROR, "%{public}@, Effort samples <%@: %@>, does not match any activity UUID on workout:%@", buf, 0x2Au);
                           }
                         }
                       }
@@ -631,16 +630,16 @@ LABEL_111:
                       else
                       {
                         _HKInitializeLogging();
-                        v111 = *MEMORY[0x277CCC330];
+                        v110 = *MEMORY[0x277CCC330];
                         if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
                         {
                           *buf = 138543874;
                           *&buf[4] = self;
+                          v250 = 2112;
+                          v251 = v153;
                           v252 = 2112;
-                          v253 = v155;
-                          v254 = 2112;
-                          v255 = v158;
-                          _os_log_error_impl(&dword_228986000, v111, OS_LOG_TYPE_ERROR, "%{public}@, Effort sample is missing %@, skipping association to workout:%@", buf, 0x20u);
+                          v253 = v156;
+                          _os_log_error_impl(&dword_228986000, v110, OS_LOG_TYPE_ERROR, "%{public}@, Effort sample is missing %@, skipping association to workout:%@", buf, 0x20u);
                         }
                       }
                     }
@@ -648,25 +647,25 @@ LABEL_111:
                     else
                     {
                       _HKInitializeLogging();
-                      v108 = *MEMORY[0x277CCC330];
+                      v107 = *MEMORY[0x277CCC330];
                       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
                       {
-                        v109 = v108;
-                        longValue = [v168 longValue];
+                        v108 = v107;
+                        longValue = [v166 longValue];
                         *buf = 138543618;
                         *&buf[4] = self;
-                        v252 = 2048;
-                        v253 = longValue;
-                        _os_log_error_impl(&dword_228986000, v109, OS_LOG_TYPE_ERROR, "%{public}@: Unable to find sample at row %lu", buf, 0x16u);
+                        v250 = 2048;
+                        v251 = longValue;
+                        _os_log_error_impl(&dword_228986000, v108, OS_LOG_TYPE_ERROR, "%{public}@: Unable to find sample at row %lu", buf, 0x16u);
                       }
                     }
 
-                    v82 = v171 + 1;
+                    v81 = v169 + 1;
                   }
 
-                  while (v171 + 1 != v163);
-                  v163 = [v156 countByEnumeratingWithState:&v215 objects:v236 count:16];
-                  if (v163)
+                  while (v169 + 1 != v161);
+                  v161 = [v154 countByEnumeratingWithState:&v213 objects:v234 count:16];
+                  if (v161)
                   {
                     continue;
                   }
@@ -679,42 +678,42 @@ LABEL_111:
             else if (unsignedIntegerValue)
             {
               _HKInitializeLogging();
-              v122 = *MEMORY[0x277CCC330];
+              v121 = *MEMORY[0x277CCC330];
               if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
                 *&buf[4] = self;
-                _os_log_error_impl(&dword_228986000, v122, OS_LOG_TYPE_ERROR, "%{public}@: Unexpected association type. Skipping", buf, 0xCu);
+                _os_log_error_impl(&dword_228986000, v121, OS_LOG_TYPE_ERROR, "%{public}@: Unexpected association type. Skipping", buf, 0xCu);
               }
             }
 
             else
             {
-              v67 = self->_identifier;
-              v68 = [(NSArray *)v153 objectForKeyedSubscript:v65];
-              currentSyncIdentityPersistentID2 = [v173 currentSyncIdentityPersistentID];
-              v219 = 0;
-              LOBYTE(v67) = [HDAssociationEntity bulkInsertAssociationsWithParentUUID:v67 childIDs:v68 type:0 behavior:0 destinationSubObjectReference:0 syncIdentity:currentSyncIdentityPersistentID2 profile:v173 error:&v219];
-              v70 = v219;
+              v66 = self->_identifier;
+              v67 = [(NSArray *)v151 objectForKeyedSubscript:v64];
+              currentSyncIdentityPersistentID2 = [v171 currentSyncIdentityPersistentID];
+              v217 = 0;
+              LOBYTE(v66) = [HDAssociationEntity bulkInsertAssociationsWithParentUUID:v66 childIDs:v67 type:0 behavior:0 destinationSubObjectReference:0 syncIdentity:currentSyncIdentityPersistentID2 profile:v171 error:&v217];
+              v69 = v217;
 
-              if ((v67 & 1) == 0)
+              if ((v66 & 1) == 0)
               {
-                v145 = v70;
-                if (v145)
+                v143 = v69;
+                if (v143)
                 {
-                  v146 = v145;
-                  v147 = v145;
-                  v123 = 0;
-                  v133 = v146;
-                  v198 = v146;
-                  v162 = v146;
+                  v144 = v143;
+                  v145 = v143;
+                  v122 = 0;
+                  v132 = v144;
+                  v196 = v144;
+                  v160 = v144;
                 }
 
                 else
                 {
-                  v133 = 0;
-                  v162 = 0;
-                  v123 = 1;
+                  v132 = 0;
+                  v160 = 0;
+                  v122 = 1;
                 }
 
 LABEL_112:
@@ -723,13 +722,13 @@ LABEL_112:
               }
             }
 
-            v63 = v152 + 1;
+            v62 = v150 + 1;
           }
 
-          while (v152 + 1 != v151);
-          v151 = [(NSArray *)v153 countByEnumeratingWithState:&v220 objects:v243 count:16];
-          v123 = 1;
-          if (v151)
+          while (v150 + 1 != v149);
+          v149 = [(NSArray *)v151 countByEnumeratingWithState:&v218 objects:v241 count:16];
+          v122 = 1;
+          if (v149)
           {
             continue;
           }
@@ -740,41 +739,41 @@ LABEL_112:
 
       else
       {
-        v123 = 1;
+        v122 = 1;
       }
 
 LABEL_113:
-      v127 = v153;
+      v126 = v151;
     }
 
     else
     {
-      v124 = v62;
-      if (v124)
+      v123 = v61;
+      if (v123)
       {
-        v125 = v124;
+        v124 = v123;
+        v125 = v123;
+        v122 = 0;
         v126 = v124;
-        v123 = 0;
-        v127 = v125;
-        v198 = v125;
+        v196 = v124;
       }
 
       else
       {
-        v127 = 0;
-        v123 = 1;
+        v126 = 0;
+        v122 = 1;
       }
     }
 
 LABEL_115:
-    v134 = v198;
-    v135 = v134;
-    if (v123)
+    v133 = v196;
+    v134 = v133;
+    if (v122)
     {
-      [v166 onCommit:&__block_literal_global_330 orRollback:0];
-      v136 = [(HDDataEntity *)HDWorkoutEntity objectWithUUID:self->_identifier encodingOptions:0 profile:v195 error:error];
+      [v164 onCommit:&__block_literal_global_330 orRollback:0];
+      v135 = [(HDDataEntity *)HDWorkoutEntity objectWithUUID:self->_identifier encodingOptions:0 profile:v193 error:error];
       createdWorkout = self->_createdWorkout;
-      self->_createdWorkout = v136;
+      self->_createdWorkout = v135;
 
       if (!self->_createdWorkout)
       {
@@ -784,35 +783,35 @@ LABEL_128:
         goto LABEL_129;
       }
 
-      v197 = 0;
-      v138 = [v160 dropFinalTemporaryTableWithTransaction:v166 error:&v197];
-      v139 = v197;
-      if ((v138 & 1) == 0)
+      v195 = 0;
+      v137 = [v158 dropFinalTemporaryTableWithTransaction:v164 error:&v195];
+      v138 = v195;
+      if ((v137 & 1) == 0)
       {
         _HKInitializeLogging();
-        v140 = *MEMORY[0x277CCC330];
+        v139 = *MEMORY[0x277CCC330];
         if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
           *&buf[4] = self;
-          _os_log_error_impl(&dword_228986000, v140, OS_LOG_TYPE_ERROR, "%{public}@: Failed to drop final temporary table", buf, 0xCu);
+          _os_log_error_impl(&dword_228986000, v139, OS_LOG_TYPE_ERROR, "%{public}@: Failed to drop final temporary table", buf, 0xCu);
         }
       }
 
-      LOBYTE(v14) = [HDWorkoutBuilderEntity discardBuilderWithIdentifier:self->_identifier profile:v195 error:error];
+      LOBYTE(v14) = [HDWorkoutBuilderEntity discardBuilderWithIdentifier:self->_identifier profile:v193 error:error];
     }
 
     else
     {
-      v141 = v134;
-      v139 = v141;
-      if (v141)
+      v140 = v133;
+      v138 = v140;
+      if (v140)
       {
         if (error)
         {
-          v142 = v141;
+          v141 = v140;
           LOBYTE(v14) = 0;
-          *error = v139;
+          *error = v138;
         }
 
         else
@@ -855,7 +854,6 @@ LABEL_128:
   LOBYTE(v14) = [HDWorkoutBuilderEntity discardBuilderWithIdentifier:self->_identifier profile:profileCopy error:error];
 LABEL_134:
 
-  v143 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -906,7 +904,7 @@ void __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block
 
 uint64_t __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block_invoke_2_313(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -942,60 +940,58 @@ uint64_t __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___b
 
   if (([*(*(a1 + 48) + 128) containsObject:v8] & 1) == 0)
   {
-    v22 = *(*(a1 + 48) + 72);
-    v23 = _HKPausedIntervalsWithWorkoutEvents();
-    v35 = 0;
-    v24 = [v7 setMaskedIntervals:v23 error:&v35];
-    v25 = v35;
-    if ((v24 & 1) == 0)
+    v22 = _HKPausedIntervalsWithWorkoutEvents();
+    v33 = 0;
+    v23 = [v7 setMaskedIntervals:v22 error:&v33];
+    v24 = v33;
+    if ((v23 & 1) == 0)
     {
       _HKInitializeLogging();
-      v26 = *MEMORY[0x277CCC330];
+      v25 = *MEMORY[0x277CCC330];
       if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v37 = v8;
-        v38 = 2114;
-        v39 = v25;
-        _os_log_error_impl(&dword_228986000, v26, OS_LOG_TYPE_ERROR, "Failed to set mask interval for %{public}@ at workout end; will fall back on existing statistics: %{public}@", buf, 0x16u);
+        v35 = v8;
+        v36 = 2114;
+        v37 = v24;
+        _os_log_error_impl(&dword_228986000, v25, OS_LOG_TYPE_ERROR, "Failed to set mask interval for %{public}@ at workout end; will fall back on existing statistics: %{public}@", buf, 0x16u);
       }
     }
   }
 
-  v34 = 0;
-  v27 = [v7 invalidateInterval:0 error:&v34];
-  v28 = v34;
-  if ((v27 & 1) == 0)
+  v32 = 0;
+  v26 = [v7 invalidateInterval:0 error:&v32];
+  v27 = v32;
+  if ((v26 & 1) == 0)
   {
     _HKInitializeLogging();
-    v29 = *MEMORY[0x277CCC330];
+    v28 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v37 = v8;
-      v38 = 2114;
-      v39 = v28;
-      _os_log_error_impl(&dword_228986000, v29, OS_LOG_TYPE_ERROR, "Failed to update statistics for %{public}@ at workout end; will fall back on existing statistics: %{public}@", buf, 0x16u);
+      v35 = v8;
+      v36 = 2114;
+      v37 = v27;
+      _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "Failed to update statistics for %{public}@ at workout end; will fall back on existing statistics: %{public}@", buf, 0x16u);
     }
   }
 
-  v30 = [v7 currentStatistics];
-  if (v30)
+  v29 = [v7 currentStatistics];
+  if (v29)
   {
     if ([v9 isEqual:*(*(a1 + 48) + 24)])
     {
-      [*(a1 + 64) setObject:v30 forKeyedSubscript:v8];
+      [*(a1 + 64) setObject:v29 forKeyedSubscript:v8];
     }
 
     else
     {
-      v31 = [*(a1 + 56) objectForKeyedSubscript:v9];
-      [v31 _setStatistics:v30 forType:v8];
+      v30 = [*(a1 + 56) objectForKeyedSubscript:v9];
+      [v30 _setStatistics:v29 forType:v8];
     }
   }
 
 LABEL_20:
-  v32 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -1039,7 +1035,7 @@ void __65__HDCreateWorkoutOperation_performWithProfile_transaction_error___block
 
 void __96__HDCreateWorkoutOperation__associateSamplesForQuantityTypes_builderEntity_transaction_profile___block_invoke(void *a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a1[4];
   v4 = a2;
   v5 = [v4 hdw_sample];
@@ -1049,9 +1045,9 @@ void __96__HDCreateWorkoutOperation__associateSamplesForQuantityTypes_builderEnt
   v9 = v8;
 
   v10 = a1[5];
-  v16 = 0;
-  v11 = [v3 associateObject:v5 code:v7 timestamp:v10 transaction:&v16 error:v9];
-  v12 = v16;
+  v15 = 0;
+  v11 = [v3 associateObject:v5 code:v7 timestamp:v10 transaction:&v15 error:v9];
+  v12 = v15;
 
   if (!v11)
   {
@@ -1059,25 +1055,23 @@ void __96__HDCreateWorkoutOperation__associateSamplesForQuantityTypes_builderEnt
     v13 = *MEMORY[0x277CCC330];
     if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
     {
-      v15 = a1[6];
+      v14 = a1[6];
       *buf = 138543618;
-      v18 = v15;
-      v19 = 2114;
-      v20 = v12;
+      v17 = v14;
+      v18 = 2114;
+      v19 = v12;
       _os_log_error_impl(&dword_228986000, v13, OS_LOG_TYPE_ERROR, "Failed to associate quantity with type %{public}@ and error: %{public}@", buf, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (HDCreateWorkoutOperation)initWithCoder:(id)coder
 {
-  v46[2] = *MEMORY[0x277D85DE8];
+  v45[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v43.receiver = self;
-  v43.super_class = HDCreateWorkoutOperation;
-  v5 = [(HDJournalableOperation *)&v43 initWithCoder:coderCopy];
+  v42.receiver = self;
+  v42.super_class = HDCreateWorkoutOperation;
+  v5 = [(HDJournalableOperation *)&v42 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"workout_configuration"];
@@ -1111,9 +1105,9 @@ void __96__HDCreateWorkoutOperation__associateSamplesForQuantityTypes_builderEnt
     v5->_sourceVersion = v20;
 
     v22 = MEMORY[0x277CBEB98];
-    v46[0] = objc_opt_class();
-    v46[1] = objc_opt_class();
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
+    v45[0] = objc_opt_class();
+    v45[1] = objc_opt_class();
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
     v24 = [v22 setWithArray:v23];
     v25 = [coderCopy decodeObjectOfClasses:v24 forKey:@"events"];
     events = v5->_events;
@@ -1129,9 +1123,9 @@ void __96__HDCreateWorkoutOperation__associateSamplesForQuantityTypes_builderEnt
     v5->_goal = v29;
 
     v31 = MEMORY[0x277CBEB98];
-    v45[0] = objc_opt_class();
-    v45[1] = objc_opt_class();
-    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:2];
+    v44[0] = objc_opt_class();
+    v44[1] = objc_opt_class();
+    v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
     v33 = [v31 setWithArray:v32];
 
     v34 = [coderCopy decodeObjectOfClasses:v33 forKey:@"activities"];
@@ -1139,9 +1133,9 @@ void __96__HDCreateWorkoutOperation__associateSamplesForQuantityTypes_builderEnt
     v5->_activities = v34;
 
     v36 = MEMORY[0x277CBEB98];
-    v44[0] = objc_opt_class();
-    v44[1] = objc_opt_class();
-    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:2];
+    v43[0] = objc_opt_class();
+    v43[1] = objc_opt_class();
+    v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
     v38 = [v36 setWithArray:v37];
 
     v39 = [coderCopy decodeObjectOfClasses:v38 forKey:@"zones"];
@@ -1149,7 +1143,6 @@ void __96__HDCreateWorkoutOperation__associateSamplesForQuantityTypes_builderEnt
     v5->_zones = v39;
   }
 
-  v41 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

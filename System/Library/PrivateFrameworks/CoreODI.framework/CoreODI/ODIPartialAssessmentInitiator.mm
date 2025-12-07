@@ -11,20 +11,19 @@
 {
   v5 = sub_24619F64C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   *(&self->super.isa + OBJC_IVAR____TtC7CoreODI29ODIPartialAssessmentInitiator_providerID) = d;
   sub_24619F8BC();
   dCopy = d;
   sub_24619F62C();
-  (*(v6 + 32))(self + OBJC_IVAR____TtC7CoreODI29ODIPartialAssessmentInitiator_adapter, v9, v5);
-  v11 = type metadata accessor for ODIPartialAssessmentInitiator();
-  v14.receiver = self;
-  v14.super_class = v11;
-  v12 = [(ODIPartialAssessmentInitiator *)&v14 init];
+  (*(v6 + 32))(self + OBJC_IVAR____TtC7CoreODI29ODIPartialAssessmentInitiator_adapter, v8, v5);
+  v10 = type metadata accessor for ODIPartialAssessmentInitiator(0);
+  v13.receiver = self;
+  v13.super_class = v10;
+  v11 = [(ODIPartialAssessmentInitiator *)&v13 init];
 
-  return v12;
+  return v11;
 }
 
 - (id)makeInitialPartialAssessmentPayload

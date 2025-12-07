@@ -35,7 +35,7 @@
 - (MFError)error
 {
   v2 = 0;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   status = self->_status;
   if (status > 0xC)
   {
@@ -59,7 +59,7 @@
 
     v10 = self->_status;
     *buf = 134217984;
-    v18 = v10;
+    v17 = v10;
     v11 = "#SMIMEErrors Verification was not good (%ld)";
   }
 
@@ -78,9 +78,9 @@
       goto LABEL_6;
     }
 
-    v16 = self->_status;
+    v15 = self->_status;
     *buf = 134217984;
-    v18 = v16;
+    v17 = v15;
     v11 = "#SMIMEErrors Verification went south (%ld)";
   }
 
@@ -102,8 +102,6 @@ LABEL_6:
   }
 
 LABEL_9:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

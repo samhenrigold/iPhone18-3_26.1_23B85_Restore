@@ -26,15 +26,15 @@
     crlaxKnownStrokePatternLocalizationStrings = [(CRLSmartStrokeAccessibility *)self crlaxKnownStrokePatternLocalizationStrings];
     v6 = [crlaxKnownStrokePatternLocalizationStrings objectForKeyedSubscript:strokeName];
 
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    if (CRLAccessibilityShouldPerformValidationChecks(v7, v8))
     {
       if (![v6 length])
       {
-        ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
+        ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(0);
         crlaxTargetClassName = [objc_opt_class() crlaxTargetClassName];
-        v13 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unknown stroke pattern %@. Please add an entry in crlaxKnownStrokePatternLocalizationStrings in %@Accessibility.", v8, v9, v10, v11, v12, strokeName);
+        v15 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Unknown stroke pattern %@. Please add an entry in crlaxKnownStrokePatternLocalizationStrings in %@Accessibility.", v10, v11, v12, v13, v14, strokeName);
 
-        if (v13)
+        if (v15)
         {
           abort();
         }
@@ -52,13 +52,14 @@
 
 - (NSDictionary)crlaxKnownStrokePatternLocalizationStrings
 {
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(self, a2);
+  if (ShouldPerformValidationChecks)
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
+    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
     crlaxTargetClassName = [objc_opt_class() crlaxTargetClassName];
-    v9 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"crlaxKnownStrokePatternLocalizationStrings is abstract, please implement on %@Accessibility", v4, v5, v6, v7, v8, crlaxTargetClassName);
+    v10 = __CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"crlaxKnownStrokePatternLocalizationStrings is abstract, please implement on %@Accessibility", v5, v6, v7, v8, v9, crlaxTargetClassName);
 
-    if (v9)
+    if (v10)
     {
       abort();
     }

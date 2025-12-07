@@ -103,7 +103,7 @@ void __58__ATXMinimalAction_actionFromDatastoreLookupForDatastore___block_invoke
 
 uint64_t __58__ATXMinimalAction_actionFromDatastoreLookupForDatastore___block_invoke_3(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 getNSDataForColumn:0];
   if (v4)
@@ -116,7 +116,7 @@ uint64_t __58__ATXMinimalAction_actionFromDatastoreLookupForDatastore___block_in
     v5 = 0;
   }
 
-  v34 = 0;
+  v33 = 0;
   v6 = [v3 getNSDataForColumn:1];
   if (v6)
   {
@@ -129,34 +129,34 @@ uint64_t __58__ATXMinimalAction_actionFromDatastoreLookupForDatastore___block_in
   }
 
   v8 = [v7 first];
-  v29 = a1;
+  v28 = a1;
   v9 = *(*(a1 + 32) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
 
   [v7 second];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v11 = v33 = 0u;
-  v12 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v11 = v32 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v29 objects:v34 count:16];
   v13 = v11;
   if (v12)
   {
     v14 = v12;
-    v27 = v4;
-    v28 = v3;
-    v15 = *v31;
+    v26 = v4;
+    v27 = v3;
+    v15 = *v30;
 LABEL_9:
     v16 = 0;
     while (1)
     {
-      if (*v31 != v15)
+      if (*v30 != v15)
       {
         objc_enumerationMutation(v11);
       }
 
-      v17 = *(*(&v30 + 1) + 8 * v16);
+      v17 = *(*(&v29 + 1) + 8 * v16);
       v18 = [v17 uuid];
       v19 = [v18 isEqual:v5];
 
@@ -167,32 +167,32 @@ LABEL_9:
 
       if (v14 == ++v16)
       {
-        v14 = [v11 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v14 = [v11 countByEnumeratingWithState:&v29 objects:v34 count:16];
         if (v14)
         {
           goto LABEL_9;
         }
 
         v13 = v11;
-        v4 = v27;
-        v3 = v28;
+        v4 = v26;
+        v3 = v27;
         goto LABEL_18;
       }
     }
 
     v13 = v17;
 
-    v4 = v27;
-    v3 = v28;
+    v4 = v26;
+    v3 = v27;
     if (!v13)
     {
       goto LABEL_19;
     }
 
-    v20 = *(*(*(v29 + 32) + 8) + 40);
+    v20 = *(*(*(v28 + 32) + 8) + 40);
     v21 = [v13 parameters];
     v22 = [v20 copyWithParameterWhitelist:v21];
-    v23 = *(*(v29 + 32) + 8);
+    v23 = *(*(v28 + 32) + 8);
     v24 = *(v23 + 40);
     *(v23 + 40) = v22;
   }
@@ -200,14 +200,13 @@ LABEL_9:
 LABEL_18:
 
 LABEL_19:
-  v25 = *MEMORY[0x277D85DE8];
   return *MEMORY[0x277D42698];
 }
 
 uint64_t __58__ATXMinimalAction_actionFromDatastoreLookupForDatastore___block_invoke_4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_relevance_model();
+  v4 = __atxlog_handle_relevance_model(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     __58__ATXMinimalAction_actionFromDatastoreLookupForDatastore___block_invoke_4_cold_1(a1, v3, v4);
@@ -235,18 +234,16 @@ uint64_t __58__ATXMinimalAction_actionFromDatastoreLookupForDatastore___block_in
 
 - (id)jsonDict
 {
-  v8[3] = *MEMORY[0x277D85DE8];
-  v7[0] = @"bundleId";
-  v7[1] = @"actionType";
+  v7[3] = *MEMORY[0x277D85DE8];
+  v6[0] = @"bundleId";
+  v6[1] = @"actionType";
   actionType = self->_actionType;
-  v8[0] = self->_bundleId;
-  v8[1] = actionType;
-  v7[2] = @"paramHash";
+  v7[0] = self->_bundleId;
+  v7[1] = actionType;
+  v6[2] = @"paramHash";
   v3 = [MEMORY[0x277CCABB0] numberWithLongLong:self->_paramHash];
-  v8[2] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[2] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }
@@ -358,21 +355,22 @@ LABEL_7:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v10 = __atxlog_handle_relevance_model();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = __atxlog_handle_relevance_model(isKindOfClass);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      [(ATXMinimalAction *)self initWithProto:v10];
+      [(ATXMinimalAction *)self initWithProto:v11];
     }
 
     goto LABEL_7;
   }
 
-  v5 = protoCopy;
-  bundleId = [v5 bundleId];
-  actionType = [v5 actionType];
-  paramHash = [v5 paramHash];
+  v6 = protoCopy;
+  bundleId = [v6 bundleId];
+  actionType = [v6 actionType];
+  paramHash = [v6 paramHash];
 
   self = [(ATXMinimalAction *)self initWithBundleId:bundleId actionType:actionType paramHash:paramHash];
   selfCopy = self;
@@ -393,26 +391,23 @@ LABEL_8:
 
 void __58__ATXMinimalAction_actionFromDatastoreLookupForDatastore___block_invoke_4_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "Unable to fetch action corresponding to minimalAction %@. Error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_fault_impl(&dword_2263AA000, log, OS_LOG_TYPE_FAULT, "Unable to fetch action corresponding to minimalAction %@. Error: %@", &v4, 0x16u);
 }
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Unable to construct class %@ from ProtoBuf object", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_2263AA000, a2, OS_LOG_TYPE_FAULT, "Unable to construct class %@ from ProtoBuf object", &v5, 0xCu);
 }
 
 @end

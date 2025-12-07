@@ -97,7 +97,6 @@
 {
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -108,7 +107,6 @@
 
   if ((*&self->_has & 4) != 0)
   {
-    messageCommand = self->_messageCommand;
     PBDataWriterWriteUint32Field();
   }
 
@@ -119,7 +117,6 @@
 
   if ((*&self->_has & 2) != 0)
   {
-    isNearby = self->_isNearby;
 
     PBDataWriterWriteUint32Field();
   }
@@ -189,7 +186,6 @@
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 40);
     if (has)
     {
       if ((*(equal + 40) & 1) == 0 || self->_timestamp != *(equal + 1))
@@ -217,7 +213,6 @@ LABEL_22:
       has = self->_has;
     }
 
-    v9 = *(equal + 40);
     if ((has & 4) != 0)
     {
       if ((*(equal + 40) & 4) == 0 || self->_messageCommand != *(equal + 7))

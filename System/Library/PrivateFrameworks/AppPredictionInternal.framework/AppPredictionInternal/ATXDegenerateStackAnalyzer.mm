@@ -68,7 +68,7 @@
 
 - (BOOL)_hasWidgetHadTimelineDonations:(id)donations startDate:(id)date
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   donationsCopy = donations;
   dateCopy = date;
   v8 = [donationsCopy size];
@@ -102,24 +102,24 @@
   v18 = [v10 initWithExtensionIdentity:v14 kind:v17 family:v9 intent:0 activityIdentifier:0];
 
   [(ATXInformationStore *)self->_informationStore fetchTimelineEntriesForWidget:v18 sinceDate:dateCopy];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v19 = v32 = 0u;
-  v20 = [v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v19 = v31 = 0u;
+  v20 = [v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v20)
   {
-    v21 = *v30;
+    v21 = *v29;
     while (2)
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v30 != v21)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        timelineEntry = [*(*(&v29 + 1) + 8 * i) timelineEntry];
+        timelineEntry = [*(*(&v28 + 1) + 8 * i) timelineEntry];
         relevance = [timelineEntry relevance];
         [relevance score];
         v26 = v25;
@@ -131,7 +131,7 @@
         }
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v20)
       {
         continue;
@@ -143,7 +143,6 @@
 
 LABEL_17:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -194,7 +193,7 @@ LABEL_17:
 
 - (BOOL)isSmartStackPossiblyDegenerate:(id)degenerate onPage:(id)page usingTimelineEntriesSinceDate:(id)date
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   degenerateCopy = degenerate;
   pageCopy = page;
   dateCopy = date;
@@ -204,26 +203,26 @@ LABEL_17:
   }
 
   v11 = objc_opt_new();
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   widgets = [degenerateCopy widgets];
-  v13 = [widgets countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v13 = [widgets countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v24;
+    v15 = *v23;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(widgets);
         }
 
-        v17 = *(*(&v23 + 1) + 8 * i);
+        v17 = *(*(&v22 + 1) + 8 * i);
         v18 = objc_autoreleasePoolPush();
         if (![(ATXDegenerateStackAnalyzer *)self _wouldBlendingDeduplicateWidget:v17 inStack:degenerateCopy againstOtherWidgetsOnPage:pageCopy]&& ([(ATXDegenerateStackAnalyzer *)self _isWidgetEligibleForHeuristicFallback:v17]|| [(ATXDegenerateStackAnalyzer *)self _hasWidgetHadTimelineDonations:v17 startDate:dateCopy]))
         {
@@ -233,62 +232,61 @@ LABEL_17:
         objc_autoreleasePoolPop(v18);
       }
 
-      v14 = [widgets countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v14 = [widgets countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v14);
   }
 
   v19 = [v11 count] < 2;
-  v20 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 - (BOOL)areAllSmartStacksPossiblyDegenerateInPages:(id)pages usingTimelineEntriesSinceDate:(id)date
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   pagesCopy = pages;
   dateCopy = date;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v8 = pagesCopy;
-  v22 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v22)
+  v21 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v21)
   {
-    v9 = *v28;
-    v21 = *v28;
+    v9 = *v27;
+    v20 = *v27;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v28 != v9)
+        if (*v27 != v9)
         {
           objc_enumerationMutation(v8);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * i);
+        v11 = *(*(&v26 + 1) + 8 * i);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         stacks = [v11 stacks];
-        v13 = [stacks countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v13 = [stacks countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v24;
+          v15 = *v23;
           while (2)
           {
             for (j = 0; j != v14; ++j)
             {
-              if (*v24 != v15)
+              if (*v23 != v15)
               {
                 objc_enumerationMutation(stacks);
               }
 
-              v17 = *(*(&v23 + 1) + 8 * j);
+              v17 = *(*(&v22 + 1) + 8 * j);
               if ([v17 allowsSmartRotate] && !-[ATXDegenerateStackAnalyzer isSmartStackPossiblyDegenerate:onPage:usingTimelineEntriesSinceDate:](self, "isSmartStackPossiblyDegenerate:onPage:usingTimelineEntriesSinceDate:", v17, v11, dateCopy))
               {
 
@@ -297,7 +295,7 @@ LABEL_17:
               }
             }
 
-            v14 = [stacks countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v14 = [stacks countByEnumeratingWithState:&v22 objects:v30 count:16];
             if (v14)
             {
               continue;
@@ -307,14 +305,14 @@ LABEL_17:
           }
         }
 
-        v9 = v21;
+        v9 = v20;
       }
 
       v18 = 1;
-      v22 = [v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v21 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   else
@@ -324,7 +322,6 @@ LABEL_17:
 
 LABEL_20:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

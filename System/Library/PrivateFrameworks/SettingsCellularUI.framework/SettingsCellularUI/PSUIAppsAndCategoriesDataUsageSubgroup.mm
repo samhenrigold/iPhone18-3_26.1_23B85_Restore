@@ -31,16 +31,16 @@
 
 - (id)specifiersWithSortComparator:(id)comparator
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   comparatorCopy = comparator;
   v5 = [(PSDataUsageStatisticsCache *)self->_statisticsCache bundleIDsForAppType:0];
   v6 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count") + 5}];
   getLogger = [(PSUIAppsAndCategoriesDataUsageSubgroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134217984;
-    v12 = [v5 count];
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Creating app specifiers for %lu installed bundle IDs", &v11, 0xCu);
+    v10 = 134217984;
+    v11 = [v5 count];
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Creating app specifiers for %lu installed bundle IDs", &v10, 0xCu);
   }
 
   v8 = [(PSUIAppsAndCategoriesDataUsageSubgroup *)self usageSpecifiersForAppType:0 bundleIDs:v5];
@@ -59,8 +59,6 @@
   {
     [v6 sortUsingComparator:comparatorCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -96,40 +94,40 @@ LABEL_8:
 
 - (id)usageSpecifiersForAppType:(unint64_t)type bundleIDs:(id)ds
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   if ([dsCopy count])
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(dsCopy, "count")}];
     v8 = [(PSDataUsageStatisticsCache *)self->_statisticsCache displayNamesForBundleIDs:dsCopy appType:type];
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
     v52 = 0u;
-    v53 = 0u;
-    v41 = dsCopy;
+    v40 = dsCopy;
     v9 = dsCopy;
-    v49 = [v9 countByEnumeratingWithState:&v50 objects:v58 count:16];
-    if (!v49)
+    v48 = [v9 countByEnumeratingWithState:&v49 objects:v57 count:16];
+    if (!v48)
     {
       goto LABEL_42;
     }
 
-    v48 = *v51;
-    v43 = v8;
-    v44 = v7;
-    v42 = v9;
+    v47 = *v50;
+    v42 = v8;
+    v43 = v7;
+    v41 = v9;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v51 != v48)
+        if (*v50 != v47)
         {
           objc_enumerationMutation(v9);
         }
 
-        v11 = *(*(&v50 + 1) + 8 * v10);
-        if (self->_usageType != 1 || (-[PSAppDataUsagePolicyCache policiesFor:](self->_policyCache, "policiesFor:", *(*(&v50 + 1) + 8 * v10)), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 satellite], v12, v13 != 2))
+        v11 = *(*(&v49 + 1) + 8 * v10);
+        if (self->_usageType != 1 || (-[PSAppDataUsagePolicyCache policiesFor:](self->_policyCache, "policiesFor:", *(*(&v49 + 1) + 8 * v10)), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 satellite], v12, v13 != 2))
         {
           v14 = [v8 objectForKey:v11];
           v15 = v14;
@@ -158,18 +156,18 @@ LABEL_8:
 
               v19 = [objc_alloc(MEMORY[0x277D4D858]) initWithAppType:1 bundleID:v11 name:v17 statisticsCache:self->_statisticsCache usageType:self->_usageType];
               v25 = [(PSDataUsageStatisticsCache *)self->_statisticsCache usageForBundleID:v11 inPeriod:0];
-              v47 = v25;
+              v46 = v25;
               if (v25)
               {
                 v26 = v25;
                 native = [v25 native];
                 cellularHome = [native cellularHome];
                 native2 = [v26 native];
-                v45 = [native2 cellularRoaming] + cellularHome;
+                v44 = [native2 cellularRoaming] + cellularHome;
                 proxied = [v26 proxied];
                 cellularHome2 = [proxied cellularHome];
                 proxied2 = [v26 proxied];
-                v32 = v45 + cellularHome2 + [proxied2 cellularRoaming];
+                v32 = v44 + cellularHome2 + [proxied2 cellularRoaming];
 
                 getLogger = [(PSUIAppsAndCategoriesDataUsageSubgroup *)self getLogger];
                 v34 = os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT);
@@ -178,9 +176,9 @@ LABEL_8:
                   if (v34)
                   {
                     *buf = 138478083;
-                    v55 = v11;
-                    v56 = 2048;
-                    v57 = v32;
+                    v54 = v11;
+                    v55 = 2048;
+                    v56 = v32;
                     v35 = getLogger;
                     v36 = "%{private}@ is an uninstalled app using %zu bytes";
                     v37 = 22;
@@ -191,7 +189,7 @@ LABEL_8:
                 else if (v34)
                 {
                   *buf = 138477827;
-                  v55 = v11;
+                  v54 = v11;
                   v35 = getLogger;
                   v36 = "%{private}@ is an uninstalled app using zero bytes";
                   v37 = 12;
@@ -199,9 +197,9 @@ LABEL_37:
                   _os_log_impl(&dword_2658DE000, v35, OS_LOG_TYPE_DEFAULT, v36, buf, v37);
                 }
 
-                v8 = v43;
-                v7 = v44;
-                v9 = v42;
+                v8 = v42;
+                v7 = v43;
+                v9 = v41;
               }
 
               else
@@ -210,7 +208,7 @@ LABEL_37:
                 if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138477827;
-                  v55 = v11;
+                  v54 = v11;
                   _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "%{private}@ is an uninstalled app without usage?", buf, 0xCu);
                 }
               }
@@ -276,14 +274,14 @@ LABEL_31:
         ++v10;
       }
 
-      while (v49 != v10);
-      v38 = [v9 countByEnumeratingWithState:&v50 objects:v58 count:16];
-      v49 = v38;
+      while (v48 != v10);
+      v38 = [v9 countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v48 = v38;
       if (!v38)
       {
 LABEL_42:
 
-        dsCopy = v41;
+        dsCopy = v40;
         goto LABEL_44;
       }
     }
@@ -291,8 +289,6 @@ LABEL_42:
 
   v7 = 0;
 LABEL_44:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

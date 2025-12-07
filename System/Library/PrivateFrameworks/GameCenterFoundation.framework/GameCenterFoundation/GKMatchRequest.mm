@@ -20,6 +20,7 @@
 - (id)description;
 - (id)guestPlayers;
 - (id)methodSignatureForSelector:(SEL)selector;
+- (id)validateForHosted:(BOOL)hosted turnBased:(BOOL)based;
 - (id)validateNumbersOfPlayersWithMax:(unint64_t)max;
 - (id)valueForUndefinedKey:(id)key;
 - (unint64_t)hash;
@@ -230,6 +231,111 @@ id __29__GKMatchRequest_description__block_invoke(uint64_t a1, void *a2)
   }
 
   return array;
+}
+
+- (id)validateForHosted:(BOOL)hosted turnBased:(BOOL)based
+{
+  basedCopy = based;
+  hostedCopy = hosted;
+  v46 = *MEMORY[0x277D85DE8];
+  array = [MEMORY[0x277CBEB18] array];
+  v8 = [(GKMatchRequest *)self playerGroup]!= 1 || [(GKMatchRequest *)self playerAttributes]!= -1;
+  properties = [(GKMatchRequest *)self properties];
+  if ([properties count])
+  {
+    v10 = 1;
+  }
+
+  else
+  {
+    recipientProperties = [(GKMatchRequest *)self recipientProperties];
+    v10 = [recipientProperties count] != 0;
+  }
+
+  queueName = [(GKMatchRequest *)self queueName];
+  v13 = [queueName length] != 0 || v10;
+
+  if (v8 & v13)
+  {
+    v14 = [MEMORY[0x277CCA9B8] userErrorForCode:17 description:@"A match request can't have player group/attributes with queue name/properties."];
+    [array addObject:v14];
+  }
+
+  queueName2 = [(GKMatchRequest *)self queueName];
+  v16 = [queueName2 length] == 0 && v10;
+
+  if (v16 == 1)
+  {
+    v17 = [MEMORY[0x277CCA9B8] userErrorForCode:17 description:@"A queue name must be specified if properties are configured."];
+    [array addObject:v17];
+  }
+
+  v18 = +[GKPreferences shared];
+  v19 = v18;
+  if (basedCopy)
+  {
+    maxPlayersTurnBased = [v18 maxPlayersTurnBased];
+  }
+
+  else if (hostedCopy)
+  {
+    maxPlayersTurnBased = [v18 maxPlayersHosted];
+  }
+
+  else
+  {
+    maxPlayersTurnBased = [v18 maxPlayersP2P];
+  }
+
+  v21 = maxPlayersTurnBased;
+
+  v22 = [(GKMatchRequest *)self validateNumbersOfPlayersWithMax:v21];
+  [array addObjectsFromArray:v22];
+
+  if ([array count])
+  {
+    if (!os_log_GKGeneral)
+    {
+      v23 = GKOSLoggers();
+    }
+
+    v24 = os_log_GKMatch;
+    if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_DEBUG))
+    {
+      v27 = MEMORY[0x277CCABB0];
+      v28 = v24;
+      v29 = [v27 numberWithBool:hostedCopy];
+      v30 = [MEMORY[0x277CCABB0] numberWithBool:basedCopy];
+      v31 = [MEMORY[0x277CCABB0] numberWithBool:v8];
+      v32 = [MEMORY[0x277CCABB0] numberWithBool:v10];
+      v33 = [MEMORY[0x277CCABB0] numberWithBool:v13 & 1];
+      v34 = 138413570;
+      v35 = v29;
+      v36 = 2112;
+      v37 = v30;
+      v38 = 2112;
+      v39 = v31;
+      v40 = 2112;
+      v41 = v32;
+      v42 = 2112;
+      v43 = v33;
+      v44 = 2112;
+      v45 = array;
+      _os_log_debug_impl(&dword_227904000, v28, OS_LOG_TYPE_DEBUG, "Invalid match request. Hosted: %@, turnBased: %@, hasClassicParams: %@, hasRuleProperties: %@, hasRuleParams: %@.\nValidationErrors: %@", &v34, 0x3Eu);
+    }
+  }
+
+  if ([array count])
+  {
+    v25 = [MEMORY[0x277CCA9B8] userErrorForCode:13 underlyingErrors:array];
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  return v25;
 }
 
 - (void)ensureValidityHosted:(BOOL)hosted
@@ -476,7 +582,7 @@ LABEL_9:
 
 - (void)setRecipients:(NSArray *)recipients
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v4 = recipients;
   if (GKApplicationLinkedOnOrAfter(0x80000, 657920))
   {
@@ -505,12 +611,10 @@ LABEL_9:
   [internal2 setRecipientPlayerIDs:_gkPlayersIDsFromPlayers];
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  v20 = @"request";
-  v21[0] = self;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v19 = @"request";
+  v20[0] = self;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   [defaultCenter postNotificationName:@"GKSetMatchRequestRecipientsNotification" object:0 userInfo:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)inviteMessage
@@ -547,7 +651,7 @@ LABEL_9:
 
 - (NSArray)playersToInvite
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (GKApplicationLinkedOnOrAfter(917504, 659456))
   {
     if (!os_log_GKGeneral)
@@ -561,8 +665,8 @@ LABEL_9:
       [(GKMatchRequest *)v4 playersToInvite];
     }
 
-    v9[0] = @"playerID is no longer available";
-    recipientPlayerIDs = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = @"playerID is no longer available";
+    recipientPlayerIDs = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -570,8 +674,6 @@ LABEL_9:
     internal = [(GKMatchRequest *)self internal];
     recipientPlayerIDs = [internal recipientPlayerIDs];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return recipientPlayerIDs;
 }
@@ -700,30 +802,30 @@ LABEL_14:
 
 void __37__GKMatchRequest_recipientProperties__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1 + 32) internal];
   v3 = [v2 recipientProperties];
 
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       v7 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * v7);
+        v8 = *(*(&v14 + 1) + 8 * v7);
         v9 = [*(a1 + 32) internal];
         v10 = [v9 recipientProperties];
         v11 = [v10 objectForKeyedSubscript:v8];
@@ -739,18 +841,16 @@ void __37__GKMatchRequest_recipientProperties__block_invoke(uint64_t a1)
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRecipientProperties:(id)properties
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   if (!os_log_GKGeneral)
   {
@@ -761,37 +861,37 @@ void __37__GKMatchRequest_recipientProperties__block_invoke(uint64_t a1)
   if (os_log_type_enabled(os_log_GKTrace, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v30 = propertiesCopy;
+    v29 = propertiesCopy;
     _os_log_impl(&dword_227904000, v6, OS_LOG_TYPE_INFO, "setRecipientProperties: %@", buf, 0xCu);
   }
 
   if (propertiesCopy)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v8 = propertiesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v24 + 1) + 8 * i);
+          v13 = *(*(&v23 + 1) + 8 * i);
           if ([v13 isLocalPlayer])
           {
-            v21 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"GKLocalPlayer can't have recipient properties" userInfo:0];
-            objc_exception_throw(v21);
+            v20 = [MEMORY[0x277CBEAD8] exceptionWithName:*MEMORY[0x277CBE660] reason:@"GKLocalPlayer can't have recipient properties" userInfo:0];
+            objc_exception_throw(v20);
           }
 
           v14 = objc_opt_class();
@@ -805,7 +905,7 @@ void __37__GKMatchRequest_recipientProperties__block_invoke(uint64_t a1)
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v10);
@@ -818,16 +918,14 @@ void __37__GKMatchRequest_recipientProperties__block_invoke(uint64_t a1)
   }
 
   serialQueue = [(GKMatchRequest *)self serialQueue];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __41__GKMatchRequest_setRecipientProperties___block_invoke;
-  v22[3] = &unk_2785DEBA8;
-  v22[4] = self;
-  v23 = dictionary;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __41__GKMatchRequest_setRecipientProperties___block_invoke;
+  v21[3] = &unk_2785DEBA8;
+  v21[4] = self;
+  v22 = dictionary;
   v19 = dictionary;
-  dispatch_sync(serialQueue, v22);
-
-  v20 = *MEMORY[0x277D85DE8];
+  dispatch_sync(serialQueue, v21);
 }
 
 void __41__GKMatchRequest_setRecipientProperties___block_invoke(uint64_t a1)
@@ -874,29 +972,29 @@ void __41__GKMatchRequest_setRecipientProperties___block_invoke(uint64_t a1)
 
 void __46__GKMatchRequest_hasFutureRecipientProperties__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(a1 + 32) internal];
   v3 = [v2 recipientProperties];
 
-  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         v9 = [*(a1 + 32) internal];
         v10 = [v9 recipientProperties];
         v11 = [v10 objectForKeyedSubscript:v8];
@@ -910,7 +1008,7 @@ void __46__GKMatchRequest_hasFutureRecipientProperties__block_invoke(uint64_t a1
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v5)
       {
         continue;
@@ -921,8 +1019,6 @@ void __46__GKMatchRequest_hasFutureRecipientProperties__block_invoke(uint64_t a1
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)expectFutureRecipientPropertiesForPlayers:(id)players
@@ -951,45 +1047,43 @@ LABEL_11:
 
 void __60__GKMatchRequest_expectFutureRecipientPropertiesForPlayers___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v11 objects:v17 count:16];
+  v2 = [obj countByEnumeratingWithState:&v10 objects:v16 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       v5 = 0;
       do
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * v5);
+        v6 = *(*(&v10 + 1) + 8 * v5);
         v7 = *(a1 + 40);
-        v15 = @"gc";
-        v16 = @"<future>";
-        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+        v14 = @"gc";
+        v15 = @"<future>";
+        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
         [v7 updateRecipientProperties:v8 forPlayer:v6 withSanitization:0];
 
         ++v5;
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v3 = [obj countByEnumeratingWithState:&v10 objects:v16 count:16];
     }
 
     while (v3);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateRecipientProperties:(id)properties forPlayer:(id)player
@@ -1123,7 +1217,7 @@ void __60__GKMatchRequest_expectFutureRecipientPropertiesForPlayers___block_invo
 
 - (void)loadRecipientsWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (!os_log_GKGeneral)
   {
@@ -1162,7 +1256,7 @@ void __60__GKMatchRequest_expectFutureRecipientPropertiesForPlayers___block_invo
   if (os_log_type_enabled(os_log_GKMatch, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v25 = _gkPlayersIDsFromPlayers;
+    v24 = _gkPlayersIDsFromPlayers;
     _os_log_impl(&dword_227904000, v13, OS_LOG_TYPE_INFO, "Load recipients -- invitees:%@", buf, 0xCu);
   }
 
@@ -1171,28 +1265,26 @@ void __60__GKMatchRequest_expectFutureRecipientPropertiesForPlayers___block_invo
 
   if ([_gkPlayersIDsFromPlayers count])
   {
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __54__GKMatchRequest_loadRecipientsWithCompletionHandler___block_invoke;
-    v21[3] = &unk_2785DD898;
-    v22 = _gkPlayersIDsFromPlayers;
-    v23 = v15;
-    [v23 perform:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __54__GKMatchRequest_loadRecipientsWithCompletionHandler___block_invoke;
+    v20[3] = &unk_2785DD898;
+    v21 = _gkPlayersIDsFromPlayers;
+    v22 = v15;
+    [v22 perform:v20];
   }
 
   if (handlerCopy)
   {
     v16 = dispatch_get_global_queue(0, 0);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __54__GKMatchRequest_loadRecipientsWithCompletionHandler___block_invoke_3;
-    v18[3] = &unk_2785DDC10;
-    v20 = handlerCopy;
-    v19 = v15;
-    [v19 notifyOnQueue:v16 block:v18];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __54__GKMatchRequest_loadRecipientsWithCompletionHandler___block_invoke_3;
+    v17[3] = &unk_2785DDC10;
+    v19 = handlerCopy;
+    v18 = v15;
+    [v18 notifyOnQueue:v16 block:v17];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __54__GKMatchRequest_loadRecipientsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1267,55 +1359,41 @@ void __54__GKMatchRequest_loadRecipientsWithCompletionHandler___block_invoke_3(u
 
 + (void)maxPlayersAllowedForMatchOfType:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
-  WORD2(v4) = 2048;
-  HIWORD(v4) = v0;
-  OUTLINED_FUNCTION_1_7(&dword_227904000, v0, v1, "The maximum players allowed is: %lu for match type: %lu", v3, v4);
-  v2 = *MEMORY[0x277D85DE8];
+  WORD2(v3) = 2048;
+  HIWORD(v3) = v0;
+  OUTLINED_FUNCTION_1_7(&dword_227904000, v0, v1, "The maximum players allowed is: %lu for match type: %lu", v2, v3);
 }
 
 - (void)playersToInvite
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = 136446722;
-  v3 = "[GKMatchRequest playersToInvite]";
-  v4 = 2114;
-  v5 = @"14.0";
-  v6 = 2114;
-  v7 = @"11.0";
-  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v2, 0x20u);
-  v1 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v1 = 136446722;
+  v2 = "[GKMatchRequest playersToInvite]";
+  v3 = 2114;
+  v4 = @"14.0";
+  v5 = 2114;
+  v6 = @"11.0";
+  _os_log_error_impl(&dword_227904000, log, OS_LOG_TYPE_ERROR, "WARNING: %{public}s is obsoleted. Game Center doesn't invoke this obsoleted method from iOS/tvOS %{public}@ and macOS %{public}@ onwards", &v1, 0x20u);
 }
 
 + (void)sanitizeProperties:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = +[GKMatchRequestInternal secureCodedPropertyKeys];
   v3 = [v2 objectForKeyedSubscript:@"properties"];
   v4 = [v3 allObjects];
   v5 = [v4 componentsJoinedByString:{@", "}];
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_227904000, v1, OS_LOG_TYPE_ERROR, "<Warning>: The provided match properties contain unsupported types (supported: %{public}@).", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_227904000, v1, OS_LOG_TYPE_ERROR, "<Warning>: The provided match properties contain unsupported types (supported: %{public}@).", v6, 0xCu);
 }
 
 - (void)expectFutureRecipientPropertiesForPlayers:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "expectFutureRecipientPropertiesForPlayers: %@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-- (void)updateRecipientProperties:forPlayer:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_7(&dword_227904000, v0, v1, "updateRecipientProperties: %@ for player: %@");
   v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0();
+  _os_log_debug_impl(&dword_227904000, v0, OS_LOG_TYPE_DEBUG, "expectFutureRecipientPropertiesForPlayers: %@", v1, 0xCu);
 }
 
 @end

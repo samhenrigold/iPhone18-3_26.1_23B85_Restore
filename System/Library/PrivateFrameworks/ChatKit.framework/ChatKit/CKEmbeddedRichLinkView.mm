@@ -131,7 +131,7 @@
   interactionCopy = interaction;
   configurationCopy = configuration;
   selfCopy = self;
-  v10 = sub_190AF7A18();
+  v10 = sub_190AF7A18(selfCopy);
 
   return v10;
 }

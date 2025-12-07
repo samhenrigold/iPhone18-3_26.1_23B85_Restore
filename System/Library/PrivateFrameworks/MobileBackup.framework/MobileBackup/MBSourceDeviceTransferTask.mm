@@ -22,22 +22,22 @@
 
 - (BOOL)_startWithError:(id *)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   queue = [(MBDeviceTransferTask *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v6 = MBGetDefaultLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = MBGetDefaultLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1DEB5D000, v6, OS_LOG_TYPE_DEFAULT, "%@: Starting the device transfer task", buf, 0xCu);
-    _MBLog(@"Df", "%@: Starting the device transfer task", v7, v8, v9, v10, v11, v12, self);
+    _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEFAULT, "%@: Starting the device transfer task", buf, 0xCu);
+    _MBLog(@"Df", "%@: Starting the device transfer task", self);
   }
 
-  v13 = objc_opt_new();
+  v8 = objc_opt_new();
   fileTransferSession = [(MBDeviceTransferTask *)self fileTransferSession];
-  [v13 setFileTransferSession:fileTransferSession];
+  [v8 setFileTransferSession:fileTransferSession];
 
   manager = [(MBDeviceTransferTask *)self manager];
   if (!manager)
@@ -45,11 +45,10 @@
     [MBSourceDeviceTransferTask _startWithError:];
   }
 
-  v16 = manager;
-  v17 = [manager startDeviceTransferWithTaskType:-[MBSourceDeviceTransferTask taskType](self sessionInfo:"taskType") error:{v13, error}];
+  v11 = manager;
+  v12 = [manager startDeviceTransferWithTaskType:-[MBSourceDeviceTransferTask taskType](self sessionInfo:"taskType") error:{v8, error}];
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v17;
+  return v12;
 }
 
 - (void)start
@@ -61,35 +60,33 @@
 
 - (void)_cancel
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   queue = [(MBDeviceTransferTask *)self queue];
   dispatch_assert_queue_V2(queue);
 
   manager = [(MBDeviceTransferTask *)self manager];
-  v18 = 0;
-  v5 = [manager cancelDeviceTransferWithTaskType:-[MBSourceDeviceTransferTask taskType](self error:{"taskType"), &v18}];
-  v6 = v18;
+  v11 = 0;
+  v5 = [manager cancelDeviceTransferWithTaskType:-[MBSourceDeviceTransferTask taskType](self error:{"taskType"), &v11}];
+  v6 = v11;
 
   if ((v5 & 1) == 0)
   {
-    v7 = MBGetDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = MBGetDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       taskType = [(MBSourceDeviceTransferTask *)self taskType];
       *buf = 134218242;
-      v20 = taskType;
-      v21 = 2112;
-      v22 = v6;
-      _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_ERROR, "Failed to cancel device transfer from source. taskType: %ld error:%@", buf, 0x16u);
-      taskType2 = [(MBSourceDeviceTransferTask *)self taskType];
-      _MBLog(@"E ", "Failed to cancel device transfer from source. taskType: %ld error:%@", v10, v11, v12, v13, v14, v15, taskType2);
+      v13 = taskType;
+      v14 = 2112;
+      v15 = v6;
+      _os_log_impl(&dword_1DEB5D000, v8, OS_LOG_TYPE_ERROR, "Failed to cancel device transfer from source. taskType: %ld error:%@", buf, 0x16u);
+      _MBLog(@"E ", "Failed to cancel device transfer from source. taskType: %ld error:%@", [(MBSourceDeviceTransferTask *)self taskType], v6);
     }
   }
 
-  v16 = [MBError errorWithCode:202 format:@"Source device transfer canceled"];
+  v10 = [MBError errorWithCode:202 format:@"Source device transfer canceled"];
 
-  [(MBSourceDeviceTransferTask *)self _finishWithError:v16];
-  v17 = *MEMORY[0x1E69E9840];
+  [(MBSourceDeviceTransferTask *)self _finishWithError:v10];
 }
 
 - (void)cancel
@@ -119,42 +116,40 @@
 
 - (void)manager:(id)manager didFinishDeviceTransferWithError:(id)error
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   queue = [(MBDeviceTransferTask *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = MBGetDefaultLog();
-  v8 = v7;
+  v8 = MBGetDefaultLog(v7);
+  v9 = v8;
   if (errorCopy)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
       selfCopy2 = self;
-      v24 = 2112;
-      v25 = errorCopy;
-      _os_log_impl(&dword_1DEB5D000, v8, OS_LOG_TYPE_ERROR, "%@: Failed the source transfer task: %@", buf, 0x16u);
-      _MBLog(@"E ", "%@: Failed the source transfer task: %@", v9, v10, v11, v12, v13, v14, self);
+      v12 = 2112;
+      v13 = errorCopy;
+      _os_log_impl(&dword_1DEB5D000, v9, OS_LOG_TYPE_ERROR, "%@: Failed the source transfer task: %@", buf, 0x16u);
+      _MBLog(@"E ", "%@: Failed the source transfer task: %@", self, errorCopy);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       selfCopy2 = self;
-      _os_log_impl(&dword_1DEB5D000, v8, OS_LOG_TYPE_DEFAULT, "%@: Finished the source transfer task", buf, 0xCu);
-      _MBLog(@"Df", "%@: Finished the source transfer task", v15, v16, v17, v18, v19, v20, self);
+      _os_log_impl(&dword_1DEB5D000, v9, OS_LOG_TYPE_DEFAULT, "%@: Finished the source transfer task", buf, 0xCu);
+      _MBLog(@"Df", "%@: Finished the source transfer task", self);
     }
 
     [(MBSourceDeviceTransferTask *)self _shortenPrebuddyExpirationIfNeeded];
   }
 
   [(MBSourceDeviceTransferTask *)self _finishWithError:errorCopy];
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)manager:(id)manager didFinishDeviceTransferKeychainTransfer:(id)transfer
@@ -166,18 +161,18 @@
 
 - (void)manager:(id)manager didUpdateDeviceTransferProgress:(id)progress
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   progressCopy = progress;
   queue = [(MBDeviceTransferTask *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v7 = MBGetDefaultLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = MBGetDefaultLog(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = progressCopy;
-    _os_log_impl(&dword_1DEB5D000, v7, OS_LOG_TYPE_DEFAULT, "Updated progress: %@", buf, 0xCu);
-    _MBLog(@"Df", "Updated progress: %@", v8, v9, v10, v11, v12, v13, progressCopy);
+    v12 = progressCopy;
+    _os_log_impl(&dword_1DEB5D000, v8, OS_LOG_TYPE_DEFAULT, "Updated progress: %@", buf, 0xCu);
+    _MBLog(@"Df", "Updated progress: %@", progressCopy);
   }
 
   progressHandler = [(MBDeviceTransferTask *)self progressHandler];
@@ -187,8 +182,6 @@
     progressHandler2 = [(MBDeviceTransferTask *)self progressHandler];
     (progressHandler2)[2](progressHandler2, progressCopy);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

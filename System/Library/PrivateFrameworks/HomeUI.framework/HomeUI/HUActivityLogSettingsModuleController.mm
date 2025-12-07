@@ -7,7 +7,7 @@
 
 - (Class)cellClassForItem:(id)item
 {
-  sub_20CECF940(0, &qword_27C81E910);
+  sub_20CECF940(0, &qword_27C81E910, off_277DB0E50);
 
   return swift_getObjCClassFromMetadata();
 }

@@ -200,7 +200,7 @@
 
 - (double)_currentLabelPreferredWidth
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   titleLabel = [(CKNavBarUnifiedCallButton *)self titleLabel];
   text = [titleLabel text];
   v5 = [text length];
@@ -210,27 +210,27 @@
     return 0.0;
   }
 
-  v6 = CKFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"JOIN" value:&stru_1F04268F8 table:@"ChatKit"];
+  v7 = CKFrameworkBundle(v6);
+  v8 = [v7 localizedStringForKey:@"JOIN" value:&stru_1F04268F8 table:@"ChatKit"];
 
   titleLabel2 = [(CKNavBarUnifiedCallButton *)self titleLabel];
   font = [titleLabel2 font];
 
   [font pointSize];
-  v11 = v10;
+  v12 = v11;
   titleLabel3 = [(CKNavBarUnifiedCallButton *)self titleLabel];
   [titleLabel3 _actualScaleFactor];
-  v14 = round(v11 * v13 * 4.0) * 0.25;
+  v15 = round(v12 * v14 * 4.0) * 0.25;
 
-  v20 = *MEMORY[0x1E69DB648];
-  v15 = [font fontWithSize:v14];
-  v21[0] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v21 = *MEMORY[0x1E69DB648];
+  v16 = [font fontWithSize:v15];
+  v22[0] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
 
-  [v7 sizeWithAttributes:v16];
-  v18 = ceil(v17);
+  [v8 sizeWithAttributes:v17];
+  v19 = ceil(v18);
 
-  return v18;
+  return v19;
 }
 
 - (void)setJoinPillShouldDisableLabel:(BOOL)label
@@ -532,18 +532,18 @@ LABEL_5:
 
 - (id)_axLabelForCurrentStyle
 {
-  v2 = [(CKNavBarUnifiedCallButton *)self buttonStyle]- 1;
-  if (v2 > 4)
+  buttonStyle = [(CKNavBarUnifiedCallButton *)self buttonStyle];
+  if ((buttonStyle - 1) > 4)
   {
     v3 = @"FACE_TIME_DEFAULT";
   }
 
   else
   {
-    v3 = off_1E72F2510[v2];
+    v3 = off_1E72F2510[buttonStyle - 1];
   }
 
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(buttonStyle);
   v5 = [v4 localizedStringForKey:v3 value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v5;
@@ -555,15 +555,16 @@ LABEL_5:
   v4 = &stru_1F04268F8;
   if (buttonStyle <= 5 && ((1 << buttonStyle) & 0x2A) != 0)
   {
-    if ([(CKNavBarUnifiedCallButton *)self joinPillShouldDisableLabel])
+    joinPillShouldDisableLabel = [(CKNavBarUnifiedCallButton *)self joinPillShouldDisableLabel];
+    if (joinPillShouldDisableLabel)
     {
       v4 = 0;
     }
 
     else
     {
-      v5 = CKFrameworkBundle();
-      v4 = [v5 localizedStringForKey:@"JOIN" value:&stru_1F04268F8 table:@"ChatKit"];
+      v6 = CKFrameworkBundle(joinPillShouldDisableLabel);
+      v4 = [v6 localizedStringForKey:@"JOIN" value:&stru_1F04268F8 table:@"ChatKit"];
     }
   }
 
@@ -862,32 +863,32 @@ LABEL_8:
 
 - (UIAction)faceTimeVideoAction
 {
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   faceTimeVideoAction = self->_faceTimeVideoAction;
   if (!faceTimeVideoAction)
   {
-    v4 = MEMORY[0x1E69DC628];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"FACETIME_VIDEO" value:&stru_1F04268F8 table:@"ChatKit"];
-    v7 = +[CKUIBehavior sharedBehaviors];
-    navBarVideoImage = [v7 navBarVideoImage];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __48__CKNavBarUnifiedCallButton_faceTimeVideoAction__block_invoke;
-    v13[3] = &unk_1E72EBCD8;
-    objc_copyWeak(&v14, &location);
-    v9 = [v4 actionWithTitle:v6 image:navBarVideoImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierFaceTimeVideo" handler:v13];
-    v10 = self->_faceTimeVideoAction;
-    self->_faceTimeVideoAction = v9;
+    v5 = MEMORY[0x1E69DC628];
+    v6 = CKFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"FACETIME_VIDEO" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = +[CKUIBehavior sharedBehaviors];
+    navBarVideoImage = [v8 navBarVideoImage];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __48__CKNavBarUnifiedCallButton_faceTimeVideoAction__block_invoke;
+    v14[3] = &unk_1E72EBCD8;
+    objc_copyWeak(&v15, &location);
+    v10 = [v5 actionWithTitle:v7 image:navBarVideoImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierFaceTimeVideo" handler:v14];
+    v11 = self->_faceTimeVideoAction;
+    self->_faceTimeVideoAction = v10;
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     faceTimeVideoAction = self->_faceTimeVideoAction;
   }
 
-  v11 = faceTimeVideoAction;
+  v12 = faceTimeVideoAction;
   objc_destroyWeak(&location);
 
-  return v11;
+  return v12;
 }
 
 void __48__CKNavBarUnifiedCallButton_faceTimeVideoAction__block_invoke(uint64_t a1)
@@ -905,32 +906,32 @@ void __48__CKNavBarUnifiedCallButton_faceTimeVideoAction__block_invoke(uint64_t 
 
 - (UIAction)faceTimeJoinWithVideoAction
 {
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   faceTimeJoinWithVideoAction = self->_faceTimeJoinWithVideoAction;
   if (!faceTimeJoinWithVideoAction)
   {
-    v4 = MEMORY[0x1E69DC628];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"FACETIME_VIDEO" value:&stru_1F04268F8 table:@"ChatKit"];
-    v7 = +[CKUIBehavior sharedBehaviors];
-    navBarVideoImage = [v7 navBarVideoImage];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __56__CKNavBarUnifiedCallButton_faceTimeJoinWithVideoAction__block_invoke;
-    v13[3] = &unk_1E72EBCD8;
-    objc_copyWeak(&v14, &location);
-    v9 = [v4 actionWithTitle:v6 image:navBarVideoImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierFaceTimeJoinWithVideo" handler:v13];
-    v10 = self->_faceTimeJoinWithVideoAction;
-    self->_faceTimeJoinWithVideoAction = v9;
+    v5 = MEMORY[0x1E69DC628];
+    v6 = CKFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"FACETIME_VIDEO" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = +[CKUIBehavior sharedBehaviors];
+    navBarVideoImage = [v8 navBarVideoImage];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __56__CKNavBarUnifiedCallButton_faceTimeJoinWithVideoAction__block_invoke;
+    v14[3] = &unk_1E72EBCD8;
+    objc_copyWeak(&v15, &location);
+    v10 = [v5 actionWithTitle:v7 image:navBarVideoImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierFaceTimeJoinWithVideo" handler:v14];
+    v11 = self->_faceTimeJoinWithVideoAction;
+    self->_faceTimeJoinWithVideoAction = v10;
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     faceTimeJoinWithVideoAction = self->_faceTimeJoinWithVideoAction;
   }
 
-  v11 = faceTimeJoinWithVideoAction;
+  v12 = faceTimeJoinWithVideoAction;
   objc_destroyWeak(&location);
 
-  return v11;
+  return v12;
 }
 
 void __56__CKNavBarUnifiedCallButton_faceTimeJoinWithVideoAction__block_invoke(uint64_t a1)
@@ -948,32 +949,32 @@ void __56__CKNavBarUnifiedCallButton_faceTimeJoinWithVideoAction__block_invoke(u
 
 - (UIAction)faceTimeAudioAction
 {
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   faceTimeAudioAction = self->_faceTimeAudioAction;
   if (!faceTimeAudioAction)
   {
-    v4 = MEMORY[0x1E69DC628];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"FACETIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
-    v7 = +[CKUIBehavior sharedBehaviors];
-    navBarAudioImage = [v7 navBarAudioImage];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __48__CKNavBarUnifiedCallButton_faceTimeAudioAction__block_invoke;
-    v13[3] = &unk_1E72EBCD8;
-    objc_copyWeak(&v14, &location);
-    v9 = [v4 actionWithTitle:v6 image:navBarAudioImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierFaceTimeAudio" handler:v13];
-    v10 = self->_faceTimeAudioAction;
-    self->_faceTimeAudioAction = v9;
+    v5 = MEMORY[0x1E69DC628];
+    v6 = CKFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"FACETIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = +[CKUIBehavior sharedBehaviors];
+    navBarAudioImage = [v8 navBarAudioImage];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __48__CKNavBarUnifiedCallButton_faceTimeAudioAction__block_invoke;
+    v14[3] = &unk_1E72EBCD8;
+    objc_copyWeak(&v15, &location);
+    v10 = [v5 actionWithTitle:v7 image:navBarAudioImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierFaceTimeAudio" handler:v14];
+    v11 = self->_faceTimeAudioAction;
+    self->_faceTimeAudioAction = v10;
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     faceTimeAudioAction = self->_faceTimeAudioAction;
   }
 
-  v11 = faceTimeAudioAction;
+  v12 = faceTimeAudioAction;
   objc_destroyWeak(&location);
 
-  return v11;
+  return v12;
 }
 
 void __48__CKNavBarUnifiedCallButton_faceTimeAudioAction__block_invoke(uint64_t a1)
@@ -991,32 +992,32 @@ void __48__CKNavBarUnifiedCallButton_faceTimeAudioAction__block_invoke(uint64_t 
 
 - (UIAction)faceTimeJoinWithAudioAction
 {
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   faceTimeJoinWithAudioAction = self->_faceTimeJoinWithAudioAction;
   if (!faceTimeJoinWithAudioAction)
   {
-    v4 = MEMORY[0x1E69DC628];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"FACETIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
-    v7 = +[CKUIBehavior sharedBehaviors];
-    navBarAudioImage = [v7 navBarAudioImage];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __56__CKNavBarUnifiedCallButton_faceTimeJoinWithAudioAction__block_invoke;
-    v13[3] = &unk_1E72EBCD8;
-    objc_copyWeak(&v14, &location);
-    v9 = [v4 actionWithTitle:v6 image:navBarAudioImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierFaceTimeJoinWithAudio" handler:v13];
-    v10 = self->_faceTimeJoinWithAudioAction;
-    self->_faceTimeJoinWithAudioAction = v9;
+    v5 = MEMORY[0x1E69DC628];
+    v6 = CKFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"FACETIME_AUDIO" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = +[CKUIBehavior sharedBehaviors];
+    navBarAudioImage = [v8 navBarAudioImage];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __56__CKNavBarUnifiedCallButton_faceTimeJoinWithAudioAction__block_invoke;
+    v14[3] = &unk_1E72EBCD8;
+    objc_copyWeak(&v15, &location);
+    v10 = [v5 actionWithTitle:v7 image:navBarAudioImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierFaceTimeJoinWithAudio" handler:v14];
+    v11 = self->_faceTimeJoinWithAudioAction;
+    self->_faceTimeJoinWithAudioAction = v10;
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     faceTimeJoinWithAudioAction = self->_faceTimeJoinWithAudioAction;
   }
 
-  v11 = faceTimeJoinWithAudioAction;
+  v12 = faceTimeJoinWithAudioAction;
   objc_destroyWeak(&location);
 
-  return v11;
+  return v12;
 }
 
 void __56__CKNavBarUnifiedCallButton_faceTimeJoinWithAudioAction__block_invoke(uint64_t a1)
@@ -1034,30 +1035,30 @@ void __56__CKNavBarUnifiedCallButton_faceTimeJoinWithAudioAction__block_invoke(u
 
 - (UIAction)faceTimeShareMyScreenAction
 {
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   faceTimeShareMyScreenAction = self->_faceTimeShareMyScreenAction;
   if (!faceTimeShareMyScreenAction)
   {
-    v4 = MEMORY[0x1E69DC628];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"INVITE_TO_SHARE_MY_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __56__CKNavBarUnifiedCallButton_faceTimeShareMyScreenAction__block_invoke;
-    v11[3] = &unk_1E72EBCD8;
-    objc_copyWeak(&v12, &location);
-    v7 = [v4 actionWithTitle:v6 image:0 identifier:0 handler:v11];
-    v8 = self->_faceTimeShareMyScreenAction;
-    self->_faceTimeShareMyScreenAction = v7;
+    v5 = MEMORY[0x1E69DC628];
+    v6 = CKFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"INVITE_TO_SHARE_MY_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __56__CKNavBarUnifiedCallButton_faceTimeShareMyScreenAction__block_invoke;
+    v12[3] = &unk_1E72EBCD8;
+    objc_copyWeak(&v13, &location);
+    v8 = [v5 actionWithTitle:v7 image:0 identifier:0 handler:v12];
+    v9 = self->_faceTimeShareMyScreenAction;
+    self->_faceTimeShareMyScreenAction = v8;
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
     faceTimeShareMyScreenAction = self->_faceTimeShareMyScreenAction;
   }
 
-  v9 = faceTimeShareMyScreenAction;
+  v10 = faceTimeShareMyScreenAction;
   objc_destroyWeak(&location);
 
-  return v9;
+  return v10;
 }
 
 void __56__CKNavBarUnifiedCallButton_faceTimeShareMyScreenAction__block_invoke(uint64_t a1)
@@ -1075,30 +1076,30 @@ void __56__CKNavBarUnifiedCallButton_faceTimeShareMyScreenAction__block_invoke(u
 
 - (UIAction)faceTimeInviteToShareTheirScreenAction
 {
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   faceTimeInviteToShareTheirScreenAction = self->_faceTimeInviteToShareTheirScreenAction;
   if (!faceTimeInviteToShareTheirScreenAction)
   {
-    v4 = MEMORY[0x1E69DC628];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"ASK_TO_SHARE_THEIR_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __67__CKNavBarUnifiedCallButton_faceTimeInviteToShareTheirScreenAction__block_invoke;
-    v11[3] = &unk_1E72EBCD8;
-    objc_copyWeak(&v12, &location);
-    v7 = [v4 actionWithTitle:v6 image:0 identifier:0 handler:v11];
-    v8 = self->_faceTimeInviteToShareTheirScreenAction;
-    self->_faceTimeInviteToShareTheirScreenAction = v7;
+    v5 = MEMORY[0x1E69DC628];
+    v6 = CKFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"ASK_TO_SHARE_THEIR_SCREEN" value:&stru_1F04268F8 table:@"ChatKit"];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __67__CKNavBarUnifiedCallButton_faceTimeInviteToShareTheirScreenAction__block_invoke;
+    v12[3] = &unk_1E72EBCD8;
+    objc_copyWeak(&v13, &location);
+    v8 = [v5 actionWithTitle:v7 image:0 identifier:0 handler:v12];
+    v9 = self->_faceTimeInviteToShareTheirScreenAction;
+    self->_faceTimeInviteToShareTheirScreenAction = v8;
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
     faceTimeInviteToShareTheirScreenAction = self->_faceTimeInviteToShareTheirScreenAction;
   }
 
-  v9 = faceTimeInviteToShareTheirScreenAction;
+  v10 = faceTimeInviteToShareTheirScreenAction;
   objc_destroyWeak(&location);
 
-  return v9;
+  return v10;
 }
 
 void __67__CKNavBarUnifiedCallButton_faceTimeInviteToShareTheirScreenAction__block_invoke(uint64_t a1)
@@ -1116,32 +1117,32 @@ void __67__CKNavBarUnifiedCallButton_faceTimeInviteToShareTheirScreenAction__blo
 
 - (UIAction)telephonyCallAction
 {
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   telephonyCallAction = self->_telephonyCallAction;
   if (!telephonyCallAction)
   {
-    v4 = MEMORY[0x1E69DC628];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"CALL" value:&stru_1F04268F8 table:@"ChatKit"];
-    v7 = +[CKUIBehavior sharedBehaviors];
-    navBarAudioImage = [v7 navBarAudioImage];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __48__CKNavBarUnifiedCallButton_telephonyCallAction__block_invoke;
-    v13[3] = &unk_1E72EBCD8;
-    objc_copyWeak(&v14, &location);
-    v9 = [v4 actionWithTitle:v6 image:navBarAudioImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierTelephonyCall" handler:v13];
-    v10 = self->_telephonyCallAction;
-    self->_telephonyCallAction = v9;
+    v5 = MEMORY[0x1E69DC628];
+    v6 = CKFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"CALL" value:&stru_1F04268F8 table:@"ChatKit"];
+    v8 = +[CKUIBehavior sharedBehaviors];
+    navBarAudioImage = [v8 navBarAudioImage];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __48__CKNavBarUnifiedCallButton_telephonyCallAction__block_invoke;
+    v14[3] = &unk_1E72EBCD8;
+    objc_copyWeak(&v15, &location);
+    v10 = [v5 actionWithTitle:v7 image:navBarAudioImage identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierTelephonyCall" handler:v14];
+    v11 = self->_telephonyCallAction;
+    self->_telephonyCallAction = v10;
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v15);
     telephonyCallAction = self->_telephonyCallAction;
   }
 
-  v11 = telephonyCallAction;
+  v12 = telephonyCallAction;
   objc_destroyWeak(&location);
 
-  return v11;
+  return v12;
 }
 
 void __48__CKNavBarUnifiedCallButton_telephonyCallAction__block_invoke(uint64_t a1)
@@ -1159,30 +1160,30 @@ void __48__CKNavBarUnifiedCallButton_telephonyCallAction__block_invoke(uint64_t 
 
 - (UIAction)openJoinedCallAction
 {
-  objc_initWeak(&location, self);
+  inited = objc_initWeak(&location, self);
   openJoinedCallAction = self->_openJoinedCallAction;
   if (!openJoinedCallAction)
   {
-    v4 = MEMORY[0x1E69DC628];
-    v5 = CKFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"JOIN" value:&stru_1F04268F8 table:@"ChatKit"];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __49__CKNavBarUnifiedCallButton_openJoinedCallAction__block_invoke;
-    v11[3] = &unk_1E72EBCD8;
-    objc_copyWeak(&v12, &location);
-    v7 = [v4 actionWithTitle:v6 image:0 identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierOpenJoinedCall" handler:v11];
-    v8 = self->_openJoinedCallAction;
-    self->_openJoinedCallAction = v7;
+    v5 = MEMORY[0x1E69DC628];
+    v6 = CKFrameworkBundle(inited);
+    v7 = [v6 localizedStringForKey:@"JOIN" value:&stru_1F04268F8 table:@"ChatKit"];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __49__CKNavBarUnifiedCallButton_openJoinedCallAction__block_invoke;
+    v12[3] = &unk_1E72EBCD8;
+    objc_copyWeak(&v13, &location);
+    v8 = [v5 actionWithTitle:v7 image:0 identifier:@"CKNavBarUnifiedButtonViewUIActionIdentifierOpenJoinedCall" handler:v12];
+    v9 = self->_openJoinedCallAction;
+    self->_openJoinedCallAction = v8;
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v13);
     openJoinedCallAction = self->_openJoinedCallAction;
   }
 
-  v9 = openJoinedCallAction;
+  v10 = openJoinedCallAction;
   objc_destroyWeak(&location);
 
-  return v9;
+  return v10;
 }
 
 void __49__CKNavBarUnifiedCallButton_openJoinedCallAction__block_invoke(uint64_t a1)
@@ -1213,7 +1214,7 @@ void __49__CKNavBarUnifiedCallButton_openJoinedCallAction__block_invoke(uint64_t
 
     v6 = v5;
     v7 = MEMORY[0x1E69DC628];
-    v8 = CKFrameworkBundle();
+    v8 = CKFrameworkBundle(v6);
     v9 = [v8 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
     v10 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"xmark"];
     v14 = MEMORY[0x1E69E9820];

@@ -95,47 +95,50 @@
     v4 = 8;
   }
 
-  accountID = self->_accountID;
-  NSAppendPrintF();
-  v5 = 0;
+  v22 = 0;
+  NSAppendPrintF(&v22, "RPRemoteDisplayPerson ID %{mask}", self->_accountID);
+  v5 = v22;
   v6 = v5;
   accountAltDSID = self->_accountAltDSID;
   if (accountAltDSID)
   {
-    v17 = v5;
-    accountID = accountAltDSID;
-    NSAppendPrintF();
-    v8 = v17;
+    v21 = v5;
+    v8 = accountAltDSID;
+    NSAppendPrintF(&v21, ", AltDSID %{mask}", v8);
+    v9 = v21;
 
-    v6 = v8;
+    v6 = v9;
   }
 
   contactID = self->_contactID;
   if (contactID)
   {
-    accountID = v4;
-    v16 = contactID;
-    NSAppendPrintF();
-    v10 = v6;
-
-    v6 = v10;
-  }
-
-  if ([(NSMutableArray *)self->_discoveredDevices count:accountID])
-  {
-    NSAppendPrintF();
-    v11 = v6;
-
-    v6 = v11;
-  }
-
-  if (self->_flags)
-  {
-    flags = self->_flags;
-    NSAppendPrintF();
-    v12 = v6;
+    v20 = v6;
+    v11 = contactID;
+    NSAppendPrintF(&v20, ", CN %.*@", v4, v11);
+    v12 = v20;
 
     v6 = v12;
+  }
+
+  v13 = [(NSMutableArray *)self->_discoveredDevices count];
+  if (v13)
+  {
+    v19 = v6;
+    NSAppendPrintF(&v19, ", devices %d", v13);
+    v14 = v19;
+
+    v6 = v14;
+  }
+
+  flags = self->_flags;
+  if (flags)
+  {
+    v18 = v6;
+    NSAppendPrintF(&v18, ", Fl %#{flags}", flags, &unk_1B6F2F0D0);
+    v16 = v18;
+
+    v6 = v16;
   }
 
   return v6;
@@ -194,30 +197,30 @@ LABEL_8:
 
 - (void)addDevice:(id)device
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = selfCopy->_discoveredDevices;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        if ([*(*(&v14 + 1) + 8 * v9) isEqualToDevice:{deviceCopy, v14}])
+        if ([*(*(&v13 + 1) + 8 * v9) isEqualToDevice:{deviceCopy, v13}])
         {
 
           goto LABEL_13;
@@ -227,7 +230,7 @@ LABEL_8:
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -247,39 +250,37 @@ LABEL_8:
     discoveredDevices = selfCopy->_discoveredDevices;
   }
 
-  [(NSMutableArray *)discoveredDevices addObject:deviceCopy, v14];
+  [(NSMutableArray *)discoveredDevices addObject:deviceCopy, v13];
 LABEL_13:
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeDevice:(id)device
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = selfCopy->_discoveredDevices;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        if ([v10 isEqualToDevice:{deviceCopy, v13}])
+        v10 = *(*(&v12 + 1) + 8 * i);
+        if ([v10 isEqualToDevice:{deviceCopy, v12}])
         {
           v11 = v10;
 
@@ -292,7 +293,7 @@ LABEL_13:
         }
       }
 
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -305,8 +306,6 @@ LABEL_13:
   v11 = 0;
 LABEL_12:
   objc_sync_exit(selfCopy);
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -11,12 +11,12 @@
 
 - (NSURL)presentedItemURL
 {
-  v3 = sub_1005B981C(&unk_1019F33C0);
+  v3 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v3 - 8);
   v5 = &v14 - v4;
   v6 = OBJC_IVAR____TtC8Freeform13CRLSEImporter_presentedItemURL;
   swift_beginAccess();
-  sub_10000BE14(self + v6, v5, &unk_1019F33C0);
+  sub_10000BE14(self + v6, v5, &unk_1019F33C0, &unk_101468A60);
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -40,7 +40,7 @@
 
 - (void)setPresentedItemURL:(id)l
 {
-  v5 = sub_1005B981C(&unk_1019F33C0);
+  v5 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (l)
@@ -59,7 +59,7 @@
   v10 = OBJC_IVAR____TtC8Freeform13CRLSEImporter_presentedItemURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_10002C638(v7, self + v10, &unk_1019F33C0);
+  sub_10002C638(v7, self + v10, &unk_1019F33C0, &unk_101468A60);
   swift_endAccess();
 }
 

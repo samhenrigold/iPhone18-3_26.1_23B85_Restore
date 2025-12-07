@@ -116,12 +116,12 @@
   v3.super_class = PKIconTextLabel;
   [(PKIconTextLabel *)&v3 layoutSubviews];
   [(PKIconTextLabel *)self bounds];
-  [(PKIconTextLabel *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKIconTextLabel *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -266,19 +266,28 @@ uint64_t __54__PKIconTextLabel__layoutWithBounds_isTemplateLayout___block_invoke
   {
     v2 = result;
     v3 = *(*(result + 32) + 8);
-    v9.origin.x = v3[1].origin.x;
-    v9.origin.y = v3[1].origin.y;
+    v20.origin.x = v3[1].origin.x;
+    v20.origin.y = v3[1].origin.y;
     ++v3;
-    v9.size.width = v3->size.width;
-    v9.size.height = v3->size.height;
-    CGRectDivide(v9, (*(*(result + 40) + 8) + 32), v3, v1, *(result + 72));
-    PKContentAlignmentMake();
-    result = PKSizeAlignedInRect();
-    v4 = *(*(v2 + 40) + 8);
-    v4[4] = v5;
-    v4[5] = v6;
-    v4[6] = v7;
-    v4[7] = v8;
+    v20.size.width = v3->size.width;
+    v20.size.height = v3->size.height;
+    CGRectDivide(v20, (*(*(result + 40) + 8) + 32), v3, v1, *(result + 72));
+    v4 = v2[6];
+    v5 = v2[8];
+    v6 = *(v2[5] + 8);
+    v7 = PKContentAlignmentMake();
+    v8.n128_u64[0] = v6[4];
+    v9.n128_u64[0] = v6[5];
+    v10.n128_u64[0] = v6[6];
+    v11.n128_u64[0] = v6[7];
+    v12.n128_u64[0] = v4;
+    v13.n128_u64[0] = v5;
+    result = PKSizeAlignedInRect(v7, v12, v13, v8, v9, v10, v11, v14);
+    v15 = *(v2[5] + 8);
+    v15[4] = v16;
+    v15[5] = v17;
+    v15[6] = v18;
+    v15[7] = v19;
   }
 
   return result;
@@ -291,19 +300,26 @@ uint64_t __54__PKIconTextLabel__layoutWithBounds_isTemplateLayout___block_invoke
   {
     v2 = result;
     v3 = *(*(result + 32) + 8);
-    v9.origin.x = v3[1].origin.x;
-    v9.origin.y = v3[1].origin.y;
+    v18.origin.x = v3[1].origin.x;
+    v18.origin.y = v3[1].origin.y;
     ++v3;
-    v9.size.width = v3->size.width;
-    v9.size.height = v3->size.height;
-    CGRectDivide(v9, (*(*(result + 40) + 8) + 32), v3, v1, *(result + 64));
-    PKContentAlignmentMake();
-    result = PKSizeAlignedInRect();
-    v4 = *(*(v2 + 40) + 8);
-    v4[4] = v5;
-    v4[5] = v6;
-    v4[6] = v7;
-    v4[7] = v8;
+    v18.size.width = v3->size.width;
+    v18.size.height = v3->size.height;
+    CGRectDivide(v18, (*(*(result + 40) + 8) + 32), v3, v1, *(result + 64));
+    v4 = *(v2[5] + 8);
+    v5 = PKContentAlignmentMake();
+    v6.n128_u64[0] = v2[6];
+    v7.n128_u64[0] = v2[7];
+    v8.n128_u64[0] = v4[4];
+    v9.n128_u64[0] = v4[5];
+    v10.n128_u64[0] = v4[6];
+    v11.n128_u64[0] = v4[7];
+    result = PKSizeAlignedInRect(v5, v6, v7, v8, v9, v10, v11, v12);
+    v13 = *(v2[5] + 8);
+    v13[4] = v14;
+    v13[5] = v15;
+    v13[6] = v16;
+    v13[7] = v17;
   }
 
   return result;

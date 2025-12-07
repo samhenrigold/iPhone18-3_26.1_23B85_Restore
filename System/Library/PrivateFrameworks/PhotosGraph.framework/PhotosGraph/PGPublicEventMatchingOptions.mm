@@ -22,7 +22,7 @@
 
 - (id)_readTemporalClusterEvents
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   universalStartDate = [(PGGraphMomentNode *)self->_momentNode universalStartDate];
   universalEndDate = [(PGGraphMomentNode *)self->_momentNode universalEndDate];
   v5 = universalEndDate;
@@ -44,9 +44,9 @@
   else
   {
     v8 = objc_alloc_init(MEMORY[0x277D277D0]);
-    v15 = 0;
-    v9 = [v8 eventsBetweenStartDate:universalStartDate endDate:v5 error:&v15];
-    v10 = v15;
+    v14 = 0;
+    v9 = [v8 eventsBetweenStartDate:universalStartDate endDate:v5 error:&v14];
+    v10 = v14;
     v11 = v10;
     if (v9)
     {
@@ -58,7 +58,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v17 = v11;
+        v16 = v11;
         _os_log_error_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[PublicEvents] Error reading temporal cluster events - %{pubilc}@", buf, 0xCu);
       }
 
@@ -68,36 +68,34 @@
     array = array2;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (void)_createAttendanceDateIntervals
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   startDate = [(CLSTimeLocationTuple *)self->_timeLocationTuple startDate];
   endDate = [(CLSTimeLocationTuple *)self->_timeLocationTuple endDate];
   v5 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:startDate endDate:endDate];
-  v29 = [objc_alloc(MEMORY[0x277CE41F8]) initWithLatitude:self->_coordinates.latitude longitude:self->_coordinates.longitude];
-  v30 = v5;
+  v28 = [objc_alloc(MEMORY[0x277CE41F8]) initWithLatitude:self->_coordinates.latitude longitude:self->_coordinates.longitude];
+  v29 = v5;
   v6 = [CLSServiceManager fetchLocationOfInterestVisitsAtLocation:"fetchLocationOfInterestVisitsAtLocation:inDateInterval:" inDateInterval:?];
-  v28 = [v6 count];
+  v27 = [v6 count];
   v7 = startDate;
   v8 = endDate;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
-  v31 = v8;
-  v32 = v7;
+  v10 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v30 = v8;
+  v31 = v7;
   v11 = v7;
   if (v10)
   {
     v12 = v10;
-    v13 = *v34;
+    v13 = *v33;
     v11 = v7;
     do
     {
@@ -106,12 +104,12 @@
       v16 = v11;
       do
       {
-        if (*v34 != v13)
+        if (*v33 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        visitInterval = [*(*(&v33 + 1) + 8 * v14) visitInterval];
+        visitInterval = [*(*(&v32 + 1) + 8 * v14) visitInterval];
         startDate2 = [visitInterval startDate];
         v11 = [v16 earlierDate:startDate2];
 
@@ -124,14 +122,14 @@
       }
 
       while (v12 != v14);
-      v12 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v12 = [v9 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v12);
   }
 
   v20 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v11 endDate:v8];
-  if (!v28)
+  if (!v27)
   {
     expandedStartDate = [(CLSTimeLocationTuple *)self->_timeLocationTuple expandedStartDate];
 
@@ -148,8 +146,6 @@
   v25 = [objc_alloc(MEMORY[0x277CCA970]) initWithStartDate:v11 endDate:v8];
   expandedAttendanceDateInterval = self->_expandedAttendanceDateInterval;
   self->_expandedAttendanceDateInterval = v25;
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)temporalClusterEvents

@@ -10,15 +10,14 @@
 
 + (id)dbProperties
 {
-  v6[3] = *MEMORY[0x1E69E9840];
-  v5[0] = @"imageID";
-  v5[1] = @"name";
-  v6[0] = &unk_1EFA85500;
-  v6[1] = &unk_1EFA85518;
-  v5[2] = @"uuid";
-  v6[2] = &unk_1EFA85530;
-  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v6, v5, 3);
-  v3 = *MEMORY[0x1E69E9840];
+  v5[3] = *MEMORY[0x1E69E9840];
+  v4[0] = @"imageID";
+  v4[1] = @"name";
+  v5[0] = &unk_1EFA85500;
+  v5[1] = &unk_1EFA85518;
+  v4[2] = @"uuid";
+  v5[2] = &unk_1EFA85530;
+  v2 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v5, v4, 3);
 
   return v2;
 }

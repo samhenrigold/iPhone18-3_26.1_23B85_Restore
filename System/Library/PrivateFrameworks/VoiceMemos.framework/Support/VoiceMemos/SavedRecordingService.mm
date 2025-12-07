@@ -2792,7 +2792,7 @@ LABEL_9:
       v12 = OSLogForCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
-        sub_100037508(&self->_VoiceMemosPID);
+        sub_100037508();
       }
     }
 

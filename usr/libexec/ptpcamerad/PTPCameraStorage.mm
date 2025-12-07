@@ -1,5 +1,6 @@
 @interface PTPCameraStorage
 - (BOOL)locked;
+- (PTPCameraStorage)initWithStorageID:(unsigned int)d initiator:(id)initiator;
 - (id)cameraFileWithObjectID:(unint64_t)d;
 - (id)cameraFolderWithObjectID:(unint64_t)d;
 - (id)cameraItemWithObjectID:(unint64_t)d;
@@ -17,6 +18,26 @@
 @end
 
 @implementation PTPCameraStorage
+
+- (PTPCameraStorage)initWithStorageID:(unsigned int)d initiator:(id)initiator
+{
+  v4 = *&d;
+  v10.receiver = self;
+  v10.super_class = PTPCameraStorage;
+  v5 = [(PTPCameraFolder *)&v10 initWithObjectInfo:0 parent:0 initiator:initiator];
+  v6 = v5;
+  if (v5)
+  {
+    [(PTPCameraItem *)v5 setObjHandle:0xFFFFFFFFLL];
+    [(PTPCameraItem *)v6 setType:4];
+    [(PTPCameraItem *)v6 setStorageID:v4];
+    v7 = [[ICOrderedMediaSet alloc] initWithTypes:&off_10002F530];
+    indexedMediaSet = v6->_indexedMediaSet;
+    v6->_indexedMediaSet = v7;
+  }
+
+  return v6;
+}
 
 - (void)dealloc
 {

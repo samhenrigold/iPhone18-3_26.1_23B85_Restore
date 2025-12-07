@@ -79,7 +79,7 @@ BOOL __59__SBSALayoutModeSupportingProvider_preferencesFromContext___block_invok
 
 - (void)_transitionToLayoutModeIfNecessary:(int64_t)necessary customLayoutCustomizingOptions:(int64_t)options context:(id)context
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   WeakRetained = objc_loadWeakRetained(&self->_activeTransitionProvider);
   v11 = objc_loadWeakRetained(&self->_elementRemovalTransitionProvider);
@@ -89,80 +89,83 @@ BOOL __59__SBSALayoutModeSupportingProvider_preferencesFromContext___block_invok
   {
     if (v11)
     {
-      v14 = SBLogSystemAperturePreferencesStackElements();
+      v14 = SBLogSystemAperturePreferencesStackElements(_firstElementLayoutModeSupportingProvider);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         queryIteration = [contextCopy queryIteration];
-        v29 = SAUIStringFromElementViewLayoutMode();
+        v30 = SAUIStringFromElementViewLayoutMode();
         *buf = 134349570;
-        v31 = queryIteration;
-        v32 = 2112;
-        v33 = v29;
-        v34 = 2112;
-        v35 = v11;
+        v32 = queryIteration;
+        v33 = 2112;
+        v34 = v30;
+        v35 = 2112;
+        v36 = v11;
         _os_log_debug_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEBUG, "[%{public}lu] Cleaning up ContainerDisappearanceTransitionProvider for change to layoutMode: %@; %@", buf, 0x20u);
       }
 
       [(SBSAElementRemovalTransitionProvider *)v11 removeFromParentProvider];
-      objc_storeWeak(&self->_elementRemovalTransitionProvider, 0);
+      _firstElementLayoutModeSupportingProvider = objc_storeWeak(&self->_elementRemovalTransitionProvider, 0);
     }
 
-    if (v13 && SBSALayoutModeAndCustomLayoutOptionBehavesLikeTargetLayoutMode(necessary, options, [v13 supportedElementLayoutMode]))
+    if (v13)
     {
-      v15 = v13;
-      preferences = [contextCopy preferences];
-      isCollisionImminent = [preferences isCollisionImminent];
-
-      if (!isCollisionImminent)
+      _firstElementLayoutModeSupportingProvider = SBSALayoutModeAndCustomLayoutOptionBehavesLikeTargetLayoutMode(necessary, options, [v13 supportedElementLayoutMode]);
+      if (_firstElementLayoutModeSupportingProvider)
       {
+        v15 = v13;
+        preferences = [contextCopy preferences];
+        isCollisionImminent = [preferences isCollisionImminent];
+
+        if (!isCollisionImminent)
+        {
 LABEL_22:
 
-        v11 = 0;
-        goto LABEL_37;
+          v11 = 0;
+          goto LABEL_37;
+        }
+
+        v19 = SBLogSystemAperturePreferencesStackElements(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+        {
+          queryIteration2 = [contextCopy queryIteration];
+          *buf = 134349570;
+          v32 = queryIteration2;
+          v33 = 2112;
+          v34 = v15;
+          v35 = 2112;
+          v36 = WeakRetained;
+          _os_log_debug_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEBUG, "[%{public}lu] Layout provider for desired layout mode exists, but collision required – removing layout provider '%@', transition provider '%@'", buf, 0x20u);
+        }
+
+        [v15 removeFromParentProvider];
+        [(SBSAElementRemovalTransitionProvider *)WeakRetained removeFromParentProvider];
+
+        _firstElementLayoutModeSupportingProvider = objc_storeWeak(&self->_activeTransitionProvider, 0);
+        WeakRetained = 0;
       }
-
-      v18 = SBLogSystemAperturePreferencesStackElements();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
-      {
-        queryIteration2 = [contextCopy queryIteration];
-        *buf = 134349570;
-        v31 = queryIteration2;
-        v32 = 2112;
-        v33 = v15;
-        v34 = 2112;
-        v35 = WeakRetained;
-        _os_log_debug_impl(&dword_21ED4E000, v18, OS_LOG_TYPE_DEBUG, "[%{public}lu] Layout provider for desired layout mode exists, but collision required – removing layout provider '%@', transition provider '%@'", buf, 0x20u);
-      }
-
-      [v15 removeFromParentProvider];
-      [(SBSAElementRemovalTransitionProvider *)WeakRetained removeFromParentProvider];
-
-      objc_storeWeak(&self->_activeTransitionProvider, 0);
-      WeakRetained = 0;
     }
 
-    v19 = SBLogSystemAperturePreferencesStackElements();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v20 = SBLogSystemAperturePreferencesStackElements(_firstElementLayoutModeSupportingProvider);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      [SBSALayoutModeSupportingProvider _transitionToLayoutModeIfNecessary:contextCopy customLayoutCustomizingOptions:v19 context:?];
+      [SBSALayoutModeSupportingProvider _transitionToLayoutModeIfNecessary:contextCopy customLayoutCustomizingOptions:v20 context:?];
     }
 
     targetElementLayoutMode = [(SBSAElementRemovalTransitionProvider *)WeakRetained targetElementLayoutMode];
-    v21 = [(SBSAElementRemovalTransitionProvider *)WeakRetained isInitialized]^ 1;
+    v22 = [(SBSAElementRemovalTransitionProvider *)WeakRetained isInitialized]^ 1;
     if (targetElementLayoutMode == necessary)
     {
-      LOBYTE(v21) = 1;
+      LOBYTE(v22) = 1;
     }
 
-    if (!WeakRetained || (v21 & 1) == 0)
+    if (!WeakRetained || (v22 & 1) == 0)
     {
-      v22 = objc_alloc_init(SBSALayoutTransitionProvider);
-      objc_storeWeak(&self->_activeTransitionProvider, v22);
-      [(SBSABasePreferencesProvider *)self setChildProvider:v22];
-      v23 = SBLogSystemAperturePreferencesStackElements();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v23 = objc_alloc_init(SBSALayoutTransitionProvider);
+      objc_storeWeak(&self->_activeTransitionProvider, v23);
+      v24 = SBLogSystemAperturePreferencesStackElements([(SBSABasePreferencesProvider *)self setChildProvider:v23]);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
-        [SBSALayoutModeSupportingProvider _transitionToLayoutModeIfNecessary:contextCopy customLayoutCustomizingOptions:v22 context:v23];
+        [SBSALayoutModeSupportingProvider _transitionToLayoutModeIfNecessary:contextCopy customLayoutCustomizingOptions:v23 context:v24];
       }
 
       [(SBSAElementRemovalTransitionProvider *)WeakRetained removeFromParentProvider];
@@ -193,16 +196,16 @@ LABEL_22:
 
     if (!v11)
     {
-      v24 = [(SBSABasePreferencesProvider *)self firstChildPreferenceProviderOfClass:objc_opt_class()];
-      if (v24)
+      v25 = [(SBSABasePreferencesProvider *)self firstChildPreferenceProviderOfClass:objc_opt_class()];
+      if (v25)
       {
-        v25 = v24;
-        [v24 removeFromParentProvider];
+        v26 = v25;
+        [v25 removeFromParentProvider];
       }
 
-      v26 = [(SBSABasePreferencesProvider *)self firstChildPreferenceProviderOfClass:objc_opt_class()];
+      v27 = [(SBSABasePreferencesProvider *)self firstChildPreferenceProviderOfClass:objc_opt_class()];
 
-      if (v26)
+      if (v27)
       {
         [SBSALayoutModeSupportingProvider _transitionToLayoutModeIfNecessary:a2 customLayoutCustomizingOptions:self context:?];
       }

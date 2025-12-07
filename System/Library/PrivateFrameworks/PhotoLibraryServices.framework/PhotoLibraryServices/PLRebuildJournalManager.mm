@@ -112,7 +112,7 @@
 
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = [v69 count];
+      v26 = objc_msgSend_count(v69);
       *buf = 134217984;
       v93 = v26;
       _os_log_impl(&dword_19BF1F000, v25, OS_LOG_TYPE_DEFAULT, "Will import %lu assets from asset journal", buf, 0xCu);
@@ -124,7 +124,7 @@
     v64 = v8;
     v65 = lsCopy;
     v63 = v9;
-    if ([v22 count])
+    if (objc_msgSend_count(v22))
     {
       v27 = MEMORY[0x1E695D5E0];
       v28 = +[PLAssetJournalEntryPayload payloadClassID];
@@ -185,7 +185,7 @@
       v17 = v70;
     }
 
-    if (![v22 count])
+    if (!objc_msgSend_count(v22))
     {
       v18 = v67;
       v21 = v66;
@@ -243,7 +243,7 @@ LABEL_43:
       v17 = v70;
       if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
-        v54 = [v41 count];
+        v54 = objc_msgSend_count(v41);
         *buf = 134217984;
         v93 = v54;
         v55 = "Deleted %lu non-local assets from asset journal";
@@ -263,7 +263,7 @@ LABEL_40:
       v17 = v70;
       if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
-        v60 = [v41 count];
+        v60 = objc_msgSend_count(v41);
         *buf = 134218242;
         v93 = v60;
         v94 = 2112;
@@ -305,7 +305,7 @@ void __95__PLRebuildJournalManager__assetsToImportFromAssetJournalInManagedObjec
   v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 originalResourceRelativePathsWithPathManager:*(a1 + 32)];
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
     v30 = 0u;
@@ -1147,7 +1147,7 @@ void __77__PLRebuildJournalManager__recreateNonAssetsInManagedObjectContext_prog
   v17 = *(a1 + 40);
   [v6 enumerateObjectsWithOptions:2 usingBlock:&v11];
   v8 = [v20[5] childCollectionUUIDs];
-  v9 = [v8 count];
+  v9 = objc_msgSend_count(v8);
 
   if (v9)
   {
@@ -1278,7 +1278,7 @@ void __77__PLRebuildJournalManager__recreateNonAssetsInManagedObjectContext_prog
       if (![v5 isProjectAlbumRootFolder])
       {
         v8 = [v5 cloudGUID];
-        if ([v8 isEqualToString:@"----Project-Root-Folder----"])
+        if (objc_msgSend_isEqualToString_(v8))
         {
           v9 = [v5 isProjectAlbumRootFolder];
 
@@ -1772,14 +1772,14 @@ void __77__PLRebuildJournalManager__recreateNonAssetsInManagedObjectContext_prog
     v9 = [v7 payloadID];
     v10 = [v9 payloadIDString];
     v11 = [*(a1 + 40) uuid];
-    v12 = [v10 isEqualToString:v11];
+    isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-    if ((v12 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       if (!*(*(*(a1 + 56) + 8) + 40))
       {
         v13 = [v7 childCollectionUUIDs];
-        v14 = [v13 count];
+        v14 = objc_msgSend_count(v13);
 
         if (v14)
         {
@@ -2132,9 +2132,9 @@ void __82__PLRebuildJournalManager__recreateAssetsInManagedObjectContext_options
       v9 = [v8 uuid];
       v10 = [v5 payloadID];
       v11 = [v10 payloadIDString];
-      v12 = [v9 isEqualToString:v11];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-      if (v12)
+      if (isEqualToString)
       {
 LABEL_12:
 
@@ -2228,7 +2228,7 @@ void __82__PLRebuildJournalManager__recreateAssetsInManagedObjectContext_options
     }
   }
 
-  else if ([*(*(*(a1 + 64) + 8) + 40) count])
+  else if (objc_msgSend_count(*(*(*(a1 + 64) + 8) + 40)))
   {
     v8 = PLMigrationGetLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -2274,7 +2274,7 @@ void __82__PLRebuildJournalManager__recreateAssetsInManagedObjectContext_options
     {
       v10 = [v5 resources];
       v11 = v10;
-      if (*(a1 + 160) == 1 && ![v10 count])
+      if (*(a1 + 160) == 1 && !objc_msgSend_count(v10))
       {
         v40 = [PLJournalEntry alloc];
         v41 = [v5 payloadID];
@@ -2731,7 +2731,7 @@ uint64_t __76__PLRebuildJournalManager_recreateAllObjectsInManagedObjectContext_
 
   if (v29[3])
   {
-    if ([v5 count])
+    if (objc_msgSend_count(v5))
     {
       v7 = 10.0;
       if (MEMORY[0x19EAEE230]())
@@ -3057,25 +3057,25 @@ uint64_t __111__PLRebuildJournalManager_coalesceJournalsForPayloadClassIDs_withC
   return error;
 }
 
-void __68__PLRebuildJournalManager__performSnapshotForPayloadClassIDs_error___block_invoke(uint64_t a1)
+void __68__PLRebuildJournalManager__performSnapshotForPayloadClassIDs_error___block_invoke(uint64_t a1, const char *a2)
 {
-  v2 = [*(a1 + 32) count];
-  v3 = *(a1 + 40);
-  v4 = v3[2];
-  if (v2)
+  v4 = objc_msgSend_count(*(a1 + 32), a2);
+  v5 = *(a1 + 40);
+  v6 = v5[2];
+  if (v4)
   {
-    v5 = *(a1 + 32);
-    v7 = [v3 _newTransientContext];
-    v6 = [v4 performPartialSnapshotForPayloadClassIDs:v5 append:1 createOnlyIfNecessary:0 withManagedObjectContext:? error:?];
+    v7 = *(a1 + 32);
+    v9 = [v5 _newTransientContext];
+    v8 = [v6 performPartialSnapshotForPayloadClassIDs:v7 append:1 createOnlyIfNecessary:0 withManagedObjectContext:? error:?];
   }
 
   else
   {
-    v7 = [v3 _newTransientContext];
-    v6 = [v4 performFullSnapshotAppend:1 createOnlyIfNecessary:0 withManagedObjectContext:? error:?];
+    v9 = [v5 _newTransientContext];
+    v8 = [v6 performFullSnapshotAppend:1 createOnlyIfNecessary:0 withManagedObjectContext:? error:?];
   }
 
-  *(*(*(a1 + 48) + 8) + 24) = v6;
+  *(*(*(a1 + 48) + 8) + 24) = v8;
 }
 
 - (BOOL)_performSnapshotIfNecessaryWithError:(id *)error
@@ -3156,7 +3156,7 @@ void __64__PLRebuildJournalManager__performSnapshotIfNecessaryWithError___block_
 
 - (void)_snapshotJournalsIgnoreHistoreIfNecessaryForPayloadClassIDs:(id)ds
 {
-  if (![ds count])
+  if (!objc_msgSend_count(ds, a2))
   {
     journalManager = self->_journalManager;
 

@@ -76,22 +76,22 @@ id __39__DeviceRecoveryEnvironmentWorker_init__block_invoke(uint64_t a1)
 
 - (void)populateDREReason
 {
-  v3 = DRGetLogHandle();
+  v3 = DRGetLogHandle(self);
   if (OUTLINED_FUNCTION_5_0(v3))
   {
     OUTLINED_FUNCTION_0_0();
     OUTLINED_FUNCTION_7();
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_1_0();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x3Au);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0x3Au);
   }
 
-  v4 = DRGetLogHandle();
-  if (OUTLINED_FUNCTION_5_0(v4))
+  v5 = DRGetLogHandle(v4);
+  if (OUTLINED_FUNCTION_5_0(v5))
   {
     OUTLINED_FUNCTION_4_0();
     OUTLINED_FUNCTION_1_0();
-    _os_log_error_impl(v10, v11, v12, v13, v14, 0x20u);
+    _os_log_error_impl(v11, v12, v13, v14, v15, 0x20u);
   }
 
   *self = v1;
@@ -147,18 +147,19 @@ void __62__DeviceRecoveryEnvironmentWorker_setupPopulateDREDescription__block_in
 {
   descriptionCopy = description;
   v5 = DRECopyIORegAsString("IODeviceTree:/options", @"device-recovery-boot-reason");
+  v6 = v5;
   if (!v5)
   {
-    v9 = [(DeviceRecoveryEnvironmentWorker *)self getObjectFromInternalCookie:@"entryDescription"];
+    v10 = [(DeviceRecoveryEnvironmentWorker *)self getObjectFromInternalCookie:@"entryDescription"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v5 = v9;
+      v6 = v10;
     }
 
     else
     {
-      v5 = 0;
+      v6 = 0;
     }
 
     if (descriptionCopy)
@@ -167,7 +168,7 @@ void __62__DeviceRecoveryEnvironmentWorker_setupPopulateDREDescription__block_in
     }
 
 LABEL_13:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_14;
   }
 
@@ -177,64 +178,64 @@ LABEL_13:
   }
 
 LABEL_3:
-  v6 = [descriptionCopy objectForKey:@"PanicReason"];
-  v7 = v6;
-  if (v6)
+  v7 = [descriptionCopy objectForKey:@"PanicReason"];
+  v8 = v7;
+  if (v7)
   {
-    v8 = v6;
+    v9 = v7;
   }
 
   else
   {
-    v10 = DRGetLogHandle();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = DRGetLogHandle(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [DeviceRecoveryEnvironmentWorker populateDREDescription:];
     }
   }
 
 LABEL_14:
-  if (v5 | v7)
+  if (v6 | v8)
   {
-    if (v5 && v7)
+    if (v6 && v8)
     {
-      v11 = [v5 stringByAppendingFormat:@" | PanicMedic: %@", v7];
+      v12 = [v6 stringByAppendingFormat:@" | PanicMedic: %@", v8];
     }
 
     else
     {
-      if (v5)
+      if (v6)
       {
-        v12 = v5;
+        v13 = v6;
       }
 
       else
       {
-        v12 = v7;
+        v13 = v8;
       }
 
-      v11 = v12;
+      v12 = v13;
     }
 
-    v13 = v11;
+    v14 = v12;
   }
 
   else
   {
-    [DeviceRecoveryEnvironmentWorker populateDREDescription:];
-    v13 = 0;
+    [DeviceRecoveryEnvironmentWorker populateDREDescription:v5];
+    v14 = 0;
   }
 
-  objc_storeStrong(&self->_entryDescription, v13);
-  v14 = DRGetLogHandle();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  objc_storeStrong(&self->_entryDescription, v14);
+  v16 = DRGetLogHandle(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     entryDescription = self->_entryDescription;
     *buf = 136446466;
-    v17 = "[DeviceRecoveryEnvironmentWorker populateDREDescription:]";
-    v18 = 2114;
-    v19 = entryDescription;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: Entry description: %{public}@", buf, 0x16u);
+    v19 = "[DeviceRecoveryEnvironmentWorker populateDREDescription:]";
+    v20 = 2114;
+    v21 = entryDescription;
+    _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "%{public}s: Entry description: %{public}@", buf, 0x16u);
   }
 
   dispatch_activate(self->_serviceQueue);
@@ -253,7 +254,7 @@ LABEL_14:
       goto LABEL_7;
     }
 
-    v7 = DRGetLogHandle();
+    v7 = DRGetLogHandle(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [DeviceRecoveryEnvironmentWorker getObjectFromInternalCookie:];
@@ -359,22 +360,22 @@ void __57__DeviceRecoveryEnvironmentWorker_CreateCookieAndCleanup__block_invoke(
   }
 }
 
-- (void)populateDREDescription:.cold.2()
+- (void)populateDREDescription:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v0 = DRGetLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = DRGetLogHandle(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_7();
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_3_0();
-    _os_log_error_impl(v2, v3, v4, v5, v6, 0x3Au);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x3Au);
   }
 
-  v1 = DRGetLogHandle();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v3 = DRGetLogHandle(v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_3_0();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0xCu);
+    _os_log_error_impl(v9, v10, v11, v12, v13, 0xCu);
   }
 }
 

@@ -17,13 +17,13 @@
   if (MediaType == 1936684398)
   {
 
-    [(HMIVideoProcessingNode *)self handleAudioSampleBuffer:buffer];
+    [(HMIVideoProcessingNode *)self handleAudioSampleBuffer:?];
   }
 
   else if (MediaType == 1986618469)
   {
 
-    [(HMIVideoProcessingNode *)self handleVideoSampleBuffer:buffer];
+    [(HMIVideoProcessingNode *)self handleVideoSampleBuffer:?];
   }
 
   else
@@ -49,80 +49,74 @@
 - (void)handleVideoSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE658];
-  v5 = MEMORY[0x277CCACA8];
-  v6 = NSStringFromSelector(a2);
-  v7 = [v5 stringWithFormat:@"You must override %@ in a subclass", v6];
-  v8 = [v3 exceptionWithName:v4 reason:v7 userInfo:0];
-  v9 = v8;
+  v4 = MEMORY[0x277CCACA8];
+  v5 = NSStringFromSelector(a2);
+  v6 = [v4 stringWithFormat:v5];
+  v7 = [v3 exceptionWithName:? reason:? userInfo:?];
+  v8 = v7;
 
-  objc_exception_throw(v8);
+  objc_exception_throw(v7);
 }
 
 - (void)handleAudioSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
   v3 = MEMORY[0x277CBEAD8];
-  v4 = *MEMORY[0x277CBE658];
-  v5 = MEMORY[0x277CCACA8];
-  v6 = NSStringFromSelector(a2);
-  v7 = [v5 stringWithFormat:@"You must override %@ in a subclass", v6];
-  v8 = [v3 exceptionWithName:v4 reason:v7 userInfo:0];
-  v9 = v8;
+  v4 = MEMORY[0x277CCACA8];
+  v5 = NSStringFromSelector(a2);
+  v6 = [v4 stringWithFormat:v5];
+  v7 = [v3 exceptionWithName:? reason:? userInfo:?];
+  v8 = v7;
 
-  objc_exception_throw(v8);
+  objc_exception_throw(v7);
 }
 
 - (void)finish
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (void)finishWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
   v5 = MEMORY[0x277CBEAD8];
-  v6 = *MEMORY[0x277CBE658];
-  v7 = MEMORY[0x277CCACA8];
-  v8 = NSStringFromSelector(a2);
-  v9 = [v7 stringWithFormat:@"You must override %@ in a subclass", v8];
-  v10 = [v5 exceptionWithName:v6 reason:v9 userInfo:0];
-  v11 = v10;
+  v6 = MEMORY[0x277CCACA8];
+  v7 = NSStringFromSelector(a2);
+  v8 = [v6 stringWithFormat:v7];
+  v9 = [v5 exceptionWithName:? reason:? userInfo:?];
+  v10 = v9;
 
-  objc_exception_throw(v10);
+  objc_exception_throw(v9);
 }
 
 - (void)flush
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 - (void)flushAsync
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 @end

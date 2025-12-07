@@ -74,28 +74,28 @@
 
 - (void)_applyUpdate:(id)update keys:(id)keys
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   keysCopy = keys;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v8 = [keysCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [keysCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(keysCopy);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
+        v12 = *(*(&v14 + 1) + 8 * i);
         v13 = [updateCopy valueForKey:v12];
         if (v13)
         {
@@ -103,13 +103,11 @@
         }
       }
 
-      v9 = [keysCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [keysCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applyUpdate:(id)update
@@ -121,30 +119,30 @@
 
 - (void)makeUpdateFromData:(id)data
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (dataCopy)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = +[STStatusBarData entryKeys];
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
+          v10 = *(*(&v15 + 1) + 8 * i);
           v11 = [dataCopy valueForKey:v10];
           v12 = [(STMutableStatusBarData *)self valueForKey:v10];
           v13 = v12;
@@ -164,14 +162,12 @@
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTimeEntry:(id)entry

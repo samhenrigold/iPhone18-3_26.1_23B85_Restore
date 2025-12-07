@@ -159,7 +159,6 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -198,7 +197,6 @@
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "key=%@ result=%@", v9, 0x16u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -347,7 +345,6 @@
   }
 
   MEMORY[0x1E69E5920](v6);
-  *MEMORY[0x1E69E9840];
   return v7 & 1;
 }
 
@@ -438,7 +435,6 @@ void __34__TMDisplayModule_setupNextUpdate__block_invoke(uint64_t a1)
   }
 
   MEMORY[0x1E69E5920](v5);
-  *MEMORY[0x1E69E9840];
   return v6 & 1;
 }
 
@@ -556,20 +552,18 @@ void __34__TMDisplayModule_setupNextUpdate__block_invoke(uint64_t a1)
   }
 
   [(TMDisplayModule *)self commitBrightness];
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)brightnessControlProxySendSelector:(id)selector value:(float)value
 {
-  v8 = MEMORY[0x1E69E5918];
-  v15 = *MEMORY[0x1E69E9840];
-  v9 = NSSelectorFromString(selector);
-  brightnessControlProxy = self->_brightnessControlProxy;
+  v7 = MEMORY[0x1E69E5918];
+  v14 = *MEMORY[0x1E69E9840];
+  v8 = NSSelectorFromString(selector);
   if (objc_opt_respondsToSelector())
   {
-    v8(self->_brightnessControlProxy, v9, value);
-    v10 = 1;
+    v7(self->_brightnessControlProxy, v8, value);
+    return 1;
   }
 
   else
@@ -596,15 +590,12 @@ void __34__TMDisplayModule_setupNextUpdate__block_invoke(uint64_t a1)
 
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_64(v14, selector);
-      _os_log_error_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_ERROR, "Brightness control does not respond to %@", v14, 0xCu);
+      __os_log_helper_16_2_1_8_64(v13, selector);
+      _os_log_error_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_ERROR, "Brightness control does not respond to %@", v13, 0xCu);
     }
 
-    v10 = 0;
+    return 0;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v10 & 1;
 }
 
 - (BOOL)updateDisplayBrightness:(float)brightness applyPolicy:(BOOL)policy
@@ -677,7 +668,6 @@ void __34__TMDisplayModule_setupNextUpdate__block_invoke(uint64_t a1)
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -757,8 +747,6 @@ void __34__TMDisplayModule_setupNextUpdate__block_invoke(uint64_t a1)
 
     MEMORY[0x1E69E5920](v11);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

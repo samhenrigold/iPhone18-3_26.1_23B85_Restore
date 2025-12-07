@@ -264,7 +264,7 @@ uint64_t __46__VKAVCaptureFrameProvider_setDelegate_queue___block_invoke(uint64_
 void __35__VKAVCaptureFrameProvider_prepare__block_invoke(uint64_t a1, int a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = WeakRetained;
+  v8 = WeakRetained;
   if (a2)
   {
     [(VKAVCaptureFrameProvider *)WeakRetained _avCapturePreparationComplete];
@@ -272,13 +272,13 @@ void __35__VKAVCaptureFrameProvider_prepare__block_invoke(uint64_t a1, int a2)
 
   else if (+[VKAVCapture authorizationStatus]== 2)
   {
-    v4 = [v7 delegate];
-    v5 = objc_opt_respondsToSelector();
+    v5 = [v8 delegate];
+    v6 = objc_opt_respondsToSelector();
 
-    if (v5)
+    if (v6)
     {
-      v6 = [v7 delegate];
-      [v6 avCaptureFrameProvider:v7 cameraAccessGranted:0];
+      v7 = [v8 delegate];
+      [v7 avCaptureFrameProvider:v8 cameraAccessGranted:0];
     }
   }
 }
@@ -296,9 +296,9 @@ void __35__VKAVCaptureFrameProvider_prepare__block_invoke(uint64_t a1, int a2)
     session = [(VKAVCapture *)*(self + 128) session];
     [session addObserver:self forKeyPath:@"running" options:1 context:VKAVCaptureFrameProviderContext];
 
-    v5 = *MEMORY[0x1E69874F0];
+    v6 = *MEMORY[0x1E69874F0];
     previewLayer = [(VKAVCapturePreviewView *)*(self + 120) previewLayer];
-    [previewLayer setVideoGravity:v5];
+    [previewLayer setVideoGravity:v6];
 
     session2 = [(VKAVCapture *)*(self + 128) session];
     previewLayer2 = [(VKAVCapturePreviewView *)*(self + 120) previewLayer];
@@ -307,25 +307,25 @@ void __35__VKAVCaptureFrameProvider_prepare__block_invoke(uint64_t a1, int a2)
     videoDataOutput = [(VKAVCapture *)*(self + 128) videoDataOutput];
     [videoDataOutput setSampleBufferDelegate:self queue:*(self + 144)];
 
-    v10 = objc_alloc(MEMORY[0x1E69870B8]);
+    v11 = objc_alloc(MEMORY[0x1E69870B8]);
     device3 = [(VKAVCapture *)*(self + 128) device];
     previewLayer3 = [(VKAVCapturePreviewView *)*(self + 120) previewLayer];
-    v13 = [v10 initWithDevice:device3 previewLayer:previewLayer3];
-    v14 = *(self + 136);
-    *(self + 136) = v13;
+    v14 = [v11 initWithDevice:device3 previewLayer:previewLayer3];
+    v15 = *(self + 136);
+    *(self + 136) = v14;
 
     [*(self + 136) videoRotationAngleForHorizonLevelPreview];
-    v16 = v15;
-    [(VKAVCapturePreviewView *)*(self + 120) setVideoRotationAngle:v15];
+    v17 = v16;
+    [(VKAVCapturePreviewView *)*(self + 120) setVideoRotationAngle:v16];
     objc_initWeak(&location, self);
-    v17 = *(self + 128);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __57__VKAVCaptureFrameProvider__avCapturePreparationComplete__block_invoke;
-    v18[3] = &unk_1E7BE4280;
-    objc_copyWeak(&v19, &location);
-    [(VKAVCapture *)v17 setVideoRotationAngle:v18 completion:v16];
-    objc_destroyWeak(&v19);
+    v18 = *(self + 128);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __57__VKAVCaptureFrameProvider__avCapturePreparationComplete__block_invoke;
+    v19[3] = &unk_1E7BE4280;
+    objc_copyWeak(&v20, &location);
+    [(VKAVCapture *)v18 setVideoRotationAngle:v19 completion:v17];
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 }
@@ -618,7 +618,7 @@ __n128 __48__VKAVCaptureFrameProvider__didChangeDimensions__block_invoke(uint64_
 {
   if (self)
   {
-    videoSettings = [(VKAVCapture *)*(self + 128) videoSettings];
+    videoSettings = [(VKAVCapture *)self[16] videoSettings];
     v3 = [videoSettings objectForKeyedSubscript:*MEMORY[0x1E6966208]];
     [v3 doubleValue];
     sx = v4;
@@ -629,17 +629,17 @@ __n128 __48__VKAVCaptureFrameProvider__didChangeDimensions__block_invoke(uint64_
 
     previewView = [self previewView];
     [previewView bounds];
-    v68 = v9;
+    v72 = v9;
     v11 = v10;
     v13 = v12;
     v15 = v14;
 
     [self regionOfInterest];
-    x = v99.origin.x;
-    y = v99.origin.y;
-    width = v99.size.width;
-    height = v99.size.height;
-    IsEmpty = CGRectIsEmpty(v99);
+    x = v103.origin.x;
+    y = v103.origin.y;
+    width = v103.size.width;
+    height = v103.size.height;
+    IsEmpty = CGRectIsEmpty(v103);
     if (IsEmpty)
     {
       *&v21 = v13;
@@ -660,12 +660,12 @@ __n128 __48__VKAVCaptureFrameProvider__didChangeDimensions__block_invoke(uint64_
       *&v22 = height;
     }
 
-    v64 = v22;
-    v66 = v21;
+    v68 = v22;
+    v70 = v21;
     if (IsEmpty)
     {
       y = v11;
-      v23 = *&v68;
+      v23 = *&v72;
     }
 
     else
@@ -676,80 +676,80 @@ __n128 __48__VKAVCaptureFrameProvider__didChangeDimensions__block_invoke(uint64_
     v24 = *&v7;
     if (VKMSizeGetArea(*&sx, *&v7) != 0.0 && VKMSizeGetArea(v13, v15) != 0.0)
     {
-      v97 = 0u;
-      v98 = 0u;
-      v96 = 0u;
+      v101 = 0u;
+      v102 = 0u;
+      v100 = 0u;
       v25 = OUTLINED_FUNCTION_5();
       VKMAffineTransformAspectFill(v26, v25, v27, v13, v15);
-      memset(&v94, 0, sizeof(v94));
-      memset(&v95, 0, sizeof(v95));
-      CGAffineTransformInvert(&v95, &v94);
-      memset(&v94, 0, sizeof(v94));
+      memset(&v98, 0, sizeof(v98));
+      memset(&v99, 0, sizeof(v99));
+      CGAffineTransformInvert(&v99, &v98);
+      memset(&v98, 0, sizeof(v98));
       v28 = OUTLINED_FUNCTION_5();
       VKMAffineTransformNormalize(v29, v28, v30);
-      t1 = v95;
-      v31 = CGAffineTransformConcat(&v94, &t1, &t2);
+      t1 = v99;
+      v31 = CGAffineTransformConcat(&v98, &t1, &t2);
       memset(&t2, 0, sizeof(t2));
-      OUTLINED_FUNCTION_3_1(v31, v32, v33, v34, v35, v36, v37, v38, v7, v64, v66, v68, sx, block, v74, v75, v76, selfCopy, v78, v79, v80, v81, *&v82.a, *&v82.b, *&v82.c, *&v82.d, *&v82.tx, *&v82.ty, *&v83.a, *&v83.b, *&v83.c, *&v83.d, *&v83.tx, *&v83.ty, v84, *(&v84 + 1), v85, *(&v85 + 1), v86, *(&v86 + 1), *&v87.a, *&v87.b, *&v87.c, *&v87.d, *&v87.tx, *&v87.ty, *&v88.a, *&v88.b, *&v88.c, *&v88.d, *&v88.tx, *&v88.ty, *&v89.a, *&v89.b, *&v89.c, *&v89.d, *&v89.tx, *&v89.ty, *&v90.a, *&v90.b, *&v90.c, *&v90.d, *&v90.tx);
-      v91 = v94;
-      CGAffineTransformConcat(&t2, &v91, &t1);
+      OUTLINED_FUNCTION_3_1(0, v39, v40, v41, v31, v32, v33, v34, v35, v36, v37, v38, v7, v68, v70, v72, sx, block, v78, v79, v80, selfCopy, v82, v83, v84, v85, *&v86.a, *&v86.b, *&v86.c, *&v86.d, *&v86.tx, *&v86.ty, *&v87.a, *&v87.b, *&v87.c, *&v87.d, *&v87.tx, *&v87.ty, v88, *(&v88 + 1), v89, *(&v89 + 1), v90, *(&v90 + 1), *&v91.a, *&v91.b, *&v91.c, *&v91.d, *&v91.tx, *&v91.ty, *&v92.a, *&v92.b, *&v92.c, *&v92.d, *&v92.tx, *&v92.ty, *&v93.a, *&v93.b, *&v93.c, *&v93.d, *&v93.tx, *&v93.ty, *&v94.a);
+      v95 = v98;
+      CGAffineTransformConcat(&t2, &v95, &t1);
       t1 = t2;
-      v100.origin.x = v23;
-      v100.origin.y = y;
-      v100.size.height = v65;
-      v100.size.width = v67;
-      v101 = CGRectApplyAffineTransform(v100, &t1);
-      VKMClampRectToRect(v101.origin.x, v101.origin.y, v101.size.width, v101.size.height, 0.0, 0.0, 1.0, 1.0);
+      v104.origin.x = v23;
+      v104.origin.y = y;
+      v104.size.height = v69;
+      v104.size.width = v71;
+      v105 = CGRectApplyAffineTransform(v104, &t1);
+      VKMClampRectToRect(v105.origin.x, v105.origin.y, v105.size.width, v105.size.height, 0.0, 0.0, 1.0, 1.0);
       OUTLINED_FUNCTION_7();
-      v40 = v39;
-      v42 = v41;
+      v43 = v42.n128_u64[0];
+      v45 = v44.n128_u64[0];
       memset(&t1, 0, sizeof(t1));
-      OUTLINED_FUNCTION_3_1(v43, v44, v45, v46, v47, v48, v49, v50, sy, *&v65, *&v67, v69, sxa, block, v74, v75, v76, selfCopy, v78, v79, v80, v81, *&v82.a, *&v82.b, *&v82.c, *&v82.d, *&v82.tx, *&v82.ty, *&v83.a, *&v83.b, *&v83.c, *&v83.d, *&v83.tx, *&v83.ty, v84, *(&v84 + 1), v85, *(&v85 + 1), v86, *(&v86 + 1), *&v87.a, *&v87.b, *&v87.c, *&v87.d, *&v87.tx, *&v87.ty, *&v88.a, *&v88.b, *&v88.c, *&v88.d, *&v88.tx, *&v88.ty, *&v89.a, *&v89.b, *&v89.c, *&v89.d, *&v89.tx, *&v89.ty, *&v90.a, *&v90.b, *&v90.c, *&v90.d, *&v90.tx);
-      v91 = t1;
-      v102.origin.x = y;
-      v102.origin.y = v24;
-      v102.size.width = v40;
-      v102.size.height = v42;
-      CGRectApplyAffineTransform(v102, &v91);
+      OUTLINED_FUNCTION_3_1(0, v54, v42, v44, v46, v47, v48, v49, v50, v51, v52, v53, sy, *&v69, *&v71, v73, sxa, block, v78, v79, v80, selfCopy, v82, v83, v84, v85, *&v86.a, *&v86.b, *&v86.c, *&v86.d, *&v86.tx, *&v86.ty, *&v87.a, *&v87.b, *&v87.c, *&v87.d, *&v87.tx, *&v87.ty, v88, *(&v88 + 1), v89, *(&v89 + 1), v90, *(&v90 + 1), *&v91.a, *&v91.b, *&v91.c, *&v91.d, *&v91.tx, *&v91.ty, *&v92.a, *&v92.b, *&v92.c, *&v92.d, *&v92.tx, *&v92.ty, *&v93.a, *&v93.b, *&v93.c, *&v93.d, *&v93.tx, *&v93.ty, *&v94.a);
+      v95 = t1;
+      v106.origin.x = y;
+      v106.origin.y = v24;
+      *&v106.size.width = v43;
+      *&v106.size.height = v45;
+      CGRectApplyAffineTransform(v106, &v95);
       OUTLINED_FUNCTION_7();
-      v52 = v51;
-      v54 = v53;
-      VKMAffineTransformScaleBySize(&v91, sxb, sya);
-      v103.origin.x = OUTLINED_FUNCTION_5();
-      v103.size.width = v52;
-      v103.size.height = v54;
-      CGRectApplyAffineTransform(v103, v55);
+      v56 = v55;
+      v58 = v57;
+      VKMAffineTransformScaleBySize(&v95, sxb, sya);
+      v107.origin.x = OUTLINED_FUNCTION_5();
+      v107.size.width = v56;
+      v107.size.height = v58;
+      CGRectApplyAffineTransform(v107, v59);
       OUTLINED_FUNCTION_7();
-      memset(&v91, 0, sizeof(v91));
-      VKMAffineTransformScaleBySize(&v90, v56, v57);
-      v89 = t1;
-      CGAffineTransformConcat(&v91, &v89, &v90);
-      memset(&v90, 0, sizeof(v90));
-      v58 = OUTLINED_FUNCTION_5();
-      CGAffineTransformMakeTranslation(v59, v58, v60);
-      v88 = v91;
-      CGAffineTransformConcat(&v90, &v88, &v89);
-      memset(&v89, 0, sizeof(v89));
-      v87 = v95;
-      CGAffineTransformInvert(&v88, &v87);
-      v87 = v90;
-      CGAffineTransformConcat(&v89, &v87, &v88);
-      v61 = *(self + 144);
+      memset(&v95, 0, sizeof(v95));
+      VKMAffineTransformScaleBySize(&v94, v60, v61);
+      v93 = t1;
+      CGAffineTransformConcat(&v95, &v93, &v94);
+      memset(&v94, 0, sizeof(v94));
+      v62 = OUTLINED_FUNCTION_5();
+      CGAffineTransformMakeTranslation(v63, v62, v64);
+      v92 = v95;
+      CGAffineTransformConcat(&v94, &v92, &v93);
+      memset(&v93, 0, sizeof(v93));
+      v91 = v99;
+      CGAffineTransformInvert(&v92, &v91);
+      v91 = v94;
+      CGAffineTransformConcat(&v93, &v91, &v92);
+      v65 = self[18];
       block = MEMORY[0x1E69E9820];
-      v74 = 3221225472;
-      v75 = __48__VKAVCaptureFrameProvider__didChangeDimensions__block_invoke;
-      v76 = &unk_1E7BE51F0;
+      v78 = 3221225472;
+      v79 = __48__VKAVCaptureFrameProvider__didChangeDimensions__block_invoke;
+      v80 = &unk_1E7BE51F0;
       selfCopy = self;
-      v78 = *&y;
-      v79 = *&v24;
-      v80 = *&v40;
-      v81 = *&v42;
-      v82 = v91;
-      v83 = v89;
-      v86 = v98;
-      v85 = v97;
-      v84 = v96;
-      dispatch_sync(v61, &block);
+      v82 = *&y;
+      v83 = *&v24;
+      v84 = v43;
+      v85 = v45;
+      v86 = v95;
+      v87 = v93;
+      v90 = v102;
+      v89 = v101;
+      v88 = v100;
+      dispatch_sync(v65, &block);
       [self resetAllProcessors];
     }
   }
@@ -789,7 +789,7 @@ __n128 __48__VKAVCaptureFrameProvider__didChangeDimensions__block_invoke(uint64_
     v18 = info;
     if (info)
     {
-      [info imageToLayerTransform];
+      objc_msgSend_imageToLayerTransform(info);
     }
 
     else
@@ -1120,7 +1120,7 @@ LABEL_7:
   objc_destroyWeak(from);
 }
 
-- (void)observeValueForKeyPath:(uint64_t *)a1 ofObject:change:context:.cold.3(uint64_t *a1)
+- (void)observeValueForKeyPath:(void *)a1 ofObject:change:context:.cold.3(void *a1)
 {
   if ([a1 isTorchOn] && (-[VKAVCapture isTorchOn](a1[16]) & 1) == 0)
   {

@@ -3,6 +3,11 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)regProcAsString:(int)string;
+- (id)regStatusAsString:(int)string;
+- (id)rejectCauseAsString:(int)string;
+- (id)ueOpModeAsString:(int)string;
+- (id)updateStatusAsString:(int)string;
 - (int)StringAsRegProc:(id)proc;
 - (int)StringAsRegStatus:(id)status;
 - (int)StringAsRejectCause:(id)cause;
@@ -57,6 +62,79 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFB | v3;
+}
+
+- (id)regStatusAsString:(int)string
+{
+  v4 = @"KREG_STATUS_NORMAL_SERVICE";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_43;
+    case 1:
+      v4 = @"KREG_STATUS_REGISTRATION_FAILURE";
+
+      break;
+    case 2:
+      v4 = @"KREG_STATUS_LIMITED_SERVICE";
+
+      break;
+    case 3:
+      v4 = @"KREG_STATUS_NO_SERVICE";
+
+      break;
+    case 4:
+      v4 = @"KREG_STATUS_AT_NOT_REGISTERED";
+
+      break;
+    case 5:
+      v4 = @"KREG_STATUS_REGISTRATION_SERVICE_DISABLED";
+
+      break;
+    case 6:
+      v4 = @"KREG_STATUS_SERVICE_DETACHED";
+
+      break;
+    case 7:
+      v4 = @"KREG_STATUS_SERVICE_ACTIVATED";
+
+      break;
+    case 8:
+      v4 = @"KREG_STATUS_EMERGENCY_SERVICE";
+
+      break;
+    case 9:
+      v4 = @"KREG_STATUS_EMERGENCY_LIMITED";
+
+      break;
+    case 10:
+      v4 = @"KREG_STATUS_REGISTERED_SMS_ONLY";
+
+      break;
+    case 11:
+      v4 = @"KREG_STATUS_REGISTRATION_IN_PROGRESS";
+
+      break;
+    case 12:
+      v4 = @"KREG_STATUS_POWER_OFF_NO_SERVICE";
+
+      break;
+    default:
+      if (string == 100)
+      {
+        v4 = @"KREG_STATUS_SUSPENDED";
+      }
+
+      else
+      {
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_43:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsRegStatus:(id)status
@@ -168,6 +246,21 @@
   *&self->_has = *&self->_has & 0xFF7F | v3;
 }
 
+- (id)updateStatusAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317B28 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsUpdateStatus:(id)status
 {
   statusCopy = status;
@@ -220,6 +313,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFBF | v3;
+}
+
+- (id)ueOpModeAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317B40 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsUeOpMode:(id)mode
@@ -297,6 +405,190 @@
   }
 
   *&self->_has = *&self->_has & 0xFFF7 | v3;
+}
+
+- (id)rejectCauseAsString:(int)string
+{
+  if (string > 94)
+  {
+    if (string > 98)
+    {
+      if (string > 100)
+      {
+        if (string == 101)
+        {
+          v4 = @"EMM_CAUSE_MESSAGE_NOT_COMPATIBLE_WITH_PROTOCOL_STATE";
+        }
+
+        else if (string == 111)
+        {
+          v4 = @"EMM_CAUSE_PROTOCOL_ERROR_UNSPECIFIED";
+        }
+
+        else
+        {
+LABEL_116:
+          v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_117:
+        }
+      }
+
+      else if (string == 99)
+      {
+        v4 = @"EMM_CAUSE_IE_NON_EXISTENT_OR_NOT_IMPLEMENTED";
+      }
+
+      else
+      {
+        v4 = @"EMM_CAUSE_CONDITIONAL_IE_ERROR";
+      }
+    }
+
+    else if (string > 96)
+    {
+      if (string == 97)
+      {
+        v4 = @"EMM_CAUSE_MESSAGE_TYPE_NON_EXISTENT_OR_NOT_IMPLEMENTED";
+      }
+
+      else
+      {
+        v4 = @"EMM_CAUSE_MESSAGE_TYPE_NOT_COMPATIBLE_WITH_PROTOCOL_STATE";
+      }
+    }
+
+    else if (string == 95)
+    {
+      v4 = @"EMM_CAUSE_SEMANTICALLY_INCORRECT_MESSAGE";
+    }
+
+    else
+    {
+      v4 = @"EMM_CAUSE_INVALID_MANDATORY_INFORMATION";
+    }
+  }
+
+  else
+  {
+    v4 = @"EMM_CAUSE_NO_CAUSE";
+    switch(string)
+    {
+      case 0:
+        goto LABEL_117;
+      case 2:
+        v4 = @"EMM_CAUSE_IMSI_UNKNOWN_IN_HSS";
+
+        break;
+      case 3:
+        v4 = @"EMM_CAUSE_ILLEGAL_UE";
+
+        break;
+      case 5:
+        v4 = @"EMM_CAUSE_IMEI_NOT_ACCEPTED";
+
+        break;
+      case 6:
+        v4 = @"EMM_CAUSE_ILLEGAL_ME";
+
+        break;
+      case 7:
+        v4 = @"EMM_CAUSE_EPS_SERVICES_NOT_ALLOWED";
+
+        break;
+      case 8:
+        v4 = @"EMM_CAUSE_EPS_SERVICES_AND_NON_EPS_SERVICES_NOT_ALLOWED";
+
+        break;
+      case 9:
+        v4 = @"EMM_CAUSE_UE_IDENTITY_CANNOT_BE_DERIVED_BY_NETWORK";
+
+        break;
+      case 10:
+        v4 = @"EMM_CAUSE_IMPLICITLY_DETACHED";
+
+        break;
+      case 11:
+        v4 = @"EMM_CAUSE_PLMN_NOT_ALLOWED";
+
+        break;
+      case 12:
+        v4 = @"EMM_CAUSE_TRACKING_AREA_NOT_ALLOWED";
+
+        break;
+      case 13:
+        v4 = @"EMM_CAUSE_ROAMING_NOT_ALLOWED_IN_THIS_TRACKING_AREA";
+
+        break;
+      case 14:
+        v4 = @"EMM_CAUSE_EPS_SERVICES_NOT_ALLOWED_IN_THIS_PLMN";
+
+        break;
+      case 15:
+        v4 = @"EMM_CAUSE_NO_SUITABLE_CELLS_IN_TRACKING_AREA";
+
+        break;
+      case 16:
+        v4 = @"EMM_CAUSE_MSC_TEMPORARILY_NOT_REACHABLE";
+
+        break;
+      case 17:
+        v4 = @"EMM_CAUSE_NETWORK_FAILURE";
+
+        break;
+      case 18:
+        v4 = @"EMM_CAUSE_CS_DOMAIN_NOT_AVAILABLE";
+
+        break;
+      case 19:
+        v4 = @"EMM_CAUSE_ESM_FAILURE";
+
+        break;
+      case 20:
+        v4 = @"EMM_CAUSE_MAC_FAILURE";
+
+        break;
+      case 21:
+        v4 = @"EMM_CAUSE_SYNCH_FAILURE";
+
+        break;
+      case 22:
+        v4 = @"EMM_CAUSE_CONGESTION";
+
+        break;
+      case 23:
+        v4 = @"EMM_CAUSE_UE_SECURITY_CAPABILITY_MISMATCH";
+
+        break;
+      case 24:
+        v4 = @"EMM_CAUSE_SECURITY_MODE_REJECTED_UNSPECIFIED";
+
+        break;
+      case 25:
+        v4 = @"EMM_CAUSE_NOT_AUTHORIZED_FOR_THIS_CSG";
+
+        break;
+      case 26:
+        v4 = @"EMM_CAUSE_NON_EPS_AUTHENTICATION_UNACCEPTABLE";
+
+        break;
+      case 35:
+        v4 = @"EMM_CAUSE_REQUESTED_SERVICE_OPTION_NOT_AUTHORIZED_IN_THIS_PLMN";
+
+        break;
+      case 39:
+        v4 = @"EMM_CAUSE_CS_DOMAIN_TEMPORARILY_NOT_AVAILABLE";
+
+        break;
+      case 40:
+        v4 = @"EMM_CAUSE_NO_EPS_BEARER_CONTEXT_ACTIVATED";
+
+        break;
+      default:
+        goto LABEL_116;
+    }
+  }
+
+  return v4;
 }
 
 - (int)StringAsRejectCause:(id)cause
@@ -516,6 +808,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFD | v3;
+}
+
+- (id)regProcAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317B60 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsRegProc:(id)proc
@@ -772,30 +1079,30 @@ LABEL_32:
   if ([(NSMutableArray *)self->_taiLists count])
   {
     v12 = [[NSMutableArray alloc] initWithCapacity:{-[NSMutableArray count](self->_taiLists, "count")}];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v13 = self->_taiLists;
-    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v33;
+      v16 = *v32;
       do
       {
         for (i = 0; i != v15; i = i + 1)
         {
-          if (*v33 != v16)
+          if (*v32 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          dictionaryRepresentation = [*(*(&v32 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v31 + 1) + 8 * i) dictionaryRepresentation];
           [v12 addObject:dictionaryRepresentation];
         }
 
-        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v15);
@@ -876,7 +1183,6 @@ LABEL_98:
     else
     {
       v25 = @"EMM_CAUSE_NO_CAUSE";
-      v26 = self->_rejectCause;
       switch(rejectCause)
       {
         case 0:
@@ -990,15 +1296,15 @@ LABEL_45:
   regProc = self->_regProc;
   if (regProc >= 8)
   {
-    v28 = [NSString stringWithFormat:@"(unknown: %i)", self->_regProc];
+    v27 = [NSString stringWithFormat:@"(unknown: %i)", self->_regProc];
   }
 
   else
   {
-    v28 = *(&off_100317B60 + regProc);
+    v27 = *(&off_100317B60 + regProc);
   }
 
-  [v3 setObject:v28 forKey:@"reg_proc"];
+  [v3 setObject:v27 forKey:@"reg_proc"];
 
   v21 = self->_has;
   if ((v21 & 0x20) == 0)
@@ -1013,8 +1319,8 @@ LABEL_46:
   }
 
 LABEL_104:
-  v29 = [NSNumber numberWithUnsignedInt:self->_t3412DurS];
-  [v3 setObject:v29 forKey:@"t3412_dur_s"];
+  v28 = [NSNumber numberWithUnsignedInt:self->_t3412DurS];
+  [v3 setObject:v28 forKey:@"t3412_dur_s"];
 
   v21 = self->_has;
   if ((v21 & 0x200) == 0)
@@ -1029,8 +1335,8 @@ LABEL_47:
   }
 
 LABEL_105:
-  v30 = [NSNumber numberWithBool:self->_isImsVoiceSupported];
-  [v3 setObject:v30 forKey:@"is_ims_voice_supported"];
+  v29 = [NSNumber numberWithBool:self->_isImsVoiceSupported];
+  [v3 setObject:v29 forKey:@"is_ims_voice_supported"];
 
   v21 = self->_has;
   if ((v21 & 0x100) == 0)
@@ -1045,8 +1351,8 @@ LABEL_48:
   }
 
 LABEL_106:
-  v31 = [NSNumber numberWithBool:self->_isEmergBearerSupported];
-  [v3 setObject:v31 forKey:@"is_emerg_bearer_supported"];
+  v30 = [NSNumber numberWithBool:self->_isEmergBearerSupported];
+  [v3 setObject:v30 forKey:@"is_emerg_bearer_supported"];
 
   if ((*&self->_has & 0x10) != 0)
   {
@@ -1066,7 +1372,6 @@ LABEL_50:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -1086,7 +1391,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  regStatus = self->_regStatus;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -1101,43 +1405,40 @@ LABEL_4:
   }
 
 LABEL_25:
-  updateStatus = self->_updateStatus;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_5:
-    ueOpMode = self->_ueOpMode;
     PBDataWriterWriteInt32Field();
   }
 
 LABEL_6:
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v7 = self->_taiLists;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v8)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_taiLists;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v24;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v10)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_guti)
@@ -1145,16 +1446,15 @@ LABEL_6:
     PBDataWriterWriteSubmessage();
   }
 
-  v13 = self->_has;
-  if ((v13 & 8) != 0)
+  v11 = self->_has;
+  if ((v11 & 8) != 0)
   {
-    rejectCause = self->_rejectCause;
     PBDataWriterWriteInt32Field();
-    v13 = self->_has;
-    if ((v13 & 2) == 0)
+    v11 = self->_has;
+    if ((v11 & 2) == 0)
     {
 LABEL_17:
-      if ((v13 & 0x20) == 0)
+      if ((v11 & 0x20) == 0)
       {
         goto LABEL_18;
       }
@@ -1163,18 +1463,17 @@ LABEL_17:
     }
   }
 
-  else if ((v13 & 2) == 0)
+  else if ((v11 & 2) == 0)
   {
     goto LABEL_17;
   }
 
-  regProc = self->_regProc;
   PBDataWriterWriteInt32Field();
-  v13 = self->_has;
-  if ((v13 & 0x20) == 0)
+  v11 = self->_has;
+  if ((v11 & 0x20) == 0)
   {
 LABEL_18:
-    if ((v13 & 0x200) == 0)
+    if ((v11 & 0x200) == 0)
     {
       goto LABEL_19;
     }
@@ -1183,19 +1482,17 @@ LABEL_18:
   }
 
 LABEL_29:
-  t3412DurS = self->_t3412DurS;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((v13 & 0x200) == 0)
+  v11 = self->_has;
+  if ((v11 & 0x200) == 0)
   {
 LABEL_19:
-    if ((v13 & 0x100) == 0)
+    if ((v11 & 0x100) == 0)
     {
       goto LABEL_20;
     }
 
 LABEL_31:
-    isEmergBearerSupported = self->_isEmergBearerSupported;
     PBDataWriterWriteBOOLField();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -1206,19 +1503,17 @@ LABEL_31:
   }
 
 LABEL_30:
-  isImsVoiceSupported = self->_isImsVoiceSupported;
   PBDataWriterWriteBOOLField();
-  v13 = self->_has;
-  if ((v13 & 0x100) != 0)
+  v11 = self->_has;
+  if ((v11 & 0x100) != 0)
   {
     goto LABEL_31;
   }
 
 LABEL_20:
-  if ((v13 & 0x10) != 0)
+  if ((v11 & 0x10) != 0)
   {
 LABEL_21:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1667,7 +1962,6 @@ LABEL_19:
       goto LABEL_61;
     }
 
-    v12 = *(equalCopy + 65);
     if (self->_isImsVoiceSupported)
     {
       if ((*(equalCopy + 65) & 1) == 0)
@@ -1704,7 +1998,6 @@ LABEL_61:
     goto LABEL_61;
   }
 
-  v13 = *(equalCopy + 64);
   if (self->_isEmergBearerSupported)
   {
     if ((*(equalCopy + 64) & 1) == 0)

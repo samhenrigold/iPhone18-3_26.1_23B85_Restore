@@ -1,7 +1,10 @@
 @interface CRSUIDashboardWidgetWindowProxy
 - (CRSUIDashboardWidgetWindowClient)delegate;
 - (CRSUIDashboardWidgetWindowProxy)initWithDelegate:(id)delegate;
+- (void)hostFocusableItem:(id)item focused:(BOOL)focused;
+- (void)hostFocusableItem:(id)item pressed:(BOOL)pressed;
 - (void)hostSelectedFocusableItem:(id)item;
+- (void)hostSetUseSystemPrimaryFocusColor:(BOOL)color;
 - (void)hostSetWidgetSizes:(id)sizes;
 @end
 
@@ -22,6 +25,14 @@
   return v6;
 }
 
+- (void)hostFocusableItem:(id)item pressed:(BOOL)pressed
+{
+  pressedCopy = pressed;
+  itemCopy = item;
+  delegate = [(CRSUIDashboardWidgetWindowProxy *)self delegate];
+  [delegate hostFocusableItem:itemCopy pressed:pressedCopy];
+}
+
 - (void)hostSelectedFocusableItem:(id)item
 {
   itemCopy = item;
@@ -29,11 +40,26 @@
   [delegate hostSelectedFocusableItem:itemCopy];
 }
 
+- (void)hostFocusableItem:(id)item focused:(BOOL)focused
+{
+  focusedCopy = focused;
+  itemCopy = item;
+  delegate = [(CRSUIDashboardWidgetWindowProxy *)self delegate];
+  [delegate hostFocusableItem:itemCopy focused:focusedCopy];
+}
+
 - (void)hostSetWidgetSizes:(id)sizes
 {
   sizesCopy = sizes;
   delegate = [(CRSUIDashboardWidgetWindowProxy *)self delegate];
   [delegate hostSetWidgetSizes:sizesCopy];
+}
+
+- (void)hostSetUseSystemPrimaryFocusColor:(BOOL)color
+{
+  colorCopy = color;
+  delegate = [(CRSUIDashboardWidgetWindowProxy *)self delegate];
+  [delegate hostSetUseSystemPrimaryFocusColor:colorCopy];
 }
 
 - (CRSUIDashboardWidgetWindowClient)delegate

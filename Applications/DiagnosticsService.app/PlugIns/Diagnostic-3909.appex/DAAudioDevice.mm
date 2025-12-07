@@ -2,6 +2,7 @@
 - (BOOL)initilizeAudioSessionWithError:(id *)error;
 - (BOOL)isHeadphonesConnected;
 - (BOOL)startPlayAndRecordWithError:(id *)error;
+- (DAAudioDevice)initWithSequentialAudioInput:(BOOL)input error:(id *)error;
 - (id)getAllMicrophoneSourceForPort:(id)port error:(id *)error;
 - (id)getBuiltInMicrophonePortWithError:(id *)error;
 - (id)numberOfInputComponents;
@@ -11,6 +12,44 @@
 @end
 
 @implementation DAAudioDevice
+
+- (DAAudioDevice)initWithSequentialAudioInput:(BOOL)input error:(id *)error
+{
+  inputCopy = input;
+  v15.receiver = self;
+  v15.super_class = DAAudioDevice;
+  v6 = [(DAAudioDevice *)&v15 init];
+  v7 = v6;
+  if (!v6)
+  {
+    goto LABEL_4;
+  }
+
+  [(DAAudioDevice *)v6 setSequentialAudioInput:inputCopy];
+  v14 = 0;
+  v8 = [(DAAudioDevice *)v7 initilizeAudioSessionWithError:&v14];
+  v9 = v14;
+  v10 = v9;
+  if (v8)
+  {
+    [(DAAudioDevice *)v7 setIsCancelled:0];
+
+LABEL_4:
+    v11 = v7;
+    goto LABEL_8;
+  }
+
+  if (error)
+  {
+    v12 = v9;
+    *error = v10;
+  }
+
+  v11 = 0;
+LABEL_8:
+
+  return v11;
+}
 
 - (id)playSignalFile:(id)file fileName:(id)name fromOutput:(unint64_t)output atVolume:(id)volume withChannel:(id)channel sendRawData:(BOOL)data error:(id *)error
 {

@@ -21,40 +21,40 @@
 
 - (DMConnection)init
 {
-  v8.receiver = self;
-  v8.super_class = DMConnection;
-  v3 = [(DMConnection *)&v8 init];
-  if (v3)
+  v13.receiver = self;
+  v13.super_class = DMConnection;
+  v8 = [(DMConnection *)&v13 init];
+  if (v8)
   {
-    v4 = [[DMXPCConnection alloc] initWithServiceName:@"com.apple.datamigrator"];
-    connection = v3->_connection;
-    v3->_connection = v4;
+    v9 = [[DMXPCConnection alloc] initWithServiceName:@"com.apple.datamigrator"];
+    connection = v8->_connection;
+    v8->_connection = v9;
 
-    v6 = v3->_connection;
-    if (v6)
+    v11 = v8->_connection;
+    if (v11)
     {
-      [(DMXPCConnection *)v6 targetForegroundUserSessionIfNecessary];
-      [(DMXPCConnection *)v3->_connection resume];
+      [(DMXPCConnection *)v11 targetForegroundUserSessionIfNecessary];
+      [(DMXPCConnection *)v8->_connection resume];
     }
 
     else
     {
 
-      v3 = 0;
+      v8 = 0;
     }
   }
 
-  _DMLogFunc(v2, 7, @"DMConnection did init %@");
-  return v3;
+  _DMLogFunc(v2, 7, @"DMConnection did init %@", v3, v4, v5, v6, v7, v8);
+  return v8;
 }
 
 - (void)dealloc
 {
-  _DMLogFunc(v2, 7, @"DMConnection will dealloc %@");
+  _DMLogFunc(v7, 7, @"DMConnection will dealloc %@", v2, v3, v4, v5, v6, self);
   [(DMXPCConnection *)self->_connection invalidate];
-  v5.receiver = self;
-  v5.super_class = DMConnection;
-  [(DMConnection *)&v5 dealloc];
+  v9.receiver = self;
+  v9.super_class = DMConnection;
+  [(DMConnection *)&v9 dealloc];
 }
 
 - (BOOL)isMigrationNeeded
@@ -64,8 +64,8 @@
   v5 = [(DMXPCConnection *)self->_connection sendMessageSync:v4];
   if (MEMORY[0x2318EDE00]() == MEMORY[0x277D86480])
   {
-    xpc_dictionary_get_string(v5, *MEMORY[0x277D86400]);
-    _DMLogFunc(v2, 6, @"Data migrator -isMigrationNeeded: XPC error: %s");
+    string = xpc_dictionary_get_string(v5, *MEMORY[0x277D86400]);
+    _DMLogFunc(v2, 6, @"Data migrator -isMigrationNeeded: XPC error: %s", v8, v9, v10, v11, v12, string);
     v6 = 0;
   }
 
@@ -84,8 +84,8 @@
   v5 = [(DMXPCConnection *)self->_connection sendMessageSync:v4];
   if (MEMORY[0x2318EDE00]() == MEMORY[0x277D86480])
   {
-    xpc_dictionary_get_string(v5, *MEMORY[0x277D86400]);
-    _DMLogFunc(v2, 6, @"Data migrator -userDataDisposition: XPC error: %s");
+    string = xpc_dictionary_get_string(v5, *MEMORY[0x277D86400]);
+    _DMLogFunc(v2, 6, @"Data migrator -userDataDisposition: XPC error: %s", v8, v9, v10, v11, v12, string);
     uint64 = 0;
   }
 
@@ -99,15 +99,14 @@
 
 - (id)userDataDispositionAuxiliaryData
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   v4 = xpc_dictionary_create(0, 0, 0);
   xpc_dictionary_set_int64(v4, "msgID", 13);
   v5 = [(DMXPCConnection *)self->_connection sendMessageSync:v4];
   if (MEMORY[0x2318EDE00]() == MEMORY[0x277D86480])
   {
-    xpc_dictionary_get_string(v5, *MEMORY[0x277D86400]);
-    v17 = @"Data migrator -userDataDispositionAuxiliaryData: XPC error: %s";
-    v18 = v2;
+    string = xpc_dictionary_get_string(v5, *MEMORY[0x277D86400]);
+    _DMLogFunc(v2, 6, @"Data migrator -userDataDispositionAuxiliaryData: XPC error: %s", v27, v28, v29, v30, v31, string);
   }
 
   else
@@ -116,36 +115,32 @@
     data = xpc_dictionary_get_data(v5, "dispositionAuxiliaryData", &length);
     if (data)
     {
-      v7 = [MEMORY[0x277CBEA90] dataWithBytes:data length:length];
-      v8 = MEMORY[0x277CCAAC8];
-      v9 = MEMORY[0x277CBEB98];
-      v24[0] = objc_opt_class();
-      v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
-      v11 = [v9 setWithArray:v10];
-      v12 = MEMORY[0x277CBEB98];
-      v23[0] = objc_opt_class();
-      v23[1] = objc_opt_class();
-      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
-      v14 = [v12 setWithArray:v13];
-      v21 = 0;
-      v15 = [v8 unarchivedDictionaryWithKeysOfClasses:v11 objectsOfClasses:v14 fromData:v7 error:&v21];
-      v16 = v21;
+      v12 = [MEMORY[0x277CBEA90] dataWithBytes:data length:length];
+      v13 = MEMORY[0x277CCAAC8];
+      v14 = MEMORY[0x277CBEB98];
+      v38[0] = objc_opt_class();
+      v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+      v16 = [v14 setWithArray:v15];
+      v17 = MEMORY[0x277CBEB98];
+      v37[0] = objc_opt_class();
+      v37[1] = objc_opt_class();
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+      v19 = [v17 setWithArray:v18];
+      v35 = 0;
+      v20 = [v13 unarchivedDictionaryWithKeysOfClasses:v16 objectsOfClasses:v19 fromData:v12 error:&v35];
+      v21 = v35;
 
-      _DMLogFunc(v2, 6, @"Data migrator -userDataDispositionAuxiliaryData: did unarchive auxiliary data with success %d error %@");
+      _DMLogFunc(v2, 6, @"Data migrator -userDataDispositionAuxiliaryData: did unarchive auxiliary data with success %d error %@", v22, v23, v24, v25, v26, v20 != 0);
       goto LABEL_7;
     }
 
-    v18 = v2;
-    v17 = @"Data migrator -userDataDispositionAuxiliaryData: got no auxiliary data";
+    _DMLogFunc(v2, 6, @"Data migrator -userDataDispositionAuxiliaryData: got no auxiliary data", v7, v8, v9, v10, v11, v33);
   }
 
-  _DMLogFunc(v18, 6, v17);
-  v15 = 0;
+  v20 = 0;
 LABEL_7:
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v15;
+  return v20;
 }
 
 - (id)previousBuildVersion
@@ -155,16 +150,16 @@ LABEL_7:
   v5 = [(DMXPCConnection *)self->_connection sendMessageSync:v4];
   if (MEMORY[0x2318EDE00]() == MEMORY[0x277D86480])
   {
-    xpc_dictionary_get_string(v5, *MEMORY[0x277D86400]);
-    _DMLogFunc(v2, 6, @"Data migrator -userDataDisposition: XPC error: %s");
+    string = xpc_dictionary_get_string(v5, *MEMORY[0x277D86400]);
+    _DMLogFunc(v2, 6, @"Data migrator -userDataDisposition: XPC error: %s", v9, v10, v11, v12, v13, string);
   }
 
   else
   {
-    string = xpc_dictionary_get_string(v5, "previousBuildVersion");
-    if (string)
+    v6 = xpc_dictionary_get_string(v5, "previousBuildVersion");
+    if (v6)
     {
-      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:string];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
       goto LABEL_6;
     }
   }
@@ -196,8 +191,8 @@ LABEL_6:
   if (MEMORY[0x2318EDE00]() == MEMORY[0x277D86480])
   {
     v13 = v11 == MEMORY[0x277D863F0];
-    xpc_dictionary_get_string(v11, *MEMORY[0x277D86400]);
-    _DMLogFunc(v5, 6, @"Data migrator -migrateWithCompletion: XPC error: %s");
+    string = xpc_dictionary_get_string(v11, *MEMORY[0x277D86400]);
+    _DMLogFunc(v5, 6, @"Data migrator -migrateWithCompletion: XPC error: %s", v15, v16, v17, v18, v19, string);
     int64 = 4 * v13;
   }
 
@@ -302,21 +297,21 @@ void __44__DMConnection_changeVisibility_completion___block_invoke(uint64_t a1, 
 
 - (void)reportMigrationFailure
 {
-  v6 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v6, "msgID", 8);
-  v4 = [(DMXPCConnection *)self->_connection sendMessageSync:v6];
+  v12 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v12, "msgID", 8);
+  v4 = [(DMXPCConnection *)self->_connection sendMessageSync:v12];
   if (MEMORY[0x2318EDE00]() == MEMORY[0x277D86480])
   {
-    xpc_dictionary_get_string(v4, *MEMORY[0x277D86400]);
-    v5 = @"Data migrator -reportMigrationFailure: XPC error: %s";
+    string = xpc_dictionary_get_string(v4, *MEMORY[0x277D86400]);
+    v10 = @"Data migrator -reportMigrationFailure: XPC error: %s";
   }
 
   else
   {
-    v5 = @"Data migrator -reportMigrationFailure: succeeded";
+    v10 = @"Data migrator -reportMigrationFailure: succeeded";
   }
 
-  _DMLogFunc(v2, 6, v5);
+  _DMLogFunc(v2, 6, v10, v5, v6, v7, v8, v9, string);
 }
 
 - (id)migrationPhaseDescription
@@ -368,10 +363,10 @@ void __39__DMConnection_migrationPluginResults___block_invoke(uint64_t a1, void 
   {
     if (*(a1 + 32))
     {
-      _DMLogFunc(v2, 6, @"Data migrator -migrationPluginResults: got xpc error");
-      v10 = *(a1 + 32);
-      v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.datamigrator" code:2 userInfo:0];
-      (*(v10 + 16))(v10, 0, v11);
+      _DMLogFunc(v2, 6, @"Data migrator -migrationPluginResults: got xpc error", v5, v6, v7, v8, v9, v30);
+      v25 = *(a1 + 32);
+      v26 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.datamigrator" code:2 userInfo:0];
+      (*(v25 + 16))(v25, 0, v26);
     }
   }
 
@@ -381,32 +376,32 @@ void __39__DMConnection_migrationPluginResults___block_invoke(uint64_t a1, void 
     data = xpc_dictionary_get_data(v4, "results", &length);
     if (data)
     {
-      v6 = [MEMORY[0x277CBEA90] dataWithBytes:data length:length];
-      v15 = 0;
-      v7 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v6 error:&v15];
-      v8 = v15;
-      _DMLogFunc(v2, 6, @"Data migrator -migrationPluginResults: did unarchive results with success %d error %@");
-      v9 = *(a1 + 32);
-      if (v9)
+      v16 = [MEMORY[0x277CBEA90] dataWithBytes:data length:length];
+      v31 = 0;
+      v17 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v16 error:&v31];
+      v18 = v31;
+      _DMLogFunc(v2, 6, @"Data migrator -migrationPluginResults: did unarchive results with success %d error %@", v19, v20, v21, v22, v23, v17 != 0);
+      v24 = *(a1 + 32);
+      if (v24)
       {
-        (*(v9 + 16))(v9, v7, v8);
+        (*(v24 + 16))(v24, v17, v18);
       }
     }
 
     else
     {
-      _DMLogFunc(v2, 6, @"Data migrator -migrationPluginResults: got no results");
-      v12 = *(a1 + 32);
-      if (v12)
+      _DMLogFunc(v2, 6, @"Data migrator -migrationPluginResults: got no results", v11, v12, v13, v14, v15, v30);
+      v27 = *(a1 + 32);
+      if (v27)
       {
-        (*(v12 + 16))(v12, 0, 0);
+        (*(v27 + 16))(v27, 0, 0);
       }
     }
   }
 
-  v13 = *(*(a1 + 40) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = 0;
+  v28 = *(*(a1 + 40) + 8);
+  v29 = *(v28 + 40);
+  *(v28 + 40) = 0;
 }
 
 - (void)deferExit

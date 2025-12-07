@@ -28,7 +28,7 @@
 
 - (KTSelfVerificationHealableErrors)initWithCoder:(id)coder
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
@@ -41,9 +41,9 @@
   v13 = [v9 setWithObjects:{v10, v11, v12, objc_opt_class(), 0}];
   v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"deviceIdToHealableErrors"];
   v15 = [coderCopy decodeInt64ForKey:@"healableState"];
-  v40.receiver = self;
-  v40.super_class = KTSelfVerificationHealableErrors;
-  v16 = [(KTSelfVerificationHealableErrors *)&v40 init];
+  v39.receiver = self;
+  v39.super_class = KTSelfVerificationHealableErrors;
+  v16 = [(KTSelfVerificationHealableErrors *)&v39 init];
   if (v16)
   {
     if ([v8 count])
@@ -63,31 +63,31 @@
 
     if ([v14 count])
     {
-      v31 = v15;
-      v32 = v14;
-      v33 = v13;
-      v34 = v8;
-      v35 = v7;
-      v38 = 0u;
-      v39 = 0u;
-      v36 = 0u;
+      v30 = v15;
+      v31 = v14;
+      v32 = v13;
+      v33 = v8;
+      v34 = v7;
       v37 = 0u;
+      v38 = 0u;
+      v35 = 0u;
+      v36 = 0u;
       v19 = v14;
-      v20 = [v19 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v35 objects:v40 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v37;
+        v22 = *v36;
         do
         {
           for (i = 0; i != v21; ++i)
           {
-            if (*v37 != v22)
+            if (*v36 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v36 + 1) + 8 * i);
+            v24 = *(*(&v35 + 1) + 8 * i);
             v25 = MEMORY[0x1E695DF70];
             v26 = [v19 objectForKey:v24];
             v27 = [v25 arrayWithArray:v26];
@@ -96,23 +96,22 @@
             [_deviceIdToHealableErrors setObject:v27 forKey:v24];
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v36 objects:v41 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v35 objects:v40 count:16];
         }
 
         while (v21);
       }
 
-      v8 = v34;
-      v7 = v35;
-      v14 = v32;
-      v13 = v33;
-      v15 = v31;
+      v8 = v33;
+      v7 = v34;
+      v14 = v31;
+      v13 = v32;
+      v15 = v30;
     }
 
     [(KTSelfVerificationHealableErrors *)v16 setHealableState:v15];
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -192,35 +191,35 @@ LABEL_16:
 
 - (id)description
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"KTHealableErrors: <%p>\n", self];
   accountHealableErrors = [(KTSelfVerificationHealableErrors *)self accountHealableErrors];
   if (accountHealableErrors)
   {
     [v3 appendString:@"account="];
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v5 = accountHealableErrors;
-    v6 = [v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v35;
+      v8 = *v34;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v35 != v8)
+          if (*v34 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          [v3 appendFormat:@"%@, ", *(*(&v34 + 1) + 8 * i)];
+          [v3 appendFormat:@"%@, ", *(*(&v33 + 1) + 8 * i)];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v34 objects:v40 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v33 objects:v39 count:16];
       }
 
       while (v7);
@@ -233,53 +232,53 @@ LABEL_16:
   if (deviceIdToHealableErrors)
   {
     [v3 appendString:@"devices = {\n"];
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
-    v25 = deviceIdToHealableErrors;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
+    v24 = deviceIdToHealableErrors;
     v11 = deviceIdToHealableErrors;
-    v12 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v29 objects:v38 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v31;
+      v14 = *v30;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v31 != v14)
+          if (*v30 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v30 + 1) + 8 * j);
+          v16 = *(*(&v29 + 1) + 8 * j);
           kt_hexString = [v16 kt_hexString];
           [v3 appendFormat:@"%@ : ", kt_hexString];
 
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
           v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           v18 = [v11 objectForKey:v16];
-          v19 = [v18 countByEnumeratingWithState:&v26 objects:v38 count:16];
+          v19 = [v18 countByEnumeratingWithState:&v25 objects:v37 count:16];
           if (v19)
           {
             v20 = v19;
-            v21 = *v27;
+            v21 = *v26;
             do
             {
               for (k = 0; k != v20; ++k)
               {
-                if (*v27 != v21)
+                if (*v26 != v21)
                 {
                   objc_enumerationMutation(v18);
                 }
 
-                [v3 appendFormat:@"%@, ", *(*(&v26 + 1) + 8 * k)];
+                [v3 appendFormat:@"%@, ", *(*(&v25 + 1) + 8 * k)];
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v26 objects:v38 count:16];
+              v20 = [v18 countByEnumeratingWithState:&v25 objects:v37 count:16];
             }
 
             while (v20);
@@ -288,17 +287,15 @@ LABEL_16:
           [v3 appendString:@"\n"];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v29 objects:v38 count:16];
       }
 
       while (v13);
     }
 
     [v3 appendString:@"}\n"];
-    deviceIdToHealableErrors = v25;
+    deviceIdToHealableErrors = v24;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -346,7 +343,7 @@ LABEL_16:
 
 - (NSDictionary)deviceIdToHealableErrors
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   obj = [(KTSelfVerificationHealableErrors *)self _deviceIdToHealableErrors];
   objc_sync_enter(obj);
   _deviceIdToHealableErrors = [(KTSelfVerificationHealableErrors *)self _deviceIdToHealableErrors];
@@ -355,25 +352,25 @@ LABEL_16:
   if (v4)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     _deviceIdToHealableErrors2 = [(KTSelfVerificationHealableErrors *)self _deviceIdToHealableErrors];
-    v7 = [_deviceIdToHealableErrors2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [_deviceIdToHealableErrors2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(_deviceIdToHealableErrors2);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           v11 = MEMORY[0x1E695DEC8];
           _deviceIdToHealableErrors3 = [(KTSelfVerificationHealableErrors *)self _deviceIdToHealableErrors];
           v13 = [_deviceIdToHealableErrors3 objectForKey:v10];
@@ -382,7 +379,7 @@ LABEL_16:
           [dictionary setObject:v14 forKey:v10];
         }
 
-        v7 = [_deviceIdToHealableErrors2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [_deviceIdToHealableErrors2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -397,8 +394,6 @@ LABEL_16:
   }
 
   objc_sync_exit(obj);
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

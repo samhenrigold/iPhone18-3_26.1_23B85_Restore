@@ -6,6 +6,8 @@
 - (void)invalidate;
 - (void)sendAWDLInfo:(BOOL)info;
 - (void)sendData:(id)data bleDevice:(id)device direct:(BOOL)direct completionHandler:(id)handler;
+- (void)sendData:(id)data type:(unsigned __int16)type completionHandler:(id)handler;
+- (void)sendData:(id)data type:(unsigned __int16)type errorHandler:(id)handler;
 - (void)start;
 @end
 
@@ -60,6 +62,28 @@
   block[3] = &unk_1008CDEA0;
   block[4] = self;
   dispatch_async(sessionQueue, block);
+}
+
+- (void)sendData:(id)data type:(unsigned __int16)type errorHandler:(id)handler
+{
+  typeCopy = type;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_100202EBC;
+  v8[3] = &unk_1008D4228;
+  selfCopy = self;
+  handlerCopy = handler;
+  v7 = handlerCopy;
+  [(SDAutoUnlockAuthSession *)selfCopy sendData:data type:typeCopy completionHandler:v8];
+}
+
+- (void)sendData:(id)data type:(unsigned __int16)type completionHandler:(id)handler
+{
+  typeCopy = type;
+  handlerCopy = handler;
+  v10 = [(SDAutoUnlockPairingSession *)self wrapPayload:data withType:typeCopy];
+  bleDevice = [(SDAutoUnlockAuthSession *)self bleDevice];
+  [(SDAutoUnlockAuthSession *)self sendData:v10 bleDevice:bleDevice completionHandler:handlerCopy];
 }
 
 - (void)sendAWDLInfo:(BOOL)info

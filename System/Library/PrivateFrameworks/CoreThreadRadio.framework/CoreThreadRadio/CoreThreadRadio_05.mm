@@ -3665,10 +3665,10 @@ _DWORD *PcapPacket::append_ppi_field(_DWORD *this, __int16 a2, const unsigned __
     v7 = __n;
     memcpy(this + this[128] + 4, __src, __n);
     this = v6;
-    *(v6 + 512) += v7 + 4;
-    *(v6 + 8) += v7 + 4;
-    *(v6 + 18) += v7 + 4;
-    *(v6 + 12) += v7 + 4;
+    v6[128] += v7 + 4;
+    v6[2] += v7 + 4;
+    *(v6 + 9) += v7 + 4;
+    v6[3] += v7 + 4;
   }
 
   return this;
@@ -3690,15 +3690,15 @@ _DWORD *PcapPacket::append_payload(_DWORD *this, const unsigned __int8 *a2, size
     {
       memcpy(this + v4, a2, __n);
       this = v5;
-      *(v5 + 512) += v3;
-      *(v5 + 8) += v3;
+      v5[128] += v3;
+      v5[2] += v3;
     }
 
     else
     {
       memcpy(this + v4, a2, 512 - v4);
       this = v5;
-      *(v5 + 512) = 512;
+      v5[128] = 512;
     }
   }
 
@@ -3897,7 +3897,7 @@ LABEL_40:
         v14 = v13;
         if (syslog_is_the_mask_enabled(3) && os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          PcapManager::start_pcap_capture(this + 55, this + 4);
+          PcapManager::start_pcap_capture();
         }
       }
 
@@ -3980,8 +3980,9 @@ void PcapManager::stop_pcap_capture(FILE **this)
   }
 }
 
-ssize_t PcapManager::insert_fd(PcapManager *this, int a2)
+ssize_t PcapManager::insert_fd(PcapManager *this, uint64_t a2)
 {
+  v2 = a2;
   v15 = 1;
   __buf = 0x40002A1B2C3D4;
   v14 = xmmword_100443F30;
@@ -3992,7 +3993,7 @@ ssize_t PcapManager::insert_fd(PcapManager *this, int a2)
     if (syslog_is_the_mask_enabled(6) && os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v17 = a2;
+      v17 = v2;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "PcapManager::insert_fd(%d)", buf, 8u);
     }
   }
@@ -4002,8 +4003,8 @@ ssize_t PcapManager::insert_fd(PcapManager *this, int a2)
     CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms();
   }
 
-  setsockopt(a2, 0xFFFF, 4130, &v15, 4u);
-  v6 = write(a2, &__buf, 0x18uLL);
+  setsockopt(v2, 0xFFFF, 4130, &v15, 4u);
+  v6 = write(v2, &__buf, 0x18uLL);
   if ((v6 & 0x80000000) != 0)
   {
     v10 = *__error();
@@ -4039,7 +4040,7 @@ LABEL_15:
       {
         v8 = v7;
         v9 = *(v7 + 28);
-        if (v9 <= a2)
+        if (v9 <= v2)
         {
           break;
         }
@@ -4051,7 +4052,7 @@ LABEL_15:
         }
       }
 
-      if (v9 >= a2)
+      if (v9 >= v2)
       {
         return 0;
       }
@@ -4135,7 +4136,7 @@ void PcapManager::close_fd_set(uint64_t a1, void *a2)
     {
       do
       {
-        if (!*std::__tree<int>::__find_equal<int>(buf, &buf[8], &v25, &v24, v21 + 7))
+        if (!*std::__tree<int>::__find_equal<int>(buf, &buf[8], &v25, v24, v21 + 7))
         {
           operator new();
         }
@@ -4502,16 +4503,16 @@ void sub_100077F94(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void (__cdecl ***std::ifstream::basic_ifstream(void (__cdecl ***a1)(std::ifstream *__hidden this)))(std::ifstream *__hidden this)
+void (__cdecl ***std::ifstream::basic_ifstream(void (__cdecl ***a1)(std::ifstream *__hidden this), uint64_t a2, int a3))(std::ifstream *__hidden this)
 {
   a1[59] = 0;
-  *a1 = v3;
-  *(*(v3 - 3) + a1) = v2;
+  *a1 = v5;
+  *(*(v5 - 3) + a1) = v4;
   a1[1] = 0;
-  v4 = (*(*a1 - 3) + a1);
-  std::ios_base::init(v4, a1 + 2);
-  v4[1].__vftable = 0;
-  v4[1].__fmtflags_ = -1;
+  v6 = (*(*a1 - 3) + a1);
+  std::ios_base::init(v6, a1 + 2);
+  v6[1].__vftable = 0;
+  v6[1].__fmtflags_ = -1;
   std::filebuf::basic_filebuf();
   if (!std::filebuf::open())
   {
@@ -4811,41 +4812,41 @@ uint64_t PcapManager::HandlePcapFrame()
   return gettimeofday(&v2, 0);
 }
 
-uint64_t *boost::intrusive_ptr<boost::filesystem::detail::recur_dir_itr_imp>::~intrusive_ptr(uint64_t *result)
+uint64_t *boost::intrusive_ptr<boost::filesystem::detail::recur_dir_itr_imp>::~intrusive_ptr(uint64_t *result, uint64_t a2, void **a3)
 {
-  v1 = *result;
-  if (*result && atomic_fetch_add(v1, 0xFFFFFFFF) == 1)
+  v3 = *result;
+  if (*result && atomic_fetch_add(v3, 0xFFFFFFFF) == 1)
   {
-    v2 = *(v1 + 8);
-    if (v2)
+    v4 = *(v3 + 8);
+    if (v4)
     {
-      v3 = *(v1 + 16);
-      v4 = *(v1 + 8);
-      if (v3 != v2)
+      v5 = *(v3 + 16);
+      v6 = *(v3 + 8);
+      if (v5 != v4)
       {
         do
         {
-          v6 = *(v3 - 8);
-          v3 -= 8;
-          v5 = v6;
-          if (v6 && atomic_fetch_add(v5, 0xFFFFFFFF) == 1)
+          v8 = *(v5 - 8);
+          v5 -= 8;
+          v7 = v8;
+          if (v8 && atomic_fetch_add(v7, 0xFFFFFFFF) == 1)
           {
-            boost::filesystem::detail::dir_itr_close((v5 + 48), (v5 + 56), v7);
-            if (*(v5 + 31) < 0)
+            boost::filesystem::detail::dir_itr_close(v9, (v7 + 48), (v7 + 56));
+            if (*(v7 + 31) < 0)
             {
-              operator delete(*(v5 + 8));
+              operator delete(*(v7 + 8));
             }
 
             operator delete();
           }
         }
 
-        while (v3 != v2);
-        v4 = *(v1 + 8);
+        while (v5 != v4);
+        v6 = *(v3 + 8);
       }
 
-      *(v1 + 16) = v2;
-      operator delete(v4);
+      *(v3 + 16) = v4;
+      operator delete(v6);
     }
 
     operator delete();
@@ -4864,9 +4865,9 @@ uint64_t std::ifstream::~ifstream(uint64_t *a1, uint64_t *a2)
   return std::istream::~istream();
 }
 
-uint64_t *std::__tree<int>::__find_equal<int>(void *a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
+uint64_t *std::__tree<int>::__find_equal<int>(uint64_t **a1, uint64_t *a2, uint64_t **a3, uint64_t **a4, int *a5)
 {
-  v5 = a1 + 1;
+  v5 = (a1 + 1);
   if (a1 + 1 == a2 || (v6 = *a5, v7 = *(a2 + 7), *a5 < v7))
   {
     v8 = *a2;
@@ -4893,7 +4894,7 @@ LABEL_17:
       do
       {
         v10 = v9;
-        v9 = v9[1];
+        v9 = *(v9 + 8);
       }
 
       while (v9);
@@ -4958,7 +4959,7 @@ LABEL_25:
     else
     {
       *a3 = v5;
-      return a1 + 1;
+      return (a1 + 1);
     }
   }
 
@@ -5054,7 +5055,7 @@ LABEL_41:
       else
       {
         *a3 = v5;
-        return a1 + 1;
+        return (a1 + 1);
       }
     }
   }
@@ -5198,10 +5199,11 @@ void AWDMetricsServerInterface_Init(int a1, char a2)
   v5 = [AWDMetricsServerInterface alloc];
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 8u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 8u);
 }
 
 void _GLOBAL__sub_I_AWDMetricsServerInterface_mm()
@@ -5255,11 +5257,11 @@ void awdmetricsclient_convert_ValMap_to_xpc_object(any a1@<0:X0>, const char *a2
   }
 }
 
-void sub_10007AB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t *a10)
+void sub_10007AB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a10);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
 
     _Unwind_Resume(a1);
   }
@@ -5345,11 +5347,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke(id a1, any a2)
   }
 }
 
-void sub_10007C048(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_10007C048(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a10);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   _Unwind_Resume(exception_object);
@@ -5372,11 +5374,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_2(id a1, any a2)
   }
 }
 
-void sub_10007C0E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_10007C0E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a10);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   _Unwind_Resume(exception_object);
@@ -5399,11 +5401,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_3(id a1, any a2)
   }
 }
 
-void sub_10007C188(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t *a10)
+void sub_10007C188(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a10);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
   }
 
   _Unwind_Resume(exception_object);
@@ -5430,11 +5432,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_4(uint64_t a1, ui
   AWDMetricsHandlers_handle_getprop_nbrRssi(v6, *(a1 + 32));
 }
 
-void sub_10007C290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007C290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5462,11 +5464,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_5(uint64_t a1, ui
   AWDMetricsHandlers_handle_getprop_macPktLqi(v6, *(a1 + 32));
 }
 
-void sub_10007C398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007C398(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5494,11 +5496,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_6(uint64_t a1, ui
   AWDMetricsHandlers_handle_getprop_macPktSize(v6, *(a1 + 32));
 }
 
-void sub_10007C4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007C4A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5526,11 +5528,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_7(uint64_t a1, ui
   AWDMetricsHandlers_handle_getprop_frameTxPowerHist(v6, *(a1 + 32));
 }
 
-void sub_10007C5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007C5A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5558,11 +5560,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_8(uint64_t a1, ui
   AWDMetricsHandlers_handle_getprop_neighborTxPowerHist(v6, *(a1 + 32));
 }
 
-void sub_10007C6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007C6B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5590,11 +5592,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_9(uint64_t a1, ui
   AWDMetricsHandlers_handle_getprop_neighborEnergySavingsFactorHist(v6, *(a1 + 32));
 }
 
-void sub_10007C7B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007C7B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5622,11 +5624,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_10(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_radiostat(v6, *(a1 + 32));
 }
 
-void sub_10007C8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007C8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5654,11 +5656,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_11(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_radiocounters(v6, *(a1 + 32));
 }
 
-void sub_10007C9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007C9C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5686,11 +5688,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_12(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_otradiocounters(v6, *(a1 + 32));
 }
 
-void sub_10007CAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007CAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5718,11 +5720,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_13(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_allmac(v6, *(a1 + 32));
 }
 
-void sub_10007CBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007CBD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5750,11 +5752,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_14(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_macretry(v6, *(a1 + 32));
 }
 
-void sub_10007CCE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007CCE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5782,11 +5784,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_15(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_ccaEnergyDetect(v6, *(a1 + 32));
 }
 
-void sub_10007CDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007CDE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5814,11 +5816,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_16(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_csmaBackoff(v6, *(a1 + 32));
 }
 
-void sub_10007CEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007CEF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5846,11 +5848,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_17(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_vendorcoex(v6, *(a1 + 32));
 }
 
-void sub_10007CFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007CFF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5878,11 +5880,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_18(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_vendorcoex_histograms(v6, *(a1 + 32));
 }
 
-void sub_10007D100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007D100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5910,11 +5912,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_19(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_threadmle(v6, *(a1 + 32));
 }
 
-void sub_10007D208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007D208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5942,11 +5944,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_20(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_allipv6(v6, *(a1 + 32));
 }
 
-void sub_10007D310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007D310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -5974,11 +5976,11 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_21(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_allipv6(v6, *(a1 + 32));
 }
 
-void sub_10007D418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007D418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
@@ -6006,31 +6008,31 @@ void ___Z37awdmetricsclient_create_CtrXPC_clientv_block_invoke_22(uint64_t a1, u
   AWDMetricsHandlers_handle_getprop_connectednodes(v6, *(a1 + 32));
 }
 
-void sub_10007D520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9)
+void sub_10007D520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a9)
   {
-    awdmetricsclient_convert_ValMap_to_xpc_object(a9);
+    awdmetricsclient_convert_ValMap_to_xpc_object();
     _Unwind_Resume(a1);
   }
 
   JUMPOUT(0x10007D518);
 }
 
-void AWDMetricsClient_GetMetrics_Versions(void)
+void AWDMetricsClient_GetMetrics_Versions(uint64_t a1, const char *a2)
 {
-  v19 = 0;
-  v16 = 14;
+  v21 = 0;
+  v18 = 14;
   strcpy(__p, "Daemon:Version");
   if (_gIntClientPtr)
   {
-    [_gIntClientPtr getProperty:__p output:&v19];
-    v0 = LODWORD(v17[0]) == 0;
-    v1 = v17[1];
-    v2 = SHIBYTE(v18);
-    HIBYTE(v18) = 0;
-    LOBYTE(v17[1]) = 0;
-    if ((v16 & 0x80000000) == 0)
+    objc_msgSend_getProperty_output_(_gIntClientPtr, a2, __p, &v21);
+    v2 = LODWORD(v19[0]) == 0;
+    v3 = v19[1];
+    v4 = SHIBYTE(v20);
+    HIBYTE(v20) = 0;
+    LOBYTE(v19[1]) = 0;
+    if ((v18 & 0x80000000) == 0)
     {
       goto LABEL_3;
     }
@@ -6038,17 +6040,17 @@ void AWDMetricsClient_GetMetrics_Versions(void)
 
   else
   {
-    *v17 = 0u;
-    v18 = 0u;
-    v0 = 1;
-    v1 = 0;
-    v2 = 0;
-    HIBYTE(v18) = 0;
-    LOBYTE(v17[1]) = 0;
-    if ((v16 & 0x80000000) == 0)
+    *v19 = 0u;
+    v20 = 0u;
+    v2 = 1;
+    v3 = 0;
+    v4 = 0;
+    HIBYTE(v20) = 0;
+    LOBYTE(v19[1]) = 0;
+    if ((v18 & 0x80000000) == 0)
     {
 LABEL_3:
-      if (!v0)
+      if (!v2)
       {
         goto LABEL_11;
       }
@@ -6058,35 +6060,35 @@ LABEL_3:
   }
 
   operator delete(__p[0]);
-  if (!v0)
+  if (!v2)
   {
     goto LABEL_11;
   }
 
 LABEL_7:
-  v3 = v19;
-  if (v19)
+  v5 = v21;
+  if (v21)
   {
-    v3 = (*(*v19 + 24))(v19);
+    v5 = (*(*v21 + 24))(v21);
   }
 
-  v14 = v3;
-  v4.var0 = &v14;
-  AWDMetricsHandlers_handle_getprop_daemonversion(v4);
-  if (v14)
+  v16 = v5;
+  v6.var0 = &v16;
+  AWDMetricsHandlers_handle_getprop_daemonversion(v6);
+  if (v16)
   {
-    (*(*v14 + 8))(v14);
+    (*(*v16 + 8))(v16);
   }
 
 LABEL_11:
-  v13 = 0;
-  v12 = 14;
-  strcpy(v11, "vendor:version");
+  v15 = 0;
+  v14 = 14;
+  strcpy(v13, "vendor:version");
   if (_gIntClientPtr)
   {
-    [_gIntClientPtr getProperty:v11 output:&v13];
-    v5 = LODWORD(v17[0]) == 0;
-    if ((v2 & 0x80000000) == 0)
+    objc_msgSend_getProperty_output_(_gIntClientPtr);
+    v7 = LODWORD(v19[0]) == 0;
+    if ((v4 & 0x80000000) == 0)
     {
       goto LABEL_14;
     }
@@ -6094,76 +6096,76 @@ LABEL_11:
     goto LABEL_13;
   }
 
-  *v17 = 0u;
-  v18 = 0u;
-  v5 = 1;
-  if (v2 < 0)
+  *v19 = 0u;
+  v20 = 0u;
+  v7 = 1;
+  if (v4 < 0)
   {
 LABEL_13:
-    operator delete(v1);
+    operator delete(v3);
   }
 
 LABEL_14:
-  v6 = v17[1];
-  v7 = SHIBYTE(v18);
-  HIBYTE(v18) = 0;
-  LOBYTE(v17[1]) = 0;
-  if (v12 < 0)
+  v8 = v19[1];
+  v9 = SHIBYTE(v20);
+  HIBYTE(v20) = 0;
+  LOBYTE(v19[1]) = 0;
+  if (v14 < 0)
   {
-    operator delete(v11[0]);
-    if (!v5)
+    operator delete(v13[0]);
+    if (!v7)
     {
       goto LABEL_24;
     }
   }
 
-  else if (!v5)
+  else if (!v7)
   {
     goto LABEL_24;
   }
 
-  v8 = v13;
-  if (v13)
+  v10 = v15;
+  if (v15)
   {
-    v8 = (*(*v13 + 24))(v13);
+    v10 = (*(*v15 + 24))(v15);
   }
 
-  v10 = v8;
-  v9.var0 = &v10;
-  AWDMetricsHandlers_handle_getprop_vendorversion(v9);
-  if (v10)
+  v12 = v10;
+  v11.var0 = &v12;
+  AWDMetricsHandlers_handle_getprop_vendorversion(v11);
+  if (v12)
   {
-    (*(*v10 + 8))(v10);
+    (*(*v12 + 8))(v12);
   }
 
 LABEL_24:
-  if (v13)
+  if (v15)
   {
-    (*(*v13 + 8))(v13);
+    (*(*v15 + 8))(v15);
   }
 
-  if (v19)
+  if (v21)
   {
-    (*(*v19 + 8))(v19);
+    (*(*v21 + 8))(v21);
   }
 
-  if (v7 < 0)
+  if (v9 < 0)
   {
-    operator delete(v6);
+    operator delete(v8);
   }
 }
 
-void sub_10007D7E8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_10007D7E8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (a17)
   {
-    (*(*a17 + 8))(a17);
+    (*(*a17 + 8))(a17, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v28 = *(v26 - 40);
   if (v28)
   {
-    (*(*v28 + 8))(v28);
+    (*(*v28 + 8))(v28, a2, a3, a4, a5, a6, a7, a8);
     if ((v25 & 0x80000000) == 0)
     {
 LABEL_5:
@@ -6678,16 +6680,16 @@ void sub_10008183C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AWDMetricsClient_ResetMetrics_MAC(void)
+void AWDMetricsClient_ResetMetrics_MAC(uint64_t a1, const char *a2)
 {
-  v1 = 18;
+  v3 = 18;
   strcpy(__p, "NCP:Counter:AllMac");
   if (_gIntClientPtr)
   {
-    [_gIntClientPtr setProperty:__p property_val:"0"];
-    HIBYTE(v3) = 0;
-    BYTE8(v2) = 0;
-    if ((v1 & 0x80000000) == 0)
+    objc_msgSend_setProperty_property_val_(_gIntClientPtr, a2, __p, "0");
+    HIBYTE(v5) = 0;
+    BYTE8(v4) = 0;
+    if ((v3 & 0x80000000) == 0)
     {
       goto LABEL_3;
     }
@@ -6695,11 +6697,11 @@ void AWDMetricsClient_ResetMetrics_MAC(void)
 
   else
   {
-    v2 = 0u;
-    v3 = 0u;
-    HIBYTE(v3) = 0;
-    BYTE8(v2) = 0;
-    if ((v1 & 0x80000000) == 0)
+    v4 = 0u;
+    v5 = 0u;
+    HIBYTE(v5) = 0;
+    BYTE8(v4) = 0;
+    if ((v3 & 0x80000000) == 0)
     {
       goto LABEL_3;
     }
@@ -6725,18 +6727,18 @@ void sub_1000823D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AWDMetricsClient_ResetMetrics_Coex(void)
+void AWDMetricsClient_ResetMetrics_Coex(uint64_t a1, const char *a2)
 {
-  v3 = 20;
+  v5 = 20;
   strcpy(__p, "vendor:coex:counters");
   if (_gIntClientPtr)
   {
-    [_gIntClientPtr setProperty:__p property_val:"0"];
-    v0 = v4[1];
-    v1 = SHIBYTE(v5);
-    HIBYTE(v5) = 0;
-    LOBYTE(v4[1]) = 0;
-    if ((v3 & 0x80000000) == 0)
+    objc_msgSend_setProperty_property_val_(_gIntClientPtr, a2, __p, "0");
+    v2 = v6[1];
+    v3 = SHIBYTE(v7);
+    HIBYTE(v7) = 0;
+    LOBYTE(v6[1]) = 0;
+    if ((v5 & 0x80000000) == 0)
     {
       goto LABEL_3;
     }
@@ -6744,28 +6746,28 @@ void AWDMetricsClient_ResetMetrics_Coex(void)
 
   else
   {
-    *v4 = 0u;
-    v5 = 0u;
-    v0 = 0;
-    v1 = 0;
-    HIBYTE(v5) = 0;
-    LOBYTE(v4[1]) = 0;
-    if ((v3 & 0x80000000) == 0)
+    *v6 = 0u;
+    v7 = 0u;
+    v2 = 0;
+    v3 = 0;
+    HIBYTE(v7) = 0;
+    LOBYTE(v6[1]) = 0;
+    if ((v5 & 0x80000000) == 0)
     {
 LABEL_3:
-      if ((v1 & 0x80000000) == 0)
+      if ((v3 & 0x80000000) == 0)
       {
         return;
       }
 
 LABEL_7:
-      operator delete(v0);
+      operator delete(v2);
       return;
     }
   }
 
   operator delete(*__p);
-  if (v1 < 0)
+  if (v3 < 0)
   {
     goto LABEL_7;
   }
@@ -6781,18 +6783,18 @@ void sub_1000824F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void AWDMetricsClient_ResetMetrics_IPMLE(void)
+void AWDMetricsClient_ResetMetrics_IPMLE(uint64_t a1, const char *a2)
 {
-  v6 = 19;
+  v8 = 19;
   strcpy(__p, "NCP:Counter:AllIPv6");
   if (_gIntClientPtr)
   {
-    [_gIntClientPtr setProperty:__p property_val:"0"];
-    v0 = v7[1];
-    v1 = SHIBYTE(v8);
-    HIBYTE(v8) = 0;
-    LOBYTE(v7[1]) = 0;
-    if ((v6 & 0x80000000) == 0)
+    objc_msgSend_setProperty_property_val_(_gIntClientPtr, a2, __p, "0");
+    v2 = v9[1];
+    v3 = SHIBYTE(v10);
+    HIBYTE(v10) = 0;
+    LOBYTE(v9[1]) = 0;
+    if ((v8 & 0x80000000) == 0)
     {
       goto LABEL_3;
     }
@@ -6800,13 +6802,13 @@ void AWDMetricsClient_ResetMetrics_IPMLE(void)
 
   else
   {
-    *v7 = 0u;
-    v8 = 0u;
-    v0 = 0;
-    v1 = 0;
-    HIBYTE(v8) = 0;
-    LOBYTE(v7[1]) = 0;
-    if ((v6 & 0x80000000) == 0)
+    *v9 = 0u;
+    v10 = 0u;
+    v2 = 0;
+    v3 = 0;
+    HIBYTE(v10) = 0;
+    LOBYTE(v9[1]) = 0;
+    if ((v8 & 0x80000000) == 0)
     {
       goto LABEL_3;
     }
@@ -6814,12 +6816,12 @@ void AWDMetricsClient_ResetMetrics_IPMLE(void)
 
   operator delete(*__p);
 LABEL_3:
-  strcpy(v4, "NCP:Counter:Thread:Mle");
-  HIBYTE(v4[2]) = 22;
+  strcpy(v6, "NCP:Counter:Thread:Mle");
+  HIBYTE(v6[2]) = 22;
   if (_gIntClientPtr)
   {
-    [_gIntClientPtr setProperty:v4 property_val:"0"];
-    if ((v1 & 0x80000000) == 0)
+    objc_msgSend_setProperty_property_val_(_gIntClientPtr, v6[0], v6[1], v6[2]);
+    if ((v3 & 0x80000000) == 0)
     {
       goto LABEL_5;
     }
@@ -6827,16 +6829,16 @@ LABEL_3:
 
   else
   {
-    *v7 = 0u;
-    v8 = 0u;
-    if ((v1 & 0x80000000) == 0)
+    *v9 = 0u;
+    v10 = 0u;
+    if ((v3 & 0x80000000) == 0)
     {
 LABEL_5:
-      v2 = v7[1];
-      v3 = SHIBYTE(v8);
-      HIBYTE(v8) = 0;
-      LOBYTE(v7[1]) = 0;
-      if ((SHIBYTE(v4[2]) & 0x80000000) == 0)
+      v4 = v9[1];
+      v5 = SHIBYTE(v10);
+      HIBYTE(v10) = 0;
+      LOBYTE(v9[1]) = 0;
+      if ((SHIBYTE(v6[2]) & 0x80000000) == 0)
       {
         goto LABEL_6;
       }
@@ -6845,27 +6847,27 @@ LABEL_5:
     }
   }
 
-  operator delete(v0);
-  v2 = v7[1];
-  v3 = SHIBYTE(v8);
-  HIBYTE(v8) = 0;
-  LOBYTE(v7[1]) = 0;
-  if ((SHIBYTE(v4[2]) & 0x80000000) == 0)
+  operator delete(v2);
+  v4 = v9[1];
+  v5 = SHIBYTE(v10);
+  HIBYTE(v10) = 0;
+  LOBYTE(v9[1]) = 0;
+  if ((SHIBYTE(v6[2]) & 0x80000000) == 0)
   {
 LABEL_6:
-    if ((v3 & 0x80000000) == 0)
+    if ((v5 & 0x80000000) == 0)
     {
       return;
     }
 
 LABEL_13:
-    operator delete(v2);
+    operator delete(v4);
     return;
   }
 
 LABEL_12:
-  operator delete(v4[0]);
-  if (v3 < 0)
+  operator delete(v6[0]);
+  if (v5 < 0)
   {
     goto LABEL_13;
   }
@@ -6924,7 +6926,7 @@ void AWDMetricsClient_TriggerAutoBugCaptures()
   }
 }
 
-void AWDMetricsClient_TriggerAutoBugCaptures_internal(const std::string::value_type *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7)
+void AWDMetricsClient_TriggerAutoBugCaptures_internal(const std::string::value_type *a1, uint64_t a2, uint64_t a3, uint64_t **a4, uint64_t **a5, uint64_t a6, uint64_t a7)
 {
   v12 = log_get_logging_obg("com.apple.wpantund.awd", "default");
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
@@ -7297,25 +7299,24 @@ void _GLOBAL__sub_I_CoreBTStateHandlerRcp_mm()
   objc_autoreleasePoolPop(v0);
 }
 
-BOOL ot::Posix::Configuration::SetRegion(ot::Posix::Configuration *this, int a2)
+BOOL ot::Posix::Configuration::SetRegion(ot::Posix::Configuration *this, unsigned int a2)
 {
-  v2 = a2;
-  v30[0] = 0;
-  if (ot::Posix::Configuration::GetDomain(this, a2, v30) && ot::Posix::Configuration::GetDomain(this, 22359, v30))
+  v10[0] = 0;
+  if (ot::Posix::Configuration::GetDomain(this, a2, v10) && ot::Posix::Configuration::GetDomain(this, 22359, v10))
   {
     v4 = 1;
   }
 
-  else if (ot::Posix::ConfigFile::HasKey(this + 3, "supported_channel_mask") && (ChannelMask = ot::Posix::Configuration::GetChannelMask(this, "supported_channel_mask", v30, this + 13), ChannelMask) || ot::Posix::ConfigFile::HasKey(this + 3, "supported_channel_mask") && (ChannelMask = ot::Posix::Configuration::GetChannelMask(this, "preferred_channel_mask", v30, this + 14), ChannelMask))
+  else if (ot::Posix::ConfigFile::HasKey((this + 24), "supported_channel_mask") && (ChannelMask = ot::Posix::Configuration::GetChannelMask(this, "supported_channel_mask", v10, this + 13), ChannelMask) || ot::Posix::ConfigFile::HasKey((this + 24), "supported_channel_mask") && (ChannelMask = ot::Posix::Configuration::GetChannelMask(this, "preferred_channel_mask", v10, this + 14), ChannelMask))
   {
     v4 = ChannelMask;
     v6 = otThreadErrorToString(ChannelMask);
-    ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to update channel mask: %s", v7, v8, v9, v10, v11, v12, v13, v6);
+    ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to update channel mask: %s", v6);
   }
 
   else
   {
-    updated = ot::Posix::Configuration::UpdateTargetPower(this, v30);
+    updated = ot::Posix::Configuration::UpdateTargetPower(this, v10);
     if (updated)
     {
       v4 = updated;
@@ -7326,29 +7327,29 @@ BOOL ot::Posix::Configuration::SetRegion(ot::Posix::Configuration *this, int a2)
       v4 = ot::Posix::Configuration::UpdateCalibratedPower(this);
       if (!v4)
       {
-        *(this + 24) = v2;
-        ot::Posix::Logger<ot::Posix::Configuration>::LogInfo2("Successfully set region %c%c", v15, v16, v17, v18, v19, v20, v21, SHIBYTE(v2));
+        *(this + 24) = a2;
+        ot::Posix::Logger<ot::Posix::Configuration>::LogInfo2("Successfully set region %c%c", a2 >> 8, a2);
         return v4;
       }
     }
   }
 
-  otThreadErrorToString(v4);
-  ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to set region %c%c: %s", v22, v23, v24, v25, v26, v27, v28, SHIBYTE(v2));
+  v8 = otThreadErrorToString(v4);
+  ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to set region %c%c: %s", a2 >> 8, a2, v8);
   return v4;
 }
 
-uint64_t ot::Posix::Configuration::GetDomain(const char **this, int a2, ot::Power::Domain *a3)
+uint64_t ot::Posix::Configuration::GetDomain(ot::Posix::Configuration *this, int a2, ot::Power::Domain *a3)
 {
-  v19 = 0;
+  v12 = 0;
   __lasts = 0;
-  if (ot::Posix::ConfigFile::Get(this + 3, "region_domain_mapping", &v19, __str, 512))
+  if (ot::Posix::ConfigFile::Get((this + 24), "region_domain_mapping", &v12, __str, 512))
   {
 LABEL_2:
     v6 = 23;
 LABEL_12:
     v9 = otThreadErrorToString(v6);
-    ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to get power domain: %s", v10, v11, v12, v13, v14, v15, v16, v9);
+    ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to get power domain: %s", v9);
     return v6;
   }
 
@@ -7364,7 +7365,7 @@ LABEL_12:
     }
 
 LABEL_4:
-    if (ot::Posix::ConfigFile::Get(this + 3, "region_domain_mapping", &v19, __str, 512))
+    if (ot::Posix::ConfigFile::Get((this + 24), "region_domain_mapping", &v12, __str, 512))
     {
       goto LABEL_2;
     }
@@ -7391,24 +7392,24 @@ LABEL_4:
 
 uint64_t ot::Posix::Configuration::UpdateChannelMasks(ot::Posix::Configuration *this, const ot::Power::Domain *a2)
 {
-  if (ot::Posix::ConfigFile::HasKey(this + 3, "supported_channel_mask") && (result = ot::Posix::Configuration::GetChannelMask(this, "supported_channel_mask", a2, this + 13), result) || (result = ot::Posix::ConfigFile::HasKey(this + 3, "supported_channel_mask"), result) && (result = ot::Posix::Configuration::GetChannelMask(this, "preferred_channel_mask", a2, this + 14), result))
+  if (ot::Posix::ConfigFile::HasKey((this + 24), "supported_channel_mask") && (result = ot::Posix::Configuration::GetChannelMask(this, "supported_channel_mask", a2, this + 13), result) || (result = ot::Posix::ConfigFile::HasKey((this + 24), "supported_channel_mask"), result) && (result = ot::Posix::Configuration::GetChannelMask(this, "preferred_channel_mask", a2, this + 14), result))
   {
     v5 = result;
     v6 = otThreadErrorToString(result);
-    ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to update channel mask: %s", v7, v8, v9, v10, v11, v12, v13, v6);
+    ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to update channel mask: %s", v6);
     return v5;
   }
 
   return result;
 }
 
-BOOL ot::Posix::Configuration::UpdateTargetPower(const char **this, const ot::Power::Domain *a2)
+BOOL ot::Posix::Configuration::UpdateTargetPower(ot::Posix::Configuration *this, const ot::Power::Domain *a2)
 {
-  v27 = 0;
-  result = ot::Posix::ConfigFile::HasKey(this + 3, "target_power");
+  v13 = 0;
+  result = ot::Posix::ConfigFile::HasKey((this + 24), "target_power");
   if (result)
   {
-    if (ot::Posix::Configuration::GetNextTargetPower(this, a2, &v27, &v24))
+    if (ot::Posix::Configuration::GetNextTargetPower(this, a2, &v13, &v10))
     {
       return 0;
     }
@@ -7417,16 +7418,16 @@ BOOL ot::Posix::Configuration::UpdateTargetPower(const char **this, const ot::Po
     {
       while (1)
       {
-        ot::Power::TargetPower::ToString(&v24, v28);
-        ot::Posix::Logger<ot::Posix::Configuration>::LogInfo2("Update target power: %s\r\n", v6, v7, v8, v9, v10, v11, v12, &v29);
-        v13 = v24;
-        if (v24 <= v25)
+        ot::Power::TargetPower::ToString(&v14, &v10);
+        ot::Posix::Logger<ot::Posix::Configuration>::LogInfo2("Update target power: %s\r\n", v15);
+        v6 = v10;
+        if (v10 <= v11)
         {
           break;
         }
 
 LABEL_5:
-        NextTargetPower = ot::Posix::Configuration::GetNextTargetPower(this, a2, &v27, &v24);
+        NextTargetPower = ot::Posix::Configuration::GetNextTargetPower(this, a2, &v13, &v10);
         result = 0;
         if (NextTargetPower)
         {
@@ -7436,34 +7437,34 @@ LABEL_5:
 
       while (1)
       {
-        v14 = otPlatRadioSetChannelTargetPower(gInstance, v13, v26);
-        if (v14)
+        v7 = otPlatRadioSetChannelTargetPower(gInstance, v6, v12);
+        if (v7)
         {
           break;
         }
 
-        if (v25 < ++v13)
+        if (v11 < ++v6)
         {
           goto LABEL_5;
         }
       }
 
-      v15 = v14;
-      v16 = otThreadErrorToString(v14);
-      ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to update target power: %s", v17, v18, v19, v20, v21, v22, v23, v16);
-      return v15;
+      v8 = v7;
+      v9 = otThreadErrorToString(v7);
+      ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to update target power: %s", v9);
+      return v8;
     }
   }
 
   return result;
 }
 
-BOOL ot::Posix::Configuration::UpdateCalibratedPower(const char **this)
+BOOL ot::Posix::Configuration::UpdateCalibratedPower(ot::Posix::Configuration *this)
 {
-  v23 = 0;
-  if (ot::Posix::ConfigFile::Get(this, "calibrated_power", &v23, v31, 512))
+  v9 = 0;
+  if (ot::Posix::ConfigFile::Get(this, "calibrated_power", &v9, v17, 512))
   {
-    v2 = 3;
+    v2 = 24;
   }
 
   else
@@ -7471,7 +7472,7 @@ BOOL ot::Posix::Configuration::UpdateCalibratedPower(const char **this)
     v2 = 0;
   }
 
-  result = ot::Posix::ConfigFile::HasKey(&this[v2], "calibrated_power");
+  result = ot::Posix::ConfigFile::HasKey((this + v2), "calibrated_power");
   if (result)
   {
     v4 = otPlatRadioClearCalibratedPowers();
@@ -7480,41 +7481,41 @@ BOOL ot::Posix::Configuration::UpdateCalibratedPower(const char **this)
 LABEL_6:
       v5 = v4;
       v6 = otThreadErrorToString(v4);
-      ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to update calibrated power table: %s", v7, v8, v9, v10, v11, v12, v13, v6);
+      ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to update calibrated power table: %s", v6);
       return v5;
     }
 
-    v23 = 0;
-    if (!ot::Posix::ConfigFile::Get(&this[v2], "calibrated_power", &v23, v31, 512))
+    v9 = 0;
+    if (!ot::Posix::ConfigFile::Get((this + v2), "calibrated_power", &v9, v17, 512))
     {
       while (1)
       {
-        v4 = ot::Power::CalibratedPower::FromString(&v26, v31);
+        v4 = ot::Power::CalibratedPower::FromString(&v12, v17);
         if (v4)
         {
           goto LABEL_6;
         }
 
-        ot::Power::CalibratedPower::ToString(&v26, v24);
-        ot::Posix::Logger<ot::Posix::Configuration>::LogInfo2("Update calibrated power: %s\r\n", v15, v16, v17, v18, v19, v20, v21, &v25);
-        v22 = v26;
-        if (v26 <= v27)
+        ot::Power::CalibratedPower::ToString(&v10, &v12);
+        ot::Posix::Logger<ot::Posix::Configuration>::LogInfo2("Update calibrated power: %s\r\n", v11);
+        v8 = v12;
+        if (v12 <= v13)
         {
           do
           {
-            v4 = otPlatRadioAddCalibratedPower(gInstance, v22, v28, v29, v30);
+            v4 = otPlatRadioAddCalibratedPower(gInstance, v8, v14, v15, v16);
             if (v4)
             {
               goto LABEL_6;
             }
           }
 
-          while (v27 >= ++v22);
+          while (v13 >= ++v8);
         }
 
-        v14 = ot::Posix::ConfigFile::Get(&this[v2], "calibrated_power", &v23, v31, 512);
+        v7 = ot::Posix::ConfigFile::Get((this + v2), "calibrated_power", &v9, v17, 512);
         result = 0;
-        if (v14)
+        if (v7)
         {
           return result;
         }
@@ -7527,11 +7528,11 @@ LABEL_6:
   return result;
 }
 
-uint64_t ot::Posix::Configuration::GetChannelMask(const char **this, char *a2, const ot::Power::Domain *a3, unsigned int *a4)
+uint64_t ot::Posix::Configuration::GetChannelMask(ot::Posix::Configuration *this, char *a2, const ot::Power::Domain *a3, unsigned int *a4)
 {
   __lasts = 0;
   *v13 = 0;
-  if (ot::Posix::ConfigFile::Get(this + 3, a2, &v13[4], __str, 512))
+  if (ot::Posix::ConfigFile::Get((this + 24), a2, &v13[4], __str, 512))
   {
     return 23;
   }
@@ -7551,7 +7552,7 @@ uint64_t ot::Posix::Configuration::GetChannelMask(const char **this, char *a2, c
       }
     }
 
-    if (ot::Posix::ConfigFile::Get(this + 3, a2, &v13[4], __str, 512))
+    if (ot::Posix::ConfigFile::Get((this + 24), a2, &v13[4], __str, 512))
     {
       return 23;
     }
@@ -7566,10 +7567,10 @@ uint64_t ot::Posix::Configuration::GetChannelMask(const char **this, char *a2, c
   return result;
 }
 
-uint64_t ot::Posix::Configuration::GetNextTargetPower(const char **this, const ot::Power::Domain *a2, int *a3, ot::Power::TargetPower *a4)
+uint64_t ot::Posix::Configuration::GetNextTargetPower(ot::Posix::Configuration *this, const ot::Power::Domain *a2, int *a3, ot::Power::TargetPower *a4)
 {
   __lasts = 0;
-  if (ot::Posix::ConfigFile::Get(this + 3, "target_power", a3, __str, 512))
+  if (ot::Posix::ConfigFile::Get((this + 24), "target_power", a3, __str, 512))
   {
     return 23;
   }
@@ -7585,7 +7586,7 @@ uint64_t ot::Posix::Configuration::GetNextTargetPower(const char **this, const o
       }
     }
 
-    if (ot::Posix::ConfigFile::Get(this + 3, "target_power", a3, __str, 512))
+    if (ot::Posix::ConfigFile::Get((this + 24), "target_power", a3, __str, 512))
     {
       return 23;
     }
@@ -7596,7 +7597,7 @@ uint64_t ot::Posix::Configuration::GetNextTargetPower(const char **this, const o
   {
     v10 = result;
     v11 = otThreadErrorToString(result);
-    ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to read target power: %s", v12, v13, v14, v15, v16, v17, v18, v11);
+    ot::Posix::Logger<ot::Posix::Configuration>::LogCrit2("Failed to read target power: %s", v11);
     return v10;
   }
 
@@ -7608,7 +7609,7 @@ BOOL ot::Posix::Configuration::IsValid(const char **this)
   result = ot::Posix::ConfigFile::DoesExist(this + 3);
   if (result)
   {
-    if (ot::Posix::ConfigFile::HasKey(this + 3, "supported_channel_mask") || ot::Posix::ConfigFile::HasKey(this + 3, "preferred_channel_mask") || ot::Posix::ConfigFile::HasKey(this + 3, "region_domain_mapping") || ot::Posix::ConfigFile::HasKey(this + 3, "calibrated_power"))
+    if (ot::Posix::ConfigFile::HasKey((this + 3), "supported_channel_mask") || ot::Posix::ConfigFile::HasKey((this + 3), "preferred_channel_mask") || ot::Posix::ConfigFile::HasKey((this + 3), "region_domain_mapping") || ot::Posix::ConfigFile::HasKey((this + 3), "calibrated_power"))
     {
       return 1;
     }
@@ -7616,7 +7617,7 @@ BOOL ot::Posix::Configuration::IsValid(const char **this)
     else
     {
 
-      return ot::Posix::ConfigFile::HasKey(this + 3, "target_power");
+      return ot::Posix::ConfigFile::HasKey((this + 3), "target_power");
     }
   }
 
@@ -7750,27 +7751,25 @@ void sub_1000846BC(_Unwind_Exception *a1)
 
 uint64_t AWDMetricsHandlers_handle_getprop_daemonversion(any a1)
 {
-  any_to_string(a1.var0, &v2);
-  if (byte_1004E56FF < 0)
+  any_to_string(&v2, a1.var0);
+  if (m_daemonVersionString[23] < 0)
   {
-    operator delete(m_daemonVersionString);
+    operator delete(*m_daemonVersionString);
   }
 
-  m_daemonVersionString = v2;
-  unk_1004E56F8 = v3;
+  *m_daemonVersionString = v2;
   return 0;
 }
 
 uint64_t AWDMetricsHandlers_handle_getprop_vendorversion(any a1)
 {
-  any_to_string(a1.var0, &v2);
-  if (byte_1004E5717 < 0)
+  any_to_string(&v2, a1.var0);
+  if (m_vendorVersionString[23] < 0)
   {
-    operator delete(m_vendorVersionString);
+    operator delete(*m_vendorVersionString);
   }
 
-  m_vendorVersionString = v2;
-  unk_1004E5710 = v3;
+  *m_vendorVersionString = v2;
   return 0;
 }
 
@@ -8253,7 +8252,7 @@ LABEL_45:
   return count;
 }
 
-void sub_100085654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17, char *a18)
+void sub_100085654(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, char *a18)
 {
   std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::destroy(&a17, a18);
 

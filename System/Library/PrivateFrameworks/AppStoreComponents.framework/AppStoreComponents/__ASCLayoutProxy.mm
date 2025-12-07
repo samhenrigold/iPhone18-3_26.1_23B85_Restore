@@ -143,7 +143,7 @@
   selfCopy = self;
   sub_2157A9550();
   MEMORY[0x216070240](0x756F79614C435341, 0xEF2879786F725074);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA711D8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA711D8, &qword_2157B3B00);
   sub_2157A9590();
   MEMORY[0x216070240](41, 0xE100000000000000);
 
@@ -190,7 +190,7 @@
 
 + (id)lockupMediaSizingLayoutFor:(id)for screenshots:(id)screenshots trailers:(id)trailers containerView:(id)view mediaViews:(id)views
 {
-  sub_215788D28(0, &qword_280D2B5B0);
+  sub_215788D28(0, &qword_280D2B5B0, 0x277D75D18);
   v11 = sub_2157A9440();
   swift_getObjCClassMetadata();
   forCopy = for;
@@ -204,7 +204,7 @@
 
 + (id)lockupMediaLayoutFor:(id)for screenshots:(id)screenshots trailers:(id)trailers containerView:(id)view mediaViews:(id)views
 {
-  sub_215788D28(0, &qword_280D2B5B0);
+  sub_215788D28(0, &qword_280D2B5B0, 0x277D75D18);
   v11 = sub_2157A9440();
   forCopy = for;
   screenshotsCopy = screenshots;
@@ -246,7 +246,7 @@
   andCopy = and;
   sub_215788950(from, and, 0, 1);
 
-  sub_215788D28(0, &qword_27CA71118);
+  sub_215788D28(0, &qword_27CA71118, off_2781CB050);
   v8 = sub_2157A9430();
 
   return v8;
@@ -306,7 +306,7 @@
 + (double)lockupTitlePointSizeProvider:(id)provider
 {
   providerCopy = provider;
-  v4 = _s18AppStoreComponents14ASCLayoutProxyC28lockupTitlePointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentI8CategoryaFZ_0();
+  v4 = _s18AppStoreComponents14ASCLayoutProxyC28lockupTitlePointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentI8CategoryaFZ_0(providerCopy);
 
   return v4;
 }
@@ -314,7 +314,7 @@
 + (double)lockupSubtitlePointSizeProvider:(id)provider
 {
   providerCopy = provider;
-  v4 = _s18AppStoreComponents14ASCLayoutProxyC31lockupSubtitlePointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentI8CategoryaFZ_0();
+  v4 = _s18AppStoreComponents14ASCLayoutProxyC31lockupSubtitlePointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentI8CategoryaFZ_0(providerCopy);
 
   return v4;
 }
@@ -322,7 +322,7 @@
 + (double)lockupHeadingPointSizeProvider:(id)provider
 {
   providerCopy = provider;
-  v4 = _s18AppStoreComponents14ASCLayoutProxyC30lockupHeadingPointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentI8CategoryaFZ_0();
+  v4 = _s18AppStoreComponents14ASCLayoutProxyC30lockupHeadingPointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentI8CategoryaFZ_0(providerCopy);
 
   return v4;
 }
@@ -330,7 +330,7 @@
 + (double)adTransparencyButtonTitlePointSizeProvider:(id)provider
 {
   providerCopy = provider;
-  v4 = _s18AppStoreComponents14ASCLayoutProxyC42adTransparencyButtonTitlePointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentK8CategoryaFZ_0();
+  v4 = _s18AppStoreComponents14ASCLayoutProxyC42adTransparencyButtonTitlePointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentK8CategoryaFZ_0(providerCopy);
 
   return v4;
 }
@@ -367,22 +367,23 @@
 + (double)adTransparencyDeveloperNamePointSizeProvider:(id)provider
 {
   providerCopy = provider;
-  v4 = _s18AppStoreComponents14ASCLayoutProxyC44adTransparencyDeveloperNamePointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentK8CategoryaFZ_0();
+  v4 = _s18AppStoreComponents14ASCLayoutProxyC44adTransparencyDeveloperNamePointSizeProvidery12CoreGraphics7CGFloatVSo09UIContentK8CategoryaFZ_0(providerCopy);
 
   return v4;
 }
 
 + (CGSize)miniLockupEstimatedSizeFittingSize:(CGSize)size compatibleWithTraitCollection:(id)collection
 {
+  height = size.height;
   width = size.width;
   collectionCopy = collection;
-  v6 = _s18AppStoreComponents14ASCLayoutProxyC23miniLockupEstimatedSize7fitting14compatibleWithSo6CGSizeVAH_So17UITraitCollectionCtFZ_0(collectionCopy, width);
-  v8 = v7;
+  v7 = _s18AppStoreComponents14ASCLayoutProxyC23miniLockupEstimatedSize7fitting14compatibleWithSo6CGSizeVAH_So17UITraitCollectionCtFZ_0(collectionCopy, width, height);
+  v9 = v8;
 
-  v9 = v6;
-  v10 = v8;
-  result.height = v10;
-  result.width = v9;
+  v10 = v7;
+  v11 = v9;
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 
@@ -416,29 +417,31 @@
 
 + (CGSize)smallLockupEstimatedSizeFittingSize:(CGSize)size compatibleWithTraitCollection:(id)collection
 {
-  v4 = qword_280D2B588;
+  height = size.height;
+  width = size.width;
+  v6 = qword_280D2B588;
   collectionCopy = collection;
-  if (v4 != -1)
+  if (v6 != -1)
   {
     swift_once();
   }
 
-  v6 = type metadata accessor for SmallLockupLayout.Metrics(0);
-  v7 = __swift_project_value_buffer(v6, qword_280D2B590);
+  v8 = type metadata accessor for SmallLockupLayout.Metrics(0);
+  v9 = __swift_project_value_buffer(v8, qword_280D2B590);
   sub_2157A91D0();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA71138);
-  v8 = swift_allocObject();
-  *(v8 + 16) = xmmword_2157B3B70;
-  *(v8 + 32) = collectionCopy;
-  v9 = collectionCopy;
-  v10 = sub_2157A91E0();
-  v11 = sub_21579BB5C(v7, v10);
-  v13 = v12;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA71138, &qword_2157B3BD0);
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_2157B3B70;
+  *(v10 + 32) = collectionCopy;
+  v11 = collectionCopy;
+  v12 = sub_2157A91E0();
+  v13 = sub_21579BB5C(v9, v12, width, height);
+  v15 = v14;
 
-  v14 = v11;
-  v15 = v13;
-  result.height = v15;
-  result.width = v14;
+  v16 = v13;
+  v17 = v15;
+  result.height = v17;
+  result.width = v16;
   return result;
 }
 
@@ -549,7 +552,7 @@
   viewCopy = view;
   titleViewCopy = titleView;
   subtitleViewCopy = subtitleView;
-  v21 = static ASCLayoutProxy.offerIconLayoutForSize(_:imageView:titleView:subtitleView:hasTrailingSubtitle:shouldTopAlign:topPadding:shouldTrailingAlign:)(v15, v17, viewCopy, titleView, subtitleView, subtitle, align, trailingAlign, padding);
+  v21 = static ASCLayoutProxy.offerIconLayoutForSize(_:imageView:titleView:subtitleView:hasTrailingSubtitle:shouldTopAlign:topPadding:shouldTrailingAlign:)(padding, v15, v17, viewCopy, titleView, subtitleView, subtitle, align, trailingAlign);
 
   return v21;
 }
@@ -562,7 +565,7 @@
   viewCopy = view;
   titleViewCopy = titleView;
   subtitleViewCopy = subtitleView;
-  v22 = static ASCLayoutProxy.offerTextLayoutForSize(_:titleBackgroundView:titleView:subtitleView:hasTrailingSubtitle:shouldTopAlign:topPadding:shouldExpandBackground:)(v16, v18, viewCopy, titleViewCopy, subtitleView, subtitle, align, background, padding);
+  v22 = static ASCLayoutProxy.offerTextLayoutForSize(_:titleBackgroundView:titleView:subtitleView:hasTrailingSubtitle:shouldTopAlign:topPadding:shouldExpandBackground:)(v16, padding, v18, viewCopy, titleViewCopy, subtitleView, subtitle, align, background);
 
   return v22;
 }
@@ -573,7 +576,7 @@
   v11[3] = &type metadata for OfferDisclosureLayout;
   v11[4] = sub_2157A03E8();
   v11[0] = swift_allocObject();
-  sub_215788D28(0, &qword_280D2B5B0);
+  sub_215788D28(0, &qword_280D2B5B0, 0x277D75D18);
   indicatorCopy = indicator;
   sub_2157A8AE0();
   v10[3] = &type metadata for PlaceableLayoutProxy;

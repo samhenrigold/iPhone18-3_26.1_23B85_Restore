@@ -17,7 +17,7 @@
 - (NSString)actionNameForUndoing
 {
   selfCopy = self;
-  v3 = DOCCreateFolderOperation.actionNameForUndoing.getter();
+  v3 = DOCCreateFolderOperation.actionNameForUndoing.getter(selfCopy);
   v5 = v4;
 
   if (v5)

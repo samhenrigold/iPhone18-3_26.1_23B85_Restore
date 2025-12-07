@@ -44,17 +44,18 @@
   v2 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension29TodayCardChinSingleLockupView_clickActionHandler);
   if (v2)
   {
+    v3 = *&self->lockupView[OBJC_IVAR____TtC20ProductPageExtension29TodayCardChinSingleLockupView_clickActionHandler];
     selfCopy = self;
-    v4 = sub_10001CE50(v2);
-    v2(v4);
+    v5 = sub_10001CE50(v2, v3);
+    v2(v5);
 
-    sub_1000167E0(v2);
+    sub_1000167E0(v2, v3);
   }
 }
 
 - (NSArray)accessibilityElements
 {
-  sub_10000A5D4(&unk_1009434B0);
+  sub_10000A5D4(&unk_1009434B0, &unk_100785550);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_100783DD0;
   v4 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension29TodayCardChinSingleLockupView_lockupView);

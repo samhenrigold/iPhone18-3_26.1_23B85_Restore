@@ -61,22 +61,20 @@
 
 - (id)description
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = MEMORY[0x1E696AEC0];
   bundleId = [(LACClientInfo *)self bundleId];
   v7 = [v5 stringWithFormat:@"bundleID: %@", bundleId];
-  v16[0] = v7;
+  v15[0] = v7;
   v8 = MEMORY[0x1E696AEC0];
   displayName = [(LACClientInfo *)self displayName];
   v10 = [v8 stringWithFormat:@"displayName: %@", displayName];
-  v16[1] = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+  v15[1] = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
   v12 = [v11 componentsJoinedByString:@" "];;
   v13 = [v3 stringWithFormat:@"<%@ %p %@>", v4, self, v12];;
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

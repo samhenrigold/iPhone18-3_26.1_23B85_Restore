@@ -339,37 +339,37 @@ LABEL_31:
 
 - (id)serializeWithError:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
+  v47 = *MEMORY[0x277D85DE8];
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v31 = 0u;
+  v34 = 0u;
   v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   TLV8BufferInit();
   clientIdentifier = [(HMDNetworkRouterClientConfiguration *)self clientIdentifier];
 
   if (clientIdentifier)
   {
     clientIdentifier2 = [(HMDNetworkRouterClientConfiguration *)self clientIdentifier];
-    v26 = 0;
-    v7 = [clientIdentifier2 serializeWithError:&v26];
-    v8 = v26;
+    v25 = 0;
+    v7 = [clientIdentifier2 serializeWithError:&v25];
+    v8 = v25;
 
     if (v8)
     {
@@ -389,9 +389,9 @@ LABEL_31:
   if (lanIdentifier)
   {
     lanIdentifier2 = [(HMDNetworkRouterClientConfiguration *)self lanIdentifier];
-    v25 = 0;
-    v7 = [lanIdentifier2 serializeWithError:&v25];
-    v8 = v25;
+    v24 = 0;
+    v7 = [lanIdentifier2 serializeWithError:&v24];
+    v8 = v24;
 
     if (v8)
     {
@@ -414,9 +414,9 @@ LABEL_31:
   }
 
   credential2 = [(HMDNetworkRouterClientConfiguration *)self credential];
-  v24 = 0;
-  v7 = [credential2 serializeWithError:&v24];
-  v8 = v24;
+  v23 = 0;
+  v7 = [credential2 serializeWithError:&v23];
+  v8 = v23;
 
   if (v8)
   {
@@ -450,9 +450,9 @@ LABEL_13:
   if (wanFirewallConfiguration)
   {
     wanFirewallConfiguration2 = [(HMDNetworkRouterClientConfiguration *)self wanFirewallConfiguration];
-    v23 = 0;
-    v7 = [wanFirewallConfiguration2 serializeWithError:&v23];
-    v8 = v23;
+    v22 = 0;
+    v7 = [wanFirewallConfiguration2 serializeWithError:&v22];
+    v8 = v22;
 
     if (v8)
     {
@@ -472,9 +472,9 @@ LABEL_13:
   if (lanFirewallConfiguration)
   {
     lanFirewallConfiguration2 = [(HMDNetworkRouterClientConfiguration *)self lanFirewallConfiguration];
-    v22 = 0;
-    v7 = [lanFirewallConfiguration2 serializeWithError:&v22];
-    v8 = v22;
+    v21 = 0;
+    v7 = [lanFirewallConfiguration2 serializeWithError:&v21];
+    v8 = v21;
 
     if (v8)
     {
@@ -493,20 +493,18 @@ LABEL_23:
 
     [v7 bytes];
     [v7 length];
-    v21 = TLV8BufferAppend();
+    v20 = TLV8BufferAppend();
 
-    if (v21)
+    if (v20)
     {
       goto LABEL_17;
     }
   }
 
-  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v27 length:?];
+  v15 = [MEMORY[0x277CBEA90] dataWithBytes:v26 length:?];
   v8 = 0;
 LABEL_26:
   TLV8BufferFree();
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

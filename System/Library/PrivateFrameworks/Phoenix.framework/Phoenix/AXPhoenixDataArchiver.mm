@@ -57,7 +57,6 @@ LABEL_7:
 LABEL_8:
   objc_storeStrong(location, 0);
   objc_storeStrong(&selfCopy, 0);
-  *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -134,7 +133,6 @@ LABEL_8:
 
   objc_storeStrong(&v20, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)addDirectoryToArchive:(id)archive withDirName:(id)name
@@ -216,7 +214,6 @@ LABEL_8:
   objc_storeStrong(&v28, 0);
   objc_storeStrong(&v29, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 @end

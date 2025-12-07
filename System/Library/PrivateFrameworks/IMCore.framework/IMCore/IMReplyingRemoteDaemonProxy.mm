@@ -20,25 +20,25 @@
 
 - (id)methodSignatureForSelector:(SEL)selector
 {
-  v4 = objc_msgSend_daemonController(self, a2, selector);
-  v6 = objc_msgSend_methodSignatureForSelector_(v4, v5, selector);
+  daemonController = [(IMReplyingRemoteDaemonProxy *)self daemonController];
+  v5 = [daemonController methodSignatureForSelector:selector];
 
-  return v6;
+  return v5;
 }
 
 - (void)forwardInvocation:(id)invocation
 {
   invocationCopy = invocation;
-  v7 = objc_msgSend_daemonController(self, v5, v6);
-  v10 = objc_msgSend_synchronousReplies(self, v8, v9);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = sub_1A8359910;
-  v13[3] = &unk_1E7810140;
-  v14 = invocationCopy;
+  daemonController = [(IMReplyingRemoteDaemonProxy *)self daemonController];
+  synchronousReplies = [(IMReplyingRemoteDaemonProxy *)self synchronousReplies];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = sub_1A8359910;
+  v8[3] = &unk_1E7810140;
+  v9 = invocationCopy;
   selfCopy = self;
-  v11 = invocationCopy;
-  objc_msgSend_sendQueryWithReply_query_(v7, v12, v10, v13);
+  v7 = invocationCopy;
+  [daemonController sendQueryWithReply:synchronousReplies query:v8];
 }
 
 - (IMDaemonController)daemonController

@@ -1,4 +1,5 @@
 @interface MTLIOAccelDeviceShmemPool
+- (MTLIOAccelDeviceShmemPool)initWithDevice:(id)device resourceClass:(Class)class shmemSize:(unsigned int)size options:(id)options;
 - (void)dealloc;
 - (void)prune;
 - (void)purge;
@@ -6,6 +7,24 @@
 @end
 
 @implementation MTLIOAccelDeviceShmemPool
+
+- (MTLIOAccelDeviceShmemPool)initWithDevice:(id)device resourceClass:(Class)class shmemSize:(unsigned int)size options:(id)options
+{
+  v10.receiver = self;
+  v10.super_class = MTLIOAccelDeviceShmemPool;
+  result = [(MTLIOAccelDeviceShmemPool *)&v10 init:device];
+  if (result)
+  {
+    result->_priv.queue.tqh_first = 0;
+    result->_priv.queue.tqh_last = &result->_priv.queue.tqh_first;
+    *&result->_priv.lock._os_unfair_lock_opaque = 0;
+    result->_priv.shmemClass = class;
+    result->_priv.device = device;
+    result->_priv.shmemSize = size;
+  }
+
+  return result;
+}
 
 - (void)dealloc
 {

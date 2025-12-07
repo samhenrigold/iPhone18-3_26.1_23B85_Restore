@@ -74,7 +74,7 @@ void __50__WebAppNotificationCenterDelegate_sharedDelegate__block_invoke()
 
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   handlerCopy = handler;
   actionIdentifier = [responseCopy actionIdentifier];
@@ -87,20 +87,20 @@ void __50__WebAppNotificationCenterDelegate_sharedDelegate__block_invoke()
     request = [notification request];
     content = [request content];
     targetContentIdentifier = [content targetContentIdentifier];
-    v16 = [(NSMutableDictionary *)webAppViewControllers objectForKeyedSubscript:targetContentIdentifier];
+    v17 = [(NSMutableDictionary *)webAppViewControllers objectForKeyedSubscript:targetContentIdentifier];
 
-    if (v16)
+    if (v17)
     {
       notification2 = [responseCopy notification];
       request2 = [notification2 request];
       content2 = [request2 content];
       userInfo = [content2 userInfo];
-      [v16 notificationActivated:userInfo];
+      [v17 notificationActivated:userInfo];
     }
 
     else
     {
-      notification2 = viewServiceLog();
+      notification2 = viewServiceLog(v18);
       if (!os_log_type_enabled(notification2, OS_LOG_TYPE_INFO))
       {
 LABEL_10:
@@ -113,27 +113,25 @@ LABEL_10:
       content2 = [request2 request];
       userInfo = [content2 content];
       targetContentIdentifier2 = [userInfo targetContentIdentifier];
-      v25 = 138543362;
-      v26 = targetContentIdentifier2;
-      _os_log_impl(&dword_272C17000, notification2, OS_LOG_TYPE_INFO, "Received UNNotificationResponse for WebClip %{public}@, but cannot find associated WebAppViewController", &v25, 0xCu);
+      v26 = 138543362;
+      v27 = targetContentIdentifier2;
+      _os_log_impl(&dword_272C17000, notification2, OS_LOG_TYPE_INFO, "Received UNNotificationResponse for WebClip %{public}@, but cannot find associated WebAppViewController", &v26, 0xCu);
     }
 
     goto LABEL_10;
   }
 
-  v21 = viewServiceLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+  v23 = viewServiceLog(v11);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
   {
     actionIdentifier2 = [responseCopy actionIdentifier];
-    v25 = 138412290;
-    v26 = actionIdentifier2;
-    _os_log_impl(&dword_272C17000, v21, OS_LOG_TYPE_INFO, "Received UNNotificationResponse that was not for the default action: %@", &v25, 0xCu);
+    v26 = 138412290;
+    v27 = actionIdentifier2;
+    _os_log_impl(&dword_272C17000, v23, OS_LOG_TYPE_INFO, "Received UNNotificationResponse that was not for the default action: %@", &v26, 0xCu);
   }
 
   handlerCopy[2](handlerCopy);
 LABEL_11:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 @end

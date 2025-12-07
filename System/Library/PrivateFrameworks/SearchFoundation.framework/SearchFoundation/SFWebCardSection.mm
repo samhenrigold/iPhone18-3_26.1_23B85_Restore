@@ -13,11 +13,11 @@
 
 - (SFWebCardSection)initWithProtobuf:(id)protobuf
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v33.receiver = self;
-  v33.super_class = SFWebCardSection;
-  v5 = [(SFCardSection *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = SFWebCardSection;
+  v5 = [(SFCardSection *)&v32 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -31,33 +31,33 @@
       v7 = 0;
     }
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v30;
+      v11 = *v29;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v30 != v11)
+          if (*v29 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v29 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v28 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v10);
@@ -129,7 +129,6 @@
     v26 = v5;
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

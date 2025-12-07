@@ -112,7 +112,7 @@
 
 - (BOOL)supportsItemWithNameSpace:(id)space name:(id)name
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   nameCopy = name;
   if (![(NSMutableSet *)self->_supportedItems count])
@@ -164,49 +164,49 @@ LABEL_30:
     goto LABEL_34;
   }
 
-  v32 = nameCopy;
-  v33 = spaceCopy;
+  v31 = nameCopy;
+  v32 = spaceCopy;
   v8 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCDVNameSpace:spaceCopy andName:nameCopy];
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   obj = self->_supportedItems;
-  v37 = [(NSMutableSet *)obj countByEnumeratingWithState:&v42 objects:v47 count:16];
-  if (v37)
+  v36 = [(NSMutableSet *)obj countByEnumeratingWithState:&v41 objects:v46 count:16];
+  if (v36)
   {
-    v35 = 0;
-    v36 = *v43;
+    v34 = 0;
+    v35 = *v42;
     do
     {
-      for (i = 0; i != v37; ++i)
+      for (i = 0; i != v36; ++i)
       {
-        if (*v43 != v36)
+        if (*v42 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v42 + 1) + 8 * i);
+        v10 = *(*(&v41 + 1) + 8 * i);
+        v37 = 0u;
         v38 = 0u;
         v39 = 0u;
         v40 = 0u;
-        v41 = 0u;
         extraChildItems = [v10 extraChildItems];
-        v12 = [extraChildItems countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v12 = [extraChildItems countByEnumeratingWithState:&v37 objects:v45 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v39;
+          v14 = *v38;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v39 != v14)
+              if (*v38 != v14)
               {
                 objc_enumerationMutation(extraChildItems);
               }
 
-              v16 = *(*(&v38 + 1) + 8 * j);
+              v16 = *(*(&v37 + 1) + 8 * j);
               v17 = objc_alloc(MEMORY[0x277CCACA8]);
               nameSpace = [v16 nameSpace];
               name5 = [v16 name];
@@ -215,12 +215,12 @@ LABEL_30:
               LOBYTE(nameSpace) = [v8 isEqualToString:v20];
               if (nameSpace)
               {
-                v35 = 1;
+                v34 = 1;
                 goto LABEL_17;
               }
             }
 
-            v13 = [extraChildItems countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v13 = [extraChildItems countByEnumeratingWithState:&v37 objects:v45 count:16];
             if (v13)
             {
               continue;
@@ -233,23 +233,22 @@ LABEL_30:
 LABEL_17:
       }
 
-      v37 = [(NSMutableSet *)obj countByEnumeratingWithState:&v42 objects:v47 count:16];
+      v36 = [(NSMutableSet *)obj countByEnumeratingWithState:&v41 objects:v46 count:16];
     }
 
-    while (v37);
+    while (v36);
   }
 
   else
   {
-    v35 = 0;
+    v34 = 0;
   }
 
-  nameCopy = v32;
-  spaceCopy = v33;
-  v26 = v35;
+  nameCopy = v31;
+  spaceCopy = v32;
+  v26 = v34;
 LABEL_34:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v26 & 1;
 }
 

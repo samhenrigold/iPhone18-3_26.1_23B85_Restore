@@ -1,27 +1,28 @@
-uint64_t sub_24D7AC42C(uint64_t a1)
+void *sub_24D7AC42C(void *a1)
 {
-  v2 = a1 + 0x8000;
+  v2 = a1 + 4096;
   *a1 = &unk_2860BB218;
-  if (*(a1 + 200))
+  v3 = a1[25];
+  if (v3)
   {
-    v3 = sub_24D7CFC0C();
-    MEMORY[0x2530332C0](v3, 0x10B0C40146BE95CLL);
-    *(a1 + 200) = 0;
+    v4 = sub_24D7CFC0C(v3);
+    MEMORY[0x2530332C0](v4, 0x10B0C40146BE95CLL);
+    a1[25] = 0;
   }
 
-  v4 = *(v2 + 2192);
-  if (v4)
+  v5 = v2[274];
+  if (v5)
   {
-    *(v2 + 2200) = v4;
-    operator delete(v4);
+    v2[275] = v5;
+    operator delete(v5);
   }
 
-  v6 = (a1 + 208);
-  std::vector<std::vector<std::pair<unsigned int,unsigned int>>>::__destroy_vector::operator()[abi:nn200100](&v6);
+  v7 = (a1 + 26);
+  std::vector<std::vector<std::pair<unsigned int,unsigned int>>>::__destroy_vector::operator()[abi:nn200100](&v7);
   return a1;
 }
 
-void sub_24D7AC4BC(uint64_t a1)
+void sub_24D7AC4BC(void *a1)
 {
   sub_24D7AC42C(a1);
 
@@ -1310,8 +1311,8 @@ void sub_24D7ADE1C(uint64_t a1, unsigned int a2, unsigned int a3)
     else
     {
       *v9 = a3;
-      v9[1] = v6;
-      v10 = (v9 + 2);
+      *(v9 + 1) = v6;
+      v10 = (v9 + 8);
     }
 
     v7[1] = v10;
@@ -1396,74 +1397,73 @@ uint64_t sub_24D7ADF54(uint64_t a1, char a2, uint64_t a3, uint64_t a4)
   return v4;
 }
 
-uint64_t sub_24D7AE110(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, char a5)
+void sub_24D7AE110(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, char a5)
 {
-  v21 = a5;
+  v20 = a5;
   if (a4 <= 0xF)
   {
     v5 = a4;
     v6 = result + 40 * a4 + 15280;
     if (*(result + 40 * a4 + 15312) == 1)
     {
-      v8 = *v6;
-      v9 = *(result + 40 * a4 + 15296);
-      v22 = *v6;
-      v24 = v9;
-      v23 = a3;
-      v10 = *(a2 + 225816);
-      if (*(result + 48) > *(v10 + 8 * a3) || *(result + 56) < *(v10 + 8 * v22))
+      v8 = *(result + 40 * a4 + 15296);
+      v21 = *v6;
+      v23 = v8;
+      v22 = a3;
+      v9 = *(a2 + 225816);
+      if (*(result + 48) > *(v9 + 8 * a3) || *(result + 56) < *(v9 + 8 * v21))
       {
         goto LABEL_21;
       }
 
-      sub_24D7979B0(a2 + 200, &v22);
-      sub_24D7979B0(a2 + 224, &v23);
-      sub_24D769624((a2 + 248), &v24);
-      sub_24D765934((a2 + 272), &v24 + 2);
-      v13 = *(a2 + 304);
-      v12 = *(a2 + 312);
-      if (v13 >= v12)
+      sub_24D7979B0(a2 + 200, &v21);
+      sub_24D7979B0(a2 + 224, &v22);
+      sub_24D769624((a2 + 248), &v23);
+      sub_24D765934((a2 + 272), &v23 + 2);
+      v12 = *(a2 + 304);
+      v11 = *(a2 + 312);
+      if (v12 >= v11)
       {
-        v15 = *(a2 + 296);
-        v16 = (v13 - v15);
-        v17 = v13 - v15 + 1;
-        if (v17 < 0)
+        v14 = *(a2 + 296);
+        v15 = (v12 - v14);
+        v16 = v12 - v14 + 1;
+        if (v16 < 0)
         {
           std::vector<AccelerationStructureViewer::IntersectionFunction>::__throw_length_error[abi:nn200100]();
         }
 
-        v18 = v12 - v15;
-        if (2 * v18 > v17)
+        v17 = v11 - v14;
+        if (2 * v17 > v16)
         {
-          v17 = 2 * v18;
+          v16 = 2 * v17;
         }
 
-        if (v18 >= 0x3FFFFFFFFFFFFFFFLL ? 0x7FFFFFFFFFFFFFFFLL : v17)
+        if (v17 >= 0x3FFFFFFFFFFFFFFFLL ? 0x7FFFFFFFFFFFFFFFLL : v16)
         {
           operator new();
         }
 
-        v20 = v13 - v15;
-        *v16 = v5;
-        v14 = v16 + 1;
-        memcpy(0, v15, v20);
+        v19 = v12 - v14;
+        *v15 = v5;
+        v13 = v15 + 1;
+        memcpy(0, v14, v19);
         *(a2 + 296) = 0;
-        *(a2 + 304) = v16 + 1;
+        *(a2 + 304) = v15 + 1;
         *(a2 + 312) = 0;
-        if (v15)
+        if (v14)
         {
-          operator delete(v15);
+          operator delete(v14);
         }
       }
 
       else
       {
-        *v13 = v5;
-        v14 = v13 + 1;
+        *v12 = v5;
+        v13 = v12 + 1;
       }
 
-      *(a2 + 304) = v14;
-      result = sub_24D797A84(a2 + 320, &v21);
+      *(a2 + 304) = v13;
+      sub_24D797A84(a2 + 320, &v20);
       if (*(v6 + 32))
       {
 LABEL_21:
@@ -1471,8 +1471,6 @@ LABEL_21:
       }
     }
   }
-
-  return result;
 }
 
 void sub_24D7AE2B0(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, char a5)
@@ -1578,7 +1576,7 @@ LABEL_21:
         v20 = *(v14 + 40) - 1;
         memset(v28, 0, 37);
         sub_24D7A0100((v14 + 288), v20, v28);
-        sub_24D7A01C4(v14 + 336, v20, 0);
+        sub_24D7A01C4((v14 + 336), v20, 0);
       }
 
       v21 = (v10 + 38);
@@ -1592,7 +1590,7 @@ LABEL_21:
       v28[0] = *v21;
       v28[1] = v22;
       *(&v28[1] + 13) = *(v21 + 29);
-      sub_24D7A0310(v14 + 288, v28);
+      sub_24D7A0310((v14 + 288), v28);
       LOBYTE(v28[0]) = *(v10 + 75);
       sub_24D797A84(v14 + 336, v28);
       goto LABEL_21;
@@ -5565,12 +5563,11 @@ unint64_t sub_24D7B320C(uint64_t *a1, unint64_t a2, char a3, unsigned int a4)
       if (*(v10 + 12) == 1)
       {
         v7 = *v10;
-        v11 = *(v10 + 1);
         return v5 | (v7 << 32);
       }
 
-      v12 = sub_24D809C04();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = sub_24D809C04();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_24D85DA78();
       }
@@ -5609,7 +5606,7 @@ unint64_t sub_24D7B320C(uint64_t *a1, unint64_t a2, char a3, unsigned int a4)
   return v5 | (v7 << 32);
 }
 
-uint64_t sub_24D7B3318(uint64_t result, uint64_t a2, uint64_t *a3, _BYTE *a4)
+uint64_t sub_24D7B3318(uint64_t result, uint64_t a2, unint64_t *a3, _BYTE *a4)
 {
   *(result + 96) = 0;
   *(result + 64) = 0u;

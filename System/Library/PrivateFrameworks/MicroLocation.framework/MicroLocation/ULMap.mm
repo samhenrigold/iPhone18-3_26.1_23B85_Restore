@@ -5,6 +5,7 @@
 - (BOOL)_image_isSameSpaceForLabel:(id)label;
 - (BOOL)isEqual:(id)equal;
 - (ULMap)initWithCoder:(id)coder;
+- (ULMap)initWithMapItems:(id)items predictionContext:(id)context locationOfInterest:(id)interest serviceState:(unint64_t)state serviceSuspendReasons:(id)reasons isMapValid:(BOOL)valid metaInfo:(id)info homeSlamModelData:(id)self0;
 - (id)_extendProbabilityVectorForLabel:(id)label toMatchPredictionContext:(id)context;
 - (id)copyWithReplacementPredictionContext:(id)context;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -20,21 +21,47 @@
 
 + (id)emptyMap
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [self alloc];
   array = [MEMORY[0x277CBEA60] array];
   v4 = +[ULPredictionContext emptyPredictionContext];
   v5 = +[ULLocationOfInterest emptyLocationOfInterest];
   v6 = [[ULServiceSuspendReason alloc] initWithSuspendReasonEnum:4];
-  v13[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v8 = +[ULServiceMetaInfo emptyServiceMetaInfo];
   v9 = +[ULHomeSlamModelData emptyHomeSlamModelData];
   v10 = [v2 initWithMapItems:array predictionContext:v4 locationOfInterest:v5 serviceState:1 serviceSuspendReasons:v7 isMapValid:0 metaInfo:v8 homeSlamModelData:v9];
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
+}
+
+- (ULMap)initWithMapItems:(id)items predictionContext:(id)context locationOfInterest:(id)interest serviceState:(unint64_t)state serviceSuspendReasons:(id)reasons isMapValid:(BOOL)valid metaInfo:(id)info homeSlamModelData:(id)self0
+{
+  validCopy = valid;
+  itemsCopy = items;
+  contextCopy = context;
+  interestCopy = interest;
+  reasonsCopy = reasons;
+  infoCopy = info;
+  dataCopy = data;
+  v25.receiver = self;
+  v25.super_class = ULMap;
+  v22 = [(ULMap *)&v25 init];
+  v23 = v22;
+  if (v22)
+  {
+    [(ULMap *)v22 setMapItems:itemsCopy];
+    [(ULMap *)v23 setPredictionContext:contextCopy];
+    [(ULMap *)v23 setLocationOfInterest:interestCopy];
+    [(ULMap *)v23 setServiceState:state];
+    [(ULMap *)v23 setServiceSuspendReasons:reasonsCopy];
+    [(ULMap *)v23 setIsMapValid:validCopy];
+    [(ULMap *)v23 setMetaInfo:infoCopy];
+    [(ULMap *)v23 setHomeSlamModelData:dataCopy];
+  }
+
+  return v23;
 }
 
 - (id)copyWithReplacementPredictionContext:(id)context
@@ -352,7 +379,7 @@ LABEL_20:
 
 - (id)labelsInSameSpaceForMapItem:(id)item
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   array = [MEMORY[0x277CBEB18] array];
   if ([(ULMap *)self isMapValid])
@@ -364,37 +391,37 @@ LABEL_20:
     {
       predictionContext2 = [(ULMap *)self predictionContext];
       [predictionContext2 coordinates];
-      v23 = v9;
-      v22 = ULCoordinatesNotAvailable;
+      v22 = v9;
+      v21 = ULCoordinatesNotAvailable;
 
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       labels = [itemCopy labels];
-      v11 = [labels countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v11 = [labels countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (!v11)
       {
         goto LABEL_17;
       }
 
       v12 = v11;
-      v13 = vceqq_f32(v23, ULCoordinatesNotAvailable);
+      v13 = vceqq_f32(v22, ULCoordinatesNotAvailable);
       v13.i32[3] = v13.i32[2];
       v14 = vminvq_u32(v13);
-      v15 = *v25;
+      v15 = *v24;
       while (1)
       {
         v16 = 0;
         do
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(labels);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * v16);
-          if ([(ULMap *)self _image_isSameSpaceForLabel:v17, v22, *&v23])
+          v17 = *(*(&v23 + 1) + 8 * v16);
+          if ([(ULMap *)self _image_isSameSpaceForLabel:v17, v21, *&v22])
           {
             goto LABEL_11;
           }
@@ -421,7 +448,7 @@ LABEL_12:
         }
 
         while (v12 != v16);
-        v18 = [labels countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v18 = [labels countByEnumeratingWithState:&v23 objects:v27 count:16];
         v12 = v18;
         if (!v18)
         {
@@ -434,8 +461,6 @@ LABEL_17:
   }
 
   v19 = [array copy];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -450,7 +475,7 @@ LABEL_17:
 
 - (int64_t)averageRSSIOfSameSpaceLabelsForMapItem:(id)item
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   labels = [itemCopy labels];
   firstObject = [labels firstObject];
@@ -462,29 +487,29 @@ LABEL_17:
     v8 = [(ULMap *)self labelsInSameSpaceForMapItem:itemCopy];
     if ([v8 count])
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v9 = v8;
-      v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v10)
       {
         v11 = v10;
         v12 = 0;
         v13 = 0;
-        v14 = *v21;
+        v14 = *v20;
         v15 = 0xFFFFFFFF80000000;
         do
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v21 != v14)
+            if (*v20 != v14)
             {
               objc_enumerationMutation(v9);
             }
 
-            v17 = *(*(&v20 + 1) + 8 * i);
+            v17 = *(*(&v19 + 1) + 8 * i);
             if ([v17 rssi] != 0xFFFFFFFF80000000)
             {
               v12 += [v17 rssi];
@@ -492,7 +517,7 @@ LABEL_17:
             }
           }
 
-          v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v11);
@@ -515,7 +540,6 @@ LABEL_17:
   v15 = 0xFFFFFFFF80000000;
 LABEL_18:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -536,7 +560,7 @@ LABEL_18:
 
 - (BOOL)_cosineSimilarity_isSameSpaceForLabel:(id)label
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   labelCopy = label;
   v5 = MEMORY[0x277D28858];
   predictionContext = [(ULMap *)self predictionContext];
@@ -582,21 +606,20 @@ LABEL_18:
       predictionContext5 = [(ULMap *)self predictionContext];
       probabilityVector5 = [predictionContext5 probabilityVector];
       v31 = [MEMORY[0x277CCABB0] numberWithDouble:v24];
-      v34 = 138413058;
-      v35 = name;
-      v36 = 2112;
-      v37 = probabilityVector4;
-      v38 = 2112;
-      v39 = probabilityVector5;
-      v40 = 2112;
-      v41 = v31;
-      _os_log_impl(&dword_258FC9000, v26, OS_LOG_TYPE_INFO, "[ULMap]: _cosineSimilarity_isSameSpaceForLabel: labelName: %@, labelProbabilityVector: %@, predictionContextProbabilityVector: %@, cosineSimilarity: %@", &v34, 0x2Au);
+      v33 = 138413058;
+      v34 = name;
+      v35 = 2112;
+      v36 = probabilityVector4;
+      v37 = 2112;
+      v38 = probabilityVector5;
+      v39 = 2112;
+      v40 = v31;
+      _os_log_impl(&dword_258FC9000, v26, OS_LOG_TYPE_INFO, "[ULMap]: _cosineSimilarity_isSameSpaceForLabel: labelName: %@, labelProbabilityVector: %@, predictionContextProbabilityVector: %@, cosineSimilarity: %@", &v33, 0x2Au);
     }
 
     v17 = v24 >= 0.7 && v24 != -1.0;
   }
 
-  v32 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

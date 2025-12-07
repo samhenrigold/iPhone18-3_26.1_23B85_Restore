@@ -1199,7 +1199,7 @@ double CMMsl::WakeGestureSample::WakeGestureSample(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::WakeGestureSample::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::WakeGestureSample::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -3049,7 +3049,7 @@ float CMMsl::WalkingDetectionResult::WalkingDetectionResult(uint64_t a1, uint64_
   return result;
 }
 
-CMMsl *CMMsl::WalkingDetectionResult::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::WalkingDetectionResult::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -4285,24 +4285,24 @@ void CMMsl::WalkingSteadinessClassification::~WalkingSteadinessClassification(CM
   operator delete();
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::WalkingSteadinessClassification(uint64_t this, const CMMsl::WalkingSteadinessClassification *a2)
+CMMsl::WalkingSteadinessClassification *CMMsl::WalkingSteadinessClassification::WalkingSteadinessClassification(CMMsl::WalkingSteadinessClassification *this, const CMMsl::WalkingSteadinessClassification *a2)
 {
   *this = off_100422BE8;
-  *(this + 64) = 0;
+  *(this + 8) = 0;
   *(this + 88) = 0u;
-  *(this + 244) = 0;
+  *(this + 61) = 0;
   *(this + 104) = 0u;
   *(this + 120) = 0u;
   *(this + 136) = 0u;
   *(this + 152) = 0u;
-  *(this + 168) = 0;
+  *(this + 21) = 0;
   v2 = *(a2 + 61);
   if ((v2 & 0x100) != 0)
   {
     v4 = *(a2 + 10);
     v3 = 256;
-    *(this + 244) = 256;
-    *(this + 80) = v4;
+    *(this + 61) = 256;
+    *(this + 10) = v4;
     v2 = *(a2 + 61);
     if ((v2 & 0x80) == 0)
     {
@@ -4318,8 +4318,8 @@ uint64_t CMMsl::WalkingSteadinessClassification::WalkingSteadinessClassification
 LABEL_5:
     v5 = *(a2 + 9);
     v3 |= 0x80u;
-    *(this + 244) = v3;
-    *(this + 72) = v5;
+    *(this + 61) = v3;
+    *(this + 9) = v5;
     v2 = *(a2 + 61);
   }
 
@@ -4328,8 +4328,8 @@ LABEL_6:
   {
     v12 = *(a2 + 55);
     v3 |= 0x10000u;
-    *(this + 244) = v3;
-    *(this + 220) = v12;
+    *(this + 61) = v3;
+    *(this + 55) = v12;
     v2 = *(a2 + 61);
     if ((v2 & 0x8000) == 0)
     {
@@ -4350,8 +4350,8 @@ LABEL_8:
 
   v13 = *(a2 + 54);
   v3 |= 0x8000u;
-  *(this + 244) = v3;
-  *(this + 216) = v13;
+  *(this + 61) = v3;
+  *(this + 54) = v13;
   v2 = *(a2 + 61);
   if ((v2 & 0x40000) == 0)
   {
@@ -4367,8 +4367,8 @@ LABEL_9:
 LABEL_62:
   v14 = *(a2 + 57);
   v3 |= 0x40000u;
-  *(this + 244) = v3;
-  *(this + 228) = v14;
+  *(this + 61) = v3;
+  *(this + 57) = v14;
   v2 = *(a2 + 61);
   if ((v2 & 0x2000000) == 0)
   {
@@ -4384,7 +4384,7 @@ LABEL_10:
 LABEL_63:
   v15 = *(a2 + 241);
   v3 |= 0x2000000u;
-  *(this + 244) = v3;
+  *(this + 61) = v3;
   *(this + 241) = v15;
   v2 = *(a2 + 61);
   if ((v2 & 0x80000) == 0)
@@ -4401,8 +4401,8 @@ LABEL_11:
 LABEL_64:
   v16 = *(a2 + 58);
   v3 |= 0x80000u;
-  *(this + 244) = v3;
-  *(this + 232) = v16;
+  *(this + 61) = v3;
+  *(this + 58) = v16;
   v2 = *(a2 + 61);
   if ((v2 & 0x4000000) == 0)
   {
@@ -4418,7 +4418,7 @@ LABEL_12:
 LABEL_65:
   v17 = *(a2 + 242);
   v3 |= 0x4000000u;
-  *(this + 244) = v3;
+  *(this + 61) = v3;
   *(this + 242) = v17;
   v2 = *(a2 + 61);
   if ((v2 & 0x200) == 0)
@@ -4435,13 +4435,13 @@ LABEL_13:
 LABEL_66:
   v18 = *(a2 + 22);
   v3 |= 0x200u;
-  *(this + 244) = v3;
-  *(this + 176) = v18;
+  *(this + 61) = v3;
+  *(this + 22) = v18;
   if ((*(a2 + 61) & 0x400000) != 0)
   {
 LABEL_14:
     v6 = *(a2 + 238);
-    *(this + 244) = v3 | 0x400000;
+    *(this + 61) = v3 | 0x400000;
     *(this + 238) = v6;
   }
 
@@ -4455,8 +4455,8 @@ LABEL_15:
   if ((v7 & 0x800) != 0)
   {
     v19 = *(a2 + 24);
-    *(this + 244) |= 0x800u;
-    *(this + 192) = v19;
+    *(this + 61) |= 0x800u;
+    *(this + 24) = v19;
     v7 = *(a2 + 61);
     if ((v7 & 0x800000) == 0)
     {
@@ -4476,7 +4476,7 @@ LABEL_19:
   }
 
   v20 = *(a2 + 239);
-  *(this + 244) |= 0x800000u;
+  *(this + 61) |= 0x800000u;
   *(this + 239) = v20;
   v7 = *(a2 + 61);
   if ((v7 & 0x400) == 0)
@@ -4492,13 +4492,13 @@ LABEL_20:
 
 LABEL_70:
   v21 = *(a2 + 23);
-  *(this + 244) |= 0x400u;
-  *(this + 184) = v21;
+  *(this + 61) |= 0x400u;
+  *(this + 23) = v21;
   if ((*(a2 + 61) & 0x200000) != 0)
   {
 LABEL_21:
     v8 = *(a2 + 237);
-    *(this + 244) |= 0x200000u;
+    *(this + 61) |= 0x200000u;
     *(this + 237) = v8;
   }
 
@@ -4546,7 +4546,7 @@ LABEL_22:
   if ((*(a2 + 246) & 0x10) != 0)
   {
     v9 = *(a2 + 236);
-    *(this + 244) |= 0x100000u;
+    *(this + 61) |= 0x100000u;
     *(this + 236) = v9;
   }
 
@@ -4559,8 +4559,8 @@ LABEL_22:
   if (v10)
   {
     v22 = *(a2 + 1);
-    *(this + 244) |= 1u;
-    *(this + 8) = v22;
+    *(this + 61) |= 1u;
+    *(this + 1) = v22;
     v10 = *(a2 + 61);
     if ((v10 & 8) == 0)
     {
@@ -4580,8 +4580,8 @@ LABEL_44:
   }
 
   v23 = *(a2 + 4);
-  *(this + 244) |= 8u;
-  *(this + 32) = v23;
+  *(this + 61) |= 8u;
+  *(this + 4) = v23;
   v10 = *(a2 + 61);
   if ((v10 & 0x20000) == 0)
   {
@@ -4596,8 +4596,8 @@ LABEL_45:
 
 LABEL_74:
   v24 = *(a2 + 56);
-  *(this + 244) |= 0x20000u;
-  *(this + 224) = v24;
+  *(this + 61) |= 0x20000u;
+  *(this + 56) = v24;
   v10 = *(a2 + 61);
   if ((v10 & 0x1000000) == 0)
   {
@@ -4612,7 +4612,7 @@ LABEL_46:
 
 LABEL_75:
   v25 = *(a2 + 240);
-  *(this + 244) |= 0x1000000u;
+  *(this + 61) |= 0x1000000u;
   *(this + 240) = v25;
   v10 = *(a2 + 61);
   if ((v10 & 0x1000) == 0)
@@ -4628,8 +4628,8 @@ LABEL_47:
 
 LABEL_76:
   v26 = *(a2 + 25);
-  *(this + 244) |= 0x1000u;
-  *(this + 200) = v26;
+  *(this + 61) |= 0x1000u;
+  *(this + 25) = v26;
   v10 = *(a2 + 61);
   if ((v10 & 0x40) == 0)
   {
@@ -4644,8 +4644,8 @@ LABEL_48:
 
 LABEL_77:
   v27 = *(a2 + 7);
-  *(this + 244) |= 0x40u;
-  *(this + 56) = v27;
+  *(this + 61) |= 0x40u;
+  *(this + 7) = v27;
   v10 = *(a2 + 61);
   if ((v10 & 2) == 0)
   {
@@ -4660,8 +4660,8 @@ LABEL_49:
 
 LABEL_78:
   v28 = *(a2 + 2);
-  *(this + 244) |= 2u;
-  *(this + 16) = v28;
+  *(this + 61) |= 2u;
+  *(this + 2) = v28;
   v10 = *(a2 + 61);
   if ((v10 & 0x10) == 0)
   {
@@ -4676,8 +4676,8 @@ LABEL_50:
 
 LABEL_79:
   v29 = *(a2 + 5);
-  *(this + 244) |= 0x10u;
-  *(this + 40) = v29;
+  *(this + 61) |= 0x10u;
+  *(this + 5) = v29;
   v10 = *(a2 + 61);
   if ((v10 & 0x4000) == 0)
   {
@@ -4692,8 +4692,8 @@ LABEL_51:
 
 LABEL_80:
   v30 = *(a2 + 53);
-  *(this + 244) |= 0x4000u;
-  *(this + 212) = v30;
+  *(this + 61) |= 0x4000u;
+  *(this + 53) = v30;
   v10 = *(a2 + 61);
   if ((v10 & 0x2000) == 0)
   {
@@ -4708,8 +4708,8 @@ LABEL_52:
 
 LABEL_81:
   v31 = *(a2 + 52);
-  *(this + 244) |= 0x2000u;
-  *(this + 208) = v31;
+  *(this + 61) |= 0x2000u;
+  *(this + 52) = v31;
   v10 = *(a2 + 61);
   if ((v10 & 0x20) == 0)
   {
@@ -4724,14 +4724,14 @@ LABEL_53:
 
 LABEL_82:
   v32 = *(a2 + 6);
-  *(this + 244) |= 0x20u;
-  *(this + 48) = v32;
+  *(this + 61) |= 0x20u;
+  *(this + 6) = v32;
   if ((*(a2 + 61) & 4) != 0)
   {
 LABEL_54:
     v11 = *(a2 + 3);
-    *(this + 244) |= 4u;
-    *(this + 24) = v11;
+    *(this + 61) |= 4u;
+    *(this + 3) = v11;
   }
 
 LABEL_55:
@@ -5035,7 +5035,7 @@ uint64_t CMMsl::WalkingSteadinessClassification::WalkingSteadinessClassification
   return a1;
 }
 
-CMMsl *CMMsl::WalkingSteadinessClassification::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::WalkingSteadinessClassification::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7284,9 +7284,9 @@ LABEL_123:
   return *&v65 ^ *&v66 ^ v64 ^ v63 ^ v62 ^ v61 ^ v60 ^ v59 ^ *&v58 ^ v57 ^ v56 ^ *&v55 ^ v54 ^ *&v53 ^ v52 ^ v51 ^ v50 ^ v49 ^ v48 ^ v47 ^ v46 ^ v45 ^ v44 ^ v43 ^ v42 ^ *&v41 ^ *&v40 ^ v39 ^ v38 ^ v25 ^ v26 ^ v27 ^ v28 ^ v29 ^ v30 ^ v31 ^ v32 ^ v35 ^ v36;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeEventResult(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeEventResult(void *this)
 {
-  if (!*(this + 64))
+  if (!this[8])
   {
     operator new();
   }
@@ -7294,9 +7294,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeEventResult(uint64_t this)
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelGaitBaselineResult(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelGaitBaselineResult(void *this)
 {
-  if (!*(this + 120))
+  if (!this[15])
   {
     operator new();
   }
@@ -7304,9 +7304,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelGaitBaselineResult(uin
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelGaitBaselineFeatures(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelGaitBaselineFeatures(void *this)
 {
-  if (!*(this + 112))
+  if (!this[14])
   {
     operator new();
   }
@@ -7314,9 +7314,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelGaitBaselineFeatures(u
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelContinuousWalkingResult(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelContinuousWalkingResult(void *this)
 {
-  if (!*(this + 104))
+  if (!this[13])
   {
     operator new();
   }
@@ -7324,9 +7324,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelContinuousWalkingResul
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelContinuousWalkingFeatures(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelContinuousWalkingFeatures(void *this)
 {
-  if (!*(this + 96))
+  if (!this[12])
   {
     operator new();
   }
@@ -7334,9 +7334,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelContinuousWalkingFeatu
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelTemporalDispersionResult(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelTemporalDispersionResult(void *this)
 {
-  if (!*(this + 152))
+  if (!this[19])
   {
     operator new();
   }
@@ -7344,9 +7344,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelTemporalDispersionResu
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelTemporalDispersionFeatures(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelTemporalDispersionFeatures(void *this)
 {
-  if (!*(this + 144))
+  if (!this[18])
   {
     operator new();
   }
@@ -7354,9 +7354,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelTemporalDispersionFeat
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelTemporalEntropyResult(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelTemporalEntropyResult(void *this)
 {
-  if (!*(this + 168))
+  if (!this[21])
   {
     operator new();
   }
@@ -7364,9 +7364,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelTemporalEntropyResult(
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelTemporalEntropyFeatures(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelTemporalEntropyFeatures(void *this)
 {
-  if (!*(this + 160))
+  if (!this[20])
   {
     operator new();
   }
@@ -7374,9 +7374,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelTemporalEntropyFeature
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelBalanceFeatures(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelBalanceFeatures(void *this)
 {
-  if (!*(this + 88))
+  if (!this[11])
   {
     operator new();
   }
@@ -7384,9 +7384,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelBalanceFeatures(uint64
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelHarmonicResult(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelHarmonicResult(void *this)
 {
-  if (!*(this + 136))
+  if (!this[17])
   {
     operator new();
   }
@@ -7394,9 +7394,9 @@ uint64_t CMMsl::WalkingSteadinessClassification::makeModelHarmonicResult(uint64_
   return this;
 }
 
-uint64_t CMMsl::WalkingSteadinessClassification::makeModelHarmonicFeatures(uint64_t this)
+void *CMMsl::WalkingSteadinessClassification::makeModelHarmonicFeatures(void *this)
 {
-  if (!*(this + 128))
+  if (!this[16])
   {
     operator new();
   }
@@ -8694,16 +8694,16 @@ void CMMsl::WatchHeartRateData::~WatchHeartRateData(CMMsl::WatchHeartRateData *t
   operator delete();
 }
 
-uint64_t CMMsl::WatchHeartRateData::WatchHeartRateData(uint64_t this, const CMMsl::WatchHeartRateData *a2)
+CMMsl::WatchHeartRateData *CMMsl::WatchHeartRateData::WatchHeartRateData(CMMsl::WatchHeartRateData *this, const CMMsl::WatchHeartRateData *a2)
 {
   *this = off_100422CC8;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
+  *(this + 3) = 0;
+  *(this + 8) = 0;
   if ((*(a2 + 32) & 2) != 0)
   {
     v3 = *(a2 + 2);
     *(this + 32) = 2;
-    *(this + 16) = v3;
+    *(this + 2) = v3;
     v2 = 3;
     if ((*(a2 + 32) & 1) == 0)
     {
@@ -8719,7 +8719,7 @@ uint64_t CMMsl::WatchHeartRateData::WatchHeartRateData(uint64_t this, const CMMs
 LABEL_5:
     v4 = *(a2 + 1);
     *(this + 32) = v2;
-    *(this + 8) = v4;
+    *(this + 1) = v4;
   }
 
 LABEL_6:
@@ -9062,9 +9062,9 @@ LABEL_11:
   return v2 ^ v1 ^ v3;
 }
 
-uint64_t CMMsl::WatchHeartRateData::makeSuper(uint64_t this)
+void *CMMsl::WatchHeartRateData::makeSuper(void *this)
 {
-  if (!*(this + 24))
+  if (!this[3])
   {
     operator new();
   }

@@ -34,12 +34,13 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore24ActionCollectionViewCell_accessoryAction);
   if (v3)
   {
+    v5 = *&self->textLabel[OBJC_IVAR____TtC8AppStore24ActionCollectionViewCell_accessoryAction];
     senderCopy = sender;
     selfCopy = self;
-    sub_10000827C(v3);
+    sub_10000827C(v3, v5);
     v3(senderCopy);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v5);
   }
 }
 

@@ -51,7 +51,7 @@
     if (textureCopy)
     {
       memset(v63, 0, 48);
-      [(NUFillKernel *)self region];
+      objc_msgSend_region(self);
       v9 = v8;
       if ([v9 width] && objc_msgSend(v9, "height"))
       {

@@ -1,6 +1,6 @@
-void sub_1B3675BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B3675BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   boost::geometry::index::detail::rtree::subtree_destroyer<boost::geometry::index::rtree<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::index::indexable<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>,boost::geometry::index::equal_to<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>,boost::interprocess::allocator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::members_holder>::~subtree_destroyer(va);
   _Unwind_Resume(a1);
 }
@@ -591,7 +591,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<boost::geom
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -605,13 +605,13 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -1381,19 +1381,19 @@ uint64_t boost::container::vector<boost::container::basic_string<char,std::char_
   }
 
   v107 = v106 + v105;
-  v108 = (&v134 - a1);
+  v108 = &v134 - a1;
   if (v107 == 1)
   {
     v108 = 0;
   }
 
-  *a1 = &v108[v107];
+  *a1 = v108 + v107;
   return result;
 }
 
-void sub_1B3677830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B3677830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   boost::container::dtl::scoped_destructor_n<boost::interprocess::allocator<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~scoped_destructor_n(va);
   _Unwind_Resume(a1);
 }
@@ -1408,7 +1408,7 @@ uint64_t boost::container::vec_iterator<boost::interprocess::offset_ptr<boost::c
   return result;
 }
 
-char *boost::interprocess::allocator<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(char *a1, void *a2, unint64_t a3, unint64_t *a4, uint64_t *a5)
+uint64_t boost::interprocess::allocator<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(void *a1, void *a2, unint64_t a3, unint64_t *a4, uint64_t *a5)
 {
   if (*a5 == 1)
   {
@@ -1432,7 +1432,7 @@ char *boost::interprocess::allocator<boost::container::basic_string<char,std::ch
 
   v18 = v6;
   v8 = *a4;
-  v9 = *(v7 + 48) >> 5;
+  v9 = *(v7 + 6) >> 5;
   if (v9 < a3 || v8 > v9)
   {
     goto LABEL_18;
@@ -2120,7 +2120,7 @@ void boost::interprocess::ipcdetail::placement_destroy<boost::container::vector<
   }
 }
 
-pf::TimezoneArchiveLineParser *pf::TimezoneArchiveLineParser::TimezoneArchiveLineParser(pf::TimezoneArchiveLineParser *this, const char *a2, const char *a3, size_t a4)
+pf::TimezoneArchiveLineParser *pf::TimezoneArchiveLineParser::TimezoneArchiveLineParser(pf::TimezoneArchiveLineParser *this, char *a2, const char *a3, size_t a4)
 {
   *this = &unk_1F2A8A3C8;
   *(this + 1) = a2;
@@ -2578,23 +2578,23 @@ pf::TimezoneArchiveLineParser *pf::TimezoneArchiveLineParser::TimezoneArchiveLin
   return this;
 }
 
-void sub_1B3679298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void **a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1B3679298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void **a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   boost::container::dtl::scoped_array_deallocator<boost::interprocess::allocator<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~scoped_array_deallocator(va);
-  std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::~__hash_table((a7 + 3));
-  v19 = *a7;
-  if (*a7)
+  std::__hash_table<std::__hash_value_type<std::string,unsigned short>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,unsigned short>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,unsigned short>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,unsigned short>>>::~__hash_table((a14 + 3));
+  v26 = *a14;
+  if (*a14)
   {
-    *(v17 + 96) = v19;
-    operator delete(v19);
+    *(v24 + 96) = v26;
+    operator delete(v26);
   }
 
-  boost::interprocess::basic_managed_mapped_file<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::~basic_managed_mapped_file(v17 + 40);
+  boost::interprocess::basic_managed_mapped_file<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::~basic_managed_mapped_file(v24 + 40);
   _Unwind_Resume(a1);
 }
 
-uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::allocator<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,false,boost::interprocess::allocator<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>&>::construct_n(uint64_t result, uint64_t *a2, unint64_t a3, unint64_t *a4)
+uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::allocator<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,false,boost::interprocess::allocator<boost::container::basic_string<char,std::char_traits<char>,boost::interprocess::allocator<char,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>&>::construct_n(uint64_t result, uint64_t a2, unint64_t a3, unint64_t *a4)
 {
   *a4 = 0;
   if (a3)
@@ -2621,13 +2621,13 @@ uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<boost
       }
 
       *a2 = v8;
-      a2[1] = 1;
-      a2[2] = 0;
-      a2[3] = 0;
+      *(a2 + 8) = 1;
+      *(a2 + 16) = 0;
+      *(a2 + 24) = 0;
       v9 = *a4 + 1;
       *a4 = v9;
       v4 -= 32;
-      a2 += 4;
+      a2 += 32;
     }
 
     while (v9 < a3);
@@ -2651,28 +2651,28 @@ void sub_1B3679810(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void boost::geometry::index::detail::rtree::visitors::iterator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::detail::rtree::options<boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::index::detail::rtree::insert_default_tag,boost::geometry::index::detail::rtree::choose_by_content_diff_tag,boost::geometry::index::detail::rtree::split_default_tag,boost::geometry::index::detail::rtree::quadratic_tag,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::translator<boost::geometry::index::indexable<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>,boost::geometry::index::equal_to<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::allocators<boost::interprocess::allocator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::node_variant_static_tag>>::search_value(void *a1)
+void boost::geometry::index::detail::rtree::visitors::iterator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::detail::rtree::options<boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::index::detail::rtree::insert_default_tag,boost::geometry::index::detail::rtree::choose_by_content_diff_tag,boost::geometry::index::detail::rtree::split_default_tag,boost::geometry::index::detail::rtree::quadratic_tag,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::translator<boost::geometry::index::indexable<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>,boost::geometry::index::equal_to<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::allocators<boost::interprocess::allocator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::node_variant_static_tag>>::search_value(void *result)
 {
   while (1)
   {
     while (1)
     {
-      v2 = a1[3];
+      v2 = result[3];
       if (!v2)
       {
         break;
       }
 
-      if (a1[4] != (v2 + 12 * *v2 + 8))
+      if (result[4] != (v2 + 12 * *v2 + 8))
       {
         return;
       }
 
-      a1[3] = 0;
+      result[3] = 0;
     }
 
-    v3 = a1[1];
-    if (*a1 == v3)
+    v3 = result[1];
+    if (*result == v3)
     {
       break;
     }
@@ -2682,7 +2682,7 @@ void boost::geometry::index::detail::rtree::visitors::iterator<std::pair<boost::
     v4 = (v3 - 16);
     if (v5 == v6)
     {
-      a1[1] = v4;
+      result[1] = v4;
     }
 
     else
@@ -2700,7 +2700,7 @@ void boost::geometry::index::detail::rtree::visitors::iterator<std::pair<boost::
         v9 = v8;
       }
 
-      boost::variant<boost::geometry::index::detail::rtree::variant_leaf<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::allocators<boost::interprocess::allocator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::rtree::variant_internal_node<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::allocators<boost::interprocess::allocator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::rtree::node_variant_static_tag>>::apply_visitor<boost::geometry::index::detail::rtree::visitors::iterator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::detail::rtree::options<boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::index::detail::rtree::insert_default_tag,boost::geometry::index::detail::rtree::choose_by_content_diff_tag,boost::geometry::index::detail::rtree::split_default_tag,boost::geometry::index::detail::rtree::quadratic_tag,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::translator<boost::geometry::index::indexable<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>,boost::geometry::index::equal_to<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::allocators<boost::interprocess::allocator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::node_variant_static_tag>>>( v9,  a1);
+      boost::variant<boost::geometry::index::detail::rtree::variant_leaf<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::allocators<boost::interprocess::allocator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::rtree::variant_internal_node<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::allocators<boost::interprocess::allocator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::rtree::node_variant_static_tag>>::apply_visitor<boost::geometry::index::detail::rtree::visitors::iterator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::detail::rtree::options<boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::index::detail::rtree::insert_default_tag,boost::geometry::index::detail::rtree::choose_by_content_diff_tag,boost::geometry::index::detail::rtree::split_default_tag,boost::geometry::index::detail::rtree::quadratic_tag,boost::geometry::index::detail::rtree::node_variant_static_tag>,boost::geometry::index::detail::translator<boost::geometry::index::indexable<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>,boost::geometry::index::equal_to<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>>>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::allocators<boost::interprocess::allocator<std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,std::pair<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>,unsigned short>,boost::geometry::index::quadratic<32ul,8ul>,boost::geometry::model::box<boost::geometry::model::point<float,2ul,boost::geometry::cs::cartesian>>,boost::geometry::index::detail::rtree::node_variant_static_tag>>>( v9,  result);
     }
   }
 }
@@ -3083,8 +3083,9 @@ void sub_1B367B260(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-char *boost::interprocess::allocator<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(uint64_t *a1, void *a2, char a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
+uint64_t boost::interprocess::allocator<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(uint64_t *a1, void *a2, int a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
 {
+  v7 = a3;
   v9 = 0;
   result = 0;
   v11 = a6 + *a6;
@@ -3105,7 +3106,7 @@ char *boost::interprocess::allocator<boost::container::vector<unsigned int,boost
 
   v21 = v11;
   v13 = *a5;
-  v14 = *(v12 + 48) >> 5;
+  v14 = *(v12 + 6) >> 5;
   if (v14 >= a4 && v13 <= v14)
   {
     v22 = 32 * v13;
@@ -3119,7 +3120,7 @@ char *boost::interprocess::allocator<boost::container::vector<unsigned int,boost
     __assert_rtn("allocation_command", "rbtree_best_fit.hpp", 698, "0 == ((std::size_t)ret % ::boost::container::dtl::alignment_of<T>::value)");
   }
 
-  if ((a3 & 0x10) == 0 && !result)
+  if ((v7 & 0x10) == 0 && !result)
   {
     exception = __cxa_allocate_exception(0x28uLL);
     v20 = boost::interprocess::interprocess_exception::interprocess_exception(exception, "::boost::interprocess::bad_alloc");
@@ -3143,8 +3144,9 @@ char *boost::interprocess::allocator<boost::container::vector<unsigned int,boost
   return result;
 }
 
-char *boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(uint64_t *a1, void *a2, char a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
+uint64_t boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(uint64_t *a1, void *a2, int a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
 {
+  v7 = a3;
   v9 = 0;
   result = 0;
   v11 = a6 + *a6;
@@ -3165,7 +3167,7 @@ char *boost::interprocess::allocator<double,boost::interprocess::segment_manager
 
   v21 = v11;
   v13 = *a5;
-  v14 = *(v12 + 48) >> 3;
+  v14 = *(v12 + 6) >> 3;
   if (v14 >= a4 && v13 <= v14)
   {
     v22 = 8 * v13;
@@ -3179,7 +3181,7 @@ char *boost::interprocess::allocator<double,boost::interprocess::segment_manager
     __assert_rtn("allocation_command", "rbtree_best_fit.hpp", 698, "0 == ((std::size_t)ret % ::boost::container::dtl::alignment_of<T>::value)");
   }
 
-  if ((a3 & 0x10) == 0 && !result)
+  if ((v7 & 0x10) == 0 && !result)
   {
     exception = __cxa_allocate_exception(0x28uLL);
     v20 = boost::interprocess::interprocess_exception::interprocess_exception(exception, "::boost::interprocess::bad_alloc");
@@ -3328,7 +3330,7 @@ BOOL pf::SceneGeographyLineParser::parseFloatMap(pf::SceneGeographyLineParser *t
     else
     {
       v6 = *(this + 14);
-      v7 = v6[1];
+      v7 = *(v6 + 8);
       if (v7 == 1)
       {
         v8 = 0;
@@ -3336,12 +3338,12 @@ BOOL pf::SceneGeographyLineParser::parseFloatMap(pf::SceneGeographyLineParser *t
 
       else
       {
-        v8 = v6 + v7 + 8;
+        v8 = v7 + v6 + 8;
       }
 
-      v9 = v6[2];
-      v10 = &v8[8 * v9];
-      if (v9 == v6[3])
+      v9 = *(v6 + 16);
+      v10 = (v8 + 8 * v9);
+      if (v9 == *(v6 + 24))
       {
         boost::container::vector<double,boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,double *,double &>>(buf, v6, v10, &v14);
         boost::container::vec_iterator<boost::interprocess::offset_ptr<double,long,unsigned long,0ul>,false>::operator*(*buf);
@@ -3370,7 +3372,7 @@ BOOL pf::SceneGeographyLineParser::parseFloatMap(pf::SceneGeographyLineParser *t
         }
 
         *v12 = v5;
-        v6[2] = v9 + 1;
+        *(v6 + 16) = v9 + 1;
       }
     }
   }
@@ -3591,9 +3593,9 @@ LABEL_57:
   return v2;
 }
 
-void sub_1B367BC6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1B367BC6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::~vector(va);
   _Unwind_Resume(a1);
 }
@@ -4056,7 +4058,7 @@ LABEL_13:
                 }
 
                 v83 = *(v80 + 10);
-                v81 = v80 + 80;
+                v81 = (v80 + 80);
                 v82 = v83;
                 v84 = v81 - &v184;
                 if (v83 == 1)
@@ -5045,7 +5047,7 @@ void *boost::container::vector<std::pair<unsigned char,unsigned char>,boost::int
   *(a2 + 16) = 0;
   *(a2 + 24) = v50;
   *(a2 + 8) = &v54[v53];
-  v55 = a3 - v38;
+  v55 = (a3 - v38);
   v56 = (a3 - v38) >> 1;
   v57 = v40 >> 1;
   v58 = v56 + 1;
@@ -5062,7 +5064,7 @@ void *boost::container::vector<std::pair<unsigned char,unsigned char>,boost::int
       if (v39)
       {
         v62 = v38;
-        v63 = a3 - v38;
+        v63 = (a3 - v38);
         v64 = v40 >> 1;
         v65 = v51;
         v85 = v56;
@@ -5072,7 +5074,7 @@ void *boost::container::vector<std::pair<unsigned char,unsigned char>,boost::int
         v56 = v85;
         v51 = v65;
         v57 = v64;
-        v61 = &v39[v55];
+        v61 = &v55[v39];
       }
     }
 
@@ -5137,7 +5139,7 @@ LABEL_107:
     if (v38 && v39 && v38 != a3)
     {
       memmove(v39, v38, a3 - v38);
-      v39 += v55;
+      v39 = &v55[v39];
     }
 
     *(a2 + 16) = (a3 - v38) >> 1;
@@ -5226,19 +5228,19 @@ LABEL_113:
   }
 
   v79 = &v77[v78];
-  v80 = (v92 - a1);
+  v80 = v92 - a1;
   if (v79 == 1)
   {
     v80 = 0;
   }
 
-  *a1 = &v80[v79];
+  *a1 = &v79[v80];
   return result;
 }
 
-void sub_1B367D228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B367D228(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   boost::container::dtl::scoped_array_deallocator<boost::interprocess::allocator<std::pair<unsigned char,unsigned char>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~scoped_array_deallocator(va);
   _Unwind_Resume(a1);
 }
@@ -5284,8 +5286,9 @@ void pf::SceneGeographyNode::~SceneGeographyNode(pf::SceneGeographyNode *this)
   }
 }
 
-char *boost::interprocess::allocator<std::pair<unsigned char,unsigned char>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(uint64_t *a1, void *a2, char a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
+char *boost::interprocess::allocator<std::pair<unsigned char,unsigned char>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(uint64_t *a1, void *a2, int a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
 {
+  v7 = a3;
   v9 = 0;
   result = 0;
   v11 = a6 + *a6;
@@ -5306,7 +5309,7 @@ char *boost::interprocess::allocator<std::pair<unsigned char,unsigned char>,boos
 
   v21 = v11;
   v13 = *a5;
-  v14 = *(v12 + 48) >> 1;
+  v14 = *(v12 + 6) >> 1;
   if (v14 >= a4 && v13 <= v14)
   {
     v22 = 2 * v13;
@@ -5315,7 +5318,7 @@ char *boost::interprocess::allocator<std::pair<unsigned char,unsigned char>,boos
     *a5 = v22 >> 1;
   }
 
-  if ((a3 & 0x10) == 0 && !result)
+  if ((v7 & 0x10) == 0 && !result)
   {
     exception = __cxa_allocate_exception(0x28uLL);
     v20 = boost::interprocess::interprocess_exception::interprocess_exception(exception, "::boost::interprocess::bad_alloc");
@@ -5648,12 +5651,12 @@ uint64_t boost::unordered::detail::node_tmp<boost::interprocess::allocator<boost
   return a1;
 }
 
-void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,unsigned int *,unsigned int>>(char *a1, void *a2, char *a3, _DWORD *a4)
+void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,unsigned int *,unsigned int>>(char *a1, char *a2, char *a3, _DWORD *a4)
 {
-  v4 = (a2 + 1);
-  v5 = a2[1];
-  v6 = a2[3];
-  if (v6 != a2[2])
+  v4 = a2 + 8;
+  v5 = *(a2 + 1);
+  v6 = *(a2 + 3);
+  if (v6 != *(a2 + 2))
   {
     __assert_rtn("next_capacity", "vector.hpp", 473, "additional_objects > size_type(this->m_capacity - this->m_size)");
   }
@@ -5666,7 +5669,7 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
 
   else
   {
-    v8 = a2 + *a2;
+    v8 = &a2[*a2];
   }
 
   v9 = *(v8 + 6) >> 2;
@@ -5732,8 +5735,8 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
       v19 = &v85 + v85;
     }
 
-    v20 = v7[1];
-    v21 = v7[2];
+    v20 = *(v7 + 1);
+    v21 = *(v7 + 2);
     if (v20 == 1)
     {
       v22 = 0;
@@ -5829,7 +5832,7 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
 
         else
         {
-          v35 = v7 + *v7;
+          v35 = &v7[*v7];
         }
 
         boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_deallocate(v35, &v89 + v34);
@@ -5849,10 +5852,10 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
     }
 
     v38 = &v37[v36];
-    v39 = v7[2] + 1;
-    v7[1] = v38;
-    v7[2] = v39;
-    v7[3] = v25;
+    v39 = *(v7 + 2) + 1;
+    *(v7 + 1) = v38;
+    *(v7 + 2) = v39;
+    *(v7 + 3) = v25;
     result = boost::container::dtl::scoped_array_deallocator<boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~scoped_array_deallocator(v88);
     goto LABEL_109;
   }
@@ -5881,8 +5884,8 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
   if (v40 == v41)
   {
     v43 = v87;
-    v7[3] = v87;
-    v44 = v7[2];
+    *(v7 + 3) = v87;
+    v44 = *(v7 + 2);
     if (v44 == v43)
     {
       __assert_rtn("priv_insert_forward_range_expand_forward", "vector.hpp", 2966, "this->room_enough()");
@@ -5904,7 +5907,7 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
       }
 
       *v70 = *a4;
-      v7[2] = v44 + 1;
+      *(v7 + 2) = v44 + 1;
     }
 
     else
@@ -5922,7 +5925,7 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
       }
 
       *v47 = *(v45 - 1);
-      v7[2] = v44 + 1;
+      *(v7 + 2) = v44 + 1;
       if (v45 - 4 != a3)
       {
         result = memmove(a3 + 4, a3, v45 - 4 - a3);
@@ -5937,7 +5940,7 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
   v83 = a1;
   v84 = a4;
   v48 = v87;
-  v49 = v7[2];
+  v49 = *(v7 + 2);
   v82 = &v40[4 * v49];
   v50 = v41 - v88;
   if (!v41)
@@ -5951,10 +5954,10 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
     v51 = 0;
   }
 
-  v7[2] = 0;
-  v7[3] = v48;
-  v7[1] = &v51[v50];
-  v52 = a3 - v40;
+  *(v7 + 2) = 0;
+  *(v7 + 3) = v48;
+  *(v7 + 1) = &v51[v50];
+  v52 = (a3 - v40);
   v53 = (a3 - v40) >> 2;
   v54 = v42 >> 2;
   v55 = v53 + 1;
@@ -5971,13 +5974,13 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
       if (v41)
       {
         v61 = v40;
-        v62 = a3 - v40;
+        v62 = (a3 - v40);
         v63 = v42 >> 2;
         v64 = v49;
         result = memmove(v41, v61, v62);
         v49 = v64;
         v54 = v63;
-        v60 = &v41[v52];
+        v60 = &v52[v41];
       }
     }
 
@@ -6002,7 +6005,7 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
     }
 
     *v66 = *v84;
-    v7[2] = v55;
+    *(v7 + 2) = v55;
     v67 = v49 + 1;
     if (v54 >= v49 + 1)
     {
@@ -6031,7 +6034,7 @@ void *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
 
     result = memmove(&v41[4 * v55], a3, v68);
 LABEL_108:
-    v7[2] = v67;
+    *(v7 + 2) = v67;
     goto LABEL_109;
   }
 
@@ -6043,10 +6046,10 @@ LABEL_108:
     if (v40 && v41 && v40 != a3)
     {
       memmove(v41, v40, a3 - v40);
-      v41 += v52;
+      v41 = &v52[v41];
     }
 
-    v7[2] = v53;
+    *(v7 + 2) = v53;
     if (v78 == 1)
     {
       v79 = v41 - v88;
@@ -6062,7 +6065,7 @@ LABEL_108:
       }
 
       *v80 = *v84;
-      v7[2] = v81 + v56;
+      *(v7 + 2) = v81 + v56;
       __assert_rtn("copy_n_and_update", "advanced_insert_int.hpp", 215, "n == 1");
     }
 
@@ -6070,7 +6073,7 @@ LABEL_108:
   }
 
   result = memmove(v41, v40, v40 - v41);
-  v7[2] = v56 + 1;
+  *(v7 + 2) = v56 + 1;
   if (v40)
   {
     v57 = &v40[v42];
@@ -6078,9 +6081,9 @@ LABEL_108:
     v58 = v84;
     if (&v40[v42] != a3)
     {
-      v59 = a3 - v57;
+      v59 = (a3 - v57);
       result = memmove(v40, v57, a3 - v57);
-      v40 += v59;
+      v40 = &v59[v40];
     }
   }
 
@@ -6128,9 +6131,9 @@ LABEL_109:
   return result;
 }
 
-void sub_1B367DF0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B367DF0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   boost::container::dtl::scoped_array_deallocator<boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~scoped_array_deallocator(va);
   _Unwind_Resume(a1);
 }
@@ -6171,7 +6174,7 @@ uint64_t *boost::container::vector<unsigned int,boost::interprocess::allocator<u
   *a1 = v6;
   v7 = 1;
   a1[1] = 1;
-  v8 = (a1 + 1);
+  v8 = a1 + 1;
   a1[2] = v4;
   a1[3] = 0;
   if (v4)
@@ -6200,7 +6203,7 @@ uint64_t *boost::container::vector<unsigned int,boost::interprocess::allocator<u
 
     else
     {
-      v11 = &v8[v7];
+      v11 = v8 + v7;
     }
 
     v12 = a2[1];
@@ -6220,7 +6223,7 @@ uint64_t *boost::container::vector<unsigned int,boost::interprocess::allocator<u
   return a1;
 }
 
-char *boost::container::vector<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::allocator<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::interprocess::allocator<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>*,boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>&>>(char *a1, uint64_t a2, char *a3, char *a4)
+uint64_t *boost::container::vector<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::allocator<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::interprocess::allocator<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>*,boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>&>>(char *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v4 = (a2 + 8);
   v5 = *(a2 + 8);
@@ -6386,7 +6389,7 @@ char *boost::container::vector<boost::container::vector<unsigned int,boost::inte
 
         else
         {
-          v33 = &v28[*v29];
+          v33 = v28 + *v29;
         }
 
         if (v33)
@@ -6400,7 +6403,7 @@ char *boost::container::vector<boost::container::vector<unsigned int,boost::inte
         }
 
         *v32 = v34;
-        v35 = *(v29 + 1);
+        v35 = v29[1];
         v36 = v28 - v32;
         if (v35 == 1)
         {
@@ -6409,12 +6412,12 @@ char *boost::container::vector<boost::container::vector<unsigned int,boost::inte
 
         *(v32 + 1) = v36 + v35;
         *(v32 + 1) = *(v29 + 1);
-        *(v29 + 2) = 0;
-        *(v29 + 3) = 0;
-        *(v29 + 1) = 1;
-        v29 += 32;
+        v29[2] = 0;
+        v29[3] = 0;
+        v29[1] = 1;
+        v29 += 4;
         v30 += 32;
-        v28 += 32;
+        v28 += 4;
         v24 += 32;
       }
 
@@ -6446,7 +6449,7 @@ char *boost::container::vector<boost::container::vector<unsigned int,boost::inte
     }
 
     boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::vector(v81, a4);
-    v82 = &v21[32 * v20];
+    v82 = &v21[4 * v20];
     if (v82 != a3)
     {
       v83 = v30 + 32;
@@ -6471,7 +6474,7 @@ char *boost::container::vector<boost::container::vector<unsigned int,boost::inte
 
         else
         {
-          v87 = &v84[*v85];
+          v87 = v84 + *v85;
         }
 
         if (v87)
@@ -6485,7 +6488,7 @@ char *boost::container::vector<boost::container::vector<unsigned int,boost::inte
         }
 
         *v86 = v88;
-        v89 = *(v85 + 1);
+        v89 = v85[1];
         v90 = (v84 - v86);
         if (v89 == 1)
         {
@@ -6494,11 +6497,11 @@ char *boost::container::vector<boost::container::vector<unsigned int,boost::inte
 
         *(v86 + 1) = &v90[v89];
         *(v86 + 1) = *(v85 + 1);
-        *(v85 + 2) = 0;
-        *(v85 + 3) = 0;
-        *(v85 + 1) = 1;
-        v85 += 32;
-        v84 += 32;
+        v85[2] = 0;
+        v85[3] = 0;
+        v85[1] = 1;
+        v85 += 4;
+        v84 += 4;
         v83 += 32;
       }
 
@@ -6574,7 +6577,7 @@ LABEL_233:
 
   else
   {
-    v38 = &v165 + v165;
+    v38 = (&v165 + v165);
   }
 
   v39 = v37 - v38;
@@ -6583,7 +6586,7 @@ LABEL_233:
     v164 = a1;
     v58 = v167;
     v59 = *(a2 + 16);
-    v60 = &v37[32 * v59];
+    v60 = &v37[4 * v59];
     v61 = v38 - &v169;
     if (!v38)
     {
@@ -6661,7 +6664,7 @@ LABEL_233:
 
           else
           {
-            v105 = &v100[*v101];
+            v105 = v100 + *v101;
           }
 
           if (v105)
@@ -6675,7 +6678,7 @@ LABEL_233:
           }
 
           *v104 = v106;
-          v107 = *(v101 + 1);
+          v107 = v101[1];
           v108 = v100 - v104;
           if (v107 == 1)
           {
@@ -6684,12 +6687,12 @@ LABEL_233:
 
           *(v104 + 1) = v108 + v107;
           *(v104 + 1) = *(v101 + 1);
-          *(v101 + 2) = 0;
-          *(v101 + 3) = 0;
-          *(v101 + 1) = 1;
-          v101 += 32;
-          v102 += 32;
-          v100 += 32;
+          v101[2] = 0;
+          v101[3] = 0;
+          v101[1] = 1;
+          v101 += 4;
+          v102 += 4;
+          v100 += 4;
           v99 += 32;
         }
 
@@ -6725,8 +6728,8 @@ LABEL_233:
         {
           if (v60 != a3)
           {
-            v134 = &v38[32 * v65];
-            v135 = &v38[32 * v162] - v168 + 32;
+            v134 = &v38[4 * v65];
+            v135 = &v38[4 * v162] - v168 + 32;
             v136 = a3;
             v137 = a3;
             do
@@ -6758,7 +6761,7 @@ LABEL_233:
 
               else
               {
-                v140 = &v136[*v137];
+                v140 = v136 + *v137;
               }
 
               if (v140)
@@ -6772,7 +6775,7 @@ LABEL_233:
               }
 
               *v139 = v141;
-              v142 = *(v137 + 1);
+              v142 = v137[1];
               v143 = v136 - v139;
               if (v142 == 1)
               {
@@ -6781,12 +6784,12 @@ LABEL_233:
 
               *(v139 + 1) = v143 + v142;
               *(v139 + 1) = *(v137 + 1);
-              *(v137 + 2) = 0;
-              *(v137 + 3) = 0;
-              *(v137 + 1) = 1;
-              v137 += 32;
+              v137[2] = 0;
+              v137[3] = 0;
+              v137[1] = 1;
+              v137 += 4;
               v134 += 32;
-              v136 += 32;
+              v136 += 4;
               v135 += 32;
             }
 
@@ -6801,9 +6804,9 @@ LABEL_233:
       {
         if (v163 != v65)
         {
-          v121 = &v38[32 * v65];
+          v121 = &v38[4 * v65];
           v122 = v162 - v163 + 1;
-          v123 = &v38[32 * v162] - v168 + 32;
+          v123 = &v38[4 * v162] - v168 + 32;
           v124 = a3;
           v125 = a3;
           do
@@ -6835,7 +6838,7 @@ LABEL_233:
 
             else
             {
-              v128 = &v124[*v125];
+              v128 = v124 + *v125;
             }
 
             if (v128)
@@ -6849,7 +6852,7 @@ LABEL_233:
             }
 
             *v127 = v129;
-            v130 = *(v125 + 1);
+            v130 = v125[1];
             v131 = v124 - v127;
             if (v130 == 1)
             {
@@ -6858,12 +6861,12 @@ LABEL_233:
 
             *(v127 + 1) = v131 + v130;
             *(v127 + 1) = *(v125 + 1);
-            *(v125 + 2) = 0;
-            *(v125 + 3) = 0;
-            *(v125 + 1) = 1;
-            v125 += 32;
+            v125[2] = 0;
+            v125[3] = 0;
+            v125[1] = 1;
+            v125 += 4;
             v121 += 32;
-            v124 += 32;
+            v124 += 4;
             v123 += 32;
           }
 
@@ -6873,7 +6876,7 @@ LABEL_233:
         v170 -= v120;
         v169.i64[0] += 32 * v120;
         *(a2 + 16) = v119;
-        v133 = &a3[32 * (v163 - v65)];
+        v133 = &a3[4 * (v163 - v65)];
         if (v133 != v37)
         {
           while (v133 != v60)
@@ -6883,8 +6886,8 @@ LABEL_233:
               boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_move_assign<boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>(v37, v133);
             }
 
-            v133 += 32;
-            v37 += 32;
+            v133 += 4;
+            v37 += 4;
           }
         }
       }
@@ -6933,7 +6936,7 @@ LABEL_233:
 
             else
             {
-              v156 = &v37[*v153];
+              v156 = v37 + *v153;
             }
 
             if (v156)
@@ -6947,7 +6950,7 @@ LABEL_233:
             }
 
             *v155 = v157;
-            v158 = *(v153 + 1);
+            v158 = v153[1];
             v159 = v37 - v155;
             if (v158 == 1)
             {
@@ -6956,12 +6959,12 @@ LABEL_233:
 
             *(v155 + 1) = v159 + v158;
             *(v155 + 1) = *(v153 + 1);
-            *(v153 + 2) = 0;
-            *(v153 + 3) = 0;
-            *(v153 + 1) = 1;
-            v153 += 32;
-            v38 += 32;
-            v37 += 32;
+            v153[2] = 0;
+            v153[3] = 0;
+            v153[1] = 1;
+            v153 += 4;
+            v38 += 4;
+            v37 += 4;
             v152 += 32;
           }
 
@@ -7032,7 +7035,7 @@ LABEL_233:
 
         else
         {
-          v75 = &v70[*v72];
+          v75 = v70 + *v72;
         }
 
         if (v75)
@@ -7046,7 +7049,7 @@ LABEL_233:
         }
 
         *v74 = v76;
-        v77 = *(v72 + 1);
+        v77 = v72[1];
         v78 = v70 - v74;
         if (v77 == 1)
         {
@@ -7055,12 +7058,12 @@ LABEL_233:
 
         *(v74 + 1) = v78 + v77;
         *(v74 + 1) = *(v72 + 1);
-        *(v72 + 2) = 0;
-        *(v72 + 3) = 0;
-        *(v72 + 1) = 1;
-        v72 += 32;
-        v38 += 32;
-        v70 += 32;
+        v72[2] = 0;
+        v72[3] = 0;
+        v72[1] = 1;
+        v72 += 4;
+        v38 += 4;
+        v70 += 4;
         v69 += 32;
         --v71;
       }
@@ -7069,20 +7072,20 @@ LABEL_233:
       v169.i64[0] = 1;
       v170 = 0;
       *(a2 + 16) = v59 + 1;
-      while (&v37[v39] != a3)
+      while ((v37 + v39) != a3)
       {
         if (v39)
         {
-          boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_move_assign<boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>(v37, &v37[v39]);
+          boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_move_assign<boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>(v37, (v37 + v39));
         }
 
-        v37 += 32;
+        v37 += 4;
       }
 
       if (v37 != a4)
       {
-        v110 = *(a4 + 1);
-        v109 = a4 + 8;
+        v110 = a4[1];
+        v109 = a4 + 1;
         v111 = v109 + v110;
         if (v110 == 1)
         {
@@ -7099,7 +7102,7 @@ LABEL_233:
 
       if (v68 >= 2 && v60 != a3)
       {
-        v113 = v37 + 32;
+        v113 = v37 + 4;
         v114 = a3;
         do
         {
@@ -7108,8 +7111,8 @@ LABEL_233:
             boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_move_assign<boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>(v113, v114);
           }
 
-          v114 += 32;
-          v113 += 32;
+          v114 += 4;
+          v113 += 4;
         }
 
         while (v114 != v60);
@@ -7128,7 +7131,7 @@ LABEL_233:
     __assert_rtn("priv_insert_forward_range_expand_forward", "vector.hpp", 2966, "this->room_enough()");
   }
 
-  v42 = &v37[32 * v41];
+  v42 = &v37[4 * v41];
   if (v42 == a3)
   {
     v115 = a3 - &v169;
@@ -7154,7 +7157,7 @@ LABEL_233:
 
   else
   {
-    result = v42 - 32;
+    result = v42 - 4;
     v44 = *(v42 - 4);
     v45 = v42 - &v169;
     if (!v37)
@@ -7175,7 +7178,7 @@ LABEL_233:
 
     else
     {
-      v47 = &result[v44];
+      v47 = result + v44;
     }
 
     if (v47)
@@ -7190,7 +7193,7 @@ LABEL_233:
 
     *v46 = v48;
     v51 = *(v42 - 3);
-    v49 = v42 - 24;
+    v49 = v42 - 3;
     v50 = v51;
     v52 = v49 - (v46 + 8);
     if (v51 == 1)
@@ -7199,16 +7202,16 @@ LABEL_233:
     }
 
     *(v46 + 1) = v52 + v50;
-    *(v46 + 1) = *(v49 + 8);
-    *(v49 + 1) = 0;
-    *(v49 + 2) = 0;
+    *(v46 + 1) = *(v49 + 1);
+    v49[1] = 0;
+    v49[2] = 0;
     *v49 = 1;
     ++*(a2 + 16);
     if (result != a3)
     {
       do
       {
-        v53 = result - 32;
+        v53 = result - 4;
         boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_move_assign<boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>(result, result - 4);
         result = v53;
       }
@@ -7218,8 +7221,8 @@ LABEL_233:
 
     if (a4 != a3)
     {
-      v55 = *(a4 + 1);
-      v54 = a4 + 8;
+      v55 = a4[1];
+      v54 = a4 + 1;
       v56 = v54 + v55;
       if (v55 == 1)
       {
@@ -7267,9 +7270,9 @@ LABEL_234:
   return result;
 }
 
-void sub_1B367EB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B367EB18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   boost::container::dtl::scoped_destructor_n<boost::interprocess::allocator<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~scoped_destructor_n(va);
   _Unwind_Resume(a1);
 }
@@ -7457,13 +7460,13 @@ char *boost::container::vector<unsigned int,boost::interprocess::allocator<unsig
       }
     }
 
-    v10 = (v5 - v9);
+    v10 = v5 - v9;
     if (*v5 == 1)
     {
       v10 = 0;
     }
 
-    a1[1] = &v10[*v5];
+    a1[1] = v10 + *v5;
     *(a1 + 1) = *v4;
     *v5 = 1;
     v4[1] = 0;
@@ -7849,8 +7852,9 @@ void *boost::container::dtl::scoped_destructor_n<boost::interprocess::allocator<
   return a1;
 }
 
-char *boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(uint64_t *a1, void *a2, char a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
+uint64_t boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>::allocation_command(uint64_t *a1, void *a2, int a3, unint64_t a4, unint64_t *a5, uint64_t *a6)
 {
+  v7 = a3;
   v9 = 0;
   result = 0;
   v11 = a6 + *a6;
@@ -7871,7 +7875,7 @@ char *boost::interprocess::allocator<unsigned int,boost::interprocess::segment_m
 
   v21 = v11;
   v13 = *a5;
-  v14 = *(v12 + 48) >> 2;
+  v14 = *(v12 + 6) >> 2;
   if (v14 >= a4 && v13 <= v14)
   {
     v22 = 4 * v13;
@@ -7885,7 +7889,7 @@ char *boost::interprocess::allocator<unsigned int,boost::interprocess::segment_m
     __assert_rtn("allocation_command", "rbtree_best_fit.hpp", 698, "0 == ((std::size_t)ret % ::boost::container::dtl::alignment_of<T>::value)");
   }
 
-  if ((a3 & 0x10) == 0 && !result)
+  if ((v7 & 0x10) == 0 && !result)
   {
     exception = __cxa_allocate_exception(0x28uLL);
     v20 = boost::interprocess::interprocess_exception::interprocess_exception(exception, "::boost::interprocess::bad_alloc");
@@ -7933,12 +7937,12 @@ void *boost::container::dtl::scoped_array_deallocator<boost::interprocess::alloc
   return a1;
 }
 
-void *boost::container::vector<double,boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,double *,double &>>(char *a1, void *a2, char *a3, void *a4)
+uint64_t boost::container::vector<double,boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,double *,double &>>(char *a1, char *a2, char *a3, void *a4)
 {
-  v4 = (a2 + 1);
-  v5 = a2[1];
-  v6 = a2[3];
-  if (v6 != a2[2])
+  v4 = a2 + 8;
+  v5 = *(a2 + 1);
+  v6 = *(a2 + 3);
+  if (v6 != *(a2 + 2))
   {
     __assert_rtn("next_capacity", "vector.hpp", 473, "additional_objects > size_type(this->m_capacity - this->m_size)");
   }
@@ -7951,7 +7955,7 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
 
   else
   {
-    v8 = a2 + *a2;
+    v8 = &a2[*a2];
   }
 
   v9 = *(v8 + 6) >> 3;
@@ -8017,8 +8021,8 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
       v19 = &v85 + v85;
     }
 
-    v20 = v7[1];
-    v21 = v7[2];
+    v20 = *(v7 + 1);
+    v21 = *(v7 + 2);
     if (v20 == 1)
     {
       v22 = 0;
@@ -8114,7 +8118,7 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
 
         else
         {
-          v35 = v7 + *v7;
+          v35 = &v7[*v7];
         }
 
         boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>::priv_deallocate(v35, &v89 + v34);
@@ -8134,10 +8138,10 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
     }
 
     v38 = &v37[v36];
-    v39 = v7[2] + 1;
-    v7[1] = v38;
-    v7[2] = v39;
-    v7[3] = v25;
+    v39 = *(v7 + 2) + 1;
+    *(v7 + 1) = v38;
+    *(v7 + 2) = v39;
+    *(v7 + 3) = v25;
     result = boost::container::dtl::scoped_array_deallocator<boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~scoped_array_deallocator(v88);
     goto LABEL_109;
   }
@@ -8166,8 +8170,8 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
   if (v40 == v41)
   {
     v43 = v87;
-    v7[3] = v87;
-    v44 = v7[2];
+    *(v7 + 3) = v87;
+    v44 = *(v7 + 2);
     if (v44 == v43)
     {
       __assert_rtn("priv_insert_forward_range_expand_forward", "vector.hpp", 2966, "this->room_enough()");
@@ -8189,7 +8193,7 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
       }
 
       *v70 = *a4;
-      v7[2] = v44 + 1;
+      *(v7 + 2) = v44 + 1;
     }
 
     else
@@ -8207,7 +8211,7 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
       }
 
       *v47 = *(v45 - 1);
-      v7[2] = v44 + 1;
+      *(v7 + 2) = v44 + 1;
       if (v45 - 8 != a3)
       {
         result = memmove(a3 + 8, a3, v45 - 8 - a3);
@@ -8222,7 +8226,7 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
   v83 = a1;
   v84 = a4;
   v48 = v87;
-  v49 = v7[2];
+  v49 = *(v7 + 2);
   v82 = &v40[8 * v49];
   v50 = v41 - v88;
   if (!v41)
@@ -8236,10 +8240,10 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
     v51 = 0;
   }
 
-  v7[2] = 0;
-  v7[3] = v48;
-  v7[1] = &v51[v50];
-  v52 = a3 - v40;
+  *(v7 + 2) = 0;
+  *(v7 + 3) = v48;
+  *(v7 + 1) = &v51[v50];
+  v52 = (a3 - v40);
   v53 = (a3 - v40) >> 3;
   v54 = v42 >> 3;
   v55 = v53 + 1;
@@ -8256,13 +8260,13 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
       if (v41)
       {
         v61 = v40;
-        v62 = a3 - v40;
+        v62 = (a3 - v40);
         v63 = v42 >> 3;
         v64 = v49;
         result = memmove(v41, v61, v62);
         v49 = v64;
         v54 = v63;
-        v60 = &v41[v52];
+        v60 = &v52[v41];
       }
     }
 
@@ -8287,7 +8291,7 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
     }
 
     *v66 = *v84;
-    v7[2] = v55;
+    *(v7 + 2) = v55;
     v67 = v49 + 1;
     if (v54 >= v49 + 1)
     {
@@ -8316,7 +8320,7 @@ void *boost::container::vector<double,boost::interprocess::allocator<double,boos
 
     result = memmove(&v41[8 * v55], a3, v68);
 LABEL_108:
-    v7[2] = v67;
+    *(v7 + 2) = v67;
     goto LABEL_109;
   }
 
@@ -8328,10 +8332,10 @@ LABEL_108:
     if (v40 && v41 && v40 != a3)
     {
       memmove(v41, v40, a3 - v40);
-      v41 += v52;
+      v41 = &v52[v41];
     }
 
-    v7[2] = v53;
+    *(v7 + 2) = v53;
     if (v78 == 1)
     {
       v79 = v41 - v88;
@@ -8347,7 +8351,7 @@ LABEL_108:
       }
 
       *v80 = *v84;
-      v7[2] = v81 + v56;
+      *(v7 + 2) = v81 + v56;
       __assert_rtn("copy_n_and_update", "advanced_insert_int.hpp", 187, "n == 1");
     }
 
@@ -8355,7 +8359,7 @@ LABEL_108:
   }
 
   result = memmove(v41, v40, v40 - v41);
-  v7[2] = v56 + 1;
+  *(v7 + 2) = v56 + 1;
   if (v40)
   {
     v57 = &v40[v42];
@@ -8363,9 +8367,9 @@ LABEL_108:
     v58 = v84;
     if (&v40[v42] != a3)
     {
-      v59 = a3 - v57;
+      v59 = (a3 - v57);
       result = memmove(v40, v57, a3 - v57);
-      v40 += v59;
+      v40 = &v59[v40];
     }
   }
 
@@ -8413,9 +8417,9 @@ LABEL_109:
   return result;
 }
 
-void sub_1B367FAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B367FAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   boost::container::dtl::scoped_array_deallocator<boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>>::~scoped_array_deallocator(va);
   _Unwind_Resume(a1);
 }
@@ -8467,7 +8471,7 @@ void pf::SceneGeographyLineParser::~SceneGeographyLineParser(pf::SceneGeographyL
   boost::interprocess::basic_managed_mapped_file<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>::~basic_managed_mapped_file(this + 48);
 }
 
-pf::SceneGeographyLineParser *pf::SceneGeographyLineParser::SceneGeographyLineParser(pf::SceneGeographyLineParser *this, const char *a2, const char *a3, size_t a4)
+pf::SceneGeographyLineParser *pf::SceneGeographyLineParser::SceneGeographyLineParser(pf::SceneGeographyLineParser *this, char *a2, const char *a3, size_t a4)
 {
   *this = &unk_1F2A8A3F8;
   *(this + 1) = a2;
@@ -8625,7 +8629,7 @@ uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::unordered::unordered_ma
   return result;
 }
 
-uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::allocator<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,false,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>* const&>::construct_n(uint64_t result, uint64_t *a2, unint64_t a3, unint64_t *a4)
+uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::allocator<boost::container::vector<unsigned int,boost::interprocess::allocator<unsigned int,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,false,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>* const&>::construct_n(uint64_t result, uint64_t a2, unint64_t a3, unint64_t *a4)
 {
   *a4 = 0;
   if (a3)
@@ -8665,13 +8669,13 @@ uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<boost
       }
 
       *a2 = v8;
-      a2[1] = 1;
-      a2[2] = 0;
-      a2[3] = 0;
+      *(a2 + 8) = 1;
+      *(a2 + 16) = 0;
+      *(a2 + 24) = 0;
       v9 = *a4 + 1;
       *a4 = v9;
       v4 -= 32;
-      a2 += 4;
+      a2 += 32;
     }
 
     while (v9 < a3);
@@ -8680,7 +8684,7 @@ uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<boost
   return result;
 }
 
-uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<double,boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,false,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>* const&>::construct_n(uint64_t result, uint64_t *a2, unint64_t a3, unint64_t *a4)
+uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<double,boost::interprocess::allocator<double,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>>,void>,false,boost::interprocess::segment_manager<char,boost::interprocess::rbtree_best_fit<boost::interprocess::null_mutex_family,boost::interprocess::offset_ptr<void,long,unsigned long,0ul>,0ul>,boost::interprocess::iset_index>* const&>::construct_n(uint64_t result, uint64_t a2, unint64_t a3, unint64_t *a4)
 {
   *a4 = 0;
   if (a3)
@@ -8720,13 +8724,13 @@ uint64_t boost::interprocess::ipcdetail::CtorArgN<boost::container::vector<doubl
       }
 
       *a2 = v8;
-      a2[1] = 1;
-      a2[2] = 0;
-      a2[3] = 0;
+      *(a2 + 8) = 1;
+      *(a2 + 16) = 0;
+      *(a2 + 24) = 0;
       v9 = *a4 + 1;
       *a4 = v9;
       v4 -= 32;
-      a2 += 4;
+      a2 += 32;
     }
 
     while (v9 < a3);
@@ -8867,18 +8871,19 @@ void __PFStoryColorGradeSupportedCategories_block_invoke()
   PFStoryColorGradeSupportedCategories_supportedCategories = v1;
 }
 
-void sub_1B36809B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B36809B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3681DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_1B3681DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a25, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8889,31 +8894,32 @@ uint64_t __Block_byref_object_copy__12186(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B3682180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B3682180(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3682B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B3682B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3683908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_1B3683908(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
-  _Block_object_dispose((v37 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v36 - 144), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3684058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B3684058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8953,7 +8959,7 @@ void sub_1B36873A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a14)
   {
-    (*(*a14 + 8))(a14);
+    (*(*a14 + 8))(a14, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(a1);
@@ -9124,7 +9130,7 @@ id copiedStringValueForKeyInDictionary(uint64_t a1, void *a2)
   return v3;
 }
 
-id ErrorForCode(uint64_t a1, unsigned int a2, void *a3)
+id ErrorForCode(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
   v6 = [MEMORY[0x1E695DF90] dictionary];
@@ -9175,7 +9181,7 @@ uint64_t __Block_byref_object_copy__13549(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B3691E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
+void sub_1B3691E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, char a62)
 {
   _Block_object_dispose(&a44, 8);
   _Block_object_dispose((v62 - 176), 8);
@@ -9188,21 +9194,22 @@ void sub_1B3691E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1B3692A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45)
+void sub_1B3692A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
+  va_start(va, a44);
   _Block_object_dispose(&a27, 8);
   _Block_object_dispose(&a33, 8);
   _Block_object_dispose(&a37, 8);
   _Block_object_dispose(&a41, 8);
-  _Block_object_dispose(&a45, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B3692DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B3692DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 80), 8);
+  _Block_object_dispose((v18 - 80), 8);
   _Unwind_Resume(a1);
 }
 

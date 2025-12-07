@@ -55,7 +55,7 @@
 
 - (BOOL)_writeIpsFileWithBugType:(id)type contentType:(id)contentType additionalIpsHeaders:(id)headers ipsData:(id)data inDirectory:(id)directory fileNamePrefix:(id)prefix
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   contentTypeCopy = contentType;
   headersCopy = headers;
@@ -64,13 +64,13 @@
   prefixCopy = prefix;
   if ([(IpsFileUtility *)self _checkDirectoryAndCreateIfNecessary:directoryCopy])
   {
-    v48 = dataCopy;
+    v47 = dataCopy;
     context = objc_autoreleasePoolPush();
     [MEMORY[0x277CBEAA8] date];
     v21 = v20 = typeCopy;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     v23 = [IpsFileUtility _createIpsFileNameWithPrefix:prefixCopy date:v21 inDirectory:directoryCopy];
-    v47 = v20;
+    v46 = v20;
     v24 = [IpsFileUtility _createDataForCrashReporterIpsHeaderWithBugType:v20 contentType:contentTypeCopy date:v21 additionalFields:headersCopy];
     if (v24)
     {
@@ -80,12 +80,12 @@
         uUID = [MEMORY[0x277CCAD78] UUID];
         uUIDString = [uUID UUIDString];
 
-        v44 = uUIDString;
+        v43 = uUIDString;
         v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@.tmp", directoryCopy, uUIDString];
-        v45 = v28;
-        if ([v48 writeToFile:v28 atomically:1])
+        v44 = v28;
+        if ([v47 writeToFile:v28 atomically:1])
         {
-          v43 = v25;
+          v42 = v25;
           v29 = fopen([(FILE *)v23 cStringUsingEncoding:4], "a");
           v30 = fopen([(FILE *)v28 cStringUsingEncoding:4], "r");
           v31 = v30;
@@ -106,9 +106,9 @@
             if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
             {
               *buf = 134218240;
-              v50 = v29;
-              v51 = 2048;
-              v52 = v31;
+              v49 = v29;
+              v50 = 2048;
+              v51 = v31;
               _os_log_impl(&dword_23255B000, log, OS_LOG_TYPE_INFO, "ipsFileFD is %p, tempFileFD is %p", buf, 0x16u);
             }
 
@@ -119,11 +119,11 @@
               if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v50 = v23;
+                v49 = v23;
                 _os_log_impl(&dword_23255B000, v39, OS_LOG_TYPE_INFO, "Removing the incomplete IPS file: %@", buf, 0xCu);
               }
 
-              [v43 removeItemAtPath:v23 error:0];
+              [v42 removeItemAtPath:v23 error:0];
             }
           }
 
@@ -148,7 +148,7 @@
             fclose(v31);
           }
 
-          v25 = v43;
+          v25 = v42;
         }
 
         else
@@ -157,7 +157,7 @@
           if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v50 = v23;
+            v49 = v23;
             _os_log_impl(&dword_23255B000, v38, OS_LOG_TYPE_INFO, "Temporary file creation failed, removing the incomplete IPS file: %@", buf, 0xCu);
           }
 
@@ -165,19 +165,19 @@
           v33 = 0;
         }
 
-        v23 = v45;
-        if (!v45)
+        v23 = v44;
+        if (!v44)
         {
           goto LABEL_39;
         }
 
-        [v25 removeItemAtPath:v45 error:0];
+        [v25 removeItemAtPath:v44 error:0];
 LABEL_38:
 
 LABEL_39:
         objc_autoreleasePoolPop(context);
-        typeCopy = v47;
-        dataCopy = v48;
+        typeCopy = v46;
+        dataCopy = v47;
         goto LABEL_40;
       }
 
@@ -211,14 +211,13 @@ LABEL_21:
   if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v50 = directoryCopy;
+    v49 = directoryCopy;
     _os_log_impl(&dword_23255B000, v35, OS_LOG_TYPE_INFO, "Directory %@ does not exist and failed to create one", buf, 0xCu);
   }
 
   v33 = 0;
 LABEL_40:
 
-  v40 = *MEMORY[0x277D85DE8];
   return v33;
 }
 
@@ -273,13 +272,13 @@ LABEL_40:
 
 - (BOOL)_checkDirectoryAndCreateIfNecessary:(id)necessary
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v10 = 0;
-  if ([defaultManager fileExistsAtPath:necessaryCopy isDirectory:&v10])
+  v9 = 0;
+  if ([defaultManager fileExistsAtPath:necessaryCopy isDirectory:&v9])
   {
-    if (v10)
+    if (v9)
     {
       v5 = 1;
     }
@@ -290,7 +289,7 @@ LABEL_40:
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v12 = necessaryCopy;
+        v11 = necessaryCopy;
         _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_INFO, "There is a file at %@", buf, 0xCu);
       }
 
@@ -304,20 +303,19 @@ LABEL_40:
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v12 = necessaryCopy;
+      v11 = necessaryCopy;
       _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_INFO, "Directory %@ does not exist, creating one.", buf, 0xCu);
     }
 
     v5 = [defaultManager createDirectoryAtPath:necessaryCopy withIntermediateDirectories:1 attributes:0 error:0];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 + (id)_createDataForCrashReporterIpsHeaderWithBugType:(id)type contentType:(id)contentType date:(id)date additionalFields:(id)fields
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
   dateCopy = date;
   contentTypeCopy = contentType;
@@ -341,9 +339,9 @@ LABEL_40:
   if ([MEMORY[0x277CCAAA0] isValidJSONObject:v24])
   {
     v25 = objc_alloc(MEMORY[0x277CBEB28]);
-    v34 = 0;
-    v26 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v24 options:0 error:&v34];
-    v27 = v34;
+    v33 = 0;
+    v26 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v24 options:0 error:&v33];
+    v27 = v33;
     v28 = [v25 initWithData:v26];
 
     if (v28)
@@ -356,12 +354,12 @@ LABEL_40:
 
     if (v27)
     {
-      v33 = otherLogHandle;
+      v32 = otherLogHandle;
       if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v36 = v27;
-        _os_log_impl(&dword_23255B000, v33, OS_LOG_TYPE_INFO, "serialization of ips header failed with error: %@", buf, 0xCu);
+        v35 = v27;
+        _os_log_impl(&dword_23255B000, v32, OS_LOG_TYPE_INFO, "serialization of ips header failed with error: %@", buf, 0xCu);
       }
     }
   }
@@ -372,7 +370,7 @@ LABEL_40:
     if (os_log_type_enabled(otherLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v36 = v24;
+      v35 = v24;
       _os_log_impl(&dword_23255B000, v30, OS_LOG_TYPE_ERROR, "contents of ips header dictionary is not JSON compliant: %@", buf, 0xCu);
     }
 
@@ -381,8 +379,6 @@ LABEL_40:
 
   v29 = 0;
 LABEL_8:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v29;
 }

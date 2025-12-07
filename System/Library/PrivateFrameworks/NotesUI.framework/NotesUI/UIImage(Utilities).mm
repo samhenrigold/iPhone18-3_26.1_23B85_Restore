@@ -264,12 +264,12 @@ LABEL_4:
 {
   if (a4)
   {
-    [MEMORY[0x1E69DCAB8] _systemImageNamed:?];
+    [MEMORY[0x1E69DCAB8] _systemImageNamed:a3];
   }
 
   else
   {
-    [MEMORY[0x1E69DCAB8] systemImageNamed:?];
+    [MEMORY[0x1E69DCAB8] systemImageNamed:a3];
   }
   v4 = ;
 
@@ -546,10 +546,10 @@ LABEL_6:
   CGImageGetWidth(ic_CGImage);
   CGImageGetHeight(ic_CGImage);
   ICTransformFromImageOrientation();
-  memset(v6, 0, sizeof(v6));
-  v4 = [MEMORY[0x1E69DCAB8] ic_orientedImageFromCGImage:ic_CGImage scale:v6 transform:1.0];
+  memset(v7, 0, sizeof(v7));
+  v5 = [MEMORY[0x1E69DCAB8] ic_orientedImageFromCGImage:ic_CGImage scale:v7 transform:1.0];
 
-  return v4;
+  return v5;
 }
 
 + (id)ic_orientedImageFromImage:()Utilities toOrientation:
@@ -557,16 +557,16 @@ LABEL_6:
   ic_CGImage = [a3 ic_CGImage];
   CGImageGetWidth(ic_CGImage);
   CGImageGetHeight(ic_CGImage);
-  v10 = 0u;
   v11 = 0u;
-  v9 = 0u;
+  v12 = 0u;
+  v10 = 0u;
   ICTransformFromImageOrientation();
-  v4 = MEMORY[0x1E69DCAB8];
-  memset(&v7, 0, sizeof(v7));
-  CGAffineTransformInvert(&v8, &v7);
-  v5 = [v4 ic_orientedImageFromCGImage:ic_CGImage scale:&v8 transform:1.0];
+  v5 = MEMORY[0x1E69DCAB8];
+  memset(&v8, 0, sizeof(v8));
+  CGAffineTransformInvert(&v9, &v8);
+  v6 = [v5 ic_orientedImageFromCGImage:ic_CGImage scale:&v9 transform:1.0];
 
-  return v5;
+  return v6;
 }
 
 - (uint64_t)ic_horizontallyMirroredImage

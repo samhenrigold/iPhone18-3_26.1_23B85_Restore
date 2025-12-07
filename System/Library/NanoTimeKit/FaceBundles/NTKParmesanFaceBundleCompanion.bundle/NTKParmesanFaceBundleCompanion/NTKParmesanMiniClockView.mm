@@ -90,10 +90,10 @@
 
 - (NSDate)overrideDate
 {
-  v3 = sub_23BF4A264(&qword_27E1E0B80);
-  v4 = MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v4);
+  v3 = sub_23BF4A264(&qword_27E1E0B80, &qword_23C002400);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
   v8 = &v20 - v7;
   v9 = type metadata accessor for ParmesanMiniClockView();
   v20.receiver = self;
@@ -115,8 +115,8 @@
 
   v14 = sub_23BFF8D90();
   v15 = *(v14 - 8);
-  (*(v15 + 56))(v6, v13, 1, v14);
-  sub_23BF88FCC(v6, v8);
+  (*(v15 + 56))(v5, v13, 1, v14);
+  sub_23BF88FCC(v5, v8);
   v16 = (*(v15 + 48))(v8, 1, v14);
   v17 = 0;
   if (v16 != 1)
@@ -131,7 +131,7 @@
 
 - (void)setOverrideDate:(id)date
 {
-  v5 = sub_23BF4A264(&qword_27E1E0B80);
+  v5 = sub_23BF4A264(&qword_27E1E0B80, &qword_23C002400);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v11 - v6;
   if (date)

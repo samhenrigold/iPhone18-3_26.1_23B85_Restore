@@ -7,28 +7,28 @@
 
 - (uint64_t)isSameCoordinate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   memberAnnotations = [self memberAnnotations];
-  v2 = [memberAnnotations countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v2 = [memberAnnotations countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v20;
+    v5 = *v19;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(memberAnnotations);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v18 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -61,7 +61,7 @@ LABEL_16:
         }
       }
 
-      v3 = [memberAnnotations countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v3 = [memberAnnotations countByEnumeratingWithState:&v18 objects:v22 count:16];
       v16 = 1;
       if (v3)
       {
@@ -80,7 +80,6 @@ LABEL_16:
 
 LABEL_18:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

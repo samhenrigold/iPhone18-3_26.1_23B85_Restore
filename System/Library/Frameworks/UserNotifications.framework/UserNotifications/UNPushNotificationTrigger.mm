@@ -1,4 +1,5 @@
 @interface UNPushNotificationTrigger
++ (UNPushNotificationTrigger)triggerWithContentAvailable:(BOOL)available mutableContent:(BOOL)content;
 - (BOOL)isEqual:(id)equal;
 - (UNPushNotificationTrigger)initWithCoder:(id)coder;
 - (id)_initWithContentAvailable:(BOOL)available mutableContent:(BOOL)content;
@@ -8,6 +9,13 @@
 @end
 
 @implementation UNPushNotificationTrigger
+
++ (UNPushNotificationTrigger)triggerWithContentAvailable:(BOOL)available mutableContent:(BOOL)content
+{
+  v4 = [[self alloc] _initWithContentAvailable:available mutableContent:content];
+
+  return v4;
+}
 
 - (id)_initWithContentAvailable:(BOOL)available mutableContent:(BOOL)content
 {

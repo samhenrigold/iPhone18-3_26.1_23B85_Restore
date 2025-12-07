@@ -17,9 +17,11 @@
 {
   if (objc_opt_class() == self)
   {
-    DSLogPrivateRelay = os_log_create("com.apple.DigitalSeparation", "DSPrivateRelayController");
+    v2 = os_log_create("com.apple.DigitalSeparation", "DSPrivateRelayController");
+    v3 = DSLogPrivateRelay;
+    DSLogPrivateRelay = v2;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v2, v3);
   }
 }
 
@@ -49,7 +51,7 @@
 - (void)shouldShowWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sharedWorkQueue();
+  v5 = sharedWorkQueue(completionCopy);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
   v7[2] = __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke;
@@ -62,13 +64,14 @@
 
 void __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke(uint64_t a1)
 {
-  if ([MEMORY[0x277D054A8] isPrivateRelayRestricted])
+  v2 = [MEMORY[0x277D054A8] isPrivateRelayRestricted];
+  if (v2)
   {
-    v2 = DSLogPrivateRelay;
+    v3 = DSLogPrivateRelay;
     if (os_log_type_enabled(DSLogPrivateRelay, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_248C7E000, v2, OS_LOG_TYPE_INFO, "Private Relay restricted by ScreenTime/MDM", buf, 2u);
+      _os_log_impl(&dword_248C7E000, v3, OS_LOG_TYPE_INFO, "Private Relay restricted by ScreenTime/MDM", buf, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -76,16 +79,16 @@ void __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke(uint
 
   else
   {
-    v3 = MEMORY[0x277D2CA68];
-    v4 = sharedWorkQueue();
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_316;
-    v6[3] = &unk_278F756F0;
-    v5 = *(a1 + 40);
-    v6[4] = *(a1 + 32);
-    v7 = v5;
-    [v3 getPrivacyProxyAccountType:v4 completionHandler:v6];
+    v4 = MEMORY[0x277D2CA68];
+    v5 = sharedWorkQueue(v2);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_316;
+    v7[3] = &unk_278F756F0;
+    v6 = *(a1 + 40);
+    v7[4] = *(a1 + 32);
+    v8 = v6;
+    [v4 getPrivacyProxyAccountType:v5 completionHandler:v7];
   }
 }
 
@@ -110,7 +113,7 @@ LABEL_6:
   }
 
   v6 = MEMORY[0x277D2CA68];
-  v7 = sharedWorkQueue();
+  v7 = sharedWorkQueue(0);
   v9[0] = MEMORY[0x277D85DD0];
   v9[1] = 3221225472;
   v9[2] = __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_317;
@@ -133,14 +136,14 @@ void __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_317(
   }
 
   v7 = [v5 serviceStatus];
-  [*(a1 + 32) setProxyServiceStatus:v7];
+  v8 = [*(a1 + 32) setProxyServiceStatus:v7];
   if (v7 == 6)
   {
-    v8 = DSLogPrivateRelay;
+    v9 = DSLogPrivateRelay;
     if (os_log_type_enabled(DSLogPrivateRelay, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_248C7E000, v8, OS_LOG_TYPE_INFO, "User has Private Relay access but is in an unsupported region", buf, 2u);
+      _os_log_impl(&dword_248C7E000, v9, OS_LOG_TYPE_INFO, "User has Private Relay access but is in an unsupported region", buf, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -148,15 +151,15 @@ void __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_317(
 
   else
   {
-    v9 = MEMORY[0x277D2CA68];
-    v10 = sharedWorkQueue();
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_318;
-    v11[3] = &unk_278F756A0;
-    v12 = *(a1 + 40);
-    v13 = v7;
-    [v9 getGeohashSharingPreference:v10 completionHandler:v11];
+    v10 = MEMORY[0x277D2CA68];
+    v11 = sharedWorkQueue(v8);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_318;
+    v12[3] = &unk_278F756A0;
+    v13 = *(a1 + 40);
+    v14 = v7;
+    [v10 getGeohashSharingPreference:v11 completionHandler:v12];
   }
 }
 
@@ -280,7 +283,7 @@ void __46__DSPrivateRelayController_turnOnPrivateRelay__block_invoke_340(uint64_
 - (void)setPrivateRelayEnabledWithHandler:(id)handler
 {
   handlerCopy = handler;
-  v4 = sharedWorkQueue();
+  v4 = sharedWorkQueue(handlerCopy);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __62__DSPrivateRelayController_setPrivateRelayEnabledWithHandler___block_invoke;
@@ -373,38 +376,6 @@ void __62__DSPrivateRelayController_setPrivateRelayEnabledWithHandler___block_in
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-void __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_316_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "An error occurred while getting Private Relay account type: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_317_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "An error occurred while getting Private Relay service status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __53__DSPrivateRelayController_shouldShowWithCompletion___block_invoke_318_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "An error occurred while getting Private Relay IP Address setting: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __46__DSPrivateRelayController_turnOnPrivateRelay__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error enabling private relay: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -15,7 +15,7 @@
 {
   viewCopy = view;
   iconViewCopy = iconView;
-  [iconViewCopy bounds];
+  objc_msgSend_bounds(iconViewCopy);
   v16.receiver = self;
   v16.super_class = SBHLibraryPodCrossfadeView;
   v9 = [(SBHLibraryPodCrossfadeView *)&v16 initWithFrame:?];
@@ -24,7 +24,7 @@
   {
     objc_storeStrong(&v9->_podIconView, iconView);
     objc_storeStrong(&v10->_foregroundView, view);
-    [iconViewCopy iconImageInfo];
+    objc_msgSend_iconImageInfo(iconViewCopy);
     v10->_iconImageInfo.size.width = v11;
     v10->_iconImageInfo.size.height = v12;
     v10->_iconImageInfo.scale = v13;
@@ -38,7 +38,7 @@
 {
   viewCopy = view;
   iconViewCopy = iconView;
-  [iconViewCopy bounds];
+  objc_msgSend_bounds(iconViewCopy);
   v16.receiver = self;
   v16.super_class = SBHLibraryPodCrossfadeView;
   v9 = [(SBHLibraryPodCrossfadeView *)&v16 initWithFrame:?];
@@ -47,7 +47,7 @@
   {
     objc_storeStrong(&v9->_podIconView, iconView);
     objc_storeStrong(&v10->_backgroundView, view);
-    [iconViewCopy iconImageInfo];
+    objc_msgSend_iconImageInfo(iconViewCopy);
     v10->_iconImageInfo.size.width = v11;
     v10->_iconImageInfo.size.height = v12;
     v10->_iconImageInfo.scale = v13;
@@ -150,7 +150,7 @@
     }
   }
 
-  [(SBHLibraryPodCrossfadeView *)self bounds];
+  objc_msgSend_bounds(self);
   UIRectGetCenter();
   v13 = v12;
   v15 = v14;
@@ -158,9 +158,9 @@
   [(SBHLibraryCategoryStackView *)v9 setCenter:v13, v15];
   [(UIView *)v4 setCenter:v13, v15];
   v16 = v10;
-  [(SBIconView *)v6 bounds];
+  objc_msgSend_bounds(v6);
   v18 = v17;
-  [(SBHLibraryCategoryStackView *)v16 bounds];
+  objc_msgSend_bounds(v16);
   v20 = v18 / v19;
   CGAffineTransformMakeScale(&v24, v20, v20);
   [(SBHLibraryCategoryStackView *)v16 setTransform:&v24];
@@ -170,7 +170,7 @@
   if (v9)
   {
     v23 = v9;
-    [(SBHLibraryCategoryStackView *)v23 iconImageInfo];
+    objc_msgSend_iconImageInfo(v23);
     [(SBHLibraryCategoryStackView *)v23 setIconImageInfo:?];
   }
 

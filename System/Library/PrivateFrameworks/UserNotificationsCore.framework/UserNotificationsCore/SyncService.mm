@@ -9,7 +9,6 @@
   ObjectType = swift_getObjectType();
   if (*(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore11SyncService_queue_flushTimer))
   {
-    v4 = *(&self->super.isa + OBJC_IVAR____TtC21UserNotificationsCore11SyncService_queue_flushTimer);
     swift_getObjectType();
     selfCopy = self;
     swift_unknownObjectRetain();
@@ -22,9 +21,9 @@
     selfCopy2 = self;
   }
 
-  v7.receiver = self;
-  v7.super_class = ObjectType;
-  [(SyncService *)&v7 dealloc];
+  v6.receiver = self;
+  v6.super_class = ObjectType;
+  [(SyncService *)&v6 dealloc];
 }
 
 @end

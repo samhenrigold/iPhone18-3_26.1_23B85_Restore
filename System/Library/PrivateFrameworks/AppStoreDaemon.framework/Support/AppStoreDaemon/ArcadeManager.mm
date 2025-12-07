@@ -18,7 +18,7 @@
   v2 = [(AppUsageBaseManager *)&v45 init];
   if (v2)
   {
-    v3 = sub_1001E5E74();
+    v3 = sub_1001E5E74(AccountEventCoordinator);
     v2->_appStoreCacheUpdatedNotificationToken = -1;
     v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v5 = dispatch_queue_create("com.apple.appstored.ArcadeManager.background", v4);
@@ -79,7 +79,7 @@
     upsellQueue = v2->_upsellQueue;
     v2->_upsellQueue = v35;
 
-    v37 = sub_1003BBF50();
+    v37 = sub_1003BBF50(Device);
     isHRNMode = [v37 isHRNMode];
 
     if ((isHRNMode & 1) == 0)
@@ -202,7 +202,7 @@
     if (v12 == 3 || v12 == 7)
     {
       [eventCopy setAnonymous:1];
-      v13 = sub_1003D4D04();
+      v13 = sub_1003D4D04(AppDefaultsManager);
     }
 
     else
@@ -212,7 +212,7 @@
         goto LABEL_9;
       }
 
-      v13 = sub_1003D4D7C();
+      v13 = sub_1003D4D7C(AppDefaultsManager);
     }
 
     v14 = v13;
@@ -697,11 +697,11 @@ LABEL_119:
 LABEL_120:
   if (os_variant_has_internal_content())
   {
-    v123 = sub_1003D4C14();
+    v123 = sub_1003D4C14(AppDefaultsManager);
 
     if (v123)
     {
-      v124 = sub_1003D4C14();
+      v124 = sub_1003D4C14(AppDefaultsManager);
       sub_1003D844C(v131, v124);
     }
   }
@@ -775,13 +775,13 @@ LABEL_120:
 
 - (void)_handleNetworkStateDidChangeNotification:(id)notification
 {
-  v4 = sub_100227468();
+  v4 = sub_100227468(NetworkMonitor);
   isConnected = [v4 isConnected];
 
   if (isConnected)
   {
     v6 = +[NSNotificationCenter defaultCenter];
-    v7 = sub_100227468();
+    v7 = sub_100227468(NetworkMonitor);
     [v6 removeObserver:self name:@"NetworkStateDidChangeNotification" object:v7];
 
     dispatchQueue = self->_dispatchQueue;

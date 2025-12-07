@@ -10,6 +10,7 @@
 + (void)convertLivePhotoBundleIfNeeded:(id)needed capabilities:(id)capabilities conversionManager:(id)manager queue:(id)queue progressHandler:(id)handler completionHandler:(id)completionHandler;
 + (void)convertMediaItemFromURL:(id)l forMediaCapabilities:(id)capabilities conversionManager:(id)manager progressHandler:(id)handler completionHandler:(id)completionHandler;
 + (void)convertMediaItemsWithFileURLs:(id)ls clientBundleID:(id)d conversionManager:(id)manager mediaCapabilities:(id)capabilities supportsLivePhoto:(BOOL)photo supportsAssetBundles:(BOOL)bundles supportsWideGamut:(BOOL)gamut queue:(id)self0 progressHandler:(id)self1 completionHandler:(id)self2;
++ (void)convertMediaItemsWithFileURLs:(id)ls clientBundleID:(id)d mediaCapabilities:(id)capabilities supportsLivePhoto:(BOOL)photo supportsAssetBundles:(BOOL)bundles supportsWideGamut:(BOOL)gamut completionHandler:(id)handler;
 + (void)presentEnableRadiosAlertForBluetooth:(BOOL)bluetooth andWLAN:(BOOL)n;
 @end
 
@@ -71,7 +72,7 @@ LABEL_15:
   v9 = airdrop_log();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    sub_1001EFC5C(&cf);
+    sub_1001EFC5C();
   }
 
   CFRelease(cf);
@@ -79,6 +80,20 @@ LABEL_15:
 LABEL_16:
 
   return v7;
+}
+
++ (void)convertMediaItemsWithFileURLs:(id)ls clientBundleID:(id)d mediaCapabilities:(id)capabilities supportsLivePhoto:(BOOL)photo supportsAssetBundles:(BOOL)bundles supportsWideGamut:(BOOL)gamut completionHandler:(id)handler
+{
+  bundlesCopy = bundles;
+  photoCopy = photo;
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_1001EBED0;
+  v17[3] = &unk_1008D3C48;
+  handlerCopy = handler;
+  v15 = handlerCopy;
+  LOBYTE(v16) = gamut;
+  [SDAirDropLegacyHelper convertMediaItemsWithFileURLs:ls clientBundleID:d conversionManager:0 mediaCapabilities:capabilities supportsLivePhoto:photoCopy supportsAssetBundles:bundlesCopy supportsWideGamut:v16 queue:&_dispatch_main_q progressHandler:&stru_1008D3C20 completionHandler:v17];
 }
 
 + (void)convertMediaItemsWithFileURLs:(id)ls clientBundleID:(id)d conversionManager:(id)manager mediaCapabilities:(id)capabilities supportsLivePhoto:(BOOL)photo supportsAssetBundles:(BOOL)bundles supportsWideGamut:(BOOL)gamut queue:(id)self0 progressHandler:(id)self1 completionHandler:(id)self2
@@ -761,10 +776,10 @@ LABEL_33:
   itemsCopy = items;
   dCopy = d;
   identifierCopy = identifier;
-  v62 = +[NSMutableArray array];
   v63 = +[NSMutableArray array];
+  v64 = +[NSMutableArray array];
   v11 = +[NSMutableArray array];
-  v60 = +[NSMutableArray array];
+  v61 = +[NSMutableArray array];
   v12 = objc_alloc_init(SDAirDropPreprocessItemsResult);
   [(SDAirDropPreprocessItemsResult *)v12 setSuccess:1];
   v13 = [itemsCopy count];
@@ -789,17 +804,17 @@ LABEL_33:
         [v11 addObject:v17];
         if (v17)
         {
-          [v63 addObject:v17];
+          [v64 addObject:v17];
         }
 
         else
         {
-          v29 = airdrop_log();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          v30 = airdrop_log();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v69 = 0;
-            _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "### Could not create URL from item %@", buf, 0xCu);
+            v70 = 0;
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "### Could not create URL from item %@", buf, 0xCu);
           }
         }
 
@@ -812,12 +827,12 @@ LABEL_33:
         absoluteString = [v17 absoluteString];
         uTF8String = [absoluteString UTF8String];
 
-        v28 = airdrop_log();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = airdrop_log();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v69 = uTF8String;
-          _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "SDAirDropClient: splitOutFileURLs url %s has no scheme", buf, 0xCu);
+          v70 = uTF8String;
+          _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "SDAirDropClient: splitOutFileURLs url %s has no scheme", buf, 0xCu);
         }
 
         [(SDAirDropPreprocessItemsResult *)v12 setSuccess:0];
@@ -825,102 +840,103 @@ LABEL_33:
       }
 
       v20 = v19;
-      if (CFEqual(v19, cf2))
+      v21 = CFEqual(v19, cf2);
+      if (v21)
       {
-        v21 = v17;
-        pathExtension = [v21 pathExtension];
-        v23 = [pathExtension isEqualToString:@"webloc"];
+        v22 = v17;
+        pathExtension = [v22 pathExtension];
+        v24 = [pathExtension isEqualToString:@"webloc"];
 
-        if (v23)
+        if (v24)
         {
-          v24 = [SDAirDropLegacyHelper webURLFromInternetLocationFile:v21];
-          if (v24)
+          v25 = [SDAirDropLegacyHelper webURLFromInternetLocationFile:v22];
+          if (v25)
           {
-            [v11 addObject:v24];
-            v25 = [NSURL URLWithString:v24];
-            if (v25)
+            [v11 addObject:v25];
+            v26 = [NSURL URLWithString:v25];
+            if (v26)
             {
-              [v63 addObject:v25];
+              [v64 addObject:v26];
             }
 
             else
             {
-              v54 = dCopy;
-              v39 = airdrop_log();
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+              v55 = dCopy;
+              v40 = airdrop_log();
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v69 = v24;
-                _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "### Could not create URL from webloc string: %@", buf, 0xCu);
+                v70 = v25;
+                _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "### Could not create URL from webloc string: %@", buf, 0xCu);
               }
 
-              dCopy = v54;
+              dCopy = v55;
             }
           }
 
           else
           {
-            [v62 addObject:v21];
+            [v63 addObject:v22];
           }
         }
 
         else
         {
-          [v62 addObject:v21];
+          [v63 addObject:v22];
         }
 
         p_cb = (&OBJC_PROTOCOL___SDXPCUserNotificationInterface + 64);
         goto LABEL_39;
       }
 
-      v30 = (*(p_cb + 304))();
-      if (v30)
+      v31 = (*(p_cb + 304))(v21);
+      if (v31)
       {
-        v31 = v30;
-        v32 = (*(p_cb + 304))();
-        v33 = CFEqual(v20, v32);
+        v32 = v31;
+        v33 = (*(p_cb + 304))(v31);
+        v34 = CFEqual(v20, v33);
 
-        if (v33)
+        if (v34)
         {
           break;
         }
       }
 
-      if (lsCopy && (+[SDStatusMonitor sharedMonitor](SDStatusMonitor, "sharedMonitor"), v36 = objc_claimAutoreleasedReturnValue(), v37 = [v36 enableWebloc], v36, (v37 & 1) == 0))
+      if (lsCopy && (+[SDStatusMonitor sharedMonitor](SDStatusMonitor, "sharedMonitor"), v37 = objc_claimAutoreleasedReturnValue(), v38 = [v37 enableWebloc], v37, (v38 & 1) == 0))
       {
         [v11 addObject:CFURLGetString(v17)];
         if (!v17)
         {
-          v47 = airdrop_log();
+          v48 = airdrop_log();
           p_cb = (&OBJC_PROTOCOL___SDXPCUserNotificationInterface + 64);
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v69 = 0;
-            _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "### Could not create URL from item %@", buf, 0xCu);
+            v70 = 0;
+            _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "### Could not create URL from item %@", buf, 0xCu);
           }
 
           goto LABEL_48;
         }
 
-        [v63 addObject:v17];
+        [v64 addObject:v17];
       }
 
       else
       {
-        v38 = [SDAirDropLegacyHelper internetLocationFile:v17];
-        if (v38)
+        v39 = [SDAirDropLegacyHelper internetLocationFile:v17];
+        if (v39)
         {
-          [v62 addObject:v38];
-          [v60 addObject:v38];
+          [v63 addObject:v39];
+          [v61 addObject:v39];
         }
 
         else
         {
-          v40 = airdrop_log();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v41 = airdrop_log();
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            sub_1001EFFC4(&v64, v65, v40);
+            sub_1001EFFC4(&v65, v66, v41);
           }
 
           [(SDAirDropPreprocessItemsResult *)v12 setSuccess:0];
@@ -937,22 +953,22 @@ LABEL_49:
       }
     }
 
-    v34 = airdrop_log();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = airdrop_log();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Found Credential to AirDrop", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Found Credential to AirDrop", buf, 2u);
     }
 
     p_cb = (&OBJC_PROTOCOL___SDXPCUserNotificationInterface + 64);
     if ((SFIsAllowedAirDropCredentialClient() & 1) == 0)
     {
-      v35 = airdrop_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v36 = airdrop_log();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v69 = dCopy;
-        _os_log_error_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "### Sending credentials from %@ is not permitted", buf, 0xCu);
+        v70 = dCopy;
+        _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "### Sending credentials from %@ is not permitted", buf, 0xCu);
       }
 
       goto LABEL_42;
@@ -960,10 +976,10 @@ LABEL_49:
 
     if (unknownCopy)
     {
-      v35 = airdrop_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v36 = airdrop_log();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        sub_1001EFF84(&v66, v67, v35);
+        sub_1001EFF84(&v67, v68, v36);
       }
 
 LABEL_42:
@@ -972,101 +988,101 @@ LABEL_42:
       goto LABEL_48;
     }
 
-    v21 = SFSharablePasswordForURL();
+    v22 = SFSharablePasswordForURL();
     if (identifierCopy)
     {
-      v41 = [SDAirDropLegacyHelper copyReceiverPublicKeyForIdentifier:?];
-      if (v41 && (v42 = v41, SFSharablePasswordAirDropURLEncryptedString(), v43 = objc_claimAutoreleasedReturnValue(), v44 = v42, v45 = v43, CFRelease(v44), v45))
+      v42 = [SDAirDropLegacyHelper copyReceiverPublicKeyForIdentifier:?];
+      if (v42 && (v43 = v42, SFSharablePasswordAirDropURLEncryptedString(), v44 = objc_claimAutoreleasedReturnValue(), v45 = v43, v46 = v44, CFRelease(v45), v46))
       {
-        if ([v45 length])
+        if ([v46 length])
         {
-          [v11 addObject:v45];
-          v55 = v45;
-          v46 = [NSURL URLWithString:v45];
-          if (v46)
+          [v11 addObject:v46];
+          v56 = v46;
+          v47 = [NSURL URLWithString:v46];
+          if (v47)
           {
-            [v63 addObject:v46];
+            [v64 addObject:v47];
           }
 
           else
           {
-            v52 = airdrop_log();
-            if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+            v53 = airdrop_log();
+            if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v69 = v55;
-              _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "### Could not create URL from credential string: %@", buf, 0xCu);
+              v70 = v56;
+              _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "### Could not create URL from credential string: %@", buf, 0xCu);
             }
 
             p_cb = (&OBJC_PROTOCOL___SDXPCUserNotificationInterface + 64);
           }
 
-          v51 = v55;
+          v52 = v56;
 LABEL_72:
 
 LABEL_39:
           goto LABEL_48;
         }
 
-        v56 = v21;
-        v48 = v45;
+        v57 = v22;
+        v49 = v46;
       }
 
       else
       {
-        v56 = v21;
-        v48 = 0;
+        v57 = v22;
+        v49 = 0;
       }
 
-      v49 = airdrop_log();
-      if (!os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      v50 = airdrop_log();
+      if (!os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_71:
 
         [(SDAirDropPreprocessItemsResult *)v12 setSuccess:0];
-        v51 = v48;
-        v21 = v56;
+        v52 = v49;
+        v22 = v57;
         goto LABEL_72;
       }
     }
 
     else
     {
-      v50 = airdrop_log();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v51 = airdrop_log();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Skipping extra encrypt due to lack of identifier", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Skipping extra encrypt due to lack of identifier", buf, 2u);
       }
 
-      v51 = SFSharablePasswordAirDropUnencryptedURL();
-      if (v51)
+      v52 = SFSharablePasswordAirDropUnencryptedURL();
+      if (v52)
       {
-        [v63 addObject:v51];
+        [v64 addObject:v52];
         goto LABEL_72;
       }
 
-      v56 = v21;
-      v48 = 0;
-      v49 = airdrop_log();
-      if (!os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      v57 = v22;
+      v49 = 0;
+      v50 = airdrop_log();
+      if (!os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_71;
       }
     }
 
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "### No credential URL to AirDrop?", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "### No credential URL to AirDrop?", buf, 2u);
     goto LABEL_71;
   }
 
 LABEL_78:
   if ([(SDAirDropPreprocessItemsResult *)v12 success])
   {
-    [(SDAirDropPreprocessItemsResult *)v12 setFiles:v62];
-    [(SDAirDropPreprocessItemsResult *)v12 setLinks:v63];
+    [(SDAirDropPreprocessItemsResult *)v12 setFiles:v63];
+    [(SDAirDropPreprocessItemsResult *)v12 setLinks:v64];
     [(SDAirDropPreprocessItemsResult *)v12 setOtherStuff:v11];
-    [(SDAirDropPreprocessItemsResult *)v12 setFilesToCleanup:v60];
+    [(SDAirDropPreprocessItemsResult *)v12 setFilesToCleanup:v61];
   }
 
   return v12;
@@ -1174,7 +1190,7 @@ LABEL_78:
           v9 = airdrop_log();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
           {
-            sub_1001F00B8(&error);
+            sub_1001F00B8();
           }
 
           CFRelease(error);

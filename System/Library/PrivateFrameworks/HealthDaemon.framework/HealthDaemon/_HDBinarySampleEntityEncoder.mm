@@ -9,12 +9,12 @@
 
 - (id)orderedProperties
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   purpose = [(HDEntityEncoder *)self purpose];
   if (purpose == 1)
   {
-    v11 = @"payload";
-    v5 = &v11;
+    v10 = @"payload";
+    v5 = &v10;
   }
 
   else
@@ -24,8 +24,8 @@
       goto LABEL_6;
     }
 
-    v12[0] = @"payload";
-    v5 = v12;
+    v11[0] = @"payload";
+    v5 = v11;
   }
 
   v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
@@ -34,7 +34,6 @@
   v2 = [v6 arrayByAddingObjectsFromArray:orderedProperties];
 
 LABEL_6:
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

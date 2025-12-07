@@ -121,46 +121,45 @@
 - (void)setCompactMode:(BOOL)mode
 {
   self->_compactMode = mode;
-  titleLabel = self->_titleLabel;
-  v5 = 20.0;
+  v4 = 20.0;
   if (mode)
   {
-    v5 = 16.0;
-    v6 = 10.0;
+    v4 = 16.0;
+    v5 = 10.0;
   }
 
   else
   {
-    v6 = 12.0;
+    v5 = 12.0;
   }
 
   if (mode)
   {
-    v7 = 75.0;
+    v6 = 75.0;
   }
 
   else
   {
-    v7 = 110.0;
+    v6 = 110.0;
   }
 
   if (mode)
   {
-    v8 = 4.0;
+    v7 = 4.0;
   }
 
   else
   {
-    v8 = 6.0;
+    v7 = 6.0;
   }
 
-  [(BRShareDocumentInfoView *)self setCustomSpacing:self->_titleLabel afterView:v5];
-  [(BRShareDocumentInfoView *)self setCustomSpacing:self->_infoTextLabel afterView:v6];
-  [(BRShareDocumentInfoView *)self setCustomSpacing:self->_thumbnailView afterView:v6];
-  [(NSLayoutConstraint *)self->_thumbnailHeightConstraint setConstant:v7];
+  [(BRShareDocumentInfoView *)self setCustomSpacing:self->_titleLabel afterView:v4];
+  [(BRShareDocumentInfoView *)self setCustomSpacing:self->_infoTextLabel afterView:v5];
+  [(BRShareDocumentInfoView *)self setCustomSpacing:self->_thumbnailView afterView:v5];
+  [(NSLayoutConstraint *)self->_thumbnailHeightConstraint setConstant:v6];
   itemTitleLabel = self->_itemTitleLabel;
 
-  [(BRShareDocumentInfoView *)self setCustomSpacing:itemTitleLabel afterView:v8];
+  [(BRShareDocumentInfoView *)self setCustomSpacing:itemTitleLabel afterView:v7];
 }
 
 @end

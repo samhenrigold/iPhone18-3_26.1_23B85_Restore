@@ -7,18 +7,18 @@
 - (id)objectForData:(id)data response:(id)response error:(id *)error
 {
   dataCopy = data;
-  v7 = SUUIPassKitCoreFramework();
-  v11 = 0;
-  v8 = [objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Pkpass.isa v7))];
+  v8 = SUUIPassKitCoreFramework(dataCopy, v7);
+  v12 = 0;
+  v9 = [objc_alloc(SUUIWeakLinkedClassForString(&cfstr_Pkpass.isa v8))];
 
-  v9 = v11;
-  if (error && !v8)
+  v10 = v12;
+  if (error && !v9)
   {
-    v9 = v9;
-    *error = v9;
+    v10 = v10;
+    *error = v10;
   }
 
-  return v8;
+  return v9;
 }
 
 @end

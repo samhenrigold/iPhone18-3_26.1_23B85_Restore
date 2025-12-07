@@ -1,35 +1,32 @@
-id sub_100001818()
+id sub_100001818(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for MAGUIApplication();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for MAGUIApplication();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 uint64_t sub_100001868()
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = String.hashValue.getter();
+  v0 = String.hashValue.getter();
 
-  return v2;
+  return v0;
 }
 
-uint64_t sub_1000018A4()
+uint64_t sub_1000018A4(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int sub_1000018F8()
+Swift::Int sub_1000018F8(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v2 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v2;
+  return v1;
 }
 
 uint64_t sub_100001974(uint64_t a1, id *a2)
@@ -46,57 +43,52 @@ uint64_t sub_1000019EC(uint64_t a1, id *a2)
   return v3 & 1;
 }
 
-uint64_t sub_100001A6C@<X0>(void *a1@<X8>)
+uint64_t sub_100001A6C@<X0>(void *a2@<X8>)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a1 = v2;
+  *a2 = v3;
   return result;
 }
 
-uint64_t sub_100001AB0(uint64_t *a1, uint64_t *a2)
+uint64_t sub_100001AB0(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
-uint64_t sub_100001B38@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t sub_100001B38@<X0>(void *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = a1[1];
-  v5 = String._bridgeToObjectiveC()();
+  v3 = String._bridgeToObjectiveC()();
 
-  *a2 = v5;
+  *a2 = v3;
   return result;
 }
 
 uint64_t sub_100001B80@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t sub_100001BAC(uint64_t a1)
 {
-  v2 = sub_100002F20(&qword_100008208, type metadata accessor for FileAttributeKey);
-  v3 = sub_100002F20(&qword_100008240, type metadata accessor for FileAttributeKey);
+  v2 = sub_100002F20(&qword_100008208, type metadata accessor for FileAttributeKey, &unk_100003608);
+  v3 = sub_100002F20(&qword_100008240, type metadata accessor for FileAttributeKey, &unk_10000355C);
 
   return _SwiftNewtypeWrapper<>._toCustomAnyHashable()(a1, v2, v3, &protocol witness table for String);
 }
@@ -201,11 +193,9 @@ LABEL_8:
 
 char *sub_100001E40(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100001E8C(a1, a2);
+  v3 = sub_100001E8C(a1, a2);
   sub_100001FBC(&off_100004468);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100001E8C(uint64_t a1, unint64_t a2)
@@ -305,7 +295,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -319,15 +308,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_10000211C(result, v12, 1, v3);
+  result = sub_10000211C(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -342,15 +331,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -359,12 +348,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -474,13 +463,12 @@ char *sub_10000211C(char *result, int64_t a2, char a3, char *a4)
 
 unint64_t sub_100002210(uint64_t a1)
 {
-  v3 = *(v1 + 40);
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v4 = Hasher._finalize()();
+  v2 = Hasher._finalize()();
 
-  return sub_1000022A4(a1, v4);
+  return sub_1000022A4(a1, v2);
 }
 
 unint64_t sub_1000022A4(uint64_t a1, uint64_t a2)
@@ -492,17 +480,16 @@ unint64_t sub_1000022A4(uint64_t a1, uint64_t a2)
     v5 = ~v3;
     while (1)
     {
-      v6 = *(*(v2 + 48) + 8 * v4);
-      v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v9 = v8;
-      if (v7 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v9 == v10)
+      v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v8 = v7;
+      if (v6 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v8 == v9)
       {
         break;
       }
 
-      v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v12 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
         v4 = (v4 + 1) & v5;
         if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
@@ -522,157 +509,155 @@ void sub_1000023A8()
 {
   v0 = type metadata accessor for Logger();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  (__chkstk_darwin)();
-  v4 = &v65[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v5 = (*(*(sub_100002C9C(&qword_1000081F8, &qword_100003478) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v7 = &v65[-v6];
-  v8 = type metadata accessor for Date();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = (__chkstk_darwin)();
-  v13 = &v65[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v11);
-  v15 = &v65[-v14];
-  v16 = [objc_opt_self() mainBundle];
-  v17 = [v16 executablePath];
+  __chkstk_darwin(v0);
+  v3 = &v63[-((v2 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v4 = sub_100002C9C(&qword_1000081F8, &qword_100003478);
+  __chkstk_darwin(v4 - 8);
+  v6 = &v63[-v5];
+  v7 = type metadata accessor for Date();
+  v8 = *(v7 - 8);
+  v9 = __chkstk_darwin(v7);
+  v11 = &v63[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v9);
+  v13 = &v63[-v12];
+  v14 = [objc_opt_self() mainBundle];
+  v15 = [v14 executablePath];
 
-  if (v17)
+  if (v15)
   {
-    v69 = v1;
-    v70 = v0;
-    v71 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v19 = v18;
-    v20 = [objc_opt_self() defaultManager];
-    v72 = 0;
-    v21 = [v20 attributesOfItemAtPath:v17 error:&v72];
+    v67 = v1;
+    v68 = v0;
+    v69 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v17 = v16;
+    v18 = [objc_opt_self() defaultManager];
+    v70 = 0;
+    v19 = [v18 attributesOfItemAtPath:v15 error:&v70];
 
-    v22 = v72;
-    if (v21)
+    v20 = v70;
+    if (v19)
     {
       type metadata accessor for FileAttributeKey();
-      sub_100002F20(&qword_100008208, type metadata accessor for FileAttributeKey);
-      v23 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-      v24 = v22;
+      sub_100002F20(&qword_100008208, type metadata accessor for FileAttributeKey, &unk_100003608);
+      v21 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+      v22 = v20;
 
-      if (!*(v23 + 16) || (v25 = sub_100002210(NSFileModificationDate), (v26 & 1) == 0))
+      if (!*(v21 + 16) || (v23 = sub_100002210(NSFileModificationDate), (v24 & 1) == 0))
       {
 
-        (*(v9 + 56))(v7, 1, 1, v8);
+        (*(v8 + 56))(v6, 1, 1, v7);
         goto LABEL_8;
       }
 
-      sub_100002D9C(*(v23 + 56) + 32 * v25, &v72);
+      sub_100002D9C(*(v21 + 56) + 32 * v23, &v70);
 
-      v27 = swift_dynamicCast();
-      (*(v9 + 56))(v7, v27 ^ 1u, 1, v8);
-      if ((*(v9 + 48))(v7, 1, v8) == 1)
+      v25 = swift_dynamicCast();
+      (*(v8 + 56))(v6, v25 ^ 1u, 1, v7);
+      if ((*(v8 + 48))(v6, 1, v7) == 1)
       {
 
 LABEL_8:
-        sub_100002D34(v7);
+        sub_100002D34(v6);
         goto LABEL_10;
       }
 
-      (*(v9 + 32))(v15, v7, v8);
+      (*(v8 + 32))(v13, v6, v7);
       sub_100002C9C(&qword_100008210, &qword_100003480);
-      v68 = swift_allocObject();
-      *(v68 + 16) = xmmword_100003430;
-      v72 = 0;
-      v73 = 0xE000000000000000;
+      v66 = swift_allocObject();
+      *(v66 + 16) = xmmword_100003430;
+      v70 = 0;
+      v71 = 0xE000000000000000;
       _StringGuts.grow(_:)(40);
 
-      v72 = 0x20676E696E6E7552;
-      v73 = 0xE900000000000027;
-      v67 = objc_opt_self();
-      v35 = [v67 processInfo];
-      v36 = [v35 processName];
+      v70 = 0x20676E696E6E7552;
+      v71 = 0xE900000000000027;
+      v65 = objc_opt_self();
+      v33 = [v65 processInfo];
+      v34 = [v33 processName];
 
-      v37 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v39 = v38;
+      v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v37 = v36;
 
-      v40._countAndFlagsBits = v37;
-      v40._object = v39;
+      v38._countAndFlagsBits = v35;
+      v38._object = v37;
+      String.append(_:)(v38);
+
+      v39._countAndFlagsBits = 0x27206D6F72662027;
+      v39._object = 0xE800000000000000;
+      String.append(_:)(v39);
+      v40._countAndFlagsBits = v69;
+      v40._object = v17;
       String.append(_:)(v40);
-
-      v41._countAndFlagsBits = 0x27206D6F72662027;
-      v41._object = 0xE800000000000000;
+      v41._object = 0x80000001000036A0;
+      v41._countAndFlagsBits = 0xD000000000000011;
       String.append(_:)(v41);
-      v42._countAndFlagsBits = v71;
-      v42._object = v19;
+      v42 = Date.formatted()();
       String.append(_:)(v42);
-      v43._object = 0x80000001000036A0;
-      v43._countAndFlagsBits = 0xD000000000000011;
-      String.append(_:)(v43);
-      v44 = Date.formatted()();
-      String.append(_:)(v44);
 
-      v45 = v72;
-      v46 = v73;
-      v47 = v68;
-      *(v68 + 56) = &type metadata for String;
-      *(v47 + 32) = v45;
-      *(v47 + 40) = v46;
+      v43 = v70;
+      v44 = v71;
+      v45 = v66;
+      *(v66 + 56) = &type metadata for String;
+      *(v45 + 32) = v43;
+      *(v45 + 40) = v44;
       print(_:separator:terminator:)();
 
       static AXLog.magdefault.getter();
-      (*(v9 + 16))(v13, v15, v8);
+      (*(v8 + 16))(v11, v13, v7);
 
-      v48 = Logger.logObject.getter();
-      v49 = static os_log_type_t.default.getter();
+      v46 = Logger.logObject.getter();
+      v47 = static os_log_type_t.default.getter();
 
-      if (os_log_type_enabled(v48, v49))
+      if (os_log_type_enabled(v46, v47))
       {
-        v50 = swift_slowAlloc();
-        v68 = swift_slowAlloc();
-        v72 = v68;
-        *v50 = 136315650;
-        v51 = [v67 processInfo];
-        v67 = v48;
+        v48 = swift_slowAlloc();
+        v66 = swift_slowAlloc();
+        v70 = v66;
+        *v48 = 136315650;
+        v49 = [v65 processInfo];
+        v65 = v46;
+        v50 = v49;
+        v51 = [v49 processName];
+        v64 = v47;
         v52 = v51;
-        v53 = [v51 processName];
-        v66 = v49;
-        v54 = v53;
 
-        v55 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v57 = v56;
+        v53 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v55 = v54;
 
-        v58 = sub_100001C68(v55, v57, &v72);
+        v56 = sub_100001C68(v53, v55, &v70);
 
-        *(v50 + 4) = v58;
-        *(v50 + 12) = 2080;
-        v59 = sub_100001C68(v71, v19, &v72);
+        *(v48 + 4) = v56;
+        *(v48 + 12) = 2080;
+        v57 = sub_100001C68(v69, v17, &v70);
 
-        *(v50 + 14) = v59;
-        *(v50 + 22) = 2080;
-        v60 = Date.formatted()();
-        v61 = *(v9 + 8);
-        v61(v13, v8);
-        v62 = sub_100001C68(v60._countAndFlagsBits, v60._object, &v72);
+        *(v48 + 14) = v57;
+        *(v48 + 22) = 2080;
+        v58 = Date.formatted()();
+        v59 = *(v8 + 8);
+        v59(v11, v7);
+        v60 = sub_100001C68(v58._countAndFlagsBits, v58._object, &v70);
 
-        *(v50 + 24) = v62;
-        v63 = v67;
-        _os_log_impl(&_mh_execute_header, v67, v66, "Running '%s' from '%s' Last Modified: %s", v50, 0x20u);
+        *(v48 + 24) = v60;
+        v61 = v65;
+        _os_log_impl(&_mh_execute_header, v65, v64, "Running '%s' from '%s' Last Modified: %s", v48, 0x20u);
         swift_arrayDestroy();
 
-        (*(v69 + 8))(v4, v70);
-        v61(v15, v8);
+        (*(v67 + 8))(v3, v68);
+        v59(v13, v7);
       }
 
       else
       {
 
-        v64 = *(v9 + 8);
-        v64(v13, v8);
-        (*(v69 + 8))(v4, v70);
-        v64(v15, v8);
+        v62 = *(v8 + 8);
+        v62(v11, v7);
+        (*(v67 + 8))(v3, v68);
+        v62(v13, v7);
       }
     }
 
     else
     {
-      v28 = v72;
+      v26 = v70;
 
       _convertNSErrorToError(_:)();
 
@@ -682,29 +667,29 @@ LABEL_8:
 
 LABEL_10:
   type metadata accessor for MagnifierShortcuts();
-  sub_100002F20(&qword_100008200, &type metadata accessor for MagnifierShortcuts);
+  sub_100002F20(&qword_100008200, &type metadata accessor for MagnifierShortcuts, &protocol conformance descriptor for MagnifierShortcuts);
   static AppShortcutsProvider.updateAppShortcutParameters()();
-  v29 = static CommandLine.argc.getter();
-  v30 = static CommandLine.unsafeArgv.getter();
+  v27 = static CommandLine.argc.getter();
+  v28 = static CommandLine.unsafeArgv.getter();
   type metadata accessor for MAGUIApplication();
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v32 = NSStringFromClass(ObjCClassFromMetadata);
+  v30 = NSStringFromClass(ObjCClassFromMetadata);
+  if (!v30)
+  {
+    static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v30 = String._bridgeToObjectiveC()();
+  }
+
+  type metadata accessor for MagnifierApplicationDelegate();
+  v31 = swift_getObjCClassFromMetadata();
+  v32 = NSStringFromClass(v31);
   if (!v32)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
     v32 = String._bridgeToObjectiveC()();
   }
 
-  type metadata accessor for MagnifierApplicationDelegate();
-  v33 = swift_getObjCClassFromMetadata();
-  v34 = NSStringFromClass(v33);
-  if (!v34)
-  {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v34 = String._bridgeToObjectiveC()();
-  }
-
-  UIApplicationMain(v29, v30, v32, v34);
+  UIApplicationMain(v27, v28, v30, v32);
 }
 
 uint64_t sub_100002C9C(uint64_t *a1, uint64_t *a2)
@@ -712,7 +697,6 @@ uint64_t sub_100002C9C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -761,7 +745,7 @@ uint64_t sub_100002DF8(void *a1)
   }
 }
 
-uint64_t sub_100002F20(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_100002F20(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

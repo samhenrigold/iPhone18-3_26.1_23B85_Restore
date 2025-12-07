@@ -51,35 +51,33 @@
 
 - (id)deleteCompletedActivities
 {
-  v14[1] = *MEMORY[0x1E69E9840];
-  v13 = @"NOW";
+  v13[1] = *MEMORY[0x1E69E9840];
+  v12 = @"NOW";
   v4 = objc_msgSend_date(MEMORY[0x1E695DF00], a2, v2);
-  v14[0] = v4;
-  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v14, &v13, 1);
+  v13[0] = v4;
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v5, v13, &v12, 1);
 
-  v12 = 0;
-  objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v7, v6, off_1EA910C98, &v12, &unk_1EFA30030);
-  v8 = v12;
-  v9 = v12;
+  v11 = 0;
+  objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v7, v6, off_1EA910C98, &v11, &unk_1EFA30030);
+  v8 = v11;
+  v9 = v11;
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)deleteEntriesForDatabase:(id)database
 {
-  v15[1] = *MEMORY[0x1E69E9840];
-  v14 = @"DATABASEID";
-  v15[0] = database;
+  v14[1] = *MEMORY[0x1E69E9840];
+  v13 = @"DATABASEID";
+  v14[0] = database;
   v4 = MEMORY[0x1E695DF20];
   databaseCopy = database;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v15, &v14, 1);
-  v13 = 0;
-  objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v8, v7, off_1EA910CB0, &v13, &unk_1EFA30050);
-  v9 = v13;
-  v10 = v13;
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(v4, v6, v14, &v13, 1);
+  v12 = 0;
+  objc_msgSend_deleteEntriesMatching_label_error_predicate_(self, v8, v7, off_1EA910CB0, &v12, &unk_1EFA30050);
+  v9 = v12;
+  v10 = v12;
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

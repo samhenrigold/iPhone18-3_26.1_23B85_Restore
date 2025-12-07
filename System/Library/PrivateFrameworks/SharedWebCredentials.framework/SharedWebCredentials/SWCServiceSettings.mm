@@ -38,7 +38,6 @@ void __65___SWCServiceSettings_serviceSettingsWithServiceSpecifier_error___block
 
 uint64_t __58___SWCServiceSettings_objectForKey_ofClass_valuesOfClass___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v6 = *(a1 + 40);
   result = objc_opt_isKindOfClass();
   if ((result & 1) == 0)
   {

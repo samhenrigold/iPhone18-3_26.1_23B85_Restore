@@ -114,11 +114,10 @@ void __46__DSDTOManager_isRatchetActiveWithCompletion___block_invoke(uint64_t a1
 
 void __49__DSDTOManager_protectUserLocationOnWebDuringDTO__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "DTO Location Protection: disableLocationDisplay failed with error - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_248C7E000, a2, OS_LOG_TYPE_ERROR, "DTO Location Protection: disableLocationDisplay failed with error - %@", &v2, 0xCu);
 }
 
 @end

@@ -249,18 +249,14 @@ LABEL_13:
 
 - (void)setResultProviderID:(id)d
 {
-  v4 = [d copy];
-  resultProviderID = self->_resultProviderID;
-  self->_resultProviderID = v4;
+  self->_resultProviderID = [d copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setMuid:(id)muid
 {
-  v4 = [muid copy];
-  muid = self->_muid;
-  self->_muid = v4;
+  self->_muid = [muid copy];
 
   MEMORY[0x1EEE66BB8]();
 }

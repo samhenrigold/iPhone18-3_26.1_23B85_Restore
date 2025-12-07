@@ -235,18 +235,19 @@
 - (void)player:(id)player audiobookDidChange:(id)change
 {
   changeCopy = change;
+  v6 = changeCopy;
   if (changeCopy)
   {
-    v6 = BKAudiobooksPersistenceLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = BKAudiobooksPersistenceLog(changeCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      assetID = [changeCopy assetID];
-      v9 = 138477827;
-      v10 = assetID;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "BKAsssetAudiobookPersistenceController changed cached assetID to %{private}@", &v9, 0xCu);
+      assetID = [v6 assetID];
+      v10 = 138477827;
+      v11 = assetID;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "BKAsssetAudiobookPersistenceController changed cached assetID to %{private}@", &v10, 0xCu);
     }
 
-    assetID2 = [changeCopy assetID];
+    assetID2 = [v6 assetID];
     [(BKAudiobookPersistenceController *)self setCachedAssetID:assetID2];
   }
 }

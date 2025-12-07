@@ -8,7 +8,7 @@
 - (PFCKRecordConflictResolver)initWithAncestorRecord:(id)record serverRecord:(id)serverRecord clientRecord:(id)clientRecord
 {
   v36[1] = *MEMORY[0x1E69E9840];
-  if (record && (getCloudKitCKShareClass[0](), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || serverRecord && (getCloudKitCKShareClass[0](), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || clientRecord && (getCloudKitCKShareClass[0](), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  if (record && (getCloudKitCKShareClass(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || serverRecord && (getCloudKitCKShareClass(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || clientRecord && (getCloudKitCKShareClass(), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     LogStream = _PFLogGetLogStream(17);
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
@@ -71,8 +71,9 @@
     v19 = [NSPersistentContainer alloc];
     v20 = MEMORY[0x1E696AEC0];
     v21 = objc_opt_class();
-    v22 = -[NSPersistentContainer initWithName:managedObjectModel:](v19, "initWithName:managedObjectModel:", [v20 stringWithFormat:@"%@-%p", NSStringFromClass(v21), v11], v12);
-    v11->_container = v22;
+    v22 = NSStringFromClass(v21);
+    v23 = [(NSPersistentContainer *)v19 initWithName:objc_msgSend_stringWithFormat_(v20 managedObjectModel:v22, v11), v12];
+    v11->_container = v23;
     [-[NSArray objectAtIndexedSubscript:](-[NSPersistentContainer persistentStoreDescriptions](v11->_container "persistentStoreDescriptions")];
 
     v11->_allParticipantsByID = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -80,7 +81,6 @@
     v11->_recordIDToObjectID = objc_alloc_init(MEMORY[0x1E695DF90]);
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

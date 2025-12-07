@@ -1249,15 +1249,15 @@ void __54__ASCAdLockupView_presentProductDetailsViewController__block_invoke(uin
   [lockupPresenter retryRequestIfNeeded:v4];
 }
 
-uint64_t __38__ASCAdLockupView_performLockupAction__block_invoke(uint64_t result, char a2)
+id *__38__ASCAdLockupView_performLockupAction__block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
     v2 = result;
-    result = [*(result + 32) automaticallyPresentsProductDetails];
+    result = [result[4] automaticallyPresentsProductDetails];
     if (result)
     {
-      v3 = *(v2 + 32);
+      v3 = v2[4];
 
       return [v3 presentProductDetailsViewController];
     }

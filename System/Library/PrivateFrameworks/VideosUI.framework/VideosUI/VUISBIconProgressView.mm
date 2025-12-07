@@ -321,7 +321,7 @@
   return _pieImagesMemoryPool___pool;
 }
 
-uint64_t __45__VUISBIconProgressView__pieImagesMemoryPool__block_invoke()
+void *__45__VUISBIconProgressView__pieImagesMemoryPool__block_invoke()
 {
   v0 = MEMORY[0x1E69DCAB8];
   [objc_msgSend(MEMORY[0x1E69DCEB0] "mainScreen")];
@@ -370,7 +370,7 @@ id __45__VUISBIconProgressView__pieImageAtFraction___block_invoke()
   return result;
 }
 
-uint64_t __45__VUISBIconProgressView__pieImageAtFraction___block_invoke_2(CGFloat *a1)
+void *__45__VUISBIconProgressView__pieImageAtFraction___block_invoke_2(CGFloat *a1)
 {
   [objc_msgSend(MEMORY[0x1E69DC888] colorWithWhite:0.0 alpha:{0.7), "set"}];
   v8.origin.x = *MEMORY[0x1E695EFF8];

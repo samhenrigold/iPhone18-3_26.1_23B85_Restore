@@ -11,7 +11,7 @@
   activityCopy = activity;
   _s11NotesEditor20PaperCommonUtilitiesC19activitiesToExclude7forNote19currentUserActivitySaySo06NSUserM0CGSo6ICNoteC_AHSgtFZ_0(noteCopy, activity);
 
-  sub_2151A6C9C(0, &qword_27CA5DBD0);
+  sub_2151A6C9C(0, &qword_27CA5DBD0, 0x277CCAE58);
   v7 = sub_2154A1F3C();
 
   return v7;

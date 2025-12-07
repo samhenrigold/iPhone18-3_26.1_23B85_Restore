@@ -175,13 +175,11 @@ LABEL_28:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  medicalRecord = self->_medicalRecord;
+  v6 = HKStringFromBool();
   v7 = HKStringFromBool();
-  clinicalRecord = self->_clinicalRecord;
-  v9 = HKStringFromBool();
-  v10 = [v3 stringWithFormat:@"<%@ %p, medical record: %@, clinical record: %@, downloadable attachments: %lu>", v5, self, v7, v9, -[NSArray count](self->_downloadableAttachments, "count")];
+  v8 = [v3 stringWithFormat:@"<%@ %p, medical record: %@, clinical record: %@, downloadable attachments: %lu>", v5, self, v6, v7, -[NSArray count](self->_downloadableAttachments, "count")];
 
-  return v10;
+  return v8;
 }
 
 - (HDExtractionResultItemUnit)initWithCoder:(id)coder

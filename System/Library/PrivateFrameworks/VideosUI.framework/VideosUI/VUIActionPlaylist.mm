@@ -146,27 +146,28 @@ void __66__VUIActionPlaylist_performWithTargetResponder_completionHandler___bloc
   v14 = a6;
   v15 = a7;
   v16 = a8;
+  v17 = v16;
   if (a2)
   {
     if (a3)
     {
-      v17 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = VUIDefaultLogObject(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1E323F000, v17, OS_LOG_TYPE_DEFAULT, "VUIActionPlaylist:: cowatching, skipping playlist feature", buf, 2u);
+        _os_log_impl(&dword_1E323F000, v18, OS_LOG_TYPE_DEFAULT, "VUIActionPlaylist:: cowatching, skipping playlist feature", buf, 2u);
       }
 
       [*(a1 + 40) setIntent:1];
-      v18 = *(a1 + 40);
-      v19 = *(a1 + 48);
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __66__VUIActionPlaylist_performWithTargetResponder_completionHandler___block_invoke_31;
-      v24[3] = &unk_1E872E9F0;
-      v25 = *(a1 + 56);
-      LOBYTE(v23) = a5;
-      [VUIActionPlay presentPlaybackWithMediaInfo:v18 multiviewMediaInfos:MEMORY[0x1E695E0F0] extrasInfo:0 isCoWatching:1 watchType:0 playType:@"play" allowsCellular:v23 previewMetadata:v16 targetResponder:v19 completion:v24];
+      v19 = *(a1 + 40);
+      v20 = *(a1 + 48);
+      v25[0] = MEMORY[0x1E69E9820];
+      v25[1] = 3221225472;
+      v25[2] = __66__VUIActionPlaylist_performWithTargetResponder_completionHandler___block_invoke_31;
+      v25[3] = &unk_1E872E9F0;
+      v26 = *(a1 + 56);
+      LOBYTE(v24) = a5;
+      [VUIActionPlay presentPlaybackWithMediaInfo:v19 multiviewMediaInfos:MEMORY[0x1E695E0F0] extrasInfo:0 isCoWatching:1 watchType:0 playType:@"play" allowsCellular:v24 previewMetadata:v17 targetResponder:v20 completion:v25];
     }
 
     else
@@ -178,17 +179,17 @@ void __66__VUIActionPlaylist_performWithTargetResponder_completionHandler___bloc
 
   else
   {
-    v20 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = VUIDefaultLogObject(v16);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v20, OS_LOG_TYPE_DEFAULT, "VUIActionPlaylist:: start playback is false, failing playlist presentation", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v21, OS_LOG_TYPE_DEFAULT, "VUIActionPlaylist:: start playback is false, failing playlist presentation", buf, 2u);
     }
 
-    v21 = *(a1 + 56);
-    if (v21)
+    v22 = *(a1 + 56);
+    if (v22)
     {
-      (*(v21 + 16))(v21, 0);
+      (*(v22 + 16))(v22, 0);
     }
   }
 }
@@ -365,27 +366,27 @@ LABEL_6:
 
   if (([firstObject isKeyPlayAvailable] & 1) != 0 || (-[VUIActionPlaylist clipItems](self, "clipItems"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "count"), v19, v20))
   {
-    v21 = +[VUIPlaybackManager sharedInstance];
-    if ([v21 isFullscreenPlaybackUIBeingShown])
+    v22 = +[VUIPlaybackManager sharedInstance];
+    if ([v22 isFullscreenPlaybackUIBeingShown])
     {
       videosPlayable2 = [(VUIActionPlaylist *)self videosPlayable];
 
       if (!videosPlayable2)
       {
         objc_initWeak(location, self);
-        v23 = +[VUIPlaybackManager sharedInstance];
-        v55[0] = MEMORY[0x1E69E9820];
-        v55[1] = 3221225472;
-        v55[2] = __71__VUIActionPlaylist__presentViewControllerAllowingCellular_completion___block_invoke_39;
-        v55[3] = &unk_1E872EA40;
-        objc_copyWeak(&v57, location);
-        v55[4] = self;
-        v56 = completionCopy;
-        [v23 transferPlaybackToBackgroundMediaController:v55];
+        v25 = +[VUIPlaybackManager sharedInstance];
+        v58[0] = MEMORY[0x1E69E9820];
+        v58[1] = 3221225472;
+        v58[2] = __71__VUIActionPlaylist__presentViewControllerAllowingCellular_completion___block_invoke_39;
+        v58[3] = &unk_1E872EA40;
+        objc_copyWeak(&v60, location);
+        v58[4] = self;
+        v59 = completionCopy;
+        [v25 transferPlaybackToBackgroundMediaController:v58];
 
-        v24 = &v57;
+        v26 = &v60;
 LABEL_18:
-        objc_destroyWeak(v24);
+        objc_destroyWeak(v26);
         objc_destroyWeak(location);
         goto LABEL_19;
       }
@@ -395,11 +396,11 @@ LABEL_18:
     {
     }
 
-    v25 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v27 = VUIDefaultLogObject(v24);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(location[0]) = 0;
-      _os_log_impl(&dword_1E323F000, v25, OS_LOG_TYPE_DEFAULT, "VUIActionPlaylist:: Dismissing playback due to catch up to live", location, 2u);
+      _os_log_impl(&dword_1E323F000, v27, OS_LOG_TYPE_DEFAULT, "VUIActionPlaylist:: Dismissing playback due to catch up to live", location, 2u);
     }
 
     objc_initWeak(location, self);
@@ -407,43 +408,43 @@ LABEL_18:
     aBlock[1] = 3221225472;
     aBlock[2] = __71__VUIActionPlaylist__presentViewControllerAllowingCellular_completion___block_invoke_41;
     aBlock[3] = &unk_1E872DE00;
-    objc_copyWeak(&v54, location);
-    v52 = rootViewController;
-    v53 = completionCopy;
-    v26 = _Block_copy(aBlock);
-    v27 = +[VUIPlaybackManager sharedInstance];
-    isFullscreenPlaybackUIBeingShown2 = [v27 isFullscreenPlaybackUIBeingShown];
+    objc_copyWeak(&v57, location);
+    v55 = rootViewController;
+    v56 = completionCopy;
+    v28 = _Block_copy(aBlock);
+    v29 = +[VUIPlaybackManager sharedInstance];
+    isFullscreenPlaybackUIBeingShown2 = [v29 isFullscreenPlaybackUIBeingShown];
 
     if (isFullscreenPlaybackUIBeingShown2)
     {
-      v29 = +[VUIPlaybackManager sharedInstance];
-      [v29 dismissPlaybackAnimated:1 leaveGroupActivitySession:1 completion:v26];
+      v31 = +[VUIPlaybackManager sharedInstance];
+      [v31 dismissPlaybackAnimated:1 leaveGroupActivitySession:1 completion:v28];
     }
 
     else
     {
-      v26[2](v26);
+      v28[2](v28);
     }
 
-    v24 = &v54;
+    v26 = &v57;
     goto LABEL_18;
   }
 
-  v30 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+  v32 = VUIDefaultLogObject(v21);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(location[0]) = 0;
-    _os_log_impl(&dword_1E323F000, v30, OS_LOG_TYPE_DEFAULT, "VUIActionPlaylist:: no clip items, so assuming standard playlist", location, 2u);
+    _os_log_impl(&dword_1E323F000, v32, OS_LOG_TYPE_DEFAULT, "VUIActionPlaylist:: no clip items, so assuming standard playlist", location, 2u);
   }
 
   _ratingDomain = [(VUIActionPlaylist *)self _ratingDomain];
-  v32 = [_ratingDomain isEqualToString:*MEMORY[0x1E69D5B18]];
+  v34 = [_ratingDomain isEqualToString:*MEMORY[0x1E69D5B18]];
 
-  v48 = cellularCopy;
-  if (v32)
+  v51 = cellularCopy;
+  if (v34)
   {
-    v33 = +[VUISettingsManager sharedInstance];
-    maxMovieRank = [v33 maxMovieRank];
+    v35 = +[VUISettingsManager sharedInstance];
+    maxMovieRank = [v35 maxMovieRank];
 
     _maxContentRating = [(VUIActionPlaylist *)self _maxContentRating];
   }
@@ -451,64 +452,64 @@ LABEL_18:
   else
   {
     _ratingDomain2 = [(VUIActionPlaylist *)self _ratingDomain];
-    v35 = [_ratingDomain2 isEqualToString:*MEMORY[0x1E69D5B10]];
+    v37 = [_ratingDomain2 isEqualToString:*MEMORY[0x1E69D5B10]];
 
-    if (v35)
+    if (v37)
     {
       maxMovieRank = [(VUIActionPlaylist *)self _maxContentRating];
     }
 
     else
     {
-      v36 = +[VUISettingsManager sharedInstance];
-      maxMovieRank = [v36 maxMovieRank];
+      v38 = +[VUISettingsManager sharedInstance];
+      maxMovieRank = [v38 maxMovieRank];
     }
 
-    v37 = +[VUISettingsManager sharedInstance];
-    _maxContentRating = [v37 maxTVShowRank];
+    v39 = +[VUISettingsManager sharedInstance];
+    _maxContentRating = [v39 maxTVShowRank];
   }
 
   trailerEndpoint = [(VUIActionPlaylist *)self trailerEndpoint];
-  v39 = [trailerEndpoint length];
+  v41 = [trailerEndpoint length];
 
-  v40 = +[VUIInterfaceFactory sharedInstance];
-  documentCreator = [v40 documentCreator];
+  v42 = +[VUIInterfaceFactory sharedInstance];
+  documentCreator = [v42 documentCreator];
   index = [(VUIActionPlaylist *)self index];
-  if (v39)
+  if (v41)
   {
     trailerEndpoint2 = [(VUIActionPlaylist *)self trailerEndpoint];
-    [documentCreator clipsViewControllerWithIndex:index trailerEndpoint:trailerEndpoint2 maxMovieContentRating:maxMovieRank maxTVContentRating:_maxContentRating allowsCellular:v48];
+    [documentCreator clipsViewControllerWithIndex:index trailerEndpoint:trailerEndpoint2 maxMovieContentRating:maxMovieRank maxTVContentRating:_maxContentRating allowsCellular:v51];
   }
 
   else
   {
     trailerEndpoint2 = [(VUIActionPlaylist *)self collectionViewModel];
-    [documentCreator clipsViewControllerWithIndex:index collectionData:trailerEndpoint2 maxMovieContentRating:maxMovieRank maxTVContentRating:_maxContentRating allowsCellular:v48];
+    [documentCreator clipsViewControllerWithIndex:index collectionData:trailerEndpoint2 maxMovieContentRating:maxMovieRank maxTVContentRating:_maxContentRating allowsCellular:v51];
   }
-  v44 = ;
+  v46 = ;
 
-  if (rootViewController && v44)
+  if (rootViewController && v46)
   {
-    v45 = +[VUIPlaybackManager sharedInstance];
-    [v45 dismissPlaybackAnimated:1 leaveGroupActivitySession:1 completion:0];
+    v48 = +[VUIPlaybackManager sharedInstance];
+    [v48 dismissPlaybackAnimated:1 leaveGroupActivitySession:1 completion:0];
 
-    v46 = +[VUIPlaybackManager sharedInstance];
-    [v46 setBackgroundMediaControllerForPIP:0];
+    v49 = +[VUIPlaybackManager sharedInstance];
+    [v49 setBackgroundMediaControllerForPIP:0];
 
-    v59[0] = MEMORY[0x1E69E9820];
-    v59[1] = 3221225472;
-    v59[2] = __71__VUIActionPlaylist__presentViewControllerAllowingCellular_completion___block_invoke;
-    v59[3] = &unk_1E872D7E0;
-    v60 = completionCopy;
-    [rootViewController presentViewController:v44 animated:1 completion:v59];
+    v62[0] = MEMORY[0x1E69E9820];
+    v62[1] = 3221225472;
+    v62[2] = __71__VUIActionPlaylist__presentViewControllerAllowingCellular_completion___block_invoke;
+    v62[3] = &unk_1E872D7E0;
+    v63 = completionCopy;
+    [rootViewController presentViewController:v46 animated:1 completion:v62];
   }
 
   else
   {
-    v47 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v50 = VUIDefaultLogObject(v47);
+    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
     {
-      [VUIActionPlaylist _presentViewControllerAllowingCellular:v47 completion:?];
+      [VUIActionPlaylist _presentViewControllerAllowingCellular:v50 completion:?];
     }
 
     if (completionCopy)

@@ -54,10 +54,10 @@
 
 - (void)viewDidLoad
 {
-  v59[4] = *MEMORY[0x277D85DE8];
-  v58.receiver = self;
-  v58.super_class = DKInternetWarningViewController;
-  [(OBBaseWelcomeController *)&v58 viewDidLoad];
+  v58[4] = *MEMORY[0x277D85DE8];
+  v57.receiver = self;
+  v57.super_class = DKInternetWarningViewController;
+  [(OBBaseWelcomeController *)&v57 viewDidLoad];
   configuration = [(DKInternetWarningViewController *)self configuration];
   showNotableUserDataCardForFindMy = [configuration showNotableUserDataCardForFindMy];
 
@@ -106,24 +106,24 @@
     contentView3 = [(DKInternetWarningViewController *)self contentView];
     topAnchor = [contentView3 topAnchor];
     topAnchor2 = [configuration3 topAnchor];
-    v52 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v59[0] = v52;
+    v51 = [topAnchor constraintEqualToAnchor:topAnchor2];
+    v58[0] = v51;
     contentView4 = [(DKInternetWarningViewController *)self contentView];
     leadingAnchor = [contentView4 leadingAnchor];
     leadingAnchor2 = [configuration3 leadingAnchor];
-    v48 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v59[1] = v48;
+    v47 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v58[1] = v47;
     contentView5 = [(DKInternetWarningViewController *)self contentView];
     trailingAnchor = [contentView5 trailingAnchor];
     trailingAnchor2 = [configuration3 trailingAnchor];
     v26 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v59[2] = v26;
+    v58[2] = v26;
     contentView6 = [(DKInternetWarningViewController *)self contentView];
     bottomAnchor = [contentView6 bottomAnchor];
     bottomAnchor2 = [configuration3 bottomAnchor];
     v30 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v59[3] = v30;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:4];
+    v58[3] = v30;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:4];
     [contentView2 addConstraints:v31];
 
     detail2 = lastObject;
@@ -164,8 +164,6 @@
   [linkButton addTarget:self action:sel__continueWithoutInternetTapped_ forControlEvents:64];
   buttonTray2 = [(DKInternetWarningViewController *)self buttonTray];
   [buttonTray2 addButton:linkButton];
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showBusy

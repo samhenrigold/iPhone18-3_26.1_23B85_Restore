@@ -840,7 +840,7 @@ void __69__VCMediaRecorderHistory_takeLivePhotoWithContext_completionHandler___b
   v5 = *(a1 + 40);
   if (v5)
   {
-    [v5 setUpStillImageWithContext:*(a1 + 32) visibleRect:&v28 cameraStatusBit:&v27 imageType:v5[41]];
+    objc_msgSend_setUpStillImageWithContext_visibleRect_cameraStatusBit_imageType_(v5);
     if (v26[12])
     {
       v6 = *(a1 + 40);
@@ -2468,7 +2468,7 @@ void __40__VCMediaRecorderHistory_setVideoCodec___block_invoke(uint64_t a1)
     -[VCMovieWriterProtocol setDirectoryURL:](self->_writer, "setDirectoryURL:", [context deserializeDirectoryURL]);
     if (context)
     {
-      [context movieFragmentInterval];
+      objc_msgSend_movieFragmentInterval(context);
     }
 
     else
@@ -3790,10 +3790,10 @@ LABEL_18:
   if (v12)
   {
     v13 = v12;
-    [v12 setDirectoryURL:{objc_msgSend(context, "deserializeDirectoryURL")}];
+    -[VCFigAssetWriter setDirectoryURL:](v12, "setDirectoryURL:", [context deserializeDirectoryURL]);
     if (context)
     {
-      [context movieFragmentInterval];
+      objc_msgSend_movieFragmentInterval(context);
     }
 
     else
@@ -3804,9 +3804,9 @@ LABEL_18:
 
     *buf = v24;
     v27 = v25;
-    [v13 setMovieFragmentInterval:buf];
-    [v13 setupWriterWithMode:v11];
-    [v13 setStartRTPTimeStamp:timestamp];
+    [(VCFigAssetWriter *)v13 setMovieFragmentInterval:buf];
+    [(VCFigAssetWriter *)v13 setupWriterWithMode:v11];
+    [(VCFigAssetWriter *)v13 setStartRTPTimeStamp:timestamp];
     [(VCMediaRecorderHistory *)self setUpCaptureFormatForWriter:v13 atTimestamp:timestamp];
     [(NSMutableDictionary *)self->_writers setObject:v13 forKeyedSubscript:transactionID];
 

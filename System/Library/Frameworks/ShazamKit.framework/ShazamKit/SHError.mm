@@ -199,8 +199,7 @@ void __30__SHError_normalizedUserInfo___block_invoke(uint64_t a1, void *a2, void
     {
       if ([v5 isEqualToString:*MEMORY[0x277CCA7E8]] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v7 = *(a1 + 40);
-        v8 = [objc_opt_class() normalizedError:v6];
+        v7 = [objc_opt_class() normalizedError:v6];
       }
 
       else
@@ -210,31 +209,31 @@ void __30__SHError_normalizedUserInfo___block_invoke(uint64_t a1, void *a2, void
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v9 = MEMORY[0x277CBEB18];
-            v10 = v6;
-            v11 = [v9 arrayWithCapacity:{objc_msgSend(v10, "count")}];
-            v14 = MEMORY[0x277D85DD0];
-            v15 = 3221225472;
-            v16 = __30__SHError_normalizedUserInfo___block_invoke_2;
-            v17 = &unk_2788F7BC0;
-            v12 = *(a1 + 40);
+            v8 = MEMORY[0x277CBEB18];
+            v9 = v6;
+            v10 = [v8 arrayWithCapacity:{objc_msgSend(v9, "count")}];
+            v13 = MEMORY[0x277D85DD0];
+            v14 = 3221225472;
+            v15 = __30__SHError_normalizedUserInfo___block_invoke_2;
+            v16 = &unk_2788F7BC0;
+            v11 = *(a1 + 40);
+            v17 = v10;
             v18 = v11;
-            v19 = v12;
-            v13 = v11;
-            [v10 enumerateObjectsUsingBlock:&v14];
+            v12 = v10;
+            [v9 enumerateObjectsUsingBlock:&v13];
 
-            [*(a1 + 32) setObject:v13 forKeyedSubscript:{v5, v14, v15, v16, v17}];
+            [*(a1 + 32) setObject:v12 forKeyedSubscript:{v5, v13, v14, v15, v16}];
 LABEL_12:
 
             goto LABEL_13;
           }
         }
 
-        v8 = [v6 description];
+        v7 = [v6 description];
       }
 
-      v13 = v8;
-      [*(a1 + 32) setObject:v8 forKeyedSubscript:v5];
+      v12 = v7;
+      [*(a1 + 32) setObject:v7 forKeyedSubscript:v5];
       goto LABEL_12;
     }
   }
@@ -245,20 +244,19 @@ LABEL_13:
 
 void __30__SHError_normalizedUserInfo___block_invoke_2(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v5 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = *(a1 + 32);
-    v3 = *(a1 + 40);
-    v5 = [objc_opt_class() normalizedError:v6];
-    [v4 addObject:v5];
+    v3 = *(a1 + 32);
+    v4 = [objc_opt_class() normalizedError:v5];
+    [v3 addObject:v4];
   }
 }
 
 + (id)remapErrorToClientError:(id)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v4 = errorCopy;
   if (errorCopy)
@@ -292,34 +290,34 @@ LABEL_6:
     }
 
     code = [v4 code];
-    v11 = 202;
+    v10 = 202;
     if (code == 302)
     {
-      v11 = 600;
+      v10 = 600;
     }
 
     if ((code - 400) < 2)
     {
-      v11 = 500;
+      v10 = 500;
     }
 
     if ((code - 300) >= 2)
     {
-      v12 = v11;
+      v11 = v10;
     }
 
     else
     {
-      v12 = 300;
+      v11 = 300;
     }
 
     userInfo = [v4 userInfo];
-    v14 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
-    v17 = *MEMORY[0x277CCA068];
-    v15 = [MEMORY[0x277D54E10] messageForCode:code];
-    v18[0] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
-    v7 = [SHError errorWithCode:v12 underlyingError:v14 keyOverrides:v16];
+    v13 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA7E8]];
+    v16 = *MEMORY[0x277CCA068];
+    v14 = [MEMORY[0x277D54E10] messageForCode:code];
+    v17[0] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v7 = [SHError errorWithCode:v11 underlyingError:v13 keyOverrides:v15];
   }
 
   else
@@ -328,8 +326,6 @@ LABEL_6:
   }
 
 LABEL_8:
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

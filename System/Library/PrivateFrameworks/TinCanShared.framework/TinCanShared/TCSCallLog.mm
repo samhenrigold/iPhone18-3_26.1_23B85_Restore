@@ -35,21 +35,22 @@
 
   if (uniqueProxyIdentifier)
   {
-    if ([callCopy status] == 6)
+    status = [callCopy status];
+    if (status == 6)
     {
       uniqueProxyIdentifier2 = [callCopy uniqueProxyIdentifier];
-      v7 = [uniqueProxyIdentifier2 copy];
+      v11 = [uniqueProxyIdentifier2 copy];
 
       os_unfair_lock_lock(&self->_lock);
-      [(NSMutableDictionary *)self->_calls setObject:callCopy forKeyedSubscript:v7];
-      [(NSMutableOrderedSet *)self->_identifiers insertObject:v7 atIndex:0];
+      [(NSMutableDictionary *)self->_calls setObject:callCopy forKeyedSubscript:v11];
+      [(NSMutableOrderedSet *)self->_identifiers insertObject:v11 atIndex:0];
       os_unfair_lock_unlock(&self->_lock);
       [(TCSCallLog *)self _trimCache];
     }
 
     else
     {
-      _TCSInitializeLogging();
+      _TCSInitializeLogging(status, v9);
       if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
       {
         [TCSCallLog addCall:];
@@ -59,7 +60,7 @@
 
   else
   {
-    _TCSInitializeLogging();
+    _TCSInitializeLogging(v6, v7);
     if (os_log_type_enabled(TCSLogDefault, OS_LOG_TYPE_ERROR))
     {
       [TCSCallLog addCall:];
@@ -119,20 +120,18 @@ void __24__TCSCallLog__trimCache__block_invoke(uint64_t a1, void *a2, void *a3)
 
 - (void)addCall:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "%s: usage error, should not be adding an entry for a TCSCall object whose call state is not disconnected: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "%s: usage error, should not be adding an entry for a TCSCall object whose call state is not disconnected: %@", v1, 0x16u);
 }
 
 - (void)addCall:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "%s: cannot add entry for TCSCall object lacking uPI: %@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26F110000, v0, OS_LOG_TYPE_ERROR, "%s: cannot add entry for TCSCall object lacking uPI: %@", v1, 0x16u);
 }
 
 @end

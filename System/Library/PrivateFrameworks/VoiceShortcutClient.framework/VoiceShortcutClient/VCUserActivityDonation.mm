@@ -68,7 +68,7 @@
 
 void __40__VCUserActivityDonation_uniqueProperty__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -79,18 +79,16 @@ void __40__VCUserActivityDonation_uniqueProperty__block_invoke(uint64_t a1, void
       v5 = getWFVoiceShortcutClientLogObject();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 136315394;
-        v8 = "[VCUserActivityDonation uniqueProperty]_block_invoke";
-        v9 = 2112;
-        v10 = v4;
-        _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_DEFAULT, "%s %@ is not a required key; ignoring it in the donation's uniqueProperty.", &v7, 0x16u);
+        v6 = 136315394;
+        v7 = "[VCUserActivityDonation uniqueProperty]_block_invoke";
+        v8 = 2112;
+        v9 = v4;
+        _os_log_impl(&dword_1B1DE3000, v5, OS_LOG_TYPE_DEFAULT, "%s %@ is not a required key; ignoring it in the donation's uniqueProperty.", &v6, 0x16u);
       }
 
       [*(a1 + 40) removeObjectForKey:v4];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)suggestedPhrase
@@ -207,91 +205,91 @@ void __40__VCUserActivityDonation_uniqueProperty__block_invoke(uint64_t a1, void
 
 - (VCUserActivityDonation)initWithEvent:(id)event
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   eventCopy = event;
-  v47 = eventCopy;
+  v46 = eventCopy;
   if (eventCopy)
   {
     v5 = eventCopy;
     metadata = [v5 metadata];
     userActivityRequiredString = [MEMORY[0x1E6997948] userActivityRequiredString];
-    v51 = [metadata objectForKeyedSubscript:userActivityRequiredString];
+    v50 = [metadata objectForKeyedSubscript:userActivityRequiredString];
 
-    if (v51)
+    if (v50)
     {
-      v53 = [objc_alloc(MEMORY[0x1E69636A8]) _initWithUserActivityStrings:v51 secondaryString:0 optionalData:0];
+      v52 = [objc_alloc(MEMORY[0x1E69636A8]) _initWithUserActivityStrings:v50 secondaryString:0 optionalData:0];
       metadata2 = [v5 metadata];
       suggestedInvocationPhrase = [MEMORY[0x1E6997948] suggestedInvocationPhrase];
       v10 = [metadata2 objectForKeyedSubscript:suggestedInvocationPhrase];
-      [v53 setSuggestedInvocationPhrase:v10];
+      [v52 setSuggestedInvocationPhrase:v10];
 
       metadata3 = [v5 metadata];
       isEligibleForPrediction = [MEMORY[0x1E6997948] isEligibleForPrediction];
-      v46 = [metadata3 objectForKeyedSubscript:isEligibleForPrediction];
+      v45 = [metadata3 objectForKeyedSubscript:isEligibleForPrediction];
 
-      if (v46)
+      if (v45)
       {
-        [v53 setEligibleForPrediction:{-[NSObject BOOLValue](v46, "BOOLValue")}];
+        [v52 setEligibleForPrediction:{-[NSObject BOOLValue](v45, "BOOLValue")}];
       }
 
       metadata4 = [v5 metadata];
       itemRelatedContentURL = [MEMORY[0x1E6997948] itemRelatedContentURL];
-      v50 = [metadata4 objectForKeyedSubscript:itemRelatedContentURL];
+      v49 = [metadata4 objectForKeyedSubscript:itemRelatedContentURL];
 
       metadata5 = [v5 metadata];
       itemRelatedUniqueIdentifier = [MEMORY[0x1E6997948] itemRelatedUniqueIdentifier];
-      v49 = [metadata5 objectForKeyedSubscript:itemRelatedUniqueIdentifier];
+      v48 = [metadata5 objectForKeyedSubscript:itemRelatedUniqueIdentifier];
 
       metadata6 = [v5 metadata];
       contentDescription = [MEMORY[0x1E6997948] contentDescription];
-      v48 = [metadata6 objectForKeyedSubscript:contentDescription];
+      v47 = [metadata6 objectForKeyedSubscript:contentDescription];
 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v60 = __Block_byref_object_copy__1140;
-      v61 = __Block_byref_object_dispose__1141;
-      v62 = 0;
+      v59 = __Block_byref_object_copy__1140;
+      v60 = __Block_byref_object_dispose__1141;
+      v61 = 0;
       v19 = dispatch_semaphore_create(0);
       defaultSearchableIndex = [MEMORY[0x1E6964E78] defaultSearchableIndex];
       v20 = *MEMORY[0x1E6964C08];
-      v58[0] = @"_kMDItemThumbnailDataPath";
-      v58[1] = v20;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
+      v57[0] = @"_kMDItemThumbnailDataPath";
+      v57[1] = v20;
+      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:2];
       source = [v5 source];
       bundleID = [source bundleID];
       metadata7 = [v5 metadata];
       itemIdentifier = [MEMORY[0x1E6997948] itemIdentifier];
       v26 = [metadata7 objectForKeyedSubscript:itemIdentifier];
-      v57 = v26;
-      v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
+      v56 = v26;
+      v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
       v28 = *MEMORY[0x1E696A378];
-      v54[0] = MEMORY[0x1E69E9820];
-      v54[1] = 3221225472;
-      v54[2] = __VCUserActivityFromEvent_block_invoke;
-      v54[3] = &unk_1E7AFFDD0;
-      v56 = buf;
+      v53[0] = MEMORY[0x1E69E9820];
+      v53[1] = 3221225472;
+      v53[2] = __VCUserActivityFromEvent_block_invoke;
+      v53[3] = &unk_1E7AFFDD0;
+      v55 = buf;
       v29 = v19;
-      v55 = v29;
-      [defaultSearchableIndex slowFetchAttributes:v21 protectionClass:v28 bundleID:bundleID identifiers:v27 completionHandler:v54];
+      v54 = v29;
+      [defaultSearchableIndex slowFetchAttributes:v21 protectionClass:v28 bundleID:bundleID identifiers:v27 completionHandler:v53];
 
       v30 = dispatch_time(0, 5000000000);
       dispatch_semaphore_wait(v29, v30);
-      if (v50 || v49 || v48 || *(*&buf[8] + 40))
+      if (v49 || v48 || v47 || *(*&buf[8] + 40))
       {
         v31 = objc_alloc(MEMORY[0x1E6964E90]);
         identifier = [*MEMORY[0x1E6982D50] identifier];
         v33 = [v31 initWithItemContentType:identifier];
 
-        [v33 setRelatedUniqueIdentifier:v49];
-        [v33 setContentURL:v50];
-        [v33 setContentDescription:v48];
+        [v33 setRelatedUniqueIdentifier:v48];
+        [v33 setContentURL:v49];
+        [v33 setContentDescription:v47];
         [v33 setThumbnailURL:*(*&buf[8] + 40)];
-        [v53 setContentAttributeSet:v33];
+        [v52 setContentAttributeSet:v33];
       }
 
       _Block_object_dispose(buf, 8);
-      v34 = v46;
+      v34 = v45;
     }
 
     else
@@ -307,17 +305,17 @@ void __40__VCUserActivityDonation_uniqueProperty__block_invoke(uint64_t a1, void
         _os_log_impl(&dword_1B1DE3000, v34, OS_LOG_TYPE_DEFAULT, "%s Missing user activity required string from event.metadata=%@", buf, 0x16u);
       }
 
-      v53 = 0;
+      v52 = 0;
     }
 
-    if (v53)
+    if (v52)
     {
       uUID = [v5 UUID];
       uUIDString = [uUID UUIDString];
       value = [v5 value];
       stringValue = [value stringValue];
       startDate = [v5 startDate];
-      self = [(VCUserActivityDonation *)self initWithUserActivity:v53 identifier:uUIDString sourceAppIdentifier:stringValue date:startDate];
+      self = [(VCUserActivityDonation *)self initWithUserActivity:v52 identifier:uUIDString sourceAppIdentifier:stringValue date:startDate];
 
       selfCopy = self;
     }
@@ -336,7 +334,6 @@ void __40__VCUserActivityDonation_uniqueProperty__block_invoke(uint64_t a1, void
     selfCopy = 0;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

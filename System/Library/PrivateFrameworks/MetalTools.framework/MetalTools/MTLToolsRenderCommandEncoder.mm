@@ -8,6 +8,8 @@
 - (void)addSplitHandler:(id)handler;
 - (void)dispatchThreadsPerTile:(id *)tile;
 - (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region;
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index;
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index withCondition:(int64_t)condition;
 - (void)dispatchThreadsPerTile:(id *)tile withCondition:(int64_t)condition;
 - (void)drawIndexedPatches:(unint64_t)patches patchIndexBuffer:(id)buffer patchIndexBufferOffset:(unint64_t)offset controlPointIndexBuffer:(id)indexBuffer controlPointIndexBufferOffset:(unint64_t)bufferOffset indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)indirectBufferOffset;
 - (void)drawIndexedPatches:(unint64_t)patches patchStart:(unint64_t)start patchCount:(unint64_t)count patchIndexBuffer:(id)buffer patchIndexBufferOffset:(unint64_t)offset controlPointIndexBuffer:(id)indexBuffer controlPointIndexBufferOffset:(unint64_t)bufferOffset instanceCount:(unint64_t)self0 baseInstance:(unint64_t)self1;
@@ -24,15 +26,18 @@
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count;
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount;
 - (void)drawPrimitives:(unint64_t)primitives vertexStart:(unint64_t)start vertexCount:(unint64_t)count instanceCount:(unint64_t)instanceCount baseInstance:(unint64_t)instance;
+- (void)enableNullBufferBinds:(BOOL)binds;
 - (void)executeCommandsInBuffer:(id)buffer indirectBuffer:(id)indirectBuffer indirectBufferOffset:(unint64_t)offset;
 - (void)executeCommandsInBuffer:(id)buffer withRange:(_NSRange)range;
 - (void)resetTileCondition;
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier;
 - (void)setAccelerationStructure:(id)structure atBufferIndex:(unint64_t)index stage:(unint64_t)stage;
 - (void)setAlphaTestReferenceValue:(float)value;
 - (void)setBlendColorRed:(float)red green:(float)green blue:(float)blue alpha:(float)alpha;
 - (void)setClipPlane:(float)plane p2:(float)p2 p3:(float)p3 p4:(float)p4 atIndex:(unint64_t)index;
 - (void)setColorAttachmentMap:(id)map;
 - (void)setColorResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level atIndex:(unint64_t)index;
+- (void)setColorResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level atIndex:(unint64_t)index yInvert:(BOOL)invert;
 - (void)setColorStoreAction:(unint64_t)action atIndex:(unint64_t)index;
 - (void)setColorStoreActionOptions:(unint64_t)options atIndex:(unint64_t)index;
 - (void)setCommandDataCorruptModeSPI:(unint64_t)i;
@@ -42,6 +47,7 @@
 - (void)setDepthClipMode:(unint64_t)mode;
 - (void)setDepthClipModeSPI:(unint64_t)i;
 - (void)setDepthResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level;
+- (void)setDepthResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert;
 - (void)setDepthStencilState:(id)state;
 - (void)setDepthStoreAction:(unint64_t)action;
 - (void)setDepthStoreActionOptions:(unint64_t)options;
@@ -99,12 +105,17 @@
 - (void)setObjectVisibleFunctionTable:(id)table atBufferIndex:(unint64_t)index;
 - (void)setObjectVisibleFunctionTables:(const void *)tables withBufferRange:(_NSRange)range;
 - (void)setPointSize:(float)size;
+- (void)setPrimitiveRestartEnabled:(BOOL)enabled;
+- (void)setPrimitiveRestartEnabled:(BOOL)enabled index:(unint64_t)index;
 - (void)setProvokingVertexMode:(unint64_t)mode;
 - (void)setRenderPipelineState:(id)state;
 - (void)setScissorRect:(id *)rect;
 - (void)setScissorRects:(id *)rects count:(unint64_t)count;
 - (void)setStencilCleared;
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue;
+- (void)setStencilReferenceValue:(unsigned int)value;
 - (void)setStencilResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level;
+- (void)setStencilResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert;
 - (void)setStencilStoreAction:(unint64_t)action;
 - (void)setStencilStoreActionOptions:(unint64_t)options;
 - (void)setTessellationFactorBuffer:(id)buffer offset:(unint64_t)offset instanceStride:(unint64_t)stride;
@@ -152,6 +163,7 @@
 - (void)setVertexVisibleFunctionTable:(id)table atBufferIndex:(unint64_t)index;
 - (void)setVertexVisibleFunctionTables:(const void *)tables withBufferRange:(_NSRange)range;
 - (void)setViewport:(id *)viewport;
+- (void)setViewportTransformEnabled:(BOOL)enabled;
 - (void)setViewports:(id *)viewports count:(unint64_t)count;
 - (void)setVisibilityResultMode:(unint64_t)mode offset:(unint64_t)offset;
 - (void)setVisibleFunctionTable:(id)table atBufferIndex:(unint64_t)index stage:(unint64_t)stage;
@@ -251,11 +263,11 @@
 {
   length = range.length;
   location = range.location;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     buffersCopy = buffers;
-    v12 = v16;
+    v12 = v15;
     v13 = range.length;
     do
     {
@@ -269,7 +281,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVertexBufferOffset:(unint64_t)offset attributeStride:(unint64_t)stride atIndex:(unint64_t)index
@@ -311,11 +322,11 @@
 {
   length = range.length;
   location = range.location;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     buffersCopy = buffers;
-    v10 = v14;
+    v10 = v13;
     v11 = range.length;
     do
     {
@@ -329,7 +340,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVertexTexture:(id)texture atIndex:(unint64_t)index
@@ -345,11 +355,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     texturesCopy = textures;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -363,7 +373,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVertexSamplerState:(id)state atIndex:(unint64_t)index
@@ -379,11 +388,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -397,7 +406,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setVertexSamplerState:(id)state lodMinClamp:(float)clamp lodMaxClamp:(float)maxClamp atIndex:(unint64_t)index
@@ -426,11 +434,11 @@
 {
   length = range.length;
   location = range.location;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v12 = v16;
+    v12 = v15;
     v13 = range.length;
     do
     {
@@ -444,7 +452,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setViewport:(id *)viewport
@@ -582,11 +589,11 @@
 {
   length = range.length;
   location = range.location;
-  v14[31] = *MEMORY[0x277D85DE8];
+  v13[31] = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     buffersCopy = buffers;
-    v10 = v14;
+    v10 = v13;
     v11 = range.length;
     do
     {
@@ -600,7 +607,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFragmentTexture:(id)texture atIndex:(unint64_t)index
@@ -616,11 +622,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     texturesCopy = textures;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -634,7 +640,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFragmentSamplerState:(id)state atIndex:(unint64_t)index
@@ -650,11 +655,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -668,7 +673,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFragmentSamplerState:(id)state lodMinClamp:(float)clamp lodMaxClamp:(float)maxClamp atIndex:(unint64_t)index
@@ -697,11 +701,11 @@
 {
   length = range.length;
   location = range.location;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v12 = v16;
+    v12 = v15;
     v13 = range.length;
     do
     {
@@ -715,7 +719,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDepthStencilState:(id)state
@@ -725,6 +728,14 @@
   baseObject2 = [state baseObject];
 
   [baseObject setDepthStencilState:baseObject2];
+}
+
+- (void)setStencilReferenceValue:(unsigned int)value
+{
+  v3 = *&value;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setStencilReferenceValue:v3];
 }
 
 - (void)setDepthCleared
@@ -768,11 +779,35 @@
   [baseObject setClipPlane:index p2:v13 p3:v14 p4:v15 atIndex:v16];
 }
 
+- (void)setViewportTransformEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setViewportTransformEnabled:enabledCopy];
+}
+
 - (void)setProvokingVertexMode:(unint64_t)mode
 {
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject setProvokingVertexMode:mode];
+}
+
+- (void)setPrimitiveRestartEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setPrimitiveRestartEnabled:enabledCopy];
+}
+
+- (void)setPrimitiveRestartEnabled:(BOOL)enabled index:(unint64_t)index
+{
+  enabledCopy = enabled;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setPrimitiveRestartEnabled:enabledCopy index:index];
 }
 
 - (void)setTriangleFrontFillMode:(unint64_t)mode backFillMode:(unint64_t)fillMode
@@ -798,6 +833,16 @@
   [baseObject setColorResolveTexture:baseObject2 slice:slice depthPlane:plane level:level atIndex:index];
 }
 
+- (void)setColorResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level atIndex:(unint64_t)index yInvert:(BOOL)invert
+{
+  invertCopy = invert;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [texture baseObject];
+
+  [baseObject setColorResolveTexture:baseObject2 slice:slice depthPlane:plane level:level yInvert:invertCopy atIndex:index];
+}
+
 - (void)setDepthResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level
 {
   [(MTLToolsCommandEncoder *)self addRetainedObject:?];
@@ -807,6 +852,16 @@
   [baseObject setDepthResolveTexture:baseObject2 slice:slice depthPlane:plane level:level];
 }
 
+- (void)setDepthResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert
+{
+  invertCopy = invert;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [texture baseObject];
+
+  [baseObject setDepthResolveTexture:baseObject2 slice:slice depthPlane:plane level:level yInvert:invertCopy];
+}
+
 - (void)setStencilResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level
 {
   [(MTLToolsCommandEncoder *)self addRetainedObject:?];
@@ -814,6 +869,16 @@
   baseObject2 = [texture baseObject];
 
   [baseObject setStencilResolveTexture:baseObject2 slice:slice depthPlane:plane level:level];
+}
+
+- (void)setStencilResolveTexture:(id)texture slice:(unint64_t)slice depthPlane:(unint64_t)plane level:(unint64_t)level yInvert:(BOOL)invert
+{
+  invertCopy = invert;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [texture baseObject];
+
+  [baseObject setStencilResolveTexture:baseObject2 slice:slice depthPlane:plane level:level yInvert:invertCopy];
 }
 
 - (BOOL)isMemorylessRender
@@ -836,6 +901,20 @@
   [baseObject dispatchThreadsPerTile:&v10 inRegion:v9];
 }
 
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index
+{
+  v5 = *&index;
+  baseObject = [(MTLToolsObject *)self baseObject];
+  v9 = *&tile->var0;
+  var2 = tile->var2;
+  v10 = *&region->var0.var2;
+  v11[0] = *&region->var0.var0;
+  v11[1] = v10;
+  v11[2] = *&region->var1.var1;
+  v12 = v9;
+  [baseObject dispatchThreadsPerTile:&v12 inRegion:v11 withRenderTargetArrayIndex:v5];
+}
+
 - (void)resetTileCondition
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -848,6 +927,29 @@
   baseObject = [(MTLToolsObject *)self baseObject];
   v7 = *tile;
   [baseObject dispatchThreadsPerTile:&v7 withCondition:condition];
+}
+
+- (void)dispatchThreadsPerTile:(id *)tile inRegion:(id *)region withRenderTargetArrayIndex:(unsigned int)index withCondition:(int64_t)condition
+{
+  v7 = *&index;
+  baseObject = [(MTLToolsObject *)self baseObject];
+  v11 = *&tile->var0;
+  var2 = tile->var2;
+  v12 = *&region->var0.var2;
+  v13[0] = *&region->var0.var0;
+  v13[1] = v12;
+  v13[2] = *&region->var1.var1;
+  v14 = v11;
+  [baseObject dispatchThreadsPerTile:&v14 inRegion:v13 withRenderTargetArrayIndex:v7 withCondition:condition];
+}
+
+- (void)setStencilFrontReferenceValue:(unsigned int)value backReferenceValue:(unsigned int)referenceValue
+{
+  v4 = *&referenceValue;
+  v5 = *&value;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setStencilFrontReferenceValue:v5 backReferenceValue:v4];
 }
 
 - (void)setColorStoreAction:(unint64_t)action atIndex:(unint64_t)index
@@ -1098,12 +1200,12 @@
 {
   length = range.length;
   location = range.location;
-  v15[1] = *MEMORY[0x277D85DE8];
-  v9 = v15 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14[1] = *MEMORY[0x277D85DE8];
+  v9 = v14 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0);
   if (range.length)
   {
     buffersCopy = buffers;
-    v11 = (v15 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v11 = (v14 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0));
     v12 = range.length;
     do
     {
@@ -1117,7 +1219,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTileTexture:(id)texture atIndex:(unint64_t)index
@@ -1133,12 +1234,12 @@
 {
   length = range.length;
   location = range.location;
-  v13[1] = *MEMORY[0x277D85DE8];
-  v7 = v13 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12[1] = *MEMORY[0x277D85DE8];
+  v7 = v12 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0);
   if (range.length)
   {
     texturesCopy = textures;
-    v9 = (v13 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v9 = (v12 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0));
     v10 = range.length;
     do
     {
@@ -1152,7 +1253,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTileSamplerState:(id)state atIndex:(unint64_t)index
@@ -1168,12 +1268,12 @@
 {
   length = range.length;
   location = range.location;
-  v13[1] = *MEMORY[0x277D85DE8];
-  v7 = v13 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12[1] = *MEMORY[0x277D85DE8];
+  v7 = v12 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0);
   if (range.length)
   {
     statesCopy = states;
-    v9 = (v13 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v9 = (v12 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0));
     v10 = range.length;
     do
     {
@@ -1187,7 +1287,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTileSamplerState:(id)state lodMinClamp:(float)clamp lodMaxClamp:(float)maxClamp atIndex:(unint64_t)index
@@ -1205,12 +1304,12 @@
 {
   length = range.length;
   location = range.location;
-  v17[1] = *MEMORY[0x277D85DE8];
-  v11 = v17 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16[1] = *MEMORY[0x277D85DE8];
+  v11 = v16 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0);
   if (range.length)
   {
     statesCopy = states;
-    v13 = (v17 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0));
+    v13 = (v16 - ((8 * range.length + 15) & 0xFFFFFFFFFFFFFFF0));
     v14 = range.length;
     do
     {
@@ -1224,7 +1323,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dispatchThreadsPerTile:(id *)tile
@@ -1423,6 +1521,16 @@
   return [baseObject tileHeight];
 }
 
+- (void)sampleCountersInBuffer:(id)buffer atSampleIndex:(unint64_t)index withBarrier:(BOOL)barrier
+{
+  barrierCopy = barrier;
+  [(MTLToolsCommandEncoder *)self addRetainedObject:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+  baseObject2 = [buffer baseObject];
+
+  [baseObject sampleCountersInBuffer:baseObject2 atSampleIndex:index withBarrier:barrierCopy];
+}
+
 - (void)setObjectBytes:(const void *)bytes length:(unint64_t)length atIndex:(unint64_t)index
 {
   baseObject = [(MTLToolsObject *)self baseObject];
@@ -1450,11 +1558,11 @@
 {
   length = range.length;
   location = range.location;
-  v14[31] = *MEMORY[0x277D85DE8];
+  v13[31] = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     buffersCopy = buffers;
-    v10 = v14;
+    v10 = v13;
     v11 = range.length;
     do
     {
@@ -1468,7 +1576,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObjectTexture:(id)texture atIndex:(unint64_t)index
@@ -1484,11 +1591,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     texturesCopy = textures;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -1502,7 +1609,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObjectSamplerState:(id)state atIndex:(unint64_t)index
@@ -1518,11 +1624,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -1536,7 +1642,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObjectSamplerState:(id)state lodMinClamp:(float)clamp lodMaxClamp:(float)maxClamp atIndex:(unint64_t)index
@@ -1554,11 +1659,11 @@
 {
   length = range.length;
   location = range.location;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v12 = v16;
+    v12 = v15;
     v13 = range.length;
     do
     {
@@ -1572,7 +1677,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObjectThreadgroupMemoryLength:(unint64_t)length atIndex:(unint64_t)index
@@ -1609,11 +1713,11 @@
 {
   length = range.length;
   location = range.location;
-  v14[31] = *MEMORY[0x277D85DE8];
+  v13[31] = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     buffersCopy = buffers;
-    v10 = v14;
+    v10 = v13;
     v11 = range.length;
     do
     {
@@ -1627,7 +1731,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMeshTexture:(id)texture atIndex:(unint64_t)index
@@ -1643,11 +1746,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     texturesCopy = textures;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -1661,7 +1764,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMeshSamplerState:(id)state atIndex:(unint64_t)index
@@ -1677,11 +1779,11 @@
 {
   length = range.length;
   location = range.location;
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v8 = v12;
+    v8 = v11;
     v9 = range.length;
     do
     {
@@ -1695,7 +1797,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMeshSamplerState:(id)state lodMinClamp:(float)clamp lodMaxClamp:(float)maxClamp atIndex:(unint64_t)index
@@ -1713,11 +1814,11 @@
 {
   length = range.length;
   location = range.location;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (range.length)
   {
     statesCopy = states;
-    v12 = v16;
+    v12 = v15;
     v13 = range.length;
     do
     {
@@ -1731,7 +1832,6 @@
   }
 
   [-[MTLToolsObject baseObject](self baseObject];
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)drawMeshThreadgroups:(id *)threadgroups threadsPerObjectThreadgroup:(id *)threadgroup threadsPerMeshThreadgroup:(id *)meshThreadgroup
@@ -2140,6 +2240,18 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject endEncodingAndRetrieveProgramAddressTable];
+}
+
+- (void)enableNullBufferBinds:(BOOL)binds
+{
+  bindsCopy = binds;
+  [(MTLToolsObject *)self baseObject];
+  if (objc_opt_respondsToSelector())
+  {
+    baseObject = [(MTLToolsObject *)self baseObject];
+
+    [baseObject enableNullBufferBinds:bindsCopy];
+  }
 }
 
 - (void)useResidencySet:(id)set

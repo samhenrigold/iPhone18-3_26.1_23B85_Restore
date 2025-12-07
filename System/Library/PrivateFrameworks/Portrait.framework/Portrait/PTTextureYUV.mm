@@ -15,9 +15,9 @@
   [(PTTextureYUV *)v7 setTexChroma:chromaTextureCopy];
 
   pixelFormat = [textureCopy pixelFormat];
-  device = [textureCopy device];
+  v9 = objc_msgSend_device(textureCopy);
 
-  v7->_imageblockSize = [PTMetalTextureUtil macroBlockSizeForPixelFormat:pixelFormat device:device];
+  v7->_imageblockSize = [PTMetalTextureUtil macroBlockSizeForPixelFormat:pixelFormat device:v9];
   return v7;
 }
 

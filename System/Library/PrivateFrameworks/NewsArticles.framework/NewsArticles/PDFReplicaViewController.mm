@@ -72,7 +72,7 @@
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(id)gestureRecognizer
 {
-  sub_1D7992EFC(0, &qword_1EE0BEC90);
+  sub_1D7992EFC(0, &qword_1EE0BEC90, 0x1E69E58C0);
   recognizerCopy = recognizer;
   selfCopy = self;
   LOBYTE(self) = sub_1D7D311DC();

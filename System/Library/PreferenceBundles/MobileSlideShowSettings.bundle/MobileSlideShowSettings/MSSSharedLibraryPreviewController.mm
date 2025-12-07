@@ -7,6 +7,7 @@
 - (void)observable:(id)observable didChange:(unint64_t)change context:(void *)context;
 - (void)setParentController:(id)controller;
 - (void)startSetup:(id)setup;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation MSSSharedLibraryPreviewController
@@ -28,6 +29,17 @@
   v3 = [NSURL URLWithString:v2];
 
   return v3;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = MSSSharedLibraryPreviewController;
+  [(MSSSharedLibraryPreviewController *)&v7 viewDidAppear:appear];
+  paneTitleLocalizedResource = [(MSSSharedLibraryPreviewController *)self paneTitleLocalizedResource];
+  pathComponentsLocalizedResource = [(MSSSharedLibraryPreviewController *)self pathComponentsLocalizedResource];
+  deepLinkURL = [(MSSSharedLibraryPreviewController *)self deepLinkURL];
+  [(MSSSharedLibraryPreviewController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobileslideshow" title:paneTitleLocalizedResource localizedNavigationComponents:pathComponentsLocalizedResource deepLink:deepLinkURL];
 }
 
 - (id)specifiers

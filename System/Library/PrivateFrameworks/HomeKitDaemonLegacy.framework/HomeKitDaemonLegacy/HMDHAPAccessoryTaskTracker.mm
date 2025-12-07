@@ -10,32 +10,32 @@
 
 - (id)pendingRemoteTasks
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   os_unfair_lock_lock_with_options();
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   allValues = [(NSMutableDictionary *)self->_pendingTasks allValues];
-  v4 = [allValues countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v4)
   {
-    v5 = *v35;
-    v27 = *v35;
-    v28 = allValues;
+    v5 = *v34;
+    v26 = *v34;
+    v27 = allValues;
     do
     {
       v6 = 0;
-      v29 = v4;
+      v28 = v4;
       do
       {
-        if (*v35 != v5)
+        if (*v34 != v5)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v7 = *(*(&v34 + 1) + 8 * v6);
+        v7 = *(*(&v33 + 1) + 8 * v6);
         if ([v7 supportsMultiPartResponse])
         {
           remoteTask = v7;
@@ -82,10 +82,10 @@
 
             else
             {
-              v32 = 0u;
-              v33 = 0u;
-              v30 = 0u;
               v31 = 0u;
+              v32 = 0u;
+              v29 = 0u;
+              v30 = 0u;
               v14 = v11;
               objc_opt_class();
               if (objc_opt_isKindOfClass())
@@ -103,20 +103,20 @@
               remoteFallbackTasks = [v16 remoteFallbackTasks];
 
               remoteTask = 0;
-              v18 = [remoteFallbackTasks countByEnumeratingWithState:&v30 objects:v38 count:16];
+              v18 = [remoteFallbackTasks countByEnumeratingWithState:&v29 objects:v37 count:16];
               if (v18)
               {
-                v19 = *v31;
+                v19 = *v30;
                 do
                 {
                   for (i = 0; i != v18; ++i)
                   {
-                    if (*v31 != v19)
+                    if (*v30 != v19)
                     {
                       objc_enumerationMutation(remoteFallbackTasks);
                     }
 
-                    remoteTask2 = [*(*(&v30 + 1) + 8 * i) remoteTask];
+                    remoteTask2 = [*(*(&v29 + 1) + 8 * i) remoteTask];
                     objc_opt_class();
                     if (objc_opt_isKindOfClass())
                     {
@@ -137,7 +137,7 @@
                     }
                   }
 
-                  v18 = [remoteFallbackTasks countByEnumeratingWithState:&v30 objects:v38 count:16];
+                  v18 = [remoteFallbackTasks countByEnumeratingWithState:&v29 objects:v37 count:16];
                 }
 
                 while (v18);
@@ -145,23 +145,22 @@
             }
           }
 
-          v5 = v27;
-          allValues = v28;
-          v4 = v29;
+          v5 = v26;
+          allValues = v27;
+          v4 = v28;
         }
 
         ++v6;
       }
 
       while (v6 != v4);
-      v4 = [allValues countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v4 = [allValues countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v4);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v24 = *MEMORY[0x277D85DE8];
 
   return array;
 }

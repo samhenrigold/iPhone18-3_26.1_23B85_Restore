@@ -135,12 +135,13 @@
 
 - (id)_setUpTemporaryDirectory
 {
-  bzero(v6, 0x400uLL);
+  bzero(v7, 0x400uLL);
   [TUBundleIdentifierTelephonyUtilitiesFramework UTF8String];
-  if (!_set_user_dir_suffix() || !confstr(65537, v6, 0x400uLL) || mkdir(v6, 0x1C0u) && *__error() != 17)
+  v2 = _set_user_dir_suffix();
+  if (!v2 || (v2 = confstr(65537, v7, 0x400uLL)) == 0 || mkdir(v7, 0x1C0u) && (v2 = __error(), *v2 != 17))
   {
-    v4 = sub_100004778();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100004778(v2);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10047492C();
     }
@@ -150,11 +151,11 @@ LABEL_13:
     exit(1);
   }
 
-  bzero(v5, 0x400uLL);
-  if (!realpath_DARWIN_EXTSN(v6, v5))
+  bzero(v6, 0x400uLL);
+  if (!realpath_DARWIN_EXTSN(v7, v6))
   {
-    v4 = sub_100004778();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100004778(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1004748A4();
     }
@@ -162,14 +163,14 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v2 = [NSString stringWithUTF8String:v5];
+  v3 = [NSString stringWithUTF8String:v6];
 
-  return v2;
+  return v3;
 }
 
 - (void)propertiesDidChangeForConfiguration:(id)configuration
 {
-  v4 = sub_100004778();
+  v4 = sub_100004778(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

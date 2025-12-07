@@ -8,34 +8,34 @@
 
 + (id)browseItemsWithDictionaries:(id)dictionaries context:(id)context
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dictionariesCopy = dictionaries;
   contextCopy = context;
   v7 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v8 = dictionariesCopy;
-  v9 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       v12 = 0;
       do
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * v12);
+        v13 = *(*(&v20 + 1) + 8 * v12);
         v14 = objc_autoreleasePoolPush();
         v15 = [WLKBrowseItem alloc];
-        v16 = [(WLKBrowseItem *)v15 initWithDictionary:v13 context:contextCopy, v21];
+        v16 = [(WLKBrowseItem *)v15 initWithDictionary:v13 context:contextCopy, v20];
         if (v16)
         {
           [v7 addObject:v16];
@@ -46,7 +46,7 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
@@ -64,7 +64,6 @@
 
   v18 = v17;
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -126,7 +125,7 @@
 
 - (id)preferredComingSoonInfo
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   contentComingSoonInfo = self->_contentComingSoonInfo;
   if (contentComingSoonInfo)
   {
@@ -144,26 +143,26 @@
       playables = playables2;
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = playables;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          comingSoonInfo = [*(*(&v16 + 1) + 8 * i) comingSoonInfo];
+          comingSoonInfo = [*(*(&v15 + 1) + 8 * i) comingSoonInfo];
           if (comingSoonInfo)
           {
             v3 = comingSoonInfo;
@@ -171,7 +170,7 @@
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           continue;
@@ -184,8 +183,6 @@
     v3 = 0;
 LABEL_15:
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

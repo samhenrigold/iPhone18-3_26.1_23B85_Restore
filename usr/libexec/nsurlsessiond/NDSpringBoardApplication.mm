@@ -14,6 +14,7 @@
 - (void)applicationEnteredForeground:(id)foreground;
 - (void)applicationNoLongerInForeground:(id)foreground;
 - (void)applicationWasQuitFromAppSwitcher:(id)switcher;
+- (void)applicationWasSuspended:(id)suspended pid:(int)pid;
 - (void)disableTransitionalDiscretionaryPeriodTimer;
 - (void)removeObserver:(id)observer;
 - (void)setupDelayTimer;
@@ -122,6 +123,13 @@
   objc_sync_enter(v8);
   [(NDSpringBoardApplication *)v8 disableTransitionalDiscretionaryPeriodTimer];
   objc_sync_exit(v8);
+}
+
+- (void)applicationWasSuspended:(id)suspended pid:(int)pid
+{
+  v4.receiver = self;
+  v4.super_class = NDSpringBoardApplication;
+  [(NDApplication *)&v4 invokeSelectorForAllObservers:"applicationWasSuspended:pid:" pid:*&pid];
 }
 
 - (void)applicationBackgroundUpdatesTurnedOn:(id)on

@@ -2706,13 +2706,17 @@ void __49__ICInlineAttachment_CloudKit__isInICloudAccount__block_invoke(uint64_t
 - (void)propagateDeletionToHashtagForMarkForDeletion:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Unmarking hashtag for deletion because there is a new reference to it: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Unmarking hashtag for deletion because there is a new reference to it: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)propagateDeletionToHashtagForMarkForDeletion:(void *)a1 .cold.2(void *a1)
 {
   v1 = [a1 ic_loggingIdentifier];
-  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Marking hashtag for deletion because there are no more references to it: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_214D51000, v2, v3, "Marking hashtag for deletion because there are no more references to it: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

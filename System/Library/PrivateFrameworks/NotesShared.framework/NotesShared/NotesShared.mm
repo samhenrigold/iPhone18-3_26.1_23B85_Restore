@@ -1,7 +1,8 @@
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_9_0(void *a1, int a2, os_log_t log, const char *a4, uint8_t *a5)
@@ -19,22 +20,25 @@ uint64_t OUTLINED_FUNCTION_9_2(uint64_t result, uint64_t a2, uint64_t a3, float 
   return result;
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
 void OUTLINED_FUNCTION_2_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -49,10 +53,11 @@ uint64_t OUTLINED_FUNCTION_2_4(uint64_t a1, void *a2)
   return [a2 count];
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void OUTLINED_FUNCTION_2_5(void *a1, uint64_t a2, uint64_t a3, const char *a4)
@@ -61,26 +66,26 @@ void OUTLINED_FUNCTION_2_5(void *a1, uint64_t a2, uint64_t a3, const char *a4)
   _os_log_debug_impl(a1, v4, OS_LOG_TYPE_DEBUG, a4, v5, 0x16u);
 }
 
-void sub_214D55534()
+void sub_214D55534(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_self();
-  type metadata accessor for ICTTAudioRecording(v0);
+  v2 = objc_opt_self();
+  type metadata accessor for ICTTAudioRecording(v2);
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v2 = sub_2150A4A90();
-  [v0 registerClass:ObjCClassFromMetadata forType:v2];
-
-  type metadata accessor for ICTTAudioRecording.Fragment();
-  v3 = swift_getObjCClassFromMetadata();
   v4 = sub_2150A4A90();
-  [v0 registerClass:v3 forType:v4];
+  [v2 registerClass:ObjCClassFromMetadata forType:v4];
 
-  type metadata accessor for ICTTTranscriptSegment();
-  v5 = swift_getObjCClassFromMetadata();
-  v6 = sub_2150A4A90();
-  [v0 registerClass:v5 forType:v6];
+  type metadata accessor for ICTTAudioRecording.Fragment(v5, v6);
+  v7 = swift_getObjCClassFromMetadata();
+  v8 = sub_2150A4A90();
+  [v2 registerClass:v7 forType:v8];
+
+  type metadata accessor for ICTTTranscriptSegment(v9, v10);
+  v11 = swift_getObjCClassFromMetadata();
+  v12 = sub_2150A4A90();
+  [v2 registerClass:v11 forType:v12];
 }
 
-uint64_t sub_214D55670(uint64_t a1, unint64_t *a2)
+uint64_t sub_214D55670(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -93,10 +98,11 @@ uint64_t sub_214D55670(uint64_t a1, unint64_t *a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_13(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -106,22 +112,25 @@ void OUTLINED_FUNCTION_13(void *a1, uint64_t a2, os_log_t log, const char *a4, .
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x20u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x20u);
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 id OUTLINED_FUNCTION_1_10@<X0>(id a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>, float a4@<S0>)
@@ -149,7 +158,7 @@ void sub_214D56968(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t type metadata accessor for EditNoteActivity()
+uint64_t type metadata accessor for EditNoteActivity(uint64_t a1)
 {
   result = qword_280C23E20;
   if (!qword_280C23E20)
@@ -237,7 +246,7 @@ uint64_t sub_214D59C4C()
   v0[7] = v2;
   v0[3] = sub_214D5BDA8;
   v4 = swift_continuation_init();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41DD8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41DD8, &unk_2150C2A90);
   google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(v4);
   v3();
 
@@ -456,16 +465,16 @@ void __ICPaperKitBackedAttachmentUTTypes_block_invoke()
   ICPaperKitBackedAttachmentUTTypes_types = v2;
 }
 
-void sub_214D5A4DC()
+void sub_214D5A4DC(uint64_t a1)
 {
   sub_2150A3A00();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_214D5A588();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      sub_214D5A5D8();
-      if (v2 <= 0x3F)
+      sub_214D5A5D8(319);
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -485,15 +494,15 @@ void sub_214D5A588()
   }
 }
 
-void sub_214D5A5D8()
+void sub_214D5A5D8(uint64_t a1)
 {
   if (!qword_280C23160)
   {
     sub_214D5A634();
-    v0 = sub_2150A5330();
-    if (!v1)
+    v1 = sub_2150A5330();
+    if (!v2)
     {
-      atomic_store(v0, &qword_280C23160);
+      atomic_store(v1, &qword_280C23160);
     }
   }
 }
@@ -522,14 +531,14 @@ unint64_t sub_214D5A68C()
   return result;
 }
 
-uint64_t sub_214D5A728()
+uint64_t sub_214D5A728(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t sub_214D5A78C()
+uint64_t sub_214D5A78C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
@@ -589,87 +598,90 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t NotificationSource.init<A>(observing:object:transform:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X5>, void *a6@<X8>)
+uint64_t NotificationSource.init<A>(observing:object:transform:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t *a8@<X8>)
 {
-  v29 = a6;
-  v30 = a2;
-  v10 = *(a5 - 8);
-  MEMORY[0x28223BE20](a1);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = a8;
+  v36 = a2;
+  v13 = *(a6 - 8);
+  MEMORY[0x28223BE20](a1, a2);
+  v15 = &v29 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v24 = *(AssociatedTypeWitness - 8);
-  MEMORY[0x28223BE20](AssociatedTypeWitness);
-  v15 = &v23 - v14;
-  v16 = type metadata accessor for NotificationSource.Observer();
+  v30 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x28223BE20](AssociatedTypeWitness, v17);
+  v19 = &v29 - v18;
+  v22 = type metadata accessor for NotificationSource.Observer(0, a5, v20, v21);
 
-  v17 = objc_allocWithZone(v16);
-  v25 = a4;
-  v18 = sub_214D5AD34(a3, a4);
-  v26 = v10;
-  v27 = a1;
-  (*(v10 + 16))(v12, a1, a5);
+  v23 = objc_allocWithZone(v22);
+  v31 = a4;
+  v24 = sub_214D5AD34(a3, a4);
+  v32 = v13;
+  v33 = a1;
+  (*(v13 + 16))(v15, a1, a6);
   sub_2150A4D60();
-  v28 = a5;
+  v34 = a6;
   swift_getAssociatedConformanceWitness();
   sub_2150A5850();
-  for (i = v31; v31; i = v31)
+  for (i = v37; v37; i = v37)
   {
-    v20 = [objc_opt_self() defaultCenter];
-    v21 = [v20 _addObserver_selector_name_object_options_];
+    v26 = [objc_opt_self() defaultCenter];
+    v27 = [v26 _addObserver_selector_name_object_options_];
 
     swift_beginAccess();
-    sub_214D5B11C(&v32, v21);
+    sub_214D5B11C(v38, v27);
     swift_endAccess();
 
     sub_2150A5850();
   }
 
   swift_unknownObjectRelease();
-  (*(v26 + 8))(v27, v28);
-  result = (*(v24 + 8))(v15, AssociatedTypeWitness);
-  *v29 = v18;
+  (*(v32 + 8))(v33, v34);
+  result = (*(v30 + 8))(v19, AssociatedTypeWitness);
+  *v35 = v24;
   return result;
 }
 
 id sub_214D5AD34(uint64_t a1, uint64_t a2)
 {
   ObjectType = swift_getObjectType();
-  *&v2[qword_27CA431E8] = MEMORY[0x277D84FA0];
-  v6 = qword_27CA431F8;
-  v11 = 0;
-  v12 = 2;
-  type metadata accessor for NotificationSource.Observer.State();
-  v7 = sub_214D5AE7C();
+  v6 = *v2;
+  v7 = *MEMORY[0x277D85000];
+  *(v2 + qword_27CA431E8) = MEMORY[0x277D84FA0];
+  v8 = qword_27CA431F8;
+  v9 = *((v7 & v6) + 0x50);
+  v17 = 0;
+  v18 = 2;
+  v12 = type metadata accessor for NotificationSource.Observer.State(0, v9, v10, v11);
+  v13 = sub_214D5AE7C(&v17, v12);
   sub_214D5B0F0(0, 2);
-  *&v2[v6] = v7;
-  v8 = &v2[qword_27CA431F0];
-  *v8 = a1;
-  *(v8 + 1) = a2;
-  v10.receiver = v2;
-  v10.super_class = ObjectType;
-  return objc_msgSendSuper2(&v10, sel_init);
+  *(v2 + v8) = v13;
+  v14 = (v2 + qword_27CA431F0);
+  *v14 = a1;
+  v14[1] = a2;
+  v16.receiver = v2;
+  v16.super_class = ObjectType;
+  return objc_msgSendSuper2(&v16, sel_init);
 }
 
-uint64_t sub_214D5AE2C()
+uint64_t sub_214D5AE2C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   GenericValueMetadataWithLayoutString = swift_cvw_allocateGenericValueMetadataWithLayoutString();
   swift_cvw_instantiateLayoutString();
   return GenericValueMetadataWithLayoutString;
 }
 
-uint64_t sub_214D5AE7C()
+uint64_t sub_214D5AE7C(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for os_unfair_lock_s(255);
   sub_2150A5C70();
   return sub_2150A5C60();
 }
 
-void sub_214D5AEF8(uint64_t a1, unint64_t *a2)
+void sub_214D5AEF8(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -714,7 +726,7 @@ uint64_t __swift_memcpy9_8(uint64_t result, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_214D5B11C(uint64_t *a1, uint64_t a2)
+uint64_t sub_214D5B11C(void *a1, uint64_t a2)
 {
   v5 = *v2;
   v6 = sub_2150A64A0();
@@ -761,7 +773,7 @@ uint64_t sub_214D5B1FC(uint64_t result, unint64_t a2, char a3)
 
   if (a3)
   {
-    sub_214D5B5A0();
+    sub_214D5B5A0(v5 + 1);
   }
 
   else
@@ -774,7 +786,7 @@ uint64_t sub_214D5B1FC(uint64_t result, unint64_t a2, char a3)
       goto LABEL_12;
     }
 
-    sub_214D5B324();
+    sub_214D5B324(v5 + 1);
   }
 
   v8 = *v3;
@@ -816,123 +828,17 @@ LABEL_15:
   return result;
 }
 
-uint64_t sub_214D5B324()
+uint64_t sub_214D5B324(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA43250);
+  v2 = v1;
+  v3 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA43250, &qword_2150CE1C0);
   result = sub_2150A5AA0();
-  v4 = result;
-  if (*(v2 + 16))
+  v5 = result;
+  if (*(v3 + 16))
   {
-    v5 = 0;
-    v6 = 1 << *(v2 + 32);
-    if (v6 < 64)
-    {
-      v7 = ~(-1 << v6);
-    }
-
-    else
-    {
-      v7 = -1;
-    }
-
-    v8 = v7 & *(v2 + 56);
-    v9 = (v6 + 63) >> 6;
-    v10 = result + 56;
-    while (v8)
-    {
-      v12 = __clz(__rbit64(v8));
-      v8 &= v8 - 1;
-LABEL_15:
-      v15 = *(*(v2 + 48) + 8 * (v12 | (v5 << 6)));
-      result = sub_2150A64A0();
-      v16 = -1 << *(v4 + 32);
-      v17 = result & ~v16;
-      v18 = v17 >> 6;
-      if (((-1 << v17) & ~*(v10 + 8 * (v17 >> 6))) == 0)
-      {
-        v19 = 0;
-        v20 = (63 - v16) >> 6;
-        while (++v18 != v20 || (v19 & 1) == 0)
-        {
-          v21 = v18 == v20;
-          if (v18 == v20)
-          {
-            v18 = 0;
-          }
-
-          v19 |= v21;
-          v22 = *(v10 + 8 * v18);
-          if (v22 != -1)
-          {
-            v11 = __clz(__rbit64(~v22)) + (v18 << 6);
-            goto LABEL_7;
-          }
-        }
-
-        goto LABEL_26;
-      }
-
-      v11 = __clz(__rbit64((-1 << v17) & ~*(v10 + 8 * (v17 >> 6)))) | v17 & 0x7FFFFFFFFFFFFFC0;
-LABEL_7:
-      *(v10 + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v11;
-      *(*(v4 + 48) + 8 * v11) = v15;
-      ++*(v4 + 16);
-    }
-
-    v13 = v5;
-    while (1)
-    {
-      v5 = v13 + 1;
-      if (__OFADD__(v13, 1))
-      {
-        break;
-      }
-
-      if (v5 >= v9)
-      {
-        goto LABEL_24;
-      }
-
-      v14 = *(v2 + 56 + 8 * v5);
-      ++v13;
-      if (v14)
-      {
-        v12 = __clz(__rbit64(v14));
-        v8 = (v14 - 1) & v14;
-        goto LABEL_15;
-      }
-    }
-
-    __break(1u);
-LABEL_26:
-    __break(1u);
-  }
-
-  else
-  {
-LABEL_24:
-
-    *v1 = v4;
-  }
-
-  return result;
-}
-
-uint64_t sub_214D5B5A0()
-{
-  v1 = v0;
-  v2 = *v0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA43250);
-  result = sub_2150A5AA0();
-  v4 = result;
-  if (*(v2 + 16))
-  {
-    v5 = 0;
-    v6 = (v2 + 56);
-    v7 = 1 << *(v2 + 32);
-    v24 = v1;
+    v6 = 0;
+    v7 = 1 << *(v3 + 32);
     if (v7 < 64)
     {
       v8 = ~(-1 << v7);
@@ -943,7 +849,7 @@ uint64_t sub_214D5B5A0()
       v8 = -1;
     }
 
-    v9 = v8 & *(v2 + 56);
+    v9 = v8 & *(v3 + 56);
     v10 = (v7 + 63) >> 6;
     v11 = result + 56;
     while (v9)
@@ -951,9 +857,9 @@ uint64_t sub_214D5B5A0()
       v13 = __clz(__rbit64(v9));
       v9 &= v9 - 1;
 LABEL_15:
-      v16 = *(*(v2 + 48) + 8 * (v13 | (v5 << 6)));
+      v16 = *(*(v3 + 48) + 8 * (v13 | (v6 << 6)));
       result = sub_2150A64A0();
-      v17 = -1 << *(v4 + 32);
+      v17 = -1 << *(v5 + 32);
       v18 = result & ~v17;
       v19 = v18 >> 6;
       if (((-1 << v18) & ~*(v11 + 8 * (v18 >> 6))) == 0)
@@ -977,34 +883,31 @@ LABEL_15:
           }
         }
 
-LABEL_30:
-        __break(1u);
-        return result;
+        goto LABEL_26;
       }
 
       v12 = __clz(__rbit64((-1 << v18) & ~*(v11 + 8 * (v18 >> 6)))) | v18 & 0x7FFFFFFFFFFFFFC0;
 LABEL_7:
       *(v11 + ((v12 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v12;
-      *(*(v4 + 48) + 8 * v12) = v16;
-      ++*(v4 + 16);
+      *(*(v5 + 48) + 8 * v12) = v16;
+      ++*(v5 + 16);
     }
 
-    v14 = v5;
+    v14 = v6;
     while (1)
     {
-      v5 = v14 + 1;
+      v6 = v14 + 1;
       if (__OFADD__(v14, 1))
-      {
-        __break(1u);
-        goto LABEL_30;
-      }
-
-      if (v5 >= v10)
       {
         break;
       }
 
-      v15 = v6[v5];
+      if (v6 >= v10)
+      {
+        goto LABEL_24;
+      }
+
+      v15 = *(v3 + 56 + 8 * v6);
       ++v14;
       if (v15)
       {
@@ -1014,35 +917,144 @@ LABEL_7:
       }
     }
 
-    if (v7 >= 64)
+    __break(1u);
+LABEL_26:
+    __break(1u);
+  }
+
+  else
+  {
+LABEL_24:
+
+    *v2 = v5;
+  }
+
+  return result;
+}
+
+uint64_t sub_214D5B5A0(uint64_t a1)
+{
+  v2 = v1;
+  v3 = *v1;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA43250, &qword_2150CE1C0);
+  result = sub_2150A5AA0();
+  v5 = result;
+  if (*(v3 + 16))
+  {
+    v6 = 0;
+    v7 = (v3 + 56);
+    v8 = 1 << *(v3 + 32);
+    v25 = v2;
+    if (v8 < 64)
     {
-      bzero((v2 + 56), 8 * v10);
+      v9 = ~(-1 << v8);
     }
 
     else
     {
-      *v6 = -1 << v7;
+      v9 = -1;
     }
 
-    v1 = v24;
-    *(v2 + 16) = 0;
+    v10 = v9 & *(v3 + 56);
+    v11 = (v8 + 63) >> 6;
+    v12 = result + 56;
+    while (v10)
+    {
+      v14 = __clz(__rbit64(v10));
+      v10 &= v10 - 1;
+LABEL_15:
+      v17 = *(*(v3 + 48) + 8 * (v14 | (v6 << 6)));
+      result = sub_2150A64A0();
+      v18 = -1 << *(v5 + 32);
+      v19 = result & ~v18;
+      v20 = v19 >> 6;
+      if (((-1 << v19) & ~*(v12 + 8 * (v19 >> 6))) == 0)
+      {
+        v21 = 0;
+        v22 = (63 - v18) >> 6;
+        while (++v20 != v22 || (v21 & 1) == 0)
+        {
+          v23 = v20 == v22;
+          if (v20 == v22)
+          {
+            v20 = 0;
+          }
+
+          v21 |= v23;
+          v24 = *(v12 + 8 * v20);
+          if (v24 != -1)
+          {
+            v13 = __clz(__rbit64(~v24)) + (v20 << 6);
+            goto LABEL_7;
+          }
+        }
+
+LABEL_30:
+        __break(1u);
+        return result;
+      }
+
+      v13 = __clz(__rbit64((-1 << v19) & ~*(v12 + 8 * (v19 >> 6)))) | v19 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v12 + ((v13 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v13;
+      *(*(v5 + 48) + 8 * v13) = v17;
+      ++*(v5 + 16);
+    }
+
+    v15 = v6;
+    while (1)
+    {
+      v6 = v15 + 1;
+      if (__OFADD__(v15, 1))
+      {
+        __break(1u);
+        goto LABEL_30;
+      }
+
+      if (v6 >= v11)
+      {
+        break;
+      }
+
+      v16 = v7[v6];
+      ++v15;
+      if (v16)
+      {
+        v14 = __clz(__rbit64(v16));
+        v10 = (v16 - 1) & v16;
+        goto LABEL_15;
+      }
+    }
+
+    if (v8 >= 64)
+    {
+      bzero((v3 + 56), 8 * v11);
+    }
+
+    else
+    {
+      *v7 = -1 << v8;
+    }
+
+    v2 = v25;
+    *(v3 + 16) = 0;
   }
 
-  *v1 = v4;
+  *v2 = v5;
   return result;
 }
 
-uint64_t NotificationSource.init(observing:object:transform:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+uint64_t NotificationSource.init(observing:object:transform:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA431D8);
-  v10 = swift_allocObject();
-  *(v10 + 16) = xmmword_2150C25D0;
-  *(v10 + 32) = a1;
-  v13 = v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA431E0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA431D8, &qword_2150C6130);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_2150C25D0;
+  *(v12 + 32) = a1;
+  v15 = v12;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA431E0, &qword_2150C6138);
   sub_214D5B8A0();
-  result = NotificationSource.init<A>(observing:object:transform:)(&v13, a2, a3, a4, v11, &v14);
-  *a5 = v14;
+  result = NotificationSource.init<A>(observing:object:transform:)(&v15, a2, a3, a4, a5, v13, &v16);
+  *a6 = v16;
   return result;
 }
 
@@ -1051,7 +1063,7 @@ unint64_t sub_214D5B8A0()
   result = qword_280C23168;
   if (!qword_280C23168)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27CA431E0);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&qword_27CA431E0, &qword_2150C6138);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_280C23168);
   }
@@ -1059,11 +1071,11 @@ unint64_t sub_214D5B8A0()
   return result;
 }
 
-uint64_t sub_214D5B95C(uint64_t a1, uint64_t *a2)
+uint64_t sub_214D5B95C(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = sub_2150A3F30();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = sub_2150A3F30();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   return sub_2150A3F20();
 }
 
@@ -1100,6 +1112,14 @@ uint64_t sub_214D5BC54(uint64_t a1, uint64_t a2, uint64_t a3)
   (*(*(a3 - 8) + 32))(*(*(a2 + 64) + 40), a1);
 
   return swift_continuation_throwingResume();
+}
+
+uint64_t block_destroy_helper_10(uint64_t a1)
+{
+}
+
+{
+  return __swift_destroy_boxed_opaque_existential_0((a1 + 32));
 }
 
 uint64_t sub_214D5BDA8()
@@ -1154,10 +1174,10 @@ uint64_t sub_214D5BFE4()
   }
 }
 
-uint64_t Array.prepend(_:)(uint64_t a1)
+uint64_t Array.prepend(_:)(uint64_t a1, uint64_t a2)
 {
-  MEMORY[0x28223BE20](a1);
-  (*(v2 + 16))(&v4 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](a1, a1);
+  (*(v3 + 16))(&v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
   return sub_2150A4FA0();
 }
 
@@ -1392,9 +1412,9 @@ google::protobuf::io::CodedOutputStream *google::protobuf::io::CodedOutputStream
   return this;
 }
 
-uint64_t versioned_document::Document::MergePartialFromCodedStream(versioned_document::Document *this, google::protobuf::io::CodedInputStream *a2)
+uint64_t versioned_document::Document::MergePartialFromCodedStream(int32x2_t *this, google::protobuf::io::CodedInputStream *a2)
 {
-  google::protobuf::io::StringOutputStream::StringOutputStream(v29, this + 8);
+  google::protobuf::io::StringOutputStream::StringOutputStream(v29, &this[1]);
   google::protobuf::io::CodedOutputStream::CodedOutputStream(v28, v29);
   while (1)
   {
@@ -1474,7 +1494,7 @@ LABEL_16:
     v10 = *(a2 + 2);
     if (v9 >= v10 || (v11 = *v9, v11 < 0))
     {
-      if (!google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, this + 16))
+      if (!google::protobuf::io::CodedInputStream::ReadVarint32Fallback(a2, &this[8]))
       {
         goto LABEL_48;
       }
@@ -1485,33 +1505,33 @@ LABEL_16:
 
     else
     {
-      *(this + 16) = v11;
+      this[8].i32[0] = v11;
       v12 = v9 + 1;
       *(a2 + 1) = v12;
     }
 
-    *(this + 8) |= 1u;
+    this[4].i32[0] |= 1u;
     if (v12 < v10 && *v12 == 18)
     {
       do
       {
         *(a2 + 1) = v12 + 1;
 LABEL_27:
-        v14 = *(this + 13);
-        v15 = *(this + 12);
+        v14 = this[6].i32[1];
+        v15 = this[6].i32[0];
         if (v15 >= v14)
         {
-          if (v14 == *(this + 14))
+          if (v14 == this[7].i32[0])
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 40, v14 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[5], v14 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<versioned_document::Version>::New();
         }
 
-        v16 = *(this + 5);
-        *(this + 12) = v15 + 1;
-        v17 = *(v16 + 8 * v15);
+        v16 = this[5];
+        this[6].i32[0] = v15 + 1;
+        v17 = *(*&v16 + 8 * v15);
         v30 = 0;
         v18 = *(a2 + 1);
         if (v18 >= *(a2 + 2) || *v18 < 0)
@@ -1568,9 +1588,9 @@ LABEL_50:
   return v26;
 }
 
-void sub_214D5EA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_214D5EA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -1683,16 +1703,16 @@ LABEL_17:
   return 1;
 }
 
-void sub_214D5EC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D5EC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Reserve(uint64_t this, int a2)
+int *google::protobuf::internal::RepeatedPtrFieldBase::Reserve(int *this, int a2)
 {
-  v2 = *(this + 16);
+  v2 = this[4];
   if (v2 < a2)
   {
     v3 = 2 * v2;
@@ -1706,7 +1726,7 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Reserve(uint64_t this
       v3 = 4;
     }
 
-    *(this + 16) = v3;
+    this[4] = v3;
     operator new[]();
   }
 
@@ -1737,9 +1757,9 @@ void versioned_document::Version::SharedCtor(versioned_document::Version *this)
   *(this + 4) = 0;
 }
 
-void sub_214D5EE20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D5EE20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -2146,9 +2166,9 @@ LABEL_50:
   return v20;
 }
 
-void sub_214D5F6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_214D5F6CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -2231,14 +2251,14 @@ uint64_t google::protobuf::io::CodedInputStream::ReadVarint32Fallback(google::pr
   return v7;
 }
 
-uint64_t google::protobuf::io::CodedInputStream::PushLimit(google::protobuf::io::CodedInputStream *this, signed int a2)
+uint64_t google::protobuf::io::CodedInputStream::PushLimit(google::protobuf::io::CodedInputStream *this, unsigned int a2)
 {
   v2 = *(this + 6);
   v3 = *(this + 2);
   v4 = *(this + 10);
   v5 = *(this + 11);
   v6 = v2 - v5 + *(this + 2) - v3;
-  v7 = (v6 ^ 0x7FFFFFFFu) < a2 || a2 < 0;
+  v7 = (v6 ^ 0x7FFFFFFFu) < a2 || (a2 & 0x80000000) != 0;
   v8 = v6 + a2;
   if (v7)
   {
@@ -2392,9 +2412,9 @@ void google::protobuf::io::StringOutputStream::BackUp(google::protobuf::io::Stri
   std::string::resize(v5, v6 - a2, 0);
 }
 
-void sub_214D5FAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D5FAD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2493,9 +2513,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_214D5FD38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D5FD38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2589,9 +2609,9 @@ LABEL_14:
   return std::string::append((this + 8), v14, v15);
 }
 
-void sub_214D5FEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D5FEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -2659,9 +2679,9 @@ void versioned_document::protobuf_AddDesc_versioned_2ddocument_2eproto(versioned
   }
 }
 
-void sub_214D60020(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D60020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -2675,7 +2695,7 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
     v25 = 61;
     memset(&v26, 0, sizeof(v26));
     std::string::append(&v26, "This program requires version ", 0x1EuLL);
-    google::protobuf::internal::VersionString(a2, &v20);
+    google::protobuf::internal::VersionString(&v20, a2);
     if ((v22 & 0x80u) == 0)
     {
       v7 = &v20;
@@ -2698,7 +2718,7 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
 
     std::string::append(&v26, v7, v8);
     std::string::append(&v26, " of the Protocol Buffer runtime library, but the installed version is ", 0x46uLL);
-    google::protobuf::internal::VersionString(0x1E9BF1, &__p);
+    google::protobuf::internal::VersionString(&__p, 0x1E9BF1);
     if ((v19 & 0x80u) == 0)
     {
       p_p = &__p;
@@ -2748,7 +2768,7 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
     v25 = 72;
     memset(&v26, 0, sizeof(v26));
     std::string::append(&v26, "This program was compiled against version ", 0x2AuLL);
-    google::protobuf::internal::VersionString(this, &v20);
+    google::protobuf::internal::VersionString(&v20, this);
     if ((v22 & 0x80u) == 0)
     {
       v12 = &v20;
@@ -2771,7 +2791,7 @@ void google::protobuf::internal::VerifyVersion(google::protobuf::internal *this,
 
     std::string::append(&v26, v12, v13);
     std::string::append(&v26, " of the Protocol Buffer runtime library, which is not compatible with the installed version (", 0x5DuLL);
-    google::protobuf::internal::VersionString(0x1E9BF1, &__p);
+    google::protobuf::internal::VersionString(&__p, 0x1E9BF1);
     if ((v19 & 0x80u) == 0)
     {
       v14 = &__p;
@@ -2893,9 +2913,9 @@ void topotext::String::SharedCtor(topotext::String *this)
   *(this + 9) = 0;
 }
 
-void sub_214D605F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D605F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -2970,9 +2990,9 @@ uint64_t topotext::String::Clear(topotext::String *this)
   return result;
 }
 
-uint64_t topotext::String::MergePartialFromCodedStream(topotext::String *this, google::protobuf::io::CodedInputStream *a2)
+uint64_t topotext::String::MergePartialFromCodedStream(int32x2_t *this, google::protobuf::io::CodedInputStream *a2)
 {
-  google::protobuf::io::StringOutputStream::StringOutputStream(v58, this + 8);
+  google::protobuf::io::StringOutputStream::StringOutputStream(v58, &this[1]);
   google::protobuf::io::CodedOutputStream::CodedOutputStream(v57, v58);
   while (1)
   {
@@ -3013,8 +3033,8 @@ LABEL_2:
           }
 
 LABEL_56:
-          *(this + 8) |= 4u;
-          v25 = *(this + 9);
+          this[4].i32[0] |= 4u;
+          v25 = this[9];
           if (!v25)
           {
             operator new();
@@ -3066,21 +3086,21 @@ LABEL_56:
             {
               *(a2 + 1) = v32 + 1;
 LABEL_70:
-              v33 = *(this + 23);
-              v34 = *(this + 22);
+              v33 = this[11].i32[1];
+              v34 = this[11].i32[0];
               if (v34 >= v33)
               {
-                if (v33 == *(this + 24))
+                if (v33 == this[12].i32[0])
                 {
-                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 80, v33 + 1);
+                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[10], v33 + 1);
                 }
 
                 google::protobuf::internal::GenericTypeHandler<topotext::AttributeRun>::New();
               }
 
-              v35 = *(this + 10);
-              *(this + 22) = v34 + 1;
-              v36 = *(v35 + 8 * v34);
+              v35 = this[10];
+              this[11].i32[0] = v34 + 1;
+              v36 = *(*&v35 + 8 * v34);
               v59 = 0;
               v37 = *(a2 + 1);
               if (v37 >= *(a2 + 2) || *v37 < 0)
@@ -3152,21 +3172,21 @@ LABEL_70:
           {
             while (1)
             {
-              v44 = *(this + 29);
-              v45 = *(this + 28);
+              v44 = this[14].i32[1];
+              v45 = this[14].i32[0];
               if (v45 >= v44)
               {
-                if (v44 == *(this + 30))
+                if (v44 == this[15].i32[0])
                 {
-                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 104, v44 + 1);
+                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[13], v44 + 1);
                 }
 
                 google::protobuf::internal::GenericTypeHandler<topotext::Attachment>::New();
               }
 
-              v46 = *(this + 13);
-              *(this + 28) = v45 + 1;
-              v47 = *(v46 + 8 * v45);
+              v46 = this[13];
+              this[14].i32[0] = v45 + 1;
+              v47 = *(*&v46 + 8 * v45);
               v59 = 0;
               v48 = *(a2 + 1);
               if (v48 >= *(a2 + 2) || *v48 < 0)
@@ -3253,13 +3273,13 @@ LABEL_29:
       goto LABEL_27;
     }
 
-    *(this + 8) |= 1u;
+    this[4].i32[0] |= 1u;
     if (!google::protobuf::internal::empty_string_)
     {
       __assert_rtn("GetEmptyStringAlreadyInited", "generated_message_util.h", 80, "empty_string_ != NULL");
     }
 
-    v11 = *(this + 5);
+    v11 = this[5];
     if (v11 == google::protobuf::internal::empty_string_)
     {
       operator new();
@@ -3277,21 +3297,21 @@ LABEL_29:
       {
         *(a2 + 1) = v12 + 1;
 LABEL_38:
-        v13 = *(this + 15);
-        v14 = *(this + 14);
+        v13 = this[7].i32[1];
+        v14 = this[7].i32[0];
         if (v14 >= v13)
         {
-          if (v13 == *(this + 16))
+          if (v13 == this[8].i32[0])
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 48, v13 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[6], v13 + 1);
           }
 
           operator new();
         }
 
-        v15 = *(this + 6);
-        *(this + 14) = v14 + 1;
-        v16 = *(v15 + 8 * v14);
+        v15 = this[6];
+        this[7].i32[0] = v14 + 1;
+        v16 = *(*&v15 + 8 * v14);
         v59 = 0;
         v17 = *(a2 + 1);
         if (v17 >= *(a2 + 2) || *v17 < 0)
@@ -3386,9 +3406,9 @@ LABEL_110:
   return v55;
 }
 
-void sub_214D60DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_214D60DF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -3491,7 +3511,7 @@ LABEL_78:
               v38 = *(this + 18);
               if (v38 == *(this + 19))
               {
-                google::protobuf::RepeatedField<unsigned int>::Reserve(this + 64, v38 + 1);
+                google::protobuf::RepeatedField<unsigned int>::Reserve(this + 16, v38 + 1);
                 v38 = *(this + 18);
               }
 
@@ -3573,7 +3593,7 @@ LABEL_95:
 
           if (v7 == 42)
           {
-            if (google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<unsigned int,(google::protobuf::internal::WireFormatLite::FieldType)13>(a2, this + 64))
+            if (google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<unsigned int,(google::protobuf::internal::WireFormatLite::FieldType)13>(a2, this + 16))
             {
               goto LABEL_95;
             }
@@ -3782,9 +3802,9 @@ LABEL_103:
   return v49;
 }
 
-void sub_214D61430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_214D61430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -3937,16 +3957,16 @@ LABEL_39:
   return v17;
 }
 
-void sub_214D6165C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_214D6165C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t google::protobuf::RepeatedField<unsigned int>::Reserve(uint64_t result, int a2)
+_DWORD *google::protobuf::RepeatedField<unsigned int>::Reserve(_DWORD *result, int a2)
 {
-  v2 = *(result + 12);
+  v2 = result[3];
   if (v2 < a2)
   {
     v3 = 2 * v2;
@@ -3960,16 +3980,16 @@ uint64_t google::protobuf::RepeatedField<unsigned int>::Reserve(uint64_t result,
       v3 = 4;
     }
 
-    *(result + 12) = v3;
+    result[3] = v3;
     operator new[]();
   }
 
   return result;
 }
 
-uint64_t topotext::VectorTimestamp::MergePartialFromCodedStream(topotext::VectorTimestamp *this, google::protobuf::io::CodedInputStream *a2)
+uint64_t topotext::VectorTimestamp::MergePartialFromCodedStream(int32x2_t *this, google::protobuf::io::CodedInputStream *a2)
 {
-  google::protobuf::io::StringOutputStream::StringOutputStream(v26, this + 8);
+  google::protobuf::io::StringOutputStream::StringOutputStream(v26, &this[1]);
   google::protobuf::io::CodedOutputStream::CodedOutputStream(v25, v26);
   do
   {
@@ -4001,21 +4021,21 @@ uint64_t topotext::VectorTimestamp::MergePartialFromCodedStream(topotext::Vector
 
       while (1)
       {
-        v9 = *(this + 13);
-        v10 = *(this + 12);
+        v9 = this[6].i32[1];
+        v10 = this[6].i32[0];
         if (v10 >= v9)
         {
-          if (v9 == *(this + 14))
+          if (v9 == this[7].i32[0])
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 40, v9 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[5], v9 + 1);
           }
 
           google::protobuf::internal::GenericTypeHandler<topotext::VectorTimestamp_Clock>::New();
         }
 
-        v11 = *(this + 5);
-        *(this + 12) = v10 + 1;
-        v12 = *(v11 + 8 * v10);
+        v11 = this[5];
+        this[6].i32[0] = v10 + 1;
+        v12 = *(*&v11 + 8 * v10);
         v27 = 0;
         v13 = *(a2 + 1);
         if (v13 >= *(a2 + 2) || *v13 < 0)
@@ -4090,9 +4110,9 @@ LABEL_38:
   return v23;
 }
 
-void sub_214D6196C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_214D6196C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -4221,9 +4241,9 @@ void sub_214D61B74(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t topotext::VectorTimestamp_Clock::MergePartialFromCodedStream(topotext::VectorTimestamp_Clock *this, google::protobuf::io::CodedInputStream *a2)
+uint64_t topotext::VectorTimestamp_Clock::MergePartialFromCodedStream(int32x2_t *this, google::protobuf::io::CodedInputStream *a2)
 {
-  google::protobuf::io::StringOutputStream::StringOutputStream(v27, this + 8);
+  google::protobuf::io::StringOutputStream::StringOutputStream(v27, &this[1]);
   google::protobuf::io::CodedOutputStream::CodedOutputStream(v26, v27);
   while (1)
   {
@@ -4299,13 +4319,13 @@ LABEL_20:
       goto LABEL_23;
     }
 
-    *(this + 8) |= 1u;
+    this[4].i32[0] |= 1u;
     if (!google::protobuf::internal::empty_string_)
     {
       __assert_rtn("GetEmptyStringAlreadyInited", "generated_message_util.h", 80, "empty_string_ != NULL");
     }
 
-    v9 = *(this + 5);
+    v9 = this[5];
     if (v9 == google::protobuf::internal::empty_string_)
     {
       operator new();
@@ -4323,21 +4343,21 @@ LABEL_20:
       {
         *(a2 + 1) = v10 + 1;
 LABEL_26:
-        v12 = *(this + 15);
-        v13 = *(this + 14);
+        v12 = this[7].i32[1];
+        v13 = this[7].i32[0];
         if (v13 >= v12)
         {
-          if (v12 == *(this + 16))
+          if (v12 == this[8].i32[0])
           {
-            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(this + 48, v12 + 1);
+            google::protobuf::internal::RepeatedPtrFieldBase::Reserve(&this[6], v12 + 1);
           }
 
           operator new();
         }
 
-        v14 = *(this + 6);
-        *(this + 14) = v13 + 1;
-        v15 = *(v14 + 8 * v13);
+        v14 = this[6];
+        this[7].i32[0] = v13 + 1;
+        v15 = *(*&v14 + 8 * v13);
         v28 = 0;
         v16 = *(a2 + 1);
         if (v16 >= *(a2 + 2) || *v16 < 0)
@@ -4394,9 +4414,9 @@ LABEL_49:
   return v24;
 }
 
-void sub_214D61F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_214D61F10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -4424,9 +4444,9 @@ void topotext::VectorTimestamp_Clock::SharedCtor(topotext::VectorTimestamp_Clock
   *(this + 5) = v3;
 }
 
-void sub_214D61FE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D61FE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -4579,9 +4599,9 @@ LABEL_39:
   return v17;
 }
 
-void sub_214D621E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_214D621E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -5379,15 +5399,15 @@ LABEL_205:
   }
 }
 
-void sub_214D62E30(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D62E30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
-  MEMORY[0x216063B80](v2, 0x10B3C40F489674BLL);
+  v9 = va_arg(va1, void);
+  MEMORY[0x216063B80](v3, 0x10B3C40F489674BLL);
   google::protobuf::io::CodedOutputStream::~CodedOutputStream(va);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va1);
   _Unwind_Resume(a1);
@@ -5425,9 +5445,9 @@ double topotext::AttributeRun::SharedCtor(topotext::AttributeRun *this)
   return result;
 }
 
-void sub_214D62FB4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D62FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -5896,15 +5916,15 @@ LABEL_131:
   return v48;
 }
 
-void sub_214D6364C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D6364C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
-  MEMORY[0x216063B80](v2, 0x10B3C40417120EDLL);
+  v9 = va_arg(va1, void);
+  MEMORY[0x216063B80](v3, 0x10B3C40417120EDLL);
   google::protobuf::io::CodedOutputStream::~CodedOutputStream(va);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va1);
   _Unwind_Resume(a1);
@@ -5960,9 +5980,9 @@ double topotext::ParagraphStyle::SharedCtor(topotext::ParagraphStyle *this)
   return result;
 }
 
-void sub_214D637D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D637D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -6178,9 +6198,9 @@ LABEL_58:
   return v18;
 }
 
-void sub_214D63B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_214D63B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -6232,9 +6252,9 @@ void topotext::AttachmentInfo::SharedCtor(topotext::AttachmentInfo *this)
   *(this + 4) = 0;
 }
 
-void sub_214D63C7C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D63C7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -6512,9 +6532,9 @@ LABEL_46:
   return v14;
 }
 
-void sub_214D640A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_214D640A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   google::protobuf::io::StringOutputStream::~StringOutputStream(va);
   _Unwind_Resume(a1);
 }
@@ -6541,19 +6561,17 @@ BOOL google::protobuf::io::CodedInputStream::ReadLittleEndian32Fallback(google::
   return 1;
 }
 
-void *std::vector<TopoSubstring *>::reserve(void *result, unint64_t a2)
+void std::vector<TopoSubstring *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring *>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring *>>(a1, a2);
     }
 
     std::vector<std::pair<minIdPathData,TopoSubstring *>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring *>>(uint64_t a1, unint64_t a2)
@@ -6587,9 +6605,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_214D6433C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D6433C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6615,9 +6633,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_214D64418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D64418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6643,9 +6661,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_214D645F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D645F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -6730,42 +6748,42 @@ uint64_t google::protobuf::RepeatedField<unsigned int>::Get(uint64_t a1, int a2)
   return *a1 + 4 * a2;
 }
 
-void sub_214D647A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D647A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(void *a1, void *a2)
+void *std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(float *a1, void *a2, void *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -6773,44 +6791,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 void std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__do_rehash<true>(uint64_t a1, unint64_t a2)
@@ -6921,45 +6939,37 @@ void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,st
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -6967,11 +6977,11 @@ void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,st
 
 void traverseIterative(uint64_t a1, void *a2)
 {
-  v18[0] = a1;
+  v18 = a1;
   v2 = a2;
   v17 = 0u;
   memset(v16, 0, sizeof(v16));
-  std::deque<TopoSubstring *>::push_back(v16, v18);
+  std::deque<TopoSubstring *>::push_back(v16, &v18);
   memset(v14, 0, sizeof(v14));
   v15 = 1065353216;
   v3 = *(&v17 + 1);
@@ -7039,8 +7049,8 @@ LABEL_14:
           goto LABEL_15;
         }
 
-        v18[2] = v9;
-        v10 = std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(v14, v9);
+        v19 = v9;
+        v10 = std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(v14, v9, &std::piecewise_construct, &v19);
         v11 = v12 - 1;
       }
 
@@ -7060,27 +7070,27 @@ LABEL_18:
   std::deque<TopoSubstring *>::~deque[abi:ne200100](v16);
 }
 
-void sub_214D652C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_214D652C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::deque<TopoSubstring *>::~deque[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void *std::deque<TopoSubstring *>::__add_back_capacity(void *a1)
+void std::deque<TopoSubstring *>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x200;
   v3 = v1 - 512;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7088,25 +7098,25 @@ void *std::deque<TopoSubstring *>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **&>(a1, &v9);
 }
 
 void sub_214D65478(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7120,11 +7130,10 @@ void sub_214D65478(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::deque<TopoSubstring *>::push_back(void *result, void *a2)
+void std::deque<TopoSubstring *>::push_back(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  v5 = result[1];
+  v4 = a1[2];
+  v5 = a1[1];
   if (v4 == v5)
   {
     v6 = 0;
@@ -7135,42 +7144,40 @@ void *std::deque<TopoSubstring *>::push_back(void *result, void *a2)
     v6 = ((v4 - v5) << 6) - 1;
   }
 
-  v7 = result[5];
-  v8 = v7 + result[4];
+  v7 = a1[5];
+  v8 = v7 + a1[4];
   if (v6 == v8)
   {
-    result = std::deque<TopoSubstring *>::__add_back_capacity(result);
-    v5 = v3[1];
-    v7 = v3[5];
-    v8 = v3[4] + v7;
+    std::deque<TopoSubstring *>::__add_back_capacity(a1);
+    v5 = a1[1];
+    v7 = a1[5];
+    v8 = a1[4] + v7;
   }
 
   *(*(v5 + ((v8 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v8 & 0x1FF)) = *a2;
-  v3[5] = v7 + 1;
-  return result;
+  a1[5] = v7 + 1;
 }
 
-void *std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **>(void *result, void *a2)
+void std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<TopoSubstring **>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7179,18 +7186,17 @@ void *std::__split_buffer<TopoSubstring **>::emplace_back<TopoSubstring **>(void
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 uint64_t std::deque<TopoSubstring *>::__maybe_remove_back_spare[abi:ne200100](void *a1, int a2)
@@ -7342,14 +7348,14 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Get<google::protobuf:
   return *(*a1 + 8 * a2);
 }
 
-void sub_214D658F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D658F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
 
-void topotext::String::~String(topotext::String *this)
+void topotext::String::~String(void **this)
 {
   *this = &unk_28270B548;
   topotext::String::SharedDtor(this);
@@ -7358,7 +7364,7 @@ void topotext::String::~String(topotext::String *this)
   google::protobuf::internal::RepeatedPtrFieldBase::Destroy<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(this + 6);
   if (*(this + 31) < 0)
   {
-    operator delete(*(this + 1));
+    operator delete(this[1]);
   }
 
   google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(this);
@@ -7426,9 +7432,9 @@ void topotext::protobuf_AddDesc_topotext_2eproto(topotext *this)
   }
 }
 
-void sub_214D65C58(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D65C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -7492,9 +7498,9 @@ void topotext::Selection::SharedCtor(topotext::Selection *this)
   *(this + 4) = 0;
 }
 
-void sub_214D66360(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D66360(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -7543,9 +7549,9 @@ void topotext::Font::SharedCtor(topotext::Font *this)
   *(this + 4) = 0;
 }
 
-void sub_214D66498(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D66498(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -7683,9 +7689,9 @@ double topotext::Attachment::SharedCtor(topotext::Attachment *this)
   return result;
 }
 
-void sub_214D66770(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D66770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -7717,9 +7723,9 @@ void topotext::Media::SharedCtor(topotext::Media *this)
   *(this + 5) = v3;
 }
 
-void sub_214D66830(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D66830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -7751,9 +7757,9 @@ void topotext::Location::SharedCtor(topotext::Location *this)
   *(this + 8) = 0;
 }
 
-void sub_214D668FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D668FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -7807,9 +7813,9 @@ void topotext::PreviewImage::SharedCtor(topotext::PreviewImage *this)
   *(this + 7) = v3;
 }
 
-void sub_214D66A40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D66A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -7859,9 +7865,9 @@ void topotext::Todo::SharedCtor(topotext::Todo *this)
   *(this + 5) = v3;
 }
 
-void sub_214D66B78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D66B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
@@ -7909,21 +7915,21 @@ void topotext::BoxedValue::SharedCtor(topotext::BoxedValue *this)
   *(this + 12) = 0;
 }
 
-void sub_214D66CB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D66CB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   google::protobuf::internal::FunctionClosure0::~FunctionClosure0(va);
   _Unwind_Resume(a1);
 }
 
-void topotext::VectorTimestamp::~VectorTimestamp(topotext::VectorTimestamp *this)
+void topotext::VectorTimestamp::~VectorTimestamp(void **this)
 {
   *this = &unk_28270B6B0;
   topotext::protobuf_AddDesc_topotext_2eproto(this);
   google::protobuf::internal::RepeatedPtrFieldBase::Destroy<google::protobuf::RepeatedPtrField<versioned_document::Version>::TypeHandler>(this + 5);
   if (*(this + 31) < 0)
   {
-    operator delete(*(this + 1));
+    operator delete(this[1]);
   }
 
   google::protobuf::io::ZeroCopyOutputStream::~ZeroCopyOutputStream(this);
@@ -8373,7 +8379,7 @@ void TopoSubstring::TopoSubstring(TopoSubstring *this, TopoID a2, int a3, int a4
   *(this + 8) = clock;
 }
 
-void *std::vector<TopoSubstring *>::__assign_with_size[abi:ne200100]<TopoSubstring * const*,TopoSubstring * const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<TopoSubstring *>::__assign_with_size[abi:ne200100]<TopoSubstring * const*,TopoSubstring * const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8460,7 +8466,7 @@ void *std::vector<TopoSubstring *>::__assign_with_size[abi:ne200100]<TopoSubstri
   return result;
 }
 
-void std::vector<TopoSubstring *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<TopoSubstring *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -8480,7 +8486,7 @@ void traverseUnordered(uint64_t a1, void *a2)
   memset(v17, 0, sizeof(v17));
   v16 = 0;
   std::deque<TopoSubstring *>::push_back(v17, &v21);
-  std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v19, &v21);
+  std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v19, &v21, &v21);
   for (i = *(&v18 + 1); *(&v18 + 1); i = *(&v18 + 1))
   {
     v4 = i - 1;
@@ -8544,7 +8550,7 @@ void traverseUnordered(uint64_t a1, void *a2)
         if (!std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::find<TopoSubstring *>(v19, &v15))
         {
           std::deque<TopoSubstring *>::push_back(v17, &v15);
-          std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v19, &v15);
+          std::__hash_table<TopoSubstring *,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,std::allocator<TopoSubstring *>>::__emplace_unique_key_args<TopoSubstring *,TopoSubstring * const&>(v19, &v15, &v15);
         }
       }
 
@@ -8562,52 +8568,52 @@ LABEL_20:
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(v19);
 }
 
-void sub_214D67CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D67CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v5 = va_arg(va1, void);
+  va_start(va1, a5);
+  va_start(va, a5);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   std::deque<TopoSubstring *>::~deque[abi:ne200100](va);
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(va1);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(void *a1, void *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<TopoID,TopoSubstring *>,std::__unordered_map_hasher<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::hash<TopoID>,std::equal_to<TopoID>,true>,std::__unordered_map_equal<TopoID,std::__hash_value_type<TopoID,TopoSubstring *>,std::equal_to<TopoID>,std::hash<TopoID>,true>,std::allocator<std::__hash_value_type<TopoID,TopoSubstring *>>>::__emplace_unique_key_args<TopoID,std::piecewise_construct_t const&,std::tuple<TopoID const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, uint64_t *a4)
 {
-  v4 = *(a2 + 2);
-  v5 = [*a2 hash];
-  v6 = v5 ^ v4;
-  v7 = a1[1];
-  if (!*&v7)
+  v6 = *(a2 + 2);
+  v7 = [*a2 hash];
+  v8 = v7 ^ v6;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_19;
   }
 
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v10 = v5 ^ v4;
-    if (v6 >= *&v7)
+    v12 = v7 ^ v6;
+    if (v8 >= *&v9)
     {
-      v10 = v6 % *&v7;
+      v12 = v8 % *&v9;
     }
   }
 
   else
   {
-    v10 = (*&v7 - 1) & v6;
+    v12 = (*&v9 - 1) & v8;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_19:
     operator new();
@@ -8615,49 +8621,49 @@ LABEL_19:
 
   while (1)
   {
-    v13 = v12[1];
-    if (v13 == v6)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v9 > 1)
+    if (v11 > 1)
     {
-      if (v13 >= *&v7)
+      if (v15 >= *&v9)
       {
-        v13 %= *&v7;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v13 &= *&v7 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v13 != v10)
+    if (v15 != v12)
     {
       goto LABEL_19;
     }
 
 LABEL_18:
-    v12 = *v12;
-    if (!v12)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_19;
     }
   }
 
-  if (*(v12 + 6) != *(a2 + 2) || ([v12[2] isEqual:*a2] & 1) == 0)
+  if (*(v14 + 6) != *(a2 + 2) || ([v14[2] isEqual:*a2] & 1) == 0)
   {
     goto LABEL_18;
   }
 
-  return v12;
+  return v14;
 }
 
-void sub_214D6804C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_214D6804C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<TopoID,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<TopoID,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8763,35 +8769,35 @@ void TopoSubstring::TopoSubstring(TopoSubstring *this, TopoSubstring *a2)
   *(this + 6) = 0;
 }
 
-void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -8799,44 +8805,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 BOOL hasLoop(TopoSubstring *a1)
@@ -8862,35 +8868,35 @@ BOOL hasLoop(TopoSubstring *a1)
   return v2;
 }
 
-void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned int>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned int>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned int>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -8898,44 +8904,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 void *removeDirectToSinkEdges(void *result)
@@ -8978,10 +8984,10 @@ void *removeDirectToSinkEdges(void *result)
   return result;
 }
 
-void minIdPath(TopoSubstring *a1@<X0>, uint64_t a2@<X8>)
+void minIdPath(uint64_t *__return_ptr a1@<X8>, TopoSubstring *a2@<X0>)
 {
-  v2 = a1;
-  v3 = *a1;
+  v2 = a2;
+  v3 = *a2;
   v4 = *(v2 + 2);
   v72 = 0;
   v73 = 0;
@@ -9079,8 +9085,8 @@ LABEL_78:
       v17 = v61;
       do
       {
-        v18 = v16[-3].n128_u64[1];
-        v16 = (v16 - 40);
+        v18 = *(v16 - 5);
+        v16 -= 5;
       }
 
       while (v16 != v15);
@@ -9097,7 +9103,7 @@ LABEL_78:
     {
       obj = *v19;
       *&v66 = &obj;
-      std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v69, &obj)[3] = 1;
+      std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v69, &obj, &std::piecewise_construct, &v66)[3] = 1;
       *&v66 = 0;
       DWORD2(v66) = 0;
       v67 = obj;
@@ -9134,24 +9140,24 @@ LABEL_78:
 
           v25 = 0;
           v26 = obj;
-          if (0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3) <= 1)
+          if (0xCCCCCCCCCCCCCCCDLL * (v73 - v72) <= 1)
           {
             v27 = 1;
           }
 
           else
           {
-            v27 = 0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3);
+            v27 = 0xCCCCCCCCCCCCCCCDLL * (v73 - v72);
           }
 
           do
           {
-            if (v72[1].n128_u64[v25] == v65 && v72->n128_u64[v25])
+            if (v72[v25 + 2] == v65 && v72[v25])
             {
               v28 = v26;
               v29 = v63;
-              v30 = v72 + v25 * 8;
-              v31 = v72->n128_u64[v25];
+              v30 = &v72[v25];
+              v31 = v72[v25];
               v32 = v31;
               v33 = *(v30 + 2);
               if (v29 < v33)
@@ -9192,23 +9198,23 @@ LABEL_38:
           {
             v35 = 0;
             v36 = v63;
-            if (0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3) <= 1)
+            if (0xCCCCCCCCCCCCCCCDLL * (v73 - v72) <= 1)
             {
               v37 = 1;
             }
 
             else
             {
-              v37 = 0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3);
+              v37 = 0xCCCCCCCCCCCCCCCDLL * (v73 - v72);
             }
 
             do
             {
-              v38 = v72 + v35 * 8;
-              v39 = &v72[1].n128_u64[v35];
+              v38 = &v72[v35];
+              v39 = &v72[v35 + 2];
               if (*v39 == v65)
               {
-                objc_storeStrong((v72 + v35 * 8), v26);
+                objc_storeStrong(&v72[v35], v26);
                 *(v38 + 2) = v36;
                 *v39 = v64;
               }
@@ -9264,7 +9270,7 @@ LABEL_56:
           else
           {
             obj = &v65;
-            std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v66, &v65)[3] = v24;
+            std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::__emplace_unique_key_args<TopoSubstring *,std::piecewise_construct_t const&,std::tuple<TopoSubstring * const&>,std::tuple<>>(&v66, &v65, &std::piecewise_construct, &obj)[3] = v24;
           }
 
           v22 = *v22;
@@ -9293,7 +9299,7 @@ LABEL_62:
 
       else
       {
-        v50 = 0xCCCCCCCCCCCCCCCDLL * ((v73 - v72) >> 3);
+        v50 = 0xCCCCCCCCCCCCCCCDLL * (v73 - v72);
         while (1)
         {
           v51 = operator new(40 * v50, v21);
@@ -9339,7 +9345,7 @@ LABEL_69:
       v57 = 4;
       do
       {
-        (*v60)[v55++] = v72->n128_u64[v57];
+        (*v60)[v55++] = v72[v57];
         v57 += 5;
       }
 
@@ -9356,19 +9362,19 @@ LABEL_69:
 
 LABEL_82:
   v58 = v3;
-  *a2 = v58;
-  *(a2 + 8) = v4;
-  *(a2 + 16) = v2;
-  *(a2 + 24) = v8;
+  *a1 = v58;
+  *(a1 + 2) = v4;
+  a1[2] = v2;
+  a1[3] = v8;
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(&v69);
   *&v69 = &v72;
   std::vector<std::pair<minIdPathData,TopoSubstring *>>::__destroy_vector::operator()[abi:ne200100](&v69);
 }
 
-void sub_214D68F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void **a23)
+void sub_214D68F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23)
 {
   std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(&a23);
-  a23 = (v25 - 120);
+  a23 = v25 - 120;
   std::vector<std::pair<minIdPathData,TopoSubstring *>>::__destroy_vector::operator()[abi:ne200100](&a23);
 
   _Unwind_Resume(a1);
@@ -9430,18 +9436,20 @@ void std::__hash_table<TopoID,std::hash<TopoID>,std::equal_to<TopoID>,std::alloc
   }
 }
 
-void sub_214D693B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_214D693B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  _Block_object_dispose(&a17, 8);
-  std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(v17 + 48);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  std::__hash_table<std::__hash_value_type<TopoSubstring *,unsigned long>,std::__unordered_map_hasher<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::hash<TopoSubstring *>,std::equal_to<TopoSubstring *>,true>,std::__unordered_map_equal<TopoSubstring *,std::__hash_value_type<TopoSubstring *,unsigned long>,std::equal_to<TopoSubstring *>,std::hash<TopoSubstring *>,true>,std::allocator<std::__hash_value_type<TopoSubstring *,unsigned long>>>::~__hash_table(v16 + 48);
   a9.super_class = ICTTMergeableString;
   [(_Unwind_Exception *)&a9 dealloc];
   _Unwind_Resume(a1);
 }
 
-void google::protobuf::RepeatedPtrField<versioned_document::Version>::DeleteSubrange(google::protobuf::internal::RepeatedPtrFieldBase *a1, int a2, int a3)
+void google::protobuf::RepeatedPtrField<versioned_document::Version>::DeleteSubrange(google::protobuf::internal::RepeatedPtrFieldBase *a1, uint64_t a2, int a3)
 {
-  if (a2 < 0)
+  v4 = a2;
+  if ((a2 & 0x80000000) != 0)
   {
     google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Sources/MobileNotesSupport/Source/Shared/protobuf-lite/google/protobuf/repeated_field.h", 1134);
     v6 = google::protobuf::internal::LogMessage::operator<<(v13, "CHECK failed: (start) >= (0): ");
@@ -9463,7 +9471,7 @@ void google::protobuf::RepeatedPtrField<versioned_document::Version>::DeleteSubr
   google::protobuf::internal::LogFinisher::operator=(&v12, v7);
   google::protobuf::internal::LogMessage::~LogMessage(&v13[0].__r_.__value_.__l.__data_);
 LABEL_6:
-  if (a3 + a2 > *(a1 + 2))
+  if (a3 + v4 > *(a1 + 2))
   {
     google::protobuf::internal::LogMessage::LogMessage(v13, 3, "/Library/Caches/com.apple.xbs/Sources/MobileNotesSupport/Source/Shared/protobuf-lite/google/protobuf/repeated_field.h", 1136);
     v8 = google::protobuf::internal::LogMessage::operator<<(v13, "CHECK failed: (start + num) <= (size()): ");
@@ -9473,7 +9481,7 @@ LABEL_6:
 
   if (a3 >= 1)
   {
-    v9 = a2;
+    v9 = v4;
     v10 = a3;
     do
     {
@@ -9490,12 +9498,12 @@ LABEL_6:
     while (v10);
   }
 
-  google::protobuf::RepeatedPtrField<versioned_document::Version>::ExtractSubrange(a1, a2, a3, 0);
+  google::protobuf::RepeatedPtrField<versioned_document::Version>::ExtractSubrange(a1, v4, a3, 0);
 }
 
-void sub_214D69664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D69664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9521,9 +9529,9 @@ uint64_t google::protobuf::internal::RepeatedPtrFieldBase::Mutable<google::proto
   return *(*a1 + 8 * a2);
 }
 
-void sub_214D69780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D69780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }
@@ -9579,9 +9587,9 @@ LABEL_6:
   }
 }
 
-void sub_214D698F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_214D698F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   google::protobuf::internal::LogMessage::~LogMessage(va);
   _Unwind_Resume(a1);
 }

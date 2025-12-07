@@ -16,8 +16,8 @@
 
   if (!self->_endpoint)
   {
-    v6 = sub_1000012E4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000012E4(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1000437E8();
     }
@@ -47,8 +47,8 @@ LABEL_10:
       if (!self->local_address_storage.__u6_addr32[0] && !self->local_address_storage.__u6_addr32[1] && !self->local_address_storage.__u6_addr32[2] && !self->local_address_storage.__u6_addr32[3])
       {
         interface2 = [(RSDRemoteNCMDevice *)self interface];
-        *self->local_address_storage.__u6_addr8 = sub_100031EDC([interface2 mac_addr], 1);
-        *&self->local_address_storage.__u6_addr32[2] = v9;
+        *self->local_address_storage.__u6_addr8 = sub_100031EDC([interface2 mac_addr]);
+        *&self->local_address_storage.__u6_addr32[2] = v10;
       }
 
       return &self->local_address_storage;
@@ -71,8 +71,8 @@ LABEL_10:
 
   if (v5)
   {
-    v6 = sub_1000012E4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000012E4(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1000425F8();
     }
@@ -94,7 +94,7 @@ LABEL_10:
       return &self->remote_address_storage;
     }
 
-    interface2 = sub_1000012E4();
+    interface2 = sub_1000012E4(v5);
     if (os_log_type_enabled(interface2, OS_LOG_TYPE_ERROR))
     {
       sub_100043924();
@@ -110,7 +110,7 @@ LABEL_14:
 
   if (!is_private)
   {
-    interface2 = sub_1000012E4();
+    interface2 = sub_1000012E4(v8);
     if (os_log_type_enabled(interface2, OS_LOG_TYPE_ERROR))
     {
       sub_1000438BC();
@@ -122,8 +122,8 @@ LABEL_14:
   if (!self->remote_address_storage.__u6_addr32[0] && !self->remote_address_storage.__u6_addr32[1] && !self->remote_address_storage.__u6_addr32[2] && !self->remote_address_storage.__u6_addr32[3])
   {
     interface2 = [(RSDRemoteNCMDevice *)self interface];
-    *self->remote_address_storage.__u6_addr8 = sub_100031EDC([interface2 mac_addr], 0);
-    *&self->remote_address_storage.__u6_addr32[2] = v8;
+    *self->remote_address_storage.__u6_addr8 = sub_100031EDC([interface2 mac_addr]);
+    *&self->remote_address_storage.__u6_addr32[2] = v10;
     goto LABEL_14;
   }
 

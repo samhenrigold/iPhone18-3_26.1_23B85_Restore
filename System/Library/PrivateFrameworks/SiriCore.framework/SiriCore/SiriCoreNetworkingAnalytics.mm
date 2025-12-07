@@ -29,6 +29,8 @@
 - (BOOL)emitLogDebug;
 - (BOOL)isNetIdAvailable;
 - (SiriCoreNetworkingAnalytics)init;
+- (id)_createRequestLinkInfoFromUUID:(id)d component:(int)component;
+- (id)_createSchemaClientEventFromNetId:(id)id networkConnectionId:(id)connectionId connectionProvider:(int)provider;
 - (id)_init;
 - (id)orchestratorRequestId;
 - (unsigned)getSequenceNumber;
@@ -984,29 +986,29 @@ void __90__SiriCoreNetworkingAnalytics_SessionConnectionSnapshot__networkInterfa
 
 + (id)handShakeProtocolFromArray:(id)array
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
-  v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = arrayCopy;
-  v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v26;
+    v7 = *v25;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1055,19 +1057,17 @@ void __90__SiriCoreNetworkingAnalytics_SessionConnectionSnapshot__networkInterfa
             [v11 setHandShakeDuration:0];
           }
 
-          [v23 addObject:v11];
+          [v22 addObject:v11];
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v6);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v23;
+  return v22;
 }
 
 + (int)handshakeProtocolFromString:(id)string
@@ -1129,29 +1129,29 @@ void __90__SiriCoreNetworkingAnalytics_SessionConnectionSnapshot__networkInterfa
 
 + (id)establishmentResolutionFromArray:(id)array
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
-  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   obj = arrayCopy;
-  v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v34;
+    v8 = *v33;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v34 != v8)
+        if (*v33 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v33 + 1) + 8 * i);
+        v10 = *(*(&v32 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1234,19 +1234,17 @@ void __90__SiriCoreNetworkingAnalytics_SessionConnectionSnapshot__networkInterfa
             [v12 setEndpointCount:0];
           }
 
-          [v30 addObject:v12];
+          [v29 addObject:v12];
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v7 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v7);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v30;
+  return v29;
 }
 
 + (int)pathStatusFromNumber:(id)number
@@ -1282,29 +1280,29 @@ void __90__SiriCoreNetworkingAnalytics_SessionConnectionSnapshot__networkInterfa
 
 + (id)pathInterfacesFromArray:(id)array
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
-  v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   obj = arrayCopy;
-  v5 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v5 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v25;
+    v7 = *v24;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v25 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1352,19 +1350,17 @@ void __90__SiriCoreNetworkingAnalytics_SessionConnectionSnapshot__networkInterfa
             [v11 setIndex:0];
           }
 
-          [v22 addObject:v11];
+          [v21 addObject:v11];
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v6 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v6);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 + (int)pathTypeFromNumber:(id)number
@@ -1405,44 +1401,42 @@ void __90__SiriCoreNetworkingAnalytics_SessionConnectionSnapshot__networkInterfa
 
 + (id)endpointsFromArray:(id)array
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = arrayCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v12 = [self endpointFromDictionary:{v11, v15}];
+          v12 = [self endpointFromDictionary:{v11, v14}];
           [v5 addObject:v12];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -1537,96 +1531,93 @@ void __90__SiriCoreNetworkingAnalytics_SessionConnectionSnapshot__networkInterfa
 
 void __55__SiriCoreNetworkingAnalytics_logPeerConnectionFailed___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 16))
+  if (!*(v1 + 16))
   {
-    v3 = [*(v1 + 120) netId];
-    v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
-
-    if (v4)
+    v10 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v5 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v6 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logPeerConnectionFailed:]_block_invoke";
-        v25 = 2112;
-        v26 = v6;
-        v7 = "%s Peer connection failed already sent for netId %@";
-        v8 = v5;
-        v9 = 22;
-LABEL_7:
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v23, v9);
-        goto LABEL_15;
-      }
-
-      goto LABEL_15;
+      return;
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 120);
-    v13 = [*(v11 + 16) copy];
-    [v12 setNetId:v13];
-
-    v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
-    [v14 setPeerConnectionFailed:*(a1 + 40)];
-    v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
-    v16 = *(*(a1 + 32) + 120);
-    if (v15)
-    {
-      [v16 setClientEvent:0];
-      v17 = [MEMORY[0x277D552C0] sharedStream];
-      [v17 emitMessage:v14 timestamp:*(a1 + 48)];
-
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v19 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logPeerConnectionFailed:]_block_invoke";
-        v25 = 2112;
-        v26 = v19;
-        v20 = "%s _peerConnectionFailedEvent emitted: %@";
-LABEL_13:
-        _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v23, 0x16u);
-      }
-    }
-
-    else
-    {
-      [v16 setClientEvent:v14];
-      [*(*(a1 + 32) + 120) setTimestamp:*(a1 + 48)];
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v21 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logPeerConnectionFailed:]_block_invoke";
-        v25 = 2112;
-        v26 = v21;
-        v20 = "%s No _netIdForRequestLink for netId: %@";
-        goto LABEL_13;
-      }
-    }
-
-    goto LABEL_15;
-  }
-
-  v10 = *MEMORY[0x277CEF088];
-  if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-  {
-    v23 = 136315138;
-    v24 = "[SiriCoreNetworkingAnalytics logPeerConnectionFailed:]_block_invoke";
+    v22 = 136315138;
+    v23 = "[SiriCoreNetworkingAnalytics logPeerConnectionFailed:]_block_invoke";
     v7 = "%s No netId generated";
     v8 = v10;
     v9 = 12;
     goto LABEL_7;
   }
 
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
+  v3 = [*(v1 + 120) netId];
+  v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
+
+  if (v4)
+  {
+    v5 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v6 = *(*(a1 + 32) + 16);
+    v22 = 136315394;
+    v23 = "[SiriCoreNetworkingAnalytics logPeerConnectionFailed:]_block_invoke";
+    v24 = 2112;
+    v25 = v6;
+    v7 = "%s Peer connection failed already sent for netId %@";
+    v8 = v5;
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v22, v9);
+    return;
+  }
+
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 120);
+  v13 = [*(v11 + 16) copy];
+  [v12 setNetId:v13];
+
+  v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
+  [v14 setPeerConnectionFailed:*(a1 + 40)];
+  v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
+  v16 = *(*(a1 + 32) + 120);
+  if (v15)
+  {
+    [v16 setClientEvent:0];
+    v17 = [MEMORY[0x277D552C0] sharedStream];
+    [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v19 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logPeerConnectionFailed:]_block_invoke";
+      v24 = 2112;
+      v25 = v19;
+      v20 = "%s _peerConnectionFailedEvent emitted: %@";
+LABEL_13:
+      _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v22, 0x16u);
+    }
+  }
+
+  else
+  {
+    [v16 setClientEvent:v14];
+    [*(*(a1 + 32) + 120) setTimestamp:*(a1 + 48)];
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v21 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logPeerConnectionFailed:]_block_invoke";
+      v24 = 2112;
+      v25 = v21;
+      v20 = "%s No _netIdForRequestLink for netId: %@";
+      goto LABEL_13;
+    }
+  }
 }
 
 - (void)logSessionConnectionFailed:(id)failed
@@ -1647,96 +1638,93 @@ LABEL_15:
 
 void __58__SiriCoreNetworkingAnalytics_logSessionConnectionFailed___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 16))
+  if (!*(v1 + 16))
   {
-    v3 = [*(v1 + 112) netId];
-    v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
-
-    if (v4)
+    v10 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v5 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v6 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logSessionConnectionFailed:]_block_invoke";
-        v25 = 2112;
-        v26 = v6;
-        v7 = "%s Session connection failed already sent for netId %@";
-        v8 = v5;
-        v9 = 22;
-LABEL_7:
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v23, v9);
-        goto LABEL_15;
-      }
-
-      goto LABEL_15;
+      return;
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 112);
-    v13 = [*(v11 + 16) copy];
-    [v12 setNetId:v13];
-
-    v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
-    [v14 setSessionConnectionFailed:*(a1 + 40)];
-    v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
-    v16 = *(*(a1 + 32) + 112);
-    if (v15)
-    {
-      [v16 setClientEvent:0];
-      v17 = [MEMORY[0x277D552C0] sharedStream];
-      [v17 emitMessage:v14 timestamp:*(a1 + 48)];
-
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v19 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logSessionConnectionFailed:]_block_invoke";
-        v25 = 2112;
-        v26 = v19;
-        v20 = "%s _sessionConnectionFailedEvent emitted: %@";
-LABEL_13:
-        _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v23, 0x16u);
-      }
-    }
-
-    else
-    {
-      [v16 setClientEvent:v14];
-      [*(*(a1 + 32) + 112) setTimestamp:*(a1 + 48)];
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v21 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logSessionConnectionFailed:]_block_invoke";
-        v25 = 2112;
-        v26 = v21;
-        v20 = "%s No _netIdForRequestLink for netId: %@";
-        goto LABEL_13;
-      }
-    }
-
-    goto LABEL_15;
-  }
-
-  v10 = *MEMORY[0x277CEF088];
-  if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-  {
-    v23 = 136315138;
-    v24 = "[SiriCoreNetworkingAnalytics logSessionConnectionFailed:]_block_invoke";
+    v22 = 136315138;
+    v23 = "[SiriCoreNetworkingAnalytics logSessionConnectionFailed:]_block_invoke";
     v7 = "%s No netId generated";
     v8 = v10;
     v9 = 12;
     goto LABEL_7;
   }
 
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
+  v3 = [*(v1 + 112) netId];
+  v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
+
+  if (v4)
+  {
+    v5 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v6 = *(*(a1 + 32) + 16);
+    v22 = 136315394;
+    v23 = "[SiriCoreNetworkingAnalytics logSessionConnectionFailed:]_block_invoke";
+    v24 = 2112;
+    v25 = v6;
+    v7 = "%s Session connection failed already sent for netId %@";
+    v8 = v5;
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v22, v9);
+    return;
+  }
+
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 112);
+  v13 = [*(v11 + 16) copy];
+  [v12 setNetId:v13];
+
+  v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
+  [v14 setSessionConnectionFailed:*(a1 + 40)];
+  v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
+  v16 = *(*(a1 + 32) + 112);
+  if (v15)
+  {
+    [v16 setClientEvent:0];
+    v17 = [MEMORY[0x277D552C0] sharedStream];
+    [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v19 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logSessionConnectionFailed:]_block_invoke";
+      v24 = 2112;
+      v25 = v19;
+      v20 = "%s _sessionConnectionFailedEvent emitted: %@";
+LABEL_13:
+      _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v22, 0x16u);
+    }
+  }
+
+  else
+  {
+    [v16 setClientEvent:v14];
+    [*(*(a1 + 32) + 112) setTimestamp:*(a1 + 48)];
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v21 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logSessionConnectionFailed:]_block_invoke";
+      v24 = 2112;
+      v25 = v21;
+      v20 = "%s No _netIdForRequestLink for netId: %@";
+      goto LABEL_13;
+    }
+  }
 }
 
 - (void)logDebugSessionConnectionSnapshotCaptured:(id)captured
@@ -1759,98 +1747,95 @@ LABEL_15:
 
 void __73__SiriCoreNetworkingAnalytics_logDebugSessionConnectionSnapshotCaptured___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 16))
+  if (!*(v1 + 16))
   {
-    v3 = [*(v1 + 104) netId];
-    v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
-
-    if (v4)
+    v10 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v5 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v6 = *(*(a1 + 32) + 16);
-        v26 = 136315394;
-        v27 = "[SiriCoreNetworkingAnalytics logDebugSessionConnectionSnapshotCaptured:]_block_invoke";
-        v28 = 2112;
-        v29 = v6;
-        v7 = "%s Debug session connection snapshot already sent for netId %@";
-        v8 = v5;
-        v9 = 22;
-LABEL_7:
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v26, v9);
-      }
+      return;
     }
 
-    else
+    v25 = 136315138;
+    v26 = "[SiriCoreNetworkingAnalytics logDebugSessionConnectionSnapshotCaptured:]_block_invoke";
+    v7 = "%s No netId generated";
+    v8 = v10;
+    v9 = 12;
+    goto LABEL_7;
+  }
+
+  v3 = [*(v1 + 104) netId];
+  v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
+
+  if (v4)
+  {
+    v5 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v11 = *(a1 + 32);
-      v12 = *(v11 + 104);
-      v13 = [*(v11 + 16) copy];
-      [v12 setNetId:v13];
+      return;
+    }
 
-      v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
-      [v14 setDebugSessionConnectionSnapshotCaptured:*(a1 + 40)];
-      v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
-      v16 = *(*(a1 + 32) + 104);
-      if (v15)
-      {
-        [v16 setClientEvent:0];
-        v17 = [MEMORY[0x277D552C0] sharedStream];
-        [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+    v6 = *(*(a1 + 32) + 16);
+    v25 = 136315394;
+    v26 = "[SiriCoreNetworkingAnalytics logDebugSessionConnectionSnapshotCaptured:]_block_invoke";
+    v27 = 2112;
+    v28 = v6;
+    v7 = "%s Debug session connection snapshot already sent for netId %@";
+    v8 = v5;
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v25, v9);
+    return;
+  }
 
-        v18 = *MEMORY[0x277CEF088];
-        if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-        {
-          v19 = *(a1 + 32);
-          v20 = *(a1 + 40);
-          v21 = *(v19 + 16);
-          v22 = v18;
-          v26 = 136315650;
-          v27 = "[SiriCoreNetworkingAnalytics logDebugSessionConnectionSnapshotCaptured:]_block_invoke";
-          v28 = 2112;
-          v29 = v21;
-          v30 = 1024;
-          v31 = [v20 sequenceNumber];
-          _os_log_impl(&dword_2669D1000, v22, OS_LOG_TYPE_INFO, "%s _debugSessionConnectionSnapthotEvent emitted: %@, sequenceNumber: %u", &v26, 0x1Cu);
-        }
-      }
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 104);
+  v13 = [*(v11 + 16) copy];
+  [v12 setNetId:v13];
 
-      else
-      {
-        [v16 setClientEvent:v14];
-        [*(*(a1 + 32) + 104) setTimestamp:*(a1 + 48)];
-        v23 = *MEMORY[0x277CEF088];
-        if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-        {
-          v24 = *(*(a1 + 32) + 16);
-          v26 = 136315394;
-          v27 = "[SiriCoreNetworkingAnalytics logDebugSessionConnectionSnapshotCaptured:]_block_invoke";
-          v28 = 2112;
-          v29 = v24;
-          _os_log_impl(&dword_2669D1000, v23, OS_LOG_TYPE_INFO, "%s No _netIdForRequestLink for netId: %@", &v26, 0x16u);
-        }
-      }
+  v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
+  [v14 setDebugSessionConnectionSnapshotCaptured:*(a1 + 40)];
+  v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
+  v16 = *(*(a1 + 32) + 104);
+  if (v15)
+  {
+    [v16 setClientEvent:0];
+    v17 = [MEMORY[0x277D552C0] sharedStream];
+    [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v19 = *(a1 + 32);
+      v20 = *(a1 + 40);
+      v21 = *(v19 + 16);
+      v22 = v18;
+      v25 = 136315650;
+      v26 = "[SiriCoreNetworkingAnalytics logDebugSessionConnectionSnapshotCaptured:]_block_invoke";
+      v27 = 2112;
+      v28 = v21;
+      v29 = 1024;
+      v30 = [v20 sequenceNumber];
+      _os_log_impl(&dword_2669D1000, v22, OS_LOG_TYPE_INFO, "%s _debugSessionConnectionSnapthotEvent emitted: %@, sequenceNumber: %u", &v25, 0x1Cu);
     }
   }
 
   else
   {
-    v10 = *MEMORY[0x277CEF088];
+    [v16 setClientEvent:v14];
+    [*(*(a1 + 32) + 104) setTimestamp:*(a1 + 48)];
+    v23 = *MEMORY[0x277CEF088];
     if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v26 = 136315138;
-      v27 = "[SiriCoreNetworkingAnalytics logDebugSessionConnectionSnapshotCaptured:]_block_invoke";
-      v7 = "%s No netId generated";
-      v8 = v10;
-      v9 = 12;
-      goto LABEL_7;
+      v24 = *(*(a1 + 32) + 16);
+      v25 = 136315394;
+      v26 = "[SiriCoreNetworkingAnalytics logDebugSessionConnectionSnapshotCaptured:]_block_invoke";
+      v27 = 2112;
+      v28 = v24;
+      _os_log_impl(&dword_2669D1000, v23, OS_LOG_TYPE_INFO, "%s No _netIdForRequestLink for netId: %@", &v25, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logSessionConnectionSnapshotCaptured:(id)captured
@@ -1871,98 +1856,95 @@ LABEL_7:
 
 void __68__SiriCoreNetworkingAnalytics_logSessionConnectionSnapshotCaptured___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 16))
+  if (!*(v1 + 16))
   {
-    v3 = [*(v1 + 96) netId];
-    v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
-
-    if (v4)
+    v10 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v5 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v6 = *(*(a1 + 32) + 16);
-        v26 = 136315394;
-        v27 = "[SiriCoreNetworkingAnalytics logSessionConnectionSnapshotCaptured:]_block_invoke";
-        v28 = 2112;
-        v29 = v6;
-        v7 = "%s Session connection snapshot already sent for netId %@";
-        v8 = v5;
-        v9 = 22;
-LABEL_7:
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v26, v9);
-      }
+      return;
     }
 
-    else
+    v25 = 136315138;
+    v26 = "[SiriCoreNetworkingAnalytics logSessionConnectionSnapshotCaptured:]_block_invoke";
+    v7 = "%s No netId generated";
+    v8 = v10;
+    v9 = 12;
+    goto LABEL_7;
+  }
+
+  v3 = [*(v1 + 96) netId];
+  v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
+
+  if (v4)
+  {
+    v5 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v11 = *(a1 + 32);
-      v12 = *(v11 + 96);
-      v13 = [*(v11 + 16) copy];
-      [v12 setNetId:v13];
+      return;
+    }
 
-      v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
-      [v14 setSessionConnectionSnapshotCaptured:*(a1 + 40)];
-      v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
-      v16 = *(*(a1 + 32) + 96);
-      if (v15)
-      {
-        [v16 setClientEvent:0];
-        v17 = [MEMORY[0x277D552C0] sharedStream];
-        [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+    v6 = *(*(a1 + 32) + 16);
+    v25 = 136315394;
+    v26 = "[SiriCoreNetworkingAnalytics logSessionConnectionSnapshotCaptured:]_block_invoke";
+    v27 = 2112;
+    v28 = v6;
+    v7 = "%s Session connection snapshot already sent for netId %@";
+    v8 = v5;
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v25, v9);
+    return;
+  }
 
-        v18 = *MEMORY[0x277CEF088];
-        if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-        {
-          v19 = *(a1 + 32);
-          v20 = *(a1 + 40);
-          v21 = *(v19 + 16);
-          v22 = v18;
-          v26 = 136315650;
-          v27 = "[SiriCoreNetworkingAnalytics logSessionConnectionSnapshotCaptured:]_block_invoke";
-          v28 = 2112;
-          v29 = v21;
-          v30 = 1024;
-          v31 = [v20 sequenceNumber];
-          _os_log_impl(&dword_2669D1000, v22, OS_LOG_TYPE_INFO, "%s _sessionConnectionSnapthotEvent emitted: %@, sequenceNumber: %u", &v26, 0x1Cu);
-        }
-      }
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 96);
+  v13 = [*(v11 + 16) copy];
+  [v12 setNetId:v13];
 
-      else
-      {
-        [v16 setClientEvent:v14];
-        [*(*(a1 + 32) + 96) setTimestamp:*(a1 + 48)];
-        v23 = *MEMORY[0x277CEF088];
-        if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-        {
-          v24 = *(*(a1 + 32) + 16);
-          v26 = 136315394;
-          v27 = "[SiriCoreNetworkingAnalytics logSessionConnectionSnapshotCaptured:]_block_invoke";
-          v28 = 2112;
-          v29 = v24;
-          _os_log_impl(&dword_2669D1000, v23, OS_LOG_TYPE_INFO, "%s No _netIdForRequestLink for netId: %@", &v26, 0x16u);
-        }
-      }
+  v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
+  [v14 setSessionConnectionSnapshotCaptured:*(a1 + 40)];
+  v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
+  v16 = *(*(a1 + 32) + 96);
+  if (v15)
+  {
+    [v16 setClientEvent:0];
+    v17 = [MEMORY[0x277D552C0] sharedStream];
+    [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v19 = *(a1 + 32);
+      v20 = *(a1 + 40);
+      v21 = *(v19 + 16);
+      v22 = v18;
+      v25 = 136315650;
+      v26 = "[SiriCoreNetworkingAnalytics logSessionConnectionSnapshotCaptured:]_block_invoke";
+      v27 = 2112;
+      v28 = v21;
+      v29 = 1024;
+      v30 = [v20 sequenceNumber];
+      _os_log_impl(&dword_2669D1000, v22, OS_LOG_TYPE_INFO, "%s _sessionConnectionSnapthotEvent emitted: %@, sequenceNumber: %u", &v25, 0x1Cu);
     }
   }
 
   else
   {
-    v10 = *MEMORY[0x277CEF088];
+    [v16 setClientEvent:v14];
+    [*(*(a1 + 32) + 96) setTimestamp:*(a1 + 48)];
+    v23 = *MEMORY[0x277CEF088];
     if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v26 = 136315138;
-      v27 = "[SiriCoreNetworkingAnalytics logSessionConnectionSnapshotCaptured:]_block_invoke";
-      v7 = "%s No netId generated";
-      v8 = v10;
-      v9 = 12;
-      goto LABEL_7;
+      v24 = *(*(a1 + 32) + 16);
+      v25 = 136315394;
+      v26 = "[SiriCoreNetworkingAnalytics logSessionConnectionSnapshotCaptured:]_block_invoke";
+      v27 = 2112;
+      v28 = v24;
+      _os_log_impl(&dword_2669D1000, v23, OS_LOG_TYPE_INFO, "%s No _netIdForRequestLink for netId: %@", &v25, 0x16u);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logDebugNetworkConnectionStateReadySnapshotCaptured:(id)captured
@@ -1985,96 +1967,93 @@ LABEL_7:
 
 void __83__SiriCoreNetworkingAnalytics_logDebugNetworkConnectionStateReadySnapshotCaptured___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 16))
+  if (!*(v1 + 16))
   {
-    v3 = [*(v1 + 88) netId];
-    v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
-
-    if (v4)
+    v10 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v5 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v6 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v6;
-        v7 = "%s Debug ready snapshot already sent for netId %@";
-        v8 = v5;
-        v9 = 22;
-LABEL_7:
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v23, v9);
-        goto LABEL_15;
-      }
-
-      goto LABEL_15;
+      return;
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 88);
-    v13 = [*(v11 + 16) copy];
-    [v12 setNetId:v13];
-
-    v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
-    [v14 setDebugNetworkConnectionStateReadySnapshotCaptured:*(a1 + 40)];
-    v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
-    v16 = *(*(a1 + 32) + 88);
-    if (v15)
-    {
-      [v16 setClientEvent:0];
-      v17 = [MEMORY[0x277D552C0] sharedStream];
-      [v17 emitMessage:v14 timestamp:*(a1 + 48)];
-
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v19 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v19;
-        v20 = "%s _debugReadySnapshotEvent emitted: %@";
-LABEL_13:
-        _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v23, 0x16u);
-      }
-    }
-
-    else
-    {
-      [v16 setClientEvent:v14];
-      [*(*(a1 + 32) + 88) setTimestamp:*(a1 + 48)];
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v21 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v21;
-        v20 = "%s No _netIdForRequestLink for netId: %@";
-        goto LABEL_13;
-      }
-    }
-
-    goto LABEL_15;
-  }
-
-  v10 = *MEMORY[0x277CEF088];
-  if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-  {
-    v23 = 136315138;
-    v24 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
+    v22 = 136315138;
+    v23 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
     v7 = "%s No netId generated";
     v8 = v10;
     v9 = 12;
     goto LABEL_7;
   }
 
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
+  v3 = [*(v1 + 88) netId];
+  v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
+
+  if (v4)
+  {
+    v5 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v6 = *(*(a1 + 32) + 16);
+    v22 = 136315394;
+    v23 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
+    v24 = 2112;
+    v25 = v6;
+    v7 = "%s Debug ready snapshot already sent for netId %@";
+    v8 = v5;
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v22, v9);
+    return;
+  }
+
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 88);
+  v13 = [*(v11 + 16) copy];
+  [v12 setNetId:v13];
+
+  v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
+  [v14 setDebugNetworkConnectionStateReadySnapshotCaptured:*(a1 + 40)];
+  v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
+  v16 = *(*(a1 + 32) + 88);
+  if (v15)
+  {
+    [v16 setClientEvent:0];
+    v17 = [MEMORY[0x277D552C0] sharedStream];
+    [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v19 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
+      v24 = 2112;
+      v25 = v19;
+      v20 = "%s _debugReadySnapshotEvent emitted: %@";
+LABEL_13:
+      _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v22, 0x16u);
+    }
+  }
+
+  else
+  {
+    [v16 setClientEvent:v14];
+    [*(*(a1 + 32) + 88) setTimestamp:*(a1 + 48)];
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v21 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
+      v24 = 2112;
+      v25 = v21;
+      v20 = "%s No _netIdForRequestLink for netId: %@";
+      goto LABEL_13;
+    }
+  }
 }
 
 - (void)logNetworkConnectionStateReadySnapshotCaptured:(id)captured
@@ -2095,96 +2074,93 @@ LABEL_15:
 
 void __78__SiriCoreNetworkingAnalytics_logNetworkConnectionStateReadySnapshotCaptured___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 16))
+  if (!*(v1 + 16))
   {
-    v3 = [*(v1 + 80) netId];
-    v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
-
-    if (v4)
+    v10 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v5 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v6 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v6;
-        v7 = "%s Ready snapshot already sent for netId %@";
-        v8 = v5;
-        v9 = 22;
-LABEL_7:
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v23, v9);
-        goto LABEL_15;
-      }
-
-      goto LABEL_15;
+      return;
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 80);
-    v13 = [*(v11 + 16) copy];
-    [v12 setNetId:v13];
-
-    v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
-    [v14 setNetworkConnectionStateReadySnapshotCaptured:*(a1 + 40)];
-    v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
-    v16 = *(*(a1 + 32) + 80);
-    if (v15)
-    {
-      [v16 setClientEvent:0];
-      v17 = [MEMORY[0x277D552C0] sharedStream];
-      [v17 emitMessage:v14 timestamp:*(a1 + 48)];
-
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v19 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v19;
-        v20 = "%s _readySnapshotEvent emitted: %@";
-LABEL_13:
-        _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v23, 0x16u);
-      }
-    }
-
-    else
-    {
-      [v16 setClientEvent:v14];
-      [*(*(a1 + 32) + 80) setTimestamp:*(a1 + 48)];
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v21 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v21;
-        v20 = "%s No _netIdForRequestLink for netId: %@";
-        goto LABEL_13;
-      }
-    }
-
-    goto LABEL_15;
-  }
-
-  v10 = *MEMORY[0x277CEF088];
-  if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-  {
-    v23 = 136315138;
-    v24 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
+    v22 = 136315138;
+    v23 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
     v7 = "%s No netId generated";
     v8 = v10;
     v9 = 12;
     goto LABEL_7;
   }
 
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
+  v3 = [*(v1 + 80) netId];
+  v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
+
+  if (v4)
+  {
+    v5 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v6 = *(*(a1 + 32) + 16);
+    v22 = 136315394;
+    v23 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
+    v24 = 2112;
+    v25 = v6;
+    v7 = "%s Ready snapshot already sent for netId %@";
+    v8 = v5;
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v22, v9);
+    return;
+  }
+
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 80);
+  v13 = [*(v11 + 16) copy];
+  [v12 setNetId:v13];
+
+  v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
+  [v14 setNetworkConnectionStateReadySnapshotCaptured:*(a1 + 40)];
+  v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
+  v16 = *(*(a1 + 32) + 80);
+  if (v15)
+  {
+    [v16 setClientEvent:0];
+    v17 = [MEMORY[0x277D552C0] sharedStream];
+    [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v19 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
+      v24 = 2112;
+      v25 = v19;
+      v20 = "%s _readySnapshotEvent emitted: %@";
+LABEL_13:
+      _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v22, 0x16u);
+    }
+  }
+
+  else
+  {
+    [v16 setClientEvent:v14];
+    [*(*(a1 + 32) + 80) setTimestamp:*(a1 + 48)];
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v21 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStateReadySnapshotCaptured:]_block_invoke";
+      v24 = 2112;
+      v25 = v21;
+      v20 = "%s No _netIdForRequestLink for netId: %@";
+      goto LABEL_13;
+    }
+  }
 }
 
 - (void)logDebugNetworkConnectionStatePreparationSnapshotCaptured:(id)captured
@@ -2207,96 +2183,93 @@ LABEL_15:
 
 void __89__SiriCoreNetworkingAnalytics_logDebugNetworkConnectionStatePreparationSnapshotCaptured___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 16))
+  if (!*(v1 + 16))
   {
-    v3 = [*(v1 + 72) netId];
-    v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
-
-    if (v4)
+    v10 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v5 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v6 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v6;
-        v7 = "%s Debug preparation snapshot already sent for netId %@";
-        v8 = v5;
-        v9 = 22;
-LABEL_7:
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v23, v9);
-        goto LABEL_15;
-      }
-
-      goto LABEL_15;
+      return;
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 72);
-    v13 = [*(v11 + 16) copy];
-    [v12 setNetId:v13];
-
-    v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
-    [v14 setDebugNetworkConnectionStatePreparationSnapshotCaptured:*(a1 + 40)];
-    v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
-    v16 = *(*(a1 + 32) + 72);
-    if (v15)
-    {
-      [v16 setClientEvent:0];
-      v17 = [MEMORY[0x277D552C0] sharedStream];
-      [v17 emitMessage:v14 timestamp:*(a1 + 48)];
-
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v19 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v19;
-        v20 = "%s _debugPreparationSnapshotEvent emitted: %@";
-LABEL_13:
-        _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v23, 0x16u);
-      }
-    }
-
-    else
-    {
-      [v16 setClientEvent:v14];
-      [*(*(a1 + 32) + 72) setTimestamp:*(a1 + 48)];
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v21 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v21;
-        v20 = "%s No _netIdForRequestLink for netId: %@";
-        goto LABEL_13;
-      }
-    }
-
-    goto LABEL_15;
-  }
-
-  v10 = *MEMORY[0x277CEF088];
-  if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-  {
-    v23 = 136315138;
-    v24 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
+    v22 = 136315138;
+    v23 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
     v7 = "%s No netId generated";
     v8 = v10;
     v9 = 12;
     goto LABEL_7;
   }
 
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
+  v3 = [*(v1 + 72) netId];
+  v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
+
+  if (v4)
+  {
+    v5 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v6 = *(*(a1 + 32) + 16);
+    v22 = 136315394;
+    v23 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
+    v24 = 2112;
+    v25 = v6;
+    v7 = "%s Debug preparation snapshot already sent for netId %@";
+    v8 = v5;
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v22, v9);
+    return;
+  }
+
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 72);
+  v13 = [*(v11 + 16) copy];
+  [v12 setNetId:v13];
+
+  v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
+  [v14 setDebugNetworkConnectionStatePreparationSnapshotCaptured:*(a1 + 40)];
+  v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
+  v16 = *(*(a1 + 32) + 72);
+  if (v15)
+  {
+    [v16 setClientEvent:0];
+    v17 = [MEMORY[0x277D552C0] sharedStream];
+    [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v19 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
+      v24 = 2112;
+      v25 = v19;
+      v20 = "%s _debugPreparationSnapshotEvent emitted: %@";
+LABEL_13:
+      _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v22, 0x16u);
+    }
+  }
+
+  else
+  {
+    [v16 setClientEvent:v14];
+    [*(*(a1 + 32) + 72) setTimestamp:*(a1 + 48)];
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v21 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logDebugNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
+      v24 = 2112;
+      v25 = v21;
+      v20 = "%s No _netIdForRequestLink for netId: %@";
+      goto LABEL_13;
+    }
+  }
 }
 
 - (void)logNetworkConnectionStatePreparationSnapshotCaptured:(id)captured
@@ -2317,96 +2290,93 @@ LABEL_15:
 
 void __84__SiriCoreNetworkingAnalytics_logNetworkConnectionStatePreparationSnapshotCaptured___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 16))
+  if (!*(v1 + 16))
   {
-    v3 = [*(v1 + 64) netId];
-    v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
-
-    if (v4)
+    v10 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v5 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v6 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v6;
-        v7 = "%s Preparation snapshot already sent for netId %@";
-        v8 = v5;
-        v9 = 22;
-LABEL_7:
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v23, v9);
-        goto LABEL_15;
-      }
-
-      goto LABEL_15;
+      return;
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 64);
-    v13 = [*(v11 + 16) copy];
-    [v12 setNetId:v13];
-
-    v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
-    [v14 setNetworkConnectionStatePreparationSnapshotCaptured:*(a1 + 40)];
-    v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
-    v16 = *(*(a1 + 32) + 64);
-    if (v15)
-    {
-      [v16 setClientEvent:0];
-      v17 = [MEMORY[0x277D552C0] sharedStream];
-      [v17 emitMessage:v14 timestamp:*(a1 + 48)];
-
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v19 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v19;
-        v20 = "%s _preparationSnapshotEvent emitted: %@";
-LABEL_13:
-        _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v23, 0x16u);
-      }
-    }
-
-    else
-    {
-      [v16 setClientEvent:v14];
-      [*(*(a1 + 32) + 64) setTimestamp:*(a1 + 48)];
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v21 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
-        v25 = 2112;
-        v26 = v21;
-        v20 = "%s No _netIdForRequestLink for netId: %@";
-        goto LABEL_13;
-      }
-    }
-
-    goto LABEL_15;
-  }
-
-  v10 = *MEMORY[0x277CEF088];
-  if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-  {
-    v23 = 136315138;
-    v24 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
+    v22 = 136315138;
+    v23 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
     v7 = "%s No netId generated";
     v8 = v10;
     v9 = 12;
     goto LABEL_7;
   }
 
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
+  v3 = [*(v1 + 64) netId];
+  v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
+
+  if (v4)
+  {
+    v5 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v6 = *(*(a1 + 32) + 16);
+    v22 = 136315394;
+    v23 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
+    v24 = 2112;
+    v25 = v6;
+    v7 = "%s Preparation snapshot already sent for netId %@";
+    v8 = v5;
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v22, v9);
+    return;
+  }
+
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 64);
+  v13 = [*(v11 + 16) copy];
+  [v12 setNetId:v13];
+
+  v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
+  [v14 setNetworkConnectionStatePreparationSnapshotCaptured:*(a1 + 40)];
+  v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
+  v16 = *(*(a1 + 32) + 64);
+  if (v15)
+  {
+    [v16 setClientEvent:0];
+    v17 = [MEMORY[0x277D552C0] sharedStream];
+    [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v19 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
+      v24 = 2112;
+      v25 = v19;
+      v20 = "%s _preparationSnapshotEvent emitted: %@";
+LABEL_13:
+      _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v22, 0x16u);
+    }
+  }
+
+  else
+  {
+    [v16 setClientEvent:v14];
+    [*(*(a1 + 32) + 64) setTimestamp:*(a1 + 48)];
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v21 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logNetworkConnectionStatePreparationSnapshotCaptured:]_block_invoke";
+      v24 = 2112;
+      v25 = v21;
+      v20 = "%s No _netIdForRequestLink for netId: %@";
+      goto LABEL_13;
+    }
+  }
 }
 
 - (void)logSessionConnectionHttpHeaderCreated:(id)created
@@ -2427,96 +2397,93 @@ LABEL_15:
 
 void __69__SiriCoreNetworkingAnalytics_logSessionConnectionHttpHeaderCreated___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  if (*(v1 + 16))
+  if (!*(v1 + 16))
   {
-    v3 = [*(v1 + 56) netId];
-    v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
-
-    if (v4)
+    v10 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      v5 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v6 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logSessionConnectionHttpHeaderCreated:]_block_invoke";
-        v25 = 2112;
-        v26 = v6;
-        v7 = "%s Http header already sent for netId %@";
-        v8 = v5;
-        v9 = 22;
-LABEL_7:
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v23, v9);
-        goto LABEL_15;
-      }
-
-      goto LABEL_15;
+      return;
     }
 
-    v11 = *(a1 + 32);
-    v12 = *(v11 + 56);
-    v13 = [*(v11 + 16) copy];
-    [v12 setNetId:v13];
-
-    v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
-    [v14 setSessionConnectionHttpHeaderCreated:*(a1 + 40)];
-    v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
-    v16 = *(*(a1 + 32) + 56);
-    if (v15)
-    {
-      [v16 setClientEvent:0];
-      v17 = [MEMORY[0x277D552C0] sharedStream];
-      [v17 emitMessage:v14 timestamp:*(a1 + 48)];
-
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v19 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logSessionConnectionHttpHeaderCreated:]_block_invoke";
-        v25 = 2112;
-        v26 = v19;
-        v20 = "%s _httpHeaderEvent emitted: %@";
-LABEL_13:
-        _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v23, 0x16u);
-      }
-    }
-
-    else
-    {
-      [v16 setClientEvent:v14];
-      [*(*(a1 + 32) + 56) setTimestamp:*(a1 + 48)];
-      v18 = *MEMORY[0x277CEF088];
-      if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        v21 = *(*(a1 + 32) + 16);
-        v23 = 136315394;
-        v24 = "[SiriCoreNetworkingAnalytics logSessionConnectionHttpHeaderCreated:]_block_invoke";
-        v25 = 2112;
-        v26 = v21;
-        v20 = "%s No _netIdForRequestLink for netId: %@";
-        goto LABEL_13;
-      }
-    }
-
-    goto LABEL_15;
-  }
-
-  v10 = *MEMORY[0x277CEF088];
-  if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-  {
-    v23 = 136315138;
-    v24 = "[SiriCoreNetworkingAnalytics logSessionConnectionHttpHeaderCreated:]_block_invoke";
+    v22 = 136315138;
+    v23 = "[SiriCoreNetworkingAnalytics logSessionConnectionHttpHeaderCreated:]_block_invoke";
     v7 = "%s No netId generated";
     v8 = v10;
     v9 = 12;
     goto LABEL_7;
   }
 
-LABEL_15:
-  v22 = *MEMORY[0x277D85DE8];
+  v3 = [*(v1 + 56) netId];
+  v4 = [v3 isEqual:*(*(a1 + 32) + 16)];
+
+  if (v4)
+  {
+    v5 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v6 = *(*(a1 + 32) + 16);
+    v22 = 136315394;
+    v23 = "[SiriCoreNetworkingAnalytics logSessionConnectionHttpHeaderCreated:]_block_invoke";
+    v24 = 2112;
+    v25 = v6;
+    v7 = "%s Http header already sent for netId %@";
+    v8 = v5;
+    v9 = 22;
+LABEL_7:
+    _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, v7, &v22, v9);
+    return;
+  }
+
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 56);
+  v13 = [*(v11 + 16) copy];
+  [v12 setNetId:v13];
+
+  v14 = [*(a1 + 32) _createSchemaClientEventFromNetId:*(*(a1 + 32) + 16) networkConnectionId:*(*(a1 + 32) + 24) connectionProvider:*(*(a1 + 32) + 32)];
+  [v14 setSessionConnectionHttpHeaderCreated:*(a1 + 40)];
+  v15 = [*(*(a1 + 32) + 16) isEqual:*(*(a1 + 32) + 128)];
+  v16 = *(*(a1 + 32) + 56);
+  if (v15)
+  {
+    [v16 setClientEvent:0];
+    v17 = [MEMORY[0x277D552C0] sharedStream];
+    [v17 emitMessage:v14 timestamp:*(a1 + 48)];
+
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v19 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logSessionConnectionHttpHeaderCreated:]_block_invoke";
+      v24 = 2112;
+      v25 = v19;
+      v20 = "%s _httpHeaderEvent emitted: %@";
+LABEL_13:
+      _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, v20, &v22, 0x16u);
+    }
+  }
+
+  else
+  {
+    [v16 setClientEvent:v14];
+    [*(*(a1 + 32) + 56) setTimestamp:*(a1 + 48)];
+    v18 = *MEMORY[0x277CEF088];
+    if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      v21 = *(*(a1 + 32) + 16);
+      v22 = 136315394;
+      v23 = "[SiriCoreNetworkingAnalytics logSessionConnectionHttpHeaderCreated:]_block_invoke";
+      v24 = 2112;
+      v25 = v21;
+      v20 = "%s No _netIdForRequestLink for netId: %@";
+      goto LABEL_13;
+    }
+  }
 }
 
 - (void)logRequestLinkBetweenOrchestratorAndNetworkComponent
@@ -2532,112 +2499,107 @@ LABEL_15:
 
 void __83__SiriCoreNetworkingAnalytics_logRequestLinkBetweenOrchestratorAndNetworkComponent__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (!*(v1 + 16))
   {
     v8 = *MEMORY[0x277CEF088];
     if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
     {
-      goto LABEL_18;
+      return;
     }
 
-    v25 = 136315138;
-    v26 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
+    v24 = 136315138;
+    v25 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
     v5 = "%s No netId generated";
-    goto LABEL_16;
-  }
-
-  if (![*(v1 + 128) isEqual:?])
-  {
-    v9 = *(a1 + 32);
-    if (*(v9 + 40))
-    {
-      if (*(v9 + 48))
-      {
-        v10 = [v9 _createRequestLinkInfoFromUUID:*(v9 + 16) component:18];
-        v11 = [*(a1 + 32) _createRequestLinkInfoFromUUID:*(*(a1 + 32) + 40) component:1];
-        v12 = mach_absolute_time();
-        v13 = objc_alloc_init(MEMORY[0x277D5A9D0]);
-        [v13 setSource:v10];
-        [v13 setTarget:v11];
-        v14 = [MEMORY[0x277D552C0] sharedStream];
-        [v14 emitMessage:v13 timestamp:v12];
-
-        v15 = [*(*(a1 + 32) + 16) copy];
-        v16 = *(a1 + 32);
-        v17 = *(v16 + 128);
-        *(v16 + 128) = v15;
-
-        v18 = *MEMORY[0x277CEF088];
-        if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-        {
-          v19 = *(a1 + 32);
-          v20 = *(v19 + 16);
-          v21 = *(v19 + 40);
-          v25 = 136315650;
-          v26 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
-          v27 = 2112;
-          v28 = v20;
-          v29 = 2112;
-          v30 = v21;
-          _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, "%s netId: %@, orchestratorRequestId: %@", &v25, 0x20u);
-        }
-
-        v22 = *(a1 + 32);
-        v23 = [v22[2] copy];
-        [v22 _emitAllCachedMessagesFor:v23];
-
-        goto LABEL_18;
-      }
-
-      v8 = *MEMORY[0x277CEF088];
-      if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        goto LABEL_18;
-      }
-
-      v25 = 136315138;
-      v26 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
-      v5 = "%s No active connection";
-    }
-
-    else
-    {
-      v8 = *MEMORY[0x277CEF088];
-      if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
-      {
-        goto LABEL_18;
-      }
-
-      v25 = 136315138;
-      v26 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
-      v5 = "%s No orchestrator requestId";
-    }
-
 LABEL_16:
     v6 = v8;
     v7 = 12;
-    goto LABEL_17;
+LABEL_17:
+    _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_INFO, v5, &v24, v7);
+    return;
   }
 
-  v3 = *MEMORY[0x277CEF088];
-  if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+  if ([*(v1 + 128) isEqual:?])
   {
+    v3 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
     v4 = *(*(a1 + 32) + 16);
-    v25 = 136315394;
-    v26 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
-    v27 = 2112;
-    v28 = v4;
+    v24 = 136315394;
+    v25 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
+    v26 = 2112;
+    v27 = v4;
     v5 = "%s Request Link already sent for netId %@";
     v6 = v3;
     v7 = 22;
-LABEL_17:
-    _os_log_impl(&dword_2669D1000, v6, OS_LOG_TYPE_INFO, v5, &v25, v7);
+    goto LABEL_17;
   }
 
-LABEL_18:
-  v24 = *MEMORY[0x277D85DE8];
+  v9 = *(a1 + 32);
+  if (!*(v9 + 40))
+  {
+    v8 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v24 = 136315138;
+    v25 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
+    v5 = "%s No orchestrator requestId";
+    goto LABEL_16;
+  }
+
+  if ((*(v9 + 48) & 1) == 0)
+  {
+    v8 = *MEMORY[0x277CEF088];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+    {
+      return;
+    }
+
+    v24 = 136315138;
+    v25 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
+    v5 = "%s No active connection";
+    goto LABEL_16;
+  }
+
+  v10 = [v9 _createRequestLinkInfoFromUUID:*(v9 + 16) component:18];
+  v11 = [*(a1 + 32) _createRequestLinkInfoFromUUID:*(*(a1 + 32) + 40) component:1];
+  v12 = mach_absolute_time();
+  v13 = objc_alloc_init(MEMORY[0x277D5A9D0]);
+  [v13 setSource:v10];
+  [v13 setTarget:v11];
+  v14 = [MEMORY[0x277D552C0] sharedStream];
+  [v14 emitMessage:v13 timestamp:v12];
+
+  v15 = [*(*(a1 + 32) + 16) copy];
+  v16 = *(a1 + 32);
+  v17 = *(v16 + 128);
+  *(v16 + 128) = v15;
+
+  v18 = *MEMORY[0x277CEF088];
+  if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
+  {
+    v19 = *(a1 + 32);
+    v20 = *(v19 + 16);
+    v21 = *(v19 + 40);
+    v24 = 136315650;
+    v25 = "[SiriCoreNetworkingAnalytics logRequestLinkBetweenOrchestratorAndNetworkComponent]_block_invoke";
+    v26 = 2112;
+    v27 = v20;
+    v28 = 2112;
+    v29 = v21;
+    _os_log_impl(&dword_2669D1000, v18, OS_LOG_TYPE_INFO, "%s netId: %@, orchestratorRequestId: %@", &v24, 0x20u);
+  }
+
+  v22 = *(a1 + 32);
+  v23 = [v22[2] copy];
+  [v22 _emitAllCachedMessagesFor:v23];
 }
 
 - (void)_emitAllCachedMessagesFor:(id)for
@@ -2653,7 +2615,7 @@ LABEL_18:
 
 uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_invoke(uint64_t a1)
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(v2 + 16);
   v4 = [*(v2 + 56) netId];
@@ -2671,11 +2633,11 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
       {
         v9 = *(*(a1 + 32) + 16);
-        v76 = 136315394;
-        v77 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
-        v78 = 2112;
-        v79 = v9;
-        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, "%s _httpHeaderEvent emitted: %@", &v76, 0x16u);
+        v75 = 136315394;
+        v76 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
+        v77 = 2112;
+        v78 = v9;
+        _os_log_impl(&dword_2669D1000, v8, OS_LOG_TYPE_INFO, "%s _httpHeaderEvent emitted: %@", &v75, 0x16u);
       }
     }
   }
@@ -2701,11 +2663,11 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
       {
         v17 = *(*(a1 + 32) + 16);
-        v76 = 136315394;
-        v77 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
-        v78 = 2112;
-        v79 = v17;
-        _os_log_impl(&dword_2669D1000, v16, OS_LOG_TYPE_INFO, "%s _preparationSnapshotEvent emitted: %@", &v76, 0x16u);
+        v75 = 136315394;
+        v76 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
+        v77 = 2112;
+        v78 = v17;
+        _os_log_impl(&dword_2669D1000, v16, OS_LOG_TYPE_INFO, "%s _preparationSnapshotEvent emitted: %@", &v75, 0x16u);
       }
     }
   }
@@ -2731,11 +2693,11 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
       {
         v25 = *(*(a1 + 32) + 16);
-        v76 = 136315394;
-        v77 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
-        v78 = 2112;
-        v79 = v25;
-        _os_log_impl(&dword_2669D1000, v24, OS_LOG_TYPE_INFO, "%s _debugPreparationSnapshotEvent emitted: %@", &v76, 0x16u);
+        v75 = 136315394;
+        v76 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
+        v77 = 2112;
+        v78 = v25;
+        _os_log_impl(&dword_2669D1000, v24, OS_LOG_TYPE_INFO, "%s _debugPreparationSnapshotEvent emitted: %@", &v75, 0x16u);
       }
     }
   }
@@ -2761,11 +2723,11 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
       {
         v33 = *(*(a1 + 32) + 16);
-        v76 = 136315394;
-        v77 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
-        v78 = 2112;
-        v79 = v33;
-        _os_log_impl(&dword_2669D1000, v32, OS_LOG_TYPE_INFO, "%s _readySnapshotEvent emitted: %@", &v76, 0x16u);
+        v75 = 136315394;
+        v76 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
+        v77 = 2112;
+        v78 = v33;
+        _os_log_impl(&dword_2669D1000, v32, OS_LOG_TYPE_INFO, "%s _readySnapshotEvent emitted: %@", &v75, 0x16u);
       }
     }
   }
@@ -2791,11 +2753,11 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
       {
         v41 = *(*(a1 + 32) + 16);
-        v76 = 136315394;
-        v77 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
-        v78 = 2112;
-        v79 = v41;
-        _os_log_impl(&dword_2669D1000, v40, OS_LOG_TYPE_INFO, "%s _debugReadySnapshotEvent emitted: %@", &v76, 0x16u);
+        v75 = 136315394;
+        v76 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
+        v77 = 2112;
+        v78 = v41;
+        _os_log_impl(&dword_2669D1000, v40, OS_LOG_TYPE_INFO, "%s _debugReadySnapshotEvent emitted: %@", &v75, 0x16u);
       }
     }
   }
@@ -2821,11 +2783,11 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
       {
         v49 = *(*(a1 + 32) + 16);
-        v76 = 136315394;
-        v77 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
-        v78 = 2112;
-        v79 = v49;
-        _os_log_impl(&dword_2669D1000, v48, OS_LOG_TYPE_INFO, "%s _sessionConnectionSnapthotEvent emitted: %@", &v76, 0x16u);
+        v75 = 136315394;
+        v76 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
+        v77 = 2112;
+        v78 = v49;
+        _os_log_impl(&dword_2669D1000, v48, OS_LOG_TYPE_INFO, "%s _sessionConnectionSnapthotEvent emitted: %@", &v75, 0x16u);
       }
     }
   }
@@ -2851,11 +2813,11 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
       {
         v57 = *(*(a1 + 32) + 16);
-        v76 = 136315394;
-        v77 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
-        v78 = 2112;
-        v79 = v57;
-        _os_log_impl(&dword_2669D1000, v56, OS_LOG_TYPE_INFO, "%s _debugSessionConnectionSnapthotEvent emitted: %@", &v76, 0x16u);
+        v75 = 136315394;
+        v76 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
+        v77 = 2112;
+        v78 = v57;
+        _os_log_impl(&dword_2669D1000, v56, OS_LOG_TYPE_INFO, "%s _debugSessionConnectionSnapthotEvent emitted: %@", &v75, 0x16u);
       }
     }
   }
@@ -2881,11 +2843,11 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
       {
         v65 = *(*(a1 + 32) + 16);
-        v76 = 136315394;
-        v77 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
-        v78 = 2112;
-        v79 = v65;
-        _os_log_impl(&dword_2669D1000, v64, OS_LOG_TYPE_INFO, "%s _sessionConnectionFailedEvent emitted: %@", &v76, 0x16u);
+        v75 = 136315394;
+        v76 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
+        v77 = 2112;
+        v78 = v65;
+        _os_log_impl(&dword_2669D1000, v64, OS_LOG_TYPE_INFO, "%s _sessionConnectionFailedEvent emitted: %@", &v75, 0x16u);
       }
     }
   }
@@ -2911,11 +2873,11 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
       if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
       {
         v73 = *(*(a1 + 32) + 16);
-        v76 = 136315394;
-        v77 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
-        v78 = 2112;
-        v79 = v73;
-        _os_log_impl(&dword_2669D1000, v72, OS_LOG_TYPE_INFO, "%s _peerConnectionFailedEvent emitted: %@", &v76, 0x16u);
+        v75 = 136315394;
+        v76 = "[SiriCoreNetworkingAnalytics _emitAllCachedMessagesFor:]_block_invoke";
+        v77 = 2112;
+        v78 = v73;
+        _os_log_impl(&dword_2669D1000, v72, OS_LOG_TYPE_INFO, "%s _peerConnectionFailedEvent emitted: %@", &v75, 0x16u);
       }
     }
   }
@@ -2932,9 +2894,46 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
   [*(*(a1 + 32) + 96) setClientEvent:0];
   [*(*(a1 + 32) + 104) setClientEvent:0];
   [*(*(a1 + 32) + 112) setClientEvent:0];
-  result = [*(*(a1 + 32) + 120) setClientEvent:0];
-  v75 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 120) setClientEvent:0];
+}
+
+- (id)_createSchemaClientEventFromNetId:(id)id networkConnectionId:(id)connectionId connectionProvider:(int)provider
+{
+  v5 = *&provider;
+  v7 = MEMORY[0x277D58B78];
+  connectionIdCopy = connectionId;
+  idCopy = id;
+  v10 = objc_alloc_init(v7);
+  v11 = objc_alloc_init(MEMORY[0x277D58B80]);
+  [v10 setEventMetadata:v11];
+
+  v12 = [objc_alloc(MEMORY[0x277D5AC78]) initWithNSUUID:idCopy];
+  v13 = [objc_alloc(MEMORY[0x277D5AC78]) initWithNSUUID:connectionIdCopy];
+
+  eventMetadata = [v10 eventMetadata];
+  [eventMetadata setNetId:v12];
+
+  eventMetadata2 = [v10 eventMetadata];
+  [eventMetadata2 setNetworkConnectionId:v13];
+
+  eventMetadata3 = [v10 eventMetadata];
+  [eventMetadata3 setProvider:v5];
+
+  return v10;
+}
+
+- (id)_createRequestLinkInfoFromUUID:(id)d component:(int)component
+{
+  v4 = *&component;
+  v5 = MEMORY[0x277D5AC78];
+  dCopy = d;
+  v7 = [[v5 alloc] initWithNSUUID:dCopy];
+
+  v8 = objc_alloc_init(MEMORY[0x277D5A9E0]);
+  [v8 setUuid:v7];
+  [v8 setComponent:v4];
+
+  return v8;
 }
 
 - (BOOL)emitLogDebug
@@ -2985,7 +2984,7 @@ uint64_t __57__SiriCoreNetworkingAnalytics__emitAllCachedMessagesFor___block_inv
 
 void __56__SiriCoreNetworkingAnalytics_setOrchestratorRequestId___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(a1 + 40)];
   v3 = *(a1 + 32);
   v4 = *(v3 + 40);
@@ -2995,14 +2994,12 @@ void __56__SiriCoreNetworkingAnalytics_setOrchestratorRequestId___block_invoke(u
   if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
   {
     v6 = *(*(a1 + 32) + 40);
-    v8 = 136315394;
-    v9 = "[SiriCoreNetworkingAnalytics setOrchestratorRequestId:]_block_invoke";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s OrchestratorRequestId Updated: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SiriCoreNetworkingAnalytics setOrchestratorRequestId:]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s OrchestratorRequestId Updated: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetSequenceNumber
@@ -3066,7 +3063,7 @@ uint64_t __53__SiriCoreNetworkingAnalytics_increaseSequenceNumber__block_invoke(
 
 void __47__SiriCoreNetworkingAnalytics_isNetIdAvailable__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 40) + 8) + 24) = *(*(a1 + 32) + 49);
   v2 = *MEMORY[0x277CEF088];
   if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
@@ -3081,14 +3078,12 @@ void __47__SiriCoreNetworkingAnalytics_isNetIdAvailable__block_invoke(uint64_t a
       v3 = @"NO";
     }
 
-    v5 = 136315394;
-    v6 = "[SiriCoreNetworkingAnalytics isNetIdAvailable]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s NetId available: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SiriCoreNetworkingAnalytics isNetIdAvailable]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s NetId available: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNetIdAvailable:(BOOL)available
@@ -3105,7 +3100,7 @@ void __47__SiriCoreNetworkingAnalytics_isNetIdAvailable__block_invoke(uint64_t a
 
 void __49__SiriCoreNetworkingAnalytics_setNetIdAvailable___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 49) = *(a1 + 40);
   v2 = *MEMORY[0x277CEF088];
   if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
@@ -3120,14 +3115,12 @@ void __49__SiriCoreNetworkingAnalytics_setNetIdAvailable___block_invoke(uint64_t
       v3 = @"NO";
     }
 
-    v5 = 136315394;
-    v6 = "[SiriCoreNetworkingAnalytics setNetIdAvailable:]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s NetId available: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SiriCoreNetworkingAnalytics setNetIdAvailable:]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s NetId available: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setIsConnectionActive:(BOOL)active
@@ -3177,20 +3170,18 @@ void __49__SiriCoreNetworkingAnalytics_setNetIdAvailable___block_invoke(uint64_t
 
 void __53__SiriCoreNetworkingAnalytics_setConnectionProvider___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 32) = [SiriCoreNetworkingAnalytics providerFromString:*(a1 + 40)];
   v2 = *MEMORY[0x277CEF088];
   if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v5 = 136315394;
-    v6 = "[SiriCoreNetworkingAnalytics setConnectionProvider:]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s ConnectionProvider Updated: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SiriCoreNetworkingAnalytics setConnectionProvider:]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s ConnectionProvider Updated: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNetworkConnectionId:(id)id
@@ -3209,20 +3200,18 @@ void __53__SiriCoreNetworkingAnalytics_setConnectionProvider___block_invoke(uint
 
 void __54__SiriCoreNetworkingAnalytics_setNetworkConnectionId___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 24), *(a1 + 40));
   v2 = *MEMORY[0x277CEF088];
   if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
   {
     v3 = *(*(a1 + 32) + 24);
-    v5 = 136315394;
-    v6 = "[SiriCoreNetworkingAnalytics setNetworkConnectionId:]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s NetworkConnectionId Updated: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SiriCoreNetworkingAnalytics setNetworkConnectionId:]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_2669D1000, v2, OS_LOG_TYPE_INFO, "%s NetworkConnectionId Updated: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setNetId:(id)id
@@ -3241,7 +3230,7 @@ void __54__SiriCoreNetworkingAnalytics_setNetworkConnectionId___block_invoke(uin
 
 void __40__SiriCoreNetworkingAnalytics_setNetId___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:*(a1 + 40)];
   v3 = *(a1 + 32);
   v4 = *(v3 + 16);
@@ -3251,14 +3240,12 @@ void __40__SiriCoreNetworkingAnalytics_setNetId___block_invoke(uint64_t a1)
   if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
   {
     v6 = *(*(a1 + 32) + 16);
-    v8 = 136315394;
-    v9 = "[SiriCoreNetworkingAnalytics setNetId:]_block_invoke";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s NetId Updated: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SiriCoreNetworkingAnalytics setNetId:]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s NetId Updated: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetNetId
@@ -3274,7 +3261,7 @@ void __40__SiriCoreNetworkingAnalytics_setNetId___block_invoke(uint64_t a1)
 
 void __41__SiriCoreNetworkingAnalytics_resetNetId__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCAD78] UUID];
   v3 = *(a1 + 32);
   v4 = *(v3 + 16);
@@ -3284,14 +3271,12 @@ void __41__SiriCoreNetworkingAnalytics_resetNetId__block_invoke(uint64_t a1)
   if (os_log_type_enabled(*MEMORY[0x277CEF088], OS_LOG_TYPE_INFO))
   {
     v6 = *(*(a1 + 32) + 16);
-    v8 = 136315394;
-    v9 = "[SiriCoreNetworkingAnalytics resetNetId]_block_invoke";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s NetId Updated: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SiriCoreNetworkingAnalytics resetNetId]_block_invoke";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_2669D1000, v5, OS_LOG_TYPE_INFO, "%s NetId Updated: %@", &v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -3379,9 +3364,11 @@ void __41__SiriCoreNetworkingAnalytics_resetNetId__block_invoke(uint64_t a1)
 
 uint64_t __64__SiriCoreNetworkingAnalytics_sharedSiriCoreNetworkingAnalytics__block_invoke()
 {
-  sharedSiriCoreNetworkingAnalytics_shared = [[SiriCoreNetworkingAnalytics alloc] _init];
+  v0 = [[SiriCoreNetworkingAnalytics alloc] _init];
+  v1 = sharedSiriCoreNetworkingAnalytics_shared;
+  sharedSiriCoreNetworkingAnalytics_shared = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

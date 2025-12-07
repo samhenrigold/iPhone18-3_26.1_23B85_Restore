@@ -106,7 +106,6 @@ LABEL_4:
       goto LABEL_24;
     }
 
-    v6 = equalCopy[8];
     if (self->_caseInsensitive)
     {
       if ((equalCopy[8] & 1) == 0)
@@ -143,7 +142,6 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  v7 = equalCopy[9];
   if (self->_diacriticInsensitive)
   {
     if ((equalCopy[9] & 1) == 0)
@@ -268,12 +266,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    caseInsensitive = self->_caseInsensitive;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -292,15 +289,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  diacriticInsensitive = self->_diacriticInsensitive;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    widthInsensitive = self->_widthInsensitive;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

@@ -157,19 +157,19 @@ LABEL_23:
 - (id)descriptionDictionary
 {
   selfCopy = self;
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = @"TAUnknownBeaconIdentifier";
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = @"TAUnknownBeaconIdentifier";
   identifier = [(TAUnknownBeacon *)self identifier];
   v4 = [identifier description];
-  v14[0] = v4;
-  v13[1] = @"TAUnknownBeaconAddress";
+  v13[0] = v4;
+  v12[1] = @"TAUnknownBeaconAddress";
   address = [selfCopy address];
   v6 = [address description];
-  v14[1] = v6;
-  v13[2] = @"TAUnknownBeaconType";
+  v13[1] = v6;
+  v12[2] = @"TAUnknownBeaconType";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(selfCopy, "deviceType")}];
-  v14[2] = v7;
-  v13[3] = @"TAUnknownBeaconAccessoryInfo";
+  v13[2] = v7;
+  v12[3] = @"TAUnknownBeaconAccessoryInfo";
   accessoryInfo = [selfCopy accessoryInfo];
   if (accessoryInfo)
   {
@@ -182,13 +182,11 @@ LABEL_23:
     descriptionDictionary = &stru_287F632C0;
   }
 
-  v14[3] = descriptionDictionary;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = descriptionDictionary;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
   if (accessoryInfo)
   {
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

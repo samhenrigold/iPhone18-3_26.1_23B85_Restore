@@ -41,12 +41,12 @@
 
 - (HMOutgoingHomeInvitation)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HM.invitationData"];
-  v21.receiver = self;
-  v21.super_class = HMOutgoingHomeInvitation;
-  v6 = [(HMHomeInvitation *)&v21 initWithCoder:coderCopy invitationData:v5];
+  v20.receiver = self;
+  v20.super_class = HMOutgoingHomeInvitation;
+  v6 = [(HMHomeInvitation *)&v20 initWithCoder:coderCopy invitationData:v5];
   if (v6)
   {
     v7 = [HMUser alloc];
@@ -60,15 +60,14 @@
 
     accessoryInvitations = v6->_accessoryInvitations;
     v15 = MEMORY[0x1E695DFD8];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
     v17 = [v15 setWithArray:v16];
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"HM.accessoryInvitations"];
     [(HMMutableArray *)accessoryInvitations setArray:v18];
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -105,7 +104,7 @@
 
 void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -113,20 +112,19 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed accessory invitation via merge: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Removed accessory invitation via merge: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_invoke_130(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -134,11 +132,11 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v14 = 138543618;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added accessory invitation via merge: %@", &v14, 0x16u);
+    v13 = 138543618;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Added accessory invitation via merge: %@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -149,7 +147,6 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
   v12 = [v10 hmf_firstObjectWithUniqueIdentifier:v11];
 
   [v3 setAccessory:v12];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_cancelInviteWithCompletionHandler:(id)handler
@@ -173,28 +170,28 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
 
 - (void)cancelInviteWithCompletionHandler:(id)handler
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(HMHomeInvitation *)self context];
   if (!handlerCopy)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMOutgoingHomeInvitation cancelInviteWithCompletionHandler:]", @"completion"];
-    v15 = objc_autoreleasePoolPush();
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMOutgoingHomeInvitation cancelInviteWithCompletionHandler:]", @"completion"];
+    v14 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v17 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v18 = HMFGetLogIdentifier();
+      v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v18;
-      v24 = 2112;
-      v25 = v14;
-      _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v22 = v17;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v15);
-    v19 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v14 userInfo:0];
-    objc_exception_throw(v19);
+    objc_autoreleasePoolPop(v14);
+    v18 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v13 userInfo:0];
+    objc_exception_throw(v18);
   }
 
   v6 = context;
@@ -206,7 +203,7 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
     block[2] = __62__HMOutgoingHomeInvitation_cancelInviteWithCompletionHandler___block_invoke;
     block[3] = &unk_1E754E458;
     block[4] = self;
-    v21 = handlerCopy;
+    v20 = handlerCopy;
     dispatch_async(queue, block);
   }
 
@@ -219,9 +216,9 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v11;
-      v24 = 2080;
-      v25 = "[HMOutgoingHomeInvitation cancelInviteWithCompletionHandler:]";
+      v22 = v11;
+      v23 = 2080;
+      v24 = "[HMOutgoingHomeInvitation cancelInviteWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -229,13 +226,11 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
     v12 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unconfigure
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   context = [(HMHomeInvitation *)self context];
 
   v4 = objc_autoreleasePoolPush();
@@ -247,9 +242,9 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring home invitation", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring home invitation", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -262,15 +257,13 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", &v10, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__configureWithContext:(id)context home:(id)home
@@ -307,63 +300,62 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
 
 + (id)homeInvitationsFromData:(id)data home:(id)home
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   homeCopy = home;
   v7 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(dataCopy, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v8 = dataCopy;
-  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v19 + 1) + 8 * i);
+        v13 = *(*(&v18 + 1) + 8 * i);
         v14 = [HMOutgoingHomeInvitation alloc];
-        v15 = [(HMOutgoingHomeInvitation *)v14 initWithInvitationData:v13 home:homeCopy, v19];
+        v15 = [(HMOutgoingHomeInvitation *)v14 initWithInvitationData:v13 home:homeCopy, v18];
         [v7 addObject:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
   }
 
   v16 = [v7 copy];
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 + (id)homeInvitationsFromEncodedData:(id)data home:(id)home
 {
-  v29[2] = *MEMORY[0x1E69E9840];
+  v28[2] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   homeCopy = home;
   if (dataCopy)
   {
     v8 = MEMORY[0x1E696ACD0];
     v9 = MEMORY[0x1E695DFD8];
-    v29[0] = objc_opt_class();
-    v29[1] = objc_opt_class();
-    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = objc_opt_class();
+    v28[1] = objc_opt_class();
+    v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     v11 = [v9 setWithArray:v10];
-    v24 = 0;
-    v12 = [v8 unarchivedObjectOfClasses:v11 fromData:dataCopy error:&v24];
-    v13 = v24;
+    v23 = 0;
+    v12 = [v8 unarchivedObjectOfClasses:v11 fromData:dataCopy error:&v23];
+    v13 = v23;
 
     if (!v12)
     {
@@ -374,9 +366,9 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v26 = v17;
-        v27 = 2112;
-        v28 = v13;
+        v25 = v17;
+        v26 = 2112;
+        v27 = v13;
         _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive outgoing home invitation data from encoded invitations data: %@", buf, 0x16u);
       }
 
@@ -413,21 +405,17 @@ void __62__HMOutgoingHomeInvitation__mergeWithNewAccessoryInvitations___block_in
     v21 = 0;
   }
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 - (NSDictionary)appleSharingDict
 {
-  v8[1] = *MEMORY[0x1E69E9840];
-  v7 = @"HMHomeInvitationIdentifierKey";
+  v7[1] = *MEMORY[0x1E69E9840];
+  v6 = @"HMHomeInvitationIdentifierKey";
   identifier = [(HMHomeInvitation *)self identifier];
   uUIDString = [identifier UUIDString];
-  v8[0] = uUIDString;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[0] = uUIDString;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

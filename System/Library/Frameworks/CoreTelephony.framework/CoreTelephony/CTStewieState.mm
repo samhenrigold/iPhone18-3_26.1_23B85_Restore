@@ -161,43 +161,7 @@
 {
   stateCopy = state;
   allowedServices = [(CTStewieState *)self allowedServices];
-  if (allowedServices != [stateCopy allowedServices])
-  {
-    goto LABEL_15;
-  }
-
-  activeServices = [(CTStewieState *)self activeServices];
-  if (activeServices != [stateCopy activeServices])
-  {
-    goto LABEL_15;
-  }
-
-  subscriptionDeterminedServices = [(CTStewieState *)self subscriptionDeterminedServices];
-  if (subscriptionDeterminedServices != [stateCopy subscriptionDeterminedServices])
-  {
-    goto LABEL_15;
-  }
-
-  subscribedServices = [(CTStewieState *)self subscribedServices];
-  if (subscribedServices != [stateCopy subscribedServices])
-  {
-    goto LABEL_15;
-  }
-
-  congestedServices = [(CTStewieState *)self congestedServices];
-  if (congestedServices != [stateCopy congestedServices])
-  {
-    goto LABEL_15;
-  }
-
-  dataPathAssertedServices = [(CTStewieState *)self dataPathAssertedServices];
-  if (dataPathAssertedServices != [stateCopy dataPathAssertedServices])
-  {
-    goto LABEL_15;
-  }
-
-  demoAllowedServices = [(CTStewieState *)self demoAllowedServices];
-  if (demoAllowedServices == [stateCopy demoAllowedServices] && (v12 = -[CTStewieState offGridCriteriaSatisfiedServices](self, "offGridCriteriaSatisfiedServices"), v12 == objc_msgSend(stateCopy, "offGridCriteriaSatisfiedServices")) && (v13 = -[CTStewieState configuredForLocationServices](self, "configuredForLocationServices"), v13 == objc_msgSend(stateCopy, "configuredForLocationServices")) && (v14 = -[CTStewieState status](self, "status"), v14 == objc_msgSend(stateCopy, "status")) && (v15 = -[CTStewieState reason](self, "reason"), v15 == objc_msgSend(stateCopy, "reason")) && (v16 = -[CTStewieState baseReason](self, "baseReason"), v16 == objc_msgSend(stateCopy, "baseReason")) && (v17 = -[CTStewieState transportType](self, "transportType"), v17 == objc_msgSend(stateCopy, "transportType")))
+  if (allowedServices == [stateCopy allowedServices] && (v6 = -[CTStewieState activeServices](self, "activeServices"), v6 == objc_msgSend(stateCopy, "activeServices")) && (v7 = -[CTStewieState subscriptionDeterminedServices](self, "subscriptionDeterminedServices"), v7 == objc_msgSend(stateCopy, "subscriptionDeterminedServices")) && (v8 = -[CTStewieState subscribedServices](self, "subscribedServices"), v8 == objc_msgSend(stateCopy, "subscribedServices")) && (v9 = -[CTStewieState congestedServices](self, "congestedServices"), v9 == objc_msgSend(stateCopy, "congestedServices")) && (v10 = -[CTStewieState dataPathAssertedServices](self, "dataPathAssertedServices"), v10 == objc_msgSend(stateCopy, "dataPathAssertedServices")) && (v11 = -[CTStewieState demoAllowedServices](self, "demoAllowedServices"), v11 == objc_msgSend(stateCopy, "demoAllowedServices")) && (v12 = -[CTStewieState offGridCriteriaSatisfiedServices](self, "offGridCriteriaSatisfiedServices"), v12 == objc_msgSend(stateCopy, "offGridCriteriaSatisfiedServices")) && (v13 = -[CTStewieState configuredForLocationServices](self, "configuredForLocationServices"), v13 == objc_msgSend(stateCopy, "configuredForLocationServices")) && (v14 = -[CTStewieState status](self, "status"), v14 == objc_msgSend(stateCopy, "status")) && (v15 = -[CTStewieState reason](self, "reason"), v15 == objc_msgSend(stateCopy, "reason")) && (v16 = -[CTStewieState baseReason](self, "baseReason"), v16 == objc_msgSend(stateCopy, "baseReason")) && (v17 = -[CTStewieState transportType](self, "transportType"), v17 == objc_msgSend(stateCopy, "transportType")))
   {
     displaySatelliteIcon = [(CTStewieState *)self displaySatelliteIcon];
     v19 = displaySatelliteIcon ^ [stateCopy displaySatelliteIcon] ^ 1;
@@ -205,7 +169,6 @@
 
   else
   {
-LABEL_15:
     LOBYTE(v19) = 0;
   }
 

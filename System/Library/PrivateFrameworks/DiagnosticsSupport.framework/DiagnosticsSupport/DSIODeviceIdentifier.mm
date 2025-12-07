@@ -201,35 +201,35 @@ LABEL_25:
 
 + (id)identifierForIOHIDDevice:(__IOHIDDevice *)device
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = IOHIDDeviceGetProperty(device, @"DeviceUsagePairs");
-  v24 = IOHIDDeviceGetProperty(device, @"VendorID");
+  v23 = IOHIDDeviceGetProperty(device, @"VendorID");
   IOHIDDeviceGetProperty(device, @"ProductID");
-  v23 = v22 = v4;
+  v22 = v21 = v4;
   v5 = 0;
   v6 = 0uLL;
   do
   {
-    v27 = v6;
-    v28 = v6;
-    v25 = v6;
     v26 = v6;
+    v27 = v6;
+    v24 = v6;
+    v25 = v6;
     v7 = v4;
-    v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v26;
+      v10 = *v25;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v25 + 1) + 8 * i);
+          v12 = *(*(&v24 + 1) + 8 * i);
           v13 = [v12 objectForKeyedSubscript:@"DeviceUsagePage"];
           v14 = [v12 objectForKeyedSubscript:@"DeviceUsage"];
           v15 = [DSIODeviceIdentifier identifierForAccessoryModel:v5];
@@ -240,10 +240,10 @@ LABEL_25:
             if (usage == [v14 unsignedIntValue])
             {
               vendorID = [v15 vendorID];
-              if (vendorID == [v24 unsignedIntValue])
+              if (vendorID == [v23 unsignedIntValue])
               {
                 productID = [v15 productID];
-                if (productID == [v23 unsignedIntValue])
+                if (productID == [v22 unsignedIntValue])
                 {
 
                   goto LABEL_16;
@@ -253,7 +253,7 @@ LABEL_25:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
         if (v9)
         {
           continue;
@@ -264,15 +264,13 @@ LABEL_25:
     }
 
     ++v5;
-    v4 = v22;
+    v4 = v21;
     v6 = 0uLL;
   }
 
   while (v5 != 20);
   v15 = 0;
 LABEL_16:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

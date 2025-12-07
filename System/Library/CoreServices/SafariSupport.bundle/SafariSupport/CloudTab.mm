@@ -1,4 +1,6 @@
 @interface CloudTab
++ (CloudTab)cloudTabWithCKRecord:(id)record isManateeContainer:(BOOL)container;
++ (CloudTab)cloudTabWithParameters:(id)parameters encodedSystemFieldsData:(id)data cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)container;
 + (CloudTab)cloudTabWithTabUUIDString:(id)string owningDeviceUUIDString:(id)dString owningSceneID:(id)d position:(id)position title:(id)title urlString:(id)urlString isPinned:(BOOL)pinned isShowingReader:(BOOL)self0 readerScrollPositionPageIndex:(id)self1 encodedSystemFieldsData:(id)self2 cloudTabsRecordZoneID:(id)self3 isManateeContainer:(BOOL)self4;
 + (CloudTab)cloudTabWithWBSCloudTabDictionaryRepresentation:(id)representation owningDeviceUUIDString:(id)string position:(id)position cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)container;
 + (id)_valueTransformerForTitleAndURL;
@@ -14,6 +16,7 @@
 - (WBSCRDTPosition)position;
 - (double)lastViewedTime;
 - (id)_initWithCKRecord:(id)record isManateeContainer:(BOOL)container;
+- (id)_initWithParameters:(id)parameters encodedSystemFieldsData:(id)data cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)container;
 - (id)_positionAfterPosition:(id)position;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
@@ -100,6 +103,26 @@
   return v23;
 }
 
++ (CloudTab)cloudTabWithCKRecord:(id)record isManateeContainer:(BOOL)container
+{
+  containerCopy = container;
+  recordCopy = record;
+  recordType = [recordCopy recordType];
+  v7 = [recordType isEqualToString:@"CloudTab"];
+
+  if (v7)
+  {
+    v8 = [[CloudTab alloc] _initWithCKRecord:recordCopy isManateeContainer:containerCopy];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
 + (CloudTab)cloudTabWithTabUUIDString:(id)string owningDeviceUUIDString:(id)dString owningSceneID:(id)d position:(id)position title:(id)title urlString:(id)urlString isPinned:(BOOL)pinned isShowingReader:(BOOL)self0 readerScrollPositionPageIndex:(id)self1 encodedSystemFieldsData:(id)self2 cloudTabsRecordZoneID:(id)self3 isManateeContainer:(BOOL)self4
 {
   iDCopy = iD;
@@ -123,6 +146,36 @@
   v29 = [[CloudTab alloc] _initWithParameters:v28 encodedSystemFieldsData:dataCopy cloudTabsRecordZoneID:iDCopy isManateeContainer:container];
 
   return v29;
+}
+
++ (CloudTab)cloudTabWithParameters:(id)parameters encodedSystemFieldsData:(id)data cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)container
+{
+  containerCopy = container;
+  dCopy = d;
+  dataCopy = data;
+  parametersCopy = parameters;
+  v12 = [[CloudTab alloc] _initWithParameters:parametersCopy encodedSystemFieldsData:dataCopy cloudTabsRecordZoneID:dCopy isManateeContainer:containerCopy];
+
+  return v12;
+}
+
+- (id)_initWithParameters:(id)parameters encodedSystemFieldsData:(id)data cloudTabsRecordZoneID:(id)d isManateeContainer:(BOOL)container
+{
+  containerCopy = container;
+  parametersCopy = parameters;
+  dataCopy = data;
+  dCopy = d;
+  v17.receiver = self;
+  v17.super_class = CloudTab;
+  v13 = [(CloudTab *)&v17 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(CloudTab *)v13 _commonInitWithParameters:parametersCopy encodedSystemFieldsData:dataCopy cloudTabsRecordZoneID:dCopy isManateeContainer:containerCopy];
+    v15 = v14;
+  }
+
+  return v14;
 }
 
 - (id)_initWithCKRecord:(id)record isManateeContainer:(BOOL)container

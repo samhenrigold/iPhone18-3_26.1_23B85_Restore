@@ -242,16 +242,13 @@ LABEL_5:
 
 - (float32x4_t)matrix
 {
-  v18 = *(self + 32);
+  v16 = *(self + 32);
   [self value];
-  v3 = vceqq_f32(v18, v2);
+  v3 = vceqq_f32(v16, v2);
   v3.i32[3] = v3.i32[2];
   if ((vminvq_u32(v3) & 0x80000000) != 0)
   {
-    v15 = *(self + 80);
-    v16 = *(self + 96);
-    result = *(self + 48);
-    v17 = *(self + 64);
+    return *(self + 48);
   }
 
   else
@@ -261,25 +258,25 @@ LABEL_5:
     v9 = *(self + 128);
     v10 = *(self + 144);
     v11 = *(self + 160);
-    v19[0] = *(self + 112);
-    v19[1] = v9;
-    v19[2] = v10;
-    v19[3] = v11;
+    v17[0] = *(self + 112);
+    v17[1] = v9;
+    v17[2] = v10;
+    v17[3] = v11;
     do
     {
-      v20[v8] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(result, COERCE_FLOAT(v19[v8])), v5, *&v19[v8], 1), v6, v19[v8], 2), v7, v19[v8], 3);
+      v18[v8] = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v4, COERCE_FLOAT(v17[v8])), v5, *&v17[v8], 1), v6, v17[v8], 2), v7, v17[v8], 3);
       ++v8;
     }
 
     while (v8 != 4);
-    result.i64[0] = *&v20[0];
-    v12 = v20[1];
-    v13 = v20[2];
-    v14 = v20[3];
-    *(self + 48) = v20[0];
-    *(self + 64) = v12;
-    *(self + 80) = v13;
-    *(self + 96) = v14;
+    result = v18[0];
+    v13 = v18[1];
+    v14 = v18[2];
+    v15 = v18[3];
+    *(self + 48) = v18[0];
+    *(self + 64) = v13;
+    *(self + 80) = v14;
+    *(self + 96) = v15;
   }
 
   return result;

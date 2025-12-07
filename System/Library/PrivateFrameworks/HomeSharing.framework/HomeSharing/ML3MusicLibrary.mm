@@ -23,13 +23,13 @@ void __86__ML3MusicLibrary_HSAdditions__checkForChangesInHomeSharingLibrary_comp
   dispatch_async(v9, v12);
 }
 
-void __86__ML3MusicLibrary_HSAdditions__checkForChangesInHomeSharingLibrary_completionHandler___block_invoke_4(uint64_t a1, int a2)
+void __86__ML3MusicLibrary_HSAdditions__checkForChangesInHomeSharingLibrary_completionHandler___block_invoke_4(uint64_t result, int a2)
 {
   if (a2)
   {
-    dispatch_group_enter(*(a1 + 32));
-    BuildContainers(*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64));
-    *(*(*(a1 + 72) + 8) + 24) = 1;
+    dispatch_group_enter(*(result + 32));
+    BuildContainers(*(result + 40), *(result + 48), *(result + 56), *(result + 64));
+    *(*(*(result + 72) + 8) + 24) = 1;
   }
 }
 
@@ -71,7 +71,7 @@ void __86__ML3MusicLibrary_HSAdditions__checkForChangesInHomeSharingLibrary_comp
   dispatch_group_leave(v8);
 }
 
-uint64_t __49__ML3MusicLibrary_HSAdditions__executeUpdateSQL___block_invoke(uint64_t a1, void *a2)
+void *__49__ML3MusicLibrary_HSAdditions__executeUpdateSQL___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 executeUpdate:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;

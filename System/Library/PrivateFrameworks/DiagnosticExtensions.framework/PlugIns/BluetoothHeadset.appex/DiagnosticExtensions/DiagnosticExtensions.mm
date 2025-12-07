@@ -3,13 +3,13 @@ void sub_100000E10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unint64_t
   if (a6)
   {
     productId = a6;
-    NSLog(@"DumpLogCompletionHandler: received pId = %u", a6);
+    NSLog(@"DumpLogCompletionHandler: received pId = %u", a2, a3, a4, a6);
   }
 
   else
   {
     productId = 0;
-    NSLog(@"DumpLogCompletionHandler: error, no productId retrieved");
+    NSLog(@"DumpLogCompletionHandler: error, no productId retrieved", a2, a3, a4);
   }
 
   if (a5)

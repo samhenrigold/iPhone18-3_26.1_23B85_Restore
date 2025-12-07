@@ -33,7 +33,6 @@
 {
   if (*&self->_has)
   {
-    ageInDays = self->_ageInDays;
     PBDataWriterWriteUint32Field();
   }
 }

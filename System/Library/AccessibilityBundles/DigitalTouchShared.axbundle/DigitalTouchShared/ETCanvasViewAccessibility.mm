@@ -10,6 +10,8 @@
 - (void)_accessibilityFocusChanged:(id)changed;
 - (void)_accessibilityInvalidateDirectTouchTimerAndReschedule:(BOOL)reschedule;
 - (void)_checkForIdle;
+- (void)_endMessage:(id)message withSend:(BOOL)send;
+- (void)_setIsComposingMessageOfType:(unsigned __int16)type;
 - (void)dealloc;
 - (void)touchesBegan:(id)began withEvent:(id)event;
 - (void)touchesEnded:(id)ended withEvent:(id)event;
@@ -129,43 +131,43 @@
 
 - (id)accessibilityHint
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v19 = 0;
+  v20 = *MEMORY[0x29EDCA608];
+  v18 = 0;
   objc_opt_class();
   v3 = [(ETCanvasViewAccessibility *)self safeValueForKey:@"subviews"];
   v4 = __UIAccessibilityCastAsClass();
 
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         MEMORY[0x29C2D41C0](@"MediaInstructionView");
         if (objc_opt_isKindOfClass())
         {
-          v12 = [v10 safeValueForKey:{@"_textLabel", v15}];
+          v12 = [v10 safeValueForKey:{@"_textLabel", v14}];
           accessibilityLabel = [v12 accessibilityLabel];
 
           goto LABEL_11;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -178,9 +180,88 @@
   accessibilityLabel = 0;
 LABEL_11:
 
-  v13 = *MEMORY[0x29EDCA608];
-
   return accessibilityLabel;
+}
+
+- (void)_setIsComposingMessageOfType:(unsigned __int16)type
+{
+  typeCopy = type;
+  v5 = [(ETCanvasViewAccessibility *)self safeBoolForKey:@"isComposing"];
+  v11.receiver = self;
+  v11.super_class = ETCanvasViewAccessibility;
+  [(ETCanvasViewAccessibility *)&v11 _setIsComposingMessageOfType:typeCopy];
+  if ((v5 & 1) != 0 || ![(ETCanvasViewAccessibility *)self safeBoolForKey:@"isComposing"])
+  {
+    return;
+  }
+
+  if (typeCopy <= 1)
+  {
+    if (!typeCopy)
+    {
+      v6 = @"tap.announcement";
+      goto LABEL_14;
+    }
+
+    if (typeCopy == 1)
+    {
+      v6 = @"doodle.announcement";
+      goto LABEL_14;
+    }
+
+LABEL_19:
+    string = [MEMORY[0x29EDBA0F8] string];
+    goto LABEL_15;
+  }
+
+  if (typeCopy == 2)
+  {
+    v6 = @"heartbeat.announcement";
+    goto LABEL_14;
+  }
+
+  if (typeCopy == 9)
+  {
+    v6 = @"kiss.announcement";
+    goto LABEL_14;
+  }
+
+  if (typeCopy != 10)
+  {
+    goto LABEL_19;
+  }
+
+  v6 = @"anger.announcement";
+LABEL_14:
+  string = accessibilityLocalizedString(v6);
+LABEL_15:
+  v8 = string;
+  UIAccessibilitySpeakAndDoNotBeInterrupted();
+  _accessibilityDisableDirectTouchTimer = [(ETCanvasViewAccessibility *)self _accessibilityDisableDirectTouchTimer];
+  v10 = _accessibilityDisableDirectTouchTimer;
+  if (_accessibilityDisableDirectTouchTimer)
+  {
+    [_accessibilityDisableDirectTouchTimer invalidate];
+  }
+}
+
+- (void)_endMessage:(id)message withSend:(BOOL)send
+{
+  sendCopy = send;
+  messageCopy = message;
+  if (sendCopy)
+  {
+    v7 = accessibilityLocalizedString(@"sent.announcement");
+    UIAccessibilitySpeakAndDoNotBeInterrupted();
+  }
+
+  _axSetIsWaitingOnETMessageStart(1);
+  [(ETCanvasViewAccessibility *)self _accessibilitySetIsDirectTouching:0];
+  [(ETCanvasViewAccessibility *)self _accessibilityInvalidateDirectTouchTimerAndReschedule:0];
+  v8.receiver = self;
+  v8.super_class = ETCanvasViewAccessibility;
+  [(ETCanvasViewAccessibility *)&v8 _endMessage:messageCopy withSend:sendCopy];
+  UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
 }
 
 - (void)touchesBegan:(id)began withEvent:(id)event
@@ -248,7 +329,7 @@ void __83__ETCanvasViewAccessibility__accessibilityInvalidateDirectTouchTimerAnd
 
 - (void)_accessibilityFocusChanged:(id)changed
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   changedCopy = changed;
   userInfo = [changedCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:*MEMORY[0x29EDC7EC0]];
@@ -259,27 +340,26 @@ void __83__ETCanvasViewAccessibility__accessibilityInvalidateDirectTouchTimerAnd
   v9 = MEMORY[0x29C2D41C0](@"ETPaletteCircleView");
   v10 = MEMORY[0x29C2D41C0](@"ETCanvasView");
   v11 = MEMORY[0x29C2D41C0](@"ETTranscriptColorWheelAccessibility");
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v12 = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{4, v9, v10, v11, MEMORY[0x29C2D41C0](@"GestureInstructionButton"), 0}];
-  v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v12 = [MEMORY[0x29EDB8D80] axArrayByIgnoringNilElementsWithCount:{4, v9, v10, v11, MEMORY[0x29C2D41C0](@"GestureInstructionButton"), 0, 0}];
+  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
     isKindOfClass = 0;
-    v16 = *v26;
+    v16 = *v24;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v26 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        if (isKindOfClass & 1) != 0 || (v18 = *(*(&v25 + 1) + 8 * i), (objc_opt_isKindOfClass()))
+        if (isKindOfClass & 1) != 0 || (objc_opt_isKindOfClass())
         {
           isKindOfClass = 1;
         }
@@ -290,7 +370,7 @@ void __83__ETCanvasViewAccessibility__accessibilityInvalidateDirectTouchTimerAnd
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v14);
@@ -302,18 +382,16 @@ void __83__ETCanvasViewAccessibility__accessibilityInvalidateDirectTouchTimerAnd
   }
 
   accessibilityIdentifier = [v6 accessibilityIdentifier];
-  v20 = [accessibilityIdentifier isEqualToString:@"digital.touch.picker.circle.identifier"];
+  v19 = [accessibilityIdentifier isEqualToString:@"digital.touch.picker.circle.identifier"];
 
   accessibilityIdentifier2 = [v8 accessibilityIdentifier];
-  v22 = [accessibilityIdentifier2 isEqualToString:@"digital.touch.picker.circle.identifier"];
+  v21 = [accessibilityIdentifier2 isEqualToString:@"digital.touch.picker.circle.identifier"];
 
-  if ((isKindOfClass & 1) != 0 || (v20 & 1) != 0 || v22)
+  if ((isKindOfClass & 1) != 0 || (v19 & 1) != 0 || v21)
   {
-    v23 = [MEMORY[0x29EDBA070] numberWithDouble:CFAbsoluteTimeGetCurrent()];
-    [(ETCanvasViewAccessibility *)self setValue:v23 forKey:@"_lastActivityTimestamp"];
+    v22 = [MEMORY[0x29EDBA070] numberWithDouble:CFAbsoluteTimeGetCurrent()];
+    [(ETCanvasViewAccessibility *)self setValue:v22 forKey:@"_lastActivityTimestamp"];
   }
-
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 @end

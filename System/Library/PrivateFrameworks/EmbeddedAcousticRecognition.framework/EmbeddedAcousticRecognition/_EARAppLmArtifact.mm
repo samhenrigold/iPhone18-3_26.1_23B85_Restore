@@ -36,11 +36,11 @@
   {
     if (versionCopy)
     {
-      [versionCopy ear_toString];
+      objc_msgSend_ear_toString(versionCopy);
       if (localeCopy)
       {
 LABEL_4:
-        [localeCopy ear_toString];
+        objc_msgSend_ear_toString(localeCopy);
         goto LABEL_7;
       }
     }
@@ -56,10 +56,10 @@ LABEL_4:
       }
     }
 
-    memset(v10, 0, sizeof(v10));
+    memset(&v10, 0, sizeof(v10));
 LABEL_7:
     std::string::basic_string[abi:ne200100]<0>(v9, "_");
-    quasar::Locale::fromInternalShortIdentifier(v10, v9, &v11);
+    quasar::Locale::fromInternalShortIdentifier(&v10, v9, &v11);
     std::allocate_shared[abi:ne200100]<quasar::artifact::AppLmArtifact,std::allocator<quasar::artifact::AppLmArtifact>,std::string,quasar::Locale,0>();
   }
 
@@ -76,7 +76,7 @@ LABEL_7:
   {
     if (pathCopy)
     {
-      [pathCopy ear_toString];
+      objc_msgSend_ear_toString(pathCopy);
     }
 
     else
@@ -195,36 +195,36 @@ LABEL_7:
 - (shared_ptr<quasar::AppLmData>)_loadRawAppLmData:(id)data ncsRoot:(id)root dataRoot:(id)dataRoot
 {
   v9 = v5;
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   rootCopy = root;
   dataRootCopy = dataRoot;
-  [(_EARAppLmArtifact *)self _tryToLoadCachedLmData:dataCopy ncsRoot:rootCopy dataRoot:dataRootCopy];
-  if (v27)
+  objc_msgSend__tryToLoadCachedLmData_ncsRoot_dataRoot_(self);
+  if (v25)
   {
-    v13 = *(&v27 + 1);
-    *v9 = v27;
+    v13 = *(&v25 + 1);
+    *v9 = v25;
     v9[1] = v13;
-    v27 = 0uLL;
+    v25 = 0uLL;
     goto LABEL_18;
   }
 
   ptr = self->super._artifact.__ptr_;
   if (ptr)
   {
-    if (v15)
+    if (ptr)
     {
-      v16 = v15;
+      v15 = ptr;
       cntrl = self->super._artifact.__cntrl_;
       if (cntrl)
       {
         atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
       }
 
-      LifeCycleStage = quasar::artifact::AppLmArtifact::getLifeCycleStage(v15);
+      LifeCycleStage = quasar::artifact::AppLmArtifact::getLifeCycleStage(ptr);
       if (quasar::artifact::AppLmArtifactLifeCycleStage::isTextNormalized(LifeCycleStage))
       {
-        v19 = 0;
+        v18 = 0;
         if (dataRootCopy)
         {
           goto LABEL_9;
@@ -235,72 +235,70 @@ LABEL_7:
       {
         if (rootCopy)
         {
-          [_EARQuasarTokenizer tokenizerWithNcsRoot:rootCopy];
+          objc_msgSend_tokenizerWithNcsRoot_(_EARQuasarTokenizer);
         }
 
         else
         {
-          [_EARQuasarTokenizer tokenizerWithRecognizerConfigPath:dataCopy];
+          objc_msgSend_tokenizerWithRecognizerConfigPath_(_EARQuasarTokenizer);
         }
 
-        v19 = *buf;
+        v18 = *buf;
         if (dataRootCopy)
         {
 LABEL_9:
           if (dataCopy)
           {
-            [dataCopy ear_toString];
+            objc_msgSend_ear_toString(dataCopy);
           }
 
           else
           {
+            v23 = 0uLL;
             v24 = 0;
-            v25 = 0;
-            v26 = 0;
           }
 
-          quasar::filesystem::Path::Path(buf, &v24);
-          __p[3] = v19;
-          [dataRootCopy ear_toString];
-          quasar::artifact::AppLmArtifact::loadAppLmData(v16);
+          quasar::filesystem::Path::Path(buf, &v23);
+          __p[3] = v18;
+          objc_msgSend_ear_toString(dataRootCopy);
+          quasar::artifact::AppLmArtifact::loadAppLmData(v15);
         }
       }
 
       if (dataCopy)
       {
-        [dataCopy ear_toString];
+        objc_msgSend_ear_toString(dataCopy);
       }
 
       else
       {
+        v23 = 0uLL;
         v24 = 0;
-        v25 = 0;
-        v26 = 0;
       }
 
-      quasar::filesystem::Path::Path(buf, &v24);
+      quasar::filesystem::Path::Path(buf, &v23);
       std::string::basic_string[abi:ne200100]<0>(__p, "app-lm.data");
-      quasar::artifact::AppLmArtifact::loadAppLmData(v16);
+      quasar::artifact::AppLmArtifact::loadAppLmData(v15);
     }
   }
 
-  v20 = EarArtifactLogger();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v19 = EarArtifactLogger(ptr);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B501D000, v20, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", buf, 2u);
+    _os_log_impl(&dword_1B501D000, v19, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", buf, 2u);
   }
 
   *v9 = 0;
   v9[1] = 0;
 LABEL_18:
-  if (*(&v27 + 1))
+  if (*(&v25 + 1))
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v27 + 1));
+    std::__shared_weak_count::__release_shared[abi:ne200100](*(&v25 + 1));
   }
 
-  result.__cntrl_ = v22;
-  result.__ptr_ = v21;
+  result.__cntrl_ = v21;
+  result.__ptr_ = v20;
   return result;
 }
 
@@ -313,7 +311,7 @@ LABEL_18:
 
 - (id)loadAppLmData:(id)data ncsRoot:(id)root dataRoot:(id)dataRoot
 {
-  [(_EARAppLmArtifact *)self _loadRawAppLmData:data ncsRoot:root dataRoot:dataRoot];
+  objc_msgSend__loadRawAppLmData_ncsRoot_dataRoot_(self, a2, data, root, dataRoot);
   if (v10)
   {
     v5 = [_EARAppLmData alloc];
@@ -353,26 +351,26 @@ LABEL_18:
 
 - (id)loadCustomPronData:(id)data ncsRoot:(id)root dataRoot:(id)dataRoot
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   rootCopy = root;
   dataRootCopy = dataRoot;
   ptr = self->super._artifact.__ptr_;
   {
-    v13 = v12;
+    v12 = ptr;
     cntrl = self->super._artifact.__cntrl_;
     if (cntrl)
     {
       atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
     }
 
-    [(_EARAppLmArtifact *)self _loadRawAppLmData:dataCopy ncsRoot:rootCopy dataRoot:dataRootCopy];
+    objc_msgSend__loadRawAppLmData_ncsRoot_dataRoot_(self);
     if (*buf)
     {
       quasar::LmData::getSymbolTableData(*buf);
-      quasar::artifact::AppLmArtifact::loadCustomPronData(v13, v21);
-      v15 = *v21;
-      if (*v21)
+      quasar::artifact::AppLmArtifact::loadCustomPronData(v12, v20);
+      v14 = *v20;
+      if (*v20)
       {
         operator new();
       }
@@ -380,19 +378,19 @@ LABEL_18:
 
     else
     {
-      v17 = EarArtifactLogger();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = EarArtifactLogger(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_1B501D000, v17, OS_LOG_TYPE_DEFAULT, "Failed to load app lm data object for use parsing custom prons", v21, 2u);
+        *v20 = 0;
+        _os_log_impl(&dword_1B501D000, v16, OS_LOG_TYPE_DEFAULT, "Failed to load app lm data object for use parsing custom prons", v20, 2u);
       }
 
-      v15 = 0;
+      v14 = 0;
     }
 
-    if (v20)
+    if (v19)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
     }
 
     if (cntrl)
@@ -403,26 +401,26 @@ LABEL_18:
 
   else
   {
-    v16 = EarArtifactLogger();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = EarArtifactLogger(ptr);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B501D000, v16, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", buf, 2u);
+      _os_log_impl(&dword_1B501D000, v15, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", buf, 2u);
     }
 
-    v15 = 0;
+    v14 = 0;
   }
 
-  return v15;
+  return v14;
 }
 
 - (id)loadOovs
 {
-  v9[3] = *MEMORY[0x1E69E9840];
+  v8[3] = *MEMORY[0x1E69E9840];
   ptr = self->super._artifact.__ptr_;
   if (ptr)
   {
-    if (v4)
+    if (ptr)
     {
       cntrl = self->super._artifact.__cntrl_;
       if (cntrl)
@@ -430,11 +428,11 @@ LABEL_18:
         atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
       }
 
-      quasar::artifact::AppLmArtifact::loadOovs(v4, v9);
-      if (v9[0])
+      quasar::artifact::AppLmArtifact::loadOovs(v8, ptr);
+      if (v8[0])
       {
-        v6 = EARHelpers::VectorToArray<std::string>(v9[0]);
-        std::unique_ptr<std::vector<std::string>>::~unique_ptr[abi:ne200100](v9);
+        v5 = EARHelpers::VectorToArray<std::string>(v8[0]);
+        std::unique_ptr<std::vector<std::string>>::~unique_ptr[abi:ne200100](v8);
         if (!cntrl)
         {
           goto LABEL_13;
@@ -443,8 +441,8 @@ LABEL_18:
 
       else
       {
-        std::unique_ptr<std::vector<std::string>>::~unique_ptr[abi:ne200100](v9);
-        v6 = 0;
+        std::unique_ptr<std::vector<std::string>>::~unique_ptr[abi:ne200100](v8);
+        v5 = 0;
         if (!cntrl)
         {
           goto LABEL_13;
@@ -456,17 +454,17 @@ LABEL_18:
     }
   }
 
-  v7 = EarArtifactLogger();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v6 = EarArtifactLogger(ptr);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v9[0]) = 0;
-    _os_log_impl(&dword_1B501D000, v7, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", v9, 2u);
+    LOWORD(v8[0]) = 0;
+    _os_log_impl(&dword_1B501D000, v6, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", v8, 2u);
   }
 
-  v6 = 0;
+  v5 = 0;
 LABEL_13:
 
-  return v6;
+  return v5;
 }
 
 - (id)loadLmHandleWithWeight:(id)weight
@@ -476,9 +474,9 @@ LABEL_13:
   ptr = self->super._artifact.__ptr_;
   if (ptr)
   {
-    if (v6)
+    if (ptr)
     {
-      v7 = v6;
+      v6 = ptr;
       cntrl = self->super._artifact.__cntrl_;
       if (cntrl)
       {
@@ -489,10 +487,10 @@ LABEL_13:
       v25 = 0;
       if (weightCopy)
       {
-        [weightCopy doubleValue];
+        doubleValue = [weightCopy doubleValue];
         v10 = v9;
 LABEL_7:
-        v11 = EarArtifactLogger();
+        v11 = EarArtifactLogger(doubleValue);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           LODWORD(buf.__r_.__value_.__l.__data_) = 134217984;
@@ -500,7 +498,7 @@ LABEL_7:
           _os_log_impl(&dword_1B501D000, v11, OS_LOG_TYPE_DEFAULT, "Interpolating app-lm with a weight of %f", &buf, 0xCu);
         }
 
-        quasar::artifact::AppLmArtifact::getLmHandle(v7, &buf);
+        quasar::artifact::AppLmArtifact::getLmHandle(v6, &buf);
         std::shared_ptr<kaldi::quasar::LmHandle>::operator=[abi:ne200100]<kaldi::quasar::LmHandle,std::default_delete<kaldi::quasar::LmHandle>,0>(&v24, &buf);
 LABEL_10:
         v12 = buf.__r_.__value_.__r.__words[0];
@@ -521,7 +519,7 @@ LABEL_10:
             atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          v7 = [(_EARLmHandle *)v14 _initWithHandle:&v20];
+          v6 = [(_EARLmHandle *)v14 _initWithHandle:&v20];
           if (v21)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v21);
@@ -535,7 +533,7 @@ LABEL_10:
 
         if (!v13)
         {
-          v7 = 0;
+          v6 = 0;
         }
 
         if (cntrl)
@@ -547,7 +545,7 @@ LABEL_10:
       }
 
       std::string::basic_string[abi:ne200100]<0>(&buf, "language-model-weight");
-      hasInfo = quasar::artifact::Artifact::hasInfo(v7, &buf.__r_.__value_.__l.__data_);
+      hasInfo = quasar::artifact::Artifact::hasInfo(v6, &buf.__r_.__value_.__l.__data_);
       v17 = hasInfo;
       if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -562,7 +560,7 @@ LABEL_10:
       {
 LABEL_22:
         std::string::basic_string[abi:ne200100]<0>(__p, "language-model-weight");
-        quasar::artifact::Artifact::getInfo(v7, __p, &buf);
+        quasar::artifact::Artifact::getInfo(v6, __p, &buf);
         v10 = std::stof(&buf, 0);
         if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -577,40 +575,40 @@ LABEL_22:
         goto LABEL_7;
       }
 
-      v19 = EarArtifactLogger();
+      v19 = EarArtifactLogger(hasInfo);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf.__r_.__value_.__l.__data_) = 0;
         _os_log_impl(&dword_1B501D000, v19, OS_LOG_TYPE_DEFAULT, "Interpolating app-lm with default weight", &buf, 2u);
       }
 
-      quasar::artifact::AppLmArtifact::getLmHandle(v7, &buf);
+      quasar::artifact::AppLmArtifact::getLmHandle(v6, &buf);
       std::shared_ptr<kaldi::quasar::LmHandle>::operator=[abi:ne200100]<kaldi::quasar::LmHandle,std::default_delete<kaldi::quasar::LmHandle>,0>(&v24, &buf);
       goto LABEL_10;
     }
   }
 
-  v15 = EarArtifactLogger();
+  v15 = EarArtifactLogger(ptr);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf.__r_.__value_.__l.__data_) = 0;
     _os_log_impl(&dword_1B501D000, v15, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", &buf, 2u);
   }
 
-  v7 = 0;
+  v6 = 0;
 LABEL_32:
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)isAdaptableToSpeechModelVersion:(id)version locale:(id)locale
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   localeCopy = locale;
   ptr = self->super._artifact.__ptr_;
   {
-    v10 = v9;
+    v9 = ptr;
     cntrl = self->super._artifact.__cntrl_;
     if (cntrl)
     {
@@ -619,39 +617,37 @@ LABEL_32:
 
     if (localeCopy)
     {
-      [localeCopy ear_toString];
+      objc_msgSend_ear_toString(localeCopy);
     }
 
     else
     {
-      v19[0] = 0;
-      v19[1] = 0;
-      v20 = 0;
+      memset(&v18, 0, sizeof(v18));
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v17, "_");
-    quasar::Locale::fromInternalShortIdentifier(v19, v17, &buf);
+    std::string::basic_string[abi:ne200100]<0>(v16, "_");
+    quasar::Locale::fromInternalShortIdentifier(&v18, v16, &buf);
     if (versionCopy)
     {
-      [versionCopy ear_toString];
+      objc_msgSend_ear_toString(versionCopy);
     }
 
     else
     {
       __p[0] = 0;
       __p[1] = 0;
-      v16 = 0;
+      v15 = 0;
     }
 
-    isAdaptableToSpeechModelVersion = quasar::artifact::AppLmArtifact::isAdaptableToSpeechModelVersion(v10, &buf, __p);
-    if (SHIBYTE(v16) < 0)
+    isAdaptableToSpeechModelVersion = quasar::artifact::AppLmArtifact::isAdaptableToSpeechModelVersion(v9, &buf, __p);
+    if (SHIBYTE(v15) < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (v23 < 0)
+    if (v21 < 0)
     {
-      operator delete(v22);
+      operator delete(v20);
     }
 
     if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
@@ -659,14 +655,14 @@ LABEL_32:
       operator delete(buf.__r_.__value_.__l.__data_);
     }
 
-    if (v18 < 0)
+    if (v17 < 0)
     {
-      operator delete(v17[0]);
+      operator delete(v16[0]);
     }
 
-    if (SHIBYTE(v20) < 0)
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v19[0]);
+      operator delete(v18.__r_.__value_.__l.__data_);
     }
 
     if (cntrl)
@@ -677,11 +673,11 @@ LABEL_32:
 
   else
   {
-    v12 = EarArtifactLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v11 = EarArtifactLogger(ptr);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf.__r_.__value_.__l.__data_) = 0;
-      _os_log_impl(&dword_1B501D000, v12, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", &buf, 2u);
+      _os_log_impl(&dword_1B501D000, v11, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", &buf, 2u);
     }
 
     isAdaptableToSpeechModelVersion = 0;
@@ -700,61 +696,61 @@ LABEL_32:
       atomic_fetch_add_explicit(cntrl + 1, 1uLL, memory_order_relaxed);
     }
 
-    LifeCycleStage = quasar::artifact::AppLmArtifact::getLifeCycleStage(v4);
-    v7 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
-    v8 = v7;
-    v9 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v7);
-    if (v8 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v9 + 64))
+    LifeCycleStage = quasar::artifact::AppLmArtifact::getLifeCycleStage(ptr);
+    v6 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
+    v7 = v6;
+    v8 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v6);
+    if (v7 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v8 + 64))
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v12 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
-      v13 = v12;
-      v14 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v12);
-      if (v13 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v14 + 128))
+      v11 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
+      v12 = v11;
+      v13 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v11);
+      if (v12 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v13 + 128))
       {
-        v10 = 2;
+        v9 = 2;
       }
 
       else
       {
-        v15 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
-        v16 = v15;
-        v17 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v15);
-        if (v16 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v17 + 192))
+        v14 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
+        v15 = v14;
+        v16 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v14);
+        if (v15 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v16 + 192))
         {
-          v10 = 3;
+          v9 = 3;
         }
 
         else
         {
-          v18 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
-          v19 = v18;
-          v20 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v18);
-          if (v19 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v20 + 256))
+          v17 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
+          v18 = v17;
+          v19 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v17);
+          if (v18 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v19 + 256))
           {
-            v10 = 4;
+            v9 = 4;
           }
 
           else
           {
-            v21 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
-            v22 = v21;
-            v23 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v21);
-            if (v22 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v23 + 320))
+            v20 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
+            v21 = v20;
+            v22 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v20);
+            if (v21 == quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v22 + 320))
             {
-              v10 = 5;
+              v9 = 5;
             }
 
             else
             {
-              v24 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
-              v25 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v24);
-              quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v25);
-              v10 = 0;
+              v23 = quasar::artifact::AppLmArtifactLifeCycleStage::operator int(LifeCycleStage);
+              v24 = quasar::artifact::AppLmArtifactLifeCycleStages::get(v23);
+              quasar::artifact::AppLmArtifactLifeCycleStage::operator int(v24);
+              v9 = 0;
             }
           }
         }
@@ -769,17 +765,17 @@ LABEL_32:
 
   else
   {
-    v11 = EarArtifactLogger();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = EarArtifactLogger(ptr);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v27 = 0;
-      _os_log_impl(&dword_1B501D000, v11, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", v27, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_1B501D000, v10, OS_LOG_TYPE_DEFAULT, "Failed to dynamic cast Artifact to AppLmArtifact", v26, 2u);
     }
 
     return 0;
   }
 
-  return v10;
+  return v9;
 }
 
 + (BOOL)createEmptyArtifact:(id)artifact version:(id)version locale:(id)locale saveTo:(id)to
@@ -791,7 +787,7 @@ LABEL_32:
   EARLogger::initializeLogging(to);
   if (artifactCopy)
   {
-    [artifactCopy ear_toString];
+    objc_msgSend_ear_toString(artifactCopy);
     if (versionCopy)
     {
       goto LABEL_3;
@@ -804,19 +800,19 @@ LABEL_32:
     if (versionCopy)
     {
 LABEL_3:
-      [versionCopy ear_toString];
+      objc_msgSend_ear_toString(versionCopy);
       if (localeCopy)
       {
 LABEL_4:
-        [localeCopy ear_toString];
+        objc_msgSend_ear_toString(localeCopy);
         goto LABEL_8;
       }
 
 LABEL_7:
-      memset(v14, 0, sizeof(v14));
+      memset(&v14, 0, sizeof(v14));
 LABEL_8:
       std::string::basic_string[abi:ne200100]<0>(v13, "_");
-      quasar::Locale::fromInternalShortIdentifier(v14, v13, &v17);
+      quasar::Locale::fromInternalShortIdentifier(&v14, v13, &v17);
       quasar::artifact::CreateEmptyArtifact(v16, v15);
     }
   }
@@ -832,7 +828,7 @@ LABEL_8:
 
 + (BOOL)createPhraseCountsArtifact:(id)artifact version:(id)version locale:(id)locale rawPhraseCountsPath:(id)path customPronunciationsPath:(id)pronunciationsPath saveTo:(id)to
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   artifactCopy = artifact;
   versionCopy = version;
   localeCopy = locale;
@@ -841,7 +837,7 @@ LABEL_8:
   EARLogger::initializeLogging(to);
   if (artifactCopy)
   {
-    [artifactCopy ear_toString];
+    objc_msgSend_ear_toString(artifactCopy);
     if (versionCopy)
     {
       goto LABEL_3;
@@ -850,26 +846,28 @@ LABEL_8:
 
   else
   {
-    memset(&v24[6], 0, 24);
+    v28 = 0;
+    v29 = 0;
+    v30 = 0;
     if (versionCopy)
     {
 LABEL_3:
-      [versionCopy ear_toString];
+      objc_msgSend_ear_toString(versionCopy);
       if (localeCopy)
       {
 LABEL_4:
-        [localeCopy ear_toString];
+        objc_msgSend_ear_toString(localeCopy);
         goto LABEL_8;
       }
 
 LABEL_7:
-      memset(v24, 0, 24);
+      memset(&v24, 0, sizeof(v24));
 LABEL_8:
       std::string::basic_string[abi:ne200100]<0>(v23, "_");
-      quasar::Locale::fromInternalShortIdentifier(v24, v23, &v25);
+      quasar::Locale::fromInternalShortIdentifier(&v24, v23, &v31);
       if (pathCopy)
       {
-        [pathCopy ear_toString];
+        objc_msgSend_ear_toString(pathCopy);
       }
 
       else
@@ -880,7 +878,7 @@ LABEL_8:
       quasar::filesystem::Path::Path(&v22, v21);
       if (pronunciationsPathCopy)
       {
-        [pronunciationsPathCopy ear_toString];
+        objc_msgSend_ear_toString(pronunciationsPathCopy);
       }
 
       else
@@ -893,7 +891,9 @@ LABEL_8:
     }
   }
 
-  memset(&v24[3], 0, 24);
+  v25 = 0;
+  v26 = 0;
+  v27 = 0;
   if (localeCopy)
   {
     goto LABEL_4;
@@ -919,7 +919,7 @@ LABEL_8:
   EARLogger::initializeLogging(estimationRoot);
   if (atCopy)
   {
-    [atCopy ear_toString];
+    objc_msgSend_ear_toString(atCopy);
   }
 
   operator new();
@@ -966,36 +966,44 @@ LABEL_8:
 
 + (id)loadLmHandleFromArtifactAt:(id)at configPath:(id)path ncsRoot:(id)root
 {
+  v13[3] = *MEMORY[0x1E69E9840];
   atCopy = at;
   pathCopy = path;
-  rootCopy = root;
-  if (rootCopy)
+  if (root)
   {
-    [_EARQuasarTokenizer tokenizerWithNcsRoot:rootCopy];
+    objc_msgSend_tokenizerWithNcsRoot_(_EARQuasarTokenizer);
   }
 
   else
   {
-    [_EARQuasarTokenizer tokenizerWithRecognizerConfigPath:pathCopy];
+    objc_msgSend_tokenizerWithRecognizerConfigPath_(_EARQuasarTokenizer);
   }
 
+  v9 = v13[0];
   if (atCopy)
   {
-    [atCopy ear_toString];
-    if (!pathCopy)
+    objc_msgSend_ear_toString(atCopy);
+    if (pathCopy)
     {
-      goto LABEL_8;
+LABEL_6:
+      objc_msgSend_ear_toString(pathCopy);
+      goto LABEL_9;
     }
   }
 
-  else if (!pathCopy)
+  else
   {
-LABEL_8:
-    quasar::artifact::LoadLmHandleFromArtifact();
+    memset(v13, 0, 24);
+    if (pathCopy)
+    {
+      goto LABEL_6;
+    }
   }
 
-  [pathCopy ear_toString];
-  goto LABEL_8;
+  memset(__p, 0, sizeof(__p));
+LABEL_9:
+  v11 = v9;
+  quasar::artifact::LoadLmHandleFromArtifact(v13, __p, &v11);
 }
 
 - (id).cxx_construct

@@ -64,10 +64,10 @@
     [v15 setObject:v20 forKeyedSubscript:@"ParticipantRecord"];
 
     uUIDString = [dCopy UUIDString];
-    v22 = [uUIDString copy];
+    v22 = objc_msgSend_copy(uUIDString);
     [(HDCloudSyncCodableSharedSummaryAuthorizationRecord *)v16->_underlyingAuthorizationRecord setUuid:v22];
 
-    v23 = [identifiersCopy copy];
+    v23 = objc_msgSend_copy(identifiersCopy);
     [(HDCloudSyncCodableSharedSummaryAuthorizationRecord *)v16->_underlyingAuthorizationRecord setAuthorizationCategories:v23];
   }
 
@@ -76,10 +76,10 @@
 
 - (HDCloudSyncSharedSummaryAuthorizationRecord)initWithCKRecord:(id)record schemaVersion:(int64_t)version
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = HDCloudSyncSharedSummaryAuthorizationRecord;
-  v4 = [(HDCloudSyncRecord *)&v15 initWithCKRecord:record schemaVersion:version];
+  v17 = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = HDCloudSyncSharedSummaryAuthorizationRecord;
+  v4 = [(HDCloudSyncRecord *)&v14 initWithCKRecord:record schemaVersion:version];
   v5 = v4;
   if (!v4)
   {
@@ -114,14 +114,13 @@ LABEL_9:
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
   {
     *buf = 138543362;
-    v17 = v5;
+    v16 = v5;
     _os_log_fault_impl(&dword_228986000, v9, OS_LOG_TYPE_FAULT, "[summary-sharing] %{public}@: Failed to decode underlying record.", buf, 0xCu);
   }
 
   v10 = 0;
 LABEL_10:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -137,7 +136,7 @@ LABEL_10:
 - (NSArray)authorizationIdentifiers
 {
   authorizationCategories = [(HDCloudSyncCodableSharedSummaryAuthorizationRecord *)self->_underlyingAuthorizationRecord authorizationCategories];
-  v3 = [authorizationCategories copy];
+  v3 = objc_msgSend_copy(authorizationCategories);
 
   return v3;
 }
@@ -242,18 +241,16 @@ LABEL_17:
 
 + (id)fieldsForUnprotectedSerialization
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = &OBJC_METACLASS___HDCloudSyncSharedSummaryAuthorizationRecord;
-  v2 = objc_msgSendSuper2(&v9, sel_fieldsForUnprotectedSerialization);
-  v10 = objc_opt_class();
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v10[1] = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = &OBJC_METACLASS___HDCloudSyncSharedSummaryAuthorizationRecord;
+  v2 = objc_msgSendSuper2(&v8, sel_fieldsForUnprotectedSerialization);
+  v9 = objc_opt_class();
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   v4 = [HDCloudSyncSerializedField fieldForKey:@"ParticipantRecord" classes:v3 encrypted:0];
-  v11[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v6 = [v2 arrayByAddingObjectsFromArray:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

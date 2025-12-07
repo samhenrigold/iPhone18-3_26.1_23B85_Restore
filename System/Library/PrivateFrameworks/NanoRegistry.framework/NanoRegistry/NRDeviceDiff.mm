@@ -34,29 +34,29 @@
 
 - (void)_createIndex
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [NRUnarchivedObjectVerifier unarchivingVerifyObjectIsNotNil:*(self + 8) name:@"device property diff type" owner:self];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   obj = *(self + 8);
-  v2 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v2 = [obj countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v13;
+    v4 = *v12;
     do
     {
       v5 = 0;
       do
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v12 + 1) + 8 * v5);
+        v6 = *(*(&v11 + 1) + 8 * v5);
         v7 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
         [NRUnarchivedObjectVerifier unarchivingVerifyObjectClasses:v6 name:@"device property diff type key" classes:v7 owner:self];
 
@@ -68,18 +68,16 @@
       }
 
       while (v3 != v5);
-      v3 = [obj countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v3 = [obj countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (NRDeviceDiff)initWithCoder:(id)coder
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(NRDeviceDiff *)self init];
   if (!v5)
@@ -91,11 +89,11 @@
   if (!v6)
   {
     v10 = MEMORY[0x1E695DFD8];
+    v16 = objc_opt_class();
     v17 = objc_opt_class();
     v18 = objc_opt_class();
-    v19 = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:3];
-    v12 = [v10 setWithArray:{v11, v17, v18}];
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:3];
+    v12 = [v10 setWithArray:{v11, v16, v17}];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"properties"];
     diffPropertyDiffs = v5->_diffPropertyDiffs;
     v5->_diffPropertyDiffs = v13;
@@ -112,7 +110,6 @@ LABEL_5:
   v9 = [(NRDeviceDiff *)v5 initWithProtobuf:v8];
 
 LABEL_6:
-  v15 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -201,7 +198,7 @@ LABEL_10:
 
 - (NRPBDeviceDiff)protobuf
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   array = [MEMORY[0x1E695DF70] array];
   [(NRPBDeviceDiff *)v3 setNames:array];
@@ -209,33 +206,33 @@ LABEL_10:
   array2 = [MEMORY[0x1E695DF70] array];
   [(NRPBDeviceDiff *)v3 setDiffs:array2];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v6 = 8;
   obj = self->_diffPropertyDiffs;
-  v7 = [(NSDictionary *)obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v7 = [(NSDictionary *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
+    v9 = *v35;
     v10 = @"capabilities";
-    v31 = @"capabilities";
-    v32 = *v36;
+    v30 = @"capabilities";
+    v31 = *v35;
     do
     {
       v11 = 0;
-      v33 = v8;
+      v32 = v8;
       do
       {
-        if (*v36 != v9)
+        if (*v35 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v35 + 1) + 8 * v11);
-        v13 = [*(&self->super.super.isa + v6) objectForKeyedSubscript:{v12, v31, v32}];
+        v12 = *(*(&v34 + 1) + 8 * v11);
+        v13 = [*(&self->super.super.isa + v6) objectForKeyedSubscript:{v12, v30, v31}];
         if ([v12 isEqual:v10])
         {
           v14 = v6;
@@ -259,9 +256,9 @@ LABEL_10:
 
           self = selfCopy;
           v6 = v14;
-          v9 = v32;
-          v8 = v33;
-          v10 = v31;
+          v9 = v31;
+          v8 = v32;
+          v10 = v30;
         }
 
         if (v3)
@@ -286,48 +283,46 @@ LABEL_10:
       }
 
       while (v8 != v11);
-      v28 = [(NSDictionary *)obj countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v28 = [(NSDictionary *)obj countByEnumeratingWithState:&v34 objects:v38 count:16];
       v8 = v28;
     }
 
     while (v28);
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v3;
 }
 
 - (unint64_t)hash
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = self->_diffPropertyDiffs;
-  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [(NSDictionary *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [(NSDictionary *)self->_diffPropertyDiffs objectForKeyedSubscript:v9, v14];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [(NSDictionary *)self->_diffPropertyDiffs objectForKeyedSubscript:v9, v13];
         v11 = [v9 hash] - v7 + 32 * v7;
         v7 = [v10 hash] - v11 + 32 * v11;
       }
 
-      v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [(NSDictionary *)v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -338,7 +333,6 @@ LABEL_10:
     v7 = 1;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -371,20 +365,20 @@ LABEL_10:
 
 - (id)description
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   allKeys = [(NSDictionary *)self->_diffPropertyDiffs allKeys];
   v3 = [allKeys sortedArrayUsingComparator:&__block_literal_global_20];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = v3;
-  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     v7 = &stru_1F5B7BE00;
     do
     {
@@ -392,12 +386,12 @@ LABEL_10:
       v9 = v7;
       do
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * v8);
+        v10 = *(*(&v18 + 1) + 8 * v8);
         v11 = [(NSDictionary *)self->_diffPropertyDiffs objectForKeyedSubscript:v10];
         v12 = [v10 stringByPaddingToLength:30 withString:@" " startingAtIndex:0];
         v13 = [v11 description];
@@ -410,7 +404,7 @@ LABEL_10:
       }
 
       while (v5 != v8);
-      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -420,8 +414,6 @@ LABEL_10:
   {
     v7 = &stru_1F5B7BE00;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

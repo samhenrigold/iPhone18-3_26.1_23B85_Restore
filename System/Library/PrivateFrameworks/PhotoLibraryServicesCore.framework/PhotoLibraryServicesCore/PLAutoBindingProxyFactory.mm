@@ -89,7 +89,7 @@ id __52__PLAutoBindingProxyFactory__connectionInterrupted___block_invoke_14(uint
   if ([errorCopy isFailure])
   {
     error = [errorCopy error];
-    v5 = PLIsErrorEqualToCode(error, *MEMORY[0x1E696A250], 4097);
+    v5 = PLIsErrorEqualToCode(error, *MEMORY[0x1E696A250], 0x1001);
   }
 
   else

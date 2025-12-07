@@ -5,6 +5,7 @@
 - (int)getMitigationTypeForClientID:(unsigned __int8)d;
 - (unsigned)getMaxPowerForComponent:(int)component;
 - (unsigned)getMinPowerForComponent:(int)component;
+- (void)addToCPMSMitigationArray:(unsigned int)array withDetails:(unint64_t)details forComponent:(int)component;
 - (void)dealloc;
 - (void)publishDetailedMitigationArrayToCPMS;
 - (void)requestCurrentPowerCallbackForComponent:(int)component;
@@ -165,6 +166,51 @@
   ++self->detailMitigationArray.count;
 }
 
+- (void)addToCPMSMitigationArray:(unsigned int)array withDetails:(unint64_t)details forComponent:(int)component
+{
+  v7 = *&array;
+  if ([(CPMSHelper *)self isCPMSSupportedClient:*&component])
+  {
+    count = self->detailMitigationArray.count;
+    if (count > 32)
+    {
+      if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
+      {
+        sub_100051FFC();
+      }
+    }
+
+    else
+    {
+      if (byte_1000AB2F8 == 1)
+      {
+        v10 = qword_1000AB718;
+        if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_DEFAULT))
+        {
+          v11 = *&byte_100085740[24 * component + 8];
+          v12[0] = 67109890;
+          v12[1] = v7;
+          v13 = 2048;
+          detailsCopy = details;
+          v15 = 2080;
+          v16 = v11;
+          v17 = 1024;
+          v18 = count;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "<Notice> Setting power budget of %dmW with details: 0x%llx for client %s at index(detailMitigationArray.count): %d", v12, 0x22u);
+          count = self->detailMitigationArray.count;
+        }
+      }
+
+      [(CPMSHelper *)self setPowerBudget:v7 withDetails:details forCPMSClient:byte_100085740[24 * component] atIdx:count];
+    }
+  }
+
+  else if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
+  {
+    sub_100051F58();
+  }
+}
+
 - (unsigned)getMaxPowerForComponent:(int)component
 {
   v3 = &byte_100085740[24 * component];
@@ -208,7 +254,7 @@
 LABEL_10:
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
     {
-      sub_1000520E4(v3);
+      sub_1000520E4();
     }
 
     return 0;
@@ -260,7 +306,7 @@ LABEL_10:
 LABEL_10:
     if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
     {
-      sub_100052158(v3);
+      sub_100052158();
     }
 
     return -1;
@@ -279,7 +325,7 @@ LABEL_10:
     {
       if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
       {
-        sub_1000521CC(v3);
+        sub_1000521CC();
       }
     }
 
@@ -341,7 +387,7 @@ LABEL_10:
     {
       if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
       {
-        sub_10005234C(v3);
+        sub_10005234C();
       }
     }
   }

@@ -26,17 +26,17 @@
   if (v16)
   {
     protectionSpace2 = [authenticateCopy protectionSpace];
-    v18 = +[NSURLCredential credentialForTrust:](NSURLCredential, "credentialForTrust:", [protectionSpace2 serverTrust]);
+    v19 = +[NSURLCredential credentialForTrust:](NSURLCredential, "credentialForTrust:", [protectionSpace2 serverTrust]);
 
-    completionCopy[2](completionCopy, 0, v18);
+    completionCopy[2](completionCopy, 0, v19);
   }
 
   else
   {
-    v19 = sub_100063A54();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = sub_100063A54(v17);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_1000CC3FC(taskCopy, v19);
+      sub_1000CC3FC(taskCopy, v20);
     }
 
     completionCopy[2](completionCopy, 2, 0);

@@ -15,7 +15,7 @@
 
 + (id)dataclasses
 {
-  sub_1574();
+  sub_1574(0);
   v2 = swift_allocObject();
   *(v2 + 16) = xmmword_2EC0;
   v3 = ACAccountDataclassStocks;

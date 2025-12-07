@@ -14,18 +14,18 @@
 
 + (id)makeViewControllerWith:(id)with delegate:(id)delegate
 {
-  v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+  v5 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   type metadata accessor for RatchetCoolOffContentViewModel(0);
   swift_unknownObjectRetain_n();
-  v5 = sub_100040B08(v4);
+  v6 = sub_100040B08(v5, delegate);
   type metadata accessor for RatchetCoolOffContentViewController();
-  v6 = sub_100039BD0();
-  v7 = v5;
-  v8 = sub_100033228(v7, v6);
+  v7 = sub_100039BD0();
+  v8 = v6;
+  v9 = sub_100033228(v8, v7);
 
   swift_unknownObjectRelease();
 
-  return v8;
+  return v9;
 }
 
 @end

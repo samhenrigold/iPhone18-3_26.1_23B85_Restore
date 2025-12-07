@@ -63,22 +63,19 @@
 
 - (NSString)tag
 {
-  v2 = (*((*MEMORY[0x1E69E7D40] & *self) + 0x78))();
-  if (*(v2 + 32))
+  if (*((*((*MEMORY[0x1E69E7D40] & *self) + 0x78))() + 32))
   {
-    v3 = *(v2 + 24);
-    v4 = *(v2 + 32);
 
-    v5 = sub_18E72AFC8();
+    v2 = sub_18E72AFC8();
   }
 
   else
   {
 
-    v5 = 0;
+    v2 = 0;
   }
 
-  return v5;
+  return v2;
 }
 
 - (void)setTracking:(BOOL)tracking eventsWithIdentifiers:(id)identifiers
@@ -148,31 +145,30 @@
   }
 
   v7 = (*((*MEMORY[0x1E69E7D40] & *self) + 0x78))();
-  v8 = *(v7 + 32);
   if (v6)
   {
-    v9 = v4;
+    v8 = v4;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  *(v7 + 24) = v9;
+  *(v7 + 24) = v8;
   *(v7 + 32) = v6;
 }
 
 - (NSString)identifier
 {
-  v3 = *((*((*MEMORY[0x1E69E7D40] & *self) + 0x78))() + 16);
+  (*((*MEMORY[0x1E69E7D40] & *self) + 0x78))();
   selfCopy = self;
 
   sub_18E72B778();
 
-  v5 = sub_18E72AFC8();
+  v4 = sub_18E72AFC8();
 
-  return v5;
+  return v4;
 }
 
 - (GFGestureNodeDelegate)delegate

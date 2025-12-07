@@ -10,12 +10,12 @@
 {
   selfCopy = self;
   v6 = OUTLINED_FUNCTION_25_1();
-  sub_1E3B937A0(v6, v7);
+  sub_1E3B937A0(v6, v7, v8);
   OUTLINED_FUNCTION_18_3();
 
-  v8 = OUTLINED_FUNCTION_17_4();
-  result.height = v9;
-  result.width = v8;
+  v9 = OUTLINED_FUNCTION_17_4();
+  result.height = v10;
+  result.width = v9;
   return result;
 }
 

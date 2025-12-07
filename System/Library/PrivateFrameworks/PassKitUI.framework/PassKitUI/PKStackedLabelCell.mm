@@ -75,120 +75,185 @@
 
 - (void)layoutSubviews
 {
-  v46.receiver = self;
-  v46.super_class = PKStackedLabelCell;
-  [(PKStackedLabelCell *)&v46 layoutSubviews];
+  v91.receiver = self;
+  v91.super_class = PKStackedLabelCell;
+  [(PKStackedLabelCell *)&v91 layoutSubviews];
   [(UILabel *)self->_titleLabel frame];
   [(UILabel *)self->_detailLabel frame];
   [(UIImageView *)self->_detailImageView frame];
   font = [(UILabel *)self->_titleLabel font];
   [font lineHeight];
-  v42 = v4;
+  v85 = v4;
 
   font2 = [(UILabel *)self->_detailLabel font];
   [font2 lineHeight];
+  v7 = v6;
 
   contentView = [(PKStackedLabelCell *)self contentView];
   [(UITableViewCell *)self pkui_effectiveLayoutMargins];
-  v8 = v7;
   v10 = v9;
   v12 = v11;
   v14 = v13;
+  v16 = v15;
   [contentView bounds];
-  v16 = v10 + v15;
-  v18 = v8 + v17;
-  v20 = v19 - (v10 + v14);
-  v22 = v21 - (v8 + v12);
-  remainder.origin.x = v16;
-  remainder.origin.y = v18;
-  remainder.size.width = v20;
-  remainder.size.height = v22;
+  v18 = v12 + v17;
+  v20 = v10 + v19;
+  v22 = v21 - (v12 + v16);
+  v24 = v23 - (v10 + v14);
+  remainder.origin.x = v18;
+  remainder.origin.y = v20;
+  remainder.size.width = v22;
+  remainder.size.height = v24;
   memset(&slice, 0, sizeof(slice));
-  [(UILabel *)self->_titleLabel sizeThatFits:v20, v22];
-  v24 = v23;
-  amount = v25;
-  [(UILabel *)self->_detailLabel sizeThatFits:v20, v22];
-  v27 = v26;
-  [(UIImageView *)self->_detailImageView sizeThatFits:v20, v22];
+  [(UILabel *)self->_titleLabel sizeThatFits:v22, v24];
+  v26 = v25;
+  amount = v27;
+  [(UILabel *)self->_detailLabel sizeThatFits:v22, v24];
   v29 = v28;
-  PKFloatRoundToPixel();
-  v31 = v30;
-  v43 = v27;
-  v32 = v24 + v27;
-  v33 = v29;
-  v34 = v31 + v32 + v29 + v42 * 0.4863;
+  v88 = v30;
+  [(UIImageView *)self->_detailImageView sizeThatFits:v22, v24];
+  v32 = v31;
+  v86 = v33.n128_u64[0];
+  v34.n128_f64[0] = v7 * 0.0986;
+  PKFloatRoundToPixel(v34, v33);
+  v36 = v35;
+  v87 = v29;
+  v37 = v26 + v29;
+  v38 = *&v32;
+  v39 = v36 + v37 + v32 + v85 * 0.4863;
   if (self->_isRTL)
   {
-    v35 = CGRectMaxXEdge;
+    v40 = CGRectMaxXEdge;
   }
 
   else
   {
-    v35 = CGRectMinXEdge;
+    v40 = CGRectMinXEdge;
   }
 
-  PKContentAlignmentMake();
-  if (v34 <= v20)
+  v41 = PKContentAlignmentMake();
+  if (v39 <= v22)
   {
-    PKContentAlignmentMake();
-    CGRectDivide(remainder, &slice, &remainder, v24, v35);
+    v67 = PKContentAlignmentMake();
+    CGRectDivide(remainder, &slice, &remainder, v26, v40);
     titleLabel = self->_titleLabel;
-    PKSizeAlignedInRect();
+    v69.n128_u64[0] = *&slice.size.width;
+    v70.n128_u64[0] = *&slice.size.height;
+    v71.n128_u64[0] = *&slice.origin.x;
+    v72.n128_u64[0] = *&slice.origin.y;
+    v73.n128_u64[0] = *&slice.size.width;
+    v74.n128_u64[0] = *&slice.size.height;
+    PKSizeAlignedInRect(v41, v69, v70, v71, v72, v73, v74, v75);
     [(UILabel *)titleLabel setFrame:?];
-    CGRectDivide(remainder, &slice, &remainder, remainder.size.width - v43 - v31, v35);
+    CGRectDivide(remainder, &slice, &remainder, remainder.size.width - v87 - v36, v40);
     detailImageView = self->_detailImageView;
-    PKSizeAlignedInRect();
+    v77.n128_u64[0] = *&slice.origin.x;
+    v78.n128_u64[0] = *&slice.origin.y;
+    v79.n128_u64[0] = *&slice.size.width;
+    v80.n128_u64[0] = *&slice.size.height;
+    v81.n128_u64[0] = v38;
+    v82.n128_u64[0] = v86;
+    PKSizeAlignedInRect(v67, v81, v82, v77, v78, v79, v80, v83);
     [(UIImageView *)detailImageView setFrame:?];
+    CGRectDivide(remainder, &slice, &remainder, v36, v40);
+    detailLabel = self->_detailLabel;
+    v60.n128_u64[0] = *&remainder.origin.x;
+    v61.n128_u64[0] = *&remainder.origin.y;
+    v62.n128_u64[0] = *&remainder.size.width;
+    v63.n128_u64[0] = *&remainder.size.height;
+    v64.n128_f64[0] = v87;
+    v65.n128_u64[0] = v88;
+    v66 = v67;
   }
 
   else
   {
-    v47.origin.x = v16;
-    v47.origin.y = v18;
-    v47.size.width = v20;
-    v47.size.height = v22;
-    CGRectDivide(v47, &slice, &remainder, amount, CGRectMinYEdge);
-    v36 = self->_titleLabel;
-    PKSizeAlignedInRect();
-    [(UILabel *)v36 setFrame:?];
+    v92.origin.x = v18;
+    v92.origin.y = v20;
+    v92.size.width = v22;
+    v92.size.height = v24;
+    CGRectDivide(v92, &slice, &remainder, amount, CGRectMinYEdge);
+    v42 = self->_titleLabel;
+    v43.n128_u64[0] = *&slice.size.width;
+    v44.n128_u64[0] = *&slice.size.height;
+    v45.n128_u64[0] = *&slice.origin.x;
+    v46.n128_u64[0] = *&slice.origin.y;
+    v47.n128_u64[0] = *&slice.size.width;
+    v48.n128_u64[0] = *&slice.size.height;
+    PKSizeAlignedInRect(v41, v43, v44, v45, v46, v47, v48, v49);
+    [(UILabel *)v42 setFrame:?];
     CGRectDivide(remainder, &slice, &remainder, 6.0, CGRectMinYEdge);
-    CGRectDivide(remainder, &slice, &remainder, v33, v35);
-    v37 = self->_detailImageView;
-    PKSizeAlignedInRect();
-    [(UIImageView *)v37 setFrame:?];
+    CGRectDivide(remainder, &slice, &remainder, *&v38, v40);
+    v50 = self->_detailImageView;
+    v51.n128_u64[0] = *&slice.origin.x;
+    v52.n128_u64[0] = *&slice.origin.y;
+    v53.n128_u64[0] = *&slice.size.width;
+    v54.n128_u64[0] = *&slice.size.height;
+    v55.n128_u64[0] = v38;
+    v56.n128_u64[0] = v86;
+    PKSizeAlignedInRect(v41, v55, v56, v51, v52, v53, v54, v57);
+    [(UIImageView *)v50 setFrame:?];
+    CGRectDivide(remainder, &slice, &remainder, v36, v40);
+    detailLabel = self->_detailLabel;
+    v60.n128_u64[0] = *&remainder.origin.x;
+    v61.n128_u64[0] = *&remainder.origin.y;
+    v62.n128_u64[0] = *&remainder.size.width;
+    v63.n128_u64[0] = *&remainder.size.height;
+    v64.n128_f64[0] = v87;
+    v65.n128_u64[0] = v88;
+    v66 = v41;
   }
 
-  CGRectDivide(remainder, &slice, &remainder, v31, v35);
-  detailLabel = self->_detailLabel;
-  PKSizeAlignedInRect();
+  PKSizeAlignedInRect(v66, v64, v65, v60, v61, v62, v63, v58);
   [(UILabel *)detailLabel setFrame:?];
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
+  width = fits.width;
   v4 = [(PKStackedLabelCell *)self contentView:fits.width];
   [(UITableViewCell *)self pkui_effectiveLayoutMargins];
-  v6 = v5;
+  v37 = v6;
+  v38 = v5;
   v8 = v7;
+  v10 = v9;
   [v4 frame];
-  v10 = v9 - (v6 + v8);
-  [(UILabel *)self->_titleLabel sizeThatFits:v10, 1.79769313e308];
-  [(UILabel *)self->_detailLabel sizeThatFits:v10, 1.79769313e308];
-  [(UIImageView *)self->_detailImageView sizeThatFits:v10, 1.79769313e308];
+  v12 = v11 - (v8 + v10);
+  [(UILabel *)self->_titleLabel sizeThatFits:v12, 1.79769313e308];
+  v14 = v13;
+  v16 = v15;
+  [(UILabel *)self->_detailLabel sizeThatFits:v12, 1.79769313e308];
+  v18 = v17;
+  v20 = v19;
+  [(UIImageView *)self->_detailImageView sizeThatFits:v12, 1.79769313e308];
+  v22 = v21;
   font = [(UILabel *)self->_titleLabel font];
   [font lineHeight];
+  v25 = v24;
 
   font2 = [(UILabel *)self->_detailLabel font];
   [font2 lineHeight];
+  v28 = v27;
 
-  PKSizeRoundToPixel();
-  v14 = v13;
-  v16 = v15;
+  v29 = fmax(v16, v20);
+  if (v14 + v18 + v22 + v25 * 0.4863 + v28 * 0.0986 <= v12)
+  {
+    v30 = v29;
+  }
 
-  v17 = v14;
-  v18 = v16;
-  result.height = v18;
-  result.width = v17;
+  else
+  {
+    v30 = v16 + 6.0 + v20;
+  }
+
+  PKSizeRoundToPixel(width, v37 + v38 + v30);
+  v32 = v31;
+  v34 = v33;
+
+  v35 = v32;
+  v36 = v34;
+  result.height = v36;
+  result.width = v35;
   return result;
 }
 

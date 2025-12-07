@@ -297,9 +297,9 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v11 = [(__CFString *)v28 isEqual:titleCopy2];
+  isEqual = objc_msgSend_isEqual_(v28);
 
-  if ((v11 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_9:
     v15 = [(__CFString *)v28 copy];
@@ -376,7 +376,7 @@ LABEL_23:
         goto LABEL_28;
       }
 
-      v22 = [(UIAction *)v19 isEqual:v20];
+      v22 = objc_msgSend_isEqual_(v19);
     }
 
     if (v10 & v22)

@@ -27,28 +27,26 @@
 
 void __43__HMBCloudDatabaseStateModel_hmbProperties__block_invoke(uint64_t a1)
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v10.receiver = *(a1 + 32);
-  v10.super_class = &OBJC_METACLASS___HMBCloudDatabaseStateModel;
-  v1 = objc_msgSendSuper2(&v10, sel_hmbProperties);
+  v11[3] = *MEMORY[0x277D85DE8];
+  v9.receiver = *(a1 + 32);
+  v9.super_class = &OBJC_METACLASS___HMBCloudDatabaseStateModel;
+  v1 = objc_msgSendSuper2(&v9, sel_hmbProperties);
   v2 = [v1 mutableCopy];
   v3 = hmbProperties__properties_7883;
   hmbProperties__properties_7883 = v2;
 
   v4 = hmbProperties__properties_7883;
-  v11[0] = @"cloudID";
+  v10[0] = @"cloudID";
   v5 = [HMBModelField fieldWithClass:objc_opt_class()];
-  v12[0] = v5;
-  v11[1] = @"lastAdministrativeFetch";
+  v11[0] = v5;
+  v10[1] = @"lastAdministrativeFetch";
   v6 = [HMBModelField fieldWithClass:objc_opt_class()];
-  v12[1] = v6;
-  v11[2] = @"subscriptionsData";
+  v11[1] = v6;
+  v10[2] = @"subscriptionsData";
   v7 = [HMBModelField fieldWithClass:objc_opt_class()];
-  v12[2] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
   [v4 addEntriesFromDictionary:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (CKDatabase)database
@@ -60,11 +58,11 @@ void __43__HMBCloudDatabaseStateModel_hmbProperties__block_invoke(uint64_t a1)
 
 - (void)setSubscriptions:(id)subscriptions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   subscriptionsCopy = subscriptions;
-  v13 = 0;
-  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:subscriptionsCopy requiringSecureCoding:1 error:&v13];
-  v6 = v13;
+  v12 = 0;
+  v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:subscriptionsCopy requiringSecureCoding:1 error:&v12];
+  v6 = v12;
   if (v5)
   {
     [(HMBCloudDatabaseStateModel *)self setSubscriptionsData:v5];
@@ -80,35 +78,33 @@ void __43__HMBCloudDatabaseStateModel_hmbProperties__block_invoke(uint64_t a1)
       v10 = HMFGetLogIdentifier();
       hmbDescription = [subscriptionsCopy hmbDescription];
       *buf = 138543874;
-      v15 = v10;
-      v16 = 2112;
-      v17 = hmbDescription;
-      v18 = 2112;
-      v19 = v6;
+      v14 = v10;
+      v15 = 2112;
+      v16 = hmbDescription;
+      v17 = 2112;
+      v18 = v6;
       _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode subscriptions %@: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)subscriptions
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   subscriptionsData = [(HMBCloudDatabaseStateModel *)self subscriptionsData];
   if (subscriptionsData)
   {
     v4 = MEMORY[0x277CCAAC8];
     v5 = MEMORY[0x277CBEB98];
-    v25[0] = objc_opt_class();
-    v25[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
+    v24[0] = objc_opt_class();
+    v24[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
     v7 = [v5 setWithArray:v6];
-    v18 = 0;
-    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:subscriptionsData error:&v18];
-    v9 = v18;
+    v17 = 0;
+    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:subscriptionsData error:&v17];
+    v9 = v17;
 
     if (v8)
     {
@@ -124,11 +120,11 @@ void __43__HMBCloudDatabaseStateModel_hmbProperties__block_invoke(uint64_t a1)
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v20 = v15;
-        v21 = 2112;
-        v22 = subscriptionsData;
-        v23 = 2112;
-        v24 = v9;
+        v19 = v15;
+        v20 = 2112;
+        v21 = subscriptionsData;
+        v22 = 2112;
+        v23 = v9;
         _os_log_impl(&dword_22AD27000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode subscriptions data %@: %@", buf, 0x20u);
       }
 
@@ -143,8 +139,6 @@ void __43__HMBCloudDatabaseStateModel_hmbProperties__block_invoke(uint64_t a1)
   {
     v11 = [MEMORY[0x277CBEB98] set];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

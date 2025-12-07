@@ -156,7 +156,7 @@ BOOL __67__PKPaymentShippingAddressDataItem_isShippingServiceableWithError___blo
 {
   v2 = a2;
   v3 = [v2 domain];
-  if ([v3 isEqualToString:@"PKPaymentErrorDomain"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = [v2 code] == 3;
   }
@@ -267,7 +267,7 @@ LABEL_17:
   userInfo2 = [errorCopy userInfo];
   incompleteShippingAddressErrorDescription = [userInfo2 objectForKey:@"PKPaymentErrorContactField"];
 
-  if ([incompleteShippingAddressErrorDescription isEqualToString:@"name"])
+  if (objc_msgSend_isEqualToString_(incompleteShippingAddressErrorDescription))
   {
     model = [(PKPaymentDataItem *)self model];
     shippingAddress = [model shippingAddress];
@@ -276,7 +276,7 @@ LABEL_17:
 
   else
   {
-    if (![incompleteShippingAddressErrorDescription isEqualToString:@"phoneticName"])
+    if (!objc_msgSend_isEqualToString_(incompleteShippingAddressErrorDescription))
     {
       if ([errorCopy code] == 1)
       {

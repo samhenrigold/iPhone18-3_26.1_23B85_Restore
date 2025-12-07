@@ -20,7 +20,7 @@
 - (_TtC8CameraUI20CAMDockKitController)initWithMotionController:(id)controller
 {
   controllerCopy = controller;
-  v4 = sub_1A38962F8();
+  v4 = sub_1A38962F8(controllerCopy);
 
   return v4;
 }
@@ -35,8 +35,10 @@
 
 - (void)tapToTrackTriggeredAtPoint:(CGPoint)point devicePosition:(int64_t)position
 {
+  y = point.y;
+  x = point.x;
   selfCopy = self;
-  sub_1A389307C();
+  sub_1A389307C(position, x, y);
 }
 
 - (void)captureModeDidChange:(int64_t)change
@@ -73,7 +75,7 @@
   infoCopy = info;
   dataCopy = data;
   selfCopy = self;
-  sub_1A3966334();
+  sub_1A3966334(dataCopy);
 }
 
 - (id)matchingTrackedSubjectForAnstID:(int64_t)d

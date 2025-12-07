@@ -268,7 +268,7 @@ LABEL_8:
 + (BOOL)automaticallyNotifiesObserversForKey:(id)key
 {
   v7 = *MEMORY[0x1E69E9840];
-  if ([key isEqualToString:@"operations"] & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"operationCount") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"suspended") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"operationCount") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"name") & 1) != 0 || (objc_msgSend(key, "isEqualToString:", @"qualityOfService"))
+  if (objc_msgSend_isEqualToString_(key, a2, @"operations") & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key) & 1) != 0 || (objc_msgSend_isEqualToString_(key))
   {
     return 0;
   }
@@ -603,7 +603,7 @@ void __28__NSOperationQueue_setName___block_invoke(uint64_t a1)
 - (void)addObserver:(id)observer forKeyPath:(id)path options:(unint64_t)options context:(void *)context
 {
   v14 = *MEMORY[0x1E69E9840];
-  if ([path isEqualToString:@"operations"])
+  if (objc_msgSend_isEqualToString_(path, a2, @"operations"))
   {
     if (atomic_fetch_add(&self->_iqp.__operationsObserverCount, 1u) == 255)
     {
@@ -613,7 +613,7 @@ void __28__NSOperationQueue_setName___block_invoke(uint64_t a1)
     }
   }
 
-  else if (([path isEqualToString:@"operationCount"] & 1) != 0 && atomic_fetch_add(&self->_iqp.__operationCountObserverCount, 1u) == 255)
+  else if ((objc_msgSend_isEqualToString_(path) & 1) != 0 && atomic_fetch_add(&self->_iqp.__operationCountObserverCount, 1u) == 255)
   {
     atomic_store(0xFFu, &self->_iqp.__operationCountObserverCount);
     v11 = @"operationCount";
@@ -633,14 +633,14 @@ LABEL_8:
   v7.receiver = self;
   v7.super_class = NSOperationQueue;
   [(NSOperationQueue *)&v7 removeObserver:observer forKeyPath:?];
-  if ([path isEqualToString:@"operations"])
+  if (objc_msgSend_isEqualToString_(path))
   {
     v6 = 503;
   }
 
   else
   {
-    if (![path isEqualToString:@"operationCount"])
+    if (!objc_msgSend_isEqualToString_(path))
     {
       return;
     }

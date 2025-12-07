@@ -455,9 +455,9 @@ LABEL_21:
           {
             v41 = [CCWalletPaymentsCommerceOrderEmailMerchant alloc];
             v25 = CCPBReaderReadDataNoCopy();
-            v56 = 0;
-            v26 = [(CCItemMessage *)v41 initWithData:v25 error:&v56];
-            v10 = v56;
+            v54 = 0;
+            v26 = [(CCItemMessage *)v41 initWithData:v25 error:&v54];
+            v10 = v54;
             v27 = 48;
             goto LABEL_50;
           }
@@ -466,9 +466,9 @@ LABEL_21:
           {
             v37 = [CCWalletPaymentsCommerceOrderEmailCustomer alloc];
             v25 = CCPBReaderReadDataNoCopy();
-            v55 = 0;
-            v26 = [(CCItemMessage *)v37 initWithData:v25 error:&v55];
-            v10 = v55;
+            v53 = 0;
+            v26 = [(CCItemMessage *)v37 initWithData:v25 error:&v53];
+            v10 = v53;
             v27 = 56;
             goto LABEL_50;
           }
@@ -481,25 +481,25 @@ LABEL_21:
             case 7:
               v40 = [CCWalletPaymentsCommerceOrderEmailShippingRecipient alloc];
               v25 = CCPBReaderReadDataNoCopy();
-              v54 = 0;
-              v26 = [(CCItemMessage *)v40 initWithData:v25 error:&v54];
-              v10 = v54;
+              v52 = 0;
+              v26 = [(CCItemMessage *)v40 initWithData:v25 error:&v52];
+              v10 = v52;
               v27 = 64;
               goto LABEL_50;
             case 8:
               v42 = [CCWalletPaymentsCommerceOrderEmailShippingInformation alloc];
               v25 = CCPBReaderReadDataNoCopy();
-              v53 = 0;
-              v26 = [(CCItemMessage *)v42 initWithData:v25 error:&v53];
-              v10 = v53;
+              v51 = 0;
+              v26 = [(CCItemMessage *)v42 initWithData:v25 error:&v51];
+              v10 = v51;
               v27 = 72;
               goto LABEL_50;
             case 9:
               v24 = [CCWalletPaymentsCommerceOrderEmailPaymentInformation alloc];
               v25 = CCPBReaderReadDataNoCopy();
-              v52 = 0;
-              v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v52];
-              v10 = v52;
+              v50 = 0;
+              v26 = [(CCItemMessage *)v24 initWithData:v25 error:&v50];
+              v10 = v50;
               v27 = 80;
 LABEL_50:
               v43 = *(&self->super.super.isa + v27);
@@ -519,9 +519,9 @@ LABEL_51:
         {
           v38 = [CCWalletPaymentsCommerceOrderEmailEmailMetadata alloc];
           v25 = CCPBReaderReadDataNoCopy();
-          v57 = 0;
-          v26 = [(CCItemMessage *)v38 initWithData:v25 error:&v57];
-          v10 = v57;
+          v55 = 0;
+          v26 = [(CCItemMessage *)v38 initWithData:v25 error:&v55];
+          v10 = v55;
           v27 = 24;
           goto LABEL_50;
         }
@@ -595,7 +595,6 @@ LABEL_54:
           {
             v44 = objc_opt_class();
             v25 = NSStringFromClass(v44);
-            v45 = *&v6[*v9];
             v10 = CCSkipFieldErrorForMessage();
             goto LABEL_51;
           }
@@ -628,23 +627,22 @@ LABEL_62:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v50 = 1;
+    v48 = 1;
     goto LABEL_66;
   }
 
 LABEL_63:
-  v46 = objc_opt_class();
-  v47 = NSStringFromClass(v46);
-  v48 = *&v6[*v9];
-  v49 = CCInvalidBufferErrorForMessage();
+  v45 = objc_opt_class();
+  v46 = NSStringFromClass(v45);
+  v47 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_64:
-  v50 = 0;
+  v48 = 0;
 LABEL_66:
 
-  return v50;
+  return v48;
 }
 
 - (CCWalletPaymentsCommerceOrderEmail)initWithEmailMetadata:(id)metadata emailType:(unsigned int)type orderNumber:(id)number orderDate:(id)date merchant:(id)merchant customer:(id)customer shippingRecipient:(id)recipient shippingInformation:(id)self0 paymentInformation:(id)self1 error:(id *)self2

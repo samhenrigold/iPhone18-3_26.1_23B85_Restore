@@ -30,18 +30,16 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v10[0] = self->_planId;
-  v9[0] = @"id";
-  v9[1] = @"version";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v9[0] = self->_planId;
+  v8[0] = @"id";
+  v8[1] = @"version";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PMLMockPlan version](self, "version", chunks)}];
-  v10[1] = v4;
-  v9[2] = @"returnValue";
+  v9[1] = v4;
+  v8[2] = @"returnValue";
   v5 = [MEMORY[0x277CCABB0] numberWithBool:self->_returnValue];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

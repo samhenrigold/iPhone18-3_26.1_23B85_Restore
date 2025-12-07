@@ -9,7 +9,7 @@
 {
   v5 = OBJC_IVAR____TtC9MomentsUI22TransferPhotoViewModel_urlBasedImage;
   *(&self->super.super.super.isa + OBJC_IVAR____TtC9MomentsUI22TransferPhotoViewModel_urlBasedImage) = 0;
-  type metadata accessor for URLBasedImage();
+  type metadata accessor for URLBasedImage(0);
   coderCopy = coder;
   v7 = NSCoder.decodeObject<A>(of:forKey:)();
   swift_beginAccess();

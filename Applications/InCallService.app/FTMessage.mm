@@ -42,18 +42,18 @@
 
 - (NSUUID)callUUID
 {
-  v3 = sub_10014EA98(&qword_1003AAB40);
-  __chkstk_darwin(v3 - 8, v4);
-  v6 = &v11 - v5;
+  v3 = sub_10014EA98(&qword_1003AAB40, &unk_1002FAAB0);
+  __chkstk_darwin(v3 - 8);
+  v5 = (&v10 - v4);
   selfCopy = self;
-  sub_1001B9E78(v6);
+  sub_1001B9E78(v5);
 
-  v8 = type metadata accessor for UUID();
+  v7 = type metadata accessor for UUID();
   isa = 0;
-  if (sub_100006AC0(v6, 1, v8) != 1)
+  if (sub_100006AC0(v5, 1, v7) != 1)
   {
     isa = UUID._bridgeToObjectiveC()().super.isa;
-    (*(*(v8 - 8) + 8))(v6, v8);
+    (*(*(v7 - 8) + 8))(v5, v7);
   }
 
   return isa;
@@ -107,15 +107,15 @@
 {
   v3 = type metadata accessor for Date();
   v4 = *(v3 - 8);
-  __chkstk_darwin(v3, v5);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v3);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_1001BA788();
 
-  v9.super.isa = Date._bridgeToObjectiveC()().super.isa;
-  (*(v4 + 8))(v7, v3);
+  v8.super.isa = Date._bridgeToObjectiveC()().super.isa;
+  (*(v4 + 8))(v6, v3);
 
-  return v9.super.isa;
+  return v8.super.isa;
 }
 
 - (BOOL)isTranscriptionAvailable
@@ -201,7 +201,7 @@
 
 - (id)contactUsingContactStore:(id)store withKeysToFetch:(id)fetch
 {
-  sub_10014EA98(&qword_1003AAF80);
+  sub_10014EA98(&qword_1003AAF80, &unk_1002FB7D0);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   storeCopy = store;
   selfCopy = self;

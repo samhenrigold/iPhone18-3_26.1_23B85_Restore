@@ -38,33 +38,33 @@
 
 void __32__CPLMetrics_metricsDescription__block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) _loadIfNecessary];
   if ([*(*(a1 + 32) + 16) count])
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v3 = [*(*(a1 + 32) + 16) allKeys];
     v4 = [v3 sortedArrayUsingSelector:sel_compare_];
 
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v16 + 1) + 8 * i);
+          v9 = *(*(&v15 + 1) + 8 * i);
           v10 = [*(a1 + 32) countForKey:v9];
           if (v10 >= 1)
           {
@@ -73,7 +73,7 @@ void __32__CPLMetrics_metricsDescription__block_invoke(uint64_t a1)
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v6);
@@ -84,8 +84,6 @@ void __32__CPLMetrics_metricsDescription__block_invoke(uint64_t a1)
     v14 = *(v13 + 40);
     *(v13 + 40) = v12;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)incrementCountForKey:(id)key

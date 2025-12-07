@@ -61,7 +61,7 @@ LABEL_6:
 - (void)updateInterVisitMetric:(id)metric store:(id)store withUpdatedTime:(id)time andCloseSnapshot:(BOOL)snapshot
 {
   snapshotCopy = snapshot;
-  v82 = *MEMORY[0x277D85DE8];
+  v81 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   storeCopy = store;
   timeCopy = time;
@@ -80,33 +80,33 @@ LABEL_6:
   {
     p_lastUpdateTime = &self->_lastUpdateTime;
     timeCopy2 = time;
-    v58 = snapshotCopy;
-    v59 = timeCopy;
-    v60 = metricCopy;
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
+    v57 = snapshotCopy;
+    v58 = timeCopy;
+    v59 = metricCopy;
     v72 = 0u;
+    v73 = 0u;
+    v70 = 0u;
+    v71 = 0u;
     obj = metricCopy;
-    v65 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
-    if (!v65)
+    v64 = [obj countByEnumeratingWithState:&v70 objects:v80 count:16];
+    if (!v64)
     {
       goto LABEL_38;
     }
 
-    v63 = *v72;
+    v62 = *v71;
     selfCopy = self;
     while (1)
     {
       v15 = 0;
       do
       {
-        if (*v72 != v63)
+        if (*v71 != v62)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v71 + 1) + 8 * v15);
+        v16 = *(*(&v70 + 1) + 8 * v15);
         v17 = [obj objectForKey:v16];
         v18 = [(NSMutableDictionary *)self->_accumulatedDeviceMetrics objectForKey:v16];
         if (v18)
@@ -132,13 +132,13 @@ LABEL_17:
             [v23 insertObject:v24 atIndex:0];
           }
 
-          v67 = v24;
+          v66 = v24;
           deviceObservationInterval = [v17 deviceObservationInterval];
           v26 = [(NSMutableDictionary *)self->_lastAdvPerDevice objectForKey:v16];
-          v66 = v26;
+          v65 = v26;
           if (v26)
           {
-            v64 = deviceObservationInterval;
+            v63 = deviceObservationInterval;
             v27 = v26;
             getDate = [v26 getDate];
             latestObservation = [v17 latestObservation];
@@ -149,10 +149,10 @@ LABEL_17:
             {
               if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
               {
-                [TAInterVisitMetricsSnapshot updateInterVisitMetric:v70 store:? withUpdatedTime:? andCloseSnapshot:?];
+                [TAInterVisitMetricsSnapshot updateInterVisitMetric:v69 store:? withUpdatedTime:? andCloseSnapshot:?];
               }
 
-              deviceObservationInterval = v64;
+              deviceObservationInterval = v63;
             }
 
             else
@@ -174,11 +174,11 @@ LABEL_17:
             if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
             {
               *buf = 68289283;
-              v76 = 0;
-              v77 = 2082;
-              v78 = "";
-              v79 = 2113;
-              v80 = v16;
+              v75 = 0;
+              v76 = 2082;
+              v77 = "";
+              v78 = 2113;
+              v79 = v16;
               _os_log_impl(&dword_26F2E2000, v38, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TAInterVisitMetricsSnapshot segment speed exceeds limit, address:%{private}@}", buf, 0x1Cu);
             }
           }
@@ -229,11 +229,11 @@ LABEL_17:
         if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
         {
           *buf = 68289283;
-          v76 = 0;
-          v77 = 2082;
-          v78 = "";
-          v79 = 2113;
-          v80 = v16;
+          v75 = 0;
+          v76 = 2082;
+          v77 = "";
+          v78 = 2113;
+          v79 = v16;
           _os_log_impl(&dword_26F2E2000, v53, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TAInterVisitMetricsSnapshot snapshot full, not adding metrics for address, address:%{private}@}", buf, 0x1Cu);
         }
 
@@ -242,17 +242,17 @@ LABEL_33:
         ++v15;
       }
 
-      while (v65 != v15);
-      v54 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
-      v65 = v54;
+      while (v64 != v15);
+      v54 = [obj countByEnumeratingWithState:&v70 objects:v80 count:16];
+      v64 = v54;
       if (!v54)
       {
 LABEL_38:
 
         objc_storeStrong(p_lastUpdateTime, timeCopy2);
-        self->_isClosed = v58;
-        timeCopy = v59;
-        metricCopy = v60;
+        self->_isClosed = v57;
+        timeCopy = v58;
+        metricCopy = v59;
         goto LABEL_41;
       }
     }
@@ -276,61 +276,59 @@ LABEL_38:
   }
 
 LABEL_41:
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)visitEntryDelayCorrection:(id)correction store:(id)store
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   correctionCopy = correction;
   storeCopy = store;
-  v52 = correctionCopy;
+  v51 = correctionCopy;
   if ([correctionCopy hasArrivalDate] && !objc_msgSend(correctionCopy, "hasDepartureDate"))
   {
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     obj = self->_accumulatedDeviceMetrics;
-    v55 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v63 objects:v82 count:16];
-    if (v55)
+    v54 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v62 objects:v81 count:16];
+    if (v54)
     {
-      v10 = *v64;
+      v10 = *v63;
       v11 = &TAStatusLog;
       *&v9 = 68289026;
-      v45 = v9;
+      v44 = v9;
       selfCopy = self;
-      v47 = storeCopy;
-      v54 = *v64;
+      v46 = storeCopy;
+      v53 = *v63;
       do
       {
-        for (i = 0; i != v55; ++i)
+        for (i = 0; i != v54; ++i)
         {
-          if (*v64 != v10)
+          if (*v63 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v63 + 1) + 8 * i);
-          v14 = [(NSMutableDictionary *)self->_lastAdvPerDevice objectForKeyedSubscript:v13, v45];
+          v13 = *(*(&v62 + 1) + 8 * i);
+          v14 = [(NSMutableDictionary *)self->_lastAdvPerDevice objectForKeyedSubscript:v13, v44];
           if (v14)
           {
-            v56 = v13;
+            v55 = v13;
             lastUpdateTime = self->_lastUpdateTime;
-            [v52 arrivalDate];
+            [v51 arrivalDate];
             selfCopy2 = self;
             v17 = v11;
             v19 = v18 = storeCopy;
             v20 = [(NSDate *)lastUpdateTime compare:v19];
 
             getDate = [v14 getDate];
-            arrivalDate = [v52 arrivalDate];
-            v58 = [getDate compare:arrivalDate];
+            arrivalDate = [v51 arrivalDate];
+            v57 = [getDate compare:arrivalDate];
 
             v23 = MEMORY[0x277CCA970];
-            arrivalDate2 = [v52 arrivalDate];
-            v57 = v14;
+            arrivalDate2 = [v51 arrivalDate];
+            v56 = v14;
             getDate2 = [v14 getDate];
             v26 = [v23 createIntervalSafelyWithStartDate:arrivalDate2 endDate:getDate2];
 
@@ -340,36 +338,36 @@ LABEL_41:
             [v26 duration];
             v28 = v27;
             v29 = [TADominantUserActivity getCumulativeUserActivityTimeInDateInterval:v26 store:storeCopy];
-            v53 = v20;
+            v52 = v20;
             v30 = v20 == -1;
-            v10 = v54;
-            if (!v30 && v58 != -1)
+            v10 = v53;
+            if (!v30 && v57 != -1)
             {
-              v51 = v26;
-              v49 = [(NSMutableDictionary *)selfCopy2->_accumulatedDeviceMetrics objectForKeyedSubscript:v56];
-              [v49 accumulateDuration:-v28];
+              v50 = v26;
+              v48 = [(NSMutableDictionary *)selfCopy2->_accumulatedDeviceMetrics objectForKeyedSubscript:v55];
+              [v48 accumulateDuration:-v28];
               v31 = objc_alloc_init(MEMORY[0x277CBEB38]);
+              v58 = 0u;
               v59 = 0u;
               v60 = 0u;
               v61 = 0u;
-              v62 = 0u;
-              v50 = v29;
+              v49 = v29;
               v32 = v29;
-              v33 = [v32 countByEnumeratingWithState:&v59 objects:v81 count:16];
+              v33 = [v32 countByEnumeratingWithState:&v58 objects:v80 count:16];
               if (v33)
               {
                 v34 = v33;
-                v35 = *v60;
+                v35 = *v59;
                 do
                 {
                   for (j = 0; j != v34; ++j)
                   {
-                    if (*v60 != v35)
+                    if (*v59 != v35)
                     {
                       objc_enumerationMutation(v32);
                     }
 
-                    v37 = *(*(&v59 + 1) + 8 * j);
+                    v37 = *(*(&v58 + 1) + 8 * j);
                     v38 = MEMORY[0x277CCABB0];
                     v39 = [v32 objectForKeyedSubscript:v37];
                     [v39 doubleValue];
@@ -377,42 +375,42 @@ LABEL_41:
                     [v31 setObject:v41 forKeyedSubscript:v37];
                   }
 
-                  v34 = [v32 countByEnumeratingWithState:&v59 objects:v81 count:16];
+                  v34 = [v32 countByEnumeratingWithState:&v58 objects:v80 count:16];
                 }
 
                 while (v34);
               }
 
-              [v49 accumulateDurationPerMotionState:v31];
+              [v48 accumulateDurationPerMotionState:v31];
               self = selfCopy;
-              storeCopy = v47;
-              v10 = v54;
+              storeCopy = v46;
+              v10 = v53;
               v11 = &TAStatusLog;
-              v29 = v50;
-              v26 = v51;
+              v29 = v49;
+              v26 = v50;
             }
 
             v42 = *v11;
             if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEBUG))
             {
               *buf = 68290307;
-              v68 = 0;
-              v69 = 2082;
-              v70 = "";
-              v71 = 2113;
-              v72 = v56;
-              v73 = 1026;
-              v74 = v53 != -1;
-              v75 = 1026;
-              v76 = v58 != -1;
-              v77 = 2050;
-              v78 = v28;
-              v79 = 2114;
-              v80 = v29;
+              v67 = 0;
+              v68 = 2082;
+              v69 = "";
+              v70 = 2113;
+              v71 = v55;
+              v72 = 1026;
+              v73 = v52 != -1;
+              v74 = 1026;
+              v75 = v57 != -1;
+              v76 = 2050;
+              v77 = v28;
+              v78 = 2114;
+              v79 = v29;
               _os_log_impl(&dword_26F2E2000, v42, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#TAInterVisitMetricsSnapshot visitEntryDelayCorrection evaluating metric, address:%{private}@, updatedAfterVisitEntry:%{public}hhd, hasAdvertisementAfterVisitEntry:%{public}hhd, durationCorrection:%{public}f, motionStatesCorrection:%{public}@}", buf, 0x3Cu);
             }
 
-            v14 = v57;
+            v14 = v56;
           }
 
           else
@@ -420,19 +418,19 @@ LABEL_41:
             v43 = *v11;
             if (os_log_type_enabled(*v11, OS_LOG_TYPE_FAULT))
             {
-              *buf = v45;
-              v68 = 0;
-              v69 = 2082;
-              v70 = "";
+              *buf = v44;
+              v67 = 0;
+              v68 = 2082;
+              v69 = "";
               _os_log_impl(&dword_26F2E2000, v43, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:#TAInterVisitMetricsSnapshot missing latest advertisement for address in accumulatedDeviceMetrics}", buf, 0x12u);
             }
           }
         }
 
-        v55 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v63 objects:v82 count:16];
+        v54 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v62 objects:v81 count:16];
       }
 
-      while (v55);
+      while (v54);
     }
   }
 
@@ -442,19 +440,17 @@ LABEL_41:
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 68289026;
-      v68 = 0;
-      v69 = 2082;
-      v70 = "";
+      v67 = 0;
+      v68 = 2082;
+      v69 = "";
       _os_log_impl(&dword_26F2E2000, v8, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TAInterVisitMetricsSnapshot got invalid visit in visitEntryDelayCorrection}", buf, 0x12u);
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithInterVisitMetricsSnapshot:(id)snapshot store:(id)store
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   snapshotCopy = snapshot;
   storeCopy = store;
   lastUpdateTime = [snapshotCopy lastUpdateTime];
@@ -462,30 +458,30 @@ LABEL_41:
   self->_lastUpdateTime = lastUpdateTime;
 
   self->_isClosed = [snapshotCopy isClosed];
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
   obj = [snapshotCopy accumulatedDeviceMetrics];
-  v68 = [obj countByEnumeratingWithState:&v74 objects:v85 count:16];
-  if (v68)
+  v67 = [obj countByEnumeratingWithState:&v73 objects:v84 count:16];
+  if (v67)
   {
-    v67 = *v75;
+    v66 = *v74;
     *&v9 = 68289283;
-    v61 = v9;
+    v60 = v9;
     selfCopy = self;
-    v64 = snapshotCopy;
+    v63 = snapshotCopy;
     do
     {
       v10 = 0;
       do
       {
-        if (*v75 != v67)
+        if (*v74 != v66)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v74 + 1) + 8 * v10);
+        v11 = *(*(&v73 + 1) + 8 * v10);
         accumulatedDeviceMetrics = [snapshotCopy accumulatedDeviceMetrics];
         v13 = [accumulatedDeviceMetrics objectForKey:v11];
 
@@ -499,7 +495,7 @@ LABEL_41:
           lastAdvPerDevice = [snapshotCopy lastAdvPerDevice];
           v18 = [lastAdvPerDevice objectForKeyedSubscript:v11];
 
-          v69 = v16;
+          v68 = v16;
           if (v16 && v18)
           {
             getDate = [v16 getDate];
@@ -514,7 +510,7 @@ LABEL_41:
               self = selfCopy;
               if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_FAULT))
               {
-                [TAInterVisitMetricsSnapshot updateWithInterVisitMetricsSnapshot:v73 store:?];
+                [TAInterVisitMetricsSnapshot updateWithInterVisitMetricsSnapshot:v72 store:?];
               }
             }
 
@@ -551,31 +547,31 @@ LABEL_41:
 
           if (v34 && v36)
           {
-            v66 = v18;
+            v65 = v18;
             getDate4 = [v34 getDate];
             getDate5 = [v36 getDate];
             v39 = [getDate4 compare:getDate5];
 
             if (v39 == -1)
             {
-              v78[0] = v34;
-              v78[1] = v36;
-              v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
+              v77[0] = v34;
+              v77[1] = v36;
+              v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v77 count:2];
               [TAFilterGeneral distOfTravelAlong:v40];
               v42 = v41;
 
               [v14 accumulateDistance:v42];
-              snapshotCopy = v64;
-              v18 = v66;
+              snapshotCopy = v63;
+              v18 = v65;
             }
 
             else
             {
-              snapshotCopy = v64;
-              v18 = v66;
+              snapshotCopy = v63;
+              v18 = v65;
               if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
               {
-                [TAInterVisitMetricsSnapshot updateWithInterVisitMetricsSnapshot:v71 store:?];
+                [TAInterVisitMetricsSnapshot updateWithInterVisitMetricsSnapshot:v70 store:?];
               }
             }
           }
@@ -647,12 +643,12 @@ LABEL_28:
         v28 = TAStatusLog;
         if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
         {
-          *buf = v61;
-          v80 = 0;
-          v81 = 2082;
-          v82 = "";
-          v83 = 2113;
-          v84 = v11;
+          *buf = v60;
+          v79 = 0;
+          v80 = 2082;
+          v81 = "";
+          v82 = 2113;
+          v83 = v11;
           _os_log_impl(&dword_26F2E2000, v28, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#TAInterVisitMetricsSnapshot snapshot full, not adding metrics for address, address:%{private}@}", buf, 0x1Cu);
         }
 
@@ -661,14 +657,12 @@ LABEL_33:
         ++v10;
       }
 
-      while (v68 != v10);
-      v68 = [obj countByEnumeratingWithState:&v74 objects:v85 count:16];
+      while (v67 != v10);
+      v67 = [obj countByEnumeratingWithState:&v73 objects:v84 count:16];
     }
 
-    while (v68);
+    while (v67);
   }
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal

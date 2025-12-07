@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"topHitCountForLongestSearchString";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"topHitCountForLongestSearchString";
   topHitCountForLongestSearchString = [(ICASSearchResultExposureData *)self topHitCountForLongestSearchString];
   if (topHitCountForLongestSearchString)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = topHitCountForLongestSearchString2;
-  v19[0] = topHitCountForLongestSearchString2;
-  v18[1] = @"hasNonTopHitResultsForLongestSearchString";
+  v18[0] = topHitCountForLongestSearchString2;
+  v17[1] = @"hasNonTopHitResultsForLongestSearchString";
   hasNonTopHitResultsForLongestSearchString = [(ICASSearchResultExposureData *)self hasNonTopHitResultsForLongestSearchString];
   if (hasNonTopHitResultsForLongestSearchString)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = hasNonTopHitResultsForLongestSearchString2;
-  v19[1] = hasNonTopHitResultsForLongestSearchString2;
-  v18[2] = @"attachmentHitCountForLongestSearchString";
+  v18[1] = hasNonTopHitResultsForLongestSearchString2;
+  v17[2] = @"attachmentHitCountForLongestSearchString";
   attachmentHitCountForLongestSearchString = [(ICASSearchResultExposureData *)self attachmentHitCountForLongestSearchString];
   if (attachmentHitCountForLongestSearchString)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = attachmentHitCountForLongestSearchString2;
-  v19[2] = attachmentHitCountForLongestSearchString2;
-  v18[3] = @"searchBufferArray";
+  v18[2] = attachmentHitCountForLongestSearchString2;
+  v17[3] = @"searchBufferArray";
   searchBufferArray = [(ICASSearchResultExposureData *)self searchBufferArray];
   if (searchBufferArray)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = searchBufferArray2;
-  v19[3] = searchBufferArray2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = searchBufferArray2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

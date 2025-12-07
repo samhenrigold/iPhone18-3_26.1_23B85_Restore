@@ -9,7 +9,7 @@
 - (id)hf_endDate
 {
   dateOfOccurrence = [self dateOfOccurrence];
-  [self duration];
+  objc_msgSend_duration(self);
   v3 = [dateOfOccurrence dateByAddingTimeInterval:?];
 
   return v3;
@@ -19,7 +19,7 @@
 {
   v2 = objc_alloc(MEMORY[0x277CCA970]);
   dateOfOccurrence = [self dateOfOccurrence];
-  [self duration];
+  objc_msgSend_duration(self);
   v4 = [v2 initWithStartDate:dateOfOccurrence duration:?];
 
   return v4;
@@ -41,14 +41,14 @@
   if (detailLevel == 2)
   {
     v11 = MEMORY[0x277CCABB0];
-    [self duration];
+    objc_msgSend_duration(self);
     [v11 numberWithDouble:?];
   }
 
   else
   {
     v12 = MEMORY[0x277CCACA8];
-    [self duration];
+    objc_msgSend_duration(self);
     [v12 stringWithFormat:@"%.2f", v13];
   }
   v14 = ;

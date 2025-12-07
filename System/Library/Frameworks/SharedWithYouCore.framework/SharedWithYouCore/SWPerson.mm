@@ -22,9 +22,10 @@
   }
 
   SLPersonClass = getSLPersonClass();
-  if (![SLPersonClass instancesRespondToSelector:sel_initWithHandle_displayName_] || !objc_msgSend(SLPersonClass, "instancesRespondToSelector:", sel_handle) || !objc_msgSend(SLPersonClass, "instancesRespondToSelector:", sel_displayName) || !objc_msgSend(SLPersonClass, "instancesRespondToSelector:", sel_contact) || (objc_msgSend(SLPersonClass, "instancesRespondToSelector:", sel_thumbnailImageData) & 1) == 0)
+  v15 = [SLPersonClass instancesRespondToSelector:sel_initWithHandle_displayName_];
+  if (!v15 || (v15 = [SLPersonClass instancesRespondToSelector:sel_handle], !v15) || (v15 = objc_msgSend(SLPersonClass, "instancesRespondToSelector:", sel_displayName), !v15) || (v15 = objc_msgSend(SLPersonClass, "instancesRespondToSelector:", sel_contact), !v15) || (v15 = objc_msgSend(SLPersonClass, "instancesRespondToSelector:", sel_thumbnailImageData), (v15 & 1) == 0))
   {
-    p_super = SWFrameworkLogHandle();
+    p_super = SWFrameworkLogHandle(v15);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       [SWPerson initWithHandle:? identity:? displayName:? thumbnailImageData:?];
@@ -33,19 +34,19 @@
     goto LABEL_12;
   }
 
-  v20.receiver = self;
-  v20.super_class = SWPerson;
-  self = [(SWPerson *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = SWPerson;
+  self = [(SWPerson *)&v21 init];
   if (self)
   {
-    v15 = [[SLPersonClass alloc] initWithHandle:v10 displayName:v12];
+    v16 = [[SLPersonClass alloc] initWithHandle:v10 displayName:v12];
     slPerson = self->_slPerson;
-    self->_slPerson = v15;
+    self->_slPerson = v16;
 
     objc_storeStrong(&self->_customThumbnailImageData, thumbnailImageData);
-    v17 = v11;
+    v18 = v11;
     p_super = &self->_identity->super;
-    self->_identity = v17;
+    self->_identity = v18;
 LABEL_12:
   }
 

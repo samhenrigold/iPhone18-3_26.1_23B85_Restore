@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)engagementTypeAsString:(int)string;
 - (int)StringAsEngagementType:(id)type;
 - (int)engagementType;
 - (unint64_t)hash;
@@ -24,6 +25,21 @@
   {
     return 1;
   }
+}
+
+- (id)engagementTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86A4E98[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEngagementType:(id)type
@@ -102,24 +118,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_consumerSubType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    engagementType = self->_engagementType;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -183,7 +198,6 @@
     }
   }
 
-  v6 = *(equalCopy + 28);
   if (*&self->_has)
   {
     if ((*(equalCopy + 28) & 1) == 0 || self->_engagementType != *(equalCopy + 6))
@@ -195,24 +209,24 @@
   else if (*(equalCopy + 28))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
   abGroup = self->_abGroup;
   if (abGroup | *(equalCopy + 1))
   {
-    v8 = [(NSString *)abGroup isEqual:?];
+    v7 = [(NSString *)abGroup isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

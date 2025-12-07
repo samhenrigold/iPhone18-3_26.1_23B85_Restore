@@ -283,42 +283,40 @@ LABEL_27:
 
 - (NSString)description
 {
-  v31[7] = *MEMORY[0x1E69E9840];
-  v25 = MEMORY[0x1E696AEC0];
-  v23 = objc_opt_class();
+  v30[7] = *MEMORY[0x1E69E9840];
+  v24 = MEMORY[0x1E696AEC0];
+  v22 = objc_opt_class();
   v3 = MEMORY[0x1E696AEC0];
   coolOff = [(LACDTOMutableTimerConfiguration *)self coolOff];
-  v29 = [v3 stringWithFormat:@"coolOff: %@", coolOff];
-  v31[0] = v29;
+  v28 = [v3 stringWithFormat:@"coolOff: %@", coolOff];
+  v30[0] = v28;
   v4 = MEMORY[0x1E696AEC0];
   waitingForSecondAuth = [(LACDTOMutableTimerConfiguration *)self waitingForSecondAuth];
-  v27 = [v4 stringWithFormat:@"waitingForSecondAuth: %@", waitingForSecondAuth];
-  v31[1] = v27;
+  v26 = [v4 stringWithFormat:@"waitingForSecondAuth: %@", waitingForSecondAuth];
+  v30[1] = v26;
   v5 = MEMORY[0x1E696AEC0];
   ready = [(LACDTOMutableTimerConfiguration *)self ready];
-  v24 = [v5 stringWithFormat:@"ready: %@", ready];
-  v31[2] = v24;
+  v23 = [v5 stringWithFormat:@"ready: %@", ready];
+  v30[2] = v23;
   v6 = MEMORY[0x1E696AEC0];
   dtoFallback = [(LACDTOMutableTimerConfiguration *)self dtoFallback];
   v7 = [v6 stringWithFormat:@"dtoFallback: %@", dtoFallback];
-  v31[3] = v7;
+  v30[3] = v7;
   v8 = MEMORY[0x1E696AEC0];
   dtoShortFallback = [(LACDTOMutableTimerConfiguration *)self dtoShortFallback];
   v10 = [v8 stringWithFormat:@"dtoShortFallback: %@", dtoShortFallback];
-  v31[4] = v10;
+  v30[4] = v10;
   v11 = MEMORY[0x1E696AEC0];
   lostMode = [(LACDTOMutableTimerConfiguration *)self lostMode];
   v13 = [v11 stringWithFormat:@"lostMode: %@", lostMode];
-  v31[5] = v13;
+  v30[5] = v13;
   v14 = MEMORY[0x1E696AEC0];
   gracePeriod = [(LACDTOMutableTimerConfiguration *)self gracePeriod];
   v16 = [v14 stringWithFormat:@"gracePeriod: %@", gracePeriod];
-  v31[6] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:7];
+  v30[6] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:7];
   v18 = [v17 componentsJoinedByString:@" "];;
-  v19 = [v25 stringWithFormat:@"<%@ %p %@>", v23, self, v18];;
-
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = [v24 stringWithFormat:@"<%@ %p %@>", v22, self, v18];;
 
   return v19;
 }

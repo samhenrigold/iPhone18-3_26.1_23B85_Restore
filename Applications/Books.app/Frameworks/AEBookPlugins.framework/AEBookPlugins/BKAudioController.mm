@@ -57,25 +57,25 @@
 
 - (void)viewDidLoad
 {
-  v10.receiver = self;
-  v10.super_class = BKAudioController;
-  [(BKAudioController *)&v10 viewDidLoad];
-  v3 = AEBundle();
-  v4 = [v3 localizedStringForKey:@"Read Aloud" value:&stru_1E7188 table:0];
-  [(BKAudioController *)self setTitle:v4];
+  v11.receiver = self;
+  v11.super_class = BKAudioController;
+  viewDidLoad = [(BKAudioController *)&v11 viewDidLoad];
+  v4 = AEBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"Read Aloud" value:&stru_1E7188 table:0];
+  [(BKAudioController *)self setTitle:v5];
 
   [(UITableView *)self->_tableView setEstimatedSectionHeaderHeight:0.0];
   [(UITableView *)self->_tableView setEstimatedSectionFooterHeight:0.0];
   [(UITableView *)self->_tableView setSeparatorInset:UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right];
   [(BKAudioController *)self updateControlStates];
-  v5 = +[UIColor systemBackgroundColor];
+  v6 = +[UIColor systemBackgroundColor];
   view = [(BKAudioController *)self view];
-  [view setBackgroundColor:v5];
+  [view setBackgroundColor:v6];
 
-  v7 = +[UIColor systemBackgroundColor];
+  v8 = +[UIColor systemBackgroundColor];
   navigationController = [(BKAudioController *)self navigationController];
   navigationBar = [navigationController navigationBar];
-  [navigationBar setBarTintColor:v7];
+  [navigationBar setBarTintColor:v8];
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -135,22 +135,22 @@
 
   else
   {
-    [(UIButton *)readButton setHidden:0];
-    v11 = self->_readButton;
-    v12 = AEBundle();
-    v15 = v12;
+    v11 = [(UIButton *)readButton setHidden:0];
+    v12 = self->_readButton;
+    v13 = AEBundle(v11);
+    v16 = v13;
     if (readAloudState)
     {
-      v13 = @"Stop Reading";
+      v14 = @"Stop Reading";
     }
 
     else
     {
-      v13 = @"Start Reading";
+      v14 = @"Start Reading";
     }
 
-    v14 = [v12 localizedStringForKey:v13 value:&stru_1E7188 table:0];
-    [(UIButton *)v11 setTitle:v14 forState:0];
+    v15 = [v13 localizedStringForKey:v14 value:&stru_1E7188 table:0];
+    [(UIButton *)v12 setTitle:v15 forState:0];
   }
 }
 
@@ -279,12 +279,13 @@
 
   if ([pathCopy row])
   {
-    if ([pathCopy row] != &dword_0 + 1 || (-[BKAudioController delegate](self, "delegate"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "readAloudState"), v8, (v9 & 0x80000000) != 0))
+    v8 = [pathCopy row];
+    if (v8 != &dword_0 + 1 || (-[BKAudioController delegate](self, "delegate"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 readAloudState], v9, (v10 & 0x80000000) != 0))
     {
-      v16 = AEBundle();
-      v17 = [v16 localizedStringForKey:@"Soundtrack" value:&stru_1E7188 table:0];
+      v17 = AEBundle(v8);
+      v18 = [v17 localizedStringForKey:@"Soundtrack" value:&stru_1E7188 table:0];
       textLabel = [v7 textLabel];
-      [textLabel setText:v17];
+      [textLabel setText:v18];
 
       volumeSlider = [[UISwitch alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
       [volumeSlider setPreferredStyle:2];
@@ -296,10 +297,10 @@
 
     else
     {
-      v10 = AEBundle();
-      v11 = [v10 localizedStringForKey:@"Turn My Pages" value:&stru_1E7188 table:0];
+      v11 = AEBundle(v8);
+      v12 = [v11 localizedStringForKey:@"Turn My Pages" value:&stru_1E7188 table:0];
       textLabel2 = [v7 textLabel];
-      [textLabel2 setText:v11];
+      [textLabel2 setText:v12];
 
       volumeSlider = [[UISwitch alloc] initWithFrame:{CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height}];
       [volumeSlider setPreferredStyle:2];

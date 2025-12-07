@@ -30,16 +30,16 @@ void PFCRectForTimePosition(uint64_t a1)
   CGRectApplyAffineTransform(v11, &v9);
 }
 
-id pfc_shuffle_log()
+id pfc_shuffle_log(uint64_t a1)
 {
   if (pfc_shuffle_log_onceToken != -1)
   {
     pfc_shuffle_log_cold_1();
   }
 
-  v1 = pfc_shuffle_log___logger;
+  v2 = pfc_shuffle_log___logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __pfc_shuffle_log_block_invoke()
@@ -57,11 +57,11 @@ uint64_t sub_1DF9BA884()
   return sub_1DF9BACF0();
 }
 
-uint64_t sub_1DF9BA8F8()
+uint64_t sub_1DF9BA8F8(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1DF9BACD0();
-  MEMORY[0x1E12E3AC0](v1);
+  MEMORY[0x1E12E3AC0](v2);
   return sub_1DF9BACF0();
 }
 
@@ -156,5 +156,15 @@ void *sub_1DF9BAB28@<X0>(void *result@<X0>, uint64_t a2@<X8>)
 {
   *a2 = *result;
   *(a2 + 8) = 0;
+  return result;
+}
+
+CGRect CGRectApplyAffineTransform(CGRect rect, CGAffineTransform *t)
+{
+  MEMORY[0x1EEDBAD98](t, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height);
+  result.size.height = v5;
+  result.size.width = v4;
+  result.origin.y = v3;
+  result.origin.x = v2;
   return result;
 }

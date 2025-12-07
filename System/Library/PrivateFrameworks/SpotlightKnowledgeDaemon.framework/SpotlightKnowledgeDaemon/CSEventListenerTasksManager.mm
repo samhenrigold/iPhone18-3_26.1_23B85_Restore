@@ -1,6 +1,7 @@
 @interface CSEventListenerTasksManager
 + (void)initialize;
 - (BOOL)alwaysAllowed:(id)allowed;
+- (BOOL)taskAllowedForName:(id)name eventType:(int)type indexType:(int)indexType;
 - (void)endJobForDelegate:(id)delegate;
 - (void)endTaskForIndexType:(int)type delegate:(id)delegate;
 - (void)eventListenerManagerSetupScheduler;
@@ -15,19 +16,19 @@
 
 + (void)initialize
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = indexPath();
   v4 = [v3 stringByAppendingPathComponent:@".turbo"];
 
-  memset(&v9, 0, sizeof(v9));
-  sTurboMode = stat([v4 fileSystemRepresentation], &v9) == 0;
+  memset(&v8, 0, sizeof(v8));
+  sTurboMode = stat([v4 fileSystemRepresentation], &v8) == 0;
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
     v5 = SKGLogUpdaterInit();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v11 = sTurboMode;
+      v10 = sTurboMode;
       _os_log_impl(&dword_231B25000, v5, OS_LOG_TYPE_INFO, "**** sTurboMode = %d", buf, 8u);
     }
   }
@@ -43,8 +44,6 @@
     v7 = gCSEventListenerTasksManager;
     gCSEventListenerTasksManager = v6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __41__CSEventListenerTasksManager_initialize__block_invoke()
@@ -64,7 +63,7 @@ void __41__CSEventListenerTasksManager_initialize__block_invoke()
 - (void)setTurboMode:(BOOL)mode
 {
   modeCopy = mode;
-  v36 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
     v5 = SKGLogUpdaterInit();
@@ -80,9 +79,9 @@ void __41__CSEventListenerTasksManager_initialize__block_invoke()
 
   if (modeCopy)
   {
-    v32 = 0;
-    [&stru_2846CE8D8 writeToFile:v7 atomically:1 encoding:4 error:&v32];
-    v8 = v32;
+    v34 = 0;
+    [&stru_2846CE8D8 writeToFile:v7 atomically:1 encoding:4 error:&v34];
+    v8 = v34;
     if (!v8)
     {
       goto LABEL_13;
@@ -92,9 +91,9 @@ void __41__CSEventListenerTasksManager_initialize__block_invoke()
   else
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v31 = 0;
-    [defaultManager removeItemAtPath:v7 error:&v31];
-    v8 = v31;
+    v33 = 0;
+    [defaultManager removeItemAtPath:v7 error:&v33];
+    v8 = v33;
 
     if (!v8)
     {
@@ -117,24 +116,27 @@ LABEL_13:
     sTurboMode = modeCopy;
     if ((modeCopy & 1) == 0)
     {
-      for (i = 0; i != 10; ++i)
+      v19 = 0;
+      do
       {
         if (SKGLogGetCurrentLoggingLevel() >= 5)
         {
-          v17 = SKGLogUpdaterInit();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v20 = SKGLogUpdaterInit();
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
             *buf = 67109120;
-            v34 = i;
-            _os_log_impl(&dword_231B25000, v17, OS_LOG_TYPE_INFO, "### changing throttle state for turbo events %d", buf, 8u);
+            v36 = v19;
+            _os_log_impl(&dword_231B25000, v20, OS_LOG_TYPE_INFO, "### changing throttle state for turbo events %d", buf, 8u);
           }
         }
 
-        ThrottlingChanged(i, 0);
+        ThrottlingChanged(v19, 0);
+        v19 = (v19 + 1);
       }
 
-      v18 = +[CSEventListenerTasksManager sharedInstance];
-      [(NSDictionary *)v18 eventListenerManagerSetupScheduler];
+      while (v19 != 10);
+      v21 = +[CSEventListenerTasksManager sharedInstance];
+      [(NSDictionary *)v21 eventListenerManagerSetupScheduler];
       goto LABEL_45;
     }
 
@@ -148,13 +150,13 @@ LABEL_13:
         [CSEventListenerTasksManager setTurboMode:];
       }
 
-      completePriorityTask(&getPriorityStatus_sPriorityStatus, 1);
+      completePriorityTask(getPriorityStatus_sPriorityStatus, 1);
       if (getEmbeddingsStatus_token != -1)
       {
         [CSEventListenerTasksManager setTurboMode:];
       }
 
-      completeEmbeddingsTask(&getEmbeddingsStatus_sEmbeddingsStatus);
+      completeEmbeddingsTask(getEmbeddingsStatus_sEmbeddingsStatus, v13);
     }
 
     mEMORY[0x277D657A0]2 = [MEMORY[0x277D657A0] sharedContext];
@@ -167,7 +169,7 @@ LABEL_13:
         [CSEventListenerTasksManager setTurboMode:];
       }
 
-      completeKeyphrasesTask(&getKeyphrasesStatus_status);
+      completeKeyphrasesTask(getKeyphrasesStatus_status, v16);
     }
 
     mEMORY[0x277D657A0]3 = [MEMORY[0x277D657A0] sharedContext];
@@ -183,33 +185,33 @@ LABEL_13:
       if (!enableDocumentUnderstanding)
       {
 LABEL_38:
+        v31 = 0u;
+        v32 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        v18 = self->_tasks;
-        v21 = [(NSDictionary *)v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
-        if (v21)
+        v21 = self->_tasks;
+        v24 = [(NSDictionary *)v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        if (v24)
         {
-          v22 = v21;
-          v23 = *v28;
+          v25 = v24;
+          v26 = *v30;
           do
           {
-            for (j = 0; j != v22; ++j)
+            for (i = 0; i != v25; ++i)
             {
-              if (*v28 != v23)
+              if (*v30 != v26)
               {
-                objc_enumerationMutation(v18);
+                objc_enumerationMutation(v21);
               }
 
-              v25 = [(NSDictionary *)self->_tasks objectForKeyedSubscript:*(*(&v27 + 1) + 8 * j)];
-              [v25 complete];
+              v28 = [(NSDictionary *)self->_tasks objectForKeyedSubscript:*(*(&v29 + 1) + 8 * i)];
+              [v28 complete];
             }
 
-            v22 = [(NSDictionary *)v18 countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v25 = [(NSDictionary *)v21 countByEnumeratingWithState:&v29 objects:v37 count:16];
           }
 
-          while (v22);
+          while (v25);
         }
 
 LABEL_45:
@@ -223,31 +225,29 @@ LABEL_45:
       [CSEventListenerTasksManager setTurboMode:];
     }
 
-    completePreExtractionTask(&getPreExtractionStatus_status);
+    completePreExtractionTask(getPreExtractionStatus_status, v18);
     goto LABEL_38;
   }
 
 LABEL_46:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerEventListenerDelegates:(id)delegates
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   delegatesCopy = delegates;
   v5 = indexPath();
   v6 = [v5 stringByAppendingPathComponent:@".turbo"];
 
-  memset(&v29, 0, sizeof(v29));
-  sTurboMode = stat([v6 fileSystemRepresentation], &v29) == 0;
+  memset(&v28, 0, sizeof(v28));
+  sTurboMode = stat([v6 fileSystemRepresentation], &v28) == 0;
   if (SKGLogGetCurrentLoggingLevel() >= 5)
   {
     v7 = SKGLogUpdaterInit();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      LODWORD(v31) = sTurboMode;
+      LODWORD(v30) = sTurboMode;
       _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_INFO, "**** sTurboMode = %d", buf, 8u);
     }
   }
@@ -255,33 +255,33 @@ LABEL_46:
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if ([delegatesCopy count])
   {
-    v22 = v6;
+    v21 = v6;
     selfCopy = self;
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v24 = delegatesCopy;
+    v23 = delegatesCopy;
     v10 = delegatesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v25 objects:v32 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v24 objects:v31 count:16];
     if (!v11)
     {
       goto LABEL_20;
     }
 
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     while (1)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v25 + 1) + 8 * i);
+        v15 = *(*(&v24 + 1) + 8 * i);
         if ([v15 conformsToProtocol:&unk_2846E9BE8])
         {
           [(NSArray *)v9 addObject:v15];
@@ -305,13 +305,13 @@ LABEL_46:
           if (os_log_type_enabled(config, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v31 = v15;
+            v30 = v15;
             _os_log_error_impl(&dword_231B25000, config, OS_LOG_TYPE_ERROR, "### %@ does not conform to CSEventListenerDelegate protocol", buf, 0xCu);
           }
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v25 objects:v32 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v24 objects:v31 count:16];
       if (!v12)
       {
 LABEL_20:
@@ -320,8 +320,8 @@ LABEL_20:
         delegates = selfCopy->_delegates;
         selfCopy->_delegates = v9;
 
-        delegatesCopy = v24;
-        v6 = v22;
+        delegatesCopy = v23;
+        v6 = v21;
         break;
       }
     }
@@ -331,7 +331,6 @@ LABEL_20:
   self->_tasks = v8;
 
   [(CSEventListenerTasksManager *)self eventListenerManagerSetupScheduler];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTaskForIndexType:(int)type delegate:(id)delegate
@@ -355,14 +354,14 @@ LABEL_20:
       {
         switch(eventType)
         {
-          case 3u:
-            v11 = getKeyphrasesWorkGroup();
+          case 3:
+            v11 = getKeyphrasesWorkGroup(eventType);
             break;
-          case 2u:
-            v11 = getEmbeddingsWorkGroup();
+          case 2:
+            v11 = getEmbeddingsWorkGroup(eventType);
             break;
-          case 1u:
-            v11 = getPriorityWorkGroup();
+          case 1:
+            v11 = getPriorityWorkGroup(eventType);
             break;
           default:
             if ((eventType & 0xE) != 6)
@@ -370,7 +369,7 @@ LABEL_20:
               goto LABEL_3;
             }
 
-            v11 = getPreExtractionWorkGroup();
+            v11 = getPreExtractionWorkGroup(eventType);
             break;
         }
 
@@ -416,14 +415,14 @@ LABEL_3:
       {
         switch(eventType)
         {
-          case 3u:
-            v11 = getKeyphrasesWorkGroup();
+          case 3:
+            v11 = getKeyphrasesWorkGroup(eventType);
             break;
-          case 2u:
-            v11 = getEmbeddingsWorkGroup();
+          case 2:
+            v11 = getEmbeddingsWorkGroup(eventType);
             break;
-          case 1u:
-            v11 = getPriorityWorkGroup();
+          case 1:
+            v11 = getPriorityWorkGroup(eventType);
             break;
           default:
             if ((eventType & 0xE) != 6)
@@ -431,7 +430,7 @@ LABEL_3:
               goto LABEL_3;
             }
 
-            v11 = getPreExtractionWorkGroup();
+            v11 = getPreExtractionWorkGroup(eventType);
             break;
         }
 
@@ -490,7 +489,7 @@ LABEL_9:
           [CSEventListenerTasksManager endJobForDelegate:];
         }
 
-        v12 = &getKeyphrasesStatus_status;
+        v12 = getKeyphrasesStatus_status;
         goto LABEL_32;
       }
 
@@ -501,7 +500,7 @@ LABEL_9:
           [CSEventListenerTasksManager endJobForDelegate:];
         }
 
-        v12 = &getPreExtractionStatus_status;
+        v12 = getPreExtractionStatus_status;
         goto LABEL_32;
       }
     }
@@ -515,7 +514,7 @@ LABEL_9:
           [CSEventListenerTasksManager endJobForDelegate:];
         }
 
-        v12 = &getPriorityStatus_sPriorityStatus;
+        v12 = getPriorityStatus_sPriorityStatus;
         goto LABEL_32;
       }
 
@@ -526,7 +525,7 @@ LABEL_9:
           EmbeddingsThrottlingSwitch_cold_1();
         }
 
-        v12 = &getEmbeddingsStatus_sEmbeddingsStatus;
+        v12 = getEmbeddingsStatus_sEmbeddingsStatus;
 LABEL_32:
         os_unfair_lock_lock(v12 + 2);
         if (atomic_fetch_add(v12 + 1, 0xFFFFFFFF) == 1)
@@ -598,109 +597,135 @@ void __49__CSEventListenerTasksManager_endJobForDelegate___block_invoke()
   }
 }
 
-void __49__CSEventListenerTasksManager_endJobForDelegate___block_invoke_2(uint64_t a1)
+void __49__CSEventListenerTasksManager_endJobForDelegate___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v15 = *MEMORY[0x277D85DE8];
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
-    v2 = SKGLogUpdaterInit();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = SKGLogUpdaterInit();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       v13 = 67109120;
-      v14 = v3;
-      _os_log_impl(&dword_231B25000, v2, OS_LOG_TYPE_DEFAULT, "Running Turbo Cleanup Locked for %d", &v13, 8u);
+      v14 = v4;
+      _os_log_impl(&dword_231B25000, v3, OS_LOG_TYPE_DEFAULT, "Running Turbo Cleanup Locked for %d", &v13, 8u);
     }
   }
 
   queryForCleanupWithDeviceUnlocked(0, *(a1 + 32), &__block_literal_global_155, &__block_literal_global_158, &__block_literal_global_161);
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
-    v4 = SKGLogUpdaterInit();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = SKGLogUpdaterInit();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
+      v6 = *(a1 + 32);
       v13 = 67109120;
-      v14 = v5;
-      _os_log_impl(&dword_231B25000, v4, OS_LOG_TYPE_DEFAULT, "Running Turbo Cleanup Unlocked for %d", &v13, 8u);
+      v14 = v6;
+      _os_log_impl(&dword_231B25000, v5, OS_LOG_TYPE_DEFAULT, "Running Turbo Cleanup Unlocked for %d", &v13, 8u);
     }
   }
 
   queryForCleanupWithDeviceUnlocked(1, *(a1 + 32), &__block_literal_global_164, &__block_literal_global_167, &__block_literal_global_170);
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
-    v6 = SKGLogUpdaterInit();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SKGLogUpdaterInit();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       v13 = 67109120;
-      v14 = v7;
-      _os_log_impl(&dword_231B25000, v6, OS_LOG_TYPE_DEFAULT, "Running Turbo Updates Locked for %d", &v13, 8u);
+      v14 = v8;
+      _os_log_impl(&dword_231B25000, v7, OS_LOG_TYPE_DEFAULT, "Running Turbo Updates Locked for %d", &v13, 8u);
     }
   }
 
   queryForUpdatesWithDeviceUnlocked(0, &__block_literal_global_173, &__block_literal_global_176, &__block_literal_global_179);
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
-    v8 = SKGLogUpdaterInit();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = SKGLogUpdaterInit();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
       v13 = 67109120;
-      v14 = v9;
-      _os_log_impl(&dword_231B25000, v8, OS_LOG_TYPE_DEFAULT, "Running Turbo Updates Unlocked for %d", &v13, 8u);
+      v14 = v10;
+      _os_log_impl(&dword_231B25000, v9, OS_LOG_TYPE_DEFAULT, "Running Turbo Updates Unlocked for %d", &v13, 8u);
     }
   }
 
   queryForUpdatesWithDeviceUnlocked(1, &__block_literal_global_182, &__block_literal_global_185, &__block_literal_global_188);
   if (SKGLogGetCurrentLoggingLevel() >= 4)
   {
-    v10 = SKGLogUpdaterInit();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = SKGLogUpdaterInit();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
+      v12 = *(a1 + 32);
       v13 = 67109120;
-      v14 = v11;
-      _os_log_impl(&dword_231B25000, v10, OS_LOG_TYPE_DEFAULT, "Running Turbo Post Task Work Done for %d", &v13, 8u);
+      v14 = v12;
+      _os_log_impl(&dword_231B25000, v11, OS_LOG_TYPE_DEFAULT, "Running Turbo Post Task Work Done for %d", &v13, 8u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-void __49__CSEventListenerTasksManager_endJobForDelegate___block_invoke_190(uint64_t a1)
+void __49__CSEventListenerTasksManager_endJobForDelegate___block_invoke_190(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 40);
-  switch(v1)
+  v2 = *(a1 + 40);
+  switch(v2)
   {
     case 3:
-      completeKeyphrasesTask(*(a1 + 32));
+      completeKeyphrasesTask(*(a1 + 32), a2);
       break;
     case 2:
-      completeEmbeddingsTask(*(a1 + 32));
+      completeEmbeddingsTask(*(a1 + 32), a2);
       break;
     case 1:
       completePriorityTask(*(a1 + 32), 0);
       break;
     default:
-      if ((v1 & 0xFFFFFFFE) == 6)
+      if ((v2 & 0xFFFFFFFE) == 6)
       {
-        completePreExtractionTask(*(a1 + 32));
+        completePreExtractionTask(*(a1 + 32), a2);
       }
 
       break;
   }
 }
 
+- (BOOL)taskAllowedForName:(id)name eventType:(int)type indexType:(int)indexType
+{
+  if (sTurboMode)
+  {
+    return 1;
+  }
+
+  v7 = [(NSDictionary *)self->_tasks objectForKeyedSubscript:name, *&type, *&indexType];
+  v8 = v7;
+  if (v7)
+  {
+    allowed = [v7 allowed];
+  }
+
+  else if (type > 9)
+  {
+    allowed = 0;
+  }
+
+  else
+  {
+    v9 = atomic_load(&sAllowed[type]);
+    allowed = v9 & 1;
+  }
+
+  return allowed;
+}
+
 - (void)eventListenerManagerSetupScheduler
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v34 = 0u;
+  v47 = *MEMORY[0x277D85DE8];
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
   v3 = self->_delegates;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v34 objects:v45 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v35 objects:v46 count:16];
   if (!v4)
   {
     v6 = 0;
@@ -711,18 +736,18 @@ void __49__CSEventListenerTasksManager_endJobForDelegate___block_invoke_190(uint
   v5 = v4;
   v6 = 0;
   v7 = 0;
-  v8 = *v35;
+  v8 = *v36;
   do
   {
     v9 = 0;
     do
     {
-      if (*v35 != v8)
+      if (*v36 != v8)
       {
         objc_enumerationMutation(v3);
       }
 
-      eventType = [*(*(&v34 + 1) + 8 * v9) eventType];
+      eventType = [*(*(&v35 + 1) + 8 * v9) eventType];
       if (eventType <= 2)
       {
         if (eventType == 1)
@@ -743,12 +768,12 @@ void __49__CSEventListenerTasksManager_endJobForDelegate___block_invoke_190(uint
           }
 
           mEMORY[0x277CF0810] = [MEMORY[0x277CF0810] sharedScheduler];
-          *v39 = MEMORY[0x277D85DD0];
-          v40 = 3221225472;
-          v41 = __setupPriorityTaskHandler_block_invoke;
-          v42 = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
-          v43 = &getPriorityStatus_sPriorityStatus;
-          [mEMORY[0x277CF0810] registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.priority" usingQueue:qword_28158ACA0 launchHandler:v39];
+          *v40 = MEMORY[0x277D85DD0];
+          v41 = 3221225472;
+          v42 = __setupPriorityTaskHandler_block_invoke;
+          v43 = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
+          v44 = getPriorityStatus_sPriorityStatus;
+          [mEMORY[0x277CF0810] registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.priority" usingQueue:qword_28158ACA0 launchHandler:v40];
 
           goto LABEL_37;
         }
@@ -774,12 +799,12 @@ void __49__CSEventListenerTasksManager_endJobForDelegate___block_invoke_190(uint
         }
 
         mEMORY[0x277CF0810]2 = [MEMORY[0x277CF0810] sharedScheduler];
-        *v39 = MEMORY[0x277D85DD0];
-        v40 = 3221225472;
-        v41 = __setupEmbeddingsTaskHandler_block_invoke;
-        v42 = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
-        v43 = &getEmbeddingsStatus_sEmbeddingsStatus;
-        [mEMORY[0x277CF0810]2 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task" usingQueue:qword_28158AD78 launchHandler:v39];
+        *v40 = MEMORY[0x277D85DD0];
+        v41 = 3221225472;
+        v42 = __setupEmbeddingsTaskHandler_block_invoke;
+        v43 = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
+        v44 = getEmbeddingsStatus_sEmbeddingsStatus;
+        [mEMORY[0x277CF0810]2 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task" usingQueue:qword_28158AD78 launchHandler:v40];
 
         v15 = @"com.apple.spotlightknowledged.task.cleanup.embeddings";
         v16 = @"com.apple.spotlightknowledged.task.ab-cleanup.embeddings";
@@ -808,12 +833,12 @@ LABEL_27:
           }
 
           mEMORY[0x277CF0810]3 = [MEMORY[0x277CF0810] sharedScheduler];
-          *v39 = MEMORY[0x277D85DD0];
-          v40 = 3221225472;
-          v41 = __setupKeyphrasesTaskHandler_block_invoke;
-          v42 = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
-          v43 = &getKeyphrasesStatus_status;
-          [mEMORY[0x277CF0810]3 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.keyphrases" usingQueue:qword_28158AD30 launchHandler:v39];
+          *v40 = MEMORY[0x277D85DD0];
+          v41 = 3221225472;
+          v42 = __setupKeyphrasesTaskHandler_block_invoke;
+          v43 = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
+          v44 = getKeyphrasesStatus_status;
+          [mEMORY[0x277CF0810]3 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.keyphrases" usingQueue:qword_28158AD30 launchHandler:v40];
 
           v15 = @"com.apple.spotlightknowledged.task.cleanup.keyphrases";
           v16 = @"com.apple.spotlightknowledged.task.ab-cleanup.keyphrases";
@@ -837,36 +862,36 @@ LABEL_37:
     }
 
     while (v5 != v9);
-    v5 = [(NSArray *)v3 countByEnumeratingWithState:&v34 objects:v45 count:16];
+    v5 = [(NSArray *)v3 countByEnumeratingWithState:&v35 objects:v46 count:16];
   }
 
   while (v5);
 LABEL_41:
 
-  v32 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
+  v32 = 0u;
   v21 = self->_tasks;
-  v22 = [(NSDictionary *)v21 countByEnumeratingWithState:&v30 objects:v44 count:16];
+  v22 = [(NSDictionary *)v21 countByEnumeratingWithState:&v31 objects:v45 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v31;
+    v24 = *v32;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v31 != v24)
+        if (*v32 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = [(NSDictionary *)self->_tasks objectForKeyedSubscript:*(*(&v30 + 1) + 8 * i), v30];
+        v26 = [(NSDictionary *)self->_tasks objectForKeyedSubscript:*(*(&v31 + 1) + 8 * i), v31];
         [v26 setup];
       }
 
-      v23 = [(NSDictionary *)v21 countByEnumeratingWithState:&v30 objects:v44 count:16];
+      v23 = [(NSDictionary *)v21 countByEnumeratingWithState:&v31 objects:v45 count:16];
     }
 
     while (v23);
@@ -881,24 +906,24 @@ LABEL_41:
 
     if (SKGLogGetCurrentLoggingLevel() >= 5)
     {
-      v27 = SKGLogUpdaterInit();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+      v29 = SKGLogUpdaterInit();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
-        *v39 = 0;
-        _os_log_impl(&dword_231B25000, v27, OS_LOG_TYPE_INFO, "### setting up pre-extraction task handler", v39, 2u);
+        *v40 = 0;
+        _os_log_impl(&dword_231B25000, v29, OS_LOG_TYPE_INFO, "### setting up pre-extraction task handler", v40, 2u);
       }
     }
 
     mEMORY[0x277CF0810]4 = [MEMORY[0x277CF0810] sharedScheduler];
-    *v39 = MEMORY[0x277D85DD0];
-    v40 = 3221225472;
-    v41 = __setupPreExtractionTaskHandler_block_invoke;
-    v42 = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
-    v43 = &getPreExtractionStatus_status;
-    [mEMORY[0x277CF0810]4 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.preextraction" usingQueue:qword_28158ACE8 launchHandler:v39];
+    *v40 = MEMORY[0x277D85DD0];
+    v41 = 3221225472;
+    v42 = __setupPreExtractionTaskHandler_block_invoke;
+    v43 = &__block_descriptor_40_e34_v16__0__BGNonRepeatingSystemTask_8l;
+    v44 = getPreExtractionStatus_status;
+    [mEMORY[0x277CF0810]4 registerForTaskWithIdentifier:@"com.apple.spotlightknowledged.task.preextraction" usingQueue:qword_28158ACE8 launchHandler:v40];
 
 LABEL_57:
-    setupQueryUpdatesTasks();
+    setupQueryUpdatesTasks(v27, v28);
   }
 
   else if (v7)
@@ -907,7 +932,6 @@ LABEL_57:
   }
 
   [(CSEventListenerTasksManager *)self launchIntensiveTasks];
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)alwaysAllowed:(id)allowed
@@ -938,10 +962,10 @@ LABEL_57:
 
 - (void)launchIntensiveTasks
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if (sTurboMode)
   {
-    goto LABEL_43;
+    return;
   }
 
   mEMORY[0x277D657A0] = [MEMORY[0x277D657A0] sharedContext];
@@ -954,7 +978,7 @@ LABEL_57:
       [CSEventListenerTasksManager endJobForDelegate:];
     }
 
-    launchPriorityTask(&getPriorityStatus_sPriorityStatus);
+    launchPriorityTask(getPriorityStatus_sPriorityStatus);
   }
 
   mEMORY[0x277D657A0]2 = [MEMORY[0x277D657A0] sharedContext];
@@ -970,7 +994,7 @@ LABEL_57:
         EmbeddingsThrottlingSwitch_cold_1();
       }
 
-      launchEmbeddingsTask(&getEmbeddingsStatus_sEmbeddingsStatus);
+      launchEmbeddingsTask(getEmbeddingsStatus_sEmbeddingsStatus);
     }
   }
 
@@ -991,7 +1015,7 @@ LABEL_57:
         [CSEventListenerTasksManager endJobForDelegate:];
       }
 
-      launchKeyphrasesTask(&getKeyphrasesStatus_status);
+      launchKeyphrasesTask(getKeyphrasesStatus_status);
     }
   }
 
@@ -1014,7 +1038,7 @@ LABEL_29:
         [CSEventListenerTasksManager endJobForDelegate:];
       }
 
-      launchPreExtractionTask(&getPreExtractionStatus_status);
+      launchPreExtractionTask(getPreExtractionStatus_status);
       goto LABEL_32;
     }
   }
@@ -1052,27 +1076,27 @@ LABEL_29:
   }
 
 LABEL_32:
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v15 = self->_tasks;
-  v16 = [(NSDictionary *)v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v16 = [(NSDictionary *)v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v26;
+    v18 = *v25;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v25 + 1) + 8 * i);
-        v21 = [(NSDictionary *)self->_tasks objectForKeyedSubscript:v20, v25];
+        v20 = *(*(&v24 + 1) + 8 * i);
+        v21 = [(NSDictionary *)self->_tasks objectForKeyedSubscript:v20, v24];
         if ([v21 needsThrottling])
         {
           v22 = +[CSXPCEventListener sharedInstance];
@@ -1085,19 +1109,16 @@ LABEL_32:
         }
       }
 
-      v17 = [(NSDictionary *)v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v17 = [(NSDictionary *)v15 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v17);
   }
-
-LABEL_43:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)launchQueryUpdatesTasks
 {
-  setupQueryUpdatesTasks();
+  setupQueryUpdatesTasks(self, a2);
   launchQueryUpdatesTask(@"com.apple.spotlightknowledged.task.updates");
 
   launchQueryUpdatesTask(@"com.apple.spotlightknowledged.task.ab-updates");
@@ -1105,29 +1126,25 @@ LABEL_43:
 
 - (void)setTurboMode:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_231B25000, a2, OS_LOG_TYPE_ERROR, "### could not create turbo file %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_231B25000, a2, OS_LOG_TYPE_ERROR, "### could not create turbo file %@", &v2, 0xCu);
 }
 
 - (void)startTaskForIndexType:delegate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1_5();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endJobForDelegate:(int)a1 .cold.5(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_231B25000, a2, OS_LOG_TYPE_ERROR, "unknown task type for listenerType:%u", v3, 8u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_231B25000, a2, OS_LOG_TYPE_ERROR, "unknown task type for listenerType:%u", v2, 8u);
 }
 
 @end

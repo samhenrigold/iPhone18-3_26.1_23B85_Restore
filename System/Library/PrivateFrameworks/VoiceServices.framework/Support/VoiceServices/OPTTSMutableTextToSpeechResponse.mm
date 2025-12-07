@@ -8,9 +8,11 @@
 - (void)setAudio:(id)audio;
 - (void)setAudio_type:(int64_t)audio_type;
 - (void)setDecoder_description:(id)decoder_description;
+- (void)setError_code:(int)error_code;
 - (void)setError_str:(id)error_str;
 - (void)setMeta_info:(id)meta_info;
 - (void)setPlayback_description:(id)playback_description;
+- (void)setSample_rate:(int)sample_rate;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
 - (void)setWord_timing_info:(id)word_timing_info;
@@ -48,7 +50,7 @@
   audio = [(OPTTSMutableTextToSpeechResponse *)self audio];
   bytes = [audio bytes];
   audio2 = [(OPTTSMutableTextToSpeechResponse *)self audio];
-  audioCopy[2](audioCopy, bytes, [audio2 length]);
+  (*(audioCopy + 2))(audioCopy, bytes, [audio2 length]);
 }
 
 - (void)setAudio:(id)audio
@@ -57,9 +59,15 @@
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
+- (void)setSample_rate:(int)sample_rate
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:?];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)sample_rate
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"sample_rate"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   intValue = [v2 intValue];
 
   return intValue;
@@ -67,13 +75,13 @@
 
 - (void)setAudio_type:(int64_t)audio_type
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:audio_type];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int64_t)audio_type
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"audio_type"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   integerValue = [v2 integerValue];
 
   return integerValue;
@@ -85,9 +93,15 @@
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
+- (void)setError_code:(int)error_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:?];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (int)error_code
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"error_code"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   intValue = [v2 intValue];
 
   return intValue;
@@ -107,7 +121,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v4 = [objc_msgSend(objc_opt_class() "allocWithZone:"init"")];
   v5 = [(NSMutableDictionary *)self->super._storage copy];
   v6 = v4[1];
   v4[1] = v5;

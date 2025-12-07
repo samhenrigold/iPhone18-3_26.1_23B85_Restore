@@ -46,7 +46,7 @@
 
 - (BOOL)addProcess:(id)process existingProcess:(id *)existingProcess
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   processCopy = process;
   os_unfair_lock_lock_with_options();
   v7 = [(NSMutableOrderedSet *)self->_processes containsObject:processCopy];
@@ -80,9 +80,9 @@
     v13 = rbs_ttl_log();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138543362;
-      v22 = v12;
-      _os_log_impl(&dword_262485000, v13, OS_LOG_TYPE_DEFAULT, "Existing process in RBProcessIndex is: %{public}@", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v12;
+      _os_log_impl(&dword_262485000, v13, OS_LOG_TYPE_DEFAULT, "Existing process in RBProcessIndex is: %{public}@", &v20, 0xCu);
     }
 
     if (v12)
@@ -93,13 +93,13 @@
         v15 = rbs_ttl_log();
         if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
         {
-          v21 = 138543874;
-          v22 = v12;
-          v23 = 2114;
-          v24 = processCopy;
-          v25 = 2114;
-          v26 = v10;
-          _os_log_fault_impl(&dword_262485000, v15, OS_LOG_TYPE_FAULT, "cannot map existing process %{public}@ and new process %{public}@ which have the same identifier: %{public}@", &v21, 0x20u);
+          v20 = 138543874;
+          v21 = v12;
+          v22 = 2114;
+          v23 = processCopy;
+          v24 = 2114;
+          v25 = v10;
+          _os_log_fault_impl(&dword_262485000, v15, OS_LOG_TYPE_FAULT, "cannot map existing process %{public}@ and new process %{public}@ which have the same identifier: %{public}@", &v20, 0x20u);
         }
       }
 
@@ -108,11 +108,11 @@
         v16 = rbs_process_log();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 138543618;
-          v22 = v12;
-          v23 = 2114;
-          v24 = processCopy;
-          _os_log_impl(&dword_262485000, v16, OS_LOG_TYPE_DEFAULT, "replacing %{public}@ which appears to have been exec'd into %{public}@", &v21, 0x16u);
+          v20 = 138543618;
+          v21 = v12;
+          v22 = 2114;
+          v23 = processCopy;
+          _os_log_impl(&dword_262485000, v16, OS_LOG_TYPE_DEFAULT, "replacing %{public}@ which appears to have been exec'd into %{public}@", &v20, 0x16u);
         }
 
         if (existingProcess)
@@ -136,7 +136,6 @@
 
   os_unfair_lock_unlock(&self->_lock);
 
-  v19 = *MEMORY[0x277D85DE8];
   return v7 ^ 1;
 }
 

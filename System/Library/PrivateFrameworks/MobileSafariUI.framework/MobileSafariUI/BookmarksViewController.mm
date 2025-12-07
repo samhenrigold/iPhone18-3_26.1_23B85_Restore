@@ -185,7 +185,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  BookmarksViewController.tabGroupProvider.setter();
+  BookmarksViewController.tabGroupProvider.setter(provider);
 }
 
 - (void)viewDidLoad
@@ -226,7 +226,7 @@
 
 - (void)updateClearHistoryAllowed
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7E060);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7E060, &qword_215A96DF0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v11 - v4;
   v6 = sub_215A706E0();
@@ -248,7 +248,7 @@
   *(self + OBJC_IVAR___BookmarksViewController_selectedCollectionType) = type;
   typeCopy = type;
   selfCopy = self;
-  sub_215A48F60();
+  sub_215A48F60(v4);
 }
 
 - (NSString)currentCollection
@@ -298,10 +298,11 @@
 
   v7 = (self + OBJC_IVAR___BookmarksViewController_importHandler);
   v8 = *(self + OBJC_IVAR___BookmarksViewController_importHandler);
+  v9 = *(self + OBJC_IVAR___BookmarksViewController_importHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_21584BA0C(v8);
+  sub_21584BA0C(v8, v9);
 }
 
 - (id)makeTopLevelCollectionViewController
@@ -325,7 +326,7 @@
 - (void)deleteHistoryItems:(id)items completionHandler:(id)handler
 {
   v5 = _Block_copy(handler);
-  sub_2159F7DA8(0, &qword_27CA7E098);
+  sub_2159F7DA8(0, &qword_27CA7E098, 0x277D49F80);
   v6 = sub_215A705E0();
   if (v5)
   {
@@ -342,7 +343,7 @@
 
   selfCopy = self;
   sub_215A4FBD0(v6, v8, v7);
-  sub_21584BA0C(v8);
+  sub_21584BA0C(v8, v7);
 }
 
 - (id)makeTrailingBarButtonItemsIn:(id)in isEditing:(BOOL)editing
@@ -351,7 +352,7 @@
   selfCopy = self;
   sub_215A4FE20(inCopy, editing);
 
-  sub_2159F7DA8(0, &qword_2811A22B8);
+  sub_2159F7DA8(0, &qword_2811A22B8, 0x277D751E0);
   v8 = sub_215A705D0();
 
   return v8;
@@ -414,13 +415,13 @@
 
 - (id)makeReadingListLeadingBarButtonItemsIn:(id)in isEditing:(BOOL)editing selectedBookmarks:(id)bookmarks
 {
-  sub_2159F7DA8(0, &unk_2811A28A0);
+  sub_2159F7DA8(0, &unk_2811A28A0, 0x277D7B5A0);
   v8 = sub_215A705E0();
   inCopy = in;
   selfCopy = self;
   sub_215A51180(inCopy, editing, v8);
 
-  sub_2159F7DA8(0, &qword_2811A22B8);
+  sub_2159F7DA8(0, &qword_2811A22B8, 0x277D751E0);
   v11 = sub_215A705D0();
 
   return v11;
@@ -428,14 +429,14 @@
 
 - (id)makeBookmarksLeadingBarButtonItemsFor:(id)for in:(id)in isEditing:(BOOL)editing selectedBookmarks:(id)bookmarks
 {
-  sub_2159F7DA8(0, &unk_2811A28A0);
+  sub_2159F7DA8(0, &unk_2811A28A0, 0x277D7B5A0);
   v10 = sub_215A705E0();
   forCopy = for;
   inCopy = in;
   selfCopy = self;
   sub_215A54364(forCopy, editing, v10);
 
-  sub_2159F7DA8(0, &qword_2811A22B8);
+  sub_2159F7DA8(0, &qword_2811A22B8, 0x277D751E0);
   v14 = sub_215A705D0();
 
   return v14;
@@ -443,7 +444,7 @@
 
 - (id)makeDeleteMultipleHistoryItemsButtonFor:(id)for in:(id)in
 {
-  sub_2159F7DA8(0, &qword_27CA7E098);
+  sub_2159F7DA8(0, &qword_27CA7E098, 0x277D49F80);
   v6 = sub_215A705E0();
   inCopy = in;
   selfCopy = self;
@@ -537,7 +538,7 @@ LABEL_7:
   if (v12)
   {
 LABEL_8:
-    sub_215A51CC8();
+    sub_215A51CC8(1);
   }
 }
 

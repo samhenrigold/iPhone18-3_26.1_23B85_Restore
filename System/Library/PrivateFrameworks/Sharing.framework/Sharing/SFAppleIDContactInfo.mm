@@ -90,25 +90,28 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v12 = 0;
-  firstName = self->_firstName;
-  NSAppendPrintF();
-  v3 = v12;
+  v15 = 0;
+  NSAppendPrintF(&v15, "SFAppleIDContactInfo");
+  v3 = v15;
+  v14 = v3;
+  NSAppendPrintF(&v14, " First Name: %{mask}", self->_firstName);
+  v4 = v14;
 
-  lastName = self->_lastName;
-  NSAppendPrintF();
-  v4 = v3;
+  v13 = v4;
+  NSAppendPrintF(&v13, ", Last Name: %{mask}", self->_lastName);
+  v5 = v13;
 
-  validatedEmailAddresses = self->_validatedEmailAddresses;
-  NSAppendPrintF();
-  v5 = v4;
+  v12 = v5;
+  NSAppendPrintF(&v12, ", Validated Email Addresses: %{mask}", self->_validatedEmailAddresses);
+  v6 = v12;
 
   validatedPhoneNumbers = self->_validatedPhoneNumbers;
-  NSAppendPrintF();
-  v6 = v5;
+  v11 = v6;
+  NSAppendPrintF(&v11, ", Validated Phone Numbers: %{mask}", validatedPhoneNumbers);
+  v7 = v11;
+  v8 = v11;
 
-  return v5;
+  return v7;
 }
 
 - (SFAppleIDContactInfo)initWithCoder:(id)coder

@@ -11,6 +11,8 @@
 - (void)copyFromTexture:(id)texture toTexture:(id)toTexture;
 - (void)dealloc;
 - (void)endEncoding;
+- (void)fillBuffer:(id)buffer range:(_NSRange)range pattern4:(unsigned int)pattern4;
+- (void)fillBuffer:(id)buffer range:(_NSRange)range value:(unsigned __int8)value;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region bytes:(const void *)bytes length:(unint64_t)length;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color;
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region color:(id)color pixelFormat:(unint64_t)format;
@@ -163,6 +165,28 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject generateMipmapsForTexture:texture];
+}
+
+- (void)fillBuffer:(id)buffer range:(_NSRange)range value:(unsigned __int8)value
+{
+  valueCopy = value;
+  length = range.length;
+  location = range.location;
+  [MTLCountersTraceBlitCommandEncoder fillBuffer:"fillBuffer:range:value:" range:? value:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject fillBuffer:buffer range:location value:{length, valueCopy}];
+}
+
+- (void)fillBuffer:(id)buffer range:(_NSRange)range pattern4:(unsigned int)pattern4
+{
+  v5 = *&pattern4;
+  length = range.length;
+  location = range.location;
+  [MTLCountersTraceBlitCommandEncoder fillBuffer:"fillBuffer:range:pattern4:" range:? pattern4:?];
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject fillBuffer:buffer range:location pattern4:{length, v5}];
 }
 
 - (void)fillTexture:(id)texture level:(unint64_t)level slice:(unint64_t)slice region:(id *)region bytes:(const void *)bytes length:(unint64_t)length

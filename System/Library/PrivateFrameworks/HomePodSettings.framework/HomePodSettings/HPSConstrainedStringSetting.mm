@@ -35,15 +35,15 @@
 
 - (HPSConstrainedStringSetting)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = HPSConstrainedStringSetting;
-  v5 = [(HPSSetting *)&v24 initWithCoder:coderCopy];
+  v21.receiver = self;
+  v21.super_class = HPSConstrainedStringSetting;
+  v5 = [(HPSSetting *)&v21 initWithCoder:coderCopy];
   if (!v5 || ![coderCopy containsValueForKey:@"setting.items"])
   {
 LABEL_13:
-    v11 = v5;
+    v10 = v5;
     goto LABEL_14;
   }
 
@@ -53,45 +53,43 @@ LABEL_13:
   items = v5->_items;
   v5->_items = v8;
 
-  v10 = v5->_items;
   objc_opt_class();
-  v11 = 0;
+  v10 = 0;
   if (objc_opt_isKindOfClass())
   {
-    v22 = 0u;
-    v23 = 0u;
+    v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
-    v12 = v5->_items;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
-    if (v13)
+    v17 = 0u;
+    v18 = 0u;
+    v11 = v5->_items;
+    v12 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    if (v12)
     {
-      v14 = v13;
-      v15 = *v21;
+      v13 = v12;
+      v14 = *v18;
       while (2)
       {
-        v16 = 0;
+        v15 = 0;
         do
         {
-          if (*v21 != v15)
+          if (*v18 != v14)
           {
-            objc_enumerationMutation(v12);
+            objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v20 + 1) + 8 * v16);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
 
-            v11 = 0;
+            v10 = 0;
             goto LABEL_14;
           }
 
-          ++v16;
+          ++v15;
         }
 
-        while (v14 != v16);
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
-        if (v14)
+        while (v13 != v15);
+        v13 = [(NSArray *)v11 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        if (v13)
         {
           continue;
         }
@@ -105,8 +103,7 @@ LABEL_13:
 
 LABEL_14:
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v10;
 }
 
 @end

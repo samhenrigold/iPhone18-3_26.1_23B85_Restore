@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1A42191C0();
+  sub_1A42191C0(selfCopy, v2);
 }
 
 - (_TtCV12PhotosUICore40LemonadeMemoriesCreationUnavailableAlertP33_C71893E33649A3BCDDFA926B04B6DC1B30AlertHeaderImageViewController)initWithNibName:(id)name bundle:(id)bundle

@@ -2,6 +2,7 @@
 - (BOOL)ensureAVAssetDownloadSessionWrapperForTaskIdentifier:(unint64_t)identifier;
 - (BOOL)hasEntitlementToSpecifyDownloadDestinationURL;
 - (BOOL)retryTask:(id)task originalError:(id)error;
+- (NDAVBackgroundSession)initWithConfiguration:(id)configuration bundleID:(id)d isSpringBoardApp:(BOOL)app downloadDirectory:(id)directory options:(id)options clientProxy:(id)proxy delegate:(id)delegate workQueue:(id)self0 db:(id)self1;
 - (id)avAssetDownloadsDirectory;
 - (id)avAssetForURL:(id)l downloadToken:(unint64_t)token;
 - (id)destinationURLToUseForTask:(id)task;
@@ -1178,7 +1179,7 @@ LABEL_21:
   xpcConn = self->super._xpcConn;
   if (xpcConn)
   {
-    [(NSXPCConnection *)xpcConn auditToken];
+    objc_msgSend_auditToken(xpcConn);
   }
 
   else
@@ -2037,6 +2038,50 @@ LABEL_21:
       }
     }
   }
+}
+
+- (NDAVBackgroundSession)initWithConfiguration:(id)configuration bundleID:(id)d isSpringBoardApp:(BOOL)app downloadDirectory:(id)directory options:(id)options clientProxy:(id)proxy delegate:(id)delegate workQueue:(id)self0 db:(id)self1
+{
+  appCopy = app;
+  configurationCopy = configuration;
+  dCopy = d;
+  directoryCopy = directory;
+  optionsCopy = options;
+  proxyCopy = proxy;
+  delegateCopy = delegate;
+  queueCopy = queue;
+  dbCopy = db;
+  v39.receiver = self;
+  v39.super_class = NDAVBackgroundSession;
+  v25 = [(NDBackgroundSession *)&v39 initWithConfiguration:configurationCopy bundleID:dCopy isSpringBoardApp:appCopy downloadDirectory:directoryCopy options:optionsCopy clientProxy:proxyCopy delegate:delegateCopy workQueue:queueCopy db:dbCopy];
+  if (v25)
+  {
+    v26 = +[NSMutableDictionary dictionary];
+    identifiersToAVWrappers = v25->_identifiersToAVWrappers;
+    v25->_identifiersToAVWrappers = v26;
+
+    v28 = +[NSMutableDictionary dictionary];
+    identifiersToThroughputMonitors = v25->_identifiersToThroughputMonitors;
+    v25->_identifiersToThroughputMonitors = v28;
+
+    v30 = +[NSMutableDictionary dictionary];
+    identifiersToTCPConnections = v25->_identifiersToTCPConnections;
+    v25->_identifiersToTCPConnections = v30;
+
+    v32 = +[NSMutableDictionary dictionary];
+    identifiersToDASActivities = v25->_identifiersToDASActivities;
+    v25->_identifiersToDASActivities = v32;
+
+    v34 = [[NSMapTable alloc] initWithKeyOptions:0 valueOptions:5 capacity:0];
+    assetDownloadTokensToAssets = v25->_assetDownloadTokensToAssets;
+    v25->_assetDownloadTokensToAssets = v34;
+
+    objc_storeStrong(&v25->_clientConfig, configuration);
+    delayedWakeTimer = v25->_delayedWakeTimer;
+    v25->_delayedWakeTimer = 0;
+  }
+
+  return v25;
 }
 
 @end

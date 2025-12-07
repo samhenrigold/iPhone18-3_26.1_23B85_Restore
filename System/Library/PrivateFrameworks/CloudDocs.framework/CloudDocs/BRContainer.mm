@@ -16,6 +16,7 @@
 + (id)_localizedNameWithProperties:(id)properties mangledID:(id)d preferredLanguages:(id)languages;
 + (id)_pathForIconName:(id)name mangledID:(id)d;
 + (id)_sanitizedContainerFallbackNameForMangledID:(id)d;
++ (id)allContainersBlockIfNeeded:(BOOL)needed;
 + (id)allContainersByContainerID;
 + (id)bundleIdentifiersEnumeratorForProperties:(id)properties;
 + (id)bundlePropertyEnumerator:(id)enumerator valuesOfClass:(Class)class forProperties:(id)properties;
@@ -332,7 +333,7 @@ uint64_t __33__BRContainer_initWithMangledID___block_invoke()
 
     if (userInfo2)
     {
-      [userInfo2 auditToken];
+      objc_msgSend_auditToken(userInfo2);
       goto LABEL_11;
     }
   }
@@ -350,12 +351,11 @@ uint64_t __33__BRContainer_initWithMangledID___block_invoke()
   v14 = 0u;
   v15 = 0u;
 LABEL_11:
-  v9 = *MEMORY[0x1E69E9BD0];
   _pathForPlist = [(BRContainer *)self _pathForPlist];
   fileSystemRepresentation = [_pathForPlist fileSystemRepresentation];
-  LODWORD(v9) = sandbox_check_by_audit_token();
+  v10 = sandbox_check_by_audit_token();
 
-  if (!v9)
+  if (!v10)
   {
     [coderCopy encodeBool:1 forKey:{@"BRContainerShouldUsePurgeableDataKey", fileSystemRepresentation}];
     goto LABEL_13;
@@ -372,11 +372,11 @@ LABEL_12:
 LABEL_13:
 }
 
-uint64_t __31__BRContainer_encodeWithCoder___block_invoke(uint64_t result, uint64_t a2)
+id *__31__BRContainer_encodeWithCoder___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) encodeObject:a2 forKey:@"BRContainerDataKey"];
+    return [result[4] encodeObject:a2 forKey:@"BRContainerDataKey"];
   }
 
   return result;
@@ -442,13 +442,12 @@ void __39__BRContainer_accessPropertiesInBlock___block_invoke(uint64_t a1, uint6
 
 void __36__BRContainer_isDocumentScopePublic__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _isDocumentScopePublicAsNumberWithProperties:v4 mangledID:*(*(a1 + 32) + 8)];
+  v3 = a2;
+  v4 = [objc_opt_class() _isDocumentScopePublicAsNumberWithProperties:v3 mangledID:*(*(a1 + 32) + 8)];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 104);
-  *(v6 + 104) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 104);
+  *(v5 + 104) = v4;
 }
 
 - (id)bundleIDVersions
@@ -475,13 +474,12 @@ void __36__BRContainer_isDocumentScopePublic__block_invoke(uint64_t a1, void *a2
 
 void __31__BRContainer_bundleIDVersions__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _bundleIDVersionsWithProperties:v4 mangledID:*(*(a1 + 32) + 8)];
+  v3 = a2;
+  v4 = [objc_opt_class() _bundleIDVersionsWithProperties:v3 mangledID:*(*(a1 + 32) + 8)];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 32);
-  *(v6 + 32) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 32);
+  *(v5 + 32) = v4;
 }
 
 - (NSSet)bundleIdentifiers
@@ -508,24 +506,22 @@ void __31__BRContainer_bundleIDVersions__block_invoke(uint64_t a1, void *a2)
 
 void __32__BRContainer_bundleIdentifiers__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _bundleIDsWithProperties:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() _bundleIDsWithProperties:v3];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 24);
-  *(v6 + 24) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 24);
+  *(v5 + 24) = v4;
 }
 
 void __28__BRContainer_localizedName__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _localizedNameWithProperties:v4 mangledID:*(*(a1 + 32) + 8)];
+  v3 = a2;
+  v4 = [objc_opt_class() _localizedNameWithProperties:v3 mangledID:*(*(a1 + 32) + 8)];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 }
 
 + (id)localizedNameForDesktopContainer
@@ -546,7 +542,7 @@ void __28__BRContainer_localizedName__block_invoke(uint64_t a1, void *a2)
 
 - (id)localizedNameWithPreferredLanguages:(id)languages
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   languagesCopy = languages;
   computedProperties = [(BRContainer *)self computedProperties];
   v6 = [computedProperties mutableCopy];
@@ -564,19 +560,17 @@ void __28__BRContainer_localizedName__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       mangledID = self->_mangledID;
-      v15 = 138412802;
-      v16 = mangledID;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_debug_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] failed parsing plist for container %@: %@%@", &v15, 0x20u);
+      v14 = 138412802;
+      v15 = mangledID;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_debug_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] failed parsing plist for container %@: %@%@", &v14, 0x20u);
     }
 
     v7 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -605,13 +599,12 @@ void __28__BRContainer_localizedName__block_invoke(uint64_t a1, void *a2)
 
 void __29__BRContainer_documentsTypes__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _documentsTypesWithProperties:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() _documentsTypesWithProperties:v3];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 48);
-  *(v6 + 48) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 48);
+  *(v5 + 48) = v4;
 }
 
 - (NSSet)exportedTypes
@@ -638,13 +631,12 @@ void __29__BRContainer_documentsTypes__block_invoke(uint64_t a1, void *a2)
 
 void __28__BRContainer_exportedTypes__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _exportedTypesWithProperties:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() _exportedTypesWithProperties:v3];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 56);
-  *(v6 + 56) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 56);
+  *(v5 + 56) = v4;
 }
 
 - (NSSet)importedTypes
@@ -671,13 +663,12 @@ void __28__BRContainer_exportedTypes__block_invoke(uint64_t a1, void *a2)
 
 void __28__BRContainer_importedTypes__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _importedTypesWithProperties:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() _importedTypesWithProperties:v3];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 64);
-  *(v6 + 64) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 64);
+  *(v5 + 64) = v4;
 }
 
 - (id)iconMetadata
@@ -704,13 +695,12 @@ void __28__BRContainer_importedTypes__block_invoke(uint64_t a1, void *a2)
 
 void __27__BRContainer_iconMetadata__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _iconMetadataWithProperties:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() _iconMetadataWithProperties:v3];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 72);
-  *(v6 + 72) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 72);
+  *(v5 + 72) = v4;
 }
 
 - (id)iconGeneratorVersion
@@ -737,13 +727,12 @@ void __27__BRContainer_iconMetadata__block_invoke(uint64_t a1, void *a2)
 
 void __35__BRContainer_iconGeneratorVersion__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _iconGeneratorVersionWithProperties:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() _iconGeneratorVersionWithProperties:v3];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 88);
-  *(v6 + 88) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 88);
+  *(v5 + 88) = v4;
 }
 
 - (id)imageRepresentationsAvailable
@@ -830,7 +819,7 @@ void __18__BRContainer_url__block_invoke(uint64_t a1, uint64_t a2)
 
 - (id)trashRestoreStringForURL:(id)l
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
   documentsURL = [(BRContainer *)self documentsURL];
   path = [documentsURL path];
@@ -852,17 +841,17 @@ void __18__BRContainer_url__block_invoke(uint64_t a1, uint64_t a2)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       path3 = [lCopy path];
-      v19 = 138412802;
-      v20 = path3;
-      v21 = 2112;
-      v22 = path;
-      v23 = 2112;
-      v24 = v11;
+      v18 = 138412802;
+      v19 = path3;
+      v20 = 2112;
+      v21 = path;
+      v22 = 2112;
+      v23 = v11;
       v14 = "[WARNING] Can't find the put back relative URL of %@ to %@%@";
       v15 = v12;
       v16 = 32;
 LABEL_7:
-      _os_log_impl(&dword_1AE2A9000, v15, OS_LOG_TYPE_DEFAULT, v14, &v19, v16);
+      _os_log_impl(&dword_1AE2A9000, v15, OS_LOG_TYPE_DEFAULT, v14, &v18, v16);
     }
   }
 
@@ -873,10 +862,10 @@ LABEL_7:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       path3 = [lCopy path];
-      v19 = 138412546;
-      v20 = path3;
-      v21 = 2112;
-      v22 = v11;
+      v18 = 138412546;
+      v19 = path3;
+      v20 = 2112;
+      v21 = v11;
       v14 = "[WARNING] Can't find the put back relative URL of %@%@";
       v15 = v12;
       v16 = 22;
@@ -886,8 +875,6 @@ LABEL_7:
 
   v10 = 0;
 LABEL_9:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -908,6 +895,15 @@ LABEL_9:
   return allContainersByID;
 }
 
++ (id)allContainersBlockIfNeeded:(BOOL)needed
+{
+  neededCopy = needed;
+  v4 = +[BRContainerCache containerCache];
+  v5 = [v4 allContainersBlockIfNeeded:neededCopy];
+
+  return v5;
+}
+
 + (id)documentContainers
 {
   v2 = +[BRContainerCache containerCache];
@@ -920,26 +916,26 @@ LABEL_9:
 {
   height = size.height;
   width = size.width;
-  v44 = *MEMORY[0x1E69E9840];
-  memset(v31, 0, sizeof(v31));
-  __brc_create_section(0, "[BRContainer _imageDataForSize:scale:isiOSIcon:shouldTransformToAppIcon:]", 741, 0, v31);
+  v43 = *MEMORY[0x1E69E9840];
+  memset(v30, 0, sizeof(v30));
+  __brc_create_section(0, "[BRContainer _imageDataForSize:scale:isiOSIcon:shouldTransformToAppIcon:]", 741, 0, v30);
   v11 = brc_bread_crumbs("[BRContainer _imageDataForSize:scale:isiOSIcon:shouldTransformToAppIcon:]", 741);
   v12 = brc_default_log(1, 0);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     mangledID = self->_mangledID;
     *buf = 134219266;
-    v33 = v31[0];
-    v34 = 2112;
-    v35 = mangledID;
-    v36 = 2048;
-    v37 = width;
-    v38 = 2048;
-    v39 = height;
-    v40 = 2048;
+    v32 = v30[0];
+    v33 = 2112;
+    v34 = mangledID;
+    v35 = 2048;
+    v36 = width;
+    v37 = 2048;
+    v38 = height;
+    v39 = 2048;
     scaleCopy = scale;
-    v42 = 2112;
-    v43 = v11;
+    v41 = 2112;
+    v42 = v11;
     _os_log_debug_impl(&dword_1AE2A9000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx requesting image for %@ (size:%.1fx%.1f@%ld)%@", buf, 0x3Eu);
   }
 
@@ -954,9 +950,9 @@ LABEL_9:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v33 = v13;
-        v34 = 2112;
-        v35 = v15;
+        v32 = v13;
+        v33 = 2112;
+        v34 = v15;
         _os_log_impl(&dword_1AE2A9000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] can't construct a path for imageName=%@%@", buf, 0x16u);
       }
 
@@ -965,9 +961,9 @@ LABEL_9:
     }
 
     v15 = [MEMORY[0x1E695DFF8] fileURLWithPath:v14];
-    v30 = 0;
-    v16 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v15 options:0 error:&v30];
-    v17 = v30;
+    v29 = 0;
+    v16 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v15 options:0 error:&v29];
+    v17 = v29;
     v18 = v17;
     if (v16)
     {
@@ -980,7 +976,7 @@ LABEL_9:
         v22 = brc_default_log(1, 0);
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          [BRContainer _imageDataForSize:icon scale:? isiOSIcon:? shouldTransformToAppIcon:?];
+          [BRContainer _imageDataForSize:scale:isiOSIcon:shouldTransformToAppIcon:];
         }
       }
 
@@ -996,7 +992,7 @@ LABEL_9:
       v25 = brc_default_log(1, 0);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        [BRContainer _imageDataForSize:appIcon scale:? isiOSIcon:? shouldTransformToAppIcon:?];
+        [BRContainer _imageDataForSize:scale:isiOSIcon:shouldTransformToAppIcon:];
       }
     }
 
@@ -1017,11 +1013,11 @@ LABEL_9:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v33 = v15;
-        v34 = 2112;
-        v35 = v18;
-        v36 = 2112;
-        v37 = *&v24;
+        v32 = v15;
+        v33 = 2112;
+        v34 = v18;
+        v35 = 2112;
+        v36 = *&v24;
         _os_log_impl(&dword_1AE2A9000, v25, OS_LOG_TYPE_DEFAULT, "[WARNING] can't create NSData with contents of '%@'; %@%@", buf, 0x20u);
       }
     }
@@ -1040,8 +1036,7 @@ LABEL_26:
   v16 = 0;
 LABEL_27:
 
-  __brc_leave_section(v31);
-  v27 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v30);
 
   return v16;
 }
@@ -1051,39 +1046,13 @@ LABEL_27:
   containerCopy = container;
   toContainerCopy = toContainer;
   v7 = toContainerCopy;
-  if (!containerCopy)
+  v12 = 1;
+  if (containerCopy)
   {
-    goto LABEL_6;
-  }
-
-  if (!toContainerCopy)
-  {
-    goto LABEL_9;
-  }
-
-  v8 = containerCopy[23];
-  if (v8 | v7[23])
-  {
-    if (![v8 isEqualToString:?])
+    if (!toContainerCopy || (v8 = containerCopy[23], v8 | v7[23]) && ![v8 isEqualToString:?] || (objc_msgSend(containerCopy, "identifier"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "identifier"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "isEqualToString:", v10), v10, v9, (v11 & 1) == 0) && (!objc_msgSend(containerCopy, "isInCloudDocsZone") || (objc_msgSend(v7, "isInCloudDocsZone") & 1) == 0))
     {
-      goto LABEL_9;
+      v12 = 0;
     }
-  }
-
-  identifier = [containerCopy identifier];
-  identifier2 = [v7 identifier];
-  v11 = [identifier isEqualToString:identifier2];
-
-  if (v11 & 1) != 0 || [containerCopy isInCloudDocsZone] && (objc_msgSend(v7, "isInCloudDocsZone"))
-  {
-LABEL_6:
-    v12 = 1;
-  }
-
-  else
-  {
-LABEL_9:
-    v12 = 0;
   }
 
   return v12;
@@ -1107,28 +1076,27 @@ void __42__BRContainer_forceRefreshWithCompletion___block_invoke(uint64_t a1, ui
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = +[BRDaemonConnection defaultConnection];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __42__BRContainer_forceRefreshWithCompletion___block_invoke_2;
-    v10[3] = &unk_1E7A148D0;
-    v11 = *(a1 + 40);
-    v6 = [v5 remoteObjectProxyWithErrorHandler:v10];
-    v7 = [*(a1 + 32) identifier];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __42__BRContainer_forceRefreshWithCompletion___block_invoke_3;
-    v8[3] = &unk_1E7A148D0;
-    v9 = *(a1 + 40);
-    [v6 forceSyncWithBarrierContainerID:v7 timeout:0 reply:v8];
+    v4 = +[BRDaemonConnection defaultConnection];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __42__BRContainer_forceRefreshWithCompletion___block_invoke_2;
+    v9[3] = &unk_1E7A148D0;
+    v10 = *(a1 + 40);
+    v5 = [v4 remoteObjectProxyWithErrorHandler:v9];
+    v6 = [*(a1 + 32) identifier];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __42__BRContainer_forceRefreshWithCompletion___block_invoke_3;
+    v7[3] = &unk_1E7A148D0;
+    v8 = *(a1 + 40);
+    [v5 forceSyncWithBarrierContainerID:v6 timeout:0 reply:v7];
   }
 }
 
@@ -1184,10 +1152,10 @@ void __55__BRContainer_forceRefreshAllContainersWithCompletion___block_invoke(ui
 
 - (void)_replaceDataRepresentationWithData:(id)data
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dataCopy = data;
-  memset(v27, 0, sizeof(v27));
-  __brc_create_section(0, "[BRContainer _replaceDataRepresentationWithData:]", 884, 0, v27);
+  memset(v26, 0, sizeof(v26));
+  __brc_create_section(0, "[BRContainer _replaceDataRepresentationWithData:]", 884, 0, v26);
   v6 = brc_bread_crumbs("[BRContainer _replaceDataRepresentationWithData:]", 884);
   v7 = brc_default_log(1, 0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
@@ -1195,22 +1163,22 @@ void __55__BRContainer_forceRefreshAllContainersWithCompletion___block_invoke(ui
     mangledID = self->_mangledID;
     if (self->_shouldUsePurgeableData)
     {
-      v25 = "YES";
+      v24 = "YES";
     }
 
     else
     {
-      v25 = "NO";
+      v24 = "NO";
     }
 
     *buf = 134218754;
-    v29 = v27[0];
-    v30 = 2112;
-    v31 = mangledID;
-    v32 = 2080;
-    v33 = v25;
-    v34 = 2112;
-    v35 = v6;
+    v28 = v26[0];
+    v29 = 2112;
+    v30 = mangledID;
+    v31 = 2080;
+    v32 = v24;
+    v33 = 2112;
+    v34 = v6;
     _os_log_debug_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Replace data for container %@. Use purgeable data [%s].%@", buf, 0x2Au);
   }
 
@@ -1221,9 +1189,9 @@ void __55__BRContainer_forceRefreshAllContainersWithCompletion___block_invoke(ui
     objc_storeStrong(&selfCopy->_dataRepresentation, data);
     if (dataCopy)
     {
-      v26 = 0;
-      v9 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:2 format:0 error:&v26];
-      v10 = v26;
+      v25 = 0;
+      v9 = [MEMORY[0x1E696AE40] propertyListWithData:dataCopy options:2 format:0 error:&v25];
+      v10 = v25;
 
       if (!v9)
       {
@@ -1273,9 +1241,7 @@ void __55__BRContainer_forceRefreshAllContainersWithCompletion___block_invoke(ui
     +[BRContainer postContainerListUpdateNotification];
   }
 
-  __brc_leave_section(v27);
-
-  v23 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v26);
 }
 
 - (id)_containerRepositoryURL
@@ -1305,10 +1271,7 @@ uint64_t __38__BRContainer__containerRepositoryURL__block_invoke(uint64_t result
   if (!a2)
   {
     v3 = result;
-    v4 = [BRContainer _containerRepositoryURLForMangledID:*(*(result + 32) + 8)];
-    v5 = *(*(v3 + 40) + 8);
-    v6 = *(v5 + 40);
-    *(v5 + 40) = v4;
+    *(*(*(v3 + 40) + 8) + 40) = [BRContainer _containerRepositoryURLForMangledID:*(*(result + 32) + 8)];
 
     return MEMORY[0x1EEE66BB8]();
   }
@@ -1395,7 +1358,7 @@ void __28__BRContainer__pathForPlist__block_invoke(uint64_t a1, uint64_t a2)
 
 - (void)_performWhileAccessingSecurityScopedContainer:(id)container
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   imageSandboxExtension = self->_imageSandboxExtension;
   if (!imageSandboxExtension)
@@ -1413,14 +1376,14 @@ LABEL_7:
     v8 = brc_default_log(0, 0);
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v10 = self->_imageSandboxExtension;
-      v11 = 138412802;
-      v12 = v10;
-      v13 = 1024;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", &v11, 0x1Cu);
+      v9 = self->_imageSandboxExtension;
+      v10 = 138412802;
+      v11 = v9;
+      v12 = 1024;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", &v10, 0x1Cu);
     }
 
     *__error() = v6;
@@ -1430,40 +1393,38 @@ LABEL_7:
   containerCopy[2](containerCopy);
   sandbox_extension_release();
 LABEL_8:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_bundleIDsWithProperties:(id)properties
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if (propertiesCopy)
   {
     v5 = [MEMORY[0x1E695DFA8] setWithCapacity:1];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v6 = [self bundleIdentifiersEnumeratorForProperties:{propertiesCopy, 0}];
-    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v14;
+      v9 = *v13;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v14 != v9)
+          if (*v13 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [v5 addObject:*(*(&v13 + 1) + 8 * i)];
+          [v5 addObject:*(*(&v12 + 1) + 8 * i)];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v8);
@@ -1475,14 +1436,12 @@ LABEL_8:
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (id)_isDocumentScopePublicAsNumberWithProperties:(id)properties mangledID:(id)d
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   dCopy = d;
   if ([dCopy isCloudDocsMangledID])
@@ -1507,28 +1466,28 @@ LABEL_8:
 
     else
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v15 = [self bundlePropertyEnumerator:@"BRContainerIsDocumentScopePublic" valuesOfClass:objc_opt_class() forProperties:{propertiesCopy, 0}];
-      v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v16)
       {
         v17 = 0;
-        v18 = *v23;
+        v18 = *v22;
         while (2)
         {
           v19 = 0;
           v17 += v16;
           do
           {
-            if (*v23 != v18)
+            if (*v22 != v18)
             {
               objc_enumerationMutation(v15);
             }
 
-            if (![*(*(&v22 + 1) + 8 * v19) BOOLValue])
+            if (![*(*(&v21 + 1) + 8 * v19) BOOLValue])
             {
 
               v8 = MEMORY[0x1E695E110];
@@ -1539,7 +1498,7 @@ LABEL_8:
           }
 
           while (v16 != v19);
-          v16 = [v15 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v21 objects:v25 count:16];
           if (v16)
           {
             continue;
@@ -1557,43 +1516,41 @@ LABEL_8:
 LABEL_16:
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 + (id)_bundleIDVersionsWithProperties:(id)properties mangledID:(id)d
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if (propertiesCopy)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v6 = [self bundleIdentifiersEnumeratorForProperties:propertiesCopy];
-    v7 = [v6 countByEnumeratingWithState:&v29 objects:v41 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v28 objects:v40 count:16];
     if (!v7)
     {
       goto LABEL_24;
     }
 
     v8 = v7;
-    v9 = *v30;
-    v27 = *v30;
+    v9 = *v29;
+    v26 = *v29;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
-        v12 = [propertiesCopy objectForKeyedSubscript:{v11, v27}];
+        v11 = *(*(&v28 + 1) + 8 * i);
+        v12 = [propertiesCopy objectForKeyedSubscript:{v11, v26}];
         if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
           v13 = brc_bread_crumbs("+[BRContainer _bundleIDVersionsWithProperties:mangledID:]", 1039);
@@ -1602,11 +1559,11 @@ LABEL_16:
           {
             v16 = objc_opt_class();
             *buf = 138412802;
-            v36 = v11;
-            v37 = 2112;
-            v38 = v16;
-            v39 = 2112;
-            v40 = v13;
+            v35 = v11;
+            v36 = 2112;
+            v37 = v16;
+            v38 = 2112;
+            v39 = v13;
             v17 = v16;
             _os_log_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] failed retrieving bundle properties for %@: unexpected kind of class (expected: NSDictionary, actual: %@)%@", buf, 0x20u);
           }
@@ -1627,11 +1584,11 @@ LABEL_16:
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v33[0] = @"BRContainerFormatVersionNumber";
-              v33[1] = @"BRContainerVersionNumber";
-              v34[0] = v13;
-              v34[1] = v14;
-              v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+              v32[0] = @"BRContainerFormatVersionNumber";
+              v32[1] = @"BRContainerVersionNumber";
+              v33[0] = v13;
+              v33[1] = v14;
+              v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
               [dictionary setObject:v15 forKeyedSubscript:v11];
             }
 
@@ -1645,18 +1602,18 @@ LABEL_16:
               {
                 v23 = objc_opt_class();
                 *buf = 138412802;
-                v36 = v11;
-                v37 = 2112;
-                v38 = v23;
-                v39 = 2112;
-                v40 = v15;
+                v35 = v11;
+                v36 = 2112;
+                v37 = v23;
+                v38 = 2112;
+                v39 = v15;
                 v24 = v23;
                 _os_log_impl(&dword_1AE2A9000, v22, OS_LOG_TYPE_DEFAULT, "[WARNING] failed retrieving bundle version for %@: unexpected kind of class (expected: NSString, actual: %@)%@", buf, 0x20u);
               }
 
               v6 = v21;
               propertiesCopy = v20;
-              v9 = v27;
+              v9 = v26;
             }
           }
 
@@ -1668,11 +1625,11 @@ LABEL_16:
             {
               v18 = objc_opt_class();
               *buf = 138412802;
-              v36 = v11;
-              v37 = 2112;
-              v38 = v18;
-              v39 = 2112;
-              v40 = v14;
+              v35 = v11;
+              v36 = 2112;
+              v37 = v18;
+              v38 = 2112;
+              v39 = v14;
               v19 = v18;
               _os_log_impl(&dword_1AE2A9000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] failed retrieving format version for %@: unexpected kind of class (expected: NSNumber, actual: %@)%@", buf, 0x20u);
             }
@@ -1682,7 +1639,7 @@ LABEL_16:
 LABEL_22:
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v28 objects:v40 count:16];
       if (!v8)
       {
 LABEL_24:
@@ -1695,14 +1652,12 @@ LABEL_24:
   dictionary = 0;
 LABEL_26:
 
-  v25 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 + (id)_localizedNameWithProperties:(id)properties mangledID:(id)d preferredLanguages:(id)languages
 {
-  v82 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   dCopy = d;
   languagesCopy = languages;
@@ -1724,12 +1679,12 @@ LABEL_26:
     goto LABEL_62;
   }
 
-  v74 = 0u;
-  v75 = 0u;
-  v72 = 0u;
-  v73 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v12 = [self bundleIdentifiersEnumeratorForProperties:propertiesCopy];
-  v13 = [v12 countByEnumeratingWithState:&v72 objects:v81 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v67 objects:v76 count:16];
   if (!v13)
   {
 
@@ -1738,221 +1693,205 @@ LABEL_26:
 
   v14 = v13;
   selfCopy = self;
-  v59 = dCopy;
+  v54 = dCopy;
   v15 = 0;
-  v16 = *v73;
-  v17 = 0x1E696A000uLL;
-  v64 = *v73;
-  v61 = languagesCopy;
-  v62 = propertiesCopy;
-  v60 = v12;
+  v16 = *v68;
+  v59 = *v68;
+  v56 = languagesCopy;
+  v57 = propertiesCopy;
+  v55 = v12;
   do
   {
-    v18 = 0;
-    v65 = v14;
+    v17 = 0;
+    v60 = v14;
     do
     {
-      if (*v73 != v16)
+      if (*v68 != v16)
       {
         objc_enumerationMutation(v12);
       }
 
-      v19 = [propertiesCopy objectForKeyedSubscript:{*(*(&v72 + 1) + 8 * v18), selfCopy}];
-      if (v19)
+      v18 = [propertiesCopy objectForKeyedSubscript:{*(*(&v67 + 1) + 8 * v17), selfCopy}];
+      if (v18)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v44 = v19;
-          v45 = brc_bread_crumbs("+[BRContainer _localizedNameWithProperties:mangledID:preferredLanguages:]", 1099);
-          v46 = brc_default_log(1, 0);
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+          v41 = v18;
+          v42 = brc_bread_crumbs("+[BRContainer _localizedNameWithProperties:mangledID:preferredLanguages:]", 1099);
+          v43 = brc_default_log(1, 0);
+          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
           {
-            v47 = objc_opt_class();
+            v44 = objc_opt_class();
             *buf = 138412546;
-            v78 = v47;
-            v79 = 2112;
-            v80 = v45;
-            v48 = v47;
-            _os_log_impl(&dword_1AE2A9000, v46, OS_LOG_TYPE_DEFAULT, "[WARNING] bundleProperties should be a dictionary (kind: %@)%@", buf, 0x16u);
+            v73 = v44;
+            v74 = 2112;
+            v75 = v42;
+            v45 = v44;
+            _os_log_impl(&dword_1AE2A9000, v43, OS_LOG_TYPE_DEFAULT, "[WARNING] bundleProperties should be a dictionary (kind: %@)%@", buf, 0x16u);
           }
 
 LABEL_50:
 
-          v16 = v64;
-          v14 = v65;
+          v16 = v59;
+          v14 = v60;
 LABEL_51:
 
           goto LABEL_52;
         }
       }
 
-      v67 = v15;
-      v20 = [v19 objectForKeyedSubscript:@"BRContainerLocalizedNames"];
-      if (v20)
+      v62 = v15;
+      v19 = [v18 objectForKeyedSubscript:@"BRContainerLocalizedNames"];
+      if (v19)
       {
-        v21 = v20;
+        v20 = v19;
         objc_opt_class();
-        v66 = v19;
+        v61 = v18;
         if (objc_opt_isKindOfClass())
         {
-          v22 = [v19 objectForKeyedSubscript:@"BRContainerFormatVersionNumber"];
+          v21 = [v18 objectForKeyedSubscript:@"BRContainerFormatVersionNumber"];
           objc_opt_class();
-          v63 = v22;
-          if ((objc_opt_isKindOfClass() & 1) != 0 && [v22 intValue]<= 6)
+          v58 = v21;
+          if ((objc_opt_isKindOfClass() & 1) != 0 && [v21 intValue]<= 6)
           {
-            v23 = [v21 objectForKeyedSubscript:@"en"];
-            if (v23)
+            v22 = [v20 objectForKeyedSubscript:@"en"];
+            if (v22)
             {
               goto LABEL_21;
             }
 
-            v24 = [v19 objectForKeyedSubscript:@"BRContainerName"];
-            v25 = *(v17 + 3776);
+            v23 = [v18 objectForKeyedSubscript:@"BRContainerName"];
             objc_opt_class();
             isKindOfClass = objc_opt_isKindOfClass();
 
             if (isKindOfClass)
             {
-              v27 = [v21 mutableCopy];
-              v28 = [v19 objectForKeyedSubscript:@"BRContainerName"];
-              [v27 setObject:v28 forKeyedSubscript:@"en"];
+              v25 = [v20 mutableCopy];
+              v26 = [v18 objectForKeyedSubscript:@"BRContainerName"];
+              [v25 setObject:v26 forKeyedSubscript:@"en"];
 
-              v23 = v21;
-              v21 = v27;
-              v17 = 0x1E696A000uLL;
+              v22 = v20;
+              v20 = v25;
 LABEL_21:
-            }
-
-            else
-            {
-              v17 = 0x1E696A000;
             }
           }
 
-          v29 = MEMORY[0x1E696AAE8];
-          allKeys = [v21 allKeys];
-          v31 = [v29 preferredLocalizationsFromArray:allKeys forPreferences:languagesCopy];
+          v27 = MEMORY[0x1E696AAE8];
+          allKeys = [v20 allKeys];
+          v29 = [v27 preferredLocalizationsFromArray:allKeys forPreferences:languagesCopy];
 
-          v70 = 0u;
-          v71 = 0u;
-          v68 = 0u;
-          v69 = 0u;
-          v32 = v31;
-          v33 = [v32 countByEnumeratingWithState:&v68 objects:v76 count:16];
-          if (v33)
+          v65 = 0u;
+          v66 = 0u;
+          v63 = 0u;
+          v64 = 0u;
+          v30 = v29;
+          v31 = [v30 countByEnumeratingWithState:&v63 objects:v71 count:16];
+          if (v31)
           {
-            v34 = v33;
-            v35 = *v69;
+            v32 = v31;
+            v33 = *v64;
             do
             {
-              for (i = 0; i != v34; ++i)
+              for (i = 0; i != v32; ++i)
               {
-                if (*v69 != v35)
+                if (*v64 != v33)
                 {
-                  objc_enumerationMutation(v32);
+                  objc_enumerationMutation(v30);
                 }
 
-                v37 = [v21 objectForKeyedSubscript:*(*(&v68 + 1) + 8 * i)];
-                if (v37)
+                v35 = [v20 objectForKeyedSubscript:*(*(&v63 + 1) + 8 * i)];
+                if (v35)
                 {
-                  v38 = *(v17 + 3776);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    if ([v37 length])
+                    if ([v35 length])
                     {
 
-                      v15 = v37;
-                      languagesCopy = v61;
-                      propertiesCopy = v62;
-                      dCopy = v59;
+                      v15 = v35;
+                      languagesCopy = v56;
+                      propertiesCopy = v57;
+                      dCopy = v54;
                       goto LABEL_63;
                     }
                   }
 
                   else
                   {
-                    v39 = brc_bread_crumbs("+[BRContainer _localizedNameWithProperties:mangledID:preferredLanguages:]", 1154);
-                    v40 = brc_default_log(1, 0);
-                    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+                    v36 = brc_bread_crumbs("+[BRContainer _localizedNameWithProperties:mangledID:preferredLanguages:]", 1154);
+                    v37 = brc_default_log(1, 0);
+                    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                     {
-                      v41 = objc_opt_class();
+                      v38 = objc_opt_class();
                       *buf = 138412546;
-                      v78 = v41;
-                      v79 = 2112;
-                      v80 = v39;
-                      v42 = v41;
-                      _os_log_impl(&dword_1AE2A9000, v40, OS_LOG_TYPE_DEFAULT, "[WARNING] localizedName should be a string (kind: %@)%@", buf, 0x16u);
-
-                      v17 = 0x1E696A000;
+                      v73 = v38;
+                      v74 = 2112;
+                      v75 = v36;
+                      v39 = v38;
+                      _os_log_impl(&dword_1AE2A9000, v37, OS_LOG_TYPE_DEFAULT, "[WARNING] localizedName should be a string (kind: %@)%@", buf, 0x16u);
                     }
                   }
                 }
               }
 
-              v34 = [v32 countByEnumeratingWithState:&v68 objects:v76 count:16];
+              v32 = [v30 countByEnumeratingWithState:&v63 objects:v71 count:16];
             }
 
-            while (v34);
+            while (v32);
           }
 
-          languagesCopy = v61;
-          propertiesCopy = v62;
-          v12 = v60;
-          v16 = v64;
-          v14 = v65;
-          v43 = v63;
+          languagesCopy = v56;
+          propertiesCopy = v57;
+          v12 = v55;
+          v16 = v59;
+          v14 = v60;
+          v40 = v58;
         }
 
         else
         {
-          v43 = brc_bread_crumbs("+[BRContainer _localizedNameWithProperties:mangledID:preferredLanguages:]", 1159);
-          v32 = brc_default_log(1, 0);
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v40 = brc_bread_crumbs("+[BRContainer _localizedNameWithProperties:mangledID:preferredLanguages:]", 1159);
+          v30 = brc_default_log(1, 0);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
-            v49 = objc_opt_class();
+            v46 = objc_opt_class();
             *buf = 138412546;
-            v78 = v49;
-            v79 = 2112;
-            v80 = v43;
-            v50 = v49;
-            _os_log_impl(&dword_1AE2A9000, v32, OS_LOG_TYPE_DEFAULT, "[WARNING] localizedNames should be a dictionary (kind: %@)%@", buf, 0x16u);
-
-            v17 = 0x1E696A000uLL;
+            v73 = v46;
+            v74 = 2112;
+            v75 = v40;
+            v47 = v46;
+            _os_log_impl(&dword_1AE2A9000, v30, OS_LOG_TYPE_DEFAULT, "[WARNING] localizedNames should be a dictionary (kind: %@)%@", buf, 0x16u);
           }
         }
 
-        v19 = v66;
+        v18 = v61;
       }
 
-      v15 = v67;
-      if (v67)
+      v15 = v62;
+      if (v62)
       {
         goto LABEL_53;
       }
 
-      v44 = v19;
-      v45 = [v19 objectForKeyedSubscript:@"BRContainerName"];
-      if (v45)
+      v41 = v18;
+      v42 = [v18 objectForKeyedSubscript:@"BRContainerName"];
+      if (v42)
       {
-        v51 = *(v17 + 3776);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v46 = brc_bread_crumbs("+[BRContainer _localizedNameWithProperties:mangledID:preferredLanguages:]", 1168);
-          v52 = brc_default_log(1, 0);
-          if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+          v43 = brc_bread_crumbs("+[BRContainer _localizedNameWithProperties:mangledID:preferredLanguages:]", 1168);
+          v48 = brc_default_log(1, 0);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
           {
-            v53 = objc_opt_class();
+            v49 = objc_opt_class();
             *buf = 138412546;
-            v78 = v53;
-            v79 = 2112;
-            v80 = v46;
-            v54 = v53;
-            _os_log_impl(&dword_1AE2A9000, v52, OS_LOG_TYPE_DEFAULT, "[WARNING] fallbackName should be a string (kind: %@)%@", buf, 0x16u);
-
-            v17 = 0x1E696A000;
+            v73 = v49;
+            v74 = 2112;
+            v75 = v43;
+            v50 = v49;
+            _os_log_impl(&dword_1AE2A9000, v48, OS_LOG_TYPE_DEFAULT, "[WARNING] fallbackName should be a string (kind: %@)%@", buf, 0x16u);
           }
 
           v15 = 0;
@@ -1960,29 +1899,29 @@ LABEL_21:
         }
       }
 
-      if (![v45 length])
+      if (![v42 length])
       {
         v15 = 0;
         goto LABEL_51;
       }
 
-      v15 = v45;
+      v15 = v42;
 LABEL_52:
-      v19 = v44;
+      v18 = v41;
 LABEL_53:
 
-      ++v18;
+      ++v17;
     }
 
-    while (v18 != v14);
-    v55 = [v12 countByEnumeratingWithState:&v72 objects:v81 count:16];
-    v14 = v55;
+    while (v17 != v14);
+    v51 = [v12 countByEnumeratingWithState:&v67 objects:v76 count:16];
+    v14 = v51;
   }
 
-  while (v55);
+  while (v51);
 
   self = selfCopy;
-  dCopy = v59;
+  dCopy = v54;
   if (!v15)
   {
 LABEL_61:
@@ -1992,8 +1931,6 @@ LABEL_62:
   }
 
 LABEL_63:
-
-  v56 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -2049,34 +1986,34 @@ LABEL_63:
 
 + (id)_documentsTypesWithProperties:(id)properties
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if (propertiesCopy)
   {
     v5 = [MEMORY[0x1E695DFA8] set];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = [self bundlePropertyEnumerator:@"BRContainerDocumentTypes" valuesOfClass:objc_opt_class() forProperties:{propertiesCopy, 0}];
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [v5 addObjectsFromArray:*(*(&v14 + 1) + 8 * i)];
+          [v5 addObjectsFromArray:*(*(&v13 + 1) + 8 * i)];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -2097,42 +2034,40 @@ LABEL_63:
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)_exportedTypesWithProperties:(id)properties
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if (propertiesCopy)
   {
     v5 = [MEMORY[0x1E695DFA8] set];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = [self bundlePropertyEnumerator:@"BRContainerExportedTypes" valuesOfClass:objc_opt_class() forProperties:{propertiesCopy, 0}];
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [v5 addObjectsFromArray:*(*(&v14 + 1) + 8 * i)];
+          [v5 addObjectsFromArray:*(*(&v13 + 1) + 8 * i)];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -2153,42 +2088,40 @@ LABEL_63:
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
 
 + (id)_importedTypesWithProperties:(id)properties
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if (propertiesCopy)
   {
     v5 = [MEMORY[0x1E695DFA8] set];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = [self bundlePropertyEnumerator:@"BRContainerImportedTypes" valuesOfClass:objc_opt_class() forProperties:{propertiesCopy, 0}];
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [v5 addObjectsFromArray:*(*(&v14 + 1) + 8 * i)];
+          [v5 addObjectsFromArray:*(*(&v13 + 1) + 8 * i)];
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -2210,96 +2143,92 @@ LABEL_63:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 + (id)_iconMetadataWithProperties:(id)properties
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   dictionary = [propertiesCopy objectForKeyedSubscript:@"BRContainerIcons"];
 
   if (dictionary)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v16 = propertiesCopy;
+    v15 = propertiesCopy;
     obj = [propertiesCopy objectForKeyedSubscript:@"BRContainerIcons"];
-    v5 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v5 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v21;
+      v7 = *v20;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v21 != v7)
+          if (*v20 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v20 + 1) + 8 * i);
-          v18 = 0.0;
-          v19 = 0;
-          v18 = BRContainerIconSizeForName(v9);
-          v19 = v10;
-          v24[0] = @"size";
-          v11 = [MEMORY[0x1E696B098] valueWithBytes:&v18 objCType:"{CGSize=dd}"];
-          v24[1] = @"scale";
-          v25[0] = v11;
+          v9 = *(*(&v19 + 1) + 8 * i);
+          v17 = 0.0;
+          v18 = 0;
+          v17 = BRContainerIconSizeForName(v9);
+          v18 = v10;
+          v23[0] = @"size";
+          v11 = [MEMORY[0x1E696B098] valueWithBytes:&v17 objCType:"{CGSize=dd}"];
+          v23[1] = @"scale";
+          v24[0] = v11;
           v12 = [MEMORY[0x1E696AD98] numberWithDouble:BRContainerIconScaleForName(v9)];
-          v25[1] = v12;
-          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+          v24[1] = v12;
+          v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
           [dictionary setObject:v13 forKeyedSubscript:v9];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v6 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
       }
 
       while (v6);
     }
 
-    propertiesCopy = v16;
+    propertiesCopy = v15;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 + (id)_iconGeneratorVersionWithProperties:(id)properties
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if (propertiesCopy)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v5 = [self bundlePropertyEnumerator:@"BRContainerIconGeneratorVersionNumber" valuesOfClass:objc_opt_class() forProperties:{propertiesCopy, 0}];
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v17;
+      v8 = *v16;
       v9 = &unk_1F23E68C8;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           longLongValue = [v11 longLongValue];
           if (longLongValue > [v9 longLongValue])
           {
@@ -2309,7 +2238,7 @@ LABEL_63:
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v7);
@@ -2326,14 +2255,12 @@ LABEL_63:
     v9 = &unk_1F23E68C8;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)_iconURLsWithProperties:(id)properties mangledID:(id)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   dCopy = d;
   dictionary = [propertiesCopy objectForKeyedSubscript:@"BRContainerIcons"];
@@ -2341,39 +2268,37 @@ LABEL_63:
   if (dictionary)
   {
     dictionary = [MEMORY[0x1E695DF90] dictionary];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     obj = [propertiesCopy objectForKeyedSubscript:@"BRContainerIcons"];
-    v9 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v9 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v20;
+      v11 = *v19;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v20 != v11)
+          if (*v19 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v19 + 1) + 8 * i);
+          v13 = *(*(&v18 + 1) + 8 * i);
           v14 = [self _pathForIconName:v13 mangledID:dCopy];
           v15 = [MEMORY[0x1E695DFF8] fileURLWithPath:v14];
           [dictionary setObject:v15 forKeyedSubscript:v13];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v10 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v10);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -2460,7 +2385,7 @@ void __49__BRContainer_BRXcodeAdditions__lastServerUpdate__block_invoke(uint64_t
 
 void __49__BRContainer_BRXcodeAdditions__lastServerUpdate__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -2469,20 +2394,18 @@ void __49__BRContainer_BRXcodeAdditions__lastServerUpdate__block_invoke_2(uint64
     v8 = brc_default_log(0, 0);
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v10 = *(*(a1 + 32) + 8);
-      v11 = 138412802;
-      v12 = v10;
-      v13 = 2112;
-      v14 = v6;
-      v15 = 2112;
-      v16 = v7;
-      _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] unable to retrieve last server updated for container %@; %@%@", &v11, 0x20u);
+      v9 = *(*(a1 + 32) + 8);
+      v10 = 138412802;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] unable to retrieve last server updated for container %@; %@%@", &v10, 0x20u);
     }
   }
 
   [*(a1 + 40) setObjResult:v5 error:v6];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)currentStatus
@@ -2566,7 +2489,7 @@ void __46__BRContainer_BRXcodeAdditions__currentStatus__block_invoke(uint64_t a1
 
 void __46__BRContainer_BRXcodeAdditions__currentStatus__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -2574,22 +2497,20 @@ void __46__BRContainer_BRXcodeAdditions__currentStatus__block_invoke_2(uint64_t 
     v7 = brc_default_log(0, 0);
     if (os_log_type_enabled(v7, 0x90u))
     {
-      v11 = *(*(a1 + 32) + 8);
-      v12 = 138412802;
-      v13 = v11;
-      v14 = 2112;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] unable to retrieve status for container %@; %@%@", &v12, 0x20u);
+      v10 = *(*(a1 + 32) + 8);
+      v11 = 138412802;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v6;
+      _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] unable to retrieve status for container %@; %@%@", &v11, 0x20u);
     }
   }
 
   v8 = *(a1 + 40);
   v9 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:a2];
   [v8 setObjResult:v9 error:v5];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLastServerUpdate:(id)update
@@ -2623,42 +2544,42 @@ void __46__BRContainer_BRXcodeAdditions__currentStatus__block_invoke_2(uint64_t 
 
 + (id)documentsContainersInBackupHomeAtURL:(id)l error:(id *)error
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   lCopy = l;
   v5 = [lCopy URLByAppendingPathComponent:@"Library/Application Support/CloudDocs"];
   v6 = [v5 URLByAppendingPathComponent:@"session/containers"];
 
-  v32 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
   [MEMORY[0x1E696AC08] defaultManager];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v29 = v37 = 0u;
-  v30 = v6;
-  v7 = [v29 enumeratorAtURL:v6 includingPropertiesForKeys:0 options:5 errorHandler:0];
-  v8 = [v7 countByEnumeratingWithState:&v34 objects:v44 count:16];
+  v28 = v36 = 0u;
+  v29 = v6;
+  v7 = [v28 enumeratorAtURL:v6 includingPropertiesForKeys:0 options:5 errorHandler:0];
+  v8 = [v7 countByEnumeratingWithState:&v33 objects:v43 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v35;
+    v10 = *v34;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v35 != v10)
+        if (*v34 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v34 + 1) + 8 * i);
+        v12 = *(*(&v33 + 1) + 8 * i);
         pathExtension = [v12 pathExtension];
         v14 = [pathExtension isEqualToString:@"plist"];
 
         if (v14)
         {
-          v33 = 0;
-          v15 = [self containerInRepositoryURL:v12 createIfMissing:0 error:&v33];
-          v16 = v33;
+          v32 = 0;
+          v15 = [self containerInRepositoryURL:v12 createIfMissing:0 error:&v32];
+          v16 = v32;
           if (v15)
           {
             if ([v15 isDocumentScopePublic])
@@ -2667,7 +2588,7 @@ void __46__BRContainer_BRXcodeAdditions__currentStatus__block_invoke_2(uint64_t 
 
               if (documentsURL)
               {
-                [v32 addObject:v15];
+                [v31 addObject:v15];
               }
             }
           }
@@ -2682,11 +2603,11 @@ void __46__BRContainer_BRXcodeAdditions__currentStatus__block_invoke_2(uint64_t 
             {
               path = [v12 path];
               *buf = 138412802;
-              v39 = path;
-              v40 = 2112;
-              v41 = v16;
-              v42 = 2112;
-              v43 = v20;
+              v38 = path;
+              v39 = 2112;
+              v40 = v16;
+              v41 = 2112;
+              v42 = v20;
               _os_log_error_impl(&dword_1AE2A9000, v21, 0x90u, "[ERROR] can't extract container at %@: %@%@", buf, 0x20u);
             }
 
@@ -2696,7 +2617,7 @@ void __46__BRContainer_BRXcodeAdditions__currentStatus__block_invoke_2(uint64_t 
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v34 objects:v44 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v33 objects:v43 count:16];
     }
 
     while (v9);
@@ -2705,36 +2626,34 @@ void __46__BRContainer_BRXcodeAdditions__currentStatus__block_invoke_2(uint64_t 
   v23 = BRContainerIfDirectoryInHomeURLIsSynced(lCopy, @"Documents", @"com.apple.Documents");
   if (v23)
   {
-    [v32 addObject:v23];
+    [v31 addObject:v23];
   }
 
   v24 = BRContainerIfDirectoryInHomeURLIsSynced(lCopy, @"Desktop", @"com.apple.Desktop");
 
   if (v24)
   {
-    [v32 addObject:v24];
+    [v31 addObject:v24];
   }
 
   v25 = [[BRMangledID alloc] initWithAppLibraryName:@"com.apple.CloudDocs"];
   v26 = [[BRContainer alloc] initWithMangledID:v25];
-  [v32 addObject:v26];
+  [v31 addObject:v26];
 
-  v27 = *MEMORY[0x1E69E9840];
-
-  return v32;
+  return v31;
 }
 
 + (id)containerInRepositoryURL:(id)l createIfMissing:(BOOL)missing error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   lCopy = l;
   lastPathComponent = [lCopy lastPathComponent];
   brc_stringByDeletingPathExtension = [lastPathComponent brc_stringByDeletingPathExtension];
 
   v10 = [[BRMangledID alloc] initWithAppLibraryName:brc_stringByDeletingPathExtension];
-  v25 = 0;
-  v11 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy options:1 error:&v25];
-  v12 = v25;
+  v24 = 0;
+  v11 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:lCopy options:1 error:&v24];
+  v12 = v24;
   v13 = v12;
   if (!v12)
   {
@@ -2755,55 +2674,53 @@ LABEL_4:
 
   else
   {
-    v17 = brc_bread_crumbs("+[BRContainer(BRFinderAdditions) containerInRepositoryURL:createIfMissing:error:]", 1478);
-    v18 = brc_default_log(1, 0);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v16 = brc_bread_crumbs("+[BRContainer(BRFinderAdditions) containerInRepositoryURL:createIfMissing:error:]", 1478);
+    v17 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       path = [lCopy path];
       *buf = 138413058;
-      v27 = v10;
-      v28 = 2112;
-      v29 = path;
-      v30 = 2112;
-      v31 = v13;
-      v32 = 2112;
-      v33 = v17;
-      _os_log_debug_impl(&dword_1AE2A9000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] failed reading data for container %@ at '%@': %@%@", buf, 0x2Au);
+      v26 = v10;
+      v27 = 2112;
+      v28 = path;
+      v29 = 2112;
+      v30 = v13;
+      v31 = 2112;
+      v32 = v16;
+      _os_log_debug_impl(&dword_1AE2A9000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] failed reading data for container %@ at '%@': %@%@", buf, 0x2Au);
     }
 
-    v19 = v13;
-    v20 = brc_bread_crumbs("+[BRContainer(BRFinderAdditions) containerInRepositoryURL:createIfMissing:error:]", 1479);
-    v21 = brc_default_log(0, 0);
-    if (os_log_type_enabled(v21, 0x90u))
+    v18 = v13;
+    v19 = brc_bread_crumbs("+[BRContainer(BRFinderAdditions) containerInRepositoryURL:createIfMissing:error:]", 1479);
+    v20 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v20, 0x90u))
     {
-      v24 = "(passed to caller)";
+      v23 = "(passed to caller)";
       *buf = 136315906;
-      v27 = "+[BRContainer(BRFinderAdditions) containerInRepositoryURL:createIfMissing:error:]";
-      v28 = 2080;
+      v26 = "+[BRContainer(BRFinderAdditions) containerInRepositoryURL:createIfMissing:error:]";
+      v27 = 2080;
       if (!error)
       {
-        v24 = "(ignored by caller)";
+        v23 = "(ignored by caller)";
       }
 
-      v29 = v24;
-      v30 = 2112;
-      v31 = v19;
-      v32 = 2112;
-      v33 = v20;
-      _os_log_error_impl(&dword_1AE2A9000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
+      v28 = v23;
+      v29 = 2112;
+      v30 = v18;
+      v31 = 2112;
+      v32 = v19;
+      _os_log_error_impl(&dword_1AE2A9000, v20, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
 
     if (error)
     {
-      v22 = v19;
-      *error = v19;
+      v21 = v18;
+      *error = v18;
     }
   }
 
   v14 = 0;
 LABEL_5:
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -2828,55 +2745,55 @@ LABEL_5:
 
 - (BOOL)deleteAllContentsOnClientAndServer:(BOOL)server error:(id *)error
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x2020000000;
-  v25 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__9;
-  v20 = __Block_byref_object_dispose__9;
+  v33 = *MEMORY[0x1E69E9840];
   v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__9;
+  v19 = __Block_byref_object_dispose__9;
+  v20 = 0;
   personaID = self->_personaID;
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __83__BRContainer_BRFinderInternalAdditions__deleteAllContentsOnClientAndServer_error___block_invoke;
-  v14[3] = &unk_1E7A165F8;
-  v14[4] = self;
-  v14[5] = &v16;
-  v14[6] = &v22;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __83__BRContainer_BRFinderInternalAdditions__deleteAllContentsOnClientAndServer_error___block_invoke;
+  v13[3] = &unk_1E7A165F8;
+  v13[4] = self;
+  v13[5] = &v15;
+  v13[6] = &v21;
   serverCopy = server;
-  BRPerformWithPersonaAndError(personaID, v14);
-  if (v23[3])
+  BRPerformWithPersonaAndError(personaID, v13);
+  if (v22[3])
   {
     v6 = 1;
   }
 
   else
   {
-    v7 = v17[5];
+    v7 = v16[5];
     if (v7)
     {
       v8 = brc_bread_crumbs("[BRContainer(BRFinderInternalAdditions) deleteAllContentsOnClientAndServer:error:]", 1546);
       v9 = brc_default_log(0, 0);
       if (os_log_type_enabled(v9, 0x90u))
       {
-        v13 = "(passed to caller)";
+        v12 = "(passed to caller)";
         *buf = 136315906;
-        v27 = "[BRContainer(BRFinderInternalAdditions) deleteAllContentsOnClientAndServer:error:]";
-        v28 = 2080;
+        v26 = "[BRContainer(BRFinderInternalAdditions) deleteAllContentsOnClientAndServer:error:]";
+        v27 = 2080;
         if (!error)
         {
-          v13 = "(ignored by caller)";
+          v12 = "(ignored by caller)";
         }
 
-        v29 = v13;
-        v30 = 2112;
-        v31 = v7;
-        v32 = 2112;
-        v33 = v8;
+        v28 = v12;
+        v29 = 2112;
+        v30 = v7;
+        v31 = 2112;
+        v32 = v8;
         _os_log_error_impl(&dword_1AE2A9000, v9, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -2887,13 +2804,12 @@ LABEL_5:
       *error = v7;
     }
 
-    v6 = *(v23 + 24);
+    v6 = *(v22 + 24);
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 
-  _Block_object_dispose(&v22, 8);
-  v11 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v21, 8);
   return v6 & 1;
 }
 
@@ -2911,7 +2827,7 @@ void __83__BRContainer_BRFinderInternalAdditions__deleteAllContentsOnClientAndSe
     v6 = brc_default_log(0, 0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __83__BRContainer_BRFinderInternalAdditions__deleteAllContentsOnClientAndServer_error___block_invoke_cold_1(a1);
+      __83__BRContainer_BRFinderInternalAdditions__deleteAllContentsOnClientAndServer_error___block_invoke_cold_1();
     }
 
     if ([*(a1 + 32) isInCloudDocsZone] && (objc_msgSend(*(a1 + 32), "identifier"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isEqualToString:", @"com.apple.CloudDocs"), v7, (v8 & 1) == 0))
@@ -3004,57 +2920,56 @@ void __83__BRContainer_BRFinderInternalAdditions__deleteAllContentsOnClientAndSe
 
 void __44__BRContainer_BRInternalAdditions__iconURLs__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [objc_opt_class() _iconURLsWithProperties:v4 mangledID:*(*(a1 + 32) + 8)];
+  v3 = a2;
+  v4 = [objc_opt_class() _iconURLsWithProperties:v3 mangledID:*(*(a1 + 32) + 8)];
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 80);
-  *(v6 + 80) = v5;
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 80);
+  *(v5 + 80) = v4;
 }
 
 - (id)bestFittingImageDataForSize:(CGSize)size shouldTransformToAppIcon:(BOOL *)icon
 {
   width = size.width;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = [(BRContainer *)self imageDataForSize:1 scale:icon shouldTransformToAppIcon:size.width, size.height];
   if (!v7)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     imageRepresentationsAvailable = [(BRContainer *)self imageRepresentationsAvailable];
-    v9 = [imageRepresentationsAvailable countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v9 = [imageRepresentationsAvailable countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(imageRepresentationsAvailable);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * i);
-          v20 = 0.0;
+          v13 = *(*(&v20 + 1) + 8 * i);
+          v19 = 0.0;
           v14 = [v13 objectForKey:{@"size", 0}];
-          [v14 getValue:&v19];
+          [v14 getValue:&v18];
 
           v15 = [v13 objectForKey:@"scale"];
           integerValue = [v15 integerValue];
 
-          if (v19 * integerValue >= width)
+          if (v18 * integerValue >= width)
           {
-            v7 = [(BRContainer *)self imageDataForSize:integerValue scale:icon shouldTransformToAppIcon:v19, v20];
+            v7 = [(BRContainer *)self imageDataForSize:integerValue scale:icon shouldTransformToAppIcon:v18, v19];
             goto LABEL_12;
           }
         }
 
-        v10 = [imageRepresentationsAvailable countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v10 = [imageRepresentationsAvailable countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v10)
         {
           continue;
@@ -3067,8 +2982,6 @@ void __44__BRContainer_BRInternalAdditions__iconURLs__block_invoke(uint64_t a1, 
     v7 = 0;
 LABEL_12:
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -3095,17 +3008,14 @@ LABEL_12:
 
 uint64_t __58__BRContainer_BRInternalAdditions__copyDataRepresentation__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v3 = [MEMORY[0x1E695DEF0] dataWithData:a2];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [MEMORY[0x1E695DEF0] dataWithData:a2];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (void)accessDataRepresentationInBlock:(id)block
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -3134,9 +3044,9 @@ LABEL_8:
 
     if (_pathForPlist)
     {
-      v21 = 0;
-      v15 = [MEMORY[0x1E696AE58] dataWithContentsOfFile:_pathForPlist options:8 error:&v21];
-      v7 = v21;
+      v20 = 0;
+      v15 = [MEMORY[0x1E696AE58] dataWithContentsOfFile:_pathForPlist options:8 error:&v20];
+      v7 = v20;
       v16 = selfCopy->_purgeableDataRepresentation;
       selfCopy->_purgeableDataRepresentation = v15;
     }
@@ -3153,9 +3063,9 @@ LABEL_8:
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v23 = v7;
-        v24 = 2112;
-        v25 = v17;
+        v22 = v7;
+        v23 = 2112;
+        v24 = v17;
         _os_log_impl(&dword_1AE2A9000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] can't open plist path: %@%@", buf, 0x16u);
       }
     }
@@ -3202,88 +3112,84 @@ LABEL_21:
   [(NSPurgeableData *)v10 endContentAccess];
   [(NSPurgeableData *)v10 discardContentIfPossible];
   objc_sync_exit(v19);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (id)shortDescription
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   [MEMORY[0x1E696AD60] stringWithString:@"apps:{"];
-  v18 = v17 = self;
+  v17 = v16 = self;
   bundleIDVersions = [(BRContainer *)self bundleIDVersions];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v4 = [bundleIDVersions countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [bundleIDVersions countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v19;
     v7 = "";
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(bundleIDVersions);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = [bundleIDVersions objectForKeyedSubscript:v9];
         fp_obfuscatedDotSeparatedComponents = [v9 fp_obfuscatedDotSeparatedComponents];
         v12 = [v10 objectForKeyedSubscript:@"BRContainerVersionNumber"];
-        [v18 appendFormat:@"%s%@:%@", v7, fp_obfuscatedDotSeparatedComponents, v12];
+        [v17 appendFormat:@"%s%@:%@", v7, fp_obfuscatedDotSeparatedComponents, v12];
 
         v7 = "; ";
       }
 
-      v5 = [bundleIDVersions countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [bundleIDVersions countByEnumeratingWithState:&v18 objects:v22 count:16];
       v7 = "; ";
     }
 
     while (v5);
   }
 
-  [v18 appendString:@"}"];
-  personaID = v17->_personaID;
+  [v17 appendString:@"}"];
+  personaID = v16->_personaID;
   if (personaID && ![(NSString *)personaID isEqualToString:@"__defaultPersonaID__"])
   {
-    [v18 appendFormat:@"%spersona:%@", " ", v17->_personaID];
+    [v17 appendFormat:@"%spersona:%@", " ", v16->_personaID];
   }
 
   v14 = " ";
-  if ([(BRContainer *)v17 isDocumentScopePublic])
+  if ([(BRContainer *)v16 isDocumentScopePublic])
   {
-    [v18 appendFormat:@"%sDocumentScopePublic", " "];
+    [v17 appendFormat:@"%sDocumentScopePublic", " "];
     v14 = "|";
-    if ([(BRContainer *)v17 isInInitialState])
+    if ([(BRContainer *)v16 isInInitialState])
     {
-      [v18 appendFormat:@"%sInInitialState", "|"];
+      [v17 appendFormat:@"%sInInitialState", "|"];
     }
   }
 
-  if ([(BRContainer *)v17 isInCloudDocsZone])
+  if ([(BRContainer *)v16 isInCloudDocsZone])
   {
-    [v18 appendFormat:@"%sInCloudDocsZone", v14];
+    [v17 appendFormat:@"%sInCloudDocsZone", v14];
     v14 = "|";
   }
 
-  if ([(BRContainer *)v17 isCloudSyncTCCDisabled])
+  if ([(BRContainer *)v16 isCloudSyncTCCDisabled])
   {
-    [v18 appendFormat:@"%sTCCDisabled", v14];
+    [v17 appendFormat:@"%sTCCDisabled", v14];
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v17;
 }
 
 + (id)containerForMangledID:(id)d
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
@@ -3292,13 +3198,13 @@ LABEL_21:
     v6 = brc_default_log(1, 0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v10 = 138412802;
-      v11 = v4;
-      v12 = 2112;
-      v13 = dCopy;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Found plistURL: %@ for mangledID: %@%@", &v10, 0x20u);
+      v9 = 138412802;
+      v10 = v4;
+      v11 = 2112;
+      v12 = dCopy;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] Found plistURL: %@ for mangledID: %@%@", &v9, 0x20u);
     }
 
     if (v4)
@@ -3317,14 +3223,12 @@ LABEL_21:
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (BOOL)versionOfBundle:(id)bundle changedFromVersion:(id)version
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   bundleCopy = bundle;
   versionCopy = version;
   if (!bundleCopy)
@@ -3360,13 +3264,13 @@ LABEL_21:
     v13 = brc_default_log(1, 0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412802;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v12;
-      _os_log_impl(&dword_1AE2A9000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] invalid version '%@' or identifier '%@'%@", &v20, 0x20u);
+      v19 = 138412802;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v10;
+      v23 = 2112;
+      v24 = v12;
+      _os_log_impl(&dword_1AE2A9000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] invalid version '%@' or identifier '%@'%@", &v19, 0x20u);
     }
 
 LABEL_12:
@@ -3378,15 +3282,15 @@ LABEL_12:
   v16 = brc_default_log(1, 0);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 138413058;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v8;
-    v24 = 2112;
-    v25 = versionCopy;
-    v26 = 2112;
-    v27 = v15;
-    _os_log_debug_impl(&dword_1AE2A9000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] bundle %@ has version %@, minimum version is %@%@", &v20, 0x2Au);
+    v19 = 138413058;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v8;
+    v23 = 2112;
+    v24 = versionCopy;
+    v25 = 2112;
+    v26 = v15;
+    _os_log_debug_impl(&dword_1AE2A9000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] bundle %@ has version %@, minimum version is %@%@", &v19, 0x2Au);
   }
 
   if (versionCopy)
@@ -3401,7 +3305,6 @@ LABEL_12:
 
 LABEL_18:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -3415,47 +3318,47 @@ LABEL_18:
 
 + (void)forceRefreshContainers:(id)containers completion:(id)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   containersCopy = containers;
   completionCopy = completion;
   v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(containersCopy, "count")}];
   v7 = dispatch_group_create();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v8 = containersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       v12 = 0;
       do
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v28 + 1) + 8 * v12);
+        v13 = *(*(&v27 + 1) + 8 * v12);
         dispatch_group_enter(v7);
-        v24[0] = MEMORY[0x1E69E9820];
-        v24[1] = 3221225472;
-        v24[2] = __70__BRContainer_BRInternalAdditions__forceRefreshContainers_completion___block_invoke;
-        v24[3] = &unk_1E7A16648;
-        v25 = v6;
-        v26 = v13;
-        v27 = v7;
-        [v13 forceRefreshWithCompletion:v24];
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __70__BRContainer_BRInternalAdditions__forceRefreshContainers_completion___block_invoke;
+        v23[3] = &unk_1E7A16648;
+        v24 = v6;
+        v25 = v13;
+        v26 = v7;
+        [v13 forceRefreshWithCompletion:v23];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v10);
@@ -3469,13 +3372,11 @@ LABEL_18:
   block[1] = 3221225472;
   block[2] = __70__BRContainer_BRInternalAdditions__forceRefreshContainers_completion___block_invoke_2;
   block[3] = &unk_1E7A16670;
-  v22 = v6;
-  v23 = completionCopy;
+  v21 = v6;
+  v22 = completionCopy;
   v17 = completionCopy;
   v18 = v6;
   dispatch_group_notify(v7, v16, block);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __70__BRContainer_BRInternalAdditions__forceRefreshContainers_completion___block_invoke(uint64_t a1, void *a2)
@@ -3497,14 +3398,14 @@ void __70__BRContainer_BRInternalAdditions__forceRefreshContainers_completion___
 
 void __70__BRContainer_BRInternalAdditions__forceRefreshContainers_completion___block_invoke_2(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) count])
   {
     v2 = MEMORY[0x1E696ABC0];
     v3 = *(a1 + 32);
-    v8 = @"BRPartialErrorsByContainerIDKey";
-    v9[0] = v3;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = @"BRPartialErrorsByContainerIDKey";
+    v8[0] = v3;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     v5 = [v2 errorWithDomain:@"BRCloudDocsErrorDomain" code:21 userInfo:v4];
   }
 
@@ -3518,8 +3419,6 @@ void __70__BRContainer_BRInternalAdditions__forceRefreshContainers_completion___
   {
     (*(v6 + 16))(v6, v5);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 + (void)postContainerListUpdateNotification
@@ -3571,7 +3470,7 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
 
 + (void)postContainerStatusChangeNotificationWithID:(id)d key:(id)key value:(id)value
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   dCopy = d;
   keyCopy = key;
   valueCopy = value;
@@ -3581,12 +3480,12 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
   {
     *buf = 138413058;
     *&buf[4] = dCopy;
-    v19 = 2112;
-    v20 = keyCopy;
-    v21 = 2112;
-    v22 = valueCopy;
-    v23 = 2112;
-    v24 = v10;
+    v18 = 2112;
+    v19 = keyCopy;
+    v20 = 2112;
+    v21 = valueCopy;
+    v22 = 2112;
+    v23 = v10;
     _os_log_debug_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] broadcasting to framework clients container %@ change %@=%@%@", buf, 0x2Au);
   }
 
@@ -3594,10 +3493,10 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
   if (valueCopy)
   {
     appLibraryOrZoneName = [dCopy appLibraryOrZoneName];
-    v16[1] = keyCopy;
-    v17[0] = appLibraryOrZoneName;
-    v17[1] = valueCopy;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
+    v15[1] = keyCopy;
+    v16[0] = appLibraryOrZoneName;
+    v16[1] = valueCopy;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
     [defaultCenter postNotificationName:BRContainerDidChangeStatusDistributedNotification object:0 userInfo:v14];
   }
@@ -3607,17 +3506,15 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
     [BRContainer(BRInternalAdditions) postContainerStatusChangeNotificationWithID:buf key:? value:?];
     v14 = *buf;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_updateMetadataOnDiskWithProperties:(id)properties
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
-  v19 = 0;
-  v5 = [MEMORY[0x1E696AE40] dataWithPropertyList:propertiesCopy format:200 options:0 error:&v19];
-  v6 = v19;
+  v18 = 0;
+  v5 = [MEMORY[0x1E696AE40] dataWithPropertyList:propertiesCopy format:200 options:0 error:&v18];
+  v6 = v18;
   if (v6)
   {
     _pathForPlist = brc_bread_crumbs("[BRContainer(BRInternalAdditions) _updateMetadataOnDiskWithProperties:]", 1868);
@@ -3626,11 +3523,11 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
     {
       mangledID = self->_mangledID;
       *buf = 138412802;
-      v21 = mangledID;
-      v22 = 2112;
-      v23 = v6;
-      v24 = 2112;
-      v25 = _pathForPlist;
+      v20 = mangledID;
+      v21 = 2112;
+      v22 = v6;
+      v23 = 2112;
+      v24 = _pathForPlist;
       _os_log_debug_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] failed plist serialization for container %@: %@%@", buf, 0x20u);
     }
 
@@ -3652,19 +3549,19 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
       v11 = brc_default_log(1, 0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v17 = self->_mangledID;
+        v16 = self->_mangledID;
         *buf = 138413570;
-        v21 = propertiesCopy;
-        v22 = 2112;
-        v23 = v17;
-        v24 = 2112;
-        v25 = _pathForPlist;
-        v26 = 2112;
-        v27 = BRContainerFormatVersionNumberValue;
-        v28 = 2112;
-        v29 = BRContainerIconGeneratorVersionNumberValue;
-        v30 = 2112;
-        v31 = v10;
+        v20 = propertiesCopy;
+        v21 = 2112;
+        v22 = v16;
+        v23 = 2112;
+        v24 = _pathForPlist;
+        v25 = 2112;
+        v26 = BRContainerFormatVersionNumberValue;
+        v27 = 2112;
+        v28 = BRContainerIconGeneratorVersionNumberValue;
+        v29 = 2112;
+        v30 = v10;
         _os_log_debug_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] wrote plist %@ for container %@ at '%@' {\n  formatVersion = %@,\n  iconGenerationVersion = %@\n}%@", buf, 0x3Eu);
       }
 
@@ -3677,96 +3574,95 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
       v13 = brc_default_log(0, 0);
       if (os_log_type_enabled(v13, 0x90u))
       {
-        v18 = self->_mangledID;
+        v17 = self->_mangledID;
         *buf = 138412802;
-        v21 = v18;
-        v22 = 2112;
-        v23 = _pathForPlist;
-        v24 = 2112;
-        v25 = v12;
+        v20 = v17;
+        v21 = 2112;
+        v22 = _pathForPlist;
+        v23 = 2112;
+        v24 = v12;
         _os_log_error_impl(&dword_1AE2A9000, v13, 0x90u, "[ERROR] can't write metadata for container %@ at '%@'%@", buf, 0x20u);
       }
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (BOOL)updateMetadataWithExtractorProperties:(id)properties iconPaths:(id)paths bundleID:(id)d
 {
-  v138 = *MEMORY[0x1E69E9840];
+  v137 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   pathsCopy = paths;
   dCopy = d;
-  v105 = propertiesCopy;
+  v104 = propertiesCopy;
   if (!propertiesCopy)
   {
-    v89 = dCopy;
+    v88 = dCopy;
     [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:];
-    dCopy = v89;
+    dCopy = v88;
   }
 
-  v106 = dCopy;
+  v105 = dCopy;
   if (!dCopy)
   {
     [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:];
   }
 
-  memset(v125, 0, sizeof(v125));
-  __brc_create_section(0, "[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 1896, 0, v125);
+  memset(v124, 0, sizeof(v124));
+  __brc_create_section(0, "[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 1896, 0, v124);
   v9 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 1896);
   v10 = brc_default_log(1, 0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     mangledID = self->_mangledID;
-    *v135 = 134218754;
-    *&v135[4] = v125[0];
-    *&v135[12] = 2112;
-    *&v135[14] = mangledID;
-    *&v135[22] = 2112;
-    v136 = v106;
-    LOWORD(v137) = 2112;
-    *(&v137 + 2) = v9;
-    _os_log_debug_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Update metadata with extractor properties %@ for %@%@", v135, 0x2Au);
+    *v134 = 134218754;
+    *&v134[4] = v124[0];
+    *&v134[12] = 2112;
+    *&v134[14] = mangledID;
+    *&v134[22] = 2112;
+    v135 = v105;
+    LOWORD(v136) = 2112;
+    *(&v136 + 2) = v9;
+    _os_log_debug_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Update metadata with extractor properties %@ for %@%@", v134, 0x2Au);
   }
 
   _containerRepositoryURL = [(BRContainer *)self _containerRepositoryURL];
   path = [_containerRepositoryURL path];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  if ([v106 isEqualToString:@"com.apple.bird"])
+  if ([v105 isEqualToString:@"com.apple.bird"])
   {
-    v90 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 1905);
-    v91 = brc_default_log(0, 0);
-    if (os_log_type_enabled(v91, OS_LOG_TYPE_FAULT))
+    v89 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 1905);
+    v90 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_FAULT))
     {
       [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:];
     }
   }
 
-  *v135 = 0;
-  *&v135[8] = v135;
-  *&v135[16] = 0x3032000000;
-  v136 = __Block_byref_object_copy__9;
-  *&v137 = __Block_byref_object_dispose__9;
-  *(&v137 + 1) = 0;
-  v124[0] = MEMORY[0x1E69E9820];
-  v124[1] = 3221225472;
-  v124[2] = __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorProperties_iconPaths_bundleID___block_invoke;
-  v124[3] = &unk_1E7A16698;
-  v124[4] = self;
-  v124[5] = v135;
-  [(BRContainer *)self accessDataRepresentationInBlock:v124];
+  *v134 = 0;
+  *&v134[8] = v134;
+  *&v134[16] = 0x3032000000;
+  v135 = __Block_byref_object_copy__9;
+  *&v136 = __Block_byref_object_dispose__9;
+  *(&v136 + 1) = 0;
+  v123[0] = MEMORY[0x1E69E9820];
+  v123[1] = 3221225472;
+  v123[2] = __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorProperties_iconPaths_bundleID___block_invoke;
+  v123[3] = &unk_1E7A16698;
+  v123[4] = self;
+  v123[5] = v134;
+  [(BRContainer *)self accessDataRepresentationInBlock:v123];
   v12 = 0;
-  v101 = 0;
-  v96 = 1;
-  if (!v106)
+  v100 = 0;
+  v95 = 1;
+  if (!v105)
   {
     goto LABEL_100;
   }
 
-  v13 = *(*&v135[8] + 40);
+  v13 = *(*&v134[8] + 40);
   if (!v13)
   {
     goto LABEL_100;
@@ -3789,28 +3685,28 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
       allObjects = [pathsCopy allKeys];
     }
 
-    [*(*&v135[8] + 40) setObject:allObjects forKeyedSubscript:@"BRContainerIcons"];
+    [*(*&v134[8] + 40) setObject:allObjects forKeyedSubscript:@"BRContainerIcons"];
 
-    v13 = *(*&v135[8] + 40);
+    v13 = *(*&v134[8] + 40);
   }
 
-  v18 = [v13 objectForKeyedSubscript:v106];
+  v18 = [v13 objectForKeyedSubscript:v105];
 
   if (v18)
   {
     v19 = MEMORY[0x1E695DFD8];
-    v20 = [*(*&v135[8] + 40) objectForKeyedSubscript:v106];
+    v20 = [*(*&v134[8] + 40) objectForKeyedSubscript:v105];
     allKeys2 = [v20 allKeys];
     v22 = [v19 setWithArray:allKeys2];
 
     v23 = MEMORY[0x1E695DFD8];
-    allKeys3 = [v105 allKeys];
-    v95 = [v23 setWithArray:allKeys3];
+    allKeys3 = [v104 allKeys];
+    v94 = [v23 setWithArray:allKeys3];
 
-    if (([v22 isEqualToSet:v95] & 1) == 0)
+    if (([v22 isEqualToSet:v94] & 1) == 0)
     {
       v25 = [v22 setByAddingObject:@"BRContainerIconGeneratorVersionNumber"];
-      v26 = [v25 isEqualToSet:v95];
+      v26 = [v25 isEqualToSet:v94];
 
       if (!v26)
       {
@@ -3818,32 +3714,32 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
       }
     }
 
-    v122 = 0u;
-    v123 = 0u;
-    v120 = 0u;
     v121 = 0u;
-    v27 = [*(*&v135[8] + 40) objectForKeyedSubscript:v106];
+    v122 = 0u;
+    v119 = 0u;
+    v120 = 0u;
+    v27 = [*(*&v134[8] + 40) objectForKeyedSubscript:v105];
     v28 = 0;
-    v29 = [v27 countByEnumeratingWithState:&v120 objects:v134 count:16];
+    v29 = [v27 countByEnumeratingWithState:&v119 objects:v133 count:16];
     if (v29)
     {
-      v30 = *v121;
+      v30 = *v120;
       v31 = 1;
       do
       {
         v32 = 0;
         do
         {
-          if (*v121 != v30)
+          if (*v120 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v33 = *(*(&v120 + 1) + 8 * v32);
-          v34 = [*(*&v135[8] + 40) objectForKeyedSubscript:v106];
+          v33 = *(*(&v119 + 1) + 8 * v32);
+          v34 = [*(*&v134[8] + 40) objectForKeyedSubscript:v105];
           v35 = [v34 objectForKeyedSubscript:v33];
 
-          v36 = [v105 objectForKeyedSubscript:v33];
+          v36 = [v104 objectForKeyedSubscript:v33];
           if (([v33 isEqual:@"BRContainerVersionNumber"] & 1) != 0 || objc_msgSend(v33, "isEqual:", @"BRContainerIconGeneratorVersionNumber"))
           {
             v37 = [v36 isEqual:v35];
@@ -3863,7 +3759,7 @@ void __71__BRContainer_BRInternalAdditions__postContainerListUpdateNotification_
         }
 
         while (v29 != v32);
-        v38 = [v27 countByEnumeratingWithState:&v120 objects:v134 count:16];
+        v38 = [v27 countByEnumeratingWithState:&v119 objects:v133 count:16];
         v29 = v38;
       }
 
@@ -3879,9 +3775,9 @@ LABEL_39:
 
     if (((v31 | v28) & 1) != 0 && ((v31 ^ v28) & 1) == 0)
     {
-      v92 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 1973);
-      v93 = brc_default_log(0, 0);
-      if (os_log_type_enabled(v93, OS_LOG_TYPE_FAULT))
+      v91 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 1973);
+      v92 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v92, OS_LOG_TYPE_FAULT))
       {
         [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:];
       }
@@ -3893,12 +3789,12 @@ LABEL_39:
       v40 = brc_default_log(1, 0);
       if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:? iconPaths:? bundleID:?];
+        [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:];
       }
 
-      v101 = 0;
+      v100 = 0;
       v12 = 0;
-      v96 = 1;
+      v95 = 1;
 LABEL_98:
 
       goto LABEL_100;
@@ -3907,48 +3803,48 @@ LABEL_98:
     if ((v28 & 1) == 0)
     {
 LABEL_71:
-      v96 = 1;
+      v95 = 1;
 LABEL_77:
 
       goto LABEL_78;
     }
 
-    v118 = 0u;
-    v119 = 0u;
-    v116 = 0u;
     v117 = 0u;
+    v118 = 0u;
+    v115 = 0u;
+    v116 = 0u;
     obj = pathsCopy;
-    v41 = [obj countByEnumeratingWithState:&v116 objects:v133 count:16];
+    v41 = [obj countByEnumeratingWithState:&v115 objects:v132 count:16];
     if (v41)
     {
       v43 = 0;
-      v102 = *v117;
-      v97 = 1;
-      v98 = v41;
+      v101 = *v116;
+      v96 = 1;
+      v97 = v41;
       *&v42 = 138412802;
-      v94 = v42;
+      v93 = v42;
 LABEL_48:
       v44 = 0;
       while (1)
       {
-        if (*v117 != v102)
+        if (*v116 != v101)
         {
           objc_enumerationMutation(obj);
         }
 
-        v45 = *(*(&v116 + 1) + 8 * v44);
+        v45 = *(*(&v115 + 1) + 8 * v44);
         v46 = objc_autoreleasePoolPush();
         v47 = [obj objectForKeyedSubscript:v45];
-        v115 = v43;
-        v48 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v47 options:1 error:&v115];
-        v49 = v115;
+        v114 = v43;
+        v48 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v47 options:1 error:&v114];
+        v49 = v114;
 
         if (v48 && v49 == 0)
         {
           v51 = [(BRContainer *)self _pathForIconName:v45];
-          v114 = 0;
-          v52 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v51 options:1 error:&v114];
-          v54 = v114;
+          v113 = 0;
+          v52 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:v51 options:1 error:&v113];
+          v54 = v113;
           if (!v52 || v54)
           {
             v43 = v54;
@@ -3956,12 +3852,12 @@ LABEL_48:
             v56 = brc_default_log(1, 0);
             if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v94;
-              v127 = v51;
-              v128 = 2112;
-              v129 = v43;
-              v130 = 2112;
-              v131[0] = v55;
+              *buf = v93;
+              v126 = v51;
+              v127 = 2112;
+              v128 = v43;
+              v129 = 2112;
+              v130[0] = v55;
               _os_log_impl(&dword_1AE2A9000, v56, OS_LOG_TYPE_DEFAULT, "[WARNING] can't read content of file at '%@'; %@%@", buf, 0x20u);
             }
 
@@ -3972,7 +3868,7 @@ LABEL_48:
           {
             v43 = 0;
             v53 = [v48 isEqualToData:v52];
-            v97 &= v53;
+            v96 &= v53;
           }
         }
 
@@ -3982,12 +3878,12 @@ LABEL_48:
           v52 = brc_default_log(1, 0);
           if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v94;
-            v127 = v47;
-            v128 = 2112;
-            v129 = v49;
-            v130 = 2112;
-            v131[0] = v51;
+            *buf = v93;
+            v126 = v47;
+            v127 = 2112;
+            v128 = v49;
+            v129 = 2112;
+            v130[0] = v51;
             _os_log_impl(&dword_1AE2A9000, v52, OS_LOG_TYPE_DEFAULT, "[WARNING] can't read content of file at '%@'; %@%@", buf, 0x20u);
           }
 
@@ -4001,10 +3897,10 @@ LABEL_48:
           break;
         }
 
-        if (v98 == ++v44)
+        if (v97 == ++v44)
         {
-          v98 = [obj countByEnumeratingWithState:&v116 objects:v133 count:16];
-          if (v98)
+          v97 = [obj countByEnumeratingWithState:&v115 objects:v132 count:16];
+          if (v97)
           {
             goto LABEL_48;
           }
@@ -4013,16 +3909,16 @@ LABEL_48:
         }
       }
 
-      if ((v97 & 1) == 0)
+      if ((v96 & 1) == 0)
       {
         v57 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 2009);
         v58 = brc_default_log(1, 0);
         if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
         {
-          [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:? iconPaths:? bundleID:?];
+          [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:];
         }
 
-        v96 = 1;
+        v95 = 1;
 LABEL_76:
 
         goto LABEL_77;
@@ -4037,19 +3933,19 @@ LABEL_76:
     v58 = brc_default_log(1, 0);
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
     {
-      [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:? iconPaths:? bundleID:?];
+      [BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:];
     }
 
-    v96 = 0;
+    v95 = 0;
     goto LABEL_76;
   }
 
-  v96 = 1;
+  v95 = 1;
 LABEL_78:
-  [*(*&v135[8] + 40) setObject:v105 forKeyedSubscript:{v106, v94}];
-  v113 = 0;
-  v60 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v113];
-  v101 = v113;
+  [*(*&v134[8] + 40) setObject:v104 forKeyedSubscript:{v105, v93}];
+  v112 = 0;
+  v60 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v112];
+  v100 = v112;
   if ((v60 & 1) == 0)
   {
     v61 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 2018);
@@ -4057,36 +3953,36 @@ LABEL_78:
     if (os_log_type_enabled(v62, 0x90u))
     {
       *buf = 138412802;
-      v127 = path;
-      v128 = 2112;
-      v129 = v101;
-      v130 = 2112;
-      v131[0] = v61;
+      v126 = path;
+      v127 = 2112;
+      v128 = v100;
+      v129 = 2112;
+      v130[0] = v61;
       _os_log_error_impl(&dword_1AE2A9000, v62, 0x90u, "[ERROR] unable to create directory at '%@'; %@%@", buf, 0x20u);
     }
   }
 
-  if ([(BRContainer *)self _updateMetadataOnDiskWithProperties:*(*&v135[8] + 40)])
+  if ([(BRContainer *)self _updateMetadataOnDiskWithProperties:*(*&v134[8] + 40)])
   {
-    v111 = 0u;
-    v112 = 0u;
-    v109 = 0u;
     v110 = 0u;
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
     v22 = pathsCopy;
-    v63 = [v22 countByEnumeratingWithState:&v109 objects:v132 count:16];
+    v63 = [v22 countByEnumeratingWithState:&v108 objects:v131 count:16];
     if (v63)
     {
-      v64 = *v110;
+      v64 = *v109;
       do
       {
         for (i = 0; i != v63; ++i)
         {
-          if (*v110 != v64)
+          if (*v109 != v64)
           {
             objc_enumerationMutation(v22);
           }
 
-          v66 = *(*(&v109 + 1) + 8 * i);
+          v66 = *(*(&v108 + 1) + 8 * i);
           v67 = [v22 objectForKeyedSubscript:v66];
           v68 = [(BRContainer *)self _pathForIconName:v66];
           v69 = v67;
@@ -4102,13 +3998,13 @@ LABEL_78:
             if (os_log_type_enabled(v79, 0x90u))
             {
               *buf = 138413058;
-              v127 = v67;
-              v128 = 2112;
-              v129 = v68;
-              v130 = 1024;
-              LODWORD(v131[0]) = v77;
-              WORD2(v131[0]) = 2112;
-              *(v131 + 6) = v78;
+              v126 = v67;
+              v127 = 2112;
+              v128 = v68;
+              v129 = 1024;
+              LODWORD(v130[0]) = v77;
+              WORD2(v130[0]) = 2112;
+              *(v130 + 6) = v78;
               _os_log_error_impl(&dword_1AE2A9000, v79, 0x90u, "[ERROR] failed renaming from '%@' to '%@' %{errno}d%@", buf, 0x26u);
             }
 
@@ -4122,17 +4018,17 @@ LABEL_78:
             if (os_log_type_enabled(v76, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412802;
-              v127 = v67;
-              v128 = 2112;
-              v129 = v68;
-              v130 = 2112;
-              v131[0] = v75;
+              v126 = v67;
+              v127 = 2112;
+              v128 = v68;
+              v129 = 2112;
+              v130[0] = v75;
               _os_log_debug_impl(&dword_1AE2A9000, v76, OS_LOG_TYPE_DEBUG, "[DEBUG] renamed icon from '%@' to '%@'%@", buf, 0x20u);
             }
           }
         }
 
-        v63 = [v22 countByEnumeratingWithState:&v109 objects:v132 count:16];
+        v63 = [v22 countByEnumeratingWithState:&v108 objects:v131 count:16];
       }
 
       while (v63);
@@ -4150,9 +4046,9 @@ LABEL_100:
 
   if (stringByDeletingLastPathComponent)
   {
-    v108 = v101;
-    v83 = [defaultManager removeItemAtPath:stringByDeletingLastPathComponent error:&v108];
-    v84 = v108;
+    v107 = v100;
+    v83 = [defaultManager removeItemAtPath:stringByDeletingLastPathComponent error:&v107];
+    v84 = v107;
 
     if ((v83 & 1) == 0)
     {
@@ -4161,11 +4057,11 @@ LABEL_100:
       if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v127 = path;
-        v128 = 2112;
-        v129 = v84;
-        v130 = 2112;
-        v131[0] = v85;
+        v126 = path;
+        v127 = 2112;
+        v128 = v84;
+        v129 = 2112;
+        v130[0] = v85;
         _os_log_impl(&dword_1AE2A9000, v86, OS_LOG_TYPE_DEFAULT, "[WARNING] failed removing temporary path at '%@'; %@%@", buf, 0x20u);
       }
 
@@ -4175,7 +4071,7 @@ LABEL_100:
 
   else
   {
-    v84 = v101;
+    v84 = v100;
   }
 
   v85 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithExtractorProperties:iconPaths:bundleID:]", 2043);
@@ -4187,22 +4083,21 @@ LABEL_100:
 
 LABEL_107:
 
-  _Block_object_dispose(v135, 8);
-  __brc_leave_section(v125);
+  _Block_object_dispose(v134, 8);
+  __brc_leave_section(v124);
 
-  v87 = *MEMORY[0x1E69E9840];
-  return v96 & v12;
+  return v95 & v12;
 }
 
 void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorProperties_iconPaths_bundleID___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
-    v20 = 0;
-    v4 = [MEMORY[0x1E696AE40] propertyListWithData:v3 options:2 format:0 error:&v20];
-    v5 = v20;
+    v19 = 0;
+    v4 = [MEMORY[0x1E696AE40] propertyListWithData:v3 options:2 format:0 error:&v19];
+    v5 = v19;
     v6 = *(*(a1 + 40) + 8);
     v7 = *(v6 + 40);
     *(v6 + 40) = v4;
@@ -4213,16 +4108,16 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
       v9 = brc_default_log(1, 0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        v18 = [v3 length];
-        v19 = *(*(a1 + 32) + 8);
+        v17 = [v3 length];
+        v18 = *(*(a1 + 32) + 8);
         *buf = 134218754;
-        v22 = v18;
-        v23 = 2112;
-        v24 = v19;
-        v25 = 2112;
-        v26 = v5;
-        v27 = 2112;
-        v28 = v8;
+        v21 = v17;
+        v22 = 2112;
+        v23 = v18;
+        v24 = 2112;
+        v25 = v5;
+        v26 = 2112;
+        v27 = v8;
         _os_log_debug_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] failed parsing %lu-byte plist for container %@: %@%@", buf, 0x2Au);
       }
     }
@@ -4242,11 +4137,11 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
       v12 = [v3 length];
       v13 = *(*(a1 + 32) + 8);
       *buf = 134218498;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v10;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v13;
+      v24 = 2112;
+      v25 = v10;
       _os_log_debug_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] read %lu-byte plist for container %@%@", buf, 0x20u);
     }
   }
@@ -4262,37 +4157,35 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
     v11 = brc_default_log(1, 0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorProperties_iconPaths_bundleID___block_invoke_cold_1(a1);
+      __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorProperties_iconPaths_bundleID___block_invoke_cold_1();
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateMetadataWithRecordData:(id)data iconPaths:(id)paths
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   pathsCopy = paths;
-  v46 = dataCopy;
+  v45 = dataCopy;
   if (!dataCopy)
   {
     [BRContainer(BRInternalAdditions) updateMetadataWithRecordData:iconPaths:];
   }
 
-  memset(v55, 0, sizeof(v55));
-  __brc_create_section(0, "[BRContainer(BRInternalAdditions) updateMetadataWithRecordData:iconPaths:]", 2052, 0, v55);
+  memset(v54, 0, sizeof(v54));
+  __brc_create_section(0, "[BRContainer(BRInternalAdditions) updateMetadataWithRecordData:iconPaths:]", 2052, 0, v54);
   v7 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithRecordData:iconPaths:]", 2052);
   v8 = brc_default_log(1, 0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     mangledID = self->_mangledID;
     *buf = 134218498;
-    v57 = v55[0];
-    v58 = 2112;
-    v59 = mangledID;
-    v60 = 2112;
-    *v61 = v7;
+    v56 = v54[0];
+    v57 = 2112;
+    v58 = mangledID;
+    v59 = 2112;
+    *v60 = v7;
     _os_log_debug_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx Update metadata with record data %@%@", buf, 0x20u);
   }
 
@@ -4300,10 +4193,10 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
   path = [_containerRepositoryURL path];
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v54 = 0;
-  LOBYTE(_containerRepositoryURL) = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v54];
-  v43 = defaultManager;
-  v45 = v54;
+  v53 = 0;
+  LOBYTE(_containerRepositoryURL) = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v53];
+  v42 = defaultManager;
+  v44 = v53;
   if ((_containerRepositoryURL & 1) == 0)
   {
     v11 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) updateMetadataWithRecordData:iconPaths:]", 2060);
@@ -4311,35 +4204,35 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
     if (os_log_type_enabled(v12, 0x90u))
     {
       *buf = 138412802;
-      v57 = path;
-      v58 = 2112;
-      v59 = v45;
-      v60 = 2112;
-      *v61 = v11;
+      v56 = path;
+      v57 = 2112;
+      v58 = v44;
+      v59 = 2112;
+      *v60 = v11;
       _os_log_error_impl(&dword_1AE2A9000, v12, 0x90u, "[ERROR] unable to create directory at '%@'; %@%@", buf, 0x20u);
     }
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v13 = pathsCopy;
-  v14 = [v13 countByEnumeratingWithState:&v50 objects:v62 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v49 objects:v61 count:16];
   if (v14)
   {
-    v15 = *v51;
+    v15 = *v50;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v51 != v15)
+        if (*v50 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v50 + 1) + 8 * i);
-        v18 = [v13 objectForKeyedSubscript:{v17, v43}];
+        v17 = *(*(&v49 + 1) + 8 * i);
+        v18 = [v13 objectForKeyedSubscript:{v17, v42}];
         v19 = [(BRContainer *)self _pathForIconName:v17];
         v20 = v18;
         fileSystemRepresentation = [v18 fileSystemRepresentation];
@@ -4354,13 +4247,13 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
           if (os_log_type_enabled(v30, 0x90u))
           {
             *buf = 138413058;
-            v57 = v18;
-            v58 = 2112;
-            v59 = v19;
-            v60 = 1024;
-            *v61 = v28;
-            *&v61[4] = 2112;
-            *&v61[6] = v29;
+            v56 = v18;
+            v57 = 2112;
+            v58 = v19;
+            v59 = 1024;
+            *v60 = v28;
+            *&v60[4] = 2112;
+            *&v60[6] = v29;
             _os_log_error_impl(&dword_1AE2A9000, v30, 0x90u, "[ERROR] failed renaming from '%@' to '%@' %{errno}d%@", buf, 0x26u);
           }
 
@@ -4374,25 +4267,25 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
           if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412802;
-            v57 = v18;
-            v58 = 2112;
-            v59 = v19;
-            v60 = 2112;
-            *v61 = v26;
+            v56 = v18;
+            v57 = 2112;
+            v58 = v19;
+            v59 = 2112;
+            *v60 = v26;
             _os_log_debug_impl(&dword_1AE2A9000, v27, OS_LOG_TYPE_DEBUG, "[DEBUG] renamed icon from '%@' to '%@'%@", buf, 0x20u);
           }
         }
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v50 objects:v62 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v49 objects:v61 count:16];
     }
 
     while (v14);
   }
 
-  v49 = 0;
-  v31 = [MEMORY[0x1E696AE40] propertyListWithData:v46 options:2 format:0 error:&v49];
-  v32 = v49;
+  v48 = 0;
+  v31 = [MEMORY[0x1E696AE40] propertyListWithData:v45 options:2 format:0 error:&v48];
+  v32 = v48;
 
   if (!v31)
   {
@@ -4400,16 +4293,16 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
     v34 = brc_default_log(1, 0);
     if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
     {
-      v41 = [v46 length];
-      v42 = self->_mangledID;
+      v40 = [v45 length];
+      v41 = self->_mangledID;
       *buf = 134218754;
-      v57 = v41;
-      v58 = 2112;
-      v59 = v42;
-      v60 = 2112;
-      *v61 = v32;
-      *&v61[8] = 2112;
-      *&v61[10] = v33;
+      v56 = v40;
+      v57 = 2112;
+      v58 = v41;
+      v59 = 2112;
+      *v60 = v32;
+      *&v60[8] = 2112;
+      *&v60[10] = v33;
       _os_log_debug_impl(&dword_1AE2A9000, v34, OS_LOG_TYPE_DEBUG, "[DEBUG] failed parsing %lu-byte plist for container %@: %@%@", buf, 0x2Au);
     }
   }
@@ -4425,41 +4318,40 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
     }
   }
 
-  v37 = [(BRContainer *)self _updateMetadataOnDiskWithProperties:v31, v43];
+  v37 = [(BRContainer *)self _updateMetadataOnDiskWithProperties:v31, v42];
 
-  __brc_leave_section(v55);
-  v38 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v54);
   return v37;
 }
 
 + (void)_generateiOSIconsForMangledID:(id)d usingBundle:(__CFBundle *)bundle generatedIcons:(id)icons
 {
-  v150 = *MEMORY[0x1E69E9840];
+  v152 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iconsCopy = icons;
-  memset(v134, 0, sizeof(v134));
-  __brc_create_section(0, "+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2186, 0, v134);
+  memset(v136, 0, sizeof(v136));
+  __brc_create_section(0, "+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2186, 0, v136);
   v6 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2186);
   v7 = brc_default_log(1, 0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    [BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:v134 usingBundle:? generatedIcons:?];
+    +[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:];
   }
 
-  v97 = CFBundleGetInfoDictionary(bundle);
-  v8 = [v97 objectForKeyedSubscript:@"CFBundleIcons"];
+  v99 = CFBundleGetInfoDictionary(bundle);
+  v8 = [v99 objectForKeyedSubscript:@"CFBundleIcons"];
   v9 = [v8 objectForKeyedSubscript:@"CFBundlePrimaryIcon"];
-  v99 = [v9 objectForKeyedSubscript:@"CFBundleIconFiles"];
+  v101 = [v9 objectForKeyedSubscript:@"CFBundleIconFiles"];
 
-  if (![v99 count])
+  if (![v101 count])
   {
-    v10 = [v97 objectForKeyedSubscript:@"CFBundleIconFiles"];
+    v10 = [v99 objectForKeyedSubscript:@"CFBundleIconFiles"];
 
     if (![v10 count])
     {
-      v90 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2202);
-      v91 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v91, OS_LOG_TYPE_DEBUG))
+      v93 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2202);
+      v94 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
       {
         +[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:];
       }
@@ -4467,74 +4359,74 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
       goto LABEL_98;
     }
 
-    v99 = v10;
+    v101 = v10;
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   v11 = CFBundleCopyResourcesDirectoryURL(bundle);
   path = [(__CFURL *)v11 path];
 
-  v133 = 0;
-  v12 = [defaultManager contentsOfDirectoryAtPath:path error:&v133];
-  v103 = v133;
-  v116 = v12;
+  v135 = 0;
+  v12 = [defaultManager contentsOfDirectoryAtPath:path error:&v135];
+  v105 = v135;
+  v118 = v12;
   if (![v12 count])
   {
-    v117 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2214);
-    v88 = brc_default_log(1, 0);
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
+    v119 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2214);
+    v91 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v136 = path;
-      v137 = 2112;
-      v138 = v103;
+      v138 = path;
       v139 = 2112;
-      v140 = v117;
-      _os_log_impl(&dword_1AE2A9000, v88, OS_LOG_TYPE_DEFAULT, "[WARNING] unable to list contents of directory at '%@'; %@%@", buf, 0x20u);
+      v140 = v105;
+      v141 = 2112;
+      v142 = v119;
+      _os_log_impl(&dword_1AE2A9000, v91, OS_LOG_TYPE_DEFAULT, "[WARNING] unable to list contents of directory at '%@'; %@%@", buf, 0x20u);
     }
 
     goto LABEL_97;
   }
 
-  v117 = [MEMORY[0x1E695DFA8] set];
+  v119 = [MEMORY[0x1E695DFA8] set];
+  v133 = 0u;
+  v134 = 0u;
   v131 = 0u;
   v132 = 0u;
-  v129 = 0u;
-  v130 = 0u;
-  v13 = v99;
-  v14 = [v13 countByEnumeratingWithState:&v129 objects:v149 count:16];
+  v13 = v101;
+  v14 = [v13 countByEnumeratingWithState:&v131 objects:v151 count:16];
   if (v14)
   {
-    v15 = *v130;
+    v15 = *v132;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v130 != v15)
+        if (*v132 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        v17 = *(*(&v129 + 1) + 8 * i);
+        v17 = *(*(&v131 + 1) + 8 * i);
         v18 = objc_autoreleasePoolPush();
         v19 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self BEGINSWITH %@ AND self ENDSWITH[c] '.png'", v17];
-        v20 = [v116 filteredArrayUsingPredicate:v19];
-        [v117 addObjectsFromArray:v20];
+        v20 = [v118 filteredArrayUsingPredicate:v19];
+        [v119 addObjectsFromArray:v20];
 
         objc_autoreleasePoolPop(v18);
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v129 objects:v149 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v131 objects:v151 count:16];
     }
 
     while (v14);
   }
 
-  if (![v117 count])
+  if (![v119 count])
   {
-    v89 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2231);
+    v92 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2231);
     brc_default_log(1, 0);
-    path2 = v110 = v89;
+    path2 = v112 = v92;
     if (os_log_type_enabled(path2, OS_LOG_TYPE_DEBUG))
     {
       +[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:];
@@ -4543,31 +4435,31 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
     goto LABEL_96;
   }
 
-  v110 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSObject count](v117, "count")}];
+  v112 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSObject count](v119, "count")}];
+  v130 = 0u;
   v128 = 0u;
-  v126 = 0u;
+  v129 = 0u;
   v127 = 0u;
-  v125 = 0u;
-  obj = v117;
-  v21 = [obj countByEnumeratingWithState:&v125 objects:v148 count:16];
+  obj = v119;
+  v21 = [obj countByEnumeratingWithState:&v127 objects:v150 count:16];
   if (!v21)
   {
     goto LABEL_39;
   }
 
-  v111 = *v126;
+  v113 = *v128;
   do
   {
     v22 = 0;
     context = v21;
     do
     {
-      if (*v126 != v111)
+      if (*v128 != v113)
       {
         objc_enumerationMutation(obj);
       }
 
-      v23 = *(*(&v125 + 1) + 8 * v22);
+      v23 = *(*(&v127 + 1) + 8 * v22);
       v24 = objc_autoreleasePoolPush();
       v25 = [path stringByAppendingPathComponent:v23];
       v26 = [MEMORY[0x1E695DFF8] fileURLWithPath:v25];
@@ -4579,9 +4471,9 @@ void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorPropertie
         if (os_log_type_enabled(v34, 0x90u))
         {
           *buf = 138412546;
-          v136 = v23;
-          v137 = 2112;
-          v138 = v31;
+          v138 = v23;
+          v139 = 2112;
+          v140 = v31;
           v36 = v34;
           v37 = "[ERROR] can't find URL for resource %@%@";
           goto LABEL_29;
@@ -4600,9 +4492,9 @@ LABEL_36:
         if (os_log_type_enabled(v34, 0x90u))
         {
           *buf = 138412546;
-          v136 = v27;
-          v137 = 2112;
-          v138 = v31;
+          v138 = v27;
+          v139 = 2112;
+          v140 = v31;
           v36 = v34;
           v37 = "[ERROR] can't create image source for %@%@";
 LABEL_29:
@@ -4613,12 +4505,12 @@ LABEL_29:
       }
 
       v29 = getkCGImageSourceShouldCache();
-      v146[0] = v29;
-      v147[0] = MEMORY[0x1E695E110];
+      v148[0] = v29;
+      v149[0] = MEMORY[0x1E695E110];
       v30 = getkCGImageSourceSkipMetadata();
-      v146[1] = v30;
-      v147[1] = MEMORY[0x1E695E118];
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v147 forKeys:v146 count:2];
+      v148[1] = v30;
+      v149[1] = MEMORY[0x1E695E118];
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v149 forKeys:v148 count:2];
 
       ImageAtIndex = softLinkCGImageSourceCreateImageAtIndex(v28, 0, v31);
       v33 = ImageAtIndex;
@@ -4632,9 +4524,9 @@ LABEL_29:
           if (os_log_type_enabled(v41, 0x90u))
           {
             *buf = 138412546;
-            v136 = v27;
-            v137 = 2112;
-            v138 = v40;
+            v138 = v27;
+            v139 = 2112;
+            v140 = v40;
             _os_log_error_impl(&dword_1AE2A9000, v41, 0x90u, "[ERROR] can't use image with a width smaller than 1; %@%@", buf, 0x16u);
           }
 
@@ -4644,12 +4536,12 @@ LABEL_29:
 
         else
         {
-          v144[0] = @"BRIconURL";
-          v144[1] = @"BRIconWidth";
-          v145[0] = v27;
-          v145[1] = v34;
-          v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v145 forKeys:v144 count:2];
-          [v110 insertObject:v35 atIndex:[v110 indexOfObject:v35 inSortedRange:0 options:[v110 count] usingComparator:1024, &__block_literal_global_465]];
+          v146[0] = @"BRIconURL";
+          v146[1] = @"BRIconWidth";
+          v147[0] = v27;
+          v147[1] = v34;
+          v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v147 forKeys:v146 count:2];
+          [v112 insertObject:v35 atIndex:[v112 indexOfObject:v35 inSortedRange:0 options:[v112 count] usingComparator:1024, &__block_literal_global_465]];
           CFRelease(v33);
           CFRelease(v28);
         }
@@ -4662,9 +4554,9 @@ LABEL_29:
       if (os_log_type_enabled(v39, 0x90u))
       {
         *buf = 138412546;
-        v136 = v27;
-        v137 = 2112;
-        v138 = v38;
+        v138 = v27;
+        v139 = 2112;
+        v140 = v38;
         _os_log_error_impl(&dword_1AE2A9000, v39, 0x90u, "[ERROR] can't create image for %@%@", buf, 0x16u);
       }
 
@@ -4676,244 +4568,244 @@ LABEL_37:
     }
 
     while (context != v22);
-    v21 = [obj countByEnumeratingWithState:&v125 objects:v148 count:16];
+    v21 = [obj countByEnumeratingWithState:&v127 objects:v150 count:16];
   }
 
   while (v21);
 LABEL_39:
 
-  if ([v110 count])
+  if ([v112 count])
   {
     v42 = [self _containerRepositoryURLForMangledID:dCopy];
     path2 = [v42 path];
 
-    v124 = v103;
-    v43 = [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v124];
-    v44 = v124;
+    v126 = v105;
+    v43 = [defaultManager createDirectoryAtPath:path2 withIntermediateDirectories:1 attributes:0 error:&v126];
+    v44 = v126;
 
     if (v43)
     {
-      v123 = v44;
-      v102 = [defaultManager brc_createTemporarySubdirectoryOfItem:path2 withTemplate:@".XXXXXX" error:&v123];
-      v45 = v123;
+      v125 = v44;
+      v104 = [defaultManager brc_createTemporarySubdirectoryOfItem:path2 withTemplate:@".XXXXXX" error:&v125];
+      v45 = v125;
 
-      if (v102)
+      if (v104)
       {
-        log = BRContainerIconCKAssetKeys();
-        v93 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self ENDSWITH %@", @"iOS"];
+        log = BRContainerIconCKAssetKeys(v46);
+        v95 = [MEMORY[0x1E696AE18] predicateWithFormat:@"self ENDSWITH %@", @"iOS"];
         [log filteredSetUsingPredicate:?];
+        v123 = 0u;
+        v124 = 0u;
         v121 = 0u;
-        v122 = 0u;
-        v119 = 0u;
-        bundlea = v120 = 0u;
-        v46 = [(__CFBundle *)bundlea countByEnumeratingWithState:&v119 objects:v143 count:16];
-        if (!v46)
+        bundlea = v122 = 0u;
+        v47 = [(__CFBundle *)bundlea countByEnumeratingWithState:&v121 objects:v145 count:16];
+        if (!v47)
         {
           goto LABEL_77;
         }
 
-        v107 = *v120;
+        v109 = *v122;
         while (1)
         {
-          v47 = 0;
-          obja = v46;
+          v48 = 0;
+          obja = v47;
           do
           {
-            if (*v120 != v107)
+            if (*v122 != v109)
             {
               objc_enumerationMutation(bundlea);
             }
 
-            v48 = *(*(&v119 + 1) + 8 * v47);
+            v49 = *(*(&v121 + 1) + 8 * v48);
             contexta = objc_autoreleasePoolPush();
-            v49 = BRContainerIconNameForCKAssetKey(v48);
-            if (v49)
+            v50 = BRContainerIconNameForCKAssetKey(v49);
+            if (v50)
             {
-              v50 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2322);
-              v51 = brc_default_log(1, 0);
-              if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+              v51 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2322);
+              v52 = brc_default_log(1, 0);
+              if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412546;
-                v136 = v49;
-                v137 = 2112;
                 v138 = v50;
-                _os_log_debug_impl(&dword_1AE2A9000, v51, OS_LOG_TYPE_DEBUG, "[DEBUG] generating %@%@", buf, 0x16u);
+                v139 = 2112;
+                v140 = v51;
+                _os_log_debug_impl(&dword_1AE2A9000, v52, OS_LOG_TYPE_DEBUG, "[DEBUG] generating %@%@", buf, 0x16u);
               }
 
-              v52 = [@"AppIconMask" stringByAppendingString:v49];
+              v53 = [@"AppIconMask" stringByAppendingString:v50];
               mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
-              v54 = [mainBundle pathForResource:v52 ofType:@"png"];
+              v55 = [mainBundle pathForResource:v53 ofType:@"png"];
 
-              v112 = [(objc_class *)getUIImageClass() imageWithContentsOfFile:v54];
-              if (v112)
+              v114 = [(objc_class *)getUIImageClass() imageWithContentsOfFile:v55];
+              if (v114)
               {
-                v55 = BRContainerIconSizeForName(v49);
-                v57 = v56;
-                v58 = [MEMORY[0x1E696AD98] numberWithInteger:v55];
-                v59 = [v110 indexOfObject:v58 inSortedRange:0 options:[v110 count] usingComparator:1280, &__block_literal_global_478];
+                v56 = BRContainerIconSizeForName(v50);
+                v58 = v57;
+                v59 = [MEMORY[0x1E696AD98] numberWithInteger:v56];
+                v60 = [v112 indexOfObject:v59 inSortedRange:0 options:[v112 count] usingComparator:1280, &__block_literal_global_478];
 
-                v60 = [v110 objectAtIndexedSubscript:v59 - (v59 == [v110 count])];
+                v61 = [v112 objectAtIndexedSubscript:v60 - (v60 == [v112 count])];
                 UIImageClass = getUIImageClass();
-                v62 = [v60 objectForKeyedSubscript:@"BRIconURL"];
-                path3 = [v62 path];
-                v64 = [(objc_class *)UIImageClass imageWithContentsOfFile:path3];
+                v63 = [v61 objectForKeyedSubscript:@"BRIconURL"];
+                path3 = [v63 path];
+                v65 = [(objc_class *)UIImageClass imageWithContentsOfFile:path3];
 
-                if (!v64)
+                if (!v65)
                 {
-                  v70 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2385);
-                  v71 = brc_default_log(0, 0);
-                  if (os_log_type_enabled(v71, 0x90u))
+                  v73 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2385);
+                  v74 = brc_default_log(0, 0);
+                  if (os_log_type_enabled(v74, 0x90u))
                   {
-                    v76 = [v60 objectForKeyedSubscript:@"BRIconURL"];
+                    v79 = [v61 objectForKeyedSubscript:@"BRIconURL"];
                     *buf = 138412546;
-                    v136 = v76;
-                    v137 = 2112;
-                    v138 = v70;
-                    _os_log_error_impl(&dword_1AE2A9000, v71, 0x90u, "[ERROR] unable to create an image with the contents of %@.%@", buf, 0x16u);
+                    v138 = v79;
+                    v139 = 2112;
+                    v140 = v73;
+                    _os_log_error_impl(&dword_1AE2A9000, v74, 0x90u, "[ERROR] unable to create an image with the contents of %@.%@", buf, 0x16u);
                   }
 
                   goto LABEL_73;
                 }
 
-                v65 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2390);
-                v66 = brc_default_log(1, 0);
-                if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+                v66 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2390);
+                v67 = brc_default_log(1, 0);
+                if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
                 {
-                  [v64 size];
-                  v80 = v79;
-                  [v64 scale];
-                  v82 = v81;
-                  [v64 size];
-                  v84 = v83;
-                  [v64 scale];
+                  [v65 size];
+                  v83 = v82;
+                  [v65 scale];
+                  v85 = v84;
+                  [v65 size];
+                  v87 = v86;
+                  [v65 scale];
                   *buf = 134218498;
-                  v136 = (v80 * v82);
-                  v137 = 2048;
-                  v138 = (v84 * v85);
-                  v139 = 2112;
-                  v140 = v65;
-                  _os_log_debug_impl(&dword_1AE2A9000, v66, OS_LOG_TYPE_DEBUG, "[DEBUG] best candidate has a size of {%ld, %ld}%@", buf, 0x20u);
+                  v138 = (v83 * v85);
+                  v139 = 2048;
+                  v140 = (v87 * v88);
+                  v141 = 2112;
+                  v142 = v66;
+                  _os_log_debug_impl(&dword_1AE2A9000, v67, OS_LOG_TYPE_DEBUG, "[DEBUG] best candidate has a size of {%ld, %ld}%@", buf, 0x20u);
                 }
 
-                softLinkUIGraphicsBeginImageContextWithOptions(0, v55, v57, 1.0);
-                CurrentContext = softLinkUIGraphicsGetCurrentContext();
-                v68 = v112;
-                cGImage = [v112 CGImage];
-                softLinkCGContextClipToMask(CurrentContext, cGImage, 0.0, 0.0, v55, v57);
-                [v64 drawInRect:{0.0, 0.0, v55, v57}];
-                v70 = softLinkUIGraphicsGetImageFromCurrentImageContext();
+                v68 = softLinkUIGraphicsBeginImageContextWithOptions(0, v56, v58, 1.0);
+                CurrentContext = softLinkUIGraphicsGetCurrentContext(v68);
+                v70 = v114;
+                cGImage = [v114 CGImage];
+                softLinkCGContextClipToMask(CurrentContext, cGImage, 0.0, 0.0, v56, v58);
+                v72 = [v65 drawInRect:{0.0, 0.0, v56, v58}];
+                v73 = softLinkUIGraphicsGetImageFromCurrentImageContext(v72);
 
                 softLinkUIGraphicsEndImageContext();
-                v71 = softLinkUIImagePNGRepresentation(v70);
-                if (v71)
+                v74 = softLinkUIImagePNGRepresentation(v73);
+                if (v74)
                 {
-                  v72 = [v49 stringByAppendingPathExtension:@"png"];
-                  v73 = [v102 stringByAppendingPathComponent:v72];
+                  v75 = [v50 stringByAppendingPathExtension:@"png"];
+                  v76 = [v104 stringByAppendingPathComponent:v75];
 
-                  v118 = v45;
-                  LOBYTE(v72) = [v71 writeToFile:v73 options:1 error:&v118];
-                  v104 = v118;
+                  v120 = v45;
+                  LOBYTE(v75) = [v74 writeToFile:v76 options:1 error:&v120];
+                  v106 = v120;
 
-                  if (v72)
+                  if (v75)
                   {
-                    v74 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2406);
-                    v75 = brc_default_log(1, 0);
-                    if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+                    v77 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2406);
+                    v78 = brc_default_log(1, 0);
+                    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412802;
-                      v136 = v49;
-                      v137 = 2112;
-                      v138 = v73;
+                      v138 = v50;
                       v139 = 2112;
-                      v140 = v74;
-                      _os_log_debug_impl(&dword_1AE2A9000, v75, OS_LOG_TYPE_DEBUG, "[DEBUG] wrote icon data for '%@' to '%@'%@", buf, 0x20u);
+                      v140 = v76;
+                      v141 = 2112;
+                      v142 = v77;
+                      _os_log_debug_impl(&dword_1AE2A9000, v78, OS_LOG_TYPE_DEBUG, "[DEBUG] wrote icon data for '%@' to '%@'%@", buf, 0x20u);
                     }
 
-                    [iconsCopy setObject:v73 forKeyedSubscript:v49];
+                    [iconsCopy setObject:v76 forKeyedSubscript:v50];
 LABEL_72:
 
-                    v45 = v104;
+                    v45 = v106;
 LABEL_73:
 
 LABEL_74:
                     goto LABEL_75;
                   }
 
-                  v77 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2404);
-                  v78 = brc_default_log(0, 0);
-                  if (os_log_type_enabled(v78, 0x90u))
+                  v80 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2404);
+                  v81 = brc_default_log(0, 0);
+                  if (os_log_type_enabled(v81, 0x90u))
                   {
                     *buf = 138413058;
-                    v136 = v49;
-                    v137 = 2112;
-                    v138 = v73;
+                    v138 = v50;
                     v139 = 2112;
-                    v140 = v104;
+                    v140 = v76;
                     v141 = 2112;
-                    v142 = v77;
-                    _os_log_error_impl(&dword_1AE2A9000, v78, 0x90u, "[ERROR] failed writing icon data for '%@' to '%@', error: '%@'%@", buf, 0x2Au);
+                    v142 = v106;
+                    v143 = 2112;
+                    v144 = v80;
+                    _os_log_error_impl(&dword_1AE2A9000, v81, 0x90u, "[ERROR] failed writing icon data for '%@' to '%@', error: '%@'%@", buf, 0x2Au);
                   }
                 }
 
                 else
                 {
-                  v73 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2410);
-                  v77 = brc_default_log(1, 0);
-                  if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
+                  v76 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2410);
+                  v80 = brc_default_log(1, 0);
+                  if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v136 = v70;
-                    v137 = 2112;
                     v138 = v73;
-                    _os_log_impl(&dword_1AE2A9000, v77, OS_LOG_TYPE_DEFAULT, "[WARNING] unable to compute the PNG representation of %@%@", buf, 0x16u);
+                    v139 = 2112;
+                    v140 = v76;
+                    _os_log_impl(&dword_1AE2A9000, v80, OS_LOG_TYPE_DEFAULT, "[WARNING] unable to compute the PNG representation of %@%@", buf, 0x16u);
                   }
 
-                  v104 = v45;
+                  v106 = v45;
                 }
 
                 goto LABEL_72;
               }
 
-              v60 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2328);
-              v70 = brc_default_log(1, 0);
-              if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+              v61 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2328);
+              v73 = brc_default_log(1, 0);
+              if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412546;
-                v136 = v52;
-                v137 = 2112;
-                v138 = v60;
-                _os_log_debug_impl(&dword_1AE2A9000, v70, OS_LOG_TYPE_DEBUG, "[DEBUG] unable to find icon mask for %@%@", buf, 0x16u);
+                v138 = v53;
+                v139 = 2112;
+                v140 = v61;
+                _os_log_debug_impl(&dword_1AE2A9000, v73, OS_LOG_TYPE_DEBUG, "[DEBUG] unable to find icon mask for %@%@", buf, 0x16u);
               }
 
               goto LABEL_74;
             }
 
-            v52 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2319);
-            v54 = brc_default_log(1, 0);
-            if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+            v53 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2319);
+            v55 = brc_default_log(1, 0);
+            if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412546;
-              v136 = v48;
-              v137 = 2112;
-              v138 = v52;
-              _os_log_debug_impl(&dword_1AE2A9000, v54, OS_LOG_TYPE_DEBUG, "[DEBUG] unable to retrieve icon name from asset key '%@'%@", buf, 0x16u);
+              v138 = v49;
+              v139 = 2112;
+              v140 = v53;
+              _os_log_debug_impl(&dword_1AE2A9000, v55, OS_LOG_TYPE_DEBUG, "[DEBUG] unable to retrieve icon name from asset key '%@'%@", buf, 0x16u);
             }
 
 LABEL_75:
 
             objc_autoreleasePoolPop(contexta);
-            v47 = v47 + 1;
+            v48 = v48 + 1;
           }
 
-          while (obja != v47);
-          v46 = [(__CFBundle *)bundlea countByEnumeratingWithState:&v119 objects:v143 count:16];
-          if (!v46)
+          while (obja != v48);
+          v47 = [(__CFBundle *)bundlea countByEnumeratingWithState:&v121 objects:v145 count:16];
+          if (!v47)
           {
 LABEL_77:
 
-            v86 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2413);
-            v87 = brc_default_log(1, 0);
-            if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
+            v89 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2413);
+            v90 = brc_default_log(1, 0);
+            if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
             {
               +[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:];
             }
@@ -4924,16 +4816,16 @@ LABEL_77:
       }
 
       log = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2308);
-      v93 = brc_default_log(0, 0);
-      if (os_log_type_enabled(v93, 0x90u))
+      v95 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v95, 0x90u))
       {
         *buf = 138412802;
-        v136 = path2;
-        v137 = 2112;
-        v138 = v45;
+        v138 = path2;
         v139 = 2112;
-        v140 = log;
-        _os_log_error_impl(&dword_1AE2A9000, v93, 0x90u, "[ERROR] unable to create directory at '%@.XXXXXX'; %@%@", buf, 0x20u);
+        v140 = v45;
+        v141 = 2112;
+        v142 = log;
+        _os_log_error_impl(&dword_1AE2A9000, v95, 0x90u, "[ERROR] unable to create directory at '%@.XXXXXX'; %@%@", buf, 0x20u);
       }
 
 LABEL_93:
@@ -4943,41 +4835,39 @@ LABEL_93:
 
     else
     {
-      v102 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2302);
+      v104 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2302);
       log = brc_default_log(0, 0);
       if (os_log_type_enabled(log, 0x90u))
       {
         *buf = 138412802;
-        v136 = path2;
-        v137 = 2112;
-        v138 = v44;
+        v138 = path2;
         v139 = 2112;
-        v140 = v102;
+        v140 = v44;
+        v141 = 2112;
+        v142 = v104;
         _os_log_error_impl(&dword_1AE2A9000, log, 0x90u, "[ERROR] unable to create directory at '%@'; %@%@", buf, 0x20u);
       }
     }
 
-    v103 = v44;
+    v105 = v44;
   }
 
   else
   {
     path2 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:]", 2295);
-    v102 = brc_default_log(0, 0);
-    if (os_log_type_enabled(v102, 0x90u))
+    v104 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v104, 0x90u))
     {
       +[BRContainer(BRInternalAdditions) _generateiOSIconsForMangledID:usingBundle:generatedIcons:];
     }
   }
 
 LABEL_96:
-  v88 = v110;
+  v91 = v112;
 LABEL_97:
 
 LABEL_98:
-  __brc_leave_section(v134);
-
-  v92 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v136);
 }
 
 uint64_t __93__BRContainer_BRInternalAdditions___generateiOSIconsForMangledID_usingBundle_generatedIcons___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -5037,14 +4927,14 @@ uint64_t __93__BRContainer_BRInternalAdditions___generateiOSIconsForMangledID_us
 
 + (id)propertiesForMangledID:(id)d usingBundle:(__CFBundle *)bundle minimumBundleVersion:(id)version bundleIcons:(id *)icons
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   dCopy = d;
   versionCopy = version;
   if (bundle)
   {
     v12 = CFBundleGetInfoDictionary(bundle);
     v13 = [v12 objectForKeyedSubscript:*MEMORY[0x1E695E500]];
-    v82 = v12;
+    v81 = v12;
     v14 = [v12 objectForKeyedSubscript:*MEMORY[0x1E695E4F0]];
     v15 = v14;
     if (v13)
@@ -5065,10 +4955,10 @@ uint64_t __93__BRContainer_BRInternalAdditions___generateiOSIconsForMangledID_us
       {
         *buf = 138412802;
         *&buf[4] = v15;
-        v95 = 2112;
-        v96 = v13;
-        v97 = 2112;
-        v98 = v17;
+        v94 = 2112;
+        v95 = v13;
+        v96 = 2112;
+        v97 = v17;
         _os_log_impl(&dword_1AE2A9000, v18, OS_LOG_TYPE_DEFAULT, "[WARNING] invalid version %@ or identifier %@%@", buf, 0x20u);
       }
 
@@ -5084,12 +4974,12 @@ uint64_t __93__BRContainer_BRInternalAdditions___generateiOSIconsForMangledID_us
       {
         *buf = 138413058;
         *&buf[4] = v15;
-        v95 = 2112;
-        v96 = v13;
-        v97 = 2112;
-        v98 = versionCopy;
-        v99 = 2112;
-        v100 = v20;
+        v94 = 2112;
+        v95 = v13;
+        v96 = 2112;
+        v97 = versionCopy;
+        v98 = 2112;
+        v99 = v20;
         _os_log_debug_impl(&dword_1AE2A9000, v21, OS_LOG_TYPE_DEBUG, "[DEBUG] bundle %@ has version %@, minimum version is %@%@", buf, 0x2Au);
       }
 
@@ -5107,41 +4997,41 @@ LABEL_76:
       {
         *buf = 138412802;
         *&buf[4] = v15;
-        v95 = 2112;
-        v96 = dCopy;
-        v97 = 2112;
-        v98 = v23;
+        v94 = 2112;
+        v95 = dCopy;
+        v96 = 2112;
+        v97 = v23;
         _os_log_debug_impl(&dword_1AE2A9000, v24, OS_LOG_TYPE_DEBUG, "[DEBUG] metadata for %@ client of %@ is out of date%@", buf, 0x20u);
       }
 
       v25 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:9];
       [v25 setObject:v13 forKeyedSubscript:@"BRContainerVersionNumber"];
       [v25 setObject:BRContainerFormatVersionNumberValue forKeyedSubscript:@"BRContainerFormatVersionNumber"];
-      v26 = [v82 objectForKeyedSubscript:*MEMORY[0x1E695E128]];
+      v26 = [v81 objectForKeyedSubscript:*MEMORY[0x1E695E128]];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         [v25 setObject:v26 forKeyedSubscript:@"BRContainerDocumentTypes"];
       }
 
-      v27 = [v82 objectForKeyedSubscript:@"UTExportedTypeDeclarations"];
+      v27 = [v81 objectForKeyedSubscript:@"UTExportedTypeDeclarations"];
       objc_opt_class();
-      v81 = v27;
+      v80 = v27;
       if (objc_opt_isKindOfClass())
       {
         [v25 setObject:v27 forKeyedSubscript:@"BRContainerExportedTypes"];
       }
 
-      v28 = [v82 objectForKeyedSubscript:@"UTImportedTypeDeclarations"];
+      v28 = [v81 objectForKeyedSubscript:@"UTImportedTypeDeclarations"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         [v25 setObject:v28 forKeyedSubscript:@"BRContainerImportedTypes"];
       }
 
-      v77 = v28;
-      v80 = v25;
-      v29 = [v82 objectForKeyedSubscript:@"NSUbiquitousContainers"];
+      v76 = v28;
+      v79 = v25;
+      v29 = [v81 objectForKeyedSubscript:@"NSUbiquitousContainers"];
       if (v29)
       {
         objc_opt_class();
@@ -5153,7 +5043,7 @@ LABEL_76:
       }
 
       appLibraryOrZoneName = [dCopy appLibraryOrZoneName];
-      v76 = v29;
+      v75 = v29;
       v31 = [v29 objectForKeyedSubscript:appLibraryOrZoneName];
 
       bundleCopy = bundle;
@@ -5169,7 +5059,7 @@ LABEL_76:
 
       v32 = [v31 objectForKeyedSubscript:@"NSUbiquitousContainerName"];
       objc_opt_class();
-      v78 = v26;
+      v77 = v26;
       if ((objc_opt_isKindOfClass() & 1) != 0 && [v32 length])
       {
         v33 = @"NSUbiquitousContainerName";
@@ -5179,34 +5069,34 @@ LABEL_76:
       {
         iconsCopy = icons;
         v34 = *MEMORY[0x1E695E4F8];
-        v93[0] = *MEMORY[0x1E695E120];
-        v93[1] = v34;
-        [MEMORY[0x1E695DEC8] arrayWithObjects:v93 count:2];
+        v92[0] = *MEMORY[0x1E695E120];
+        v92[1] = v34;
+        [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:2];
+        v86 = 0u;
         v87 = 0u;
         v88 = 0u;
-        v89 = 0u;
-        v35 = v90 = 0u;
-        v36 = [v35 countByEnumeratingWithState:&v87 objects:v92 count:16];
+        v35 = v89 = 0u;
+        v36 = [v35 countByEnumeratingWithState:&v86 objects:v91 count:16];
         if (v36)
         {
           v37 = v36;
-          v71 = v31;
-          v66 = v15;
-          v68 = v13;
-          v38 = *v88;
+          v70 = v31;
+          v65 = v15;
+          v67 = v13;
+          v38 = *v87;
           while (2)
           {
             v39 = 0;
             v40 = v32;
             do
             {
-              if (*v88 != v38)
+              if (*v87 != v38)
               {
                 objc_enumerationMutation(v35);
               }
 
-              v41 = *(*(&v87 + 1) + 8 * v39);
-              v32 = [v82 objectForKeyedSubscript:v41];
+              v41 = *(*(&v86 + 1) + 8 * v39);
+              v32 = [v81 objectForKeyedSubscript:v41];
 
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) != 0 && [v32 length])
@@ -5220,7 +5110,7 @@ LABEL_76:
             }
 
             while (v37 != v39);
-            v37 = [v35 countByEnumeratingWithState:&v87 objects:v92 count:16];
+            v37 = [v35 countByEnumeratingWithState:&v86 objects:v91 count:16];
             if (v37)
             {
               continue;
@@ -5231,9 +5121,9 @@ LABEL_76:
 
           v33 = 0;
 LABEL_46:
-          v15 = v66;
-          v13 = v68;
-          v31 = v71;
+          v15 = v65;
+          v13 = v67;
+          v31 = v70;
         }
 
         else
@@ -5255,42 +5145,42 @@ LABEL_46:
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && [v32 length])
       {
-        v19 = v80;
-        [v80 setObject:v32 forKeyedSubscript:@"BRContainerName"];
+        v19 = v79;
+        [v79 setObject:v32 forKeyedSubscript:@"BRContainerName"];
         if (v33)
         {
-          v72 = v31;
+          v71 = v31;
           iconsCopy2 = icons;
-          v67 = v15;
-          v69 = v13;
-          v64 = versionCopy;
-          v65 = dCopy;
+          v66 = v15;
+          v68 = v13;
+          v63 = versionCopy;
+          v64 = dCopy;
           context = objc_autoreleasePoolPush();
           *buf = v33;
           v43 = CFSetCreate(*MEMORY[0x1E695E4A8], buf, 1, MEMORY[0x1E695E9F8]);
           v44 = _CFBundleCopyFilteredLocalizedStringsForAllLocalizations();
           CFRelease(v43);
           v45 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v44, "count")}];
+          v82 = 0u;
           v83 = 0u;
           v84 = 0u;
           v85 = 0u;
-          v86 = 0u;
           v46 = v44;
-          v47 = [v46 countByEnumeratingWithState:&v83 objects:v91 count:16];
+          v47 = [v46 countByEnumeratingWithState:&v82 objects:v90 count:16];
           if (v47)
           {
             v48 = v47;
-            v49 = *v84;
+            v49 = *v83;
             do
             {
               for (i = 0; i != v48; ++i)
               {
-                if (*v84 != v49)
+                if (*v83 != v49)
                 {
                   objc_enumerationMutation(v46);
                 }
 
-                v51 = *(*(&v83 + 1) + 8 * i);
+                v51 = *(*(&v82 + 1) + 8 * i);
                 v52 = [v46 objectForKeyedSubscript:v51];
                 v53 = [v52 objectForKeyedSubscript:v33];
                 if (v53)
@@ -5299,24 +5189,24 @@ LABEL_46:
                 }
               }
 
-              v48 = [v46 countByEnumeratingWithState:&v83 objects:v91 count:16];
+              v48 = [v46 countByEnumeratingWithState:&v82 objects:v90 count:16];
             }
 
             while (v48);
           }
 
-          v15 = v67;
-          v19 = v80;
+          v15 = v66;
+          v19 = v79;
           if ([v45 count])
           {
-            [v80 setObject:v45 forKeyedSubscript:@"BRContainerLocalizedNames"];
+            [v79 setObject:v45 forKeyedSubscript:@"BRContainerLocalizedNames"];
           }
 
           objc_autoreleasePoolPop(context);
-          versionCopy = v64;
-          dCopy = v65;
-          v13 = v69;
-          v31 = v72;
+          versionCopy = v63;
+          dCopy = v64;
+          v13 = v68;
+          v31 = v71;
           icons = iconsCopy2;
         }
       }
@@ -5325,7 +5215,7 @@ LABEL_46:
       {
 
         v33 = 0;
-        v19 = v80;
+        v19 = v79;
       }
 
       v54 = [v31 objectForKeyedSubscript:@"NSUbiquitousContainerIsDocumentScopePublic"];
@@ -5338,35 +5228,35 @@ LABEL_46:
         {
           if (bOOLValue)
           {
-            v73 = v31;
+            v72 = v31;
             v56 = v15;
             dictionary = [MEMORY[0x1E695DF90] dictionary];
             v58 = objc_autoreleasePoolPush();
             [selfCopy _generateiOSIconsForMangledID:dCopy usingBundle:bundleCopy generatedIcons:dictionary];
             v59 = v58;
-            v19 = v80;
+            v19 = v79;
             objc_autoreleasePoolPop(v59);
             v60 = dictionary;
             *icons = dictionary;
             if ([v60 count])
             {
-              [v80 setObject:BRContainerIconGeneratorVersionNumberValue forKeyedSubscript:@"BRContainerIconGeneratorVersionNumber"];
+              [v79 setObject:BRContainerIconGeneratorVersionNumberValue forKeyedSubscript:@"BRContainerIconGeneratorVersionNumber"];
             }
 
             v15 = v56;
-            v31 = v73;
+            v31 = v72;
           }
         }
       }
 
-      v17 = v78;
-      v18 = v81;
+      v17 = v77;
+      v18 = v80;
     }
 
     goto LABEL_76;
   }
 
-  v82 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) propertiesForMangledID:usingBundle:minimumBundleVersion:bundleIcons:]", 2423);
+  v81 = brc_bread_crumbs("+[BRContainer(BRInternalAdditions) propertiesForMangledID:usingBundle:minimumBundleVersion:bundleIcons:]", 2423);
   v13 = brc_default_log(0, 0);
   if (os_log_type_enabled(v13, 0x90u))
   {
@@ -5376,51 +5266,49 @@ LABEL_46:
   v19 = 0;
 LABEL_77:
 
-  v61 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (BOOL)containsExcludedDocumentsOnTheFSWithExcludedButPreservedFilename:(id)filename excludedButPreservedExtensions:(id)extensions andStampUploadedAppWithXattr:(BOOL)xattr
 {
   xattrCopy = xattr;
-  v61[1] = *MEMORY[0x1E69E9840];
+  v60[1] = *MEMORY[0x1E69E9840];
   filenameCopy = filename;
   extensionsCopy = extensions;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   documentsURL = [(BRContainer *)self documentsURL];
-  v44 = *MEMORY[0x1E695DBD8];
-  v61[0] = *MEMORY[0x1E695DBD8];
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:1];
+  v43 = *MEMORY[0x1E695DBD8];
+  v60[0] = *MEMORY[0x1E695DBD8];
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:1];
   v10 = [defaultManager enumeratorAtURL:documentsURL includingPropertiesForKeys:v9 options:2 errorHandler:0];
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
   v51 = 0u;
+  v52 = 0u;
+  v49 = 0u;
+  v50 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v50 objects:v60 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v49 objects:v59 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v51;
-    v40 = *MEMORY[0x1E695DCD8];
+    v14 = *v50;
+    v39 = *MEMORY[0x1E695DCD8];
     v15 = filenameCopy;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v51 != v14)
+        if (*v50 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v17 = *(*(&v50 + 1) + 8 * i);
+        v17 = *(*(&v49 + 1) + 8 * i);
+        v47 = 0;
         v48 = 0;
-        v49 = 0;
-        v18 = [v17 getResourceValue:&v49 forKey:v44 error:&v48];
-        v19 = v49;
-        v20 = v48;
+        v18 = [v17 getResourceValue:&v48 forKey:v43 error:&v47];
+        v19 = v48;
+        v20 = v47;
         if (v18 && [v19 BOOLValue])
         {
           if (xattrCopy)
@@ -5431,11 +5319,11 @@ LABEL_77:
 
             if (v23)
             {
+              v45 = 0;
               v46 = 0;
-              v47 = 0;
-              v24 = [v17 getResourceValue:&v47 forKey:v40 error:&v46];
-              v25 = v47;
-              v26 = v46;
+              v24 = [v17 getResourceValue:&v46 forKey:v39 error:&v45];
+              v25 = v46;
+              v26 = v45;
 
               if (v24)
               {
@@ -5448,17 +5336,17 @@ LABEL_77:
                   if (v28 < 0)
                   {
                     v29 = *__error();
-                    v39 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) containsExcludedDocumentsOnTheFSWithExcludedButPreservedFilename:excludedButPreservedExtensions:andStampUploadedAppWithXattr:]", 2594);
+                    v38 = brc_bread_crumbs("[BRContainer(BRInternalAdditions) containsExcludedDocumentsOnTheFSWithExcludedButPreservedFilename:excludedButPreservedExtensions:andStampUploadedAppWithXattr:]", 2594);
                     v30 = brc_default_log(0, 0);
                     if (os_log_type_enabled(v30, 0x90u))
                     {
                       path2 = [v17 path];
                       *buf = 138412802;
-                      v55 = path2;
-                      v56 = 1024;
-                      v57 = v29;
-                      v58 = 2112;
-                      v59 = v39;
+                      v54 = path2;
+                      v55 = 1024;
+                      v56 = v29;
+                      v57 = 2112;
+                      v58 = v38;
                       _os_log_error_impl(&dword_1AE2A9000, v30, 0x90u, "[ERROR] can't set uploaded xattr on %@ %{errno}d%@", buf, 0x1Cu);
                     }
 
@@ -5496,7 +5384,7 @@ LABEL_77:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v50 objects:v60 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v49 objects:v59 count:16];
       if (v13)
       {
         continue;
@@ -5516,27 +5404,26 @@ LABEL_77:
 
 LABEL_27:
 
-  v37 = *MEMORY[0x1E69E9840];
   return v34;
 }
 
 - (BOOL)registerCurrentProcessAsPriorityHintWithError:(id *)error
 {
-  v28 = *MEMORY[0x1E69E9840];
-  memset(v21, 0, sizeof(v21));
-  __brc_create_section(0, "[BRContainer(BRPriorityHinting) registerCurrentProcessAsPriorityHintWithError:]", 2977, 0, v21);
+  v27 = *MEMORY[0x1E69E9840];
+  memset(v20, 0, sizeof(v20));
+  __brc_create_section(0, "[BRContainer(BRPriorityHinting) registerCurrentProcessAsPriorityHintWithError:]", 2977, 0, v20);
   v5 = brc_bread_crumbs("[BRContainer(BRPriorityHinting) registerCurrentProcessAsPriorityHintWithError:]", 2977);
   v6 = brc_default_log(1, 0);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v14 = v21[0];
+    v13 = v20[0];
     identifier = [(BRContainer *)self identifier];
     *buf = 134218498;
-    v23 = v14;
-    v24 = 2112;
-    v25 = identifier;
-    v26 = 2112;
-    v27 = v5;
+    v22 = v13;
+    v23 = 2112;
+    v24 = identifier;
+    v25 = 2112;
+    v26 = v5;
     _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx registering current process as a priority hint for %@%@", buf, 0x20u);
   }
 
@@ -5544,13 +5431,13 @@ LABEL_27:
   newSyncProxy = [v7 newSyncProxy];
 
   identifier2 = [(BRContainer *)self identifier];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __80__BRContainer_BRPriorityHinting__registerCurrentProcessAsPriorityHintWithError___block_invoke;
-  v19 = &unk_1E7A16750;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __80__BRContainer_BRPriorityHinting__registerCurrentProcessAsPriorityHintWithError___block_invoke;
+  v18 = &unk_1E7A16750;
   v10 = newSyncProxy;
-  v20 = v10;
-  [v10 getContainerURLForID:identifier2 reply:&v16];
+  v19 = v10;
+  [v10 getContainerURLForID:identifier2 reply:&v15];
 
   error = [v10 error];
 
@@ -5559,8 +5446,7 @@ LABEL_27:
     *error = [v10 error];
   }
 
-  __brc_leave_section(v21);
-  v12 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v20);
   return error == 0;
 }
 
@@ -5572,7 +5458,7 @@ LABEL_27:
 
 - (id)versionNumberForBundleIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -5595,9 +5481,9 @@ LABEL_15:
       objc_opt_class();
       OUTLINED_FUNCTION_3_1();
       OUTLINED_FUNCTION_15();
-      v24 = v9;
+      v23 = v9;
       v14 = v13;
-      _os_log_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] failed retrieving format version for %@: unexpected kind of class (expected: NSNumber, actual: %@)%@", &v19, 0x20u);
+      _os_log_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] failed retrieving format version for %@: unexpected kind of class (expected: NSNumber, actual: %@)%@", &v18, 0x20u);
     }
 
     else
@@ -5609,15 +5495,15 @@ LABEL_15:
         v10 = brc_default_log(1, 0);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          v19 = 138413058;
-          v20 = v7;
-          v21 = 2112;
-          v22 = BRContainerFormatVersionNumberValue;
-          v23 = 2112;
-          v24 = identifierCopy;
-          v25 = 2112;
-          v26 = v9;
-          _os_log_debug_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] overwriting old plist from version %@ to %@ for %@%@", &v19, 0x2Au);
+          v18 = 138413058;
+          v19 = v7;
+          v20 = 2112;
+          v21 = BRContainerFormatVersionNumberValue;
+          v22 = 2112;
+          v23 = identifierCopy;
+          v24 = 2112;
+          v25 = v9;
+          _os_log_debug_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_DEBUG, "[DEBUG] overwriting old plist from version %@ to %@ for %@%@", &v18, 0x2Au);
         }
 
         goto LABEL_15;
@@ -5642,9 +5528,9 @@ LABEL_16:
         objc_opt_class();
         OUTLINED_FUNCTION_3_1();
         OUTLINED_FUNCTION_15();
-        v24 = v10;
+        v23 = v10;
         v16 = v15;
-        _os_log_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] failed retrieving  version for %@: unexpected kind of class (expected: NSString, actual: %@)%@", &v19, 0x20u);
+        _os_log_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] failed retrieving  version for %@: unexpected kind of class (expected: NSString, actual: %@)%@", &v18, 0x20u);
       }
     }
 
@@ -5654,14 +5540,11 @@ LABEL_16:
   v12 = 0;
 LABEL_17:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (void)initWithMangledID:dataRepresentation:.cold.1()
 {
-  v13 = *MEMORY[0x1E69E9840];
   brc_bread_crumbs("[BRContainer initWithMangledID:dataRepresentation:]", 320);
   objc_claimAutoreleasedReturnValue();
   v2 = OUTLINED_FUNCTION_6_0();
@@ -5669,78 +5552,22 @@ LABEL_17:
   if (OUTLINED_FUNCTION_5_0(v4))
   {
     OUTLINED_FUNCTION_3_1();
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v6, v7, "[CRIT] Assertion failed: mangledID%@", v8, v9, v10, v11, v12);
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v5, v6, "[CRIT] Assertion failed: mangledID%@", v7, v8, v9, v10);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)initWithMangledID:dataRepresentation:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[DEBUG] creating container metadata for %@%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __39__BRContainer_accessPropertiesInBlock___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imageDataForSize:(_BYTE *)a1 scale:isiOSIcon:shouldTransformToAppIcon:.cold.1(_BYTE *a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  *a1;
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v1, v2, "[DEBUG] image returned %@ an iOS icon%@");
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imageDataForSize:(_BYTE *)a1 scale:isiOSIcon:shouldTransformToAppIcon:.cold.2(_BYTE *a1)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  *a1;
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v1, v2, "[DEBUG] image returned %@%@");
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imageDataForSize:scale:isiOSIcon:shouldTransformToAppIcon:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] no image found for the given size%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_imageDataForSize:scale:isiOSIcon:shouldTransformToAppIcon:.cold.4()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_1AE2A9000, v0, v1, "[DEBUG] not a synced image size%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __55__BRContainer_forceRefreshAllContainersWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_replaceDataRepresentationWithData:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: failed to parse the given data to a plist. error: %@%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)_sanitizedContainerFallbackNameForMangledID:.cold.1()
@@ -5752,33 +5579,13 @@ void __55__BRContainer_forceRefreshAllContainersWithCompletion___block_invoke_co
   *v0 = [v1 stringByReplacingCharactersInRange:0 withString:{1, v4}];
 }
 
-void __83__BRContainer_BRFinderInternalAdditions__deleteAllContentsOnClientAndServer_error___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v2, v3, "[CRIT] asking to delete all contents of %@%@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
 void __83__BRContainer_BRFinderInternalAdditions__deleteAllContentsOnClientAndServer_error___block_invoke_cold_2(id *a1, uint64_t a2, NSObject *a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = [*a1 documentsURL];
   v5 = [v4 path];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_1AE2A9000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] this container has been moved to CloudDocs, unlinking the folder at %@%@", v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __93__BRContainer_BRInternalAdditions__updateMetadataWithExtractorProperties_iconPaths_bundleID___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*(a1 + 32) + 8);
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v2, v3, "[DEBUG] created plist for container %@%@");
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AE2A9000, a3, OS_LOG_TYPE_DEBUG, "[DEBUG] this container has been moved to CloudDocs, unlinking the folder at %@%@", v6, 0x16u);
 }
 
 @end

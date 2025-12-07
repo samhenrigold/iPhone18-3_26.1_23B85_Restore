@@ -17,9 +17,9 @@
     dispatch_once(&_MergedGlobals_170, &__block_literal_global_90);
   }
 
-  v0 = qword_1ED6A5558;
+  v1 = qword_1ED6A5558;
 
-  return v0;
+  return v1;
 }
 
 void __52__PKHandwritingEducationPaneSettings_sharedInstance__block_invoke()
@@ -71,7 +71,7 @@ void __52__PKHandwritingEducationPaneSettings_sharedInstance__block_invoke()
   v18 = processInfo;
   if (processInfo)
   {
-    [processInfo operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(processInfo);
   }
 
   v19 = 0;
@@ -108,7 +108,7 @@ void __52__PKHandwritingEducationPaneSettings_sharedInstance__block_invoke()
       v3 = processInfo;
       if (processInfo)
       {
-        [processInfo operatingSystemVersion];
+        objc_msgSend_operatingSystemVersion(processInfo);
       }
 
       v4 = [MEMORY[0x1E696AD98] numberWithInteger:0];
@@ -195,21 +195,21 @@ void __52__PKHandwritingEducationPaneSettings_sharedInstance__block_invoke()
 {
   if (result)
   {
-    v1 = result;
+    v2 = result;
     if (os_variant_has_internal_diagnostics())
     {
       standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-      v2 = [standardUserDefaults BOOLForKey:@"internalSettings.drawing.showResetHandwritingEducationPaneInPalette"];
+      v3 = [standardUserDefaults BOOLForKey:@"internalSettings.drawing.showResetHandwritingEducationPaneInPalette"];
     }
 
     else
     {
-      v2 = 0;
+      v3 = 0;
     }
 
-    if ([(PKHandwritingEducationPaneSettings *)v1 seenFeatures])
+    if ([(PKHandwritingEducationPaneSettings *)v2 seenFeatures])
     {
-      return v2;
+      return v3;
     }
 
     else

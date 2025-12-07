@@ -1,1899 +1,3 @@
-google::protobuf::UnknownFieldSet *operations_research::glop::GlopParameters::Clear(operations_research::glop::GlopParameters *this)
-{
-  v1 = *(this + 4);
-  if (v1)
-  {
-    *(this + 7) = 0;
-    *(this + 16) = 256;
-    *(this + 36) = 0x100000001;
-  }
-
-  if ((v1 & 0xFF00) != 0)
-  {
-    *(this + 3) = xmmword_23CE3AE70;
-    *(this + 4) = xmmword_23CE3AE80;
-    *(this + 5) = xmmword_23CE3AE90;
-    *(this + 6) = xmmword_23CE3AEA0;
-  }
-
-  if ((v1 & 0xFF0000) != 0)
-  {
-    *(this + 14) = 0x3EB0C6F7A0B5ED8DLL;
-    *(this + 15) = 0x4000000002;
-    *(this + 8) = xmmword_23CE3AEB0;
-    *(this + 18) = 0x300000002;
-    *(this + 19) = 0x3F847AE147AE147BLL;
-  }
-
-  if (HIBYTE(v1))
-  {
-    *(this + 20) = 0x7FF0000000000000;
-    *(this + 21) = -1;
-    *(this + 22) = 0x3CD203AF9EE75616;
-    *(this + 23) = 0x9601010101;
-  }
-
-  v2 = *(this + 5);
-  if (v2)
-  {
-    *(this + 12) = xmmword_23CE3AED0;
-    *(this + 13) = xmmword_23CE389E0;
-    *(this + 56) = 16843009;
-  }
-
-  if ((v2 & 0xFF00) != 0)
-  {
-    *(this + 57) = 1;
-    *(this + 232) = xmmword_23CE3AEC0;
-    *(this + 31) = 0x100000001;
-    *(this + 16) = xmmword_23CE3AEE0;
-    *(this + 34) = 0x3E7AD7F29ABCAF48;
-  }
-
-  if ((v2 & 0xFF0000) != 0)
-  {
-    *(this + 35) = 0x4044000000000000;
-    *(this + 36) = 0x101010101;
-    *(this + 37) = 0x4A511B0EC57E649ALL;
-    *(this + 38) = 0x7FF0000000000000;
-  }
-
-  if ((v2 & 0x3000000) != 0)
-  {
-    *(this + 39) = 0x46293E5939A08CEALL;
-    *(this + 40) = 0x39B4484BFEEBC2A0;
-  }
-
-  v4 = *(this + 8);
-  result = (this + 8);
-  *(result + 1) = 0;
-  if (v4)
-  {
-    return google::protobuf::internal::InternalMetadata::DoClear<google::protobuf::UnknownFieldSet>(result);
-  }
-
-  return result;
-}
-
-const google::protobuf::UnknownFieldSet *operations_research::glop::GlopParameters::_InternalSerialize(operations_research::glop::GlopParameters *this, unsigned __int8 *a2, google::protobuf::io::EpsCopyOutputStream *a3, google::protobuf::io::EpsCopyOutputStream *a4)
-{
-  v4 = *(this + 4);
-  if ((v4 & 0x40) == 0)
-  {
-    if ((v4 & 0x80) == 0)
-    {
-      goto LABEL_3;
-    }
-
-    goto LABEL_65;
-  }
-
-  if (*a3 <= a2)
-  {
-    v138 = a3;
-    v186 = this;
-    v94 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v138;
-    this = v186;
-    v12 = v186[9];
-    *v94 = 8;
-    v13 = v94 + 1;
-    if (v12 < 0x80)
-    {
-      goto LABEL_63;
-    }
-  }
-
-  else
-  {
-    v12 = *(this + 9);
-    *a2 = 8;
-    v13 = a2 + 1;
-    if (v12 < 0x80)
-    {
-LABEL_63:
-      LOBYTE(v14) = v12;
-      goto LABEL_64;
-    }
-  }
-
-  do
-  {
-    *v13++ = v12 | 0x80;
-    v14 = v12 >> 7;
-    v95 = v12 >> 14;
-    v12 >>= 7;
-  }
-
-  while (v95);
-LABEL_64:
-  *v13 = v14;
-  a2 = v13 + 1;
-  if ((v4 & 0x80) == 0)
-  {
-LABEL_3:
-    if ((v4 & 0x100) == 0)
-    {
-      goto LABEL_4;
-    }
-
-    goto LABEL_69;
-  }
-
-LABEL_65:
-  if (*a3 <= a2)
-  {
-    v139 = a3;
-    v187 = this;
-    v96 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v139;
-    this = v187;
-    v15 = v187[10];
-    *v96 = 16;
-    v16 = v96 + 1;
-    if (v15 < 0x80)
-    {
-      goto LABEL_67;
-    }
-  }
-
-  else
-  {
-    v15 = *(this + 10);
-    *a2 = 16;
-    v16 = a2 + 1;
-    if (v15 < 0x80)
-    {
-LABEL_67:
-      LOBYTE(v17) = v15;
-      goto LABEL_68;
-    }
-  }
-
-  do
-  {
-    *v16++ = v15 | 0x80;
-    v17 = v15 >> 7;
-    v97 = v15 >> 14;
-    v15 >>= 7;
-  }
-
-  while (v97);
-LABEL_68:
-  *v16 = v17;
-  a2 = v16 + 1;
-  if ((v4 & 0x100) == 0)
-  {
-LABEL_4:
-    if ((v4 & 0x200) == 0)
-    {
-      goto LABEL_5;
-    }
-
-    goto LABEL_72;
-  }
-
-LABEL_69:
-  if (*a3 <= a2)
-  {
-    v140 = a3;
-    v188 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v140;
-    this = v188;
-  }
-
-  v18 = *(this + 6);
-  *a2 = 49;
-  *(a2 + 1) = v18;
-  a2 += 9;
-  if ((v4 & 0x200) == 0)
-  {
-LABEL_5:
-    if ((v4 & 0x400) == 0)
-    {
-      goto LABEL_6;
-    }
-
-    goto LABEL_75;
-  }
-
-LABEL_72:
-  if (*a3 <= a2)
-  {
-    v141 = a3;
-    v189 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v141;
-    this = v189;
-  }
-
-  v19 = *(this + 7);
-  *a2 = 65;
-  *(a2 + 1) = v19;
-  a2 += 9;
-  if ((v4 & 0x400) == 0)
-  {
-LABEL_6:
-    if ((v4 & 0x800) == 0)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_78;
-  }
-
-LABEL_75:
-  if (*a3 <= a2)
-  {
-    v142 = a3;
-    v190 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v142;
-    this = v190;
-  }
-
-  v20 = *(this + 8);
-  *a2 = 73;
-  *(a2 + 1) = v20;
-  a2 += 9;
-  if ((v4 & 0x800) == 0)
-  {
-LABEL_7:
-    if ((v4 & 0x1000) == 0)
-    {
-      goto LABEL_8;
-    }
-
-    goto LABEL_81;
-  }
-
-LABEL_78:
-  if (*a3 <= a2)
-  {
-    v143 = a3;
-    v191 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v143;
-    this = v191;
-  }
-
-  v21 = *(this + 9);
-  *a2 = 81;
-  *(a2 + 1) = v21;
-  a2 += 9;
-  if ((v4 & 0x1000) == 0)
-  {
-LABEL_8:
-    if ((v4 & 0x2000) == 0)
-    {
-      goto LABEL_9;
-    }
-
-    goto LABEL_84;
-  }
-
-LABEL_81:
-  if (*a3 <= a2)
-  {
-    v144 = a3;
-    v192 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v144;
-    this = v192;
-  }
-
-  v22 = *(this + 10);
-  *a2 = 89;
-  *(a2 + 1) = v22;
-  a2 += 9;
-  if ((v4 & 0x2000) == 0)
-  {
-LABEL_9:
-    if ((v4 & 0x4000) == 0)
-    {
-      goto LABEL_10;
-    }
-
-    goto LABEL_87;
-  }
-
-LABEL_84:
-  if (*a3 <= a2)
-  {
-    v145 = a3;
-    v193 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v145;
-    this = v193;
-  }
-
-  v23 = *(this + 11);
-  *a2 = 97;
-  *(a2 + 1) = v23;
-  a2 += 9;
-  if ((v4 & 0x4000) == 0)
-  {
-LABEL_10:
-    if ((v4 & 0x8000) == 0)
-    {
-      goto LABEL_11;
-    }
-
-    goto LABEL_90;
-  }
-
-LABEL_87:
-  if (*a3 <= a2)
-  {
-    v146 = a3;
-    v194 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v146;
-    this = v194;
-  }
-
-  v24 = *(this + 12);
-  *a2 = 105;
-  *(a2 + 1) = v24;
-  a2 += 9;
-  if ((v4 & 0x8000) == 0)
-  {
-LABEL_11:
-    if ((v4 & 0x10000) == 0)
-    {
-      goto LABEL_12;
-    }
-
-    goto LABEL_93;
-  }
-
-LABEL_90:
-  if (*a3 <= a2)
-  {
-    v147 = a3;
-    v195 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v147;
-    this = v195;
-  }
-
-  v25 = *(this + 13);
-  *a2 = 113;
-  *(a2 + 1) = v25;
-  a2 += 9;
-  if ((v4 & 0x10000) == 0)
-  {
-LABEL_12:
-    if ((v4 & 0x8000000) == 0)
-    {
-      goto LABEL_13;
-    }
-
-    goto LABEL_96;
-  }
-
-LABEL_93:
-  if (*a3 <= a2)
-  {
-    v148 = a3;
-    v196 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v148;
-    this = v196;
-  }
-
-  v26 = *(this + 14);
-  *a2 = 121;
-  *(a2 + 1) = v26;
-  a2 += 9;
-  if ((v4 & 0x8000000) == 0)
-  {
-LABEL_13:
-    if ((v4 & 0x20000) == 0)
-    {
-      goto LABEL_14;
-    }
-
-    goto LABEL_99;
-  }
-
-LABEL_96:
-  if (*a3 <= a2)
-  {
-    v149 = a3;
-    v197 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v149;
-    this = v197;
-  }
-
-  v27 = *(this + 184);
-  *a2 = 384;
-  a2[2] = v27;
-  a2 += 3;
-  if ((v4 & 0x20000) == 0)
-  {
-LABEL_14:
-    if ((v4 & 0x10000000) == 0)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_103;
-  }
-
-LABEL_99:
-  if (*a3 <= a2)
-  {
-    v150 = a3;
-    v198 = this;
-    v98 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v150;
-    this = v198;
-    v28 = v198[30];
-    *v98 = 392;
-    v29 = v98 + 2;
-    if (v28 < 0x80)
-    {
-      goto LABEL_101;
-    }
-  }
-
-  else
-  {
-    v28 = *(this + 30);
-    *a2 = 392;
-    v29 = a2 + 2;
-    if (v28 < 0x80)
-    {
-LABEL_101:
-      LOBYTE(v30) = v28;
-      goto LABEL_102;
-    }
-  }
-
-  do
-  {
-    *v29++ = v28 | 0x80;
-    v30 = v28 >> 7;
-    v99 = v28 >> 14;
-    v28 >>= 7;
-  }
-
-  while (v99);
-LABEL_102:
-  *v29 = v30;
-  a2 = v29 + 1;
-  if ((v4 & 0x10000000) == 0)
-  {
-LABEL_15:
-    if ((v4 & 0x40000) == 0)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_106;
-  }
-
-LABEL_103:
-  if (*a3 <= a2)
-  {
-    v151 = a3;
-    v199 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v151;
-    this = v199;
-  }
-
-  v31 = *(this + 185);
-  *a2 = 400;
-  a2[2] = v31;
-  a2 += 3;
-  if ((v4 & 0x40000) == 0)
-  {
-LABEL_16:
-    if ((v4 & 0x200000) == 0)
-    {
-      goto LABEL_17;
-    }
-
-    goto LABEL_110;
-  }
-
-LABEL_106:
-  if (*a3 <= a2)
-  {
-    v152 = a3;
-    v200 = this;
-    v100 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v152;
-    this = v200;
-    v32 = v200[31];
-    *v100 = 408;
-    v33 = v100 + 2;
-    if (v32 < 0x80)
-    {
-      goto LABEL_108;
-    }
-  }
-
-  else
-  {
-    v32 = *(this + 31);
-    *a2 = 408;
-    v33 = a2 + 2;
-    if (v32 < 0x80)
-    {
-LABEL_108:
-      LOBYTE(v34) = v32;
-      goto LABEL_109;
-    }
-  }
-
-  do
-  {
-    *v33++ = v32 | 0x80;
-    v34 = v32 >> 7;
-    v101 = v32 >> 14;
-    v32 >>= 7;
-  }
-
-  while (v101);
-LABEL_109:
-  *v33 = v34;
-  a2 = v33 + 1;
-  if ((v4 & 0x200000) == 0)
-  {
-LABEL_17:
-    if ((v4 & 0x80000) == 0)
-    {
-      goto LABEL_18;
-    }
-
-    goto LABEL_114;
-  }
-
-LABEL_110:
-  if (*a3 <= a2)
-  {
-    v153 = a3;
-    v201 = this;
-    v102 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v153;
-    this = v201;
-    v35 = v201[36];
-    *v102 = 416;
-    v36 = v102 + 2;
-    if (v35 < 0x80)
-    {
-      goto LABEL_112;
-    }
-  }
-
-  else
-  {
-    v35 = *(this + 36);
-    *a2 = 416;
-    v36 = a2 + 2;
-    if (v35 < 0x80)
-    {
-LABEL_112:
-      LOBYTE(v37) = v35;
-      goto LABEL_113;
-    }
-  }
-
-  do
-  {
-    *v36++ = v35 | 0x80;
-    v37 = v35 >> 7;
-    v103 = v35 >> 14;
-    v35 >>= 7;
-  }
-
-  while (v103);
-LABEL_113:
-  *v36 = v37;
-  a2 = v36 + 1;
-  if ((v4 & 0x80000) == 0)
-  {
-LABEL_18:
-    if ((v4 & 0x100000) == 0)
-    {
-      goto LABEL_19;
-    }
-
-    goto LABEL_117;
-  }
-
-LABEL_114:
-  if (*a3 <= a2)
-  {
-    v154 = a3;
-    v202 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v154;
-    this = v202;
-  }
-
-  v38 = *(this + 16);
-  *a2 = 425;
-  *(a2 + 2) = v38;
-  a2 += 10;
-  if ((v4 & 0x100000) == 0)
-  {
-LABEL_19:
-    if ((v4 & 0x40000000) == 0)
-    {
-      goto LABEL_20;
-    }
-
-    goto LABEL_120;
-  }
-
-LABEL_117:
-  if (*a3 <= a2)
-  {
-    v155 = a3;
-    v203 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v155;
-    this = v203;
-  }
-
-  v39 = *(this + 17);
-  *a2 = 433;
-  *(a2 + 2) = v39;
-  a2 += 10;
-  if ((v4 & 0x40000000) == 0)
-  {
-LABEL_20:
-    if ((v4 & 0x800000) == 0)
-    {
-      goto LABEL_21;
-    }
-
-    goto LABEL_123;
-  }
-
-LABEL_120:
-  if (*a3 <= a2)
-  {
-    v156 = a3;
-    v204 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v156;
-    this = v204;
-  }
-
-  v40 = *(this + 187);
-  *a2 = 448;
-  a2[2] = v40;
-  a2 += 3;
-  if ((v4 & 0x800000) == 0)
-  {
-LABEL_21:
-    if ((v4 & 0x1000000) == 0)
-    {
-      goto LABEL_22;
-    }
-
-    goto LABEL_126;
-  }
-
-LABEL_123:
-  if (*a3 <= a2)
-  {
-    v157 = a3;
-    v205 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v157;
-    this = v205;
-  }
-
-  v41 = *(this + 19);
-  *a2 = 457;
-  *(a2 + 2) = v41;
-  a2 += 10;
-  if ((v4 & 0x1000000) == 0)
-  {
-LABEL_22:
-    if ((v4 & 0x2000000) == 0)
-    {
-      goto LABEL_23;
-    }
-
-    goto LABEL_129;
-  }
-
-LABEL_126:
-  if (*a3 <= a2)
-  {
-    v158 = a3;
-    v206 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v158;
-    this = v206;
-  }
-
-  v42 = *(this + 20);
-  *a2 = 465;
-  *(a2 + 2) = v42;
-  a2 += 10;
-  if ((v4 & 0x2000000) == 0)
-  {
-LABEL_23:
-    if ((v4 & 0x400000) == 0)
-    {
-      goto LABEL_24;
-    }
-
-    goto LABEL_133;
-  }
-
-LABEL_129:
-  if (*a3 <= a2)
-  {
-    v159 = a3;
-    v207 = this;
-    v104 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v159;
-    this = v207;
-    v43 = *(v207 + 21);
-    *v104 = 472;
-    v44 = v104 + 2;
-    if (v43 < 0x80)
-    {
-      goto LABEL_131;
-    }
-  }
-
-  else
-  {
-    v43 = *(this + 21);
-    *a2 = 472;
-    v44 = a2 + 2;
-    if (v43 < 0x80)
-    {
-LABEL_131:
-      LOBYTE(v45) = v43;
-      goto LABEL_132;
-    }
-  }
-
-  do
-  {
-    *v44++ = v43 | 0x80;
-    v45 = v43 >> 7;
-    v105 = v43 >> 14;
-    v43 >>= 7;
-  }
-
-  while (v105);
-LABEL_132:
-  *v44 = v45;
-  a2 = v44 + 1;
-  if ((v4 & 0x400000) == 0)
-  {
-LABEL_24:
-    if ((v4 & 0x4000000) == 0)
-    {
-      goto LABEL_25;
-    }
-
-    goto LABEL_137;
-  }
-
-LABEL_133:
-  if (*a3 <= a2)
-  {
-    v160 = a3;
-    v208 = this;
-    v106 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v160;
-    this = v208;
-    v46 = v208[37];
-    *v106 = 488;
-    v47 = v106 + 2;
-    if (v46 < 0x80)
-    {
-      goto LABEL_135;
-    }
-  }
-
-  else
-  {
-    v46 = *(this + 37);
-    *a2 = 488;
-    v47 = a2 + 2;
-    if (v46 < 0x80)
-    {
-LABEL_135:
-      LOBYTE(v48) = v46;
-      goto LABEL_136;
-    }
-  }
-
-  do
-  {
-    *v47++ = v46 | 0x80;
-    v48 = v46 >> 7;
-    v107 = v46 >> 14;
-    v46 >>= 7;
-  }
-
-  while (v107);
-LABEL_136:
-  *v47 = v48;
-  a2 = v47 + 1;
-  if ((v4 & 0x4000000) == 0)
-  {
-LABEL_25:
-    if ((v4 & 1) == 0)
-    {
-      goto LABEL_26;
-    }
-
-    goto LABEL_140;
-  }
-
-LABEL_137:
-  if (*a3 <= a2)
-  {
-    v161 = a3;
-    v209 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v161;
-    this = v209;
-  }
-
-  v49 = *(this + 22);
-  *a2 = 497;
-  *(a2 + 2) = v49;
-  a2 += 10;
-  if ((v4 & 1) == 0)
-  {
-LABEL_26:
-    if ((v4 & 2) == 0)
-    {
-      goto LABEL_27;
-    }
-
-    goto LABEL_143;
-  }
-
-LABEL_140:
-  if (*a3 <= a2)
-  {
-    v162 = a3;
-    v210 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v162;
-    this = v210;
-  }
-
-  v50 = *(this + 28);
-  *a2 = 504;
-  a2[2] = v50;
-  a2 += 3;
-  if ((v4 & 2) == 0)
-  {
-LABEL_27:
-    if ((v4 & 0x80000000) == 0)
-    {
-      goto LABEL_28;
-    }
-
-    goto LABEL_146;
-  }
-
-LABEL_143:
-  if (*a3 <= a2)
-  {
-    v163 = a3;
-    v211 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v163;
-    this = v211;
-  }
-
-  v51 = *(this + 29);
-  *a2 = 640;
-  a2[2] = v51;
-  a2 += 3;
-  if ((v4 & 0x80000000) == 0)
-  {
-LABEL_28:
-    v5 = *(this + 5);
-    if ((v5 & 0x20) == 0)
-    {
-      goto LABEL_29;
-    }
-
-    goto LABEL_150;
-  }
-
-LABEL_146:
-  if (*a3 <= a2)
-  {
-    v243 = this;
-    v134 = a3;
-    v135 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v134;
-    v136 = v135;
-    this = v243;
-    v52 = v243[47];
-    *v136 = 648;
-    v53 = (v136 + 1);
-    if (v52 < 0x80)
-    {
-      goto LABEL_148;
-    }
-  }
-
-  else
-  {
-    v52 = *(this + 47);
-    *a2 = 648;
-    v53 = a2 + 2;
-    if (v52 < 0x80)
-    {
-LABEL_148:
-      LOBYTE(v54) = v52;
-      goto LABEL_149;
-    }
-  }
-
-  do
-  {
-    *v53++ = v52 | 0x80;
-    v54 = v52 >> 7;
-    v137 = v52 >> 14;
-    v52 >>= 7;
-  }
-
-  while (v137);
-LABEL_149:
-  *v53 = v54;
-  a2 = v53 + 1;
-  v5 = *(this + 5);
-  if ((v5 & 0x20) == 0)
-  {
-LABEL_29:
-    if ((v5 & 0x40) == 0)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_153;
-  }
-
-LABEL_150:
-  if (*a3 <= a2)
-  {
-    v164 = a3;
-    v212 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v164;
-    this = v212;
-  }
-
-  v55 = *(this + 225);
-  *a2 = 656;
-  a2[2] = v55;
-  a2 += 3;
-  if ((v5 & 0x40) == 0)
-  {
-LABEL_30:
-    if ((v5 & 0x80) == 0)
-    {
-      goto LABEL_31;
-    }
-
-    goto LABEL_156;
-  }
-
-LABEL_153:
-  if (*a3 <= a2)
-  {
-    v165 = a3;
-    v213 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v165;
-    this = v213;
-  }
-
-  v56 = *(this + 226);
-  *a2 = 664;
-  a2[2] = v56;
-  a2 += 3;
-  if ((v5 & 0x80) == 0)
-  {
-LABEL_31:
-    if ((v5 & 0x20000) == 0)
-    {
-      goto LABEL_32;
-    }
-
-    goto LABEL_159;
-  }
-
-LABEL_156:
-  if (*a3 <= a2)
-  {
-    v166 = a3;
-    v214 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v166;
-    this = v214;
-  }
-
-  v57 = *(this + 227);
-  *a2 = 672;
-  a2[2] = v57;
-  a2 += 3;
-  if ((v5 & 0x20000) == 0)
-  {
-LABEL_32:
-    if ((v5 & 1) == 0)
-    {
-      goto LABEL_33;
-    }
-
-    goto LABEL_162;
-  }
-
-LABEL_159:
-  if (*a3 <= a2)
-  {
-    v167 = a3;
-    v215 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v167;
-    this = v215;
-  }
-
-  v58 = *(this + 288);
-  *a2 = 680;
-  a2[2] = v58;
-  a2 += 3;
-  if ((v5 & 1) == 0)
-  {
-LABEL_33:
-    if ((v5 & 2) == 0)
-    {
-      goto LABEL_34;
-    }
-
-    goto LABEL_165;
-  }
-
-LABEL_162:
-  if (*a3 <= a2)
-  {
-    v168 = a3;
-    v216 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v168;
-    this = v216;
-  }
-
-  v59 = *(this + 24);
-  *a2 = 689;
-  *(a2 + 2) = v59;
-  a2 += 10;
-  if ((v5 & 2) == 0)
-  {
-LABEL_34:
-    if ((v5 & 4) == 0)
-    {
-      goto LABEL_35;
-    }
-
-    goto LABEL_168;
-  }
-
-LABEL_165:
-  if (*a3 <= a2)
-  {
-    v169 = a3;
-    v217 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v169;
-    this = v217;
-  }
-
-  v60 = *(this + 25);
-  *a2 = 697;
-  *(a2 + 2) = v60;
-  a2 += 10;
-  if ((v5 & 4) == 0)
-  {
-LABEL_35:
-    if ((v5 & 8) == 0)
-    {
-      goto LABEL_36;
-    }
-
-    goto LABEL_171;
-  }
-
-LABEL_168:
-  if (*a3 <= a2)
-  {
-    v170 = a3;
-    v218 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v170;
-    this = v218;
-  }
-
-  v61 = *(this + 26);
-  *a2 = 705;
-  *(a2 + 2) = v61;
-  a2 += 10;
-  if ((v5 & 8) == 0)
-  {
-LABEL_36:
-    if ((v5 & 0x200) == 0)
-    {
-      goto LABEL_37;
-    }
-
-    goto LABEL_174;
-  }
-
-LABEL_171:
-  if (*a3 <= a2)
-  {
-    v171 = a3;
-    v219 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v171;
-    this = v219;
-  }
-
-  v62 = *(this + 27);
-  *a2 = 713;
-  *(a2 + 2) = v62;
-  a2 += 10;
-  if ((v5 & 0x200) == 0)
-  {
-LABEL_37:
-    if ((v5 & 0x100) == 0)
-    {
-      goto LABEL_38;
-    }
-
-    goto LABEL_177;
-  }
-
-LABEL_174:
-  if (*a3 <= a2)
-  {
-    v172 = a3;
-    v220 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v172;
-    this = v220;
-  }
-
-  v63 = *(this + 29);
-  *a2 = 721;
-  *(a2 + 2) = v63;
-  a2 += 10;
-  if ((v5 & 0x100) == 0)
-  {
-LABEL_38:
-    if ((v5 & 0x800) == 0)
-    {
-      goto LABEL_39;
-    }
-
-    goto LABEL_181;
-  }
-
-LABEL_177:
-  if (*a3 <= a2)
-  {
-    v173 = a3;
-    v221 = this;
-    v108 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v173;
-    this = v221;
-    v64 = v221[57];
-    *v108 = 728;
-    v65 = v108 + 2;
-    if (v64 < 0x80)
-    {
-      goto LABEL_179;
-    }
-  }
-
-  else
-  {
-    v64 = *(this + 57);
-    *a2 = 728;
-    v65 = a2 + 2;
-    if (v64 < 0x80)
-    {
-LABEL_179:
-      LOBYTE(v66) = v64;
-      goto LABEL_180;
-    }
-  }
-
-  do
-  {
-    *v65++ = v64 | 0x80;
-    v66 = v64 >> 7;
-    v109 = v64 >> 14;
-    v64 >>= 7;
-  }
-
-  while (v109);
-LABEL_180:
-  *v65 = v66;
-  a2 = v65 + 1;
-  if ((v5 & 0x800) == 0)
-  {
-LABEL_39:
-    if ((v5 & 0x400) == 0)
-    {
-      goto LABEL_40;
-    }
-
-    goto LABEL_185;
-  }
-
-LABEL_181:
-  if (*a3 <= a2)
-  {
-    v174 = a3;
-    v222 = this;
-    v110 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v174;
-    this = v222;
-    v67 = v222[62];
-    *v110 = 736;
-    v68 = v110 + 2;
-    if (v67 < 0x80)
-    {
-      goto LABEL_183;
-    }
-  }
-
-  else
-  {
-    v67 = *(this + 62);
-    *a2 = 736;
-    v68 = a2 + 2;
-    if (v67 < 0x80)
-    {
-LABEL_183:
-      LOBYTE(v69) = v67;
-      goto LABEL_184;
-    }
-  }
-
-  do
-  {
-    *v68++ = v67 | 0x80;
-    v69 = v67 >> 7;
-    v111 = v67 >> 14;
-    v67 >>= 7;
-  }
-
-  while (v111);
-LABEL_184:
-  *v68 = v69;
-  a2 = v68 + 1;
-  if ((v5 & 0x400) == 0)
-  {
-LABEL_40:
-    if ((v5 & 0x2000) == 0)
-    {
-      goto LABEL_41;
-    }
-
-    goto LABEL_188;
-  }
-
-LABEL_185:
-  if (*a3 <= a2)
-  {
-    v175 = a3;
-    v223 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v175;
-    this = v223;
-  }
-
-  v70 = *(this + 30);
-  *a2 = 745;
-  *(a2 + 2) = v70;
-  a2 += 10;
-  if ((v5 & 0x2000) == 0)
-  {
-LABEL_41:
-    if ((*(this + 16) & 4) == 0)
-    {
-      goto LABEL_42;
-    }
-
-    goto LABEL_191;
-  }
-
-LABEL_188:
-  if (*a3 <= a2)
-  {
-    v224 = this;
-    v112 = a3;
-    v113 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v112;
-    a2 = v113;
-    this = v224;
-  }
-
-  v71 = *(this + 32);
-  *a2 = 929;
-  *(a2 + 2) = v71;
-  a2 += 10;
-  if ((*(this + 16) & 4) == 0)
-  {
-LABEL_42:
-    v6 = *(this + 5);
-    if ((v6 & 0x4000) == 0)
-    {
-      goto LABEL_43;
-    }
-
-    goto LABEL_194;
-  }
-
-LABEL_191:
-  if (*a3 <= a2)
-  {
-    v225 = this;
-    v114 = a3;
-    v115 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v114;
-    a2 = v115;
-    this = v225;
-  }
-
-  v72 = *(this + 30);
-  *a2 = 936;
-  a2[2] = v72;
-  a2 += 3;
-  v6 = *(this + 5);
-  if ((v6 & 0x4000) == 0)
-  {
-LABEL_43:
-    if ((v6 & 0x8000) == 0)
-    {
-      goto LABEL_44;
-    }
-
-    goto LABEL_197;
-  }
-
-LABEL_194:
-  if (*a3 <= a2)
-  {
-    v176 = a3;
-    v226 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v176;
-    this = v226;
-  }
-
-  v73 = *(this + 33);
-  *a2 = 945;
-  *(a2 + 2) = v73;
-  a2 += 10;
-  if ((v6 & 0x8000) == 0)
-  {
-LABEL_44:
-    if ((v6 & 0x10000) == 0)
-    {
-      goto LABEL_45;
-    }
-
-    goto LABEL_200;
-  }
-
-LABEL_197:
-  if (*a3 <= a2)
-  {
-    v177 = a3;
-    v227 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v177;
-    this = v227;
-  }
-
-  v74 = *(this + 34);
-  *a2 = 953;
-  *(a2 + 2) = v74;
-  a2 += 10;
-  if ((v6 & 0x10000) == 0)
-  {
-LABEL_45:
-    if ((v6 & 0x1000) == 0)
-    {
-      goto LABEL_46;
-    }
-
-    goto LABEL_203;
-  }
-
-LABEL_200:
-  if (*a3 <= a2)
-  {
-    v178 = a3;
-    v228 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v178;
-    this = v228;
-  }
-
-  v75 = *(this + 35);
-  *a2 = 961;
-  *(a2 + 2) = v75;
-  a2 += 10;
-  if ((v6 & 0x1000) == 0)
-  {
-LABEL_46:
-    if ((v6 & 0x10) == 0)
-    {
-      goto LABEL_47;
-    }
-
-    goto LABEL_207;
-  }
-
-LABEL_203:
-  if (*a3 <= a2)
-  {
-    v179 = a3;
-    v229 = this;
-    v116 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v179;
-    this = v229;
-    v76 = v229[63];
-    *v116 = 968;
-    v77 = v116 + 2;
-    if (v76 < 0x80)
-    {
-      goto LABEL_205;
-    }
-  }
-
-  else
-  {
-    v76 = *(this + 63);
-    *a2 = 968;
-    v77 = a2 + 2;
-    if (v76 < 0x80)
-    {
-LABEL_205:
-      LOBYTE(v78) = v76;
-      goto LABEL_206;
-    }
-  }
-
-  do
-  {
-    *v77++ = v76 | 0x80;
-    v78 = v76 >> 7;
-    v117 = v76 >> 14;
-    v76 >>= 7;
-  }
-
-  while (v117);
-LABEL_206:
-  *v77 = v78;
-  a2 = v77 + 1;
-  if ((v6 & 0x10) == 0)
-  {
-LABEL_47:
-    if ((v6 & 0x400000) == 0)
-    {
-      goto LABEL_48;
-    }
-
-    goto LABEL_210;
-  }
-
-LABEL_207:
-  if (*a3 <= a2)
-  {
-    v180 = a3;
-    v230 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v180;
-    this = v230;
-  }
-
-  v79 = *(this + 224);
-  *a2 = 976;
-  a2[2] = v79;
-  a2 += 3;
-  if ((v6 & 0x400000) == 0)
-  {
-LABEL_48:
-    if ((v6 & 0x200000) == 0)
-    {
-      goto LABEL_49;
-    }
-
-    goto LABEL_213;
-  }
-
-LABEL_210:
-  if (*a3 <= a2)
-  {
-    v181 = a3;
-    v231 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v181;
-    this = v231;
-  }
-
-  v80 = *(this + 37);
-  *a2 = 985;
-  *(a2 + 2) = v80;
-  a2 += 10;
-  if ((v6 & 0x200000) == 0)
-  {
-LABEL_49:
-    if ((*(this + 16) & 8) == 0)
-    {
-      goto LABEL_50;
-    }
-
-    goto LABEL_217;
-  }
-
-LABEL_213:
-  if (*a3 <= a2)
-  {
-    v232 = this;
-    v118 = a3;
-    v119 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v118;
-    v120 = v119;
-    this = v232;
-    v81 = v232[73];
-    *v120 = 992;
-    v82 = (v120 + 1);
-    if (v81 < 0x80)
-    {
-      goto LABEL_215;
-    }
-  }
-
-  else
-  {
-    v81 = *(this + 73);
-    *a2 = 992;
-    v82 = a2 + 2;
-    if (v81 < 0x80)
-    {
-LABEL_215:
-      LOBYTE(v83) = v81;
-      goto LABEL_216;
-    }
-  }
-
-  do
-  {
-    *v82++ = v81 | 0x80;
-    v83 = v81 >> 7;
-    v121 = v81 >> 14;
-    v81 >>= 7;
-  }
-
-  while (v121);
-LABEL_216:
-  *v82 = v83;
-  a2 = v82 + 1;
-  if ((*(this + 16) & 8) == 0)
-  {
-LABEL_50:
-    if ((*(this + 22) & 4) == 0)
-    {
-      goto LABEL_51;
-    }
-
-    goto LABEL_220;
-  }
-
-LABEL_217:
-  if (*a3 <= a2)
-  {
-    v233 = this;
-    v122 = a3;
-    v123 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v122;
-    a2 = v123;
-    this = v233;
-  }
-
-  v84 = *(this + 31);
-  *a2 = 1000;
-  a2[2] = v84;
-  a2 += 3;
-  if ((*(this + 22) & 4) == 0)
-  {
-LABEL_51:
-    if ((*(this + 19) & 0x20) == 0)
-    {
-      goto LABEL_52;
-    }
-
-    goto LABEL_223;
-  }
-
-LABEL_220:
-  if (*a3 <= a2)
-  {
-    v234 = this;
-    v124 = a3;
-    v125 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v124;
-    a2 = v125;
-    this = v234;
-  }
-
-  v85 = *(this + 289);
-  *a2 = 1008;
-  a2[2] = v85;
-  a2 += 3;
-  if ((*(this + 19) & 0x20) == 0)
-  {
-LABEL_52:
-    v7 = *(this + 5);
-    if ((v7 & 0x800000) == 0)
-    {
-      goto LABEL_53;
-    }
-
-    goto LABEL_226;
-  }
-
-LABEL_223:
-  if (*a3 <= a2)
-  {
-    v235 = this;
-    v126 = a3;
-    v127 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v126;
-    a2 = v127;
-    this = v235;
-  }
-
-  v86 = *(this + 186);
-  *a2 = 1016;
-  a2[2] = v86;
-  a2 += 3;
-  v7 = *(this + 5);
-  if ((v7 & 0x800000) == 0)
-  {
-LABEL_53:
-    if ((v7 & 0x100000) == 0)
-    {
-      goto LABEL_54;
-    }
-
-    goto LABEL_229;
-  }
-
-LABEL_226:
-  if (*a3 <= a2)
-  {
-    v182 = a3;
-    v236 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v182;
-    this = v236;
-  }
-
-  v87 = *(this + 38);
-  *a2 = 1153;
-  *(a2 + 2) = v87;
-  a2 += 10;
-  if ((v7 & 0x100000) == 0)
-  {
-LABEL_54:
-    if ((v7 & 0x80000) == 0)
-    {
-      goto LABEL_55;
-    }
-
-    goto LABEL_232;
-  }
-
-LABEL_229:
-  if (*a3 <= a2)
-  {
-    v183 = a3;
-    v237 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v183;
-    this = v237;
-  }
-
-  v88 = *(this + 291);
-  *a2 = 1160;
-  a2[2] = v88;
-  a2 += 3;
-  if ((v7 & 0x80000) == 0)
-  {
-LABEL_55:
-    v8 = *(this + 4);
-    if ((v8 & 0x20) == 0)
-    {
-      goto LABEL_56;
-    }
-
-    goto LABEL_235;
-  }
-
-LABEL_232:
-  if (*a3 <= a2)
-  {
-    v238 = this;
-    v128 = a3;
-    v129 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v128;
-    a2 = v129;
-    this = v238;
-  }
-
-  v89 = *(this + 290);
-  *a2 = 1168;
-  a2[2] = v89;
-  a2 += 3;
-  v8 = *(this + 4);
-  if ((v8 & 0x20) == 0)
-  {
-LABEL_56:
-    if ((v8 & 0x10) == 0)
-    {
-      goto LABEL_57;
-    }
-
-    goto LABEL_238;
-  }
-
-LABEL_235:
-  if (*a3 <= a2)
-  {
-    v184 = a3;
-    v239 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v184;
-    this = v239;
-  }
-
-  v90 = *(this + 33);
-  *a2 = 1176;
-  a2[2] = v90;
-  a2 += 3;
-  if ((v8 & 0x10) == 0)
-  {
-LABEL_57:
-    v9 = *(this + 5);
-    if ((v9 & 0x1000000) == 0)
-    {
-      goto LABEL_58;
-    }
-
-    goto LABEL_241;
-  }
-
-LABEL_238:
-  if (*a3 <= a2)
-  {
-    v240 = this;
-    v130 = a3;
-    v131 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v130;
-    a2 = v131;
-    this = v240;
-  }
-
-  v91 = *(this + 32);
-  *a2 = 1192;
-  a2[2] = v91;
-  a2 += 3;
-  v9 = *(this + 5);
-  if ((v9 & 0x1000000) == 0)
-  {
-LABEL_58:
-    if ((v9 & 0x2000000) == 0)
-    {
-      goto LABEL_59;
-    }
-
-LABEL_244:
-    if (*a3 <= a2)
-    {
-      v242 = this;
-      v132 = a3;
-      v133 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-      a3 = v132;
-      a2 = v133;
-      this = v242;
-    }
-
-    v93 = *(this + 40);
-    *a2 = 1209;
-    *(a2 + 2) = v93;
-    a2 += 10;
-    v10 = *(this + 1);
-    if ((v10 & 1) == 0)
-    {
-      return a2;
-    }
-
-    goto LABEL_247;
-  }
-
-LABEL_241:
-  if (*a3 <= a2)
-  {
-    v185 = a3;
-    v241 = this;
-    a2 = google::protobuf::io::EpsCopyOutputStream::EnsureSpaceFallback(a3, a2);
-    a3 = v185;
-    this = v241;
-  }
-
-  v92 = *(this + 39);
-  *a2 = 1201;
-  *(a2 + 2) = v92;
-  a2 += 10;
-  if ((v9 & 0x2000000) != 0)
-  {
-    goto LABEL_244;
-  }
-
-LABEL_59:
-  v10 = *(this + 1);
-  if ((v10 & 1) == 0)
-  {
-    return a2;
-  }
-
-LABEL_247:
-
-  return google::protobuf::internal::WireFormat::InternalSerializeUnknownFieldsToArray(((v10 & 0xFFFFFFFFFFFFFFFELL) + 8), a2, a3, a4);
-}
-
 char *operations_research::glop::GlopParameters::ByteSizeLong(operations_research::glop::GlopParameters *this)
 {
   v1 = *(this + 4);
@@ -2252,17 +356,14 @@ LABEL_33:
   return google::protobuf::Message::MaybeComputeUnknownFieldsSize(this, v6, this + 6);
 }
 
-operations_research::glop::GlopParameters *operations_research::glop::GlopParameters::CopyFrom(operations_research::glop::GlopParameters *this, const operations_research::glop::GlopParameters *a2)
+void operations_research::glop::GlopParameters::CopyFrom(operations_research::glop::GlopParameters *this, const operations_research::glop::GlopParameters *a2)
 {
   if (a2 != this)
   {
-    v4 = this;
     operations_research::glop::GlopParameters::Clear(this);
 
-    return operations_research::glop::GlopParameters::MergeImpl(v4, a2, v5);
+    operations_research::glop::GlopParameters::MergeImpl(this, a2, v5);
   }
-
-  return this;
 }
 
 double google::protobuf::Arena::DefaultConstruct<operations_research::glop::GlopParameters>(google::protobuf::Arena *a1)
@@ -2502,7 +603,7 @@ LABEL_10:
   *(a1 + 88) = a2;
   if (*(a3 + 80))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(a1 + 72, a3 + 72);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>((a1 + 72), a3 + 72);
   }
 
   *(a1 + 96) = 0;
@@ -2510,7 +611,7 @@ LABEL_10:
   *(a1 + 112) = a2;
   if (*(a3 + 104))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(a1 + 96, a3 + 96);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>((a1 + 96), a3 + 96);
   }
 
   *(a1 + 120) = 0;
@@ -2526,7 +627,7 @@ LABEL_10:
   *(a1 + 160) = a2;
   if (*(a3 + 152))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(a1 + 144, a3 + 144);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>((a1 + 144), a3 + 144);
   }
 
   v23 = *(a3 + 168);
@@ -2604,19 +705,19 @@ void operations_research::sat::SatParameters::~SatParameters(operations_research
   JUMPOUT(0x23EED9460);
 }
 
-void operations_research::sat::SatParameters::MergeImpl(operations_research::sat::SatParameters *this, google::protobuf::MessageLite *a2, const google::protobuf::MessageLite *a3)
+void operations_research::sat::SatParameters::MergeImpl(uint64_t this, google::protobuf::MessageLite *a2, unint64_t a3)
 {
   v5 = *(a2 + 14);
   if (v5)
   {
-    v6 = *(this + 14);
+    v6 = *(this + 56);
     v7 = (v6 + v5);
-    if (*(this + 15) < v7)
+    if (*(this + 60) < v7)
     {
       google::protobuf::RepeatedField<int>::Grow(this + 56, v6, v7);
-      LODWORD(v6) = *(this + 14);
-      v8 = *(this + 8);
-      *(this + 14) = v6 + v5;
+      LODWORD(v6) = *(this + 56);
+      v8 = *(this + 64);
+      *(this + 56) = v6 + v5;
       if (v5 < 1)
       {
         goto LABEL_11;
@@ -2625,8 +726,8 @@ void operations_research::sat::SatParameters::MergeImpl(operations_research::sat
 
     else
     {
-      v8 = *(this + 8);
-      *(this + 14) = v7;
+      v8 = *(this + 64);
+      *(this + 56) = v7;
       if (v5 < 1)
       {
         goto LABEL_11;
@@ -2684,22 +785,22 @@ LABEL_9:
 LABEL_11:
   if (*(a2 + 20))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 72, a2 + 72);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>((this + 72), a2 + 72);
   }
 
   if (*(a2 + 26))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 96, a2 + 96);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>((this + 96), a2 + 96);
   }
 
   if (*(a2 + 32))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage(this + 30, (a2 + 120), google::protobuf::Arena::CopyConstruct<operations_research::sat::SatParameters>);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFromConcreteMessage((this + 120), (a2 + 120), google::protobuf::Arena::CopyConstruct<operations_research::sat::SatParameters>);
   }
 
   if (*(a2 + 38))
   {
-    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>(this + 144, a2 + 144);
+    google::protobuf::internal::RepeatedPtrFieldBase::MergeFrom<std::string>((this + 144), a2 + 144);
   }
 
   v21 = *(a2 + 4);
@@ -2711,11 +812,11 @@ LABEL_11:
   if (v21)
   {
     v23 = *(a2 + 21);
-    *(this + 4) |= 1u;
-    v24 = *(this + 1);
+    *(this + 16) |= 1u;
+    v24 = *(this + 8);
     if (v24)
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 21, (v23 & 0xFFFFFFFFFFFFFFFCLL), *(v24 & 0xFFFFFFFFFFFFFFFELL));
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 168), (v23 & 0xFFFFFFFFFFFFFFFCLL), *(v24 & 0xFFFFFFFFFFFFFFFELL));
       if ((v21 & 2) != 0)
       {
         goto LABEL_70;
@@ -2724,7 +825,7 @@ LABEL_11:
 
     else
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 21, (v23 & 0xFFFFFFFFFFFFFFFCLL), v24);
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 168), (v23 & 0xFFFFFFFFFFFFFFFCLL), v24);
       if ((v21 & 2) != 0)
       {
         goto LABEL_70;
@@ -2739,11 +840,11 @@ LABEL_22:
 
 LABEL_72:
     v27 = *(a2 + 23);
-    *(this + 4) |= 4u;
-    v28 = *(this + 1);
+    *(this + 16) |= 4u;
+    v28 = *(this + 8);
     if (v28)
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 23, (v27 & 0xFFFFFFFFFFFFFFFCLL), *(v28 & 0xFFFFFFFFFFFFFFFELL));
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 184), (v27 & 0xFFFFFFFFFFFFFFFCLL), *(v28 & 0xFFFFFFFFFFFFFFFELL));
       if ((v21 & 8) != 0)
       {
         goto LABEL_74;
@@ -2752,7 +853,7 @@ LABEL_72:
 
     else
     {
-      google::protobuf::internal::ArenaStringPtr::Set<>(this + 23, (v27 & 0xFFFFFFFFFFFFFFFCLL), v28);
+      google::protobuf::internal::ArenaStringPtr::Set<>((this + 184), (v27 & 0xFFFFFFFFFFFFFFFCLL), v28);
       if ((v21 & 8) != 0)
       {
         goto LABEL_74;
@@ -2775,11 +876,11 @@ LABEL_24:
 
 LABEL_70:
   v25 = *(a2 + 22);
-  *(this + 4) |= 2u;
-  v26 = *(this + 1);
+  *(this + 16) |= 2u;
+  v26 = *(this + 8);
   if (v26)
   {
-    google::protobuf::internal::ArenaStringPtr::Set<>(this + 22, (v25 & 0xFFFFFFFFFFFFFFFCLL), *(v26 & 0xFFFFFFFFFFFFFFFELL));
+    google::protobuf::internal::ArenaStringPtr::Set<>((this + 176), (v25 & 0xFFFFFFFFFFFFFFFCLL), *(v26 & 0xFFFFFFFFFFFFFFFELL));
     if ((v21 & 4) != 0)
     {
       goto LABEL_72;
@@ -2788,7 +889,7 @@ LABEL_70:
 
   else
   {
-    google::protobuf::internal::ArenaStringPtr::Set<>(this + 22, (v25 & 0xFFFFFFFFFFFFFFFCLL), v26);
+    google::protobuf::internal::ArenaStringPtr::Set<>((this + 176), (v25 & 0xFFFFFFFFFFFFFFFCLL), v26);
     if ((v21 & 4) != 0)
     {
       goto LABEL_72;
@@ -2802,7 +903,7 @@ LABEL_23:
   }
 
 LABEL_74:
-  *(this + 48) = *(a2 + 48);
+  *(this + 192) = *(a2 + 48);
   if ((v21 & 0x10) == 0)
   {
 LABEL_25:
@@ -2812,7 +913,7 @@ LABEL_25:
     }
 
 LABEL_76:
-    *(this + 25) = *(a2 + 25);
+    *(this + 200) = *(a2 + 25);
     if ((v21 & 0x40) == 0)
     {
 LABEL_27:
@@ -2828,7 +929,7 @@ LABEL_27:
   }
 
 LABEL_75:
-  *(this + 49) = *(a2 + 49);
+  *(this + 196) = *(a2 + 49);
   if ((v21 & 0x20) != 0)
   {
     goto LABEL_76;
@@ -2841,11 +942,11 @@ LABEL_26:
   }
 
 LABEL_77:
-  *(this + 26) = *(a2 + 26);
+  *(this + 208) = *(a2 + 26);
   if ((v21 & 0x80) != 0)
   {
 LABEL_28:
-    *(this + 54) = *(a2 + 54);
+    *(this + 216) = *(a2 + 54);
   }
 
 LABEL_29:
@@ -2856,7 +957,7 @@ LABEL_29:
 
   if ((v21 & 0x100) != 0)
   {
-    *(this + 55) = *(a2 + 55);
+    *(this + 220) = *(a2 + 55);
     if ((v21 & 0x200) == 0)
     {
 LABEL_32:
@@ -2874,7 +975,7 @@ LABEL_32:
     goto LABEL_32;
   }
 
-  *(this + 56) = *(a2 + 56);
+  *(this + 224) = *(a2 + 56);
   if ((v21 & 0x400) == 0)
   {
 LABEL_33:
@@ -2887,7 +988,7 @@ LABEL_33:
   }
 
 LABEL_81:
-  *(this + 57) = *(a2 + 57);
+  *(this + 228) = *(a2 + 57);
   if ((v21 & 0x800) == 0)
   {
 LABEL_34:
@@ -2900,7 +1001,7 @@ LABEL_34:
   }
 
 LABEL_82:
-  *(this + 29) = *(a2 + 29);
+  *(this + 232) = *(a2 + 29);
   if ((v21 & 0x1000) == 0)
   {
 LABEL_35:
@@ -2913,7 +1014,7 @@ LABEL_35:
   }
 
 LABEL_83:
-  *(this + 30) = *(a2 + 30);
+  *(this + 240) = *(a2 + 30);
   if ((v21 & 0x2000) == 0)
   {
 LABEL_36:
@@ -2926,7 +1027,7 @@ LABEL_36:
   }
 
 LABEL_84:
-  *(this + 62) = *(a2 + 62);
+  *(this + 248) = *(a2 + 62);
   if ((v21 & 0x4000) == 0)
   {
 LABEL_37:
@@ -2985,7 +1086,7 @@ LABEL_43:
   }
 
 LABEL_89:
-  *(this + 32) = *(a2 + 32);
+  *(this + 256) = *(a2 + 32);
   if ((v21 & 0x80000) == 0)
   {
 LABEL_44:
@@ -2998,7 +1099,7 @@ LABEL_44:
   }
 
 LABEL_90:
-  *(this + 66) = *(a2 + 66);
+  *(this + 264) = *(a2 + 66);
   if ((v21 & 0x100000) == 0)
   {
 LABEL_45:
@@ -3109,7 +1210,7 @@ LABEL_55:
   }
 
 LABEL_489:
-  *(this + 69) = *(a2 + 69);
+  *(this + 276) = *(a2 + 69);
   if ((v21 & 0x20000000) == 0)
   {
 LABEL_56:
@@ -3328,7 +1429,7 @@ LABEL_110:
   }
 
 LABEL_147:
-  *(this + 37) = *(a2 + 37);
+  *(this + 296) = *(a2 + 37);
   if ((v22 & 0x4000) == 0)
   {
 LABEL_111:
@@ -3341,7 +1442,7 @@ LABEL_111:
   }
 
 LABEL_148:
-  *(this + 76) = *(a2 + 76);
+  *(this + 304) = *(a2 + 76);
   if ((v22 & 0x8000) != 0)
   {
 LABEL_112:
@@ -3630,7 +1731,7 @@ LABEL_140:
       }
 
 LABEL_165:
-      *(this + 83) = *(a2 + 83);
+      *(this + 332) = *(a2 + 83);
       goto LABEL_166;
     }
 
@@ -3758,7 +1859,7 @@ LABEL_176:
 
   if ((v29 & 0x10000) != 0)
   {
-    *(this + 86) = *(a2 + 86);
+    *(this + 344) = *(a2 + 86);
     if ((v29 & 0x20000) == 0)
     {
 LABEL_179:
@@ -3776,7 +1877,7 @@ LABEL_179:
     goto LABEL_179;
   }
 
-  *(this + 87) = *(a2 + 87);
+  *(this + 348) = *(a2 + 87);
   if ((v29 & 0x40000) == 0)
   {
 LABEL_180:
@@ -3828,7 +1929,7 @@ LABEL_183:
   }
 
 LABEL_218:
-  *(this + 89) = *(a2 + 89);
+  *(this + 356) = *(a2 + 89);
   if ((v29 & 0x400000) == 0)
   {
 LABEL_184:
@@ -3841,11 +1942,11 @@ LABEL_184:
   }
 
 LABEL_219:
-  *(this + 45) = *(a2 + 45);
+  *(this + 360) = *(a2 + 45);
   if ((v29 & 0x800000) != 0)
   {
 LABEL_185:
-    *(this + 92) = *(a2 + 92);
+    *(this + 368) = *(a2 + 92);
   }
 
 LABEL_186:
@@ -3856,7 +1957,7 @@ LABEL_186:
 
   if ((v29 & 0x1000000) != 0)
   {
-    *(this + 93) = *(a2 + 93);
+    *(this + 372) = *(a2 + 93);
     if ((v29 & 0x2000000) == 0)
     {
 LABEL_189:
@@ -3874,7 +1975,7 @@ LABEL_189:
     goto LABEL_189;
   }
 
-  *(this + 94) = *(a2 + 94);
+  *(this + 376) = *(a2 + 94);
   if ((v29 & 0x4000000) == 0)
   {
 LABEL_190:
@@ -3887,7 +1988,7 @@ LABEL_190:
   }
 
 LABEL_505:
-  *(this + 95) = *(a2 + 95);
+  *(this + 380) = *(a2 + 95);
   if ((v29 & 0x8000000) == 0)
   {
 LABEL_191:
@@ -3900,7 +2001,7 @@ LABEL_191:
   }
 
 LABEL_506:
-  *(this + 48) = *(a2 + 48);
+  *(this + 384) = *(a2 + 48);
   if ((v29 & 0x10000000) == 0)
   {
 LABEL_192:
@@ -3913,7 +2014,7 @@ LABEL_192:
   }
 
 LABEL_507:
-  *(this + 49) = *(a2 + 49);
+  *(this + 392) = *(a2 + 49);
   if ((v29 & 0x20000000) == 0)
   {
 LABEL_193:
@@ -3926,7 +2027,7 @@ LABEL_193:
   }
 
 LABEL_508:
-  *(this + 50) = *(a2 + 50);
+  *(this + 400) = *(a2 + 50);
   if ((v29 & 0x40000000) == 0)
   {
 LABEL_194:
@@ -3939,7 +2040,7 @@ LABEL_194:
   }
 
 LABEL_509:
-  *(this + 102) = *(a2 + 102);
+  *(this + 408) = *(a2 + 102);
   if ((v29 & 0x80000000) == 0)
   {
 LABEL_195:
@@ -3952,7 +2053,7 @@ LABEL_195:
 LABEL_196:
     if (v30)
     {
-      *(this + 52) = *(a2 + 52);
+      *(this + 416) = *(a2 + 52);
       if ((v30 & 2) == 0)
       {
 LABEL_198:
@@ -3970,7 +2071,7 @@ LABEL_198:
       goto LABEL_198;
     }
 
-    *(this + 53) = *(a2 + 53);
+    *(this + 424) = *(a2 + 53);
     if ((v30 & 4) == 0)
     {
 LABEL_199:
@@ -3983,7 +2084,7 @@ LABEL_199:
     }
 
 LABEL_223:
-    *(this + 54) = *(a2 + 54);
+    *(this + 432) = *(a2 + 54);
     if ((v30 & 8) == 0)
     {
 LABEL_200:
@@ -3996,7 +2097,7 @@ LABEL_200:
     }
 
 LABEL_224:
-    *(this + 110) = *(a2 + 110);
+    *(this + 440) = *(a2 + 110);
     if ((v30 & 0x10) == 0)
     {
 LABEL_201:
@@ -4009,7 +2110,7 @@ LABEL_201:
     }
 
 LABEL_225:
-    *(this + 111) = *(a2 + 111);
+    *(this + 444) = *(a2 + 111);
     if ((v30 & 0x20) == 0)
     {
 LABEL_202:
@@ -4022,7 +2123,7 @@ LABEL_202:
     }
 
 LABEL_226:
-    *(this + 56) = *(a2 + 56);
+    *(this + 448) = *(a2 + 56);
     if ((v30 & 0x40) == 0)
     {
 LABEL_203:
@@ -4032,12 +2133,12 @@ LABEL_203:
       }
 
 LABEL_228:
-      *(this + 58) = *(a2 + 58);
+      *(this + 464) = *(a2 + 58);
       goto LABEL_229;
     }
 
 LABEL_227:
-    *(this + 57) = *(a2 + 57);
+    *(this + 456) = *(a2 + 57);
     if ((v30 & 0x80) == 0)
     {
       goto LABEL_229;
@@ -4047,7 +2148,7 @@ LABEL_227:
   }
 
 LABEL_510:
-  *(this + 103) = *(a2 + 103);
+  *(this + 412) = *(a2 + 103);
   v30 = *(a2 + 7);
   if (v30)
   {
@@ -4062,7 +2163,7 @@ LABEL_229:
 
   if ((v30 & 0x100) != 0)
   {
-    *(this + 118) = *(a2 + 118);
+    *(this + 472) = *(a2 + 118);
     if ((v30 & 0x200) == 0)
     {
 LABEL_232:
@@ -4080,7 +2181,7 @@ LABEL_232:
     goto LABEL_232;
   }
 
-  *(this + 119) = *(a2 + 119);
+  *(this + 476) = *(a2 + 119);
   if ((v30 & 0x400) == 0)
   {
 LABEL_233:
@@ -4093,7 +2194,7 @@ LABEL_233:
   }
 
 LABEL_270:
-  *(this + 60) = *(a2 + 60);
+  *(this + 480) = *(a2 + 60);
   if ((v30 & 0x800) == 0)
   {
 LABEL_234:
@@ -4106,7 +2207,7 @@ LABEL_234:
   }
 
 LABEL_271:
-  *(this + 122) = *(a2 + 122);
+  *(this + 488) = *(a2 + 122);
   if ((v30 & 0x1000) == 0)
   {
 LABEL_235:
@@ -4119,7 +2220,7 @@ LABEL_235:
   }
 
 LABEL_272:
-  *(this + 123) = *(a2 + 123);
+  *(this + 492) = *(a2 + 123);
   if ((v30 & 0x2000) == 0)
   {
 LABEL_236:
@@ -4132,7 +2233,7 @@ LABEL_236:
   }
 
 LABEL_273:
-  *(this + 124) = *(a2 + 124);
+  *(this + 496) = *(a2 + 124);
   if ((v30 & 0x4000) == 0)
   {
 LABEL_237:
@@ -4145,11 +2246,11 @@ LABEL_237:
   }
 
 LABEL_274:
-  *(this + 125) = *(a2 + 125);
+  *(this + 500) = *(a2 + 125);
   if ((v30 & 0x8000) != 0)
   {
 LABEL_238:
-    *(this + 63) = *(a2 + 63);
+    *(this + 504) = *(a2 + 63);
   }
 
 LABEL_239:
@@ -4160,7 +2261,7 @@ LABEL_239:
 
   if ((v30 & 0x10000) != 0)
   {
-    *(this + 128) = *(a2 + 128);
+    *(this + 512) = *(a2 + 128);
     if ((v30 & 0x20000) == 0)
     {
 LABEL_242:
@@ -4178,7 +2279,7 @@ LABEL_242:
     goto LABEL_242;
   }
 
-  *(this + 129) = *(a2 + 129);
+  *(this + 516) = *(a2 + 129);
   if ((v30 & 0x40000) == 0)
   {
 LABEL_243:
@@ -4191,7 +2292,7 @@ LABEL_243:
   }
 
 LABEL_278:
-  *(this + 65) = *(a2 + 65);
+  *(this + 520) = *(a2 + 65);
   if ((v30 & 0x80000) == 0)
   {
 LABEL_244:
@@ -4204,7 +2305,7 @@ LABEL_244:
   }
 
 LABEL_279:
-  *(this + 66) = *(a2 + 66);
+  *(this + 528) = *(a2 + 66);
   if ((v30 & 0x100000) == 0)
   {
 LABEL_245:
@@ -4217,7 +2318,7 @@ LABEL_245:
   }
 
 LABEL_280:
-  *(this + 67) = *(a2 + 67);
+  *(this + 536) = *(a2 + 67);
   if ((v30 & 0x200000) == 0)
   {
 LABEL_246:
@@ -4230,7 +2331,7 @@ LABEL_246:
   }
 
 LABEL_281:
-  *(this + 136) = *(a2 + 136);
+  *(this + 544) = *(a2 + 136);
   if ((v30 & 0x400000) == 0)
   {
 LABEL_247:
@@ -4289,7 +2390,7 @@ LABEL_253:
   }
 
 LABEL_514:
-  *(this + 69) = *(a2 + 69);
+  *(this + 552) = *(a2 + 69);
   if ((v30 & 0x8000000) == 0)
   {
 LABEL_254:
@@ -4302,7 +2403,7 @@ LABEL_254:
   }
 
 LABEL_515:
-  *(this + 140) = *(a2 + 140);
+  *(this + 560) = *(a2 + 140);
   if ((v30 & 0x10000000) == 0)
   {
 LABEL_255:
@@ -4411,7 +2512,7 @@ LABEL_264:
     }
 
 LABEL_288:
-    *(this + 143) = *(a2 + 143);
+    *(this + 572) = *(a2 + 143);
     if ((v31 & 0x20) == 0)
     {
 LABEL_265:
@@ -4424,7 +2525,7 @@ LABEL_265:
     }
 
 LABEL_289:
-    *(this + 144) = *(a2 + 144);
+    *(this + 576) = *(a2 + 144);
     if ((v31 & 0x40) == 0)
     {
 LABEL_266:
@@ -4434,12 +2535,12 @@ LABEL_266:
       }
 
 LABEL_291:
-      *(this + 146) = *(a2 + 146);
+      *(this + 584) = *(a2 + 146);
       goto LABEL_292;
     }
 
 LABEL_290:
-    *(this + 145) = *(a2 + 145);
+    *(this + 580) = *(a2 + 145);
     if ((v31 & 0x80) == 0)
     {
       goto LABEL_292;
@@ -4464,7 +2565,7 @@ LABEL_292:
 
   if ((v31 & 0x100) != 0)
   {
-    *(this + 147) = *(a2 + 147);
+    *(this + 588) = *(a2 + 147);
     if ((v31 & 0x200) == 0)
     {
 LABEL_295:
@@ -4482,7 +2583,7 @@ LABEL_295:
     goto LABEL_295;
   }
 
-  *(this + 74) = *(a2 + 74);
+  *(this + 592) = *(a2 + 74);
   if ((v31 & 0x400) == 0)
   {
 LABEL_296:
@@ -4495,7 +2596,7 @@ LABEL_296:
   }
 
 LABEL_333:
-  *(this + 150) = *(a2 + 150);
+  *(this + 600) = *(a2 + 150);
   if ((v31 & 0x800) == 0)
   {
 LABEL_297:
@@ -4508,7 +2609,7 @@ LABEL_297:
   }
 
 LABEL_334:
-  *(this + 151) = *(a2 + 151);
+  *(this + 604) = *(a2 + 151);
   if ((v31 & 0x1000) == 0)
   {
 LABEL_298:
@@ -4521,7 +2622,7 @@ LABEL_298:
   }
 
 LABEL_335:
-  *(this + 76) = *(a2 + 76);
+  *(this + 608) = *(a2 + 76);
   if ((v31 & 0x2000) == 0)
   {
 LABEL_299:
@@ -4534,7 +2635,7 @@ LABEL_299:
   }
 
 LABEL_336:
-  *(this + 77) = *(a2 + 77);
+  *(this + 616) = *(a2 + 77);
   if ((v31 & 0x4000) == 0)
   {
 LABEL_300:
@@ -4547,11 +2648,11 @@ LABEL_300:
   }
 
 LABEL_337:
-  *(this + 156) = *(a2 + 156);
+  *(this + 624) = *(a2 + 156);
   if ((v31 & 0x8000) != 0)
   {
 LABEL_301:
-    *(this + 157) = *(a2 + 157);
+    *(this + 628) = *(a2 + 157);
   }
 
 LABEL_302:
@@ -4562,7 +2663,7 @@ LABEL_302:
 
   if ((v31 & 0x10000) != 0)
   {
-    *(this + 79) = *(a2 + 79);
+    *(this + 632) = *(a2 + 79);
     if ((v31 & 0x20000) == 0)
     {
 LABEL_305:
@@ -4580,7 +2681,7 @@ LABEL_305:
     goto LABEL_305;
   }
 
-  *(this + 80) = *(a2 + 80);
+  *(this + 640) = *(a2 + 80);
   if ((v31 & 0x40000) == 0)
   {
 LABEL_306:
@@ -4593,7 +2694,7 @@ LABEL_306:
   }
 
 LABEL_341:
-  *(this + 81) = *(a2 + 81);
+  *(this + 648) = *(a2 + 81);
   if ((v31 & 0x80000) == 0)
   {
 LABEL_307:
@@ -4606,7 +2707,7 @@ LABEL_307:
   }
 
 LABEL_342:
-  *(this + 164) = *(a2 + 164);
+  *(this + 656) = *(a2 + 164);
   if ((v31 & 0x100000) == 0)
   {
 LABEL_308:
@@ -4660,7 +2761,7 @@ LABEL_312:
 
   if ((v31 & 0x1000000) != 0)
   {
-    *(this + 83) = *(a2 + 83);
+    *(this + 664) = *(a2 + 83);
     if ((v31 & 0x2000000) == 0)
     {
 LABEL_315:
@@ -4678,7 +2779,7 @@ LABEL_315:
     goto LABEL_315;
   }
 
-  *(this + 84) = *(a2 + 84);
+  *(this + 672) = *(a2 + 84);
   if ((v31 & 0x4000000) == 0)
   {
 LABEL_316:
@@ -4691,7 +2792,7 @@ LABEL_316:
   }
 
 LABEL_523:
-  *(this + 170) = *(a2 + 170);
+  *(this + 680) = *(a2 + 170);
   if ((v31 & 0x8000000) == 0)
   {
 LABEL_317:
@@ -4704,7 +2805,7 @@ LABEL_317:
   }
 
 LABEL_524:
-  *(this + 171) = *(a2 + 171);
+  *(this + 684) = *(a2 + 171);
   if ((v31 & 0x10000000) == 0)
   {
 LABEL_318:
@@ -4813,7 +2914,7 @@ LABEL_327:
     }
 
 LABEL_351:
-    *(this + 174) = *(a2 + 174);
+    *(this + 696) = *(a2 + 174);
     if ((v32 & 0x20) == 0)
     {
 LABEL_328:
@@ -4826,7 +2927,7 @@ LABEL_328:
     }
 
 LABEL_352:
-    *(this + 175) = *(a2 + 175);
+    *(this + 700) = *(a2 + 175);
     if ((v32 & 0x40) == 0)
     {
 LABEL_329:
@@ -4836,12 +2937,12 @@ LABEL_329:
       }
 
 LABEL_354:
-      *(this + 89) = *(a2 + 89);
+      *(this + 712) = *(a2 + 89);
       goto LABEL_355;
     }
 
 LABEL_353:
-    *(this + 88) = *(a2 + 88);
+    *(this + 704) = *(a2 + 88);
     if ((v32 & 0x80) == 0)
     {
       goto LABEL_355;
@@ -4866,7 +2967,7 @@ LABEL_355:
 
   if ((v32 & 0x100) != 0)
   {
-    *(this + 180) = *(a2 + 180);
+    *(this + 720) = *(a2 + 180);
     if ((v32 & 0x200) == 0)
     {
 LABEL_358:
@@ -4936,7 +3037,7 @@ LABEL_362:
   }
 
 LABEL_399:
-  *(this + 91) = *(a2 + 91);
+  *(this + 728) = *(a2 + 91);
   if ((v32 & 0x4000) == 0)
   {
 LABEL_363:
@@ -4949,11 +3050,11 @@ LABEL_363:
   }
 
 LABEL_400:
-  *(this + 184) = *(a2 + 184);
+  *(this + 736) = *(a2 + 184);
   if ((v32 & 0x8000) != 0)
   {
 LABEL_364:
-    *(this + 185) = *(a2 + 185);
+    *(this + 740) = *(a2 + 185);
   }
 
 LABEL_365:
@@ -5119,7 +3220,7 @@ LABEL_381:
   }
 
 LABEL_534:
-  *(this + 189) = *(a2 + 189);
+  *(this + 756) = *(a2 + 189);
   if ((v32 & 0x20000000) == 0)
   {
 LABEL_382:
@@ -5132,7 +3233,7 @@ LABEL_382:
   }
 
 LABEL_535:
-  *(this + 95) = *(a2 + 95);
+  *(this + 760) = *(a2 + 95);
   if ((v32 & 0x40000000) == 0)
   {
 LABEL_383:
@@ -5145,7 +3246,7 @@ LABEL_383:
   }
 
 LABEL_536:
-  *(this + 192) = *(a2 + 192);
+  *(this + 768) = *(a2 + 192);
   if ((v32 & 0x80000000) == 0)
   {
 LABEL_384:
@@ -5202,7 +3303,7 @@ LABEL_389:
     }
 
 LABEL_413:
-    *(this + 194) = *(a2 + 194);
+    *(this + 776) = *(a2 + 194);
     if ((v33 & 0x10) == 0)
     {
 LABEL_390:
@@ -5215,7 +3316,7 @@ LABEL_390:
     }
 
 LABEL_414:
-    *(this + 195) = *(a2 + 195);
+    *(this + 780) = *(a2 + 195);
     if ((v33 & 0x20) == 0)
     {
 LABEL_391:
@@ -5228,7 +3329,7 @@ LABEL_391:
     }
 
 LABEL_415:
-    *(this + 98) = *(a2 + 98);
+    *(this + 784) = *(a2 + 98);
     if ((v33 & 0x40) == 0)
     {
 LABEL_392:
@@ -5238,12 +3339,12 @@ LABEL_392:
       }
 
 LABEL_417:
-      *(this + 100) = *(a2 + 100);
+      *(this + 800) = *(a2 + 100);
       goto LABEL_418;
     }
 
 LABEL_416:
-    *(this + 99) = *(a2 + 99);
+    *(this + 792) = *(a2 + 99);
     if ((v33 & 0x80) == 0)
     {
       goto LABEL_418;
@@ -5268,7 +3369,7 @@ LABEL_418:
 
   if ((v33 & 0x100) != 0)
   {
-    *(this + 202) = *(a2 + 202);
+    *(this + 808) = *(a2 + 202);
     if ((v33 & 0x200) == 0)
     {
 LABEL_421:
@@ -5338,7 +3439,7 @@ LABEL_425:
   }
 
 LABEL_462:
-  *(this + 102) = *(a2 + 102);
+  *(this + 816) = *(a2 + 102);
   if ((v33 & 0x4000) == 0)
   {
 LABEL_426:
@@ -5351,11 +3452,11 @@ LABEL_426:
   }
 
 LABEL_463:
-  *(this + 206) = *(a2 + 206);
+  *(this + 824) = *(a2 + 206);
   if ((v33 & 0x8000) != 0)
   {
 LABEL_427:
-    *(this + 207) = *(a2 + 207);
+    *(this + 828) = *(a2 + 207);
   }
 
 LABEL_428:
@@ -5366,7 +3467,7 @@ LABEL_428:
 
   if ((v33 & 0x10000) != 0)
   {
-    *(this + 104) = *(a2 + 104);
+    *(this + 832) = *(a2 + 104);
     if ((v33 & 0x20000) == 0)
     {
 LABEL_431:
@@ -5384,7 +3485,7 @@ LABEL_431:
     goto LABEL_431;
   }
 
-  *(this + 105) = *(a2 + 105);
+  *(this + 840) = *(a2 + 105);
   if ((v33 & 0x40000) == 0)
   {
 LABEL_432:
@@ -5397,7 +3498,7 @@ LABEL_432:
   }
 
 LABEL_467:
-  *(this + 212) = *(a2 + 212);
+  *(this + 848) = *(a2 + 212);
   if ((v33 & 0x80000) == 0)
   {
 LABEL_433:
@@ -5410,7 +3511,7 @@ LABEL_433:
   }
 
 LABEL_468:
-  *(this + 213) = *(a2 + 213);
+  *(this + 852) = *(a2 + 213);
   if ((v33 & 0x100000) == 0)
   {
 LABEL_434:
@@ -5423,7 +3524,7 @@ LABEL_434:
   }
 
 LABEL_469:
-  *(this + 107) = *(a2 + 107);
+  *(this + 856) = *(a2 + 107);
   if ((v33 & 0x200000) == 0)
   {
 LABEL_435:
@@ -5436,7 +3537,7 @@ LABEL_435:
   }
 
 LABEL_470:
-  *(this + 108) = *(a2 + 108);
+  *(this + 864) = *(a2 + 108);
   if ((v33 & 0x400000) == 0)
   {
 LABEL_436:
@@ -5449,11 +3550,11 @@ LABEL_436:
   }
 
 LABEL_471:
-  *(this + 109) = *(a2 + 109);
+  *(this + 872) = *(a2 + 109);
   if ((v33 & 0x800000) != 0)
   {
 LABEL_437:
-    *(this + 220) = *(a2 + 220);
+    *(this + 880) = *(a2 + 220);
   }
 
 LABEL_438:
@@ -5464,7 +3565,7 @@ LABEL_438:
 
   if ((v33 & 0x1000000) != 0)
   {
-    *(this + 221) = *(a2 + 221);
+    *(this + 884) = *(a2 + 221);
     if ((v33 & 0x2000000) == 0)
     {
 LABEL_441:
@@ -5482,7 +3583,7 @@ LABEL_441:
     goto LABEL_441;
   }
 
-  *(this + 222) = *(a2 + 222);
+  *(this + 888) = *(a2 + 222);
   if ((v33 & 0x4000000) == 0)
   {
 LABEL_442:
@@ -5495,7 +3596,7 @@ LABEL_442:
   }
 
 LABEL_541:
-  *(this + 223) = *(a2 + 223);
+  *(this + 892) = *(a2 + 223);
   if ((v33 & 0x8000000) == 0)
   {
 LABEL_443:
@@ -5508,7 +3609,7 @@ LABEL_443:
   }
 
 LABEL_542:
-  *(this + 112) = *(a2 + 112);
+  *(this + 896) = *(a2 + 112);
   if ((v33 & 0x10000000) == 0)
   {
 LABEL_444:
@@ -5521,7 +3622,7 @@ LABEL_444:
   }
 
 LABEL_543:
-  *(this + 226) = *(a2 + 226);
+  *(this + 904) = *(a2 + 226);
   if ((v33 & 0x20000000) == 0)
   {
 LABEL_445:
@@ -5534,7 +3635,7 @@ LABEL_445:
   }
 
 LABEL_544:
-  *(this + 227) = *(a2 + 227);
+  *(this + 908) = *(a2 + 227);
   if ((v33 & 0x40000000) == 0)
   {
 LABEL_446:
@@ -5547,7 +3648,7 @@ LABEL_446:
   }
 
 LABEL_545:
-  *(this + 114) = *(a2 + 114);
+  *(this + 912) = *(a2 + 114);
   if ((v33 & 0x80000000) == 0)
   {
 LABEL_447:
@@ -5560,7 +3661,7 @@ LABEL_447:
 LABEL_448:
     if (v34)
     {
-      *(this + 232) = *(a2 + 232);
+      *(this + 928) = *(a2 + 232);
       if ((v34 & 2) == 0)
       {
 LABEL_450:
@@ -5578,7 +3679,7 @@ LABEL_450:
       goto LABEL_450;
     }
 
-    *(this + 233) = *(a2 + 233);
+    *(this + 932) = *(a2 + 233);
     if ((v34 & 4) == 0)
     {
 LABEL_451:
@@ -5591,7 +3692,7 @@ LABEL_451:
     }
 
 LABEL_475:
-    *(this + 117) = *(a2 + 117);
+    *(this + 936) = *(a2 + 117);
     if ((v34 & 8) == 0)
     {
 LABEL_452:
@@ -5604,7 +3705,7 @@ LABEL_452:
     }
 
 LABEL_476:
-    *(this + 118) = *(a2 + 118);
+    *(this + 944) = *(a2 + 118);
     if ((v34 & 0x10) == 0)
     {
 LABEL_453:
@@ -5617,7 +3718,7 @@ LABEL_453:
     }
 
 LABEL_477:
-    *(this + 238) = *(a2 + 238);
+    *(this + 952) = *(a2 + 238);
     if ((v34 & 0x20) == 0)
     {
 LABEL_454:
@@ -5630,7 +3731,7 @@ LABEL_454:
     }
 
 LABEL_478:
-    *(this + 239) = *(a2 + 239);
+    *(this + 956) = *(a2 + 239);
     if ((v34 & 0x40) == 0)
     {
 LABEL_455:
@@ -5640,12 +3741,12 @@ LABEL_455:
       }
 
 LABEL_480:
-      *(this + 121) = *(a2 + 121);
+      *(this + 968) = *(a2 + 121);
       goto LABEL_481;
     }
 
 LABEL_479:
-    *(this + 120) = *(a2 + 120);
+    *(this + 960) = *(a2 + 120);
     if ((v34 & 0x80) == 0)
     {
       goto LABEL_481;
@@ -5655,7 +3756,7 @@ LABEL_479:
   }
 
 LABEL_546:
-  *(this + 115) = *(a2 + 115);
+  *(this + 920) = *(a2 + 115);
   v34 = *(a2 + 44);
   if (v34)
   {
@@ -5663,17 +3764,17 @@ LABEL_546:
   }
 
 LABEL_481:
-  v35 = *(this + 3);
-  *(this + 2) |= *(a2 + 2);
-  *(this + 3) = *(a2 + 3) | v35;
-  v36 = *(this + 5);
-  *(this + 4) |= *(a2 + 4);
-  *(this + 5) = *(a2 + 5) | v36;
+  v35 = *(this + 24);
+  *(this + 16) |= *(a2 + 2);
+  *(this + 24) = *(a2 + 3) | v35;
+  v36 = *(this + 40);
+  *(this + 32) |= *(a2 + 4);
+  *(this + 40) = *(a2 + 5) | v36;
   v37 = *(a2 + 1);
   if (v37)
   {
 
-    google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>(this + 1, ((v37 & 0xFFFFFFFFFFFFFFFELL) + 8));
+    google::protobuf::internal::InternalMetadata::DoMergeFrom<google::protobuf::UnknownFieldSet>((this + 8), ((v37 & 0xFFFFFFFFFFFFFFFELL) + 8));
   }
 }
 
@@ -5717,10 +3818,8 @@ google::protobuf::UnknownFieldSet *operations_research::sat::SatParameters::Clea
     goto LABEL_16;
   }
 
-  v3 = *(v1 + 8);
-  if (v3)
+  if (*(v1 + 8))
   {
-    v14 = *(v3 & 0xFFFFFFFFFFFFFFFELL);
     this = google::protobuf::internal::ArenaStringPtr::ClearToDefault((v1 + 168), &operations_research::sat::SatParameters::Impl_::_i_give_permission_to_break_this_code_default_default_restart_algorithms_);
     if ((v2 & 2) != 0)
     {
@@ -5734,11 +3833,11 @@ google::protobuf::UnknownFieldSet *operations_research::sat::SatParameters::Clea
     if ((v2 & 2) != 0)
     {
 LABEL_16:
-      v4 = *(v1 + 176) & 0xFFFFFFFFFFFFFFFCLL;
-      if (*(v4 + 23) < 0)
+      v3 = *(v1 + 176) & 0xFFFFFFFFFFFFFFFCLL;
+      if (*(v3 + 23) < 0)
       {
-        **v4 = 0;
-        *(v4 + 8) = 0;
+        **v3 = 0;
+        *(v3 + 8) = 0;
         if ((v2 & 4) == 0)
         {
           goto LABEL_22;
@@ -5747,8 +3846,8 @@ LABEL_16:
         goto LABEL_20;
       }
 
-      *v4 = 0;
-      *(v4 + 23) = 0;
+      *v3 = 0;
+      *(v3 + 23) = 0;
       if ((v2 & 4) != 0)
       {
         goto LABEL_20;
@@ -5771,16 +3870,16 @@ LABEL_12:
   }
 
 LABEL_20:
-  v5 = *(v1 + 184) & 0xFFFFFFFFFFFFFFFCLL;
-  if ((*(v5 + 23) & 0x80000000) == 0)
+  v4 = *(v1 + 184) & 0xFFFFFFFFFFFFFFFCLL;
+  if ((*(v4 + 23) & 0x80000000) == 0)
   {
-    *v5 = 0;
-    *(v5 + 23) = 0;
+    *v4 = 0;
+    *(v4 + 23) = 0;
     goto LABEL_22;
   }
 
-  **v5 = 0;
-  *(v5 + 8) = 0;
+  **v4 = 0;
+  *(v4 + 8) = 0;
   if ((v2 & 0xF8) != 0)
   {
 LABEL_23:
@@ -5811,42 +3910,42 @@ LABEL_24:
     *(v1 + 279) = 0;
   }
 
-  v6 = *(v1 + 20);
-  if (v6)
+  v5 = *(v1 + 20);
+  if (v5)
   {
     *(v1 + 283) = 0;
   }
 
-  if ((v6 & 0xFF00) != 0)
+  if ((v5 & 0xFF00) != 0)
   {
     *(v1 + 299) = 0;
     *(v1 + 291) = 0;
     *(v1 + 307) = 0;
   }
 
-  if ((v6 & 0xFF0000) != 0)
+  if ((v5 & 0xFF0000) != 0)
   {
     *(v1 + 309) = 0;
   }
 
-  if (HIBYTE(v6))
+  if (HIBYTE(v5))
   {
     *(v1 + 317) = 0;
   }
 
-  v7 = *(v1 + 24);
-  if (v7)
+  v6 = *(v1 + 24);
+  if (v6)
   {
     *(v1 + 332) = 0;
     *(v1 + 325) = 0;
   }
 
-  if ((v7 & 0xFF00) != 0)
+  if ((v6 & 0xFF00) != 0)
   {
     *(v1 + 336) = 0;
   }
 
-  if ((v7 & 0xFF0000) != 0)
+  if ((v6 & 0xFF0000) != 0)
   {
     *(v1 + 344) = 0;
     *(v1 + 352) = 0;
@@ -5854,7 +3953,7 @@ LABEL_24:
     *(v1 + 360) = 0;
   }
 
-  if (HIBYTE(v7))
+  if (HIBYTE(v6))
   {
     *(v1 + 372) = 32;
     *(v1 + 376) = 0x200000001;
@@ -5863,8 +3962,8 @@ LABEL_24:
     *(v1 + 408) = 21474836490000;
   }
 
-  v8 = *(v1 + 28);
-  if (v8)
+  v7 = *(v1 + 28);
+  if (v7)
   {
     *(v1 + 416) = xmmword_23CE3BEE0;
     *(v1 + 432) = 0x3F847AE147AE147BLL;
@@ -5874,7 +3973,7 @@ LABEL_24:
     *(v1 + 464) = 10000;
   }
 
-  if ((v8 & 0xFF00) != 0)
+  if ((v7 & 0xFF00) != 0)
   {
     *(v1 + 472) = 0xC800000001;
     *(v1 + 480) = 0x3FE0000000000000;
@@ -5882,7 +3981,7 @@ LABEL_24:
     *(v1 + 504) = 0x403E000000000000;
   }
 
-  if ((v8 & 0xFF0000) != 0)
+  if ((v7 & 0xFF0000) != 0)
   {
     *(v1 + 512) = 0x3200000005;
     *(v1 + 520) = 0x3FF0000000000000;
@@ -5891,21 +3990,21 @@ LABEL_24:
     *(v1 + 548) = 257;
   }
 
-  if (HIBYTE(v8))
+  if (HIBYTE(v7))
   {
     *(v1 + 550) = 257;
     *(v1 + 552) = 0x3FF0000000000000;
     *(v1 + 560) = 0x101010100000001;
   }
 
-  v9 = *(v1 + 32);
-  if (v9)
+  v8 = *(v1 + 32);
+  if (v8)
   {
     *(v1 + 568) = xmmword_23CE3BF90;
     *(v1 + 584) = 1;
   }
 
-  if ((v9 & 0xFF00) != 0)
+  if ((v8 & 0xFF00) != 0)
   {
     *(v1 + 588) = 2;
     *(v1 + 592) = 0x3FA999999999999ALL;
@@ -5915,14 +4014,14 @@ LABEL_24:
     *(v1 + 624) = 0x3500000032;
   }
 
-  if ((v9 & 0xFF0000) != 0)
+  if ((v8 & 0xFF0000) != 0)
   {
     *(v1 + 632) = 0x3FF0000000000000;
     *(v1 + 640) = xmmword_23CE3BF20;
     *(v1 + 656) = 0x101010100000003;
   }
 
-  if (HIBYTE(v9))
+  if (HIBYTE(v8))
   {
     *(v1 + 664) = 0x426D1A94A2000000;
     *(v1 + 672) = 0x4197D78400000000;
@@ -5930,27 +4029,27 @@ LABEL_24:
     *(v1 + 688) = 16843009;
   }
 
-  v10 = *(v1 + 36);
-  if (v10)
+  v9 = *(v1 + 36);
+  if (v9)
   {
     *(v1 + 692) = 16843009;
     *(v1 + 696) = 0x10000000ALL;
     *(v1 + 704) = xmmword_23CE3BF30;
   }
 
-  if ((v10 & 0xFF00) != 0)
+  if ((v9 & 0xFF00) != 0)
   {
     *(v1 + 720) = 0x1010101000003E8;
     *(v1 + 728) = 0x3F1A36E2EB1C432DLL;
     *(v1 + 736) = 0x3E800000002;
   }
 
-  if ((v10 & 0xFF0000) != 0)
+  if ((v9 & 0xFF0000) != 0)
   {
     *(v1 + 744) = 0x101010101010101;
   }
 
-  if (HIBYTE(v10))
+  if (HIBYTE(v9))
   {
     *(v1 + 752) = 0x201010101;
     *(v1 + 760) = 0x3FE0000000000000;
@@ -5958,8 +4057,8 @@ LABEL_24:
     *(v1 + 772) = 1;
   }
 
-  v11 = *(v1 + 40);
-  if (v11)
+  v10 = *(v1 + 40);
+  if (v10)
   {
     *(v1 + 773) = 257;
     *(v1 + 775) = 1;
@@ -5969,14 +4068,14 @@ LABEL_24:
     *(v1 + 800) = 0x3F50624DD2F1A9FCLL;
   }
 
-  if ((v11 & 0xFF00) != 0)
+  if ((v10 & 0xFF00) != 0)
   {
     *(v1 + 808) = 0x101010100000002;
     *(v1 + 816) = 0x4024000000000000;
     *(v1 + 824) = 0x7D000000002;
   }
 
-  if ((v11 & 0xFF0000) != 0)
+  if ((v10 & 0xFF0000) != 0)
   {
     *(v1 + 832) = xmmword_23CE3BF50;
     *(v1 + 848) = 0x800000003CLL;
@@ -5985,7 +4084,7 @@ LABEL_24:
     *(v1 + 880) = 100;
   }
 
-  if (HIBYTE(v11))
+  if (HIBYTE(v10))
   {
     *(v1 + 884) = 100;
     *(v1 + 888) = 0x100000002;
@@ -6005,12 +4104,12 @@ LABEL_24:
 
   *(v1 + 16) = 0u;
   *(v1 + 32) = 0u;
-  v13 = *(v1 + 8);
-  v12 = (v1 + 8);
-  if (v13)
+  v12 = *(v1 + 8);
+  v11 = (v1 + 8);
+  if (v12)
   {
 
-    return google::protobuf::internal::InternalMetadata::DoClear<google::protobuf::UnknownFieldSet>(v12);
+    return google::protobuf::internal::InternalMetadata::DoClear<google::protobuf::UnknownFieldSet>(v11);
   }
 
   return this;

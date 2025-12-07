@@ -42,7 +42,7 @@
 
 - (void)_setupSubviews
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   [(MUCuratedGuidesSectionView *)self addSubview:self->_carouselView];
   v3 = [[MUEdgeLayout alloc] initWithItem:self->_carouselView container:self];
   [MEMORY[0x1E696F1B8] horizontalLayoutHeightInContext:-[MUCuratedGuidesSectionView carouselContext](self includeExploreGuidesHeight:"carouselContext") isSingleCollection:{-[MKCollectionsCarouselView isShowingExploreGuides](self->_carouselView, "isShowingExploreGuides"), self->_isSingleCollection}];
@@ -51,12 +51,10 @@
   +[MUSizeLayout useIntrinsicContentSize];
   v6 = [(MUSizeLayout *)v4 initWithItem:carouselView size:?];
   v7 = MEMORY[0x1E696ACD8];
-  v10[0] = v3;
-  v10[1] = v6;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[0] = v3;
+  v9[1] = v6;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   [v7 _mapsui_activateLayouts:v8];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initCollectionsCarouselViewWithPlaceCollections:(id)collections usingSyncCoordinator:(id)coordinator withRoutingDelegate:(id)delegate withScrollViewDelegate:(id)viewDelegate withAnalyticsDelegate:(id)analyticsDelegate exploreGuides:(id)guides

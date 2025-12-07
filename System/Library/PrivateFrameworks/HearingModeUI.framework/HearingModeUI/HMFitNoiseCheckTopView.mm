@@ -63,16 +63,15 @@
 - (void)transitionToFitCheckResultWithBudState:(int64_t)state actionStringBlock:(id)block
 {
   v6 = _Block_copy(block);
-  v7 = *(&self->super.super.super.isa + OBJC_IVAR____TtC13HearingModeUI22HMFitNoiseCheckTopView_manager);
   selfCopy = self;
   sub_252063F24();
-  v8 = sub_25205F998();
+  v7 = sub_25205F998();
   sub_25205F418(state, 1, 0);
 
   sub_25205D310(*(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC13HearingModeUI22HMFitNoiseCheckTopView_headphoneDevice), state);
-  v9 = sub_2520646F4();
+  v8 = sub_2520646F4();
 
-  v6[2](v6, v9);
+  v6[2](v6, v8);
 
   _Block_release(v6);
 }
@@ -91,18 +90,17 @@
 
 - (void)transitionToNoiseNudgingPassed
 {
-  v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC13HearingModeUI22HMFitNoiseCheckTopView_manager);
   selfCopy = self;
   sub_252063F24();
-  v3 = MEMORY[0x277D85000];
-  v4 = (*((*MEMORY[0x277D85000] & selfCopy->super.super.super.isa) + 0xB0))();
+  v2 = MEMORY[0x277D85000];
+  v3 = (*((*MEMORY[0x277D85000] & selfCopy->super.super.super.isa) + 0xB0))();
+  [v3 setHidden_];
+
+  v4 = (*((*v2 & selfCopy->super.super.super.isa) + 0x98))();
   [v4 setHidden_];
 
-  v5 = (*((*v3 & selfCopy->super.super.super.isa) + 0x98))();
+  v5 = sub_25205F998();
   [v5 setHidden_];
-
-  v6 = sub_25205F998();
-  [v6 setHidden_];
 }
 
 - (void)testRun

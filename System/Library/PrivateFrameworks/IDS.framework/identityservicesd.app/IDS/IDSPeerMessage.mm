@@ -234,7 +234,7 @@
     v23 = encryptionType;
     encryptionType2 = [(IDSPeerMessage *)self encryptionType];
     v25 = IDSEncryptionTypeStringFromEncryptionType();
-    v26 = [encryptionType2 isEqualToIgnoringCase:v25];
+    v26 = objc_msgSend_isEqualToIgnoringCase_(encryptionType2);
 
     if ((v26 & 1) == 0)
     {

@@ -7,11 +7,13 @@
 - (int64_t)lang_profile_recreate_codes;
 - (int64_t)watermark_detection;
 - (void)setAudio_analytics:(id)audio_analytics;
+- (void)setHas_result:(BOOL)has_result;
 - (void)setLang_profile_recreate_codes:(int64_t)lang_profile_recreate_codes;
 - (void)setLanguage:(id)language;
 - (void)setLatnn_mitigator_result:(id)latnn_mitigator_result;
 - (void)setRecognition_result:(id)recognition_result;
 - (void)setRequest_locale:(id)request_locale;
+- (void)setReturn_code:(int)return_code;
 - (void)setReturn_str:(id)return_str;
 - (void)setSession_id:(id)session_id;
 - (void)setSpeech_id:(id)speech_id;
@@ -20,6 +22,12 @@
 @end
 
 @implementation QSSMutableFinalSpeechRecognitionResponse
+
+- (void)setHas_result:(BOOL)has_result
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:has_result];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
 
 - (BOOL)has_result
 {
@@ -105,6 +113,12 @@
 - (void)setReturn_str:(id)return_str
 {
   v4 = [return_str copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setReturn_code:(int)return_code
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInt:*&return_code];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

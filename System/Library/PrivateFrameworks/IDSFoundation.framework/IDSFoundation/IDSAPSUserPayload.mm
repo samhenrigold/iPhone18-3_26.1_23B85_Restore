@@ -1611,13 +1611,13 @@
     v6 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "Payload received from blastdoor does not match the incoming user payload.", v7, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_1A7AD9000, v6, OS_LOG_TYPE_DEFAULT, "Payload received from blastdoor does not match the incoming user payload.", v11, 2u);
     }
 
-    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+    if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
     {
-      _IDSLogV(0, @"IDSFoundation", @"IDSAPSUserPayload", @"Payload received from blastdoor does not match the incoming user payload.");
+      _IDSLogV(0, @"IDSFoundation", @"IDSAPSUserPayload", @"Payload received from blastdoor does not match the incoming user payload.", v7, v8, v9, v10, *v11);
     }
 
     [(IDSAPSUserPayload *)self logDiffBetween:sourceCopy andTarget:payload withKeyPath:@"."];
@@ -1626,34 +1626,34 @@
 
 - (void)logDiffBetween:(id)between andTarget:(id)target withKeyPath:(id)path
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   betweenCopy = between;
   targetCopy = target;
   pathCopy = path;
-  v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   obj = betweenCopy;
-  v9 = [obj countByEnumeratingWithState:&v54 objects:v67 count:16];
+  v9 = [obj countByEnumeratingWithState:&v62 objects:v75 count:16];
   if (v9)
   {
     v10 = "IDSAPSUserPayload";
-    v11 = *v55;
+    v11 = *v63;
     v12 = @"IDSAPSUserPayload";
     do
     {
       v13 = 0;
-      v46 = v9;
+      v54 = v9;
       do
       {
-        if (*v55 != v11)
+        if (*v63 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v54 + 1) + 8 * v13);
-        v15 = [obj objectForKey:{v14, v39, v40, v41, v42}];
+        v14 = *(*(&v62 + 1) + 8 * v13);
+        v15 = [obj objectForKey:v14];
         v16 = [targetCopy objectForKey:v14];
         v17 = v16;
         if (v15)
@@ -1673,62 +1673,55 @@
               if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138413058;
-                v60 = pathCopy;
-                v61 = 2112;
-                v62 = v14;
-                v63 = 2112;
-                v64 = v15;
-                v65 = 2112;
-                v66 = v17;
+                v68 = pathCopy;
+                v69 = 2112;
+                v70 = v14;
+                v71 = 2112;
+                v72 = v15;
+                v73 = 2112;
+                v74 = v17;
                 _os_log_impl(&dword_1A7AD9000, v19, OS_LOG_TYPE_DEFAULT, "HeaderValueMismatch: key {%@%@}}, Source value {%@}, BlastDoor value {%@}", buf, 0x2Au);
               }
 
-              if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+              if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
               {
-                v41 = v15;
-                v42 = v17;
-                v39 = pathCopy;
-                v40 = v14;
-                _IDSLogV(0, @"IDSFoundation", v12, @"HeaderValueMismatch: key {%@%@}}, Source value {%@}, BlastDoor value {%@}");
+                _IDSLogV(0, @"IDSFoundation", v12, @"HeaderValueMismatch: key {%@%@}}, Source value {%@}, BlastDoor value {%@}", v20, v21, v22, v23, pathCopy);
               }
             }
           }
 
           else
           {
-            v20 = OSLogHandleForIDSCategory();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+            v24 = OSLogHandleForIDSCategory();
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
-              v21 = objc_opt_class();
+              v25 = objc_opt_class();
               *buf = 138413058;
-              v60 = pathCopy;
-              v61 = 2112;
-              v62 = v14;
-              v63 = 2112;
-              v64 = v21;
-              v65 = 2112;
-              v66 = v15;
-              v22 = targetCopy;
-              v23 = v11;
-              v24 = v12;
-              v25 = v10;
-              v26 = v21;
-              _os_log_impl(&dword_1A7AD9000, v20, OS_LOG_TYPE_DEFAULT, "MissingHeader: key {%@%@}, object class{%@}, value {%@}", buf, 0x2Au);
+              v68 = pathCopy;
+              v69 = 2112;
+              v70 = v14;
+              v71 = 2112;
+              v72 = v25;
+              v73 = 2112;
+              v74 = v15;
+              v26 = targetCopy;
+              v27 = v11;
+              v28 = v12;
+              v29 = v10;
+              v30 = v25;
+              _os_log_impl(&dword_1A7AD9000, v24, OS_LOG_TYPE_DEFAULT, "MissingHeader: key {%@%@}, object class{%@}, value {%@}", buf, 0x2Au);
 
-              v10 = v25;
-              v12 = v24;
-              v11 = v23;
-              targetCopy = v22;
-              v9 = v46;
+              v10 = v29;
+              v12 = v28;
+              v11 = v27;
+              targetCopy = v26;
+              v9 = v54;
             }
 
-            if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+            if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
             {
-              v41 = objc_opt_class();
-              v42 = v15;
-              v39 = pathCopy;
-              v40 = v14;
-              _IDSLogV(0, @"IDSFoundation", v12, @"MissingHeader: key {%@%@}, object class{%@}, value {%@}");
+              objc_opt_class();
+              _IDSLogV(0, @"IDSFoundation", v12, @"MissingHeader: key {%@%@}, object class{%@}, value {%@}", v31, v32, v33, v34, pathCopy);
             }
           }
         }
@@ -1737,71 +1730,68 @@
       }
 
       while (v9 != v13);
-      v9 = [obj countByEnumeratingWithState:&v54 objects:v67 count:16];
+      v9 = [obj countByEnumeratingWithState:&v62 objects:v75 count:16];
     }
 
     while (v9);
   }
 
-  v27 = objc_alloc(MEMORY[0x1E695DFD8]);
+  v35 = objc_alloc(MEMORY[0x1E695DFD8]);
   allKeys = [obj allKeys];
-  v43 = [v27 initWithArray:allKeys];
+  v51 = [v35 initWithArray:allKeys];
 
-  v29 = objc_alloc(MEMORY[0x1E695DFA8]);
+  v37 = objc_alloc(MEMORY[0x1E695DFA8]);
   allKeys2 = [targetCopy allKeys];
-  v45 = [v29 initWithArray:allKeys2];
+  v53 = [v37 initWithArray:allKeys2];
 
-  [v45 minusSet:v43];
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  allObjects = [v45 allObjects];
-  v31 = [allObjects countByEnumeratingWithState:&v50 objects:v58 count:16];
-  if (v31)
+  [v53 minusSet:v51];
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  allObjects = [v53 allObjects];
+  v39 = [allObjects countByEnumeratingWithState:&v58 objects:v66 count:16];
+  if (v39)
   {
-    v32 = *v51;
+    v40 = *v59;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v51 != v32)
+        if (*v59 != v40)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v34 = *(*(&v50 + 1) + 8 * i);
-        v35 = [targetCopy objectForKey:{v34, v39, v40, v41, v42}];
-        v36 = OSLogHandleForIDSCategory();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v42 = *(*(&v58 + 1) + 8 * i);
+        v43 = [targetCopy objectForKey:v42];
+        v44 = OSLogHandleForIDSCategory();
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
-          v37 = objc_opt_class();
+          v45 = objc_opt_class();
           *buf = 138413058;
-          v60 = pathCopy;
-          v61 = 2112;
-          v62 = v34;
-          v63 = 2112;
-          v64 = v37;
-          v65 = 2112;
-          v66 = v35;
-          v38 = v37;
-          _os_log_impl(&dword_1A7AD9000, v36, OS_LOG_TYPE_DEFAULT, "Extraheader: key {%@%@}, object class{%@}, value {%@}", buf, 0x2Au);
+          v68 = pathCopy;
+          v69 = 2112;
+          v70 = v42;
+          v71 = 2112;
+          v72 = v45;
+          v73 = 2112;
+          v74 = v43;
+          v46 = v45;
+          _os_log_impl(&dword_1A7AD9000, v44, OS_LOG_TYPE_DEFAULT, "Extraheader: key {%@%@}, object class{%@}, value {%@}", buf, 0x2Au);
         }
 
-        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog())
+        if (os_log_shim_legacy_logging_enabled() && _IDSShouldLog(0))
         {
-          v41 = objc_opt_class();
-          v42 = v35;
-          v39 = pathCopy;
-          v40 = v34;
-          _IDSLogV(0, @"IDSFoundation", @"IDSAPSUserPayload", @"Extraheader: key {%@%@}, object class{%@}, value {%@}");
+          objc_opt_class();
+          _IDSLogV(0, @"IDSFoundation", @"IDSAPSUserPayload", @"Extraheader: key {%@%@}, object class{%@}, value {%@}", v47, v48, v49, v50, pathCopy);
         }
       }
 
-      v31 = [allObjects countByEnumeratingWithState:&v50 objects:v58 count:16];
+      v39 = [allObjects countByEnumeratingWithState:&v58 objects:v66 count:16];
     }
 
-    while (v31);
+    while (v39);
   }
 }
 

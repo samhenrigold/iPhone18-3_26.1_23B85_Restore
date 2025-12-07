@@ -1,4 +1,5 @@
 @interface _MLCGPUUpsample
++ (id)layerWithDevice:(id)device scaleFactorX:(float)x scaleFactorY:(float)y sampleMode:(int)mode alignCorners:(BOOL)corners;
 - (_MLCGPUUpsample)initWithDevice:(id)device scaleFactorX:(float)x scaleFactorY:(float)y sampleMode:(int)mode alignCorners:(BOOL)corners;
 @end
 
@@ -108,6 +109,19 @@
   }
 
   return v13;
+}
+
++ (id)layerWithDevice:(id)device scaleFactorX:(float)x scaleFactorY:(float)y sampleMode:(int)mode alignCorners:(BOOL)corners
+{
+  cornersCopy = corners;
+  v8 = *&mode;
+  deviceCopy = device;
+  v13 = [self alloc];
+  *&v14 = x;
+  *&v15 = y;
+  v16 = [v13 initWithDevice:deviceCopy scaleFactorX:v8 scaleFactorY:cornersCopy sampleMode:v14 alignCorners:v15];
+
+  return v16;
 }
 
 @end

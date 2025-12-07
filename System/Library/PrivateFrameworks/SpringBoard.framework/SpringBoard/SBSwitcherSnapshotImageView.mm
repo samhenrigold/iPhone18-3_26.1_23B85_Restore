@@ -60,7 +60,7 @@
     [(UIView *)self->_scalingView center];
     [(UIImageView *)v16 setCenter:?];
     memset(&v22, 0, sizeof(v22));
-    [(SBSwitcherSnapshotImageView *)self scalingTransform];
+    objc_msgSend_scalingTransform(self);
     if (self->_stretchToFillBounds)
     {
       v20 = v22;

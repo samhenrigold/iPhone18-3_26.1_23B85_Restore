@@ -91,45 +91,45 @@
   [(PKPaymentDevice *)&v4 dealloc];
 }
 
-void __39__PKPaymentDevice_clientInfoHTTPHeader__block_invoke()
+void __39__PKPaymentDevice_clientInfoHTTPHeader__block_invoke(uint64_t a1)
 {
-  v0 = MEMORY[0x1E696AEC0];
-  v1 = PKProductType();
-  v22 = [v0 stringWithFormat:@"%@", v1];
+  v1 = MEMORY[0x1E696AEC0];
+  v2 = PKProductType();
+  v23 = [v1 stringWithFormat:@"%@", v2];
 
-  v2 = PKClientHTTPHeaderOSPartOverride();
-  v3 = v2;
-  if (v2)
+  v3 = PKClientHTTPHeaderOSPartOverride();
+  v4 = v3;
+  if (v3)
   {
-    v4 = v2;
+    v5 = v3;
   }
 
   else
   {
-    v5 = MEMORY[0x1E696AEC0];
-    v6 = MGCopyAnswer();
-    v7 = PKOSVersion();
-    v8 = PKDeviceBuildVersion();
-    v4 = [v5 stringWithFormat:@"%@%@;%@", v6, v7, v8];;
+    v6 = MEMORY[0x1E696AEC0];
+    v7 = MGCopyAnswer();
+    v8 = PKOSVersion();
+    v9 = PKDeviceBuildVersion();
+    v5 = [v6 stringWithFormat:@"%@%@;%@", v7, v8, v9];;
   }
 
-  v9 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v10 = [v9 infoDictionary];
-  v11 = *MEMORY[0x1E695E500];
-  v12 = [v10 objectForKey:*MEMORY[0x1E695E500]];
+  v10 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v11 = [v10 infoDictionary];
+  v12 = *MEMORY[0x1E695E500];
+  v13 = [v11 objectForKey:*MEMORY[0x1E695E500]];
 
-  v13 = [MEMORY[0x1E696AAE8] mainBundle];
-  v14 = [v13 infoDictionary];
-  v15 = [v14 objectForKey:v11];
+  v14 = [MEMORY[0x1E696AAE8] mainBundle];
+  v15 = [v14 infoDictionary];
+  v16 = [v15 objectForKey:v12];
 
-  v16 = MEMORY[0x1E696AEC0];
-  v17 = [v9 bundleIdentifier];
-  v18 = [v13 bundleIdentifier];
-  v19 = [v16 stringWithFormat:@"%@/%@ (%@/%@)", v17, v12, v18, v15];
+  v17 = MEMORY[0x1E696AEC0];
+  v18 = [v10 bundleIdentifier];
+  v19 = [v14 bundleIdentifier];
+  v20 = [v17 stringWithFormat:@"%@/%@ (%@/%@)", v18, v13, v19, v16];
 
-  v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@> <%@> <%@>", v22, v4, v19];
-  v21 = _MergedGlobals_186;
-  _MergedGlobals_186 = v20;
+  v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@> <%@> <%@>", v23, v5, v20];
+  v22 = _MergedGlobals_186;
+  _MergedGlobals_186 = v21;
 }
 
 void __55__PKPaymentDevice_clientHardwarePlatformInfoHTTPHeader__block_invoke()
@@ -755,20 +755,20 @@ void __51__PKPaymentDevice_rewrapDataWithCompletionHandler___block_invoke_411(ui
   }
 }
 
-void __65__PKPaymentDevice__populateDeviceMetadata_withFields_completion___block_invoke(uint64_t a1)
+void __65__PKPaymentDevice__populateDeviceMetadata_withFields_completion___block_invoke(PKPaymentWebServiceLocalProxyTargetDevice *a1, const char *a2, void *a3)
 {
-  v2 = *(a1 + 56);
-  if ((v2 & 0x10) != 0)
+  handlerQueue = a1[2]._handlerQueue;
+  if ((handlerQueue & 0x10) != 0)
   {
-    v3 = *(a1 + 32);
-    v4 = PKAssignedDeviceName();
-    [v3 setDeviceName:v4];
+    v5 = a1[1]._handlerQueue;
+    v6 = PKAssignedDeviceName();
+    [(OS_dispatch_queue *)v5 setDeviceName:v6];
 
-    v2 = *(a1 + 56);
-    if ((v2 & 8) == 0)
+    handlerQueue = a1[2]._handlerQueue;
+    if ((handlerQueue & 8) == 0)
     {
 LABEL_3:
-      if ((v2 & 2) == 0)
+      if ((handlerQueue & 2) == 0)
       {
         goto LABEL_4;
       }
@@ -777,20 +777,20 @@ LABEL_3:
     }
   }
 
-  else if ((v2 & 8) == 0)
+  else if ((handlerQueue & 8) == 0)
   {
     goto LABEL_3;
   }
 
-  v5 = *(a1 + 32);
-  v6 = PKSerialNumber();
-  [v5 setSerialNumber:v6];
+  v7 = a1[1]._handlerQueue;
+  v8 = PKSerialNumber();
+  [(OS_dispatch_queue *)v7 setSerialNumber:v8];
 
-  v2 = *(a1 + 56);
-  if ((v2 & 2) == 0)
+  handlerQueue = a1[2]._handlerQueue;
+  if ((handlerQueue & 2) == 0)
   {
 LABEL_4:
-    if ((v2 & 4) == 0)
+    if ((handlerQueue & 4) == 0)
     {
       goto LABEL_5;
     }
@@ -799,15 +799,15 @@ LABEL_4:
   }
 
 LABEL_12:
-  v7 = *(a1 + 32);
-  v8 = PKUniqueDeviceIdentifier();
-  [v7 setUniqueDeviceIdentifier:v8];
+  v9 = a1[1]._handlerQueue;
+  v10 = PKUniqueDeviceIdentifier();
+  [(OS_dispatch_queue *)v9 setUniqueDeviceIdentifier:v10];
 
-  v2 = *(a1 + 56);
-  if ((v2 & 4) == 0)
+  handlerQueue = a1[2]._handlerQueue;
+  if ((handlerQueue & 4) == 0)
   {
 LABEL_5:
-    if ((v2 & 1) == 0)
+    if ((handlerQueue & 1) == 0)
     {
       goto LABEL_6;
     }
@@ -816,15 +816,15 @@ LABEL_5:
   }
 
 LABEL_13:
-  v9 = *(a1 + 32);
-  v10 = PKUniqueChipIdentifier();
-  [v9 setUniqueChipIdentifier:v10];
+  v11 = a1[1]._handlerQueue;
+  v12 = PKUniqueChipIdentifier();
+  [(OS_dispatch_queue *)v11 setUniqueChipIdentifier:v12];
 
-  v2 = *(a1 + 56);
-  if ((v2 & 1) == 0)
+  handlerQueue = a1[2]._handlerQueue;
+  if ((handlerQueue & 1) == 0)
   {
 LABEL_6:
-    if ((v2 & 0x100) == 0)
+    if ((handlerQueue & 0x100) == 0)
     {
       goto LABEL_7;
     }
@@ -833,15 +833,15 @@ LABEL_6:
   }
 
 LABEL_14:
-  v11 = *(a1 + 32);
-  v12 = [*(*(a1 + 40) + 32) primarySecureElementIdentifier];
-  [v11 setSecureElementIdentifier:v12];
+  v13 = a1[1]._handlerQueue;
+  v14 = [(objc_class *)a1[1]._connection[4].super.isa primarySecureElementIdentifier];
+  [(OS_dispatch_queue *)v13 setSecureElementIdentifier:v14];
 
-  v2 = *(a1 + 56);
-  if ((v2 & 0x100) == 0)
+  handlerQueue = a1[2]._handlerQueue;
+  if ((handlerQueue & 0x100) == 0)
   {
 LABEL_7:
-    if ((v2 & 0x20) == 0)
+    if ((handlerQueue & 0x20) == 0)
     {
       goto LABEL_8;
     }
@@ -850,15 +850,15 @@ LABEL_7:
   }
 
 LABEL_15:
-  v13 = *(a1 + 32);
-  v14 = [*(*(a1 + 40) + 32) primaryJSBLSequenceCounter];
-  [v13 setPrimaryJSBLSequenceCounter:v14];
+  v15 = a1[1]._handlerQueue;
+  v16 = [(objc_class *)a1[1]._connection[4].super.isa primaryJSBLSequenceCounter];
+  [(OS_dispatch_queue *)v15 setPrimaryJSBLSequenceCounter:v16];
 
-  v2 = *(a1 + 56);
-  if ((v2 & 0x20) == 0)
+  handlerQueue = a1[2]._handlerQueue;
+  if ((handlerQueue & 0x20) == 0)
   {
 LABEL_8:
-    if ((v2 & 0x40) == 0)
+    if ((handlerQueue & 0x40) == 0)
     {
       goto LABEL_22;
     }
@@ -867,130 +867,130 @@ LABEL_8:
   }
 
 LABEL_16:
-  v15 = PKDevicePhoneNumber();
-  if ([v15 length])
+  v17 = PKDevicePhoneNumber();
+  if ([v17 length])
   {
-    [*(a1 + 32) setPhoneNumber:v15];
+    [(OS_dispatch_queue *)a1[1]._handlerQueue setPhoneNumber:v17];
   }
 
-  if ((*(a1 + 56) & 0x40) != 0)
+  if ((a1[2]._handlerQueue & 0x40) != 0)
   {
 LABEL_19:
-    v16 = PKDevicePhoneNumberSignature();
-    v17 = v16;
-    if (v16)
+    v18 = PKDevicePhoneNumberSignature();
+    v19 = v18;
+    if (v18)
     {
-      v18 = *(a1 + 32);
-      v19 = [v16 objectForKeyedSubscript:*MEMORY[0x1E69654F0]];
-      [v18 setSignedPhoneNumber:v19];
+      v20 = a1[1]._handlerQueue;
+      v21 = [v18 objectForKeyedSubscript:*MEMORY[0x1E69654F0]];
+      [(OS_dispatch_queue *)v20 setSignedPhoneNumber:v21];
 
-      v20 = *(a1 + 32);
-      v21 = [v17 objectForKeyedSubscript:*MEMORY[0x1E69654F8]];
-      [v20 setSignedPhoneNumberVersion:v21];
+      v22 = a1[1]._handlerQueue;
+      v23 = [v19 objectForKeyedSubscript:*MEMORY[0x1E69654F8]];
+      [(OS_dispatch_queue *)v22 setSignedPhoneNumberVersion:v23];
     }
   }
 
 LABEL_22:
-  v22 = MEMORY[0x1E695FBE8];
-  v23 = PKPassKitCoreBundle();
-  v24 = [v23 bundlePath];
-  v25 = [v22 authorizationStatusForBundlePath:v24];
+  v24 = MEMORY[0x1E695FBE8];
+  v25 = PKPassKitCoreBundle();
+  v26 = [v25 bundlePath];
+  v27 = [v24 authorizationStatusForBundlePath:v26];
 
-  if ([MEMORY[0x1E695FBE8] locationServicesEnabled] && (v25 - 3) <= 0xFFFFFFFD && (objc_msgSend(*(a1 + 40), "skipLocationCheck") & 1) == 0 && (*(a1 + 56) & 0x80) != 0)
+  if ([MEMORY[0x1E695FBE8] locationServicesEnabled] && (v27 - 3) <= 0xFFFFFFFD && (-[NSXPCConnection skipLocationCheck](a1[1]._connection, "skipLocationCheck") & 1) == 0 && (a1[2]._handlerQueue & 0x80) != 0)
   {
-    v30 = PKLogFacilityTypeGetObject(7uLL);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v32 = PKLogFacilityTypeGetObject(7uLL);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1AD337000, v30, OS_LOG_TYPE_DEFAULT, "Can determine device location.", buf, 2u);
+      _os_log_impl(&dword_1AD337000, v32, OS_LOG_TYPE_DEFAULT, "Can determine device location.", buf, 2u);
     }
 
-    v31 = *(a1 + 40);
-    if (!*(v31 + 8))
+    connection = a1[1]._connection;
+    if (!connection[1].super.isa)
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __65__PKPaymentDevice__populateDeviceMetadata_withFields_completion___block_invoke_416;
       block[3] = &unk_1E79C4E28;
-      block[4] = v31;
+      block[4] = connection;
       dispatch_sync(MEMORY[0x1E69E96A0], block);
     }
 
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1AD337000, v30, OS_LOG_TYPE_DEFAULT, "Requesting when in user authorization for PassKitCore", buf, 2u);
+      _os_log_impl(&dword_1AD337000, v32, OS_LOG_TYPE_DEFAULT, "Requesting when in user authorization for PassKitCore", buf, 2u);
     }
 
-    [*(*(a1 + 40) + 8) requestWhenInUseAuthorization];
-    v32 = [*(*(a1 + 40) + 8) location];
-    v29 = v32;
-    if (!*(*(a1 + 40) + 24) && v32 && _LocationMeetsAccuracyCriteria(v32))
+    [(objc_class *)a1[1]._connection[1].super.isa requestWhenInUseAuthorization];
+    v34 = [(objc_class *)a1[1]._connection[1].super.isa location];
+    v31 = v34;
+    if (!a1[1]._connection[3].super.isa && v34 && _LocationMeetsAccuracyCriteria(v34))
     {
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AD337000, v30, OS_LOG_TYPE_DEFAULT, "Immediately retrieved location", buf, 2u);
+        _os_log_impl(&dword_1AD337000, v32, OS_LOG_TYPE_DEFAULT, "Immediately retrieved location", buf, 2u);
       }
 
-      [*(a1 + 32) setLocation:v29];
-      v33 = *(*(a1 + 40) + 56);
-      v48[0] = MEMORY[0x1E69E9820];
-      v48[1] = 3221225472;
-      v48[2] = __65__PKPaymentDevice__populateDeviceMetadata_withFields_completion___block_invoke_420;
-      v48[3] = &unk_1E79C44A0;
-      v50 = *(a1 + 48);
-      v49 = *(a1 + 32);
-      v34 = v48;
+      [(OS_dispatch_queue *)a1[1]._handlerQueue setLocation:v31];
+      isa = a1[1]._connection[7].super.isa;
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __65__PKPaymentDevice__populateDeviceMetadata_withFields_completion___block_invoke_420;
+      v50[3] = &unk_1E79C44A0;
+      v52 = a1[2].super.isa;
+      v51 = a1[1]._handlerQueue;
+      v36 = v50;
       *buf = MEMORY[0x1E69E9820];
-      v55 = 3221225472;
-      v56 = __dispatch_async_ar_block_invoke;
-      v57 = &unk_1E79C4428;
-      v58 = v34;
-      dispatch_async(v33, buf);
+      v57 = 3221225472;
+      v58 = __dispatch_async_ar_block_invoke;
+      v59 = &unk_1E79C4428;
+      v60 = v36;
+      dispatch_async(isa, buf);
 
-      v35 = v50;
+      v37 = v52;
     }
 
     else
     {
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1AD337000, v30, OS_LOG_TYPE_DEFAULT, "Start updating location…", buf, 2u);
+        _os_log_impl(&dword_1AD337000, v32, OS_LOG_TYPE_DEFAULT, "Start updating location…", buf, 2u);
       }
 
-      v35 = objc_alloc_init(PKPaymentDeviceMetadataFetchTask);
-      [(PKPaymentDeviceMetadataFetchTask *)v35 setDeviceMetadata:*(a1 + 32)];
-      [(PKPaymentDeviceMetadataFetchTask *)v35 setRequestedFields:*(a1 + 56)];
-      [(PKPaymentDeviceMetadataFetchTask *)v35 setRemaningFields:128];
-      [(PKPaymentDeviceMetadataFetchTask *)v35 setCompletion:*(a1 + 48)];
-      [*(*(a1 + 40) + 48) addObject:v35];
-      v36 = *(a1 + 40);
-      if (!*(v36 + 24))
+      v37 = objc_alloc_init(PKPaymentDeviceMetadataFetchTask);
+      [(PKPaymentDeviceMetadataFetchTask *)v37 setDeviceMetadata:a1[1]._handlerQueue];
+      [(PKPaymentDeviceMetadataFetchTask *)v37 setRequestedFields:a1[2]._handlerQueue];
+      [(PKPaymentDeviceMetadataFetchTask *)v37 setRemaningFields:128];
+      [(PKPaymentDeviceMetadataFetchTask *)v37 setCompletion:a1[2].super.isa];
+      [(objc_class *)a1[1]._connection[6].super.isa addObject:v37];
+      v38 = a1[1]._connection;
+      if (!v38[3].super.isa)
       {
-        v37 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, *(v36 + 64));
-        v38 = *(a1 + 40);
-        v39 = *(v38 + 24);
-        *(v38 + 24) = v37;
+        v39 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v38[8].super.isa);
+        v40 = a1[1]._connection;
+        v41 = v40[3].super.isa;
+        v40[3].super.isa = v39;
 
-        v40 = *(*(a1 + 40) + 24);
-        v41 = dispatch_walltime(0, 10000000000);
-        dispatch_source_set_timer(v40, v41, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
-        v42 = *(a1 + 40);
-        v43 = v42[3];
-        objc_initWeak(buf, v42);
-        v44 = *(*(a1 + 40) + 24);
+        v42 = a1[1]._connection[3].super.isa;
+        v43 = dispatch_walltime(0, 10000000000);
+        dispatch_source_set_timer(v42, v43, 0xFFFFFFFFFFFFFFFFLL, 0x3B9ACA00uLL);
+        v44 = a1[1]._connection;
+        v45 = v44[3].super.isa;
+        objc_initWeak(buf, v44);
+        v46 = a1[1]._connection[3].super.isa;
         handler[0] = MEMORY[0x1E69E9820];
         handler[1] = 3221225472;
         handler[2] = __65__PKPaymentDevice__populateDeviceMetadata_withFields_completion___block_invoke_419;
         handler[3] = &unk_1E79C51A8;
-        objc_copyWeak(v52, buf);
-        v52[1] = v43;
-        dispatch_source_set_event_handler(v44, handler);
-        dispatch_resume(*(*(a1 + 40) + 24));
-        [*(*(a1 + 40) + 8) startUpdatingLocation];
-        objc_destroyWeak(v52);
+        objc_copyWeak(v54, buf);
+        v54[1] = v45;
+        dispatch_source_set_event_handler(v46, handler);
+        dispatch_resume(a1[1]._connection[3].super.isa);
+        [(objc_class *)a1[1]._connection[1].super.isa startUpdatingLocation];
+        objc_destroyWeak(v54);
         objc_destroyWeak(buf);
       }
     }
@@ -998,29 +998,29 @@ LABEL_22:
 
   else
   {
-    v26 = PKLogFacilityTypeGetObject(7uLL);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v28 = PKLogFacilityTypeGetObject(7uLL);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1AD337000, v26, OS_LOG_TYPE_DEFAULT, "Returning device metadata without location", buf, 2u);
+      _os_log_impl(&dword_1AD337000, v28, OS_LOG_TYPE_DEFAULT, "Returning device metadata without location", buf, 2u);
     }
 
-    v27 = *(*(a1 + 40) + 56);
-    v45[0] = MEMORY[0x1E69E9820];
-    v45[1] = 3221225472;
-    v45[2] = __65__PKPaymentDevice__populateDeviceMetadata_withFields_completion___block_invoke_421;
-    v45[3] = &unk_1E79C44A0;
-    v47 = *(a1 + 48);
-    v46 = *(a1 + 32);
-    v28 = v45;
+    v29 = a1[1]._connection[7].super.isa;
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = __65__PKPaymentDevice__populateDeviceMetadata_withFields_completion___block_invoke_421;
+    v47[3] = &unk_1E79C44A0;
+    v49 = a1[2].super.isa;
+    v48 = a1[1]._handlerQueue;
+    v30 = v47;
     *buf = MEMORY[0x1E69E9820];
-    v55 = 3221225472;
-    v56 = __dispatch_async_ar_block_invoke;
-    v57 = &unk_1E79C4428;
-    v58 = v28;
-    dispatch_async(v27, buf);
+    v57 = 3221225472;
+    v58 = __dispatch_async_ar_block_invoke;
+    v59 = &unk_1E79C4428;
+    v60 = v30;
+    dispatch_async(v29, buf);
 
-    v29 = v47;
+    v31 = v49;
   }
 }
 

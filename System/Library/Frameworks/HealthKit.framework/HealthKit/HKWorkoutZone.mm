@@ -128,6 +128,7 @@
     if (!v6)
     {
 LABEL_12:
+      v13 = 0;
       v12 = @"Object type not supported";
       goto LABEL_13;
     }
@@ -155,14 +156,25 @@ LABEL_12:
   }
 
   endQuantity = self->_endQuantity;
-  if (endQuantity && ![(HKQuantity *)endQuantity isCompatibleWithUnit:v8])
+  if (endQuantity)
   {
+    endQuantity = [endQuantity isCompatibleWithUnit:v8];
+    if (endQuantity)
+    {
+LABEL_14:
+      v8 = v13;
+      goto LABEL_15;
+    }
+
     v12 = @"End quantity has an incompatible unit";
 LABEL_13:
-    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:v12];
+    endQuantity = [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:v12];
+    goto LABEL_14;
   }
 
-  MEMORY[0x1EEE66BB8]();
+LABEL_15:
+
+  MEMORY[0x1EEE66BB8](endQuantity, v8);
 }
 
 - (id)description
@@ -170,10 +182,9 @@ LABEL_13:
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  identifier = self->_identifier;
-  v7 = [v3 stringWithFormat:@"<%@:%p identifier=%@, type=%@, startQuantity=%@, endQuantity=%@, timeInZone=%f>", v5, self, identifier, self->_type, self->_startQuantity, self->_endQuantity, *&self->_timeInZone];
+  v6 = [v3 stringWithFormat:@"<%@:%p identifier=%@, type=%@, startQuantity=%@, endQuantity=%@, timeInZone=%f>", v5, self, self->_identifier, self->_type, self->_startQuantity, self->_endQuantity, *&self->_timeInZone];
 
-  return v7;
+  return v6;
 }
 
 + (id)_valueForQuantity:(id)quantity objectType:(id)type
@@ -189,11 +200,11 @@ LABEL_13:
     {
       v9 = [HKUnit unitFromString:@"count/min"];
 LABEL_6:
-      v12 = v9;
+      v14 = v9;
       [quantityCopy doubleValueForUnit:v9];
-      v14 = v13;
+      v16 = v15;
 
-      v15 = [MEMORY[0x1E696AD98] numberWithDouble:v14];
+      v17 = [MEMORY[0x1E696AD98] numberWithDouble:v16];
       goto LABEL_10;
     }
 
@@ -206,18 +217,18 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    _HKInitializeLogging();
-    v16 = HKLogWorkouts;
+    _HKInitializeLogging(v12, v13);
+    v18 = HKLogWorkouts;
     if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
     {
-      [HKWorkoutZone _valueForQuantity:typeCopy objectType:v16];
+      [HKWorkoutZone _valueForQuantity:typeCopy objectType:v18];
     }
   }
 
-  v15 = 0;
+  v17 = 0;
 LABEL_10:
 
-  return v15;
+  return v17;
 }
 
 + (id)_quantityFromValue:(double)value objectType:(id)type
@@ -230,8 +241,8 @@ LABEL_10:
   {
     v8 = [HKUnit unitFromString:@"count/min"];
 LABEL_5:
-    v11 = v8;
-    v12 = [HKQuantity quantityWithUnit:v8 doubleValue:value];
+    v13 = v8;
+    v14 = [HKQuantity quantityWithUnit:v8 doubleValue:value];
 
     goto LABEL_9;
   }
@@ -245,17 +256,17 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  _HKInitializeLogging();
-  v13 = HKLogWorkouts;
+  _HKInitializeLogging(v11, v12);
+  v15 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    [HKWorkoutZone _quantityFromValue:typeCopy objectType:v13];
+    [HKWorkoutZone _quantityFromValue:typeCopy objectType:v15];
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_9:
 
-  return v12;
+  return v14;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -449,20 +460,18 @@ LABEL_39:
 
 + (void)_valueForQuantity:(uint64_t)a1 objectType:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Unable to retrieve the value from the quantity. Zone entity object type %@ not supported", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Unable to retrieve the value from the quantity. Zone entity object type %@ not supported", &v2, 0xCu);
 }
 
 + (void)_quantityFromValue:(uint64_t)a1 objectType:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Unable to create a quantity. Zone entity object type %@ not supported", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_19197B000, a2, OS_LOG_TYPE_ERROR, "Unable to create a quantity. Zone entity object type %@ not supported", &v2, 0xCu);
 }
 
 @end

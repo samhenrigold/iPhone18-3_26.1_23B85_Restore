@@ -3,6 +3,7 @@
 - (NSData)jsonData;
 - (NSDictionary)dictionaryRepresentation;
 - (SFDomainEngagementScore)initWithCoder:(id)coder;
+- (SFDomainEngagementScore)initWithDomain:(int)domain scoreConfidence:(id)confidence score:(id)score;
 - (SFDomainEngagementScore)initWithProtobuf:(id)protobuf;
 - (id)copyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
@@ -10,6 +11,25 @@
 @end
 
 @implementation SFDomainEngagementScore
+
+- (SFDomainEngagementScore)initWithDomain:(int)domain scoreConfidence:(id)confidence score:(id)score
+{
+  v6 = *&domain;
+  confidenceCopy = confidence;
+  scoreCopy = score;
+  v13.receiver = self;
+  v13.super_class = SFDomainEngagementScore;
+  v10 = [(SFDomainEngagementScore *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(SFDomainEngagementScore *)v10 setDomain:v6];
+    [(SFDomainEngagementScore *)v11 setScoreConfidence:confidenceCopy];
+    [(SFDomainEngagementScore *)v11 setScore:scoreCopy];
+  }
+
+  return v11;
+}
 
 - (SFDomainEngagementScore)initWithProtobuf:(id)protobuf
 {

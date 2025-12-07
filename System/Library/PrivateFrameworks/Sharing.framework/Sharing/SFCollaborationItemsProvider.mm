@@ -18,7 +18,7 @@
 
 - (void)_updateCollaborationItems
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   currentRequest = [(SFCollaborationItemsProvider *)self currentRequest];
 
@@ -27,98 +27,100 @@
     currentRequest2 = [(SFCollaborationItemsProvider *)self currentRequest];
     [currentRequest2 cancel];
 
-    [(SFCollaborationItemsProvider *)self setCurrentRequest:0];
+    v4 = [(SFCollaborationItemsProvider *)self setCurrentRequest:0];
   }
 
-  v5 = share_sheet_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = share_sheet_log(v4);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     activityItems = [(SFCollaborationItemsProvider *)self activityItems];
     *buf = 138477827;
-    v31 = activityItems;
-    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "update collaboration items for activityItems:%{private}@", buf, 0xCu);
+    v33 = activityItems;
+    _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "update collaboration items for activityItems:%{private}@", buf, 0xCu);
   }
 
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
+  v30 = 0u;
+  v31 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v26 = 0u;
-  v27 = 0u;
   activityItems2 = [(SFCollaborationItemsProvider *)self activityItems];
-  v9 = [activityItems2 countByEnumeratingWithState:&v26 objects:v34 count:16];
-  if (v9)
+  v10 = [activityItems2 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  if (v10)
   {
-    v11 = *v27;
-    *&v10 = 138478083;
-    v21 = v10;
+    v12 = *v29;
+    *&v11 = 138478083;
+    v23 = v11;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(activityItems2);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
-        v14 = [(SFCollaborationItemsProvider *)self collaborationItemForActivityItem:v13, v21];
-        if (v14)
+        v14 = *(*(&v28 + 1) + 8 * i);
+        v15 = [(SFCollaborationItemsProvider *)self collaborationItemForActivityItem:v14, v23];
+        v16 = v15;
+        if (v15)
         {
-          v15 = share_sheet_log();
-          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+          v17 = share_sheet_log(v15);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v21;
-            v31 = v14;
-            v32 = 2113;
-            v33 = v13;
-            _os_log_impl(&dword_1A9662000, v15, OS_LOG_TYPE_DEFAULT, "did found cached collaboration item:%{private}@ for activityItem:%{private}@", buf, 0x16u);
+            *buf = v23;
+            v33 = v16;
+            v34 = 2113;
+            v35 = v14;
+            _os_log_impl(&dword_1A9662000, v17, OS_LOG_TYPE_DEFAULT, "did found cached collaboration item:%{private}@ for activityItem:%{private}@", buf, 0x16u);
           }
 
-          [array addObject:v14];
+          [array addObject:v16];
         }
 
         else
         {
-          [array2 addObject:v13];
+          [array2 addObject:v14];
         }
       }
 
-      v9 = [activityItems2 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v10 = [activityItems2 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 
-  if ([array2 count])
+  v18 = [array2 count];
+  if (v18)
   {
-    v16 = share_sheet_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = share_sheet_log(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v31 = array2;
-      _os_log_impl(&dword_1A9662000, v16, OS_LOG_TYPE_DEFAULT, "request collaboration items for activity items:%{private}@", buf, 0xCu);
+      v33 = array2;
+      _os_log_impl(&dword_1A9662000, v19, OS_LOG_TYPE_DEFAULT, "request collaboration items for activity items:%{private}@", buf, 0xCu);
     }
 
     objc_initWeak(buf, self);
-    v17 = [_SFCollaborationItemsRequest alloc];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __57__SFCollaborationItemsProvider__updateCollaborationItems__block_invoke;
-    v23[3] = &unk_1E7890420;
-    v24 = array;
-    objc_copyWeak(&v25, buf);
-    v18 = [(_SFCollaborationItemsRequest *)v17 initWithActivityItems:array2 completionHandler:v23];
-    [(_SFCollaborationItemsRequest *)v18 setDelegate:self];
-    [(_SFCollaborationItemsRequest *)v18 setSupportsMultipleCollaboration:[(SFCollaborationItemsProvider *)self supportsMultipleCollaboration]];
+    v20 = [_SFCollaborationItemsRequest alloc];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __57__SFCollaborationItemsProvider__updateCollaborationItems__block_invoke;
+    v25[3] = &unk_1E7890420;
+    v26 = array;
+    objc_copyWeak(&v27, buf);
+    v21 = [(_SFCollaborationItemsRequest *)v20 initWithActivityItems:array2 completionHandler:v25];
+    [(_SFCollaborationItemsRequest *)v21 setDelegate:self];
+    [(_SFCollaborationItemsRequest *)v21 setSupportsMultipleCollaboration:[(SFCollaborationItemsProvider *)self supportsMultipleCollaboration]];
     managedFileURL = [(SFCollaborationItemsProvider *)self managedFileURL];
-    [(_SFCollaborationItemsRequest *)v18 setManagedFileURL:managedFileURL];
+    [(_SFCollaborationItemsRequest *)v21 setManagedFileURL:managedFileURL];
 
-    [(_SFCollaborationItemsRequest *)v18 setIsURLProviderSupported:[(SFCollaborationItemsProvider *)self isURLProviderSupported]];
-    [(SFCollaborationItemsProvider *)self setCurrentRequest:v18];
-    [(_SFCollaborationItemsRequest *)v18 perform];
+    [(_SFCollaborationItemsRequest *)v21 setIsURLProviderSupported:[(SFCollaborationItemsProvider *)self isURLProviderSupported]];
+    [(SFCollaborationItemsProvider *)self setCurrentRequest:v21];
+    [(_SFCollaborationItemsRequest *)v21 perform];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v27);
     objc_destroyWeak(buf);
   }
 
@@ -126,8 +128,6 @@
   {
     [(SFCollaborationItemsProvider *)self setCollaborationItems:array];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __57__SFCollaborationItemsProvider__updateCollaborationItems__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -178,20 +178,12 @@ void __57__SFCollaborationItemsProvider__updateCollaborationItems__block_invoke_
   if (![firstObject type])
   {
     v6 = firstObject;
-    if ([v6 defaultCollaboration] & 1) != 0 || (objc_msgSend(v6, "isiCloudDrive"))
+    if ([v6 defaultCollaboration] & 1) != 0 || (v7 = objc_msgSend(v6, "isiCloudDrive"), (v7))
     {
-      if ([v6 isInSharedFolder])
+      isInSharedFolder = [v6 isInSharedFolder];
+      if (isInSharedFolder)
       {
-        v5 = share_sheet_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
-        {
-          [SFCollaborationItemsProvider supportsCollaboration];
-        }
-      }
-
-      else if ([v6 isThirdPartyFileProviderBacked])
-      {
-        v5 = share_sheet_log();
+        v5 = share_sheet_log(isInSharedFolder);
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
           [SFCollaborationItemsProvider supportsCollaboration];
@@ -200,22 +192,41 @@ void __57__SFCollaborationItemsProvider__updateCollaborationItems__block_invoke_
 
       else
       {
-        if ([v6 isLocalStorage] & 1) != 0 || (objc_msgSend(v6, "isiCloudDrive"))
+        isThirdPartyFileProviderBacked = [v6 isThirdPartyFileProviderBacked];
+        if (isThirdPartyFileProviderBacked)
         {
-          goto LABEL_16;
+          v5 = share_sheet_log(isThirdPartyFileProviderBacked);
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+          {
+            [SFCollaborationItemsProvider supportsCollaboration];
+          }
         }
 
-        v5 = share_sheet_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        else
         {
-          [SFCollaborationItemsProvider supportsCollaboration];
+          if ([v6 isLocalStorage])
+          {
+            goto LABEL_16;
+          }
+
+          isiCloudDrive = [v6 isiCloudDrive];
+          if (isiCloudDrive)
+          {
+            goto LABEL_16;
+          }
+
+          v5 = share_sheet_log(isiCloudDrive);
+          if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+          {
+            [SFCollaborationItemsProvider supportsCollaboration];
+          }
         }
       }
     }
 
     else
     {
-      v5 = share_sheet_log();
+      v5 = share_sheet_log(v7);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
       {
         [SFCollaborationItemsProvider supportsCollaboration];
@@ -268,15 +279,15 @@ LABEL_16:
 - (id)activityItemsForActivity:(id)activity collaborationResult:(id)result isCollaborative:(BOOL)collaborative
 {
   collaborativeCopy = collaborative;
-  v63 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   resultCopy = result;
-  v9 = share_sheet_log();
+  v9 = share_sheet_log(resultCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     activityType = [activityCopy activityType];
     *buf = 138412290;
-    v59 = activityType;
+    v60 = activityType;
     _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "Updating activity items including collaboration items for activityType:%@", buf, 0xCu);
   }
 
@@ -294,62 +305,63 @@ LABEL_16:
   array = [MEMORY[0x1E695DF70] array];
   if (!activityCopy)
   {
-    v55 = 0u;
     v56 = 0u;
-    v53 = 0u;
+    v57 = 0u;
     v54 = 0u;
+    v55 = 0u;
     activityItems2 = [(SFCollaborationItemsProvider *)self activityItems];
-    v17 = [activityItems2 countByEnumeratingWithState:&v53 objects:v62 count:16];
+    v17 = [activityItems2 countByEnumeratingWithState:&v54 objects:v63 count:16];
     if (v17)
     {
       v18 = v17;
-      v45 = activityItems;
-      v46 = 0;
-      v19 = *v54;
+      v46 = activityItems;
+      v47 = 0;
+      v19 = *v55;
       v20 = array;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v54 != v19)
+          if (*v55 != v19)
           {
             objc_enumerationMutation(activityItems2);
           }
 
-          v22 = *(*(&v53 + 1) + 8 * i);
-          v23 = [(SFCollaborationItemsProvider *)self collaborationItemForActivityItem:v22, v45, v46];
+          v22 = *(*(&v54 + 1) + 8 * i);
+          v23 = [(SFCollaborationItemsProvider *)self collaborationItemForActivityItem:v22, v46, v47];
           v24 = v23;
           if (v23)
           {
             placeholderActivityItem = [v23 placeholderActivityItem];
+            v26 = placeholderActivityItem;
             if (placeholderActivityItem)
             {
-              v26 = share_sheet_log();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v27 = share_sheet_log(placeholderActivityItem);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138478083;
-                v59 = v22;
-                v60 = 2113;
-                v61 = placeholderActivityItem;
-                _os_log_impl(&dword_1A9662000, v26, OS_LOG_TYPE_DEFAULT, "Replace activity item:%{private}@ with placeholder:%{private}@", buf, 0x16u);
+                v60 = v22;
+                v61 = 2113;
+                v62 = v26;
+                _os_log_impl(&dword_1A9662000, v27, OS_LOG_TYPE_DEFAULT, "Replace activity item:%{private}@ with placeholder:%{private}@", buf, 0x16u);
               }
 
               v20 = array;
-              v27 = array;
-              v28 = placeholderActivityItem;
+              v28 = array;
+              v29 = v26;
             }
 
             else
             {
-              v27 = v20;
-              v28 = v22;
+              v28 = v20;
+              v29 = v22;
             }
 
-            [v27 addObject:v28];
+            [v28 addObject:v29];
           }
         }
 
-        v18 = [activityItems2 countByEnumeratingWithState:&v53 objects:v62 count:16];
+        v18 = [activityItems2 countByEnumeratingWithState:&v54 objects:v63 count:16];
       }
 
       while (v18);
@@ -364,55 +376,55 @@ LABEL_39:
   activityType2 = [activityCopy activityType];
   if (![SFCollaborationUtilities isHeroCollaborationActivityType:activityType2])
   {
-    v29 = objc_opt_respondsToSelector();
+    v30 = objc_opt_respondsToSelector();
 
-    if (v29)
+    if (v30)
     {
       goto LABEL_24;
     }
 
-    v51 = 0u;
     v52 = 0u;
-    v49 = 0u;
+    v53 = 0u;
     v50 = 0u;
+    v51 = 0u;
     activityItems2 = [(SFCollaborationItemsProvider *)self activityItems];
-    v30 = [activityItems2 countByEnumeratingWithState:&v49 objects:v57 count:16];
-    if (v30)
+    v31 = [activityItems2 countByEnumeratingWithState:&v50 objects:v58 count:16];
+    if (v31)
     {
-      v31 = v30;
-      v45 = activityItems;
-      v46 = activityCopy;
-      v32 = *v50;
+      v32 = v31;
+      v46 = activityItems;
+      v47 = activityCopy;
+      v33 = *v51;
       v20 = array;
       do
       {
-        for (j = 0; j != v31; ++j)
+        for (j = 0; j != v32; ++j)
         {
-          if (*v50 != v32)
+          if (*v51 != v33)
           {
             objc_enumerationMutation(activityItems2);
           }
 
-          v34 = *(*(&v49 + 1) + 8 * j);
-          v35 = [(SFCollaborationItemsProvider *)self collaborationItemForActivityItem:v34, v45, v46];
-          v36 = v35;
-          if (v35)
+          v35 = *(*(&v50 + 1) + 8 * j);
+          v36 = [(SFCollaborationItemsProvider *)self collaborationItemForActivityItem:v35, v46, v47];
+          v37 = v36;
+          if (v36)
           {
-            identifier = [v35 identifier];
+            identifier = [v36 identifier];
             collaborationItemIdentifier = [resultCopy collaborationItemIdentifier];
-            v39 = [identifier isEqual:collaborationItemIdentifier];
+            v40 = [identifier isEqual:collaborationItemIdentifier];
 
-            if (v39)
+            if (v40)
             {
-              v40 = share_sheet_log();
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+              v42 = share_sheet_log(v41);
+              if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
               {
                 sharingURL = [resultCopy sharingURL];
                 *buf = 138478083;
-                v59 = v34;
-                v60 = 2112;
-                v61 = sharingURL;
-                _os_log_impl(&dword_1A9662000, v40, OS_LOG_TYPE_DEFAULT, "Replace activity item:%{private}@ with sharingURL:%@", buf, 0x16u);
+                v60 = v35;
+                v61 = 2112;
+                v62 = sharingURL;
+                _os_log_impl(&dword_1A9662000, v42, OS_LOG_TYPE_DEFAULT, "Replace activity item:%{private}@ with sharingURL:%@", buf, 0x16u);
               }
 
               sharingURL2 = [resultCopy sharingURL];
@@ -423,19 +435,19 @@ LABEL_39:
             else
             {
               v20 = array;
-              [array addObject:v34];
+              [array addObject:v35];
             }
           }
         }
 
-        v31 = [activityItems2 countByEnumeratingWithState:&v49 objects:v57 count:16];
+        v32 = [activityItems2 countByEnumeratingWithState:&v50 objects:v58 count:16];
       }
 
-      while (v31);
+      while (v32);
 LABEL_38:
       collaborationItems = v20;
-      activityItems = v45;
-      activityCopy = v46;
+      activityItems = v46;
+      activityCopy = v47;
       goto LABEL_40;
     }
 
@@ -450,34 +462,32 @@ LABEL_40:
   sendCopyItems = [collaborationItems copy];
 LABEL_41:
 
-  v43 = *MEMORY[0x1E69E9840];
-
   return sendCopyItems;
 }
 
 - (id)collaborationItemForActivityItem:(id)item
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   itemCopy = item;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   collaborationItems = [(SFCollaborationItemsProvider *)self collaborationItems];
-  v6 = [collaborationItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [collaborationItems countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(collaborationItems);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         activityItem = [v9 activityItem];
         v11 = itemCopy;
         v12 = v11;
@@ -504,7 +514,7 @@ LABEL_15:
         }
       }
 
-      v6 = [collaborationItems countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [collaborationItems countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v6)
       {
         continue;
@@ -515,8 +525,6 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -550,23 +558,22 @@ void __56__SFCollaborationItemsProvider_placeholderActivityItems__block_invoke(u
   if (v6)
   {
     v8 = [v6 placeholderActivityItem];
+    v9 = v8;
     if (v8)
     {
-      v9 = share_sheet_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = share_sheet_log(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         v11 = 138478083;
         v12 = v5;
         v13 = 2113;
-        v14 = v8;
-        _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "Replace activity item:%{private}@ with placeholder:%{private}@", &v11, 0x16u);
+        v14 = v9;
+        _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_DEFAULT, "Replace activity item:%{private}@ with placeholder:%{private}@", &v11, 0x16u);
       }
 
-      [*(a1 + 40) replaceObjectAtIndex:a3 withObject:v8];
+      [*(a1 + 40) replaceObjectAtIndex:a3 withObject:v9];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setActivityItems:(id)items
@@ -584,42 +591,42 @@ void __56__SFCollaborationItemsProvider_placeholderActivityItems__block_invoke(u
 
 - (void)setCollaborationItems:(id)items
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   if (!-[SFCollaborationItemsProvider supportsMultipleCollaboration](self, "supportsMultipleCollaboration") && [itemsCopy count] >= 2)
   {
     firstObject = [itemsCopy firstObject];
     type = [firstObject type];
 
-    v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
+    v22 = 0u;
     itemsCopy = itemsCopy;
-    v7 = [itemsCopy countByEnumeratingWithState:&v20 objects:v27 count:16];
+    v7 = [itemsCopy countByEnumeratingWithState:&v21 objects:v28 count:16];
     if (!v7)
     {
 LABEL_18:
-      v15 = itemsCopy;
+      v16 = itemsCopy;
 LABEL_19:
 
-      itemsCopy = v15;
+      itemsCopy = v16;
       goto LABEL_20;
     }
 
     v8 = v7;
     v9 = 0;
-    v10 = *v21;
+    v10 = *v22;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        if ([*(*(&v20 + 1) + 8 * i) type])
+        if ([*(*(&v21 + 1) + 8 * i) type])
         {
           if (v9 > 0)
           {
@@ -630,25 +637,25 @@ LABEL_19:
         }
       }
 
-      v8 = [itemsCopy countByEnumeratingWithState:&v20 objects:v27 count:16];
+      v8 = [itemsCopy countByEnumeratingWithState:&v21 objects:v28 count:16];
     }
 
     while (v8);
 
     if (type && v9 == 1)
     {
-      v12 = share_sheet_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = share_sheet_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         firstObject2 = [itemsCopy firstObject];
         *buf = 138477827;
-        v26 = firstObject2;
-        _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "Ignoring file collaboration objects in favour of non-file collaboration object because collaboration is not supported for multiple items. Assumption is that the file objects are send copy items. Collaboration item: %{private}@", buf, 0xCu);
+        v27 = firstObject2;
+        _os_log_impl(&dword_1A9662000, v13, OS_LOG_TYPE_DEFAULT, "Ignoring file collaboration objects in favour of non-file collaboration object because collaboration is not supported for multiple items. Assumption is that the file objects are send copy items. Collaboration item: %{private}@", buf, 0xCu);
       }
 
       firstObject3 = [itemsCopy firstObject];
-      v24 = firstObject3;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+      v25 = firstObject3;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
 
       itemsCopy = firstObject3;
       goto LABEL_19;
@@ -656,41 +663,37 @@ LABEL_19:
   }
 
 LABEL_20:
-  if (([itemsCopy isEqualToArray:{self->_collaborationItems, v20}] & 1) == 0)
+  if (([itemsCopy isEqualToArray:{self->_collaborationItems, v21}] & 1) == 0)
   {
-    v16 = [itemsCopy copy];
+    v17 = [itemsCopy copy];
     collaborationItems = self->_collaborationItems;
-    self->_collaborationItems = v16;
+    self->_collaborationItems = v17;
 
-    v18 = share_sheet_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v20 = share_sheet_log(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138477827;
-      v26 = itemsCopy;
-      _os_log_impl(&dword_1A9662000, v18, OS_LOG_TYPE_DEFAULT, "Did set collaborationItems:%{private}@", buf, 0xCu);
+      v27 = itemsCopy;
+      _os_log_impl(&dword_1A9662000, v20, OS_LOG_TYPE_DEFAULT, "Did set collaborationItems:%{private}@", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_didCompleteCollaborationItems:(id)items
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  v5 = share_sheet_log();
+  v5 = share_sheet_log(itemsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138477827;
-    v8 = itemsCopy;
-    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "did found collaboration items:%{private}@", &v7, 0xCu);
+    v6 = 138477827;
+    v7 = itemsCopy;
+    _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "did found collaboration items:%{private}@", &v6, 0xCu);
   }
 
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
   [(SFCollaborationItemsProvider *)self setCollaborationItems:itemsCopy];
   [(SFCollaborationItemsProvider *)self setCurrentRequest:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (id)collaborationItemsRequest:(id)request resolveActivityItem:(id)item

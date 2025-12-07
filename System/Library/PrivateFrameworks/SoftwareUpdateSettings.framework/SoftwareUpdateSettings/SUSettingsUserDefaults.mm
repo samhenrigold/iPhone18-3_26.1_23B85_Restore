@@ -53,7 +53,7 @@
   return v2;
 }
 
-uint64_t __37__SUSettingsUserDefaults_allDefaults__block_invoke()
+double __37__SUSettingsUserDefaults_allDefaults__block_invoke()
 {
   v14[10] = *MEMORY[0x277D85DE8];
   v13[0] = @"SUBypassSystemRootWarning";
@@ -99,166 +99,165 @@ uint64_t __37__SUSettingsUserDefaults_allDefaults__block_invoke()
   MEMORY[0x277D82BD8](v9);
   MEMORY[0x277D82BD8](v10);
   MEMORY[0x277D82BD8](v11);
-  result = MEMORY[0x277D82BD8](v12);
-  *MEMORY[0x277D85DE8];
+  *&result = MEMORY[0x277D82BD8](v12).n128_u64[0];
   return result;
 }
 
 - (BOOL)shouldBypassSystemRootWarning
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SUBypassSystemRootWarning"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
-  return v4;
+  v6[0] = [allDefaults objectForKey:@"SUBypassSystemRootWarning"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
+  return v5;
 }
 
 - (void)shouldBypassSystemRootWarning:(BOOL)warning
 {
   selfCopy = self;
-  v6 = a2;
+  v7 = a2;
   warningCopy = warning;
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SUBypassSystemRootWarning"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setBool:warningCopy forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SUBypassSystemRootWarning"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setBool:warningCopy forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
 }
 
 - (BOOL)shouldKeepPreviousMockingKitSession
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SUKeepPreviousMockingKitSesson"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
-  return v4;
+  v6[0] = [allDefaults objectForKey:@"SUKeepPreviousMockingKitSesson"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
+  return v5;
 }
 
 - (void)shouldKeepPreviousMockingKitSession:(BOOL)session
 {
   selfCopy = self;
-  v6 = a2;
+  v7 = a2;
   sessionCopy = session;
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SUKeepPreviousMockingKitSesson"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setBool:sessionCopy forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SUKeepPreviousMockingKitSesson"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setBool:sessionCopy forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
 }
 
 - (BOOL)shouldSkipMockingKitPIDValidation
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SUSkipMockingKitPIDValidation"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
-  return v4;
+  v6[0] = [allDefaults objectForKey:@"SUSkipMockingKitPIDValidation"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
+  return v5;
 }
 
 - (void)shouldSkipMockingKitPIDValidation:(BOOL)validation
 {
   selfCopy = self;
-  v6 = a2;
+  v7 = a2;
   validationCopy = validation;
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SUSkipMockingKitPIDValidation"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setBool:validationCopy forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SUSkipMockingKitPIDValidation"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setBool:validationCopy forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
 }
 
 - (BOOL)isNeRDProfileStatusInstalled
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SURecoveryOSProfileStatus"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
-  return v4;
+  v6[0] = [allDefaults objectForKey:@"SURecoveryOSProfileStatus"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
+  return v5;
 }
 
 - (void)isNeRDProfileStatusInstalled:(BOOL)installed
 {
   selfCopy = self;
-  v6 = a2;
+  v7 = a2;
   installedCopy = installed;
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SURecoveryOSProfileStatus"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setBool:installedCopy forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SURecoveryOSProfileStatus"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setBool:installedCopy forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
 }
 
 - (BOOL)shouldShowComingSoonTip
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SUShowComingSoonTip"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
-  return v4;
+  v6[0] = [allDefaults objectForKey:@"SUShowComingSoonTip"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
+  return v5;
 }
 
 - (void)shouldShowComingSoonTip:(BOOL)tip
 {
   selfCopy = self;
-  v6 = a2;
+  v7 = a2;
   tipCopy = tip;
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SUShowComingSoonTip"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setBool:tipCopy forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SUShowComingSoonTip"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setBool:tipCopy forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
 }
 
 - (BOOL)shouldHideComingSoonTip
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SUHideComingSoonTip"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
-  return v4;
+  v6[0] = [allDefaults objectForKey:@"SUHideComingSoonTip"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy BOOLForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
+  return v5;
 }
 
 - (void)shouldHideComingSoonTip:(BOOL)tip
 {
   selfCopy = self;
-  v6 = a2;
+  v7 = a2;
   tipCopy = tip;
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SUHideComingSoonTip"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setBool:tipCopy forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SUHideComingSoonTip"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setBool:tipCopy forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
 }
 
 - (NSString)comingSoonTipTitle
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SUComingSoonTipTitle"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy stringForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
+  v6[0] = [allDefaults objectForKey:@"SUComingSoonTipTitle"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy stringForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
 
-  return v4;
+  return v5;
 }
 
 - (void)comingSoonTipTitle:(id)title
@@ -268,24 +267,24 @@ uint64_t __37__SUSettingsUserDefaults_allDefaults__block_invoke()
   location[0] = 0;
   objc_storeStrong(location, title);
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SUComingSoonTipTitle"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setString:location[0] forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SUComingSoonTipTitle"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setString:location[0] forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
 }
 
 - (NSString)comingSoonTipMessage
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SUComingSoonTipMessage"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy stringForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
+  v6[0] = [allDefaults objectForKey:@"SUComingSoonTipMessage"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy stringForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
 
-  return v4;
+  return v5;
 }
 
 - (void)comingSoonTipMessage:(id)message
@@ -295,24 +294,24 @@ uint64_t __37__SUSettingsUserDefaults_allDefaults__block_invoke()
   location[0] = 0;
   objc_storeStrong(location, message);
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SUComingSoonTipMessage"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setString:location[0] forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SUComingSoonTipMessage"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setString:location[0] forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
 }
 
 - (NSString)comingSoonTipImageSystemName
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SUComingSoonTipImageSystemName"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy stringForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
+  v6[0] = [allDefaults objectForKey:@"SUComingSoonTipImageSystemName"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy stringForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
 
-  return v4;
+  return v5;
 }
 
 - (void)comingSoonTipImageSystemName:(id)name
@@ -322,24 +321,24 @@ uint64_t __37__SUSettingsUserDefaults_allDefaults__block_invoke()
   location[0] = 0;
   objc_storeStrong(location, name);
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SUComingSoonTipImageSystemName"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setString:location[0] forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SUComingSoonTipImageSystemName"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setString:location[0] forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
 }
 
 - (NSString)comingSoonTipLearnMoreLink
 {
   selfCopy = self;
-  v5[1] = a2;
+  v6[1] = a2;
   allDefaults = [objc_opt_class() allDefaults];
-  v5[0] = [allDefaults objectForKey:@"SUComingSoonTipLearnMoreLink"];
-  MEMORY[0x277D82BD8](allDefaults);
-  v4 = [(SUSettingsUserDefaults *)selfCopy stringForEntry:v5[0]];
-  objc_storeStrong(v5, 0);
+  v6[0] = [allDefaults objectForKey:@"SUComingSoonTipLearnMoreLink"];
+  *&v2 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  v5 = [(SUSettingsUserDefaults *)selfCopy stringForEntry:v6[0], v2];
+  objc_storeStrong(v6, 0);
 
-  return v4;
+  return v5;
 }
 
 - (void)comingSoonTipLearnMoreLink:(id)link
@@ -349,10 +348,10 @@ uint64_t __37__SUSettingsUserDefaults_allDefaults__block_invoke()
   location[0] = 0;
   objc_storeStrong(location, link);
   allDefaults = [objc_opt_class() allDefaults];
-  v4 = [allDefaults objectForKey:@"SUComingSoonTipLearnMoreLink"];
-  MEMORY[0x277D82BD8](allDefaults);
-  [(SUSettingsUserDefaults *)selfCopy setString:location[0] forEntry:v4];
-  objc_storeStrong(&v4, 0);
+  v5 = [allDefaults objectForKey:@"SUComingSoonTipLearnMoreLink"];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  [(SUSettingsUserDefaults *)selfCopy setString:location[0] forEntry:v5, v3];
+  objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -380,12 +379,13 @@ uint64_t __37__SUSettingsUserDefaults_allDefaults__block_invoke()
   return v2;
 }
 
-uint64_t __40__SUSettingsUserDefaults_sharedDefaults__block_invoke(uint64_t a1)
+double __40__SUSettingsUserDefaults_sharedDefaults__block_invoke(uint64_t a1)
 {
   v1 = objc_alloc_init(*(a1 + 32));
   v2 = sharedDefaults_sharedInstance;
   sharedDefaults_sharedInstance = v1;
-  return MEMORY[0x277D82BD8](v2);
+  *&result = MEMORY[0x277D82BD8](v2).n128_u64[0];
+  return result;
 }
 
 - (SUSettingsUserDefaults)init
@@ -432,26 +432,26 @@ uint64_t __40__SUSettingsUserDefaults_sharedDefaults__block_invoke(uint64_t a1)
   location[0] = 0;
   objc_storeStrong(location, key);
   allDefaults = [objc_opt_class() allDefaults];
-  v8 = [allDefaults objectForKey:location[0]];
-  MEMORY[0x277D82BD8](allDefaults);
-  if (v8)
+  v9 = [allDefaults objectForKey:location[0]];
+  *&v3 = MEMORY[0x277D82BD8](allDefaults).n128_u64[0];
+  if (v9)
   {
     userDefaults = selfCopy->_userDefaults;
-    v6 = [v8 key];
-    v3 = [(NSUserDefaults *)userDefaults objectForKey:?];
-    v11 = v3 != 0;
-    MEMORY[0x277D82BD8](v3);
-    MEMORY[0x277D82BD8](v6);
+    v7 = [v9 key];
+    v4 = [(NSUserDefaults *)userDefaults objectForKey:?];
+    v12 = v4 != 0;
+    MEMORY[0x277D82BD8](v4);
+    MEMORY[0x277D82BD8](v7);
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  objc_storeStrong(&v8, 0);
+  objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  return v11;
+  return v12;
 }
 
 - (BOOL)BOOLForEntry:(id)entry
@@ -460,13 +460,13 @@ uint64_t __40__SUSettingsUserDefaults_sharedDefaults__block_invoke(uint64_t a1)
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, entry);
-  v5 = selfCopy;
-  v6 = [location[0] key];
-  v7 = [(SUSettingsUserDefaults *)v5 objectForKey:v6 ofClass:objc_opt_class()];
-  MEMORY[0x277D82BD8](v6);
-  if (v7)
+  v6 = selfCopy;
+  v7 = [location[0] key];
+  v8 = [(SUSettingsUserDefaults *)v6 objectForKey:v7 ofClass:objc_opt_class()];
+  *&v3 = MEMORY[0x277D82BD8](v7).n128_u64[0];
+  if (v8)
   {
-    bOOLValue = [v7 BOOLValue];
+    bOOLValue = [v8 BOOLValue];
   }
 
   else
@@ -474,7 +474,7 @@ uint64_t __40__SUSettingsUserDefaults_sharedDefaults__block_invoke(uint64_t a1)
     bOOLValue = 0;
   }
 
-  objc_storeStrong(&v7, 0);
+  objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
   return bOOLValue != 0;
 }

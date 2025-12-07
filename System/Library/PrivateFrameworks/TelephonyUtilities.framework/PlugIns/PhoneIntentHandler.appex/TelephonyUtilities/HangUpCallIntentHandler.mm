@@ -28,7 +28,7 @@
 {
   callCopy = call;
   completionCopy = completion;
-  v8 = IntentHandlerDefaultLog();
+  v8 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -52,7 +52,7 @@
 {
   callCopy = call;
   completionCopy = completion;
-  v8 = IntentHandlerDefaultLog();
+  v8 = IntentHandlerDefaultLog(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;

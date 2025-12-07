@@ -76,7 +76,8 @@ LABEL_16:
 
 void sub_100001CFC(uint64_t a1, uint64_t a2, void *a3)
 {
-  v7 = a3;
+  v5 = a3;
+  v10 = v5;
   if (a2 != 1)
   {
     if (a2 == 6)
@@ -90,18 +91,21 @@ void sub_100001CFC(uint64_t a1, uint64_t a2, void *a3)
     }
   }
 
-  [*(a1 + 32) xpcSendMessage:a2];
+  v5 = [*(a1 + 32) xpcSendMessage:a2];
 LABEL_7:
-  if (dword_10001E9A0 <= 30 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
+  if (dword_10001E9A0 <= 30)
   {
-    sub_10000BDAC();
+    if (dword_10001E9A0 != -1 || (v5 = _LogCategory_Initialize(), v5))
+    {
+      sub_10000BDAC(v5, v6, v7);
+    }
   }
 
   [*(a1 + 40) invalidate];
   [*(*(a1 + 48) + 8) removeObject:*(a1 + 40)];
-  v5 = *(a1 + 48);
-  v6 = *(v5 + 32);
-  *(v5 + 32) = 0;
+  v8 = *(a1 + 48);
+  v9 = *(v8 + 32);
+  *(v8 + 32) = 0;
 }
 
 uint64_t sub_100001EF4(uint64_t result, uint64_t a2)
@@ -121,45 +125,46 @@ void sub_100001F0C(uint64_t a1)
     *(v3 + 8) = v2;
   }
 
-  if (SBUIIsSystemApertureEnabled())
+  v5 = SBUIIsSystemApertureEnabled();
+  if (v5)
   {
-    v31 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v5 = [*(*(a1 + 32) + 8) copy];
-    v6 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
-    if (v6)
+    v33 = 0u;
+    v8 = [*(*(a1 + 32) + 8) copy];
+    v9 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v9)
     {
-      v7 = v6;
-      v8 = *v30;
+      v10 = v9;
+      v11 = *v33;
       do
       {
-        v9 = 0;
+        v12 = 0;
         do
         {
-          if (*v30 != v8)
+          if (*v33 != v11)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v8);
           }
 
-          v10 = *(*(&v29 + 1) + 8 * v9);
+          v13 = *(*(&v32 + 1) + 8 * v12);
           if (dword_10001E9A0 <= 50 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
           {
             sub_10000BDE4();
           }
 
-          [v10 invalidate];
-          [*(*(a1 + 32) + 8) removeObject:v10];
-          v9 = v9 + 1;
+          [v13 invalidate];
+          [*(*(a1 + 32) + 8) removeObject:v13];
+          v12 = v12 + 1;
         }
 
-        while (v7 != v9);
-        v11 = [v5 countByEnumeratingWithState:&v29 objects:v33 count:16];
-        v7 = v11;
+        while (v10 != v12);
+        v14 = [v8 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v10 = v14;
       }
 
-      while (v11);
+      while (v14);
     }
 
     if (dword_10001E9A0 <= 30 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
@@ -167,49 +172,52 @@ void sub_100001F0C(uint64_t a1)
       sub_10000BE18();
     }
 
-    v12 = +[NSNotificationCenter defaultCenter];
-    [v12 addObserver:*(a1 + 32) selector:"receiveVideoReadyToPlay:" name:@"VideoReadyToPlay" object:0];
+    v15 = +[NSNotificationCenter defaultCenter];
+    [v15 addObserver:*(a1 + 32) selector:"receiveVideoReadyToPlay:" name:@"VideoReadyToPlay" object:0];
 
-    v13 = [BluetoothUIServiceBanner alloc];
-    v14 = *(a1 + 40);
-    v15 = *(*(a1 + 56) + 8);
-    obj = *(v15 + 40);
-    v16 = [(BluetoothUIServiceBanner *)v13 initWithXPCObject:v14 error:&obj];
-    objc_storeStrong((v15 + 40), obj);
-    [*(*(a1 + 32) + 8) addObject:v16];
-    -[BluetoothUIServiceBanner setPid:](v16, "setPid:", [*(a1 + 48) pid]);
-    v17 = *(a1 + 32);
-    v18 = *(v17 + 32);
-    *(v17 + 32) = v16;
-    v19 = v16;
+    v16 = [BluetoothUIServiceBanner alloc];
+    v17 = *(a1 + 40);
+    v18 = *(*(a1 + 56) + 8);
+    obj = *(v18 + 40);
+    v19 = [(BluetoothUIServiceBanner *)v16 initWithXPCObject:v17 error:&obj];
+    objc_storeStrong((v18 + 40), obj);
+    [*(*(a1 + 32) + 8) addObject:v19];
+    -[BluetoothUIServiceBanner setPid:](v19, "setPid:", [*(a1 + 48) pid]);
+    v20 = *(a1 + 32);
+    v21 = *(v20 + 32);
+    *(v20 + 32) = v19;
+    v22 = v19;
 
     [*(*(a1 + 32) + 32) setXpcCon:*(a1 + 48)];
   }
 
   else
   {
-    if (dword_10001E9A0 <= 30 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
+    if (dword_10001E9A0 <= 30)
     {
-      sub_10000BDC8();
+      if (dword_10001E9A0 != -1 || (v5 = _LogCategory_Initialize(), v5))
+      {
+        sub_10000BDC8(v5, v6, v7);
+      }
     }
 
-    v20 = [BluetoothUIServiceBanner alloc];
-    v21 = *(a1 + 40);
-    v22 = *(*(a1 + 56) + 8);
-    v27 = *(v22 + 40);
-    v19 = [(BluetoothUIServiceBanner *)v20 initWithXPCObject:v21 error:&v27];
-    objc_storeStrong((v22 + 40), v27);
-    [*(*(a1 + 32) + 8) addObject:v19];
-    -[BluetoothUIServiceBanner setPid:](v19, "setPid:", [*(a1 + 48) pid]);
-    [(BluetoothUIServiceBanner *)v19 setXpcCon:*(a1 + 48)];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_10000229C;
-    v23[3] = &unk_100018510;
-    v24 = *(a1 + 48);
-    v25 = v19;
-    v26 = *(a1 + 32);
-    [(BluetoothUIServiceBanner *)v19 activateWithActionHandler:v23];
+    v23 = [BluetoothUIServiceBanner alloc];
+    v24 = *(a1 + 40);
+    v25 = *(*(a1 + 56) + 8);
+    v30 = *(v25 + 40);
+    v22 = [(BluetoothUIServiceBanner *)v23 initWithXPCObject:v24 error:&v30];
+    objc_storeStrong((v25 + 40), v30);
+    [*(*(a1 + 32) + 8) addObject:v22];
+    -[BluetoothUIServiceBanner setPid:](v22, "setPid:", [*(a1 + 48) pid]);
+    [(BluetoothUIServiceBanner *)v22 setXpcCon:*(a1 + 48)];
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_10000229C;
+    v26[3] = &unk_100018510;
+    v27 = *(a1 + 48);
+    v28 = v22;
+    v29 = *(a1 + 32);
+    [(BluetoothUIServiceBanner *)v22 activateWithActionHandler:v26];
   }
 }
 
@@ -256,7 +264,7 @@ void sub_100002720(id a1, OS_xpc_object *a2)
     {
       if (dword_10001E9A0 <= 90 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
       {
-        sub_10000BF88();
+        sub_10000BF88(v3);
       }
     }
 
@@ -267,15 +275,15 @@ void sub_100002720(id a1, OS_xpc_object *a2)
   }
 }
 
-uint64_t sub_100002954()
+uint64_t sub_100002954(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4)
 {
 
-  return LogPrintF();
+  return LogPrintF(a1, a2, 90, a4);
 }
 
-void sub_100002CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100002CD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -300,7 +308,7 @@ void sub_100002D0C(void *a1)
     v5 = a1[4];
     if (v5)
     {
-      [v5 duration];
+      objc_msgSend_duration(v5);
     }
 
     else
@@ -460,30 +468,39 @@ id sub_100007D84(uint64_t a1)
       v31 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v29 activeLayoutMode]);
       obj = [v30 objectForKeyedSubscript:v31];
 
-      v32 = *(a1 + 32);
-      v33 = *(v32 + 24);
-      if (obj != v33)
+      v33 = obj;
+      v34 = *(a1 + 32);
+      v35 = *(v34 + 24);
+      if (obj != v35)
       {
-        if (v33)
+        if (v35)
         {
           [NSLayoutConstraint deactivateConstraints:?];
-          v32 = *(a1 + 32);
+          v34 = *(a1 + 32);
         }
 
-        objc_storeStrong((v32 + 24), obj);
+        objc_storeStrong((v34 + 24), obj);
+        v33 = obj;
         if (obj)
         {
           [NSLayoutConstraint activateConstraints:obj];
-          v34 = *(a1 + 32);
-          if (v34[195] == 1 && [v34 activeLayoutMode] == 3)
+          v33 = obj;
+          v32 = *(a1 + 32);
+          if (v32[195] == 1)
           {
-            [*(*(a1 + 32) + 296) setConstant:27.0];
-            [*(*(a1 + 32) + 288) setConstant:27.0];
+            v32 = [v32 activeLayoutMode];
+            v33 = obj;
+            if (v32 == 3)
+            {
+              [*(*(a1 + 32) + 296) setConstant:27.0];
+              v32 = [*(*(a1 + 32) + 288) setConstant:27.0];
+              v33 = obj;
+            }
           }
         }
       }
 
-      return _objc_release_x1();
+      return _objc_release_x1(v32, v33);
     }
   }
 
@@ -581,39 +598,32 @@ void sub_10000B3C0(uint64_t a1)
   qword_10001EDE0 = v1;
 }
 
-id sub_10000BA14@<X0>(void *a1@<X0>, double x8_0@<X8>)
+id sub_10000BA14@<X0>(void *a1@<X0>, double a2@<X8>)
 {
 
-  return [a1 initWithFrame:{0.0, 0.0, x8_0, x8_0}];
+  return [a1 initWithFrame:{0.0, 0.0, a2, a2}];
 }
 
-uint64_t sub_10000BA6C()
-{
-  v3 = *(v0 + v2);
-  v4 = *(v0 + v1);
-  return v0;
-}
-
-void sub_10000BEF0()
+void sub_10000BEF0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_10001E9A0 <= 90 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100002954();
+    sub_100002954(&dword_10001E9A0, "[BUISAgentXPCConnection xpcSendMessage:]", a3, "### No valid XPC connection");
   }
 }
 
-void sub_10000C000()
+void sub_10000C000(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_10001E9A0 <= 90 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100002954();
+    sub_100002954(&dword_10001E9A0, "[BUISAgentXPCConnection _xpcSendReplyError:request:]", a3, "### Send error create reply failed");
   }
 }
 
-void sub_10000C060()
+void sub_10000C060(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (dword_10001E9A0 <= 90 && (dword_10001E9A0 != -1 || _LogCategory_Initialize()))
   {
-    sub_100002954();
+    sub_100002954(&dword_10001E9A0, "[BUISAgentXPCConnection _xpcSendReplyError:request:]", a3, "### Send error with no cnx");
   }
 }

@@ -46,20 +46,20 @@
 
 - (void)processMarkedTextUnderlineStartX:(int)x endX:(double)endX yPosition:(double)position underlineColor:(double)color selected:
 {
-  if (!self)
+  if (!result)
   {
     return;
   }
 
-  if (*(self + 24) != 1)
+  if (result[24] != 1)
   {
     goto LABEL_34;
   }
 
-  v13 = *(self + 40);
-  v12 = *(self + 48);
-  v15 = *(self + 56);
-  v14 = *(self + 64);
+  v13 = *(result + 5);
+  v12 = *(result + 6);
+  v15 = *(result + 7);
+  v14 = *(result + 8);
   if (v12 > v13)
   {
     xCopy = x;
@@ -77,28 +77,28 @@
 
   if (xCopy)
   {
-    v17 = *(self + 40);
+    v17 = *(result + 5);
   }
 
   else
   {
-    v17 = *(self + 56);
+    v17 = *(result + 7);
   }
 
   v21 = v17;
   if (xCopy)
   {
-    v18 = *(self + 48);
+    v18 = *(result + 6);
   }
 
   else
   {
-    v18 = *(self + 64);
+    v18 = *(result + 8);
   }
 
-  if (![*(self + 16) isEqual:a2] || *(self + 32) != color || vabdd_f64(endX, v18) > 0.001 && vabdd_f64(position, v21) > 0.001)
+  if (![*(result + 2) isEqual:a2] || *(result + 4) != color || vabdd_f64(endX, v18) > 0.001 && vabdd_f64(position, v21) > 0.001)
   {
-    [(__NSLMMarkedTextUnderlineRenderer *)self renderUnderline];
+    [(__NSLMMarkedTextUnderlineRenderer *)result renderUnderline];
     goto LABEL_34;
   }
 
@@ -106,19 +106,19 @@
   {
     if (v14 <= v15)
     {
-      *(self + 56) = endX;
+      *(result + 7) = endX;
 LABEL_32:
-      *(self + 64) = position;
+      *(result + 8) = position;
       goto LABEL_34;
     }
 
 LABEL_29:
-    if (*(self + 56) > endX)
+    if (*(result + 7) > endX)
     {
-      *(self + 56) = endX;
+      *(result + 7) = endX;
     }
 
-    if (*(self + 64) >= position)
+    if (*(result + 8) >= position)
     {
       goto LABEL_34;
     }
@@ -128,18 +128,18 @@ LABEL_29:
 
   if (v12 <= v13)
   {
-    *(self + 40) = endX;
+    *(result + 5) = endX;
 LABEL_27:
-    *(self + 48) = position;
+    *(result + 6) = position;
     goto LABEL_28;
   }
 
-  if (*(self + 40) > endX)
+  if (*(result + 5) > endX)
   {
-    *(self + 40) = endX;
+    *(result + 5) = endX;
   }
 
-  if (*(self + 48) < position)
+  if (*(result + 6) < position)
   {
     goto LABEL_27;
   }
@@ -151,10 +151,10 @@ LABEL_28:
   }
 
 LABEL_34:
-  if (position > endX && (*(self + 24) & 1) == 0)
+  if (position > endX && (result[24] & 1) == 0)
   {
-    *(self + 16) = a2;
-    *(self + 32) = color;
+    *(result + 2) = a2;
+    *(result + 4) = color;
     v19 = 56;
     if (x)
     {
@@ -167,9 +167,9 @@ LABEL_34:
       v20 = 48;
     }
 
-    *(self + v19) = endX;
-    *(self + v20) = position;
-    *(self + 24) = 1;
+    *&result[v19] = endX;
+    *&result[v20] = position;
+    result[24] = 1;
   }
 }
 

@@ -11,9 +11,9 @@
   v2 = [(PXGTungstenRecordingFrameState *)&v6 init];
   if (v2)
   {
-    indexSet = [MEMORY[0x277CCAB58] indexSet];
+    v3 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
     spriteIndexes = v2->_spriteIndexes;
-    v2->_spriteIndexes = indexSet;
+    v2->_spriteIndexes = v3;
   }
 
   return v2;

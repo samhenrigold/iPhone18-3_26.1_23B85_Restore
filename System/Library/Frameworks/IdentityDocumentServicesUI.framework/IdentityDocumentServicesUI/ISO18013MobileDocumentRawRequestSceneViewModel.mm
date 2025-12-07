@@ -7,8 +7,8 @@
 
 - (void)requestDocumentWithRequest:(_TtC13CoreIDVShared43XPCMobileDocumentProviderPresentmentRequest *)request completionHandler:(id)handler
 {
-  v7 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DF4A268, &qword_238A3BE20) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DF4A268, &qword_238A3BE20);
+  MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
   v11 = swift_allocObject();
@@ -44,7 +44,7 @@
   }
 
   v4 = OBJC_IVAR____TtC26IdentityDocumentServicesUI46ISO18013MobileDocumentRawRequestSceneViewModel__context;
-  v5 = type metadata accessor for ISO18013MobileDocumentRawRequestContext();
+  v5 = type metadata accessor for ISO18013MobileDocumentRawRequestContext(0);
   v6 = *(*(v5 - 8) + 56);
   v6(self + v4, 1, 1, v5);
   v6(self + v4, 1, 1, v5);

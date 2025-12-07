@@ -93,7 +93,7 @@ LABEL_19:
 
 - (id)brailleForText:(id)text parameters:(id)parameters locations:(id *)locations
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   textCopy = text;
   parametersCopy = parameters;
   translator = [(BRLTSTranslator *)self translator];
@@ -119,36 +119,34 @@ LABEL_19:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     language2 = [parametersCopy language];
-    v23 = language2;
+    v22 = language2;
     if (locations)
     {
-      v24 = *locations;
+      v23 = *locations;
     }
 
     else
     {
-      v24 = 0;
+      v23 = 0;
     }
 
-    v25 = 138413058;
-    v26 = textCopy;
-    v27 = 2112;
-    v28 = v18;
-    v29 = 2112;
-    v30 = language2;
-    v31 = 2112;
-    v32 = v24;
-    _os_log_debug_impl(&dword_241DFD000, v19, OS_LOG_TYPE_DEBUG, "Translated text:'%@' -> '%@' lang:%@ positions:%@", &v25, 0x2Au);
+    v24 = 138413058;
+    v25 = textCopy;
+    v26 = 2112;
+    v27 = v18;
+    v28 = 2112;
+    v29 = language2;
+    v30 = 2112;
+    v31 = v23;
+    _os_log_debug_impl(&dword_241DFD000, v19, OS_LOG_TYPE_DEBUG, "Translated text:'%@' -> '%@' lang:%@ positions:%@", &v24, 0x2Au);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 - (id)textForBraille:(id)braille parameters:(id)parameters locations:(id *)locations
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   brailleCopy = braille;
   parametersCopy = parameters;
   translator = [(BRLTSTranslator *)self translator];
@@ -170,43 +168,39 @@ LABEL_19:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     language2 = [parametersCopy language];
-    v18 = language2;
+    v17 = language2;
     if (locations)
     {
-      v19 = *locations;
+      v18 = *locations;
     }
 
     else
     {
-      v19 = 0;
+      v18 = 0;
     }
 
-    v20 = 138413058;
-    v21 = brailleCopy;
-    v22 = 2112;
-    v23 = v13;
-    v24 = 2112;
-    v25 = language2;
-    v26 = 2112;
-    v27 = v19;
-    _os_log_debug_impl(&dword_241DFD000, v14, OS_LOG_TYPE_DEBUG, "Translated braille: '%@' -> '%@' lang:%@ positions:%@", &v20, 0x2Au);
+    v19 = 138413058;
+    v20 = brailleCopy;
+    v21 = 2112;
+    v22 = v13;
+    v23 = 2112;
+    v24 = language2;
+    v25 = 2112;
+    v26 = v18;
+    _os_log_debug_impl(&dword_241DFD000, v14, OS_LOG_TYPE_DEBUG, "Translated braille: '%@' -> '%@' lang:%@ positions:%@", &v19, 0x2Au);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (void)translator
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   bundle = [self bundle];
   bundleIdentifier = [bundle bundleIdentifier];
-  v6 = 138412290;
-  v7 = bundleIdentifier;
-  _os_log_error_impl(&dword_241DFD000, a2, OS_LOG_TYPE_ERROR, "Couldn't load braille bundle for identifier: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = bundleIdentifier;
+  _os_log_error_impl(&dword_241DFD000, a2, OS_LOG_TYPE_ERROR, "Couldn't load braille bundle for identifier: %@", &v5, 0xCu);
 }
 
 @end

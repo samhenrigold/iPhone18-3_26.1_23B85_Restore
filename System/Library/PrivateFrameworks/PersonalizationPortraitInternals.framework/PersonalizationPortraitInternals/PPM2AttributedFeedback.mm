@@ -1,9 +1,14 @@
 @interface PPM2AttributedFeedback
 + (id)options;
 - (BOOL)isEqual:(id)equal;
+- (id)algorithmAsString:(int)string;
+- (id)categoryAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)domainAsString:(int)string;
+- (id)sourceAsString:(int)string;
+- (id)typeAsString:(int)string;
 - (int)StringAsAlgorithm:(id)algorithm;
 - (int)StringAsCategory:(id)category;
 - (int)StringAsDomain:(id)domain;
@@ -194,7 +199,6 @@ LABEL_13:
     goto LABEL_38;
   }
 
-  v5 = *(equalCopy + 68);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 68) & 8) == 0 || self->_source != *(equalCopy + 14))
@@ -259,7 +263,7 @@ LABEL_13:
   }
 
   has = self->_has;
-  v10 = *(equalCopy + 68);
+  v9 = *(equalCopy + 68);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 68) & 0x10) == 0 || self->_type != *(equalCopy + 15))
@@ -295,13 +299,13 @@ LABEL_13:
     }
 
     has = self->_has;
-    v10 = *(equalCopy + 68);
+    v9 = *(equalCopy + 68);
   }
 
-  v12 = (v10 & 0x20) == 0;
+  v11 = (v9 & 0x20) == 0;
   if ((has & 0x20) != 0)
   {
-    if ((v10 & 0x20) != 0)
+    if ((v9 & 0x20) != 0)
     {
       if (self->_isRemote)
       {
@@ -316,17 +320,17 @@ LABEL_13:
         goto LABEL_38;
       }
 
-      v12 = 1;
+      v11 = 1;
       goto LABEL_39;
     }
 
 LABEL_38:
-    v12 = 0;
+    v11 = 0;
   }
 
 LABEL_39:
 
-  return v12;
+  return v11;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -493,7 +497,6 @@ LABEL_5:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    source = self->_source;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -513,12 +516,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  algorithm = self->_algorithm;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    domain = self->_domain;
     PBDataWriterWriteInt32Field();
   }
 
@@ -538,17 +539,15 @@ LABEL_5:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x10) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v6 & 2) != 0)
+  if ((v5 & 2) != 0)
   {
-    category = self->_category;
     PBDataWriterWriteInt32Field();
   }
 
@@ -559,7 +558,6 @@ LABEL_5:
 
   if ((*&self->_has & 0x20) != 0)
   {
-    isRemote = self->_isRemote;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -848,6 +846,21 @@ LABEL_17:
   return v4;
 }
 
+- (id)categoryAsString:(int)string
+{
+  if (string >= 0x16)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278972AB0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasCategory:(BOOL)category
 {
   if (category)
@@ -912,6 +925,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278972A80[string];
   }
 
   return v4;
@@ -991,6 +1019,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)domainAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278972A40[string];
   }
 
   return v4;
@@ -1145,6 +1188,21 @@ LABEL_17:
   return v4;
 }
 
+- (id)algorithmAsString:(int)string
+{
+  if (string >= 0x16)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278972990[string];
+  }
+
+  return v4;
+}
+
 - (int)algorithm
 {
   if (*&self->_has)
@@ -1289,6 +1347,21 @@ LABEL_17:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)sourceAsString:(int)string
+{
+  if (string >= 0x19)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2789728C8[string];
   }
 
   return v4;

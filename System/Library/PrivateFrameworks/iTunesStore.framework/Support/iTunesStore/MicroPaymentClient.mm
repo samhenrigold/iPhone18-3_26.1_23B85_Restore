@@ -321,35 +321,35 @@ LABEL_38:
 
 - (id)replacePayment:(id)payment withPurchaseResponse:(id)response
 {
-  v37 = objc_alloc_init(NSMutableArray);
-  v36 = objc_alloc_init(NSMutableArray);
+  v41 = objc_alloc_init(NSMutableArray);
+  v40 = objc_alloc_init(NSMutableArray);
   managedObjectContext = [(MicroPaymentClient *)self managedObjectContext];
-  v34 = [MicroPayment paymentEntityFromContext:?];
+  v38 = [MicroPayment paymentEntityFromContext:?];
   payments = [response payments];
-  v38 = 0u;
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v8 = [payments countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v8 = [payments countByEnumeratingWithState:&v42 objects:v48 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v39;
+    v10 = *v43;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v39 != v10)
+        if (*v43 != v10)
         {
           objc_enumerationMutation(payments);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * i);
-        if ([payment isEqualToResponse:v12 compareAllFields:{0, v32, v33}])
+        v12 = *(*(&v42 + 1) + 8 * i);
+        if ([payment isEqualToResponse:v12 compareAllFields:{0, v36}])
         {
           [payment mergeValuesFromResponse:v12];
           [payment setState:{+[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", 2)}];
-          [v36 addObject:payment];
+          [v40 addObject:payment];
           v13 = +[SSLogConfig sharedDaemonConfig];
           if (!v13)
           {
@@ -359,70 +359,86 @@ LABEL_38:
           shouldLog = [v13 shouldLog];
           if ([v13 shouldLogToDisk])
           {
-            v15 = shouldLog | 2;
+            LODWORD(v15) = shouldLog | 2;
           }
 
           else
           {
-            v15 = shouldLog;
+            LODWORD(v15) = shouldLog;
           }
 
-          if (!os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_INFO))
+          oSLogObject = [v13 OSLogObject];
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+          {
+            v15 = v15;
+          }
+
+          else
           {
             v15 &= 2u;
           }
 
           if (v15)
           {
-            goto LABEL_24;
+            v17 = objc_opt_class();
+            v46 = 138412290;
+            v47 = v17;
+            LODWORD(v37) = 12;
+            v18 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Merged existing payment with response payment", &v46, v37);
+            goto LABEL_27;
           }
         }
 
         else
         {
-          v16 = [[MicroPayment alloc] initWithEntity:v34 insertIntoManagedObjectContext:managedObjectContext];
-          [(MicroPayment *)v16 mergeValuesFromResponse:v12];
-          [(MicroPayment *)v16 setClient:self];
-          [(MicroPayment *)v16 setState:[NSNumber numberWithInteger:2]];
-          [v37 addObject:v16];
+          v19 = [[MicroPayment alloc] initWithEntity:v38 insertIntoManagedObjectContext:managedObjectContext];
+          [(MicroPayment *)v19 mergeValuesFromResponse:v12];
+          [(MicroPayment *)v19 setClient:self];
+          [(MicroPayment *)v19 setState:[NSNumber numberWithInteger:2]];
+          [v41 addObject:v19];
 
-          v17 = +[SSLogConfig sharedDaemonConfig];
-          if (!v17)
+          v20 = +[SSLogConfig sharedDaemonConfig];
+          if (!v20)
           {
-            v17 = +[SSLogConfig sharedConfig];
+            v20 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog2 = [v17 shouldLog];
-          if ([v17 shouldLogToDisk])
+          shouldLog2 = [v20 shouldLog];
+          if ([v20 shouldLogToDisk])
           {
-            v19 = shouldLog2 | 2;
+            LODWORD(v22) = shouldLog2 | 2;
           }
 
           else
           {
-            v19 = shouldLog2;
+            LODWORD(v22) = shouldLog2;
           }
 
-          if (!os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_INFO))
+          oSLogObject2 = [v20 OSLogObject];
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
           {
-            v19 &= 2u;
+            v22 = v22;
           }
 
-          if (v19)
+          else
           {
-LABEL_24:
-            v20 = objc_opt_class();
-            v42 = 138412290;
-            v43 = v20;
-            LODWORD(v33) = 12;
-            v32 = &v42;
-            v21 = _os_log_send_and_compose_impl();
-            if (v21)
+            v22 &= 2u;
+          }
+
+          if (v22)
+          {
+            v24 = objc_opt_class();
+            v46 = 138412290;
+            v47 = v24;
+            LODWORD(v37) = 12;
+            v18 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Merged in new payment from response", &v46, v37);
+LABEL_27:
+            if (v18)
             {
-              v22 = v21;
-              v23 = [NSString stringWithCString:v21 encoding:4];
-              free(v22);
-              v32 = v23;
+              v25 = v18;
+              v26 = [NSString stringWithCString:v18 encoding:4];
+              free(v25);
+              v36 = v26;
               SSFileLog();
             }
 
@@ -431,68 +447,74 @@ LABEL_24:
         }
       }
 
-      v9 = [payments countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v9 = [payments countByEnumeratingWithState:&v42 objects:v48 count:16];
     }
 
     while (v9);
   }
 
-  if (payment && ![v36 count])
+  if (payment && ![v40 count])
   {
-    v24 = +[SSLogConfig sharedDaemonConfig];
-    if (!v24)
+    v27 = +[SSLogConfig sharedDaemonConfig];
+    if (!v27)
     {
-      v24 = +[SSLogConfig sharedConfig];
+      v27 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v24 shouldLog];
-    if ([v24 shouldLogToDisk])
+    LODWORD(v28) = [v27 shouldLog];
+    if ([v27 shouldLogToDisk])
     {
-      shouldLog3 |= 2u;
+      LODWORD(v28) = v28 | 2;
     }
 
-    if (!os_log_type_enabled([v24 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject3 = [v27 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      shouldLog3 &= 2u;
+      v28 = v28;
     }
 
-    if (shouldLog3)
+    else
     {
-      v26 = objc_opt_class();
-      v42 = 138412290;
-      v43 = v26;
-      LODWORD(v33) = 12;
-      v27 = _os_log_send_and_compose_impl();
-      if (v27)
+      v28 &= 2u;
+    }
+
+    if (v28)
+    {
+      v30 = objc_opt_class();
+      v46 = 138412290;
+      v47 = v30;
+      LODWORD(v37) = 12;
+      v31 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not find payment to merge with existing payment", &v46, v37);
+      if (v31)
       {
-        v28 = v27;
-        [NSString stringWithCString:v27 encoding:4, &v42, v33];
-        free(v28);
+        v32 = v31;
+        [NSString stringWithCString:v31 encoding:4];
+        free(v32);
         SSFileLog();
       }
     }
 
     sub_1001FA1F0();
     [payment setFailedWithError:ISErrorWithDomain()];
-    [v36 addObject:payment];
+    [v40 addObject:payment];
   }
 
   if (sub_1000CE00C(managedObjectContext))
   {
-    v29 = objc_alloc_init(MicroPaymentClientMergeResults);
-    v30 = v37;
-    [(MicroPaymentClientMergeResults *)v29 setAddedPayments:v37];
-    [(MicroPaymentClientMergeResults *)v29 setChangedPayments:v36];
+    v33 = objc_alloc_init(MicroPaymentClientMergeResults);
+    v34 = v41;
+    [(MicroPaymentClientMergeResults *)v33 setAddedPayments:v41];
+    [(MicroPaymentClientMergeResults *)v33 setChangedPayments:v40];
   }
 
   else
   {
     [managedObjectContext rollback];
-    v29 = 0;
-    v30 = v37;
+    v33 = 0;
+    v34 = v41;
   }
 
-  return v29;
+  return v33;
 }
 
 - (void)setValuesWithClientIdentity:(id)identity

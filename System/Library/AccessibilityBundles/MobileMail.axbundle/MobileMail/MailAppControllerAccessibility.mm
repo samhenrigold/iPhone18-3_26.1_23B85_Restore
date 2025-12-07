@@ -73,7 +73,7 @@
 
 - (id)_axAccessibilityGroupForKey:(id)key fromSplitController:(id)controller
 {
-  v15[4] = *MEMORY[0x29EDCA608];
+  v14[4] = *MEMORY[0x29EDCA608];
   keyCopy = key;
   controllerCopy = controller;
   objc_opt_class();
@@ -85,23 +85,21 @@
   [v9 _accessibilityProcessScannerGroupElementPieces:v10];
   if ([v10 count])
   {
-    v14[0] = @"GroupElements";
-    v14[1] = @"GroupTraits";
-    v15[0] = v10;
-    v15[1] = &unk_2A221BD30;
-    v14[2] = @"GroupScanBehaviorTraits";
-    v14[3] = @"GroupIdentifier";
-    v15[2] = &unk_2A221BD48;
-    v15[3] = keyCopy;
-    v11 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
+    v13[0] = @"GroupElements";
+    v13[1] = @"GroupTraits";
+    v14[0] = v10;
+    v14[1] = &unk_2A221BD30;
+    v13[2] = @"GroupScanBehaviorTraits";
+    v13[3] = @"GroupIdentifier";
+    v14[2] = &unk_2A221BD48;
+    v14[3] = keyCopy;
+    v11 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
   }
 
   else
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 
   return v11;
 }
@@ -141,25 +139,13 @@
 {
   _axVisibleViewController = [(MailAppControllerAccessibility *)self _axVisibleViewController];
   NSClassFromString(&cfstr_Conversationvi_0.isa);
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_4;
-  }
-
-  v11 = 0;
-  objc_opt_class();
-  v4 = __UIAccessibilityCastAsClass();
-  view = [v4 view];
-  v6 = [view _accessibilityViewIsVisibleIgnoringAXOverrides:0 stoppingBeforeContainer:0];
-
-  if (v6)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v11 = 0, objc_opt_class(), __UIAccessibilityCastAsClass(), v4 = objc_claimAutoreleasedReturnValue(), [v4 view], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "_accessibilityViewIsVisibleIgnoringAXOverrides:stoppingBeforeContainer:", 0, 0), v5, v4, v6))
   {
     _accessibilityFirstElementForFocus = [_axVisibleViewController _accessibilityFirstElementForFocus];
   }
 
   else
   {
-LABEL_4:
     v10.receiver = self;
     v10.super_class = MailAppControllerAccessibility;
     _accessibilityFirstElementForFocus = [(MailAppControllerAccessibility *)&v10 _accessibilityFirstElementForFocus];

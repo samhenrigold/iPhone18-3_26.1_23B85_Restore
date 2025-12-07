@@ -81,38 +81,37 @@
 {
   v7 = sub_255E38588();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_255E38568();
   if (source)
   {
     type metadata accessor for LiftUIObjcDataSourceWrapper();
-    v12 = swift_allocObject();
-    *(v12 + 16) = source;
-    v13 = &off_2867E8858;
+    v11 = swift_allocObject();
+    *(v11 + 16) = source;
+    v12 = &off_2867E8858;
   }
 
   else
   {
     type metadata accessor for BasicLiftUIDataSource();
-    v12 = swift_allocObject();
-    v13 = &protocol witness table for BasicLiftUIDataSource;
+    v11 = swift_allocObject();
+    v12 = &protocol witness table for BasicLiftUIDataSource;
   }
 
-  v14 = objc_allocWithZone(type metadata accessor for ContentRegistry());
+  v13 = objc_allocWithZone(type metadata accessor for ContentRegistry());
   swift_unknownObjectRetain_n();
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  v15 = [v14 init];
-  v16 = _s6LiftUI0A9UIFactoryC14viewController3url8delegate10dataSource15contentRegistrySo06UIViewE0C10Foundation3URLV_So0A10UIDelegate_pSgAA0a6UIDataI0_pAA07ContentK0CtFZ_0(v11, delegate, v12, v13, v15);
+  v14 = [v13 init];
+  v15 = _s6LiftUI0A9UIFactoryC14viewController3url8delegate10dataSource15contentRegistrySo06UIViewE0C10Foundation3URLV_So0A10UIDelegate_pSgAA0a6UIDataI0_pAA07ContentK0CtFZ_0(v10, delegate, v11, v12, v14);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
   swift_unknownObjectRelease_n();
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 
-  return v16;
+  return v15;
 }
 
 - (_TtC6LiftUI13LiftUIFactory)init

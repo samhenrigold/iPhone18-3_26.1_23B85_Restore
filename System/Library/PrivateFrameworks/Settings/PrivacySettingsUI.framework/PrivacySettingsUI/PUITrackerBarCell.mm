@@ -9,9 +9,9 @@
 
 - (PUITrackerBarCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v95.receiver = self;
-  v95.super_class = PUITrackerBarCell;
-  v4 = [(PSTableCell *)&v95 initWithStyle:style reuseIdentifier:identifier];
+  v97.receiver = self;
+  v97.super_class = PUITrackerBarCell;
+  v4 = [(PSTableCell *)&v97 initWithStyle:style reuseIdentifier:identifier];
   v5 = v4;
   if (v4)
   {
@@ -30,15 +30,15 @@
     detailTextLabel = [(PUITrackerBarCell *)v5 detailTextLabel];
     [detailTextLabel setHidden:1];
 
-    v14 = PUIWebsiteIconView();
-    [(PUITrackerBarCell *)v5 setIconLabelView:v14];
+    v16 = PUIWebsiteIconView(v14, v15);
+    [(PUITrackerBarCell *)v5 setIconLabelView:v16];
 
     contentView = [(PUITrackerBarCell *)v5 contentView];
     iconLabelView = [(PUITrackerBarCell *)v5 iconLabelView];
     [contentView addSubview:iconLabelView];
 
-    v17 = objc_opt_new();
-    [(PUITrackerBarCell *)v5 setStackView:v17];
+    v19 = objc_opt_new();
+    [(PUITrackerBarCell *)v5 setStackView:v19];
 
     stackView = [(PUITrackerBarCell *)v5 stackView];
     [stackView setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -50,12 +50,12 @@
     stackView3 = [(PUITrackerBarCell *)v5 stackView];
     [contentView2 addSubview:stackView3];
 
-    v22 = objc_opt_new();
-    [(PUITrackerBarCell *)v5 setPrimaryLabel:v22];
+    v24 = objc_opt_new();
+    [(PUITrackerBarCell *)v5 setPrimaryLabel:v24];
 
-    v23 = [MEMORY[0x277D74300] fontWithDescriptor:v8 size:0.0];
+    v25 = [MEMORY[0x277D74300] fontWithDescriptor:v8 size:0.0];
     primaryLabel = [(PUITrackerBarCell *)v5 primaryLabel];
-    [primaryLabel setFont:v23];
+    [primaryLabel setFont:v25];
 
     labelColor = [MEMORY[0x277D75348] labelColor];
     primaryLabel2 = [(PUITrackerBarCell *)v5 primaryLabel];
@@ -71,8 +71,8 @@
     primaryLabel5 = [(PUITrackerBarCell *)v5 primaryLabel];
     [stackView4 addArrangedSubview:primaryLabel5];
 
-    v31 = objc_opt_new();
-    [(PUITrackerBarCell *)v5 setBarStackView:v31];
+    v33 = objc_opt_new();
+    [(PUITrackerBarCell *)v5 setBarStackView:v33];
 
     barStackView = [(PUITrackerBarCell *)v5 barStackView];
     [barStackView setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -87,8 +87,8 @@
     barStackView4 = [(PUITrackerBarCell *)v5 barStackView];
     [stackView5 addArrangedSubview:barStackView4];
 
-    v37 = objc_opt_new();
-    [(PUITrackerBarCell *)v5 setBarView:v37];
+    v39 = objc_opt_new();
+    [(PUITrackerBarCell *)v5 setBarView:v39];
 
     barView = [(PUITrackerBarCell *)v5 barView];
     [barView setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -99,22 +99,22 @@
 
     barView3 = [(PUITrackerBarCell *)v5 barView];
     heightAnchor = [barView3 heightAnchor];
-    v43 = [heightAnchor constraintEqualToConstant:5.0];
-    [v43 setActive:1];
+    v45 = [heightAnchor constraintEqualToConstant:5.0];
+    [v45 setActive:1];
 
     barStackView5 = [(PUITrackerBarCell *)v5 barStackView];
     barView4 = [(PUITrackerBarCell *)v5 barView];
     [barStackView5 addArrangedSubview:barView4];
 
-    v46 = objc_opt_new();
-    [(PUITrackerBarCell *)v5 setValueLabel:v46];
+    v48 = objc_opt_new();
+    [(PUITrackerBarCell *)v5 setValueLabel:v48];
 
     valueLabel = [(PUITrackerBarCell *)v5 valueLabel];
     [valueLabel setTranslatesAutoresizingMaskIntoConstraints:0];
 
-    v48 = [MEMORY[0x277D74300] fontWithDescriptor:v11 size:0.0];
+    v50 = [MEMORY[0x277D74300] fontWithDescriptor:v11 size:0.0];
     valueLabel2 = [(PUITrackerBarCell *)v5 valueLabel];
-    [valueLabel2 setFont:v48];
+    [valueLabel2 setFont:v50];
 
     secondaryLabelColor = [MEMORY[0x277D75348] secondaryLabelColor];
     valueLabel3 = [(PUITrackerBarCell *)v5 valueLabel];
@@ -124,12 +124,12 @@
     valueLabel4 = [(PUITrackerBarCell *)v5 valueLabel];
     [barStackView6 addArrangedSubview:valueLabel4];
 
-    v54 = objc_opt_new();
-    [(PUITrackerBarCell *)v5 setSecondaryLabel:v54];
+    v56 = objc_opt_new();
+    [(PUITrackerBarCell *)v5 setSecondaryLabel:v56];
 
-    v55 = [MEMORY[0x277D74300] fontWithDescriptor:v11 size:0.0];
+    v57 = [MEMORY[0x277D74300] fontWithDescriptor:v11 size:0.0];
     secondaryLabel = [(PUITrackerBarCell *)v5 secondaryLabel];
-    [secondaryLabel setFont:v55];
+    [secondaryLabel setFont:v57];
 
     secondaryLabelColor2 = [MEMORY[0x277D75348] secondaryLabelColor];
     secondaryLabel2 = [(PUITrackerBarCell *)v5 secondaryLabel];
@@ -145,12 +145,12 @@
     secondaryLabel5 = [(PUITrackerBarCell *)v5 secondaryLabel];
     [stackView6 addArrangedSubview:secondaryLabel5];
 
-    v63 = objc_opt_new();
-    [(PUITrackerBarCell *)v5 setTertiaryLabel:v63];
+    v65 = objc_opt_new();
+    [(PUITrackerBarCell *)v5 setTertiaryLabel:v65];
 
-    v64 = [MEMORY[0x277D74300] fontWithDescriptor:v11 size:0.0];
+    v66 = [MEMORY[0x277D74300] fontWithDescriptor:v11 size:0.0];
     tertiaryLabel = [(PUITrackerBarCell *)v5 tertiaryLabel];
-    [tertiaryLabel setFont:v64];
+    [tertiaryLabel setFont:v66];
 
     secondaryLabelColor3 = [MEMORY[0x277D75348] secondaryLabelColor];
     tertiaryLabel2 = [(PUITrackerBarCell *)v5 tertiaryLabel];
@@ -166,16 +166,16 @@
     tertiaryLabel5 = [(PUITrackerBarCell *)v5 tertiaryLabel];
     [stackView7 addArrangedSubview:tertiaryLabel5];
 
-    v72 = objc_opt_new();
-    [(PUITrackerBarCell *)v5 setAppAttributedBackgroundView:v72];
+    v74 = objc_opt_new();
+    [(PUITrackerBarCell *)v5 setAppAttributedBackgroundView:v74];
 
     appAttributedBackgroundView = [(PUITrackerBarCell *)v5 appAttributedBackgroundView];
     [appAttributedBackgroundView setContentMode:4];
 
-    v74 = [MEMORY[0x277D755B8] _systemImageNamed:@"appstore.circle.fill" withConfiguration:0];
-    v75 = [v74 imageWithRenderingMode:2];
+    v76 = [MEMORY[0x277D755B8] _systemImageNamed:@"appstore.circle.fill" withConfiguration:0];
+    v77 = [v76 imageWithRenderingMode:2];
     appAttributedBackgroundView2 = [(PUITrackerBarCell *)v5 appAttributedBackgroundView];
-    [appAttributedBackgroundView2 setImage:v75];
+    [appAttributedBackgroundView2 setImage:v77];
 
     appAttributedBackgroundView3 = [(PUITrackerBarCell *)v5 appAttributedBackgroundView];
     [appAttributedBackgroundView3 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -191,16 +191,16 @@
     appAttributedBackgroundView6 = [(PUITrackerBarCell *)v5 appAttributedBackgroundView];
     [contentView3 addSubview:appAttributedBackgroundView6];
 
-    v83 = objc_opt_new();
-    [(PUITrackerBarCell *)v5 setAppAttributedView:v83];
+    v85 = objc_opt_new();
+    [(PUITrackerBarCell *)v5 setAppAttributedView:v85];
 
     appAttributedView = [(PUITrackerBarCell *)v5 appAttributedView];
     [appAttributedView setContentMode:4];
 
-    v85 = [MEMORY[0x277D755B8] _systemImageNamed:@"appstore.circle" withConfiguration:0];
-    v86 = [v85 imageWithRenderingMode:2];
+    v87 = [MEMORY[0x277D755B8] _systemImageNamed:@"appstore.circle" withConfiguration:0];
+    v88 = [v87 imageWithRenderingMode:2];
     appAttributedView2 = [(PUITrackerBarCell *)v5 appAttributedView];
-    [appAttributedView2 setImage:v86];
+    [appAttributedView2 setImage:v88];
 
     appAttributedView3 = [(PUITrackerBarCell *)v5 appAttributedView];
     [appAttributedView3 setTranslatesAutoresizingMaskIntoConstraints:0];

@@ -93,13 +93,13 @@
 
   if (v9)
   {
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqualToString) = 0;
     goto LABEL_27;
   }
 
-  v10 = [(NSString *)v6 isEqualToString:v7];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-  if (v10)
+  if (isEqualToString)
   {
 LABEL_10:
     v11 = propertyCopy[2];
@@ -112,15 +112,15 @@ LABEL_10:
 
     else
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (!v6 || !v12)
       {
         goto LABEL_27;
       }
 
-      v10 = [(NSString *)v6 isEqualToString:v12];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-      if (!v10)
+      if (!isEqualToString)
       {
         goto LABEL_28;
       }
@@ -141,27 +141,27 @@ LABEL_22:
       v8 = v17;
       if (v6 == v17)
       {
-        LOBYTE(v10) = 1;
+        LOBYTE(isEqualToString) = 1;
       }
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqualToString) = 0;
         if (v6 && v17)
         {
-          LOBYTE(v10) = [(NSString *)v6 isEqualToString:v17];
+          LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v6);
         }
       }
 
       goto LABEL_27;
     }
 
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqualToString) = 0;
     if (v6 && v14)
     {
-      v10 = [(NSString *)v6 isEqualToString:v14];
+      isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-      if (!v10)
+      if (!isEqualToString)
       {
         goto LABEL_28;
       }
@@ -174,7 +174,7 @@ LABEL_27:
 
 LABEL_28:
 
-  return v10;
+  return isEqualToString;
 }
 
 - (unint64_t)hash

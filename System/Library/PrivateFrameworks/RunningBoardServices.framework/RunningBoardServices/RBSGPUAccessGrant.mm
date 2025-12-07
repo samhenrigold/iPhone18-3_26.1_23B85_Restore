@@ -1,5 +1,6 @@
 @interface RBSGPUAccessGrant
 + (id)grant;
++ (id)grantWithRole:(unsigned __int8)role;
 - (BOOL)isEqual:(id)equal;
 - (RBSGPUAccessGrant)initWithRBSXPCCoder:(id)coder;
 - (id)_initWithRole:(unsigned __int8)role;
@@ -24,6 +25,13 @@
   v6 = [v3 initWithFormat:@"<%@| role:%@>", v4, v5];
 
   return v6;
+}
+
++ (id)grantWithRole:(unsigned __int8)role
+{
+  v3 = [[self alloc] _initWithRole:role];
+
+  return v3;
 }
 
 - (id)_initWithRole:(unsigned __int8)role

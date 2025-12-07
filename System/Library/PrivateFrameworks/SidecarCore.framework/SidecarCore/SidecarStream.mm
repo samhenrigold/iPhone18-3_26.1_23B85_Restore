@@ -83,7 +83,7 @@
 
 - (void)sendOPACK:(id)k completion:(id)completion
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   kCopy = k;
   completionCopy = completion;
   if (self->_rapportStream)
@@ -97,9 +97,9 @@
       [v9 raise:v10 format:{@"%@ not activated", v11}];
     }
 
-    v19 = 0;
-    v12 = SidecarOPACKEncode(kCopy, &v19);
-    v13 = v19;
+    v18 = 0;
+    v12 = SidecarOPACKEncode(kCopy, &v18);
+    v13 = v18;
     if (v13)
     {
       completionCopy[2](completionCopy, v13);
@@ -109,9 +109,9 @@
     {
       rapportStream = self->_rapportStream;
       identifier = [(SidecarStream *)self identifier];
-      v20 = &unk_2877BFCF8;
-      v21[0] = v12;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+      v19 = &unk_2877BFCF8;
+      v20[0] = v12;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
       [(RPStreamSession *)rapportStream sendEventID:identifier event:v17 options:0 completion:completionCopy];
     }
   }
@@ -121,8 +121,6 @@
     v14 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"SidecarErrorDomain" code:-102 userInfo:0];
     completionCopy[2](completionCopy, v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setHandler:(id)handler
@@ -144,7 +142,7 @@
 
 void __28__SidecarStream_setHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -153,11 +151,11 @@ void __28__SidecarStream_setHandler___block_invoke(uint64_t a1, void *a2, void *
   if (v10 && os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543874;
-    v24 = v7;
-    v25 = 2112;
-    v26 = v8;
-    v27 = 2112;
-    v28 = v9;
+    v23 = v7;
+    v24 = 2112;
+    v25 = v8;
+    v26 = 2112;
+    v27 = v9;
     _os_log_impl(&dword_26604C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@: %@, %@", buf, 0x20u);
   }
 
@@ -165,39 +163,37 @@ void __28__SidecarStream_setHandler___block_invoke(uint64_t a1, void *a2, void *
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v22 = 0;
-    v13 = SidecarOPACKDecode(v12, &v22);
-    v14 = v22;
+    v21 = 0;
+    v13 = SidecarOPACKDecode(v12, &v21);
+    v14 = v21;
     if (v14)
     {
-      v16 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-      if (v16)
+      v15 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+      if (v15)
       {
-        log = v16;
-        v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
-        v16 = log;
-        if (v17)
+        log = v15;
+        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+        v15 = log;
+        if (v16)
         {
-          v18 = [v14 domain];
-          v19 = [v14 code];
-          v20 = [v14 localizedDescription];
+          v17 = [v14 domain];
+          v18 = [v14 code];
+          v19 = [v14 localizedDescription];
           *buf = 138543875;
-          v24 = v18;
-          v25 = 2048;
-          v26 = v19;
-          v27 = 2113;
-          v28 = v20;
+          v23 = v17;
+          v24 = 2048;
+          v25 = v18;
+          v26 = 2113;
+          v27 = v19;
           _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-          v16 = log;
+          v15 = log;
         }
       }
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)handler
@@ -294,38 +290,32 @@ void __40__SidecarStream_activateWithCompletion___block_invoke(void *a1, void *a
 
 - (int64_t)type
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   LODWORD(result) = [(RPStreamSession *)self->_rapportStream streamType];
   v3 = result;
-  if ((result - 1) >= 3)
+  if ((result - 1) < 3)
   {
-    v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    v5 = v4;
-    if (v4 && os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v7 = "?";
-      if (!v3)
-      {
-        v7 = "Invalid";
-      }
+    return result;
+  }
 
-      v8 = 136446466;
-      v9 = v7;
-      v10 = 1024;
-      v11 = v3;
-      _os_log_impl(&dword_26604C000, v5, OS_LOG_TYPE_ERROR, "unexpected RPStreamType: %{public}s (%d)", &v8, 0x12u);
+  v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+  v5 = v4;
+  if (v4 && os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  {
+    v6 = "?";
+    if (!v3)
+    {
+      v6 = "Invalid";
     }
 
-    result = 0;
+    v7 = 136446466;
+    v8 = v6;
+    v9 = 1024;
+    v10 = v3;
+    _os_log_impl(&dword_26604C000, v5, OS_LOG_TYPE_ERROR, "unexpected RPStreamType: %{public}s (%d)", &v7, 0x12u);
   }
 
-  else
-  {
-    result = result;
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (int64_t)transport

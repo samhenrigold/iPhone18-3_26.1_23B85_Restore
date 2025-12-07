@@ -1,12 +1,17 @@
 @interface RPRecordingManager
 - (RPRecordingManager)initWithConnectionManager:(id)manager;
+- (id)createNotificationRequestWithAssetURL:(id)l ignoreDoNotDisturb:(BOOL)disturb isClip:(BOOL)clip;
 - (id)getCallingConnectionBundleID;
 - (id)getCallingConnectionClient;
+- (id)periodic:(id)periodic urgency:(int)urgency;
 - (id)purge:(id)purge urgency:(int)urgency;
+- (id)purgeable:(id)purgeable urgency:(int)urgency;
 - (void)applicationDisconnectedWithBundleID:(id)d withProcessIdentifier:(int)identifier;
 - (void)connectionManagerDidAcceptNewConnection:(id)connection bundleIdentifier:(id)identifier;
+- (void)createNewBroadcastClientWithBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info isSystemBroadcast:(BOOL)broadcast handler:(id)handler;
 - (void)dealloc;
 - (void)discardInAppRecordingWithHandler:(id)handler;
+- (void)displayScreenRecorderNotificationWithURL:(id)l ignoreDoNotDisturb:(BOOL)disturb isClip:(BOOL)clip;
 - (void)exportClipToURL:(id)l duration:(double)duration completionHandler:(id)handler;
 - (void)getSystemBroadcastExtensionInfo:(id)info;
 - (void)getSystemBroadcastPickerInfo:(id)info;
@@ -16,6 +21,7 @@
 - (void)pauseInAppBroadcast;
 - (void)pauseInAppCapture;
 - (void)pauseInAppRecording;
+- (void)processSaveToPhotos:(id)photos mixAudioTracks:(BOOL)tracks ignoreDoNotDisturb:(BOOL)disturb isClip:(BOOL)clip;
 - (void)reportCameraUsage:(int64_t)usage;
 - (void)resumeHQLRWithCompletionHandler:(id)handler;
 - (void)resumeInAppBroadcastWithWindowLayerContextID:(id)d completionHandler:(id)handler;
@@ -25,10 +31,12 @@
 - (void)resumeSystemBroadcastWithCompletionHandler:(id)handler;
 - (void)resumeSystemRecordingWithCompletionHandler:(id)handler;
 - (void)saveClipToCameraRoll:(id)roll handler:(id)handler;
+- (void)saveToCameraRoll:(id)roll mixAudioTracks:(BOOL)tracks ignoreDoNotDisturb:(BOOL)disturb isClip:(BOOL)clip handler:(id)handler;
 - (void)saveVideo:(id)video handler:(id)handler;
 - (void)saveVideoToCameraRoll:(id)roll handler:(id)handler;
 - (void)setBroadcastPickerPreferredExt:(id)ext showsMicButton:(BOOL)button;
 - (void)setBroadcastURL:(id)l;
+- (void)setMicrophoneEnabled:(BOOL)enabled;
 - (void)setUpMemoryPressureNotification;
 - (void)setupBroadcastWithHostBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info handler:(id)handler;
 - (void)setupSystemBroadcastWithHostBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info handler:(id)handler;
@@ -51,6 +59,7 @@
 - (void)stopSystemRecordingWithHandler:(id)handler;
 - (void)stopSystemRecordingWithURLHandler:(id)handler;
 - (void)updateClient:(id)client withHostBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info isSystemBroadcast:(BOOL)broadcast handler:(id)handler;
+- (void)updateProcessIDForAudioCaptureWithPID:(int)d;
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler;
 @end
 
@@ -148,6 +157,30 @@
   CacheDeleteRegisterInfoCallbacks();
 }
 
+- (id)purgeable:(id)purgeable urgency:(int)urgency
+{
+  v5 = [purgeable objectForKeyedSubscript:{@"CACHE_DELETE_VOLUME", *&urgency}];
+  if ([(RPRecordingManager *)self volumeMatchesCachePath:v5])
+  {
+    v6 = +[NSFileManager defaultManager];
+    v7 = [v6 _srSizeOfTempDir:0];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v11[0] = @"CACHE_DELETE_VOLUME";
+  v11[1] = @"CACHE_DELETE_AMOUNT";
+  v12[0] = v5;
+  v8 = [NSNumber numberWithLongLong:v7];
+  v12[1] = v8;
+  v9 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
+
+  return v9;
+}
+
 - (id)purge:(id)purge urgency:(int)urgency
 {
   v6 = [purge objectForKeyedSubscript:@"CACHE_DELETE_VOLUME"];
@@ -185,6 +218,30 @@
   v13 = [NSDictionary dictionaryWithObjects:v16 forKeys:&v15 count:2];
 
   return v13;
+}
+
+- (id)periodic:(id)periodic urgency:(int)urgency
+{
+  v5 = [periodic objectForKeyedSubscript:{@"CACHE_DELETE_VOLUME", *&urgency}];
+  if ([(RPRecordingManager *)self volumeMatchesCachePath:v5])
+  {
+    v6 = +[NSFileManager defaultManager];
+    v7 = [v6 _srDeleteFilesOlderThanTimeToLiveInSeconds:1 deleteSystemFiles:86400.0];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v11[0] = @"CACHE_DELETE_VOLUME";
+  v11[1] = @"CACHE_DELETE_AMOUNT";
+  v12[0] = v5;
+  v8 = [NSNumber numberWithLongLong:v7];
+  v12[1] = v8;
+  v9 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
+
+  return v9;
 }
 
 - (void)connectionManagerDidAcceptNewConnection:(id)connection bundleIdentifier:(id)identifier
@@ -405,6 +462,80 @@
   v11 = handlerCopy;
   v9 = handlerCopy;
   [getCallingConnectionClient resumeInAppCaptureWithContextID:dCopy completionHandler:v10];
+}
+
+- (void)createNewBroadcastClientWithBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info isSystemBroadcast:(BOOL)broadcast handler:(id)handler
+{
+  broadcastCopy = broadcast;
+  dCopy = d;
+  iDCopy = iD;
+  dataCopy = data;
+  infoCopy = info;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446722;
+    v24 = "[RPRecordingManager createNewBroadcastClientWithBundleID:broadcastExtensionBundleID:broadcastConfigurationData:userInfo:isSystemBroadcast:handler:]";
+    v25 = 1024;
+    v26 = 634;
+    v27 = 2112;
+    v28 = dCopy;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Calling client doesn't not exist, we need to create a new client with bundleID: %@", buf, 0x1Cu);
+  }
+
+  v19 = [[RPClient alloc] initWithConnection:0 clientProxy:0 bundleIdentifier:dCopy];
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446722;
+    v24 = "[RPRecordingManager createNewBroadcastClientWithBundleID:broadcastExtensionBundleID:broadcastConfigurationData:userInfo:isSystemBroadcast:handler:]";
+    v25 = 1024;
+    v26 = 638;
+    v27 = 2112;
+    v28 = v19;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d client created: %@", buf, 0x1Cu);
+  }
+
+  if (v19)
+  {
+    if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136446466;
+      v24 = "[RPRecordingManager createNewBroadcastClientWithBundleID:broadcastExtensionBundleID:broadcastConfigurationData:userInfo:isSystemBroadcast:handler:]";
+      v25 = 1024;
+      v26 = 640;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d client created and adding to client manager", buf, 0x12u);
+    }
+
+    v20 = +[RPClientManager sharedInstance];
+    [v20 addClient:v19];
+
+    [(RPRecordingManager *)self updateClient:v19 withHostBundleID:dCopy broadcastExtensionBundleID:iDCopy broadcastConfigurationData:dataCopy userInfo:infoCopy isSystemBroadcast:broadcastCopy handler:handlerCopy];
+  }
+
+  else
+  {
+    if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_100060CE4();
+    }
+
+    v21 = [NSError _rpUserErrorForCode:-5808 userInfo:0];
+    if (broadcastCopy)
+    {
+      v22 = @"SystemBroadcast";
+    }
+
+    else
+    {
+      v22 = @"InAppBroadcast";
+    }
+
+    [RPReportingAgent reportSessionEnded:2 endReason:v21 withServiceName:v22 clientBundleId:dCopy];
+    if (handlerCopy)
+    {
+      handlerCopy[2](handlerCopy, v21);
+    }
+  }
 }
 
 - (void)updateClient:(id)client withHostBundleID:(id)d broadcastExtensionBundleID:(id)iD broadcastConfigurationData:(id)data userInfo:(id)info isSystemBroadcast:(BOOL)broadcast handler:(id)handler
@@ -1004,6 +1135,198 @@
   [(RPRecordingManager *)self saveToCameraRoll:videoCopy mixAudioTracks:0 ignoreDoNotDisturb:1 isClip:0 handler:handlerCopy];
 }
 
+- (void)saveToCameraRoll:(id)roll mixAudioTracks:(BOOL)tracks ignoreDoNotDisturb:(BOOL)disturb isClip:(BOOL)clip handler:(id)handler
+{
+  clipCopy = clip;
+  disturbCopy = disturb;
+  tracksCopy = tracks;
+  rollCopy = roll;
+  handlerCopy = handler;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = 136446466;
+    v18 = "[RPRecordingManager saveToCameraRoll:mixAudioTracks:ignoreDoNotDisturb:isClip:handler:]";
+    v19 = 1024;
+    v20 = 1122;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", &v17, 0x12u);
+  }
+
+  connectionManager = [(RPRecordingManager *)self connectionManager];
+  hasSystemRecordingEntitlements = [connectionManager hasSystemRecordingEntitlements];
+
+  if ((hasSystemRecordingEntitlements & 1) == 0)
+  {
+    if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000610AC();
+      if (!handlerCopy)
+      {
+        goto LABEL_11;
+      }
+    }
+
+    else if (!handlerCopy)
+    {
+      goto LABEL_11;
+    }
+
+    v16 = [NSError _rpUserErrorForCode:-5810 userInfo:0];
+    handlerCopy[2](handlerCopy, v16);
+
+    goto LABEL_11;
+  }
+
+  [(RPRecordingManager *)self processSaveToPhotos:rollCopy mixAudioTracks:tracksCopy ignoreDoNotDisturb:disturbCopy isClip:clipCopy];
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, 0);
+  }
+
+LABEL_11:
+}
+
+- (void)processSaveToPhotos:(id)photos mixAudioTracks:(BOOL)tracks ignoreDoNotDisturb:(BOOL)disturb isClip:(BOOL)clip
+{
+  tracksCopy = tracks;
+  photosCopy = photos;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v15 = "[RPRecordingManager processSaveToPhotos:mixAudioTracks:ignoreDoNotDisturb:isClip:]";
+    v16 = 1024;
+    v17 = 1140;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Start Save to Photos", buf, 0x12u);
+  }
+
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10001BD7C;
+  v11[3] = &unk_1000A1998;
+  v11[4] = self;
+  disturbCopy = disturb;
+  clipCopy = clip;
+  [RPPhotosUtility exportVideoToPhotosAsynchronously:photosCopy mixAudioTracks:tracksCopy completionHandler:v11];
+}
+
+- (void)updateProcessIDForAudioCaptureWithPID:(int)d
+{
+  v3 = *&d;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 136446722;
+    v9 = "[RPRecordingManager updateProcessIDForAudioCaptureWithPID:]";
+    v10 = 1024;
+    v11 = 1179;
+    v12 = 1024;
+    v13 = v3;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d pid :%d", &v8, 0x18u);
+  }
+
+  connectionManager = [(RPRecordingManager *)self connectionManager];
+  hasSystemRecordingEntitlements = [connectionManager hasSystemRecordingEntitlements];
+
+  if (hasSystemRecordingEntitlements)
+  {
+    getCallingConnectionClient = [(RPRecordingManager *)self getCallingConnectionClient];
+    [getCallingConnectionClient updateProcessIDForAudioCaptureWithPID:v3];
+  }
+
+  else if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_1000611C0();
+  }
+}
+
+- (void)displayScreenRecorderNotificationWithURL:(id)l ignoreDoNotDisturb:(BOOL)disturb isClip:(BOOL)clip
+{
+  clipCopy = clip;
+  disturbCopy = disturb;
+  lCopy = l;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 136446722;
+    v12 = "[RPRecordingManager displayScreenRecorderNotificationWithURL:ignoreDoNotDisturb:isClip:]";
+    v13 = 1024;
+    v14 = 1192;
+    v15 = 2048;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d %p", &v11, 0x1Cu);
+  }
+
+  v9 = [(RPRecordingManager *)self createNotificationRequestWithAssetURL:lCopy ignoreDoNotDisturb:disturbCopy isClip:clipCopy];
+  userNotificationCenter = [(RPRecordingManager *)self userNotificationCenter];
+  [userNotificationCenter addNotificationRequest:v9 withCompletionHandler:&stru_1000A19B8];
+}
+
+- (id)createNotificationRequestWithAssetURL:(id)l ignoreDoNotDisturb:(BOOL)disturb isClip:(BOOL)clip
+{
+  clipCopy = clip;
+  disturbCopy = disturb;
+  lCopy = l;
+  v8 = [PHObject uuidFromLocalIdentifier:lCopy];
+  v9 = [NSString stringWithFormat:@"photos://asset?uuid=%@&albumname=camera-roll", v8];
+  v10 = [NSURL URLWithString:v9];
+
+  if (clipCopy)
+  {
+    v11 = @"CONTROL_CENTER_CLIPS_TITLE";
+  }
+
+  else
+  {
+    v11 = @"CONTROL_CENTER_TITLE";
+  }
+
+  if (clipCopy)
+  {
+    v12 = @"RECORDING_CLIPS_BULLETIN_MESSAGE";
+  }
+
+  else
+  {
+    v12 = @"RECORDING_BULLETIN_MESSAGE";
+  }
+
+  v13 = [NSBundle _rpLocalizedStringFromFrameworkBundleWithKey:v11];
+  v14 = [NSBundle _rpLocalizedStringFromFrameworkBundleWithKey:v12];
+  v15 = objc_alloc_init(UNMutableNotificationContent);
+  v31 = v13;
+  [v15 setTitle:v13];
+  v29 = v14;
+  [v15 setBody:v14];
+  [v15 setThreadIdentifier:@"orginalRecordID"];
+  [v15 setShouldIgnoreDoNotDisturb:disturbCopy];
+  if (lCopy)
+  {
+    v33 = @"photoAssetIdKey";
+    v34 = lCopy;
+    v16 = [NSDictionary dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    [v15 setUserInfo:v16];
+  }
+
+  [v15 setDefaultActionURL:v10];
+  v17 = [UNNotificationActionIcon iconWithSystemImageName:@"photo.fill"];
+  v18 = [NSBundle _rpLocalizedStringFromFrameworkBundleWithKey:@"SYSTEM_RECORDING_LONG_PRESS_VIEW"];
+  [UNNotificationAction actionWithIdentifier:@"viewAction" title:v18 url:v10 options:0 icon:v17];
+  v19 = v28 = v10;
+
+  v20 = [UNNotificationActionIcon iconWithSystemImageName:@"xmark.circle"];
+  v21 = [NSBundle _rpLocalizedStringFromFrameworkBundleWithKey:@"SYSTEM_RECORDING_LONG_PRESS_DELETE"];
+  v22 = [UNNotificationAction actionWithIdentifier:@"deleteAction" title:v21 options:3 icon:v20];
+
+  v32[0] = v19;
+  v32[1] = v22;
+  v23 = [NSArray arrayWithObjects:v32 count:2];
+  v24 = [UNNotificationCategory categoryWithIdentifier:@"orginalRecordID" actions:v23 intentIdentifiers:&__NSArray0__struct options:0];
+  v25 = [NSSet setWithObject:v24];
+  [(UNUserNotificationCenter *)self->_userNotificationCenter setNotificationCategories:v25];
+
+  [v15 setCategoryIdentifier:@"orginalRecordID"];
+  v26 = [UNNotificationRequest requestWithIdentifier:@"orginalRecordID" content:v15 trigger:0];
+
+  return v26;
+}
+
 - (void)userNotificationCenter:(id)center didReceiveNotificationResponse:(id)response withCompletionHandler:(id)handler
 {
   responseCopy = response;
@@ -1021,31 +1344,14 @@
     content = [request content];
     userInfo = [content userInfo];
 
-    if (!userInfo)
-    {
-      goto LABEL_15;
-    }
-
-    v15 = [userInfo objectForKey:@"photoAssetIdKey"];
-    if (!v15)
-    {
-      goto LABEL_15;
-    }
-
-    v16 = v15;
-    v26 = v15;
-    v17 = [NSArray arrayWithObjects:&v26 count:1];
-    v18 = [PHAsset fetchAssetsWithLocalIdentifiers:v17 options:0];
-    firstObject = [v18 firstObject];
-
-    if (firstObject)
+    if (userInfo && ([userInfo objectForKey:@"photoAssetIdKey"], (v15 = objc_claimAutoreleasedReturnValue()) != 0) && (v16 = v15, v26 = v15, +[NSArray arrayWithObjects:count:](NSArray, "arrayWithObjects:count:", &v26, 1), v17 = objc_claimAutoreleasedReturnValue(), +[PHAsset fetchAssetsWithLocalIdentifiers:options:](PHAsset, "fetchAssetsWithLocalIdentifiers:options:", v17, 0), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "firstObject"), v19 = objc_claimAutoreleasedReturnValue(), v18, v17, v16, v19))
     {
       v20 = +[PHPhotoLibrary sharedPhotoLibrary];
       v24[0] = _NSConcreteStackBlock;
       v24[1] = 3221225472;
       v24[2] = sub_10001C810;
       v24[3] = &unk_1000A1088;
-      v21 = firstObject;
+      v21 = v19;
       v25 = v21;
       v23 = 0;
       [v20 performChangesAndWait:v24 error:&v23];
@@ -1059,13 +1365,9 @@
       handlerCopy[2](handlerCopy);
     }
 
-    else
+    else if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-LABEL_15:
-      if (dword_1000B6840 <= 2 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
-      {
-        sub_100061248();
-      }
+      sub_100061248();
     }
   }
 }
@@ -1079,6 +1381,24 @@ LABEL_15:
   infoCopy = info;
   v3 = infoCopy;
   [NSExtension extensionsWithMatchingPointName:@"com.apple.broadcast-services-upload" completion:v4];
+}
+
+- (void)setMicrophoneEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = 136446722;
+    v7 = "[RPRecordingManager setMicrophoneEnabled:]";
+    v8 = 1024;
+    v9 = 1362;
+    v10 = 1024;
+    v11 = enabledCopy;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d microphone set:%d ", &v6, 0x18u);
+  }
+
+  getCallingConnectionClient = [(RPRecordingManager *)self getCallingConnectionClient];
+  [getCallingConnectionClient setCurrentActiveSessionMicrophoneEnabled:enabledCopy];
 }
 
 - (void)getSystemBroadcastPickerInfo:(id)info

@@ -1,9 +1,67 @@
 @interface SYContentItemPreviewManager
 + (void)_loadPreviewForAppContentItem:(id)item completion:(id)completion;
++ (void)_loadPreviewMetadataForItem:(id)item fullDetail:(BOOL)detail completion:(id)completion;
 + (void)_loadPreviewUsingLPForItem:(id)item fullDetail:(BOOL)detail completion:(id)completion;
++ (void)loadPreviewDataForItems:(id)items fullDetail:(BOOL)detail didFinishLoadingPreviewHandler:(id)handler;
 @end
 
 @implementation SYContentItemPreviewManager
+
++ (void)loadPreviewDataForItems:(id)items fullDetail:(BOOL)detail didFinishLoadingPreviewHandler:(id)handler
+{
+  detailCopy = detail;
+  v28 = *MEMORY[0x277D85DE8];
+  itemsCopy = items;
+  handlerCopy = handler;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v10 = [itemsCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v20;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v20 != v12)
+        {
+          objc_enumerationMutation(itemsCopy);
+        }
+
+        v14 = *(*(&v19 + 1) + 8 * v13);
+        v15 = os_log_create("com.apple.synapse", "ContentItemManager");
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        {
+          *buf = 138412546;
+          v24 = v14;
+          v25 = 1024;
+          v26 = detailCopy;
+          _os_log_debug_impl(&dword_225901000, v15, OS_LOG_TYPE_DEBUG, "Start loading preview for item: %@, fullDetail: %d", buf, 0x12u);
+        }
+
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __97__SYContentItemPreviewManager_loadPreviewDataForItems_fullDetail_didFinishLoadingPreviewHandler___block_invoke;
+        v16[3] = &unk_27856B328;
+        v18 = detailCopy;
+        v16[4] = v14;
+        v17 = handlerCopy;
+        [self _loadPreviewMetadataForItem:v14 fullDetail:detailCopy completion:v16];
+
+        ++v13;
+      }
+
+      while (v11 != v13);
+      v11 = [itemsCopy countByEnumeratingWithState:&v19 objects:v27 count:16];
+    }
+
+    while (v11);
+  }
+}
 
 void __97__SYContentItemPreviewManager_loadPreviewDataForItems_fullDetail_didFinishLoadingPreviewHandler___block_invoke(uint64_t a1, void *a2)
 {
@@ -26,7 +84,6 @@ void __97__SYContentItemPreviewManager_loadPreviewDataForItems_fullDetail_didFin
 {
   if (*(a1 + 32))
   {
-    *(a1 + 56);
     [*(a1 + 40) setLinkPreviewMetadata:? loadLevel:?];
     v2 = os_log_create("com.apple.synapse", "ContentItemManager");
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
@@ -45,14 +102,41 @@ void __97__SYContentItemPreviewManager_loadPreviewDataForItems_fullDetail_didFin
   [v4 postNotificationName:@"SYContentItemLinkPreviewDidFinishLoading" object:*(a1 + 40)];
 }
 
++ (void)_loadPreviewMetadataForItem:(id)item fullDetail:(BOOL)detail completion:(id)completion
+{
+  detailCopy = detail;
+  itemCopy = item;
+  completionCopy = completion;
+  itemURL = [itemCopy itemURL];
+  if (([itemURL _lp_isHTTPFamilyURL] & 1) != 0 || objc_msgSend(itemURL, "isFileURL"))
+  {
+    objc_initWeak(&location, self);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __81__SYContentItemPreviewManager__loadPreviewMetadataForItem_fullDetail_completion___block_invoke;
+    v11[3] = &unk_27856B350;
+    objc_copyWeak(&v14, &location);
+    v12 = itemCopy;
+    v13 = completionCopy;
+    [self _loadPreviewUsingLPForItem:v12 fullDetail:detailCopy completion:v11];
+
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&location);
+  }
+
+  else
+  {
+    [self _loadPreviewForAppContentItem:itemCopy completion:completionCopy];
+  }
+}
+
 void __81__SYContentItemPreviewManager__loadPreviewMetadataForItem_fullDetail_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 40);
-    v4 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v4();
+    v3();
   }
 
   else
@@ -64,7 +148,7 @@ void __81__SYContentItemPreviewManager__loadPreviewMetadataForItem_fullDetail_co
 
 + (void)_loadPreviewUsingLPForItem:(id)item fullDetail:(BOOL)detail completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   completionCopy = completion;
   itemURL = [itemCopy itemURL];
@@ -79,7 +163,7 @@ void __81__SYContentItemPreviewManager__loadPreviewMetadataForItem_fullDetail_co
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = itemCopy;
+      v19 = itemCopy;
       _os_log_impl(&dword_225901000, v12, OS_LOG_TYPE_DEFAULT, "Device is locked, skipping LP preview for item: %@", buf, 0xCu);
     }
 
@@ -88,18 +172,16 @@ void __81__SYContentItemPreviewManager__loadPreviewMetadataForItem_fullDetail_co
 
   else
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __80__SYContentItemPreviewManager__loadPreviewUsingLPForItem_fullDetail_completion___block_invoke;
-    v14[3] = &unk_27856B300;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __80__SYContentItemPreviewManager__loadPreviewUsingLPForItem_fullDetail_completion___block_invoke;
+    v13[3] = &unk_27856B300;
     detailCopy = detail;
-    v15 = itemURL;
-    v16 = itemCopy;
-    v17 = completionCopy;
-    dispatch_async(MEMORY[0x277D85CD0], v14);
+    v14 = itemURL;
+    v15 = itemCopy;
+    v16 = completionCopy;
+    dispatch_async(MEMORY[0x277D85CD0], v13);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __80__SYContentItemPreviewManager__loadPreviewUsingLPForItem_fullDetail_completion___block_invoke(uint64_t a1)
@@ -168,7 +250,7 @@ void __80__SYContentItemPreviewManager__loadPreviewUsingLPForItem_fullDetail_com
 
 + (void)_loadPreviewForAppContentItem:(id)item completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   completionCopy = completion;
   if (SYIsDeviceLocked())
@@ -177,7 +259,7 @@ void __80__SYContentItemPreviewManager__loadPreviewUsingLPForItem_fullDetail_com
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = itemCopy;
+      v19 = itemCopy;
       _os_log_impl(&dword_225901000, v7, OS_LOG_TYPE_DEFAULT, "Device is locked, skipping icon preview for item: %@", buf, 0xCu);
     }
 
@@ -194,14 +276,14 @@ void __80__SYContentItemPreviewManager__loadPreviewUsingLPForItem_fullDetail_com
       if (v11)
       {
         v12 = [MEMORY[0x277D1B1C8] imageDescriptorNamed:*MEMORY[0x277D1B1F8]];
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __72__SYContentItemPreviewManager__loadPreviewForAppContentItem_completion___block_invoke;
-        v15[3] = &unk_27856B3A0;
-        v16 = itemCopy;
-        v17 = v9;
-        v18 = completionCopy;
-        [v11 getImageForImageDescriptor:v12 completion:v15];
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __72__SYContentItemPreviewManager__loadPreviewForAppContentItem_completion___block_invoke;
+        v14[3] = &unk_27856B3A0;
+        v15 = itemCopy;
+        v16 = v9;
+        v17 = completionCopy;
+        [v11 getImageForImageDescriptor:v12 completion:v14];
       }
 
       else
@@ -227,8 +309,6 @@ void __80__SYContentItemPreviewManager__loadPreviewUsingLPForItem_fullDetail_com
       completionCopy[2](completionCopy, 0);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SYContentItemPreviewManager__loadPreviewForAppContentItem_completion___block_invoke(uint64_t a1, void *a2)
@@ -325,15 +405,14 @@ void __72__SYContentItemPreviewManager__loadPreviewForAppContentItem_completion_
 
 void __97__SYContentItemPreviewManager_loadPreviewDataForItems_fullDetail_didFinishLoadingPreviewHandler___block_invoke_2_cold_1(uint64_t *a1, unsigned __int8 *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_debug_impl(&dword_225901000, log, OS_LOG_TYPE_DEBUG, "Finished loading preview for item: %@, fullDetail: %d", &v6, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_debug_impl(&dword_225901000, log, OS_LOG_TYPE_DEBUG, "Finished loading preview for item: %@, fullDetail: %d", &v5, 0x12u);
 }
 
 + (void)_loadPreviewUsingLPForItem:(uint64_t)a1 fullDetail:(uint64_t)a2 completion:.cold.1(uint64_t a1, uint64_t a2)
@@ -344,53 +423,42 @@ void __97__SYContentItemPreviewManager_loadPreviewDataForItems_fullDetail_didFin
 
 void __80__SYContentItemPreviewManager__loadPreviewUsingLPForItem_fullDetail_completion___block_invoke_2_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) itemIdentifier];
   v3 = [v2 UUIDString];
-  v10 = [*(a1 + 32) sourceIdentifier];
+  v9 = [*(a1 + 32) sourceIdentifier];
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_loadPreviewForAppContentItem:(void *)a1 completion:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 itemIdentifier];
   v2 = [v1 UUIDString];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_loadPreviewForAppContentItem:(void *)a1 completion:.cold.2(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 itemIdentifier];
   v2 = [v1 UUIDString];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __72__SYContentItemPreviewManager__loadPreviewForAppContentItem_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = [*(a1 + 32) itemIdentifier];
   v5 = [v4 UUIDString];
   v6 = *(a1 + 40);
-  v8 = 138412546;
-  v9 = v5;
-  v10 = 2112;
-  v11 = v6;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Error requesting icon image for item %@ (%@)", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v5;
+  v9 = 2112;
+  v10 = v6;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Error requesting icon image for item %@ (%@)", &v7, 0x16u);
 }
 
 @end

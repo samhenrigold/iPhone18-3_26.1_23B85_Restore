@@ -77,19 +77,19 @@
   {
     if (v7 == 3)
     {
-      nullsub_1(v9);
+      nullsub_1();
       return 3;
     }
 
     else if (v7 == 4)
     {
-      nullsub_1(v9);
+      nullsub_1();
       return 4;
     }
 
     else
     {
-      nullsub_1(v9);
+      nullsub_1();
       return 5;
     }
   }
@@ -98,20 +98,20 @@
   {
     if (v7 == 1)
     {
-      nullsub_1(v9);
+      nullsub_1();
       return 1;
     }
 
     else
     {
-      nullsub_1(v9);
+      nullsub_1();
       return 2;
     }
   }
 
   else
   {
-    nullsub_1(v9);
+    nullsub_1();
     return 0;
   }
 }
@@ -120,68 +120,68 @@
 {
   v2 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
   v3 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v33 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
-  v34[0] = v3;
-  *(v34 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v31 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
+  v32[0] = v3;
+  *(v32 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
   v4 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
   v5 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
-  v29 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
-  v30 = v5;
+  v27 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
+  v28 = v5;
   v6 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
   v7 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
-  v31 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
-  v32 = v7;
+  v29 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
+  v30 = v7;
   v8 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v25 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
-  v26 = v8;
+  v23 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
+  v24 = v8;
   v9 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
   v11 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
   v10 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v27 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
-  v28 = v9;
+  v25 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
+  v26 = v9;
   v12 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v35[8] = v33;
-  v36[0] = v12;
-  *(v36 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
-  v35[4] = v29;
-  v35[5] = v6;
-  v35[6] = v31;
-  v35[7] = v2;
-  v35[0] = v11;
-  v35[1] = v10;
-  v35[2] = v27;
-  v35[3] = v4;
-  if (sub_2143223B0(v35))
+  v33[8] = v31;
+  v34[0] = v12;
+  *(v34 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v33[4] = v27;
+  v33[5] = v6;
+  v33[6] = v29;
+  v33[7] = v2;
+  v33[0] = v11;
+  v33[1] = v10;
+  v33[2] = v25;
+  v33[3] = v4;
+  if (sub_2143223B0(v33))
   {
     v13 = 0;
   }
 
   else
   {
-    v14 = nullsub_1(v35);
+    nullsub_1();
     v15 = *v14;
-    v16 = *(v14 + 8);
+    v16 = *(v14 + 1);
     v17 = type metadata accessor for _ObjCBasicTypingIndicatorWrapper();
     v18 = objc_allocWithZone(v17);
     v19 = &v18[OBJC_IVAR___BlastDoorBasicTypingIndicator_basicTypingIndicator];
     *v19 = v15;
     *(v19 + 1) = v16;
-    v23[0] = v25;
-    v23[1] = v26;
-    v23[4] = v29;
-    v23[5] = v30;
-    v23[2] = v27;
-    v23[3] = v28;
-    *&v24[9] = *(v34 + 9);
-    v23[8] = v33;
-    *v24 = v34[0];
-    v23[6] = v31;
-    v23[7] = v32;
-    v20 = *(nullsub_1(v23) + 8);
-    v22.receiver = v18;
-    v22.super_class = v17;
+    v21[1] = v23;
+    v21[2] = v24;
+    v21[5] = v27;
+    v21[6] = v28;
+    v21[3] = v25;
+    v21[4] = v26;
+    *&v22[9] = *(v32 + 9);
+    v21[9] = v31;
+    *v22 = v32[0];
+    v21[7] = v29;
+    v21[8] = v30;
+    nullsub_1();
+    v21[0].receiver = v18;
+    v21[0].super_class = v17;
 
-    v13 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v22 init];
+    v13 = [(objc_super *)v21 init];
   }
 
   return v13;
@@ -191,151 +191,71 @@
 {
   v2 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
   v3 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v37 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
-  v38[0] = v3;
-  *(v38 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v46 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
+  v47[0] = v3;
+  *(v47 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
   v4 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
   v5 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
-  v33 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
-  v34 = v5;
+  v42 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
+  v43 = v5;
   v6 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
   v7 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
-  v35 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
-  v36 = v7;
+  v44 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
+  v45 = v7;
   v8 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v29 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
-  v30 = v8;
+  v38 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
+  v39 = v8;
   v9 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
   v11 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
   v10 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v31 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
-  v32 = v9;
+  v40 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
+  v41 = v9;
   v12 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v39[8] = v37;
-  v40[0] = v12;
-  *(v40 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
-  v39[4] = v33;
-  v39[5] = v6;
-  v39[6] = v35;
-  v39[7] = v2;
-  v39[0] = v11;
-  v39[1] = v10;
-  v39[2] = v31;
-  v39[3] = v4;
-  if (sub_2143223B0(v39) == 1)
+  v48[8] = v46;
+  v49[0] = v12;
+  *(v49 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v48[4] = v42;
+  v48[5] = v6;
+  v48[6] = v44;
+  v48[7] = v2;
+  v48[0] = v11;
+  v48[1] = v10;
+  v48[2] = v40;
+  v48[3] = v4;
+  if (sub_2143223B0(v48) == 1)
   {
-    v13 = nullsub_1(v39);
-    v14 = type metadata accessor for _ObjCBasicMessageWrapper();
-    v15 = objc_allocWithZone(v14);
-    v16 = &v15[OBJC_IVAR___BlastDoorBasicMessage_basicMessage];
-    v18 = v13[1];
-    v17 = v13[2];
-    *v16 = *v13;
-    *(v16 + 1) = v18;
-    *(v16 + 2) = v17;
-    v20 = v13[4];
-    v19 = v13[5];
-    v21 = v13[3];
-    *(v16 + 89) = *(v13 + 89);
-    *(v16 + 4) = v20;
-    *(v16 + 5) = v19;
-    *(v16 + 3) = v21;
-    v27[8] = v37;
-    v28[0] = v38[0];
-    *(v28 + 9) = *(v38 + 9);
-    v27[4] = v33;
-    v27[5] = v34;
-    v27[6] = v35;
-    v27[7] = v36;
-    v27[0] = v29;
-    v27[1] = v30;
-    v27[2] = v31;
-    v27[3] = v32;
-    v22 = nullsub_1(v27);
-    sub_2142E5B20(v22, v26);
-    v25.receiver = v15;
-    v25.super_class = v14;
-    v23 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v25 init];
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  return v23;
-}
-
-- (BlastDoorBasicTapBack)tapback
-{
-  v2 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
-  v3 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v38 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
-  v39[0] = v3;
-  *(v39 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
-  v4 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
-  v5 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
-  v34 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
-  v35 = v5;
-  v6 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
-  v7 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
-  v36 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
-  v37 = v7;
-  v8 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v30 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
-  v31 = v8;
-  v9 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
-  v11 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
-  v10 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v32 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
-  v33 = v9;
-  v12 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v40[8] = v38;
-  v41[0] = v12;
-  *(v41 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
-  v40[4] = v34;
-  v40[5] = v6;
-  v40[6] = v36;
-  v40[7] = v2;
-  v40[0] = v11;
-  v40[1] = v10;
-  v40[2] = v32;
-  v40[3] = v4;
-  if (sub_2143223B0(v40) == 2)
-  {
-    v13 = nullsub_1(v40);
-    v14 = type metadata accessor for _ObjCBasicTapBackWrapper();
-    v15 = objc_allocWithZone(v14);
-    v16 = &v15[OBJC_IVAR___BlastDoorBasicTapBack_basicTapBack];
-    v17 = v13[3];
-    v19 = *v13;
-    v18 = v13[1];
-    *(v16 + 2) = v13[2];
-    *(v16 + 3) = v17;
-    *v16 = v19;
-    *(v16 + 1) = v18;
-    v20 = v13[7];
-    v22 = v13[4];
-    v21 = v13[5];
-    *(v16 + 6) = v13[6];
-    *(v16 + 7) = v20;
-    *(v16 + 4) = v22;
-    *(v16 + 5) = v21;
-    v28[0] = v30;
-    v28[1] = v31;
-    v28[4] = v34;
-    v28[5] = v35;
-    v28[2] = v32;
-    v28[3] = v33;
-    *(v29 + 9) = *(v39 + 9);
-    v28[8] = v38;
-    v29[0] = v39[0];
-    v28[6] = v36;
-    v28[7] = v37;
-    v23 = nullsub_1(v28);
-    sub_2142E5C78(v23, v27);
-    v26.receiver = v15;
-    v26.super_class = v14;
+    nullsub_1();
+    v14 = v13;
+    v15 = type metadata accessor for _ObjCBasicMessageWrapper();
+    v16 = objc_allocWithZone(v15);
+    v17 = &v16[OBJC_IVAR___BlastDoorBasicMessage_basicMessage];
+    v19 = v14[1];
+    v18 = v14[2];
+    *v17 = *v14;
+    *(v17 + 1) = v19;
+    *(v17 + 2) = v18;
+    v21 = v14[4];
+    v20 = v14[5];
+    v22 = v14[3];
+    *(v17 + 89) = *(v14 + 89);
+    *(v17 + 4) = v21;
+    *(v17 + 5) = v20;
+    *(v17 + 3) = v22;
+    v36 = v46;
+    v37[0] = v47[0];
+    *(v37 + 9) = *(v47 + 9);
+    v32 = v42;
+    v33 = v43;
+    v34 = v44;
+    v35 = v45;
+    v28 = v38;
+    v29 = v39;
+    v30 = v40;
+    v31 = v41;
+    nullsub_1();
+    sub_2142E5B20(v23, v27);
+    v26.receiver = v16;
+    v26.super_class = v15;
     v24 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v26 init];
   }
 
@@ -347,145 +267,153 @@
   return v24;
 }
 
-- (BlastDoorBasicAudioMessage)audioMessage
+- (BlastDoorBasicTapBack)tapback
 {
   v2 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
   v3 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v35 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
-  v36[0] = v3;
-  *(v36 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v47 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
+  v48[0] = v3;
+  *(v48 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
   v4 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
   v5 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
-  v31 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
-  v32 = v5;
+  v43 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
+  v44 = v5;
   v6 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
   v7 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
-  v33 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
-  v34 = v7;
+  v45 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
+  v46 = v7;
   v8 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v27 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
-  v28 = v8;
+  v39 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
+  v40 = v8;
   v9 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
   v11 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
   v10 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v29 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
-  v30 = v9;
+  v41 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
+  v42 = v9;
   v12 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v37[8] = v35;
-  v38[0] = v12;
-  *(v38 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
-  v37[4] = v31;
-  v37[5] = v6;
-  v37[6] = v33;
-  v37[7] = v2;
-  v37[0] = v11;
-  v37[1] = v10;
-  v37[2] = v29;
-  v37[3] = v4;
-  if (sub_2143223B0(v37) == 3)
+  v49[8] = v47;
+  v50[0] = v12;
+  *(v50 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v49[4] = v43;
+  v49[5] = v6;
+  v49[6] = v45;
+  v49[7] = v2;
+  v49[0] = v11;
+  v49[1] = v10;
+  v49[2] = v41;
+  v49[3] = v4;
+  if (sub_2143223B0(v49) == 2)
   {
-    v13 = nullsub_1(v37);
-    v14 = type metadata accessor for _ObjCBasicAudioMessageWrapper();
-    v15 = objc_allocWithZone(v14);
-    v16 = &v15[OBJC_IVAR___BlastDoorBasicAudioMessage_basicAudioMessage];
-    v17 = v13[3];
-    v19 = *v13;
-    v18 = v13[1];
-    *(v16 + 2) = v13[2];
-    *(v16 + 3) = v17;
-    *v16 = v19;
-    *(v16 + 1) = v18;
-    v25[0] = v27;
-    v25[1] = v28;
-    v25[4] = v31;
-    v25[5] = v32;
-    v25[2] = v29;
-    v25[3] = v30;
-    *&v26[9] = *(v36 + 9);
-    v25[8] = v35;
-    *v26 = v36[0];
-    v25[6] = v33;
-    v25[7] = v34;
-    v20 = nullsub_1(v25);
-    sub_2142E55D0(v20, v24);
-    v23.receiver = v15;
-    v23.super_class = v14;
-    v21 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v23 init];
+    nullsub_1();
+    v14 = v13;
+    v15 = type metadata accessor for _ObjCBasicTapBackWrapper();
+    v16 = objc_allocWithZone(v15);
+    v17 = &v16[OBJC_IVAR___BlastDoorBasicTapBack_basicTapBack];
+    v18 = v14[3];
+    v20 = *v14;
+    v19 = v14[1];
+    *(v17 + 2) = v14[2];
+    *(v17 + 3) = v18;
+    *v17 = v20;
+    *(v17 + 1) = v19;
+    v21 = v14[7];
+    v23 = v14[4];
+    v22 = v14[5];
+    *(v17 + 6) = v14[6];
+    *(v17 + 7) = v21;
+    *(v17 + 4) = v23;
+    *(v17 + 5) = v22;
+    v29 = v39;
+    v30 = v40;
+    v33 = v43;
+    v34 = v44;
+    v31 = v41;
+    v32 = v42;
+    *(v38 + 9) = *(v48 + 9);
+    v37 = v47;
+    v38[0] = v48[0];
+    v35 = v45;
+    v36 = v46;
+    nullsub_1();
+    sub_2142E5C78(v24, v28);
+    v27.receiver = v16;
+    v27.super_class = v15;
+    v25 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v27 init];
   }
 
   else
   {
-    v21 = 0;
+    v25 = 0;
   }
 
-  return v21;
+  return v25;
 }
 
-- (BlastDoorUnsupportedMessage)unsupported
+- (BlastDoorBasicAudioMessage)audioMessage
 {
   v2 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
   v3 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v36 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
-  v37[0] = v3;
-  *(v37 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v44 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
+  v45[0] = v3;
+  *(v45 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
   v4 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
   v5 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
-  v32 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
-  v33 = v5;
+  v40 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
+  v41 = v5;
   v6 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
   v7 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
-  v34 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
-  v35 = v7;
+  v42 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
+  v43 = v7;
   v8 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v28 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
-  v29 = v8;
+  v36 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
+  v37 = v8;
   v9 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
   v11 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
   v10 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v30 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
-  v31 = v9;
+  v38 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
+  v39 = v9;
   v12 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  v38[8] = v36;
-  v39[0] = v12;
-  *(v39 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
-  v38[4] = v32;
-  v38[5] = v6;
-  v38[6] = v34;
-  v38[7] = v2;
-  v38[0] = v11;
-  v38[1] = v10;
-  v38[2] = v30;
-  v38[3] = v4;
-  if (sub_2143223B0(v38) == 4)
+  v46[8] = v44;
+  v47[0] = v12;
+  *(v47 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v46[4] = v40;
+  v46[5] = v6;
+  v46[6] = v42;
+  v46[7] = v2;
+  v46[0] = v11;
+  v46[1] = v10;
+  v46[2] = v38;
+  v46[3] = v4;
+  if (sub_2143223B0(v46) == 3)
   {
-    v13 = nullsub_1(v38);
-    v14 = *(v13 + 16);
-    v15 = *(v13 + 24);
-    v16 = type metadata accessor for _ObjCUnsupportedMessageWrapper();
-    v24 = *v13;
-    v17 = objc_allocWithZone(v16);
-    v18 = &v17[OBJC_IVAR___BlastDoorUnsupportedMessage_unsupportedMessage];
-    *v18 = v24;
-    *(v18 + 2) = v14;
-    v18[24] = v15;
-    v26[0] = v28;
-    v26[1] = v29;
-    v26[4] = v32;
-    v26[5] = v33;
-    v26[2] = v30;
-    v26[3] = v31;
-    *&v27[9] = *(v37 + 9);
-    v26[8] = v36;
-    *v27 = v37[0];
-    v26[6] = v34;
-    v26[7] = v35;
-    v19 = nullsub_1(v26);
-    v20 = *(v19 + 8);
-    v21 = *(v19 + 16);
-    v25.receiver = v17;
-    v25.super_class = v16;
-
-    v22 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v25 init];
+    nullsub_1();
+    v14 = v13;
+    v15 = type metadata accessor for _ObjCBasicAudioMessageWrapper();
+    v16 = objc_allocWithZone(v15);
+    v17 = &v16[OBJC_IVAR___BlastDoorBasicAudioMessage_basicAudioMessage];
+    v18 = v14[3];
+    v20 = *v14;
+    v19 = v14[1];
+    *(v17 + 2) = v14[2];
+    *(v17 + 3) = v18;
+    *v17 = v20;
+    *(v17 + 1) = v19;
+    v26 = v36;
+    v27 = v37;
+    v30 = v40;
+    v31 = v41;
+    v28 = v38;
+    v29 = v39;
+    *&v35[9] = *(v45 + 9);
+    v34 = v44;
+    *v35 = v45[0];
+    v32 = v42;
+    v33 = v43;
+    nullsub_1();
+    sub_2142E55D0(v21, v25);
+    v24.receiver = v16;
+    v24.super_class = v15;
+    v22 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v24 init];
   }
 
   else
@@ -496,89 +424,164 @@
   return v22;
 }
 
-- (BlastDoorBasicEmojiTapback)emojiTapback
+- (BlastDoorUnsupportedMessage)unsupported
 {
-  v2 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
-  v3 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
-  v38 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
-  v39 = v2;
-  v4 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
-  v40[0] = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  *(v40 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
-  v5 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
+  v2 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
+  v3 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
+  v42 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
+  v43[0] = v3;
+  *(v43 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v4 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
+  v5 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
+  v38 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
+  v39 = v5;
   v6 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
-  v35 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
-  v36 = v6;
-  v7 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
-  v37 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
+  v7 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
+  v40 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
+  v41 = v7;
   v8 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v31 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
-  v32 = v8;
+  v34 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
+  v35 = v8;
   v9 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
   v11 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
   v10 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
-  v33 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
-  v34 = v9;
-  v41[7] = v38;
-  v41[8] = v4;
-  v42[0] = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
-  *(v42 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
-  v41[4] = v35;
-  v41[5] = v7;
-  v41[6] = v3;
-  v41[0] = v11;
-  v41[1] = v10;
-  v41[2] = v33;
-  v41[3] = v5;
-  if (sub_2143223B0(v41) == 5)
+  v36 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
+  v37 = v9;
+  v12 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
+  v44[8] = v42;
+  v45[0] = v12;
+  *(v45 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v44[4] = v38;
+  v44[5] = v6;
+  v44[6] = v40;
+  v44[7] = v2;
+  v44[0] = v11;
+  v44[1] = v10;
+  v44[2] = v36;
+  v44[3] = v4;
+  if (sub_2143223B0(v44) == 4)
   {
-    v12 = nullsub_1(v41);
-    v13 = type metadata accessor for _ObjCBasicEmojiTapbackWrapper();
-    v14 = objc_allocWithZone(v13);
-    v15 = &v14[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback];
-    v17 = *(v12 + 16);
-    v16 = *(v12 + 32);
-    *v15 = *v12;
-    *(v15 + 1) = v17;
-    *(v15 + 2) = v16;
-    v18 = *(v12 + 96);
-    v20 = *(v12 + 48);
-    v19 = *(v12 + 64);
-    *(v15 + 5) = *(v12 + 80);
-    *(v15 + 6) = v18;
-    *(v15 + 3) = v20;
-    *(v15 + 4) = v19;
-    v22 = *(v12 + 128);
-    v21 = *(v12 + 144);
-    v23 = *(v12 + 112);
-    *(v15 + 20) = *(v12 + 160);
-    *(v15 + 8) = v22;
-    *(v15 + 9) = v21;
-    *(v15 + 7) = v23;
-    v29[8] = v39;
-    v30[0] = v40[0];
-    *(v30 + 9) = *(v40 + 9);
-    v29[4] = v35;
-    v29[5] = v36;
-    v29[6] = v37;
-    v29[7] = v38;
-    v29[0] = v31;
-    v29[1] = v32;
-    v29[2] = v33;
-    v29[3] = v34;
-    v24 = nullsub_1(v29);
-    sub_2142E58CC(v24, v28);
-    v27.receiver = v14;
-    v27.super_class = v13;
-    v25 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v27 init];
+    nullsub_1();
+    v14 = v13;
+    v15 = *(v13 + 16);
+    v16 = *(v13 + 24);
+    v17 = type metadata accessor for _ObjCUnsupportedMessageWrapper();
+    v22 = *v14;
+    v18 = objc_allocWithZone(v17);
+    v19 = &v18[OBJC_IVAR___BlastDoorUnsupportedMessage_unsupportedMessage];
+    *v19 = v22;
+    *(v19 + 2) = v15;
+    v19[24] = v16;
+    v24 = v34;
+    v25 = v35;
+    v28 = v38;
+    v29 = v39;
+    v26 = v36;
+    v27 = v37;
+    *&v33[9] = *(v43 + 9);
+    v32 = v42;
+    *v33 = v43[0];
+    v30 = v40;
+    v31 = v41;
+    nullsub_1();
+    v23.receiver = v18;
+    v23.super_class = v17;
+
+    v20 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v23 init];
   }
 
   else
   {
-    v25 = 0;
+    v20 = 0;
   }
 
-  return v25;
+  return v20;
+}
+
+- (BlastDoorBasicEmojiTapback)emojiTapback
+{
+  v2 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
+  v3 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
+  v47 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 104];
+  v48 = v2;
+  v4 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 120];
+  v49[0] = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
+  *(v49 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v5 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
+  v6 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
+  v44 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 56];
+  v45 = v6;
+  v7 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 72];
+  v46 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 88];
+  v8 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
+  v40 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
+  v41 = v8;
+  v9 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 40];
+  v11 = *(&self->super.isa + OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType);
+  v10 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 8];
+  v42 = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 24];
+  v43 = v9;
+  v50[7] = v47;
+  v50[8] = v4;
+  v51[0] = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 136];
+  *(v51 + 9) = *&self->basicTextMessage_MessageType[OBJC_IVAR___BlastDoorBasicTextMessageMessageTypeWrapper_basicTextMessage_MessageType + 145];
+  v50[4] = v44;
+  v50[5] = v7;
+  v50[6] = v3;
+  v50[0] = v11;
+  v50[1] = v10;
+  v50[2] = v42;
+  v50[3] = v5;
+  if (sub_2143223B0(v50) == 5)
+  {
+    nullsub_1();
+    v13 = v12;
+    v14 = type metadata accessor for _ObjCBasicEmojiTapbackWrapper();
+    v15 = objc_allocWithZone(v14);
+    v16 = &v15[OBJC_IVAR___BlastDoorBasicEmojiTapback_basicEmojiTapback];
+    v18 = *(v13 + 16);
+    v17 = *(v13 + 32);
+    *v16 = *v13;
+    *(v16 + 1) = v18;
+    *(v16 + 2) = v17;
+    v19 = *(v13 + 96);
+    v21 = *(v13 + 48);
+    v20 = *(v13 + 64);
+    *(v16 + 5) = *(v13 + 80);
+    *(v16 + 6) = v19;
+    *(v16 + 3) = v21;
+    *(v16 + 4) = v20;
+    v23 = *(v13 + 128);
+    v22 = *(v13 + 144);
+    v24 = *(v13 + 112);
+    *(v16 + 20) = *(v13 + 160);
+    *(v16 + 8) = v23;
+    *(v16 + 9) = v22;
+    *(v16 + 7) = v24;
+    v38 = v48;
+    v39[0] = v49[0];
+    *(v39 + 9) = *(v49 + 9);
+    v34 = v44;
+    v35 = v45;
+    v36 = v46;
+    v37 = v47;
+    v30 = v40;
+    v31 = v41;
+    v32 = v42;
+    v33 = v43;
+    nullsub_1();
+    sub_2142E58CC(v25, v29);
+    v28.receiver = v15;
+    v28.super_class = v14;
+    v26 = [(BlastDoorBasicTextMessageMessageTypeWrapper *)&v28 init];
+  }
+
+  else
+  {
+    v26 = 0;
+  }
+
+  return v26;
 }
 
 - (BlastDoorBasicTextMessageMessageTypeWrapper)init

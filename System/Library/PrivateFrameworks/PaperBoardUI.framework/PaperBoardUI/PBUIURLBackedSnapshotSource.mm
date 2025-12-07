@@ -73,11 +73,11 @@
 - (void)updateFromPathProvider:(id)provider
 {
   providerCopy = provider;
-  v38[1] = MEMORY[0x277D85DD0];
-  v38[2] = 3221225472;
-  v38[3] = __54__PBUIURLBackedSnapshotSource_updateFromPathProvider___block_invoke;
-  v38[4] = &unk_278361E18;
-  v38[5] = self;
+  v41[1] = MEMORY[0x277D85DD0];
+  v41[2] = 3221225472;
+  v41[3] = __54__PBUIURLBackedSnapshotSource_updateFromPathProvider___block_invoke;
+  v41[4] = &unk_278361E18;
+  v41[5] = self;
   BSDispatchMain();
   os_unfair_lock_lock(&self->_lock);
   snapshotURL = [providerCopy snapshotURL];
@@ -129,37 +129,39 @@
 
   else
   {
-    v38[0] = 0;
-    v22 = [(PBUIURLBackedSnapshotSource *)self _lock_loadSnapshotImageWithError:v38];
-    v21 = v38[0];
+    v41[0] = 0;
+    v22 = [(PBUIURLBackedSnapshotSource *)self _lock_loadSnapshotImageWithError:v41];
+    v23 = v41[0];
+    v21 = v23;
     if (!v22)
     {
-      v23 = PBUILogCommon();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v24 = PBUILogCommon(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         [PBUIURLBackedSnapshotSource updateFromPathProvider:];
       }
     }
   }
 
-  v24 = [objc_opt_class() buildCacheIdentifierForURL:self->_lock_snapshotURL];
+  v25 = [objc_opt_class() buildCacheIdentifierForURL:self->_lock_snapshotURL];
   if ((BSEqualStrings() & 1) == 0)
   {
-    objc_storeStrong(&self->_lock_cacheIdentifier, v24);
-    v25 = 1;
+    objc_storeStrong(&self->_lock_cacheIdentifier, v25);
+    v26 = 1;
     goto LABEL_20;
   }
 
-  v25 = v17 ^ 1;
+  v26 = v17 ^ 1;
   if (!v12 || !self->_lock_contentColorStatistics)
   {
 LABEL_20:
-    v37 = 0;
-    v27 = [(PBUIURLBackedSnapshotSource *)self _lock_loadColorStatisticsWithError:&v37];
-    v26 = v37;
-    if (v27)
+    v40 = 0;
+    v28 = [(PBUIURLBackedSnapshotSource *)self _lock_loadColorStatisticsWithError:&v40];
+    v29 = v40;
+    v27 = v29;
+    if (v28)
     {
-      if (v25)
+      if (v26)
       {
         goto LABEL_27;
       }
@@ -167,13 +169,13 @@ LABEL_20:
 
     else
     {
-      v28 = PBUILogCommon();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v30 = PBUILogCommon(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [PBUIURLBackedSnapshotSource updateFromPathProvider:];
       }
 
-      if (v25)
+      if (v26)
       {
         goto LABEL_27;
       }
@@ -188,20 +190,21 @@ LABEL_26:
     goto LABEL_27;
   }
 
-  v26 = 0;
+  v27 = 0;
   if (((v17 ^ 1) & 1) == 0)
   {
     goto LABEL_26;
   }
 
 LABEL_27:
-  v36 = 0;
-  [(PBUIURLBackedSnapshotSource *)self _lock_loadSnapshotMetadataWithError:&v36];
-  v29 = v36;
-  if (v29)
+  v39 = 0;
+  [(PBUIURLBackedSnapshotSource *)self _lock_loadSnapshotMetadataWithError:&v39];
+  v31 = v39;
+  v32 = v31;
+  if (v31)
   {
-    v30 = PBUILogCommon();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v33 = PBUILogCommon(v31);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       [PBUIURLBackedSnapshotSource updateFromPathProvider:];
     }
@@ -209,11 +212,11 @@ LABEL_27:
 
 LABEL_32:
   os_unfair_lock_unlock(&self->_lock);
-  v34 = v21;
+  v37 = v21;
+  v38 = providerCopy;
+  v34 = v27;
   v35 = providerCopy;
-  v31 = v26;
-  v32 = providerCopy;
-  v33 = v21;
+  v36 = v21;
   BSDispatchMain();
 }
 
@@ -252,11 +255,11 @@ void __54__PBUIURLBackedSnapshotSource_updateFromPathProvider___block_invoke_11(
 
 - (void)invalidateCurrentSnapshot
 {
-  v13[1] = MEMORY[0x277D85DD0];
-  v13[2] = 3221225472;
-  v13[3] = __56__PBUIURLBackedSnapshotSource_invalidateCurrentSnapshot__block_invoke;
-  v13[4] = &unk_278361E18;
-  v13[5] = self;
+  v14[1] = MEMORY[0x277D85DD0];
+  v14[2] = 3221225472;
+  v14[3] = __56__PBUIURLBackedSnapshotSource_invalidateCurrentSnapshot__block_invoke;
+  v14[4] = &unk_278361E18;
+  v14[5] = self;
   BSDispatchMain();
   os_unfair_lock_lock(&self->_lock);
   lock_snapshot = self->_lock_snapshot;
@@ -264,9 +267,9 @@ void __54__PBUIURLBackedSnapshotSource_updateFromPathProvider___block_invoke_11(
 
   self->_lock_interfaceOrientation = 0;
   self->_lock_deviceOrientation = 0;
-  v13[0] = 0;
-  v4 = [(PBUIURLBackedSnapshotSource *)self _lock_removeOnDiskSnapshotWithError:v13];
-  v5 = v13[0];
+  v14[0] = 0;
+  v4 = [(PBUIURLBackedSnapshotSource *)self _lock_removeOnDiskSnapshotWithError:v14];
+  v5 = v14[0];
   v6 = v5;
   if (!v4)
   {
@@ -277,11 +280,11 @@ void __54__PBUIURLBackedSnapshotSource_updateFromPathProvider___block_invoke_11(
 
       if (code == 4)
       {
-        v9 = PBUILogCommon();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v10 = PBUILogCommon(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_21E67D000, v9, OS_LOG_TYPE_INFO, "No on-disk snapshot to delete; skipping invalidate", buf, 2u);
+          _os_log_impl(&dword_21E67D000, v10, OS_LOG_TYPE_INFO, "No on-disk snapshot to delete; skipping invalidate", buf, 2u);
         }
 
 LABEL_9:
@@ -294,8 +297,8 @@ LABEL_9:
     {
     }
 
-    v9 = PBUILogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = PBUILogCommon(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [PBUIURLBackedSnapshotSource invalidateCurrentSnapshot];
     }
@@ -304,9 +307,9 @@ LABEL_9:
   }
 
 LABEL_10:
-  v10 = [objc_opt_class() buildCacheIdentifierForURL:self->_lock_snapshotURL];
+  v11 = [objc_opt_class() buildCacheIdentifierForURL:self->_lock_snapshotURL];
   lock_cacheIdentifier = self->_lock_cacheIdentifier;
-  self->_lock_cacheIdentifier = v10;
+  self->_lock_cacheIdentifier = v11;
 
   os_unfair_lock_unlock(&self->_lock);
   BSDispatchMain();
@@ -401,7 +404,7 @@ uint64_t __56__PBUIURLBackedSnapshotSource_invalidateCurrentSnapshot__block_invo
     v14 = 0;
     [(PBUIURLBackedSnapshotSource *)self _lock_storeSnapshotMetadata:v8 error:&v14];
     v9 = v14;
-    v10 = PBUILogCommon();
+    v10 = PBUILogCommon(v9);
     lock_derivedProminentPosterColor = v10;
     if (v9)
     {
@@ -542,7 +545,7 @@ uint64_t __56__PBUIURLBackedSnapshotSource_invalidateCurrentSnapshot__block_invo
     v23 = 0;
     v9 = [(PBUIURLBackedSnapshotSource *)self _lock_storeSnapshotMetadata:v14 error:&v23];
     v17 = v23;
-    v18 = PBUILogCommon();
+    v18 = PBUILogCommon(v17);
     v19 = v18;
     if (v17)
     {
@@ -1193,24 +1196,25 @@ LABEL_15:
 {
   snapshotCopy = snapshot;
   _lock_encoderForSnapshot = [(PBUIURLBackedSnapshotSource *)self _lock_encoderForSnapshot];
-  v14 = 0;
-  v7 = [_lock_encoderForSnapshot writeThenReadBackImage:snapshotCopy error:&v14];
+  v15 = 0;
+  v7 = [_lock_encoderForSnapshot writeThenReadBackImage:snapshotCopy error:&v15];
 
-  v8 = v14;
+  v8 = v15;
+  v9 = v8;
   if (v8)
   {
-    v9 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v9 = v7 == 0;
+    v10 = v7 == 0;
   }
 
-  v10 = !v9;
-  if (v9)
+  v11 = !v10;
+  if (v10)
   {
-    p_super = PBUILogCommon();
+    p_super = PBUILogCommon(v8);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       [PBUIURLBackedSnapshotSource _lock_storeSnapshot:error:];
@@ -1219,80 +1223,80 @@ LABEL_15:
 
   else
   {
-    v11 = v7;
+    v12 = v7;
     p_super = &self->_lock_snapshot->super;
-    self->_lock_snapshot = v11;
+    self->_lock_snapshot = v12;
   }
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)_lock_storeSnapshotFromURL:(id)l error:(id *)error
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
   _lock_encoderForSnapshot = [(PBUIURLBackedSnapshotSource *)self _lock_encoderForSnapshot];
   v8 = self->_lock_snapshotURL;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v23 = 0;
-  v10 = [defaultManager pf_replaceURL:v8 withURL:lCopy error:&v23];
-  v11 = v23;
+  v24 = 0;
+  v10 = [defaultManager pf_replaceURL:v8 withURL:lCopy error:&v24];
+  v11 = v24;
 
   if (v10)
   {
     goto LABEL_5;
   }
 
-  v12 = PBUILogCommon();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = PBUILogCommon(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     [PBUIURLBackedSnapshotSource _lock_storeSnapshotFromURL:error:];
   }
 
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  v22 = 0;
-  v14 = [defaultManager2 copyItemAtURL:lCopy toURL:v8 error:&v22];
-  v11 = v22;
+  v23 = 0;
+  v15 = [defaultManager2 copyItemAtURL:lCopy toURL:v8 error:&v23];
+  v11 = v23;
 
-  if (v14)
+  if (v15)
   {
 LABEL_5:
-    v15 = [_lock_encoderForSnapshot createUIImageWithError:error];
+    v16 = [_lock_encoderForSnapshot createUIImageWithError:error];
     lock_snapshot = self->_lock_snapshot;
-    self->_lock_snapshot = v15;
+    self->_lock_snapshot = v16;
 
     if (self->_lock_snapshot)
     {
-      v17 = 1;
+      v18 = 1;
     }
 
     else
     {
       if (error && !*error)
       {
-        v18 = MEMORY[0x277CCA9B8];
-        v24 = *MEMORY[0x277CCA450];
-        v25[0] = @"Failed to create UIImage from snapshot file";
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
-        *error = [v18 errorWithDomain:@"PBUISnapshotErrorDomain" code:1001 userInfo:v19];
+        v19 = MEMORY[0x277CCA9B8];
+        v25 = *MEMORY[0x277CCA450];
+        v26[0] = @"Failed to create UIImage from snapshot file";
+        v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+        *error = [v19 errorWithDomain:@"PBUISnapshotErrorDomain" code:1001 userInfo:v20];
       }
 
-      v17 = 0;
+      v18 = 0;
     }
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
     if (error && v11)
     {
-      v20 = v11;
-      v17 = 0;
+      v21 = v11;
+      v18 = 0;
       *error = v11;
     }
   }
 
-  return v17;
+  return v18;
 }
 
 + (id)buildCacheIdentifierForURL:(id)l

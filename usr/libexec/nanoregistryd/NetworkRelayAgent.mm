@@ -15,6 +15,13 @@
 - (void)addMigrationScanCandidates:(id)candidates;
 - (void)dealloc;
 - (void)deviceHasUnpairedBluetooth:(id)bluetooth;
+- (void)deviceIsAsleepDidChange:(id)change isAsleep:(BOOL)asleep;
+- (void)deviceIsClassCConnectedDidChange:(id)change isClassCConnected:(BOOL)connected;
+- (void)deviceIsCloudConnectedDidChange:(id)change isCloudConnected:(BOOL)connected;
+- (void)deviceIsConnectedDidChange:(id)change isConnected:(BOOL)connected;
+- (void)deviceIsEnabledDidChange:(id)change isEnabled:(BOOL)enabled;
+- (void)deviceIsNearbyDidChange:(id)change isNearby:(BOOL)nearby;
+- (void)deviceIsRegisteredDidChange:(id)change isRegistered:(BOOL)registered;
 - (void)deviceLinkTypeDidChange:(id)change linkType:(unsigned __int8)type;
 - (void)invalidatePairingManagerIfIdle;
 - (void)migrationPairWithCandidateWithBluetoothIdentifier:(id)identifier isAltAccountPairing:(BOOL)pairing completion:(id)completion;
@@ -1257,6 +1264,336 @@ LABEL_13:
   return nrDeviceIdentifier;
 }
 
+- (void)deviceIsRegisteredDidChange:(id)change isRegistered:(BOOL)registered
+{
+  registeredCopy = registered;
+  changeCopy = change;
+  v7 = link_monitor_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    deviceIdentifier = [changeCopy deviceIdentifier];
+    *buf = 138412546;
+    v21 = deviceIdentifier;
+    v22 = 1024;
+    v23 = registeredCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "deviceIsRegisteredDidChange:%@ isRegistered:%{BOOL}d", buf, 0x12u);
+  }
+
+  if (self->_monitoringBluetoothUUID)
+  {
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = self->_weakDelegates;
+    v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = *(*(&v15 + 1) + 8 * v13);
+          if (objc_opt_respondsToSelector())
+          {
+            [v14 deviceIsRegisteredDidChange:self->_monitoringBluetoothUUID isRegistered:{registeredCopy, v15}];
+          }
+
+          v13 = v13 + 1;
+        }
+
+        while (v11 != v13);
+        v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v11);
+    }
+  }
+}
+
+- (void)deviceIsEnabledDidChange:(id)change isEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  changeCopy = change;
+  v7 = link_monitor_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    deviceIdentifier = [changeCopy deviceIdentifier];
+    *buf = 138412546;
+    v21 = deviceIdentifier;
+    v22 = 1024;
+    v23 = enabledCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "deviceIsEnabledDidChange:%@ isEnabled:%{BOOL}d", buf, 0x12u);
+  }
+
+  if (self->_monitoringBluetoothUUID)
+  {
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = self->_weakDelegates;
+    v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = *(*(&v15 + 1) + 8 * v13);
+          if (objc_opt_respondsToSelector())
+          {
+            [v14 deviceIsEnabledDidChange:self->_monitoringBluetoothUUID isEnabled:{enabledCopy, v15}];
+          }
+
+          v13 = v13 + 1;
+        }
+
+        while (v11 != v13);
+        v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v11);
+    }
+  }
+}
+
+- (void)deviceIsNearbyDidChange:(id)change isNearby:(BOOL)nearby
+{
+  nearbyCopy = nearby;
+  changeCopy = change;
+  v7 = link_monitor_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    deviceIdentifier = [changeCopy deviceIdentifier];
+    *buf = 138412546;
+    v21 = deviceIdentifier;
+    v22 = 1024;
+    v23 = nearbyCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "deviceIsNearbyDidChange:%@ isNearby:%{BOOL}d", buf, 0x12u);
+  }
+
+  if (self->_monitoringBluetoothUUID)
+  {
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = self->_weakDelegates;
+    v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = *(*(&v15 + 1) + 8 * v13);
+          if (objc_opt_respondsToSelector())
+          {
+            [v14 deviceIsNearbyDidChange:self->_monitoringBluetoothUUID isNearby:{nearbyCopy, v15}];
+          }
+
+          v13 = v13 + 1;
+        }
+
+        while (v11 != v13);
+        v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v11);
+    }
+  }
+}
+
+- (void)deviceIsConnectedDidChange:(id)change isConnected:(BOOL)connected
+{
+  connectedCopy = connected;
+  changeCopy = change;
+  v7 = link_monitor_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    deviceIdentifier = [changeCopy deviceIdentifier];
+    *buf = 138412546;
+    v21 = deviceIdentifier;
+    v22 = 1024;
+    v23 = connectedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "deviceIsConnectedDidChange:%@ isConnected:%{BOOL}d", buf, 0x12u);
+  }
+
+  if (self->_monitoringBluetoothUUID)
+  {
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = self->_weakDelegates;
+    v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = *(*(&v15 + 1) + 8 * v13);
+          if (objc_opt_respondsToSelector())
+          {
+            [v14 deviceIsConnectedDidChange:self->_monitoringBluetoothUUID isConnected:{connectedCopy, v15}];
+          }
+
+          v13 = v13 + 1;
+        }
+
+        while (v11 != v13);
+        v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v11);
+    }
+  }
+}
+
+- (void)deviceIsCloudConnectedDidChange:(id)change isCloudConnected:(BOOL)connected
+{
+  connectedCopy = connected;
+  changeCopy = change;
+  v7 = link_monitor_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    deviceIdentifier = [changeCopy deviceIdentifier];
+    *buf = 138412546;
+    v21 = deviceIdentifier;
+    v22 = 1024;
+    v23 = connectedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "deviceIsCloudConnectedDidChange:%@ isCloudConnected:%{BOOL}d", buf, 0x12u);
+  }
+
+  if (self->_monitoringBluetoothUUID)
+  {
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = self->_weakDelegates;
+    v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = *(*(&v15 + 1) + 8 * v13);
+          if (objc_opt_respondsToSelector())
+          {
+            [v14 deviceIsCloudConnectedDidChange:self->_monitoringBluetoothUUID isCloudConnected:{connectedCopy, v15}];
+          }
+
+          v13 = v13 + 1;
+        }
+
+        while (v11 != v13);
+        v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v11);
+    }
+  }
+}
+
+- (void)deviceIsAsleepDidChange:(id)change isAsleep:(BOOL)asleep
+{
+  asleepCopy = asleep;
+  changeCopy = change;
+  v7 = link_monitor_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    deviceIdentifier = [changeCopy deviceIdentifier];
+    *buf = 138412546;
+    v21 = deviceIdentifier;
+    v22 = 1024;
+    v23 = asleepCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "deviceIsAsleepDidChange:%@ isAsleep:%{BOOL}d", buf, 0x12u);
+  }
+
+  if (self->_monitoringBluetoothUUID)
+  {
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = self->_weakDelegates;
+    v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = *(*(&v15 + 1) + 8 * v13);
+          if (objc_opt_respondsToSelector())
+          {
+            [v14 deviceIsAsleepDidChange:self->_monitoringBluetoothUUID isAsleep:{asleepCopy, v15}];
+          }
+
+          v13 = v13 + 1;
+        }
+
+        while (v11 != v13);
+        v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v11);
+    }
+  }
+}
+
 - (void)deviceLinkTypeDidChange:(id)change linkType:(unsigned __int8)type
 {
   changeCopy = change;
@@ -1270,6 +1607,61 @@ LABEL_13:
     v10 = 2112;
     v11 = StringFromNRLinkType;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "deviceLinkTypeDidChange:%@ linkType:%@", &v8, 0x16u);
+  }
+}
+
+- (void)deviceIsClassCConnectedDidChange:(id)change isClassCConnected:(BOOL)connected
+{
+  connectedCopy = connected;
+  changeCopy = change;
+  v7 = link_monitor_log_handle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    deviceIdentifier = [changeCopy deviceIdentifier];
+    *buf = 138412546;
+    v21 = deviceIdentifier;
+    v22 = 1024;
+    v23 = connectedCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "deviceIsClassCConnectedDidChange:%@ isClassCConnected:%{BOOL}d", buf, 0x12u);
+  }
+
+  if (self->_monitoringBluetoothUUID)
+  {
+    v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v9 = self->_weakDelegates;
+    v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v16;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v16 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          v14 = *(*(&v15 + 1) + 8 * v13);
+          if (objc_opt_respondsToSelector())
+          {
+            [v14 deviceIsClassCConnectedDidChange:self->_monitoringBluetoothUUID isClassCConnected:{connectedCopy, v15}];
+          }
+
+          v13 = v13 + 1;
+        }
+
+        while (v11 != v13);
+        v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      }
+
+      while (v11);
+    }
   }
 }
 

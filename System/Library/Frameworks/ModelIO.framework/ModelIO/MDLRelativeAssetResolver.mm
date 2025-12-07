@@ -31,51 +31,51 @@
     WeakRetained = objc_loadWeakRetained(&self->_asset);
     if (WeakRetained)
     {
-      v7 = objc_msgSend_resolveAssetNamed_(self, v5, namedCopy);
-      v8 = v7 != 0;
+      v16 = objc_msgSend_resolveAssetNamed_(self, v5, namedCopy, v6, v12, v13, v14, v15, v7, v8, v9, v10);
+      v17 = v16 != 0;
     }
 
     else
     {
-      v8 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v8 = 0;
+    v17 = 0;
   }
 
-  return v8;
+  return v17;
 }
 
 - (id)resolveAssetNamed:(id)named
 {
   namedCopy = named;
-  v7 = namedCopy;
+  v16 = namedCopy;
   if (namedCopy)
   {
-    if (objc_msgSend_isAbsolutePath(namedCopy, v5, v6))
+    if (objc_msgSend_isAbsolutePath(namedCopy, v5, v6, v7, v12, v13, v14, v15, v8, v9, v10, v11))
     {
-      v9 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v8, v7);
+      v27 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v17, v16, v18, v23, v24, v25, v26, v19, v20, v21, v22);
     }
 
     else
     {
       WeakRetained = objc_loadWeakRetained(&self->_asset);
-      v13 = objc_msgSend_URL(WeakRetained, v11, v12);
-      v16 = objc_msgSend_URLByDeletingLastPathComponent(v13, v14, v15);
+      v40 = objc_msgSend_URL(WeakRetained, v29, v30, v31, v36, v37, v38, v39, v32, v33, v34, v35);
+      v52 = objc_msgSend_URLByDeletingLastPathComponent(v40, v41, v42, v43, v48, v49, v50, v51, v44, v45, v46, v47);
 
-      v9 = objc_msgSend_URLByAppendingPathComponent_(v16, v17, v7);
+      v27 = objc_msgSend_URLByAppendingPathComponent_(v52, v53, v16, v54, v59, v60, v61, v62, v55, v56, v57, v58);
     }
   }
 
   else
   {
-    v9 = 0;
+    v27 = 0;
   }
 
-  return v9;
+  return v27;
 }
 
 - (MDLAsset)asset

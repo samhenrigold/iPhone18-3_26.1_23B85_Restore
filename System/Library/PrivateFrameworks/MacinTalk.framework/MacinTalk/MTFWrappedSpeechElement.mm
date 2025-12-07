@@ -69,80 +69,71 @@
 {
   if (element)
   {
-    v5 = *element;
-    v6 = **element;
-    if (v7)
+    if (v5)
     {
-      elementCopy = v7;
-      v9 = off_279851430;
+      elementCopy = v5;
+      v7 = off_279851430;
     }
 
     else
     {
-      v12 = *v5;
-      if (v13)
+      if (v10)
       {
-        elementCopy = v13;
-        v9 = off_279851420;
+        elementCopy = v10;
+        v7 = off_279851420;
       }
 
       else
       {
-        v14 = *v5;
-        if (v15)
+        if (v11)
         {
-          elementCopy = v15;
-          v9 = off_279851418;
+          elementCopy = v11;
+          v7 = off_279851418;
         }
 
         else
         {
-          v16 = *v5;
-          if (v17)
+          if (v12)
           {
-            elementCopy = v17;
-            v9 = off_279851448;
+            elementCopy = v12;
+            v7 = off_279851448;
           }
 
           else
           {
-            v18 = *v5;
-            if (v19)
+            if (v13)
             {
-              elementCopy = v19;
-              v9 = off_279851410;
+              elementCopy = v13;
+              v7 = off_279851410;
             }
 
             else
             {
-              v20 = *v5;
-              if (v21)
+              if (v14)
               {
-                elementCopy = v21;
-                v9 = off_279851440;
+                elementCopy = v14;
+                v7 = off_279851440;
               }
 
               else
               {
-                v22 = *v5;
-                if (v23)
+                if (v15)
                 {
-                  elementCopy = v23;
-                  v9 = off_279851428;
+                  elementCopy = v15;
+                  v7 = off_279851428;
                 }
 
                 else
                 {
-                  v24 = *v5;
-                  v9 = off_279851408;
-                  if (v25)
+                  v7 = off_279851408;
+                  if (v16)
                   {
-                    elementCopy = v25;
+                    elementCopy = v16;
                   }
 
                   else
                   {
-                    v9 = off_279851438;
+                    v7 = off_279851438;
                     elementCopy = element;
                   }
                 }
@@ -153,15 +144,15 @@
       }
     }
 
-    v10 = [objc_alloc(*v9) initWithCppElement:elementCopy];
+    v8 = [objc_alloc(*v7) initWithCppElement:elementCopy];
   }
 
   else
   {
-    v10 = 0;
+    v8 = 0;
   }
 
-  return v10;
+  return v8;
 }
 
 - (void)dealloc

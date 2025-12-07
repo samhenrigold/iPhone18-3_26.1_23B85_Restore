@@ -8,6 +8,7 @@
 - (void)layoutSubviews;
 - (void)setBouncing:(BOOL)bouncing;
 - (void)setHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)setInactive:(BOOL)inactive;
 - (void)setPulsing:(BOOL)pulsing;
 - (void)startScalingWithExpansionWidth:(double)width duration:(double)duration repeatCount:(unint64_t)count timingFunction:(id)function;
 - (void)stopScalingWithDuration:(double)duration;
@@ -46,6 +47,13 @@
   isHighlighted = [_imageView isHighlighted];
 
   return isHighlighted;
+}
+
+- (void)setInactive:(BOOL)inactive
+{
+  inactiveCopy = inactive;
+  _imageView = [(BCSSubjectIndicatorView *)self _imageView];
+  [_imageView setHighlighted:inactiveCopy];
 }
 
 - (CGSize)intrinsicContentSize
@@ -187,7 +195,7 @@ void __46__BCSSubjectIndicatorView_setHidden_animated___block_invoke_2(uint64_t 
   }
 }
 
-uint64_t __46__BCSSubjectIndicatorView_setHidden_animated___block_invoke_3(uint64_t a1)
+void *__46__BCSSubjectIndicatorView_setHidden_animated___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) setAlpha:1.0];
   if (*(a1 + 48) == 1)
@@ -205,7 +213,7 @@ uint64_t __46__BCSSubjectIndicatorView_setHidden_animated___block_invoke_3(uint6
 
 - (void)startScalingWithExpansionWidth:(double)width duration:(double)duration repeatCount:(unint64_t)count timingFunction:(id)function
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   functionCopy = function;
   _imageView = [(BCSSubjectIndicatorView *)self _imageView];
   layer = [_imageView layer];
@@ -226,9 +234,9 @@ uint64_t __46__BCSSubjectIndicatorView_setHidden_animated___block_invoke_3(uint6
       [v16 setTimingFunction:functionCopy];
       [v16 setDuration:duration];
       v17 = [MEMORY[0x277CCABB0] numberWithDouble:v15 / (v15 + width * 2.0)];
-      v26[0] = v17;
-      v26[1] = &unk_2853A10D8;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+      v25[0] = v17;
+      v25[1] = &unk_2853A10D8;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
       [v16 setValues:v18];
 
       *&v19 = count;
@@ -236,22 +244,20 @@ uint64_t __46__BCSSubjectIndicatorView_setHidden_animated___block_invoke_3(uint6
       [v16 setAutoreverses:1];
       [layer addAnimation:v16 forKey:@"transform"];
       v20 = *(MEMORY[0x277CD9DE8] + 80);
-      v25[4] = *(MEMORY[0x277CD9DE8] + 64);
-      v25[5] = v20;
+      v24[4] = *(MEMORY[0x277CD9DE8] + 64);
+      v24[5] = v20;
       v21 = *(MEMORY[0x277CD9DE8] + 112);
-      v25[6] = *(MEMORY[0x277CD9DE8] + 96);
-      v25[7] = v21;
+      v24[6] = *(MEMORY[0x277CD9DE8] + 96);
+      v24[7] = v21;
       v22 = *(MEMORY[0x277CD9DE8] + 16);
-      v25[0] = *MEMORY[0x277CD9DE8];
-      v25[1] = v22;
+      v24[0] = *MEMORY[0x277CD9DE8];
+      v24[1] = v22;
       v23 = *(MEMORY[0x277CD9DE8] + 48);
-      v25[2] = *(MEMORY[0x277CD9DE8] + 32);
-      v25[3] = v23;
-      [layer setTransform:v25];
+      v24[2] = *(MEMORY[0x277CD9DE8] + 32);
+      v24[3] = v23;
+      [layer setTransform:v24];
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopScalingWithDuration:(double)duration
@@ -286,7 +292,7 @@ uint64_t __46__BCSSubjectIndicatorView_setHidden_animated___block_invoke_3(uint6
     v32 = 0u;
     if (v10)
     {
-      [v10 transform];
+      objc_msgSend_transform(v10);
     }
 
     v11 = [MEMORY[0x277CD9E10] animationWithKeyPath:@"transform"];

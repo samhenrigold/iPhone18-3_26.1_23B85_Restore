@@ -21,38 +21,8 @@
   v18.super_class = CWFEAP8021X;
   v5 = [(CWFEAP8021X *)&v18 init];
   v6 = v5;
-  if (!nameCopy)
+  if (!nameCopy || !v5 || (v7 = [nameCopy copy], interfaceName = v6->_interfaceName, v6->_interfaceName = v7, interfaceName, dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v9 = objc_claimAutoreleasedReturnValue(), v10 = dispatch_queue_create("com.apple.corewifi.EAP8021X-mutex", v9), mutexQueue = v6->_mutexQueue, v6->_mutexQueue = v10, mutexQueue, v9, !v6->_mutexQueue) || (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v12 = objc_claimAutoreleasedReturnValue(), v13 = dispatch_queue_create("com.apple.corewifi.EAP8021X-event", v12), eventQueue = v6->_eventQueue, v6->_eventQueue = v13, eventQueue, v12, !v6->_eventQueue) || (v17.version = 0, memset(&v17.retain, 0, 24), v17.info = v6, v15 = SCDynamicStoreCreate(*MEMORY[0x1E695E480], @"com.apple.corewifi.EAP8021X", sub_1E0D2B1F4, &v17), (v6->_storeRef = v15) == 0))
   {
-    goto LABEL_6;
-  }
-
-  if (!v5)
-  {
-    goto LABEL_6;
-  }
-
-  v7 = [nameCopy copy];
-  interfaceName = v6->_interfaceName;
-  v6->_interfaceName = v7;
-
-  v9 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v10 = dispatch_queue_create("com.apple.corewifi.EAP8021X-mutex", v9);
-  mutexQueue = v6->_mutexQueue;
-  v6->_mutexQueue = v10;
-
-  if (!v6->_mutexQueue)
-  {
-    goto LABEL_6;
-  }
-
-  v12 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v13 = dispatch_queue_create("com.apple.corewifi.EAP8021X-event", v12);
-  eventQueue = v6->_eventQueue;
-  v6->_eventQueue = v13;
-
-  if (!v6->_eventQueue || (v17.version = 0, memset(&v17.retain, 0, 24), v17.info = v6, v15 = SCDynamicStoreCreate(*MEMORY[0x1E695E480], @"com.apple.corewifi.EAP8021X", sub_1E0D2B1F4, &v17), (v6->_storeRef = v15) == 0))
-  {
-LABEL_6:
 
     v6 = 0;
   }
@@ -81,29 +51,29 @@ LABEL_6:
 
 - (void)__startEventMonitoring
 {
-  v16[1] = *MEMORY[0x1E69E9840];
-  if (sub_1E0D2BEEC())
+  v15[1] = *MEMORY[0x1E69E9840];
+  if (sub_1E0D2BEEC(0))
   {
     uTF8String = [(NSString *)self->_interfaceName UTF8String];
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x2020000000;
+    v11 = 0;
+    v12 = &v11;
+    v13 = 0x2020000000;
     v4 = off_1ECE81AC0;
-    v15 = off_1ECE81AC0;
+    v14 = off_1ECE81AC0;
     if (!off_1ECE81AC0)
     {
       v5 = sub_1E0D2C080();
-      v13[3] = dlsym(v5, "EAPOLControlKeyCreate");
-      off_1ECE81AC0 = v13[3];
-      v4 = v13[3];
+      v12[3] = dlsym(v5, "EAPOLControlKeyCreate");
+      off_1ECE81AC0 = v12[3];
+      v4 = v12[3];
     }
 
-    _Block_object_dispose(&v12, 8);
+    _Block_object_dispose(&v11, 8);
     if (!v4)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CFStringRef soft_EAPOLControlKeyCreate(const char *)"];
-      [currentHandler handleFailureInFunction:v11 file:@"CWFEAP8021X.m" lineNumber:33 description:{@"%s", dlerror()}];
+      v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"CFStringRef soft_EAPOLControlKeyCreate(const char *)"];
+      [currentHandler handleFailureInFunction:v10 file:@"CWFEAP8021X.m" lineNumber:33 description:{@"%s", dlerror()}];
 
       __break(1u);
     }
@@ -112,8 +82,8 @@ LABEL_6:
     v7 = v6;
     if (v6)
     {
-      v16[0] = v6;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+      v15[0] = v6;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
       if (SCDynamicStoreSetNotificationKeys(self->_storeRef, v8, 0))
       {
         SCDynamicStoreSetDispatchQueue(self->_storeRef, self->_eventQueue);
@@ -122,8 +92,6 @@ LABEL_6:
       CFRelease(v7);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startEventMonitoring
@@ -171,7 +139,7 @@ LABEL_6:
 {
   v11 = 0;
   cf = 0;
-  if (sub_1E0D2BEEC())
+  if (sub_1E0D2BEEC(0))
   {
     sub_1E0D2BA28([(NSString *)self->_interfaceName UTF8String], &v11, &cf);
     if (v5)
@@ -210,7 +178,7 @@ LABEL_6:
 {
   v11 = 0;
   cf = 0;
-  if (sub_1E0D2BEEC())
+  if (sub_1E0D2BEEC(0))
   {
     sub_1E0D2BA28([(NSString *)self->_interfaceName UTF8String], &v11, &cf);
     if (v5)
@@ -249,7 +217,7 @@ LABEL_6:
 {
   v11 = 0;
   cf = 0;
-  if (sub_1E0D2BEEC())
+  if (sub_1E0D2BEEC(0))
   {
     sub_1E0D2BA28([(NSString *)self->_interfaceName UTF8String], &v11, &cf);
     if (v5)
@@ -288,7 +256,7 @@ LABEL_6:
 {
   v11 = 0;
   cf = 0;
-  if (sub_1E0D2BEEC())
+  if (sub_1E0D2BEEC(0))
   {
     sub_1E0D2BA28([(NSString *)self->_interfaceName UTF8String], &v11, &cf);
     if (v5)

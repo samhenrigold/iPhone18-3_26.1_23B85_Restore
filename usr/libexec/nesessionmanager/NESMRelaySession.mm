@@ -9,6 +9,7 @@
 - (void)handleGetInfoMessage:(id)message withType:(int)type;
 - (void)handleNetworkDetectionNotification:(int)notification;
 - (void)handleStartMessage:(id)message;
+- (void)handleStopMessageWithReason:(int)reason;
 - (void)install;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
 - (void)uninstall;
@@ -495,21 +496,8 @@ LABEL_26:
               }
 
               v21 = *(*(&v44 + 1) + 8 * v20);
-              if (!v18)
+              if (!v18 || ((v22 = v10, !self) ? (v23 = 0) : (v23 = objc_getProperty(self, v16, *(v10 + 622), 1)), v24 = v23, [v24 objectForKeyedSubscript:v21], v25 = objc_claimAutoreleasedReturnValue(), v26 = -[NSObject compare:](v18, "compare:", v25), v24, v25, v10 = v22, v26 == -1))
               {
-                goto LABEL_39;
-              }
-
-              v22 = v10;
-              v23 = self ? objc_getProperty(self, v16, *(v10 + 622), 1) : 0;
-              v24 = v23;
-              v25 = [v24 objectForKeyedSubscript:v21];
-              v26 = [v18 compare:v25];
-
-              v10 = v22;
-              if (v26 == -1)
-              {
-LABEL_39:
                 intValue = [v21 intValue];
                 if (self)
                 {
@@ -1017,7 +1005,7 @@ LABEL_58:
           v66 = [NERelayNetworkAgent alloc];
           configuration = [(NESMSession *)selfa configuration];
           identifier = [configuration identifier];
-          v69 = [v66 initWithConfigUUID:identifier sessionType:-[NESMRelaySession type](selfa name:{"type"), @"h2-fallback"}];
+          v69 = [v66 initWithConfigUUID:identifier sessionType:objc_msgSend_type(selfa) name:@"h2-fallback"];
           objc_setProperty_atomic(selfa, v70, v69, 376);
 
           [objc_getProperty(selfa v71];
@@ -1419,6 +1407,29 @@ LABEL_50:
   return v9;
 }
 
+- (void)handleStopMessageWithReason:(int)reason
+{
+  v3 = *&reason;
+  v5 = ne_log_obj();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  {
+    *buf = 138412290;
+    selfCopy = self;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%@ handling stop for relay session", buf, 0xCu);
+  }
+
+  v8.receiver = self;
+  v8.super_class = NESMRelaySession;
+  [(NESMSession *)&v8 handleStopMessageWithReason:v3];
+  server = [(NESMSession *)self server];
+  [server requestUninstallForSession:self];
+
+  if (self)
+  {
+    objc_setProperty_atomic(self, v7, 0, 480);
+  }
+}
+
 - (void)handleStartMessage:(id)message
 {
   messageCopy = message;
@@ -1701,21 +1712,21 @@ LABEL_56:
 - (NESMRelaySession)initWithConfiguration:(id)configuration andServer:(id)server
 {
   configurationCopy = configuration;
-  v18.receiver = self;
-  v18.super_class = NESMRelaySession;
-  v7 = [(NESMSession *)&v18 initWithConfiguration:configurationCopy andServer:server];
+  v19.receiver = self;
+  v19.super_class = NESMRelaySession;
+  v7 = [(NESMSession *)&v19 initWithConfiguration:configurationCopy andServer:server];
   if (!v7)
   {
 LABEL_6:
-    v14 = ne_log_obj();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = ne_log_obj();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v20 = v7;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%@ initialized relay session", buf, 0xCu);
+      v21 = v7;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%@ initialized relay session", buf, 0xCu);
     }
 
-    v15 = v7;
+    v16 = v7;
     goto LABEL_12;
   }
 
@@ -1737,22 +1748,22 @@ LABEL_6:
 
     [(NESMSession *)v7 setPolicySession:v11];
 
-    sub_10008E79C(v7);
+    sub_10008E79C(v7, v14);
     goto LABEL_6;
   }
 
-  v16 = ne_log_obj();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = ne_log_obj();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v20 = v7;
-    _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%@ relay configuration is nil", buf, 0xCu);
+    v21 = v7;
+    _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%@ relay configuration is nil", buf, 0xCu);
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_12:
 
-  return v15;
+  return v16;
 }
 
 @end

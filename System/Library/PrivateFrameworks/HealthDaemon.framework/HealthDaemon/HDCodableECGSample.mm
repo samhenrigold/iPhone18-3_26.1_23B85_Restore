@@ -129,40 +129,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_sample)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    privateClassification = self->_privateClassification;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    averageHeartRateInBPM = self->_averageHeartRateInBPM;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_voltagePayload)
   {
     PBDataWriterWriteDataField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    symptomsStatus = self->_symptomsStatus;
     PBDataWriterWriteInt64Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 

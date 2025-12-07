@@ -157,7 +157,7 @@
   [(CKColoredBalloonView *)&v7 configureForMessagePart:partCopy];
   if (partCopy)
   {
-    [partCopy balloonDescriptor];
+    objc_msgSend_balloonDescriptor(partCopy);
   }
 
   else

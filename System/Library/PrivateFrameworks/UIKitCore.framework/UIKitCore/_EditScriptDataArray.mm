@@ -207,9 +207,9 @@
       v14 = iterateCopy ? v11 : v9;
       v15 = [(_EditScriptDataArray *)self stringAtIndex:v13, v21, v22];
       v16 = [dataCopy stringAtIndex:v14];
-      v17 = [v15 isEqualToString:v16];
+      isEqualToString = objc_msgSend_isEqualToString_(v15);
 
-      if (!v17)
+      if (!isEqualToString)
       {
         break;
       }

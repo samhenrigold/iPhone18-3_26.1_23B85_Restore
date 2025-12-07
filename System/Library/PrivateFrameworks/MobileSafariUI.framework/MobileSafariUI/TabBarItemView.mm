@@ -250,7 +250,7 @@
   if (!self->_truncatedTitleText)
   {
     font = [(UILabel *)self->_titleLabel font];
-    *v87 = *MEMORY[0x277CBF3A8];
+    v87[0] = *MEMORY[0x277CBF3A8];
     WeakRetained = objc_loadWeakRetained(&self->_tabBar);
     items = [WeakRetained items];
     v22 = [items safari_mapObjectsUsingBlock:&__block_literal_global_53];
@@ -266,8 +266,8 @@
     [(NSString *)self->_truncatedTitleText _legacy_sizeWithFont:font constrainedToSize:4 lineBreakMode:v12 - v18, v14];
     self->_truncatedTitleTextSize.width = v28;
     self->_truncatedTitleTextSize.height = v29;
-    v30 = v87[0];
-    self->_titleWasTruncated = v87[0] > v12;
+    v30 = *v87;
+    self->_titleWasTruncated = *v87 > v12;
     [(UILabel *)self->_titleLabel setText:self->_truncatedTitleText, v30];
   }
 

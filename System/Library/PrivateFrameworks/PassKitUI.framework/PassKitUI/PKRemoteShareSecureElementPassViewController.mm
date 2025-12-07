@@ -62,7 +62,7 @@
   completionCopy = completion;
   v12 = objc_alloc(MEMORY[0x1E69B8840]);
   _hostProcessIdentifier = [(PKRemoteShareSecureElementPassViewController *)self _hostProcessIdentifier];
-  [(PKRemoteShareSecureElementPassViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   v14 = [v12 initWithProcessIdentifier:_hostProcessIdentifier auditToken:location];
   if ([v14 shareableCredentialProvisioning] & 1) != 0 || (objc_msgSend(v14, "carKeyCredentialProvisioning") & 1) != 0 || (objc_msgSend(v14, "passesAllAccess"))
   {

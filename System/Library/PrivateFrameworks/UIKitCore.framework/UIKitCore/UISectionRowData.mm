@@ -1,11 +1,11 @@
 @interface UISectionRowData
-+ (uint64_t)sectionLocationForRow:(uint64_t)row inSection:(uint64_t)section numRows:(uint64_t)rows gapIndexPath:(void *)path rowSpacing:;
++ (uint64_t)sectionLocationForRow:(void *)row inSection:(uint64_t)section numRows:(void *)rows gapIndexPath:(double)path rowSpacing:;
 - (double)_headerFooterSizeForSection:(void *)section inTable:(uint64_t)table withTitle:(uint64_t)title detailText:(uint64_t)text isHeader:(int)header stripPaddingForAbuttingView:(uint64_t)view isTopHeader:;
 - (double)addOffset:(double)result fromRow:;
 - (double)deleteRowAtIndex:(double)result;
 - (double)headerSize;
 - (double)heightForFooterInSection:(char)section canGuess:;
-- (double)heightForRow:(uint64_t)row inSection:(char)section canGuess:;
+- (double)heightForRow:(void *)row inSection:(char)section canGuess:;
 - (double)insertRowAtIndex:(uint64_t)index inSection:(uint64_t)section rowHeight:(double)result tableViewRowData:;
 - (double)offsetForRow:(char)row adjustedForGap:;
 - (double)sizeForHeaderInSection:(char)section canGuess:;
@@ -246,7 +246,7 @@
   }
 }
 
-- (double)heightForRow:(uint64_t)row inSection:(char)section canGuess:
+- (double)heightForRow:(void *)row inSection:(char)section canGuess:
 {
   if (!self)
   {
@@ -587,7 +587,7 @@ LABEL_22:
       goto LABEL_67;
     }
 
-    if (*(view + 64) - 1 == a2)
+    if ((*(view + 64) - 1) == a2)
     {
       *(view + 160) = 0;
     }
@@ -601,7 +601,7 @@ LABEL_22:
       {
         v35 = [(UISectionRowData *)self _headerFooterSizeForSection:a2 inTable:section withTitle:v34 detailText:0 isHeader:0 stripPaddingForAbuttingView:0 isTopHeader:0];
         v30 = v35;
-        if (*(view + 64) - 1 == a2 && v35 > 0.0)
+        if ((*(view + 64) - 1) == a2 && v35 > 0.0)
         {
           sectionCopy = section;
           viewCopy = view;
@@ -648,7 +648,7 @@ LABEL_22:
     [section sectionFooterHeight];
     v30 = v41;
     _tableStyle4 = [section _tableStyle];
-    if (_tableStyle4 <= 0x10 && ((1 << _tableStyle4) & 0x10006) != 0 && *(view + 64) - 1 == a2)
+    if (_tableStyle4 <= 0x10 && ((1 << _tableStyle4) & 0x10006) != 0 && (*(view + 64) - 1) == a2)
     {
       sectionCopy2 = section;
       viewCopy2 = view;
@@ -722,7 +722,7 @@ LABEL_67:
       }
 
       *(self + 120) = v53;
-      if (*(view + 64) - 1 == a2)
+      if ((*(view + 64) - 1) == a2)
       {
         sectionCopy3 = section;
         viewCopy3 = view;
@@ -1349,7 +1349,7 @@ LABEL_24:
   }
 
   v6 = result;
-  if (a2 < 0)
+  if ((a2 & 0x8000000000000000) != 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:sel_insertRowAtIndex_inSection_rowHeight_tableViewRowData_ object:self file:@"UITableViewRowData.m" lineNumber:817 description:{@"Attempted to insert an out-of-bounds row %ld in section %ld", a2, index}];
@@ -1380,7 +1380,7 @@ LABEL_5:
   }
 
   v12 = v11 - a2;
-  if (v11 - a2 < 0)
+  if ((v11 - a2) < 0)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler2 handleFailureInMethod:sel_insertRowAtIndex_inSection_rowHeight_tableViewRowData_ object:self file:@"UITableViewRowData.m" lineNumber:829 description:{@"Attempted to insert an out-of-bounds row %ld in section %ld", a2, index}];
@@ -1654,27 +1654,27 @@ LABEL_24:
   return v3;
 }
 
-+ (uint64_t)sectionLocationForRow:(uint64_t)row inSection:(uint64_t)section numRows:(uint64_t)rows gapIndexPath:(void *)path rowSpacing:
++ (uint64_t)sectionLocationForRow:(void *)row inSection:(uint64_t)section numRows:(void *)rows gapIndexPath:(double)path rowSpacing:
 {
-  pathCopy = path;
+  rowsCopy = rows;
   objc_opt_self();
-  if (self > 0.0)
+  if (path > 0.0)
   {
     v11 = 4;
     goto LABEL_17;
   }
 
-  if (!pathCopy || [pathCopy section] != section)
+  if (!rowsCopy || [rowsCopy section] != row)
   {
     objc_opt_self();
-    v12 = rows - 1 == row;
+    v12 = section - 1 == a2;
     goto LABEL_8;
   }
 
-  if ([pathCopy row] > row)
+  if ([rowsCopy row] > a2)
   {
     objc_opt_self();
-    v12 = rows == row;
+    v12 = section == a2;
 LABEL_8:
     if (v12)
     {
@@ -1696,7 +1696,7 @@ LABEL_8:
       v14 = 1;
     }
 
-    if (row)
+    if (a2)
     {
       v11 = v14;
     }
@@ -1709,7 +1709,7 @@ LABEL_8:
     goto LABEL_17;
   }
 
-  if (row + 1 == rows)
+  if (a2 + 1 == section)
   {
     v16 = 4;
   }
@@ -1719,7 +1719,7 @@ LABEL_8:
     v16 = 2;
   }
 
-  if (row + 1 == rows)
+  if (a2 + 1 == section)
   {
     v17 = 3;
   }
@@ -1729,7 +1729,7 @@ LABEL_8:
     v17 = 1;
   }
 
-  if (row == -1)
+  if (a2 == -1)
   {
     v11 = v16;
   }

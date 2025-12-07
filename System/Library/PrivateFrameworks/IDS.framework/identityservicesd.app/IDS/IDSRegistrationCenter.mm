@@ -1374,111 +1374,112 @@ LABEL_61:
 - (void)_notifyEmailQueryFailure:(id)failure responseCode:(int64_t)code registrationError:(int64_t)error error:(id)a6 info:(id)info
 {
   failureCopy = failure;
-  v41 = a6;
+  v42 = a6;
   infoCopy = info;
-  if ([failureCopy isDisabled])
+  isDisabled = [failureCopy isDisabled];
+  if (isDisabled)
   {
-    v14 = +[IMRGLog registration];
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = +[IMRGLog registration];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v48 = failureCopy;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not reflecting back email query failure, registration is disabled: %@", buf, 0xCu);
+      v49 = failureCopy;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Not reflecting back email query failure, registration is disabled: %@", buf, 0xCu);
     }
 
     goto LABEL_44;
   }
 
   codeCopy = code;
-  sub_100450174(0, @"Registration", @"Email query failure", 1073);
+  sub_100450174(isDisabled, @"Registration", @"Email query failure", 1073);
   _copyForEnumerating = [(NSMutableArray *)self->_handlers _copyForEnumerating];
-  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v16 = _copyForEnumerating;
-  v17 = [v16 countByEnumeratingWithState:&v42 objects:v46 count:16];
-  if (v17)
+  v46 = 0u;
+  v17 = _copyForEnumerating;
+  v18 = [v17 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  if (v18)
   {
-    v18 = *v43;
+    v19 = *v44;
     do
     {
-      for (i = 0; i != v17; i = i + 1)
+      for (i = 0; i != v18; i = i + 1)
       {
-        if (*v43 != v18)
+        if (*v44 != v19)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v17);
         }
 
-        v20 = *(*(&v42 + 1) + 8 * i);
+        v21 = *(*(&v43 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v20 center:self failedCurrentEmailsRequest:failureCopy error:error info:infoCopy];
+          [v21 center:self failedCurrentEmailsRequest:failureCopy error:error info:infoCopy];
         }
       }
 
-      v17 = [v16 countByEnumeratingWithState:&v42 objects:v46 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v43 objects:v47 count:16];
     }
 
-    while (v17);
+    while (v18);
   }
 
-  domain = [v41 domain];
-  v40 = [domain isEqualToString:NSPOSIXErrorDomain];
+  domain = [v42 domain];
+  v41 = [domain isEqualToString:NSPOSIXErrorDomain];
 
-  domain2 = [v41 domain];
+  domain2 = [v42 domain];
   if ([domain2 isEqualToString:NSURLErrorDomain])
   {
-    v23 = 1;
+    v24 = 1;
   }
 
   else
   {
-    domain3 = [v41 domain];
-    v23 = [domain3 isEqualToString:kCFErrorDomainCFNetwork];
+    domain3 = [v42 domain];
+    v24 = [domain3 isEqualToString:kCFErrorDomainCFNetwork];
   }
 
-  v25 = +[FTNetworkSupport sharedInstance];
-  wiFiActiveAndReachable = [v25 wiFiActiveAndReachable];
+  v26 = +[FTNetworkSupport sharedInstance];
+  wiFiActiveAndReachable = [v26 wiFiActiveAndReachable];
 
   if (wiFiActiveAndReachable)
   {
-    v27 = 2;
+    v28 = 2;
   }
 
   else
   {
-    v27 = 1;
+    v28 = 1;
   }
 
-  v38 = v27;
+  v39 = v28;
   sub_100022FD8(codeCopy);
   sub_1000236A8(error);
-  if ((v23 | v40))
+  if ((v24 | v41))
   {
-    v28 = 0;
-    if (v23)
+    v29 = 0;
+    if (v24)
     {
 LABEL_21:
-      v29 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v41 code]);
+      v30 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v42 code]);
       goto LABEL_24;
     }
   }
 
   else
   {
-    v28 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v41 code]);
-    if (v23)
+    v29 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v42 code]);
+    if (v24)
     {
       goto LABEL_21;
     }
   }
 
-  v29 = 0;
+  v30 = 0;
 LABEL_24:
-  if (v40)
+  if (v41)
   {
-    v30 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v41 code]);
+    v31 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v42 code]);
     FTAWDLogRegistrationGetHandles();
   }
 
@@ -1487,45 +1488,45 @@ LABEL_24:
     FTAWDLogRegistrationGetHandles();
   }
 
-  if (v23)
+  if (v24)
   {
   }
 
-  if (((v23 | v40) & 1) == 0)
+  if (((v24 | v41) & 1) == 0)
   {
   }
 
-  v31 = [IDSRegistrationOperationGetHandlesMetric alloc];
-  v32 = sub_100022FD8(codeCopy);
-  v33 = sub_1000236A8(error);
-  if ((v23 | v40))
+  v32 = [IDSRegistrationOperationGetHandlesMetric alloc];
+  v33 = sub_100022FD8(codeCopy);
+  v34 = sub_1000236A8(error);
+  if ((v24 | v41))
   {
-    v34 = 0;
-    if (v23)
+    v35 = 0;
+    if (v24)
     {
 LABEL_33:
-      v35 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v41 code]);
+      v36 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v42 code]);
       goto LABEL_36;
     }
   }
 
   else
   {
-    v34 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v41 code]);
-    if (v23)
+    v35 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v42 code]);
+    if (v24)
     {
       goto LABEL_33;
     }
   }
 
-  v35 = 0;
+  v36 = 0;
 LABEL_36:
-  if (v40)
+  if (v41)
   {
-    v36 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v41 code]);
-    v14 = [v31 initWithGuid:0 success:0 connectionType:v38 resultCode:v32 registrationType:v33 genericError:v34 URLError:v35 POSIXError:v36];
+    v37 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v42 code]);
+    v15 = [v32 initWithGuid:0 success:0 connectionType:v39 resultCode:v33 registrationType:v34 genericError:v35 URLError:v36 POSIXError:v37];
 
-    if (!v23)
+    if (!v24)
     {
       goto LABEL_41;
     }
@@ -1533,19 +1534,19 @@ LABEL_36:
     goto LABEL_40;
   }
 
-  v14 = [v31 initWithGuid:0 success:0 connectionType:v38 resultCode:v32 registrationType:v33 genericError:v34 URLError:v35 POSIXError:0];
-  if (v23)
+  v15 = [v32 initWithGuid:0 success:0 connectionType:v39 resultCode:v33 registrationType:v34 genericError:v35 URLError:v36 POSIXError:0];
+  if (v24)
   {
 LABEL_40:
   }
 
 LABEL_41:
-  if (((v23 | v40) & 1) == 0)
+  if (((v24 | v41) & 1) == 0)
   {
   }
 
-  v37 = +[IDSCoreAnalyticsLogger defaultLogger];
-  [v37 logMetric:v14];
+  v38 = +[IDSCoreAnalyticsLogger defaultLogger];
+  [v38 logMetric:v15];
 
 LABEL_44:
 }
@@ -3012,7 +3013,7 @@ LABEL_200:
             }
 
             responseHBI = v120;
-            [v120 doubleValue];
+            objc_msgSend_doubleValue(v120);
             v122 = v121;
             if (v121 < 60.0)
             {
@@ -3076,7 +3077,7 @@ LABEL_200:
                   serviceType = [v307 serviceType];
                   v317 = sub_100450490(serviceType);
 
-                  if ([v325 isEqualToIgnoringCase:v317])
+                  if (objc_msgSend_isEqualToIgnoringCase_(v325))
                   {
                     idsUserID = [v307 idsUserID];
                     v129 = [v282 isEqualToString:idsUserID];
@@ -5322,7 +5323,7 @@ LABEL_10:
   if (timeout)
   {
     timeout2 = [eventCopy timeout];
-    [timeout2 doubleValue];
+    objc_msgSend_doubleValue(timeout2);
     [(IDSReportClientEventMessage *)v11 setTimeout:?];
   }
 

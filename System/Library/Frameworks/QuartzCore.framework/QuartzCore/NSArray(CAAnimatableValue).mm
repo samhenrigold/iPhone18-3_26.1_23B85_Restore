@@ -1,12 +1,12 @@
 @interface NSArray(CAAnimatableValue)
+- (char)CA_interpolateValues:()CAAnimatableValue ::interpolator:;
 - (uint64_t)CA_interpolateValue:()CAAnimatableValue byFraction:;
-- (uint64_t)CA_interpolateValues:()CAAnimatableValue ::interpolator:;
 - (void)CA_addValue:()CAAnimatableValue multipliedBy:;
 @end
 
 @implementation NSArray(CAAnimatableValue)
 
-- (uint64_t)CA_interpolateValues:()CAAnimatableValue ::interpolator:
+- (char)CA_interpolateValues:()CAAnimatableValue ::interpolator:
 {
   v36 = *MEMORY[0x1E69E9840];
   v11 = [self count];

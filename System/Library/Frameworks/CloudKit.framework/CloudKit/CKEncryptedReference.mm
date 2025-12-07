@@ -91,7 +91,7 @@
 
 - (id)_referenceFromPReference:(id)reference
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   referenceCopy = reference;
   v7 = objc_msgSend_recordIdentifier(referenceCopy, v5, v6);
   v11 = objc_msgSend__recordIDFromPRecordIdentifier_(self, v8, v7);
@@ -122,15 +122,13 @@
     v17 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
-      v23 = 138412290;
-      v24 = referenceCopy;
-      _os_log_error_impl(&dword_1883EA000, v17, OS_LOG_TYPE_ERROR, "Invalid record identifier from server %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = referenceCopy;
+      _os_log_error_impl(&dword_1883EA000, v17, OS_LOG_TYPE_ERROR, "Invalid record identifier from server %@", &v22, 0xCu);
     }
 
     v18 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

@@ -130,22 +130,22 @@
   v11 = objc_opt_class();
   [(PXStoryConcreteAutoEditClip *)self playbackStyle];
   v12 = PFDisplayAssetPlaybackStyleDescription();
-  [(PXStoryConcreteAutoEditClip *)self durationInfo];
+  objc_msgSend_durationInfo(self);
   time = v29;
   Seconds = CMTimeGetSeconds(&time);
-  [(PXStoryConcreteAutoEditClip *)self durationInfo];
+  objc_msgSend_durationInfo(self);
   time = v28;
   v14 = CMTimeGetSeconds(&time);
-  [(PXStoryConcreteAutoEditClip *)self durationInfo];
+  objc_msgSend_durationInfo(self);
   time = v27;
   v15 = CMTimeGetSeconds(&time);
   [(PXStoryConcreteAutoEditClip *)self durationMultiplier];
   v17 = v16;
-  [(PXStoryConcreteAutoEditClip *)self motionInfo];
-  v18 = PXStoryAutoEditClipMotionInfoDescription(&time.value);
-  [(PXStoryConcreteAutoEditClip *)self transitionInfo];
+  objc_msgSend_motionInfo(self);
+  v18 = PXStoryAutoEditClipMotionInfoDescription(&time);
+  objc_msgSend_transitionInfo(self);
   v19 = PXStoryAutoEditClipTransitionInfoDescription(&time);
-  [(PXStoryConcreteAutoEditClip *)self audioInfo];
+  objc_msgSend_audioInfo(self);
   v20 = PXStoryClipAudioInfoDescription(&time);
   moduleInfo = [(PXStoryConcreteAutoEditClip *)self moduleInfo];
   v23 = PXStoryAutoEditClipModuleInfoDescription(moduleInfo, v22);
@@ -252,22 +252,22 @@
   -[PXStoryConcreteAutoEditClip setPlaybackStyle:](v11, "setPlaybackStyle:", [firstObject playbackStyle]);
   if (firstObject)
   {
-    [firstObject durationInfo];
+    objc_msgSend_durationInfo(firstObject);
     v26 = v31;
     v27 = v32;
     v28 = v33;
     v24 = v29;
     v25 = v30;
     [(PXStoryConcreteAutoEditClip *)v11 setDurationInfo:&v24];
-    [firstObject motionInfo];
+    objc_msgSend_motionInfo(firstObject);
     v24 = v22;
     *&v25 = v23;
     [(PXStoryConcreteAutoEditClip *)v11 setMotionInfo:&v24];
-    [firstObject transitionInfo];
+    objc_msgSend_transitionInfo(firstObject);
     v24 = v20;
     v25 = v21;
     [(PXStoryConcreteAutoEditClip *)v11 setTransitionInfo:&v24];
-    [firstObject audioInfo];
+    objc_msgSend_audioInfo(firstObject);
   }
 
   else

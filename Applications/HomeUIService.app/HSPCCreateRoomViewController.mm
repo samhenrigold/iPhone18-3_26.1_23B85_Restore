@@ -1,6 +1,7 @@
 @interface HSPCCreateRoomViewController
 - (HSPCCreateRoomViewController)initWithCoordinator:(id)coordinator config:(id)config;
 - (id)commitConfiguration;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation HSPCCreateRoomViewController
@@ -17,6 +18,22 @@
   }
 
   return v4;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = HSPCCreateRoomViewController;
+  [(HSPCCreateRoomViewController *)&v8 viewDidAppear:appear];
+  textField = [(HSPCTextFieldViewController *)self textField];
+  text = [textField text];
+  v6 = [text length];
+
+  if (!v6)
+  {
+    textField2 = [(HSPCTextFieldViewController *)self textField];
+    [textField2 becomeFirstResponder];
+  }
 }
 
 - (id)commitConfiguration

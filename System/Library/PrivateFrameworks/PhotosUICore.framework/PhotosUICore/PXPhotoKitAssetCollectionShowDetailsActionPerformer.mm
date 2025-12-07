@@ -168,7 +168,7 @@
   v7 = assetsDataSource;
   if (assetsDataSource)
   {
-    [assetsDataSource indexPathForAssetCollectionReference:referenceCopy];
+    objc_msgSend_indexPathForAssetCollectionReference_(assetsDataSource);
   }
 
   return 0;

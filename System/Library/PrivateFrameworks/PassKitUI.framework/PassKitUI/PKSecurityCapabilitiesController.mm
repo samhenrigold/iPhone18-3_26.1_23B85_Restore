@@ -249,36 +249,36 @@ void *__119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPrese
   return result;
 }
 
-void __119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPresentingViewController_suppressHSA2Alert_completion___block_invoke_2(uint64_t a1)
+void __119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPresentingViewController_suppressHSA2Alert_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (!*(*(*(a1 + 48) + 8) + 24) && (*(*(a1 + 32) + 32) & 0x20) != 0)
   {
-    v3 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = PKSecurityCapabilitiesRequirementToString(0x20uLL);
+      v5 = PKSecurityCapabilitiesRequirementToString(0x20uLL);
       *buf = 138412290;
-      v10 = v4;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Checking security eligibility for %@", buf, 0xCu);
+      v11 = v5;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Checking security eligibility for %@", buf, 0xCu);
     }
 
-    v5 = *(a1 + 32);
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPresentingViewController_suppressHSA2Alert_completion___block_invoke_80;
-    v6[3] = &unk_1E8016340;
-    v6[4] = v5;
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    [v5 _isEnabledForSecurityRequirements:32 withCompletion:v6];
+    v6 = *(a1 + 32);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPresentingViewController_suppressHSA2Alert_completion___block_invoke_80;
+    v7[3] = &unk_1E8016340;
+    v7[4] = v6;
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    [v6 _isEnabledForSecurityRequirements:32 withCompletion:v7];
   }
 
   else
   {
-    v2 = *(*(a1 + 40) + 16);
+    v3 = *(*(a1 + 40) + 16);
 
-    v2();
+    v3();
   }
 }
 
@@ -353,41 +353,41 @@ void __119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPresen
   (*(*(a1 + 40) + 16))();
 }
 
-void __119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPresentingViewController_suppressHSA2Alert_completion___block_invoke_90(uint64_t a1)
+void __119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPresentingViewController_suppressHSA2Alert_completion___block_invoke_90(uint64_t a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (!*(*(*(a1 + 56) + 8) + 24) && (*(*(a1 + 32) + 32) & 0x10) != 0)
   {
-    v3 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = PKSecurityCapabilitiesRequirementToString(0x10uLL);
+      v5 = PKSecurityCapabilitiesRequirementToString(0x10uLL);
       *buf = 138412290;
-      v15 = v4;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Checking security eligibility for %@", buf, 0xCu);
+      v16 = v5;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Checking security eligibility for %@", buf, 0xCu);
     }
 
-    v5 = *(a1 + 32);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPresentingViewController_suppressHSA2Alert_completion___block_invoke_91;
-    v10[3] = &unk_1E80163B8;
-    v10[4] = v5;
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 64);
-    v11 = v6;
-    v13 = v7;
-    v9 = *(a1 + 48);
-    v8 = v9;
-    v12 = v9;
-    [v5 _isEnabledForSecurityRequirements:16 withCompletion:v10];
+    v6 = *(a1 + 32);
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __119__PKSecurityCapabilitiesController_presentSecurityRepairFlowWithPresentingViewController_suppressHSA2Alert_completion___block_invoke_91;
+    v11[3] = &unk_1E80163B8;
+    v11[4] = v6;
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 64);
+    v12 = v7;
+    v14 = v8;
+    v10 = *(a1 + 48);
+    v9 = v10;
+    v13 = v10;
+    [v6 _isEnabledForSecurityRequirements:16 withCompletion:v11];
   }
 
   else
   {
-    v2 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v2();
+    v3();
   }
 }
 
@@ -1004,39 +1004,39 @@ void __98__PKSecurityCapabilitiesController__presentPasswordPromptWithPresenting
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __98__PKSecurityCapabilitiesController__presentPasswordPromptWithPresentingViewController_completion___block_invoke_2(id *a1)
+void __98__PKSecurityCapabilitiesController__presentPasswordPromptWithPresentingViewController_completion___block_invoke_2(id *a1, uint64_t a2)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v32 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [a1[4] allKeys];
-    v4 = a1[5];
+    v4 = [a1[4] allKeys];
+    v5 = a1[5];
     *buf = 138412546;
-    v28 = v3;
-    v29 = 2112;
-    v30 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Request for user authentication returned result with keys: %@ error: %@", buf, 0x16u);
+    v29 = v4;
+    v30 = 2112;
+    v31 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Request for user authentication returned result with keys: %@ error: %@", buf, 0x16u);
   }
 
-  v5 = a1[5];
-  if (!v5)
+  v6 = a1[5];
+  if (!v6)
   {
-    v9 = *(a1[8] + 2);
+    v10 = *(a1[8] + 2);
     goto LABEL_8;
   }
 
-  v6 = [v5 domain];
-  v7 = *MEMORY[0x1E698DB28];
-  if ([v6 isEqual:*MEMORY[0x1E698DB28]])
+  v7 = [v6 domain];
+  v8 = *MEMORY[0x1E698DB28];
+  if ([v7 isEqual:*MEMORY[0x1E698DB28]])
   {
-    v8 = [a1[5] code];
+    v9 = [a1[5] code];
 
-    if (v8 == -7003)
+    if (v9 == -7003)
     {
-      v9 = *(a1[8] + 2);
+      v10 = *(a1[8] + 2);
 LABEL_8:
-      v9();
+      v10();
       return;
     }
   }
@@ -1045,55 +1045,55 @@ LABEL_8:
   {
   }
 
-  v10 = [a1[5] domain];
-  if (![v10 isEqual:v7])
+  v11 = [a1[5] domain];
+  if (![v11 isEqual:v8])
   {
 
     goto LABEL_15;
   }
 
-  v11 = [a1[5] code];
+  v12 = [a1[5] code];
 
-  if (v11 != -7005)
+  if (v12 != -7005)
   {
 LABEL_15:
-    v18 = a1[8];
-    v19 = [a1[6] _genericDisplayableError];
-    v18[2](v18, 2, v19);
+    v19 = a1[8];
+    v20 = [a1[6] _genericDisplayableError];
+    v19[2](v19, 2, v20);
 
     goto LABEL_16;
   }
 
-  v12 = PKLocalizedPaymentString(&cfstr_CouldNotConnec.isa);
-  v13 = PKLocalizedPaymentString(&cfstr_CouldNotConnec_0.isa);
-  v14 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v12 message:v13 preferredStyle:1];
-  v15 = MEMORY[0x1E69DC648];
-  v16 = PKLocalizedString(&cfstr_OkButtonTitle.isa);
-  v21 = MEMORY[0x1E69E9820];
-  v22 = 3221225472;
-  v23 = __98__PKSecurityCapabilitiesController__presentPasswordPromptWithPresentingViewController_completion___block_invoke_163;
-  v24 = &unk_1E80164A8;
-  v26 = a1[8];
-  v25 = a1[5];
-  v17 = [v15 actionWithTitle:v16 style:1 handler:&v21];
-  [v14 addAction:{v17, v21, v22, v23, v24}];
+  v13 = PKLocalizedPaymentString(&cfstr_CouldNotConnec.isa);
+  v14 = PKLocalizedPaymentString(&cfstr_CouldNotConnec_0.isa);
+  v15 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v13 message:v14 preferredStyle:1];
+  v16 = MEMORY[0x1E69DC648];
+  v17 = PKLocalizedString(&cfstr_OkButtonTitle.isa);
+  v22 = MEMORY[0x1E69E9820];
+  v23 = 3221225472;
+  v24 = __98__PKSecurityCapabilitiesController__presentPasswordPromptWithPresentingViewController_completion___block_invoke_163;
+  v25 = &unk_1E80164A8;
+  v27 = a1[8];
+  v26 = a1[5];
+  v18 = [v16 actionWithTitle:v17 style:1 handler:&v22];
+  [v15 addAction:{v18, v22, v23, v24, v25}];
 
-  if (!v14)
+  if (!v15)
   {
 LABEL_16:
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Error: Tried to present a user error for authentication request but could not generate one. Exiting", buf, 2u);
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error: Tried to present a user error for authentication request but could not generate one. Exiting", buf, 2u);
     }
 
-    v20 = a1[8];
-    v14 = [a1[6] _genericDisplayableError];
-    v20[2](v20, 2, v14);
+    v21 = a1[8];
+    v15 = [a1[6] _genericDisplayableError];
+    v21[2](v21, 2, v15);
     goto LABEL_19;
   }
 
-  [a1[7] presentViewController:v14 animated:1 completion:0];
+  [a1[7] presentViewController:v15 animated:1 completion:0];
 LABEL_19:
 }
 
@@ -1287,31 +1287,31 @@ void __85__PKSecurityCapabilitiesController__isEnabledForSecurityRequirements_wi
   dispatch_group_leave(*(a1 + 32));
 }
 
-uint64_t __85__PKSecurityCapabilitiesController__isEnabledForSecurityRequirements_withCompletion___block_invoke_5(void *a1)
+uint64_t __85__PKSecurityCapabilitiesController__isEnabledForSecurityRequirements_withCompletion___block_invoke_5(void *a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v14 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = PKSecurityCapabilitiesRequirementToString(a1[7]);
+    v4 = PKSecurityCapabilitiesRequirementToString(a1[7]);
     if (*(*(a1[5] + 8) + 24))
     {
-      v4 = @"YES";
+      v5 = @"YES";
     }
 
     else
     {
-      v4 = @"NO";
+      v5 = @"NO";
     }
 
-    v5 = PKSecurityCapabilitiesRequirementToString(*(*(a1[6] + 8) + 24));
-    v7 = 138412802;
-    v8 = v3;
-    v9 = 2112;
-    v10 = v4;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Finished checking security requirements for %@. isEnabled %@, missing requirements: %@", &v7, 0x20u);
+    v6 = PKSecurityCapabilitiesRequirementToString(*(*(a1[6] + 8) + 24));
+    v8 = 138412802;
+    v9 = v4;
+    v10 = 2112;
+    v11 = v5;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Finished checking security requirements for %@. isEnabled %@, missing requirements: %@", &v8, 0x20u);
   }
 
   result = a1[4];

@@ -90,7 +90,7 @@ void __46__SBDisplayTransformerRegistry_sharedInstance__block_invoke()
   v20 = v12;
   v13 = [v9 initWithIdentifier:identifierCopy forReason:v11 invalidationBlock:&v16];
 
-  LODWORD(v11) = [(NSMutableSet *)self->_lock_transformers containsObject:v12];
+  LODWORD(v11) = objc_msgSend_containsObject_(self->_lock_transformers);
   [(NSMutableSet *)self->_lock_transformers addObject:v12];
   os_unfair_lock_unlock(&self->_lock);
   if (v11)
@@ -223,7 +223,7 @@ LABEL_3:
               v7 = v19;
             }
 
-            if ([v5 containsObject:identity2])
+            if (objc_msgSend_containsObject_(v5))
             {
               v20 = v9;
 
@@ -307,7 +307,7 @@ LABEL_24:
     }
   }
 
-  if (([v36 containsObject:configurationCopy] & 1) == 0)
+  if ((objc_msgSend_containsObject_(v36) & 1) == 0)
   {
     [v36 addObject:configurationCopy];
   }

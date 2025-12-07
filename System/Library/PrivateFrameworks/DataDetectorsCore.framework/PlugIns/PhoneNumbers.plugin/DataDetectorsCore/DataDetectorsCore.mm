@@ -50,23 +50,23 @@ LABEL_29:
   return MEMORY[0x282159850]();
 }
 
-uint64_t state_168534(uint64_t a1)
+BOOL state_168534(uint64_t *a1)
 {
-  v2 = *(a1 + 16);
-  v3 = *(a1 + 56);
+  v2 = a1[2];
+  v3 = a1[7];
   if (v2 <= v3)
   {
     if (v2 >= v3)
     {
       if (*(a1 + 120))
       {
-        *(a1 + 104) = -1;
-        *(a1 + 112) = state_168534;
+        a1[13] = -1;
+        a1[14] = state_168534;
       }
 
       else
       {
-        *(a1 + 56) = v3 + 1;
+        a1[7] = v3 + 1;
       }
 
       return 1;
@@ -81,7 +81,7 @@ uint64_t state_168534(uint64_t a1)
   else
   {
     v4 = *a1;
-    *(a1 + 56) = v3 + 1;
+    a1[7] = v3 + 1;
     v5 = *(v4 + 2 * v3);
     result = 1;
     if (v5 > 159)
@@ -257,15 +257,15 @@ BOOL state_168537(uint64_t *a1)
   return 1;
 }
 
-void DDPhonePostprocessResult()
+void DDPhonePostprocessResult(uint64_t a1)
 {
   Type = DDResultGetType();
   if (CFStringCompare(Type, @"PhoneNumber", 0) == kCFCompareEqualTo)
   {
     DDResultGetQueryRange();
-    v1 = DDResultCreate();
+    v2 = DDResultCreate();
     DDResultAddSubresult();
 
-    CFRelease(v1);
+    CFRelease(v2);
   }
 }

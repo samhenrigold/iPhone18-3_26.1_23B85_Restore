@@ -110,23 +110,22 @@ OSMetaClassBase *AppleARMPL011Driver::start(OSObject *this, IOService *anObject)
 
     this[11].__vftable = v5;
     v7 = (this->__vftable[7].serialize)(this);
-    v8 = this[11].__vftable;
-    (*(*v7 + 160))();
+    (*(*v7 + 160))(v7, this[11].__vftable);
     if (result)
     {
-      v9 = this[10].__vftable;
-      *&this[12].retainCount = v9;
-      if (!v9)
+      v8 = this[10].__vftable;
+      *&this[12].retainCount = v8;
+      if (!v8)
       {
         AppleARMPL011Driver::start();
       }
 
-      LODWORD(v9->serialize) = 768;
-      HIDWORD(v9->release_0) = 112;
-      HIDWORD(v9->isEqualTo) = 127;
-      HIDWORD(v9->serialize) = 0;
+      LODWORD(v8->serialize) = 768;
+      HIDWORD(v8->release_0) = 112;
+      HIDWORD(v8->isEqualTo) = 127;
+      HIDWORD(v8->serialize) = 0;
       result = (&dword_0 + 1);
-      LODWORD(v9->serialize) = 769;
+      LODWORD(v8->serialize) = 769;
     }
   }
 

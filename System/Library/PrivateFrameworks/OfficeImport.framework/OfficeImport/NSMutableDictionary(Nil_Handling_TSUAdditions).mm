@@ -1,11 +1,11 @@
 @interface NSMutableDictionary(Nil_Handling_TSUAdditions)
-- (uint64_t)tsu_setNonNilValueForKey:()Nil_Handling_TSUAdditions fromDictionary:;
 - (void)tsu_setNonNilObject:()Nil_Handling_TSUAdditions forKey:;
+- (void)tsu_setNonNilValueForKey:()Nil_Handling_TSUAdditions fromDictionary:;
 @end
 
 @implementation NSMutableDictionary(Nil_Handling_TSUAdditions)
 
-- (uint64_t)tsu_setNonNilValueForKey:()Nil_Handling_TSUAdditions fromDictionary:
+- (void)tsu_setNonNilValueForKey:()Nil_Handling_TSUAdditions fromDictionary:
 {
   result = [a4 objectForKeyedSubscript:?];
   if (result)
@@ -21,10 +21,10 @@
 {
   if (a3)
   {
-    return [self setObject:? forKeyedSubscript:?];
+    return [result setObject:? forKeyedSubscript:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

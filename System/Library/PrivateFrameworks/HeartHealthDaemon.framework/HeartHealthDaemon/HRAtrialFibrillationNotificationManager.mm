@@ -16,6 +16,7 @@
 - (void)_presentNotificationWithTitle:(id)title message:(id)message cancelButtonTitle:(id)buttonTitle defaultButtonTitle:(id)defaultButtonTitle otherButtonTitle:(id)otherButtonTitle alertLevel:(int64_t)level responseHandler:(id)handler;
 - (void)_queue_addNotificationRequestForAtrialFibrillationEvent:(id)event;
 - (void)_queue_fakeHeartbeatSeriesSamplesForEvent:(id)event;
+- (void)_queue_fakeNotificationWithData:(BOOL)data;
 - (void)_queue_isCompanionSoftwareVersionTooOld;
 - (void)_queue_isWatchSoftwareVersionTooOld;
 - (void)_queue_setAtrialFibrillationDetectionDisabledNotificationShownDate:(id)date;
@@ -112,7 +113,7 @@ void __80__HRAtrialFibrillationNotificationManager_initWithProfile_featureStatus
     v6 = *MEMORY[0x277CCC2D8];
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
     {
-      __80__HRAtrialFibrillationNotificationManager_initWithProfile_featureStatusManager___block_invoke_cold_1(a1, v6);
+      __80__HRAtrialFibrillationNotificationManager_initWithProfile_featureStatusManager___block_invoke_cold_1(a1, v6, v5);
     }
   }
 }
@@ -152,9 +153,9 @@ void __80__HRAtrialFibrillationNotificationManager_initWithProfile_featureStatus
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
       v9 = v8;
-      v10 = HRLogSensitiveClassName();
+      v11 = HRLogSensitiveClassName(self, v10);
       *buf = 138543362;
-      v17 = v10;
+      v17 = v11;
       _os_log_impl(&dword_229486000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring event, health app is hidden or deleted.", buf, 0xCu);
     }
   }
@@ -170,8 +171,6 @@ void __80__HRAtrialFibrillationNotificationManager_initWithProfile_featureStatus
     selfCopy = self;
     dispatch_async(queue, v13);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HRAtrialFibrillationNotificationManager_samplesAdded_anchor___block_invoke(uint64_t a1)
@@ -224,9 +223,9 @@ void __63__HRAtrialFibrillationNotificationManager_samplesAdded_anchor___block_i
         {
           v14 = *(a1 + 40);
           v15 = v13;
-          v16 = HRLogSensitiveClassName();
+          v17 = HRLogSensitiveClassName(v14, v16);
           *buf = v18;
-          v25 = v16;
+          v25 = v17;
           v26 = 2112;
           v27 = v7;
           _os_log_impl(&dword_229486000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring event without first party / local device source: %@", buf, 0x16u);
@@ -238,8 +237,6 @@ void __63__HRAtrialFibrillationNotificationManager_samplesAdded_anchor___block_i
 
     while (v4);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_addNotificationRequestForAtrialFibrillationEvent:(id)event
@@ -316,24 +313,22 @@ void __99__HRAtrialFibrillationNotificationManager__queue_addNotificationRequest
     {
       v6 = v4;
       WeakRetained = objc_loadWeakRetained((a1 + 56));
-      v8 = HRLogSensitiveClassName();
-      v9 = [*(a1 + 32) identifier];
-      v10 = [*(a1 + 40) categoryIdentifier];
-      v11 = HKSensitiveLogItem();
+      v9 = HRLogSensitiveClassName(WeakRetained, v8);
+      v10 = [*(a1 + 32) identifier];
+      v11 = [*(a1 + 40) categoryIdentifier];
+      v12 = HKSensitiveLogItem();
       v14 = 138543874;
-      v15 = v8;
+      v15 = v9;
       v16 = 2114;
-      v17 = v9;
+      v17 = v10;
       v18 = 2114;
-      v19 = v11;
+      v19 = v12;
       _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested notification (%{public}@ - %{public}@)", &v14, 0x20u);
     }
 
-    v12 = [[HDHRNotificationAnalytics alloc] initWithEventSample:*(a1 + 48) areHealthNotificationsAuthorized:*(a1 + 64)];
-    [(HDHRNotificationAnalytics *)v12 submit];
+    v13 = [[HDHRNotificationAnalytics alloc] initWithEventSample:*(a1 + 48) areHealthNotificationsAuthorized:*(a1 + 64)];
+    [(HDHRNotificationAnalytics *)v13 submit];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addNotificationRequestForCompanionSoftwareVersionIsTooOld
@@ -353,15 +348,14 @@ void __99__HRAtrialFibrillationNotificationManager__queue_addNotificationRequest
   v5 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = HRLogSensitiveClassName();
+    v7 = HRLogSensitiveClassName(self, v6);
     *buf = 138543362;
-    v12 = v6;
+    v12 = v7;
     _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested companion software version is too old notification", buf, 0xCu);
   }
 
   objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HRAtrialFibrillationNotificationManager__addNotificationRequestForCompanionSoftwareVersionIsTooOld__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -394,15 +388,14 @@ void __101__HRAtrialFibrillationNotificationManager__addNotificationRequestForCo
   v5 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = HRLogSensitiveClassName();
+    v7 = HRLogSensitiveClassName(self, v6);
     *buf = 138543362;
-    v12 = v6;
+    v12 = v7;
     _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Requested Watch software version is too old notification", buf, 0xCu);
   }
 
   objc_destroyWeak(&v9);
   objc_destroyWeak(&location);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __97__HRAtrialFibrillationNotificationManager__addNotificationRequestForWatchSoftwareVersionIsTooOld__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -468,7 +461,7 @@ void __97__HRAtrialFibrillationNotificationManager__addNotificationRequestForWat
   return v3;
 }
 
-uint64_t __75__HRAtrialFibrillationNotificationManager_isCompanionSoftwareVersionTooOld__block_invoke(uint64_t a1)
+void *__75__HRAtrialFibrillationNotificationManager_isCompanionSoftwareVersionTooOld__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_isCompanionSoftwareVersionTooOld];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -525,7 +518,7 @@ uint64_t __75__HRAtrialFibrillationNotificationManager_isCompanionSoftwareVersio
   return v3;
 }
 
-uint64_t __71__HRAtrialFibrillationNotificationManager_isWatchSoftwareVersionTooOld__block_invoke(uint64_t a1)
+void *__71__HRAtrialFibrillationNotificationManager_isWatchSoftwareVersionTooOld__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_isWatchSoftwareVersionTooOld];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -613,15 +606,15 @@ uint64_t __71__HRAtrialFibrillationNotificationManager_isWatchSoftwareVersionToo
 
 - (BOOL)_allowAtrialFibrillationDisableOrReEnableRemotelyAlertWithFeatureStatus:(id)status
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   statusCopy = status;
   if ([(HRAtrialFibrillationNotificationManager *)self _isPairedSyncCompleted])
   {
     v6 = MEMORY[0x277CBEB98];
     v7 = *MEMORY[0x277CCBF30];
-    v30[0] = *MEMORY[0x277CCBFD0];
-    v30[1] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:2];
+    v31[0] = *MEMORY[0x277CCBFD0];
+    v31[1] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
     v9 = [v6 setWithArray:v8];
 
     v10 = [statusCopy objectForKeyedSubscript:*MEMORY[0x277CCBEA0]];
@@ -635,66 +628,62 @@ uint64_t __71__HRAtrialFibrillationNotificationManager_isWatchSoftwareVersionToo
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
       v15 = v14;
-      v16 = HRLogSensitiveClassName();
-      v17 = [MEMORY[0x277CCABB0] numberWithBool:v13];
-      v24 = 138543874;
-      v25 = v16;
-      v26 = 2114;
-      v27 = v17;
-      v28 = 2114;
-      v29 = unsatisfiedRequirementIdentifiers;
-      _os_log_impl(&dword_229486000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Can present rescinded or re-enabled alert: %{public}@; unsatisfied requirements: %{public}@", &v24, 0x20u);
+      v17 = HRLogSensitiveClassName(self, v16);
+      v18 = [MEMORY[0x277CCABB0] numberWithBool:v13];
+      v25 = 138543874;
+      v26 = v17;
+      v27 = 2114;
+      v28 = v18;
+      v29 = 2114;
+      v30 = unsatisfiedRequirementIdentifiers;
+      _os_log_impl(&dword_229486000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Can present rescinded or re-enabled alert: %{public}@; unsatisfied requirements: %{public}@", &v25, 0x20u);
     }
   }
 
   else
   {
     _HKInitializeLogging();
-    v18 = *MEMORY[0x277CCC2D8];
+    v19 = *MEMORY[0x277CCC2D8];
     LOBYTE(v13) = 0;
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
     {
-      v19 = v18;
-      v20 = HRLogSensitiveClassName();
+      v20 = v19;
+      v22 = HRLogSensitiveClassName(self, v21);
       v13 = NSStringFromSelector(a2);
-      v21 = HKSensitiveLogItem();
-      v24 = 138543618;
-      v25 = v20;
-      v26 = 2114;
-      v27 = v21;
-      _os_log_impl(&dword_229486000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> NO, paired sync not completed", &v24, 0x16u);
+      v23 = HKSensitiveLogItem();
+      v25 = 138543618;
+      v26 = v22;
+      v27 = 2114;
+      v28 = v23;
+      _os_log_impl(&dword_229486000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> NO, paired sync not completed", &v25, 0x16u);
 
       LOBYTE(v13) = 0;
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)presentAtrialFibrillationDetectionRescindedAlertIfNeeded
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to retrieve IRN's feature status; unable to check if rescinded: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to retrieve IRN's feature status; unable to check if rescinded: %{public}@", v8, v9, v10, v11);
 }
 
 void __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDetectionRescindedAlertIfNeeded__block_invoke(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) _atrialFibrillationDetectionRescindedStatusForFeatureStatus:*(a1 + 40)];
   v4 = *(*v2 + 56);
   v5 = *MEMORY[0x277CCE280];
-  v33 = 0;
-  v6 = [v4 dateForKey:v5 error:&v33];
-  v7 = v33;
+  v35 = 0;
+  v6 = [v4 dateForKey:v5 error:&v35];
+  v7 = v35;
   _HKInitializeLogging();
   v8 = MEMORY[0x277CCC2D8];
   v9 = *MEMORY[0x277CCC2D8];
@@ -706,17 +695,17 @@ void __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDete
       goto LABEL_3;
     }
 
-    v28 = *(a1 + 32);
+    v29 = *(a1 + 32);
     v17 = v9;
-    v20 = HRLogSensitiveClassName();
-    v29 = NSStringFromSelector(*(a1 + 48));
+    v20 = HRLogSensitiveClassName(v29, v30);
+    v31 = NSStringFromSelector(*(a1 + 48));
     v23 = HKSensitiveLogItem();
     *buf = 138543874;
-    v35 = v20;
-    v36 = 2114;
-    v37 = v23;
+    v37 = v20;
     v38 = 2114;
-    v39 = v7;
+    v39 = v23;
+    v40 = 2114;
+    v41 = v7;
     _os_log_error_impl(&dword_229486000, v17, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@] Failed to load notification shown date with error: %{public}@", buf, 0x20u);
 
     goto LABEL_13;
@@ -724,24 +713,24 @@ void __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDete
 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 32);
+    v11 = *(a1 + 32);
     log = v9;
-    v30 = HRLogSensitiveClassName();
-    v31 = NSStringFromSelector(*(a1 + 48));
+    v32 = HRLogSensitiveClassName(v11, v12);
+    v33 = NSStringFromSelector(*(a1 + 48));
     v13 = HKSensitiveLogItem();
     v14 = NSStringFromHKFeatureAvailabilityRescindedStatus();
     v15 = HKSensitiveLogItem();
     v16 = HKSensitiveLogItem();
     *buf = 138544386;
-    v35 = v30;
-    v36 = 2114;
-    v37 = v13;
-    v38 = 2112;
-    v39 = v15;
+    v37 = v32;
+    v38 = 2114;
+    v39 = v13;
     v40 = 2112;
-    v41 = v16;
+    v41 = v15;
     v42 = 2112;
-    v43 = 0;
+    v43 = v16;
+    v44 = 2112;
+    v45 = 0;
     _os_log_impl(&dword_229486000, log, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> IRN rescinded status: %@, IRN disabled notification shown date %@ with error: %@", buf, 0x34u);
 
     v8 = MEMORY[0x277CCC2D8];
@@ -773,13 +762,13 @@ LABEL_14:
 
     v22 = *(a1 + 32);
     v23 = v21;
-    v24 = HRLogSensitiveClassName();
-    v25 = NSStringFromSelector(*(a1 + 48));
-    v26 = HKSensitiveLogItem();
+    v25 = HRLogSensitiveClassName(v22, v24);
+    v26 = NSStringFromSelector(*(a1 + 48));
+    v27 = HKSensitiveLogItem();
     *buf = 138543618;
-    v35 = v24;
-    v36 = 2114;
-    v37 = v26;
+    v37 = v25;
+    v38 = 2114;
+    v39 = v27;
     _os_log_impl(&dword_229486000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Scheduling the IRN disabled notification", buf, 0x16u);
 
 LABEL_13:
@@ -787,15 +776,13 @@ LABEL_13:
   }
 
   _HKInitializeLogging();
-  v27 = *v8;
+  v28 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_FAULT))
   {
-    __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDetectionRescindedAlertIfNeeded__block_invoke_cold_1(v2, v27);
+    __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDetectionRescindedAlertIfNeeded__block_invoke_cold_1(v2, v28);
   }
 
 LABEL_3:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentAtrialFibrillationDetectionAlertWithRescindedStatus:(int64_t)status
@@ -829,21 +816,19 @@ LABEL_6:
   v8 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = HRLogSensitiveClassName();
-    v10 = NSStringFromSelector(a2);
-    v11 = HKSensitiveLogItem();
+    v10 = HRLogSensitiveClassName(self, v9);
+    v11 = NSStringFromSelector(a2);
+    v12 = HKSensitiveLogItem();
     *buf = 138543618;
-    v17 = v9;
+    v17 = v10;
     v18 = 2114;
-    v19 = v11;
+    v19 = v12;
     _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Scheduling IRN disabled notification and resetting IRN disabled notification shown date", buf, 0x16u);
   }
 
   objc_destroyWeak(&v14);
   objc_destroyWeak(&location);
 LABEL_10:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __103__HRAtrialFibrillationNotificationManager__presentAtrialFibrillationDetectionAlertWithRescindedStatus___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -862,25 +847,22 @@ void __103__HRAtrialFibrillationNotificationManager__presentAtrialFibrillationDe
 - (void)presentAtrialFibrillationDetectionReEnabledAlertIfNeeded
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to retrieve IRN's feature status; unable to check if no longer rescinded: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to retrieve IRN's feature status; unable to check if no longer rescinded: %{public}@", v8, v9, v10, v11);
 }
 
 void __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDetectionReEnabledAlertIfNeeded__block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _atrialFibrillationDetectionRescindedStatusForFeatureStatus:*(a1 + 40)];
   v3 = *(*(a1 + 32) + 56);
   v4 = *MEMORY[0x277CCE280];
-  v26 = 0;
-  v5 = [v3 dateForKey:v4 error:&v26];
-  v6 = v26;
+  v27 = 0;
+  v5 = [v3 dateForKey:v4 error:&v27];
+  v6 = v27;
   _HKInitializeLogging();
   v7 = *MEMORY[0x277CCC2D8];
   v8 = *MEMORY[0x277CCC2D8];
@@ -890,15 +872,15 @@ void __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDete
     {
       v9 = *(a1 + 32);
       v10 = v7;
-      v11 = HRLogSensitiveClassName();
-      v12 = NSStringFromSelector(*(a1 + 48));
-      v13 = HKSensitiveLogItem();
+      v12 = HRLogSensitiveClassName(v9, v11);
+      v13 = NSStringFromSelector(*(a1 + 48));
+      v14 = HKSensitiveLogItem();
       *buf = 138543874;
-      v28 = v11;
-      v29 = 2114;
-      v30 = v13;
-      v31 = 2114;
-      v32 = v6;
+      v29 = v12;
+      v30 = 2114;
+      v31 = v14;
+      v32 = 2114;
+      v33 = v6;
       _os_log_error_impl(&dword_229486000, v10, OS_LOG_TYPE_ERROR, "[%{public}@ %{public}@] Failed to load notification shown date with error: %{public}@", buf, 0x20u);
     }
   }
@@ -907,39 +889,37 @@ void __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDete
   {
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(a1 + 32);
+      v15 = *(a1 + 32);
       log = v7;
-      v24 = HRLogSensitiveClassName();
-      v15 = NSStringFromSelector(*(a1 + 48));
-      v16 = HKSensitiveLogItem();
-      v17 = [MEMORY[0x277CCABB0] numberWithBool:v2 != 0];
+      v25 = HRLogSensitiveClassName(v15, v16);
+      v17 = NSStringFromSelector(*(a1 + 48));
       v18 = HKSensitiveLogItem();
-      v19 = HKSensitiveLogItem();
+      v19 = [MEMORY[0x277CCABB0] numberWithBool:v2 != 0];
+      v20 = HKSensitiveLogItem();
+      v21 = HKSensitiveLogItem();
       *buf = 138544130;
-      v28 = v24;
-      v29 = 2114;
-      v30 = v16;
-      v31 = 2112;
-      v32 = v18;
-      v33 = 2112;
-      v34 = v19;
+      v29 = v25;
+      v30 = 2114;
+      v31 = v18;
+      v32 = 2112;
+      v33 = v20;
+      v34 = 2112;
+      v35 = v21;
       _os_log_impl(&dword_229486000, log, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> IRN disabled: %@, IRN disabled notification shown date: %@ ", buf, 0x2Au);
     }
 
     if (!v2 && v5)
     {
       [*(a1 + 32) _presentAtrialFibrillationDetectionReEnabledAlert];
-      v20 = [*(a1 + 40) onboardingRecord];
-      v21 = [v20 onboardingCompletion];
-      v22 = [v21 countryCode];
+      v22 = [*(a1 + 40) onboardingRecord];
+      v23 = [v22 onboardingCompletion];
+      v24 = [v23 countryCode];
 
-      [*(*(a1 + 32) + 64) collectAnalyticsForRemoteReEnableMessageShownForOnboardingCountryCode:v22];
+      [*(*(a1 + 32) + 64) collectAnalyticsForRemoteReEnableMessageShownForOnboardingCountryCode:v24];
     }
 
     [*(a1 + 32) _queue_setAtrialFibrillationDetectionDisabledNotificationShownDate:0];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentAtrialFibrillationDetectionReEnabledAlert
@@ -959,19 +939,18 @@ void __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDete
   v6 = *MEMORY[0x277CCC2D8];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = HRLogSensitiveClassName();
-    v8 = NSStringFromSelector(a2);
-    v9 = HKSensitiveLogItem();
+    v8 = HRLogSensitiveClassName(self, v7);
+    v9 = NSStringFromSelector(a2);
+    v10 = HKSensitiveLogItem();
     *buf = 138543618;
-    v15 = v7;
+    v15 = v8;
     v16 = 2114;
-    v17 = v9;
+    v17 = v10;
     _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Scheduling IRN re-enabled notification and resetting IRN disabled notification shown date", buf, 0x16u);
   }
 
   objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __92__HRAtrialFibrillationNotificationManager__presentAtrialFibrillationDetectionReEnabledAlert__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
@@ -1008,36 +987,139 @@ void __92__HRAtrialFibrillationNotificationManager__presentAtrialFibrillationDet
   return updateVersion;
 }
 
+- (void)_queue_fakeNotificationWithData:(BOOL)data
+{
+  dataCopy = data;
+  v47 = *MEMORY[0x277D85DE8];
+  _HKInitializeLogging();
+  v5 = MEMORY[0x277CCC2D8];
+  v6 = *MEMORY[0x277CCC2D8];
+  if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = v6;
+    v9 = HRLogSensitiveClassName(self, v8);
+    v10 = [MEMORY[0x277CCABB0] numberWithBool:dataCopy];
+    *buf = 138543618;
+    v44 = v9;
+    v45 = 2112;
+    v46 = v10;
+    _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ faking atrial fibrillation notification, withData: %@", buf, 0x16u);
+  }
+
+  date = [MEMORY[0x277CBEAA8] date];
+  v39 = 0;
+  v12 = [(HRAtrialFibrillationNotificationManager *)self _getProductVersionWithError:&v39];
+  v13 = v39;
+  if (v12)
+  {
+    v41 = *MEMORY[0x277CCDFB8];
+    v42 = v12;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v15 = MEMORY[0x277CCD0B0];
+    atrialFibrillationEventType = [MEMORY[0x277CCD0C0] atrialFibrillationEventType];
+    v17 = [v15 categorySampleWithType:atrialFibrillationEventType value:0 startDate:date endDate:date metadata:v14];
+
+    if (dataCopy)
+    {
+      v37 = v14;
+      WeakRetained = objc_loadWeakRetained(&self->_profile);
+      dataManager = [WeakRetained dataManager];
+      v36 = v17;
+      v40 = v17;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
+      v20 = objc_loadWeakRetained(&self->_profile);
+      dataProvenanceManager = [v20 dataProvenanceManager];
+      defaultLocalDataProvenance = [dataProvenanceManager defaultLocalDataProvenance];
+      v38 = v13;
+      v23 = [dataManager insertDataObjects:v19 withProvenance:defaultLocalDataProvenance creationDate:&v38 error:CFAbsoluteTimeGetCurrent()];
+      v35 = v38;
+
+      v24 = MEMORY[0x277CCC2D8];
+      _HKInitializeLogging();
+      v25 = *v24;
+      v26 = *v24;
+      if (v23)
+      {
+        v27 = v35;
+        v17 = v36;
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        {
+          v28 = v25;
+          v30 = HRLogSensitiveClassName(self, v29);
+          *buf = 138543618;
+          v44 = v30;
+          v45 = 2112;
+          v46 = v36;
+          _os_log_impl(&dword_229486000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ faking - saved event sample: %@", buf, 0x16u);
+        }
+      }
+
+      else
+      {
+        v27 = v35;
+        v17 = v36;
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        {
+          [HRAtrialFibrillationNotificationManager _queue_fakeNotificationWithData:];
+        }
+      }
+
+      [(HRAtrialFibrillationNotificationManager *)self _queue_fakeHeartbeatSeriesSamplesForEvent:v17];
+      v31 = [HDHRHealthKitSyncManager alloc];
+      v32 = objc_loadWeakRetained(&self->_profile);
+      v33 = [(HDHRHealthKitSyncManager *)v31 initWithProfile:v32];
+
+      [(HDHRHealthKitSyncManager *)v33 triggerImmediateSyncWithReason:@"New fake Atrial Fibrillation / Antimony Notification sample added" loggingCategory:*v24];
+      v13 = v27;
+      v14 = v37;
+    }
+
+    else
+    {
+      [(HRAtrialFibrillationNotificationManager *)self _queue_addNotificationRequestForAtrialFibrillationEvent:v17];
+    }
+  }
+
+  else
+  {
+    _HKInitializeLogging();
+    if (os_log_type_enabled(*v5, OS_LOG_TYPE_ERROR))
+    {
+      [HRAtrialFibrillationNotificationManager _queue_fakeNotificationWithData:];
+    }
+  }
+}
+
 - (void)_queue_fakeHeartbeatSeriesSamplesForEvent:(id)event
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v55[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v3 = 0;
   v4 = 0;
   v5 = -21600;
   *&v6 = 138543618;
-  v39 = v6;
+  v41 = v6;
   do
   {
     v7 = v4;
     startDate = [eventCopy startDate];
     v9 = [startDate dateByAddingTimeInterval:v5];
 
-    v43 = v9;
+    v45 = v9;
     v10 = [(HRAtrialFibrillationNotificationManager *)self _queue_fakeHeartbeatSeriesSampleFromDate:v9];
     endDate = [v10 endDate];
 
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     dataManager = [WeakRetained dataManager];
-    v53[0] = v10;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:1];
+    v55[0] = v10;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v55 count:1];
     v14 = objc_loadWeakRetained(&self->_profile);
     dataProvenanceManager = [v14 dataProvenanceManager];
     defaultLocalDataProvenance = [dataProvenanceManager defaultLocalDataProvenance];
     Current = CFAbsoluteTimeGetCurrent();
-    v47 = v3;
-    v18 = [dataManager insertDataObjects:v13 withProvenance:defaultLocalDataProvenance creationDate:&v47 error:Current];
-    v42 = v47;
+    v49 = v3;
+    v18 = [dataManager insertDataObjects:v13 withProvenance:defaultLocalDataProvenance creationDate:&v49 error:Current];
+    v44 = v49;
 
     _HKInitializeLogging();
     v19 = *MEMORY[0x277CCC2D8];
@@ -1046,19 +1128,19 @@ void __92__HRAtrialFibrillationNotificationManager__presentAtrialFibrillationDet
     {
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v32 = v19;
-        v33 = HRLogSensitiveClassName();
-        *buf = v39;
-        v50 = v33;
-        v51 = 2114;
-        v3 = v42;
-        v52 = v42;
-        _os_log_error_impl(&dword_229486000, v32, OS_LOG_TYPE_ERROR, "%{public}@ faking - failed to save heartbeat series with error: %{public}@", buf, 0x16u);
+        v34 = v19;
+        v36 = HRLogSensitiveClassName(self, v35);
+        *buf = v41;
+        v52 = v36;
+        v53 = 2114;
+        v3 = v44;
+        v54 = v44;
+        _os_log_error_impl(&dword_229486000, v34, OS_LOG_TYPE_ERROR, "%{public}@ faking - failed to save heartbeat series with error: %{public}@", buf, 0x16u);
       }
 
       else
       {
-        v3 = v42;
+        v3 = v44;
       }
 
 LABEL_10:
@@ -1069,41 +1151,41 @@ LABEL_10:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = v19;
-      v22 = HRLogSensitiveClassName();
-      *buf = v39;
-      v50 = v22;
-      v51 = 2112;
-      v52 = v10;
+      v23 = HRLogSensitiveClassName(self, v22);
+      *buf = v41;
+      v52 = v23;
+      v53 = 2112;
+      v54 = v10;
       _os_log_impl(&dword_229486000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ faking - saved heartbeat series: %@", buf, 0x16u);
     }
 
-    v23 = objc_loadWeakRetained(&self->_profile);
-    associationManager = [v23 associationManager];
+    v24 = objc_loadWeakRetained(&self->_profile);
+    associationManager = [v24 associationManager];
     uUID = [v10 UUID];
-    v48 = uUID;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+    v50 = uUID;
+    v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
     uUID2 = [eventCopy UUID];
-    v46 = v42;
-    v28 = [associationManager associateObjectUUIDs:v26 objectUUID:uUID2 error:&v46];
-    v3 = v46;
+    v48 = v44;
+    v29 = [associationManager associateObjectUUIDs:v27 objectUUID:uUID2 error:&v48];
+    v3 = v48;
 
-    if (v28)
+    if (v29)
     {
       goto LABEL_10;
     }
 
     _HKInitializeLogging();
-    v29 = *MEMORY[0x277CCC2D8];
+    v30 = *MEMORY[0x277CCC2D8];
     v4 = endDate;
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
     {
-      v30 = v29;
-      v31 = HRLogSensitiveClassName();
-      *buf = v39;
-      v50 = v31;
-      v51 = 2114;
-      v52 = v3;
-      _os_log_error_impl(&dword_229486000, v30, OS_LOG_TYPE_ERROR, "%{public}@ faking - failed to associate heartbeat series with error: %{public}@", buf, 0x16u);
+      v31 = v30;
+      v33 = HRLogSensitiveClassName(self, v32);
+      *buf = v41;
+      v52 = v33;
+      v53 = 2114;
+      v54 = v3;
+      _os_log_error_impl(&dword_229486000, v31, OS_LOG_TYPE_ERROR, "%{public}@ faking - failed to associate heartbeat series with error: %{public}@", buf, 0x16u);
     }
 
 LABEL_11:
@@ -1113,12 +1195,12 @@ LABEL_11:
 
   while (v5 != -3600);
   syncedKeyValueDomain = self->_syncedKeyValueDomain;
-  v35 = *MEMORY[0x277CCE4A0];
-  v45 = v3;
-  v36 = [(HDKeyValueDomain *)syncedKeyValueDomain setDate:v4 forKey:v35 error:&v45];
-  v37 = v45;
+  v38 = *MEMORY[0x277CCE4A0];
+  v47 = v3;
+  v39 = [(HDKeyValueDomain *)syncedKeyValueDomain setDate:v4 forKey:v38 error:&v47];
+  v40 = v47;
 
-  if ((v36 & 1) == 0)
+  if ((v39 & 1) == 0)
   {
     _HKInitializeLogging();
     if (os_log_type_enabled(*MEMORY[0x277CCC2D8], OS_LOG_TYPE_ERROR))
@@ -1126,8 +1208,6 @@ LABEL_11:
       [HRAtrialFibrillationNotificationManager _queue_fakeHeartbeatSeriesSamplesForEvent:];
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_fakeHeartbeatSeriesSampleFromDate:(id)date
@@ -1210,28 +1290,28 @@ void __74__HRAtrialFibrillationNotificationManager__subscribeToFakingNotificatio
 
 - (void)_unsubscribeToFakingNotifications
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = self->_fakingNotificationTokens;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        intValue = [*(*(&v9 + 1) + 8 * v6) intValue];
+        intValue = [*(*(&v8 + 1) + 8 * v6) intValue];
         if (notify_is_valid_token(intValue))
         {
           notify_cancel(intValue);
@@ -1241,25 +1321,23 @@ void __74__HRAtrialFibrillationNotificationManager__subscribeToFakingNotificatio
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void __80__HRAtrialFibrillationNotificationManager_initWithProfile_featureStatusManager___block_invoke_cold_1(uint64_t a1, void *a2)
+void __80__HRAtrialFibrillationNotificationManager_initWithProfile_featureStatusManager___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v3 = *(a1 + 32);
-  v4 = a2;
-  OUTLINED_FUNCTION_2_4();
-  v5 = HRLogSensitiveClassName();
-  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] UNUserNotificationCenter authorization request not granted for 'com.apple.HeartRate', error: %@", v8, v9, v10, v11, 2u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = OUTLINED_FUNCTION_2_4();
+  v8 = HRLogSensitiveClassName(v6, v7);
+  *v15 = 138543618;
+  *&v15[4] = v8;
+  *&v15[12] = 2112;
+  *&v15[14] = a3;
+  OUTLINED_FUNCTION_3(&dword_229486000, v9, v10, "[%{public}@] UNUserNotificationCenter authorization request not granted for 'com.apple.HeartRate', error: %@", v11, v12, v13, v14, *v15, *&v15[8], *&v15[16]);
 }
 
 void __99__HRAtrialFibrillationNotificationManager__queue_addNotificationRequestForAtrialFibrillationEvent___block_invoke_cold_1(id *a1, void *a2, uint64_t a3)
@@ -1267,59 +1345,48 @@ void __99__HRAtrialFibrillationNotificationManager__queue_addNotificationRequest
   v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   WeakRetained = objc_loadWeakRetained(a1 + 7);
-  v7 = HRLogSensitiveClassName();
-  v8 = [a1[4] identifier];
-  v9 = [a1[5] categoryIdentifier];
+  v8 = HRLogSensitiveClassName(WeakRetained, v7);
+  v9 = [a1[4] identifier];
+  v10 = [a1[5] categoryIdentifier];
   v11 = 138544130;
-  v12 = v7;
+  v12 = v8;
   v13 = 2114;
-  v14 = v8;
+  v14 = v9;
   v15 = 2114;
-  v16 = v9;
+  v16 = v10;
   v17 = 2114;
   v18 = a3;
   _os_log_error_impl(&dword_229486000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Failed to request notification (%{public}@ - %{public}@): %{public}@)", &v11, 0x2Au);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __101__HRAtrialFibrillationNotificationManager__addNotificationRequestForCompanionSoftwareVersionIsTooOld__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_4_3();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_5_3();
-  v4 = HRLogSensitiveClassName();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v5, v6, "[%{public}@] Notification handler responded with error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Notification handler responded with error: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_isCompanionSoftwareVersionTooOld
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to retrieve IRN's feature status; reporting 'onboarded country is supported on companion': %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to retrieve IRN's feature status; reporting 'onboarded country is supported on companion': %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_isWatchSoftwareVersionTooOld
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] Failed to retrieve IRN's feature status; reporting 'onboarded country is supported on this watch': %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] Failed to retrieve IRN's feature status; reporting 'onboarded country is supported on this watch': %{public}@", v8, v9, v10, v11);
 }
 
 void __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDetectionRescindedAlertIfNeeded__block_invoke_cold_1(uint64_t *a1, void *a2)
@@ -1327,51 +1394,40 @@ void __99__HRAtrialFibrillationNotificationManager_presentAtrialFibrillationDete
   v8 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
-  v4 = HRLogSensitiveClassName();
+  v5 = HRLogSensitiveClassName(v2, v4);
   v6 = 138543362;
-  v7 = v4;
+  v7 = v5;
   _os_log_fault_impl(&dword_229486000, v3, OS_LOG_TYPE_FAULT, "[%{public}@] IRN does not meet usage requirements but is expected to", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_fakeNotificationWithData:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "%{public}@ faking - failed to save event with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "%{public}@ faking - failed to save event with error: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_fakeNotificationWithData:.cold.2()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] faking - failed to get version: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] faking - failed to get version: %{public}@", v8, v9, v10, v11);
 }
 
 - (void)_queue_fakeHeartbeatSeriesSamplesForEvent:.cold.1()
 {
   OUTLINED_FUNCTION_4();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
-  OUTLINED_FUNCTION_2_4();
-  v3 = HRLogSensitiveClassName();
+  v3 = OUTLINED_FUNCTION_2_4();
+  v5 = HRLogSensitiveClassName(v3, v4);
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_3(&dword_229486000, v4, v5, "[%{public}@] faking - failed to set last analyzed sample date in protected key value store: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_229486000, v6, v7, "[%{public}@] faking - failed to set last analyzed sample date in protected key value store: %{public}@", v8, v9, v10, v11);
 }
 
 @end

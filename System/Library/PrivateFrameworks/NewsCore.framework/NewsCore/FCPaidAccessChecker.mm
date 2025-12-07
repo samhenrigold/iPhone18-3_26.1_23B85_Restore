@@ -65,23 +65,7 @@
   {
     v20 = v15;
     v21 = v17;
-    if (!v21)
-    {
-      goto LABEL_11;
-    }
-
-    [v20 bundleSubscription];
-    v22 = v33 = v21;
-    v31 = objc_getAssociatedObject(v22, (v22 + 1));
-    unsignedIntegerValue = [v31 unsignedIntegerValue];
-    v24 = unsignedIntegerValue;
-    objc_getAssociatedObject(v22, ~unsignedIntegerValue);
-    v25 = v34 = v20;
-    v26 = [v25 unsignedIntegerValue] ^ v24;
-
-    v20 = v34;
-    v21 = v33;
-    if (v26)
+    if (v21 && ([v20 bundleSubscription], v33 = v21, v22 = objc_claimAutoreleasedReturnValue(), objc_getAssociatedObject(v22, (v22 + 1)), v31 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v31, "unsignedIntegerValue"), v24 = v23, objc_getAssociatedObject(v22, ~v23), v34 = v20, v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "unsignedIntegerValue") ^ v24, v25, v20 = v34, v31, v22, v21 = v33, (v26 & 1) != 0))
     {
       bundleSubscription = [v34 bundleSubscription];
       bundleChannelIDs = [bundleSubscription bundleChannelIDs];
@@ -97,7 +81,6 @@ LABEL_6:
 
     else
     {
-LABEL_11:
     }
   }
 

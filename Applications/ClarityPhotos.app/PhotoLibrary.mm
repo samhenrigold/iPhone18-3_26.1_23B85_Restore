@@ -11,7 +11,7 @@
   selfCopy = self;
   [v2 unregisterChangeObserver:selfCopy];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for PhotoLibrary();
+  v4.super_class = type metadata accessor for PhotoLibrary(0);
   [(PhotoLibrary *)&v4 dealloc];
 }
 

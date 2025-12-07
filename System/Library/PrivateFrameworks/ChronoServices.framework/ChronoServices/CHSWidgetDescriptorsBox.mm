@@ -22,144 +22,139 @@
 
 void __45__CHSWidgetDescriptorsBox__performValidation__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v24 = MEMORY[0x1E696AEC0];
-    v25 = objc_opt_class();
-    v26 = [v5 description];
-    v27 = [v24 stringWithFormat:@"Key for CHSWidgetDescriptorsBox was of unexpected type: %@, value: %@", v25, v26];
+    v21 = MEMORY[0x1E696AEC0];
+    v22 = objc_opt_class();
+    v23 = [v5 description];
+    v24 = [v21 stringWithFormat:@"Key for CHSWidgetDescriptorsBox was of unexpected type: %@, value: %@", v22, v23];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v28 = NSStringFromSelector(*(a1 + 40));
-      v29 = *(a1 + 32);
-      v30 = objc_opt_class();
-      v31 = NSStringFromClass(v30);
-      v32 = *(a1 + 32);
+      v25 = NSStringFromSelector(*(a1 + 40));
+      v26 = objc_opt_class();
+      v27 = NSStringFromClass(v26);
+      v28 = *(a1 + 32);
       *buf = 138544642;
-      v52 = v28;
-      v53 = 2114;
-      v54 = v31;
-      v55 = 2048;
-      v56 = v32;
-      v57 = 2114;
-      v58 = @"CHSWidgetDescriptorsBox.m";
-      v59 = 1024;
-      v60 = 36;
-      v61 = 2114;
-      v62 = v27;
+      v45 = v25;
+      v46 = 2114;
+      v47 = v27;
+      v48 = 2048;
+      v49 = v28;
+      v50 = 2114;
+      v51 = @"CHSWidgetDescriptorsBox.m";
+      v52 = 1024;
+      v53 = 36;
+      v54 = 2114;
+      v55 = v24;
       _os_log_error_impl(&dword_195EB2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v33 = v27;
-    [v27 UTF8String];
-    v34 = _bs_set_crash_log_message();
-    __45__CHSWidgetDescriptorsBox__performValidation__block_invoke_cold_1(v34);
+    v29 = v24;
+    [v24 UTF8String];
+    _bs_set_crash_log_message();
+    __45__CHSWidgetDescriptorsBox__performValidation__block_invoke_cold_1();
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v35 = MEMORY[0x1E696AEC0];
-    v36 = objc_opt_class();
-    v37 = [v6 description];
-    v38 = [v35 stringWithFormat:@"Array type for CHSWidgetDescriptorsBox at key: %@ was of unexpected type: %@, value: %@", v5, v36, v37];
+    v30 = MEMORY[0x1E696AEC0];
+    v31 = objc_opt_class();
+    v32 = [v6 description];
+    v33 = [v30 stringWithFormat:@"Array type for CHSWidgetDescriptorsBox at key: %@ was of unexpected type: %@, value: %@", v5, v31, v32];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v39 = NSStringFromSelector(*(a1 + 40));
-      v40 = *(a1 + 32);
-      v41 = objc_opt_class();
-      v42 = NSStringFromClass(v41);
-      v43 = *(a1 + 32);
+      v34 = NSStringFromSelector(*(a1 + 40));
+      v35 = objc_opt_class();
+      v36 = NSStringFromClass(v35);
+      v37 = *(a1 + 32);
       *buf = 138544642;
-      v52 = v39;
-      v53 = 2114;
-      v54 = v42;
-      v55 = 2048;
-      v56 = v43;
-      v57 = 2114;
-      v58 = @"CHSWidgetDescriptorsBox.m";
-      v59 = 1024;
-      v60 = 37;
-      v61 = 2114;
-      v62 = v38;
+      v45 = v34;
+      v46 = 2114;
+      v47 = v36;
+      v48 = 2048;
+      v49 = v37;
+      v50 = 2114;
+      v51 = @"CHSWidgetDescriptorsBox.m";
+      v52 = 1024;
+      v53 = 37;
+      v54 = 2114;
+      v55 = v33;
       _os_log_error_impl(&dword_195EB2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    v44 = v38;
-    [v38 UTF8String];
-    v45 = _bs_set_crash_log_message();
-    __45__CHSWidgetDescriptorsBox__performValidation__block_invoke_cold_1(v45);
+    v38 = v33;
+    [v33 UTF8String];
+    _bs_set_crash_log_message();
+    __45__CHSWidgetDescriptorsBox__performValidation__block_invoke_cold_1();
   }
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
-  v47 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v46 objects:v50 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v8)
   {
-    v9 = *v47;
+    v9 = *v40;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v47 != v9)
+        if (*v40 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v46 + 1) + 8 * i);
+        v11 = *(*(&v39 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v13 = MEMORY[0x1E696AEC0];
-          v14 = objc_opt_class();
-          v15 = [v11 description];
-          v16 = [v13 stringWithFormat:@"Array value for CHSWidgetDescriptorsBox at key: %@ was of unexpected type: %@, value: %@", v5, v14, v15];
+          v12 = MEMORY[0x1E696AEC0];
+          v13 = objc_opt_class();
+          v14 = [v11 description];
+          v15 = [v12 stringWithFormat:@"Array value for CHSWidgetDescriptorsBox at key: %@ was of unexpected type: %@, value: %@", v5, v13, v14];
 
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            v17 = NSStringFromSelector(*(a1 + 40));
-            v18 = *(a1 + 32);
-            v19 = objc_opt_class();
-            v20 = NSStringFromClass(v19);
-            v21 = *(a1 + 32);
+            v16 = NSStringFromSelector(*(a1 + 40));
+            v17 = objc_opt_class();
+            v18 = NSStringFromClass(v17);
+            v19 = *(a1 + 32);
             *buf = 138544642;
-            v52 = v17;
-            v53 = 2114;
-            v54 = v20;
-            v55 = 2048;
-            v56 = v21;
-            v57 = 2114;
-            v58 = @"CHSWidgetDescriptorsBox.m";
-            v59 = 1024;
-            v60 = 39;
-            v61 = 2114;
-            v62 = v16;
+            v45 = v16;
+            v46 = 2114;
+            v47 = v18;
+            v48 = 2048;
+            v49 = v19;
+            v50 = 2114;
+            v51 = @"CHSWidgetDescriptorsBox.m";
+            v52 = 1024;
+            v53 = 39;
+            v54 = 2114;
+            v55 = v15;
             _os_log_error_impl(&dword_195EB2000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
           }
 
-          v22 = v16;
-          [v16 UTF8String];
-          v23 = _bs_set_crash_log_message();
-          __45__CHSWidgetDescriptorsBox__performValidation__block_invoke_cold_1(v23);
+          v20 = v15;
+          [v15 UTF8String];
+          _bs_set_crash_log_message();
+          __45__CHSWidgetDescriptorsBox__performValidation__block_invoke_cold_1();
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v46 objects:v50 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (NSSet)descriptors
@@ -225,32 +220,32 @@ void __45__CHSWidgetDescriptorsBox__performValidation__block_invoke(uint64_t a1,
 
 id __41__CHSWidgetDescriptorsBox_initWithCoder___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v24 = 0u;
-    v25 = 0u;
     v22 = 0u;
     v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v4)
     {
-      v5 = *v23;
-      v16 = v3;
-      v17 = v2;
+      v5 = *v21;
+      v14 = v3;
+      v15 = v2;
       while (2)
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v23 != v5)
+          if (*v21 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v22 + 1) + 8 * i);
+          v7 = *(*(&v20 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -259,36 +254,35 @@ LABEL_20:
             goto LABEL_21;
           }
 
-          v20 = 0u;
-          v21 = 0u;
           v18 = 0u;
           v19 = 0u;
+          v16 = 0u;
+          v17 = 0u;
           v8 = [v3 objectForKeyedSubscript:v7];
-          v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+          v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
           if (v9)
           {
-            v10 = *v19;
+            v10 = *v17;
             while (2)
             {
               for (j = 0; j != v9; ++j)
               {
-                if (*v19 != v10)
+                if (*v17 != v10)
                 {
                   objc_enumerationMutation(v8);
                 }
 
-                v12 = *(*(&v18 + 1) + 8 * j);
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
 
-                  v3 = v16;
-                  v2 = v17;
+                  v3 = v14;
+                  v2 = v15;
                   goto LABEL_20;
                 }
               }
 
-              v9 = [v8 countByEnumeratingWithState:&v18 objects:v26 count:16];
+              v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
               if (v9)
               {
                 continue;
@@ -298,11 +292,11 @@ LABEL_20:
             }
           }
 
-          v3 = v16;
-          v2 = v17;
+          v3 = v14;
+          v2 = v15;
         }
 
-        v4 = [v16 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v4 = [v14 countByEnumeratingWithState:&v20 objects:v25 count:16];
         if (v4)
         {
           continue;
@@ -312,18 +306,16 @@ LABEL_20:
       }
     }
 
-    v13 = v3;
+    v12 = v3;
   }
 
   else
   {
 LABEL_21:
-    v13 = 0;
+    v12 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v12;
 }
 
 @end

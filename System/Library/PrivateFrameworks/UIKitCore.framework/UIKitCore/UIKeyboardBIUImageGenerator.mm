@@ -20,7 +20,7 @@
     tintColor = v2->_tintColor;
     v2->_tintColor = v3;
 
-    v5 = +[UIColor blackColor];
+    v5 = objc_msgSend_blackColor(UIColor);
     normalColor = v2->_normalColor;
     v2->_normalColor = v5;
 
@@ -51,7 +51,7 @@
 - (void)setTintColor:(id)color
 {
   colorCopy = color;
-  if (![(UIColor *)self->_tintColor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_tintColor) & 1) == 0)
   {
     objc_storeStrong(&self->_tintColor, color);
     [(UIKeyboardBIUImageGenerator *)self _invalidateCache];
@@ -61,7 +61,7 @@
 - (void)setNormalColor:(id)color
 {
   colorCopy = color;
-  if (![(UIColor *)self->_normalColor isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_normalColor) & 1) == 0)
   {
     objc_storeStrong(&self->_normalColor, color);
     [(UIKeyboardBIUImageGenerator *)self _invalidateCache];

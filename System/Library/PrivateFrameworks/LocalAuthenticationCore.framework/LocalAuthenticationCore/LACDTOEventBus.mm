@@ -22,36 +22,36 @@
 
 - (void)dispatchEvent:(id)event sender:(id)sender
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   senderCopy = sender;
-  v8 = LACLogDTOEvent();
+  v8 = LACLogDTOEvent(senderCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [(LACDTOEventBus *)eventCopy dispatchEvent:senderCopy sender:v8];
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   allObjects = [(NSHashTable *)self->_eventHandlers allObjects];
-  v10 = [allObjects countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [allObjects countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v17;
+    v12 = *v16;
     do
     {
       v13 = 0;
       do
       {
-        if (*v17 != v12)
+        if (*v16 != v12)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * v13);
+        v14 = *(*(&v15 + 1) + 8 * v13);
         if (v14 != senderCopy)
         {
           [v14 handleEvent:eventCopy sender:senderCopy];
@@ -61,24 +61,21 @@
       }
 
       while (v11 != v13);
-      v11 = [allObjects countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [allObjects countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dispatchEvent:(os_log_t)log sender:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_1B0233000, log, OS_LOG_TYPE_DEBUG, "Will dispatch event: %@ from: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_1B0233000, log, OS_LOG_TYPE_DEBUG, "Will dispatch event: %@ from: %@", &v3, 0x16u);
 }
 
 @end

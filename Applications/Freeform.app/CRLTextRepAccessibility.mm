@@ -792,10 +792,11 @@ LABEL_13:
 
   if (v10 == 0x7FFFFFFFFFFFFFFFLL && v12 == 0)
   {
-    if (CRLAccessibilityShouldPerformValidationChecks())
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(v13, v14);
+    if (ShouldPerformValidationChecks)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Line fragment range not found for positionInStorage: %lu", v16, v17, v18, v19, v20, v8))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Line fragment range not found for positionInStorage: %lu", v19, v20, v21, v22, v23, v8))
       {
         abort();
       }
@@ -1420,18 +1421,23 @@ LABEL_24:
 - (void)_accessibilityInsertText:(id)text atPosition:(int64_t)position
 {
   textCopy = text;
+  v17 = textCopy;
   if (position == -1)
   {
     crlaxTextEditor = [(CRLTextRepAccessibility *)self crlaxTextEditor];
-    [crlaxTextEditor crlaxInsertText:textCopy];
+    [crlaxTextEditor crlaxInsertText:v17];
   }
 
-  else if (CRLAccessibilityShouldPerformValidationChecks())
+  else
   {
-    ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-    if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Need to handle position > -1", v7, v8, v9, v10, v11, v13))
+    ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(textCopy, v7);
+    if (ShouldPerformValidationChecks)
     {
-      abort();
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Need to handle position > -1", v10, v11, v12, v13, v14, v16))
+      {
+        abort();
+      }
     }
   }
 }
@@ -1473,7 +1479,7 @@ LABEL_24:
 
     if (v37)
     {
-      [v37 transformFromWP];
+      objc_msgSend_transformFromWP(v37);
       v39 = v49;
       v38 = v50;
       v41 = v51;
@@ -2307,12 +2313,13 @@ LABEL_6:
 {
   length = storage.length;
   location = storage.location;
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  if (CRLAccessibilityShouldPerformValidationChecks(self, a2))
   {
-    if ([(CRLCanvasRepAccessibility *)self crlaxInReadOnlyMode])
+    crlaxInReadOnlyMode = [(CRLCanvasRepAccessibility *)self crlaxInReadOnlyMode];
+    if (crlaxInReadOnlyMode)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Should not attempt to begin editing in read-only mode", v9, v10, v11, v12, v13, v43))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(crlaxInReadOnlyMode);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Should not attempt to begin editing in read-only mode", v10, v11, v12, v13, v14, v44))
       {
         goto LABEL_20;
       }
@@ -2320,41 +2327,41 @@ LABEL_6:
   }
 
   selfCopy = self;
-  v15 = objc_opt_class();
+  v16 = objc_opt_class();
   crlaxParentRep = [(CRLCanvasRepAccessibility *)selfCopy crlaxParentRep];
-  v17 = __CRLAccessibilityCastAsSafeCategory(v15, crlaxParentRep, 0, 0);
+  v18 = __CRLAccessibilityCastAsSafeCategory(v16, crlaxParentRep, 0, 0);
 
-  v49 = 0;
+  v50 = 0;
   crlaxInfo = [(CRLCanvasRepAccessibility *)selfCopy crlaxInfo];
-  v19 = objc_opt_class();
-  v20 = __CRLAccessibilityCastAsSafeCategory(v19, crlaxInfo, 1, &v49);
-  if (v49 == 1)
+  v20 = objc_opt_class();
+  v21 = __CRLAccessibilityCastAsSafeCategory(v20, crlaxInfo, 1, &v50);
+  if (v50 == 1)
   {
     goto LABEL_20;
   }
 
-  v21 = v20;
+  v22 = v21;
 
   crlaxContainedRep = selfCopy;
-  if (v17)
+  if (v18)
   {
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = sub_1003B3724;
-    v46[3] = &unk_10183AE28;
-    v23 = v17;
-    v47 = v23;
-    v48 = v21;
-    if (__CRLAccessibilityPerformSafeBlock(v46))
+    v47[0] = _NSConcreteStackBlock;
+    v47[1] = 3221225472;
+    v47[2] = sub_1003B3724;
+    v47[3] = &unk_10183AE28;
+    v24 = v18;
+    v48 = v24;
+    v49 = v22;
+    if (__CRLAccessibilityPerformSafeBlock(v47))
     {
       goto LABEL_20;
     }
 
-    crlaxContainedRep = [v23 crlaxContainedRep];
+    crlaxContainedRep = [v24 crlaxContainedRep];
   }
 
-  v44 = v21;
-  v45 = v17;
+  v45 = v22;
+  v46 = v18;
   referenceCopy = reference;
   if (location == 0x7FFFFFFFFFFFFFFFLL && length == 0)
   {
@@ -2362,32 +2369,32 @@ LABEL_6:
     length = 0;
   }
 
-  v26 = [(CRLTextRepAccessibility *)selfCopy crlaxClampRangeToStorageRange:location, length];
-  v28 = v27;
+  v27 = [(CRLTextRepAccessibility *)selfCopy crlaxClampRangeToStorageRange:location, length];
+  v29 = v28;
   crlaxInteractiveCanvasController = [(CRLTextRepAccessibility *)selfCopy crlaxInteractiveCanvasController];
-  v49 = 0;
+  v50 = 0;
   crlaxTarget = [crlaxInteractiveCanvasController crlaxTarget];
   selectionModelTranslator = [crlaxTarget selectionModelTranslator];
   crlaxStorage = [crlaxContainedRep crlaxStorage];
   crlaxTarget2 = [crlaxStorage crlaxTarget];
-  v34 = [selectionModelTranslator selectionPathForRange:v26 onStorage:{v28, crlaxTarget2}];
+  v35 = [selectionModelTranslator selectionPathForRange:v27 onStorage:{v29, crlaxTarget2}];
 
-  v35 = objc_opt_class();
-  v36 = __CRLAccessibilityCastAsSafeCategory(v35, v34, 1, &v49);
-  if (v49 == 1)
+  v36 = objc_opt_class();
+  v37 = __CRLAccessibilityCastAsSafeCategory(v36, v35, 1, &v50);
+  if (v50 == 1)
   {
 LABEL_20:
     abort();
   }
 
-  v37 = v36;
+  v38 = v37;
 
   crlaxEditorController = [crlaxInteractiveCanvasController crlaxEditorController];
-  [crlaxEditorController crlaxSetSelectionPath:v37];
+  [crlaxEditorController crlaxSetSelectionPath:v38];
 
   if (referenceCopy)
   {
-    v39 = crlaxContainedRep;
+    v40 = crlaxContainedRep;
     *referenceCopy = crlaxContainedRep;
   }
 

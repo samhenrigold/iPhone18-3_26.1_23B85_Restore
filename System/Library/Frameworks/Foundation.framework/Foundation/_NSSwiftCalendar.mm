@@ -55,7 +55,7 @@
     {
       type metadata accessor for _TimeZoneBridged();
       *(swift_allocObject() + 16) = zone;
-      lazy protocol witness table accessor for type _TimeZoneBridged and conformance _TimeZoneBridged(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged);
+      lazy protocol witness table accessor for type _TimeZoneBridged and conformance _TimeZoneBridged(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged, &protocol conformance descriptor for _TimeZoneBridged);
       self = zone;
     }
   }
@@ -328,7 +328,7 @@
 
   v6 = _NSSwiftCalendar.isEqual(_:)(v8);
 
-  outlined destroy of TermOfAddress?(v8, &_sypSgMd);
+  outlined destroy of TermOfAddress?(v8, &_sypSgMd, &_sypSgMR);
   return v6 & 1;
 }
 
@@ -348,7 +348,7 @@
     type metadata accessor for _TimeZoneBridged();
     v8 = swift_allocObject();
     *(v8 + 16) = zone;
-    v9 = lazy protocol witness table accessor for type _TimeZoneBridged and conformance _TimeZoneBridged(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged);
+    v9 = lazy protocol witness table accessor for type _TimeZoneBridged and conformance _TimeZoneBridged(&lazy protocol witness table cache variable for type _TimeZoneBridged and conformance _TimeZoneBridged, type metadata accessor for _TimeZoneBridged, &protocol conformance descriptor for _TimeZoneBridged);
     zoneCopy = zone;
   }
 
@@ -382,7 +382,7 @@
     {
       type metadata accessor for _LocaleBridged();
       *(swift_allocObject() + 16) = locale;
-      lazy protocol witness table accessor for type _TimeZoneBridged and conformance _TimeZoneBridged(&lazy protocol witness table cache variable for type _LocaleBridged and conformance _LocaleBridged, type metadata accessor for _LocaleBridged);
+      lazy protocol witness table accessor for type _TimeZoneBridged and conformance _TimeZoneBridged(&lazy protocol witness table cache variable for type _LocaleBridged and conformance _LocaleBridged, type metadata accessor for _LocaleBridged, &protocol conformance descriptor for _LocaleBridged);
       self = locale;
     }
   }

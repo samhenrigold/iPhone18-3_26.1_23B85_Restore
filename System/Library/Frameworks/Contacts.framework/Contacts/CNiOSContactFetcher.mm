@@ -189,13 +189,13 @@ void __65__CNiOSContactFetcher__batchLoadPropertiesForPeople_keysToFetch___block
   }
 }
 
-uint64_t __65__CNiOSContactFetcher__batchLoadPropertiesForPeople_keysToFetch___block_invoke_4(uint64_t a1, void *a2)
+void *__65__CNiOSContactFetcher__batchLoadPropertiesForPeople_keysToFetch___block_invoke_4(uint64_t a1, void *a2)
 {
-  v3 = 0;
-  result = [a2 abPropertyID:&v3];
+  v4 = 0;
+  result = [a2 abPropertyID:&v4];
   if (result)
   {
-    return __65__CNiOSContactFetcher__batchLoadPropertiesForPeople_keysToFetch___block_invoke_4_cold_1();
+    return __65__CNiOSContactFetcher__batchLoadPropertiesForPeople_keysToFetch___block_invoke_4_cold_1(a1, &v4);
   }
 
   return result;
@@ -337,9 +337,9 @@ uint64_t __106__CNiOSContactFetcher_unifyPeople_keysToFetch_abMatchInfos_filtere
     +[CNiOSContactFetcher linkedPeopleComparator];
   }
 
-  v0 = linkedPeopleComparator_cn_once_object_0;
+  v1 = linkedPeopleComparator_cn_once_object_0;
 
-  return v0;
+  return v1;
 }
 
 void __45__CNiOSContactFetcher_linkedPeopleComparator__block_invoke()

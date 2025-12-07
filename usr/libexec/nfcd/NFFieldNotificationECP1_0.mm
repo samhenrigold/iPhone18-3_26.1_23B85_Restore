@@ -3,6 +3,7 @@
 - (NFFieldNotificationECP1_0)initWithCoder:(id)coder;
 - (NFFieldNotificationECP1_0)initWithDictionary:(id)dictionary;
 - (NFFieldNotificationECP1_0)initWithDictionaryForDavenport:(id)davenport;
+- (NFFieldNotificationECP1_0)initWithNotificationType:(unint64_t)type rfTechnology:(unsigned int)technology typeFSystemCode:(unsigned __int16)code creationDate:(id)date cachedBeforeRFReset:(BOOL)reset odaRequired:(BOOL)required terminalMode:(unsigned int)mode terminalType:(unsigned int)self0 ignoreRFTechOnIsEqual:(BOOL)self1;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (void)_initCategoryWithType:(unsigned int)type;
@@ -39,6 +40,25 @@
   }
 
   return v5;
+}
+
+- (NFFieldNotificationECP1_0)initWithNotificationType:(unint64_t)type rfTechnology:(unsigned int)technology typeFSystemCode:(unsigned __int16)code creationDate:(id)date cachedBeforeRFReset:(BOOL)reset odaRequired:(BOOL)required terminalMode:(unsigned int)mode terminalType:(unsigned int)self0 ignoreRFTechOnIsEqual:(BOOL)self1
+{
+  v16.receiver = self;
+  v16.super_class = NFFieldNotificationECP1_0;
+  v12 = [(NFFieldNotification *)&v16 initWithNotificationType:type rfTechnology:*&technology typeFSystemCode:code creationDate:date cachedBeforeRFReset:reset];
+  v13 = v12;
+  if (v12)
+  {
+    v12->_odaRequired = required;
+    v12->_terminalMode = mode;
+    v12->_terminalType = terminalType;
+    v12->_ignoreRFTechOnIsEqual = equal;
+    [(NFFieldNotificationECP1_0 *)v12 _initCategoryWithType:?];
+    v14 = v13;
+  }
+
+  return v13;
 }
 
 - (NFFieldNotificationECP1_0)initWithDictionaryForDavenport:(id)davenport

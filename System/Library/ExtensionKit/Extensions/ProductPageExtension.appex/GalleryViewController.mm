@@ -44,7 +44,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100659C18();
+  sub_100659C18(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -146,7 +146,7 @@
   __chkstk_darwin(v7);
   v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075E06C();
-  type metadata accessor for ArtworkCollectionViewCell();
+  type metadata accessor for ArtworkCollectionViewCell(0);
   swift_dynamicCastClassUnconditional();
   sub_10075FD2C();
   sub_10000D7F8();

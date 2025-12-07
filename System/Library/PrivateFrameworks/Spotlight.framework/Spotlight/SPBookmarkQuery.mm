@@ -6,7 +6,7 @@
 
 - (void)start
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (![(SPKQuery *)self sendEmptyResponseIfNecessaryForSourceKind:2])
   {
     queryContext = [(SPKQuery *)self queryContext];
@@ -45,31 +45,31 @@
           responseHandler2 = objc_opt_new();
           v23 = objc_opt_new();
           [v23 setIconType:1];
-          v50 = v23;
+          v49 = v23;
           [responseHandler2 setThumbnail:v23];
           [MEMORY[0x277D4C598] textWithString:v5];
-          v24 = v51 = v15;
+          v24 = v50 = v15;
           [responseHandler2 setTitle:v24];
 
           v25 = [MEMORY[0x277D4C550] punchoutWithURL:v17];
-          v56 = v25;
-          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
+          v55 = v25;
+          v26 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
           [responseHandler2 setPunchoutOptions:v26];
 
           v27 = [MEMORY[0x277D4C598] textWithString:v5];
-          v55 = v27;
-          v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+          v54 = v27;
+          v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
           [responseHandler2 setDescriptions:v28];
 
           v29 = objc_opt_new();
           [v21 setInlineCard:v29];
 
-          v54 = responseHandler2;
-          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+          v53 = responseHandler2;
+          v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
           inlineCard = [v21 inlineCard];
           [inlineCard setCardSections:v30];
 
-          [v21 setContentURL:v51];
+          [v21 setContentURL:v50];
           [v21 setApplicationBundleIdentifier:v8];
           [v21 setSectionBundleIdentifier:v8];
           [v21 setResultBundleId:*MEMORY[0x277D65BC0]];
@@ -108,8 +108,8 @@
           v38 = SSAppNameForBundleId();
           [v37 setTitle:v38];
 
-          v53 = v21;
-          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+          v52 = v21;
+          v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
           [v37 setResults:v39];
 
           if (v6)
@@ -119,15 +119,15 @@
 
           v40 = objc_alloc(MEMORY[0x277D65860]);
           queryGroupId = [(SPKQuery *)self queryGroupId];
-          v52 = v37;
-          v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+          v51 = v37;
+          v42 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
           v43 = [v40 initWithQueryID:queryGroupId sourceKind:2 sections:v42];
 
           [v43 setTopHitIsIn:1];
           responseHandler = [(SPKQuery *)self responseHandler];
           (responseHandler)[2](responseHandler, v43);
 
-          v15 = v51;
+          v15 = v50;
         }
 
         else
@@ -137,7 +137,7 @@
           if (os_log_type_enabled(v45, ((*MEMORY[0x277D4BF50] & 1) == 0)))
           {
             *buf = 138412290;
-            v58 = v15;
+            v57 = v15;
             _os_log_impl(&dword_26B71B000, v45, ((v46 & 1) == 0), "Failed to create URL from query %@", buf, 0xCu);
           }
 
@@ -160,8 +160,6 @@
 
 LABEL_23:
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 @end

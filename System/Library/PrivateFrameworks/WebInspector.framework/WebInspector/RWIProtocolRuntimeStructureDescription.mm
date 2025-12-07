@@ -6,6 +6,7 @@
 - (RWIProtocolRuntimeStructureDescription)prototypeStructure;
 - (void)setConstructorName:(id)name;
 - (void)setFields:(id)fields;
+- (void)setIsImprecise:(BOOL)imprecise;
 - (void)setOptionalFields:(id)fields;
 - (void)setPrototypeStructure:(id)structure;
 @end
@@ -110,7 +111,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolRuntimeStructureDescription;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"prototypeStructure"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -152,6 +153,13 @@
   }
 
   return v7;
+}
+
+- (void)setIsImprecise:(BOOL)imprecise
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolRuntimeStructureDescription;
+  [(RWIProtocolJSONObject *)&v3 setBool:imprecise forKey:@"isImprecise"];
 }
 
 - (BOOL)isImprecise

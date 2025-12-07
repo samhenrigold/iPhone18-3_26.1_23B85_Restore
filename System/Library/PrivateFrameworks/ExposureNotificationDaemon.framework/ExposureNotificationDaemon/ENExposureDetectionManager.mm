@@ -113,7 +113,7 @@
 
     if (v11 && gLogCategory_ENExposureDetectionManager <= 50 && (gLogCategory_ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
     {
-      [ENExposureDetectionManager _applyRegionalConfigurationToDetectionSession:delegate:error:];
+      [ENExposureDetectionManager _applyRegionalConfigurationToDetectionSession:v9 delegate:? error:?];
     }
   }
 
@@ -212,87 +212,87 @@ void __78__ENExposureDetectionManager_performNativeExposureDetectionWithResultHa
   handlerCopy = handler;
   if (gLogCategory_ENExposureDetectionManager <= 50 && (gLogCategory_ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
   {
-    [ENExposureDetectionManager _performNativeExposureDetectionWithScheduler:resultHandler:];
+    [ENExposureDetectionManager _performNativeExposureDetectionWithScheduler:schedulerCopy resultHandler:?];
   }
 
-  v73 = 0;
-  v74 = &v73;
-  v75 = 0x3032000000;
-  v76 = __Block_byref_object_copy__10;
-  v77 = __Block_byref_object_dispose__10;
-  v78 = 0;
-  v69[0] = MEMORY[0x277D85DD0];
-  v69[1] = 3221225472;
-  v69[2] = __89__ENExposureDetectionManager__performNativeExposureDetectionWithScheduler_resultHandler___block_invoke;
-  v69[3] = &unk_278FD3278;
-  v70 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x3032000000;
+  v70 = __Block_byref_object_copy__10;
+  v71 = __Block_byref_object_dispose__10;
+  v72 = 0;
+  v63[0] = MEMORY[0x277D85DD0];
+  v63[1] = 3221225472;
+  v63[2] = __89__ENExposureDetectionManager__performNativeExposureDetectionWithScheduler_resultHandler___block_invoke;
+  v63[3] = &unk_278FD3278;
+  v64 = 0;
   v8 = handlerCopy;
-  v71 = v8;
-  v72 = &v73;
-  v9 = MEMORY[0x24C214430](v69);
+  v65 = v8;
+  v66 = &v67;
+  v9 = MEMORY[0x24C214430](v63);
   if (self->_enableNativeExposureDetection)
   {
-    v10 = v74;
-    v68 = v74[5];
-    v11 = [(ENExposureDetectionManager *)self createNativeDetectionSessionWithError:&v68];
-    objc_storeStrong(v10 + 5, v68);
+    v10 = v68;
+    v62 = v68[5];
+    v11 = [(ENExposureDetectionManager *)self createNativeDetectionSessionWithError:&v62];
+    objc_storeStrong(v10 + 5, v62);
     if (v11)
     {
       exposureDatabase = [v11 exposureDatabase];
-      v67 = 0;
+      v61 = 0;
       v13 = objc_opt_class();
-      v14 = v74;
-      v66 = v74[5];
-      v15 = [exposureDatabase getValue:&v67 forKey:@"LastExposureClassification" ofClass:v13 error:&v66];
-      v41 = v67;
-      objc_storeStrong(v14 + 5, v66);
+      v14 = v68;
+      v60 = v68[5];
+      v15 = [exposureDatabase getValue:&v61 forKey:@"LastExposureClassification" ofClass:v13 error:&v60];
+      v35 = v61;
+      objc_storeStrong(v14 + 5, v60);
 
       if (v15)
       {
-        [v11 setPreviousExposureClassification:v41];
-        v16 = v74;
-        v65 = v74[5];
-        v17 = [v11 prepareAndReturnError:&v65];
-        objc_storeStrong(v16 + 5, v65);
+        [v11 setPreviousExposureClassification:v35];
+        v16 = v68;
+        v59 = v68[5];
+        v17 = [v11 prepareAndReturnError:&v59];
+        objc_storeStrong(v16 + 5, v59);
         if (v17)
         {
-          v40 = objc_alloc_init(MEMORY[0x277CBEB30]);
-          v61 = 0;
-          v62 = &v61;
-          v63 = 0x2020000000;
+          v34 = objc_alloc_init(MEMORY[0x277CBEB30]);
+          v55 = 0;
+          v56 = &v55;
+          v57 = 0x2020000000;
           shouldDefer = [schedulerCopy shouldDefer];
-          v57 = 0;
-          v58 = &v57;
-          v59 = 0x2020000000;
-          v60 = 0;
-          v53 = 0;
-          v54 = &v53;
-          v55 = 0x2020000000;
-          v56 = 0;
+          v51 = 0;
+          v52 = &v51;
+          v53 = 0x2020000000;
+          v54 = 0;
+          v47 = 0;
+          v48 = &v47;
+          v49 = 0x2020000000;
+          v50 = 0;
           downloadManager = self->_downloadManager;
-          v19 = v74;
-          obj = v74[5];
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __89__ENExposureDetectionManager__performNativeExposureDetectionWithScheduler_resultHandler___block_invoke_2;
-          v44[3] = &unk_278FD32A0;
-          v45 = schedulerCopy;
+          v19 = v68;
+          obj = v68[5];
+          v38[0] = MEMORY[0x277D85DD0];
+          v38[1] = 3221225472;
+          v38[2] = __89__ENExposureDetectionManager__performNativeExposureDetectionWithScheduler_resultHandler___block_invoke_2;
+          v38[3] = &unk_278FD32A0;
+          v39 = schedulerCopy;
           selfCopy = self;
-          v49 = &v61;
-          v47 = v40;
-          v42 = v11;
-          v48 = v42;
-          v50 = &v53;
-          v51 = &v57;
-          LODWORD(downloadManager) = [(ENDownloadManager *)downloadManager enumerateDownloadsWithError:&obj handler:v44];
+          v43 = &v55;
+          v41 = v34;
+          v36 = v11;
+          v42 = v36;
+          v44 = &v47;
+          v45 = &v51;
+          LODWORD(downloadManager) = [(ENDownloadManager *)downloadManager enumerateDownloadsWithError:&obj handler:v38];
           objc_storeStrong(v19 + 5, obj);
           if (downloadManager)
           {
-            v20 = v74;
-            v43 = v74[5];
-            [v42 finishAndReturnError:&v43];
+            v20 = v68;
+            v37 = v68[5];
+            [v36 finishAndReturnError:&v37];
             v22 = p_inst_props = (&OBJC_PROTOCOL___CoreTelephonyClientDelegate + 56);
-            objc_storeStrong(v20 + 5, v43);
+            objc_storeStrong(v20 + 5, v37);
           }
 
           else
@@ -311,16 +311,12 @@ void __78__ENExposureDetectionManager_performNativeExposureDetectionWithResultHa
               v27 = "";
             }
 
-            if (*(v62 + 24))
+            if (*(v56 + 24))
             {
               v26 = " (deferred)";
             }
 
-            v38 = v58[3];
-            v39 = v54[3];
-            v36 = v27;
-            v37 = v26;
-            LogPrintF_safe();
+            LogPrintF_safe(&gLogCategory_ENExposureDetectionManager, "[ENExposureDetectionManager _performNativeExposureDetectionWithScheduler:resultHandler:]", 50, "Native exposure detection finished %ssuccessfully%s: %lu files consumed, %lu files ignored", v27, v26, v52[3], v48[3]);
           }
 
           if (v22)
@@ -335,14 +331,12 @@ void __78__ENExposureDetectionManager_performNativeExposureDetectionWithResultHa
               if (v31 <= 30 && (v31 != -1 || _LogCategory_Initialize()))
               {
                 daySummaries = [summary daySummaries];
-                [daySummaries count];
-                LogPrintF_safe();
+                LogPrintF_safe(&gLogCategory_ENExposureDetectionManager, "-[ENExposureDetectionManager _performNativeExposureDetectionWithScheduler:resultHandler:]", 30, "Native exposure detection finished: DaySummaries %d", [daySummaries count]);
               }
             }
 
-            v34 = *MEMORY[0x277CBED20];
             CFPrefs_SetValue();
-            [(ENExposureDetectionManager *)self _exposureDetectionSession:v42 finishedWithResult:v22];
+            [(ENExposureDetectionManager *)self _exposureDetectionSession:v36 finishedWithResult:v22];
             [(ENExposureDetectionManager *)self _unscheduleNativeExposureDetection];
           }
 
@@ -351,29 +345,28 @@ void __78__ENExposureDetectionManager_performNativeExposureDetectionWithResultHa
             if (gLogCategory__ENExposureDetectionManager > 90 || gLogCategory__ENExposureDetectionManager == -1 && !_LogCategory_Initialize())
             {
 LABEL_35:
-              if (*(v62 + 24))
+              if (*(v56 + 24))
               {
-                v35 = 2;
+                v33 = 2;
               }
 
               else
               {
-                v35 = 1;
+                v33 = 1;
               }
 
-              (*(v8 + 2))(v8, v22, v35, v74[5]);
-              [v42 invalidate];
+              (*(v8 + 2))(v8, v22, v33, v68[5]);
+              [v36 invalidate];
 
-              _Block_object_dispose(&v53, 8);
-              _Block_object_dispose(&v57, 8);
-              _Block_object_dispose(&v61, 8);
+              _Block_object_dispose(&v47, 8);
+              _Block_object_dispose(&v51, 8);
+              _Block_object_dispose(&v55, 8);
 
               goto LABEL_39;
             }
 
-            v33 = v74[5];
             summary = CUPrintNSError();
-            LogPrintF_safe();
+            LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _performNativeExposureDetectionWithScheduler:resultHandler:]", 90, "Failed to perform native exposure detection: %@", summary);
           }
 
           goto LABEL_35;
@@ -381,7 +374,7 @@ LABEL_35:
 
         if (gLogCategory__ENExposureDetectionManager <= 90 && (gLogCategory__ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _performNativeExposureDetectionWithScheduler:resultHandler:]", 90, "Failed to prepare detection session");
         }
       }
 
@@ -394,25 +387,24 @@ LABEL_39:
 
   else
   {
-    v23 = ENErrorF();
-    v24 = v74[5];
-    v74[5] = v23;
+    v23 = ENErrorF(14, "Native exposure detection is disabled");
+    v24 = v68[5];
+    v68[5] = v23;
   }
 
   v9[2](v9);
   v11 = 0;
 LABEL_40:
 
-  _Block_object_dispose(&v73, 8);
+  _Block_object_dispose(&v67, 8);
 }
 
 uint64_t __89__ENExposureDetectionManager__performNativeExposureDetectionWithScheduler_resultHandler___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) invalidate];
-  v2 = *(*(*(a1 + 48) + 8) + 40);
-  v3 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v3();
+  return v2();
 }
 
 uint64_t __89__ENExposureDetectionManager__performNativeExposureDetectionWithScheduler_resultHandler___block_invoke_2(uint64_t a1, void *a2, void *a3, void *a4)
@@ -467,7 +459,7 @@ LABEL_12:
     {
     }
 
-    v15 = ENErrorF();
+    v15 = ENErrorF(11, "No public key");
     objc_autoreleasePoolPop(v10);
     v9 = 0;
     goto LABEL_12;
@@ -476,7 +468,7 @@ LABEL_12:
   *(*(*(a1 + 64) + 8) + 24) = 1;
   if (a4)
   {
-    ENErrorF();
+    ENErrorF(11, "Exposure detection deferred");
     *a4 = v9 = 0;
   }
 
@@ -502,7 +494,7 @@ LABEL_17:
 
   if (!v9 && gLogCategory__ENExposureDetectionManager <= 90 && (gLogCategory__ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
   {
-    [ENExposureDetectionManager _exposureDetectionSession:finishedWithResult:];
+    [ENExposureDetectionManager _exposureDetectionSession:v10 finishedWithResult:?];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -522,7 +514,7 @@ LABEL_17:
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENExposureDetectionManager <= 10 && (gLogCategory_ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
   {
-    [ENExposureDetectionManager _processFileAtURL:publicKey:endpoint:session:error:];
+    [ENExposureDetectionManager _processFileAtURL:path publicKey:? endpoint:? session:? error:?];
     if (!path)
     {
       goto LABEL_26;
@@ -540,14 +532,14 @@ LABEL_17:
   if (v20)
   {
     createFileSession = [(ENExposureDetectionManager *)self createFileSession];
-    v40 = 0;
-    v22 = [createFileSession activateWithArchivePath:path error:&v40];
-    v37 = v40;
+    v38 = 0;
+    v22 = [createFileSession activateWithArchivePath:path error:&v38];
+    v35 = v38;
     if ((v22 & 1) == 0)
     {
       if (gLogCategory__ENExposureDetectionManager <= 90 && (gLogCategory__ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
       {
-        [ENExposureDetectionManager _processFileAtURL:publicKey:endpoint:session:error:];
+        [ENExposureDetectionManager _processFileAtURL:v35 publicKey:path endpoint:? session:? error:?];
       }
 
       [WeakRetained exposureDetectionManager:self errorDetected:3002];
@@ -555,31 +547,31 @@ LABEL_17:
       goto LABEL_35;
     }
 
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __81__ENExposureDetectionManager__processFileAtURL_publicKey_endpoint_session_error___block_invoke;
-    v39[3] = &unk_278FD0F90;
-    v39[4] = createFileSession;
-    v36 = MEMORY[0x24C214430](v39);
-    v38 = 0;
-    v23 = [sessionCopy addMatchesFromFileSession:createFileSession publicKey:keyCopy endpoint:endpointCopy error:&v38];
-    v24 = v38;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __81__ENExposureDetectionManager__processFileAtURL_publicKey_endpoint_session_error___block_invoke;
+    v37[3] = &unk_278FD0F90;
+    v37[4] = createFileSession;
+    v34 = MEMORY[0x24C214430](v37);
+    v36 = 0;
+    v23 = [sessionCopy addMatchesFromFileSession:createFileSession publicKey:keyCopy endpoint:endpointCopy error:&v36];
+    v24 = v36;
     if (v23)
     {
       v25 = 1;
 LABEL_34:
 
-      v36[2](v36);
+      v34[2](v34);
 LABEL_35:
 
       goto LABEL_36;
     }
 
-    v35 = v24;
+    v33 = v24;
     domain = [v24 domain];
     if ([domain isEqualToString:@"ENExposureDetectionDaemonSessionErrorDomain"])
     {
-      code = [v35 code];
+      code = [v33 code];
 
       if (code == 2)
       {
@@ -595,9 +587,7 @@ LABEL_35:
           }
 
           v30 = CUPrintNSError();
-          v33 = path;
-          v34 = v30;
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _processFileAtURL:publicKey:endpoint:session:error:]", 90, "Signature validation failed for %@: %@", path, v30);
           v31 = 3003;
         }
 
@@ -610,9 +600,7 @@ LABEL_35:
           }
 
           v30 = CUPrintNSError();
-          v33 = path;
-          v34 = v30;
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _processFileAtURL:publicKey:endpoint:session:error:]", 90, "Unable to open signature file at %@: %@", path, v30);
           v31 = 3001;
         }
 
@@ -631,16 +619,14 @@ LABEL_35:
     }
 
     v30 = CUPrintNSError();
-    v33 = path;
-    v34 = v30;
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _processFileAtURL:publicKey:endpoint:session:error:]", 90, "Error matching TEKs from %@: %@", path, v30);
     v31 = 3004;
 LABEL_24:
 
 LABEL_33:
-    [WeakRetained exposureDetectionManager:self errorDetected:{v31, v33, v34}];
+    [WeakRetained exposureDetectionManager:self errorDetected:v31];
     v25 = 2;
-    v24 = v35;
+    v24 = v33;
     goto LABEL_34;
   }
 
@@ -696,8 +682,7 @@ LABEL_36:
 
     if (v12 >= gLogCategory_ENExposureDetectionManager && (gLogCategory_ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
     {
-      v14 = v9;
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENExposureDetectionManager, "[ENExposureDetectionManager _scheduleNativeExposureDetectionForced:]", v12, "Cannot determine available download count: %@", v9);
     }
   }
 
@@ -718,16 +703,26 @@ LABEL_36:
 
   else if ([(ENExposureDetectionManager *)self _scheduleNativeExposureDetection]&& gLogCategory_ENExposureDetectionManager <= 30 && (gLogCategory_ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    v14 = "";
+    if (forcedCopy)
+    {
+      v14 = " (forced)";
+    }
+
+    LogPrintF_safe(&gLogCategory_ENExposureDetectionManager, "[ENExposureDetectionManager _scheduleNativeExposureDetectionForced:]", 30, "Scheduled native exposure detection%s with %@ downloads available", v14, v6);
   }
 }
 
 - (void)_downloadsDidBecomeAvailable:(id)available
 {
   availableCopy = available;
-  if (gLogCategory_ENExposureDetectionManager <= 30 && (gLogCategory_ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
+  v7 = availableCopy;
+  if (gLogCategory_ENExposureDetectionManager <= 30)
   {
-    [ENExposureDetectionManager _downloadsDidBecomeAvailable:];
+    if (gLogCategory_ENExposureDetectionManager != -1 || (availableCopy = _LogCategory_Initialize(), availableCopy))
+    {
+      [(ENExposureDetectionManager *)availableCopy _downloadsDidBecomeAvailable:v5, v6];
+    }
   }
 
   if (self->_scheduleDetectionAutomatically)
@@ -816,7 +811,7 @@ void __62__ENExposureDetectionManager__scheduleNativeExposureDetection__block_in
   v6 = a4;
   if (!v7 && gLogCategory__ENExposureDetectionManager <= 90 && (gLogCategory__ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
   {
-    __62__ENExposureDetectionManager__scheduleNativeExposureDetection__block_invoke_3_cold_1();
+    __62__ENExposureDetectionManager__scheduleNativeExposureDetection__block_invoke_3_cold_1(v6);
   }
 
   (*(*(a1 + 32) + 16))();
@@ -826,14 +821,18 @@ void __62__ENExposureDetectionManager__scheduleNativeExposureDetection__block_in
 {
   if (self->_detectionScheduler)
   {
-    if (gLogCategory_ENExposureDetectionManager <= 30 && (gLogCategory_ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (gLogCategory_ENExposureDetectionManager <= 30)
     {
-      [ENExposureDetectionManager _unscheduleNativeExposureDetection];
+      if (gLogCategory_ENExposureDetectionManager != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(ENExposureDetectionManager *)self _unscheduleNativeExposureDetection];
+      }
     }
 
-    [(NSBackgroundActivityScheduler *)self->_detectionScheduler invalidate];
-    detectionScheduler = self->_detectionScheduler;
-    self->_detectionScheduler = 0;
+    [(NSBackgroundActivityScheduler *)selfCopy->_detectionScheduler invalidate];
+    detectionScheduler = selfCopy->_detectionScheduler;
+    selfCopy->_detectionScheduler = 0;
   }
 }
 
@@ -925,7 +924,7 @@ void __62__ENExposureDetectionManager__scheduleNativeExposureDetection__block_in
 
     else if (gLogCategory__ENExposureDetectionManager <= 90 && (gLogCategory__ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _createDetectionSessionWithError:]", 90, "failed to create advertisement query");
     }
 
     v9 = 0;
@@ -946,7 +945,7 @@ LABEL_8:
   v5 = v4;
   if (!v4)
   {
-    goto LABEL_18;
+    goto LABEL_20;
   }
 
   regionConfiguration = [v4 regionConfiguration];
@@ -955,11 +954,14 @@ LABEL_8:
   {
     if (!error)
     {
-      goto LABEL_18;
+      goto LABEL_20;
     }
 
-LABEL_17:
-    ENErrorF();
+    v14 = "No region configuration";
+LABEL_16:
+    v15 = 16;
+LABEL_19:
+    ENErrorF(v15, v14);
     *error = v12 = 0;
     goto LABEL_7;
   }
@@ -970,10 +972,11 @@ LABEL_17:
   {
     if (!error)
     {
-      goto LABEL_18;
+      goto LABEL_20;
     }
 
-    goto LABEL_17;
+    v14 = "No server exposure configuration";
+    goto LABEL_16;
   }
 
   regionServerConfiguration = [v5 regionServerConfiguration];
@@ -982,10 +985,11 @@ LABEL_17:
   {
     if (!error)
     {
-      goto LABEL_18;
+      goto LABEL_20;
     }
 
-    goto LABEL_17;
+    v14 = "No region server config";
+    goto LABEL_16;
   }
 
   regionConfiguration2 = [v5 regionConfiguration];
@@ -1000,10 +1004,12 @@ LABEL_17:
 
   if (error)
   {
-    goto LABEL_17;
+    v14 = "Not authorized in region";
+    v15 = 4;
+    goto LABEL_19;
   }
 
-LABEL_18:
+LABEL_20:
   v12 = 0;
 LABEL_7:
 
@@ -1044,7 +1050,7 @@ LABEL_7:
         else if (gLogCategory__ENExposureDetectionManager <= 90 && (gLogCategory__ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
         {
           v18 = CUPrintNSError();
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _publicKeyForRegion:dictionary:]", 90, "Public key creation failed: %@", v18);
         }
       }
 
@@ -1052,7 +1058,7 @@ LABEL_7:
       {
         if (gLogCategory__ENExposureDetectionManager <= 90 && (gLogCategory__ENExposureDetectionManager != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _publicKeyForRegion:dictionary:]", 90, "Missing server configuration for region");
         }
 
         v10 = 0;
@@ -1073,7 +1079,7 @@ LABEL_7:
   if (result)
   {
     v1 = result;
-    result = ENErrorF();
+    result = ENErrorF(11, "Nil delegate");
     *v1 = result;
   }
 
@@ -1085,29 +1091,40 @@ LABEL_7:
   if (result)
   {
     v1 = result;
-    result = ENErrorF();
+    result = ENErrorF(4, "No active region");
     *v1 = result;
   }
 
   return result;
 }
 
-- (void)_exposureDetectionSession:finishedWithResult:.cold.1()
+- (uint64_t)_performNativeExposureDetectionWithScheduler:(uint64_t)a1 resultHandler:.cold.1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v1 = "background";
+  if (!a1)
+  {
+    v1 = "immediate";
+  }
+
+  return LogPrintF_safe(&gLogCategory_ENExposureDetectionManager, "[ENExposureDetectionManager _performNativeExposureDetectionWithScheduler:resultHandler:]", 50, "Running %s exposure check", v1);
 }
 
-- (void)_processFileAtURL:publicKey:endpoint:session:error:.cold.2()
+- (void)_exposureDetectionSession:(uint64_t)a1 finishedWithResult:.cold.1(uint64_t a1)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v1 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _exposureDetectionSession:finishedWithResult:]", 90, "Failed to persist last exposure classification: %@", v1);
 }
 
-void __62__ENExposureDetectionManager__scheduleNativeExposureDetection__block_invoke_3_cold_1()
+- (void)_processFileAtURL:(uint64_t)a1 publicKey:(uint64_t)a2 endpoint:session:error:.cold.2(uint64_t a1, uint64_t a2)
 {
-  v0 = CUPrintNSError();
-  LogPrintF_safe();
+  v3 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _processFileAtURL:publicKey:endpoint:session:error:]", 90, "Unable to open key file %@: %@", a2, v3);
+}
+
+void __62__ENExposureDetectionManager__scheduleNativeExposureDetection__block_invoke_3_cold_1(uint64_t a1)
+{
+  v1 = CUPrintNSError();
+  LogPrintF_safe(&gLogCategory__ENExposureDetectionManager, "[ENExposureDetectionManager _scheduleNativeExposureDetection]_block_invoke_3", 90, "Scheduled native exposure detection failed: %@", v1);
 }
 
 @end

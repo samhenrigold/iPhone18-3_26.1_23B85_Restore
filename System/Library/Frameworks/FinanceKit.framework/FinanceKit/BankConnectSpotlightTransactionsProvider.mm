@@ -28,7 +28,7 @@
 
 - (void)transactionsWithURLs:(NSArray *)ls completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280, &unk_1B7808CA0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -55,7 +55,7 @@
 
 - (void)transactionWithURL:(NSURL *)l completion:(id)completion
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB99C280, &unk_1B7808CA0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);

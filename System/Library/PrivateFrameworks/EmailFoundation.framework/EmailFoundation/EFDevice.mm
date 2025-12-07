@@ -1,6 +1,7 @@
 @interface EFDevice
 + (EFDevice)currentDevice;
 + (OS_os_log)log;
++ (id)testingDeviceWithInternal:(BOOL)internal;
 + (void)setCurrentDevice:(id)device;
 - (BOOL)isPad;
 - (BOOL)isPhone;
@@ -235,6 +236,19 @@ LABEL_3:
 
   currentDeviceOnceToken = 0;
 LABEL_6:
+}
+
++ (id)testingDeviceWithInternal:(BOOL)internal
+{
+  internalCopy = internal;
+  _init = [[EFDevice alloc] _init];
+  v5 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:@"00000000-0000-0000-0000-000000000000"];
+  [_init setIdentifier:v5];
+
+  [_init setIsInternal:internalCopy];
+  [_init setAreInternalSecurityPoliciesAllowed:internalCopy];
+
+  return _init;
 }
 
 - (BOOL)isRunningNative

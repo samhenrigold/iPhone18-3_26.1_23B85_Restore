@@ -20,15 +20,13 @@
 
 + (id)recognizerForEventDescriptor:(id)descriptor
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   v5 = objc_alloc_init(self);
-  v10[0] = descriptorCopy;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9[0] = descriptorCopy;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
   v7 = v5[3];
   v5[3] = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

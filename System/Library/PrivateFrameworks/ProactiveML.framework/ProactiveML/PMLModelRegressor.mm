@@ -89,19 +89,17 @@
 
 - (id)toDictionary
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"VALUES";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9[0] = @"VALUES";
   v3 = arrayFromFloats([(PMLModelRegressor *)self values], [(PMLModelRegressor *)self count]);
-  v10[1] = @"SHAPE";
-  v11[0] = v3;
+  v9[1] = @"SHAPE";
+  v10[0] = v3;
   v4 = [MEMORY[0x277CCABB0] numberWithInt:{-[PMLModelRegressor count](self, "count")}];
-  v9[0] = v4;
-  v9[1] = &unk_287357EF0;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
-  v11[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v4;
+  v8[1] = &unk_287357EF0;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
+  v10[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   return v6;
 }

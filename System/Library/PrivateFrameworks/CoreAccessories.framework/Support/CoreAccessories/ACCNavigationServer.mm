@@ -982,7 +982,7 @@ void __85__ACCNavigationServer_accessoryNavigationStartRouteGuidance_componentId
 
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        __85__ACCNavigationServer_accessoryNavigationStartRouteGuidance_componentIdList_options___block_invoke_cold_2(a1);
+        __85__ACCNavigationServer_accessoryNavigationStartRouteGuidance_componentIdList_options___block_invoke_cold_2();
       }
     }
   }
@@ -1118,7 +1118,7 @@ void __76__ACCNavigationServer_accessoryNavigationStopRouteGuidance_componentIdL
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __76__ACCNavigationServer_accessoryNavigationStopRouteGuidance_componentIdList___block_invoke_cold_2(a1);
+      __76__ACCNavigationServer_accessoryNavigationStopRouteGuidance_componentIdList___block_invoke_cold_2();
     }
   }
 
@@ -1222,7 +1222,7 @@ void __95__ACCNavigationServer_accessoryNavigationObjectDetectionUpdateInfo_comp
 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      __95__ACCNavigationServer_accessoryNavigationObjectDetectionUpdateInfo_componentIdList_updateInfo___block_invoke_cold_2(a1);
+      __95__ACCNavigationServer_accessoryNavigationObjectDetectionUpdateInfo_componentIdList_updateInfo___block_invoke_cold_2();
     }
   }
 
@@ -1310,31 +1310,25 @@ uint64_t __35__ACCNavigationServer_sharedServer__block_invoke(uint64_t a1)
   return _objc_release_x1();
 }
 
-void __85__ACCNavigationServer_accessoryNavigationStartRouteGuidance_componentIdList_options___block_invoke_cold_2(uint64_t a1)
+void __85__ACCNavigationServer_accessoryNavigationStartRouteGuidance_componentIdList_options___block_invoke_cold_2()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 48);
   OUTLINED_FUNCTION_1_36();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x2Au);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void __76__ACCNavigationServer_accessoryNavigationStopRouteGuidance_componentIdList___block_invoke_cold_2(uint64_t a1)
+void __76__ACCNavigationServer_accessoryNavigationStopRouteGuidance_componentIdList___block_invoke_cold_2()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 48);
   OUTLINED_FUNCTION_1_36();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x2Au);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
-void __95__ACCNavigationServer_accessoryNavigationObjectDetectionUpdateInfo_componentIdList_updateInfo___block_invoke_cold_2(uint64_t a1)
+void __95__ACCNavigationServer_accessoryNavigationObjectDetectionUpdateInfo_componentIdList_updateInfo___block_invoke_cold_2()
 {
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 56);
   OUTLINED_FUNCTION_1_36();
   OUTLINED_FUNCTION_3_4();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 @end

@@ -53,185 +53,179 @@ void __35__HMITorsoprinter_currentModelUUID__block_invoke(uint64_t a1)
 {
   eventCopy = event;
   Size = HMICVPixelBufferGetSize(buffer);
-  v10 = v9;
+  v9 = v8;
   [eventCopy boundingBox];
-  v12 = v11;
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
+  v11 = v10;
+  v13 = v12;
+  v15 = v14;
+  v17 = v16;
 
-  HMICGRectPixelFromNormalized(v12, v14, v16, v18, Size, v10);
-  v22 = CGRectIntegral(v21);
+  HMICGRectPixelFromNormalized(v11, v13, v15, v17, Size, v9);
+  CGRectIntegral(v20);
 
-  return [HMIVisionUtilities transferPixelBuffer:buffer crop:1111970369 size:8 pixelFormat:error options:v22.origin.x error:v22.origin.y, v22.size.width, v22.size.height, 128.0, 256.0];
+  return [HMIVisionUtilities transferPixelBuffer:"transferPixelBuffer:crop:size:pixelFormat:options:error:" crop:? size:? pixelFormat:? options:? error:?];
 }
 
 - (id)torsoprintForTorsoPixelBuffer:(__CVBuffer *)buffer unrecognizable:(BOOL)unrecognizable error:(id *)error
 {
-  unrecognizableCopy = unrecognizable;
-  v71[1] = *MEMORY[0x277D85DE8];
-  v9 = objc_alloc_init(MEMORY[0x277CE2C50]);
-  v63 = 0;
-  v10 = [v9 setRevision:+[HMITorsoprinter currentTorsoRequestRevision](HMITorsoprinter error:{"currentTorsoRequestRevision"), &v63}];
-  v11 = v63;
-  if (v10)
+  v66 = *MEMORY[0x277D85DE8];
+  v7 = objc_alloc_init(MEMORY[0x277CE2C50]);
+  +[HMITorsoprinter currentTorsoRequestRevision];
+  v8 = [v7 setRevision:? error:?];
+  v9 = 0;
+  if (v8)
   {
-    v12 = [MEMORY[0x277CE2D30] observationWithRequestRevision:3737841664 boundingBox:{0.0, 0.0, 1.0, 1.0}];
-    v71[0] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v71 count:1];
-    [v9 setInputDetectedObjectObservations:v13];
+    v65 = [MEMORY[0x277CE2D30] observationWithRequestRevision:? boundingBox:?];
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    [v7 setInputDetectedObjectObservations:?];
 
-    v14 = objc_alloc(MEMORY[0x277CE2D50]);
-    v15 = +[HMIVisionSession sharedInstance];
-    vnSession = [v15 vnSession];
-    v17 = [v14 initWithCVPixelBuffer:buffer options:MEMORY[0x277CBEC10] session:vnSession];
+    v11 = objc_alloc(MEMORY[0x277CE2D50]);
+    v12 = +[HMIVisionSession sharedInstance];
+    vnSession = [v12 vnSession];
+    v14 = [v11 initWithCVPixelBuffer:? options:? session:?];
 
-    v70 = v9;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v70 count:1];
-    v62 = v11;
-    v19 = [v17 performRequests:v18 error:&v62];
-    v20 = v62;
+    v64 = v7;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    v16 = [v14 performRequests:? error:?];
+    v17 = v9;
 
-    if (v19)
+    if (v16)
     {
-      results = [v9 results];
-      v22 = [results count];
+      results = [v7 results];
+      v19 = [results count];
 
-      if (v22 == 1)
+      if (v19 == 1)
       {
-        results2 = [v9 results];
+        results2 = [v7 results];
         firstObject = [results2 firstObject];
 
         torsoprint = [firstObject torsoprint];
         [torsoprint confidence];
-        v27 = v26;
+        v24 = v23;
 
-        v28 = v27 <= 0.5;
-        if (v27 <= 0.5)
+        if (v24 <= 0.5)
         {
           context = objc_autoreleasePoolPush();
           selfCopy = self;
-          v30 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          v26 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
-            v59 = HMFGetLogIdentifier();
+            v55 = HMFGetLogIdentifier();
             torsoprint2 = [firstObject torsoprint];
             [torsoprint2 confidence];
             *buf = 138543618;
-            v65 = v59;
-            v66 = 2048;
-            v67 = v31;
-            _os_log_impl(&dword_22D12F000, v30, OS_LOG_TYPE_INFO, "%{public}@Found low quality torso conf: %.4f", buf, 0x16u);
+            v59 = v55;
+            v60 = 2048;
+            v61 = v27;
+            _os_log_impl(&dword_22D12F000, v26, OS_LOG_TYPE_INFO, "%{public}@Found low quality torso conf: %.4f", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(context);
-          v28 = 1;
         }
 
-        [HMITorsoQuality entropyOfSaturationForBGRAPixelBuffer:buffer];
-        v33 = v32;
-        [HMITorsoQuality entropyOfLaplacianForBGRAPixelBuffer:buffer];
-        v35 = v34;
-        if (v33 >= -1.988 && v34 >= -1.915)
+        [HMITorsoQuality entropyOfSaturationForBGRAPixelBuffer:?];
+        v29 = v28;
+        [HMITorsoQuality entropyOfLaplacianForBGRAPixelBuffer:?];
+        v31 = v30;
+        if (v29 >= -1.988 && v30 >= -1.915)
         {
-          v36 = objc_autoreleasePoolPush();
+          v32 = objc_autoreleasePoolPush();
           selfCopy2 = self;
-          v38 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+          v34 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
           {
             HMFGetLogIdentifier();
-            v39 = v61 = v36;
+            v35 = v57 = v32;
             *buf = 138543874;
-            v65 = v39;
-            v66 = 2048;
-            v67 = v33;
-            v68 = 2048;
-            v69 = v35;
-            _os_log_impl(&dword_22D12F000, v38, OS_LOG_TYPE_INFO, "%{public}@Found low quality torso entropyOfSaturation: %.4f entropyOfLaplacian: %.4f", buf, 0x20u);
+            v59 = v35;
+            v60 = 2048;
+            v61 = v29;
+            v62 = 2048;
+            v63 = v31;
+            _os_log_impl(&dword_22D12F000, v34, OS_LOG_TYPE_INFO, "%{public}@Found low quality torso entropyOfSaturation: %.4f entropyOfLaplacian: %.4f", buf, 0x20u);
 
-            v36 = v61;
+            v32 = v57;
           }
 
-          objc_autoreleasePoolPop(v36);
-          v28 = 1;
+          objc_autoreleasePoolPop(v32);
         }
 
         torsoprint3 = [firstObject torsoprint];
 
         if (torsoprint3)
         {
-          v41 = [HMITorsoprint alloc];
+          v37 = [HMITorsoprint alloc];
           uUID = [MEMORY[0x277CCAD78] UUID];
           torsoprint4 = [firstObject torsoprint];
           descriptorData = [torsoprint4 descriptorData];
-          v45 = [(HMITorsoprint *)v41 initWithUUID:uUID data:descriptorData lowQuality:v28 unrecognizable:unrecognizableCopy];
+          v41 = [HMITorsoprint initWithUUID:v37 data:"initWithUUID:data:lowQuality:unrecognizable:" lowQuality:? unrecognizable:?];
         }
 
         else
         {
-          v55 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1038 description:@"torsoprint is nil"];
-          uUID = v55;
+          v51 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+          uUID = v51;
           if (error)
           {
-            v56 = v55;
+            v52 = v51;
             *error = uUID;
           }
 
           HMIErrorLog(self, uUID);
-          v45 = 0;
+          v41 = 0;
         }
 
         goto LABEL_29;
       }
 
-      v50 = MEMORY[0x277CCACA8];
-      results3 = [v9 results];
-      firstObject = [v50 stringWithFormat:@"Expected 1 torsoprint, but got %lu torsoprints", objc_msgSend(results3, "count")];
+      v46 = MEMORY[0x277CCACA8];
+      results3 = [v7 results];
+      firstObject = [v46 stringWithFormat:objc_msgSend(results3, "count")];
 
-      v52 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1038 description:firstObject];
-      v53 = v52;
+      v48 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:?];
+      v49 = v48;
       if (error)
       {
-        v54 = v52;
-        *error = v53;
+        v50 = v48;
+        *error = v49;
       }
 
-      HMIErrorLog(self, v53);
+      HMIErrorLog(self, v49);
     }
 
     else
     {
-      v48 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1038 description:@"failed to perform image request" underlyingError:v20];
-      firstObject = v48;
+      v44 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+      firstObject = v44;
       if (error)
       {
-        v49 = v48;
+        v45 = v44;
         *error = firstObject;
       }
 
       HMIErrorLog(self, firstObject);
     }
 
-    v45 = 0;
+    v41 = 0;
 LABEL_29:
 
     goto LABEL_30;
   }
 
-  v46 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1038 description:@"Failed to set request revision" underlyingError:v11];
-  v17 = v46;
+  v42 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? description:? underlyingError:?];
+  v14 = v42;
   if (error)
   {
-    v47 = v46;
-    *error = v17;
+    v43 = v42;
+    *error = v14;
   }
 
-  HMIErrorLog(self, v17);
-  v45 = 0;
-  v20 = v11;
+  HMIErrorLog(self, v14);
+  v41 = 0;
+  v17 = v9;
 LABEL_30:
 
-  return v45;
+  return v41;
 }
 
 @end

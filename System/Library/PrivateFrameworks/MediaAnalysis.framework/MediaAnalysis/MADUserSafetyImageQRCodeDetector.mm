@@ -17,8 +17,8 @@
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] running...", v17, 0xCu);
   }
 
-  sensitivity = [(MADUserSafetyQRCodeDetector *)self sensitivity];
-  v11 = sensitivity == 0;
+  v10 = [(MADUserSafetyQRCodeDetector *)self sensitivity:*v17];
+  v11 = v10 == 0;
 
   if (v11)
   {
@@ -36,9 +36,9 @@
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] complete", v17, 0xCu);
   }
 
-  sensitivity2 = [(MADUserSafetyQRCodeDetector *)self sensitivity];
+  sensitivity = [(MADUserSafetyQRCodeDetector *)self sensitivity];
 
-  return sensitivity2;
+  return sensitivity;
 }
 
 @end

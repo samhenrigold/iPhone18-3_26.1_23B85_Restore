@@ -70,7 +70,7 @@ LABEL_8:
     *[(NSMutableData *)self->m_StorageData mutableBytes]= self;
     self->m_pvBuf = [(NSMutableData *)self->m_StorageData mutableBytes]+ 8;
     v7 = [(NSMutableData *)self->m_StorageData length];
-    StructuredStorageInBuf = createStructuredStorageInBuf(&self->m_pvBuf, v7 - 8, storageBufferReallocFunction, 1, &self->m_pCRoot, v8);
+    StructuredStorageInBuf = createStructuredStorageInBuf(&self->m_pvBuf, (v7 - 8), storageBufferReallocFunction, 1, &self->m_pCRoot, v8);
   }
 
   else
@@ -91,7 +91,7 @@ LABEL_8:
   self->super.m_pCStorage = 0;
   if (self->m_pCRoot)
   {
-    closeStructuredStorage(&self->m_pCRoot);
+    closeStructuredStorage(&self->m_pCRoot, a2);
   }
 
   m_StorageData = self->m_StorageData;

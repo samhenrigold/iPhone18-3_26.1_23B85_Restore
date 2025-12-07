@@ -132,27 +132,26 @@
 {
   v8 = sub_1B6AB8DB0();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(completion);
+  v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
   sub_1B6AB8D80();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
   selfCopy = self;
-  v16 = sub_1B6AB8D20();
+  v15 = sub_1B6AB8D20();
   aBlock[4] = sub_1B6A24990;
-  aBlock[5] = v14;
+  aBlock[5] = v13;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1B6A12D6C;
   aBlock[3] = &block_descriptor_72;
-  v17 = _Block_copy(aBlock);
+  v16 = _Block_copy(aBlock);
 
-  [(AAAccessTracker *)selfCopy explicitSubmitEventType:type onlyIfTimed:0 submitTime:v16 completion:v17];
-  _Block_release(v17);
+  [(AAAccessTracker *)selfCopy explicitSubmitEventType:type onlyIfTimed:0 submitTime:v15 completion:v16];
+  _Block_release(v16);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)explicitSubmitEventType:(Class)type onlyIfTimed:(BOOL)timed submitTime:(id)time completion:(id)completion
@@ -160,47 +159,45 @@
   timedCopy = timed;
   v9 = sub_1B6AB8DB0();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
   MEMORY[0x1EEE9AC00](v9);
-  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = _Block_copy(completion);
+  v12 = &v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = _Block_copy(completion);
   ObjCClassMetadata = swift_getObjCClassMetadata();
   sub_1B6AB8D80();
-  _Block_copy(v14);
+  _Block_copy(v13);
   selfCopy = self;
-  sub_1B6A22F28(ObjCClassMetadata, timedCopy, v13, selfCopy, v14);
-  _Block_release(v14);
-  _Block_release(v14);
+  sub_1B6A22F28(ObjCClassMetadata, timedCopy, v12, selfCopy, v13);
+  _Block_release(v13);
+  _Block_release(v13);
 
-  (*(v10 + 8))(v13, v9);
+  (*(v10 + 8))(v12, v9);
 }
 
 - (void)explicitSubmitRawEvent:(id)event submitTime:(id)time completion:(id)completion
 {
   v8 = sub_1B6AB8DB0();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v12 = aBlock - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = _Block_copy(completion);
+  v11 = aBlock - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _Block_copy(completion);
   sub_1B6AB8D80();
-  v14 = swift_allocObject();
-  *(v14 + 16) = v13;
+  v13 = swift_allocObject();
+  *(v13 + 16) = v12;
   eventCopy = event;
   selfCopy = self;
-  v17 = sub_1B6AB8D20();
+  v16 = sub_1B6AB8D20();
   aBlock[4] = sub_1B6A24990;
-  aBlock[5] = v14;
+  aBlock[5] = v13;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_1B6A12D6C;
   aBlock[3] = &block_descriptor_56;
-  v18 = _Block_copy(aBlock);
+  v17 = _Block_copy(aBlock);
 
-  [(AAAccessTracker *)selfCopy explicitSubmitRawEvent:eventCopy onlyIfTimed:0 submitTime:v17 completion:v18];
-  _Block_release(v18);
+  [(AAAccessTracker *)selfCopy explicitSubmitRawEvent:eventCopy onlyIfTimed:0 submitTime:v16 completion:v17];
+  _Block_release(v17);
 
-  (*(v9 + 8))(v12, v8);
+  (*(v9 + 8))(v11, v8);
 }
 
 - (void)explicitSubmitRawEvent:(id)event onlyIfTimed:(BOOL)timed submitTime:(id)time completion:(id)completion
@@ -208,19 +205,18 @@
   timedCopy = timed;
   v10 = sub_1B6AB8DB0();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](v10);
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = _Block_copy(completion);
+  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = _Block_copy(completion);
   sub_1B6AB8D80();
-  _Block_copy(v15);
+  _Block_copy(v14);
   eventCopy = event;
   selfCopy = self;
-  sub_1B6A23598(eventCopy, timedCopy, v14, selfCopy, v15);
-  _Block_release(v15);
-  _Block_release(v15);
+  sub_1B6A23598(eventCopy, timedCopy, v13, selfCopy, v14);
+  _Block_release(v14);
+  _Block_release(v14);
 
-  (*(v11 + 8))(v14, v10);
+  (*(v11 + 8))(v13, v10);
 }
 
 - (void)pushDataEvent:(id)event traits:(id)traits file:(id)file line:(int64_t)line
@@ -236,9 +232,9 @@
 
 - (void)popDataEventType:(Class)type
 {
-  swift_getObjCClassMetadata();
+  ObjCClassMetadata = swift_getObjCClassMetadata();
   selfCopy = self;
-  BridgedAccessTracker.pop(dataType:)();
+  BridgedAccessTracker.pop(dataType:)(ObjCClassMetadata);
 }
 
 - (void)popDataEventByName:(id)name
@@ -256,28 +252,27 @@
   v4 = sub_1B6AB92E0();
   v6 = v5;
   selfCopy = self;
-  BridgedAccessTracker.peek(dataName:)(v4, v6, v16);
+  BridgedAccessTracker.peek(dataName:)(v4, v6, v15);
 
-  v8 = v17;
-  if (v17)
+  v8 = v16;
+  if (v16)
   {
-    v9 = __swift_project_boxed_opaque_existential_1(v16, v17);
+    v9 = __swift_project_boxed_opaque_existential_1(v15, v16);
     v10 = *(v8 - 8);
-    v11 = *(v10 + 64);
     MEMORY[0x1EEE9AC00](v9);
-    v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v10 + 16))(v13);
-    v14 = sub_1B6ABA0E0();
-    (*(v10 + 8))(v13, v8);
-    __swift_destroy_boxed_opaque_existential_1(v16);
+    v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v10 + 16))(v12);
+    v13 = sub_1B6ABA0E0();
+    (*(v10 + 8))(v12, v8);
+    __swift_destroy_boxed_opaque_existential_1(v15);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 @end

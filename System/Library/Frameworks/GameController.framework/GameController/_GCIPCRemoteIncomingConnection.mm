@@ -13,11 +13,11 @@
   v9 = processCopy;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
     if (v9)
     {
 LABEL_3:
-      [v9 auditToken];
+      objc_msgSend_auditToken(v9);
       goto LABEL_6;
     }
   }

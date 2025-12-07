@@ -346,17 +346,17 @@ LABEL_63:
   blockCopy = block;
   if (limit)
   {
-    v47 = [objc_opt_class() getDictationEventsWithMaxAge:0.0 minAge:0.0];
+    v45 = [objc_opt_class() getDictationEventsWithMaxAge:0.0 minAge:0.0];
     v6 = +[_DKKnowledgeStore knowledgeStore];
     v7 = +[_DKIntentMetadataKey intentClass];
-    v46 = [_DKQuery predicateForObjectsWithMetadataKey:v7 inValues:&off_10003B290];
+    v44 = [_DKQuery predicateForObjectsWithMetadataKey:v7 inValues:&off_10003B290];
 
-    v45 = [_DKEventQuery startDateSortDescriptorAscending:0];
+    v43 = [_DKEventQuery startDateSortDescriptorAscending:0];
     v8 = 0;
-    v44 = EARDocumentDataTypeKey;
-    v48 = blockCopy;
+    v42 = EARDocumentDataTypeKey;
+    v46 = blockCopy;
     limitCopy = limit;
-    v42 = v6;
+    v40 = v6;
     do
     {
       context = objc_autoreleasePoolPush();
@@ -371,98 +371,94 @@ LABEL_63:
       }
 
       v10 = +[_DKSystemEventStreams appIntentsStream];
-      v60 = v10;
-      v11 = [NSArray arrayWithObjects:&v60 count:1];
-      v59 = v45;
-      v12 = [NSArray arrayWithObjects:&v59 count:1];
-      v13 = [_DKEventQuery eventQueryWithPredicate:v46 eventStreams:v11 offset:v8 limit:v9 sortDescriptors:v12];
+      v58 = v10;
+      v11 = [NSArray arrayWithObjects:&v58 count:1];
+      v57 = v43;
+      v12 = [NSArray arrayWithObjects:&v57 count:1];
+      v13 = [_DKEventQuery eventQueryWithPredicate:v44 eventStreams:v11 offset:v8 limit:v9 sortDescriptors:v12];
 
-      v55 = 0;
-      v14 = [v6 executeQuery:v13 error:&v55];
-      v15 = v55;
+      v53 = 0;
+      v14 = [v6 executeQuery:v13 error:&v53];
+      v15 = v53;
       if (v15)
       {
         v16 = qword_10003FF50;
         if (os_log_type_enabled(qword_10003FF50, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v58 = v15;
+          v56 = v15;
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "Could not get messages from CoreDuet %@", buf, 0xCu);
         }
       }
 
       else if (v14)
       {
-        v41 = v14;
-        v43 = v13;
+        v39 = v14;
+        v41 = v13;
         buf[0] = 0;
+        v49 = 0u;
+        v50 = 0u;
         v51 = 0u;
         v52 = 0u;
-        v53 = 0u;
-        v54 = 0u;
         obj = v14;
-        v17 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
-        v18 = &_s10Foundation22_convertErrorToNSErrorySo0E0Cs0C0_pF_ptr;
+        v17 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
         if (v17)
         {
-          v19 = v17;
-          v20 = *v52;
+          v18 = v17;
+          v19 = *v50;
           while (2)
           {
-            for (i = 0; i != v19; i = i + 1)
+            for (i = 0; i != v18; i = i + 1)
             {
-              if (*v52 != v20)
+              if (*v50 != v19)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v22 = *(*(&v51 + 1) + 8 * i);
-              interaction = [v22 interaction];
-              v24 = INTypedInteractionWithInteraction();
-              intent = [v24 intent];
+              v21 = *(*(&v49 + 1) + 8 * i);
+              interaction = [v21 interaction];
+              v23 = INTypedInteractionWithInteraction();
+              intent = [v23 intent];
 
-              v26 = v18[237];
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v27 = intent;
-                sender = [v27 sender];
+                v25 = intent;
+                sender = [v25 sender];
                 isMe = [sender isMe];
 
                 if (isMe)
                 {
-                  startDate = [v22 startDate];
+                  startDate = [v21 startDate];
                   [startDate timeIntervalSinceReferenceDate];
-                  v32 = v31;
+                  v30 = v29;
 
-                  v33 = [objc_opt_class() getDataTypeFromDictationEvent:v47 sentMessageTime:v32];
-                  v34 = +[NSMutableDictionary dictionary];
-                  v35 = [NSNumber numberWithInteger:v33];
-                  [v34 setObject:v35 forKey:v44];
+                  v31 = [objc_opt_class() getDataTypeFromDictationEvent:v45 sentMessageTime:v30];
+                  v32 = +[NSMutableDictionary dictionary];
+                  v33 = [NSNumber numberWithInteger:v31];
+                  [v32 setObject:v33 forKey:v42];
 
-                  source = [v22 source];
+                  source = [v21 source];
                   itemID = [source itemID];
-                  content = [v27 content];
-                  v48[2](v48, itemID, content, v34, buf);
-
-                  v18 = &_s10Foundation22_convertErrorToNSErrorySo0E0Cs0C0_pF_ptr;
+                  content = [v25 content];
+                  v46[2](v46, itemID, content, v32, buf);
                 }
               }
 
-              v39 = buf[0];
+              v37 = buf[0];
 
-              if (v39)
+              if (v37)
               {
 
                 objc_autoreleasePoolPop(context);
-                blockCopy = v48;
-                v6 = v42;
+                blockCopy = v46;
+                v6 = v40;
                 goto LABEL_26;
               }
             }
 
-            v19 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
-            if (v19)
+            v18 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
+            if (v18)
             {
               continue;
             }
@@ -471,12 +467,12 @@ LABEL_63:
           }
         }
 
-        blockCopy = v48;
+        blockCopy = v46;
         limit = limitCopy;
         v15 = 0;
-        v6 = v42;
-        v13 = v43;
-        v14 = v41;
+        v6 = v40;
+        v13 = v41;
+        v14 = v39;
       }
 
       objc_autoreleasePoolPop(context);

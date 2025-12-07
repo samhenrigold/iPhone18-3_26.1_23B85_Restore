@@ -23,7 +23,7 @@
   v3 = extensionContext;
   if (extensionContext)
   {
-    [extensionContext _extensionHostAuditToken];
+    objc_msgSend__extensionHostAuditToken(extensionContext);
   }
 
   else
@@ -70,7 +70,7 @@
   LOBYTE(v3) = [authorizationContext isFullAccessGranted];
   managedConfiguration = [(CNContactPickerContentViewController *)self managedConfiguration];
   clientBundleIdentifier = [managedConfiguration clientBundleIdentifier];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 186, 5, @"%@ is %@ for full access:", v7, v8, v9, v10, clientBundleIdentifier);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerServiceViewController.m", 186, 5u, @"%@ is %@ for full access:", v7, v8, v9, v10, clientBundleIdentifier);
 
   return v3 ^ 1;
 }

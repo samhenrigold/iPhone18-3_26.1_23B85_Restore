@@ -18,12 +18,10 @@
 
 - (NSString)displayName
 {
-  v2 = *(self + OBJC_IVAR___TUExternalParticipant_displayName);
-  v3 = *(self + OBJC_IVAR___TUExternalParticipant_displayName + 8);
 
-  v4 = sub_19586ED30();
+  v2 = sub_19586ED30();
 
-  return v4;
+  return v2;
 }
 
 - (NSData)info

@@ -76,7 +76,7 @@
 
 - (SPTrackingAvoidanceResult)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   identifier = self->_identifier;
@@ -84,16 +84,15 @@
 
   self->_type = [coderCopy decodeIntegerForKey:@"type"];
   v7 = MEMORY[0x277CBEB98];
-  v14[0] = objc_opt_class();
-  v14[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = objc_opt_class();
+  v13[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"policies"];
 
   policies = self->_policies;
   self->_policies = v10;
 
-  v12 = *MEMORY[0x277D85DE8];
   return self;
 }
 

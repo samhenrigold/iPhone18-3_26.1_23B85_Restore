@@ -61,16 +61,16 @@
 - (void)dealloc
 {
   selfCopy = self;
-  sub_18E659BD8();
+  sub_18E659BD8(selfCopy);
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for ActivitySystemApertureSceneHandle();
+  v3.super_class = type metadata accessor for ActivitySystemApertureSceneHandle(0);
   [(ActivitySystemApertureSceneHandle *)&v3 dealloc];
 }
 
 - (void)invalidate
 {
   selfCopy = self;
-  sub_18E659BD8();
+  sub_18E659BD8(selfCopy);
 }
 
 - (_TtC18ActivityUIServices33ActivitySystemApertureSceneHandle)init

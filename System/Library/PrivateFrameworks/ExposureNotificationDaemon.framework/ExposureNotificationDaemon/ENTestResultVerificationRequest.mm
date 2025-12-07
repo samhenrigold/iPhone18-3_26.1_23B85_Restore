@@ -11,7 +11,7 @@
 
 + (id)verificationRequestWithCode:(id)code acceptedReportTypes:(id)types APIKey:(id)key nonce:(id)nonce requestURL:(id)l URLSession:(id)session queue:(id)queue error:(id *)self0
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   typesCopy = types;
   keyCopy = key;
@@ -19,55 +19,55 @@
   lCopy = l;
   sessionCopy = session;
   queueCopy = queue;
-  v48 = typesCopy;
+  v47 = typesCopy;
   if ([typesCopy count])
   {
-    v43 = nonceCopy;
+    v42 = nonceCopy;
     selfCopy = self;
-    v44 = queueCopy;
-    v45 = sessionCopy;
+    v43 = queueCopy;
+    v44 = sessionCopy;
     v24 = lCopy;
-    v46 = keyCopy;
-    v47 = codeCopy;
+    v45 = keyCopy;
+    v46 = codeCopy;
     v25 = DiagnosisReportTypeToServerStringMap();
     v26 = objc_alloc_init(MEMORY[0x277CBEB50]);
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v27 = typesCopy;
-    v28 = [v27 countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v28 = [v27 countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v50;
+      v30 = *v49;
       while (2)
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v50 != v30)
+          if (*v49 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          v32 = *(*(&v49 + 1) + 8 * i);
+          v32 = *(*(&v48 + 1) + 8 * i);
           v33 = [v25 objectForKeyedSubscript:v32];
           if (!v33)
           {
             [ENTestResultVerificationRequest verificationRequestWithCode:error acceptedReportTypes:v27 APIKey:v32 nonce:? requestURL:? URLSession:? queue:? error:?];
-            keyCopy = v46;
-            codeCopy = v47;
+            keyCopy = v45;
+            codeCopy = v46;
             lCopy = v24;
-            queueCopy = v44;
-            sessionCopy = v45;
-            nonceCopy = v43;
+            queueCopy = v43;
+            sessionCopy = v44;
+            nonceCopy = v42;
             goto LABEL_17;
           }
 
           [v26 addObject:v33];
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v48 objects:v52 count:16];
         if (v29)
         {
           continue;
@@ -80,13 +80,13 @@
     v34 = [selfCopy alloc];
     lCopy = v24;
     v35 = v24;
-    queueCopy = v44;
-    sessionCopy = v45;
-    v33 = [v34 initWithRequestURL:v35 URLSession:v45 queue:v44];
-    keyCopy = v46;
-    [v33 setAPIKey:v46];
-    codeCopy = v47;
-    v36 = [v47 copy];
+    queueCopy = v43;
+    sessionCopy = v44;
+    v33 = [v34 initWithRequestURL:v35 URLSession:v44 queue:v43];
+    keyCopy = v45;
+    [v33 setAPIKey:v45];
+    codeCopy = v46;
+    v36 = [v46 copy];
     v37 = *(v33 + 80);
     *(v33 + 80) = v36;
 
@@ -94,10 +94,10 @@
     v39 = *(v33 + 88);
     *(v33 + 88) = v38;
 
-    nonceCopy = v43;
-    if (v43)
+    nonceCopy = v42;
+    if (v42)
     {
-      v40 = [v43 copy];
+      v40 = [v42 copy];
     }
 
     else
@@ -106,7 +106,7 @@
     }
 
     objc_storeStrong((v33 + 96), v40);
-    if (v43)
+    if (v42)
     {
     }
 
@@ -116,7 +116,7 @@ LABEL_17:
 
   else if (error)
   {
-    ENErrorF();
+    ENErrorF(2, "Empty accepted report types");
     *error = v33 = 0;
   }
 
@@ -124,8 +124,6 @@ LABEL_17:
   {
     v33 = 0;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -176,15 +174,34 @@ LABEL_6:
   stringCopy = string;
   v4 = [&unk_285D6E4F8 objectForKeyedSubscript:stringCopy];
   v5 = v4;
-  if (v4 && ((v6 = [v4 integerValue], v6 == 12) || v6 == 3 || v6 == 2))
+  if (!v4)
   {
-    v7 = ENTestResultErrorF(v6);
+    goto LABEL_6;
   }
 
-  else
+  integerValue = [v4 integerValue];
+  if (integerValue == 12)
   {
-    v7 = 0;
+    ENTestResultErrorF(12, "Test has unsupported type");
+    goto LABEL_9;
   }
+
+  if (integerValue == 3)
+  {
+    ENTestResultErrorF(3, "Expired verification code");
+    goto LABEL_9;
+  }
+
+  if (integerValue != 2)
+  {
+LABEL_6:
+    v7 = 0;
+    goto LABEL_10;
+  }
+
+  ENTestResultErrorF(2, "Invalid verification code");
+  v7 = LABEL_9:;
+LABEL_10:
 
   return v7;
 }
@@ -215,7 +232,7 @@ LABEL_6:
 
     else
     {
-      v14 = ENTestResultErrorF(4);
+      v14 = ENTestResultErrorF(4, "Missing token");
     }
   }
 
@@ -310,10 +327,10 @@ id __85__ENTestResultVerificationRequest__metadataFromVerificationResponseDictio
 {
   v2 = *(a1 + 32);
   v3 = a2;
-  v6 = [v2 objectForKeyedSubscript:v3];
-  v4 = ENTestResultErrorF(4);
+  v4 = [v2 objectForKeyedSubscript:v3];
+  v5 = ENTestResultErrorF(4, "Invalid value %@ for %@ ", v4, v3);
 
-  return v4;
+  return v5;
 }
 
 void __85__ENTestResultVerificationRequest__metadataFromVerificationResponseDictionary_error___block_invoke_49(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -334,8 +351,8 @@ void __85__ENTestResultVerificationRequest__metadataFromVerificationResponseDict
 {
   if (a1)
   {
-    ENDiagnosisReportTypeToString([a3 unsignedIntValue]);
-    *a1 = ENErrorF();
+    v5 = ENDiagnosisReportTypeToString([a3 unsignedIntValue]);
+    *a1 = ENErrorF(2, "Unsupported report type %s", v5);
   }
 }
 

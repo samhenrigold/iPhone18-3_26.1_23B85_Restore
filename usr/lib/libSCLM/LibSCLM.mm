@@ -21,7 +21,6 @@
 
 + (id)PerformScript:(unint64_t)script sefwPath:(id)path seHandle:(id)handle logSink:(id)sink
 {
-  v11 = *MEMORY[0x29EDCA608];
   pathCopy = path;
   handle;
   sinkCopy = sink;
@@ -30,7 +29,6 @@
 
 + (id)PerformScriptWithResult:(unint64_t)result sefwPath:(id)path seHandle:(id)handle logSink:(id)sink
 {
-  v10 = *MEMORY[0x29EDCA608];
   pathCopy = path;
   handle;
   sink;
@@ -39,7 +37,6 @@
 
 + (id)PerformScriptWithName:(id)name sefwPath:(id)path seHandle:(id)handle logSink:(id)sink
 {
-  v13 = *MEMORY[0x29EDCA608];
   nameCopy = name;
   pathCopy = path;
   handle;
@@ -49,7 +46,6 @@
 
 + (id)PerformScriptWithNameWithResult:(id)result sefwPath:(id)path seHandle:(id)handle logSink:(id)sink
 {
-  v12 = *MEMORY[0x29EDCA608];
   resultCopy = result;
   pathCopy = path;
   handle;
@@ -68,7 +64,6 @@
 
 + (id)PerformOnlyScriptInSEFWWithResult:(id)result seHandle:(id)handle logSink:(id)sink
 {
-  v10 = *MEMORY[0x29EDCA608];
   resultCopy = result;
   handle;
   sinkCopy = sink;
@@ -77,12 +72,11 @@
 
 + (BOOL)InspectSEFW:(id)w closure:(id)closure error:(id *)error
 {
-  v8 = *MEMORY[0x29EDCA608];
   wCopy = w;
   closure;
   if (wCopy)
   {
-    [wCopy asCXXString];
+    objc_msgSend_asCXXString(wCopy);
   }
 
   SCLM::DefaultSCLMScriptProvider::CreateWithPath();
@@ -90,12 +84,11 @@
 
 + (BOOL)InspectCompatibleHWSEFW:(id)w closure:(id)closure error:(id *)error
 {
-  v8 = *MEMORY[0x29EDCA608];
   wCopy = w;
   closure;
   if (wCopy)
   {
-    [wCopy asCXXString];
+    objc_msgSend_asCXXString(wCopy);
   }
 
   SCLM::DefaultSCLMScriptProvider::CreateWithPath();
@@ -117,17 +110,17 @@
 
 + (id)convertScriptResult:(void *)result
 {
-  v19[1] = *MEMORY[0x29EDCA608];
+  v18[1] = *MEMORY[0x29EDCA608];
   v4 = objc_opt_new();
   if (*(result + 64) == 1)
   {
     v5 = MEMORY[0x29EDB9FA0];
-    v18 = *MEMORY[0x29EDB9ED8];
+    v17 = *MEMORY[0x29EDB9ED8];
     v6 = MEMORY[0x29EDBA0F8];
-    ctu::join<std::__wrap_iter<std::string const*>>(*(result + 5), *(result + 6), ", ", 2uLL, &__p);
+    ctu::join<std::__wrap_iter<std::string const*>>(&__p, *(result + 5), *(result + 6), ", ", 2uLL);
     v7 = [v6 stringWithCXXString:&__p];
-    v19[0] = v7;
-    v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v18[0] = v7;
+    v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v9 = [v5 errorWithDomain:@"SLAM" code:0 userInfo:v8];
     [v4 setError:v9];
 
@@ -158,8 +151,6 @@
     [v4 setMessages:v14];
   }
 
-  v15 = *MEMORY[0x29EDCA608];
-
   return v4;
 }
 
@@ -174,7 +165,6 @@
 
 + (id)PerformScript:(unint64_t)script seHandle:(id)handle logSink:(id)sink
 {
-  v8 = *MEMORY[0x29EDCA608];
   handle;
   sinkCopy = sink;
   operator new();

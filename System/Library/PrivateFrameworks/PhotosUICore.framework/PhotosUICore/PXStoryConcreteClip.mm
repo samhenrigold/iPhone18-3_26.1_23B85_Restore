@@ -215,7 +215,7 @@ LABEL_11:
   if (result == 1)
   {
     memset(&v13, 0, sizeof(v13));
-    [(PXStoryConcreteClip *)self videoTimeRange];
+    objc_msgSend_videoTimeRange(self);
     *&retstr->var0.var3 = 0u;
     *&retstr->var1.var1 = 0u;
     *&retstr->var0.var0 = 0u;
@@ -223,7 +223,7 @@ LABEL_11:
     result = [(PXStoryConcreteClip *)self _videoTimeRangeForTargetDuration:&time1];
     if ((v13.start.flags & 1) != 0 && (v13.duration.flags & 1) != 0 && !v13.duration.epoch && (v13.duration.value & 0x8000000000000000) == 0)
     {
-      [(PXStoryConcreteClip *)self info];
+      objc_msgSend_info(self);
       v11 = v12;
       time1.start = v12;
       *&time2.start.value = PXStoryTimeZero;
@@ -287,14 +287,14 @@ LABEL_11:
   videoHighlight = [(PXStoryConcreteClip *)self videoHighlight];
   if (videoHighlight)
   {
-    [(PXStoryConcreteClip *)self info];
+    objc_msgSend_info(self);
     time[0] = v25;
     Seconds = CMTimeGetSeconds(time);
     memset(time, 0, sizeof(time));
-    [videoHighlight bestTimeRangeForTargetDuration:Seconds];
+    objc_msgSend_bestTimeRangeForTargetDuration_(videoHighlight, Seconds);
     v23 = 0u;
     memset(v24, 0, sizeof(v24));
-    [videoHighlight timeRange];
+    objc_msgSend_timeRange(videoHighlight);
     *time2 = *&time[0].value;
     *&time2[16] = *&time[0].epoch;
     v20 = *&time[1].timescale;
@@ -363,7 +363,7 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  [(PXStoryConcreteClip *)self info];
+  objc_msgSend_info(self);
   if (v13 == 4)
   {
     v10 = PLStoryGetLog();
@@ -383,7 +383,7 @@ LABEL_12:
 
 - ($E59C7DEBCD57E98EE3F0104B12BEB13C)videoTimeRange
 {
-  [(PXStoryConcreteClip *)self info];
+  objc_msgSend_info(self, a3);
   v22 = v16;
   v23 = v17;
   v24 = v18;
@@ -437,7 +437,7 @@ LABEL_6:
     v3 = [(PXStoryResourcesDataSource *)self->_resourcesDataSource movieHighlightsForDisplayAssetAtIndex:self->_resourceIndex];
     if (v3)
     {
-      [(PXStoryConcreteClip *)self info];
+      objc_msgSend_info(self);
       v4 = PXStoryMovieHighlightForPlaybackStyle(v3, v9);
       v5 = v4;
       if ((v9 - 3) > 2 || v4 != 0)

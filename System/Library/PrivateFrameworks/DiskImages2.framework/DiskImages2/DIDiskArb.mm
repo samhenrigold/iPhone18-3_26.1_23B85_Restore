@@ -93,7 +93,7 @@ LABEL_8:
 
 - (void)onDiskDisappearedWithDisk:(__DADisk *)disk
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   if ([(DIDiskArb *)self daSession])
   {
     v5 = DADiskCopyDescription(disk);
@@ -101,40 +101,48 @@ LABEL_8:
     if (DIDebugLogsEnabled())
     {
       v7 = *__error();
-      if (DIForwardLogs())
+      v8 = DIForwardLogs();
+      if (v8)
       {
-        v46 = 0;
-        v8 = getDIOSLog();
-        os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
-        *buf = 68158210;
-        v49 = 39;
-        v50 = 2080;
-        v51 = "[DIDiskArb onDiskDisappearedWithDisk:]";
-        v52 = 2114;
-        v53 = v6;
-        LODWORD(v41) = 28;
-        v40 = buf;
-        v9 = _os_log_send_and_compose_impl();
-
-        if (v9)
+        v56 = 0;
+        v10 = getDIOSLog(v8, v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
-          fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-          free(v9);
+          v11 = 3;
+        }
+
+        else
+        {
+          v11 = 2;
+        }
+
+        *buf = 68158210;
+        v59 = 39;
+        v60 = 2080;
+        v61 = "[DIDiskArb onDiskDisappearedWithDisk:]";
+        v62 = 2114;
+        v63 = v6;
+        v12 = _os_log_send_and_compose_impl(v11, &v56, 0, 0, &dword_248DE0000, v10, 2, "%.*s: Reached with diskURL=%{public}@", buf, 28);
+
+        if (v12)
+        {
+          fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
+          free(v12);
         }
       }
 
       else
       {
-        v14 = getDIOSLog();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+        v20 = getDIOSLog(v8, v9);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           *buf = 68158210;
-          v49 = 39;
-          v50 = 2080;
-          v51 = "[DIDiskArb onDiskDisappearedWithDisk:]";
-          v52 = 2114;
-          v53 = v6;
-          _os_log_impl(&dword_248DE0000, v14, OS_LOG_TYPE_DEBUG, "%.*s: Reached with diskURL=%{public}@", buf, 0x1Cu);
+          v59 = 39;
+          v60 = 2080;
+          v61 = "[DIDiskArb onDiskDisappearedWithDisk:]";
+          v62 = 2114;
+          v63 = v6;
+          _os_log_impl(&dword_248DE0000, v20, OS_LOG_TYPE_DEBUG, "%.*s: Reached with diskURL=%{public}@", buf, 0x1Cu);
         }
       }
 
@@ -146,131 +154,151 @@ LABEL_8:
       inputMountedOnURL = [(DIDiskArb *)self inputMountedOnURL];
       if (inputMountedOnURL)
       {
-        v16 = inputMountedOnURL;
+        v22 = inputMountedOnURL;
         inputMountedOnURL2 = [(DIDiskArb *)self inputMountedOnURL];
-        v18 = [v6 isEqual:inputMountedOnURL2];
+        v24 = [v6 isEqual:inputMountedOnURL2];
 
-        if (v18)
+        if (v24)
         {
-          v19 = *__error();
-          if (DIForwardLogs())
+          v25 = *__error();
+          v26 = DIForwardLogs();
+          if (v26)
           {
-            v46 = 0;
-            v20 = getDIOSLog();
-            os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+            v56 = 0;
+            v28 = getDIOSLog(v26, v27);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            {
+              v29 = 3;
+            }
+
+            else
+            {
+              v29 = 2;
+            }
+
             path = [v6 path];
             *buf = 68158211;
-            v49 = 39;
-            v50 = 2080;
-            v51 = "[DIDiskArb onDiskDisappearedWithDisk:]";
-            v52 = 2113;
-            v53 = path;
-            LODWORD(v41) = 28;
-            v40 = buf;
-            v22 = _os_log_send_and_compose_impl();
+            v59 = 39;
+            v60 = 2080;
+            v61 = "[DIDiskArb onDiskDisappearedWithDisk:]";
+            v62 = 2113;
+            v63 = path;
+            LODWORD(v51) = 28;
+            v31 = _os_log_send_and_compose_impl(v29, &v56, 0, 0, &dword_248DE0000, v28, 16, "%.*s: Mount point %{private}@ disappeared", buf, v51);
 
-            if (v22)
+            if (v31)
             {
-              fprintf(*MEMORY[0x277D85DF8], "%s\n", v22);
-              free(v22);
+              fprintf(*MEMORY[0x277D85DF8], "%s\n", v31);
+              free(v31);
             }
           }
 
           else
           {
-            v23 = getDIOSLog();
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v32 = getDIOSLog(v26, v27);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               path2 = [v6 path];
               *buf = 68158211;
-              v49 = 39;
-              v50 = 2080;
-              v51 = "[DIDiskArb onDiskDisappearedWithDisk:]";
-              v52 = 2113;
-              v53 = path2;
-              _os_log_impl(&dword_248DE0000, v23, OS_LOG_TYPE_ERROR, "%.*s: Mount point %{private}@ disappeared", buf, 0x1Cu);
+              v59 = 39;
+              v60 = 2080;
+              v61 = "[DIDiskArb onDiskDisappearedWithDisk:]";
+              v62 = 2113;
+              v63 = path2;
+              _os_log_impl(&dword_248DE0000, v32, OS_LOG_TYPE_ERROR, "%.*s: Mount point %{private}@ disappeared", buf, 0x1Cu);
             }
           }
 
-          *__error() = v19;
+          *__error() = v25;
           delegate = [(DIDiskArb *)self delegate];
           [delegate onDisappearedMountPoint];
         }
       }
 
-      v26 = [(DIDiskArb *)self shadowMountedOnURLs:v40];
+      shadowMountedOnURLs = [(DIDiskArb *)self shadowMountedOnURLs];
 
-      if (v26)
+      if (shadowMountedOnURLs)
       {
-        v44 = 0u;
-        v45 = 0u;
-        v42 = 0u;
-        v43 = 0u;
-        shadowMountedOnURLs = [(DIDiskArb *)self shadowMountedOnURLs];
-        v28 = [shadowMountedOnURLs countByEnumeratingWithState:&v42 objects:v47 count:16];
-        if (v28)
+        v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
+        shadowMountedOnURLs2 = [(DIDiskArb *)self shadowMountedOnURLs];
+        v37 = [shadowMountedOnURLs2 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        if (v37)
         {
-          v29 = v28;
-          v30 = *v43;
+          v38 = v37;
+          v39 = *v53;
           while (2)
           {
-            for (i = 0; i != v29; ++i)
+            for (i = 0; i != v38; ++i)
             {
-              if (*v43 != v30)
+              if (*v53 != v39)
               {
-                objc_enumerationMutation(shadowMountedOnURLs);
+                objc_enumerationMutation(shadowMountedOnURLs2);
               }
 
-              if ([v6 isEqual:*(*(&v42 + 1) + 8 * i)])
+              if ([v6 isEqual:*(*(&v52 + 1) + 8 * i)])
               {
-                v32 = *__error();
-                if (DIForwardLogs())
+                v41 = *__error();
+                v42 = DIForwardLogs();
+                if (v42)
                 {
-                  v46 = 0;
-                  v33 = getDIOSLog();
-                  os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
+                  v56 = 0;
+                  v44 = getDIOSLog(v42, v43);
+                  if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+                  {
+                    v45 = 3;
+                  }
+
+                  else
+                  {
+                    v45 = 2;
+                  }
+
                   path3 = [v6 path];
                   *buf = 68158211;
-                  v49 = 39;
-                  v50 = 2080;
-                  v51 = "[DIDiskArb onDiskDisappearedWithDisk:]";
-                  v52 = 2113;
-                  v53 = path3;
-                  v35 = _os_log_send_and_compose_impl();
+                  v59 = 39;
+                  v60 = 2080;
+                  v61 = "[DIDiskArb onDiskDisappearedWithDisk:]";
+                  v62 = 2113;
+                  v63 = path3;
+                  LODWORD(v51) = 28;
+                  v47 = _os_log_send_and_compose_impl(v45, &v56, 0, 0, &dword_248DE0000, v44, 16, "%.*s: Mount point %{private}@ disappeared (shadow's mount point)", buf, v51);
 
-                  if (v35)
+                  if (v47)
                   {
-                    fprintf(*MEMORY[0x277D85DF8], "%s\n", v35);
-                    free(v35);
+                    fprintf(*MEMORY[0x277D85DF8], "%s\n", v47);
+                    free(v47);
                   }
                 }
 
                 else
                 {
-                  v36 = getDIOSLog();
-                  if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+                  v48 = getDIOSLog(v42, v43);
+                  if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
                   {
                     path4 = [v6 path];
                     *buf = 68158211;
-                    v49 = 39;
-                    v50 = 2080;
-                    v51 = "[DIDiskArb onDiskDisappearedWithDisk:]";
-                    v52 = 2113;
-                    v53 = path4;
-                    _os_log_impl(&dword_248DE0000, v36, OS_LOG_TYPE_ERROR, "%.*s: Mount point %{private}@ disappeared (shadow's mount point)", buf, 0x1Cu);
+                    v59 = 39;
+                    v60 = 2080;
+                    v61 = "[DIDiskArb onDiskDisappearedWithDisk:]";
+                    v62 = 2113;
+                    v63 = path4;
+                    _os_log_impl(&dword_248DE0000, v48, OS_LOG_TYPE_ERROR, "%.*s: Mount point %{private}@ disappeared (shadow's mount point)", buf, 0x1Cu);
                   }
                 }
 
-                *__error() = v32;
+                *__error() = v41;
                 delegate2 = [(DIDiskArb *)self delegate];
                 [delegate2 onDisappearedMountPoint];
 
-                goto LABEL_44;
+                goto LABEL_56;
               }
             }
 
-            v29 = [shadowMountedOnURLs countByEnumeratingWithState:&v42 objects:v47 count:16];
-            if (v29)
+            v38 = [shadowMountedOnURLs2 countByEnumeratingWithState:&v52 objects:v57 count:16];
+            if (v38)
             {
               continue;
             }
@@ -279,311 +307,85 @@ LABEL_8:
           }
         }
 
-LABEL_44:
+LABEL_56:
       }
     }
   }
 
   else
   {
-    v10 = *__error();
-    if (DIForwardLogs())
+    v13 = *__error();
+    v14 = DIForwardLogs();
+    if (v14)
     {
-      v46 = 0;
-      v11 = getDIOSLog();
-      os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-      *buf = 68157954;
-      v49 = 39;
-      v50 = 2080;
-      v51 = "[DIDiskArb onDiskDisappearedWithDisk:]";
-      v12 = _os_log_send_and_compose_impl();
-
-      if (v12)
+      v56 = 0;
+      v16 = getDIOSLog(v14, v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
-        free(v12);
+        v17 = 3;
+      }
+
+      else
+      {
+        v17 = 2;
+      }
+
+      *buf = 68157954;
+      v59 = 39;
+      v60 = 2080;
+      v61 = "[DIDiskArb onDiskDisappearedWithDisk:]";
+      LODWORD(v51) = 18;
+      v18 = _os_log_send_and_compose_impl(v17, &v56, 0, 0, &dword_248DE0000, v16, 0, "%.*s: Ignoring, during shutdown", buf, v51);
+
+      if (v18)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v18);
+        free(v18);
       }
     }
 
     else
     {
-      v13 = getDIOSLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v19 = getDIOSLog(v14, v15);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68157954;
-        v49 = 39;
-        v50 = 2080;
-        v51 = "[DIDiskArb onDiskDisappearedWithDisk:]";
-        _os_log_impl(&dword_248DE0000, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Ignoring, during shutdown", buf, 0x12u);
+        v59 = 39;
+        v60 = 2080;
+        v61 = "[DIDiskArb onDiskDisappearedWithDisk:]";
+        _os_log_impl(&dword_248DE0000, v19, OS_LOG_TYPE_DEFAULT, "%.*s: Ignoring, during shutdown", buf, 0x12u);
       }
     }
 
-    *__error() = v10;
+    *__error() = v13;
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)waitForDAIdleWithError:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v4 = *__error();
-  if (DIForwardLogs())
+  v5 = DIForwardLogs();
+  if (v5)
   {
-    v5 = getDIOSLog();
-    os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v20 = 36;
-    v21 = 2080;
-    v22 = "[DIDiskArb waitForDAIdleWithError:]";
-    LODWORD(v18) = 18;
-    v17 = buf;
-    v6 = _os_log_send_and_compose_impl();
-
-    if (v6)
-    {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v6);
-      free(v6);
-    }
-  }
-
-  else
-  {
-    v7 = getDIOSLog();
+    v23 = 0;
+    v7 = getDIOSLog(v5, v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *buf = 68157954;
-      v20 = 36;
-      v21 = 2080;
-      v22 = "[DIDiskArb waitForDAIdleWithError:]";
-      _os_log_impl(&dword_248DE0000, v7, OS_LOG_TYPE_DEFAULT, "%.*s: Waiting for disk arbitration idle", buf, 0x12u);
-    }
-  }
-
-  *__error() = v4;
-  [(DIDiskArb *)self setCallbackReached:0];
-  [(DIDiskArb *)self daSession];
-  DARegisterIdleCallback();
-  currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
-  if (![(DIDiskArb *)self callbackReached])
-  {
-    v9 = *MEMORY[0x277CBE640];
-    do
-    {
-      v10 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:{1.0, v17, v18}];
-      [currentRunLoop runMode:v9 beforeDate:v10];
-    }
-
-    while (![(DIDiskArb *)self callbackReached]);
-  }
-
-  MEMORY[0x24C1ECEE0]([(DIDiskArb *)self daSession], _idleCallback, self);
-  v11 = *__error();
-  if (DIForwardLogs())
-  {
-    v12 = getDIOSLog();
-    os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-    *buf = 68157954;
-    v20 = 36;
-    v21 = 2080;
-    v22 = "[DIDiskArb waitForDAIdleWithError:]";
-    v13 = _os_log_send_and_compose_impl();
-
-    if (v13)
-    {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v13);
-      free(v13);
-    }
-  }
-
-  else
-  {
-    v14 = getDIOSLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68157954;
-      v20 = 36;
-      v21 = 2080;
-      v22 = "[DIDiskArb waitForDAIdleWithError:]";
-      _os_log_impl(&dword_248DE0000, v14, OS_LOG_TYPE_DEFAULT, "%.*s: Disk arbitration idle callback received", buf, 0x12u);
-    }
-  }
-
-  *__error() = v11;
-
-  v15 = *MEMORY[0x277D85DE8];
-  return 1;
-}
-
-- (void)addDisappearedCallbackWithMountPoint:(id)point shadowMountPoints:(id)points delegate:(id)delegate
-{
-  v50 = *MEMORY[0x277D85DE8];
-  pointCopy = point;
-  pointsCopy = points;
-  delegateCopy = delegate;
-  if (pointCopy)
-  {
-    [(DIDiskArb *)self setInputMountedOnURL:pointCopy];
-    v35 = pointsCopy;
-    [(DIDiskArb *)self setShadowMountedOnURLs:pointsCopy];
-    v34 = delegateCopy;
-    [(DIDiskArb *)self setDelegate:delegateCopy];
-    v11 = *__error();
-    if (DIForwardLogs())
-    {
-      v42 = 0;
-      v12 = getDIOSLog();
-      os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
-      path = [pointCopy path];
-      *buf = 68158211;
-      v45 = 77;
-      v46 = 2080;
-      v47 = "[DIDiskArb addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:]";
-      v48 = 2113;
-      v49 = path;
-      LODWORD(v32) = 28;
-      v30 = buf;
-      v14 = _os_log_send_and_compose_impl();
-
-      if (v14)
-      {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v14);
-        free(v14);
-      }
+      v8 = 3;
     }
 
     else
     {
-      v15 = getDIOSLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-      {
-        path2 = [pointCopy path];
-        *buf = 68158211;
-        v45 = 77;
-        v46 = 2080;
-        v47 = "[DIDiskArb addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:]";
-        v48 = 2113;
-        v49 = path2;
-        _os_log_impl(&dword_248DE0000, v15, OS_LOG_TYPE_DEFAULT, "%.*s: Registering DiskDisappearedCallback for %{private}@", buf, 0x1Cu);
-      }
+      v8 = 2;
     }
 
-    v37 = pointCopy;
-    *__error() = v11;
-  }
-
-  else
-  {
-    if (![pointsCopy count])
-    {
-      goto LABEL_25;
-    }
-
-    v37 = 0;
-    [(DIDiskArb *)self setInputMountedOnURL:0];
-    v35 = pointsCopy;
-    [(DIDiskArb *)self setShadowMountedOnURLs:pointsCopy];
-    v34 = delegateCopy;
-    [(DIDiskArb *)self setDelegate:delegateCopy];
-  }
-
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
-  v39 = 0u;
-  selfCopy = self;
-  v17 = [(DIDiskArb *)self shadowMountedOnURLs:v30];
-  v18 = [v17 countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v18)
-  {
-    v19 = v18;
-    v20 = *v39;
-    do
-    {
-      for (i = 0; i != v19; ++i)
-      {
-        if (*v39 != v20)
-        {
-          objc_enumerationMutation(v17);
-        }
-
-        v22 = *(*(&v38 + 1) + 8 * i);
-        v23 = *__error();
-        if (DIForwardLogs())
-        {
-          v42 = 0;
-          v24 = getDIOSLog();
-          os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-          path3 = [v22 path];
-          *buf = 68158211;
-          v45 = 77;
-          v46 = 2080;
-          v47 = "[DIDiskArb addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:]";
-          v48 = 2113;
-          v49 = path3;
-          LODWORD(v33) = 28;
-          v31 = buf;
-          v26 = _os_log_send_and_compose_impl();
-
-          if (v26)
-          {
-            fprintf(*MEMORY[0x277D85DF8], "%s\n", v26);
-            free(v26);
-          }
-        }
-
-        else
-        {
-          v27 = getDIOSLog();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-          {
-            path4 = [v22 path];
-            *buf = 68158211;
-            v45 = 77;
-            v46 = 2080;
-            v47 = "[DIDiskArb addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:]";
-            v48 = 2113;
-            v49 = path4;
-            _os_log_impl(&dword_248DE0000, v27, OS_LOG_TYPE_DEFAULT, "%.*s: Registering DiskDisappearedCallback for %{private}@ (shadow's mount point)", buf, 0x1Cu);
-          }
-        }
-
-        *__error() = v23;
-      }
-
-      v19 = [v17 countByEnumeratingWithState:&v38 objects:v43 count:16];
-    }
-
-    while (v19);
-  }
-
-  DARegisterDiskDisappearedCallback([(DIDiskArb *)selfCopy daSession], 0, _diskDisappearedCallback, selfCopy);
-  pointCopy = v37;
-  delegateCopy = v34;
-  pointsCopy = v35;
-LABEL_25:
-
-  v29 = *MEMORY[0x277D85DE8];
-}
-
-- (BOOL)ejectWithBSDName:(id)name error:(id *)error
-{
-  v32 = *MEMORY[0x277D85DE8];
-  nameCopy = name;
-  v7 = *__error();
-  if (DIForwardLogs())
-  {
-    v8 = getDIOSLog();
-    os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    *buf = 68158210;
-    v27 = 36;
-    v28 = 2080;
-    v29 = "[DIDiskArb ejectWithBSDName:error:]";
-    v30 = 2112;
-    v31 = nameCopy;
-    LODWORD(v25) = 28;
-    v24 = buf;
-    v9 = _os_log_send_and_compose_impl();
+    *buf = 68157954;
+    v25 = 36;
+    v26 = 2080;
+    v27 = "[DIDiskArb waitForDAIdleWithError:]";
+    LODWORD(v22) = 18;
+    v9 = _os_log_send_and_compose_impl(v8, &v23, 0, 0, &dword_248DE0000, v7, 0, "%.*s: Waiting for disk arbitration idle", buf, v22);
 
     if (v9)
     {
@@ -594,34 +396,314 @@ LABEL_25:
 
   else
   {
-    v10 = getDIOSLog();
+    v10 = getDIOSLog(v5, v6);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
+      *buf = 68157954;
+      v25 = 36;
+      v26 = 2080;
+      v27 = "[DIDiskArb waitForDAIdleWithError:]";
+      _os_log_impl(&dword_248DE0000, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Waiting for disk arbitration idle", buf, 0x12u);
+    }
+  }
+
+  *__error() = v4;
+  [(DIDiskArb *)self setCallbackReached:0];
+  [(DIDiskArb *)self daSession];
+  DARegisterIdleCallback();
+  currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
+  if (![(DIDiskArb *)self callbackReached])
+  {
+    v12 = *MEMORY[0x277CBE640];
+    do
+    {
+      v13 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
+      [currentRunLoop runMode:v12 beforeDate:v13];
+    }
+
+    while (![(DIDiskArb *)self callbackReached]);
+  }
+
+  MEMORY[0x24C1ECEE0]([(DIDiskArb *)self daSession], _idleCallback, self);
+  v14 = *__error();
+  v15 = DIForwardLogs();
+  if (v15)
+  {
+    v23 = 0;
+    v17 = getDIOSLog(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = 3;
+    }
+
+    else
+    {
+      v18 = 2;
+    }
+
+    *buf = 68157954;
+    v25 = 36;
+    v26 = 2080;
+    v27 = "[DIDiskArb waitForDAIdleWithError:]";
+    LODWORD(v22) = 18;
+    v19 = _os_log_send_and_compose_impl(v18, &v23, 0, 0, &dword_248DE0000, v17, 0, "%.*s: Disk arbitration idle callback received", buf, v22);
+
+    if (v19)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v19);
+      free(v19);
+    }
+  }
+
+  else
+  {
+    v20 = getDIOSLog(v15, v16);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68157954;
+      v25 = 36;
+      v26 = 2080;
+      v27 = "[DIDiskArb waitForDAIdleWithError:]";
+      _os_log_impl(&dword_248DE0000, v20, OS_LOG_TYPE_DEFAULT, "%.*s: Disk arbitration idle callback received", buf, 0x12u);
+    }
+  }
+
+  *__error() = v14;
+
+  return 1;
+}
+
+- (void)addDisappearedCallbackWithMountPoint:(id)point shadowMountPoints:(id)points delegate:(id)delegate
+{
+  v52 = *MEMORY[0x277D85DE8];
+  pointCopy = point;
+  pointsCopy = points;
+  delegateCopy = delegate;
+  if (pointCopy)
+  {
+    [(DIDiskArb *)self setInputMountedOnURL:pointCopy];
+    v37 = pointsCopy;
+    [(DIDiskArb *)self setShadowMountedOnURLs:pointsCopy];
+    v36 = delegateCopy;
+    [(DIDiskArb *)self setDelegate:delegateCopy];
+    v11 = *__error();
+    v12 = DIForwardLogs();
+    if (v12)
+    {
+      v44 = 0;
+      v14 = getDIOSLog(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 3;
+      }
+
+      else
+      {
+        v15 = 2;
+      }
+
+      path = [pointCopy path];
+      *buf = 68158211;
+      v47 = 77;
+      v48 = 2080;
+      v49 = "[DIDiskArb addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:]";
+      v50 = 2113;
+      v51 = path;
+      v17 = _os_log_send_and_compose_impl(v15, &v44, 0, 0, &dword_248DE0000, v14, 0, "%.*s: Registering DiskDisappearedCallback for %{private}@", buf, 28);
+
+      if (v17)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v17);
+        free(v17);
+      }
+    }
+
+    else
+    {
+      v18 = getDIOSLog(v12, v13);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        path2 = [pointCopy path];
+        *buf = 68158211;
+        v47 = 77;
+        v48 = 2080;
+        v49 = "[DIDiskArb addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:]";
+        v50 = 2113;
+        v51 = path2;
+        _os_log_impl(&dword_248DE0000, v18, OS_LOG_TYPE_DEFAULT, "%.*s: Registering DiskDisappearedCallback for %{private}@", buf, 0x1Cu);
+      }
+    }
+
+    v39 = pointCopy;
+    *__error() = v11;
+  }
+
+  else
+  {
+    if (![pointsCopy count])
+    {
+      goto LABEL_31;
+    }
+
+    v39 = 0;
+    [(DIDiskArb *)self setInputMountedOnURL:0];
+    v37 = pointsCopy;
+    [(DIDiskArb *)self setShadowMountedOnURLs:pointsCopy];
+    v36 = delegateCopy;
+    [(DIDiskArb *)self setDelegate:delegateCopy];
+  }
+
+  v42 = 0u;
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  selfCopy = self;
+  shadowMountedOnURLs = [(DIDiskArb *)self shadowMountedOnURLs];
+  v21 = [shadowMountedOnURLs countByEnumeratingWithState:&v40 objects:v45 count:16];
+  if (v21)
+  {
+    v22 = v21;
+    v23 = *v41;
+    do
+    {
+      for (i = 0; i != v22; ++i)
+      {
+        if (*v41 != v23)
+        {
+          objc_enumerationMutation(shadowMountedOnURLs);
+        }
+
+        v25 = *(*(&v40 + 1) + 8 * i);
+        v26 = *__error();
+        v27 = DIForwardLogs();
+        if (v27)
+        {
+          v44 = 0;
+          v29 = getDIOSLog(v27, v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+          {
+            v30 = 3;
+          }
+
+          else
+          {
+            v30 = 2;
+          }
+
+          path3 = [v25 path];
+          *buf = 68158211;
+          v47 = 77;
+          v48 = 2080;
+          v49 = "[DIDiskArb addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:]";
+          v50 = 2113;
+          v51 = path3;
+          LODWORD(v35) = 28;
+          v32 = _os_log_send_and_compose_impl(v30, &v44, 0, 0, &dword_248DE0000, v29, 0, "%.*s: Registering DiskDisappearedCallback for %{private}@ (shadow's mount point)", buf, v35);
+
+          if (v32)
+          {
+            fprintf(*MEMORY[0x277D85DF8], "%s\n", v32);
+            free(v32);
+          }
+        }
+
+        else
+        {
+          v33 = getDIOSLog(v27, v28);
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          {
+            path4 = [v25 path];
+            *buf = 68158211;
+            v47 = 77;
+            v48 = 2080;
+            v49 = "[DIDiskArb addDisappearedCallbackWithMountPoint:shadowMountPoints:delegate:]";
+            v50 = 2113;
+            v51 = path4;
+            _os_log_impl(&dword_248DE0000, v33, OS_LOG_TYPE_DEFAULT, "%.*s: Registering DiskDisappearedCallback for %{private}@ (shadow's mount point)", buf, 0x1Cu);
+          }
+        }
+
+        *__error() = v26;
+      }
+
+      v22 = [shadowMountedOnURLs countByEnumeratingWithState:&v40 objects:v45 count:16];
+    }
+
+    while (v22);
+  }
+
+  DARegisterDiskDisappearedCallback([(DIDiskArb *)selfCopy daSession], 0, _diskDisappearedCallback, selfCopy);
+  pointCopy = v39;
+  delegateCopy = v36;
+  pointsCopy = v37;
+LABEL_31:
+}
+
+- (BOOL)ejectWithBSDName:(id)name error:(id *)error
+{
+  v37 = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  v7 = *__error();
+  v8 = DIForwardLogs();
+  if (v8)
+  {
+    v30 = 0;
+    v10 = getDIOSLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    *buf = 68158210;
+    v32 = 36;
+    v33 = 2080;
+    v34 = "[DIDiskArb ejectWithBSDName:error:]";
+    v35 = 2112;
+    v36 = nameCopy;
+    v12 = _os_log_send_and_compose_impl(v11, &v30, 0, 0, &dword_248DE0000, v10, 0, "%.*s: Ejecting %@", buf, 28);
+
+    if (v12)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
+      free(v12);
+    }
+  }
+
+  else
+  {
+    v13 = getDIOSLog(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
       *buf = 68158210;
-      v27 = 36;
-      v28 = 2080;
-      v29 = "[DIDiskArb ejectWithBSDName:error:]";
-      v30 = 2112;
-      v31 = nameCopy;
-      _os_log_impl(&dword_248DE0000, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Ejecting %@", buf, 0x1Cu);
+      v32 = 36;
+      v33 = 2080;
+      v34 = "[DIDiskArb ejectWithBSDName:error:]";
+      v35 = 2112;
+      v36 = nameCopy;
+      _os_log_impl(&dword_248DE0000, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Ejecting %@", buf, 0x1Cu);
     }
   }
 
   *__error() = v7;
-  v11 = DADiskCreateFromBSDName(0, -[DIDiskArb daSession](self, "daSession"), [nameCopy fileSystemRepresentation]);
-  if (v11)
+  v14 = DADiskCreateFromBSDName(0, -[DIDiskArb daSession](self, "daSession"), [nameCopy fileSystemRepresentation]);
+  if (v14)
   {
     [(DIDiskArb *)self setCallbackReached:0];
     [(DIDiskArb *)self setOperationError:0];
-    DADiskEject(v11, 0, _daOperationCallback, self);
+    DADiskEject(v14, 0, _daOperationCallback, self);
     currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
     if (![(DIDiskArb *)self callbackReached])
     {
-      v13 = *MEMORY[0x277CBE640];
+      v16 = *MEMORY[0x277CBE640];
       do
       {
-        v14 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:{1.0, v24, v25}];
-        [currentRunLoop runMode:v13 beforeDate:v14];
+        v17 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
+        [currentRunLoop runMode:v16 beforeDate:v17];
       }
 
       while (![(DIDiskArb *)self callbackReached]);
@@ -632,63 +714,74 @@ LABEL_25:
     if (operationError)
     {
       operationError2 = [(DIDiskArb *)self operationError];
-      v17 = [DIError failWithInError:operationError2 outError:error];
+      v20 = [DIError failWithInError:operationError2 outError:error];
     }
 
     else
     {
-      v18 = *__error();
-      if (DIForwardLogs())
+      v21 = *__error();
+      v22 = DIForwardLogs();
+      if (v22)
       {
-        v19 = getDIOSLog();
-        os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
-        *buf = 68158210;
-        v27 = 36;
-        v28 = 2080;
-        v29 = "[DIDiskArb ejectWithBSDName:error:]";
-        v30 = 2112;
-        v31 = nameCopy;
-        v20 = _os_log_send_and_compose_impl();
-
-        if (v20)
+        v30 = 0;
+        v24 = getDIOSLog(v22, v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          fprintf(*MEMORY[0x277D85DF8], "%s\n", v20);
-          free(v20);
+          v25 = 3;
+        }
+
+        else
+        {
+          v25 = 2;
+        }
+
+        *buf = 68158210;
+        v32 = 36;
+        v33 = 2080;
+        v34 = "[DIDiskArb ejectWithBSDName:error:]";
+        v35 = 2112;
+        v36 = nameCopy;
+        LODWORD(v29) = 28;
+        v26 = _os_log_send_and_compose_impl(v25, &v30, 0, 0, &dword_248DE0000, v24, 0, "%.*s: %@ ejected successfully", buf, v29);
+
+        if (v26)
+        {
+          fprintf(*MEMORY[0x277D85DF8], "%s\n", v26);
+          free(v26);
         }
       }
 
       else
       {
-        v21 = getDIOSLog();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v27 = getDIOSLog(v22, v23);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68158210;
-          v27 = 36;
-          v28 = 2080;
-          v29 = "[DIDiskArb ejectWithBSDName:error:]";
-          v30 = 2112;
-          v31 = nameCopy;
-          _os_log_impl(&dword_248DE0000, v21, OS_LOG_TYPE_DEFAULT, "%.*s: %@ ejected successfully", buf, 0x1Cu);
+          v32 = 36;
+          v33 = 2080;
+          v34 = "[DIDiskArb ejectWithBSDName:error:]";
+          v35 = 2112;
+          v36 = nameCopy;
+          _os_log_impl(&dword_248DE0000, v27, OS_LOG_TYPE_DEFAULT, "%.*s: %@ ejected successfully", buf, 0x1Cu);
         }
       }
 
-      *__error() = v18;
-      v17 = 1;
+      *__error() = v21;
+      v20 = 1;
     }
   }
 
   else
   {
-    v17 = [DIError failWithEnumValue:156 verboseInfo:@"Failed to create DADisk during eject" error:error];
+    v20 = [DIError failWithEnumValue:156 verboseInfo:@"Failed to create DADisk during eject" error:error];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v20;
 }
 
 - (BOOL)mountWithDeviceName:(id)name args:(id)args filesystem:(id)filesystem mountURL:(id)l error:(id *)error
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   argsCopy = args;
   lCopy = l;
@@ -702,45 +795,45 @@ LABEL_25:
 
   [(DIDiskArb *)self setCallbackReached:0];
   [(DIDiskArb *)self setOperationError:0];
-  v73 = 0u;
+  v78 = 0u;
+  v79 = 0u;
+  v76 = 0u;
+  v77 = 0u;
   v74 = 0u;
-  v71 = 0u;
+  v75 = 0u;
   v72 = 0u;
-  v69 = 0u;
+  v73 = 0u;
   v70 = 0u;
-  v67 = 0u;
+  v71 = 0u;
   v68 = 0u;
-  v65 = 0u;
+  v69 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
-  v61 = 0u;
+  v65 = 0u;
   v62 = 0u;
-  v59 = 0u;
+  v63 = 0u;
   v60 = 0u;
-  v57 = 0u;
+  v61 = 0u;
   v58 = 0u;
-  v55 = 0u;
+  v59 = 0u;
   v56 = 0u;
-  v53 = 0u;
+  v57 = 0u;
   v54 = 0u;
-  v51 = 0u;
+  v55 = 0u;
   v52 = 0u;
-  v49 = 0u;
+  v53 = 0u;
   v50 = 0u;
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  v51 = 0u;
   *arguments = 0u;
-  v44 = 0u;
+  v49 = 0u;
   if ([argsCopy count] > 0x3F)
   {
     v15 = @"Too many mount arguments";
     v16 = 154;
 LABEL_5:
     v17 = [DIError failWithEnumValue:v16 verboseInfo:v15 error:error];
-    goto LABEL_31;
+    goto LABEL_37;
   }
 
   if ([argsCopy count])
@@ -780,41 +873,54 @@ LABEL_5:
   {
     if (v25)
     {
-      v36 = lCopy;
-      v26 = getDIOSLog();
-      os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
-      [(DIDiskArb *)self operationError];
-      *buf = 68158210;
-      *&buf[4] = 64;
-      v39 = 2080;
-      v40 = "[DIDiskArb mountWithDeviceName:args:filesystem:mountURL:error:]";
-      v42 = v41 = 2112;
-      v27 = _os_log_send_and_compose_impl();
-
-      if (v27)
+      v40 = v24;
+      v39 = lCopy;
+      v42 = 0;
+      v27 = getDIOSLog(v25, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v27);
-        free(v27);
+        v28 = 3;
       }
 
-      lCopy = v36;
+      else
+      {
+        v28 = 2;
+      }
+
+      operationError2 = [(DIDiskArb *)self operationError];
+      *buf = 68158210;
+      *&buf[4] = 64;
+      v44 = 2080;
+      v45 = "[DIDiskArb mountWithDeviceName:args:filesystem:mountURL:error:]";
+      v46 = 2112;
+      v47 = operationError2;
+      v30 = _os_log_send_and_compose_impl(v28, &v42, 0, 0, &dword_248DE0000, v27, 16, "%.*s: Mount error: %@", buf, 28);
+
+      if (v30)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v30);
+        free(v30);
+      }
+
+      lCopy = v39;
+      v24 = v40;
     }
 
     else
     {
-      v31 = getDIOSLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v35 = getDIOSLog(v25, v26);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         [(DIDiskArb *)self operationError];
-        v32 = v37 = v24;
+        v36 = v41 = v24;
         *buf = 0x4004100302;
-        v39 = 2080;
-        v40 = "[DIDiskArb mountWithDeviceName:args:filesystem:mountURL:error:]";
-        v41 = 2112;
-        v42 = v32;
-        _os_log_impl(&dword_248DE0000, v31, OS_LOG_TYPE_ERROR, "%.*s: Mount error: %@", buf, 0x1Cu);
+        v44 = 2080;
+        v45 = "[DIDiskArb mountWithDeviceName:args:filesystem:mountURL:error:]";
+        v46 = 2112;
+        v47 = v36;
+        _os_log_impl(&dword_248DE0000, v35, OS_LOG_TYPE_ERROR, "%.*s: Mount error: %@", buf, 0x1Cu);
 
-        v24 = v37;
+        v24 = v41;
       }
     }
 
@@ -829,106 +935,124 @@ LABEL_5:
   {
     if (v25)
     {
-      v28 = v24;
-      v29 = getDIOSLog();
-      os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
-      *buf = 68158210;
-      *&buf[4] = 64;
-      v39 = 2080;
-      v40 = "[DIDiskArb mountWithDeviceName:args:filesystem:mountURL:error:]";
-      v41 = 2114;
-      v42 = nameCopy;
-      v30 = _os_log_send_and_compose_impl();
-
-      if (v30)
+      v31 = v24;
+      v42 = 0;
+      v32 = getDIOSLog(v25, v26);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        fprintf(*MEMORY[0x277D85DF8], "%s\n", v30);
-        free(v30);
+        v33 = 3;
       }
 
-      v24 = v28;
+      else
+      {
+        v33 = 2;
+      }
+
+      *buf = 68158210;
+      *&buf[4] = 64;
+      v44 = 2080;
+      v45 = "[DIDiskArb mountWithDeviceName:args:filesystem:mountURL:error:]";
+      v46 = 2114;
+      v47 = nameCopy;
+      v34 = _os_log_send_and_compose_impl(v33, &v42, 0, 0, &dword_248DE0000, v32, 0, "%.*s: %{public}@ mounted successfully", buf, 28);
+
+      if (v34)
+      {
+        fprintf(*MEMORY[0x277D85DF8], "%s\n", v34);
+        free(v34);
+      }
+
+      v24 = v31;
     }
 
     else
     {
-      v33 = getDIOSLog();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v37 = getDIOSLog(v25, v26);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 68158210;
         *&buf[4] = 64;
-        v39 = 2080;
-        v40 = "[DIDiskArb mountWithDeviceName:args:filesystem:mountURL:error:]";
-        v41 = 2114;
-        v42 = nameCopy;
-        _os_log_impl(&dword_248DE0000, v33, OS_LOG_TYPE_DEFAULT, "%.*s: %{public}@ mounted successfully", buf, 0x1Cu);
+        v44 = 2080;
+        v45 = "[DIDiskArb mountWithDeviceName:args:filesystem:mountURL:error:]";
+        v46 = 2114;
+        v47 = nameCopy;
+        _os_log_impl(&dword_248DE0000, v37, OS_LOG_TYPE_DEFAULT, "%.*s: %{public}@ mounted successfully", buf, 0x1Cu);
       }
     }
 
     *__error() = v24;
   }
 
-LABEL_31:
-  v34 = *MEMORY[0x277D85DE8];
+LABEL_37:
   return v17;
 }
 
 - (BOOL)unmountWithMountPoint:(id)point error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   pointCopy = point;
   v7 = *__error();
-  if (DIForwardLogs())
+  v8 = DIForwardLogs();
+  if (v8)
   {
-    v8 = getDIOSLog();
-    os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-    *buf = 68158211;
-    v28 = 41;
-    v29 = 2080;
-    v30 = "[DIDiskArb unmountWithMountPoint:error:]";
-    v31 = 2113;
-    v32 = pointCopy;
-    LODWORD(v26) = 28;
-    v25 = buf;
-    v9 = _os_log_send_and_compose_impl();
-
-    if (v9)
+    v31 = 0;
+    v10 = getDIOSLog(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      fprintf(*MEMORY[0x277D85DF8], "%s\n", v9);
-      free(v9);
+      v11 = 3;
+    }
+
+    else
+    {
+      v11 = 2;
+    }
+
+    *buf = 68158211;
+    v33 = 41;
+    v34 = 2080;
+    v35 = "[DIDiskArb unmountWithMountPoint:error:]";
+    v36 = 2113;
+    v37 = pointCopy;
+    v12 = _os_log_send_and_compose_impl(v11, &v31, 0, 0, &dword_248DE0000, v10, 0, "%.*s: Unmounting %{private}@", buf, 28);
+
+    if (v12)
+    {
+      fprintf(*MEMORY[0x277D85DF8], "%s\n", v12);
+      free(v12);
     }
   }
 
   else
   {
-    v10 = getDIOSLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = getDIOSLog(v8, v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68158211;
-      v28 = 41;
-      v29 = 2080;
-      v30 = "[DIDiskArb unmountWithMountPoint:error:]";
-      v31 = 2113;
-      v32 = pointCopy;
-      _os_log_impl(&dword_248DE0000, v10, OS_LOG_TYPE_DEFAULT, "%.*s: Unmounting %{private}@", buf, 0x1Cu);
+      v33 = 41;
+      v34 = 2080;
+      v35 = "[DIDiskArb unmountWithMountPoint:error:]";
+      v36 = 2113;
+      v37 = pointCopy;
+      _os_log_impl(&dword_248DE0000, v13, OS_LOG_TYPE_DEFAULT, "%.*s: Unmounting %{private}@", buf, 0x1Cu);
     }
   }
 
   *__error() = v7;
-  v11 = [MEMORY[0x277CBEBC0] fileURLWithPath:pointCopy];
-  v12 = DADiskCreateFromVolumePath(0, [(DIDiskArb *)self daSession], v11);
-  if (v12)
+  v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:pointCopy];
+  v15 = DADiskCreateFromVolumePath(0, [(DIDiskArb *)self daSession], v14);
+  if (v15)
   {
     [(DIDiskArb *)self setCallbackReached:0];
     [(DIDiskArb *)self setOperationError:0];
-    DADiskUnmount(v12, 0, _daOperationCallback, self);
+    DADiskUnmount(v15, 0, _daOperationCallback, self);
     currentRunLoop = [MEMORY[0x277CBEB88] currentRunLoop];
     if (![(DIDiskArb *)self callbackReached])
     {
-      v14 = *MEMORY[0x277CBE640];
+      v17 = *MEMORY[0x277CBE640];
       do
       {
-        v15 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:{1.0, v25, v26}];
-        [currentRunLoop runMode:v14 beforeDate:v15];
+        v18 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:1.0];
+        [currentRunLoop runMode:v17 beforeDate:v18];
       }
 
       while (![(DIDiskArb *)self callbackReached]);
@@ -939,58 +1063,69 @@ LABEL_31:
     if (operationError)
     {
       operationError2 = [(DIDiskArb *)self operationError];
-      v18 = [DIError failWithInError:operationError2 outError:error];
+      v21 = [DIError failWithInError:operationError2 outError:error];
     }
 
     else
     {
-      v19 = *__error();
-      if (DIForwardLogs())
+      v22 = *__error();
+      v23 = DIForwardLogs();
+      if (v23)
       {
-        v20 = getDIOSLog();
-        os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
-        *buf = 68158211;
-        v28 = 41;
-        v29 = 2080;
-        v30 = "[DIDiskArb unmountWithMountPoint:error:]";
-        v31 = 2113;
-        v32 = pointCopy;
-        v21 = _os_log_send_and_compose_impl();
-
-        if (v21)
+        v31 = 0;
+        v25 = getDIOSLog(v23, v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          fprintf(*MEMORY[0x277D85DF8], "%s\n", v21);
-          free(v21);
+          v26 = 3;
+        }
+
+        else
+        {
+          v26 = 2;
+        }
+
+        *buf = 68158211;
+        v33 = 41;
+        v34 = 2080;
+        v35 = "[DIDiskArb unmountWithMountPoint:error:]";
+        v36 = 2113;
+        v37 = pointCopy;
+        LODWORD(v30) = 28;
+        v27 = _os_log_send_and_compose_impl(v26, &v31, 0, 0, &dword_248DE0000, v25, 0, "%.*s: %{private}@ unmounted successfully", buf, v30);
+
+        if (v27)
+        {
+          fprintf(*MEMORY[0x277D85DF8], "%s\n", v27);
+          free(v27);
         }
       }
 
       else
       {
-        v22 = getDIOSLog();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v28 = getDIOSLog(v23, v24);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 68158211;
-          v28 = 41;
-          v29 = 2080;
-          v30 = "[DIDiskArb unmountWithMountPoint:error:]";
-          v31 = 2113;
-          v32 = pointCopy;
-          _os_log_impl(&dword_248DE0000, v22, OS_LOG_TYPE_DEFAULT, "%.*s: %{private}@ unmounted successfully", buf, 0x1Cu);
+          v33 = 41;
+          v34 = 2080;
+          v35 = "[DIDiskArb unmountWithMountPoint:error:]";
+          v36 = 2113;
+          v37 = pointCopy;
+          _os_log_impl(&dword_248DE0000, v28, OS_LOG_TYPE_DEFAULT, "%.*s: %{private}@ unmounted successfully", buf, 0x1Cu);
         }
       }
 
-      *__error() = v19;
-      v18 = 1;
+      *__error() = v22;
+      v21 = 1;
     }
   }
 
   else
   {
-    v18 = [DIError failWithEnumValue:156 verboseInfo:@"Failed to create DADisk during unmount" error:error];
+    v21 = [DIError failWithEnumValue:156 verboseInfo:@"Failed to create DADisk during unmount" error:error];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v21;
 }
 
 - (id)copyDescriptionWithBSDName:(id)name

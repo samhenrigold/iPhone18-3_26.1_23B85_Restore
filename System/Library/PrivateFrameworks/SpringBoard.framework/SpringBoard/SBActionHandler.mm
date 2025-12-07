@@ -708,195 +708,196 @@ void __51__SBActionHandler_handleActions_origin_withResult___block_invoke_9(uint
 
 - (void)_reportAndKillInsecureProcesses:(id)processes
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   processesCopy = processes;
   secureModeViolations = [processesCopy secureModeViolations];
-  v6 = SBLogWorkspace();
+  v6 = SBLogWorkspace(secureModeViolations);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v71 = processesCopy;
+    v74 = processesCopy;
     _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Received insecure drawing action %@", buf, 0xCu);
   }
 
   rootSettings = [MEMORY[0x277D02C20] rootSettings];
-  if ([rootSettings killsInsecureDrawingApps])
+  killsInsecureDrawingApps = [rootSettings killsInsecureDrawingApps];
+  if (killsInsecureDrawingApps)
   {
     selfCopy = self;
-    v42 = rootSettings;
-    v43 = processesCopy;
-    v41 = getpid();
-    v8 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v45 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v64 = 0u;
-    v65 = 0u;
-    v66 = 0u;
+    v45 = rootSettings;
+    v46 = processesCopy;
+    v44 = getpid();
+    v9 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v48 = objc_alloc_init(MEMORY[0x277CBEB58]);
     v67 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     obj = secureModeViolations;
-    v9 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
-    if (v9)
+    v10 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v65;
+      v11 = v10;
+      v12 = *v68;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v65 != v11)
+          if (*v68 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v64 + 1) + 8 * i);
-          layerNamesByContext = [v13 layerNamesByContext];
-          v15 = [layerNamesByContext count];
+          v14 = *(*(&v67 + 1) + 8 * i);
+          layerNamesByContext = [v14 layerNamesByContext];
+          v16 = [layerNamesByContext count];
 
-          if (v15)
+          if (v16)
           {
-            layerNamesByContext2 = [v13 layerNamesByContext];
-            v60[0] = MEMORY[0x277D85DD0];
-            v60[1] = 3221225472;
-            v60[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke;
-            v60[3] = &unk_2783B8C38;
-            v61 = v8;
-            v62 = v45;
-            v63 = v13;
-            [layerNamesByContext2 enumerateKeysAndObjectsUsingBlock:v60];
+            layerNamesByContext2 = [v14 layerNamesByContext];
+            v63[0] = MEMORY[0x277D85DD0];
+            v63[1] = 3221225472;
+            v63[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke;
+            v63[3] = &unk_2783B8C38;
+            v64 = v9;
+            v65 = v48;
+            v66 = v14;
+            [layerNamesByContext2 enumerateKeysAndObjectsUsingBlock:v63];
 
-            processId = v61;
+            processId = v64;
           }
 
           else
           {
-            processId = [v13 processId];
-            [v45 addObject:processId];
+            processId = [v14 processId];
+            [v48 addObject:processId];
           }
         }
 
-        v10 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+        v11 = [obj countByEnumeratingWithState:&v67 objects:v72 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
-    if ([v8 count])
+    if ([v9 count])
     {
-      v58 = 0u;
+      v61 = 0u;
+      v62 = 0u;
       v59 = 0u;
-      v56 = 0u;
-      v57 = 0u;
-      v18 = v8;
-      v19 = [v18 countByEnumeratingWithState:&v56 objects:v68 count:16];
-      if (v19)
+      v60 = 0u;
+      v19 = v9;
+      v20 = [v19 countByEnumeratingWithState:&v59 objects:v71 count:16];
+      if (v20)
       {
-        v20 = v19;
-        v21 = *v57;
+        v21 = v20;
+        v22 = *v60;
         do
         {
-          for (j = 0; j != v20; ++j)
+          for (j = 0; j != v21; ++j)
           {
-            if (*v57 != v21)
+            if (*v60 != v22)
             {
-              objc_enumerationMutation(v18);
+              objc_enumerationMutation(v19);
             }
 
-            v23 = *(*(&v56 + 1) + 8 * j);
-            v51 = MEMORY[0x277D85DD0];
-            v52 = 3221225472;
-            v53 = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_2;
-            v54 = &unk_2783AC3E8;
-            v55 = v23;
+            v24 = *(*(&v59 + 1) + 8 * j);
+            v54 = MEMORY[0x277D85DD0];
+            v55 = 3221225472;
+            v56 = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_2;
+            v57 = &unk_2783AC3E8;
+            v58 = v24;
             AnalyticsSendEventLazy();
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v56 objects:v68 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v59 objects:v71 count:16];
         }
 
-        while (v20);
+        while (v21);
       }
     }
 
-    if (![v45 count])
+    if (![v48 count])
     {
-      v24 = +[SBDefaults localDefaults];
-      securityDefaults = [v24 securityDefaults];
+      v25 = +[SBDefaults localDefaults];
+      securityDefaults = [v25 securityDefaults];
       enableLayerBasedViewSecurity = [securityDefaults enableLayerBasedViewSecurity];
 
       if ((enableLayerBasedViewSecurity & 1) == 0)
       {
-        v32 = SBLogWorkspace();
-        rootSettings = v42;
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v34 = SBLogWorkspace(v28);
+        rootSettings = v45;
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_21ED4E000, v32, OS_LOG_TYPE_DEFAULT, "Disregarding insecure drawing action because only layer-based violations were reported.", buf, 2u);
+          _os_log_impl(&dword_21ED4E000, v34, OS_LOG_TYPE_DEFAULT, "Disregarding insecure drawing action because only layer-based violations were reported.", buf, 2u);
         }
 
-        processesCopy = v43;
+        processesCopy = v46;
         goto LABEL_42;
       }
     }
 
-    v27 = +[SBDefaults localDefaults];
-    securityDefaults2 = [v27 securityDefaults];
+    v29 = +[SBDefaults localDefaults];
+    securityDefaults2 = [v29 securityDefaults];
     enableLayerBasedViewSecurity2 = [securityDefaults2 enableLayerBasedViewSecurity];
 
     if (enableLayerBasedViewSecurity2)
     {
-      v30 = MEMORY[0x277CBEB98];
-      v31 = [obj bs_map:&__block_literal_global_86_3];
-      v32 = [v30 setWithArray:v31];
+      v32 = MEMORY[0x277CBEB98];
+      v33 = [obj bs_map:&__block_literal_global_86_3];
+      v34 = [v32 setWithArray:v33];
     }
 
     else
     {
-      v32 = v45;
+      v34 = v48;
     }
 
-    rootSettings = v42;
-    v33 = MEMORY[0x277CBEB98];
-    v34 = [MEMORY[0x277CCABB0] numberWithInt:v41];
-    v35 = [v33 setWithObject:v34];
-    v36 = [v32 isEqualToSet:v35];
+    rootSettings = v45;
+    v35 = MEMORY[0x277CBEB98];
+    v36 = [MEMORY[0x277CCABB0] numberWithInt:v44];
+    v37 = [v35 setWithObject:v36];
+    v38 = [v34 isEqualToSet:v37];
 
-    if (v36)
+    if (v38)
     {
-      v37 = SBLogWorkspace();
-      processesCopy = v43;
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v40 = SBLogWorkspace(v39);
+      processesCopy = v46;
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v38 = "Disregarding insecure drawing action because only SpringBoard violations were reported.";
+        v41 = "Disregarding insecure drawing action because only SpringBoard violations were reported.";
 LABEL_40:
-        _os_log_impl(&dword_21ED4E000, v37, OS_LOG_TYPE_DEFAULT, v38, buf, 2u);
+        _os_log_impl(&dword_21ED4E000, v40, OS_LOG_TYPE_DEFAULT, v41, buf, 2u);
       }
     }
 
     else
     {
-      processesCopy = v43;
-      if ([v32 count])
+      processesCopy = v46;
+      if ([v34 count])
       {
-        v46[0] = MEMORY[0x277D85DD0];
-        v46[1] = 3221225472;
-        v46[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_88;
-        v46[3] = &unk_2783B8CA8;
-        v47 = obj;
-        v50 = v41;
-        v48 = v32;
-        v49 = v40;
-        [v40 _captureRadarAttachmentsWithCompletion:v46];
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_88;
+        v49[3] = &unk_2783B8CA8;
+        v50 = obj;
+        v53 = v44;
+        v51 = v34;
+        v52 = v43;
+        [v43 _captureRadarAttachmentsWithCompletion:v49];
 
-        v37 = v47;
+        v40 = v50;
       }
 
       else
       {
-        v37 = SBLogWorkspace();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v40 = SBLogWorkspace(0);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          v38 = "Disregarding insecure drawing action because no processes were selected for reporting.";
+          v41 = "Disregarding insecure drawing action because no processes were selected for reporting.";
           goto LABEL_40;
         }
       }
@@ -906,11 +907,11 @@ LABEL_42:
     goto LABEL_43;
   }
 
-  v8 = SBLogWorkspace();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SBLogWorkspace(killsInsecureDrawingApps);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Disregarding insecure drawing actions per configuration settings.", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEFAULT, "Disregarding insecure drawing actions per configuration settings.", buf, 2u);
   }
 
 LABEL_43:
@@ -945,300 +946,302 @@ id __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_2(uint64
 
 void __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_88(uint64_t a1, void *a2, int a3)
 {
-  v114 = *MEMORY[0x277D85DE8];
+  v117 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v6 = v5;
   if (a3)
   {
-    v6 = SBLogWorkspace();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogWorkspace(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v7 = "Disregarding insecure drawing actions because attachments are still being gathered for a previous report.";
+      v8 = "Disregarding insecure drawing actions because attachments are still being gathered for a previous report.";
 LABEL_64:
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, v7, buf, 2u);
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
     }
   }
 
   else
   {
-    v8 = +[SBLockStateAggregator sharedInstance];
-    v9 = [v8 hasAnyLockState];
+    v9 = +[SBLockStateAggregator sharedInstance];
+    v10 = [v9 hasAnyLockState];
 
-    if (v9)
+    if (v10)
     {
-      v6 = [MEMORY[0x277D0AAC0] sharedInstance];
-      v99 = 0u;
-      v100 = 0u;
-      v101 = 0u;
+      v7 = [MEMORY[0x277D0AAC0] sharedInstance];
       v102 = 0u;
+      v103 = 0u;
+      v104 = 0u;
+      v105 = 0u;
       obj = *(a1 + 32);
-      v74 = [obj countByEnumeratingWithState:&v99 objects:v113 count:16];
-      if (v74)
+      v77 = [obj countByEnumeratingWithState:&v102 objects:v116 count:16];
+      if (v77)
       {
-        v66 = v6;
-        v67 = 0;
-        v61 = v5;
-        v10 = 0;
-        v73 = *v100;
-        v62 = 0;
-        v71 = a1;
+        v69 = v7;
+        v70 = 0;
+        v64 = v6;
+        v12 = 0;
+        v76 = *v103;
+        v65 = 0;
+        v74 = a1;
         do
         {
-          v11 = 0;
+          v13 = 0;
           do
           {
-            if (*v100 != v73)
+            if (*v103 != v76)
             {
               objc_enumerationMutation(obj);
             }
 
-            v75 = v11;
-            v12 = *(*(&v99 + 1) + 8 * v11);
-            v13 = [v12 processId];
-            v14 = [v13 intValue];
+            v78 = v13;
+            v14 = *(*(&v102 + 1) + 8 * v13);
+            v15 = [v14 processId];
+            v16 = [v15 intValue];
 
-            if (v14 >= 1 && v14 != *(a1 + 56))
+            if (v16 >= 1 && v16 != *(a1 + 56))
             {
-              v15 = *(a1 + 40);
-              v16 = [MEMORY[0x277CCABB0] numberWithInt:v14];
-              LODWORD(v15) = [v15 containsObject:v16];
+              v17 = *(a1 + 40);
+              v18 = [MEMORY[0x277CCABB0] numberWithInt:v16];
+              LODWORD(v17) = objc_msgSend_containsObject_(v17);
 
-              if (v15)
+              if (v17)
               {
-                v17 = [v66 processForPID:v14];
-                a1 = v71;
-                if (v17)
+                v19 = [v69 processForPID:v16];
+                a1 = v74;
+                if (v19)
                 {
-                  v18 = [MEMORY[0x277D0AAD8] sharedInstance];
-                  v97[0] = MEMORY[0x277D85DD0];
-                  v97[1] = 3221225472;
-                  v97[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_91;
-                  v97[3] = &unk_2783B1488;
-                  v69 = v17;
-                  v19 = v17;
-                  v98 = v19;
-                  v70 = [v18 scenesPassingTest:v97];
-                  v95[0] = MEMORY[0x277D85DD0];
-                  v95[1] = 3221225472;
-                  v95[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_2_93;
-                  v95[3] = &unk_2783B1488;
-                  v96 = v19;
-                  v68 = v18;
-                  v20 = v18;
-                  v21 = v96;
-                  v22 = [v20 scenesPassingTest:v95];
-                  v23 = [v21 bundleIdentifier];
-                  v24 = SBLogWorkspace();
-                  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+                  v20 = [MEMORY[0x277D0AAD8] sharedInstance];
+                  v100[0] = MEMORY[0x277D85DD0];
+                  v100[1] = 3221225472;
+                  v100[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_91;
+                  v100[3] = &unk_2783B1488;
+                  v72 = v19;
+                  v21 = v19;
+                  v101 = v21;
+                  v73 = [v20 scenesPassingTest:v100];
+                  v98[0] = MEMORY[0x277D85DD0];
+                  v98[1] = 3221225472;
+                  v98[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_2_93;
+                  v98[3] = &unk_2783B1488;
+                  v99 = v21;
+                  v71 = v20;
+                  v22 = v20;
+                  v23 = v99;
+                  v24 = [v22 scenesPassingTest:v98];
+                  v25 = [v23 bundleIdentifier];
+                  v26 = SBLogWorkspace(v25);
+                  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
                   {
-                    v58 = [v21 state];
+                    v61 = [v23 state];
                     *buf = 67109890;
-                    v106 = v14;
-                    v107 = 2114;
-                    v108 = v23;
-                    v109 = 2112;
-                    v110 = v58;
-                    v111 = 2114;
-                    v112 = v22;
-                    _os_log_error_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_ERROR, "Killing process with pid %i (bundleID: %{public}@, state: %@, foreground scenes: %{public}@) for view security", buf, 0x26u);
+                    v109 = v16;
+                    v110 = 2114;
+                    v111 = v25;
+                    v112 = 2112;
+                    v113 = v61;
+                    v114 = 2114;
+                    v115 = v24;
+                    _os_log_error_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_ERROR, "Killing process with pid %i (bundleID: %{public}@, state: %@, foreground scenes: %{public}@) for view security", buf, 0x26u);
 
-                    a1 = v71;
+                    a1 = v74;
                   }
 
-                  if (!v67)
+                  if (!v70)
                   {
-                    v25 = [v21 handle];
-                    v26 = [v25 name];
-                    v67 = [v26 copy];
+                    v27 = [v23 handle];
+                    v28 = [v27 name];
+                    v70 = [v28 copy];
 
-                    v27 = objc_alloc_init(MEMORY[0x277CBEB58]);
-                    v28 = [v12 layerNamesByContext];
-                    v93[0] = MEMORY[0x277D85DD0];
-                    v93[1] = 3221225472;
-                    v93[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_94;
-                    v93[3] = &unk_2783B8C80;
-                    v29 = v27;
-                    v94 = v29;
-                    [v28 enumerateKeysAndObjectsUsingBlock:v93];
+                    v29 = objc_alloc_init(MEMORY[0x277CBEB58]);
+                    v30 = [v14 layerNamesByContext];
+                    v96[0] = MEMORY[0x277D85DD0];
+                    v96[1] = 3221225472;
+                    v96[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_94;
+                    v96[3] = &unk_2783B8C80;
+                    v31 = v29;
+                    v97 = v31;
+                    [v30 enumerateKeysAndObjectsUsingBlock:v96];
 
-                    if ([v29 count])
+                    if ([v31 count])
                     {
-                      v30 = [v29 copy];
+                      v32 = [v31 copy];
 
-                      v62 = v30;
+                      v65 = v32;
                     }
 
-                    a1 = v71;
+                    a1 = v74;
                   }
 
-                  if ([v21 isApplicationProcess])
+                  if ([v23 isApplicationProcess])
                   {
-                    v63 = v21;
-                    v64 = v23;
-                    v65 = v22;
-                    v31 = +[SBLockStateAggregator sharedInstance];
-                    v32 = [v31 lockState];
+                    v66 = v23;
+                    v67 = v25;
+                    v68 = v24;
+                    v33 = +[SBLockStateAggregator sharedInstance];
+                    v34 = [v33 lockState];
 
-                    v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"Process detected doing insecure drawing while in secure mode | isUILocked:%d", v32 & 1];
-                    v89 = 0u;
-                    v90 = 0u;
-                    v91 = 0u;
+                    v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"Process detected doing insecure drawing while in secure mode | isUILocked:%d", v34 & 1];
                     v92 = 0u;
-                    v76 = v70;
-                    v78 = [v76 countByEnumeratingWithState:&v89 objects:v104 count:16];
-                    if (v78)
+                    v93 = 0u;
+                    v94 = 0u;
+                    v95 = 0u;
+                    v79 = v73;
+                    v81 = [v79 countByEnumeratingWithState:&v92 objects:v107 count:16];
+                    if (v81)
                     {
-                      v77 = *v90;
+                      v80 = *v93;
                       do
                       {
-                        v34 = 0;
+                        v36 = 0;
                         do
                         {
-                          if (*v90 != v77)
+                          if (*v93 != v80)
                           {
-                            objc_enumerationMutation(v76);
+                            objc_enumerationMutation(v79);
                           }
 
-                          v35 = *(*(&v89 + 1) + 8 * v34);
-                          v36 = [v35 settings];
-                          v37 = [v35 identifier];
-                          v38 = [v33 stringByAppendingFormat:@" \n Scene %@ isOccluded:%d", v37, objc_msgSend(v36, "isOccluded")];
+                          v37 = *(*(&v92 + 1) + 8 * v36);
+                          v38 = [v37 settings];
+                          v39 = [v37 identifier];
+                          v40 = [v35 stringByAppendingFormat:@" \n Scene %@ isOccluded:%d", v39, objc_msgSend(v38, "isOccluded")];
 
                           objc_opt_class();
-                          v79 = v36;
-                          v80 = v34;
+                          v82 = v38;
+                          v83 = v36;
                           if (objc_opt_isKindOfClass())
                           {
-                            v33 = [v38 stringByAppendingFormat:@" isUnderlock:%d", objc_msgSend(v36, "underLock")];
+                            v35 = [v40 stringByAppendingFormat:@" isUnderlock:%d", objc_msgSend(v38, "underLock")];
                           }
 
                           else
                           {
-                            v33 = v38;
+                            v35 = v40;
                           }
 
-                          v87 = 0u;
+                          v90 = 0u;
+                          v91 = 0u;
                           v88 = 0u;
-                          v85 = 0u;
-                          v86 = 0u;
-                          v39 = [v12 contextIds];
-                          v40 = [v39 countByEnumeratingWithState:&v85 objects:v103 count:16];
-                          if (v40)
+                          v89 = 0u;
+                          v41 = [v14 contextIds];
+                          v42 = [v41 countByEnumeratingWithState:&v88 objects:v106 count:16];
+                          if (v42)
                           {
-                            v41 = v40;
-                            v42 = *v86;
+                            v43 = v42;
+                            v44 = *v89;
                             do
                             {
-                              for (i = 0; i != v41; ++i)
+                              for (i = 0; i != v43; ++i)
                               {
-                                if (*v86 != v42)
+                                if (*v89 != v44)
                                 {
-                                  objc_enumerationMutation(v39);
+                                  objc_enumerationMutation(v41);
                                 }
 
-                                v44 = *(*(&v85 + 1) + 8 * i);
-                                v45 = [v44 unsignedIntValue];
-                                v46 = [v33 stringByAppendingFormat:@" \n contextId:0x%x", v45];
+                                v46 = *(*(&v88 + 1) + 8 * i);
+                                v47 = [v46 unsignedIntValue];
+                                v48 = [v35 stringByAppendingFormat:@" \n contextId:0x%x", v47];
 
-                                v47 = [v35 layerManager];
-                                v48 = [v47 layerWithContextID:v45];
+                                v49 = [v37 layerManager];
+                                v50 = [v49 layerWithContextID:v47];
 
-                                if (v48)
+                                if (v50)
                                 {
-                                  [v48 level];
-                                  v50 = [v46 stringByAppendingFormat:@" level:%.1f", v49];
+                                  [v50 level];
+                                  v52 = [v48 stringByAppendingFormat:@" level:%.1f", v51];
 
-                                  v46 = v50;
+                                  v48 = v52;
                                 }
 
-                                v51 = [v12 layerNamesByContext];
-                                v52 = [v51 objectForKey:v44];
+                                v53 = [v14 layerNamesByContext];
+                                v54 = [v53 objectForKey:v46];
 
-                                if ([v52 count])
+                                if ([v54 count])
                                 {
-                                  v33 = [v46 stringByAppendingFormat:@"\n   violating layer names:%@", v52];
+                                  v35 = [v48 stringByAppendingFormat:@"\n   violating layer names:%@", v54];
                                 }
 
                                 else
                                 {
-                                  v33 = v46;
+                                  v35 = v48;
                                 }
                               }
 
-                              v41 = [v39 countByEnumeratingWithState:&v85 objects:v103 count:16];
+                              v43 = [v41 countByEnumeratingWithState:&v88 objects:v106 count:16];
                             }
 
-                            while (v41);
+                            while (v43);
                           }
 
-                          v34 = v80 + 1;
+                          v36 = v83 + 1;
                         }
 
-                        while (v80 + 1 != v78);
-                        v78 = [v76 countByEnumeratingWithState:&v89 objects:v104 count:16];
+                        while (v83 + 1 != v81);
+                        v81 = [v79 countByEnumeratingWithState:&v92 objects:v107 count:16];
                       }
 
-                      while (v78);
+                      while (v81);
                     }
 
-                    [v63 killForReason:8 andReport:1 withDescription:v33];
-                    a1 = v71;
-                    v53 = v69;
-                    v23 = v64;
-                    v22 = v65;
+                    [v66 killForReason:8 andReport:1 withDescription:v35];
+                    a1 = v74;
+                    v55 = v72;
+                    v25 = v67;
+                    v24 = v68;
                   }
 
                   else
                   {
-                    kill(v14, 9);
-                    v53 = v69;
+                    kill(v16, 9);
+                    v55 = v72;
                   }
 
-                  v10 = 1;
-                  v11 = v75;
-                  v55 = v68;
+                  v12 = 1;
+                  v13 = v78;
+                  v57 = v71;
                 }
 
                 else
                 {
-                  v54 = BSExecutablePathForPID();
-                  v55 = [v54 lastPathComponent];
+                  v56 = BSExecutablePathForPID();
+                  v57 = [v56 lastPathComponent];
 
-                  v56 = kill(v14, 9);
-                  v57 = SBLogWorkspace();
-                  if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+                  v58 = kill(v16, 9);
+                  v59 = v58;
+                  v60 = SBLogWorkspace(v58);
+                  if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
                   {
                     *buf = 67109634;
-                    v106 = v14;
-                    v107 = 2114;
-                    v108 = v55;
-                    v109 = 1024;
-                    LODWORD(v110) = v56;
-                    _os_log_error_impl(&dword_21ED4E000, v57, OS_LOG_TYPE_ERROR, "Killing unknown process with pid %i for view security: %{public}@ (result: %i)", buf, 0x18u);
+                    v109 = v16;
+                    v110 = 2114;
+                    v111 = v57;
+                    v112 = 1024;
+                    LODWORD(v113) = v59;
+                    _os_log_error_impl(&dword_21ED4E000, v60, OS_LOG_TYPE_ERROR, "Killing unknown process with pid %i for view security: %{public}@ (result: %i)", buf, 0x18u);
                   }
 
-                  if (v56 == 3)
+                  if (v59 == 3)
                   {
-                    a1 = v71;
-                    v53 = 0;
+                    a1 = v74;
+                    v55 = 0;
                   }
 
                   else
                   {
-                    a1 = v71;
-                    v53 = 0;
-                    if (v55)
+                    a1 = v74;
+                    v55 = 0;
+                    if (v57)
                     {
-                      if (v67)
+                      if (v70)
                       {
-                        v10 = 1;
+                        v12 = 1;
                       }
 
                       else
                       {
-                        v55 = v55;
-                        v10 = 1;
-                        v67 = v55;
+                        v57 = v57;
+                        v12 = 1;
+                        v70 = v57;
                       }
                     }
                   }
@@ -1247,59 +1250,59 @@ LABEL_64:
 
               else
               {
-                a1 = v71;
+                a1 = v74;
               }
             }
 
-            ++v11;
+            ++v13;
           }
 
-          while (v11 != v74);
-          v59 = [obj countByEnumeratingWithState:&v99 objects:v113 count:16];
-          v74 = v59;
+          while (v13 != v77);
+          v62 = [obj countByEnumeratingWithState:&v102 objects:v116 count:16];
+          v77 = v62;
         }
 
-        while (v59);
+        while (v62);
 
-        if ((v10 & 1) != 0 && [*(a1 + 48) _shouldPromptForSecureDrawViolations])
+        if ((v12 & 1) != 0 && [*(a1 + 48) _shouldPromptForSecureDrawViolations])
         {
-          v60 = dispatch_time(0, 1000000000);
+          v63 = dispatch_time(0, 1000000000);
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __51__SBActionHandler__reportAndKillInsecureProcesses___block_invoke_114;
           block[3] = &unk_2783A8ED8;
-          v67 = v67;
-          v82 = v67;
-          v62 = v62;
-          v83 = v62;
-          v5 = v61;
-          v84 = v61;
-          dispatch_after(v60, MEMORY[0x277D85CD0], block);
+          v70 = v70;
+          v85 = v70;
+          v65 = v65;
+          v86 = v65;
+          v6 = v64;
+          v87 = v64;
+          dispatch_after(v63, MEMORY[0x277D85CD0], block);
 
-          v6 = v66;
+          v7 = v69;
         }
 
         else
         {
-          v5 = v61;
-          v6 = v66;
+          v6 = v64;
+          v7 = v69;
         }
       }
 
       else
       {
-        v67 = 0;
-        v62 = 0;
+        v70 = 0;
+        v65 = 0;
       }
     }
 
     else
     {
-      v6 = SBLogWorkspace();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = SBLogWorkspace(v11);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v7 = "Disregarding insecure drawing actions because the UI is not locked.";
+        v8 = "Disregarding insecure drawing actions because the UI is not locked.";
         goto LABEL_64;
       }
     }

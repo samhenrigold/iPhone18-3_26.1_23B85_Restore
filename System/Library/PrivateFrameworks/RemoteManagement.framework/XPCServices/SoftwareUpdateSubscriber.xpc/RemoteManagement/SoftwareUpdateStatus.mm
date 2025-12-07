@@ -194,16 +194,15 @@ void __75__SoftwareUpdateStatus_queryForStatusWithKeyPaths_store_completionHandl
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v10 = 136315650;
-    v11 = "[SoftwareUpdateStatus queryForStatusWithKeyPaths:store:completionHandler:]_block_invoke";
-    v12 = 2114;
-    v13 = v8;
-    v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Reporting status %{public}@ %{public}@", &v10, 0x20u);
+    v9 = 136315650;
+    v10 = "[SoftwareUpdateStatus queryForStatusWithKeyPaths:store:completionHandler:]_block_invoke";
+    v11 = 2114;
+    v12 = v8;
+    v13 = 2114;
+    v14 = v5;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%s: Reporting status %{public}@ %{public}@", &v9, 0x20u);
   }
 
-  v9 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 

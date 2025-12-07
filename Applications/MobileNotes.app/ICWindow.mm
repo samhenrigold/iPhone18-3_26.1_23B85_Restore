@@ -90,7 +90,7 @@
     [(ICWindow *)self setDebugWindow:0];
   }
 
-  sub_1000073B4(&v8, &qword_1006BE7A0);
+  sub_1000073B4(&v8, &qword_1006BE7A0, &unk_100535E20);
 }
 
 - (void)showDebugStatusWindow:(id)window
@@ -100,7 +100,7 @@
     selfCopy = self;
     swift_unknownObjectRetain();
     _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
+    selfCopy2 = swift_unknownObjectRelease();
   }
 
   else
@@ -109,9 +109,9 @@
     selfCopy2 = self;
   }
 
-  sub_100234148();
+  sub_100234148(selfCopy2);
 
-  sub_1000073B4(v6, &qword_1006BE7A0);
+  sub_1000073B4(v6, &qword_1006BE7A0, &unk_100535E20);
 }
 
 - (void)toggleDebugStatusWindowVisible:(id)visible
@@ -131,7 +131,7 @@
   standardUserDefaults = [objc_opt_self() standardUserDefaults];
   [standardUserDefaults set_ICDebugWindowEnabled:{objc_msgSend(standardUserDefaults, "_ICDebugWindowEnabled") ^ 1}];
 
-  sub_1000073B4(v4, &qword_1006BE7A0);
+  sub_1000073B4(v4, &qword_1006BE7A0, &unk_100535E20);
 }
 
 @end

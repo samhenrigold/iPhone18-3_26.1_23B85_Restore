@@ -287,9 +287,9 @@ LABEL_21:
         {
           v28 = [CCToolKitToolContentItemClassDescriptor alloc];
           rawGroupId = CCPBReaderReadDataNoCopy();
-          v40 = 0;
-          v26 = [(CCItemMessage *)v28 initWithData:rawGroupId error:&v40];
-          v10 = v40;
+          v38 = 0;
+          v26 = [(CCItemMessage *)v28 initWithData:rawGroupId error:&v38];
+          v10 = v38;
           v27 = 40;
           goto LABEL_31;
         }
@@ -301,9 +301,9 @@ LABEL_21:
         {
           v29 = [CCToolKitToolTypeDefinitionVersion1EntityProperty alloc];
           rawGroupId = CCPBReaderReadDataNoCopy();
-          v42 = 0;
-          v26 = [(CCItemMessage *)v29 initWithData:rawGroupId error:&v42];
-          v10 = v42;
+          v40 = 0;
+          v26 = [(CCItemMessage *)v29 initWithData:rawGroupId error:&v40];
+          v10 = v40;
           v27 = 16;
           goto LABEL_31;
         }
@@ -312,9 +312,9 @@ LABEL_21:
         {
           v24 = [CCToolKitToolComparisonPredicateComparison alloc];
           rawGroupId = CCPBReaderReadDataNoCopy();
-          v41 = 0;
-          v26 = [(CCItemMessage *)v24 initWithData:rawGroupId error:&v41];
-          v10 = v41;
+          v39 = 0;
+          v26 = [(CCItemMessage *)v24 initWithData:rawGroupId error:&v39];
+          v10 = v39;
           v27 = 24;
 LABEL_31:
           v30 = *(&self->super.super.isa + v27);
@@ -332,7 +332,6 @@ LABEL_31:
 
       v32 = objc_opt_class();
       rawGroupId = NSStringFromClass(v32);
-      v33 = *&v6[*v9];
       v10 = CCSkipFieldErrorForMessage();
 LABEL_34:
 
@@ -356,23 +355,22 @@ LABEL_38:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v38 = 1;
+    v36 = 1;
     goto LABEL_42;
   }
 
 LABEL_39:
-  v34 = objc_opt_class();
-  v35 = NSStringFromClass(v34);
-  v36 = *&v6[*v9];
-  v37 = CCInvalidBufferErrorForMessage();
+  v33 = objc_opt_class();
+  v34 = NSStringFromClass(v33);
+  v35 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_40:
-  v38 = 0;
+  v36 = 0;
 LABEL_42:
 
-  return v38;
+  return v36;
 }
 
 - (CCToolKitToolComparisonPredicate)initWithProperty:(id)property comparison:(id)comparison rawGroupId:(id)id contentItemClass:(id)class error:(id *)error

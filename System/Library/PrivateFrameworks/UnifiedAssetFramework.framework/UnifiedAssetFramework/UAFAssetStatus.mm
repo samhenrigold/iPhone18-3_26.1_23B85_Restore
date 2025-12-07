@@ -10,7 +10,7 @@
 
 + (id)mockAssetStatus
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (!+[UAFCommonUtilities isInternalInstall])
   {
     v9 = 0;
@@ -30,11 +30,11 @@
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         v6 = [v4 description];
-        v13 = 136315394;
-        v14 = "+[UAFAssetStatus mockAssetStatus]";
-        v15 = 2112;
-        v16 = v6;
-        _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings Using mock download state: %@", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "+[UAFAssetStatus mockAssetStatus]";
+        v14 = 2112;
+        v15 = v6;
+        _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s #settings Using mock download state: %@", &v12, 0x16u);
       }
 
       if ([v4 isEqualToString:@"NotStarted"])
@@ -113,7 +113,6 @@ LABEL_21:
 LABEL_23:
 
 LABEL_24:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -337,8 +336,8 @@ LABEL_40:
       }
     }
 
-    dlerror();
-    abort_report_np();
+    v26 = dlerror();
+    abort_report_np("%s", v26);
     __break(1u);
   }
 
@@ -353,7 +352,6 @@ LABEL_40:
   v18 = 0;
 LABEL_41:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

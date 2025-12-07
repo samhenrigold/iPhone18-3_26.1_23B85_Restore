@@ -962,7 +962,7 @@ LABEL_5:
   }
 }
 
-uint64_t little2_scanDecl(uint64_t a1, unsigned __int8 *a2, uint64_t a3, void *a4)
+uint64_t little2_scanDecl(uint64_t a1, unsigned __int8 *a2, uint64_t a3, unsigned __int8 **a4)
 {
   if (a3 - a2 < 2)
   {
@@ -2401,7 +2401,7 @@ LABEL_18:
     }
 
     v16 = a2 + 2;
-    v38 = (a2 + 2);
+    v38 = a2 + 2;
     v17 = a3 - (a2 + 2);
     if (v17 < 2)
     {
@@ -2730,7 +2730,7 @@ LABEL_86:
   }
 
   a2 = v16 + 2;
-  v38 = (v16 + 2);
+  v38 = v16 + 2;
   if (a3 - (v16 + 2) < 2)
   {
     return 0xFFFFFFFFLL;
@@ -2767,7 +2767,7 @@ LABEL_161:
 
 LABEL_150:
     v16 = a2 + 2;
-    v38 = (a2 + 2);
+    v38 = a2 + 2;
     if (a3 - (a2 + 2) >= 2)
     {
       if (!a2[3])
@@ -3002,7 +3002,7 @@ uint64_t ascii_toUtf8(uint64_t a1, char **a2, unint64_t a3, unint64_t *a4, unint
   return 2;
 }
 
-uint64_t big2_prologTok(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unsigned __int8 **a4)
+uint64_t big2_prologTok(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, unsigned __int8 **a4)
 {
   if (a2 >= a3)
   {
@@ -3534,7 +3534,7 @@ LABEL_71:
   return result;
 }
 
-uint64_t big2_contentTok(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unsigned __int8 **a4)
+uint64_t big2_contentTok(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, unsigned __int8 **a4)
 {
   if (a2 >= a3)
   {
@@ -3577,7 +3577,7 @@ uint64_t big2_contentTok(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unsigne
   if (v9 - 216 < 4)
   {
 LABEL_14:
-    if ((a3 - a2) < 4)
+    if (a3 - a2 < 4)
     {
       return 4294967294;
     }
@@ -3596,7 +3596,7 @@ LABEL_14:
       {
         if (v12 == 6)
         {
-          if ((a3 - a2) < 3)
+          if (a3 - a2 < 3)
           {
             return 4294967294;
           }
@@ -3619,7 +3619,7 @@ LABEL_14:
           goto LABEL_17;
         case 9u:
           v21 = a2 + 2;
-          if ((a3 - (a2 + 2)) < 2)
+          if (a3 - (a2 + 2) < 2)
           {
             return 4294967293;
           }
@@ -3837,7 +3837,7 @@ LABEL_250:
                                     v24 = i - 2;
 LABEL_263:
                                     v20 = v24 + 2;
-                                    if ((a3 - (v24 + 2)) >= 2)
+                                    if (a3 - (v24 + 2) >= 2)
                                     {
                                       if (!*v20 && v24[3] == 62)
                                       {
@@ -4073,7 +4073,7 @@ LABEL_129:
                   v24 += v30;
                   v25 = a3 - v24;
                   v7 = 0xFFFFFFFFLL;
-                  if ((a3 - v24) <= 1)
+                  if (a3 - v24 <= 1)
                   {
                     return v7;
                   }
@@ -4125,7 +4125,7 @@ LABEL_110:
             if (v23 == 16)
             {
               v13 = a2 + 4;
-              if ((a3 - (a2 + 4)) < 2)
+              if (a3 - (a2 + 4) < 2)
               {
                 return 0xFFFFFFFFLL;
               }
@@ -4139,7 +4139,7 @@ LABEL_110:
               if (v38 == 20)
               {
                 v20 = a2 + 6;
-                if ((a3 - (a2 + 6)) >= 12)
+                if (a3 - (a2 + 6) >= 12)
                 {
                   for (j = 0; j != 6; ++j)
                   {
@@ -4257,7 +4257,7 @@ LABEL_222:
 
 LABEL_223:
                 v47 = a3 - a2;
-                if ((a3 - a2 - 6) < 2)
+                if (a3 - a2 - 6 < 2)
                 {
                   return 0xFFFFFFFFLL;
                 }
@@ -4300,7 +4300,7 @@ LABEL_223:
                         else if (v52 == 7)
                         {
 LABEL_276:
-                          if (v47 + v48 - 6 < 4)
+                          if ((v47 + v48 - 6) < 4)
                           {
                             return 4294967294;
                           }
@@ -4379,7 +4379,7 @@ LABEL_295:
 LABEL_239:
                   v48 -= 2;
                   v7 = 0xFFFFFFFFLL;
-                  if ((v47 + v48 - 6) <= 1)
+                  if (v47 + v48 - 6 <= 1)
                   {
                     return v7;
                   }
@@ -4438,7 +4438,7 @@ LABEL_17:
     if (v12 == 4)
     {
       v10 = a2 + 2;
-      if ((a3 - (a2 + 2)) >= 2)
+      if (a3 - (a2 + 2) >= 2)
       {
         if (*v10 || a2[3] != 93)
         {
@@ -4446,7 +4446,7 @@ LABEL_17:
         }
 
         v13 = a2 + 4;
-        if ((a3 - (a2 + 4)) >= 2)
+        if (a3 - (a2 + 4) >= 2)
         {
           if (!*v13 && a2[5] == 62)
           {
@@ -4460,7 +4460,7 @@ LABEL_17:
       return 4294967291;
     }
 
-    if (v12 == 5 && (a3 - a2) < 2)
+    if (v12 == 5 && a3 - a2 < 2)
     {
       return 4294967294;
     }
@@ -4469,8 +4469,8 @@ LABEL_17:
 LABEL_30:
   v10 = a2 + 2;
 LABEL_31:
-  v16 = a3 - v10;
-  if ((a3 - v10) >= 2)
+  v16 = (a3 - v10);
+  if (a3 - v10 >= 2)
   {
     while (1)
     {
@@ -4575,9 +4575,9 @@ LABEL_64:
       }
 
 LABEL_46:
-      v16 = a3 - v18;
+      v16 = (a3 - v18);
       v10 = v18;
-      if ((a3 - v18) <= 1)
+      if (a3 - v18 <= 1)
       {
         goto LABEL_63;
       }
@@ -4590,7 +4590,7 @@ LABEL_63:
   return 6;
 }
 
-uint64_t big2_cdataSectionTok(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unsigned __int8 **a4)
+uint64_t big2_cdataSectionTok(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, unsigned __int8 **a4)
 {
   if (a2 >= a3)
   {

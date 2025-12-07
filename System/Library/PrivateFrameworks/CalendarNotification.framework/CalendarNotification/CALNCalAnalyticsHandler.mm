@@ -32,32 +32,28 @@ uint64_t __41__CALNCalAnalyticsHandler_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)recordPostedNotification:(id)notification
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"notificationType";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"notificationType";
   sourceIdentifier = [notification sourceIdentifier];
-  v7[0] = sourceIdentifier;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = sourceIdentifier;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
   CalAnalyticsSendEvent();
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordNotificationResponse:(id)response
 {
-  v10[2] = *MEMORY[0x277D85DE8];
-  v9[0] = @"notificationType";
+  v9[2] = *MEMORY[0x277D85DE8];
+  v8[0] = @"notificationType";
   responseCopy = response;
   notificationRecord = [responseCopy notificationRecord];
   sourceIdentifier = [notificationRecord sourceIdentifier];
-  v9[1] = @"actionIdentifier";
-  v10[0] = sourceIdentifier;
+  v8[1] = @"actionIdentifier";
+  v9[0] = sourceIdentifier;
   actionIdentifier = [responseCopy actionIdentifier];
 
-  v10[1] = actionIdentifier;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = actionIdentifier;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   CalAnalyticsSendEvent();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

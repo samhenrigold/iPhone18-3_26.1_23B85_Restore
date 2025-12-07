@@ -352,40 +352,40 @@
 
 - (void)removeItemsWithCompletion:(id)completion
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = [MEMORY[0x1E695E0F0] mutableCopy];
   v6 = objc_alloc_init(LAKeyStoreBackendQueryBuilder);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   removeQueryForKeys = [(LAKeyStoreBackendQueryBuilder *)v6 removeQueryForKeys];
-  v24[0] = removeQueryForKeys;
+  v23[0] = removeQueryForKeys;
   removeQueryForGenericPasswords = [(LAKeyStoreBackendQueryBuilder *)v6 removeQueryForGenericPasswords];
-  v24[1] = removeQueryForGenericPasswords;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+  v23[1] = removeQueryForGenericPasswords;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
 
-  v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v21;
+    v12 = *v20;
     do
     {
       v13 = 0;
       do
       {
-        if (*v21 != v12)
+        if (*v20 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * v13);
+        v14 = *(*(&v19 + 1) + 8 * v13);
         backend = self->_backend;
-        v19 = 0;
-        [(LAKeyStoreBackend *)backend removeItemsWithQuery:v14 error:&v19];
-        v16 = v19;
+        v18 = 0;
+        [(LAKeyStoreBackend *)backend removeItemsWithQuery:v14 error:&v18];
+        v16 = v18;
         if (v16)
         {
           [v5 addObject:v16];
@@ -395,7 +395,7 @@
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v11);
@@ -411,8 +411,6 @@
   {
     completionCopy[2](completionCopy, 0);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encryptData:(id)data publicKeyHash:(id)hash completion:(id)completion

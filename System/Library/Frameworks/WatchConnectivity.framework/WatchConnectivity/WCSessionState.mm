@@ -1,12 +1,20 @@
 @interface WCSessionState
 - (NSURL)watchDirectoryURL;
 - (WCSessionState)initWithCoder:(id)coder;
+- (WCSessionState)initWithReachable:(BOOL)reachable iOSDeviceNeedsFirstUnlock:(BOOL)unlock activePairingID:(id)d standaloneApp:(BOOL)app companionAppInstalled:(BOOL)installed;
 - (WCSessionState)initWithReachable:(BOOL)reachable paired:(BOOL)paired appInstalled:(BOOL)installed complicationEnabled:(BOOL)enabled remainingComplicationUserInfoTransfers:(unint64_t)transfers iOSDeviceNeedsFirstUnlock:(BOOL)unlock pairingID:(id)d pairedDevicesPairingIDs:(id)self0 appInstallationID:(id)self1 standaloneApp:(BOOL)self2 companionAppInstalled:(BOOL)self3;
 - (id)description;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation WCSessionState
+
+- (WCSessionState)initWithReachable:(BOOL)reachable iOSDeviceNeedsFirstUnlock:(BOOL)unlock activePairingID:(id)d standaloneApp:(BOOL)app companionAppInstalled:(BOOL)installed
+{
+  BYTE1(v8) = installed;
+  LOBYTE(v8) = app;
+  return [(WCSessionState *)self initWithReachable:reachable paired:1 appInstalled:1 complicationEnabled:0 remainingComplicationUserInfoTransfers:0 iOSDeviceNeedsFirstUnlock:unlock pairingID:d pairedDevicesPairingIDs:0 appInstallationID:0 standaloneApp:v8 companionAppInstalled:?];
+}
 
 - (WCSessionState)initWithReachable:(BOOL)reachable paired:(BOOL)paired appInstalled:(BOOL)installed complicationEnabled:(BOOL)enabled remainingComplicationUserInfoTransfers:(unint64_t)transfers iOSDeviceNeedsFirstUnlock:(BOOL)unlock pairingID:(id)d pairedDevicesPairingIDs:(id)self0 appInstallationID:(id)self1 standaloneApp:(BOOL)self2 companionAppInstalled:(BOOL)self3
 {
@@ -126,11 +134,11 @@
 
 - (WCSessionState)initWithCoder:(id)coder
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v20.receiver = self;
-  v20.super_class = WCSessionState;
-  v5 = [(WCSessionState *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = WCSessionState;
+  v5 = [(WCSessionState *)&v19 init];
   if (v5)
   {
     v5->_reachable = [coderCopy decodeBoolForKey:@"reachable"];
@@ -145,9 +153,9 @@
     v5->_pairingID = v7;
 
     v9 = MEMORY[0x277CBEB98];
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v11 = [v9 setWithArray:v10];
     v12 = [coderCopy decodeObjectOfClasses:v11 forKey:@"pairedDevicesPairingIDs"];
     v13 = [v12 copy];
@@ -163,7 +171,6 @@
     v5->_companionAppInstalled = [coderCopy decodeBoolForKey:@"companionAppInstalled"];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

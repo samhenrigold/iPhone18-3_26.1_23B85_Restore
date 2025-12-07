@@ -251,7 +251,7 @@
 
 - (CKSQLiteDatabase)deviceScopedDatabase
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (*MEMORY[0x277CBC820] != -1)
   {
     dispatch_once(MEMORY[0x277CBC820], &unk_28385EA80);
@@ -271,23 +271,23 @@
   v7 = objc_msgSend_URLByAppendingPathComponent_(v5, v6, v4);
   v10 = objc_msgSend_path(v7, v8, v9);
 
-  v40 = 0;
-  v12 = objc_msgSend_databaseInDirectory_registryDatabase_options_error_(MEMORY[0x277CBC658], v11, v10, 0, 8, &v40);
-  v13 = v40;
+  v39 = 0;
+  v12 = objc_msgSend_databaseInDirectory_registryDatabase_options_error_(MEMORY[0x277CBC658], v11, v10, 0, 8, &v39);
+  v13 = v39;
   if (v13)
   {
-    v39 = v13;
+    v38 = v13;
     if (objc_msgSend_CKIsDiskFullError_(MEMORY[0x277CCA9B8], v14, v13))
     {
       goto LABEL_11;
     }
 
-    v20 = objc_msgSend_domain(v39, v17, v18);
-    if (objc_msgSend_isEqual_(v20, v21, *MEMORY[0x277CCA050]))
+    v19 = objc_msgSend_domain(v38, v16, v17);
+    if (objc_msgSend_isEqual_(v19, v20, *MEMORY[0x277CCA050]))
     {
-      v24 = objc_msgSend_code(v39, v22, v23);
+      v23 = objc_msgSend_code(v38, v21, v22);
 
-      if (v24 == 640)
+      if (v23 == 640)
       {
 LABEL_11:
         if (*MEMORY[0x277CBC880] == -1)
@@ -303,32 +303,30 @@ LABEL_11:
     {
     }
 
-    v27 = objc_msgSend_currentHandler(MEMORY[0x277CBC6B8], v25, v26);
-    v28 = objc_alloc(MEMORY[0x277CBC6B0]);
-    v29 = objc_alloc(MEMORY[0x277CBC6C8]);
-    v31 = objc_msgSend_initWithFilePath_lineNumber_(v29, v30, @"/Library/Caches/com.apple.xbs/Sources/CloudKitTools/Sources/CloudKitDaemon/CKDLogicalDeviceContext.m", 248);
-    v33 = objc_msgSend_initWithSourceCodeLocation_format_(v28, v32, v31, @"failed to create database: %@", v39);
-    objc_msgSend_handleSignificantIssue_actions_(v27, v34, v33, 0);
+    v26 = objc_msgSend_currentHandler(MEMORY[0x277CBC6B8], v24, v25);
+    v27 = objc_alloc(MEMORY[0x277CBC6B0]);
+    v28 = objc_alloc(MEMORY[0x277CBC6C8]);
+    v30 = objc_msgSend_initWithFilePath_lineNumber_(v28, v29, @"/Library/Caches/com.apple.xbs/Sources/CloudKitTools/Sources/CloudKitDaemon/CKDLogicalDeviceContext.m", 248);
+    v32 = objc_msgSend_initWithSourceCodeLocation_format_(v27, v31, v30, @"failed to create database: %@", v38);
+    objc_msgSend_handleSignificantIssue_actions_(v26, v33, v32, 0);
 
-    v36 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v35, @"failed to create database: %@", v39);
-    objc_msgSend_UTF8String(v36, v37, v38);
+    v35 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v34, @"failed to create database: %@", v38);
+    objc_msgSend_UTF8String(v35, v36, v37);
     _os_crash();
     __break(1u);
 LABEL_20:
     dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
 LABEL_12:
-    v19 = *MEMORY[0x277CBC830];
+    v18 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v42 = v39;
-      _os_log_error_impl(&dword_22506F000, v19, OS_LOG_TYPE_ERROR, "-deviceScopedDatabase failed due to disk full. Cloudd will now exit. error = %{public}@", buf, 0xCu);
+      v41 = v38;
+      _os_log_error_impl(&dword_22506F000, v18, OS_LOG_TYPE_ERROR, "-deviceScopedDatabase failed due to disk full. Cloudd will now exit. error = %{public}@", buf, 0xCu);
     }
 
     exit(1);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -344,7 +342,7 @@ LABEL_12:
 
 + (id)deviceContextForTestDeviceReference:(id)reference
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   referenceCopy = reference;
   if (referenceCopy && (*MEMORY[0x277CBC810] & 1) != 0)
   {
@@ -361,7 +359,7 @@ LABEL_12:
       v10 = v6;
     }
 
-    v26[0] = v10;
+    v25[0] = v10;
     v11 = objc_msgSend_serverReferenceProtocol(referenceCopy, v7, v8);
     v15 = objc_msgSend_dataDirectory(v11, v12, v13);
     v16 = v15;
@@ -370,8 +368,8 @@ LABEL_12:
       v16 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v14, @"/dev/null");
     }
 
-    v26[1] = v16;
-    v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v14, v26, 2);
+    v25[1] = v16;
+    v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v14, v25, 2);
     if (!v15)
     {
     }
@@ -394,14 +392,12 @@ LABEL_12:
     v20 = objc_msgSend_defaultContext(CKDLogicalDeviceContext, v3, v4);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)pcsCacheForContainerID:(id)d accountOverrideInfo:(id)info accountID:(id)iD encryptionServiceName:(id)name
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   dCopy = d;
   infoCopy = info;
   iDCopy = iD;
@@ -420,7 +416,7 @@ LABEL_12:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v80 = dCopy;
+      v79 = dCopy;
       _os_log_debug_impl(&dword_22506F000, v62, OS_LOG_TYPE_DEBUG, "%{public}@ creating pcsCache", buf, 0xCu);
     }
 
@@ -446,29 +442,29 @@ LABEL_46:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v80 = dCopy;
+    v79 = dCopy;
     _os_log_debug_impl(&dword_22506F000, v24, OS_LOG_TYPE_DEBUG, "%{public}@ searching for eligible existing pcsCache", buf, 0xCu);
   }
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v25 = v23;
-  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v75, v83, 16);
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v26, &v74, v82, 16);
   if (v29)
   {
-    v30 = *v76;
+    v30 = *v75;
 LABEL_8:
     v31 = 0;
     while (1)
     {
-      if (*v76 != v30)
+      if (*v75 != v30)
       {
         objc_enumerationMutation(v25);
       }
 
-      v32 = *(*(&v75 + 1) + 8 * v31);
+      v32 = *(*(&v74 + 1) + 8 * v31);
       v33 = objc_msgSend_containerID(v32, v27, v28, obj);
       isEqual = objc_msgSend_isEqual_(v33, v34, dCopy);
 
@@ -515,9 +511,9 @@ LABEL_35:
           if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
           {
             *buf = 138543618;
-            v80 = dCopy;
-            v81 = 2114;
-            v82 = v32;
+            v79 = dCopy;
+            v80 = 2114;
+            v81 = v32;
             _os_log_debug_impl(&dword_22506F000, v65, OS_LOG_TYPE_DEBUG, "%{public}@ found existing pcsCache %{public}@", buf, 0x16u);
           }
 
@@ -532,7 +528,7 @@ LABEL_35:
             if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v80 = v32;
+              v79 = v32;
               _os_log_error_impl(&dword_22506F000, v68, OS_LOG_TYPE_ERROR, "Failed to begin content access for pcsCache: %@", buf, 0xCu);
             }
           }
@@ -566,7 +562,7 @@ LABEL_35:
 LABEL_22:
       if (v29 == ++v31)
       {
-        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v27, &v75, v83, 16);
+        v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v25, v27, &v74, v82, 16);
         if (v29)
         {
           goto LABEL_8;
@@ -586,7 +582,7 @@ LABEL_22:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v80 = dCopy;
+    v79 = dCopy;
     _os_log_debug_impl(&dword_22506F000, v53, OS_LOG_TYPE_DEBUG, "%{public}@ creating pcsCache", buf, 0xCu);
   }
 
@@ -605,36 +601,34 @@ LABEL_45:
 
 LABEL_47:
 
-  v69 = *MEMORY[0x277D85DE8];
-
   return isEqual;
 }
 
 - (void)clearPCSMemoryCaches
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   obj = objc_msgSend_sharedPcsCaches(self, a2, v2);
   objc_sync_enter(obj);
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v6 = objc_msgSend_sharedPcsCaches(self, v4, v5);
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v30, v42, 16);
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v29, v41, 16);
   if (v8)
   {
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       v10 = 0;
       do
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * v10);
+        v11 = *(*(&v29 + 1) + 8 * v10);
         if (*MEMORY[0x277CBC880] != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
@@ -648,13 +642,13 @@ LABEL_47:
           v24 = objc_msgSend_accountID(v11, v22, v23);
           v27 = objc_msgSend_encryptionServiceName(v11, v25, v26);
           *buf = 138544130;
-          v35 = v18;
-          v36 = 2114;
-          v37 = v21;
-          v38 = 2112;
-          v39 = v24;
-          v40 = 2114;
-          v41 = v27;
+          v34 = v18;
+          v35 = 2114;
+          v36 = v21;
+          v37 = 2112;
+          v38 = v24;
+          v39 = 2114;
+          v40 = v27;
           _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Clearing in-memory PCS cache for containerID %{public}@, accountOverrideInfo %{public}@, accountID %@, encryptionServiceName %{public}@", buf, 0x2Au);
         }
 
@@ -663,14 +657,13 @@ LABEL_47:
       }
 
       while (v8 != v10);
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v17, &v30, v42, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v17, &v29, v41, 16);
     }
 
     while (v8);
   }
 
   objc_sync_exit(obj);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_initWithTestDeviceReference:(id)reference

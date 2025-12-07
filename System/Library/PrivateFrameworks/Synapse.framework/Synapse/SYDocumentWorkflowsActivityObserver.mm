@@ -92,7 +92,7 @@ void __71__SYDocumentWorkflowsActivityObserver_registerForAppStateNotifications_
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -101,39 +101,36 @@ void __71__SYDocumentWorkflowsActivityObserver_registerForAppStateNotifications_
     _os_log_impl(&dword_225901000, v3, OS_LOG_TYPE_DEFAULT, "deallocating: %p", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = SYDocumentWorkflowsActivityObserver;
-  [(SYDocumentWorkflowsActivityObserver *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = SYDocumentWorkflowsActivityObserver;
+  [(SYDocumentWorkflowsActivityObserver *)&v4 dealloc];
 }
 
 - (void)_handleAppBecomeActive:(id)active
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   activeCopy = active;
   v5 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v9 = activeCopy;
+    v8 = activeCopy;
     _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_DEFAULT, "application did become active: %@", buf, 0xCu);
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __62__SYDocumentWorkflowsActivityObserver__handleAppBecomeActive___block_invoke;
-  v7[3] = &unk_27856BC40;
-  v7[4] = self;
-  [MEMORY[0x277CC1EF0] _syFetchCurrentUserActivityWithCompletion:v7];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __62__SYDocumentWorkflowsActivityObserver__handleAppBecomeActive___block_invoke;
+  v6[3] = &unk_27856BC40;
+  v6[4] = self;
+  [MEMORY[0x277CC1EF0] _syFetchCurrentUserActivityWithCompletion:v6];
 }
 
-uint64_t __62__SYDocumentWorkflowsActivityObserver__handleAppBecomeActive___block_invoke(uint64_t result, uint64_t a2)
+id *__62__SYDocumentWorkflowsActivityObserver__handleAppBecomeActive___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) _handleActiveUserActivityChange:a2];
+    return [result[4] _handleActiveUserActivityChange:a2];
   }
 
   return result;
@@ -141,18 +138,17 @@ uint64_t __62__SYDocumentWorkflowsActivityObserver__handleAppBecomeActive___bloc
 
 - (void)_handleAppResignActive:(id)active
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   activeCopy = active;
   v5 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = activeCopy;
-    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_DEFAULT, "application did resign active: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = activeCopy;
+    _os_log_impl(&dword_225901000, v5, OS_LOG_TYPE_DEFAULT, "application did resign active: %@", &v6, 0xCu);
   }
 
   [(SYDocumentWorkflowsActivityObserver *)self _updateLinkedDocuments];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userActivityDidBecomeCurrent:(id)current current:(BOOL)a4
@@ -170,22 +166,21 @@ uint64_t __62__SYDocumentWorkflowsActivityObserver__handleAppBecomeActive___bloc
 
 - (void)userActivityPersistentIdentifierWasChanged:(id)changed persistentIdentifier:(id)identifier previousValue:(id)value
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   valueCopy = value;
   changedCopy = changed;
   v11 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = valueCopy;
-    v15 = 2112;
-    v16 = identifierCopy;
-    _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_DEFAULT, "user activity persistent identifier was changed from %@ to %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = valueCopy;
+    v14 = 2112;
+    v15 = identifierCopy;
+    _os_log_impl(&dword_225901000, v11, OS_LOG_TYPE_DEFAULT, "user activity persistent identifier was changed from %@ to %@", &v12, 0x16u);
   }
 
   [(SYDocumentWorkflowsActivityObserver *)self _handleActiveUserActivityChange:changedCopy];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleActiveUserActivityChange:(id)change
@@ -269,7 +264,7 @@ void __81__SYDocumentWorkflowsActivityObserver__handleActiveUserActivityChangeAf
 
 void __61__SYDocumentWorkflowsActivityObserver__updateLinkedDocuments__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
@@ -283,30 +278,26 @@ void __61__SYDocumentWorkflowsActivityObserver__updateLinkedDocuments__block_inv
   v6 = os_log_create("com.apple.synapse", "DocumentWorkflows");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109120;
-    v8[1] = a2;
-    _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "Updating linked documents finished, success: %d", v8, 8u);
+    v7[0] = 67109120;
+    v7[1] = a2;
+    _os_log_impl(&dword_225901000, v6, OS_LOG_TYPE_DEFAULT, "Updating linked documents finished, success: %d", v7, 8u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __81__SYDocumentWorkflowsActivityObserver__handleActiveUserActivityChangeAfterDelay___block_invoke_12_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Handling user activity change failed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Handling user activity change failed with error: %@", &v2, 0xCu);
 }
 
 void __61__SYDocumentWorkflowsActivityObserver__updateLinkedDocuments__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Unable to update linked documents, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_225901000, a2, OS_LOG_TYPE_ERROR, "Unable to update linked documents, error: %@", &v2, 0xCu);
 }
 
 @end

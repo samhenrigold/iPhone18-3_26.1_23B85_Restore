@@ -127,63 +127,64 @@ LABEL_14:
 
 - (uint64_t)_getTerminalMapItemForFlightEntry:(void *)entry handler:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   entryCopy = entry;
+  v8 = entryCopy;
   if (!self)
   {
-    v12 = 0;
+    v14 = 0;
     goto LABEL_19;
   }
 
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(entryCopy, v7))
   {
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
       *&buf[4] = "[MapsSuggestionsFlightUpdater _getTerminalMapItemForFlightEntry:handler:]";
-      _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
+      _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
     }
   }
 
-  if (entryCopy)
+  if (v8)
   {
     if (v5)
     {
       if ([v5 containsKey:@"MapsSuggestionsFlightTerminalSearchKey"])
       {
-        v8 = [v5 stringForKey:@"MapsSuggestionsFlightTerminalSearchKey"];
-        v9 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v10 = [v5 stringForKey:@"MapsSuggestionsFlightTerminalSearchKey"];
+        v11 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          *&buf[4] = v8;
-          _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "terminalSearchString='%@'", buf, 0xCu);
+          *&buf[4] = v10;
+          _os_log_impl(&dword_1C5126000, v11, OS_LOG_TYPE_DEBUG, "terminalSearchString='%@'", buf, 0xCu);
         }
 
-        v10 = *(self + 16);
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __74__MapsSuggestionsFlightUpdater__getTerminalMapItemForFlightEntry_handler___block_invoke;
-        v14[3] = &unk_1E81F5748;
-        v11 = v8;
-        v15 = v11;
-        v16 = v5;
-        v17 = entryCopy;
-        v12 = MapsSuggestionsSearchTerminal(v11, v16, v10, v14);
+        v12 = *(self + 16);
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __74__MapsSuggestionsFlightUpdater__getTerminalMapItemForFlightEntry_handler___block_invoke;
+        v16[3] = &unk_1E81F5748;
+        v13 = v10;
+        v17 = v13;
+        v18 = v5;
+        v19 = v8;
+        v14 = MapsSuggestionsSearchTerminal(v13, v18, v12, v16);
       }
 
       else
       {
-        v11 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_impl(&dword_1C5126000, v11, OS_LOG_TYPE_ERROR, "Entry did not contain MapsSuggestionsFlightTerminalSearchKey. Cannot get Terminal mapItem", buf, 2u);
+          _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_ERROR, "Entry did not contain MapsSuggestionsFlightTerminalSearchKey. Cannot get Terminal mapItem", buf, 2u);
         }
 
-        v12 = 0;
+        v14 = 0;
       }
 
       goto LABEL_18;
@@ -201,12 +202,12 @@ LABEL_14:
     [MapsSuggestionsFlightUpdater _getTerminalMapItemForFlightEntry:handler:];
   }
 
-  v11 = *buf;
-  v12 = v18;
+  v13 = *buf;
+  v14 = v20;
 LABEL_18:
 
 LABEL_19:
-  return v12;
+  return v14;
 }
 
 void __74__MapsSuggestionsFlightUpdater__getTerminalMapItemForFlightEntry_handler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -317,45 +318,46 @@ LABEL_5:
 
 - (uint64_t)_getGateMapItemForFlightEntry:(void *)entry handler:
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = a2;
   entryCopy = entry;
+  v8 = entryCopy;
   if (self)
   {
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(entryCopy, v7))
     {
-      v7 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v9 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
         *&buf[4] = "[MapsSuggestionsFlightUpdater _getGateMapItemForFlightEntry:handler:]";
-        _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
+        _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
       }
     }
 
-    if (entryCopy)
+    if (v8)
     {
       if (v5)
       {
-        v8 = [v5 stringForKey:@"MapsSuggestionsFlightDepartureGateKey"];
-        v9 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v10 = [v5 stringForKey:@"MapsSuggestionsFlightDepartureGateKey"];
+        v11 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          *&buf[4] = v8;
-          _os_log_impl(&dword_1C5126000, v9, OS_LOG_TYPE_DEBUG, "gateSearchString='%@'", buf, 0xCu);
+          *&buf[4] = v10;
+          _os_log_impl(&dword_1C5126000, v11, OS_LOG_TYPE_DEBUG, "gateSearchString='%@'", buf, 0xCu);
         }
 
         self = self[2];
-        v12[0] = MEMORY[0x1E69E9820];
-        v12[1] = 3221225472;
-        v12[2] = __70__MapsSuggestionsFlightUpdater__getGateMapItemForFlightEntry_handler___block_invoke;
-        v12[3] = &unk_1E81F5748;
-        v10 = v8;
-        v13 = v10;
-        v14 = v5;
-        v15 = entryCopy;
-        LOBYTE(self) = MapsSuggestionsSearchGate(v10, v14, self, v12);
+        v14[0] = MEMORY[0x1E69E9820];
+        v14[1] = 3221225472;
+        v14[2] = __70__MapsSuggestionsFlightUpdater__getGateMapItemForFlightEntry_handler___block_invoke;
+        v14[3] = &unk_1E81F5748;
+        v12 = v10;
+        v15 = v12;
+        v16 = v5;
+        v17 = v8;
+        LOBYTE(self) = MapsSuggestionsSearchGate(v12, v16, self, v14);
 
         goto LABEL_14;
       }
@@ -372,8 +374,8 @@ LABEL_5:
       [MapsSuggestionsFlightUpdater _getGateMapItemForFlightEntry:handler:];
     }
 
-    v10 = *buf;
-    LOBYTE(self) = v16;
+    v12 = *buf;
+    LOBYTE(self) = v18;
 LABEL_14:
   }
 
@@ -901,10 +903,11 @@ LABEL_14:
   OUTLINED_FUNCTION_4_0();
   if (OUTLINED_FUNCTION_6_1(v0))
   {
+    v7 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a handler", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a handler", v3, v4, v5, v6, v7);
   }
 
   OUTLINED_FUNCTION_2_2();
@@ -915,10 +918,11 @@ LABEL_14:
   OUTLINED_FUNCTION_4_0();
   if (OUTLINED_FUNCTION_6_1(v0))
   {
+    v7 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a handler", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a handler", v3, v4, v5, v6, v7);
   }
 
   OUTLINED_FUNCTION_2_2();
@@ -929,10 +933,11 @@ LABEL_14:
   OUTLINED_FUNCTION_4_0();
   if (OUTLINED_FUNCTION_6_1(v0))
   {
+    v7 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a handler", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a handler", v3, v4, v5, v6, v7);
   }
 
   OUTLINED_FUNCTION_2_2();
@@ -943,10 +948,11 @@ LABEL_14:
   OUTLINED_FUNCTION_4_0();
   if (OUTLINED_FUNCTION_6_1(v0))
   {
+    v7 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_5();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a handler", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_9_0(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a handler", v3, v4, v5, v6, v7);
   }
 
   OUTLINED_FUNCTION_2_2();

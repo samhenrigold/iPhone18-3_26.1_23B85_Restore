@@ -1,5 +1,6 @@
 @interface _MRTextInputMessageProtobuf
 - (BOOL)isEqual:(id)equal;
+- (id)actionTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -42,30 +43,45 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)actionTypeAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E76A08A0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsActionType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"Unknown"])
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 0;
   }
 
-  else if ([typeCopy isEqualToString:@"Insert"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }
 
-  else if ([typeCopy isEqualToString:@"Set"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 2;
   }
 
-  else if ([typeCopy isEqualToString:@"Delete"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 3;
   }
 
-  else if ([typeCopy isEqualToString:@"Clear"])
+  else if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 4;
   }
@@ -127,25 +143,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v7 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if (self->_text)
   {
     PBDataWriterWriteStringField();
-    toCopy = v7;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    actionType = self->_actionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v7;
+    toCopy = v5;
   }
 }
 
@@ -204,7 +218,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 32);
   if (has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -224,14 +237,14 @@
     if (![(NSString *)text isEqual:?])
     {
 LABEL_14:
-      v8 = 0;
+      v7 = 0;
       goto LABEL_15;
     }
 
     has = self->_has;
   }
 
-  v8 = (*(equalCopy + 32) & 2) == 0;
+  v7 = (*(equalCopy + 32) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 32) & 2) == 0 || self->_actionType != *(equalCopy + 4))
@@ -239,12 +252,12 @@ LABEL_14:
       goto LABEL_14;
     }
 
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_15:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

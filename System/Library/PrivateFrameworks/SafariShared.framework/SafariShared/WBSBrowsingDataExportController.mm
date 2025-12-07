@@ -203,22 +203,23 @@ LABEL_18:
   lCopy = l;
   handlerCopy = handler;
   v8 = dispatch_group_create();
+  v10 = v8;
   selectedBrowsingDataExportTypes = self->_selectedBrowsingDataExportTypes;
   if ((selectedBrowsingDataExportTypes & 2) != 0)
   {
-    v10 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v12 = WBS_LOG_CHANNEL_PREFIXExport(v8, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [WBSBrowsingDataExportController _exportToTemporaryFolderWithURL:completionHandler:];
     }
 
-    dispatch_group_enter(v8);
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke;
-    v31[3] = &unk_1E7FB6D90;
-    v32 = v8;
-    [(WBSBrowsingDataExportController *)self _exportHistoryToDirectoryWithURL:lCopy completionHandler:v31];
+    dispatch_group_enter(v10);
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke;
+    v33[3] = &unk_1E7FB6D90;
+    v34 = v10;
+    [(WBSBrowsingDataExportController *)self _exportHistoryToDirectoryWithURL:lCopy completionHandler:v33];
 
     selectedBrowsingDataExportTypes = self->_selectedBrowsingDataExportTypes;
     if ((selectedBrowsingDataExportTypes & 1) == 0)
@@ -238,20 +239,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXExport();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v13 = WBS_LOG_CHANNEL_PREFIXExport(v8, v9);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     [WBSBrowsingDataExportController _exportToTemporaryFolderWithURL:completionHandler:];
   }
 
-  v12 = [objc_opt_class() fileURLFromExportFolderURL:lCopy profileTitle:0 forBrowsingDataExportType:1];
-  dispatch_group_enter(v8);
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_124;
-  v29[3] = &unk_1E7FB6D90;
-  v30 = v8;
-  [(WBSBrowsingDataExportController *)self _exportBookmarksToFileWithURL:v12 completionHandler:v29];
+  v14 = [objc_opt_class() fileURLFromExportFolderURL:lCopy profileTitle:0 forBrowsingDataExportType:1];
+  dispatch_group_enter(v10);
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_124;
+  v31[3] = &unk_1E7FB6D90;
+  v32 = v10;
+  [(WBSBrowsingDataExportController *)self _exportBookmarksToFileWithURL:v14 completionHandler:v31];
 
   selectedBrowsingDataExportTypes = self->_selectedBrowsingDataExportTypes;
   if ((selectedBrowsingDataExportTypes & 0x10) == 0)
@@ -266,15 +267,15 @@ LABEL_4:
   }
 
 LABEL_13:
-  v13 = WBS_LOG_CHANNEL_PREFIXExport();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v15 = WBS_LOG_CHANNEL_PREFIXExport(v8, v9);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     [WBSBrowsingDataExportController _exportToTemporaryFolderWithURL:completionHandler:];
   }
 
-  v14 = [objc_opt_class() fileURLFromExportFolderURL:lCopy profileTitle:0 forBrowsingDataExportType:16];
+  v16 = [objc_opt_class() fileURLFromExportFolderURL:lCopy profileTitle:0 forBrowsingDataExportType:16];
   mEMORY[0x1E69C8A38] = [MEMORY[0x1E69C8A38] sharedStore];
-  path = [v14 path];
+  path = [v16 path];
   [mEMORY[0x1E69C8A38] exportContentsOfAccountStoreToCSVFileWithPath:path];
 
   selectedBrowsingDataExportTypes = self->_selectedBrowsingDataExportTypes;
@@ -290,55 +291,55 @@ LABEL_5:
   }
 
 LABEL_16:
-  v17 = WBS_LOG_CHANNEL_PREFIXExport();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+  v19 = WBS_LOG_CHANNEL_PREFIXExport(v8, v9);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
   {
     [WBSBrowsingDataExportController _exportToTemporaryFolderWithURL:completionHandler:];
   }
 
-  dispatch_group_enter(v8);
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_126;
-  v27[3] = &unk_1E7FB6D90;
-  v28 = v8;
-  [(WBSBrowsingDataExportController *)self _exportExtensionsToDirectoryWithURL:lCopy completionHandler:v27];
+  dispatch_group_enter(v10);
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_126;
+  v29[3] = &unk_1E7FB6D90;
+  v30 = v10;
+  [(WBSBrowsingDataExportController *)self _exportExtensionsToDirectoryWithURL:lCopy completionHandler:v29];
 
   if ((self->_selectedBrowsingDataExportTypes & 8) != 0)
   {
 LABEL_19:
-    v18 = WBS_LOG_CHANNEL_PREFIXExport();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v20 = WBS_LOG_CHANNEL_PREFIXExport(v8, v9);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       [WBSBrowsingDataExportController _exportToTemporaryFolderWithURL:completionHandler:];
     }
 
-    v19 = [objc_opt_class() fileURLFromExportFolderURL:lCopy profileTitle:0 forBrowsingDataExportType:8];
-    dispatch_group_enter(v8);
-    v20 = +[WBSCreditCardDataController creditCardDataController];
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_128;
-    v25[3] = &unk_1E7FB8278;
-    v26 = v8;
-    [v20 exportCreditCardDataToFileWithURL:v19 completionHandler:v25];
+    v21 = [objc_opt_class() fileURLFromExportFolderURL:lCopy profileTitle:0 forBrowsingDataExportType:8];
+    dispatch_group_enter(v10);
+    v22 = +[WBSCreditCardDataController creditCardDataController];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_128;
+    v27[3] = &unk_1E7FB8278;
+    v28 = v10;
+    [v22 exportCreditCardDataToFileWithURL:v21 completionHandler:v27];
   }
 
 LABEL_22:
-  v21 = dispatch_get_global_queue(25, 0);
+  v23 = dispatch_get_global_queue(25, 0);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_130;
   block[3] = &unk_1E7FB7350;
+  v26 = handlerCopy;
   v24 = handlerCopy;
-  v22 = handlerCopy;
-  dispatch_group_notify(v8, v21, block);
+  dispatch_group_notify(v10, v23, block);
 }
 
-void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke(uint64_t a1)
+void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXExport();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXExport(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_cold_1();
   }
@@ -346,10 +347,10 @@ void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_compl
   dispatch_group_leave(*(a1 + 32));
 }
 
-void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_124(uint64_t a1)
+void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_124(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXExport();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXExport(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_124_cold_1();
   }
@@ -357,10 +358,10 @@ void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_compl
   dispatch_group_leave(*(a1 + 32));
 }
 
-void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_126(uint64_t a1)
+void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_126(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXExport();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXExport(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_126_cold_1();
   }
@@ -368,10 +369,10 @@ void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_compl
   dispatch_group_leave(*(a1 + 32));
 }
 
-void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_128(uint64_t a1)
+void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_128(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXExport();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXExport(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_128_cold_1();
   }
@@ -379,10 +380,10 @@ void __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_compl
   dispatch_group_leave(*(a1 + 32));
 }
 
-uint64_t __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_130(uint64_t a1)
+uint64_t __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_130(uint64_t a1, uint64_t a2)
 {
-  v2 = WBS_LOG_CHANNEL_PREFIXExport();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = WBS_LOG_CHANNEL_PREFIXExport(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __85__WBSBrowsingDataExportController__exportToTemporaryFolderWithURL_completionHandler___block_invoke_130_cold_1();
   }

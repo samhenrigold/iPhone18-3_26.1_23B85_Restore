@@ -30,7 +30,7 @@
 
 - (void)mainInsideAutoreleasePool
 {
-  v155 = *MEMORY[0x277D85DE8];
+  v157 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -38,14 +38,14 @@
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v149 = v6;
+    v152 = v6;
     _os_log_impl(&dword_22D12F000, v5, OS_LOG_TYPE_INFO, "%{public}@Fetching persons", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   v7 = [HMIFetchPersonsOperation alloc];
   dataSource = [(HMIUpdatePersonsModelTask *)selfCopy dataSource];
-  v9 = [(HMIFetchPersonsOperation *)v7 initWithDataSource:dataSource];
+  v9 = [(HMIFetchPersonsOperation *)v7 initWithDataSource:?];
 
   [(HMFOperation *)v9 start];
   [(HMIFetchPersonsOperation *)v9 waitUntilFinished];
@@ -61,9 +61,9 @@
       v14 = HMFGetLogIdentifier();
       error2 = [(HMFOperation *)v9 error];
       *buf = 138543618;
-      v149 = v14;
-      v150 = 2112;
-      v151 = error2;
+      v152 = v14;
+      v153 = 2112;
+      v154 = error2;
       _os_log_impl(&dword_22D12F000, v13, OS_LOG_TYPE_ERROR, "%{public}@Error fetching persons, error:%@", buf, 0x16u);
     }
 
@@ -72,8 +72,8 @@
     error3 = [(HMFOperation *)v9 error];
     v18 = v16;
     v19 = error3;
-    v20 = [v18 hmiPrivateErrorWithCode:1026 underlyingError:error3];
-    [(HMFOperation *)v12 cancelWithError:v20];
+    v20 = [v18 hmiPrivateErrorWithCode:? underlyingError:?];
+    [(HMFOperation *)v12 cancelWithError:?];
   }
 
   else
@@ -88,40 +88,40 @@
       v25 = HMFGetLogIdentifier();
       v26 = [persons count];
       *buf = 138543618;
-      v149 = v25;
-      v150 = 2048;
-      v151 = v26;
+      v152 = v25;
+      v153 = 2048;
+      v154 = v26;
       _os_log_impl(&dword_22D12F000, v24, OS_LOG_TYPE_INFO, "%{public}@Fetched %lu persons", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
     v126 = persons;
-    v27 = [(HMIUpdatePersonsModelTask *)v23 limitEnforcedSubsetFromPersons:persons];
+    v27 = [(HMIUpdatePersonsModelTask *)v23 limitEnforcedSubsetFromPersons:?];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
     v136 = objc_alloc_init(HMIFaceprinter);
     v128 = [MEMORY[0x277CBEB58] set];
     dictionary2 = [MEMORY[0x277CBEB38] dictionary];
-    v144 = 0u;
-    v145 = 0u;
-    v146 = 0u;
     v147 = 0u;
+    v148 = 0u;
+    v149 = 0u;
+    v150 = 0u;
     v20 = v27;
-    v133 = [v20 countByEnumeratingWithState:&v144 objects:v154 count:16];
+    v133 = [v20 countByEnumeratingWithState:? objects:? count:?];
     if (v133)
     {
-      v134 = *v145;
+      v134 = *v148;
       v131 = v23;
       v132 = v20;
 LABEL_11:
       v28 = 0;
       while (1)
       {
-        if (*v145 != v134)
+        if (*v148 != v134)
         {
           objc_enumerationMutation(v20);
         }
 
-        v29 = *(*(&v144 + 1) + 8 * v28);
+        v29 = *(*(&v147 + 1) + 8 * v28);
         progressBlock = [(HMITask *)v23 progressBlock];
 
         if (progressBlock)
@@ -144,16 +144,16 @@ LABEL_11:
         {
           v37 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v149 = v37;
-          v150 = 2112;
-          v151 = v29;
+          v152 = v37;
+          v153 = 2112;
+          v154 = v29;
           _os_log_impl(&dword_22D12F000, v35, OS_LOG_TYPE_INFO, "%{public}@Fetching face crops for person: %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v33);
         v38 = [HMIFetchPersonFaceCropsOperation alloc];
         dataSource2 = [(HMIUpdatePersonsModelTask *)v34 dataSource];
-        v40 = [(HMIFetchPersonFaceCropsOperation *)v38 initWithDataSource:dataSource2 person:v29];
+        v40 = [HMIFetchPersonFaceCropsOperation initWithDataSource:v38 person:"initWithDataSource:person:"];
 
         [(HMFOperation *)v40 start];
         [(HMIFetchPersonFaceCropsOperation *)v40 waitUntilFinished];
@@ -169,19 +169,19 @@ LABEL_11:
             v100 = HMFGetLogIdentifier();
             error5 = [(HMFOperation *)v40 error];
             *buf = 138543874;
-            v149 = v100;
-            v150 = 2112;
-            v151 = v29;
-            v152 = 2112;
-            v153 = error5;
+            v152 = v100;
+            v153 = 2112;
+            v154 = v29;
+            v155 = 2112;
+            v156 = error5;
             _os_log_impl(&dword_22D12F000, v99, OS_LOG_TYPE_ERROR, "%{public}@Error fetching facecrops for person:%@, error:%@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v97);
           v102 = MEMORY[0x277CCA9B8];
           error6 = [(HMFOperation *)v40 error];
-          v104 = [v102 hmiPrivateErrorWithCode:1026 underlyingError:error6];
-          [(HMFOperation *)v98 cancelWithError:v104];
+          v104 = [v102 hmiPrivateErrorWithCode:? underlyingError:?];
+          [(HMFOperation *)v98 cancelWithError:?];
 
 LABEL_54:
           goto LABEL_71;
@@ -197,25 +197,25 @@ LABEL_54:
           v46 = HMFGetLogIdentifier();
           v47 = [personFaceCrops count];
           *buf = 138543874;
-          v149 = v46;
-          v150 = 2048;
-          v151 = v47;
-          v152 = 2112;
-          v153 = v29;
+          v152 = v46;
+          v153 = 2048;
+          v154 = v47;
+          v155 = 2112;
+          v156 = v29;
           _os_log_impl(&dword_22D12F000, v45, OS_LOG_TYPE_INFO, "%{public}@Fetched %lu face crops for person: %@", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v43);
         if ([personFaceCrops count] >= 0x1F)
         {
-          [v128 addObject:v29];
+          [v128 addObject:?];
         }
 
-        v48 = [personFaceCrops na_map:&__block_literal_global_35];
+        v48 = [personFaceCrops na_map:?];
         v49 = [HMIFetchFaceprintsForFaceCropsOperation alloc];
         dataSource3 = [(HMIUpdatePersonsModelTask *)v44 dataSource];
         v137 = v48;
-        v51 = [(HMIFetchFaceprintsForFaceCropsOperation *)v49 initWithDataSource:dataSource3 faceCropUUIDs:v48];
+        v51 = [HMIFetchFaceprintsForFaceCropsOperation initWithDataSource:v49 faceCropUUIDs:"initWithDataSource:faceCropUUIDs:"];
 
         [(HMFOperation *)v51 start];
         [(HMIFetchFaceprintsForFaceCropsOperation *)v51 waitUntilFinished];
@@ -231,11 +231,11 @@ LABEL_54:
             v56 = HMFGetLogIdentifier();
             error8 = [(HMFOperation *)v51 error];
             *buf = 138543874;
-            v149 = v56;
-            v150 = 2112;
-            v151 = v29;
-            v152 = 2112;
-            v153 = error8;
+            v152 = v56;
+            v153 = 2112;
+            v154 = v29;
+            v155 = 2112;
+            v156 = error8;
             _os_log_impl(&dword_22D12F000, v55, OS_LOG_TYPE_ERROR, "%{public}@Ignoring error fetching faceprints for person:%@, error:%@", buf, 0x20u);
           }
 
@@ -243,22 +243,22 @@ LABEL_54:
         }
 
         faceprints = [(HMIFetchFaceprintsForFaceCropsOperation *)v51 faceprints];
-        v143 = 0;
-        v59 = [(HMIFaceprinter *)v136 updatedFaceprintsForFaceCrops:personFaceCrops withExistingFaceprints:faceprints error:&v143];
-        v60 = v143;
+        v146 = 0;
+        v59 = [HMIFaceprinter updatedFaceprintsForFaceCrops:v136 withExistingFaceprints:"updatedFaceprintsForFaceCrops:withExistingFaceprints:error:" error:?];
+        v60 = 0;
 
         if (v59)
         {
           v135 = v60;
           allAtCurrentVersion = [v59 allAtCurrentVersion];
-          v141[0] = MEMORY[0x277D85DD0];
-          v141[1] = 3221225472;
-          v141[2] = __54__HMIUpdatePersonsModelTask_mainInsideAutoreleasePool__block_invoke_155;
-          v141[3] = &unk_2787557E0;
-          v142 = dictionary2;
-          v62 = [allAtCurrentVersion na_map:v141];
+          v141 = MEMORY[0x277D85DD0];
+          v142 = 3221225472;
+          v143 = __54__HMIUpdatePersonsModelTask_mainInsideAutoreleasePool__block_invoke_155;
+          v144 = &unk_2787557E0;
+          v145 = dictionary2;
+          v62 = [allAtCurrentVersion na_map:?];
 
-          [dictionary setObject:v62 forKeyedSubscript:v29];
+          [dictionary setObject:? forKeyedSubscript:?];
           v63 = objc_autoreleasePoolPush();
           v64 = v44;
           v65 = HMFGetOSLogHandle();
@@ -267,9 +267,9 @@ LABEL_54:
             v66 = HMFGetLogIdentifier();
             createdAtCurrentVersion = [v59 createdAtCurrentVersion];
             *buf = 138543618;
-            v149 = v66;
-            v150 = 2112;
-            v151 = createdAtCurrentVersion;
+            v152 = v66;
+            v153 = 2112;
+            v154 = createdAtCurrentVersion;
             _os_log_impl(&dword_22D12F000, v65, OS_LOG_TYPE_INFO, "%{public}@Storing newly created faceprints: %@", buf, 0x16u);
           }
 
@@ -282,7 +282,7 @@ LABEL_54:
             v70 = [HMIStoreFaceprintsOperation alloc];
             dataSource4 = [(HMIUpdatePersonsModelTask *)v64 dataSource];
             createdAtCurrentVersion3 = [v59 createdAtCurrentVersion];
-            v73 = [(HMIStoreFaceprintsOperation *)v70 initWithDataSource:dataSource4 faceprints:createdAtCurrentVersion3];
+            v73 = [HMIStoreFaceprintsOperation initWithDataSource:v70 faceprints:"initWithDataSource:faceprints:"];
 
             [(HMFOperation *)v73 start];
             [(HMIStoreFaceprintsOperation *)v73 waitUntilFinished];
@@ -296,9 +296,9 @@ LABEL_54:
             v77 = HMFGetLogIdentifier();
             existingAtOtherVersions = [v59 existingAtOtherVersions];
             *buf = 138543618;
-            v149 = v77;
-            v150 = 2112;
-            v151 = existingAtOtherVersions;
+            v152 = v77;
+            v153 = 2112;
+            v154 = existingAtOtherVersions;
             _os_log_impl(&dword_22D12F000, v76, OS_LOG_TYPE_INFO, "%{public}@Removing existing faceprints at other versions: %@", buf, 0x16u);
           }
 
@@ -309,17 +309,17 @@ LABEL_54:
           if (v80)
           {
             existingAtOtherVersions3 = [v59 existingAtOtherVersions];
-            v82 = [existingAtOtherVersions3 na_map:&__block_literal_global_161];
+            v82 = [existingAtOtherVersions3 na_map:?];
 
             v83 = [HMIRemoveFaceprintsOperation alloc];
             dataSource5 = [(HMIUpdatePersonsModelTask *)v75 dataSource];
-            v85 = [(HMIRemoveFaceprintsOperation *)v83 initWithDataSource:dataSource5 faceprintUUIDs:v82];
+            v85 = [HMIRemoveFaceprintsOperation initWithDataSource:v83 faceprintUUIDs:"initWithDataSource:faceprintUUIDs:"];
 
             [(HMFOperation *)v85 start];
             [(HMIRemoveFaceprintsOperation *)v85 waitUntilFinished];
           }
 
-          v86 = v142;
+          v86 = v145;
           v23 = v131;
           v20 = v132;
           v87 = v138;
@@ -335,17 +335,17 @@ LABEL_54:
           {
             v91 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v149 = v91;
-            v150 = 2112;
-            v151 = v29;
-            v152 = 2112;
-            v153 = v60;
+            v152 = v91;
+            v153 = 2112;
+            v154 = v29;
+            v155 = 2112;
+            v156 = v60;
             _os_log_impl(&dword_22D12F000, v90, OS_LOG_TYPE_ERROR, "%{public}@Error faceprinting face crops for person:%@, error:%@", buf, 0x20u);
           }
 
           objc_autoreleasePoolPop(v88);
-          v86 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1026 underlyingError:v60];
-          [(HMFOperation *)v89 cancelWithError:v86];
+          v86 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? underlyingError:?];
+          [(HMFOperation *)v89 cancelWithError:?];
           v23 = v131;
           v20 = v132;
           v87 = v138;
@@ -356,10 +356,10 @@ LABEL_54:
           goto LABEL_54;
         }
 
-        v28 = v87 + 1;
+        v28 = (v87 + 1);
         if (v133 == v28)
         {
-          v133 = [v20 countByEnumeratingWithState:&v144 objects:v154 count:16];
+          v133 = [v20 countByEnumeratingWithState:? objects:? count:?];
           if (v133)
           {
             goto LABEL_11;
@@ -373,7 +373,7 @@ LABEL_54:
       {
         v96 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v149 = v96;
+        v152 = v96;
         _os_log_impl(&dword_22D12F000, v35, OS_LOG_TYPE_INFO, "%{public}@Exiting early because task was canceled.", buf, 0xCu);
       }
 
@@ -392,7 +392,7 @@ LABEL_44:
       {
         v95 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v149 = v95;
+        v152 = v95;
         _os_log_impl(&dword_22D12F000, v94, OS_LOG_TYPE_INFO, "%{public}@Exiting early because task was canceled.", buf, 0xCu);
       }
 
@@ -404,21 +404,22 @@ LABEL_44:
       v105 = +[HMIPersonsModelManager sharedInstance];
       homeUUID = [(HMIHomeTask *)v23 homeUUID];
       sourceUUID = [(HMIUpdatePersonsModelTask *)v23 sourceUUID];
+      [(HMIUpdatePersonsModelTask *)v23 isExternalLibrary];
       v140 = 0;
-      v108 = [v105 buildPersonsModelForHomeUUID:homeUUID sourceUUID:sourceUUID externalLibrary:-[HMIUpdatePersonsModelTask isExternalLibrary](v23 faceObservationsByPerson:"isExternalLibrary") error:{dictionary, &v140}];
-      v109 = v140;
+      v108 = [v105 buildPersonsModelForHomeUUID:? sourceUUID:? externalLibrary:? faceObservationsByPerson:? error:?];
+      v109 = 0;
 
       if (v108)
       {
         if (!-[HMIUpdatePersonsModelTask isExternalLibrary](v23, "isExternalLibrary") && -[HMIUpdatePersonsModelTask shouldRemoveExcessFaceCrops](v23, "shouldRemoveExcessFaceCrops") && [v128 count])
         {
           dataSource6 = [(HMIUpdatePersonsModelTask *)v23 dataSource];
-          v111 = [dataSource6 conformsToProtocol:&unk_28407F6F8];
+          v111 = [dataSource6 conformsToProtocol:?];
 
           if (v111)
           {
             dataSource7 = [(HMIUpdatePersonsModelTask *)v23 dataSource];
-            [(HMIUpdatePersonsModelTask *)v23 subsampleFacesForPersons:v128 withFaceObservationsMap:dictionary dataSource:dataSource7 vnUUIDToFaceCropUUIDMap:dictionary2];
+            [HMIUpdatePersonsModelTask subsampleFacesForPersons:v23 withFaceObservationsMap:"subsampleFacesForPersons:withFaceObservationsMap:dataSource:vnUUIDToFaceCropUUIDMap:" dataSource:? vnUUIDToFaceCropUUIDMap:?];
           }
 
           else
@@ -430,7 +431,7 @@ LABEL_44:
             {
               v121 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v149 = v121;
+              v152 = v121;
               _os_log_impl(&dword_22D12F000, v120, OS_LOG_TYPE_ERROR, "%{public}@Invalid configuration: isExternalLibrary is NO but self.dataSource does not conform to HMIHomePersonManagerDataSource protocol!", buf, 0xCu);
             }
 
@@ -445,7 +446,7 @@ LABEL_44:
         {
           v125 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v149 = v125;
+          v152 = v125;
           _os_log_impl(&dword_22D12F000, v124, OS_LOG_TYPE_INFO, "%{public}@Successfully updated persons model", buf, 0xCu);
         }
 
@@ -464,15 +465,15 @@ LABEL_44:
         {
           v116 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v149 = v116;
-          v150 = 2112;
-          v151 = v109;
+          v152 = v116;
+          v153 = 2112;
+          v154 = v109;
           _os_log_impl(&dword_22D12F000, v115, OS_LOG_TYPE_ERROR, "%{public}@Failed to generate persons model, error:%@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v113);
-        v117 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:1026 underlyingError:v109];
-        [(HMFOperation *)v114 cancelWithError:v117];
+        v117 = [MEMORY[0x277CCA9B8] hmiPrivateErrorWithCode:? underlyingError:?];
+        [(HMFOperation *)v114 cancelWithError:?];
       }
     }
 
@@ -485,24 +486,24 @@ LABEL_71:
 id __54__HMIUpdatePersonsModelTask_mainInsideAutoreleasePool__block_invoke_155(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [HMIFaceUtilities faceObservationFromFaceprint:v3];
+  v4 = [HMIFaceUtilities faceObservationFromFaceprint:?];
   v5 = [v3 faceCropUUID];
 
   v6 = *(a1 + 32);
   v7 = [v4 uuid];
-  [v6 setObject:v5 forKeyedSubscript:v7];
+  [v6 setObject:? forKeyedSubscript:?];
 
   return v4;
 }
 
 - (id)limitEnforcedSubsetFromPersons:(id)persons
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   personsCopy = persons;
   if ([personsCopy count] > 0x50)
   {
     v6 = [MEMORY[0x277CBEB58] set];
-    v7 = [personsCopy na_filter:&__block_literal_global_234];
+    v7 = [personsCopy na_filter:?];
     if ([v7 count] > 0x50)
     {
       v8 = objc_autoreleasePoolPush();
@@ -511,33 +512,33 @@ id __54__HMIUpdatePersonsModelTask_mainInsideAutoreleasePool__block_invoke_155(u
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = HMFGetLogIdentifier();
-        v19 = 138543874;
-        v20 = v11;
-        v21 = 2048;
-        v22 = [v7 count];
-        v23 = 1024;
-        v24 = 80;
-        _os_log_impl(&dword_22D12F000, v10, OS_LOG_TYPE_ERROR, "%{public}@WARNING: Model has %lu named persons -- limit supported is %d", &v19, 0x1Cu);
+        v18 = 138543874;
+        v19 = v11;
+        v20 = 2048;
+        v21 = [v7 count];
+        v22 = 1024;
+        v23 = 80;
+        _os_log_impl(&dword_22D12F000, v10, OS_LOG_TYPE_ERROR, "%{public}@WARNING: Model has %lu named persons -- limit supported is %d", &v18, 0x1Cu);
       }
 
       objc_autoreleasePoolPop(v8);
       allObjects = [v7 allObjects];
-      v13 = [allObjects subarrayWithRange:{0, 80}];
-      [v6 addObjectsFromArray:v13];
+      v13 = [allObjects subarrayWithRange:?];
+      [v6 addObjectsFromArray:?];
     }
 
     else
     {
-      [v6 unionSet:v7];
+      [v6 unionSet:?];
     }
 
     if ([v6 count] <= 0x4F)
     {
-      v14 = 80 - [v6 count];
-      v15 = [personsCopy na_filter:&__block_literal_global_237];
-      allObjects2 = [v15 allObjects];
-      v17 = [allObjects2 subarrayWithRange:{0, v14}];
-      [v6 addObjectsFromArray:v17];
+      [v6 count];
+      v14 = [personsCopy na_filter:?];
+      allObjects2 = [v14 allObjects];
+      v16 = [allObjects2 subarrayWithRange:?];
+      [v6 addObjectsFromArray:?];
     }
 
     v5 = [v6 copy];
@@ -569,24 +570,21 @@ BOOL __60__HMIUpdatePersonsModelTask_limitEnforcedSubsetFromPersons___block_invo
 
 - (void)subsampleFacesForPersons:(id)persons withFaceObservationsMap:(id)map dataSource:(id)source vnUUIDToFaceCropUUIDMap:(id)dMap
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   personsCopy = persons;
   mapCopy = map;
   sourceCopy = source;
   dMapCopy = dMap;
   v14 = [MEMORY[0x277CBEB58] set];
   v28 = MEMORY[0x277D85DD0];
-  v29 = 3221225472;
-  v30 = __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservationsMap_dataSource_vnUUIDToFaceCropUUIDMap___block_invoke;
-  v31 = &unk_278755870;
   v15 = mapCopy;
-  v32 = v15;
+  v29 = v15;
   selfCopy = self;
   v16 = dMapCopy;
-  v34 = v16;
+  v31 = v16;
   v17 = v14;
-  v35 = v17;
-  [personsCopy na_each:&v28];
+  v32 = v17;
+  [personsCopy na_each:{v28, 3221225472, __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservationsMap_dataSource_vnUUIDToFaceCropUUIDMap___block_invoke, &unk_278755870}];
   v18 = [v17 count];
   v19 = objc_autoreleasePoolPush();
   selfCopy2 = self;
@@ -599,14 +597,14 @@ BOOL __60__HMIUpdatePersonsModelTask_limitEnforcedSubsetFromPersons___block_invo
       v23 = HMFGetLogIdentifier();
       v24 = [v17 count];
       *buf = 138543618;
-      v37 = v23;
-      v38 = 2048;
-      v39 = v24;
+      v34 = v23;
+      v35 = 2048;
+      v36 = v24;
       _os_log_impl(&dword_22D12F000, v22, OS_LOG_TYPE_INFO, "%{public}@Deleting a total of %lu face crops after subsampling", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
-    v25 = [[HMIRemoveFaceCropsOperation alloc] initWithDataSource:sourceCopy faceCropUUIDs:v17];
+    v25 = [HMIRemoveFaceCropsOperation initWithDataSource:"initWithDataSource:faceCropUUIDs:" faceCropUUIDs:?];
     [(HMFOperation *)v25 start];
     [(HMIRemoveFaceCropsOperation *)v25 waitUntilFinished];
   }
@@ -618,9 +616,9 @@ BOOL __60__HMIUpdatePersonsModelTask_limitEnforcedSubsetFromPersons___block_invo
       v26 = HMFGetLogIdentifier();
       v27 = [personsCopy count];
       *buf = 138543618;
-      v37 = v26;
-      v38 = 2048;
-      v39 = v27;
+      v34 = v26;
+      v35 = 2048;
+      v36 = v27;
       _os_log_impl(&dword_22D12F000, v22, OS_LOG_TYPE_ERROR, "%{public}@Selected %lu persons for subsampling faces but did not choose any face crops to delete!", buf, 0x16u);
     }
 
@@ -630,22 +628,22 @@ BOOL __60__HMIUpdatePersonsModelTask_limitEnforcedSubsetFromPersons___block_invo
 
 void __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservationsMap_dataSource_vnUUIDToFaceCropUUIDMap___block_invoke(id *a1, void *a2)
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = [a1[4] objectForKeyedSubscript:v3];
+  v4 = [a1[4] objectForKeyedSubscript:?];
   v5 = +[HMIPersonsModelManager sharedInstance];
   v6 = [v5 personsModelsByHome];
   v7 = [a1[5] homeUUID];
-  v8 = [v6 objectForKeyedSubscript:v7];
+  v8 = [v6 objectForKeyedSubscript:?];
   v9 = [a1[5] sourceUUID];
-  v10 = [v8 objectForKeyedSubscript:v9];
+  v10 = [v8 objectForKeyedSubscript:?];
 
   v11 = [v10 visionPersonsModel];
   v12 = [v3 UUID];
   v13 = [v12 UUIDString];
-  v47 = 0;
-  v14 = [v11 trainingFaceObservationsForPersonWithUniqueIdentifier:v13 canceller:0 error:&v47];
-  v15 = v47;
+  v50 = 0;
+  v14 = [v11 trainingFaceObservationsForPersonWithUniqueIdentifier:? canceller:? error:?];
+  v15 = v50;
 
   if (v14)
   {
@@ -662,16 +660,16 @@ void __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservati
           v19 = HMFGetLogIdentifier();
           v20 = [v14 count];
           *buf = 138543874;
-          v49 = v19;
-          v50 = 1024;
-          *v51 = 20;
-          *&v51[4] = 2048;
-          *&v51[6] = v20;
+          v52 = v19;
+          v53 = 1024;
+          *v54 = 20;
+          *&v54[4] = 2048;
+          *&v54[6] = v20;
           _os_log_impl(&dword_22D12F000, v18, OS_LOG_TYPE_ERROR, "%{public}@Expected subsampling to leave no more than %d, but got %lu faces selected. Enforcing limit.", buf, 0x1Cu);
         }
 
         objc_autoreleasePoolPop(v16);
-        v21 = [v14 subarrayWithRange:{0, 20}];
+        v21 = [v14 subarrayWithRange:?];
 
         v14 = v21;
       }
@@ -686,32 +684,32 @@ void __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservati
         v26 = [v14 count];
         v27 = [v44 count];
         *buf = 138544130;
-        v49 = v25;
-        v50 = 2048;
-        *v51 = v26;
-        *&v51[8] = 2048;
-        *&v51[10] = v27;
-        v52 = 2112;
-        v53 = v3;
+        v52 = v25;
+        v53 = 2048;
+        *v54 = v26;
+        *&v54[8] = 2048;
+        *&v54[10] = v27;
+        v55 = 2112;
+        v56 = v3;
         _os_log_impl(&dword_22D12F000, v24, OS_LOG_TYPE_INFO, "%{public}@Subsampling will retain %lu from a total of %lu faces for %@", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v22);
       v28 = MEMORY[0x277CBEB98];
-      v29 = [v14 na_map:&__block_literal_global_242];
-      v30 = [v28 setWithArray:v29];
+      v29 = [v14 na_map:?];
+      v30 = [v28 setWithArray:?];
 
       v4 = v44;
-      v31 = [v44 na_map:&__block_literal_global_244_0];
-      v32 = [v31 na_setByRemovingObjectsFromSet:v30];
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservationsMap_dataSource_vnUUIDToFaceCropUUIDMap___block_invoke_3;
-      v45[3] = &unk_278755848;
-      v46 = a1[6];
-      v33 = [v32 na_map:v45];
+      v31 = [v44 na_map:?];
+      v32 = [v31 na_setByRemovingObjectsFromSet:?];
+      v45 = MEMORY[0x277D85DD0];
+      v46 = 3221225472;
+      v47 = __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservationsMap_dataSource_vnUUIDToFaceCropUUIDMap___block_invoke_3;
+      v48 = &unk_278755848;
+      v49 = a1[6];
+      v33 = [v32 na_map:?];
 
-      [a1[7] unionSet:v33];
+      [a1[7] unionSet:?];
       v15 = v43;
     }
 
@@ -725,9 +723,9 @@ void __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservati
         HMFGetLogIdentifier();
         v42 = v41 = v4;
         *buf = 138543618;
-        v49 = v42;
-        v50 = 2112;
-        *v51 = v3;
+        v52 = v42;
+        v53 = 2112;
+        *v54 = v3;
         _os_log_impl(&dword_22D12F000, v40, OS_LOG_TYPE_ERROR, "%{public}@Fetched 0 training faces for %@, this would remove all face crops! Skipping face crop removal.", buf, 0x16u);
 
         v4 = v41;
@@ -746,11 +744,11 @@ void __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservati
     {
       v37 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v49 = v37;
-      v50 = 2112;
-      *v51 = v3;
-      *&v51[8] = 2112;
-      *&v51[10] = v15;
+      v52 = v37;
+      v53 = 2112;
+      *v54 = v3;
+      *&v54[8] = 2112;
+      *&v54[10] = v15;
       _os_log_impl(&dword_22D12F000, v36, OS_LOG_TYPE_ERROR, "%{public}@Error fetching faces to subsample for %@: %@", buf, 0x20u);
     }
 
@@ -769,7 +767,7 @@ void __113__HMIUpdatePersonsModelTask_subsampleFacesForPersons_withFaceObservati
     v6 = @"external";
   }
 
-  v7 = [v3 stringWithFormat:@"%@ (%@)", sourceUUID, v6];
+  v7 = [v3 stringWithFormat:sourceUUID, v6];
 
   return v7;
 }

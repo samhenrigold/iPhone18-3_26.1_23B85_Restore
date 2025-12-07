@@ -13,21 +13,20 @@
 
 - (NSString)mathML
 {
-  v2 = (self + OBJC_IVAR___SCROBrailleUICaptionableBrailleLine_mathML);
+  v2 = self + OBJC_IVAR___SCROBrailleUICaptionableBrailleLine_mathML;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_264982774();
+    v3 = sub_264982774();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setMathML:(id)l
@@ -46,7 +45,6 @@
 
   v7 = (self + OBJC_IVAR___SCROBrailleUICaptionableBrailleLine_mathML);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -78,12 +76,10 @@
 
 - (NSString)braille
 {
-  v2 = *(self + OBJC_IVAR___SCROBrailleUICaptionableBrailleLine__braille);
-  v3 = *(self + OBJC_IVAR___SCROBrailleUICaptionableBrailleLine__braille + 8);
 
-  v4 = sub_264982774();
+  v2 = sub_264982774();
 
-  return v4;
+  return v2;
 }
 
 - (_NSRange)selection
@@ -110,9 +106,8 @@
 {
   v4 = sub_264982784();
   v5 = (self + OBJC_IVAR___SCROBrailleUICaptionableBrailleLine_manualCaption);
-  v6 = *(self + OBJC_IVAR___SCROBrailleUICaptionableBrailleLine_manualCaption + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (SCROBrailleUICaptionableBrailleLine)init

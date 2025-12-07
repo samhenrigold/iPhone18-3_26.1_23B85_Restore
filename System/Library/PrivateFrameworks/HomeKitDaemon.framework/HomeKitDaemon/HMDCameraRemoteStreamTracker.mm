@@ -24,7 +24,7 @@
 
 void __64__HMDCameraRemoteStreamTracker_stopTrackingStreamWithSessionID___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) currentStreamIdentifiers];
   v3 = [v2 containsObject:*(a1 + 40)];
 
@@ -38,11 +38,11 @@ void __64__HMDCameraRemoteStreamTracker_stopTrackingStreamWithSessionID___block_
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@No longer tracking stream with session ID: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@No longer tracking stream with session ID: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -56,17 +56,15 @@ void __64__HMDCameraRemoteStreamTracker_stopTrackingStreamWithSessionID___block_
     {
       v11 = HMFGetLogIdentifier();
       v12 = *(a1 + 40);
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Cannot find stream to stop tracking: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Cannot find stream to stop tracking: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)startTrackingStreamSession:(id)session
@@ -94,7 +92,7 @@ void __64__HMDCameraRemoteStreamTracker_stopTrackingStreamWithSessionID___block_
 
 void __59__HMDCameraRemoteStreamTracker_startTrackingStreamSession___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) currentStreamIdentifiers];
   v3 = [v2 count];
   v4 = maximumSimultaneousRemoteStreams;
@@ -109,13 +107,13 @@ void __59__HMDCameraRemoteStreamTracker_startTrackingStreamSession___block_invok
       v20 = HMFGetLogIdentifier();
       v21 = *(a1 + 40);
       v22 = [*(a1 + 32) currentStreamIdentifiers];
-      v24 = 138543874;
-      v25 = v20;
-      v26 = 2112;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v22;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Cannot start tracking stream session: %@. Already tracking maximum number of stream sessions: %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v22;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Cannot start tracking stream session: %@. Already tracking maximum number of stream sessions: %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -141,20 +139,18 @@ void __59__HMDCameraRemoteStreamTracker_startTrackingStreamSession___block_invok
       v14 = HMFGetLogIdentifier();
       v15 = *(a1 + 40);
       v16 = [*(a1 + 32) currentStreamIdentifiers];
-      v24 = 138543874;
-      v25 = v14;
-      v26 = 2112;
-      v27 = v15;
-      v28 = 2048;
-      v29 = [v16 count];
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Started tracking stream session: %@. Total count is now %lu", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v14;
+      v25 = 2112;
+      v26 = v15;
+      v27 = 2048;
+      v28 = [v16 count];
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Started tracking stream session: %@. Total count is now %lu", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v11);
     *(*(*(a1 + 48) + 8) + 24) = 1;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraRemoteStreamTracker)init
@@ -193,10 +189,9 @@ void __59__HMDCameraRemoteStreamTracker_startTrackingStreamSession___block_invok
 
 void __43__HMDCameraRemoteStreamTracker_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_154431;
-  logCategory__hmf_once_v5_154431 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_154431;
+  logCategory__hmf_once_v5_154431 = v0;
 }
 
 + (HMDCameraRemoteStreamTracker)sharedTracker

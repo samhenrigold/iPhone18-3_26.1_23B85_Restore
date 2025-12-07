@@ -27,19 +27,17 @@
 {
   v7 = sub_2276624A0();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x28223BE20](v7);
-  v11 = &v15[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = &v13[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_227662430();
-  v12 = *(&self->super.isa + OBJC_IVAR____TtC15SeymourServices22AssetMediaStreamLoader_lock);
   selfCopy = self;
   taskCopy = task;
-  v18 = v11;
+  v16 = v10;
   taskCopy2 = task;
   selfCopy2 = self;
   sub_2276696A0();
 
-  (*(v8 + 8))(v11, v7);
+  (*(v8 + 8))(v10, v7);
 }
 
 - (void)URLSession:(id)session assetDownloadTask:(id)task didLoadTimeRange:(id *)range totalTimeRangesLoaded:(id)loaded timeRangeExpectedToLoad:(id *)load

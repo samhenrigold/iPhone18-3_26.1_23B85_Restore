@@ -3,9 +3,9 @@
 
 @implementation LSCurrentProcessMayMapDatabase
 
-uint64_t ___LSCurrentProcessMayMapDatabase_block_invoke()
+unint64_t ___LSCurrentProcessMayMapDatabase_block_invoke(uint64_t a1, uint64_t a2)
 {
-  if ([__LSDefaultsGetSharedInstance() isServer])
+  if ([__LSDefaultsGetSharedInstance(a1 a2)])
   {
     result = 1;
   }

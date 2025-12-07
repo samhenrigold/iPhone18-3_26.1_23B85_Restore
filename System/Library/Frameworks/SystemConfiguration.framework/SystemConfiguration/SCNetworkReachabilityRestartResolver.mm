@@ -5,7 +5,7 @@
 
 void ____SCNetworkReachabilityRestartResolver_block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (pthread_mutex_lock((*(a1 + 32) + 16)))
   {
     ____SCNetworkReachabilityRestartResolver_block_invoke_2_cold_1();
@@ -14,36 +14,31 @@ void ____SCNetworkReachabilityRestartResolver_block_invoke_2(uint64_t a1, int a2
   v6 = *(a1 + 32);
   if (*(v6 + 112))
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2000000000;
-    v27 = 0;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2000000000;
+    v21 = 0;
     FlagsFromPath = __SCNetworkReachabilityGetFlagsFromPath(v6 + 193, *(a1 + 40), *(v6 + 248), *(v6 + 80), *(v6 + 272), *(v6 + 280), *(v6 + 288), *(v6 + 292));
-    v8 = *(v6 + 248);
     interface_index = nw_path_get_interface_index();
-    v10 = *(v6 + 280);
     count = nw_array_get_count();
-    v12 = *(a1 + 32);
-    *(v12 + 272) = a2;
-    nw_release(*(v12 + 280));
+    v10 = *(a1 + 32);
+    *(v10 + 272) = a2;
+    nw_release(*(v10 + 280));
     *(*(a1 + 32) + 280) = nw_retain(a3);
-    v13 = *(a1 + 32);
-    *(v13 + 288) = 0;
-    *(v13 + 292) = 0;
-    v14 = *(v13 + 280);
+    v11 = *(a1 + 32);
+    *(v11 + 288) = 0;
+    *(v11 + 292) = 0;
     nw_array_apply();
-    v15 = *(v25 + 24);
-    v16 = *(a1 + 32);
-    *(v16 + 288) = v15;
-    v17 = __SCNetworkReachabilityGetFlagsFromPath(v16 + 193, "ShouldUpdateClient", *(v16 + 248), *(v16 + 80), *(v16 + 272), *(v16 + 280), v15, *(v16 + 292));
-    v18 = *(v16 + 248);
-    v19 = nw_path_get_interface_index();
-    v20 = *(v16 + 280);
-    v21 = nw_array_get_count();
-    v22 = *(a1 + 32);
-    if (*(v16 + 113) && v17 == FlagsFromPath && v19 == interface_index && v21 == count)
+    v12 = *(v19 + 24);
+    v13 = *(a1 + 32);
+    *(v13 + 288) = v12;
+    v14 = __SCNetworkReachabilityGetFlagsFromPath(v13 + 193, "ShouldUpdateClient", *(v13 + 248), *(v13 + 80), *(v13 + 272), *(v13 + 280), v12, *(v13 + 292));
+    v15 = nw_path_get_interface_index();
+    v16 = nw_array_get_count();
+    v17 = *(a1 + 32);
+    if (*(v13 + 113) && v14 == FlagsFromPath && v15 == interface_index && v16 == count)
     {
-      if (pthread_mutex_unlock((v22 + 16)))
+      if (pthread_mutex_unlock((v17 + 16)))
       {
         ____SCNetworkReachabilityRestartResolver_block_invoke_2_cold_2();
       }
@@ -51,144 +46,131 @@ void ____SCNetworkReachabilityRestartResolver_block_invoke_2(uint64_t a1, int a2
 
     else
     {
-      reachUpdateAndUnlock(v22);
+      reachUpdateAndUnlock(v17);
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v18, 8);
   }
 
   else if (pthread_mutex_unlock((v6 + 16)))
   {
     ____SCNetworkReachabilityRestartResolver_block_invoke_2_cold_3();
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 BOOL ____SCNetworkReachabilityRestartResolver_block_invoke_3(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 40);
-  if (!*(v5 + 256))
-  {
-    v6 = *(v5 + 232);
-  }
-
+  v21 = *MEMORY[0x1E69E9840];
   evaluator_for_endpoint = nw_path_create_evaluator_for_endpoint();
-  v8 = nw_path_evaluator_copy_path();
-  if (!v8)
+  v6 = nw_path_evaluator_copy_path();
+  if (!v6)
   {
     FlagsFromPath = 0;
-    goto LABEL_25;
+    goto LABEL_23;
   }
 
-  v22 = 0;
+  v19 = 0;
   type = nw_endpoint_get_type(a3);
-  v10 = type;
+  v8 = type;
   if (type == nw_endpoint_type_address)
   {
     address = nw_endpoint_get_address(a3);
     if (!address)
     {
-LABEL_18:
-      CrazyIvan46Path = __SCNetworkReachabilityCreateCrazyIvan46Path(v8, a3, *(*(a1 + 40) + 232), 0);
+LABEL_16:
+      CrazyIvan46Path = __SCNetworkReachabilityCreateCrazyIvan46Path(v6, a3, *(*(a1 + 40) + 232), 0);
       if (CrazyIvan46Path)
       {
-        v15 = CrazyIvan46Path;
-        nw_release(v8);
-        v8 = v15;
+        v13 = CrazyIvan46Path;
+        nw_release(v6);
+        v6 = v13;
       }
 
-      goto LABEL_20;
+      goto LABEL_18;
     }
 
-    _SC_sockaddr_to_string(address, v23, 0x80uLL);
-    goto LABEL_12;
+    _SC_sockaddr_to_string(address, v20, 0x80uLL);
+    goto LABEL_10;
   }
 
   if (type != nw_endpoint_type_url && type != nw_endpoint_type_host)
   {
-    v13 = asprintf(&v22, "endpoint %zu, ?");
-    goto LABEL_14;
+    v11 = asprintf(&v19, "endpoint %zu, ?");
+    goto LABEL_12;
   }
 
   if (nw_endpoint_get_hostname(a3))
   {
+LABEL_10:
+    v11 = asprintf(&v19, "endpoint %zu, %s");
 LABEL_12:
-    v13 = asprintf(&v22, "endpoint %zu, %s");
-LABEL_14:
-    if (v13 < 0 && v22)
+    if (v11 < 0 && v19)
     {
-      free(v22);
-      v22 = 0;
+      free(v19);
+      v19 = 0;
     }
 
-    if (v10 != nw_endpoint_type_address)
+    if (v8 != nw_endpoint_type_address)
     {
-      goto LABEL_20;
+      goto LABEL_18;
     }
 
-    goto LABEL_18;
+    goto LABEL_16;
   }
 
-LABEL_20:
-  if (v22)
+LABEL_18:
+  if (v19)
   {
-    v16 = v22;
+    v14 = v19;
   }
 
   else
   {
-    v16 = "";
+    v14 = "";
   }
 
-  FlagsFromPath = __SCNetworkReachabilityGetFlagsFromPath(*(a1 + 40) + 193, v16, v8, 0, 0, 0, 0, 0);
+  FlagsFromPath = __SCNetworkReachabilityGetFlagsFromPath(*(a1 + 40) + 193, v14, v6, 0, 0, 0, 0, 0);
   *(*(*(a1 + 32) + 8) + 24) = 1;
-  if (v22)
+  if (v19)
   {
-    free(v22);
+    free(v19);
   }
 
-LABEL_25:
+LABEL_23:
   interface_index = nw_path_get_interface_index();
-  nw_release(v8);
+  nw_release(v6);
   nw_release(evaluator_for_endpoint);
-  v18 = *(a1 + 40);
-  v19 = (*(v18 + 292) & 6) != 2;
+  v16 = *(a1 + 40);
+  v17 = (*(v16 + 292) & 6) != 2;
   if ((FlagsFromPath & 4) != 0)
   {
-    v19 = (*(v18 + 292) & 2) == 0;
+    v17 = (*(v16 + 292) & 2) == 0;
   }
 
   result = 1;
-  if ((FlagsFromPath & 2) != 0 && v19)
+  if ((FlagsFromPath & 2) != 0 && v17)
   {
-    *(v18 + 292) = FlagsFromPath;
-    *(v18 + 296) = interface_index;
+    *(v16 + 292) = FlagsFromPath;
+    *(v16 + 296) = interface_index;
     if ((FlagsFromPath & 4) == 0)
     {
-      result = 0;
+      return 0;
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void ____SCNetworkReachabilityRestartResolver_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
   nw_resolver_cancel();
-  v3 = *(a1 + 32);
-  v4 = *MEMORY[0x1E69E9840];
+  v2 = *(a1 + 32);
 
-  nw_release(v3);
+  nw_release(v2);
 }
 
 void ____SCNetworkReachabilityRestartResolver_block_invoke_137(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
   if (pthread_mutex_lock((*(a1 + 32) + 16)))
   {
     ____SCNetworkReachabilityRestartResolver_block_invoke_137_cold_1();
@@ -209,7 +191,6 @@ void ____SCNetworkReachabilityRestartResolver_block_invoke_137(uint64_t a1)
   }
 
   v4 = *(a1 + 32);
-  v5 = *MEMORY[0x1E69E9840];
 
   CFRelease(v4);
 }

@@ -1,13 +1,13 @@
-id RCPLogPlayback()
+id RCPLogPlayback(uint64_t a1)
 {
   if (RCPLogPlayback_onceToken != -1)
   {
     RCPLogPlayback_cold_1();
   }
 
-  v1 = RCPLogPlayback___logObj;
+  v2 = RCPLogPlayback___logObj;
 
-  return v1;
+  return v2;
 }
 
 double RCPTimeIntervalFromMachTimestamp(unint64_t a1)
@@ -20,11 +20,11 @@ double RCPTimeIntervalFromMachTimestamp(unint64_t a1)
   return a1 / *&machDurationOfSecond_duration;
 }
 
-id copyMobileGestaltAnswer()
+id copyMobileGestaltAnswer(uint64_t a1)
 {
-  v0 = MGCopyAnswerWithError();
+  v1 = MGCopyAnswerWithError();
 
-  return v0;
+  return v1;
 }
 
 id _RCPActiveScreens()
@@ -48,9 +48,9 @@ id _RCPActiveScreens()
   return v1;
 }
 
-void sub_2619E01C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2619E01C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -90,7 +90,7 @@ id RCPMediaTimingFunctionForInputType(uint64_t a1, uint64_t a2, double a3, doubl
   {
     v6 = MEMORY[0x277CD9EF8];
 LABEL_8:
-    v7 = [v6 functionWithName:*MEMORY[0x277CDA7C8]];
+    v7 = [v6 functionWithName:{*MEMORY[0x277CDA7C8], a3, a4, a5, a6}];
     goto LABEL_11;
   }
 
@@ -142,9 +142,9 @@ uint64_t _RCPIsAllowlistedProperty(void *a1)
   return v3;
 }
 
-void sub_2619E4EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2619E4EB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -174,7 +174,7 @@ Class __getFBSOrientationObserverClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -192,14 +192,14 @@ LABEL_4:
   return result;
 }
 
-uint64_t __FrontBoardServicesLibraryCore_block_invoke()
+uint64_t __FrontBoardServicesLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary = result;
   return result;
 }
 
-uint64_t _updateEventPhase(void *a1)
+uint64_t _updateEventPhase(void *a1, uint64_t a2)
 {
   [a1 hidEvent];
   Children = IOHIDEventGetChildren();
@@ -257,9 +257,9 @@ uint64_t _RCPEventHIDDigitizerEventCountOfTouchingContacts(uint64_t a1)
   return v2;
 }
 
-void sub_2619E8394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2619E8394(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -333,7 +333,7 @@ uint64_t RCPHIDEventTransformLocation(uint64_t a1, __int128 *a2)
   return _RCPHIDEventMatchingPredicateCore(a1, 0, v4);
 }
 
-uint64_t __RCPHIDEventTransformLocation_block_invoke()
+uint64_t __RCPHIDEventTransformLocation_block_invoke(uint64_t a1, uint64_t a2)
 {
   Type = IOHIDEventGetType();
   if (Type == 17 || Type == 11)
@@ -354,9 +354,9 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2619EC7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2619EC7F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -368,16 +368,16 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-id RCPLogWorkarounds()
+id RCPLogWorkarounds(uint64_t a1)
 {
   if (RCPLogWorkarounds_onceToken != -1)
   {
     RCPLogWorkarounds_cold_1();
   }
 
-  v1 = RCPLogWorkarounds___logObj;
+  v2 = RCPLogWorkarounds___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __RCPLogWorkarounds_block_invoke()
@@ -442,9 +442,16 @@ id RCPCGImageBackedImageFromImage(void *a1)
   return v5;
 }
 
-void sub_2619EF7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2619EE2F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  va_start(va, a15);
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_2619EF7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -602,9 +609,9 @@ void ___ioHIDEventCallback_block_invoke(uint64_t a1)
   CFRelease(*(a1 + 48));
 }
 
-void sub_2619F0278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2619F0278(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -641,7 +648,7 @@ Class __getFBSOrientationObserverClass_block_invoke_0(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -659,7 +666,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __FrontBoardServicesLibraryCore_block_invoke_0()
+uint64_t __FrontBoardServicesLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   FrontBoardServicesLibraryCore_frameworkLibrary_0 = result;
@@ -748,9 +755,9 @@ id RCPDataFromHexString(void *a1)
   return v2;
 }
 
-void sub_2619F1B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2619F1B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2809,6 +2816,13 @@ LABEL_44:
   return v26;
 }
 
+void sub_2619F52D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 BOOL isNumber(void *a1)
 {
   if (!a1)
@@ -3228,7 +3242,7 @@ Class __getTypistHWKeyboardClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -3246,7 +3260,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __TypistFrameworkLibraryCore_block_invoke()
+uint64_t __TypistFrameworkLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   TypistFrameworkLibraryCore_frameworkLibrary = result;
@@ -3258,7 +3272,7 @@ uint64_t __parseMultitouchCommandFromArgumentString_block_invoke(uint64_t a1, ui
   v6 = *(a1 + 32);
   if (a2 < 1)
   {
-    return [v6 advanceTime:a6];
+    return [v6 advanceTime:{a3, a4, a5, a6}];
   }
 
   else
@@ -3299,9 +3313,9 @@ uint64_t RCPSetNonDecayingThreadPriority(int a1)
   return result;
 }
 
-void sub_2619FCF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2619FCF14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }

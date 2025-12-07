@@ -26,8 +26,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[4] = *MEMORY[0x1E69E9840];
-  v14[0] = @"voiceCommand";
+  v14[4] = *MEMORY[0x1E69E9840];
+  v13[0] = @"voiceCommand";
   voiceCommand = [(INRunVoiceCommandIntent *)self voiceCommand];
   null = voiceCommand;
   if (!voiceCommand)
@@ -35,8 +35,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[0] = null;
-  v14[1] = @"originDevice";
+  v14[0] = null;
+  v13[1] = @"originDevice";
   originDevice = [(INRunVoiceCommandIntent *)self originDevice];
   null2 = originDevice;
   if (!originDevice)
@@ -44,8 +44,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"executionResult";
+  v14[1] = null2;
+  v13[2] = @"executionResult";
   executionResult = [(INRunVoiceCommandIntent *)self executionResult];
   null3 = executionResult;
   if (!executionResult)
@@ -53,8 +53,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v14[3] = @"previousIntentIdentifier";
+  v14[2] = null3;
+  v13[3] = @"previousIntentIdentifier";
   previousIntentIdentifier = [(INRunVoiceCommandIntent *)self previousIntentIdentifier];
   null4 = previousIntentIdentifier;
   if (!previousIntentIdentifier)
@@ -62,8 +62,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[3] = null4;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v14[3] = null4;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
   if (!previousIntentIdentifier)
   {
   }
@@ -79,8 +79,6 @@
   if (!voiceCommand)
   {
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

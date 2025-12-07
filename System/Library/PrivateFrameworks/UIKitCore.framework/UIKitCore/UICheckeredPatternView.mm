@@ -79,9 +79,9 @@
   if (checkerColor != colorCopy)
   {
     v8 = colorCopy;
-    v7 = [(UIColor *)checkerColor isEqual:colorCopy];
+    isEqual = objc_msgSend_isEqual_(checkerColor, colorCopy, colorCopy);
     colorCopy = v8;
-    if (!v7)
+    if ((isEqual & 1) == 0)
     {
       objc_storeStrong(&self->_checkerColor, color);
       [(UICheckeredPatternView *)self updatePatternColor];

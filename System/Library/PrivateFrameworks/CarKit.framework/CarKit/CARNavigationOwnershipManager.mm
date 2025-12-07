@@ -135,11 +135,10 @@ void __63__CARNavigationOwnershipManager_lastNavigatingBundleIdentifier__block_i
 - (void)_setupConnection
 {
   v3 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.carkit.navowners.service" options:4096];
-  v4 = CRCarPlayNavigationOwnerClientInterface();
+  v4 = CRCarPlayNavigationOwnerClientInterface(v3);
   [v3 setExportedInterface:v4];
 
-  [v3 setExportedObject:self];
-  v5 = CRCarPlayNavigationOwnersServiceInterface();
+  v5 = CRCarPlayNavigationOwnersServiceInterface([v3 setExportedObject:self]);
   [v3 setRemoteObjectInterface:v5];
 
   objc_initWeak(&location, self);
@@ -148,8 +147,7 @@ void __63__CARNavigationOwnershipManager_lastNavigatingBundleIdentifier__block_i
   v8[2] = __49__CARNavigationOwnershipManager__setupConnection__block_invoke;
   v8[3] = &unk_1E82FC248;
   objc_copyWeak(&v9, &location);
-  [v3 setInterruptionHandler:v8];
-  v6 = CarGeneralLogging();
+  v6 = CarGeneralLogging([v3 setInterruptionHandler:v8]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -183,7 +181,7 @@ void __49__CARNavigationOwnershipManager__setupConnection__block_invoke(uint64_t
 
 void __55__CARNavigationOwnershipManager__handleConnectionReset__block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) ownershipRequested])
   {
     v2 = [*(a1 + 32) connection];
@@ -191,13 +189,13 @@ void __55__CARNavigationOwnershipManager__handleConnectionReset__block_invoke(ui
     v4 = [*(a1 + 32) identifier];
     [v3 addNavigationOwnerWithIdentifier:v4];
 
-    v5 = CarGeneralLogging();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CarGeneralLogging(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 32) identifier];
-      v7 = 138543362;
-      v8 = v6;
-      _os_log_impl(&dword_1C81FC000, v5, OS_LOG_TYPE_DEFAULT, "Requesting navigation ownership after connection interruption with identifier: %{public}@", &v7, 0xCu);
+      v7 = [*(a1 + 32) identifier];
+      v8 = 138543362;
+      v9 = v7;
+      _os_log_impl(&dword_1C81FC000, v6, OS_LOG_TYPE_DEFAULT, "Requesting navigation ownership after connection interruption with identifier: %{public}@", &v8, 0xCu);
     }
   }
 }
@@ -205,7 +203,7 @@ void __55__CARNavigationOwnershipManager__handleConnectionReset__block_invoke(ui
 - (void)navigationOwnershipChangedTo:(unint64_t)to
 {
   v13 = *MEMORY[0x1E69E9840];
-  v5 = CarGeneralLogging();
+  v5 = CarGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = @"None";

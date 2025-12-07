@@ -7,17 +7,22 @@
 - (BOOL)_detectDuplicatedEventFromExchangeEvent:(id)event inFolderWithId:(id)id isInitialSync:(BOOL)sync eventServerIDsToDrop:(id)drop eventServerIDSWithDroppedDeletes:(id)deletes resultingChangeActionsForServer:(id)server outEvent:(id *)outEvent outLocalItem:(const void *)self0 outDidTouchDB:(BOOL *)self1;
 - (BOOL)_finishWithInvitationEvent:(void *)event eventUID:(id)d expectedResponse:(int)response wasMyInvite:(BOOL)invite isStillInvite:(BOOL)stillInvite;
 - (BOOL)_getHierarchyChangeForDataclass:(int64_t)dataclass changedItemId:(int *)id changeType:(unint64_t *)type externalId:(id *)externalId changeTableIndices:(__CFArray *)indices;
+- (BOOL)_handleAction:(id)action inFolderWithId:(id)id dataclass:(int64_t)dataclass isInitialSync:(BOOL)sync resultingChangeActionsForServer:(id)server eventServerIDsToDrop:(id)drop eventServerIDSWithDroppedDeletes:(id)deletes;
+- (BOOL)_handleLocallyChangedFolderWithChangedItemId:(int)id changeType:(unint64_t)type externalId:(id)externalId changeTableIndices:(__CFArray *)indices dataclass:(int64_t)dataclass;
 - (BOOL)_handleReminderChangedFolder:(id)folder changeType:(unint64_t)type;
 - (BOOL)_handleToDoAction:(id)action inFolderWithId:(id)id isInitialSync:(BOOL)sync resultingChangeActionsForServer:(id)server eventServerIDsToDrop:(id)drop eventServerIDSWithDroppedDeletes:(id)deletes;
 - (BOOL)_isOrganizerSelfWithEmail:(id)email;
 - (BOOL)_isOrganizerSelfWithLocalEvent:(void *)event;
 - (BOOL)_markEventWithLocalIDAsNeedingInvitationEmail:(int)email parentId:(int)id;
 - (BOOL)_notesBestEffortApplyNewFolders:(id)folders oldFolders:(id)oldFolders shouldCreateFoldersMissingInDB:(BOOL)b;
+- (BOOL)_reminderBestEffortApplyNewFolders:(id)folders oldFolders:(id)oldFolders shouldCreateFoldersMissingInDB:(BOOL)b;
 - (BOOL)_syncResultForToDoFolder:(id)folder newTag:(id)tag previousTag:(id)previousTag actions:(id)actions results:(id)results changeIdContext:(id)context isInitialSync:(BOOL)sync moreAvailable:(BOOL)self0 resultingChangeActionsForServer:(id)self1 pushedActions:(id)self2 rejectedServerIds:(id)self3 eventsWithPendingInvitationEmails:(id)self4;
 - (BOOL)predicateShouldContinue:(id)continue afterFindingRecord:(void *)record;
 - (id)_copyABActionsInContainer:(void *)container existingActions:(id)actions dataHandler:(id)handler wantPreserveActions:(BOOL)preserveActions changeContext:(id)context;
+- (id)_copyCalendarItemActionsInContainer:(void *)container existingActions:(id)actions dataHandler:(id)handler wantPreserveActions:(BOOL)preserveActions skippedDetachments:(id)detachments changeContext:(id)context;
 - (id)_copyCalendarItemMoveActionsInCalendar:(void *)calendar dataHandler:(id)handler deleteActionsByFolderId:(id)id;
 - (id)_copyNotesActionsInNoteStore:(id)store existingActions:(id)actions dataHandler:(id)handler wantPreserveActions:(BOOL)preserveActions changeSet:(id)set;
+- (id)_dbExternalIdForLocalId:(int)id dataclass:(int64_t)dataclass;
 - (id)_exchangeIdForLocalId:(id)id inContainer:(void *)container dataclass:(int64_t)dataclass redirectToParent:(BOOL)parent;
 - (id)_instanceIdFromIdWithExceptionDate:(id)date;
 - (id)_localIdForExchangeId:(id)id inContainer:(void *)container dataclass:(int64_t)dataclass;
@@ -32,12 +37,16 @@
 - (void)_addChangeForType:(unint64_t)type changedItemId:(id)id changeId:(id)changeId addedIdsToChangeId:(id)toChangeId modifiedIdsToChangeId:(id)idsToChangeId deletedIdsToChangeId:(id)deletedIdsToChangeId pseudoDeletedIdsToChangeId:(id)pseudoDeletedIdsToChangeId changeIdsToClear:(id)self0;
 - (void)_addSimpleChangeForType:(unint64_t)type changedItemId:(id)id addedIds:(id)ids modifiedIds:(id)modifiedIds deletedIds:(id)deletedIds collapsedIds:(id)collapsedIds;
 - (void)_appendFolderHierarchyChangesForFoldersOfDataclasses:(int64_t)dataclasses;
+- (void)_appendReminderSyncRequestForFolders:(id)folders remoteChanges:(BOOL)changes;
 - (void)_appendSyncRequest:(id)request atBeginning:(BOOL)beginning;
+- (void)_appendSyncRequestForFolders:(id)folders remoteChanges:(BOOL)changes;
+- (void)_appendSyncRequestForFoldersOfDataclasses:(int64_t)dataclasses remoteChanges:(BOOL)changes;
 - (void)_attendeeChangesDueToMeetingForwardingInCalendar:(void *)calendar eventIdToAttendeeEmails:(id)emails eventIdToAttendeeUUIDs:(id)ds dataHandler:(id)handler;
 - (void)_cacheFoldersForDataclasses:(int64_t)dataclasses;
 - (void)_containerForFolderWithId:(id)id dataclass:(int64_t)dataclass;
 - (void)_copyExistingABRecordForContact:(id)contact matchOnAttributes:(BOOL)attributes inStore:(void *)store;
 - (void)_copyExistingCalRecordForEvent:(id)event matchOnAttributes:(BOOL)attributes inCalendar:(void *)calendar;
+- (void)_copyExistingLocalItemForExchangeItem:(id)item matchOnAttributes:(BOOL)attributes inContainer:(void *)container;
 - (void)_exceptionDateChangesInCalendar:(void *)calendar exceptionDateToChangeId:(id)id outHighestSequenceNumber:(int *)number dataHandler:(id)handler;
 - (void)_faultInCalendarSubentitiesInCalendar:(void *)calendar addedIdsToEventChangeId:(id)id modifiedIdsToEventChangeId:(id)changeId deletedIdsToEventChangeId:(id)eventChangeId pseudoDeletedIdsToEventChangeId:(id)toEventChangeId localToExchangeIdMap:(id)map eventChangeIdsToClear:(id)clear allAddedDetachmentIds:(id)self0 outRecurrenceId:(int *)self1 outAlarmId:(int *)self2 outAttendeeId:(int *)self3 outAttachmentId:(int *)self4 outHighestSequenceNumber:(int *)self5 dataHandler:(id)self6;
 - (void)_finishInitialSyncForFolder:(id)folder dataclass:(int64_t)dataclass;
@@ -53,6 +62,7 @@
 - (void)_nilOutContainersForDataclasses:(int64_t)dataclasses;
 - (void)_noteSyncForFolderWithId:(id)id andTitle:(id)title finishedWithSuccess:(BOOL)success;
 - (void)_openLocalDBConnections;
+- (void)_queueServerFailureResyncForFolderWithId:(id)id isInitialSync:(BOOL)sync;
 - (void)_reallyApplyMessageDidSendWithContext:(id)context;
 - (void)_reallyFinishInvitationBatch:(id)batch;
 - (void)_reallyPrepareFetchAttachmentTask:(id)task;
@@ -70,7 +80,11 @@
 - (void)_setUpNotesNotifications;
 - (void)_setUpReminderNotifications;
 - (void)_smartMailTask:(id)task failedWithErrorCode:(int64_t)code error:(id)error;
+- (void)_syncAllContactFoldersWithRemoteChanges:(BOOL)changes;
 - (void)_syncAllContactsEventsToDosAndNotesFolders;
+- (void)_syncAllEventsFoldersWithRemoteChanges:(BOOL)changes;
+- (void)_syncAllNotesFoldersWithRemoteChanges:(BOOL)changes;
+- (void)_syncAllToDosFoldersWithRemoteChanges:(BOOL)changes;
 - (void)_syncEndedWithError:(id)error;
 - (void)_syncRequest:(id)request;
 - (void)_syncResultForFolder:(id)folder newTag:(id)tag previousTag:(id)previousTag actions:(id)actions results:(id)results changeIdContext:(id)context isInitialSync:(BOOL)sync moreAvailable:(BOOL)self0 dataclass:(int64_t)self1 resultingChangeActionsForServer:(id)self2 pushedActions:(id)self3 rejectedServerIds:(id)self4 eventsWithPendingInvitationEmails:(id)self5;
@@ -79,6 +93,7 @@
 - (void)_tearDownCalNotifications;
 - (void)_tearDownNotesNotifications;
 - (void)_tearDownReminderNotifications;
+- (void)_updateFolderHierarchyRequireChangedFolders:(BOOL)folders;
 - (void)_updateSyncKey:(id)key forToDoFolderWithId:(id)id;
 - (void)_verifySearchStore;
 - (void)_wrapperSyncResultForFolder:(id)folder dataclass:(int64_t)dataclass newTag:(id)tag previousTag:(id)previousTag actions:(id)actions results:(id)results changeIdContext:(id)context isInitialSync:(BOOL)self0 moreAvailable:(BOOL)self1 moreLocalChangesAvailable:(BOOL)self2 pushedActions:(id)self3 rejectedServerIds:(id)self4;
@@ -96,6 +111,7 @@
 - (void)prepareFetchAttachmentTask:(id)task;
 - (void)processDAFolderChange:(id)change withCompletionBlock:(id)block;
 - (void)processMeetingRequestDatas:(id)datas deliveryIdsToClear:(id)clear deliveryIdsToSoftClear:(id)softClear inFolderWithId:(id)id callback:(id)callback;
+- (void)refreshFolderListRequireChangedFolders:(BOOL)folders isUserRequested:(BOOL)requested;
 - (void)requestAgentStopMonitoringWithCompletionBlock:(id)block;
 - (void)resultsForMessageMove:(id)move;
 - (void)setMatchedRecord:(void *)record;
@@ -1540,45 +1556,33 @@ LABEL_182:
   account = [(ASAgent *)self account];
   v4 = [account enabledForDADataclass:4];
 
-  if (v4)
+  result = 0;
+  if (!v4 || (+[ASLocalDBHelper sharedInstance](ASLocalDBHelper, "sharedInstance"), v5 = objc_claimAutoreleasedReturnValue(), -[ASAgent account](self, "account"), v6 = objc_claimAutoreleasedReturnValue(), [v6 accountID], v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v5, "calCloseDatabaseForAccountID:save:", v7, 0), v7, v6, v5, v8))
   {
-    v5 = +[ASLocalDBHelper sharedInstance];
     account2 = [(ASAgent *)self account];
-    accountID = [account2 accountID];
-    v8 = [v5 calCloseDatabaseForAccountID:accountID save:0];
+    v10 = [account2 enabledForDADataclass:2];
 
-    if (!v8)
+    if (!v10 || (+[ASLocalDBHelper sharedInstance](ASLocalDBHelper, "sharedInstance"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 abCloseDBAndSave:0], v11, v12))
     {
-      return 0;
+      account3 = [(ASAgent *)self account];
+      v14 = [account3 enabledForDADataclass:32];
+
+      if (!v14)
+      {
+        return 1;
+      }
+
+      v15 = +[ASLocalDBHelper sharedInstance];
+      v16 = [v15 noteCloseDBAndSave:0];
+
+      if (v16)
+      {
+        return 1;
+      }
     }
   }
 
-  account3 = [(ASAgent *)self account];
-  v10 = [account3 enabledForDADataclass:2];
-
-  if (v10)
-  {
-    v11 = +[ASLocalDBHelper sharedInstance];
-    v12 = [v11 abCloseDBAndSave:0];
-
-    if (!v12)
-    {
-      return 0;
-    }
-  }
-
-  account4 = [(ASAgent *)self account];
-  v14 = [account4 enabledForDADataclass:32];
-
-  if (!v14)
-  {
-    return 1;
-  }
-
-  v15 = +[ASLocalDBHelper sharedInstance];
-  v16 = [v15 noteCloseDBAndSave:0];
-
-  return v16 != 0;
+  return result;
 }
 
 - (BOOL)_abBestEffortApplyNewFolders:(id)folders oldFolders:(id)oldFolders shouldCreateFoldersMissingInDB:(BOOL)b
@@ -1808,20 +1812,7 @@ LABEL_34:
     v51 = [account2 defaultContainerIdentifierForDADataclass:2];
 
     v52 = &PLLogRegisteredEvent_ptr;
-    if (!v51)
-    {
-      goto LABEL_48;
-    }
-
-    [v10 abDB];
-    [(ASAgent *)self account];
-    v54 = v53 = v24;
-    accountID = [v54 accountID];
-    v56 = ABAddressBookCopySourceWithAccountAndExternalIdentifiers();
-
-    v52 = &PLLogRegisteredEvent_ptr;
-    v24 = v53;
-    if (v56)
+    if (v51 && ([v10 abDB], -[ASAgent account](self, "account"), v53 = v24, v54 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v54, "accountID"), v55 = objc_claimAutoreleasedReturnValue(), v56 = ABAddressBookCopySourceWithAccountAndExternalIdentifiers(), v55, v52 = &PLLogRegisteredEvent_ptr, v54, v24 = v53, v56))
     {
       [v10 abDB];
       if (v56 != ABAddressBookGetDefaultSourceForAccount())
@@ -1841,7 +1832,6 @@ LABEL_34:
 
     else
     {
-LABEL_48:
       v57 = cf;
     }
 
@@ -2080,19 +2070,8 @@ LABEL_42:
       folderID = [v42 folderID];
       folderName2 = [v43 folderName];
       [v77 addObject:folderID];
-      if (![v36 isEqualToString:folderID])
+      if (![v36 isEqualToString:folderID] || (objc_msgSend(v75, "objectForKeyedSubscript:", v36), v73 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v73, "folderName"), v46 = objc_claimAutoreleasedReturnValue(), v72 = objc_msgSend(v46, "isEqualToString:", folderName2), v46, v31 = v81, v73, (v72 & 1) == 0))
       {
-        goto LABEL_38;
-      }
-
-      v73 = [v75 objectForKeyedSubscript:v36];
-      folderName3 = [v73 folderName];
-      v72 = [folderName3 isEqualToString:folderName2];
-
-      v31 = v81;
-      if ((v72 & 1) == 0)
-      {
-LABEL_38:
         [v43 folderID];
         CalCalendarSetExternalID();
         [v43 folderName];
@@ -2202,6 +2181,34 @@ LABEL_70:
 LABEL_73:
 
   return v64;
+}
+
+- (BOOL)_reminderBestEffortApplyNewFolders:(id)folders oldFolders:(id)oldFolders shouldCreateFoldersMissingInDB:(BOOL)b
+{
+  bCopy = b;
+  oldFoldersCopy = oldFolders;
+  foldersCopy = folders;
+  v10 = DALoggingwithCategory();
+  v11 = _CPLog_to_os_log_type[7];
+  if (os_log_type_enabled(v10, v11))
+  {
+    *v18 = 0;
+    _os_log_impl(&dword_0, v10, v11, "ReminderSupport: _reminderBestEffortApplyNewFolders", v18, 2u);
+  }
+
+  sharedReminderKitHelper = [(ASAgent *)self sharedReminderKitHelper];
+  account = [(ASAgent *)self account];
+  v14 = [sharedReminderKitHelper bestEffortApplyNewFolders:foldersCopy oldFolders:oldFoldersCopy forAccount:account shouldCreateFoldersMissingInDB:bCopy];
+
+  if (!v14)
+  {
+    return 0;
+  }
+
+  sharedReminderKitHelper2 = [(ASAgent *)self sharedReminderKitHelper];
+  commitChangesToStore = [sharedReminderKitHelper2 commitChangesToStore];
+
+  return commitChangesToStore;
 }
 
 - (BOOL)_notesBestEffortApplyNewFolders:(id)folders oldFolders:(id)oldFolders shouldCreateFoldersMissingInDB:(BOOL)b
@@ -2425,6 +2432,118 @@ LABEL_31:
 LABEL_43:
 
   return v39;
+}
+
+- (void)_syncAllContactFoldersWithRemoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  account = [(ASAgent *)self account];
+  v6 = [account enabledForDADataclass:2];
+
+  if (v6)
+  {
+    account2 = [(ASAgent *)self account];
+    contactsFolders = [account2 contactsFolders];
+
+    v8 = [contactsFolders count];
+    if (v8)
+    {
+      v9 = v8;
+      for (i = 0; i != v9; ++i)
+      {
+        v11 = [contactsFolders objectAtIndexedSubscript:i];
+        account3 = [(ASAgent *)self account];
+        folderID = [v11 folderID];
+        [account3 monitorFolderWithID:folderID];
+      }
+    }
+
+    [(ASAgent *)self _appendSyncRequestForFoldersOfDataclasses:2 remoteChanges:changesCopy];
+  }
+}
+
+- (void)_syncAllEventsFoldersWithRemoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  account = [(ASAgent *)self account];
+  v6 = [account enabledForDADataclass:4];
+
+  if (v6)
+  {
+    account2 = [(ASAgent *)self account];
+    eventsFolders = [account2 eventsFolders];
+
+    v8 = [eventsFolders count];
+    if (v8)
+    {
+      v9 = v8;
+      for (i = 0; i != v9; ++i)
+      {
+        v11 = [eventsFolders objectAtIndexedSubscript:i];
+        account3 = [(ASAgent *)self account];
+        folderID = [v11 folderID];
+        [account3 monitorFolderWithID:folderID];
+      }
+    }
+
+    [(ASAgent *)self _appendSyncRequestForFoldersOfDataclasses:4 remoteChanges:changesCopy];
+  }
+}
+
+- (void)_syncAllToDosFoldersWithRemoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  account = [(ASAgent *)self account];
+  v6 = [account enabledForDADataclass:16];
+
+  if (v6)
+  {
+    account2 = [(ASAgent *)self account];
+    toDosFolders = [account2 toDosFolders];
+
+    v8 = [toDosFolders count];
+    if (v8)
+    {
+      v9 = v8;
+      for (i = 0; i != v9; ++i)
+      {
+        v11 = [toDosFolders objectAtIndexedSubscript:i];
+        account3 = [(ASAgent *)self account];
+        folderID = [v11 folderID];
+        [account3 monitorFolderWithID:folderID];
+      }
+    }
+
+    [(ASAgent *)self _appendSyncRequestForFoldersOfDataclasses:16 remoteChanges:changesCopy];
+  }
+}
+
+- (void)_syncAllNotesFoldersWithRemoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  account = [(ASAgent *)self account];
+  v6 = [account enabledForDADataclass:32];
+
+  if (v6)
+  {
+    account2 = [(ASAgent *)self account];
+    notesFolders = [account2 notesFolders];
+
+    v8 = [notesFolders count];
+    if (v8)
+    {
+      v9 = v8;
+      for (i = 0; i != v9; ++i)
+      {
+        v11 = [notesFolders objectAtIndexedSubscript:i];
+        account3 = [(ASAgent *)self account];
+        folderID = [v11 folderID];
+        [account3 monitorFolderWithID:folderID];
+      }
+    }
+
+    [(ASAgent *)self _appendSyncRequestForFoldersOfDataclasses:32 remoteChanges:changesCopy];
+  }
 }
 
 - (void)_syncAllContactsEventsToDosAndNotesFolders
@@ -2664,6 +2783,23 @@ LABEL_33:
   }
 
 LABEL_36:
+}
+
+- (void)_updateFolderHierarchyRequireChangedFolders:(BOOL)folders
+{
+  foldersCopy = folders;
+  [(ASAgent *)self _syncStarted];
+  v10 = objc_opt_new();
+  account = [(ASAgent *)self account];
+  foldersTag = [account foldersTag];
+  [v10 setIsFirstSync:foldersTag == 0];
+
+  account2 = [(ASAgent *)self account];
+  visibleFolders = [account2 visibleFolders];
+  [v10 setOldFolders:visibleFolders];
+
+  account3 = [(ASAgent *)self account];
+  [account3 syncFolderHierarchyWithConsumer:self requireChangedFolders:foldersCopy context:v10];
 }
 
 - (void)folderHierarchyFailedToUpdate:(id)update withStatus:(int64_t)status andError:(id)error
@@ -3500,6 +3636,26 @@ LABEL_103:
 {
   v3 = +[ESLocalDBWatcher sharedDBWatcher];
   [v3 removeConcernedNoteParty:self];
+}
+
+- (void)refreshFolderListRequireChangedFolders:(BOOL)folders isUserRequested:(BOOL)requested
+{
+  foldersCopy = folders;
+  if (requested)
+  {
+    account = [(ASAgent *)self account];
+    [account setShouldUseOpportunisticSockets:0];
+
+    account2 = [(ASAgent *)self account];
+    [account2 setWasUserInitiated:1];
+  }
+
+  [(ASAgent *)self _openLocalDBConnections];
+  [(ASAgent *)self _cacheFoldersForDataclasses:127];
+  [(ASAgent *)self _updateFolderHierarchyRequireChangedFolders:foldersCopy];
+  [(ASAgent *)self _nilOutContainersForDataclasses:127];
+
+  [(ASAgent *)self _closeLocalDBConnectionsWithoutSaving];
 }
 
 - (void)_verifySearchStore
@@ -4537,6 +4693,42 @@ LABEL_40:
   return started;
 }
 
+- (void)_copyExistingLocalItemForExchangeItem:(id)item matchOnAttributes:(BOOL)attributes inContainer:(void *)container
+{
+  attributesCopy = attributes;
+  itemCopy = item;
+  if ([itemCopy dataclass] == &dword_10)
+  {
+    sub_47D7C();
+  }
+
+  if ([itemCopy dataclass] == &dword_0 + 2)
+  {
+    v9 = [(ASAgent *)self _copyExistingABRecordForContact:itemCopy matchOnAttributes:attributesCopy inStore:container];
+  }
+
+  else if ([itemCopy dataclass] == &dword_4)
+  {
+    v9 = [(ASAgent *)self _copyExistingCalRecordForEvent:itemCopy matchOnAttributes:attributesCopy inCalendar:container];
+  }
+
+  else
+  {
+    if ([itemCopy dataclass] != &stru_20)
+    {
+      v10 = 0;
+      goto LABEL_10;
+    }
+
+    v9 = [(ASAgent *)self _copyExistingNoteRecordForNote:itemCopy matchOnAttributes:attributesCopy inNoteStore:container];
+  }
+
+  v10 = v9;
+LABEL_10:
+
+  return v10;
+}
+
 - (void)_noteSyncForFolderWithId:(id)id andTitle:(id)title finishedWithSuccess:(BOOL)success
 {
   successCopy = success;
@@ -4574,6 +4766,39 @@ LABEL_40:
         v22 = 1024;
         v23 = v14;
         _os_log_impl(&dword_0, folderIdToSequentialServerErrorCount, v17, "Folder with id %@ and title %@ has failed to sync %d time(s) in a row", &v18, 0x1Cu);
+      }
+    }
+  }
+}
+
+- (void)_queueServerFailureResyncForFolderWithId:(id)id isInitialSync:(BOOL)sync
+{
+  syncCopy = sync;
+  idCopy = id;
+  folderIdToSequentialFailureCount = [(ASAgent *)self folderIdToSequentialFailureCount];
+  v8 = [folderIdToSequentialFailureCount objectForKeyedSubscript:idCopy];
+  intValue = [v8 intValue];
+
+  if (intValue <= 2)
+  {
+    account = [(ASAgent *)self account];
+    v11 = [account folderWithId:idCopy];
+
+    if (v11)
+    {
+      v12 = [[ESFolderSyncRequest alloc] initWithFolder:v11 hasRemoteChanges:0 isInitialUberSync:syncCopy];
+      [(ASAgent *)self _appendSyncRequest:v12];
+    }
+
+    else
+    {
+      v13 = DALoggingwithCategory();
+      v14 = _CPLog_to_os_log_type[3];
+      if (os_log_type_enabled(v13, v14))
+      {
+        v15 = 138412290;
+        v16 = idCopy;
+        _os_log_impl(&dword_0, v13, v14, "Can't queue a retry sync, as we no longer have a folder with id %@", &v15, 0xCu);
       }
     }
   }
@@ -4897,7 +5122,7 @@ LABEL_22:
   }
 
 LABEL_45:
-  [(ASAgent *)self _fireWaitingFolderItemSyncRequests];
+  [(ASAgent *)self _fireWaitingFolderItemSyncRequests:*v45];
   v42 = +[DALocalDBGateKeeper sharedGateKeeper];
   [v42 relinquishLocksForWaiter:self dataclasses:dataclass moreComing:0];
 }
@@ -5101,6 +5326,411 @@ LABEL_33:
   return v25;
 }
 
+- (BOOL)_handleAction:(id)action inFolderWithId:(id)id dataclass:(int64_t)dataclass isInitialSync:(BOOL)sync resultingChangeActionsForServer:(id)server eventServerIDsToDrop:(id)drop eventServerIDSWithDroppedDeletes:(id)deletes
+{
+  syncCopy = sync;
+  actionCopy = action;
+  idCopy = id;
+  serverCopy = server;
+  dropCopy = drop;
+  deletesCopy = deletes;
+  if (dataclass == 16)
+  {
+    sub_47E54();
+  }
+
+  v95 = 0;
+  v88 = idCopy;
+  v17 = [(ASAgent *)self _containerForFolderWithId:idCopy dataclass:dataclass];
+  account = [(ASAgent *)self account];
+  changeTrackingID = [account changeTrackingID];
+  account2 = [(ASAgent *)self account];
+  accountID = [account2 accountID];
+  v91 = [ASDataHandler newDataHandlerForDataclass:dataclass container:v17 changeTrackingID:changeTrackingID accountID:accountID];
+
+  changedItem = [actionCopy changedItem];
+  cf = 0;
+  if (dataclass == 4 && ![actionCopy itemChangeType])
+  {
+    v93 = changedItem;
+    v24 = serverCopy;
+    v45 = [(ASAgent *)self _detectDuplicatedEventFromExchangeEvent:changedItem inFolderWithId:v88 isInitialSync:syncCopy eventServerIDsToDrop:dropCopy eventServerIDSWithDroppedDeletes:deletesCopy resultingChangeActionsForServer:serverCopy outEvent:&v93 outLocalItem:&cf outDidTouchDB:&v95];
+    v23 = v93;
+
+    if (v45)
+    {
+      [actionCopy _setChangedItem:v23];
+    }
+  }
+
+  else
+  {
+    v23 = changedItem;
+    v24 = serverCopy;
+  }
+
+  if (syncCopy)
+  {
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
+    }
+
+    intValue = 0;
+    cf = [(ASAgent *)self _copyExistingLocalItemForExchangeItem:v23 matchOnAttributes:1 inContainer:v17];
+    goto LABEL_28;
+  }
+
+  if (![actionCopy itemChangeType])
+  {
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
+    }
+
+    cf = [(ASAgent *)self _copyExistingLocalItemForExchangeItem:v23 matchOnAttributes:0 inContainer:v17];
+    if (cf)
+    {
+      if (dataclass != 4 || (v26 = CalCalendarItemCopyExternalID(), v26, v26))
+      {
+        v27 = DALoggingwithCategory();
+        v28 = _CPLog_to_os_log_type[3];
+        if (os_log_type_enabled(v27, v28))
+        {
+          *buf = 138412290;
+          v97 = v23;
+          _os_log_impl(&dword_0, v27, v28, "Received an add from Exchange for an item that we already knew about!  We may be about to start a dupe war with Exchange.  Exchange Item %@", buf, 0xCu);
+        }
+      }
+    }
+  }
+
+  serverID = [v23 serverID];
+  account3 = [(ASAgent *)self account];
+  protocol = [account3 protocol];
+  if (![protocol useInstanceIdForException])
+  {
+    goto LABEL_22;
+  }
+
+  instanceID = [v23 instanceID];
+
+  if (instanceID)
+  {
+    account3 = [v23 instanceID];
+    [NSString stringWithFormat:@"%@%@%@", serverID, @"<!ExceptionDate!>", account3];
+    serverID = protocol = serverID;
+LABEL_22:
+  }
+
+  v33 = [(ASAgent *)self _localIdForExchangeId:serverID inContainer:v17 dataclass:dataclass];
+  intValue = [v33 intValue];
+
+  if (intValue)
+  {
+    if (cf)
+    {
+      CFRelease(cf);
+      cf = 0;
+    }
+
+    cf = [v91 copyLocalObjectFromId:intValue];
+  }
+
+LABEL_28:
+  if ([actionCopy itemChangeType])
+  {
+    v34 = 1;
+  }
+
+  else
+  {
+    v34 = cf == 0;
+  }
+
+  v35 = !v34;
+  itemChangeType = [actionCopy itemChangeType];
+  if (itemChangeType)
+  {
+    if (itemChangeType != &dword_0 + 2)
+    {
+      if (itemChangeType != &dword_0 + 1)
+      {
+        goto LABEL_94;
+      }
+
+      if (!cf)
+      {
+        v37 = DALoggingwithCategory();
+        v38 = _CPLog_to_os_log_type[3];
+        if (os_log_type_enabled(v37, v38))
+        {
+          *buf = 138412290;
+          v97 = v23;
+          _os_log_impl(&dword_0, v37, v38, "Received a mod from Exchange for an item we didn't already have.  Dropping this mod on the floor.  Exchange Item %@", buf, 0xCu);
+        }
+
+        goto LABEL_94;
+      }
+
+      goto LABEL_45;
+    }
+
+    if (!cf)
+    {
+      goto LABEL_94;
+    }
+
+    clientID = [v23 clientID];
+
+    if (clientID)
+    {
+      [v23 setLocalItem:cf];
+    }
+
+    else
+    {
+      v63 = [NSString stringWithFormat:@"%d", intValue];
+      [v23 setClientID:v63];
+
+      account4 = [(ASAgent *)self account];
+      [v23 loadLocalItemWithAccount:account4];
+    }
+
+    if (dataclass != 4)
+    {
+LABEL_75:
+      [v23 deleteFromContainer:v17];
+      v95 = 1;
+      goto LABEL_94;
+    }
+
+    v65 = CalCalendarItemCopyExternalID();
+    if (v65 && [dropCopy containsObject:v65])
+    {
+      [deletesCopy addObject:v65];
+      v66 = DALoggingwithCategory();
+      v67 = _CPLog_to_os_log_type[6];
+      if (os_log_type_enabled(v66, v67))
+      {
+        *buf = 138412290;
+        v97 = v23;
+        _os_log_impl(&dword_0, v66, v67, "Dropping the delete of %@ on the floor, as we have an add or mod with the same server ID in this set of incoming changes", buf, 0xCu);
+      }
+
+      goto LABEL_93;
+    }
+
+    v68 = CalEventCopyEventActions();
+    if ([v68 count])
+    {
+      [v68 objectAtIndexedSubscript:0];
+
+      v69 = CalEventActionCopyExternalFolderID();
+    }
+
+    else
+    {
+      v69 = 0;
+    }
+
+    account5 = [(ASAgent *)self account];
+    v71 = [v23 cachedOrganizerIsSelfWithAccount:account5];
+
+    if (v71)
+    {
+LABEL_74:
+
+      goto LABEL_75;
+    }
+
+    account6 = [(ASAgent *)self account];
+    [account6 deletedItemsFolder];
+    v73 = v87 = v69;
+    folderID = [v73 folderID];
+
+    v69 = v87;
+    if (CalCalendarItemGetStatus() == 3)
+    {
+LABEL_73:
+
+      goto LABEL_74;
+    }
+
+    if (CalEventGetParticipationStatus() == 2)
+    {
+      v75 = v68;
+      CalCalendarItemSetExternalID();
+      v76 = CalEventCopyDetachedEvents();
+      if ([v76 count])
+      {
+        v77 = 0;
+        do
+        {
+          [v76 objectAtIndexedSubscript:v77];
+
+          CalCalendarItemSetExternalID();
+          if (CalCalendarItemGetStatus() == 3)
+          {
+            CalCalendarItemSetStatus();
+          }
+
+          if (CalEventGetParticipationStatus() == 2)
+          {
+            CalEventSetParticipationStatus();
+          }
+
+          ++v77;
+        }
+
+        while (v77 < [v76 count]);
+      }
+
+      v95 = 1;
+    }
+
+    else
+    {
+      if (!v87 || ![folderID isEqualToString:v87])
+      {
+        goto LABEL_73;
+      }
+
+      v78 = v68;
+      v79 = DALoggingwithCategory();
+      v80 = _CPLog_to_os_log_type[6];
+      if (os_log_type_enabled(v79, v80))
+      {
+        *buf = 138412290;
+        v97 = v23;
+        _os_log_impl(&dword_0, v79, v80, "Dropping the delete of %@ on the floor, as it's still linked to an invitation in the trash", buf, 0xCu);
+      }
+
+      v81 = cf;
+      account7 = [(ASAgent *)self account];
+      v83 = [v23 copySelfAttendeeGeneratedIfNecessaryWithLocalEvent:v81 forAccount:account7];
+
+      if (v83)
+      {
+        CalAttendeeSetStatus();
+        CalAttendeeSetPendingStatus();
+        CFRelease(v83);
+      }
+
+      v95 = 1;
+      v75 = v78;
+      v69 = v87;
+    }
+
+LABEL_93:
+    goto LABEL_94;
+  }
+
+  if (cf)
+  {
+LABEL_45:
+    v40 = DALoggingwithCategory();
+    v41 = _CPLog_to_os_log_type[7];
+    if (!os_log_type_enabled(v40, v41))
+    {
+      goto LABEL_52;
+    }
+
+    v42 = objc_opt_class();
+    v43 = NSStringFromClass(v42);
+    *buf = 138412290;
+    v97 = v43;
+    v44 = "updating %@";
+    goto LABEL_51;
+  }
+
+  v40 = DALoggingwithCategory();
+  v41 = _CPLog_to_os_log_type[7];
+  if (!os_log_type_enabled(v40, v41))
+  {
+    goto LABEL_52;
+  }
+
+  v46 = objc_opt_class();
+  v43 = NSStringFromClass(v46);
+  *buf = 138412290;
+  v97 = v43;
+  v44 = "adding %@";
+LABEL_51:
+  _os_log_impl(&dword_0, v40, v41, v44, buf, 0xCu);
+
+LABEL_52:
+  v92 = 0;
+  v47 = cf;
+  account8 = [(ASAgent *)self account];
+  LODWORD(v47) = [v23 saveWithLocalObject:v47 toContainer:v17 shouldMergeProperties:v35 outMergeDidChooseLocalProperties:&v92 account:account8];
+
+  if (v47)
+  {
+    v49 = DALoggingwithCategory();
+    if (os_log_type_enabled(v49, v41))
+    {
+      v50 = objc_opt_class();
+      v51 = NSStringFromClass(v50);
+      serverID2 = [v23 serverID];
+      clientID2 = [v23 clientID];
+      *buf = 138412802;
+      v97 = v51;
+      v98 = 2112;
+      v99 = serverID2;
+      v100 = 2112;
+      v101 = clientID2;
+      _os_log_impl(&dword_0, v49, v41, "saved %@, server id %@, clientID %@", buf, 0x20u);
+
+      v24 = serverCopy;
+    }
+
+    v95 = 1;
+    if (v35)
+    {
+      if (v92 == 1)
+      {
+        v54 = [v91 getIdFromLocalObject:cf];
+        if (v54 >= 1)
+        {
+          v55 = v54;
+          v56 = DALoggingwithCategory();
+          v57 = _CPLog_to_os_log_type[6];
+          if (os_log_type_enabled(v56, v57))
+          {
+            *buf = 138412546;
+            v97 = v23;
+            v98 = 1024;
+            LODWORD(v99) = v55;
+            _os_log_impl(&dword_0, v56, v57, "Add of object %@ over local item with id %d resulted in keeping some local properties.  Queueing sync to server", buf, 0x12u);
+          }
+
+          v58 = cf;
+          serverID3 = [v23 serverID];
+          account9 = [(ASAgent *)self account];
+          v61 = [v91 getDAObjectWithLocalItem:v58 serverId:serverID3 account:account9];
+
+          [v61 setLocalItem:0];
+          v62 = [[ASAction alloc] initWithItemChangeType:1 changedItem:v61 serverId:0];
+          [v24 addObject:v62];
+        }
+      }
+    }
+  }
+
+LABEL_94:
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  v84 = v95;
+
+  return v84;
+}
+
 - (BOOL)_handleToDoAction:(id)action inFolderWithId:(id)id isInitialSync:(BOOL)sync resultingChangeActionsForServer:(id)server eventServerIDsToDrop:(id)drop eventServerIDSWithDroppedDeletes:(id)deletes
 {
   syncCopy = sync;
@@ -5297,7 +5927,7 @@ LABEL_11:
         v134 = abDB;
         v135 = v86;
         v136 = v13;
-        LOBYTE(v83) = sub_19BD0(abDB, v13, v83, 1, v86, buf);
+        LOBYTE(v83) = sub_19BD0(abDB, v13, v83, 1u, v86, buf);
 
         v44 = v85;
         v14 = v83;
@@ -5583,7 +6213,7 @@ LABEL_11:
   v28 = folderCopy;
   [v27 setContainer:{-[ASAgent _containerForFolderWithId:dataclass:](self, "_containerForFolderWithId:dataclass:", folderCopy, dataclass)}];
   selfCopy2 = self;
-  v213 = v27;
+  v210 = v27;
   if (sync && (!previousTagCopy || [previousTagCopy isEqualToString:@"0"]))
   {
     [v27 drainContainer];
@@ -5603,33 +6233,33 @@ LABEL_11:
       {
         *buf = 138412546;
         dataclassCopy3 = folderCopy;
-        v279 = 2048;
+        v276 = 2048;
         dataclassCopy = dataclass;
         _os_log_impl(&dword_0, v31, v32, "After draining the container with id %@ and dataclass %lx, that container disappeared", buf, 0x16u);
       }
     }
 
-    v261 = 0u;
-    v262 = 0u;
+    v258 = 0u;
     v259 = 0u;
-    v260 = 0u;
+    v256 = 0u;
+    v257 = 0u;
     v33 = actionsCopy;
-    v34 = [v33 countByEnumeratingWithState:&v259 objects:v276 count:16];
+    v34 = [v33 countByEnumeratingWithState:&v256 objects:v273 count:16];
     if (v34)
     {
       v35 = v34;
       v36 = 0;
-      v37 = *v260;
+      v37 = *v257;
       do
       {
         for (i = 0; i != v35; i = i + 1)
         {
-          if (*v260 != v37)
+          if (*v257 != v37)
           {
             objc_enumerationMutation(v33);
           }
 
-          v39 = *(*(&v259 + 1) + 8 * i);
+          v39 = *(*(&v256 + 1) + 8 * i);
           if ([v39 itemChangeType] == &dword_4)
           {
             changedItem = [v39 changedItem];
@@ -5639,14 +6269,14 @@ LABEL_11:
           }
         }
 
-        v35 = [v33 countByEnumeratingWithState:&v259 objects:v276 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v256 objects:v273 count:16];
       }
 
       while (v35);
 
       if (v36)
       {
-        [v213 saveContainer];
+        [v210 saveContainer];
       }
 
       v30 = 1;
@@ -5665,26 +6295,26 @@ LABEL_11:
     v30 = 0;
   }
 
-  v257 = 0u;
-  v258 = 0u;
+  v254 = 0u;
   v255 = 0u;
-  v256 = 0u;
+  v252 = 0u;
+  v253 = 0u;
   obj = resultsCopy;
-  v42 = [obj countByEnumeratingWithState:&v255 objects:v275 count:16];
+  v42 = [obj countByEnumeratingWithState:&v252 objects:v272 count:16];
   if (v42)
   {
     v43 = v42;
-    v44 = *v256;
+    v44 = *v253;
     do
     {
       for (j = 0; j != v43; j = j + 1)
       {
-        if (*v256 != v44)
+        if (*v253 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v46 = *(*(&v255 + 1) + 8 * j);
+        v46 = *(*(&v252 + 1) + 8 * j);
         changedItem2 = [v46 changedItem];
         itemChangeType = [v46 itemChangeType];
         if (itemChangeType == &dword_0 + 1)
@@ -5701,7 +6331,7 @@ LABEL_11:
         else if (!itemChangeType)
         {
           clientID = [changedItem2 clientID];
-          v50 = [v213 copyLocalObjectFromId:{objc_msgSend(clientID, "intValue")}];
+          v50 = [v210 copyLocalObjectFromId:{objc_msgSend(clientID, "intValue")}];
 
           if (v50)
           {
@@ -5713,7 +6343,7 @@ LABEL_11:
         }
       }
 
-      v43 = [obj countByEnumeratingWithState:&v255 objects:v275 count:16];
+      v43 = [obj countByEnumeratingWithState:&v252 objects:v272 count:16];
     }
 
     while (v43);
@@ -5721,10 +6351,9 @@ LABEL_11:
 
   if (v30)
   {
-    [v213 saveContainer];
+    [v210 saveContainer];
   }
 
-  v53 = &PLLogRegisteredEvent_ptr;
   dataclassCopy2 = dataclass;
   syncCopy2 = sync;
   if (dataclass == 4)
@@ -5738,30 +6367,30 @@ LABEL_11:
       goto LABEL_59;
     }
 
-    v253 = 0u;
-    v254 = 0u;
+    v250 = 0u;
     v251 = 0u;
-    v252 = 0u;
-    v59 = pushedActionsCopy;
-    v60 = [v59 countByEnumeratingWithState:&v251 objects:v274 count:16];
-    if (!v60)
+    v248 = 0u;
+    v249 = 0u;
+    v58 = pushedActionsCopy;
+    v59 = [v58 countByEnumeratingWithState:&v248 objects:v271 count:16];
+    if (!v59)
     {
       goto LABEL_58;
     }
 
-    v61 = v60;
-    v62 = *v252;
+    v60 = v59;
+    v61 = *v249;
     while (1)
     {
-      for (k = 0; k != v61; k = k + 1)
+      for (k = 0; k != v60; k = k + 1)
       {
-        if (*v252 != v62)
+        if (*v249 != v61)
         {
-          objc_enumerationMutation(v59);
+          objc_enumerationMutation(v58);
         }
 
-        v64 = *(*(&v251 + 1) + 8 * k);
-        itemChangeType2 = [v64 itemChangeType];
+        v63 = *(*(&v248 + 1) + 8 * k);
+        itemChangeType2 = [v63 itemChangeType];
         if (itemChangeType2 >= 2)
         {
           if (itemChangeType2 != &dword_8)
@@ -5769,12 +6398,12 @@ LABEL_11:
             continue;
           }
 
-          changedItem3 = [v64 changedItem];
+          changedItem3 = [v63 changedItem];
         }
 
         else
         {
-          changedItem3 = [v64 changedItem];
+          changedItem3 = [v63 changedItem];
           account6 = [(ASAgent *)selfCopy account];
           if (([changedItem3 cachedOrganizerIsSelfWithAccount:account6] & 1) == 0)
           {
@@ -5783,9 +6412,9 @@ LABEL_11:
           }
 
           attendees = [changedItem3 attendees];
-          v69 = [attendees count];
+          v68 = [attendees count];
 
-          if (!v69)
+          if (!v68)
           {
             goto LABEL_55;
           }
@@ -5795,76 +6424,76 @@ LABEL_11:
 LABEL_55:
       }
 
-      v61 = [v59 countByEnumeratingWithState:&v251 objects:v274 count:16];
-      if (!v61)
+      v60 = [v58 countByEnumeratingWithState:&v248 objects:v271 count:16];
+      if (!v60)
       {
 LABEL_58:
 
 LABEL_59:
-        v70 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(actionsCopy, "count")}];
-        v71 = objc_opt_new();
-        v199 = objc_opt_new();
+        v69 = [[NSMutableDictionary alloc] initWithCapacity:{objc_msgSend(actionsCopy, "count")}];
+        v70 = objc_opt_new();
+        v196 = objc_opt_new();
+        v244 = 0u;
+        v245 = 0u;
+        v246 = 0u;
         v247 = 0u;
-        v248 = 0u;
-        v249 = 0u;
-        v250 = 0u;
-        v72 = v71;
-        v73 = actionsCopy;
-        v74 = [v73 countByEnumeratingWithState:&v247 objects:v273 count:16];
-        v211 = v70;
-        v200 = v71;
-        if (!v74)
+        v71 = v70;
+        v72 = actionsCopy;
+        v73 = [v72 countByEnumeratingWithState:&v244 objects:v270 count:16];
+        v208 = v69;
+        v197 = v70;
+        if (!v73)
         {
           goto LABEL_89;
         }
 
-        v75 = v74;
-        v76 = *v248;
-        v204 = v73;
-        v201 = *v248;
+        v74 = v73;
+        v75 = *v245;
+        v201 = v72;
+        v198 = *v245;
 LABEL_61:
-        v77 = 0;
-        v208 = v75;
+        v76 = 0;
+        v205 = v74;
 LABEL_62:
-        if (*v248 != v76)
+        if (*v245 != v75)
         {
-          objc_enumerationMutation(v73);
+          objc_enumerationMutation(v72);
         }
 
-        v78 = *(*(&v247 + 1) + 8 * v77);
-        if ([v78 itemChangeType] && objc_msgSend(v78, "itemChangeType") != &dword_0 + 1)
+        v77 = *(*(&v244 + 1) + 8 * v76);
+        if ([v77 itemChangeType] && objc_msgSend(v77, "itemChangeType") != &dword_0 + 1)
         {
-          [v72 addObject:v78];
+          [v71 addObject:v77];
         }
 
         else
         {
-          changedItem4 = [v78 changedItem];
+          changedItem4 = [v77 changedItem];
           serverID = [changedItem4 serverID];
           if (serverID)
           {
-            v81 = [v70 objectForKeyedSubscript:serverID];
-            v82 = v81;
-            if (v81)
+            v80 = [v69 objectForKeyedSubscript:serverID];
+            v81 = v80;
+            if (v80)
             {
-              changedItem5 = [v81 changedItem];
-              if (![v82 itemChangeType] && objc_msgSend(v78, "itemChangeType") == &dword_0 + 1)
+              changedItem5 = [v80 changedItem];
+              if (![v81 itemChangeType] && objc_msgSend(v77, "itemChangeType") == &dword_0 + 1)
               {
-                v84 = changedItem4;
+                v83 = changedItem4;
                 account7 = [(ASAgent *)selfCopy2 account];
-                v86 = v84;
-                v87 = changedItem5;
+                v85 = v83;
+                v86 = changedItem5;
                 goto LABEL_81;
               }
 
-              if ([v82 itemChangeType] == &dword_0 + 1 && !objc_msgSend(v78, "itemChangeType"))
+              if ([v81 itemChangeType] == &dword_0 + 1 && !objc_msgSend(v77, "itemChangeType"))
               {
-                v84 = changedItem5;
+                v83 = changedItem5;
                 account7 = [(ASAgent *)selfCopy2 account];
-                v86 = v84;
-                v87 = changedItem4;
+                v85 = v83;
+                v86 = changedItem4;
 LABEL_81:
-                v89 = [v86 eventByMergingInLosingEvent:v87 account:account7];
+                v88 = [v85 eventByMergingInLosingEvent:v86 account:account7];
 
                 itemChangeType3 = &dword_0 + 1;
               }
@@ -5872,119 +6501,118 @@ LABEL_81:
               else
               {
                 account8 = [(ASAgent *)selfCopy2 account];
-                v89 = [changedItem5 eventByMergingInEvent:changedItem4 account:account8];
+                v88 = [changedItem5 eventByMergingInEvent:changedItem4 account:account8];
 
-                serverID2 = [v89 serverID];
+                serverID2 = [v88 serverID];
                 serverID3 = [changedItem5 serverID];
-                v92 = [serverID2 isEqualToString:serverID3];
+                v91 = [serverID2 isEqualToString:serverID3];
 
-                if (v92)
+                if (v91)
                 {
-                  v84 = changedItem5;
-                  v93 = v82;
+                  v83 = changedItem5;
+                  v92 = v81;
                 }
 
                 else
                 {
-                  v84 = changedItem4;
-                  v93 = v78;
+                  v83 = changedItem4;
+                  v92 = v77;
                 }
 
-                itemChangeType3 = [v93 itemChangeType];
-                v70 = v211;
-                v72 = v200;
+                itemChangeType3 = [v92 itemChangeType];
+                v69 = v208;
+                v71 = v197;
               }
 
-              v95 = [[ASAction alloc] initWithItemChangeType:itemChangeType3 changedItem:v89 serverId:0];
-              [v70 setObject:v95 forKeyedSubscript:serverID];
-              if (([v84 isEqualToEvent:v89] & 1) == 0)
+              v94 = [[ASAction alloc] initWithItemChangeType:itemChangeType3 changedItem:v88 serverId:0];
+              [v69 setObject:v94 forKeyedSubscript:serverID];
+              if (([v83 isEqualToEvent:v88] & 1) == 0)
               {
-                [v199 addObject:serverID];
+                [v196 addObject:serverID];
               }
 
               selfCopy = selfCopy2;
-              v73 = v204;
-              v76 = v201;
+              v72 = v201;
+              v75 = v198;
             }
 
             else
             {
-              [v70 setObject:v78 forKeyedSubscript:serverID];
+              [v69 setObject:v77 forKeyedSubscript:serverID];
             }
 
-            v75 = v208;
+            v74 = v205;
           }
 
           else
           {
-            [v72 addObject:v78];
+            [v71 addObject:v77];
           }
         }
 
-        if (v75 == ++v77)
+        if (v74 == ++v76)
         {
-          v75 = [v73 countByEnumeratingWithState:&v247 objects:v273 count:16];
-          if (!v75)
+          v74 = [v72 countByEnumeratingWithState:&v244 objects:v270 count:16];
+          if (!v74)
           {
 LABEL_89:
 
-            v96 = DALoggingwithCategory();
-            v97 = _CPLog_to_os_log_type[7];
-            if (os_log_type_enabled(v96, v97))
+            v95 = DALoggingwithCategory();
+            v96 = _CPLog_to_os_log_type[7];
+            if (os_log_type_enabled(v95, v96))
             {
-              allValues = [v70 allValues];
+              allValues = [v69 allValues];
               *buf = 138412546;
-              dataclassCopy3 = v73;
-              v279 = 2112;
+              dataclassCopy3 = v72;
+              v276 = 2112;
               dataclassCopy = allValues;
-              _os_log_impl(&dword_0, v96, v97, "Actions were %@, are now %@", buf, 0x16u);
+              _os_log_impl(&dword_0, v95, v96, "Actions were %@, are now %@", buf, 0x16u);
 
-              v72 = v200;
+              v71 = v197;
             }
 
-            allValues2 = [v70 allValues];
+            allValues2 = [v69 allValues];
 
-            actionsCopy = [allValues2 arrayByAddingObjectsFromArray:v72];
+            actionsCopy = [allValues2 arrayByAddingObjectsFromArray:v71];
 
-            v245 = 0u;
-            v246 = 0u;
+            v242 = 0u;
             v243 = 0u;
-            v244 = 0u;
-            v100 = v199;
-            v101 = [v100 countByEnumeratingWithState:&v243 objects:v272 count:16];
+            v240 = 0u;
+            v241 = 0u;
+            v99 = v196;
+            v100 = [v99 countByEnumeratingWithState:&v240 objects:v269 count:16];
             v28 = folderCopy;
-            if (v101)
+            if (v100)
             {
-              v102 = v101;
-              v103 = *v244;
+              v101 = v100;
+              v102 = *v241;
               do
               {
-                for (m = 0; m != v102; m = m + 1)
+                for (m = 0; m != v101; m = m + 1)
                 {
-                  if (*v244 != v103)
+                  if (*v241 != v102)
                   {
-                    objc_enumerationMutation(v100);
+                    objc_enumerationMutation(v99);
                   }
 
-                  v105 = *(*(&v243 + 1) + 8 * m);
-                  v106 = [ASAction alloc];
-                  v107 = [v70 objectForKeyedSubscript:v105];
-                  changedItem6 = [v107 changedItem];
-                  v109 = [v106 initWithItemChangeType:1 changedItem:changedItem6 serverId:v105];
+                  v104 = *(*(&v240 + 1) + 8 * m);
+                  v105 = [ASAction alloc];
+                  v106 = [v69 objectForKeyedSubscript:v104];
+                  changedItem6 = [v106 changedItem];
+                  v108 = [v105 initWithItemChangeType:1 changedItem:changedItem6 serverId:v104];
 
-                  v70 = v211;
-                  [serverCopy addObject:v109];
+                  v69 = v208;
+                  [serverCopy addObject:v108];
                 }
 
-                v102 = [v100 countByEnumeratingWithState:&v243 objects:v272 count:16];
+                v101 = [v99 countByEnumeratingWithState:&v240 objects:v269 count:16];
               }
 
-              while (v102);
+              while (v101);
             }
 
             dataclassCopy2 = 4;
             syncCopy2 = sync;
-            v53 = &PLLogRegisteredEvent_ptr;
             break;
           }
 
@@ -5996,218 +6624,216 @@ LABEL_89:
     }
   }
 
-  v110 = v53[359];
-  v212 = objc_opt_new();
-  v111 = v53[359];
   v209 = objc_opt_new();
+  v206 = objc_opt_new();
   if (dataclassCopy2 == 4)
   {
-    v241 = 0u;
-    v242 = 0u;
+    v238 = 0u;
     v239 = 0u;
-    v240 = 0u;
-    v112 = actionsCopy;
-    v113 = [v112 countByEnumeratingWithState:&v239 objects:v271 count:16];
-    if (v113)
+    v236 = 0u;
+    v237 = 0u;
+    v109 = actionsCopy;
+    v110 = [v109 countByEnumeratingWithState:&v236 objects:v268 count:16];
+    if (v110)
     {
-      v114 = v113;
-      v115 = *v240;
+      v111 = v110;
+      v112 = *v237;
       do
       {
-        for (n = 0; n != v114; n = n + 1)
+        for (n = 0; n != v111; n = n + 1)
         {
-          if (*v240 != v115)
+          if (*v237 != v112)
           {
-            objc_enumerationMutation(v112);
+            objc_enumerationMutation(v109);
           }
 
-          v117 = *(*(&v239 + 1) + 8 * n);
-          if (![v117 itemChangeType] || objc_msgSend(v117, "itemChangeType") == &dword_0 + 1)
+          v114 = *(*(&v236 + 1) + 8 * n);
+          if (![v114 itemChangeType] || objc_msgSend(v114, "itemChangeType") == &dword_0 + 1)
           {
-            changedItem7 = [v117 changedItem];
+            changedItem7 = [v114 changedItem];
             serverID4 = [changedItem7 serverID];
             if (serverID4)
             {
-              [v212 addObject:serverID4];
+              [v209 addObject:serverID4];
             }
           }
         }
 
-        v114 = [v112 countByEnumeratingWithState:&v239 objects:v271 count:16];
+        v111 = [v109 countByEnumeratingWithState:&v236 objects:v268 count:16];
       }
 
-      while (v114);
+      while (v111);
     }
   }
 
-  v237 = 0u;
-  v238 = 0u;
-  v235 = 0u;
-  v236 = 0u;
-  v120 = actionsCopy;
-  v121 = [v120 countByEnumeratingWithState:&v235 objects:v270 count:16];
-  if (v121)
-  {
-    v122 = v121;
-    v123 = 0;
-    v124 = *v236;
-    do
-    {
-      for (ii = 0; ii != v122; ii = ii + 1)
-      {
-        if (*v236 != v124)
-        {
-          objc_enumerationMutation(v120);
-        }
-
-        v126 = *(*(&v235 + 1) + 8 * ii);
-        if ([v126 itemChangeType] == &dword_0 + 2)
-        {
-          v123 |= [(ASAgent *)selfCopy _handleAction:v126 inFolderWithId:v28 dataclass:dataclassCopy2 isInitialSync:syncCopy2 resultingChangeActionsForServer:serverCopy eventServerIDsToDrop:v212 eventServerIDSWithDroppedDeletes:v209, idsCopy];
-        }
-      }
-
-      v122 = [v120 countByEnumeratingWithState:&v235 objects:v270 count:16];
-    }
-
-    while (v122);
-  }
-
-  else
-  {
-    v123 = 0;
-  }
-
-  v233 = 0u;
   v234 = 0u;
-  v231 = 0u;
+  v235 = 0u;
   v232 = 0u;
-  v127 = v120;
-  v128 = [v127 countByEnumeratingWithState:&v231 objects:v269 count:16];
-  if (v128)
+  v233 = 0u;
+  v117 = actionsCopy;
+  v118 = [v117 countByEnumeratingWithState:&v232 objects:v267 count:16];
+  if (v118)
   {
-    v129 = v128;
-    v130 = 0;
-    v131 = *v232;
+    v119 = v118;
+    v120 = 0;
+    v121 = *v233;
     do
     {
-      for (jj = 0; jj != v129; jj = jj + 1)
+      for (ii = 0; ii != v119; ii = ii + 1)
       {
-        if (*v232 != v131)
+        if (*v233 != v121)
         {
-          objc_enumerationMutation(v127);
+          objc_enumerationMutation(v117);
         }
 
-        v133 = *(*(&v231 + 1) + 8 * jj);
-        if ([v133 itemChangeType] == &dword_0 + 1)
+        v123 = *(*(&v232 + 1) + 8 * ii);
+        if ([v123 itemChangeType] == &dword_0 + 2)
         {
-          if (v123)
-          {
-            [v213 saveContainer];
-          }
-
-          v123 = 0;
-          v130 |= [(ASAgent *)selfCopy _handleAction:v133 inFolderWithId:v28 dataclass:dataclassCopy2 isInitialSync:sync resultingChangeActionsForServer:serverCopy eventServerIDsToDrop:v212 eventServerIDSWithDroppedDeletes:v209];
+          v120 |= [(ASAgent *)selfCopy _handleAction:v123 inFolderWithId:v28 dataclass:dataclassCopy2 isInitialSync:syncCopy2 resultingChangeActionsForServer:serverCopy eventServerIDsToDrop:v209 eventServerIDSWithDroppedDeletes:v206, idsCopy];
         }
       }
 
-      v129 = [v127 countByEnumeratingWithState:&v231 objects:v269 count:16];
+      v119 = [v117 countByEnumeratingWithState:&v232 objects:v267 count:16];
     }
 
-    while (v129);
+    while (v119);
   }
 
   else
   {
-    v130 = 0;
+    v120 = 0;
   }
 
-  v229 = 0u;
   v230 = 0u;
-  v227 = 0u;
+  v231 = 0u;
   v228 = 0u;
-  v205 = v127;
-  v134 = [v205 countByEnumeratingWithState:&v227 objects:v268 count:16];
-  if (v134)
+  v229 = 0u;
+  v124 = v117;
+  v125 = [v124 countByEnumeratingWithState:&v228 objects:v266 count:16];
+  if (v125)
   {
-    v135 = v134;
-    v136 = 0;
-    v137 = *v228;
+    v126 = v125;
+    v127 = 0;
+    v128 = *v229;
     do
     {
-      for (kk = 0; kk != v135; kk = kk + 1)
+      for (jj = 0; jj != v126; jj = jj + 1)
       {
-        if (*v228 != v137)
+        if (*v229 != v128)
         {
-          objc_enumerationMutation(v205);
+          objc_enumerationMutation(v124);
         }
 
-        v139 = *(*(&v227 + 1) + 8 * kk);
-        if ([v139 itemChangeType] != &dword_0 + 2 && objc_msgSend(v139, "itemChangeType") != &dword_0 + 1)
+        v130 = *(*(&v228 + 1) + 8 * jj);
+        if ([v130 itemChangeType] == &dword_0 + 1)
         {
-          if ((v123 | v130))
+          if (v120)
           {
-            [v213 saveContainer];
+            [v210 saveContainer];
           }
 
-          v130 = 0;
-          v123 = 0;
-          v136 |= [(ASAgent *)selfCopy _handleAction:v139 inFolderWithId:v28 dataclass:dataclassCopy2 isInitialSync:sync resultingChangeActionsForServer:serverCopy eventServerIDsToDrop:v212 eventServerIDSWithDroppedDeletes:v209];
+          v120 = 0;
+          v127 |= [(ASAgent *)selfCopy _handleAction:v130 inFolderWithId:v28 dataclass:dataclassCopy2 isInitialSync:sync resultingChangeActionsForServer:serverCopy eventServerIDsToDrop:v209 eventServerIDSWithDroppedDeletes:v206];
         }
       }
 
-      v135 = [v205 countByEnumeratingWithState:&v227 objects:v268 count:16];
+      v126 = [v124 countByEnumeratingWithState:&v228 objects:v266 count:16];
     }
 
-    while (v135);
+    while (v126);
   }
 
   else
   {
-    LOBYTE(v136) = 0;
+    v127 = 0;
   }
 
-  v140 = dataclassCopy2;
-  v141 = v123 | v130 | v136;
-  if (v140 == 4)
+  v226 = 0u;
+  v227 = 0u;
+  v224 = 0u;
+  v225 = 0u;
+  v202 = v124;
+  v131 = [v202 countByEnumeratingWithState:&v224 objects:v265 count:16];
+  if (v131)
   {
-    v225 = 0u;
-    v226 = 0u;
-    v223 = 0u;
-    v224 = 0u;
-    v142 = pushedActionsCopy;
-    v143 = [v142 countByEnumeratingWithState:&v223 objects:v267 count:16];
-    v144 = v213;
-    if (v143)
+    v132 = v131;
+    v133 = 0;
+    v134 = *v225;
+    do
     {
-      v145 = v143;
-      v146 = *v224;
+      for (kk = 0; kk != v132; kk = kk + 1)
+      {
+        if (*v225 != v134)
+        {
+          objc_enumerationMutation(v202);
+        }
+
+        v136 = *(*(&v224 + 1) + 8 * kk);
+        if ([v136 itemChangeType] != &dword_0 + 2 && objc_msgSend(v136, "itemChangeType") != &dword_0 + 1)
+        {
+          if ((v120 | v127))
+          {
+            [v210 saveContainer];
+          }
+
+          v127 = 0;
+          v120 = 0;
+          v133 |= [(ASAgent *)selfCopy _handleAction:v136 inFolderWithId:v28 dataclass:dataclassCopy2 isInitialSync:sync resultingChangeActionsForServer:serverCopy eventServerIDsToDrop:v209 eventServerIDSWithDroppedDeletes:v206];
+        }
+      }
+
+      v132 = [v202 countByEnumeratingWithState:&v224 objects:v265 count:16];
+    }
+
+    while (v132);
+  }
+
+  else
+  {
+    LOBYTE(v133) = 0;
+  }
+
+  v137 = dataclassCopy2;
+  v138 = v120 | v127 | v133;
+  if (v137 == 4)
+  {
+    v222 = 0u;
+    v223 = 0u;
+    v220 = 0u;
+    v221 = 0u;
+    v139 = pushedActionsCopy;
+    v140 = [v139 countByEnumeratingWithState:&v220 objects:v264 count:16];
+    v141 = v210;
+    if (v140)
+    {
+      v142 = v140;
+      v143 = *v221;
       do
       {
-        for (mm = 0; mm != v145; mm = mm + 1)
+        for (mm = 0; mm != v142; mm = mm + 1)
         {
-          if (*v224 != v146)
+          if (*v221 != v143)
           {
-            objc_enumerationMutation(v142);
+            objc_enumerationMutation(v139);
           }
 
-          v148 = *(*(&v223 + 1) + 8 * mm);
-          if (![v148 itemChangeType] || objc_msgSend(v148, "itemChangeType") == &dword_0 + 1)
+          v145 = *(*(&v220 + 1) + 8 * mm);
+          if (![v145 itemChangeType] || objc_msgSend(v145, "itemChangeType") == &dword_0 + 1)
           {
-            changedItem8 = [v148 changedItem];
+            changedItem8 = [v145 changedItem];
             account9 = [(ASAgent *)selfCopy2 account];
             accountID3 = [account9 accountID];
-            v152 = [changedItem8 fillOutMissingExternalIdsForAccountID:accountID3];
+            v149 = [changedItem8 fillOutMissingExternalIdsForAccountID:accountID3];
 
-            v144 = v213;
-            v141 |= v152;
+            v141 = v210;
+            v138 |= v149;
           }
         }
 
-        v145 = [v142 countByEnumeratingWithState:&v223 objects:v267 count:16];
+        v142 = [v139 countByEnumeratingWithState:&v220 objects:v264 count:16];
       }
 
-      while (v145);
+      while (v142);
     }
 
     selfCopy = selfCopy2;
@@ -6215,193 +6841,193 @@ LABEL_89:
 
   else
   {
-    v144 = v213;
+    v141 = v210;
   }
 
-  v153 = emailsCopy;
+  v150 = emailsCopy;
   if ([emailsCopy count])
   {
+    v216 = 0u;
+    v217 = 0u;
+    v218 = 0u;
     v219 = 0u;
-    v220 = 0u;
-    v221 = 0u;
-    v222 = 0u;
-    v154 = [emailsCopy copy];
-    v155 = [v154 countByEnumeratingWithState:&v219 objects:v266 count:16];
-    if (!v155)
+    v151 = [emailsCopy copy];
+    v152 = [v151 countByEnumeratingWithState:&v216 objects:v263 count:16];
+    if (!v152)
     {
       goto LABEL_188;
     }
 
-    v156 = v155;
-    v157 = *v220;
+    v153 = v152;
+    v154 = *v217;
     type = _CPLog_to_os_log_type[3];
-    v158 = _CPLog_to_os_log_type[7];
+    v155 = _CPLog_to_os_log_type[7];
     while (1)
     {
-      v159 = 0;
+      v156 = 0;
       do
       {
-        if (*v220 != v157)
+        if (*v217 != v154)
         {
-          objc_enumerationMutation(v154);
+          objc_enumerationMutation(v151);
         }
 
-        v160 = *(*(&v219 + 1) + 8 * v159);
+        v157 = *(*(&v216 + 1) + 8 * v156);
         account10 = [(ASAgent *)selfCopy account];
-        if (([v160 cachedOrganizerIsSelfWithAccount:account10] & 1) == 0)
+        if (([v157 cachedOrganizerIsSelfWithAccount:account10] & 1) == 0)
         {
 
 LABEL_177:
-          v165 = DALoggingwithCategory();
-          if (os_log_type_enabled(v165, v158))
+          v162 = DALoggingwithCategory();
+          if (os_log_type_enabled(v162, v155))
           {
             *buf = 0;
-            v169 = v165;
-            v170 = v158;
-            v171 = "Do not send invitation email because event is not invitation from me";
-            v172 = 2;
+            v166 = v162;
+            v167 = v155;
+            v168 = "Do not send invitation email because event is not invitation from me";
+            v169 = 2;
             goto LABEL_179;
           }
 
 LABEL_180:
           selfCopy = selfCopy2;
 
-          [emailsCopy removeObject:v160];
+          [emailsCopy removeObject:v157];
           goto LABEL_181;
         }
 
-        attendees2 = [v160 attendees];
-        v163 = [attendees2 count];
+        attendees2 = [v157 attendees];
+        v160 = [attendees2 count];
 
-        v144 = v213;
-        if (!v163)
+        v141 = v210;
+        if (!v160)
         {
           goto LABEL_177;
         }
 
-        clientID2 = [v160 clientID];
+        clientID2 = [v157 clientID];
         if (!clientID2)
         {
-          v165 = DALoggingwithCategory();
-          if (os_log_type_enabled(v165, type))
+          v162 = DALoggingwithCategory();
+          if (os_log_type_enabled(v162, type))
           {
             *buf = 138412290;
-            dataclassCopy3 = v160;
-            v169 = v165;
-            v170 = type;
-            v171 = "Do not send invitation email because event no longer exist in local DB %@";
-            v172 = 12;
+            dataclassCopy3 = v157;
+            v166 = v162;
+            v167 = type;
+            v168 = "Do not send invitation email because event no longer exist in local DB %@";
+            v169 = 12;
 LABEL_179:
-            _os_log_impl(&dword_0, v169, v170, v171, buf, v172);
+            _os_log_impl(&dword_0, v166, v167, v168, buf, v169);
           }
 
           goto LABEL_180;
         }
 
-        v165 = clientID2;
-        v166 = [v213 copyLocalObjectFromId:{-[NSObject intValue](clientID2, "intValue")}];
-        if (v166)
+        v162 = clientID2;
+        v163 = [v210 copyLocalObjectFromId:{-[NSObject intValue](clientID2, "intValue")}];
+        if (v163)
         {
-          v167 = v166;
-          v168 = CalEventCopyOriginalEvent();
-          if (v168)
+          v164 = v163;
+          v165 = CalEventCopyOriginalEvent();
+          if (v165)
           {
-            CFRelease(v168);
-            CFRelease(v167);
+            CFRelease(v165);
+            CFRelease(v164);
             goto LABEL_180;
           }
 
-          CFRelease(v167);
+          CFRelease(v164);
         }
 
         selfCopy = selfCopy2;
 LABEL_181:
-        v159 = v159 + 1;
+        v156 = v156 + 1;
       }
 
-      while (v156 != v159);
-      v173 = [v154 countByEnumeratingWithState:&v219 objects:v266 count:16];
-      v156 = v173;
-      if (!v173)
+      while (v153 != v156);
+      v170 = [v151 countByEnumeratingWithState:&v216 objects:v263 count:16];
+      v153 = v170;
+      if (!v170)
       {
 LABEL_188:
 
         v28 = folderCopy;
-        v153 = emailsCopy;
+        v150 = emailsCopy;
         break;
       }
     }
   }
 
-  if ([v153 count])
+  if ([v150 count])
   {
-    v217 = 0u;
-    v218 = 0u;
+    v214 = 0u;
     v215 = 0u;
-    v216 = 0u;
-    v174 = emailsCopy;
-    v175 = [v174 countByEnumeratingWithState:&v215 objects:v265 count:16];
-    if (v175)
+    v212 = 0u;
+    v213 = 0u;
+    v171 = emailsCopy;
+    v172 = [v171 countByEnumeratingWithState:&v212 objects:v262 count:16];
+    if (v172)
     {
-      v176 = v175;
-      v177 = *v216;
+      v173 = v172;
+      v174 = *v213;
       do
       {
-        for (nn = 0; nn != v176; nn = nn + 1)
+        for (nn = 0; nn != v173; nn = nn + 1)
         {
-          if (*v216 != v177)
+          if (*v213 != v174)
           {
-            objc_enumerationMutation(v174);
+            objc_enumerationMutation(v171);
           }
 
-          v179 = *(*(&v215 + 1) + 8 * nn);
+          v176 = *(*(&v212 + 1) + 8 * nn);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v180 = v144;
-            v181 = [v180 getTombstoneEndTimeForEvent:v179];
-            [v179 setTombstoneEndTime:v181];
+            v177 = v141;
+            v178 = [v177 getTombstoneEndTimeForEvent:v176];
+            [v176 setTombstoneEndTime:v178];
 
-            v144 = v213;
+            v141 = v210;
           }
         }
 
-        v176 = [v174 countByEnumeratingWithState:&v215 objects:v265 count:16];
+        v173 = [v171 countByEnumeratingWithState:&v212 objects:v262 count:16];
       }
 
-      while (v176);
+      while (v173);
     }
 
     selfCopy = selfCopy2;
   }
 
-  v182 = [(ASAgent *)selfCopy _syncKeyForFolderWithId:v28 dataclass:dataclass];
-  if (([v182 isEqualToString:tagCopy] & 1) == 0)
+  v179 = [(ASAgent *)selfCopy _syncKeyForFolderWithId:v28 dataclass:dataclass];
+  if (([v179 isEqualToString:tagCopy] & 1) == 0)
   {
     [(ASAgent *)selfCopy _setSyncKey:tagCopy forFolderWithId:v28];
-    v141 = 1;
+    v138 = 1;
   }
 
-  v183 = [(ASAgent *)selfCopy _clearChangeHistoriesWithChangeIdContext:contextCopy dataclass:dataclass inFolderWithId:v28 pushedActions:pushedActionsCopy];
+  v180 = [(ASAgent *)selfCopy _clearChangeHistoriesWithChangeIdContext:contextCopy dataclass:dataclass inFolderWithId:v28 pushedActions:pushedActionsCopy];
   currentlySyncingFolderIds = [(ASAgent *)selfCopy currentlySyncingFolderIds];
   [currentlySyncingFolderIds removeObject:v28];
 
-  if (v183 & 1) != 0 || (v141)
+  if (v180 & 1) != 0 || (v138)
   {
-    if ([v144 saveContainer])
+    if ([v141 saveContainer])
     {
-      [v144 drainSuperfluousChanges];
+      [v141 drainSuperfluousChanges];
     }
 
     else
     {
-      v185 = DALoggingwithCategory();
-      v186 = _CPLog_to_os_log_type[3];
-      if (os_log_type_enabled(v185, v186))
+      v182 = DALoggingwithCategory();
+      v183 = _CPLog_to_os_log_type[3];
+      if (os_log_type_enabled(v182, v183))
       {
         *buf = 134217984;
         dataclassCopy3 = dataclass;
-        _os_log_impl(&dword_0, v185, v186, "Could not save local container, dataclass is %lx", buf, 0xCu);
+        _os_log_impl(&dword_0, v182, v183, "Could not save local container, dataclass is %lx", buf, 0xCu);
       }
     }
   }
@@ -6411,50 +7037,50 @@ LABEL_188:
     if (PLShouldLogRegisteredEvent())
     {
       _powerLogInfoDictionary = [(ASAgent *)selfCopy2 _powerLogInfoDictionary];
-      v188 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v205 count]);
-      v189 = kDAPowerLogNumberOfItemsChanged;
-      [_powerLogInfoDictionary setObject:v188 forKeyedSubscript:kDAPowerLogNumberOfItemsChanged];
+      v185 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v202 count]);
+      v186 = kDAPowerLogNumberOfItemsChanged;
+      [_powerLogInfoDictionary setObject:v185 forKeyedSubscript:kDAPowerLogNumberOfItemsChanged];
 
       if (folderCopy)
       {
         [_powerLogInfoDictionary setObject:folderCopy forKeyedSubscript:kDAPowerLogContainerID];
       }
 
-      v264[0] = kDAPowerLogSyncAccountName;
-      v264[1] = kDAPowerLogSyncAccountClass;
-      v264[2] = kDAPowerLogSyncAccountID;
-      v264[3] = v189;
-      [NSArray arrayWithObjects:v264 count:4];
+      v261[0] = kDAPowerLogSyncAccountName;
+      v261[1] = kDAPowerLogSyncAccountClass;
+      v261[2] = kDAPowerLogSyncAccountID;
+      v261[3] = v186;
+      [NSArray arrayWithObjects:v261 count:4];
       PLLogRegisteredEvent();
 
-      v144 = v213;
+      v141 = v210;
     }
 
     if (PLShouldLogRegisteredEvent())
     {
       _powerLogInfoDictionary2 = [(ASAgent *)selfCopy2 _powerLogInfoDictionary];
-      v191 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [pushedActionsCopy count]);
-      v192 = kDAPowerLogNumberOfItemsChanged;
-      [_powerLogInfoDictionary2 setObject:v191 forKeyedSubscript:kDAPowerLogNumberOfItemsChanged];
+      v188 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [pushedActionsCopy count]);
+      v189 = kDAPowerLogNumberOfItemsChanged;
+      [_powerLogInfoDictionary2 setObject:v188 forKeyedSubscript:kDAPowerLogNumberOfItemsChanged];
 
       if (folderCopy)
       {
         [_powerLogInfoDictionary2 setObject:folderCopy forKeyedSubscript:kDAPowerLogContainerID];
       }
 
-      v263[0] = kDAPowerLogSyncAccountName;
-      v263[1] = kDAPowerLogSyncAccountClass;
-      v263[2] = kDAPowerLogSyncAccountID;
-      v263[3] = v192;
-      [NSArray arrayWithObjects:v263 count:4];
+      v260[0] = kDAPowerLogSyncAccountName;
+      v260[1] = kDAPowerLogSyncAccountClass;
+      v260[2] = kDAPowerLogSyncAccountID;
+      v260[3] = v189;
+      [NSArray arrayWithObjects:v260 count:4];
       PLLogRegisteredEvent();
 
-      v144 = v213;
+      v141 = v210;
     }
   }
 
   [(ASAgent *)selfCopy2 _nilOutContainersForDataclasses:dataclass];
-  [v144 closeDBAndSave:0];
+  [v141 closeDBAndSave:0];
 }
 
 - (BOOL)_syncResultForToDoFolder:(id)folder newTag:(id)tag previousTag:(id)previousTag actions:(id)actions results:(id)results changeIdContext:(id)context isInitialSync:(BOOL)sync moreAvailable:(BOOL)self0 resultingChangeActionsForServer:(id)self1 pushedActions:(id)self2 rejectedServerIds:(id)self3 eventsWithPendingInvitationEmails:(id)self4
@@ -7637,7 +8263,7 @@ LABEL_45:
   emailResponse = [v15 emailResponse];
   if (eventUID)
   {
-    v52 = emailResponse;
+    v51 = emailResponse;
     v20 = v14;
     v21 = CalDatabaseCopyAllEventsWithUniqueIdentifierInStore();
     Count = CFArrayGetCount(v21);
@@ -7654,7 +8280,7 @@ LABEL_45:
       if (os_log_type_enabled(v24, v25))
       {
         *buf = 138412290;
-        v60 = eventUID;
+        v59 = eventUID;
         _os_log_impl(&dword_0, v24, v25, "Found one event with UID %@.", buf, 0xCu);
       }
 
@@ -7683,26 +8309,26 @@ LABEL_45:
         goto LABEL_41;
       }
 
-      v39 = DALoggingwithCategory();
+      v38 = DALoggingwithCategory();
       type = _CPLog_to_os_log_type[7];
-      if (os_log_type_enabled(v39, type))
+      if (os_log_type_enabled(v38, type))
       {
         *buf = 134218242;
-        v60 = Count;
-        v61 = 2112;
-        v62 = eventUID;
-        _os_log_impl(&dword_0, v39, type, "Found %ld events with the same UID %@. Pick one using server ID.", buf, 0x16u);
+        v59 = Count;
+        v60 = 2112;
+        v61 = eventUID;
+        _os_log_impl(&dword_0, v38, type, "Found %ld events with the same UID %@. Pick one using server ID.", buf, 0x16u);
       }
 
-      if (serverID && (v28 = v20, (v40 = CalDatabaseCopyEventWithExternalIDInStore()) != 0))
+      if (serverID && (v28 = v20, (v39 = CalDatabaseCopyEventWithExternalIDInStore()) != 0))
       {
-        v29 = v40;
-        v41 = DALoggingwithCategory();
-        if (os_log_type_enabled(v41, type))
+        v29 = v39;
+        v40 = DALoggingwithCategory();
+        if (os_log_type_enabled(v40, type))
         {
           *buf = 138412290;
-          v60 = serverID;
-          _os_log_impl(&dword_0, v41, type, "Found local event using server ID %@.", buf, 0xCu);
+          v59 = serverID;
+          _os_log_impl(&dword_0, v40, type, "Found local event using server ID %@.", buf, 0xCu);
         }
 
         isMyInvite = isMyInvite;
@@ -7710,18 +8336,18 @@ LABEL_45:
 
       else
       {
-        v42 = DALoggingwithCategory();
-        v43 = _CPLog_to_os_log_type[3];
-        if (os_log_type_enabled(v42, v43))
+        v41 = DALoggingwithCategory();
+        v42 = _CPLog_to_os_log_type[3];
+        if (os_log_type_enabled(v41, v42))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v42, v43, "Invoking CalDatabaseCopyEventWithUniqueIdentifierInStore", buf, 2u);
+          _os_log_impl(&dword_0, v41, v42, "Invoking CalDatabaseCopyEventWithUniqueIdentifierInStore", buf, 2u);
         }
 
         v28 = v20;
-        v44 = CalDatabaseCopyEventWithUniqueIdentifierInStore();
+        v43 = CalDatabaseCopyEventWithUniqueIdentifierInStore();
         isMyInvite = isMyInvite;
-        if (!v44)
+        if (!v43)
         {
 LABEL_41:
           account5 = [(ASAgent *)self account];
@@ -7736,18 +8362,18 @@ LABEL_41:
           goto LABEL_39;
         }
 
-        v29 = v44;
-        v41 = DALoggingwithCategory();
-        if (os_log_type_enabled(v41, type))
+        v29 = v43;
+        v40 = DALoggingwithCategory();
+        if (os_log_type_enabled(v40, type))
         {
           *buf = 138412290;
-          v60 = eventUID;
-          _os_log_impl(&dword_0, v41, type, "Found local event using event UID %@.", buf, 0xCu);
+          v59 = eventUID;
+          _os_log_impl(&dword_0, v40, type, "Found local event using event UID %@.", buf, 0xCu);
         }
       }
     }
 
-    v33 = [(ASAgent *)self _finishWithInvitationEvent:v29 eventUID:eventUID expectedResponse:v52 wasMyInvite:isMyInvite isStillInvite:1];
+    v33 = [(ASAgent *)self _finishWithInvitationEvent:v29 eventUID:eventUID expectedResponse:v51 wasMyInvite:isMyInvite isStillInvite:1];
     CFRelease(v29);
     if (v28)
     {
@@ -7758,40 +8384,39 @@ LABEL_39:
 
   else
   {
-    v53 = v14;
+    v52 = v14;
     attendeeUUIDs = [v15 attendeeUUIDs];
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
-    v31 = [attendeeUUIDs countByEnumeratingWithState:&v54 objects:v58 count:16];
-    v51 = serverID;
+    v31 = [attendeeUUIDs countByEnumeratingWithState:&v53 objects:v57 count:16];
+    v50 = serverID;
     if (v31)
     {
       v32 = v31;
       v33 = 0;
-      v34 = *v55;
+      v34 = *v54;
       do
       {
-        for (i = 0; i != v32; i = i + 1)
+        for (i = 0; i != v32; ++i)
         {
-          if (*v55 != v34)
+          if (*v54 != v34)
           {
             objc_enumerationMutation(attendeeUUIDs);
           }
 
-          v36 = *(*(&v54 + 1) + 8 * i);
-          v37 = CalDatabaseCopyAttendeeWithUUID();
-          if (v37)
+          v36 = CalDatabaseCopyAttendeeWithUUID();
+          if (v36)
           {
-            v38 = v37;
+            v37 = v36;
             CalParticipantSetAddedByForwarding();
-            CFRelease(v38);
+            CFRelease(v37);
             v33 = 1;
           }
         }
 
-        v32 = [attendeeUUIDs countByEnumeratingWithState:&v54 objects:v58 count:16];
+        v32 = [attendeeUUIDs countByEnumeratingWithState:&v53 objects:v57 count:16];
       }
 
       while (v32);
@@ -7803,9 +8428,9 @@ LABEL_39:
     }
 
     v23 = &PLLogRegisteredEvent_ptr;
-    serverID = v51;
-    v28 = v53;
-    if (v53)
+    serverID = v50;
+    v28 = v52;
+    if (v52)
     {
       goto LABEL_39;
     }
@@ -7817,8 +8442,8 @@ LABEL_40:
   accountID3 = [account6 accountID];
   [sharedInstance calCloseDatabaseForAccountID:accountID3 save:v33 & 1];
 
-  v48 = +[DALocalDBGateKeeper sharedGateKeeper];
-  [v48 relinquishLocksForWaiter:self dataclasses:4 moreComing:0];
+  v47 = +[DALocalDBGateKeeper sharedGateKeeper];
+  [v47 relinquishLocksForWaiter:self dataclasses:4 moreComing:0];
 }
 
 - (void)messageDidSendWithContext:(id)context
@@ -8190,17 +8815,7 @@ LABEL_40:
             if ([v33 status] == &dword_C)
             {
               v46 = CalCalendarItemCopyExternalRepresentation();
-              if (!v46)
-              {
-                goto LABEL_55;
-              }
-
-              v47 = +[ASEvent calendarItemExternalRepClasses];
-              v159 = 0;
-              v150 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v47 fromData:v46 error:&v159];
-              v48 = v159;
-
-              if (v150)
+              if (v46 && (+[ASEvent calendarItemExternalRepClasses], v47 = objc_claimAutoreleasedReturnValue(), v159 = 0, [NSKeyedUnarchiver unarchivedObjectOfClasses:v47 fromData:v46 error:&v159], v150 = objc_claimAutoreleasedReturnValue(), v48 = v159, v47, v48, v150))
               {
                 v49 = [v150 objectForKeyedSubscript:@"eventNotFound"];
                 objc_opt_class();
@@ -8230,7 +8845,6 @@ LABEL_40:
 
               else
               {
-LABEL_55:
                 v150 = 0;
                 v52 = 1;
               }
@@ -10658,6 +11272,138 @@ LABEL_28:
   [(ASAgent *)self _fireWaitingFolderItemSyncRequests];
 }
 
+- (void)_appendSyncRequestForFolders:(id)folders remoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  foldersCopy = folders;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = [foldersCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v15;
+    do
+    {
+      for (i = 0; i != v8; i = i + 1)
+      {
+        if (*v15 != v9)
+        {
+          objc_enumerationMutation(foldersCopy);
+        }
+
+        v11 = *(*(&v14 + 1) + 8 * i);
+        folderID = [v11 folderID];
+
+        if (!folderID)
+        {
+          sub_47FF4();
+        }
+
+        v13 = [[ESFolderSyncRequest alloc] initWithFolder:v11 hasRemoteChanges:changesCopy isInitialUberSync:0];
+        [(ASAgent *)self _appendSyncRequest:v13];
+      }
+
+      v8 = [foldersCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)_appendReminderSyncRequestForFolders:(id)folders remoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  foldersCopy = folders;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = [foldersCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v15;
+    do
+    {
+      for (i = 0; i != v8; i = i + 1)
+      {
+        if (*v15 != v9)
+        {
+          objc_enumerationMutation(foldersCopy);
+        }
+
+        v11 = *(*(&v14 + 1) + 8 * i);
+        folderID = [v11 folderID];
+
+        if (!folderID)
+        {
+          sub_48060();
+        }
+
+        v13 = [[ESFolderSyncRequest alloc] initWithFolder:v11 hasRemoteChanges:changesCopy isInitialUberSync:0];
+        [(ASAgent *)self _appendSyncRequest:v13];
+      }
+
+      v8 = [foldersCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v8);
+  }
+}
+
+- (void)_appendSyncRequestForFoldersOfDataclasses:(int64_t)dataclasses remoteChanges:(BOOL)changes
+{
+  changesCopy = changes;
+  dataclassesCopy = dataclasses;
+  if ((dataclasses & 2) != 0)
+  {
+    account = [(ASAgent *)self account];
+    contactsFolders = [account contactsFolders];
+  }
+
+  else if ((dataclasses & 4) != 0)
+  {
+    account = [(ASAgent *)self account];
+    contactsFolders = [account eventsFolders];
+  }
+
+  else if ((dataclasses & 0x10) != 0)
+  {
+    account = [(ASAgent *)self account];
+    contactsFolders = [account toDosFolders];
+  }
+
+  else
+  {
+    if ((dataclasses & 0x20) == 0)
+    {
+      v7 = 0;
+      goto LABEL_11;
+    }
+
+    account = [(ASAgent *)self account];
+    contactsFolders = [account notesFolders];
+  }
+
+  v10 = contactsFolders;
+
+  v7 = v10;
+LABEL_11:
+  v11 = v7;
+  if ((dataclassesCopy & 0x10) != 0)
+  {
+    [(ASAgent *)self _appendReminderSyncRequestForFolders:v7 remoteChanges:changesCopy];
+  }
+
+  else
+  {
+    [(ASAgent *)self _appendSyncRequestForFolders:v7 remoteChanges:changesCopy];
+  }
+}
+
 - (BOOL)_getHierarchyChangeForDataclass:(int64_t)dataclass changedItemId:(int *)id changeType:(unint64_t *)type externalId:(id *)externalId changeTableIndices:(__CFArray *)indices
 {
   if (dataclass == 4)
@@ -11052,6 +11798,181 @@ LABEL_85:
 
   LOBYTE(v67) = 0;
   return v67;
+}
+
+- (BOOL)_handleLocallyChangedFolderWithChangedItemId:(int)id changeType:(unint64_t)type externalId:(id)externalId changeTableIndices:(__CFArray *)indices dataclass:(int64_t)dataclass
+{
+  account4 = *&id;
+  externalIdCopy = externalId;
+  if (type >= 2)
+  {
+    if (type == 2 || type == 8)
+    {
+      account = [(ASAgent *)self account];
+      v15 = [account folderWithId:externalIdCopy];
+      v16 = CreateASFolderForDAFolder();
+
+      if (v16)
+      {
+        v17 = [[ASFolder alloc] initWithFolderType:objc_msgSend(v16 serverID:"folderType") parentID:externalIdCopy displayName:0 localID:{0, account4}];
+        [v17 setChangeType:2];
+      }
+
+      else
+      {
+        v17 = 0;
+      }
+
+      goto LABEL_21;
+    }
+
+    v29 = +[NSAssertionHandler currentHandler];
+    [v29 handleFailureInMethod:a2 object:self file:@"ASAgent_FolderContentsSync.m" lineNumber:3688 description:{@"Got unexpected change type %ld", type}];
+LABEL_17:
+
+    goto LABEL_27;
+  }
+
+  v18 = +[ASLocalDBHelper sharedInstance];
+  account2 = [(ASAgent *)self account];
+  accountID = [account2 accountID];
+  [v18 calDatabaseForAccountID:accountID];
+  v52 = account4;
+  account4 = CalDatabaseCopyCalendarWithUID();
+
+  if (!account4)
+  {
+    LODWORD(account4) = v52;
+    if (!indices || !CFArrayGetCount(indices))
+    {
+      goto LABEL_27;
+    }
+
+    v49 = +[ASLocalDBHelper sharedInstance];
+    account3 = [(ASAgent *)self account];
+    accountID2 = [account3 accountID];
+    [v49 calDatabaseForAccountID:accountID2];
+    account4 = [(ASAgent *)self account];
+    [account4 changeTrackingID];
+    v35 = v34 = dataclass;
+    CalDatabaseClearIndividualChangeRowIDsForClient();
+
+    dataclass = v34;
+    LODWORD(account4) = v52;
+
+    v29 = +[ASLocalDBHelper sharedInstance];
+    account5 = [(ASAgent *)self account];
+    accountID3 = [account5 accountID];
+    [v29 calSaveDatabaseForAccountID:accountID3];
+
+    goto LABEL_17;
+  }
+
+  dataclassCopy = dataclass;
+  v16 = CalCalendarCopyTitle();
+  if (externalIdCopy && (-[ASAgent account](self, "account"), v21 = objc_claimAutoreleasedReturnValue(), [v21 folderWithId:externalIdCopy], v22 = objc_claimAutoreleasedReturnValue(), CreateASFolderForDAFolder(), v23 = objc_claimAutoreleasedReturnValue(), v22, v21, v23))
+  {
+    v24 = [ASFolder alloc];
+    folderType = [v23 folderType];
+    parentID = [v23 parentID];
+    v27 = v24;
+    v28 = folderType;
+  }
+
+  else
+  {
+    if (dataclassCopy == 4)
+    {
+      account6 = [(ASAgent *)self account];
+      defaultEventsFolder = [account6 defaultEventsFolder];
+      v23 = CreateASFolderForDAFolder();
+
+      v32 = 13;
+    }
+
+    else
+    {
+      v23 = 0;
+      v32 = 1;
+    }
+
+    v38 = [ASFolder alloc];
+    parentID = [v23 serverID];
+    v27 = v38;
+    v28 = v32;
+  }
+
+  v17 = [v27 initWithFolderType:v28 serverID:externalIdCopy parentID:parentID displayName:v16 localID:v52];
+
+  [v17 setChangeType:type != 0];
+  [v17 setRenameOnCollision:1];
+  CFRelease(account4);
+  dataclass = dataclassCopy;
+  LODWORD(account4) = v52;
+LABEL_21:
+
+  if (v17)
+  {
+    v39 = DALoggingwithCategory();
+    v40 = _CPLog_to_os_log_type[6];
+    if (os_log_type_enabled(v39, v40))
+    {
+      *buf = 134218754;
+      typeCopy2 = type;
+      v58 = 1024;
+      v59 = account4;
+      v60 = 2112;
+      v61 = externalIdCopy;
+      v62 = 2048;
+      dataclassCopy3 = dataclass;
+      _os_log_impl(&dword_0, v39, v40, "Handling daemon backed local folder change. Type %lu item id %d external id %@ dataclass 0x%lx", buf, 0x26u);
+    }
+
+    if (indices)
+    {
+      CFRetain(indices);
+    }
+
+    account7 = [(ASAgent *)self account];
+    visibleFolders = [account7 visibleFolders];
+
+    v53[0] = _NSConcreteStackBlock;
+    v53[1] = 3221225472;
+    v53[2] = sub_181A4;
+    v53[3] = &unk_6CEF8;
+    v54 = visibleFolders;
+    indicesCopy = indices;
+    v53[4] = self;
+    v43 = visibleFolders;
+    v44 = objc_retainBlock(v53);
+    [(ASAgent *)self setNumLocalFolderUpdatesInFlight:[(ASAgent *)self numLocalFolderUpdatesInFlight]+ 1];
+    account8 = [(ASAgent *)self account];
+    [account8 syncLocallyChangedFolder:v17 consumer:self completionBlock:v44];
+
+    v46 = 1;
+    goto LABEL_30;
+  }
+
+LABEL_27:
+  v17 = DALoggingwithCategory();
+  v47 = _CPLog_to_os_log_type[6];
+  if (os_log_type_enabled(v17, v47))
+  {
+    *buf = 134218754;
+    typeCopy2 = type;
+    v58 = 1024;
+    v59 = account4;
+    v60 = 2112;
+    v61 = externalIdCopy;
+    v62 = 2048;
+    dataclassCopy3 = dataclass;
+    _os_log_impl(&dword_0, v17, v47, "Not syncing change as its folder went missing. Type %lu item id %d external id %@ dataclass 0x%lx", buf, 0x26u);
+  }
+
+  v46 = 0;
+LABEL_30:
+
+  return v46;
 }
 
 - (BOOL)_handleReminderChangedFolder:(id)folder changeType:(unint64_t)type
@@ -11666,6 +12587,82 @@ LABEL_7:
     accountID3 = [account4 accountID];
     [v20 calCloseDatabaseForAccountID:accountID3 save:0];
   }
+}
+
+- (id)_dbExternalIdForLocalId:(int)id dataclass:(int64_t)dataclass
+{
+  v4 = *&id;
+  serverId = 0;
+  if (dataclass <= 15)
+  {
+    if (dataclass == 2)
+    {
+      v18 = +[ASLocalDBHelper sharedInstance];
+      PersonWithRecordID = ABAddressBookGetPersonWithRecordID([v18 abDB], v4);
+
+      if (PersonWithRecordID)
+      {
+        serverId = ABRecordCopyValue(PersonWithRecordID, kABPersonExternalIdentifierProperty);
+        goto LABEL_16;
+      }
+
+      goto LABEL_13;
+    }
+
+    if (dataclass != 4)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_9:
+    v14 = +[ASLocalDBHelper sharedInstance];
+    account = [(ASAgent *)self account];
+    accountID = [account accountID];
+    [v14 calDatabaseForAccountID:accountID];
+    v17 = CalDatabaseCopyCalendarItemWithRowID();
+
+    if (v17)
+    {
+      serverId = CalCalendarItemCopyExternalID();
+      CFRelease(v17);
+      goto LABEL_16;
+    }
+
+LABEL_13:
+    serverId = 0;
+    goto LABEL_16;
+  }
+
+  if (dataclass == 16)
+  {
+    goto LABEL_9;
+  }
+
+  if (dataclass == 32)
+  {
+    v7 = [NSSet alloc];
+    v8 = [NSNumber numberWithInt:v4];
+    v9 = [v7 initWithObjects:{v8, 0}];
+
+    v10 = +[ASLocalDBHelper sharedInstance];
+    noteDB = [v10 noteDB];
+    v12 = [noteDB notesForIntegerIds:v9];
+
+    if ([v12 count])
+    {
+      v13 = [v12 objectAtIndexedSubscript:0];
+      serverId = [v13 serverId];
+    }
+
+    else
+    {
+      serverId = 0;
+    }
+  }
+
+LABEL_16:
+
+  return serverId;
 }
 
 - (void)_addChangeForType:(unint64_t)type changedItemId:(id)id changeId:(id)changeId addedIdsToChangeId:(id)toChangeId modifiedIdsToChangeId:(id)idsToChangeId deletedIdsToChangeId:(id)deletedIdsToChangeId pseudoDeletedIdsToChangeId:(id)pseudoDeletedIdsToChangeId changeIdsToClear:(id)self0
@@ -13112,6 +14109,2781 @@ LABEL_95:
   CFRelease(v5);
 
   return v8;
+}
+
+- (id)_copyCalendarItemActionsInContainer:(void *)container existingActions:(id)actions dataHandler:(id)handler wantPreserveActions:(BOOL)preserveActions skippedDetachments:(id)detachments changeContext:(id)context
+{
+  v8 = __chkstk_darwin(self, a2, container, actions, handler, preserveActions, detachments, context);
+  v10 = v9;
+  v12 = v11;
+  v534 = v13;
+  v15 = v14;
+  v17 = v16;
+  v18 = v8;
+  v20 = v19;
+  v21 = v15;
+  v22 = v12;
+  v495 = v10;
+  v679 = 0;
+  v582 = objc_opt_new();
+  v543 = objc_opt_new();
+  theDict = 0;
+  [v21 dataclass];
+  v23 = +[ASLocalDBHelper sharedInstance];
+  v583 = v18;
+  account = [v18 account];
+  accountID = [account accountID];
+  v26 = [v23 calDatabaseForAccountID:accountID];
+
+  v551 = v17;
+  if (v26)
+  {
+    v526 = CalDatabaseCopyCalendarItemChangesInCalendar();
+    v27 = DALoggingwithCategory();
+    v29 = _CPLog_to_os_log_type[7];
+    if (os_log_type_enabled(v27, v29))
+    {
+      LOWORD(v701) = 0;
+      _os_log_impl(&dword_0, v27, v29, "No changes in calendar", &v701, 2u);
+    }
+  }
+
+  else
+  {
+    v27 = DALoggingwithCategory();
+    v28 = _CPLog_to_os_log_type[3];
+    if (os_log_type_enabled(v27, _CPLog_to_os_log_type[3]))
+    {
+      LOWORD(v701) = 0;
+      _os_log_impl(&dword_0, v27, v28, "CalDB is nil", &v701, 2u);
+    }
+
+    v526 = 0;
+  }
+
+  v30 = [[NSMutableDictionary alloc] initWithCapacity:0];
+  v572 = [[NSMutableDictionary alloc] initWithCapacity:0];
+  v580 = [[NSMutableDictionary alloc] initWithCapacity:0];
+  v571 = [[NSMutableDictionary alloc] initWithCapacity:0];
+  v584 = objc_opt_new();
+  v581 = v30;
+  v31 = [[NSMutableDictionary alloc] initWithCapacity:0];
+  v513 = [[NSMutableDictionary alloc] initWithCapacity:0];
+  v585 = v21;
+  v570 = v22;
+  v520 = [[NSMutableArray alloc] initWithCapacity:0];
+  v512 = objc_opt_new();
+  v514 = objc_opt_new();
+  v497 = objc_opt_new();
+  v496 = objc_opt_new();
+  v674 = 0u;
+  v675 = 0u;
+  v676 = 0u;
+  v677 = 0u;
+  obj = v20;
+  v32 = [obj countByEnumeratingWithState:&v674 objects:v703 count:16];
+  if (v32)
+  {
+    v33 = v32;
+    v34 = *v675;
+    type = _CPLog_to_os_log_type[3];
+    do
+    {
+      for (i = 0; i != v33; i = i + 1)
+      {
+        if (*v675 != v34)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v36 = *(*(&v674 + 1) + 8 * i);
+        itemChangeType = [v36 itemChangeType];
+        v38 = itemChangeType;
+        if (itemChangeType < 3)
+        {
+          goto LABEL_16;
+        }
+
+        if (itemChangeType == (&dword_4 + 2))
+        {
+          [v582 addObject:v36];
+          continue;
+        }
+
+        if (itemChangeType == &dword_8)
+        {
+LABEL_16:
+          changedItem = [v36 changedItem];
+          v40 = changedItem;
+          if (changedItem)
+          {
+            [changedItem loadClientIDs];
+            [v40 setLocalItem:0];
+            clientID = [v40 clientID];
+            intValue = [clientID intValue];
+
+            parentClientID = [v40 parentClientID];
+            intValue2 = [parentClientID intValue];
+
+            if (intValue)
+            {
+              account2 = [v583 account];
+              v46 = [v40 loadLocalItemWithAccount:account2];
+
+              if (v46)
+              {
+                serverID = [v40 serverID];
+                v48 = serverID;
+                if (v38 != (&dword_0 + 1) || serverID)
+                {
+                  v50 = [NSNumber numberWithInt:intValue];
+                  v61 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v36 changeId]);
+                  [v583 _addChangeForType:v38 changedItemId:v50 changeId:v61 addedIdsToChangeId:v581 modifiedIdsToChangeId:v572 deletedIdsToChangeId:v580 pseudoDeletedIdsToChangeId:v571 changeIdsToClear:v584];
+
+                  if ([v36 isSkippedDetachment])
+                  {
+                    [v514 addObject:v50];
+                  }
+
+                  if (v48)
+                  {
+                    [v31 setObject:v48 forKeyedSubscript:v50];
+                  }
+                }
+
+                else
+                {
+                  v49 = DALoggingwithCategory();
+                  if (os_log_type_enabled(v49, type))
+                  {
+                    v701 = 138412290;
+                    *v702 = v36;
+                    _os_log_impl(&dword_0, v49, type, "A preset action for a sync request wanted a modify, but we have no server id.  Dropping the modify of %@", &v701, 0xCu);
+                  }
+
+                  v50 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v36 changeId]);
+                  [v584 addObject:v50];
+                }
+
+                goto LABEL_52;
+              }
+
+              v59 = DALoggingwithCategory();
+              if (os_log_type_enabled(v59, type))
+              {
+                v701 = 138412290;
+                *v702 = v36;
+                v56 = v59;
+                v57 = type;
+                v58 = "A preset action for a sync request couldn't load the associated local event in the db action %@";
+                goto LABEL_50;
+              }
+
+LABEL_51:
+
+              v62 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v36 changeId]);
+              [v584 addObject:v62];
+
+LABEL_52:
+              continue;
+            }
+
+            if (intValue2)
+            {
+              objc_opt_class();
+              if ((objc_opt_isKindOfClass() & 1) == 0 || ([v40 isDeleted], v54 = objc_claimAutoreleasedReturnValue(), v55 = objc_msgSend(v54, "intValue"), v54, !v55))
+              {
+                v59 = DALoggingwithCategory();
+                if (os_log_type_enabled(v59, type))
+                {
+                  v701 = 138412290;
+                  *v702 = v36;
+                  v56 = v59;
+                  v57 = type;
+                  v58 = "A deleted detachment is not ASEventException object, action %@";
+                  goto LABEL_50;
+                }
+
+                goto LABEL_51;
+              }
+
+              goto LABEL_29;
+            }
+
+            v59 = DALoggingwithCategory();
+            if (!os_log_type_enabled(v59, type))
+            {
+              goto LABEL_51;
+            }
+
+            v701 = 138412290;
+            *v702 = v36;
+            v56 = v59;
+            v57 = type;
+            v58 = "A preset action for a sync request didn't have an associated local event in the db action %@";
+          }
+
+          else
+          {
+            if (v38 == &dword_8 || v38 == (&dword_0 + 2))
+            {
+LABEL_29:
+              [v543 addObject:v36];
+              goto LABEL_52;
+            }
+
+            v59 = DALoggingwithCategory();
+            if (!os_log_type_enabled(v59, type))
+            {
+              goto LABEL_51;
+            }
+
+            v701 = 138412290;
+            *v702 = v36;
+            v56 = v59;
+            v57 = type;
+            v58 = "A preset action for a sync request didn't have an associated local changed item in the db action %@";
+          }
+
+LABEL_50:
+          _os_log_impl(&dword_0, v56, v57, v58, &v701, 0xCu);
+          goto LABEL_51;
+        }
+
+        v52 = DALoggingwithCategory();
+        if (os_log_type_enabled(v52, type))
+        {
+          v701 = 134217984;
+          *v702 = v38;
+          _os_log_impl(&dword_0, v52, type, "A preset action for a sync request had change type %lu, which is unsupported.  Dropping that action", &v701, 0xCu);
+        }
+
+        v53 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v36 changeId]);
+        [v584 addObject:v53];
+      }
+
+      v33 = [obj countByEnumeratingWithState:&v674 objects:v703 count:16];
+    }
+
+    while (v33);
+  }
+
+  Count = CFArrayGetCount(0);
+  if (Count < 1)
+  {
+    v65 = 0;
+    v64 = 0;
+    v66 = -1;
+    v84 = v585;
+  }
+
+  else
+  {
+    v63 = 0;
+    v64 = 0;
+    v65 = 0;
+    v540 = _CPLog_to_os_log_type[6];
+    typea = _CPLog_to_os_log_type[7];
+    v66 = -1;
+    do
+    {
+      v67 = v64;
+      ValueAtIndex = CFArrayGetValueAtIndex(0, v63);
+      v69 = CFArrayGetValueAtIndex(0, v63);
+      v64 = [NSNumber numberWithInt:ValueAtIndex];
+
+      v518 = [NSNumber numberWithInt:CFArrayGetValueAtIndex(0, v63)];
+
+      v70 = CFArrayGetValueAtIndex(0, v63);
+      if (v66 <= v70)
+      {
+        v66 = v70;
+      }
+
+      v71 = CFArrayGetValueAtIndex(0, v63);
+      v72 = v71;
+      if (v71 == kCFNull)
+      {
+
+        v72 = 0;
+      }
+
+      if (v69 << 32 != 0x200000000)
+      {
+        v73 = [v583 _dbExternalIdForLocalId:ValueAtIndex dataclass:4];
+        if (v73 && ([(__CFNull *)v72 isEqualToString:v73]& 1) == 0)
+        {
+          v74 = DALoggingwithCategory();
+          if (os_log_type_enabled(v74, v540))
+          {
+            v701 = 67109634;
+            *v702 = ValueAtIndex;
+            *&v702[4] = 2112;
+            *&v702[6] = v72;
+            *&v702[14] = 2112;
+            *&v702[16] = v73;
+            _os_log_impl(&dword_0, v74, v540, "For a change with local id %d, found server id %@ in the change table, and server id %@ in the db.  Using the db-based id", &v701, 0x1Cu);
+          }
+
+          v75 = v73;
+          v72 = v75;
+        }
+      }
+
+      v76 = DALoggingwithCategory();
+      if (os_log_type_enabled(v76, typea))
+      {
+        v701 = 67109634;
+        *v702 = ValueAtIndex;
+        *&v702[4] = 1024;
+        *&v702[6] = v69;
+        *&v702[10] = 2112;
+        *&v702[12] = v72;
+        _os_log_impl(&dword_0, v76, typea, "Looking at change with id %d type %d exchangeId %@", &v701, 0x18u);
+      }
+
+      if (v72)
+      {
+        v77 = 0;
+      }
+
+      else
+      {
+        v77 = v69 << 32 == 0x100000000;
+      }
+
+      if (v77)
+      {
+        v78 = 0;
+      }
+
+      else
+      {
+        v78 = v69;
+      }
+
+      if (v78)
+      {
+        v79 = 0;
+      }
+
+      else
+      {
+        v79 = v72 != 0;
+      }
+
+      if (v72 && ValueAtIndex)
+      {
+        [v31 setObject:v72 forKeyedSubscript:v64];
+      }
+
+      v80 = CFArrayGetValueAtIndex(0, v63);
+      v81 = [NSNumber numberWithInt:v80];
+      [v513 setObject:v81 forKeyedSubscript:v64];
+
+      if (v72 && v80)
+      {
+        [v520 addObject:v72];
+      }
+
+      v82 = v80 != 0;
+      if (v79)
+      {
+        v83 = 1;
+      }
+
+      else
+      {
+        v83 = v78;
+      }
+
+      v84 = v585;
+      v65 = v518;
+      [v583 _handleChangeOnEventWithExchangeId:v72 localId:ValueAtIndex changeType:v83 eventChangeId:v518 hasSignificantAttributeChanges:v82 container:v551 dataHandler:v585 addedIdsToEventChangeId:v581 modifiedIdsToEventChangeId:v572 deletedIdsToEventChangeId:v580 pseudoDeletedIdsToEventChangeId:v571 eventChangeIdsToClear:v584 allAddedDetachmentIds:v512 localToExchangeIdMap:v31 outShouldSaveDB:&v679];
+
+      ++v63;
+    }
+
+    while (Count != v63);
+  }
+
+  v519 = v65;
+  v673 = 0;
+  v672 = 0;
+  v671 = 0;
+  [v583 _faultInCalendarSubentitiesInCalendar:v551 addedIdsToEventChangeId:v581 modifiedIdsToEventChangeId:v572 deletedIdsToEventChangeId:v580 pseudoDeletedIdsToEventChangeId:v571 localToExchangeIdMap:v31 eventChangeIdsToClear:v584 allAddedDetachmentIds:v512 outRecurrenceId:&v673 + 4 outAlarmId:&v673 outAttendeeId:&v672 + 4 outAttachmentId:&v672 outHighestSequenceNumber:&v671 dataHandler:v84];
+  if (v66 <= v671)
+  {
+    LODWORD(v85) = v671;
+  }
+
+  else
+  {
+    LODWORD(v85) = v66;
+  }
+
+  v670 = -1;
+  v494 = objc_opt_new();
+  [v583 _exceptionDateChangesInCalendar:v551 exceptionDateToChangeId:? outHighestSequenceNumber:? dataHandler:?];
+  if (v85 <= -1)
+  {
+    v85 = 0xFFFFFFFFLL;
+  }
+
+  else
+  {
+    v85 = v85;
+  }
+
+  [v583 _attendeeChangesDueToMeetingForwardingInCalendar:v551 eventIdToAttendeeEmails:v497 eventIdToAttendeeUUIDs:v496 dataHandler:v84];
+  if (v534)
+  {
+    v86 = v526;
+  }
+
+  else
+  {
+    v86 = 0xFFFFFFFFLL;
+  }
+
+  [v495 setCalEventChangeId:v86];
+  [v495 setCalRecurrenceChangeId:HIDWORD(v673)];
+  [v495 setCalAlarmChangeId:v673];
+  [v495 setCalAttendeeChangeId:HIDWORD(v672)];
+  [v495 setCalAttachmentChangeId:v672];
+  [v495 setHighestSequenceNumber:v85];
+  typeb = CalCalendarGetUID();
+  if (!v534)
+  {
+    account3 = [v583 account];
+    protocol = [account3 protocol];
+    useSmartMailTasks = [protocol useSmartMailTasks];
+
+    allKeys16 = account3;
+    if (useSmartMailTasks)
+    {
+      v661 = 0u;
+      v660 = 0u;
+      v659 = 0u;
+      v658 = 0u;
+      allKeys = [v497 allKeys];
+      v119 = [allKeys countByEnumeratingWithState:&v658 objects:v698 count:16];
+      if (v119)
+      {
+        v120 = v119;
+        v121 = 0;
+        v122 = *v659;
+        v521 = _CPLog_to_os_log_type[3];
+        v541 = allKeys;
+        v535 = *v659;
+        do
+        {
+          for (j = 0; j != v120; j = j + 1)
+          {
+            v124 = v121;
+            if (*v659 != v122)
+            {
+              objc_enumerationMutation(allKeys);
+            }
+
+            v121 = *(*(&v658 + 1) + 8 * j);
+
+            allKeys2 = [v580 allKeys];
+            v126 = [allKeys2 containsObject:v121];
+
+            if ((v126 & 1) == 0)
+            {
+              allKeys3 = [v571 allKeys];
+              v128 = [allKeys3 containsObject:v121];
+
+              if ((v128 & 1) == 0)
+              {
+                v129 = [v585 copyLocalObjectFromId:{objc_msgSend(v121, "intValue")}];
+                if (v129)
+                {
+                  v130 = v129;
+                  if (([v583 _isOrganizerSelfWithLocalEvent:v129] & 1) == 0)
+                  {
+                    v131 = CalEventCopyOriginalEvent();
+                    if (v131)
+                    {
+                      v558 = v131;
+                      v132 = CalCalendarItemCopyExternalID();
+                      if ([v585 dataclass] != &dword_4)
+                      {
+                        sub_48650();
+                      }
+
+                      if (v132)
+                      {
+                        account4 = [v583 account];
+                        v134 = v132;
+                        v552 = v132;
+                        v135 = account4;
+                        v136 = [v585 getDAObjectWithLocalItem:v558 serverId:v134 account:account4];
+
+                        account5 = [v583 account];
+                        v544 = v136;
+                        v138 = [v585 getDAExceptionObjectWithLocalItem:v130 originalEvent:v136 account:account5];
+
+                        v139 = v552;
+                        exceptionStartTime = [v138 exceptionStartTime];
+                        activeSyncStringWithoutSeparators = [exceptionStartTime activeSyncStringWithoutSeparators];
+
+                        v142 = [v497 objectForKey:v121];
+                        if ([v142 count])
+                        {
+                          v143 = [[ASAction alloc] initWithItemChangeType:9 changedItem:v138 serverId:v139 instanceId:activeSyncStringWithoutSeparators];
+                          [v143 setForwardedAttendees:v142];
+                          [v496 objectForKey:v121];
+                          *v527 = v138;
+                          v145 = v144 = activeSyncStringWithoutSeparators;
+                          [v143 setForwardedAttendeeUUIDs:v145];
+
+                          activeSyncStringWithoutSeparators = v144;
+                          v138 = *v527;
+                          [v582 addObject:v143];
+                        }
+
+                        allKeys = v541;
+                        v132 = v552;
+                        v122 = v535;
+                      }
+
+                      CFRelease(v558);
+                    }
+
+                    else
+                    {
+                      allKeys4 = [v581 allKeys];
+                      v147 = [allKeys4 containsObject:v121];
+
+                      if (v147)
+                      {
+                        v148 = DALoggingwithCategory();
+                        if (os_log_type_enabled(v148, v521))
+                        {
+                          LOWORD(v701) = 0;
+                          _os_log_impl(&dword_0, v148, v521, "This is a newly added event, and user is not the organizer. This should not happen. Ignore this event.", &v701, 2u);
+                        }
+
+                        allKeys = v541;
+                        v132 = v148;
+                      }
+
+                      else
+                      {
+                        account6 = [v583 account];
+                        v150 = [v585 getDAObjectWithLocalItem:v130 serverId:0 account:account6];
+
+                        v132 = CalCalendarItemCopyExternalID();
+                        v151 = [v497 objectForKey:v121];
+                        if ([v151 count])
+                        {
+                          v553 = v132;
+                          v152 = [[ASAction alloc] initWithItemChangeType:9 changedItem:v150 serverId:v132 instanceId:0];
+                          [v152 setForwardedAttendees:v151];
+                          [v496 objectForKey:v121];
+                          v154 = v153 = v150;
+                          [v152 setForwardedAttendeeUUIDs:v154];
+
+                          v150 = v153;
+                          [v582 addObject:v152];
+
+                          v132 = v553;
+                          v122 = v535;
+                        }
+
+                        allKeys = v541;
+                      }
+                    }
+                  }
+
+                  CFRelease(v130);
+                }
+              }
+            }
+          }
+
+          v120 = [allKeys countByEnumeratingWithState:&v658 objects:v698 count:16];
+        }
+
+        while (v120);
+
+        v84 = v585;
+        account3 = allKeys16;
+      }
+    }
+
+    protocol2 = [account3 protocol];
+    includeExceptionsInParent = [protocol2 includeExceptionsInParent];
+
+    if (includeExceptionsInParent)
+    {
+      v657 = 0u;
+      v656 = 0u;
+      v655 = 0u;
+      v654 = 0u;
+      allKeys5 = [v581 allKeys];
+      v157 = [allKeys5 countByEnumeratingWithState:&v654 objects:v697 count:16];
+      if (v157)
+      {
+        v158 = v157;
+        v159 = *v655;
+        v160 = _CPLog_to_os_log_type[6];
+        do
+        {
+          v161 = 0;
+          v162 = v64;
+          do
+          {
+            if (*v655 != v159)
+            {
+              objc_enumerationMutation(allKeys5);
+            }
+
+            v64 = *(*(&v654 + 1) + 8 * v161);
+
+            v163 = [v84 copyLocalObjectFromId:{objc_msgSend(v64, "intValue")}];
+            if (v163)
+            {
+              v164 = v163;
+              if ((CalEventGetModifiedProperties() & 0x1000) != 0)
+              {
+                v166 = DALoggingwithCategory();
+                if (os_log_type_enabled(v166, v160))
+                {
+                  v701 = 138412290;
+                  *v702 = v64;
+                  _os_log_impl(&dword_0, v166, v160, "Dropping an action because event is modified by acknowledging. id: %@", &v701, 0xCu);
+                }
+              }
+
+              else if (([v583 _isOrganizerSelfWithLocalEvent:v164] & 1) != 0 || CalEventGetPendingParticipationStatus() - 1 < 3)
+              {
+                account7 = [v583 account];
+                v166 = [v84 getDAObjectWithLocalItem:v164 serverId:0 account:account7];
+
+                v167 = [[ASAction alloc] initWithItemChangeType:0 changedItem:v166 serverId:0];
+                v168 = [v581 objectForKeyedSubscript:v64];
+                [v167 setChangeId:{objc_msgSend(v168, "intValue")}];
+
+                v84 = v585;
+                [v582 addObject:v167];
+              }
+
+              else
+              {
+                v170 = DALoggingwithCategory();
+                if (os_log_type_enabled(v170, v160))
+                {
+                  v701 = 138412290;
+                  *v702 = v64;
+                  _os_log_impl(&dword_0, v170, v160, "Exchange server does not support adding a new event where user is not the organizer. Dropping that action with id: %@", &v701, 0xCu);
+                }
+
+                v166 = [v581 objectForKeyedSubscript:v64];
+                [v584 addObject:v166];
+              }
+
+              CFRelease(v164);
+            }
+
+            else
+            {
+              v169 = [v581 objectForKeyedSubscript:v64];
+              [v584 addObject:v169];
+            }
+
+            v161 = v161 + 1;
+            v162 = v64;
+          }
+
+          while (v158 != v161);
+          v158 = [allKeys5 countByEnumeratingWithState:&v654 objects:v697 count:16];
+        }
+
+        while (v158);
+      }
+
+      v653 = 0u;
+      v652 = 0u;
+      v651 = 0u;
+      v650 = 0u;
+      allKeys6 = [v572 allKeys];
+      v171 = [allKeys6 countByEnumeratingWithState:&v650 objects:v696 count:16];
+      if (!v171)
+      {
+LABEL_202:
+
+        v649 = 0u;
+        v648 = 0u;
+        v647 = 0u;
+        v646 = 0u;
+        allKeys7 = [v580 allKeys];
+        v191 = [allKeys7 countByEnumeratingWithState:&v646 objects:v695 count:16];
+        if (v191)
+        {
+          v192 = v191;
+          v193 = 0;
+          v194 = *v647;
+          do
+          {
+            v195 = 0;
+            v196 = v193;
+            do
+            {
+              if (*v647 != v194)
+              {
+                objc_enumerationMutation(allKeys7);
+              }
+
+              v193 = *(*(&v646 + 1) + 8 * v195);
+
+              v197 = [v31 objectForKeyedSubscript:v193];
+              if (v197)
+              {
+                v198 = [[ASAction alloc] initWithItemChangeType:2 changedItem:0 serverId:v197];
+                v199 = [v580 objectForKeyedSubscript:v193];
+                [v198 setChangeId:{objc_msgSend(v199, "intValue")}];
+
+                v200 = v582;
+              }
+
+              else
+              {
+                v198 = [v580 objectForKeyedSubscript:v193];
+                v200 = v584;
+              }
+
+              [v200 addObject:v198];
+
+              v195 = v195 + 1;
+              v196 = v193;
+            }
+
+            while (v192 != v195);
+            v192 = [allKeys7 countByEnumeratingWithState:&v646 objects:v695 count:16];
+          }
+
+          while (v192);
+
+          v84 = v585;
+        }
+
+        v645 = 0u;
+        v644 = 0u;
+        v643 = 0u;
+        v642 = 0u;
+        allKeys8 = [v571 allKeys];
+        v201 = [allKeys8 countByEnumeratingWithState:&v642 objects:v694 count:16];
+        if (v201)
+        {
+          v202 = v201;
+          v203 = 0;
+          v204 = *v643;
+          do
+          {
+            v205 = 0;
+            v206 = v203;
+            do
+            {
+              if (*v643 != v204)
+              {
+                objc_enumerationMutation(allKeys8);
+              }
+
+              v203 = *(*(&v642 + 1) + 8 * v205);
+
+              v207 = [v84 copyLocalObjectFromId:{objc_msgSend(v203, "intValue")}];
+              if (v207)
+              {
+                v208 = v207;
+                v209 = [v31 objectForKeyedSubscript:v203];
+                account8 = [v583 account];
+                v211 = [v84 getDAObjectWithLocalItem:v208 serverId:v209 account:account8];
+
+                v212 = [[ASAction alloc] initWithItemChangeType:8 changedItem:v211 serverId:v209];
+                v213 = [v571 objectForKeyedSubscript:v203];
+                [v212 setChangeId:{objc_msgSend(v213, "intValue")}];
+
+                v84 = v585;
+                [v582 addObject:v212];
+                CFRelease(v208);
+              }
+
+              else
+              {
+                v209 = [v571 objectForKeyedSubscript:v203];
+                [v584 addObject:v209];
+              }
+
+              v205 = v205 + 1;
+              v206 = v203;
+            }
+
+            while (v202 != v205);
+            v202 = [allKeys8 countByEnumeratingWithState:&v642 objects:v694 count:16];
+          }
+
+          while (v202);
+LABEL_585:
+        }
+
+        v100 = allKeys8;
+        goto LABEL_587;
+      }
+
+      v172 = v171;
+      v173 = 0;
+      v174 = *v651;
+      v560 = _CPLog_to_os_log_type[6];
+LABEL_180:
+      v175 = 0;
+      v176 = v173;
+      v545 = v172;
+      while (1)
+      {
+        if (*v651 != v174)
+        {
+          objc_enumerationMutation(allKeys6);
+        }
+
+        v173 = *(*(&v650 + 1) + 8 * v175);
+
+        v177 = [v84 copyLocalObjectFromId:{objc_msgSend(v173, "intValue")}];
+        if (v177)
+        {
+          break;
+        }
+
+        v182 = [v572 objectForKeyedSubscript:v173];
+        [v584 addObject:v182];
+
+LABEL_199:
+        v175 = v175 + 1;
+        v176 = v173;
+        if (v172 == v175)
+        {
+          v172 = [allKeys6 countByEnumeratingWithState:&v650 objects:v696 count:16];
+          if (!v172)
+          {
+
+            goto LABEL_202;
+          }
+
+          goto LABEL_180;
+        }
+      }
+
+      v178 = v177;
+      v179 = CalCalendarItemCopyCalendar();
+      if (v179)
+      {
+        v180 = v179;
+        UID = CalCalendarGetUID();
+        CFRelease(v180);
+      }
+
+      else
+      {
+        UID = -1;
+      }
+
+      if (typeb == UID)
+      {
+        if ((CalEventGetModifiedProperties() & 0x1000) == 0)
+        {
+          v183 = [v31 objectForKeyedSubscript:v173];
+          account9 = [v583 account];
+          v185 = [v585 getDAObjectWithLocalItem:v178 serverId:v183 account:account9];
+
+          v186 = [[ASAction alloc] initWithItemChangeType:1 changedItem:v185 serverId:0];
+          v187 = [v572 objectForKeyedSubscript:v173];
+          [v186 setChangeId:{objc_msgSend(v187, "intValue")}];
+
+          v172 = v545;
+          [v582 addObject:v186];
+
+LABEL_198:
+          CFRelease(v178);
+          v84 = v585;
+          goto LABEL_199;
+        }
+
+        v189 = DALoggingwithCategory();
+        if (os_log_type_enabled(v189, v560))
+        {
+          v701 = 138412290;
+          *v702 = v173;
+          _os_log_impl(&dword_0, v189, v560, "Dropping an action because event is modified by acknowledging. id: %@", &v701, 0xCu);
+        }
+      }
+
+      else
+      {
+        v188 = DALoggingwithCategory();
+        if (os_log_type_enabled(v188, v560))
+        {
+          v701 = 138412802;
+          *v702 = v173;
+          *&v702[8] = 1024;
+          *&v702[10] = UID;
+          *&v702[14] = 1024;
+          *&v702[16] = typeb;
+          _os_log_impl(&dword_0, v188, v560, "Dropping and clearing local modify for event with id %@ as it's calendar (id %d) doesn't match the container we're interested in (id %d)", &v701, 0x18u);
+        }
+      }
+
+      v183 = [v572 objectForKeyedSubscript:v173];
+      [v584 addObject:v183];
+      goto LABEL_198;
+    }
+
+    allKeys8 = objc_opt_new();
+    v638 = 0u;
+    v639 = 0u;
+    v640 = 0u;
+    v641 = 0u;
+    allKeys9 = [v581 allKeys];
+    v215 = [allKeys9 countByEnumeratingWithState:&v638 objects:v693 count:16];
+    if (!v215)
+    {
+      goto LABEL_322;
+    }
+
+    v216 = v215;
+    v217 = *v639;
+    v218 = _CPLog_to_os_log_type[6];
+    v555 = _CPLog_to_os_log_type[3];
+    v500 = allKeys9;
+    v528 = v218;
+    v515 = *v639;
+    while (1)
+    {
+      v219 = 0;
+      v220 = v64;
+      v498 = v216;
+      do
+      {
+        if (*v639 != v217)
+        {
+          objc_enumerationMutation(allKeys9);
+        }
+
+        v64 = *(*(&v638 + 1) + 8 * v219);
+
+        v221 = [v84 copyLocalObjectFromId:{objc_msgSend(v64, "intValue")}];
+        if (v221)
+        {
+          v222 = v221;
+          if ((CalEventGetModifiedProperties() & 0x1000) != 0)
+          {
+            v232 = DALoggingwithCategory();
+            if (os_log_type_enabled(v232, v218))
+            {
+              v701 = 138412290;
+              *v702 = v64;
+              _os_log_impl(&dword_0, v232, v218, "Dropping an action because event is modified by acknowledging. id: %@", &v701, 0xCu);
+            }
+
+            goto LABEL_286;
+          }
+
+          v561 = v222;
+          if ([v583 _isOrganizerSelfWithLocalEvent:v222])
+          {
+            protocol3 = [allKeys16 protocol];
+            syncSnoozeEvents = [protocol3 syncSnoozeEvents];
+
+            if ((syncSnoozeEvents & 1) == 0 && (CalEventGetExternalTrackingStatus() & 2) != 0)
+            {
+              v222 = v561;
+              CalEventSetExternalTrackingStatus();
+              v225 = DALoggingwithCategory();
+              if (os_log_type_enabled(v225, v555))
+              {
+                v701 = 138412290;
+                *v702 = v64;
+                _os_log_impl(&dword_0, v225, v555, "Do not sync events added by snooze to Exchange server. Dropping that action with id: %@", &v701, 0xCu);
+              }
+
+              v226 = [v581 objectForKeyedSubscript:v64];
+              [v584 addObject:v226];
+
+              v227 = CalEventCopyOriginalEvent();
+              v228 = v227;
+              if (v227 && v227 != v561)
+              {
+                v229 = [NSNumber numberWithInt:CalCalendarItemGetRowID()];
+                [allKeys8 addObject:v229];
+
+                v222 = v561;
+                goto LABEL_298;
+              }
+
+              if (v227)
+              {
+LABEL_298:
+                CFRelease(v228);
+              }
+
+LABEL_286:
+              CFRelease(v222);
+              goto LABEL_287;
+            }
+
+LABEL_250:
+            ExternalTrackingStatus = CalEventGetExternalTrackingStatus();
+            if ((ExternalTrackingStatus & 2) != 0)
+            {
+              CalEventSetExternalTrackingStatus();
+              v679 = 1;
+              v238 = DALoggingwithCategory();
+              if (os_log_type_enabled(v238, v218))
+              {
+                LOWORD(v701) = 0;
+                _os_log_impl(&dword_0, v238, v218, "Do not include event body when syncing events added by snooze to Exchange server", &v701, 2u);
+              }
+            }
+
+            v239 = CalEventCopyOriginalEvent();
+            v546 = v239;
+            if (v239 && v239 != v561)
+            {
+              v240 = CalCalendarItemCopyExternalID();
+              if ([v84 dataclass] != &dword_4)
+              {
+                sub_4867C();
+              }
+
+              if (v240)
+              {
+                account10 = [v583 account];
+                v242 = [v84 getDAObjectWithLocalItem:v546 serverId:v240 account:account10];
+
+                account11 = [v583 account];
+                v503 = v242;
+                v244 = [v84 getDAExceptionObjectWithLocalItem:v561 originalEvent:v242 account:account11];
+
+                v507 = v244;
+                if ([v520 containsObject:v240])
+                {
+                  v245 = DALoggingwithCategory();
+                  if (os_log_type_enabled(v245, v528))
+                  {
+                    LOWORD(v701) = 0;
+                    _os_log_impl(&dword_0, v245, v528, "Skipping a newly created exception with modified parent event. Will sync it in a subsequent request.", &v701, 2u);
+                  }
+
+                  v217 = v515;
+                  if (v570)
+                  {
+                    activeSyncStringWithoutSeparators2 = [[ASAction alloc] initWithItemChangeType:0 changedItem:v244 serverId:0];
+                    v247 = [v581 objectForKeyedSubscript:v64];
+                    [activeSyncStringWithoutSeparators2 setChangeId:{objc_msgSend(v247, "intValue")}];
+
+                    [activeSyncStringWithoutSeparators2 setIsSkippedDetachment:1];
+                    v248 = v570;
+                  }
+
+                  else
+                  {
+                    v286 = DALoggingwithCategory();
+                    if (os_log_type_enabled(v286, v555))
+                    {
+                      LOWORD(v701) = 0;
+                      _os_log_impl(&dword_0, v286, v555, "Unable to save a newly created exception with modified parent event. The detachment will not be synced to the server.", &v701, 2u);
+                    }
+
+                    activeSyncStringWithoutSeparators2 = [v581 objectForKeyedSubscript:v64];
+                    v248 = v584;
+                  }
+
+                  [v248 addObject:activeSyncStringWithoutSeparators2];
+                  v536 = 0;
+                  v252 = 0;
+                  goto LABEL_315;
+                }
+
+                v536 = v244;
+                if (CalCalendarItemGetStatus() == 3)
+                {
+                  v281 = CalCalendarItemCopySelfAttendee();
+                  if (v281 && (v282 = v281, Status = CalAttendeeGetStatus(), CFRelease(v282), Status != 7))
+                  {
+                    v284 = 2;
+                  }
+
+                  else
+                  {
+                    v284 = 8;
+                  }
+                }
+
+                else
+                {
+                  v284 = 1;
+                }
+
+                if (v536)
+                {
+                  if ([v84 dataclass] == &dword_4)
+                  {
+                    v287 = v536;
+                    [v287 setDoNotSendBody:(ExternalTrackingStatus >> 1) & 1];
+                  }
+
+                  exceptionStartTime2 = [v536 exceptionStartTime];
+                  activeSyncStringWithoutSeparators2 = [exceptionStartTime2 activeSyncStringWithoutSeparators];
+
+                  v252 = [[ASAction alloc] initWithItemChangeType:v284 changedItem:v536 serverId:v240 instanceId:activeSyncStringWithoutSeparators2];
+                  if ([v514 containsObject:v64])
+                  {
+                    [v252 setIsSkippedDetachment:1];
+                  }
+
+                  v217 = v515;
+LABEL_315:
+                  v274 = v503;
+
+                  v84 = v585;
+                }
+
+                else
+                {
+                  v536 = 0;
+                  v252 = 0;
+                  v217 = v515;
+                  v274 = v503;
+                }
+              }
+
+              else
+              {
+                v272 = DALoggingwithCategory();
+                if (os_log_type_enabled(v272, v528))
+                {
+                  LOWORD(v701) = 0;
+                  _os_log_impl(&dword_0, v272, v528, "Skipping a newly created exception in newly created parent event. Will sync it in a subsequent request.", &v701, 2u);
+                }
+
+                v217 = v515;
+                if (v570)
+                {
+                  account12 = [v583 account];
+                  v274 = [v84 getDAObjectWithLocalItem:v546 serverId:0 account:account12];
+
+                  account13 = [v583 account];
+                  v276 = [v84 getDAExceptionObjectWithLocalItem:v561 originalEvent:v274 account:account13];
+
+                  [v276 setServerID:0];
+                  exceptionStartTime3 = [v276 exceptionStartTime];
+                  activeSyncStringWithoutSeparators3 = [exceptionStartTime3 activeSyncStringWithoutSeparators];
+                  [v276 setInstanceID:activeSyncStringWithoutSeparators3];
+
+                  v279 = [[ASAction alloc] initWithItemChangeType:0 changedItem:v276 serverId:0];
+                  v280 = [v581 objectForKeyedSubscript:v64];
+                  [v279 setChangeId:{objc_msgSend(v280, "intValue")}];
+
+                  [v279 setIsSkippedDetachment:1];
+                  [v570 addObject:v279];
+                }
+
+                else
+                {
+                  v285 = DALoggingwithCategory();
+                  if (os_log_type_enabled(v285, v555))
+                  {
+                    LOWORD(v701) = 0;
+                    _os_log_impl(&dword_0, v285, v555, "Unable to save a newly created exception in newly created parent event. The detachment will not be synced to the server.", &v701, 2u);
+                  }
+
+                  v274 = [v581 objectForKeyedSubscript:v64];
+                  [v584 addObject:v274];
+                }
+
+                v252 = 0;
+                v536 = 0;
+                v240 = 0;
+                v216 = v498;
+              }
+
+              v269 = v546;
+              allKeys9 = v500;
+LABEL_318:
+              CFRelease(v269);
+              v268 = v240;
+              if (!v252)
+              {
+                goto LABEL_284;
+              }
+
+LABEL_283:
+              [v581 objectForKeyedSubscript:v64];
+              v271 = v270 = v252;
+              [v270 setChangeId:{objc_msgSend(v271, "intValue")}];
+
+              v252 = v270;
+              [v582 addObject:v270];
+              goto LABEL_284;
+            }
+
+            account14 = [v583 account];
+            v250 = [v84 getDAObjectWithLocalItem:v561 serverId:0 account:account14];
+
+            v536 = v250;
+            if (v250)
+            {
+              if ([v84 dataclass] == &dword_4)
+              {
+                v251 = v250;
+                [v251 setDoNotSendBody:(ExternalTrackingStatus >> 1) & 1];
+              }
+
+              v252 = [[ASAction alloc] initWithItemChangeType:0 changedItem:v250 serverId:0];
+              if (v570 && [v84 dataclass] == &dword_4)
+              {
+                *v508 = v252;
+                v253 = v250;
+                v634 = 0u;
+                v635 = 0u;
+                v636 = 0u;
+                v637 = 0u;
+                v504 = v253;
+                exceptions = [v253 exceptions];
+                v255 = [exceptions countByEnumeratingWithState:&v634 objects:v692 count:16];
+                if (v255)
+                {
+                  v256 = v255;
+                  v257 = *v635;
+                  do
+                  {
+                    for (k = 0; k != v256; k = k + 1)
+                    {
+                      if (*v635 != v257)
+                      {
+                        objc_enumerationMutation(exceptions);
+                      }
+
+                      v259 = *(*(&v634 + 1) + 8 * k);
+                      isDeleted = [v259 isDeleted];
+                      bOOLValue = [isDeleted BOOLValue];
+
+                      if (bOOLValue)
+                      {
+                        clientID2 = [v259 clientID];
+
+                        if (!clientID2)
+                        {
+                          v263 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%d", [v64 intValue]);
+                          [v259 setParentClientID:v263];
+
+                          exceptionStartTime4 = [v259 exceptionStartTime];
+                          activeSyncStringWithoutSeparators4 = [exceptionStartTime4 activeSyncStringWithoutSeparators];
+
+                          v266 = [[ASAction alloc] initWithItemChangeType:2 changedItem:v259 serverId:0 instanceId:activeSyncStringWithoutSeparators4];
+                          v267 = [v581 objectForKeyedSubscript:v64];
+                          [v266 setChangeId:{objc_msgSend(v267, "intValue")}];
+
+                          [v266 setIsSkippedDetachment:1];
+                          [v570 addObject:v266];
+                        }
+                      }
+                    }
+
+                    v256 = [exceptions countByEnumeratingWithState:&v634 objects:v692 count:16];
+                  }
+
+                  while (v256);
+                }
+
+                v84 = v585;
+                v216 = v498;
+                allKeys9 = v500;
+                v217 = v515;
+                v252 = *v508;
+LABEL_281:
+                v240 = 0;
+                v268 = 0;
+                v269 = v546;
+                if (v546)
+                {
+                  goto LABEL_318;
+                }
+
+                if (v252)
+                {
+                  goto LABEL_283;
+                }
+
+LABEL_284:
+
+                v218 = v528;
+LABEL_285:
+                v222 = v561;
+                goto LABEL_286;
+              }
+            }
+
+            else
+            {
+              v252 = 0;
+            }
+
+            v217 = v515;
+            goto LABEL_281;
+          }
+
+          PendingParticipationStatus = CalEventGetPendingParticipationStatus();
+          HasChanged = CalEventCommentHasChanged();
+          if (PendingParticipationStatus - 1) < 3 || (HasChanged)
+          {
+            goto LABEL_250;
+          }
+
+          v235 = DALoggingwithCategory();
+          if (os_log_type_enabled(v235, v218))
+          {
+            v701 = 138412290;
+            *v702 = v64;
+            _os_log_impl(&dword_0, v235, v218, "Exchange server does not support adding a new event where user is not the organizer. Dropping that action with id: %@", &v701, 0xCu);
+          }
+
+          v236 = [v581 objectForKeyedSubscript:v64];
+          [v584 addObject:v236];
+
+          goto LABEL_285;
+        }
+
+        v230 = DALoggingwithCategory();
+        if (os_log_type_enabled(v230, v555))
+        {
+          LOWORD(v701) = 0;
+          _os_log_impl(&dword_0, v230, v555, "Dropping an addition without local item", &v701, 2u);
+        }
+
+        v231 = [v581 objectForKeyedSubscript:v64];
+        [v584 addObject:v231];
+
+LABEL_287:
+        v219 = v219 + 1;
+        v220 = v64;
+      }
+
+      while (v219 != v216);
+      v289 = [allKeys9 countByEnumeratingWithState:&v638 objects:v693 count:16];
+      v216 = v289;
+      if (!v289)
+      {
+LABEL_322:
+
+        v633 = 0u;
+        v632 = 0u;
+        v631 = 0u;
+        v630 = 0u;
+        allKeys10 = [v572 allKeys];
+        v291 = [allKeys10 countByEnumeratingWithState:&v630 objects:v691 count:16];
+        if (!v291)
+        {
+          goto LABEL_395;
+        }
+
+        v292 = v291;
+        v293 = 0;
+        v562 = *v631;
+        v294 = _CPLog_to_os_log_type[6];
+        v509 = _CPLog_to_os_log_type[3];
+        v295 = v583;
+        v501 = allKeys10;
+        v556 = v294;
+        while (1)
+        {
+          v296 = 0;
+          v297 = v293;
+          v522 = v292;
+          do
+          {
+            if (*v631 != v562)
+            {
+              objc_enumerationMutation(allKeys10);
+            }
+
+            v293 = *(*(&v630 + 1) + 8 * v296);
+
+            v298 = [v585 copyLocalObjectFromId:{objc_msgSend(v293, "intValue")}];
+            if (!v298)
+            {
+              v303 = [v572 objectForKeyedSubscript:v293];
+              [v584 addObject:v303];
+
+              goto LABEL_392;
+            }
+
+            v299 = v298;
+            v300 = CalCalendarItemCopyCalendar();
+            if (v300)
+            {
+              v301 = v300;
+              v302 = CalCalendarGetUID();
+              CFRelease(v301);
+            }
+
+            else
+            {
+              v302 = -1;
+            }
+
+            if (typeb != v302)
+            {
+              v310 = DALoggingwithCategory();
+              if (os_log_type_enabled(v310, v294))
+              {
+                v701 = 138412802;
+                *v702 = v293;
+                *&v702[8] = 1024;
+                *&v702[10] = v302;
+                *&v702[14] = 1024;
+                *&v702[16] = typeb;
+                _os_log_impl(&dword_0, v310, v294, "Dropping and clearing local modify for event with id %@ as it's calendar (id %d) doesn't match the container we're interested in (id %d)", &v701, 0x18u);
+              }
+
+              goto LABEL_346;
+            }
+
+            if ((CalEventGetModifiedProperties() & 0x1000) == 0)
+            {
+              if (![v295 _isOrganizerSelfWithLocalEvent:v299] || (objc_msgSend(allKeys16, "protocol"), v304 = objc_claimAutoreleasedReturnValue(), v305 = objc_msgSend(v304, "syncSnoozeEvents"), v304, (v305 & 1) != 0) || !objc_msgSend(allKeys8, "containsObject:", v293))
+              {
+                v311 = [v31 objectForKeyedSubscript:v293];
+                if (v311)
+                {
+                  v312 = CalEventCopyOriginalEvent();
+                  v313 = v312;
+                  if (!v312 || v312 == v299)
+                  {
+                    v327 = [v585 getDAObjectWithLocalItem:v299 serverId:v311 account:allKeys16];
+                    v547 = v311;
+                    v322 = 0;
+                    v328 = 0;
+                    v538 = 0;
+                    v329 = 0;
+                    if (v313)
+                    {
+                      goto LABEL_367;
+                    }
+                  }
+
+                  else
+                  {
+                    v314 = CalCalendarItemCopyExternalID();
+                    if ([v585 dataclass] != &dword_4)
+                    {
+                      sub_486A8();
+                    }
+
+                    account15 = [v583 account];
+                    v499 = v313;
+                    v316 = [v585 getDAObjectWithLocalItem:v313 serverId:v314 account:account15];
+
+                    account16 = [v583 account];
+                    *v529 = v316;
+                    v318 = [v585 getDAExceptionObjectWithLocalItem:v299 originalEvent:v316 account:account16];
+
+                    [v318 setServerID:v311];
+                    v319 = v314;
+                    exceptionStartTime5 = [v318 exceptionStartTime];
+                    activeSyncStringWithoutSeparators5 = [exceptionStartTime5 activeSyncStringWithoutSeparators];
+
+                    v547 = v319;
+                    if ([v520 containsObject:v319])
+                    {
+                      v321 = DALoggingwithCategory();
+                      if (os_log_type_enabled(v321, v556))
+                      {
+                        LOWORD(v701) = 0;
+                        _os_log_impl(&dword_0, v321, v556, "Skipping a modified detachment with modified parent event. Will sync it in a subsequent request.", &v701, 2u);
+                      }
+
+                      v313 = v499;
+                      v322 = activeSyncStringWithoutSeparators5;
+                      if (v570)
+                      {
+                        v323 = [[ASAction alloc] initWithItemChangeType:1 changedItem:v318 serverId:v547 instanceId:activeSyncStringWithoutSeparators5];
+                        v324 = [v572 objectForKeyedSubscript:v293];
+                        [v323 setChangeId:{objc_msgSend(v324, "intValue")}];
+
+                        v322 = activeSyncStringWithoutSeparators5;
+                        [v323 setIsSkippedDetachment:1];
+                        v325 = v570;
+                      }
+
+                      else
+                      {
+                        v331 = DALoggingwithCategory();
+                        if (os_log_type_enabled(v331, v509))
+                        {
+                          LOWORD(v701) = 0;
+                          _os_log_impl(&dword_0, v331, v509, "Unable to save a modified detachment with modified parent event. The detachment will not be synced to the server.", &v701, 2u);
+                        }
+
+                        v323 = [v572 objectForKeyedSubscript:v293];
+                        v325 = v584;
+                      }
+
+                      [v325 addObject:v323];
+
+                      v327 = 0;
+                      v330 = *v529;
+                    }
+
+                    else
+                    {
+                      v327 = v318;
+                      v330 = v316;
+                      v322 = activeSyncStringWithoutSeparators5;
+                      v313 = v499;
+                    }
+
+                    v328 = v547;
+                    allKeys10 = v501;
+LABEL_367:
+                    CFRelease(v313);
+                    v538 = v322;
+                    v329 = v328;
+                  }
+
+                  v530 = v329;
+                  v332 = [v583 _isOrganizerSelfWithLocalEvent:v299];
+                  if (v332)
+                  {
+                    if ((CalEventGetExternalTrackingStatus() & 4) != 0)
+                    {
+                      CalEventSetExternalTrackingStatus();
+                      v335 = 1;
+                      v679 = 1;
+                      v333 = DALoggingwithCategory();
+                      if (os_log_type_enabled(v333, v556))
+                      {
+                        LOWORD(v701) = 0;
+                        _os_log_impl(&dword_0, v333, v556, "Do not include event body when syncing events modified by invitation status to Exchange server", &v701, 2u);
+                        goto LABEL_378;
+                      }
+                    }
+
+                    else
+                    {
+                      v333 = [v513 objectForKeyedSubscript:v293];
+                      intValue3 = [v333 intValue];
+                      v335 = intValue3 == 0;
+                      if (!intValue3)
+                      {
+                        v336 = DALoggingwithCategory();
+                        if (os_log_type_enabled(v336, v556))
+                        {
+                          LOWORD(v701) = 0;
+                          _os_log_impl(&dword_0, v336, v556, "Do not include event body when syncing events without significant changes", &v701, 2u);
+                        }
+
+LABEL_378:
+                        v335 = 1;
+                      }
+                    }
+
+                    allKeys10 = v501;
+                    if (v327)
+                    {
+LABEL_380:
+                      if ([v585 dataclass] == &dword_4)
+                      {
+                        v337 = v327;
+                        [v337 setDoNotSendBody:v335];
+                        if (v332)
+                        {
+                          ModifiedDate = CalCalendarItemCopyLastModifiedDate();
+                          v339 = ModifiedDate;
+                          if (ModifiedDate)
+                          {
+                            [ModifiedDate timeIntervalSinceNow];
+                            if (v340 > -600.0)
+                            {
+                              [v337 setIsOrganizerUpdate:1];
+                            }
+                          }
+                        }
+                      }
+
+                      v341 = [[ASAction alloc] initWithItemChangeType:1 changedItem:v327 serverId:v547 instanceId:v538];
+                      if (v341)
+                      {
+                        v342 = v341;
+                        v343 = [v572 objectForKeyedSubscript:v293];
+                        [v342 setChangeId:{objc_msgSend(v343, "intValue")}];
+
+                        [v582 addObject:v342];
+                      }
+                    }
+                  }
+
+                  else
+                  {
+                    v335 = 0;
+                    if (v327)
+                    {
+                      goto LABEL_380;
+                    }
+                  }
+
+                  v295 = v583;
+                }
+
+                else
+                {
+                  v326 = DALoggingwithCategory();
+                  if (os_log_type_enabled(v326, v509))
+                  {
+                    LOWORD(v701) = 0;
+                    _os_log_impl(&dword_0, v326, v509, "Dropping a modification without Exchange ID", &v701, 2u);
+                  }
+
+                  v327 = [v572 objectForKeyedSubscript:v293];
+                  [v584 addObject:v327];
+                }
+
+                v292 = v522;
+                goto LABEL_391;
+              }
+
+              v306 = DALoggingwithCategory();
+              if (!os_log_type_enabled(v306, v509))
+              {
+                goto LABEL_345;
+              }
+
+              v701 = 138412290;
+              *v702 = v293;
+              v307 = v306;
+              v308 = v509;
+              v309 = "Do not sync parent event modified by snooze. Dropping that action with id: %@";
+              goto LABEL_344;
+            }
+
+            v306 = DALoggingwithCategory();
+            if (os_log_type_enabled(v306, v294))
+            {
+              v701 = 138412290;
+              *v702 = v293;
+              v307 = v306;
+              v308 = v294;
+              v309 = "Dropping an action because event is modified by acknowledging. id: %@";
+LABEL_344:
+              _os_log_impl(&dword_0, v307, v308, v309, &v701, 0xCu);
+            }
+
+LABEL_345:
+
+LABEL_346:
+            v311 = [v572 objectForKeyedSubscript:v293];
+            [v584 addObject:v311];
+LABEL_391:
+
+            CFRelease(v299);
+            v294 = v556;
+LABEL_392:
+            v296 = v296 + 1;
+            v297 = v293;
+          }
+
+          while (v292 != v296);
+          v292 = [allKeys10 countByEnumeratingWithState:&v630 objects:v691 count:16];
+          if (!v292)
+          {
+
+            v84 = v585;
+LABEL_395:
+
+            allKeys11 = [v580 allKeys];
+            v345 = [NSArray arrayWithArray:allKeys11];
+
+            allKeys12 = [v571 allKeys];
+            v539 = [NSArray arrayWithArray:allKeys12];
+
+            v629 = 0u;
+            v628 = 0u;
+            v627 = 0u;
+            v626 = 0u;
+            allKeys13 = [v580 allKeys];
+            v347 = [allKeys13 countByEnumeratingWithState:&v626 objects:v690 count:16];
+            v557 = v345;
+            if (v347)
+            {
+              v348 = v347;
+              v349 = 0;
+              v350 = *v627;
+              v548 = _CPLog_to_os_log_type[6];
+              typec = _CPLog_to_os_log_type[3];
+              v523 = *v627;
+              do
+              {
+                v351 = 0;
+                *v531 = v348;
+                do
+                {
+                  v352 = v349;
+                  if (*v627 != v350)
+                  {
+                    objc_enumerationMutation(allKeys13);
+                  }
+
+                  v349 = *(*(&v626 + 1) + 8 * v351);
+
+                  v353 = [v31 objectForKeyedSubscript:v349];
+                  if (v353)
+                  {
+                    if (![v583 _isDetachmentFromEventId:v353])
+                    {
+                      v362 = [[ASAction alloc] initWithItemChangeType:2 changedItem:0 serverId:v353];
+                      if (v362)
+                      {
+                        goto LABEL_444;
+                      }
+
+                      goto LABEL_446;
+                    }
+
+                    v354 = [v583 _parentIdFromEventId:v353];
+                    v622 = 0u;
+                    v623 = 0u;
+                    v624 = 0u;
+                    v625 = 0u;
+                    v355 = v345;
+                    v356 = [v355 countByEnumeratingWithState:&v622 objects:v689 count:16];
+                    if (v356)
+                    {
+                      v357 = v356;
+                      v358 = *v623;
+                      do
+                      {
+                        for (m = 0; m != v357; m = m + 1)
+                        {
+                          if (*v623 != v358)
+                          {
+                            objc_enumerationMutation(v355);
+                          }
+
+                          v360 = [v31 objectForKeyedSubscript:*(*(&v622 + 1) + 8 * m)];
+                          if (v360 && ([v354 isEqualToString:v360] & 1) != 0)
+                          {
+                            v364 = [v580 objectForKeyedSubscript:v349];
+
+                            if (v364)
+                            {
+                              goto LABEL_429;
+                            }
+
+                            goto LABEL_418;
+                          }
+                        }
+
+                        v357 = [v355 countByEnumeratingWithState:&v622 objects:v689 count:16];
+                      }
+
+                      while (v357);
+                    }
+
+LABEL_418:
+                    v621 = 0u;
+                    v620 = 0u;
+                    v619 = 0u;
+                    v618 = 0u;
+                    v365 = v539;
+                    v366 = [v365 countByEnumeratingWithState:&v618 objects:v688 count:16];
+                    if (!v366)
+                    {
+                      goto LABEL_427;
+                    }
+
+                    v367 = v366;
+                    v368 = *v619;
+                    while (1)
+                    {
+                      for (n = 0; n != v367; n = n + 1)
+                      {
+                        if (*v619 != v368)
+                        {
+                          objc_enumerationMutation(v365);
+                        }
+
+                        v370 = [v31 objectForKeyedSubscript:*(*(&v618 + 1) + 8 * n)];
+                        if (v370 && ([v354 isEqualToString:v370] & 1) != 0)
+                        {
+                          v364 = [v571 objectForKeyedSubscript:v349];
+
+                          if (v364)
+                          {
+LABEL_429:
+                            v371 = DALoggingwithCategory();
+                            if (os_log_type_enabled(v371, v548))
+                            {
+                              LOWORD(v701) = 0;
+                              _os_log_impl(&dword_0, v371, v548, "Dropping a deleted detachment with parent also deleted", &v701, 2u);
+                            }
+
+                            [v584 addObject:v364];
+                            v362 = 0;
+                            v350 = v523;
+                          }
+
+                          else
+                          {
+LABEL_432:
+                            v364 = [v583 _instanceIdFromEventId:v353];
+                            v372 = [v583 _parentIdFromEventId:v353];
+                            if ([v520 containsObject:v354])
+                            {
+                              v373 = DALoggingwithCategory();
+                              if (os_log_type_enabled(v373, v548))
+                              {
+                                LOWORD(v701) = 0;
+                                _os_log_impl(&dword_0, v373, v548, "Skipping a deleted detachment with modified parent event. Will sync it in a subsequent request.", &v701, 2u);
+                              }
+
+                              if (v570)
+                              {
+                                v374 = [[ASAction alloc] initWithItemChangeType:2 changedItem:0 serverId:v372 instanceId:v364];
+                                v375 = [v580 objectForKeyedSubscript:v349];
+                                [v374 setChangeId:{objc_msgSend(v375, "intValue")}];
+
+                                [v374 setIsSkippedDetachment:1];
+                                v376 = v570;
+                              }
+
+                              else
+                              {
+                                v377 = DALoggingwithCategory();
+                                if (os_log_type_enabled(v377, typec))
+                                {
+                                  LOWORD(v701) = 0;
+                                  _os_log_impl(&dword_0, v377, typec, "Unable to save a deleted detachment with modified parent event. The detachment will not be synced to the server.", &v701, 2u);
+                                }
+
+                                v374 = [v580 objectForKeyedSubscript:v349];
+                                v376 = v584;
+                              }
+
+                              [v376 addObject:v374];
+
+                              v362 = 0;
+                            }
+
+                            else
+                            {
+                              v362 = [[ASAction alloc] initWithItemChangeType:2 changedItem:0 serverId:v372 instanceId:v364];
+                            }
+
+                            v350 = v523;
+                          }
+
+                          v345 = v557;
+                          v348 = *v531;
+                          if (v362)
+                          {
+LABEL_444:
+                            v378 = [v580 objectForKeyedSubscript:v349];
+                            [v362 setChangeId:{objc_msgSend(v378, "intValue")}];
+
+                            v363 = v582;
+                            goto LABEL_445;
+                          }
+
+                          goto LABEL_446;
+                        }
+                      }
+
+                      v367 = [v365 countByEnumeratingWithState:&v618 objects:v688 count:16];
+                      if (!v367)
+                      {
+LABEL_427:
+
+                        goto LABEL_432;
+                      }
+                    }
+                  }
+
+                  v361 = DALoggingwithCategory();
+                  if (os_log_type_enabled(v361, typec))
+                  {
+                    LOWORD(v701) = 0;
+                    _os_log_impl(&dword_0, v361, typec, "Dropping a deletion without Exchange ID", &v701, 2u);
+                  }
+
+                  v362 = [v580 objectForKeyedSubscript:v349];
+                  v363 = v584;
+LABEL_445:
+                  [v363 addObject:v362];
+LABEL_446:
+
+                  v351 = v351 + 1;
+                }
+
+                while (v351 != v348);
+                v348 = [allKeys13 countByEnumeratingWithState:&v626 objects:v690 count:16];
+              }
+
+              while (v348);
+
+              v84 = v585;
+            }
+
+            v616 = 0u;
+            v617 = 0u;
+            v614 = 0u;
+            v615 = 0u;
+            allKeys14 = [v571 allKeys];
+            v380 = v583;
+            v564 = [allKeys14 countByEnumeratingWithState:&v614 objects:v687 count:16];
+            if (v564)
+            {
+              v381 = 0;
+              v382 = *v615;
+              v524 = _CPLog_to_os_log_type[6];
+              v549 = _CPLog_to_os_log_type[3];
+              v516 = allKeys14;
+              *v532 = *v615;
+              do
+              {
+                v383 = 0;
+                v384 = v381;
+                do
+                {
+                  if (*v615 != v382)
+                  {
+                    objc_enumerationMutation(allKeys14);
+                  }
+
+                  v381 = *(*(&v614 + 1) + 8 * v383);
+
+                  v385 = [v84 copyLocalObjectFromId:{objc_msgSend(v381, "intValue")}];
+                  if (v385)
+                  {
+                    typed = v385;
+                    v386 = [v31 objectForKeyedSubscript:v381];
+                    if (v386)
+                    {
+                      if (![v380 _isDetachmentFromEventId:v386])
+                      {
+                        account17 = [v380 account];
+                        v396 = [v84 getDAObjectWithLocalItem:typed serverId:v386 account:account17];
+
+                        v398 = [[ASAction alloc] initWithItemChangeType:8 changedItem:v396 serverId:v386];
+                        if (!v398)
+                        {
+                          goto LABEL_475;
+                        }
+
+                        goto LABEL_474;
+                      }
+
+                      v387 = [v380 _parentIdFromEventId:v386];
+                      v610 = 0u;
+                      v611 = 0u;
+                      v612 = 0u;
+                      v613 = 0u;
+                      v388 = v345;
+                      v389 = [v388 countByEnumeratingWithState:&v610 objects:v686 count:16];
+                      if (v389)
+                      {
+                        v390 = v389;
+                        v391 = *v611;
+                        do
+                        {
+                          for (ii = 0; ii != v390; ii = ii + 1)
+                          {
+                            if (*v611 != v391)
+                            {
+                              objc_enumerationMutation(v388);
+                            }
+
+                            v393 = [v31 objectForKeyedSubscript:*(*(&v610 + 1) + 8 * ii)];
+                            if (v393 && ([v387 isEqualToString:v393] & 1) != 0)
+                            {
+                              v400 = [v580 objectForKeyedSubscript:v381];
+
+                              if (v400)
+                              {
+LABEL_491:
+                                v407 = DALoggingwithCategory();
+                                if (os_log_type_enabled(v407, v524))
+                                {
+                                  LOWORD(v701) = 0;
+                                  _os_log_impl(&dword_0, v407, v524, "Dropping a deleted detachment with parent also deleted", &v701, 2u);
+                                }
+
+                                [v584 addObject:v400];
+                                v396 = 0;
+                                v398 = 0;
+                                allKeys14 = v516;
+                                goto LABEL_517;
+                              }
+
+LABEL_480:
+                              v608 = 0u;
+                              v609 = 0u;
+                              v606 = 0u;
+                              v607 = 0u;
+                              v401 = v539;
+                              v402 = [v401 countByEnumeratingWithState:&v606 objects:v685 count:16];
+                              if (!v402)
+                              {
+                                goto LABEL_489;
+                              }
+
+                              v403 = v402;
+                              v404 = *v607;
+                              while (1)
+                              {
+                                for (jj = 0; jj != v403; jj = jj + 1)
+                                {
+                                  if (*v607 != v404)
+                                  {
+                                    objc_enumerationMutation(v401);
+                                  }
+
+                                  v406 = [v31 objectForKeyedSubscript:*(*(&v606 + 1) + 8 * jj)];
+                                  if (v406 && ([v387 isEqualToString:v406] & 1) != 0)
+                                  {
+                                    v400 = [v571 objectForKeyedSubscript:v381];
+
+                                    if (!v400)
+                                    {
+                                      goto LABEL_494;
+                                    }
+
+                                    goto LABEL_491;
+                                  }
+                                }
+
+                                v403 = [v401 countByEnumeratingWithState:&v606 objects:v685 count:16];
+                                if (!v403)
+                                {
+LABEL_489:
+
+LABEL_494:
+                                  v408 = CalEventCopyOriginalEvent();
+                                  v400 = v408;
+                                  if (!v408 || v408 == typed)
+                                  {
+                                    v423 = DALoggingwithCategory();
+                                    allKeys14 = v516;
+                                    if (os_log_type_enabled(v423, v549))
+                                    {
+                                      LOWORD(v701) = 0;
+                                      _os_log_impl(&dword_0, v423, v549, "Drooping a detachment without a parent.", &v701, 2u);
+                                    }
+
+                                    v424 = [v571 objectForKeyedSubscript:v381];
+                                    [v584 addObject:v424];
+
+                                    if (v400)
+                                    {
+                                      CFRelease(v400);
+                                      v396 = 0;
+                                      v400 = 0;
+                                    }
+
+                                    else
+                                    {
+                                      v396 = 0;
+                                    }
+
+                                    v426 = 0;
+                                    v398 = 0;
+                                  }
+
+                                  else
+                                  {
+                                    v409 = CalCalendarItemCopyExternalID();
+
+                                    allKeys14 = v516;
+                                    if ([v585 dataclass] != &dword_4)
+                                    {
+                                      sub_486D4();
+                                    }
+
+                                    account18 = [v583 account];
+                                    v505 = v400;
+                                    v411 = [v585 getDAObjectWithLocalItem:v400 serverId:v409 account:account18];
+
+                                    account19 = [v583 account];
+                                    v502 = v411;
+                                    v413 = [v585 getDAExceptionObjectWithLocalItem:typed originalEvent:v411 account:account19];
+
+                                    [v413 setServerID:v386];
+                                    v414 = v409;
+                                    v415 = v413;
+                                    v387 = v414;
+                                    exceptionStartTime6 = [v415 exceptionStartTime];
+                                    activeSyncStringWithoutSeparators6 = [exceptionStartTime6 activeSyncStringWithoutSeparators];
+
+                                    if ([v520 containsObject:v387])
+                                    {
+                                      v417 = DALoggingwithCategory();
+                                      if (os_log_type_enabled(v417, v524))
+                                      {
+                                        LOWORD(v701) = 0;
+                                        _os_log_impl(&dword_0, v417, v524, "Skipping a pseudo deleted detachment with modified parent event. Will sync it in a subsequent request.", &v701, 2u);
+                                      }
+
+                                      v418 = v505;
+                                      if (v570)
+                                      {
+                                        v419 = [[ASAction alloc] initWithItemChangeType:8 changedItem:v415 serverId:v387 instanceId:activeSyncStringWithoutSeparators6];
+                                        [v571 objectForKeyedSubscript:v381];
+                                        v421 = v420 = v415;
+                                        [v419 setChangeId:{objc_msgSend(v421, "intValue")}];
+
+                                        v415 = v420;
+                                        v418 = v505;
+                                        [v419 setIsSkippedDetachment:1];
+                                        v422 = v570;
+                                      }
+
+                                      else
+                                      {
+                                        v427 = DALoggingwithCategory();
+                                        if (os_log_type_enabled(v427, v549))
+                                        {
+                                          LOWORD(v701) = 0;
+                                          _os_log_impl(&dword_0, v427, v549, "Unable to save a pseudo deleted detachment with modified parent event. The detachment will not be synced to the server.", &v701, 2u);
+                                        }
+
+                                        v419 = [v571 objectForKeyedSubscript:v381];
+                                        v422 = v584;
+                                      }
+
+                                      [v422 addObject:v419];
+
+                                      v396 = 0;
+                                      v425 = v502;
+                                    }
+
+                                    else
+                                    {
+                                      v396 = v415;
+                                      v425 = v411;
+                                      v418 = v505;
+                                    }
+
+                                    CFRelease(v418);
+                                    if (v396)
+                                    {
+                                      v426 = activeSyncStringWithoutSeparators6;
+                                      v398 = [[ASAction alloc] initWithItemChangeType:8 changedItem:v396 serverId:v387 instanceId:activeSyncStringWithoutSeparators6];
+                                      v400 = v387;
+                                    }
+
+                                    else
+                                    {
+                                      v398 = 0;
+                                      v400 = v387;
+                                      v426 = activeSyncStringWithoutSeparators6;
+                                    }
+                                  }
+
+LABEL_517:
+                                  v380 = v583;
+                                  v345 = v557;
+                                  if (!v398)
+                                  {
+LABEL_475:
+
+                                    v382 = *v532;
+                                    goto LABEL_476;
+                                  }
+
+LABEL_474:
+                                  v399 = [v571 objectForKeyedSubscript:v381];
+                                  [v398 setChangeId:{objc_msgSend(v399, "intValue")}];
+
+                                  [v582 addObject:v398];
+                                  goto LABEL_475;
+                                }
+                              }
+                            }
+                          }
+
+                          v390 = [v388 countByEnumeratingWithState:&v610 objects:v686 count:16];
+                        }
+
+                        while (v390);
+                      }
+
+                      goto LABEL_480;
+                    }
+
+                    v395 = DALoggingwithCategory();
+                    if (os_log_type_enabled(v395, v549))
+                    {
+                      LOWORD(v701) = 0;
+                      _os_log_impl(&dword_0, v395, v549, "Dropping a paeudo deletion without Exchange ID", &v701, 2u);
+                    }
+
+                    v396 = [v571 objectForKeyedSubscript:v381];
+                    [v584 addObject:v396];
+LABEL_476:
+
+                    CFRelease(typed);
+                    v84 = v585;
+                  }
+
+                  else
+                  {
+                    v394 = DALoggingwithCategory();
+                    if (os_log_type_enabled(v394, v549))
+                    {
+                      LOWORD(v701) = 0;
+                      _os_log_impl(&dword_0, v394, v549, "Dropping a paeudo deletion without local item", &v701, 2u);
+                    }
+
+                    v386 = [v571 objectForKeyedSubscript:v381];
+                    [v584 addObject:v386];
+                  }
+
+                  v383 = v383 + 1;
+                  v384 = v381;
+                }
+
+                while (v383 != v564);
+                v428 = [allKeys14 countByEnumeratingWithState:&v614 objects:v687 count:16];
+                v564 = v428;
+              }
+
+              while (v428);
+            }
+
+            v604 = 0u;
+            v605 = 0u;
+            v602 = 0u;
+            v603 = 0u;
+            v429 = v494;
+            typee = [v429 countByEnumeratingWithState:&v602 objects:v684 count:16];
+            if (!typee)
+            {
+              goto LABEL_565;
+            }
+
+            v430 = *v603;
+            v431 = _CPLog_to_os_log_type[4];
+            v565 = _CPLog_to_os_log_type[6];
+            v506 = _CPLog_to_os_log_type[3];
+            v550 = v429;
+            *v533 = *v603;
+            v525 = v431;
+            do
+            {
+              v432 = 0;
+              do
+              {
+                if (*v603 != v430)
+                {
+                  objc_enumerationMutation(v429);
+                }
+
+                v433 = *(*(&v602 + 1) + 8 * v432);
+                v434 = [v429 objectForKeyedSubscript:v433];
+                if (![v380 _isDetachmentFromEventId:v434])
+                {
+                  v435 = DALoggingwithCategory();
+                  if (os_log_type_enabled(v435, v431))
+                  {
+                    LOWORD(v701) = 0;
+                    _os_log_impl(&dword_0, v435, v431, "Dropping a deleted detachment from exception date with missing exception date", &v701, 2u);
+                  }
+
+                  goto LABEL_555;
+                }
+
+                v435 = [v380 _parentIdFromEventId:v434];
+                v598 = 0u;
+                v599 = 0u;
+                v600 = 0u;
+                v601 = 0u;
+                v436 = v557;
+                v437 = [v436 countByEnumeratingWithState:&v598 objects:v683 count:16];
+                if (!v437)
+                {
+                  goto LABEL_536;
+                }
+
+                v438 = v437;
+                v439 = *v599;
+                do
+                {
+                  for (kk = 0; kk != v438; kk = kk + 1)
+                  {
+                    if (*v599 != v439)
+                    {
+                      objc_enumerationMutation(v436);
+                    }
+
+                    v441 = [v31 objectForKeyedSubscript:*(*(&v598 + 1) + 8 * kk)];
+                    if (v441 && ([v435 isEqualToString:v441]& 1) != 0)
+                    {
+LABEL_552:
+
+                      v452 = DALoggingwithCategory();
+                      v380 = v583;
+                      v429 = v550;
+                      v431 = v525;
+                      if (os_log_type_enabled(v452, v565))
+                      {
+                        LOWORD(v701) = 0;
+                        _os_log_impl(&dword_0, v452, v565, "Dropping a deleted detachment from exception date with parent also deleted", &v701, 2u);
+                      }
+
+                      v430 = *v533;
+LABEL_555:
+
+                      goto LABEL_556;
+                    }
+                  }
+
+                  v438 = [v436 countByEnumeratingWithState:&v598 objects:v683 count:16];
+                }
+
+                while (v438);
+LABEL_536:
+
+                v596 = 0u;
+                v597 = 0u;
+                v594 = 0u;
+                v595 = 0u;
+                v436 = v539;
+                v442 = [v436 countByEnumeratingWithState:&v594 objects:v682 count:16];
+                if (v442)
+                {
+                  v443 = v442;
+                  v444 = *v595;
+                  do
+                  {
+                    for (mm = 0; mm != v443; mm = mm + 1)
+                    {
+                      if (*v595 != v444)
+                      {
+                        objc_enumerationMutation(v436);
+                      }
+
+                      v441 = [v31 objectForKeyedSubscript:*(*(&v594 + 1) + 8 * mm)];
+                      if (v441 && ([v435 isEqualToString:v441]& 1) != 0)
+                      {
+                        goto LABEL_552;
+                      }
+                    }
+
+                    v443 = [v436 countByEnumeratingWithState:&v594 objects:v682 count:16];
+                  }
+
+                  while (v443);
+                }
+
+                v380 = v583;
+                v446 = [v583 _instanceIdFromEventId:v434];
+                v447 = [v583 _parentIdFromEventId:v434];
+                v517 = v446;
+                if ([v520 containsObject:v435])
+                {
+                  *v511 = v447;
+                  v448 = DALoggingwithCategory();
+                  if (os_log_type_enabled(v448, v565))
+                  {
+                    LOWORD(v701) = 0;
+                    _os_log_impl(&dword_0, v448, v565, "Skipping a deleted detachment from exception date with modified parent event. Will sync it in a subsequent request.", &v701, 2u);
+                  }
+
+                  v431 = v525;
+                  if (v570)
+                  {
+                    v449 = *v511;
+                    v450 = [[ASAction alloc] initWithItemChangeType:2 changedItem:0 serverId:*v511 instanceId:v517];
+                    [v450 setChangeId:{objc_msgSend(v433, "intValue")}];
+                    [v450 setIsSkippedDetachment:1];
+                    [v570 addObject:v450];
+
+                    v451 = 0;
+                    v429 = v550;
+                  }
+
+                  else
+                  {
+                    v454 = DALoggingwithCategory();
+                    if (os_log_type_enabled(v454, v506))
+                    {
+                      LOWORD(v701) = 0;
+                      _os_log_impl(&dword_0, v454, v506, "Unable to save a deleted detachment from exception date with modified parent event. The detachment will not be synced to the server.", &v701, 2u);
+                    }
+
+                    v451 = 0;
+                    v429 = v550;
+                    v449 = *v511;
+                  }
+                }
+
+                else
+                {
+                  v453 = [[ASAction alloc] initWithItemChangeType:2 changedItem:0 serverId:v447 instanceId:v446];
+                  v449 = v447;
+                  v451 = v453;
+                  v429 = v550;
+                  v431 = v525;
+                }
+
+                v430 = *v533;
+                if (v451)
+                {
+                  -[NSObject setChangeId:](v451, "setChangeId:", [v433 intValue]);
+                  [v582 addObject:v451];
+                  v435 = v451;
+                  goto LABEL_555;
+                }
+
+LABEL_556:
+
+                v432 = v432 + 1;
+              }
+
+              while (v432 != typee);
+              v455 = [v429 countByEnumeratingWithState:&v602 objects:v684 count:16];
+              typee = v455;
+            }
+
+            while (v455);
+LABEL_565:
+
+            v592 = 0u;
+            v593 = 0u;
+            v590 = 0u;
+            v591 = 0u;
+            typef = v543;
+            v456 = [typef countByEnumeratingWithState:&v590 objects:v681 count:16];
+            v84 = v585;
+            if (!v456)
+            {
+              goto LABEL_584;
+            }
+
+            v457 = v456;
+            v458 = *v591;
+            v566 = _CPLog_to_os_log_type[3];
+            while (2)
+            {
+              v459 = 0;
+LABEL_568:
+              if (*v591 != v458)
+              {
+                objc_enumerationMutation(typef);
+              }
+
+              v460 = *(*(&v590 + 1) + 8 * v459);
+              itemChangeType2 = [v460 itemChangeType];
+              changedItem2 = [v460 changedItem];
+              serverId = [v460 serverId];
+              if (serverId)
+              {
+                v464 = serverId;
+                goto LABEL_572;
+              }
+
+              clientID3 = [changedItem2 clientID];
+              intValue4 = [clientID3 intValue];
+
+              parentClientID2 = [changedItem2 parentClientID];
+              intValue5 = [parentClientID2 intValue];
+
+              if (intValue4)
+              {
+                intValue5 = intValue4;
+                itemChangeType2 = &dword_8;
+LABEL_577:
+                v472 = [v585 copyLocalObjectFromId:intValue5];
+                if (!v472)
+                {
+                  goto LABEL_579;
+                }
+
+                v473 = v472;
+                v474 = CalCalendarItemCopyExternalID();
+                v464 = [v583 _parentIdFromEventId:v474];
+                CFRelease(v473);
+
+                if (!v464)
+                {
+                  goto LABEL_579;
+                }
+
+LABEL_572:
+                v465 = [ASAction alloc];
+                instanceId = [v460 instanceId];
+                v467 = [v465 initWithItemChangeType:itemChangeType2 changedItem:changedItem2 serverId:v464 instanceId:instanceId];
+
+                [v582 addObject:v467];
+              }
+
+              else
+              {
+                if (intValue5)
+                {
+                  itemChangeType2 = &dword_0 + 2;
+                  goto LABEL_577;
+                }
+
+LABEL_579:
+                v475 = DALoggingwithCategory();
+                if (os_log_type_enabled(v475, v566))
+                {
+                  v701 = 138412290;
+                  *v702 = v460;
+                  _os_log_impl(&dword_0, v475, v566, "Dropping a deleted action without serverID, action %@", &v701, 0xCu);
+                }
+
+                v464 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v460 changeId]);
+                [v584 addObject:v464];
+              }
+
+              v459 = v459 + 1;
+              v84 = v585;
+              if (v457 == v459)
+              {
+                v457 = [typef countByEnumeratingWithState:&v590 objects:v681 count:16];
+                if (!v457)
+                {
+LABEL_584:
+
+                  v203 = v557;
+                  goto LABEL_585;
+                }
+
+                continue;
+              }
+
+              goto LABEL_568;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  v669 = 0u;
+  v668 = 0u;
+  v667 = 0u;
+  v666 = 0u;
+  allKeys15 = [v581 allKeys];
+  v88 = [allKeys15 countByEnumeratingWithState:&v666 objects:v700 count:16];
+  if (v88)
+  {
+    v89 = v88;
+    v90 = *v667;
+    do
+    {
+      v91 = 0;
+      v92 = v64;
+      do
+      {
+        if (*v667 != v90)
+        {
+          objc_enumerationMutation(allKeys15);
+        }
+
+        v64 = *(*(&v666 + 1) + 8 * v91);
+
+        v93 = [v585 copyLocalObjectFromId:{objc_msgSend(v64, "intValue")}];
+        if (v93)
+        {
+          v94 = v93;
+          account20 = [v583 account];
+          v96 = [v585 getDAObjectWithLocalItem:v94 serverId:0 account:account20];
+
+          [v96 setServerID:0];
+          v97 = [[ASAction alloc] initWithItemChangeType:4 changedItem:v96 serverId:0];
+          [v582 addObject:v97];
+          CFRelease(v94);
+        }
+
+        v91 = v91 + 1;
+        v92 = v64;
+      }
+
+      while (v89 != v91);
+      v89 = [allKeys15 countByEnumeratingWithState:&v666 objects:v700 count:16];
+    }
+
+    while (v89);
+  }
+
+  v665 = 0u;
+  v664 = 0u;
+  v663 = 0u;
+  v662 = 0u;
+  allKeys16 = [v572 allKeys];
+  v98 = [allKeys16 countByEnumeratingWithState:&v662 objects:v699 count:16];
+  if (v98)
+  {
+    v99 = v98;
+    v100 = 0;
+    v101 = *v663;
+    v102 = _CPLog_to_os_log_type[6];
+    v84 = v585;
+    do
+    {
+      v103 = 0;
+      v104 = v100;
+      do
+      {
+        if (*v663 != v101)
+        {
+          objc_enumerationMutation(allKeys16);
+        }
+
+        v105 = *(*(&v662 + 1) + 8 * v103);
+
+        v100 = v105;
+        v106 = [v84 copyLocalObjectFromId:{objc_msgSend(v105, "intValue")}];
+        if (v106)
+        {
+          v107 = v106;
+          v108 = CalCalendarItemCopyCalendar();
+          if (v108)
+          {
+            v109 = v108;
+            v110 = CalCalendarGetUID();
+            CFRelease(v109);
+          }
+
+          else
+          {
+            v110 = -1;
+          }
+
+          if (typeb == v110)
+          {
+            account21 = [v583 account];
+            v112 = [v585 getDAObjectWithLocalItem:v107 serverId:0 account:account21];
+
+            [v112 setServerID:0];
+            v113 = [[ASAction alloc] initWithItemChangeType:4 changedItem:v112 serverId:0];
+            [v582 addObject:v113];
+          }
+
+          else
+          {
+            v114 = DALoggingwithCategory();
+            if (os_log_type_enabled(v114, v102))
+            {
+              v701 = 138412802;
+              *v702 = v100;
+              *&v702[8] = 1024;
+              *&v702[10] = v110;
+              *&v702[14] = 1024;
+              *&v702[16] = typeb;
+              _os_log_impl(&dword_0, v114, v102, "Skipping local modify for event with id %@ as it's calendar (id %d) doesn't match the container we're interested in (id %d)", &v701, 0x18u);
+            }
+
+            v112 = [v572 objectForKeyedSubscript:v100];
+            [v584 addObject:v112];
+          }
+
+          CFRelease(v107);
+        }
+
+        v103 = v103 + 1;
+        v104 = v100;
+        v84 = v585;
+      }
+
+      while (v99 != v103);
+      v99 = [allKeys16 countByEnumeratingWithState:&v662 objects:v699 count:16];
+    }
+
+    while (v99);
+LABEL_587:
+
+    goto LABEL_588;
+  }
+
+  v84 = v585;
+LABEL_588:
+
+  v476 = v519;
+  if ([v584 count])
+  {
+    Mutable = CFArrayCreateMutable(0, 0, 0);
+    v586 = 0u;
+    v587 = 0u;
+    v588 = 0u;
+    v589 = 0u;
+    v478 = v584;
+    v479 = [v478 countByEnumeratingWithState:&v586 objects:v680 count:16];
+    if (v479)
+    {
+      v480 = v479;
+      v481 = *v587;
+      v482 = _CPLog_to_os_log_type[7];
+      do
+      {
+        for (nn = 0; nn != v480; nn = nn + 1)
+        {
+          if (*v587 != v481)
+          {
+            objc_enumerationMutation(v478);
+          }
+
+          intValue6 = [*(*(&v586 + 1) + 8 * nn) intValue];
+          if (intValue6 != -1)
+          {
+            v485 = intValue6;
+            v486 = DALoggingwithCategory();
+            if (os_log_type_enabled(v486, v482))
+            {
+              v701 = 67109120;
+              *v702 = v485;
+              _os_log_impl(&dword_0, v486, v482, "Clearing change index %d", &v701, 8u);
+            }
+
+            CFArrayAppendValue(Mutable, v485);
+          }
+        }
+
+        v480 = [v478 countByEnumeratingWithState:&v586 objects:v680 count:16];
+      }
+
+      while (v480);
+    }
+
+    if (CFArrayGetCount(Mutable))
+    {
+      v679 = 1;
+      v487 = +[ASLocalDBHelper sharedInstance];
+      account22 = [v583 account];
+      accountID2 = [account22 accountID];
+      [v487 calDatabaseForAccountID:accountID2];
+      account23 = [v583 account];
+      changeTrackingID = [account23 changeTrackingID];
+      CalDatabaseClearIndividualChangeRowIDsForClient();
+    }
+
+    CFRelease(Mutable);
+    v84 = v585;
+    v476 = v519;
+  }
+
+  if (v679 == 1)
+  {
+    [v84 saveContainer];
+  }
+
+  v492 = v582;
+
+  return v492;
 }
 
 - (id)_copyCalendarItemMoveActionsInCalendar:(void *)calendar dataHandler:(id)handler deleteActionsByFolderId:(id)id

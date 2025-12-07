@@ -1,8 +1,11 @@
 @interface ATXTimelineRelevancePBTimelineRelevanceRotation
 - (BOOL)isEqual:(id)equal;
+- (id)clientModelIdAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)engagementAsString:(int)string;
+- (id)rotationEventTypeAsString:(int)string;
 - (int)StringAsClientModelId:(id)id;
 - (int)StringAsEngagement:(id)engagement;
 - (int)StringAsRotationEventType:(id)type;
@@ -63,6 +66,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)rotationEventTypeAsString:(int)string
+{
+  if (string >= 9)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859E578[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRotationEventType:(id)type
@@ -164,6 +182,29 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
+- (id)clientModelIdAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Other";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"TimelineRelevance";
+  }
+
+  return v4;
+}
+
 - (int)StringAsClientModelId:(id)id
 {
   idCopy = id;
@@ -206,6 +247,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)engagementAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859E5C0[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEngagement:(id)engagement
@@ -397,7 +453,6 @@ LABEL_25:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -417,7 +472,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  rotationEventType = self->_rotationEventType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -432,7 +486,6 @@ LABEL_4:
   }
 
 LABEL_13:
-  isMediumOrHighConfidence = self->_isMediumOrHighConfidence;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -447,7 +500,6 @@ LABEL_5:
   }
 
 LABEL_14:
-  clientModelId = self->_clientModelId;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -462,12 +514,10 @@ LABEL_6:
   }
 
 LABEL_15:
-  duration = self->_duration;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_7:
-    engagement = self->_engagement;
     PBDataWriterWriteInt32Field();
   }
 
@@ -683,7 +733,7 @@ LABEL_7:
     }
 
 LABEL_34:
-    v6 = 0;
+    v5 = 0;
     goto LABEL_35;
   }
 
@@ -692,7 +742,6 @@ LABEL_34:
     goto LABEL_34;
   }
 
-  v5 = *(equalCopy + 36);
   if (self->_isMediumOrHighConfidence)
   {
     if ((*(equalCopy + 36) & 1) == 0)
@@ -733,7 +782,7 @@ LABEL_14:
     goto LABEL_34;
   }
 
-  v6 = (*(equalCopy + 40) & 8) == 0;
+  v5 = (*(equalCopy + 40) & 8) == 0;
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 40) & 8) == 0 || self->_engagement != *(equalCopy + 7))
@@ -741,12 +790,12 @@ LABEL_14:
       goto LABEL_34;
     }
 
-    v6 = 1;
+    v5 = 1;
   }
 
 LABEL_35:
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)hash

@@ -374,7 +374,7 @@ LABEL_14:
   transitioningToSizeCoordinator = self->_transitioningToSizeCoordinator;
   if (transitioningToSizeCoordinator)
   {
-    [(UIViewControllerTransitionCoordinator *)transitioningToSizeCoordinator targetTransform];
+    objc_msgSend_targetTransform(transitioningToSizeCoordinator, a2);
     LOBYTE(transitioningToSizeCoordinator) = !CGAffineTransformIsIdentity(&v4);
   }
 

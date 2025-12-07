@@ -10,10 +10,9 @@
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  identifier = self->_identifier;
-  v7 = [v3 stringWithFormat:@"%@ %p: name: %@, identifier: %@, runDescriptor: %@"], v5, self, self->_name, identifier, self->_runDescriptor);
+  v6 = [v3 stringWithFormat:@"%@ %p: name: %@, identifier: %@, runDescriptor: %@"], v5, self, self->_name, self->_identifier, self->_runDescriptor);
 
-  return v7;
+  return v6;
 }
 
 - (WFHarnessTestCase)initWithIdentifier:(id)identifier name:(id)name workflowRunDescriptor:(id)descriptor input:(id)input automationType:(id)type interactions:(id)interactions siriInteractions:(id)siriInteractions conditions:(id)self0 resultExpectation:(id)self1

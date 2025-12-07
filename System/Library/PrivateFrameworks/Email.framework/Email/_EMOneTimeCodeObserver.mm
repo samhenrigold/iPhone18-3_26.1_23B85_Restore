@@ -35,7 +35,7 @@
 - (void)_performWithRemoteConnection:(id)connection forRecovery:(BOOL)recovery
 {
   recoveryCopy = recovery;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   v7 = self->_token;
   if (([(EFManualCancelationToken *)v7 isCanceled]& 1) == 0)
@@ -48,8 +48,8 @@
         WeakRetained = objc_loadWeakRetained(&self->_observer);
         *buf = 138543618;
         selfCopy = self;
-        v17 = 2114;
-        v18 = WeakRetained;
+        v16 = 2114;
+        v17 = WeakRetained;
         _os_log_impl(&dword_1C6655000, v8, OS_LOG_TYPE_DEFAULT, "<%{public}@> [OTC] Recovering one-time code observer: %{public}@", buf, 0x16u);
       }
 
@@ -59,18 +59,16 @@
     objc_initWeak(buf, self);
     remoteObjectProxy = [connectionCopy remoteObjectProxy];
     v11 = objc_loadWeakRetained(&self->_observer);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __67___EMOneTimeCodeObserver__performWithRemoteConnection_forRecovery___block_invoke;
-    v13[3] = &unk_1E826EEE0;
-    objc_copyWeak(&v14, buf);
-    [remoteObjectProxy startObservingOneTimeCode:v11 completionHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __67___EMOneTimeCodeObserver__performWithRemoteConnection_forRecovery___block_invoke;
+    v12[3] = &unk_1E826EEE0;
+    objc_copyWeak(&v13, buf);
+    [remoteObjectProxy startObservingOneTimeCode:v11 completionHandler:v12];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
     objc_destroyWeak(buf);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

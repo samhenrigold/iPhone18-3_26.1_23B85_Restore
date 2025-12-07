@@ -52,34 +52,34 @@
 
 + (unint64_t)arrayHash:(id)hash
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   hashCopy = hash;
   v5 = hashCopy;
   if (hashCopy)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v6 = [hashCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v6 = [hashCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       v9 = 17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = [self objectHash:*(*(&v13 + 1) + 8 * i)] - v9 + 32 * v9;
+          v9 = [self objectHash:*(*(&v12 + 1) + 8 * i)] - v9 + 32 * v9;
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -96,7 +96,6 @@
     v9 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 

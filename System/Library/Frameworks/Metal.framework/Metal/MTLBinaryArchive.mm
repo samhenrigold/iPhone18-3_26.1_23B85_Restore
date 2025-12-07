@@ -5,7 +5,7 @@
 
 void __54___MTLBinaryArchive_initWithOptions_device_url_error___block_invoke()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [_MTLBinaryArchive initWithOptions:device:url:error:]::shouldPrintBinaryArchiveLoadFromURL = _os_feature_enabled_impl();
   if (_MTLIsInternalBuild())
   {
@@ -19,21 +19,22 @@ void __54___MTLBinaryArchive_initWithOptions_device_url_error___block_invoke()
 
   v1 = v0 | [_MTLBinaryArchive initWithOptions:device:url:error:]::shouldPrintBinaryArchiveLoadFromURL;
   [_MTLBinaryArchive initWithOptions:device:url:error:]::shouldPrintBinaryArchiveLoadFromURL = v1;
-  if (v1 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  if (v1)
   {
-    v3 = 136315138;
-    v4 = "MTL_DEBUG_PRINT_BINARY_ARCHIVE_URL_LOAD_ERRORS";
-    _os_log_impl(&dword_185B8E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s was set, printing errors/faults from loading from URL.", &v3, 0xCu);
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      v2 = 136315138;
+      v3 = "MTL_DEBUG_PRINT_BINARY_ARCHIVE_URL_LOAD_ERRORS";
+      _os_log_impl(&dword_185B8E000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s was set, printing errors/faults from loading from URL.", &v2, 0xCu);
+    }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a3 + a2 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + a2;
+    return ([*(a1 + 32) bytes] + a2);
   }
 
   else
@@ -42,17 +43,17 @@ uint64_t __68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device_
   }
 }
 
-uint64_t __68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device___block_invoke_151(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t __68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device___block_invoke_151(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v19 = a2;
   if (a2 == *(a1 + 72))
   {
     v8 = *(a1 + 64);
     *v8 = 257;
-LABEL_9:
+LABEL_8:
     *(v8 + 8) = a3;
     *(v8 + 16) = a4;
-    goto LABEL_20;
+    goto LABEL_19;
   }
 
   if (v19 == *(a1 + 80))
@@ -78,8 +79,20 @@ LABEL_9:
     }
   }
 
-  else if ((a2 - 16777235) >= 3)
+  else
   {
+    if ((a2 - 16777235) < 3)
+    {
+      v8 = *(a1 + 64);
+      *(v8 + 1) = 1;
+      if (*(v8 + 8) != 0)
+      {
+        goto LABEL_19;
+      }
+
+      goto LABEL_8;
+    }
+
     if (a2 == 16777239 && *(a1 + 96) >= HIDWORD(a2))
     {
       v11 = *(a1 + 64);
@@ -92,17 +105,7 @@ LABEL_9:
     }
   }
 
-  else
-  {
-    v8 = *(a1 + 64);
-    *(v8 + 1) = 1;
-    if (!*(v8 + 16) && !*(v8 + 8))
-    {
-      goto LABEL_9;
-    }
-  }
-
-LABEL_20:
+LABEL_19:
   v12 = [[MTLArchitecture alloc] initWithCPUType:a2 cpuSubtype:HIDWORD(a2)];
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
@@ -124,12 +127,12 @@ LABEL_20:
   return 1;
 }
 
-uint64_t __68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a3 + a2 + *(*(a1 + 40) + 8);
   if (v5 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + a2 + *(*(a1 + 40) + 8);
+    return ([*(a1 + 32) bytes] + a2 + *(*(a1 + 40) + 8));
   }
 
   else
@@ -138,12 +141,12 @@ uint64_t __68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device_
   }
 }
 
-uint64_t __68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__68___MTLBinaryArchive_deserializeBinaryArchiveHeader_fileData_device___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a3 + a2 + *(*(a1 + 40) + 8);
   if (v5 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + a2 + *(*(a1 + 40) + 8);
+    return ([*(a1 + 32) bytes] + a2 + *(*(a1 + 40) + 8));
   }
 
   else
@@ -213,12 +216,12 @@ BOOL __70___MTLBinaryArchive_deserializeBinaryArchiveDescriptorMachO_fileData___
   return v3 == 0;
 }
 
-uint64_t __70___MTLBinaryArchive_deserializeBinaryArchiveDescriptorMachO_fileData___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__70___MTLBinaryArchive_deserializeBinaryArchiveDescriptorMachO_fileData___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = *(a1 + 40) + a2;
   if ((v3 + a3) <= *(a1 + 48))
   {
-    return [*(a1 + 32) bytes] + v3;
+    return ([*(a1 + 32) bytes] + v3);
   }
 
   else
@@ -227,12 +230,12 @@ uint64_t __70___MTLBinaryArchive_deserializeBinaryArchiveDescriptorMachO_fileDat
   }
 }
 
-uint64_t __70___MTLBinaryArchive_deserializeBinaryArchiveDescriptorMachO_fileData___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__70___MTLBinaryArchive_deserializeBinaryArchiveDescriptorMachO_fileData___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(*(a1 + 40) + 32) + a2;
   if (v4 + a3 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + v4;
+    return ([*(a1 + 32) bytes] + v4);
   }
 
   else
@@ -241,12 +244,12 @@ uint64_t __70___MTLBinaryArchive_deserializeBinaryArchiveDescriptorMachO_fileDat
   }
 }
 
-uint64_t __51___MTLBinaryArchive_archiveTypeAtURL_device_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__51___MTLBinaryArchive_archiveTypeAtURL_device_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a1 + 40) + a2;
   if (v4 + a3 <= [*(a1 + 32) length])
   {
-    return [*(a1 + 32) bytes] + v4;
+    return ([*(a1 + 32) bytes] + v4);
   }
 
   else
@@ -255,12 +258,12 @@ uint64_t __51___MTLBinaryArchive_archiveTypeAtURL_device_error___block_invoke(ui
   }
 }
 
-uint64_t __39___MTLBinaryArchive_loadFromURL_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__39___MTLBinaryArchive_loadFromURL_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a1 + 40) + a2;
   if (v4 + a3 <= [*(*(a1 + 32) + 48) length])
   {
-    return [*(*(a1 + 32) + 48) bytes] + v4;
+    return ([*(*(a1 + 32) + 48) bytes] + v4);
   }
 
   else
@@ -288,12 +291,12 @@ uint64_t __52___MTLBinaryArchive_materializeFromFileOffset_hash___block_invoke(v
   return 1;
 }
 
-uint64_t __52___MTLBinaryArchive_materializeFromFileOffset_hash___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__52___MTLBinaryArchive_materializeFromFileOffset_hash___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a1 + 40) + a2;
   if (v4 + a3 <= [*(*(a1 + 32) + 48) length])
   {
-    return [*(*(a1 + 32) + 48) bytes] + v4;
+    return ([*(*(a1 + 32) + 48) bytes] + v4);
   }
 
   else
@@ -304,39 +307,36 @@ uint64_t __52___MTLBinaryArchive_materializeFromFileOffset_hash___block_invoke_2
 
 void __42___MTLBinaryArchive_formattedDescription___block_invoke(uint64_t a1)
 {
-  v9[6] = *MEMORY[0x1E69E9840];
+  v8[6] = *MEMORY[0x1E69E9840];
   v2 = [@"\n" stringByPaddingToLength:*(a1 + 48) + 4 withString:@" " startingAtIndex:0];
   v3 = [*(a1 + 32) retainedLabel];
   v4 = MEMORY[0x1E696AEC0];
-  v8.receiver = *(a1 + 32);
-  v8.super_class = _MTLBinaryArchive;
-  v5 = objc_msgSendSuper2(&v8, sel_description);
-  v9[0] = v2;
-  v9[1] = @"label =";
+  v7.receiver = *(a1 + 32);
+  v7.super_class = _MTLBinaryArchive;
+  v5 = objc_msgSendSuper2(&v7, sel_description);
+  v8[0] = v2;
+  v8[1] = @"label =";
   v6 = @"<none>";
   if (v3)
   {
     v6 = v3;
   }
 
-  v9[2] = v6;
-  v9[3] = v2;
-  v9[4] = @"count =";
-  v9[5] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{*(*(a1 + 32) + 304) + objc_msgSend(*(*(a1 + 32) + 376), "count")}];
-  *(*(*(a1 + 40) + 8) + 40) = [v4 stringWithFormat:@"%@%@", v5, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v9, 6), "componentsJoinedByString:", @" "];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[2] = v6;
+  v8[3] = v2;
+  v8[4] = @"count =";
+  v8[5] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{*(*(a1 + 32) + 304) + objc_msgSend(*(*(a1 + 32) + 376), "count")}];
+  *(*(*(a1 + 40) + 8) + 40) = [v4 stringWithFormat:@"%@%@", v5, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v8, 6), "componentsJoinedByString:", @" "];
 }
 
 uint64_t __63___MTLBinaryArchive_getSpecializedFunctionArchivesToSerialize___block_invoke(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>(*(a1 + 32), a2) || (v6 = *(a1 + 32), v7 = *(a2 + 16), v11[0] = *a2, v11[1] = v7, v12 = a3, std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>(v6, v11), (v8 & 1) == 0))
+  v12 = *MEMORY[0x1E69E9840];
+  if (std::__hash_table<HashKey,KeyHashFunction,std::equal_to<HashKey>,std::allocator<HashKey>>::find<HashKey>(*(a1 + 32), a2) || (v6 = *(a1 + 32), v7 = *(a2 + 16), v10[0] = *a2, v10[1] = v7, v11 = a3, std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>(v6, v10, v10), (v8 & 1) == 0))
   {
     dispatch_release(a3);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -1044,7 +1044,7 @@ void __89___MTLBinaryArchive_newRecompiledFunctionWithAIRNTObject_index_destinat
   }
 }
 
-uint64_t __55___MTLBinaryArchive_recompileStatelessToArchive_error___block_invoke(uint64_t a1)
+id __55___MTLBinaryArchive_recompileStatelessToArchive_error___block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) newLibraryInArchiveAtPos:*(a1 + 56) atIndex:0 error:*(a1 + 64)];
   result = *(*(*(a1 + 40) + 8) + 40);
@@ -1096,107 +1096,104 @@ uint64_t __56___MTLBinaryArchive_legacySerializeToURL_options_error___block_invo
 
 void __56___MTLBinaryArchive_legacySerializeToURL_options_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
+  v16 = *MEMORY[0x1E69E9840];
+  v15 = 0;
   v13 = 0u;
-  v9 = [a3 data];
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v8 = [a3 data];
   v6 = [a2 value];
   v7 = v6[1];
-  v10 = *v6;
-  v11 = v7;
-  *(&v12 + 1) = *(a1 + 40);
-  *(&v13 + 1) = [a3 importedLibraries];
-  *&v14 = [a3 importedSymbols];
-  LOBYTE(v12) = (*(a1 + 48) & 2) != 0;
-  std::vector<MTLLoaderMachOPayload>::push_back[abi:ne200100](*(*(a1 + 32) + 8) + 48, &v9);
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *v6;
+  v10 = v7;
+  *(&v11 + 1) = *(a1 + 40);
+  *(&v12 + 1) = [a3 importedLibraries];
+  *&v13 = [a3 importedSymbols];
+  LOBYTE(v11) = (*(a1 + 48) & 2) != 0;
+  std::vector<MTLLoaderMachOPayload>::push_back[abi:ne200100](*(*(a1 + 32) + 8) + 48, &v8);
 }
 
 BOOL __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRValidation___block_invoke(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v30 = a2;
+  v37 = *MEMORY[0x1E69E9840];
+  v29 = a2;
   v9 = **(a1 + 40);
   v10 = v9 != a2;
   if (v9 == a2 && (*(*(a1 + 32) + 32) & 0x10) == 0)
   {
-    MTLHashKey::MTLHashKey(&v37, a4, a5, a3);
+    MTLHashKey::MTLHashKey(&v36, a4, a5, a3);
     v15 = *(a1 + 32);
     v16 = *(a1 + 48);
-    MTLHashKey::MTLHashKey(&v32, &v37);
-    v33 = a7;
-    v34 = v16 + a6;
-    v35 = a9;
-    v36 = v16 + a8;
-    std::__hash_table<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<MTLHashKey,std::pair<MTLHashKey const,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>((v15 + 96), &v32);
-    MTLHashKey::~MTLHashKey(&v32);
+    MTLHashKey::MTLHashKey(&v31, &v36);
+    v32 = a7;
+    v33 = v16 + a6;
+    v34 = a9;
+    v35 = v16 + a8;
+    std::__hash_table<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<MTLHashKey,std::pair<MTLHashKey const,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>((v15 + 96), &v31, &v31);
+    MTLHashKey::~MTLHashKey(&v31);
     v17 = *(a1 + 32);
-    v32.var0.var0 = *(a1 + 48) + a6;
-    v18 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>((v17 + 176), &v32.var0.var0);
+    v31.var0.var0 = *(a1 + 48) + a6;
+    v18 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>((v17 + 176), &v31.var0.var0);
     if (v18)
     {
-      memset(&v32, 0, 24);
-      std::vector<std::pair<MTLHashKey,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<MTLHashKey,unsigned int>*,std::pair<MTLHashKey,unsigned int>*>(&v32, v18[3], v18[4], 0x2E8BA2E8BA2E8BA3 * ((v18[4] - v18[3]) >> 3));
-      LODWORD(v27) = 0;
-      var1 = v32.var0.var1;
-      if (v32.var0.var1 >= *&v32.var0.var2)
+      memset(&v31, 0, 24);
+      std::vector<std::pair<MTLHashKey,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<MTLHashKey,unsigned int>*,std::pair<MTLHashKey,unsigned int>*>(&v31, v18[3], v18[4], 0x2E8BA2E8BA2E8BA3 * ((v18[4] - v18[3]) >> 3));
+      LODWORD(v26) = 0;
+      var1 = v31.var0.var1;
+      if (v31.var0.var1 >= *&v31.var0.var2)
       {
-        v20 = std::vector<std::pair<MTLHashKey,unsigned int>>::__emplace_back_slow_path<MTLHashKey&,int>(&v32, &v37, &v27);
+        v20 = std::vector<std::pair<MTLHashKey,unsigned int>>::__emplace_back_slow_path<MTLHashKey&,int>(&v31, &v36, &v26);
       }
 
       else
       {
-        MTLHashKey::MTLHashKey(v32.var0.var1, &v37);
+        MTLHashKey::MTLHashKey(v31.var0.var1, &v36);
         *(var1 + 80) = 0;
         v20 = var1 + 88;
       }
 
-      v32.var0.var1 = v20;
-      v27 = &v32;
-      v24 = &v27;
+      v31.var0.var1 = v20;
+      v26 = &v31;
+      v24 = &v26;
     }
 
     else
     {
+      v26 = 0;
       v27 = 0;
       v28 = 0;
-      v29 = 0;
-      LODWORD(v32.var0.var0) = 0;
-      v21 = std::vector<std::pair<MTLHashKey,unsigned int>>::__emplace_back_slow_path<MTLHashKey&,int>(&v27, &v37, &v32);
+      LODWORD(v31.var0.var0) = 0;
+      v21 = std::vector<std::pair<MTLHashKey,unsigned int>>::__emplace_back_slow_path<MTLHashKey&,int>(&v26, &v36, &v31);
       v22 = *(a1 + 32);
       v23 = *(a1 + 48);
-      v28 = v21;
-      v32.var0.var0 = v23 + a6;
-      memset(&v32.var0.var1, 0, 24);
-      std::vector<std::pair<MTLHashKey,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<MTLHashKey,unsigned int>*,std::pair<MTLHashKey,unsigned int>*>(&v32.var0.var1, v27, v21, 0x2E8BA2E8BA2E8BA3 * ((v21 - v27) >> 3));
-      std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<std::pair<MTLHashKey,unsigned int>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<std::pair<MTLHashKey,unsigned int>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<std::pair<MTLHashKey,unsigned int>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<std::pair<MTLHashKey,unsigned int>>>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,std::vector<std::pair<MTLHashKey,unsigned int>>>>((v22 + 176), &v32.var0.var0);
-      p_var1 = &v32.var0.var1;
+      v27 = v21;
+      v31.var0.var0 = v23 + a6;
+      memset(&v31.var0.var1, 0, 24);
+      std::vector<std::pair<MTLHashKey,unsigned int>>::__init_with_size[abi:ne200100]<std::pair<MTLHashKey,unsigned int>*,std::pair<MTLHashKey,unsigned int>*>(&v31.var0.var1, v26, v21, 0x2E8BA2E8BA2E8BA3 * ((v21 - v26) >> 3));
+      std::__hash_table<std::__hash_value_type<unsigned long long,std::vector<std::pair<MTLHashKey,unsigned int>>>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<std::pair<MTLHashKey,unsigned int>>>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,std::vector<std::pair<MTLHashKey,unsigned int>>>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,std::vector<std::pair<MTLHashKey,unsigned int>>>>>::__emplace_unique_key_args<unsigned long long,std::pair<unsigned long long const,std::vector<std::pair<MTLHashKey,unsigned int>>>>((v22 + 176), &v31.var0.var0, &v31);
+      p_var1 = &v31.var0.var1;
       std::vector<std::pair<MTLHashKey,unsigned int>>::__destroy_vector::operator()[abi:ne200100](&p_var1);
-      v32.var0.var0 = &v27;
-      v24 = &v32;
+      v31.var0.var0 = &v26;
+      v24 = &v31;
     }
 
     std::vector<std::pair<MTLHashKey,unsigned int>>::__destroy_vector::operator()[abi:ne200100](v24);
-    MTLHashKey::~MTLHashKey(&v37);
+    MTLHashKey::~MTLHashKey(&v36);
   }
 
-  result = !v10;
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  return !v10;
 }
 
 uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRValidation___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v48 = *MEMORY[0x1E69E9840];
-  v43[0] = a2;
+  v49 = *MEMORY[0x1E69E9840];
+  v43 = a2;
   if ((*(a2 + 80) & 0x20) != 0)
   {
-    v36 = *(a1 + 32);
+    v37 = *(a1 + 32);
     result = 1;
-    *(v36 + 73) = 1;
+    *(v37 + 73) = 1;
   }
 
   else
@@ -1204,18 +1201,18 @@ uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRVali
     *(a2 + 56) = *(a1 + 40);
     v42 = 0;
     [*(a1 + 32) preloadLibrariesInAirntObject:a2 error:&v42];
-    if (*(a1 + 48) & 1) != 0 || ([*(a1 + 32) getScriptsWithAIRNTObject:v43[0]])
+    if (*(a1 + 48) & 1) != 0 || ([*(a1 + 32) getScriptsWithAIRNTObject:v43])
     {
-      std::vector<MTLSerializer::ObjectRef>::push_back[abi:ne200100](*(a1 + 32) + 216, v43);
-      if ((*(v43[0] + 80) & 4) != 0)
+      std::vector<MTLSerializer::ObjectRef>::push_back[abi:ne200100](*(a1 + 32) + 216, &v43);
+      if ((*(v43 + 80) & 4) != 0)
       {
-        std::vector<MTLSerializer::ObjectRef>::push_back[abi:ne200100](*(a1 + 32) + 240, v43);
+        std::vector<MTLSerializer::ObjectRef>::push_back[abi:ne200100](*(a1 + 32) + 240, &v43);
       }
 
       v3 = *(a1 + 32);
       if ((*(v3 + 32) & 0x10) == 0)
       {
-        data = *(v43[0] + 5) + *(a1 + 40);
+        data = *(v43 + 5) + *(a1 + 40);
         v4 = std::__hash_table<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,MTLStructTypeInternal *>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,MTLStructTypeInternal *>>>::find<unsigned long>((v3 + 176), &data);
         v5 = v4;
         if (v4)
@@ -1238,11 +1235,11 @@ uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRVali
               }
 
               MTLHashKey::MTLHashKey(&c, (v12 + 88 * v9));
-              v46 = 0;
               v47 = 0;
+              v48 = 0;
               *md = 0;
-              v13 = *v43[0];
-              if (*(v43[0] + 1) - *v43[0] < 9uLL)
+              v13 = *v43;
+              if (*(v43 + 1) - *v43 < 9uLL)
               {
                 v18 = 0;
                 v17 = 0;
@@ -1262,13 +1259,13 @@ uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRVali
 
                   std::vector<MTLUINT256_t>::push_back[abi:ne200100](md, *(v16 + 24));
                   v15 = v14;
-                  v13 = *v43[0];
+                  v13 = *v43;
                   ++v14;
                 }
 
-                while (v15 < (*(v43[0] + 1) - *v43[0]) >> 3);
+                while (v15 < (*(v43 + 1) - *v43) >> 3);
                 v17 = *md;
-                v18 = v46;
+                v18 = v47;
               }
 
               v19 = *(*v13 + 24);
@@ -1276,29 +1273,29 @@ uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRVali
               v40 = 0;
               __p = 0;
               std::vector<MTLUINT256_t>::__init_with_size[abi:ne200100]<MTLUINT256_t*,MTLUINT256_t*>(&__p, v17, v18, (v18 - v17) >> 5);
-              v20 = MTLHashKey::areBitcodesEqual(&c, v19, &__p);
+              v21 = MTLHashKey::areBitcodesEqual(&c, v19, &__p, v20);
               if (__p)
               {
                 v39 = __p;
                 operator delete(__p);
               }
 
-              if (v20)
+              if (v21)
               {
-                v21 = v5[3];
-                if (0x2E8BA2E8BA2E8BA3 * ((v5[4] - v21) >> 3) <= v9)
+                v22 = v5[3];
+                if (0x2E8BA2E8BA2E8BA3 * ((v5[4] - v22) >> 3) <= v9)
                 {
                   std::vector<std::pair<MTLHashKey,unsigned int>>::__throw_out_of_range[abi:ne200100]();
                 }
 
-                v22 = *(v21 + 88 * v9 + 80);
-                v23 = v22 > v11;
-                if (v22 < v11)
+                v23 = *(v22 + 88 * v9 + 80);
+                v24 = v23 > v11;
+                if (v23 < v11)
                 {
-                  v11 = v22;
+                  v11 = v23;
                 }
 
-                if (!v23)
+                if (!v24)
                 {
                   v10 = v9;
                 }
@@ -1306,7 +1303,7 @@ uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRVali
 
               if (*md)
               {
-                v46 = *md;
+                v47 = *md;
                 operator delete(*md);
               }
 
@@ -1326,46 +1323,45 @@ uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRVali
           ++*(v6 + 88 * v10 + 80);
         }
 
-        v25 = (a1 + 32);
-        v24 = *(a1 + 32);
-        v27 = v24[27];
-        v26 = v24[28];
+        v26 = (a1 + 32);
+        v25 = *(a1 + 32);
+        v28 = v25[27];
+        v27 = v25[28];
         *c.count = &data;
-        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v24 + 42, &data)[3] = ((v26 - v27) >> 3) - 1;
+        std::__hash_table<std::__hash_value_type<unsigned long long,unsigned long long>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,unsigned long long>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,unsigned long long>>>::__emplace_unique_key_args<unsigned long long,std::piecewise_construct_t const&,std::tuple<unsigned long long const&>,std::tuple<>>(v25 + 42, &data, &std::piecewise_construct, &c)[3] = ((v27 - v28) >> 3) - 1;
         CC_SHA256_Init(&c);
-        CC_SHA256_Update(&c, *(**v43[0] + 24), 0x20u);
+        CC_SHA256_Update(&c, *(**v43 + 24), 0x20u);
         CC_SHA256_Update(&c, &data, 8u);
         CC_SHA256_Final(md, &c);
-        v28 = *(a1 + 40);
-        v30 = *(v43[0] + 16);
-        v29 = *(v43[0] + 17);
-        v32 = *(v43[0] + 18);
-        v31 = *(v43[0] + 19);
-        v33 = *v25;
-        v43[2] = md;
-        v34 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((v33 + 136), md);
-        v34[6] = v28 + v30;
-        v34[7] = v29;
-        v34[8] = v28 + v32;
-        v34[9] = v31;
+        v29 = *(a1 + 40);
+        v31 = *(v43 + 16);
+        v30 = *(v43 + 17);
+        v33 = *(v43 + 18);
+        v32 = *(v43 + 19);
+        v34 = *v26;
+        v44 = md;
+        v35 = std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::tuple<unsigned long long,unsigned long long,unsigned long long,unsigned long long>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((v34 + 136), md, &std::piecewise_construct, &v44);
+        v35[6] = v29 + v31;
+        v35[7] = v30;
+        v35[8] = v29 + v33;
+        v35[9] = v32;
       }
 
-      result = 1;
+      return 1;
     }
 
     else
     {
-      result = v43[0];
-      if (v43[0])
+      result = v43;
+      if (v43)
       {
-        MTLAirNTObject::~MTLAirNTObject(v43[0]);
+        MTLAirNTObject::~MTLAirNTObject(v43);
         MEMORY[0x1865FF210]();
-        result = 0;
+        return 0;
       }
     }
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1441,12 +1437,12 @@ uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRVali
   return v3 & 1;
 }
 
-uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRValidation___block_invoke_303(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRValidation___block_invoke_303(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a1 + 40) + a2;
   if (v4 + a3 <= [*(*(a1 + 32) + 48) length])
   {
-    return [*(*(a1 + 32) + 48) bytes] + v4;
+    return ([*(*(a1 + 32) + 48) bytes] + v4);
   }
 
   else
@@ -1457,35 +1453,29 @@ uint64_t __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRVali
 
 uint64_t __79___MTLBinaryArchive_loadFileIndex_expectedSliceId_expectedVersion_sliceOffset___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _OWORD *a4, int a5, uint64_t a6)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (**(a1 + 32) == a2 && *(a1 + 40) == a3)
+  v13 = *MEMORY[0x1E69E9840];
+  if (**(a1 + 32) != a2 || *(a1 + 40) != a3)
   {
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 56) + a6;
-    v8 = a4[1];
-    v11[0] = *a4;
-    v11[1] = v8;
-    v12 = a5;
-    v13 = v7;
-    std::__tree<std::__value_type<MTLUINT256_t,std::pair<unsigned int,unsigned long long>>,std::__map_value_compare<MTLUINT256_t,std::__value_type<MTLUINT256_t,std::pair<unsigned int,unsigned long long>>,CompareHash,true>,std::allocator<std::__value_type<MTLUINT256_t,std::pair<unsigned int,unsigned long long>>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t const,std::pair<unsigned int,unsigned long long>>>(v6, v11);
-    result = 1;
+    return 0;
   }
 
-  else
-  {
-    result = 0;
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v6 = *(a1 + 48);
+  v7 = *(a1 + 56) + a6;
+  v8 = a4[1];
+  v10[0] = *a4;
+  v10[1] = v8;
+  v11 = a5;
+  v12 = v7;
+  std::__tree<std::__value_type<MTLUINT256_t,std::pair<unsigned int,unsigned long long>>,std::__map_value_compare<MTLUINT256_t,std::__value_type<MTLUINT256_t,std::pair<unsigned int,unsigned long long>>,CompareHash,true>,std::allocator<std::__value_type<MTLUINT256_t,std::pair<unsigned int,unsigned long long>>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t const,std::pair<unsigned int,unsigned long long>>>(v6, v10, v10);
+  return 1;
 }
 
-uint64_t __79___MTLBinaryArchive_loadFileIndex_expectedSliceId_expectedVersion_sliceOffset___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
+char *__79___MTLBinaryArchive_loadFileIndex_expectedSliceId_expectedVersion_sliceOffset___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = *(a1 + 40) + a2;
   if (v4 + a3 <= [*(*(a1 + 32) + 48) length])
   {
-    return [*(*(a1 + 32) + 48) bytes] + v4;
+    return ([*(*(a1 + 32) + 48) bytes] + v4);
   }
 
   else
@@ -1567,7 +1557,7 @@ id __25___MTLBinaryArchive_keys__block_invoke(uint64_t a1)
 
 void __78___MTLBinaryArchive_MTLBinaryArchiveInternal__addArchiveEntryInternal_forKey___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 60) == 1)
   {
@@ -1576,10 +1566,10 @@ void __78___MTLBinaryArchive_MTLBinaryArchiveInternal__addArchiveEntryInternal_f
       v3 = *(a1 + 48);
       v4 = [*(a1 + 40) data];
       v5 = v3[1];
-      v13 = *v3;
-      v14 = v5;
-      v15 = v4;
-      std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>((v2 + 728), &v13);
+      v12 = *v3;
+      v13 = v5;
+      v14 = v4;
+      std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>((v2 + 728), &v12, &v12);
       if (v6)
       {
         dispatch_retain([*(a1 + 40) data]);
@@ -1592,18 +1582,16 @@ void __78___MTLBinaryArchive_MTLBinaryArchiveInternal__addArchiveEntryInternal_f
     v8 = *(a1 + 40);
     v7 = *(a1 + 48);
     v9 = v7[1];
-    v13 = *v7;
-    v14 = v9;
-    v15 = v8;
-    std::__hash_table<std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t,MTLAirEntry *>>((v2 + 560), &v13);
+    v12 = *v7;
+    v13 = v9;
+    v14 = v8;
+    std::__hash_table<std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t,MTLAirEntry *>>((v2 + 560), &v12, &v12);
     if (v10)
     {
       v11 = *(a1 + 40);
       ++*(*(a1 + 32) + 888);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __76___MTLBinaryArchive_MTLBinaryArchiveInternal__newArchiveDataForKeyInternal___block_invoke(uint64_t a1)
@@ -1643,22 +1631,20 @@ void __76___MTLBinaryArchive_MTLBinaryArchiveInternal__newArchiveDataForKeyInter
 
 void __76___MTLBinaryArchive_MTLBinaryArchiveInternal__newArchiveDataForKeyInternal___block_invoke_3(uint64_t a1, void *a2, _OWORD *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 32);
   v6 = [a2 data];
   v7 = a3[1];
-  v11[0] = *a3;
-  v11[1] = v7;
-  v12 = v6;
-  std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>((v5 + 728), v11);
+  v10[0] = *a3;
+  v10[1] = v7;
+  v11 = v6;
+  std::__hash_table<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>>::__emplace_unique_key_args<MTLUINT256_t,std::pair<MTLUINT256_t,NSObject  {objcproto16OS_dispatch_data}*>>((v5 + 728), v10, v10);
   LOBYTE(a3) = v8;
   v9 = a2;
   if (a3)
   {
     dispatch_retain([a2 data]);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __77___MTLBinaryArchive_MTLBinaryArchiveInternal__addBinaryEntryInternal_forKey___block_invoke(uint64_t a1)
@@ -1726,49 +1712,47 @@ void __77___MTLBinaryArchive_MTLBinaryArchiveInternal__getArchiveIDWithErrorInte
   }
 }
 
-uint64_t __82___MTLBinaryArchive_MTLBinaryArchiveInternal__getBinaryDataForKey_reflectionType___block_invoke(uint64_t a1)
+_BYTE *__82___MTLBinaryArchive_MTLBinaryArchiveInternal__getBinaryDataForKey_reflectionType___block_invoke(uint64_t a1)
 {
   *(*(*(a1 + 48) + 8) + 40) = [*(*(a1 + 32) + 376) objectForKey:*(a1 + 40)];
   if (*(*(*(a1 + 48) + 8) + 40))
   {
     result = *(a1 + 32);
-    if (*(result + 60))
+    if (result[60])
     {
       return result;
     }
 
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 56);
     result = [result updateReflectionForEntry:? binaryKey:? requiredReflection:?];
-    v5 = *(*(a1 + 48) + 8);
+    v3 = *(*(a1 + 48) + 8);
     if ((result & 1) == 0)
     {
-      *(v5 + 40) = 0;
+      *(v3 + 40) = 0;
       return result;
     }
 
-    if (*(v5 + 40))
+    if (*(v3 + 40))
     {
       return result;
     }
   }
 
-  v6 = *(a1 + 32);
-  if (v6[60])
+  v4 = *(a1 + 32);
+  if (v4[60])
   {
-    v7 = [*(a1 + 40) value];
-    v8 = *(a1 + 32);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __82___MTLBinaryArchive_MTLBinaryArchiveInternal__getBinaryDataForKey_reflectionType___block_invoke_2;
-    v10[3] = &unk_1E6EEAD90;
-    v10[4] = v8;
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __82___MTLBinaryArchive_MTLBinaryArchiveInternal__getBinaryDataForKey_reflectionType___block_invoke_3;
-    v9[3] = &unk_1E6EEADB8;
-    v9[4] = v8;
-    result = [v6 materializeEntryForKey:v7 fileIndex:v8 + 288 containsEntry:v10 addEntry:v9];
+    v5 = [*(a1 + 40) value];
+    v6 = *(a1 + 32);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __82___MTLBinaryArchive_MTLBinaryArchiveInternal__getBinaryDataForKey_reflectionType___block_invoke_2;
+    v8[3] = &unk_1E6EEAD90;
+    v8[4] = v6;
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __82___MTLBinaryArchive_MTLBinaryArchiveInternal__getBinaryDataForKey_reflectionType___block_invoke_3;
+    v7[3] = &unk_1E6EEADB8;
+    v7[4] = v6;
+    result = [v4 materializeEntryForKey:v5 fileIndex:v6 + 288 containsEntry:v8 addEntry:v7];
   }
 
   else
@@ -1782,25 +1766,23 @@ uint64_t __82___MTLBinaryArchive_MTLBinaryArchiveInternal__getBinaryDataForKey_r
 
 BOOL __82___MTLBinaryArchive_MTLBinaryArchiveInternal__getBinaryDataForKey_reflectionType___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  MTLHashKey::MTLHashKey(&v7, a2);
-  v3 = [[MTLBinaryKey alloc] initWithHash:&v7];
+  v7 = *MEMORY[0x1E69E9840];
+  MTLHashKey::MTLHashKey(&v6, a2);
+  v3 = [[MTLBinaryKey alloc] initWithHash:&v6];
   v4 = [*(*(a1 + 32) + 376) objectForKey:v3];
 
-  MTLHashKey::~MTLHashKey(&v7);
-  v5 = *MEMORY[0x1E69E9840];
+  MTLHashKey::~MTLHashKey(&v6);
   return v4 != 0;
 }
 
 void __82___MTLBinaryArchive_MTLBinaryArchiveInternal__getBinaryDataForKey_reflectionType___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  MTLHashKey::MTLHashKey(&v7, a3);
-  v5 = [[MTLBinaryKey alloc] initWithHash:&v7];
+  v7 = *MEMORY[0x1E69E9840];
+  MTLHashKey::MTLHashKey(&v6, a3);
+  v5 = [[MTLBinaryKey alloc] initWithHash:&v6];
   [*(*(a1 + 32) + 376) setObject:a2 forKey:v5];
 
-  MTLHashKey::~MTLHashKey(&v7);
-  v6 = *MEMORY[0x1E69E9840];
+  MTLHashKey::~MTLHashKey(&v6);
 }
 
 void *__76___MTLBinaryArchive_MTLBinaryArchiveInternal__findProgramObjectForFunction___block_invoke(void *a1)
@@ -1923,7 +1905,9 @@ void *__108___MTLBinaryArchive_MTLBinaryArchiveInternal__addStitchedLibraryWithK
 
           v11 = [objc_alloc((v5 + 3832)) initWithData:v10 bitcode:0 airScript:*v2];
           [v4[4] addStitchingInputsFunction:v4[5] toEntry:v11];
-          result = std::__hash_table<std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((v4[4] + 600), v2 + 1);
+          v12 = v4[4];
+          v13 = v2 + 1;
+          result = std::__hash_table<std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,MTLAirEntry *>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>((v12 + 600), v2 + 1, &std::piecewise_construct, &v13);
           result[6] = v11;
         }
       }
@@ -2194,9 +2178,9 @@ void __101___MTLBinaryArchive_MTLBinaryArchiveInternal__updatePipelineWithPipeli
   if (v2 && (*(a1 + 56) - 5) >= 2)
   {
     v12 = 0;
-    buffer_ptr[0] = 0;
-    v3 = dispatch_data_create_map(v2, buffer_ptr, &v12);
-    v4 = buffer_ptr[0];
+    buffer_ptr = 0;
+    v3 = dispatch_data_create_map(v2, &buffer_ptr, &v12);
+    v4 = buffer_ptr;
     v5 = *(a1 + 56) - 1;
     if (v5 > 7)
     {
@@ -2269,18 +2253,17 @@ LABEL_23:
       }
     }
 
-    buffer_ptr[2] = v7;
-    std::__hash_table<std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>>>::__emplace_unique_key_args<MTLHashKey,std::piecewise_construct_t const&,std::tuple<MTLHashKey const&>,std::tuple<>>((v9 + 648), v7)[12] = v8;
+    v15 = v7;
+    std::__hash_table<std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,std::__unordered_map_hasher<MTLHashKey,std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::__unordered_map_equal<MTLHashKey,std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>,CompareFunctionIdHash,CompareFunctionIdHash,true>,std::allocator<std::__hash_value_type<MTLHashKey,MTLOpaqueGPUArchiverUnitId *>>>::__emplace_unique_key_args<MTLHashKey,std::piecewise_construct_t const&,std::tuple<MTLHashKey const&>,std::tuple<>>((v9 + 648), v7, &std::piecewise_construct, &v15, &v14)[12] = v8;
     goto LABEL_7;
   }
 }
 
 void __75___MTLBinaryArchive_loadAirntBlocksForSlice_sliceOffset_skipAIRValidation___block_invoke_4_cold_1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  [*(*(a1 + 32) + 392) UTF8String];
-  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "No binaries found in %s ", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v6) = 136315138;
+  *(&v6 + 4) = [*(*(a1 + 32) + 392) UTF8String];
+  OUTLINED_FUNCTION_0_4(&dword_185B8E000, MEMORY[0x1E69E9C10], v1, "No binaries found in %s ", v2, v3, v4, v5, v6, DWORD2(v6));
 }
 
 @end

@@ -42,6 +42,7 @@
   v30 = 0;
   v6 = [MEMORY[0x1E696AE40] dataWithPropertyList:v5 format:100 options:0 error:&v30];
   v7 = v30;
+  v8 = v7;
   if (v6)
   {
     [v4 setHTTPBody:v6];
@@ -49,84 +50,81 @@
 
   else
   {
-    v8 = _AALogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _AALogSystem(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      localizedDescription = [v7 localizedDescription];
+      localizedDescription = [v8 localizedDescription];
       *buf = 138412290;
       v33 = localizedDescription;
-      _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+      _os_log_impl(&dword_1B6F6A000, v9, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
     }
   }
 
-  v29 = v7;
-  v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:objc_msgSend(v6 length:"bytes") encoding:{objc_msgSend(v6, "length"), 4}];
-  v11 = _AALogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v29 = v8;
+  v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:objc_msgSend(v6 length:"bytes") encoding:{objc_msgSend(v6, "length"), 4}];
+  v12 = _AALogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v33 = v10;
-    _os_log_impl(&dword_1B6F6A000, v11, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+    v33 = v11;
+    _os_log_impl(&dword_1B6F6A000, v12, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
   [v4 setHTTPMethod:@"POST"];
   aa_password = [(ACAccount *)self->super.super._account aa_password];
-  if (aa_password && (v13 = aa_password, [(ACAccount *)self->super.super._account username], v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v14))
+  if (aa_password && (v14 = aa_password, [(ACAccount *)self->super.super._account username], v15 = objc_claimAutoreleasedReturnValue(), v15, v14, v15))
   {
-    v15 = _AALogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AALogSystem(aa_password);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v15, OS_LOG_TYPE_DEFAULT, "Using password auth", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v16, OS_LOG_TYPE_DEFAULT, "Using password auth", buf, 2u);
     }
 
-    v16 = MEMORY[0x1E696AEC0];
+    v17 = MEMORY[0x1E696AEC0];
     username = [(ACAccount *)self->super.super._account username];
     aa_password2 = [(ACAccount *)self->super.super._account aa_password];
-    v19 = [v16 stringWithFormat:@"%@:%@", username, aa_password2, v7];
+    v20 = [v17 stringWithFormat:@"%@:%@", username, aa_password2, v8];
 
-    v20 = 1;
+    v21 = 1;
   }
 
   else
   {
-    username = _AALogSystem();
+    username = _AALogSystem(aa_password);
     if (os_log_type_enabled(username, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
       _os_log_impl(&dword_1B6F6A000, username, OS_LOG_TYPE_DEFAULT, "ERROR: Missing account username or password", buf, 2u);
     }
 
+    v21 = 0;
     v20 = 0;
-    v19 = 0;
   }
 
-  v21 = [v19 dataUsingEncoding:4];
-  v22 = [v21 base64EncodedStringWithOptions:0];
+  v22 = [v20 dataUsingEncoding:4];
+  v23 = [v22 base64EncodedStringWithOptions:0];
 
-  v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v22];
-  [v4 addValue:v23 forHTTPHeaderField:@"Authorization"];
-  [v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"];
-  v24 = _AALogSystem();
-  v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-  if (v20)
+  v24 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Basic %@", v23];
+  [v4 addValue:v24 forHTTPHeaderField:@"Authorization"];
+  v25 = _AALogSystem([v4 addValue:@"application/xml" forHTTPHeaderField:@"Content-Type"]);
+  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+  if (v21)
   {
-    if (v25)
+    if (v26)
     {
       *buf = 0;
-      _os_log_impl(&dword_1B6F6A000, v24, OS_LOG_TYPE_DEFAULT, "Authorization: *redacted*", buf, 2u);
+      _os_log_impl(&dword_1B6F6A000, v25, OS_LOG_TYPE_DEFAULT, "Authorization: *redacted*", buf, 2u);
     }
   }
 
-  else if (v25)
+  else if (v26)
   {
-    v26 = [v4 valueForHTTPHeaderField:@"Authorization"];
+    v27 = [v4 valueForHTTPHeaderField:@"Authorization"];
     *buf = 138412290;
-    v33 = v26;
-    _os_log_impl(&dword_1B6F6A000, v24, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
+    v33 = v27;
+    _os_log_impl(&dword_1B6F6A000, v25, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

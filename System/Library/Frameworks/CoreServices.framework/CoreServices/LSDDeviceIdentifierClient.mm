@@ -15,7 +15,7 @@ void __120___LSDDeviceIdentifierClient_getClientProcessVendorNameBundleIdentifie
   v39 = v7;
   if (!v7)
   {
-    v12 = 0;
+    v13 = 0;
     v14 = 0;
 LABEL_25:
     v22 = [*(a1 + 32) XPCConnection];
@@ -24,26 +24,26 @@ LABEL_25:
 
     if (v24)
     {
-      v25 = [(__CFURL *)v24 lastPathComponent];
-      if (v25)
+      v26 = [(__CFURL *)v24 lastPathComponent];
+      if (v26)
       {
-        v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Path:%@", v25, v37];
+        v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Path:%@", v26, v37];
 
-        v12 = v26;
+        v13 = v27;
       }
 
-      v27 = [(__CFURL *)v24 path];
+      v28 = [(__CFURL *)v24 path];
 
-      v14 = v27;
+      v14 = v28;
     }
 
     else
     {
-      v25 = _LSDefaultLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v26 = _LSDefaultLog(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *v45 = 0;
-        _os_log_impl(&dword_18162D000, v25, OS_LOG_TYPE_DEFAULT, "Not enough info to create vendorName and bundleIdentifier", v45, 2u);
+        _os_log_impl(&dword_18162D000, v26, OS_LOG_TYPE_DEFAULT, "Not enough info to create vendorName and bundleIdentifier", v45, 2u);
       }
     }
 
@@ -59,7 +59,7 @@ LABEL_25:
 
   if (!v9)
   {
-    v16 = _LSDefaultLog();
+    v16 = _LSDefaultLog(v10);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = +[_LSDServiceDomain defaultServiceDomain];
@@ -82,25 +82,24 @@ LABEL_25:
 
     LOBYTE(v7) = 0;
     v14 = 0;
-    v12 = 0;
+    v13 = 0;
     goto LABEL_19;
   }
 
-  v10 = [*(a1 + 32) findAppBundleForExecutableURL:v7 withContext:v9];
-  if (v10)
+  v11 = [*(a1 + 32) findAppBundleForExecutableURL:v7 withContext:v9];
+  if (v11)
   {
-    v11 = _LSBundleGet(*v9, v10);
-    if (v11)
+    v12 = _LSBundleGet(*v9, v11);
+    if (v12)
     {
-      v12 = [_LSDDeviceIdentifierService vendorNameForDeviceIdentifiersWithContext:v9 bundleUnit:v10 bundleData:v11];
-      v13 = *(v11 + 12);
+      v13 = [_LSDDeviceIdentifierService vendorNameForDeviceIdentifiersWithContext:v9 bundleUnit:v11 bundleData:v12];
       [(_LSDatabase *)*v9 store];
       v14 = _CSStringCopyCFString();
       v15 = [*(a1 + 32) XPCConnection];
       v16 = v15;
       if (v15)
       {
-        [v15 auditToken];
+        objc_msgSend_auditToken(v15);
       }
 
       else
@@ -108,7 +107,7 @@ LABEL_25:
         memset(&buf, 0, sizeof(buf));
       }
 
-      if ((*(v11 + 179) & 0x18) != 0)
+      if ((*(v12 + 179) & 0x18) != 0)
       {
         LOBYTE(v7) = softLinkba_is_process_extension(&buf) ^ 1;
       }
@@ -126,7 +125,7 @@ LABEL_19:
 
   LOBYTE(v7) = 0;
   v14 = 0;
-  v12 = 0;
+  v13 = 0;
 LABEL_20:
   if (*v45 && v47 == 1)
   {
@@ -141,31 +140,29 @@ LABEL_20:
   v21 = v48;
   v48 = 0;
 
-  if (!v12 || !v14)
+  if (!v13 || !v14)
   {
     goto LABEL_25;
   }
 
 LABEL_32:
-  v28 = +[_LSDeviceIdentifierManager sharedInstance];
-  v29 = [getUMUserManagerClass() sharedManager];
-  v30 = [v29 currentPersona];
-  v31 = [v28 cacheForPersona:v30];
-  v32 = [v31 queue];
+  v29 = +[_LSDeviceIdentifierManager sharedInstance];
+  v30 = [(objc_class *)getUMUserManagerClass() sharedManager];
+  v31 = [v30 currentPersona];
+  v32 = [v29 cacheForPersona:v31];
+  v33 = [v32 queue];
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __120___LSDDeviceIdentifierClient_getClientProcessVendorNameBundleIdentifierAndRestrictedIDAccessWithType_completionHandler___block_invoke_56;
   block[3] = &unk_1E6A1BBE0;
-  v33 = *(a1 + 40);
+  v34 = *(a1 + 40);
   v42 = v14;
-  v43 = v33;
-  v41 = v12;
+  v43 = v34;
+  v41 = v13;
   v44 = v7;
-  v34 = v14;
-  v35 = v12;
-  dispatch_async(v32, block);
-
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = v14;
+  v36 = v13;
+  dispatch_async(v33, block);
 }
 
 void __68___LSDDeviceIdentifierClient_getIdentifierOfType_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, int a4)
@@ -201,7 +198,7 @@ LABEL_5:
   }
 
   v12 = +[_LSDeviceIdentifierManager sharedInstance];
-  v13 = [getUMUserManagerClass() sharedManager];
+  v13 = [(objc_class *)getUMUserManagerClass() sharedManager];
   v14 = [v13 currentPersona];
   v15 = [v12 cacheForPersona:v14];
   [v15 getIdentifierOfType:*(a1 + 48) vendorName:v17 bundleIdentifier:v7 completionHandler:*(a1 + 40)];

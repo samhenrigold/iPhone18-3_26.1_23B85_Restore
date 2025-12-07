@@ -4,7 +4,10 @@
 - (ServicePresentationViewController)initWithChildViewController:(id)controller animated:(BOOL)animated presentationBounds:(CGRect)bounds proxyHandler:(id)handler;
 - (void)_correctPopover:(id)popover;
 - (void)_presentChildViewController;
+- (void)dismissViewControllerWithTransition:(int)transition completion:(id)completion;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ServicePresentationViewController
@@ -44,6 +47,40 @@
 
   [v4 setUserInteractionEnabled:0];
   [(ServicePresentationViewController *)self setView:v4];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ServicePresentationViewController;
+  [(ServicePresentationViewController *)&v5 viewWillAppear:appear];
+  presentationController = [(ServicePresentationViewController *)self presentationController];
+  [presentationController _setContainerIgnoresDirectTouchEvents:1];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ServicePresentationViewController;
+  [(ServicePresentationViewController *)&v4 viewDidAppear:appear];
+  [(ServicePresentationViewController *)self _presentChildViewController];
+}
+
+- (void)dismissViewControllerWithTransition:(int)transition completion:(id)completion
+{
+  v4 = *&transition;
+  completionCopy = completion;
+  [(ServicePresentationViewController *)self setChildViewController:0];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10000CEA0;
+  v9[3] = &unk_100051640;
+  v9[4] = self;
+  v10 = completionCopy;
+  v8.receiver = self;
+  v8.super_class = ServicePresentationViewController;
+  v7 = completionCopy;
+  [(ServicePresentationViewController *)&v8 dismissViewControllerWithTransition:v4 completion:v9];
 }
 
 - (void)_presentChildViewController

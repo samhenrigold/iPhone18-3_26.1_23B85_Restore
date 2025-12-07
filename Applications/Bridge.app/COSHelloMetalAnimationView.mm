@@ -11,7 +11,7 @@
 {
   swift_unknownObjectWeakInit();
   v4 = OBJC_IVAR____TtC6Bridge26COSHelloMetalAnimationView_animationFinishedContinuation;
-  v5 = sub_1001379C4(&qword_1002BCF30);
+  v5 = sub_1001379C4(&qword_1002BCF30, &unk_1001C8460);
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC6Bridge26COSHelloMetalAnimationView____lazy_storage___viewProvider) = 0;
   result = _assertionFailure(_:_:file:line:flags:)();

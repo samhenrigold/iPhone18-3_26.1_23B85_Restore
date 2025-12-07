@@ -34,7 +34,7 @@
 
 - (id)newArrayFromObjectIDs
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = [(_PFMutableProxyArray *)self count];
   v4 = v3;
   if (v3 <= 1)
@@ -57,7 +57,7 @@
     v6 = v5;
   }
 
-  v7 = v12 - ((8 * v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v11 - ((8 * v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (v3 >= 0x201)
   {
     v7 = NSAllocateScannedUncollectable();
@@ -65,7 +65,7 @@
 
   else
   {
-    bzero(v12 - ((8 * v6 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v5);
+    bzero(v11 - ((8 * v6 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v5);
     if (!v4)
     {
       goto LABEL_13;
@@ -87,7 +87,6 @@ LABEL_13:
     NSZoneFree(0, v7);
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -166,7 +165,7 @@ LABEL_13:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = [(_PFMutableProxyArray *)self count];
   v5 = objc_autoreleasePoolPush();
   if (v4 <= 1)
@@ -189,7 +188,7 @@ LABEL_13:
     v7 = v6;
   }
 
-  v8 = v13 - ((8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v12 - ((8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (v4 >= 0x201)
   {
     v8 = NSAllocateScannedUncollectable();
@@ -197,7 +196,7 @@ LABEL_13:
 
   else
   {
-    bzero(v13 - ((8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v6);
+    bzero(v12 - ((8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v6);
     if (!v4)
     {
       goto LABEL_13;
@@ -217,13 +216,12 @@ LABEL_13:
   }
 
   objc_autoreleasePoolPop(v5);
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = [(_PFMutableProxyArray *)self count];
   v5 = objc_autoreleasePoolPush();
   if (v4 <= 1)
@@ -246,7 +244,7 @@ LABEL_13:
     v7 = v6;
   }
 
-  v8 = v13 - ((8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = v12 - ((8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (v4 >= 0x201)
   {
     v8 = NSAllocateScannedUncollectable();
@@ -254,7 +252,7 @@ LABEL_13:
 
   else
   {
-    bzero(v13 - ((8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v6);
+    bzero(v12 - ((8 * v7 + 15) & 0xFFFFFFFFFFFFFFF0), 8 * v6);
     if (!v4)
     {
       goto LABEL_13;
@@ -274,7 +272,6 @@ LABEL_13:
   }
 
   objc_autoreleasePoolPop(v5);
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -282,7 +279,7 @@ LABEL_13:
 {
   length = range.length;
   location = range.location;
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v8 = [(_PFMutableProxyArray *)self count];
   if (v8 < location + length)
   {
@@ -303,7 +300,7 @@ LABEL_13:
     }
 
     v11 = (8 * v10 + 15) & 0xFFFFFFFFFFFFFFF0;
-    v12 = v18 - v11;
+    v12 = v17 - v11;
     if (length > 0x200)
     {
       v12 = NSAllocateScannedUncollectable();
@@ -311,7 +308,7 @@ LABEL_13:
 
     else
     {
-      bzero(v18 - v11, 8 * length);
+      bzero(v17 - v11, 8 * length);
     }
 
     for (i = 0; i != length; ++i)
@@ -330,8 +327,6 @@ LABEL_13:
     objc_autoreleasePoolPop(v9);
     v16 = v15;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)objectAtIndex:(unint64_t)index

@@ -231,64 +231,7 @@ LABEL_13:
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_15;
-    }
-
-    primaryMACAddress = [(HMFWoWLANInfo *)self primaryMACAddress];
-    primaryMACAddress2 = [(HMFWoWLANInfo *)v6 primaryMACAddress];
-    v9 = HMFEqualObjects();
-
-    if (!v9)
-    {
-      goto LABEL_15;
-    }
-
-    additionalMACAddresses = [(HMFWoWLANInfo *)self additionalMACAddresses];
-    additionalMACAddresses2 = [(HMFWoWLANInfo *)v6 additionalMACAddresses];
-    v12 = HMFEqualObjects();
-
-    if (!v12)
-    {
-      goto LABEL_15;
-    }
-
-    version = [(HMFWoWLANInfo *)self version];
-    if (version != [(HMFWoWLANInfo *)v6 version])
-    {
-      goto LABEL_15;
-    }
-
-    wakeType = [(HMFWoWLANInfo *)self wakeType];
-    if (wakeType != [(HMFWoWLANInfo *)v6 wakeType])
-    {
-      goto LABEL_15;
-    }
-
-    wakePort = [(HMFWoWLANInfo *)self wakePort];
-    if (wakePort != [(HMFWoWLANInfo *)v6 wakePort])
-    {
-      goto LABEL_15;
-    }
-
-    wakePacketType = [(HMFWoWLANInfo *)self wakePacketType];
-    if (wakePacketType != [(HMFWoWLANInfo *)v6 wakePacketType])
-    {
-      goto LABEL_15;
-    }
-
-    supportsSleepConfig = [(HMFWoWLANInfo *)self supportsSleepConfig];
-    if (supportsSleepConfig != [(HMFWoWLANInfo *)v6 supportsSleepConfig])
-    {
-      goto LABEL_15;
-    }
-
-    wakePattern = [(HMFWoWLANInfo *)self wakePattern];
-    wakePattern2 = [(HMFWoWLANInfo *)v6 wakePattern];
-    v20 = HMFEqualObjects();
-
-    if (v20)
+    if (v6 && ([(HMFWoWLANInfo *)self primaryMACAddress], v7 = objc_claimAutoreleasedReturnValue(), [(HMFWoWLANInfo *)v6 primaryMACAddress], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && ([(HMFWoWLANInfo *)self additionalMACAddresses], v10 = objc_claimAutoreleasedReturnValue(), [(HMFWoWLANInfo *)v6 additionalMACAddresses], v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12) && (v13 = [(HMFWoWLANInfo *)self version], v13 == [(HMFWoWLANInfo *)v6 version]) && (v14 = [(HMFWoWLANInfo *)self wakeType], v14 == [(HMFWoWLANInfo *)v6 wakeType]) && (v15 = [(HMFWoWLANInfo *)self wakePort], v15 == [(HMFWoWLANInfo *)v6 wakePort]) && (v16 = [(HMFWoWLANInfo *)self wakePacketType], v16 == [(HMFWoWLANInfo *)v6 wakePacketType]) && (v17 = [(HMFWoWLANInfo *)self supportsSleepConfig], v17 == [(HMFWoWLANInfo *)v6 supportsSleepConfig]) && ([(HMFWoWLANInfo *)self wakePattern], v18 = objc_claimAutoreleasedReturnValue(), [(HMFWoWLANInfo *)v6 wakePattern], v19 = objc_claimAutoreleasedReturnValue(), v20 = HMFEqualObjects(), v19, v18, v20))
     {
       wakeAddress = [(HMFWoWLANInfo *)self wakeAddress];
       wakeAddress2 = [(HMFWoWLANInfo *)v6 wakeAddress];
@@ -297,7 +240,6 @@ LABEL_13:
 
     else
     {
-LABEL_15:
       v23 = 0;
     }
   }

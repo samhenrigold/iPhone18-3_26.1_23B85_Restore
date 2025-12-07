@@ -23,7 +23,7 @@
 
 - (void)_reportTokenStatus:(int64_t)status storeFront:(id)front daemonRunningTime:(double)time
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   frontCopy = front;
   v8 = APPerfLogForCategory();
   v15 = objc_msgSend_intervalId(self, v9, v10, v11, v12, v13, v14);
@@ -33,8 +33,8 @@
     if (os_signpost_enabled(v8))
     {
       *buf = 134349312;
-      v34 = objc_msgSend_intervalId(self, v17, v18, v19, v20, v21, v22);
-      v35 = 2050;
+      v33 = objc_msgSend_intervalId(self, v17, v18, v19, v20, v21, v22);
+      v34 = 2050;
       statusCopy = status;
       _os_signpost_emit_with_name_impl(&dword_236A42000, v8, OS_SIGNPOST_EVENT, v16, "Token Status", "Token Status id=%{public, name=id}lld status=%{public, name=status}ld", buf, 0x16u);
     }
@@ -44,8 +44,6 @@
   v30 = frontCopy;
   v31 = v29;
   AnalyticsSendEventLazy();
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 + (int64_t)_tokenStatusFromTokenSource:(int64_t)source
@@ -63,14 +61,12 @@
 
 + (id)_createInternalError
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
-  v12 = *MEMORY[0x277CCA450];
-  v13[0] = @"An internal error occurred";
-  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v13, &v12, 1, v2, v3);
+  v11 = *MEMORY[0x277CCA450];
+  v12[0] = @"An internal error occurred";
+  v5 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], a2, v12, &v11, 1, v2, v3);
   v9 = objc_msgSend_errorWithDomain_code_userInfo_(v4, v6, @"com.apple.ap.adservices.attributionError", 2, v5, v7, v8);
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

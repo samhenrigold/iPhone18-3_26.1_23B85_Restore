@@ -11,9 +11,9 @@
 {
   dataCopy = data;
   viewCopy = view;
-  v31.receiver = self;
-  v31.super_class = VUIActionShareSheet;
-  v8 = [(VUIActionShareSheet *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = VUIActionShareSheet;
+  v8 = [(VUIActionShareSheet *)&v32 init];
   if (v8)
   {
     v9 = [dataCopy vui_stringForKey:@"shareURL"];
@@ -54,12 +54,12 @@
     previewUrlStr = v8->_previewUrlStr;
     v8->_previewUrlStr = v27;
 
-    if (!v8->_urlString || !v8->_sourceView || ![(NSString *)v8->_imageURLStr length])
+    if (!v8->_urlString || !v8->_sourceView || (v29 = [(NSString *)v8->_imageURLStr length]) == 0)
     {
-      v29 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v30 = VUIDefaultLogObject(v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
-        [VUIActionShareSheet initWithContextData:v29 sourceView:?];
+        [VUIActionShareSheet initWithContextData:v30 sourceView:?];
       }
     }
   }
@@ -84,6 +84,7 @@
 {
   responderCopy = responder;
   handlerCopy = handler;
+  v8 = handlerCopy;
   if (self->_urlString)
   {
     objc_opt_class();
@@ -94,30 +95,30 @@
       sourceView = self->_sourceView;
     }
 
-    v10 = sourceView;
+    v11 = sourceView;
     groupActivityMetadata = self->_groupActivityMetadata;
     if (groupActivityMetadata && [(NSDictionary *)groupActivityMetadata count])
     {
-      [VUIShareActivityViewController_iOS shareMediaItem:self->_urlString previewURLString:0 title:self->_title subtitle:self->_subtitle imageURLStr:self->_imageURLStr groupActivityMetadata:self->_groupActivityMetadata sourceView:v10 completionHandler:handlerCopy];
+      [VUIShareActivityViewController_iOS shareMediaItem:self->_urlString previewURLString:0 title:self->_title subtitle:self->_subtitle imageURLStr:self->_imageURLStr groupActivityMetadata:self->_groupActivityMetadata sourceView:v11 completionHandler:v8];
     }
 
     else
     {
-      [VUIShareActivityViewController_iOS shareMediaItem:self->_urlString previewURLString:0 title:self->_title subtitle:self->_subtitle imageURLStr:self->_imageURLStr sharedWatchId:self->_sharedWatchId sharedWatchUrl:self->_sharedWatchUrl sourceView:v10 completionHandler:handlerCopy];
+      [VUIShareActivityViewController_iOS shareMediaItem:self->_urlString previewURLString:0 title:self->_title subtitle:self->_subtitle imageURLStr:self->_imageURLStr sharedWatchId:self->_sharedWatchId sharedWatchUrl:self->_sharedWatchUrl sourceView:v11 completionHandler:v8];
     }
   }
 
   else
   {
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = VUIDefaultLogObject(handlerCopy);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [VUIActionShareSheet performWithTargetResponder:v12 completionHandler:?];
+      [VUIActionShareSheet performWithTargetResponder:v13 completionHandler:?];
     }
 
-    if (handlerCopy)
+    if (v8)
     {
-      handlerCopy[2](handlerCopy, 1);
+      v8[2](v8, 1);
     }
   }
 }

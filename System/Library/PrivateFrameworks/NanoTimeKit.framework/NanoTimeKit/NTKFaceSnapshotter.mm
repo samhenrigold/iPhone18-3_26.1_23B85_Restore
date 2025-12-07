@@ -461,7 +461,7 @@ LABEL_12:
 
 void __49__NTKFaceSnapshotter__queue_serviceRequestIfIdle__block_invoke_109(uint64_t a1)
 {
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   v3 = [*(a1 + 32) options];
   v4 = [v3 objectForKey:@"NTKSnapshotMetricsKey"];
 
@@ -1355,7 +1355,7 @@ LABEL_11:
   }
 
   v6 = *(a1 + 32);
-  v5 = a1 + 32;
+  v5 = (a1 + 32);
   v7 = _NTKLoggingObjectForDomain(64, "NTKLoggingDomainFaceSnapshotRenderer");
   v8 = v7;
   if (v6)
@@ -1462,6 +1462,20 @@ void __67__NTKFaceSnapshotter__mainQueue_serviceRequest_metrics_completion___blo
   block[3] = &unk_27877DB10;
   block[4] = self;
   dispatch_async(NTKFaceSnapshotterQueue, block);
+}
+
+void __49__NTKFaceSnapshotter__queue_serviceRequestIfIdle__block_invoke_109_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "Metrics invalid for request %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __67__NTKFaceSnapshotter__mainQueue_serviceRequest_metrics_completion___block_invoke_5_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_1(&dword_22D9C5000, a2, a3, "finalizeForSnapshotting failed after timeout: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -164,49 +164,46 @@ LABEL_25:
 
 - (void)writeTo:(id)to
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   toCopy = to;
   if ([(_CPVisibleResultsFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v6 = self->_results;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v37 objects:v43 count:16];
-  if (v7)
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v5 = self->_results;
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v38;
+    v7 = v6;
+    v8 = *v31;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v38 != v9)
+        if (*v31 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        ++v10;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v37 objects:v43 count:16];
+      while (v7 != v9);
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 
   if ([(_CPVisibleResultsFeedback *)self triggerEvent])
   {
-    triggerEvent = self->_triggerEvent;
     PBDataWriterWriteInt32Field();
   }
 
@@ -218,83 +215,78 @@ LABEL_25:
     PBDataWriterWriteSubmessage();
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v15 = self->_uniqueIdsOfVisibleButtons;
-  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v33 objects:v42 count:16];
-  if (v16)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v12 = self->_uniqueIdsOfVisibleButtons;
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v26 objects:v35 count:16];
+  if (v13)
   {
-    v17 = v16;
-    v18 = *v34;
+    v14 = v13;
+    v15 = *v27;
     do
     {
-      v19 = 0;
+      v16 = 0;
       do
       {
-        if (*v34 != v18)
+        if (*v27 != v15)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v12);
         }
 
-        [*(*(&v33 + 1) + 8 * v19) unsignedLongLongValue];
+        [*(*(&v26 + 1) + 8 * v16) unsignedLongLongValue];
         PBDataWriterWriteUint64Field();
-        ++v19;
+        ++v16;
       }
 
-      while (v17 != v19);
-      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      while (v14 != v16);
+      v14 = [(NSArray *)v12 countByEnumeratingWithState:&v26 objects:v35 count:16];
     }
 
-    while (v17);
+    while (v14);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v20 = self->_uniqueIdentifiersOfVisibleCardSections;
-  v21 = [(NSArray *)v20 countByEnumeratingWithState:&v29 objects:v41 count:16];
-  if (v21)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v17 = self->_uniqueIdentifiersOfVisibleCardSections;
+  v18 = [(NSArray *)v17 countByEnumeratingWithState:&v22 objects:v34 count:16];
+  if (v18)
   {
-    v22 = v21;
-    v23 = *v30;
+    v19 = v18;
+    v20 = *v23;
     do
     {
-      v24 = 0;
+      v21 = 0;
       do
       {
-        if (*v30 != v23)
+        if (*v23 != v20)
         {
-          objc_enumerationMutation(v20);
+          objc_enumerationMutation(v17);
         }
 
-        v25 = *(*(&v29 + 1) + 8 * v24);
         PBDataWriterWriteStringField();
-        ++v24;
+        ++v21;
       }
 
-      while (v22 != v24);
-      v22 = [(NSArray *)v20 countByEnumeratingWithState:&v29 objects:v41 count:16];
+      while (v19 != v21);
+      v19 = [(NSArray *)v17 countByEnumeratingWithState:&v22 objects:v34 count:16];
     }
 
-    while (v22);
+    while (v19);
   }
 
   if ([(_CPVisibleResultsFeedback *)self isFilterBarShown])
   {
-    isFilterBarShown = self->_isFilterBarShown;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPVisibleResultsFeedback *)self inputToResultShownMs])
   {
-    inputToResultShownMs = self->_inputToResultShownMs;
     PBDataWriterWriteInt32Field();
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addUniqueIdentifiersOfVisibleCardSections:(id)sections
@@ -317,9 +309,7 @@ LABEL_25:
 
 - (void)setUniqueIdentifiersOfVisibleCardSections:(id)sections
 {
-  v4 = [sections mutableCopy];
-  uniqueIdentifiersOfVisibleCardSections = self->_uniqueIdentifiersOfVisibleCardSections;
-  self->_uniqueIdentifiersOfVisibleCardSections = v4;
+  self->_uniqueIdentifiersOfVisibleCardSections = [sections mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -350,9 +340,7 @@ LABEL_25:
 
 - (void)setUniqueIdsOfVisibleButtons:(id)buttons
 {
-  v4 = [buttons mutableCopy];
-  uniqueIdsOfVisibleButtons = self->_uniqueIdsOfVisibleButtons;
-  self->_uniqueIdsOfVisibleButtons = v4;
+  self->_uniqueIdsOfVisibleButtons = [buttons mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -377,9 +365,7 @@ LABEL_25:
 
 - (void)setResults:(id)results
 {
-  v4 = [results mutableCopy];
-  results = self->_results;
-  self->_results = v4;
+  self->_results = [results mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -400,11 +386,11 @@ LABEL_25:
 
 - (_CPVisibleResultsFeedback)initWithFacade:(id)facade
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
-  v49.receiver = self;
-  v49.super_class = _CPVisibleResultsFeedback;
-  v5 = [(_CPVisibleResultsFeedback *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = _CPVisibleResultsFeedback;
+  v5 = [(_CPVisibleResultsFeedback *)&v48 init];
   if (v5)
   {
     -[_CPVisibleResultsFeedback setTimestamp:](v5, "setTimestamp:", [facadeCopy timestamp]);
@@ -419,30 +405,30 @@ LABEL_25:
       v7 = 0;
     }
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     results2 = [facadeCopy results];
-    v9 = [results2 countByEnumeratingWithState:&v45 objects:v52 count:16];
+    v9 = [results2 countByEnumeratingWithState:&v44 objects:v51 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v46;
+      v11 = *v45;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v46 != v11)
+          if (*v45 != v11)
           {
             objc_enumerationMutation(results2);
           }
 
-          v13 = [[_CPSearchResultForFeedback alloc] initWithFacade:*(*(&v45 + 1) + 8 * i)];
+          v13 = [[_CPSearchResultForFeedback alloc] initWithFacade:*(*(&v44 + 1) + 8 * i)];
           [v7 addObject:v13];
         }
 
-        v10 = [results2 countByEnumeratingWithState:&v45 objects:v52 count:16];
+        v10 = [results2 countByEnumeratingWithState:&v44 objects:v51 count:16];
       }
 
       while (v10);
@@ -471,32 +457,32 @@ LABEL_25:
       v19 = 0;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     uniqueIdsOfVisibleButtons2 = [facadeCopy uniqueIdsOfVisibleButtons];
-    v21 = [uniqueIdsOfVisibleButtons2 countByEnumeratingWithState:&v41 objects:v51 count:16];
+    v21 = [uniqueIdsOfVisibleButtons2 countByEnumeratingWithState:&v40 objects:v50 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v42;
+      v23 = *v41;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v42 != v23)
+          if (*v41 != v23)
           {
             objc_enumerationMutation(uniqueIdsOfVisibleButtons2);
           }
 
-          if (*(*(&v41 + 1) + 8 * j))
+          if (*(*(&v40 + 1) + 8 * j))
           {
             [v19 addObject:?];
           }
         }
 
-        v22 = [uniqueIdsOfVisibleButtons2 countByEnumeratingWithState:&v41 objects:v51 count:16];
+        v22 = [uniqueIdsOfVisibleButtons2 countByEnumeratingWithState:&v40 objects:v50 count:16];
       }
 
       while (v22);
@@ -514,32 +500,32 @@ LABEL_25:
       v26 = 0;
     }
 
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
     v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     uniqueIdentifiersOfVisibleCardSections2 = [facadeCopy uniqueIdentifiersOfVisibleCardSections];
-    v28 = [uniqueIdentifiersOfVisibleCardSections2 countByEnumeratingWithState:&v37 objects:v50 count:16];
+    v28 = [uniqueIdentifiersOfVisibleCardSections2 countByEnumeratingWithState:&v36 objects:v49 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v38;
+      v30 = *v37;
       do
       {
         for (k = 0; k != v29; ++k)
         {
-          if (*v38 != v30)
+          if (*v37 != v30)
           {
             objc_enumerationMutation(uniqueIdentifiersOfVisibleCardSections2);
           }
 
-          if (*(*(&v37 + 1) + 8 * k))
+          if (*(*(&v36 + 1) + 8 * k))
           {
             [v26 addObject:?];
           }
         }
 
-        v29 = [uniqueIdentifiersOfVisibleCardSections2 countByEnumeratingWithState:&v37 objects:v50 count:16];
+        v29 = [uniqueIdentifiersOfVisibleCardSections2 countByEnumeratingWithState:&v36 objects:v49 count:16];
       }
 
       while (v29);
@@ -558,7 +544,6 @@ LABEL_25:
     v34 = v5;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)typeAsString:(int)string;
 - (int)type;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -40,6 +41,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)typeAsString:(int)string
+{
+  if (string)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = @"contactInteraction";
+  }
+
+  return v4;
 }
 
 - (void)setHasEngaged:(BOOL)engaged
@@ -130,12 +146,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    timeIntervalSinceReferenceDate = self->_timeIntervalSinceReferenceDate;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -154,22 +169,20 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  type = self->_type;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_4:
-    engaged = self->_engaged;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
   if (self->_featureVector)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -272,7 +285,6 @@ LABEL_5:
     goto LABEL_17;
   }
 
-  v5 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_timeIntervalSinceReferenceDate != *(equalCopy + 1))
@@ -307,7 +319,7 @@ LABEL_5:
     }
 
 LABEL_17:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_18;
   }
 
@@ -316,7 +328,6 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v9 = *(equalCopy + 28);
   if (self->_engaged)
   {
     if ((*(equalCopy + 28) & 1) == 0)
@@ -334,17 +345,17 @@ LABEL_14:
   featureVector = self->_featureVector;
   if (featureVector | *(equalCopy + 2))
   {
-    v7 = [(ATXPBTaskAgnosticBehaviorFeatureVector *)featureVector isEqual:?];
+    v6 = [(ATXPBTaskAgnosticBehaviorFeatureVector *)featureVector isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_18:
 
-  return v7;
+  return v6;
 }
 
 - (unint64_t)hash

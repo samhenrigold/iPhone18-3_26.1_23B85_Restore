@@ -246,7 +246,7 @@ LABEL_14:
   }
 
   while (v7 != v6);
-  isSelf = geo::Intersect::isSelfIntersecting<double>(&__p);
+  isSelf = geo::Intersect::isSelfIntersecting<double>(&__p, 0);
   if (__p)
   {
     v21 = __p;
@@ -256,14 +256,14 @@ LABEL_14:
   return isSelf;
 }
 
-uint64_t __35__MKMultiPoint__isSelfIntersecting__block_invoke(uint64_t a1)
+void *__35__MKMultiPoint__isSelfIntersecting__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _determineSelfIntersecting];
   *(*(a1 + 32) + 104) = result;
   return result;
 }
 
-uint64_t __32__MKMultiPoint__mapPointsLength__block_invoke(uint64_t a1)
+char *__32__MKMultiPoint__mapPointsLength__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) points];
   result = [*(a1 + 32) pointCount];

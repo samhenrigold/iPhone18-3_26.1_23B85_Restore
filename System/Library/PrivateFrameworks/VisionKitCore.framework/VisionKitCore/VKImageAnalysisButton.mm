@@ -209,13 +209,13 @@
 {
   imageView = [(VKImageAnalysisButton *)self imageView];
   v4 = *(MEMORY[0x1E695EFD0] + 16);
-  v33 = *MEMORY[0x1E695EFD0];
-  v34 = v4;
-  v35 = *(MEMORY[0x1E695EFD0] + 32);
-  [imageView setTransform:&v33];
-  v32.receiver = self;
-  v32.super_class = VKImageAnalysisButton;
-  [(VKImageAnalysisButton *)&v32 layoutSubviews];
+  v34 = *MEMORY[0x1E695EFD0];
+  v35 = v4;
+  v36 = *(MEMORY[0x1E695EFD0] + 32);
+  [imageView setTransform:&v34];
+  v33.receiver = self;
+  v33.super_class = VKImageAnalysisButton;
+  [(VKImageAnalysisButton *)&v33 layoutSubviews];
   _backgroundView = [(VKImageAnalysisButton *)self _backgroundView];
   _selectedBackgroundView = [(VKImageAnalysisButton *)self _selectedBackgroundView];
   _selectedBackgroundColorView = [(VKImageAnalysisButton *)self _selectedBackgroundColorView];
@@ -228,29 +228,31 @@
   [(VKImageAnalysisButton *)self glyphRotation];
   v13 = v12;
   [(VKImageAnalysisButton *)self glyphScale];
-  [(VKImageAnalysisButton *)self _glyphTransformForRotation:[(VKImageAnalysisButton *)self isHighlighted] scale:v13 highlighted:v14];
-  v33 = v29;
+  v15 = v14;
+  [(VKImageAnalysisButton *)self isHighlighted];
+  objc_msgSend__glyphTransformForRotation_scale_highlighted_(self, v13, v15);
   v34 = v30;
   v35 = v31;
-  [imageView setTransform:&v33];
+  v36 = v32;
+  [imageView setTransform:&v34];
   [(VKImageAnalysisButton *)self _selectedIndicatorBounds];
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
   [_backgroundView setFrame:?];
-  [_selectedBackgroundView setFrame:{v16, v18, v20, v22}];
+  [_selectedBackgroundView setFrame:{v17, v19, v21, v23}];
   layer = [_backgroundView layer];
-  [layer setCornerRadius:v20 * 0.5];
+  [layer setCornerRadius:v21 * 0.5];
 
   layer2 = [_selectedBackgroundView layer];
-  [layer2 setCornerRadius:v20 * 0.5];
+  [layer2 setCornerRadius:v21 * 0.5];
 
   layer3 = [_selectedBackgroundColorView layer];
-  [layer3 setCornerRadius:v20 * 0.5];
+  [layer3 setCornerRadius:v21 * 0.5];
 
   layer4 = [(VKImageAnalysisButton *)self layer];
-  [layer4 setCornerRadius:v20 * 0.5];
+  [layer4 setCornerRadius:v21 * 0.5];
 
   _selectedBackgroundView2 = [(VKImageAnalysisButton *)self _selectedBackgroundView];
   [(VKImageAnalysisButton *)self bringSubviewToFront:_selectedBackgroundView2];
@@ -379,24 +381,24 @@
   _updateGlyph = [(VKImageAnalysisButton *)self _updateGlyph];
   if (function - 1 > 1)
   {
-    v10 = 0;
-    v7 = 0;
+    v9 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v10 = [MEMORY[0x1E69DC730] effectWithStyle:17];
+    v9 = [MEMORY[0x1E69DC730] effectWithStyle:17];
     _updateGlyph = [MEMORY[0x1E69DC730] effectWithStyle:12];
-    v7 = _updateGlyph;
+    v6 = _updateGlyph;
   }
 
-  if (!vk_solariumEnabled(_updateGlyph, v6) || [(VKImageAnalysisButton *)self inhibitGlassMaterial])
+  if (!vk_solariumEnabled(_updateGlyph) || [(VKImageAnalysisButton *)self inhibitGlassMaterial])
   {
     _backgroundVisualEffectView = [(VKImageAnalysisButton *)self _backgroundVisualEffectView];
-    [_backgroundVisualEffectView setEffect:v10];
+    [_backgroundVisualEffectView setEffect:v9];
 
     _selectedBackgroundVisualEffectView = [(VKImageAnalysisButton *)self _selectedBackgroundVisualEffectView];
-    [_selectedBackgroundVisualEffectView setEffect:v7];
+    [_selectedBackgroundVisualEffectView setEffect:v6];
   }
 
   [(VKImageAnalysisButton *)self _updateBackgroundColors];
@@ -464,12 +466,14 @@
   {
     self->_glyphRotation = rotation;
     [(VKImageAnalysisButton *)self glyphScale];
-    [(VKImageAnalysisButton *)self _glyphTransformForRotation:[(VKImageAnalysisButton *)self isHighlighted] scale:rotation highlighted:v5];
+    v6 = v5;
+    [(VKImageAnalysisButton *)self isHighlighted];
+    objc_msgSend__glyphTransformForRotation_scale_highlighted_(self, rotation, v6);
     imageView = [(VKImageAnalysisButton *)self imageView];
-    v7[0] = v7[3];
-    v7[1] = v7[4];
-    v7[2] = v7[5];
-    [imageView setTransform:v7];
+    v8[0] = v8[3];
+    v8[1] = v8[4];
+    v8[2] = v8[5];
+    [imageView setTransform:v8];
   }
 }
 
@@ -479,12 +483,14 @@
   {
     self->_glyphScale = scale;
     [(VKImageAnalysisButton *)self glyphRotation];
-    [(VKImageAnalysisButton *)self _glyphTransformForRotation:[(VKImageAnalysisButton *)self isHighlighted] scale:v5 highlighted:scale];
+    v6 = v5;
+    [(VKImageAnalysisButton *)self isHighlighted];
+    objc_msgSend__glyphTransformForRotation_scale_highlighted_(self, v6, scale);
     imageView = [(VKImageAnalysisButton *)self imageView];
-    v7[0] = v7[3];
-    v7[1] = v7[4];
-    v7[2] = v7[5];
-    [imageView setTransform:v7];
+    v8[0] = v8[3];
+    v8[1] = v8[4];
+    v8[2] = v8[5];
+    [imageView setTransform:v8];
   }
 }
 
@@ -526,11 +532,11 @@
 - (void)_updateBackgroundColors
 {
   function = [(VKImageAnalysisButton *)self function];
-  if ((function - 1) >= 2)
+  if (function - 1 >= 2)
   {
     if (function)
     {
-      v9 = 0;
+      v8 = 0;
       tintColor = 0;
     }
 
@@ -538,7 +544,7 @@
     {
       tintColor = [(VKImageAnalysisButton *)self tintColor];
       function = [(VKImageAnalysisButton *)self cameraModeBackgroundColor];
-      v9 = function;
+      v8 = function;
     }
   }
 
@@ -547,25 +553,25 @@
     tintColor2 = [(VKImageAnalysisButton *)self tintColor];
     tintColor = [tintColor2 colorWithAlphaComponent:0.85];
 
-    v9 = 0;
+    v8 = 0;
   }
 
-  if (!vk_solariumEnabled(function, v4) || [(VKImageAnalysisButton *)self inhibitGlassMaterial])
+  if (!vk_solariumEnabled(function) || [(VKImageAnalysisButton *)self inhibitGlassMaterial])
   {
     _selectedBackgroundColorView = [(VKImageAnalysisButton *)self _selectedBackgroundColorView];
     [_selectedBackgroundColorView setBackgroundColor:tintColor];
 
     _backgroundView = [(VKImageAnalysisButton *)self _backgroundView];
-    [_backgroundView setBackgroundColor:v9];
+    [_backgroundView setBackgroundColor:v8];
   }
 }
 
 - (void)_updateGlyph
 {
   function = [(VKImageAnalysisButton *)self function];
-  v5 = vk_solariumEnabled(function, v4);
+  v4 = vk_solariumEnabled(function);
   whiteColor = [MEMORY[0x1E69DC888] whiteColor];
-  if (function == 2 && v5)
+  if (function == 2 && v4)
   {
     if (([(VKImageAnalysisButton *)self isSelected]& 1) != 0)
     {
@@ -580,9 +586,9 @@
     }
 
     labelColor = [MEMORY[0x1E69DC888] labelColor];
-    v11 = [labelColor vk_resolvedColorWithAppearance:vk_appearanceType];
+    v10 = [labelColor vk_resolvedColorWithAppearance:vk_appearanceType];
 
-    whiteColor = v11;
+    whiteColor = v10;
   }
 
   if ([(VKImageAnalysisButton *)self prefersDarkGlyphWhenSelected])
@@ -595,23 +601,23 @@
     blackColor = whiteColor;
   }
 
-  v13 = blackColor;
+  v12 = blackColor;
   glyphConfiguration = [(VKImageAnalysisButton *)self glyphConfiguration];
   if (glyphConfiguration == 1)
   {
-    v15 = MEMORY[0x1E69DDD80];
+    v14 = MEMORY[0x1E69DDD80];
     goto LABEL_14;
   }
 
   if (!glyphConfiguration)
   {
-    v15 = MEMORY[0x1E69DDCF8];
+    v14 = MEMORY[0x1E69DDCF8];
 LABEL_14:
-    v16 = [MEMORY[0x1E69DCAD8] configurationWithTextStyle:*v15 scale:3];
+    v15 = [MEMORY[0x1E69DCAD8] configurationWithTextStyle:*v14 scale:3];
     goto LABEL_16;
   }
 
-  v16 = 0;
+  v15 = 0;
 LABEL_16:
   customSymbolFont = [(VKImageAnalysisButton *)self customSymbolFont];
 
@@ -619,108 +625,108 @@ LABEL_16:
   {
     customSymbolFont2 = [(VKImageAnalysisButton *)self customSymbolFont];
     [MEMORY[0x1E69DB878] defaultFontSize];
-    v19 = [customSymbolFont2 fontWithSize:?];
+    v18 = [customSymbolFont2 fontWithSize:?];
 
-    v20 = [MEMORY[0x1E69DCAD8] configurationWithFont:v19];
+    v19 = [MEMORY[0x1E69DCAD8] configurationWithFont:v18];
 
-    v16 = v20;
+    v15 = v19;
   }
 
   mode = [(VKImageAnalysisButton *)self mode];
   if (mode == 2)
   {
-    v23 = @"appclip";
-    v22 = 1;
+    v22 = @"appclip";
+    v21 = 1;
   }
 
   else if (mode == 1)
   {
-    v22 = 0;
-    v23 = @"qrcode.viewfinder";
+    v21 = 0;
+    v22 = @"qrcode.viewfinder";
   }
 
   else
   {
-    v22 = 0;
+    v21 = 0;
     if (mode)
     {
-      v23 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v23 = @"text.viewfinder";
+      v22 = @"text.viewfinder";
     }
   }
 
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__20;
-  v51 = __Block_byref_object_dispose__20;
-  v52 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__20;
-  v45 = __Block_byref_object_dispose__20;
   v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__20;
+  v50 = __Block_byref_object_dispose__20;
+  v51 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__20;
+  v44 = __Block_byref_object_dispose__20;
+  v45 = 0;
   if (![(VKImageAnalysisButton *)self supportsDynamicType])
   {
     traitCollection2 = [(VKImageAnalysisButton *)self traitCollection];
     traitCollection3 = [traitCollection2 vk_traitCollectionWithContentSize:*MEMORY[0x1E69DDC70]];
 
-    if (v22)
+    if (v21)
     {
       goto LABEL_27;
     }
 
 LABEL_29:
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __37__VKImageAnalysisButton__updateGlyph__block_invoke;
-    v34[3] = &unk_1E7BE7410;
-    v35 = v23;
-    v26 = v16;
-    v36 = v26;
-    v39 = &v47;
-    v37 = whiteColor;
-    v40 = &v41;
-    v38 = v13;
-    [traitCollection3 vk_performAsCurrent:v34];
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __37__VKImageAnalysisButton__updateGlyph__block_invoke;
+    v33[3] = &unk_1E7BE7410;
+    v34 = v22;
+    v25 = v15;
+    v35 = v25;
+    v38 = &v46;
+    v36 = whiteColor;
+    v39 = &v40;
+    v37 = v12;
+    [traitCollection3 vk_performAsCurrent:v33];
 
-    v30 = v35;
+    v29 = v34;
     goto LABEL_30;
   }
 
   traitCollection3 = [(VKImageAnalysisButton *)self traitCollection];
-  if (!v22)
+  if (!v21)
   {
     goto LABEL_29;
   }
 
 LABEL_27:
-  v25 = [MEMORY[0x1E69DCAD8] configurationWithHierarchicalColor:whiteColor];
-  v26 = [v16 configurationByApplyingConfiguration:v25];
+  v24 = [MEMORY[0x1E69DCAD8] configurationWithHierarchicalColor:whiteColor];
+  v25 = [v15 configurationByApplyingConfiguration:v24];
 
-  v27 = [MEMORY[0x1E69DCAB8] systemImageNamed:v23 withConfiguration:v26];
-  v28 = v48[5];
-  v48[5] = v27;
+  v26 = [MEMORY[0x1E69DCAB8] systemImageNamed:v22 withConfiguration:v25];
+  v27 = v47[5];
+  v47[5] = v26;
 
-  v29 = [MEMORY[0x1E69DCAD8] configurationWithHierarchicalColor:v13];
-  v30 = [v26 configurationByApplyingConfiguration:v29];
+  v28 = [MEMORY[0x1E69DCAD8] configurationWithHierarchicalColor:v12];
+  v29 = [v25 configurationByApplyingConfiguration:v28];
 
-  v31 = [MEMORY[0x1E69DCAB8] systemImageNamed:v23 withConfiguration:v30];
-  v32 = v42[5];
-  v42[5] = v31;
+  v30 = [MEMORY[0x1E69DCAB8] systemImageNamed:v22 withConfiguration:v29];
+  v31 = v41[5];
+  v41[5] = v30;
 
 LABEL_30:
-  [(VKImageAnalysisButton *)self setImage:v48[5] forState:0];
-  [(VKImageAnalysisButton *)self setImage:v42[5] forState:4];
-  [(VKImageAnalysisButton *)self setImage:v42[5] forState:5];
+  [(VKImageAnalysisButton *)self setImage:v47[5] forState:0];
+  [(VKImageAnalysisButton *)self setImage:v41[5] forState:4];
+  [(VKImageAnalysisButton *)self setImage:v41[5] forState:5];
 
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v47, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v46, 8);
 }
 
 void __37__VKImageAnalysisButton__updateGlyph__block_invoke(void *a1)

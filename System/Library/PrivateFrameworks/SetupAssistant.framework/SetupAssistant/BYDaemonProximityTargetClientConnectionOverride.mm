@@ -3,8 +3,10 @@
 - (id)remoteObject;
 - (void)beginAdvertisingProximitySetup;
 - (void)dismissProximityPinCode;
+- (void)displayProximityPinCode:(id)code visual:(BOOL)visual;
 - (void)doWithSetupCtlConnections:(id)connections;
 - (void)endAdvertisingProximitySetup;
+- (void)executeFileTransferSessionTemplateWithError:(BOOL)error;
 - (void)executeResumeConnectionCompletionWithHandshake;
 - (void)executeSuspendConnectionForSoftwareUpdateCompletion;
 - (void)fileTransferSessionTemplate:(id)template;
@@ -73,6 +75,15 @@
   [(BYDaemonProximityTargetClientConnectionOverride *)self setIsShowingPairingCode:0];
   remoteObject = [(BYDaemonProximityTargetClientConnectionOverride *)self remoteObject];
   [remoteObject dismissProximityPinCode];
+}
+
+- (void)displayProximityPinCode:(id)code visual:(BOOL)visual
+{
+  visualCopy = visual;
+  codeCopy = code;
+  [(BYDaemonProximityTargetClientConnectionOverride *)self setIsShowingPairingCode:1];
+  remoteObject = [(BYDaemonProximityTargetClientConnectionOverride *)self remoteObject];
+  [remoteObject displayProximityPinCode:codeCopy visual:visualCopy];
 }
 
 - (void)proximityConnectionInitiated
@@ -257,6 +268,19 @@
     }
 
     while (v9);
+  }
+}
+
+- (void)executeFileTransferSessionTemplateWithError:(BOOL)error
+{
+  fileTransferSessionTemplateCompletion = [(BYDaemonProximityTargetClientConnectionOverride *)self fileTransferSessionTemplateCompletion];
+
+  if (fileTransferSessionTemplateCompletion)
+  {
+    fileTransferSessionTemplateCompletion2 = [(BYDaemonProximityTargetClientConnectionOverride *)self fileTransferSessionTemplateCompletion];
+    fileTransferSessionTemplateCompletion2[2](fileTransferSessionTemplateCompletion2, 0);
+
+    [(BYDaemonProximityTargetClientConnectionOverride *)self setFileTransferSessionTemplateCompletion:0];
   }
 }
 

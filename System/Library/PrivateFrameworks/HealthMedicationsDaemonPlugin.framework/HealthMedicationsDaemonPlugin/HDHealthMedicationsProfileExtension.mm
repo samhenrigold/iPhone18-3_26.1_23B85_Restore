@@ -24,11 +24,11 @@
 
 - (HDHealthMedicationsProfileExtension)initWithProfile:(id)profile
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v12.receiver = self;
-  v12.super_class = HDHealthMedicationsProfileExtension;
-  v5 = [(HDHealthMedicationsProfileExtension *)&v12 init];
+  v11.receiver = self;
+  v11.super_class = HDHealthMedicationsProfileExtension;
+  v5 = [(HDHealthMedicationsProfileExtension *)&v11 init];
   v6 = v5;
   if (v5)
   {
@@ -41,14 +41,13 @@
       [profileCopy profileType];
       v9 = HKStringFromProfileType();
       *buf = 138543618;
-      v14 = v8;
-      v15 = 2114;
-      v16 = v9;
+      v13 = v8;
+      v14 = 2114;
+      v15 = v9;
       _os_log_impl(&dword_25181C000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Plugin loaded for profileType %{public}@", buf, 0x16u);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

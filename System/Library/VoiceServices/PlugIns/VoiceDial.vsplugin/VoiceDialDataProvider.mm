@@ -91,7 +91,7 @@
     self->_addressBook = v4;
     if (!v4)
     {
-      v5 = PHDefaultLog();
+      v5 = PHDefaultLog(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         [(VoiceDialResultHandler *)&error _addressBook];
@@ -128,25 +128,25 @@
 
 - (void)getLabels:(id *)labels andWeightedLabels:(id *)weightedLabels ForABProperty:(int)property
 {
-  v69 = *MEMORY[0x29EDCA608];
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x3032000000;
-  v64 = __Block_byref_object_copy_;
-  v65 = __Block_byref_object_dispose_;
-  v66 = 0;
-  v55 = 0;
-  v56 = &v55;
-  v57 = 0x3032000000;
-  v58 = __Block_byref_object_copy_;
-  v59 = __Block_byref_object_dispose_;
+  v68 = *MEMORY[0x29EDCA608];
   v60 = 0;
-  v53[0] = 0;
-  v53[1] = v53;
-  v53[2] = 0x3032000000;
-  v53[3] = __Block_byref_object_copy_;
-  v53[4] = __Block_byref_object_dispose_;
+  v61 = &v60;
+  v62 = 0x3032000000;
+  v63 = __Block_byref_object_copy_;
+  v64 = __Block_byref_object_dispose_;
+  v65 = 0;
   v54 = 0;
+  v55 = &v54;
+  v56 = 0x3032000000;
+  v57 = __Block_byref_object_copy_;
+  v58 = __Block_byref_object_dispose_;
+  v59 = 0;
+  v52[0] = 0;
+  v52[1] = v52;
+  v52[2] = 0x3032000000;
+  v52[3] = __Block_byref_object_copy_;
+  v52[4] = __Block_byref_object_dispose_;
+  v53 = 0;
   if (!labels)
   {
     v22 = 0;
@@ -165,40 +165,40 @@
   block[1] = 3221225472;
   block[2] = __67__VoiceDialDataProvider_getLabels_andWeightedLabels_ForABProperty___block_invoke;
   block[3] = &unk_29EDEC150;
-  block[4] = v53;
-  block[5] = &v55;
-  block[6] = &v61;
+  block[4] = v52;
+  block[5] = &v54;
+  block[6] = &v60;
   block[7] = _addressBook;
   dispatch_sync(serialQueue, block);
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
-  v9 = v62[5];
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v9 = v61[5];
   v10 = 0;
   v11 = 0;
-  v12 = [v9 countByEnumeratingWithState:&v48 objects:v68 count:16];
+  v12 = [v9 countByEnumeratingWithState:&v47 objects:v67 count:16];
   if (!v12)
   {
     goto LABEL_19;
   }
 
-  v13 = *v49;
+  v13 = *v48;
   do
   {
     for (i = 0; i != v12; ++i)
     {
-      if (*v49 != v13)
+      if (*v48 != v13)
       {
         objc_enumerationMutation(v9);
       }
 
-      v15 = *(*(&v48 + 1) + 8 * i);
-      v16 = v56[5];
+      v15 = *(*(&v47 + 1) + 8 * i);
+      v16 = v55[5];
       if (v16)
       {
-        v17 = [v16 objectForKey:*(*(&v48 + 1) + 8 * i)];
+        v17 = [v16 objectForKey:*(*(&v47 + 1) + 8 * i)];
 
         if (v17)
         {
@@ -229,13 +229,13 @@ LABEL_15:
       v10 = 0;
     }
 
-    v12 = [v9 countByEnumeratingWithState:&v48 objects:v68 count:16];
+    v12 = [v9 countByEnumeratingWithState:&v47 objects:v67 count:16];
   }
 
   while (v12);
 LABEL_19:
 
-  v19 = v56[5];
+  v19 = v55[5];
   if (!v19)
   {
 
@@ -271,7 +271,7 @@ LABEL_24:
     v21 = 0;
   }
 
-  v26 = v56[5];
+  v26 = v55[5];
   if (!v26)
   {
 
@@ -304,7 +304,7 @@ LABEL_34:
     }
   }
 
-  v29 = v56[5];
+  v29 = v55[5];
   if (!v29)
   {
 
@@ -337,7 +337,7 @@ LABEL_43:
     }
   }
 
-  v32 = v56[5];
+  v32 = v55[5];
   if (!v32)
   {
 
@@ -376,26 +376,26 @@ LABEL_52:
 
   if (v25 && (v35 = [objc_alloc(MEMORY[0x29EDB8DC0]) initWithContentsOfURL:v25]) != 0)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v22 = v35;
     v23 = 0;
-    v36 = [v22 countByEnumeratingWithState:&v44 objects:v67 count:16];
+    v36 = [v22 countByEnumeratingWithState:&v43 objects:v66 count:16];
     if (v36)
     {
-      v37 = *v45;
+      v37 = *v44;
       do
       {
         for (j = 0; j != v36; ++j)
         {
-          if (*v45 != v37)
+          if (*v44 != v37)
           {
             objc_enumerationMutation(v22);
           }
 
-          v39 = [v22 objectForKey:*(*(&v44 + 1) + 8 * j)];
+          v39 = [v22 objectForKey:*(*(&v43 + 1) + 8 * j)];
 
           v23 = v39;
           if (v39)
@@ -404,7 +404,7 @@ LABEL_52:
           }
         }
 
-        v36 = [v22 countByEnumeratingWithState:&v44 objects:v67 count:16];
+        v36 = [v22 countByEnumeratingWithState:&v43 objects:v66 count:16];
       }
 
       while (v36);
@@ -425,12 +425,10 @@ LABEL_52:
   }
 
 LABEL_72:
-  _Block_object_dispose(v53, 8);
+  _Block_object_dispose(v52, 8);
 
-  _Block_object_dispose(&v55, 8);
-  _Block_object_dispose(&v61, 8);
-
-  v41 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v60, 8);
 }
 
 void __67__VoiceDialDataProvider_getLabels_andWeightedLabels_ForABProperty___block_invoke(void *a1)
@@ -440,12 +438,26 @@ void __67__VoiceDialDataProvider_getLabels_andWeightedLabels_ForABProperty___blo
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = *(a1[4] + 8);
-  v6 = *(v5 + 40);
-  if (v6)
+  v5 = *(*(a1[4] + 8) + 40);
+  if (v5)
   {
-    v7 = *(v5 + 40);
-    v8 = ABAddressBookCopyLocalizedStringsForLanguageArray();
+    v6 = ABAddressBookCopyLocalizedStringsForLanguageArray();
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  objc_storeStrong((*(a1[5] + 8) + 40), v6);
+  if (v5)
+  {
+  }
+
+  v7 = a1[7];
+  if (v7)
+  {
+    v8 = ABAddressBookCopyAllLabelsForProperty();
   }
 
   else
@@ -453,27 +465,9 @@ void __67__VoiceDialDataProvider_getLabels_andWeightedLabels_ForABProperty___blo
     v8 = 0;
   }
 
-  objc_storeStrong((*(a1[5] + 8) + 40), v8);
-  if (v6)
-  {
-  }
-
-  v9 = a1[7];
-  if (v9)
-  {
-    v10 = *MEMORY[0x29EDBE250];
-    v11 = a1[7];
-    v12 = ABAddressBookCopyAllLabelsForProperty();
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v13 = v12;
-  objc_storeStrong((*(a1[6] + 8) + 40), v12);
-  if (v9)
+  v9 = v8;
+  objc_storeStrong((*(a1[6] + 8) + 40), v8);
+  if (v7)
   {
   }
 }
@@ -696,10 +690,6 @@ LABEL_23:
 
 uint64_t __49__VoiceDialDataProvider__voiceDialRecordAtIndex___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 56);
-  v5 = *(v3 + 64);
   result = ABCopyArrayOfPeopleAtOffset();
   *(*(a1 + 32) + 16) = result;
   return result;
@@ -902,19 +892,18 @@ void __48__VoiceDialDataProvider_cacheValidityIdentifier__block_invoke(uint64_t 
   if (*(a1 + 48))
   {
     v2 = ABAddressBookCopyUniqueIdentifier();
-    v3 = *(a1 + 48);
     SequenceNumber = ABAddressBookGetSequenceNumber();
     CompositeNameFormatForRecord = ABPersonGetCompositeNameFormatForRecord(0);
     if (v2)
     {
-      v6 = CompositeNameFormatForRecord;
-      v12 = [objc_alloc(MEMORY[0x29EDBA070]) initWithInt:SequenceNumber];
-      v7 = [objc_alloc(MEMORY[0x29EDBA070]) initWithUnsignedInt:v6];
-      v8 = [objc_alloc(MEMORY[0x29EDBA070]) initWithBool:{objc_msgSend(*(a1 + 32), "_shouldUseCompositeNamesOnly")}];
-      v9 = [MEMORY[0x29EDB8DC0] dictionaryWithObjectsAndKeys:{v2, @"dbid", v12, @"seq", v7, @"name-order", v8, @"comp-only", 0}];
-      v10 = *(*(a1 + 40) + 8);
-      v11 = *(v10 + 40);
-      *(v10 + 40) = v9;
+      v5 = CompositeNameFormatForRecord;
+      v11 = [objc_alloc(MEMORY[0x29EDBA070]) initWithInt:SequenceNumber];
+      v6 = [objc_alloc(MEMORY[0x29EDBA070]) initWithUnsignedInt:v5];
+      v7 = [objc_alloc(MEMORY[0x29EDBA070]) initWithBool:{objc_msgSend(*(a1 + 32), "_shouldUseCompositeNamesOnly")}];
+      v8 = [MEMORY[0x29EDB8DC0] dictionaryWithObjectsAndKeys:{v2, @"dbid", v11, @"seq", v6, @"name-order", v7, @"comp-only", 0}];
+      v9 = *(*(a1 + 40) + 8);
+      v10 = *(v9 + 40);
+      *(v9 + 40) = v8;
 
       CFRelease(v2);
     }
@@ -1041,23 +1030,22 @@ void __56__VoiceDialDataProvider_isCacheValidityIdentifierValid___block_invoke(u
       {
         *(*(*(a1 + 64) + 8) + 24) = [v8 intValue];
         v9 = *(*(*(a1 + 64) + 8) + 24);
-        v10 = *(a1 + 88);
         if (v9 == ABAddressBookGetSequenceNumber() || [*(a1 + 40) _sequenceNumberIsValid:*(*(*(a1 + 64) + 8) + 24)])
         {
-          v11 = [*(a1 + 32) objectForKey:@"name-order"];
-          v12 = *(*(a1 + 72) + 8);
-          v13 = *(v12 + 40);
-          *(v12 + 40) = v11;
+          v10 = [*(a1 + 32) objectForKey:@"name-order"];
+          v11 = *(*(a1 + 72) + 8);
+          v12 = *(v11 + 40);
+          *(v11 + 40) = v10;
 
-          v14 = *(*(*(a1 + 72) + 8) + 40);
-          if (v14)
+          v13 = *(*(*(a1 + 72) + 8) + 40);
+          if (v13)
           {
-            v15 = [v14 unsignedIntValue];
-            if (v15 == ABPersonGetCompositeNameFormatForRecord(0))
+            v14 = [v13 unsignedIntValue];
+            if (v14 == ABPersonGetCompositeNameFormatForRecord(0))
             {
-              v16 = [*(a1 + 40) _shouldUseCompositeNamesOnly];
-              v17 = [*(a1 + 32) objectForKey:@"comp-only"];
-              *(*(*(a1 + 80) + 8) + 24) = v16 ^ [v17 BOOLValue] ^ 1;
+              v15 = [*(a1 + 40) _shouldUseCompositeNamesOnly];
+              v16 = [*(a1 + 32) objectForKey:@"comp-only"];
+              *(*(*(a1 + 80) + 8) + 24) = v15 ^ [v16 BOOLValue] ^ 1;
             }
           }
         }
@@ -1087,18 +1075,16 @@ void __46__VoiceDialDataProvider_beginReportingChanges__block_invoke(uint64_t a1
 {
   if (*(a1 + 40))
   {
-    SequenceNumber = ABAddressBookGetSequenceNumber();
-    v3 = *(a1 + 40);
-    *(*(a1 + 32) + 88) = SequenceNumber;
+    *(*(a1 + 32) + 88) = ABAddressBookGetSequenceNumber();
     *(*(a1 + 32) + 96) = ABAddressBookCopyUniqueIdentifier();
     ABAddressBookRegisterExternalChangeCallback(*(a1 + 40), _VoiceDialAddressBookChangedCallBack, *(a1 + 32));
   }
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, *(a1 + 32), _VoiceDialAddressBookPrefsChangedCallBack, @"com.apple.AddressBook.PreferenceChanged", 0, CFNotificationSuspensionBehaviorDrop);
-  v5 = *(a1 + 32);
+  v3 = *(a1 + 32);
 
-  CFNotificationCenterAddObserver(DarwinNotifyCenter, v5, _VoiceDialPreferencesChangedCallBack, @"com.apple.voicedial.prefschanged", 0, CFNotificationSuspensionBehaviorDrop);
+  CFNotificationCenterAddObserver(DarwinNotifyCenter, v3, _VoiceDialPreferencesChangedCallBack, @"com.apple.voicedial.prefschanged", 0, CFNotificationSuspensionBehaviorDrop);
 }
 
 - (void)stopReportingChanges
@@ -1163,65 +1149,62 @@ void __50__VoiceDialDataProvider__handleAddressBookChanged__block_invoke(uint64_
 
   v3 = *(*(a1 + 32) + 88);
   ABAddressBookRevert(v2);
-  v4 = *(a1 + 40);
-  v5 = ABAddressBookCopyUniqueIdentifier();
-  v6 = v5;
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 96);
-  if (v5 != v8)
+  v4 = ABAddressBookCopyUniqueIdentifier();
+  v5 = v4;
+  v6 = *(a1 + 32);
+  v7 = *(v6 + 96);
+  if (v4 != v7)
   {
-    if (v5)
+    if (v4)
     {
-      v9 = v8 == 0;
+      v8 = v7 == 0;
     }
 
     else
     {
-      v9 = 1;
+      v8 = 1;
     }
 
-    if (v9)
+    if (v8)
     {
       goto LABEL_9;
     }
 
-    if (CFStringCompare(v5, v8, 0))
+    if (CFStringCompare(v4, v7, 0))
     {
-      v7 = *(a1 + 32);
-      v8 = *(v7 + 96);
+      v6 = *(a1 + 32);
+      v7 = *(v6 + 96);
 LABEL_9:
-      if (v8)
+      if (v7)
       {
-        CFRelease(v8);
-        v7 = *(a1 + 32);
+        CFRelease(v7);
+        v6 = *(a1 + 32);
       }
 
-      *(v7 + 96) = v6;
-      v10 = *(*(a1 + 32) + 96);
-      if (v10)
+      *(v6 + 96) = v5;
+      v9 = *(*(a1 + 32) + 96);
+      if (v9)
       {
-        CFRetain(v10);
+        CFRetain(v9);
       }
 
-      v11 = *(a1 + 40);
       *(*(a1 + 32) + 88) = ABAddressBookGetSequenceNumber();
       goto LABEL_14;
     }
   }
 
-  v12 = *(a1 + 40);
   *(*(a1 + 32) + 88) = ABAddressBookGetSequenceNumber();
-  v13 = *(a1 + 32);
-  if (v13[22] != v3 && ([v13 _sequenceNumberIsValid:v3] & 1) == 0)
+  v10 = *(a1 + 32);
+  if (v10[22] != v3 && ([v10 _sequenceNumberIsValid:v3] & 1) == 0)
   {
 LABEL_14:
     VSRecognitionModelDataProviderChanged();
   }
 
-  if (v6)
+  if (v5)
   {
 
-    CFRelease(v6);
+    CFRelease(v5);
   }
 }
 

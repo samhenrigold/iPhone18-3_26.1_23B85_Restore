@@ -40,7 +40,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -94,13 +94,13 @@
     {
       v37 = NSStringFromSelector(a2);
       *buf = 138413058;
-      v48 = v37;
-      v49 = 2048;
-      v50 = v14;
-      v51 = 1024;
-      v52 = dataType;
-      v53 = 2112;
-      v54 = deviceCopy;
+      v47 = v37;
+      v48 = 2048;
+      v49 = v14;
+      v50 = 1024;
+      v51 = dataType;
+      v52 = 2112;
+      v53 = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v34, OS_LOG_TYPE_ERROR, "%@: sourceTensor[%lu] uses unsupported data type = %d on a device = %@", buf, 0x26u);
     }
 
@@ -165,8 +165,8 @@ LABEL_11:
     if (v34 && [v34 count])
     {
       computeEngine4 = [deviceCopy computeEngine];
-      v46 = tensorCopy;
-      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
+      v45 = tensorCopy;
+      v40 = [MEMORY[0x277CBEA60] arrayWithObjects:&v45 count:1];
       v36 = [computeEngine4 compileLayerDeviceOps:v34 sourceTensors:tensorsCopy resultTensors:v40];
 
       goto LABEL_25;
@@ -209,26 +209,25 @@ LABEL_33:
 LABEL_25:
 
 LABEL_31:
-  v45.receiver = self;
-  v45.super_class = MLCConcatenationLayer;
-  [(MLCLayer *)&v45 bindDevice:deviceCopy deviceOps:v34];
+  v44.receiver = self;
+  v44.super_class = MLCConcatenationLayer;
+  [(MLCLayer *)&v44 bindDevice:deviceCopy deviceOps:v34];
 LABEL_36:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
 - (id)resultTensorFromSources:(id)sources
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   sourcesCopy = sources;
   v5 = [MEMORY[0x277CBEBF8] mutableCopy];
   v6 = 0;
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   while (1)
   {
-    v7 = [sourcesCopy objectAtIndexedSubscript:{0, v35, v36}];
+    v7 = [sourcesCopy objectAtIndexedSubscript:{0, v34, v35}];
     descriptor = [v7 descriptor];
     shape = [descriptor shape];
     v10 = [shape count];
@@ -242,7 +241,7 @@ LABEL_36:
     descriptor2 = [v11 descriptor];
     shape2 = [descriptor2 shape];
     v14 = [shape2 objectAtIndexedSubscript:v6];
-    *(&v35 + v6) = [v14 unsignedIntegerValue];
+    *(&v34 + v6) = [v14 unsignedIntegerValue];
 
     ++v6;
   }
@@ -258,7 +257,7 @@ LABEL_36:
       v19 = [shape3 objectAtIndexedSubscript:{-[MLCConcatenationLayer dimension](self, "dimension")}];
       unsignedIntegerValue = [v19 unsignedIntegerValue];
       dimension = [(MLCConcatenationLayer *)self dimension];
-      *(&v35 + dimension) += unsignedIntegerValue;
+      *(&v34 + dimension) += unsignedIntegerValue;
 
       ++v15;
     }
@@ -278,7 +277,7 @@ LABEL_36:
       break;
     }
 
-    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(&v35 + i)];
+    v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(&v34 + i)];
     [v5 setObject:v27 atIndexedSubscript:i];
   }
 
@@ -288,8 +287,6 @@ LABEL_36:
   v31 = +[MLCTensorDescriptor descriptorWithShape:dataType:](MLCTensorDescriptor, "descriptorWithShape:dataType:", v28, [descriptor5 dataType]);
 
   v32 = [MLCTensor tensorWithDescriptor:v31];
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
@@ -327,35 +324,26 @@ LABEL_36:
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.5(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

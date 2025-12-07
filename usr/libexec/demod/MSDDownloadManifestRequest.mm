@@ -80,9 +80,9 @@
 {
   errorCopy = error;
   payloadCopy = payload;
-  v21.receiver = self;
-  v21.super_class = MSDDownloadManifestRequest;
-  v8 = [(MSDServerRequest *)&v21 parseResponseForError:errorCopy andPayload:payloadCopy];
+  v22.receiver = self;
+  v22.super_class = MSDDownloadManifestRequest;
+  v8 = [(MSDServerRequest *)&v22 parseResponseForError:errorCopy andPayload:payloadCopy];
   error = [v8 error];
 
   if (error)
@@ -92,38 +92,38 @@
 
   else
   {
-    v20 = errorCopy;
-    v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v20];
-    v11 = v20;
+    v21 = errorCopy;
+    v10 = [(MSDCommandServerRequest *)self getDataDictFromPayload:payloadCopy error:&v21];
+    v11 = v21;
 
     if (v10)
     {
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100063A54(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         getName = [(MSDServerRequest *)self getName];
         *buf = 138543618;
-        v23 = getName;
-        v24 = 2114;
-        v25 = v10;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}@: Details to download files are: %{public}@", buf, 0x16u);
+        v24 = getName;
+        v25 = 2114;
+        v26 = v10;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Details to download files are: %{public}@", buf, 0x16u);
       }
 
-      v14 = [v10 objectForKey:@"FileName"];
-      if (v14)
+      v15 = [v10 objectForKey:@"FileName"];
+      if (v15)
       {
-        v15 = v14;
-        [v8 setFileName:v14];
-        v16 = [v10 objectForKey:@"OriginServer"];
-        [v8 setOriginServer:v16];
+        v16 = v15;
+        [v8 setFileName:v15];
+        v17 = [v10 objectForKey:@"OriginServer"];
+        [v8 setOriginServer:v17];
       }
 
       else
       {
-        v19 = v11;
-        sub_1000C1390(&v19, 3727744512, @"Unexpected server response.");
-        v15 = v11;
-        v11 = v19;
+        v20 = v11;
+        sub_1000C1390(&v20, 3727744512, @"Unexpected server response.");
+        v16 = v11;
+        v11 = v20;
       }
     }
 

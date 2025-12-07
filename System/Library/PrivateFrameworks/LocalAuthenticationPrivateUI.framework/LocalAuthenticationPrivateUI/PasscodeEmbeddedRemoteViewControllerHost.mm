@@ -17,7 +17,7 @@ void __75___PasscodeEmbeddedRemoteViewControllerHost_serviceViewControllerInterf
   serviceViewControllerInterface_interface = v0;
 }
 
-void __56___PasscodeEmbeddedRemoteViewControllerHost_setContext___block_invoke()
+void __56___PasscodeEmbeddedRemoteViewControllerHost_setContext___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -25,7 +25,7 @@ void __56___PasscodeEmbeddedRemoteViewControllerHost_setContext___block_invoke()
   }
 }
 
-void __57___PasscodeEmbeddedRemoteViewControllerHost_startEditing__block_invoke()
+void __57___PasscodeEmbeddedRemoteViewControllerHost_startEditing__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
@@ -33,7 +33,7 @@ void __57___PasscodeEmbeddedRemoteViewControllerHost_startEditing__block_invoke(
   }
 }
 
-void __55___PasscodeEmbeddedRemoteViewControllerHost_endEditing__block_invoke()
+void __55___PasscodeEmbeddedRemoteViewControllerHost_endEditing__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {

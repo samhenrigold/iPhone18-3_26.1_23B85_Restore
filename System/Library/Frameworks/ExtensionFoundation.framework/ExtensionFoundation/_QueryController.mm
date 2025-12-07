@@ -8,15 +8,14 @@
 
 - (void)queryControllerDidUpdate:(id)update
 {
-  v5 = *(&self->super.isa + OBJC_IVAR____TtC19ExtensionFoundation16_QueryController_handler);
-  v4 = *&self->controller[OBJC_IVAR____TtC19ExtensionFoundation16_QueryController_handler];
+  v4 = *(&self->super.isa + OBJC_IVAR____TtC19ExtensionFoundation16_QueryController_handler);
   updateCopy = update;
   selfCopy = self;
   extensionIdentities = [updateCopy extensionIdentities];
   type metadata accessor for _EXExtensionIdentity();
-  v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v5(v8);
+  v4(v7);
 }
 
 - (NSString)description

@@ -78,7 +78,7 @@
           }
 
           v9 = *(*(&v12 + 1) + 8 * v8);
-          v10 = LogCategory_Unspecified();
+          v10 = LogCategory_Unspecified(v5);
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
@@ -86,15 +86,16 @@
             _os_log_error_impl(&dword_24A315000, v10, OS_LOG_TYPE_ERROR, "Leaked KVO Observer: %@", buf, 0xCu);
           }
 
-          [(FMViewController *)self removeKVOBlockForToken:v9];
+          v5 = [(FMViewController *)self removeKVOBlockForToken:v9];
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v12 objects:v18 count:16];
+        v6 = v5;
       }
 
-      while (v6);
+      while (v5);
     }
   }
 
@@ -190,7 +191,7 @@ LABEL_18:
 
   else
   {
-    v19 = LogCategory_Unspecified();
+    v19 = LogCategory_Unspecified(objectCopy);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [FMObservingCell addKVOObservationToken:v19 forObject:?];
@@ -260,7 +261,7 @@ LABEL_18:
 
         else
         {
-          v12 = LogCategory_Unspecified();
+          v12 = LogCategory_Unspecified(0);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             *buf = v18;

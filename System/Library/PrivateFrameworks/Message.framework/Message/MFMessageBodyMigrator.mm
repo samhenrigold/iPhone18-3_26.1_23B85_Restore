@@ -5,6 +5,7 @@
 - (MFMessageBodyMigrator)initWithLibrary:(id)library;
 - (id)_directoryContentsForPath:(id)path;
 - (id)_filesForMessage:(id)message;
+- (id)_legacyAttachmentDataDirectoryURLForGlobalMessageID:(int64_t)d basePath:(id)path purgeable:(BOOL)purgeable;
 - (id)legacyAttachmentDirectoryForMessage:(id)message;
 - (void)_migrateAllFilesForMailbox:(id)mailbox;
 - (void)_migrateDataFilesForMessage:(id)message;
@@ -154,25 +155,25 @@ void __45__MFMessageBodyMigrator_startMigratingBodies__block_invoke(uint64_t a1)
 
 - (void)_migrateDataFilesForMessage:(id)message
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v37 = [(MFMessageBodyMigrator *)self _filesForMessage:messageCopy];
-  if ([v37 count])
+  v36 = [(MFMessageBodyMigrator *)self _filesForMessage:messageCopy];
+  if ([v36 count])
   {
     v4 = MEMORY[0x1E695DFF8];
     mailbox = [messageCopy mailbox];
     fullPath = [mailbox fullPath];
     v7 = [fullPath stringByAppendingPathComponent:@"Messages"];
-    v41 = [v4 fileURLWithPath:v7];
+    v40 = [v4 fileURLWithPath:v7];
 
     account = [messageCopy account];
     library = [(MFMessageBodyMigrator *)self library];
-    v36 = [library messageBasePathForAccount:account];
+    v35 = [library messageBasePathForAccount:account];
 
-    [MEMORY[0x1E699B5B0] messageDataDirectoryURLForGlobalMessageID:objc_msgSend(messageCopy basePath:"globalMessageID") purgeable:{v36, objc_msgSend(account, "supportsPurge")}];
+    [MEMORY[0x1E699B5B0] messageDataDirectoryURLForGlobalMessageID:objc_msgSend(messageCopy basePath:"globalMessageID") purgeable:{v35, objc_msgSend(account, "supportsPurge")}];
     selfCopy = self;
-    v40 = v51 = 0;
+    v39 = v50 = 0;
     LOBYTE(library) = [defaultManager createDirectoryAtURL:? withIntermediateDirectories:? attributes:? error:?];
     v9 = 0;
     if ((library & 1) == 0)
@@ -184,27 +185,27 @@ void __45__MFMessageBodyMigrator_startMigratingBodies__block_invoke(uint64_t a1)
       }
     }
 
-    v49 = 0u;
-    v50 = 0u;
-    v47 = 0u;
     v48 = 0u;
-    obj = v37;
-    v11 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+    v49 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    obj = v36;
+    v11 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
     if (v11)
     {
-      v12 = *v48;
+      v12 = *v47;
       do
       {
         v13 = 0;
         v14 = v9;
         do
         {
-          if (*v48 != v12)
+          if (*v47 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v47 + 1) + 8 * v13);
+          v15 = *(*(&v46 + 1) + 8 * v13);
           externalID = [messageCopy externalID];
           v17 = [v15 substringFromIndex:{objc_msgSend(externalID, "length") + 1}];
 
@@ -214,11 +215,11 @@ void __45__MFMessageBodyMigrator_startMigratingBodies__block_invoke(uint64_t a1)
             v18 = v17;
           }
 
-          v19 = [v41 URLByAppendingPathComponent:v15];
-          v20 = [v40 URLByAppendingPathComponent:v18];
-          v46 = v14;
-          v21 = [defaultManager moveItemAtURL:v19 toURL:v20 error:&v46];
-          v9 = v46;
+          v19 = [v40 URLByAppendingPathComponent:v15];
+          v20 = [v39 URLByAppendingPathComponent:v18];
+          v45 = v14;
+          v21 = [defaultManager moveItemAtURL:v19 toURL:v20 error:&v45];
+          v9 = v45;
 
           if ((v21 & 1) == 0)
           {
@@ -226,7 +227,7 @@ void __45__MFMessageBodyMigrator_startMigratingBodies__block_invoke(uint64_t a1)
             if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v53 = v9;
+              v52 = v9;
               _os_log_error_impl(&dword_1B0389000, v22, OS_LOG_TYPE_ERROR, "Got error %@ creating body file directory", buf, 0xCu);
             }
           }
@@ -236,7 +237,7 @@ void __45__MFMessageBodyMigrator_startMigratingBodies__block_invoke(uint64_t a1)
         }
 
         while (v11 != v13);
-        v11 = [obj countByEnumeratingWithState:&v47 objects:v54 count:16];
+        v11 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
       }
 
       while (v11);
@@ -248,11 +249,11 @@ void __45__MFMessageBodyMigrator_startMigratingBodies__block_invoke(uint64_t a1)
 
     if (v25)
     {
-      v26 = -[MFMessageBodyMigrator _legacyAttachmentDataDirectoryURLForGlobalMessageID:basePath:purgeable:](selfCopy, "_legacyAttachmentDataDirectoryURLForGlobalMessageID:basePath:purgeable:", [messageCopy globalMessageID], v36, objc_msgSend(account, "supportsPurge"));
+      v26 = -[MFMessageBodyMigrator _legacyAttachmentDataDirectoryURLForGlobalMessageID:basePath:purgeable:](selfCopy, "_legacyAttachmentDataDirectoryURLForGlobalMessageID:basePath:purgeable:", [messageCopy globalMessageID], v35, objc_msgSend(account, "supportsPurge"));
       uRLByDeletingLastPathComponent = [v26 URLByDeletingLastPathComponent];
-      v45 = v9;
-      v28 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v45];
-      v29 = v45;
+      v44 = v9;
+      v28 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v44];
+      v29 = v44;
 
       if ((v28 & 1) == 0)
       {
@@ -263,9 +264,9 @@ void __45__MFMessageBodyMigrator_startMigratingBodies__block_invoke(uint64_t a1)
         }
       }
 
-      v44 = v29;
-      v31 = [defaultManager moveItemAtURL:v23 toURL:v26 error:&v44];
-      v32 = v44;
+      v43 = v29;
+      v31 = [defaultManager moveItemAtURL:v23 toURL:v26 error:&v43];
+      v32 = v43;
 
       if ((v31 & 1) == 0)
       {
@@ -282,8 +283,6 @@ void __45__MFMessageBodyMigrator_startMigratingBodies__block_invoke(uint64_t a1)
       v32 = v9;
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_mailboxHasUnmigratedFiles:(id)files
@@ -299,21 +298,8 @@ void __45__MFMessageBodyMigrator_startMigratingBodies__block_invoke(uint64_t a1)
     v8 = [fullPath stringByAppendingPathComponent:@"Messages"];
 
     v9 = [(MFMessageBodyMigrator *)self _directoryContentsForPath:v8];
-    if ([v9 count])
+    if ([v9 count] || (objc_msgSend(filesCopy, "fullPath"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "stringByAppendingPathComponent:", @"Attachments"), v11 = objc_claimAutoreleasedReturnValue(), v10, objc_msgSend(MEMORY[0x1E696AC08], "defaultManager"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "contentsOfDirectoryAtPath:error:", v11, 0), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "count"), v13, v12, v11, v14))
     {
-      goto LABEL_4;
-    }
-
-    fullPath2 = [filesCopy fullPath];
-    v11 = [fullPath2 stringByAppendingPathComponent:@"Attachments"];
-
-    defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v13 = [defaultManager contentsOfDirectoryAtPath:v11 error:0];
-    v14 = [v13 count];
-
-    if (v14)
-    {
-LABEL_4:
       v15 = 1;
     }
 
@@ -334,6 +320,14 @@ LABEL_4:
   os_unfair_lock_unlock(&self->_upgradeLock);
 
   return v15;
+}
+
+- (id)_legacyAttachmentDataDirectoryURLForGlobalMessageID:(int64_t)d basePath:(id)path purgeable:(BOOL)purgeable
+{
+  v5 = [MEMORY[0x1E699B5B0] messageDataDirectoryURLForGlobalMessageID:d basePath:path purgeable:purgeable];
+  v6 = [v5 URLByAppendingPathComponent:@"Attachments"];
+
+  return v6;
 }
 
 - (void)_migrateAllFilesForMailbox:(id)mailbox
@@ -361,7 +355,7 @@ LABEL_4:
 
 - (id)_filesForMessage:(id)message
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   externalID = [messageCopy externalID];
   if (externalID)
@@ -374,12 +368,12 @@ LABEL_4:
     if ([v9 count])
     {
       os_unfair_lock_lock(&self->_upgradeLock);
-      v14[0] = MEMORY[0x1E69E9820];
-      v14[1] = 3221225472;
-      v14[2] = __42__MFMessageBodyMigrator__filesForMessage___block_invoke;
-      v14[3] = &unk_1E7AA66D0;
-      v15 = externalID;
-      v10 = [v9 ef_filter:v14];
+      v13[0] = MEMORY[0x1E69E9820];
+      v13[1] = 3221225472;
+      v13[2] = __42__MFMessageBodyMigrator__filesForMessage___block_invoke;
+      v13[3] = &unk_1E7AA66D0;
+      v14 = externalID;
+      v10 = [v9 ef_filter:v13];
       [v9 removeObjectsInArray:v10];
 
       os_unfair_lock_unlock(&self->_upgradeLock);
@@ -402,8 +396,6 @@ LABEL_4:
 
     v10 = MEMORY[0x1E695E0F0];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -457,31 +449,28 @@ id __51__MFMessageBodyMigrator__directoryContentsForPath___block_invoke(uint64_t
 
 - (void)_migrateDataFilesForMessage:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Got error %@ creating body file directory", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Got error %@ creating body file directory", &v2, 0xCu);
 }
 
 - (void)_migrateDataFilesForMessage:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Got error %@ creating attachment parent directory", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B0389000, a2, OS_LOG_TYPE_ERROR, "Got error %@ creating attachment parent directory", &v2, 0xCu);
 }
 
 - (void)_migrateDataFilesForMessage:(os_log_t)log .cold.3(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B0389000, log, OS_LOG_TYPE_ERROR, "Got error %@ moving attachment directory %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B0389000, log, OS_LOG_TYPE_ERROR, "Got error %@ moving attachment directory %@", &v3, 0x16u);
 }
 
 - (void)_filesForMessage:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)

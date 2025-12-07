@@ -120,7 +120,7 @@
 - (void)encodeSpatialResampleVertical:(id)vertical Input:(id)input Output:(id)output isChroma:(BOOL)chroma
 {
   chromaCopy = chroma;
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   verticalCopy = vertical;
   inputCopy = input;
   outputCopy = output;
@@ -140,10 +140,10 @@
     [verticalCopy setTexture:outputCopy atIndex:1];
     *&buf = (width + 15) >> 4;
     *(&buf + 1) = (height + 15) >> 4;
-    v22 = 1;
-    v19 = vdupq_n_s64(0x10uLL);
-    v20 = 1;
-    [verticalCopy dispatchThreadgroups:&buf threadsPerThreadgroup:&v19];
+    v21 = 1;
+    v18 = vdupq_n_s64(0x10uLL);
+    v19 = 1;
+    [verticalCopy dispatchThreadgroups:&buf threadsPerThreadgroup:&v18];
   }
 
   else if (enableLogInstance)
@@ -175,13 +175,11 @@
   }
 
   [verticalCopy endEncoding];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeSpatialResampleHorizontal:(id)horizontal Input:(id)input Output:(id)output
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   outputCopy = output;
   horizontalCopy = horizontal;
@@ -195,10 +193,10 @@
     [horizontalCopy setTexture:outputCopy atIndex:1];
     *&buf = (width + 15) >> 4;
     *(&buf + 1) = (height + 15) >> 4;
-    v19 = 1;
-    v16 = vdupq_n_s64(0x10uLL);
-    v17 = 1;
-    [horizontalCopy dispatchThreadgroups:&buf threadsPerThreadgroup:&v16];
+    v18 = 1;
+    v15 = vdupq_n_s64(0x10uLL);
+    v16 = 1;
+    [horizontalCopy dispatchThreadgroups:&buf threadsPerThreadgroup:&v15];
   }
 
   else if (enableLogInstance)
@@ -230,8 +228,6 @@
   }
 
   [horizontalCopy endEncoding];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

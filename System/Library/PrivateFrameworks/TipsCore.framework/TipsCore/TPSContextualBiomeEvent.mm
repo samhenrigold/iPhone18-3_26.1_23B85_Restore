@@ -77,11 +77,11 @@
 
 - (TPSContextualBiomeEvent)initWithCoder:(id)coder
 {
-  v16[5] = *MEMORY[0x1E69E9840];
+  v15[5] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = TPSContextualBiomeEvent;
-  v5 = [(TPSContextualEvent *)&v15 initWithCoder:coderCopy];
+  v14.receiver = self;
+  v14.super_class = TPSContextualBiomeEvent;
+  v5 = [(TPSContextualEvent *)&v14 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"stream"];
@@ -89,12 +89,12 @@
     v5->_stream = v6;
 
     v8 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v16[2] = objc_opt_class();
-    v16[3] = objc_opt_class();
-    v16[4] = objc_opt_class();
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:5];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v15[2] = objc_opt_class();
+    v15[3] = objc_opt_class();
+    v15[4] = objc_opt_class();
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:5];
     v10 = [v8 setWithArray:v9];
 
     v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"filter"];
@@ -102,7 +102,6 @@
     v5->_filterInfo = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

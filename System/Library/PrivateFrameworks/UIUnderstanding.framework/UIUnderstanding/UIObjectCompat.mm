@@ -103,7 +103,7 @@
 
 - (NSArray)children
 {
-  type metadata accessor for UIObject();
+  type metadata accessor for UIObject(0);
 
   v2 = sub_2702B41AC();
 
@@ -112,13 +112,13 @@
 
 - (void)setChildren:(id)children
 {
-  type metadata accessor for UIObject();
+  type metadata accessor for UIObject(0);
   *(self + OBJC_IVAR___UIObjectCompat_groupingInfo + 24) = sub_2702B41BC();
 }
 
 - (UIObjectCompat)initWithDetection:(id)detection clickable:(id)clickable focused:(id)focused icon:(id)icon boundingBox:(id)box children:(id)children
 {
-  type metadata accessor for UIObject();
+  type metadata accessor for UIObject(0);
   v13 = sub_2702B41BC();
   detectionCopy = detection;
   clickableCopy = clickable;
@@ -143,9 +143,9 @@
     v16 = 0;
   }
 
-  type metadata accessor for UIObject();
+  type metadata accessor for UIObject(0);
   v17 = sub_2702B41BC();
-  return UIObject.init(label:confidence:text:boundingBox:children:clickable:focused:)(label, v14, v16, box, confidence, v17, clickable, focused);
+  return UIObject.init(label:confidence:text:boundingBox:children:clickable:focused:)(label, v14, v16, box, v17, clickable, focused, confidence);
 }
 
 - (NSString)description

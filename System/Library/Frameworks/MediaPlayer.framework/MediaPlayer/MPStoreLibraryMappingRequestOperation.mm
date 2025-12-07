@@ -54,7 +54,7 @@
   v199 = v5;
   if (v5)
   {
-    [v5 MLCorePropertiesForPropertySet:v6];
+    objc_msgSend_MLCorePropertiesForPropertySet_(v5);
   }
 
   else
@@ -149,7 +149,7 @@
         v23 = subscriptionAdamID != 0;
         if (subscriptionAdamID)
         {
-          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, subscriptionAdamID);
+          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, subscriptionAdamID, &v395);
         }
 
         universalStore2 = [v15 universalStore];
@@ -158,7 +158,7 @@
         v313 = purchasedAdamID;
         if (purchasedAdamID)
         {
-          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, purchasedAdamID);
+          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, purchasedAdamID, &v313);
           v23 = 1;
         }
 
@@ -168,8 +168,8 @@
         v394 = adamID;
         if (adamID)
         {
-          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, adamID);
-          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, adamID);
+          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, adamID, &v394);
+          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, adamID, &v394);
           v23 = 1;
         }
 
@@ -198,7 +198,7 @@
               __p[0] = longLongValue;
               if (longLongValue)
               {
-                std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v375, longLongValue);
+                std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v375, longLongValue, __p);
               }
             }
 
@@ -214,7 +214,7 @@
         v315 = cloudID;
         if (cloudID)
         {
-          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v372, cloudID);
+          std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v372, cloudID, &v315);
           v23 = 1;
         }
 
@@ -225,7 +225,7 @@
         {
           v39 = universalCloudLibraryID;
           std::string::basic_string[abi:ne200100]<0>(__p, [universalCloudLibraryID UTF8String]);
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v369, __p);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v369, __p, __p);
           if (SHIBYTE(v360) < 0)
           {
             operator delete(__p[0]);
@@ -379,11 +379,11 @@ LABEL_51:
             {
               v313 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v65);
               v385 = 0;
-              std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>();
+              std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>(&v314, &v313, &v385, __p[0]);
             }
 
             v313 = mlcore::ItemPropertyStoreCloudUniversalLibraryID(v65);
-            std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+            std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v314, &v313, __p);
           }
 
           v61[2](v61);
@@ -480,7 +480,7 @@ LABEL_51:
           {
             v90 = cloudAlbumID;
             std::string::basic_string[abi:ne200100]<0>(v369, [cloudAlbumID UTF8String]);
-            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v375, v369);
+            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v375, v369, v369);
             if (SBYTE7(v370) < 0)
             {
               operator delete(v369[0]);
@@ -493,7 +493,7 @@ LABEL_51:
           __p[0] = adamID2;
           if (adamID2)
           {
-            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, adamID2);
+            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, adamID2, __p);
             v89 = 1;
           }
 
@@ -522,7 +522,7 @@ LABEL_51:
                 v369[0] = longLongValue2;
                 if (longLongValue2)
                 {
-                  std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, longLongValue2);
+                  std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, longLongValue2, v369);
                 }
               }
 
@@ -538,7 +538,7 @@ LABEL_51:
           *&v395 = subscriptionAdamID2;
           if (subscriptionAdamID2)
           {
-            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, subscriptionAdamID2);
+            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, subscriptionAdamID2, &v395);
             v89 = 1;
           }
 
@@ -548,7 +548,7 @@ LABEL_51:
           v313 = purchasedAdamID2;
           if (purchasedAdamID2)
           {
-            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, purchasedAdamID2);
+            std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(v218, purchasedAdamID2, &v313);
             v89 = 1;
           }
 
@@ -559,7 +559,7 @@ LABEL_51:
           {
             v106 = universalCloudLibraryID2;
             std::string::basic_string[abi:ne200100]<0>(v369, [universalCloudLibraryID2 UTF8String]);
-            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v372, v369);
+            std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v372, v369, v369);
             if (SBYTE7(v370) < 0)
             {
               operator delete(v369[0]);
@@ -675,12 +675,12 @@ LABEL_129:
               if (0xAAAAAAAAAAAAAAABLL * ((v369[1] - v369[0]) >> 3) < 2)
               {
                 v394 = Property;
-                v314 = 0;
-                std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>();
+                LODWORD(v314) = 0;
+                std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>(&v313, &v394, &v314, v369[0]);
               }
 
               v394 = Property;
-              std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+              std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v313, &v394, v369);
             }
 
             if ([(MPStoreLibraryMappingResponse *)v165 count]&& *(&v373 + 1))
@@ -725,12 +725,12 @@ LABEL_129:
               if (0xAAAAAAAAAAAAAAABLL * ((v369[1] - v369[0]) >> 3) < 2)
               {
                 v394 = v178;
-                v314 = 0;
-                std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>();
+                LODWORD(v314) = 0;
+                std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>(&v313, &v394, &v314, v369[0]);
               }
 
               v394 = v178;
-              std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+              std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v313, &v394, v369);
             }
 
             v216[2]();
@@ -811,7 +811,7 @@ LABEL_142:
       v372[0] = adamID3;
       if (adamID3)
       {
-        std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, adamID3);
+        std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, adamID3, v372);
       }
 
       universalStore12 = [v123 universalStore];
@@ -839,7 +839,7 @@ LABEL_142:
             v218[0] = longLongValue3;
             if (longLongValue3)
             {
-              std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, longLongValue3);
+              std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, longLongValue3, v218);
             }
           }
 
@@ -939,12 +939,12 @@ LABEL_195:
                 if (*(&v376 + 1) >= 2uLL)
                 {
                   v313 = mlcore::ArtistPropertyCloudUniversalLibraryID(v188);
-                  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+                  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v395, &v313, v372);
                 }
 
                 v313 = mlcore::ArtistPropertyCloudUniversalLibraryID(v188);
                 LODWORD(v315) = 0;
-                std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>();
+                std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>(&v395, &v313, &v315, v372[0]);
               }
 
               (*(*(v218[1] + 5) + 16))();
@@ -1027,7 +1027,7 @@ LABEL_171:
             v372[0] = adamID4;
             if (adamID4)
             {
-              std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, adamID4);
+              std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, adamID4, v372);
             }
 
             universalStore14 = [v143 universalStore];
@@ -1055,7 +1055,7 @@ LABEL_171:
                   v218[0] = longLongValue4;
                   if (longLongValue4)
                   {
-                    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, longLongValue4);
+                    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v378, longLongValue4, v218);
                   }
                 }
 
@@ -1072,7 +1072,7 @@ LABEL_171:
             {
               v155 = cloudArtistID2;
               std::string::basic_string[abi:ne200100]<0>(v218, [cloudArtistID2 UTF8String]);
-              std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v375, v218);
+              std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v375, v218, v218);
               if (SBYTE7(v219) < 0)
               {
                 operator delete(v218[0]);
@@ -1110,7 +1110,7 @@ LABEL_188:
 
     v135 = cloudArtistID;
     std::string::basic_string[abi:ne200100]<0>(v218, [cloudArtistID UTF8String]);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v375, v218);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v375, v218, v218);
     if (SBYTE7(v219) < 0)
     {
       operator delete(v218[0]);
@@ -1159,7 +1159,7 @@ LABEL_160:
         {
           v75 = globalPlaylistID;
           std::string::basic_string[abi:ne200100]<0>(v372, [globalPlaylistID UTF8String]);
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v218, v372);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(v218, v372, v372);
           if (SBYTE7(v373) < 0)
           {
             operator delete(v372[0]);
@@ -1172,7 +1172,7 @@ LABEL_160:
         v369[0] = cloudID2;
         if (cloudID2)
         {
-          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(&v378, cloudID2);
+          std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(&v378, cloudID2, v369);
           v74 = 1;
         }
 
@@ -1183,7 +1183,7 @@ LABEL_160:
         {
           v80 = universalCloudLibraryID3;
           std::string::basic_string[abi:ne200100]<0>(v372, [universalCloudLibraryID3 UTF8String]);
-          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v375, v372);
+          std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v375, v372, v372);
           if (SBYTE7(v373) < 0)
           {
             operator delete(v372[0]);
@@ -1280,11 +1280,11 @@ LABEL_77:
       {
         __p[0] = mlcore::PlaylistPropertyCloudUniversalLibraryID(v119);
         LODWORD(v315) = 0;
-        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>();
+        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>(&v394, __p, &v315, v372[0]);
       }
 
       __p[0] = mlcore::PlaylistPropertyCloudUniversalLibraryID(v119);
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v394, __p, v372);
     }
 
     v115[2](v115);
@@ -1339,7 +1339,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke(uint64_t 
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13[3] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 72);
@@ -1352,9 +1352,9 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2(uint64_
     if ([*(a1 + 40) count] && *(a1 + 104))
     {
       v3 = *(a1 + 96);
-      v9 = 0;
       v10 = 0;
-      v8 = 0;
+      v11 = 0;
+      v9 = 0;
       v4 = 0;
       if (v3)
       {
@@ -1368,16 +1368,16 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2(uint64_
         while (v5);
       }
 
-      v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(&v8, v3, v4);
-      if ((v9 - v8) >= 9)
+      v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(&v9, v3, v4);
+      if ((v10 - v9) >= 9)
       {
-        mlcore::ItemPropertySubscriptionStoreItemID(v6);
-        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+        v8 = mlcore::ItemPropertySubscriptionStoreItemID(v6);
+        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v12, &v8, &v9);
       }
 
-      mlcore::ItemPropertySubscriptionStoreItemID(v6);
-      LODWORD(v11) = 0;
-      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+      v8 = mlcore::ItemPropertySubscriptionStoreItemID(v6);
+      LODWORD(v13[0]) = 0;
+      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v12, &v8, v13, v9);
     }
 
     (*(*(a1 + 72) + 16))();
@@ -1386,7 +1386,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2(uint64_
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_32(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 72);
@@ -1417,16 +1417,16 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_32(uint64
 
       v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(&__p, v3, v4);
       v7 = MEMORY[0x1A58E1100](v6);
-      v14 = v7;
+      v15 = v7;
       if ((v10 - __p) < 9)
       {
         v12 = mlcore::ItemPropertySubscriptionStoreItemID(v7);
-        v13 = 0;
-        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+        v14 = 0;
+        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v13, &v12, &v14, __p);
       }
 
       v12 = mlcore::ItemPropertySubscriptionStoreItemID(v7);
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v13, &v12, &__p);
     }
 
     (*(*(a1 + 80) + 16))();
@@ -1435,7 +1435,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_32(uint64
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_34(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 72);
@@ -1466,16 +1466,16 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_34(uint64
 
       v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(&__p, v3, v4);
       v7 = MEMORY[0x1A58E1100](v6);
-      v14 = v7;
+      v15 = v7;
       if ((v10 - __p) < 9)
       {
         v12 = mlcore::ItemPropertyStoreID(v7);
-        v13 = 0;
-        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+        v14 = 0;
+        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v13, &v12, &v14, __p);
       }
 
       v12 = mlcore::ItemPropertyStoreID(v7);
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v13, &v12, &__p);
     }
 
     (*(*(a1 + 80) + 16))();
@@ -1484,7 +1484,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_34(uint64
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_36(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 72);
@@ -1515,23 +1515,23 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_36(uint
 
       v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(&__p, v3, v4);
       v7 = MEMORY[0x1A58E1100](v6);
-      v14 = v7;
+      v15 = v7;
       if ((v10 - __p) < 9)
       {
         v12 = mlcore::ItemPropertyStoreCloudID(v7);
-        v13 = 0;
-        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+        v14 = 0;
+        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v13, &v12, &v14, __p);
       }
 
       v12 = mlcore::ItemPropertyStoreCloudID(v7);
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v13, &v12, &__p);
     }
 
     (*(*(a1 + 80) + 16))();
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_5(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_5(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -1560,7 +1560,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_5(uint64_
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_6(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 72);
@@ -1591,16 +1591,16 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_6(uint64_
 
       v6 = std::vector<std::string>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&v9, v3, v4);
       v7 = MEMORY[0x1A58E1290](v6);
-      v14 = v7;
+      v15 = v7;
       if (0xAAAAAAAAAAAAAAABLL * ((v10 - v9) >> 3) < 2)
       {
         v12 = mlcore::PlaylistPropertyCloudGlobalID(v7);
-        v13 = 0;
-        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>();
+        v14 = 0;
+        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>(&v13, &v12, &v14, v9);
       }
 
       v12 = mlcore::PlaylistPropertyCloudGlobalID(v7);
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v13, &v12, &v9);
     }
 
     (*(*(a1 + 72) + 16))();
@@ -1609,10 +1609,11 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_6(uint64_
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_37(uint64_t a1)
 {
+  v16 = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 72);
-    v7 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MPErrorDomain" code:6 userInfo:0];
+    v8 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MPErrorDomain" code:6 userInfo:0];
     (*(v2 + 16))(v2, 0);
   }
 
@@ -1620,36 +1621,48 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_37(uint64
   {
     if ([*(a1 + 40) count] && *(a1 + 112))
     {
-      if (*(a1 + 104))
+      v3 = *(a1 + 104);
+      v10 = 0;
+      v11 = 0;
+      __p = 0;
+      if (v3)
       {
-        v3 = -1;
-        v4 = *(a1 + 104);
+        v4 = -1;
+        v5 = v3;
         do
         {
-          v5 = v3;
-          v4 = *v4;
-          ++v3;
+          v6 = v4;
+          v5 = *v5;
+          ++v4;
         }
 
-        while (v4);
-        if (v3 < 0x1FFFFFFFFFFFFFFFLL)
+        while (v5);
+        if (v4 < 0x1FFFFFFFFFFFFFFFLL)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<long long>>(v5 + 2);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<long long>>(v6 + 2);
         }
 
         std::vector<std::string>::__throw_length_error[abi:ne200100]();
       }
 
-      v6 = MEMORY[0x1A58E1290]();
-      mlcore::PlaylistPropertyStoreCloudID(v6);
-      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+      v7 = MEMORY[0x1A58E1290]();
+      v15 = v7;
+      if ((v10 - __p) < 9)
+      {
+        v12 = mlcore::PlaylistPropertyStoreCloudID(v7);
+        v14 = 0;
+        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(&v13, &v12, &v14, __p);
+      }
+
+      v12 = mlcore::PlaylistPropertyStoreCloudID(v7);
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v13, &v12, &__p);
     }
 
     (*(*(a1 + 80) + 16))();
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_39(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_39(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -1678,7 +1691,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_39(uint64
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_40(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 72);
@@ -1691,9 +1704,9 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_40(uint
     if ([*(a1 + 40) count] && *(a1 + 104))
     {
       v3 = *(a1 + 96);
-      v9 = 0;
+      v11 = 0;
+      v12 = 0;
       v10 = 0;
-      v8 = 0;
       v4 = 0;
       if (v3)
       {
@@ -1707,16 +1720,17 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_40(uint
         while (v5);
       }
 
-      v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(&v8, v3, v4);
-      if (v9 - v8 == 8)
+      v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(&v10, v3, v4);
+      if (v11 - v10 == 8)
       {
-        mlcore::ItemPropertyStorePlaylistID(v6);
-        LODWORD(v11) = 0;
-        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator &,long long const&,mlcore::ComparisonOptions &,0>();
+        v9 = mlcore::ItemPropertyStorePlaylistID(v6);
+        LODWORD(v8) = 0;
+        LODWORD(v14[0]) = 0;
+        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator &,long long const&,mlcore::ComparisonOptions &,0>(&v13, &v9, &v8, v10, v14);
       }
 
-      mlcore::ItemPropertyStorePlaylistID(v6);
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      v9 = mlcore::ItemPropertyStorePlaylistID(v6);
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v13, &v9, &v10);
     }
 
     (*(*(a1 + 72) + 16))();
@@ -1725,7 +1739,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_40(uint
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_42(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   if ([*(a1 + 32) isCancelled])
   {
     v2 = *(a1 + 72);
@@ -1738,9 +1752,9 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_42(uint64
     if ([*(a1 + 40) count] && *(a1 + 112))
     {
       v3 = *(a1 + 104);
-      v9 = 0;
+      v11 = 0;
+      v12 = 0;
       v10 = 0;
-      v8 = 0;
       v4 = 0;
       if (v3)
       {
@@ -1754,16 +1768,17 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_42(uint64
         while (v5);
       }
 
-      v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(&v8, v3, v4);
-      if (v9 - v8 == 8)
+      v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(&v10, v3, v4);
+      if (v11 - v10 == 8)
       {
-        mlcore::ItemPropertyStorePlaylistID(v6);
-        LODWORD(v11) = 0;
-        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator &,long long const&,mlcore::ComparisonOptions &,0>();
+        *&v9 = mlcore::ItemPropertyStorePlaylistID(v6);
+        LODWORD(v8) = 0;
+        LODWORD(v14[0]) = 0;
+        std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator &,long long const&,mlcore::ComparisonOptions &,0>(&v13, &v9, &v8, v10, v14);
       }
 
-      mlcore::ItemPropertyStorePlaylistID(v6);
-      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+      *&v9 = mlcore::ItemPropertyStorePlaylistID(v6);
+      std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(&v13, &v9, &v10);
     }
 
     (*(*(a1 + 80) + 16))();
@@ -1772,21 +1787,23 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_42(uint64
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_44(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v7[6] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1A58E1100]();
-  v3 = v2;
+  v5[5] = v2;
   if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 96) - *(a1 + 88)) >> 3) < 2)
   {
-    v5 = mlcore::ItemPropertyStoreCloudAlbumID(v2);
-    v4 = 0;
-    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>();
+    v3 = mlcore::ItemPropertyStoreCloudAlbumID(v2);
+    v4 = *(a1 + 88);
+    v7[0] = v3;
+    v6 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>(v5, v7, &v6, v4);
   }
 
-  v5 = mlcore::ItemPropertyStoreCloudAlbumID(v2);
-  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+  v7[0] = mlcore::ItemPropertyStoreCloudAlbumID(v2);
+  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(v5, v7, a1 + 88);
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_46(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_46(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -1815,21 +1832,23 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_46(uint64
 
 void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_47(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v8[3] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1A58E1100]();
-  v3 = v2;
+  v5 = v2;
   if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 96) - *(a1 + 88)) >> 3) < 2)
   {
-    v5 = mlcore::ItemPropertyStoreCloudAlbumID(v2);
-    v4 = 0;
-    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>();
+    v3 = mlcore::ItemPropertyStoreCloudAlbumID(v2);
+    v4 = *(a1 + 88);
+    v8[0] = v3;
+    v7 = 0;
+    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<std::string>,std::allocator<mlcore::ComparisonPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,mlcore::ComparisonOperator,std::string const&,0>(&v6, v8, &v7, v4);
   }
 
-  v5 = mlcore::ItemPropertyStoreCloudAlbumID(v2);
-  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>();
+  v8[0] = mlcore::ItemPropertyStoreCloudAlbumID(v2);
+  std::allocate_shared[abi:ne200100]<mlcore::InPredicate<std::string>,std::allocator<mlcore::InPredicate<std::string>>,mlcore::ModelProperty<std::string> *&,std::vector<std::string> const&,0>(&v6, v8, a1 + 88);
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_4_49(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_4_49(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -1886,23 +1905,23 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_50(uint64
 
       v6 = std::vector<long long>::__init_with_size[abi:ne200100]<std::__hash_const_iterator<std::__hash_node<long long,void *> *>,std::__hash_const_iterator<std::__hash_node<long long,void *> *>>(__p, v3, v4);
       v7 = MEMORY[0x1A58E11E0](v6);
-      __p[28] = v7;
+      v10[2] = v7;
       if (*(a1 + 112) >= 2uLL)
       {
-        v11 = mlcore::ArtistPropertyStoreID(v7);
-        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>();
+        v12 = mlcore::ArtistPropertyStoreID(v7);
+        std::allocate_shared[abi:ne200100]<mlcore::InPredicate<long long>,std::allocator<mlcore::InPredicate<long long>>,mlcore::ModelProperty<long long> *&,std::vector<long long> const&,0>(v10, &v12, __p);
       }
 
-      v11 = mlcore::ArtistPropertyStoreID(v7);
-      v10 = 0;
-      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>();
+      v12 = mlcore::ArtistPropertyStoreID(v7);
+      v11 = 0;
+      std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<long long>,std::allocator<mlcore::ComparisonPredicate<long long>>,mlcore::ModelProperty<long long> *&,mlcore::ComparisonOperator,long long const&,0>(v10, &v12, &v11, __p[0]);
     }
 
     (*(*(a1 + 80) + 16))();
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_54(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_54(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -1929,7 +1948,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_54(uint64
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_51(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_51(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -1957,7 +1976,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_51(uint
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_48(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_48(uint64_t a1, uint64_t *a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -1972,7 +1991,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_48(uint
     v7 = *(*(a1 + 32) + 272);
     if (v7)
     {
-      [v7 mlCoreView];
+      objc_msgSend_mlCoreView(v7);
       v8 = v18;
     }
 
@@ -2023,7 +2042,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_48(uint
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_45(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_45(uint64_t a1, uint64_t *a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -2038,7 +2057,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_45(uint
     v7 = *(*(a1 + 32) + 272);
     if (v7)
     {
-      [v7 mlCoreView];
+      objc_msgSend_mlCoreView(v7);
       v8 = v18;
     }
 
@@ -2089,7 +2108,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_45(uint
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_43(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_43(uint64_t a1, uint64_t *a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -2104,7 +2123,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_43(uint
     v7 = *(*(a1 + 32) + 272);
     if (v7)
     {
-      [v7 mlCoreView];
+      objc_msgSend_mlCoreView(v7);
       v8 = v18;
     }
 
@@ -2155,7 +2174,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_43(uint
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_41(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_41(uint64_t a1, uint64_t *a2, void *a3)
 {
   v19 = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -2170,7 +2189,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_41(uint
     v7 = *(*(a1 + 32) + 272);
     if (v7)
     {
-      [v7 mlCoreView];
+      objc_msgSend_mlCoreView(v7);
       v8 = v18;
     }
 
@@ -2222,7 +2241,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3_41(uint
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_38(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_38(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -2249,7 +2268,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_38(uint
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_7(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_7(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -2277,7 +2296,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_7(uint64_
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_4(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_4(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -2304,7 +2323,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_4(uint64_
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_35(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_35(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -2331,7 +2350,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_35(uint
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_33(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_33(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -2358,7 +2377,7 @@ void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_2_33(uint
   }
 }
 
-void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3(uint64_t a1, void *a2, void *a3)
+void __48__MPStoreLibraryMappingRequestOperation_execute__block_invoke_3(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)

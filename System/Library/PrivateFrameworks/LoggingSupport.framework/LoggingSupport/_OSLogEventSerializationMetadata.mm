@@ -44,13 +44,13 @@
 
 - (id)dataRepresentation
 {
-  v26[2] = *MEMORY[0x277D85DE8];
-  v25[0] = @"Version";
-  v25[1] = @"StringIndex";
-  v26[0] = &unk_2841B9228;
+  v25[2] = *MEMORY[0x277D85DE8];
+  v24[0] = @"Version";
+  v24[1] = @"StringIndex";
+  v25[0] = &unk_2841B9228;
   stringToIndexMapping = [(_OSLogEventSerializationMetadata *)self stringToIndexMapping];
-  v26[1] = stringToIndexMapping;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v25[1] = stringToIndexMapping;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
   v5 = [v4 mutableCopy];
 
   firstDate = [(_OSLogEventSerializationMetadata *)self firstDate];
@@ -86,9 +86,9 @@
     [v5 setObject:filterPredicateDescription2 forKeyedSubscript:@"FilterPredicateDescription"];
   }
 
-  v22 = 0;
-  v15 = [MEMORY[0x277CCAC58] dataWithPropertyList:v5 format:200 options:0 error:&v22];
-  v16 = v22;
+  v21 = 0;
+  v15 = [MEMORY[0x277CCAC58] dataWithPropertyList:v5 format:200 options:0 error:&v21];
+  v16 = v21;
   if (v15)
   {
     v17 = v15;
@@ -103,7 +103,7 @@
       {
         localizedDescription = [v16 localizedDescription];
         *buf = 138412290;
-        v24 = localizedDescription;
+        v23 = localizedDescription;
         _os_log_error_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Serializing metadata failed with an error: %@", buf, 0xCu);
       }
     }
@@ -114,8 +114,6 @@
       _os_log_error_impl(&dword_22E01A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Serializing metadata failed without detailed error", buf, 2u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

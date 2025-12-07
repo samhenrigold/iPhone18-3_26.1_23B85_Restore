@@ -70,7 +70,7 @@
 
 - (const)wf_bestGuessURL
 {
-  v30[6] = *MEMORY[0x1E69E9840];
+  v29[6] = *MEMORY[0x1E69E9840];
   v1 = [self copy];
   if ([(__CFString *)v1 hasPrefix:@"~"])
   {
@@ -109,30 +109,30 @@
     else
     {
       uRLHostAllowedCharacterSet = [MEMORY[0x1E696AB08] URLHostAllowedCharacterSet];
-      v30[0] = uRLHostAllowedCharacterSet;
+      v29[0] = uRLHostAllowedCharacterSet;
       uRLPathAllowedCharacterSet = [MEMORY[0x1E696AB08] URLPathAllowedCharacterSet];
-      v30[1] = uRLPathAllowedCharacterSet;
+      v29[1] = uRLPathAllowedCharacterSet;
       uRLQueryAllowedCharacterSet = [MEMORY[0x1E696AB08] URLQueryAllowedCharacterSet];
-      v30[2] = uRLQueryAllowedCharacterSet;
+      v29[2] = uRLQueryAllowedCharacterSet;
       uRLFragmentAllowedCharacterSet = [MEMORY[0x1E696AB08] URLFragmentAllowedCharacterSet];
-      v30[3] = uRLFragmentAllowedCharacterSet;
+      v29[3] = uRLFragmentAllowedCharacterSet;
       uRLPasswordAllowedCharacterSet = [MEMORY[0x1E696AB08] URLPasswordAllowedCharacterSet];
-      v30[4] = uRLPasswordAllowedCharacterSet;
+      v29[4] = uRLPasswordAllowedCharacterSet;
       uRLUserAllowedCharacterSet = [MEMORY[0x1E696AB08] URLUserAllowedCharacterSet];
-      v30[5] = uRLUserAllowedCharacterSet;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:6];
+      v29[5] = uRLUserAllowedCharacterSet;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:6];
 
       firstObject = [v15 firstObject];
       v17 = [firstObject mutableCopy];
 
-      v25 = MEMORY[0x1E69E9820];
-      v26 = 3221225472;
-      v27 = __44__NSString_WFPathUtilities__wf_bestGuessURL__block_invoke;
-      v28 = &unk_1E83756E8;
+      v24 = MEMORY[0x1E69E9820];
+      v25 = 3221225472;
+      v26 = __44__NSString_WFPathUtilities__wf_bestGuessURL__block_invoke;
+      v27 = &unk_1E83756E8;
       v18 = v17;
-      v29 = v18;
-      [v15 enumerateObjectsUsingBlock:&v25];
-      [v18 addCharactersInString:{@":/", v25, v26, v27, v28}];
+      v28 = v18;
+      [v15 enumerateObjectsUsingBlock:&v24];
+      [v18 addCharactersInString:{@":/", v24, v25, v26, v27}];
       v19 = [v18 copy];
       v20 = [(__CFString *)v1 stringByAddingPercentEncodingWithAllowedCharacters:v19];
 
@@ -151,8 +151,6 @@
   }
 
 LABEL_18:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

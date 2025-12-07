@@ -10,31 +10,29 @@
 {
   v5 = sub_1B715DB20();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getObjCClassMetadata();
   static FamilySettingsDestinations.urlDestination(to:)(to);
-  v10 = sub_1B715DAE0();
-  (*(v6 + 8))(v9, v5);
+  v9 = sub_1B715DAE0();
+  (*(v6 + 8))(v8, v5);
 
-  return v10;
+  return v9;
 }
 
 + (id)urlDestinationTo:(int64_t)to params:(id)params error:(id *)error
 {
   v6 = sub_1B715DB20();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = sub_1B715DFE0();
-  static FamilySettingsDestinations.urlDestination(to:params:)(to, v11, v10);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_1B715DFE0();
+  static FamilySettingsDestinations.urlDestination(to:params:)(to, v10, v9);
 
-  v12 = sub_1B715DAE0();
-  (*(v7 + 8))(v10, v6);
+  v11 = sub_1B715DAE0();
+  (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v11;
 }
 
 - (FamilySettingsDestinations)init

@@ -38,9 +38,10 @@
 
 - (void)setName:(id)name
 {
-  sub_1BCE1D280();
+  v4 = sub_1BCE1D280();
+  v6 = v5;
   selfCopy = self;
-  sub_1BCDC0F40();
+  sub_1BCDC0F40(v4, v6);
 }
 
 - (NSArray)panes
@@ -50,7 +51,7 @@
 
   if (v3)
   {
-    type metadata accessor for PreferencePane();
+    type metadata accessor for PreferencePane(0);
     v4 = sub_1BCE1D560();
   }
 
@@ -64,14 +65,15 @@
 
 - (void)setPanes:(id)panes
 {
+  panesCopy = panes;
   if (panes)
   {
-    type metadata accessor for PreferencePane();
-    sub_1BCE1D570();
+    type metadata accessor for PreferencePane(0);
+    panesCopy = sub_1BCE1D570();
   }
 
   selfCopy = self;
-  sub_1BCDC14F8();
+  sub_1BCDC14F8(panesCopy);
 }
 
 - (void)setSliders:(id)sliders
@@ -118,18 +120,19 @@
 
 - (NSDictionary)pickerOptions
 {
-  if (sub_1BCDC2184())
+  sub_1BCDC2184(self);
+  if (v2)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07878);
-    v2 = sub_1BCE1D100();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07878, &qword_1BCE50DB0);
+    v3 = sub_1BCE1D100();
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)setPickerOptions:(id)options
@@ -137,7 +140,7 @@
   optionsCopy = options;
   if (options)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07878);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07878, &qword_1BCE50DB0);
     optionsCopy = sub_1BCE1D110();
   }
 
@@ -147,7 +150,7 @@
 
 - (_TtP9WeatherUI22PreferencePaneDelegate_)delegate
 {
-  v2 = sub_1BCDC2340();
+  v2 = sub_1BCDC2340(self);
 
   return v2;
 }
@@ -156,15 +159,16 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1BCDC23D8();
+  sub_1BCDC23D8(delegate);
 }
 
 - (_TtC9WeatherUI14PreferencePane)initWithName:(id)name panes:(id)panes
 {
-  sub_1BCE1D280();
-  type metadata accessor for PreferencePane();
-  sub_1BCE1D570();
-  return PreferencePane.init(name:panes:)();
+  v4 = sub_1BCE1D280();
+  v6 = v5;
+  type metadata accessor for PreferencePane(0);
+  v7 = sub_1BCE1D570();
+  return PreferencePane.init(name:panes:)(v4, v6, v7);
 }
 
 - (_TtC9WeatherUI14PreferencePane)initWithName:(id)name userDefaults:(id)defaults sliders:(id)sliders toggles:(id)toggles pickerOptions:(id)options pickerSelections:(id)selections
@@ -173,7 +177,7 @@
   v11 = v10;
   v12 = sub_1BCE1D110();
   v13 = sub_1BCE1D110();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07878);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EBD07878, &qword_1BCE50DB0);
   v14 = sub_1BCE1D110();
   v15 = sub_1BCE1D110();
   defaultsCopy = defaults;
@@ -220,16 +224,17 @@
 
   else
   {
-    memset(v10, 0, sizeof(v10));
+    memset(v13, 0, sizeof(v13));
     keyCopy2 = key;
     selfCopy2 = self;
   }
 
-  sub_1BCE1D280();
+  v10 = sub_1BCE1D280();
+  v12 = v11;
 
-  sub_1BCDC3758(v10);
+  sub_1BCDC3758(v13, v10, v12);
 
-  sub_1BCD808E0(v10);
+  sub_1BCD808E0(v13);
 }
 
 - (void)preferencePaneDidChangeWithPreference:(id)preference

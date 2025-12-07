@@ -99,7 +99,7 @@
   return v8;
 }
 
-uint64_t __67__NSFileAccessSubarbiter_grantAccessClaim_synchronouslyIfPossible___block_invoke(uint64_t a1)
+void *__67__NSFileAccessSubarbiter_grantAccessClaim_synchronouslyIfPossible___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 16) _grantAccessClaim:*(a1 + 40)];
   result = [*(a1 + 40) claimerWaiter];

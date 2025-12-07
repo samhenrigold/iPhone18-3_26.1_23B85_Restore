@@ -3,6 +3,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isPredictionValid;
 - (ULPredictionContext)initWithCoder:(id)coder;
+- (ULPredictionContext)initWithUniqueIdentifier:(id)identifier timestamp:(id)timestamp isMotionDetected:(BOOL)detected coordinates:(id)coordinates probabilityVector:(id)vector imageIdentifiersVector:(id)identifiersVector particles:;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (unint64_t)hash;
@@ -22,6 +23,33 @@
   v8 = [v2 initWithUniqueIdentifier:uUID timestamp:date isMotionDetected:0 coordinates:array probabilityVector:array2 imageIdentifiersVector:array3 particles:*&ULCoordinatesNotAvailable];
 
   return v8;
+}
+
+- (ULPredictionContext)initWithUniqueIdentifier:(id)identifier timestamp:(id)timestamp isMotionDetected:(BOOL)detected coordinates:(id)coordinates probabilityVector:(id)vector imageIdentifiersVector:(id)identifiersVector particles:
+{
+  v23 = v8;
+  detectedCopy = detected;
+  identifierCopy = identifier;
+  timestampCopy = timestamp;
+  coordinatesCopy = coordinates;
+  vectorCopy = vector;
+  identifiersVectorCopy = identifiersVector;
+  v24.receiver = self;
+  v24.super_class = ULPredictionContext;
+  v20 = [(ULPredictionContext *)&v24 init];
+  v21 = v20;
+  if (v20)
+  {
+    [(ULPredictionContext *)v20 setUniqueIdentifier:identifierCopy];
+    [(ULPredictionContext *)v21 setTimestamp:timestampCopy];
+    [(ULPredictionContext *)v21 setIsMotionDetected:detectedCopy];
+    [(ULPredictionContext *)v21 setCoordinates:v23];
+    [(ULPredictionContext *)v21 setProbabilityVector:coordinatesCopy];
+    [(ULPredictionContext *)v21 setImageIdentifiersVector:vectorCopy];
+    [(ULPredictionContext *)v21 setParticles:identifiersVectorCopy];
+  }
+
+  return v21;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

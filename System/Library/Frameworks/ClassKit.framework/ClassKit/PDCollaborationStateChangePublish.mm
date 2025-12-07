@@ -76,32 +76,32 @@ LABEL_13:
 - (void)mergeExistingLocalStateIntoRequestStateChange:(id)change
 {
   changeCopy = change;
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
   obj = [changeCopy states];
-  v5 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+  v5 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v52;
+    v7 = *v51;
     v8 = &CLSLogAsset_ptr;
     selfCopy = self;
-    v41 = changeCopy;
-    v39 = *v52;
+    v40 = changeCopy;
+    v38 = *v51;
     do
     {
       v9 = 0;
-      v42 = v6;
+      v41 = v6;
       do
       {
-        if (*v52 != v7)
+        if (*v51 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v51 + 1) + 8 * v9);
+        v10 = *(*(&v50 + 1) + 8 * v9);
         v11 = v8[75];
         targetObjectID = [changeCopy targetObjectID];
         ownerPersonID = [changeCopy ownerPersonID];
@@ -109,88 +109,87 @@ LABEL_13:
 
         v15 = v14;
         database = [(PDOperation *)self database];
-        v17 = v8[75];
-        v18 = [database select:objc_opt_class() identity:v15];
+        v17 = [database select:objc_opt_class() identity:v15];
 
-        if (v18)
+        if (v17)
         {
-          [v10 setServerStatus:{objc_msgSend(v18, "serverStatus")}];
-          serverExecutionID = [v18 serverExecutionID];
+          [v10 setServerStatus:{objc_msgSend(v17, "serverStatus")}];
+          serverExecutionID = [v17 serverExecutionID];
           [v10 setServerExecutionID:serverExecutionID];
 
-          serverETag = [v18 serverETag];
+          serverETag = [v17 serverETag];
           [v10 setServerETag:serverETag];
         }
 
-        v46 = v18;
-        info = [v18 info];
+        v45 = v17;
+        info = [v17 info];
 
         info2 = [v10 info];
 
         if (info2)
         {
-          v23 = v46;
+          v22 = v45;
           if (!info)
           {
             goto LABEL_28;
           }
 
-          v44 = v15;
-          v45 = v9;
+          v43 = v15;
+          v44 = v9;
           info3 = [v10 info];
-          v25 = [info3 mutableCopy];
+          v24 = [info3 mutableCopy];
 
-          v49 = 0u;
-          v50 = 0u;
-          v47 = 0u;
           v48 = 0u;
-          info4 = [v46 info];
-          v27 = [info4 countByEnumeratingWithState:&v47 objects:v55 count:16];
-          if (v27)
+          v49 = 0u;
+          v46 = 0u;
+          v47 = 0u;
+          info4 = [v45 info];
+          v26 = [info4 countByEnumeratingWithState:&v46 objects:v54 count:16];
+          if (v26)
           {
-            v28 = v27;
-            v29 = *v48;
+            v27 = v26;
+            v28 = *v47;
             do
             {
-              for (i = 0; i != v28; i = i + 1)
+              for (i = 0; i != v27; i = i + 1)
               {
-                if (*v48 != v29)
+                if (*v47 != v28)
                 {
                   objc_enumerationMutation(info4);
                 }
 
-                v31 = *(*(&v47 + 1) + 8 * i);
+                v30 = *(*(&v46 + 1) + 8 * i);
                 info5 = [v10 info];
-                v33 = [info5 objectForKeyedSubscript:v31];
+                v32 = [info5 objectForKeyedSubscript:v30];
 
-                if (v33)
+                if (v32)
                 {
-                  v34 = +[NSNull null];
-                  v35 = [v34 isEqual:v33];
+                  v33 = +[NSNull null];
+                  v34 = [v33 isEqual:v32];
 
-                  if (v35)
+                  if (v34)
                   {
-                    [v25 setObject:0 forKeyedSubscript:v31];
+                    [v24 setObject:0 forKeyedSubscript:v30];
                   }
                 }
 
                 else
                 {
-                  info6 = [v46 info];
-                  v37 = [info6 objectForKeyedSubscript:v31];
-                  [v25 setObject:v37 forKeyedSubscript:v31];
+                  info6 = [v45 info];
+                  v36 = [info6 objectForKeyedSubscript:v30];
+                  [v24 setObject:v36 forKeyedSubscript:v30];
                 }
               }
 
-              v28 = [info4 countByEnumeratingWithState:&v47 objects:v55 count:16];
+              v27 = [info4 countByEnumeratingWithState:&v46 objects:v54 count:16];
             }
 
-            while (v28);
+            while (v27);
           }
 
-          if ([v25 count])
+          if ([v24 count])
           {
-            info7 = v25;
+            info7 = v24;
           }
 
           else
@@ -199,37 +198,37 @@ LABEL_13:
           }
 
           self = selfCopy;
-          changeCopy = v41;
-          v7 = v39;
+          changeCopy = v40;
+          v7 = v38;
           v8 = &CLSLogAsset_ptr;
-          v6 = v42;
-          v15 = v44;
-          v23 = v46;
+          v6 = v41;
+          v15 = v43;
+          v22 = v45;
         }
 
         else
         {
-          v23 = v46;
+          v22 = v45;
           if (!info)
           {
             goto LABEL_28;
           }
 
-          v45 = v9;
-          info7 = [v46 info];
-          v25 = info7;
+          v44 = v9;
+          info7 = [v45 info];
+          v24 = info7;
         }
 
         [v10 setInfo:info7];
 
-        v9 = v45;
+        v9 = v44;
 LABEL_28:
 
         v9 = v9 + 1;
       }
 
       while (v9 != v6);
-      v6 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+      v6 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
     }
 
     while (v6);

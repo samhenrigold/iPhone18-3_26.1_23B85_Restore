@@ -110,14 +110,14 @@
 
 - (KVProfile)initWithCoder:(id)coder
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_opt_class();
   v9 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v6, v5, @"d", v7, v8);
 
-  v19 = 0;
-  v13 = objc_msgSend_initWithProfileData_error_(self, v10, v9, &v19, v11, v12);
-  v14 = v19;
+  v18 = 0;
+  v13 = objc_msgSend_initWithProfileData_error_(self, v10, v9, &v18, v11, v12);
+  v14 = v18;
   v15 = v13;
   if (!v15)
   {
@@ -125,16 +125,15 @@
     if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v21 = "[KVProfile initWithCoder:]";
-      v22 = 2112;
-      v23 = v9;
-      v24 = 2112;
-      v25 = v14;
+      v20 = "[KVProfile initWithCoder:]";
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v14;
       _os_log_error_impl(&dword_2559A5000, v16, OS_LOG_TYPE_ERROR, "%s Failed to decode profile from data: %@ error: %@", buf, 0x20u);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -218,30 +217,30 @@
 
 + (id)profileWithContentsOfURL:(id)l error:(id *)error
 {
-  v62[1] = *MEMORY[0x277D85DE8];
+  v61[1] = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v56 = 0;
+  v55 = 0;
   v11 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v6, v7, v8, v9, v10);
   v17 = objc_msgSend_path(lCopy, v12, v13, v14, v15, v16);
-  isDirectory = objc_msgSend_fileExistsAtPath_isDirectory_(v11, v18, v17, &v56, v19, v20);
+  isDirectory = objc_msgSend_fileExistsAtPath_isDirectory_(v11, v18, v17, &v55, v19, v20);
 
   if ((isDirectory & 1) == 0)
   {
     v26 = MEMORY[0x277CCA9B8];
-    v61 = *MEMORY[0x277CCA450];
+    v60 = *MEMORY[0x277CCA450];
     v27 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v22, @"No profile exists at URL: %@", v23, v24, v25, lCopy);
-    v62[0] = v27;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v30, v62, &v61, 1, v31);
+    v61[0] = v27;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v30, v61, &v60, 1, v31);
     goto LABEL_5;
   }
 
-  if (v56 == 1)
+  if (v55 == 1)
   {
     v26 = MEMORY[0x277CCA9B8];
-    v59 = *MEMORY[0x277CCA450];
+    v58 = *MEMORY[0x277CCA450];
     v27 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v22, @"Expected file but found directory at URL: %@", v23, v24, v25, lCopy);
-    v60 = v27;
-    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, &v60, &v59, 1, v29);
+    v59 = v27;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v28, &v59, &v58, 1, v29);
     v32 = LABEL_5:;
     v35 = objc_msgSend_errorWithDomain_code_userInfo_(v26, v33, @"com.apple.koa.profile", 2, v32, v34);
     v36 = v35;
@@ -256,9 +255,9 @@
     goto LABEL_14;
   }
 
-  v55 = 0;
-  v32 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x277CBEA90], v22, lCopy, 8, &v55, v25);
-  v27 = v55;
+  v54 = 0;
+  v32 = objc_msgSend_dataWithContentsOfURL_options_error_(MEMORY[0x277CBEA90], v22, lCopy, 8, &v54, v25);
+  v27 = v54;
   if (v32)
   {
     v43 = objc_alloc(objc_opt_class());
@@ -269,12 +268,12 @@
   else
   {
     v46 = MEMORY[0x277CCA9B8];
-    v57[0] = *MEMORY[0x277CCA450];
+    v56[0] = *MEMORY[0x277CCA450];
     v36 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v39, @"Failed to read profile at URL: %@", v40, v41, v42, lCopy);
-    v57[1] = *MEMORY[0x277CCA7E8];
-    v58[0] = v36;
-    v58[1] = v27;
-    v49 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v47, v58, v57, 2, v48);
+    v56[1] = *MEMORY[0x277CCA7E8];
+    v57[0] = v36;
+    v57[1] = v27;
+    v49 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v47, v57, v56, 2, v48);
     v52 = objc_msgSend_errorWithDomain_code_userInfo_(v46, v50, @"com.apple.koa.profile", 2, v49, v51);
     if (error && v52)
     {
@@ -287,8 +286,6 @@
   }
 
 LABEL_14:
-
-  v53 = *MEMORY[0x277D85DE8];
 
   return v37;
 }

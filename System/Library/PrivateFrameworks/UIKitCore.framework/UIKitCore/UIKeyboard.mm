@@ -331,9 +331,9 @@ LABEL_12:
 void __30__UIKeyboard_isInputUIProcess__block_invoke()
 {
   v0 = _UIMainBundleIdentifier();
-  v1 = [v0 isEqualToString:@"com.apple.InputUI"];
+  isEqualToString = objc_msgSend_isEqualToString_(v0);
 
-  if (v1)
+  if (isEqualToString)
   {
     byte_1ED49C3D1 = 1;
   }
@@ -765,7 +765,7 @@ void __44__UIKeyboard_usingEndInputSessionCompletion__block_invoke()
   }
 }
 
-uint64_t __45__UIKeyboard_isInlineTextCompletionUIEnabled__block_invoke(uint64_t a1)
+void *__45__UIKeyboard_isInlineTextCompletionUIEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isInlineTextCompletionUISupported];
   if (result)
@@ -777,7 +777,7 @@ uint64_t __45__UIKeyboard_isInlineTextCompletionUIEnabled__block_invoke(uint64_t
   return result;
 }
 
-uint64_t __46__UIKeyboard_OutOfProcessSupport__serviceRole__block_invoke(uint64_t a1)
+void *__46__UIKeyboard_OutOfProcessSupport__serviceRole__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) usesInputSystemUI];
   if ((result & 1) != 0 || (result = [*(a1 + 32) usesInputSystemUIForAutoFillOnlyWithRTI], result))
@@ -829,9 +829,9 @@ uint64_t __46__UIKeyboard_OutOfProcessSupport__serviceRole__block_invoke(uint64_
 + (BOOL)isSpotlight
 {
   keyboardBundleIdentifier = [self keyboardBundleIdentifier];
-  v3 = [keyboardBundleIdentifier isEqualToString:@"com.apple.Spotlight"];
+  isEqualToString = objc_msgSend_isEqualToString_(keyboardBundleIdentifier);
 
-  return v3;
+  return isEqualToString;
 }
 
 uint64_t __54__UIKeyboard_presentsInlineTextCompletionAsMarkedText__block_invoke(uint64_t a1)
@@ -1778,9 +1778,9 @@ LABEL_15:
     {
       v15 = objc_opt_class();
       v16 = NSStringFromClass(v15);
-      v17 = [v16 isEqualToString:@"SPUIProxySearchField"];
+      isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-      if (v17)
+      if (isEqualToString)
       {
         v18 = +[_UIRemoteKeyboards sharedRemoteKeyboards];
         v19 = +[UIKeyboardSceneDelegate activeKeyboardSceneDelegate];
@@ -2234,9 +2234,9 @@ LABEL_8:
   if (([currentInputMode isExtensionInputMode] & 1) == 0)
   {
     normalizedIdentifier = [currentInputMode normalizedIdentifier];
-    v4 = [normalizedIdentifier isEqualToString:@"emoji"];
+    isEqualToString = objc_msgSend_isEqualToString_(normalizedIdentifier);
 
-    if ((v4 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v5 = +[UIKeyboardImpl sharedInstance];
       [v5 updateLayout];
@@ -3253,7 +3253,7 @@ LABEL_9:
   return byte_1ED49C3D7;
 }
 
-uint64_t __52__UIKeyboard_doesSpacebarAcceptInlineTextCompletion__block_invoke(uint64_t a1)
+void *__52__UIKeyboard_doesSpacebarAcceptInlineTextCompletion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isInlineTextCompletionUIEnabled];
   if (result)
@@ -3280,7 +3280,7 @@ uint64_t __52__UIKeyboard_doesSpacebarAcceptInlineTextCompletion__block_invoke(u
   return byte_1ED49C3D8;
 }
 
-uint64_t __54__UIKeyboard_isInlineTextCompletionEducationUIEnabled__block_invoke(uint64_t a1)
+void *__54__UIKeyboard_isInlineTextCompletionEducationUIEnabled__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isInlineTextCompletionUIEnabled];
   if (result)
@@ -3307,7 +3307,7 @@ uint64_t __54__UIKeyboard_isInlineTextCompletionEducationUIEnabled__block_invoke
   return byte_1ED49C3D9;
 }
 
-uint64_t __56__UIKeyboard_doesSpacebarAcceptFullInlineTextCompletion__block_invoke(uint64_t a1)
+void *__56__UIKeyboard_doesSpacebarAcceptFullInlineTextCompletion__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) doesSpacebarAcceptInlineTextCompletion];
   if (result)
@@ -3517,7 +3517,7 @@ LABEL_6:
   v18 = 0u;
   v19 = 0u;
   v17 = 0u;
-  [(UIKeyboard *)self geometryForMinimize:1];
+  objc_msgSend_geometryForMinimize_(self, a2, 1);
   superview = [(UIView *)self superview];
 
   if (superview)
@@ -3570,7 +3570,7 @@ LABEL_6:
   v18 = 0u;
   v19 = 0u;
   v17 = 0u;
-  [(UIKeyboard *)self geometryForMinimize:0];
+  objc_msgSend_geometryForMinimize_(self, a2, 0);
   superview = [(UIView *)self superview];
 
   if (superview)
@@ -3662,7 +3662,7 @@ LABEL_6:
 {
   maximizedCopy = maximized;
   v5 = +[UIPeripheralHost sharedInstance];
-  [(UIKeyboard *)self geometryForMinimize:maximizedCopy];
+  objc_msgSend_geometryForMinimize_(self);
   [v5 postDidShowNotificationForGeometry:v6];
 
   if (maximizedCopy)
@@ -3743,7 +3743,7 @@ LABEL_6:
     v8 = 0u;
     v9 = 0u;
     v7 = 0u;
-    [(UIKeyboard *)self geometryForImplHeightDelta:change];
+    objc_msgSend_geometryForImplHeightDelta_(self, a2, change);
     v4 = +[UIPeripheralHost sharedInstance];
     v5[4] = v11;
     v5[5] = v12;
@@ -3773,7 +3773,7 @@ LABEL_6:
     v11 = 0u;
     v12 = 0u;
     v10 = 0u;
-    [(UIKeyboard *)self geometryForImplHeightDelta:done];
+    objc_msgSend_geometryForImplHeightDelta_(self, done);
     v7 = +[UIPeripheralHost sharedInstance];
     v8[4] = v14;
     v8[5] = v15;

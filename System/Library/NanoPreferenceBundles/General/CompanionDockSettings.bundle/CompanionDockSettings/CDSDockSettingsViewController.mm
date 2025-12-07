@@ -29,6 +29,7 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CDSDockSettingsViewController
@@ -96,6 +97,17 @@
   v3[3] = &unk_81E8;
   v3[4] = self;
   [(CDSDockSettingsViewController *)self _loadDataWithCompletion:v3];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = CDSDockSettingsViewController;
+  [(CDSDockSettingsViewController *)&v6 viewWillAppear:appear];
+  [(CDSDockSettingsViewController *)self reloadSpecifiers];
+  v4 = [NSBundle bundleForClass:objc_opt_class()];
+  v5 = [v4 localizedStringForKey:@"DOCK_GROUP_NAME" value:&stru_8320 table:@"CompanionDockSettings"];
+  [(CDSDockSettingsViewController *)self setTitle:v5];
 }
 
 - (unint64_t)activeGroupSectionIndex

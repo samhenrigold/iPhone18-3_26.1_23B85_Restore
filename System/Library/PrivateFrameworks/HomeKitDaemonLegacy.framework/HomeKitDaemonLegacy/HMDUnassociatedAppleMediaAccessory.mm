@@ -8,6 +8,7 @@
 - (NSString)model;
 - (NSString)serialNumber;
 - (id)addTransactionForHome:(id)home;
+- (id)descriptionWithPointer:(BOOL)pointer additionalDescription:(id)description;
 - (id)dumpDescription;
 - (void)encodeWithCoder:(id)coder;
 - (void)setDevice:(id)device;
@@ -146,7 +147,7 @@
 
 - (BOOL)canPairGivenCapabilities:(unint64_t)capabilities
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   requiredPairingCapabilities = [(HMDUnassociatedAppleMediaAccessory *)self requiredPairingCapabilities];
 
   if (requiredPairingCapabilities)
@@ -155,25 +156,23 @@
     requiredPairingCapabilities2 = [(HMDUnassociatedAppleMediaAccessory *)self requiredPairingCapabilities];
     v8 = [(HMDCapabilityFlags *)v6 hasCapabilities:requiredPairingCapabilities2];
 
-    v9 = *MEMORY[0x277D85DE8];
     return v8;
   }
 
   else
   {
-    v11 = objc_autoreleasePoolPush();
+    v10 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v14 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@No required capabilities found.", &v16, 0xCu);
+      v13 = HMFGetLogIdentifier();
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@No required capabilities found.", &v14, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v11);
-    v15 = *MEMORY[0x277D85DE8];
+    objc_autoreleasePoolPop(v10);
     return 1;
   }
 }
@@ -280,16 +279,15 @@
   versionCopy = version;
   if (versionCopy)
   {
-    v7 = versionCopy;
+    v6 = versionCopy;
     os_unfair_recursive_lock_lock_with_options();
-    softwareVersion = self->_softwareVersion;
     if ((HMFEqualObjects() & 1) == 0)
     {
       objc_storeStrong(&self->_softwareVersion, version);
     }
 
     os_unfair_recursive_lock_unlock();
-    versionCopy = v7;
+    versionCopy = v6;
   }
 }
 
@@ -307,18 +305,17 @@
   numberCopy = number;
   if (numberCopy)
   {
-    v8 = numberCopy;
+    v7 = numberCopy;
     os_unfair_recursive_lock_lock_with_options();
-    serialNumber = self->_serialNumber;
     if ((HMFEqualObjects() & 1) == 0)
     {
-      v6 = [v8 copy];
-      v7 = self->_serialNumber;
-      self->_serialNumber = v6;
+      v5 = objc_msgSend_copy(v7);
+      serialNumber = self->_serialNumber;
+      self->_serialNumber = v5;
     }
 
     os_unfair_recursive_lock_unlock();
-    numberCopy = v8;
+    numberCopy = v7;
   }
 }
 
@@ -338,7 +335,7 @@
   {
     v7 = modelCopy;
     os_unfair_recursive_lock_lock_with_options();
-    v5 = [v7 copy];
+    v5 = objc_msgSend_copy(v7);
     model = self->_model;
     self->_model = v5;
 
@@ -354,6 +351,24 @@
   os_unfair_recursive_lock_unlock();
 
   return v3;
+}
+
+- (id)descriptionWithPointer:(BOOL)pointer additionalDescription:(id)description
+{
+  pointerCopy = pointer;
+  v6 = MEMORY[0x277CCACA8];
+  v7 = [(HMDUnassociatedAppleMediaAccessory *)self softwareVersion:pointer];
+  minimumRequiredPairingSoftwareVersion = [(HMDUnassociatedAppleMediaAccessory *)self minimumRequiredPairingSoftwareVersion];
+  requiredPairingCapabilities = [(HMDUnassociatedAppleMediaAccessory *)self requiredPairingCapabilities];
+  idsIdentifierString = [(HMDUnassociatedAppleMediaAccessory *)self idsIdentifierString];
+  device = [(HMDUnassociatedAppleMediaAccessory *)self device];
+  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDUnassociatedAppleMediaAccessory supportedStereoPairVersions](self, "supportedStereoPairVersions")}];
+  v13 = [v6 stringWithFormat:@"softwareVersion = %@, pairingRequiredSoftwareVersion = %@, requiredPairingCapabilities = %@, idsIdentifier = %@, Device = %@, supportedStereoPairVersions = %@", v7, minimumRequiredPairingSoftwareVersion, requiredPairingCapabilities, idsIdentifierString, device, v12];
+  v16.receiver = self;
+  v16.super_class = HMDUnassociatedAppleMediaAccessory;
+  v14 = [(HMDUnassociatedAccessory *)&v16 descriptionWithPointer:pointerCopy additionalDescription:v13];
+
+  return v14;
 }
 
 - (HMDUnassociatedAppleMediaAccessory)initWithIdentifier:(id)identifier name:(id)name category:(id)category requiredPairingCapabilities:(unint64_t)capabilities minimumPairingSoftware:(id)software productColor:(int64_t)color idsIdentifierString:(id)string rawAccessoryCapabilities:(id)self0 rawResidentCapabilities:(id)self1 messageDispatcher:(id)self2
@@ -403,12 +418,11 @@
 
 uint64_t __49__HMDUnassociatedAppleMediaAccessory_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_34263;
-  logCategory__hmf_once_v9_34263 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_34263;
+  logCategory__hmf_once_v9_34263 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)namespace

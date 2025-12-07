@@ -112,8 +112,8 @@ LABEL_6:
 
 - (id)jsonDict
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13[0] = @"name";
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12[0] = @"name";
   name = self->_name;
   null = name;
   if (!name)
@@ -121,8 +121,8 @@ LABEL_6:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"handleType";
+  v13[0] = null;
+  v12[1] = @"handleType";
   handleType = self->_handleType;
   null2 = handleType;
   if (!handleType)
@@ -132,18 +132,18 @@ LABEL_6:
 
   handle = self->_handle;
   contactIdentifier = self->_contactIdentifier;
-  v14[1] = null2;
-  v14[2] = handle;
-  v13[2] = @"handle";
-  v13[3] = @"contactIdentfier";
+  v13[1] = null2;
+  v13[2] = handle;
+  v12[2] = @"handle";
+  v12[3] = @"contactIdentfier";
   null3 = contactIdentifier;
   if (!contactIdentifier)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[3] = null3;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = null3;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:4];
   if (contactIdentifier)
   {
     if (handleType)
@@ -175,7 +175,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

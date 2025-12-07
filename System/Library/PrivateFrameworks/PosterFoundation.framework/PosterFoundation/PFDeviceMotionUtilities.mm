@@ -1,24 +1,23 @@
 @interface PFDeviceMotionUtilities
 + (__n128)rotationFromSerializedRepresentation:(void *)representation@<X2>;
-+ (id)serializedRepresentationFromRotation:(double *)rotation;
++ (id)serializedRepresentationFromRotation:(uint64_t)rotation;
 @end
 
 @implementation PFDeviceMotionUtilities
 
-+ (id)serializedRepresentationFromRotation:(double *)rotation
++ (id)serializedRepresentationFromRotation:(uint64_t)rotation
 {
-  v3 = *rotation;
-  v13 = *(rotation + 1);
-  v4 = rotation[3];
-  v5 = rotation[1];
-  v6 = MEMORY[0x1E695DEC8];
-  v7 = [MEMORY[0x1E696AD98] numberWithDouble:?];
-  v8 = [MEMORY[0x1E696AD98] numberWithDouble:v5];
-  v9 = [MEMORY[0x1E696AD98] numberWithDouble:*&v13];
-  v10 = [MEMORY[0x1E696AD98] numberWithDouble:v4];
-  v11 = [v6 arrayWithObjects:{v7, v8, v9, v10, 0}];
+  v12 = *(rotation + 16);
+  v3 = *(rotation + 24);
+  v4 = *(rotation + 8);
+  v5 = MEMORY[0x1E695DEC8];
+  v6 = [MEMORY[0x1E696AD98] numberWithDouble:?];
+  v7 = [MEMORY[0x1E696AD98] numberWithDouble:v4];
+  v8 = [MEMORY[0x1E696AD98] numberWithDouble:*&v12];
+  v9 = [MEMORY[0x1E696AD98] numberWithDouble:v3];
+  v10 = [v5 arrayWithObjects:{v6, v7, v8, v9, 0}];
 
-  return v11;
+  return v10;
 }
 
 + (__n128)rotationFromSerializedRepresentation:(void *)representation@<X2>

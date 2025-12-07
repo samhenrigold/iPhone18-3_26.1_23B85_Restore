@@ -1,5 +1,7 @@
 @interface ACSURLSession
++ (ACSURLSession)sessionWithConfiguration:(id)configuration canUseCachingServer:(BOOL)server locateOptions:(id)options delegate:(id)delegate delegateQueue:(id)queue;
 + (ACSURLSession)sharedSession;
+- (ACSURLSession)initWithConfiguration:(id)configuration canUseCachingServer:(BOOL)server locateOptions:(id)options delegate:(id)delegate delegateQueue:(id)queue;
 - (BOOL)_resumeData:(id)data toNSURLResumeData:(id *)resumeData originalRequest:(id *)request currentRequest:(id *)currentRequest error:(id *)error;
 - (NSDictionary)locateOptions;
 - (NSString)description;
@@ -97,6 +99,18 @@ uint64_t __30__ACSURLSession_sharedSession__block_invoke()
   return [v3 set_phase:3];
 }
 
++ (ACSURLSession)sessionWithConfiguration:(id)configuration canUseCachingServer:(BOOL)server locateOptions:(id)options delegate:(id)delegate delegateQueue:(id)queue
+{
+  serverCopy = server;
+  queueCopy = queue;
+  delegateCopy = delegate;
+  optionsCopy = options;
+  configurationCopy = configuration;
+  v15 = [[ACSURLSession alloc] initWithConfiguration:configurationCopy canUseCachingServer:serverCopy locateOptions:optionsCopy delegate:delegateCopy delegateQueue:queueCopy];
+
+  return v15;
+}
+
 - (NSURLSessionConfiguration)configuration
 {
   _nsurlSession = [(ACSURLSession *)self _nsurlSession];
@@ -139,7 +153,7 @@ uint64_t __30__ACSURLSession_sharedSession__block_invoke()
   dispatch_async(_queue, block);
 }
 
-uint64_t __41__ACSURLSession_finishTasksAndInvalidate__block_invoke(uint64_t a1)
+void *__41__ACSURLSession_finishTasksAndInvalidate__block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) canUseCachingServer] && (objc_msgSend(*(a1 + 32), "_phase") || (objc_msgSend(*(a1 + 32), "_tasks"), v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "count"), v2, v3)))
   {
@@ -176,36 +190,36 @@ uint64_t __41__ACSURLSession_finishTasksAndInvalidate__block_invoke(uint64_t a1)
   dispatch_async(_queue, block);
 }
 
-uint64_t __36__ACSURLSession_invalidateAndCancel__block_invoke(uint64_t a1)
+void *__36__ACSURLSession_invalidateAndCancel__block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) canUseCachingServer] && (objc_msgSend(*(a1 + 32), "_phase") || (objc_msgSend(*(a1 + 32), "_tasks"), v2 = objc_claimAutoreleasedReturnValue(), v3 = objc_msgSend(v2, "count"), v2, v3)))
   {
     if (![*(a1 + 32) _phase] || (result = objc_msgSend(*(a1 + 32), "_phase"), result == 1))
     {
-      v17 = 0u;
-      v18 = 0u;
       v15 = 0u;
       v16 = 0u;
+      v13 = 0u;
+      v14 = 0u;
       v5 = [*(a1 + 32) _onqueue_uniqueTasks];
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v16;
+        v8 = *v14;
         do
         {
           for (i = 0; i != v7; ++i)
           {
-            if (*v16 != v8)
+            if (*v14 != v8)
             {
               objc_enumerationMutation(v5);
             }
 
-            [*(*(&v15 + 1) + 8 * i) cancel];
+            [*(*(&v13 + 1) + 8 * i) cancel];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
         }
 
         while (v7);
@@ -214,21 +228,18 @@ uint64_t __36__ACSURLSession_invalidateAndCancel__block_invoke(uint64_t a1)
       v10 = [*(a1 + 32) _nsurlSession];
       [v10 invalidateAndCancel];
 
-      result = [*(a1 + 32) set_phase:2];
+      return [*(a1 + 32) set_phase:2];
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v12 = [*(a1 + 32) _nsurlSession];
-    [v12 invalidateAndCancel];
+    v11 = [*(a1 + 32) _nsurlSession];
+    [v11 invalidateAndCancel];
 
-    v13 = *(a1 + 32);
-    v14 = *MEMORY[0x277D85DE8];
+    v12 = *(a1 + 32);
 
-    return [v13 set_phase:2];
+    return [v12 set_phase:2];
   }
 
   return result;
@@ -290,32 +301,32 @@ void __44__ACSURLSession_flushWithCompletionHandler___block_invoke(uint64_t a1)
 
 void __47__ACSURLSession_getTasksWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEB18] array];
   v3 = [MEMORY[0x277CBEB18] array];
   v4 = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v19 = a1;
+  v18 = a1;
   v5 = [*(a1 + 32) _onqueue_uniqueTasks];
-  v6 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       v9 = 0;
       do
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * v9);
+        v10 = *(*(&v24 + 1) + 8 * v9);
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
         v12 = v4;
@@ -338,28 +349,26 @@ void __47__ACSURLSession_getTasksWithCompletionHandler___block_invoke(uint64_t a
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v7);
   }
 
-  v13 = [*(v19 + 32) _clientDelegateOpQueue];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __47__ACSURLSession_getTasksWithCompletionHandler___block_invoke_2;
-  v20[3] = &unk_278CC4EF8;
-  v14 = *(v19 + 40);
-  v21 = v2;
-  v22 = v3;
-  v23 = v4;
-  v24 = v14;
+  v13 = [*(v18 + 32) _clientDelegateOpQueue];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __47__ACSURLSession_getTasksWithCompletionHandler___block_invoke_2;
+  v19[3] = &unk_278CC4EF8;
+  v14 = *(v18 + 40);
+  v20 = v2;
+  v21 = v3;
+  v22 = v4;
+  v23 = v14;
   v15 = v4;
   v16 = v3;
   v17 = v2;
-  [v13 addOperationWithBlock:v20];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [v13 addOperationWithBlock:v19];
 }
 
 - (void)getAllTasksWithCompletionHandler:(id)handler
@@ -545,12 +554,96 @@ id __41__ACSURLSession_downloadTaskWithRequest___block_invoke(uint64_t a1, void 
   return v5;
 }
 
+- (ACSURLSession)initWithConfiguration:(id)configuration canUseCachingServer:(BOOL)server locateOptions:(id)options delegate:(id)delegate delegateQueue:(id)queue
+{
+  serverCopy = server;
+  v39[1] = *MEMORY[0x277D85DE8];
+  configurationCopy = configuration;
+  optionsCopy = options;
+  delegateCopy = delegate;
+  queueCopy = queue;
+  identifier = [configurationCopy identifier];
+
+  if (identifier)
+  {
+    v29 = MEMORY[0x277CBEAD8];
+    v30 = *MEMORY[0x277CBE660];
+    v38 = @"session";
+    v39[0] = self;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v32 = @"ACSURLSession does not support background sessions";
+    goto LABEL_13;
+  }
+
+  if (queueCopy && [queueCopy maxConcurrentOperationCount] != 1)
+  {
+    v29 = MEMORY[0x277CBEAD8];
+    v30 = *MEMORY[0x277CBE660];
+    v36 = @"session";
+    selfCopy = self;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&selfCopy forKeys:&v36 count:1];
+    v32 = @"Cannot create an ACSURLSession with a concurrent delegate queue; set its maxConcurrentOperationCount to 1 or use the main queue";
+LABEL_13:
+    v33 = [v29 exceptionWithName:v30 reason:v32 userInfo:v31];
+    v34 = v33;
+
+    objc_exception_throw(v33);
+  }
+
+  if (serverCopy)
+  {
+    ACSLocateCachingServer([MEMORY[0x277CBEBC0] URLWithString:@"http://www.apple.com/"], optionsCopy, 0, 0, 30.0);
+  }
+
+  v35.receiver = self;
+  v35.super_class = ACSURLSession;
+  v17 = [(ACSURLSession *)&v35 init];
+  v18 = v17;
+  if (v17)
+  {
+    [(ACSURLSession *)v17 setCanUseCachingServer:serverCopy];
+    v19 = os_log_create("com.apple.AssetCacheServices", "URLSession");
+    [(ACSURLSession *)v18 set_logHandle:v19];
+
+    v20 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v21 = dispatch_queue_create("ACSURLSession queue", v20);
+    [(ACSURLSession *)v18 set_queue:v21];
+
+    v22 = [MEMORY[0x277CCAD30] sessionWithConfiguration:configurationCopy delegate:v18 delegateQueue:queueCopy];
+    [(ACSURLSession *)v18 set_nsurlSession:v22];
+
+    v23 = [(__CFDictionary *)optionsCopy copy];
+    [(ACSURLSession *)v18 set_locateOptions:v23];
+
+    [(ACSURLSession *)v18 set_clientDelegate:delegateCopy];
+    _nsurlSession = [(ACSURLSession *)v18 _nsurlSession];
+    delegateQueue = [_nsurlSession delegateQueue];
+    [(ACSURLSession *)v18 set_clientDelegateOpQueue:delegateQueue];
+
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    [(ACSURLSession *)v18 set_tasks:dictionary];
+  }
+
+  _logHandle = [(ACSURLSession *)v18 _logHandle];
+  if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
+  {
+    [ACSURLSession initWithConfiguration:canUseCachingServer:locateOptions:delegate:delegateQueue:];
+  }
+
+  return v18;
+}
+
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_11(&dword_2411B8000, v0, v1, "dealloc session %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _logHandle = [(ACSURLSession *)self _logHandle];
+  if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
+  {
+    [ACSURLSession dealloc];
+  }
+
+  v4.receiver = self;
+  v4.super_class = ACSURLSession;
+  [(ACSURLSession *)&v4 dealloc];
 }
 
 - (NSString)description
@@ -633,21 +726,21 @@ void __28__ACSURLSession_description__block_invoke(uint64_t a1, void *a2, uint64
 
 uint64_t __26__ACSURLSession__addTask___block_invoke(uint64_t a1)
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) _phase] == 1 || objc_msgSend(*(a1 + 32), "_phase") == 2)
   {
-    v7 = MEMORY[0x277CBEAD8];
-    v8 = *MEMORY[0x277CBE648];
-    v14[0] = @"session";
-    v14[1] = @"task";
-    v9 = *(a1 + 40);
-    v15[0] = *(a1 + 32);
-    v15[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-    v11 = [v7 exceptionWithName:v8 reason:@"Cannot create a task in an ACSURLSession that has been invalidated" userInfo:v10];
-    v12 = v11;
+    v6 = MEMORY[0x277CBEAD8];
+    v7 = *MEMORY[0x277CBE648];
+    v13[0] = @"session";
+    v13[1] = @"task";
+    v8 = *(a1 + 40);
+    v14[0] = *(a1 + 32);
+    v14[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v10 = [v6 exceptionWithName:v7 reason:@"Cannot create a task in an ACSURLSession that has been invalidated" userInfo:v9];
+    v11 = v10;
 
-    objc_exception_throw(v11);
+    objc_exception_throw(v10);
   }
 
   v2 = *(a1 + 32);
@@ -661,14 +754,12 @@ uint64_t __26__ACSURLSession__addTask___block_invoke(uint64_t a1)
     [*(a1 + 32) _onqueue_addTask:*(a1 + 40) forNSURLTask:v5];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)_onqueue_addTask:(id)task forNSURLTask:(id)lTask
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   lTaskCopy = lTask;
   _queue = [(ACSURLSession *)self _queue];
@@ -680,10 +771,10 @@ uint64_t __26__ACSURLSession__addTask___block_invoke(uint64_t a1)
   {
     descriptionWithAddress = [lTaskCopy descriptionWithAddress];
     *buf = 138412802;
-    v24 = taskCopy;
-    v25 = 2112;
-    v26 = descriptionWithAddress;
-    v27 = 2112;
+    v23 = taskCopy;
+    v24 = 2112;
+    v25 = descriptionWithAddress;
+    v26 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "add task %@ for nsurlTask %@ self=%@", buf, 0x20u);
   }
@@ -698,16 +789,15 @@ uint64_t __26__ACSURLSession__addTask___block_invoke(uint64_t a1)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
     _tasks3 = [(ACSURLSession *)self _tasks];
-    v21 = [_tasks3 objectForKeyedSubscript:v10];
+    v20 = [_tasks3 objectForKeyedSubscript:v10];
     descriptionWithAddress2 = [lTaskCopy descriptionWithAddress];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"ACSURLSession.m" lineNumber:363 description:{@"ACSURLSession %@ clobbering ACSURLSessionTask %@ with %@ for NSURLSessionTask %@", self, v21, taskCopy, descriptionWithAddress2}];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"ACSURLSession.m" lineNumber:363 description:{@"ACSURLSession %@ clobbering ACSURLSessionTask %@ with %@ for NSURLSessionTask %@", self, v20, taskCopy, descriptionWithAddress2}];
   }
 
   _tasks4 = [(ACSURLSession *)self _tasks];
   [_tasks4 setObject:taskCopy forKeyedSubscript:v10];
 
   objc_sync_exit(_tasks);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeTask:(id)task
@@ -760,7 +850,7 @@ void __29__ACSURLSession__removeTask___block_invoke(uint64_t a1)
 
 - (void)_onqueue_removeTaskForNSURLTask:(id)task
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   _queue = [(ACSURLSession *)self _queue];
   dispatch_assert_queue_V2(_queue);
@@ -772,17 +862,17 @@ void __29__ACSURLSession__removeTask___block_invoke(uint64_t a1)
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     _tasks2 = [(ACSURLSession *)self _tasks];
-    v16 = [_tasks2 objectForKeyedSubscript:v6];
+    v15 = [_tasks2 objectForKeyedSubscript:v6];
     descriptionWithAddress = [taskCopy descriptionWithAddress];
-    v18 = 138413058;
-    selfCopy2 = v16;
-    v20 = 2112;
-    v21 = descriptionWithAddress;
-    v22 = 2112;
+    v17 = 138413058;
+    selfCopy2 = v15;
+    v19 = 2112;
+    v20 = descriptionWithAddress;
+    v21 = 2112;
     selfCopy = self;
-    v24 = 2112;
-    v25 = v6;
-    _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "remove task %@ for nsurlTask %@ self=%@ key=%@", &v18, 0x2Au);
+    v23 = 2112;
+    v24 = v6;
+    _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "remove task %@ for nsurlTask %@ self=%@ key=%@", &v17, 0x2Au);
   }
 
   _tasks3 = [(ACSURLSession *)self _tasks];
@@ -795,13 +885,13 @@ void __29__ACSURLSession__removeTask___block_invoke(uint64_t a1)
     if (os_log_type_enabled(_logHandle2, OS_LOG_TYPE_DEFAULT))
     {
       descriptionWithAddress2 = [taskCopy descriptionWithAddress];
-      v18 = 138412802;
+      v17 = 138412802;
       selfCopy2 = self;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
       selfCopy = descriptionWithAddress2;
-      _os_log_impl(&dword_2411B8000, _logHandle2, OS_LOG_TYPE_DEFAULT, "ACSURLSession %@ missing ACSURLSessionTask for NSURLSessionTask %@; this is normal if the task was canceled. task %@", &v18, 0x20u);
+      _os_log_impl(&dword_2411B8000, _logHandle2, OS_LOG_TYPE_DEFAULT, "ACSURLSession %@ missing ACSURLSessionTask for NSURLSessionTask %@; this is normal if the task was canceled. task %@", &v17, 0x20u);
     }
   }
 
@@ -812,12 +902,11 @@ void __29__ACSURLSession__removeTask___block_invoke(uint64_t a1)
   }
 
   objc_sync_exit(_tasks);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_onqueue_taskForNSURLTask:(id)task
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   _queue = [(ACSURLSession *)self _queue];
   dispatch_assert_queue_V2(_queue);
@@ -852,20 +941,18 @@ void __29__ACSURLSession__removeTask___block_invoke(uint64_t a1)
     {
       *buf = 138412546;
       selfCopy = self;
-      v23 = 2112;
-      v24 = v7;
+      v22 = 2112;
+      v23 = v7;
       _os_log_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEFAULT, "ACSURLSession %@ missing ACSURLSessionTask for NSURLSessionTask %@; this is normal if the task was canceled", buf, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)_onqueue_uniqueTasks
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   _queue = [(ACSURLSession *)self _queue];
   dispatch_assert_queue_V2(_queue);
 
@@ -877,39 +964,37 @@ void __29__ACSURLSession__removeTask___block_invoke(uint64_t a1)
   objc_sync_exit(_tasks);
   v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(allValues, "count")}];
   v8 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(allValues, "count")}];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v9 = allValues;
-  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v10)
   {
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = *(*(&v16 + 1) + 8 * i);
-        if (([v8 containsObject:{v13, v16}] & 1) == 0)
+        v13 = *(*(&v15 + 1) + 8 * i);
+        if (([v8 containsObject:{v13, v15}] & 1) == 0)
         {
           [v7 addObject:v13];
           [v8 addObject:v13];
         }
       }
 
-      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1140,16 +1225,16 @@ void __29__ACSURLSession__cancelTask___block_invoke(uint64_t a1)
 
 void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invoke(uint64_t a1, void *a2)
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = *(a1 + 32);
     v5 = [*(a1 + 40) originalRequest];
     v6 = [*(a1 + 40) currentRequest];
-    v13 = 0;
-    v7 = [v4 _resumeDataWithNSURLResumeData:v3 originalRequest:v5 currentRequest:v6 error:&v13];
-    v8 = v13;
+    v12 = 0;
+    v7 = [v4 _resumeDataWithNSURLResumeData:v3 originalRequest:v5 currentRequest:v6 error:&v12];
+    v8 = v12;
 
     if (v7)
     {
@@ -1160,9 +1245,9 @@ void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invok
   else
   {
     v9 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = @"Invalid resume data from NSURL";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = @"Invalid resume data from NSURL";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v8 = [v9 errorWithDomain:@"_kACSURLSessionErrorDomain" code:1 userInfo:v10];
   }
 
@@ -1175,13 +1260,11 @@ void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invok
   v7 = 0;
 LABEL_8:
   (*(*(a1 + 48) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invoke_122(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) _nsurlTaskToCachingServer];
   if (v3 && [*v2 _tryCachingServer])
@@ -1210,61 +1293,59 @@ void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invok
       v5 = [*(a1 + 40) _logHandle];
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        v9 = *(a1 + 32);
-        v8 = *(a1 + 40);
-        v10 = [v4 descriptionWithAddress];
-        v11 = 138413058;
-        v12 = v8;
-        v13 = 2112;
-        v14 = v9;
-        v15 = 2112;
-        v16 = v10;
-        v17 = 2112;
-        v18 = @"NSURLSessionDownloadTask";
-        _os_log_fault_impl(&dword_2411B8000, v5, OS_LOG_TYPE_FAULT, "ACSURLSession %@ unexpected task %@ for nsurlTask %@, expected class %@", &v11, 0x2Au);
+        v8 = *(a1 + 32);
+        v7 = *(a1 + 40);
+        v9 = [v4 descriptionWithAddress];
+        v10 = 138413058;
+        v11 = v7;
+        v12 = 2112;
+        v13 = v8;
+        v14 = 2112;
+        v15 = v9;
+        v16 = 2112;
+        v17 = @"NSURLSessionDownloadTask";
+        _os_log_fault_impl(&dword_2411B8000, v5, OS_LOG_TYPE_FAULT, "ACSURLSession %@ unexpected task %@ for nsurlTask %@, expected class %@", &v10, 0x2Au);
       }
 
       v6 = [*(a1 + 40) _logHandle];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_2411B8000, v6, OS_LOG_TYPE_DEFAULT, "ACSURLSessionDownloadTask _cancelDownloadTask:byProducingResumeData: completing with nil", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_2411B8000, v6, OS_LOG_TYPE_DEFAULT, "ACSURLSessionDownloadTask _cancelDownloadTask:byProducingResumeData: completing with nil", &v10, 2u);
       }
 
       (*(*(a1 + 56) + 16))();
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_downloadTaskWithResumeData:(id)data completionHandler:(id)handler
 {
-  v56[2] = *MEMORY[0x277D85DE8];
+  v55[2] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   handlerCopy = handler;
-  v53 = 0;
-  v54 = 0;
-  v51 = 0;
   v52 = 0;
-  v35 = dataCopy;
-  v8 = [(ACSURLSession *)self _resumeData:dataCopy toNSURLResumeData:&v54 originalRequest:&v53 currentRequest:&v52 error:&v51];
-  v9 = v54;
-  v37 = v53;
-  v10 = v52;
-  v36 = v51;
+  v53 = 0;
+  v50 = 0;
+  v51 = 0;
+  v34 = dataCopy;
+  v8 = [(ACSURLSession *)self _resumeData:dataCopy toNSURLResumeData:&v53 originalRequest:&v52 currentRequest:&v51 error:&v50];
+  v9 = v53;
+  v36 = v52;
+  v10 = v51;
+  v35 = v50;
   if (!v8)
   {
-    v27 = MEMORY[0x277CBEAD8];
-    v55[0] = @"session";
-    v55[1] = @"error";
-    v56[0] = self;
-    v56[1] = v36;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
-    v29 = [v27 exceptionWithName:*MEMORY[0x277CBE660] reason:@"Invalid resume data" userInfo:v28];
-    v30 = v29;
+    v26 = MEMORY[0x277CBEAD8];
+    v54[0] = @"session";
+    v54[1] = @"error";
+    v55[0] = self;
+    v55[1] = v35;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:2];
+    v28 = [v26 exceptionWithName:*MEMORY[0x277CBE660] reason:@"Invalid resume data" userInfo:v27];
+    v29 = v28;
 
-    objc_exception_throw(v29);
+    objc_exception_throw(v28);
   }
 
   v11 = [v10 URL];
@@ -1280,39 +1361,39 @@ void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invok
     v13 = [query containsString:@"&source="];
   }
 
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x3032000000;
-  v48 = __Block_byref_object_copy_;
-  v49 = __Block_byref_object_dispose_;
-  v50 = 0;
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = __Block_byref_object_copy_;
+  v48 = __Block_byref_object_dispose_;
+  v49 = 0;
   if (handlerCopy)
   {
-    v14 = v38;
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __63__ACSURLSession__downloadTaskWithResumeData_completionHandler___block_invoke_2;
-    v38[3] = &unk_278CC5178;
-    v41[1] = &v45;
-    v38[4] = self;
-    v32 = v41;
-    v41[0] = handlerCopy;
-    v33 = &v39;
-    v39 = v10;
-    dataCopy = &v40;
+    v14 = v37;
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __63__ACSURLSession__downloadTaskWithResumeData_completionHandler___block_invoke_2;
+    v37[3] = &unk_278CC5178;
+    v40[1] = &v44;
+    v37[4] = self;
+    v31 = v40;
+    v40[0] = handlerCopy;
+    v32 = &v38;
+    v38 = v10;
+    dataCopy = &v39;
   }
 
   else
   {
-    v14 = v42;
-    v42[0] = MEMORY[0x277D85DD0];
-    v42[1] = 3221225472;
-    v42[2] = __63__ACSURLSession__downloadTaskWithResumeData_completionHandler___block_invoke;
-    v42[3] = &unk_278CC5100;
-    v31 = v43;
-    v43[0] = v10;
-    v43[1] = self;
-    v34 = &v44;
+    v14 = v41;
+    v41[0] = MEMORY[0x277D85DD0];
+    v41[1] = 3221225472;
+    v41[2] = __63__ACSURLSession__downloadTaskWithResumeData_completionHandler___block_invoke;
+    v41[3] = &unk_278CC5100;
+    v30 = v42;
+    v42[0] = v10;
+    v42[1] = self;
+    v33 = &v43;
   }
 
   v15 = v9;
@@ -1320,30 +1401,30 @@ void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invok
   v16 = MEMORY[0x245CDE340](v14);
   if (v13)
   {
-    v17 = [[ACSURLSessionDownloadTask alloc] initWithNSURLDownloadTaskCreator:v16 initialRequest:v37 forSession:self];
-    v18 = v46[5];
-    v46[5] = v17;
+    v17 = [[ACSURLSessionDownloadTask alloc] initWithNSURLDownloadTaskCreator:v16 initialRequest:v36 forSession:self];
+    v18 = v45[5];
+    v45[5] = v17;
 
-    v19 = [v46[5] _nsurlTaskForRequest:v10];
-    [v46[5] set_nsurlTaskToCachingServer:v19];
-    _nsurlTaskToOrigin = [v46[5] _nsurlTaskToOrigin];
-    _nsurlTaskToCachingServer = [v46[5] _nsurlTaskToCachingServer];
+    v19 = [v45[5] _nsurlTaskForRequest:v10];
+    [v45[5] set_nsurlTaskToCachingServer:v19];
+    _nsurlTaskToOrigin = [v45[5] _nsurlTaskToOrigin];
+    _nsurlTaskToCachingServer = [v45[5] _nsurlTaskToCachingServer];
     [(ACSURLSession *)self _copyAttributesFromNSURLTask:_nsurlTaskToOrigin toNSURLTask:_nsurlTaskToCachingServer];
   }
 
   else
   {
     v22 = [[ACSURLSessionDownloadTask alloc] initWithNSURLDownloadTaskCreator:v16 initialRequest:v10 forSession:self];
-    v23 = v46[5];
-    v46[5] = v22;
+    v23 = v45[5];
+    v45[5] = v22;
 
-    [v46[5] set_resumedOriginalRequest:v37];
-    [v46[5] set_tryCachingServer:0];
+    [v45[5] set_resumedOriginalRequest:v36];
+    [v45[5] set_tryCachingServer:0];
   }
 
-  [v46[5] set_suspended:1];
-  [(ACSURLSession *)self _addTask:v46[5]];
-  v24 = v46[5];
+  [v45[5] set_suspended:1];
+  [(ACSURLSession *)self _addTask:v45[5]];
+  v24 = v45[5];
 
   if (handlerCopy)
   {
@@ -1353,9 +1434,7 @@ void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invok
   {
   }
 
-  _Block_object_dispose(&v45, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v44, 8);
 
   return v24;
 }
@@ -1500,7 +1579,7 @@ void __30__ACSURLSession__suspendTask___block_invoke(uint64_t a1)
 
 - (void)_resumeTask:(id)task
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   canUseCachingServer = [(ACSURLSession *)self canUseCachingServer];
   _logHandle = [(ACSURLSession *)self _logHandle];
@@ -1515,13 +1594,13 @@ void __30__ACSURLSession__suspendTask___block_invoke(uint64_t a1)
     if ([taskCopy _internalState] != 2)
     {
       _queue = [(ACSURLSession *)self _queue];
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __29__ACSURLSession__resumeTask___block_invoke;
-      v14[3] = &unk_278CC5010;
-      v14[4] = self;
-      v15 = taskCopy;
-      dispatch_async(_queue, v14);
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __29__ACSURLSession__resumeTask___block_invoke;
+      v13[3] = &unk_278CC5010;
+      v13[4] = self;
+      v14 = taskCopy;
+      dispatch_async(_queue, v13);
 
       goto LABEL_12;
     }
@@ -1541,9 +1620,9 @@ void __30__ACSURLSession__suspendTask___block_invoke(uint64_t a1)
       v10 = [originalRequest URL];
       absoluteString = [v10 absoluteString];
       *buf = 138412546;
-      v17 = taskCopy;
-      v18 = 2112;
-      v19 = absoluteString;
+      v16 = taskCopy;
+      v17 = 2112;
+      v18 = absoluteString;
       _os_log_impl(&dword_2411B8000, v7, OS_LOG_TYPE_DEFAULT, "ACSURLSessionTask %@ for %@ can not use caching server", buf, 0x16u);
     }
 
@@ -1552,7 +1631,6 @@ void __30__ACSURLSession__suspendTask___block_invoke(uint64_t a1)
   }
 
 LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onqueue_resumeTask:(id)task
@@ -1627,29 +1705,29 @@ void __37__ACSURLSession__onqueue_resumeTask___block_invoke(void *a1)
 
 void __37__ACSURLSession__onqueue_resumeTask___block_invoke_2(id *a1, void *a2)
 {
-  v14[3] = *MEMORY[0x277D85DE8];
-  v12 = a2;
+  v13[3] = *MEMORY[0x277D85DE8];
+  v11 = a2;
   v3 = [a1[4] _queue];
   dispatch_assert_queue_V2(v3);
 
-  if (v12 && [a1[4] _phase] != 2)
+  if (v11 && [a1[4] _phase] != 2)
   {
-    if (a1[6] != v12)
+    if (a1[6] != v11)
     {
-      v6 = MEMORY[0x277CBEAD8];
-      v7 = *MEMORY[0x277CBE660];
-      v13[0] = @"session";
-      v13[1] = @"request";
-      v8 = a1[5];
-      v14[0] = a1[4];
-      v14[1] = v12;
-      v13[2] = @"task";
-      v14[2] = v8;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
-      v10 = [v6 exceptionWithName:v7 reason:@"Cannot modify request when not using caching server" userInfo:v9];
-      v11 = v10;
+      v5 = MEMORY[0x277CBEAD8];
+      v6 = *MEMORY[0x277CBE660];
+      v12[0] = @"session";
+      v12[1] = @"request";
+      v7 = a1[5];
+      v13[0] = a1[4];
+      v13[1] = v11;
+      v12[2] = @"task";
+      v13[2] = v7;
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+      v9 = [v5 exceptionWithName:v6 reason:@"Cannot modify request when not using caching server" userInfo:v8];
+      v10 = v9;
 
-      objc_exception_throw(v10);
+      objc_exception_throw(v9);
     }
 
     v4 = [a1[5] _nsurlTaskToOrigin];
@@ -1660,8 +1738,6 @@ void __37__ACSURLSession__onqueue_resumeTask___block_invoke_2(id *a1, void *a2)
   {
     [a1[5] cancel];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __37__ACSURLSession__onqueue_resumeTask___block_invoke_3(uint64_t a1, void *a2, void *a3)
@@ -1755,7 +1831,7 @@ void __37__ACSURLSession__onqueue_resumeTask___block_invoke_4(id *a1, void *a2)
 
 - (void)_dataTask:(id)task completedWithData:(id)data response:(id)response error:(id)error completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   dataCopy = data;
   responseCopy = response;
@@ -1765,69 +1841,67 @@ void __37__ACSURLSession__onqueue_resumeTask___block_invoke_4(id *a1, void *a2)
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413314;
-    v33 = taskCopy;
-    v34 = 2048;
-    v35 = [dataCopy length];
-    v36 = 2112;
-    v37 = responseCopy;
-    v38 = 2112;
-    v39 = errorCopy;
-    v40 = 2112;
+    v32 = taskCopy;
+    v33 = 2048;
+    v34 = [dataCopy length];
+    v35 = 2112;
+    v36 = responseCopy;
+    v37 = 2112;
+    v38 = errorCopy;
+    v39 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "_dataTask:%@ completedWithData:[%ld bytes] response:%@ error:%@ self=%@", buf, 0x34u);
   }
 
   _queue = [(ACSURLSession *)self _queue];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __78__ACSURLSession__dataTask_completedWithData_response_error_completionHandler___block_invoke;
-  v25[3] = &unk_278CC5240;
-  v26 = taskCopy;
-  v27 = errorCopy;
-  v28 = responseCopy;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __78__ACSURLSession__dataTask_completedWithData_response_error_completionHandler___block_invoke;
+  v24[3] = &unk_278CC5240;
+  v25 = taskCopy;
+  v26 = errorCopy;
+  v27 = responseCopy;
   selfCopy2 = self;
-  v30 = dataCopy;
-  v31 = handlerCopy;
+  v29 = dataCopy;
+  v30 = handlerCopy;
   v19 = dataCopy;
   v20 = handlerCopy;
   v21 = responseCopy;
   v22 = errorCopy;
   v23 = taskCopy;
-  dispatch_async(_queue, v25);
-
-  v24 = *MEMORY[0x277D85DE8];
+  dispatch_async(_queue, v24);
 }
 
 void __78__ACSURLSession__dataTask_completedWithData_response_error_completionHandler___block_invoke(uint64_t a1)
 {
-  *&v37[13] = *MEMORY[0x277D85DE8];
+  *&v35[13] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _nsurlTaskToCachingServer];
   if (!v2 || ![*(a1 + 32) _tryCachingServer])
   {
     v10 = 0;
 LABEL_28:
-    v16 = *(a1 + 56);
-    v17 = *(a1 + 40);
-    v18 = [*(a1 + 32) originalRequest];
-    v19 = [*(a1 + 32) currentRequest];
-    v20 = [v16 _errorWithResumeDataFromError:v17 originalRequest:v18 currentRequest:v19];
+    v15 = *(a1 + 56);
+    v16 = *(a1 + 40);
+    v17 = [*(a1 + 32) originalRequest];
+    v18 = [*(a1 + 32) currentRequest];
+    v19 = [v15 _errorWithResumeDataFromError:v16 originalRequest:v17 currentRequest:v18];
 
-    v21 = [*(a1 + 56) _clientDelegateOpQueue];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __78__ACSURLSession__dataTask_completedWithData_response_error_completionHandler___block_invoke_144;
-    v25[3] = &unk_278CC5218;
-    v31 = *(a1 + 72);
-    v26 = *(a1 + 64);
-    v27 = *(a1 + 48);
-    v28 = v20;
-    v32 = v10;
-    v22 = *(a1 + 32);
-    v23 = *(a1 + 56);
-    v29 = v22;
-    v30 = v23;
-    v4 = v20;
-    [v21 addOperationWithBlock:v25];
+    v20 = [*(a1 + 56) _clientDelegateOpQueue];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __78__ACSURLSession__dataTask_completedWithData_response_error_completionHandler___block_invoke_144;
+    v23[3] = &unk_278CC5218;
+    v29 = *(a1 + 72);
+    v24 = *(a1 + 64);
+    v25 = *(a1 + 48);
+    v26 = v19;
+    v30 = v10;
+    v21 = *(a1 + 32);
+    v22 = *(a1 + 56);
+    v27 = v21;
+    v28 = v22;
+    v4 = v19;
+    [v20 addOperationWithBlock:v23];
 
     goto LABEL_29;
   }
@@ -1847,24 +1921,23 @@ LABEL_27:
     goto LABEL_5;
   }
 
-  v11 = *(a1 + 48);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || [*(a1 + 48) statusCode] < 400)
   {
     cf = 0;
     if (!ACSUpdateCachingServerHealth(v4, 0, 1, &cf))
     {
-      v14 = [*(a1 + 56) _logHandle];
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v13 = [*(a1 + 56) _logHandle];
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [v4 absoluteString];
+        v14 = [v4 absoluteString];
         *buf = 138412802;
-        v35 = v15;
-        v36 = 1024;
-        *v37 = 1;
-        v37[2] = 2112;
-        *&v37[3] = cf;
-        _os_log_impl(&dword_2411B8000, v14, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
+        v33 = v14;
+        v34 = 1024;
+        *v35 = 1;
+        v35[2] = 2112;
+        *&v35[3] = cf;
+        _os_log_impl(&dword_2411B8000, v13, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
       }
     }
 
@@ -1881,12 +1954,12 @@ LABEL_27:
     v5 = [*(a1 + 56) _logHandle];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [*(a1 + 48) statusCode];
-      v13 = [v4 absoluteString];
+      v11 = [*(a1 + 48) statusCode];
+      v12 = [v4 absoluteString];
       *buf = 134218242;
-      v35 = v12;
-      v36 = 2112;
-      *v37 = v13;
+      v33 = v11;
+      v34 = 2112;
+      *v35 = v12;
       _os_log_impl(&dword_2411B8000, v5, OS_LOG_TYPE_DEFAULT, "HTTP response %ld from %@, failing back to original", buf, 0x16u);
     }
 
@@ -1900,9 +1973,9 @@ LABEL_5:
     v6 = *(a1 + 40);
     v7 = [v4 absoluteString];
     *buf = 138412546;
-    v35 = v6;
-    v36 = 2112;
-    *v37 = v7;
+    v33 = v6;
+    v34 = 2112;
+    *v35 = v7;
     _os_log_impl(&dword_2411B8000, v5, OS_LOG_TYPE_DEFAULT, "Error %@ from %@, failing back to original", buf, 0x16u);
   }
 
@@ -1916,11 +1989,11 @@ LABEL_7:
     {
       v9 = [v4 absoluteString];
       *buf = 138412802;
-      v35 = v9;
-      v36 = 1024;
-      *v37 = 0;
-      v37[2] = 2112;
-      *&v37[3] = cf;
+      v33 = v9;
+      v34 = 1024;
+      *v35 = 0;
+      v35[2] = 2112;
+      *&v35[3] = cf;
       _os_log_impl(&dword_2411B8000, v8, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
     }
   }
@@ -1935,31 +2008,26 @@ LABEL_7:
   [*(a1 + 32) set_tryCachingServer:0];
   [*(a1 + 56) _onqueue_resumeTask:*(a1 + 32)];
 LABEL_29:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __78__ACSURLSession__dataTask_completedWithData_response_error_completionHandler___block_invoke_144(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
   (*(*(a1 + 72) + 16))();
   if (*(a1 + 80) == 1)
   {
-    v5 = [*(a1 + 56) _nsurlTaskToOrigin];
-    [v5 cancel];
+    v2 = [*(a1 + 56) _nsurlTaskToOrigin];
+    [v2 cancel];
   }
 
-  v7 = *(a1 + 56);
-  v6 = *(a1 + 64);
+  v4 = *(a1 + 56);
+  v3 = *(a1 + 64);
 
-  return [v6 _removeTask:v7];
+  return [v3 _removeTask:v4];
 }
 
 - (void)_downloadTask:(id)task completedWithLocation:(id)location response:(id)response error:(id)error completionHandler:(id)handler
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   locationCopy = location;
   responseCopy = response;
@@ -1969,14 +2037,14 @@ uint64_t __78__ACSURLSession__dataTask_completedWithData_response_error_completi
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413314;
-    v50 = taskCopy;
-    v51 = 2112;
-    v52 = locationCopy;
-    v53 = 2112;
-    v54 = responseCopy;
-    v55 = 2112;
-    v56 = errorCopy;
-    v57 = 2112;
+    v49 = taskCopy;
+    v50 = 2112;
+    v51 = locationCopy;
+    v52 = 2112;
+    v53 = responseCopy;
+    v54 = 2112;
+    v55 = errorCopy;
+    v56 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "_downloadTask:%@ completedWithLocation:%@ response:%@ error:%@ self=%@", buf, 0x34u);
   }
@@ -1986,26 +2054,26 @@ uint64_t __78__ACSURLSession__dataTask_completedWithData_response_error_completi
     v18 = [(ACSURLSession *)self _linkedLocationWithLocation:locationCopy];
     if (!v18)
     {
-      v33 = MEMORY[0x277CBEAD8];
-      v34 = *MEMORY[0x277CBE648];
-      v47[0] = @"session";
-      v47[1] = @"downloadTask";
-      v48[0] = self;
-      v48[1] = taskCopy;
-      v47[2] = @"location";
-      v48[2] = locationCopy;
-      v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:3];
-      v36 = [v33 exceptionWithName:v34 reason:@"ACSURLSession needs a non-reference file URL to a file" userInfo:v35];
-      v37 = v36;
+      v32 = MEMORY[0x277CBEAD8];
+      v33 = *MEMORY[0x277CBE648];
+      v46[0] = @"session";
+      v46[1] = @"downloadTask";
+      v47[0] = self;
+      v47[1] = taskCopy;
+      v46[2] = @"location";
+      v47[2] = locationCopy;
+      v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:3];
+      v35 = [v32 exceptionWithName:v33 reason:@"ACSURLSession needs a non-reference file URL to a file" userInfo:v34];
+      v36 = v35;
 
-      objc_exception_throw(v36);
+      objc_exception_throw(v35);
     }
 
     v19 = v18;
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v46 = 0;
-    v21 = [defaultManager linkItemAtURL:locationCopy toURL:v19 error:&v46];
-    v22 = v46;
+    v45 = 0;
+    v21 = [defaultManager linkItemAtURL:locationCopy toURL:v19 error:&v45];
+    v22 = v45;
 
     if ((v21 & 1) == 0)
     {
@@ -2015,12 +2083,12 @@ uint64_t __78__ACSURLSession__dataTask_completedWithData_response_error_completi
         path = [locationCopy path];
         path2 = [v19 path];
         *buf = 138412802;
-        v50 = path;
-        v51 = 2112;
-        v52 = path2;
-        v32 = path2;
-        v53 = 2112;
-        v54 = v22;
+        v49 = path;
+        v50 = 2112;
+        v51 = path2;
+        v31 = path2;
+        v52 = 2112;
+        v53 = v22;
         _os_log_error_impl(&dword_2411B8000, _logHandle2, OS_LOG_TYPE_ERROR, "ACSURLSession can not link %@ to %@: %@", buf, 0x20u);
       }
 
@@ -2041,52 +2109,50 @@ uint64_t __78__ACSURLSession__dataTask_completedWithData_response_error_completi
   block[1] = 3221225472;
   block[2] = __86__ACSURLSession__downloadTask_completedWithLocation_response_error_completionHandler___block_invoke;
   block[3] = &unk_278CC5240;
-  v40 = taskCopy;
-  v41 = errorCopy;
-  v42 = responseCopy;
+  v39 = taskCopy;
+  v40 = errorCopy;
+  v41 = responseCopy;
   selfCopy2 = self;
-  v44 = v19;
-  v45 = handlerCopy;
+  v43 = v19;
+  v44 = handlerCopy;
   v25 = v19;
   v26 = handlerCopy;
   v27 = responseCopy;
   v28 = errorCopy;
   v29 = taskCopy;
   dispatch_async(_queue, block);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __86__ACSURLSession__downloadTask_completedWithLocation_response_error_completionHandler___block_invoke(uint64_t a1)
 {
-  *&v38[13] = *MEMORY[0x277D85DE8];
+  *&v36[13] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _nsurlTaskToCachingServer];
   if (!v2 || ![*(a1 + 32) _tryCachingServer])
   {
     v11 = 0;
 LABEL_29:
-    v17 = *(a1 + 56);
-    v18 = *(a1 + 40);
-    v19 = [*(a1 + 32) originalRequest];
-    v20 = [*(a1 + 32) currentRequest];
-    v21 = [v17 _errorWithResumeDataFromError:v18 originalRequest:v19 currentRequest:v20];
+    v16 = *(a1 + 56);
+    v17 = *(a1 + 40);
+    v18 = [*(a1 + 32) originalRequest];
+    v19 = [*(a1 + 32) currentRequest];
+    v20 = [v16 _errorWithResumeDataFromError:v17 originalRequest:v18 currentRequest:v19];
 
-    v22 = [*(a1 + 56) _clientDelegateOpQueue];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __86__ACSURLSession__downloadTask_completedWithLocation_response_error_completionHandler___block_invoke_155;
-    v26[3] = &unk_278CC5218;
-    v32 = *(a1 + 72);
-    v27 = *(a1 + 64);
-    v28 = *(a1 + 48);
-    v29 = v21;
-    v33 = v11;
-    v23 = *(a1 + 32);
-    v24 = *(a1 + 56);
-    v30 = v23;
-    v31 = v24;
-    v10 = v21;
-    [v22 addOperationWithBlock:v26];
+    v21 = [*(a1 + 56) _clientDelegateOpQueue];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __86__ACSURLSession__downloadTask_completedWithLocation_response_error_completionHandler___block_invoke_155;
+    v24[3] = &unk_278CC5218;
+    v30 = *(a1 + 72);
+    v25 = *(a1 + 64);
+    v26 = *(a1 + 48);
+    v27 = v20;
+    v31 = v11;
+    v22 = *(a1 + 32);
+    v23 = *(a1 + 56);
+    v28 = v22;
+    v29 = v23;
+    v10 = v20;
+    [v21 addOperationWithBlock:v24];
 
     goto LABEL_30;
   }
@@ -2106,24 +2172,23 @@ LABEL_28:
     goto LABEL_5;
   }
 
-  v12 = *(a1 + 48);
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || [*(a1 + 48) statusCode] < 400)
   {
     cf = 0;
     if (!ACSUpdateCachingServerHealth(v4, 0, 1, &cf))
     {
-      v15 = [*(a1 + 56) _logHandle];
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v14 = [*(a1 + 56) _logHandle];
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = [v4 absoluteString];
+        v15 = [v4 absoluteString];
         *buf = 138412802;
-        v36 = v16;
-        v37 = 1024;
-        *v38 = 1;
-        v38[2] = 2112;
-        *&v38[3] = cf;
-        _os_log_impl(&dword_2411B8000, v15, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
+        v34 = v15;
+        v35 = 1024;
+        *v36 = 1;
+        v36[2] = 2112;
+        *&v36[3] = cf;
+        _os_log_impl(&dword_2411B8000, v14, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
       }
     }
 
@@ -2144,9 +2209,9 @@ LABEL_5:
       v6 = *(a1 + 40);
       v7 = [v4 absoluteString];
       *buf = 138412546;
-      v36 = v6;
-      v37 = 2112;
-      *v38 = v7;
+      v34 = v6;
+      v35 = 2112;
+      *v36 = v7;
       _os_log_impl(&dword_2411B8000, v5, OS_LOG_TYPE_DEFAULT, "Error %@ from %@, failing back to original", buf, 0x16u);
     }
 
@@ -2156,12 +2221,12 @@ LABEL_5:
   v5 = [*(a1 + 56) _logHandle];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [*(a1 + 48) statusCode];
-    v14 = [v4 absoluteString];
+    v12 = [*(a1 + 48) statusCode];
+    v13 = [v4 absoluteString];
     *buf = 134218242;
-    v36 = v13;
-    v37 = 2112;
-    *v38 = v14;
+    v34 = v12;
+    v35 = 2112;
+    *v36 = v13;
     _os_log_impl(&dword_2411B8000, v5, OS_LOG_TYPE_DEFAULT, "HTTP response %ld from %@, failing back to original", buf, 0x16u);
   }
 
@@ -2175,11 +2240,11 @@ LABEL_7:
     {
       v9 = [v4 absoluteString];
       *buf = 138412802;
-      v36 = v9;
-      v37 = 1024;
-      *v38 = 0;
-      v38[2] = 2112;
-      *&v38[3] = cf;
+      v34 = v9;
+      v35 = 1024;
+      *v36 = 0;
+      v36[2] = 2112;
+      *&v36[3] = cf;
       _os_log_impl(&dword_2411B8000, v8, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
     }
   }
@@ -2200,32 +2265,27 @@ LABEL_7:
     [v10 removeItemAtURL:*(a1 + 64) error:0];
 LABEL_30:
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __86__ACSURLSession__downloadTask_completedWithLocation_response_error_completionHandler___block_invoke_155(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v4 = *(a1 + 48);
   (*(*(a1 + 72) + 16))();
   if (*(a1 + 32))
   {
-    v5 = [MEMORY[0x277CCAA00] defaultManager];
-    [v5 removeItemAtURL:*(a1 + 32) error:0];
+    v2 = [MEMORY[0x277CCAA00] defaultManager];
+    [v2 removeItemAtURL:*(a1 + 32) error:0];
   }
 
   if (*(a1 + 80) == 1)
   {
-    v6 = [*(a1 + 56) _nsurlTaskToOrigin];
-    [v6 cancel];
+    v3 = [*(a1 + 56) _nsurlTaskToOrigin];
+    [v3 cancel];
   }
 
-  v8 = *(a1 + 56);
-  v7 = *(a1 + 64);
+  v5 = *(a1 + 56);
+  v4 = *(a1 + 64);
 
-  return [v7 _removeTask:v8];
+  return [v4 _removeTask:v5];
 }
 
 - (id)_resumeDataWithNSURLResumeData:(id)data originalRequest:(id)request currentRequest:(id)currentRequest error:(id *)error
@@ -2267,21 +2327,21 @@ uint64_t __86__ACSURLSession__downloadTask_completedWithLocation_response_error_
 
 - (BOOL)_resumeData:(id)data toNSURLResumeData:(id *)resumeData originalRequest:(id *)request currentRequest:(id *)currentRequest error:(id *)error
 {
-  v68[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (!dataCopy)
   {
     v18 = MEMORY[0x277CCA9B8];
-    v67 = *MEMORY[0x277CCA450];
-    v68[0] = @"Invalid resume data";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+    v66 = *MEMORY[0x277CCA450];
+    v67[0] = @"Invalid resume data";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:&v66 count:1];
     v14 = [v18 errorWithDomain:@"_kACSURLSessionErrorDomain" code:1 userInfo:v13];
     goto LABEL_11;
   }
 
-  v62 = 0;
-  v13 = [MEMORY[0x277CCAC58] propertyListWithData:dataCopy options:1 format:0 error:&v62];
-  v14 = v62;
+  v61 = 0;
+  v13 = [MEMORY[0x277CCAC58] propertyListWithData:dataCopy options:1 format:0 error:&v61];
+  v14 = v61;
   if (!v13)
   {
 LABEL_11:
@@ -2294,11 +2354,11 @@ LABEL_11:
   errorCopy = error;
   v15 = [v13 objectForKeyedSubscript:@"_kACSURLSessionResumeDataVersionKey"];
   v16 = [v13 objectForKeyedSubscript:@"_kACSURLSessionResumeDataNSURLResumeDataKey"];
-  v59 = [v13 objectForKeyedSubscript:@"_kACSURLSessionResumeDataLocateOptionsKey"];
-  v58 = [v13 objectForKeyedSubscript:@"_kACSURLSessionResumeDataOriginalRequestKey"];
-  v57 = [v13 objectForKeyedSubscript:@"_kACSURLSessionResumeDataCurrentRequestKey"];
-  v53 = v13;
-  v54 = v16;
+  v58 = [v13 objectForKeyedSubscript:@"_kACSURLSessionResumeDataLocateOptionsKey"];
+  v57 = [v13 objectForKeyedSubscript:@"_kACSURLSessionResumeDataOriginalRequestKey"];
+  v56 = [v13 objectForKeyedSubscript:@"_kACSURLSessionResumeDataCurrentRequestKey"];
+  v52 = v13;
+  v53 = v16;
   if (v15 && ([v15 isEqual:&unk_2852F3390] & 1) != 0)
   {
     if (v16)
@@ -2311,9 +2371,9 @@ LABEL_11:
     }
 
     _locateOptions = [(ACSURLSession *)self _locateOptions];
-    if (v59)
+    if (v58)
     {
-      if (![v59 isEqual:_locateOptions])
+      if (![v58 isEqual:_locateOptions])
       {
         goto LABEL_28;
       }
@@ -2324,14 +2384,14 @@ LABEL_11:
       goto LABEL_28;
     }
 
-    if (v58)
+    if (v57)
     {
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && v57)
+      if ((objc_opt_isKindOfClass() & 1) != 0 && v56)
       {
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
-        if (v59)
+        if (v58)
         {
         }
 
@@ -2340,28 +2400,28 @@ LABEL_11:
           goto LABEL_29;
         }
 
-        v51 = v15;
+        v50 = v15;
         if (_resumeData_toNSURLResumeData_originalRequest_currentRequest_error__classesOnce != -1)
         {
           [ACSURLSession _resumeData:toNSURLResumeData:originalRequest:currentRequest:error:];
         }
 
-        v61 = 0;
-        v33 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v58 error:&v61];
-        v34 = v61;
+        v60 = 0;
+        v33 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v57 error:&v60];
+        v34 = v60;
         v35 = *MEMORY[0x277CCA308];
         v36 = [v33 decodeObjectOfClasses:_resumeData_toNSURLResumeData_originalRequest_currentRequest_error__classes forKey:*MEMORY[0x277CCA308]];
-        v50 = v33;
+        v49 = v33;
         [v33 finishDecoding];
-        v56 = v36;
+        v55 = v36;
         if (v36 && ([v36 URL], v37 = objc_claimAutoreleasedReturnValue(), v37, v37))
         {
-          v60 = v34;
-          v38 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v57 error:&v60];
-          v52 = v60;
+          v59 = v34;
+          v38 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:v56 error:&v59];
+          v51 = v59;
 
           v19 = [v38 decodeObjectOfClasses:_resumeData_toNSURLResumeData_originalRequest_currentRequest_error__classes forKey:v35];
-          v49 = v38;
+          v48 = v38;
           [v38 finishDecoding];
           if (v19)
           {
@@ -2373,9 +2433,9 @@ LABEL_11:
 LABEL_53:
               v31 = v14;
 
-              v14 = v50;
-              v15 = v51;
-              v25 = v52;
+              v14 = v49;
+              v15 = v50;
+              v25 = v51;
               goto LABEL_31;
             }
           }
@@ -2384,18 +2444,18 @@ LABEL_53:
           [dictionary setObject:@"Invalid resume data" forKeyedSubscript:*MEMORY[0x277CCA450]];
           [dictionary setObject:v13 forKeyedSubscript:@"resumeDict"];
           error = errorCopy;
-          if (v52)
+          if (v51)
           {
-            [dictionary setObject:v52 forKeyedSubscript:*MEMORY[0x277CCA7E8]];
+            [dictionary setObject:v51 forKeyedSubscript:*MEMORY[0x277CCA7E8]];
           }
 
-          [dictionary setObject:v56 forKeyedSubscript:@"originalRequest"];
+          [dictionary setObject:v55 forKeyedSubscript:@"originalRequest"];
           if (v19)
           {
             [dictionary setObject:v19 forKeyedSubscript:@"currentRequest"];
           }
 
-          v47 = [MEMORY[0x277CCA9B8] errorWithDomain:@"_kACSURLSessionErrorDomain" code:5 userInfo:dictionary];
+          v46 = [MEMORY[0x277CCA9B8] errorWithDomain:@"_kACSURLSessionErrorDomain" code:5 userInfo:dictionary];
 
           v14 = dictionary;
         }
@@ -2416,28 +2476,28 @@ LABEL_53:
             [dictionary2 setObject:v36 forKeyedSubscript:@"originalRequest"];
           }
 
-          v49 = dictionary2;
-          v47 = [MEMORY[0x277CCA9B8] errorWithDomain:@"_kACSURLSessionErrorDomain" code:4 userInfo:dictionary2];
+          v48 = dictionary2;
+          v46 = [MEMORY[0x277CCA9B8] errorWithDomain:@"_kACSURLSessionErrorDomain" code:4 userInfo:dictionary2];
           v19 = 0;
-          v52 = v34;
+          v51 = v34;
         }
 
-        v14 = v47;
+        v14 = v46;
         goto LABEL_53;
       }
 
-      if (!v59)
+      if (!v58)
       {
 LABEL_29:
         v40 = MEMORY[0x277CCA9B8];
-        v63[0] = *MEMORY[0x277CCA450];
-        v63[1] = @"resumeDict";
-        v64[0] = @"Invalid resume data";
-        v64[1] = v13;
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:v63 count:2];
+        v62[0] = *MEMORY[0x277CCA450];
+        v62[1] = @"resumeDict";
+        v63[0] = @"Invalid resume data";
+        v63[1] = v13;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:2];
         v31 = [v40 errorWithDomain:@"_kACSURLSessionErrorDomain" code:3 userInfo:v25];
         v19 = 0;
-        v56 = 0;
+        v55 = 0;
         goto LABEL_30;
       }
     }
@@ -2448,14 +2508,14 @@ LABEL_28:
   }
 
   v22 = MEMORY[0x277CCA9B8];
-  v65[0] = *MEMORY[0x277CCA450];
+  v64[0] = *MEMORY[0x277CCA450];
   v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"unknown resume data version %@", v15];
   v24 = v13;
   v25 = v23;
-  v65[1] = @"resumeDict";
-  v66[0] = v23;
-  v66[1] = v24;
-  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:2];
+  v64[1] = @"resumeDict";
+  v65[0] = v23;
+  v65[1] = v24;
+  [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:2];
   v26 = dataCopy;
   resumeDataCopy = resumeData;
   currentRequestCopy = currentRequest;
@@ -2463,7 +2523,7 @@ LABEL_28:
   v31 = [v22 errorWithDomain:@"_kACSURLSessionErrorDomain" code:2 userInfo:v30];
 
   v19 = 0;
-  v56 = 0;
+  v55 = 0;
   v14 = v30;
   request = v29;
   currentRequest = currentRequestCopy;
@@ -2474,9 +2534,9 @@ LABEL_30:
 LABEL_31:
 
   v14 = v31;
-  v13 = v53;
-  v21 = v54;
-  v20 = v56;
+  v13 = v52;
+  v21 = v53;
+  v20 = v55;
 LABEL_32:
 
   if (v14)
@@ -2494,13 +2554,13 @@ LABEL_34:
   {
     if (resumeData)
     {
-      v44 = v21;
+      v43 = v21;
       *resumeData = v21;
     }
 
     if (request)
     {
-      v45 = v20;
+      v44 = v20;
       *request = v20;
     }
 
@@ -2511,7 +2571,6 @@ LABEL_34:
     }
   }
 
-  v42 = *MEMORY[0x277D85DE8];
   return v14 == 0;
 }
 
@@ -2546,7 +2605,7 @@ uint64_t __84__ACSURLSession__resumeData_toNSURLResumeData_originalRequest_curre
 
 - (id)_errorWithResumeDataFromError:(id)error originalRequest:(id)request currentRequest:(id)currentRequest
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   requestCopy = request;
   currentRequestCopy = currentRequest;
@@ -2556,9 +2615,9 @@ uint64_t __84__ACSURLSession__resumeData_toNSURLResumeData_originalRequest_curre
     v12 = [userInfo objectForKeyedSubscript:*MEMORY[0x277CCA788]];
     if (v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v22 = 0;
-      v13 = [(ACSURLSession *)self _resumeDataWithNSURLResumeData:v12 originalRequest:requestCopy currentRequest:currentRequestCopy error:&v22];
-      v14 = v22;
+      v21 = 0;
+      v13 = [(ACSURLSession *)self _resumeDataWithNSURLResumeData:v12 originalRequest:requestCopy currentRequest:currentRequestCopy error:&v21];
+      v14 = v21;
       if (v13)
       {
         v15 = [userInfo mutableCopy];
@@ -2574,7 +2633,7 @@ uint64_t __84__ACSURLSession__resumeData_toNSURLResumeData_originalRequest_curre
         if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v24 = v14;
+          v23 = v14;
           _os_log_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEFAULT, "ACSURLSession failed to convert resume data: %@", buf, 0xCu);
         }
 
@@ -2592,8 +2651,6 @@ uint64_t __84__ACSURLSession__resumeData_toNSURLResumeData_originalRequest_curre
   {
     v18 = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -2646,35 +2703,33 @@ LABEL_7:
 
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   _logHandle = [(ACSURLSession *)self _logHandle];
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v20 = sessionCopy;
-    v21 = 2112;
-    v22 = errorCopy;
-    v23 = 2112;
+    v19 = sessionCopy;
+    v20 = 2112;
+    v21 = errorCopy;
+    v22 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ didBecomeInvalidWithError:%@ self=%@", buf, 0x20u);
   }
 
   _queue = [(ACSURLSession *)self _queue];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __54__ACSURLSession_URLSession_didBecomeInvalidWithError___block_invoke;
-  v14[3] = &unk_278CC5268;
-  v15 = sessionCopy;
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __54__ACSURLSession_URLSession_didBecomeInvalidWithError___block_invoke;
+  v13[3] = &unk_278CC5268;
+  v14 = sessionCopy;
   selfCopy2 = self;
-  v17 = errorCopy;
-  v18 = a2;
+  v16 = errorCopy;
+  v17 = a2;
   v11 = errorCopy;
   v12 = sessionCopy;
-  dispatch_async(_queue, v14);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_async(_queue, v13);
 }
 
 void __54__ACSURLSession_URLSession_didBecomeInvalidWithError___block_invoke(uint64_t a1)
@@ -2736,7 +2791,7 @@ uint64_t __54__ACSURLSession_URLSession_didBecomeInvalidWithError___block_invoke
 
 - (void)URLSession:(id)session didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   challengeCopy = challenge;
   handlerCopy = handler;
@@ -2744,10 +2799,10 @@ uint64_t __54__ACSURLSession_URLSession_didBecomeInvalidWithError___block_invoke
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v24 = sessionCopy;
-    v25 = 2112;
-    v26 = challengeCopy;
-    v27 = 2112;
+    v23 = sessionCopy;
+    v24 = 2112;
+    v25 = challengeCopy;
+    v26 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ didReceiveChallenge:%@ self=%@", buf, 0x20u);
   }
@@ -2758,16 +2813,14 @@ uint64_t __54__ACSURLSession_URLSession_didBecomeInvalidWithError___block_invoke
   block[2] = __66__ACSURLSession_URLSession_didReceiveChallenge_completionHandler___block_invoke;
   block[3] = &unk_278CC5308;
   block[4] = self;
-  v19 = sessionCopy;
-  v21 = handlerCopy;
-  v22 = a2;
-  v20 = challengeCopy;
+  v18 = sessionCopy;
+  v20 = handlerCopy;
+  v21 = a2;
+  v19 = challengeCopy;
   v14 = challengeCopy;
   v15 = sessionCopy;
   v16 = handlerCopy;
   dispatch_async(_queue, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __66__ACSURLSession_URLSession_didReceiveChallenge_completionHandler___block_invoke(uint64_t a1)
@@ -2860,7 +2913,7 @@ void __66__ACSURLSession_URLSession_didReceiveChallenge_completionHandler___bloc
 
 - (void)URLSession:(id)session taskIsWaitingForConnectivity:(id)connectivity
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   connectivityCopy = connectivity;
   _logHandle = [(ACSURLSession *)self _logHandle];
@@ -2868,28 +2921,26 @@ void __66__ACSURLSession_URLSession_didReceiveChallenge_completionHandler___bloc
   {
     descriptionWithAddress = [connectivityCopy descriptionWithAddress];
     *buf = 138412802;
-    v20 = sessionCopy;
-    v21 = 2112;
-    v22 = descriptionWithAddress;
-    v23 = 2112;
+    v19 = sessionCopy;
+    v20 = 2112;
+    v21 = descriptionWithAddress;
+    v22 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ taskIsWaitingForConnectivity:%@ self=%@", buf, 0x20u);
   }
 
   _queue = [(ACSURLSession *)self _queue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __57__ACSURLSession_URLSession_taskIsWaitingForConnectivity___block_invoke;
-  v15[3] = &unk_278CC5268;
-  v15[4] = self;
-  v16 = sessionCopy;
-  v17 = connectivityCopy;
-  v18 = a2;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __57__ACSURLSession_URLSession_taskIsWaitingForConnectivity___block_invoke;
+  v14[3] = &unk_278CC5268;
+  v14[4] = self;
+  v15 = sessionCopy;
+  v16 = connectivityCopy;
+  v17 = a2;
   v11 = connectivityCopy;
   v12 = sessionCopy;
-  dispatch_async(_queue, v15);
-
-  v13 = *MEMORY[0x277D85DE8];
+  dispatch_async(_queue, v14);
 }
 
 void __57__ACSURLSession_URLSession_taskIsWaitingForConnectivity___block_invoke(uint64_t a1)
@@ -2933,7 +2984,7 @@ void __57__ACSURLSession_URLSession_taskIsWaitingForConnectivity___block_invoke(
 
 - (void)URLSession:(id)session task:(id)task willPerformHTTPRedirection:(id)redirection newRequest:(id)request completionHandler:(id)handler
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   redirectionCopy = redirection;
@@ -2944,14 +2995,14 @@ void __57__ACSURLSession_URLSession_taskIsWaitingForConnectivity___block_invoke(
   {
     descriptionWithAddress = [taskCopy descriptionWithAddress];
     *buf = 138413314;
-    v35 = sessionCopy;
-    v36 = 2112;
-    v37 = descriptionWithAddress;
-    v38 = 2112;
-    v39 = redirectionCopy;
-    v40 = 2112;
-    v41 = requestCopy;
-    v42 = 2112;
+    v34 = sessionCopy;
+    v35 = 2112;
+    v36 = descriptionWithAddress;
+    v37 = 2112;
+    v38 = redirectionCopy;
+    v39 = 2112;
+    v40 = requestCopy;
+    v41 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ task:%@ willPerformHTTPRedirection:%@ newRequest:%@ self=%@", buf, 0x34u);
   }
@@ -2962,20 +3013,18 @@ void __57__ACSURLSession_URLSession_taskIsWaitingForConnectivity___block_invoke(
   block[2] = __89__ACSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke;
   block[3] = &unk_278CC5358;
   block[4] = self;
-  v28 = sessionCopy;
-  v32 = handlerCopy;
-  v33 = a2;
-  v29 = taskCopy;
-  v30 = redirectionCopy;
-  v31 = requestCopy;
+  v27 = sessionCopy;
+  v31 = handlerCopy;
+  v32 = a2;
+  v28 = taskCopy;
+  v29 = redirectionCopy;
+  v30 = requestCopy;
   v20 = requestCopy;
   v21 = redirectionCopy;
   v22 = taskCopy;
   v23 = sessionCopy;
   v24 = handlerCopy;
   dispatch_async(_queue, block);
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ACSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke(uint64_t a1)
@@ -3052,7 +3101,7 @@ void __89__ACSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_c
 
 - (void)URLSession:(id)session task:(id)task didReceiveChallenge:(id)challenge completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   challengeCopy = challenge;
@@ -3062,34 +3111,32 @@ void __89__ACSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_c
   {
     descriptionWithAddress = [taskCopy descriptionWithAddress];
     *buf = 138413058;
-    v30 = sessionCopy;
-    v31 = 2112;
-    v32 = descriptionWithAddress;
-    v33 = 2112;
-    v34 = challengeCopy;
-    v35 = 2112;
+    v29 = sessionCopy;
+    v30 = 2112;
+    v31 = descriptionWithAddress;
+    v32 = 2112;
+    v33 = challengeCopy;
+    v34 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ task:%@ didReceiveChallenge:%@ self=%@", buf, 0x2Au);
   }
 
   _queue = [(ACSURLSession *)self _queue];
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __71__ACSURLSession_URLSession_task_didReceiveChallenge_completionHandler___block_invoke;
-  v23[3] = &unk_278CC53D0;
-  v23[4] = self;
-  v24 = sessionCopy;
-  v27 = handlerCopy;
-  v28 = a2;
-  v25 = taskCopy;
-  v26 = challengeCopy;
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __71__ACSURLSession_URLSession_task_didReceiveChallenge_completionHandler___block_invoke;
+  v22[3] = &unk_278CC53D0;
+  v22[4] = self;
+  v23 = sessionCopy;
+  v26 = handlerCopy;
+  v27 = a2;
+  v24 = taskCopy;
+  v25 = challengeCopy;
   v17 = challengeCopy;
   v18 = taskCopy;
   v19 = sessionCopy;
   v20 = handlerCopy;
-  dispatch_async(_queue, v23);
-
-  v21 = *MEMORY[0x277D85DE8];
+  dispatch_async(_queue, v22);
 }
 
 void __71__ACSURLSession_URLSession_task_didReceiveChallenge_completionHandler___block_invoke(uint64_t a1)
@@ -3189,7 +3236,7 @@ void __71__ACSURLSession_URLSession_task_didReceiveChallenge_completionHandler__
 
 - (void)URLSession:(id)session task:(id)task needNewBodyStream:(id)stream
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   streamCopy = stream;
@@ -3198,10 +3245,10 @@ void __71__ACSURLSession_URLSession_task_didReceiveChallenge_completionHandler__
   {
     descriptionWithAddress = [taskCopy descriptionWithAddress];
     *buf = 138412802;
-    v25 = sessionCopy;
-    v26 = 2112;
-    v27 = descriptionWithAddress;
-    v28 = 2112;
+    v24 = sessionCopy;
+    v25 = 2112;
+    v26 = descriptionWithAddress;
+    v27 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ task:%@ needNewBodyStream self=%@", buf, 0x20u);
   }
@@ -3212,16 +3259,14 @@ void __71__ACSURLSession_URLSession_task_didReceiveChallenge_completionHandler__
   block[2] = __51__ACSURLSession_URLSession_task_needNewBodyStream___block_invoke;
   block[3] = &unk_278CC5308;
   block[4] = self;
-  v20 = sessionCopy;
-  v22 = streamCopy;
-  v23 = a2;
-  v21 = taskCopy;
+  v19 = sessionCopy;
+  v21 = streamCopy;
+  v22 = a2;
+  v20 = taskCopy;
   v14 = taskCopy;
   v15 = sessionCopy;
   v16 = streamCopy;
   dispatch_async(_queue, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __51__ACSURLSession_URLSession_task_needNewBodyStream___block_invoke(uint64_t a1)
@@ -3330,7 +3375,7 @@ uint64_t __51__ACSURLSession_URLSession_task_needNewBodyStream___block_invoke_5(
 
 - (void)URLSession:(id)session task:(id)task didSendBodyData:(int64_t)data totalBytesSent:(int64_t)sent totalBytesExpectedToSend:(int64_t)send
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   _logHandle = [(ACSURLSession *)self _logHandle];
@@ -3338,16 +3383,16 @@ uint64_t __51__ACSURLSession_URLSession_task_needNewBodyStream___block_invoke_5(
   {
     descriptionWithAddress = [taskCopy descriptionWithAddress];
     *buf = 138413570;
-    v29 = sessionCopy;
-    v30 = 2112;
-    v31 = descriptionWithAddress;
-    v32 = 2048;
+    v28 = sessionCopy;
+    v29 = 2112;
+    v30 = descriptionWithAddress;
+    v31 = 2048;
     dataCopy = data;
-    v34 = 2048;
+    v33 = 2048;
     sentCopy = sent;
-    v36 = 2048;
+    v35 = 2048;
     sendCopy = send;
-    v38 = 2112;
+    v37 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ task:%@ didSendBodyData:%lld totalBytesSent:%lld totalBytesExpectedToSend:%lld self=%@", buf, 0x3Eu);
   }
@@ -3358,17 +3403,15 @@ uint64_t __51__ACSURLSession_URLSession_task_needNewBodyStream___block_invoke_5(
   block[2] = __89__ACSURLSession_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend___block_invoke;
   block[3] = &unk_278CC5448;
   block[4] = self;
-  v22 = sessionCopy;
-  v23 = taskCopy;
-  v24 = a2;
+  v21 = sessionCopy;
+  v22 = taskCopy;
+  v23 = a2;
   dataCopy2 = data;
   sentCopy2 = sent;
   sendCopy2 = send;
   v17 = taskCopy;
   v18 = sessionCopy;
   dispatch_async(_queue, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __89__ACSURLSession_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend___block_invoke(uint64_t a1)
@@ -3414,7 +3457,7 @@ void __89__ACSURLSession_URLSession_task_didSendBodyData_totalBytesSent_totalByt
 
 - (void)URLSession:(id)session task:(id)task didFinishCollectingMetrics:(id)metrics
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   metricsCopy = metrics;
@@ -3423,12 +3466,12 @@ void __89__ACSURLSession_URLSession_task_didSendBodyData_totalBytesSent_totalByt
   {
     descriptionWithAddress = [taskCopy descriptionWithAddress];
     *buf = 138413058;
-    v25 = sessionCopy;
-    v26 = 2112;
-    v27 = descriptionWithAddress;
-    v28 = 2112;
-    v29 = metricsCopy;
-    v30 = 2112;
+    v24 = sessionCopy;
+    v25 = 2112;
+    v26 = descriptionWithAddress;
+    v27 = 2112;
+    v28 = metricsCopy;
+    v29 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ task:%@ didFinishCollectingMetrics:%@ self=%@", buf, 0x2Au);
   }
@@ -3439,16 +3482,14 @@ void __89__ACSURLSession_URLSession_task_didSendBodyData_totalBytesSent_totalByt
   block[2] = __60__ACSURLSession_URLSession_task_didFinishCollectingMetrics___block_invoke;
   block[3] = &unk_278CC5498;
   block[4] = self;
-  v20 = sessionCopy;
-  v22 = metricsCopy;
-  v23 = a2;
-  v21 = taskCopy;
+  v19 = sessionCopy;
+  v21 = metricsCopy;
+  v22 = a2;
+  v20 = taskCopy;
   v14 = metricsCopy;
   v15 = taskCopy;
   v16 = sessionCopy;
   dispatch_async(_queue, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __60__ACSURLSession_URLSession_task_didFinishCollectingMetrics___block_invoke(uint64_t a1)
@@ -3493,7 +3534,7 @@ void __60__ACSURLSession_URLSession_task_didFinishCollectingMetrics___block_invo
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   errorCopy = error;
@@ -3502,12 +3543,12 @@ void __60__ACSURLSession_URLSession_task_didFinishCollectingMetrics___block_invo
   {
     descriptionWithAddress = [taskCopy descriptionWithAddress];
     *buf = 138413058;
-    v25 = sessionCopy;
-    v26 = 2112;
-    v27 = descriptionWithAddress;
-    v28 = 2112;
-    v29 = errorCopy;
-    v30 = 2112;
+    v24 = sessionCopy;
+    v25 = 2112;
+    v26 = descriptionWithAddress;
+    v27 = 2112;
+    v28 = errorCopy;
+    v29 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ task:%@ didCompleteWithError:%@ self=%@", buf, 0x2Au);
   }
@@ -3518,21 +3559,19 @@ void __60__ACSURLSession_URLSession_task_didFinishCollectingMetrics___block_invo
   block[2] = __54__ACSURLSession_URLSession_task_didCompleteWithError___block_invoke;
   block[3] = &unk_278CC5498;
   block[4] = self;
-  v20 = sessionCopy;
-  v22 = errorCopy;
-  v23 = a2;
-  v21 = taskCopy;
+  v19 = sessionCopy;
+  v21 = errorCopy;
+  v22 = a2;
+  v20 = taskCopy;
   v14 = errorCopy;
   v15 = taskCopy;
   v16 = sessionCopy;
   dispatch_async(_queue, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __54__ACSURLSession_URLSession_task_didCompleteWithError___block_invoke(uint64_t a1)
 {
-  *&v49[13] = *MEMORY[0x277D85DE8];
+  *&v48[13] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) _nsurlSession];
 
@@ -3582,38 +3621,38 @@ LABEL_13:
               v15 = *(a1 + 56);
               v16 = [v11 absoluteString];
               *buf = 138412546;
-              v47 = v15;
-              v48 = 2112;
-              *v49 = v16;
+              v46 = v15;
+              v47 = 2112;
+              *v48 = v16;
               _os_log_impl(&dword_2411B8000, v13, OS_LOG_TYPE_DEFAULT, "Error %@ from %@, failing back to original", buf, 0x16u);
             }
           }
 
           else if (v14)
           {
-            v34 = [v6 statusCode];
-            v35 = [v11 absoluteString];
+            v33 = [v6 statusCode];
+            v34 = [v11 absoluteString];
             *buf = 134218242;
-            v47 = v34;
-            v48 = 2112;
-            *v49 = v35;
+            v46 = v33;
+            v47 = 2112;
+            *v48 = v34;
             _os_log_impl(&dword_2411B8000, v13, OS_LOG_TYPE_DEFAULT, "HTTP response %ld from %@, failing back to original", buf, 0x16u);
           }
 
           cf = 0;
           if (!ACSUpdateCachingServerHealth(v11, 0, 0, &cf))
           {
-            v36 = [*v2 _logHandle];
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v35 = [*v2 _logHandle];
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
-              v37 = [v11 absoluteString];
+              v36 = [v11 absoluteString];
               *buf = 138412802;
-              v47 = v37;
-              v48 = 1024;
-              *v49 = 0;
-              v49[2] = 2112;
-              *&v49[3] = cf;
-              _os_log_impl(&dword_2411B8000, v36, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
+              v46 = v36;
+              v47 = 1024;
+              *v48 = 0;
+              v48[2] = 2112;
+              *&v48[3] = cf;
+              _os_log_impl(&dword_2411B8000, v35, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
             }
           }
 
@@ -3629,23 +3668,23 @@ LABEL_13:
 LABEL_29:
 
 LABEL_30:
-          goto LABEL_31;
+          return;
         }
 
         cf = 0;
         if (!ACSUpdateCachingServerHealth(v11, 0, 1, &cf))
         {
-          v32 = [*v2 _logHandle];
-          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+          v31 = [*v2 _logHandle];
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
-            v33 = [v11 absoluteString];
+            v32 = [v11 absoluteString];
             *buf = 138412802;
-            v47 = v33;
-            v48 = 1024;
-            *v49 = 1;
-            v49[2] = 2112;
-            *&v49[3] = cf;
-            _os_log_impl(&dword_2411B8000, v32, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
+            v46 = v32;
+            v47 = 1024;
+            *v48 = 1;
+            v48[2] = 2112;
+            *&v48[3] = cf;
+            _os_log_impl(&dword_2411B8000, v31, OS_LOG_TYPE_DEFAULT, "ACSUpdateCachingServerHealth(%@, %d) failed: %@", buf, 0x1Cu);
           }
         }
 
@@ -3691,7 +3730,7 @@ LABEL_30:
     {
       v21 = *v2;
       [v8 originalRequest];
-      v38 = v17;
+      v37 = v17;
       v22 = v6;
       v24 = v23 = v9;
       v25 = [v8 currentRequest];
@@ -3699,19 +3738,19 @@ LABEL_30:
 
       v9 = v23;
       v6 = v22;
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __54__ACSURLSession_URLSession_task_didCompleteWithError___block_invoke_211;
-      v39[3] = &unk_278CC54C0;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __54__ACSURLSession_URLSession_task_didCompleteWithError___block_invoke_211;
+      v38[3] = &unk_278CC54C0;
       v27 = v19;
       v28 = *v2;
-      v40 = v27;
-      v41 = v28;
-      v42 = v8;
-      v43 = v26;
-      v44 = v38;
+      v39 = v27;
+      v40 = v28;
+      v41 = v8;
+      v42 = v26;
+      v43 = v37;
       v29 = v26;
-      [v20 addOperationWithBlock:v39];
+      [v20 addOperationWithBlock:v38];
     }
 
     else
@@ -3727,9 +3766,6 @@ LABEL_30:
 
     goto LABEL_29;
   }
-
-LABEL_31:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __54__ACSURLSession_URLSession_task_didCompleteWithError___block_invoke_211(uint64_t a1)
@@ -3749,7 +3785,7 @@ uint64_t __54__ACSURLSession_URLSession_task_didCompleteWithError___block_invoke
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveResponse:(id)response completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   responseCopy = response;
@@ -3758,39 +3794,37 @@ uint64_t __54__ACSURLSession_URLSession_task_didCompleteWithError___block_invoke
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v29 = sessionCopy;
-    v30 = 2112;
-    v31 = taskCopy;
-    v32 = 2112;
-    v33 = responseCopy;
-    v34 = 2112;
+    v28 = sessionCopy;
+    v29 = 2112;
+    v30 = taskCopy;
+    v31 = 2112;
+    v32 = responseCopy;
+    v33 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ dataTask:%@ didReceiveResponse:%@ self=%@", buf, 0x2Au);
   }
 
   _queue = [(ACSURLSession *)self _queue];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke;
-  v22[3] = &unk_278CC53D0;
-  v22[4] = self;
-  v23 = sessionCopy;
-  v26 = handlerCopy;
-  v27 = a2;
-  v24 = taskCopy;
-  v25 = responseCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke;
+  v21[3] = &unk_278CC53D0;
+  v21[4] = self;
+  v22 = sessionCopy;
+  v25 = handlerCopy;
+  v26 = a2;
+  v23 = taskCopy;
+  v24 = responseCopy;
   v17 = responseCopy;
   v18 = taskCopy;
   v19 = sessionCopy;
   v20 = handlerCopy;
-  dispatch_async(_queue, v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  dispatch_async(_queue, v21);
 }
 
 void __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke(uint64_t a1)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) _nsurlSession];
 
@@ -3809,16 +3843,15 @@ void __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandle
     v8 = [*(a1 + 32) _onqueue_taskForNSURLTask:*(a1 + 48)];
     if (!v8)
     {
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_2;
-      v35[3] = &unk_278CC52E0;
-      v36 = *(a1 + 64);
-      [v7 addOperationWithBlock:v35];
-      v9 = v36;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_2;
+      v32[3] = &unk_278CC52E0;
+      v33 = *(a1 + 64);
+      [v7 addOperationWithBlock:v32];
+      v9 = v33;
 LABEL_25:
 
-      v22 = *MEMORY[0x277D85DE8];
       return;
     }
 
@@ -3830,72 +3863,71 @@ LABEL_25:
 
     v9 = v8;
     v10 = [v9 _nsurlTaskToCachingServer];
-    if (*(a1 + 48) == v10 && [v9 _tryCachingServer] && (v11 = *(a1 + 56), objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && objc_msgSend(*(a1 + 56), "statusCode") >= 400)
+    if (*(a1 + 48) == v10 && [v9 _tryCachingServer] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && objc_msgSend(*(a1 + 56), "statusCode") >= 400)
     {
       if ([v9 _failBackToOrigin])
       {
-        v12 = [*v2 _logHandle];
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v11 = [*v2 _logHandle];
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = [*(a1 + 56) statusCode];
-          v14 = [*(a1 + 56) URL];
-          v15 = [v14 absoluteString];
+          v12 = [*(a1 + 56) statusCode];
+          v13 = [*(a1 + 56) URL];
+          v14 = [v13 absoluteString];
           *buf = 134218242;
-          v38 = v13;
-          v39 = 2112;
-          v40 = v15;
-          _os_log_impl(&dword_2411B8000, v12, OS_LOG_TYPE_DEFAULT, "HTTP response %ld from %@, canceling to fail back to original", buf, 0x16u);
+          v35 = v12;
+          v36 = 2112;
+          v37 = v14;
+          _os_log_impl(&dword_2411B8000, v11, OS_LOG_TYPE_DEFAULT, "HTTP response %ld from %@, canceling to fail back to original", buf, 0x16u);
         }
       }
 
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_215;
-      v33[3] = &unk_278CC52E0;
-      v16 = &v34;
-      v34 = *(a1 + 64);
-      v17 = v33;
+      v30[0] = MEMORY[0x277D85DD0];
+      v30[1] = 3221225472;
+      v30[2] = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_215;
+      v30[3] = &unk_278CC52E0;
+      v15 = &v31;
+      v31 = *(a1 + 64);
+      v16 = v30;
     }
 
     else
     {
       if (objc_opt_respondsToSelector())
       {
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_2_218;
-        v28[3] = &unk_278CC53A8;
-        v16 = v29;
-        v20 = v6;
-        v21 = *(a1 + 32);
-        v29[0] = v20;
-        v29[1] = v21;
-        v30 = v9;
-        v31 = *(a1 + 56);
-        v32 = *(a1 + 64);
-        [v7 addOperationWithBlock:v28];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_2_218;
+        v25[3] = &unk_278CC53A8;
+        v15 = v26;
+        v18 = v6;
+        v19 = *(a1 + 32);
+        v26[0] = v18;
+        v26[1] = v19;
+        v27 = v9;
+        v28 = *(a1 + 56);
+        v29 = *(a1 + 64);
+        [v7 addOperationWithBlock:v25];
 
 LABEL_24:
         goto LABEL_25;
       }
 
-      v23 = MEMORY[0x277D85DD0];
-      v24 = 3221225472;
-      v25 = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_4;
-      v26 = &unk_278CC52E0;
-      v16 = &v27;
-      v27 = *(a1 + 64);
-      v17 = &v23;
+      v20 = MEMORY[0x277D85DD0];
+      v21 = 3221225472;
+      v22 = __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_4;
+      v23 = &unk_278CC52E0;
+      v15 = &v24;
+      v24 = *(a1 + 64);
+      v16 = &v20;
     }
 
-    [v7 addOperationWithBlock:{v17, v23, v24, v25, v26, v27}];
+    [v7 addOperationWithBlock:{v16, v20, v21, v22, v23, v24}];
     goto LABEL_24;
   }
 
-  v18 = *(*(a1 + 64) + 16);
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *(*(a1 + 64) + 16);
 
-  v18();
+  v17();
 }
 
 void __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_2_218(uint64_t a1)
@@ -3916,19 +3948,19 @@ void __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandle
 
 uint64_t __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     if (a2 == 3)
     {
       v3 = MEMORY[0x277CBEAD8];
       v4 = *MEMORY[0x277CBE648];
-      v12[0] = @"session";
-      v12[1] = @"task";
+      v11[0] = @"session";
+      v11[1] = @"task";
       v5 = *(a1 + 40);
-      v13[0] = *(a1 + 32);
-      v13[1] = v5;
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+      v12[0] = *(a1 + 32);
+      v12[1] = v5;
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
       v7 = [v3 exceptionWithName:v4 reason:@"ACSURLSession does not support stream tasks" userInfo:v6];
       v8 = v7;
 
@@ -3942,14 +3974,13 @@ uint64_t __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHa
   }
 
   v9 = *(*(a1 + 48) + 16);
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9();
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didBecomeDownloadTask:(id)downloadTask
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   downloadTaskCopy = downloadTask;
@@ -3957,12 +3988,12 @@ uint64_t __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHa
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v24 = sessionCopy;
-    v25 = 2112;
-    v26 = taskCopy;
-    v27 = 2112;
-    v28 = downloadTaskCopy;
-    v29 = 2112;
+    v23 = sessionCopy;
+    v24 = 2112;
+    v25 = taskCopy;
+    v26 = 2112;
+    v27 = downloadTaskCopy;
+    v28 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ dataTask:%@ didBecomeDownloadTask:%@ self=%@", buf, 0x2Au);
   }
@@ -3973,16 +4004,14 @@ uint64_t __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHa
   block[2] = __59__ACSURLSession_URLSession_dataTask_didBecomeDownloadTask___block_invoke;
   block[3] = &unk_278CC5498;
   block[4] = self;
-  v19 = sessionCopy;
-  v21 = downloadTaskCopy;
-  v22 = a2;
-  v20 = taskCopy;
+  v18 = sessionCopy;
+  v20 = downloadTaskCopy;
+  v21 = a2;
+  v19 = taskCopy;
   v14 = downloadTaskCopy;
   v15 = taskCopy;
   v16 = sessionCopy;
   dispatch_async(_queue, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __59__ACSURLSession_URLSession_dataTask_didBecomeDownloadTask___block_invoke(uint64_t a1)
@@ -4155,7 +4184,7 @@ uint64_t __59__ACSURLSession_URLSession_dataTask_didBecomeDownloadTask___block_i
 
 void __57__ACSURLSession_URLSession_dataTask_didBecomeStreamTask___block_invoke(uint64_t a1)
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) _nsurlSession];
 
@@ -4173,47 +4202,45 @@ void __57__ACSURLSession_URLSession_dataTask_didBecomeStreamTask___block_invoke(
     v7 = [*(a1 + 32) _onqueue_taskForNSURLTask:*(a1 + 48)];
     if (v7)
     {
-      v9 = v7;
+      v8 = v7;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         __57__ACSURLSession_URLSession_dataTask_didBecomeStreamTask___block_invoke_cold_2();
       }
 
-      v10 = v9;
+      v9 = v8;
       [*v2 _onqueue_removeTaskForNSURLTask:*v6];
-      v11 = *v6;
-      v12 = [v10 _nsurlTaskToCachingServer];
+      v10 = *v6;
+      v11 = [v9 _nsurlTaskToCachingServer];
 
-      if (v11 == v12)
+      if (v10 == v11)
       {
-        v13 = *v2;
-        v14 = [v10 _nsurlTaskToOrigin];
-        [v13 _onqueue_removeTaskForNSURLTask:v14];
+        v12 = *v2;
+        v13 = [v9 _nsurlTaskToOrigin];
+        [v12 _onqueue_removeTaskForNSURLTask:v13];
       }
 
-      v15 = MEMORY[0x277CBEAD8];
-      v16 = *MEMORY[0x277CBE648];
-      v17 = *(a1 + 32);
-      v22[0] = @"session";
-      v22[1] = @"nsurlTask";
-      v18 = *(a1 + 56);
-      v23[0] = v17;
-      v23[1] = v18;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-      v20 = [v15 exceptionWithName:v16 reason:@"ACSURLSession does not support stream tasks" userInfo:v19];
-      v21 = v20;
+      v14 = MEMORY[0x277CBEAD8];
+      v15 = *MEMORY[0x277CBE648];
+      v16 = *(a1 + 32);
+      v21[0] = @"session";
+      v21[1] = @"nsurlTask";
+      v17 = *(a1 + 56);
+      v22[0] = v16;
+      v22[1] = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+      v19 = [v14 exceptionWithName:v15 reason:@"ACSURLSession does not support stream tasks" userInfo:v18];
+      v20 = v19;
 
-      objc_exception_throw(v20);
+      objc_exception_throw(v19);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session dataTask:(id)task didReceiveData:(id)data
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   dataCopy = data;
@@ -4221,12 +4248,12 @@ void __57__ACSURLSession_URLSession_dataTask_didBecomeStreamTask___block_invoke(
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v24 = sessionCopy;
-    v25 = 2112;
-    v26 = taskCopy;
-    v27 = 2048;
-    v28 = [dataCopy length];
-    v29 = 2112;
+    v23 = sessionCopy;
+    v24 = 2112;
+    v25 = taskCopy;
+    v26 = 2048;
+    v27 = [dataCopy length];
+    v28 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ dataTask:%@ didReceiveData:[%ld bytes] self=%@", buf, 0x2Au);
   }
@@ -4237,16 +4264,14 @@ void __57__ACSURLSession_URLSession_dataTask_didBecomeStreamTask___block_invoke(
   block[2] = __52__ACSURLSession_URLSession_dataTask_didReceiveData___block_invoke;
   block[3] = &unk_278CC5498;
   block[4] = self;
-  v19 = sessionCopy;
-  v21 = dataCopy;
-  v22 = a2;
-  v20 = taskCopy;
+  v18 = sessionCopy;
+  v20 = dataCopy;
+  v21 = a2;
+  v19 = taskCopy;
   v14 = dataCopy;
   v15 = taskCopy;
   v16 = sessionCopy;
   dispatch_async(_queue, block);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __52__ACSURLSession_URLSession_dataTask_didReceiveData___block_invoke(uint64_t a1)
@@ -4297,7 +4322,7 @@ void __52__ACSURLSession_URLSession_dataTask_didReceiveData___block_invoke(uint6
 
 - (void)URLSession:(id)session dataTask:(id)task willCacheResponse:(id)response completionHandler:(id)handler
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   responseCopy = response;
@@ -4306,34 +4331,32 @@ void __52__ACSURLSession_URLSession_dataTask_didReceiveData___block_invoke(uint6
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413058;
-    v29 = sessionCopy;
-    v30 = 2112;
-    v31 = taskCopy;
-    v32 = 2112;
-    v33 = responseCopy;
-    v34 = 2112;
+    v28 = sessionCopy;
+    v29 = 2112;
+    v30 = taskCopy;
+    v31 = 2112;
+    v32 = responseCopy;
+    v33 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ dataTask:%@ willCacheResponse:%@ self=%@", buf, 0x2Au);
   }
 
   _queue = [(ACSURLSession *)self _queue];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler___block_invoke;
-  v22[3] = &unk_278CC53D0;
-  v22[4] = self;
-  v23 = sessionCopy;
-  v26 = handlerCopy;
-  v27 = a2;
-  v24 = taskCopy;
-  v25 = responseCopy;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler___block_invoke;
+  v21[3] = &unk_278CC53D0;
+  v21[4] = self;
+  v22 = sessionCopy;
+  v25 = handlerCopy;
+  v26 = a2;
+  v23 = taskCopy;
+  v24 = responseCopy;
   v17 = responseCopy;
   v18 = taskCopy;
   v19 = sessionCopy;
   v20 = handlerCopy;
-  dispatch_async(_queue, v22);
-
-  v21 = *MEMORY[0x277D85DE8];
+  dispatch_async(_queue, v21);
 }
 
 void __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler___block_invoke(uint64_t a1)
@@ -4416,7 +4439,7 @@ void __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler
 
 - (void)URLSession:(id)session downloadTask:(id)task didFinishDownloadingToURL:(id)l
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   lCopy = l;
@@ -4425,14 +4448,14 @@ void __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler
   {
     response = [taskCopy response];
     *buf = 138413314;
-    v44 = sessionCopy;
-    v45 = 2112;
-    v46 = taskCopy;
-    v47 = 2112;
-    v48 = lCopy;
-    v49 = 2112;
-    v50 = response;
-    v51 = 2112;
+    v43 = sessionCopy;
+    v44 = 2112;
+    v45 = taskCopy;
+    v46 = 2112;
+    v47 = lCopy;
+    v48 = 2112;
+    v49 = response;
+    v50 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ downloadTask:%@ didFinishDownloadingToURL:%@ response=%@ self=%@", buf, 0x34u);
   }
@@ -4440,26 +4463,26 @@ void __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler
   v13 = [(ACSURLSession *)self _linkedLocationWithLocation:lCopy];
   if (!v13)
   {
-    v29 = MEMORY[0x277CBEAD8];
-    v30 = *MEMORY[0x277CBE648];
-    v41[0] = @"session";
-    v41[1] = @"nsurlTask";
-    v42[0] = self;
-    v42[1] = taskCopy;
-    v41[2] = @"location";
-    v42[2] = lCopy;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
-    v32 = [v29 exceptionWithName:v30 reason:@"ACSURLSession needs a non-reference file URL to a file" userInfo:v31];
-    v33 = v32;
+    v28 = MEMORY[0x277CBEAD8];
+    v29 = *MEMORY[0x277CBE648];
+    v40[0] = @"session";
+    v40[1] = @"nsurlTask";
+    v41[0] = self;
+    v41[1] = taskCopy;
+    v40[2] = @"location";
+    v41[2] = lCopy;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:3];
+    v31 = [v28 exceptionWithName:v29 reason:@"ACSURLSession needs a non-reference file URL to a file" userInfo:v30];
+    v32 = v31;
 
-    objc_exception_throw(v32);
+    objc_exception_throw(v31);
   }
 
   v14 = v13;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v40 = 0;
-  v16 = [defaultManager linkItemAtURL:lCopy toURL:v14 error:&v40];
-  v17 = v40;
+  v39 = 0;
+  v16 = [defaultManager linkItemAtURL:lCopy toURL:v14 error:&v39];
+  v17 = v39;
 
   if ((v16 & 1) == 0)
   {
@@ -4469,12 +4492,12 @@ void __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler
       path = [lCopy path];
       path2 = [v14 path];
       *buf = 138412802;
-      v44 = path;
-      v45 = 2112;
-      v46 = path2;
-      v28 = path2;
-      v47 = 2112;
-      v48 = v17;
+      v43 = path;
+      v44 = 2112;
+      v45 = path2;
+      v27 = path2;
+      v46 = 2112;
+      v47 = v17;
       _os_log_error_impl(&dword_2411B8000, _logHandle2, OS_LOG_TYPE_ERROR, "ACSURLSession can not link %@ to %@: %@", buf, 0x20u);
     }
   }
@@ -4485,23 +4508,21 @@ void __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler
   block[2] = __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___block_invoke;
   block[3] = &unk_278CC5510;
   block[4] = self;
-  v35 = v14;
-  v36 = sessionCopy;
-  v37 = taskCopy;
-  v38 = v17;
-  v39 = a2;
+  v34 = v14;
+  v35 = sessionCopy;
+  v36 = taskCopy;
+  v37 = v17;
+  v38 = a2;
   v20 = v17;
   v21 = taskCopy;
   v22 = sessionCopy;
   v23 = v14;
   dispatch_async(_queue, block);
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) _nsurlSession];
 
@@ -4523,7 +4544,6 @@ void __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___blo
       [v8 removeItemAtURL:*(a1 + 40) error:0];
 LABEL_25:
 
-      v19 = *MEMORY[0x277D85DE8];
       return;
     }
 
@@ -4544,9 +4564,9 @@ LABEL_25:
         v12 = [v6 URL];
         v13 = [v12 absoluteString];
         *buf = 134218242;
-        v27 = v11;
-        v28 = 2112;
-        v29 = v13;
+        v25 = v11;
+        v26 = 2112;
+        v27 = v13;
         _os_log_impl(&dword_2411B8000, v10, OS_LOG_TYPE_DEFAULT, "HTTP response %ld from %@, ignoring to fail back to original", buf, 0x16u);
       }
 
@@ -4564,27 +4584,26 @@ LABEL_24:
         goto LABEL_25;
       }
 
-      v16 = [*(a1 + 32) _clientDelegate];
+      v15 = [*(a1 + 32) _clientDelegate];
       v14 = [*(a1 + 32) _clientDelegateOpQueue];
-      v21[0] = MEMORY[0x277D85DD0];
-      v21[1] = 3221225472;
-      v21[2] = __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___block_invoke_232;
-      v21[3] = &unk_278CC5470;
-      v17 = *(a1 + 32);
-      v22 = v16;
-      v23 = v17;
-      v24 = v8;
-      v25 = *(a1 + 40);
-      v18 = v16;
-      [v14 addOperationWithBlock:v21];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___block_invoke_232;
+      v19[3] = &unk_278CC5470;
+      v16 = *(a1 + 32);
+      v20 = v15;
+      v21 = v16;
+      v22 = v8;
+      v23 = *(a1 + 40);
+      v17 = v15;
+      [v14 addOperationWithBlock:v19];
     }
 
     goto LABEL_24;
   }
 
-  v20 = [MEMORY[0x277CCAA00] defaultManager];
-  [v20 removeItemAtURL:*(a1 + 40) error:0];
-  v15 = *MEMORY[0x277D85DE8];
+  v18 = [MEMORY[0x277CCAA00] defaultManager];
+  [v18 removeItemAtURL:*(a1 + 40) error:0];
 }
 
 void __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___block_invoke_232(uint64_t a1)
@@ -4596,23 +4615,23 @@ void __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___blo
 
 - (void)URLSession:(id)session downloadTask:(id)task didWriteData:(int64_t)data totalBytesWritten:(int64_t)written totalBytesExpectedToWrite:(int64_t)write
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   _logHandle = [(ACSURLSession *)self _logHandle];
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413570;
-    v28 = sessionCopy;
-    v29 = 2112;
-    v30 = taskCopy;
-    v31 = 2048;
+    v27 = sessionCopy;
+    v28 = 2112;
+    v29 = taskCopy;
+    v30 = 2048;
     dataCopy = data;
-    v33 = 2048;
+    v32 = 2048;
     writtenCopy = written;
-    v35 = 2048;
+    v34 = 2048;
     writeCopy = write;
-    v37 = 2112;
+    v36 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ downloadTask:%@ didWriteData:%lld totalBytesWritten:%lld totalBytesExpectedToWrite:%lld self=%@", buf, 0x3Eu);
   }
@@ -4623,17 +4642,15 @@ void __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___blo
   block[2] = __98__ACSURLSession_URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite___block_invoke;
   block[3] = &unk_278CC5448;
   block[4] = self;
-  v21 = sessionCopy;
-  v22 = taskCopy;
-  v23 = a2;
+  v20 = sessionCopy;
+  v21 = taskCopy;
+  v22 = a2;
   dataCopy2 = data;
   writtenCopy2 = written;
   writeCopy2 = write;
   v17 = taskCopy;
   v18 = sessionCopy;
   dispatch_async(_queue, block);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __98__ACSURLSession_URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite___block_invoke(uint64_t a1)
@@ -4685,41 +4702,39 @@ void __98__ACSURLSession_URLSession_downloadTask_didWriteData_totalBytesWritten_
 
 - (void)URLSession:(id)session downloadTask:(id)task didResumeAtOffset:(int64_t)offset expectedTotalBytes:(int64_t)bytes
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   taskCopy = task;
   _logHandle = [(ACSURLSession *)self _logHandle];
   if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413314;
-    v25 = sessionCopy;
-    v26 = 2112;
-    v27 = taskCopy;
-    v28 = 2048;
+    v24 = sessionCopy;
+    v25 = 2112;
+    v26 = taskCopy;
+    v27 = 2048;
     offsetCopy = offset;
-    v30 = 2048;
+    v29 = 2048;
     bytesCopy = bytes;
-    v32 = 2112;
+    v31 = 2112;
     selfCopy = self;
     _os_log_debug_impl(&dword_2411B8000, _logHandle, OS_LOG_TYPE_DEBUG, "URLSession:%@ downloadTask:%@ didResumeAtOffset:%lld expectedTotalBytes:%lld self=%@", buf, 0x34u);
   }
 
   _queue = [(ACSURLSession *)self _queue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __78__ACSURLSession_URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes___block_invoke;
-  v18[3] = &unk_278CC5420;
-  v18[4] = self;
-  v19 = sessionCopy;
-  v20 = taskCopy;
-  v21 = a2;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __78__ACSURLSession_URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes___block_invoke;
+  v17[3] = &unk_278CC5420;
+  v17[4] = self;
+  v18 = sessionCopy;
+  v19 = taskCopy;
+  v20 = a2;
   offsetCopy2 = offset;
   bytesCopy2 = bytes;
   v15 = taskCopy;
   v16 = sessionCopy;
-  dispatch_async(_queue, v18);
-
-  v17 = *MEMORY[0x277D85DE8];
+  dispatch_async(_queue, v17);
 }
 
 void __78__ACSURLSession_URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes___block_invoke(uint64_t a1)
@@ -5316,14 +5331,6 @@ uint64_t __97__ACSURLSession_ACSURLSessionAsynchronousConvenience__downloadTaskW
   return v9;
 }
 
-- (void)initWithConfiguration:canUseCachingServer:locateOptions:delegate:delegateQueue:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_11(&dword_2411B8000, v0, v1, "new session %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_locateCachingServerForURL:(const char *)a1 isUpload:(uint64_t)a2 completionHandler:.cold.1(const char *a1, uint64_t a2)
 {
   v5 = [MEMORY[0x277CCA890] currentHandler];
@@ -5331,20 +5338,11 @@ uint64_t __97__ACSURLSession_ACSURLSessionAsynchronousConvenience__downloadTaskW
   [v5 handleFailureInMethod:a1 object:a2 file:@"ACSURLSession.m" lineNumber:456 description:{@"ACSURLSession %@ invalid use of %@", a2, v4}];
 }
 
-- (void)_cancelTask:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_8(&dword_2411B8000, v0, v1, "_cancelTask:%@ self=%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __29__ACSURLSession__cancelTask___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_11(&dword_2411B8000, a2, a3, "_cancelTask:%@ task already completed", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_11(&dword_2411B8000, a2, a3, "_cancelTask:%@ task already completed", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_cancelDownloadTask:byProducingResumeData:.cold.1()
@@ -5355,82 +5353,38 @@ void __29__ACSURLSession__cancelTask___block_invoke_cold_1(void *a1, NSObject *a
   [v4 handleFailureInMethod:v2 object:v1 file:@"ACSURLSession.m" lineNumber:539 description:{@"ACSURLSession %@ unexpected task %@ for nsurlTask %@, expected class %@", v1, v0, v5, @"NSURLSessionDownloadTask"}];
 }
 
-- (void)_cancelDownloadTask:byProducingResumeData:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_8(&dword_2411B8000, v0, v1, "_cancelDownloadTask:%@ self=%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cancelDownloadTask:byProducingResumeData:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_11(&dword_2411B8000, v0, v1, "_cancelDownloadTask:%@ task already completed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12();
-  _os_log_fault_impl(&dword_2411B8000, v0, OS_LOG_TYPE_FAULT, "ACSURLSession failed to convert resume data: %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_2411B8000, v0, OS_LOG_TYPE_FAULT, "ACSURLSession failed to convert resume data: %{public}@", v1, 0xCu);
 }
 
 void __59__ACSURLSession__cancelDownloadTask_byProducingResumeData___block_invoke_122_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v13 = [MEMORY[0x277CCA890] currentHandler];
-  v3 = *(v2 + 64);
-  v4 = *(v2 + 40);
-  v5 = *v1;
-  v6 = [v0 descriptionWithAddress];
-  [OUTLINED_FUNCTION_6(v6 v7];
-}
-
-- (void)_suspendTask:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_8(&dword_2411B8000, v0, v1, "_suspendTask:%@ self=%@");
-  v2 = *MEMORY[0x277D85DE8];
+  v12 = [MEMORY[0x277CCA890] currentHandler];
+  v3 = *(v2 + 40);
+  v4 = *v1;
+  v5 = [v0 descriptionWithAddress];
+  [OUTLINED_FUNCTION_6(v5 v6];
 }
 
 void __30__ACSURLSession__suspendTask___block_invoke_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_11(&dword_2411B8000, a2, a3, "_suspendTask:%@ task already completed", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_resumeTask:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_8(&dword_2411B8000, v0, v1, "_resumeTask:%@ self=%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_resumeTask:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_12();
-  OUTLINED_FUNCTION_11(&dword_2411B8000, v0, v1, "_resumeTask:%@ task is aleady completed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_11(&dword_2411B8000, a2, a3, "_suspendTask:%@ task already completed", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __54__ACSURLSession_URLSession_didBecomeInvalidWithError___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 56);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __66__ACSURLSession_URLSession_didReceiveChallenge_completionHandler___block_invoke_cold_1()
@@ -5447,34 +5401,31 @@ void __66__ACSURLSession_URLSession_didReceiveChallenge_completionHandler___bloc
 void __57__ACSURLSession_URLSession_taskIsWaitingForConnectivity___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 56);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __89__ACSURLSession_URLSession_task_willPerformHTTPRedirection_newRequest_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 80);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __71__ACSURLSession_URLSession_task_didReceiveChallenge_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 72);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __51__ACSURLSession_URLSession_task_needNewBodyStream___block_invoke_cold_1()
@@ -5491,12 +5442,11 @@ void __51__ACSURLSession_URLSession_task_needNewBodyStream___block_invoke_cold_1
 void __89__ACSURLSession_URLSession_task_didSendBodyData_totalBytesSent_totalBytesExpectedToSend___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 56);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __60__ACSURLSession_URLSession_task_didFinishCollectingMetrics___block_invoke_cold_1()
@@ -5524,12 +5474,11 @@ void __54__ACSURLSession_URLSession_task_didCompleteWithError___block_invoke_col
 void __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 72);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __74__ACSURLSession_URLSession_dataTask_didReceiveResponse_completionHandler___block_invoke_cold_2()
@@ -5608,12 +5557,11 @@ void __52__ACSURLSession_URLSession_dataTask_didReceiveData___block_invoke_cold_
 void __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 72);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler___block_invoke_cold_2()
@@ -5629,12 +5577,11 @@ void __73__ACSURLSession_URLSession_dataTask_willCacheResponse_completionHandler
 void __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 72);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___block_invoke_cold_2()
@@ -5650,12 +5597,11 @@ void __67__ACSURLSession_URLSession_downloadTask_didFinishDownloadingToURL___blo
 void __98__ACSURLSession_URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 56);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __98__ACSURLSession_URLSession_downloadTask_didWriteData_totalBytesWritten_totalBytesExpectedToWrite___block_invoke_cold_2()
@@ -5671,12 +5617,11 @@ void __98__ACSURLSession_URLSession_downloadTask_didWriteData_totalBytesWritten_
 void __78__ACSURLSession_URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
-  v12 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(v1 + 56);
+  v10 = [MEMORY[0x277CCA890] currentHandler];
   [OUTLINED_FUNCTION_4() _nsurlSession];
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3();
-  [OUTLINED_FUNCTION_5(v3 v4];
+  [OUTLINED_FUNCTION_5(v1 v2];
 }
 
 void __78__ACSURLSession_URLSession_downloadTask_didResumeAtOffset_expectedTotalBytes___block_invoke_cold_2()

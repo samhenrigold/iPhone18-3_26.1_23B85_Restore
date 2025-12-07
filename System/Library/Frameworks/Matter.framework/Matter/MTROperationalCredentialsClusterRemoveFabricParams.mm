@@ -32,8 +32,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(MTROperationalCredentialsClusterRemoveFabricParams);
-  fabricIndex = [(MTROperationalCredentialsClusterRemoveFabricParams *)self fabricIndex];
-  [(MTROperationalCredentialsClusterRemoveFabricParams *)v4 setFabricIndex:fabricIndex];
+  v5 = objc_msgSend_fabricIndex(self);
+  [(MTROperationalCredentialsClusterRemoveFabricParams *)v4 setFabricIndex:v5];
 
   timedInvokeTimeoutMs = [(MTROperationalCredentialsClusterRemoveFabricParams *)self timedInvokeTimeoutMs];
   [(MTROperationalCredentialsClusterRemoveFabricParams *)v4 setTimedInvokeTimeoutMs:timedInvokeTimeoutMs];
@@ -60,8 +60,8 @@
   v20[0] = 0;
   v20[1] = 0;
   v19 = v20;
-  fabricIndex = [(MTROperationalCredentialsClusterRemoveFabricParams *)self fabricIndex];
-  unsignedCharValue = [fabricIndex unsignedCharValue];
+  v4 = objc_msgSend_fabricIndex(self, a2);
+  unsignedCharValue = [v4 unsignedCharValue];
 
   sub_2393D9C18(0x62FuLL, 0, &v18);
   if (v18)

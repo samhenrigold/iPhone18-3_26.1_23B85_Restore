@@ -592,7 +592,7 @@ LABEL_19:
   _Block_object_dispose(&v22, 8);
 }
 
-uint64_t __74__ICMigrationUtilities_updateLegacyAccountMigrationStateForModernAccount___block_invoke_2(uint64_t a1)
+void *__74__ICMigrationUtilities_updateLegacyAccountMigrationStateForModernAccount___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) didChooseToMigrate];
   *(*(*(a1 + 40) + 8) + 24) = result;

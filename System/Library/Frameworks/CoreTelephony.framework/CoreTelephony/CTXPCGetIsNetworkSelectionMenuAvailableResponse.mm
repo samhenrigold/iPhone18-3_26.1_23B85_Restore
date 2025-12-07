@@ -1,9 +1,24 @@
 @interface CTXPCGetIsNetworkSelectionMenuAvailableResponse
 + (id)allowedClassesForArguments;
 - (BOOL)available;
+- (CTXPCGetIsNetworkSelectionMenuAvailableResponse)initWithIsAvailable:(BOOL)available;
 @end
 
 @implementation CTXPCGetIsNetworkSelectionMenuAvailableResponse
+
+- (CTXPCGetIsNetworkSelectionMenuAvailableResponse)initWithIsAvailable:(BOOL)available
+{
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9 = @"available";
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:available];
+  v10[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8.receiver = self;
+  v8.super_class = CTXPCGetIsNetworkSelectionMenuAvailableResponse;
+  v6 = [(CTXPCMessage *)&v8 initWithNamedArguments:v5];
+
+  return v6;
+}
 
 - (BOOL)available
 {

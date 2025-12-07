@@ -27,38 +27,29 @@
 
 - (void)dealloc
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v4 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
     if (self)
     {
-      v6 = self->_nrUUID;
+      nrUUID = self->_nrUUID;
     }
 
     else
     {
-      v6 = 0;
+      nrUUID = 0;
     }
 
-    v7 = v6;
-    v8 = _NRCopyLogObjectForNRUUID();
-    v11 = 64;
-    selfCopy = self;
-    v9 = "";
-    v10 = "[NRDevicePreferencesManager dealloc]";
-    _NRLogWithArgs();
+    v6 = nrUUID;
+    v7 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v7, 1, "%s%.30s:%-4d Dealloc: %@", ", "[NRDevicePreferencesManager dealloc]"", 64, self);
   }
 
-  v13.receiver = self;
-  v13.super_class = NRDevicePreferencesManager;
-  [(NRDevicePreferencesManager *)&v13 dealloc:v9];
+  v8.receiver = self;
+  v8.super_class = NRDevicePreferencesManager;
+  [(NRDevicePreferencesManager *)&v8 dealloc];
 }
 
 @end

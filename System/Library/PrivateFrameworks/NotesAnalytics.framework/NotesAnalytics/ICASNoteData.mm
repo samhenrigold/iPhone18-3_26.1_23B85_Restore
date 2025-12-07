@@ -32,8 +32,8 @@
 
 - (id)toDict
 {
-  v26[6] = *MEMORY[0x277D85DE8];
-  v25[0] = @"noteID";
+  v25[6] = *MEMORY[0x277D85DE8];
+  v24[0] = @"noteID";
   noteID = [(ICASNoteData *)self noteID];
   if (noteID)
   {
@@ -45,9 +45,9 @@
     noteID2 = objc_opt_new();
   }
 
-  v23 = noteID2;
-  v26[0] = noteID2;
-  v25[1] = @"noteType";
+  v22 = noteID2;
+  v25[0] = noteID2;
+  v24[1] = @"noteType";
   noteType = [(ICASNoteData *)self noteType];
   if (noteType)
   {
@@ -60,8 +60,8 @@
   }
 
   v5 = noteType2;
-  v26[1] = noteType2;
-  v25[2] = @"isScrapPaper";
+  v25[1] = noteType2;
+  v24[2] = @"isScrapPaper";
   isScrapPaper = [(ICASNoteData *)self isScrapPaper];
   if (isScrapPaper)
   {
@@ -74,8 +74,8 @@
   }
 
   v8 = isScrapPaper2;
-  v26[2] = isScrapPaper2;
-  v25[3] = @"isHandwritingAutoRefineEnabled";
+  v25[2] = isScrapPaper2;
+  v24[3] = @"isHandwritingAutoRefineEnabled";
   isHandwritingAutoRefineEnabled = [(ICASNoteData *)self isHandwritingAutoRefineEnabled];
   if (isHandwritingAutoRefineEnabled)
   {
@@ -88,8 +88,8 @@
   }
 
   v11 = isHandwritingAutoRefineEnabled2;
-  v26[3] = isHandwritingAutoRefineEnabled2;
-  v25[4] = @"isAudioTranscriptEnabled";
+  v25[3] = isHandwritingAutoRefineEnabled2;
+  v24[4] = @"isAudioTranscriptEnabled";
   isAudioTranscriptEnabled = [(ICASNoteData *)self isAudioTranscriptEnabled];
   if (isAudioTranscriptEnabled)
   {
@@ -102,8 +102,8 @@
   }
 
   v14 = isAudioTranscriptEnabled2;
-  v26[4] = isAudioTranscriptEnabled2;
-  v25[5] = @"isAudioSummaryEnabled";
+  v25[4] = isAudioTranscriptEnabled2;
+  v24[5] = @"isAudioSummaryEnabled";
   isAudioSummaryEnabled = [(ICASNoteData *)self isAudioSummaryEnabled];
   if (isAudioSummaryEnabled)
   {
@@ -116,10 +116,8 @@
   }
 
   v17 = isAudioSummaryEnabled2;
-  v26[5] = isAudioSummaryEnabled2;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v25[5] = isAudioSummaryEnabled2;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:6];
 
   return v18;
 }

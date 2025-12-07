@@ -18,7 +18,7 @@
 
 + (void)processRuntimeBlacklist:(id)blacklist systemDirectory:(id)directory runtimeDirectory:(id)runtimeDirectory blacklistLengthLimit:(unint64_t)limit
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   blacklistCopy = blacklist;
   directoryCopy = directory;
   runtimeDirectoryCopy = runtimeDirectory;
@@ -62,11 +62,11 @@
           v23 = NSStringFromClass(v22);
           v24 = NSStringFromSelector(a2);
           *buf = 138412802;
-          v33 = v23;
-          v34 = 2112;
-          v35 = v24;
-          v36 = 2112;
-          v37 = v15;
+          v32 = v23;
+          v33 = 2112;
+          v34 = v24;
+          v35 = 2112;
+          v36 = v15;
           _os_log_debug_impl(&dword_22622D000, v21, OS_LOG_TYPE_DEBUG, "%@, %@: Successfully loaded blacklist string to runtime blacklist directory : %@", buf, 0x20u);
 LABEL_26:
         }
@@ -82,15 +82,15 @@ LABEL_22:
         goto LABEL_21;
       }
 
-      v31 = objc_opt_class();
-      v23 = NSStringFromClass(v31);
+      v30 = objc_opt_class();
+      v23 = NSStringFromClass(v30);
       v24 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v33 = v23;
-      v34 = 2112;
-      v35 = v24;
-      v36 = 2112;
-      v37 = v15;
+      v32 = v23;
+      v33 = 2112;
+      v34 = v24;
+      v35 = 2112;
+      v36 = v15;
       v26 = "%@, %@: Failed loading blacklist string to runtime blacklist directory : %@";
     }
 
@@ -106,11 +106,11 @@ LABEL_22:
       v23 = NSStringFromClass(v25);
       v24 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v33 = v23;
-      v34 = 2112;
-      v35 = v24;
-      v36 = 2112;
-      v37 = v15;
+      v32 = v23;
+      v33 = 2112;
+      v34 = v24;
+      v35 = 2112;
+      v36 = v15;
       v26 = "%@, %@: ill-formatted blacklist string : %@";
     }
 
@@ -122,15 +122,15 @@ LABEL_22:
   v14 = +[_DPLog daemon];
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v28 = objc_opt_class();
-    v29 = NSStringFromClass(v28);
-    v30 = NSStringFromSelector(a2);
+    v27 = objc_opt_class();
+    v28 = NSStringFromClass(v27);
+    v29 = NSStringFromSelector(a2);
     *buf = 138412802;
-    v33 = v29;
-    v34 = 2112;
-    v35 = v30;
-    v36 = 2112;
-    v37 = blacklistCopy;
+    v32 = v28;
+    v33 = 2112;
+    v34 = v29;
+    v35 = 2112;
+    v36 = blacklistCopy;
     _os_log_debug_impl(&dword_22622D000, v14, OS_LOG_TYPE_DEBUG, "%@, %@: Received removing all runtime blacklist files command: %@", buf, 0x20u);
   }
 
@@ -146,47 +146,45 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 + (id)keepLatestRuntimeBlacklistInDirectory:(id)directory compareToSystemBlacklistInDirectory:(id)inDirectory
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   inDirectoryCopy = inDirectory;
-  v26 = [MEMORY[0x277CBEC10] mutableCopy];
+  v25 = [MEMORY[0x277CBEC10] mutableCopy];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v33 = 0;
-  v28 = directoryCopy;
-  v8 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v33];
-  v25 = v33;
+  v32 = 0;
+  v27 = directoryCopy;
+  v8 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v32];
+  v24 = v32;
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   obj = v8;
-  v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v9 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v30;
+    v11 = *v29;
     do
     {
       v12 = 0;
       do
       {
-        if (*v30 != v11)
+        if (*v29 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = [_DPBlacklist extractKeyFromFileName:*(*(&v29 + 1) + 8 * v12)];
+        v13 = [_DPBlacklist extractKeyFromFileName:*(*(&v28 + 1) + 8 * v12)];
         if ([v13 length])
         {
           v14 = objc_autoreleasePoolPush();
-          v15 = [_DPBlacklist blacklistForKey:v13 fromConfigurationsFile:v28];
+          v15 = [_DPBlacklist blacklistForKey:v13 fromConfigurationsFile:v27];
           if ([_DPBlacklist blacklistExistsWithKey:v13 inDirectory:inDirectoryCopy])
           {
             goto LABEL_10;
@@ -203,17 +201,17 @@ LABEL_10:
             v20 = v15;
             if (version <= version2)
             {
-              [objc_opt_class() removeBlacklistFileWithKey:v13 fromDirectory:v28];
+              [objc_opt_class() removeBlacklistFileWithKey:v13 fromDirectory:v27];
               v20 = v17;
             }
 
             v21 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v20, "version")}];
-            [v26 setObject:v21 forKeyedSubscript:v13];
+            [v25 setObject:v21 forKeyedSubscript:v13];
           }
 
           else
           {
-            [objc_opt_class() removeBlacklistFileWithKey:v13 fromDirectory:v28];
+            [objc_opt_class() removeBlacklistFileWithKey:v13 fromDirectory:v27];
           }
 
           objc_autoreleasePoolPop(v14);
@@ -223,54 +221,52 @@ LABEL_10:
       }
 
       while (v10 != v12);
-      v22 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v22 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
       v10 = v22;
     }
 
     while (v22);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v26;
+  return v25;
 }
 
 + (BOOL)removeAllFilesFromDirectory:(id)directory
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   context = objc_autoreleasePoolPush();
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v28 = 0;
-  v5 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v28];
-  v6 = v28;
+  v27 = 0;
+  v5 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v27];
+  v6 = v27;
   obj = v5;
-  v7 = [v5 countByEnumeratingWithState:&v29 objects:v41 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v30;
-    v24 = 1;
+    v9 = *v29;
+    v23 = 1;
     do
     {
       v10 = 0;
       v11 = v6;
       do
       {
-        if (*v30 != v9)
+        if (*v29 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * v10);
+        v12 = *(*(&v28 + 1) + 8 * v10);
         v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/%@", directoryCopy, v12];
-        v27 = v11;
-        v14 = [defaultManager removeItemAtPath:v13 error:&v27];
-        v6 = v27;
+        v26 = v11;
+        v14 = [defaultManager removeItemAtPath:v13 error:&v26];
+        v6 = v26;
 
         if ((v14 & 1) == 0)
         {
@@ -278,22 +274,22 @@ LABEL_10:
           if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
             v16 = objc_opt_class();
-            v25 = NSStringFromClass(v16);
+            v24 = NSStringFromClass(v16);
             v17 = NSStringFromSelector(a2);
             v18 = [v6 description];
             *buf = 138413058;
-            v34 = v25;
-            v35 = 2112;
-            v36 = v17;
-            v37 = 2112;
-            v38 = v12;
-            v39 = 2112;
-            v40 = v18;
+            v33 = v24;
+            v34 = 2112;
+            v35 = v17;
+            v36 = 2112;
+            v37 = v12;
+            v38 = 2112;
+            v39 = v18;
             v19 = v18;
             _os_log_error_impl(&dword_22622D000, v15, OS_LOG_TYPE_ERROR, "%@, %@: Failed to delete a file named as %@ from runtime blacklist directory: %@", buf, 0x2Au);
           }
 
-          v24 = 0;
+          v23 = 0;
         }
 
         ++v10;
@@ -301,7 +297,7 @@ LABEL_10:
       }
 
       while (v8 != v10);
-      v8 = [obj countByEnumeratingWithState:&v29 objects:v41 count:16];
+      v8 = [obj countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v8);
@@ -309,12 +305,11 @@ LABEL_10:
 
   else
   {
-    v24 = 1;
+    v23 = 1;
   }
 
   objc_autoreleasePoolPop(context);
-  v20 = *MEMORY[0x277D85DE8];
-  return v24 & 1;
+  return v23 & 1;
 }
 
 + (BOOL)validateBlacklist:(id)blacklist
@@ -410,7 +405,7 @@ LABEL_25:
 
 + (BOOL)saveBlacklist:(id)blacklist systemDirectory:(id)directory runtimeDirectory:(id)runtimeDirectory memoryLimit:(unint64_t)limit
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   blacklistCopy = blacklist;
   directoryCopy = directory;
   runtimeDirectoryCopy = runtimeDirectory;
@@ -428,24 +423,23 @@ LABEL_25:
     v16 = +[_DPLog daemon];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v20 = objc_opt_class();
-      v21 = NSStringFromClass(v20);
-      v22 = NSStringFromSelector(a2);
-      v23 = 138413058;
-      v24 = v21;
-      v25 = 2112;
-      v26 = v22;
-      v27 = 2048;
-      v28 = v15;
-      v29 = 2048;
+      v19 = objc_opt_class();
+      v20 = NSStringFromClass(v19);
+      v21 = NSStringFromSelector(a2);
+      v22 = 138413058;
+      v23 = v20;
+      v24 = 2112;
+      v25 = v21;
+      v26 = 2048;
+      v27 = v15;
+      v28 = 2048;
       limitCopy = limit;
-      _os_log_error_impl(&dword_22622D000, v16, OS_LOG_TYPE_ERROR, "%@, %@: total required memory(%llu) exceeds limit : %llu", &v23, 0x2Au);
+      _os_log_error_impl(&dword_22622D000, v16, OS_LOG_TYPE_ERROR, "%@, %@: total required memory(%llu) exceeds limit : %llu", &v22, 0x2Au);
     }
 
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -464,32 +458,32 @@ LABEL_25:
 
 + (unint64_t)memorySizeWithDirectory:(id)directory
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:0];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = [_DPBlacklist extractKeyFromFileName:*(*(&v19 + 1) + 8 * i)];
+        v11 = [_DPBlacklist extractKeyFromFileName:*(*(&v18 + 1) + 8 * i)];
         if ([v11 length])
         {
           v12 = [_DPBlacklist filePathWithKey:v11 inDirectory:directoryCopy];
@@ -501,7 +495,7 @@ LABEL_25:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -512,7 +506,6 @@ LABEL_25:
     v8 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -673,7 +666,7 @@ LABEL_38:
 
 + (BOOL)saveBlacklist:(id)blacklist forKey:(id)key runtimeDirectory:(id)directory
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   blacklistCopy = blacklist;
   keyCopy = key;
   directoryCopy = directory;
@@ -682,71 +675,69 @@ LABEL_38:
   v12 = [blacklistCopy stringByReplacingOccurrencesOfString:@" withString:{", @"\n"}];
   v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v12, @"\n"];
 
-  v25 = 0;
-  v14 = [v13 writeToFile:v10 atomically:1 encoding:4 error:&v25];
-  v15 = v25;
+  v24 = 0;
+  v14 = [v13 writeToFile:v10 atomically:1 encoding:4 error:&v24];
+  v15 = v24;
   if ((v14 & 1) == 0)
   {
     v16 = +[_DPLog framework];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v21 = objc_opt_class();
-      v22 = v21;
+      v20 = objc_opt_class();
+      v21 = v20;
       aSelectora = NSStringFromSelector(a2);
-      v19 = [v15 description];
+      v18 = [v15 description];
       *buf = 138413058;
-      v27 = v21;
-      v28 = 2112;
-      v29 = aSelectora;
-      v30 = 2112;
-      v31 = v10;
-      v32 = 2112;
-      v33 = v19;
-      v20 = v19;
+      v26 = v20;
+      v27 = 2112;
+      v28 = aSelectora;
+      v29 = 2112;
+      v30 = v10;
+      v31 = 2112;
+      v32 = v18;
+      v19 = v18;
       _os_log_error_impl(&dword_22622D000, v16, OS_LOG_TYPE_ERROR, "%@ : %@ : Saving runtime blacklists failed! '%@' : %@", buf, 0x2Au);
     }
   }
 
   objc_autoreleasePoolPop(v11);
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (BOOL)removeBlacklistFileWithKey:(id)key fromDirectory:(id)directory
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   directoryCopy = directory;
   v8 = objc_autoreleasePoolPush();
   v9 = [_DPBlacklist filePathWithKey:keyCopy inDirectory:directoryCopy];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v20 = 0;
-  v11 = [defaultManager removeItemAtPath:v9 error:&v20];
-  v12 = v20;
+  v19 = 0;
+  v11 = [defaultManager removeItemAtPath:v9 error:&v19];
+  v12 = v19;
 
   if ((v11 & 1) == 0)
   {
     v13 = +[_DPLog daemon];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v16 = objc_opt_class();
-      v17 = NSStringFromClass(v16);
-      v18 = NSStringFromSelector(a2);
-      v19 = [v12 description];
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v17 = NSStringFromSelector(a2);
+      v18 = [v12 description];
       *buf = 138413058;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v18;
-      v25 = 2112;
-      v26 = keyCopy;
-      v27 = 2112;
-      v28 = v19;
+      v21 = v16;
+      v22 = 2112;
+      v23 = v17;
+      v24 = 2112;
+      v25 = keyCopy;
+      v26 = 2112;
+      v27 = v18;
       _os_log_error_impl(&dword_22622D000, v13, OS_LOG_TYPE_ERROR, "%@, %@: Failed to delete a runtime blacklist with the key of %@ : %@", buf, 0x2Au);
     }
   }
 
   objc_autoreleasePoolPop(v8);
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -793,26 +784,20 @@ LABEL_38:
 
 + (void)processRuntimeBlacklist:(uint64_t)a1 systemDirectory:(const char *)a2 runtimeDirectory:blacklistLengthLimit:.cold.1(uint64_t a1, const char *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3(&dword_22622D000, v6, v7, "%@, %@: blacklist string is too long, unable to process.", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_22622D000, v6, v7, "%@, %@: blacklist string is too long, unable to process.", v8, v9, v10, v11);
 }
 
 + (void)processRuntimeBlacklist:(uint64_t)a1 systemDirectory:(const char *)a2 runtimeDirectory:blacklistLengthLimit:.cold.2(uint64_t a1, const char *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3(&dword_22622D000, v6, v7, "%@, %@: Failed cleaning runtime blacklist directory", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3(&dword_22622D000, v6, v7, "%@, %@: Failed cleaning runtime blacklist directory", v8, v9, v10, v11);
 }
 
 @end

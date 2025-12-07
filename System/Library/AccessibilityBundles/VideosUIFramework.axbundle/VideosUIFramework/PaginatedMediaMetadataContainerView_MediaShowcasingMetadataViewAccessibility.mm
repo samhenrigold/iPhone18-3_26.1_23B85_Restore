@@ -136,41 +136,39 @@
 
 - (id)_axNSStringKeyedDictionary:(id)dictionary
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   dictionaryCopy = dictionary;
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = dictionaryCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        v11 = [v5 objectForKeyedSubscript:{v10, v15}];
+        v10 = *(*(&v14 + 1) + 8 * i);
+        v11 = [v5 objectForKeyedSubscript:{v10, v14}];
         v12 = [v10 description];
         [dictionary setObject:v11 forKeyedSubscript:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return dictionary;
 }
@@ -191,38 +189,38 @@
 
 - (id)_axLabelForGenericViewModel:(id)model
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   modelCopy = model;
   v4 = [modelCopy safeSwiftValueForKey:@"protectedMembers"];
-  v42 = 0;
+  v41 = 0;
   objc_opt_class();
-  v31 = v4;
+  v30 = v4;
   v5 = [v4 safeSwiftValueForKey:@"childrenDictionary"];
   v6 = __UIAccessibilityCastAsClass();
 
-  v32 = [(PaginatedMediaMetadataContainerView_MediaShowcasingMetadataViewAccessibility *)self _axNSStringKeyedDictionary:v6];
+  v31 = [(PaginatedMediaMetadataContainerView_MediaShowcasingMetadataViewAccessibility *)self _axNSStringKeyedDictionary:v6];
 
   orderedSet = [MEMORY[0x29EDB8E10] orderedSet];
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   _axKeysInOrder = [objc_opt_class() _axKeysInOrder];
-  v9 = [_axKeysInOrder countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v9 = [_axKeysInOrder countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v39;
+    v11 = *v38;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v39 != v11)
+        if (*v38 != v11)
         {
           objc_enumerationMutation(_axKeysInOrder);
         }
 
-        v13 = *(*(&v38 + 1) + 8 * i);
+        v13 = *(*(&v37 + 1) + 8 * i);
         if ([v13 isEqualToString:@"mediaTags"])
         {
           _axCurrentMetadata = [(PaginatedMediaMetadataContainerView_MediaShowcasingMetadataViewAccessibility *)self _axCurrentMetadata];
@@ -247,7 +245,7 @@
           continue;
         }
 
-        v16 = [v32 objectForKeyedSubscript:v13];
+        v16 = [v31 objectForKeyedSubscript:v13];
         [objc_opt_class() _axTextViewModelClass];
         if (objc_opt_isKindOfClass())
         {
@@ -277,35 +275,35 @@ LABEL_18:
 LABEL_22:
       }
 
-      v10 = [_axKeysInOrder countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v10 = [_axKeysInOrder countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
     while (v10);
   }
 
-  v19 = [v31 safeSwiftArrayForKey:@"children"];
+  v19 = [v30 safeSwiftArrayForKey:@"children"];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v20 = [v19 countByEnumeratingWithState:&v34 objects:v43 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v33 objects:v42 count:16];
   if (!v20)
   {
     goto LABEL_40;
   }
 
   v21 = v20;
-  v22 = *v35;
+  v22 = *v34;
   do
   {
     for (j = 0; j != v21; ++j)
     {
-      if (*v35 != v22)
+      if (*v34 != v22)
       {
         objc_enumerationMutation(v19);
       }
 
-      v24 = *(*(&v34 + 1) + 8 * j);
+      v24 = *(*(&v33 + 1) + 8 * j);
       [objc_opt_class() _axTextViewModelClass];
       if (objc_opt_isKindOfClass())
       {
@@ -330,7 +328,7 @@ LABEL_22:
       }
     }
 
-    v21 = [v19 countByEnumeratingWithState:&v34 objects:v43 count:16];
+    v21 = [v19 countByEnumeratingWithState:&v33 objects:v42 count:16];
   }
 
   while (v21);
@@ -338,39 +336,37 @@ LABEL_40:
   array = [orderedSet array];
   v28 = [array componentsJoinedByString:{@", "}];
 
-  v29 = *MEMORY[0x29EDCA608];
-
   return v28;
 }
 
 - (id)_axLabelForTextViewModel:(id)model
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   modelCopy = model;
-  v22 = [modelCopy safeSwiftValueForKey:@"viewLayout"];
-  [v22 safeSwiftDictionaryForKey:@"propertyStore"];
+  v21 = [modelCopy safeSwiftValueForKey:@"viewLayout"];
+  [v21 safeSwiftDictionaryForKey:@"propertyStore"];
+  v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
-  v4 = v29 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v27 = 0u;
+  v4 = v28 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (!v5)
   {
     goto LABEL_11;
   }
 
-  v6 = *v29;
+  v6 = *v28;
   while (2)
   {
     for (i = 0; i != v5; ++i)
     {
-      if (*v29 != v6)
+      if (*v28 != v6)
       {
         objc_enumerationMutation(v4);
       }
 
-      v8 = *(*(&v28 + 1) + 8 * i);
-      LOBYTE(v24) = 0;
+      v8 = *(*(&v27 + 1) + 8 * i);
+      LOBYTE(v23) = 0;
       objc_opt_class();
       v9 = [v8 description];
       v10 = __UIAccessibilityCastAsClass();
@@ -380,15 +376,15 @@ LABEL_40:
         v11 = [v4 objectForKeyedSubscript:v8];
         if (objc_opt_respondsToSelector())
         {
-          v24 = 0;
-          v25 = &v24;
-          v26 = 0x2020000000;
-          v27 = 0;
-          v23 = v11;
+          v23 = 0;
+          v24 = &v23;
+          v25 = 0x2020000000;
+          v26 = 0;
+          v22 = v11;
           AXPerformSafeBlock();
-          v12 = *(v25 + 24);
+          v12 = *(v24 + 24);
 
-          _Block_object_dispose(&v24, 8);
+          _Block_object_dispose(&v23, 8);
           if ((v12 & 1) == 0)
           {
             goto LABEL_18;
@@ -419,7 +415,7 @@ LABEL_40:
       }
     }
 
-    v5 = [v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v5)
     {
       continue;
@@ -446,10 +442,10 @@ LABEL_18:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      LOBYTE(v24) = 0;
+      LOBYTE(v23) = 0;
       objc_opt_class();
       v18 = __UIAccessibilityCastAsClass();
-      if (v24 == 1)
+      if (v23 == 1)
       {
         abort();
       }
@@ -467,7 +463,6 @@ LABEL_18:
 LABEL_24:
 
 LABEL_25:
-  v20 = *MEMORY[0x29EDCA608];
 
   return string;
 }

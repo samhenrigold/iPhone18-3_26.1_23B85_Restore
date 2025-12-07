@@ -7,12 +7,10 @@
 
 - (void)dealloc
 {
-  ptr = self->super._ptr;
-  sz = self->super._sz;
   (*(self->_deallocator + 2))();
-  v5.receiver = self;
-  v5.super_class = _OSLogChunkMemory;
-  [(_OSLogChunkMemory *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = _OSLogChunkMemory;
+  [(_OSLogChunkMemory *)&v3 dealloc];
 }
 
 - (_OSLogChunkMemory)initWithBytes:(const void *)bytes size:(unint64_t)size deallocator:(id)deallocator

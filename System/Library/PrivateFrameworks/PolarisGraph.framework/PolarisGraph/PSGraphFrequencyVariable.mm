@@ -28,7 +28,7 @@
   result = self->oneHertzFrequency;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result interval];
+    return objc_msgSend_interval(result, a3);
   }
 
   retstr->var0 = 0;

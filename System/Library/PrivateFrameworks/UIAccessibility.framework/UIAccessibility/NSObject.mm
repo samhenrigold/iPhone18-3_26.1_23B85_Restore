@@ -51,7 +51,7 @@ void __96__NSObject_UIAccessibilityElementTraversal___accessibilityElementsInDir
   }
 }
 
-uint64_t __129__NSObject_UIAccessibilityElementTraversal___accessibilityLeafDescendantsWithCount_shouldStopAtRemoteElement_options_treeLogger___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__129__NSObject_UIAccessibilityElementTraversal___accessibilityLeafDescendantsWithCount_shouldStopAtRemoteElement_options_treeLogger___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 _accessibilityAppendOrderedChildLeafDescendantsToArray:*(a1 + 32) count:*(a1 + 56) shouldStopAtRemoteElement:*(a1 + 64) options:*(a1 + 40) treeLogger:*(a1 + 48)];
   *a4 = result;
@@ -124,7 +124,7 @@ void __151__NSObject_UIAccessibilityElementTraversal___accessibilityAppendOrdere
   [a2 enumerateObjectsWithOptions:v4 usingBlock:v10];
 }
 
-uint64_t __151__NSObject_UIAccessibilityElementTraversal___accessibilityAppendOrderedChildLeafDescendantsToArray_count_shouldStopAtRemoteElement_options_treeLogger___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__151__NSObject_UIAccessibilityElementTraversal___accessibilityAppendOrderedChildLeafDescendantsToArray_count_shouldStopAtRemoteElement_options_treeLogger___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   v6 = *(a1 + 32);
   v7 = a2;
@@ -195,15 +195,15 @@ void __106__NSObject_UIAccessibilityElementTraversal___accessibilityEnumerateSib
   }
 }
 
-BOOL __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke()
+BOOL __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke(uint64_t a1)
 {
   if (UIAccessibilityStorageKeyShouldHittestFallBackToNearestChild_block_invoke_onceToken != -1)
   {
     __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel_accessibilityHitTest_withEvent_);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel_accessibilityHitTest_withEvent_);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -211,8 +211,8 @@ BOOL __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invo
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -303,7 +303,7 @@ void __64__NSObject_AXPrivCategory___accessibilityBaseHitTest_withEvent___block_
   }
 }
 
-uint64_t __61__NSObject_AXPrivCategory____accessibilityVisibleScrollArea___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__61__NSObject_AXPrivCategory____accessibilityVisibleScrollArea___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 _accessibilityVisibleScrollArea:*(a1 + 40)];
   if (v6 != 2147483650.0)
@@ -1056,15 +1056,15 @@ BOOL __55__NSObject_AXPrivCategory___accessibilityCustomActions__block_invoke_2(
   return v5 > v6;
 }
 
-BOOL __62__NSObject_AXPrivCategory___accessibilityFirstElementForFocus__block_invoke()
+BOOL __62__NSObject_AXPrivCategory___accessibilityFirstElementForFocus__block_invoke(uint64_t a1)
 {
   if (kAXContainerAncestorTypeKey_block_invoke_3_onceToken != -1)
   {
     __62__NSObject_AXPrivCategory___accessibilityFirstElementForFocus__block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilityFirstElementForFocus);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilityFirstElementForFocus);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -1072,8 +1072,8 @@ BOOL __62__NSObject_AXPrivCategory___accessibilityFirstElementForFocus__block_in
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -1103,15 +1103,15 @@ void __62__NSObject_AXPrivCategory___accessibilityFirstElementForFocus__block_in
   }
 }
 
-BOOL __74__NSObject_AXPrivCategory___accessibilityFirstElementForFocusWithOptions___block_invoke()
+BOOL __74__NSObject_AXPrivCategory___accessibilityFirstElementForFocusWithOptions___block_invoke(uint64_t a1)
 {
   if (kAXContainerAncestorTypeKey_block_invoke_4_onceToken != -1)
   {
     __74__NSObject_AXPrivCategory___accessibilityFirstElementForFocusWithOptions___block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilityFirstElementForFocus);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilityFirstElementForFocus);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -1119,8 +1119,8 @@ BOOL __74__NSObject_AXPrivCategory___accessibilityFirstElementForFocusWithOption
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -1362,15 +1362,15 @@ uint64_t __60__NSObject_AXPrivCategory___iosAccessibilityAttributeValue___block_
   return isKindOfClass & 1;
 }
 
-BOOL __60__NSObject_AXPrivCategory___iosAccessibilityAttributeValue___block_invoke_1125()
+BOOL __60__NSObject_AXPrivCategory___iosAccessibilityAttributeValue___block_invoke_1125(uint64_t a1)
 {
   if (processedClasses_block_invoke_5_onceToken != -1)
   {
     __60__NSObject_AXPrivCategory___iosAccessibilityAttributeValue___block_invoke_1125_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilitySelectedChildren);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilitySelectedChildren);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -1378,8 +1378,8 @@ BOOL __60__NSObject_AXPrivCategory___iosAccessibilityAttributeValue___block_invo
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -1510,7 +1510,7 @@ void __65__NSObject_AXPrivCategory__accessibilityElementForRow_andColumn___block
   }
 }
 
-uint64_t __53__NSObject_AXPrivCategory___accessibilityColumnCount__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__53__NSObject_AXPrivCategory___accessibilityColumnCount__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 accessibilityColumnCount];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1522,7 +1522,7 @@ uint64_t __53__NSObject_AXPrivCategory___accessibilityColumnCount__block_invoke(
   return result;
 }
 
-uint64_t __53__NSObject_AXPrivCategory___accessibilityColumnRange__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__53__NSObject_AXPrivCategory___accessibilityColumnRange__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 accessibilityColumnRange];
   v6 = *(*(a1 + 32) + 8);
@@ -1556,7 +1556,7 @@ void __76__NSObject_AXPrivCategory___accessibilityRowRangeFromTableOrCollectionV
   }
 }
 
-uint64_t __50__NSObject_AXPrivCategory___accessibilityRowCount__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__50__NSObject_AXPrivCategory___accessibilityRowCount__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 accessibilityRowCount];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1609,15 +1609,15 @@ uint64_t __59__NSObject_AXPrivCategory___accessibilityFocusRingAncestor__block_i
   return v3;
 }
 
-BOOL __60__NSObject_AXPrivCategory___accessibilityFirstOpaqueElement__block_invoke()
+BOOL __60__NSObject_AXPrivCategory___accessibilityFirstOpaqueElement__block_invoke(uint64_t a1)
 {
   if (processedClasses_block_invoke_6_onceToken != -1)
   {
     __60__NSObject_AXPrivCategory___accessibilityFirstOpaqueElement__block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilityFirstOpaqueElement);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilityFirstOpaqueElement);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -1625,8 +1625,8 @@ BOOL __60__NSObject_AXPrivCategory___accessibilityFirstOpaqueElement__block_invo
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -1656,15 +1656,15 @@ void __60__NSObject_AXPrivCategory___accessibilityFirstOpaqueElement__block_invo
   }
 }
 
-BOOL __72__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementWithOptions___block_invoke()
+BOOL __72__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementWithOptions___block_invoke(uint64_t a1)
 {
   if (processedClasses_block_invoke_7_onceToken != -1)
   {
     __72__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementWithOptions___block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilityFirstOpaqueElement);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilityFirstOpaqueElement);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -1672,8 +1672,8 @@ BOOL __72__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementWithOptions_
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -1703,15 +1703,15 @@ void __72__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementWithOptions_
   }
 }
 
-BOOL __68__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocus__block_invoke()
+BOOL __68__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocus__block_invoke(uint64_t a1)
 {
   if (processedClasses_block_invoke_8_onceToken != -1)
   {
     __68__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocus__block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilityFirstOpaqueElementForFocus);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilityFirstOpaqueElementForFocus);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -1719,8 +1719,8 @@ BOOL __68__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocus__bl
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -1750,15 +1750,15 @@ void __68__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocus__bl
   }
 }
 
-BOOL __80__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocusWithOptions___block_invoke()
+BOOL __80__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocusWithOptions___block_invoke(uint64_t a1)
 {
   if (processedClasses_block_invoke_9_onceToken != -1)
   {
     __80__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocusWithOptions___block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilityFirstOpaqueElementForFocus);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilityFirstOpaqueElementForFocus);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -1766,8 +1766,8 @@ BOOL __80__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocusWith
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -1797,15 +1797,15 @@ void __80__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocusWith
   }
 }
 
-BOOL __59__NSObject_AXPrivCategory___accessibilityLastOpaqueElement__block_invoke()
+BOOL __59__NSObject_AXPrivCategory___accessibilityLastOpaqueElement__block_invoke(uint64_t a1)
 {
   if (processedClasses_block_invoke_10_onceToken != -1)
   {
     __59__NSObject_AXPrivCategory___accessibilityLastOpaqueElement__block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilityLastOpaqueElement);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilityLastOpaqueElement);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -1813,8 +1813,8 @@ BOOL __59__NSObject_AXPrivCategory___accessibilityLastOpaqueElement__block_invok
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -1844,15 +1844,15 @@ void __59__NSObject_AXPrivCategory___accessibilityLastOpaqueElement__block_invok
   }
 }
 
-BOOL __71__NSObject_AXPrivCategory___accessibilityLastOpaqueElementWithOptions___block_invoke()
+BOOL __71__NSObject_AXPrivCategory___accessibilityLastOpaqueElementWithOptions___block_invoke(uint64_t a1)
 {
   if (processedClasses_block_invoke_11_onceToken != -1)
   {
     __71__NSObject_AXPrivCategory___accessibilityLastOpaqueElementWithOptions___block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilityLastOpaqueElement);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilityLastOpaqueElement);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -1860,8 +1860,8 @@ BOOL __71__NSObject_AXPrivCategory___accessibilityLastOpaqueElementWithOptions__
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -1984,15 +1984,15 @@ void __133__NSObject_AXPrivCategory___accessibilityFindElementInDirection_search
   }
 }
 
-BOOL __62__NSObject_AXPrivCategory___accessibilitySortedElementsWithin__block_invoke()
+BOOL __62__NSObject_AXPrivCategory___accessibilitySortedElementsWithin__block_invoke(uint64_t a1)
 {
   if (processedClasses_block_invoke_12_onceToken != -1)
   {
     __62__NSObject_AXPrivCategory___accessibilitySortedElementsWithin__block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilitySortedElementsWithin);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilitySortedElementsWithin);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -2000,8 +2000,8 @@ BOOL __62__NSObject_AXPrivCategory___accessibilitySortedElementsWithin__block_in
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -2031,15 +2031,15 @@ void __62__NSObject_AXPrivCategory___accessibilitySortedElementsWithin__block_in
   }
 }
 
-BOOL __74__NSObject_AXPrivCategory___accessibilitySortedElementsWithinWithOptions___block_invoke()
+BOOL __74__NSObject_AXPrivCategory___accessibilitySortedElementsWithinWithOptions___block_invoke(uint64_t a1)
 {
   if (processedClasses_block_invoke_13_onceToken != -1)
   {
     __74__NSObject_AXPrivCategory___accessibilitySortedElementsWithinWithOptions___block_invoke_cold_1();
   }
 
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel__accessibilitySortedElementsWithin);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel__accessibilitySortedElementsWithin);
   if (InstanceMethod)
   {
     Implementation = method_getImplementation(InstanceMethod);
@@ -2047,8 +2047,8 @@ BOOL __74__NSObject_AXPrivCategory___accessibilitySortedElementsWithinWithOption
 
   else
   {
-    v3 = AXLogCommon();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    v4 = AXLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_cold_2();
     }
@@ -3270,13 +3270,13 @@ LABEL_12:
 LABEL_24:
 }
 
-void __79__NSObject_AXPrivCategory___accessibilityReplaceCharactersAtCursor_withString___block_invoke()
+void __79__NSObject_AXPrivCategory___accessibilityReplaceCharactersAtCursor_withString___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v0 = AXLogAppAccessibility();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v8 = AXLogAppAccessibility();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1A9B83000, v0, OS_LOG_TYPE_INFO, "Unblocking notifications after replacing characaters.", v1, 2u);
+    *v9 = 0;
+    _os_log_impl(&dword_1A9B83000, v8, OS_LOG_TYPE_INFO, "Unblocking notifications after replacing characaters.", v9, 2u);
   }
 
   AXUIUnblockKeyboardEntryNotifications();
@@ -3660,11 +3660,11 @@ BOOL __54__NSObject_UIStorage___isAccessibilityExplorerElement__block_invoke(uin
   return v4;
 }
 
-uint64_t __90__NSObject_UIAccessibilityAutomation___accessibilityBaseImplementationUserTestingChildren__block_invoke(uint64_t result, uint64_t a2)
+id *__90__NSObject_UIAccessibilityAutomation___accessibilityBaseImplementationUserTestingChildren__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) addObject:a2];
+    return [result[4] addObject:a2];
   }
 
   return result;
@@ -3696,7 +3696,7 @@ void __150__NSObject_UIAccessibilityAutomation___accessibilityUserTestingSnapsho
     v11 = AXLogUIA();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __150__NSObject_UIAccessibilityAutomation___accessibilityUserTestingSnapshotDescendantsWithAttributes_maxDepth_maxChildren_maxArrayCount_honorsModalViews___block_invoke_390_cold_2();
+      __150__NSObject_UIAccessibilityAutomation___accessibilityUserTestingSnapshotDescendantsWithAttributes_maxDepth_maxChildren_maxArrayCount_honorsModalViews___block_invoke_390_cold_2(v7);
     }
 
     v12 = AXLogUIA();
@@ -4194,7 +4194,7 @@ uint64_t __84__NSObject_UIAccessibilityTextAttributeRotor___accessibilityTextSty
   v260 = i;
   if ([MEMORY[0x1E69E58C0] _accessibilityHasUnitTestingOrientation])
   {
-    _accessibilityUnitTestingOrientation = [MEMORY[0x1E69E58C0] _accessibilityUnitTestingOrientation];
+    v50 = objc_msgSend__accessibilityUnitTestingOrientation(MEMORY[0x1E69E58C0]);
   }
 
   else
@@ -4242,10 +4242,10 @@ uint64_t __84__NSObject_UIAccessibilityTextAttributeRotor___accessibilityTextSty
       goto LABEL_33;
     }
 
-    _accessibilityUnitTestingOrientation = [geometry _accessibilityOrientationForCompareGeometryForApplication:*MEMORY[0x1E69DDA98]];
+    v50 = [geometry _accessibilityOrientationForCompareGeometryForApplication:*MEMORY[0x1E69DDA98]];
   }
 
-  v54 = _accessibilityUnitTestingOrientation;
+  v54 = v50;
   _accessibilityInterfaceOrientationForScreenCoordinates2 = 1;
   _accessibilityInterfaceOrientationForScreenCoordinates = 1;
 LABEL_33:
@@ -5130,7 +5130,7 @@ void __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invo
   v2 = OUTLINED_FUNCTION_11();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_2_0(&dword_1A9B83000, v4, v5, "Attempted to check for nonexistent method: %@ on class: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_0(&dword_1A9B83000, v4, v5, "Attempted to check for nonexistent method: %@ on class: %@", v6, v7, v8, v9);
 }
 
 void __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke_2_cold_1(const char *a1)
@@ -5139,7 +5139,7 @@ void __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invo
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_2_0(&dword_1A9B83000, v4, v5, "Attempted to check for nonexistent method: %@ on class: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_0(&dword_1A9B83000, v4, v5, "Attempted to check for nonexistent method: %@ on class: %@", v6, v7, v8, v9);
 }
 
 void __61__NSObject_AXPrivCategory___accessibilityBaseScrollToVisible__block_invoke_cold_1()
@@ -5218,10 +5218,14 @@ void __150__NSObject_UIAccessibilityAutomation___accessibilityUserTestingSnapsho
   _os_log_error_impl(&dword_1A9B83000, a2, OS_LOG_TYPE_ERROR, "This child can't be serialized correctly: %{public}@", &v2, 0xCu);
 }
 
-void __150__NSObject_UIAccessibilityAutomation___accessibilityUserTestingSnapshotDescendantsWithAttributes_maxDepth_maxChildren_maxArrayCount_honorsModalViews___block_invoke_390_cold_2()
+void __150__NSObject_UIAccessibilityAutomation___accessibilityUserTestingSnapshotDescendantsWithAttributes_maxDepth_maxChildren_maxArrayCount_honorsModalViews___block_invoke_390_cold_2(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_1_2(&dword_1A9B83000, v1, v2, "Snapshot element going in:%p %{public}@", v3, v4, v5, v6, 2u);
+  *v8 = 134218242;
+  *&v8[4] = a1;
+  *&v8[12] = 2114;
+  *&v8[14] = objc_opt_class();
+  v1 = *&v8[14];
+  OUTLINED_FUNCTION_1_2(&dword_1A9B83000, v2, v3, "Snapshot element going in:%p %{public}@", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 void __150__NSObject_UIAccessibilityAutomation___accessibilityUserTestingSnapshotDescendantsWithAttributes_maxDepth_maxChildren_maxArrayCount_honorsModalViews___block_invoke_390_cold_3()
@@ -5230,7 +5234,7 @@ void __150__NSObject_UIAccessibilityAutomation___accessibilityUserTestingSnapsho
   v1 = objc_opt_class();
   v2 = [v0 objectForKeyedSubscript:@"UIAccessibilitySnapshotKeyElement"];
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_2(&dword_1A9B83000, v3, v4, "Setting child snapshot element: %{private}@, %{private}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_1A9B83000, v3, v4, "Setting child snapshot element: %{private}@, %{private}@", v5, v6, v7, v8);
 }
 
 @end

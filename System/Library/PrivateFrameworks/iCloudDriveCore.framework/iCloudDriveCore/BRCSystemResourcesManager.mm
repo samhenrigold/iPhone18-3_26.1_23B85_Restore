@@ -17,7 +17,6 @@
 - (void)_initProcessObservers;
 - (void)_initReachability;
 - (void)_initScreenLockManager;
-- (void)_invalidateAppListObservers;
 - (void)_invalidateLowDiskManager;
 - (void)_invalidateLowMemory;
 - (void)_invalidatePowerManager;
@@ -28,6 +27,11 @@
 - (void)_resetLowDiskManager;
 - (void)_resetPowerManager;
 - (void)_resetReachability;
+- (void)_setCellularNetwork:(BOOL)network;
+- (void)_setIsCellularNetworkEnabledWithCoalescing:(BOOL)coalescing;
+- (void)_setIsNetworkReachableWithCoalescing:(BOOL)coalescing;
+- (void)_setNetworkReachable:(BOOL)reachable;
+- (void)_setPowerLevel:(BOOL)level;
 - (void)_setPowerLevelWithCoalescing:(BOOL)coalescing;
 - (void)addAppListObserver:(id)observer;
 - (void)addLowDiskObserver:(id)observer forDevice:(int)device;
@@ -48,6 +52,7 @@
 - (void)removeReachabilityObserver:(id)observer;
 - (void)removeScreenLockObserver:(id)observer;
 - (void)reset;
+- (void)screenLockChanged:(BOOL)changed;
 @end
 
 @implementation BRCSystemResourcesManager
@@ -106,7 +111,7 @@ uint64_t __36__BRCSystemResourcesManager_manager__block_invoke()
     v5 = brc_default_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      [BRCSystemResourcesManager init];
+      [(BRCSystemResourcesManager *)v3 init];
     }
   }
 
@@ -167,7 +172,7 @@ void __34__BRCSystemResourcesManager_close__block_invoke(uint64_t a1)
   v4 = brc_default_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    [BRCSystemResourcesManager reset];
+    [(BRCSystemResourcesManager *)self reset];
   }
 }
 
@@ -176,9 +181,7 @@ void __34__BRCSystemResourcesManager_close__block_invoke(uint64_t a1)
   mEMORY[0x277CFAEB8] = [MEMORY[0x277CFAEB8] sharedScreenLockMonitor];
   [mEMORY[0x277CFAEB8] addObserver:self];
 
-  weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
-  screenLockObservers = self->_screenLockObservers;
-  self->_screenLockObservers = weakObjectsHashTable;
+  self->_screenLockObservers = [MEMORY[0x277CCAA50] weakObjectsHashTable];
 
   MEMORY[0x2821F96F8]();
 }
@@ -190,6 +193,49 @@ void __34__BRCSystemResourcesManager_close__block_invoke(uint64_t a1)
 
   screenLockObservers = self->_screenLockObservers;
   self->_screenLockObservers = 0;
+}
+
+- (void)screenLockChanged:(BOOL)changed
+{
+  changedCopy = changed;
+  v16 = *MEMORY[0x277D85DE8];
+  v5 = self->_screenLockObservers;
+  objc_sync_enter(v5);
+  allObjects = [(NSHashTable *)self->_screenLockObservers allObjects];
+  objc_sync_exit(v5);
+
+  if (self->_screenLocked != changedCopy)
+  {
+    self->_screenLocked = changedCopy;
+    v11 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v7 = allObjects;
+    v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    if (v8)
+    {
+      v9 = *v12;
+      do
+      {
+        v10 = 0;
+        do
+        {
+          if (*v12 != v9)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          [*(*(&v11 + 1) + 8 * v10++) screenLockChanged:{changedCopy, v11}];
+        }
+
+        while (v8 != v10);
+        v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      }
+
+      while (v8);
+    }
+  }
 }
 
 - (void)addScreenLockObserver:(id)observer
@@ -311,6 +357,34 @@ void __34__BRCSystemResourcesManager_close__block_invoke(uint64_t a1)
   self->_cellularStateUpdateCoalescer = 0;
 }
 
+- (void)_setIsNetworkReachableWithCoalescing:(BOOL)coalescing
+{
+  coalescingCopy = coalescing;
+  dispatch_assert_queue_V2(self->_notificationQueue);
+  reachabilityStateUpdateCoalescer = self->_reachabilityStateUpdateCoalescer;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __66__BRCSystemResourcesManager__setIsNetworkReachableWithCoalescing___block_invoke;
+  v6[3] = &unk_278500EE0;
+  v6[4] = self;
+  v7 = coalescingCopy;
+  [(BRCStateUpdateCoalescer *)reachabilityStateUpdateCoalescer updateStateWithCoalescing:v6 oldState:self->_isNetworkReachable newState:coalescingCopy];
+}
+
+- (void)_setIsCellularNetworkEnabledWithCoalescing:(BOOL)coalescing
+{
+  coalescingCopy = coalescing;
+  dispatch_assert_queue_V2(self->_notificationQueue);
+  cellularStateUpdateCoalescer = self->_cellularStateUpdateCoalescer;
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __72__BRCSystemResourcesManager__setIsCellularNetworkEnabledWithCoalescing___block_invoke;
+  v6[3] = &unk_278500EE0;
+  v6[4] = self;
+  v7 = coalescingCopy;
+  [(BRCStateUpdateCoalescer *)cellularStateUpdateCoalescer updateStateWithCoalescing:v6 oldState:self->_isCellularNetwork newState:coalescingCopy];
+}
+
 - (BOOL)isNetworkReachable
 {
   v6 = 0;
@@ -330,6 +404,60 @@ void __34__BRCSystemResourcesManager_close__block_invoke(uint64_t a1)
   return v3;
 }
 
+- (void)_setNetworkReachable:(BOOL)reachable
+{
+  reachableCopy = reachable;
+  v22 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_notificationQueue);
+  self->_isNetworkReachable = reachableCopy;
+  v5 = brc_bread_crumbs();
+  v6 = brc_default_log();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = "un";
+    if (reachableCopy)
+    {
+      v7 = "";
+    }
+
+    *buf = 136315394;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v5;
+    _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] Network really becomes %sreachable%@", buf, 0x16u);
+  }
+
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v8 = self->_reachabilityObservers;
+  v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v14;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v14 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        [*(*(&v13 + 1) + 8 * v12++) networkReachabilityChanged:{reachableCopy, v13}];
+      }
+
+      while (v10 != v12);
+      v10 = [(NSHashTable *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v10);
+  }
+}
+
 - (BOOL)isCellularNetwork
 {
   v6 = 0;
@@ -347,6 +475,72 @@ void __34__BRCSystemResourcesManager_close__block_invoke(uint64_t a1)
   v3 = *(v7 + 24);
   _Block_object_dispose(&v6, 8);
   return v3;
+}
+
+- (void)_setCellularNetwork:(BOOL)network
+{
+  networkCopy = network;
+  v24 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_notificationQueue);
+  self->_isCellularNetwork = networkCopy;
+  v5 = brc_bread_crumbs();
+  v6 = brc_default_log();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v7 = "not ";
+    if (networkCopy)
+    {
+      v7 = "";
+    }
+
+    *buf = 136315394;
+    v21 = v7;
+    v22 = 2112;
+    v23 = v5;
+    _os_log_impl(&dword_223E7A000, v6, OS_LOG_TYPE_DEFAULT, "[NOTICE] Network connection is %susing cellular%@", buf, 0x16u);
+  }
+
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v8 = self->_reachabilityObservers;
+  v9 = [(NSHashTable *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v16;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v16 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        v13 = *(*(&v15 + 1) + 8 * v12);
+        if (objc_opt_respondsToSelector())
+        {
+          [v13 networkCellularChanged:{networkCopy, v15}];
+        }
+
+        ++v12;
+      }
+
+      while (v10 != v12);
+      v10 = [(NSHashTable *)v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v10);
+  }
+
+  if (!networkCopy)
+  {
+    v14 = +[BRCUploadConstraintChecker defaultChecker];
+    [v14 sendCellularConstraintNotification];
+  }
 }
 
 - (BOOL)isNetworkAvailableForDriveWithError:(id *)error
@@ -405,14 +599,13 @@ uint64_t __53__BRCSystemResourcesManager_addReachabilityObserver___block_invoke(
 {
   [*(*(a1 + 32) + 32) addObject:*(a1 + 40)];
   [*(a1 + 40) networkReachabilityChanged:*(*(a1 + 32) + 48)];
-  v2 = *(a1 + 40);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 32) + 64);
+    v3 = *(a1 + 40);
+    v4 = *(*(a1 + 32) + 64);
 
-    return [v4 networkCellularChanged:v5];
+    return [v3 networkCellularChanged:v4];
   }
 
   return result;
@@ -464,12 +657,12 @@ uint64_t __53__BRCSystemResourcesManager_addReachabilityObserver___block_invoke(
   [(BRCSystemResourcesManager *)self _resetPowerManager];
 }
 
-uint64_t __46__BRCSystemResourcesManager__initPowerManager__block_invoke(uint64_t a1)
+uint64_t __46__BRCSystemResourcesManager__initPowerManager__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  is_ok = brc_power_is_ok();
+  v2 = *(a1 + 32);
+  is_ok = brc_power_is_ok(a2);
 
-  return [v1 _setPowerLevelWithCoalescing:is_ok];
+  return [v2 _setPowerLevelWithCoalescing:is_ok];
 }
 
 - (void)_invalidatePowerManager
@@ -505,8 +698,7 @@ uint64_t __47__BRCSystemResourcesManager__resetPowerManager__block_invoke(uint64
     v2 = *(a1 + 32);
   }
 
-  v6 = *(v2 + 88);
-  is_ok = brc_power_is_ok();
+  is_ok = brc_power_is_ok(*(v2 + 88));
 
   return [v2 _setPowerLevel:is_ok];
 }
@@ -619,6 +811,57 @@ uint64_t __47__BRCSystemResourcesManager__resetPowerManager__block_invoke(uint64
     {
       [(BRCSystemResourcesManager *)self _setPowerLevel:0];
     }
+  }
+}
+
+- (void)_setPowerLevel:(BOOL)level
+{
+  levelCopy = level;
+  v19 = *MEMORY[0x277D85DE8];
+  powerLevelOKTimer = self->_powerLevelOKTimer;
+  if (powerLevelOKTimer)
+  {
+    dispatch_source_cancel(powerLevelOKTimer);
+    v6 = self->_powerLevelOKTimer;
+    self->_powerLevelOKTimer = 0;
+  }
+
+  self->_powerLevelOK = levelCopy;
+  v7 = brc_bread_crumbs();
+  v8 = brc_default_log();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    [BRCSystemResourcesManager _setPowerLevel:];
+  }
+
+  v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
+  v9 = self->_powerObservers;
+  v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v15;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v15 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        [*(*(&v14 + 1) + 8 * v13++) powerLevelChanged:{levelCopy, v14}];
+      }
+
+      while (v11 != v13);
+      v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v11);
   }
 }
 
@@ -799,7 +1042,7 @@ uint64_t __48__BRCSystemResourcesManager__initLowDiskManager__block_invoke_2(uin
 
 void __57__BRCSystemResourcesManager__processLowDiskNotification___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   has_enough_space = brc_device_has_enough_space([v5 intValue]);
@@ -821,51 +1064,49 @@ void __57__BRCSystemResourcesManager__processLowDiskNotification___block_invoke(
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v18 = "NOT ";
+      v17 = "NOT ";
       *buf = 138412802;
-      v25 = v5;
+      v24 = v5;
       if (has_enough_space)
       {
-        v18 = "";
+        v17 = "";
       }
 
-      v26 = 2080;
-      v27 = v18;
-      v28 = 2112;
-      v29 = v10;
+      v25 = 2080;
+      v26 = v17;
+      v27 = 2112;
+      v28 = v10;
       _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] disk %@ has %senough space now%@", buf, 0x20u);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v12 = v6;
-    v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          [*(*(&v19 + 1) + 8 * i) lowDiskStatusChangedForDevice:objc_msgSend(v5 hasEnoughSpace:{"intValue", v19), has_enough_space}];
+          [*(*(&v18 + 1) + 8 * i) lowDiskStatusChangedForDevice:objc_msgSend(v5 hasEnoughSpace:{"intValue", v18), has_enough_space}];
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v14);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addLowDiskObserver:(id)observer forDevice:(int)device
@@ -965,35 +1206,33 @@ void __61__BRCSystemResourcesManager_removeLowDiskObserver_forDevice___block_inv
   memoryNotificationEventSource = self->_memoryNotificationEventSource;
   self->_memoryNotificationEventSource = v5;
 
-  notificationQueue = self->_notificationQueue;
-  v8 = br_pacer_create();
+  v7 = br_pacer_create();
   memoryNotificationCoalescePacer = self->_memoryNotificationCoalescePacer;
-  self->_memoryNotificationCoalescePacer = v8;
+  self->_memoryNotificationCoalescePacer = v7;
 
-  v10 = self->_memoryNotificationCoalescePacer;
-  v17[5] = MEMORY[0x277D85DD0];
-  v17[6] = 3221225472;
-  v17[7] = __43__BRCSystemResourcesManager__initLowMemory__block_invoke;
-  v17[8] = &unk_2784FF450;
-  v17[9] = self;
+  v15[5] = MEMORY[0x277D85DD0];
+  v15[6] = 3221225472;
+  v15[7] = __43__BRCSystemResourcesManager__initLowMemory__block_invoke;
+  v15[8] = &unk_2784FF450;
+  v15[9] = self;
   br_pacer_set_event_handler();
-  v11 = self->_memoryNotificationEventSource;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __43__BRCSystemResourcesManager__initLowMemory__block_invoke_2;
-  v17[3] = &unk_2784FF450;
-  v17[4] = self;
+  v9 = self->_memoryNotificationEventSource;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __43__BRCSystemResourcesManager__initLowMemory__block_invoke_2;
+  v15[3] = &unk_2784FF450;
+  v15[4] = self;
+  v10 = v9;
+  v11 = v15;
   v12 = v11;
-  v13 = v17;
-  v14 = v13;
-  v15 = v13;
+  v13 = v11;
   if (*MEMORY[0x277CFB010])
   {
-    v15 = (*MEMORY[0x277CFB010])(v13);
+    v13 = (*MEMORY[0x277CFB010])(v11);
   }
 
-  v16 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v15);
-  dispatch_source_set_event_handler(v12, v16);
+  v14 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v13);
+  dispatch_source_set_event_handler(v10, v14);
 
   dispatch_resume(self->_memoryNotificationEventSource);
 }
@@ -1026,7 +1265,7 @@ void __49__BRCSystemResourcesManager__invalidateLowMemory__block_invoke(uint64_t
 
 - (void)_didReceiveMemoryWarning
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_notificationQueue);
   v3 = brc_bread_crumbs();
   v4 = brc_default_log();
@@ -1035,37 +1274,35 @@ void __49__BRCSystemResourcesManager__invalidateLowMemory__block_invoke(uint64_t
     [BRCSystemResourcesManager _didReceiveMemoryWarning];
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_lowMemoryObservers;
-  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) didReceiveMemoryWarning];
+        [*(*(&v10 + 1) + 8 * v9++) didReceiveMemoryWarning];
       }
 
       while (v7 != v9);
-      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addLowMemoryObserver:(id)observer
@@ -1098,9 +1335,7 @@ void __49__BRCSystemResourcesManager__invalidateLowMemory__block_invoke(uint64_t
 
 - (void)_initProcessObservers
 {
-  weakToStrongObjectsMapTable = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
-  processObservers = self->_processObservers;
-  self->_processObservers = weakToStrongObjectsMapTable;
+  self->_processObservers = [MEMORY[0x277CCAB00] weakToStrongObjectsMapTable];
 
   MEMORY[0x2821F96F8]();
 }
@@ -1118,32 +1353,32 @@ void __49__BRCSystemResourcesManager__invalidateLowMemory__block_invoke(uint64_t
 
 void __56__BRCSystemResourcesManager__invalidateProcessObservers__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v2 = [*(*(a1 + 32) + 176) objectEnumerator];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v10 + 1) + 8 * v6++) invalidate];
+        [*(*(&v9 + 1) + 8 * v6++) invalidate];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -1152,8 +1387,6 @@ void __56__BRCSystemResourcesManager__invalidateProcessObservers__block_invoke(u
   v7 = *(a1 + 32);
   v8 = *(v7 + 176);
   *(v7 + 176) = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addProcessMonitor:(id)monitor forProcessID:(int)d
@@ -1304,7 +1537,7 @@ uint64_t __86__BRCSystemResourcesManager__fetchBundleIDsFromAppRegisteredNotific
 
 - (void)_handleAppsMonitorXPCEvent:(id)event
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = brc_bread_crumbs();
   v6 = brc_default_log();
@@ -1322,27 +1555,27 @@ uint64_t __86__BRCSystemResourcesManager__fetchBundleIDsFromAppRegisteredNotific
     v9 = [objc_opt_class() _fetchBundleIDsFromAppRegisteredNotificationWithXPCEvent:eventCopy];
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v10 = self->_appListObservers;
-  v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * v14);
+        v15 = *(*(&v16 + 1) + 8 * v14);
         if ([v9 count])
         {
           [v15 appListDidUpdateForBundleIDs:v9];
@@ -1357,13 +1590,11 @@ uint64_t __86__BRCSystemResourcesManager__fetchBundleIDsFromAppRegisteredNotific
       }
 
       while (v12 != v14);
-      v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initAppListObservers
@@ -1379,13 +1610,6 @@ uint64_t __86__BRCSystemResourcesManager__fetchBundleIDsFromAppRegisteredNotific
   handler[3] = &unk_2785083A8;
   handler[4] = self;
   xpc_set_event_stream_handler("com.apple.distnoted.matching", notificationQueue, handler);
-}
-
-- (void)_invalidateAppListObservers
-{
-  appListObservers = self->_appListObservers;
-  self->_appListObservers = 0;
-  MEMORY[0x2821F96F8]();
 }
 
 - (void)addAppListObserver:(id)observer

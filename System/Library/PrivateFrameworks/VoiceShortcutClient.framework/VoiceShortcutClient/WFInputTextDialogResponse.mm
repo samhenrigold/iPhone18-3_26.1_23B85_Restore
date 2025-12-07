@@ -1,6 +1,7 @@
 @interface WFInputTextDialogResponse
 - (WFInputTextDialogResponse)initWithBSXPCCoder:(id)coder;
 - (WFInputTextDialogResponse)initWithCoder:(id)coder;
+- (WFInputTextDialogResponse)initWithInputtedText:(id)text cancelled:(BOOL)cancelled;
 - (WFInputTextDialogResponse)initWithResponseCode:(int64_t)code;
 - (id)description;
 - (void)encodeWithBSXPCCoder:(id)coder;
@@ -84,6 +85,25 @@
   v4.receiver = self;
   v4.super_class = WFInputTextDialogResponse;
   return [(WFDialogResponse *)&v4 initWithResponseCode:code];
+}
+
+- (WFInputTextDialogResponse)initWithInputtedText:(id)text cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  textCopy = text;
+  v12.receiver = self;
+  v12.super_class = WFInputTextDialogResponse;
+  v7 = [(WFDialogResponse *)&v12 initWithCancelled:cancelledCopy];
+  if (v7)
+  {
+    v8 = [textCopy copy];
+    inputtedText = v7->_inputtedText;
+    v7->_inputtedText = v8;
+
+    v10 = v7;
+  }
+
+  return v7;
 }
 
 @end

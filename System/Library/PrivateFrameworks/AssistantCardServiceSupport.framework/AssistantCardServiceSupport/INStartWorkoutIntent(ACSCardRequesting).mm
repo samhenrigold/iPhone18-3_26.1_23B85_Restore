@@ -6,7 +6,7 @@
 
 - (void)requestCard:()ACSCardRequesting reply:
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (v6)
   {
@@ -37,16 +37,16 @@
 
       if (v22)
       {
-        v30 = v22;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+        v29 = v22;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
         [acs_uniquelyIdentifiedCardSection acs_setParameters:v23];
       }
 
       [acs_uniquelyIdentifiedCardSection setIsCentered:1];
-      v29[0] = acs_uniquelyIdentifiedCardSection;
+      v28[0] = acs_uniquelyIdentifiedCardSection;
       acs_wildCardSection = [MEMORY[0x277D4C4C0] acs_wildCardSection];
-      v29[1] = acs_wildCardSection;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:2];
+      v28[1] = acs_wildCardSection;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:2];
       [acs_uniquelyIdentifiedCard setCardSections:v25];
 
       [acs_uniquelyIdentifiedCard acs_setInteraction:v9];
@@ -57,16 +57,14 @@
     {
       v26 = MEMORY[0x277CCA9B8];
       v27 = *MEMORY[0x277CF93E8];
-      v31 = *MEMORY[0x277CCA068];
+      v30 = *MEMORY[0x277CCA068];
       v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"Content %@ is incompatible with this service", content];
-      v32[0] = v9;
-      acs_uniquelyIdentifiedCard = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+      v31[0] = v9;
+      acs_uniquelyIdentifiedCard = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
       acs_uniquelyIdentifiedCardSection = [v26 errorWithDomain:v27 code:400 userInfo:acs_uniquelyIdentifiedCard];
       (v6)[2](v6, 0, acs_uniquelyIdentifiedCardSection);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -67,11 +67,11 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v7 = toCopy;
   if (self->_countryCode)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v7;
   }
 
   p_categoryTypes = &self->_categoryTypes;
@@ -80,9 +80,8 @@
     v6 = 0;
     do
     {
-      v7 = p_categoryTypes->list[v6];
       PBDataWriterWriteInt64Field();
-      toCopy = v8;
+      toCopy = v7;
       ++v6;
     }
 

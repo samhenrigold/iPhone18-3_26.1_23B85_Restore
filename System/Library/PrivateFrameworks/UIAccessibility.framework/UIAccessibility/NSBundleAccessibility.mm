@@ -43,9 +43,9 @@ uint64_t __44__NSBundleAccessibility_loadAndReturnError___block_invoke()
   keyCopy = key;
   valueCopy = value;
   tableCopy = table;
-  v35.receiver = self;
-  v35.super_class = NSBundleAccessibility;
-  v12 = [(NSBundleAccessibility *)&v35 localizedStringForKey:keyCopy value:valueCopy table:tableCopy];
+  v30.receiver = self;
+  v30.super_class = NSBundleAccessibility;
+  v12 = [(NSBundleAccessibility *)&v30 localizedStringForKey:keyCopy value:valueCopy table:tableCopy];
   if ((localizedStringForKey_value_table__RecursiveCall & 1) == 0)
   {
     v13 = _AXSAutomationLocalizedStringLookupInfoEnabled();
@@ -57,7 +57,7 @@ LABEL_24:
       goto LABEL_25;
     }
 
-    v33 = v14;
+    v28 = v14;
     if (v14)
     {
       selfCopy = self;
@@ -73,12 +73,7 @@ LABEL_24:
 
       else
       {
-        v30 = v33;
-        v31 = v12;
-        v28 = @"%@: Failed to lookup alternate localization '%@' of localized string '%@'.";
-        v29 = selfCopy;
-        LOBYTE(v27) = 1;
-        _AXLogWithFacility();
+        _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"%@: Failed to lookup alternate localization '%@' of localized string '%@'.");
 
         v19 = 0;
       }
@@ -99,14 +94,14 @@ LABEL_11:
         localizedStringForKey_value_table__RecursiveCall = 1;
         if (!tableCopy)
         {
-          v34.receiver = self;
-          v34.super_class = NSBundleAccessibility;
+          v29.receiver = self;
+          v29.super_class = NSBundleAccessibility;
           tableCopy = @"Localizable";
-          v21 = [(NSBundleAccessibility *)&v34 localizedStringForKey:keyCopy value:0 table:@"Localizable"];
+          v21 = [(NSBundleAccessibility *)&v29 localizedStringForKey:keyCopy value:0 table:@"Localizable"];
           v20 = v21 != 0;
         }
 
-        v32 = v20;
+        v27 = v20;
         v22 = AXNSLocalizedStringForLocale();
         localizedStringForKey_value_table__RecursiveCall = 0;
         if (!v19)
@@ -114,12 +109,12 @@ LABEL_11:
           v19 = [MEMORY[0x1E6988D60] axAttributedStringWithString:v12];
         }
 
-        v23 = [(NSBundleAccessibility *)self bundleIdentifier:v27];
+        bundleIdentifier = [(NSBundleAccessibility *)self bundleIdentifier];
         bundlePath = [(NSBundleAccessibility *)self bundlePath];
-        [v19 setAttribute:v23 forKey:@"UIAccessibilityTokenLocalizedStringBundleID"];
+        [v19 setAttribute:bundleIdentifier forKey:@"UIAccessibilityTokenLocalizedStringBundleID"];
         [v19 setAttribute:bundlePath forKey:@"UIAccessibilityTokenLocalizationBundlePath"];
         [v19 setAttribute:keyCopy forKey:@"UIAccessibilityTokenLocalizedStringKey"];
-        if (v32)
+        if (v27)
         {
           [v19 setAttribute:tableCopy forKey:@"UIAccessibilityTokenLocalizedStringTableName"];
         }
@@ -139,10 +134,10 @@ LABEL_11:
 
     else
     {
-      _AXLogWithFacility();
+      _AXLogWithFacility(1, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"%@: Unable to create attributed string for localized string '%@'.");
     }
 
-    v14 = v33;
+    v14 = v28;
     goto LABEL_24;
   }
 

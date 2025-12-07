@@ -41,47 +41,48 @@
     [(FigCapturePixelConverter *)self _purgeResources];
     self->_poolCapacity = capacity;
     v13 = objc_alloc_init(BWVideoFormatRequirements);
-    v19 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v9];
-    -[BWVideoFormatRequirements setSupportedPixelFormats:](v13, "setSupportedPixelFormats:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1]);
+    v20 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v9];
+    -[BWVideoFormatRequirements setSupportedPixelFormats:](v13, "setSupportedPixelFormats:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1]);
     [(BWVideoFormatRequirements *)v13 setWidth:dimensions.var0];
     [(BWVideoFormatRequirements *)v13 setHeight:*&dimensions >> 32];
     [(BWVideoFormatRequirements *)v13 setPlaneAlignment:*MEMORY[0x1E69E9AC8]];
     [(BWVideoFormatRequirements *)v13 setBytesPerRowAlignment:64];
     [(BWVideoFormatRequirements *)v13 setSupportedCacheModes:[BWVideoFormatRequirements cacheModesForCacheProfile:2]];
-    v18 = [MEMORY[0x1E696AD98] numberWithInt:v6];
-    -[BWVideoFormatRequirements setSupportedColorSpaceProperties:](v13, "setSupportedColorSpaceProperties:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1]);
-    v17 = v13;
-    v14 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1]);
+    v19 = [MEMORY[0x1E696AD98] numberWithInt:v6];
+    -[BWVideoFormatRequirements setSupportedColorSpaceProperties:](v13, "setSupportedColorSpaceProperties:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1]);
+    v18 = v13;
+    v14 = +[BWVideoFormat formatByResolvingRequirements:](BWVideoFormat, "formatByResolvingRequirements:", [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1]);
     self->_outputFormat = v14;
     if (v14)
     {
       _buildBufferPool = [(FigCapturePixelConverter *)self _buildBufferPool];
       if (_buildBufferPool)
       {
-        _buildTransferSession = _buildBufferPool;
+        v12 = _buildBufferPool;
         [FigCapturePixelConverter updateOutputPixelFormat:dimensions:poolCapacity:colorSpaceProperties:];
       }
 
       else
       {
         _buildTransferSession = [(FigCapturePixelConverter *)self _buildTransferSession];
+        v12 = _buildTransferSession;
         if (!_buildTransferSession)
         {
-          return _buildTransferSession;
+          return v12;
         }
 
-        [FigCapturePixelConverter updateOutputPixelFormat:dimensions:poolCapacity:colorSpaceProperties:];
+        [FigCapturePixelConverter updateOutputPixelFormat:_buildTransferSession dimensions:? poolCapacity:? colorSpaceProperties:?];
       }
     }
 
     else
     {
       [FigCapturePixelConverter updateOutputPixelFormat:dimensions:poolCapacity:colorSpaceProperties:];
-      _buildTransferSession = -12780;
+      v12 = -12780;
     }
 
     [(FigCapturePixelConverter *)self _purgeResources];
-    return _buildTransferSession;
+    return v12;
   }
 
   return 0;
@@ -101,28 +102,28 @@
     if (newPixelBuffer)
     {
       v15 = newPixelBuffer;
-      v21.origin.x = x;
-      v21.origin.y = y;
-      v21.size.width = width;
-      v21.size.height = height;
-      if (CGRectIsEmpty(v21))
+      v22.origin.x = x;
+      v22.origin.y = y;
+      v22.size.width = width;
+      v22.size.height = height;
+      if (CGRectIsEmpty(v22))
       {
         DictionaryRepresentation = 0;
       }
 
       else
       {
-        v22.origin.x = x;
-        v22.origin.y = y;
-        v22.size.width = width;
-        v22.size.height = height;
-        DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v22);
+        v23.origin.x = x;
+        v23.origin.y = y;
+        v23.size.width = width;
+        v23.size.height = height;
+        DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v23);
       }
 
       v17 = VTSessionSetProperty(self->_transferSession, *MEMORY[0x1E6983E40], DictionaryRepresentation);
       if (v17)
       {
-        CopyWithNewPixelBuffer = v17;
+        v20 = v17;
         [FigCapturePixelConverter convertSampleBuffer:cropRect:outputSampleBuffer:];
       }
 
@@ -131,16 +132,17 @@
         v18 = VTPixelTransferSessionTransferImage(self->_transferSession, v13, v15);
         if (v18)
         {
-          CopyWithNewPixelBuffer = v18;
+          v20 = v18;
           [FigCapturePixelConverter convertSampleBuffer:cropRect:outputSampleBuffer:];
         }
 
         else
         {
           CopyWithNewPixelBuffer = BWCMSampleBufferCreateCopyWithNewPixelBuffer(buffer, v15, &self->_outputFormatDescription, sampleBuffer);
+          v20 = CopyWithNewPixelBuffer;
           if (CopyWithNewPixelBuffer)
           {
-            [FigCapturePixelConverter convertSampleBuffer:cropRect:outputSampleBuffer:];
+            [FigCapturePixelConverter convertSampleBuffer:? cropRect:? outputSampleBuffer:?];
           }
         }
       }
@@ -161,11 +163,11 @@
 
   else
   {
-    [FigCapturePixelConverter convertSampleBuffer:cropRect:outputSampleBuffer:];
+    [FigCapturePixelConverter convertSampleBuffer:? cropRect:? outputSampleBuffer:?];
     return -12780;
   }
 
-  return CopyWithNewPixelBuffer;
+  return v20;
 }
 
 - (int)convertPixelBuffer:(__CVBuffer *)buffer cropRect:(CGRect)rect allocateOutputFromBufferPool:(BOOL)pool outputPixelBuffer:(__CVBuffer *)pixelBuffer
@@ -173,7 +175,7 @@
   destinationBuffer = 0;
   if (!buffer)
   {
-    [FigCapturePixelConverter convertPixelBuffer:cropRect:allocateOutputFromBufferPool:outputPixelBuffer:];
+    [(FigCapturePixelConverter *)self convertPixelBuffer:a2 cropRect:0 allocateOutputFromBufferPool:pool outputPixelBuffer:pixelBuffer, rect.origin, *&rect.origin.y, rect.size, *&rect.size.height];
     DictionaryRepresentation = 0;
     v14 = -12780;
     goto LABEL_13;
@@ -314,11 +316,11 @@ LABEL_16:
 
       else
       {
-        v8 = *MEMORY[0x1E69660D8];
-        v6 = *MEMORY[0x1E696CF70];
-        v7 = &unk_1F2245328;
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
-        v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+        v10 = *MEMORY[0x1E69660D8];
+        v8 = *MEMORY[0x1E696CF70];
+        v9 = &unk_1F2245328;
+        v11[0] = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+        v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
       }
 
       LOBYTE(v5) = 0;
@@ -328,7 +330,8 @@ LABEL_16:
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_6();
-        FigDebugAssert3();
+        LODWORD(v6) = 0;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v6, v7, v8, v9, v10, v11[0], v11[1], v12);
         return 4294954510;
       }
 
@@ -348,122 +351,32 @@ LABEL_16:
 {
   if (self)
   {
-    v2 = VTPixelTransferSessionCreate(*MEMORY[0x1E695E480], (self + 8));
-    if (v2)
-    {
-      v9 = v2;
-      fig_log_get_emitter();
-      FigDebugAssert3();
-      return v9;
-    }
-
-    v3 = +[BWVideoFormat pixelBufferAttachmentsForColorSpaceProperties:](BWVideoFormat, "pixelBufferAttachmentsForColorSpaceProperties:", [*(self + 24) colorSpaceProperties]);
+    v3 = VTPixelTransferSessionCreate(*MEMORY[0x1E695E480], (self + 8));
     if (v3)
     {
-      v4 = v3;
-      v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v6 = [v4 objectForKeyedSubscript:*MEMORY[0x1E6965F98]];
-      [v5 setObject:v6 forKeyedSubscript:*MEMORY[0x1E6983DE0]];
-      v7 = [v4 objectForKeyedSubscript:*MEMORY[0x1E6965D88]];
-      [v5 setObject:v7 forKeyedSubscript:*MEMORY[0x1E6983DC0]];
-      v8 = [v4 objectForKeyedSubscript:*MEMORY[0x1E6965F30]];
-      [v5 setObject:v8 forKeyedSubscript:*MEMORY[0x1E6983DD8]];
-      VTSessionSetProperties(*(self + 8), v5);
+      v10 = v3;
+      fig_log_get_emitter();
+      v12 = v10;
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12, v1, v13, v14, v15, v16, vars0, vars8);
+      return v10;
+    }
+
+    v4 = +[BWVideoFormat pixelBufferAttachmentsForColorSpaceProperties:](BWVideoFormat, "pixelBufferAttachmentsForColorSpaceProperties:", [*(self + 24) colorSpaceProperties]);
+    if (v4)
+    {
+      v5 = v4;
+      v6 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v7 = [v5 objectForKeyedSubscript:*MEMORY[0x1E6965F98]];
+      [v6 setObject:v7 forKeyedSubscript:*MEMORY[0x1E6983DE0]];
+      v8 = [v5 objectForKeyedSubscript:*MEMORY[0x1E6965D88]];
+      [v6 setObject:v8 forKeyedSubscript:*MEMORY[0x1E6983DC0]];
+      v9 = [v5 objectForKeyedSubscript:*MEMORY[0x1E6965F30]];
+      [v6 setObject:v9 forKeyedSubscript:*MEMORY[0x1E6983DD8]];
+      VTSessionSetProperties(*(self + 8), v6);
     }
   }
 
   return 0;
-}
-
-- (uint64_t)updateOutputPixelFormat:dimensions:poolCapacity:colorSpaceProperties:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)updateOutputPixelFormat:dimensions:poolCapacity:colorSpaceProperties:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)updateOutputPixelFormat:dimensions:poolCapacity:colorSpaceProperties:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertSampleBuffer:cropRect:outputSampleBuffer:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertSampleBuffer:cropRect:outputSampleBuffer:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertSampleBuffer:cropRect:outputSampleBuffer:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertSampleBuffer:cropRect:outputSampleBuffer:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertSampleBuffer:cropRect:outputSampleBuffer:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertPixelBuffer:cropRect:allocateOutputFromBufferPool:outputPixelBuffer:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertPixelBuffer:cropRect:allocateOutputFromBufferPool:outputPixelBuffer:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertPixelBuffer:cropRect:allocateOutputFromBufferPool:outputPixelBuffer:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertPixelBuffer:cropRect:allocateOutputFromBufferPool:outputPixelBuffer:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)convertPixelBuffer:cropRect:allocateOutputFromBufferPool:outputPixelBuffer:.cold.5()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

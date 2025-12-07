@@ -8,12 +8,12 @@
 - (id)description
 {
   selfCopy = self;
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = 0x277CCA000uLL;
   v4 = MEMORY[0x277CCAB68];
-  v37.receiver = self;
-  v37.super_class = DAResolvedRecipient;
-  v5 = [(DAResolvedRecipient *)&v37 description];
+  v36.receiver = self;
+  v36.super_class = DAResolvedRecipient;
+  v5 = [(DAResolvedRecipient *)&v36 description];
   v6 = [v4 stringWithFormat:@"%@ status %ld", v5, -[DAResolvedRecipient status](selfCopy, "status")];
 
   mResolvedEmailToX509Certs = [(DAResolvedRecipient *)selfCopy mResolvedEmailToX509Certs];
@@ -24,52 +24,52 @@
     v9 = [MEMORY[0x277CCAB68] stringWithFormat:@" email->certs status %ld ", -[DAResolvedRecipient certificatesStatus](selfCopy, "certificatesStatus")];
     [v6 appendString:v9];
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     obj = [(DAResolvedRecipient *)selfCopy mResolvedEmailToX509Certs];
-    v28 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
-    if (v28)
+    v27 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
+    if (v27)
     {
-      v27 = *v34;
+      v26 = *v33;
       do
       {
-        for (i = 0; i != v28; ++i)
+        for (i = 0; i != v27; ++i)
         {
-          if (*v34 != v27)
+          if (*v33 != v26)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v33 + 1) + 8 * i);
+          v11 = *(*(&v32 + 1) + 8 * i);
           [v6 appendFormat:@"%@: ", v11];
-          v31 = 0u;
-          v32 = 0u;
-          v29 = 0u;
           v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
           v12 = selfCopy;
           mResolvedEmailToX509Certs2 = [(DAResolvedRecipient *)selfCopy mResolvedEmailToX509Certs];
           v14 = [mResolvedEmailToX509Certs2 objectForKeyedSubscript:v11];
 
-          v15 = [v14 countByEnumeratingWithState:&v29 objects:v38 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v28 objects:v37 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v30;
+            v17 = *v29;
             do
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v30 != v17)
+                if (*v29 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                [v6 appendFormat:@"<cert data length %ld hash %ld> ", objc_msgSend(*(*(&v29 + 1) + 8 * j), "length"), objc_msgSend(*(*(&v29 + 1) + 8 * j), "hash")];
+                [v6 appendFormat:@"<cert data length %ld hash %ld> ", objc_msgSend(*(*(&v28 + 1) + 8 * j), "length"), objc_msgSend(*(*(&v28 + 1) + 8 * j), "hash")];
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v29 objects:v38 count:16];
+              v16 = [v14 countByEnumeratingWithState:&v28 objects:v37 count:16];
             }
 
             while (v16);
@@ -78,10 +78,10 @@
           selfCopy = v12;
         }
 
-        v28 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+        v27 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
       }
 
-      while (v28);
+      while (v27);
     }
 
     v3 = 0x277CCA000;
@@ -121,8 +121,6 @@
 
     [v6 appendString:@"(null)"];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

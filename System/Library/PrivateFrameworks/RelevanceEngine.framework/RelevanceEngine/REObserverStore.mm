@@ -63,42 +63,42 @@
 
 - (void)enumerateObserversWithBlock:(id)block
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
-    v17 = 0;
+    v16 = 0;
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     allObservers = [(REObserverStore *)self allObservers];
-    v6 = [allObservers countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v6 = [allObservers countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allObservers);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
-        blockCopy[2](blockCopy, v10, &v17);
+        blockCopy[2](blockCopy, v10, &v16);
         objc_autoreleasePoolPop(v11);
-        if (v17)
+        if (v16)
         {
           break;
         }
 
         if (v7 == ++v9)
         {
-          v7 = [allObservers countByEnumeratingWithState:&v13 objects:v18 count:16];
+          v7 = [allObservers countByEnumeratingWithState:&v12 objects:v17 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -109,8 +109,6 @@ LABEL_4:
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

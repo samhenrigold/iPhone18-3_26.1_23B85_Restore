@@ -11,18 +11,18 @@
   v5 = type metadata accessor for URL();
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_100178254(v8);
-  (*(v6 + 8))(v8, v5);
+  v10 = sub_100178254(v8);
+  (*(v6 + 8))(v8, v5, v10);
 
   return 1;
 }
 
 - (BOOL)writeContents:(id)contents toURL:(id)l forSaveOperation:(int64_t)operation originalContentsURL:(id)rL error:(id *)error
 {
-  v10 = sub_1000FF5D8(&qword_10020DAA8);
+  v10 = sub_1000FF5D8(&qword_10020DAA8, qword_1001A5130);
   __chkstk_darwin(v10 - 8);
   v12 = &v25[-v11];
   v13 = type metadata accessor for URL();
@@ -55,7 +55,7 @@
   (*(v14 + 56))(v12, v23, 1, v13);
   sub_10017A93C(v26, v19, v12);
 
-  sub_100110174(v12, &qword_10020DAA8);
+  sub_100110174(v12, &qword_10020DAA8, qword_1001A5130);
   (*(v14 + 8))(v19, v13);
   sub_10010FA4C(v26);
   return 1;
@@ -74,10 +74,10 @@
   v20 = 0;
   memset(v19, 0, sizeof(v19));
   v10 = static CRContext.newTransientContext(uniqueAssetManager:encryptionDelegate:)();
-  sub_100110174(v19, &qword_1002100A0);
+  sub_100110174(v19, &qword_1002100A0, &unk_1001A9420);
   *(&self->super.super.super.isa + v9) = v10;
   v11 = OBJC_IVAR____TtC17PreviewFoundation13ImageDocument_capsule;
-  v12 = sub_1000FF5D8(&qword_10020E078);
+  v12 = sub_1000FF5D8(&qword_10020E078, &qword_1001A5FD8);
   (*(*(v12 - 8) + 56))(self + v11, 1, 1, v12);
   URL._bridgeToObjectiveC()(v13);
   v15 = v14;

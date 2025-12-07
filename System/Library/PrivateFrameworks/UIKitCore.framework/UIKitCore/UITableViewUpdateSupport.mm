@@ -35,7 +35,7 @@ void __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_143(uint6
   _UIDataSourceUpdateFromUpdateItem(v6, a3);
 }
 
-uint64_t __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_3(uint64_t a1, unsigned int a2)
+unint64_t __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_3(uint64_t a1, unsigned int a2)
 {
   v2 = [(UITableViewRowData *)*(a1 + 32) numberOfRowsBeforeSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -835,7 +835,7 @@ void __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_2_146(uin
   [v4 addObject:v7];
 }
 
-uint64_t __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_2(uint64_t a1, unsigned int a2)
+unint64_t __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_2(uint64_t a1, unsigned int a2)
 {
   v2 = [(UITableViewRowData *)*(a1 + 32) numberOfRowsInSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -854,7 +854,7 @@ uint64_t __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_2(uin
   return 0xFFFFFFFFLL;
 }
 
-uint64_t __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke(uint64_t a1, unsigned int a2)
+unint64_t __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke(uint64_t a1, unsigned int a2)
 {
   v2 = [(UITableViewRowData *)*(a1 + 32) numberOfRowsBeforeSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)
@@ -887,7 +887,7 @@ void __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_3_150(uin
   [v4 addObject:v7];
 }
 
-uint64_t __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_4(uint64_t a1, unsigned int a2)
+unint64_t __48___UITableViewUpdateSupport__generateUpdateMaps__block_invoke_4(uint64_t a1, unsigned int a2)
 {
   v2 = [(UITableViewRowData *)*(a1 + 32) numberOfRowsInSection:a2];
   if (v2 != 0x7FFFFFFFFFFFFFFFLL)

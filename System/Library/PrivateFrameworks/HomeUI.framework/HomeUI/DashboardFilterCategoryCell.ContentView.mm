@@ -8,7 +8,7 @@
 - (void)updateConstraints
 {
   selfCopy = self;
-  sub_20CF520C8();
+  sub_20CF520C8(selfCopy);
 }
 
 - (_TtCC6HomeUI27DashboardFilterCategoryCell11ContentView)initWithFrame:(CGRect)frame

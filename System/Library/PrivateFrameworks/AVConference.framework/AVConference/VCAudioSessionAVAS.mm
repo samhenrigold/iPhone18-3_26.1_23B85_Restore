@@ -1098,7 +1098,7 @@ LABEL_59:
 {
   propertiesCopy = properties;
   v18 = *MEMORY[0x1E69E9840];
-  v5 = micro();
+  v5 = micro(self, a2);
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
     v6 = VRTraceErrorLogLevelToCSTR();
@@ -1126,7 +1126,7 @@ LABEL_59:
 {
   v18 = *MEMORY[0x1E69E9840];
   self->_pendingVPBlockUpdate = 1;
-  self->_networkUplinkClockScheduledTime = vcvtmd_u64_f64(micro());
+  self->_networkUplinkClockScheduledTime = vcvtmd_u64_f64(micro(self, a2));
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
     v3 = VRTraceErrorLogLevelToCSTR();
@@ -1158,10 +1158,10 @@ LABEL_59:
   dispatch_after(v7, dispatchQueue, v9);
 }
 
-uint64_t __62__VCAudioSessionAVAS_scheduleDeferredNetworkUplinkClockUpdate__block_invoke(uint64_t a1)
+void *__62__VCAudioSessionAVAS_scheduleDeferredNetworkUplinkClockUpdate__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  if (*(result + 392) == 1 && *(a1 + 40) == *(result + 384))
+  if (*(result + 392) == 1 && *(a1 + 40) == *(result + 48))
   {
     return [result dispatchedSetVPBlockConfigurationProperties:0];
   }
@@ -1387,7 +1387,7 @@ LABEL_36:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d _avAudioSession is nil, cannot set media properties for system audio", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d _avAudioSession is nil, cannot set media properties for system audio", v2, v3, v4, v5);
 }
 
 - (BOOL)shouldSetupSharePlayWithOperatingMode:(unsigned int)mode isSharePlayCapable:(BOOL *)capable
@@ -2949,7 +2949,7 @@ void __41__VCAudioSessionAVAS_setMicrophoneMuted___block_invoke(uint64_t a1)
 
     _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, v20, v28, v22);
 LABEL_28:
-    [*(a1 + 32) dispatchedInvokeMuteStateChangedHandlerWithIsMuted:*(*(a1 + 32) + 377) reason:{0, *v28, *&v28[16], v29, v30, v31}];
+    [*(a1 + 32) dispatchedInvokeMuteStateChangedHandlerWithIsMuted:*(*(a1 + 32) + 377) reason:{0, *v28, *&v28[8], v29, v30, v31}];
     return;
   }
 
@@ -3366,7 +3366,7 @@ LABEL_15:
 - (void)handleAudioSessionInputMuteChangeNotification:(id)notification
 {
   v63 = *MEMORY[0x1E69E9840];
-  if (!VCFeatureFlagManager_SessionBasedMutingEnabled())
+  if (!VCFeatureFlagManager_SessionBasedMutingEnabled(self))
   {
     if (objc_opt_class() == self)
     {
@@ -3987,7 +3987,7 @@ LABEL_18:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d avAudioSession availableInputs didn't return any valid inputs", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d avAudioSession availableInputs didn't return any valid inputs", v2, v3, v4, v5);
     }
   }
 }
@@ -4132,7 +4132,7 @@ LABEL_13:
       }
     }
 
-    [(VCAudioSessionAVAS *)self setAudioClockDeviceEnabled:settingsCopy, *v11, *&v11[16]];
+    [(VCAudioSessionAVAS *)self setAudioClockDeviceEnabled:settingsCopy, *v11, *&v11[8]];
     if (settingsCopy)
     {
       v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"network uplink clock uses baseband"];
@@ -4273,21 +4273,21 @@ LABEL_14:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d _avAudioSession is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d _avAudioSession is nil", v2, v3, v4, v5);
 }
 
 - (void)applyRequestedProperties:propertyOrder:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Properties to set is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Properties to set is nil", v2, v3, v4, v5);
 }
 
 - (void)applyRequestedProperties:propertyOrder:.cold.2()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d _avAudioSession is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d _avAudioSession is nil", v2, v3, v4, v5);
 }
 
 - (void)applyRequestedProperty:defaultValue:.cold.1()
@@ -4303,24 +4303,24 @@ LABEL_14:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Error: _avAudioSession is nil", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Error: _avAudioSession is nil", v2, v3, v4, v5);
 }
 
 - (void)setBlockSize:sampleRate:force:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d _avAudioSession is nil, cannot set block size", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d _avAudioSession is nil, cannot set block size", v2, v3, v4, v5);
 }
 
 - (void)startSessionWithMediaProperties:sessionRef:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid state... ????", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid state... ????", v2, v3, v4, v5);
 }
 
-- (uint64_t)startSessionWithMediaProperties:(id *)a1 sessionRef:(_BYTE *)a2 .cold.2(id *a1, _BYTE *a2)
+- (void)startSessionWithMediaProperties:(id *)a1 sessionRef:(_BYTE *)a2 .cold.2(id *a1, _BYTE *a2)
 {
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
@@ -4349,7 +4349,7 @@ LABEL_14:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session already stopped ?", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Session already stopped ?", v2, v3, v4, v5);
 }
 
 @end

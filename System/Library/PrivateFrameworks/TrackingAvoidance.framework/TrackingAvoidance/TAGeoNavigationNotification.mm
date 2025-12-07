@@ -99,15 +99,15 @@ LABEL_6:
 
 - (id)descriptionDictionary
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = @"EventType";
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = @"EventType";
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v14[0] = v4;
-  v13[1] = @"TransportType";
+  v13[0] = v4;
+  v12[1] = @"TransportType";
   v5 = TAGeoTransportTypeToString([(TAGeoNavigationNotification *)self transportType]);
-  v14[1] = v5;
-  v13[2] = @"NavState";
+  v13[1] = v5;
+  v12[2] = @"NavState";
   navState = [(TAGeoNavigationNotification *)self navState];
   if (navState > 2)
   {
@@ -119,14 +119,12 @@ LABEL_6:
     v7 = off_279DD1CC8[navState];
   }
 
-  v14[2] = v7;
-  v13[3] = @"Date";
+  v13[2] = v7;
+  v12[3] = @"Date";
   date = [(TAGeoNavigationNotification *)self date];
   getDateString = [date getDateString];
-  v14[3] = getDateString;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v13[3] = getDateString;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
 
   return v10;
 }

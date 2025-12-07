@@ -103,7 +103,7 @@
   {
     do
     {
-      if ([objc_msgSend(lCopy "path")])
+      if (objc_msgSend_isEqualToString_([lCopy path]))
       {
         break;
       }

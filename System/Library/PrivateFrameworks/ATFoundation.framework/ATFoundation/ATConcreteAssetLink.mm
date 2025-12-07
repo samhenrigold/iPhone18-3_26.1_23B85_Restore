@@ -36,7 +36,7 @@
 
 - (void)_requestAsset:(id)asset
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   v5 = [assetCopy copy];
   storeInfo = [assetCopy storeInfo];
@@ -48,10 +48,10 @@
   {
     *buf = 138543874;
     selfCopy = self;
-    v20 = 2114;
-    v21 = assetCopy;
-    v22 = 2114;
-    v23 = v5;
+    v19 = 2114;
+    v20 = assetCopy;
+    v21 = 2114;
+    v22 = v5;
     _os_log_impl(&dword_22392A000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Cloning %{public}@ to %{public}@ to request asset from the companion", buf, 0x20u);
   }
 
@@ -61,16 +61,14 @@
   v12 = [v9 initWithCommand:@"RequestAsset" dataClass:dataclass parameters:serializedAsset];
 
   messageLink = self->_messageLink;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __37__ATConcreteAssetLink__requestAsset___block_invoke;
-  v16[3] = &unk_2784E96F8;
-  v16[4] = self;
-  v17 = assetCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __37__ATConcreteAssetLink__requestAsset___block_invoke;
+  v15[3] = &unk_2784E96F8;
+  v15[4] = self;
+  v16 = assetCopy;
   v14 = assetCopy;
-  [(ATMessageLink *)messageLink sendRequest:v12 withCompletion:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(ATMessageLink *)messageLink sendRequest:v12 withCompletion:v15];
 }
 
 void __37__ATConcreteAssetLink__requestAsset___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -93,31 +91,31 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke(uint64_t a1, void *a
   dispatch_async(v9, v12);
 }
 
-void __37__ATConcreteAssetLink__requestAsset___block_invoke_2(uint64_t a1)
+void __37__ATConcreteAssetLink__requestAsset___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v82[1] = *MEMORY[0x277D85DE8];
-  if (*(a1 + 32) || ([*(a1 + 40) error], v2 = objc_claimAutoreleasedReturnValue(), v2, v2))
+  if (*(a1 + 32) || ([*(a1 + 40) error], v3 = objc_claimAutoreleasedReturnValue(), v3, v3))
   {
-    v3 = _ATLogCategoryDeviceSync();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _ATLogCategoryDeviceSync();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 48);
-      v4 = *(a1 + 56);
-      v6 = *(a1 + 32);
-      v7 = [*(a1 + 40) error];
+      v6 = *(a1 + 48);
+      v5 = *(a1 + 56);
+      v7 = *(a1 + 32);
+      v8 = [*(a1 + 40) error];
       *buf = 138544130;
-      v73 = v5;
+      v73 = v6;
       v74 = 2114;
-      v75 = v4;
+      v75 = v5;
       v76 = 2114;
-      v77 = v6;
+      v77 = v7;
       v78 = 2114;
-      v79 = v7;
-      _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Finishing %{public}@ because of stream error %{public}@ response error %{public}@", buf, 0x2Au);
+      v79 = v8;
+      _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Finishing %{public}@ because of stream error %{public}@ response error %{public}@", buf, 0x2Au);
     }
 
-    v8 = *(a1 + 48);
-    v9 = *(a1 + 56);
+    v9 = *(a1 + 48);
+    v10 = *(a1 + 56);
     if (*(a1 + 32))
     {
       [*(a1 + 48) _finishAsset:*(a1 + 56) withError:?];
@@ -125,62 +123,62 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_2(uint64_t a1)
 
     else
     {
-      v10 = [*(a1 + 40) error];
-      [v8 _finishAsset:v9 withError:v10];
+      v11 = [*(a1 + 40) error];
+      [v9 _finishAsset:v10 withError:v11];
     }
   }
 
   else
   {
     [*(a1 + 56) setAssetState:1];
-    v11 = [*(a1 + 48) delegate];
-    v12 = *(a1 + 48);
+    v12 = [*(a1 + 48) delegate];
+    v13 = *(a1 + 48);
     v82[0] = *(a1 + 56);
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:1];
-    [v11 assetLink:v12 didTransitionAssetStates:v13];
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v82 count:1];
+    [v12 assetLink:v13 didTransitionAssetStates:v14];
 
-    v14 = +[ATAssetLinkPowerLogger sharedInstance];
-    [v14 logAssetLinkOfType:1 didBeginDownloadingAsset:*(a1 + 56)];
+    v15 = +[ATAssetLinkPowerLogger sharedInstance];
+    [v15 logAssetLinkOfType:1 didBeginDownloadingAsset:*(a1 + 56)];
 
-    v15 = [*(a1 + 40) parameters];
-    v48 = [v15 objectForKey:@"_AssetClientParams"];
+    v16 = [*(a1 + 40) parameters];
+    v48 = [v16 objectForKey:@"_AssetClientParams"];
 
     if (v48)
     {
       [*(a1 + 56) setClientParams:v48];
     }
 
-    v16 = [*(a1 + 40) parameters];
-    v47 = [v16 objectForKey:@"_AssetFileName"];
-
     v17 = [*(a1 + 40) parameters];
-    v18 = [v17 objectForKey:@"_AssetSize"];
+    v47 = [v17 objectForKey:@"_AssetFileName"];
 
-    if (v18)
+    v18 = [*(a1 + 40) parameters];
+    v19 = [v18 objectForKey:@"_AssetSize"];
+
+    if (v19)
     {
-      [*(a1 + 56) setTotalBytes:{objc_msgSend(v18, "unsignedLongLongValue")}];
+      [*(a1 + 56) setTotalBytes:{objc_msgSend(v19, "unsignedLongLongValue")}];
       [*(a1 + 56) setBytesRemaining:{objc_msgSend(*(a1 + 56), "totalBytes")}];
     }
 
-    v19 = _ATLogCategoryDeviceSync();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = _ATLogCategoryDeviceSync();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = *(a1 + 48);
-      v21 = [*(a1 + 56) shortDescription];
+      v21 = *(a1 + 48);
+      v22 = [*(a1 + 56) shortDescription];
       *buf = 138544130;
-      v73 = v20;
+      v73 = v21;
       v74 = 2114;
-      v75 = v21;
+      v75 = v22;
       v76 = 2050;
-      v77 = [v18 unsignedLongLongValue];
+      v77 = [v19 unsignedLongLongValue];
       v78 = 2114;
       v79 = v47;
-      _os_log_impl(&dword_22392A000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@ starting download of asset %{public}@. size=%{public}lld, name=%{public}@", buf, 0x2Au);
+      _os_log_impl(&dword_22392A000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ starting download of asset %{public}@. size=%{public}lld, name=%{public}@", buf, 0x2Au);
     }
 
-    v22 = [*(a1 + 48) _urlForWritingAsset:*(a1 + 56) withFileName:v47];
-    v23 = [MEMORY[0x277CBEA90] data];
-    [v23 writeToURL:v22 options:0 error:0];
+    v23 = [*(a1 + 48) _urlForWritingAsset:*(a1 + 56) withFileName:v47];
+    v24 = [MEMORY[0x277CBEA90] data];
+    [v24 writeToURL:v23 options:0 error:0];
 
     v66 = 0;
     v67 = &v66;
@@ -188,19 +186,19 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_2(uint64_t a1)
     v69 = __Block_byref_object_copy__2064;
     v70 = __Block_byref_object_dispose__2065;
     v65 = 0;
-    v24 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v22 error:&v65];
+    v25 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:v23 error:&v65];
     v46 = v65;
-    v71 = v24;
+    v71 = v25;
     if (v67[5])
     {
-      v25 = [v22 path];
-      [*(a1 + 56) setPath:v25];
+      v26 = [v23 path];
+      [*(a1 + 56) setPath:v26];
 
-      v26 = objc_alloc(MEMORY[0x277D27F20]);
-      v27 = [*(a1 + 40) dataStream];
-      v28 = [v26 initWithInputStream:v27 queue:*(*(a1 + 48) + 72)];
+      v27 = objc_alloc(MEMORY[0x277D27F20]);
+      v28 = [*(a1 + 40) dataStream];
+      v29 = [v27 initWithInputStream:v28 queue:*(*(a1 + 48) + 72)];
 
-      v29 = [*(a1 + 48) _keyForATAssetInReaderMap:*(a1 + 56)];
+      v30 = [*(a1 + 48) _keyForATAssetInReaderMap:*(a1 + 56)];
       v64[0] = 0;
       v64[1] = v64;
       v64[2] = 0x2020000000;
@@ -212,9 +210,9 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_2(uint64_t a1)
       v60[4] = *(a1 + 48);
       v63 = &v66;
       v61 = *(a1 + 56);
-      v30 = v29;
-      v62 = v30;
-      v31 = MEMORY[0x223DED9F0](v60);
+      v31 = v30;
+      v62 = v31;
+      v32 = MEMORY[0x223DED9F0](v60);
       v55[0] = MEMORY[0x277D85DD0];
       v55[1] = 3221225472;
       v55[2] = __37__ATConcreteAssetLink__requestAsset___block_invoke_47;
@@ -223,69 +221,69 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_2(uint64_t a1)
       v56 = *(a1 + 56);
       v58 = &v66;
       v59 = v64;
-      v32 = v31;
-      v57 = v32;
-      [v28 setDidReadDataBlock:v55];
+      v33 = v32;
+      v57 = v33;
+      [v29 setDidReadDataBlock:v55];
       v52[0] = MEMORY[0x277D85DD0];
       v52[1] = 3221225472;
       v52[2] = __37__ATConcreteAssetLink__requestAsset___block_invoke_51;
       v52[3] = &unk_2784E96A8;
-      v33 = *(a1 + 56);
+      v34 = *(a1 + 56);
       v52[4] = *(a1 + 48);
-      v53 = v33;
-      v34 = v32;
-      v54 = v34;
-      [v28 setDidFinishReadingBlock:v52];
+      v53 = v34;
+      v35 = v33;
+      v54 = v35;
+      [v29 setDidFinishReadingBlock:v52];
       v49[0] = MEMORY[0x277D85DD0];
       v49[1] = 3221225472;
       v49[2] = __37__ATConcreteAssetLink__requestAsset___block_invoke_52;
       v49[3] = &unk_2784E96D0;
-      v35 = *(a1 + 56);
+      v36 = *(a1 + 56);
       v49[4] = *(a1 + 48);
-      v50 = v35;
-      v36 = v34;
-      v51 = v36;
-      [v28 setDidEncounterErrorBlock:v49];
-      [*(*(a1 + 48) + 40) addObject:v28];
-      [*(*(a1 + 48) + 56) setObject:v28 forKey:v30];
-      v37 = _ATLogCategoryDeviceSync();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v50 = v36;
+      v37 = v35;
+      v51 = v37;
+      [v29 setDidEncounterErrorBlock:v49];
+      [*(*(a1 + 48) + 40) addObject:v29];
+      [*(*(a1 + 48) + 56) setObject:v29 forKey:v31];
+      v38 = _ATLogCategoryDeviceSync();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = *(a1 + 48);
-        v39 = *(a1 + 56);
-        v40 = *(v38 + 40);
-        v41 = *(v38 + 56);
+        v39 = *(a1 + 48);
+        v40 = *(a1 + 56);
+        v41 = *(v39 + 40);
+        v42 = *(v39 + 56);
         *buf = 138544386;
-        v73 = v38;
+        v73 = v39;
         v74 = 2114;
-        v75 = v28;
+        v75 = v29;
         v76 = 2114;
-        v77 = v39;
+        v77 = v40;
         v78 = 2114;
-        v79 = v40;
+        v79 = v41;
         v80 = 2114;
-        v81 = v41;
-        _os_log_impl(&dword_22392A000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@ Adding reader %{public}@ for %{public}@ activeReaders %{public}@, readerToAssetMap %{public}@", buf, 0x34u);
+        v81 = v42;
+        _os_log_impl(&dword_22392A000, v38, OS_LOG_TYPE_DEFAULT, "%{public}@ Adding reader %{public}@ for %{public}@ activeReaders %{public}@, readerToAssetMap %{public}@", buf, 0x34u);
       }
 
-      [v28 start];
+      [v29 start];
       _Block_object_dispose(v64, 8);
     }
 
     else
     {
-      v42 = _ATLogCategoryDeviceSync();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v43 = _ATLogCategoryDeviceSync();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        v43 = *(a1 + 48);
-        v44 = *(a1 + 56);
+        v44 = *(a1 + 48);
+        v45 = *(a1 + 56);
         *buf = 138543874;
-        v73 = v43;
+        v73 = v44;
         v74 = 2114;
-        v75 = v44;
+        v75 = v45;
         v76 = 2114;
         v77 = v46;
-        _os_log_impl(&dword_22392A000, v42, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get file handle for writing asset %{public}@ - error %{public}@", buf, 0x20u);
+        _os_log_impl(&dword_22392A000, v43, OS_LOG_TYPE_ERROR, "%{public}@ Failed to get file handle for writing asset %{public}@ - error %{public}@", buf, 0x20u);
       }
 
       [*(a1 + 48) _finishAsset:*(a1 + 56) withError:v46];
@@ -293,13 +291,11 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_2(uint64_t a1)
 
     _Block_object_dispose(&v66, 8);
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __37__ATConcreteAssetLink__requestAsset___block_invoke_43(uint64_t a1, void *a2, int a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 32);
   v6 = *(a1 + 40);
   v8 = *(v7 + 80);
@@ -307,9 +303,9 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_43(uint64_t a1, void
   block[1] = 3221225472;
   block[2] = __37__ATConcreteAssetLink__requestAsset___block_invoke_2_44;
   block[3] = &unk_2784E9590;
-  v41 = *(a1 + 56);
+  v40 = *(a1 + 56);
   block[4] = v7;
-  v40 = v6;
+  v39 = v6;
   v9 = a2;
   dispatch_barrier_sync(v8, block);
   [*(a1 + 32) _finishAsset:*(a1 + 40) withError:v9];
@@ -323,9 +319,9 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_43(uint64_t a1, void
       v20 = *(a1 + 32);
       v21 = *(a1 + 40);
       *buf = 138543618;
-      v43 = v20;
-      v44 = 2114;
-      v45 = v21;
+      v42 = v20;
+      v43 = 2114;
+      v44 = v21;
       _os_log_impl(&dword_22392A000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ Not handling completion block for %{public}@ as the link is already closed", buf, 0x16u);
     }
 
@@ -344,11 +340,11 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_43(uint64_t a1, void
         v24 = *(a1 + 40);
         v25 = *(v23 + 40);
         *buf = 138543874;
-        v43 = v23;
-        v44 = 2114;
-        v45 = v24;
-        v46 = 2114;
-        v47 = v25;
+        v42 = v23;
+        v43 = 2114;
+        v44 = v24;
+        v45 = 2114;
+        v46 = v25;
         _os_log_impl(&dword_22392A000, v22, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not materialize reader for %{public}@ - active readers %{public}@", buf, 0x20u);
       }
 
@@ -371,24 +367,24 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_43(uint64_t a1, void
           v32 = *(a1 + 40);
           v33 = *(v31 + 48);
           *buf = 138543874;
-          v43 = v31;
-          v44 = 2114;
-          v45 = v32;
-          v46 = 2114;
-          v47 = v33;
+          v42 = v31;
+          v43 = 2114;
+          v44 = v32;
+          v45 = 2114;
+          v46 = v33;
           _os_log_impl(&dword_22392A000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ Stopping stream reader for %{public}@ readersPendingStop %{public}@", buf, 0x20u);
         }
 
-        v35[0] = MEMORY[0x277D85DD0];
-        v35[1] = 3221225472;
-        v35[2] = __37__ATConcreteAssetLink__requestAsset___block_invoke_45;
-        v35[3] = &unk_2784E95B8;
-        v35[4] = *(a1 + 32);
+        v34[0] = MEMORY[0x277D85DD0];
+        v34[1] = 3221225472;
+        v34[2] = __37__ATConcreteAssetLink__requestAsset___block_invoke_45;
+        v34[3] = &unk_2784E95B8;
+        v34[4] = *(a1 + 32);
         v12 = v12;
-        v36 = v12;
-        v37 = *(a1 + 48);
-        v38 = *(a1 + 40);
-        [v12 stopWithCompletion:v35];
+        v35 = v12;
+        v36 = *(a1 + 48);
+        v37 = *(a1 + 40);
+        [v12 stopWithCompletion:v34];
 
         goto LABEL_20;
       }
@@ -399,9 +395,9 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_43(uint64_t a1, void
         v15 = *(a1 + 32);
         v16 = *(a1 + 40);
         *buf = 138543618;
-        v43 = v15;
-        v44 = 2114;
-        v45 = v16;
+        v42 = v15;
+        v43 = 2114;
+        v44 = v16;
         v17 = "%{public}@ Reader for %{public}@ is already pending stop";
         v18 = v14;
         v19 = 22;
@@ -422,13 +418,13 @@ LABEL_15:
         v28 = *(v26 + 40);
         v29 = *(v26 + 56);
         *buf = 138544130;
-        v43 = v26;
-        v44 = 2114;
-        v45 = v27;
-        v46 = 2114;
-        v47 = v28;
-        v48 = 2114;
-        v49 = v29;
+        v42 = v26;
+        v43 = 2114;
+        v44 = v27;
+        v45 = 2114;
+        v46 = v28;
+        v47 = 2114;
+        v48 = v29;
         v17 = "%{public}@ Removed reader for %{public}@ from our list - active readers %{public}@, readerMap %{public}@";
         v18 = v14;
         v19 = 42;
@@ -438,13 +434,11 @@ LABEL_15:
 
 LABEL_20:
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __37__ATConcreteAssetLink__requestAsset___block_invoke_47(void *a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([*(a1[4] + 32) containsObject:a1[5]])
   {
@@ -455,14 +449,14 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_47(void *a1, void *a
     block[1] = 3221225472;
     block[2] = __37__ATConcreteAssetLink__requestAsset___block_invoke_2_48;
     block[3] = &unk_2784E9658;
-    v14 = a1[7];
-    v16 = v3;
-    v13 = *(a1 + 2);
-    v7 = *(&v13 + 1);
-    *&v8 = v14;
+    v13 = a1[7];
+    v15 = v3;
+    v12 = *(a1 + 2);
+    v7 = *(&v12 + 1);
+    *&v8 = v13;
     *(&v8 + 1) = a1[8];
-    v17 = v13;
-    v18 = v8;
+    v16 = v12;
+    v17 = v8;
     dispatch_async(v6, block);
     if (v5 >= 0x200000)
     {
@@ -478,58 +472,53 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_47(void *a1, void *a
       v10 = a1[4];
       v11 = a1[5];
       *buf = 138543618;
-      v20 = v10;
-      v21 = 2114;
-      v22 = v11;
+      v19 = v10;
+      v20 = 2114;
+      v21 = v11;
       _os_log_impl(&dword_22392A000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ handling didReadDataBlock for %{public}@ that's not in our list", buf, 0x16u);
     }
 
     (*(a1[6] + 16))();
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __37__ATConcreteAssetLink__requestAsset___block_invoke_51(void *a1)
+uint64_t __37__ATConcreteAssetLink__requestAsset___block_invoke_51(void *a1, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = _ATLogCategoryDeviceSync();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _ATLogCategoryDeviceSync();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = a1[5];
+    v4 = a1[4];
+    v5 = a1[5];
     v7 = 138543618;
-    v8 = v3;
+    v8 = v4;
     v9 = 2114;
-    v10 = v4;
-    _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished reading asset %{public}@", &v7, 0x16u);
+    v10 = v5;
+    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished reading asset %{public}@", &v7, 0x16u);
   }
 
-  result = (*(a1[6] + 16))();
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(a1[6] + 16))();
 }
 
 void __37__ATConcreteAssetLink__requestAsset___block_invoke_52(void *a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _ATLogCategoryDeviceSync();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = a1[4];
     v6 = a1[5];
-    v8 = 138543874;
-    v9 = v5;
-    v10 = 2114;
-    v11 = v6;
-    v12 = 2114;
-    v13 = v3;
-    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not sync %{public}@ - error %{public}@", &v8, 0x20u);
+    v7 = 138543874;
+    v8 = v5;
+    v9 = 2114;
+    v10 = v6;
+    v11 = 2114;
+    v12 = v3;
+    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ Could not sync %{public}@ - error %{public}@", &v7, 0x20u);
   }
 
   (*(a1[6] + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __37__ATConcreteAssetLink__requestAsset___block_invoke_2_48(uint64_t a1)
@@ -588,7 +577,7 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_4(uint64_t a1)
 
 void __37__ATConcreteAssetLink__requestAsset___block_invoke_2_44(void *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1[6] + 8) + 40);
   if (v2)
   {
@@ -602,20 +591,18 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_2_44(void *a1)
     {
       v6 = a1[4];
       v7 = a1[5];
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v7;
-      _os_log_impl(&dword_22392A000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Closing write fileHandle for %{public}@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v7;
+      _os_log_impl(&dword_22392A000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Closing write fileHandle for %{public}@", &v8, 0x16u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __37__ATConcreteAssetLink__requestAsset___block_invoke_45(void *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(*(a1[4] + 72));
   [*(a1[4] + 40) removeObject:a1[5]];
   [*(a1[4] + 56) removeObjectForKey:a1[6]];
@@ -627,23 +614,21 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_45(void *a1)
     v4 = a1[7];
     v5 = *(v3 + 40);
     v6 = *(v3 + 56);
-    v8 = 138544130;
-    v9 = v3;
-    v10 = 2114;
-    v11 = v4;
-    v12 = 2114;
-    v13 = v5;
-    v14 = 2114;
-    v15 = v6;
-    _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished processing stop message for %{public}@ - active readers %{public}@, readerMap %{public}@", &v8, 0x2Au);
+    v7 = 138544130;
+    v8 = v3;
+    v9 = 2114;
+    v10 = v4;
+    v11 = 2114;
+    v12 = v5;
+    v13 = 2114;
+    v14 = v6;
+    _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished processing stop message for %{public}@ - active readers %{public}@, readerMap %{public}@", &v7, 0x2Au);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_urlForWritingAsset:(id)asset withFileName:(id)name
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   nameCopy = name;
   mEMORY[0x277CEA430] = [MEMORY[0x277CEA430] sharedInstance];
@@ -652,13 +637,13 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_45(void *a1)
 
   mEMORY[0x277CEA430]2 = [MEMORY[0x277CEA430] sharedInstance];
   dataclass2 = [assetCopy dataclass];
-  v33[0] = dataclass2;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
+  v32[0] = dataclass2;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
   [mEMORY[0x277CEA430]2 createAirlockForDataclasses:v12];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v31 = nameCopy;
-  v32 = assetCopy;
+  v30 = nameCopy;
+  v31 = assetCopy;
   if (nameCopy && [nameCopy length])
   {
     v14 = nameCopy;
@@ -713,14 +698,12 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_45(void *a1)
 
   v28 = [MEMORY[0x277CBEBC0] fileURLWithPath:v24];
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 - (void)_finishAsset:(id)asset withError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   errorCopy = error;
   if ([(NSMutableArray *)self->_outstandingAssets containsObject:assetCopy])
@@ -730,10 +713,10 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_45(void *a1)
     {
       *buf = 138543874;
       selfCopy = self;
-      v17 = 2114;
-      v18 = assetCopy;
-      v19 = 2114;
-      v20 = errorCopy;
+      v16 = 2114;
+      v17 = assetCopy;
+      v18 = 2114;
+      v19 = errorCopy;
       _os_log_impl(&dword_22392A000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished asset %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -747,12 +730,10 @@ void __37__ATConcreteAssetLink__requestAsset___block_invoke_45(void *a1)
     block[2] = __46__ATConcreteAssetLink__finishAsset_withError___block_invoke;
     block[3] = &unk_2784E9568;
     block[4] = self;
-    v13 = assetCopy;
-    v14 = errorCopy;
+    v12 = assetCopy;
+    v13 = errorCopy;
     dispatch_async(callbackQueue, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __46__ATConcreteAssetLink__finishAsset_withError___block_invoke(uint64_t a1)
@@ -786,168 +767,163 @@ void __46__ATConcreteAssetLink__finishAsset_withError___block_invoke(uint64_t a1
 
 void __36__ATConcreteAssetLink_cancelAssets___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v21 + 1) + 8 * i);
+        v7 = *(*(&v20 + 1) + 8 * i);
         if ([*(*(a1 + 40) + 32) containsObject:v7])
         {
           [*(*(*(a1 + 48) + 8) + 40) addObject:v7];
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v4);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = *(*(*(a1 + 48) + 8) + 40);
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (j = 0; j != v10; ++j)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * j);
+        v13 = *(*(&v16 + 1) + 8 * j);
         v14 = *(a1 + 40);
-        v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ATError" code:2 userInfo:{0, v17}];
+        v15 = [MEMORY[0x277CCA9B8] errorWithDomain:@"ATError" code:2 userInfo:{0, v16}];
         [v14 _finishAsset:v13 withError:v15];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)enqueueAssets:(id)assets force:(BOOL)force
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__2064;
-  v34 = __Block_byref_object_dispose__2065;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__2064;
+  v33 = __Block_byref_object_dispose__2065;
   array = [MEMORY[0x277CBEA60] array];
-  v29[0] = 0;
-  v29[1] = v29;
-  v29[2] = 0x2020000000;
-  v29[3] = 0;
+  v28[0] = 0;
+  v28[1] = v28;
+  v28[2] = 0x2020000000;
+  v28[3] = 0;
   readerQueue = self->_readerQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __43__ATConcreteAssetLink_enqueueAssets_force___block_invoke;
   block[3] = &unk_2784E94F8;
   block[4] = self;
-  block[5] = v29;
+  block[5] = v28;
   dispatch_sync(readerQueue, block);
   accessQueue = self->_accessQueue;
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __43__ATConcreteAssetLink_enqueueAssets_force___block_invoke_2;
-  v23[3] = &unk_2784E9540;
-  v23[4] = self;
-  v25 = v29;
-  forceCopy = force;
-  v9 = assetsCopy;
-  v24 = v9;
-  v26 = &v30;
-  dispatch_sync(accessQueue, v23);
-  v10 = self->_readerQueue;
   v22[0] = MEMORY[0x277D85DD0];
   v22[1] = 3221225472;
-  v22[2] = __43__ATConcreteAssetLink_enqueueAssets_force___block_invoke_3;
-  v22[3] = &unk_2784E94F8;
+  v22[2] = __43__ATConcreteAssetLink_enqueueAssets_force___block_invoke_2;
+  v22[3] = &unk_2784E9540;
   v22[4] = self;
-  v22[5] = &v30;
-  dispatch_sync(v10, v22);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
+  v24 = v28;
+  forceCopy = force;
+  v9 = assetsCopy;
+  v23 = v9;
+  v25 = &v29;
+  dispatch_sync(accessQueue, v22);
+  v10 = self->_readerQueue;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __43__ATConcreteAssetLink_enqueueAssets_force___block_invoke_3;
+  v21[3] = &unk_2784E94F8;
+  v21[4] = self;
+  v21[5] = &v29;
+  dispatch_sync(v10, v21);
   v19 = 0u;
-  v11 = v31[5];
-  v12 = [v11 countByEnumeratingWithState:&v18 objects:v36 count:16];
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v11 = v30[5];
+  v12 = [v11 countByEnumeratingWithState:&v17 objects:v35 count:16];
   if (v12)
   {
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(ATConcreteAssetLink *)self _requestAsset:*(*(&v18 + 1) + 8 * i), v18];
+        [(ATConcreteAssetLink *)self _requestAsset:*(*(&v17 + 1) + 8 * i), v17];
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v18 objects:v36 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v17 objects:v35 count:16];
     }
 
     while (v12);
   }
 
-  v15 = v31[5];
-  _Block_object_dispose(v29, 8);
-  _Block_object_dispose(&v30, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = v30[5];
+  _Block_object_dispose(v28, 8);
+  _Block_object_dispose(&v29, 8);
 
   return v15;
 }
 
-uint64_t __43__ATConcreteAssetLink_enqueueAssets_force___block_invoke(uint64_t a1)
+void *__43__ATConcreteAssetLink_enqueueAssets_force___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-unint64_t __43__ATConcreteAssetLink_enqueueAssets_force___block_invoke_2(unint64_t result)
+void *__43__ATConcreteAssetLink_enqueueAssets_force___block_invoke_2(void *result)
 {
-  if (*(*(result + 32) + 16) != 1)
+  if (*(*(result + 4) + 16) != 1)
   {
     return result;
   }
 
   v1 = result;
-  v2 = *(*(*(result + 48) + 8) + 24);
-  v3 = *(result + 64);
+  v2 = *(*(*(result + 6) + 8) + 24);
   if (v2 > 1)
   {
     if ((*(result + 64) & 1) == 0)
@@ -956,7 +932,7 @@ unint64_t __43__ATConcreteAssetLink_enqueueAssets_force___block_invoke_2(unint64
     }
 
 LABEL_10:
-    result = [*(result + 40) count];
+    result = [*(result + 5) count];
     if (!result)
     {
       return result;
@@ -970,25 +946,22 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v4 = 2 - v2;
-  result = [*(result + 40) count];
-  if (v4 >= result)
+  v3 = 2 - v2;
+  result = [*(result + 5) count];
+  if (v3 >= result)
   {
-    v5 = result;
+    v4 = result;
   }
 
   else
   {
-    v5 = v4;
+    v4 = v3;
   }
 
-  if (v5)
+  if (v4)
   {
 LABEL_11:
-    v6 = [*(v1 + 40) subarrayWithRange:0];
-    v7 = *(*(v1 + 56) + 8);
-    v8 = *(v7 + 40);
-    *(v7 + 40) = v6;
+    *(*(v1[7] + 1) + 40) = [v1[5] subarrayWithRange:0];
 
     return MEMORY[0x2821F96F8]();
   }
@@ -1017,7 +990,7 @@ LABEL_11:
 
 void __28__ATConcreteAssetLink_close__block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 16) == 1)
   {
@@ -1036,9 +1009,9 @@ void __28__ATConcreteAssetLink_close__block_invoke(uint64_t a1)
       v6 = *(a1 + 32);
       v7 = [*(*(*(a1 + 40) + 8) + 40) count];
       *buf = 138543618;
-      v29 = v6;
-      v30 = 2048;
-      v31 = v7;
+      v28 = v6;
+      v29 = 2048;
+      v30 = v7;
       _os_log_impl(&dword_22392A000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ Closing .... outstanding asset count:%ld", buf, 0x16u);
     }
 
@@ -1053,29 +1026,29 @@ void __28__ATConcreteAssetLink_close__block_invoke(uint64_t a1)
 
     if (v11)
     {
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __28__ATConcreteAssetLink_close__block_invoke_11;
-      v25[3] = &unk_2784E94F8;
-      v26 = *(a1 + 32);
-      dispatch_async(*(v26 + 88), v25);
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __28__ATConcreteAssetLink_close__block_invoke_11;
+      v24[3] = &unk_2784E94F8;
+      v25 = *(a1 + 32);
+      dispatch_async(*(v25 + 88), v24);
     }
 
     v12 = *(a1 + 32);
     v13 = *(v12 + 72);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __28__ATConcreteAssetLink_close__block_invoke_2_12;
-    v24[3] = &unk_2784E94D0;
-    v24[4] = v12;
-    dispatch_sync(v13, v24);
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __28__ATConcreteAssetLink_close__block_invoke_2_12;
+    v23[3] = &unk_2784E94D0;
+    v23[4] = v12;
+    dispatch_sync(v13, v23);
     dispatch_group_wait(*(*(a1 + 32) + 96), 0xFFFFFFFFFFFFFFFFLL);
     v14 = _ATLogCategoryDeviceSync();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = *(a1 + 32);
       *buf = 138543362;
-      v29 = v15;
+      v28 = v15;
       _os_log_impl(&dword_22392A000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished waiting for readers to process their stop messages", buf, 0xCu);
     }
 
@@ -1085,29 +1058,27 @@ void __28__ATConcreteAssetLink_close__block_invoke(uint64_t a1)
     {
       v17 = *(a1 + 32);
       *buf = 138543362;
-      v29 = v17;
+      v28 = v17;
       _os_log_impl(&dword_22392A000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@ Finished waiting for readerQueue to drain", buf, 0xCu);
     }
 
     v18 = *(a1 + 32);
     v19 = *(v18 + 72);
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __28__ATConcreteAssetLink_close__block_invoke_15;
-    v23[3] = &unk_2784E94D0;
-    v23[4] = v18;
-    dispatch_sync(v19, v23);
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __28__ATConcreteAssetLink_close__block_invoke_15;
+    v22[3] = &unk_2784E94D0;
+    v22[4] = v18;
+    dispatch_sync(v19, v22);
     v20 = _ATLogCategoryDeviceSync();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = *(a1 + 32);
       *buf = 138543362;
-      v29 = v21;
+      v28 = v21;
       _os_log_impl(&dword_22392A000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ Wrapped up ...", buf, 0xCu);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __28__ATConcreteAssetLink_close__block_invoke_2(uint64_t a1)
@@ -1130,80 +1101,76 @@ void __28__ATConcreteAssetLink_close__block_invoke_11(uint64_t a1)
 
 void __28__ATConcreteAssetLink_close__block_invoke_2_12(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = [*(*(a1 + 32) + 56) allKeys];
-  v3 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v14 objects:v22 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v16;
+    v6 = *v15;
     *&v4 = 138543618;
-    v13 = v4;
+    v12 = v4;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
-        if (([*(*(a1 + 32) + 48) containsObject:{v8, v13}] & 1) == 0)
+        v8 = *(*(&v14 + 1) + 8 * i);
+        if (([*(*(a1 + 32) + 48) containsObject:{v8, v12}] & 1) == 0)
         {
           v9 = _ATLogCategoryDeviceSync();
           if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
             v10 = *(a1 + 32);
-            *buf = v13;
-            v20 = v10;
-            v21 = 2114;
-            v22 = v8;
+            *buf = v12;
+            v19 = v10;
+            v20 = 2114;
+            v21 = v8;
             _os_log_impl(&dword_22392A000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ Stopping reader for assetID/Part %{public}@", buf, 0x16u);
           }
 
           dispatch_group_enter(*(*(a1 + 32) + 96));
           v11 = [*(*(a1 + 32) + 56) objectForKey:v8];
-          v14[0] = MEMORY[0x277D85DD0];
-          v14[1] = 3221225472;
-          v14[2] = __28__ATConcreteAssetLink_close__block_invoke_13;
-          v14[3] = &unk_2784E94D0;
-          v14[4] = *(a1 + 32);
-          [v11 stopWithCompletion:v14];
+          v13[0] = MEMORY[0x277D85DD0];
+          v13[1] = 3221225472;
+          v13[2] = __28__ATConcreteAssetLink_close__block_invoke_13;
+          v13[3] = &unk_2784E94D0;
+          v13[4] = *(a1 + 32);
+          [v11 stopWithCompletion:v13];
         }
       }
 
-      v5 = [v2 countByEnumeratingWithState:&v15 objects:v23 count:16];
+      v5 = [v2 countByEnumeratingWithState:&v14 objects:v22 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __28__ATConcreteAssetLink_close__block_invoke_15(uint64_t a1)
+uint64_t __28__ATConcreteAssetLink_close__block_invoke_15(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = _ATLogCategoryDeviceSync();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = _ATLogCategoryDeviceSync();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = [*(v3 + 40) count];
+    v4 = *(a1 + 32);
+    v5 = [*(v4 + 40) count];
     v7 = 138543618;
-    v8 = v3;
+    v8 = v4;
     v9 = 2048;
-    v10 = v4;
-    _os_log_impl(&dword_22392A000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ Removing %ld readers from our collection", &v7, 0x16u);
+    v10 = v5;
+    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Removing %ld readers from our collection", &v7, 0x16u);
   }
 
-  result = [*(*(a1 + 32) + 40) removeAllObjects];
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(*(a1 + 32) + 40) removeAllObjects];
 }
 
 - (BOOL)open

@@ -1,4 +1,5 @@
 @interface MSASAssetTransferer
+- (BOOL)MMCSEngine:(id)engine shouldLogAtLogLevel:(int)level;
 - (MSASAssetTransferer)initWithPersonID:(id)d eventQueue:(id)queue;
 - (MSASPersonModel)model;
 - (MSAlbumSharingDaemon)daemon;
@@ -9,6 +10,7 @@
 - (id)_missingURLError;
 - (id)delegate;
 - (unint64_t)workQueueNextItemID;
+- (void)MMCSEngine:(id)engine logMessage:(id)message logLevel:(int)level;
 - (void)MMCSEngine:(id)engine logPerformanceMetrics:(id)metrics;
 - (void)_rereadPerformanceLoggingSetting;
 - (void)_sendDidIdleNotification;
@@ -54,17 +56,33 @@
 
 - (void)MMCSEngine:(id)engine logPerformanceMetrics:(id)metrics
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138543618;
+    v6 = 138543618;
     selfCopy = self;
-    v9 = 2114;
+    v8 = 2114;
     metricsCopy = metrics;
-    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@", &v7, 0x16u);
+    _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: %{public}@", &v6, 0x16u);
   }
+}
 
-  v6 = *MEMORY[0x277D85DE8];
+- (void)MMCSEngine:(id)engine logMessage:(id)message logLevel:(int)level
+{
+  v5 = *&level;
+  messageCopy = message;
+  v9 = MSASPlatform();
+  personID = [(MSASAssetTransferer *)self personID];
+  [v9 logLevel:v5 personID:personID albumGUID:0 format:{@"%@", messageCopy}];
+}
+
+- (BOOL)MMCSEngine:(id)engine shouldLogAtLogLevel:(int)level
+{
+  v4 = *&level;
+  v5 = MSASPlatform();
+  LOBYTE(v4) = [v5 shouldLogAtLevel:v4];
+
+  return v4;
 }
 
 - (void)_sendDidIdleNotification
@@ -416,7 +434,7 @@ double __59__MSASAssetTransferer_setMaxMMCSTokenValidityTimeInterval___block_inv
 
 void __51__MSASAssetTransferer_initWithPersonID_eventQueue___block_invoke(uint64_t a1)
 {
-  v21[4] = *MEMORY[0x277D85DE8];
+  v20[4] = *MEMORY[0x277D85DE8];
   v2 = MSASPlatform();
   v3 = objc_opt_respondsToSelector();
 
@@ -431,18 +449,18 @@ void __51__MSASAssetTransferer_initWithPersonID_eventQueue___block_invoke(uint64
     v5 = 1;
   }
 
-  v20[0] = *MEMORY[0x277D25458];
+  v19[0] = *MEMORY[0x277D25458];
   v6 = [MEMORY[0x277CCABB0] numberWithInt:v5];
   v7 = *MEMORY[0x277D25448];
-  v21[0] = v6;
-  v21[1] = MEMORY[0x277CBEC38];
+  v20[0] = v6;
+  v20[1] = MEMORY[0x277CBEC38];
   v8 = *MEMORY[0x277D25450];
-  v20[1] = v7;
-  v20[2] = v8;
-  v20[3] = *MEMORY[0x277D25440];
-  v21[2] = MEMORY[0x277CBEC38];
-  v21[3] = MEMORY[0x277CBEC38];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
+  v19[1] = v7;
+  v19[2] = v8;
+  v19[3] = *MEMORY[0x277D25440];
+  v20[2] = MEMORY[0x277CBEC38];
+  v20[3] = MEMORY[0x277CBEC38];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:4];
 
   v10 = [MMCSEngine alloc];
   v11 = MEMORY[0x277CBEBC0];
@@ -457,8 +475,6 @@ void __51__MSASAssetTransferer_initWithPersonID_eventQueue___block_invoke(uint64
 
   [*(*(a1 + 32) + 40) setDelegate:?];
   [*(a1 + 32) _rereadPerformanceLoggingSetting];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __51__MSASAssetTransferer_initWithPersonID_eventQueue___block_invoke_2(uint64_t a1)

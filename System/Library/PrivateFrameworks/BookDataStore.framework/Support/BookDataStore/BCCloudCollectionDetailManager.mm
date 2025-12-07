@@ -11,6 +11,7 @@
 - (void)deleteCollectionDetailForCollectionID:(id)d completion:(id)completion;
 - (void)deleteCollectionDetailForCollectionIDs:(id)ds completion:(id)completion;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
+- (void)fetchCollectionDetailsIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)getCollectionDetailChangesSince:(id)since completion:(id)completion;
 - (void)hasSaltChangedWithCompletion:(id)completion;
 - (void)nextBatchOfMutableCloudDataToSaveToCKWithFetchLimit:(unint64_t)limit completion:(id)completion;
@@ -352,18 +353,18 @@
 
   if (verboseLoggingEnabled)
   {
-    v9 = sub_10000DB80();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_10000DB80(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = @"NO";
+      v11 = @"NO";
       if (syncCopy)
       {
-        v10 = @"YES";
+        v11 = @"YES";
       }
 
-      v15 = 138412290;
-      v16 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "\\BCCloudCollectionDetailManager #enableCloudSync setEnableCloudSync %@\\"", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "\\BCCloudCollectionDetailManager #enableCloudSync setEnableCloudSync %@\", &v16, 0xCu);
     }
   }
 
@@ -444,7 +445,7 @@
 
   else
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001C3F30(v10);
@@ -513,6 +514,14 @@
   dsCopy = [NSPredicate predicateWithFormat:@"collectionID IN %@ AND (deletedFlag == NULL OR deletedFlag == NO)", dsCopy];
 
   [dataManager cloudDatasWithPredicate:dsCopy completion:completionCopy];
+}
+
+- (void)fetchCollectionDetailsIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  dataManager = [(BCCloudCollectionDetailManager *)self dataManager];
+  [dataManager fetchCloudDataIncludingDeleted:deletedCopy completion:completionCopy];
 }
 
 - (void)getCollectionDetailChangesSince:(id)since completion:(id)completion

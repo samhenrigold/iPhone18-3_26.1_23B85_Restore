@@ -12,7 +12,7 @@
 
 - (uint64_t)_br_getFileProviderDomainErrorCode:()BRFPAdditions
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if (_br_getFileProviderDomainErrorCode__once != -1)
   {
     [NSError(BRFPAdditions) _br_getFileProviderDomainErrorCode:];
@@ -41,7 +41,7 @@
       {
         v12 = [v11 _br_getFileProviderDomainErrorCode:a3];
 
-        goto LABEL_22;
+        return v12;
       }
     }
 
@@ -58,13 +58,11 @@ LABEL_13:
       {
         *a3 = [v20 longValue];
 
-LABEL_21:
-        v12 = 1;
-        goto LABEL_22;
+        return 1;
       }
     }
 
-    goto LABEL_17;
+    return 0;
   }
 
   domain3 = [self domain];
@@ -83,18 +81,16 @@ LABEL_21:
     else
     {
       domain5 = [self domain];
-      v33 = [domain5 isEqualToString:@"ICDClientSideCollaborationErrorDomain"];
+      v32 = [domain5 isEqualToString:@"ICDClientSideCollaborationErrorDomain"];
 
-      if (!v33)
+      if (!v32)
       {
-LABEL_17:
-        v12 = 0;
-        goto LABEL_22;
+        return 0;
       }
 
       if ([self code] != 5)
       {
-        goto LABEL_21;
+        return 1;
       }
 
       v16 = -2015;
@@ -102,7 +98,7 @@ LABEL_17:
 
 LABEL_20:
     *a3 = v16;
-    goto LABEL_21;
+    return 1;
   }
 
   [self br_suggestedRetryTimeInterval];
@@ -119,36 +115,36 @@ LABEL_20:
   }
 
   userInfo2 = [self userInfo];
-  v26 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E695B798]];
+  v25 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E695B798]];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  objectEnumerator = [v26 objectEnumerator];
-  v28 = [objectEnumerator countByEnumeratingWithState:&v34 objects:v38 count:16];
-  if (v28)
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  objectEnumerator = [v25 objectEnumerator];
+  v27 = [objectEnumerator countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v27)
   {
-    v29 = v28;
-    v30 = *v35;
+    v28 = v27;
+    v29 = *v34;
     while (2)
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v35 != v30)
+        if (*v34 != v29)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        if ([*(*(&v34 + 1) + 8 * i) _br_getFileProviderDomainErrorCode:a3])
+        if ([*(*(&v33 + 1) + 8 * i) _br_getFileProviderDomainErrorCode:a3])
         {
           v12 = 1;
           goto LABEL_38;
         }
       }
 
-      v29 = [objectEnumerator countByEnumeratingWithState:&v34 objects:v38 count:16];
-      if (v29)
+      v28 = [objectEnumerator countByEnumeratingWithState:&v33 objects:v37 count:16];
+      if (v28)
       {
         continue;
       }
@@ -160,37 +156,35 @@ LABEL_20:
   v12 = 0;
 LABEL_38:
 
-LABEL_22:
-  v23 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (void)_br_populateErrorMessageOnUserInfo:()BRFPAdditions
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([self br_isCloudDocsErrorCode:17])
   {
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     underlyingErrors = [self underlyingErrors];
-    v6 = [underlyingErrors countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v6 = [underlyingErrors countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v49;
+      v8 = *v48;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v49 != v8)
+          if (*v48 != v8)
           {
             objc_enumerationMutation(underlyingErrors);
           }
 
-          v10 = *(*(&v48 + 1) + 8 * i);
+          v10 = *(*(&v47 + 1) + 8 * i);
           if ([v10 br_isCKErrorCode:115])
           {
             neediCloudTermsAcceptanceDeviceSpecificMessage = [MEMORY[0x1E698B990] neediCloudTermsAcceptanceDeviceSpecificMessage];
@@ -200,25 +194,25 @@ LABEL_22:
 
           if ([v10 br_isCKErrorCode:3])
           {
-            v46 = 0u;
-            v47 = 0u;
-            v44 = 0u;
             v45 = 0u;
+            v46 = 0u;
+            v43 = 0u;
+            v44 = 0u;
             underlyingErrors2 = [v10 underlyingErrors];
-            neediCloudTermsAcceptanceTitle = [underlyingErrors2 countByEnumeratingWithState:&v44 objects:v52 count:16];
+            neediCloudTermsAcceptanceTitle = [underlyingErrors2 countByEnumeratingWithState:&v43 objects:v51 count:16];
             if (neediCloudTermsAcceptanceTitle)
             {
-              v25 = *v45;
+              v25 = *v44;
               while (2)
               {
                 for (j = 0; j != neediCloudTermsAcceptanceTitle; j = j + 1)
                 {
-                  if (*v45 != v25)
+                  if (*v44 != v25)
                   {
                     objc_enumerationMutation(underlyingErrors2);
                   }
 
-                  v27 = *(*(&v44 + 1) + 8 * j);
+                  v27 = *(*(&v43 + 1) + 8 * j);
                   if ([v27 br_isNSURLErrorCode:-1009])
                   {
                     userInfo = [v27 userInfo];
@@ -227,7 +221,7 @@ LABEL_22:
                     if (v29 && ([v29 intValue] == 1 || !objc_msgSend(v29, "intValue")))
                     {
                       v30 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-                      neediCloudTermsAcceptanceTitle = _BRLocalizedStringWithFormat(@"ICD_CELLULAR_DISABLED_TITLE", @"Localizable", v30, v31, v32, v33, v34, v35, v44);
+                      neediCloudTermsAcceptanceTitle = _BRLocalizedStringWithFormat(@"ICD_CELLULAR_DISABLED_TITLE", @"Localizable", v30, v31, v32, v33, v34, v35, v43);
 
                       if (MGGetBoolAnswer())
                       {
@@ -240,7 +234,7 @@ LABEL_22:
                       }
 
                       v37 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-                      neediCloudTermsAcceptanceDeviceSpecificMessage = _BRLocalizedStringWithFormat(v36, @"Localizable", v37, v38, v39, v40, v41, v42, v44);
+                      neediCloudTermsAcceptanceDeviceSpecificMessage = _BRLocalizedStringWithFormat(v36, @"Localizable", v37, v38, v39, v40, v41, v42, v43);
                     }
 
                     else
@@ -253,7 +247,7 @@ LABEL_22:
                   }
                 }
 
-                neediCloudTermsAcceptanceTitle = [underlyingErrors2 countByEnumeratingWithState:&v44 objects:v52 count:16];
+                neediCloudTermsAcceptanceTitle = [underlyingErrors2 countByEnumeratingWithState:&v43 objects:v51 count:16];
                 if (neediCloudTermsAcceptanceTitle)
                 {
                   continue;
@@ -270,7 +264,7 @@ LABEL_35:
           }
         }
 
-        v7 = [underlyingErrors countByEnumeratingWithState:&v48 objects:v53 count:16];
+        v7 = [underlyingErrors countByEnumeratingWithState:&v47 objects:v52 count:16];
         neediCloudTermsAcceptanceTitle = 0;
         neediCloudTermsAcceptanceDeviceSpecificMessage = 0;
         if (v7)
@@ -298,10 +292,10 @@ LABEL_35:
     }
 
     v13 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    neediCloudTermsAcceptanceTitle = _BRLocalizedStringWithFormat(@"DOWNLOAD_GENERIC_ERROR_HEADER", @"Localizable", v13, v14, v15, v16, v17, v18, v44);
+    neediCloudTermsAcceptanceTitle = _BRLocalizedStringWithFormat(@"DOWNLOAD_GENERIC_ERROR_HEADER", @"Localizable", v13, v14, v15, v16, v17, v18, v43);
 
     underlyingErrors = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-    neediCloudTermsAcceptanceDeviceSpecificMessage = _BRLocalizedStringWithFormat(@"DOWNLOAD_GENERIC_ERROR_MESSAGE", @"Localizable", underlyingErrors, v19, v20, v21, v22, v23, v44);
+    neediCloudTermsAcceptanceDeviceSpecificMessage = _BRLocalizedStringWithFormat(@"DOWNLOAD_GENERIC_ERROR_MESSAGE", @"Localizable", underlyingErrors, v19, v20, v21, v22, v23, v43);
   }
 
 LABEL_36:
@@ -317,8 +311,6 @@ LABEL_36:
   }
 
 LABEL_40:
-
-  v43 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_isTransientError:()BRFPAdditions code:

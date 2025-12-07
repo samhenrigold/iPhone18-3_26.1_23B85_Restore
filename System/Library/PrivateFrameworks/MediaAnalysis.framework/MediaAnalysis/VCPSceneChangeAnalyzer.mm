@@ -130,7 +130,7 @@
         v18 = *self->_frameBuffer.buffer_[34].motion_result_.significant_values_;
         if (v18)
         {
-          [v18 timeRange];
+          objc_msgSend_timeRange(v18);
         }
 
         else
@@ -145,7 +145,7 @@
         v21 = *self->_frameBuffer.buffer_[34].motion_result_.significant_values_;
         if (v21)
         {
-          [v21 timeRange];
+          objc_msgSend_timeRange(v21);
         }
 
         else
@@ -273,7 +273,7 @@ LABEL_11:
   v7 = *self->_frameBuffer.buffer_[34].motion_result_.significant_values_;
   if (v7)
   {
-    [v7 timeRange];
+    objc_msgSend_timeRange(v7);
   }
 
   else
@@ -288,7 +288,7 @@ LABEL_11:
   v9 = *self->_frameBuffer.buffer_[34].motion_result_.significant_values_;
   if (v9)
   {
-    [v9 timeRange];
+    objc_msgSend_timeRange(v9);
   }
 
   else

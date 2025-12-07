@@ -80,11 +80,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Sharing
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SharingDialogParams.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SharingDialogParams.CodingKeys(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x26D5ECD20](v1);
+  MEMORY[0x26D5ECD20](v2);
   return Hasher._finalize()();
 }
 
@@ -107,10 +107,10 @@ uint64_t protocol witness for CodingKey.stringValue.getter in conformance Sharin
   }
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SharingDialogParams.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SharingDialogParams.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
 {
-  result = specialized SharingDialogParams.CodingKeys.init(stringValue:)(a1, a2);
-  *a3 = result;
+  result = specialized SharingDialogParams.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
   return result;
 }
 
@@ -130,25 +130,23 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t SharingDialogParams.encode(to:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15[1] = a3;
-  v15[2] = a4;
+  v14[1] = a3;
+  v14[2] = a4;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriExpanseInternal19SharingDialogParamsV10CodingKeys33_8D4ACCBC64109F867D67AA184DE30D39LLOGMd, &_ss22KeyedEncodingContainerVy19SiriExpanseInternal19SharingDialogParamsV10CodingKeys33_8D4ACCBC64109F867D67AA184DE30D39LLOGMR);
   v9 = *(v8 - 8);
-  v10 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v12 = v15 - v11;
-  v13 = a1[4];
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = v14 - v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type SharingDialogParams.CodingKeys and conformance SharingDialogParams.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v18 = 0;
+  v17 = 0;
   KeyedEncodingContainer.encode(_:forKey:)();
   if (!v5)
   {
-    v17 = 1;
+    v16 = 1;
     KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-    v15[3] = a5;
-    v16 = 2;
+    v14[3] = a5;
+    v15 = 2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay16SiriDialogEngine0B6PersonCGMd, &_sSay16SiriDialogEngine0B6PersonCGMR);
     lazy protocol witness table accessor for type [DialogPerson] and conformance <A> [A]();
     KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
@@ -225,22 +223,18 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t protocol witness for Encodable.encode(to:) in conformance AppDialogParams(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriExpanseInternal15AppDialogParamsV10CodingKeys33_8D4ACCBC64109F867D67AA184DE30D39LLOGMd, &_ss22KeyedEncodingContainerVy19SiriExpanseInternal15AppDialogParamsV10CodingKeys33_8D4ACCBC64109F867D67AA184DE30D39LLOGMR);
-  v4 = *(v3 - 8);
-  v5 = (*(v4 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v7 = &v12 - v6;
-  v8 = *v1;
-  v9 = v1[1];
-  v10 = a1[4];
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriExpanseInternal15AppDialogParamsV10CodingKeys33_8D4ACCBC64109F867D67AA184DE30D39LLOGMd, &_ss22KeyedEncodingContainerVy19SiriExpanseInternal15AppDialogParamsV10CodingKeys33_8D4ACCBC64109F867D67AA184DE30D39LLOGMR);
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2, v4);
+  v6 = &v8 - v5;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type AppDialogParams.CodingKeys and conformance AppDialogParams.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
-  return (*(v4 + 8))(v7, v3);
+  return (*(v3 + 8))(v6, v2);
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AppDialogParams(void *a1, void *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AppDialogParams(uint64_t *a1, void *a2)
 {
   v3 = a1[1];
   v4 = a2[1];
@@ -271,7 +265,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Generic
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GenericErrorParams.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GenericErrorParams.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x26D5ECD20](0);
@@ -311,27 +305,24 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t protocol witness for Encodable.encode(to:) in conformance GenericErrorParams(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, void (*a6)(void))
+uint64_t protocol witness for Encodable.encode(to:) in conformance GenericErrorParams(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, void (*a6)(void), uint64_t a7)
 {
-  v17 = a6;
+  v15 = a6;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(a4, a5);
   v9 = *(v8 - 8);
-  v10 = (*(v9 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v12 = &v16 - v11;
-  v13 = *v6;
-  v14 = a1[4];
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = &v14 - v11;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v17();
+  v15();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
   return (*(v9 + 8))(v12, v8);
 }
 
-uint64_t protocol witness for CodingKey.init(stringValue:) in conformance EmptyDialogParams.CodingKeys@<X0>(_BYTE *a1@<X8>)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance EmptyDialogParams.CodingKeys@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
@@ -353,10 +344,8 @@ uint64_t protocol witness for Encodable.encode(to:) in conformance EmptyDialogPa
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy19SiriExpanseInternal17EmptyDialogParamsV10CodingKeys33_8D4ACCBC64109F867D67AA184DE30D39LLOGMd, &_ss22KeyedEncodingContainerVy19SiriExpanseInternal17EmptyDialogParamsV10CodingKeys33_8D4ACCBC64109F867D67AA184DE30D39LLOGMR);
   v3 = *(v2 - 8);
-  v4 = (*(v3 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v9 - v5;
-  v7 = a1[4];
+  MEMORY[0x28223BE20](v2, v4);
+  v6 = &v8 - v5;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type EmptyDialogParams.CodingKeys and conformance EmptyDialogParams.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
@@ -375,7 +364,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -764,7 +752,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1185,7 +1172,7 @@ uint64_t specialized SharingDialogParams.CodingKeys.init(stringValue:)(uint64_t 
 
 uint64_t one-time initialization function for typeName()
 {
-  type metadata accessor for SharingDirectInvocationIntent();
+  type metadata accessor for SharingDirectInvocationIntent(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal29SharingDirectInvocationIntentVmMd, _s19SiriExpanseInternal29SharingDirectInvocationIntentVmMR);
   result = String.init<A>(describing:)();
   static SharingDirectInvocationIntent.typeName = result;
@@ -1226,7 +1213,7 @@ uint64_t one-time initialization function for typeName()
 }
 
 {
-  type metadata accessor for SimpleSharingYesNoPromptFlowStrategy();
+  type metadata accessor for SimpleSharingYesNoPromptFlowStrategy(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal36SimpleSharingYesNoPromptFlowStrategyCmMd, &_s19SiriExpanseInternal36SimpleSharingYesNoPromptFlowStrategyCmMR);
   result = String.init<A>(describing:)();
   static SimpleSharingYesNoPromptFlowStrategy.typeName = result;
@@ -1243,7 +1230,7 @@ uint64_t one-time initialization function for typeName()
 }
 
 {
-  type metadata accessor for StartSharingConfirmationFlow();
+  type metadata accessor for StartSharingConfirmationFlow(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal28StartSharingConfirmationFlowCmMd, &_s19SiriExpanseInternal28StartSharingConfirmationFlowCmMR);
   result = String.init<A>(describing:)();
   static StartSharingConfirmationFlow.typeName = result;
@@ -1256,24 +1243,6 @@ uint64_t one-time initialization function for typeName()
   result = String.init<A>(describing:)();
   static ScreenSharingCallManager.typeName = result;
   *algn_2800C0578 = v1;
-  return result;
-}
-
-{
-  type metadata accessor for OutputDialogFlow();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal16OutputDialogFlowCmMd, _s19SiriExpanseInternal16OutputDialogFlowCmMR);
-  result = String.init<A>(describing:)();
-  static OutputDialogFlow.typeName = result;
-  unk_2800C05A0 = v1;
-  return result;
-}
-
-{
-  type metadata accessor for SharePlayHelper();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal15SharePlayHelperCmMd, _s19SiriExpanseInternal15SharePlayHelperCmMR);
-  result = String.init<A>(describing:)();
-  static SharePlayHelper.typeName = result;
-  *algn_2800C06D8 = v1;
   return result;
 }
 
@@ -1320,15 +1289,6 @@ uint64_t one-time initialization function for typeName()
 }
 
 {
-  type metadata accessor for ResponseExecutor();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal16ResponseExecutorCmMd, &_s19SiriExpanseInternal16ResponseExecutorCmMR);
-  result = String.init<A>(describing:)();
-  static ResponseExecutor.typeName = result;
-  *algn_2800C0AC8 = v1;
-  return result;
-}
-
-{
   type metadata accessor for ValidateRecipientsFlow();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal22ValidateRecipientsFlowCmMd, &_s19SiriExpanseInternal22ValidateRecipientsFlowCmMR);
   result = String.init<A>(describing:)();
@@ -1338,7 +1298,7 @@ uint64_t one-time initialization function for typeName()
 }
 
 {
-  type metadata accessor for SharingNLv4Intent();
+  type metadata accessor for SharingNLv4Intent(0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal17SharingNLv4IntentCmMd, &_s19SiriExpanseInternal17SharingNLv4IntentCmMR);
   result = String.init<A>(describing:)();
   static SharingNLv4Intent.typeName = result;
@@ -1368,16 +1328,7 @@ uint64_t one-time initialization function for typeName()
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal16StartSharingFlowCmMd, &_s19SiriExpanseInternal16StartSharingFlowCmMR);
   result = String.init<A>(describing:)();
   static StartSharingFlow.typeName = result;
-  unk_2800C0EB0 = v1;
-  return result;
-}
-
-{
-  type metadata accessor for ValidateStartSharingIntentFlow();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal30ValidateStartSharingIntentFlowCmMd, &_s19SiriExpanseInternal30ValidateStartSharingIntentFlowCmMR);
-  result = String.init<A>(describing:)();
-  static ValidateStartSharingIntentFlow.typeName = result;
-  *algn_2800C0F88 = v1;
+  qword_2800C0EB0 = v1;
   return result;
 }
 
@@ -1395,7 +1346,7 @@ uint64_t SharingDirectInvocationIntent.description.getter()
   BYTE8(v3) = 0;
   _StringGuts.grow(_:)(52);
   MEMORY[0x26D5EC8A0](0xD000000000000031, 0x8000000266BEE400);
-  *&v3 = *(v0 + *(type metadata accessor for SharingDirectInvocationIntent() + 60));
+  *&v3 = *(v0 + *(type metadata accessor for SharingDirectInvocationIntent(0) + 60));
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal17ConfirmationValueOSgMd, &_s19SiriExpanseInternal17ConfirmationValueOSgMR);
   v1 = String.init<A>(describing:)();
   MEMORY[0x26D5EC8A0](v1);
@@ -1407,7 +1358,7 @@ uint64_t SharingDirectInvocationIntent.description.getter()
 void SharingDirectInvocationIntent.init(from:)(char a1@<W0>, _BYTE *a2@<X8>)
 {
   *a2 = 3;
-  v4 = type metadata accessor for SharingDirectInvocationIntent();
+  v4 = type metadata accessor for SharingDirectInvocationIntent(0);
   v5 = v4[5];
   v6 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
   (*(*(v6 - 8) + 56))(&a2[v5], 1, 1, v6);
@@ -1428,8 +1379,7 @@ void SharingDirectInvocationIntent.init(from:)(char a1@<W0>, _BYTE *a2@<X8>)
   a2[v4[12]] = 0;
   a2[v4[13]] = 0;
   *&a2[v4[14]] = 0;
-  v11 = v4[16];
-  type metadata accessor for ShareTarget();
+  type metadata accessor for ShareTarget(0);
   swift_storeEnumTagMultiPayload();
   a2[v4[17]] = 0;
   *&a2[v4[18]] = 0;
@@ -1441,82 +1391,79 @@ void SharingDirectInvocationIntent.init(from:)(char a1@<W0>, _BYTE *a2@<X8>)
     swift_once();
   }
 
-  v12 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v12, static Logger.default);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v13, v14))
+  v11 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v11, static Logger.default);
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v12, v13))
   {
+    v14 = swift_slowAlloc();
     v15 = swift_slowAlloc();
-    v16 = swift_slowAlloc();
-    v21 = v16;
-    *v15 = 136315394;
+    v20 = v15;
+    *v14 = 136315394;
     if (one-time initialization token for typeName != -1)
     {
       swift_once();
     }
 
-    *(v15 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocationIntent.typeName, *algn_2800C0158, &v21);
-    *(v15 + 12) = 2080;
+    *(v14 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocationIntent.typeName, *algn_2800C0158, &v20);
+    *(v14 + 12) = 2080;
     _StringGuts.grow(_:)(26);
 
     if (a1)
     {
-      v17 = 0x7463656A6572;
+      v16 = 0x7463656A6572;
     }
 
     else
     {
-      v17 = 0x6D7269666E6F63;
+      v16 = 0x6D7269666E6F63;
     }
 
     if (a1)
     {
-      v18 = 0xE600000000000000;
+      v17 = 0xE600000000000000;
     }
 
     else
     {
-      v18 = 0xE700000000000000;
+      v17 = 0xE700000000000000;
     }
 
-    MEMORY[0x26D5EC8A0](v17, v18);
+    MEMORY[0x26D5EC8A0](v16, v17);
 
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000018, 0x8000000266BEE3E0, &v21);
+    v18 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000018, 0x8000000266BEE3E0, &v20);
 
-    *(v15 + 14) = v19;
-    _os_log_impl(&dword_266B9E000, v13, v14, "%s: Initializing self from invocation: %s", v15, 0x16u);
+    *(v14 + 14) = v18;
+    _os_log_impl(&dword_266B9E000, v12, v13, "%s: Initializing self from invocation: %s", v14, 0x16u);
     swift_arrayDestroy();
-    MEMORY[0x26D5ED340](v16, -1, -1);
     MEMORY[0x26D5ED340](v15, -1, -1);
+    MEMORY[0x26D5ED340](v14, -1, -1);
   }
 
   if (a1)
   {
-    v20 = 2;
+    v19 = 2;
   }
 
   else
   {
-    v20 = 0;
+    v19 = 0;
   }
 
-  a2[v4[15]] = v20;
+  a2[v4[15]] = v19;
 }
 
 uint64_t protocol witness for SharingIntent.appName.getter in conformance SharingDirectInvocationIntent(uint64_t a1)
 {
-  v2 = (v1 + *(a1 + 28));
-  v3 = *v2;
-  v4 = v2[1];
+  v2 = *(v1 + *(a1 + 28));
 
-  return v3;
+  return v2;
 }
 
 uint64_t protocol witness for SharingIntent.appName.setter in conformance SharingDirectInvocationIntent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = (v3 + *(a3 + 28));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -1525,17 +1472,14 @@ uint64_t protocol witness for SharingIntent.appName.setter in conformance Sharin
 
 uint64_t protocol witness for SharingIntent.typeMatchingSpan.getter in conformance SharingDirectInvocationIntent(uint64_t a1)
 {
-  v2 = (v1 + *(a1 + 32));
-  v3 = *v2;
-  v4 = v2[1];
+  v2 = *(v1 + *(a1 + 32));
 
-  return v3;
+  return v2;
 }
 
 uint64_t protocol witness for SharingIntent.typeMatchingSpan.setter in conformance SharingDirectInvocationIntent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = (v3 + *(a3 + 32));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -1544,17 +1488,14 @@ uint64_t protocol witness for SharingIntent.typeMatchingSpan.setter in conforman
 
 uint64_t protocol witness for SharingIntent.appIdentifier.getter in conformance SharingDirectInvocationIntent(uint64_t a1)
 {
-  v2 = (v1 + *(a1 + 36));
-  v3 = *v2;
-  v4 = v2[1];
+  v2 = *(v1 + *(a1 + 36));
 
-  return v3;
+  return v2;
 }
 
 uint64_t protocol witness for SharingIntent.appIdentifier.setter in conformance SharingDirectInvocationIntent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = (v3 + *(a3 + 36));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -1563,14 +1504,12 @@ uint64_t protocol witness for SharingIntent.appIdentifier.setter in conformance 
 
 uint64_t protocol witness for SharingIntent.associatedAppIdentifier.getter in conformance SharingDirectInvocationIntent(uint64_t a1)
 {
-  v2 = (v1 + *(a1 + 40));
-  v3 = *v2;
-  v4 = v2[1];
+  v2 = *(v1 + *(a1 + 40));
 
-  return v3;
+  return v2;
 }
 
-uint64_t type metadata accessor for SharingDirectInvocationIntent()
+uint64_t type metadata accessor for SharingDirectInvocationIntent(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SharingDirectInvocationIntent;
   if (!type metadata singleton initialization cache for SharingDirectInvocationIntent)
@@ -1623,7 +1562,7 @@ uint64_t sub_266BA24EC(uint64_t a1, uint64_t a2, int *a3)
 
   else
   {
-    v14 = type metadata accessor for ShareTarget();
+    v14 = type metadata accessor for ShareTarget(0);
     v15 = *(*(v14 - 8) + 48);
     v16 = a1 + a3[16];
 
@@ -1651,7 +1590,7 @@ uint64_t sub_266BA2644(uint64_t a1, uint64_t a2, int a3, int *a4)
 
   else
   {
-    v13 = type metadata accessor for ShareTarget();
+    v13 = type metadata accessor for ShareTarget(0);
     v14 = *(*(v13 - 8) + 56);
     v15 = a1 + a4[16];
 
@@ -1661,28 +1600,28 @@ uint64_t sub_266BA2644(uint64_t a1, uint64_t a2, int a3, int *a4)
   return result;
 }
 
-void type metadata completion function for SharingDirectInvocationIntent()
+void type metadata completion function for SharingDirectInvocationIntent(uint64_t a1)
 {
-  type metadata accessor for SharingVerb?(319, &lazy cache variable for type metadata for SharingVerb?);
-  if (v0 <= 0x3F)
+  type metadata accessor for SharingVerb?(319, &lazy cache variable for type metadata for SharingVerb?, &type metadata for SharingVerb);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues?(319, &lazy cache variable for type metadata for UsoEntity_common_AttachmentType.DefinedValues?, MEMORY[0x277D5EF80]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for SharingVerb?(319, &lazy cache variable for type metadata for String?);
-      if (v2 <= 0x3F)
+      type metadata accessor for SharingVerb?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0]);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for [INPerson]?();
-        if (v3 <= 0x3F)
+        type metadata accessor for [INPerson]?(319);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for SharingVerb?(319, &lazy cache variable for type metadata for ConfirmationValue?);
-          if (v4 <= 0x3F)
+          type metadata accessor for SharingVerb?(319, &lazy cache variable for type metadata for ConfirmationValue?, &type metadata for ConfirmationValue);
+          if (v5 <= 0x3F)
           {
-            type metadata accessor for ShareTarget();
-            if (v5 <= 0x3F)
+            type metadata accessor for ShareTarget(319);
+            if (v6 <= 0x3F)
             {
               type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues?(319, &lazy cache variable for type metadata for UsoEntity?, MEMORY[0x277D5F498]);
-              if (v6 <= 0x3F)
+              if (v7 <= 0x3F)
               {
                 swift_cvw_initStructMetadataWithLayoutString();
               }
@@ -1694,32 +1633,32 @@ void type metadata completion function for SharingDirectInvocationIntent()
   }
 }
 
-void type metadata accessor for [INPerson]?()
+void type metadata accessor for [INPerson]?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for [INPerson]?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo8INPersonCGMd, &_sSaySo8INPersonCGMR);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for [INPerson]?);
+      atomic_store(v1, &lazy cache variable for type metadata for [INPerson]?);
     }
   }
 }
 
-void type metadata accessor for SharingVerb?(uint64_t a1, unint64_t *a2)
+void type metadata accessor for SharingVerb?(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
-    v3 = type metadata accessor for Optional();
-    if (!v4)
+    v4 = type metadata accessor for Optional();
+    if (!v5)
     {
-      atomic_store(v3, a2);
+      atomic_store(v4, a2);
     }
   }
 }
 
-void type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues?(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -1744,7 +1683,7 @@ unint64_t lazy protocol witness table accessor for type SharingDirectInvocationI
   result = lazy protocol witness table cache variable for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent;
   if (!lazy protocol witness table cache variable for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent)
   {
-    type metadata accessor for SharingDirectInvocationIntent();
+    type metadata accessor for SharingDirectInvocationIntent(255);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent);
   }
@@ -1754,7 +1693,7 @@ unint64_t lazy protocol witness table accessor for type SharingDirectInvocationI
 
 uint64_t outlined init with copy of ShareTarget(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ShareTarget();
+  v4 = type metadata accessor for ShareTarget(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -1775,51 +1714,44 @@ uint64_t outlined init with copy of UsoEntity_common_AttachmentType.DefinedValue
 
 uint64_t dispatch thunk of SharingPromptFlowStrategy.parseResponse(input:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(a4 + 80);
-  v13 = (v9 + *v9);
-  v10 = v9[1];
-  v11 = swift_task_alloc();
-  *(v4 + 16) = v11;
-  *v11 = v4;
-  v11[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v11 = (*(a4 + 80) + **(a4 + 80));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
-  return v13(a1, a2, a3, a4);
+  return v11(a1, a2, a3, a4);
 }
 
 uint64_t dispatch thunk of SharingPromptFlowStrategy.makePrompt()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 88);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
+  v9 = (*(a3 + 88) + **(a3 + 88));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of SharingPromptFlowStrategy.makePrompt()()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t dispatch thunk of SharingPromptFlowStrategy.makeUserCancelledResponse()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 96);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v9 = (*(a3 + 96) + **(a3 + 96));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t SharingPromptFlowStrategy.getActionForInput(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
@@ -1828,13 +1760,11 @@ uint64_t SharingPromptFlowStrategy.getActionForInput(_:)@<X0>(uint64_t a1@<X0>, 
   v46 = a2;
   v9 = type metadata accessor for Parse();
   v50 = *(v9 - 8);
-  v10 = *(v50 + 64);
-  MEMORY[0x28223BE20](v9);
+  MEMORY[0x28223BE20](v9, v10);
   v48 = v45 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v12 = type metadata accessor for Input();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
+  MEMORY[0x28223BE20](v12, v14);
   v16 = v45 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for default != -1)
   {
@@ -1957,36 +1887,33 @@ uint64_t SharingPromptFlowStrategy.makePrompt()()
   v1 = v0[14];
   v2 = v0[13];
   (*(v1 + 56))(v2, v1);
-  v3 = __swift_project_boxed_opaque_existential_1(v0 + 2, v0[5]);
+  __swift_project_boxed_opaque_existential_1(v0 + 2, v0[5]);
   (*(v1 + 40))(v2, v1);
-  v4 = *v3;
-  v5 = swift_task_alloc();
-  v0[16] = v5;
-  *v5 = v0;
-  v5[1] = SharingPromptFlowStrategy.makePrompt();
-  v6 = v0[12];
+  v3 = swift_task_alloc();
+  v0[16] = v3;
+  *v3 = v0;
+  v3[1] = SharingPromptFlowStrategy.makePrompt();
+  v4 = v0[12];
 
-  return ResponseExecutor.execute(response:)(v6, (v0 + 7));
+  return ResponseExecutor.execute(response:)(v4, (v0 + 7));
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 128);
-  v6 = *v1;
   *(v2 + 136) = v0;
 
   __swift_destroy_boxed_opaque_existential_1Tm((v2 + 56));
   if (v0)
   {
-    v4 = SharingPromptFlowStrategy.makePrompt();
+    v3 = SharingPromptFlowStrategy.makePrompt();
   }
 
   else
   {
-    v4 = SharingPromptFlowStrategy.makePrompt();
+    v3 = SharingPromptFlowStrategy.makePrompt();
   }
 
-  return MEMORY[0x2822009F8](v4, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
@@ -1997,9 +1924,8 @@ uint64_t SharingPromptFlowStrategy.makePrompt()()
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-  v1 = v0[1];
-  v2 = v0[17];
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
+  v1 = *(v0 + 8);
 
   return v1();
 }
@@ -2015,53 +1941,48 @@ uint64_t SharingPromptFlowStrategy.makeUserCancelledResponse()(uint64_t a1, uint
 
 uint64_t SharingPromptFlowStrategy.makeUserCancelledResponse()()
 {
-  v1 = *(v0 + 160);
   (*(*(v0 + 152) + 48))(*(v0 + 144));
   if (*(v0 + 80))
   {
-    v2 = *(v0 + 152);
-    v3 = *(v0 + 160);
-    v4 = *(v0 + 144);
+    v1 = *(v0 + 152);
+    v2 = *(v0 + 144);
     outlined init with take of ConversationParticipant((v0 + 56), v0 + 16);
-    (*(v2 + 56))(v4, v2);
-    v5 = *__swift_project_boxed_opaque_existential_1((v0 + 96), *(v0 + 120));
-    v6 = swift_task_alloc();
-    *(v0 + 168) = v6;
-    *v6 = v0;
-    v6[1] = SharingPromptFlowStrategy.makeUserCancelledResponse();
-    v7 = *(v0 + 136);
+    (*(v1 + 56))(v2, v1);
+    __swift_project_boxed_opaque_existential_1((v0 + 96), *(v0 + 120));
+    v3 = swift_task_alloc();
+    *(v0 + 168) = v3;
+    *v3 = v0;
+    v3[1] = SharingPromptFlowStrategy.makeUserCancelledResponse();
+    v4 = *(v0 + 136);
 
-    return ResponseExecutor.execute(response:)(v7, v0 + 16);
+    return ResponseExecutor.execute(response:)(v4, v0 + 16);
   }
 
   else
   {
-    v9 = *(v0 + 136);
     outlined destroy of SharingResponse?(v0 + 56, &_s19SiriExpanseInternal15SharingResponse_pSgMd, &_s19SiriExpanseInternal15SharingResponse_pSgMR);
     type metadata accessor for EmptyOutput();
     static EmptyOutput.instance.getter();
-    v10 = *(v0 + 8);
+    v6 = *(v0 + 8);
 
-    return v10();
+    return v6();
   }
 }
 
 {
-  v2 = *(*v1 + 168);
-  v5 = *v1;
   *(*v1 + 176) = v0;
 
   if (v0)
   {
-    v3 = SharingPromptFlowStrategy.makeUserCancelledResponse();
+    v2 = SharingPromptFlowStrategy.makeUserCancelledResponse();
   }
 
   else
   {
-    v3 = SharingPromptFlowStrategy.makeUserCancelledResponse();
+    v2 = SharingPromptFlowStrategy.makeUserCancelledResponse();
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
@@ -2076,7 +1997,6 @@ uint64_t SharingPromptFlowStrategy.makeUserCancelledResponse()()
   __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
   __swift_destroy_boxed_opaque_existential_1Tm(v0 + 12);
   v1 = v0[1];
-  v2 = v0[22];
 
   return v1();
 }
@@ -2141,15 +2061,17 @@ unint64_t lazy protocol witness table accessor for type Input and conformance In
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_1Tm(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_1Tm(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t TUCallStatus.description.getter(int a1)
@@ -2203,120 +2125,104 @@ uint64_t PromptForValueFlowWrapper.execute()(uint64_t a1)
 
 uint64_t PromptForValueFlowWrapper.execute()()
 {
-  v1 = *(v0[3] + 24);
-  v2 = *(MEMORY[0x277D5B470] + 4);
-  v3 = swift_task_alloc();
-  v0[4] = v3;
-  *v3 = v0;
-  v3[1] = PromptForValueFlowWrapper.execute();
-  v4 = v0[2];
+  v1 = swift_task_alloc();
+  *(v0 + 32) = v1;
+  *v1 = v0;
+  v1[1] = PromptForValueFlowWrapper.execute();
+  v2 = *(v0 + 16);
 
-  return MEMORY[0x2821B9D68](v4);
+  return MEMORY[0x2821B9D68](v2);
 }
 
 {
-  v1 = *(*v0 + 32);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t PromptForValueFlowWrapper.deinit()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 24);
 
   return v0;
 }
 
 uint64_t PromptForValueFlowWrapper.__deallocating_deinit()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 24);
 
   return MEMORY[0x2821FE8D8](v0, 32, 7);
 }
 
 uint64_t protocol witness for Flow.onAsync(input:) in conformance PromptForValueFlowWrapper<A1>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(MEMORY[0x277D5B890] + 4);
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = protocol witness for Flow.onAsync(input:) in conformance PromptForValueFlowWrapper<A1>;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for Flow.onAsync(input:) in conformance PromptForValueFlowWrapper<A1>;
 
   return MEMORY[0x2821BA650](a1, a2, a3);
 }
 
 uint64_t protocol witness for Flow.onAsync(input:) in conformance PromptForValueFlowWrapper<A1>(uint64_t a1)
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
 uint64_t protocol witness for Flow.execute() in conformance PromptForValueFlowWrapper<A>(uint64_t a1)
 {
-  v4 = *v1;
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  *v3 = v1;
+  v3[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
 
   return PromptForValueFlowWrapper.execute()(a1);
 }
 
 uint64_t dispatch thunk of ShareTargetResolving.resolveShareTargetForStartSharing(target:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(a3 + 8);
-  v11 = (v7 + *v7);
-  v8 = v7[1];
-  v9 = swift_task_alloc();
-  *(v3 + 16) = v9;
-  *v9 = v3;
-  v9[1] = dispatch thunk of ShareTargetResolving.resolveShareTargetForStartSharing(target:);
+  v9 = (*(a3 + 8) + **(a3 + 8));
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = dispatch thunk of ShareTargetResolving.resolveShareTargetForStartSharing(target:);
 
-  return v11(a1, a2, a3);
+  return v9(a1, a2, a3);
 }
 
 uint64_t dispatch thunk of ShareTargetResolving.resolveShareTargetForStartSharing(target:)(uint64_t a1, uint64_t a2, int a3)
 {
-  v7 = *(*v3 + 16);
-  v10 = *v3;
+  v9 = *v3;
 
-  v8 = *(v10 + 8);
+  v7 = *(v9 + 8);
 
-  return v8(a1, a2, a3 & 0x1FFFF);
+  return v7(a1, a2, a3 & 0x1FFFF);
 }
 
 uint64_t dispatch thunk of ShareTargetResolving.resolveShareTargetForStopSharing(target:call:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(a4 + 16);
-  v13 = (v9 + *v9);
-  v10 = v9[1];
-  v11 = swift_task_alloc();
-  *(v4 + 16) = v11;
-  *v11 = v4;
-  v11[1] = dispatch thunk of ShareTargetResolving.resolveShareTargetForStopSharing(target:call:);
+  v11 = (*(a4 + 16) + **(a4 + 16));
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = dispatch thunk of ShareTargetResolving.resolveShareTargetForStopSharing(target:call:);
 
-  return v13(a1, a2, a3, a4);
+  return v11(a1, a2, a3, a4);
 }
 
 uint64_t dispatch thunk of ShareTargetResolving.resolveShareTargetForStopSharing(target:call:)(__int16 a1)
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1 & 0x1FF);
+  return v3(a1 & 0x1FF);
 }
 
 uint64_t Flow.execute(completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2324,10 +2230,9 @@ uint64_t Flow.execute(completion:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64
   v5 = v4;
   v10 = *(a3 - 8);
   v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](a1);
+  MEMORY[0x28223BE20](a1, a2);
   v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
+  MEMORY[0x28223BE20](v12 - 8, v13);
   v15 = &v21 - v14;
   v16 = type metadata accessor for TaskPriority();
   (*(*(v16 - 8) + 56))(v15, 1, 1, v16);
@@ -2352,24 +2257,19 @@ uint64_t closure #1 in Flow.execute(completion:)(uint64_t a1, uint64_t a2, uint6
   v8[3] = a6;
   v11 = type metadata accessor for ExecuteResponse();
   v8[4] = v11;
-  v12 = *(v11 - 8);
-  v8[5] = v12;
-  v13 = *(v12 + 64) + 15;
-  v14 = swift_task_alloc();
-  v8[6] = v14;
-  v15 = *(MEMORY[0x277D5B878] + 4);
-  v16 = swift_task_alloc();
-  v8[7] = v16;
-  *v16 = v8;
-  v16[1] = closure #1 in Flow.execute(completion:);
+  v8[5] = *(v11 - 8);
+  v12 = swift_task_alloc();
+  v8[6] = v12;
+  v13 = swift_task_alloc();
+  v8[7] = v13;
+  *v13 = v8;
+  v13[1] = closure #1 in Flow.execute(completion:);
 
-  return MEMORY[0x2821BA608](v14, a7, a8);
+  return MEMORY[0x2821BA608](v12, a7, a8);
 }
 
 uint64_t closure #1 in Flow.execute(completion:)()
 {
-  v1 = *(*v0 + 56);
-  v3 = *v0;
 
   return MEMORY[0x2822009F8](closure #1 in Flow.execute(completion:), 0, 0);
 }
@@ -2377,14 +2277,13 @@ uint64_t closure #1 in Flow.execute(completion:)()
 {
   v2 = *(v0 + 40);
   v1 = *(v0 + 48);
-  v3 = *(v0 + 24);
-  v4 = *(v0 + 32);
+  v3 = *(v0 + 32);
   (*(v0 + 16))(v1);
-  (*(v2 + 8))(v1, v4);
+  (*(v2 + 8))(v1, v3);
 
-  v5 = *(v0 + 8);
+  v4 = *(v0 + 8);
 
-  return v5();
+  return v4();
 }
 
 uint64_t sub_266BA5008()
@@ -2394,10 +2293,8 @@ uint64_t sub_266BA5008()
   v3 = *(v2 + 80);
   v4 = (v3 + 48) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 16);
   swift_unknownObjectRelease();
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5 + 8);
 
   return MEMORY[0x2821FE8E8](v0, v5 + 16, v3 | 7);
 }
@@ -2423,10 +2320,9 @@ uint64_t partial apply for closure #1 in Flow.execute(completion:)(uint64_t a1)
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = v27 - v11;
-  outlined init with copy of TaskPriority?(a3, v27 - v11);
+  MEMORY[0x28223BE20](v9 - 8, v10);
+  v12 = v26 - v11;
+  outlined init with copy of TaskPriority?(a3, v26 - v11);
   v13 = type metadata accessor for TaskPriority();
   v14 = *(v13 - 8);
   v15 = (*(v14 + 48))(v12, 1, v13);
@@ -2442,53 +2338,52 @@ uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcnt
     (*(v14 + 8))(v12, v13);
   }
 
-  v17 = *(a5 + 16);
-  v16 = *(a5 + 24);
+  v16 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v17)
+  if (v16)
   {
     swift_getObjectType();
-    v18 = dispatch thunk of Actor.unownedExecutor.getter();
-    v20 = v19;
+    v17 = dispatch thunk of Actor.unownedExecutor.getter();
+    v19 = v18;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v21 = String.utf8CString.getter() + 32;
-      v22 = swift_allocObject();
-      *(v22 + 16) = a4;
-      *(v22 + 24) = a5;
+      v20 = String.utf8CString.getter() + 32;
+      v21 = swift_allocObject();
+      *(v21 + 16) = a4;
+      *(v21 + 24) = a5;
 
-      if (v20 | v18)
+      if (v19 | v17)
       {
-        v28[0] = 0;
-        v28[1] = 0;
-        v23 = v28;
-        v28[2] = v18;
-        v28[3] = v20;
+        v27[0] = 0;
+        v27[1] = 0;
+        v22 = v27;
+        v27[2] = v17;
+        v27[3] = v19;
       }
 
       else
       {
-        v23 = 0;
+        v22 = 0;
       }
 
-      v27[1] = 7;
-      v27[2] = v23;
-      v27[3] = v21;
-      v25 = swift_task_create();
+      v26[1] = 7;
+      v26[2] = v22;
+      v26[3] = v20;
+      v24 = swift_task_create();
 
       outlined destroy of TaskPriority?(a3);
 
-      return v25;
+      return v24;
     }
   }
 
   else
   {
-    v18 = 0;
-    v20 = 0;
+    v17 = 0;
+    v19 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -2496,15 +2391,15 @@ LABEL_6:
   }
 
   outlined destroy of TaskPriority?(a3);
-  v24 = swift_allocObject();
-  *(v24 + 16) = a4;
-  *(v24 + 24) = a5;
-  if (v20 | v18)
+  v23 = swift_allocObject();
+  *(v23 + 16) = a4;
+  *(v23 + 24) = a5;
+  if (v19 | v17)
   {
-    v28[4] = 0;
-    v28[5] = 0;
-    v28[6] = v18;
-    v28[7] = v20;
+    v27[4] = 0;
+    v27[5] = 0;
+    v27[6] = v17;
+    v27[7] = v19;
   }
 
   return swift_task_create();
@@ -2526,55 +2421,50 @@ uint64_t outlined destroy of TaskPriority?(uint64_t a1)
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TQ0_;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TQ0_;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TQ0_()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_266BA57A0()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TA(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TA_9(uint64_t a1)
 {
-  v5 = *(v1 + 16);
-  v4 = *(v1 + 24);
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
+  v4 = *(v1 + 16);
+  v5 = swift_task_alloc();
+  *(v2 + 16) = v5;
+  *v5 = v2;
+  v5[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
 
-  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v5);
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(a1, v4);
 }
 
 unint64_t lazy protocol witness table accessor for type DefinitiveShareTarget and conformance DefinitiveShareTarget()
@@ -2589,57 +2479,52 @@ unint64_t lazy protocol witness table accessor for type DefinitiveShareTarget an
   return result;
 }
 
-unint64_t Encodable.asDictionary()()
+unint64_t Encodable.asDictionary()(uint64_t a1, uint64_t a2)
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v0 = type metadata accessor for JSONEncoder();
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  v14[4] = *MEMORY[0x277D85DE8];
+  type metadata accessor for JSONEncoder();
   swift_allocObject();
   JSONEncoder.init()();
-  v3 = dispatch thunk of JSONEncoder.encode<A>(_:)();
-  v5 = v4;
+  v2 = dispatch thunk of JSONEncoder.encode<A>(_:)();
+  v4 = v3;
 
-  v6 = objc_opt_self();
+  v5 = objc_opt_self();
   isa = Data._bridgeToObjectiveC()().super.isa;
-  v16[0] = 0;
-  v8 = [v6 JSONObjectWithData:isa options:0 error:v16];
+  v14[0] = 0;
+  v7 = [v5 JSONObjectWithData:isa options:0 error:v14];
 
-  if (!v8)
+  if (!v7)
   {
-    v11 = v16[0];
-    v12 = _convertNSErrorToError(_:)();
+    v10 = v14[0];
+    v11 = _convertNSErrorToError(_:)();
 
     swift_willThrow();
     goto LABEL_5;
   }
 
-  v9 = v16[0];
+  v8 = v14[0];
   _bridgeAnyObjectToAny(_:)();
   swift_unknownObjectRelease();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd, &_sSDySSypGMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
 LABEL_5:
-    v10 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-    outlined consume of Data._Representation(v3, v5);
-    goto LABEL_6;
+    v9 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0g5Tf4g_n(MEMORY[0x277D84F90]);
+    outlined consume of Data._Representation(v2, v4);
+    return v9;
   }
 
-  outlined consume of Data._Representation(v3, v5);
-  v10 = v15;
-LABEL_6:
-  v13 = *MEMORY[0x277D85DE8];
-  return v10;
+  outlined consume of Data._Representation(v2, v4);
+  return v13;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -2657,39 +2542,36 @@ uint64_t ExpanseFlowProvider.init()@<X0>(void *a1@<X8>)
   v4 = type metadata accessor for DialogExecutor();
   v5 = swift_allocObject();
   v6 = type metadata accessor for ResponseFactory();
-  v7 = *(v6 + 48);
-  v8 = *(v6 + 52);
   swift_allocObject();
 
-  v9 = ResponseFactory.init()();
+  v7 = ResponseFactory.init()();
   static Device.current.getter();
   type metadata accessor for CATGlobals();
-  v10 = CATGlobals.__allocating_init()();
-  v23 = v6;
-  v24 = MEMORY[0x277D5BD58];
-  *&v22 = v9;
-  v21[3] = v4;
-  v21[4] = &protocol witness table for DialogExecutor;
-  v21[0] = v5;
-  v11 = type metadata accessor for ResponseExecutor();
-  v12 = swift_allocObject();
-  v13 = __swift_mutable_project_boxed_opaque_existential_1(v21, v4);
-  v14 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = (&v21[-1] - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v17 + 16))(v16);
-  v18 = *v16;
-  v12[5] = v4;
-  v12[6] = &protocol witness table for DialogExecutor;
-  v12[2] = v18;
-  outlined init with take of ConversationParticipant(&v22, (v12 + 7));
-  outlined init with take of ConversationParticipant(&v25, (v12 + 12));
-  v12[17] = v10;
-  __swift_destroy_boxed_opaque_existential_1Tm(v21);
+  v8 = CATGlobals.__allocating_init()();
+  v20 = v6;
+  v21 = MEMORY[0x277D5BD58];
+  *&v19 = v7;
+  v18[3] = v4;
+  v18[4] = &protocol witness table for DialogExecutor;
+  v18[0] = v5;
+  v9 = type metadata accessor for ResponseExecutor();
+  v10 = swift_allocObject();
+  v11 = __swift_mutable_project_boxed_opaque_existential_1(v18, v4);
+  MEMORY[0x28223BE20](v11, v11);
+  v13 = (&v18[-1] - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  (*(v14 + 16))(v13);
+  v15 = *v13;
+  v10[5] = v4;
+  v10[6] = &protocol witness table for DialogExecutor;
+  v10[2] = v15;
+  outlined init with take of ConversationParticipant(&v19, (v10 + 7));
+  outlined init with take of ConversationParticipant(&v22, (v10 + 12));
+  v10[17] = v8;
+  __swift_destroy_boxed_opaque_existential_1Tm(v18);
 
-  a1[8] = v11;
+  a1[8] = v9;
   a1[9] = &protocol witness table for ResponseExecutor;
-  a1[5] = v12;
+  a1[5] = v10;
   return static OutputPublisherFactory.makeOutputPublisherAsync()();
 }
 
@@ -2713,7 +2595,7 @@ unint64_t type metadata accessor for TUCallCenter()
   return result;
 }
 
-uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_t a2)
+uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -2721,16 +2603,15 @@ uint64_t __swift_mutable_project_boxed_opaque_existential_1(uint64_t a1, uint64_
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t ExpanseFlowProvider.findFlowFor(parse:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
   v6 = type metadata accessor for Responses.Common.NotInCall(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6);
-  v9 = &v120 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v7);
+  v9 = &v102 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for default != -1)
   {
     swift_once();
@@ -2742,21 +2623,21 @@ uint64_t ExpanseFlowProvider.findFlowFor(parse:)@<X0>(uint64_t a1@<X0>, uint64_t
   v13 = static os_log_type_t.default.getter();
   if (os_log_type_enabled(v12, v13))
   {
-    v122 = v11;
+    v104 = v11;
     v14 = v6;
     v15 = v9;
     v16 = v3;
     v17 = a2;
     v18 = swift_slowAlloc();
     v19 = swift_slowAlloc();
-    v154[0] = v19;
+    v136[0] = v19;
     *v18 = 136315138;
     if (one-time initialization token for typeName != -1)
     {
       swift_once();
     }
 
-    *(v18 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, v154);
+    *(v18 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, v136);
     _os_log_impl(&dword_266B9E000, v12, v13, "%s: Making flow from parse", v18, 0xCu);
     __swift_destroy_boxed_opaque_existential_1Tm(v19);
     MEMORY[0x26D5ED340](v19, -1, -1);
@@ -2772,13 +2653,13 @@ uint64_t ExpanseFlowProvider.findFlowFor(parse:)@<X0>(uint64_t a1@<X0>, uint64_t
   {
   }
 
-  static SharingIntentHelper.makeSharingIntentFrom(parse:)(a1, &v152);
-  if (v153)
+  static SharingIntentHelper.makeSharingIntentFrom(parse:)(a1, &v134);
+  if (v135)
   {
-    outlined init with take of ConversationParticipant(&v152, v154);
-    v20 = v155;
-    v21 = v156;
-    __swift_project_boxed_opaque_existential_1(v154, v155);
+    outlined init with take of ConversationParticipant(&v134, v136);
+    v20 = v137;
+    v21 = v138;
+    __swift_project_boxed_opaque_existential_1(v136, v137);
     v22 = (*(v21 + 16))(v20, v21);
     if (v22 > 1u)
     {
@@ -2790,14 +2671,14 @@ uint64_t ExpanseFlowProvider.findFlowFor(parse:)@<X0>(uint64_t a1@<X0>, uint64_t
         {
           v35 = swift_slowAlloc();
           v36 = swift_slowAlloc();
-          *&v152 = v36;
+          *&v134 = v36;
           *v35 = 136315138;
           if (one-time initialization token for typeName != -1)
           {
             swift_once();
           }
 
-          *(v35 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v152);
+          *(v35 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v134);
           _os_log_impl(&dword_266B9E000, v30, v34, "%s: The provided intent doesn't appear to actually be a sharing intent, as it has no sharingVerb - is this a SiriKit bug?", v35, 0xCu);
           __swift_destroy_boxed_opaque_existential_1Tm(v36);
           MEMORY[0x26D5ED340](v36, -1, -1);
@@ -2807,7 +2688,7 @@ uint64_t ExpanseFlowProvider.findFlowFor(parse:)@<X0>(uint64_t a1@<X0>, uint64_t
         goto LABEL_40;
       }
 
-      v122 = a2;
+      v104 = a2;
 
 LABEL_19:
       v30 = Logger.logObject.getter();
@@ -2816,14 +2697,14 @@ LABEL_19:
       {
         v32 = swift_slowAlloc();
         v33 = swift_slowAlloc();
-        *&v152 = v33;
+        *&v134 = v33;
         *v32 = 136315138;
         if (one-time initialization token for typeName != -1)
         {
           swift_once();
         }
 
-        *(v32 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v152);
+        *(v32 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v134);
         _os_log_impl(&dword_266B9E000, v30, v31, "%s: findFlowFor(parse:) called with parse with send verb, but only share and unshare verbs are supported", v32, 0xCu);
         __swift_destroy_boxed_opaque_existential_1Tm(v33);
         MEMORY[0x26D5ED340](v33, -1, -1);
@@ -2836,10 +2717,10 @@ LABEL_40:
 
 LABEL_41:
       static FlowSearchResult.noFlow.getter();
-      return __swift_destroy_boxed_opaque_existential_1Tm(v154);
+      return __swift_destroy_boxed_opaque_existential_1Tm(v136);
     }
 
-    v122 = a2;
+    v104 = a2;
     v23 = v22;
     v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
@@ -2849,91 +2730,87 @@ LABEL_41:
     }
 
     __swift_project_boxed_opaque_existential_1(v3, v3[3]);
-    ScreenSharingCallManager.getSalientScreenShareSupportingCall()(&v150);
-    if (!v151)
+    ScreenSharingCallManager.getSalientScreenShareSupportingCall()(&v132);
+    if (!v133)
     {
-      outlined destroy of SharingResponse?(&v150, &_s19SiriExpanseInternal4Call_pSgMd, &_s19SiriExpanseInternal4Call_pSgMR);
-      v67 = Logger.logObject.getter();
-      v68 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v67, v68))
+      outlined destroy of SharingResponse?(&v132, &_s19SiriExpanseInternal4Call_pSgMd, &_s19SiriExpanseInternal4Call_pSgMR);
+      v61 = Logger.logObject.getter();
+      v62 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v61, v62))
       {
-        v69 = swift_slowAlloc();
-        v70 = swift_slowAlloc();
-        *&v152 = v70;
-        *v69 = 136315138;
+        v63 = swift_slowAlloc();
+        v64 = swift_slowAlloc();
+        *&v134 = v64;
+        *v63 = 136315138;
         if (one-time initialization token for typeName != -1)
         {
           swift_once();
         }
 
-        *(v69 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v152);
-        _os_log_impl(&dword_266B9E000, v67, v68, "%s: No salient call that supports screen sharing found -> returning flow to output not-in-call error dialog", v69, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v70);
-        MEMORY[0x26D5ED340](v70, -1, -1);
-        MEMORY[0x26D5ED340](v69, -1, -1);
+        *(v63 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v134);
+        _os_log_impl(&dword_266B9E000, v61, v62, "%s: No salient call that supports screen sharing found -> returning flow to output not-in-call error dialog", v63, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1Tm(v64);
+        MEMORY[0x26D5ED340](v64, -1, -1);
+        MEMORY[0x26D5ED340](v63, -1, -1);
       }
 
       *v9 = -107;
-      v71 = &v9[*(v6 + 20)];
       static DialogPhase.completion.getter();
-      outlined init with copy of ResponseExecuting((v3 + 5), &v152);
-      outlined init with copy of ResponseExecuting((v3 + 10), &v150);
-      v72 = v153;
-      v73 = __swift_mutable_project_boxed_opaque_existential_1(&v152, v153);
-      v74 = *(*(v72 - 8) + 64);
-      MEMORY[0x28223BE20](v73);
-      v76 = (&v120 - ((v75 + 15) & 0xFFFFFFFFFFFFFFF0));
-      (*(v77 + 16))(v76);
-      v78 = *v76;
-      v148 = v6;
-      v149 = &protocol witness table for Responses.Common.NotInCall;
-      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v147);
+      outlined init with copy of ResponseExecuting((v3 + 5), &v134);
+      outlined init with copy of ResponseExecuting((v3 + 10), &v132);
+      v65 = __swift_mutable_project_boxed_opaque_existential_1(&v134, v135);
+      MEMORY[0x28223BE20](v65, v65);
+      v67 = (&v102 - ((v66 + 15) & 0xFFFFFFFFFFFFFFF0));
+      (*(v68 + 16))(v67);
+      v69 = *v67;
+      v130 = v6;
+      v131 = &protocol witness table for Responses.Common.NotInCall;
+      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v129);
       outlined init with copy of Responses.Common.NotInCall(v9, boxed_opaque_existential_1, type metadata accessor for Responses.Common.NotInCall);
-      v80 = type metadata accessor for ResponseExecutor();
-      v145 = v80;
-      v146 = &protocol witness table for ResponseExecutor;
-      v144[0] = v78;
+      v71 = type metadata accessor for ResponseExecutor();
+      v127 = v71;
+      v128 = &protocol witness table for ResponseExecutor;
+      v126[0] = v69;
       type metadata accessor for OutputDialogFlow();
-      v81 = swift_allocObject();
-      v82 = __swift_mutable_project_boxed_opaque_existential_1(v144, v80);
-      v83 = *(*(v80 - 8) + 64);
-      MEMORY[0x28223BE20](v82);
-      v85 = (&v120 - ((v84 + 15) & 0xFFFFFFFFFFFFFFF0));
-      (*(v86 + 16))(v85);
-      v87 = *v85;
-      *(v81 + 88) = v80;
-      *(v81 + 96) = &protocol witness table for ResponseExecutor;
-      *(v81 + 64) = v87;
-      *(v81 + 16) = 0;
-      outlined init with take of ConversationParticipant(&v147, v81 + 24);
-      outlined init with take of ConversationParticipant(&v150, v81 + 104);
-      __swift_destroy_boxed_opaque_existential_1Tm(v144);
+      v72 = swift_allocObject();
+      v73 = __swift_mutable_project_boxed_opaque_existential_1(v126, v71);
+      MEMORY[0x28223BE20](v73, v73);
+      v75 = (&v102 - ((v74 + 15) & 0xFFFFFFFFFFFFFFF0));
+      (*(v76 + 16))(v75);
+      v77 = *v75;
+      *(v72 + 88) = v71;
+      *(v72 + 96) = &protocol witness table for ResponseExecutor;
+      *(v72 + 64) = v77;
+      *(v72 + 16) = 0;
+      outlined init with take of ConversationParticipant(&v129, v72 + 24);
+      outlined init with take of ConversationParticipant(&v132, v72 + 104);
+      __swift_destroy_boxed_opaque_existential_1Tm(v126);
       outlined destroy of Responses.Common.NotInCall(v9, type metadata accessor for Responses.Common.NotInCall);
-      __swift_destroy_boxed_opaque_existential_1Tm(&v152);
-      *&v152 = v81;
-      lazy protocol witness table accessor for type OutputDialogFlow and conformance OutputDialogFlow(&lazy protocol witness table cache variable for type OutputDialogFlow and conformance OutputDialogFlow, type metadata accessor for OutputDialogFlow);
+      __swift_destroy_boxed_opaque_existential_1Tm(&v134);
+      *&v134 = v72;
+      lazy protocol witness table accessor for type OutputDialogFlow and conformance OutputDialogFlow(&lazy protocol witness table cache variable for type OutputDialogFlow and conformance OutputDialogFlow, type metadata accessor for OutputDialogFlow, &protocol conformance descriptor for OutputDialogFlow);
       Flow.eraseToAnyFlow()();
 
       static FlowSearchResult.flow(_:)();
 
-      return __swift_destroy_boxed_opaque_existential_1Tm(v154);
+      return __swift_destroy_boxed_opaque_existential_1Tm(v136);
     }
 
-    outlined init with take of ConversationParticipant(&v150, &v152);
+    outlined init with take of ConversationParticipant(&v132, &v134);
     v37 = Logger.logObject.getter();
     v38 = static os_log_type_t.debug.getter();
     if (os_log_type_enabled(v37, v38))
     {
       v39 = swift_slowAlloc();
       v40 = swift_slowAlloc();
-      *&v150 = v40;
+      *&v132 = v40;
       *v39 = 136315138;
       if (one-time initialization token for typeName != -1)
       {
         swift_once();
       }
 
-      *(v39 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v150);
+      *(v39 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v132);
       _os_log_impl(&dword_266B9E000, v37, v38, "%s: Found salient call that supports screen sharing", v39, 0xCu);
       __swift_destroy_boxed_opaque_existential_1Tm(v40);
       MEMORY[0x26D5ED340](v40, -1, -1);
@@ -2952,82 +2829,77 @@ LABEL_41:
         {
           v44 = swift_slowAlloc();
           v45 = swift_slowAlloc();
-          *&v150 = v45;
+          *&v132 = v45;
           *v44 = 136315138;
           if (one-time initialization token for typeName != -1)
           {
             swift_once();
           }
 
-          *(v44 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v150);
+          *(v44 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v132);
           _os_log_impl(&dword_266B9E000, v42, v43, "%s: Verb is unshare -> returning StopSharingFlow", v44, 0xCu);
           __swift_destroy_boxed_opaque_existential_1Tm(v45);
           MEMORY[0x26D5ED340](v45, -1, -1);
           MEMORY[0x26D5ED340](v44, -1, -1);
         }
 
-        outlined init with copy of ResponseExecuting(v154, &v150);
-        outlined init with copy of ResponseExecuting(&v152, &v147);
-        outlined init with copy of ResponseExecuting((v3 + 5), v144);
-        outlined init with copy of ResponseExecuting((v3 + 10), v143);
-        v46 = v145;
-        v47 = __swift_mutable_project_boxed_opaque_existential_1(v144, v145);
-        v121 = &v120;
-        v48 = *(*(v46 - 8) + 64);
-        MEMORY[0x28223BE20](v47);
-        v50 = (&v120 - ((v49 + 15) & 0xFFFFFFFFFFFFFFF0));
-        (*(v51 + 16))(v50);
-        v52 = *v50;
-        v53 = type metadata accessor for ResponseExecutor();
-        v141 = v53;
-        v142 = &protocol witness table for ResponseExecutor;
-        v140[0] = v52;
-        v138 = &type metadata for ShareTargetResolver;
-        v139 = &protocol witness table for ShareTargetResolver;
-        v135 = &type metadata for Sharer;
-        v136 = &protocol witness table for Sharer;
-        v54 = type metadata accessor for StopSharingFlow(0);
-        v55 = *(v54 + 48);
-        v56 = *(v54 + 52);
-        v57 = swift_allocObject();
-        v58 = __swift_mutable_project_boxed_opaque_existential_1(v140, v53);
-        v59 = *(*(v53 - 8) + 64);
-        MEMORY[0x28223BE20](v58);
-        v61 = (&v120 - ((v60 + 15) & 0xFFFFFFFFFFFFFFF0));
-        (*(v62 + 16))(v61);
-        __swift_mutable_project_boxed_opaque_existential_1(v137, v138);
-        __swift_mutable_project_boxed_opaque_existential_1(v134, v135);
-        v63 = *v61;
-        v132 = &type metadata for ShareTargetResolver;
-        v133 = &protocol witness table for ShareTargetResolver;
-        v129 = &type metadata for Sharer;
-        v130 = &protocol witness table for Sharer;
-        outlined init with copy of ResponseExecuting(v131, v57 + direct field offset for StopSharingFlow.shareTargetResolver);
-        outlined init with copy of ResponseExecuting(v128, v57 + direct field offset for StopSharingFlow.sharer);
-        outlined init with copy of ResponseExecuting(&v150, v127);
-        outlined init with copy of ResponseExecuting(&v147, v126);
-        outlined init with copy of ResponseExecuting(v143, v125);
-        v64 = specialized SharingFlow.init(intent:call:responseExecutor:outputPublisher:)(v127, v126, v63, v125, v57, type metadata accessor for StopSharingFlow.StopSharingFlowState, 5, type metadata accessor for StopSharingFlow.StopSharingFlowState, StopSharingFlow.StopSharingFlowState.description.getter);
-        __swift_destroy_boxed_opaque_existential_1Tm(v143);
-        __swift_destroy_boxed_opaque_existential_1Tm(&v147);
-        __swift_destroy_boxed_opaque_existential_1Tm(&v150);
-        __swift_destroy_boxed_opaque_existential_1Tm(v128);
-        __swift_destroy_boxed_opaque_existential_1Tm(v131);
-        __swift_destroy_boxed_opaque_existential_1Tm(v134);
-        __swift_destroy_boxed_opaque_existential_1Tm(v137);
-        __swift_destroy_boxed_opaque_existential_1Tm(v140);
-        __swift_destroy_boxed_opaque_existential_1Tm(v144);
-        *&v150 = v64;
-        v65 = &lazy protocol witness table cache variable for type StopSharingFlow and conformance SharingFlow<A>;
-        v66 = type metadata accessor for StopSharingFlow;
+        outlined init with copy of ResponseExecuting(v136, &v132);
+        outlined init with copy of ResponseExecuting(&v134, &v129);
+        outlined init with copy of ResponseExecuting((v3 + 5), v126);
+        outlined init with copy of ResponseExecuting((v3 + 10), v125);
+        v46 = __swift_mutable_project_boxed_opaque_existential_1(v126, v127);
+        v103 = &v102;
+        MEMORY[0x28223BE20](v46, v46);
+        v48 = (&v102 - ((v47 + 15) & 0xFFFFFFFFFFFFFFF0));
+        (*(v49 + 16))(v48);
+        v50 = *v48;
+        v51 = type metadata accessor for ResponseExecutor();
+        v123 = v51;
+        v124 = &protocol witness table for ResponseExecutor;
+        v122[0] = v50;
+        v120 = &type metadata for ShareTargetResolver;
+        v121 = &protocol witness table for ShareTargetResolver;
+        v117 = &type metadata for Sharer;
+        v118 = &protocol witness table for Sharer;
+        type metadata accessor for StopSharingFlow(0);
+        v52 = swift_allocObject();
+        v53 = __swift_mutable_project_boxed_opaque_existential_1(v122, v51);
+        MEMORY[0x28223BE20](v53, v53);
+        v55 = (&v102 - ((v54 + 15) & 0xFFFFFFFFFFFFFFF0));
+        (*(v56 + 16))(v55);
+        __swift_mutable_project_boxed_opaque_existential_1(v119, v120);
+        __swift_mutable_project_boxed_opaque_existential_1(v116, v117);
+        v57 = *v55;
+        v114 = &type metadata for ShareTargetResolver;
+        v115 = &protocol witness table for ShareTargetResolver;
+        v111 = &type metadata for Sharer;
+        v112 = &protocol witness table for Sharer;
+        outlined init with copy of ResponseExecuting(v113, v52 + direct field offset for StopSharingFlow.shareTargetResolver);
+        outlined init with copy of ResponseExecuting(v110, v52 + direct field offset for StopSharingFlow.sharer);
+        outlined init with copy of ResponseExecuting(&v132, v109);
+        outlined init with copy of ResponseExecuting(&v129, v108);
+        outlined init with copy of ResponseExecuting(v125, v107);
+        v58 = specialized SharingFlow.init(intent:call:responseExecutor:outputPublisher:)(v109, v108, v57, v107, v52, type metadata accessor for StopSharingFlow.StopSharingFlowState, 5, type metadata accessor for StopSharingFlow.StopSharingFlowState, StopSharingFlow.StopSharingFlowState.description.getter);
+        __swift_destroy_boxed_opaque_existential_1Tm(v125);
+        __swift_destroy_boxed_opaque_existential_1Tm(&v129);
+        __swift_destroy_boxed_opaque_existential_1Tm(&v132);
+        __swift_destroy_boxed_opaque_existential_1Tm(v110);
+        __swift_destroy_boxed_opaque_existential_1Tm(v113);
+        __swift_destroy_boxed_opaque_existential_1Tm(v116);
+        __swift_destroy_boxed_opaque_existential_1Tm(v119);
+        __swift_destroy_boxed_opaque_existential_1Tm(v122);
+        __swift_destroy_boxed_opaque_existential_1Tm(v126);
+        *&v132 = v58;
+        v59 = &lazy protocol witness table cache variable for type StopSharingFlow and conformance SharingFlow<A>;
+        v60 = type metadata accessor for StopSharingFlow;
 LABEL_54:
-        lazy protocol witness table accessor for type OutputDialogFlow and conformance OutputDialogFlow(v65, v66);
+        lazy protocol witness table accessor for type OutputDialogFlow and conformance OutputDialogFlow(v59, v60, &protocol conformance descriptor for SharingFlow<A>);
         Flow.eraseToAnyFlow()();
 
         static FlowSearchResult.flow(_:)();
 
-        __swift_destroy_boxed_opaque_existential_1Tm(&v152);
-        return __swift_destroy_boxed_opaque_existential_1Tm(v154);
+        __swift_destroy_boxed_opaque_existential_1Tm(&v134);
+        return __swift_destroy_boxed_opaque_existential_1Tm(v136);
       }
     }
 
@@ -3035,117 +2907,110 @@ LABEL_54:
     {
     }
 
-    v88 = Logger.logObject.getter();
-    v89 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v88, v89))
+    v78 = Logger.logObject.getter();
+    v79 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v78, v79))
     {
-      v90 = swift_slowAlloc();
-      v91 = swift_slowAlloc();
-      *&v150 = v91;
-      *v90 = 136315138;
+      v80 = swift_slowAlloc();
+      v81 = swift_slowAlloc();
+      *&v132 = v81;
+      *v80 = 136315138;
       if (one-time initialization token for typeName != -1)
       {
         swift_once();
       }
 
-      *(v90 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v150);
-      _os_log_impl(&dword_266B9E000, v88, v89, "%s: Verb is share -> returning StartSharingFlow", v90, 0xCu);
-      __swift_destroy_boxed_opaque_existential_1Tm(v91);
-      MEMORY[0x26D5ED340](v91, -1, -1);
-      MEMORY[0x26D5ED340](v90, -1, -1);
+      *(v80 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, &v132);
+      _os_log_impl(&dword_266B9E000, v78, v79, "%s: Verb is share -> returning StartSharingFlow", v80, 0xCu);
+      __swift_destroy_boxed_opaque_existential_1Tm(v81);
+      MEMORY[0x26D5ED340](v81, -1, -1);
+      MEMORY[0x26D5ED340](v80, -1, -1);
     }
 
-    outlined init with copy of ResponseExecuting(v154, &v150);
-    outlined init with copy of ResponseExecuting(&v152, &v147);
-    outlined init with copy of ResponseExecuting((v3 + 5), v144);
-    outlined init with copy of ResponseExecuting((v3 + 10), v143);
-    v92 = type metadata accessor for SharePlayHelper();
-    v93 = swift_allocObject();
-    v94 = v145;
-    v95 = __swift_mutable_project_boxed_opaque_existential_1(v144, v145);
-    v121 = &v120;
-    v96 = *(*(v94 - 8) + 64);
-    MEMORY[0x28223BE20](v95);
-    v98 = (&v120 - ((v97 + 15) & 0xFFFFFFFFFFFFFFF0));
-    (*(v99 + 16))(v98);
-    v100 = *v98;
-    v101 = type metadata accessor for ResponseExecutor();
-    v141 = v101;
-    v142 = &protocol witness table for ResponseExecutor;
-    v140[0] = v100;
-    v138 = &type metadata for ShareTargetResolver;
-    v139 = &protocol witness table for ShareTargetResolver;
-    v135 = &type metadata for Sharer;
-    v136 = &protocol witness table for Sharer;
-    v132 = v92;
-    v133 = &protocol witness table for SharePlayHelper;
-    v131[0] = v93;
-    started = type metadata accessor for StartSharingFlow(0);
-    v103 = *(started + 48);
-    v104 = *(started + 52);
-    v105 = swift_allocObject();
-    v106 = __swift_mutable_project_boxed_opaque_existential_1(v140, v101);
-    v120 = &v120;
-    v107 = *(*(v101 - 8) + 64);
-    MEMORY[0x28223BE20](v106);
-    v109 = (&v120 - ((v108 + 15) & 0xFFFFFFFFFFFFFFF0));
-    (*(v110 + 16))(v109);
-    __swift_mutable_project_boxed_opaque_existential_1(v137, v138);
-    __swift_mutable_project_boxed_opaque_existential_1(v134, v135);
-    v111 = v132;
-    v112 = __swift_mutable_project_boxed_opaque_existential_1(v131, v132);
-    v113 = *(v111[-1].Description + 8);
-    MEMORY[0x28223BE20](v112);
-    v115 = (&v120 - ((v114 + 15) & 0xFFFFFFFFFFFFFFF0));
-    (*(v116 + 16))(v115);
-    v117 = *v109;
-    v118 = *v115;
-    v129 = &type metadata for ShareTargetResolver;
-    v130 = &protocol witness table for ShareTargetResolver;
-    v127[3] = &type metadata for Sharer;
-    v127[4] = &protocol witness table for Sharer;
-    v126[3] = v92;
-    v126[4] = &protocol witness table for SharePlayHelper;
-    v126[0] = v118;
-    outlined init with copy of ResponseExecuting(v128, v105 + direct field offset for StartSharingFlow.shareTargetResolver);
-    outlined init with copy of ResponseExecuting(v127, v105 + direct field offset for StartSharingFlow.sharer);
-    outlined init with copy of ResponseExecuting(v126, v105 + direct field offset for StartSharingFlow.sharePlayHelper);
-    outlined init with copy of ResponseExecuting(&v150, v125);
-    outlined init with copy of ResponseExecuting(&v147, v124);
-    outlined init with copy of ResponseExecuting(v143, v123);
-    v119 = specialized SharingFlow.init(intent:call:responseExecutor:outputPublisher:)(v125, v124, v117, v123, v105, type metadata accessor for StartSharingFlow.StartSharingFlowState, 9, type metadata accessor for StartSharingFlow.StartSharingFlowState, StartSharingFlow.StartSharingFlowState.description.getter);
-    __swift_destroy_boxed_opaque_existential_1Tm(v143);
-    __swift_destroy_boxed_opaque_existential_1Tm(&v147);
-    __swift_destroy_boxed_opaque_existential_1Tm(&v150);
+    outlined init with copy of ResponseExecuting(v136, &v132);
+    outlined init with copy of ResponseExecuting(&v134, &v129);
+    outlined init with copy of ResponseExecuting((v3 + 5), v126);
+    outlined init with copy of ResponseExecuting((v3 + 10), v125);
+    v82 = type metadata accessor for SharePlayHelper();
+    v83 = swift_allocObject();
+    v84 = __swift_mutable_project_boxed_opaque_existential_1(v126, v127);
+    v103 = &v102;
+    MEMORY[0x28223BE20](v84, v84);
+    v86 = (&v102 - ((v85 + 15) & 0xFFFFFFFFFFFFFFF0));
+    (*(v87 + 16))(v86);
+    v88 = *v86;
+    v89 = type metadata accessor for ResponseExecutor();
+    v123 = v89;
+    v124 = &protocol witness table for ResponseExecutor;
+    v122[0] = v88;
+    v120 = &type metadata for ShareTargetResolver;
+    v121 = &protocol witness table for ShareTargetResolver;
+    v117 = &type metadata for Sharer;
+    v118 = &protocol witness table for Sharer;
+    v114 = v82;
+    v115 = &protocol witness table for SharePlayHelper;
+    v113[0] = v83;
+    type metadata accessor for StartSharingFlow(0);
+    v90 = swift_allocObject();
+    v91 = __swift_mutable_project_boxed_opaque_existential_1(v122, v89);
+    v102 = &v102;
+    MEMORY[0x28223BE20](v91, v91);
+    v93 = (&v102 - ((v92 + 15) & 0xFFFFFFFFFFFFFFF0));
+    (*(v94 + 16))(v93);
+    __swift_mutable_project_boxed_opaque_existential_1(v119, v120);
+    __swift_mutable_project_boxed_opaque_existential_1(v116, v117);
+    v95 = __swift_mutable_project_boxed_opaque_existential_1(v113, v114);
+    MEMORY[0x28223BE20](v95, v95);
+    v97 = (&v102 - ((v96 + 15) & 0xFFFFFFFFFFFFFFF0));
+    (*(v98 + 16))(v97);
+    v99 = *v93;
+    v100 = *v97;
+    v111 = &type metadata for ShareTargetResolver;
+    v112 = &protocol witness table for ShareTargetResolver;
+    v109[3] = &type metadata for Sharer;
+    v109[4] = &protocol witness table for Sharer;
+    v108[3] = v82;
+    v108[4] = &protocol witness table for SharePlayHelper;
+    v108[0] = v100;
+    outlined init with copy of ResponseExecuting(v110, v90 + direct field offset for StartSharingFlow.shareTargetResolver);
+    outlined init with copy of ResponseExecuting(v109, v90 + direct field offset for StartSharingFlow.sharer);
+    outlined init with copy of ResponseExecuting(v108, v90 + direct field offset for StartSharingFlow.sharePlayHelper);
+    outlined init with copy of ResponseExecuting(&v132, v107);
+    outlined init with copy of ResponseExecuting(&v129, v106);
+    outlined init with copy of ResponseExecuting(v125, v105);
+    v101 = specialized SharingFlow.init(intent:call:responseExecutor:outputPublisher:)(v107, v106, v99, v105, v90, type metadata accessor for StartSharingFlow.StartSharingFlowState, 9, type metadata accessor for StartSharingFlow.StartSharingFlowState, StartSharingFlow.StartSharingFlowState.description.getter);
+    __swift_destroy_boxed_opaque_existential_1Tm(v125);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v129);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v132);
+    __swift_destroy_boxed_opaque_existential_1Tm(v108);
+    __swift_destroy_boxed_opaque_existential_1Tm(v109);
+    __swift_destroy_boxed_opaque_existential_1Tm(v110);
+    __swift_destroy_boxed_opaque_existential_1Tm(v113);
+    __swift_destroy_boxed_opaque_existential_1Tm(v116);
+    __swift_destroy_boxed_opaque_existential_1Tm(v119);
+    __swift_destroy_boxed_opaque_existential_1Tm(v122);
     __swift_destroy_boxed_opaque_existential_1Tm(v126);
-    __swift_destroy_boxed_opaque_existential_1Tm(v127);
-    __swift_destroy_boxed_opaque_existential_1Tm(v128);
-    __swift_destroy_boxed_opaque_existential_1Tm(v131);
-    __swift_destroy_boxed_opaque_existential_1Tm(v134);
-    __swift_destroy_boxed_opaque_existential_1Tm(v137);
-    __swift_destroy_boxed_opaque_existential_1Tm(v140);
-    __swift_destroy_boxed_opaque_existential_1Tm(v144);
-    *&v150 = v119;
-    v65 = &lazy protocol witness table cache variable for type StartSharingFlow and conformance SharingFlow<A>;
-    v66 = type metadata accessor for StartSharingFlow;
+    *&v132 = v101;
+    v59 = &lazy protocol witness table cache variable for type StartSharingFlow and conformance SharingFlow<A>;
+    v60 = type metadata accessor for StartSharingFlow;
     goto LABEL_54;
   }
 
-  outlined destroy of SharingResponse?(&v152, &_s19SiriExpanseInternal13SharingIntent_pSgMd, &_s19SiriExpanseInternal13SharingIntent_pSgMR);
+  outlined destroy of SharingResponse?(&v134, &_s19SiriExpanseInternal13SharingIntent_pSgMd, &_s19SiriExpanseInternal13SharingIntent_pSgMR);
   v24 = Logger.logObject.getter();
   v25 = static os_log_type_t.error.getter();
   if (os_log_type_enabled(v24, v25))
   {
     v26 = swift_slowAlloc();
     v27 = swift_slowAlloc();
-    v154[0] = v27;
+    v136[0] = v27;
     *v26 = 136315138;
     if (one-time initialization token for typeName != -1)
     {
       swift_once();
     }
 
-    *(v26 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, v154);
+    *(v26 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static ExpanseFlowProvider.typeName, *algn_2800C0278, v136);
     _os_log_impl(&dword_266B9E000, v24, v25, "%s: Failed to make a SharingIntent from the parse", v26, 0xCu);
     __swift_destroy_boxed_opaque_existential_1Tm(v27);
     MEMORY[0x26D5ED340](v27, -1, -1);
@@ -3163,9 +3028,9 @@ uint64_t serialize(_:at:)(uint64_t result, _BYTE **a2)
   return result;
 }
 
-uint64_t closure #1 in OSLogArguments.append(_:)(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
+uint64_t closure #1 in OSLogArguments.append(_:)(unint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(unint64_t **, uint64_t))
 {
-  v6 = a4();
+  v6 = a4(a1, a2);
   v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v7, a3);
 
   v10 = *a1;
@@ -3174,7 +3039,7 @@ uint64_t closure #1 in OSLogArguments.append(_:)(uint64_t **a1, uint64_t a2, uin
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -3272,16 +3137,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -3378,7 +3241,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -3392,15 +3254,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -3415,15 +3277,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -3432,12 +3294,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -3642,87 +3504,82 @@ uint64_t *__swift_allocate_boxed_opaque_existential_1(uint64_t *result)
   return result;
 }
 
-void *specialized SharingFlow.init(intent:call:responseExecutor:outputPublisher:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4, void *a5, uint64_t (*a6)(void), uint64_t a7, uint64_t (*a8)(void), uint64_t (*a9)(uint64_t))
+void *specialized SharingFlow.init(intent:call:responseExecutor:outputPublisher:)(void *a1, void *a2, uint64_t a3, void *a4, void *a5, uint64_t (*a6)(void), uint64_t a7, uint64_t (*a8)(void), uint64_t (*a9)(uint64_t))
 {
   v15 = a6(0);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15);
-  v18 = &v49[-v17];
-  v56[3] = type metadata accessor for ResponseExecutor();
-  v56[4] = &protocol witness table for ResponseExecutor;
-  v56[0] = a3;
+  MEMORY[0x28223BE20](v15, v16);
+  v18 = &v45[-v17];
+  v52[3] = type metadata accessor for ResponseExecutor();
+  v52[4] = &protocol witness table for ResponseExecutor;
+  v52[0] = a3;
   a5[2] = 0x46676E6972616853;
   a5[3] = 0xEB00000000776F6CLL;
-  v19 = *(*a5 + 104);
   swift_storeEnumTagMultiPayload();
   outlined init with copy of ResponseExecuting(a1, a5 + *(*a5 + 112));
   outlined init with copy of ResponseExecuting(a2, a5 + *(*a5 + 120));
-  outlined init with copy of ResponseExecuting(v56, a5 + *(*a5 + 128));
+  outlined init with copy of ResponseExecuting(v52, a5 + *(*a5 + 128));
   outlined init with copy of ResponseExecuting(a4, a5 + *(*a5 + 136));
   if (one-time initialization token for default != -1)
   {
     swift_once();
   }
 
-  v20 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v20, static Logger.default);
+  v19 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v19, static Logger.default);
 
-  v21 = Logger.logObject.getter();
-  v22 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v21, v22))
+  v20 = Logger.logObject.getter();
+  v21 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v20, v21))
   {
-    v54 = a2;
-    v23 = swift_slowAlloc();
-    v52 = swift_slowAlloc();
-    v55 = v52;
-    *v23 = 136315650;
-    v50 = v22;
-    v53 = a1;
-    v24 = a5[2];
-    v25 = a5[3];
+    v50 = a2;
+    v22 = swift_slowAlloc();
+    v48 = swift_slowAlloc();
+    v51 = v48;
+    *v22 = 136315650;
+    v46 = v21;
+    v49 = a1;
+    v23 = a5[2];
+    v24 = a5[3];
 
-    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, &v55);
+    v25 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v23, v24, &v51);
 
-    *(v23 + 4) = v26;
-    v51 = a4;
-    *(v23 + 12) = 2080;
-    v27 = *(*a5 + 104);
+    *(v22 + 4) = v25;
+    v47 = a4;
+    *(v22 + 12) = 2080;
+    v26 = *(*a5 + 104);
     swift_beginAccess();
-    v28 = outlined init with copy of Responses.Common.NotInCall(a5 + v27, v18, a8);
-    v29 = a9(v28);
-    v31 = v30;
+    v27 = outlined init with copy of Responses.Common.NotInCall(a5 + v26, v18, a8);
+    v28 = a9(v27);
+    v30 = v29;
 
     outlined destroy of Responses.Common.NotInCall(v18, a8);
-    v32 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v29, v31, &v55);
+    v31 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v30, &v51);
 
-    *(v23 + 14) = v32;
-    *(v23 + 22) = 2080;
-    v33 = (a5 + *(*a5 + 112));
+    *(v22 + 14) = v31;
+    *(v22 + 22) = 2080;
+    v32 = (a5 + *(*a5 + 112));
     swift_beginAccess();
-    v34 = v33[3];
-    v35 = v33[4];
-    v36 = __swift_project_boxed_opaque_existential_1(v33, v34);
-    v37 = *(v34 - 8);
-    v38 = *(v37 + 64);
-    MEMORY[0x28223BE20](v36);
-    v40 = &v49[-v39];
-    (*(v37 + 16))(&v49[-v39]);
-    v41 = *(v35 + 8);
-    v42 = dispatch thunk of CustomStringConvertible.description.getter();
-    v44 = v43;
-    (*(v37 + 8))(v40, v34);
-    v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v42, v44, &v55);
+    v33 = v32[3];
+    v34 = __swift_project_boxed_opaque_existential_1(v32, v33);
+    v35 = *(v33 - 8);
+    MEMORY[0x28223BE20](v34, v34);
+    v37 = &v45[-v36];
+    (*(v35 + 16))(&v45[-v36]);
+    v38 = dispatch thunk of CustomStringConvertible.description.getter();
+    v40 = v39;
+    (*(v35 + 8))(v37, v33);
+    v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v38, v40, &v51);
 
-    *(v23 + 24) = v45;
-    _os_log_impl(&dword_266B9E000, v21, v50, "%s: Initialized SharingFlow with state %s, intent %s", v23, 0x20u);
-    v46 = v52;
+    *(v22 + 24) = v41;
+    _os_log_impl(&dword_266B9E000, v20, v46, "%s: Initialized SharingFlow with state %s, intent %s", v22, 0x20u);
+    v42 = v48;
     swift_arrayDestroy();
-    MEMORY[0x26D5ED340](v46, -1, -1);
-    MEMORY[0x26D5ED340](v23, -1, -1);
+    MEMORY[0x26D5ED340](v42, -1, -1);
+    MEMORY[0x26D5ED340](v22, -1, -1);
 
-    __swift_destroy_boxed_opaque_existential_1Tm(v51);
-    __swift_destroy_boxed_opaque_existential_1Tm(v54);
-    v47 = v53;
+    __swift_destroy_boxed_opaque_existential_1Tm(v47);
+    __swift_destroy_boxed_opaque_existential_1Tm(v50);
+    v43 = v49;
   }
 
   else
@@ -3730,11 +3587,11 @@ void *specialized SharingFlow.init(intent:call:responseExecutor:outputPublisher:
 
     __swift_destroy_boxed_opaque_existential_1Tm(a4);
     __swift_destroy_boxed_opaque_existential_1Tm(a2);
-    v47 = a1;
+    v43 = a1;
   }
 
-  __swift_destroy_boxed_opaque_existential_1Tm(v47);
-  __swift_destroy_boxed_opaque_existential_1Tm(v56);
+  __swift_destroy_boxed_opaque_existential_1Tm(v43);
+  __swift_destroy_boxed_opaque_existential_1Tm(v52);
   return a5;
 }
 
@@ -3747,7 +3604,7 @@ uint64_t outlined init with copy of ResponseExecuting(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type OutputDialogFlow and conformance OutputDialogFlow(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type OutputDialogFlow and conformance OutputDialogFlow(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4000,89 +3857,84 @@ id SharingDirectInvocation.toSAIntentGroupRunSiriKitExecutor(deviceState:)(void 
   [v6 setUserData_];
 
   v12 = objc_opt_self();
-  v13 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
-  v14 = DeviceState.asInvocationContext.getter();
-  v15 = [v12 runSiriKitExecutorCommandWithContext:v14 payload:v6];
+  v13 = DeviceState.asInvocationContext.getter();
+  v14 = [v12 runSiriKitExecutorCommandWithContext:v13 payload:v6];
 
-  return v15;
+  return v14;
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance SharingDirectInvocation(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0x7463656A6572;
+    v3 = 0x7463656A6572;
   }
 
   else
   {
-    v4 = 0x6D7269666E6F63;
+    v3 = 0x6D7269666E6F63;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = 0xE700000000000000;
+    v4 = 0xE700000000000000;
   }
 
   else
   {
-    v5 = 0xE600000000000000;
+    v4 = 0xE600000000000000;
   }
 
   if (*a2)
   {
-    v6 = 0x7463656A6572;
+    v5 = 0x7463656A6572;
   }
 
   else
   {
-    v6 = 0x6D7269666E6F63;
+    v5 = 0x6D7269666E6F63;
   }
 
   if (*a2)
   {
-    v7 = 0xE600000000000000;
+    v6 = 0xE600000000000000;
   }
 
   else
   {
-    v7 = 0xE700000000000000;
+    v6 = 0xE700000000000000;
   }
 
-  if (v4 == v6 && v5 == v7)
+  if (v3 == v5 && v4 == v6)
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance SharingDirectInvocation()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance SharingDirectInvocation()
+uint64_t protocol witness for Hashable.hash(into:) in conformance SharingDirectInvocation(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SharingDirectInvocation()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SharingDirectInvocation(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -4146,96 +3998,95 @@ uint64_t specialized SharingDirectInvocation.init(from:)(char *a1)
 {
   v2 = type metadata accessor for Parse.DirectInvocation();
   v3 = *(v2 - 8);
-  v4 = v3[8];
-  v5 = (MEMORY[0x28223BE20])();
-  v7 = v52 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = v52 - v9;
-  MEMORY[0x28223BE20](v8);
-  v12 = v52 - v11;
+  v5 = MEMORY[0x28223BE20](v2, v4);
+  v7 = v54 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v5, v8);
+  v11 = v54 - v10;
+  MEMORY[0x28223BE20](v9, v12);
+  v14 = v54 - v13;
   if (one-time initialization token for default != -1)
   {
     swift_once();
   }
 
-  v13 = type metadata accessor for Logger();
-  v14 = __swift_project_value_buffer(v13, static Logger.default);
-  v54 = v3[2];
-  v55 = a1;
-  v54(v12, a1, v2);
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.debug.getter();
-  v17 = os_log_type_enabled(v15, v16);
-  v56 = v3;
-  if (v17)
+  v15 = type metadata accessor for Logger();
+  v16 = __swift_project_value_buffer(v15, static Logger.default);
+  v56 = *(v3 + 16);
+  v57 = a1;
+  v56(v14, a1, v2);
+  v17 = Logger.logObject.getter();
+  v18 = static os_log_type_t.debug.getter();
+  v19 = os_log_type_enabled(v17, v18);
+  v58 = v3;
+  if (v19)
   {
-    v52[1] = v14;
-    v53 = v7;
-    v18 = swift_slowAlloc();
-    v19 = swift_slowAlloc();
-    v58[0] = v19;
-    *v18 = 136315394;
+    v54[1] = v16;
+    v55 = v7;
+    v20 = swift_slowAlloc();
+    v21 = swift_slowAlloc();
+    v60[0] = v21;
+    *v20 = 136315394;
     if (one-time initialization token for typeName != -1)
     {
       swift_once();
     }
 
-    *(v18 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocation.typeName, unk_2800C02C0, v58);
-    *(v18 + 12) = 2080;
-    v54(v10, v12, v2);
-    v20 = String.init<A>(describing:)();
-    v22 = v21;
-    v23 = v56[1];
-    v23(v12, v2);
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v20, v22, v58);
+    *(v20 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocation.typeName, unk_2800C02C0, v60);
+    *(v20 + 12) = 2080;
+    v56(v11, v14, v2);
+    v22 = String.init<A>(describing:)();
+    v24 = v23;
+    v25 = *(v58 + 8);
+    v25(v14, v2);
+    v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v24, v60);
 
-    *(v18 + 14) = v24;
-    _os_log_impl(&dword_266B9E000, v15, v16, "%s: Initializing SharingDirectInvocation from %s", v18, 0x16u);
+    *(v20 + 14) = v26;
+    _os_log_impl(&dword_266B9E000, v17, v18, "%s: Initializing SharingDirectInvocation from %s", v20, 0x16u);
     swift_arrayDestroy();
-    MEMORY[0x26D5ED340](v19, -1, -1);
-    MEMORY[0x26D5ED340](v18, -1, -1);
+    MEMORY[0x26D5ED340](v21, -1, -1);
+    MEMORY[0x26D5ED340](v20, -1, -1);
 
-    v7 = v53;
+    v7 = v55;
   }
 
   else
   {
 
-    v23 = v3[1];
-    v23(v12, v2);
+    v25 = *(v3 + 8);
+    v25(v14, v2);
   }
 
-  v25 = v55;
-  if (Parse.DirectInvocation.identifier.getter() == 0xD000000000000027 && 0x8000000266BEE4D0 == v26)
+  v27 = v57;
+  if (Parse.DirectInvocation.identifier.getter() == 0xD000000000000027 && 0x8000000266BEE4D0 == v28)
   {
 
 LABEL_12:
-    v28 = Parse.DirectInvocation.userData.getter();
-    if (v28)
+    v30 = Parse.DirectInvocation.userData.getter();
+    if (v30)
     {
-      v29 = v28;
-      if (*(v28 + 16) && (v30 = specialized __RawDictionaryStorage.find<A>(_:)(0xD000000000000017, 0x8000000266BE97C0), (v31 & 1) != 0))
+      v31 = v30;
+      if (*(v30 + 16) && (v32 = specialized __RawDictionaryStorage.find<A>(_:)(0xD000000000000017, 0x8000000266BE97C0), (v33 & 1) != 0))
       {
-        outlined init with copy of Any(*(v29 + 56) + 32 * v30, v58);
+        outlined init with copy of Any(*(v31 + 56) + 32 * v32, v60);
 
         if (swift_dynamicCast())
         {
-          v32 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of SharingDirectInvocation.init(rawValue:), v57);
+          v34 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of SharingDirectInvocation.init(rawValue:), v59);
 
-          v23(v25, v2);
-          if (v32 == 1)
+          v25(v27, v2);
+          if (v34 == 1)
           {
-            v33 = 1;
+            v35 = 1;
           }
 
           else
           {
-            v33 = 2;
+            v35 = 2;
           }
 
-          if (v32)
+          if (v34)
           {
-            return v33;
+            return v35;
           }
 
           else
@@ -4249,102 +4100,102 @@ LABEL_12:
       {
       }
 
-      v35 = Logger.logObject.getter();
-      v36 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v35, v36))
+      v37 = Logger.logObject.getter();
+      v38 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v37, v38))
       {
-        v37 = swift_slowAlloc();
-        v38 = swift_slowAlloc();
-        v58[0] = v38;
-        *v37 = 136315394;
+        v39 = swift_slowAlloc();
+        v40 = swift_slowAlloc();
+        v60[0] = v40;
+        *v39 = 136315394;
         if (one-time initialization token for typeName != -1)
         {
           swift_once();
         }
 
-        *(v37 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocation.typeName, unk_2800C02C0, v58);
-        *(v37 + 12) = 2080;
-        *(v37 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000017, 0x8000000266BE97C0, v58);
-        _os_log_impl(&dword_266B9E000, v35, v36, "%s: Cannot init SharingDirectInvocation from direct invocation without userData containing key '%s' with a String value", v37, 0x16u);
-        v34 = 2;
+        *(v39 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocation.typeName, unk_2800C02C0, v60);
+        *(v39 + 12) = 2080;
+        *(v39 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000017, 0x8000000266BE97C0, v60);
+        _os_log_impl(&dword_266B9E000, v37, v38, "%s: Cannot init SharingDirectInvocation from direct invocation without userData containing key '%s' with a String value", v39, 0x16u);
+        v36 = 2;
         swift_arrayDestroy();
-        MEMORY[0x26D5ED340](v38, -1, -1);
-        MEMORY[0x26D5ED340](v37, -1, -1);
+        MEMORY[0x26D5ED340](v40, -1, -1);
+        MEMORY[0x26D5ED340](v39, -1, -1);
 
-        v23(v25, v2);
-        return v34;
+        v25(v27, v2);
+        return v36;
       }
     }
 
     else
     {
-      v35 = Logger.logObject.getter();
-      v39 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v35, v39))
+      v37 = Logger.logObject.getter();
+      v41 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v37, v41))
       {
-        v40 = swift_slowAlloc();
-        v41 = swift_slowAlloc();
-        v58[0] = v41;
-        *v40 = 136315138;
+        v42 = swift_slowAlloc();
+        v43 = swift_slowAlloc();
+        v60[0] = v43;
+        *v42 = 136315138;
         if (one-time initialization token for typeName != -1)
         {
           swift_once();
         }
 
-        *(v40 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocation.typeName, unk_2800C02C0, v58);
-        _os_log_impl(&dword_266B9E000, v35, v39, "%s: Cannot init SharingDirectInvocation from direct invocation with nil userData", v40, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v41);
-        MEMORY[0x26D5ED340](v41, -1, -1);
-        MEMORY[0x26D5ED340](v40, -1, -1);
+        *(v42 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocation.typeName, unk_2800C02C0, v60);
+        _os_log_impl(&dword_266B9E000, v37, v41, "%s: Cannot init SharingDirectInvocation from direct invocation with nil userData", v42, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1Tm(v43);
+        MEMORY[0x26D5ED340](v43, -1, -1);
+        MEMORY[0x26D5ED340](v42, -1, -1);
       }
     }
 
-    v23(v25, v2);
+    v25(v27, v2);
     return 2;
   }
 
-  v27 = _stringCompareWithSmolCheck(_:_:expecting:)();
+  v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-  if (v27)
+  if (v29)
   {
     goto LABEL_12;
   }
 
-  v54(v7, v25, v2);
-  v42 = Logger.logObject.getter();
-  v43 = static os_log_type_t.error.getter();
-  if (!os_log_type_enabled(v42, v43))
+  v56(v7, v27, v2);
+  v44 = Logger.logObject.getter();
+  v45 = static os_log_type_t.error.getter();
+  if (!os_log_type_enabled(v44, v45))
   {
 
-    v23(v25, v2);
-    v23(v7, v2);
+    v25(v27, v2);
+    v25(v7, v2);
     return 2;
   }
 
-  v44 = v23;
-  v45 = swift_slowAlloc();
-  v46 = swift_slowAlloc();
-  v58[0] = v46;
-  *v45 = 136315394;
+  v46 = v25;
+  v47 = swift_slowAlloc();
+  v48 = swift_slowAlloc();
+  v60[0] = v48;
+  *v47 = 136315394;
   if (one-time initialization token for typeName != -1)
   {
     swift_once();
   }
 
-  *(v45 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocation.typeName, unk_2800C02C0, v58);
-  *(v45 + 12) = 2080;
-  v47 = Parse.DirectInvocation.identifier.getter();
-  v49 = v48;
-  v44(v7, v2);
-  v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, v58);
+  *(v47 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingDirectInvocation.typeName, unk_2800C02C0, v60);
+  *(v47 + 12) = 2080;
+  v49 = Parse.DirectInvocation.identifier.getter();
+  v51 = v50;
+  v46(v7, v2);
+  v52 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v51, v60);
 
-  *(v45 + 14) = v50;
-  _os_log_impl(&dword_266B9E000, v42, v43, "%s: Cannot init SharingDirectInvocation from direct invocation with identifier: %s", v45, 0x16u);
+  *(v47 + 14) = v52;
+  _os_log_impl(&dword_266B9E000, v44, v45, "%s: Cannot init SharingDirectInvocation from direct invocation with identifier: %s", v47, 0x16u);
   swift_arrayDestroy();
-  MEMORY[0x26D5ED340](v46, -1, -1);
-  MEMORY[0x26D5ED340](v45, -1, -1);
+  MEMORY[0x26D5ED340](v48, -1, -1);
+  MEMORY[0x26D5ED340](v47, -1, -1);
 
-  v44(v25, v2);
+  v46(v27, v2);
   return 2;
 }
 
@@ -4355,16 +4206,15 @@ uint64_t outlined destroy of (AnyHashable, Any)(uint64_t a1)
   return a1;
 }
 
-uint64_t protocol witness for Contact.handles.getter in conformance <> Match<A, B>(uint64_t a1)
+uint64_t protocol witness for Contact.handles.getter in conformance <> Match<A, B>(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 16);
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x28223BE20](a1);
+  v2 = *(a1 + 16);
+  v3 = *(v2 - 8);
+  MEMORY[0x28223BE20](a1, a2);
   v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   Match.value.getter();
   v6 = Contact.handles.getter();
-  (*(v2 + 8))(v5, v1);
+  (*(v3 + 8))(v5, v2);
   return v6;
 }
 
@@ -4372,967 +4222,946 @@ uint64_t specialized SharingIntent.reform()()
 {
   v1 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x28223BE20](v1);
-  v63 = &v57 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
-  v5 = *(*(v62 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v62);
-  v8 = &v57 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = MEMORY[0x28223BE20](v6);
-  v11 = &v57 - v10;
-  v12 = MEMORY[0x28223BE20](v9);
-  v14 = &v57 - v13;
-  MEMORY[0x28223BE20](v12);
-  v16 = &v57 - v15;
-  v17 = type metadata accessor for SharingDirectInvocationIntent();
-  v18 = v17[5];
-  outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(&v18[v0], v16);
-  if ((*(v2 + 48))(v16, 1, v1))
+  MEMORY[0x28223BE20](v1, v3);
+  v62 = &v56 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+  v6 = MEMORY[0x28223BE20](v61, v5);
+  v8 = &v56 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = MEMORY[0x28223BE20](v6, v9);
+  v12 = &v56 - v11;
+  v14 = MEMORY[0x28223BE20](v10, v13);
+  v16 = &v56 - v15;
+  MEMORY[0x28223BE20](v14, v17);
+  v19 = &v56 - v18;
+  v20 = type metadata accessor for SharingDirectInvocationIntent(0);
+  v21 = v20[5];
+  outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(&v21[v0], v19);
+  if ((*(v2 + 48))(v19, 1, v1))
   {
-    outlined destroy of SharingResponse?(v16, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+    outlined destroy of SharingResponse?(v19, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
     return 0;
   }
 
-  v58 = v8;
-  v59 = v11;
-  v61 = v0;
-  v20 = v63;
-  (*(v2 + 16))(v63, v16, v1);
-  outlined destroy of SharingResponse?(v16, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+  v57 = v8;
+  v58 = v12;
+  v60 = v0;
+  v23 = v62;
+  (*(v2 + 16))(v62, v19, v1);
+  outlined destroy of SharingResponse?(v19, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
   PartyAppBundle = UsoEntity_common_AttachmentType.DefinedValues.matchingFirstPartyAppBundleID.getter();
-  v23 = v22;
-  (*(v2 + 8))(v20, v1);
-  if (!v23)
+  v26 = v25;
+  (*(v2 + 8))(v23, v1);
+  if (!v26)
   {
     return 0;
   }
 
-  v24 = v1;
-  v63 = v18;
-  v60 = v14;
-  v25 = v17;
-  v26 = v61;
-  v27 = (v61 + v17[9]);
-  v28 = v27[1];
+  v27 = v1;
+  v62 = v21;
+  v59 = v16;
+  v28 = v20;
+  v29 = v60;
+  v30 = (v60 + v20[9]);
 
-  *v27 = PartyAppBundle;
-  v27[1] = v23;
-  v29 = String.localizedAppDisplayName.getter();
-  v31 = v30;
+  *v30 = PartyAppBundle;
+  v30[1] = v26;
+  v31 = String.localizedAppDisplayName.getter(PartyAppBundle, v26);
+  v33 = v32;
 
-  if (v31)
+  if (v33)
   {
-    v32 = (v26 + v17[7]);
-    v33 = v32[1];
+    v34 = (v29 + v20[7]);
 
-    *v32 = v29;
-    v32[1] = v31;
+    *v34 = v31;
+    v34[1] = v33;
   }
 
   else
   {
-    v34 = (v26 + v17[8]);
-    v35 = v34[1];
-    if (!v35)
+    v35 = (v29 + v20[8]);
+    v36 = v35[1];
+    if (!v36)
     {
-      v43 = &v63[v26];
-      v44 = v59;
-      outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v43, v59);
+      v42 = &v62[v29];
+      v43 = v58;
+      outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v42, v58);
       if (one-time initialization token for default != -1)
       {
         swift_once();
       }
 
-      v57 = v24;
-      v45 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v45, static Logger.default);
-      v46 = v58;
-      outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v44, v58);
-      v47 = Logger.logObject.getter();
-      v48 = static os_log_type_t.error.getter();
-      v49 = os_log_type_enabled(v47, v48);
-      v40 = v60;
-      if (v49)
+      v56 = v27;
+      v44 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v44, static Logger.default);
+      v45 = v57;
+      outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v43, v57);
+      v46 = Logger.logObject.getter();
+      v47 = static os_log_type_t.error.getter();
+      v48 = os_log_type_enabled(v46, v47);
+      v40 = v59;
+      if (v48)
       {
+        v49 = swift_slowAlloc();
         v50 = swift_slowAlloc();
-        v51 = swift_slowAlloc();
-        v64 = v51;
-        *v50 = 136315138;
-        outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v46, v40);
-        v52 = String.init<A>(describing:)();
-        v54 = v53;
-        outlined destroy of SharingResponse?(v46, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
-        v55 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v54, &v64);
+        v63 = v50;
+        *v49 = 136315138;
+        outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v45, v40);
+        v51 = String.init<A>(describing:)();
+        v53 = v52;
+        outlined destroy of SharingResponse?(v45, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+        v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v53, &v63);
 
-        *(v50 + 4) = v55;
-        _os_log_impl(&dword_266B9E000, v47, v48, "SharingIntent: unable to determine appName for entity type=%s", v50, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v51);
-        MEMORY[0x26D5ED340](v51, -1, -1);
+        *(v49 + 4) = v54;
+        _os_log_impl(&dword_266B9E000, v46, v47, "SharingIntent: unable to determine appName for entity type=%s", v49, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1Tm(v50);
         MEMORY[0x26D5ED340](v50, -1, -1);
+        MEMORY[0x26D5ED340](v49, -1, -1);
 
-        v56 = v59;
+        v55 = v58;
       }
 
       else
       {
 
-        outlined destroy of SharingResponse?(v46, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
-        v56 = v44;
+        outlined destroy of SharingResponse?(v45, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+        v55 = v43;
       }
 
-      outlined destroy of SharingResponse?(v56, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
-      v26 = v61;
-      v24 = v57;
+      outlined destroy of SharingResponse?(v55, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+      v29 = v60;
+      v27 = v56;
       goto LABEL_10;
     }
 
-    v36 = *v34;
-    v37 = v24;
-    v38 = (v26 + v17[7]);
-    v39 = v38[1];
+    v37 = *v35;
+    v38 = v27;
+    v39 = (v29 + v20[7]);
 
-    *v38 = v36;
-    v38[1] = v35;
-    v24 = v37;
+    *v39 = v37;
+    v39[1] = v36;
+    v27 = v38;
   }
 
-  v40 = v60;
+  v40 = v59;
 LABEL_10:
-  (*(v2 + 56))(v40, 1, 1, v24);
-  outlined assign with take of UsoEntity_common_AttachmentType.DefinedValues?(v40, &v63[v26]);
-  v41 = (v26 + v25[8]);
-  v42 = v41[1];
+  (*(v2 + 56))(v40, 1, 1, v27);
+  outlined assign with take of UsoEntity_common_AttachmentType.DefinedValues?(v40, &v62[v29]);
+  v41 = (v29 + v28[8]);
 
   result = 1;
   *v41 = 0;
   v41[1] = 0;
-  *(v26 + v25[6]) = 0;
-  *(v26 + v25[21]) = 1;
+  *(v29 + v28[6]) = 0;
+  *(v29 + v28[21]) = 1;
   return result;
 }
 
 Swift::Bool __swiftcall SharingIntent.reform()()
 {
   v3 = v1;
-  v62 = v0;
+  v65 = v0;
   v4 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 8);
-  MEMORY[0x28223BE20](v4);
-  v61 = &v52 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
-  v8 = *(*(v59 - 8) + 64);
-  v9 = MEMORY[0x28223BE20](v59);
-  v11 = &v52 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x28223BE20](v9);
-  v14 = &v52 - v13;
-  v15 = MEMORY[0x28223BE20](v12);
-  v17 = &v52 - v16;
-  MEMORY[0x28223BE20](v15);
-  v19 = &v52 - v18;
-  v20 = *(v3 + 24);
-  v60 = v3;
-  (v20)(v62, v3);
-  if ((*(v5 + 6))(v19, 1, v4))
+  MEMORY[0x28223BE20](v4, v6);
+  v64 = &v55 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v62 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+  v9 = MEMORY[0x28223BE20](v62, v8);
+  v11 = &v55 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = MEMORY[0x28223BE20](v9, v12);
+  v15 = &v55 - v14;
+  v17 = MEMORY[0x28223BE20](v13, v16);
+  v19 = &v55 - v18;
+  MEMORY[0x28223BE20](v17, v20);
+  v22 = &v55 - v21;
+  v23 = *(v3 + 24);
+  v63 = v3;
+  v23(v65, v3);
+  if (v5[6](v22, 1, v4))
   {
-    outlined destroy of SharingResponse?(v19, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+    outlined destroy of SharingResponse?(v22, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
     return 0;
   }
 
-  v53 = (v3 + 24);
-  v54 = v20;
-  v56 = v17;
-  v57 = v2;
-  v55 = v14;
-  v23 = v60;
-  v22 = v61;
-  v58 = v11;
-  (*(v5 + 2))(v61, v19, v4);
-  outlined destroy of SharingResponse?(v19, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+  v56 = (v3 + 24);
+  v57 = v23;
+  v59 = v19;
+  v60 = v2;
+  v58 = v15;
+  v26 = v63;
+  v25 = v64;
+  v61 = v11;
+  v5[2](v64, v22, v4);
+  outlined destroy of SharingResponse?(v22, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
   PartyAppBundle = UsoEntity_common_AttachmentType.DefinedValues.matchingFirstPartyAppBundleID.getter();
-  v26 = v25;
-  (*(v5 + 1))(v22, v4);
-  if (!v26)
+  v29 = v28;
+  (v5[1])(v25, v4);
+  if (!v29)
   {
     return 0;
   }
 
-  v27 = v4;
-  v61 = v5;
-  v28 = v23;
-  v29 = *(v23 + 128);
+  v30 = v4;
+  v64 = v5;
+  v31 = v26;
+  v32 = *(v26 + 128);
 
-  v30 = v62;
-  v29(PartyAppBundle, v26, v62, v28);
-  v31 = String.localizedAppDisplayName.getter();
-  v33 = v32;
+  v33 = v65;
+  v32(PartyAppBundle, v29, v65, v31);
+  v34 = String.localizedAppDisplayName.getter(PartyAppBundle, v29);
+  v36 = v35;
 
-  if (v33)
+  if (v36)
   {
-    (*(v28 + 80))(v31, v33, v30, v28);
-    v34 = v30;
+    (*(v31 + 80))(v34, v36, v33, v31);
+    v37 = v33;
   }
 
   else
   {
-    v35 = (*(v28 + 96))(v30, v28);
-    v34 = v30;
-    if (!v36)
+    v38 = (*(v31 + 96))(v33, v31);
+    v37 = v33;
+    if (!v39)
     {
-      v39 = v56;
-      v54(v30, v28);
-      v37 = v61;
-      v38 = v58;
+      v42 = v59;
+      v57(v33, v31);
+      v40 = v64;
+      v41 = v61;
       if (one-time initialization token for default != -1)
       {
         swift_once();
       }
 
-      v40 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v40, static Logger.default);
-      v41 = v55;
-      outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v39, v55);
-      v42 = Logger.logObject.getter();
-      v43 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v42, v43))
+      v43 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v43, static Logger.default);
+      v44 = v58;
+      outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v42, v58);
+      v45 = Logger.logObject.getter();
+      v46 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v45, v46))
       {
-        v44 = swift_slowAlloc();
-        v53 = v44;
-        v54 = swift_slowAlloc();
-        v63 = v54;
-        *v44 = 136315138;
-        outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v41, v38);
-        v45 = String.init<A>(describing:)();
-        v47 = v46;
-        outlined destroy of SharingResponse?(v41, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
-        v48 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v47, &v63);
-        v34 = v62;
-
-        v49 = v53;
-        *(v53 + 1) = v48;
+        v47 = swift_slowAlloc();
+        v56 = v47;
+        v57 = swift_slowAlloc();
+        v66 = v57;
+        *v47 = 136315138;
+        outlined init with copy of UsoEntity_common_AttachmentType.DefinedValues?(v44, v41);
+        v48 = String.init<A>(describing:)();
         v50 = v49;
-        _os_log_impl(&dword_266B9E000, v42, v43, "SharingIntent: unable to determine appName for entity type=%s", v49, 0xCu);
-        v51 = v54;
-        __swift_destroy_boxed_opaque_existential_1Tm(v54);
-        MEMORY[0x26D5ED340](v51, -1, -1);
+        outlined destroy of SharingResponse?(v44, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+        v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v48, v50, &v66);
+        v37 = v65;
+
+        v52 = v56;
+        *(v56 + 1) = v51;
+        v53 = v52;
+        _os_log_impl(&dword_266B9E000, v45, v46, "SharingIntent: unable to determine appName for entity type=%s", v52, 0xCu);
+        v54 = v57;
+        __swift_destroy_boxed_opaque_existential_1Tm(v57);
+        MEMORY[0x26D5ED340](v54, -1, -1);
+        MEMORY[0x26D5ED340](v53, -1, -1);
+      }
+
+      else
+      {
+
+        outlined destroy of SharingResponse?(v44, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+      }
+
+      outlined destroy of SharingResponse?(v59, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+      goto LABEL_10;
+    }
+
+    (*(v31 + 80))(v38, v39, v33, v31);
+  }
+
+  v40 = v64;
+  v41 = v61;
+LABEL_10:
+  (*(v40 + 7))(v41, 1, 1, v30);
+  (*(v31 + 32))(v41, v37, v31);
+  (*(v31 + 104))(0, 0, v37, v31);
+  (*(v31 + 56))(0, v37, v31);
+  (*(v31 + 248))(1, v37, v31);
+  return 1;
+}
+
+double static SharingIntentHelper.makeSharingIntentFrom(parse:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v156 = a2;
+  v3 = type metadata accessor for Parse.DirectInvocation();
+  v153 = *(v3 - 8);
+  v5 = MEMORY[0x28223BE20](v3, v4);
+  v155 = &v142 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x28223BE20](v5, v7);
+  v154 = &v142 - v9;
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = &v142 - v11;
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A23_Nlu_External_UserParseVSgMd, &_s12SiriNLUTypes0A23_Nlu_External_UserParseVSgMR);
+  MEMORY[0x28223BE20](v13 - 8, v14);
+  v148 = &v142 - v15;
+  v16 = type metadata accessor for Siri_Nlu_External_UserParse();
+  v150 = *(v16 - 8);
+  v151 = v16;
+  v18 = MEMORY[0x28223BE20](v16, v17);
+  v149 = (&v142 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v18, v20);
+  v152 = &v142 - v21;
+  v22 = type metadata accessor for USOParse();
+  v144 = *(v22 - 8);
+  v145 = v22;
+  v24 = MEMORY[0x28223BE20](v22, v23);
+  v142 = &v142 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = MEMORY[0x28223BE20](v24, v26);
+  v147 = &v142 - v28;
+  MEMORY[0x28223BE20](v27, v29);
+  v143 = &v142 - v30;
+  v31 = type metadata accessor for Parse();
+  v32 = *(v31 - 8);
+  v34 = MEMORY[0x28223BE20](v31, v33);
+  v36 = &v142 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v38 = MEMORY[0x28223BE20](v34, v37);
+  v146 = &v142 - v39;
+  MEMORY[0x28223BE20](v38, v40);
+  v42 = (&v142 - v41);
+  v43 = *(v32 + 16);
+  v43(&v142 - v41, a1, v31);
+  v44 = (*(v32 + 88))(v42, v31);
+  if (v44 == *MEMORY[0x277D5C150])
+  {
+    (*(v32 + 96))(v42, v31);
+    v45 = v153;
+    (*(v153 + 32))(v12, v42, v3);
+    v46 = v3;
+    v47 = v12;
+    if (one-time initialization token for default != -1)
+    {
+      swift_once();
+    }
+
+    v48 = type metadata accessor for Logger();
+    v49 = __swift_project_value_buffer(v48, static Logger.default);
+    v50 = v154;
+    v51 = *(v45 + 16);
+    v51(v154, v12, v46);
+    v152 = v49;
+    v52 = Logger.logObject.getter();
+    v53 = static os_log_type_t.debug.getter();
+    v54 = os_log_type_enabled(v52, v53);
+    v55 = v155;
+    if (v54)
+    {
+      LODWORD(v150) = v53;
+      v151 = v12;
+      v56 = swift_slowAlloc();
+      v149 = swift_slowAlloc();
+      v157 = v149;
+      *v56 = 136315394;
+      if (one-time initialization token for typeName != -1)
+      {
+        swift_once();
+      }
+
+      *(v56 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v157);
+      *(v56 + 12) = 2080;
+      v51(v55, v50, v46);
+      v57 = String.init<A>(describing:)();
+      v59 = v58;
+      v60 = *(v45 + 8);
+      v60(v50, v46);
+      v61 = v57;
+      v55 = v155;
+      v62 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v61, v59, &v157);
+
+      *(v56 + 14) = v62;
+      _os_log_impl(&dword_266B9E000, v52, v150, "%s: Received .directInvocation parse with directInvocation: %s", v56, 0x16u);
+      v63 = v149;
+      swift_arrayDestroy();
+      MEMORY[0x26D5ED340](v63, -1, -1);
+      MEMORY[0x26D5ED340](v56, -1, -1);
+
+      v47 = v151;
+    }
+
+    else
+    {
+
+      v82 = *(v45 + 8);
+      v82(v50, v46);
+      v60 = v82;
+    }
+
+    v155 = v46;
+    v51(v55, v47, v46);
+    v83 = specialized SharingDirectInvocation.init(from:)(v55);
+    if (v83 == 2)
+    {
+      v84 = Logger.logObject.getter();
+      v85 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v84, v85))
+      {
+        v86 = swift_slowAlloc();
+        v87 = swift_slowAlloc();
+        v157 = v87;
+        *v86 = 136315138;
+        if (one-time initialization token for typeName != -1)
+        {
+          swift_once();
+        }
+
+        *(v86 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v157);
+        _os_log_impl(&dword_266B9E000, v84, v85, "%s: Failed to construct SharingDirectInvocation from the provided directInvocation", v86, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1Tm(v87);
+        MEMORY[0x26D5ED340](v87, -1, -1);
+        MEMORY[0x26D5ED340](v86, -1, -1);
+      }
+
+      v60(v47, v155);
+LABEL_63:
+      v141 = v156;
+      *(v156 + 32) = 0;
+      result = 0.0;
+      *v141 = 0u;
+      v141[1] = 0u;
+      return result;
+    }
+
+    v104 = v83;
+    v105 = Logger.logObject.getter();
+    v106 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v105, v106))
+    {
+      v107 = v60;
+      v108 = swift_slowAlloc();
+      v109 = swift_slowAlloc();
+      v159 = v109;
+      *v108 = 136315394;
+      if (one-time initialization token for typeName != -1)
+      {
+        swift_once();
+      }
+
+      *(v108 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v159);
+      *(v108 + 12) = 2080;
+      v157 = 0;
+      v158 = 0xE000000000000000;
+      _StringGuts.grow(_:)(26);
+
+      v157 = 0xD000000000000018;
+      v158 = 0x8000000266BEE3E0;
+      if (v104)
+      {
+        v110 = 0x7463656A6572;
+      }
+
+      else
+      {
+        v110 = 0x6D7269666E6F63;
+      }
+
+      if (v104)
+      {
+        v111 = 0xE600000000000000;
+      }
+
+      else
+      {
+        v111 = 0xE700000000000000;
+      }
+
+      MEMORY[0x26D5EC8A0](v110, v111);
+
+      v112 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v157, v158, &v159);
+
+      *(v108 + 14) = v112;
+      _os_log_impl(&dword_266B9E000, v105, v106, "%s: SharingDirectInvocation initialized to %s", v108, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x26D5ED340](v109, -1, -1);
+      MEMORY[0x26D5ED340](v108, -1, -1);
+
+      v60 = v107;
+    }
+
+    else
+    {
+    }
+
+    v132 = type metadata accessor for SharingDirectInvocationIntent(0);
+    v133 = v156;
+    *(v156 + 24) = v132;
+    v133[4] = lazy protocol witness table accessor for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent(&lazy protocol witness table cache variable for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent, type metadata accessor for SharingDirectInvocationIntent, &protocol conformance descriptor for SharingDirectInvocationIntent);
+    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v133);
+    SharingDirectInvocationIntent.init(from:)(v104 & 1, boxed_opaque_existential_1);
+    v60(v47, v155);
+  }
+
+  else
+  {
+    if (v44 == *MEMORY[0x277D5C130])
+    {
+      (*(v32 + 96))(v42, v31);
+      v64 = *v42;
+      if (one-time initialization token for default != -1)
+      {
+        swift_once();
+      }
+
+      v65 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v65, static Logger.default);
+      swift_unknownObjectRetain();
+      v66 = Logger.logObject.getter();
+      v67 = static os_log_type_t.debug.getter();
+      swift_unknownObjectRelease();
+      v68 = os_log_type_enabled(v66, v67);
+      v69 = v148;
+      if (v68)
+      {
+        v70 = swift_slowAlloc();
+        v71 = swift_slowAlloc();
+        v157 = v71;
+        *v70 = 136315394;
+        if (one-time initialization token for typeName != -1)
+        {
+          swift_once();
+        }
+
+        *(v70 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v157);
+        *(v70 + 12) = 2080;
+        v159 = v64;
+        swift_unknownObjectRetain();
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20SIRINLUUserDialogAct_pMd, &_sSo20SIRINLUUserDialogAct_pMR);
+        v72 = String.init<A>(describing:)();
+        v74 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v73, &v157);
+
+        *(v70 + 14) = v74;
+        _os_log_impl(&dword_266B9E000, v66, v67, "%s: Received .NLv4IntentOnly parse with userDialogAct: %s", v70, 0x16u);
+        swift_arrayDestroy();
+        MEMORY[0x26D5ED340](v71, -1, -1);
+        MEMORY[0x26D5ED340](v70, -1, -1);
+      }
+
+      v75 = v151;
+      v76 = v149;
+      static ConversionUtils.toUserParse(from:)();
+      v77 = v150;
+      if ((*(v150 + 48))(v69, 1, v75) == 1)
+      {
+        outlined destroy of SharingResponse?(v69, &_s12SiriNLUTypes0A23_Nlu_External_UserParseVSgMd, &_s12SiriNLUTypes0A23_Nlu_External_UserParseVSgMR);
+        v78 = Logger.logObject.getter();
+        v79 = static os_log_type_t.error.getter();
+        if (os_log_type_enabled(v78, v79))
+        {
+          v80 = swift_slowAlloc();
+          v81 = swift_slowAlloc();
+          v157 = v81;
+          *v80 = 136315138;
+          if (one-time initialization token for typeName != -1)
+          {
+            swift_once();
+          }
+
+          *(v80 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v157);
+          _os_log_impl(&dword_266B9E000, v78, v79, "%s: Failed to convert UserDialogAct to Siri_Nlu_External_UserParse", v80, 0xCu);
+          __swift_destroy_boxed_opaque_existential_1Tm(v81);
+          MEMORY[0x26D5ED340](v81, -1, -1);
+          MEMORY[0x26D5ED340](v80, -1, -1);
+        }
+      }
+
+      else
+      {
+        (*(v77 + 32))(v76, v69, v75);
+        v113 = v152;
+        (*(v77 + 16))(v152, v76, v75);
+        v114 = type metadata accessor for SharingNLv4Intent(0);
+        swift_allocObject();
+        v115 = SharingNLv4Intent.init(from:)(v113);
+        if (v115)
+        {
+          v116 = v115;
+          v117 = v156;
+          *(v156 + 24) = v114;
+          v117[4] = lazy protocol witness table accessor for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent(&lazy protocol witness table cache variable for type SharingNLv4Intent and conformance SharingNLv4Intent, type metadata accessor for SharingNLv4Intent, &protocol conformance descriptor for SharingNLv4Intent);
+          swift_unknownObjectRelease();
+          *v117 = v116;
+          (*(v77 + 8))(v76, v75);
+          return result;
+        }
+
+        (*(v77 + 8))(v76, v75);
+      }
+
+      swift_unknownObjectRelease();
+      goto LABEL_63;
+    }
+
+    if (v44 == *MEMORY[0x277D5C160])
+    {
+      (*(v32 + 96))(v42, v31);
+      v89 = v143;
+      v88 = v144;
+      v90 = v145;
+      (*(v144 + 32))(v143, v42, v145);
+      if (one-time initialization token for default != -1)
+      {
+        swift_once();
+      }
+
+      v91 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v91, static Logger.default);
+      v92 = *(v88 + 16);
+      v93 = v147;
+      v92(v147, v89, v90);
+      v94 = Logger.logObject.getter();
+      v95 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v94, v95))
+      {
+        v96 = swift_slowAlloc();
+        v155 = swift_slowAlloc();
+        v157 = v155;
+        *v96 = 136315394;
+        if (one-time initialization token for typeName != -1)
+        {
+          swift_once();
+        }
+
+        *(v96 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v157);
+        *(v96 + 12) = 2080;
+        v97 = v147;
+        v92(v142, v147, v90);
+        v98 = String.init<A>(describing:)();
+        v100 = v99;
+        v101 = *(v88 + 8);
+        v101(v97, v90);
+        v102 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v98, v100, &v157);
+
+        *(v96 + 14) = v102;
+        _os_log_impl(&dword_266B9E000, v94, v95, "%s: Received .uso parse with usoParse: %s", v96, 0x16u);
+        v103 = v155;
+        swift_arrayDestroy();
+        MEMORY[0x26D5ED340](v103, -1, -1);
+        MEMORY[0x26D5ED340](v96, -1, -1);
+      }
+
+      else
+      {
+
+        v101 = *(v88 + 8);
+        v101(v93, v90);
+      }
+
+      v135 = v152;
+      USOParse.userParse.getter();
+      v136 = type metadata accessor for SharingNLv4Intent(0);
+      swift_allocObject();
+      v137 = SharingNLv4Intent.init(from:)(v135);
+      if (v137)
+      {
+        v138 = v137;
+        v139 = v156;
+        *(v156 + 24) = v136;
+        v139[4] = lazy protocol witness table accessor for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent(&lazy protocol witness table cache variable for type SharingNLv4Intent and conformance SharingNLv4Intent, type metadata accessor for SharingNLv4Intent, &protocol conformance descriptor for SharingNLv4Intent);
+        *v139 = v138;
+        v101(v89, v90);
+        return result;
+      }
+
+      v101(v89, v90);
+      goto LABEL_63;
+    }
+
+    if (one-time initialization token for default != -1)
+    {
+      swift_once();
+    }
+
+    v119 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v119, static Logger.default);
+    v120 = v146;
+    v43(v146, a1, v31);
+    v121 = Logger.logObject.getter();
+    v122 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v121, v122))
+    {
+      LODWORD(v154) = v122;
+      v155 = v121;
+      v123 = swift_slowAlloc();
+      v124 = swift_slowAlloc();
+      v157 = v124;
+      *v123 = 136315394;
+      if (one-time initialization token for typeName != -1)
+      {
+        swift_once();
+      }
+
+      *(v123 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v157);
+      *(v123 + 12) = 2080;
+      v125 = v146;
+      v43(v36, v146, v31);
+      v126 = String.init<A>(describing:)();
+      v128 = v127;
+      v129 = *(v32 + 8);
+      v129(v125, v31);
+      v130 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v126, v128, &v157);
+
+      *(v123 + 14) = v130;
+      v131 = v155;
+      _os_log_impl(&dword_266B9E000, v155, v154, "%s: Received parse of unexpected type: %s", v123, 0x16u);
+      swift_arrayDestroy();
+      MEMORY[0x26D5ED340](v124, -1, -1);
+      MEMORY[0x26D5ED340](v123, -1, -1);
+    }
+
+    else
+    {
+
+      v129 = *(v32 + 8);
+      v129(v120, v31);
+    }
+
+    v140 = v156;
+    *(v156 + 32) = 0;
+    *v140 = 0u;
+    v140[1] = 0u;
+    v129(v42, v31);
+  }
+
+  return result;
+}
+
+uint64_t SharingIntent.shareTarget.getter@<X0>(uint64_t a1@<X0>, uint64_t (**a2)(uint64_t, uint64_t)@<X1>, uint64_t *a3@<X8>)
+{
+  v85 = a3;
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+  MEMORY[0x28223BE20](v6 - 8, v7);
+  v9 = &v78 - v8;
+  v10 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
+  v82 = *(v10 - 8);
+  v12 = MEMORY[0x28223BE20](v10, v11);
+  v14 = &v78 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x28223BE20](v12, v15);
+  v18 = &v78 - v17;
+  v81 = *(a1 - 8);
+  MEMORY[0x28223BE20](v16, v19);
+  v21 = &v78 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v22 = type metadata accessor for Logger();
+  v83 = *(v22 - 8);
+  v84 = v22;
+  MEMORY[0x28223BE20](v22, v23);
+  v25 = &v78 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = a2[15](a1, a2);
+  if (v27)
+  {
+    v28 = v27;
+    v29 = a1;
+    v82 = v3;
+    v30 = v26;
+    v31 = objc_allocWithZone(MEMORY[0x277CC1E70]);
+
+    v79 = v30;
+    v32 = @nonobjc LSApplicationRecord.init(bundleIdentifier:allowPlaceholder:)(v30, v28, 0);
+    v44 = v25;
+    v45 = a2;
+    v46 = v21;
+    if (!v32)
+    {
+      v33 = v82;
+      v34 = v29;
+      if (one-time initialization token for default != -1)
+      {
+        swift_once();
+      }
+
+      v35 = v84;
+      v36 = __swift_project_value_buffer(v84, static Logger.default);
+      (*(v83 + 16))(v44, v36, v35);
+      v37 = v45[9];
+      v37(v34, v45);
+      if (v38)
+      {
+
+        v39 = static os_log_type_t.debug.getter();
+      }
+
+      else
+      {
+        v39 = static os_log_type_t.error.getter();
+      }
+
+      v80 = v39;
+      v48 = v81;
+      (*(v81 + 16))(v46, v33, v34);
+      v49 = Logger.logObject.getter();
+      if (os_log_type_enabled(v49, v80))
+      {
+        v50 = swift_slowAlloc();
+        v81 = swift_slowAlloc();
+        v86[0] = v81;
+        *v50 = 136315394;
+        v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v79, v28, v86);
+        v79 = v49;
+        v52 = v51;
+
+        *(v50 + 4) = v52;
+        *(v50 + 12) = 2080;
+        v53 = v37(v34, v45);
+        if (v54)
+        {
+          v55 = v53;
+        }
+
+        else
+        {
+          v55 = 7104878;
+        }
+
+        v56 = v37;
+        if (v54)
+        {
+          v57 = v54;
+        }
+
+        else
+        {
+          v57 = 0xE300000000000000;
+        }
+
+        (*(v48 + 8))(v46, v34);
+        v58 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v57, v86);
+        v37 = v56;
+
+        *(v50 + 14) = v58;
+        v59 = v79;
+        _os_log_impl(&dword_266B9E000, v79, v80, "SharingIntent: share target for appIdentifier=%s appName=%s not installed", v50, 0x16u);
+        v60 = v81;
+        swift_arrayDestroy();
+        MEMORY[0x26D5ED340](v60, -1, -1);
         MEMORY[0x26D5ED340](v50, -1, -1);
       }
 
       else
       {
 
-        outlined destroy of SharingResponse?(v41, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
+        (*(v48 + 8))(v46, v34);
       }
 
-      outlined destroy of SharingResponse?(v56, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
-      goto LABEL_10;
-    }
-
-    (*(v28 + 80))(v35, v36, v30, v28);
-  }
-
-  v37 = v61;
-  v38 = v58;
-LABEL_10:
-  (*(v37 + 7))(v38, 1, 1, v27);
-  (*(v28 + 32))(v38, v34, v28);
-  (*(v28 + 104))(0, 0, v34, v28);
-  (*(v28 + 56))(0, v34, v28);
-  (*(v28 + 248))(1, v34, v28);
-  return 1;
-}
-
-double static SharingIntentHelper.makeSharingIntentFrom(parse:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v153 = a2;
-  v3 = type metadata accessor for Parse.DirectInvocation();
-  v150 = *(v3 - 8);
-  v4 = *(v150 + 64);
-  v5 = MEMORY[0x28223BE20](v3);
-  v152 = &v139 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = MEMORY[0x28223BE20](v5);
-  v151 = &v139 - v8;
-  MEMORY[0x28223BE20](v7);
-  v10 = &v139 - v9;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriNLUTypes0A23_Nlu_External_UserParseVSgMd, &_s12SiriNLUTypes0A23_Nlu_External_UserParseVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v145 = &v139 - v13;
-  v14 = type metadata accessor for Siri_Nlu_External_UserParse();
-  v147 = *(v14 - 8);
-  v148 = v14;
-  v15 = *(v147 + 64);
-  v16 = MEMORY[0x28223BE20](v14);
-  v146 = (&v139 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v16);
-  v149 = &v139 - v18;
-  v19 = type metadata accessor for USOParse();
-  v141 = *(v19 - 8);
-  v142 = v19;
-  v20 = *(v141 + 64);
-  v21 = MEMORY[0x28223BE20](v19);
-  v139 = &v139 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = MEMORY[0x28223BE20](v21);
-  v144 = &v139 - v24;
-  MEMORY[0x28223BE20](v23);
-  v140 = &v139 - v25;
-  v26 = type metadata accessor for Parse();
-  v27 = *(v26 - 8);
-  v28 = *(v27 + 64);
-  v29 = MEMORY[0x28223BE20](v26);
-  v31 = &v139 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = MEMORY[0x28223BE20](v29);
-  v143 = &v139 - v33;
-  MEMORY[0x28223BE20](v32);
-  v35 = (&v139 - v34);
-  v36 = *(v27 + 16);
-  v36(&v139 - v34, a1, v26);
-  v37 = (*(v27 + 88))(v35, v26);
-  if (v37 == *MEMORY[0x277D5C150])
-  {
-    (*(v27 + 96))(v35, v26);
-    v38 = v150;
-    (*(v150 + 32))(v10, v35, v3);
-    v39 = v3;
-    v40 = v10;
-    if (one-time initialization token for default != -1)
-    {
-      swift_once();
-    }
-
-    v41 = type metadata accessor for Logger();
-    v42 = __swift_project_value_buffer(v41, static Logger.default);
-    v43 = v151;
-    v44 = *(v38 + 16);
-    v44(v151, v10, v39);
-    v149 = v42;
-    v45 = Logger.logObject.getter();
-    v46 = static os_log_type_t.debug.getter();
-    v47 = os_log_type_enabled(v45, v46);
-    v48 = v152;
-    if (v47)
-    {
-      LODWORD(v147) = v46;
-      v148 = v10;
-      v49 = swift_slowAlloc();
-      v146 = swift_slowAlloc();
-      v154 = v146;
-      *v49 = 136315394;
-      if (one-time initialization token for typeName != -1)
-      {
-        swift_once();
-      }
-
-      *(v49 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v154);
-      *(v49 + 12) = 2080;
-      v44(v48, v43, v39);
-      v50 = String.init<A>(describing:)();
-      v52 = v51;
-      v53 = *(v38 + 8);
-      v53(v43, v39);
-      v54 = v50;
-      v48 = v152;
-      v55 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v54, v52, &v154);
-
-      *(v49 + 14) = v55;
-      _os_log_impl(&dword_266B9E000, v45, v147, "%s: Received .directInvocation parse with directInvocation: %s", v49, 0x16u);
-      v56 = v146;
-      swift_arrayDestroy();
-      MEMORY[0x26D5ED340](v56, -1, -1);
-      MEMORY[0x26D5ED340](v49, -1, -1);
-
-      v40 = v148;
-    }
-
-    else
-    {
-
-      v75 = *(v38 + 8);
-      v75(v43, v39);
-      v53 = v75;
-    }
-
-    v152 = v39;
-    v44(v48, v40, v39);
-    v76 = specialized SharingDirectInvocation.init(from:)(v48);
-    if (v76 == 2)
-    {
-      v77 = Logger.logObject.getter();
-      v78 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v77, v78))
-      {
-        v79 = swift_slowAlloc();
-        v80 = swift_slowAlloc();
-        v154 = v80;
-        *v79 = 136315138;
-        if (one-time initialization token for typeName != -1)
-        {
-          swift_once();
-        }
-
-        *(v79 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v154);
-        _os_log_impl(&dword_266B9E000, v77, v78, "%s: Failed to construct SharingDirectInvocation from the provided directInvocation", v79, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v80);
-        MEMORY[0x26D5ED340](v80, -1, -1);
-        MEMORY[0x26D5ED340](v79, -1, -1);
-      }
-
-      v53(v40, v152);
-LABEL_63:
-      v138 = v153;
-      *(v153 + 32) = 0;
-      result = 0.0;
-      *v138 = 0u;
-      v138[1] = 0u;
-      return result;
-    }
-
-    v97 = v76;
-    v98 = Logger.logObject.getter();
-    v99 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v98, v99))
-    {
-      v100 = v53;
-      v101 = swift_slowAlloc();
-      v102 = swift_slowAlloc();
-      v156 = v102;
-      *v101 = 136315394;
-      if (one-time initialization token for typeName != -1)
-      {
-        swift_once();
-      }
-
-      *(v101 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v156);
-      *(v101 + 12) = 2080;
-      v154 = 0;
-      v155 = 0xE000000000000000;
-      _StringGuts.grow(_:)(26);
-
-      v154 = 0xD000000000000018;
-      v155 = 0x8000000266BEE3E0;
-      if (v97)
-      {
-        v103 = 0x7463656A6572;
-      }
-
-      else
-      {
-        v103 = 0x6D7269666E6F63;
-      }
-
-      if (v97)
-      {
-        v104 = 0xE600000000000000;
-      }
-
-      else
-      {
-        v104 = 0xE700000000000000;
-      }
-
-      MEMORY[0x26D5EC8A0](v103, v104);
-
-      v105 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v154, v155, &v156);
-
-      *(v101 + 14) = v105;
-      _os_log_impl(&dword_266B9E000, v98, v99, "%s: SharingDirectInvocation initialized to %s", v101, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x26D5ED340](v102, -1, -1);
-      MEMORY[0x26D5ED340](v101, -1, -1);
-
-      v53 = v100;
-    }
-
-    else
-    {
-    }
-
-    v127 = type metadata accessor for SharingDirectInvocationIntent();
-    v128 = v153;
-    *(v153 + 24) = v127;
-    v128[4] = lazy protocol witness table accessor for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent(&lazy protocol witness table cache variable for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent, type metadata accessor for SharingDirectInvocationIntent);
-    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v128);
-    SharingDirectInvocationIntent.init(from:)(v97 & 1, boxed_opaque_existential_1);
-    v53(v40, v152);
-  }
-
-  else
-  {
-    if (v37 == *MEMORY[0x277D5C130])
-    {
-      (*(v27 + 96))(v35, v26);
-      v57 = *v35;
-      if (one-time initialization token for default != -1)
-      {
-        swift_once();
-      }
-
-      v58 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v58, static Logger.default);
-      swift_unknownObjectRetain();
-      v59 = Logger.logObject.getter();
-      v60 = static os_log_type_t.debug.getter();
-      swift_unknownObjectRelease();
-      v61 = os_log_type_enabled(v59, v60);
-      v62 = v145;
-      if (v61)
-      {
-        v63 = swift_slowAlloc();
-        v64 = swift_slowAlloc();
-        v154 = v64;
-        *v63 = 136315394;
-        if (one-time initialization token for typeName != -1)
-        {
-          swift_once();
-        }
-
-        *(v63 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v154);
-        *(v63 + 12) = 2080;
-        v156 = v57;
-        swift_unknownObjectRetain();
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20SIRINLUUserDialogAct_pMd, &_sSo20SIRINLUUserDialogAct_pMR);
-        v65 = String.init<A>(describing:)();
-        v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v65, v66, &v154);
-
-        *(v63 + 14) = v67;
-        _os_log_impl(&dword_266B9E000, v59, v60, "%s: Received .NLv4IntentOnly parse with userDialogAct: %s", v63, 0x16u);
-        swift_arrayDestroy();
-        MEMORY[0x26D5ED340](v64, -1, -1);
-        MEMORY[0x26D5ED340](v63, -1, -1);
-      }
-
-      v68 = v148;
-      v69 = v146;
-      static ConversionUtils.toUserParse(from:)();
-      v70 = v147;
-      if ((*(v147 + 48))(v62, 1, v68) == 1)
-      {
-        outlined destroy of SharingResponse?(v62, &_s12SiriNLUTypes0A23_Nlu_External_UserParseVSgMd, &_s12SiriNLUTypes0A23_Nlu_External_UserParseVSgMR);
-        v71 = Logger.logObject.getter();
-        v72 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v71, v72))
-        {
-          v73 = swift_slowAlloc();
-          v74 = swift_slowAlloc();
-          v154 = v74;
-          *v73 = 136315138;
-          if (one-time initialization token for typeName != -1)
-          {
-            swift_once();
-          }
-
-          *(v73 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v154);
-          _os_log_impl(&dword_266B9E000, v71, v72, "%s: Failed to convert UserDialogAct to Siri_Nlu_External_UserParse", v73, 0xCu);
-          __swift_destroy_boxed_opaque_existential_1Tm(v74);
-          MEMORY[0x26D5ED340](v74, -1, -1);
-          MEMORY[0x26D5ED340](v73, -1, -1);
-        }
-      }
-
-      else
-      {
-        (*(v70 + 32))(v69, v62, v68);
-        v106 = v149;
-        (*(v70 + 16))(v149, v69, v68);
-        v107 = type metadata accessor for SharingNLv4Intent();
-        v108 = *(v107 + 48);
-        v109 = *(v107 + 52);
-        swift_allocObject();
-        v110 = SharingNLv4Intent.init(from:)(v106);
-        if (v110)
-        {
-          v111 = v110;
-          v112 = v153;
-          *(v153 + 24) = v107;
-          v112[4] = lazy protocol witness table accessor for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent(&lazy protocol witness table cache variable for type SharingNLv4Intent and conformance SharingNLv4Intent, type metadata accessor for SharingNLv4Intent);
-          swift_unknownObjectRelease();
-          *v112 = v111;
-          (*(v70 + 8))(v69, v68);
-          return result;
-        }
-
-        (*(v70 + 8))(v69, v68);
-      }
-
-      swift_unknownObjectRelease();
-      goto LABEL_63;
-    }
-
-    if (v37 == *MEMORY[0x277D5C160])
-    {
-      (*(v27 + 96))(v35, v26);
-      v82 = v140;
-      v81 = v141;
-      v83 = v142;
-      (*(v141 + 32))(v140, v35, v142);
-      if (one-time initialization token for default != -1)
-      {
-        swift_once();
-      }
-
-      v84 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v84, static Logger.default);
-      v85 = *(v81 + 16);
-      v86 = v144;
-      v85(v144, v82, v83);
-      v87 = Logger.logObject.getter();
-      v88 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v87, v88))
-      {
-        v89 = swift_slowAlloc();
-        v152 = swift_slowAlloc();
-        v154 = v152;
-        *v89 = 136315394;
-        if (one-time initialization token for typeName != -1)
-        {
-          swift_once();
-        }
-
-        *(v89 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v154);
-        *(v89 + 12) = 2080;
-        v90 = v144;
-        v85(v139, v144, v83);
-        v91 = String.init<A>(describing:)();
-        v93 = v92;
-        v94 = *(v81 + 8);
-        v94(v90, v83);
-        v95 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v91, v93, &v154);
-
-        *(v89 + 14) = v95;
-        _os_log_impl(&dword_266B9E000, v87, v88, "%s: Received .uso parse with usoParse: %s", v89, 0x16u);
-        v96 = v152;
-        swift_arrayDestroy();
-        MEMORY[0x26D5ED340](v96, -1, -1);
-        MEMORY[0x26D5ED340](v89, -1, -1);
-      }
-
-      else
-      {
-
-        v94 = *(v81 + 8);
-        v94(v86, v83);
-      }
-
-      v130 = v149;
-      USOParse.userParse.getter();
-      v131 = type metadata accessor for SharingNLv4Intent();
-      v132 = *(v131 + 48);
-      v133 = *(v131 + 52);
-      swift_allocObject();
-      v134 = SharingNLv4Intent.init(from:)(v130);
-      if (v134)
-      {
-        v135 = v134;
-        v136 = v153;
-        *(v153 + 24) = v131;
-        v136[4] = lazy protocol witness table accessor for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent(&lazy protocol witness table cache variable for type SharingNLv4Intent and conformance SharingNLv4Intent, type metadata accessor for SharingNLv4Intent);
-        *v136 = v135;
-        v94(v82, v83);
-        return result;
-      }
-
-      v94(v82, v83);
-      goto LABEL_63;
-    }
-
-    if (one-time initialization token for default != -1)
-    {
-      swift_once();
-    }
-
-    v114 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v114, static Logger.default);
-    v115 = v143;
-    v36(v143, a1, v26);
-    v116 = Logger.logObject.getter();
-    v117 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v116, v117))
-    {
-      LODWORD(v151) = v117;
-      v152 = v116;
-      v118 = swift_slowAlloc();
-      v119 = swift_slowAlloc();
-      v154 = v119;
-      *v118 = 136315394;
-      if (one-time initialization token for typeName != -1)
-      {
-        swift_once();
-      }
-
-      *(v118 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SharingIntentHelper.typeName, *algn_2800C02F8, &v154);
-      *(v118 + 12) = 2080;
-      v120 = v143;
-      v36(v31, v143, v26);
-      v121 = String.init<A>(describing:)();
-      v123 = v122;
-      v124 = *(v27 + 8);
-      v124(v120, v26);
-      v125 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v121, v123, &v154);
-
-      *(v118 + 14) = v125;
-      v126 = v152;
-      _os_log_impl(&dword_266B9E000, v152, v151, "%s: Received parse of unexpected type: %s", v118, 0x16u);
-      swift_arrayDestroy();
-      MEMORY[0x26D5ED340](v119, -1, -1);
-      MEMORY[0x26D5ED340](v118, -1, -1);
-    }
-
-    else
-    {
-
-      v124 = *(v27 + 8);
-      v124(v115, v26);
-    }
-
-    v137 = v153;
-    *(v153 + 32) = 0;
-    *v137 = 0u;
-    v137[1] = 0u;
-    v124(v35, v26);
-  }
-
-  return result;
-}
-
-uint64_t SharingIntent.shareTarget.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  v84 = a3;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v77 - v8;
-  v10 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
-  v81 = *(v10 - 8);
-  v11 = *(v81 + 64);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v77 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = MEMORY[0x28223BE20](v12);
-  v17 = &v77 - v16;
-  v80 = *(a1 - 8);
-  v18 = *(v80 + 64);
-  MEMORY[0x28223BE20](v15);
-  v20 = &v77 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for Logger();
-  v82 = *(v21 - 8);
-  v83 = v21;
-  v22 = *(v82 + 64);
-  MEMORY[0x28223BE20](v21);
-  v24 = &v77 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = (*(a2 + 120))(a1, a2);
-  if (v26)
-  {
-    v27 = v26;
-    v28 = a1;
-    v81 = v3;
-    v29 = v25;
-    v30 = objc_allocWithZone(MEMORY[0x277CC1E70]);
-
-    v78 = v29;
-    v31 = @nonobjc LSApplicationRecord.init(bundleIdentifier:allowPlaceholder:)(v29, v27, 0);
-    v43 = v24;
-    v44 = a2;
-    v45 = v20;
-    if (!v31)
-    {
-      v32 = v81;
-      v33 = v28;
-      if (one-time initialization token for default != -1)
-      {
-        swift_once();
-      }
-
-      v34 = v83;
-      v35 = __swift_project_value_buffer(v83, static Logger.default);
-      (*(v82 + 16))(v43, v35, v34);
-      v36 = *(v44 + 72);
-      v36(v33, v44);
-      if (v37)
-      {
-
-        v38 = static os_log_type_t.debug.getter();
-      }
-
-      else
-      {
-        v38 = static os_log_type_t.error.getter();
-      }
-
-      v79 = v38;
-      v47 = v80;
-      (*(v80 + 16))(v45, v32, v33);
-      v48 = Logger.logObject.getter();
-      if (os_log_type_enabled(v48, v79))
-      {
-        v49 = swift_slowAlloc();
-        v80 = swift_slowAlloc();
-        v85[0] = v80;
-        *v49 = 136315394;
-        v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, v27, v85);
-        v78 = v48;
-        v51 = v50;
-
-        *(v49 + 4) = v51;
-        *(v49 + 12) = 2080;
-        v52 = (v36)(v33, v44);
-        if (v53)
-        {
-          v54 = v52;
-        }
-
-        else
-        {
-          v54 = 7104878;
-        }
-
-        v55 = v36;
-        if (v53)
-        {
-          v56 = v53;
-        }
-
-        else
-        {
-          v56 = 0xE300000000000000;
-        }
-
-        (*(v47 + 8))(v45, v33);
-        v57 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v54, v56, v85);
-        v36 = v55;
-
-        *(v49 + 14) = v57;
-        v58 = v78;
-        _os_log_impl(&dword_266B9E000, v78, v79, "SharingIntent: share target for appIdentifier=%s appName=%s not installed", v49, 0x16u);
-        v59 = v80;
-        swift_arrayDestroy();
-        MEMORY[0x26D5ED340](v59, -1, -1);
-        MEMORY[0x26D5ED340](v49, -1, -1);
-      }
-
-      else
-      {
-
-        (*(v47 + 8))(v45, v33);
-      }
-
-      (*(v82 + 8))(v43, v83);
-      v60 = (v36)(v33, v44);
-      if (v61)
-      {
-        v62 = v60;
-      }
-
-      else
-      {
-        v62 = 0;
-      }
-
-      v63 = 0xE000000000000000;
-      if (v61)
+      (*(v83 + 8))(v44, v84);
+      v61 = v37(v34, v45);
+      if (v62)
       {
         v63 = v61;
       }
 
-      v64 = v84;
-      *v84 = v62;
-      v64[1] = v63;
-      type metadata accessor for ShareTarget();
+      else
+      {
+        v63 = 0;
+      }
+
+      v64 = 0xE000000000000000;
+      if (v62)
+      {
+        v64 = v62;
+      }
+
+      v65 = v85;
+      *v85 = v63;
+      v65[1] = v64;
+      type metadata accessor for ShareTarget(0);
       return swift_storeEnumTagMultiPayload();
     }
 
-    if ((*(v44 + 48))(v28, v44))
+    if (v45[6](v29, v45))
     {
-      v46 = v84;
-      *v84 = v78;
-      v46[1] = v27;
-      type metadata accessor for ShareTarget();
+      v47 = v85;
+      *v85 = v79;
+      v47[1] = v28;
+      type metadata accessor for ShareTarget(0);
     }
 
     else
     {
-      if ((*(v44 + 240))(v28, v44))
+      if (v45[30](v29, v45))
       {
-        v67 = 0;
+        v68 = 0;
       }
 
       else
       {
-        v67 = 2;
+        v68 = 2;
       }
 
-      v68 = v84;
-      *v84 = v78;
-      v68[1] = v27;
-      *(v68 + 16) = v67;
-      type metadata accessor for ShareTarget();
+      v69 = v85;
+      *v85 = v79;
+      v69[1] = v28;
+      *(v69 + 16) = v68;
+      type metadata accessor for ShareTarget(0);
     }
 
     goto LABEL_36;
   }
 
-  v39 = v81;
-  v40 = (*(a2 + 72))(a1, a2);
-  if (v41)
+  v40 = v82;
+  v41 = a2[9](a1, a2);
+  if (v42)
   {
-    v42 = v84;
-    *v84 = v40;
-    v42[1] = v41;
-    type metadata accessor for ShareTarget();
+    v43 = v85;
+    *v85 = v41;
+    v43[1] = v42;
+    type metadata accessor for ShareTarget(0);
     goto LABEL_36;
   }
 
-  v65 = (*(a2 + 152))(a1, a2);
-  v66 = v84;
-  if ((v65 & 1) != 0 || ((*(a2 + 160))(a1, a2) & 1) != 0 || ((*(a2 + 168))(a1, a2) & 1) != 0 || ((*(a2 + 48))(a1, a2) & 1) == 0)
+  v66 = a2[19](a1, a2);
+  v67 = v85;
+  if ((v66 & 1) != 0 || (a2[20](a1, a2) & 1) != 0 || (a2[21](a1, a2) & 1) != 0 || (a2[6](a1, a2) & 1) == 0)
   {
-    type metadata accessor for ShareTarget();
+    type metadata accessor for ShareTarget(0);
 LABEL_36:
 
     return swift_storeEnumTagMultiPayload();
   }
 
-  (*(a2 + 24))(a1, a2);
-  if ((*(v39 + 48))(v9, 1, v10) == 1)
+  a2[3](a1, a2);
+  if ((*(v40 + 48))(v9, 1, v10) == 1)
   {
     outlined destroy of SharingResponse?(v9, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMd, &_s12SiriOntology31UsoEntity_common_AttachmentTypeC13DefinedValuesOSgMR);
 LABEL_48:
-    type metadata accessor for ShareTarget();
-    *v66 = 0;
-    v66[1] = 0;
+    type metadata accessor for ShareTarget(0);
+    *v67 = 0;
+    v67[1] = 0;
     return swift_storeEnumTagMultiPayload();
   }
 
-  v70 = *(v39 + 32);
-  v70(v17, v9, v10);
-  v71 = (*(a2 + 208))(a1, a2);
-  if (!v71)
+  v71 = *(v40 + 32);
+  v71(v18, v9, v10);
+  v72 = a2[26](a1, a2);
+  if (!v72)
   {
-    (*(v39 + 8))(v17, v10);
-    v66 = v84;
+    (*(v40 + 8))(v18, v10);
+    v67 = v85;
     goto LABEL_48;
   }
 
-  v72 = v71;
-  (*(v39 + 16))(v14, v17, v10);
-  v73 = (*(v39 + 88))(v14, v10);
-  if (v73 == *MEMORY[0x277D5EF48] || v73 == *MEMORY[0x277D5EF08])
+  v73 = v72;
+  (*(v40 + 16))(v14, v18, v10);
+  v74 = (*(v40 + 88))(v14, v10);
+  if (v74 == *MEMORY[0x277D5EF48] || v74 == *MEMORY[0x277D5EF08])
   {
-    (*(v39 + 8))(v17, v10);
+    (*(v40 + 8))(v18, v10);
 
-    type metadata accessor for ShareTarget();
-    v76 = v84;
-    *v84 = 0;
-    v76[1] = 0;
+    type metadata accessor for ShareTarget(0);
+    v77 = v85;
+    *v85 = 0;
+    v77[1] = 0;
     return swift_storeEnumTagMultiPayload();
   }
 
-  v74 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMd, &_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMR) + 48);
-  v75 = v84;
-  *v84 = v72;
-  v70(v75 + v74, v17, v10);
-  type metadata accessor for ShareTarget();
+  v75 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMd, &_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMR) + 48);
+  v76 = v85;
+  *v85 = v73;
+  v71(v76 + v75, v18, v10);
+  type metadata accessor for ShareTarget(0);
   swift_storeEnumTagMultiPayload();
-  return (*(v39 + 8))(v14, v10);
+  return (*(v40 + 8))(v14, v10);
 }
 
 uint64_t SharingIntent.isExplicitShareViaMessagesIntent.getter(uint64_t a1, uint64_t a2)
@@ -5497,8 +5326,7 @@ unint64_t UsoEntity_common_AttachmentType.DefinedValues.matchingFirstPartyAppBun
   v2 = 0xD000000000000013;
   v3 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x28223BE20](v3);
+  MEMORY[0x28223BE20](v3, v5);
   v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v4 + 16))(v7, v1, v3);
   v8 = (*(v4 + 88))(v7, v3);
@@ -5544,30 +5372,29 @@ unint64_t UsoEntity_common_AttachmentType.DefinedValues.matchingFirstPartyAppBun
 
 id @nonobjc LSApplicationRecord.init(bundleIdentifier:allowPlaceholder:)(uint64_t a1, uint64_t a2, char a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
-  v5 = MEMORY[0x26D5EC850]();
+  v10[1] = *MEMORY[0x277D85DE8];
+  v5 = MEMORY[0x26D5EC850](a1);
 
-  v11[0] = 0;
-  v6 = [v3 initWithBundleIdentifier:v5 allowPlaceholder:a3 & 1 error:v11];
+  v10[0] = 0;
+  v6 = [v3 initWithBundleIdentifier:v5 allowPlaceholder:a3 & 1 error:v10];
 
   if (v6)
   {
-    v7 = v11[0];
+    v7 = v10[0];
   }
 
   else
   {
-    v8 = v11[0];
+    v8 = v10[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t lazy protocol witness table accessor for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type SharingDirectInvocationIntent and conformance SharingDirectInvocationIntent(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5643,11 +5470,9 @@ uint64_t protocol witness for CustomStringConvertible.description.getter in conf
 
 uint64_t type metadata completion function for SharingFlow(uint64_t a1)
 {
-  v1 = *(a1 + 80);
   result = swift_checkMetadataState();
-  if (v3 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v4 = *(result - 8) + 64;
     result = swift_initClassMetadata2();
     if (!result)
     {
@@ -5697,50 +5522,47 @@ uint64_t SharingFlow.execute()(uint64_t a1)
 
 uint64_t SharingFlow.execute()()
 {
-  v12 = v0;
+  v10 = v0;
   if (one-time initialization token for default != -1)
   {
     swift_once();
   }
 
-  v1 = v0[3];
-  v2 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v2, static Logger.default);
+  v1 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v1, static Logger.default);
 
-  v3 = Logger.logObject.getter();
-  v4 = static os_log_type_t.error.getter();
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v3, v4))
+  if (os_log_type_enabled(v2, v3))
   {
-    v5 = v0[3];
+    v4 = *(v0 + 24);
+    v5 = swift_slowAlloc();
     v6 = swift_slowAlloc();
-    v7 = swift_slowAlloc();
-    v11 = v7;
-    *v6 = 136315138;
-    *(v6 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*(v5 + 16), *(v5 + 24), &v11);
-    _os_log_impl(&dword_266B9E000, v3, v4, "%s: execute() called. This should never happen.", v6, 0xCu);
-    __swift_destroy_boxed_opaque_existential_1Tm(v7);
-    MEMORY[0x26D5ED340](v7, -1, -1);
+    v9 = v6;
+    *v5 = 136315138;
+    *(v5 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(*(v4 + 16), *(v4 + 24), &v9);
+    _os_log_impl(&dword_266B9E000, v2, v3, "%s: execute() called. This should never happen.", v5, 0xCu);
+    __swift_destroy_boxed_opaque_existential_1Tm(v6);
     MEMORY[0x26D5ED340](v6, -1, -1);
+    MEMORY[0x26D5ED340](v5, -1, -1);
   }
 
-  v8 = v0[2];
   static ExecuteResponse.complete()();
-  v9 = v0[1];
+  v7 = *(v0 + 8);
 
-  return v9();
+  return v7();
 }
 
 char *SharingFlow.deinit()
 {
   v1 = *v0;
-  v2 = *(v0 + 3);
 
-  (*(*(*(v1 + 80) - 8) + 8))(&v0[*(*v0 + 104)]);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v0[*(*v0 + 112)]);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v0[*(*v0 + 120)]);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v0[*(*v0 + 128)]);
-  __swift_destroy_boxed_opaque_existential_1Tm(&v0[*(*v0 + 136)]);
+  (*(*(*(v1 + 80) - 8) + 8))(v0 + *(*v0 + 104));
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + *(*v0 + 112)));
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + *(*v0 + 120)));
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + *(*v0 + 128)));
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + *(*v0 + 136)));
   return v0;
 }
 
@@ -5917,15 +5739,13 @@ LABEL_20:
 
 uint64_t protocol witness for Flow.execute() in conformance SharingFlow<A>(uint64_t a1)
 {
-  v4 = *(**v1 + 216);
-  v8 = (v4 + *v4);
-  v5 = v4[1];
-  v6 = swift_task_alloc();
-  *(v2 + 16) = v6;
-  *v6 = v2;
-  v6[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
+  v6 = (*(**v1 + 216) + **(**v1 + 216));
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
 
-  return v8(a1);
+  return v6(a1);
 }
 
 unint64_t protocol witness for CustomStringConvertible.description.getter in conformance SharingFlowError()
@@ -5972,7 +5792,7 @@ unint64_t lazy protocol witness table accessor for type SharingFlowError and con
   return result;
 }
 
-uint64_t instantiation function for generic protocol witness table for SharingFlow<A>(uint64_t a1)
+uint64_t instantiation function for generic protocol witness table for SharingFlow<A>(uint64_t a1, uint64_t a2)
 {
   result = swift_getWitnessTable();
   *(a1 + 8) = result;
@@ -5983,22 +5803,19 @@ uint64_t SharingYesNoPromptFlowStrategy.makePromptForYesNoResponse()(uint64_t a1
 {
   *(v4 + 16) = v3;
   v7 = *(a3 + 8);
-  v8 = *(v7 + 88);
-  v12 = (v8 + *v8);
-  v9 = v8[1];
-  v10 = swift_task_alloc();
-  *(v4 + 24) = v10;
-  *v10 = v4;
-  v10[1] = SharingYesNoPromptFlowStrategy.makePromptForYesNoResponse();
+  v10 = (*(v7 + 88) + **(v7 + 88));
+  v8 = swift_task_alloc();
+  *(v4 + 24) = v8;
+  *v8 = v4;
+  v8[1] = SharingYesNoPromptFlowStrategy.makePromptForYesNoResponse();
 
-  return v12(a1, a2, v7);
+  return v10(a1, a2, v7);
 }
 
 uint64_t SharingYesNoPromptFlowStrategy.makePromptForYesNoResponse()()
 {
-  v2 = *(*v1 + 24);
-  v3 = *v1;
-  *(v3 + 32) = v0;
+  v2 = *v1;
+  *(v2 + 32) = v0;
 
   if (v0)
   {
@@ -6008,9 +5825,9 @@ uint64_t SharingYesNoPromptFlowStrategy.makePromptForYesNoResponse()()
 
   else
   {
-    v4 = *(v3 + 8);
+    v3 = *(v2 + 8);
 
-    return v4();
+    return v3();
   }
 }
 
@@ -6018,22 +5835,19 @@ uint64_t SharingYesNoPromptFlowStrategy.makeFlowCancelledResponse()(uint64_t a1,
 {
   *(v4 + 16) = v3;
   v7 = *(a3 + 8);
-  v8 = *(v7 + 96);
-  v12 = (v8 + *v8);
-  v9 = v8[1];
-  v10 = swift_task_alloc();
-  *(v4 + 24) = v10;
-  *v10 = v4;
-  v10[1] = SharingYesNoPromptFlowStrategy.makeFlowCancelledResponse();
+  v10 = (*(v7 + 96) + **(v7 + 96));
+  v8 = swift_task_alloc();
+  *(v4 + 24) = v8;
+  *v8 = v4;
+  v8[1] = SharingYesNoPromptFlowStrategy.makeFlowCancelledResponse();
 
-  return v12(a1, a2, v7);
+  return v10(a1, a2, v7);
 }
 
 uint64_t SharingYesNoPromptFlowStrategy.makeFlowCancelledResponse()()
 {
-  v2 = *(*v1 + 24);
-  v3 = *v1;
-  *(v3 + 32) = v0;
+  v2 = *v1;
+  *(v2 + 32) = v0;
 
   if (v0)
   {
@@ -6043,14 +5857,13 @@ uint64_t SharingYesNoPromptFlowStrategy.makeFlowCancelledResponse()()
 
   else
   {
-    v4 = *(v3 + 8);
+    v3 = *(v2 + 8);
 
-    return v4();
+    return v3();
   }
 }
 
 {
-  v1 = *(v0 + 32);
   return (*(v0 + 8))();
 }
 
@@ -6095,16 +5908,13 @@ uint64_t ExpanseFlowExitValue.rawValue.getter()
 {
   if (*v0)
   {
-    result = 0x656C646E61686E75;
+    return 0x656C646E61686E75;
   }
 
   else
   {
-    result = 0x64656C646E6168;
+    return 0x64656C646E6168;
   }
-
-  *v0;
-  return result;
 }
 
 SiriExpanseInternal::ExpanseFlowExitValue_optional __swiftcall ExpanseFlowExitValue.init(rawValue:)(Swift::String rawValue)
@@ -6148,22 +5958,19 @@ unint64_t lazy protocol witness table accessor for type ExpanseFlowExitValue and
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance ExpanseFlowExitValue()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance ExpanseFlowExitValue()
+uint64_t protocol witness for Hashable.hash(into:) in conformance ExpanseFlowExitValue(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ExpanseFlowExitValue()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ExpanseFlowExitValue(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -6213,59 +6020,58 @@ void protocol witness for RawRepresentable.rawValue.getter in conformance Expans
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ExpanseFlowExitValue(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0x656C646E61686E75;
+    v3 = 0x656C646E61686E75;
   }
 
   else
   {
-    v4 = 0x64656C646E6168;
+    v3 = 0x64656C646E6168;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = 0xE700000000000000;
+    v4 = 0xE700000000000000;
   }
 
   else
   {
-    v5 = 0xE900000000000064;
+    v4 = 0xE900000000000064;
   }
 
   if (*a2)
   {
-    v6 = 0x656C646E61686E75;
+    v5 = 0x656C646E61686E75;
   }
 
   else
   {
-    v6 = 0x64656C646E6168;
+    v5 = 0x64656C646E6168;
   }
 
   if (*a2)
   {
-    v7 = 0xE900000000000064;
+    v6 = 0xE900000000000064;
   }
 
   else
   {
-    v7 = 0xE700000000000000;
+    v6 = 0xE700000000000000;
   }
 
-  if (v4 == v6 && v5 == v7)
+  if (v3 == v5 && v4 == v6)
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)(uint64_t a1, uint64_t a2)
@@ -6275,9 +6081,7 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)(uint64_t a1
   v3[5] = a1;
   v4 = type metadata accessor for Input();
   v3[8] = v4;
-  v5 = *(v4 - 8);
-  v3[9] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3[9] = *(v4 - 8);
   v3[10] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](specialized SharingPromptFlowStrategy.parseResponse(input:), 0, 0);
@@ -6289,9 +6093,7 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)(uint64_t a1
   v3[5] = a1;
   v4 = type metadata accessor for Input();
   v3[8] = v4;
-  v5 = *(v4 - 8);
-  v3[9] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3[9] = *(v4 - 8);
   v3[10] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](specialized SharingPromptFlowStrategy.parseResponse(input:), 0, 0);
@@ -6303,9 +6105,7 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)(uint64_t a1
   v3[5] = a1;
   v4 = type metadata accessor for Input();
   v3[8] = v4;
-  v5 = *(v4 - 8);
-  v3[9] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3[9] = *(v4 - 8);
   v3[10] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](specialized SharingPromptFlowStrategy.parseResponse(input:), 0, 0);
@@ -6313,7 +6113,7 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)(uint64_t a1
 
 uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)()
 {
-  v24 = v0;
+  v23 = v0;
   if (one-time initialization token for default != -1)
   {
     swift_once();
@@ -6336,13 +6136,13 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)()
   {
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v23 = v13;
+    v22 = v13;
     *v12 = 136315138;
-    lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type Input and conformance Input, MEMORY[0x277D5C118]);
+    lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type Input and conformance Input, MEMORY[0x277D5C118], MEMORY[0x277D5C120]);
     v14 = dispatch thunk of CustomStringConvertible.description.getter();
     v16 = v15;
     (*(v10 + 8))(v9, v11);
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v23);
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v22);
 
     *(v12 + 4) = v17;
     _os_log_impl(&dword_266B9E000, v6, v7, "SharingPromptFlowStrategy: parseResponse received input: %s", v12, 0xCu);
@@ -6357,19 +6157,18 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)()
     (*(v10 + 8))(v9, v11);
   }
 
-  v18 = v0[10];
-  v19 = v0[7];
-  v20 = v0[5];
+  v18 = v0[7];
+  v19 = v0[5];
   swift_beginAccess();
-  outlined init with copy of SharingResponse?(v19 + 136, v20, &_s19SiriExpanseInternal13SharingIntent_pSgMd, &_s19SiriExpanseInternal13SharingIntent_pSgMR);
+  outlined init with copy of SharingResponse?(v18 + 136, v19, &_s19SiriExpanseInternal13SharingIntent_pSgMd, &_s19SiriExpanseInternal13SharingIntent_pSgMR);
 
-  v21 = v0[1];
+  v20 = v0[1];
 
-  return v21();
+  return v20();
 }
 
 {
-  v26 = v0;
+  v25 = v0;
   if (one-time initialization token for default != -1)
   {
     swift_once();
@@ -6392,13 +6191,13 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)()
   {
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v25 = v13;
+    v24 = v13;
     *v12 = 136315138;
-    lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type Input and conformance Input, MEMORY[0x277D5C118]);
+    lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type Input and conformance Input, MEMORY[0x277D5C118], MEMORY[0x277D5C120]);
     v14 = dispatch thunk of CustomStringConvertible.description.getter();
     v16 = v15;
     (*(v10 + 8))(v9, v11);
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v25);
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v24);
 
     *(v12 + 4) = v17;
     _os_log_impl(&dword_266B9E000, v6, v7, "SharingPromptFlowStrategy: parseResponse received input: %s", v12, 0xCu);
@@ -6413,21 +6212,20 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)()
     (*(v10 + 8))(v9, v11);
   }
 
-  v18 = v0[10];
-  v19 = v0[7];
-  v20 = v0[5];
-  v21 = OBJC_IVAR____TtC19SiriExpanseInternal36SimpleSharingYesNoPromptFlowStrategy_responseValue;
+  v18 = v0[7];
+  v19 = v0[5];
+  v20 = OBJC_IVAR____TtC19SiriExpanseInternal36SimpleSharingYesNoPromptFlowStrategy_responseValue;
   swift_beginAccess();
-  v22 = type metadata accessor for SimpleConfirmationResponseProvider();
-  (*(*(v22 - 8) + 16))(v20, v19 + v21, v22);
+  v21 = type metadata accessor for SimpleConfirmationResponseProvider();
+  (*(*(v21 - 8) + 16))(v19, v18 + v20, v21);
 
-  v23 = v0[1];
+  v22 = v0[1];
 
-  return v23();
+  return v22();
 }
 
 {
-  v24 = v0;
+  v23 = v0;
   if (one-time initialization token for default != -1)
   {
     swift_once();
@@ -6450,13 +6248,13 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)()
   {
     v12 = swift_slowAlloc();
     v13 = swift_slowAlloc();
-    v23 = v13;
+    v22 = v13;
     *v12 = 136315138;
-    lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type Input and conformance Input, MEMORY[0x277D5C118]);
+    lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type Input and conformance Input, MEMORY[0x277D5C118], MEMORY[0x277D5C120]);
     v14 = dispatch thunk of CustomStringConvertible.description.getter();
     v16 = v15;
     (*(v10 + 8))(v9, v11);
-    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v23);
+    v17 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v16, &v22);
 
     *(v12 + 4) = v17;
     _os_log_impl(&dword_266B9E000, v6, v7, "SharingPromptFlowStrategy: parseResponse received input: %s", v12, 0xCu);
@@ -6471,29 +6269,26 @@ uint64_t specialized SharingPromptFlowStrategy.parseResponse(input:)()
     (*(v10 + 8))(v9, v11);
   }
 
-  v18 = v0[10];
-  v19 = v0[7];
-  v20 = v0[5];
+  v18 = v0[7];
+  v19 = v0[5];
   swift_beginAccess();
-  outlined init with copy of SharingResponse?(v19 + 136, v20, &_s19SiriExpanseInternal43ConfirmScreenShareOrMessageSendFlowStrategyC8DecisionOSgMd, &_s19SiriExpanseInternal43ConfirmScreenShareOrMessageSendFlowStrategyC8DecisionOSgMR);
+  outlined init with copy of SharingResponse?(v18 + 136, v19, &_s19SiriExpanseInternal43ConfirmScreenShareOrMessageSendFlowStrategyC8DecisionOSgMd, &_s19SiriExpanseInternal43ConfirmScreenShareOrMessageSendFlowStrategyC8DecisionOSgMR);
 
-  v21 = v0[1];
+  v20 = v0[1];
 
-  return v21();
+  return v20();
 }
 
 uint64_t SimpleSharingYesNoPromptFlowStrategy.actionForIntent(_:)(void *a1)
 {
   v2 = v1;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow20ConfirmationResponseOSgMd, &_s11SiriKitFlow20ConfirmationResponseOSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v27 - v6;
+  MEMORY[0x28223BE20](v4 - 8, v5);
+  v7 = &v28[-1] - v6;
   v8 = type metadata accessor for SimpleConfirmationResponseProvider();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8, v10);
+  v12 = &v28[-1] - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   v13 = a1[3];
   v14 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, v13);
@@ -6521,14 +6316,14 @@ uint64_t SimpleSharingYesNoPromptFlowStrategy.actionForIntent(_:)(void *a1)
       {
         v25 = swift_slowAlloc();
         v26 = swift_slowAlloc();
-        v28 = v26;
+        v28[0] = v26;
         *v25 = 136315138;
         if (one-time initialization token for typeName != -1)
         {
           swift_once();
         }
 
-        *(v25 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SimpleSharingYesNoPromptFlowStrategy.typeName, *algn_2800C03F8, &v28);
+        *(v25 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static SimpleSharingYesNoPromptFlowStrategy.typeName, *algn_2800C03F8, v28);
         _os_log_impl(&dword_266B9E000, v23, v24, "%s: SharingIntent has no confirmation value; ignoring input.", v25, 0xCu);
         __swift_destroy_boxed_opaque_existential_1Tm(v26);
         MEMORY[0x26D5ED340](v26, -1, -1);
@@ -6575,55 +6370,51 @@ uint64_t SimpleSharingYesNoPromptFlowStrategy.makeConfirmationRejectedResponse()
 
 uint64_t SimpleSharingYesNoPromptFlowStrategy.makeConfirmationRejectedResponse()()
 {
-  outlined init with copy of SharingResponse?(v0[13] + 56, (v0 + 7), &_s19SiriExpanseInternal15SharingResponse_pSgMd, &_s19SiriExpanseInternal15SharingResponse_pSgMR);
-  if (v0[10])
+  outlined init with copy of SharingResponse?(*(v0 + 104) + 56, v0 + 56, &_s19SiriExpanseInternal15SharingResponse_pSgMd, &_s19SiriExpanseInternal15SharingResponse_pSgMR);
+  if (*(v0 + 80))
   {
-    v1 = v0[13];
-    outlined init with take of SharingResponse(v0 + 7, v0 + 2);
-    v2 = *__swift_project_boxed_opaque_existential_1((v1 + 136), *(v1 + 160));
-    v3 = swift_task_alloc();
-    v0[14] = v3;
-    *v3 = v0;
-    v3[1] = SimpleSharingYesNoPromptFlowStrategy.makeConfirmationRejectedResponse();
-    v4 = v0[12];
+    v1 = *(v0 + 104);
+    outlined init with take of SharingResponse((v0 + 56), v0 + 16);
+    __swift_project_boxed_opaque_existential_1((v1 + 136), *(v1 + 160));
+    v2 = swift_task_alloc();
+    *(v0 + 112) = v2;
+    *v2 = v0;
+    v2[1] = SimpleSharingYesNoPromptFlowStrategy.makeConfirmationRejectedResponse();
+    v3 = *(v0 + 96);
 
-    return ResponseExecutor.execute(response:)(v4, (v0 + 2));
+    return ResponseExecutor.execute(response:)(v3, v0 + 16);
   }
 
   else
   {
-    v6 = v0[12];
-    outlined destroy of SharingResponse?((v0 + 7));
+    outlined destroy of SharingResponse?(v0 + 56);
     type metadata accessor for EmptyOutput();
     static EmptyOutput.instance.getter();
-    v7 = v0[1];
+    v5 = *(v0 + 8);
 
-    return v7();
+    return v5();
   }
 }
 
 {
-  v2 = *(*v1 + 112);
-  v5 = *v1;
   *(*v1 + 120) = v0;
 
   if (v0)
   {
-    v3 = SimpleSharingYesNoPromptFlowStrategy.makeConfirmationRejectedResponse();
+    v2 = SimpleSharingYesNoPromptFlowStrategy.makeConfirmationRejectedResponse();
   }
 
   else
   {
-    v3 = SharingPromptFlowStrategy.makePrompt();
+    v2 = SharingPromptFlowStrategy.makePrompt();
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-  v1 = v0[1];
-  v2 = v0[15];
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
+  v1 = *(v0 + 8);
 
   return v1();
 }
@@ -6631,19 +6422,19 @@ uint64_t SimpleSharingYesNoPromptFlowStrategy.makeConfirmationRejectedResponse()
 uint64_t SimpleSharingYesNoPromptFlowStrategy.__deallocating_deinit()
 {
   __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
-  outlined destroy of SharingResponse?((v0 + 7));
-  outlined destroy of SharingResponse?((v0 + 12));
+  outlined destroy of SharingResponse?((v0 + 56));
+  outlined destroy of SharingResponse?((v0 + 96));
   __swift_destroy_boxed_opaque_existential_1Tm(v0 + 17);
   v1 = OBJC_IVAR____TtC19SiriExpanseInternal36SimpleSharingYesNoPromptFlowStrategy_responseValue;
   v2 = type metadata accessor for SimpleConfirmationResponseProvider();
-  (*(*(v2 - 8) + 8))(v0 + v1, v2);
+  (*(*(v2 - 8) + 8))(&v0[v1], v2);
   v3 = *(*v0 + 48);
   v4 = *(*v0 + 52);
 
   return MEMORY[0x2821FE8D8](v0, v3, v4);
 }
 
-uint64_t type metadata accessor for SimpleSharingYesNoPromptFlowStrategy()
+uint64_t type metadata accessor for SimpleSharingYesNoPromptFlowStrategy(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SimpleSharingYesNoPromptFlowStrategy;
   if (!type metadata singleton initialization cache for SimpleSharingYesNoPromptFlowStrategy)
@@ -6654,12 +6445,11 @@ uint64_t type metadata accessor for SimpleSharingYesNoPromptFlowStrategy()
   return result;
 }
 
-uint64_t type metadata completion function for SimpleSharingYesNoPromptFlowStrategy()
+uint64_t type metadata completion function for SimpleSharingYesNoPromptFlowStrategy(uint64_t a1)
 {
   result = type metadata accessor for SimpleConfirmationResponseProvider();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -6700,41 +6490,38 @@ uint64_t protocol witness for PromptForConfirmationFlowStrategyAsync.parseConfir
 
 uint64_t protocol witness for PromptForConfirmationFlowStrategyAsync.makePromptForConfirmation(itemToConfirm:) in conformance SimpleSharingYesNoPromptFlowStrategy(uint64_t a1)
 {
-  v3 = *(MEMORY[0x277D5B388] + 4);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  v5 = type metadata accessor for SimpleSharingYesNoPromptFlowStrategy();
-  v6 = lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy);
-  *v4 = v1;
-  v4[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  v4 = type metadata accessor for SimpleSharingYesNoPromptFlowStrategy(0);
+  v5 = lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy, "):d\x1B<a");
+  *v3 = v1;
+  v3[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
-  return MEMORY[0x2821B9C20](a1, v5, v6);
+  return MEMORY[0x2821B9C20](a1, v4, v5);
 }
 
 uint64_t protocol witness for PromptForConfirmationFlowStrategyAsync.makeRepromptOnEmptyParse(itemToConfirm:) in conformance SimpleSharingYesNoPromptFlowStrategy(uint64_t a1)
 {
-  v3 = *(MEMORY[0x277D5B390] + 4);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  v5 = type metadata accessor for SimpleSharingYesNoPromptFlowStrategy();
-  v6 = lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy);
-  *v4 = v1;
-  v4[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  v4 = type metadata accessor for SimpleSharingYesNoPromptFlowStrategy(0);
+  v5 = lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy, "):d\x1B<a");
+  *v3 = v1;
+  v3[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
-  return MEMORY[0x2821B9C28](a1, v5, v6);
+  return MEMORY[0x2821B9C28](a1, v4, v5);
 }
 
 uint64_t protocol witness for PromptForConfirmationFlowStrategyAsync.makeRepromptOnLowConfidence(itemToConfirm:) in conformance SimpleSharingYesNoPromptFlowStrategy(uint64_t a1)
 {
-  v3 = *(MEMORY[0x277D5B398] + 4);
-  v4 = swift_task_alloc();
-  *(v1 + 16) = v4;
-  v5 = type metadata accessor for SimpleSharingYesNoPromptFlowStrategy();
-  v6 = lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy);
-  *v4 = v1;
-  v4[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  v4 = type metadata accessor for SimpleSharingYesNoPromptFlowStrategy(0);
+  v5 = lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy, "):d\x1B<a");
+  *v3 = v1;
+  v3[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
-  return MEMORY[0x2821B9C30](a1, v5, v6);
+  return MEMORY[0x2821B9C30](a1, v4, v5);
 }
 
 uint64_t protocol witness for PromptForConfirmationFlowStrategyAsync.makeConfirmationRejectedResponse() in conformance SimpleSharingYesNoPromptFlowStrategy(uint64_t a1)
@@ -6760,23 +6547,22 @@ uint64_t protocol witness for PromptForConfirmationFlowStrategyAsync.makeFlowCan
 
 uint64_t protocol witness for PromptForConfirmationFlowStrategyAsync.makeErrorResponse(_:) in conformance SimpleSharingYesNoPromptFlowStrategy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(MEMORY[0x277D5B650] + 4);
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
   return MEMORY[0x2821BA038](a1, a2, a3, a4);
 }
 
 uint64_t instantiation function for generic protocol witness table for SimpleSharingYesNoPromptFlowStrategy(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy);
+  result = lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy, "):d\x1B<a");
   *(a1 + 16) = result;
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6825,65 +6611,55 @@ uint64_t static SharingNLContextProvider.makeNLContextUpdateForShareTargetPrompt
 {
   NLContextUpdate.init()();
   NLContextUpdate.weightedPromptTargetDomain.setter();
-  v0 = type metadata accessor for UsoEntityBuilder_common_Message();
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
+  type metadata accessor for UsoEntityBuilder_common_Message();
   swift_allocObject();
   UsoEntityBuilder_common_Message.init()();
-  v3 = type metadata accessor for UsoEntityBuilder_common_Attachment();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
+  type metadata accessor for UsoEntityBuilder_common_Attachment();
   swift_allocObject();
   UsoEntityBuilder_common_Attachment.init()();
   dispatch thunk of UsoEntityBuilder_common_Message.addAttachments(value:)();
-  v6 = type metadata accessor for UsoTaskBuilder_share_common_Message();
-  v7 = *(v6 + 48);
-  v8 = *(v6 + 52);
+  type metadata accessor for UsoTaskBuilder_share_common_Message();
   swift_allocObject();
-  v9 = UsoTaskBuilder_share_common_Message.init()();
+  v0 = UsoTaskBuilder_share_common_Message.init()();
   dispatch thunk of Uso_VerbTemplateBuilder_Target.setTarget(value:)();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriNLUTypes0D29_Nlu_External_SystemDialogActVGMd, &_ss23_ContiguousArrayStorageCy12SiriNLUTypes0D29_Nlu_External_SystemDialogActVGMR);
-  v10 = *(type metadata accessor for Siri_Nlu_External_SystemDialogAct() - 8);
-  v11 = *(v10 + 72);
-  v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
-  v13 = swift_allocObject();
-  *(v13 + 16) = xmmword_266BE97B0;
-  static SharingNLContextProvider.makePromptedSystemDialogAct(for:)(v9, v13 + v12);
+  v1 = *(type metadata accessor for Siri_Nlu_External_SystemDialogAct() - 8);
+  v2 = (*(v1 + 80) + 32) & ~*(v1 + 80);
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_266BE97B0;
+  static SharingNLContextProvider.makePromptedSystemDialogAct(for:)(v0, v3 + v2);
   NLContextUpdate.nluSystemDialogActs.setter();
 }
 
 uint64_t static SharingNLContextProvider.makePromptedSystemDialogAct(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v21[1] = a2;
+  v22[1] = a2;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = v21 - v6;
+  MEMORY[0x28223BE20](v4 - 8, v5);
+  v7 = v22 - v6;
   v8 = type metadata accessor for Siri_Nlu_External_UsoGraph();
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v22 = type metadata accessor for Siri_Nlu_External_SystemPrompted();
-  v10 = *(v22 - 8);
-  v11 = *(v10 + 64);
-  v12 = MEMORY[0x28223BE20](v22);
-  v14 = v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v12);
-  v16 = v21 - v15;
+  MEMORY[0x28223BE20](v8 - 8, v9);
+  v23 = type metadata accessor for Siri_Nlu_External_SystemPrompted();
+  v10 = *(v23 - 8);
+  v12 = MEMORY[0x28223BE20](v23, v11);
+  v14 = v22 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12, v15);
+  v17 = v22 - v16;
   Siri_Nlu_External_SystemPrompted.init()();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v17 = swift_allocObject();
-  *(v17 + 16) = xmmword_266BEA060;
-  *(v17 + 32) = a1;
-  v18 = type metadata accessor for UsoBuilderOptions();
-  (*(*(v18 - 8) + 56))(v7, 1, 1, v18);
+  v18 = swift_allocObject();
+  *(v18 + 16) = xmmword_266BEA060;
+  *(v18 + 32) = a1;
+  v19 = type metadata accessor for UsoBuilderOptions();
+  (*(*(v19 - 8) + 56))(v7, 1, 1, v19);
 
-  MEMORY[0x26D5EC2D0](v17, v7);
+  MEMORY[0x26D5EC2D0](v18, v7);
 
   outlined destroy of UsoBuilderOptions?(v7);
   static UsoGraphProtoWriter.toSwiftProtobuf(graph:vocabManager:)();
   if (v2)
   {
-    (*(v10 + 8))(v16, v22);
+    (*(v10 + 8))(v17, v23);
   }
 
   else
@@ -6891,10 +6667,10 @@ uint64_t static SharingNLContextProvider.makePromptedSystemDialogAct(for:)@<X0>(
 
     Siri_Nlu_External_SystemPrompted.target.setter();
     Siri_Nlu_External_SystemDialogAct.init()();
-    v20 = v22;
-    (*(v10 + 16))(v14, v16, v22);
+    v21 = v23;
+    (*(v10 + 16))(v14, v17, v23);
     Siri_Nlu_External_SystemDialogAct.prompted.setter();
-    return (*(v10 + 8))(v16, v20);
+    return (*(v10 + 8))(v17, v21);
   }
 }
 
@@ -6912,81 +6688,71 @@ uint64_t static SharingNLContextProvider.makeNLContextUpdateForConfirmationPromp
   NLContextUpdate.weightedPromptStrict.setter();
   if (a1)
   {
-    v2 = type metadata accessor for UsoTaskBuilder_unshare_common_Message();
-    v3 = *(v2 + 48);
-    v4 = *(v2 + 52);
+    type metadata accessor for UsoTaskBuilder_unshare_common_Message();
     swift_allocObject();
     UsoTaskBuilder_unshare_common_Message.init()();
   }
 
   else
   {
-    v5 = type metadata accessor for UsoTaskBuilder_share_common_Message();
-    v6 = *(v5 + 48);
-    v7 = *(v5 + 52);
+    type metadata accessor for UsoTaskBuilder_share_common_Message();
     swift_allocObject();
     UsoTaskBuilder_share_common_Message.init()();
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12SiriNLUTypes0D29_Nlu_External_SystemDialogActVGMd, &_ss23_ContiguousArrayStorageCy12SiriNLUTypes0D29_Nlu_External_SystemDialogActVGMR);
-  v8 = *(type metadata accessor for Siri_Nlu_External_SystemDialogAct() - 8);
-  v9 = *(v8 + 72);
-  v10 = (*(v8 + 80) + 32) & ~*(v8 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 16) = xmmword_266BE97B0;
+  v2 = *(type metadata accessor for Siri_Nlu_External_SystemDialogAct() - 8);
+  v3 = (*(v2 + 80) + 32) & ~*(v2 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_266BE97B0;
 
-  static SharingNLContextProvider.makeConfirmationSystemDialogAct(for:)(v12, v11 + v10);
+  static SharingNLContextProvider.makeConfirmationSystemDialogAct(for:)(v5, v4 + v3);
 
   NLContextUpdate.nluSystemDialogActs.setter();
 }
 
 uint64_t static SharingNLContextProvider.makeConfirmationSystemDialogAct(for:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v39 = a2;
-  v40 = type metadata accessor for Siri_Nlu_External_SystemOffered();
-  v38 = *(v40 - 8);
-  v3 = *(v38 + 64);
-  v4 = MEMORY[0x28223BE20](v40);
-  v37 = &v33 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v4);
-  v34 = &v33 - v6;
-  v41 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
-  v36 = *(v41 - 8);
-  v7 = *(v36 + 64);
-  v8 = MEMORY[0x28223BE20](v41);
-  v35 = &v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v11 = &v33 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
-  v15 = &v33 - v14;
-  v16 = type metadata accessor for Siri_Nlu_External_UsoGraph();
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v43 = type metadata accessor for Siri_Nlu_External_UserWantedToProceed();
-  v18 = *(v43 - 8);
-  v19 = *(v18 + 64);
-  v20 = MEMORY[0x28223BE20](v43);
-  v22 = &v33 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v20);
-  v24 = &v33 - v23;
+  v42 = a2;
+  v43 = type metadata accessor for Siri_Nlu_External_SystemOffered();
+  v41 = *(v43 - 8);
+  v4 = MEMORY[0x28223BE20](v43, v3);
+  v40 = &v36 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4, v6);
+  v37 = &v36 - v7;
+  v44 = type metadata accessor for Siri_Nlu_External_UserDialogAct();
+  v39 = *(v44 - 8);
+  v9 = MEMORY[0x28223BE20](v44, v8);
+  v38 = &v36 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9, v11);
+  v13 = &v36 - v12;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology17UsoBuilderOptionsVSgMd, &_s12SiriOntology17UsoBuilderOptionsVSgMR);
+  MEMORY[0x28223BE20](v14 - 8, v15);
+  v17 = &v36 - v16;
+  v18 = type metadata accessor for Siri_Nlu_External_UsoGraph();
+  MEMORY[0x28223BE20](v18 - 8, v19);
+  v46 = type metadata accessor for Siri_Nlu_External_UserWantedToProceed();
+  v20 = *(v46 - 8);
+  v22 = MEMORY[0x28223BE20](v46, v21);
+  v24 = &v36 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v22, v25);
+  v27 = &v36 - v26;
   Siri_Nlu_External_UserWantedToProceed.init()();
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-  v25 = swift_allocObject();
-  *(v25 + 16) = xmmword_266BEA060;
-  *(v25 + 32) = a1;
-  v26 = type metadata accessor for UsoBuilderOptions();
-  (*(*(v26 - 8) + 56))(v15, 1, 1, v26);
+  v28 = swift_allocObject();
+  *(v28 + 16) = xmmword_266BEA060;
+  *(v28 + 32) = a1;
+  v29 = type metadata accessor for UsoBuilderOptions();
+  (*(*(v29 - 8) + 56))(v17, 1, 1, v29);
 
-  MEMORY[0x26D5EC2D0](v25, v15);
+  MEMORY[0x26D5EC2D0](v28, v17);
 
-  outlined destroy of UsoBuilderOptions?(v15);
-  v27 = v42;
+  outlined destroy of UsoBuilderOptions?(v17);
+  v30 = v45;
   static UsoGraphProtoWriter.toSwiftProtobuf(graph:vocabManager:)();
-  if (v27)
+  if (v30)
   {
-    (*(v18 + 8))(v24, v43);
+    (*(v20 + 8))(v27, v46);
   }
 
   else
@@ -6994,22 +6760,22 @@ uint64_t static SharingNLContextProvider.makeConfirmationSystemDialogAct(for:)@<
 
     Siri_Nlu_External_UserWantedToProceed.reference.setter();
     Siri_Nlu_External_UserDialogAct.init()();
-    v33 = v18;
-    (*(v18 + 16))(v22, v24, v43);
+    v36 = v20;
+    (*(v20 + 16))(v24, v27, v46);
     Siri_Nlu_External_UserDialogAct.wantedToProceed.setter();
-    v29 = v34;
+    v32 = v37;
     Siri_Nlu_External_SystemOffered.init()();
-    v30 = v36;
-    (*(v36 + 16))(v35, v11, v41);
+    v33 = v39;
+    (*(v39 + 16))(v38, v13, v44);
     Siri_Nlu_External_SystemOffered.offeredAct.setter();
     Siri_Nlu_External_SystemDialogAct.init()();
-    v31 = v38;
-    v32 = v40;
-    (*(v38 + 16))(v37, v29, v40);
+    v34 = v41;
+    v35 = v43;
+    (*(v41 + 16))(v40, v32, v43);
     Siri_Nlu_External_SystemDialogAct.offered.setter();
-    (*(v31 + 8))(v29, v32);
-    (*(v30 + 8))(v11, v41);
-    return (*(v33 + 8))(v24, v43);
+    (*(v34 + 8))(v32, v35);
+    (*(v33 + 8))(v13, v44);
+    return (*(v36 + 8))(v27, v46);
   }
 }
 
@@ -7049,14 +6815,13 @@ uint64_t protocol witness for PromptForValueFlowStrategyAsync.parseValueResponse
 
 uint64_t protocol witness for PromptForValueFlowStrategyAsync.parseValueResponse(input:) in conformance NeedsShareTargetFlowStrategy()
 {
-  v2 = *(*v1 + 16);
-  v3 = *v1;
+  v2 = *v1;
 
   if (v0)
   {
-    v4 = *(v3 + 8);
+    v3 = *(v2 + 8);
 
-    return v4();
+    return v3();
   }
 
   else
@@ -7083,22 +6848,20 @@ uint64_t protocol witness for PromptForValueFlowStrategyAsync.makePromptForValue
 
 uint64_t protocol witness for PromptForValueFlowStrategyAsync.makeRepromptOnEmptyParse() in conformance NeedsShareTargetFlowStrategy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(MEMORY[0x277D5B460] + 4);
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
   return MEMORY[0x2821B9D48](a1, a2, a3);
 }
 
 uint64_t protocol witness for PromptForValueFlowStrategyAsync.makeRepromptOnLowConfidence() in conformance NeedsShareTargetFlowStrategy(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(MEMORY[0x277D5B468] + 4);
-  v8 = swift_task_alloc();
-  *(v3 + 16) = v8;
-  *v8 = v3;
-  v8[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v7 = swift_task_alloc();
+  *(v3 + 16) = v7;
+  *v7 = v3;
+  v7[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
   return MEMORY[0x2821B9D50](a1, a2, a3);
 }
@@ -7116,11 +6879,10 @@ uint64_t protocol witness for PromptForValueFlowStrategyAsync.makeFlowCancelledR
 
 uint64_t protocol witness for PromptForValueFlowStrategyAsync.makeErrorResponse(_:) in conformance NeedsShareTargetFlowStrategy(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v9 = *(MEMORY[0x277D5B458] + 4);
-  v10 = swift_task_alloc();
-  *(v4 + 16) = v10;
-  *v10 = v4;
-  v10[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
+  v9 = swift_task_alloc();
+  *(v4 + 16) = v9;
+  *v9 = v4;
+  v9[1] = protocol witness for SharingPromptFlowStrategy.makeUserCancelledResponse() in conformance SimpleSharingYesNoPromptFlowStrategy;
 
   return MEMORY[0x2821B9D40](a1, a2, a3, a4);
 }
@@ -7286,7 +7048,7 @@ void StartSharingConfirmationFlow.state.didset(uint64_t a1)
   }
 }
 
-uint64_t StartSharingConfirmationFlow.exitValue.getter()
+unint64_t StartSharingConfirmationFlow.exitValue.getter()
 {
   v1 = *(v0 + 16);
   v2 = *(v0 + 64);
@@ -7404,113 +7166,109 @@ uint64_t StartSharingConfirmationFlow.execute()(uint64_t a1)
   return MEMORY[0x2822009F8](StartSharingConfirmationFlow.execute(), 0, 0);
 }
 
-uint64_t StartSharingConfirmationFlow.execute()()
 {
-  v1 = *(v0 + 472);
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  v5 = *(v1 + 32);
-  v4 = *(v1 + 40);
-  v7 = *(v1 + 48);
-  v6 = *(v1 + 56);
-  v8 = *(v1 + 64);
-  v9 = (v8 >> 4) & 3;
-  if (!v9)
+  v2 = *(v1 + 472);
+  v3 = *(v2 + 16);
+  v4 = *(v2 + 24);
+  v6 = *(v2 + 32);
+  v5 = *(v2 + 40);
+  v8 = *(v2 + 48);
+  v7 = *(v2 + 56);
+  v9 = *(v2 + 64);
+  v10 = (v9 >> 4) & 3;
+  if (!v10)
   {
-    if (v8 >> 6)
+    if (v9 >> 6)
     {
-      v11 = *(v0 + 464);
-      if (v8 >> 6 == 1)
+      v11 = *(v1 + 464);
+      if (v9 >> 6 == 1)
       {
-        outlined copy of ConfirmationContext(v2, v3, *(v1 + 32), *(v1 + 40), *(v1 + 48), *(v1 + 56), *(v1 + 64));
-        StartSharingConfirmationFlow.confirmationFlowForScreenContext(_:)(v2, v3 & 1, v11);
+        outlined copy of ConfirmationContext(v3, v4, *(v2 + 32), *(v2 + 40), *(v2 + 48), *(v2 + 56), *(v2 + 64));
+        StartSharingConfirmationFlow.confirmationFlowForScreenContext(_:)(v3, v4 & 1, v11);
       }
 
       else
       {
-        outlined copy of StartSharingConfirmationFlow.State(v2, v3, *(v1 + 32), *(v1 + 40), *(v1 + 48), *(v1 + 56), *(v1 + 64));
+        outlined copy of StartSharingConfirmationFlow.State(v3, v4, *(v2 + 32), *(v2 + 40), *(v2 + 48), *(v2 + 56), *(v2 + 64));
 
-        StartSharingConfirmationFlow.confirmSingleWindowSharingRequestOnPlatformWithoutSupport(currentlySharedTarget:requestedRecipients:)(v4 & 1, v5, v11);
+        StartSharingConfirmationFlow.confirmSingleWindowSharingRequestOnPlatformWithoutSupport(currentlySharedTarget:requestedRecipients:)(v5 & 1, v6, v11);
       }
     }
 
     else
     {
-      v16 = *(v0 + 464);
-      if ((v7 & 0x10000) != 0)
+      v15 = *(v1 + 464);
+      if ((v8 & 0x10000) != 0)
       {
-        outlined copy of ConfirmationContext(v2, v3, *(v1 + 32), *(v1 + 40), *(v1 + 48), *(v1 + 56), *(v1 + 64));
-        StartSharingConfirmationFlow.confirmSingleWindowSharingRequestOnPlatformWithoutSupport(currentlySharedTarget:requestedRecipients:)(v8 & 1, v6, v16);
+        outlined copy of ConfirmationContext(v3, v4, *(v2 + 32), *(v2 + 40), *(v2 + 48), *(v2 + 56), *(v2 + 64));
+        StartSharingConfirmationFlow.confirmSingleWindowSharingRequestOnPlatformWithoutSupport(currentlySharedTarget:requestedRecipients:)(v9 & 1, v7, v15);
       }
 
       else
       {
-        v17 = *(v1 + 16);
-        v18 = *(v1 + 32);
-        v19 = *(v1 + 48);
-        *(v0 + 64) = *(v1 + 64);
-        *(v0 + 32) = v18;
-        *(v0 + 48) = v19;
-        *(v0 + 16) = v17;
-        *(v1 + 16) = 2;
-        *(v1 + 24) = 0u;
-        *(v1 + 40) = 0u;
-        *(v1 + 56) = 0;
-        *(v1 + 64) = 32;
-        outlined copy of StartSharingConfirmationFlow.State(v2, v3, v5, v4, v7, v6, v8);
-        outlined init with copy of StartSharingConfirmationFlow.State(v0 + 16, v0 + 240);
-        outlined consume of StartSharingConfirmationFlow.State(v2, v3, v5, v4, v7, v6, v8);
-        StartSharingConfirmationFlow.state.didset(v0 + 16);
-        outlined destroy of StartSharingConfirmationFlow.State(v0 + 16);
+        v16 = *(v2 + 16);
+        v17 = *(v2 + 32);
+        v18 = *(v2 + 48);
+        *(v1 + 64) = *(v2 + 64);
+        *(v1 + 32) = v17;
+        *(v1 + 48) = v18;
+        *(v1 + 16) = v16;
+        *(v2 + 16) = 2;
+        *(v2 + 24) = 0u;
+        *(v2 + 40) = 0u;
+        *(v2 + 56) = 0;
+        *(v2 + 64) = 32;
+        outlined copy of StartSharingConfirmationFlow.State(v3, v4, v6, v5, v8, v7, v9);
+        outlined init with copy of StartSharingConfirmationFlow.State(v1 + 16, v1 + 240);
+        outlined consume of StartSharingConfirmationFlow.State(v3, v4, v6, v5, v8, v7, v9);
+        StartSharingConfirmationFlow.state.didset(v1 + 16);
+        outlined destroy of StartSharingConfirmationFlow.State(v1 + 16);
         static ExecuteResponse.complete()();
       }
     }
 
-    outlined consume of StartSharingConfirmationFlow.State(v2, v3, v5, v4, v7, v6, v8);
+    outlined consume of StartSharingConfirmationFlow.State(v3, v4, v6, v5, v8, v7, v9);
     goto LABEL_20;
   }
 
-  if (v9 == 1 || (v8 == 32 ? (v12 = (v5 | v3 | v2 | v4 | v7 | v6) == 0) : (v12 = 0), !v12))
+  if (v10 == 1 || (v9 == 32 ? (v12 = (v6 | v4 | v3 | v5 | v8 | v7) == 0) : (v12 = 0), !v12))
   {
-    v10 = *(v0 + 464);
     static ExecuteResponse.complete()();
 LABEL_20:
-    v20 = *(v0 + 8);
+    v19 = *(v1 + 8);
 
-    return v20();
+    return v19();
   }
 
   v13 = swift_task_alloc();
-  *(v0 + 480) = v13;
-  *v13 = v0;
+  *(v1 + 480) = v13;
+  *v13 = v1;
   v13[1] = StartSharingConfirmationFlow.execute();
-  v14 = *(v0 + 472);
 
-  return StartSharingConfirmationFlow.makeConfirmationContext()(v0 + 184);
+  return StartSharingConfirmationFlow.makeConfirmationContext()(v1 + 184);
 }
 
+uint64_t StartSharingConfirmationFlow.execute()()
 {
   v2 = *v1;
-  v3 = *(*v1 + 480);
-  v7 = *v1;
   *(*v1 + 488) = v0;
 
   if (v0)
   {
-    v4 = StartSharingConfirmationFlow.execute();
+    v3 = StartSharingConfirmationFlow.execute();
   }
 
   else
   {
-    v5 = *(v2 + 200);
+    v4 = *(v2 + 200);
     *(v2 + 496) = *(v2 + 184);
-    *(v2 + 512) = v5;
+    *(v2 + 512) = v4;
     *(v2 + 528) = *(v2 + 216);
     *(v2 + 65) = *(v2 + 232);
-    v4 = StartSharingConfirmationFlow.execute();
+    v3 = StartSharingConfirmationFlow.execute();
   }
 
-  return MEMORY[0x2822009F8](v4, 0, 0);
+  return MEMORY[0x2822009F8](v3, 0, 0);
 }
 
 {
@@ -7543,15 +7301,14 @@ LABEL_20:
   StartSharingConfirmationFlow.state.didset(v0 + 128);
   outlined destroy of StartSharingConfirmationFlow.State(v0 + 128);
   outlined destroy of ConfirmationContext(v0 + 184);
-  v16 = *(v0 + 464);
   static ExecuteResponse.ongoing(requireInput:)();
-  v17 = *(v0 + 8);
+  v16 = *(v0 + 8);
 
-  return v17();
+  return v16();
 }
 
 {
-  v30 = v0;
+  v29 = v0;
   if (one-time initialization token for default != -1)
   {
     swift_once();
@@ -7569,7 +7326,7 @@ LABEL_20:
     v6 = swift_slowAlloc();
     v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
-    v29 = v8;
+    v28 = v8;
     *v6 = 136315394;
     if (one-time initialization token for typeName != -1)
     {
@@ -7577,7 +7334,7 @@ LABEL_20:
     }
 
     v9 = *(v0 + 488);
-    *(v6 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static StartSharingConfirmationFlow.typeName, unk_2800C0490, &v29);
+    *(v6 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static StartSharingConfirmationFlow.typeName, unk_2800C0490, &v28);
     *(v6 + 12) = 2112;
     v10 = v9;
     v11 = _swift_stdlib_bridgeErrorToNSError();
@@ -7619,11 +7376,10 @@ LABEL_20:
   StartSharingConfirmationFlow.state.didset(v0 + 72);
   outlined destroy of StartSharingConfirmationFlow.State(v0 + 72);
 
-  v26 = *(v0 + 464);
   static ExecuteResponse.ongoing(requireInput:)();
-  v27 = *(v0 + 8);
+  v26 = *(v0 + 8);
 
-  return v27();
+  return v26();
 }
 
 uint64_t StartSharingConfirmationFlow.makeConfirmationContext()(uint64_t a1)
@@ -7632,13 +7388,9 @@ uint64_t StartSharingConfirmationFlow.makeConfirmationContext()(uint64_t a1)
   v2[13] = v1;
   v3 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
   v2[14] = v3;
-  v4 = *(v3 - 8);
-  v2[15] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[15] = *(v3 - 8);
   v2[16] = swift_task_alloc();
-  v6 = type metadata accessor for ShareTarget();
-  v2[17] = v6;
-  v7 = *(*(v6 - 8) + 64) + 15;
+  v2[17] = type metadata accessor for ShareTarget(0);
   v2[18] = swift_task_alloc();
   v2[19] = swift_task_alloc();
 
@@ -7663,230 +7415,212 @@ uint64_t StartSharingConfirmationFlow.makeConfirmationContext()()
   {
     __swift_destroy_boxed_opaque_existential_1Tm(v0 + 7);
     outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v8, type metadata accessor for ShareTarget);
-    v33 = 0;
-    v35 = 0;
-    v13 = v7 & 1;
-    v14 = 64;
+    v28 = 0;
+    v30 = 0;
+    v12 = v7 & 1;
+    v13 = 64;
     v3 = v5;
     goto LABEL_5;
   }
 
-  v9 = v0[17];
   outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v0[19], v0[18], type metadata accessor for ShareTarget);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v11 = v0[18];
-  v12 = v0[19];
+  v10 = v0[18];
+  v11 = v0[19];
   if (EnumCaseMultiPayload)
   {
 
     __swift_destroy_boxed_opaque_existential_1Tm(v0 + 7);
-    outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v12, type metadata accessor for ShareTarget);
     outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v11, type metadata accessor for ShareTarget);
-    v33 = 0;
-    v35 = v5;
-    v13 = v4;
+    outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v10, type metadata accessor for ShareTarget);
+    v28 = 0;
+    v30 = v5;
+    v12 = v4;
     v4 = v7 & 1;
-    v14 = 0x80;
+    v13 = 0x80;
 LABEL_5:
     v5 = 0;
     goto LABEL_11;
   }
 
-  v35 = v3;
-  v15 = v0[15];
-  v16 = v0[16];
-  v17 = v0[14];
-  v34 = v17;
-  v18 = *v11;
+  v30 = v3;
+  v14 = v0[15];
+  v15 = v0[16];
+  v16 = v0[14];
+  v29 = v16;
 
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMd, &_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMR);
-  (*(v15 + 32))(v16, &v11[*(v19 + 48)], v17);
-  v21 = v0[5];
-  v20 = v0[6];
-  __swift_project_boxed_opaque_existential_1(v0 + 2, v21);
-  v22 = (*(v20 + 224))(v21, v20);
-  LOBYTE(v21) = specialized SharePlayHelper.appSupportsSharePlay(_:)(v35, v4);
-  v23 = UsoEntity_common_AttachmentType.DefinedValues.preferSharingInCall.getter();
-  (*(v15 + 8))(v16, v34);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMd, &_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMR);
+  (*(v14 + 32))(v15, v10 + *(v17 + 48), v16);
+  v19 = v0[5];
+  v18 = v0[6];
+  __swift_project_boxed_opaque_existential_1(v0 + 2, v19);
+  v20 = (*(v18 + 224))(v19, v18);
+  LOBYTE(v19) = specialized SharePlayHelper.appSupportsSharePlay(_:)(v30, v4);
+  v21 = UsoEntity_common_AttachmentType.DefinedValues.preferSharingInCall.getter();
+  (*(v14 + 8))(v15, v29);
   __swift_destroy_boxed_opaque_existential_1Tm(v0 + 7);
-  outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v12, type metadata accessor for ShareTarget);
+  outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v11, type metadata accessor for ShareTarget);
   v3 = 0;
-  v14 = v7 & 1;
-  v24 = 256;
+  v13 = v7 & 1;
+  v22 = 256;
+  if ((v19 & 1) == 0)
+  {
+    v22 = 0;
+  }
+
+  v23 = v22 & 0xFFFFFFFFFFFFFFFELL | v20 & 1;
+  v24 = 0x10000;
   if ((v21 & 1) == 0)
   {
     v24 = 0;
   }
 
-  v25 = v24 & 0xFFFFFFFFFFFFFFFELL | v22 & 1;
-  v26 = 0x10000;
-  if ((v23 & 1) == 0)
-  {
-    v26 = 0;
-  }
-
-  v33 = v25 | v26;
-  v13 = 0xE000000000000000;
+  v28 = v23 | v24;
+  v12 = 0xE000000000000000;
 LABEL_11:
-  v28 = v0[18];
-  v27 = v0[19];
-  v29 = v0[16];
-  v30 = v0[12];
+  v25 = v0[12];
   __swift_destroy_boxed_opaque_existential_1Tm(v0 + 2);
 
-  *v30 = v3;
-  *(v30 + 8) = v13;
-  *(v30 + 16) = v35;
-  *(v30 + 24) = v4;
-  *(v30 + 32) = v33;
-  *(v30 + 40) = v5;
-  *(v30 + 48) = v14;
-  v31 = v0[1];
+  *v25 = v3;
+  *(v25 + 8) = v12;
+  *(v25 + 16) = v30;
+  *(v25 + 24) = v4;
+  *(v25 + 32) = v28;
+  *(v25 + 40) = v5;
+  *(v25 + 48) = v13;
+  v26 = v0[1];
 
-  return v31();
+  return v26();
 }
 
 uint64_t StartSharingConfirmationFlow.executeYesNoConfirmationFlow(with:onYes:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
   v5 = v4;
-  v52 = a2;
-  v53 = a3;
-  v54 = a4;
+  v41 = a2;
+  v42 = a3;
+  v43 = a4;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow20ConfirmationResponseOSgMd, &_s11SiriKitFlow20ConfirmationResponseOSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v51 - v9;
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v40 - v9;
   started = type metadata accessor for Responses.StartSharing.ShareRequestCancelled(0);
-  v12 = *(*(started - 8) + 64);
-  v13 = MEMORY[0x28223BE20](started);
-  v15 = &v51 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *v15 = -101;
-  v16 = &v15[*(v13 + 20)];
+  MEMORY[0x28223BE20](started, v12);
+  v14 = &v40 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *v14 = -101;
   static DialogPhase.canceled.getter();
-  v64[3] = started;
-  v64[4] = &protocol witness table for Responses.StartSharing.ShareRequestCancelled;
-  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v64);
-  v51 = type metadata accessor for Responses.StartSharing.ShareRequestCancelled;
-  outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v15, boxed_opaque_existential_1, type metadata accessor for Responses.StartSharing.ShareRequestCancelled);
-  v63[3] = started;
-  v63[4] = &protocol witness table for Responses.StartSharing.ShareRequestCancelled;
-  v18 = __swift_allocate_boxed_opaque_existential_1(v63);
-  outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v15, v18, type metadata accessor for Responses.StartSharing.ShareRequestCancelled);
-  outlined init with copy of ResponseExecuting(a1, v62);
-  outlined init with copy of SharingResponse?(v64, v60);
-  outlined init with copy of SharingResponse?(v63, v58);
-  outlined init with copy of ResponseExecuting(v5 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_responseExecutor, v56);
-  v19 = v57;
-  v20 = __swift_mutable_project_boxed_opaque_existential_1(v56, v57);
-  v21 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v20);
-  v23 = (&v51 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v24 + 16))(v23);
-  v25 = *v23;
-  v26 = type metadata accessor for ResponseExecutor();
-  v55[3] = v26;
-  v55[4] = &protocol witness table for ResponseExecutor;
-  v55[0] = v25;
-  v27 = type metadata accessor for SimpleSharingYesNoPromptFlowStrategy();
-  v28 = *(v27 + 48);
-  v29 = *(v27 + 52);
-  v30 = swift_allocObject();
-  v31 = __swift_mutable_project_boxed_opaque_existential_1(v55, v26);
-  v32 = *(*(v26 - 8) + 64);
-  MEMORY[0x28223BE20](v31);
-  v34 = (&v51 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v35 + 16))(v34);
-  v36 = *v34;
-  *(v30 + 160) = v26;
-  *(v30 + 168) = &protocol witness table for ResponseExecutor;
-  *(v30 + 136) = v36;
-  v37 = *MEMORY[0x277D5BED0];
-  v38 = type metadata accessor for ConfirmationResponse();
-  v39 = *(v38 - 8);
-  (*(v39 + 104))(v10, v37, v38);
-  (*(v39 + 56))(v10, 0, 1, v38);
+  v52[3] = started;
+  v52[4] = &protocol witness table for Responses.StartSharing.ShareRequestCancelled;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v52);
+  v40 = type metadata accessor for Responses.StartSharing.ShareRequestCancelled;
+  outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v14, boxed_opaque_existential_1, type metadata accessor for Responses.StartSharing.ShareRequestCancelled);
+  v51[3] = started;
+  v51[4] = &protocol witness table for Responses.StartSharing.ShareRequestCancelled;
+  v16 = __swift_allocate_boxed_opaque_existential_1(v51);
+  outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v14, v16, type metadata accessor for Responses.StartSharing.ShareRequestCancelled);
+  outlined init with copy of ResponseExecuting(a1, v50);
+  outlined init with copy of SharingResponse?(v52, v48);
+  outlined init with copy of SharingResponse?(v51, v46);
+  outlined init with copy of ResponseExecuting(v5 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_responseExecutor, v45);
+  v17 = __swift_mutable_project_boxed_opaque_existential_1(v45, v45[3]);
+  MEMORY[0x28223BE20](v17, v17);
+  v19 = (&v40 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0));
+  (*(v20 + 16))(v19);
+  v21 = *v19;
+  v22 = type metadata accessor for ResponseExecutor();
+  v44[3] = v22;
+  v44[4] = &protocol witness table for ResponseExecutor;
+  v44[0] = v21;
+  type metadata accessor for SimpleSharingYesNoPromptFlowStrategy(0);
+  v23 = swift_allocObject();
+  v24 = __swift_mutable_project_boxed_opaque_existential_1(v44, v22);
+  MEMORY[0x28223BE20](v24, v24);
+  v26 = (&v40 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0));
+  (*(v27 + 16))(v26);
+  v28 = *v26;
+  *(v23 + 160) = v22;
+  *(v23 + 168) = &protocol witness table for ResponseExecutor;
+  *(v23 + 136) = v28;
+  v29 = *MEMORY[0x277D5BED0];
+  v30 = type metadata accessor for ConfirmationResponse();
+  v31 = *(v30 - 8);
+  (*(v31 + 104))(v10, v29, v30);
+  (*(v31 + 56))(v10, 0, 1, v30);
   SimpleConfirmationResponseProvider.init(_:)();
-  outlined init with take of SharingResponse(v62, v30 + 16);
-  v40 = v60[1];
-  *(v30 + 56) = v60[0];
-  *(v30 + 72) = v40;
-  *(v30 + 88) = v61;
-  v41 = v58[1];
-  *(v30 + 96) = v58[0];
-  *(v30 + 112) = v41;
-  *(v30 + 128) = v59;
-  __swift_destroy_boxed_opaque_existential_1Tm(v55);
-  __swift_destroy_boxed_opaque_existential_1Tm(v56);
-  outlined init with copy of ResponseExecuting(v5 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_outputPublisher, v62);
+  outlined init with take of SharingResponse(v50, v23 + 16);
+  v32 = v48[1];
+  *(v23 + 56) = v48[0];
+  *(v23 + 72) = v32;
+  *(v23 + 88) = v49;
+  v33 = v46[1];
+  *(v23 + 96) = v46[0];
+  *(v23 + 112) = v33;
+  *(v23 + 128) = v47;
+  __swift_destroy_boxed_opaque_existential_1Tm(v44);
+  __swift_destroy_boxed_opaque_existential_1Tm(v45);
+  outlined init with copy of ResponseExecuting(v5 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_outputPublisher, v50);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s19SiriExpanseInternal32PromptForConfirmationFlowWrapperCyAA018SimpleSharingYesNodG8StrategyCGMd, &_s19SiriExpanseInternal32PromptForConfirmationFlowWrapperCyAA018SimpleSharingYesNodG8StrategyCGMR);
-  v42 = swift_allocObject();
-  *(v42 + 16) = v30;
-  outlined init with copy of ResponseExecuting(v62, v60);
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow021PromptForConfirmationC5AsyncCyytAA06SimpleF16ResponseProviderVGMd, &_s11SiriKitFlow021PromptForConfirmationC5AsyncCyytAA06SimpleF16ResponseProviderVGMR);
-  v44 = *(v43 + 48);
-  v45 = *(v43 + 52);
+  v34 = swift_allocObject();
+  *(v34 + 16) = v23;
+  outlined init with copy of ResponseExecuting(v50, v48);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriKitFlow021PromptForConfirmationC5AsyncCyytAA06SimpleF16ResponseProviderVGMd, &_s11SiriKitFlow021PromptForConfirmationC5AsyncCyytAA06SimpleF16ResponseProviderVGMR);
   swift_allocObject();
-  lazy protocol witness table accessor for type Input and conformance Input(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy);
+  lazy protocol witness table accessor for type Input and conformance Input(&lazy protocol witness table cache variable for type SimpleSharingYesNoPromptFlowStrategy and conformance SimpleSharingYesNoPromptFlowStrategy, type metadata accessor for SimpleSharingYesNoPromptFlowStrategy, &protocol conformance descriptor for SimpleSharingYesNoPromptFlowStrategy);
 
-  v46 = PromptForConfirmationFlowAsync.init<A>(itemToConfirm:strategy:outputPublisher:)();
-  __swift_destroy_boxed_opaque_existential_1Tm(v62);
-  *(v42 + 24) = v46;
-  v62[0] = v42;
-  v47 = swift_allocObject();
-  v48 = v52;
-  v49 = v53;
-  v47[2] = v5;
-  v47[3] = v48;
-  v47[4] = v49;
+  v35 = PromptForConfirmationFlowAsync.init<A>(itemToConfirm:strategy:outputPublisher:)();
+  __swift_destroy_boxed_opaque_existential_1Tm(v50);
+  *(v34 + 24) = v35;
+  *&v50[0] = v34;
+  v36 = swift_allocObject();
+  v37 = v41;
+  v38 = v42;
+  v36[2] = v5;
+  v36[3] = v37;
+  v36[4] = v38;
   lazy protocol witness table accessor for type PromptForConfirmationFlowWrapper<SimpleSharingYesNoPromptFlowStrategy> and conformance PromptForConfirmationFlowWrapper<A>();
 
   static ExecuteResponse.ongoing<A>(next:childCompletion:)();
 
-  outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v15, v51);
+  outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v14, v40);
 
-  outlined destroy of SharingResponse?(v63, &_s19SiriExpanseInternal15SharingResponse_pSgMd, &_s19SiriExpanseInternal15SharingResponse_pSgMR);
-  return outlined destroy of SharingResponse?(v64, &_s19SiriExpanseInternal15SharingResponse_pSgMd, &_s19SiriExpanseInternal15SharingResponse_pSgMR);
+  outlined destroy of SharingResponse?(v51, &_s19SiriExpanseInternal15SharingResponse_pSgMd, &_s19SiriExpanseInternal15SharingResponse_pSgMR);
+  return outlined destroy of SharingResponse?(v52, &_s19SiriExpanseInternal15SharingResponse_pSgMd, &_s19SiriExpanseInternal15SharingResponse_pSgMR);
 }
 
 uint64_t StartSharingConfirmationFlow.confirmationFlowForScreenContext(_:)@<X0>(unint64_t a1@<X0>, char a2@<W1>, uint64_t a3@<X8>)
 {
   v4 = v3;
   started = type metadata accessor for Responses.StartSharing.ConfirmReadyToShare(0);
-  v9 = *(*(started - 1) + 64);
-  MEMORY[0x28223BE20](started);
-  v11 = &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v57 = type metadata accessor for Responses.StartSharing.ConfirmShareWithEveryoneInCall(0);
-  v12 = *(*(v57 - 8) + 64);
-  MEMORY[0x28223BE20](v57);
-  v58 = &v54 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](started, v9);
+  v11 = &v51 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v54 = type metadata accessor for Responses.StartSharing.ConfirmShareWithEveryoneInCall(0);
+  MEMORY[0x28223BE20](v54, v12);
+  v55 = &v51 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   v14 = type metadata accessor for Locale();
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x28223BE20](v14 - 8);
-  v62 = &v54 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14 - 8, v15);
+  v59 = &v51 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a2)
   {
     if (a1)
     {
-      v63[0] = MEMORY[0x277D84F90];
-      v55 = v4;
-      v54 = a3;
+      v60[0] = MEMORY[0x277D84F90];
+      v52 = v4;
+      v51 = a3;
       if (a1 >> 62)
       {
 LABEL_29:
-        v61 = __CocoaSet.count.getter();
+        v58 = __CocoaSet.count.getter();
       }
 
       else
       {
-        v61 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        v58 = *((a1 & 0xFFFFFFFFFFFFFF8) + 0x10);
       }
 
       v17 = 0;
-      v60 = a1 & 0xC000000000000001;
-      v56 = MEMORY[0x277D84F90];
-      while (v61 != v17)
+      v57 = a1 & 0xC000000000000001;
+      v53 = MEMORY[0x277D84F90];
+      while (v58 != v17)
       {
-        if (v60)
+        if (v57)
         {
           v18 = MEMORY[0x26D5ECB50](v17, a1);
         }
@@ -7910,55 +7644,53 @@ LABEL_28:
           goto LABEL_29;
         }
 
-        v59 = v17 + 1;
+        v56 = v17 + 1;
         type metadata accessor for DialogPerson();
         v20 = v19;
         static Device.current.getter();
-        __swift_project_boxed_opaque_existential_1(&v64, *(&v65 + 1));
+        __swift_project_boxed_opaque_existential_1(&v61, *(&v62 + 1));
         dispatch thunk of DeviceState.siriLocale.getter();
-        __swift_destroy_boxed_opaque_existential_1Tm(&v64);
+        __swift_destroy_boxed_opaque_existential_1Tm(&v61);
         v21 = DialogPerson.__allocating_init(person:locale:useConversationalName:)();
 
         ++v17;
         if (v21)
         {
           MEMORY[0x26D5EC910](v22);
-          if (*((v63[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v63[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+          if (*((v60[0] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v60[0] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
           {
-            v23 = *((v63[0] & 0xFFFFFFFFFFFFFF8) + 0x10);
             specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
           }
 
           specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-          v56 = v63[0];
-          v17 = v59;
+          v53 = v60[0];
+          v17 = v56;
         }
       }
 
-      v33 = v57;
-      v34 = v58;
-      *v58 = -115;
-      v35 = v34 + v33[5];
+      v32 = v54;
+      v33 = v55;
+      *v55 = -115;
       static DialogPhase.clarification.getter();
-      v36 = v33[6];
+      v34 = *(v32 + 24);
       static SharingNLContextProvider.makeNLContextUpdateForConfirmationPrompt(sharingAction:)(0);
-      v37 = type metadata accessor for NLContextUpdate();
-      (*(*(v37 - 8) + 56))(v34 + v36, 0, 1, v37);
-      v38 = v34 + v33[7];
-      *v38 = 0;
-      *(v38 + 8) = 0;
-      *(v38 + 16) = 0;
-      *(v38 + 24) = v56;
-      *(&v65 + 1) = v33;
-      *&v66 = &protocol witness table for Responses.StartSharing.ConfirmShareWithEveryoneInCall;
-      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v64);
-      v40 = type metadata accessor for Responses.StartSharing.ConfirmShareWithEveryoneInCall;
-      outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v34, boxed_opaque_existential_1, type metadata accessor for Responses.StartSharing.ConfirmShareWithEveryoneInCall);
-      v41 = v55;
+      v35 = type metadata accessor for NLContextUpdate();
+      (*(*(v35 - 8) + 56))(v33 + v34, 0, 1, v35);
+      v36 = v33 + *(v32 + 28);
+      *v36 = 0;
+      *(v36 + 8) = 0;
+      *(v36 + 16) = 0;
+      *(v36 + 24) = v53;
+      *(&v62 + 1) = v32;
+      *&v63 = &protocol witness table for Responses.StartSharing.ConfirmShareWithEveryoneInCall;
+      boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v61);
+      v38 = type metadata accessor for Responses.StartSharing.ConfirmShareWithEveryoneInCall;
+      outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v33, boxed_opaque_existential_1, type metadata accessor for Responses.StartSharing.ConfirmShareWithEveryoneInCall);
+      v39 = v52;
 
-      StartSharingConfirmationFlow.executeYesNoConfirmationFlow(with:onYes:)(&v64, partial apply for closure #2 in StartSharingConfirmationFlow.confirmationFlowForScreenContext(_:), v41, v54);
+      StartSharingConfirmationFlow.executeYesNoConfirmationFlow(with:onYes:)(&v61, partial apply for closure #2 in StartSharingConfirmationFlow.confirmationFlowForScreenContext(_:), v39, v51);
 
-      v42 = v34;
+      v40 = v33;
     }
 
     else
@@ -7968,29 +7700,29 @@ LABEL_28:
         swift_once();
       }
 
-      v43 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v43, static Logger.default);
-      v44 = Logger.logObject.getter();
-      v45 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v44, v45))
+      v41 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v41, static Logger.default);
+      v42 = Logger.logObject.getter();
+      v43 = static os_log_type_t.debug.getter();
+      if (os_log_type_enabled(v42, v43))
       {
-        v46 = a3;
-        v47 = swift_slowAlloc();
-        v48 = swift_slowAlloc();
-        *&v64 = v48;
-        *v47 = 136315138;
+        v44 = a3;
+        v45 = swift_slowAlloc();
+        v46 = swift_slowAlloc();
+        *&v61 = v46;
+        *v45 = 136315138;
         if (one-time initialization token for typeName != -1)
         {
           swift_once();
         }
 
-        *(v47 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static StartSharingConfirmationFlow.typeName, unk_2800C0490, &v64);
-        _os_log_impl(&dword_266B9E000, v44, v45, "%s: Confirming with the user that they're ready to share their screen", v47, 0xCu);
-        __swift_destroy_boxed_opaque_existential_1Tm(v48);
-        MEMORY[0x26D5ED340](v48, -1, -1);
-        MEMORY[0x26D5ED340](v47, -1, -1);
+        *(v45 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static StartSharingConfirmationFlow.typeName, unk_2800C0490, &v61);
+        _os_log_impl(&dword_266B9E000, v42, v43, "%s: Confirming with the user that they're ready to share their screen", v45, 0xCu);
+        __swift_destroy_boxed_opaque_existential_1Tm(v46);
+        MEMORY[0x26D5ED340](v46, -1, -1);
+        MEMORY[0x26D5ED340](v45, -1, -1);
 
-        a3 = v46;
+        a3 = v44;
       }
 
       else
@@ -7998,55 +7730,54 @@ LABEL_28:
       }
 
       *v11 = -118;
-      v49 = &v11[started[5]];
       static DialogPhase.clarification.getter();
-      v50 = started[6];
+      v47 = *(started + 24);
       static SharingNLContextProvider.makeNLContextUpdateForConfirmationPrompt(sharingAction:)(0);
-      v51 = type metadata accessor for NLContextUpdate();
-      (*(*(v51 - 8) + 56))(&v11[v50], 0, 1, v51);
-      v52 = &v11[started[7]];
-      *v52 = 1;
-      *(v52 + 2) = 0;
-      *(v52 + 3) = 0;
-      *(v52 + 1) = 0;
-      *(&v65 + 1) = started;
-      *&v66 = &protocol witness table for Responses.StartSharing.ConfirmReadyToShare;
-      v53 = __swift_allocate_boxed_opaque_existential_1(&v64);
-      v40 = type metadata accessor for Responses.StartSharing.ConfirmReadyToShare;
-      outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v11, v53, type metadata accessor for Responses.StartSharing.ConfirmReadyToShare);
+      v48 = type metadata accessor for NLContextUpdate();
+      (*(*(v48 - 8) + 56))(&v11[v47], 0, 1, v48);
+      v49 = &v11[*(started + 28)];
+      *v49 = 1;
+      *(v49 + 2) = 0;
+      *(v49 + 3) = 0;
+      *(v49 + 1) = 0;
+      *(&v62 + 1) = started;
+      *&v63 = &protocol witness table for Responses.StartSharing.ConfirmReadyToShare;
+      v50 = __swift_allocate_boxed_opaque_existential_1(&v61);
+      v38 = type metadata accessor for Responses.StartSharing.ConfirmReadyToShare;
+      outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v11, v50, type metadata accessor for Responses.StartSharing.ConfirmReadyToShare);
 
-      StartSharingConfirmationFlow.executeYesNoConfirmationFlow(with:onYes:)(&v64, partial apply for closure #1 in StartSharingConfirmationFlow.confirmSingleWindowSharingRequestOnPlatformWithoutSupport(currentlySharedTarget:requestedRecipients:), v4, a3);
+      StartSharingConfirmationFlow.executeYesNoConfirmationFlow(with:onYes:)(&v61, partial apply for closure #1 in StartSharingConfirmationFlow.confirmSingleWindowSharingRequestOnPlatformWithoutSupport(currentlySharedTarget:requestedRecipients:), v4, a3);
 
-      v42 = v11;
+      v40 = v11;
     }
 
-    outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v42, v40);
-    return __swift_destroy_boxed_opaque_existential_1Tm(&v64);
+    outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v40, v38);
+    return __swift_destroy_boxed_opaque_existential_1Tm(&v61);
   }
 
   else
   {
-    v24 = *(v4 + 32);
-    v64 = *(v4 + 16);
-    v65 = v24;
-    v66 = *(v4 + 48);
-    v67 = *(v4 + 64);
-    v25 = v67;
-    v26 = *(v4 + 16);
-    v27 = *(v4 + 24);
-    v28 = *(v4 + 32);
-    v29 = *(v4 + 40);
-    v30 = *(v4 + 48);
-    v31 = *(v4 + 56);
+    v23 = *(v4 + 32);
+    v61 = *(v4 + 16);
+    v62 = v23;
+    v63 = *(v4 + 48);
+    v64 = *(v4 + 64);
+    v24 = v64;
+    v25 = *(v4 + 16);
+    v26 = *(v4 + 24);
+    v27 = *(v4 + 32);
+    v28 = *(v4 + 40);
+    v29 = *(v4 + 48);
+    v30 = *(v4 + 56);
     *(v4 + 16) = 1;
     *(v4 + 24) = 0u;
     *(v4 + 40) = 0u;
     *(v4 + 56) = 0;
     *(v4 + 64) = 32;
-    outlined init with copy of StartSharingConfirmationFlow.State(&v64, v63);
-    outlined consume of StartSharingConfirmationFlow.State(v26, v27, v28, v29, v30, v31, v25);
-    StartSharingConfirmationFlow.state.didset(&v64);
-    outlined destroy of StartSharingConfirmationFlow.State(&v64);
+    outlined init with copy of StartSharingConfirmationFlow.State(&v61, v60);
+    outlined consume of StartSharingConfirmationFlow.State(v25, v26, v27, v28, v29, v30, v24);
+    StartSharingConfirmationFlow.state.didset(&v61);
+    outlined destroy of StartSharingConfirmationFlow.State(&v61);
     return static ExecuteResponse.complete()();
   }
 }
@@ -8054,54 +7785,52 @@ LABEL_28:
 uint64_t StartSharingConfirmationFlow.confirmSingleWindowSharingRequestOnPlatformWithoutSupport(currentlySharedTarget:requestedRecipients:)@<X0>(char a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
   started = type metadata accessor for Responses.StartSharing.ConfirmShareEntireScreen(0);
-  v8 = *(*(started - 8) + 64);
-  v9 = MEMORY[0x28223BE20](started);
-  v11 = &v27[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v9 = MEMORY[0x28223BE20](started, v8);
+  v11 = &v26[-((v10 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
   if (a1)
   {
     *v11 = -117;
-    v12 = &v11[*(v9 + 20)];
-    v13 = v9;
+    v12 = v9;
     static DialogPhase.clarification.getter();
-    v14 = *(v13 + 24);
+    v13 = *(v12 + 24);
     static SharingNLContextProvider.makeNLContextUpdateForConfirmationPrompt(sharingAction:)(0);
-    v15 = type metadata accessor for NLContextUpdate();
-    (*(*(v15 - 8) + 56))(&v11[v14], 0, 1, v15);
-    v11[*(v13 + 28)] = a2 != 0;
-    *(&v29 + 1) = v13;
-    *&v30 = &protocol witness table for Responses.StartSharing.ConfirmShareEntireScreen;
-    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v28);
+    v14 = type metadata accessor for NLContextUpdate();
+    (*(*(v14 - 8) + 56))(&v11[v13], 0, 1, v14);
+    v11[*(v12 + 28)] = a2 != 0;
+    *(&v28 + 1) = v12;
+    *&v29 = &protocol witness table for Responses.StartSharing.ConfirmShareEntireScreen;
+    boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(&v27);
     outlined init with copy of Responses.StartSharing.ConfirmShareEntireScreen(v11, boxed_opaque_existential_1, type metadata accessor for Responses.StartSharing.ConfirmShareEntireScreen);
 
-    StartSharingConfirmationFlow.executeYesNoConfirmationFlow(with:onYes:)(&v28, partial apply for closure #1 in StartSharingConfirmationFlow.confirmSingleWindowSharingRequestOnPlatformWithoutSupport(currentlySharedTarget:requestedRecipients:), v3, a3);
+    StartSharingConfirmationFlow.executeYesNoConfirmationFlow(with:onYes:)(&v27, partial apply for closure #1 in StartSharingConfirmationFlow.confirmSingleWindowSharingRequestOnPlatformWithoutSupport(currentlySharedTarget:requestedRecipients:), v3, a3);
 
     outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v11, type metadata accessor for Responses.StartSharing.ConfirmShareEntireScreen);
-    return __swift_destroy_boxed_opaque_existential_1Tm(&v28);
+    return __swift_destroy_boxed_opaque_existential_1Tm(&v27);
   }
 
   else
   {
-    v18 = *(v3 + 32);
-    v28 = *(v3 + 16);
-    v29 = v18;
-    v30 = *(v3 + 48);
-    v31 = *(v3 + 64);
-    v19 = v31;
-    v20 = *(v3 + 16);
-    v21 = *(v3 + 24);
-    v22 = *(v3 + 32);
-    v23 = *(v3 + 40);
-    v24 = *(v3 + 48);
-    v25 = *(v3 + 56);
+    v17 = *(v3 + 32);
+    v27 = *(v3 + 16);
+    v28 = v17;
+    v29 = *(v3 + 48);
+    v30 = *(v3 + 64);
+    v18 = v30;
+    v19 = *(v3 + 16);
+    v20 = *(v3 + 24);
+    v21 = *(v3 + 32);
+    v22 = *(v3 + 40);
+    v23 = *(v3 + 48);
+    v24 = *(v3 + 56);
     *(v3 + 16) = 5;
     *(v3 + 24) = 0u;
     *(v3 + 40) = 0u;
     *(v3 + 56) = 0;
     *(v3 + 64) = 32;
-    outlined init with copy of StartSharingConfirmationFlow.State(&v28, v27);
-    outlined consume of StartSharingConfirmationFlow.State(v20, v21, v22, v23, v24, v25, v19);
-    StartSharingConfirmationFlow.state.didset(&v28);
-    outlined destroy of StartSharingConfirmationFlow.State(&v28);
+    outlined init with copy of StartSharingConfirmationFlow.State(&v27, v26);
+    outlined consume of StartSharingConfirmationFlow.State(v19, v20, v21, v22, v23, v24, v18);
+    StartSharingConfirmationFlow.state.didset(&v27);
+    outlined destroy of StartSharingConfirmationFlow.State(&v27);
     return static ExecuteResponse.complete()();
   }
 }
@@ -8136,20 +7865,17 @@ uint64_t StartSharingConfirmationFlow.__deallocating_deinit()
   outlined consume of StartSharingConfirmationFlow.State(*(v0 + 16), *(v0 + 24), *(v0 + 32), *(v0 + 40), *(v0 + 48), *(v0 + 56), *(v0 + 64));
   __swift_destroy_boxed_opaque_existential_1Tm((v0 + 72));
   outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(v0 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_requestedTarget, type metadata accessor for ShareTarget);
-  v1 = *(v0 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_resolvedTarget + 8);
-
-  v2 = *(v0 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_recipients);
 
   __swift_destroy_boxed_opaque_existential_1Tm((v0 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_call));
   __swift_destroy_boxed_opaque_existential_1Tm((v0 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_responseExecutor));
   __swift_destroy_boxed_opaque_existential_1Tm((v0 + OBJC_IVAR____TtC19SiriExpanseInternal28StartSharingConfirmationFlow_outputPublisher));
-  v3 = *(*v0 + 48);
-  v4 = *(*v0 + 52);
+  v1 = *(*v0 + 48);
+  v2 = *(*v0 + 52);
 
-  return MEMORY[0x2821FE8D8](v0, v3, v4);
+  return MEMORY[0x2821FE8D8](v0, v1, v2);
 }
 
-uint64_t type metadata accessor for StartSharingConfirmationFlow()
+uint64_t type metadata accessor for StartSharingConfirmationFlow(uint64_t a1)
 {
   result = type metadata singleton initialization cache for StartSharingConfirmationFlow;
   if (!type metadata singleton initialization cache for StartSharingConfirmationFlow)
@@ -8160,12 +7886,11 @@ uint64_t type metadata accessor for StartSharingConfirmationFlow()
   return result;
 }
 
-uint64_t type metadata completion function for StartSharingConfirmationFlow()
+uint64_t type metadata completion function for StartSharingConfirmationFlow(uint64_t a1)
 {
-  result = type metadata accessor for ShareTarget();
-  if (v1 <= 0x3F)
+  result = type metadata accessor for ShareTarget(319);
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -8326,24 +8051,22 @@ unint64_t lazy protocol witness table accessor for type StartSharingConfirmation
 
 uint64_t protocol witness for Flow.execute() in conformance StartSharingConfirmationFlow(uint64_t a1)
 {
-  v4 = *v1;
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  *v3 = v1;
+  v3[1] = dispatch thunk of SharingPromptFlowStrategy.makePrompt();
 
   return StartSharingConfirmationFlow.execute()(a1);
 }
 
-uint64_t protocol witness for Flow.exitValue.getter in conformance StartSharingConfirmationFlow@<X0>(uint64_t *a1@<X8>)
+unint64_t protocol witness for Flow.exitValue.getter in conformance StartSharingConfirmationFlow@<X0>(unint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = StartSharingConfirmationFlow.exitValue.getter();
   *a1 = result;
   return result;
 }
 
-uint64_t specialized closure #1 in PromptManaging.executeYesNoConfirmationFlow(withPrompt:confirmationRejectedDialog:flowCancelledDialog:onYes:)(uint64_t a1, void (*a2)(char *, uint64_t), uint64_t *a3, uint64_t a4)
+uint64_t specialized closure #1 in PromptManaging.executeYesNoConfirmationFlow(withPrompt:confirmationRejectedDialog:flowCancelledDialog:onYes:)(uint64_t a1, void (*a2)(char *, uint64_t), void (*a3)(void), uint64_t a4)
 {
 
   specialized PromptManaging.processPromptFlowExitValue<A>(_:onValueReceived:)(a1, a2, a3, a4, a2);
@@ -8353,8 +8076,7 @@ uint64_t specialized StartSharingConfirmationFlow.on(input:)(uint64_t a1)
 {
   v2 = type metadata accessor for Input();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
+  MEMORY[0x28223BE20](v2, v4);
   v6 = &v17 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (one-time initialization token for default != -1)
   {
@@ -8379,7 +8101,7 @@ uint64_t specialized StartSharingConfirmationFlow.on(input:)(uint64_t a1)
 
     *(v10 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(static StartSharingConfirmationFlow.typeName, unk_2800C0490, &v18);
     *(v10 + 12) = 2080;
-    lazy protocol witness table accessor for type Input and conformance Input(&lazy protocol witness table cache variable for type Input and conformance Input, MEMORY[0x277D5C118]);
+    lazy protocol witness table accessor for type Input and conformance Input(&lazy protocol witness table cache variable for type Input and conformance Input, MEMORY[0x277D5C118], MEMORY[0x277D5C120]);
     v12 = dispatch thunk of CustomStringConvertible.description.getter();
     v14 = v13;
     (*(v3 + 8))(v6, v2);
@@ -8414,13 +8136,13 @@ void outlined consume of StartSharingConfirmationFlow.State(uint64_t a1, uint64_
   }
 }
 
-uint64_t outlined consume of ConfirmationContext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 a7)
+uint64_t outlined consume of ConfirmationContext(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 a7)
 {
   if ((a7 >> 6) > 1u)
   {
     if (a7 >> 6 != 2)
     {
-      return result;
+      return v7;
     }
 
     goto LABEL_5;
@@ -8433,7 +8155,7 @@ LABEL_5:
   }
 }
 
-uint64_t lazy protocol witness table accessor for type Input and conformance Input(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type Input and conformance Input(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8448,9 +8170,6 @@ uint64_t lazy protocol witness table accessor for type Input and conformance Inp
 
 uint64_t sub_266BB3D30()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
@@ -8482,29 +8201,29 @@ uint64_t outlined destroy of Responses.StartSharing.ConfirmShareEntireScreen(uin
   return a1;
 }
 
-uint64_t outlined copy of StartSharingConfirmationFlow.State(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7)
+id outlined copy of StartSharingConfirmationFlow.State(id result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int a7)
 {
   v7 = (a7 >> 4) & 3;
   if (v7 == 1)
   {
-    return a1;
+    return result;
   }
 
   if (!v7)
   {
-    return outlined copy of ConfirmationContext(a1, a2, a3, a4, a5, a6, a7);
+    return outlined copy of ConfirmationContext(result, a2, a3, a4, a5, a6, a7);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t outlined copy of ConfirmationContext(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 a7)
+uint64_t outlined copy of ConfirmationContext(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned __int8 a7)
 {
   if ((a7 >> 6) > 1u)
   {
     if (a7 >> 6 != 2)
     {
-      return result;
+      return v7;
     }
 
     goto LABEL_5;
@@ -8540,7 +8259,7 @@ unint64_t lazy protocol witness table accessor for type ExpanseError and conform
   return result;
 }
 
-uint64_t get_enum_tag_for_layout_string_19SiriExpanseInternal28StartSharingConfirmationFlowC0F6ResultO(uint64_t *a1)
+uint64_t get_enum_tag_for_layout_string_19SiriExpanseInternal28StartSharingConfirmationFlowC0F6ResultO(unint64_t *a1)
 {
   v1 = *a1;
   if (*a1 >= 0xFFFFFFFF)
@@ -8879,22 +8598,19 @@ uint64_t Confidence.description.getter(char a1)
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Confidence.LowConfidenceReason()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Confidence.LowConfidenceReason()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Confidence.LowConfidenceReason(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Confidence.LowConfidenceReason()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Confidence.LowConfidenceReason(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -8954,74 +8670,70 @@ unint64_t protocol witness for CustomStringConvertible.description.getter in con
 {
   if (*v0)
   {
-    result = 0xD000000000000012;
+    return 0xD000000000000012;
   }
 
   else
   {
-    result = 0xD00000000000001FLL;
+    return 0xD00000000000001FLL;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Confidence.LowConfidenceReason(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 0xD000000000000012;
+    v3 = 0xD000000000000012;
   }
 
   else
   {
-    v4 = 0xD00000000000001FLL;
+    v3 = 0xD00000000000001FLL;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = "ation";
+    v4 = "ation";
   }
 
   else
   {
-    v5 = "conflictingAppNameAndEntityType";
+    v4 = "conflictingAppNameAndEntityType";
   }
 
-  v6 = v5 | 0x8000000000000000;
+  v5 = v4 | 0x8000000000000000;
   if (*a2)
   {
-    v7 = 0xD000000000000012;
+    v6 = 0xD000000000000012;
   }
 
   else
   {
-    v7 = 0xD00000000000001FLL;
+    v6 = 0xD00000000000001FLL;
   }
 
   if (*a2)
   {
-    v8 = "conflictingAppNameAndEntityType";
+    v7 = "conflictingAppNameAndEntityType";
   }
 
   else
   {
-    v8 = "ation";
+    v7 = "ation";
   }
 
-  if (v4 == v7 && v6 == (v8 | 0x8000000000000000))
+  if (v3 == v6 && v5 == (v7 | 0x8000000000000000))
   {
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v10 & 1;
+  return v9 & 1;
 }
 
 BOOL specialized static Confidence.== infix(_:_:)(char a1, char a2)
@@ -9103,7 +8815,7 @@ unint64_t lazy protocol witness table accessor for type Confidence.LowConfidence
   return result;
 }
 
-uint64_t type metadata accessor for SharingCATsSimple()
+uint64_t type metadata accessor for SharingCATsSimple(uint64_t a1)
 {
   result = type metadata singleton initialization cache for SharingCATsSimple;
   if (!type metadata singleton initialization cache for SharingCATsSimple)
@@ -9114,42 +8826,35 @@ uint64_t type metadata accessor for SharingCATsSimple()
   return result;
 }
 
-uint64_t SharingCATsSimple.__allocating_init(templateDir:options:globals:)(uint64_t a1, uint64_t a2)
+uint64_t SharingCATsSimple.__allocating_init(templateDir:options:globals:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = type metadata accessor for CATOption();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v5);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5, v7);
+  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, _s10Foundation3URLVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v18 - v12;
-  v14 = *(v2 + 48);
-  v15 = *(v2 + 52);
+  MEMORY[0x28223BE20](v10 - 8, v11);
+  v13 = &v16 - v12;
   swift_allocObject();
   outlined init with copy of URL?(a1, v13);
   (*(v6 + 16))(v9, a2, v5);
-  v16 = CATWrapperSimple.init(templateDir:options:globals:)();
+  v14 = CATWrapperSimple.init(templateDir:options:globals:)();
   (*(v6 + 8))(a2, v5);
   outlined destroy of URL?(a1);
-  return v16;
+  return v14;
 }
 
 uint64_t SharingCATsSimple.__allocating_init(useResponseMode:options:)(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for CATOption();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(v2 + 48);
-  v10 = *(v2 + 52);
+  v3 = type metadata accessor for CATOption();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3, v5);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_allocObject();
-  (*(v5 + 16))(v8, a2, v4);
-  v11 = CATWrapperSimple.init(useResponseMode:options:)();
-  (*(v5 + 8))(a2, v4);
-  return v11;
+  (*(v4 + 16))(v7, a2, v3);
+  v8 = CATWrapperSimple.init(useResponseMode:options:)();
+  (*(v4 + 8))(a2, v3);
+  return v8;
 }
 
 uint64_t SharingCATsSimple.__deallocating_deinit()
@@ -9173,7 +8878,7 @@ uint64_t outlined destroy of URL?(uint64_t a1)
   return a1;
 }
 
-uint64_t type metadata accessor for ShareTarget()
+uint64_t type metadata accessor for ShareTarget(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ShareTarget;
   if (!type metadata singleton initialization cache for ShareTarget)
@@ -9184,19 +8889,19 @@ uint64_t type metadata accessor for ShareTarget()
   return result;
 }
 
-void type metadata completion function for ShareTarget()
+void type metadata completion function for ShareTarget(uint64_t a1)
 {
-  type metadata accessor for (UsoEntity, type: UsoEntity_common_AttachmentType.DefinedValues)();
-  if (v0 <= 0x3F)
+  type metadata accessor for (UsoEntity, type: UsoEntity_common_AttachmentType.DefinedValues)(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for (forAppWithBundleId: String?)();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for (named: String)();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for (bundleId: String, confidence: Confidence)();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
         }
@@ -9205,14 +8910,14 @@ void type metadata completion function for ShareTarget()
   }
 }
 
-void type metadata accessor for (UsoEntity, type: UsoEntity_common_AttachmentType.DefinedValues)()
+void type metadata accessor for (UsoEntity, type: UsoEntity_common_AttachmentType.DefinedValues)(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (UsoEntity, type: UsoEntity_common_AttachmentType.DefinedValues))
   {
     type metadata accessor for UsoEntity();
     type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (UsoEntity, type: UsoEntity_common_AttachmentType.DefinedValues));
     }
@@ -9401,12 +9106,10 @@ unint64_t ShareTarget.description.getter()
   v1 = v0;
   v2 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
+  MEMORY[0x28223BE20](v2, v4);
   v6 = v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for ShareTarget();
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7);
+  v7 = type metadata accessor for ShareTarget(0);
+  MEMORY[0x28223BE20](v7, v8);
   v10 = v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   outlined init with copy of ShareTarget(v1, v10);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
@@ -9506,285 +9209,278 @@ unint64_t type metadata accessor for INPerson()
 
 uint64_t specialized static ShareTarget.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v88 = a2;
-  v3 = type metadata accessor for ShareTarget();
-  v4 = *(*(v3 - 8) + 64);
-  v5 = MEMORY[0x28223BE20](v3);
-  v79 = &v79 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = MEMORY[0x28223BE20](v5);
-  v81 = &v79 - v8;
-  v9 = MEMORY[0x28223BE20](v7);
-  v80 = &v79 - v10;
-  v11 = MEMORY[0x28223BE20](v9);
-  v82 = &v79 - v12;
-  v13 = MEMORY[0x28223BE20](v11);
-  v83 = &v79 - v14;
-  v15 = MEMORY[0x28223BE20](v13);
-  v85 = &v79 - v16;
-  v17 = MEMORY[0x28223BE20](v15);
-  v84 = &v79 - v18;
-  v19 = MEMORY[0x28223BE20](v17);
-  v21 = (&v79 - v20);
-  v22 = MEMORY[0x28223BE20](v19);
-  v86 = &v79 - v23;
-  v24 = MEMORY[0x28223BE20](v22);
-  v26 = (&v79 - v25);
-  v27 = MEMORY[0x28223BE20](v24);
-  v29 = (&v79 - v28);
-  MEMORY[0x28223BE20](v27);
-  v31 = &v79 - v30;
-  v32 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
-  v87 = *(v32 - 8);
-  v33 = v87[8];
-  v34 = MEMORY[0x28223BE20](v32);
-  v36 = &v79 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v34);
-  v38 = &v79 - v37;
-  outlined init with copy of ShareTarget(a1, v31);
+  v95 = a2;
+  v3 = type metadata accessor for ShareTarget(0);
+  v5 = MEMORY[0x28223BE20](v3, v4);
+  v86 = &v86 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x28223BE20](v5, v7);
+  v88 = &v86 - v9;
+  v11 = MEMORY[0x28223BE20](v8, v10);
+  v87 = &v86 - v12;
+  v14 = MEMORY[0x28223BE20](v11, v13);
+  v89 = &v86 - v15;
+  v17 = MEMORY[0x28223BE20](v14, v16);
+  v90 = &v86 - v18;
+  v20 = MEMORY[0x28223BE20](v17, v19);
+  v92 = &v86 - v21;
+  v23 = MEMORY[0x28223BE20](v20, v22);
+  v91 = &v86 - v24;
+  v26 = MEMORY[0x28223BE20](v23, v25);
+  v28 = (&v86 - v27);
+  v30 = MEMORY[0x28223BE20](v26, v29);
+  v93 = &v86 - v31;
+  v33 = MEMORY[0x28223BE20](v30, v32);
+  v35 = (&v86 - v34);
+  v37 = MEMORY[0x28223BE20](v33, v36);
+  v39 = &v86 - v38;
+  MEMORY[0x28223BE20](v37, v40);
+  v42 = &v86 - v41;
+  v43 = type metadata accessor for UsoEntity_common_AttachmentType.DefinedValues();
+  v94 = *(v43 - 8);
+  v45 = MEMORY[0x28223BE20](v43, v44);
+  v47 = &v86 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v45, v48);
+  v50 = &v86 - v49;
+  outlined init with copy of ShareTarget(a1, v42);
   if (!swift_getEnumCaseMultiPayload())
   {
-    v86 = v36;
-    v44 = *v31;
-    v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMd, &_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMR);
-    v46 = v87;
-    v47 = v87[4];
-    v47(v38, &v31[*(v45 + 48)], v32);
-    outlined init with copy of ShareTarget(v88, v29);
+    v93 = v47;
+    v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMd, &_s12SiriOntology9UsoEntityC_AA0cD22_common_AttachmentTypeC13DefinedValuesO4typetMR);
+    v57 = v94;
+    v58 = *(v94 + 32);
+    v58(v50, &v42[*(v56 + 48)], v43);
+    outlined init with copy of ShareTarget(v95, v39);
     if (swift_getEnumCaseMultiPayload())
     {
-      (v46[1])(v38, v32);
+      (*(v57 + 8))(v50, v43);
 
-      v48 = v29;
+      v59 = v39;
 LABEL_17:
-      outlined destroy of ShareTarget(v48);
+      outlined destroy of ShareTarget(v59);
 LABEL_18:
-      v51 = 0;
-      return v51 & 1;
+      v62 = 0;
+      return v62 & 1;
     }
 
-    v60 = *v29;
-    v61 = v29 + *(v45 + 48);
-    v62 = v86;
-    v47(v86, v61, v32);
+    v70 = &v39[*(v56 + 48)];
+    v71 = v93;
+    v58(v93, v70, v43);
     if ((UsoEntity.isEquivalentTo(_:)() & 1) == 0)
     {
 
-      v70 = v87[1];
-      v70(v62, v32);
-      v70(v38, v32);
+      v79 = *(v94 + 8);
+      v79(v71, v43);
+      v79(v50, v43);
       goto LABEL_18;
     }
 
     lazy protocol witness table accessor for type UsoEntity_common_AttachmentType.DefinedValues and conformance UsoEntity_common_AttachmentType.DefinedValues();
     dispatch thunk of RawRepresentable.rawValue.getter();
     dispatch thunk of RawRepresentable.rawValue.getter();
-    if (v91 == v89 && v92 == v90)
+    if (v98 == v96 && v99 == v97)
     {
-      v51 = 1;
+      v62 = 1;
     }
 
     else
     {
-      v51 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v62 = _stringCompareWithSmolCheck(_:_:expecting:)();
     }
 
-    v72 = v87[1];
-    v72(v62, v32);
-    v72(v38, v32);
-    goto LABEL_42;
+    v80 = *(v94 + 8);
+    v80(v71, v43);
+    v80(v50, v43);
+    goto LABEL_41;
   }
 
-  v39 = v88;
-  outlined destroy of ShareTarget(v31);
-  outlined init with copy of ShareTarget(a1, v26);
+  v51 = v95;
+  outlined destroy of ShareTarget(v42);
+  outlined init with copy of ShareTarget(a1, v35);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v41 = *v26;
-    v40 = v26[1];
-    v42 = v86;
-    outlined init with copy of ShareTarget(v39, v86);
+    v53 = *v35;
+    v52 = v35[1];
+    v54 = v93;
+    outlined init with copy of ShareTarget(v51, v93);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v43 = *(v42 + 1);
-      if (v40)
+      v55 = *(v54 + 1);
+      if (v52)
       {
-        if (v43)
+        if (v55)
         {
-          if (v41 != *v42 || v40 != v43)
+          if (v53 != *v54 || v52 != v55)
           {
-LABEL_37:
-            v51 = _stringCompareWithSmolCheck(_:_:expecting:)();
+LABEL_36:
+            v62 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-            return v51 & 1;
+            return v62 & 1;
           }
 
           goto LABEL_15;
         }
 
-        goto LABEL_39;
+        goto LABEL_38;
       }
 
-      if (v43)
+      if (v55)
       {
-        v71 = *(v42 + 1);
-LABEL_39:
+LABEL_38:
 
         goto LABEL_18;
       }
 
-LABEL_36:
-      v51 = 1;
-      return v51 & 1;
+LABEL_35:
+      v62 = 1;
+      return v62 & 1;
     }
 
     goto LABEL_16;
   }
 
-  outlined destroy of ShareTarget(v26);
-  outlined init with copy of ShareTarget(a1, v21);
+  outlined destroy of ShareTarget(v35);
+  outlined init with copy of ShareTarget(a1, v28);
   if (swift_getEnumCaseMultiPayload() == 2)
   {
-    v50 = *v21;
-    v49 = v21[1];
-    v42 = v84;
-    outlined init with copy of ShareTarget(v39, v84);
+    v61 = *v28;
+    v60 = v28[1];
+    v54 = v91;
+    outlined init with copy of ShareTarget(v51, v91);
     if (swift_getEnumCaseMultiPayload() != 2)
     {
 LABEL_16:
 
-      v48 = v42;
+      v59 = v54;
       goto LABEL_17;
     }
 
-    if (v50 != *v42 || v49 != *(v42 + 1))
+    if (v61 != *v54 || v60 != *(v54 + 1))
     {
-      goto LABEL_37;
+      goto LABEL_36;
     }
 
 LABEL_15:
 
-    v51 = 1;
-    return v51 & 1;
+    v62 = 1;
+    return v62 & 1;
   }
 
-  outlined destroy of ShareTarget(v21);
-  v53 = v85;
-  outlined init with copy of ShareTarget(a1, v85);
+  outlined destroy of ShareTarget(v28);
+  v64 = v92;
+  outlined init with copy of ShareTarget(a1, v92);
   if (swift_getEnumCaseMultiPayload() != 3)
   {
-    outlined destroy of ShareTarget(v53);
-    v63 = v82;
-    outlined init with copy of ShareTarget(a1, v82);
+    outlined destroy of ShareTarget(v64);
+    v72 = v89;
+    outlined init with copy of ShareTarget(a1, v89);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-    outlined destroy of ShareTarget(v63);
-    if (EnumCaseMultiPayload != 4 || (v65 = v80, outlined init with copy of ShareTarget(v39, v80), v66 = swift_getEnumCaseMultiPayload(), outlined destroy of ShareTarget(v65), v66 != 4))
+    outlined destroy of ShareTarget(v72);
+    if (EnumCaseMultiPayload != 4 || (v74 = v87, outlined init with copy of ShareTarget(v51, v87), v75 = swift_getEnumCaseMultiPayload(), outlined destroy of ShareTarget(v74), v75 != 4))
     {
-      v67 = v81;
-      outlined init with copy of ShareTarget(a1, v81);
-      v68 = swift_getEnumCaseMultiPayload();
-      outlined destroy of ShareTarget(v67);
-      if (v68 == 5)
+      v76 = v88;
+      outlined init with copy of ShareTarget(a1, v88);
+      v77 = swift_getEnumCaseMultiPayload();
+      outlined destroy of ShareTarget(v76);
+      if (v77 == 5)
       {
-        v69 = v79;
-        outlined init with copy of ShareTarget(v39, v79);
-        v51 = swift_getEnumCaseMultiPayload() == 5;
-        outlined destroy of ShareTarget(v69);
-        return v51 & 1;
+        v78 = v86;
+        outlined init with copy of ShareTarget(v51, v86);
+        v62 = swift_getEnumCaseMultiPayload() == 5;
+        outlined destroy of ShareTarget(v78);
+        return v62 & 1;
       }
 
       goto LABEL_18;
     }
 
-    goto LABEL_36;
+    goto LABEL_35;
   }
 
-  v55 = *v53;
-  v54 = *(v53 + 8);
-  v56 = *(v53 + 16);
-  v57 = v83;
-  outlined init with copy of ShareTarget(v39, v83);
+  v66 = *v64;
+  v65 = *(v64 + 8);
+  v67 = *(v64 + 16);
+  v68 = v90;
+  outlined init with copy of ShareTarget(v51, v90);
   if (swift_getEnumCaseMultiPayload() != 3)
   {
 
-    v48 = v57;
+    v59 = v68;
     goto LABEL_17;
   }
 
-  v58 = *(v57 + 16);
-  if (v55 == *v57 && v54 == *(v57 + 8))
+  v69 = *(v68 + 16);
+  if (v66 == *v68 && v65 == *(v68 + 8))
   {
-    v59 = *(v57 + 8);
   }
 
   else
   {
-    v73 = *(v57 + 8);
-    v74 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v81 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v74 & 1) == 0)
+    if ((v81 & 1) == 0)
     {
       goto LABEL_18;
     }
   }
 
-  v51 = v58 == 2 && v56 == 2;
-  if (v56 != 2 && v58 != 2)
+  v62 = v69 == 2 && v67 == 2;
+  if (v67 != 2 && v69 != 2)
   {
-    if (v56)
+    if (v67)
     {
-      v75 = 0xD000000000000012;
+      v82 = 0xD000000000000012;
     }
 
     else
     {
-      v75 = 0xD00000000000001FLL;
+      v82 = 0xD00000000000001FLL;
     }
 
-    if (v56)
+    if (v67)
     {
-      v76 = "conflictingAppNameAndEntityType";
+      v83 = "conflictingAppNameAndEntityType";
     }
 
     else
     {
-      v76 = "ation";
+      v83 = "ation";
     }
 
-    if (v58)
+    if (v69)
     {
-      v77 = 0xD000000000000012;
+      v84 = 0xD000000000000012;
     }
 
     else
     {
-      v77 = 0xD00000000000001FLL;
+      v84 = 0xD00000000000001FLL;
     }
 
-    if (v58)
+    if (v69)
     {
-      v78 = "conflictingAppNameAndEntityType";
+      v85 = "conflictingAppNameAndEntityType";
     }
 
     else
     {
-      v78 = "ation";
+      v85 = "ation";
     }
 
-    if (v75 == v77 && (v76 | 0x8000000000000000) == (v78 | 0x8000000000000000))
+    if (v82 == v84 && (v83 | 0x8000000000000000) == (v85 | 0x8000000000000000))
     {
       goto LABEL_15;
     }
 
-    v51 = _stringCompareWithSmolCheck(_:_:expecting:)();
-LABEL_42:
+    v62 = _stringCompareWithSmolCheck(_:_:expecting:)();
+LABEL_41:
   }
 
-  return v51 & 1;
+  return v62 & 1;
 }
 
 uint64_t outlined destroy of ShareTarget(uint64_t a1)
 {
-  v2 = type metadata accessor for ShareTarget();
+  v2 = type metadata accessor for ShareTarget(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -9873,7 +9569,7 @@ LABEL_15:
     v15 = v9;
     v16 = v10;
 
-    outlined consume of ShareSession?(v13, v14);
+    outlined consume of ShareSession?(v13, v14, v15, v16);
     *a1 = v13;
     *(a1 + 8) = v14;
     *(a1 + 16) = v15;
@@ -9888,4 +9584,252 @@ LABEL_15:
   *(a1 + 24) = 0;
   *(a1 + 32) = 2;
   return __swift_destroy_boxed_opaque_existential_1Tm(v19);
+}
+
+Swift::Bool __swiftcall ScreenSharingCallManager.isScreenShareSupportingCallSalient()()
+{
+  ScreenSharingCallManager.getSalientScreenShareSupportingCall()(v2);
+  v0 = v3 != 0;
+  outlined destroy of SharingResponse?(v2, &_s19SiriExpanseInternal4Call_pSgMd, &_s19SiriExpanseInternal4Call_pSgMR);
+  return v0;
+}
+
+double ScreenSharingCallManager.getSalientScreenShareSupportingCall()@<D0>(uint64_t a1@<X8>)
+{
+  v3 = v1[3];
+  v4 = v1[4];
+  __swift_project_boxed_opaque_existential_1(v1, v3);
+  (*(v4 + 8))(&v10, v3, v4);
+  if (v11)
+  {
+    outlined init with take of ConversationParticipant(&v10, v12);
+    v5 = v13;
+    v6 = v14;
+    __swift_project_boxed_opaque_existential_1(v12, v13);
+    if ((*(v6 + 56))(v5, v6))
+    {
+      v7 = v13;
+      v8 = v14;
+      __swift_project_boxed_opaque_existential_1(v12, v13);
+      if ((*(v8 + 160))(v7, v8))
+      {
+        outlined init with copy of ResponseExecuting(v12, a1);
+        __swift_destroy_boxed_opaque_existential_1Tm(v12);
+        return result;
+      }
+    }
+
+    __swift_destroy_boxed_opaque_existential_1Tm(v12);
+  }
+
+  else
+  {
+    outlined destroy of SharingResponse?(&v10, &_s19SiriExpanseInternal4Call_pSgMd, &_s19SiriExpanseInternal4Call_pSgMR);
+  }
+
+  *(a1 + 32) = 0;
+  result = 0.0;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  return result;
+}
+
+uint64_t ScreenSharingCallManager.getRemoteCallParticipantHandles()()
+{
+  v1 = v0[3];
+  v2 = v0[4];
+  __swift_project_boxed_opaque_existential_1(v0, v1);
+  (*(v2 + 8))(&v27, v1, v2);
+  if (!v28)
+  {
+    outlined destroy of SharingResponse?(&v27, &_s19SiriExpanseInternal4Call_pSgMd, &_s19SiriExpanseInternal4Call_pSgMR);
+    return MEMORY[0x277D84FA0];
+  }
+
+  outlined init with take of ConversationParticipant(&v27, v30);
+  v3 = v31;
+  v4 = v32;
+  __swift_project_boxed_opaque_existential_1(v30, v31);
+  (*(v4 + 40))(&v24, v3, v4);
+  if (!v25)
+  {
+    outlined destroy of SharingResponse?(&v24, &_s19SiriExpanseInternal12Conversation_pSgMd, &_s19SiriExpanseInternal12Conversation_pSgMR);
+    __swift_destroy_boxed_opaque_existential_1Tm(v30);
+    return MEMORY[0x277D84FA0];
+  }
+
+  outlined init with take of ConversationParticipant(&v24, &v27);
+  v5 = v28;
+  v6 = v29;
+  __swift_project_boxed_opaque_existential_1(&v27, v28);
+  v7 = (*(v6 + 8))(v5, v6);
+  v8 = *(v7 + 16);
+  if (v8)
+  {
+    v23 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v8, 0);
+    v9 = v23;
+    v10 = v7 + 32;
+    do
+    {
+      outlined init with copy of ResponseExecuting(v10, &v24);
+      v11 = v25;
+      v12 = v26;
+      __swift_project_boxed_opaque_existential_1(&v24, v25);
+      v13 = (*(v12 + 8))(v11, v12);
+      v14 = [v13 value];
+
+      v15 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+      v17 = v16;
+
+      __swift_destroy_boxed_opaque_existential_1Tm(&v24);
+      v19 = *(v23 + 16);
+      v18 = *(v23 + 24);
+      if (v19 >= v18 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), v19 + 1, 1);
+      }
+
+      *(v23 + 16) = v19 + 1;
+      v20 = v23 + 16 * v19;
+      *(v20 + 32) = v15;
+      *(v20 + 40) = v17;
+      v10 += 40;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  else
+  {
+
+    v9 = MEMORY[0x277D84F90];
+  }
+
+  v22 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSS_SaySSGTt0g5Tf4g_n(v9);
+
+  __swift_destroy_boxed_opaque_existential_1Tm(&v27);
+  __swift_destroy_boxed_opaque_existential_1Tm(v30);
+  return v22;
+}
+
+BOOL protocol witness for ScreenSharingCallManaging.isScreenShareSupportingCallSalient() in conformance ScreenSharingCallManager()
+{
+  ScreenSharingCallManager.getSalientScreenShareSupportingCall()(v2);
+  v0 = v3 != 0;
+  outlined destroy of SharingResponse?(v2, &_s19SiriExpanseInternal4Call_pSgMd, &_s19SiriExpanseInternal4Call_pSgMR);
+  return v0;
+}
+
+uint64_t implicit closure #1 in OSLogInterpolation.appendInterpolation(_:privacy:attributes:)(uint64_t (*a1)(void))
+{
+  a1();
+
+  return _swift_stdlib_bridgeErrorToNSError();
+}
+
+{
+  return a1();
+}
+
+void closure #1 in OSLogArguments.append(_:)(void **a1, void **a2, uint64_t a3, uint64_t (*a4)(void))
+{
+  v6 = (a4)(a1, a2, a3);
+  v7 = *a1;
+  *v7 = v6;
+  *a1 = v7 + 1;
+  v8 = *a2;
+  if (*a2)
+  {
+    *v8 = v6;
+    *a2 = v8 + 1;
+  }
+
+  else
+  {
+  }
+}
+
+void outlined consume of ShareSession?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (a2 != 4)
+  {
+    outlined consume of ShareSession(a1, a2, a3, a4);
+  }
+}
+
+void outlined consume of ShareSession(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if ((a2 - 1) >= 3)
+  {
+  }
+}
+
+__n128 __swift_memcpy40_8(uint64_t a1, uint64_t a2)
+{
+  result = *a2;
+  v3 = *(a2 + 16);
+  *(a1 + 32) = *(a2 + 32);
+  *a1 = result;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for ScreenSharingCallManager(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 40))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 24);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for ScreenSharingCallManager(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0u;
+    *(result + 24) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 40) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 24) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 40) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
 }

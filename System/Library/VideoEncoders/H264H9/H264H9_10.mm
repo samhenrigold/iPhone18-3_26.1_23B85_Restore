@@ -1,2025 +1,3 @@
-uint64_t AVE_PS_Make_hvcC(uint64_t a1, char *a2, unsigned int *a3, const void *a4, int a5, const void *a6, int a7, const void *a8, __CFData **a9)
-{
-  v13 = a9;
-  if (AVE_Log_CheckLevel(0xD4u, 8))
-  {
-    v14 = AVE_Log_CheckConsole(0xD4u);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(8);
-    if (v14)
-    {
-      printf("%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Make_hvcC", a1, a2, a3, a4, a5, a6, a7, a8, a9);
-      v17 = AVE_GetCurrTime();
-      v54 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p", v17, 212, v54, "AVE_PS_Make_hvcC", a1, a2, a3);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p", CurrTime, 212, LevelStr, "AVE_PS_Make_hvcC", a1, a2, a3);
-    }
-  }
-
-  if (!a2 || !a3 || !a8 || !a9 || (a4 == 0) != (a5 == 0))
-  {
-    if (AVE_Log_CheckLevel(0xD4u, 4))
-    {
-      v18 = AVE_Log_CheckConsole(0xD4u);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(4);
-      if (v18)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p\n", v19, 212, v20, "AVE_PS_Make_hvcC", 1003, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1, a2, a3, a4, a5, a8, a9);
-        v21 = AVE_GetCurrTime();
-        v55 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p", v21, 212, v55, "AVE_PS_Make_hvcC", 1003, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p", v19, 212, v20, "AVE_PS_Make_hvcC", 1003, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1);
-      }
-    }
-
-    goto LABEL_20;
-  }
-
-  v64 = a4;
-  *a9 = 0;
-  v22 = AVE_PS_CalcSizeOfhvcC(a1, a3, a5, a7);
-  if (v22 <= 0)
-  {
-    if (AVE_Log_CheckLevel(0xD4u, 4))
-    {
-      v37 = AVE_Log_CheckConsole(0xD4u);
-      v38 = AVE_GetCurrTime();
-      v39 = AVE_Log_GetLevelStr(4);
-      if (v37)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d %p %d\n", v38, 212, v39, "AVE_PS_Make_hvcC", 1010, "size > 0", a1, a2, a3, v64, a5, a8, v22);
-        v40 = AVE_GetCurrTime();
-        a4 = v64;
-        v58 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d %p %d", v40, 212, v58, "AVE_PS_Make_hvcC", 1010, "size > 0", a1);
-      }
-
-      else
-      {
-        a4 = v64;
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d %p %d", v38, 212, v39, "AVE_PS_Make_hvcC", 1010, "size > 0", a1);
-      }
-
-LABEL_20:
-      v27 = 4294966296;
-      goto LABEL_21;
-    }
-
-    v27 = 4294966296;
-    goto LABEL_37;
-  }
-
-  Mutable = CFDataCreateMutable(0, v22);
-  if (!Mutable)
-  {
-    if (AVE_Log_CheckLevel(0xD4u, 4))
-    {
-      v41 = AVE_Log_CheckConsole(0xD4u);
-      v42 = AVE_GetCurrTime();
-      v43 = AVE_Log_GetLevelStr(4);
-      if (v41)
-      {
-        v61 = v22;
-        a4 = v64;
-        printf("%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d %p %d\n", v42, 212, v43, "AVE_PS_Make_hvcC", 1015, "pCFData != __null", a1, a2, a3, v64, a5, a8, v61);
-        v44 = AVE_GetCurrTime();
-        v59 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d %p %d", v44, 212, v59, "AVE_PS_Make_hvcC", 1015, "pCFData != __null", a1);
-      }
-
-      else
-      {
-        a4 = v64;
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d %p %d", v42, 212, v43, "AVE_PS_Make_hvcC", 1015, "pCFData != __null", a1);
-      }
-
-      v27 = 4294966293;
-      goto LABEL_21;
-    }
-
-    v27 = 4294966293;
-LABEL_37:
-    a4 = v64;
-    goto LABEL_21;
-  }
-
-  v24 = Mutable;
-  CFDataSetLength(Mutable, v22);
-  MutableBytePtr = CFDataGetMutableBytePtr(v24);
-  if (!MutableBytePtr)
-  {
-    if (AVE_Log_CheckLevel(0xD4u, 4))
-    {
-      v45 = AVE_Log_CheckConsole(0xD4u);
-      v46 = AVE_GetCurrTime();
-      v47 = AVE_Log_GetLevelStr(4);
-      if (v45)
-      {
-        v62 = v22;
-        a4 = v64;
-        printf("%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %d %p %p %d\n", v46, 212, v47, "AVE_PS_Make_hvcC", 1022, "pData != __null", a1, a2, a3, v64, a5, a8, v24, v62);
-        v48 = AVE_GetCurrTime();
-        v60 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %d %p %p %d", v48, 212, v60, "AVE_PS_Make_hvcC", 1022, "pData != __null", a1, a2);
-      }
-
-      else
-      {
-        a4 = v64;
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %d %p %p %d", v46, 212, v47, "AVE_PS_Make_hvcC", 1022, "pData != __null", a1, a2);
-      }
-
-      v27 = 4294966293;
-    }
-
-    else
-    {
-      v27 = 4294966293;
-      a4 = v64;
-    }
-
-LABEL_53:
-    CFRelease(v24);
-    goto LABEL_21;
-  }
-
-  v26 = MutableBytePtr;
-  v63 = a8;
-  v27 = AVE_PS_Compose_hvcC(a1, a2, a3, v64, a5, a6, a7, a8, MutableBytePtr, v22);
-  if (AVE_Log_CheckLevel(0xD4u, 8))
-  {
-    v28 = AVE_Log_CheckConsole(0xD4u);
-    v29 = AVE_GetCurrTime();
-    v30 = AVE_Log_GetLevelStr(8);
-    if (v28)
-    {
-      printf("%lld %d AVE %s: %s:%d hvcC data: size %d\n", v29, 212, v30, "AVE_PS_Make_hvcC", 1030, v22);
-      v31 = AVE_GetCurrTime();
-      v56 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s:%d hvcC data: size %d", v31, 212, v56, "AVE_PS_Make_hvcC", 1030, v22);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d hvcC data: size %d", v29, 212, v30, "AVE_PS_Make_hvcC", 1030, v22);
-    }
-  }
-
-  for (i = 0; i < v22; i += 2)
-  {
-    if (AVE_Log_CheckLevel(0xD4u, 8))
-    {
-      v50 = AVE_Log_CheckConsole(0xD4u);
-      v51 = AVE_GetCurrTime();
-      v52 = AVE_Log_GetLevelStr(8);
-      v53 = *v26;
-      if (v50)
-      {
-        printf("%lld %d AVE %s: %p: 0x%x\n", v51, 212, v52, v26, v53);
-        v51 = AVE_GetCurrTime();
-        v52 = AVE_Log_GetLevelStr(8);
-        v53 = *v26;
-      }
-
-      syslog(3, "%lld %d AVE %s: %p: 0x%x", v51, 212, v52, v26, v53);
-    }
-
-    ++v26;
-  }
-
-  v13 = a9;
-  *a9 = v24;
-  a4 = v64;
-  a8 = v63;
-  if (v27)
-  {
-    goto LABEL_53;
-  }
-
-LABEL_21:
-  if (AVE_Log_CheckLevel(0xD4u, 8))
-  {
-    v32 = AVE_Log_CheckConsole(0xD4u);
-    v33 = AVE_GetCurrTime();
-    v34 = AVE_Log_GetLevelStr(8);
-    if (v32)
-    {
-      printf("%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d\n", v33, 212, v34, "AVE_PS_Make_hvcC", a1, a2, a3, a4, a5, a6, a7, a8, v13, v27);
-      v35 = AVE_GetCurrTime();
-      v57 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d", v35, 212, v57, "AVE_PS_Make_hvcC", a1, a2, a3, a4);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d", v33, 212, v34, "AVE_PS_Make_hvcC", a1, a2, a3, a4);
-    }
-  }
-
-  return v27;
-}
-
-uint64_t AVE_PS_Make_hvcC_Dict(uint64_t a1, char *a2, unsigned int *a3, const void *a4, int a5, const void *a6, int a7, const void *a8, __CFDictionary **a9)
-{
-  v55 = 0;
-  if (AVE_Log_CheckLevel(0xD4u, 8))
-  {
-    v11 = AVE_Log_CheckConsole(0xD4u);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(8);
-    if (v11)
-    {
-      printf("%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Make_hvcC_Dict", a1, a2, a3, a4, a5, a6, a7, a8, a9);
-      v14 = AVE_GetCurrTime();
-      v43 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p", v14, 212, v43, "AVE_PS_Make_hvcC_Dict", a1, a2, a3);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %d %p %d %p %p", CurrTime, 212, LevelStr, "AVE_PS_Make_hvcC_Dict", a1, a2, a3);
-    }
-  }
-
-  if (a2 && a3 && a8 && a9 && (a4 == 0) == (a5 == 0))
-  {
-    *a9 = 0;
-    hvcC = AVE_PS_Make_hvcC(a1, a2, a3, a4, a5, a6, a7, a8, &v55);
-    if (hvcC)
-    {
-      v20 = hvcC;
-      if (AVE_Log_CheckLevel(0xD4u, 4))
-      {
-        v21 = AVE_Log_CheckConsole(0xD4u);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        if (v21)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %d %p %p %d\n", v22, 212, v23, "AVE_PS_Make_hvcC_Dict", 1095, "ret == 0", a1, a2, a3, a4, a5, a8, a9, v20);
-          v24 = AVE_GetCurrTime();
-          v45 = AVE_Log_GetLevelStr(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %d %p %p %d", v24, 212, v45, "AVE_PS_Make_hvcC_Dict", 1095, "ret == 0", a1, a2);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %d %p %p %d", v22, 212, v23, "AVE_PS_Make_hvcC_Dict", 1095, "ret == 0", a1, a2);
-        }
-      }
-
-      v25 = 0;
-      v26 = 0;
-    }
-
-    else
-    {
-      v32 = *MEMORY[0x29EDB8ED8];
-      Mutable = CFDictionaryCreateMutable(*MEMORY[0x29EDB8ED8], 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-      if (Mutable)
-      {
-        v25 = Mutable;
-        CFDictionaryAddValue(Mutable, @"hvcC", v55);
-        v34 = CFDictionaryCreateMutable(v32, 0, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-        if (v34)
-        {
-          v26 = v34;
-          CFDictionaryAddValue(v34, *MEMORY[0x29EDB92C8], v25);
-          CFDictionaryAddValue(v26, *MEMORY[0x29EDB92B8], @"HEVC");
-          v20 = 0;
-          *a9 = v26;
-          goto LABEL_19;
-        }
-
-        if (AVE_Log_CheckLevel(0xD4u, 4))
-        {
-          v39 = AVE_Log_CheckConsole(0xD4u);
-          v40 = AVE_GetCurrTime();
-          v41 = AVE_Log_GetLevelStr(4);
-          if (v39)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | failed to create dictionary %d %p %p %p %d %p %p\n", v40, 212, v41, "AVE_PS_Make_hvcC_Dict", 1109, "pDict != __null", a1, a2, a3, a4, a5, a8, v25);
-            v42 = AVE_GetCurrTime();
-            v48 = AVE_Log_GetLevelStr(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create dictionary %d %p %p %p %d %p %p", v42, 212, v48, "AVE_PS_Make_hvcC_Dict", 1109, "pDict != __null", a1);
-          }
-
-          else
-          {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create dictionary %d %p %p %p %d %p %p", v40, 212, v41, "AVE_PS_Make_hvcC_Dict", 1109, "pDict != __null", a1);
-          }
-        }
-      }
-
-      else
-      {
-        if (AVE_Log_CheckLevel(0xD4u, 4))
-        {
-          v35 = AVE_Log_CheckConsole(0xD4u);
-          v36 = AVE_GetCurrTime();
-          v37 = AVE_Log_GetLevelStr(4);
-          if (v35)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | failed to create data dictionary %d %p %p %p %d %p %p\n", v36, 212, v37, "AVE_PS_Make_hvcC_Dict", 1101, "pDataDict != __null", a1, a2, a3, a4, a5, a8, v55);
-            v38 = AVE_GetCurrTime();
-            v47 = AVE_Log_GetLevelStr(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create data dictionary %d %p %p %p %d %p %p", v38, 212, v47, "AVE_PS_Make_hvcC_Dict", 1101, "pDataDict != __null", a1);
-          }
-
-          else
-          {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create data dictionary %d %p %p %p %d %p %p", v36, 212, v37, "AVE_PS_Make_hvcC_Dict", 1101, "pDataDict != __null", a1);
-          }
-        }
-
-        v25 = 0;
-      }
-
-      v26 = 0;
-      v20 = 4294966293;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0xD4u, 4))
-    {
-      v15 = AVE_Log_CheckConsole(0xD4u);
-      v16 = AVE_GetCurrTime();
-      v17 = AVE_Log_GetLevelStr(4);
-      if (v15)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p\n", v16, 212, v17, "AVE_PS_Make_hvcC_Dict", 1087, "pInData != __null && pInfo != __null && pSPS != __null && ppCFDict != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1, a2, a3, a4, a5, a8, a9);
-        v18 = AVE_GetCurrTime();
-        v44 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p", v18, 212, v44, "AVE_PS_Make_hvcC_Dict", 1087, "pInData != __null && pInfo != __null && pSPS != __null && ppCFDict != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %d %p %p", v16, 212, v17, "AVE_PS_Make_hvcC_Dict", 1087, "pInData != __null && pInfo != __null && pSPS != __null && ppCFDict != __null && !((pSEIData == __null) ^ (SEISize == 0))", a1);
-      }
-    }
-
-    v25 = 0;
-    v26 = 0;
-    v20 = 4294966296;
-  }
-
-LABEL_19:
-  if (v55)
-  {
-    CFRelease(v55);
-    v55 = 0;
-  }
-
-  if (v25)
-  {
-    CFRelease(v25);
-  }
-
-  if (v20 && v26)
-  {
-    CFRelease(v26);
-  }
-
-  if (AVE_Log_CheckLevel(0xD4u, 8))
-  {
-    v27 = AVE_Log_CheckConsole(0xD4u);
-    v28 = AVE_GetCurrTime();
-    v29 = AVE_Log_GetLevelStr(8);
-    if (v27)
-    {
-      printf("%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d\n", v28, 212, v29, "AVE_PS_Make_hvcC_Dict", a1, a2, a3, a4, a5, a6, a7, a8, a9, v20);
-      v30 = AVE_GetCurrTime();
-      v46 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d", v30, 212, v46, "AVE_PS_Make_hvcC_Dict", a1, a2, a3, a4);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %d %p %d %p %p %d", v28, 212, v29, "AVE_PS_Make_hvcC_Dict", a1, a2, a3, a4);
-    }
-  }
-
-  return v20;
-}
-
-uint64_t AVE_PS_Make_lhvC(int a1, char *a2, unsigned int *a3, const void *a4, __CFData **a5)
-{
-  if (AVE_Log_CheckLevel(0xD4u, 8))
-  {
-    v10 = AVE_Log_CheckConsole(0xD4u);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(8);
-    if (v10)
-    {
-      printf("%lld %d AVE %s: %s Enter %d %p %p %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Make_lhvC", a1, a2, a3, a4, a5);
-      v13 = AVE_GetCurrTime();
-      v52 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p", v13, 212, v52);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p", CurrTime, 212, LevelStr);
-    }
-  }
-
-  if (!a2 || !a3 || !a4 || !a5)
-  {
-    if (AVE_Log_CheckLevel(0xD4u, 4))
-    {
-      v24 = AVE_Log_CheckConsole(0xD4u);
-      v25 = AVE_GetCurrTime();
-      v26 = AVE_Log_GetLevelStr(4);
-      if (v24)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p\n", v25, 212, v26, "AVE_PS_Make_lhvC", 1172, "pInData != __null && pInfo != __null && pSPS != __null && ppCFData != __null", a1, a2, a3, a4, a5);
-        v27 = AVE_GetCurrTime();
-        v54 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p", v27, 212, v54, "AVE_PS_Make_lhvC", 1172);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p", v25, 212, v26, "AVE_PS_Make_lhvC", 1172);
-      }
-    }
-
-    goto LABEL_29;
-  }
-
-  *a5 = 0;
-  v14 = AVE_PS_CalcSizeOflhvC(a1, a3);
-  if (v14 <= 0)
-  {
-    if (AVE_Log_CheckLevel(0xD4u, 4))
-    {
-      v28 = AVE_Log_CheckConsole(0xD4u);
-      v29 = AVE_GetCurrTime();
-      v30 = AVE_Log_GetLevelStr(4);
-      if (v28)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d\n", v29, 212, v30, "AVE_PS_Make_lhvC", 1179, "size > 0", a1, a2, a3, a4, v14);
-        v31 = AVE_GetCurrTime();
-        v55 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d", v31, 212, v55, "AVE_PS_Make_lhvC", 1179);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | failed to calculate the size %d %p %p %p %d", v29, 212, v30, "AVE_PS_Make_lhvC", 1179);
-      }
-    }
-
-LABEL_29:
-    v19 = 4294966296;
-    goto LABEL_30;
-  }
-
-  Mutable = CFDataCreateMutable(0, v14);
-  if (Mutable)
-  {
-    v60 = a4;
-    v16 = Mutable;
-    CFDataSetLength(Mutable, v14);
-    v59 = v16;
-    MutableBytePtr = CFDataGetMutableBytePtr(v16);
-    if (MutableBytePtr)
-    {
-      v18 = MutableBytePtr;
-      v58 = a5;
-      v19 = AVE_PS_Compose_lhvC(a1, a2, a3, v60, MutableBytePtr, v14);
-      if (AVE_Log_CheckLevel(0xD4u, 8))
-      {
-        v20 = AVE_Log_CheckConsole(0xD4u);
-        v21 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(8);
-        if (v20)
-        {
-          printf("%lld %d AVE %s: %s:%d lhvC data: size %d\n", v21, 212, v22, "AVE_PS_Make_lhvC", 1198, v14);
-          v23 = AVE_GetCurrTime();
-          v53 = AVE_Log_GetLevelStr(8);
-          syslog(3, "%lld %d AVE %s: %s:%d lhvC data: size %d", v23, 212, v53, "AVE_PS_Make_lhvC", 1198, v14);
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d lhvC data: size %d", v21, 212, v22, "AVE_PS_Make_lhvC", 1198, v14);
-        }
-      }
-
-      for (i = 0; i < v14; i += 2)
-      {
-        if (AVE_Log_CheckLevel(0xD4u, 8))
-        {
-          v46 = AVE_Log_CheckConsole(0xD4u);
-          v47 = AVE_GetCurrTime();
-          v48 = AVE_Log_GetLevelStr(8);
-          v49 = *v18;
-          if (v46)
-          {
-            printf("%lld %d AVE %s: %p: 0x%x\n", v47, 212, v48, v18, v49);
-            v50 = AVE_GetCurrTime();
-            v51 = AVE_Log_GetLevelStr(8);
-            syslog(3, "%lld %d AVE %s: %p: 0x%x", v50, 212, v51, v18, *v18);
-          }
-
-          else
-          {
-            syslog(3, "%lld %d AVE %s: %p: 0x%x", v47, 212, v48, v18, v49);
-          }
-        }
-
-        ++v18;
-      }
-
-      a5 = v58;
-      v44 = v59;
-      *v58 = v59;
-      a4 = v60;
-      if (!v19)
-      {
-        goto LABEL_30;
-      }
-    }
-
-    else if (AVE_Log_CheckLevel(0xD4u, 4))
-    {
-      v36 = AVE_Log_CheckConsole(0xD4u);
-      v37 = AVE_GetCurrTime();
-      v38 = AVE_Log_GetLevelStr(4);
-      if (v36)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %p %d\n", v37, 212, v38, "AVE_PS_Make_lhvC", 1191, "pData != __null", a1, a2, a3, a4, v16, v14);
-        v37 = AVE_GetCurrTime();
-        v38 = AVE_Log_GetLevelStr(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get memory address %d %p %p %p %p %d", v37, 212, v38, "AVE_PS_Make_lhvC", 1191, "pData != __null", a1, a2, a3, a4, v16, v14);
-      v44 = v16;
-      v19 = 4294966293;
-    }
-
-    else
-    {
-      v19 = 4294966293;
-      v44 = v16;
-    }
-
-    CFRelease(v44);
-    goto LABEL_30;
-  }
-
-  if (AVE_Log_CheckLevel(0xD4u, 4))
-  {
-    v32 = AVE_Log_CheckConsole(0xD4u);
-    v33 = AVE_GetCurrTime();
-    v34 = AVE_Log_GetLevelStr(4);
-    if (v32)
-    {
-      printf("%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d\n", v33, 212, v34, "AVE_PS_Make_lhvC", 1184, "pCFData != __null", a1, a2, a3, a4, v14);
-      v35 = AVE_GetCurrTime();
-      v56 = AVE_Log_GetLevelStr(4);
-      syslog(3, "%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d", v35, 212, v56, "AVE_PS_Make_lhvC", 1184);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s:%d %s | failed to allocate memory %d %p %p %p %d", v33, 212, v34, "AVE_PS_Make_lhvC", 1184);
-    }
-  }
-
-  v19 = 4294966293;
-LABEL_30:
-  if (AVE_Log_CheckLevel(0xD4u, 8))
-  {
-    v39 = AVE_Log_CheckConsole(0xD4u);
-    v40 = AVE_GetCurrTime();
-    v41 = AVE_Log_GetLevelStr(8);
-    if (v39)
-    {
-      printf("%lld %d AVE %s: %s Exit %d %p %p %p %p %d\n", v40, 212, v41, "AVE_PS_Make_lhvC", a1, a2, a3, a4, a5, v19);
-      v42 = AVE_GetCurrTime();
-      v57 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d", v42, 212, v57, "AVE_PS_Make_lhvC");
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d", v40, 212, v41, "AVE_PS_Make_lhvC");
-    }
-  }
-
-  return v19;
-}
-
-uint64_t AVE_PS_Add_lhvC_Dict(int a1, char *a2, unsigned int *a3, const void *a4, const __CFDictionary *a5)
-{
-  v39 = 0;
-  if (AVE_Log_CheckLevel(0xD4u, 8))
-  {
-    v10 = AVE_Log_CheckConsole(0xD4u);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(8);
-    if (v10)
-    {
-      printf("%lld %d AVE %s: %s Enter %d %p %p %p %p\n", CurrTime, 212, LevelStr, "AVE_PS_Add_lhvC_Dict", a1, a2, a3, a4, a5);
-      v13 = AVE_GetCurrTime();
-      v34 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p", v13, 212, v34);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %d %p %p %p %p", CurrTime, 212, LevelStr);
-    }
-  }
-
-  if (a2 && a3 && a4 && a5)
-  {
-    lhvC = AVE_PS_Make_lhvC(a1, a2, a3, a4, &v39);
-    if (lhvC)
-    {
-      v15 = lhvC;
-      if (AVE_Log_CheckLevel(0xD4u, 4))
-      {
-        v16 = AVE_Log_CheckConsole(0xD4u);
-        v17 = AVE_GetCurrTime();
-        v18 = AVE_Log_GetLevelStr(4);
-        if (v16)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %p %d\n", v17, 212, v18, "AVE_PS_Add_lhvC_Dict", 1336, "ret == 0", a1, a2, a3, a4, a5, v15);
-          v19 = AVE_GetCurrTime();
-          v35 = AVE_Log_GetLevelStr(4);
-          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %p %d", v19, 212, v35, "AVE_PS_Add_lhvC_Dict", 1336, "ret == 0");
-        }
-
-        else
-        {
-          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to compose %d %p %p %p %p %d", v17, 212, v18, "AVE_PS_Add_lhvC_Dict", 1336, "ret == 0");
-        }
-      }
-    }
-
-    else
-    {
-      Value = CFDictionaryGetValue(a5, *MEMORY[0x29EDB92C8]);
-      if (Value)
-      {
-        CFDictionaryAddValue(Value, @"lhvC", v39);
-        v15 = 0;
-      }
-
-      else
-      {
-        if (AVE_Log_CheckLevel(0xD4u, 4))
-        {
-          v25 = AVE_Log_CheckConsole(0xD4u);
-          v26 = AVE_GetCurrTime();
-          v27 = AVE_Log_GetLevelStr(4);
-          if (v25)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | failed to get data dictionary %d %p %p %p %p\n", v26, 212, v27, "AVE_PS_Add_lhvC_Dict", 1342, "pDataDict != __null", a1, a2, a3, a4, v39);
-            v28 = AVE_GetCurrTime();
-            v37 = AVE_Log_GetLevelStr(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get data dictionary %d %p %p %p %p", v28, 212, v37, "AVE_PS_Add_lhvC_Dict", 1342);
-          }
-
-          else
-          {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to get data dictionary %d %p %p %p %p", v26, 212, v27, "AVE_PS_Add_lhvC_Dict", 1342);
-          }
-        }
-
-        v15 = 4294966293;
-      }
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0xD4u, 4))
-    {
-      v20 = AVE_Log_CheckConsole(0xD4u);
-      v21 = AVE_GetCurrTime();
-      v22 = AVE_Log_GetLevelStr(4);
-      if (v20)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p\n", v21, 212, v22, "AVE_PS_Add_lhvC_Dict", 1331, "pInData != __null && pInfo != __null && pSPS != __null && pCFDict != __null", a1, a2, a3, a4, a5);
-        v23 = AVE_GetCurrTime();
-        v36 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p", v23, 212, v36, "AVE_PS_Add_lhvC_Dict", 1331);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %p %p %p %p", v21, 212, v22, "AVE_PS_Add_lhvC_Dict", 1331);
-      }
-    }
-
-    v15 = 4294966296;
-  }
-
-  if (v39)
-  {
-    CFRelease(v39);
-    v39 = 0;
-  }
-
-  if (AVE_Log_CheckLevel(0xD4u, 8))
-  {
-    v29 = AVE_Log_CheckConsole(0xD4u);
-    v30 = AVE_GetCurrTime();
-    v31 = AVE_Log_GetLevelStr(8);
-    if (v29)
-    {
-      printf("%lld %d AVE %s: %s Exit %d %p %p %p %p %d\n", v30, 212, v31, "AVE_PS_Add_lhvC_Dict", a1, a2, a3, a4, a5, v15);
-      v32 = AVE_GetCurrTime();
-      v38 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d", v32, 212, v38, "AVE_PS_Add_lhvC_Dict");
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %d %p %p %p %p %d", v30, 212, v31, "AVE_PS_Add_lhvC_Dict");
-    }
-  }
-
-  return v15;
-}
-
-uint64_t AVE_PixelFmt_GetSupportedListByProfile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, _DWORD *a8)
-{
-  v8 = a8;
-  v9 = 1;
-  v10 = 4294966295;
-  if (a7 && a8)
-  {
-    NumOfTypes = AVE_PixelFmt_GetNumOfTypes();
-    v18 = malloc_type_malloc(4 * NumOfTypes, 0x100004052888210uLL);
-    if (v18)
-    {
-      v19 = v18;
-      if (a4 == 1)
-      {
-        v20 = &gs_sAVE_ProfileMap_AVC;
-        v22 = 9;
-        while (*v20 != a5)
-        {
-          v20 += 8;
-          if (!--v22)
-          {
-            goto LABEL_16;
-          }
-        }
-      }
-
-      else
-      {
-        if (a4 != 2)
-        {
-          goto LABEL_17;
-        }
-
-        v20 = &gs_sAVE_ProfileMap_HEVC;
-        v21 = 9;
-        while (*v20 != a5)
-        {
-          v20 += 8;
-          if (!--v21)
-          {
-            goto LABEL_16;
-          }
-        }
-      }
-
-      v51 = v20;
-      v59[0] = NumOfTypes;
-      if (!AVE_PixelFmt_GetSupportedList(a1, a2, a3, a4, v18, v59))
-      {
-        v45 = v8;
-        if (v59[0] < 1)
-        {
-          LODWORD(v54) = 0;
-        }
-
-        else
-        {
-          v24 = 0;
-          v54 = 0;
-          v25 = 36;
-          if (a4 == 2)
-          {
-            v25 = 40;
-          }
-
-          v50 = v25;
-          v26 = a6;
-          v47 = a5;
-          v46 = a4;
-          v58 = a5;
-          v57 = a4;
-          v49 = a5;
-          v56 = a5;
-          v48 = a4;
-          v55 = a4;
-          do
-          {
-            v52 = v24;
-            v27 = AVE_PixelFmt_FindByType(v19[v24]);
-            v28 = *&v27[v50];
-            v29 = 2;
-            v30 = v54;
-            do
-            {
-              v31 = v51[v29];
-              if (!v31)
-              {
-                break;
-              }
-
-              if (v31 == v28 && (*(v51 + 4) != 1 || *(v27 + 1) == v26))
-              {
-                *(a7 + 4 * v30) = *v27;
-                v30 = (v30 + 1);
-              }
-
-              ++v29;
-            }
-
-            while (v29 != 8);
-            v54 = v30;
-            if (AVE_Log_CheckLevel(0x4Bu, 8))
-            {
-              v32 = AVE_Log_CheckConsole(0x4Bu);
-              CurrTime = AVE_GetCurrTime();
-              LevelStr = AVE_Log_GetLevelStr(8);
-              if (v32)
-              {
-                printf("%lld %d AVE %s: %s:%d number of supported pixel format %d %d 0x%x %d %d %d %d\n", CurrTime, 75, LevelStr, "AVE_PixelFmt_GetSupportedListByProfile", 249, a1, a2, a3, v48, v49, v26, v30);
-                v35 = AVE_GetCurrTime();
-                v44 = AVE_Log_GetLevelStr(8);
-                syslog(3, "%lld %d AVE %s: %s:%d number of supported pixel format %d %d 0x%x %d %d %d %d", v35, 75, v44, "AVE_PixelFmt_GetSupportedListByProfile", 249, a1, a2, a3, v48, v49, v26, v30);
-              }
-
-              else
-              {
-                syslog(3, "%lld %d AVE %s: %s:%d number of supported pixel format %d %d 0x%x %d %d %d %d", CurrTime, 75, LevelStr, "AVE_PixelFmt_GetSupportedListByProfile", 249, a1, a2, a3, v46, v47, a6, v30);
-              }
-            }
-
-            if (v30 >= 1)
-            {
-              v36 = 0;
-              v37 = v30;
-              do
-              {
-                if (AVE_Log_CheckLevel(0x4Bu, 8))
-                {
-                  v38 = AVE_Log_CheckConsole(0x4Bu);
-                  v39 = AVE_GetCurrTime();
-                  v40 = AVE_Log_GetLevelStr(8);
-                  v41 = *(a7 + 4 * v36);
-                  if (v38)
-                  {
-                    printf("%lld %d AVE %s: %s:%d list of supported pixel format %d %d 0x%x %d %d %d [%d] 0x%x\n", v39, 75, v40, "AVE_PixelFmt_GetSupportedListByProfile", 255, a1, a2, a3, v57, v58, a6, v36, v41);
-                    v42 = AVE_GetCurrTime();
-                    v43 = AVE_Log_GetLevelStr(8);
-                    v37 = v30;
-                    syslog(3, "%lld %d AVE %s: %s:%d list of supported pixel format %d %d 0x%x %d %d %d [%d] 0x%x", v42, 75, v43, "AVE_PixelFmt_GetSupportedListByProfile", 255, a1, a2, a3, v57, v58, a6, v36, *(a7 + 4 * v36));
-                  }
-
-                  else
-                  {
-                    syslog(3, "%lld %d AVE %s: %s:%d list of supported pixel format %d %d 0x%x %d %d %d [%d] 0x%x", v39, 75, v40, "AVE_PixelFmt_GetSupportedListByProfile", 255, a1, a2, a3, v55, v56, a6, v36, v41);
-                  }
-                }
-
-                ++v36;
-              }
-
-              while (v37 != v36);
-            }
-
-            v24 = v52 + 1;
-            v26 = a6;
-          }
-
-          while (v52 + 1 < v59[0]);
-        }
-
-        v10 = 0;
-        v9 = 0;
-        v8 = v45;
-        *v45 = v54;
-        goto LABEL_18;
-      }
-
-LABEL_16:
-      v9 = 1;
-LABEL_17:
-      v10 = 4294966288;
-LABEL_18:
-      free(v19);
-      goto LABEL_19;
-    }
-
-    v10 = 4294966293;
-  }
-
-LABEL_19:
-  if (v8 && v9)
-  {
-    *v8 = 0;
-  }
-
-  return v10;
-}
-
-uint64_t AVE_PixelFmt_CheckSupportedType(int a1, int a2, int a3, int a4, int a5)
-{
-  NumOfTypes = AVE_PixelFmt_GetNumOfTypes();
-  v11 = malloc_type_malloc(4 * NumOfTypes, 0x100004052888210uLL);
-  if (!v11)
-  {
-    return 4294966293;
-  }
-
-  v12 = v11;
-  v18 = NumOfTypes;
-  SupportedList = AVE_PixelFmt_GetSupportedList(a1, a2, a3, a4, v11, &v18);
-  if (!SupportedList)
-  {
-    v14 = v18;
-    if (v18 < 1)
-    {
-LABEL_7:
-      SupportedList = 4294966295;
-    }
-
-    else
-    {
-      v15 = v12;
-      while (1)
-      {
-        v16 = *v15++;
-        if (v16 == a5)
-        {
-          break;
-        }
-
-        if (!--v14)
-        {
-          goto LABEL_7;
-        }
-      }
-
-      SupportedList = 0;
-    }
-  }
-
-  free(v12);
-  return SupportedList;
-}
-
-uint64_t AVE_PS_Compose_general_profile_compatibility_flag(uint64_t a1, uint64_t a2, int a3)
-{
-  if (a3 < 4)
-  {
-    return 4294966277;
-  }
-
-  v4 = 0;
-  v5 = 0;
-  do
-  {
-    *(a2 + v5) |= *(a1 + 32 + v4) << (v4 & 7 ^ 7);
-    if ((v4 & 7) == 7)
-    {
-      ++v5;
-    }
-
-    ++v4;
-  }
-
-  while (v4 != 32);
-  return 4;
-}
-
-uint64_t AVE_PS_Compose_general_constraint_indicator_flags(uint64_t a1, _BYTE *a2, int a3)
-{
-  if (a3 < 6)
-  {
-    return 4294966277;
-  }
-
-  ProfileIdc = HEVC_FindProfileIdc(*(a1 + 28));
-  bzero(a2, a3);
-  v9 = (*(a1 + 65) << 6) | (*(a1 + 64) << 7) | (32 * *(a1 + 66)) | (16 * *(a1 + 67));
-  *a2 = v9;
-  if (ProfileIdc == 4 || ProfileIdc == 5 || (*(a1 + 36) & 1) != 0 || ProfileIdc == 6 || (*(a1 + 37) & 1) != 0 || ProfileIdc == 7 || (*(a1 + 38) & 1) != 0 || ProfileIdc == 8 || (*(a1 + 39) & 1) != 0 || ProfileIdc == 9 || (*(a1 + 40) & 1) != 0 || ProfileIdc == 10 || (*(a1 + 41) & 1) != 0 || ProfileIdc == 11 || (*(a1 + 42) & 1) != 0 || *(a1 + 43) == 1)
-  {
-    *a2 = (8 * *(a1 + 68)) | (4 * *(a1 + 69)) | (2 * *(a1 + 70)) | *(a1 + 71) | v9;
-    v8.i32[0] = *(a1 + 72);
-    v10 = vshl_u16(*&vmovl_u8(v8), 0x4000500060007);
-    v11 = v10.i32[0] | v10.i32[1] | ((*&v10 | HIDWORD(*&v10)) >> 16) | (8 * *(a1 + 76));
-  }
-
-  else
-  {
-    if (ProfileIdc != 2 && *(a1 + 34) != 1)
-    {
-      return 5;
-    }
-
-    LOBYTE(v11) = 16 * *(a1 + 75);
-  }
-
-  a2[1] = v11;
-  return 5;
-}
-
-uint64_t AVE_Ref_MakeArray(char *a1, int a2, __CFArray *a3)
-{
-  if (a1 && a2 >= 1 && a3)
-  {
-    v6 = a2;
-    v7 = (a1 + 4);
-    v8 = MEMORY[0x29EDB9010];
-    v9 = MEMORY[0x29EDB9020];
-    while (1)
-    {
-      Mutable = CFDictionaryCreateMutable(0, 0, v8, v9);
-      if (!Mutable)
-      {
-        break;
-      }
-
-      v11 = Mutable;
-      AVE_CFDict_AddSInt32(@"ReferenceFrameNumDriver", *(v7 - 1), Mutable);
-      v12 = *v7;
-      v7 += 2;
-      AVE_CFDict_AddSInt32(@"ReferenceRVRAIndex", v12, v11);
-      CFArrayAppendValue(a3, v11);
-      CFRelease(v11);
-      if (!--v6)
-      {
-        return 0;
-      }
-    }
-
-    if (AVE_Log_CheckLevel(0xE1u, 4))
-    {
-      v18 = AVE_Log_CheckConsole(0xE1u);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(4);
-      if (v18)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %p %d %p\n", CurrTime, 225, LevelStr, "AVE_Ref_MakeArray", 73, "pDict != __null", a1, a2, a3);
-        v21 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %p %d %p", v21, 225, v23);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFDictionary %p %d %p", CurrTime, 225, LevelStr);
-      }
-    }
-
-    return 4294966293;
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0xE1u, 4))
-    {
-      v14 = AVE_Log_CheckConsole(0xE1u);
-      v15 = AVE_GetCurrTime();
-      v16 = AVE_Log_GetLevelStr(4);
-      if (v14)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p\n", v15, 225, v16, "AVE_Ref_MakeArray", 65, "pInfo != __null && iNum > 0 && pArray != __null", a1, a2, a3);
-        v17 = AVE_GetCurrTime();
-        v22 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v17, 225, v22);
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %d %p", v15, 225, v16);
-      }
-    }
-
-    return 4294966295;
-  }
-}
-
-char *AVE_StrNCpy(char *a1, const char *a2, int a3)
-{
-  result = strncpy(a1, a2, a3);
-  result[a3 - 1] = 0;
-  return result;
-}
-
-_DWORD *AVE_DevCap_SearchRange_Find(unsigned int *a1, int a2)
-{
-  v2 = *a1;
-  if (v2 < 1)
-  {
-    return 0;
-  }
-
-  for (result = a1 + 1; *result != a2; result += 4)
-  {
-    if (!--v2)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-_DWORD *AVE_DevCap_Perf_Find(unsigned int *a1, int a2, int a3, int a4)
-{
-  v4 = *a1;
-  if (v4 < 1)
-  {
-    return 0;
-  }
-
-  for (i = a1 + 5; *(i - 1) != a2 || *i != a3 || *(i - 2) != a4; i += 6)
-  {
-    if (!--v4)
-    {
-      return 0;
-    }
-  }
-
-  return i - 3;
-}
-
-void AVE_SyntaxWriter::AVE_SyntaxWriter(AVE_SyntaxWriter *this)
-{
-  *this = &unk_2A1C808F8;
-  *(this + 1) = 0;
-  *(this + 4) = this + 40;
-  *(this + 4136) = 1;
-  *(this + 2) = 0x100000000000;
-  *(this + 6) = 0xFFFF;
-}
-
-void AVE_SyntaxWriter::AVE_SyntaxWriter(AVE_SyntaxWriter *this, unsigned __int8 *a2, int a3, char a4)
-{
-  *this = &unk_2A1C808F8;
-  *(this + 1) = 0;
-  *(this + 4) = a2;
-  *(this + 4136) = a4;
-  *(this + 4) = 0;
-  *(this + 5) = a3;
-  *(this + 6) = 0xFFFF;
-}
-
-uint64_t AVE_SyntaxWriter::WriteBit(AVE_SyntaxWriter *this, char a2)
-{
-  v2 = *(this + 6);
-  v3 = a2 & 1 | (2 * v2);
-  *(this + 6) = v3;
-  v4 = *(this + 2) + 1;
-  *(this + 2) = v4;
-  if (v4 != 8)
-  {
-    return 0;
-  }
-
-  v5 = v2 & 0x7FFFFE;
-  if (*(this + 4136) == 1 && v5 == 0)
-  {
-    v7 = *(this + 3);
-    if (v7 >= *(this + 5))
-    {
-      return 4294966277;
-    }
-
-    v8 = *(this + 4);
-    *(this + 3) = v7 + 1;
-    *(v8 + v7) = 3;
-    v3 = *(this + 6) | 0x300;
-    *(this + 6) = v3;
-    *(this + 4) += 8;
-  }
-
-  v9 = *(this + 3);
-  if (v9 >= *(this + 5))
-  {
-    return 4294966277;
-  }
-
-  v10 = 0;
-  v11 = *(this + 4);
-  *(this + 3) = v9 + 1;
-  *(v11 + v9) = v3;
-  *(this + 2) = 0;
-  return v10;
-}
-
-uint64_t AVE_SyntaxWriter::WriteBits(AVE_SyntaxWriter *this, unsigned int a2, int a3)
-{
-  if (!a3)
-  {
-    return 0;
-  }
-
-  v3 = *(this + 2);
-  while (1)
-  {
-    v4 = 8 - v3;
-    if (a3 < 8 - v3)
-    {
-      v4 = a3;
-    }
-
-    v3 += v4;
-    *(this + 2) = v3;
-    a3 -= v4;
-    v5 = (a2 >> a3) & ~(-1 << v4) | (*(this + 6) << v4);
-    *(this + 6) = v5;
-    if (v3 != 8)
-    {
-      goto LABEL_12;
-    }
-
-    if (*(this + 4136) == 1 && (v5 & 0xFFFFFC) == 0)
-    {
-      v6 = *(this + 3);
-      if (v6 >= *(this + 5))
-      {
-        return 4294966277;
-      }
-
-      v7 = *(this + 4);
-      *(this + 3) = v6 + 1;
-      *(v7 + v6) = 3;
-      v5 = *(this + 6) | 0x300;
-      *(this + 6) = v5;
-      *(this + 4) += 8;
-    }
-
-    v8 = *(this + 3);
-    if (v8 >= *(this + 5))
-    {
-      return 4294966277;
-    }
-
-    v3 = 0;
-    v9 = *(this + 4);
-    *(this + 3) = v8 + 1;
-    *(v9 + v8) = v5;
-    *(this + 2) = 0;
-LABEL_12:
-    if (!a3)
-    {
-      return 0;
-    }
-  }
-}
-
-uint64_t AVE_SyntaxWriter::WriteI(AVE_SyntaxWriter *this, signed int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    a2 = 0x80000000 - a2;
-  }
-
-  return AVE_SyntaxWriter::WriteBits(this, a2, a3);
-}
-
-uint64_t AVE_SyntaxWriter::WriteStartCode(AVE_SyntaxWriter *this)
-{
-  v1 = *(this + 3);
-  if (v1 >= *(this + 5))
-  {
-    return 4294966277;
-  }
-
-  v2 = *(this + 4);
-  *(this + 3) = v1 + 1;
-  *(v2 + v1) = 0;
-  v3 = *(this + 3);
-  if (v3 >= *(this + 5))
-  {
-    return 4294966277;
-  }
-
-  v4 = *(this + 4);
-  *(this + 3) = v3 + 1;
-  *(v4 + v3) = 0;
-  v5 = *(this + 3);
-  if (v5 >= *(this + 5))
-  {
-    return 4294966277;
-  }
-
-  v6 = *(this + 4);
-  *(this + 3) = v5 + 1;
-  *(v6 + v5) = 0;
-  v7 = *(this + 3);
-  if (v7 >= *(this + 5))
-  {
-    return 4294966277;
-  }
-
-  v8 = 0;
-  v9 = *(this + 4);
-  *(this + 3) = v7 + 1;
-  *(v9 + v7) = 1;
-  return v8;
-}
-
-uint64_t AVE_SyntaxWriter::WriteBytes(AVE_SyntaxWriter *this, const unsigned __int8 *a2, int a3)
-{
-  if (a3 < 1)
-  {
-    return 0;
-  }
-
-  v5 = a3;
-  while (1)
-  {
-    v6 = *a2++;
-    result = AVE_SyntaxWriter::WriteBits(this, v6, 8);
-    if (result)
-    {
-      break;
-    }
-
-    if (!--v5)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t AVE_SyntaxWriter::CopyFromSyntaxWriter(AVE_SyntaxWriter *this, const AVE_SyntaxWriter *a2)
-{
-  if (*(this + 2) | *(a2 + 2))
-  {
-    return 4294966296;
-  }
-
-  v4 = *(this + 3);
-  v5 = *(a2 + 3);
-  if (v5 + v4 > *(this + 5))
-  {
-    return 4294966277;
-  }
-
-  memcpy((*(this + 4) + v4), *(a2 + 4), v5);
-  result = 0;
-  *(this + 3) += *(a2 + 3);
-  return result;
-}
-
-uint64_t AVE_SyntaxWriter::AlignToByte(AVE_SyntaxWriter *this)
-{
-  result = AVE_SyntaxWriter::WriteBit(this, 1);
-  if (!result)
-  {
-    v3 = *(this + 2);
-    if (v3)
-    {
-
-      return AVE_SyntaxWriter::WriteBits(this, 0, 8 - v3);
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t AVE_Crypto_AddInfo(int a1, unsigned int a2, unsigned int *a3)
-{
-  if (AVE_Log_CheckLevel(0x7Bu, 8))
-  {
-    v6 = AVE_Log_CheckConsole(0x7Bu);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(8);
-    if (v6)
-    {
-      printf("%lld %d AVE %s: %s Enter %d %d %p\n", CurrTime, 123, LevelStr, "AVE_Crypto_AddInfo", a1, a2, a3);
-      CurrTime = AVE_GetCurrTime();
-      AVE_Log_GetLevelStr(8);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter %d %d %p", CurrTime);
-  }
-
-  if (((a2 | a1) & 0x80000000) != 0 || !a3)
-  {
-    if (AVE_Log_CheckLevel(0x7Bu, 4))
-    {
-      v15 = AVE_Log_CheckConsole(0x7Bu);
-      v16 = AVE_GetCurrTime();
-      v17 = AVE_Log_GetLevelStr(4);
-      if (v15)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameters %d %d %p\n", v16, 123, v17, "AVE_Crypto_AddInfo", 28, "(iOffset >= 0) && (iSize >= 0) && (psInfo != __null)", a1, a2, a3);
-        v16 = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameters %d %d %p", v16, 123);
-    }
-  }
-
-  else
-  {
-    v9 = *a3;
-    if (v9 > 0x41)
-    {
-      if (AVE_Log_CheckLevel(0x7Bu, 4))
-      {
-        v18 = AVE_Log_CheckConsole(0x7Bu);
-        v19 = AVE_GetCurrTime();
-        v20 = AVE_Log_GetLevelStr(4);
-        if (v18)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d\n", v19, 123, v20, "AVE_Crypto_AddInfo", 32, "(0 <= psInfo->iNum) && (psInfo->iNum < (((2) < ((63 + 1)) ? (2) : ((63 + 1))) * (((32) < (256) ? (32) : (256)) + 1)))", a1, a2, a3, *a3);
-          v19 = AVE_GetCurrTime();
-          v20 = AVE_Log_GetLevelStr(4);
-        }
-
-        v30 = *a3;
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d", v19, 123, v20);
-      }
-    }
-
-    else
-    {
-      v10 = 0;
-      if (v9)
-      {
-        v11 = a3 + 2;
-        v12 = *a3;
-        do
-        {
-          v10 += *(v11 - 1) + *v11;
-          v11 += 2;
-          --v12;
-        }
-
-        while (v12);
-      }
-
-      if ((v10 & 0x80000000) == 0 && a1 >= v10)
-      {
-        v13 = 0;
-        v14 = &a3[2 * v9];
-        v14[1] = a1 - v10;
-        v14[2] = a2;
-        *a3 = v9 + 1;
-        goto LABEL_31;
-      }
-
-      if (AVE_Log_CheckLevel(0x7Bu, 4))
-      {
-        v21 = AVE_Log_CheckConsole(0x7Bu);
-        v22 = AVE_GetCurrTime();
-        v23 = AVE_Log_GetLevelStr(4);
-        v24 = *a3;
-        if (v21)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d %d\n", v22, 123, v23, "AVE_Crypto_AddInfo", 43, "(0 <= totalSize) && (totalSize <= iOffset)", a1, a2, a3, *a3, v10);
-          v22 = AVE_GetCurrTime();
-          v23 = AVE_Log_GetLevelStr(4);
-        }
-
-        v31 = *a3;
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %d %d %p %d %d", v22, 123, v23);
-      }
-    }
-  }
-
-  v13 = 4294966295;
-LABEL_31:
-  if (AVE_Log_CheckLevel(0x7Bu, 8))
-  {
-    v25 = AVE_Log_CheckConsole(0x7Bu);
-    v26 = AVE_GetCurrTime();
-    v27 = AVE_Log_GetLevelStr(8);
-    if (v25)
-    {
-      printf("%lld %d AVE %s: %s Exit %d %d %p %d\n", v26, 123, v27, "AVE_Crypto_AddInfo", a1, a2, a3, v13);
-      v28 = AVE_GetCurrTime();
-      AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %d", v28, 123);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %d %d %p %d", v26, 123);
-    }
-  }
-
-  return v13;
-}
-
-uint64_t AVE_Crypto_PrintInfo(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v61 = *MEMORY[0x29EDCA608];
-  v59 = 0u;
-  v60 = 0u;
-  if (!a1)
-  {
-    if (AVE_Log_CheckLevel(a2, 4))
-    {
-      v22 = AVE_Log_CheckConsole(a2);
-      CurrTime = AVE_GetCurrTime();
-      LevelStr = AVE_Log_GetLevelStr(4);
-      if (!v22)
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p", CurrTime);
-        goto LABEL_16;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p\n", CurrTime, a2, LevelStr, "AVE_Crypto_PrintInfo", 72, "psInfo != __null", 0);
-      v25 = AVE_GetCurrTime();
-      v54 = "psInfo != __null";
-      v55 = 0;
-      v53 = 72;
-      v51 = a2;
-      v52 = AVE_Log_GetLevelStr(4);
-      v26 = "%lld %d AVE %s: %s:%d %s | wrong parameter %p";
-      goto LABEL_13;
-    }
-
-LABEL_16:
-    result = 4294966295;
-    goto LABEL_38;
-  }
-
-  v9 = a1;
-  if (*a1 >= 0x43)
-  {
-    if (AVE_Log_CheckLevel(a2, 4))
-    {
-      v27 = AVE_Log_CheckConsole(a2);
-      v28 = AVE_GetCurrTime();
-      v29 = AVE_Log_GetLevelStr(4);
-      if (!v27)
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong Crypto info %p %d", v28, a2);
-        goto LABEL_16;
-      }
-
-      printf("%lld %d AVE %s: %s:%d %s | wrong Crypto info %p %d\n", v28, a2, v29, "AVE_Crypto_PrintInfo", 74, "(0 <= psInfo->iNum) && (psInfo->iNum <= (((2) < ((63 + 1)) ? (2) : ((63 + 1))) * (((32) < (256) ? (32) : (256)) + 1)))", v9, *v9);
-      v25 = AVE_GetCurrTime();
-      v30 = AVE_Log_GetLevelStr(4);
-      v55 = v9;
-      v56 = *v9;
-      v53 = 74;
-      v54 = "(0 <= psInfo->iNum) && (psInfo->iNum <= (((2) < ((63 + 1)) ? (2) : ((63 + 1))) * (((32) < (256) ? (32) : (256)) + 1)))";
-      v52 = v30;
-      v26 = "%lld %d AVE %s: %s:%d %s | wrong Crypto info %p %d";
-      v51 = a2;
-LABEL_13:
-      syslog(3, v26, v25, v51, v52, "AVE_Crypto_PrintInfo", v53, v54, v55, v56);
-      goto LABEL_16;
-    }
-
-    goto LABEL_16;
-  }
-
-  v10 = a5;
-  v11 = a4;
-  AVE_ComposePosStr(a4, a5, &v59, 32, a5, a6, a7, a8);
-  v13 = a3;
-  if (AVE_Log_CheckLevel(a2, a3))
-  {
-    v18 = AVE_Log_CheckConsole(a2);
-    if ((a3 & 0x80000000) != 0)
-    {
-      if (!v18 || (-a3 & 0x20) != 0)
-      {
-        syslog(3, "Crypto %s size %d", &v59, *v9);
-      }
-
-      else
-      {
-        printf("Crypto %s size %d\n", &v59, *v9);
-        syslog(3, "Crypto %s size %d", &v59, *v9);
-      }
-    }
-
-    else
-    {
-      v19 = v18 ^ 1;
-      v20 = AVE_GetCurrTime();
-      v21 = AVE_Log_GetLevelStr(a3);
-      if (((v19 | ((a3 & 0x20) >> 5)) & 1) == 0)
-      {
-        printf("%lld %d AVE %s: Crypto %s size %d\n", v20, a2, v21, &v59, *v9);
-        v20 = AVE_GetCurrTime();
-        v21 = AVE_Log_GetLevelStr(a3);
-      }
-
-      syslog(3, "%lld %d AVE %s: Crypto %s size %d", v20, a2, v21, &v59, *v9);
-      v13 = a3;
-    }
-  }
-
-  if (*v9 >= 1)
-  {
-    v32 = 0;
-    v57 = -a3;
-    v33 = (v9 + 2);
-    v58 = v9;
-    do
-    {
-      v59 = 0u;
-      v60 = 0u;
-      AVE_ComposePosStr(v11, v10, &v59, 32, v14, v15, v16, v17);
-      if (AVE_Log_CheckLevel(a2, v13))
-      {
-        v34 = AVE_Log_CheckConsole(a2);
-        if ((a3 & 0x80000000) != 0)
-        {
-          if ((v57 & 0x20) != 0)
-          {
-            v47 = 0;
-          }
-
-          else
-          {
-            v47 = v34;
-          }
-
-          v48 = *(v33 - 1);
-          v49 = *v33;
-          if (v47 == 1)
-          {
-            printf("Crypto %s | %d %d\n", &v59, *(v33 - 1), v49);
-            syslog(3, "Crypto %s | %d %d", &v59, *(v33 - 1), *v33);
-          }
-
-          else
-          {
-            syslog(3, "Crypto %s | %d %d", &v59, *(v33 - 1), v49);
-          }
-        }
-
-        else
-        {
-          v35 = v11;
-          v36 = v10;
-          v37 = a3;
-          v38 = v13;
-          v39 = a3 & 0x20;
-          v40 = v34 ^ 1;
-          v41 = AVE_GetCurrTime();
-          v42 = AVE_Log_GetLevelStr(v38);
-          v43 = *(v33 - 1);
-          v44 = *v33;
-          if ((v40 | (v39 >> 5)))
-          {
-            syslog(3, "%lld %d AVE %s: Crypto %s | %d %d", v41, a2, v42, &v59, *(v33 - 1), v44);
-          }
-
-          else
-          {
-            printf("%lld %d AVE %s: Crypto %s | %d %d\n", v41, a2, v42, &v59, *(v33 - 1), v44);
-            v45 = AVE_GetCurrTime();
-            v46 = AVE_Log_GetLevelStr(v38);
-            syslog(3, "%lld %d AVE %s: Crypto %s | %d %d", v45, a2, v46, &v59, *(v33 - 1), *v33);
-          }
-
-          a3 = v37;
-          v10 = v36;
-          v11 = v35;
-          v9 = v58;
-          v13 = v38;
-        }
-      }
-
-      ++v32;
-      v33 += 2;
-    }
-
-    while (v32 < *v9);
-  }
-
-  result = 0;
-LABEL_38:
-  v50 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t AVE_Crypto_Make(const UInt8 *a1, __CFDictionary *a2)
-{
-  if (AVE_Log_CheckLevel(0x7Bu, 8))
-  {
-    v4 = AVE_Log_CheckConsole(0x7Bu);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(8);
-    if (v4)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p\n", CurrTime, 123, LevelStr, "AVE_Crypto_Make", a1, a2);
-      v7 = AVE_GetCurrTime();
-      v27 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", v7, 123, v27, "AVE_Crypto_Make", a1, a2);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Enter %p %p", CurrTime, 123, LevelStr, "AVE_Crypto_Make", a1, a2);
-    }
-  }
-
-  if (!a1 || !a2)
-  {
-    if (AVE_Log_CheckLevel(0x7Bu, 4))
-    {
-      v12 = AVE_Log_CheckConsole(0x7Bu);
-      v13 = AVE_GetCurrTime();
-      v14 = AVE_Log_GetLevelStr(4);
-      if (v12)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p\n", v13, 123, v14, "AVE_Crypto_Make", 151, "psInfo != __null && pDict != __null", a1, a2);
-        v13 = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(4);
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p", v13, 123);
-    }
-
-    goto LABEL_24;
-  }
-
-  v8 = *a1;
-  if (v8 <= 0)
-  {
-    if (AVE_Log_CheckLevel(0x7Bu, 4))
-    {
-      v15 = AVE_Log_CheckConsole(0x7Bu);
-      v16 = AVE_GetCurrTime();
-      v17 = AVE_Log_GetLevelStr(4);
-      if (v15)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong crypto info %p %d\n", v16, 123, v17, "AVE_Crypto_Make", 154, "psInfo->iNum > 0", a2, *a1);
-        v16 = AVE_GetCurrTime();
-        AVE_Log_GetLevelStr(4);
-      }
-
-      v28 = *a1;
-      syslog(3, "%lld %d AVE %s: %s:%d %s | wrong crypto info %p %d", v16, 123);
-    }
-
-LABEL_24:
-    v11 = 4294966295;
-    goto LABEL_25;
-  }
-
-  v9 = CFDataCreate(*MEMORY[0x29EDB8ED8], a1 + 4, 8 * v8);
-  if (v9)
-  {
-    v10 = v9;
-    CFDictionarySetValue(a2, *MEMORY[0x29EDB9350], v9);
-    CFRelease(v10);
-    v11 = 0;
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x7Bu, 4))
-    {
-      v18 = AVE_Log_CheckConsole(0x7Bu);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(4);
-      v21 = *a1;
-      if (v18)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | fail to create CFData %p %d %ld\n", v19, 123, v20, "AVE_Crypto_Make", 160, "pData != __null", a1 + 4, *a1, 8);
-        v19 = AVE_GetCurrTime();
-        v20 = AVE_Log_GetLevelStr(4);
-        v22 = *a1;
-      }
-
-      else
-      {
-        v29 = *a1;
-      }
-
-      syslog(3, "%lld %d AVE %s: %s:%d %s | fail to create CFData %p %d %ld", v19, 123, v20);
-    }
-
-    v11 = 4294966293;
-  }
-
-LABEL_25:
-  if (AVE_Log_CheckLevel(0x7Bu, 8))
-  {
-    v23 = AVE_Log_CheckConsole(0x7Bu);
-    v24 = AVE_GetCurrTime();
-    v25 = AVE_Log_GetLevelStr(8);
-    if (v23)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %p %d\n", v24, 123, v25, "AVE_Crypto_Make", a1, a2, v11);
-      v24 = AVE_GetCurrTime();
-      AVE_Log_GetLevelStr(8);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Exit %p %p %d", v24);
-  }
-
-  return v11;
-}
-
-uint64_t AVE_Crypto_MakeSINF(const void *a1, const void *a2, int a3, const __CFDictionary *a4)
-{
-  v46[2] = *MEMORY[0x29EDCA608];
-  v46[0] = 0;
-  v46[1] = 0;
-  if (AVE_Log_CheckLevel(0x7Bu, 8))
-  {
-    v8 = AVE_Log_CheckConsole(0x7Bu);
-    CurrTime = AVE_GetCurrTime();
-    LevelStr = AVE_Log_GetLevelStr(8);
-    if (v8)
-    {
-      printf("%lld %d AVE %s: %s Enter %p %p %d %p\n", CurrTime, 123, LevelStr, "AVE_Crypto_MakeSINF", a1, a2, a3, a4);
-      CurrTime = AVE_GetCurrTime();
-      AVE_Log_GetLevelStr(8);
-    }
-
-    syslog(3, "%lld %d AVE %s: %s Enter %p %p %d %p", CurrTime, 123);
-  }
-
-  if (a1 && a2 && a4)
-  {
-    if ((a3 - 1) >= 3)
-    {
-      if (AVE_Log_CheckLevel(0x7Bu, 4))
-      {
-        v22 = AVE_Log_CheckConsole(0x7Bu);
-        v23 = AVE_GetCurrTime();
-        v24 = AVE_Log_GetLevelStr(4);
-        if (v22)
-        {
-          printf("%lld %d AVE %s: %s:%d %s | encode type %d not recognized.\n", v23, 123, v24, "AVE_Crypto_MakeSINF", 219, "false", a3);
-          v23 = AVE_GetCurrTime();
-          AVE_Log_GetLevelStr(4);
-        }
-
-        syslog(3, "%lld %d AVE %s: %s:%d %s | encode type %d not recognized.", v23);
-      }
-
-      v25 = 4294966281;
-    }
-
-    else
-    {
-      v11 = dword_2954FBFFC[a3 - 1];
-      VideoSecurityInfoExtension = VTEncoderSessionCreateVideoSecurityInfoExtension();
-      if (VideoSecurityInfoExtension)
-      {
-        v13 = VideoSecurityInfoExtension;
-        if (AVE_Log_CheckLevel(0x7Bu, 4))
-        {
-          v14 = AVE_Log_CheckConsole(0x7Bu);
-          v15 = AVE_GetCurrTime();
-          v16 = AVE_Log_GetLevelStr(4);
-          if (v14)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | failed to create crypto SINF %p %d %p %p %p %d\n", v15, 123, v16, "AVE_Crypto_MakeSINF", 228, "res == noErr", a1, v11, v46, a2, 0, v13);
-            v17 = AVE_GetCurrTime();
-            v40 = AVE_Log_GetLevelStr(4);
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create crypto SINF %p %d %p %p %p %d", v17, 123, v40, "AVE_Crypto_MakeSINF", 228, "res == noErr");
-          }
-
-          else
-          {
-            syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create crypto SINF %p %d %p %p %p %d", v15, 123, v16, "AVE_Crypto_MakeSINF", 228, "res == noErr");
-          }
-        }
-
-LABEL_28:
-        v25 = 4294966296;
-        goto LABEL_32;
-      }
-
-      v26 = *MEMORY[0x29EDB92C8];
-      Value = CFDictionaryGetValue(a4, *MEMORY[0x29EDB92C8]);
-      v28 = *MEMORY[0x29EDB8ED8];
-      if (Value)
-      {
-        MutableCopy = CFDictionaryCreateMutableCopy(v28, 0, Value);
-      }
-
-      else
-      {
-        MutableCopy = CFDictionaryCreateMutable(v28, 1, MEMORY[0x29EDB9010], MEMORY[0x29EDB9020]);
-      }
-
-      v30 = MutableCopy;
-      if (!MutableCopy)
-      {
-        if (AVE_Log_CheckLevel(0x7Bu, 4))
-        {
-          v37 = AVE_Log_CheckConsole(0x7Bu);
-          v38 = AVE_GetCurrTime();
-          v39 = AVE_Log_GetLevelStr(4);
-          if (v37)
-          {
-            printf("%lld %d AVE %s: %s:%d %s | failed to create mutable sample extension atoms dictionary %p\n", v38, 123, v39, "AVE_Crypto_MakeSINF", 245, "pSampleExtAtomDict != __null", Value);
-            v38 = AVE_GetCurrTime();
-            v44 = Value;
-            v43 = AVE_Log_GetLevelStr(4);
-          }
-
-          else
-          {
-            v44 = Value;
-            v43 = v39;
-          }
-
-          syslog(3, "%lld %d AVE %s: %s:%d %s | failed to create mutable sample extension atoms dictionary %p", v38, 123, v43, "AVE_Crypto_MakeSINF", 245, "pSampleExtAtomDict != __null", v44, v45);
-        }
-
-        goto LABEL_28;
-      }
-
-      CFDictionarySetValue(MutableCopy, @"sinf", 0);
-      CFDictionarySetValue(a4, v26, v30);
-      CFRelease(v30);
-      v25 = 0;
-    }
-  }
-
-  else
-  {
-    if (AVE_Log_CheckLevel(0x7Bu, 4))
-    {
-      v18 = AVE_Log_CheckConsole(0x7Bu);
-      v19 = AVE_GetCurrTime();
-      v20 = AVE_Log_GetLevelStr(4);
-      if (v18)
-      {
-        printf("%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d %p\n", v19, 123, v20, "AVE_Crypto_MakeSINF", 201, "(pSession != __null) && (piKeyID != __null) && (pDict != __null)", a1, a2, a3, a4);
-        v21 = AVE_GetCurrTime();
-        v41 = AVE_Log_GetLevelStr(4);
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d %p", v21, 123, v41, "AVE_Crypto_MakeSINF");
-      }
-
-      else
-      {
-        syslog(3, "%lld %d AVE %s: %s:%d %s | wrong parameter %p %p %d %p", v19, 123, v20, "AVE_Crypto_MakeSINF");
-      }
-    }
-
-    v25 = 4294966295;
-  }
-
-LABEL_32:
-  if (AVE_Log_CheckLevel(0x7Bu, 8))
-  {
-    v31 = AVE_Log_CheckConsole(0x7Bu);
-    v32 = AVE_GetCurrTime();
-    v33 = AVE_Log_GetLevelStr(8);
-    if (v31)
-    {
-      printf("%lld %d AVE %s: %s Exit %p %p %d %p %d\n", v32, 123, v33, "AVE_Crypto_MakeSINF", a1, a2, a3, a4, v25);
-      v34 = AVE_GetCurrTime();
-      v42 = AVE_Log_GetLevelStr(8);
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %p %d", v34, 123, v42);
-    }
-
-    else
-    {
-      syslog(3, "%lld %d AVE %s: %s Exit %p %p %d %p %d", v32, 123, v33);
-    }
-  }
-
-  v35 = *MEMORY[0x29EDCA608];
-  return v25;
-}
-
 uint64_t AVE_Time_Gen(int a1, uint64_t a2)
 {
   v2 = 4294966296;
@@ -2095,43 +73,67 @@ uint64_t AVE_Mutex_Destroy(pthread_mutex_t *a1)
   return v2;
 }
 
-uint64_t AVE_ComposeFilePath(const char *a1, const char *a2, const char *a3, char *a4, int a5)
+uint64_t AVE_ComposeFilePath(const char *a1, const char *a2, const char *a3, char *a4, uint64_t a5)
 {
-  v20 = *MEMORY[0x29EDCA608];
-  *v18 = 0u;
-  memset(v19, 0, sizeof(v19));
-  v17 = 0;
-  if (a4)
+  v19 = *MEMORY[0x29EDCA608];
+  *v17 = 0u;
+  memset(v18, 0, sizeof(v18));
+  v16 = 0;
+  if (!a4)
   {
-    *a4 = 0;
-    setlocale(0, &unk_2954B8F4E);
-    time(&v17);
-    v8 = localtime(&v17);
-    strftime(v18, 0x2DuLL, "%Y-%m-%d_%H-%M-%S", v8);
-    v14 = "/var/mobile/Media/DCIM/";
-    if (a1)
-    {
-      LOBYTE(v14) = a1;
-    }
+    return 4294966295;
+  }
 
-    AVE_SNPrintf(a4, a5, "%s%s%s%s%s", v9, v10, v11, v12, v13, v14);
-    result = 0;
+  *a4 = 0;
+  setlocale(0, &unk_2954B8F4E);
+  time(&v16);
+  v10 = localtime(&v16);
+  strftime(v17, 0x2DuLL, "%Y-%m-%d_%H-%M-%S", v10);
+  v11 = "/var/mobile/Media/DCIM/";
+  if (a1)
+  {
+    v11 = a1;
+  }
+
+  if (a2 | a3)
+  {
+    v12 = "_";
   }
 
   else
   {
-    result = 4294966295;
+    v12 = &unk_2954B8F4E;
   }
 
-  v16 = *MEMORY[0x29EDCA608];
-  return result;
+  if (a2)
+  {
+    v13 = a2;
+  }
+
+  else
+  {
+    v13 = &unk_2954B8F4E;
+  }
+
+  if (a3)
+  {
+    v14 = a3;
+  }
+
+  else
+  {
+    v14 = &unk_2954B8F4E;
+  }
+
+  AVE_SNPrintf(a4, a5, "%s%s%s%s%s", v11, v17, v12, v13, v14);
+  return 0;
 }
 
-void AVE_BlkPool::AVE_BlkPool(AVE_BlkPool *this)
+void AVE_BlkPool::AVE_BlkPool(AVE_BlkPool *this, uint64_t a2)
 {
   *(this + 12) = 0;
   *(this + 4) = 0;
-  AVE_DLList_Init(this + 32);
+  AVE_DLList_Init(this + 32, a2);
   *(this + 16) = 0;
 }
 
@@ -2825,7 +827,7 @@ uint64_t AVE_VUI_AddAllMatrixCoeffToCFArray(CFMutableArrayRef theArray)
 void _GLOBAL__sub_I_AVE_VUI_Helper_Lib_cpp()
 {
   v0 = *MEMORY[0x29EDB95B0];
-  gsc_psaAVE_ColorPrimaries_Supported = *MEMORY[0x29EDB95C0];
+  gsc_psaAVE_ColorPrimaries_Supported[0] = *MEMORY[0x29EDB95C0];
   unk_2A189B640 = v0;
   v1 = *MEMORY[0x29EDB95B8];
   qword_2A189B648 = *MEMORY[0x29EDB95D0];
@@ -2834,7 +836,7 @@ void _GLOBAL__sub_I_AVE_VUI_Helper_Lib_cpp()
   qword_2A189B658 = *MEMORY[0x29EDB95C8];
   unk_2A189B660 = v2;
   v3 = *MEMORY[0x29EDB9630];
-  gsc_psaAVE_TransferCharacteristics_Supported = *MEMORY[0x29EDB9620];
+  gsc_psaAVE_TransferCharacteristics_Supported[0] = *MEMORY[0x29EDB9620];
   unk_2A189B5D0 = v3;
   v4 = *MEMORY[0x29EDB9650];
   qword_2A189B5D8 = *MEMORY[0x29EDB9628];
@@ -2846,7 +848,7 @@ void _GLOBAL__sub_I_AVE_VUI_Helper_Lib_cpp()
   qword_2A189B5F8 = *MEMORY[0x29EDB9640];
   unk_2A189B600 = v6;
   v7 = *MEMORY[0x29EDB9678];
-  gsc_psaAVE_MatrixCoefficients_Supported = *MEMORY[0x29EDB9680];
+  gsc_psaAVE_MatrixCoefficients_Supported[0] = *MEMORY[0x29EDB9680];
   unk_2A189B610 = v7;
   v8 = *MEMORY[0x29EDB9688];
   qword_2A189B618 = *MEMORY[0x29EDB9670];
@@ -2856,7 +858,7 @@ void _GLOBAL__sub_I_AVE_VUI_Helper_Lib_cpp()
   unk_2A189B630 = v9;
 }
 
-uint64_t AVE_CreateUSurface(uint64_t a1, const char *a2, int a3, uint64_t a4, AVE_USurface **a5)
+uint64_t AVE_CreateUSurface(uint64_t a1, const char *a2, IOSurfaceID a3, unint64_t a4, AVE_USurface **a5)
 {
   if (a3 && a5)
   {
@@ -2886,6 +888,7 @@ uint64_t AVE_CreateUSurface(uint64_t a1, const char *a2, int a3, uint64_t a4, AV
   return 4294966295;
 }
 
+uint64_t AVE_CreateUSurface(uint64_t a1, const char *a2, int a3, __IOSurface **a4, AVE_USurface **a5)
 {
   if (a3 >= 1 && a5)
   {
@@ -3209,19 +1212,19 @@ uint64_t AVE_SearchRange_MakeArray(int *a1, int a2, __CFArray *a3)
 
 uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE *a3, int a4, int a5, int a6, int a7, unsigned int a8, char a9, unsigned int a10)
 {
-  v51 = result;
-  v82 = *MEMORY[0x29EDCA608];
-  v73[128] = 4;
-  v73[129] = a6;
-  v45 = 1;
-  v74 = 1 << (a6 - 1);
+  v50 = result;
+  v89 = *MEMORY[0x29EDCA608];
+  v79 = 4;
+  v80 = a6;
+  v44 = 1;
+  v81 = 1 << (a6 - 1);
+  v82 = 0x1000000001;
+  v83 = 0u;
+  v84 = 0u;
+  v72 = 4;
+  v73 = a6;
+  v74 = v81;
   v75 = 0x1000000001;
-  v76 = 0u;
-  v77 = 0u;
-  v69[64] = 4;
-  v69[65] = a6;
-  v69[66] = v74;
-  v70 = 0x1000000001;
   if (a6 <= 8)
   {
     v10 = 3;
@@ -3232,19 +1235,19 @@ uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE
     v10 = 4;
   }
 
-  v47 = v10;
-  v71 = 0uLL;
-  v72 = 0uLL;
-  v65[64] = 4;
-  v65[65] = a6;
-  v65[66] = 1 << (a6 - 1);
-  v66 = 0x1000000001;
-  v67 = 0uLL;
-  v68 = 0uLL;
+  v46 = v10;
+  v76 = 0uLL;
+  v77 = 0uLL;
+  v65 = 4;
+  v66 = a6;
+  v67 = 1 << (a6 - 1);
+  v68 = 0x1000000001;
+  v69 = 0uLL;
+  v70 = 0uLL;
   if (a5 >= 1)
   {
-    v44 = 0;
-    v56 = 0;
+    v43 = 0;
+    v55 = 0;
     v11 = a6 != 8;
     if (a6 == 8)
     {
@@ -3283,10 +1286,10 @@ uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE
       v16 = 4;
     }
 
-    v43 = 16 * v15;
-    v63 = v13;
-    v49 = 2 * v13;
-    v50 = v16;
+    v42 = 16 * v15;
+    v62 = v13;
+    v48 = 2 * v13;
+    v49 = v16;
     if (a7)
     {
       v17 = 8;
@@ -3297,29 +1300,29 @@ uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE
       v17 = 4;
     }
 
-    v46 = v17;
+    v45 = v17;
     v18 = ~v14;
-    v54 = 2 * v15;
-    v55 = v15;
-    v42 = 8 * v15;
-    v48 = ~v14;
+    v53 = 2 * v15;
+    v54 = v15;
+    v41 = 8 * v15;
+    v47 = ~v14;
     do
     {
       if (a4 >= 1)
       {
         v19 = 0;
-        v20 = v44;
-        v21 = v45;
+        v20 = v43;
+        v21 = v44;
         do
         {
-          v22 = *(v51 + (v56 >> 3 >> a9) * a10 + 4 * ((v19 >> v50 << a9) + (~(-1 << a9) & (v56 >> 3))));
+          v22 = *(v50 + (v55 >> 3 >> a9) * a10 + 4 * ((v19 >> v49 << a9) + (~(-1 << a9) & (v55 >> 3))));
           v23 = &a2[v22 & 0xFFFFFFF];
-          v79 = v23;
-          v80 = 0;
-          v78 = 0;
+          v86 = v23;
+          v87 = 0;
+          v85 = 0;
           if (v22 >> 28)
           {
-            result = htpc_entropy::dec_symbols(&v78, v47, v46, v81, 128, 16);
+            result = htpc_entropy::dec_symbols(&v85, v46, v45, v88, 128, 16);
           }
 
           else
@@ -3330,16 +1333,16 @@ uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE
             do
             {
               v25 -= a6;
-              HIDWORD(v78) = v25;
+              HIDWORD(v85) = v25;
               if (v25 < 0)
               {
                 do
                 {
                   v27 = v23 + 1;
-                  v79 = v23 + 1;
+                  v86 = v23 + 1;
                   v26 = *v23 | (v26 << 8);
                   v25 += 8;
-                  v78 = __PAIR64__(v25, v26);
+                  v85 = __PAIR64__(v25, v26);
                   ++v23;
                 }
 
@@ -3351,7 +1354,7 @@ uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE
                 v27 = v23;
               }
 
-              v81[v24++] = (v26 >> v25) & v18;
+              v88[v24++] = (v26 >> v25) & v18;
               v23 = v27;
             }
 
@@ -3360,24 +1363,24 @@ uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE
 
           v28 = 0;
           v29 = 0;
-          v58 = v20;
-          v53 = v21;
+          v57 = v20;
+          v52 = v21;
           v30 = v21;
           do
           {
             v31 = 0;
-            v57 = v30;
+            v56 = v30;
             do
             {
-              v33 = (v29 | v56) < a5 && v19 + v31 < a4;
-              v34 = &v81[v28];
+              v33 = (v29 | v55) < a5 && v19 + v31 < a4;
+              v34 = &v88[v28];
               v35 = *v34;
               v36 = v22 >> 28;
               if (a7)
               {
                 if (v36)
                 {
-                  result = htpc_codec<8,8>::dec_sample(v69, v29, v31, v35);
+                  result = htpc_codec<8,8>::dec_sample(v71, v29, v31, v35);
                   LOWORD(v35) = result;
                 }
 
@@ -3398,7 +1401,7 @@ uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE
                 v39 = v34[1];
                 if (v36)
                 {
-                  result = htpc_codec<8,8>::dec_sample(v65, v29, v31, v39);
+                  result = htpc_codec<8,8>::dec_sample(v64, v29, v31, v39);
                   LOWORD(v39) = result;
                 }
 
@@ -3422,13 +1425,13 @@ uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE
               {
                 if (v36)
                 {
-                  result = htpc_codec<16,8>::dec_sample(v73, v29, v31, v35);
+                  result = htpc_codec<16,8>::dec_sample(v78, v29, v31, v35);
                   LOWORD(v35) = result;
                 }
 
                 if (v33)
                 {
-                  v38 = (v58 + v31);
+                  v38 = (v57 + v31);
                   if (a6 == 8)
                   {
                     a3[v38] = v35;
@@ -3448,31 +1451,30 @@ uint64_t htpc_decompress_plane(uint64_t result, const unsigned __int8 *a2, _BYTE
               v30 += 2;
             }
 
-            while (v63 != v31);
-            ++v29;
-            v30 = v57 + v54;
-            v58 += v55;
+            while (v62 != v31);
+            v29 = (v29 + 1);
+            v30 = v56 + v53;
+            v57 += v54;
           }
 
           while (v29 != 8);
-          v19 += v63;
-          v18 = v48;
-          v21 = v53 + v49;
-          v20 += v63;
+          v19 += v62;
+          v18 = v47;
+          v21 = v52 + v48;
+          v20 += v62;
         }
 
         while (v19 < a4);
       }
 
-      v45 += v43;
       v44 += v42;
-      v56 += 8;
+      v43 += v41;
+      v55 += 8;
     }
 
-    while (v56 < a5);
+    while (v55 < a5);
   }
 
-  v41 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -3519,7 +1521,7 @@ uint64_t htpc_entropy::get_bits(htpc_entropy *this, int a2)
   return (v2 >> v4) & ~(-1 << a2);
 }
 
-uint64_t htpc_entropy::dec_symbols(htpc_entropy *this, int a2, unsigned int a3, int *a4, int a5, int a6)
+uint64_t htpc_entropy::dec_symbols(htpc_entropy *this, int a2, int a3, int *a4, int a5, int a6)
 {
   if (*(this + 1))
   {
@@ -3670,8 +1672,10 @@ uint64_t htpc_entropy::dec_symbols(htpc_entropy *this, int a2, unsigned int a3, 
   return (*(this + 2) - v8);
 }
 
-uint64_t htpc_codec<16,8>::dec_sample(_DWORD *a1, int a2, int a3, int a4)
+uint64_t htpc_codec<16,8>::dec_sample(_DWORD *a1, uint64_t a2, uint64_t a3, int a4)
 {
+  v5 = a3;
+  v6 = a2;
   if (a1[131])
   {
     v8 = htpc_codec<16,8>::pred_mmap(a1, a2, a3);
@@ -3708,12 +1712,14 @@ uint64_t htpc_codec<16,8>::dec_sample(_DWORD *a1, int a2, int a3, int a4)
   }
 
   result = v11 & ~(-1 << a1[132]);
-  a1[16 * a2 + a3] = result;
+  a1[16 * v6 + v5] = result;
   return result;
 }
 
-uint64_t htpc_codec<8,8>::dec_sample(_DWORD *a1, int a2, int a3, int a4)
+uint64_t htpc_codec<8,8>::dec_sample(_DWORD *a1, uint64_t a2, uint64_t a3, int a4)
 {
+  v5 = a3;
+  v6 = a2;
   if (a1[67])
   {
     v8 = htpc_codec<8,8>::pred_mmap(a1, a2, a3);
@@ -3729,7 +1735,7 @@ uint64_t htpc_codec<8,8>::dec_sample(_DWORD *a1, int a2, int a3, int a4)
 
     if (a3 >= 1)
     {
-      v9 = &a1[8 * a2 + a3 - 1];
+      v9 = &a1[8 * a2 + (a3 - 1)];
     }
 
     v8 = *v9;
@@ -3750,7 +1756,7 @@ uint64_t htpc_codec<8,8>::dec_sample(_DWORD *a1, int a2, int a3, int a4)
   }
 
   result = v11 & ~(-1 << a1[68]);
-  a1[8 * a2 + a3] = result;
+  a1[8 * v6 + v5] = result;
   return result;
 }
 
@@ -3988,7 +1994,7 @@ BOOL interchange_compression::check_valid_lossy_level(interchange_compression *t
 
 interchange_compression::decompressor *interchange_decompress_plane(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, interchange_compression *a11)
 {
-  v115 = *MEMORY[0x29EDCA608];
+  v114 = *MEMORY[0x29EDCA608];
   if (a7)
   {
     v11 = 16;
@@ -3999,7 +2005,7 @@ interchange_compression::decompressor *interchange_decompress_plane(uint64_t a1,
     v11 = 32;
   }
 
-  v106 = v11;
+  v105 = v11;
   if ((a6 | 2) != 0xA)
   {
     interchange_decompress_plane();
@@ -4035,7 +2041,7 @@ interchange_compression::decompressor *interchange_decompress_plane(uint64_t a1,
     v17 = 5;
   }
 
-  v94 = v17;
+  v93 = v17;
   if (a6 == 8)
   {
     v18 = v15;
@@ -4048,15 +2054,15 @@ interchange_compression::decompressor *interchange_decompress_plane(uint64_t a1,
 
   v19 = (a10 + a5);
   v20 = &interchange_compression::lossy_parameters[28 * v18];
-  v89 = v20[a11 + 4];
-  result = interchange_compression::decompressor::decompressor(v113, v18, a11, 0);
-  memset(v114, 0, sizeof(v114));
+  v88 = v20[a11 + 4];
+  result = interchange_compression::decompressor::decompressor(v112, v18, a11, 0);
+  memset(v113, 0, sizeof(v113));
   if (v19)
   {
-    v97 = 0;
+    v96 = 0;
     v22 = (a9 + a4);
-    v23 = (v106 - 1 + HIDWORD(a9) + v22) >> v94;
-    v24 = (v106 - 1 + HIDWORD(a10) + v19) >> v94;
+    v23 = (v105 - 1 + HIDWORD(a9) + v22) >> v93;
+    v24 = (v105 - 1 + HIDWORD(a10) + v19) >> v93;
     v25 = 32 - __clz(v24 - 1);
     if (v24 >= 2)
     {
@@ -4090,41 +2096,41 @@ interchange_compression::decompressor *interchange_decompress_plane(uint64_t a1,
       v29 = 3;
     }
 
-    v86 = v29;
-    v87 = 2 * v28;
-    v78 = v20 + 8;
-    v79 = &interchange_compression::memory_parameters[11 * v18];
-    v83 = vdupq_n_s64(v28 - 1);
-    v82 = (v28 + 1) & 0x7E;
-    v81 = -a9 - a4 * a10;
-    v80 = -(2 * a4 * a10 + 2 * a9);
+    v85 = v29;
+    v86 = 2 * v28;
+    v77 = v20 + 8;
+    v78 = &interchange_compression::memory_parameters[11 * v18];
+    v82 = vdupq_n_s64(v28 - 1);
+    v81 = (v28 + 1) & 0x7E;
+    v80 = -a9 - a4 * a10;
+    v79 = -(2 * a4 * a10 + 2 * a9);
     v30 = vdupq_n_s64(1uLL);
     v31 = vdupq_n_s64(2uLL);
-    v84 = v31;
-    v85 = v30;
-    v88 = v28;
-    v102 = v19;
+    v83 = v31;
+    v84 = v30;
+    v87 = v28;
+    v101 = v19;
     do
     {
       if (v22)
       {
         v32 = 0;
-        v33 = v97 >> v94;
-        v93 = v33 * ((v106 - 1 + HIDWORD(a9) + v22) >> v94);
-        v105 = ~(-1 << v79[7]);
-        v104 = v78[a11];
+        v33 = v96 >> v93;
+        v92 = v33 * ((v105 - 1 + HIDWORD(a9) + v22) >> v93);
+        v104 = ~(-1 << v78[7]);
+        v103 = v77[a11];
         v34 = vdupq_n_s64(v33);
-        v35 = v80;
-        v36 = v81;
-        v92 = v34;
+        v35 = v79;
+        v36 = v80;
+        v91 = v34;
         do
         {
-          v37 = v32 >> v94;
+          v37 = v32 >> v93;
           if (v28)
           {
             v38 = vdupq_n_s64(v37);
             v39 = 0uLL;
-            v40 = v82;
+            v40 = v81;
             v41 = xmmword_2954EBA50;
             do
             {
@@ -4138,7 +2144,7 @@ interchange_compression::decompressor *interchange_decompress_plane(uint64_t a1,
             }
 
             while (v40);
-            v46 = vbslq_s8(vcgtq_u64(v43, v83), v42, v39);
+            v46 = vbslq_s8(vcgtq_u64(v43, v82), v42, v39);
             v47 = vorr_s8(*v46.i8, *&vextq_s8(v46, v46, 8uLL));
           }
 
@@ -4148,32 +2154,32 @@ interchange_compression::decompressor *interchange_decompress_plane(uint64_t a1,
           }
 
           v48 = 0;
-          v49 = (a2 + (v37 + v93) * v89);
-          v50 = (a1 + ((*&v47 | ((v37 | (v97 >> v94)) >> v28 << v87)) << v86));
-          v95 = v36;
-          v96 = v35;
-          v98 = v32;
+          v49 = (a2 + (v37 + v92) * v88);
+          v50 = (a1 + ((*&v47 | ((v37 | (v96 >> v93)) >> v28 << v86)) << v85));
+          v94 = v36;
+          v95 = v35;
+          v97 = v32;
           do
           {
             v51 = 0;
-            v101 = v48;
-            v52 = v97 + v48;
+            v100 = v48;
+            v52 = v96 + v48;
             v53 = v32;
-            v100 = v35;
+            v99 = v35;
             v54 = v35;
-            v99 = v36;
+            v98 = v36;
             v55 = v36;
             do
             {
-              v109 = v54;
-              v110 = v51;
-              v111 = v50;
+              v108 = v54;
+              v109 = v51;
+              v110 = v50;
               v56 = v53;
               v57 = *v50;
-              v108 = v57 & 0xF0;
+              v107 = v57 & 0xF0;
               if (*v50)
               {
-                v58 = (v57 & v105) + 1;
+                v58 = (v57 & v104) + 1;
               }
 
               else
@@ -4181,19 +2187,19 @@ interchange_compression::decompressor *interchange_decompress_plane(uint64_t a1,
                 v58 = 0;
               }
 
-              v107 = v58;
-              v112 = v49;
+              v106 = v58;
+              v111 = v49;
               v59 = v55;
-              interchange_compression::decompressor::decompress(v113, v49, v57, v114);
+              interchange_compression::decompressor::decompress(v112, v49, v57, v113);
               v60 = v59;
-              LODWORD(v19) = v102;
-              v61 = &v114[0][0][1];
+              LODWORD(v19) = v101;
+              v61 = &v113[0][0][1];
               v62 = 0;
-              v63 = v109;
+              v63 = v108;
               v64 = v60;
               do
               {
-                v66 = v62 + v52 >= a10 && v62 + v52 < v102;
+                v66 = v62 + v52 >= a10 && v62 + v52 < v101;
                 v67 = v56;
                 v68 = v63;
                 v69 = v64;
@@ -4250,59 +2256,58 @@ interchange_compression::decompressor *interchange_decompress_plane(uint64_t a1,
               }
 
               while (v62 != 4);
-              if (v108 != 240 || a11 == 0)
+              if (v107 != 240 || a11 == 0)
               {
-                v76 = v107;
+                v76 = v106;
               }
 
               else
               {
-                v76 = v104;
+                v76 = v103;
               }
 
-              v49 = &v112[v76];
-              v50 = v111 + 1;
-              v51 = v110 + 8;
+              v49 = &v111[v76];
+              v50 = v110 + 1;
+              v51 = v109 + 8;
               v55 = v60 + 8;
-              v54 = v109 + 16;
+              v54 = v108 + 16;
               v53 = v56 + 8;
             }
 
-            while (v110 + 8 < v106);
-            v48 = v101 + 4;
-            v36 = v99 + 4 * a4;
-            v35 = v100 + 8 * a4;
-            v32 = v98;
+            while (v109 + 8 < v105);
+            v48 = v100 + 4;
+            v36 = v98 + 4 * a4;
+            v35 = v99 + 8 * a4;
+            v32 = v97;
           }
 
-          while (v101 + 4 < v106);
-          v32 = v98 + v106;
-          v36 = v95 + v106;
-          v35 = v96 + 2 * v106;
-          LODWORD(v28) = v88;
-          v31 = v84;
-          v30 = v85;
-          v34 = v92;
+          while (v100 + 4 < v105);
+          v32 = v97 + v105;
+          v36 = v94 + v105;
+          v35 = v95 + 2 * v105;
+          LODWORD(v28) = v87;
+          v31 = v83;
+          v30 = v84;
+          v34 = v91;
         }
 
-        while (v98 + v106 < v22);
+        while (v97 + v105 < v22);
       }
 
-      v81 += v106 * a4;
-      v80 += 2 * v106 * a4;
-      v97 += v106;
+      v80 += v105 * a4;
+      v79 += 2 * v105 * a4;
+      v96 += v105;
     }
 
-    while (v97 < v19);
+    while (v96 < v19);
   }
 
-  v77 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t interchange_compression::decompressor::decompress(interchange_compression::decompressor *this, const unsigned __int8 *a2, unsigned int a3, unsigned int (*a4)[4][8][4])
 {
-  v210 = *MEMORY[0x29EDCA608];
+  v213 = *MEMORY[0x29EDCA608];
   v8 = interchange_compression::memory_parameters[11 * *(this + 85) + 7];
   if ((*(this + 87) - 1) <= 2)
   {
@@ -4315,571 +2320,572 @@ uint64_t interchange_compression::decompressor::decompress(interchange_compressi
 
     if ((~a3 & 0xF0) == 0)
     {
-      v11 = *(this + 87);
-      if ((v11 - 1) <= 2)
+      v12 = *(this + 87);
+      if ((v12 - 1) <= 2)
       {
-        v12 = 0;
-        v13 = vdupq_n_s32(a3);
-        v14 = *(this + 85);
-        v172 = interchange_compression::lossy_parameters[28 * v14 + 8 + v11] >> 2;
-        *v13.i8 = vand_s8(vmovn_s32(vtstq_s32(v13, xmmword_2954FC130)), 0x1000100010001);
-        v187 = vuzp1_s8(*v13.i8, *v13.i8).u32[0];
-        v170 = a2;
-        v171 = a4;
+        v13 = 0;
+        v14 = vdupq_n_s32(a3);
+        v15 = *(this + 85);
+        v175 = interchange_compression::lossy_parameters[28 * v15 + 8 + v12] >> 2;
+        *v14.i8 = vand_s8(vmovn_s32(vtstq_s32(v14, xmmword_2954FC130)), 0x1000100010001);
+        v190 = vuzp1_s8(*v14.i8, *v14.i8).u32[0];
+        v173 = a2;
+        v174 = a4;
         while (1)
         {
-          memset(v188, 0, sizeof(v188));
-          v15 = *(this + 87);
-          v16 = *(this + 88);
-          v186 = v16;
-          v173 = v12;
-          if (*(&v187 + v12) != 1)
+          memset(v191, 0, sizeof(v191));
+          v16 = *(this + 87);
+          v17 = *(this + 88);
+          v189 = v17;
+          v176 = v13;
+          if (*(&v190 + v13) != 1)
           {
             break;
           }
 
-          v17 = 0;
-          v18 = interchange_compression::lossy_parameters[28 * v14 + 8 + v15] >> 2;
-          v204 = &a2[v12 * v172];
-          v203 = v18;
-          v207 = 1;
-          v206 = 0;
-          v205 = 8 * v18;
-          v19 = &interchange_compression::format_table + 52 * v14;
-          v176 = v19 + 12;
-          v179 = *(v19 + 2);
-          v20 = v16 & 0xFFFFFFFE;
-          v174 = &interchange_compression::lossy_parameters[28 * v14 + 12 + 4 * v15];
-          v21 = v188;
+          v18 = 0;
+          v19 = interchange_compression::lossy_parameters[28 * v15 + 8 + v16] >> 2;
+          v207 = &a2[v13 * v175];
+          v206 = v19;
+          v210 = 1;
+          v209 = 0;
+          v208 = 8 * v19;
+          v20 = &interchange_compression::format_table + 52 * v15;
+          v179 = v20 + 12;
+          v182 = *(v20 + 2);
+          v21 = v17 & 0xFFFFFFFE;
+          v177 = &interchange_compression::lossy_parameters[28 * v15 + 12 + 4 * v16];
+          v22 = v191;
           do
           {
-            v183 = v17;
-            v23 = v174;
-            v22 = v176;
-            v181 = v21;
-            v24 = v179;
-            if (v179)
+            v186 = v18;
+            v24 = v177;
+            v23 = v179;
+            v184 = v22;
+            v25 = v182;
+            if (v182)
             {
               do
               {
-                v26 = *v23++;
-                v25 = v26;
-                v28 = *v22;
-                v22 += 4;
-                v27 = v28;
-                v29 = -1 << v28;
-                if (v28 == 32)
+                v27 = *v24++;
+                v26 = v27;
+                v29 = *v23;
+                v23 += 4;
+                v28 = v29;
+                v30 = -1 << v29;
+                if (v29 == 32)
                 {
-                  v30 = -1;
+                  v31 = -1;
                 }
 
                 else
                 {
-                  v30 = ~v29;
+                  v31 = ~v30;
                 }
 
-                v31 = 1 << (v27 - 1);
-                v32 = (bit_pack::unpack(v202, v27 - v25) << v25) & v30;
-                v34 = v20 != 2 || v32 != v31;
-                if (v32 >> v25 == v30 >> v25)
+                v32 = 1 << (v28 - 1);
+                v33 = (bit_pack::unpack(v205, v28 - v26) << v26) & v31;
+                v35 = v21 != 2 || v33 != v32;
+                if (v33 >> v26 == v31 >> v26)
                 {
-                  v35 = v30;
+                  v36 = v31;
                 }
 
                 else
                 {
-                  v35 = ((1 << (v25 - 1)) - ((v32 >> v25) & 1)) | v32;
+                  v36 = ((1 << (v26 - 1)) - ((v33 >> v26) & 1)) | v33;
                 }
 
-                if (!v34 || v32 == 0)
+                if (!v35 || v33 == 0)
                 {
-                  v37 = v32;
+                  v38 = v33;
                 }
 
                 else
                 {
-                  v37 = v35;
+                  v38 = v36;
                 }
 
-                if (!v25)
+                if (!v26)
                 {
-                  v37 = v32;
+                  v38 = v33;
                 }
 
-                if (v186 != 1)
+                if (v189 != 1)
                 {
-                  v32 = v37;
+                  v33 = v38;
                 }
 
-                if (v20 == 2)
+                if (v21 == 2)
                 {
-                  v38 = v31;
+                  v39 = v32;
                 }
 
                 else
                 {
-                  v38 = 0;
+                  v39 = 0;
                 }
 
-                *v21++ = v32 ^ v38;
-                v24 = (v24 - 1);
+                *v22++ = v33 ^ v39;
+                v25 = (v25 - 1);
               }
 
-              while (v24);
+              while (v25);
             }
 
-            v17 = v183 + 1;
-            v21 = v181 + 4;
+            v18 = v186 + 1;
+            v22 = v184 + 4;
           }
 
-          while (v183 != 7);
+          while (v186 != 7);
 LABEL_175:
-          v133 = 0;
-          v134 = v188;
-          a2 = v170;
+          v137 = 0;
+          v138 = v191;
+          a2 = v173;
           do
           {
             if (*(this + 85) == 27)
             {
-              v14 = 27;
+              v15 = 27;
             }
 
             else
             {
-              v135 = 0;
-              v136 = vdupq_n_s32(v133 + 8 * v173);
-              v137.i64[0] = 0x100000001;
-              v137.i64[1] = 0x100000001;
-              v138 = vshlq_u32(vandq_s8(vshlq_u32(v136, xmmword_2954FC100), v137), xmmword_2954FC110);
-              v139 = vshlq_u32(vandq_s8(vshlq_u32(v136, xmmword_2954FC120), v137), xmmword_2954FC110);
-              v140 = (*v171)[(vorr_s8(*v139.i8, *&vextq_s8(v139, v139, 8uLL)).u32[0] | v139.i32[1])][vorr_s8(*v138.i8, *&vextq_s8(v138, v138, 8uLL)).u32[0] | v138.i32[1]];
+              v139 = 0;
+              v140 = vdupq_n_s32(v137 + 8 * v176);
+              v141.i64[0] = 0x100000001;
+              v141.i64[1] = 0x100000001;
+              v142 = vshlq_u32(vandq_s8(vshlq_u32(v140, xmmword_2954FC100), v141), xmmword_2954FC110);
+              v143 = vshlq_u32(vandq_s8(vshlq_u32(v140, xmmword_2954FC120), v141), xmmword_2954FC110);
+              v144 = (*v174)[(vorr_s8(*v143.i8, *&vextq_s8(v143, v143, 8uLL)).u32[0] | v143.i32[1])][vorr_s8(*v142.i8, *&vextq_s8(v142, v142, 8uLL)).u32[0] | v142.i32[1]];
               do
               {
-                v140[v135] = *(v134 + v135);
-                ++v135;
-                v14 = *(this + 85);
+                v144[v139] = *(v138 + v139);
+                ++v139;
+                v15 = *(this + 85);
               }
 
-              while (v135 < *(&interchange_compression::format_table + 13 * v14 + 2));
+              while (v139 < *(&interchange_compression::format_table + 13 * v15 + 2));
             }
 
-            ++v133;
-            ++v134;
+            ++v137;
+            ++v138;
           }
 
-          while (v133 != 8);
-          v12 = v173 + 1;
-          if (v173 == 3)
+          while (v137 != 8);
+          v13 = v176 + 1;
+          if (v176 == 3)
           {
-            goto LABEL_205;
+            return 1;
           }
         }
 
-        v39 = (&interchange_compression::format_table + 52 * v14);
-        v40 = v39[2];
-        v177 = v39;
+        v40 = (&interchange_compression::format_table + 52 * v15);
+        v41 = v40[2];
         v180 = v40;
-        v41 = (v39 + 3);
-        v169 = *(this + 87);
-        LODWORD(v39) = interchange_compression::lossy_parameters[28 * v14 + 8 + v15];
-        v204 = &a2[v12 * v172];
-        LODWORD(v39) = 2 * v39;
-        v203 = (v39 >> 3) & 0x7FFFFFF;
-        v207 = 1;
-        v206 = 0;
-        v182 = v39;
-        v205 = v39 & 0x3FFFFFF8;
-        v175 = v41;
-        if (!v40)
+        v183 = v41;
+        v42 = (v40 + 3);
+        v172 = *(this + 87);
+        LODWORD(v40) = interchange_compression::lossy_parameters[28 * v15 + 8 + v16];
+        v207 = &a2[v13 * v175];
+        LODWORD(v40) = 2 * v40;
+        v206 = (v40 >> 3) & 0x7FFFFFF;
+        v210 = 1;
+        v209 = 0;
+        v185 = v40;
+        v208 = v40 & 0x3FFFFFF8;
+        v178 = v42;
+        if (!v41)
         {
-          v184 = 0;
+          v187 = 0;
 LABEL_84:
-          *v199 = 0;
-          v200 = 0;
-          memset(v198, 0, sizeof(v198));
-          v197[0] = interchange_compression::get_id(v177[3]);
-          v197[1] = interchange_compression::get_id(v177[4]);
-          v197[2] = interchange_compression::get_id(v177[5]);
-          v197[3] = interchange_compression::get_id(v177[6]);
-          interchange_compression::derive_sharing(v180, v197, v209, v199, v198, v67);
-          v195 = 0;
+          *v202 = 0;
+          v203 = 0;
+          memset(v201, 0, sizeof(v201));
+          v200[0] = interchange_compression::get_id(v180[3], v11);
+          v200[1] = interchange_compression::get_id(v180[4], v68);
+          v200[2] = interchange_compression::get_id(v180[5], v69);
+          v200[3] = interchange_compression::get_id(v180[6], v70);
+          interchange_compression::derive_sharing(v183, v200, v212, v202, v201, v71);
+          v198 = 0;
+          v199 = 0;
           v196 = 0;
-          v193 = 0;
-          v194 = 0;
-          if (v180)
+          v197 = 0;
+          if (v183)
           {
-            v68 = 0;
+            v72 = 0;
             do
             {
-              v69 = *&v175[v68];
-              id = interchange_compression::get_id(v69);
-              v71 = v209[v68 / 4];
-              v72 = &interchange_compression::dq_consts[160 * id + 10 * v71];
-              v73 = interchange_compression::dq_lossy_level[3 * id + v169 - 1];
-              v74 = v72[5];
-              *(&v195 + v68) = v73 + v72[4];
-              *(&v193 + v68) = v74 + v73;
-              interchange_compression::adjust_level(id, v71, v199[v68 / 4], v198[v68 / 4], (&v195 + v68), (&v193 + v68), v75);
-              v76 = *(&v195 + v68);
-              if (v69 < v76)
+              v73 = *&v178[v72];
+              id = interchange_compression::get_id(v73, v11);
+              v75 = v212[v72 / 4];
+              v76 = &interchange_compression::dq_consts[80 * id + 5 * v75];
+              v77 = interchange_compression::dq_lossy_level[3 * id + v172 - 1];
+              v78 = *(v76 + 5);
+              *(&v198 + v72) = v77 + *(v76 + 4);
+              *(&v196 + v72) = v78 + v77;
+              interchange_compression::adjust_level(id, v75, v202[v72 / 4], v201[v72 / 4], (&v198 + v72), (&v196 + v72), v79);
+              v80 = *(&v198 + v72);
+              if (v73 < v80)
               {
-                v76 = v69;
+                v80 = v73;
               }
 
-              *(&v195 + v68) = v76;
-              if (v74)
+              *(&v198 + v72) = v80;
+              if (v78)
               {
-                v77 = v69;
+                v81 = v73;
               }
 
               else
               {
-                v77 = 0;
+                v81 = 0;
               }
 
-              if (v77 >= *(&v193 + v68))
+              if (v81 >= *(&v196 + v72))
               {
-                v77 = *(&v193 + v68);
+                v81 = *(&v196 + v72);
               }
 
-              *(&v193 + v68) = v77;
-              v68 += 4;
+              *(&v196 + v72) = v81;
+              v72 += 4;
             }
 
-            while (4 * v180 != v68);
+            while (4 * v183 != v72);
           }
 
-          if (v14 == 19 && v209[3] == 1 && v198[3] - HIDWORD(v200) <= 1)
+          if (v15 == 19 && v212[3] == 1 && v201[3] - HIDWORD(v203) <= 1)
           {
-            v195 = 0;
+            v198 = 0;
+            v199 = 0;
             v196 = 0;
+            v197 = 0;
+          }
+
+          v195[0] = 0;
+          v195[1] = 0;
+          v82 = v183;
+          v83 = v187;
+          if (v183)
+          {
+            v84 = v195;
+            v85 = v211;
+            v86 = &v198;
+            v87 = v212;
+            v88 = v178;
+            do
+            {
+              v89 = *v87++;
+              if (v89 || (*v88 - 8) > 4)
+              {
+                v90 = *v86;
+                *v84 = bit_pack::unpack(v205, *v86) << (*v88 - v90);
+                v83 += v90;
+              }
+
+              else
+              {
+                *v84 = *v85;
+              }
+
+              ++v84;
+              ++v85;
+              v88 += 4;
+              ++v86;
+              --v82;
+            }
+
+            while (v82);
             v193 = 0;
             v194 = 0;
-          }
-
-          v192[0] = 0;
-          v192[1] = 0;
-          v78 = v180;
-          v79 = v184;
-          if (v180)
-          {
-            v80 = v192;
-            v81 = v208;
-            v82 = &v195;
-            v83 = v209;
-            v84 = v175;
+            v91 = &v193;
+            v92 = &v196;
+            v93 = v183;
+            v94 = v185;
             do
             {
-              v85 = *v83++;
-              if (v85 || (*v84 - 8) > 4)
+              v95 = *v92;
+              v92 = (v92 + 4);
+              if (v95)
               {
-                v86 = *v82;
-                *v80 = bit_pack::unpack(v202, *v82) << (*v84 - v86);
-                v79 += v86;
+                v96 = bit_pack::get(v205, v209, 3u);
+                v209 += 3;
+                *v91 = v96;
+                v83 += 3;
               }
 
-              else
-              {
-                *v80 = *v81;
-              }
-
-              ++v80;
-              ++v81;
-              v84 += 4;
-              ++v82;
-              --v78;
+              v91 = (v91 + 4);
+              --v93;
             }
 
-            while (v78);
-            v190 = 0;
-            v191 = 0;
-            v87 = &v190;
-            v88 = &v193;
-            v89 = v180;
-            v90 = v182;
-            do
-            {
-              v91 = *v88;
-              v88 = (v88 + 4);
-              if (v91)
-              {
-                v92 = bit_pack::get(v202, v206, 3u);
-                v206 += 3;
-                *v87 = v92;
-                v79 += 3;
-              }
-
-              v87 = (v87 + 4);
-              --v89;
-            }
-
-            while (v89);
+            while (v93);
           }
 
           else
           {
-            v190 = 0;
-            v191 = 0;
-            v90 = v182;
+            v193 = 0;
+            v194 = 0;
+            v94 = v185;
           }
 
-          v93 = (v90 & 0x3FFFFFFE) - v79;
-          v94 = v93 / 7;
-          v95 = v206 + v93 - 7 * (v93 / 7);
-          v206 = v95;
-          v96 = v205;
-          if (v95 > v205)
+          v97 = (v94 & 0x3FFFFFFE) - v83;
+          v98 = v97 / 7;
+          v99 = v209 + v97 - 7 * (v97 / 7);
+          v209 = v99;
+          v100 = v208;
+          if (v99 > v208)
           {
             interchange_compression::decompressor::decompress();
           }
 
-          v97 = 0;
-          v98 = v189;
-          memset(v189, 0, sizeof(v189));
-          v99 = v180;
+          v101 = 0;
+          v102 = v192;
+          memset(v192, 0, sizeof(v192));
+          v103 = v183;
           do
           {
-            v100 = 0;
-            if (v99)
+            v104 = 0;
+            if (v103)
             {
-              v101 = &v193;
-              v102 = v98;
+              v105 = &v196;
+              v106 = v102;
               do
               {
-                v104 = *v101++;
-                v103 = v104;
-                if (v104)
+                v108 = *v105++;
+                v107 = v108;
+                if (v108)
                 {
-                  *v102 = bit_pack::unpack(v202, v103);
-                  v100 += v103;
+                  *v106 = bit_pack::unpack(v205, v107);
+                  v104 += v107;
                 }
 
-                v102 += 7;
-                --v99;
+                v106 += 7;
+                --v103;
               }
 
-              while (v99);
-              if (v100 > v94)
+              while (v103);
+              if (v104 > v98)
               {
                 interchange_compression::decompressor::decompress();
               }
 
-              v95 = v206;
-              v96 = v205;
-              v99 = v180;
+              v99 = v209;
+              v100 = v208;
+              v103 = v183;
             }
 
-            v95 += v94 - v100;
-            v206 = v95;
-            if (v95 > v96)
+            v99 += v98 - v104;
+            v209 = v99;
+            if (v99 > v100)
             {
               interchange_compression::decompressor::decompress();
             }
 
-            ++v97;
-            ++v98;
+            ++v101;
+            ++v102;
           }
 
-          while (v97 != 7);
-          if (v99)
+          while (v101 != 7);
+          if (v103)
           {
-            v105 = 0;
-            v106 = v188;
+            v109 = 0;
+            v110 = v191;
             do
             {
-              v107 = *&v175[4 * v105];
-              v108 = interchange_compression::get_id(v107);
-              v109 = 0;
-              v110 = 0;
-              v111 = *&interchange_compression::dq_consts[160 * v108 + 2 + 10 * v209[v105]];
-              v112 = *(&v193 + v105);
-              v113 = v111 >> v112;
-              if (v111 >> v112 <= 1)
+              v111 = *&v178[4 * v109];
+              v112 = interchange_compression::get_id(v111, v11);
+              v113 = 0;
+              v114 = 0;
+              v115 = interchange_compression::dq_consts[80 * v112 + 1 + 5 * v212[v109]];
+              v116 = *(&v196 + v109);
+              v117 = v115 >> v116;
+              if (v115 >> v116 <= 1)
               {
-                v113 = 1;
+                v117 = 1;
               }
 
-              if (v113 >> 1 >= (1 << (v107 - *(&v195 + v105))) >> 1)
+              if (v117 >> 1 >= (1 << (v111 - *(&v198 + v109))) >> 1)
               {
-                v114 = (1 << (v107 - *(&v195 + v105))) >> 1;
-              }
-
-              else
-              {
-                v114 = v113 >> 1;
-              }
-
-              v115 = *(v192 + v105);
-              v116 = (1 << (v107 - 1));
-              v117 = ~(-1 << v112);
-              v118 = v111 + v115;
-              v119 = 1 << v107;
-              if (!v115)
-              {
-                v114 = 0;
-              }
-
-              if (v107 == 16)
-              {
-                v120 = 31744;
+                v118 = (1 << (v111 - *(&v198 + v109))) >> 1;
               }
 
               else
               {
-                v120 = 2139095040;
+                v118 = v117 >> 1;
               }
 
-              if (v107 == 16)
+              v119 = *(v195 + v109);
+              v120 = (1 << (v111 - 1));
+              v121 = ~(-1 << v116);
+              v122 = v115 + v119;
+              v123 = 1 << v111;
+              v11 = (1 << v111) - 1;
+              if (!v119)
               {
-                v121 = 64512;
+                v118 = 0;
+              }
+
+              if (v111 == 16)
+              {
+                v124 = 31744;
               }
 
               else
               {
-                v121 = 4286578688;
+                v124 = 2139095040;
               }
 
-              if (v107 == 16)
+              if (v111 == 16)
               {
-                v122 = 32256;
+                v125 = 64512;
               }
 
               else
               {
-                v122 = 2143289344;
+                v125 = 4286578688;
               }
 
-              v123 = 4290772992;
-              if (v107 == 16)
+              if (v111 == 16)
               {
-                v123 = 65024;
+                v126 = 32256;
               }
 
-              v185 = v123;
-              v178 = v106;
-              v124 = v106;
+              else
+              {
+                v126 = 2143289344;
+              }
+
+              v127 = 4290772992;
+              if (v111 == 16)
+              {
+                v127 = 65024;
+              }
+
+              v188 = v127;
+              v181 = v110;
+              v128 = v110;
               do
               {
-                if (v112)
+                if (v116)
                 {
-                  if (v109 == *(&v190 + v105))
+                  if (v113 == *(&v193 + v109))
                   {
-                    v125 = v114;
-                    v126 = v115 == v116;
+                    v129 = v118;
+                    v130 = v119 == v120;
                   }
 
                   else
                   {
-                    v127 = v189[7 * v105 + v110];
-                    v126 = (v116 - v115) / v113 == v127;
-                    if (v127 > v117)
+                    v131 = v192[7 * v109 + v114];
+                    v130 = (v120 - v119) / v117 == v131;
+                    if (v131 > v121)
                     {
                       interchange_compression::decompressor::decompress();
                     }
 
-                    if (v127 | v115)
+                    if (v131 | v119)
                     {
-                      if (v118 < v119 || (v125 = v119 - 1, v127 != v117))
+                      if (v122 < v123 || (v129 = v123 - 1, v131 != v121))
                       {
-                        v125 = (v113 >> 1) + v113 * v127;
+                        v129 = (v117 >> 1) + v117 * v131;
                       }
                     }
 
                     else
                     {
-                      v125 = 0;
+                      v129 = 0;
                     }
 
-                    ++v110;
+                    ++v114;
                   }
                 }
 
                 else
                 {
-                  v125 = 0;
-                  v126 = v113 > v116 - v115;
+                  v129 = 0;
+                  v130 = v117 > v120 - v119;
                 }
 
-                v128 = v125 + v115;
-                v129 = v128;
-                if (v186 == 1)
+                v132 = v129 + v119;
+                v133 = v132;
+                if (v189 == 1)
                 {
-                  if (v128 < v120 || (v129 = (v120 - 1), v128 >= v122))
+                  if (v132 < v124 || (v133 = (v124 - 1), v132 >= v126))
                   {
-                    if (v128 < v122 || (v129 = v116, v128 >= v116))
+                    if (v132 < v126 || (v133 = v120, v132 >= v120))
                     {
-                      if (v128 < v185 && v128 >= v121)
+                      if (v132 < v188 && v132 >= v125)
                       {
-                        v129 = (v121 - 1);
+                        v133 = (v125 - 1);
                       }
 
                       else
                       {
-                        v129 = v128;
+                        v133 = v132;
                       }
                     }
                   }
                 }
 
-                if (v129 >= v119)
+                if (v133 >= v123)
                 {
-                  v131 = v119 - 1;
+                  v135 = v123 - 1;
                 }
 
                 else
                 {
-                  v131 = v129;
+                  v135 = v133;
                 }
 
-                if (v126)
+                if (v130)
                 {
-                  v132 = 0;
+                  v136 = 0;
                 }
 
                 else
                 {
-                  v132 = v131 ^ v116;
+                  v136 = v135 ^ v120;
                 }
 
-                if ((v186 & 0xFFFFFFFE) != 2)
+                if ((v189 & 0xFFFFFFFE) != 2)
                 {
-                  v132 = v131;
+                  v136 = v135;
                 }
 
-                *v124 = v132;
-                v124 += 4;
-                ++v109;
+                *v128 = v136;
+                v128 += 4;
+                ++v113;
               }
 
-              while (v109 != 8);
-              ++v105;
-              v106 = (v178 + 4);
+              while (v113 != 8);
+              ++v109;
+              v110 = (v181 + 4);
             }
 
-            while (v105 != v180);
+            while (v109 != v183);
           }
 
           goto LABEL_175;
         }
 
-        v42 = 0;
-        v43 = v201;
-        v44 = v41;
-        v45 = v41;
+        v43 = 0;
+        v44 = v204;
+        v45 = v42;
+        v46 = v42;
         do
         {
-          v47 = *v44;
-          v44 += 4;
-          v46 = v47;
-          if (v47 == 2)
+          v48 = *v45;
+          v45 += 4;
+          v47 = v48;
+          if (v48 == 2)
           {
-            v48 = 1;
+            v49 = 1;
           }
 
-          else if ((v46 - 8) >= 5)
+          else if ((v47 - 8) >= 5)
           {
-            v48 = 4;
-            if (v46 != 16 && v46 != 32)
+            v49 = 4;
+            if (v47 != 16 && v47 != 32)
             {
               interchange_compression::decompressor::decompress();
             }
@@ -4887,119 +2893,119 @@ LABEL_84:
 
           else
           {
-            v48 = 3;
+            v49 = 3;
           }
 
-          *v43++ = bit_pack::unpack(v202, v48);
-          v42 += v48;
-          --v40;
+          *v44++ = bit_pack::unpack(v205, v49);
+          v43 += v49;
+          --v41;
         }
 
-        while (v40);
-        v184 = v42;
-        v49 = 0;
-        v50 = v209;
-        v51 = v45;
-        v52 = v208;
-        v53 = v201;
-        v54 = v180;
+        while (v41);
+        v187 = v43;
+        v50 = 0;
+        v51 = v212;
+        v52 = v46;
+        v53 = v211;
+        v54 = v204;
+        v55 = v183;
         while (1)
         {
-          v56 = *v51++;
-          v55 = v56;
-          if (v56 == 2)
+          v57 = *v52++;
+          v56 = v57;
+          if (v57 == 2)
           {
-            v57 = *v53;
-            *v52 = 0;
-            v58 = v57 & 1;
-            v59 = v50;
+            v58 = *v54;
+            *v53 = 0;
+            v59 = v58 & 1;
+            v60 = v51;
           }
 
           else
           {
-            v60 = v55 - 8 < 5 || v55 == 16;
-            if (!v60 && v55 != 32)
+            v61 = v56 - 8 < 5 || v56 == 16;
+            if (!v61 && v56 != 32)
             {
               interchange_compression::decompressor::decompress();
             }
 
-            v61 = *v53;
-            if (((v55 & 0xFFFFFFFD) == 8 || v55 == 12) && v61 == 0)
+            v62 = *v54;
+            if (((v56 & 0xFFFFFFFD) == 8 || v56 == 12) && v62 == 0)
             {
-              v64 = bit_pack::get(v202, v206, 2u);
-              v206 += 2;
-              v184 += 2;
-              *v52 = 0;
-              v58 = v64 & 3;
-              v65 = v52;
-              v59 = v50;
+              v65 = bit_pack::get(v205, v209, 2u);
+              v209 += 2;
+              v187 += 2;
+              *v53 = 0;
+              v59 = v65 & 3;
+              v66 = v53;
+              v60 = v51;
             }
 
             else
             {
-              v59 = &v209[v49];
-              *v52 = 0;
-              if (v55 >= 0x10)
+              v60 = &v212[v50];
+              *v53 = 0;
+              if (v56 >= 0x10)
               {
-                v58 = v61 & 0xF;
+                v59 = v62 & 0xF;
                 goto LABEL_50;
               }
 
-              v58 = 0;
-              v65 = &v208[v49];
+              v59 = 0;
+              v66 = &v211[v50];
             }
 
-            v66 = v61 & 7;
-            *v59 = v66;
-            if ((v55 & 0xD) == 8)
+            v67 = v62 & 7;
+            *v60 = v67;
+            if ((v56 & 0xD) == 8)
             {
-              if ((v61 & 7) != 0)
+              if ((v62 & 7) != 0)
               {
-                v58 = v66 + 2;
+                v59 = v67 + 2;
               }
 
               else
               {
-                if (v58 > 1)
+                if (v59 > 1)
                 {
-                  if (v58 == 2)
+                  if (v59 == 2)
                   {
-                    v58 = 1;
+                    v59 = 1;
                   }
 
                   else
                   {
-                    v58 = 2;
+                    v59 = 2;
                   }
 
                   goto LABEL_50;
                 }
 
-                if (!v58)
+                if (!v59)
                 {
 LABEL_79:
-                  *v65 = 0;
+                  *v66 = 0;
                   goto LABEL_50;
                 }
 
-                v58 = 0;
-                *v65 = ~(-1 << v55);
+                v59 = 0;
+                *v66 = ~(-1 << v56);
               }
             }
 
             else
             {
-              if (v55 != 12)
+              if (v56 != 12)
               {
                 goto LABEL_51;
               }
 
-              if ((v61 & 7) != 0)
+              if ((v62 & 7) != 0)
               {
-                v58 = v66 + 3;
+                v59 = v67 + 3;
               }
 
-              else if (!v58)
+              else if (!v59)
               {
                 goto LABEL_79;
               }
@@ -5007,13 +3013,13 @@ LABEL_79:
           }
 
 LABEL_50:
-          *v59 = v58;
+          *v60 = v59;
 LABEL_51:
-          ++v49;
           ++v50;
-          ++v52;
+          ++v51;
           ++v53;
-          if (!--v54)
+          ++v54;
+          if (!--v55)
           {
             goto LABEL_84;
           }
@@ -5022,127 +3028,127 @@ LABEL_51:
     }
   }
 
-  v141 = *(this + 85);
-  v142 = &interchange_compression::memory_parameters[11 * v141];
-  if (v142[8] == a3)
+  v145 = *(this + 85);
+  v146 = &interchange_compression::memory_parameters[11 * v145];
+  if (v146[8] == a3)
   {
-    v143 = (a3 & ~(-1 << v142[7])) + 1;
-    v204 = a2;
-    v203 = v143 << (v141 == 26);
-    v207 = 1;
-    v206 = 0;
-    v205 = 8 * v203;
-    if (v141 == 27)
+    v147 = (a3 & ~(-1 << v146[7])) + 1;
+    v207 = a2;
+    v206 = v147 << (v145 == 26);
+    v210 = 1;
+    v209 = 0;
+    v208 = 8 * v206;
+    if (v145 == 27)
     {
-      v144 = 27;
+      v148 = 27;
     }
 
     else
     {
-      v153 = 0;
+      v157 = 0;
       do
       {
-        (*a4)[0][0][v153] = bit_pack::unpack(v202, *(&interchange_compression::format_table + 13 * v141 + v153 + 3));
-        ++v153;
-        v141 = *(this + 85);
+        (*a4)[0][0][v157] = bit_pack::unpack(v205, *(&interchange_compression::format_table + 13 * v145 + v157 + 3));
+        ++v157;
+        v145 = *(this + 85);
       }
 
-      while (v153 < *(&interchange_compression::format_table + 13 * v141 + 2));
-      v144 = *(this + 85);
+      while (v157 < *(&interchange_compression::format_table + 13 * v145 + 2));
+      v148 = *(this + 85);
     }
 
-    v154 = 0;
+    v158 = 0;
     for (i = 0; i != 4; ++i)
     {
-      v156 = 0;
-      v157 = v154;
+      v160 = 0;
+      v161 = v158;
       do
       {
-        if (v144 == 27)
+        if (v148 == 27)
         {
-          v144 = 27;
+          v148 = 27;
         }
 
         else
         {
-          v158 = 0;
-          v159 = a4;
+          v162 = 0;
+          v163 = a4;
           do
           {
-            *((*v159)[0][0] + v157) = *v159;
-            ++v158;
-            v144 = *(this + 85);
-            v159 = (v159 + 4);
+            *((*v163)[0][0] + v161) = *v163;
+            ++v162;
+            v148 = *(this + 85);
+            v163 = (v163 + 4);
           }
 
-          while (v158 < *(&interchange_compression::format_table + 13 * v144 + 2));
+          while (v162 < *(&interchange_compression::format_table + 13 * v148 + 2));
         }
 
-        ++v156;
-        v157 += 16;
+        ++v160;
+        v161 += 16;
       }
 
-      while (v156 != 8);
-      v154 += 128;
+      while (v160 != 8);
+      v158 += 128;
     }
 
-    goto LABEL_205;
+    return 1;
   }
 
-  if (v142[9] == a3)
+  if (v146[9] == a3)
   {
-    v145 = 0;
-    v146 = interchange_compression::memory_parameters[11 * v141 + 5];
-    v204 = a2;
-    v203 = v146;
-    v207 = 1;
-    v206 = 0;
-    v205 = 8 * v146;
+    v149 = 0;
+    v150 = interchange_compression::memory_parameters[11 * v145 + 5];
+    v207 = a2;
+    v206 = v150;
+    v210 = 1;
+    v209 = 0;
+    v208 = 8 * v150;
     do
     {
-      if (v141 != 27)
+      if (v145 != 27)
       {
-        v147 = 0;
-        v148 = vdupq_n_s32(v145);
-        v149.i64[0] = 0x100000001;
-        v149.i64[1] = 0x100000001;
-        v150 = vshlq_u32(vandq_s8(vshlq_u32(v148, xmmword_2954FC120), v149), xmmword_2954FC110);
-        v151 = vshlq_u32(vandq_s8(vshlq_u32(v148, xmmword_2954FC100), v149), xmmword_2954FC110);
-        v152 = (*a4)[(vorr_s8(*v150.i8, *&vextq_s8(v150, v150, 8uLL)).u32[0] | v150.i32[1])][vorr_s8(*v151.i8, *&vextq_s8(v151, v151, 8uLL)).u32[0] | v151.i32[1]];
+        v151 = 0;
+        v152 = vdupq_n_s32(v149);
+        v153.i64[0] = 0x100000001;
+        v153.i64[1] = 0x100000001;
+        v154 = vshlq_u32(vandq_s8(vshlq_u32(v152, xmmword_2954FC120), v153), xmmword_2954FC110);
+        v155 = vshlq_u32(vandq_s8(vshlq_u32(v152, xmmword_2954FC100), v153), xmmword_2954FC110);
+        v156 = (*a4)[(vorr_s8(*v154.i8, *&vextq_s8(v154, v154, 8uLL)).u32[0] | v154.i32[1])][vorr_s8(*v155.i8, *&vextq_s8(v155, v155, 8uLL)).u32[0] | v155.i32[1]];
         do
         {
-          v152[v147] = bit_pack::unpack(v202, *(&interchange_compression::format_table + 13 * v141 + v147 + 3));
-          ++v147;
-          v141 = *(this + 85);
+          v156[v151] = bit_pack::unpack(v205, *(&interchange_compression::format_table + 13 * v145 + v151 + 3));
+          ++v151;
+          v145 = *(this + 85);
         }
 
-        while (v147 < *(&interchange_compression::format_table + 13 * v141 + 2));
+        while (v151 < *(&interchange_compression::format_table + 13 * v145 + 2));
       }
 
-      ++v145;
+      ++v149;
     }
 
-    while (v145 != 32);
+    while (v149 != 32);
     if (*(this + 87))
     {
       interchange_compression::decompressor::decompress();
     }
 
-    goto LABEL_205;
+    return 1;
   }
 
-  if (v142[10] == a3)
+  if (v146[10] == a3)
   {
     for (j = 0; j != 32; ++j)
     {
-      v162 = vdupq_n_s32(j);
-      v163.i64[0] = 0x100000001;
-      v163.i64[1] = 0x100000001;
-      v164 = vshlq_u32(vandq_s8(vshlq_u32(v162, xmmword_2954FC120), v163), xmmword_2954FC110);
-      v165 = vshlq_u32(vandq_s8(vshlq_u32(v162, xmmword_2954FC100), v163), xmmword_2954FC110);
-      interchange_compression::format_info::unpack_pixel((&interchange_compression::format_table + 52 * v141), a2, (*a4)[(vorr_s8(*v164.i8, *&vextq_s8(v164, v164, 8uLL)).u32[0] | v164.i32[1])][vorr_s8(*v165.i8, *&vextq_s8(v165, v165, 8uLL)).u32[0] | v165.i32[1]]);
-      v141 = *(this + 85);
-      a2 += *(&interchange_compression::format_table + 13 * v141 + 1);
+      v166 = vdupq_n_s32(j);
+      v167.i64[0] = 0x100000001;
+      v167.i64[1] = 0x100000001;
+      v168 = vshlq_u32(vandq_s8(vshlq_u32(v166, xmmword_2954FC120), v167), xmmword_2954FC110);
+      v169 = vshlq_u32(vandq_s8(vshlq_u32(v166, xmmword_2954FC100), v167), xmmword_2954FC110);
+      interchange_compression::format_info::unpack_pixel((&interchange_compression::format_table + 52 * v145), a2, (*a4)[(vorr_s8(*v168.i8, *&vextq_s8(v168, v168, 8uLL)).u32[0] | v168.i32[1])][vorr_s8(*v169.i8, *&vextq_s8(v169, v169, 8uLL)).u32[0] | v169.i32[1]]);
+      v145 = *(this + 85);
+      a2 += *(&interchange_compression::format_table + 13 * v145 + 1);
     }
 
     if (*(this + 87))
@@ -5150,36 +3156,31 @@ LABEL_51:
       interchange_compression::decompressor::decompress();
     }
 
-    goto LABEL_205;
+    return 1;
   }
 
-  v166 = ((a3 & ~(-1 << v8)) + 1) << (v141 == 26);
-  v167 = interchange_compression::memory_parameters[11 * v141 + 5];
-  v204 = a2;
-  if (v167 >= v166)
+  v170 = ((a3 & ~(-1 << v8)) + 1) << (v145 == 26);
+  v171 = interchange_compression::memory_parameters[11 * v145 + 5];
+  v207 = a2;
+  if (v171 >= v170)
   {
-    v167 = v166;
+    v171 = v170;
   }
 
-  v203 = v167;
-  v207 = 1;
-  v206 = 0;
-  v205 = 8 * v167;
-  if (!interchange_compression::decompressor::unpack_header(this, a2, a3, v202))
+  v206 = v171;
+  v210 = 1;
+  v209 = 0;
+  v208 = 8 * v171;
+  if (interchange_compression::decompressor::unpack_header(this, a2, a3, v205))
   {
+    interchange_compression::decompressor::decompress_pixels(this, a2, a3, v205, a4);
+    interchange_compression::decompressor::decorrelate(this, a4);
+    return 1;
+  }
+
 LABEL_215:
-    interchange_compression::decompressor::fill_subblock_error_color(this, a4);
-    result = 0;
-    goto LABEL_216;
-  }
-
-  interchange_compression::decompressor::decompress_pixels(this, a2, a3, v202, a4);
-  interchange_compression::decompressor::decorrelate(this, a4);
-LABEL_205:
-  result = 1;
-LABEL_216:
-  v168 = *MEMORY[0x29EDCA608];
-  return result;
+  interchange_compression::decompressor::fill_subblock_error_color(this, a4);
+  return 0;
 }
 
 uint64_t interchange_compression::header::set(interchange_compression::header *this, unsigned int a2, unsigned int a3, unsigned int a4)
@@ -5300,7 +3301,7 @@ uint64_t interchange_compression::header::get_size(interchange_compression::head
   }
 }
 
-uint64_t interchange_compression::get_id(interchange_compression *this)
+uint64_t interchange_compression::get_id(interchange_compression *this, uint64_t a2)
 {
   if (this <= 11)
   {
@@ -5330,12 +3331,12 @@ uint64_t interchange_compression::get_id(interchange_compression *this)
 
   if (this == 2)
   {
-    v1 = 5;
+    v2 = 5;
   }
 
   else
   {
-    v1 = 6;
+    v2 = 6;
   }
 
   if ((this | 2) != 2)
@@ -5343,7 +3344,7 @@ uint64_t interchange_compression::get_id(interchange_compression *this)
     interchange_compression::get_id(this);
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t interchange_compression::derive_sharing(uint64_t this, uint64_t a2, unsigned int *a3, unsigned int *a4, int (*a5)[4], int (*a6)[4])
@@ -5398,7 +3399,7 @@ uint64_t interchange_compression::derive_sharing(uint64_t this, uint64_t a2, uns
       v10 = v9;
     }
 
-    v15 = interchange_compression::dq_consts[160 * *(a2 + 4 * v9) + 6 + 10 * v14];
+    v15 = interchange_compression::dq_consts[80 * *(a2 + 4 * v9) + 3 + 5 * v14];
     (*a5)[v9] = v15;
     a4[v9++] = v15;
   }
@@ -5564,7 +3565,7 @@ uint64_t interchange_compression::adjust_level(uint64_t this, int a2, int a3, in
   v7 = a4 - a3;
   if (a4 - a3 < 0)
   {
-    v8 = &interchange_compression::dq_consts + 640 * this + 40 * a2;
+    v8 = &interchange_compression::dq_consts[80 * this + 5 * a2];
     if (*(v8 + 7) < a3 - a4)
     {
       --*a6;
@@ -5747,7 +3748,6 @@ void *interchange_compression::format_info::unpack_pixel(interchange_compression
     while (v6 < *(this + 2));
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -5990,27 +3990,27 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
 {
   v5 = 0;
   v6 = 0;
-  v91 = *MEMORY[0x29EDCA608];
+  v90 = *MEMORY[0x29EDCA608];
   v7 = this + 4;
-  v78 = (this + 12);
+  v77 = (this + 12);
   v8 = 0uLL;
-  v83 = a5;
-  v89 = this;
+  v82 = a5;
+  v88 = this;
   do
   {
     v9 = 0;
-    v77 = v5;
-    v87 = v5 >> 2 << 6;
-    v80 = (*a5)[2 * (v6 & 1)] + v87;
-    v82 = 4 * (v5 >> 2);
-    v90[6] = v8;
-    v90[7] = v8;
-    v90[4] = v8;
-    v90[5] = v8;
-    v90[2] = v8;
-    v90[3] = v8;
-    v90[0] = v8;
-    v90[1] = v8;
+    v76 = v5;
+    v86 = v5 >> 2 << 6;
+    v79 = (*a5)[2 * (v6 & 1)] + v86;
+    v81 = 4 * (v5 >> 2);
+    v89[6] = v8;
+    v89[7] = v8;
+    v89[4] = v8;
+    v89[5] = v8;
+    v89[2] = v8;
+    v89[3] = v8;
+    v89[0] = v8;
+    v89[1] = v8;
     if (interchange_compression::NUM_PIXELS_REGION[v6] <= 1u)
     {
       v10 = 1;
@@ -6023,7 +4023,7 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
 
     v11 = *(this + 340);
     v12 = v11;
-    v85 = v10;
+    v84 = v10;
     do
     {
       if (v12 == 27)
@@ -6035,10 +4035,10 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
       {
         v14 = 0;
         v13 = v9 + 1;
-        v15 = v90;
-        v16 = v78;
+        v15 = v89;
+        v16 = v77;
         v17 = &unk_2954FD8EC;
-        v18 = v78;
+        v18 = v77;
         do
         {
           v19 = *v18;
@@ -6135,7 +4135,7 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
           v33 = vshlq_u32(vandq_s8(vshlq_u32(v30, xmmword_2954FC100), v31), xmmword_2954FC110);
           LODWORD(v15[4 * (vorr_s8(*v32.i8, *&vextq_s8(v32, v32, 8uLL)).u32[0] | v32.i32[1]) + (vorr_s8(*v33.i8, *&vextq_s8(v33, v33, 8uLL)).u32[0] | v33.i32[1])]) = v28 << -v23 >> -v23;
           ++v14;
-          v12 = *(v89 + 340);
+          v12 = *(v88 + 340);
           ++v17;
           v15 = (v15 + 4);
           v16 = v18;
@@ -6143,22 +4143,22 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
         }
 
         while (v14 < *(&interchange_compression::format_table + 13 * v12 + 2));
-        v11 = *(v89 + 340);
-        a5 = v83;
-        this = v89;
-        v10 = v85;
+        v11 = *(v88 + 340);
+        a5 = v82;
+        this = v88;
+        v10 = v84;
       }
 
       v9 = v13;
     }
 
     while (v13 != v10);
-    v34 = v87;
+    v34 = v86;
     if (v11 != 27)
     {
       v35 = 0;
       v36 = (2 * v6) & 2;
-      v79 = v90;
+      v78 = v89;
       do
       {
         if (!*(v7 + 12 * v35 + 8))
@@ -6236,8 +4236,8 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
           v49 = (v38 & 1 | 2) != 2;
         }
 
-        v86 = (v7 + 12 * (v37 + 8) + 8);
-        if (!*v86)
+        v85 = (v7 + 12 * (v37 + 8) + 8);
+        if (!*v85)
         {
           interchange_compression::decompressor::unpack_header();
         }
@@ -6256,15 +4256,15 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
         {
           v59 = 0;
           v60 = 0;
-          v81 = v58;
+          v80 = v58;
           v61 = -v50;
-          v84 = v50 | v36;
-          v62 = &v79[4 * v50];
+          v83 = v50 | v36;
+          v62 = &v78[4 * v50];
           v63 = v6 & 1 ^ v50 ^ 1;
-          v64 = &v80[128 * v50];
+          v64 = &v79[128 * v50];
           v65 = v63 | v36;
           v66 = 3;
-          v67 = &v90[4 * v63];
+          v67 = &v89[4 * v63];
           do
           {
             if (v61 != v36 || v34 + v59 * 16)
@@ -6310,7 +4310,7 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
                     interchange_compression::decompressor::unpack_header();
                   }
 
-                  if (!*v86)
+                  if (!*v85)
                   {
                     interchange_compression::decompressor::unpack_header();
                   }
@@ -6320,10 +4320,10 @@ uint64_t interchange_compression::decompressor::decompress_pixels(uint64_t this,
                     interchange_compression::decompressor::decompress_pixels();
                   }
 
-                  this = v89;
-                  a5 = v83;
-                  v71 = *v52 - v69 + LODWORD(v62[v59]) + ((*(v57 + 4) << -(v70 >> 1)) >> -(v70 >> 1)) * v84 + ((*(v56 + 4) << -(v70 >> 1)) >> -(v70 >> 1)) * (v82 + v60);
-                  v34 = v87;
+                  this = v88;
+                  a5 = v82;
+                  v71 = *v52 - v69 + LODWORD(v62[v59]) + ((*(v57 + 4) << -(v70 >> 1)) >> -(v70 >> 1)) * v83 + ((*(v56 + 4) << -(v70 >> 1)) >> -(v70 >> 1)) * (v81 + v60);
+                  v34 = v86;
 LABEL_79:
                   v72 = ((v71 & ~(-1 << v70)) << -v70) >> -v70;
                 }
@@ -6339,7 +4339,7 @@ LABEL_79:
 
               if (!v46)
               {
-                if (!*v86)
+                if (!*v85)
                 {
                   interchange_compression::decompressor::unpack_header();
                 }
@@ -6371,7 +4371,7 @@ LABEL_79:
               }
 
               v75 = v74 | (2 * v6) & 4;
-              v34 = v87;
+              v34 = v86;
               (*a5)[v65][v75][v37] = ((((*a5)[dword_2954FDE90[16 * v65 + 1 + 2 * v75]][dword_2954FDE90[16 * v65 + 2 * v75]][v37] - v69 + *(&v67[v74] + v37)) & ~(-1 << v73)) << -v73) >> -v73;
             }
 
@@ -6386,22 +4386,21 @@ LABEL_87:
           v50 = 1;
         }
 
-        while ((v81 & 1) != 0);
+        while ((v80 & 1) != 0);
         v35 = v37 + 1;
         v11 = *(this + 340);
-        v79 = (v79 + 4);
-        v80 += 4;
+        v78 = (v78 + 4);
+        v79 += 4;
       }
 
       while ((v37 + 1) < *(&interchange_compression::format_table + 13 * v11 + 2));
     }
 
     ++v6;
-    v5 = v77 + 2;
+    v5 = v76 + 2;
   }
 
   while (v6 != 4);
-  v76 = *MEMORY[0x29EDCA608];
   return this;
 }
 

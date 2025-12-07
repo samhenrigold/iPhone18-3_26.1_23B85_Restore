@@ -59,7 +59,7 @@
 - (NSArray)actions
 {
   swift_beginAccess();
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
 
   v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
@@ -68,7 +68,7 @@
 
 - (void)setActions:(id)actions
 {
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = OBJC_IVAR___DOCActionManager_actions;
   swift_beginAccess();
@@ -77,14 +77,14 @@
 
 - (id)additionalBuiltInActionsFor:(id)for
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   specialized DOCActionManager.additionalBuiltInActions(for:)(v4);
 
   type metadata accessor for FPAction(0);
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
-  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_16(&lazy protocol witness table cache variable for type FPAction and conformance FPAction, type metadata accessor for FPAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
+  _s8Dispatch0A13WorkItemFlagsVACs10SetAlgebraAAWlTm_16(&lazy protocol witness table cache variable for type FPAction and conformance FPAction, type metadata accessor for FPAction, &protocol conformance descriptor for FPAction);
   v6.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   return v6.super.isa;
@@ -119,7 +119,7 @@
 - (id)_filteredMenuActionsFor:(id)for availabilityIdentifier:(int64_t)identifier in:(id)in currentConfiguration:(id)configuration sortOverrideHandler:(id)handler
 {
   v11 = _Block_copy(handler);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   if (v11)
   {
@@ -137,10 +137,10 @@
   configurationCopy = configuration;
   selfCopy = self;
   DOCActionManager._filteredMenuActions(for:availabilityIdentifier:in:currentConfiguration:sortOverrideHandler:)(v12, identifier, in, configurationCopy, v11, v13);
-  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v11);
+  outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v11, v13);
   swift_unknownObjectRelease();
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
   v16.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v16.super.isa;
@@ -148,7 +148,7 @@
 
 - (id)builtinActionsForNodes:(id)nodes inNode:(id)node currentConfiguration:(id)configuration
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo7DOCNode_pMd, &_sSo7DOCNode_pMR);
   v8 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_unknownObjectRetain();
   configurationCopy = configuration;
@@ -156,7 +156,7 @@
   DOCActionManager.builtinActions(for:in:currentConfiguration:)(v8, node, configurationCopy);
   swift_unknownObjectRelease();
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
   v11.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v11.super.isa;
@@ -170,7 +170,7 @@
   specialized DOCActionManager.sharedWithYouActions(for:presentingViewController:)(for, controllerCopy);
   swift_unknownObjectRelease();
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
   v9.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v9.super.isa;
@@ -184,7 +184,7 @@
   specialized DOCActionManager.returnToSenderActions(for:presentingViewController:)();
   swift_unknownObjectRelease();
 
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for UIDocumentBrowserAction, 0x277D05F28);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;
@@ -225,7 +225,7 @@
   v6 = _Block_copy(handler);
   v7 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v9 = v8;
-  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPSandboxingURLWrapper);
+  type metadata accessor for NSMutableAttributedString(0, &lazy cache variable for type metadata for FPSandboxingURLWrapper, 0x277CC6438);
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v11 = swift_allocObject();
   *(v11 + 16) = v6;

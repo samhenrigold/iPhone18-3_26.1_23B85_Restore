@@ -1,6 +1,7 @@
 @interface TIDiagnosticHelper
 + (id)sharedInstance;
 - (TIDiagnosticHelper)init;
+- (id)registerForSignal:(int)signal withBlock:(id)block;
 - (void)dealloc;
 - (void)handleMachMessage:(void *)message;
 - (void)unregisterSignalHandler:(id)handler;
@@ -88,40 +89,64 @@
 
 - (void)handleMachMessage:(void *)message
 {
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
   handlers = self->_handlers;
-  v5 = [NSNumber numberWithInt:*(message + 5), 0];
-  v6 = [(NSMutableDictionary *)handlers objectForKey:v5];
+  v4 = [NSNumber numberWithInt:*(message + 5), 0];
+  v5 = [(NSMutableDictionary *)handlers objectForKey:v4];
 
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v7)
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v13;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(message + 5);
-        (*(*(*(&v12 + 1) + 8 * v10) + 16))();
-        v10 = v10 + 1;
+        (*(*(*(&v10 + 1) + 8 * v9) + 16))();
+        v9 = v9 + 1;
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v7 != v9);
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
+}
+
+- (id)registerForSignal:(int)signal withBlock:(id)block
+{
+  v4 = *&signal;
+  blockCopy = block;
+  v7 = [NSNumber numberWithInt:v4];
+  v8 = [(NSMutableDictionary *)self->_handlers objectForKey:v7];
+  if (!v8)
+  {
+    v8 = +[NSMutableArray array];
+    [(NSMutableDictionary *)self->_handlers setObject:v8 forKey:v7];
+    signal(v4, sub_100003664);
+  }
+
+  v9 = [blockCopy copy];
+  v10 = objc_retainBlock(v9);
+  [v8 addObject:v10];
+
+  v14[0] = v7;
+  v11 = objc_retainBlock(v9);
+  v14[1] = v11;
+  v12 = [NSArray arrayWithObjects:v14 count:2];
+
+  return v12;
 }
 
 - (void)unregisterSignalHandler:(id)handler

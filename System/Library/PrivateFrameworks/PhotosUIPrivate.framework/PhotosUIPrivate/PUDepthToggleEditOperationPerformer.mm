@@ -119,7 +119,7 @@ void __83__PUDepthToggleEditOperationPerformer__resourceLoadedWithResult_editOpe
 
     if (resultCopy)
     {
-      [resultCopy videoComplementOriginalStillImageTime];
+      objc_msgSend_videoComplementOriginalStillImageTime(resultCopy);
     }
 
     else

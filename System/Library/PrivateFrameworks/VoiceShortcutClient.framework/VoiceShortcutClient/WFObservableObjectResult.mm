@@ -68,15 +68,15 @@ void __53__WFObservableObjectResult_handleChangeNotification___block_invoke(uint
 
 void __53__WFObservableObjectResult_handleChangeNotification___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
   {
     if (v5)
     {
-      v15[0] = v5;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      v14[0] = v5;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
     }
 
     else
@@ -87,19 +87,17 @@ void __53__WFObservableObjectResult_handleChangeNotification___block_invoke_2(ui
     [*(a1 + 32) glyphSize];
     v9 = v8;
     v11 = v10;
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __53__WFObservableObjectResult_handleChangeNotification___block_invoke_3;
-    v13[3] = &unk_1E7B02180;
-    v13[4] = *(a1 + 32);
-    v14 = v5;
-    [WFObservableResult drawGlyphsIntoWorkflowsIfNecessary:v7 glyphSize:v13 completion:v9, v11];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __53__WFObservableObjectResult_handleChangeNotification___block_invoke_3;
+    v12[3] = &unk_1E7B02180;
+    v12[4] = *(a1 + 32);
+    v13 = v5;
+    [WFObservableResult drawGlyphsIntoWorkflowsIfNecessary:v7 glyphSize:v12 completion:v9, v11];
     if (v5)
     {
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __53__WFObservableObjectResult_handleChangeNotification___block_invoke_3(uint64_t a1)
@@ -117,52 +115,50 @@ void __53__WFObservableObjectResult_handleChangeNotification___block_invoke_3(ui
 
 void __53__WFObservableObjectResult_handleChangeNotification___block_invoke_4(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   objc_storeStrong((*(a1 + 32) + 64), *(a1 + 40));
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v2 = [*(a1 + 32) observers];
   v3 = [v2 allObjects];
 
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
+        v8 = *(*(&v12 + 1) + 8 * v7);
         v9 = [*(a1 + 32) observerNotificationQueue];
-        v12[0] = MEMORY[0x1E69E9820];
-        v12[1] = 3221225472;
-        v12[2] = __53__WFObservableObjectResult_handleChangeNotification___block_invoke_5;
-        v12[3] = &unk_1E7B02180;
+        v11[0] = MEMORY[0x1E69E9820];
+        v11[1] = 3221225472;
+        v11[2] = __53__WFObservableObjectResult_handleChangeNotification___block_invoke_5;
+        v11[3] = &unk_1E7B02180;
         v10 = *(a1 + 32);
-        v12[4] = v8;
-        v12[5] = v10;
-        dispatch_async(v9, v12);
+        v11[4] = v8;
+        v11[5] = v10;
+        dispatch_async(v9, v11);
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (WFObservableObjectResult)initWithValueType:(Class)type glyphSize:(CGSize)size initialValue:(id)value descriptor:(id)descriptor
@@ -189,17 +185,17 @@ void __53__WFObservableObjectResult_handleChangeNotification___block_invoke_4(ui
 {
   height = size.height;
   width = size.width;
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
   v12 = +[VCVoiceShortcutClient standardClient];
-  v20 = 0;
-  v13 = [v12 getValueForDescriptor:descriptorCopy resultClass:type error:&v20];
-  v14 = v20;
+  v19 = 0;
+  v13 = [v12 getValueForDescriptor:descriptorCopy resultClass:type error:&v19];
+  v14 = v19;
 
   if (v13)
   {
-    v21[0] = v13;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+    v20[0] = v13;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
     [self drawGlyphsIntoWorkflowsIfNecessary:v15 glyphSize:{width, height}];
 
     height = [[WFObservableObjectResult alloc] initWithValueType:type glyphSize:v13 initialValue:descriptorCopy descriptor:width, height];
@@ -216,8 +212,6 @@ void __53__WFObservableObjectResult_handleChangeNotification___block_invoke_4(ui
   {
     height = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return height;
 }
@@ -246,32 +240,30 @@ void __53__WFObservableObjectResult_handleChangeNotification___block_invoke_4(ui
 
 void __90__WFObservableObjectResult_getResultWithDescriptor_valueType_glyphSize_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3)
   {
     v5 = *(a1 + 48);
-    v14[0] = v3;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __90__WFObservableObjectResult_getResultWithDescriptor_valueType_glyphSize_completionHandler___block_invoke_2;
-    v8[3] = &unk_1E7B018D0;
-    v12 = *(a1 + 72);
-    v13 = *(a1 + 56);
-    v9 = v4;
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    [v5 drawGlyphsIntoWorkflowsIfNecessary:v6 glyphSize:v8 completion:{*(a1 + 56), *(a1 + 64)}];
+    v13[0] = v3;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __90__WFObservableObjectResult_getResultWithDescriptor_valueType_glyphSize_completionHandler___block_invoke_2;
+    v7[3] = &unk_1E7B018D0;
+    v11 = *(a1 + 72);
+    v12 = *(a1 + 56);
+    v8 = v4;
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    [v5 drawGlyphsIntoWorkflowsIfNecessary:v6 glyphSize:v7 completion:{*(a1 + 56), *(a1 + 64)}];
   }
 
   else
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __90__WFObservableObjectResult_getResultWithDescriptor_valueType_glyphSize_completionHandler___block_invoke_2(uint64_t a1)

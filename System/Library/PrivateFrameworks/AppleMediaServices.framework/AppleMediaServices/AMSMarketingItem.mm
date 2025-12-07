@@ -34,7 +34,7 @@
 
 - (NSDictionary)artworkDictionary
 {
-  v3 = off_1F0719CD8(off_1F0719C70);
+  v3 = off_1F0719CD8(off_1F0719C70, a2);
   rawValues = [(AMSMarketingItem *)self rawValues];
   v5 = [rawValues valueForKeyPath:v3];
 
@@ -107,7 +107,7 @@ LABEL_10:
 
 - (NSString)badge
 {
-  v3 = off_1F0719CD8(off_1F0719C78);
+  v3 = off_1F0719CD8(off_1F0719C78, a2);
   rawValues = [(AMSMarketingItem *)self rawValues];
   v5 = [rawValues valueForKeyPath:v3];
 
@@ -127,7 +127,7 @@ LABEL_10:
 
 - (NSString)campaignID
 {
-  v3 = off_1F0719CD8(off_1F0719C80);
+  v3 = off_1F0719CD8(off_1F0719C80, a2);
   rawValues = [(AMSMarketingItem *)self rawValues];
   v5 = [rawValues valueForKeyPath:v3];
 
@@ -169,7 +169,7 @@ LABEL_10:
 {
   v3 = off_1F0719C88;
   v4 = off_1F0719CD8;
-  v5 = off_1F0719CD8(v3);
+  v5 = (off_1F0719CD8)(v3);
   rawValues = [(AMSMarketingItem *)self rawValues];
   v7 = [rawValues valueForKeyPath:v5];
 
@@ -231,7 +231,7 @@ AMSMarketingItemAction *__31__AMSMarketingItem_itemActions__block_invoke(uint64_
 
 - (NSArray)relatedContent
 {
-  v3 = off_1F0719D80();
+  v3 = off_1F0719D80(self, a2);
   rawValues = [(AMSMarketingItem *)self rawValues];
   v5 = [rawValues valueForKeyPath:v3];
 
@@ -251,7 +251,7 @@ AMSMarketingItemAction *__31__AMSMarketingItem_itemActions__block_invoke(uint64_
 
 - (NSString)serviceType
 {
-  v3 = off_1F0719CD8(off_1F0719C98);
+  v3 = off_1F0719CD8(off_1F0719C98, a2);
   rawValues = [(AMSMarketingItem *)self rawValues];
   v5 = [rawValues valueForKeyPath:v3];
 
@@ -271,7 +271,7 @@ AMSMarketingItemAction *__31__AMSMarketingItem_itemActions__block_invoke(uint64_
 
 - (NSString)subtitle
 {
-  v3 = off_1F0719CD8(off_1F0719CA0);
+  v3 = off_1F0719CD8(off_1F0719CA0, a2);
   rawValues = [(AMSMarketingItem *)self rawValues];
   v5 = [rawValues valueForKeyPath:v3];
 
@@ -291,7 +291,7 @@ AMSMarketingItemAction *__31__AMSMarketingItem_itemActions__block_invoke(uint64_
 
 - (NSString)templateID
 {
-  v3 = off_1F0719CD8(off_1F0719CA8);
+  v3 = off_1F0719CD8(off_1F0719CA8, a2);
   rawValues = [(AMSMarketingItem *)self rawValues];
   v5 = [rawValues valueForKeyPath:v3];
 
@@ -311,7 +311,7 @@ AMSMarketingItemAction *__31__AMSMarketingItem_itemActions__block_invoke(uint64_
 
 - (NSString)title
 {
-  v3 = off_1F0719CD8(off_1F0719CB8);
+  v3 = off_1F0719CD8(off_1F0719CB8, a2);
   rawValues = [(AMSMarketingItem *)self rawValues];
   v5 = [rawValues valueForKeyPath:v3];
 
@@ -351,7 +351,7 @@ AMSMarketingItemAction *__31__AMSMarketingItem_itemActions__block_invoke(uint64_
 
 - (NSArray)videos
 {
-  v3 = off_1F0719CD8(off_1F0719CC8);
+  v3 = off_1F0719CD8(off_1F0719CC8, a2);
   rawValues = [(AMSMarketingItem *)self rawValues];
   allValues = [rawValues valueForKeyPath:v3];
 

@@ -3,12 +3,22 @@
 - (NSDictionary)payload;
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)updateAgeInYears:(id)years;
+- (void)updateAreHealthNotificationsAuthorized:(BOOL)authorized;
 - (void)updateCountAnalyzedTachogramsPast24Hours:(int64_t)hours;
 - (void)updateCountMobileAssetsDownloadedPast24Hours:(int64_t)hours;
 - (void)updateCountRecordedTachogramsPast24Hours:(int64_t)hours;
 - (void)updateElectrocardiogramClassificationCount:(int64_t)count;
 - (void)updateIrregularRhythmNotificationClassificationCount:(int64_t)count;
+- (void)updateIsBradycardiaDetectionEnabled:(BOOL)enabled;
+- (void)updateIsEcgOnboarded:(BOOL)onboarded;
+- (void)updateIsGlucoseEnhancedChartingDelivered:(BOOL)delivered;
+- (void)updateIsImproveHealthAndActivityAllowed:(BOOL)allowed;
+- (void)updateIsIrnOnboarded:(BOOL)onboarded;
+- (void)updateIsMenstrualCyclesHeartRateInputDelivered:(BOOL)delivered;
+- (void)updateIsRespiratoryRateDelivered:(BOOL)delivered;
+- (void)updateIsTachycardiaDetectionEnabled:(BOOL)enabled;
 - (void)updateSex:(int64_t)sex;
+- (void)updateWasWatchWornPast24Hours:(BOOL)hours;
 - (void)updateWithElectrocardiogramClassifications:(id)classifications isWithin24HoursPostIRN:(BOOL)n;
 @end
 
@@ -32,7 +42,7 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(objc_opt_class());
-  v5 = [(NSMutableDictionary *)self->_payload copy];
+  v5 = objc_msgSend_copy(self->_payload);
   v6 = v4[1];
   v4[1] = v5;
 
@@ -41,9 +51,27 @@
 
 - (NSDictionary)payload
 {
-  v2 = [(NSMutableDictionary *)self->_payload copy];
+  v2 = objc_msgSend_copy(self->_payload, a2);
 
   return v2;
+}
+
+- (void)updateIsEcgOnboarded:(BOOL)onboarded
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:onboarded];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"isECGOnboarded"];
+}
+
+- (void)updateIsIrnOnboarded:(BOOL)onboarded
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:onboarded];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"isIRNOnboarded"];
+}
+
+- (void)updateIsImproveHealthAndActivityAllowed:(BOOL)allowed
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:allowed];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"isImproveHealthAndActivityAllowed"];
 }
 
 - (void)updateElectrocardiogramClassificationCount:(int64_t)count
@@ -61,28 +89,28 @@
 - (void)updateWithElectrocardiogramClassifications:(id)classifications isWithin24HoursPostIRN:(BOOL)n
 {
   nCopy = n;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   classificationsCopy = classifications;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = [classificationsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [classificationsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       v10 = 0;
       do
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(classificationsCopy);
         }
 
-        unsignedIntegerValue = [*(*(&v20 + 1) + 8 * v10) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v19 + 1) + 8 * v10) unsignedIntegerValue];
         if (!nCopy)
         {
           if (self)
@@ -135,14 +163,18 @@ LABEL_13:
       }
 
       while (v8 != v10);
-      v18 = [classificationsCopy countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v18 = [classificationsCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
       v8 = v18;
     }
 
     while (v18);
   }
+}
 
-  v19 = *MEMORY[0x277D85DE8];
+- (void)updateWasWatchWornPast24Hours:(BOOL)hours
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:hours];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"wasWatchWornPast24Hours"];
 }
 
 - (void)updateCountRecordedTachogramsPast24Hours:(int64_t)hours
@@ -220,6 +252,42 @@ LABEL_13:
   }
 
   [(NSMutableDictionary *)self->_payload setObject:v3 forKeyedSubscript:@"sex"];
+}
+
+- (void)updateAreHealthNotificationsAuthorized:(BOOL)authorized
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:authorized];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"areHealthNotificationsAuthorized"];
+}
+
+- (void)updateIsGlucoseEnhancedChartingDelivered:(BOOL)delivered
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:delivered];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"isGlucoseEnhancedChartingDelivered"];
+}
+
+- (void)updateIsTachycardiaDetectionEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"isTachycardiaDetectionEnabled"];
+}
+
+- (void)updateIsBradycardiaDetectionEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:enabled];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"isBradycardiaDetectionEnabled"];
+}
+
+- (void)updateIsMenstrualCyclesHeartRateInputDelivered:(BOOL)delivered
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:delivered];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"isMenstrualCyclesHeartRateInputDelivered"];
+}
+
+- (void)updateIsRespiratoryRateDelivered:(BOOL)delivered
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:delivered];
+  [(NSMutableDictionary *)self->_payload setObject:v4 forKeyedSubscript:@"isRespiratoryRateDelivered"];
 }
 
 @end

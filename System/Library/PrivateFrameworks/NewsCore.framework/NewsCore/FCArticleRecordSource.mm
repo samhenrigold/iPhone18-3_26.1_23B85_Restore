@@ -54,9 +54,11 @@
 
 uint64_t __47__FCArticleRecordSource_experimentalizableKeys__block_invoke_2()
 {
-  qword_1EDB26A40 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"activeExperimentID", 0}];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"activeExperimentID", 0}];
+  v1 = qword_1EDB26A40;
+  qword_1EDB26A40 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)localizableExperimentalizableKeys
@@ -73,9 +75,11 @@ uint64_t __47__FCArticleRecordSource_experimentalizableKeys__block_invoke_2()
 
 uint64_t __58__FCArticleRecordSource_localizableExperimentalizableKeys__block_invoke_2()
 {
-  qword_1EDB26A50 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"topicFlags", 0}];
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:{@"topicFlags", 0}];
+  v1 = qword_1EDB26A50;
+  qword_1EDB26A50 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (id)experimentalizableKeys
@@ -124,7 +128,7 @@ uint64_t __58__FCArticleRecordSource_localizableExperimentalizableKeys__block_in
 
 - (FCArticleRecordSource)initWithContentDatabase:(id)database contentDirectory:(id)directory appActivityMonitor:(id)monitor backgroundTaskable:(id)taskable defaultTTL:(double)l desiredArticleRecordFieldOptions:(unint64_t)options experimentalizableFieldsPostfix:(id)postfix engagementCohortsExpField:(id)self0 conversionCohortsExpField:(id)self1 activeTreatmentID:(id)self2
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   directoryCopy = directory;
   monitorCopy = monitor;
@@ -135,15 +139,15 @@ uint64_t __58__FCArticleRecordSource_localizableExperimentalizableKeys__block_in
   dCopy = d;
   if (!databaseCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentDatabase"];
+    v32 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentDatabase"];
     *buf = 136315906;
-    v37 = "[FCArticleRecordSource initWithContentDatabase:contentDirectory:appActivityMonitor:backgroundTaskable:defaultTTL:desiredArticleRecordFieldOptions:experimentalizableFieldsPostfix:engagementCohortsExpField:conversionCohortsExpField:activeTreatmentID:]";
-    v38 = 2080;
-    v39 = "FCArticleRecordSource.m";
-    v40 = 1024;
-    v41 = 366;
-    v42 = 2114;
-    v43 = v33;
+    v36 = "[FCArticleRecordSource initWithContentDatabase:contentDirectory:appActivityMonitor:backgroundTaskable:defaultTTL:desiredArticleRecordFieldOptions:experimentalizableFieldsPostfix:engagementCohortsExpField:conversionCohortsExpField:activeTreatmentID:]";
+    v37 = 2080;
+    v38 = "FCArticleRecordSource.m";
+    v39 = 1024;
+    v40 = 366;
+    v41 = 2114;
+    v42 = v32;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (directoryCopy)
@@ -159,22 +163,22 @@ uint64_t __58__FCArticleRecordSource_localizableExperimentalizableKeys__block_in
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v34 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentDirectory"];
+    v33 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentDirectory"];
     *buf = 136315906;
-    v37 = "[FCArticleRecordSource initWithContentDatabase:contentDirectory:appActivityMonitor:backgroundTaskable:defaultTTL:desiredArticleRecordFieldOptions:experimentalizableFieldsPostfix:engagementCohortsExpField:conversionCohortsExpField:activeTreatmentID:]";
-    v38 = 2080;
-    v39 = "FCArticleRecordSource.m";
-    v40 = 1024;
-    v41 = 367;
-    v42 = 2114;
-    v43 = v34;
+    v36 = "[FCArticleRecordSource initWithContentDatabase:contentDirectory:appActivityMonitor:backgroundTaskable:defaultTTL:desiredArticleRecordFieldOptions:experimentalizableFieldsPostfix:engagementCohortsExpField:conversionCohortsExpField:activeTreatmentID:]";
+    v37 = 2080;
+    v38 = "FCArticleRecordSource.m";
+    v39 = 1024;
+    v40 = 367;
+    v41 = 2114;
+    v42 = v33;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v35.receiver = self;
-  v35.super_class = FCArticleRecordSource;
-  v27 = [(FCRecordSource *)&v35 initWithContentDatabase:databaseCopy contentDirectory:directoryCopy appActivityMonitor:monitorCopy backgroundTaskable:taskableCopy defaultTTL:postfixCopy experimentalizableFieldsPostfix:dCopy activeTreatmentID:l];
+  v34.receiver = self;
+  v34.super_class = FCArticleRecordSource;
+  v27 = [(FCRecordSource *)&v34 initWithContentDatabase:databaseCopy contentDirectory:directoryCopy appActivityMonitor:monitorCopy backgroundTaskable:taskableCopy defaultTTL:postfixCopy experimentalizableFieldsPostfix:dCopy activeTreatmentID:l];
   v28 = v27;
   if (v27)
   {
@@ -186,7 +190,6 @@ LABEL_6:
     [(FCArticleRecordSource *)v28 _setEngagementCohortsExpField:fieldCopy conversionCohortsExpField:expFieldCopy];
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v28;
 }
 
@@ -285,7 +288,7 @@ void __81__FCArticleRecordSource__setEngagementCohortsExpField_conversionCohorts
 
 - (id)recordFromCKRecord:(id)record base:(id)base
 {
-  v157 = *MEMORY[0x1E69E9840];
+  v156 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   v7 = MEMORY[0x1E69B6CF8];
   baseCopy = base;
@@ -698,24 +701,22 @@ LABEL_14:
 
     if (!flintDocumentURL && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT))
     {
-      v144 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v143 = objc_alloc(MEMORY[0x1E696AEC0]);
       base = [v9 base];
       identifier = [base identifier];
       recordType = [recordCopy recordType];
-      v146 = [v144 initWithFormat:@"an ANF article record should always have a document URL, id=%@, type=%@", identifier, recordType];
+      v145 = [v143 initWithFormat:@"an ANF article record should always have a document URL, id=%@, type=%@", identifier, recordType];
       *buf = 136315906;
-      v150 = "[FCArticleRecordSource recordFromCKRecord:base:]";
-      v151 = 2080;
-      v152 = "FCArticleRecordSource.m";
-      v153 = 1024;
-      v154 = 653;
-      v155 = 2114;
-      v156 = v146;
+      v149 = "[FCArticleRecordSource recordFromCKRecord:base:]";
+      v150 = 2080;
+      v151 = "FCArticleRecordSource.m";
+      v152 = 1024;
+      v153 = 653;
+      v154 = 2114;
+      v155 = v145;
       _os_log_fault_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT, "*** Assertion failure (Identifier: MissingANFDocument) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
-
-  v142 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -931,27 +932,27 @@ void __53__FCArticleRecordSource_articleTagMetadataRecordKeys__block_invoke_2(ui
 
 - (id)articleTagMetadataFromCKRecord:(id)record
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   recordCopy = record;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   articleTagMetadataRecordKeys = [(FCArticleRecordSource *)self articleTagMetadataRecordKeys];
-  v6 = [articleTagMetadataRecordKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [articleTagMetadataRecordKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(articleTagMetadataRecordKeys);
         }
 
-        v9 = [recordCopy objectForKey:*(*(&v13 + 1) + 8 * i)];
+        v9 = [recordCopy objectForKey:*(*(&v12 + 1) + 8 * i)];
         if (v9)
         {
           v10 = v9;
@@ -961,7 +962,7 @@ void __53__FCArticleRecordSource_articleTagMetadataRecordKeys__block_invoke_2(ui
         }
       }
 
-      v6 = [articleTagMetadataRecordKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [articleTagMetadataRecordKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -973,14 +974,12 @@ void __53__FCArticleRecordSource_articleTagMetadataRecordKeys__block_invoke_2(ui
 
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)articleTopicsFromCKRecord:(id)record engagement:(id)engagement conversionStats:(id)stats tagMetadata:(id)metadata
 {
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   engagementCopy = engagement;
   statsCopy = stats;
@@ -989,18 +988,18 @@ LABEL_11:
   v15 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v14, "count")}];
   topicCohortScores = [engagementCopy topicCohortScores];
 
-  v46 = v14;
+  v45 = v14;
   if (topicCohortScores)
   {
     topicCohortScores2 = [engagementCopy topicCohortScores];
-    v59[0] = MEMORY[0x1E69E9820];
-    v59[1] = 3221225472;
-    v59[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke;
-    v59[3] = &unk_1E7C3FF98;
-    v60 = v15;
-    [topicCohortScores2 enumerateObjectsUsingBlock:v59];
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke;
+    v58[3] = &unk_1E7C3FF98;
+    v59 = v15;
+    [topicCohortScores2 enumerateObjectsUsingBlock:v58];
 
-    v18 = v60;
+    v18 = v59;
 LABEL_3:
 
     goto LABEL_4;
@@ -1010,86 +1009,85 @@ LABEL_3:
 
   if (topicCohorts)
   {
-    v38 = [v14 count];
+    v37 = [v14 count];
     topicCohorts2 = [engagementCopy topicCohorts];
-    v40 = [topicCohorts2 count];
+    v39 = [topicCohorts2 count];
 
-    if (v38 == v40)
+    if (v37 == v39)
     {
       topicCohorts3 = [engagementCopy topicCohorts];
-      v57[0] = MEMORY[0x1E69E9820];
-      v57[1] = 3221225472;
-      v57[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke_2;
-      v57[3] = &unk_1E7C3FFC0;
-      v58 = v15;
-      [v46 fc_enumerateSideBySideWithArray:topicCohorts3 reverse:0 block:v57];
+      v56[0] = MEMORY[0x1E69E9820];
+      v56[1] = 3221225472;
+      v56[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke_2;
+      v56[3] = &unk_1E7C3FFC0;
+      v57 = v15;
+      [v45 fc_enumerateSideBySideWithArray:topicCohorts3 reverse:0 block:v56];
 
-      v18 = v58;
+      v18 = v57;
       goto LABEL_3;
     }
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v42 = objc_alloc(MEMORY[0x1E696AEC0]);
+      v41 = objc_alloc(MEMORY[0x1E696AEC0]);
       topicCohorts4 = [engagementCopy topicCohorts];
-      v44 = [v42 initWithFormat:@"Found non nil topicCohorts, but the count doesn't match scoresTopicIDs.\nscoresTopicIDs : %@\nscores.topicCohorts : %@", v46, topicCohorts4];
+      v43 = [v41 initWithFormat:@"Found non nil topicCohorts, but the count doesn't match scoresTopicIDs.\nscoresTopicIDs : %@\nscores.topicCohorts : %@", v45, topicCohorts4];
       *buf = 136315906;
-      v62 = "[FCArticleRecordSource articleTopicsFromCKRecord:engagement:conversionStats:tagMetadata:]";
-      v63 = 2080;
-      v64 = "FCArticleRecordSource.m";
-      v65 = 1024;
-      v66 = 761;
-      v67 = 2114;
-      v68 = v44;
+      v61 = "[FCArticleRecordSource articleTopicsFromCKRecord:engagement:conversionStats:tagMetadata:]";
+      v62 = 2080;
+      v63 = "FCArticleRecordSource.m";
+      v64 = 1024;
+      v65 = 761;
+      v66 = 2114;
+      v67 = v43;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
   }
 
 LABEL_4:
-  v45 = engagementCopy;
+  v44 = engagementCopy;
   v19 = MEMORY[0x1E695DF20];
-  v55[0] = MEMORY[0x1E69E9820];
-  v55[1] = 3221225472;
-  v55[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke_116;
-  v55[3] = &unk_1E7C36EC8;
+  v54[0] = MEMORY[0x1E69E9820];
+  v54[1] = 3221225472;
+  v54[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke_116;
+  v54[3] = &unk_1E7C36EC8;
   v20 = statsCopy;
-  v56 = v20;
-  v21 = [v19 fc_dictionary:v55];
+  v55 = v20;
+  v21 = [v19 fc_dictionary:v54];
   v22 = [recordCopy objectForKey:@"topicTagIDs"];
   v23 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v22, "count")}];
   v24 = [v22 count];
   if (v24 == [metadataCopy count])
   {
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke_3;
-    v53[3] = &unk_1E7C40010;
-    v54 = v23;
-    [v22 fc_enumerateSideBySideWithArray:metadataCopy reverse:0 block:v53];
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke_3;
+    v52[3] = &unk_1E7C40010;
+    v53 = v23;
+    [v22 fc_enumerateSideBySideWithArray:metadataCopy reverse:0 block:v52];
   }
 
   v25 = [(FCArticleRecordSource *)self topicFlagsFromCKRecord:recordCopy];
   v26 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v22, "count")}];
-  v47[0] = MEMORY[0x1E69E9820];
-  v47[1] = 3221225472;
-  v47[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke_4;
-  v47[3] = &unk_1E7C40038;
-  v48 = v15;
-  v49 = v21;
-  v50 = v23;
-  v51 = v25;
+  v46[0] = MEMORY[0x1E69E9820];
+  v46[1] = 3221225472;
+  v46[2] = __90__FCArticleRecordSource_articleTopicsFromCKRecord_engagement_conversionStats_tagMetadata___block_invoke_4;
+  v46[3] = &unk_1E7C40038;
+  v47 = v15;
+  v48 = v21;
+  v49 = v23;
+  v50 = v25;
   v27 = v26;
-  v52 = v27;
+  v51 = v27;
   v28 = v25;
   v29 = v23;
   v30 = v21;
   v31 = v15;
-  [v22 enumerateObjectsUsingBlock:v47];
+  [v22 enumerateObjectsUsingBlock:v46];
   v32 = metadataCopy;
-  v33 = v52;
+  v33 = v51;
   v34 = v27;
 
-  v35 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
@@ -1367,27 +1365,27 @@ void __44__FCArticleRecordSource_embeddingRecordKeys__block_invoke(uint64_t a1, 
 
 - (id)engagementFromCKRecord:(id)record
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   recordCopy = record;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   engagementRecordKeys = [(FCArticleRecordSource *)self engagementRecordKeys];
-  v6 = [engagementRecordKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [engagementRecordKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(engagementRecordKeys);
         }
 
-        v9 = [recordCopy objectForKey:*(*(&v13 + 1) + 8 * i)];
+        v9 = [recordCopy objectForKey:*(*(&v12 + 1) + 8 * i)];
         if (v9)
         {
           v10 = v9;
@@ -1397,7 +1395,7 @@ void __44__FCArticleRecordSource_embeddingRecordKeys__block_invoke(uint64_t a1, 
         }
       }
 
-      v6 = [engagementRecordKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [engagementRecordKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -1409,34 +1407,32 @@ void __44__FCArticleRecordSource_embeddingRecordKeys__block_invoke(uint64_t a1, 
 
 LABEL_11:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (id)conversionStatsFromCKRecord:(id)record
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   recordCopy = record;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   conversionRecordKeys = [(FCArticleRecordSource *)self conversionRecordKeys];
-  v6 = [conversionRecordKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [conversionRecordKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(conversionRecordKeys);
         }
 
-        v9 = [recordCopy objectForKey:*(*(&v13 + 1) + 8 * i)];
+        v9 = [recordCopy objectForKey:*(*(&v12 + 1) + 8 * i)];
         if (v9)
         {
           v10 = v9;
@@ -1446,7 +1442,7 @@ LABEL_11:
         }
       }
 
-      v6 = [conversionRecordKeys countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [conversionRecordKeys countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -1457,8 +1453,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

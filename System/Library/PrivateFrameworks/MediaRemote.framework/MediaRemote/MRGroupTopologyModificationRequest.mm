@@ -248,7 +248,7 @@
 
 + (BOOL)_initiatorShouldClearPredictedRoutesByDefault:(id)default forModificationType:(unint64_t)type
 {
-  v5 = [default isEqualToString:@"RoutePicker"] ^ 1;
+  v5 = objc_msgSend_isEqualToString_(default, a2, @"RoutePicker") ^ 1;
   if (type == 3)
   {
     return v5;

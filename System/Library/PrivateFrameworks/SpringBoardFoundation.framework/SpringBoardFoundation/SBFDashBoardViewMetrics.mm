@@ -178,8 +178,8 @@
   v17 = v16;
   v19 = v18;
   v21 = v20;
-  v45 = width;
-  v46 = height;
+  v47 = width;
+  v48 = height;
   [self suggestedContentInsetsForListForPage:page pageBounds:timeCopy scrollsDateTime:{x, y, width, height}];
   v23 = v22;
   v24 = [SBFDashBoardViewMetrics listLayoutForPage:page];
@@ -190,19 +190,19 @@
     v25 = v26 - v23;
   }
 
-  v52.origin.x = v15;
-  v52.origin.y = v17;
-  v52.size.width = v19;
-  v52.size.height = v21;
-  v27 = CGRectGetHeight(v52) - v25;
+  v54.origin.x = v15;
+  v54.origin.y = v17;
+  v54.size.width = v19;
+  v54.size.height = v21;
+  v27 = CGRectGetHeight(v54) - v25;
   v28 = [SBFDashBoardViewMetrics layoutUsesMargin:v24];
   v29 = [SBFDashBoardViewMetrics layoutCentersContent:v24];
   v30 = v29;
   if (v28)
   {
     [self listWidthForPage:page];
-    v43 = v27;
-    v44 = v31;
+    v45 = v27;
+    v46 = v31;
     if (v30)
     {
       [self listInsetXForPage:page];
@@ -212,13 +212,13 @@
     {
       if (v24 == 4)
       {
-        v58.origin.x = v15;
-        v58.origin.y = v17;
-        v58.size.width = v19;
-        v58.size.height = v21;
-        v40 = CGRectGetWidth(v58) - v44;
+        v60.origin.x = v15;
+        v60.origin.y = v17;
+        v60.size.width = v19;
+        v60.size.height = v21;
+        v42 = CGRectGetWidth(v60) - v46;
         [self listInsetXForPage:page leading:0];
-        v33 = v40 - v41;
+        v33 = v42 - v43;
         goto LABEL_12;
       }
 
@@ -236,13 +236,13 @@
 
     v33 = v32;
 LABEL_12:
-    v55.origin.x = v15;
-    v55.origin.y = v17;
-    v55.size.width = v19;
-    v55.size.height = v21;
-    v15 = v33 + CGRectGetMinX(v55);
-    v21 = v43;
-    v19 = v44;
+    v57.origin.x = v15;
+    v57.origin.y = v17;
+    v57.size.width = v19;
+    v57.size.height = v21;
+    v15 = v33 + CGRectGetMinX(v57);
+    v21 = v45;
+    v19 = v46;
     goto LABEL_13;
   }
 
@@ -251,40 +251,41 @@ LABEL_12:
     goto LABEL_14;
   }
 
-  v53.origin.x = v15;
-  v53.origin.y = v17;
-  v53.size.width = v19;
-  v53.size.height = v21;
-  v54 = CGRectInset(v53, 0.0, 0.0);
-  v15 = v54.origin.x;
-  v19 = v54.size.width;
+  v55.origin.x = v15;
+  v55.origin.y = v17;
+  v55.size.width = v19;
+  v55.size.height = v21;
+  v56 = CGRectInset(v55, 0.0, 0.0);
+  v15 = v56.origin.x;
+  v19 = v56.size.width;
   v21 = v27;
 LABEL_13:
   v17 = v25;
 LABEL_14:
   v34 = v19 - (left + right);
   v35 = v21 - (top + bottom);
-  if ([*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection] == 1)
+  userInterfaceLayoutDirection = [*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection];
+  if (userInterfaceLayoutDirection == 1)
   {
-    v56.origin.x = x;
-    v56.origin.y = y;
-    v56.size.width = v45;
-    v56.size.height = v46;
-    CGRectGetWidth(v56);
-    v57.origin.x = left + v15;
-    v57.origin.y = top + v17;
-    v57.size.width = v34;
-    v57.size.height = v35;
-    CGRectGetMaxX(v57);
+    v58.origin.x = x;
+    v58.origin.y = y;
+    v58.size.width = v47;
+    v58.size.height = v48;
+    CGRectGetWidth(v58);
+    v59.origin.x = left + v15;
+    v59.origin.y = top + v17;
+    v59.size.width = v34;
+    v59.size.height = v35;
+    CGRectGetMaxX(v59);
   }
 
-  SBFMainScreenScale();
+  SBFMainScreenScale(userInterfaceLayoutDirection, v37);
 
   BSRectRoundForScale();
-  result.size.height = v39;
-  result.size.width = v38;
-  result.origin.y = v37;
-  result.origin.x = v36;
+  result.size.height = v41;
+  result.size.width = v40;
+  result.origin.y = v39;
+  result.origin.x = v38;
   return result;
 }
 
@@ -451,9 +452,9 @@ LABEL_29:
         }
       }
 
-      v28 = __sb__runningInSpringBoard();
-      v29 = v28;
-      if (v28)
+      v30 = __sb__runningInSpringBoard();
+      v31 = v30;
+      if (v30)
       {
         __sb__mainScreenReferenceBounds();
       }
@@ -465,7 +466,7 @@ LABEL_29:
       }
 
       BSSizeRoundForScale();
-      if (v29)
+      if (v31)
       {
         if ((v23 & 1) == 0)
         {
@@ -514,11 +515,11 @@ LABEL_47:
 
   if ((activeInterfaceOrientation - 3) <= 1)
   {
-    v31.origin.x = x;
-    v31.origin.y = y;
-    v31.size.width = width;
-    v31.size.height = height;
-    x = CGRectGetWidth(v31) * 0.5;
+    v33.origin.x = x;
+    v33.origin.y = y;
+    v33.size.width = width;
+    v33.size.height = height;
+    x = CGRectGetWidth(v33) * 0.5;
     width = width - x;
   }
 
@@ -565,24 +566,24 @@ LABEL_47:
   }
 
 LABEL_39:
-  v32.origin.x = x;
-  v32.origin.y = y;
-  v32.size.width = width;
-  v32.size.height = height;
-  CGRectGetMinX(v32);
-  v33.origin.x = x;
-  v33.origin.y = y;
-  v33.size.width = width;
-  v33.size.height = height;
-  CGRectGetWidth(v33);
-  UIRectInset();
-  SBFMainScreenScale();
+  v34.origin.x = x;
+  v34.origin.y = y;
+  v34.size.width = width;
+  v34.size.height = height;
+  CGRectGetMinX(v34);
+  v35.origin.x = x;
+  v35.origin.y = y;
+  v35.size.width = width;
+  v35.size.height = height;
+  CGRectGetWidth(v35);
+  v24 = UIRectInset();
+  SBFMainScreenScale(v24, v25);
 
   BSRectRoundForScale();
-  result.size.height = v27;
-  result.size.width = v26;
-  result.origin.y = v25;
-  result.origin.x = v24;
+  result.size.height = v29;
+  result.size.width = v28;
+  result.origin.y = v27;
+  result.origin.x = v26;
   return result;
 }
 
@@ -799,7 +800,7 @@ void __41__SBFDashBoardViewMetrics_searchBarWidth__block_invoke(uint64_t a1)
     }
 
     xCopy3 = x;
-    v51 = height;
+    v53 = height;
     [self suggestedFrameForListForPage:1 pageBounds:{x, y, width, height}];
     v35 = v34;
     v37 = v36;
@@ -821,26 +822,26 @@ void __41__SBFDashBoardViewMetrics_searchBarWidth__block_invoke(uint64_t a1)
       CGRectGetMinX(*&v43);
     }
 
-    height = v51;
+    height = v53;
     if (![self dateTimeLayoutForPage:1])
     {
-      v56.origin.x = x;
-      v56.origin.y = y;
-      v56.size.width = width;
-      v56.size.height = v51;
-      CGRectGetMaxX(v56);
+      v58.origin.x = x;
+      v58.origin.y = y;
+      v58.size.width = width;
+      v58.size.height = v53;
+      CGRectGetMaxX(v58);
     }
 
     if (xCopy)
     {
 LABEL_17:
-      v57.origin.x = xCopy3;
-      v57.origin.y = y;
-      v57.size.width = width;
-      v57.size.height = height;
-      CGRectGetWidth(v57);
+      v59.origin.x = xCopy3;
+      v59.origin.y = y;
+      v59.size.width = width;
+      v59.size.height = height;
+      CGRectGetWidth(v59);
       UIRectCenteredXInRect();
-      CGRectGetMinX(v58);
+      CGRectGetMinX(v60);
     }
   }
 
@@ -850,22 +851,22 @@ LABEL_17:
     v32 = MEMORY[0x1E69DDA98];
     if ([*MEMORY[0x1E69DDA98] userInterfaceLayoutDirection] == 1)
     {
-      v54.origin.x = v11;
-      v54.origin.y = v13;
-      v54.size.width = v15;
-      v54.size.height = v17;
-      CGRectGetWidth(v54);
+      v56.origin.x = v11;
+      v56.origin.y = v13;
+      v56.size.width = v15;
+      v56.size.height = v17;
+      CGRectGetWidth(v56);
     }
 
     [self _dateTimeMinXForReducedBounds:1 forPage:{v11, v13, v15, v17}];
     xCopy3 = x;
     if ([*v32 userInterfaceLayoutDirection] == 1)
     {
-      v55.origin.x = rect;
-      v55.origin.y = v13;
-      v55.size.width = v15;
-      v55.size.height = v17;
-      CGRectGetWidth(v55);
+      v57.origin.x = rect;
+      v57.origin.y = v13;
+      v57.size.width = v15;
+      v57.size.height = v17;
+      CGRectGetWidth(v57);
     }
 
     if (xCopy)
@@ -877,14 +878,14 @@ LABEL_17:
   [self timeLabelBaselineY];
   +[SBFLockScreenDateView timeFontMetrics];
   [self timeSubtitleBaselineY];
-  +[SBFLockScreenDateSubtitleView labelFontMetrics];
-  SBFMainScreenScale();
+  v47 = +[SBFLockScreenDateSubtitleView labelFontMetrics];
+  SBFMainScreenScale(v47, v48);
 
   BSRectRoundForScale();
-  result.size.height = v50;
-  result.size.width = v49;
-  result.origin.y = v48;
-  result.origin.x = v47;
+  result.size.height = v52;
+  result.size.width = v51;
+  result.origin.y = v50;
+  result.origin.x = v49;
   return result;
 }
 
@@ -940,13 +941,13 @@ LABEL_17:
   }
 
   [self searchClippingLineMaxY];
-  +[SBFLockScreenDateView timeFontMetrics];
-  SBFMainScreenScale();
+  v3 = +[SBFLockScreenDateView timeFontMetrics];
+  SBFMainScreenScale(v3, v4);
   BSFloatRoundForScale();
   return result;
 }
 
-uint64_t __45__SBFDashBoardViewMetrics_timeLabelBaselineY__block_invoke(uint64_t a1)
+void *__45__SBFDashBoardViewMetrics_timeLabelBaselineY__block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x1E69DC938] currentDevice];
   v3 = [v2 userInterfaceIdiom];
@@ -1497,55 +1498,55 @@ uint64_t __43__SBFDashBoardViewMetrics_listMinYForPage___block_invoke_2()
   return *&searchClippingLineMaxY_searchClippingLineMaxY;
 }
 
-void __49__SBFDashBoardViewMetrics_searchClippingLineMaxY__block_invoke()
+void __49__SBFDashBoardViewMetrics_searchClippingLineMaxY__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (__sb__runningInSpringBoard())
   {
     if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
     {
-      v0 = 68.0;
+      v2 = 68.0;
     }
 
     else if (SBFEffectiveHomeButtonType() == 2)
     {
-      v0 = 92.0;
+      v2 = 92.0;
     }
 
     else
     {
-      v0 = 68.0;
+      v2 = 68.0;
     }
   }
 
   else
   {
-    v1 = [MEMORY[0x1E69DC938] currentDevice];
-    if ([v1 userInterfaceIdiom])
+    v3 = [MEMORY[0x1E69DC938] currentDevice];
+    if ([v3 userInterfaceIdiom])
     {
-      v0 = 68.0;
+      v2 = 68.0;
     }
 
     else if (SBFEffectiveHomeButtonType() == 2)
     {
-      v0 = 92.0;
+      v2 = 92.0;
     }
 
     else
     {
-      v0 = 68.0;
+      v2 = 68.0;
     }
   }
 
-  v2 = [MEMORY[0x1E69DC938] currentDevice];
-  v3 = [v2 userInterfaceIdiom];
+  v4 = [MEMORY[0x1E69DC938] currentDevice];
+  v5 = [v4 userInterfaceIdiom];
 
-  v4 = 72.0;
-  if ((v3 & 0xFFFFFFFFFFFFFFFBLL) != 1)
+  v6 = 72.0;
+  if ((v5 & 0xFFFFFFFFFFFFFFFBLL) != 1)
   {
-    v4 = v0;
+    v6 = v2;
   }
 
-  searchClippingLineMaxY_searchClippingLineMaxY = *&v4;
+  searchClippingLineMaxY_searchClippingLineMaxY = *&v6;
 }
 
 + (double)_phoneSpecificValueN56:(double)n56 n61:(double)n61 n69:(double)n69
@@ -2140,23 +2141,23 @@ LABEL_30:
 
     [viewCopy sizeThatFits:{v9 + fmax(v10, 25.0) * -2.0}];
 
-    UIRectInset();
-    SBFMainScreenScale();
+    v11 = UIRectInset();
+    SBFMainScreenScale(v11, v12);
     BSRectRoundForScale();
   }
 
   else
   {
-    v11 = *MEMORY[0x1E695F058];
-    v12 = *(MEMORY[0x1E695F058] + 8);
-    v13 = *(MEMORY[0x1E695F058] + 16);
-    v14 = *(MEMORY[0x1E695F058] + 24);
+    v13 = *MEMORY[0x1E695F058];
+    v14 = *(MEMORY[0x1E695F058] + 8);
+    v15 = *(MEMORY[0x1E695F058] + 16);
+    v16 = *(MEMORY[0x1E695F058] + 24);
   }
 
-  result.size.height = v14;
-  result.size.width = v13;
-  result.origin.y = v12;
-  result.origin.x = v11;
+  result.size.height = v16;
+  result.size.width = v15;
+  result.origin.y = v14;
+  result.origin.x = v13;
   return result;
 }
 

@@ -2,31 +2,29 @@ uint64_t sub_180C(char *a1)
 {
   v2 = sub_3B50();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin();
-  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v2);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*&a1[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier + 8])
   {
-    v7 = *&a1[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier];
-    v8 = objc_allocWithZone(sub_3B80());
+    v6 = objc_allocWithZone(sub_3B80());
 
-    v9 = a1;
+    v7 = a1;
     return sub_3B70();
   }
 
   else
   {
     sub_3B30();
-    v11 = sub_3B40();
-    v12 = sub_3BE0();
-    if (os_log_type_enabled(v11, v12))
+    v9 = sub_3B40();
+    v10 = sub_3BE0();
+    if (os_log_type_enabled(v9, v10))
     {
-      v13 = swift_slowAlloc();
-      *v13 = 0;
-      _os_log_impl(&dword_0, v11, v12, "Expected bundleID property of specifier", v13, 2u);
+      v11 = swift_slowAlloc();
+      *v11 = 0;
+      _os_log_impl(&dword_0, v9, v10, "Expected bundleID property of specifier", v11, 2u);
     }
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
     return 0;
   }
 }
@@ -53,34 +51,32 @@ uint64_t sub_1A08(uint64_t a1)
 {
   v2 = sub_3B50();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   __chkstk_darwin(v2);
-  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *(a1 + OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier + 8);
-  if (v7)
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = *(a1 + OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier + 8);
+  if (v6)
   {
-    v8 = *(a1 + OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier);
-    v9 = *(a1 + OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier + 8);
+    v7 = *(a1 + OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier);
 
-    sub_3078(v8, v7, a1);
-    v11 = v10;
+    sub_3078(v7, v6, a1);
+    v9 = v8;
 
-    return v11;
+    return v9;
   }
 
   else
   {
     sub_3B30();
-    v13 = sub_3B40();
-    v14 = sub_3BE0();
-    if (os_log_type_enabled(v13, v14))
+    v11 = sub_3B40();
+    v12 = sub_3BE0();
+    if (os_log_type_enabled(v11, v12))
     {
-      v15 = swift_slowAlloc();
-      *v15 = 0;
-      _os_log_impl(&dword_0, v13, v14, "Expected bundleID property of specifier", v15, 2u);
+      v13 = swift_slowAlloc();
+      *v13 = 0;
+      _os_log_impl(&dword_0, v11, v12, "Expected bundleID property of specifier", v13, 2u);
     }
 
-    (*(v3 + 8))(v6, v2);
+    (*(v3 + 8))(v5, v2);
     return 0;
   }
 }
@@ -121,25 +117,23 @@ void sub_1CD8(uint64_t a1, uint64_t a2)
 {
   v5 = sub_3AC0();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin();
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = &v2[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier];
-  v11 = *&v2[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier + 8];
-  *v10 = a1;
-  *(v10 + 1) = a2;
+  __chkstk_darwin(v5);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v2[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier];
+  *v9 = a1;
+  *(v9 + 1) = a2;
 
-  (*(v6 + 104))(v9, enum case for LocalizedStringTable.settings(_:), v5);
-  v12 = PKPassKitBundle();
-  if (v12)
+  (*(v6 + 104))(v8, enum case for LocalizedStringTable.settings(_:), v5);
+  v10 = PKPassKitBundle();
+  if (v10)
   {
-    v13 = v12;
+    v11 = v10;
     sub_3AB0();
 
-    (*(v6 + 8))(v9, v5);
-    v14 = sub_3B90();
+    (*(v6 + 8))(v8, v5);
+    v12 = sub_3B90();
 
-    [v2 setTitle:v14];
+    [v2 setTitle:v12];
   }
 
   else
@@ -358,7 +352,6 @@ uint64_t sub_2710(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -462,66 +455,60 @@ uint64_t sub_2A9C(unint64_t a1)
     v3 = *(&dword_10 + (a1 & 0xFFFFFFFFFFFFFF8));
   }
 
-  v4 = *v1;
   if (!(*v1 >> 62))
   {
-    v5 = *(&dword_10 + (v4 & 0xFFFFFFFFFFFFFF8));
-    v6 = __OFADD__(v5, v3);
-    result = v5 + v3;
-    if (!v6)
+    v4 = *(&dword_10 + (*v1 & 0xFFFFFFFFFFFFFF8));
+    v5 = __OFADD__(v4, v3);
+    result = v4 + v3;
+    if (!v5)
     {
       goto LABEL_5;
     }
 
-LABEL_15:
+LABEL_13:
     __break(1u);
-    goto LABEL_16;
+    goto LABEL_14;
   }
 
-  if (v4 < 0)
+  v13 = sub_3C30();
+  v5 = __OFADD__(v13, v3);
+  result = v13 + v3;
+  if (v5)
   {
-    v14 = *v1;
-  }
-
-  v15 = sub_3C30();
-  v6 = __OFADD__(v15, v3);
-  result = v15 + v3;
-  if (v6)
-  {
-    goto LABEL_15;
+    goto LABEL_13;
   }
 
 LABEL_5:
-  sub_2BC0(result);
-  v8 = *v1;
-  v9 = *v1 & 0xFFFFFFFFFFFFFF8;
-  sub_2D90(v9 + 8 * *(&dword_10 + v9) + 32, (*(&dword_18 + v9) >> 1) - *(&dword_10 + v9), a1);
-  v11 = v10;
+  sub_2BC0(result, 1);
+  v7 = *v1;
+  v8 = *v1 & 0xFFFFFFFFFFFFFF8;
+  sub_2D90(v8 + 8 * *(&dword_10 + v8) + 32, (*(&dword_18 + v8) >> 1) - *(&dword_10 + v8), a1);
+  v10 = v9;
 
-  if (v11 < v3)
+  if (v10 < v3)
   {
-LABEL_16:
+LABEL_14:
     __break(1u);
-    goto LABEL_17;
+    goto LABEL_15;
   }
 
-  if (v11 < 1)
+  if (v10 < 1)
   {
 LABEL_9:
-    *v1 = v8;
+    *v1 = v7;
     return result;
   }
 
-  v12 = *(v9 + 16);
-  v6 = __OFADD__(v12, v11);
-  v13 = v12 + v11;
-  if (!v6)
+  v11 = *(v8 + 16);
+  v5 = __OFADD__(v11, v10);
+  v12 = v11 + v10;
+  if (!v5)
   {
-    *(v9 + 16) = v13;
+    *(v8 + 16) = v12;
     goto LABEL_9;
   }
 
-LABEL_17:
+LABEL_15:
   __break(1u);
   return result;
 }
@@ -536,44 +523,37 @@ uint64_t sub_2BB0(uint64_t result)
   return result;
 }
 
-uint64_t sub_2BC0(uint64_t a1)
+uint64_t sub_2BC0(uint64_t a1, char a2)
 {
-  v3 = *v1;
+  v4 = *v2;
   result = swift_isUniquelyReferenced_nonNull_bridgeObject();
-  *v1 = v3;
+  *v2 = v4;
   if (result)
   {
-    if ((v3 & 0x8000000000000000) == 0 && (v3 & 0x4000000000000000) == 0)
+    if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
     {
-      v5 = v3 & 0xFFFFFFFFFFFFFF8;
-      if (a1 <= *(&dword_18 + (v3 & 0xFFFFFFFFFFFFFF8)) >> 1)
+      if (a1 <= *(&dword_18 + (v4 & 0xFFFFFFFFFFFFFF8)) >> 1)
       {
         return result;
       }
 
       goto LABEL_9;
     }
-
-LABEL_10:
-    sub_3C30();
-    goto LABEL_11;
   }
 
-  if (v3 < 0 || (v3 & 0x4000000000000000) != 0)
+  else if ((v4 & 0x8000000000000000) == 0 && (v4 & 0x4000000000000000) == 0)
   {
-    goto LABEL_10;
+    goto LABEL_9;
   }
 
-  v5 = v3 & 0xFFFFFFFFFFFFFF8;
+  sub_3C30();
 LABEL_9:
-  v6 = *(v5 + 16);
-LABEL_11:
   result = sub_3C10();
-  *v1 = result;
+  *v2 = result;
   return result;
 }
 
-char *sub_2C60(char *a1, int64_t a2, char a3)
+char *sub_2C60(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_2C80(a1, a2, a3, *v3);
   *v3 = result;
@@ -776,7 +756,6 @@ uint64_t sub_300C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -804,25 +783,24 @@ uint64_t sub_3068(uint64_t result)
 
 void sub_3078(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v33 = a3;
+  v32 = a3;
   v3 = sub_3B50();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  v6 = (__chkstk_darwin)();
-  v8 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __chkstk_darwin(v6);
-  v11 = &v32 - v10;
-  __chkstk_darwin(v9);
-  v13 = &v32 - v12;
+  v5 = __chkstk_darwin(v3);
+  v7 = &v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __chkstk_darwin(v5);
+  v10 = &v31 - v9;
+  __chkstk_darwin(v8);
+  v12 = &v31 - v11;
   if (qword_C620 != -1)
   {
     swift_once();
   }
 
-  if (qword_C6F8 && (v14 = qword_C6F8, v15 = sub_3B90(), v16 = [v14 classNamed:v15], v14, v15, v16))
+  if (qword_C6F8 && (v13 = qword_C6F8, v14 = sub_3B90(), v15 = [v13 classNamed:v14], v13, v14, v15))
   {
-    class_addProtocol(v16, &OBJC_PROTOCOL____TtP9PassKitUI30PKAppSettingsSpecifierProvider_);
-    if (class_createInstance(v16, 0))
+    class_addProtocol(v15, &OBJC_PROTOCOL____TtP9PassKitUI30PKAppSettingsSpecifierProvider_);
+    if (class_createInstance(v15, 0))
     {
       sub_3BF0();
       swift_unknownObjectRelease();
@@ -830,30 +808,30 @@ void sub_3078(uint64_t a1, uint64_t a2, uint64_t a3)
 
     else
     {
+      v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
     }
 
-    v38[0] = v36;
-    v38[1] = v37;
-    if (*(&v37 + 1))
+    v37[0] = v35;
+    v37[1] = v36;
+    if (*(&v36 + 1))
     {
       sub_351C(0, &qword_C690, NSObject_ptr);
       if (swift_dynamicCast())
       {
-        v20 = v35;
-        v21 = sub_3B90();
-        v22 = NSSelectorFromString(v21);
+        v19 = v34;
+        v20 = sub_3B90();
+        v21 = NSSelectorFromString(v20);
 
-        if ([v20 respondsToSelector:v22])
+        if ([v19 respondsToSelector:v21])
         {
-          v23 = sub_3B90();
-          v24 = v20;
-          v25 = [v24 performSelector:v22 withObject:v23 withObject:v33];
+          v22 = sub_3B90();
+          v23 = v19;
+          v24 = [v23 performSelector:v21 withObject:v22 withObject:v32];
 
-          if (v25)
+          if (v24)
           {
-            v34 = &OBJC_PROTOCOL____TtP9PassKitUI30PKAppSettingsSpecifierProvider_;
+            v33 = &OBJC_PROTOCOL____TtP9PassKitUI30PKAppSettingsSpecifierProvider_;
             swift_unknownObjectRetain();
             if (swift_dynamicCastObjCProtocolConditional())
             {
@@ -863,20 +841,20 @@ void sub_3078(uint64_t a1, uint64_t a2, uint64_t a3)
             {
               swift_unknownObjectRelease();
               sub_3B30();
-              v29 = sub_3B40();
-              v30 = sub_3BE0();
-              if (os_log_type_enabled(v29, v30))
+              v28 = sub_3B40();
+              v29 = sub_3BE0();
+              if (os_log_type_enabled(v28, v29))
               {
-                v31 = swift_slowAlloc();
-                *v31 = 0;
-                _os_log_impl(&dword_0, v29, v30, "Unable to cast FinanceKitUI.AppSettingsProvider to PKAppSettingsSpecifierProvider", v31, 2u);
+                v30 = swift_slowAlloc();
+                *v30 = 0;
+                _os_log_impl(&dword_0, v28, v29, "Unable to cast FinanceKitUI.AppSettingsProvider to PKAppSettingsSpecifierProvider", v30, 2u);
               }
 
               else
               {
               }
 
-              (*(v4 + 8))(v8, v3);
+              (*(v4 + 8))(v7, v3);
             }
           }
 
@@ -889,52 +867,51 @@ void sub_3078(uint64_t a1, uint64_t a2, uint64_t a3)
         else
         {
           sub_3B30();
-          v26 = sub_3B40();
-          v27 = sub_3BE0();
-          if (os_log_type_enabled(v26, v27))
+          v25 = sub_3B40();
+          v26 = sub_3BE0();
+          if (os_log_type_enabled(v25, v26))
           {
-            v28 = swift_slowAlloc();
-            *v28 = 0;
-            _os_log_impl(&dword_0, v26, v27, "FinanceKitUI.AppSettingsProvider does not respond to initWithBundleIdentifier:delegate:", v28, 2u);
+            v27 = swift_slowAlloc();
+            *v27 = 0;
+            _os_log_impl(&dword_0, v25, v26, "FinanceKitUI.AppSettingsProvider does not respond to initWithBundleIdentifier:delegate:", v27, 2u);
           }
 
           else
           {
           }
 
-          (*(v4 + 8))(v11, v3);
+          (*(v4 + 8))(v10, v3);
         }
       }
     }
 
     else
     {
-      sub_26A8(v38);
+      sub_26A8(v37);
     }
   }
 
   else
   {
     sub_3B30();
-    v17 = sub_3B40();
-    v18 = sub_3BE0();
-    if (os_log_type_enabled(v17, v18))
+    v16 = sub_3B40();
+    v17 = sub_3BE0();
+    if (os_log_type_enabled(v16, v17))
     {
-      v19 = swift_slowAlloc();
-      *v19 = 0;
-      _os_log_impl(&dword_0, v17, v18, "FinanceKitUI.AppSettingsProvider not found", v19, 2u);
+      v18 = swift_slowAlloc();
+      *v18 = 0;
+      _os_log_impl(&dword_0, v16, v17, "FinanceKitUI.AppSettingsProvider not found", v18, 2u);
     }
 
-    (*(v4 + 8))(v13, v3);
+    (*(v4 + 8))(v12, v3);
   }
 }
 
-uint64_t sub_351C(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_351C(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -947,17 +924,16 @@ uint64_t sub_3564()
 {
   v0 = sub_3AA0();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin();
-  v4 = &v11 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v0);
+  v3 = &v10 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_3A80();
-  v5 = objc_allocWithZone(NSBundle);
-  sub_3A90(v6);
-  v8 = v7;
-  v9 = [v5 initWithURL:v7];
+  v4 = objc_allocWithZone(NSBundle);
+  sub_3A90(v5);
+  v7 = v6;
+  v8 = [v4 initWithURL:v6];
 
-  result = (*(v1 + 8))(v4, v0);
-  qword_C6F8 = v9;
+  result = (*(v1 + 8))(v3, v0);
+  qword_C6F8 = v8;
   return result;
 }
 
@@ -976,23 +952,22 @@ unint64_t sub_36B8()
 void sub_3728()
 {
   v0 = sub_3B20();
-  v1 = *(*(v0 - 8) + 64);
   __chkstk_darwin(v0 - 8);
-  v2 = sub_3AD0();
-  v4 = v3;
-  v5 = type metadata accessor for AppPrivacySettingsController();
-  v6 = objc_allocWithZone(v5);
-  v7 = &v6[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier];
-  *v7 = 0;
-  *(v7 + 1) = 0;
-  *&v6[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController____lazy_storage___walletProvider] = 1;
-  *&v6[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController____lazy_storage___financeKitProvider] = 1;
-  v10.receiver = v6;
-  v10.super_class = v5;
-  v8 = objc_msgSendSuper2(&v10, "initWithNibName:bundle:", 0, 0);
-  sub_1CD8(v2, v4);
+  v1 = sub_3AD0();
+  v3 = v2;
+  v4 = type metadata accessor for AppPrivacySettingsController();
+  v5 = objc_allocWithZone(v4);
+  v6 = &v5[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController_bundleIdentifier];
+  *v6 = 0;
+  *(v6 + 1) = 0;
+  *&v5[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController____lazy_storage___walletProvider] = 1;
+  *&v5[OBJC_IVAR____TtC21WalletPrivacySettings28AppPrivacySettingsController____lazy_storage___financeKitProvider] = 1;
+  v9.receiver = v5;
+  v9.super_class = v4;
+  v7 = objc_msgSendSuper2(&v9, "initWithNibName:bundle:", 0, 0);
+  sub_1CD8(v1, v3);
 
-  v9 = v8;
+  v8 = v7;
   sub_3B10();
   sub_3AF0();
 }
@@ -1001,14 +976,14 @@ uint64_t sub_3854()
 {
   sub_3AE0();
   sub_3B00();
-  sub_39C0(&qword_C7A0, &type metadata accessor for PreferencesControllerView);
-  sub_39C0(&qword_C7A8, &type metadata accessor for ASApplicationRecord_V1);
-  sub_39C0(&qword_C7B0, &type metadata accessor for ASApplicationRecord_V1);
-  sub_39C0(&qword_C7B8, &type metadata accessor for ASApplicationRecord_V1);
+  sub_39C0(&qword_C7A0, &type metadata accessor for PreferencesControllerView, &protocol conformance descriptor for PreferencesControllerView);
+  sub_39C0(&qword_C7A8, &type metadata accessor for ASApplicationRecord_V1, &protocol conformance descriptor for ASApplicationRecord_V1);
+  sub_39C0(&qword_C7B0, &type metadata accessor for ASApplicationRecord_V1, &protocol conformance descriptor for ASApplicationRecord_V1);
+  sub_39C0(&qword_C7B8, &type metadata accessor for ASApplicationRecord_V1, &protocol conformance descriptor for ASApplicationRecord_V1);
   return sub_3B60();
 }
 
-uint64_t sub_39C0(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_39C0(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

@@ -243,9 +243,9 @@ LABEL_21:
       {
         v27 = [CCToolKitToolDisplayRepresentation alloc];
         v26 = CCPBReaderReadDataNoCopy();
-        v38 = 0;
-        v28 = [(CCItemMessage *)v27 initWithData:v26 error:&v38];
-        v10 = v38;
+        v36 = 0;
+        v28 = [(CCItemMessage *)v27 initWithData:v26 error:&v36];
+        v10 = v36;
         displayRepresentation = self->_displayRepresentation;
         self->_displayRepresentation = v28;
 
@@ -271,7 +271,6 @@ LABEL_21:
 
           v30 = objc_opt_class();
           v26 = NSStringFromClass(v30);
-          v31 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
 LABEL_31:
 
@@ -307,23 +306,22 @@ LABEL_35:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v36 = 1;
+    v34 = 1;
     goto LABEL_39;
   }
 
 LABEL_36:
-  v32 = objc_opt_class();
-  v33 = NSStringFromClass(v32);
-  v34 = *&v6[*v9];
-  v35 = CCInvalidBufferErrorForMessage();
+  v31 = objc_opt_class();
+  v32 = NSStringFromClass(v31);
+  v33 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_37:
-  v36 = 0;
+  v34 = 0;
 LABEL_39:
 
-  return v36;
+  return v34;
 }
 
 - (CCToolKitToolTypedValueCodableValue)initWithIdentifier:(id)identifier data:(id)data displayRepresentation:(id)representation error:(id *)error

@@ -53,7 +53,7 @@
   mAnimationContext = self->super.mAnimationContext;
   if (mAnimationContext)
   {
-    [(KNAnimationContext *)mAnimationContext slideProjectionMatrix];
+    objc_msgSend_slideProjectionMatrix(mAnimationContext);
     v10 = vcvt_hight_f32_f64(vcvt_f32_f64(v24), v25);
     v11 = vcvt_hight_f32_f64(vcvt_f32_f64(v22), v23);
     v12 = vcvt_hight_f32_f64(vcvt_f32_f64(v20), v21);

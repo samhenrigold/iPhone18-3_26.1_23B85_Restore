@@ -30,7 +30,7 @@
   selfCopy = self;
   sub_141B28(v2);
 
-  sub_BE70(0, &qword_93E550);
+  sub_BE70(0, &qword_93E550, UIView_ptr);
   v4.super.isa = sub_769450().super.isa;
 
   return v4.super.isa;

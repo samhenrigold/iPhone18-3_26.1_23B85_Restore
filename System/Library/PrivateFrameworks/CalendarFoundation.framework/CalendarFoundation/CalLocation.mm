@@ -27,35 +27,25 @@
   location = self->_location;
   if (location)
   {
-    location2 = location;
+    location = location;
   }
 
   else
   {
     placemark = [(CalLocation *)self placemark];
-    if (!placemark)
+    if (placemark && (v6 = placemark, -[CalLocation placemark](self, "placemark"), v7 = objc_claimAutoreleasedReturnValue(), [v7 location], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v6, v8))
     {
-      goto LABEL_6;
-    }
-
-    v6 = placemark;
-    placemark2 = [(CalLocation *)self placemark];
-    location = [placemark2 location];
-
-    if (location)
-    {
-      placemark3 = [(CalLocation *)self placemark];
-      location2 = [placemark3 location];
+      placemark2 = [(CalLocation *)self placemark];
+      location = [placemark2 location];
     }
 
     else
     {
-LABEL_6:
-      location2 = 0;
+      location = 0;
     }
   }
 
-  return location2;
+  return location;
 }
 
 - (double)radius
@@ -452,22 +442,8 @@ LABEL_34:
   isCurrentLocation = [(CalLocation *)self isCurrentLocation];
   v7 = v30 & (isCurrentLocation ^ [(CalLocation *)equalCopy isCurrentLocation]^ 1);
   mapKitHandle = [(CalLocation *)self mapKitHandle];
-  if (!mapKitHandle)
+  if (!mapKitHandle && (-[CalLocation mapKitHandle](equalCopy, "mapKitHandle"), (address2 = objc_claimAutoreleasedReturnValue()) == 0) || (-[CalLocation mapKitHandle](self, "mapKitHandle"), v35 = objc_claimAutoreleasedReturnValue(), -[CalLocation mapKitHandle](equalCopy, "mapKitHandle"), v36 = objc_claimAutoreleasedReturnValue(), v7 &= [v35 isEqual:v36], v36, v35, !mapKitHandle))
   {
-    address2 = [(CalLocation *)equalCopy mapKitHandle];
-    if (!address2)
-    {
-      goto LABEL_49;
-    }
-  }
-
-  mapKitHandle2 = [(CalLocation *)self mapKitHandle];
-  mapKitHandle3 = [(CalLocation *)equalCopy mapKitHandle];
-  v7 &= [mapKitHandle2 isEqual:mapKitHandle3];
-
-  if (!mapKitHandle)
-  {
-LABEL_49:
   }
 
 LABEL_51:

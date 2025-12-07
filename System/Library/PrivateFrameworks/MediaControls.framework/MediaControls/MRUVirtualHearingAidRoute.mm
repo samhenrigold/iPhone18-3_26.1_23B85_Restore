@@ -36,7 +36,7 @@
 - (void)connect
 {
   v9 = *MEMORY[0x1E69E9840];
-  v3 = MCLogCategoryDefault();
+  v3 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     outputDevice = [(MPAVOutputDeviceRoute *)self outputDevice];
@@ -54,7 +54,7 @@
 - (void)disconnect
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = MCLogCategoryDefault();
+  v3 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     outputDevice = [(MPAVOutputDeviceRoute *)self outputDevice];
@@ -70,7 +70,7 @@
 
 + (void)disconnect
 {
-  v2 = MCLogCategoryDefault();
+  v2 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -86,7 +86,7 @@
   changeCopy = change;
   v10 = *MEMORY[0x1E69E9840];
   self->_isConnecting = 0;
-  v5 = MCLogCategoryDefault();
+  v5 = MCLogCategoryDefault(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x1E696AD98] numberWithBool:changeCopy];

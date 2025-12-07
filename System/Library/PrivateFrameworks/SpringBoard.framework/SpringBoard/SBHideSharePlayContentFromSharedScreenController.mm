@@ -916,7 +916,7 @@ LABEL_155:
   [coordinatorCopy animateAlongsideTransition:0 completion:v11];
 }
 
-uint64_t __124__SBHideSharePlayContentFromSharedScreenController_bannerManager_willPresentPresentable_withTransitionCoordinator_userInfo___block_invoke(uint64_t a1, void *a2)
+void *__124__SBHideSharePlayContentFromSharedScreenController_bannerManager_willPresentPresentable_withTransitionCoordinator_userInfo___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if (result)
@@ -943,7 +943,7 @@ uint64_t __124__SBHideSharePlayContentFromSharedScreenController_bannerManager_w
   [coordinator animateAlongsideTransition:0 completion:v10];
 }
 
-uint64_t __124__SBHideSharePlayContentFromSharedScreenController_bannerManager_willDismissPresentable_withTransitionCoordinator_userInfo___block_invoke(uint64_t a1, void *a2)
+void *__124__SBHideSharePlayContentFromSharedScreenController_bannerManager_willDismissPresentable_withTransitionCoordinator_userInfo___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isCancelled];
   if ((result & 1) == 0)
@@ -1100,7 +1100,7 @@ uint64_t __124__SBHideSharePlayContentFromSharedScreenController_bannerManager_w
 {
   v13 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
-  if (neededCopy && ![(NSHashTable *)self->_viewControllersWithDisableUpdateMasks containsObject:neededCopy])
+  if (neededCopy && (objc_msgSend_containsObject_(self->_viewControllersWithDisableUpdateMasks) & 1) == 0)
   {
     viewControllersWithDisableUpdateMasks = self->_viewControllersWithDisableUpdateMasks;
     if (!viewControllersWithDisableUpdateMasks)
@@ -1136,7 +1136,7 @@ uint64_t __124__SBHideSharePlayContentFromSharedScreenController_bannerManager_w
   neededCopy = needed;
   if (neededCopy)
   {
-    if ([(NSHashTable *)self->_viewControllersWithDisableUpdateMasks containsObject:neededCopy])
+    if (objc_msgSend_containsObject_(self->_viewControllersWithDisableUpdateMasks))
     {
       [(NSHashTable *)self->_viewControllersWithDisableUpdateMasks removeObject:neededCopy];
       if ((objc_opt_respondsToSelector() & 1) == 0 || [neededCopy wantsDisableUpdateClonedDuringSharePlay])
@@ -1174,7 +1174,7 @@ uint64_t __124__SBHideSharePlayContentFromSharedScreenController_bannerManager_w
 {
   v12 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
-  if (neededCopy && ![(NSHashTable *)self->_windowsBeingHiddenWithDisableUpdateMask containsObject:neededCopy])
+  if (neededCopy && (objc_msgSend_containsObject_(self->_windowsBeingHiddenWithDisableUpdateMask) & 1) == 0)
   {
     windowsBeingHiddenWithDisableUpdateMask = self->_windowsBeingHiddenWithDisableUpdateMask;
     if (!windowsBeingHiddenWithDisableUpdateMask)
@@ -1208,7 +1208,7 @@ uint64_t __124__SBHideSharePlayContentFromSharedScreenController_bannerManager_w
   neededCopy = needed;
   if (neededCopy)
   {
-    if ([(NSHashTable *)self->_windowsBeingHiddenWithDisableUpdateMask containsObject:neededCopy])
+    if (objc_msgSend_containsObject_(self->_windowsBeingHiddenWithDisableUpdateMask))
     {
       [(NSHashTable *)self->_windowsBeingHiddenWithDisableUpdateMask removeObject:neededCopy];
       if ((objc_opt_respondsToSelector() & 1) == 0 || [neededCopy wantsDisableUpdateClonedDuringSharePlay])

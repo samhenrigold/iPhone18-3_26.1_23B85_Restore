@@ -182,14 +182,14 @@
 
 - (id)getRankedResponses:(id)responses forRecipientID:(id)d withLanguageID:(id)iD
 {
-  v134 = *MEMORY[0x277D85DE8];
+  v133 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   dCopy = d;
   iDCopy = iD;
   v10 = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:iDCopy];
-  v106 = [v10 objectForKey:*MEMORY[0x277CBE6C8]];
+  v105 = [v10 objectForKey:*MEMORY[0x277CBE6C8]];
 
-  v103 = iDCopy;
+  v102 = iDCopy;
   v11 = [(RKRankLearner *)self getDBManager:iDCopy];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -201,34 +201,34 @@
     dispatch_once(&getRankedResponses_forRecipientID_withLanguageID__onceToken, block);
   }
 
-  v102 = v11;
-  v104 = responsesCopy;
+  v101 = v11;
+  v103 = responsesCopy;
   v12 = [v11 fetchRankingInfoForCategory:responsesCopy];
-  v116 = objc_opt_new();
+  v115 = objc_opt_new();
   v13 = objc_opt_new();
-  v111 = objc_opt_new();
+  v110 = objc_opt_new();
   v14 = objc_opt_new();
+  v125 = 0u;
   v126 = 0u;
   v127 = 0u;
   v128 = 0u;
-  v129 = 0u;
   obj = v12;
-  v117 = v14;
-  v112 = [obj countByEnumeratingWithState:&v126 objects:v133 count:16];
-  if (v112)
+  v116 = v14;
+  v111 = [obj countByEnumeratingWithState:&v125 objects:v132 count:16];
+  if (v111)
   {
-    v108 = *v127;
+    v107 = *v126;
     v15 = 0x277CCA000uLL;
     do
     {
-      for (i = 0; i != v112; ++i)
+      for (i = 0; i != v111; ++i)
       {
-        if (*v127 != v108)
+        if (*v126 != v107)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v126 + 1) + 8 * i);
+        v17 = *(*(&v125 + 1) + 8 * i);
         recipientId = [v17 recipientId];
         v19 = [recipientId isEqualToString:dCopy];
 
@@ -236,7 +236,7 @@
         response = [v17 response];
         v22 = [v13 objectForKeyedSubscript:response];
 
-        v114 = timestamp;
+        v113 = timestamp;
         if (v22)
         {
           response2 = [v17 response];
@@ -273,8 +273,8 @@
           v41 = [v13 objectForKeyedSubscript:response8];
           [v41 setHasSameRecipient:v19 | v35];
 
-          v42 = v111;
-          v14 = v117;
+          v42 = v110;
+          v14 = v116;
           v15 = 0x277CCA000;
         }
 
@@ -294,8 +294,8 @@
           [v26 setObject:v47 forKey:v48];
 
           response10 = [v17 response];
-          v42 = v111;
-          [v111 setObject:v26 forKeyedSubscript:response10];
+          v42 = v110;
+          [v110 setObject:v26 forKeyedSubscript:response10];
 
           response7 = objc_opt_new();
           v50 = [MEMORY[0x277CCABB0] numberWithInt:0];
@@ -341,70 +341,70 @@
         [v73 setObject:v71 forKeyedSubscript:v74];
       }
 
-      v112 = [obj countByEnumeratingWithState:&v126 objects:v133 count:16];
+      v111 = [obj countByEnumeratingWithState:&v125 objects:v132 count:16];
     }
 
-    while (v112);
+    while (v111);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
+  v121 = 0u;
   v122 = 0u;
   v123 = 0u;
   v124 = 0u;
-  v125 = 0u;
   v76 = v13;
-  v77 = [v76 countByEnumeratingWithState:&v122 objects:v132 count:16];
+  v77 = [v76 countByEnumeratingWithState:&v121 objects:v131 count:16];
   if (v77)
   {
     v78 = v77;
-    v79 = *v123;
+    v79 = *v122;
     do
     {
       for (j = 0; j != v78; ++j)
       {
-        if (*v123 != v79)
+        if (*v122 != v79)
         {
           objc_enumerationMutation(v76);
         }
 
-        v81 = *(*(&v122 + 1) + 8 * j);
-        v82 = [(RKRankLearner *)self updateFeaturesForResponse:v81 selectCounts:v76 inputMethodCounts:v117 sourceCounts:v111 currentTime:date languageCode:v106];
-        [v116 setObject:v82 forKeyedSubscript:v81];
+        v81 = *(*(&v121 + 1) + 8 * j);
+        v82 = [(RKRankLearner *)self updateFeaturesForResponse:v81 selectCounts:v76 inputMethodCounts:v116 sourceCounts:v110 currentTime:date languageCode:v105];
+        [v115 setObject:v82 forKeyedSubscript:v81];
       }
 
-      v78 = [v76 countByEnumeratingWithState:&v122 objects:v132 count:16];
+      v78 = [v76 countByEnumeratingWithState:&v121 objects:v131 count:16];
     }
 
     while (v78);
   }
 
-  v109 = date;
+  v108 = date;
 
-  v113 = objc_opt_new();
-  v115 = objc_opt_new();
+  v112 = objc_opt_new();
+  v114 = objc_opt_new();
+  v117 = 0u;
   v118 = 0u;
   v119 = 0u;
   v120 = 0u;
-  v121 = 0u;
   v83 = obj;
-  v84 = [v83 countByEnumeratingWithState:&v118 objects:v131 count:16];
-  v85 = v117;
+  v84 = [v83 countByEnumeratingWithState:&v117 objects:v130 count:16];
+  v85 = v116;
   if (v84)
   {
     v86 = v84;
-    v87 = *v119;
+    v87 = *v118;
     do
     {
       for (k = 0; k != v86; ++k)
       {
-        if (*v119 != v87)
+        if (*v118 != v87)
         {
           objc_enumerationMutation(v83);
         }
 
-        v89 = *(*(&v118 + 1) + 8 * k);
+        v89 = *(*(&v117 + 1) + 8 * k);
         response16 = [v89 response];
-        v91 = [v116 objectForKeyedSubscript:response16];
+        v91 = [v115 objectForKeyedSubscript:response16];
 
         if (v91)
         {
@@ -413,80 +413,77 @@
           v94 = [v93 count];
 
           v95 = v94 < 2;
-          v85 = v117;
+          v85 = v116;
           if (!v95)
           {
             response18 = [v89 response];
-            v97 = [v115 containsObject:response18];
+            v97 = [v114 containsObject:response18];
 
             if ((v97 & 1) == 0)
             {
               response19 = [v89 response];
-              [v115 addObject:response19];
+              [v114 addObject:response19];
 
-              [v113 addObject:v91];
+              [v112 addObject:v91];
             }
           }
         }
       }
 
-      v86 = [v83 countByEnumeratingWithState:&v118 objects:v131 count:16];
+      v86 = [v83 countByEnumeratingWithState:&v117 objects:v130 count:16];
     }
 
     while (v86);
   }
 
-  v99 = [(RKRankLearner *)self rankResponses:v113];
-
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = [(RKRankLearner *)self rankResponses:v112];
 
   return v99;
 }
 
 void __66__RKRankLearner_getRankedResponses_forRecipientID_withLanguageID___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v9 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v2 = MEMORY[0x277CBEBC0];
-  v3 = [v9 pathForResource:@"RKAssetsConstantClasses" ofType:@"plist"];
-  v4 = [v2 URLWithString:v3];
+  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v1 = MEMORY[0x277CBEBC0];
+  v2 = [v8 pathForResource:@"RKAssetsConstantClasses" ofType:@"plist"];
+  v3 = [v1 URLWithString:v2];
 
-  v5 = [RKResponseCollection alloc];
-  v6 = [[RKBundleDataProvider alloc] initWithAssetPlist:v4];
-  v7 = [(RKResponseCollection *)v5 initWithDynamicDataURL:0 displayStringsProvider:v6];
-  v8 = getRankedResponses_forRecipientID_withLanguageID__responseCollection;
-  getRankedResponses_forRecipientID_withLanguageID__responseCollection = v7;
+  v4 = [RKResponseCollection alloc];
+  v5 = [[RKBundleDataProvider alloc] initWithAssetPlist:v3];
+  v6 = [(RKResponseCollection *)v4 initWithDynamicDataURL:0 displayStringsProvider:v5];
+  v7 = getRankedResponses_forRecipientID_withLanguageID__responseCollection;
+  getRankedResponses_forRecipientID_withLanguageID__responseCollection = v6;
 }
 
 - (id)rankResponses:(id)responses
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   v4 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v5 = responsesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v42;
+    v8 = *v41;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v42 != v8)
+        if (*v41 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v41 + 1) + 8 * i);
+        v10 = *(*(&v40 + 1) + 8 * i);
         response = [v10 response];
         responseLength = [v10 responseLength];
         [v10 numOfElapsedDays];
-        v40 = exp(v13 / -30.0);
+        v39 = exp(v13 / -30.0);
         v14 = log(([v10 count] + 1));
         [v10 normalizedSourceAppCount];
         v16 = log(v15 + 1.0);
@@ -521,11 +518,11 @@ void __66__RKRankLearner_getRankedResponses_forRecipientID_withLanguageID___bloc
           }
         }
 
-        v32 = [[RKRankedResponse alloc] initWithResponse:response inputMethod:v31 score:1.0 / sqrt(responseLength) + (v25 + v14 + v16 * 0.5 + v18 * 0.5 + v20 * 0.2 + v22 * 0.4 + v24 * 0.4) * v40];
+        v32 = [[RKRankedResponse alloc] initWithResponse:response inputMethod:v31 score:1.0 / sqrt(responseLength) + (v25 + v14 + v16 * 0.5 + v18 * 0.5 + v20 * 0.2 + v22 * 0.4 + v24 * 0.4) * v39];
         [v4 addObject:v32];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v7);
@@ -545,8 +542,6 @@ void __66__RKRankLearner_getRankedResponses_forRecipientID_withLanguageID___bloc
   }
 
   v37 = v36;
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }

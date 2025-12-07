@@ -30,34 +30,34 @@
 
 - (void)startTaskGroup
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   group = dispatch_group_create();
-  v33[0] = 0;
-  v33[1] = v33;
-  v33[2] = 0x3032000000;
-  v33[3] = __Block_byref_object_copy__0;
-  v33[4] = __Block_byref_object_dispose__0;
-  v34 = 0;
+  v32[0] = 0;
+  v32[1] = v32;
+  v32[2] = 0x3032000000;
+  v32[3] = __Block_byref_object_copy__0;
+  v32[4] = __Block_byref_object_dispose__0;
+  v33 = 0;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = self->_actions;
-  v3 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+  v3 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v34 count:16];
   if (v3)
   {
-    v4 = *v30;
+    v4 = *v29;
     do
     {
       v5 = 0;
       do
       {
-        if (*v30 != v4)
+        if (*v29 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v29 + 1) + 8 * v5);
+        v6 = *(*(&v28 + 1) + 8 * v5);
         v7 = [CalDAVPostCalendarItemRecurrenceSplitTask alloc];
         resourceURL = [v6 resourceURL];
         recurrenceDate = [v6 recurrenceDate];
@@ -71,19 +71,19 @@
 
         objc_initWeak(&location, self);
         objc_initWeak(&from, v10);
-        objc_initWeak(&v26, v6);
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __48__CalDAVRecurrenceSplitTaskGroup_startTaskGroup__block_invoke;
-        v20[3] = &unk_278D669B0;
-        objc_copyWeak(&v23, &location);
-        objc_copyWeak(&v24, &from);
-        objc_copyWeak(&v25, &v26);
-        v22 = v33;
-        v20[4] = self;
+        objc_initWeak(&v25, v6);
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __48__CalDAVRecurrenceSplitTaskGroup_startTaskGroup__block_invoke;
+        v19[3] = &unk_278D669B0;
+        objc_copyWeak(&v22, &location);
+        objc_copyWeak(&v23, &from);
+        objc_copyWeak(&v24, &v25);
+        v21 = v32;
+        v19[4] = self;
         v13 = group;
-        v21 = v13;
-        [(CalDAVPostCalendarItemRecurrenceSplitTask *)v10 setCompletionBlock:v20];
+        v20 = v13;
+        [(CalDAVPostCalendarItemRecurrenceSplitTask *)v10 setCompletionBlock:v19];
         outstandingTasks = [(CoreDAVTaskGroup *)self outstandingTasks];
         [outstandingTasks addObject:v10];
 
@@ -91,10 +91,10 @@
         taskManager = [(CoreDAVTaskGroup *)self taskManager];
         [taskManager submitQueuedCoreDAVTask:v10];
 
-        objc_destroyWeak(&v25);
         objc_destroyWeak(&v24);
         objc_destroyWeak(&v23);
-        objc_destroyWeak(&v26);
+        objc_destroyWeak(&v22);
+        objc_destroyWeak(&v25);
         objc_destroyWeak(&from);
         objc_destroyWeak(&location);
 
@@ -102,7 +102,7 @@
       }
 
       while (v3 != v5);
-      v3 = [(NSArray *)obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v3 = [(NSArray *)obj countByEnumeratingWithState:&v28 objects:v34 count:16];
     }
 
     while (v3);
@@ -113,11 +113,9 @@
   block[2] = __48__CalDAVRecurrenceSplitTaskGroup_startTaskGroup__block_invoke_2;
   block[3] = &unk_278D668C8;
   block[4] = self;
-  block[5] = v33;
+  block[5] = v32;
   dispatch_group_notify(group, MEMORY[0x277D85CD0], block);
-  _Block_object_dispose(v33, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v32, 8);
 }
 
 void __48__CalDAVRecurrenceSplitTaskGroup_startTaskGroup__block_invoke(uint64_t a1)

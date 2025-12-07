@@ -132,25 +132,25 @@ LABEL_8:
 
 - (void)setInputElementMatching:()HIDFramework
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v9 = a3;
+  v11 = *MEMORY[0x277D85DE8];
+  v8 = a3;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [(HIDDevice(HIDFramework) *)&v10 setInputElementMatching:v11];
+      [(HIDDevice(HIDFramework) *)&v9 setInputElementMatching:v10];
     }
   }
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    if ([(__CFDictionary *)v9 count])
+    if ([(__CFDictionary *)v8 count])
     {
       selfCopy2 = self;
-      v5 = v9;
+      v5 = v8;
     }
 
     else
@@ -167,10 +167,10 @@ LABEL_8:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      if ([(__CFDictionary *)v9 count])
+      if ([(__CFDictionary *)v8 count])
       {
         selfCopy4 = self;
-        v7 = v9;
+        v7 = v8;
       }
 
       else
@@ -182,8 +182,6 @@ LABEL_8:
       IOHIDDeviceSetInputValueMatchingMultiple(selfCopy4, v7);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setInputElementHandler:()HIDFramework
@@ -299,7 +297,7 @@ LABEL_8:
   IOHIDDeviceActivate(self);
 }
 
-- (void)setInputElementMatching:()HIDFramework .cold.1(uint64_t *a1, _OWORD *a2)
+- (void)setInputElementMatching:()HIDFramework .cold.1(void *a1, _OWORD *a2)
 {
   *a1 = 0;
   a2[3] = 0u;
@@ -309,7 +307,6 @@ LABEL_8:
   *a2 = 0u;
   os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
   _os_log_send_and_compose_impl();
-  v3 = *a1;
   _os_crash_msg();
   __break(1u);
 }

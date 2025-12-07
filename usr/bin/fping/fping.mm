@@ -51,7 +51,8 @@ void *sub_10000075C(uint64_t a1)
 uint64_t sub_1000007C0(int a1, _OWORD *a2, _DWORD *a3)
 {
   v6 = 28;
-  *&v7[8] = 0uLL;
+  *&v7[8] = 0;
+  *&v7[16] = 0;
   *v7 = 7680;
   v8 = 0;
   *&v7[8] = *a2;
@@ -891,10 +892,10 @@ void sub_100001E2C(const char *a1)
 
 void sub_100001E78(char *a1)
 {
-  memset(&v18.ai_socktype, 0, 40);
-  v18.ai_flags = 0x10000000;
-  v18.ai_family = dword_10000C17C;
-  v18.ai_socktype = 3;
+  memset(&v17.ai_socktype, 0, 40);
+  v17.ai_flags = 0x10000000;
+  v17.ai_family = dword_10000C17C;
+  v17.ai_socktype = 3;
   if (dword_10000C17C == 30)
   {
     v2 = 58;
@@ -905,14 +906,14 @@ void sub_100001E78(char *a1)
   {
     v2 = 1;
 LABEL_5:
-    v18.ai_protocol = v2;
+    v17.ai_protocol = v2;
     goto LABEL_7;
   }
 
-  v18.ai_socktype = 1;
+  v17.ai_socktype = 1;
 LABEL_7:
-  v19 = 0;
-  v3 = getaddrinfo(a1, 0, &v18, &v19);
+  v18 = 0;
+  v3 = getaddrinfo(a1, 0, &v17, &v18);
   if (v3)
   {
     if (!dword_10000C238)
@@ -926,8 +927,8 @@ LABEL_7:
     return;
   }
 
-  v6 = v19;
-  if (v19)
+  v6 = v18;
+  if (v18)
   {
     while (1)
     {
@@ -940,9 +941,9 @@ LABEL_7:
       v8 = HIDWORD(qword_10000C248) != 0;
       if (qword_10000C248)
       {
-        v20[0] = 0;
-        v18.ai_flags = 4;
-        if (!getaddrinfo(a1, 0, &v18, v20))
+        v19[0] = 0;
+        v17.ai_flags = 4;
+        if (!getaddrinfo(a1, 0, &v17, v19))
         {
           break;
         }
@@ -956,37 +957,36 @@ LABEL_7:
 LABEL_17:
       v7 = a1;
 LABEL_18:
-      ai_addr = v6->ai_addr;
       ai_addrlen = v6->ai_addrlen;
       if (!dword_10000C250)
       {
-        v14 = a1;
-        v15 = v7;
-        v16 = v6->ai_addr;
+        v13 = a1;
+        v14 = v7;
+        ai_addr = v6->ai_addr;
         goto LABEL_28;
       }
 
-      v11 = getnameinfo(v6->ai_addr, v6->ai_addrlen, v21, 0x100u, 0, 0, 2);
-      if (!v11)
+      v10 = getnameinfo(v6->ai_addr, v6->ai_addrlen, v20, 0x100u, 0, 0, 2);
+      if (!v10)
       {
         if (qword_10000C248)
         {
-          snprintf(v20, 0x203uLL, "%s (%s)", v7, v21);
-          v16 = v6->ai_addr;
+          snprintf(v19, 0x203uLL, "%s (%s)", v7, v20);
+          ai_addr = v6->ai_addr;
           ai_addrlen = v6->ai_addrlen;
-          v15 = v20;
+          v14 = v19;
         }
 
         else
         {
-          v16 = v6->ai_addr;
+          ai_addr = v6->ai_addr;
           ai_addrlen = v6->ai_addrlen;
-          v15 = v21;
+          v14 = v20;
         }
 
-        v14 = a1;
+        v13 = a1;
 LABEL_28:
-        sub_100004758(v14, v15, v16, ai_addrlen);
+        sub_100004758(v13, v14, ai_addr, ai_addrlen);
         if (!dword_10000C240)
         {
           goto LABEL_30;
@@ -997,9 +997,9 @@ LABEL_28:
 
       if (!dword_10000C238)
       {
-        v12 = __stderrp;
-        v13 = gai_strerror(v11);
-        fprintf(v12, "%s: can't forward-lookup address (%s)\n", a1, v13);
+        v11 = __stderrp;
+        v12 = gai_strerror(v10);
+        fprintf(v11, "%s: can't forward-lookup address (%s)\n", a1, v12);
       }
 
 LABEL_29:
@@ -1007,15 +1007,15 @@ LABEL_29:
       if (!v6)
       {
 LABEL_30:
-        v17 = v19;
+        v16 = v18;
         goto LABEL_32;
       }
     }
 
-    freeaddrinfo(v20[0]);
+    freeaddrinfo(v19[0]);
 LABEL_16:
-    v7 = v22;
-    if (!getnameinfo(v6->ai_addr, v6->ai_addrlen, v22, 0x100u, 0, 0, 0))
+    v7 = v21;
+    if (!getnameinfo(v6->ai_addr, v6->ai_addrlen, v21, 0x100u, 0, 0, 0))
     {
       goto LABEL_18;
     }
@@ -1023,9 +1023,9 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v17 = 0;
+  v16 = 0;
 LABEL_32:
-  freeaddrinfo(v17);
+  freeaddrinfo(v16);
 }
 
 void sub_10000212C(const char *a1)
@@ -1240,7 +1240,6 @@ void sub_10000257C(uint64_t a1, uint64_t a2)
 
         if (*(v14 + 176) < *(v14 + 180))
         {
-          v18 = *(v14 + 184);
           printf("%d%% return)");
         }
 
@@ -1369,32 +1368,32 @@ LABEL_10:
       {
         if (qword_10000C190 + qword_10000C298 <= qword_10000C270 + 1)
         {
-          v19 = qword_10000C270 + 1;
+          v18 = qword_10000C270 + 1;
         }
 
         else
         {
-          v19 = qword_10000C190 + qword_10000C298;
+          v18 = qword_10000C190 + qword_10000C298;
         }
 
-        v20 = 1;
+        v19 = 1;
         if (qword_10000C190 + qword_10000C298 < qword_10000C270 + 1)
         {
-          v20 = 2;
+          v19 = 2;
         }
 
-        v21 = v19 - (qword_10000C190 + qword_10000C298 < qword_10000C270 + 1) - (qword_10000C190 + qword_10000C298);
+        v20 = v18 - (qword_10000C190 + qword_10000C298 < qword_10000C270 + 1) - (qword_10000C190 + qword_10000C298);
         if (qword_10000C190 <= 1)
         {
-          v22 = 1;
+          v21 = 1;
         }
 
         else
         {
-          v22 = qword_10000C190;
+          v21 = qword_10000C190;
         }
 
-        qword_10000C298 += qword_10000C190 * (v20 + v21 / v22);
+        qword_10000C298 += qword_10000C190 * (v19 + v20 / v21);
       }
     }
 
@@ -1518,17 +1517,18 @@ char *sub_100002B40(uint64_t a1)
   return byte_10001C311;
 }
 
-uint64_t sub_100002C0C(uint64_t a1, int a2)
+uint64_t sub_100002C0C(unsigned int *a1, uint64_t a2)
 {
+  v2 = a2;
   clock_gettime(_CLOCK_REALTIME, &stru_10000C2B8);
   v4 = stru_10000C2B8.tv_nsec + 1000000000 * stru_10000C2B8.tv_sec;
   qword_10000C270 = v4;
-  *(a1 + 168) = v4;
-  v5 = sub_100004FEC(*a1, a2, v4);
+  *(a1 + 21) = v4;
+  v5 = sub_100004FEC(*a1, v2, v4);
   v6 = *(a1 + 25);
   if (v6 == 2 && (dword_10000C118 & 0x80000000) == 0)
   {
-    if ((sub_100005358(dword_10000C118, (a1 + 24), *(a1 + 152), v5, dword_10000C170) & 0x80000000) == 0)
+    if ((sub_100005358(dword_10000C118, (a1 + 6), a1[38], v5, dword_10000C170) & 0x80000000) == 0)
     {
       goto LABEL_9;
     }
@@ -1539,7 +1539,7 @@ uint64_t sub_100002C0C(uint64_t a1, int a2)
   result = 0;
   if (v6 == 30 && (dword_10000C120 & 0x80000000) == 0)
   {
-    if ((sub_100000868(dword_10000C120, (a1 + 24), *(a1 + 152), v5, dword_10000C174) & 0x80000000) == 0)
+    if ((sub_100000868(dword_10000C120, (a1 + 6), a1[38], v5, dword_10000C174) & 0x80000000) == 0)
     {
       goto LABEL_9;
     }
@@ -1552,7 +1552,7 @@ LABEL_8:
         if (!dword_10000C238)
         {
           v12 = __stderrp;
-          v13 = *(a1 + 16);
+          v13 = *(a1 + 2);
           v14 = __error();
           v15 = strerror(*v14);
           fprintf(v12, "%s: error while sending ping: %s\n", v13, v15);
@@ -1560,8 +1560,8 @@ LABEL_8:
       }
 
       result = 0;
-      ++*(a1 + 176);
-      ++*(a1 + 216);
+      ++a1[44];
+      ++a1[54];
       if (dword_10000C258)
       {
         goto LABEL_16;
@@ -1573,9 +1573,9 @@ LABEL_8:
 
 LABEL_9:
     v8 = qword_10000C270;
-    v9 = *(a1 + 160);
-    v10 = *(a1 + 264) + 40 * (a2 % dword_10000C280);
-    *(v10 + 32) = a2;
+    v9 = *(a1 + 20);
+    v10 = *(a1 + 33) + 40 * (v2 % dword_10000C280);
+    *(v10 + 32) = v2;
     *(v10 + 16) = v9 + v8;
     *(v10 + 24) = a1;
     sub_100004960(&qword_10000C2A8, v10);
@@ -1584,13 +1584,13 @@ LABEL_9:
     {
 LABEL_16:
       ++dword_10000C1E0;
-      qword_10000C2A0 = *(a1 + 168);
+      qword_10000C2A0 = *(a1 + 21);
       return result;
     }
 
     v11 = -1;
 LABEL_11:
-    *(*(a1 + 248) + 8 * a2) = v11;
+    *(*(a1 + 31) + 8 * v2) = v11;
     goto LABEL_16;
   }
 
@@ -1608,35 +1608,35 @@ void *sub_100002DF0(uint64_t a1, int a2, uint64_t a3)
 
 uint64_t sub_100002E24(unint64_t a1, uint64_t a2)
 {
-  v28 = 0u;
-  v29 = 0u;
   v27 = 0u;
-  v25 = 0u;
+  v28 = 0u;
   v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v22 = 0;
-  result = sub_100004098(a1, a2, &v22, 0x80u, byte_10000C311, 0x10000);
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v21 = 0;
+  result = sub_100004098(a1, a2, &v21, 0x80u, byte_10000C311, 0x10000);
   if (result)
   {
     v3 = result;
-    v20 = 0;
     v19 = 0;
+    v18 = 0;
     clock_gettime(_CLOCK_REALTIME, &stru_10000C2B8);
     v4 = stru_10000C2B8.tv_nsec + 1000000000 * stru_10000C2B8.tv_sec;
     qword_10000C270 = v4;
-    if (v22.sa_family == 30)
+    if (v21.sa_family == 30)
     {
-      if (sub_100004408(&v22, 0x80u, byte_10000C311, 0x10000uLL, &v20, &v19) && dword_10000C174 == v20)
+      if (sub_100004408(&v21, 0x80u, byte_10000C311, 0x10000uLL, &v19, &v18) && dword_10000C174 == v19)
       {
         goto LABEL_12;
       }
     }
 
-    else if (v22.sa_family == 2)
+    else if (v21.sa_family == 2)
     {
-      v5 = sub_10000417C(&v22, 0x80u, byte_10000C311, 0x10000uLL, &v20, &v19);
-      if ((v5 & 0x80000000) == 0 && dword_10000C170 == v20)
+      v5 = sub_10000417C(&v21, 0x80u, byte_10000C311, 0x10000uLL, &v19, &v18);
+      if ((v5 & 0x80000000) == 0 && dword_10000C170 == v19)
       {
         if (dword_10000C178)
         {
@@ -1650,7 +1650,7 @@ uint64_t sub_100002E24(unint64_t a1, uint64_t a2)
 
         v3 -= v6;
 LABEL_12:
-        v7 = sub_1000050B8(v19, qword_10000C270);
+        v7 = sub_1000050B8(v18, qword_10000C270);
         if (v7)
         {
           v8 = v7[1];
@@ -1704,10 +1704,10 @@ LABEL_12:
                     printf(" (%s ms)", byte_10001C311);
                   }
 
-                  if (sub_100004678(&v22, v9 + 24))
+                  if (sub_100004678(&v21, v9 + 24))
                   {
-                    getnameinfo(&v22, 0x80u, v21, 0x2Eu, 0, 0, 2);
-                    fprintf(__stderrp, " [<- %s]", v21);
+                    getnameinfo(&v21, 0x80u, v20, 0x2Eu, 0, 0, 2);
+                    fprintf(__stderrp, " [<- %s]", v20);
                   }
 
                   putchar(10);
@@ -1730,7 +1730,6 @@ LABEL_12:
                 printf(" (%s avg, ", byte_10001C311);
                 if (*(v9 + 176) < *(v9 + 180))
                 {
-                  v16 = *(v9 + 184);
                   printf("%d%% return)");
                 }
 
@@ -1739,10 +1738,10 @@ LABEL_12:
                   printf("%d%% loss)");
                 }
 
-                if (sub_100004678(&v22, v9 + 24))
+                if (sub_100004678(&v21, v9 + 24))
                 {
-                  getnameinfo(&v22, 0x80u, v21, 0x2Eu, 0, 0, 2);
-                  fprintf(__stderrp, " [<- %s]", v21);
+                  getnameinfo(&v21, 0x80u, v20, 0x2Eu, 0, 0, 2);
+                  fprintf(__stderrp, " [<- %s]", v20);
                 }
 
                 putchar(10);
@@ -1752,14 +1751,14 @@ LABEL_12:
 
           else if (!dword_10000C268)
           {
-            v17 = __stderrp;
-            v18 = *(v9 + 16);
+            v16 = __stderrp;
+            v17 = *(v9 + 16);
             sub_100002B40(v10);
-            fprintf(v17, "%s : duplicate for [%d], %d bytes, %s ms", v18, v8, v3, byte_10001C311);
-            if (sub_100004678(&v22, v9 + 24))
+            fprintf(v16, "%s : duplicate for [%d], %d bytes, %s ms", v17, v8, v3, byte_10001C311);
+            if (sub_100004678(&v21, v9 + 24))
             {
-              getnameinfo(&v22, 0x80u, v21, 0x2Eu, 0, 0, 2);
-              fprintf(__stderrp, " [<- %s]", v21);
+              getnameinfo(&v21, 0x80u, v20, 0x2Eu, 0, 0, 2);
+              fprintf(__stderrp, " [<- %s]", v20);
             }
 
             fputc(10, __stderrp);
@@ -1809,14 +1808,12 @@ uint64_t sub_100003364()
         fprintf(__stderrp, " xmt/rcv/%%loss = %d/%d/%d%%", v5, *(v3 + 220), v6);
         if (dword_10000C1F0)
         {
-          v12 = ((qword_10000C140 * (*(v3 + 216) - *(v3 + 220))) / 1000000.0);
           fprintf(__stderrp, ", outage(ms) = %d");
         }
       }
 
       else
       {
-        v13 = *(v3 + 220);
         fprintf(__stderrp, " xmt/rcv/%%return = %d/%d/%d%%");
       }
 
@@ -2059,14 +2056,12 @@ void sub_100003A28()
           fprintf(__stderrp, " xmt/rcv/%%loss = %d/%d/%d%%", v5, *(v1 + 180), v7);
           if (dword_10000C1F0)
           {
-            v14 = ((qword_10000C140 * (*(v1 + 176) - *(v1 + 180))) / 1000000.0);
             fprintf(__stderrp, ", outage(ms) = %d");
           }
         }
 
         else
         {
-          v13 = *(v1 + 176);
           fprintf(__stderrp, " xmt/rcv/%%return = %d/%d/%d%%");
         }
 
@@ -2145,24 +2140,24 @@ void *sub_100003ED0(uint64_t a1, int a2, uint64_t a3)
   return sub_100004960(&qword_10000C2A8, v3);
 }
 
-uint64_t sub_100003F04()
+uint64_t sub_100003F04(uint64_t a1)
 {
   for (i = dword_10000C118; ; i = dword_10000C118)
   {
-    memset(v6, 0, sizeof(v6));
-    if ((i & 0x80000000) == 0 && __darwin_check_fd_set_overflow(i, v6, 1))
+    memset(v7, 0, sizeof(v7));
+    if ((i & 0x80000000) == 0 && __darwin_check_fd_set_overflow(i, v7, 1))
     {
-      *(v6 + (i >> 5)) |= 1 << i;
+      *(v7 + (i >> 5)) |= 1 << i;
     }
 
-    v1 = dword_10000C120;
-    if ((dword_10000C120 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C120, v6, 1))
+    v2 = dword_10000C120;
+    if ((dword_10000C120 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C120, v7, 1))
     {
-      *(v6 + ((v1 >> 3) & 0x1FFFFFFC)) |= 1 << v1;
+      *(v7 + ((v2 >> 3) & 0x1FFFFFFC)) |= 1 << v2;
     }
 
-    v2 = select_DARWIN_EXTSN();
-    if ((v2 & 0x80000000) == 0)
+    v3 = select_DARWIN_EXTSN();
+    if ((v3 & 0x80000000) == 0)
     {
       break;
     }
@@ -2174,16 +2169,16 @@ uint64_t sub_100003F04()
     }
   }
 
-  if (v2)
+  if (v3)
   {
-    v3 = dword_10000C118;
-    if (dword_10000C118 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C118, v6, 1) && ((*(v6 + ((v3 >> 3) & 0x1FFFFFFC)) >> v3))
+    v4 = dword_10000C118;
+    if (dword_10000C118 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C118, v7, 1) && ((*(v7 + ((v4 >> 3) & 0x1FFFFFFC)) >> v4))
     {
       return dword_10000C118;
     }
 
-    v5 = dword_10000C120;
-    if (dword_10000C120 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C120, v6, 1) && ((*(v6 + ((v5 >> 3) & 0x1FFFFFFC)) >> v5))
+    v6 = dword_10000C120;
+    if (dword_10000C120 & 0x80000000) == 0 && __darwin_check_fd_set_overflow(dword_10000C120, v7, 1) && ((*(v7 + ((v6 >> 3) & 0x1FFFFFFC)) >> v6))
     {
       return dword_10000C120;
     }
@@ -2214,9 +2209,9 @@ uint64_t sub_100004098(unint64_t a1, uint64_t a2, void *a3, unsigned int a4, uin
     v7 = 0;
   }
 
-  v12[2] = v6;
-  v12[3] = v7;
-  v8 = sub_100003F04();
+  v13[0] = v6;
+  v13[1] = v7;
+  v8 = sub_100003F04(v13);
   if (v8 == -1)
   {
     return 0;
@@ -2252,8 +2247,8 @@ uint64_t sub_10000417C(sockaddr *a1, socklen_t a2, _BYTE *a3, unint64_t a4, _WOR
   {
     if (dword_10000C224)
     {
-      getnameinfo(a1, a2, v23, 0x2Eu, 0, 0, 2);
-      printf("received packet too short for ICMP (%d bytes from %s)\n", v6, v23);
+      getnameinfo(a1, a2, v14, 0x2Eu, 0, 0, 2);
+      printf("received packet too short for ICMP (%d bytes from %s)\n", v6, v14);
     }
 
     return 0xFFFFFFFFLL;
@@ -2269,47 +2264,38 @@ uint64_t sub_10000417C(sockaddr *a1, socklen_t a2, _BYTE *a3, unint64_t a4, _WOR
 
   if (v10 + 28 <= a4 && v11[28] == 8 && dword_10000C170 == *(v11 + 16))
   {
-    v12 = sub_1000050B8(bswap32(*(v11 + 17)) >> 16, qword_10000C270);
-    if (v12)
+    if (sub_1000050B8(bswap32(*(v11 + 17)) >> 16, qword_10000C270))
     {
-      v13 = v12;
-      getnameinfo(a1, a2, v23, 0x2Eu, 0, 0, 2);
-      v14 = *v11;
-      if (v14 <= 0xC)
+      getnameinfo(a1, a2, v14, 0x2Eu, 0, 0, 2);
+      v12 = *v11;
+      if (v12 <= 0xC)
       {
-        if (((1 << v14) & 0x1830) != 0)
+        if (((1 << v12) & 0x1830) != 0)
         {
           if (!dword_10000C238)
           {
-            v15 = __stderrp;
-            v22 = *(*(qword_10000C168 + 8 * *v13) + 16);
-            v19 = (&off_10000C000)[*v11];
+            v13 = __stderrp;
 LABEL_16:
-            fprintf(v15, "%s from %s for ICMP Echo sent to %s");
+            fprintf(v13, "%s from %s for ICMP Echo sent to %s");
             goto LABEL_17;
           }
 
           goto LABEL_25;
         }
 
-        if (v14 == 3)
+        if (v12 == 3)
         {
-          v16 = *(qword_10000C168 + 8 * *v13);
-          v17 = v11[1];
-          if (v17 < 0x10)
+          if (v11[1] < 0x10uLL)
           {
             if (!dword_10000C238)
             {
-              v15 = __stderrp;
-              v18 = *(v16 + 16);
-              v20 = off_10000C098[v17];
+              v13 = __stderrp;
               goto LABEL_16;
             }
           }
 
           else if (!dword_10000C238)
           {
-            v21 = *(v16 + 16);
             fprintf(__stderrp, "ICMP Unreachable (Invalid Code) from %s for ICMP Echo sent to %s");
 LABEL_17:
             if (!dword_10000C238)
@@ -2335,8 +2321,8 @@ uint64_t sub_100004408(sockaddr *a1, socklen_t a2, unsigned __int8 *a3, unint64_
   {
     if (dword_10000C224)
     {
-      getnameinfo(a1, a2, v22, 0x2Eu, 0, 0, 2);
-      printf("received packet too short for ICMP (%d bytes from %s)\n", v6, v22);
+      getnameinfo(a1, a2, v13, 0x2Eu, 0, 0, 2);
+      printf("received packet too short for ICMP (%d bytes from %s)\n", v6, v13);
     }
 
     return 0;
@@ -2351,47 +2337,38 @@ uint64_t sub_100004408(sockaddr *a1, socklen_t a2, unsigned __int8 *a3, unint64_
 
   if (a4 >= 0x24 && a3[28] == 8 && dword_10000C174 == *(a3 + 16))
   {
-    v11 = sub_1000050B8(bswap32(*(a3 + 17)) >> 16, qword_10000C270);
-    if (v11)
+    if (sub_1000050B8(bswap32(*(a3 + 17)) >> 16, qword_10000C270))
     {
-      v12 = v11;
-      getnameinfo(a1, a2, v22, 0x2Eu, 0, 0, 2);
-      v13 = *a3;
-      if (v13 <= 0xC)
+      getnameinfo(a1, a2, v13, 0x2Eu, 0, 0, 2);
+      v11 = *a3;
+      if (v11 <= 0xC)
       {
-        if (((1 << v13) & 0x1830) != 0)
+        if (((1 << v11) & 0x1830) != 0)
         {
           if (!dword_10000C238)
           {
-            v14 = __stderrp;
-            v21 = *(*(qword_10000C168 + 8 * *v12) + 16);
-            v18 = (&off_10000C000)[*a3];
+            v12 = __stderrp;
 LABEL_14:
-            fprintf(v14, "%s from %s for ICMP Echo sent to %s");
+            fprintf(v12, "%s from %s for ICMP Echo sent to %s");
             goto LABEL_15;
           }
 
           goto LABEL_22;
         }
 
-        if (v13 == 3)
+        if (v11 == 3)
         {
-          v15 = *(qword_10000C168 + 8 * *v12);
-          v16 = a3[1];
-          if (v16 < 0x10)
+          if (a3[1] < 0x10uLL)
           {
             if (!dword_10000C238)
             {
-              v14 = __stderrp;
-              v17 = *(v15 + 16);
-              v19 = off_10000C098[v16];
+              v12 = __stderrp;
               goto LABEL_14;
             }
           }
 
           else if (!dword_10000C238)
           {
-            v20 = *(v15 + 16);
             fprintf(__stderrp, "ICMP Unreachable (Invalid Code) from %s for ICMP Echo sent to %s");
 LABEL_15:
             if (!dword_10000C238)
@@ -2481,7 +2458,7 @@ uint64_t **sub_100004714(uint64_t **result, uint64_t *a2)
   return result;
 }
 
-void *sub_100004758(const char *a1, const char *a2, uint64_t a3, int a4)
+void *sub_100004758(const char *a1, const char *a2, uint64_t a3, unsigned int a4)
 {
   v7 = malloc_type_calloc(1uLL, 0x110uLL, 0x1030040B29573AEuLL);
   if (!v7)
@@ -2632,13 +2609,13 @@ double sub_1000049CC(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t sub_1000049E8(uint64_t a1, unsigned __int8 *a2)
+uint64_t sub_1000049E8(uint64_t *a1, unsigned __int8 *a2)
 {
   *(a1 + 32) = 0;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
+  *(a1 + 4) = 0;
+  a1[3] = 0;
   v2 = *a1;
-  v3 = *(a1 + 12);
+  v3 = *(a1 + 3);
   v4 = *(*a1 + 8 * v3);
   if (!v4)
   {
@@ -2652,9 +2629,9 @@ uint64_t sub_1000049E8(uint64_t a1, unsigned __int8 *a2)
 
   if (v4[1] != 45)
   {
-    v10 = *(a1 + 96);
+    v10 = *(a1 + 24);
     v11 = &v4[v10];
-    *(a1 + 16) = v11[1];
+    *(a1 + 4) = v11[1];
     v12 = v11[1];
     if (v12 == 58)
     {
@@ -2680,7 +2657,7 @@ uint64_t sub_1000049E8(uint64_t a1, unsigned __int8 *a2)
     if (!v13)
     {
 LABEL_24:
-      *(a1 + 12) = v3 + 1;
+      *(a1 + 3) = v3 + 1;
       v25[0] = v11[1];
       v25[1] = 0;
       v20 = "invalid option";
@@ -2699,20 +2676,20 @@ LABEL_24:
 
         else
         {
-          *(a1 + 12) = v3 + 1;
+          *(a1 + 3) = v3 + 1;
         }
 
-        *(a1 + 96) = v22;
+        *(a1 + 24) = v22;
         return v11[1];
       }
 
       v16 = v3 + 1;
       if (a2[1] == 58)
       {
-        *(a1 + 96) = 0;
-        *(a1 + 12) = v16;
+        *(a1 + 24) = 0;
+        *(a1 + 3) = v16;
         v18 = v11[2];
-        v17 = v11 + 2;
+        v17 = (v11 + 2);
         if (v18)
         {
           v19 = v17;
@@ -2723,27 +2700,27 @@ LABEL_24:
           v19 = 0;
         }
 
-        *(a1 + 24) = v19;
+        a1[3] = v19;
         return *(v17 - 1);
       }
 
       v23 = *(v2 + 8 * v16);
-      *(a1 + 96) = 0;
-      *(a1 + 12) = v16;
+      *(a1 + 24) = 0;
+      *(a1 + 3) = v16;
       if (v11[2])
       {
-        *(a1 + 24) = v11 + 2;
+        a1[3] = (v11 + 2);
         return v11[1];
       }
 
       if (v23)
       {
-        *(a1 + 24) = v23;
-        *(a1 + 12) = v3 + 2;
+        a1[3] = v23;
+        *(a1 + 3) = v3 + 2;
         return v11[1];
       }
 
-      *(a1 + 24) = 0;
+      a1[3] = 0;
       v24[0] = v11[1];
       v24[1] = 0;
       v20 = "option requires an argument";
@@ -2756,21 +2733,21 @@ LABEL_24:
 
   if (!v4[2])
   {
-    *(a1 + 12) = v3 + 1;
+    *(a1 + 3) = v3 + 1;
     return 0xFFFFFFFFLL;
   }
 
 LABEL_6:
-  if (!*(a1 + 8))
+  if (!*(a1 + 2))
   {
     return 0xFFFFFFFFLL;
   }
 
-  *(a1 + 12) = v3 + 1;
-  result = sub_1000049E8(a1);
+  *(a1 + 3) = v3 + 1;
+  result = sub_1000049E8(a1, a2);
   v7 = *a1;
   v8 = *(*a1 + 8 * v3);
-  v9 = *(a1 + 12) - 1;
+  v9 = *(a1 + 3) - 1;
   if (v9 > v3)
   {
     do
@@ -2784,7 +2761,7 @@ LABEL_6:
   }
 
   *(v7 + 8 * v9) = v8;
-  *(a1 + 12) = v9;
+  *(a1 + 3) = v9;
   return result;
 }
 

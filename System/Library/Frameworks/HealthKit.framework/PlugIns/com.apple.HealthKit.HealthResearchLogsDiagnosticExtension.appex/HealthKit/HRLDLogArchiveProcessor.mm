@@ -9,22 +9,20 @@
 - (HRLDLogArchiveProcessor)initWithArchiveStartDate:(id)date deviceName:(id)name logArchiveURL:(id)l outputFileURL:(id)rL redactedToken:(id)token windowSize:(double)size error:(id *)error
 {
   v10 = sub_100007738();
-  v11 = *(*(v10 - 8) + 64);
-  v12 = __chkstk_darwin(v10 - 8);
-  v14 = &v27[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  __chkstk_darwin(v12);
-  v16 = &v27[-v15];
-  v17 = sub_1000077E8();
-  v18 = *(*(v17 - 8) + 64);
-  __chkstk_darwin(v17 - 8);
-  v20 = &v27[-((v19 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v11 = __chkstk_darwin(v10 - 8);
+  v13 = &v25[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __chkstk_darwin(v11);
+  v15 = &v25[-v14];
+  v16 = sub_1000077E8();
+  __chkstk_darwin(v16 - 8);
+  v18 = &v25[-((v17 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_1000077C8();
-  v21 = sub_100007808();
-  v23 = v22;
+  v19 = sub_100007808();
+  v21 = v20;
   sub_100007718();
   sub_100007718();
-  v24 = sub_100007808();
-  return sub_100001E10(v20, v21, v23, v16, v14, v24, v25, size);
+  v22 = sub_100007808();
+  return sub_100001E10(v18, v19, v21, v15, v13, v22, v23, size);
 }
 
 - (BOOL)writeLogsToDiskFrom:(id)from error:(id *)error progressHandler:(id)handler

@@ -7,6 +7,7 @@
 - (BOOL)setPropertyForKey:(id)key value:(id)value channelType:(unint64_t)type error:(id *)error;
 - (BOOL)setPropertyForKey:(id)key value:(id)value error:(id *)error;
 - (BOOL)updateMDMConfigurationForChannel:(unint64_t)channel createIfNeeded:(BOOL)needed error:(id *)error updateBlock:(id)block;
+- (BOOL)updateMDMConfigurationWithCreateIfNeeded:(BOOL)needed updateBlock:(id)block error:(id *)error;
 - (MDMConfigurationBase)init;
 - (NSData)lastPushTokenHash;
 - (NSDate)pushMagicMismatchDateMarker;
@@ -105,7 +106,7 @@ void __46__MDMConfigurationBase_refreshDetailsFromDisk__block_invoke(uint64_t a1
 
 - (BOOL)memberQueueReadConfigurationOutError:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
@@ -114,9 +115,9 @@ void __46__MDMConfigurationBase_refreshDetailsFromDisk__block_invoke(uint64_t a1
   }
 
   [(MDMConfigurationBase *)self memberQueueForgetCurrentConfiguration];
-  v39 = 0;
-  v6 = [(MDMConfigurationBase *)self retrieveMDMDictionaryWithError:&v39];
-  v7 = v39;
+  v38 = 0;
+  v6 = [(MDMConfigurationBase *)self retrieveMDMDictionaryWithError:&v38];
+  v7 = v38;
   if (!v7)
   {
     [(MDMConfigurationBase *)self setMemberQueueMDMDictionary:v6];
@@ -152,9 +153,9 @@ LABEL_10:
 
     v19 = MEMORY[0x277CCA9B8];
     v20 = *MEMORY[0x277D03480];
-    v38 = v9;
+    v37 = v9;
     v21 = DMCErrorArray();
-    memberQueuePushMagicMismatchDateMarker = [v19 DMCErrorWithDomain:v20 code:12011 descriptionArray:v21 errorType:{*MEMORY[0x277D032F8], v38, 0}];
+    memberQueuePushMagicMismatchDateMarker = [v19 DMCErrorWithDomain:v20 code:12011 descriptionArray:v21 errorType:{*MEMORY[0x277D032F8], v37, 0}];
 
     goto LABEL_12;
   }
@@ -246,7 +247,7 @@ LABEL_31:
   if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v41 = memberQueuePushMagicMismatchDateMarker;
+    v40 = memberQueuePushMagicMismatchDateMarker;
     _os_log_impl(&dword_22E997000, v34, OS_LOG_TYPE_ERROR, "MDMConfigurationBase: memberQueueReadConfigurationOutError: Invalid MDM installation found. Error: %{public}@", buf, 0xCu);
   }
 
@@ -268,7 +269,6 @@ LABEL_35:
 
 LABEL_37:
 
-  v36 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -284,6 +284,15 @@ LABEL_37:
   [(MDMConfigurationBase *)self setMemberQueueMDMDictionary:0];
   [(MDMConfigurationBase *)self setMemberQueueLastPushTokenHash:0];
   [(MDMConfigurationBase *)self setMemberQueuePushMagicMismatchDateMarker:0];
+}
+
+- (BOOL)updateMDMConfigurationWithCreateIfNeeded:(BOOL)needed updateBlock:(id)block error:(id *)error
+{
+  neededCopy = needed;
+  blockCopy = block;
+  LOBYTE(error) = [(MDMConfigurationBase *)self updateMDMConfigurationForChannel:[(MDMConfigurationBase *)self channelType] createIfNeeded:neededCopy error:error updateBlock:blockCopy];
+
+  return error;
 }
 
 - (BOOL)removeMDMConfigurationWithError:(id *)error
@@ -397,36 +406,35 @@ void __90__MDMConfigurationBase_updateMDMConfigurationForChannel_createIfNeeded_
 LABEL_15:
 
   (*(*(a1 + 40) + 16))();
-  if ([v6 DMCWriteToBinaryFile:v2])
+  v21 = [v6 DMCWriteToBinaryFile:v2];
+  if (v21)
   {
     if (!*(a1 + 56))
     {
-      MDMSendMDMFileChangedNotification();
+      MDMSendMDMFileChangedNotification(v21);
     }
   }
 
   else
   {
-    v21 = *(DMCLogObjects() + 8);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = *(DMCLogObjects() + 8);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
       v32 = v2;
-      _os_log_impl(&dword_22E997000, v21, OS_LOG_TYPE_ERROR, "Failed to save MDM.plist to filePath: %{public}@", buf, 0xCu);
+      _os_log_impl(&dword_22E997000, v22, OS_LOG_TYPE_ERROR, "Failed to save MDM.plist to filePath: %{public}@", buf, 0xCu);
     }
 
-    v22 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277D03480];
-    v24 = DMCErrorArray();
-    v25 = [v22 DMCErrorWithDomain:v23 code:12135 descriptionArray:v24 errorType:{*MEMORY[0x277D032F8], 0}];
-    v26 = *(*(a1 + 48) + 8);
-    v27 = *(v26 + 40);
-    *(v26 + 40) = v25;
+    v23 = MEMORY[0x277CCA9B8];
+    v24 = *MEMORY[0x277D03480];
+    v25 = DMCErrorArray();
+    v26 = [v23 DMCErrorWithDomain:v24 code:12135 descriptionArray:v25 errorType:{*MEMORY[0x277D032F8], 0}];
+    v27 = *(*(a1 + 48) + 8);
+    v28 = *(v27 + 40);
+    *(v27 + 40) = v26;
   }
 
 LABEL_21:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)removeMDMConfigurationForChannel:(unint64_t)channel error:(id *)error
@@ -476,25 +484,23 @@ void __63__MDMConfigurationBase_removeMDMConfigurationForChannel_error___block_i
     objc_storeStrong((v4 + 40), obj);
     if (*(*(*(a1 + 40) + 8) + 40))
     {
-      v5 = *(DMCLogObjects() + 8);
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = *(DMCLogObjects() + 8);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v6 = *(*(*(a1 + 40) + 8) + 40);
+        v7 = *(*(*(a1 + 40) + 8) + 40);
         *buf = 138543618;
         v10 = v2;
         v11 = 2114;
-        v12 = v6;
-        _os_log_impl(&dword_22E997000, v5, OS_LOG_TYPE_ERROR, "Failed to remove MDM.plist at path %{public}@ with error: %{public}@", buf, 0x16u);
+        v12 = v7;
+        _os_log_impl(&dword_22E997000, v6, OS_LOG_TYPE_ERROR, "Failed to remove MDM.plist at path %{public}@ with error: %{public}@", buf, 0x16u);
       }
     }
 
     else if (!*(a1 + 48))
     {
-      MDMSendMDMFileChangedNotification();
+      MDMSendMDMFileChangedNotification(v5);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mdmFilePathForChannelType:(unint64_t)type
@@ -537,10 +543,7 @@ void __63__MDMConfigurationBase_removeMDMConfigurationForChannel_error___block_i
 
 uint64_t __31__MDMConfigurationBase_details__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueMDMDictionary];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueMDMDictionary];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -570,10 +573,7 @@ uint64_t __31__MDMConfigurationBase_details__block_invoke(uint64_t a1)
 
 uint64_t __41__MDMConfigurationBase_lastPushTokenHash__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueueLastPushTokenHash];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueueLastPushTokenHash];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -603,10 +603,7 @@ uint64_t __41__MDMConfigurationBase_lastPushTokenHash__block_invoke(uint64_t a1)
 
 uint64_t __51__MDMConfigurationBase_pushMagicMismatchDateMarker__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) memberQueuePushMagicMismatchDateMarker];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) memberQueuePushMagicMismatchDateMarker];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -676,7 +673,7 @@ uint64_t __51__MDMConfigurationBase_pushMagicMismatchDateMarker__block_invoke(ui
 
 void __66__MDMConfigurationBase_setPropertyForKey_value_channelType_error___block_invoke(void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = a1[9];
   v3 = a1[4];
   v4 = a1[5] != 0;
@@ -692,9 +689,9 @@ void __66__MDMConfigurationBase_setPropertyForKey_value_channelType_error___bloc
       v15 = a1[6];
       v16 = *(*(a1[7] + 8) + 40);
       *buf = 138543618;
-      v24 = v15;
-      v25 = 2114;
-      v26 = v16;
+      v23 = v15;
+      v24 = 2114;
+      v25 = v16;
       v17 = "MDMConfigurationBase: setPropertyForKey: cannot set property for key %{public}@. Error: %{public}@";
       v18 = v14;
       v19 = 22;
@@ -711,9 +708,9 @@ LABEL_10:
   v7 = a1[4];
   v8 = a1[9];
   v9 = *(a1[7] + 8);
-  v21 = *(v9 + 40);
-  v10 = [v7 _memberQueueWriteProperties:v6 channelType:v8 error:&v21];
-  objc_storeStrong((v9 + 40), v21);
+  v20 = *(v9 + 40);
+  v10 = [v7 _memberQueueWriteProperties:v6 channelType:v8 error:&v20];
+  objc_storeStrong((v9 + 40), v20);
   v11 = *(DMCLogObjects() + 8);
   if ((v10 & 1) == 0)
   {
@@ -734,15 +731,13 @@ LABEL_10:
     v13 = a1[5];
     v12 = a1[6];
     *buf = 138543618;
-    v24 = v12;
-    v25 = 2114;
-    v26 = v13;
+    v23 = v12;
+    v24 = 2114;
+    v25 = v13;
     _os_log_impl(&dword_22E997000, v11, OS_LOG_TYPE_DEBUG, "MDMConfigurationBase: setPropertyForKey: %{public}@ value: %{public}@", buf, 0x16u);
   }
 
 LABEL_11:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)getPropertyForKey:(id)key channelType:(unint64_t)type error:(id *)error
@@ -792,7 +787,7 @@ LABEL_11:
 
 void __60__MDMConfigurationBase_getPropertyForKey_channelType_error___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEA90];
   v3 = [*(a1 + 32) _mdmPropertiesFilePathForChannelType:*(a1 + 64)];
   v4 = [v2 dataWithContentsOfFile:v3];
@@ -814,9 +809,9 @@ void __60__MDMConfigurationBase_getPropertyForKey_channelType_error___block_invo
       v11 = *(a1 + 40);
       v12 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 138543618;
-      v21 = v11;
-      v22 = 2114;
-      v23 = v12;
+      v20 = v11;
+      v21 = 2114;
+      v22 = v12;
       v13 = "MDMConfigurationBase: getPropertyForKey: %{public}@ value: %{public}@";
       v14 = v10;
       v15 = OS_LOG_TYPE_DEBUG;
@@ -839,8 +834,6 @@ LABEL_7:
       goto LABEL_7;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mdmPropertiesFilePathForChannelType:(unint64_t)type

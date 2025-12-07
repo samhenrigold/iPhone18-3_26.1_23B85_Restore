@@ -67,42 +67,43 @@ LABEL_8:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(ATXSpotlightEventMetadata *)self initWithProto:v7];
+      [(ATXSpotlightEventMetadata *)self initWithProto:v8];
     }
 
     goto LABEL_8;
   }
 
-  v5 = protoCopy;
-  if ([(ATXPBSpotlightEventMetadata *)v5 hasDidSearchDuringSession])
+  v6 = protoCopy;
+  if ([(ATXPBSpotlightEventMetadata *)v6 hasDidSearchDuringSession])
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithBool:-[ATXPBSpotlightEventMetadata didSearchDuringSession](v5)];
+    v7 = [MEMORY[0x1E696AD98] numberWithBool:-[ATXPBSpotlightEventMetadata didSearchDuringSession](v6)];
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  if ([(ATXPBSpotlightEventMetadata *)v5 hasSearchEngagedActionType])
+  if ([(ATXPBSpotlightEventMetadata *)v6 hasSearchEngagedActionType])
   {
-    v9 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:-[ATXPBSpotlightEventMetadata searchEngagedActionType](v5)];
+    v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:-[ATXPBSpotlightEventMetadata searchEngagedActionType](v6)];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  queryAtEngagement = [(ATXPBSpotlightEventMetadata *)v5 queryAtEngagement];
-  engagedAppString = [(ATXPBSpotlightEventMetadata *)v5 engagedAppString];
-  searchEngagedBundleId = [(ATXPBSpotlightEventMetadata *)v5 searchEngagedBundleId];
-  self = [(ATXSpotlightEventMetadata *)self initWithQueryAtEngagement:queryAtEngagement engagedAppString:engagedAppString didSearchDuringSession:v6 searchEngagedBundleId:searchEngagedBundleId searchEngagedActionType:v9];
+  queryAtEngagement = [(ATXPBSpotlightEventMetadata *)v6 queryAtEngagement];
+  engagedAppString = [(ATXPBSpotlightEventMetadata *)v6 engagedAppString];
+  searchEngagedBundleId = [(ATXPBSpotlightEventMetadata *)v6 searchEngagedBundleId];
+  self = [(ATXSpotlightEventMetadata *)self initWithQueryAtEngagement:queryAtEngagement engagedAppString:engagedAppString didSearchDuringSession:v7 searchEngagedBundleId:searchEngagedBundleId searchEngagedActionType:v10];
 
   selfCopy = self;
 LABEL_14:

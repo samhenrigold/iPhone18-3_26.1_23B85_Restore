@@ -561,7 +561,7 @@ LABEL_51:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d GKNATObserver: running NAT check from startConnection", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d GKNATObserver: running NAT check from startConnection", v2, v3, v4, v5);
 }
 
 - (void)reportNATType
@@ -846,7 +846,7 @@ LABEL_40:
 
 - (tagCommNATInfo)callCommNATTestFromIPPort:(tagIPPORT *)port ipv6Prefix:(id *)prefix
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   dwIPv4 = InterpretAddressX();
   v5 = InterpretAddressX();
   v6 = [GKSConnectivitySettings getIPPortForService:@"gk-commnat-main0-name"];
@@ -880,13 +880,13 @@ LABEL_40:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v35 = v15;
-        v36 = 2080;
-        v37 = "[GKNATObserverInternal callCommNATTestFromIPPort:ipv6Prefix:]";
-        v38 = 1024;
-        v39 = 705;
-        v40 = 2048;
-        *v41 = 0x4024000000000000;
+        v39 = v15;
+        v40 = 2080;
+        v41 = "[GKNATObserverInternal callCommNATTestFromIPPort:ipv6Prefix:]";
+        v42 = 1024;
+        v43 = 705;
+        v44 = 2048;
+        *v45 = 0x4024000000000000;
         v14 = " [%s] %s:%d natchecktimeout using default: %lf";
         goto LABEL_14;
       }
@@ -900,13 +900,13 @@ LABEL_40:
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v35 = v12;
-      v36 = 2080;
-      v37 = "[GKNATObserverInternal callCommNATTestFromIPPort:ipv6Prefix:]";
-      v38 = 1024;
-      v39 = 707;
-      v40 = 2048;
-      *v41 = v10;
+      v39 = v12;
+      v40 = 2080;
+      v41 = "[GKNATObserverInternal callCommNATTestFromIPPort:ipv6Prefix:]";
+      v42 = 1024;
+      v43 = 707;
+      v44 = 2048;
+      *v45 = v10;
       v14 = " [%s] %s:%d natchecktimeout set to %lf from bag";
 LABEL_14:
       _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 0x26u);
@@ -1027,17 +1027,18 @@ LABEL_38:
   free(v6);
   free(port);
   free(v8);
-  v24 = micro();
-  v25 = CommNAT_Test(v33, 0x4013u, dwIPv4, v10, wPort, integerValue, v5);
+  v26 = micro(v24, v25);
+  v27 = CommNAT_Test(v37, 16403, dwIPv4, v10, wPort, integerValue, v5);
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v26 = VRTraceErrorLogLevelToCSTR();
-    v27 = *MEMORY[0x1E6986650];
-    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    v28 = VRTraceErrorLogLevelToCSTR();
+    v29 = *MEMORY[0x1E6986650];
+    v30 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+    if (v30)
     {
-      if (v25)
+      if (v27)
       {
-        var0 = v25->var0;
+        var0 = v27->var0;
       }
 
       else
@@ -1045,24 +1046,24 @@ LABEL_38:
         var0 = 0;
       }
 
-      v29 = micro();
+      v33 = micro(v30, v31);
       *buf = 136316418;
-      v35 = v26;
-      v36 = 2080;
-      v37 = "[GKNATObserverInternal callCommNATTestFromIPPort:ipv6Prefix:]";
-      v38 = 1024;
-      v39 = 750;
-      v40 = 1024;
-      *v41 = var0;
-      *&v41[4] = 2048;
-      *&v41[6] = v29 - v24;
-      v42 = 2080;
-      v43 = v33 + 1;
-      _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d commnat_test: [%08X] after %0.6lfs (%s)", buf, 0x36u);
+      v39 = v28;
+      v40 = 2080;
+      v41 = "[GKNATObserverInternal callCommNATTestFromIPPort:ipv6Prefix:]";
+      v42 = 1024;
+      v43 = 750;
+      v44 = 1024;
+      *v45 = var0;
+      *&v45[4] = 2048;
+      *&v45[6] = v33 - v26;
+      v46 = 2080;
+      v47 = v37 + 1;
+      _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d commnat_test: [%08X] after %0.6lfs (%s)", buf, 0x36u);
     }
   }
 
-  return v25;
+  return v27;
 }
 
 - (int)callHTTPTestFromIPPort:(tagIPPORT *)port ipv6Prefix:(id *)prefix ToServer:(id)server isSSL:(BOOL)l
@@ -1949,7 +1950,7 @@ LABEL_29:
 - (void)NATCheckWithIPPort:(tagIPPORT *)port ipv6Prefix:(id *)prefix useCache:(BOOL)cache
 {
   cacheCopy = cache;
-  v63 = *MEMORY[0x1E69E9840];
+  v82 = *MEMORY[0x1E69E9840];
   v9 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   if ((port->iFlags & 4) != 0)
   {
@@ -1962,168 +1963,176 @@ LABEL_29:
   }
 
   v11 = v10;
-  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+  if (ErrorLogLevelForModule >= 7)
   {
-    v12 = VRTraceErrorLogLevelToCSTR();
-    v13 = *MEMORY[0x1E6986650];
-    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    v14 = VRTraceErrorLogLevelToCSTR();
+    v15 = *MEMORY[0x1E6986650];
+    ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+    if (ErrorLogLevelForModule)
     {
       if (v11)
       {
-        v14 = [objc_msgSend(v11 "description")];
+        v16 = [objc_msgSend(v11 "description")];
       }
 
       else
       {
-        v14 = "<nil>";
+        v16 = "<nil>";
       }
 
       *buf = 136315906;
-      v54 = v12;
-      v55 = 2080;
-      v56 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
-      v57 = 1024;
-      v58 = 1169;
-      v59 = 2080;
-      v60 = *&v14;
-      _os_log_impl(&dword_1DB56E000, v13, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: NATCheckWithIPPort starting for %s", buf, 0x26u);
+      v73 = v14;
+      v74 = 2080;
+      v75 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
+      v76 = 1024;
+      v77 = 1169;
+      v78 = 2080;
+      v79 = *&v16;
+      _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: NATCheckWithIPPort starting for %s", buf, 0x26u);
     }
   }
 
-  v15 = micro();
+  v19 = micro(ErrorLogLevelForModule, v13);
   if ((port->iFlags & 4) != 0)
   {
-    v16 = @"gk_ci_cache";
+    v20 = @"gk_ci_cache";
   }
 
   else
   {
-    v16 = [(GKNATObserverInternal *)self nameForNetworkWithIPPort:port interfaceName:v11];
+    v17 = [(GKNATObserverInternal *)self nameForNetworkWithIPPort:port interfaceName:v11];
+    v20 = v17;
   }
 
-  v17 = micro() - v15;
-  if (v17 > 0.01 && VRTraceGetErrorLogLevelForModule() >= 7)
+  v23 = micro(v17, v18) - v19;
+  if (v23 > 0.01)
   {
-    v18 = VRTraceErrorLogLevelToCSTR();
-    v19 = *MEMORY[0x1E6986650];
-    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    v21 = VRTraceGetErrorLogLevelForModule();
+    if (v21 >= 7)
     {
-      *buf = 136315906;
-      v54 = v18;
-      v55 = 2080;
-      v56 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
-      v57 = 1024;
-      v58 = 1175;
-      v59 = 2048;
-      v60 = v17;
-      _os_log_impl(&dword_1DB56E000, v19, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: nameForNetworkWithIPPort took %0.lf seconds", buf, 0x26u);
+      v24 = VRTraceErrorLogLevelToCSTR();
+      v25 = *MEMORY[0x1E6986650];
+      v21 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+      if (v21)
+      {
+        *buf = 136315906;
+        v73 = v24;
+        v74 = 2080;
+        v75 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
+        v76 = 1024;
+        v77 = 1175;
+        v78 = 2048;
+        v79 = v23;
+        _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: nameForNetworkWithIPPort took %0.lf seconds", buf, 0x26u);
+      }
     }
   }
 
-  v20 = micro();
-  dispatch_semaphore_wait(self->_natCheckNetNameSema, 0xFFFFFFFFFFFFFFFFLL);
+  v26 = micro(v21, v22);
+  v27 = dispatch_semaphore_wait(self->_natCheckNetNameSema, 0xFFFFFFFFFFFFFFFFLL);
   if (cacheCopy)
   {
-    if (v16)
+    if (v20)
     {
-      v52 = v9;
-      v21 = micro();
-      v22 = [(GKNATObserverInternal *)self lookupCachedNATFlagsForNetwork:v16];
-      v23 = micro() - v21;
-      if (v23 > 0.01 && VRTraceGetErrorLogLevelForModule() >= 7)
+      v71 = v9;
+      v29 = micro(v27, v28);
+      v30 = [(GKNATObserverInternal *)self lookupCachedNATFlagsForNetwork:v20];
+      v32 = micro(v30, v31) - v29;
+      if (v32 > 0.01 && VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v24 = VRTraceErrorLogLevelToCSTR();
-        v25 = *MEMORY[0x1E6986650];
+        v33 = VRTraceErrorLogLevelToCSTR();
+        v34 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v54 = v24;
-          v55 = 2080;
-          v56 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
-          v57 = 1024;
-          v58 = 1192;
-          v59 = 2048;
-          v60 = v23;
-          _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: cache lookup took %0.lf seconds", buf, 0x26u);
+          v73 = v33;
+          v74 = 2080;
+          v75 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
+          v76 = 1024;
+          v77 = 1192;
+          v78 = 2048;
+          v79 = v32;
+          _os_log_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: cache lookup took %0.lf seconds", buf, 0x26u);
         }
       }
 
-      if (!v22)
+      if (!v30)
       {
         goto LABEL_34;
       }
 
       [(NSRecursiveLock *)self->_xNATCheck lock];
-      unsignedLongValue = [v22 unsignedLongValue];
+      unsignedLongValue = [v30 unsignedLongValue];
       [(GKNATObserverInternal *)self setCommNATFlags:unsignedLongValue forInterface:v11 isCached:1];
       [(GKNATObserverInternal *)self setTCPFlags:unsignedLongValue forInterface:v11 isCached:1];
       [(GKNATObserverInternal *)self setSSLFlags:unsignedLongValue forInterface:v11 isCached:1];
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v51 = VRTraceErrorLogLevelToCSTR();
-        v27 = *MEMORY[0x1E6986650];
+        v70 = VRTraceErrorLogLevelToCSTR();
+        v36 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v28 = [-[__CFString description](v16 "description")];
+          v37 = [-[__CFString description](v20 "description")];
           *buf = 136316162;
-          v54 = v51;
-          v55 = 2080;
-          v56 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
-          v57 = 1024;
-          v58 = 1201;
-          v59 = 2080;
-          v60 = *&v28;
-          v61 = 2048;
-          v62 = unsignedLongValue;
-          _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: Cached NAT flags for network %s: [%08lX]", buf, 0x30u);
+          v73 = v70;
+          v74 = 2080;
+          v75 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
+          v76 = 1024;
+          v77 = 1201;
+          v78 = 2080;
+          v79 = *&v37;
+          v80 = 2048;
+          v81 = unsignedLongValue;
+          _os_log_impl(&dword_1DB56E000, v36, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: Cached NAT flags for network %s: [%08lX]", buf, 0x30u);
         }
       }
 
       [(NSRecursiveLock *)self->_xNATCheck unlock];
       [(GKNATObserverInternal *)self reportNATType];
-      v29 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_currentNetworkNames objectForKeyedSubscript:{v11), "isEqualToString:", v16}];
+      v38 = [-[NSMutableDictionary objectForKeyedSubscript:](self->_currentNetworkNames objectForKeyedSubscript:{v11), "isEqualToString:", v20}];
       if (unsignedLongValue)
       {
 LABEL_34:
-        v9 = v52;
+        v9 = v71;
       }
 
       else
       {
-        v9 = v52;
-        if (v29)
+        v9 = v71;
+        if (v38)
         {
           dispatch_semaphore_signal(self->_natCheckNetNameSema);
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v30 = VRTraceErrorLogLevelToCSTR();
-            v31 = *MEMORY[0x1E6986650];
+            v39 = VRTraceErrorLogLevelToCSTR();
+            v40 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               if (v11)
               {
-                v32 = [objc_msgSend(v11 "description")];
+                v41 = [objc_msgSend(v11 "description")];
               }
 
               else
               {
-                v32 = "<nil>";
+                v41 = "<nil>";
               }
 
-              v50 = [-[__CFString description](v16 "description")];
+              v69 = [-[__CFString description](v20 "description")];
               *buf = 136316162;
-              v54 = v30;
-              v55 = 2080;
-              v56 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
-              v57 = 1024;
-              v58 = 1209;
-              v59 = 2080;
-              v60 = *&v32;
-              v61 = 2080;
-              v62 = v50;
-              v47 = " [%s] %s:%d GKNATObserver: Network on interface %s [%s] did not change, skipping...";
-              v48 = v31;
-              v49 = 48;
+              v73 = v39;
+              v74 = 2080;
+              v75 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
+              v76 = 1024;
+              v77 = 1209;
+              v78 = 2080;
+              v79 = *&v41;
+              v80 = 2080;
+              v81 = v69;
+              v66 = " [%s] %s:%d GKNATObserver: Network on interface %s [%s] did not change, skipping...";
+              v67 = v40;
+              v68 = 48;
               goto LABEL_55;
             }
           }
@@ -2132,7 +2141,7 @@ LABEL_34:
         }
       }
 
-      [(NSMutableDictionary *)self->_currentNetworkNames setValue:v16 forKey:v11];
+      [(NSMutableDictionary *)self->_currentNetworkNames setValue:v20 forKey:v11];
     }
 
     else
@@ -2141,30 +2150,30 @@ LABEL_34:
     }
   }
 
-  dispatch_semaphore_signal(self->_natCheckNetNameSema);
-  v33 = micro() - v20;
-  if (v33 > 0.01 && VRTraceGetErrorLogLevelForModule() >= 7)
+  v42 = dispatch_semaphore_signal(self->_natCheckNetNameSema);
+  v44 = micro(v42, v43) - v26;
+  if (v44 > 0.01 && VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v34 = VRTraceErrorLogLevelToCSTR();
-    v35 = *MEMORY[0x1E6986650];
+    v45 = VRTraceErrorLogLevelToCSTR();
+    v46 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v54 = v34;
-      v55 = 2080;
-      v56 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
-      v57 = 1024;
-      v58 = 1222;
-      v59 = 2048;
-      v60 = v33;
-      _os_log_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: cache lookup semaphore took %0.lf seconds", buf, 0x26u);
+      v73 = v45;
+      v74 = 2080;
+      v75 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
+      v76 = 1024;
+      v77 = 1222;
+      v78 = 2048;
+      v79 = v44;
+      _os_log_impl(&dword_1DB56E000, v46, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: cache lookup semaphore took %0.lf seconds", buf, 0x26u);
     }
   }
 
-  v36 = [(GKNATObserverInternal *)self callCommNATTestFromIPPort:port ipv6Prefix:prefix];
-  if (v36)
+  v47 = [(GKNATObserverInternal *)self callCommNATTestFromIPPort:port ipv6Prefix:prefix];
+  if (v47)
   {
-    var0 = v36->var0;
+    var0 = v47->var0;
   }
 
   else
@@ -2172,57 +2181,57 @@ LABEL_34:
     var0 = 1;
   }
 
-  free(v36);
-  v38 = micro();
+  free(v47);
+  v51 = micro(v49, v50);
   [(NSRecursiveLock *)self->_xNATCheck lock];
-  v39 = [(GKNATObserverInternal *)self setCommNATFlags:var0 forInterface:v11 isCached:0];
-  [(NSRecursiveLock *)self->_xNATCheck unlock];
-  v40 = micro() - v38;
-  if (v40 > 0.01 && VRTraceGetErrorLogLevelForModule() >= 7)
+  v52 = [(GKNATObserverInternal *)self setCommNATFlags:var0 forInterface:v11 isCached:0];
+  unlock = [(NSRecursiveLock *)self->_xNATCheck unlock];
+  v55 = micro(unlock, v54) - v51;
+  if (v55 > 0.01 && VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v41 = VRTraceErrorLogLevelToCSTR();
-    v42 = *MEMORY[0x1E6986650];
+    v56 = VRTraceErrorLogLevelToCSTR();
+    v57 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v54 = v41;
-      v55 = 2080;
-      v56 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
-      v57 = 1024;
-      v58 = 1235;
-      v59 = 2048;
-      v60 = v40;
-      _os_log_impl(&dword_1DB56E000, v42, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: updating NAT flags dictionary took %0.lf seconds", buf, 0x26u);
+      v73 = v56;
+      v74 = 2080;
+      v75 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
+      v76 = 1024;
+      v77 = 1235;
+      v78 = 2048;
+      v79 = v55;
+      _os_log_impl(&dword_1DB56E000, v57, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d GKNATObserver: updating NAT flags dictionary took %0.lf seconds", buf, 0x26u);
     }
   }
 
-  [(GKNATObserverInternal *)self reportNATType];
+  reportNATType = [(GKNATObserverInternal *)self reportNATType];
   if (cacheCopy)
   {
-    if (v16)
+    if (v20)
     {
-      v43 = micro();
-      -[GKNATObserverInternal cacheNATFlags:forNetwork:](self, "cacheNATFlags:forNetwork:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v39], v16);
-      v44 = micro() - v43;
-      if (v44 > 0.01 && VRTraceGetErrorLogLevelForModule() >= 7)
+      v60 = micro(reportNATType, v59);
+      v61 = -[GKNATObserverInternal cacheNATFlags:forNetwork:](self, "cacheNATFlags:forNetwork:", [MEMORY[0x1E696AD98] numberWithUnsignedInt:v52], v20);
+      v63 = micro(v61, v62) - v60;
+      if (v63 > 0.01 && VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v45 = VRTraceErrorLogLevelToCSTR();
-        v46 = *MEMORY[0x1E6986650];
+        v64 = VRTraceErrorLogLevelToCSTR();
+        v65 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v54 = v45;
-          v55 = 2080;
-          v56 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
-          v57 = 1024;
-          v58 = 1245;
-          v59 = 2048;
-          v60 = v44;
-          v47 = " [%s] %s:%d GKNATObserver: caching took %0.lf seconds";
-          v48 = v46;
-          v49 = 38;
+          v73 = v64;
+          v74 = 2080;
+          v75 = "[GKNATObserverInternal NATCheckWithIPPort:ipv6Prefix:useCache:]";
+          v76 = 1024;
+          v77 = 1245;
+          v78 = 2048;
+          v79 = v63;
+          v66 = " [%s] %s:%d GKNATObserver: caching took %0.lf seconds";
+          v67 = v65;
+          v68 = 38;
 LABEL_55:
-          _os_log_impl(&dword_1DB56E000, v48, OS_LOG_TYPE_DEFAULT, v47, buf, v49);
+          _os_log_impl(&dword_1DB56E000, v67, OS_LOG_TYPE_DEFAULT, v66, buf, v68);
         }
       }
     }
@@ -2974,7 +2983,7 @@ uint64_t __46__GKNATObserverInternal_tryNATCheckWithDelay___block_invoke_159(uin
   return [v2 NATCheckWithIPPort:v3 ipv6Prefix:v4 useCache:1];
 }
 
-uint64_t __46__GKNATObserverInternal_tryNATCheckWithDelay___block_invoke_161(uint64_t a1)
+void *__46__GKNATObserverInternal_tryNATCheckWithDelay___block_invoke_161(uint64_t a1)
 {
   usleep((*(a1 + 40) * 1000000.0));
   [*(*(a1 + 32) + 24) lock];
@@ -3090,7 +3099,7 @@ LABEL_16:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d GKNATObserver: SCDynamicStoreCreate failed, we will miss network change notifications!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d GKNATObserver: SCDynamicStoreCreate failed, we will miss network change notifications!", v2, v3, v4, v5);
 }
 
 - (void)initWithOptions:.cold.1()
@@ -3108,7 +3117,7 @@ LABEL_16:
   OUTLINED_FUNCTION_4_3();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_3_6();
-  OUTLINED_FUNCTION_6_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/GKNATObserver.m:%d: createTCPSocket: bind() failed (%d)", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/GKNATObserver.m:%d: createTCPSocket: bind() failed (%d)", v2, v3, v4, v5);
 }
 
 - (void)callHTTPTestFromIPPort:ipv6Prefix:ToServer:isSSL:.cold.2()
@@ -3117,7 +3126,7 @@ LABEL_16:
   OUTLINED_FUNCTION_4_3();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_3_6();
-  OUTLINED_FUNCTION_6_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/GKNATObserver.m:%d: connectTCPSocket: connect failed (%d)", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/GKNATObserver.m:%d: connectTCPSocket: connect failed (%d)", v2, v3, v4, v5);
 }
 
 - (void)callHTTPTestFromIPPort:ipv6Prefix:ToServer:isSSL:.cold.3()
@@ -3126,7 +3135,7 @@ LABEL_16:
   OUTLINED_FUNCTION_4_3();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_3_6();
-  OUTLINED_FUNCTION_6_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/GKNATObserver.m:%d: createTCPSocket: socket() failed (%d)", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_6_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/GKNATObserver.m:%d: createTCPSocket: socket() failed (%d)", v2, v3, v4, v5);
 }
 
 - (void)lookupCachedNATFlagsForNetwork:(uint64_t)a1 .cold.1(uint64_t a1, void *a2)
@@ -3134,21 +3143,21 @@ LABEL_16:
   [objc_msgSend(a2 "description")];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v2, v3, " [%s] %s:%d GKNATObserver: NAT Cache = %s", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v2, v3, " [%s] %s:%d GKNATObserver: NAT Cache = %s", v4, v5, v6, v7);
 }
 
 - (void)HTTPCheckWithIPPort:ipv6Prefix:useCache:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d No tcp server... aborting", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d No tcp server... aborting", v2, v3, v4, v5);
 }
 
 - (void)HTTPSCheckWithIPPort:ipv6Prefix:useCache:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d No https server... aborting", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d No https server... aborting", v2, v3, v4, v5);
 }
 
 - (void)nameForNetworkWithIPPort:(uint64_t)a1 interfaceName:(void *)a2 .cold.1(uint64_t a1, void *a2)
@@ -3156,7 +3165,7 @@ LABEL_16:
   [objc_msgSend(a2 "description")];
   OUTLINED_FUNCTION_11();
   OUTLINED_FUNCTION_7();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v2, v3, " [%s] %s:%d GKNATObserver: SCDS dictionary: %s", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v2, v3, " [%s] %s:%d GKNATObserver: SCDS dictionary: %s", v4, v5, v6, v7);
 }
 
 - (void)nameForNetworkWithIPPort:interfaceName:.cold.2()

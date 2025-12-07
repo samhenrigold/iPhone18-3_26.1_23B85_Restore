@@ -892,7 +892,7 @@
       *&v60 = v65;
       *(&v60 + 1) = v66;
       v61 = 1;
-      [(HDRImageConverter_Metal *)self computeThreadGroupSizeForOutputSize:&v60 pipelineState:v52];
+      objc_msgSend_computeThreadGroupSizeForOutputSize_pipelineState_(self);
       v60 = 0uLL;
       v61 = 0;
       v58 = v62;
@@ -900,7 +900,7 @@
       *&v56 = v30;
       *(&v56 + 1) = v31;
       v57 = 1;
-      [(HDRImageConverter_Metal *)self computeGridSizeForThreadGroupSize:&v58 outputSize:&v56];
+      objc_msgSend_computeGridSizeForThreadGroupSize_outputSize_(self);
       v58 = v60;
       v59 = v61;
       v56 = v62;
@@ -1010,7 +1010,7 @@
       *&v75 = v80;
       *(&v75 + 1) = v81;
       v76 = 1;
-      [(HDRImageConverter_Metal *)self computeThreadGroupSizeForOutputSize:&v75 pipelineState:v64];
+      objc_msgSend_computeThreadGroupSizeForOutputSize_pipelineState_(self);
       v75 = 0uLL;
       v76 = 0;
       v73 = v77;
@@ -1018,7 +1018,7 @@
       *&v71 = v33;
       *(&v71 + 1) = v34;
       v72 = 1;
-      [(HDRImageConverter_Metal *)self computeGridSizeForThreadGroupSize:&v73 outputSize:&v71];
+      objc_msgSend_computeGridSizeForThreadGroupSize_outputSize_(self);
       v73 = v75;
       v74 = v76;
       v71 = v77;
@@ -1139,7 +1139,7 @@
       *&v84 = v89;
       *(&v84 + 1) = v90;
       v85 = 1;
-      [(HDRImageConverter_Metal *)self computeThreadGroupSizeForOutputSize:&v84 pipelineState:v74];
+      objc_msgSend_computeThreadGroupSizeForOutputSize_pipelineState_(self);
       v84 = 0uLL;
       v85 = 0;
       v82 = v86;
@@ -1147,7 +1147,7 @@
       *&v80 = v36;
       *(&v80 + 1) = v37;
       v81 = 1;
-      [(HDRImageConverter_Metal *)self computeGridSizeForThreadGroupSize:&v82 outputSize:&v80];
+      objc_msgSend_computeGridSizeForThreadGroupSize_outputSize_(self);
       v82 = v84;
       v83 = v85;
       v80 = v86;
@@ -1298,7 +1298,7 @@
       *&v106 = v111;
       *(&v106 + 1) = v112;
       v107 = 1;
-      [(HDRImageConverter_Metal *)self computeThreadGroupSizeForOutputSize:&v106 pipelineState:v93];
+      objc_msgSend_computeThreadGroupSizeForOutputSize_pipelineState_(self);
       v106 = 0uLL;
       v107 = 0;
       v104 = v108;
@@ -1306,7 +1306,7 @@
       *&v102 = v43;
       *(&v102 + 1) = v44;
       v103 = 1;
-      [(HDRImageConverter_Metal *)self computeGridSizeForThreadGroupSize:&v104 outputSize:&v102];
+      objc_msgSend_computeGridSizeForThreadGroupSize_outputSize_(self);
       v104 = v106;
       v105 = v107;
       v102 = v108;
@@ -1415,7 +1415,7 @@
       *&v74 = v79;
       *(&v74 + 1) = v80;
       v75 = 1;
-      [(HDRImageConverter_Metal *)self computeThreadGroupSizeForOutputSize:&v74 pipelineState:v65];
+      objc_msgSend_computeThreadGroupSizeForOutputSize_pipelineState_(self);
       v74 = 0uLL;
       v75 = 0;
       v72 = v76;
@@ -1423,7 +1423,7 @@
       *&v70 = v34;
       *(&v70 + 1) = v35;
       v71 = 1;
-      [(HDRImageConverter_Metal *)self computeGridSizeForThreadGroupSize:&v72 outputSize:&v70];
+      objc_msgSend_computeGridSizeForThreadGroupSize_outputSize_(self);
       v72 = v74;
       v73 = v75;
       v70 = v76;
@@ -1551,7 +1551,7 @@
       *&v91 = v96;
       *(&v91 + 1) = v97;
       v92 = 1;
-      [(HDRImageConverter_Metal *)self computeThreadGroupSizeForOutputSize:&v91 pipelineState:v78];
+      objc_msgSend_computeThreadGroupSizeForOutputSize_pipelineState_(self);
       v91 = 0uLL;
       v92 = 0;
       v89 = v93;
@@ -1559,7 +1559,7 @@
       *&v87 = v37;
       *(&v87 + 1) = v38;
       v88 = 1;
-      [(HDRImageConverter_Metal *)self computeGridSizeForThreadGroupSize:&v89 outputSize:&v87];
+      objc_msgSend_computeGridSizeForThreadGroupSize_outputSize_(self);
       v89 = v91;
       v90 = v92;
       v87 = v93;
@@ -1660,7 +1660,7 @@
       *(&v32 + 1) = v31.u32[1];
       v61 = v32;
       v62 = 1;
-      [(HDRImageConverter_Metal *)self computeThreadGroupSizeForOutputSize:&v61 pipelineState:v53];
+      objc_msgSend_computeThreadGroupSizeForOutputSize_pipelineState_(self);
       v61 = 0uLL;
       v62 = 0;
       v59 = v63;
@@ -1668,7 +1668,7 @@
       *&v57 = v51.u16[0];
       *(&v57 + 1) = v51.u16[2];
       v58 = 1;
-      [(HDRImageConverter_Metal *)self computeGridSizeForThreadGroupSize:&v59 outputSize:&v57];
+      objc_msgSend_computeGridSizeForThreadGroupSize_outputSize_(self);
       v59 = v61;
       v60 = v62;
       v57 = v63;
@@ -1785,7 +1785,7 @@
       *(&v32 + 1) = v31.u32[1];
       v55 = v32;
       v56 = 1;
-      [(HDRImageConverter_Metal *)self computeThreadGroupSizeForOutputSize:&v55 pipelineState:v48];
+      objc_msgSend_computeThreadGroupSizeForOutputSize_pipelineState_(self);
       v55 = 0uLL;
       v56 = 0;
       v53 = v57;
@@ -1793,7 +1793,7 @@
       *&v51 = v45.u16[0];
       *(&v51 + 1) = v45.u16[2];
       v52 = 1;
-      [(HDRImageConverter_Metal *)self computeGridSizeForThreadGroupSize:&v53 outputSize:&v51];
+      objc_msgSend_computeGridSizeForThreadGroupSize_outputSize_(self);
       v53 = v55;
       v54 = v56;
       v51 = v57;
@@ -1932,7 +1932,7 @@
       *(&v36 + 1) = v35.u32[1];
       v70 = v36;
       v71 = 1;
-      [(HDRImageConverter_Metal *)self computeThreadGroupSizeForOutputSize:&v70 pipelineState:v62];
+      objc_msgSend_computeThreadGroupSizeForOutputSize_pipelineState_(self);
       v70 = 0uLL;
       v71 = 0;
       v68 = v72;
@@ -1940,7 +1940,7 @@
       *&v66 = v59.u16[0];
       *(&v66 + 1) = v59.u16[2];
       v67 = 1;
-      [(HDRImageConverter_Metal *)self computeGridSizeForThreadGroupSize:&v68 outputSize:&v66];
+      objc_msgSend_computeGridSizeForThreadGroupSize_outputSize_(self);
       v68 = v70;
       v69 = v71;
       v66 = v72;

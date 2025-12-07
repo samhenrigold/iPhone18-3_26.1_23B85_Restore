@@ -6,6 +6,8 @@
 - (NSString)primaryIconName;
 - (id)_initWithLocalizedName:(id)name;
 - (id)_privateDocumentFileNamesAsCacheKey;
+- (id)iconDataForVariant:(int)variant;
+- (id)iconDataForVariant:(int)variant withOptions:(int)options;
 - (id)uniqueIdentifier;
 - (void)encodeWithCoder:(id)coder;
 - (void)primaryIconName;
@@ -52,9 +54,9 @@
 - (LSResourceProxy)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = LSResourceProxy;
-  v5 = [(_LSQueryResult *)&v17 initWithCoder:coderCopy];
+  v15.receiver = self;
+  v15.super_class = LSResourceProxy;
+  v5 = [(_LSQueryResult *)&v15 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = [coderCopy ls_decodeObjectOfClass:objc_opt_class() forKey:@"localizedName"];
@@ -65,26 +67,23 @@
     {
       v8 = &OBJC_IVAR___LSResourceProxy___boundIconInfo;
       v9 = @"boundIconInfo";
-      v10 = off_1E6A182F8;
     }
 
     else
     {
-      v11 = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2);
-      IconServicesLibrary_frameworkLibrary_3 = v11;
-      v10 = off_1E6A182F8;
-      if (v11)
+      v10 = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2);
+      IconServicesLibrary_frameworkLibrary_3 = v10;
+      if (v10)
       {
         v9 = @"boundIconInfo";
       }
 
       else
       {
-        v10 = off_1E6A18328;
         v9 = @"iconsDictionary";
       }
 
-      if (v11)
+      if (v10)
       {
         v8 = &OBJC_IVAR___LSResourceProxy___boundIconInfo;
       }
@@ -95,11 +94,10 @@
       }
     }
 
-    v12 = *v10;
-    v13 = [coderCopy ls_decodeObjectOfClass:objc_opt_class() forKey:v9];
-    v14 = *v8;
-    v15 = *(&v5->super.super.isa + v14);
-    *(&v5->super.super.isa + v14) = v13;
+    v11 = [coderCopy ls_decodeObjectOfClass:objc_opt_class() forKey:v9];
+    v12 = *v8;
+    v13 = *(&v5->super.super.isa + v12);
+    *(&v5->super.super.isa + v12) = v11;
   }
 
   return v5;
@@ -194,13 +192,19 @@ LABEL_4:
       }
 
       v7 = v6;
-      if (!v6 || (_NSIsNSString() & 1) != 0)
+      if (!v6)
       {
         goto LABEL_14;
       }
 
-      v8 = _LSDefaultLog();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v8 = _NSIsNSString();
+      if (v8)
+      {
+        goto LABEL_14;
+      }
+
+      v9 = _LSDefaultLog(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [(LSResourceProxy *)v7 primaryIconName];
       }
@@ -219,9 +223,20 @@ LABEL_17:
   return v7;
 }
 
+- (id)iconDataForVariant:(int)variant
+{
+  v3 = *&variant;
+  if (IconServicesLibrary_frameworkLibrary_3 || (v5 = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2), (IconServicesLibrary_frameworkLibrary_3 = v5) != 0))
+  {
+    v5 = [(LSResourceProxy *)self iconDataForVariant:v3 withOptions:0];
+  }
+
+  return v5;
+}
+
 - (id)_privateDocumentFileNamesAsCacheKey
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   _boundIconInfo = [(LSResourceProxy *)self _boundIconInfo];
   fileNames = [(_LSBoundIconInfo *)_boundIconInfo fileNames];
 
@@ -231,30 +246,30 @@ LABEL_17:
     fileNames2 = [(_LSBoundIconInfo *)_boundIconInfo fileNames];
     v6 = [v4 arrayWithCapacity:{objc_msgSend(fileNames2, "count")}];
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     fileNames3 = [(_LSBoundIconInfo *)_boundIconInfo fileNames];
-    v8 = [fileNames3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [fileNames3 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(fileNames3);
           }
 
-          v12 = [*(*(&v16 + 1) + 8 * i) stringByReplacingOccurrencesOfString:@"/" withString:{@":", v16}];
+          v12 = [*(*(&v15 + 1) + 8 * i) stringByReplacingOccurrencesOfString:@"/" withString:{@":", v15}];
           [v6 addObject:v12];
         }
 
-        v9 = [fileNames3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [fileNames3 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v9);
@@ -268,18 +283,27 @@ LABEL_17:
     v13 = @"defaultIcon";
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
+}
+
+- (id)iconDataForVariant:(int)variant withOptions:(int)options
+{
+  v4 = *&options;
+  v5 = *&variant;
+  if (IconServicesLibrary_frameworkLibrary_3 || (v7 = dlopen("/System/Library/PrivateFrameworks/IconServices.framework/IconServices", 2), (IconServicesLibrary_frameworkLibrary_3 = v7) != 0))
+  {
+    v7 = softLink_ISIconDataForResourceProxy_1(self, v5, v4);
+  }
+
+  return v7;
 }
 
 - (void)primaryIconName
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 138543362;
-  v5 = objc_opt_class();
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Expected icon name to be a string, but it was a %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = objc_opt_class();
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "Expected icon name to be a string, but it was a %{public}@", &v3, 0xCu);
 }
 
 @end

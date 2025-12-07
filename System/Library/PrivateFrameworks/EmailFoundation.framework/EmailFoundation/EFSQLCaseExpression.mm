@@ -42,7 +42,7 @@
 
 - (void)ef_renderSQLExpressionInto:(id)into
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   intoCopy = into;
   [intoCopy appendString:@"CASE"];
   baseExpression = [(EFSQLCaseExpression *)self baseExpression];
@@ -54,24 +54,24 @@
   }
 
   [(EFSQLCaseExpression *)self whenExpressions];
+  v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v6 = v19 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v17 = 0u;
+  v6 = v18 = 0u;
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [v6 objectForKey:v10];
         [intoCopy appendString:@" WHEN "];
         ef_SQLIsolatedExpression2 = [v10 ef_SQLIsolatedExpression];
@@ -82,7 +82,7 @@
         [ef_SQLIsolatedExpression3 ef_renderSQLExpressionInto:intoCopy];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -97,8 +97,6 @@
   }
 
   [intoCopy appendString:@" END"];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

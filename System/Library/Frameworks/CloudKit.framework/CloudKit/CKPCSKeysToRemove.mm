@@ -62,7 +62,7 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v38[2] = *MEMORY[0x1E69E9840];
+  v37[2] = *MEMORY[0x1E69E9840];
   equalCopy = equal;
   v5 = objc_opt_class();
   if (objc_msgSend_isMemberOfClass_(equalCopy, v6, v5))
@@ -78,15 +78,15 @@
       v18 = objc_alloc(MEMORY[0x1E696AEB0]);
       v20 = objc_msgSend_initWithKey_ascending_(v18, v19, @"keyType", 1);
       v23 = objc_msgSend_keys(self, v21, v22);
-      v38[0] = v17;
-      v38[1] = v20;
-      v25 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v24, v38, 2);
+      v37[0] = v17;
+      v37[1] = v20;
+      v25 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v24, v37, 2);
       v27 = objc_msgSend_sortedArrayUsingDescriptors_(v23, v26, v25);
 
       v14 = objc_msgSend_keys(equalCopy, v28, v29);
-      v37[0] = v17;
-      v37[1] = v20;
-      v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v30, v37, 2);
+      v36[0] = v17;
+      v36[1] = v20;
+      v31 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v30, v36, 2);
       v33 = objc_msgSend_sortedArrayUsingDescriptors_(v14, v32, v31);
 
       LOBYTE(v14) = objc_msgSend_isEqual_(v27, v34, v33);
@@ -98,7 +98,6 @@
     LOBYTE(v14) = 0;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

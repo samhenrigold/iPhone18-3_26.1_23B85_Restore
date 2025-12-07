@@ -23,7 +23,7 @@
 
 - (MTSWiFiScanResult)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSWSR.ck.ssid"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"MTSWSR.ck.rssi"];
@@ -47,13 +47,13 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v17 = 138543874;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v5;
-      v21 = 2112;
-      v22 = v6;
-      _os_log_impl(&dword_239824000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded ssid: %@, rssi: %@", &v17, 0x20u);
+      v16 = 138543874;
+      v17 = v12;
+      v18 = 2112;
+      v19 = v5;
+      v20 = 2112;
+      v21 = v6;
+      _os_log_impl(&dword_239824000, v11, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded ssid: %@, rssi: %@", &v16, 0x20u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -66,7 +66,6 @@
     v14 = selfCopy;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

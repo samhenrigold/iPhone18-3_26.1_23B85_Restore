@@ -5,6 +5,7 @@
 - (int64_t)updateFrameQueuesWithInputFrame:(__CVBuffer *)frame inputTexture:(id)texture index:(signed __int16)index;
 - (int64_t)updateMetaQueuesWithInfo:(id)info index:(signed __int16)index;
 - (int64_t)updateQueuesWithFutureFrame:(id *)frame futureFrameIndex:(signed __int16)index atBaseIndex:(signed __int16)baseIndex;
+- (int64_t)updateQueuesWithInputFrame:(__CVBuffer *)frame inputTexture:(id)texture info:(id)info index:(signed __int16)index;
 - (void)_resetIntermediateVariables;
 - (void)_spatialMitigate;
 - (void)_temporalMitigateWithFuture;
@@ -66,6 +67,25 @@
   return 0;
 }
 
+- (int64_t)updateQueuesWithInputFrame:(__CVBuffer *)frame inputTexture:(id)texture info:(id)info index:(signed __int16)index
+{
+  indexCopy = index;
+  infoCopy = info;
+  v11 = [(VideoMitigation *)self updateFrameQueuesWithInputFrame:frame inputTexture:texture index:indexCopy];
+  if (v11)
+  {
+    v12 = v11;
+    [VideoMitigation updateQueuesWithInputFrame:inputTexture:info:index:];
+  }
+
+  else
+  {
+    v12 = [(VideoMitigation *)self updateMetaQueuesWithInfo:infoCopy index:indexCopy];
+  }
+
+  return v12;
+}
+
 - (void)cleanTwoFutureFramesInQueuesAtBaseIndex:(signed __int16)index
 {
   indexCopy = index;
@@ -114,23 +134,23 @@
   {
     if (var2 >= 2)
     {
-      v15 = [(VideoMitigation *)self updateQueuesWithFutureFrame:frames futureFrameIndex:1 atBaseIndex:getFrameIndexInQueue];
-      if (v15)
+      v16 = [(VideoMitigation *)self updateQueuesWithFutureFrame:frames futureFrameIndex:1 atBaseIndex:getFrameIndexInQueue];
+      if (v16)
       {
-        v16 = v15;
+        v17 = v16;
 LABEL_21:
         fig_log_get_emitter();
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v17, v6, v26, v6, v27, v28, v29, v30);
         ++self->_frameIndexInVideo;
         goto LABEL_18;
       }
     }
 
 LABEL_10:
-    v22 = [(VideoMitigation *)self updateMetaQueuesWithInfo:infoCopy index:getFrameIndexInQueue];
-    if (v22)
+    v23 = [(VideoMitigation *)self updateMetaQueuesWithInfo:infoCopy index:getFrameIndexInQueue];
+    if (v23)
     {
-      v16 = v22;
+      v17 = v23;
       goto LABEL_21;
     }
 
@@ -158,47 +178,47 @@ LABEL_10:
   {
     if (var2 >= 2)
     {
-      v17 = 0;
-      v18 = 1;
+      v18 = 0;
+      v19 = 1;
       do
       {
-        v19 = v18;
-        v20 = [(VideoMitigation *)self updateQueuesWithFutureFrame:frames futureFrameIndex:v17 atBaseIndex:getFrameIndexInQueue];
-        if (v20)
+        v20 = v19;
+        v21 = [(VideoMitigation *)self updateQueuesWithFutureFrame:frames futureFrameIndex:v18 atBaseIndex:getFrameIndexInQueue];
+        if (v21)
         {
-          v16 = v20;
+          v17 = v21;
           goto LABEL_21;
         }
 
-        v18 = 0;
-        v17 = 1;
+        v19 = 0;
+        v18 = 1;
       }
 
-      while ((v19 & 1) != 0);
-      v21 = [(VideoMitigation *)self updateQueuesWithInputFrame:mitigate inputTexture:textureCopy info:infoCopy index:getFrameIndexInQueue];
-      if (!v21)
+      while ((v20 & 1) != 0);
+      v22 = [(VideoMitigation *)self updateQueuesWithInputFrame:mitigate inputTexture:textureCopy info:infoCopy index:getFrameIndexInQueue];
+      if (!v22)
       {
         goto LABEL_10;
       }
 
-      v16 = v21;
+      v17 = v22;
       goto LABEL_21;
     }
 
     [VideoMitigation mitigate:info:futureFrames:inputTexture:];
   }
 
-  v16 = 0;
-  v23 = 0;
+  v17 = 0;
+  v24 = 0;
   ++self->_frameIndexInVideo;
   if (self->_useStockGpuSim)
   {
 LABEL_18:
     kdebug_trace();
-    v23 = v16;
+    v24 = v17;
   }
 
-  return v23;
+  return v24;
 }
 
 - (void)_temporalMitigateWithPast
@@ -299,78 +319,72 @@ LABEL_18:
     v29.super_class = VideoMitigation;
     v13 = [(VideoMitigation *)&v29 init];
     self = v13;
-    if (!v13)
+    if (v13)
     {
-      goto LABEL_12;
-    }
+      v14 = *&config->var0.var0;
+      v15 = *&config->var0.var7;
+      v16 = *&config->var1.var4;
+      *&v13->_configuration.externalCfg.lightMode = *&config->var1.var0;
+      *&v13->_configuration.externalCfg.frameDelay = v16;
+      *&v13->_configuration.internalCfg.clipThreshold = v14;
+      *&v13->_configuration.internalCfg.enableColorMask = v15;
+      objc_storeStrong(&v13->_metalContext, context);
+      self->_hwMode = config->var1.var11 != 0;
+      v17 = [[MitigationHW alloc] initWithimageDimensions:dimensions tuningParameters:parametersCopy];
+      mitigationHW = self->_mitigationHW;
+      self->_mitigationHW = v17;
 
-    v14 = *&config->var0.var0;
-    v15 = *&config->var0.var7;
-    v16 = *&config->var1.var4;
-    *&v13->_configuration.externalCfg.lightMode = *&config->var1.var0;
-    *&v13->_configuration.externalCfg.frameDelay = v16;
-    *&v13->_configuration.internalCfg.clipThreshold = v14;
-    *&v13->_configuration.internalCfg.enableColorMask = v15;
-    objc_storeStrong(&v13->_metalContext, context);
-    self->_hwMode = config->var1.var11 != 0;
-    v17 = [[MitigationHW alloc] initWithimageDimensions:dimensions tuningParameters:parametersCopy];
-    mitigationHW = self->_mitigationHW;
-    self->_mitigationHW = v17;
-
-    if (!self->_mitigationHW)
-    {
-      goto LABEL_12;
-    }
-
-    v19 = objc_alloc_init(CalcHomography);
-    calcTransform = self->_calcTransform;
-    self->_calcTransform = v19;
-
-    if (!self->_calcTransform)
-    {
-      goto LABEL_12;
-    }
-
-    [(VideoMitigation *)self _resetIntermediateVariables];
-    v21 = 120;
-    while (1)
-    {
-      device = [(FigMetalContext *)self->_metalContext device];
-      v23 = [device newBufferWithLength:10192 options:0];
-      v24 = *(&self->super.isa + v21);
-      *(&self->super.isa + v21) = v23;
-
-      if (!*(&self->super.isa + v21))
+      if (self->_mitigationHW)
       {
-        break;
-      }
+        v19 = objc_alloc_init(CalcHomography);
+        calcTransform = self->_calcTransform;
+        self->_calcTransform = v19;
 
-      v21 += 8;
-      if (v21 == 160)
-      {
-        v25 = [NSMutableData dataWithLength:10192];
-        dummyMetaContainer = self->_dummyMetaContainer;
-        self->_dummyMetaContainer = v25;
+        if (self->_calcTransform)
+        {
+          [(VideoMitigation *)self _resetIntermediateVariables];
+          v21 = 120;
+          while (1)
+          {
+            device = [(FigMetalContext *)self->_metalContext device];
+            v23 = [device newBufferWithLength:10192 options:0];
+            v24 = *(&self->super.isa + v21);
+            *(&self->super.isa + v21) = v23;
 
-        self->_useStockGpuSim = !self->_hwMode;
-        self = self;
-        selfCopy = self;
-        goto LABEL_9;
+            if (!*(&self->super.isa + v21))
+            {
+              break;
+            }
+
+            v21 += 8;
+            if (v21 == 160)
+            {
+              v25 = [NSMutableData dataWithLength:10192];
+              dummyMetaContainer = self->_dummyMetaContainer;
+              self->_dummyMetaContainer = v25;
+
+              self->_useStockGpuSim = !self->_hwMode;
+              self = self;
+              selfCopy = self;
+              goto LABEL_9;
+            }
+          }
+
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_0_0();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+        }
       }
     }
-
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_0_0();
   }
 
   else
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_0();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
-  FigDebugAssert3();
-LABEL_12:
   selfCopy = 0;
 LABEL_9:
 
@@ -417,53 +431,46 @@ LABEL_7:
 {
   if (index + baseIndex + 1 < 5)
   {
-    v6 = index + baseIndex + 1;
+    v7 = index + baseIndex + 1;
   }
 
   else
   {
-    v6 = index + baseIndex - 4;
+    v7 = index + baseIndex - 4;
   }
 
-  v7 = (frame->var0 + 48 * index);
-  v8 = *v7;
-  v9 = v7[1];
-  v10 = v7[2];
-  v11 = v7[3];
-  v12 = v7[4];
-  if (v8)
+  v8 = (frame->var0 + 48 * index);
+  v9 = *v8;
+  v10 = v8[1];
+  v11 = v8[2];
+  v12 = v8[3];
+  v13 = v8[4];
+  if (v9)
   {
-    v13 = +[NSMutableDictionary dictionary];
-    v14 = v13;
-    if (v9)
+    v14 = +[NSMutableDictionary dictionary];
+    v15 = v14;
+    if (v10)
     {
-      [v13 setObject:v9 forKey:@"MetaData"];
+      [v14 setObject:v10 forKey:@"MetaData"];
     }
 
-    [v14 setObject:v10 forKey:@"RepairMetaContainer"];
-    [v14 setObject:v11 forKey:@"RepairMetaContainer_HW"];
-    v15 = [(VideoMitigation *)self updateQueuesWithInputFrame:v8 inputTexture:v12 info:v14 index:v6];
-    if (v15)
+    [v15 setObject:v11 forKey:@"RepairMetaContainer"];
+    [v15 setObject:v12 forKey:@"RepairMetaContainer_HW"];
+    v16 = [(VideoMitigation *)self updateQueuesWithInputFrame:v9 inputTexture:v13 info:v15 index:v7];
+    if (v16)
     {
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v16, v5, v18, v19, v20, v21, v22, v23);
     }
   }
 
   else
   {
-    v14 = 0;
-    v15 = 5;
+    v15 = 0;
+    v16 = 5;
   }
 
-  return v15;
-}
-
-- (uint64_t)mitigate:info:futureFrames:inputTexture:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
+  return v16;
 }
 
 @end

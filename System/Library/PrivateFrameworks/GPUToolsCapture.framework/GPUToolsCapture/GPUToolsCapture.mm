@@ -250,7 +250,7 @@ const char *GTMTLCaptureModeAsString(int a1)
   }
 }
 
-uint64_t GTMTLCaptureManager_prepareForSerialization(uint64_t a1)
+apr_pool_t **GTMTLCaptureManager_prepareForSerialization(unsigned int **a1)
 {
   v2 = g_signpostLog;
   if (os_signpost_enabled(v2))
@@ -264,10 +264,10 @@ uint64_t GTMTLCaptureManager_prepareForSerialization(uint64_t a1)
   p = 0;
   v3 = newpool;
   apr_pool_create_ex(&p, newpool, 0, 0);
-  v223 = *(a1 + 16);
-  v218 = *(a1 + 24);
+  v223 = a1[2];
+  v218 = a1[3];
   v5 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   v6 = apr_palloc(v3, 0x310uLL);
   v7 = v6;
   if (v6)
@@ -435,8 +435,8 @@ LABEL_36:
       if (v22 >= v8->nelts)
       {
         v7 = v220;
-        v21 = v220[2];
-        v20 = v220[3];
+        v21 = *(v220 + 16);
+        v20 = *(v220 + 24);
         v15 = newpool;
         break;
       }
@@ -1200,7 +1200,7 @@ LABEL_231:
     while (1)
     {
       v169 = *&v168->elts[8 * v167];
-      v170 = v220[2];
+      v170 = *(v220 + 16);
       pool = v169;
       v171 = *(*(*(*find_entry(v170, &pool, 8uLL, 0) + 32) + 32) + 72);
       if (v171 > -15351)
@@ -1349,7 +1349,7 @@ LABEL_288:
       }
 
       v196 = *v195;
-      if (v223 > *v195 || v218 + v223 <= v196)
+      if (v223 > *v195 || (v223 + v218) <= v196)
       {
 LABEL_302:
         v201 = atomic_load((v190 + 4));
@@ -1394,7 +1394,7 @@ LABEL_300:
       }
     }
 
-    ResourceTracker_addLibraries(v151, v220[94], v196, v152);
+    ResourceTracker_addLibraries(v151, *(v220 + 752), v196, v152);
     ResourceTracker_processUsedResidencySets(v151, *v195, v189, v152);
     goto LABEL_302;
   }
@@ -1919,45 +1919,37 @@ void *std::__hash_table<std::__hash_value_type<long long,objc_object  {objcproto
     return 0;
   }
 
-  result = *v5;
-  if (*v5)
+  for (result = *v5; result; result = *result)
   {
-    do
+    v7 = result[1];
+    if (v7 == a2)
     {
-      v7 = result[1];
-      if (v7 == a2)
+      if (result[2] == a2)
       {
-        if (result[2] == a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= *&v2)
         {
-          return result;
+          v7 %= *&v2;
         }
       }
 
       else
       {
-        if (v3.u32[0] > 1uLL)
-        {
-          if (v7 >= *&v2)
-          {
-            v7 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v7 &= *&v2 - 1;
-        }
-
-        if (v7 != v4)
-        {
-          return 0;
-        }
+        v7 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v7 != v4)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -2074,24 +2066,24 @@ void sub_6FF8(void *exc_buf, int a2)
   JUMPOUT(0x6FE8);
 }
 
-void sub_99EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_99EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t GPUTools::VMBuffer::resize(GPUTools::VMBuffer *this, vm_size_t a2)
+uint64_t GPUTools::VMBuffer::resize(vm_address_t *this, vm_size_t a2)
 {
   v3 = *this;
-  v4 = *(this + 1);
-  v5 = *(this + 2);
+  v4 = this[1];
+  v5 = this[2];
   result = GPUTools::VMBuffer::_alloc(this, a2, v5);
   if (result)
   {
-    if (v4 >= *(this + 1))
+    if (v4 >= this[1])
     {
-      v7 = *(this + 1);
+      v7 = this[1];
     }
 
     else
@@ -2195,9 +2187,9 @@ vm_address_t *GPUTools::VMBuffer::_dealloc(vm_address_t *this)
   return this;
 }
 
-void sub_C8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_C8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2222,9 +2214,9 @@ uint64_t smt_poll_thread_entry(void *a1)
   return 0;
 }
 
-void sub_D9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_D9F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2254,7 +2246,7 @@ NSDictionary *DYDictionaryFromError(NSDictionary *result)
   return result;
 }
 
-unint64_t GPUTools::VMBuffer::round_size(unint64_t this)
+vm_size_t GPUTools::VMBuffer::round_size(vm_size_t this)
 {
   if (3 * vm_page_size <= this)
   {
@@ -2327,55 +2319,55 @@ GTBaseSocketTransport_capture *DYCreateTransportSocket(uint64_t a1)
   return v2;
 }
 
-id DYCreateTransportC(uint64_t a1)
+id DYCreateTransportC(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
     if (s_logUsingOsLog == 1)
     {
-      v9 = gt_tagged_log(16);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = gt_tagged_log(16);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        v10 = "fail: [create_transport] GT_HOST_URL environment not set";
-        v11 = v9;
-        v12 = 2;
+        v11 = "fail: [create_transport] GT_HOST_URL environment not set";
+        v12 = v10;
+        v13 = 2;
         goto LABEL_24;
       }
     }
 
     else
     {
-      v14 = __stderrp;
+      v15 = __stderrp;
       [[NSString stringWithFormat:?]];
-      fprintf(v14, "%s\n");
+      fprintf(v15, "%s\n");
     }
 
     goto LABEL_29;
   }
 
-  v2 = [NSString stringWithCString:a1 encoding:4];
-  if (!v2)
+  v3 = [NSString stringWithCString:a1 encoding:4];
+  if (!v3)
   {
     __assert_rtn("GTTransport *DYCreateTransportC(const char *)", "", 0, "url_str");
   }
 
-  v3 = [NSURL URLWithString:v2];
-  if (!v3)
+  v4 = [NSURL URLWithString:v3];
+  if (!v4)
   {
     if (s_logUsingOsLog == 1)
     {
-      v13 = gt_tagged_log(16);
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      v14 = gt_tagged_log(16);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v18 = a1;
-        v10 = "fail: [create_transport] failed to parse GT_HOST_URL: %s";
+        v19 = a1;
+        v11 = "fail: [create_transport] failed to parse GT_HOST_URL: %s";
 LABEL_23:
-        v11 = v13;
-        v12 = 12;
+        v12 = v14;
+        v13 = 12;
 LABEL_24:
-        _os_log_fault_impl(&dword_0, v11, OS_LOG_TYPE_FAULT, v10, buf, v12);
+        _os_log_fault_impl(&dword_0, v12, OS_LOG_TYPE_FAULT, v11, buf, v13);
         abort();
       }
 
@@ -2383,55 +2375,55 @@ LABEL_29:
       abort();
     }
 
-    v15 = __stderrp;
-    v16 = [NSString stringWithFormat:@"fail: [create_transport] failed to parse GT_HOST_URL: %s", a1];
+    v16 = __stderrp;
+    v17 = [NSString stringWithFormat:@"fail: [create_transport] failed to parse GT_HOST_URL: %s", a1];
 LABEL_28:
-    [(NSString *)v16 UTF8String];
-    fprintf(v15, "%s\n");
+    [(NSString *)v17 UTF8String];
+    fprintf(v16, "%s\n");
     goto LABEL_29;
   }
 
-  v4 = v3;
-  v5 = [(NSURL *)v3 scheme];
-  if (![(NSString *)v5 isEqualToString:@"null"])
+  v5 = v4;
+  v6 = [(NSURL *)v4 scheme];
+  if (![(NSString *)v6 isEqualToString:@"null"])
   {
-    if ([(NSString *)v5 isEqualToString:@"file"])
+    if ([(NSString *)v6 isEqualToString:@"file"])
     {
-      v7 = off_2F0BE0;
+      v8 = off_2F0BE0;
     }
 
     else
     {
-      if (![(NSString *)v5 isEqualToString:@"dysmt"]&& ![(NSString *)v5 isEqualToString:@"dysmtdeferred"])
+      if (![(NSString *)v6 isEqualToString:@"dysmt"]&& ![(NSString *)v6 isEqualToString:@"dysmtdeferred"])
       {
 LABEL_20:
         if (s_logUsingOsLog == 1)
         {
-          v13 = gt_tagged_log(16);
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+          v14 = gt_tagged_log(16);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
           {
             *buf = 136315138;
-            v18 = a1;
-            v10 = "fail: [create_transport] failed to create transport; GT_HOST_URL: %s";
+            v19 = a1;
+            v11 = "fail: [create_transport] failed to create transport; GT_HOST_URL: %s";
             goto LABEL_23;
           }
 
           goto LABEL_29;
         }
 
-        v15 = __stderrp;
-        v16 = [NSString stringWithFormat:@"fail: [create_transport] failed to create transport; GT_HOST_URL: %s", a1];
+        v16 = __stderrp;
+        v17 = [NSString stringWithFormat:@"fail: [create_transport] failed to create transport; GT_HOST_URL: %s", a1];
         goto LABEL_28;
       }
 
-      v7 = off_2F0BD8;
+      v8 = off_2F0BD8;
     }
 
-    v6 = [objc_alloc(*v7) initWithMode:1];
-    [v6 setUrl:v4];
-    if (v6)
+    v7 = [objc_alloc(*v8) initWithMode:1];
+    [v7 setUrl:v5];
+    if (v7)
     {
-      return v6;
+      return v7;
     }
 
     goto LABEL_20;
@@ -2458,199 +2450,200 @@ void *GTTraceDispatch_create(apr_pool_t *parent, uint64_t a2)
   return result;
 }
 
-void GTTraceDispatch_sort()
+void GTTraceDispatch_sort(uint64_t a1)
 {
-  v0 = __chkstk_darwin();
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v289 = v2[90];
-  v3 = v2[2];
-  ht = v2[3];
-  v298 = v2[94];
-  v265 = v2[93];
+  __chkstk_darwin(a1);
+  v2 = v1;
+  v3 = *v1;
+  v4 = *(v1 + 8);
+  v290 = v4[90];
+  v5 = v4[2];
+  ht = v4[3];
+  v299 = v4[94];
+  v266 = v4[93];
   newpool = 0;
-  apr_pool_create_ex(&newpool, v1, 0, 0);
-  v4 = newpool;
-  v292 = apr_array_copy(newpool, *(*(v0 + 8) + 728));
-  v284 = apr_hash_make(v4);
-  v5 = *(v0 + 8);
-  v271 = v0;
-  v264 = v3;
-  if (*(v5 + 620) >= 1)
+  apr_pool_create_ex(&newpool, v3, 0, 0);
+  v6 = newpool;
+  v293 = apr_array_copy(newpool, *(*(v2 + 8) + 728));
+  v285 = apr_hash_make(v6);
+  v7 = *(v2 + 8);
+  v272 = v2;
+  v265 = v5;
+  if (*(v7 + 620) >= 1)
   {
-    v6 = 0;
-    v7 = *(v5 + 376);
+    v8 = 0;
+    v9 = *(v7 + 376);
     do
     {
-      v8 = *find_entry(v3, (*(*(v7 + 24) + 8 * v6) + 8), 8uLL, 0);
-      if (v8)
+      v10 = *find_entry(v5, (*(*(v9 + 24) + 8 * v8) + 8), 8uLL, 0);
+      if (v10)
       {
-        v9 = *(v8 + 32);
+        v11 = *(v10 + 32);
       }
 
       else
       {
-        v9 = 0;
+        v11 = 0;
       }
 
-      v10 = apr_palloc(*v284, 8uLL);
-      *v10 = v9;
-      apr_hash_set(v284, v10, 8, &dword_0 + 1);
-      ++v6;
-      v5 = *(v0 + 8);
+      v12 = apr_palloc(*v285, 8uLL);
+      *v12 = v11;
+      apr_hash_set(v285, v12, 8, &dword_0 + 1);
+      ++v8;
+      v7 = *(v2 + 8);
     }
 
-    while (v6 < *(v5 + 620));
+    while (v8 < *(v7 + 620));
   }
 
-  v11 = *(v5 + 16);
-  v12 = *(v5 + 752);
-  v13 = apr_array_make(v4, 4, 8);
-  v14 = *(v5 + 40) + *(v5 + 48) - 1;
-  GTMTLSMContext_getObjects(*(v12 + 152), v14, v13);
-  GTMTLSMContext_getObjects(*(v12 + 160), v14, v13);
-  dst = *(v5 + 720);
-  v15 = apr_array_make(v4, 4, 64);
-  v16 = v265;
-  if (v13->nelts >= 1)
+  v13 = *(v7 + 16);
+  v14 = *(v7 + 752);
+  v15 = apr_array_make(v6, 4, 8);
+  v16 = *(v7 + 40) + *(v7 + 48) - 1;
+  GTMTLSMContext_getObjects(*(v14 + 152), v16, v15);
+  GTMTLSMContext_getObjects(*(v14 + 160), v16, v15);
+  dst = *(v7 + 720);
+  v17 = apr_array_make(v6, 4, 64);
+  v18 = v266;
+  if (v15->nelts >= 1)
   {
-    v17 = 0;
-    v301 = v11;
+    v19 = 0;
+    v302 = v13;
     do
     {
-      v18 = *&v13->elts[8 * v17];
-      if (v18)
+      v20 = *&v15->elts[8 * v19];
+      if (v20)
       {
-        v18 = *(v18 + 8);
+        v20 = *(v20 + 8);
       }
 
-      v316[0] = v18;
-      entry = find_entry(v11, v316, 8uLL, 0);
+      v317[0] = v20;
+      entry = find_entry(v13, v317, 8uLL, 0);
       if (*entry)
       {
-        v20 = *(*entry + 32);
-        if (v20)
+        v22 = *(*entry + 32);
+        if (v22)
         {
-          v21 = *(v20 + 32);
-          if (v21)
+          v23 = *(v22 + 32);
+          if (v23)
           {
-            v22 = 0;
+            v24 = 0;
             while (1)
             {
-              v23 = atomic_load((v21 + 4));
-              v24 = v22 + (v23 >> 6) - 1;
-              if (v24 > 0)
+              v25 = atomic_load((v23 + 4));
+              v26 = v24 + (v25 >> 6) - 1;
+              if (v26 > 0)
               {
                 break;
               }
 
-              v21 = *(v21 + 40);
-              v22 = v24;
-              if (!v21)
+              v23 = *(v23 + 40);
+              v24 = v26;
+              if (!v23)
               {
-                v22 = v24;
+                v24 = v26;
                 goto LABEL_20;
               }
             }
 
-            v24 = 0;
+            v26 = 0;
 LABEL_20:
-            v25 = v22 | (v24 << 32);
+            v27 = v24 | (v26 << 32);
           }
 
           else
           {
-            v25 = 0;
+            v27 = 0;
           }
 
-          while (v21)
+          while (v23)
           {
-            v26 = v21 + 64 + ((HIDWORD(v25) - v25) << 6);
-            if ((*(v26 + 15) & 8) == 0)
+            v28 = v23 + 64 + ((HIDWORD(v27) - v27) << 6);
+            if ((*(v28 + 15) & 8) == 0)
             {
               break;
             }
 
-            if (*v26 > v14)
+            if (*v28 > v16)
             {
-              v27 = *(v26 + 8);
-              if (v27 == -15490 || v27 == -15975)
+              v29 = *(v28 + 8);
+              if (v29 == -15490 || v29 == -15975)
               {
-                v29 = apr_array_push(v15);
-                v30 = *v26;
-                v31 = *(v26 + 16);
-                v32 = *(v26 + 48);
-                v29[2] = *(v26 + 32);
-                v29[3] = v32;
-                *v29 = v30;
-                v29[1] = v31;
-                if (v14 <= *v26)
+                v31 = apr_array_push(v17);
+                v32 = *v28;
+                v33 = *(v28 + 16);
+                v34 = *(v28 + 48);
+                v31[2] = *(v28 + 32);
+                v31[3] = v34;
+                *v31 = v32;
+                v31[1] = v33;
+                if (v16 <= *v28)
                 {
-                  v14 = *v26;
+                  v16 = *v28;
                 }
               }
             }
 
-            v33 = atomic_load((v21 + 4));
-            v34 = v25 + (v33 >> 6);
-            v35 = (HIDWORD(v25) + 1);
-            v25 = (v35 << 32) | v25;
-            if (v35 == v34 - 1)
+            v35 = atomic_load((v23 + 4));
+            v36 = v27 + (v35 >> 6);
+            v37 = (HIDWORD(v27) + 1);
+            v27 = (v37 << 32) | v27;
+            if (v37 == v36 - 1)
             {
-              v25 = (v35 << 32) | v35;
-              v21 = *(v21 + 40);
+              v27 = (v37 << 32) | v37;
+              v23 = *(v23 + 40);
             }
           }
 
-          v16 = v265;
-          v11 = v301;
+          v18 = v266;
+          v13 = v302;
         }
       }
 
-      ++v17;
+      ++v19;
     }
 
-    while (v17 < v13->nelts);
-    v4 = newpool;
+    while (v19 < v15->nelts);
+    v6 = newpool;
   }
 
-  qsort(v15->elts, v15->nelts, v15->elt_size, CompareGTTraceFunc);
-  apr_array_cat(dst, v15);
-  *(v5 + 48) = v14 - *(v5 + 40) + 1;
-  v282 = apr_array_make(*v271, *(v289 + 12), *(v289 + 8));
-  v305 = *(*(v271 + 8) + 40);
-  v36 = apr_array_make(v4, v292->nelts, 16);
-  nelts = v292->nelts;
+  qsort(v17->elts, v17->nelts, v17->elt_size, CompareGTTraceFunc);
+  apr_array_cat(dst, v17);
+  *(v7 + 48) = v16 - *(v7 + 40) + 1;
+  v283 = apr_array_make(*v272, *(v290 + 12), *(v290 + 8));
+  v306 = *(*(v272 + 8) + 40);
+  v38 = apr_array_make(v6, v293->nelts, 16);
+  nelts = v293->nelts;
   if (nelts >= 1)
   {
-    v38 = nelts - 1;
+    v40 = nelts - 1;
     do
     {
-      *apr_array_push(v36) = *&v292->elts[8 * v38];
-      v39 = v38-- + 1;
+      *apr_array_push(v38) = *&v293->elts[8 * v40];
+      v41 = v40-- + 1;
     }
 
-    while (v39 > 1);
+    while (v41 > 1);
   }
 
-  v285 = v36;
-  v40 = *(*(v271 + 8) + 728);
-  arr = apr_array_make(v4, 1, 16);
-  if (*(v40 + 12) >= 1)
+  v286 = v38;
+  v42 = *(*(v272 + 8) + 728);
+  arr = apr_array_make(v6, 1, 16);
+  if (*(v42 + 12) >= 1)
   {
-    v41 = 0;
+    v43 = 0;
     do
     {
-      v316[0] = GTTraceDump_getCommandBufferQueue(v16, *(*(v40 + 24) + 8 * v41));
-      v42 = find_entry(v264, v316, 8uLL, 0);
-      if (GTFenum_getConstructorType(*(*(*(*v42 + 32) + 32) + 72)) == 92)
+      v317[0] = GTTraceDump_getCommandBufferQueue(v18, *(*(v42 + 24) + 8 * v43));
+      v44 = find_entry(v265, v317, 8uLL, 0);
+      if (GTFenum_getConstructorType(*(*(*(*v44 + 32) + 32) + 72)) == 92)
       {
-        v43 = v316[0];
-        v44 = arr->nelts;
-        if (v44 < 1)
+        v45 = v317[0];
+        v46 = arr->nelts;
+        if (v46 < 1)
         {
 LABEL_46:
-          *apr_array_push(arr) = v43;
+          *apr_array_push(arr) = v45;
         }
 
         else
@@ -2658,14 +2651,14 @@ LABEL_46:
           elts = arr->elts;
           while (1)
           {
-            v46 = *elts;
+            v48 = *elts;
             elts += 16;
-            if (v46 == v316[0])
+            if (v48 == v317[0])
             {
               break;
             }
 
-            if (!--v44)
+            if (!--v46)
             {
               goto LABEL_46;
             }
@@ -2673,433 +2666,433 @@ LABEL_46:
         }
       }
 
-      ++v41;
+      ++v43;
     }
 
-    while (v41 < *(v40 + 12));
+    while (v43 < *(v42 + 12));
   }
 
-  v47 = GTEventTracker_make(v264, ht, v16, v298, v4);
-  v48 = *(*(v271 + 8) + 728);
-  if (*(v48 + 12) >= 1)
+  v49 = GTEventTracker_make(v265, ht, v18, v299, v6);
+  v50 = *(*(v272 + 8) + 728);
+  if (*(v50 + 12) >= 1)
   {
-    v49 = 0;
+    v51 = 0;
     do
     {
-      v316[0] = *(*(v48 + 24) + 8 * v49);
-      v50 = *(*find_entry(v264, v316, 8uLL, 0) + 32);
-      ConstructorType = GTFenum_getConstructorType(*(*(v50 + 32) + 72));
+      v317[0] = *(*(v50 + 24) + 8 * v51);
+      v52 = *(*find_entry(v265, v317, 8uLL, 0) + 32);
+      ConstructorType = GTFenum_getConstructorType(*(*(v52 + 32) + 72));
       if (ConstructorType == 51 || ConstructorType == 25)
       {
-        v53 = *(v50 + 32);
-        if (v53)
+        v55 = *(v52 + 32);
+        if (v55)
         {
-          v54 = 0;
+          v56 = 0;
           while (1)
           {
-            v55 = atomic_load((v53 + 4));
-            v56 = v54 + (v55 >> 6) - 1;
-            if (v56 > 0)
+            v57 = atomic_load((v55 + 4));
+            v58 = v56 + (v57 >> 6) - 1;
+            if (v58 > 0)
             {
               break;
             }
 
-            v53 = *(v53 + 40);
-            v54 = v56;
-            if (!v53)
+            v55 = *(v55 + 40);
+            v56 = v58;
+            if (!v55)
             {
-              v54 = v56;
+              v56 = v58;
               goto LABEL_62;
             }
           }
 
-          v56 = 0;
+          v58 = 0;
 LABEL_62:
-          v57 = v54 | (v56 << 32);
+          v59 = v56 | (v58 << 32);
         }
 
         else
         {
-          v57 = 0;
+          v59 = 0;
         }
 
-        while (v53)
+        while (v55)
         {
-          v58 = v53 + 64 + ((HIDWORD(v57) - v57) << 6);
-          if ((*(v58 + 15) & 8) == 0)
+          v60 = v55 + 64 + ((HIDWORD(v59) - v59) << 6);
+          if ((*(v60 + 15) & 8) == 0)
           {
             break;
           }
 
-          GTEventTracker_processFunction(v47, v58);
-          v59 = atomic_load((v53 + 4));
-          v60 = v57 + (v59 >> 6);
-          v61 = (HIDWORD(v57) + 1);
-          v57 = (v61 << 32) | v57;
-          if (v61 == v60 - 1)
+          GTEventTracker_processFunction(v49, v60);
+          v61 = atomic_load((v55 + 4));
+          v62 = v59 + (v61 >> 6);
+          v63 = (HIDWORD(v59) + 1);
+          v59 = (v63 << 32) | v59;
+          if (v63 == v62 - 1)
           {
-            v57 = (v61 << 32) | v61;
-            v53 = *(v53 + 40);
+            v59 = (v63 << 32) | v63;
+            v55 = *(v55 + 40);
           }
         }
       }
 
-      ++v49;
-      v48 = *(*(v271 + 8) + 728);
+      ++v51;
+      v50 = *(*(v272 + 8) + 728);
     }
 
-    while (v49 < *(v48 + 12));
+    while (v51 < *(v50 + 12));
   }
 
-  v62 = arr;
+  v64 = arr;
   if (arr->nelts >= 1)
   {
-    v63 = 0;
+    v65 = 0;
     do
     {
-      v64 = *(*(*find_entry(v264, &v62->elts[16 * v63], 8uLL, 0) + 32) + 32);
-      if (v64)
+      v66 = *(*(*find_entry(v265, &v64->elts[16 * v65], 8uLL, 0) + 32) + 32);
+      if (v66)
       {
-        v65 = 0;
+        v67 = 0;
         while (1)
         {
-          v66 = atomic_load((v64 + 4));
-          v67 = v65 + (v66 >> 6) - 1;
-          if (v67 > 0)
+          v68 = atomic_load((v66 + 4));
+          v69 = v67 + (v68 >> 6) - 1;
+          if (v69 > 0)
           {
             break;
           }
 
-          v64 = *(v64 + 40);
-          v65 = v67;
-          if (!v64)
+          v66 = *(v66 + 40);
+          v67 = v69;
+          if (!v66)
           {
-            v65 = v67;
+            v67 = v69;
             goto LABEL_77;
           }
         }
 
-        v67 = 0;
+        v69 = 0;
 LABEL_77:
-        v68 = v65 | (v67 << 32);
+        v70 = v67 | (v69 << 32);
       }
 
       else
       {
-        v68 = 0;
+        v70 = 0;
       }
 
-      while (v64)
+      while (v66)
       {
-        v69 = v64 + 64 + ((HIDWORD(v68) - v68) << 6);
-        if ((*(v69 + 15) & 8) == 0)
+        v71 = v66 + 64 + ((HIDWORD(v70) - v70) << 6);
+        if ((*(v71 + 15) & 8) == 0)
         {
           break;
         }
 
-        v70 = *(v271 + 8);
-        v71 = *(v70 + 40);
-        v72 = *(v70 + 48) + v71;
-        if (v71 <= *v69 && v72 > *v69)
+        v72 = *(v272 + 8);
+        v73 = *(v72 + 40);
+        v74 = *(v72 + 48) + v73;
+        if (v73 <= *v71 && v74 > *v71)
         {
-          GTEventTracker_processFunction(v47, v69);
+          GTEventTracker_processFunction(v49, v71);
         }
 
-        v74 = atomic_load((v64 + 4));
-        v75 = v68 + (v74 >> 6);
-        v76 = (HIDWORD(v68) + 1);
-        v68 = (v76 << 32) | v68;
-        if (v76 == v75 - 1)
+        v76 = atomic_load((v66 + 4));
+        v77 = v70 + (v76 >> 6);
+        v78 = (HIDWORD(v70) + 1);
+        v70 = (v78 << 32) | v70;
+        if (v78 == v77 - 1)
         {
-          v68 = (v76 << 32) | v76;
-          v64 = *(v64 + 40);
+          v70 = (v78 << 32) | v78;
+          v66 = *(v66 + 40);
         }
       }
 
-      ++v63;
-      v62 = arr;
+      ++v65;
+      v64 = arr;
     }
 
-    while (v63 < arr->nelts);
+    while (v65 < arr->nelts);
   }
 
-  v77 = GTEventTracker_makeFrom(v47);
+  v79 = GTEventTracker_makeFrom(v49);
   LogForTag = GTCoreLog_getLogForTag(7u);
   GTCoreLog_enabled(LogForTag);
-  v79 = *(v271 + 8);
+  v81 = *(v272 + 8);
   pool = 0;
-  apr_pool_create_ex(&pool, *v79, 0, 0);
-  v80 = *(v79 + 24);
-  v81 = pool;
-  v299 = apr_hash_make(pool);
-  hta = apr_hash_make(v81);
-  v82 = apr_hash_make(*v79);
-  v83 = *(v79 + 720);
-  v84 = v265;
-  v85 = v285;
-  v283 = v82;
-  if (*(v83 + 12) <= 0)
+  apr_pool_create_ex(&pool, *v81, 0, 0);
+  v82 = *(v81 + 24);
+  v83 = pool;
+  v300 = apr_hash_make(pool);
+  hta = apr_hash_make(v83);
+  v84 = apr_hash_make(*v81);
+  v85 = *(v81 + 720);
+  v86 = v266;
+  v87 = v286;
+  v284 = v84;
+  if (*(v85 + 12) <= 0)
   {
-    v88 = v282;
+    v90 = v283;
   }
 
   else
   {
-    v86 = v82;
-    v87 = 0;
-    v88 = v282;
-    v290 = v79;
-    v293 = v80;
+    v88 = v84;
+    v89 = 0;
+    v90 = v283;
+    v291 = v81;
+    v294 = v82;
     do
     {
-      v89 = *(v83 + 24) + (v87 << 6);
-      v90 = *(v89 + 8);
-      ReceiverType = GTFenum_getReceiverType(v90);
+      v91 = *(v85 + 24) + (v89 << 6);
+      v92 = *(v91 + 8);
+      ReceiverType = GTFenum_getReceiverType(v92);
       if (ReceiverType == 88)
       {
-        if ((v90 + 15181) < 4 || v90 == -14848)
+        if (v92 + 15181 < 4 || v92 == -14848)
         {
-          v302 = v89;
-          v307 = GTTraceFunc_targetContext(v89, v80);
-          v93 = *find_entry(v299, &v307, 8uLL, 0);
-          if (!v93 || (v94 = *(v93 + 32)) == 0)
+          v303 = v91;
+          v308 = GTTraceFunc_targetContext(v91, v82);
+          v95 = *find_entry(v300, &v308, 8uLL, 0);
+          if (!v95 || (v96 = *(v95 + 32)) == 0)
           {
-            v94 = apr_palloc(*v299, 0x6B8uLL);
-            v95 = v307;
-            v96 = *v302;
-            v97 = *(v79 + 16);
-            v98 = *(v79 + 24);
-            bzero(v94 + 4, 0x6B4uLL);
-            *v94 = 88;
-            *(v94 + 3) = -1;
-            v316[0] = v95;
-            v99 = *(*(*find_entry(v97, v316, 8uLL, 0) + 32) + 32);
-            if (v99)
+            v96 = apr_palloc(*v300, 0x6B8uLL);
+            v97 = v308;
+            v98 = *v303;
+            v99 = *(v81 + 16);
+            v100 = *(v81 + 24);
+            bzero(v96 + 4, 0x6B4uLL);
+            *v96 = 88;
+            *(v96 + 3) = -1;
+            v317[0] = v97;
+            v101 = *(*(*find_entry(v99, v317, 8uLL, 0) + 32) + 32);
+            if (v101)
             {
-              v100 = 0;
+              v102 = 0;
               while (1)
               {
-                v101 = atomic_load((v99 + 4));
-                v102 = v100 + (v101 >> 6) - 1;
-                if (v102 > 0)
+                v103 = atomic_load((v101 + 4));
+                v104 = v102 + (v103 >> 6) - 1;
+                if (v104 > 0)
                 {
                   break;
                 }
 
-                v99 = *(v99 + 40);
-                v100 = v102;
-                if (!v99)
+                v101 = *(v101 + 40);
+                v102 = v104;
+                if (!v101)
                 {
-                  v100 = v102;
+                  v102 = v104;
                   goto LABEL_133;
                 }
               }
 
-              v102 = 0;
+              v104 = 0;
 LABEL_133:
-              v121 = v100 | (v102 << 32);
+              v123 = v102 | (v104 << 32);
             }
 
             else
             {
-              v121 = 0;
+              v123 = 0;
             }
 
-            while (v99)
+            while (v101)
             {
-              v123 = v99 + 64 + ((HIDWORD(v121) - v121) << 6);
-              if ((*(v123 + 15) & 8) == 0 || *v123 >= v96)
+              v125 = v101 + 64 + ((HIDWORD(v123) - v123) << 6);
+              if ((*(v125 + 15) & 8) == 0 || *v125 >= v98)
               {
                 break;
               }
 
-              GTMTL4SMArgumentTable_processTraceFuncWithMap(v94, v98, v123);
-              v124 = atomic_load((v99 + 4));
-              v125 = v121 + (v124 >> 6);
-              v126 = (HIDWORD(v121) + 1);
-              v121 = (v126 << 32) | v121;
-              if (v126 == v125 - 1)
+              GTMTL4SMArgumentTable_processTraceFuncWithMap(v96, v100, v125);
+              v126 = atomic_load((v101 + 4));
+              v127 = v123 + (v126 >> 6);
+              v128 = (HIDWORD(v123) + 1);
+              v123 = (v128 << 32) | v123;
+              if (v128 == v127 - 1)
               {
-                v121 = (v126 << 32) | v126;
-                v99 = *(v99 + 40);
+                v123 = (v128 << 32) | v128;
+                v101 = *(v101 + 40);
               }
             }
 
-            v127 = apr_palloc(*v299, 8uLL);
-            *v127 = v307;
-            apr_hash_set(v299, v127, 8, v94);
-            v84 = v265;
-            v85 = v285;
-            v86 = v283;
-            v79 = v290;
-            v80 = v293;
+            v129 = apr_palloc(*v300, 8uLL);
+            *v129 = v308;
+            apr_hash_set(v300, v129, 8, v96);
+            v86 = v266;
+            v87 = v286;
+            v88 = v284;
+            v81 = v291;
+            v82 = v294;
           }
 
-          GTMTL4SMArgumentTable_processTraceFuncWithMap(v94, v80, v302);
+          GTMTL4SMArgumentTable_processTraceFuncWithMap(v96, v82, v303);
         }
       }
 
-      else if (v90 == -15086 || v90 == -14888 || v90 == -15041)
+      else if (v92 == -15086 || v92 == -14888 || v92 == -15041)
       {
-        v105 = GTTraceFunc_argumentBytesWithMap(v89, *(v89 + 13), v80);
-        v106 = *find_entry(hta, v105, 8uLL, 0);
-        if (!v106 || (v107 = *(v106 + 32)) == 0)
+        v107 = GTTraceFunc_argumentBytesWithMap(v91, *(v91 + 13), v82);
+        v108 = *find_entry(hta, v107, 8uLL, 0);
+        if (!v108 || (v109 = *(v108 + 32)) == 0)
         {
-          v107 = apr_palloc(*hta, 0x790uLL);
-          dsta = v105;
-          v108 = *v105;
-          v303 = v89;
-          v109 = *v89;
-          v110 = *(v79 + 16);
-          v111 = *(v79 + 24);
-          bzero(v107, 0x790uLL);
-          v316[0] = v108;
-          v112 = *(*(*find_entry(v110, v316, 8uLL, 0) + 32) + 32);
-          if (v112)
+          v109 = apr_palloc(*hta, 0x790uLL);
+          dsta = v107;
+          v110 = *v107;
+          v304 = v91;
+          v111 = *v91;
+          v112 = *(v81 + 16);
+          v113 = *(v81 + 24);
+          bzero(v109, 0x790uLL);
+          v317[0] = v110;
+          v114 = *(*(*find_entry(v112, v317, 8uLL, 0) + 32) + 32);
+          if (v114)
           {
-            v113 = 0;
+            v115 = 0;
             while (1)
             {
-              v114 = atomic_load((v112 + 4));
-              v115 = v113 + (v114 >> 6) - 1;
-              if (v115 > 0)
+              v116 = atomic_load((v114 + 4));
+              v117 = v115 + (v116 >> 6) - 1;
+              if (v117 > 0)
               {
                 break;
               }
 
-              v112 = *(v112 + 40);
-              v113 = v115;
-              if (!v112)
+              v114 = *(v114 + 40);
+              v115 = v117;
+              if (!v114)
               {
-                v113 = v115;
+                v115 = v117;
                 goto LABEL_142;
               }
             }
 
-            v115 = 0;
+            v117 = 0;
 LABEL_142:
-            v122 = v113 | (v115 << 32);
+            v124 = v115 | (v117 << 32);
           }
 
           else
           {
-            v122 = 0;
+            v124 = 0;
           }
 
-          while (v112)
+          while (v114)
           {
-            v128 = v112 + 64 + ((HIDWORD(v122) - v122) << 6);
-            if ((*(v128 + 15) & 8) == 0 || *v128 >= v109)
+            v130 = v114 + 64 + ((HIDWORD(v124) - v124) << 6);
+            if ((*(v130 + 15) & 8) == 0 || *v130 >= v111)
             {
               break;
             }
 
-            GTMTL4SMCommandEncoder_processTraceFunc(v107, v128, v111);
-            v129 = atomic_load((v112 + 4));
-            v130 = v122 + (v129 >> 6);
-            v131 = (HIDWORD(v122) + 1);
-            v122 = (v131 << 32) | v122;
-            if (v131 == v130 - 1)
+            GTMTL4SMCommandEncoder_processTraceFunc(v109, v130, v113);
+            v131 = atomic_load((v114 + 4));
+            v132 = v124 + (v131 >> 6);
+            v133 = (HIDWORD(v124) + 1);
+            v124 = (v133 << 32) | v124;
+            if (v133 == v132 - 1)
             {
-              v122 = (v131 << 32) | v131;
-              v112 = *(v112 + 40);
+              v124 = (v133 << 32) | v133;
+              v114 = *(v114 + 40);
             }
           }
 
-          apr_hash_set(hta, dsta, 8, v107);
-          v84 = v265;
-          v86 = v283;
-          v79 = v290;
-          v80 = v293;
-          v89 = v303;
+          apr_hash_set(hta, dsta, 8, v109);
+          v86 = v266;
+          v88 = v284;
+          v81 = v291;
+          v82 = v294;
+          v91 = v304;
         }
 
-        GTMTL4SMCommandEncoder_processTraceFunc(v107, v89, v80);
-        v85 = v285;
+        GTMTL4SMCommandEncoder_processTraceFunc(v109, v91, v82);
+        v87 = v286;
       }
 
-      else if ((ReceiverType - 95) <= 0xA && ((0x409u >> (ReceiverType - 95)) & 1) != 0 && GTFenum_isArgumentTableSnapshotCall(v90))
+      else if ((ReceiverType - 95) <= 0xA && ((0x409u >> (ReceiverType - 95)) & 1) != 0 && GTFenum_isArgumentTableSnapshotCall(v92))
       {
-        v316[0] = GTTraceFunc_targetContext(v89, v80);
-        v116 = find_entry(hta, v316, 8uLL, 0);
-        if (*v116)
+        v317[0] = GTTraceFunc_targetContext(v91, v82);
+        v118 = find_entry(hta, v317, 8uLL, 0);
+        if (*v118)
         {
-          v117 = *(*v116 + 32);
-          if (v117)
+          v119 = *(*v118 + 32);
+          if (v119)
           {
-            v118 = *v117;
-            if (*v117 == 95 || v118 == 105)
+            v120 = *v119;
+            if (*v119 == 95 || v120 == 105)
             {
-              GTTraceDispatch_setArgumentTableStateForGPUCommandStage(v86, v299, *v89, *(v117 + 8), 0);
+              GTTraceDispatch_setArgumentTableStateForGPUCommandStage(v88, v300, *v91, *(v119 + 8), 0);
             }
 
-            else if (v118 == 98)
+            else if (v120 == 98)
             {
-              v119 = 0;
-              v120 = v117 + 16;
+              v121 = 0;
+              v122 = v119 + 16;
               do
               {
-                GTTraceDispatch_setArgumentTableStateForGPUCommandStage(v86, v299, *v89, *&v120[2 * v119], v119);
-                ++v119;
+                GTTraceDispatch_setArgumentTableStateForGPUCommandStage(v88, v300, *v91, *&v122[2 * v121], v121);
+                ++v121;
               }
 
-              while (v119 != 5);
+              while (v121 != 5);
             }
           }
         }
 
-        v80 = v293;
+        v82 = v294;
       }
 
-      ++v87;
-      v83 = *(v79 + 720);
+      ++v89;
+      v85 = *(v81 + 720);
     }
 
-    while (v87 < *(v83 + 12));
-    v81 = pool;
+    while (v89 < *(v85 + 12));
+    v83 = pool;
   }
 
-  apr_pool_destroy(v81);
-  v132 = apr_hash_make(newpool);
-  v262 = *(*(v271 + 8) + 48) + *(*(v271 + 8) + 40);
-  v263 = v262 - 1;
-  if (*(v85 + 12))
+  apr_pool_destroy(v83);
+  v134 = apr_hash_make(newpool);
+  v263 = *(*(v272 + 8) + 48) + *(*(v272 + 8) + 40);
+  v264 = v263 - 1;
+  if (*(v87 + 12))
   {
-    dstb = v77;
-    v281 = v132;
+    dstb = v79;
+    v282 = v134;
     while (1)
     {
-      NextBufferToProcess = FindNextBufferToProcess(v85, v77, *(v271 + 8));
+      NextBufferToProcess = FindNextBufferToProcess(v87, v79, *(v272 + 8));
       if (!NextBufferToProcess)
       {
-        v134 = *(v85 + 12);
-        v135 = v134 + 1;
-        v136 = 16 * v134 - 16;
-        while (--v135 >= 1)
+        v136 = *(v87 + 12);
+        v137 = v136 + 1;
+        v138 = 16 * v136 - 16;
+        while (--v137 >= 1)
         {
-          CommandBufferCommitIndex = GTTraceDump_getCommandBufferCommitIndex(v84, *(*(v285 + 24) + v136));
-          if (CommandBufferCommitIndex > v305)
+          CommandBufferCommitIndex = GTTraceDump_getCommandBufferCommitIndex(v86, *(*(v286 + 24) + v138));
+          if (CommandBufferCommitIndex > v306)
           {
-            v138 = CommandBufferCommitIndex;
-            ProcessResourceAPIs(v88, v305, CommandBufferCommitIndex - v305, v77, *(v271 + 8));
-            v305 = v138;
+            v140 = CommandBufferCommitIndex;
+            ProcessResourceAPIs(v90, v306, CommandBufferCommitIndex - v306, v79, *(v272 + 8));
+            v306 = v140;
           }
 
-          v136 -= 16;
-          NextBufferToProcess = FindNextBufferToProcess(v285, v77, *(v271 + 8));
+          v138 -= 16;
+          NextBufferToProcess = FindNextBufferToProcess(v286, v79, *(v272 + 8));
           if (NextBufferToProcess)
           {
             goto LABEL_167;
           }
         }
 
-        if (v305 < v263)
+        if (v306 < v264)
         {
-          ProcessResourceAPIs(v88, v305, v262 - v305, v77, *(v271 + 8));
+          ProcessResourceAPIs(v90, v306, v263 - v306, v79, *(v272 + 8));
         }
 
-        v305 = v262 - 1;
-        NextBufferToProcess = FindNextBufferToProcess(v285, v77, *(v271 + 8));
+        v306 = v263 - 1;
+        NextBufferToProcess = FindNextBufferToProcess(v286, v79, *(v272 + 8));
         if (!NextBufferToProcess)
         {
           goto LABEL_312;
@@ -3107,178 +3100,178 @@ LABEL_142:
       }
 
 LABEL_167:
-      v316[0] = *NextBufferToProcess;
-      v139 = NextBufferToProcess;
-      v140 = *(*find_entry(v84, v316, 8uLL, 0) + 32);
-      v141 = *v140;
-      v267 = v139;
-      v142 = *find_entry(v264, v139, 8uLL, 0);
-      if (!v142)
+      v317[0] = *NextBufferToProcess;
+      v141 = NextBufferToProcess;
+      v142 = *(*find_entry(v86, v317, 8uLL, 0) + 32);
+      v143 = *v142;
+      v268 = v141;
+      v144 = *find_entry(v265, v141, 8uLL, 0);
+      if (!v144)
       {
         break;
       }
 
-      v143 = *(v142 + 32);
-      if (!v143)
+      v145 = *(v144 + 32);
+      if (!v145)
       {
         goto LABEL_173;
       }
 
-      v144 = *(v143 + 32);
-      if (v144)
+      v146 = *(v145 + 32);
+      if (v146)
       {
-        v145 = (v144 + 64);
+        v147 = (v146 + 64);
       }
 
       else
       {
-        v145 = 0;
+        v147 = 0;
       }
 
 LABEL_174:
-      if (GTFenum_getReceiverType(*(v145 + 2)) == 91)
+      if (GTFenum_getReceiverType(*(v147 + 2)) == 91)
       {
-        v146 = arr->nelts;
-        if (v146 < 1)
+        v148 = arr->nelts;
+        if (v148 < 1)
         {
 LABEL_179:
-          v150 = 0;
+          v152 = 0;
         }
 
         else
         {
-          v147 = 0;
-          v148 = arr->elts;
+          v149 = 0;
+          v150 = arr->elts;
           while (1)
           {
-            v149 = *v148;
-            v148 += 16;
-            if (v149 == v140[1])
+            v151 = *v150;
+            v150 += 16;
+            if (v151 == v142[1])
             {
               break;
             }
 
-            if (v146 == ++v147)
+            if (v148 == ++v149)
             {
               goto LABEL_179;
             }
           }
 
-          v150 = &arr->elts[16 * v147];
+          v152 = &arr->elts[16 * v149];
         }
 
-        v161 = *(v271 + 8);
-        v162 = v150;
-        v163 = *(*(*find_entry(v161[2], v150, 8uLL, 0) + 32) + 32);
-        v270 = v162;
-        if (v163)
+        v163 = *(v272 + 8);
+        v164 = v152;
+        v165 = *(*(*find_entry(v163[2], v152, 8uLL, 0) + 32) + 32);
+        v271 = v164;
+        if (v165)
         {
-          v164 = 0;
-          v165 = *(v162 + 2);
+          v166 = 0;
+          v167 = *(v164 + 2);
           while (1)
           {
-            v166 = atomic_load((v163 + 4));
-            v167 = v164 + (v166 >> 6) - 1;
-            if (v167 > v165)
+            v168 = atomic_load((v165 + 4));
+            v169 = v166 + (v168 >> 6) - 1;
+            if (v169 > v167)
             {
               break;
             }
 
-            v163 = *(v163 + 40);
-            v164 = v167;
-            if (!v163)
+            v165 = *(v165 + 40);
+            v166 = v169;
+            if (!v165)
             {
-              v165 = v167;
+              v167 = v169;
               goto LABEL_219;
             }
           }
 
-          LODWORD(v167) = v164;
+          LODWORD(v169) = v166;
 LABEL_219:
-          v273 = v167 | (v165 << 32);
+          v274 = v169 | (v167 << 32);
         }
 
         else
         {
-          v273 = 0;
+          v274 = 0;
         }
 
-        v291 = v161;
+        v292 = v163;
 LABEL_221:
-        v268 = v163;
-        v269 = v163 + 64;
+        v269 = v165;
+        v270 = v165 + 64;
         while (1)
         {
-          if (!v163)
+          if (!v165)
           {
             goto LABEL_311;
           }
 
-          v274 = v269 + ((HIDWORD(v273) - v273) << 6);
-          if ((*(v274 + 15) & 8) == 0)
+          v275 = (v270 + ((HIDWORD(v274) - v274) << 6));
+          if ((*(v275 + 15) & 8) == 0)
           {
             goto LABEL_311;
           }
 
-          v185 = v161[5];
-          if (v185 <= *v274 && v161[6] + v185 > *v274)
+          v187 = v163[5];
+          if (v187 <= *v275 && v163[6] + v187 > *v275)
           {
             break;
           }
 
 LABEL_305:
-          ++v270[1];
-          v163 = v268;
-          v255 = atomic_load((v268 + 4));
-          v256 = v273 + (v255 >> 6);
-          v257 = (HIDWORD(v273) + 1);
-          v273 = (v257 << 32) | v273;
-          if (v257 == v256 - 1)
+          ++v271[1];
+          v165 = v269;
+          v256 = atomic_load((v269 + 4));
+          v257 = v274 + (v256 >> 6);
+          v258 = (HIDWORD(v274) + 1);
+          v274 = (v258 << 32) | v274;
+          if (v258 == v257 - 1)
           {
-            v273 = (v257 << 32) | v257;
-            v163 = *(v268 + 40);
+            v274 = (v258 << 32) | v258;
+            v165 = *(v269 + 40);
             goto LABEL_221;
           }
         }
 
-        v187 = v269 + ((HIDWORD(v273) - v273) << 6);
-        GTEventTracker_processFunction(v77, v274);
-        if (GTEventTracker_isBlocked(v77, *v270))
+        v189 = v270 + ((HIDWORD(v274) - v274) << 6);
+        GTEventTracker_processFunction(v79, v275);
+        if (GTEventTracker_isBlocked(v79, *v271))
         {
-          v270[1] = v273 >> 32;
+          v271[1] = v274 >> 32;
         }
 
         else
         {
-          if (*v274 > v305)
+          if (*v275 > v306)
           {
-            ProcessResourceAPIs(v88, v305, *v274 - v305, v77, v161);
-            v187 = v269 + ((HIDWORD(v273) - v273) << 6);
-            v305 = *v274;
+            ProcessResourceAPIs(v90, v306, *v275 - v306, v79, v163);
+            v189 = v270 + ((HIDWORD(v274) - v274) << 6);
+            v306 = *v275;
           }
 
-          v188 = *(v187 + 8);
-          v190 = (v188 + 14847) <= 0xE && ((1 << (v188 - 1)) & 0x4003) != 0 || v188 == -15158;
-          if (!v190 || !*(GTTraceFunc_argumentBytesWithMap(v274, *(v274 + 13), v161[3]) + 1))
+          v190 = *(v189 + 8);
+          v192 = (v190 + 14847) <= 0xE && ((1 << (v190 - 1)) & 0x4003) != 0 || v190 == -15158;
+          if (!v192 || !*(GTTraceFunc_argumentBytesWithMap(v275, *(v275 + 13), v163[3]) + 1))
           {
             goto LABEL_304;
           }
 
-          v275 = GTTraceDump_getCommandBufferCommitIndex(v161[93], *v267);
-          if (*v274 == v275)
+          v276 = GTTraceDump_getCommandBufferCommitIndex(v163[93], *v268);
+          if (*v275 == v276)
           {
-            v191 = *(v285 + 12);
-            if (v191 < 1)
+            v193 = *(v286 + 12);
+            if (v193 < 1)
             {
 LABEL_304:
-              v251 = apr_array_push(v88);
-              v252 = *(v274 + 48);
-              v254 = *v274;
-              v253 = *(v274 + 16);
-              v251[2] = *(v274 + 32);
-              v251[3] = v252;
-              *v251 = v254;
-              v251[1] = v253;
+              v252 = apr_array_push(v90);
+              v253 = v275[3];
+              v255 = *v275;
+              v254 = v275[1];
+              v252[2] = v275[2];
+              v252[3] = v253;
+              *v252 = v255;
+              v252[1] = v254;
               goto LABEL_305;
             }
 
@@ -3286,19 +3279,19 @@ LABEL_304:
             {
               while (1)
               {
-                v276 = v191 - 1;
-                v192 = (*(v285 + 24) + 16 * (v191 - 1));
-                v193 = v191;
-                v194 = GTTraceDump_getCommandBufferCommitIndex(v161[93], *v192);
-                if (v194 == v275)
+                v277 = v193 - 1;
+                v194 = (*(v286 + 24) + 16 * (v193 - 1));
+                v195 = v193;
+                v196 = GTTraceDump_getCommandBufferCommitIndex(v163[93], *v194);
+                if (v196 == v276)
                 {
                   break;
                 }
 
-                if (v193 >= 2)
+                if (v195 >= 2)
                 {
-                  v191 = v276;
-                  if (v194 <= v275)
+                  v193 = v277;
+                  if (v196 <= v276)
                   {
                     continue;
                   }
@@ -3307,62 +3300,62 @@ LABEL_304:
                 goto LABEL_304;
               }
 
-              v272 = v193;
-              v195 = v161[2];
-              v316[0] = GetCommandBufferParentStreamRef(v195, v161[3], *v192);
-              v196 = *find_entry(v195, v316, 8uLL, 0);
-              if (v196)
+              v273 = v195;
+              v197 = v163[2];
+              v317[0] = GetCommandBufferParentStreamRef(v197, v163[3], *v194);
+              v198 = *find_entry(v197, v317, 8uLL, 0);
+              if (v198)
               {
-                v197 = *(v196 + 32);
+                v199 = *(v198 + 32);
               }
 
               else
               {
-                v197 = 0;
+                v199 = 0;
               }
 
-              v198 = apr_palloc(*v284, 8uLL);
-              *v198 = v197;
-              v199 = *find_entry(v284, v198, 8uLL, 0);
-              if (!v199 || !*(v199 + 32))
+              v200 = apr_palloc(*v285, 8uLL);
+              *v200 = v199;
+              v201 = *find_entry(v285, v200, 8uLL, 0);
+              if (!v201 || !*(v201 + 32))
               {
-                apr_hash_set(v284, v198, 8, &dword_0 + 1);
-                if (v197)
+                apr_hash_set(v285, v200, 8, &dword_0 + 1);
+                if (v199)
                 {
-                  v200 = *(v197 + 4);
-                  if (v200 && (*(v200 + 79) & 8) != 0)
+                  v202 = *(v199 + 4);
+                  if (v202 && (*(v202 + 79) & 8) != 0)
                   {
-                    v197 = (v200 + 64);
+                    v199 = (v202 + 64);
                   }
 
                   else
                   {
-                    v197 = 0;
+                    v199 = 0;
                   }
                 }
 
-                v201 = apr_array_push(v88);
-                v202 = v197[3];
-                v204 = *v197;
-                v203 = v197[1];
-                v201[2] = v197[2];
-                v201[3] = v202;
-                *v201 = v204;
-                v201[1] = v203;
+                v203 = apr_array_push(v90);
+                v204 = v199[3];
+                v206 = *v199;
+                v205 = v199[1];
+                v203[2] = v199[2];
+                v203[3] = v204;
+                *v203 = v206;
+                v203[1] = v205;
               }
 
-              v205 = *find_entry(v161[2], v192, 8uLL, 0);
-              if (v205)
+              v207 = *find_entry(v163[2], v194, 8uLL, 0);
+              if (v207)
               {
-                v206 = *(v205 + 32);
-                if (v206)
+                v208 = *(v207 + 32);
+                if (v208)
                 {
-                  v207 = *(v206 + 32);
-                  if (v207)
+                  v209 = *(v208 + 32);
+                  if (v209)
                   {
-                    if ((*(v207 + 79) & 8) != 0)
+                    if ((*(v209 + 79) & 8) != 0)
                     {
-                      v208 = (v207 + 64);
+                      v210 = (v209 + 64);
                       goto LABEL_265;
                     }
                   }
@@ -3371,215 +3364,214 @@ LABEL_304:
 
               else
               {
-                v206 = 0;
+                v208 = 0;
               }
 
-              v208 = 0;
+              v210 = 0;
 LABEL_265:
-              v209 = apr_array_push(v88);
-              v210 = *v208;
-              v211 = v208[1];
-              v212 = v208[3];
-              v209[2] = v208[2];
-              v209[3] = v212;
-              *v209 = v210;
-              v209[1] = v211;
-              v213 = *(v206 + 32);
-              if (v213)
+              v211 = apr_array_push(v90);
+              v212 = *v210;
+              v213 = v210[1];
+              v214 = v210[3];
+              v211[2] = v210[2];
+              v211[3] = v214;
+              *v211 = v212;
+              v211[1] = v213;
+              v215 = *(v208 + 32);
+              if (v215)
               {
-                v214 = 0;
+                v216 = 0;
                 while (1)
                 {
-                  v215 = atomic_load((v213 + 4));
-                  v216 = v214 + (v215 >> 6) - 1;
-                  if (v216 > 1)
+                  v217 = atomic_load((v215 + 4));
+                  v218 = v216 + (v217 >> 6) - 1;
+                  if (v218 > 1)
                   {
                     break;
                   }
 
-                  v213 = *(v213 + 40);
-                  v214 = v216;
-                  if (!v213)
+                  v215 = *(v215 + 40);
+                  v216 = v218;
+                  if (!v215)
                   {
-                    v214 = v216;
+                    v216 = v218;
                     goto LABEL_272;
                   }
                 }
 
-                v216 = 1;
+                v218 = 1;
 LABEL_272:
-                v217 = v214 | (v216 << 32);
+                v219 = v216 | (v218 << 32);
               }
 
               else
               {
-                v217 = 0;
+                v219 = 0;
               }
 
-              v277 = v192;
+              v278 = v194;
 LABEL_274:
-              v278 = v213;
-              v279 = v213 + 64;
-              while (v213)
+              v279 = v215;
+              v280 = v215 + 64;
+              while (v215)
               {
-                v218 = v279 + ((0xFFFFFFFF00000001 * v217) >> 32 << 6);
-                v219 = *(v218 + 15);
-                if ((*(v218 + 15) & 8) == 0)
+                v220 = (v280 + ((0xFFFFFFFF00000001 * v219) >> 32 << 6));
+                if ((*(v220 + 15) & 8) == 0)
                 {
                   break;
                 }
 
-                v280 = v217;
-                GTEventTracker_processFunction(v77, v218);
-                v220 = apr_array_push(v88);
-                v221 = *(v218 + 48);
-                v223 = *v218;
-                v222 = *(v218 + 16);
-                v220[2] = *(v218 + 32);
-                v220[3] = v221;
-                *v220 = v223;
-                v220[1] = v222;
-                v224 = GTFenum_getConstructorType(*(v218 + 8)) - 95;
-                if (v224 <= 0xA && ((0x409u >> v224) & 1) != 0)
+                v281 = v219;
+                GTEventTracker_processFunction(v79, v220);
+                v221 = apr_array_push(v90);
+                v222 = v220[3];
+                v224 = *v220;
+                v223 = v220[1];
+                v221[2] = v220[2];
+                v221[3] = v222;
+                *v221 = v224;
+                v221[1] = v223;
+                v225 = GTFenum_getConstructorType(*(v220 + 2)) - 95;
+                if (v225 <= 0xA && ((0x409u >> v225) & 1) != 0)
                 {
-                  bzero(v316, 0x790uLL);
-                  GTMTL4SMCommandEncoder_processTraceFunc(v316, v218, v161[3]);
-                  v225 = v161[2];
-                  pool = v316[1];
-                  v226 = *(*(*find_entry(v225, &pool, 8uLL, 0) + 32) + 32);
-                  if (v226)
+                  bzero(v317, 0x790uLL);
+                  GTMTL4SMCommandEncoder_processTraceFunc(v317, v220, v163[3]);
+                  v226 = v163[2];
+                  pool = v317[1];
+                  v227 = *(*(*find_entry(v226, &pool, 8uLL, 0) + 32) + 32);
+                  if (v227)
                   {
-                    v227 = 0;
+                    v228 = 0;
                     while (1)
                     {
-                      v228 = atomic_load((v226 + 4));
-                      v229 = v227 + (v228 >> 6) - 1;
-                      if (v229 > 1)
+                      v229 = atomic_load((v227 + 4));
+                      v230 = v228 + (v229 >> 6) - 1;
+                      if (v230 > 1)
                       {
                         break;
                       }
 
-                      v226 = *(v226 + 40);
-                      v227 = v229;
-                      if (!v226)
+                      v227 = *(v227 + 40);
+                      v228 = v230;
+                      if (!v227)
                       {
-                        v227 = v229;
+                        v228 = v230;
                         goto LABEL_286;
                       }
                     }
 
-                    v229 = 1;
+                    v230 = 1;
 LABEL_286:
-                    v230 = v227 | (v229 << 32);
+                    v231 = v228 | (v230 << 32);
                   }
 
                   else
                   {
-                    v230 = 0;
+                    v231 = 0;
                   }
 
 LABEL_287:
-                  v294 = v226;
-                  htb = (v226 + 64);
-                  while (v226)
+                  v295 = v227;
+                  htb = (v227 + 64);
+                  while (v227)
                   {
-                    v231 = htb + 64 * (HIDWORD(v230) - v230);
-                    if ((v231[15] & 8) == 0)
+                    v232 = htb + 64 * (HIDWORD(v231) - v231);
+                    if ((v232[15] & 8) == 0)
                     {
                       break;
                     }
 
-                    v300 = HIDWORD(v230);
-                    v304 = v230;
-                    v232 = *(v231 + 2);
-                    v233 = v88;
-                    if (GTFenum_isArgumentTableSnapshotCall(v232))
+                    v301 = HIDWORD(v231);
+                    v305 = v231;
+                    v233 = *(v232 + 2);
+                    v234 = v90;
+                    if (GTFenum_isArgumentTableSnapshotCall(v233))
                     {
-                      if (GTFenum_getReceiverType(v232) == 98)
+                      if (GTFenum_getReceiverType(v233) == 98)
                       {
-                        v234 = 0;
-                        v233 = v282;
+                        v235 = 0;
+                        v234 = v283;
                         do
                         {
-                          v235 = *v231;
-                          pool = v282;
-                          v309 = v285;
-                          v310 = dstb;
-                          v311 = v291;
-                          v312 = v284;
-                          v313 = &v305;
-                          v314 = v283;
-                          v315 = v281;
-                          v236 = v234;
-                          WriteArgumentTableForGPUCommandStage(&pool, v235, v234++);
+                          v236 = *v232;
+                          pool = v283;
+                          v310 = v286;
+                          v311 = dstb;
+                          v312 = v292;
+                          v313 = v285;
+                          v314 = &v306;
+                          v315 = v284;
+                          v316 = v282;
+                          v237 = v235;
+                          WriteArgumentTableForGPUCommandStage(&pool, v236, v235++);
                         }
 
-                        while (v236 < 4);
+                        while (v237 < 4);
                       }
 
                       else
                       {
-                        v237 = *v231;
-                        v233 = v282;
-                        pool = v282;
-                        v309 = v285;
-                        v310 = dstb;
-                        v311 = v291;
-                        v312 = v284;
-                        v313 = &v305;
-                        v314 = v283;
-                        v315 = v281;
-                        WriteArgumentTableForGPUCommandStage(&pool, v237, 0);
+                        v238 = *v232;
+                        v234 = v283;
+                        pool = v283;
+                        v310 = v286;
+                        v311 = dstb;
+                        v312 = v292;
+                        v313 = v285;
+                        v314 = &v306;
+                        v315 = v284;
+                        v316 = v282;
+                        WriteArgumentTableForGPUCommandStage(&pool, v238, 0);
                       }
                     }
 
-                    v238 = apr_array_push(v233);
-                    v239 = *(v231 + 3);
-                    v241 = *v231;
-                    v240 = *(v231 + 1);
-                    v238[2] = *(v231 + 2);
-                    v238[3] = v239;
-                    *v238 = v241;
-                    v238[1] = v240;
-                    v226 = v294;
-                    v242 = atomic_load((v294 + 4));
-                    v243 = v304 + (v242 >> 6);
-                    v244 = (v300 + 1);
-                    v230 = (v244 << 32) | v304;
-                    v88 = v233;
-                    if (v244 == v243 - 1)
+                    v239 = apr_array_push(v234);
+                    v240 = *(v232 + 3);
+                    v242 = *v232;
+                    v241 = *(v232 + 1);
+                    v239[2] = *(v232 + 2);
+                    v239[3] = v240;
+                    *v239 = v242;
+                    v239[1] = v241;
+                    v227 = v295;
+                    v243 = atomic_load((v295 + 4));
+                    v244 = v305 + (v243 >> 6);
+                    v245 = (v301 + 1);
+                    v231 = (v245 << 32) | v305;
+                    v90 = v234;
+                    if (v245 == v244 - 1)
                     {
-                      v230 = (v244 << 32) | v244;
-                      v226 = *(v294 + 40);
+                      v231 = (v245 << 32) | v245;
+                      v227 = *(v295 + 40);
                       goto LABEL_287;
                     }
                   }
 
-                  v77 = dstb;
-                  v161 = v291;
-                  v192 = v277;
+                  v79 = dstb;
+                  v163 = v292;
+                  v194 = v278;
                 }
 
-                v213 = v278;
-                v245 = atomic_load((v278 + 4));
-                v246 = v280 + (v245 >> 6);
-                v247 = (HIDWORD(v280) + 1);
-                v217 = (v247 << 32) | v280;
-                if (v247 == v246 - 1)
+                v215 = v279;
+                v246 = atomic_load((v279 + 4));
+                v247 = v281 + (v246 >> 6);
+                v248 = (HIDWORD(v281) + 1);
+                v219 = (v248 << 32) | v281;
+                if (v248 == v247 - 1)
                 {
-                  v217 = (v247 << 32) | v247;
-                  v213 = *(v278 + 40);
+                  v219 = (v248 << 32) | v248;
+                  v215 = *(v279 + 40);
                   goto LABEL_274;
                 }
               }
 
-              v248 = *(v285 + 24);
-              v249 = *(v285 + 8);
-              v250 = *(v285 + 12) - 1;
-              *(v285 + 12) = v250;
-              memmove((v248 + v249 * ((v192 - v248) >> 4)), (v248 + v249 + v249 * ((v192 - v248) >> 4)), v249 * (v250 - ((v192 - v248) >> 4)));
-              v191 = v276;
-              if (v272 <= 1)
+              v249 = *(v286 + 24);
+              v250 = *(v286 + 8);
+              v251 = *(v286 + 12) - 1;
+              *(v286 + 12) = v251;
+              memmove((v249 + v250 * ((v194 - v249) >> 4)), (v249 + v250 + v250 * ((v194 - v249) >> 4)), v250 * (v251 - ((v194 - v249) >> 4)));
+              v193 = v277;
+              if (v273 <= 1)
               {
                 goto LABEL_304;
               }
@@ -3588,7 +3580,7 @@ LABEL_287:
             }
           }
 
-          if (*v274 <= v267[1])
+          if (*v275 <= v268[1])
           {
             goto LABEL_304;
           }
@@ -3597,89 +3589,89 @@ LABEL_287:
 
       else
       {
-        v151 = v267[1];
-        if (!v151)
+        v153 = v268[1];
+        if (!v153)
         {
-          if (v141 > v305)
+          if (v143 > v306)
           {
-            ProcessResourceAPIs(v88, v305, v141 - v305, v77, *(v271 + 8));
-            v305 = v141;
+            ProcessResourceAPIs(v90, v306, v143 - v306, v79, *(v272 + 8));
+            v306 = v143;
           }
 
-          v152 = apr_array_push(v88);
-          v153 = v145[3];
-          v155 = *v145;
-          v154 = v145[1];
-          v152[2] = v145[2];
-          v152[3] = v153;
-          *v152 = v155;
-          v152[1] = v154;
-          v151 = v267[1] + 1;
-          v267[1] = v151;
+          v154 = apr_array_push(v90);
+          v155 = v147[3];
+          v157 = *v147;
+          v156 = v147[1];
+          v154[2] = v147[2];
+          v154[3] = v155;
+          *v154 = v157;
+          v154[1] = v156;
+          v153 = v268[1] + 1;
+          v268[1] = v153;
         }
 
-        v156 = *(v143 + 32);
-        if (v156)
+        v158 = *(v145 + 32);
+        if (v158)
         {
-          v157 = 0;
+          v159 = 0;
           while (1)
           {
-            v158 = atomic_load((v156 + 4));
-            v159 = v157 + (v158 >> 6) - 1;
-            if (v159 > v151)
+            v160 = atomic_load((v158 + 4));
+            v161 = v159 + (v160 >> 6) - 1;
+            if (v161 > v153)
             {
               break;
             }
 
-            v156 = *(v156 + 40);
-            v157 = v159;
-            if (!v156)
+            v158 = *(v158 + 40);
+            v159 = v161;
+            if (!v158)
             {
-              v151 = v159;
+              v153 = v161;
               goto LABEL_198;
             }
           }
 
-          LODWORD(v159) = v157;
+          LODWORD(v161) = v159;
 LABEL_198:
-          v160 = v159 | (v151 << 32);
+          v162 = v161 | (v153 << 32);
         }
 
         else
         {
-          v160 = 0;
+          v162 = 0;
         }
 
 LABEL_199:
-        v168 = v156 + 64;
-        while (v156)
+        v170 = v158 + 64;
+        while (v158)
         {
-          v169 = (v168 + ((HIDWORD(v160) - v160) << 6));
-          if ((*(v169 + 15) & 8) == 0)
+          v171 = (v170 + ((HIDWORD(v162) - v162) << 6));
+          if ((*(v171 + 15) & 8) == 0)
           {
             goto LABEL_308;
           }
 
-          GTEventTracker_processFunction(v77, v168 + ((HIDWORD(v160) - v160) << 6));
-          v170 = *(v169 + 2);
-          if (v170 <= -15340)
+          GTEventTracker_processFunction(v79, (v170 + ((HIDWORD(v162) - v162) << 6)));
+          v172 = *(v171 + 2);
+          if (v172 <= -15340)
           {
-            v171 = v170 == -15991;
-            v172 = -15749;
+            v173 = v172 == -15991;
+            v174 = -15749;
           }
 
           else
           {
-            v171 = v170 == -15339 || v170 == -14842;
-            v172 = -15308;
+            v173 = v172 == -15339 || v172 == -14842;
+            v174 = -15308;
           }
 
-          v173 = v171 || v170 == v172;
-          if (v173 && GTEventTracker_isBlocked(v77, v140[1]))
+          v175 = v173 || v172 == v174;
+          if (v175 && GTEventTracker_isBlocked(v79, v142[1]))
           {
-            v267[1] = v160 >> 32;
+            v268[1] = v162 >> 32;
 LABEL_308:
-            if ((*(v168 + ((0xFFFFFFFF00000001 * v160) >> 32 << 6) + 15) & 8) != 0)
+            if ((*(v170 + ((0xFFFFFFFF00000001 * v162) >> 32 << 6) + 15) & 8) != 0)
             {
               goto LABEL_311;
             }
@@ -3687,69 +3679,69 @@ LABEL_308:
             break;
           }
 
-          v174 = apr_array_push(v88);
-          v175 = v169[3];
-          v177 = *v169;
-          v176 = v169[1];
-          v174[2] = v169[2];
-          v174[3] = v175;
-          *v174 = v177;
-          v174[1] = v176;
-          v178 = GTFenum_getConstructorType(*(v169 + 2));
-          if (GTFenum_isMTLCommandEncoder(v178))
+          v176 = apr_array_push(v90);
+          v177 = v171[3];
+          v179 = *v171;
+          v178 = v171[1];
+          v176[2] = v171[2];
+          v176[3] = v177;
+          *v176 = v179;
+          v176[1] = v178;
+          v180 = GTFenum_getConstructorType(*(v171 + 2));
+          if (GTFenum_isMTLCommandEncoder(v180))
           {
-            v179 = *(v271 + 8);
-            v180 = *(v179 + 16);
-            v181 = *(v179 + 24);
-            bzero(v316, 0x2BA0uLL);
-            GTMTLSMCommandEncoder_processTraceFunc(v316, (v168 + ((HIDWORD(v160) - v160) << 6)), v181);
-            WriteCommandEncoder();
+            v181 = *(v272 + 8);
+            v182 = *(v181 + 16);
+            v183 = *(v181 + 24);
+            bzero(v317, 0x2BA0uLL);
+            GTMTLSMCommandEncoder_processTraceFunc(v317, (v170 + ((HIDWORD(v162) - v162) << 6)), v183);
+            WriteCommandEncoder(v182);
           }
 
-          v182 = atomic_load((v156 + 4));
-          v183 = v160 + (v182 >> 6);
-          v184 = (HIDWORD(v160) + 1);
-          v160 = (v184 << 32) | v160;
-          if (v184 == v183 - 1)
+          v184 = atomic_load((v158 + 4));
+          v185 = v162 + (v184 >> 6);
+          v186 = (HIDWORD(v162) + 1);
+          v162 = (v186 << 32) | v162;
+          if (v186 == v185 - 1)
           {
-            v160 = (v184 << 32) | v184;
-            v156 = *(v156 + 40);
+            v162 = (v186 << 32) | v186;
+            v158 = *(v158 + 40);
             goto LABEL_199;
           }
         }
 
-        v258 = *(v285 + 24);
-        v259 = *(v285 + 8);
-        v260 = *(v285 + 12) - 1;
-        *(v285 + 12) = v260;
-        memmove((v258 + v259 * ((v267 - v258) >> 4)), (v258 + v259 + v259 * ((v267 - v258) >> 4)), v259 * (v260 - ((v267 - v258) >> 4)));
+        v259 = *(v286 + 24);
+        v260 = *(v286 + 8);
+        v261 = *(v286 + 12) - 1;
+        *(v286 + 12) = v261;
+        memmove((v259 + v260 * ((v268 - v259) >> 4)), (v259 + v260 + v260 * ((v268 - v259) >> 4)), v260 * (v261 - ((v268 - v259) >> 4)));
       }
 
 LABEL_311:
-      v85 = v285;
-      v84 = v265;
-      if (!*(v285 + 12))
+      v87 = v286;
+      v86 = v266;
+      if (!*(v286 + 12))
       {
         goto LABEL_312;
       }
     }
 
-    v143 = 0;
-LABEL_173:
     v145 = 0;
+LABEL_173:
+    v147 = 0;
     goto LABEL_174;
   }
 
 LABEL_312:
-  v261 = GTCoreLog_getLogForTag(7u);
-  GTCoreLog_enabled(v261);
-  if (v305 < v263)
+  v262 = GTCoreLog_getLogForTag(7u);
+  GTCoreLog_enabled(v262);
+  if (v306 < v264)
   {
-    ProcessResourceAPIs(v88, v305, v262 - v305, v77, *(v271 + 8));
+    ProcessResourceAPIs(v90, v306, v263 - v306, v79, *(v272 + 8));
   }
 
   apr_pool_destroy(newpool);
-  *(v271 + 16) = v88;
+  *(v272 + 16) = v90;
 }
 
 void GTTraceDispatch_setArgumentTableStateForGPUCommandStage(apr_pool_t **a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
@@ -3832,7 +3824,7 @@ uint64_t ProcessResourceAPIs(uint64_t result, unint64_t a2, uint64_t a3, uint64_
     for (i = v10 << 6; ; i += 64)
     {
       v15 = *(v8 + 24);
-      v16 = v15 + i;
+      v16 = (v15 + i);
       if (v13 <= *(v15 + i))
       {
         return result;
@@ -3909,10 +3901,10 @@ LABEL_25:
         if (v21 && (result = GTFenum_isCreateResource(*(v21 + 8)), (result & 1) != 0) || v23 == -10168)
         {
           result = apr_array_push(arr);
-          v27 = *(v16 + 48);
+          v27 = *(v16 + 3);
           v29 = *v16;
-          v28 = *(v16 + 16);
-          *(result + 32) = *(v16 + 32);
+          v28 = *(v16 + 1);
+          *(result + 32) = *(v16 + 2);
           *(result + 48) = v27;
           *result = v29;
           *(result + 16) = v28;
@@ -4082,14 +4074,13 @@ LABEL_17:
   }
 }
 
-void WriteCommandEncoder()
+void WriteCommandEncoder(uint64_t a1)
 {
-  v0 = __chkstk_darwin();
+  __chkstk_darwin(a1);
   v2 = v1;
   v4 = v3;
-  v5 = v0;
-  v24[0] = v6;
-  entry = find_entry(v0, v24, 8uLL, 0);
+  v24 = v5;
+  entry = find_entry(v6, &v24, 8uLL, 0);
   if (*entry)
   {
     v8 = *(*entry + 32);
@@ -4152,9 +4143,9 @@ LABEL_11:
     ConstructorType = GTFenum_getConstructorType(*(v15 + 8));
     if (GTFenum_isMTLCommandEncoder(ConstructorType))
     {
-      bzero(v24, 0x2BA0uLL);
-      GTMTLSMCommandEncoder_processTraceFunc(v24, (v10 + 64 + ((HIDWORD(v14) - v14) << 6)), v4);
-      WriteCommandEncoder(v5, v4, v2, v24[1]);
+      bzero(&v24, 0x2BA0uLL);
+      GTMTLSMCommandEncoder_processTraceFunc(&v24, (v10 + 64 + ((HIDWORD(v14) - v14) << 6)), v4);
+      WriteCommandEncoder();
     }
 
     v21 = atomic_load((v10 + 4));
@@ -4267,11 +4258,11 @@ void GTTraceDispatch_boundaries(apr_pool_t **a1, uint64_t a2)
   v3 = a1;
   newpool = 0;
   apr_pool_create_ex(&newpool, *a1, 0, 0);
-  v4 = *(v3 + 8);
-  v5 = *(v3 + 16);
-  v6 = v4[3];
-  v83 = v4[2];
-  v7 = v4[90];
+  v4 = v3[1];
+  v5 = v3[2];
+  v6 = *(v4 + 3);
+  v83 = *(v4 + 2);
+  v7 = *(v4 + 90);
   v8 = apr_array_make(*v3, v5->nelts, v5->elt_size);
   IndexOfFirstCommandBufferInQueue = 0;
   v10 = *(a2 + 48);
@@ -4323,7 +4314,7 @@ LABEL_108:
           v68 = *(v8->elts + 2);
           v69 = GTFenum_isPresent(v68);
           v71 = v68 == -10168 || v68 == -16341 || v69;
-          IndexOfFirstCommandBufferInQueue = v67 + v71;
+          IndexOfFirstCommandBufferInQueue = (v67 + v71);
           v72 = v51 - (v67 + v71);
           v3 = v81;
           nelts = v72 + 1;
@@ -4620,9 +4611,9 @@ LABEL_61:
   }
 
 LABEL_123:
-  *(v3 + 16) = v8;
-  *(v3 + 24) = IndexOfFirstCommandBufferInQueue;
-  *(v3 + 32) = nelts;
+  v3[2] = v8;
+  v3[3] = IndexOfFirstCommandBufferInQueue;
+  v3[4] = nelts;
   apr_pool_destroy(newpool);
 }
 
@@ -4680,8 +4671,8 @@ void *GTTraceDispatch_serialize(uint64_t a1, uint64_t a2, _BYTE *a3)
   newpool[0] = 0;
   apr_pool_create_ex(newpool, *a1, 0, 0);
   v4 = *(a1 + 16);
-  v463 = *(*(a1 + 8) + 24);
-  v466 = a1;
+  v462 = *(*(a1 + 8) + 24);
+  v465 = a1;
   v5 = newpool[0];
   v6 = apr_hash_make(newpool[0]);
   v7 = apr_hash_make(v5);
@@ -4712,7 +4703,7 @@ void *GTTraceDispatch_serialize(uint64_t a1, uint64_t a2, _BYTE *a3)
 LABEL_13:
       if (GTFenum_isPresent(v11) && GTFenum_getReceiverType(v11) == 2)
       {
-        v14 = MapPresentToBoundary(i, v4, v6, v463);
+        v14 = MapPresentToBoundary(i, v4, v6, v462);
         if (v14 == -1)
         {
           v18 = apr_palloc(p, 8uLL);
@@ -4736,15 +4727,15 @@ LABEL_13:
   nelts = arr->nelts;
   if (nelts <= 0)
   {
-    v20 = v466;
+    v20 = v465;
   }
 
   else
   {
     qsort(arr->elts, nelts, arr->elt_size, CompareCommandBufferIndex);
-    v20 = v466;
-    v21 = apr_array_make(*v466, *(*(v466 + 16) + 12), *(*(v466 + 16) + 8));
-    v479 = 0;
+    v20 = v465;
+    v21 = apr_array_make(*v465, *(*(v465 + 16) + 12), *(*(v465 + 16) + 8));
+    v478 = 0;
     pool[0] = 0;
     elts = arr->elts;
     key[0] = 0;
@@ -4757,8 +4748,8 @@ LABEL_13:
         v25 = (*(v4 + 24) + (v23 << 6));
         if (v23 == *elts)
         {
-          v26 = *(v466 + 24);
-          v27 = *(v466 + 32);
+          v26 = *(v465 + 24);
+          v27 = *(v465 + 32);
           v28 = apr_array_push(v21);
           v29 = v25[3];
           v31 = *v25;
@@ -4769,7 +4760,7 @@ LABEL_13:
           v28[1] = v30;
           if (v26 > v23)
           {
-            v32 = &v479;
+            v32 = &v478;
             goto LABEL_38;
           }
 
@@ -4788,8 +4779,8 @@ LABEL_38:
           {
             v46 = (*(v4 + 24) + (v43 << 6));
             v47 = key[0];
-            v48 = *(v466 + 24);
-            v49 = *(v466 + 32);
+            v48 = *(v465 + 24);
+            v49 = *(v465 + 32);
             v50 = apr_array_push(v21);
             v51 = v46[3];
             v53 = *v46;
@@ -4800,7 +4791,7 @@ LABEL_38:
             v50[1] = v52;
             if (v48 > v47)
             {
-              v54 = &v479;
+              v54 = &v478;
               goto LABEL_47;
             }
 
@@ -4825,8 +4816,8 @@ LABEL_47:
         else
         {
           v34 = key[0];
-          v35 = *(v466 + 24);
-          v36 = *(v466 + 32);
+          v35 = *(v465 + 24);
+          v36 = *(v465 + 32);
           v37 = apr_array_push(v21);
           v38 = v25[3];
           v40 = *v25;
@@ -4837,7 +4828,7 @@ LABEL_47:
           v37[1] = v39;
           if (v35 > v34)
           {
-            v41 = &v479;
+            v41 = &v478;
 LABEL_44:
             *v41 = (*v41 + 1);
             goto LABEL_49;
@@ -4855,7 +4846,7 @@ LABEL_49:
         key[0] = v23;
         if (v23 >= *(v4 + 12))
         {
-          v55 = v479;
+          v55 = v478;
           v56 = pool[0];
           p = newpool[0];
           goto LABEL_53;
@@ -4866,15 +4857,15 @@ LABEL_49:
     v56 = 0;
     v55 = 0;
 LABEL_53:
-    *(v466 + 16) = v21;
-    *(v466 + 24) = v55;
-    *(v466 + 32) = v56;
+    *(v465 + 16) = v21;
+    *(v465 + 24) = v55;
+    *(v465 + 32) = v56;
   }
 
   apr_pool_destroy(p);
   key[0] = 0;
   apr_pool_create_ex(key, *v20, 0, 0);
-  v452 = key[0];
+  v451 = key[0];
   v57 = apr_array_make(key[0], *(*(v20 + 16) + 12), *(*(v20 + 16) + 8));
   v58 = *(v20 + 8);
   if (*(v58 + 608) >= 1)
@@ -4883,7 +4874,7 @@ LABEL_53:
     s();
     v60 = v59;
     v61 = 0;
-    v458 = 8 * v62;
+    v457 = 8 * v62;
     second = v57;
     do
     {
@@ -4917,39 +4908,39 @@ LABEL_53:
       pool[0] = 0;
       apr_pool_create_ex(pool, 0, 0, 0);
       v70 = pool[0];
-      v480 = apr_hash_make(pool[0]);
-      v479 = apr_hash_make(v70);
-      GatherResidencySetAllocationsUpToIndex(&v479, v69, *(*(v20 + 8) + 24), v67, 0xFFFFFFFFFFFFFFFFLL, 0);
-      if (ResidencySetAllocationsContainDrawableTexture(*(*(v20 + 8) + 752), v67, &v479))
+      v479 = apr_hash_make(pool[0]);
+      v478 = apr_hash_make(v70);
+      GatherResidencySetAllocationsUpToIndex(&v478, v69, *(*(v20 + 8) + 24), v67, 0xFFFFFFFFFFFFFFFFLL, 0);
+      if (ResidencySetAllocationsContainDrawableTexture(*(*(v20 + 8) + 752), v67, &v478))
       {
         v71 = apr_array_make(v70, 16, 8);
         v72 = *(*(v20 + 8) + 8);
         *(v60 + 8) |= 0x40u;
-        v73 = v480;
-        FillArrayFromHash(v71, v480);
-        v464 = v72;
+        v73 = v479;
+        FillArrayFromHash(v71, v479);
+        v463 = v72;
         if (v71->nelts >= 1)
         {
+          v481 = 0u;
           v482 = 0u;
-          v483 = 0u;
           *newpool = 0u;
           GTTraceContext_pushEncoderWithStream(v72, newpool);
-          v74 = v482;
-          *(v482 + 8) = -15211;
-          v75 = BYTE9(v483);
-          if (BYTE9(v483) > 0x28uLL)
+          v74 = v481;
+          *(v481 + 8) = -15211;
+          v75 = BYTE9(v482);
+          if (BYTE9(v482) > 0x28uLL)
           {
             v77 = *(newpool[1] + 3);
-            v78 = BYTE10(v483);
-            ++BYTE10(v483);
-            v76 = GTTraceMemPool_allocateBytes(v77, *(&v482 + 1), v78 | 0x1800000000) + 16;
+            v78 = BYTE10(v482);
+            ++BYTE10(v482);
+            v76 = GTTraceMemPool_allocateBytes(v77, *(&v481 + 1), v78 | 0x1800000000) + 16;
             v75 = v78;
           }
 
           else
           {
-            v76 = (v74 + BYTE9(v483));
-            BYTE9(v483) += 24;
+            v76 = (v74 + BYTE9(v482));
+            BYTE9(v482) += 24;
           }
 
           *(v74 + 13) = v75;
@@ -4961,84 +4952,84 @@ LABEL_53:
           v76[16] = v81;
           *(v76 + 17) = 0;
           *(v76 + 5) = 0;
-          v82 = v482;
-          *v60 = v483;
-          *(v60 + 8) = BYTE8(v483);
+          v82 = v481;
+          *v60 = v482;
+          *(v60 + 8) = BYTE8(v482);
           *(v82 + 15) |= 8u;
           v57 = second;
           v83 = apr_array_push(second);
-          v85 = *(v482 + 32);
-          v84 = *(v482 + 48);
-          v86 = *(v482 + 16);
-          *v83 = *v482;
+          v85 = *(v481 + 32);
+          v84 = *(v481 + 48);
+          v86 = *(v481 + 16);
+          *v83 = *v481;
           v83[1] = v86;
           v83[2] = v85;
           v83[3] = v84;
+          v481 = 0u;
           v482 = 0u;
-          v483 = 0u;
           *newpool = 0u;
-          v72 = v464;
-          GTTraceContext_pushEncoderWithStream(v464, newpool);
-          v87 = v482;
-          *(v482 + 8) = -15220;
-          v88 = BYTE9(v483);
-          if (BYTE9(v483) > 0x38uLL)
+          v72 = v463;
+          GTTraceContext_pushEncoderWithStream(v463, newpool);
+          v87 = v481;
+          *(v481 + 8) = -15220;
+          v88 = BYTE9(v482);
+          if (BYTE9(v482) > 0x38uLL)
           {
             v91 = *(newpool[1] + 3);
-            v92 = BYTE10(v483);
-            ++BYTE10(v483);
-            v89 = GTTraceMemPool_allocateBytes(v91, *(&v482 + 1), v92 | 0x800000000) + 16;
-            v90 = v482;
+            v92 = BYTE10(v482);
+            ++BYTE10(v482);
+            v89 = GTTraceMemPool_allocateBytes(v91, *(&v481 + 1), v92 | 0x800000000) + 16;
+            v90 = v481;
             v88 = v92;
-            v72 = v464;
+            v72 = v463;
           }
 
           else
           {
-            v89 = (v87 + BYTE9(v483));
-            BYTE9(v483) += 8;
+            v89 = (v87 + BYTE9(v482));
+            BYTE9(v482) += 8;
             v90 = v87;
           }
 
           *(v87 + 13) = v88;
           *v89 = *(v63 + 8);
-          *v60 = v483;
-          *(v60 + 8) = BYTE8(v483);
+          *v60 = v482;
+          *(v60 + 8) = BYTE8(v482);
           *(v90 + 15) |= 8u;
           v93 = apr_array_push(second);
-          v95 = *(v482 + 32);
-          v94 = *(v482 + 48);
-          v96 = *(v482 + 16);
-          *v93 = *v482;
+          v95 = *(v481 + 32);
+          v94 = *(v481 + 48);
+          v96 = *(v481 + 16);
+          *v93 = *v481;
           v93[1] = v96;
           v93[2] = v95;
           v93[3] = v94;
         }
 
-        v97 = v479;
-        FillArrayFromHashDifference(v71, v479, v73);
+        v97 = v478;
+        FillArrayFromHashDifference(v71, v478, v73);
         if (v71->nelts >= 1)
         {
+          v481 = 0u;
           v482 = 0u;
-          v483 = 0u;
           *newpool = 0u;
           GTTraceContext_pushEncoderWithStream(v72, newpool);
-          v98 = v482;
-          *(v482 + 8) = -15211;
-          v99 = BYTE9(v483);
-          if (BYTE9(v483) > 0x28uLL)
+          v98 = v481;
+          *(v481 + 8) = -15211;
+          v99 = BYTE9(v482);
+          if (BYTE9(v482) > 0x28uLL)
           {
             v101 = *(newpool[1] + 3);
-            v102 = BYTE10(v483);
-            ++BYTE10(v483);
-            v100 = GTTraceMemPool_allocateBytes(v101, *(&v482 + 1), v102 | 0x1800000000) + 16;
+            v102 = BYTE10(v482);
+            ++BYTE10(v482);
+            v100 = GTTraceMemPool_allocateBytes(v101, *(&v481 + 1), v102 | 0x1800000000) + 16;
             v99 = v102;
           }
 
           else
           {
-            v100 = (v98 + BYTE9(v483));
-            BYTE9(v483) += 24;
+            v100 = (v98 + BYTE9(v482));
+            BYTE9(v482) += 24;
           }
 
           *(v98 + 13) = v99;
@@ -5050,47 +5041,47 @@ LABEL_53:
           v100[16] = v105;
           *(v100 + 17) = 0;
           *(v100 + 5) = 0;
-          v106 = v482;
-          *v60 = v483;
-          *(v60 + 8) = BYTE8(v483);
+          v106 = v481;
+          *v60 = v482;
+          *(v60 + 8) = BYTE8(v482);
           *(v106 + 15) |= 8u;
           v57 = second;
           v107 = apr_array_push(second);
-          v109 = *(v482 + 32);
-          v108 = *(v482 + 48);
-          v110 = *(v482 + 16);
-          *v107 = *v482;
+          v109 = *(v481 + 32);
+          v108 = *(v481 + 48);
+          v110 = *(v481 + 16);
+          *v107 = *v481;
           v107[1] = v110;
           v107[2] = v109;
           v107[3] = v108;
-          v72 = v464;
+          v72 = v463;
         }
 
         FillArrayFromHashDifference(v71, v73, v97);
-        v20 = v466;
+        v20 = v465;
         if (v71->nelts >= 1)
         {
+          v481 = 0u;
           v482 = 0u;
-          v483 = 0u;
           *newpool = 0u;
           GTTraceContext_pushEncoderWithStream(v72, newpool);
-          v111 = v482;
-          *(v482 + 8) = -15206;
-          v112 = BYTE9(v483);
-          if (BYTE9(v483) > 0x28uLL)
+          v111 = v481;
+          *(v481 + 8) = -15206;
+          v112 = BYTE9(v482);
+          if (BYTE9(v482) > 0x28uLL)
           {
             v114 = *(newpool[1] + 3);
-            v115 = BYTE10(v483);
-            ++BYTE10(v483);
-            v113 = GTTraceMemPool_allocateBytes(v114, *(&v482 + 1), v115 | 0x1800000000) + 16;
+            v115 = BYTE10(v482);
+            ++BYTE10(v482);
+            v113 = GTTraceMemPool_allocateBytes(v114, *(&v481 + 1), v115 | 0x1800000000) + 16;
             v112 = v115;
             v57 = second;
           }
 
           else
           {
-            v113 = (v111 + BYTE9(v483));
-            BYTE9(v483) += 24;
+            v113 = (v111 + BYTE9(v482));
+            BYTE9(v482) += 24;
           }
 
           *(v111 + 13) = v112;
@@ -5102,15 +5093,15 @@ LABEL_53:
           v113[16] = v118;
           *(v113 + 17) = 0;
           *(v113 + 5) = 0;
-          v119 = v482;
-          *v60 = v483;
-          *(v60 + 8) = BYTE8(v483);
+          v119 = v481;
+          *v60 = v482;
+          *(v60 + 8) = BYTE8(v482);
           *(v119 + 15) |= 8u;
           v120 = apr_array_push(v57);
-          v122 = *(v482 + 32);
-          v121 = *(v482 + 48);
-          v123 = *(v482 + 16);
-          *v120 = *v482;
+          v122 = *(v481 + 32);
+          v121 = *(v481 + 48);
+          v123 = *(v481 + 16);
+          *v120 = *v481;
           v120[1] = v123;
           v120[2] = v122;
           v120[3] = v121;
@@ -5118,7 +5109,7 @@ LABEL_53:
 
         newpool[0] = 0;
         entry = find_entry(arra, newpool, 8uLL, 0);
-        GTTraceMemPool_buildMemoryMap(*(*(*entry + 32) + 24), *(*(v466 + 8) + 24));
+        GTTraceMemPool_buildMemoryMap(*(*(*entry + 32) + 24), *(*(v465 + 8) + 24));
         *(v60 + 8) &= ~0x40u;
       }
 
@@ -5126,7 +5117,7 @@ LABEL_53:
       v61 += 8;
     }
 
-    while (v458 != v61);
+    while (v457 != v61);
   }
 
   v126 = (v20 + 24);
@@ -5140,13 +5131,13 @@ LABEL_53:
 
   *v126 = v125 + v57->nelts;
   *(v20 + 16) = apr_array_append(*v20, v57, *(v20 + 16));
-  apr_pool_destroy(v452);
+  apr_pool_destroy(v451);
   v127 = *(v20 + 8);
   *newpool = *(v127 + 16);
-  *&v482 = *v127;
-  BYTE8(v482) = *(v127 + 669);
-  *(&v482 + 9) = 0;
-  HIDWORD(v482) = 0;
+  *&v481 = *v127;
+  BYTE8(v481) = *(v127 + 669);
+  *(&v481 + 9) = 0;
+  HIDWORD(v481) = 0;
   v128 = GTResourceTrackerMakeWithDescriptor(newpool);
   if (*(v127 + 608) >= 1)
   {
@@ -5160,15 +5151,14 @@ LABEL_53:
     while (v129 < *(v127 + 608));
   }
 
-  v459 = (v20 + 32);
+  v458 = (v20 + 32);
   if (*(v20 + 32) + *(v20 + 24))
   {
     v131 = 0;
     v132 = 0;
     do
     {
-      v133 = *(*(v20 + 16) + 24);
-      GTResourceTrackerProcessFunction();
+      GTResourceTrackerProcessFunction(v128);
       ++v132;
       v131 += 64;
     }
@@ -5178,448 +5168,448 @@ LABEL_53:
 
   ResourceTracker_processUsedResidencySets(v128, *(*(v20 + 8) + 48) + *(*(v20 + 8) + 40), 0, *v127);
   ResourceTracker_processUsedDrawables(v128);
-  v465 = v128[3];
-  v479 = 0;
-  apr_pool_create_ex(&v479, *v20, 0, 0);
-  v134 = *(v20 + 8);
-  v135 = v134[2];
-  v136 = v134[94];
-  v138 = v134[5];
-  v137 = v134[6];
-  v139 = v479;
+  v464 = v128[3];
+  v478 = 0;
+  apr_pool_create_ex(&v478, *v20, 0, 0);
+  v133 = *(v20 + 8);
+  v134 = v133[2];
+  v135 = v133[94];
+  v137 = v133[5];
+  v136 = v133[6];
+  v138 = v478;
   seconda = *(v20 + 16);
-  v140 = apr_array_make(v479, seconda->nelts, seconda->elt_size);
-  v141 = apr_array_make(v139, 4, 8);
-  GTMTLSMContext_getObjects(*(v136 + 256), v138, v141);
-  v142 = v141->nelts;
-  if (v142 >= 1)
+  v139 = apr_array_make(v478, seconda->nelts, seconda->elt_size);
+  v140 = apr_array_make(v138, 4, 8);
+  GTMTLSMContext_getObjects(*(v135 + 256), v137, v140);
+  v141 = v140->nelts;
+  if (v141 >= 1)
   {
     do
     {
-      v143 = *&v141->elts[8 * v142 - 8];
-      v144 = find_entry(v465, (v143 + 8), 8uLL, 0);
-      if (*v144 && *(*v144 + 32))
+      v142 = *&v140->elts[8 * v141 - 8];
+      v143 = find_entry(v464, (v142 + 8), 8uLL, 0);
+      if (*v143 && *(*v143 + 32))
       {
-        newpool[0] = *(v143 + 8);
-        v145 = *find_entry(v135, newpool, 8uLL, 0);
-        if (!v145)
+        newpool[0] = *(v142 + 8);
+        v144 = *find_entry(v134, newpool, 8uLL, 0);
+        if (!v144)
         {
-          result = apr_array_push(v140);
+          result = apr_array_push(v139);
           __break(1u);
           return result;
         }
 
-        v146 = *(v145 + 32);
-        v147 = apr_array_push(v140);
-        v148 = *(v146 + 32);
-        v149 = v148[4];
-        v150 = v148[5];
-        v151 = v148[7];
-        v147[2] = v148[6];
-        v147[3] = v151;
-        *v147 = v149;
-        v147[1] = v150;
-        v140->elts[64 * v140->nelts - 49] = 64;
-        v152 = find_entry(v465, (v143 + 48), 8uLL, 0);
-        if (*v152)
+        v145 = *(v144 + 32);
+        v146 = apr_array_push(v139);
+        v147 = *(v145 + 32);
+        v148 = v147[4];
+        v149 = v147[5];
+        v150 = v147[7];
+        v146[2] = v147[6];
+        v146[3] = v150;
+        *v146 = v148;
+        v146[1] = v149;
+        v139->elts[64 * v139->nelts - 49] = 64;
+        v151 = find_entry(v464, (v142 + 48), 8uLL, 0);
+        if (*v151)
         {
-          if (*(*v152 + 32))
+          if (*(*v151 + 32))
           {
-            v153 = *(v146 + 32);
-            if (v153)
+            v152 = *(v145 + 32);
+            if (v152)
             {
-              v154 = 0;
+              v153 = 0;
               while (1)
               {
-                v155 = atomic_load((v153 + 4));
-                v156 = v154 + (v155 >> 6) - 1;
-                if (v156 > 0)
+                v154 = atomic_load((v152 + 4));
+                v155 = v153 + (v154 >> 6) - 1;
+                if (v155 > 0)
                 {
                   break;
                 }
 
-                v153 = *(v153 + 40);
-                v154 = v156;
-                if (!v153)
+                v152 = *(v152 + 40);
+                v153 = v155;
+                if (!v152)
                 {
-                  v154 = v156;
+                  v153 = v155;
                   goto LABEL_104;
                 }
               }
 
-              v156 = 0;
+              v155 = 0;
 LABEL_104:
-              v157 = v154 | (v156 << 32);
+              v156 = v153 | (v155 << 32);
             }
 
             else
             {
-              v157 = 0;
+              v156 = 0;
             }
 
             while (1)
             {
-              v158 = v153 + 64 + ((0xFFFFFFFF00000001 * v157) >> 32 << 6);
-              if (*(v158 + 8) == -7167)
+              v157 = v152 + 64 + ((0xFFFFFFFF00000001 * v156) >> 32 << 6);
+              if (*(v157 + 8) == -7167)
               {
                 break;
               }
 
-              v159 = atomic_load((v153 + 4));
-              v160 = v157 + (v159 >> 6);
-              v161 = (HIDWORD(v157) + 1);
-              v157 = (v161 << 32) | v157;
-              if (v161 == v160 - 1)
+              v158 = atomic_load((v152 + 4));
+              v159 = v156 + (v158 >> 6);
+              v160 = (HIDWORD(v156) + 1);
+              v156 = (v160 << 32) | v156;
+              if (v160 == v159 - 1)
               {
-                v157 = (v161 << 32) | v161;
-                v153 = *(v153 + 40);
+                v156 = (v160 << 32) | v160;
+                v152 = *(v152 + 40);
               }
             }
 
-            v162 = v138 <= *v158 && v137 + v138 > *v158;
-            if (!v162)
+            v161 = v137 <= *v157 && v136 + v137 > *v157;
+            if (!v161)
             {
-              v163 = apr_array_push(v140);
-              v164 = *v158;
-              v165 = *(v158 + 16);
-              v166 = *(v158 + 48);
-              v163[2] = *(v158 + 32);
-              v163[3] = v166;
-              *v163 = v164;
-              v163[1] = v165;
-              v140->elts[64 * v140->nelts - 49] = 64;
+              v162 = apr_array_push(v139);
+              v163 = *v157;
+              v164 = *(v157 + 16);
+              v165 = *(v157 + 48);
+              v162[2] = *(v157 + 32);
+              v162[3] = v165;
+              *v162 = v163;
+              v162[1] = v164;
+              v139->elts[64 * v139->nelts - 49] = 64;
             }
           }
         }
       }
 
-      v162 = v142-- <= 1;
+      v161 = v141-- <= 1;
     }
 
-    while (!v162);
+    while (!v161);
   }
 
-  v167 = (v20 + 24);
-  v168 = *pb;
+  v166 = (v20 + 24);
+  v167 = *pb;
   if (!*pb)
   {
-    v167 = (v20 + 32);
-    v168 = *v459;
+    v166 = (v20 + 32);
+    v167 = *v458;
   }
 
-  *v167 = v168 + v140->nelts;
-  *(v466 + 16) = apr_array_append(*v466, v140, seconda);
-  apr_pool_destroy(v479);
+  *v166 = v167 + v139->nelts;
+  *(v465 + 16) = apr_array_append(*v465, v139, seconda);
+  apr_pool_destroy(v478);
   newpool[0] = 0;
-  apr_pool_create_ex(newpool, *v466, 0, 0);
-  if (*(v466 + 32) + *(v466 + 24))
+  apr_pool_create_ex(newpool, *v465, 0, 0);
+  if (*(v465 + 32) + *(v465 + 24))
   {
+    v426 = 0;
     v427 = 0;
-    v428 = 0;
-    v429 = *(v466 + 8);
-    v430 = *(v466 + 16);
-    v431 = *(v429 + 24);
-    v432 = *(v429 + 752);
+    v428 = *(v465 + 8);
+    v429 = *(v465 + 16);
+    v430 = *(v428 + 24);
+    v431 = *(v428 + 752);
     do
     {
-      v433 = *(v430 + 24);
-      v434 = *(v433 + v427 + 8);
-      if (v434 != -7167 && (GTFenum_getReceiverType(*(v433 + v427 + 8)) == 80 || GTFenum_getConstructorType(v434) == 80))
+      v432 = *(v429 + 24);
+      v433 = *(v432 + v426 + 8);
+      if (v433 != -7167 && (GTFenum_getReceiverType(*(v432 + v426 + 8)) == 80 || GTFenum_getConstructorType(v433) == 80))
       {
-        FuncStreamRef = GTTraceFunc_getFuncStreamRef(v433 + v427, v431);
-        Texture = GTMTLSMContext_getTexture(v432, FuncStreamRef, *(v433 + v427));
+        FuncStreamRef = GTTraceFunc_getFuncStreamRef(v432 + v426, v430);
+        Texture = GTMTLSMContext_getTexture(v431, FuncStreamRef, *(v432 + v426));
         if (Texture)
         {
-          if (Texture[25] || (v437 = Texture[14]) != 0 && *(v437 + 44))
+          if (Texture[25] || (v436 = Texture[14]) != 0 && *(v436 + 44))
           {
-            *(v433 + v427 + 15) |= 3u;
+            *(v432 + v426 + 15) |= 3u;
           }
         }
       }
 
-      ++v428;
-      v427 += 64;
+      ++v427;
+      v426 += 64;
     }
 
-    while (*v459 + *pb > v428);
+    while (*v458 + *pb > v427);
   }
 
   apr_pool_destroy(newpool[0]);
-  v169 = a2;
-  if (!*(*(v466 + 16) + 12))
+  v168 = a2;
+  if (!*(*(v465 + 16) + 12))
   {
     goto LABEL_420;
   }
 
-  v475 = 0;
-  apr_pool_create_ex(&v475, *v466, 0, 0);
-  v170 = *(v466 + 8);
-  v447 = v170[86];
-  v171 = v170[84];
-  v172 = v170[2];
-  v173 = v170[3];
-  v174 = v170[93];
-  v175 = v170[88];
-  v176 = v170[94];
-  v449 = v170[4];
-  v177 = v475;
-  v443 = apr_hash_make(v475);
-  ht = apr_hash_make(v177);
-  v451 = v172;
-  v450 = GTEventTracker_make(v172, v173, v174, v176, v177);
-  v453 = *(v466 + 16);
-  v178 = apr_array_push(v453);
-  *v178 = 0u;
-  v178[1] = 0u;
-  v178[2] = 0u;
-  v178[3] = 0u;
-  v179 = *(v466 + 24);
-  if (!(*(v466 + 32) + v179))
+  v474 = 0;
+  apr_pool_create_ex(&v474, *v465, 0, 0);
+  v169 = *(v465 + 8);
+  v446 = v169[86];
+  v170 = v169[84];
+  v171 = v169[2];
+  v172 = v169[3];
+  v173 = v169[93];
+  v174 = v169[88];
+  v175 = v169[94];
+  v448 = v169[4];
+  v176 = v474;
+  v442 = apr_hash_make(v474);
+  ht = apr_hash_make(v176);
+  v450 = v171;
+  v449 = GTEventTracker_make(v171, v172, v173, v175, v176);
+  v452 = *(v465 + 16);
+  v177 = apr_array_push(v452);
+  *v177 = 0u;
+  v177[1] = 0u;
+  v177[2] = 0u;
+  v177[3] = 0u;
+  v178 = *(v465 + 24);
+  if (!(*(v465 + 32) + v178))
   {
     goto LABEL_419;
   }
 
-  v440 = v175;
-  v441 = v171;
-  v180 = v176;
-  v181 = 0;
-  v446 = 0;
-  v444 = 0;
-  v448 = v180;
-  arrb = (v180 + 8);
-  v182 = v172;
-  secondb = v173;
+  v439 = v174;
+  v440 = v170;
+  v179 = v175;
+  v180 = 0;
+  v445 = 0;
+  v443 = 0;
+  v447 = v179;
+  arrb = (v179 + 8);
+  v181 = v171;
+  secondb = v172;
   do
   {
-    v183 = v179 > v181;
-    v184 = &v453->elts[64 * v181];
-    if (*(v184 + 15) < 0)
+    v182 = v178 > v180;
+    v183 = &v452->elts[64 * v180];
+    if (*(v183 + 15) < 0)
     {
       goto LABEL_374;
     }
 
-    v185 = (4 * v183);
-    GTEventTracker_processFunction(v450, &v453->elts[64 * v181]);
-    v186 = *(v184 + 8);
-    ReceiverType = GTFenum_getReceiverType(v186);
-    if (ReceiverType != 52 && ReceiverType != 27 || !GTFenum_getConstructorType(v186))
+    v184 = (4 * v182);
+    GTEventTracker_processFunction(v449, &v452->elts[64 * v180]);
+    v185 = *(v183 + 8);
+    ReceiverType = GTFenum_getReceiverType(v185);
+    if (ReceiverType != 52 && ReceiverType != 27 || !GTFenum_getConstructorType(v185))
     {
-      v211 = 1;
+      v210 = 1;
       goto LABEL_160;
     }
 
-    v474 = GTTraceFunc_getFuncStreamRef(v184, v173);
-    v188 = *(*(v466 + 8) + 744);
-    newpool[0] = v474;
-    v189 = *(*find_entry(v188, newpool, 8uLL, 0) + 32);
-    v191 = *v189;
-    v190 = v189[1];
-    v471[0] = v182;
-    v471[1] = v173;
-    v192 = v475;
-    v471[2] = v475;
-    v472 = *(*(v466 + 8) + 669);
-    memset(v473, 0, sizeof(v473));
-    v193 = GTResourceTrackerMakeWithDescriptor(v471);
-    GTResourceTrackerProcessCommandBufferAndResidencySets(v193, v474, v190, v191);
-    ResourceTracker_addChainedResources(v193, v448, v191, v192);
-    ResourceTracker_addIndirectResources(v193, v448, v191, v192);
-    v194 = 0;
-    v485 = 0u;
-    v486 = 0u;
-    v483 = 0u;
+    v473 = GTTraceFunc_getFuncStreamRef(v183, v172);
+    v187 = *(*(v465 + 8) + 744);
+    newpool[0] = v473;
+    v188 = *(*find_entry(v187, newpool, 8uLL, 0) + 32);
+    v190 = *v188;
+    v189 = v188[1];
+    v470[0] = v181;
+    v470[1] = v172;
+    v191 = v474;
+    v470[2] = v474;
+    v471 = *(*(v465 + 8) + 669);
+    memset(v472, 0, sizeof(v472));
+    v192 = GTResourceTrackerMakeWithDescriptor(v470);
+    GTResourceTrackerProcessCommandBufferAndResidencySets(v192, v473, v189, v190);
+    ResourceTracker_addChainedResources(v192, v447, v190, v191);
+    ResourceTracker_addIndirectResources(v192, v447, v190, v191);
+    v193 = 0;
     v484 = 0u;
-    *newpool = 0u;
+    v485 = 0u;
     v482 = 0u;
+    v483 = 0u;
+    *newpool = 0u;
+    v481 = 0u;
     do
     {
-      v195 = apr_array_make(v192, 16, 8);
-      newpool[v194] = v195;
-      if ((v194 + 1) > 0x33u)
+      v194 = apr_array_make(v191, 16, 8);
+      newpool[v193] = v194;
+      if ((v193 + 1) > 0x33u)
       {
-        v196 = 0;
+        v195 = 0;
       }
 
       else
       {
-        v196 = dword_29BBBC[(v194 + 1)] - 2;
-        if (v196 > 0x6C)
+        v195 = dword_29BBBC[(v193 + 1)] - 2;
+        if (v195 > 0x6C)
         {
           goto LABEL_132;
         }
       }
 
-      v197 = byte_29BC8C[v196];
-      if ((v197 & 0x8000000000000000) == 0)
+      v196 = byte_29BC8C[v195];
+      if ((v196 & 0x8000000000000000) == 0)
       {
-        v198 = *(&arrb->pool + v197);
+        v197 = *(&arrb->pool + v196);
         goto LABEL_133;
       }
 
 LABEL_132:
-      v198 = 0;
+      v197 = 0;
 LABEL_133:
-      GTMTLSMContext_getObjects(v198, v191, v195);
-      v195->nelts = GTMTLSMObject_sortUsedResources(v195->elts, v195->nelts, v193[3]);
-      ++v194;
+      GTMTLSMContext_getObjects(v197, v190, v194);
+      v194->nelts = GTMTLSMObject_sortUsedResources(v194->elts, v194->nelts, v192[3]);
+      ++v193;
     }
 
-    while (v194 != 12);
-    GTResourceTrackerBuildArgumentBuffers();
-    v200 = v199;
-    v201 = SaveDYMTLMutableBufferAncestorMaps(v199[2], *(v169 + 8), *(v169 + 16), v182);
-    if (v201 > *(v169 + 16))
+    while (v193 != 12);
+    GTResourceTrackerBuildArgumentBuffers(v181);
+    v199 = v198;
+    v200 = SaveDYMTLMutableBufferAncestorMaps(v198[2], *(v168 + 8), *(v168 + 16), v181);
+    if (v200 > *(v168 + 16))
     {
-      v202 = apr_palloc(*(v169 + 40), v201);
-      *(v169 + 8) = v202;
-      *(v169 + 16) = v201;
-      SaveDYMTLMutableBufferAncestorMaps(v200[2], v202, v201, v182);
+      v201 = apr_palloc(*(v168 + 40), v200);
+      *(v168 + 8) = v201;
+      *(v168 + 16) = v200;
+      SaveDYMTLMutableBufferAncestorMaps(v199[2], v201, v200, v181);
     }
 
-    SavePointer(v449, *(v169 + 8), v201, &v479);
-    v203 = SaveDYMTLIndirectArgumentBufferInfos(v200[1], *v200, *(v169 + 8), *(v169 + 16), v182);
-    if (v203 > *(v169 + 16))
+    SavePointer(v448, *(v168 + 8), v200, &v478);
+    v202 = SaveDYMTLIndirectArgumentBufferInfos(v199[1], *v199, *(v168 + 8), *(v168 + 16), v181);
+    if (v202 > *(v168 + 16))
     {
-      v204 = apr_palloc(*(v169 + 40), v203);
-      *(v169 + 8) = v204;
-      *(v169 + 16) = v203;
-      SaveDYMTLIndirectArgumentBufferInfos(v200[1], *v200, v204, v203, v182);
+      v203 = apr_palloc(*(v168 + 40), v202);
+      *(v168 + 8) = v203;
+      *(v168 + 16) = v202;
+      SaveDYMTLIndirectArgumentBufferInfos(v199[1], *v199, v203, v202, v181);
     }
 
-    SavePointer(v449, *(v169 + 8), v203, pool);
-    v205 = SaveResourceMapsData(newpool, *(v169 + 8), *(v169 + 16), v182);
-    if (v205 > *(v169 + 16))
+    SavePointer(v448, *(v168 + 8), v202, pool);
+    v204 = SaveResourceMapsData(newpool, *(v168 + 8), *(v168 + 16), v181);
+    if (v204 > *(v168 + 16))
     {
-      v206 = apr_palloc(*(v169 + 40), v205);
-      *(v169 + 8) = v206;
-      *(v169 + 16) = v205;
-      SaveResourceMapsData(newpool, v206, v205, v182);
+      v205 = apr_palloc(*(v168 + 40), v204);
+      *(v168 + 8) = v205;
+      *(v168 + 16) = v204;
+      SaveResourceMapsData(newpool, v205, v204, v181);
     }
 
-    SavePointer(v449, *(v169 + 8), v205, key);
-    v476[0] = v191;
-    v476[1] = 255;
-    v207 = find_entry(secondb, v476, 9uLL, 0);
-    if (*v207 && (v208 = *(*v207 + 32)) != 0)
+    SavePointer(v448, *(v168 + 8), v204, key);
+    v475[0] = v190;
+    v475[1] = 255;
+    v206 = find_entry(secondb, v475, 9uLL, 0);
+    if (*v206 && (v207 = *(*v206 + 32)) != 0)
     {
-      v209 = (v208 + 16);
-      v210 = *(v208 + 12);
+      v208 = (v207 + 16);
+      v209 = *(v207 + 12);
     }
 
     else
     {
+      v208 = 0;
       v209 = 0;
-      v210 = 0;
     }
 
-    v476[0] = v474;
-    v212 = find_entry(v182, v476, 8uLL, 0);
-    if (*v212 && (v213 = *(*v212 + 32)) != 0)
+    v475[0] = v473;
+    v211 = find_entry(v181, v475, 8uLL, 0);
+    if (*v211 && (v212 = *(*v211 + 32)) != 0)
     {
-      v214 = atomic_load((v213 + 56));
-      v215 = (v213 + (~(v214 >> 2) & 8));
-    }
-
-    else
-    {
-      v215 = &dword_8;
-    }
-
-    v470[0] = *v215;
-    v470[1] = &v479;
-    v470[2] = pool;
-    v470[3] = key;
-    if (v209)
-    {
-      v216 = v476;
-      SavePointer(v449, v209, v210, v476);
+      v213 = atomic_load((v212 + 56));
+      v214 = (v212 + (~(v213 >> 2) & 8));
     }
 
     else
     {
-      v216 = 0;
+      v214 = &dword_8;
     }
 
-    v470[4] = v216;
-    DYTraceEncode_MTLCommandBuffer_indirectArgumentBufferData(v470, *(v169 + 8), *(v169 + 16), 0, 0);
-    v217 = *(v169 + 24);
-    v218 = *(v169 + 8);
-    v219 = *v218;
-    if ((*(v218 + 33) & 0x10) != 0)
+    v469[0] = *v214;
+    v469[1] = &v478;
+    v469[2] = pool;
+    v469[3] = key;
+    if (v208)
     {
-      v221 = *(v169 + 8);
-      v220 = *v218;
+      v215 = v475;
+      SavePointer(v448, v208, v209, v475);
+    }
+
+    else
+    {
+      v215 = 0;
+    }
+
+    v469[4] = v215;
+    DYTraceEncode_MTLCommandBuffer_indirectArgumentBufferData(v469, *(v168 + 8), *(v168 + 16), 0, 0);
+    v216 = *(v168 + 24);
+    v217 = *(v168 + 8);
+    v218 = *v217;
+    if ((*(v217 + 33) & 0x10) != 0)
+    {
+      v220 = *(v168 + 8);
+      v219 = *v217;
       do
       {
-        v221 = (v221 + v219);
-        v219 = *v221;
-        v220 += v219;
+        v220 = (v220 + v218);
+        v218 = *v220;
+        v219 += v218;
       }
 
-      while ((*(v221 + 33) & 0x20) == 0);
+      while ((*(v220 + 33) & 0x20) == 0);
     }
 
     else
     {
-      v220 = *v218;
+      v219 = *v217;
     }
 
-    v222 = objc_autoreleasePoolPush();
-    [*(v217 + 8) appendBytes:v218 length:v220];
-    objc_autoreleasePoolPop(v222);
-    GTTraceFuncToFbuf(v169, *(v466 + 8), v184, v185);
-    v223 = *find_entry(v447, &v474, 8uLL, 0);
-    if (v223)
+    v221 = objc_autoreleasePoolPush();
+    [*(v216 + 8) appendBytes:v217 length:v219];
+    objc_autoreleasePoolPop(v221);
+    GTTraceFuncToFbuf(v168, *(v465 + 8), v183, v184);
+    v222 = *find_entry(v446, &v473, 8uLL, 0);
+    if (v222)
     {
-      v224 = *(v223 + 32);
+      v223 = *(v222 + 32);
     }
 
     else
     {
-      v224 = 0;
+      v223 = 0;
     }
 
-    v182 = v451;
-    WriteRestores(v169, v224, v185, v451);
-    v211 = 0;
-    v186 = *(v184 + 8);
+    v181 = v450;
+    WriteRestores(v168, v223, v184, v450);
+    v210 = 0;
+    v185 = *(v183 + 8);
 LABEL_160:
-    if (v186 <= -15340)
+    if (v185 <= -15340)
     {
-      v225 = v186 == -15991;
-      v226 = -15749;
+      v224 = v185 == -15991;
+      v225 = -15749;
     }
 
     else
     {
-      v225 = v186 == -15339 || v186 == -14842;
-      v226 = -15308;
+      v224 = v185 == -15339 || v185 == -14842;
+      v225 = -15308;
     }
 
-    v227 = v225 || v186 == v226;
-    v228 = v185;
-    if (v227)
+    v226 = v224 || v185 == v225;
+    v227 = v184;
+    if (v226)
     {
-      if (!GTEventTracker_wasWaitSignaled(v450, v184))
+      if (!GTEventTracker_wasWaitSignaled(v449, v183))
       {
-        v228 = v185 | 2;
+        v227 = v184 | 2;
         goto LABEL_188;
       }
 
-      pool[0] = GTTraceFunc_targetContext(v184, secondb);
-      v229 = v453->elts;
-      v230 = *find_entry(v182, pool, 8uLL, 0);
-      if (v230)
+      pool[0] = GTTraceFunc_targetContext(v183, secondb);
+      v228 = v452->elts;
+      v229 = *find_entry(v181, pool, 8uLL, 0);
+      if (v229)
       {
-        v231 = *(v230 + 32);
-        if (v231)
+        v230 = *(v229 + 32);
+        if (v230)
         {
-          v232 = *(v231 + 32);
-          if (v232)
+          v231 = *(v230 + 32);
+          if (v231)
           {
-            if ((*(v232 + 79) & 8) != 0)
+            if ((*(v231 + 79) & 8) != 0)
             {
-              v233 = v232 + 64;
+              v232 = v231 + 64;
               goto LABEL_180;
             }
           }
@@ -5628,245 +5618,245 @@ LABEL_160:
 
       else
       {
-        v231 = 0;
+        v230 = 0;
       }
 
-      v233 = 0;
+      v232 = 0;
 LABEL_180:
-      v234 = &v229[64 * v181];
-      v235 = *(v233 + 8);
-      if (GTFenum_getConstructorType(v235) == 25)
+      v233 = &v228[64 * v180];
+      v234 = *(v232 + 8);
+      if (GTFenum_getConstructorType(v234) == 25)
       {
-        if (!GTFenum_isCommandBufferRelated(*(v234 - 14)) || (v236 = pool[0], v236 != GetCommandBufferRef((v234 - 64), v451, secondb)))
+        if (!GTFenum_isCommandBufferRelated(*(v233 - 14)) || (v235 = pool[0], v235 != GetCommandBufferRef((v233 - 64), v450, secondb)))
         {
-          v246 = GTTraceFunc_targetContext(v233, secondb);
-          v484 = 0u;
-          v485 = 0u;
-          v482 = 0u;
+          v245 = GTTraceFunc_targetContext(v232, secondb);
           v483 = 0u;
+          v484 = 0u;
+          v481 = 0u;
+          v482 = 0u;
           *newpool = 0u;
-          GTMTLSMCommandBuffer_processTraceFunc(newpool, v233, secondb);
-          v479 = v246;
-          v247 = find_entry(v451, &v479, 8uLL, 0);
-          if (*v247 && (v248 = *(*v247 + 32)) != 0)
+          GTMTLSMCommandBuffer_processTraceFunc(newpool, v232, secondb);
+          v478 = v245;
+          v246 = find_entry(v450, &v478, 8uLL, 0);
+          if (*v246 && (v247 = *(*v246 + 32)) != 0)
           {
-            v249 = atomic_load((v248 + 56));
-            v250 = (v248 + (~(v249 >> 2) & 8));
+            v248 = atomic_load((v247 + 56));
+            v249 = (v247 + (~(v248 >> 2) & 8));
           }
 
           else
           {
-            v250 = &dword_8;
+            v249 = &dword_8;
           }
 
-          v281 = *v250;
-          v479 = pool[0];
-          v282 = find_entry(v451, &v479, 8uLL, 0);
-          if (*v282 && (v283 = *(*v282 + 32)) != 0)
+          v280 = *v249;
+          v478 = pool[0];
+          v281 = find_entry(v450, &v478, 8uLL, 0);
+          if (*v281 && (v282 = *(*v281 + 32)) != 0)
           {
-            v284 = atomic_load((v283 + 56));
-            v285 = (v283 + (~(v284 >> 2) & 8));
-          }
-
-          else
-          {
-            v285 = &dword_8;
-          }
-
-          v286 = *v285;
-          v479 = pool[0];
-          v287 = find_entry(v451, &v479, 8uLL, 0);
-          if (*v287 && (v288 = *(*v287 + 32)) != 0)
-          {
-            v289 = atomic_load((v288 + 56));
-            v290 = (v288 + (~(v289 >> 2) & 8));
+            v283 = atomic_load((v282 + 56));
+            v284 = (v282 + (~(v283 >> 2) & 8));
           }
 
           else
           {
-            v290 = &dword_8;
+            v284 = &dword_8;
           }
 
-          v291 = *v290;
-          v292 = BYTE9(v485);
-          v293 = *(a2 + 8);
-          *(v293 + 8) = 0;
-          *(v293 + 16) = 0u;
-          *(v293 + 32) = 0x69744300008005;
-          *v293 = 0xFFFFCF0000000028;
-          *(v293 + 40) = v281;
-          *(v293 + 48) = v291;
-          *(v293 + 56) = v292;
-          *(v293 + 60) = 116;
-          *(v293 + 64) = v286;
-          *v293 = 72;
-          v294 = *(a2 + 24);
-          v295 = *(a2 + 8);
-          v296 = *v295;
-          if ((*(v295 + 33) & 0x10) != 0)
+          v285 = *v284;
+          v478 = pool[0];
+          v286 = find_entry(v450, &v478, 8uLL, 0);
+          if (*v286 && (v287 = *(*v286 + 32)) != 0)
           {
-            v297 = *v295;
-            v298 = *(a2 + 8);
+            v288 = atomic_load((v287 + 56));
+            v289 = (v287 + (~(v288 >> 2) & 8));
+          }
+
+          else
+          {
+            v289 = &dword_8;
+          }
+
+          v290 = *v289;
+          v291 = BYTE9(v484);
+          v292 = *(a2 + 8);
+          *(v292 + 8) = 0;
+          *(v292 + 16) = 0u;
+          *(v292 + 32) = 0x69744300008005;
+          *v292 = 0xFFFFCF0000000028;
+          *(v292 + 40) = v280;
+          *(v292 + 48) = v290;
+          *(v292 + 56) = v291;
+          *(v292 + 60) = 116;
+          *(v292 + 64) = v285;
+          *v292 = 72;
+          v293 = *(a2 + 24);
+          v294 = *(a2 + 8);
+          v295 = *v294;
+          if ((*(v294 + 33) & 0x10) != 0)
+          {
+            v296 = *v294;
+            v297 = *(a2 + 8);
             do
             {
-              v298 = (v298 + v297);
-              v297 = *v298;
-              v296 += v297;
+              v297 = (v297 + v296);
+              v296 = *v297;
+              v295 += v296;
             }
 
-            while ((*(v298 + 33) & 0x20) == 0);
+            while ((*(v297 + 33) & 0x20) == 0);
           }
 
           goto LABEL_302;
         }
 
-        v235 = *(v233 + 8);
+        v234 = *(v232 + 8);
       }
 
-      if (GTFenum_getConstructorType(v235) != 51 || GTFenum_isMIOCommandBufferRelated(*(v234 - 14)) && (v237 = pool[0], v237 == GetIOCommandBufferRef((v234 - 64), v451, secondb)))
+      if (GTFenum_getConstructorType(v234) != 51 || GTFenum_isMIOCommandBufferRelated(*(v233 - 14)) && (v236 = pool[0], v236 == GetIOCommandBufferRef((v233 - 64), v450, secondb)))
       {
 LABEL_187:
-        v228 = v185;
-        v182 = v451;
+        v227 = v184;
+        v181 = v450;
         goto LABEL_188;
       }
 
-      v276 = GTTraceFunc_targetContext(v233, secondb);
-      v484 = 0u;
-      v485 = 0u;
-      v482 = 0u;
+      v275 = GTTraceFunc_targetContext(v232, secondb);
       v483 = 0u;
+      v484 = 0u;
+      v481 = 0u;
+      v482 = 0u;
       *newpool = 0u;
-      GTMTLSMIOCommandBuffer_processTraceFunc(newpool, v233, secondb);
-      v479 = v276;
-      v277 = find_entry(v451, &v479, 8uLL, 0);
-      if (*v277 && (v278 = *(*v277 + 32)) != 0)
+      GTMTLSMIOCommandBuffer_processTraceFunc(newpool, v232, secondb);
+      v478 = v275;
+      v276 = find_entry(v450, &v478, 8uLL, 0);
+      if (*v276 && (v277 = *(*v276 + 32)) != 0)
       {
-        v279 = atomic_load((v278 + 56));
-        v280 = (v278 + (~(v279 >> 2) & 8));
+        v278 = atomic_load((v277 + 56));
+        v279 = (v277 + (~(v278 >> 2) & 8));
       }
 
       else
       {
-        v280 = &dword_8;
+        v279 = &dword_8;
       }
 
-      v329 = *v280;
-      v479 = pool[0];
-      v330 = find_entry(v451, &v479, 8uLL, 0);
-      if (*v330 && (v331 = *(*v330 + 32)) != 0)
+      v328 = *v279;
+      v478 = pool[0];
+      v329 = find_entry(v450, &v478, 8uLL, 0);
+      if (*v329 && (v330 = *(*v329 + 32)) != 0)
       {
-        v332 = atomic_load((v331 + 56));
-        v333 = (v331 + (~(v332 >> 2) & 8));
-      }
-
-      else
-      {
-        v333 = &dword_8;
-      }
-
-      v334 = *v333;
-      v479 = pool[0];
-      v335 = find_entry(v451, &v479, 8uLL, 0);
-      if (*v335 && (v336 = *(*v335 + 32)) != 0)
-      {
-        v337 = atomic_load((v336 + 56));
-        v338 = (v336 + (~(v337 >> 2) & 8));
+        v331 = atomic_load((v330 + 56));
+        v332 = (v330 + (~(v331 >> 2) & 8));
       }
 
       else
       {
-        v338 = &dword_8;
+        v332 = &dword_8;
       }
 
-      v339 = *v338;
-      v340 = BYTE9(v485);
-      v341 = *(a2 + 8);
-      *(v341 + 8) = 0;
-      *(v341 + 16) = 0u;
-      *(v341 + 32) = 0x69744300008005;
-      *v341 = 0xFFFFCF0100000028;
-      *(v341 + 40) = v329;
-      *(v341 + 48) = v339;
-      *(v341 + 56) = v340;
-      *(v341 + 60) = 116;
-      *(v341 + 64) = v334;
-      *v341 = 72;
-      v294 = *(a2 + 24);
-      v295 = *(a2 + 8);
-      v296 = *v295;
-      if ((*(v295 + 33) & 0x10) != 0)
+      v333 = *v332;
+      v478 = pool[0];
+      v334 = find_entry(v450, &v478, 8uLL, 0);
+      if (*v334 && (v335 = *(*v334 + 32)) != 0)
       {
-        v342 = *v295;
-        v343 = *(a2 + 8);
+        v336 = atomic_load((v335 + 56));
+        v337 = (v335 + (~(v336 >> 2) & 8));
+      }
+
+      else
+      {
+        v337 = &dword_8;
+      }
+
+      v338 = *v337;
+      v339 = BYTE9(v484);
+      v340 = *(a2 + 8);
+      *(v340 + 8) = 0;
+      *(v340 + 16) = 0u;
+      *(v340 + 32) = 0x69744300008005;
+      *v340 = 0xFFFFCF0100000028;
+      *(v340 + 40) = v328;
+      *(v340 + 48) = v338;
+      *(v340 + 56) = v339;
+      *(v340 + 60) = 116;
+      *(v340 + 64) = v333;
+      *v340 = 72;
+      v293 = *(a2 + 24);
+      v294 = *(a2 + 8);
+      v295 = *v294;
+      if ((*(v294 + 33) & 0x10) != 0)
+      {
+        v341 = *v294;
+        v342 = *(a2 + 8);
         do
         {
-          v343 = (v343 + v342);
-          v342 = *v343;
-          v296 += v342;
+          v342 = (v342 + v341);
+          v341 = *v342;
+          v295 += v341;
         }
 
-        while ((*(v343 + 33) & 0x20) == 0);
+        while ((*(v342 + 33) & 0x20) == 0);
       }
 
 LABEL_302:
-      v344 = objc_autoreleasePoolPush();
-      [*(v294 + 8) appendBytes:v295 length:v296];
-      objc_autoreleasePoolPop(v344);
-      v345 = *(v231 + 32);
-      if (v345)
+      v343 = objc_autoreleasePoolPush();
+      [*(v293 + 8) appendBytes:v294 length:v295];
+      objc_autoreleasePoolPop(v343);
+      v344 = *(v230 + 32);
+      if (v344)
       {
-        v346 = 0;
+        v345 = 0;
         while (1)
         {
-          v347 = atomic_load((v345 + 4));
-          v348 = v346 + (v347 >> 6) - 1;
-          if (v348 > 0)
+          v346 = atomic_load((v344 + 4));
+          v347 = v345 + (v346 >> 6) - 1;
+          if (v347 > 0)
           {
             break;
           }
 
-          v345 = *(v345 + 40);
-          v346 = v348;
-          if (!v345)
+          v344 = *(v344 + 40);
+          v345 = v347;
+          if (!v344)
           {
-            v346 = v348;
+            v345 = v347;
             goto LABEL_309;
           }
         }
 
-        v348 = 0;
+        v347 = 0;
 LABEL_309:
-        v349 = v346 | (v348 << 32);
+        v348 = v345 | (v347 << 32);
       }
 
       else
       {
-        v349 = 0;
+        v348 = 0;
       }
 
-      while (v345)
+      while (v344)
       {
-        v350 = v345 + 64 + ((HIDWORD(v349) - v349) << 6);
-        if ((*(v350 + 15) & 8) == 0 || *v350 == *v184)
+        v349 = v344 + 64 + ((HIDWORD(v348) - v348) << 6);
+        if ((*(v349 + 15) & 8) == 0 || *v349 == *v183)
         {
           break;
         }
 
-        v351 = *(v350 + 8);
-        if ((v351 + 16065) < 2 || v351 == -15313 || v351 == -16365)
+        v350 = *(v349 + 8);
+        if ((v350 + 16065) < 2 || v350 == -15313 || v350 == -16365)
         {
-          GTTraceFuncToFbuf(a2, *(v466 + 8), v350, 32772);
+          GTTraceFuncToFbuf(a2, *(v465 + 8), v349, 32772);
         }
 
-        v354 = atomic_load((v345 + 4));
-        v355 = v349 + (v354 >> 6);
-        v356 = (HIDWORD(v349) + 1);
-        v349 = (v356 << 32) | v349;
-        if (v356 == v355 - 1)
+        v353 = atomic_load((v344 + 4));
+        v354 = v348 + (v353 >> 6);
+        v355 = (HIDWORD(v348) + 1);
+        v348 = (v355 << 32) | v348;
+        if (v355 == v354 - 1)
         {
-          v349 = (v356 << 32) | v356;
-          v345 = *(v345 + 40);
+          v348 = (v355 << 32) | v355;
+          v344 = *(v344 + 40);
         }
       }
 
@@ -5874,300 +5864,300 @@ LABEL_309:
     }
 
 LABEL_188:
-    v238 = *(v184 + 8);
-    isCommandBufferRelated = GTFenum_isCommandBufferRelated(v238);
-    isMTL4CommandBufferRelated = GTFenum_isMTL4CommandBufferRelated(v238);
-    isMIOCommandBufferRelated = GTFenum_isMIOCommandBufferRelated(v238);
+    v237 = *(v183 + 8);
+    isCommandBufferRelated = GTFenum_isCommandBufferRelated(v237);
+    isMTL4CommandBufferRelated = GTFenum_isMTL4CommandBufferRelated(v237);
+    isMIOCommandBufferRelated = GTFenum_isMIOCommandBufferRelated(v237);
     if ((isCommandBufferRelated & 1) == 0)
     {
-      v242 = isMIOCommandBufferRelated;
-      if (v211 & (isMIOCommandBufferRelated || isMTL4CommandBufferRelated))
+      v241 = isMIOCommandBufferRelated;
+      if (v210 & (isMIOCommandBufferRelated || isMTL4CommandBufferRelated))
       {
-        v169 = a2;
-        GTTraceFuncToFbuf(a2, *(v466 + 8), v184, v228);
+        v168 = a2;
+        GTTraceFuncToFbuf(a2, *(v465 + 8), v183, v227);
         if (isMTL4CommandBufferRelated)
         {
-          v238 = *(v184 + 8);
+          v237 = *(v183 + 8);
           goto LABEL_201;
         }
 
-        LODWORD(v228) = v185;
+        LODWORD(v227) = v184;
       }
 
       else
       {
-        LODWORD(v185) = v228;
-        v169 = a2;
+        LODWORD(v184) = v227;
+        v168 = a2;
         if (isMTL4CommandBufferRelated)
         {
           goto LABEL_201;
         }
       }
 
-      if (v242)
+      if (v241)
       {
-        v173 = secondb;
-        if (*(v184 + 8) == -15343)
+        v172 = secondb;
+        if (*(v183 + 8) == -15343)
         {
-          v444 = GTTraceFunc_targetContext(v184, secondb);
+          v443 = GTTraceFunc_targetContext(v183, secondb);
         }
 
-        IOCommandBufferRef = GetIOCommandBufferRef(v184, v182, secondb);
-        v252 = &v453->elts[64 * v181];
-        v253 = *(v252 + 18);
-        v254 = GTFenum_isCommandBufferRelated(v253);
-        v255 = GTFenum_isMIOCommandBufferRelated(v253);
-        if ((v254 & 1) == 0 && !v255)
+        IOCommandBufferRef = GetIOCommandBufferRef(v183, v181, secondb);
+        v251 = &v452->elts[64 * v180];
+        v252 = *(v251 + 18);
+        v253 = GTFenum_isCommandBufferRelated(v252);
+        v254 = GTFenum_isMIOCommandBufferRelated(v252);
+        if ((v253 & 1) == 0 && !v254)
         {
           goto LABEL_373;
         }
 
-        v256 = (v252 + 64);
-        v182 = v451;
-        if (IOCommandBufferRef == GetIOCommandBufferRef(v256, v451, secondb) || v444 == IOCommandBufferRef)
+        v255 = (v251 + 64);
+        v181 = v450;
+        if (IOCommandBufferRef == GetIOCommandBufferRef(v255, v450, secondb) || v443 == IOCommandBufferRef)
         {
           goto LABEL_374;
         }
 
         newpool[0] = IOCommandBufferRef;
-        v257 = find_entry(v451, newpool, 8uLL, 0);
-        if (*v257 && (v258 = *(*v257 + 32)) != 0)
+        v256 = find_entry(v450, newpool, 8uLL, 0);
+        if (*v256 && (v257 = *(*v256 + 32)) != 0)
         {
-          v259 = atomic_load((v258 + 56));
-          v260 = (v258 + (~(v259 >> 2) & 8));
+          v258 = atomic_load((v257 + 56));
+          v259 = (v257 + (~(v258 >> 2) & 8));
         }
 
         else
         {
-          v260 = &dword_8;
+          v259 = &dword_8;
         }
 
-        v383 = *v260;
-        v384 = *(v169 + 8);
-        *(v384 + 16) = 0;
-        *(v384 + 24) = 0;
-        *(v384 + 32) = 0;
-        *(v384 + 36) = 67;
-        *(v384 + 40) = v383;
-        *v384 = 0xFFFFC41100000030;
-        *(v384 + 8) = 0;
-        v359 = v228 | 0x8004;
-        v385 = *(v169 + 8);
-        v385[8] = v228 | 0x8004;
-        v386 = *v385;
-        v387 = *(v169 + 24);
-        v388 = objc_autoreleasePoolPush();
-        [*(v387 + 8) appendBytes:v385 length:v386];
-        objc_autoreleasePoolPop(v388);
+        v382 = *v259;
+        v383 = *(v168 + 8);
+        *(v383 + 16) = 0;
+        *(v383 + 24) = 0;
+        *(v383 + 32) = 0;
+        *(v383 + 36) = 67;
+        *(v383 + 40) = v382;
+        *v383 = 0xFFFFC41100000030;
+        *(v383 + 8) = 0;
+        v358 = v227 | 0x8004;
+        v384 = *(v168 + 8);
+        v384[8] = v227 | 0x8004;
+        v385 = *v384;
+        v386 = *(v168 + 24);
+        v387 = objc_autoreleasePoolPush();
+        [*(v386 + 8) appendBytes:v384 length:v385];
+        objc_autoreleasePoolPop(v387);
         newpool[0] = IOCommandBufferRef;
-        v389 = find_entry(v451, newpool, 8uLL, 0);
-        if (*v389)
+        v388 = find_entry(v450, newpool, 8uLL, 0);
+        if (*v388)
         {
-          v390 = *(*v389 + 32);
-          v173 = secondb;
-          if (v390)
+          v389 = *(*v388 + 32);
+          v172 = secondb;
+          if (v389)
           {
-            v391 = atomic_load((v390 + 56));
-            v392 = (v390 + (~(v391 >> 2) & 8));
+            v390 = atomic_load((v389 + 56));
+            v391 = (v389 + (~(v390 >> 2) & 8));
           }
 
           else
           {
-            v392 = &dword_8;
+            v391 = &dword_8;
           }
         }
 
         else
         {
-          v392 = &dword_8;
-          v173 = secondb;
+          v391 = &dword_8;
+          v172 = secondb;
         }
 
-        v399 = *v392;
-        v394 = *(v169 + 8);
-        *(v394 + 16) = 0;
-        *(v394 + 24) = 0;
-        *(v394 + 32) = 0;
-        *(v394 + 36) = 67;
-        *(v394 + 40) = v399;
-        *(v394 + 8) = 0;
-        v395 = 0xC41300000030;
+        v398 = *v391;
+        v393 = *(v168 + 8);
+        *(v393 + 16) = 0;
+        *(v393 + 24) = 0;
+        *(v393 + 32) = 0;
+        *(v393 + 36) = 67;
+        *(v393 + 40) = v398;
+        *(v393 + 8) = 0;
+        v394 = 0xC41300000030;
 LABEL_372:
-        *v394 = v395 & 0xFFFFFFFFFFFFLL | 0xFFFF000000000000;
-        v400 = *(v169 + 8);
-        v400[8] = v359;
-        v401 = *v400;
-        v402 = *(v169 + 24);
-        v403 = objc_autoreleasePoolPush();
-        [*(v402 + 8) appendBytes:v400 length:v401];
-        objc_autoreleasePoolPop(v403);
+        *v393 = v394 & 0xFFFFFFFFFFFFLL | 0xFFFF000000000000;
+        v399 = *(v168 + 8);
+        v399[8] = v358;
+        v400 = *v399;
+        v401 = *(v168 + 24);
+        v402 = objc_autoreleasePoolPush();
+        [*(v401 + 8) appendBytes:v399 length:v400];
+        objc_autoreleasePoolPop(v402);
 LABEL_373:
-        v182 = v451;
+        v181 = v450;
         goto LABEL_374;
       }
 
-      v173 = secondb;
-      v479 = GTTraceFunc_getFuncStreamRef(v184, secondb);
-      newpool[0] = v479;
-      v261 = find_entry(v182, newpool, 8uLL, 0);
-      if (!*v261)
+      v172 = secondb;
+      v478 = GTTraceFunc_getFuncStreamRef(v183, secondb);
+      newpool[0] = v478;
+      v260 = find_entry(v181, newpool, 8uLL, 0);
+      if (!*v260)
       {
         goto LABEL_374;
       }
 
-      v262 = *(*v261 + 32);
-      if (!v262)
+      v261 = *(*v260 + 32);
+      if (!v261)
       {
         goto LABEL_374;
       }
 
-      v263 = *(v184 + 8);
-      if ((v263 + 7158) >= 3)
+      v262 = *(v183 + 8);
+      if ((v262 + 7158) >= 3)
       {
-        if (v263 == -7167)
+        if (v262 == -7167)
         {
-          v368 = GTTraceFunc_argumentBytesWithPool(v184, *(v184 + 13), *(v262 + 24));
-          pool[0] = *v368;
-          v182 = v451;
-          if (GTMTLSMContext_getDrawable(v448, pool[0], *v184))
+          v367 = GTTraceFunc_argumentBytesWithPool(v183, *(v183 + 13), *(v261 + 24));
+          pool[0] = *v367;
+          v181 = v450;
+          if (GTMTLSMContext_getDrawable(v447, pool[0], *v183))
           {
-            v369 = *find_entry(v465, &v479, 8uLL, 0);
-            if (!v369 || !*(v369 + 32))
+            v368 = *find_entry(v464, &v478, 8uLL, 0);
+            if (!v368 || !*(v368 + 32))
             {
-              LODWORD(v228) = v228 | 6;
+              LODWORD(v227) = v227 | 6;
             }
 
-            v370 = *(v184 + 15);
-            v371 = v228 | 4;
-            v372 = find_entry(ht, pool, 8uLL, 0);
-            if (!*v372 || !*(*v372 + 32))
+            v369 = *(v183 + 15);
+            v370 = v227 | 4;
+            v371 = find_entry(ht, pool, 8uLL, 0);
+            if (!*v371 || !*(*v371 + 32))
             {
-              if ((v370 & 0x40) != 0)
+              if ((v369 & 0x40) != 0)
               {
-                v373 = v371;
+                v372 = v370;
               }
 
               else
               {
-                v373 = v228;
+                v372 = v227;
               }
 
-              GTTraceFuncToFbuf(v169, *(v466 + 8), v184, v373);
-              apr_hash_set(ht, pool, 8, *(v368 + 1));
+              GTTraceFuncToFbuf(v168, *(v465 + 8), v183, v372);
+              apr_hash_set(ht, pool, 8, *(v367 + 1));
             }
 
-            v374 = *find_entry(v443, v368 + 8, 8uLL, 0);
-            if (!v374 || !*(v374 + 32))
+            v373 = *find_entry(v442, v367 + 8, 8uLL, 0);
+            if (!v373 || !*(v373 + 32))
             {
-              v375 = GTMTLSMContext_lastTexture(v448, *(v368 + 1), 0xFFFFFFFFFFFFFFFFLL);
-              v376 = v375;
-              if (*(v375 + 120))
+              v374 = GTMTLSMContext_lastTexture(v447, *(v367 + 1), 0xFFFFFFFFFFFFFFFFLL);
+              v375 = v374;
+              if (*(v374 + 120))
               {
-                newpool[0] = *(v375 + 8);
-                v377 = find_entry(v451, newpool, 8uLL, 0);
-                if (*v377 && (v378 = *(*v377 + 32)) != 0)
+                newpool[0] = *(v374 + 8);
+                v376 = find_entry(v450, newpool, 8uLL, 0);
+                if (*v376 && (v377 = *(*v376 + 32)) != 0)
                 {
-                  v379 = atomic_load((v378 + 56));
-                  v380 = (v378 + (~(v379 >> 2) & 8));
+                  v378 = atomic_load((v377 + 56));
+                  v379 = (v377 + (~(v378 >> 2) & 8));
                 }
 
                 else
                 {
-                  v380 = &dword_8;
+                  v379 = &dword_8;
                 }
 
-                v404 = *v380;
-                WriteTextureInfo(v169, v376, v451, v371);
-                v405 = *(v376 + 88);
-                if (!v405)
+                v403 = *v379;
+                WriteTextureInfo(v168, v375, v450, v370);
+                v404 = *(v375 + 88);
+                if (!v404)
                 {
-                  v405 = "";
+                  v404 = "";
                 }
 
-                newpool[0] = v404;
-                newpool[1] = v405;
-                DYTraceEncode_MTLTexture_setLabel(newpool, *(v169 + 8), *(v169 + 16), 0, 0);
-                v406 = *(v169 + 8);
-                v407 = v406[8] | v371;
-                v406[8] = v407;
-                v408 = *v406;
-                if ((v407 & 0x1000) != 0)
+                newpool[0] = v403;
+                newpool[1] = v404;
+                DYTraceEncode_MTLTexture_setLabel(newpool, *(v168 + 8), *(v168 + 16), 0, 0);
+                v405 = *(v168 + 8);
+                v406 = v405[8] | v370;
+                v405[8] = v406;
+                v407 = *v405;
+                if ((v406 & 0x1000) != 0)
                 {
-                  v409 = *v406;
-                  v410 = v406;
+                  v408 = *v405;
+                  v409 = v405;
                   do
                   {
-                    v410 = (v410 + v409);
-                    v409 = *v410;
-                    v408 += v409;
+                    v409 = (v409 + v408);
+                    v408 = *v409;
+                    v407 += v408;
                   }
 
-                  while ((*(v410 + 33) & 0x20) == 0);
+                  while ((*(v409 + 33) & 0x20) == 0);
                 }
 
-                fbstream_write(*(v169 + 24), v406, v408);
-                if (!*(v376 + 48) && !*(v376 + 144) && !*(v376 + 152))
+                fbstream_write(*(v168 + 24), v405, v407);
+                if (!*(v375 + 48) && !*(v375 + 144) && !*(v375 + 152))
                 {
-                  v411 = *(v376 + 106);
-                  v412 = *(v169 + 8);
-                  *(v412 + 24) = 0;
-                  *(v412 + 8) = 0u;
-                  *(v412 + 32) = 0x6C754300000000;
-                  *v412 = 0xFFFFC09800000028;
-                  *(v412 + 40) = v404;
-                  *(v412 + 48) = v411;
-                  *v412 = 56;
-                  v413 = *(v169 + 8);
-                  LODWORD(v411) = v413[8] | v371;
-                  v413[8] = v411;
-                  v414 = *v413;
-                  if ((v411 & 0x1000) != 0)
+                  v410 = *(v375 + 106);
+                  v411 = *(v168 + 8);
+                  *(v411 + 24) = 0;
+                  *(v411 + 8) = 0u;
+                  *(v411 + 32) = 0x6C754300000000;
+                  *v411 = 0xFFFFC09800000028;
+                  *(v411 + 40) = v403;
+                  *(v411 + 48) = v410;
+                  *v411 = 56;
+                  v412 = *(v168 + 8);
+                  LODWORD(v410) = v412[8] | v370;
+                  v412[8] = v410;
+                  v413 = *v412;
+                  if ((v410 & 0x1000) != 0)
                   {
-                    v415 = *v413;
-                    v416 = v413;
+                    v414 = *v412;
+                    v415 = v412;
                     do
                     {
-                      v416 = (v416 + v415);
-                      v415 = *v416;
-                      v414 += v415;
+                      v415 = (v415 + v414);
+                      v414 = *v415;
+                      v413 += v414;
                     }
 
-                    while ((*(v416 + 33) & 0x20) == 0);
+                    while ((*(v415 + 33) & 0x20) == 0);
                   }
 
-                  fbstream_write(*(v169 + 24), v413, v414);
+                  fbstream_write(*(v168 + 24), v412, v413);
                 }
 
-                v417 = *(v169 + 8);
-                *(v417 + 24) = 0;
-                *(v417 + 8) = 0u;
-                *(v417 + 32) = 0x69754300000006;
-                *v417 = 0xFFFFD80600000028;
-                *(v417 + 40) = v404;
-                *(v417 + 48) = 0;
-                *v417 = 52;
-                v418 = *(v169 + 8);
-                LODWORD(v417) = v418[8] | v371;
-                v418[8] = v417;
-                v419 = *v418;
-                if ((v417 & 0x1000) != 0)
+                v416 = *(v168 + 8);
+                *(v416 + 24) = 0;
+                *(v416 + 8) = 0u;
+                *(v416 + 32) = 0x69754300000006;
+                *v416 = 0xFFFFD80600000028;
+                *(v416 + 40) = v403;
+                *(v416 + 48) = 0;
+                *v416 = 52;
+                v417 = *(v168 + 8);
+                LODWORD(v416) = v417[8] | v370;
+                v417[8] = v416;
+                v418 = *v417;
+                if ((v416 & 0x1000) != 0)
                 {
-                  v420 = *v418;
-                  v421 = v418;
+                  v419 = *v417;
+                  v420 = v417;
                   do
                   {
-                    v421 = (v421 + v420);
-                    v420 = *v421;
-                    v419 += v420;
+                    v420 = (v420 + v419);
+                    v419 = *v420;
+                    v418 += v419;
                   }
 
-                  while ((*(v421 + 33) & 0x20) == 0);
+                  while ((*(v420 + 33) & 0x20) == 0);
                 }
 
-                fbstream_write(*(v169 + 24), v418, v419);
+                fbstream_write(*(v168 + 24), v417, v418);
               }
 
-              apr_hash_set(v443, v368 + 8, 8, v376);
+              apr_hash_set(v442, v367 + 8, 8, v375);
             }
           }
 
@@ -6177,62 +6167,62 @@ LABEL_373:
 
       else if (*a3 == 1)
       {
-        v264 = GTTraceFunc_argumentBytesWithPool(v184, *(v184 + 13), *(v262 + 24));
-        Drawable = GTMTLSMContext_getDrawable(v448, *v264, *v184);
+        v263 = GTTraceFunc_argumentBytesWithPool(v183, *(v183 + 13), *(v261 + 24));
+        Drawable = GTMTLSMContext_getDrawable(v447, *v263, *v183);
         if (Drawable)
         {
-          v266 = *find_entry(v441, Drawable + 48, 8uLL, 0);
-          if (v266)
+          v265 = *find_entry(v440, Drawable + 48, 8uLL, 0);
+          if (v265)
           {
-            v267 = *(v266 + 32);
-            if (v267)
+            v266 = *(v265 + 32);
+            if (v266)
             {
-              v268 = apr_array_make(v475, 1, 8);
-              *apr_array_push(v268) = v267;
-              WriteRestores(v169, v268, v228 | 6, v451);
+              v267 = apr_array_make(v474, 1, 8);
+              *apr_array_push(v267) = v266;
+              WriteRestores(v168, v267, v227 | 6, v450);
             }
           }
         }
       }
 
-      v381 = *(v262 + 32);
-      if (v381)
+      v380 = *(v261 + 32);
+      if (v380)
       {
-        v182 = v451;
-        if ((*(v381 + 79) & 8) != 0)
+        v181 = v450;
+        if ((*(v380 + 79) & 8) != 0)
         {
-          v382 = v381 + 64;
+          v381 = v380 + 64;
         }
 
         else
         {
-          v382 = 0;
+          v381 = 0;
         }
       }
 
       else
       {
-        v382 = 0;
-        v182 = v451;
+        v381 = 0;
+        v181 = v450;
       }
 
-      v396 = *(v184 + 8);
-      ConstructorType = GTFenum_getConstructorType(v396);
-      if (ConstructorType == 25 || (v396 + 6144) <= 0x29 && ((0x3806C9D5295uLL >> v396) & 1) != 0 || (v396 + 15345) <= 0x38 && ((0x17C40BE00017E7FuLL >> (v396 - 15)) & 1) != 0 || ConstructorType == 51 || !v382 || !GTFenum_isCreateResource(*(v382 + 8)))
+      v395 = *(v183 + 8);
+      ConstructorType = GTFenum_getConstructorType(v395);
+      if (ConstructorType == 25 || (v395 + 6144) <= 0x29 && ((0x3806C9D5295uLL >> v395) & 1) != 0 || (v395 + 15345) <= 0x38 && ((0x17C40BE00017E7FuLL >> (v395 - 15)) & 1) != 0 || ConstructorType == 51 || !v381 || !GTFenum_isCreateResource(*(v381 + 8)))
       {
         goto LABEL_374;
       }
 
-      if (*(v184 + 15))
+      if (*(v183 + 15))
       {
         goto LABEL_396;
       }
 
-      v398 = *find_entry(v440, &v479, 8uLL, 0);
-      if (v398)
+      v397 = *find_entry(v439, &v478, 8uLL, 0);
+      if (v397)
       {
-        v396 = *(v184 + 8);
-        if (*(v398 + 32))
+        v395 = *(v183 + 8);
+        if (*(v397 + 32))
         {
           goto LABEL_397;
         }
@@ -6240,348 +6230,348 @@ LABEL_373:
 
       else
       {
-        v396 = *(v184 + 8);
+        v395 = *(v183 + 8);
       }
 
-      if (!NeverIgnoreFenum(v396))
+      if (!NeverIgnoreFenum(v395))
       {
 LABEL_396:
-        LODWORD(v228) = v228 | 6;
+        LODWORD(v227) = v227 | 6;
       }
 
 LABEL_397:
-      v422 = (*(v184 + 15) >> 4) & 4;
-      if (GTFenum_isDestructor(v396))
+      v421 = (*(v183 + 15) >> 4) & 4;
+      if (GTFenum_isDestructor(v395))
       {
-        v423 = 6;
+        v422 = 6;
       }
 
       else
       {
-        v423 = v422;
+        v422 = v421;
       }
 
-      v424 = v423 | v228;
-      if (GTMTLSMContext_getObject(v448, v479, *v184))
+      v423 = v422 | v227;
+      if (GTMTLSMContext_getObject(v447, v478, *v183))
       {
-        v425 = v424;
+        v424 = v423;
       }
 
       else
       {
-        v425 = v424 | 0x200;
+        v424 = v423 | 0x200;
       }
 
-      v426 = find_entry(v440, &v479, 8uLL, 0);
-      if (!*v426 || !*(*v426 + 32))
+      v425 = find_entry(v439, &v478, 8uLL, 0);
+      if (!*v425 || !*(*v425 + 32))
       {
-        v425 = v425 | 6;
+        v424 = v424 | 6;
       }
 
-      GTTraceFuncToFbuf(v169, *(v466 + 8), v184, v425);
+      GTTraceFuncToFbuf(v168, *(v465 + 8), v183, v424);
       goto LABEL_374;
     }
 
-    if (!v211)
+    if (!v210)
     {
-      LODWORD(v185) = v228;
-      v169 = a2;
+      LODWORD(v184) = v227;
+      v168 = a2;
       if (isMTL4CommandBufferRelated)
       {
         goto LABEL_201;
       }
 
 LABEL_196:
-      if (v238 <= -15909)
+      if (v237 <= -15909)
       {
-        v173 = secondb;
-        if (v238 == -16361)
+        v172 = secondb;
+        if (v237 == -16361)
         {
           goto LABEL_229;
         }
 
-        v243 = -16202;
+        v242 = -16202;
       }
 
       else
       {
-        v173 = secondb;
-        if (v238 == -15908 || v238 == -15316)
+        v172 = secondb;
+        if (v237 == -15908 || v237 == -15316)
         {
           goto LABEL_229;
         }
 
-        v243 = -15318;
+        v242 = -15318;
       }
 
-      if (v238 != v243)
+      if (v237 != v242)
       {
 LABEL_230:
-        CommandBufferRef = GetCommandBufferRef(v184, v182, v173);
-        v270 = &v453->elts[64 * v181];
-        v271 = *(v270 + 18);
-        if (GTFenum_isCommandBufferRelated(v271))
+        CommandBufferRef = GetCommandBufferRef(v183, v181, v172);
+        v269 = &v452->elts[64 * v180];
+        v270 = *(v269 + 18);
+        if (GTFenum_isCommandBufferRelated(v270))
         {
-          if (CommandBufferRef == GetCommandBufferRef((v270 + 64), v182, v173) || v446 == CommandBufferRef)
+          if (CommandBufferRef == GetCommandBufferRef((v269 + 64), v181, v172) || v445 == CommandBufferRef)
           {
             goto LABEL_374;
           }
 
-          v271 = *(v270 + 18);
+          v270 = *(v269 + 18);
         }
 
-        else if (v446 == CommandBufferRef)
+        else if (v445 == CommandBufferRef)
         {
           goto LABEL_374;
         }
 
-        if (!v271)
+        if (!v270)
         {
           goto LABEL_374;
         }
 
         newpool[0] = CommandBufferRef;
-        v272 = find_entry(v182, newpool, 8uLL, 0);
-        if (*v272 && (v273 = *(*v272 + 32)) != 0)
+        v271 = find_entry(v181, newpool, 8uLL, 0);
+        if (*v271 && (v272 = *(*v271 + 32)) != 0)
         {
-          v274 = atomic_load((v273 + 56));
-          v275 = (v273 + (~(v274 >> 2) & 8));
+          v273 = atomic_load((v272 + 56));
+          v274 = (v272 + (~(v273 >> 2) & 8));
         }
 
         else
         {
-          v275 = &dword_8;
+          v274 = &dword_8;
         }
 
-        v357 = *v275;
-        v358 = *(v169 + 8);
-        *(v358 + 16) = 0;
-        *(v358 + 24) = 0;
-        *(v358 + 32) = 0;
-        *(v358 + 36) = 67;
-        *(v358 + 40) = v357;
-        *v358 = 0xFFFFC01700000030;
-        *(v358 + 8) = 0;
-        v359 = v185 | 0x8004;
-        v360 = *(v169 + 8);
-        v360[8] = v185 | 0x8004;
-        v361 = *v360;
-        v362 = *(v169 + 24);
-        v363 = objc_autoreleasePoolPush();
-        [*(v362 + 8) appendBytes:v360 length:v361];
-        objc_autoreleasePoolPop(v363);
+        v356 = *v274;
+        v357 = *(v168 + 8);
+        *(v357 + 16) = 0;
+        *(v357 + 24) = 0;
+        *(v357 + 32) = 0;
+        *(v357 + 36) = 67;
+        *(v357 + 40) = v356;
+        *v357 = 0xFFFFC01700000030;
+        *(v357 + 8) = 0;
+        v358 = v184 | 0x8004;
+        v359 = *(v168 + 8);
+        v359[8] = v184 | 0x8004;
+        v360 = *v359;
+        v361 = *(v168 + 24);
+        v362 = objc_autoreleasePoolPush();
+        [*(v361 + 8) appendBytes:v359 length:v360];
+        objc_autoreleasePoolPop(v362);
         newpool[0] = CommandBufferRef;
-        v364 = find_entry(v451, newpool, 8uLL, 0);
-        if (*v364)
+        v363 = find_entry(v450, newpool, 8uLL, 0);
+        if (*v363)
         {
-          v365 = *(*v364 + 32);
-          v173 = secondb;
-          if (v365)
+          v364 = *(*v363 + 32);
+          v172 = secondb;
+          if (v364)
           {
-            v366 = atomic_load((v365 + 56));
-            v367 = (v365 + (~(v366 >> 2) & 8));
+            v365 = atomic_load((v364 + 56));
+            v366 = (v364 + (~(v365 >> 2) & 8));
           }
 
           else
           {
-            v367 = &dword_8;
+            v366 = &dword_8;
           }
         }
 
         else
         {
-          v367 = &dword_8;
-          v173 = secondb;
+          v366 = &dword_8;
+          v172 = secondb;
         }
 
-        v393 = *v367;
-        v394 = *(v169 + 8);
-        *(v394 + 16) = 0;
-        *(v394 + 24) = 0;
-        *(v394 + 32) = 0;
-        *(v394 + 36) = 67;
-        *(v394 + 40) = v393;
-        *(v394 + 8) = 0;
-        v395 = 0xC01500000030;
+        v392 = *v366;
+        v393 = *(v168 + 8);
+        *(v393 + 16) = 0;
+        *(v393 + 24) = 0;
+        *(v393 + 32) = 0;
+        *(v393 + 36) = 67;
+        *(v393 + 40) = v392;
+        *(v393 + 8) = 0;
+        v394 = 0xC01500000030;
         goto LABEL_372;
       }
 
 LABEL_229:
-      v446 = GTTraceFunc_targetContext(v184, v173);
+      v445 = GTTraceFunc_targetContext(v183, v172);
       goto LABEL_230;
     }
 
-    v169 = a2;
-    GTTraceFuncToFbuf(a2, *(v466 + 8), v184, v228);
-    v238 = *(v184 + 8);
+    v168 = a2;
+    GTTraceFuncToFbuf(a2, *(v465 + 8), v183, v227);
+    v237 = *(v183 + 8);
     if (!isMTL4CommandBufferRelated)
     {
       goto LABEL_196;
     }
 
 LABEL_201:
-    if (GTFenum_isBeginCommandBuffer(v238))
+    if (GTFenum_isBeginCommandBuffer(v237))
     {
-      pool[0] = GTTraceFunc_getFuncStreamRef(v184, secondb);
-      v244 = *find_entry(v447, pool, 8uLL, 0);
-      if (v244)
+      pool[0] = GTTraceFunc_getFuncStreamRef(v183, secondb);
+      v243 = *find_entry(v446, pool, 8uLL, 0);
+      if (v243)
       {
-        v245 = *(v244 + 32);
+        v244 = *(v243 + 32);
       }
 
       else
       {
-        v245 = 0;
+        v244 = 0;
       }
 
-      WriteRestores(v169, v245, v185, v182);
-      v299 = *(v466 + 8);
-      v300 = pool[0];
-      v301 = *(v299 + 16);
-      v302 = *(v299 + 24);
-      newpool[0] = GetCommandBufferParentStreamRef(v301, v302, pool[0]);
-      v303 = *find_entry(v301, newpool, 8uLL, 0);
-      if (v303)
+      WriteRestores(v168, v244, v184, v181);
+      v298 = *(v465 + 8);
+      v299 = pool[0];
+      v300 = *(v298 + 16);
+      v301 = *(v298 + 24);
+      newpool[0] = GetCommandBufferParentStreamRef(v300, v301, pool[0]);
+      v302 = *find_entry(v300, newpool, 8uLL, 0);
+      if (v302)
       {
-        v304 = *(v303 + 32);
+        v303 = *(v302 + 32);
       }
 
       else
       {
-        v304 = 0;
+        v303 = 0;
       }
 
-      newpool[0] = v300;
-      v305 = *find_entry(v301, newpool, 8uLL, 0);
-      if (v305)
+      newpool[0] = v299;
+      v304 = *find_entry(v300, newpool, 8uLL, 0);
+      if (v304)
       {
-        v306 = *(v305 + 32);
+        v305 = *(v304 + 32);
       }
 
       else
       {
-        v306 = 0;
+        v305 = 0;
       }
 
-      Func = GTTraceStream_lastFunc(v306);
+      Func = GTTraceStream_lastFunc(v305);
       if (Func)
       {
-        v308 = *Func;
+        v307 = *Func;
       }
 
       else
       {
-        v308 = -1;
+        v307 = -1;
       }
 
-      v309 = *(v304 + 32);
-      if (v309)
+      v308 = *(v303 + 32);
+      if (v308)
       {
-        v310 = 0;
+        v309 = 0;
         while (1)
         {
-          v311 = atomic_load((v309 + 4));
-          v312 = v310 + (v311 >> 6) - 1;
-          if (v312 > 0)
+          v310 = atomic_load((v308 + 4));
+          v311 = v309 + (v310 >> 6) - 1;
+          if (v311 > 0)
           {
             break;
           }
 
-          v309 = *(v309 + 40);
-          v310 = v312;
-          if (!v309)
+          v308 = *(v308 + 40);
+          v309 = v311;
+          if (!v308)
           {
-            v310 = v312;
+            v309 = v311;
             goto LABEL_272;
           }
         }
 
-        v312 = 0;
+        v311 = 0;
 LABEL_272:
-        v313 = v310 | (v312 << 32);
+        v312 = v309 | (v311 << 32);
       }
 
       else
       {
-        v313 = 0;
+        v312 = 0;
       }
 
-      v314 = 0;
+      v313 = 0;
 LABEL_274:
-      v315 = v309 + 64;
-      while (v309)
+      v314 = v308 + 64;
+      while (v308)
       {
-        v316 = v315 + ((HIDWORD(v313) - v313) << 6);
-        if ((*(v316 + 15) & 8) == 0 || *v316 >= v308)
+        v315 = v314 + ((HIDWORD(v312) - v312) << 6);
+        if ((*(v315 + 15) & 8) == 0 || *v315 >= v307)
         {
           break;
         }
 
-        if (GTFenum_isSetLabel(*(v316 + 8)))
+        if (GTFenum_isSetLabel(*(v315 + 8)))
         {
-          v317 = GTTraceFunc_argumentBytesWithMap((v315 + ((HIDWORD(v313) - v313) << 6)), *(v316 + 13), v302);
-          v314 = GTTraceFunc_argumentBytesWithMap((v315 + ((HIDWORD(v313) - v313) << 6)), v317[8], v302);
+          v316 = GTTraceFunc_argumentBytesWithMap((v314 + ((HIDWORD(v312) - v312) << 6)), *(v315 + 13), v301);
+          v313 = GTTraceFunc_argumentBytesWithMap((v314 + ((HIDWORD(v312) - v312) << 6)), v316[8], v301);
         }
 
-        v318 = atomic_load((v309 + 4));
-        v319 = v313 + (v318 >> 6);
-        v320 = (HIDWORD(v313) + 1);
-        v313 = (v320 << 32) | v313;
-        if (v320 == v319 - 1)
+        v317 = atomic_load((v308 + 4));
+        v318 = v312 + (v317 >> 6);
+        v319 = (HIDWORD(v312) + 1);
+        v312 = (v319 << 32) | v312;
+        if (v319 == v318 - 1)
         {
-          v313 = (v320 << 32) | v320;
-          v309 = *(v309 + 40);
+          v312 = (v319 << 32) | v319;
+          v308 = *(v308 + 40);
           goto LABEL_274;
         }
       }
 
-      v169 = a2;
-      if (v314)
+      v168 = a2;
+      if (v313)
       {
         newpool[1] = 0;
         newpool[0] = 0;
-        v479 = pool[0];
-        v321 = find_entry(v451, &v479, 8uLL, 0);
-        if (*v321 && (v322 = *(*v321 + 32)) != 0)
+        v478 = pool[0];
+        v320 = find_entry(v450, &v478, 8uLL, 0);
+        if (*v320 && (v321 = *(*v320 + 32)) != 0)
         {
-          v323 = atomic_load((v322 + 56));
-          v324 = (v322 + (~(v323 >> 2) & 8));
+          v322 = atomic_load((v321 + 56));
+          v323 = (v321 + (~(v322 >> 2) & 8));
         }
 
         else
         {
-          v324 = &dword_8;
+          v323 = &dword_8;
         }
 
-        newpool[0] = *v324;
-        newpool[1] = v314;
+        newpool[0] = *v323;
+        newpool[1] = v313;
         DYTraceEncode_MTL4CommandBuffer_setLabel(newpool, *(a2 + 8), *(a2 + 16), 0, 0);
-        v325 = *(a2 + 8);
-        v325[8] = v185 | 4;
-        v326 = *v325;
-        v327 = *(a2 + 24);
-        v328 = objc_autoreleasePoolPush();
-        [*(v327 + 8) appendBytes:v325 length:v326];
-        objc_autoreleasePoolPop(v328);
+        v324 = *(a2 + 8);
+        v324[8] = v184 | 4;
+        v325 = *v324;
+        v326 = *(a2 + 24);
+        v327 = objc_autoreleasePoolPush();
+        [*(v326 + 8) appendBytes:v324 length:v325];
+        objc_autoreleasePoolPop(v327);
       }
 
-      v182 = v451;
+      v181 = v450;
     }
 
-    v173 = secondb;
+    v172 = secondb;
 LABEL_374:
-    ++v181;
-    v179 = *pb;
+    ++v180;
+    v178 = *pb;
   }
 
-  while (*v459 + *pb > v181);
-  v177 = v475;
+  while (*v458 + *pb > v180);
+  v176 = v474;
 LABEL_419:
-  apr_pool_destroy(v177);
+  apr_pool_destroy(v176);
 LABEL_420:
-  v438 = *(v169 + 24);
-  apr_pool_cleanup_kill(*v438, v438, fbstream_cleanup);
-  return fbstream_cleanup(v438);
+  v437 = *(v168 + 24);
+  apr_pool_cleanup_kill(*v437, v437, fbstream_cleanup);
+  return fbstream_cleanup(v437);
 }
 
 void WriteRestores(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
@@ -7483,17 +7473,17 @@ LABEL_20:
   return v8;
 }
 
-uint64_t TranslateGTMTLStructType(void *a1, uint64_t a2, unsigned int a3)
+uint64_t TranslateGTMTLStructType(void *a1, void *a2, unsigned int a3)
 {
   v4 = a1;
   v5 = v4;
   if (v4)
   {
-    v6 = *(a2 + 168);
-    v7 = *(a2 + 176);
-    *(a2 + 168) = v6 + 24;
+    v6 = a2[21];
+    v7 = a2[22];
+    a2[21] = v6 + 24;
     v8 = [v4 members];
-    *(a2 + 176) += 32 * [v8 count];
+    a2[22] += 32 * [v8 count];
 
     v38 = 0u;
     v39 = 0u;
@@ -7539,10 +7529,10 @@ uint64_t TranslateGTMTLStructType(void *a1, uint64_t a2, unsigned int a3)
 
             else
             {
-              v22 = *(v14 + 232);
+              v22 = v14[29];
             }
 
-            *(v14 + 232) += v21;
+            v14[29] += v21;
             if (a3)
             {
               memcpy(v22, v17, v21);
@@ -8886,7 +8876,7 @@ void TranslateGTMTLTextureMipmapLevels(void *a1, uint64_t a2, uint64_t a3)
   v33 = v9;
   GTMTLPixelFormatGetInfoForDevice(v9, &v36);
 
-  v30 = [v5 sampleCount];
+  v30 = objc_msgSend_sampleCount(v5);
   v34 = v5;
   v35 = CanHarvestTextureAsIOSurfaceUsingCPU(v5);
   if (a3)

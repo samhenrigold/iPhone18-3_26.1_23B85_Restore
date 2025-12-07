@@ -19,8 +19,9 @@
 
 - (void)setHidden:(BOOL)hidden
 {
+  hiddenCopy = hidden;
   selfCopy = self;
-  sub_10030F3E0(hidden);
+  sub_10030F3E0(hiddenCopy);
 }
 
 - (double)alpha
@@ -34,13 +35,13 @@
 - (void)setAlpha:(double)alpha
 {
   selfCopy = self;
-  sub_10030F574(alpha);
+  sub_10030F574(selfCopy, alpha);
 }
 
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_10030F670();
+  sub_10030F670(selfCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change
@@ -68,7 +69,7 @@
 - (void)didMoveToSuperview
 {
   selfCopy = self;
-  sub_10030F918();
+  sub_10030F918(selfCopy);
 }
 
 - (void)tintColorDidChange
@@ -145,12 +146,13 @@
   v3 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC5Music17PlayerTimeControl_timeDidChangeHandler);
   if (v3)
   {
-    v5 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC5Music17PlayerTimeControl__tracking);
+    v5 = *&self->scrubbingDidChangeHandler[OBJC_IVAR____TtC5Music17PlayerTimeControl_timeDidChangeHandler];
+    v6 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC5Music17PlayerTimeControl__tracking);
     selfCopy = self;
-    sub_100030444(v3);
-    v3(v5, duration);
+    sub_100030444(v3, v5);
+    v3(v6, duration);
 
-    sub_100020438(v3);
+    sub_100020438(v3, v5);
   }
 }
 

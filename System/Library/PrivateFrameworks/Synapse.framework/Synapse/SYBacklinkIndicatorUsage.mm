@@ -159,31 +159,30 @@ LABEL_13:
 
 void __44__SYBacklinkIndicatorUsage__proxyWithError___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*(*(a1 + 32) + 8) + 40));
-  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Error creating remote object for backlink usage: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*(*(a1 + 32) + 8) + 40);
+  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Error creating remote object for backlink usage: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_identifierFromUserActivity:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Received userActivity with invalid activityType: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Received userActivity with invalid activityType: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_identifierFromUserActivity:(uint64_t)a3 .cold.2(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Failed to create NSUUID from userActivity identifier %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Failed to create NSUUID from userActivity identifier %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)_identifierFromUserActivity:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Failed to retrieve identifier from userInfo: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_0(&dword_225901000, a2, a3, "Failed to retrieve identifier from userInfo: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

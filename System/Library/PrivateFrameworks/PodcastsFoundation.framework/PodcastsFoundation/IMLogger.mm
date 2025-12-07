@@ -5,6 +5,7 @@
 - (BOOL)shouldOverrideCondition:(id)condition file:(id)file;
 - (IMLogger)init;
 - (void)addRuntimeOverride:(id)override;
+- (void)logFile:(const char *)file lineNumber:(int)number format:(id)format;
 - (void)logFunction:(const char *)function format:(id)format;
 - (void)logString:(id)string;
 - (void)removeRuntimeOverride:(id)override;
@@ -32,10 +33,11 @@
 
 uint64_t __24__IMLogger_sharedLogger__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  sharedLogger__sharedLogger = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = sharedLogger__sharedLogger;
+  sharedLogger__sharedLogger = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (IMLogger)init
@@ -171,6 +173,27 @@ LABEL_11:
   return v14;
 }
 
+- (void)logFile:(const char *)file lineNumber:(int)number format:(id)format
+{
+  v5 = *&number;
+  formatCopy = format;
+  file = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s", file];
+  lastPathComponent = [file lastPathComponent];
+
+  if (formatCopy)
+  {
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:formatCopy arguments:&v14];
+    v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@:%d] %@", lastPathComponent, v5, v11];
+    [(IMLogger *)self logString:v12];
+  }
+
+  else
+  {
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[%@:%d] <nil>", lastPathComponent, v5];
+    [(IMLogger *)self logString:v13];
+  }
+}
+
 - (void)logFunction:(const char *)function format:(id)format
 {
   formatCopy = format;
@@ -190,7 +213,7 @@ LABEL_11:
 
 - (void)logString:(id)string
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v5 = stringCopy;
   if (!self->_filter || [stringCopy rangeOfString:?] != 0x7FFFFFFFFFFFFFFFLL)
@@ -211,9 +234,9 @@ LABEL_11:
       v7 = v6;
       v8 = pthread_self();
       *buf = 67109378;
-      v19 = pthread_mach_thread_np(v8);
-      v20 = 2112;
-      v21 = v5;
+      v18 = pthread_mach_thread_np(v8);
+      v19 = 2112;
+      v20 = v5;
       _os_log_impl(&dword_1D8CEC000, v7, OS_LOG_TYPE_DEFAULT, "(%x) %@\n", buf, 0x12u);
     }
 
@@ -232,8 +255,6 @@ LABEL_10:
       [(NSFileHandle *)fileHandle writeData:v16];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addRuntimeOverride:(id)override
@@ -297,35 +318,35 @@ LABEL_10:
 
 + (void)deleteRolledLogsForLogPath:(id)path maxAge:(double)age
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v6 = objc_alloc_init(MEMORY[0x1E696AC08]);
   lastPathComponent = [pathCopy lastPathComponent];
-  v26 = pathCopy;
+  v25 = pathCopy;
   stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
   v9 = [v6 contentsOfDirectoryAtPath:stringByDeletingLastPathComponent error:0];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v30;
-    v27 = v9;
-    v28 = *MEMORY[0x1E696A350];
+    v12 = *v29;
+    v26 = v9;
+    v27 = *MEMORY[0x1E696A350];
     do
     {
       v13 = 0;
       do
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * v13);
+        v14 = *(*(&v28 + 1) + 8 * v13);
         v15 = +[IMLogger rolledLogPrefix];
         if ([v14 hasPrefix:v15])
         {
@@ -338,7 +359,7 @@ LABEL_10:
 
           v15 = [stringByDeletingLastPathComponent stringByAppendingPathComponent:v14];
           v17 = [v6 attributesOfItemAtPath:v15 error:0];
-          v18 = [v17 objectForKey:v28];
+          v18 = [v17 objectForKey:v27];
           v19 = v18;
           if (v17)
           {
@@ -354,7 +375,7 @@ LABEL_10:
               v6 = v23;
               lastPathComponent = v22;
               stringByDeletingLastPathComponent = v21;
-              v9 = v27;
+              v9 = v26;
               [v6 removeItemAtPath:v15 error:0];
             }
           }
@@ -365,13 +386,11 @@ LABEL_13:
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v11);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

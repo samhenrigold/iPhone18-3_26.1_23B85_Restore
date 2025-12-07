@@ -1028,20 +1028,20 @@ id __70__TVViewLayout_LayoutStyleAdditions__tv_layoutPropertyGetterForStyle___bl
   return v4;
 }
 
-id __70__TVViewLayout_LayoutStyleAdditions__tv_layoutPropertyGetterForStyle___block_invoke_43(uint64_t a1)
+id __70__TVViewLayout_LayoutStyleAdditions__tv_layoutPropertyGetterForStyle___block_invoke_43(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = [*(a1 + 32) textHighlightStyle];
+    v3 = [*(a1 + 32) textHighlightStyle];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 id __70__TVViewLayout_LayoutStyleAdditions__tv_layoutPropertyGetterForStyle___block_invoke_44(uint64_t a1, void *a2)
@@ -1305,7 +1305,7 @@ id __70__TVViewLayout_LayoutStyleAdditions__tv_layoutPropertyGetterForStyle___bl
   {
     if (style)
     {
-      [style tv_focusTransform];
+      objc_msgSend_tv_focusTransform(style);
     }
 
     else

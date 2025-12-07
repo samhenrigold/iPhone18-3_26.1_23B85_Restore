@@ -68,7 +68,7 @@
 
 + (id)rankedItemsFromItems:(id)items usingSystemLanguages:(id)languages preferredLanguages:(id)preferredLanguages region:(id)region
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   languagesCopy = languages;
   preferredLanguagesCopy = preferredLanguages;
@@ -83,19 +83,19 @@
     v18 = [itemsCopy valueForKey:@"languageIdentifier"];
     v19 = [v18 componentsJoinedByString:{@", "}];
     *buf = 136316418;
-    v49 = "+[ISLanguageCarousel rankedItemsFromItems:usingSystemLanguages:preferredLanguages:region:]";
-    v50 = 2114;
-    v51 = v13;
-    v52 = 2114;
-    v53 = v14;
-    v54 = 2114;
-    v55 = regionCopy;
-    v56 = 2048;
-    v57 = v17;
+    v48 = "+[ISLanguageCarousel rankedItemsFromItems:usingSystemLanguages:preferredLanguages:region:]";
+    v49 = 2114;
+    v50 = v13;
+    v51 = 2114;
+    v52 = v14;
+    v53 = 2114;
+    v54 = regionCopy;
+    v55 = 2048;
+    v56 = v17;
     languagesCopy = v16;
     preferredLanguagesCopy = v15;
-    v58 = 2114;
-    v59 = v19;
+    v57 = 2114;
+    v58 = v19;
     _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: systemLanguages = [%{public}@], preferredLanguages = [%{public}@], region = %{public}@, items (%lu) = [%{public}@]", buf, 0x3Eu);
   }
 
@@ -107,7 +107,7 @@
     +[ISLanguageCarousel rankedItemsFromItems:usingSystemLanguages:preferredLanguages:region:];
   }
 
-  v38 = languagesCopy;
+  v37 = languagesCopy;
   if ([v21 count])
   {
     v22 = languagesCopy;
@@ -126,11 +126,11 @@
       v22 = v25;
     }
 
-    v41 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:{objc_msgSend(v21, "count")}];
+    v40 = [MEMORY[0x1E695DFA0] orderedSetWithCapacity:{objc_msgSend(v21, "count")}];
     if ([v21 count])
     {
-      v39 = v22;
-      v40 = v21;
+      v38 = v22;
+      v39 = v21;
       while (1)
       {
         v26 = [MEMORY[0x1E696AAE8] preferredLocalizationsFromArray:v21 forPreferences:v22];
@@ -145,48 +145,48 @@
         }
 
         [v21 removeObjectsInArray:v26];
-        v45 = 0u;
-        v46 = 0u;
-        v43 = 0u;
         v44 = 0u;
+        v45 = 0u;
+        v42 = 0u;
+        v43 = 0u;
         v27 = v26;
-        v28 = [v27 countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v28 = [v27 countByEnumeratingWithState:&v42 objects:v46 count:16];
         if (v28)
         {
           v29 = v28;
-          v30 = *v44;
+          v30 = *v43;
           do
           {
             for (i = 0; i != v29; ++i)
             {
-              if (*v44 != v30)
+              if (*v43 != v30)
               {
                 objc_enumerationMutation(v27);
               }
 
-              v32 = *(*(&v43 + 1) + 8 * i);
-              v42[0] = MEMORY[0x1E69E9820];
-              v42[1] = 3221225472;
-              v42[2] = __90__ISLanguageCarousel_rankedItemsFromItems_usingSystemLanguages_preferredLanguages_region___block_invoke;
-              v42[3] = &unk_1E7D072E0;
-              v42[4] = v32;
-              v33 = [itemsCopy indexOfObjectPassingTest:v42];
+              v32 = *(*(&v42 + 1) + 8 * i);
+              v41[0] = MEMORY[0x1E69E9820];
+              v41[1] = 3221225472;
+              v41[2] = __90__ISLanguageCarousel_rankedItemsFromItems_usingSystemLanguages_preferredLanguages_region___block_invoke;
+              v41[3] = &unk_1E7D072E0;
+              v41[4] = v32;
+              v33 = [itemsCopy indexOfObjectPassingTest:v41];
               if (v33 != 0x7FFFFFFFFFFFFFFFLL)
               {
                 v34 = [itemsCopy objectAtIndexedSubscript:v33];
-                [v41 addObject:v34];
+                [v40 addObject:v34];
               }
             }
 
-            v29 = [v27 countByEnumeratingWithState:&v43 objects:v47 count:16];
+            v29 = [v27 countByEnumeratingWithState:&v42 objects:v46 count:16];
           }
 
           while (v29);
         }
 
-        v21 = v40;
-        v22 = v39;
-        if (![v40 count])
+        v21 = v39;
+        v22 = v38;
+        if (![v39 count])
         {
           goto LABEL_26;
         }
@@ -194,15 +194,13 @@
     }
 
 LABEL_26:
-    array = [v41 array];
+    array = [v40 array];
   }
 
   else
   {
     array = MEMORY[0x1E695E0F0];
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -270,30 +268,30 @@ LABEL_8:
 
 - (id)_itemsWithMergedDuplicates:(id)duplicates
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   duplicatesCopy = duplicates;
   v5 = objc_opt_new();
-  v28 = objc_opt_new();
+  v27 = objc_opt_new();
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = duplicatesCopy;
-  v31 = [obj countByEnumeratingWithState:&v39 objects:v52 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
+  if (v30)
   {
-    v30 = *v40;
-    v29 = v5;
+    v29 = *v39;
+    v28 = v5;
     do
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v40 != v30)
+        if (*v39 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v39 + 1) + 8 * i);
+        v7 = *(*(&v38 + 1) + 8 * i);
         v8 = MEMORY[0x1E695DF58];
         languageIdentifier = [v7 languageIdentifier];
         v10 = [v8 baseLanguageFromLanguage:languageIdentifier];
@@ -302,30 +300,30 @@ LABEL_8:
 
         if (v11)
         {
-          v32 = v10;
-          v33 = i;
+          v31 = v10;
+          v32 = i;
           v12 = [v5 objectForKeyedSubscript:v10];
+          v34 = 0u;
           v35 = 0u;
           v36 = 0u;
           v37 = 0u;
-          v38 = 0u;
           v13 = v12;
-          v14 = [v13 countByEnumeratingWithState:&v35 objects:v51 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v34 objects:v50 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v36;
-            v34 = v13;
+            v16 = *v35;
+            v33 = v13;
             while (2)
             {
               for (j = 0; j != v15; ++j)
               {
-                if (*v36 != v16)
+                if (*v35 != v16)
                 {
-                  objc_enumerationMutation(v34);
+                  objc_enumerationMutation(v33);
                 }
 
-                v18 = *(*(&v35 + 1) + 8 * j);
+                v18 = *(*(&v34 + 1) + 8 * j);
                 data = [v18 data];
                 if (!data)
                 {
@@ -333,25 +331,25 @@ LABEL_8:
                   if (!data2)
                   {
 LABEL_21:
-                    v10 = v32;
-                    v13 = v34;
+                    v10 = v31;
+                    v13 = v33;
                     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
                     {
                       languageIdentifier2 = [v18 languageIdentifier];
                       languageIdentifier3 = [v7 languageIdentifier];
                       *buf = 136315906;
-                      v44 = "[ISLanguageCarousel _itemsWithMergedDuplicates:]";
-                      v45 = 2114;
-                      v46 = languageIdentifier2;
-                      v47 = 2114;
-                      v48 = languageIdentifier3;
-                      v49 = 2114;
-                      v50 = v32;
+                      v43 = "[ISLanguageCarousel _itemsWithMergedDuplicates:]";
+                      v44 = 2114;
+                      v45 = languageIdentifier2;
+                      v46 = 2114;
+                      v47 = languageIdentifier3;
+                      v48 = 2114;
+                      v49 = v31;
                       _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: merging items (%{public}@, %{public}@) with baseLanguage %{public}@", buf, 0x2Au);
                     }
 
-                    v5 = v29;
-                    i = v33;
+                    v5 = v28;
+                    i = v32;
                     goto LABEL_25;
                   }
                 }
@@ -379,8 +377,8 @@ LABEL_21:
                 }
               }
 
-              v13 = v34;
-              v15 = [v34 countByEnumeratingWithState:&v35 objects:v51 count:16];
+              v13 = v33;
+              v15 = [v33 countByEnumeratingWithState:&v34 objects:v50 count:16];
               if (v15)
               {
                 continue;
@@ -390,16 +388,16 @@ LABEL_21:
             }
           }
 
-          [v28 addObject:v7];
+          [v27 addObject:v7];
           [v13 addObject:v7];
-          v5 = v29;
-          v10 = v32;
-          i = v33;
+          v5 = v28;
+          v10 = v31;
+          i = v32;
         }
 
         else
         {
-          [v28 addObject:v7];
+          [v27 addObject:v7];
           v13 = [objc_alloc(MEMORY[0x1E695DF70]) initWithObjects:{v7, 0}];
           [v5 setObject:v13 forKeyedSubscript:v10];
         }
@@ -407,78 +405,76 @@ LABEL_21:
 LABEL_25:
       }
 
-      v31 = [obj countByEnumeratingWithState:&v39 objects:v52 count:16];
+      v30 = [obj countByEnumeratingWithState:&v38 objects:v51 count:16];
     }
 
-    while (v31);
+    while (v30);
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-
-  return v28;
+  return v27;
 }
 
 - (void)reloadQueue
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   items = [(ISLanguageCarousel *)self items];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
-    v28 = 136315394;
-    v29 = "[ISLanguageCarousel reloadQueue]";
-    v30 = 1024;
-    LODWORD(v31) = [(ISLanguageCarousel *)self cycle];
-    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: cycle = %d", &v28, 0x12u);
+    v27 = 136315394;
+    v28 = "[ISLanguageCarousel reloadQueue]";
+    v29 = 1024;
+    LODWORD(v30) = [(ISLanguageCarousel *)self cycle];
+    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: cycle = %d", &v27, 0x12u);
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     mergeDuplicates = [(ISLanguageCarousel *)self mergeDuplicates];
-    v28 = 136315394;
-    v29 = "[ISLanguageCarousel reloadQueue]";
-    v30 = 1024;
-    LODWORD(v31) = mergeDuplicates;
-    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: mergedDuplicates = %d", &v28, 0x12u);
+    v27 = 136315394;
+    v28 = "[ISLanguageCarousel reloadQueue]";
+    v29 = 1024;
+    LODWORD(v30) = mergeDuplicates;
+    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: mergedDuplicates = %d", &v27, 0x12u);
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     randomize = [(ISLanguageCarousel *)self randomize];
-    v28 = 136315394;
-    v29 = "[ISLanguageCarousel reloadQueue]";
-    v30 = 1024;
-    LODWORD(v31) = randomize;
-    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: randomize = %d", &v28, 0x12u);
+    v27 = 136315394;
+    v28 = "[ISLanguageCarousel reloadQueue]";
+    v29 = 1024;
+    LODWORD(v30) = randomize;
+    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: randomize = %d", &v27, 0x12u);
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     rankingUsesGuessedRegion = [(ISLanguageCarousel *)self rankingUsesGuessedRegion];
-    v28 = 136315394;
-    v29 = "[ISLanguageCarousel reloadQueue]";
-    v30 = 1024;
-    LODWORD(v31) = rankingUsesGuessedRegion;
-    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: rankingUsesGuessedRegion = %d", &v28, 0x12u);
+    v27 = 136315394;
+    v28 = "[ISLanguageCarousel reloadQueue]";
+    v29 = 1024;
+    LODWORD(v30) = rankingUsesGuessedRegion;
+    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: rankingUsesGuessedRegion = %d", &v27, 0x12u);
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     rankingUsesPreferredLanguages = [(ISLanguageCarousel *)self rankingUsesPreferredLanguages];
-    v28 = 136315394;
-    v29 = "[ISLanguageCarousel reloadQueue]";
-    v30 = 1024;
-    LODWORD(v31) = rankingUsesPreferredLanguages;
-    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: rankingUsesPreferredLanguages = %d", &v28, 0x12u);
+    v27 = 136315394;
+    v28 = "[ISLanguageCarousel reloadQueue]";
+    v29 = 1024;
+    LODWORD(v30) = rankingUsesPreferredLanguages;
+    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: rankingUsesPreferredLanguages = %d", &v27, 0x12u);
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     weightedRepetition = [(ISLanguageCarousel *)self weightedRepetition];
-    v28 = 136315394;
-    v29 = "[ISLanguageCarousel reloadQueue]";
-    v30 = 1024;
-    LODWORD(v31) = weightedRepetition;
-    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: weightedRepetition = %d", &v28, 0x12u);
+    v27 = 136315394;
+    v28 = "[ISLanguageCarousel reloadQueue]";
+    v29 = 1024;
+    LODWORD(v30) = weightedRepetition;
+    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: weightedRepetition = %d", &v27, 0x12u);
   }
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
@@ -486,13 +482,13 @@ LABEL_25:
     v9 = [items count];
     v10 = [items valueForKey:@"languageIdentifier"];
     v11 = [v10 componentsJoinedByString:{@", "}];
-    v28 = 136315650;
-    v29 = "[ISLanguageCarousel reloadQueue]";
-    v30 = 2048;
-    v31 = v9;
-    v32 = 2114;
-    v33 = v11;
-    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: items (%lu) = [%{public}@]", &v28, 0x20u);
+    v27 = 136315650;
+    v28 = "[ISLanguageCarousel reloadQueue]";
+    v29 = 2048;
+    v30 = v9;
+    v31 = 2114;
+    v32 = v11;
+    _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: items (%lu) = [%{public}@]", &v27, 0x20u);
   }
 
   if ([items count])
@@ -506,13 +502,13 @@ LABEL_25:
         v13 = [v12 count];
         v14 = [v12 valueForKey:@"languageIdentifier"];
         v15 = [v14 componentsJoinedByString:{@", "}];
-        v28 = 136315650;
-        v29 = "[ISLanguageCarousel reloadQueue]";
-        v30 = 2048;
-        v31 = v13;
-        v32 = 2114;
-        v33 = v15;
-        _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: itemsWithMergedDuplicates (%lu) = [%{public}@]", &v28, 0x20u);
+        v27 = 136315650;
+        v28 = "[ISLanguageCarousel reloadQueue]";
+        v29 = 2048;
+        v30 = v13;
+        v31 = 2114;
+        v32 = v15;
+        _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: itemsWithMergedDuplicates (%lu) = [%{public}@]", &v27, 0x20u);
       }
 
       items = v12;
@@ -539,13 +535,13 @@ LABEL_25:
         v24 = [v16 count];
         v25 = [v16 valueForKey:@"languageIdentifier"];
         v26 = [v25 componentsJoinedByString:{@", "}];
-        v28 = 136315650;
-        v29 = "[ISLanguageCarousel reloadQueue]";
-        v30 = 2048;
-        v31 = v24;
-        v32 = 2114;
-        v33 = v26;
-        _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: randomizedItems (%lu) = [%{public}@]", &v28, 0x20u);
+        v27 = 136315650;
+        v28 = "[ISLanguageCarousel reloadQueue]";
+        v29 = 2048;
+        v30 = v24;
+        v31 = 2114;
+        v32 = v26;
+        _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: randomizedItems (%lu) = [%{public}@]", &v27, 0x20u);
       }
 
       [(ISLanguageCarousel *)self setQueue:v16];
@@ -559,13 +555,13 @@ LABEL_25:
         v21 = [v16 count];
         v22 = [v16 valueForKey:@"languageIdentifier"];
         v23 = [v22 componentsJoinedByString:{@", "}];
-        v28 = 136315650;
-        v29 = "[ISLanguageCarousel reloadQueue]";
-        v30 = 2048;
-        v31 = v21;
-        v32 = 2114;
-        v33 = v23;
-        _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: rankedItems (%lu) = [%{public}@]", &v28, 0x20u);
+        v27 = 136315650;
+        v28 = "[ISLanguageCarousel reloadQueue]";
+        v29 = 2048;
+        v30 = v21;
+        v31 = 2114;
+        v32 = v23;
+        _os_log_impl(&dword_1B869D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%s: rankedItems (%lu) = [%{public}@]", &v27, 0x20u);
       }
 
       [(ISLanguageCarousel *)self setQueue:v16];
@@ -576,8 +572,6 @@ LABEL_25:
   {
     [(ISLanguageCarousel *)self setQueue:items];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setItems:(id)items

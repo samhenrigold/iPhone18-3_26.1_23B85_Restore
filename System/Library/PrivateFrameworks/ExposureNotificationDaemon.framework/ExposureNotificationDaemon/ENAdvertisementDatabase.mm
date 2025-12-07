@@ -17,14 +17,15 @@
 - (NSNumber)storedAdvertisementCount;
 - (id)advertisementsBufferMatchingDailyKeys:(id)keys attenuationThreshold:(unsigned __int8)threshold timestampTolerance:(double)tolerance;
 - (id)beaconCountMetricsWithStartDate:(id)date endDate:(id)endDate windowDuration:(double)duration;
+- (id)createQuerySessionWithAttenuationThreshold:(unsigned __int8)threshold queue:(id)queue error:(id *)error;
 - (id)currentStore;
 - (id)matchingAdvertisementBufferForRPIBuffer:(id)buffer exposureKeys:(id)keys;
-- (uint64_t)displayStorageFullAlert;
-- (uint64_t)flushCache;
+- (id)queryFilterWithBufferSize:(unint64_t)size hashCount:(unint64_t)count attenuationThreshold:(unsigned __int8)threshold;
 - (unsigned)cacheRecordCount;
 - (void)closeAllStores;
 - (void)dealloc;
 - (void)displayStorageFullAlert;
+- (void)reportErrorMetric:(unsigned int)metric;
 - (void)reportStoreError:(id)error;
 @end
 
@@ -85,6 +86,15 @@ LABEL_12:
   v3.receiver = self;
   v3.super_class = ENAdvertisementDatabase;
   [(ENAdvertisementDatabase *)&v3 dealloc];
+}
+
+- (void)reportErrorMetric:(unsigned int)metric
+{
+  errorMetricReporter = self->_errorMetricReporter;
+  if (errorMetricReporter)
+  {
+    errorMetricReporter[2](errorMetricReporter, *&metric);
+  }
 }
 
 - (void)reportStoreError:(id)error
@@ -203,34 +213,34 @@ LABEL_12:
 
 - (BOOL)mergeStores:(id)stores
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   storesCopy = stores;
-  v5 = [storesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [storesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v19;
+    v8 = *v18;
     v9 = 1;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
         v11 = v7;
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(storesCopy);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         centralStore = self->_centralStore;
-        v17 = v7;
-        v14 = [(ENAdvertisementSQLiteStore *)centralStore importContentsOfStore:v12 error:&v17];
-        v7 = v17;
+        v16 = v7;
+        v14 = [(ENAdvertisementSQLiteStore *)centralStore importContentsOfStore:v12 error:&v16];
+        v7 = v16;
 
         if (v14)
         {
@@ -257,7 +267,7 @@ LABEL_12:
         }
       }
 
-      v6 = [storesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [storesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v6)
       {
         continue;
@@ -274,7 +284,6 @@ LABEL_16:
     LOBYTE(v9) = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -304,24 +313,22 @@ LABEL_16:
 
 void __47__ENAdvertisementDatabase_mergeTemporaryStores__block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
-  v7[0] = v3;
-  v5 = [MEMORY[0x277CBEA68] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v5 = [MEMORY[0x277CBEA68] arrayWithObjects:v6 count:1];
   LOBYTE(v4) = [v4 mergeStores:v5];
 
   if ((v4 & 1) == 0)
   {
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)mergeStoresFromFolderPath:(id)path
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if ([ENAdvertisementSQLiteStore storesPresentInFolderPath:pathCopy])
   {
@@ -330,16 +337,16 @@ void __47__ENAdvertisementDatabase_mergeTemporaryStores__block_invoke(uint64_t a
       [(ENAdvertisementDatabase *)pathCopy mergeStoresFromFolderPath:?];
     }
 
-    v16 = 0;
-    v17 = &v16;
-    v18 = 0x2020000000;
-    v19 = 1;
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x2020000000;
+    v18 = 1;
     v6 = [ENAdvertisementSQLiteStore centralStoreInFolderPath:pathCopy error:0];
     v7 = v6;
     if (v6)
     {
-      v20[0] = v6;
-      v8 = [MEMORY[0x277CBEA68] arrayWithObjects:v20 count:1];
+      v19[0] = v6;
+      v8 = [MEMORY[0x277CBEA68] arrayWithObjects:v19 count:1];
       v9 = [(ENAdvertisementDatabase *)self mergeStores:v8];
 
       if (!v9)
@@ -347,25 +354,24 @@ void __47__ENAdvertisementDatabase_mergeTemporaryStores__block_invoke(uint64_t a
         if (gLogCategory__ENAdvertisementDatabase <= 90 && (gLogCategory__ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
         {
           v10 = pathCopy;
-          [pathCopy UTF8String];
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory__ENAdvertisementDatabase, "-[ENAdvertisementDatabase mergeStoresFromFolderPath:]", 90, "failed to merge central store folderPath:%s", [pathCopy UTF8String]);
         }
 
-        *(v17 + 24) = 0;
+        *(v16 + 24) = 0;
       }
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __53__ENAdvertisementDatabase_mergeStoresFromFolderPath___block_invoke;
-    v13[3] = &unk_278FD31E0;
-    v13[4] = self;
-    v14 = pathCopy;
-    v15 = &v16;
-    [ENAdvertisementSQLiteStore enumerateTemporaryStoresInFolderPath:v14 handler:v13];
-    v5 = *(v17 + 24);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __53__ENAdvertisementDatabase_mergeStoresFromFolderPath___block_invoke;
+    v12[3] = &unk_278FD31E0;
+    v12[4] = self;
+    v13 = pathCopy;
+    v14 = &v15;
+    [ENAdvertisementSQLiteStore enumerateTemporaryStoresInFolderPath:v13 handler:v12];
+    v5 = *(v16 + 24);
 
-    _Block_object_dispose(&v16, 8);
+    _Block_object_dispose(&v15, 8);
   }
 
   else
@@ -373,17 +379,16 @@ void __47__ENAdvertisementDatabase_mergeTemporaryStores__block_invoke(uint64_t a
     v5 = 1;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5 & 1;
 }
 
 void __53__ENAdvertisementDatabase_mergeStoresFromFolderPath___block_invoke(uint64_t a1, void *a2)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
-  v7[0] = v3;
-  v5 = [MEMORY[0x277CBEA68] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v5 = [MEMORY[0x277CBEA68] arrayWithObjects:v6 count:1];
   LOBYTE(v4) = [v4 mergeStores:v5];
 
   if ((v4 & 1) == 0)
@@ -395,8 +400,6 @@ void __53__ENAdvertisementDatabase_mergeStoresFromFolderPath___block_invoke(uint
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)closeAllStores
@@ -435,7 +438,7 @@ LABEL_5:
 
 - (void)displayStorageFullAlert
 {
-  v23[5] = *MEMORY[0x277D85DE8];
+  v20[5] = *MEMORY[0x277D85DE8];
   if (alertActive == 1)
   {
     if (gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
@@ -443,7 +446,7 @@ LABEL_5:
       [(ENAdvertisementDatabase *)self displayStorageFullAlert];
     }
 
-    goto LABEL_24;
+    return;
   }
 
   v3 = clock_gettime_nsec_np(_CLOCK_MONOTONIC);
@@ -451,7 +454,7 @@ LABEL_5:
   previousStoreFullAlertTimestamp = self->_previousStoreFullAlertTimestamp;
   if (previousStoreFullAlertTimestamp && v3 <= (previousStoreFullAlertTimestamp + self->_storageFullAlertInterval * 1000000000.0))
   {
-    goto LABEL_24;
+    return;
   }
 
   if (gLogCategory_ENAdvertisementDatabase <= 50)
@@ -463,11 +466,10 @@ LABEL_5:
         goto LABEL_12;
       }
 
-      v20 = self->_previousStoreFullAlertTimestamp;
+      previousStoreFullAlertTimestamp = self->_previousStoreFullAlertTimestamp;
     }
 
-    storageFullAlertInterval = self->_storageFullAlertInterval;
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase displayStorageFullAlert]", 50, "displaying storage full alert alertTime:%llu previousAlert:%llu alertInterval:%u", v4, previousStoreFullAlertTimestamp, self->_storageFullAlertInterval);
   }
 
 LABEL_12:
@@ -476,18 +478,18 @@ LABEL_12:
   v8 = ENLocalizedString();
   v9 = ENLocalizedString();
   v10 = *MEMORY[0x277CBF1A0];
-  v22[0] = *MEMORY[0x277CBF190];
-  v22[1] = v10;
-  v23[0] = v6;
-  v23[1] = v7;
+  v19[0] = *MEMORY[0x277CBF190];
+  v19[1] = v10;
+  v20[0] = v6;
+  v20[1] = v7;
   v11 = *MEMORY[0x277CBF1C8];
-  v22[2] = *MEMORY[0x277CBF1E0];
-  v22[3] = v11;
-  v23[2] = v8;
-  v23[3] = v9;
-  v22[4] = *MEMORY[0x277D672A0];
-  v23[4] = MEMORY[0x277CBEC30];
-  v12 = [MEMORY[0x277CBEAC8] dictionaryWithObjects:v23 forKeys:v22 count:5];
+  v19[2] = *MEMORY[0x277CBF1E0];
+  v19[3] = v11;
+  v20[2] = v8;
+  v20[3] = v9;
+  v19[4] = *MEMORY[0x277D672A0];
+  v20[4] = MEMORY[0x277CBEC30];
+  v12 = [MEMORY[0x277CBEAC8] dictionaryWithObjects:v20 forKeys:v19 count:5];
   v13 = *MEMORY[0x277CBECE0];
   v14 = CFUserNotificationCreate(*MEMORY[0x277CBECE0], 0.0, 0, 0, v12);
   if (v14)
@@ -516,14 +518,10 @@ LABEL_12:
   {
     [ENAdvertisementDatabase displayStorageFullAlert];
   }
-
-LABEL_24:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)saveContactTracingAdvertisement:(id)advertisement
 {
-  v15 = *MEMORY[0x277D85DE8];
   advertisementCopy = advertisement;
   v5 = advertisementCopy;
   advertisementInsertionCache = self->_advertisementInsertionCache;
@@ -532,22 +530,21 @@ LABEL_24:
   v8 = advertisementInsertionCache + 40 * advertisementInsertionIndex;
   if (advertisementCopy)
   {
-    [advertisementCopy structRepresentation];
+    objc_msgSend_structRepresentation(advertisementCopy);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
+    v11 = 0u;
     v12 = 0u;
-    v13 = 0u;
   }
 
-  *(v8 + 4) = v14;
-  *v8 = v12;
-  *(v8 + 1) = v13;
+  *(v8 + 4) = v13;
+  *v8 = v11;
+  *(v8 + 1) = v12;
   v9 = self->_advertisementInsertionIndex != self->_advertisementInsertionCacheCount || [(ENAdvertisementDatabase *)self flushCache];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -568,9 +565,12 @@ LABEL_24:
 
   if (!currentStore)
   {
-    if (gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_ENAdvertisementDatabase <= 50)
     {
-      [ENAdvertisementDatabase flushCache];
+      if (gLogCategory_ENAdvertisementDatabase != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        [(ENAdvertisementDatabase *)v4 flushCache];
+      }
     }
 
     [(ENAdvertisementDatabase *)self openStoreAndReturnError:0];
@@ -579,18 +579,16 @@ LABEL_24:
   cacheRecordCount = [(ENAdvertisementDatabase *)self cacheRecordCount];
   if (gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
   {
-    currentStoreType = self->_currentStoreType;
-    v14 = cacheRecordCount;
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase flushCache]", 50, "flushing database to disk type:%lu recordCount:%u", self->_currentStoreType, cacheRecordCount);
   }
 
-  v5 = [(ENAdvertisementDatabase *)self currentStore:currentStoreType];
+  currentStore2 = [(ENAdvertisementDatabase *)self currentStore];
   advertisementInsertionCache = self->_advertisementInsertionCache;
-  v15 = 0;
-  v7 = [v5 saveContactTracingAdvertisementBuffer:advertisementInsertionCache count:cacheRecordCount error:&v15];
-  v8 = v15;
+  v16 = 0;
+  v10 = [currentStore2 saveContactTracingAdvertisementBuffer:advertisementInsertionCache count:cacheRecordCount error:&v16];
+  v11 = v16;
 
-  if (v7)
+  if (v10)
   {
     if (gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
     {
@@ -609,10 +607,10 @@ LABEL_30:
     [(ENAdvertisementDatabase *)self flushCache];
   }
 
-  [(ENAdvertisementDatabase *)self reportStoreError:v8];
-  if ([v8 code] != 4)
+  [(ENAdvertisementDatabase *)self reportStoreError:v11];
+  if ([v11 code] != 4)
   {
-    if ([v8 code] != 3)
+    if ([v11 code] != 3)
     {
       goto LABEL_22;
     }
@@ -625,7 +623,7 @@ LABEL_22:
   p_advertisementInsertionIndex = &self->_advertisementInsertionIndex;
   if (self->_advertisementInsertionIndex == self->_advertisementInsertionCacheCount)
   {
-    if ([v8 code] == 2 || (+[ENLoggingPrefs sharedENLoggingPrefs](ENLoggingPrefs, "sharedENLoggingPrefs"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v10, "isSensitiveLoggingAllowed"), v10, v11))
+    if ([v11 code] == 2 || (+[ENLoggingPrefs sharedENLoggingPrefs](ENLoggingPrefs, "sharedENLoggingPrefs"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "isSensitiveLoggingAllowed"), v13, v14))
     {
       [(ENAdvertisementDatabase *)self displayStorageFullAlert];
     }
@@ -641,7 +639,7 @@ LABEL_22:
 
 LABEL_31:
 
-  return v7;
+  return v10;
 }
 
 - (NSNumber)storedAdvertisementCount
@@ -677,6 +675,40 @@ LABEL_8:
   return v4;
 }
 
+- (id)queryFilterWithBufferSize:(unint64_t)size hashCount:(unint64_t)count attenuationThreshold:(unsigned __int8)threshold
+{
+  thresholdCopy = threshold;
+  v9 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed = [v9 isSensitiveLoggingAllowed];
+
+  if (isSensitiveLoggingAllowed && gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase queryFilterWithBufferSize:hashCount:attenuationThreshold:]", 50, "creating contact tracing query filter bufferSize:%lu hashCount:%lu", size, count);
+  }
+
+  if (self->_currentStoreType == 1)
+  {
+    if (![(ENAdvertisementDatabase *)self cacheRecordCount]|| (v11 = [(ENAdvertisementDatabase *)self flushCache], (v11 & 1) != 0))
+    {
+      v14 = [(ENAdvertisementSQLiteStore *)self->_centralStore queryFilterWithBufferSize:size hashCount:count attenuationThreshold:thresholdCopy];
+      goto LABEL_14;
+    }
+
+    if (gLogCategory__ENAdvertisementDatabase <= 90)
+    {
+      if (gLogCategory__ENAdvertisementDatabase != -1 || (v11 = _LogCategory_Initialize(), v11))
+      {
+        [ENAdvertisementDatabase queryFilterWithBufferSize:v11 hashCount:v12 attenuationThreshold:v13];
+      }
+    }
+  }
+
+  v14 = 0;
+LABEL_14:
+
+  return v14;
+}
+
 - (id)beaconCountMetricsWithStartDate:(id)date endDate:(id)endDate windowDuration:(double)duration
 {
   dateCopy = date;
@@ -686,30 +718,30 @@ LABEL_8:
 
   if (isSensitiveLoggingAllowed && gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
   {
-    durationCopy = duration;
-    v14 = dateCopy;
-    v15 = endDateCopy;
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase beaconCountMetricsWithStartDate:endDate:windowDuration:]", 50, "creating beacon count metrics startDate:%@ endDate:%@ windowDuration:%0.2f", dateCopy, endDateCopy, *&duration);
   }
 
   if (self->_currentStoreType == 1)
   {
-    if (![(ENAdvertisementDatabase *)self cacheRecordCount]|| [(ENAdvertisementDatabase *)self flushCache])
+    if (![(ENAdvertisementDatabase *)self cacheRecordCount]|| (v12 = [(ENAdvertisementDatabase *)self flushCache], (v12 & 1) != 0))
     {
-      v12 = [(ENAdvertisementSQLiteStore *)self->_centralStore beaconCountMetricsWithStartDate:dateCopy endDate:endDateCopy windowDuration:duration, v14, v15, *&durationCopy];
+      v15 = [(ENAdvertisementSQLiteStore *)self->_centralStore beaconCountMetricsWithStartDate:dateCopy endDate:endDateCopy windowDuration:duration];
       goto LABEL_14;
     }
 
-    if (gLogCategory__ENAdvertisementDatabase <= 90 && (gLogCategory__ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
+    if (gLogCategory__ENAdvertisementDatabase <= 90)
     {
-      [ENAdvertisementDatabase beaconCountMetricsWithStartDate:endDate:windowDuration:];
+      if (gLogCategory__ENAdvertisementDatabase != -1 || (v12 = _LogCategory_Initialize(), v12))
+      {
+        [ENAdvertisementDatabase beaconCountMetricsWithStartDate:v12 endDate:v13 windowDuration:v14];
+      }
     }
   }
 
-  v12 = 0;
+  v15 = 0;
 LABEL_14:
 
-  return v12;
+  return v15;
 }
 
 - (id)matchingAdvertisementBufferForRPIBuffer:(id)buffer exposureKeys:(id)keys
@@ -718,111 +750,123 @@ LABEL_14:
   keysCopy = keys;
   if (self->_currentStoreType != 1)
   {
-    if (![(ENAdvertisementDatabase *)self switchToCentralStore])
+    switchToCentralStore = [(ENAdvertisementDatabase *)self switchToCentralStore];
+    if (!switchToCentralStore)
     {
 LABEL_25:
-      v17 = 0;
+      v25 = 0;
       goto LABEL_48;
     }
 
-    if (gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_ENAdvertisementDatabase <= 50)
     {
-      [ENAdvertisementDatabase matchingAdvertisementBufferForRPIBuffer:exposureKeys:];
+      if (gLogCategory_ENAdvertisementDatabase != -1 || (switchToCentralStore = _LogCategory_Initialize(), switchToCentralStore))
+      {
+        [(ENAdvertisementDatabase *)switchToCentralStore matchingAdvertisementBufferForRPIBuffer:v23 exposureKeys:v24];
+      }
     }
   }
 
-  if ([(ENAdvertisementDatabase *)self cacheRecordCount]&& ![(ENAdvertisementDatabase *)self flushCache])
+  if ([(ENAdvertisementDatabase *)self cacheRecordCount])
   {
-    if (gLogCategory__ENAdvertisementDatabase <= 90 && (gLogCategory__ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
+    flushCache = [(ENAdvertisementDatabase *)self flushCache];
+    if ((flushCache & 1) == 0)
     {
-      [ENAdvertisementDatabase matchingAdvertisementBufferForRPIBuffer:exposureKeys:];
+      if (gLogCategory__ENAdvertisementDatabase <= 90)
+      {
+        if (gLogCategory__ENAdvertisementDatabase != -1 || (flushCache = _LogCategory_Initialize(), flushCache))
+        {
+          [(ENAdvertisementDatabase *)flushCache matchingAdvertisementBufferForRPIBuffer:v8 exposureKeys:v9];
+        }
+      }
+
+      goto LABEL_25;
+    }
+  }
+
+  v10 = [bufferCopy length] >> 4;
+  v11 = malloc_type_calloc(v10, 1uLL, 0x100004077774924uLL);
+  if (!v11)
+  {
+    if (gLogCategory__ENAdvertisementDatabase <= 90)
+    {
+      if (gLogCategory__ENAdvertisementDatabase != -1 || (v11 = _LogCategory_Initialize(), v11))
+      {
+        [(ENAdvertisementDatabase *)v11 matchingAdvertisementBufferForRPIBuffer:v12 exposureKeys:v13];
+      }
     }
 
     goto LABEL_25;
   }
 
-  v7 = [bufferCopy length] >> 4;
-  v8 = malloc_type_calloc(v7, 1uLL, 0x100004077774924uLL);
-  if (!v8)
-  {
-    if (gLogCategory__ENAdvertisementDatabase <= 90 && (gLogCategory__ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
-    {
-      [ENAdvertisementDatabase matchingAdvertisementBufferForRPIBuffer:exposureKeys:];
-    }
-
-    goto LABEL_25;
-  }
-
-  v9 = v8;
-  v28 = v7;
-  v29 = bufferCopy;
+  v14 = v11;
+  v34 = v10;
+  v35 = bufferCopy;
   bytes = [bufferCopy bytes];
   if ([keysCopy count])
   {
-    v11 = 0;
-    v12 = 0;
-    LODWORD(v13) = 0;
-    v14 = 0;
+    v16 = 0;
+    v17 = 0;
+    LODWORD(v18) = 0;
+    v19 = 0;
     do
     {
-      v15 = 144;
-      v31 = v11;
-      v16 = v12;
+      v20 = 144;
+      v37 = v16;
+      v21 = v17;
       do
       {
-        if (![(ENQueryFilter *)self->_inlineQueryFilter shouldIgnoreRPI:bytes + v16])
+        if (![(ENQueryFilter *)self->_inlineQueryFilter shouldIgnoreRPI:bytes + v21])
         {
-          v9[v11] = 1;
-          ++v14;
+          v14[v16] = 1;
+          ++v19;
         }
 
-        v16 += 16;
-        ++v11;
-        --v15;
+        v21 += 16;
+        ++v16;
+        --v20;
       }
 
-      while (v15);
-      v13 = (v13 + 1);
-      v12 += 2304;
-      v11 = v31 + 144;
+      while (v20);
+      v18 = (v18 + 1);
+      v17 += 2304;
+      v16 = v37 + 144;
     }
 
-    while ([keysCopy count] > v13);
+    while ([keysCopy count] > v18);
   }
 
   else
   {
-    v14 = 0;
+    v19 = 0;
   }
 
-  v18 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  isSensitiveLoggingAllowed = [v18 isSensitiveLoggingAllowed];
+  v26 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed = [v26 isSensitiveLoggingAllowed];
 
   if ((isSensitiveLoggingAllowed & 1) != 0 && gLogCategory_ENAdvertisementDatabase <= 40 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
   {
-    v26 = v14;
-    v27 = v28 - v14;
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase matchingAdvertisementBufferForRPIBuffer:exposureKeys:]", 40, "querying sqlite for advertisements count:%lu filteredCount:%llu", v19, v34 - v19);
   }
 
-  v32 = 0;
-  v33 = 0;
-  v20 = [(ENAdvertisementSQLiteStore *)self->_centralStore getAdvertisementsMatchingRPIBuffer:bytes count:v28 validityBuffer:v9 validRPICount:v14 matchingAdvertisementBuffer:&v33 error:&v32, v26, v27];
-  v21 = v32;
-  free(v9);
-  v22 = v33;
-  v23 = +[ENLoggingPrefs sharedENLoggingPrefs];
-  isSensitiveLoggingAllowed2 = [v23 isSensitiveLoggingAllowed];
+  v38 = 0;
+  v39 = 0;
+  v28 = [(ENAdvertisementSQLiteStore *)self->_centralStore getAdvertisementsMatchingRPIBuffer:bytes count:v34 validityBuffer:v14 validRPICount:v19 matchingAdvertisementBuffer:&v39 error:&v38];
+  v29 = v38;
+  free(v14);
+  v30 = v39;
+  v31 = +[ENLoggingPrefs sharedENLoggingPrefs];
+  isSensitiveLoggingAllowed2 = [v31 isSensitiveLoggingAllowed];
 
-  if (v22)
+  if (v30)
   {
     if (isSensitiveLoggingAllowed2 && gLogCategory_ENAdvertisementDatabase <= 40 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
     {
-      [ENAdvertisementDatabase matchingAdvertisementBufferForRPIBuffer:exposureKeys:];
+      [ENAdvertisementDatabase matchingAdvertisementBufferForRPIBuffer:v28 exposureKeys:?];
     }
 
-    v17 = [MEMORY[0x277CBEA98] dataWithBytesNoCopy:v33 length:40 * v20];
-    bufferCopy = v29;
+    v25 = [MEMORY[0x277CBEA98] dataWithBytesNoCopy:v39 length:40 * v28];
+    bufferCopy = v35;
     goto LABEL_47;
   }
 
@@ -831,26 +875,26 @@ LABEL_25:
     [ENAdvertisementDatabase matchingAdvertisementBufferForRPIBuffer:exposureKeys:];
   }
 
-  [(ENAdvertisementDatabase *)self reportStoreError:v21];
-  bufferCopy = v29;
-  if ([v21 code] == 4)
+  [(ENAdvertisementDatabase *)self reportStoreError:v29];
+  bufferCopy = v35;
+  if ([v29 code] == 4)
   {
     goto LABEL_45;
   }
 
-  if ([v21 code] == 3)
+  if ([v29 code] == 3)
   {
     [(ENAdvertisementSQLiteStore *)self->_centralStore purgeAndRemoveFromDisk:0];
 LABEL_45:
     [(ENAdvertisementDatabase *)self closeAllStores];
   }
 
-  v17 = 0;
+  v25 = 0;
 LABEL_47:
 
 LABEL_48:
 
-  return v17;
+  return v25;
 }
 
 - (id)advertisementsBufferMatchingDailyKeys:(id)keys attenuationThreshold:(unsigned __int8)threshold timestampTolerance:(double)tolerance
@@ -866,30 +910,30 @@ LABEL_48:
   }
 
   v10 = 2304 * [keysCopy count];
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x2020000000;
-  v64 = malloc_type_malloc(v10, 0x1000040451B5BE8uLL);
-  if (v62[3])
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = malloc_type_malloc(v10, 0x1000040451B5BE8uLL);
+  if (v56[3])
   {
-    v60[0] = MEMORY[0x277D85DD0];
-    v60[1] = 3221225472;
-    v60[2] = __105__ENAdvertisementDatabase_advertisementsBufferMatchingDailyKeys_attenuationThreshold_timestampTolerance___block_invoke;
-    v60[3] = &unk_278FD3208;
-    v60[4] = &v61;
-    [keysCopy enumerateObjectsUsingBlock:v60];
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __105__ENAdvertisementDatabase_advertisementsBufferMatchingDailyKeys_attenuationThreshold_timestampTolerance___block_invoke;
+    v54[3] = &unk_278FD3208;
+    v54[4] = &v55;
+    [keysCopy enumerateObjectsUsingBlock:v54];
     v11 = objc_alloc(MEMORY[0x277CBEA98]);
-    v12 = [v11 initWithBytesNoCopy:v62[3] length:v10];
+    v12 = [v11 initWithBytesNoCopy:v56[3] length:v10];
     v13 = [(ENAdvertisementDatabase *)self matchingAdvertisementBufferForRPIBuffer:v12 exposureKeys:keysCopy];
     if (!v13 && gLogCategory__ENAdvertisementDatabase <= 90 && (gLogCategory__ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENAdvertisementDatabase, "[ENAdvertisementDatabase advertisementsBufferMatchingDailyKeys:attenuationThreshold:timestampTolerance:]", 90, "Failed to generate matching advertisements buffer");
     }
 
     v15 = [v13 length];
-    v58 = v12;
+    v52 = v12;
     bytes = [v13 bytes];
-    v57 = v13;
+    v51 = v13;
     if (v13 && v15 >= 0x28)
     {
       v17 = bytes;
@@ -919,7 +963,7 @@ LABEL_48:
 
               if (isRPILoggingAllowed && gLogCategory_ENAdvertisementDatabase <= 10 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
               {
-                v56 = CUPrintHex();
+                v50 = CUPrintHex();
                 txPower = [v33 txPower];
                 v38 = *(v17 + 36);
                 calibrationConfidence = [v33 calibrationConfidence];
@@ -929,13 +973,7 @@ LABEL_48:
                   v40 = off_278FD3228[calibrationConfidence];
                 }
 
-                v54 = v40;
-                v55 = *(v17 + 38);
-                v52 = txPower;
-                v53 = v38;
-                v50 = *&v56;
-                v51 = v34;
-                LogPrintF_safe();
+                LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase advertisementsBufferMatchingDailyKeys:attenuationThreshold:timestampTolerance:]", 10, "RPI : %@ Attenuation : %u TXPower : %d rssi : %d calibratioConfidence : %s saturated : %d", v50, v34, txPower, v38, v40, *(v17 + 38));
               }
 
               if (v34 >= thresholdCopy)
@@ -945,7 +983,7 @@ LABEL_48:
 
                 if (isSensitiveLoggingAllowed2 && gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
                 {
-                  LogPrintF_safe();
+                  LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase advertisementsBufferMatchingDailyKeys:attenuationThreshold:timestampTolerance:]", 50, "dropping advertisement: attenuation threshold");
                 }
 
                 goto LABEL_65;
@@ -956,10 +994,10 @@ LABEL_48:
             {
               if (gLogCategory__ENAdvertisementDatabase <= 90 && (gLogCategory__ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
               {
-                LogPrintF_safe();
+                LogPrintF_safe(&gLogCategory__ENAdvertisementDatabase, "[ENAdvertisementDatabase advertisementsBufferMatchingDailyKeys:attenuationThreshold:timestampTolerance:]", 90, "dropping advertisement: AEM decryption failed");
               }
 
-              [(ENAdvertisementDatabase *)self reportErrorMetric:1006, *&v50];
+              [(ENAdvertisementDatabase *)self reportErrorMetric:1006];
 LABEL_65:
               *(v17 + 28) = -1;
               ++self->_droppedAdvertisementCount;
@@ -973,7 +1011,7 @@ LABEL_65:
 
           if (isSensitiveLoggingAllowed3 && gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF_safe();
+            LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase advertisementsBufferMatchingDailyKeys:attenuationThreshold:timestampTolerance:]", 50, "ExposureNotification: Dropping advertisement with invalid scan timestamp");
           }
 
           v43 = +[ENLoggingPrefs sharedENLoggingPrefs];
@@ -983,10 +1021,7 @@ LABEL_65:
           {
             v45 = [keysCopy objectAtIndex:*(v17 + 28)];
             keyData = [v45 keyData];
-            v52 = v28;
-            v51 = *(v17 + 20);
-            v50 = *&keyData;
-            LogPrintF_safe();
+            LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase advertisementsBufferMatchingDailyKeys:attenuationThreshold:timestampTolerance:]", 50, "ExposureNotification: Dropping advertisement %@ invalid scan timestamp : %0.3f, intervalNumber : %u", keyData, *(v17 + 20), v28);
           }
         }
 
@@ -997,18 +1032,15 @@ LABEL_65:
 
           if (isSensitiveLoggingAllowed4 && gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
           {
-            v50 = v21;
-            LogPrintF_safe();
+            LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase advertisementsBufferMatchingDailyKeys:attenuationThreshold:timestampTolerance:]", 50, "Dropping outdated advertisement timestampThreshold:%0.2f", v21);
           }
 
-          v41 = [ENLoggingPrefs sharedENLoggingPrefs:*&v50];
+          v41 = +[ENLoggingPrefs sharedENLoggingPrefs];
           isRPILoggingAllowed3 = [v41 isRPILoggingAllowed];
 
           if (isRPILoggingAllowed3 && gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
           {
-            v51 = *(v17 + 20);
-            v50 = *&v25;
-            LogPrintF_safe();
+            LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase advertisementsBufferMatchingDailyKeys:attenuationThreshold:timestampTolerance:]", 50, "Dropping outdated advertisement TEK:%@ timestamp:%0.2f", v25, *(v17 + 20));
           }
         }
 
@@ -1024,22 +1056,65 @@ LABEL_54:
       while (v19);
     }
 
-    v14 = v57;
+    v14 = v51;
   }
 
   else
   {
     if (gLogCategory__ENAdvertisementDatabase <= 90 && (gLogCategory__ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENAdvertisementDatabase, "[ENAdvertisementDatabase advertisementsBufferMatchingDailyKeys:attenuationThreshold:timestampTolerance:]", 90, "failed to allocate RPI buffer");
     }
 
     v14 = 0;
   }
 
-  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v55, 8);
 
   return v14;
+}
+
+- (id)createQuerySessionWithAttenuationThreshold:(unsigned __int8)threshold queue:(id)queue error:(id *)error
+{
+  thresholdCopy = threshold;
+  queueCopy = queue;
+  if ([(ENAdvertisementDatabase *)self openCentralStoreAndReturnError:error])
+  {
+    storedAdvertisementCount = [(ENAdvertisementDatabase *)self storedAdvertisementCount];
+    v12 = storedAdvertisementCount;
+    if (storedAdvertisementCount)
+    {
+      v13 = +[ENLoggingPrefs sharedENLoggingPrefs];
+      isSensitiveLoggingAllowed = [v13 isSensitiveLoggingAllowed];
+
+      if (isSensitiveLoggingAllowed && gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF_safe(&gLogCategory_ENAdvertisementDatabase, "[ENAdvertisementDatabase createQuerySessionWithAttenuationThreshold:queue:error:]", 50, "creating advertisement query session adv:%@ attn:%u", v12, thresholdCopy);
+      }
+
+      v15 = -[ENAdvertisementDatabaseQuerySession initWithDatabase:attenuationThreshold:advertisementCount:queue:]([ENAdvertisementDatabaseQuerySession alloc], "initWithDatabase:attenuationThreshold:advertisementCount:queue:", self, thresholdCopy, [v12 unsignedIntValue], queueCopy);
+    }
+
+    else
+    {
+      if (gLogCategory__ENAdvertisementDatabase <= 90)
+      {
+        if (gLogCategory__ENAdvertisementDatabase != -1 || (storedAdvertisementCount = _LogCategory_Initialize(), storedAdvertisementCount))
+        {
+          [ENAdvertisementDatabase createQuerySessionWithAttenuationThreshold:storedAdvertisementCount queue:v10 error:v11];
+        }
+      }
+
+      v15 = 0;
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  return v15;
 }
 
 - (BOOL)purgeAdvertismentsOlderThan:(double)than
@@ -1055,7 +1130,7 @@ LABEL_54:
   dateCopy = date;
   if (gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
   {
-    [ENAdvertisementDatabase purgeAdvertismentsSeenBeforeDate:];
+    [ENAdvertisementDatabase purgeAdvertismentsSeenBeforeDate:dateCopy];
   }
 
   centralStore = self->_centralStore;
@@ -1137,13 +1212,13 @@ LABEL_16:
   pathCopy = path;
   if (gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
   {
-    +[ENAdvertisementDatabase purgeAllStoresInPath:];
+    [ENAdvertisementDatabase purgeAllStoresInPath:pathCopy];
   }
 
   v4 = [ENAdvertisementSQLiteStore removeAllStoresFromDiskWithFolderPath:pathCopy];
   if (!v4 && gLogCategory__ENAdvertisementDatabase <= 90 && (gLogCategory__ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
   {
-    +[ENAdvertisementDatabase purgeAllStoresInPath:];
+    [ENAdvertisementDatabase purgeAllStoresInPath:pathCopy];
   }
 
   return v4;
@@ -1152,49 +1227,32 @@ LABEL_16:
 - (BOOL)cloneDatabaseTo:(id)to
 {
   toCopy = to;
+  v7 = toCopy;
   if (self->_centralStore)
   {
     if (gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
     {
-      [ENAdvertisementDatabase cloneDatabaseTo:];
+      [ENAdvertisementDatabase cloneDatabaseTo:v7];
     }
 
     [(ENAdvertisementDatabase *)self flushCache];
-    v5 = [(ENAdvertisementSQLiteStore *)self->_centralStore cloneStoreTo:toCopy];
+    v8 = [(ENAdvertisementSQLiteStore *)self->_centralStore cloneStoreTo:v7];
   }
 
   else
   {
-    if (gLogCategory_ENAdvertisementDatabase <= 50 && (gLogCategory_ENAdvertisementDatabase != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_ENAdvertisementDatabase <= 50)
     {
-      [ENAdvertisementDatabase cloneDatabaseTo:];
+      if (gLogCategory_ENAdvertisementDatabase != -1 || (toCopy = _LogCategory_Initialize(), toCopy))
+      {
+        [(ENAdvertisementDatabase *)toCopy cloneDatabaseTo:v5, v6];
+      }
     }
 
-    v5 = 0;
+    v8 = 0;
   }
 
-  return v5;
-}
-
-- (uint64_t)mergeStoresFromFolderPath:(void *)a1 .cold.1(void *a1, uint64_t a2)
-{
-  [a1 UTF8String];
-  [*(a2 + 40) UTF8String];
-  return LogPrintF_safe();
-}
-
-- (uint64_t)displayStorageFullAlert
-{
-  v2 = *(self + 32);
-  v3 = *(self + 96);
-  return LogPrintF_safe();
-}
-
-- (uint64_t)flushCache
-{
-  v2 = *(self + 72);
-  v3 = *(self + 20);
-  return LogPrintF_safe();
+  return v8;
 }
 
 @end

@@ -192,12 +192,12 @@
 
 - (id)description
 {
-  v19 = [objc_opt_class() _matchingCategoriesDescription:self->_matchingCategories];
-  v18 = [objc_opt_class() _algorithmsDescription:self->_matchingAlgorithms];
+  v18 = [objc_opt_class() _matchingCategoriesDescription:self->_matchingCategories];
+  v17 = [objc_opt_class() _algorithmsDescription:self->_matchingAlgorithms];
   v3 = [objc_opt_class() _algorithmsDescription:self->_excludingAlgorithms];
-  v17 = objc_alloc(MEMORY[0x1E696AEC0]);
-  v16 = *&self->_limit;
-  v15 = *&self->_toDate;
+  v16 = objc_alloc(MEMORY[0x1E696AEC0]);
+  v15 = *&self->_limit;
+  v14 = *&self->_toDate;
   matchingSourceBundleIds = self->_matchingSourceBundleIds;
   excludingSourceBundleIds = self->_excludingSourceBundleIds;
   v6 = [PPEnumTypes stringForDeviceFilter:self->_deviceFilter];
@@ -214,20 +214,19 @@
 
   v9 = [PPLocationStore describeLocationConsumer:self->_consumer];
   v10 = v9;
-  matchingContactHandle = self->_matchingContactHandle;
   if (self->_filterByRelevanceDate)
   {
-    v12 = @"YES";
+    v11 = @"YES";
   }
 
   else
   {
-    v12 = @"NO";
+    v11 = @"NO";
   }
 
-  v13 = [v17 initWithFormat:@"<PPLocationQuery l:%tu d:%@-%@ sd:%@ mid:%@ eid:%@ df:%@ fms:%tu c:%@ ma:%@ ea:%@ ens:%@> cons:%@ mch:%@ fbrd:%@", v16, v15, matchingSourceBundleIds, excludingSourceBundleIds, v6, v7, v19, v18, v3, v8, v9, self->_matchingContactHandle, v12];
+  v12 = [v16 initWithFormat:@"<PPLocationQuery l:%tu d:%@-%@ sd:%@ mid:%@ eid:%@ df:%@ fms:%tu c:%@ ma:%@ ea:%@ ens:%@> cons:%@ mch:%@ fbrd:%@", v15, v14, matchingSourceBundleIds, excludingSourceBundleIds, v6, v7, v18, v17, v3, v8, v9, self->_matchingContactHandle, v11];
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash
@@ -651,7 +650,7 @@ LABEL_61:
 
 + (id)queryForMapsWithLimit:(unint64_t)limit fromDate:(id)date consumerType:(unint64_t)type
 {
-  v18[3] = *MEMORY[0x1E69E9840];
+  v17[3] = *MEMORY[0x1E69E9840];
   dateCopy = date;
   v8 = objc_opt_new();
   v9 = v8;
@@ -681,49 +680,47 @@ LABEL_61:
 
   else
   {
-    v18[0] = @"com.apple.mobileslideshow";
-    v18[1] = @"com.apple.Photos";
-    v18[2] = @"com.apple.camera";
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:3];
+    v17[0] = @"com.apple.mobileslideshow";
+    v17[1] = @"com.apple.Photos";
+    v17[2] = @"com.apple.camera";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:3];
     v15 = [v13 setByAddingObjectsFromArray:v14];
     [v9 setExcludingSourceBundleIds:v15];
   }
 
   [v9 setLimit:limit];
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 + (id)_algorithmsDescription:(id)description
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v4 = [MEMORY[0x1E696AD60] stringWithString:@"["];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = descriptionCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       v11 = v8 + 1;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = +[PPLocationRecord describeAlgorithm:](PPLocationRecord, "describeAlgorithm:", [*(*(&v15 + 1) + 8 * v10) unsignedIntegerValue]);
+        v12 = +[PPLocationRecord describeAlgorithm:](PPLocationRecord, "describeAlgorithm:", [*(*(&v14 + 1) + 8 * v10) unsignedIntegerValue]);
         [v4 appendString:v12];
 
         if ([v5 count] > v11)
@@ -737,46 +734,45 @@ LABEL_61:
 
       while (v7 != v10);
       v8 += v7;
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   [v4 appendString:@"]"];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)_matchingCategoriesDescription:(id)description
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   v4 = [MEMORY[0x1E696AD60] stringWithString:@"["];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = descriptionCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       v10 = 0;
       v11 = v8 + 1;
       do
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = +[PPLocation describeCategory:](PPLocation, "describeCategory:", [*(*(&v15 + 1) + 8 * v10) unsignedIntegerValue]);
+        v12 = +[PPLocation describeCategory:](PPLocation, "describeCategory:", [*(*(&v14 + 1) + 8 * v10) unsignedIntegerValue]);
         [v4 appendString:v12];
 
         if ([v5 count] > v11)
@@ -790,14 +786,13 @@ LABEL_61:
 
       while (v7 != v10);
       v8 += v7;
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   [v4 appendString:@"]"];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

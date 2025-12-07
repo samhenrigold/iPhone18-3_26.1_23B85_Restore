@@ -299,11 +299,11 @@ LABEL_5:
       switch(a4)
       {
         case 256:
-          return [self setWeek:?];
+          return [result setWeek:a3];
         case 512:
-          return [self setWeekday:?];
+          return [result setWeekday:a3];
         case 1024:
-          return [self setWeekdayOrdinal:?];
+          return [result setWeekdayOrdinal:a3];
       }
     }
 
@@ -311,23 +311,23 @@ LABEL_5:
     {
       if (a4 == 0x2000)
       {
-        return [self setWeekOfYear:?];
+        return [result setWeekOfYear:a3];
       }
 
       else if (a4 == 0x4000)
       {
-        return [self setYearForWeekOfYear:?];
+        return [result setYearForWeekOfYear:a3];
       }
     }
 
     else if (a4 == 2048)
     {
-      return [self setQuarter:?];
+      return [result setQuarter:a3];
     }
 
     else if (a4 == 4096)
     {
-      return [self setWeekOfMonth:?];
+      return [result setWeekOfMonth:a3];
     }
   }
 
@@ -336,11 +336,11 @@ LABEL_5:
     switch(a4)
     {
       case 2:
-        return [self setEra:?];
+        return [result setEra:a3];
       case 4:
-        return [self setYear:?];
+        return [result setYear:a3];
       case 8:
-        return [self setMonth:?];
+        return [result setMonth:a3];
     }
   }
 
@@ -348,26 +348,26 @@ LABEL_5:
   {
     if (a4 == 64)
     {
-      return [self setMinute:?];
+      return [result setMinute:a3];
     }
 
     else if (a4 == 128)
     {
-      return [self setSecond:?];
+      return [result setSecond:a3];
     }
   }
 
   else if (a4 == 16)
   {
-    return [self setDay:?];
+    return [result setDay:a3];
   }
 
   else if (a4 == 32)
   {
-    return [self setHour:?];
+    return [result setHour:a3];
   }
 
-  return self;
+  return result;
 }
 
 - (void)_ui_setComponents:()NSCalendarUnit

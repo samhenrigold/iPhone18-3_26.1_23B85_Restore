@@ -436,10 +436,10 @@
 
   else
   {
-    WKCurrentScreenScaleMode();
+    WKCurrentScreenScaleMode(v6, v7);
   }
-  v6 = ;
-  if ([v6 isEqualToString:@"screenScaleModeZoomed"])
+  v8 = ;
+  if ([v8 isEqualToString:@"screenScaleModeZoomed"])
   {
     if ((orientation - 1) > 1)
     {
@@ -452,12 +452,12 @@
     }
 
 LABEL_13:
-    v9 = v7;
-    v10 = v8;
+    v11 = v9;
+    v12 = v10;
     goto LABEL_14;
   }
 
-  if ([v6 isEqualToString:@"screenScaleModeMoreSpace"])
+  if ([v8 isEqualToString:@"screenScaleModeMoreSpace"])
   {
     if ((orientation - 1) > 1)
     {
@@ -472,20 +472,20 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v9 = *MEMORY[0x1E695EFF8];
-  v10 = *(MEMORY[0x1E695EFF8] + 8);
+  v11 = *MEMORY[0x1E695EFF8];
+  v12 = *(MEMORY[0x1E695EFF8] + 8);
 LABEL_14:
 
-  v11 = v9;
-  v12 = v10;
-  result.y = v12;
-  result.x = v11;
+  v13 = v11;
+  v14 = v12;
+  result.y = v14;
+  result.x = v13;
   return result;
 }
 
 - (id)propertyListRepresentation
 {
-  v106[1] = *MEMORY[0x1E69E9840];
+  v105[1] = *MEMORY[0x1E69E9840];
   [(WKWallpaperAdjustmentTraitOffset *)self zoomedModeOffsetLandscape];
   v5 = *MEMORY[0x1E695EFF8];
   v4 = *(MEMORY[0x1E695EFF8] + 8);
@@ -516,20 +516,20 @@ LABEL_44:
         [(WKWallpaperAdjustmentTraitOffset *)self moreSpaceModeOffsetLandscape];
         if (v61 == v65 && v63 == v64)
         {
-          v97 = @"interfaceOrientationAny";
-          v95[0] = @"x";
+          v96 = @"interfaceOrientationAny";
+          v94[0] = @"x";
           v66 = MEMORY[0x1E696AD98];
           [(WKWallpaperAdjustmentTraitOffset *)self moreSpaceModeOffsetPortrait];
           v67 = [v66 numberWithDouble:?];
-          v95[1] = @"y";
-          v96[0] = v67;
+          v94[1] = @"y";
+          v95[0] = v67;
           v68 = MEMORY[0x1E696AD98];
           [(WKWallpaperAdjustmentTraitOffset *)self moreSpaceModeOffsetPortrait];
           v70 = [v68 numberWithDouble:v69];
-          v96[1] = v70;
-          v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:v95 count:2];
-          v98 = v71;
-          dictionary2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
+          v95[1] = v70;
+          v71 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v95 forKeys:v94 count:2];
+          v97 = v71;
+          dictionary2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
         }
 
         else
@@ -538,17 +538,17 @@ LABEL_44:
           [(WKWallpaperAdjustmentTraitOffset *)self moreSpaceModeOffsetLandscape];
           if (v5 != v74 || v4 != v73)
           {
-            v93[0] = @"x";
+            v92[0] = @"x";
             v76 = MEMORY[0x1E696AD98];
             [(WKWallpaperAdjustmentTraitOffset *)self moreSpaceModeOffsetLandscape];
             v77 = [v76 numberWithDouble:?];
-            v93[1] = @"y";
-            v94[0] = v77;
+            v92[1] = @"y";
+            v93[0] = v77;
             v78 = MEMORY[0x1E696AD98];
             [(WKWallpaperAdjustmentTraitOffset *)self moreSpaceModeOffsetLandscape];
             v80 = [v78 numberWithDouble:v79];
-            v94[1] = v80;
-            v81 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v94 forKeys:v93 count:2];
+            v93[1] = v80;
+            v81 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v93 forKeys:v92 count:2];
 
             [dictionary2 na_safeSetObject:v81 forKey:@"interfaceOrientationLandscape"];
           }
@@ -562,13 +562,13 @@ LABEL_44:
           v84 = MEMORY[0x1E696AD98];
           [(WKWallpaperAdjustmentTraitOffset *)self moreSpaceModeOffsetPortrait];
           v85 = [v84 numberWithDouble:?];
-          v91[1] = @"y";
-          v92[0] = v85;
+          v90[1] = @"y";
+          v91[0] = v85;
           v86 = MEMORY[0x1E696AD98];
           [(WKWallpaperAdjustmentTraitOffset *)self moreSpaceModeOffsetPortrait];
           v88 = [v86 numberWithDouble:v87];
-          v92[1] = v88;
-          v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v92 forKeys:v91 count:2];
+          v91[1] = v88;
+          v67 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v91 forKeys:v90 count:2];
 
           [dictionary2 na_safeSetObject:v67 forKey:@"interfaceOrientationPortrait"];
         }
@@ -586,20 +586,20 @@ LABEL_65:
     [(WKWallpaperAdjustmentTraitOffset *)self zoomedModeOffsetLandscape];
     if (v25 == v29 && v27 == v28)
     {
-      v105 = @"interfaceOrientationAny";
-      v103[0] = @"x";
+      v104 = @"interfaceOrientationAny";
+      v102[0] = @"x";
       v30 = MEMORY[0x1E696AD98];
       [(WKWallpaperAdjustmentTraitOffset *)self zoomedModeOffsetPortrait];
       v31 = [v30 numberWithDouble:?];
-      v104[0] = v31;
-      v103[1] = @"y";
+      v103[0] = v31;
+      v102[1] = @"y";
       v32 = MEMORY[0x1E696AD98];
       [(WKWallpaperAdjustmentTraitOffset *)self zoomedModeOffsetPortrait];
       v34 = [v32 numberWithDouble:v33];
-      v104[1] = v34;
-      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:v103 count:2];
-      v106[0] = v35;
-      dictionary3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v106 forKeys:&v105 count:1];
+      v103[1] = v34;
+      v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v103 forKeys:v102 count:2];
+      v105[0] = v35;
+      dictionary3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v105 forKeys:&v104 count:1];
     }
 
     else
@@ -608,17 +608,17 @@ LABEL_65:
       [(WKWallpaperAdjustmentTraitOffset *)self zoomedModeOffsetLandscape];
       if (v5 != v38 || v4 != v37)
       {
-        v101[0] = @"x";
+        v100[0] = @"x";
         v40 = MEMORY[0x1E696AD98];
         [(WKWallpaperAdjustmentTraitOffset *)self zoomedModeOffsetLandscape];
         v41 = [v40 numberWithDouble:?];
-        v101[1] = @"y";
-        v102[0] = v41;
+        v100[1] = @"y";
+        v101[0] = v41;
         v42 = MEMORY[0x1E696AD98];
         [(WKWallpaperAdjustmentTraitOffset *)self zoomedModeOffsetLandscape];
         v44 = [v42 numberWithDouble:v43];
-        v102[1] = v44;
-        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:2];
+        v101[1] = v44;
+        v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:v100 count:2];
 
         [dictionary3 na_safeSetObject:v45 forKey:@"interfaceOrientationLandscape"];
       }
@@ -629,17 +629,17 @@ LABEL_65:
         goto LABEL_43;
       }
 
-      v99[0] = @"x";
+      v98[0] = @"x";
       v49 = MEMORY[0x1E696AD98];
       [(WKWallpaperAdjustmentTraitOffset *)self zoomedModeOffsetPortrait];
       v50 = [v49 numberWithDouble:?];
-      v99[1] = @"y";
-      v100[0] = v50;
+      v98[1] = @"y";
+      v99[0] = v50;
       v51 = MEMORY[0x1E696AD98];
       [(WKWallpaperAdjustmentTraitOffset *)self zoomedModeOffsetPortrait];
       v53 = [v51 numberWithDouble:v52];
-      v100[1] = v53;
-      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:2];
+      v99[1] = v53;
+      v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v99 forKeys:v98 count:2];
 
       [dictionary3 na_safeSetObject:v31 forKey:@"interfaceOrientationPortrait"];
     }
@@ -652,21 +652,20 @@ LABEL_43:
 
   dictionary = 0;
 LABEL_66:
-  v89 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
-id __47__WKWallpaperAdjustmentTraitOffset_na_identity__block_invoke()
+id __47__WKWallpaperAdjustmentTraitOffset_na_identity__block_invoke(uint64_t a1)
 {
   if (WKWallpaperAdjustmentTraitOffsetValueYKey_block_invoke_na_once_token_0 != -1)
   {
     __47__WKWallpaperAdjustmentTraitOffset_na_identity__block_invoke_cold_1();
   }
 
-  v1 = WKWallpaperAdjustmentTraitOffsetValueYKey_block_invoke_na_once_object_0;
+  v2 = WKWallpaperAdjustmentTraitOffsetValueYKey_block_invoke_na_once_object_0;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __47__WKWallpaperAdjustmentTraitOffset_na_identity__block_invoke_2()

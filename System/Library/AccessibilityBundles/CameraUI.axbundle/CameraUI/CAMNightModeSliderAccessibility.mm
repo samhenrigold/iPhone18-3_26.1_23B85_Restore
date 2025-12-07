@@ -81,9 +81,9 @@ uint64_t __50__CAMNightModeSliderAccessibility__axAdjustValue___block_invoke(uin
   return isKindOfClass & 1;
 }
 
-void __50__CAMNightModeSliderAccessibility__axAdjustValue___block_invoke_2(uint64_t a1)
+void __50__CAMNightModeSliderAccessibility__axAdjustValue___block_invoke_2(void *a1)
 {
-  v1 = *(a1 + 40);
+  v1 = a1[5];
   AXPerformSafeBlock();
 }
 

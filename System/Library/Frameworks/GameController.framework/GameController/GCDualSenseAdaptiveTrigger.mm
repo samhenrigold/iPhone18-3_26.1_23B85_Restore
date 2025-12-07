@@ -195,19 +195,21 @@
 
 - (void)locateControllerManagerApp
 {
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = getGCLogger(self);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v1, v2, "Unable to locate _hidInfo || _hidInfo.registryID", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "Unable to locate _hidInfo || _hidInfo.registryID", v4, v5, v6, v7, v8);
   }
 }
 
 - (void)locateAdaptiveTriggerComponent
 {
-  v0 = getGCLogger();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = getGCLogger(self);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v1, v2, "Unable to locate GCAdaptiveTriggers", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_1D2CD5000, v2, v3, "Unable to locate GCAdaptiveTriggers", v4, v5, v6, v7, v8);
   }
 }
 
@@ -266,7 +268,7 @@
     }
   }
 
-  MEMORY[0x1EEE66BE0]();
+  MEMORY[0x1EEE66BE0](hidInfo);
 }
 
 - (void)observeChangesForAdaptiveTriggers:(id)triggers

@@ -153,29 +153,29 @@
 
 - (id)_prepareArguments:(id)arguments
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   argumentsCopy = arguments;
-  v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(argumentsCopy, "count")}];
+  v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(argumentsCopy)];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = argumentsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -185,17 +185,15 @@
 
         else
         {
-          [v5 addObject:{v11, v15}];
+          [v5 addObject:{v11, v14}];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -239,17 +237,15 @@
 
 void __47__SGReverseTemplateJS_schemaOrgToJsonLd_reply___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 preprocessPackedSGMessage:*(a1 + 40)];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v5 = [v2 payloadToOutputWithEntryPoint:@"schemaOrgToJsonLdWithExceptions" arguments:v4];
 
   [*(a1 + 32) holdXpcTransactionForShortDelay];
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emailToJsonLd:(id)ld reply:(id)reply
@@ -271,17 +267,15 @@ void __47__SGReverseTemplateJS_schemaOrgToJsonLd_reply___block_invoke(uint64_t a
 
 void __43__SGReverseTemplateJS_emailToJsonLd_reply___block_invoke(uint64_t a1)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [v2 preprocessPackedSGMessage:*(a1 + 40)];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   v5 = [v2 payloadToOutputWithEntryPoint:@"emailToJsonLdWithExceptions" arguments:v4];
 
   [*(a1 + 32) holdXpcTransactionForShortDelay];
   (*(*(a1 + 48) + 16))();
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)LLMSchemaToOutput:(id)output reply:(id)reply
@@ -303,14 +297,12 @@ void __43__SGReverseTemplateJS_emailToJsonLd_reply___block_invoke(uint64_t a1)
 
 void __47__SGReverseTemplateJS_LLMSchemaToOutput_reply___block_invoke(void *a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [v2 preprocessPackedSGMessage:a1[5]];
-  v6[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   [v2 payloadToOutputWithEntryPoint:@"LLMSchemaToOutputWithTiming" arguments:v4 reply:a1[6]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)schemaOrgToOutput:(id)output reply:(id)reply
@@ -332,14 +324,12 @@ void __47__SGReverseTemplateJS_LLMSchemaToOutput_reply___block_invoke(void *a1)
 
 void __47__SGReverseTemplateJS_schemaOrgToOutput_reply___block_invoke(void *a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [v2 preprocessPackedSGMessage:a1[5]];
-  v6[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   [v2 payloadToOutputWithEntryPoint:@"schemaOrgToOutputWithTiming" arguments:v4 reply:a1[6]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)textMessageToOutput:(id)output reply:(id)reply
@@ -361,98 +351,93 @@ void __47__SGReverseTemplateJS_schemaOrgToOutput_reply___block_invoke(void *a1)
 
 void __49__SGReverseTemplateJS_textMessageToOutput_reply___block_invoke(void *a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [v2 preprocessPackedSGMessage:a1[5]];
-  v6[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   [v2 payloadToOutputWithEntryPoint:@"textMessageToOutputWithTiming" arguments:v4 reply:a1[6]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)emailToOutput:(id)output reply:(id)reply
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   outputCopy = output;
   replyCopy = reply;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__14927;
-  v32 = __Block_byref_object_dispose__14928;
-  v33 = 0;
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __43__SGReverseTemplateJS_emailToOutput_reply___block_invoke;
-  v27[3] = &unk_278950BE0;
-  v27[4] = &v28;
-  [(SGReverseTemplateJS *)self privacyAwareLogsForMLExtractions:outputCopy reply:v27];
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__14927;
+  v31 = __Block_byref_object_dispose__14928;
+  v32 = 0;
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __43__SGReverseTemplateJS_emailToOutput_reply___block_invoke;
+  v26[3] = &unk_278950BE0;
+  v26[4] = &v27;
+  [(SGReverseTemplateJS *)self privacyAwareLogsForMLExtractions:outputCopy reply:v26];
   v8 = sgLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = replyCopy;
-    v23 = [v29[5] objectForKeyedSubscript:@"domain"];
-    v22 = [v29[5] objectForKeyedSubscript:@"documentDateReceived"];
-    v21 = [v29[5] objectForKeyedSubscript:@"hashedSubject"];
-    v9 = [v29[5] objectForKeyedSubscript:@"privacyAwareSubject"];
-    v10 = [v29[5] objectForKeyedSubscript:@"tdDistrib"];
-    v11 = [v29[5] objectForKeyedSubscript:@"tdCount"];
-    v12 = [v29[5] objectForKeyedSubscript:@"deviceLocale"];
-    v13 = [v29[5] objectForKeyedSubscript:@"messageLength"];
-    v14 = [v29[5] objectForKeyedSubscript:@"documentDateProcessed"];
-    v15 = [v29[5] objectForKeyedSubscript:@"containsSchemaorg"];
+    v19 = replyCopy;
+    v22 = [v28[5] objectForKeyedSubscript:@"domain"];
+    v21 = [v28[5] objectForKeyedSubscript:@"documentDateReceived"];
+    v20 = [v28[5] objectForKeyedSubscript:@"hashedSubject"];
+    v9 = [v28[5] objectForKeyedSubscript:@"privacyAwareSubject"];
+    v10 = [v28[5] objectForKeyedSubscript:@"tdDistrib"];
+    v11 = [v28[5] objectForKeyedSubscript:@"tdCount"];
+    v12 = [v28[5] objectForKeyedSubscript:@"deviceLocale"];
+    v13 = [v28[5] objectForKeyedSubscript:@"messageLength"];
+    v14 = [v28[5] objectForKeyedSubscript:@"documentDateProcessed"];
+    v15 = [v28[5] objectForKeyedSubscript:@"containsSchemaorg"];
     *buf = 138414594;
-    v35 = v23;
-    v36 = 2112;
-    v37 = v22;
-    v38 = 2112;
-    v39 = v21;
-    v40 = 2112;
-    v41 = v9;
-    v42 = 2112;
-    v43 = v10;
-    v44 = 2112;
-    v45 = v11;
-    v46 = 2112;
-    v47 = v12;
-    v48 = 2112;
-    v49 = v13;
-    v50 = 2112;
-    v51 = v14;
-    v52 = 2112;
-    v53 = v15;
+    v34 = v22;
+    v35 = 2112;
+    v36 = v21;
+    v37 = 2112;
+    v38 = v20;
+    v39 = 2112;
+    v40 = v9;
+    v41 = 2112;
+    v42 = v10;
+    v43 = 2112;
+    v44 = v11;
+    v45 = 2112;
+    v46 = v12;
+    v47 = 2112;
+    v48 = v13;
+    v49 = 2112;
+    v50 = v14;
+    v51 = 2112;
+    v52 = v15;
     _os_log_impl(&dword_231E60000, v8, OS_LOG_TYPE_DEFAULT, "Email: %@ %@ %@ %@ %@ %@ %@ %@ %@ %@", buf, 0x66u);
 
-    replyCopy = v20;
+    replyCopy = v19;
   }
 
   v16 = MEMORY[0x277D42668];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __43__SGReverseTemplateJS_emailToOutput_reply___block_invoke_511;
-  v24[3] = &unk_278955A98;
-  v24[4] = self;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __43__SGReverseTemplateJS_emailToOutput_reply___block_invoke_511;
+  v23[3] = &unk_278955A98;
+  v23[4] = self;
   v17 = outputCopy;
-  v25 = v17;
+  v24 = v17;
   v18 = replyCopy;
-  v26 = v18;
-  [v16 runWithExceptionBarrier:v24];
+  v25 = v18;
+  [v16 runWithExceptionBarrier:v23];
 
-  _Block_object_dispose(&v28, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v27, 8);
 }
 
 void __43__SGReverseTemplateJS_emailToOutput_reply___block_invoke_511(void *a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = [v2 preprocessPackedSGMessage:a1[5]];
-  v6[0] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   [v2 payloadToOutputWithEntryPoint:@"emailToOutputWithTiming" arguments:v4 reply:a1[6]];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)payloadToOutputWithEntryPoint:(id)point arguments:(id)arguments reply:(id)reply
@@ -711,7 +696,7 @@ uint64_t __48__SGReverseTemplateJS_shouldDownloadFull_reply___block_invoke(uint6
 
 void __63__SGReverseTemplateJS_payloadToOutputWithEntryPoint_arguments___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getJSContext];
   v4 = sgEventsLogHandle();
@@ -721,9 +706,9 @@ void __63__SGReverseTemplateJS_payloadToOutputWithEntryPoint_arguments___block_i
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = *(a1 + 40);
-      v22 = 138412290;
-      v23 = v6;
-      _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: Calling payloadToOutput with entry point: %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v6;
+      _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: Calling payloadToOutput with entry point: %@", &v21, 0xCu);
     }
 
     v7 = *(a1 + 32);
@@ -742,13 +727,13 @@ void __63__SGReverseTemplateJS_payloadToOutputWithEntryPoint_arguments___block_i
       v15 = sgEventsLogHandle();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
-        v19 = *(a1 + 40);
-        v20 = [v3 exception];
-        v22 = 138412546;
-        v23 = v19;
-        v24 = 2112;
-        v25 = v20;
-        _os_log_fault_impl(&dword_231E60000, v15, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS payloadToOutputWithEntryPoint: JS exception during %@: %@", &v22, 0x16u);
+        v18 = *(a1 + 40);
+        v19 = [v3 exception];
+        v21 = 138412546;
+        v22 = v18;
+        v23 = 2112;
+        v24 = v19;
+        _os_log_fault_impl(&dword_231E60000, v15, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS payloadToOutputWithEntryPoint: JS exception during %@: %@", &v21, 0x16u);
       }
     }
 
@@ -759,10 +744,10 @@ void __63__SGReverseTemplateJS_payloadToOutputWithEntryPoint_arguments___block_i
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v21 = *(a1 + 40);
-      v22 = 138412290;
-      v23 = v21;
-      _os_log_fault_impl(&dword_231E60000, v5, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS payloadToOutputWithEntryPoint: Tried to call %@ without JS assets", &v22, 0xCu);
+      v20 = *(a1 + 40);
+      v21 = 138412290;
+      v22 = v20;
+      _os_log_fault_impl(&dword_231E60000, v5, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS payloadToOutputWithEntryPoint: Tried to call %@ without JS assets", &v21, 0xCu);
     }
 
     v16 = *(*(a1 + 56) + 8);
@@ -771,7 +756,6 @@ void __63__SGReverseTemplateJS_payloadToOutputWithEntryPoint_arguments___block_i
   }
 
   objc_autoreleasePoolPop(v2);
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)reverseMapEntity:(id)entity forCategory:(id)category withSchemaExpectation:(id)expectation
@@ -808,7 +792,7 @@ void __63__SGReverseTemplateJS_payloadToOutputWithEntryPoint_arguments___block_i
 
 void __74__SGReverseTemplateJS_reverseMapEntity_forCategory_withSchemaExpectation___block_invoke(uint64_t a1)
 {
-  v41[3] = *MEMORY[0x277D85DE8];
+  v40[3] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getJSContext];
   if (v3)
@@ -834,8 +818,8 @@ void __74__SGReverseTemplateJS_reverseMapEntity_forCategory_withSchemaExpectatio
       v11 = *(a1 + 48);
     }
 
-    v41[0] = v9;
-    v41[1] = v11;
+    v40[0] = v9;
+    v40[1] = v11;
     if (v12)
     {
       v13 = v12;
@@ -846,8 +830,8 @@ void __74__SGReverseTemplateJS_reverseMapEntity_forCategory_withSchemaExpectatio
       v13 = MEMORY[0x277CBEC10];
     }
 
-    v41[2] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:3];
+    v40[2] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:3];
     v15 = [v10 _prepareArguments:v14];
     v16 = [v7 _callJSFunction:v8 withArguments:v15];
     v17 = [v16 toDictionary];
@@ -855,27 +839,27 @@ void __74__SGReverseTemplateJS_reverseMapEntity_forCategory_withSchemaExpectatio
     if (v17)
     {
       [v17 objectForKeyedSubscript:@"taggedCharacterRanges"];
+      v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
-      v18 = v37 = 0u;
-      v19 = [v18 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v18 = v36 = 0u;
+      v19 = [v18 countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v35;
+        v21 = *v34;
         while (2)
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v35 != v21)
+            if (*v34 != v21)
             {
               objc_enumerationMutation(v18);
             }
 
-            v23 = *(*(&v34 + 1) + 8 * i);
+            v23 = *(*(&v33 + 1) + 8 * i);
             v24 = [SGTaggedCharacterRange alloc];
-            v25 = [(SGTaggedCharacterRange *)v24 initWithDict:v23, v34];
+            v25 = [(SGTaggedCharacterRange *)v24 initWithDict:v23, v33];
             if (!v25)
             {
               v27 = sgEventsLogHandle();
@@ -896,7 +880,7 @@ void __74__SGReverseTemplateJS_reverseMapEntity_forCategory_withSchemaExpectatio
             [*(*(*(a1 + 64) + 8) + 40) addObject:v25];
           }
 
-          v20 = [v18 countByEnumeratingWithState:&v34 objects:v40 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v33 objects:v39 count:16];
           if (v20)
           {
             continue;
@@ -916,9 +900,9 @@ LABEL_24:
       v31 = sgEventsLogHandle();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
       {
-        v33 = [v3 exception];
+        v32 = [v3 exception];
         *buf = 138412290;
-        v39 = v33;
+        v38 = v32;
         _os_log_fault_impl(&dword_231E60000, v31, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS: JS Exception during reverseMapEntity %@", buf, 0xCu);
       }
     }
@@ -937,7 +921,6 @@ LABEL_24:
   }
 
   objc_autoreleasePoolPop(v2);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mergeSchemas:(id)schemas withExpectedSchemas:(id)expectedSchemas
@@ -978,22 +961,22 @@ LABEL_24:
 
 void __57__SGReverseTemplateJS__mergeSchemas_withExpectedSchemas___block_invoke(uint64_t a1)
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getJSContext];
   if (v3)
   {
-    v26[0] = @"expected";
-    v26[1] = @"predicted";
+    v25[0] = @"expected";
+    v25[1] = @"predicted";
     v4 = *(a1 + 48);
-    v27[0] = *(a1 + 40);
-    v27[1] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v26[0] = *(a1 + 40);
+    v26[1] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
     v6 = *(a1 + 32);
     v7 = [v3 objectForKeyedSubscript:@"mergeSchemasArrays"];
     v8 = *(a1 + 32);
-    v25 = v5;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+    v24 = v5;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
     v10 = [v8 _prepareArguments:v9];
     v11 = [v6 _callJSFunction:v7 withArguments:v10];
     v12 = [v11 toDictionary];
@@ -1004,10 +987,10 @@ void __57__SGReverseTemplateJS__mergeSchemas_withExpectedSchemas___block_invoke(
     v15 = sgEventsLogHandle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v21 = *(*(*(a1 + 56) + 8) + 40);
-      v23 = 138412290;
-      v24 = v21;
-      _os_log_debug_impl(&dword_231E60000, v15, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called mergeSchemasArrays with result: %@", &v23, 0xCu);
+      v20 = *(*(*(a1 + 56) + 8) + 40);
+      v22 = 138412290;
+      v23 = v20;
+      _os_log_debug_impl(&dword_231E60000, v15, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called mergeSchemasArrays with result: %@", &v22, 0xCu);
     }
 
     v16 = [v3 exception];
@@ -1017,10 +1000,10 @@ void __57__SGReverseTemplateJS__mergeSchemas_withExpectedSchemas___block_invoke(
       v17 = sgEventsLogHandle();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
-        v22 = [v3 exception];
-        v23 = 138412290;
-        v24 = v22;
-        _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS _mergeSchemas: JS Exception during mergeSchemasArrays: %@", &v23, 0xCu);
+        v21 = [v3 exception];
+        v22 = 138412290;
+        v23 = v21;
+        _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS _mergeSchemas: JS Exception during mergeSchemasArrays: %@", &v22, 0xCu);
       }
     }
 
@@ -1032,8 +1015,8 @@ void __57__SGReverseTemplateJS__mergeSchemas_withExpectedSchemas___block_invoke(
     v18 = sgEventsLogHandle();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_fault_impl(&dword_231E60000, v18, OS_LOG_TYPE_FAULT, "Tried to call mergeSchemas without JS assets", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_fault_impl(&dword_231E60000, v18, OS_LOG_TYPE_FAULT, "Tried to call mergeSchemas without JS assets", &v22, 2u);
     }
 
     v19 = *(*(a1 + 56) + 8);
@@ -1042,7 +1025,6 @@ void __57__SGReverseTemplateJS__mergeSchemas_withExpectedSchemas___block_invoke(
   }
 
   objc_autoreleasePoolPop(v2);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_diffSchemas:(id)schemas withExpectedSchemas:(id)expectedSchemas
@@ -1083,22 +1065,22 @@ void __57__SGReverseTemplateJS__mergeSchemas_withExpectedSchemas___block_invoke(
 
 void __56__SGReverseTemplateJS__diffSchemas_withExpectedSchemas___block_invoke(uint64_t a1)
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getJSContext];
   if (v3)
   {
-    v26[0] = @"expected";
-    v26[1] = @"predicted";
+    v25[0] = @"expected";
+    v25[1] = @"predicted";
     v4 = *(a1 + 48);
-    v27[0] = *(a1 + 40);
-    v27[1] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v26[0] = *(a1 + 40);
+    v26[1] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
     v6 = *(a1 + 32);
     v7 = [v3 objectForKeyedSubscript:@"diffSchemasArrays"];
     v8 = *(a1 + 32);
-    v25 = v5;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+    v24 = v5;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
     v10 = [v8 _prepareArguments:v9];
     v11 = [v6 _callJSFunction:v7 withArguments:v10];
     v12 = [v11 toDictionary];
@@ -1109,10 +1091,10 @@ void __56__SGReverseTemplateJS__diffSchemas_withExpectedSchemas___block_invoke(u
     v15 = sgEventsLogHandle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v21 = *(*(*(a1 + 56) + 8) + 40);
-      v23 = 138412290;
-      v24 = v21;
-      _os_log_debug_impl(&dword_231E60000, v15, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called diffSchemasArrays with result: %@", &v23, 0xCu);
+      v20 = *(*(*(a1 + 56) + 8) + 40);
+      v22 = 138412290;
+      v23 = v20;
+      _os_log_debug_impl(&dword_231E60000, v15, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called diffSchemasArrays with result: %@", &v22, 0xCu);
     }
 
     v16 = [v3 exception];
@@ -1122,10 +1104,10 @@ void __56__SGReverseTemplateJS__diffSchemas_withExpectedSchemas___block_invoke(u
       v17 = sgEventsLogHandle();
       if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
       {
-        v22 = [v3 exception];
-        v23 = 138412290;
-        v24 = v22;
-        _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS _diffSchemas: JS Exception during diffSchemasArrays: %@", &v23, 0xCu);
+        v21 = [v3 exception];
+        v22 = 138412290;
+        v23 = v21;
+        _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS _diffSchemas: JS Exception during diffSchemasArrays: %@", &v22, 0xCu);
       }
     }
 
@@ -1137,8 +1119,8 @@ void __56__SGReverseTemplateJS__diffSchemas_withExpectedSchemas___block_invoke(u
     v18 = sgEventsLogHandle();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_fault_impl(&dword_231E60000, v18, OS_LOG_TYPE_FAULT, "Tried to call diffSchemas without JS assets", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_fault_impl(&dword_231E60000, v18, OS_LOG_TYPE_FAULT, "Tried to call diffSchemas without JS assets", &v22, 2u);
     }
 
     v19 = *(*(a1 + 56) + 8);
@@ -1147,7 +1129,6 @@ void __56__SGReverseTemplateJS__diffSchemas_withExpectedSchemas___block_invoke(u
   }
 
   objc_autoreleasePoolPop(v2);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_getFlightReferencesAndReservationId:(id)id
@@ -1185,7 +1166,7 @@ void __56__SGReverseTemplateJS__diffSchemas_withExpectedSchemas___block_invoke(u
 
 void __60__SGReverseTemplateJS__getFlightReferencesAndReservationId___block_invoke(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getJSContext];
   v4 = v3;
@@ -1194,8 +1175,8 @@ void __60__SGReverseTemplateJS__getFlightReferencesAndReservationId___block_invo
     v5 = *(a1 + 32);
     v6 = [v3 objectForKeyedSubscript:@"getFlightReferencesAndReservationId"];
     v7 = *(a1 + 32);
-    v25[0] = *(a1 + 40);
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = *(a1 + 40);
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     v9 = [v7 _prepareArguments:v8];
     v10 = [v5 _callJSFunction:v6 withArguments:v9];
     v11 = [v10 toDictionary];
@@ -1206,10 +1187,10 @@ void __60__SGReverseTemplateJS__getFlightReferencesAndReservationId___block_invo
     v14 = sgEventsLogHandle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v21 = *(*(*(a1 + 48) + 8) + 40);
-      v23 = 138412290;
-      v24 = v21;
-      _os_log_debug_impl(&dword_231E60000, v14, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called getFlightReferencesAndReservationId with result: %@", &v23, 0xCu);
+      v20 = *(*(*(a1 + 48) + 8) + 40);
+      v22 = 138412290;
+      v23 = v20;
+      _os_log_debug_impl(&dword_231E60000, v14, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called getFlightReferencesAndReservationId with result: %@", &v22, 0xCu);
     }
 
     v15 = [v4 exception];
@@ -1219,10 +1200,10 @@ void __60__SGReverseTemplateJS__getFlightReferencesAndReservationId___block_invo
       v16 = sgEventsLogHandle();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v22 = [v4 exception];
-        v23 = 138412290;
-        v24 = v22;
-        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS: JS Exception during getFlightReferencesAndReservationId: %@", &v23, 0xCu);
+        v21 = [v4 exception];
+        v22 = 138412290;
+        v23 = v21;
+        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS: JS Exception during getFlightReferencesAndReservationId: %@", &v22, 0xCu);
       }
     }
 
@@ -1234,8 +1215,8 @@ void __60__SGReverseTemplateJS__getFlightReferencesAndReservationId___block_invo
     v17 = sgEventsLogHandle();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "Tried to call getFlightReferencesAndReservationId without JS assets", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "Tried to call getFlightReferencesAndReservationId without JS assets", &v22, 2u);
     }
 
     v18 = *(*(a1 + 48) + 8);
@@ -1244,7 +1225,6 @@ void __60__SGReverseTemplateJS__getFlightReferencesAndReservationId___block_invo
   }
 
   objc_autoreleasePoolPop(v2);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_privacyAwareLogsForMLExtractions:(id)extractions
@@ -1282,7 +1262,7 @@ void __60__SGReverseTemplateJS__getFlightReferencesAndReservationId___block_invo
 
 void __57__SGReverseTemplateJS__privacyAwareLogsForMLExtractions___block_invoke(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getJSContext];
   v4 = v3;
@@ -1291,8 +1271,8 @@ void __57__SGReverseTemplateJS__privacyAwareLogsForMLExtractions___block_invoke(
     v5 = *(a1 + 32);
     v6 = [v3 objectForKeyedSubscript:@"getPrivacyAwareMlLogs"];
     v7 = *(a1 + 32);
-    v25[0] = *(a1 + 40);
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = *(a1 + 40);
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     v9 = [v7 _prepareArguments:v8];
     v10 = [v5 _callJSFunction:v6 withArguments:v9];
     v11 = [v10 toDictionary];
@@ -1303,10 +1283,10 @@ void __57__SGReverseTemplateJS__privacyAwareLogsForMLExtractions___block_invoke(
     v14 = sgEventsLogHandle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v21 = *(*(*(a1 + 48) + 8) + 40);
-      v23 = 138412290;
-      v24 = v21;
-      _os_log_debug_impl(&dword_231E60000, v14, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called getPrivacyAwareMlLogs with result: %@", &v23, 0xCu);
+      v20 = *(*(*(a1 + 48) + 8) + 40);
+      v22 = 138412290;
+      v23 = v20;
+      _os_log_debug_impl(&dword_231E60000, v14, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called getPrivacyAwareMlLogs with result: %@", &v22, 0xCu);
     }
 
     v15 = [v4 exception];
@@ -1316,10 +1296,10 @@ void __57__SGReverseTemplateJS__privacyAwareLogsForMLExtractions___block_invoke(
       v16 = sgEventsLogHandle();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v22 = [v4 exception];
-        v23 = 138412290;
-        v24 = v22;
-        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS: JS Exception during getPrivacyAwareMlLogs: %@", &v23, 0xCu);
+        v21 = [v4 exception];
+        v22 = 138412290;
+        v23 = v21;
+        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS: JS Exception during getPrivacyAwareMlLogs: %@", &v22, 0xCu);
       }
     }
 
@@ -1331,8 +1311,8 @@ void __57__SGReverseTemplateJS__privacyAwareLogsForMLExtractions___block_invoke(
     v17 = sgEventsLogHandle();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "Tried to call getPrivacyAwareMlLogs without JS assets", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "Tried to call getPrivacyAwareMlLogs without JS assets", &v22, 2u);
     }
 
     v18 = *(*(a1 + 48) + 8);
@@ -1341,7 +1321,6 @@ void __57__SGReverseTemplateJS__privacyAwareLogsForMLExtractions___block_invoke(
   }
 
   objc_autoreleasePoolPop(v2);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_resolveCandidatesForJSDict:(id)dict
@@ -1379,7 +1358,7 @@ void __57__SGReverseTemplateJS__privacyAwareLogsForMLExtractions___block_invoke(
 
 void __51__SGReverseTemplateJS__resolveCandidatesForJSDict___block_invoke(uint64_t a1)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getJSContext];
   v4 = v3;
@@ -1388,8 +1367,8 @@ void __51__SGReverseTemplateJS__resolveCandidatesForJSDict___block_invoke(uint64
     v5 = *(a1 + 32);
     v6 = [v3 objectForKeyedSubscript:@"resolveCandidatesForJSDict"];
     v7 = *(a1 + 32);
-    v24[0] = *(a1 + 40);
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+    v23[0] = *(a1 + 40);
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
     v9 = [v7 _prepareArguments:v8];
     v10 = [v5 _callJSFunction:v6 withArguments:v9];
 
@@ -1404,10 +1383,10 @@ void __51__SGReverseTemplateJS__resolveCandidatesForJSDict___block_invoke(uint64
     v14 = sgEventsLogHandle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v20 = *(*(*(a1 + 48) + 8) + 40);
-      v22 = 138412290;
-      v23 = v20;
-      _os_log_debug_impl(&dword_231E60000, v14, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called resolveCandidatesForJSDict with result: %@", &v22, 0xCu);
+      v19 = *(*(*(a1 + 48) + 8) + 40);
+      v21 = 138412290;
+      v22 = v19;
+      _os_log_debug_impl(&dword_231E60000, v14, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called resolveCandidatesForJSDict with result: %@", &v21, 0xCu);
     }
 
     v15 = [v4 exception];
@@ -1417,10 +1396,10 @@ void __51__SGReverseTemplateJS__resolveCandidatesForJSDict___block_invoke(uint64
       v16 = sgEventsLogHandle();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v21 = [v4 exception];
-        v22 = 138412290;
-        v23 = v21;
-        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS: JS Exception during resolveCandidatesForJSDict: %@", &v22, 0xCu);
+        v20 = [v4 exception];
+        v21 = 138412290;
+        v22 = v20;
+        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS: JS Exception during resolveCandidatesForJSDict: %@", &v21, 0xCu);
       }
     }
 
@@ -1432,8 +1411,8 @@ void __51__SGReverseTemplateJS__resolveCandidatesForJSDict___block_invoke(uint64
     v17 = sgEventsLogHandle();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "Tried to call resolveCandidatesForJSDict without JS assets", &v22, 2u);
+      LOWORD(v21) = 0;
+      _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "Tried to call resolveCandidatesForJSDict without JS assets", &v21, 2u);
     }
 
     v18 = *(*(a1 + 48) + 8);
@@ -1442,7 +1421,6 @@ void __51__SGReverseTemplateJS__resolveCandidatesForJSDict___block_invoke(uint64
   }
 
   objc_autoreleasePoolPop(v2);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_eventClassificationForEntity:(id)entity
@@ -1480,7 +1458,7 @@ void __51__SGReverseTemplateJS__resolveCandidatesForJSDict___block_invoke(uint64
 
 void __53__SGReverseTemplateJS__eventClassificationForEntity___block_invoke(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getJSContext];
   v4 = v3;
@@ -1489,8 +1467,8 @@ void __53__SGReverseTemplateJS__eventClassificationForEntity___block_invoke(uint
     v5 = *(a1 + 32);
     v6 = [v3 objectForKeyedSubscript:@"eventClassificationForEntity"];
     v7 = *(a1 + 32);
-    v25[0] = *(a1 + 40);
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+    v24[0] = *(a1 + 40);
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
     v9 = [v7 _prepareArguments:v8];
     v10 = [v5 _callJSFunction:v6 withArguments:v9];
     v11 = [v10 toDictionary];
@@ -1501,10 +1479,10 @@ void __53__SGReverseTemplateJS__eventClassificationForEntity___block_invoke(uint
     v14 = sgEventsLogHandle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v21 = *(*(*(a1 + 48) + 8) + 40);
-      v23 = 138412290;
-      v24 = v21;
-      _os_log_debug_impl(&dword_231E60000, v14, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called eventClassificationForEntity with result: %@", &v23, 0xCu);
+      v20 = *(*(*(a1 + 48) + 8) + 40);
+      v22 = 138412290;
+      v23 = v20;
+      _os_log_debug_impl(&dword_231E60000, v14, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS: Called eventClassificationForEntity with result: %@", &v22, 0xCu);
     }
 
     v15 = [v4 exception];
@@ -1514,10 +1492,10 @@ void __53__SGReverseTemplateJS__eventClassificationForEntity___block_invoke(uint
       v16 = sgEventsLogHandle();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        v22 = [v4 exception];
-        v23 = 138412290;
-        v24 = v22;
-        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS _eventClassificationForEntity: JS Exception during eventClassificationForEntity: %@", &v23, 0xCu);
+        v21 = [v4 exception];
+        v22 = 138412290;
+        v23 = v21;
+        _os_log_fault_impl(&dword_231E60000, v16, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS _eventClassificationForEntity: JS Exception during eventClassificationForEntity: %@", &v22, 0xCu);
       }
     }
 
@@ -1529,8 +1507,8 @@ void __53__SGReverseTemplateJS__eventClassificationForEntity___block_invoke(uint
     v17 = sgEventsLogHandle();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "Tried to call eventClassificationForEntity without JS assets", &v23, 2u);
+      LOWORD(v22) = 0;
+      _os_log_fault_impl(&dword_231E60000, v17, OS_LOG_TYPE_FAULT, "Tried to call eventClassificationForEntity without JS assets", &v22, 2u);
     }
 
     v18 = *(*(a1 + 48) + 8);
@@ -1539,7 +1517,6 @@ void __53__SGReverseTemplateJS__eventClassificationForEntity___block_invoke(uint
   }
 
   objc_autoreleasePoolPop(v2);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldDownloadFull:(id)full
@@ -1567,7 +1544,7 @@ void __53__SGReverseTemplateJS__eventClassificationForEntity___block_invoke(uint
 
 void __42__SGReverseTemplateJS_shouldDownloadFull___block_invoke(uint64_t a1)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = [*(a1 + 32) getJSContext];
   v4 = v3;
@@ -1576,8 +1553,8 @@ void __42__SGReverseTemplateJS_shouldDownloadFull___block_invoke(uint64_t a1)
     v5 = *(a1 + 32);
     v6 = [v3 objectForKeyedSubscript:@"shouldDownloadFull"];
     v7 = *(a1 + 32);
-    v20[0] = *(a1 + 40);
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    v19[0] = *(a1 + 40);
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
     v9 = [v7 _prepareArguments:v8];
     v10 = [v5 _callJSFunction:v6 withArguments:v9];
     *(*(*(a1 + 48) + 8) + 24) = [v10 toBool];
@@ -1585,10 +1562,10 @@ void __42__SGReverseTemplateJS_shouldDownloadFull___block_invoke(uint64_t a1)
     v11 = sgEventsLogHandle();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v16 = *(*(*(a1 + 48) + 8) + 24);
-      v18 = 67109120;
-      LODWORD(v19) = v16;
-      _os_log_debug_impl(&dword_231E60000, v11, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS Called shouldDownloadFull with result = %d", &v18, 8u);
+      v15 = *(*(*(a1 + 48) + 8) + 24);
+      v17 = 67109120;
+      LODWORD(v18) = v15;
+      _os_log_debug_impl(&dword_231E60000, v11, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS Called shouldDownloadFull with result = %d", &v17, 8u);
     }
 
     v12 = [v4 exception];
@@ -1598,10 +1575,10 @@ void __42__SGReverseTemplateJS_shouldDownloadFull___block_invoke(uint64_t a1)
       v13 = sgEventsLogHandle();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        v17 = [v4 exception];
-        v18 = 138412290;
-        v19 = v17;
-        _os_log_fault_impl(&dword_231E60000, v13, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS JS exception during shouldDownloadFull: %@.", &v18, 0xCu);
+        v16 = [v4 exception];
+        v17 = 138412290;
+        v18 = v16;
+        _os_log_fault_impl(&dword_231E60000, v13, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS JS exception during shouldDownloadFull: %@.", &v17, 0xCu);
       }
     }
 
@@ -1613,27 +1590,26 @@ void __42__SGReverseTemplateJS_shouldDownloadFull___block_invoke(uint64_t a1)
     v14 = sgEventsLogHandle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_fault_impl(&dword_231E60000, v14, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS Tried to call shouldDownloadFull without JS assets", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_fault_impl(&dword_231E60000, v14, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS Tried to call shouldDownloadFull without JS assets", &v17, 2u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
 
   objc_autoreleasePoolPop(v2);
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)loadJSFromASCIIFile:(id)file
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   if (fileCopy)
   {
     context = objc_autoreleasePoolPush();
-    v56 = 0;
-    v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:fileCopy options:1 error:&v56];
-    v55 = v56;
+    v55 = 0;
+    v6 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfURL:fileCopy options:1 error:&v55];
+    v54 = v55;
     if (v6)
     {
       lastPathComponent = [fileCopy lastPathComponent];
@@ -1646,52 +1622,52 @@ void __42__SGReverseTemplateJS_shouldDownloadFull___block_invoke(uint64_t a1)
       [(NSMutableArray *)self->_memoryMappedFiles addObject:v6];
       [(NSMutableArray *)self->_memoryMappedFileNames addObject:lastPathComponent];
       jSGlobalContextRef = [(JSContext *)self->_jsContext JSGlobalContextRef];
-      v57 = 0;
-      v58 = &v57;
-      v59 = 0x2020000000;
+      v56 = 0;
+      v57 = &v56;
+      v58 = 0x2020000000;
       v8 = getJSContextGetGroupSymbolLoc_ptr;
-      v60 = getJSContextGetGroupSymbolLoc_ptr;
+      v59 = getJSContextGetGroupSymbolLoc_ptr;
       if (!getJSContextGetGroupSymbolLoc_ptr)
       {
         *buf = MEMORY[0x277D85DD0];
         *&buf[8] = 3221225472;
         *&buf[16] = __getJSContextGetGroupSymbolLoc_block_invoke;
-        v62 = &unk_278955BF0;
-        v63 = &v57;
+        v61 = &unk_278955BF0;
+        v62 = &v56;
         v9 = JavaScriptCoreLibrary();
         v10 = dlsym(v9, "JSContextGetGroup");
-        *(v63[1] + 24) = v10;
-        getJSContextGetGroupSymbolLoc_ptr = *(v63[1] + 24);
-        v8 = v58[3];
+        *(v62[1] + 24) = v10;
+        getJSContextGetGroupSymbolLoc_ptr = *(v62[1] + 24);
+        v8 = v57[3];
       }
 
-      _Block_object_dispose(&v57, 8);
+      _Block_object_dispose(&v56, 8);
       if (v8)
       {
         v11 = v8(jSGlobalContextRef);
         absoluteString = [fileCopy absoluteString];
         v13 = absoluteString;
         uTF8String = [absoluteString UTF8String];
-        v57 = 0;
-        v58 = &v57;
-        v59 = 0x2020000000;
+        v56 = 0;
+        v57 = &v56;
+        v58 = 0x2020000000;
         v15 = getJSStringCreateWithUTF8CStringSymbolLoc_ptr;
-        v60 = getJSStringCreateWithUTF8CStringSymbolLoc_ptr;
+        v59 = getJSStringCreateWithUTF8CStringSymbolLoc_ptr;
         if (!getJSStringCreateWithUTF8CStringSymbolLoc_ptr)
         {
           *buf = MEMORY[0x277D85DD0];
           *&buf[8] = 3221225472;
           *&buf[16] = __getJSStringCreateWithUTF8CStringSymbolLoc_block_invoke;
-          v62 = &unk_278955BF0;
-          v63 = &v57;
+          v61 = &unk_278955BF0;
+          v62 = &v56;
           v16 = JavaScriptCoreLibrary();
           v17 = dlsym(v16, "JSStringCreateWithUTF8CString");
-          *(v63[1] + 24) = v17;
-          getJSStringCreateWithUTF8CStringSymbolLoc_ptr = *(v63[1] + 24);
-          v15 = v58[3];
+          *(v62[1] + 24) = v17;
+          getJSStringCreateWithUTF8CStringSymbolLoc_ptr = *(v62[1] + 24);
+          v15 = v57[3];
         }
 
-        _Block_object_dispose(&v57, 8);
+        _Block_object_dispose(&v56, 8);
         if (v15)
         {
           v18 = v15(uTF8String);
@@ -1699,95 +1675,95 @@ void __42__SGReverseTemplateJS_shouldDownloadFull___block_invoke(uint64_t a1)
           v19 = v6;
           bytes = [v6 bytes];
           v21 = [v6 length];
-          v57 = 0;
-          v58 = &v57;
-          v59 = 0x2020000000;
+          v56 = 0;
+          v57 = &v56;
+          v58 = 0x2020000000;
           v22 = getJSScriptCreateReferencingImmortalASCIITextSymbolLoc_ptr;
-          v60 = getJSScriptCreateReferencingImmortalASCIITextSymbolLoc_ptr;
+          v59 = getJSScriptCreateReferencingImmortalASCIITextSymbolLoc_ptr;
           if (!getJSScriptCreateReferencingImmortalASCIITextSymbolLoc_ptr)
           {
             *buf = MEMORY[0x277D85DD0];
             *&buf[8] = 3221225472;
             *&buf[16] = __getJSScriptCreateReferencingImmortalASCIITextSymbolLoc_block_invoke;
-            v62 = &unk_278955BF0;
-            v63 = &v57;
+            v61 = &unk_278955BF0;
+            v62 = &v56;
             v23 = JavaScriptCoreLibrary();
             v24 = dlsym(v23, "JSScriptCreateReferencingImmortalASCIIText");
-            *(v63[1] + 24) = v24;
-            getJSScriptCreateReferencingImmortalASCIITextSymbolLoc_ptr = *(v63[1] + 24);
-            v22 = v58[3];
+            *(v62[1] + 24) = v24;
+            getJSScriptCreateReferencingImmortalASCIITextSymbolLoc_ptr = *(v62[1] + 24);
+            v22 = v57[3];
           }
 
-          _Block_object_dispose(&v57, 8);
+          _Block_object_dispose(&v56, 8);
           if (v22)
           {
             v25 = (v22)(v11, v18, 0, bytes, v21, 0, 0);
-            v57 = 0;
-            v58 = &v57;
-            v59 = 0x2020000000;
+            v56 = 0;
+            v57 = &v56;
+            v58 = 0x2020000000;
             v26 = getJSStringReleaseSymbolLoc_ptr;
-            v60 = getJSStringReleaseSymbolLoc_ptr;
+            v59 = getJSStringReleaseSymbolLoc_ptr;
             if (!getJSStringReleaseSymbolLoc_ptr)
             {
               *buf = MEMORY[0x277D85DD0];
               *&buf[8] = 3221225472;
               *&buf[16] = __getJSStringReleaseSymbolLoc_block_invoke;
-              v62 = &unk_278955BF0;
-              v63 = &v57;
+              v61 = &unk_278955BF0;
+              v62 = &v56;
               v27 = JavaScriptCoreLibrary();
               v28 = dlsym(v27, "JSStringRelease");
-              *(v63[1] + 24) = v28;
-              getJSStringReleaseSymbolLoc_ptr = *(v63[1] + 24);
-              v26 = v58[3];
+              *(v62[1] + 24) = v28;
+              getJSStringReleaseSymbolLoc_ptr = *(v62[1] + 24);
+              v26 = v57[3];
             }
 
-            _Block_object_dispose(&v57, 8);
+            _Block_object_dispose(&v56, 8);
             if (v26)
             {
               v26(v18);
-              v57 = 0;
-              v58 = &v57;
-              v59 = 0x2020000000;
+              v56 = 0;
+              v57 = &v56;
+              v58 = 0x2020000000;
               v29 = getJSScriptEvaluateSymbolLoc_ptr;
-              v60 = getJSScriptEvaluateSymbolLoc_ptr;
+              v59 = getJSScriptEvaluateSymbolLoc_ptr;
               if (!getJSScriptEvaluateSymbolLoc_ptr)
               {
                 *buf = MEMORY[0x277D85DD0];
                 *&buf[8] = 3221225472;
                 *&buf[16] = __getJSScriptEvaluateSymbolLoc_block_invoke;
-                v62 = &unk_278955BF0;
-                v63 = &v57;
+                v61 = &unk_278955BF0;
+                v62 = &v56;
                 v30 = JavaScriptCoreLibrary();
                 v31 = dlsym(v30, "JSScriptEvaluate");
-                *(v63[1] + 24) = v31;
-                getJSScriptEvaluateSymbolLoc_ptr = *(v63[1] + 24);
-                v29 = v58[3];
+                *(v62[1] + 24) = v31;
+                getJSScriptEvaluateSymbolLoc_ptr = *(v62[1] + 24);
+                v29 = v57[3];
               }
 
-              _Block_object_dispose(&v57, 8);
+              _Block_object_dispose(&v56, 8);
               if (v29)
               {
                 v32 = (v29)(jSGlobalContextRef, v25, 0, 0);
-                v57 = 0;
-                v58 = &v57;
-                v59 = 0x2020000000;
+                v56 = 0;
+                v57 = &v56;
+                v58 = 0x2020000000;
                 v33 = getJSScriptReleaseSymbolLoc_ptr;
-                v60 = getJSScriptReleaseSymbolLoc_ptr;
+                v59 = getJSScriptReleaseSymbolLoc_ptr;
                 if (!getJSScriptReleaseSymbolLoc_ptr)
                 {
                   *buf = MEMORY[0x277D85DD0];
                   *&buf[8] = 3221225472;
                   *&buf[16] = __getJSScriptReleaseSymbolLoc_block_invoke;
-                  v62 = &unk_278955BF0;
-                  v63 = &v57;
+                  v61 = &unk_278955BF0;
+                  v62 = &v56;
                   v34 = JavaScriptCoreLibrary();
                   v35 = dlsym(v34, "JSScriptRelease");
-                  *(v63[1] + 24) = v35;
-                  getJSScriptReleaseSymbolLoc_ptr = *(v63[1] + 24);
-                  v33 = v58[3];
+                  *(v62[1] + 24) = v35;
+                  getJSScriptReleaseSymbolLoc_ptr = *(v62[1] + 24);
+                  v33 = v57[3];
                 }
 
-                _Block_object_dispose(&v57, 8);
+                _Block_object_dispose(&v56, 8);
                 if (v33)
                 {
                   v33(v25);
@@ -1799,47 +1775,47 @@ LABEL_30:
                 }
 
                 currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
-                v52 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void SGJSScriptRelease(JSScriptRef)"];
-                [currentHandler2 handleFailureInFunction:v52 file:@"SGReverseTemplateJS.m" lineNumber:55 description:{@"%s", dlerror()}];
+                v51 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void SGJSScriptRelease(JSScriptRef)"];
+                [currentHandler2 handleFailureInFunction:v51 file:@"SGReverseTemplateJS.m" lineNumber:55 description:{@"%s", dlerror()}];
               }
 
               else
               {
                 currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
-                v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"JSValueRef SGJSScriptEvaluate(JSContextRef, JSScriptRef, JSValueRef, JSValueRef *)"}];
-                [currentHandler3 handleFailureInFunction:v50 file:@"SGReverseTemplateJS.m" lineNumber:54 description:{@"%s", dlerror()}];
+                v49 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"JSValueRef SGJSScriptEvaluate(JSContextRef, JSScriptRef, JSValueRef, JSValueRef *)"}];
+                [currentHandler3 handleFailureInFunction:v49 file:@"SGReverseTemplateJS.m" lineNumber:54 description:{@"%s", dlerror()}];
               }
             }
 
             else
             {
               currentHandler4 = [MEMORY[0x277CCA890] currentHandler];
-              v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void SGJSStringRelease(JSStringRef)"];
-              [currentHandler4 handleFailureInFunction:v48 file:@"SGReverseTemplateJS.m" lineNumber:53 description:{@"%s", dlerror()}];
+              v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void SGJSStringRelease(JSStringRef)"];
+              [currentHandler4 handleFailureInFunction:v47 file:@"SGReverseTemplateJS.m" lineNumber:53 description:{@"%s", dlerror()}];
             }
           }
 
           else
           {
             currentHandler5 = [MEMORY[0x277CCA890] currentHandler];
-            v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"JSScriptRef SGJSScriptCreateReferencingImmortalASCIIText(JSContextGroupRef, JSStringRef, int, const char *, size_t, JSStringRef *, int *)"}];
-            [currentHandler5 handleFailureInFunction:v46 file:@"SGReverseTemplateJS.m" lineNumber:52 description:{@"%s", dlerror()}];
+            v45 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"JSScriptRef SGJSScriptCreateReferencingImmortalASCIIText(JSContextGroupRef, JSStringRef, int, const char *, size_t, JSStringRef *, int *)"}];
+            [currentHandler5 handleFailureInFunction:v45 file:@"SGReverseTemplateJS.m" lineNumber:52 description:{@"%s", dlerror()}];
           }
         }
 
         else
         {
           currentHandler6 = [MEMORY[0x277CCA890] currentHandler];
-          v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"JSStringRef SGJSStringCreateWithUTF8CString(const char *)"];
-          [currentHandler6 handleFailureInFunction:v44 file:@"SGReverseTemplateJS.m" lineNumber:51 description:{@"%s", dlerror()}];
+          v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"JSStringRef SGJSStringCreateWithUTF8CString(const char *)"];
+          [currentHandler6 handleFailureInFunction:v43 file:@"SGReverseTemplateJS.m" lineNumber:51 description:{@"%s", dlerror()}];
         }
       }
 
       else
       {
         currentHandler7 = [MEMORY[0x277CCA890] currentHandler];
-        v42 = [MEMORY[0x277CCACA8] stringWithUTF8String:"JSContextGroupRef SGJSContextGetGroup(JSContextRef)"];
-        [currentHandler7 handleFailureInFunction:v42 file:@"SGReverseTemplateJS.m" lineNumber:50 description:{@"%s", dlerror()}];
+        v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"JSContextGroupRef SGJSContextGetGroup(JSContextRef)"];
+        [currentHandler7 handleFailureInFunction:v41 file:@"SGReverseTemplateJS.m" lineNumber:50 description:{@"%s", dlerror()}];
       }
 
       __break(1u);
@@ -1851,7 +1827,7 @@ LABEL_30:
       *buf = 138412546;
       *&buf[4] = fileCopy;
       *&buf[12] = 2112;
-      *&buf[14] = v55;
+      *&buf[14] = v54;
       _os_log_fault_impl(&dword_231E60000, lastPathComponent, OS_LOG_TYPE_FAULT, "SGReverseTemplateJS loadJSFromASCIIFile: Error loading JS file %@: %@", buf, 0x16u);
     }
 
@@ -1868,8 +1844,6 @@ LABEL_30:
 
   v36 = 0;
 LABEL_31:
-
-  v38 = *MEMORY[0x277D85DE8];
 
   return v36;
 }
@@ -2133,30 +2107,30 @@ LABEL_8:
 
 - (id)sfFlightsToDictionary:(id)dictionary
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v74 = objc_opt_new();
+  v73 = objc_opt_new();
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
   obj = dictionaryCopy;
-  v75 = [obj countByEnumeratingWithState:&v86 objects:v91 count:16];
-  if (v75)
+  v74 = [obj countByEnumeratingWithState:&v85 objects:v90 count:16];
+  if (v74)
   {
-    v73 = *v87;
+    v72 = *v86;
     do
     {
       v5 = 0;
       do
       {
-        if (*v87 != v73)
+        if (*v86 != v72)
         {
           objc_enumerationMutation(obj);
         }
 
-        v78 = v5;
-        v6 = *(*(&v86 + 1) + 8 * v5);
+        v77 = v5;
+        v6 = *(*(&v85 + 1) + 8 * v5);
         context = objc_autoreleasePoolPush();
         v7 = objc_opt_new();
         flightNumber = [v6 flightNumber];
@@ -2232,7 +2206,7 @@ LABEL_8:
         }
 
         operatorFlightNumber = [v6 operatorFlightNumber];
-        v76 = v7;
+        v75 = v7;
         if (operatorFlightNumber)
         {
           [v7 setObject:operatorFlightNumber forKeyedSubscript:@"operatorFlightNumber"];
@@ -2245,25 +2219,25 @@ LABEL_8:
         }
 
         v22 = objc_opt_new();
+        v81 = 0u;
         v82 = 0u;
         v83 = 0u;
         v84 = 0u;
-        v85 = 0u;
         legs = [v6 legs];
-        v81 = [legs countByEnumeratingWithState:&v82 objects:v90 count:16];
-        if (v81)
+        v80 = [legs countByEnumeratingWithState:&v81 objects:v89 count:16];
+        if (v80)
         {
-          v80 = *v83;
+          v79 = *v82;
           do
           {
-            for (i = 0; i != v81; ++i)
+            for (i = 0; i != v80; ++i)
             {
-              if (*v83 != v80)
+              if (*v82 != v79)
               {
                 objc_enumerationMutation(legs);
               }
 
-              v24 = *(*(&v82 + 1) + 8 * i);
+              v24 = *(*(&v81 + 1) + 8 * i);
               v25 = objc_opt_new();
               v26 = -[SGReverseTemplateJS sfFlightStatusToString:](self, "sfFlightStatusToString:", [v24 status]);
               if (v26)
@@ -2439,40 +2413,39 @@ LABEL_8:
               [v22 addObject:v25];
             }
 
-            v81 = [legs countByEnumeratingWithState:&v82 objects:v90 count:16];
+            v80 = [legs countByEnumeratingWithState:&v81 objects:v89 count:16];
           }
 
-          while (v81);
+          while (v80);
         }
 
         if (v22)
         {
-          v67 = v76;
-          [v76 setObject:v22 forKeyedSubscript:@"legs"];
+          v67 = v75;
+          [v75 setObject:v22 forKeyedSubscript:@"legs"];
         }
 
         else
         {
           null21 = [MEMORY[0x277CBEB68] null];
-          v67 = v76;
-          [v76 setObject:null21 forKeyedSubscript:@"legs"];
+          v67 = v75;
+          [v75 setObject:null21 forKeyedSubscript:@"legs"];
         }
 
-        [v74 addObject:v67];
+        [v73 addObject:v67];
 
         objc_autoreleasePoolPop(context);
-        v5 = v78 + 1;
+        v5 = v77 + 1;
       }
 
-      while (v78 + 1 != v75);
-      v75 = [obj countByEnumeratingWithState:&v86 objects:v91 count:16];
+      while (v77 + 1 != v74);
+      v74 = [obj countByEnumeratingWithState:&v85 objects:v90 count:16];
     }
 
-    while (v75);
+    while (v74);
   }
 
-  v69 = [v74 copy];
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = [v73 copy];
 
   return v69;
 }
@@ -2509,17 +2482,17 @@ void __86__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_fli
 
 - (id)flightInformationWithAirlineCode:(id)code flightNumber:(id)number flightDate:(id)date
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   numberCopy = number;
   dateCopy = date;
   v12 = dateCopy;
-  v60 = 0;
-  v61 = &v60;
-  v62 = 0x3032000000;
-  v63 = __Block_byref_object_copy__14927;
-  v64 = __Block_byref_object_dispose__14928;
-  v65 = 0;
+  v59 = 0;
+  v60 = &v59;
+  v61 = 0x3032000000;
+  v62 = __Block_byref_object_copy__14927;
+  v63 = __Block_byref_object_dispose__14928;
+  v64 = 0;
   if (!codeCopy)
   {
     numberCopy = sgEventsLogHandle();
@@ -2568,10 +2541,10 @@ LABEL_20:
   [v14 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
   v15 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
   [v14 setTimeZone:v15];
-  v46 = v14;
+  v45 = v14;
 
-  v45 = [v14 dateFromString:v12];
-  if (v45)
+  v44 = [v14 dateFromString:v12];
+  if (v44)
   {
     mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
@@ -2588,40 +2561,40 @@ LABEL_20:
       bundleIdentifier = @"com.apple.undefined";
     }
 
-    v42 = bundleIdentifier;
-    v19 = [MEMORY[0x277D007B0] flightRequestForQuery:numberCopy date:v45 appBundleId:bundleIdentifier];
+    v41 = bundleIdentifier;
+    v19 = [MEMORY[0x277D007B0] flightRequestForQuery:numberCopy date:v44 appBundleId:bundleIdentifier];
     if (!v19)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"SGReverseTemplateJS.m" lineNumber:589 description:{@"Invalid parameter not satisfying: %@", @"request"}];
     }
 
-    v44 = v19;
+    v43 = v19;
     mEMORY[0x277D007C0] = [MEMORY[0x277D007C0] sharedSession];
     *buf = 0;
-    v55 = buf;
-    v56 = 0x3032000000;
-    v57 = __Block_byref_object_copy__14927;
-    v58 = __Block_byref_object_dispose__14928;
-    v59 = 0;
+    v54 = buf;
+    v55 = 0x3032000000;
+    v56 = __Block_byref_object_copy__14927;
+    v57 = __Block_byref_object_dispose__14928;
+    v58 = 0;
     v21 = dispatch_semaphore_create(0);
-    v47[0] = MEMORY[0x277D85DD0];
-    v47[1] = 3221225472;
-    v47[2] = __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_flightDate___block_invoke;
-    v47[3] = &unk_27894E018;
-    v52 = &v60;
-    v53 = buf;
-    v47[4] = self;
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_flightDate___block_invoke;
+    v46[3] = &unk_27894E018;
+    v51 = &v59;
+    v52 = buf;
+    v46[4] = self;
     v22 = codeCopy;
-    v48 = v22;
+    v47 = v22;
     v23 = numberCopy;
-    v49 = v23;
+    v48 = v23;
     v24 = v12;
-    v50 = v24;
+    v49 = v24;
     v25 = v21;
-    v51 = v25;
-    v43 = mEMORY[0x277D007C0];
-    v26 = [mEMORY[0x277D007C0] taskWithRequest:v44 completion:v47];
+    v50 = v25;
+    v42 = mEMORY[0x277D007C0];
+    v26 = [mEMORY[0x277D007C0] taskWithRequest:v43 completion:v46];
     [v26 resume];
     if ([MEMORY[0x277D425A0] waitForSemaphore:v25 timeoutSeconds:60.0])
     {
@@ -2634,45 +2607,45 @@ LABEL_20:
       v31 = sgEventsLogHandle();
       if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
-        v40 = v61[5];
-        *v69 = 138413058;
-        v70 = v22;
-        v71 = 2112;
-        v72 = v23;
-        v73 = 2112;
-        v74 = v24;
-        v75 = 2112;
-        v76 = v40;
-        _os_log_debug_impl(&dword_231E60000, v31, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS flightInformationWithAirlineCode: CoreParsec results for: %@, %@, %@ = %@", v69, 0x2Au);
+        v39 = v60[5];
+        *v68 = 138413058;
+        v69 = v22;
+        v70 = 2112;
+        v71 = v23;
+        v72 = 2112;
+        v73 = v24;
+        v74 = 2112;
+        v75 = v39;
+        _os_log_debug_impl(&dword_231E60000, v31, OS_LOG_TYPE_DEBUG, "SGReverseTemplateJS flightInformationWithAirlineCode: CoreParsec results for: %@, %@, %@ = %@", v68, 0x2Au);
       }
 
-      if (![v61[5] count])
+      if (!objc_msgSend_count(v60[5]))
       {
-        v32 = *(v55 + 5);
+        v32 = *(v54 + 5);
         if (v32)
         {
-          v67[0] = @"error";
-          v66[0] = @"type";
-          v66[1] = @"errorCode";
+          v66[0] = @"error";
+          v65[0] = @"type";
+          v65[1] = @"errorCode";
           v33 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v32, "code")}];
-          v67[1] = v33;
-          v66[2] = @"userInfo";
-          userInfo = [*(v55 + 5) userInfo];
-          v67[2] = userInfo;
-          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:3];
-          v68 = v35;
-          v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
-          v37 = v61[5];
-          v61[5] = v36;
+          v66[1] = v33;
+          v65[2] = @"userInfo";
+          userInfo = [*(v54 + 5) userInfo];
+          v66[2] = userInfo;
+          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:3];
+          v67 = v35;
+          v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v67 count:1];
+          v37 = v60[5];
+          v60[5] = v36;
         }
       }
 
       v27 = v26;
-      v28 = v61[5];
+      v28 = v60[5];
     }
 
     _Block_object_dispose(buf, 8);
-    v30 = v42;
+    v30 = v41;
   }
 
   else
@@ -2688,16 +2661,14 @@ LABEL_20:
   }
 
 LABEL_32:
-  _Block_object_dispose(&v60, 8);
-
-  v38 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v59, 8);
 
   return v28;
 }
 
 void __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_flightDate___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = *(a1 + 32);
   v9 = [a3 flightResults];
@@ -2712,24 +2683,22 @@ void __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_fli
     v13 = sgEventsLogHandle();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 40);
-      v16 = *(a1 + 48);
-      v17 = *(a1 + 56);
-      v18 = 138413058;
-      v19 = v15;
-      v20 = 2112;
-      v21 = v16;
-      v22 = 2112;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v7;
-      _os_log_error_impl(&dword_231E60000, v13, OS_LOG_TYPE_ERROR, "flightInformationWithAirlineCode flightInformationWithAirlineCode: error when calling CoreParsec for: %@, %@, %@ = %@", &v18, 0x2Au);
+      v14 = *(a1 + 40);
+      v15 = *(a1 + 48);
+      v16 = *(a1 + 56);
+      v17 = 138413058;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v15;
+      v21 = 2112;
+      v22 = v16;
+      v23 = 2112;
+      v24 = v7;
+      _os_log_error_impl(&dword_231E60000, v13, OS_LOG_TYPE_ERROR, "flightInformationWithAirlineCode flightInformationWithAirlineCode: error when calling CoreParsec for: %@, %@, %@ = %@", &v17, 0x2Au);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 64));
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)preprocessPackedSGMessage:(id)message
@@ -2755,7 +2724,7 @@ void __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_fli
 
 - (id)mappedArrayBufferForFileName:(id)name
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v5 = +[SGAsset asset];
   v6 = [v5 filesystemPathForAssetDataRelativePath:@"ReverseTemplateJS"];
@@ -2763,9 +2732,9 @@ void __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_fli
   v7 = objc_autoreleasePoolPush();
   v8 = [v6 stringByAppendingPathComponent:nameCopy];
   objc_autoreleasePoolPop(v7);
-  v27 = 0;
-  v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v8 options:1 error:&v27];
-  v10 = v27;
+  v26 = 0;
+  v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:v8 options:1 error:&v26];
+  v10 = v26;
   if (v9)
   {
     CFRetain(v9);
@@ -2775,31 +2744,31 @@ void __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_fli
     v13 = [v9 length];
     v14 = nameCopy;
     v15 = v10;
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
     v16 = getJSObjectMakeArrayBufferWithBytesNoCopySymbolLoc_ptr;
-    v31 = getJSObjectMakeArrayBufferWithBytesNoCopySymbolLoc_ptr;
+    v30 = getJSObjectMakeArrayBufferWithBytesNoCopySymbolLoc_ptr;
     if (!getJSObjectMakeArrayBufferWithBytesNoCopySymbolLoc_ptr)
     {
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __getJSObjectMakeArrayBufferWithBytesNoCopySymbolLoc_block_invoke;
-      v33 = &unk_278955BF0;
-      v34 = &v28;
+      v32 = &unk_278955BF0;
+      v33 = &v27;
       v17 = JavaScriptCoreLibrary();
       v18 = dlsym(v17, "JSObjectMakeArrayBufferWithBytesNoCopy");
-      *(v34[1] + 24) = v18;
-      getJSObjectMakeArrayBufferWithBytesNoCopySymbolLoc_ptr = *(v34[1] + 24);
-      v16 = v29[3];
+      *(v33[1] + 24) = v18;
+      getJSObjectMakeArrayBufferWithBytesNoCopySymbolLoc_ptr = *(v33[1] + 24);
+      v16 = v28[3];
     }
 
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v27, 8);
     if (!v16)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
-      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"JSObjectRef SGJSObjectMakeArrayBufferWithBytesNoCopy(JSContextRef, void *, size_t, JSTypedArrayBytesDeallocator, void *, JSValueRef *)"}];
-      [currentHandler handleFailureInFunction:v25 file:@"SGReverseTemplateJS.m" lineNumber:49 description:{@"%s", dlerror()}];
+      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"JSObjectRef SGJSObjectMakeArrayBufferWithBytesNoCopy(JSContextRef, void *, size_t, JSTypedArrayBytesDeallocator, void *, JSValueRef *)"}];
+      [currentHandler handleFailureInFunction:v24 file:@"SGReverseTemplateJS.m" lineNumber:49 description:{@"%s", dlerror()}];
 
       __break(1u);
     }
@@ -2825,51 +2794,49 @@ void __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_fli
     v20 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (void)initCurrentAsset
 {
-  v74[1] = *MEMORY[0x277D85DE8];
+  v73[1] = *MEMORY[0x277D85DE8];
   v3 = self->_localeIdentifier;
   v4 = self->_queue;
   objc_initWeak(&location, self);
-  v71[0] = 0;
-  v71[1] = v71;
-  v71[2] = 0x2020000000;
-  v71[3] = 0;
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x2020000000;
-  v70 = 0;
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke;
-  v65[3] = &unk_27894DDB8;
-  objc_copyWeak(&v66, &location);
-  v5 = MEMORY[0x2383809F0](v65);
+  v70[0] = 0;
+  v70[1] = v70;
+  v70[2] = 0x2020000000;
+  v70[3] = 0;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x2020000000;
+  v69 = 0;
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke;
+  v64[3] = &unk_27894DDB8;
+  objc_copyWeak(&v65, &location);
+  v5 = MEMORY[0x2383809F0](v64);
   [(JSContext *)self->_jsContext setObject:v5 forKeyedSubscript:@"load"];
 
-  v60[0] = MEMORY[0x277D85DD0];
-  v60[1] = 3221225472;
-  v60[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_2;
-  v60[3] = &unk_27894DDE0;
-  v62 = &v67;
-  v63 = v71;
+  v59[0] = MEMORY[0x277D85DD0];
+  v59[1] = 3221225472;
+  v59[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_2;
+  v59[3] = &unk_27894DDE0;
+  v61 = &v66;
+  v62 = v70;
   v6 = v4;
-  v61 = v6;
-  objc_copyWeak(&v64, &location);
-  v7 = MEMORY[0x2383809F0](v60);
+  v60 = v6;
+  objc_copyWeak(&v63, &location);
+  v7 = MEMORY[0x2383809F0](v59);
   [(JSContext *)self->_jsContext setObject:v7 forKeyedSubscript:@"loadWithVmGrowthCounter"];
 
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_4;
-  v58[3] = &unk_27894DDB8;
-  objc_copyWeak(&v59, &location);
-  v8 = MEMORY[0x2383809F0](v58);
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_4;
+  v57[3] = &unk_27894DDB8;
+  objc_copyWeak(&v58, &location);
+  v8 = MEMORY[0x2383809F0](v57);
   [(JSContext *)self->_jsContext setObject:v8 forKeyedSubscript:@"loadNoVmGrowthCounter"];
 
   [(JSContext *)self->_jsContext setObject:&__block_literal_global_83 forKeyedSubscript:@"debug"];
@@ -2879,30 +2846,30 @@ void __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_fli
 
   if (v8)
   {
-    v73 = @"log";
+    v72 = @"log";
     v10 = [(JSContext *)self->_jsContext objectForKeyedSubscript:@"debug"];
-    v74[0] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:&v73 count:1];
+    v73[0] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
     [(JSContext *)self->_jsContext setObject:v11 forKeyedSubscript:@"console"];
   }
 
   v12 = self->_dd;
-  v56[0] = MEMORY[0x277D85DD0];
-  v56[1] = 3221225472;
-  v56[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_100;
-  v56[3] = &unk_27894DE28;
+  v55[0] = MEMORY[0x277D85DD0];
+  v55[1] = 3221225472;
+  v55[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_100;
+  v55[3] = &unk_27894DE28;
   v13 = v12;
-  v57 = v13;
-  v14 = MEMORY[0x2383809F0](v56);
+  v56 = v13;
+  v14 = MEMORY[0x2383809F0](v55);
   [(JSContext *)self->_jsContext setObject:v14 forKeyedSubscript:@"runDataDetectors"];
 
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_2_105;
-  v54[3] = &unk_27894DE50;
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_2_105;
+  v53[3] = &unk_27894DE50;
   v15 = v13;
-  v55 = v15;
-  v16 = MEMORY[0x2383809F0](v54);
+  v54 = v15;
+  v16 = MEMORY[0x2383809F0](v53);
   [(JSContext *)self->_jsContext setObject:v16 forKeyedSubscript:@"runDataDetectorsWithMetadata"];
 
   [(JSContext *)self->_jsContext setObject:&__block_literal_global_115_15171 forKeyedSubscript:@"parseMicrodata"];
@@ -2926,23 +2893,23 @@ void __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_fli
   [(JSContext *)self->_jsContext setObject:v20 forKeyedSubscript:@"ASSET_VERSION"];
 
   [(JSContext *)self->_jsContext setObject:&__block_literal_global_147 forKeyedSubscript:@"htmlToPlainText"];
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_8;
-  v52[3] = &unk_278951348;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_8;
+  v51[3] = &unk_278951348;
   v21 = v3;
-  v53 = v21;
-  v22 = MEMORY[0x2383809F0](v52);
+  v52 = v21;
+  v22 = MEMORY[0x2383809F0](v51);
   [(JSContext *)self->_jsContext setObject:v22 forKeyedSubscript:@"getCurrentLocale"];
 
   [(JSContext *)self->_jsContext setObject:&__block_literal_global_162 forKeyedSubscript:@"getLinguisticTagsForString"];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_11;
-  v50[3] = &unk_27894DEF8;
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_11;
+  v49[3] = &unk_27894DEF8;
   v23 = v21;
-  v51 = v23;
-  v24 = MEMORY[0x2383809F0](v50);
+  v50 = v23;
+  v24 = MEMORY[0x2383809F0](v49);
   [(JSContext *)self->_jsContext setObject:v24 forKeyedSubscript:@"getPreferredLocalizationsFromArray"];
 
   [(JSContext *)self->_jsContext setObject:&__block_literal_global_187 forKeyedSubscript:@"getLocalizedFormattedDatetimeString"];
@@ -2958,82 +2925,80 @@ void __80__SGReverseTemplateJS_flightInformationWithAirlineCode_flightNumber_fli
   }
 
   v25 = mach_absolute_time();
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_21;
-  v49[3] = &__block_descriptor_40_e5_d8__0l;
-  v49[4] = v25;
-  v26 = MEMORY[0x2383809F0](v49);
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_21;
+  v48[3] = &__block_descriptor_40_e5_d8__0l;
+  v48[4] = v25;
+  v26 = MEMORY[0x2383809F0](v48);
   [(JSContext *)self->_jsContext setObject:v26 forKeyedSubscript:@"secondsForTiming"];
 
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_22;
-  v46[3] = &unk_278950F68;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_22;
+  v45[3] = &unk_278950F68;
   v27 = v6;
-  v47 = v27;
-  objc_copyWeak(&v48, &location);
-  v28 = MEMORY[0x2383809F0](v46);
+  v46 = v27;
+  objc_copyWeak(&v47, &location);
+  v28 = MEMORY[0x2383809F0](v45);
   [(JSContext *)self->_jsContext setObject:v28 forKeyedSubscript:@"freeJSContext"];
 
-  v44[0] = MEMORY[0x277D85DD0];
-  v44[1] = 3221225472;
-  v44[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_24;
-  v44[3] = &unk_27894DFA0;
-  objc_copyWeak(&v45, &location);
-  v29 = MEMORY[0x2383809F0](v44);
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_24;
+  v43[3] = &unk_27894DFA0;
+  objc_copyWeak(&v44, &location);
+  v29 = MEMORY[0x2383809F0](v43);
   [(JSContext *)self->_jsContext setObject:v29 forKeyedSubscript:@"getFlightInformation"];
 
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_25;
-  v42[3] = &unk_27894DFC8;
-  objc_copyWeak(&v43, &location);
-  v30 = MEMORY[0x2383809F0](v42);
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_25;
+  v41[3] = &unk_27894DFC8;
+  objc_copyWeak(&v42, &location);
+  v30 = MEMORY[0x2383809F0](v41);
   [(JSContext *)self->_jsContext setObject:v30 forKeyedSubscript:@"getMD5Hash"];
 
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_26;
-  v40[3] = &unk_27894DFF0;
-  objc_copyWeak(&v41, &location);
-  v31 = MEMORY[0x2383809F0](v40);
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_26;
+  v39[3] = &unk_27894DFF0;
+  objc_copyWeak(&v40, &location);
+  v31 = MEMORY[0x2383809F0](v39);
   [(JSContext *)self->_jsContext setObject:v31 forKeyedSubscript:@"loadBurstTrie"];
 
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_27;
-  v38[3] = &unk_27894DDB8;
-  objc_copyWeak(&v39, &location);
-  v32 = MEMORY[0x2383809F0](v38);
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_27;
+  v37[3] = &unk_27894DDB8;
+  objc_copyWeak(&v38, &location);
+  v32 = MEMORY[0x2383809F0](v37);
   [(JSContext *)self->_jsContext setObject:v32 forKeyedSubscript:@"loadMappedData"];
 
   v33 = [(JSContext *)self->_jsContext objectForKeyedSubscript:@"load"];
   v34 = [(SGReverseTemplateJS *)self _callJSFunction:v33 withArguments:&unk_28474A648];
 
-  *(v68 + 24) = 1;
+  *(v67 + 24) = 1;
   v35 = sgEventsLogHandle();
   if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
   {
-    v37[0] = 0;
-    _os_log_impl(&dword_231E60000, v35, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: completed initialization of JS context.", v37, 2u);
+    v36[0] = 0;
+    _os_log_impl(&dword_231E60000, v35, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: completed initialization of JS context.", v36, 2u);
   }
 
-  objc_destroyWeak(&v39);
-  objc_destroyWeak(&v41);
-  objc_destroyWeak(&v43);
-  objc_destroyWeak(&v45);
-  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v38);
+  objc_destroyWeak(&v40);
+  objc_destroyWeak(&v42);
+  objc_destroyWeak(&v44);
+  objc_destroyWeak(&v47);
 
-  objc_destroyWeak(&v59);
-  objc_destroyWeak(&v64);
+  objc_destroyWeak(&v58);
+  objc_destroyWeak(&v63);
 
-  objc_destroyWeak(&v66);
-  _Block_object_dispose(&v67, 8);
-  _Block_object_dispose(v71, 8);
+  objc_destroyWeak(&v65);
+  _Block_object_dispose(&v66, 8);
+  _Block_object_dispose(v70, 8);
   objc_destroyWeak(&location);
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 id __39__SGReverseTemplateJS_initCurrentAsset__block_invoke(uint64_t a1, void *a2)
@@ -3087,7 +3052,7 @@ id __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_2_105(uint64_t a1, v
   v10 = a3;
   v11 = a4;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v11 count])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && objc_msgSend_count(v11))
   {
     v12 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v11];
   }
@@ -3121,43 +3086,42 @@ id __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_8(uint64_t a1)
 
 id __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_11(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   v4 = a2;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v24 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v5)
   {
     v2 = v5;
-    v6 = *v20;
+    v6 = *v18;
     while (2)
     {
-      for (i = 0; i != v2; i = i + 1)
+      for (i = 0; i != v2; ++i)
       {
-        if (*v20 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           JSValueClass = getJSValueClass();
-          v11 = [getJSContextClass() currentContext];
-          v15 = [JSValueClass valueWithNewErrorFromMessage:@"getPreferredLocalizationsFromArray must be called with an array of strings" inContext:v11];
-          v16 = [getJSContextClass() currentContext];
-          [v16 setException:v15];
+          v10 = [getJSContextClass() currentContext];
+          v14 = [JSValueClass valueWithNewErrorFromMessage:@"getPreferredLocalizationsFromArray must be called with an array of strings" inContext:v10];
+          v15 = [getJSContextClass() currentContext];
+          [v15 setException:v14];
 
-          v13 = 0;
+          v12 = 0;
           v2 = v4;
           goto LABEL_14;
         }
       }
 
-      v2 = [v4 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v2 = [v4 countByEnumeratingWithState:&v17 objects:v22 count:16];
       if (v2)
       {
         continue;
@@ -3167,27 +3131,25 @@ id __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_11(uint64_t a1, void
     }
   }
 
-  v9 = MEMORY[0x277CCA8D8];
-  v10 = *(a1 + 32);
-  v11 = v10;
-  if (!v10)
+  v8 = MEMORY[0x277CCA8D8];
+  v9 = *(a1 + 32);
+  v10 = v9;
+  if (!v9)
   {
     v2 = [MEMORY[0x277CBEAF8] currentLocale];
-    v11 = [v2 localeIdentifier];
+    v10 = [v2 localeIdentifier];
   }
 
-  v23 = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:{1, v19}];
-  v13 = [v9 preferredLocalizationsFromArray:v4 forPreferences:v12];
+  v21 = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:{1, v17}];
+  v12 = [v8 preferredLocalizationsFromArray:v4 forPreferences:v11];
 
-  if (!v10)
+  if (!v9)
   {
 LABEL_14:
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v13;
+  return v12;
 }
 
 void __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_22(uint64_t a1)
@@ -3330,47 +3292,43 @@ id __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_12(uint64_t a1, void
 
 id __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_9(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v8 = a4;
   v9 = a3;
   v10 = a2;
   v11 = [v10 length];
   v12 = [MEMORY[0x277CCABF8] defaultOrthographyForLanguage:v9];
 
-  v19 = 0;
-  v13 = [v10 linguisticTagsInRange:0 scheme:v11 options:v8 orthography:a5 tokenRanges:{v12, &v19}];
+  v18 = 0;
+  v13 = [v10 linguisticTagsInRange:0 scheme:v11 options:v8 orthography:a5 tokenRanges:{v12, &v18}];
 
-  v14 = v19;
-  if ([v14 count])
+  v14 = v18;
+  if (objc_msgSend_count(v14))
   {
     v15 = sgMap();
 
     v14 = v15;
   }
 
-  v20[0] = @"tags";
-  v20[1] = @"ranges";
-  v21[0] = v13;
-  v21[1] = v14;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v19[0] = @"tags";
+  v19[1] = @"ranges";
+  v20[0] = v13;
+  v20[1] = v14;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v16;
 }
 
 id __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_10(uint64_t a1, void *a2)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = [a2 rangeValue];
   v4 = v3;
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v2];
-  v10[0] = v5;
+  v9[0] = v5;
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v4];
-  v10[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
 
   return v7;
 }
@@ -3404,32 +3362,28 @@ id __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_3_112(uint64_t a1, u
 
 void __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_87(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgDeveloperLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_5(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sgEventsLogHandle();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_debug_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEBUG, "JS log: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_debug_impl(&dword_231E60000, v3, OS_LOG_TYPE_DEBUG, "JS log: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_3(uint64_t a1)
@@ -3466,7 +3420,7 @@ void __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_3(uint64_t a1)
 
 - (id)processLoadRequestWithFileName:(id)name
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v6 = [getJSValueClass() valueWithUndefinedInContext:self->_jsContext];
   if (nameCopy && [nameCopy length] > 2)
@@ -3478,7 +3432,7 @@ void __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_3(uint64_t a1)
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v19 = nameCopy;
+        v18 = nameCopy;
         _os_log_impl(&dword_231E60000, v9, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: loading %@ in JS context.", buf, 0xCu);
       }
 
@@ -3509,8 +3463,6 @@ void __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_3(uint64_t a1)
   {
     v7 = v6;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -3610,32 +3562,29 @@ void __39__SGReverseTemplateJS_initCurrentAsset__block_invoke_3(uint64_t a1)
 
 - (void)_handleMemoryPressureStatus:(unint64_t)status
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = sgEventsLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = [(SGReverseTemplateJS *)self _stringFromMemoryPressureStatus:status];
     *buf = 138412290;
-    v11 = v6;
+    v9 = v6;
     _os_log_impl(&dword_231E60000, v5, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: Received %@ notification.", buf, 0xCu);
   }
 
   if (status == 32 || status == 16)
   {
     objc_initWeak(buf, self);
-    memoryPressureQueue = self->_memoryPressureQueue;
-    objc_copyWeak(&v9, buf);
+    objc_copyWeak(&v7, buf);
     SGThrottle();
-    objc_destroyWeak(&v9);
+    objc_destroyWeak(&v7);
     objc_destroyWeak(buf);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __51__SGReverseTemplateJS__handleMemoryPressureStatus___block_invoke(uint64_t a1, unsigned int a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = WeakRetained;
   if (WeakRetained)
@@ -3653,23 +3602,21 @@ void __51__SGReverseTemplateJS__handleMemoryPressureStatus___block_invoke(uint64
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v10 = a2;
+        v9 = a2;
         _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: suppressed process memory warning %lu times", buf, 0xCu);
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __51__SGReverseTemplateJS__handleMemoryPressureStatus___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = sgEventsLogHandle();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v10) = 0;
-    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: Queuing request to free JS context.", &v10, 2u);
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_231E60000, v2, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: Queuing request to free JS context.", &v9, 2u);
   }
 
   v3 = sgEventsLogHandle();
@@ -3677,23 +3624,21 @@ uint64_t __51__SGReverseTemplateJS__handleMemoryPressureStatus___block_invoke_2(
   {
     v4 = +[SGAsset asset];
     v5 = [v4 assetVersion];
-    v10 = 134217984;
-    v11 = v5;
-    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: Asset version = %lu", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = v5;
+    _os_log_impl(&dword_231E60000, v3, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: Asset version = %lu", &v9, 0xCu);
   }
 
   v6 = sgEventsLogHandle();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [*(*(a1 + 32) + 24) _pas_componentsJoinedByString:{@", "}];
-    v10 = 138412290;
-    v11 = v7;
-    _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: List of loaded JS files in context = %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v7;
+    _os_log_impl(&dword_231E60000, v6, OS_LOG_TYPE_INFO, "SGReverseTemplateJS: List of loaded JS files in context = %@", &v9, 0xCu);
   }
 
-  result = [*(a1 + 32) freeJSContext];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) freeJSContext];
 }
 
 - (id)_callJSFunction:(id)function withArguments:(id)arguments
@@ -3714,13 +3659,13 @@ uint64_t __51__SGReverseTemplateJS__handleMemoryPressureStatus___block_invoke_2(
   return v11;
 }
 
-void __53__SGReverseTemplateJS__callJSFunction_withArguments___block_invoke()
+void __53__SGReverseTemplateJS__callJSFunction_withArguments___block_invoke(uint64_t a1)
 {
-  v0 = sgLogHandle();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v1 = sgLogHandle();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    *v1 = 0;
-    _os_log_fault_impl(&dword_231E60000, v0, OS_LOG_TYPE_FAULT, "JS not interrupted after timeout!", v1, 2u);
+    *v2 = 0;
+    _os_log_fault_impl(&dword_231E60000, v1, OS_LOG_TYPE_FAULT, "JS not interrupted after timeout!", v2, 2u);
   }
 
   if (!_PASEvaluateLogFaultAndProbCrashCriteria())

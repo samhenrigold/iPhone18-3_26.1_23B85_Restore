@@ -8,9 +8,9 @@
 {
   symlinkCopy = symlink;
   v4 = +[NSFileManager defaultManager];
-  v11[0] = 0;
-  v5 = [v4 attributesOfItemAtPath:symlinkCopy error:v11];
-  v6 = v11[0];
+  v12[0] = 0;
+  v5 = [v4 attributesOfItemAtPath:symlinkCopy error:v12];
+  v6 = v12[0];
 
   if (!v5)
   {
@@ -20,31 +20,31 @@
 
   if (!v6)
   {
-    v7 = [v5 objectForKeyedSubscript:NSFileType];
-    if (v7)
+    v8 = [v5 objectForKeyedSubscript:NSFileType];
+    if (v8)
     {
-      v8 = v7;
-      v9 = [v7 isEqualToString:NSFileTypeSymbolicLink];
+      v9 = v8;
+      v10 = [v8 isEqualToString:NSFileTypeSymbolicLink];
       goto LABEL_5;
     }
 
     [NSFileManager(DeviceRecoveryExtras) fileAtPathIsSymlink:];
 LABEL_11:
-    v8 = v11[1];
-    v9 = v12;
+    v9 = v12[1];
+    v10 = v13;
     goto LABEL_5;
   }
 
-  v8 = DRGetLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = DRGetLogHandle(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     [NSFileManager(DeviceRecoveryExtras) fileAtPathIsSymlink:];
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_5:
 
-  return v9;
+  return v10;
 }
 
 @end

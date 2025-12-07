@@ -39,18 +39,17 @@
 - (void)_axLoadAccessibilityInformationForCell:(id)cell atIndexPath:(id)path
 {
   cellCopy = cell;
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v14 = 0;
+  v10[0] = 0;
+  v10[1] = v10;
+  v10[2] = 0x2020000000;
+  v10[3] = 0;
   pathCopy = path;
   AXPerformSafeBlock();
-  v6 = v12[3];
 
-  _Block_object_dispose(&v11, 8);
-  v9 = cellCopy;
-  v7 = cellCopy;
-  v8 = pathCopy;
+  _Block_object_dispose(v10, 8);
+  v8 = cellCopy;
+  v6 = cellCopy;
+  v7 = pathCopy;
   AXPerformSafeBlock();
 }
 
@@ -117,14 +116,14 @@ LABEL_8:
   }
 }
 
-uint64_t __101__PKPaymentPassDetailViewControllerAccessibility__axLoadAccessibilityInformationForCell_atIndexPath___block_invoke_3(uint64_t a1)
+void *__101__PKPaymentPassDetailViewControllerAccessibility__axLoadAccessibilityInformationForCell_atIndexPath___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) shouldMapSection:33];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-uint64_t __101__PKPaymentPassDetailViewControllerAccessibility__axLoadAccessibilityInformationForCell_atIndexPath___block_invoke_4(uint64_t a1)
+void *__101__PKPaymentPassDetailViewControllerAccessibility__axLoadAccessibilityInformationForCell_atIndexPath___block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) shouldMapSection:34];
   *(*(*(a1 + 40) + 8) + 24) = result;

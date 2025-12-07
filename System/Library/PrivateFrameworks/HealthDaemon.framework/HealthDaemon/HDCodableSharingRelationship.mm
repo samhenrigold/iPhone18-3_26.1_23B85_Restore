@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)recipientTypeAsString:(int)string;
 - (int)StringAsRecipientType:(id)type;
 - (int)recipientType;
 - (unint64_t)hash;
@@ -42,6 +43,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)recipientTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"ClinicalAccount";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"SharedSummary";
+  }
+
+  return v4;
 }
 
 - (int)StringAsRecipientType:(id)type
@@ -110,7 +134,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   recipientIdentifier = self->_recipientIdentifier;
@@ -161,30 +185,30 @@
   if ([(NSMutableArray *)self->_sharingAuthorizations count])
   {
     v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_sharingAuthorizations, "count")}];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v12 = self->_sharingAuthorizations;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          dictionaryRepresentation = [*(*(&v22 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v21 + 1) + 8 * i) dictionaryRepresentation];
           [v11 addObject:dictionaryRepresentation];
         }
 
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v14);
@@ -200,14 +224,12 @@
     [v4 setObject:dictionaryRepresentation2 forKey:@"syncIdentity"];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_recipientIdentifier)
   {
@@ -217,81 +239,75 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    recipientType = self->_recipientType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    dateModified = self->_dateModified;
     PBDataWriterWriteDoubleField();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v8 = self->_authorizationIdentifiers;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
-  if (v9)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = self->_authorizationIdentifiers;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v26;
+    v8 = v7;
+    v9 = *v21;
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v11)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v14 = self->_sharingAuthorizations;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
-  if (v15)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_sharingAuthorizations;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v16 = v15;
-    v17 = *v22;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (j = 0; j != v16; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v22 != v17)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v11);
         }
 
-        v19 = *(*(&v21 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v16);
+    while (v13);
   }
 
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -356,7 +372,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_recipientIdentifier copyWithZone:zone];
   v7 = *(v5 + 24);
@@ -376,59 +392,59 @@
     *(v5 + 56) |= 1u;
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v9 = self->_authorizationIdentifiers;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [*(*(&v29 + 1) + 8 * i) copyWithZone:zone];
+        v14 = [*(*(&v28 + 1) + 8 * i) copyWithZone:zone];
         [v5 addAuthorizationIdentifiers:v14];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v11);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v15 = self->_sharingAuthorizations;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v26;
+    v18 = *v25;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v26 != v18)
+        if (*v25 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = [*(*(&v25 + 1) + 8 * j) copyWithZone:{zone, v25}];
+        v20 = [*(*(&v24 + 1) + 8 * j) copyWithZone:{zone, v24}];
         [v5 addSharingAuthorizations:v20];
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v17);
@@ -438,7 +454,6 @@
   v22 = *(v5 + 48);
   *(v5 + 48) = v21;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -459,7 +474,6 @@
     }
   }
 
-  v6 = *(equalCopy + 56);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_recipientType != *(equalCopy + 8))
@@ -471,7 +485,7 @@
   else if ((*(equalCopy + 56) & 2) != 0)
   {
 LABEL_20:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_21;
   }
 
@@ -506,17 +520,17 @@ LABEL_20:
   syncIdentity = self->_syncIdentity;
   if (syncIdentity | *(equalCopy + 6))
   {
-    v10 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
+    v9 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_21:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash
@@ -575,7 +589,7 @@ LABEL_9:
 
 - (void)mergeFrom:(id)from
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 3))
   {
@@ -596,57 +610,57 @@ LABEL_9:
     *&self->_has |= 1u;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v6 = *(fromCopy + 2);
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(HDCodableSharingRelationship *)self addAuthorizationIdentifiers:*(*(&v23 + 1) + 8 * i)];
+        [(HDCodableSharingRelationship *)self addAuthorizationIdentifiers:*(*(&v22 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v27 count:16];
     }
 
     while (v8);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v11 = *(fromCopy + 5);
-  v12 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v20;
+    v14 = *v19;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v20 != v14)
+        if (*v19 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        [(HDCodableSharingRelationship *)self addSharingAuthorizations:*(*(&v19 + 1) + 8 * j), v19];
+        [(HDCodableSharingRelationship *)self addSharingAuthorizations:*(*(&v18 + 1) + 8 * j), v18];
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v13);
@@ -666,8 +680,6 @@ LABEL_9:
   {
     [(HDCodableSharingRelationship *)self setSyncIdentity:?];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

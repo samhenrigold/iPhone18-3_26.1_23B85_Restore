@@ -13,18 +13,16 @@
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessCodeValue = [(HMAccessCodeAddRequestValue *)self accessCodeValue];
   v5 = [v3 initWithName:@"accessCodeValue" value:accessCodeValue];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessoryUUID = [(HMAccessCodeAddRequestValue *)self accessoryUUID];
   v8 = [v6 initWithName:@"accessoryUUID" value:accessoryUUID];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -38,7 +36,7 @@
 
 - (HMAccessCodeAddRequestValue)initWithCoder:(id)coder
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMAccessCodeAddRequestValueCodingKeyAccessCodeValue"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMAccessCodeAddRequestValueCodingKeyAccessoryUUID"];
@@ -61,13 +59,13 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v16 = 138543874;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v7;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding accessCodeValue: %@, accessoryUUID: %@,", &v16, 0x20u);
+      v15 = 138543874;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v7;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize due to nil object after decoding accessCodeValue: %@, accessoryUUID: %@,", &v15, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -80,7 +78,6 @@
     v13 = selfCopy;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

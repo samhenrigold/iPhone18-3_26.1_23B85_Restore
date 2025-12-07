@@ -14,7 +14,7 @@
   PXRectWithOriginAndSize();
 }
 
-uint64_t __81__PXStoryConcreteTimelineScorer__scoreForSplitAsset_inTimeline_segmentTimeRange___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void __81__PXStoryConcreteTimelineScorer__scoreForSplitAsset_inTimeline_segmentTimeRange___block_invoke(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a2 >= 1)
   {
@@ -24,7 +24,7 @@ uint64_t __81__PXStoryConcreteTimelineScorer__scoreForSplitAsset_inTimeline_segm
     {
       if (*(a5 + 8) == 1)
       {
-        *(*(*(result + 32) + 8) + 32) = CGRectUnion(*(*(*(result + 32) + 8) + 32), *(v7 - 16));
+        *(*(a1[4] + 8) + 32) = CGRectUnion(*(*(a1[4] + 8) + 32), *(v7 - 16));
         PXEdgeInsetsInsetRect();
       }
 
@@ -35,8 +35,6 @@ uint64_t __81__PXStoryConcreteTimelineScorer__scoreForSplitAsset_inTimeline_segm
 
     while (v6);
   }
-
-  return result;
 }
 
 BOOL __87__PXStoryConcreteTimelineScorer__scoreForClipInfo_inClipFrame_timelineBounds_nUpBonus___block_invoke_3(uint64_t a1)
@@ -60,47 +58,47 @@ BOOL __87__PXStoryConcreteTimelineScorer__scoreForClipInfo_inClipFrame_timelineB
 
 - (BOOL)isAcceptableCropWithVisibleAssetRect:(CGFloat)rect acceptableCropAssetRect:(CGFloat)assetRect faceAreaAssetRect:(double)areaAssetRect
 {
-  *v36 = areaAssetRect;
-  *&v36[8] = a6;
-  *&v36[16] = a7;
-  *&v36[24] = a8;
-  v24 = CGRectContainsRect(*&self, *&areaAssetRect);
-  v38.origin.x = a9;
-  v38.origin.y = a10;
-  v38.size.width = a11;
-  v38.size.height = a12;
-  IsEmpty = CGRectIsEmpty(v38);
-  v26 = !IsEmpty || v24;
-  if (IsEmpty || v24)
+  *v28 = areaAssetRect;
+  *&v28[8] = a6;
+  *&v28[16] = a7;
+  *&v28[24] = a8;
+  v16 = CGRectContainsRect(*&self, *&areaAssetRect);
+  v30.origin.x = a9;
+  v30.origin.y = a10;
+  v30.size.width = a11;
+  v30.size.height = a12;
+  IsEmpty = CGRectIsEmpty(v30);
+  v18 = !IsEmpty || v16;
+  if (IsEmpty || v16)
   {
-    return v26 & 1;
+    return v18 & 1;
   }
 
-  v39.origin.x = self;
-  v39.origin.y = a2;
-  v39.size.width = rect;
-  v39.size.height = assetRect;
-  v41.origin.x = a9;
-  v41.origin.y = a10;
-  v41.size.width = a11;
-  v41.size.height = a12;
-  if (CGRectContainsRect(v39, v41))
+  v31.origin.x = self;
+  v31.origin.y = a2;
+  v31.size.width = rect;
+  v31.size.height = assetRect;
+  v33.origin.x = a9;
+  v33.origin.y = a10;
+  v33.size.width = a11;
+  v33.size.height = a12;
+  if (CGRectContainsRect(v31, v33))
   {
-    v26 = 1;
-    return v26 & 1;
+    v18 = 1;
+    return v18 & 1;
   }
 
-  v42.origin.x = a9;
-  v42.origin.y = a10;
-  v42.size.width = a11;
-  v42.size.height = a12;
-  v40 = CGRectIntersection(*v36, v42);
-  x = v40.origin.x;
-  y = v40.origin.y;
-  width = v40.size.width;
-  height = v40.size.height;
+  v34.origin.x = a9;
+  v34.origin.y = a10;
+  v34.size.width = a11;
+  v34.size.height = a12;
+  v32 = CGRectIntersection(*v28, v34);
+  x = v32.origin.x;
+  y = v32.origin.y;
+  width = v32.size.width;
+  height = v32.size.height;
   selfCopy = self;
-  v33 = a2;
+  v25 = a2;
   rectCopy = rect;
   assetRectCopy = assetRect;
 
@@ -330,7 +328,7 @@ LABEL_37:
   }
 }
 
-uint64_t __50__PXStoryConcreteTimelineScorer_scoreForTimeline___block_invoke_3(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+void *__50__PXStoryConcreteTimelineScorer_scoreForTimeline___block_invoke_3(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
   if (a2 >= 1)
   {
@@ -355,17 +353,17 @@ uint64_t __50__PXStoryConcreteTimelineScorer_scoreForTimeline___block_invoke_3(u
         v24.origin.y = v18;
         v24.size.width = *v16;
         v24.size.height = v20;
-        *(*(*(v15 + 56) + 8) + 32) = CGRectUnion(*(*(*(v15 + 56) + 8) + 32), v24);
+        *(*(*(v15 + 7) + 8) + 32) = CGRectUnion(*(*(*(v15 + 7) + 8) + 32), v24);
         v23[0] = 0.0;
-        [*(v15 + 32) _scoreForClipInfo:a5 inClipFrame:v23 timelineBounds:v17 nUpBonus:{v18, v19, v20, *(v15 + 96), *(v15 + 104), *(v15 + 112), *(v15 + 120)}];
-        *(*(*(v15 + 64) + 8) + 24) = v21 + *(*(*(v15 + 64) + 8) + 24);
-        *(*(*(v15 + 72) + 8) + 24) = v23[0] + *(*(*(v15 + 72) + 8) + 24);
-        [*(v15 + 40) addIndex:*(a5 + 152)];
+        [*(v15 + 4) _scoreForClipInfo:a5 inClipFrame:v23 timelineBounds:v17 nUpBonus:{v18, v19, v20, *(v15 + 12), *(v15 + 13), *(v15 + 14), *(v15 + 15)}];
+        *(*(*(v15 + 8) + 8) + 24) = v21 + *(*(*(v15 + 8) + 8) + 24);
+        *(*(*(v15 + 9) + 8) + 24) = v23[0] + *(*(*(v15 + 9) + 8) + 24);
+        [*(v15 + 5) addIndex:*(a5 + 152)];
         v22 = *a6;
-        [*(v15 + 48) addIndex:*a6];
-        result = [*(*(v15 + 32) + 8) addResourceWithIndex:v22];
-        *(*(*(v15 + 80) + 8) + 32) = *(a5 + 160);
-        ++*(*(*(v15 + 88) + 8) + 24);
+        [*(v15 + 6) addIndex:*a6];
+        result = [*(*(v15 + 4) + 8) addResourceWithIndex:v22];
+        *(*(*(v15 + 10) + 8) + 32) = *(a5 + 160);
+        ++*(*(*(v15 + 11) + 8) + 24);
       }
 
       ++a6;

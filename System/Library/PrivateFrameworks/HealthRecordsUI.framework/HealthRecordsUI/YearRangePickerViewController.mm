@@ -48,15 +48,15 @@
   v6 = sub_1D138D82C();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D138D7EC();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1D1252390(viewCopy);
+  v13 = sub_1D1252390(viewCopy, v12);
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
@@ -64,11 +64,11 @@
   v6 = sub_1D138D82C();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D138D7EC();
   viewCopy = view;
   selfCopy = self;
-  sub_1D1252944(viewCopy);
+  sub_1D1252944(viewCopy, v12);
 
   (*(v7 + 8))(v9, v6);
 }

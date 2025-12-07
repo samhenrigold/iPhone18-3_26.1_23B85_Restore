@@ -88,53 +88,59 @@
 + (void)registerStackViewForReuseIdentifier:(id)identifier
 {
   identifierCopy = identifier;
+  v4 = identifierCopy;
   if (identifierCopy)
   {
-    v4 = __reuseIdentifierToRegisteredCount;
-    v11 = identifierCopy;
+    v5 = __reuseIdentifierToRegisteredCount;
+    v12 = v4;
     if (!__reuseIdentifierToRegisteredCount)
     {
-      v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:0];
-      v6 = __reuseIdentifierToRegisteredCount;
-      __reuseIdentifierToRegisteredCount = v5;
+      v6 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:0];
+      v7 = __reuseIdentifierToRegisteredCount;
+      __reuseIdentifierToRegisteredCount = v6;
 
-      v4 = __reuseIdentifierToRegisteredCount;
+      v5 = __reuseIdentifierToRegisteredCount;
     }
 
-    v7 = [v4 objectForKey:v11];
-    integerValue = [v7 integerValue];
+    v8 = [v5 objectForKey:v12];
+    integerValue = [v8 integerValue];
 
-    v9 = __reuseIdentifierToRegisteredCount;
-    v10 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue + 1];
-    [v9 setObject:v10 forKey:v11];
+    v10 = __reuseIdentifierToRegisteredCount;
+    v11 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue + 1];
+    [v10 setObject:v11 forKey:v12];
+
+    v4 = v12;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](identifierCopy, v4);
 }
 
 + (void)unregisterStackViewForReuseIdentifier:(id)identifier
 {
   identifierCopy = identifier;
+  v4 = identifierCopy;
   if (identifierCopy)
   {
-    v7 = identifierCopy;
-    v4 = [__reuseIdentifierToRegisteredCount objectForKey:identifierCopy];
-    integerValue = [v4 integerValue];
+    v8 = identifierCopy;
+    v5 = [__reuseIdentifierToRegisteredCount objectForKey:identifierCopy];
+    integerValue = [v5 integerValue];
 
+    v4 = v8;
     if (integerValue == 1)
     {
-      [__reuseIdentifierToRegisteredCount removeObjectForKey:v7];
+      [__reuseIdentifierToRegisteredCount removeObjectForKey:v8];
       if (![__reuseIdentifierToRegisteredCount count])
       {
-        v6 = __reuseIdentifierToRegisteredCount;
+        v7 = __reuseIdentifierToRegisteredCount;
         __reuseIdentifierToRegisteredCount = 0;
       }
 
-      [__reuseIdentifierToReusableStackItems removeObjectForKey:v7];
+      identifierCopy = [__reuseIdentifierToReusableStackItems removeObjectForKey:v8];
+      v4 = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](identifierCopy, v4);
 }
 
 @end

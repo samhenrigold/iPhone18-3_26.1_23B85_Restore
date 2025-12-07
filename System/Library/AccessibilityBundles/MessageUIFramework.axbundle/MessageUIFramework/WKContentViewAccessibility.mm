@@ -3,7 +3,7 @@
 
 @implementation WKContentViewAccessibility
 
-void __91__WKContentViewAccessibility__MessageUI__WebKit__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, int a2, uint64_t a3, void *a4)
+void __91__WKContentViewAccessibility__MessageUI__WebKit__accessibilityLoadAccessibilityInformation__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (*MEMORY[0x29EDC7448] == a2)
   {

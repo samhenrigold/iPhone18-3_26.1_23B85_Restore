@@ -45,7 +45,7 @@
 
 - (void)generateModelChangesForHomeManager:(id)manager homeName:(id)name pairingHomeUUID:(id)d defaultRoomUUID:(id)iD homeZoneUUID:(id)uID accessory:(id)accessory outBlobChanges:(id *)changes outLegacyChanges:(id *)self0 outHomeManagerChanges:(id *)self1
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   nameCopy = name;
   dCopy = d;
@@ -54,9 +54,9 @@
   accessoryCopy = accessory;
   homeManagerZone = [(HMDAppleAccessoryPairingController *)self homeManagerZone];
   uuid = [managerCopy uuid];
-  v94 = 0;
-  v21 = [homeManagerZone fetchModelWithModelID:uuid ofType:+[HMDLegacyV4Model hmbModelClassForHMDModelClass:](HMDLegacyV4Model error:{"hmbModelClassForHMDModelClass:", objc_opt_class()), &v94}];
-  v89 = v94;
+  v93 = 0;
+  v21 = [homeManagerZone fetchModelWithModelID:uuid ofType:+[HMDLegacyV4Model hmbModelClassForHMDModelClass:](HMDLegacyV4Model error:{"hmbModelClassForHMDModelClass:", objc_opt_class()), &v93}];
+  v88 = v93;
 
   if (!v21)
   {
@@ -67,16 +67,16 @@
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v98 = v25;
-      v99 = 2112;
-      v100 = v89;
+      v97 = v25;
+      v98 = 2112;
+      v99 = v88;
       _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Error fetching home manager model: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v22);
   }
 
-  v86 = v21;
+  v85 = v21;
   convertToHMDModelObject = [v21 convertToHMDModelObject];
   if (!convertToHMDModelObject)
   {
@@ -105,8 +105,8 @@
 
   v41 = [HMDHome alloc];
   v42 = objc_alloc_init(HMDHomeDefaultDataSource);
-  v87 = dCopy;
-  v88 = managerCopy;
+  v86 = dCopy;
+  v87 = managerCopy;
   v43 = [(HMDHome *)v41 initWithName:nameCopy uuid:dCopy defaultRoomUUID:iDCopy owner:v40 homeManager:managerCopy presenceAuth:0 dataSource:v42];
 
   v44 = [HMDCloudZoneInformation alloc];
@@ -119,20 +119,20 @@
   cloudZoneInformation = [(HMDHomeManagerModel *)convertToHMDModelObject cloudZoneInformation];
   v48 = [HMDCloudZoneInformation cloudZonesWithDictionary:cloudZoneInformation];
 
-  v82 = v46;
+  v81 = v46;
   [v48 addObject:v46];
   v49 = v48;
   v50 = [HMDCloudZoneInformation cloudZoneInformationWithCloudZones:v48];
   [(HMDHomeManagerModel *)convertToHMDModelObject setCloudZoneInformation:v50];
 
   v51 = [HMDCloudZoneInformationModel alloc];
-  v85 = convertToHMDModelObject;
+  v84 = convertToHMDModelObject;
   uuid3 = [(HMDBackingStoreModelObject *)convertToHMDModelObject uuid];
   v53 = [(HMDBackingStoreModelObject *)v51 initWithUUID:uIDCopy parentUUID:uuid3];
 
-  v84 = v40;
+  v83 = v40;
   pairingUsername2 = [(HMDUser *)v40 pairingUsername];
-  v83 = v53;
+  v82 = v53;
   [(HMDCloudZoneInformationModel *)v53 setOwnerName:pairingUsername2];
 
   homeData = [(HMDAppleAccessoryPairingController *)selfCopy2 homeData];
@@ -156,7 +156,7 @@
   [homeData2 setHomes:v60];
 
   homeData3 = [(HMDAppleAccessoryPairingController *)selfCopy2 homeData];
-  v81 = v49;
+  v80 = v49;
   [homeData3 setCloudZones:v49];
 
   v63 = [(HMDHome *)v43 backingStoreObjects:4];
@@ -174,11 +174,11 @@
   [(HMDLegacyV0Model *)v69 setCloudBlob:v67];
   [(HMDLegacyV0Model *)v69 setCloudBlobV2:v67];
   [(HMDLegacyV0Model *)v69 setCloudBlobsReadOnly:MEMORY[0x277CBEC38]];
-  v80 = v43;
+  v79 = v43;
   v70 = MEMORY[0x277CBEB98];
-  v96[0] = v69;
-  v96[1] = v68;
-  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v96 count:2];
+  v95[0] = v69;
+  v95[1] = v68;
+  v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:2];
   *changes = [v70 setWithArray:v71];
 
   v72 = MEMORY[0x277CBEB98];
@@ -186,25 +186,23 @@
   *legacyChanges = [v72 setWithArray:v73];
 
   v74 = MEMORY[0x277CBEB98];
-  convertToLegacyV4 = [(HMDBackingStoreModelObject *)v85 convertToLegacyV4];
-  v95[0] = convertToLegacyV4;
-  convertToLegacyV42 = [(HMDBackingStoreModelObject *)v83 convertToLegacyV4];
-  v95[1] = convertToLegacyV42;
-  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v95 count:2];
+  convertToLegacyV4 = [(HMDBackingStoreModelObject *)v84 convertToLegacyV4];
+  v94[0] = convertToLegacyV4;
+  convertToLegacyV42 = [(HMDBackingStoreModelObject *)v82 convertToLegacyV4];
+  v94[1] = convertToLegacyV42;
+  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:2];
   *managerChanges = [v74 setWithArray:v77];
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 - (id)cleanUpBadHomeManagerRecordsForHomeManager:(id)manager
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   homeManagerZone = [(HMDAppleAccessoryPairingController *)self homeManagerZone];
   uuid = [managerCopy uuid];
-  v23 = 0;
-  v7 = [homeManagerZone fetchModelWithModelID:uuid ofType:+[HMDLegacyV4Model hmbModelClassForHMDModelClass:](HMDLegacyV4Model error:{"hmbModelClassForHMDModelClass:", objc_opt_class()), &v23}];
-  v8 = v23;
+  v22 = 0;
+  v7 = [homeManagerZone fetchModelWithModelID:uuid ofType:+[HMDLegacyV4Model hmbModelClassForHMDModelClass:](HMDLegacyV4Model error:{"hmbModelClassForHMDModelClass:", objc_opt_class()), &v22}];
+  v8 = v22;
 
   if (v7)
   {
@@ -234,9 +232,9 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v20;
-      v26 = 2112;
-      v27 = v8;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v8;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_ERROR, "%{public}@Error fetching existing home manager model for cleanup: %@", buf, 0x16u);
     }
 
@@ -245,8 +243,6 @@
 
   futureWithNoResult = [MEMORY[0x277D2C900] futureWithNoResult];
 LABEL_8:
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return futureWithNoResult;
 }
@@ -272,7 +268,7 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
 
 - (BOOL)pairAccessory:(id)accessory
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   v4 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -298,9 +294,9 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
     {
       dataSource = [(HMDAppleAccessoryPairingController *)selfCopy dataSource];
       hh1ControllerIdentity = [dataSource hh1ControllerIdentity];
-      v104 = 0;
-      v18 = [legacyCloudDatabase createLegacyZone:@"1411CE6C-B4DE-4622-A49D-F66FE296D6B5" controllerIdentity:hh1ControllerIdentity delegate:0 error:&v104];
-      v10 = v104;
+      v103 = 0;
+      v18 = [legacyCloudDatabase createLegacyZone:@"1411CE6C-B4DE-4622-A49D-F66FE296D6B5" controllerIdentity:hh1ControllerIdentity delegate:0 error:&v103];
+      v10 = v103;
       [(HMDAppleAccessoryPairingController *)selfCopy setHomeManagerZone:v18];
 
       homeManagerZone2 = [(HMDAppleAccessoryPairingController *)selfCopy homeManagerZone];
@@ -308,22 +304,22 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
 
       if (v18)
       {
-        v72 = objc_autoreleasePoolPush();
-        v73 = selfCopy;
-        v74 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
+        v71 = objc_autoreleasePoolPush();
+        v72 = selfCopy;
+        v73 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
         {
-          v75 = HMFGetLogIdentifier();
+          v74 = HMFGetLogIdentifier();
           *buf = 138543874;
-          *&buf[4] = v75;
+          *&buf[4] = v74;
           *&buf[12] = 2112;
           *&buf[14] = @"1411CE6C-B4DE-4622-A49D-F66FE296D6B5";
           *&buf[22] = 2112;
-          v112 = v10;
-          _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_ERROR, "%{public}@Unable to create legacy zone %@: %@", buf, 0x20u);
+          v111 = v10;
+          _os_log_impl(&dword_229538000, v73, OS_LOG_TYPE_ERROR, "%{public}@Unable to create legacy zone %@: %@", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v72);
+        objc_autoreleasePoolPop(v71);
         v15 = 0;
         goto LABEL_45;
       }
@@ -344,9 +340,9 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
     {
       dataSource2 = [(HMDAppleAccessoryPairingController *)selfCopy dataSource];
       hh1ControllerIdentity2 = [dataSource2 hh1ControllerIdentity];
-      v103 = v10;
-      v26 = [legacyCloudDatabase createLegacyZone:@"HomeDataBlobZone" controllerIdentity:hh1ControllerIdentity2 delegate:0 error:&v103];
-      v23 = v103;
+      v102 = v10;
+      v26 = [legacyCloudDatabase createLegacyZone:@"HomeDataBlobZone" controllerIdentity:hh1ControllerIdentity2 delegate:0 error:&v102];
+      v23 = v102;
 
       [(HMDAppleAccessoryPairingController *)selfCopy setBlobZone:v26];
       blobZone2 = [(HMDAppleAccessoryPairingController *)selfCopy blobZone];
@@ -354,22 +350,22 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
 
       if (v26)
       {
-        v76 = objc_autoreleasePoolPush();
-        v77 = selfCopy;
-        v78 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+        v75 = objc_autoreleasePoolPush();
+        v76 = selfCopy;
+        v77 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
         {
-          v79 = HMFGetLogIdentifier();
+          v78 = HMFGetLogIdentifier();
           *buf = 138543874;
-          *&buf[4] = v79;
+          *&buf[4] = v78;
           *&buf[12] = 2112;
           *&buf[14] = @"1411CE6C-B4DE-4622-A49D-F66FE296D6B5";
           *&buf[22] = 2112;
-          v112 = v23;
-          _os_log_impl(&dword_229538000, v78, OS_LOG_TYPE_ERROR, "%{public}@Unable to create legacy zone %@: %@", buf, 0x20u);
+          v111 = v23;
+          _os_log_impl(&dword_229538000, v77, OS_LOG_TYPE_ERROR, "%{public}@Unable to create legacy zone %@: %@", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v76);
+        objc_autoreleasePoolPop(v75);
         v15 = 0;
         goto LABEL_44;
       }
@@ -385,45 +381,45 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
 
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUID2 = [MEMORY[0x277CCAD78] UUID];
-    v83 = [HMDHome zoneIDFromHomeUUID:uUID];
-    uUIDString = [v83 UUIDString];
-    v82 = [HMDLegacyCloudDatabase recordZoneIDForLegacyName:uUIDString];
+    v82 = [HMDHome zoneIDFromHomeUUID:uUID];
+    uUIDString = [v82 UUIDString];
+    v81 = [HMDLegacyCloudDatabase recordZoneIDForLegacyName:uUIDString];
     v29 = objc_alloc(MEMORY[0x277D17070]);
     containerID = [legacyCloudDatabase containerID];
-    v85 = [v29 initWithContainerID:containerID scope:2 zoneID:v82];
+    v84 = [v29 initWithContainerID:containerID scope:2 zoneID:v81];
 
-    v88 = [[HMDAppleAccessoryPairingHomeState alloc] initWithCloudZoneID:v85 accessory:accessoryCopy];
+    v87 = [[HMDAppleAccessoryPairingHomeState alloc] initWithCloudZoneID:v84 accessory:accessoryCopy];
     homeManager = [(HMDAppleAccessoryPairingController *)selfCopy homeManager];
     dataSource3 = [(HMDAppleAccessoryPairingController *)selfCopy dataSource];
-    [dataSource3 updatePairingAccessoryState:v88];
+    [dataSource3 updatePairingAccessoryState:v87];
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v112 = __Block_byref_object_copy__48000;
-    v113 = __Block_byref_object_dispose__48001;
+    v111 = __Block_byref_object_copy__48000;
+    v112 = __Block_byref_object_dispose__48001;
     v32 = [HMDAppleAccessoryPairingHomeController alloc];
     dataSource4 = [(HMDAppleAccessoryPairingController *)selfCopy dataSource];
-    v114 = [(HMDAppleAccessoryPairingHomeController *)v32 initWithState:v88 homeManager:homeManager dataSource:dataSource4];
+    v113 = [(HMDAppleAccessoryPairingHomeController *)v32 initWithState:v87 homeManager:homeManager dataSource:dataSource4];
 
     os_unfair_lock_lock_with_options();
     pairingHomes = [(HMDAppleAccessoryPairingController *)selfCopy pairingHomes];
     allValues = [pairingHomes allValues];
-    v36 = [allValues copy];
+    v36 = objc_msgSend_copy(allValues);
 
-    v100[0] = MEMORY[0x277D85DD0];
-    v100[1] = 3221225472;
-    v100[2] = __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke;
-    v100[3] = &unk_2786734B8;
-    v80 = accessoryCopy;
-    v101 = v80;
-    v102 = buf;
-    [v36 hmf_enumerateWithAutoreleasePoolUsingBlock:v100];
+    v99[0] = MEMORY[0x277D85DD0];
+    v99[1] = 3221225472;
+    v99[2] = __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke;
+    v99[3] = &unk_2786734B8;
+    v79 = accessoryCopy;
+    v100 = v79;
+    v101 = buf;
+    [v36 hmf_enumerateWithAutoreleasePoolUsingBlock:v99];
     v37 = *(*&buf[8] + 40);
     if (v37)
     {
       pairingHomes2 = [(HMDAppleAccessoryPairingController *)selfCopy pairingHomes];
-      [pairingHomes2 setObject:*(*&buf[8] + 40) forKey:v85];
+      [pairingHomes2 setObject:*(*&buf[8] + 40) forKey:v84];
     }
 
     else
@@ -434,12 +430,12 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
       if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         v42 = HMFGetLogIdentifier();
-        uuid = [v80 uuid];
-        *v105 = 138543618;
-        v106 = v42;
-        v107 = 2112;
-        v108 = uuid;
-        _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@A pairing controller for accessory %@ already exists.", v105, 0x16u);
+        uuid = [v79 uuid];
+        *v104 = 138543618;
+        v105 = v42;
+        v106 = 2112;
+        v107 = uuid;
+        _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_DEFAULT, "%{public}@A pairing controller for accessory %@ already exists.", v104, 0x16u);
       }
 
       objc_autoreleasePoolPop(v39);
@@ -450,9 +446,9 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
     {
       dataSource5 = [(HMDAppleAccessoryPairingController *)selfCopy dataSource];
       hh1ControllerIdentity3 = [dataSource5 hh1ControllerIdentity];
-      v99 = v23;
-      v46 = [legacyCloudDatabase createLegacyZone:uUIDString controllerIdentity:hh1ControllerIdentity3 delegate:0 error:&v99];
-      v47 = v99;
+      v98 = v23;
+      v46 = [legacyCloudDatabase createLegacyZone:uUIDString controllerIdentity:hh1ControllerIdentity3 delegate:0 error:&v98];
+      v47 = v98;
 
       v15 = v46 != 0;
       if (v46)
@@ -530,18 +526,18 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
         [array addObject:v63];
 
         v64 = [MEMORY[0x277D2C900] chainFutures:array];
-        v91[0] = MEMORY[0x277D85DD0];
-        v91[1] = 3221225472;
-        v91[2] = __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_17;
-        v91[3] = &unk_2786734E0;
-        v92 = v80;
-        v93 = selfCopy;
-        v94 = homeManager;
-        v95 = uUID;
-        v96 = uUID2;
-        v97 = v83;
-        v98 = v46;
-        v65 = [v64 addSuccessBlock:v91];
+        v90[0] = MEMORY[0x277D85DD0];
+        v90[1] = 3221225472;
+        v90[2] = __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_17;
+        v90[3] = &unk_2786734E0;
+        v91 = v79;
+        v92 = selfCopy;
+        v93 = homeManager;
+        v94 = uUID;
+        v95 = uUID2;
+        v96 = v82;
+        v97 = v46;
+        v65 = [v64 addSuccessBlock:v90];
       }
 
       else
@@ -552,13 +548,13 @@ id __81__HMDAppleAccessoryPairingController_cleanUpBadHomeManagerRecordsForHomeM
         if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
         {
           v69 = HMFGetLogIdentifier();
-          *v105 = 138543874;
-          v106 = v69;
-          v107 = 2112;
-          v108 = @"1411CE6C-B4DE-4622-A49D-F66FE296D6B5";
-          v109 = 2112;
-          v110 = v47;
-          _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_ERROR, "%{public}@Unable to create legacy zone %@: %@", v105, 0x20u);
+          *v104 = 138543874;
+          v105 = v69;
+          v106 = 2112;
+          v107 = @"1411CE6C-B4DE-4622-A49D-F66FE296D6B5";
+          v108 = 2112;
+          v109 = v47;
+          _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_ERROR, "%{public}@Unable to create legacy zone %@: %@", v104, 0x20u);
         }
 
         objc_autoreleasePoolPop(v66);
@@ -596,7 +592,6 @@ LABEL_45:
   v15 = 0;
 LABEL_46:
 
-  v70 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -690,7 +685,7 @@ void __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_2(uin
 
 void __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_3(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -713,11 +708,11 @@ void __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_3(uin
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v21 = 138543618;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v5;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to process models: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v5;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to process models: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -756,23 +751,21 @@ void __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_3(uin
       if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         v19 = HMFGetLogIdentifier();
-        v21 = 138543618;
-        v22 = v19;
-        v23 = 2112;
-        v24 = v12;
-        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Model update did not create mirror output result: %@", &v21, 0x16u);
+        v20 = 138543618;
+        v21 = v19;
+        v22 = 2112;
+        v23 = v12;
+        _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Model update did not create mirror output result: %@", &v20, 0x16u);
       }
 
       objc_autoreleasePoolPop(v16);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_25(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -795,17 +788,15 @@ void __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_25(ui
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to push models: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Unable to push models: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)handleMessage:(id)message from:(id)from
@@ -819,7 +810,7 @@ void __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_25(ui
   os_unfair_lock_lock_with_options();
   pairingHomes = [(HMDAppleAccessoryPairingController *)self pairingHomes];
   allValues = [pairingHomes allValues];
-  v10 = [allValues copy];
+  v10 = objc_msgSend_copy(allValues);
 
   os_unfair_lock_unlock(&self->_lock);
   v14[0] = MEMORY[0x277D85DD0];
@@ -838,7 +829,7 @@ void __52__HMDAppleAccessoryPairingController_pairAccessory___block_invoke_25(ui
   return self;
 }
 
-uint64_t __57__HMDAppleAccessoryPairingController_handleMessage_from___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__57__HMDAppleAccessoryPairingController_handleMessage_from___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 handleMessage:a1[4] from:a1[5]];
   if (result)
@@ -852,7 +843,7 @@ uint64_t __57__HMDAppleAccessoryPairingController_handleMessage_from___block_inv
 
 - (void)start
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   legacyCloudDatabase = [(HMDAppleAccessoryPairingController *)self legacyCloudDatabase];
 
   if (legacyCloudDatabase)
@@ -864,21 +855,50 @@ uint64_t __57__HMDAppleAccessoryPairingController_handleMessage_from___block_inv
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v7;
+      v28 = v7;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Legacy Pairing Controller has already started up.", buf, 0xCu);
     }
-
-LABEL_9:
-
-    objc_autoreleasePoolPop(v4);
-    goto LABEL_10;
   }
 
-  v8 = +[HMDDeviceCapabilities deviceCapabilities];
-  supportsKeychainSync = [v8 supportsKeychainSync];
-
-  if ((supportsKeychainSync & 1) == 0)
+  else
   {
+    v8 = +[HMDDeviceCapabilities deviceCapabilities];
+    supportsKeychainSync = [v8 supportsKeychainSync];
+
+    if (supportsKeychainSync)
+    {
+      v10 = objc_alloc(MEMORY[0x277CBC220]);
+      v11 = [v10 initWithContainerIdentifier:@"com.apple.willow.config" environment:cloudKitContainerEnvironment];
+      v12 = [objc_alloc(MEMORY[0x277D170E0]) initWithContainerID:v11];
+      [v12 setSubscriptionPushRegistrationAction:1];
+      v13 = [HMDLegacyCloudDatabase alloc];
+      v14 = +[HMDDatabase defaultDatabase];
+      localDatabase = [v14 localDatabase];
+      v16 = [(HMDLegacyCloudDatabase *)v13 initWithLocalDatabase:localDatabase configuration:v12 error:0];
+      [(HMDAppleAccessoryPairingController *)self setLegacyCloudDatabase:v16];
+
+      legacyCloudDatabase2 = [(HMDAppleAccessoryPairingController *)self legacyCloudDatabase];
+      v18 = [legacyCloudDatabase2 registerPrivateSubscriptionForExternalRecordType:0];
+
+      legacyCloudDatabase3 = [(HMDAppleAccessoryPairingController *)self legacyCloudDatabase];
+      v20 = [legacyCloudDatabase3 registerSharedSubscriptionForExternalRecordType:0];
+
+      objc_initWeak(buf, self);
+      legacyCloudDatabase4 = [(HMDAppleAccessoryPairingController *)self legacyCloudDatabase];
+      performInitialCloudSync = [legacyCloudDatabase4 performInitialCloudSync];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __43__HMDAppleAccessoryPairingController_start__block_invoke;
+      v25[3] = &unk_278684500;
+      objc_copyWeak(&v26, buf);
+      v23 = [performInitialCloudSync addSuccessBlock:v25];
+
+      objc_destroyWeak(&v26);
+      objc_destroyWeak(buf);
+
+      return;
+    }
+
     v4 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v6 = HMFGetOSLogHandle();
@@ -886,44 +906,12 @@ LABEL_9:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v24;
+      v28 = v24;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Device cannot support keychain sync, no way we could pair an Apple accessory.", buf, 0xCu);
     }
-
-    goto LABEL_9;
   }
 
-  v10 = objc_alloc(MEMORY[0x277CBC220]);
-  v11 = [v10 initWithContainerIdentifier:@"com.apple.willow.config" environment:cloudKitContainerEnvironment];
-  v12 = [objc_alloc(MEMORY[0x277D170E0]) initWithContainerID:v11];
-  [v12 setSubscriptionPushRegistrationAction:1];
-  v13 = [HMDLegacyCloudDatabase alloc];
-  v14 = +[HMDDatabase defaultDatabase];
-  localDatabase = [v14 localDatabase];
-  v16 = [(HMDLegacyCloudDatabase *)v13 initWithLocalDatabase:localDatabase configuration:v12 error:0];
-  [(HMDAppleAccessoryPairingController *)self setLegacyCloudDatabase:v16];
-
-  legacyCloudDatabase2 = [(HMDAppleAccessoryPairingController *)self legacyCloudDatabase];
-  v18 = [legacyCloudDatabase2 registerPrivateSubscriptionForExternalRecordType:0];
-
-  legacyCloudDatabase3 = [(HMDAppleAccessoryPairingController *)self legacyCloudDatabase];
-  v20 = [legacyCloudDatabase3 registerSharedSubscriptionForExternalRecordType:0];
-
-  objc_initWeak(buf, self);
-  legacyCloudDatabase4 = [(HMDAppleAccessoryPairingController *)self legacyCloudDatabase];
-  performInitialCloudSync = [legacyCloudDatabase4 performInitialCloudSync];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __43__HMDAppleAccessoryPairingController_start__block_invoke;
-  v26[3] = &unk_278684500;
-  objc_copyWeak(&v27, buf);
-  v23 = [performInitialCloudSync addSuccessBlock:v26];
-
-  objc_destroyWeak(&v27);
-  objc_destroyWeak(buf);
-
-LABEL_10:
-  v25 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v4);
 }
 
 void __43__HMDAppleAccessoryPairingController_start__block_invoke(uint64_t a1, void *a2)
@@ -944,7 +932,7 @@ void __43__HMDAppleAccessoryPairingController_start__block_invoke(uint64_t a1, v
 
 void __43__HMDAppleAccessoryPairingController_start__block_invoke_2(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [v3 cloudZoneID];
@@ -954,9 +942,9 @@ void __43__HMDAppleAccessoryPairingController_start__block_invoke_2(uint64_t a1,
   v8 = [v6 zoneName];
   v9 = [(os_unfair_lock_s *)WeakRetained dataSource];
   v10 = [v9 hh1ControllerIdentity];
-  v28 = 0;
-  v11 = [v7 mirrorLegacyZone:v8 controllerIdentity:v10 delegate:0 error:&v28];
-  v12 = v28;
+  v27 = 0;
+  v11 = [v7 mirrorLegacyZone:v8 controllerIdentity:v10 delegate:0 error:&v27];
+  v12 = v27;
 
   if (v11)
   {
@@ -979,9 +967,9 @@ void __43__HMDAppleAccessoryPairingController_start__block_invoke_2(uint64_t a1,
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v22;
-      v31 = 2112;
-      v32 = v6;
+      v29 = v22;
+      v30 = 2112;
+      v31 = v6;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@LEGACY CLOUD ZONE OPEN: %@", buf, 0x16u);
     }
 
@@ -997,18 +985,16 @@ void __43__HMDAppleAccessoryPairingController_start__block_invoke_2(uint64_t a1,
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v30 = v26;
-      v31 = 2112;
-      v32 = v6;
-      v33 = 2112;
-      v34 = v12;
+      v29 = v26;
+      v30 = 2112;
+      v31 = v6;
+      v32 = 2112;
+      v33 = v12;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@LEGACY CLOUD ZONE OPEN %@ FAILED: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v23);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAppleAccessoryPairingController)initWithHomeManager:(id)manager dataSource:(id)source
@@ -1049,10 +1035,9 @@ void __43__HMDAppleAccessoryPairingController_start__block_invoke_2(uint64_t a1,
 
 void __49__HMDAppleAccessoryPairingController_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v27_48037;
-  logCategory__hmf_once_v27_48037 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v27_48037;
+  logCategory__hmf_once_v27_48037 = v0;
 }
 
 @end

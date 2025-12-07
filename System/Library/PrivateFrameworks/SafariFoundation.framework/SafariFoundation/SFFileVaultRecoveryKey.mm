@@ -12,17 +12,15 @@
 
 - (NSDate)creationDate
 {
-  v3 = sub_26453929C();
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
+  v2 = sub_26453929C();
+  v3 = *(v2 - 8);
   MEMORY[0x28223BE20]();
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(self + OBJC_IVAR___SFFileVaultRecoveryKey_objc_creationDate);
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_26453928C();
-  v9 = sub_26453927C();
-  (*(v4 + 8))(v7, v3);
+  v6 = sub_26453927C();
+  (*(v3 + 8))(v5, v2);
 
-  return v9;
+  return v6;
 }
 
 - (BOOL)isSharedInGroup
@@ -55,20 +53,20 @@
 
 - (SFFileVaultRecoveryKey)initWithVolumeID:(id)d serialNumber:(id)number recoveryKey:(id)key displayName:(id)name creationDate:(id)date
 {
-  v23[1] = self;
-  v7 = *(*(sub_26453929C() - 8) + 64);
+  v22[1] = self;
+  sub_26453929C();
   MEMORY[0x28223BE20]();
-  v9 = v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2645392BC();
-  v12 = v11;
-  v13 = sub_2645392BC();
-  v15 = v14;
-  v16 = sub_2645392BC();
-  v18 = v17;
-  v19 = sub_2645392BC();
-  v21 = v20;
+  v8 = v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_2645392BC();
+  v11 = v10;
+  v12 = sub_2645392BC();
+  v14 = v13;
+  v15 = sub_2645392BC();
+  v17 = v16;
+  v18 = sub_2645392BC();
+  v20 = v19;
   sub_26453928C();
-  return SFFileVaultRecoveryKey.init(volumeID:serialNumber:recoveryKey:displayName:creationDate:)(v10, v12, v13, v15, v16, v18, v19, v21, v9);
+  return SFFileVaultRecoveryKey.init(volumeID:serialNumber:recoveryKey:displayName:creationDate:)(v9, v11, v12, v14, v15, v17, v18, v20, v8);
 }
 
 - (SFFileVaultRecoveryKey)init

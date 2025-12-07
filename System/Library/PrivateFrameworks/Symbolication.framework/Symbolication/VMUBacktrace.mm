@@ -231,7 +231,7 @@ LABEL_23:
     {
       if (DWORD1(v18) && DWORD1(v14))
       {
-        copySamplingResultToCallstack(&v7->_callstack, thread, v17);
+        copySamplingResultToCallstack(&v7->_callstack, thread, v17, context);
         v8 = v13;
         v9 = 80;
       }
@@ -251,7 +251,7 @@ LABEL_23:
         v9 = 24;
       }
 
-      copySamplingResultToCallstack(v7 + v9, thread, v8);
+      copySamplingResultToCallstack(v7 + v9, thread, v8, context);
       v11 = HIDWORD(v18);
       if (!HIDWORD(v18))
       {
@@ -337,7 +337,8 @@ LABEL_24:
 
 - (id)description
 {
-  [(VMUBacktrace *)self _symbolicator];
+  _symbolicator = [(VMUBacktrace *)self _symbolicator];
+  v5 = v4;
   flavor = self->_flavor;
   if (flavor > 63)
   {
@@ -345,14 +346,14 @@ LABEL_24:
     {
       if (flavor == 65)
       {
-        v4 = @"ARM LR";
+        v7 = @"ARM LR";
         goto LABEL_11;
       }
 
       goto LABEL_8;
     }
 
-    v4 = @"ARM Simple";
+    v7 = @"ARM Simple";
   }
 
   else
@@ -361,32 +362,32 @@ LABEL_24:
     {
       if (flavor == 33)
       {
-        v4 = @"I386 ESP";
+        v7 = @"I386 ESP";
         goto LABEL_11;
       }
 
 LABEL_8:
-      v4 = @"unknown";
+      v7 = @"unknown";
       goto LABEL_11;
     }
 
-    v4 = @"I386 Simple";
+    v7 = @"I386 Simple";
   }
 
 LABEL_11:
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VMUBacktrace (Flavor: %@ Time: %llu Process: %d Thread: %X  Dispatch queue serial num: %lld)\n", v4, self->_timestamp, self->_callstack.context.pid, self->_callstack.context.thread, self->_callstack.context.dispatch_queue_serial_num];
-  v6 = descriptionForCallstackFrames(&self->_callstack, @"Frames");
-  v7 = [v5 stringByAppendingString:v6];
+  v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"VMUBacktrace (Flavor: %@ Time: %llu Process: %d Thread: %X  Dispatch queue serial num: %lld)\n", v7, self->_timestamp, self->_callstack.context.pid, self->_callstack.context.thread, self->_callstack.context.dispatch_queue_serial_num];
+  v9 = descriptionForCallstackFrames(&self->_callstack, @"Frames", _symbolicator, v5);
+  v10 = [v8 stringByAppendingString:v9];
 
   if (self->_asyncCallstack.length)
   {
-    v8 = descriptionForCallstackFrames(&self->_asyncCallstack, @"Async Frames");
-    v9 = [v7 stringByAppendingString:v8];
+    v11 = descriptionForCallstackFrames(&self->_asyncCallstack, @"Async Frames", _symbolicator, v5);
+    v12 = [v10 stringByAppendingString:v11];
 
-    v7 = v9;
+    v10 = v12;
   }
 
-  return v7;
+  return v10;
 }
 
 - (void)fixupStackWithSamplingContext:(sampling_context_t *)context symbolicator:(_CSTypeRef)symbolicator
@@ -407,12 +408,9 @@ LABEL_4:
     return;
   }
 
-  v8 = self->_flavor;
-  frames = self->_callstack.frames;
   CSSymbolicatorFixupFrames();
   if (self->_asyncCallstack.length)
   {
-    v7 = self->_asyncCallstack.frames;
     CSSymbolicatorFixupFrames();
   }
 }

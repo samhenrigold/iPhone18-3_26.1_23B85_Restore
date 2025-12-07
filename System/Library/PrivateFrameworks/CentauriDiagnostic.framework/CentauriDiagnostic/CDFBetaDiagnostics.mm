@@ -10,7 +10,7 @@
 
 - (BOOL)collectStateSnapshotsFrom:(id)from to:(id)to runtimeFlags:(unint64_t)flags
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   toCopy = to;
   v10 = [&unk_28561CDE8 objectAtIndexedSubscript:3];
@@ -19,9 +19,9 @@
   v12 = [&unk_28561CDE8 objectAtIndexedSubscript:3];
   v13 = [toCopy URLByAppendingPathComponent:v12 isDirectory:1];
 
-  v24.receiver = self;
-  v24.super_class = CDFBetaDiagnostics;
-  v14 = [(CDFSubsystemDiagnostics *)&v24 collectStateSnapshotsFrom:v11 to:v13 runtimeFlags:flags];
+  v23.receiver = self;
+  v23.super_class = CDFBetaDiagnostics;
+  v14 = [(CDFSubsystemDiagnostics *)&v23 collectStateSnapshotsFrom:v11 to:v13 runtimeFlags:flags];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v15 = "in";
@@ -31,9 +31,9 @@
     }
 
     *buf = 136315394;
-    v26 = "[CDFBetaDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
-    v27 = 2082;
-    v28 = v15;
+    v25 = "[CDFBetaDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
+    v26 = 2082;
+    v27 = v15;
     _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for subsystem logs", buf, 0x16u);
   }
 
@@ -52,9 +52,9 @@
       }
 
       *buf = 136315394;
-      v26 = "[CDFBetaDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
-      v27 = 2082;
-      v28 = v19;
+      v25 = "[CDFBetaDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
+      v26 = 2082;
+      v27 = v19;
       _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for beta crashlogs", buf, 0x16u);
     }
 
@@ -70,15 +70,14 @@
         }
 
         *buf = 136315394;
-        v26 = "[CDFBetaDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
-        v27 = 2082;
-        v28 = v21;
+        v25 = "[CDFBetaDiagnostics collectStateSnapshotsFrom:to:runtimeFlags:]";
+        v26 = 2082;
+        v27 = v21;
         _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: transfer %{public}scomplete for beta coredumps", buf, 0x16u);
       }
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -144,7 +143,7 @@
 
 - (BOOL)collectLogsFrom:(id)from to:(id)to runtimeFlags:(unint64_t)flags
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   toCopy = to;
   if (!([(CDFSubsystemDiagnostics *)self buildEnv]| flags & 2))
@@ -166,15 +165,14 @@ LABEL_4:
   v10 = 0;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 136315138;
-    v14 = "[CDFBetaDiagnostics collectLogsFrom:to:runtimeFlags:]";
-    _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: Failed to create subdirectories", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = "[CDFBetaDiagnostics collectLogsFrom:to:runtimeFlags:]";
+    _os_log_impl(&dword_2433AC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "CDF: %s: Failed to create subdirectories", &v12, 0xCu);
     v10 = 0;
   }
 
 LABEL_5:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

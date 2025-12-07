@@ -31,7 +31,7 @@
 
 - (id)_invalidFingerprintForSelector:(SEL)selector withError:(id *)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (_invalidFingerprintForSelector_withError__onceToken != -1)
   {
     dispatch_once(&_invalidFingerprintForSelector_withError__onceToken, &__block_literal_global_146);
@@ -43,9 +43,9 @@
   if (v9)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFingerprintScheme.m"];
-    v16 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:427 description:{@"Trying to use %@ with an invalid fingerprint scheme", v16}];
+    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Framework/Sources/CPLFingerprintScheme.m"];
+    v15 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:427 description:{@"Trying to use %@ with an invalid fingerprint scheme", v15}];
 
     abort();
   }
@@ -53,9 +53,9 @@
   v10 = __CPLGenericOSLogDomain();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
   {
-    v13 = NSStringFromSelector(selector);
+    v12 = NSStringFromSelector(selector);
     *buf = 138543362;
-    v18 = v13;
+    v17 = v12;
     _os_log_fault_impl(&dword_1DC05A000, v10, OS_LOG_TYPE_FAULT, "Trying to use %{public}@ with an invalid fingerprint scheme", buf, 0xCu);
   }
 
@@ -64,7 +64,6 @@
     *error = _invalidFingerprintForSelector_withError__invalidError;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

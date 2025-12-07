@@ -22,6 +22,7 @@
 - (void)_notifyForAnalyzerResult:(id)result fragment:(id)fragment timeOffsetWithinClip:(double)clip recordingEventTriggers:(unint64_t)triggers;
 - (void)_notifyForSignificantEvent:(id)event recordingEventTriggers:(unint64_t)triggers fragmentNumber:(unint64_t)number;
 - (void)_submitNotificationSuccessMetricWithRecordingEventTriggers:(unint64_t)triggers fragmentNumber:(unint64_t)number;
+- (void)_uploadFragment:(id)fragment withDuration:(double)duration clipFinalizedBecauseMaxDurationExceeded:(BOOL)exceeded;
 - (void)_uploadTimelapseFragment:(id)fragment;
 - (void)_writeEvent:(id)event;
 - (void)_writeFragment:(id)fragment;
@@ -32,6 +33,7 @@
 - (void)configure;
 - (void)dealloc;
 - (void)handleFragment:(id)fragment;
+- (void)handleMotionActive:(BOOL)active;
 - (void)handleNoMoreFragmentsAvailable;
 - (void)variantFragmentManager:(id)manager didSelectVariantFragment:(id)fragment overlapsFullFragment:(BOOL)fullFragment;
 @end
@@ -47,25 +49,23 @@
 
 - (id)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDCameraRecordingSession *)self identifier];
   v5 = [v3 initWithName:@"Identifier" value:identifier];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   timelineManager = [(HMDCameraRecordingSession *)self timelineManager];
   v8 = [v6 initWithName:@"Timeline Manager" value:timelineManager];
-  v12[1] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[1] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
 
   return v9;
 }
 
 - (void)variantFragmentManager:(id)manager didSelectVariantFragment:(id)fragment overlapsFullFragment:(BOOL)fullFragment
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   fragmentCopy = fragment;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
@@ -99,22 +99,20 @@ LABEL_4:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     v16 = HMFGetLogIdentifier();
-    v18 = 138543618;
-    v19 = v16;
-    v20 = 2112;
-    v21 = fragmentCopy;
-    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping upload for placeholder fragment because the timelapse clip uploader is not created yet, fragment: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v16;
+    v19 = 2112;
+    v20 = fragmentCopy;
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Skipping upload for placeholder fragment because the timelapse clip uploader is not created yet, fragment: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
 LABEL_9:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clipUploaderDidFail:(id)fail
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   failCopy = fail;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -129,9 +127,9 @@ LABEL_9:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v19 = 138543362;
-      v20 = v16;
-      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Current clip uploader did fail upload", &v19, 0xCu);
+      v18 = 138543362;
+      v19 = v16;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_ERROR, "%{public}@Current clip uploader did fail upload", &v18, 0xCu);
     }
 
     objc_autoreleasePoolPop(v13);
@@ -151,9 +149,9 @@ LABEL_9:
       if (v11)
       {
         v17 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v17;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Timelapse clip uploader did fail upload", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v17;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Timelapse clip uploader did fail upload", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -165,22 +163,20 @@ LABEL_9:
       if (v11)
       {
         v12 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v12;
-        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Previous clip uploader did fail upload", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v12;
+        _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Previous clip uploader did fail upload", &v18, 0xCu);
       }
 
       objc_autoreleasePoolPop(v8);
       [failCopy finishWithCompletionHandler:0];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishCurrentTimelapseClipUploader
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -195,11 +191,11 @@ LABEL_9:
     {
       v8 = HMFGetLogIdentifier();
       timelapseClipUploader2 = [(HMDCameraRecordingSession *)selfCopy timelapseClipUploader];
-      *v12 = 138543618;
-      *&v12[4] = v8;
-      *&v12[12] = 2112;
-      *&v12[14] = timelapseClipUploader2;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Finishing timelapse clip uploader: %@", v12, 0x16u);
+      *v11 = 138543618;
+      *&v11[4] = v8;
+      *&v11[12] = 2112;
+      *&v11[14] = timelapseClipUploader2;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Finishing timelapse clip uploader: %@", v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -207,18 +203,16 @@ LABEL_9:
     [timelapseClipUploader3 finishWithCompletionHandler:0];
 
     [(HMDCameraRecordingSession *)selfCopy setTimelapseClipUploader:0];
-    *v12 = *MEMORY[0x277CC0898];
-    *&v12[16] = *(MEMORY[0x277CC0898] + 16);
-    [(HMDCameraRecordingSession *)selfCopy setTimelapseClipStartTime:v12];
+    *v11 = *MEMORY[0x277CC0898];
+    *&v11[16] = *(MEMORY[0x277CC0898] + 16);
+    [(HMDCameraRecordingSession *)selfCopy setTimelapseClipStartTime:v11];
     [(HMDCameraRecordingSession *)selfCopy setAnalysisTimelapseVideoInitData:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishCurrentClipUploader
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -233,11 +227,11 @@ LABEL_9:
     {
       v8 = HMFGetLogIdentifier();
       clipUploader2 = [(HMDCameraRecordingSession *)selfCopy clipUploader];
-      *v13 = 138543618;
-      *&v13[4] = v8;
-      *&v13[12] = 2112;
-      *&v13[14] = clipUploader2;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Finishing clip uploader: %@", v13, 0x16u);
+      *v12 = 138543618;
+      *&v12[4] = v8;
+      *&v12[12] = 2112;
+      *&v12[14] = clipUploader2;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Finishing clip uploader: %@", v12, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
@@ -245,16 +239,14 @@ LABEL_9:
     [clipUploader3 finishWithCompletionHandler:0];
 
     [(HMDCameraRecordingSession *)selfCopy setClipUploader:0];
-    *v13 = *MEMORY[0x277CC0898];
-    *&v13[16] = *(MEMORY[0x277CC0898] + 16);
-    [(HMDCameraRecordingSession *)selfCopy setClipStartTime:v13];
+    *v12 = *MEMORY[0x277CC0898];
+    *&v12[16] = *(MEMORY[0x277CC0898] + 16);
+    [(HMDCameraRecordingSession *)selfCopy setClipStartTime:v12];
     [(HMDCameraRecordingSession *)selfCopy setAnalysisVideoInitData:0];
     [(HMDCameraRecordingSession *)selfCopy setRemainingRecordingExtensionDuration:0];
     significantEventManager = [(HMDCameraRecordingSession *)selfCopy significantEventManager];
     [significantEventManager resetState];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isValidNonFirstSessionFragment:(id)fragment
@@ -299,7 +291,7 @@ LABEL_9:
 
 - (void)_writeEvent:(id)event
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -316,9 +308,9 @@ LABEL_9:
     v10 = [v6 stringFromDate:date];
     [v8 setValue:v10 forKey:@"date"];
 
-    v39 = 0;
-    v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v8 options:0 error:&v39];
-    v12 = v39;
+    v38 = 0;
+    v11 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v8 options:0 error:&v38];
+    v12 = v38;
     if (!v11)
     {
       v27 = objc_autoreleasePoolPush();
@@ -328,11 +320,11 @@ LABEL_9:
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v41 = v30;
-        v42 = 2112;
-        v43 = eventCopy;
-        v44 = 2112;
-        v45 = v12;
+        v40 = v30;
+        v41 = 2112;
+        v42 = eventCopy;
+        v43 = 2112;
+        v44 = v12;
         _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize log event: %@ error: %@", buf, 0x20u);
       }
 
@@ -349,7 +341,7 @@ LABEL_9:
     v17 = [uUIDString stringByAppendingPathExtension:@"jsonl"];
 
     sessionDirectoryPath = [(HMDCameraRecordingSession *)self sessionDirectoryPath];
-    v35 = v17;
+    v34 = v17;
     v19 = [sessionDirectoryPath stringByAppendingPathComponent:v17];
 
     v20 = [MEMORY[0x277CCA9F8] fileHandleForWritingAtPath:v19];
@@ -357,9 +349,9 @@ LABEL_9:
     if (v20)
     {
       [v20 seekToEndOfFile];
-      v38 = 0;
-      v22 = [v21 writeData:v13 error:&v38];
-      v36 = v38;
+      v37 = 0;
+      v22 = [v21 writeData:v13 error:&v37];
+      v35 = v37;
 
       if ((v22 & 1) == 0)
       {
@@ -370,11 +362,11 @@ LABEL_9:
         {
           v25 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v41 = v25;
-          v42 = 2112;
-          v43 = v19;
-          v44 = 2112;
-          v45 = v36;
+          v40 = v25;
+          v41 = 2112;
+          v42 = v19;
+          v43 = 2112;
+          v44 = v35;
           v26 = "%{public}@Failed to append log event to file at path: %@ error: %@";
 LABEL_14:
           _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, v26, buf, 0x20u);
@@ -388,9 +380,9 @@ LABEL_14:
 
     else
     {
-      v37 = v12;
-      v31 = [v13 writeToFile:v19 options:0 error:&v37];
-      v36 = v37;
+      v36 = v12;
+      v31 = [v13 writeToFile:v19 options:0 error:&v36];
+      v35 = v36;
 
       if ((v31 & 1) == 0)
       {
@@ -401,11 +393,11 @@ LABEL_14:
         {
           v25 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v41 = v25;
-          v42 = 2112;
-          v43 = v19;
-          v44 = 2112;
-          v45 = v36;
+          v40 = v25;
+          v41 = 2112;
+          v42 = v19;
+          v43 = 2112;
+          v44 = v35;
           v26 = "%{public}@Failed to write log event to file at path: %@ error: %@";
           goto LABEL_14;
         }
@@ -416,11 +408,9 @@ LABEL_15:
       }
     }
 
-    v12 = v36;
+    v12 = v35;
 LABEL_17:
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldWriteSessionLogToDisk
@@ -456,7 +446,7 @@ LABEL_17:
 
 - (void)_writeFragment:(id)fragment
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   fragmentCopy = fragment;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -480,9 +470,9 @@ LABEL_17:
     {
       [v14 seekToEndOfFile];
       data = [fragmentCopy data];
-      v29 = 0;
-      v17 = [v15 writeData:data error:&v29];
-      v18 = v29;
+      v28 = 0;
+      v17 = [v15 writeData:data error:&v28];
+      v18 = v28;
 
       if ((v17 & 1) == 0)
       {
@@ -493,11 +483,11 @@ LABEL_17:
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v31 = v22;
-          v32 = 2112;
-          v33 = v13;
-          v34 = 2112;
-          v35 = v18;
+          v30 = v22;
+          v31 = 2112;
+          v32 = v13;
+          v33 = 2112;
+          v34 = v18;
           v23 = "%{public}@Failed to append fragment data to file at path: %@ error: %@";
 LABEL_10:
           _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, v23, buf, 0x20u);
@@ -512,9 +502,9 @@ LABEL_10:
     else
     {
       data2 = [fragmentCopy data];
-      v28 = 0;
-      v25 = [data2 writeToFile:v13 options:0 error:&v28];
-      v18 = v28;
+      v27 = 0;
+      v25 = [data2 writeToFile:v13 options:0 error:&v27];
+      v18 = v27;
 
       if ((v25 & 1) == 0)
       {
@@ -525,11 +515,11 @@ LABEL_10:
         {
           v22 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v31 = v22;
-          v32 = 2112;
-          v33 = v13;
-          v34 = 2112;
-          v35 = v18;
+          v30 = v22;
+          v31 = 2112;
+          v32 = v13;
+          v33 = 2112;
+          v34 = v18;
           v23 = "%{public}@Failed to write fragment data to file at path: %@ error: %@";
           goto LABEL_10;
         }
@@ -540,13 +530,11 @@ LABEL_11:
       }
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_createSessionDirectory
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -554,69 +542,65 @@ LABEL_11:
 
   if (sessionDirectoryPath)
   {
-    v5 = 1;
+    return 1;
   }
 
-  else
+  v6 = NSTemporaryDirectory();
+  v7 = [v6 stringByAppendingPathComponent:@"HKSV"];
+
+  identifier = [(HMDCameraRecordingSession *)self identifier];
+  uUIDString = [identifier UUIDString];
+  v10 = [v7 stringByAppendingPathComponent:uUIDString];
+  [(HMDCameraRecordingSession *)self setSessionDirectoryPath:v10];
+
+  v11 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v13 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v6 = NSTemporaryDirectory();
-    v7 = [v6 stringByAppendingPathComponent:@"HKSV"];
-
-    identifier = [(HMDCameraRecordingSession *)self identifier];
-    uUIDString = [identifier UUIDString];
-    v10 = [v7 stringByAppendingPathComponent:uUIDString];
-    [(HMDCameraRecordingSession *)self setSessionDirectoryPath:v10];
-
-    v11 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-    {
-      v14 = HMFGetLogIdentifier();
-      sessionDirectoryPath2 = [(HMDCameraRecordingSession *)selfCopy sessionDirectoryPath];
-      *buf = 138543618;
-      v28 = v14;
-      v29 = 2112;
-      v30 = sessionDirectoryPath2;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Writing session data to directory: %@", buf, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v11);
-    defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    sessionDirectoryPath3 = [(HMDCameraRecordingSession *)selfCopy sessionDirectoryPath];
-    v26 = 0;
-    v5 = [defaultManager createDirectoryAtPath:sessionDirectoryPath3 withIntermediateDirectories:1 attributes:0 error:&v26];
-    v18 = v26;
-
-    if ((v5 & 1) == 0)
-    {
-      v19 = objc_autoreleasePoolPush();
-      v20 = selfCopy;
-      v21 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-      {
-        v22 = HMFGetLogIdentifier();
-        sessionDirectoryPath4 = [(HMDCameraRecordingSession *)v20 sessionDirectoryPath];
-        *buf = 138543874;
-        v28 = v22;
-        v29 = 2112;
-        v30 = sessionDirectoryPath4;
-        v31 = 2112;
-        v32 = v18;
-        _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to create directory at path: %@ error: %@", buf, 0x20u);
-      }
-
-      objc_autoreleasePoolPop(v19);
-    }
+    v14 = HMFGetLogIdentifier();
+    sessionDirectoryPath2 = [(HMDCameraRecordingSession *)selfCopy sessionDirectoryPath];
+    *buf = 138543618;
+    v27 = v14;
+    v28 = 2112;
+    v29 = sessionDirectoryPath2;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Writing session data to directory: %@", buf, 0x16u);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
+  objc_autoreleasePoolPop(v11);
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  sessionDirectoryPath3 = [(HMDCameraRecordingSession *)selfCopy sessionDirectoryPath];
+  v25 = 0;
+  v5 = [defaultManager createDirectoryAtPath:sessionDirectoryPath3 withIntermediateDirectories:1 attributes:0 error:&v25];
+  v18 = v25;
+
+  if ((v5 & 1) == 0)
+  {
+    v19 = objc_autoreleasePoolPush();
+    v20 = selfCopy;
+    v21 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      v22 = HMFGetLogIdentifier();
+      sessionDirectoryPath4 = [(HMDCameraRecordingSession *)v20 sessionDirectoryPath];
+      *buf = 138543874;
+      v27 = v22;
+      v28 = 2112;
+      v29 = sessionDirectoryPath4;
+      v30 = 2112;
+      v31 = v18;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Failed to create directory at path: %@ error: %@", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v19);
+  }
+
   return v5;
 }
 
 - (BOOL)_shouldEndSessionAfterFragment:(id)fragment
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   fragmentCopy = fragment;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -650,7 +634,7 @@ LABEL_20:
 
     if (fragmentCopy)
     {
-      [fragmentCopy timeRange];
+      objc_msgSend_timeRange(fragmentCopy);
     }
 
     else
@@ -770,13 +754,12 @@ LABEL_26:
 LABEL_21:
 
   objc_autoreleasePoolPop(v7);
-  v29 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)_shouldRecordFragmentWithAnalyzerResult:(id)result sequenceNumber:(unint64_t)number recordingEventTriggers:(unint64_t)triggers fragmentAnalyzedEvent:(id)event
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   eventCopy = event;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
@@ -786,7 +769,7 @@ LABEL_21:
   v13 = fragment;
   if (fragment)
   {
-    [fragment duration];
+    objc_msgSend_duration(fragment);
   }
 
   else
@@ -800,15 +783,15 @@ LABEL_21:
   v16 = fragment2;
   if (fragment2)
   {
-    [fragment2 timeRange];
+    objc_msgSend_timeRange(fragment2);
   }
 
   else
   {
-    memset(&v57, 0, sizeof(v57));
+    memset(&v56, 0, sizeof(v56));
   }
 
-  time = v57;
+  time = v56;
   v17 = CMTimeGetSeconds(&time);
 
   timelineManager = [(HMDCameraRecordingSession *)self timelineManager];
@@ -827,9 +810,9 @@ LABEL_21:
     LOWORD(time.flags) = 2112;
     *(&time.flags + 2) = v24;
     HIWORD(time.epoch) = 2048;
-    v59 = v17;
-    v60 = 2048;
-    v61 = Seconds;
+    v58 = v17;
+    v59 = 2048;
+    v60 = Seconds;
     _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Motion is active: %@ for fragment at time offset: %f and duration: %f", &time, 0x2Au);
   }
 
@@ -852,9 +835,9 @@ LABEL_21:
     LOWORD(time.flags) = 2112;
     *(&time.flags + 2) = v34;
     HIWORD(time.epoch) = 2048;
-    v59 = v17;
-    v60 = 2048;
-    v61 = Seconds;
+    v58 = v17;
+    v59 = 2048;
+    v60 = Seconds;
     _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Doorbell is active: %@ for fragment at time offset: %f and duration: %f", &time, 0x2Au);
 
     triggers = v33;
@@ -927,7 +910,7 @@ LABEL_26:
     LOWORD(time.flags) = 2112;
     *(&time.flags + 2) = v48;
     HIWORD(time.epoch) = 2112;
-    v59 = *&v50;
+    v58 = *&v50;
     _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@Fragment analysis was skipped, recordingTriggerEvent is %@ and motion is %@", &time, 0x20u);
 
     triggers = v49;
@@ -944,13 +927,12 @@ LABEL_15:
   v39 = 1;
 LABEL_27:
 
-  v55 = *MEMORY[0x277D85DE8];
   return v39;
 }
 
 - (void)_endSessionWithError:(id)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -965,9 +947,9 @@ LABEL_27:
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v10;
-      v23 = 2112;
-      v24 = errorCopy;
+      v21 = v10;
+      v22 = 2112;
+      v23 = errorCopy;
       v11 = "%{public}@Ending session with error: %@";
       v12 = v9;
       v13 = OS_LOG_TYPE_ERROR;
@@ -981,7 +963,7 @@ LABEL_6:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v22 = v10;
+    v21 = v10;
     v11 = "%{public}@Ending session";
     v12 = v9;
     v13 = OS_LOG_TYPE_INFO;
@@ -996,16 +978,14 @@ LABEL_6:
   [videoAnalyzer cancel];
 
   videoAnalyzer2 = [(HMDCameraRecordingSession *)selfCopy videoAnalyzer];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __50__HMDCameraRecordingSession__endSessionWithError___block_invoke;
-  v19[3] = &unk_27868A1D8;
-  v19[4] = selfCopy;
-  v20 = errorCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __50__HMDCameraRecordingSession__endSessionWithError___block_invoke;
+  v18[3] = &unk_27868A1D8;
+  v18[4] = selfCopy;
+  v19 = errorCopy;
   v17 = errorCopy;
-  [videoAnalyzer2 finishWithCompletionHandler:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  [videoAnalyzer2 finishWithCompletionHandler:v18];
 }
 
 void __50__HMDCameraRecordingSession__endSessionWithError___block_invoke(uint64_t a1, void *a2)
@@ -1027,7 +1007,7 @@ void __50__HMDCameraRecordingSession__endSessionWithError___block_invoke(uint64_
 
 void __50__HMDCameraRecordingSession__endSessionWithError___block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = objc_autoreleasePoolPush();
@@ -1037,11 +1017,11 @@ void __50__HMDCameraRecordingSession__endSessionWithError___block_invoke_2(uint6
     {
       v5 = HMFGetLogIdentifier();
       v6 = *(a1 + 32);
-      v21 = 138543618;
-      v22 = v5;
-      v23 = 2112;
-      v24 = v6;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Video analyzer finished with error: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v5;
+      v22 = 2112;
+      v23 = v6;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_ERROR, "%{public}@Video analyzer finished with error: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -1058,9 +1038,9 @@ void __50__HMDCameraRecordingSession__endSessionWithError___block_invoke_2(uint6
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Timelapse clip uploader is still expecting a timelapse fragment", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Timelapse clip uploader is still expecting a timelapse fragment", &v20, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -1073,11 +1053,11 @@ void __50__HMDCameraRecordingSession__endSessionWithError___block_invoke_2(uint6
   {
     v16 = HMFGetLogIdentifier();
     v17 = [*(a1 + 40) timelapseClipUploader];
-    v21 = 138543618;
-    v22 = v16;
-    v23 = 2112;
-    v24 = v17;
-    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Finishing timelapse clip uploader: %@", &v21, 0x16u);
+    v20 = 138543618;
+    v21 = v16;
+    v22 = 2112;
+    v23 = v17;
+    _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Finishing timelapse clip uploader: %@", &v20, 0x16u);
   }
 
   objc_autoreleasePoolPop(v13);
@@ -1086,13 +1066,11 @@ void __50__HMDCameraRecordingSession__endSessionWithError___block_invoke_2(uint6
 
   v19 = [*(a1 + 40) delegate];
   [v19 session:*(a1 + 40) didEndWithError:*(a1 + 48)];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDidFailAnalysisWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1104,18 +1082,16 @@ void __50__HMDCameraRecordingSession__endSessionWithError___block_invoke_2(uint6
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     v9 = HMFGetLogIdentifier();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = errorCopy;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Analysis failed with error: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = errorCopy;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Analysis failed with error: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
   v10 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HMDCameraRecordingSessionErrorDomain" code:2 userInfo:0];
   [(HMDCameraRecordingSession *)selfCopy _endSessionWithError:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_submitNotificationSuccessMetricWithRecordingEventTriggers:(unint64_t)triggers fragmentNumber:(unint64_t)number
@@ -1178,7 +1154,7 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
 
 - (void)_notifyForAnalyzerResult:(id)result fragment:(id)fragment timeOffsetWithinClip:(double)clip recordingEventTriggers:(unint64_t)triggers
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   fragmentCopy = fragment;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
@@ -1187,59 +1163,57 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
   timelineManager = [(HMDCameraRecordingSession *)self timelineManager];
   if (fragmentCopy)
   {
-    [fragmentCopy timeRange];
+    objc_msgSend_timeRange(fragmentCopy);
   }
 
   else
   {
-    v28 = 0u;
-    v29 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v26 = 0u;
   }
 
-  *&time.value = v27;
-  time.epoch = v28;
+  *&time.value = v26;
+  time.epoch = v27;
   v14 = [timelineManager creationDateForFragmentAtTimeOffset:CMTimeGetSeconds(&time)];
 
   significantEventManager = [(HMDCameraRecordingSession *)self significantEventManager];
   v16 = [significantEventManager significantEventsForAnalyzerFragmentResult:resultCopy dateOfOccurrence:v14 timeOffsetWithinClip:triggers recordingEventTriggers:clip];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v17 = v16;
-  v18 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v24;
+    v20 = *v23;
     do
     {
       v21 = 0;
       do
       {
-        if (*v24 != v20)
+        if (*v23 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        -[HMDCameraRecordingSession _notifyForSignificantEvent:recordingEventTriggers:fragmentNumber:](self, "_notifyForSignificantEvent:recordingEventTriggers:fragmentNumber:", *(*(&v23 + 1) + 8 * v21++), triggers, [fragmentCopy sequenceNumber]);
+        -[HMDCameraRecordingSession _notifyForSignificantEvent:recordingEventTriggers:fragmentNumber:](self, "_notifyForSignificantEvent:recordingEventTriggers:fragmentNumber:", *(*(&v22 + 1) + 8 * v21++), triggers, [fragmentCopy sequenceNumber]);
       }
 
       while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v19);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_uploadTimelapseFragment:(id)fragment
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   fragmentCopy = fragment;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1264,21 +1238,21 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
   {
     if (fragmentCopy)
     {
-      [fragmentCopy timeRange];
+      objc_msgSend_timeRange(fragmentCopy);
     }
 
     else
     {
-      v48 = 0u;
-      v49 = 0u;
       v47 = 0u;
+      v48 = 0u;
+      v46 = 0u;
     }
 
-    *&buf.value = v47;
-    buf.epoch = v48;
+    *&buf.value = v46;
+    buf.epoch = v47;
     [(HMDCameraRecordingSession *)selfCopy setTimelapseClipStartTime:&buf];
     timelineManager = [(HMDCameraRecordingSession *)selfCopy timelineManager];
-    [(HMDCameraRecordingSession *)selfCopy timelapseClipStartTime];
+    objc_msgSend_timelapseClipStartTime(selfCopy);
     v12 = [timelineManager creationDateForFragmentAtTimeOffset:CMTimeGetSeconds(&buf)];
 
     factory = [(HMDCameraRecordingSession *)selfCopy factory];
@@ -1326,7 +1300,7 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
       LOWORD(buf.flags) = 2112;
       *(&buf.flags + 2) = analysisTimelapseVideoInitData;
       HIWORD(buf.epoch) = 2112;
-      v51 = initializationSegment;
+      v50 = initializationSegment;
       _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Analysis timelapse video init fragment changed from %@ to %@", &buf, 0x20u);
     }
 
@@ -1338,39 +1312,92 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
 
   if (fragmentCopy)
   {
-    [fragmentCopy timeRange];
-    buf = *&v46[1];
+    objc_msgSend_timeRange(fragmentCopy);
+    buf = *&v45[1];
     Seconds = CMTimeGetSeconds(&buf);
-    [fragmentCopy timeRange];
+    objc_msgSend_timeRange(fragmentCopy);
   }
 
   else
   {
-    v45 = 0u;
-    memset(v46, 0, sizeof(v46));
-    *&buf.value = *&v46[1];
+    v44 = 0u;
+    memset(v45, 0, sizeof(v45));
+    *&buf.value = *&v45[1];
     buf.epoch = 0;
     Seconds = CMTimeGetSeconds(&buf);
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v43 = 0u;
   }
 
-  *&lhs.value = v41;
-  lhs.epoch = v42;
-  [(HMDCameraRecordingSession *)selfCopy timelapseClipStartTime];
+  *&lhs.value = v40;
+  lhs.epoch = v41;
+  objc_msgSend_timelapseClipStartTime(selfCopy);
   CMTimeSubtract(&buf, &lhs, &rhs);
   v36 = CMTimeGetSeconds(&buf);
   timelapseClipUploader6 = [(HMDCameraRecordingSession *)selfCopy timelapseClipUploader];
   separableSegment = [fragmentCopy separableSegment];
   [timelapseClipUploader6 addVideoSegmentData:separableSegment timeOffsetWithinClip:0 duration:0 clipFinalizedBecauseMaxDurationExceeded:v36 completionHandler:Seconds];
+}
 
-  v39 = *MEMORY[0x277D85DE8];
+- (void)_uploadFragment:(id)fragment withDuration:(double)duration clipFinalizedBecauseMaxDurationExceeded:(BOOL)exceeded
+{
+  exceededCopy = exceeded;
+  v29 = *MEMORY[0x277D85DE8];
+  fragmentCopy = fragment;
+  analysisVideoInitData = [(HMDCameraRecordingSession *)self analysisVideoInitData];
+  initializationSegment = [fragmentCopy initializationSegment];
+  if (!analysisVideoInitData || (-[HMDCameraRecordingSession factory](self, "factory"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 isVideoInitData:analysisVideoInitData combinableWithVideoInitData:initializationSegment], v11, (v12 & 1) == 0))
+  {
+    v13 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v15 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      v16 = HMFGetLogIdentifier();
+      LODWORD(buf.value) = 138543874;
+      *(&buf.value + 4) = v16;
+      LOWORD(buf.flags) = 2112;
+      *(&buf.flags + 2) = analysisVideoInitData;
+      HIWORD(buf.epoch) = 2112;
+      v28 = initializationSegment;
+      _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Analysis video init fragment changed from %@ to %@", &buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v13);
+    [(HMDCameraRecordingSession *)selfCopy setAnalysisVideoInitData:initializationSegment];
+    clipUploader = [(HMDCameraRecordingSession *)selfCopy clipUploader];
+    [clipUploader addVideoInitData:initializationSegment completionHandler:0];
+  }
+
+  if (fragmentCopy)
+  {
+    objc_msgSend_timeRange(fragmentCopy);
+  }
+
+  else
+  {
+    v24 = 0u;
+    v25 = 0u;
+    v23 = 0u;
+  }
+
+  *&lhs.value = v23;
+  lhs.epoch = v24;
+  objc_msgSend_clipStartTime(self);
+  CMTimeSubtract(&buf, &lhs, &rhs);
+  Seconds = CMTimeGetSeconds(&buf);
+  clipUploader2 = [(HMDCameraRecordingSession *)self clipUploader];
+  separableSegment = [fragmentCopy separableSegment];
+  [clipUploader2 addVideoSegmentData:separableSegment timeOffsetWithinClip:exceededCopy duration:0 clipFinalizedBecauseMaxDurationExceeded:Seconds completionHandler:duration];
+
+  timelapseFragmentManager = [(HMDCameraRecordingSession *)self timelapseFragmentManager];
+  [timelapseFragmentManager handleFullFragment:fragmentCopy];
 }
 
 - (void)_handleFragmentResult:(id)result
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   resultCopy = result;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1382,15 +1409,15 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
   }
 
   fragment = [resultCopy fragment];
-  [(HMDCameraRecordingSession *)self clipStartTime];
-  if ((v107 & 1) == 0)
+  objc_msgSend_clipStartTime(self);
+  if ((v106 & 1) == 0)
   {
     goto LABEL_10;
   }
 
   if (fragment)
   {
-    [fragment timeRange];
+    objc_msgSend_timeRange(fragment);
   }
 
   else
@@ -1399,7 +1426,7 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
   }
 
   CMTimeRangeGetEnd(&lhs, &range);
-  [(HMDCameraRecordingSession *)self clipStartTime];
+  objc_msgSend_clipStartTime(self);
   CMTimeSubtract(&range.start, &lhs, &rhs);
   Seconds = CMTimeGetSeconds(&range.start);
   factory = [(HMDCameraRecordingSession *)self factory];
@@ -1416,7 +1443,7 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
       v14 = HMFGetLogIdentifier();
       if (fragment)
       {
-        [fragment timeRange];
+        objc_msgSend_timeRange(fragment);
       }
 
       else
@@ -1425,7 +1452,7 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
       }
 
       CMTimeRangeGetEnd(&lhs, &range);
-      [(HMDCameraRecordingSession *)selfCopy clipStartTime];
+      objc_msgSend_clipStartTime(selfCopy);
       CMTimeSubtract(&range.start, &lhs, &rhs);
       v15 = CMTimeGetSeconds(&range.start);
       factory2 = [(HMDCameraRecordingSession *)selfCopy factory];
@@ -1441,13 +1468,13 @@ void __94__HMDCameraRecordingSession__notifyForSignificantEvent_recordingEventTr
 
     objc_autoreleasePoolPop(v11);
     [(HMDCameraRecordingSession *)selfCopy _finishCurrentClipUploader];
-    v101 = 1;
+    v100 = 1;
   }
 
   else
   {
 LABEL_10:
-    v101 = 0;
+    v100 = 0;
   }
 
   configuration = [resultCopy configuration];
@@ -1477,7 +1504,7 @@ LABEL_10:
   outcome = [resultCopy outcome];
   -[HMDCameraRecordingFragmentAnalyzedEvent setIsSuccess:](v29, "setIsSuccess:", [outcome isSuccess]);
 
-  v100 = eventTriggers;
+  v99 = eventTriggers;
   if (-[HMDCameraRecordingSession _shouldRecordFragmentWithAnalyzerResult:sequenceNumber:recordingEventTriggers:fragmentAnalyzedEvent:](selfCopy2, "_shouldRecordFragmentWithAnalyzerResult:sequenceNumber:recordingEventTriggers:fragmentAnalyzedEvent:", resultCopy, [fragment sequenceNumber], eventTriggers & 0x1F, v29))
   {
     v31 = MEMORY[0x277CCABB0];
@@ -1503,7 +1530,7 @@ LABEL_10:
     v37 = v36;
     if (fragment)
     {
-      [fragment duration];
+      objc_msgSend_duration(fragment);
     }
 
     else
@@ -1557,21 +1584,21 @@ LABEL_10:
 
   v38 = 1;
 LABEL_31:
-  v109[0] = @"FragmentResult";
-  v108[0] = @"type";
-  v108[1] = @"shouldRecordFragment";
+  v108[0] = @"FragmentResult";
+  v107[0] = @"type";
+  v107[1] = @"shouldRecordFragment";
   v49 = [MEMORY[0x277CCABB0] numberWithBool:v38];
-  v109[1] = v49;
-  v108[2] = @"sequenceNumber";
+  v108[1] = v49;
+  v107[2] = @"sequenceNumber";
   v50 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(fragment, "sequenceNumber")}];
-  v109[2] = v50;
-  v108[3] = @"analysisFPS";
+  v108[2] = v50;
+  v107[3] = @"analysisFPS";
   v51 = MEMORY[0x277CCABB0];
   outcome2 = [resultCopy outcome];
   [outcome2 analysisFPS];
   v53 = [v51 numberWithDouble:?];
-  v109[3] = v53;
-  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v109 forKeys:v108 count:4];
+  v108[3] = v53;
+  v54 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v108 forKeys:v107 count:4];
   [(HMDCameraRecordingSession *)selfCopy2 _writeEvent:v54];
 
   v55 = objc_autoreleasePoolPush();
@@ -1614,13 +1641,13 @@ LABEL_31:
   introAnalyzerResult = [(HMDCameraRecordingSession *)v56 introAnalyzerResult];
   clipUploader = [(HMDCameraRecordingSession *)v56 clipUploader];
 
-  v64 = v100;
+  v64 = v99;
   if (clipUploader)
   {
     if (fragment)
     {
 LABEL_36:
-      [fragment timeRange];
+      objc_msgSend_timeRange(fragment);
       goto LABEL_50;
     }
   }
@@ -1638,25 +1665,25 @@ LABEL_36:
     }
 
     v68 = v67;
-    v98 = introAnalyzerResult;
-    v99 = introFragment;
-    v97 = v68;
+    v97 = introAnalyzerResult;
+    v98 = introFragment;
+    v96 = v68;
     if (v68)
     {
-      [v68 timeRange];
+      objc_msgSend_timeRange(v68);
     }
 
     else
     {
-      *&v104 = 0;
-      v103 = 0u;
+      *&v103 = 0;
+      v102 = 0u;
     }
 
-    *&range.start.value = v103;
-    range.start.epoch = v104;
+    *&range.start.value = v102;
+    range.start.epoch = v103;
     [(HMDCameraRecordingSession *)v56 setClipStartTime:&range];
     timelineManager = [(HMDCameraRecordingSession *)v56 timelineManager];
-    [(HMDCameraRecordingSession *)v56 clipStartTime];
+    objc_msgSend_clipStartTime(v56);
     v70 = [timelineManager creationDateForFragmentAtTimeOffset:CMTimeGetSeconds(&range.start)];
 
     factory4 = [(HMDCameraRecordingSession *)v56 factory];
@@ -1666,7 +1693,7 @@ LABEL_36:
     localZone = [(HMDCameraRecordingSession *)v56 localZone];
     workQueue2 = [(HMDCameraRecordingSession *)v56 workQueue];
     logIdentifier = [(HMDCameraRecordingSession *)v56 logIdentifier];
-    v96 = v70;
+    v95 = v70;
     v78 = [factory4 createUploaderWithClipUUID:uUID startDate:v70 targetFragmentDuration:0 quality:localZone localZone:workQueue2 workQueue:logIdentifier logIdentifier:v74];
     [(HMDCameraRecordingSession *)v56 setClipUploader:v78];
 
@@ -1688,19 +1715,19 @@ LABEL_36:
     }
 
     objc_autoreleasePoolPop(v80);
-    introFragment = v99;
-    v64 = v100;
-    introAnalyzerResult = v98;
+    introFragment = v98;
+    v64 = v99;
+    introAnalyzerResult = v97;
     if (fragment)
     {
       goto LABEL_36;
     }
   }
 
-  memset(&v102, 0, sizeof(v102));
+  memset(&v101, 0, sizeof(v101));
 LABEL_50:
-  lhs = v102;
-  [(HMDCameraRecordingSession *)v56 clipStartTime];
+  lhs = v101;
+  objc_msgSend_clipStartTime(v56);
   CMTimeSubtract(&range.start, &lhs, &rhs);
   [(HMDCameraRecordingSession *)v56 _notifyForAnalyzerResult:resultCopy fragment:fragment timeOffsetWithinClip:v64 & 0x1F recordingEventTriggers:CMTimeGetSeconds(&range.start)];
   if (introFragment && introAnalyzerResult)
@@ -1724,7 +1751,7 @@ LABEL_50:
     v91 = fragment2;
     if (fragment2)
     {
-      [fragment2 duration];
+      objc_msgSend_duration(fragment2);
     }
 
     else
@@ -1732,7 +1759,7 @@ LABEL_50:
       memset(&range, 0, 24);
     }
 
-    [(HMDCameraRecordingSession *)v86 _uploadFragment:introFragment withDuration:v101 clipFinalizedBecauseMaxDurationExceeded:CMTimeGetSeconds(&range.start)];
+    [(HMDCameraRecordingSession *)v86 _uploadFragment:introFragment withDuration:v100 clipFinalizedBecauseMaxDurationExceeded:CMTimeGetSeconds(&range.start)];
 
     [(HMDCameraRecordingSession *)v86 setIntroFragment:0];
     [(HMDCameraRecordingSession *)v86 setIntroAnalyzerResult:0];
@@ -1740,7 +1767,7 @@ LABEL_50:
 
   if (fragment)
   {
-    [fragment duration];
+    objc_msgSend_duration(fragment);
   }
 
   else
@@ -1748,7 +1775,7 @@ LABEL_50:
     memset(&range, 0, 24);
   }
 
-  [(HMDCameraRecordingSession *)v56 _uploadFragment:fragment withDuration:v101 clipFinalizedBecauseMaxDurationExceeded:CMTimeGetSeconds(&range.start)];
+  [(HMDCameraRecordingSession *)v56 _uploadFragment:fragment withDuration:v100 clipFinalizedBecauseMaxDurationExceeded:CMTimeGetSeconds(&range.start)];
   clipUploader4 = [(HMDCameraRecordingSession *)v56 clipUploader];
   clipUUID = [clipUploader4 clipUUID];
   [(HMDCameraRecordingFragmentAnalyzedEvent *)v29 setClipModelID:clipUUID];
@@ -1763,7 +1790,6 @@ LABEL_62:
   [v94 submitLogEvent:v29];
 
 LABEL_65:
-  v95 = *MEMORY[0x277D85DE8];
 }
 
 - (void)analyzer:(id)analyzer didCreateTimelapseFragment:(id)fragment
@@ -1782,7 +1808,7 @@ LABEL_65:
 
 void __65__HMDCameraRecordingSession_analyzer_didCreateTimelapseFragment___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1790,18 +1816,16 @@ void __65__HMDCameraRecordingSession_analyzer_didCreateTimelapseFragment___block
   {
     v5 = HMFGetLogIdentifier();
     v6 = *(a1 + 40);
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Timelapse fragment was created: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Timelapse fragment was created: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
   v7 = [*(a1 + 32) timelapseFragmentManager];
   [v7 handleVariantFragment:*(a1 + 40)];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)analyzer:(id)analyzer didFailWithError:(id)error
@@ -1834,7 +1858,7 @@ void __65__HMDCameraRecordingSession_analyzer_didCreateTimelapseFragment___block
 
 uint64_t __67__HMDCameraRecordingSession_analyzer_didAnalyzeFragmentWithResult___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1842,22 +1866,20 @@ uint64_t __67__HMDCameraRecordingSession_analyzer_didAnalyzeFragmentWithResult__
   {
     v5 = HMFGetLogIdentifier();
     v6 = [*(a1 + 40) fragment];
-    v9 = 138543618;
-    v10 = v5;
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Fragment was analyzed: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Fragment was analyzed: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _handleFragmentResult:*(a1 + 40)];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _handleFragmentResult:*(a1 + 40)];
 }
 
 - (void)handleNoMoreFragmentsAvailable
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -1867,9 +1889,9 @@ uint64_t __67__HMDCameraRecordingSession_analyzer_didAnalyzeFragmentWithResult__
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v13 = 138543362;
-    v14 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Accessory has no more fragments available for analysis", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Accessory has no more fragments available for analysis", &v12, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -1882,21 +1904,35 @@ uint64_t __67__HMDCameraRecordingSession_analyzer_didAnalyzeFragmentWithResult__
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Finalizing session because all fragments have been analyzed", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Finalizing session because all fragments have been analyzed", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     [(HMDCameraRecordingSession *)v9 _endSessionWithError:0];
   }
+}
 
-  v12 = *MEMORY[0x277D85DE8];
+- (void)handleMotionActive:(BOOL)active
+{
+  activeCopy = active;
+  v9[2] = *MEMORY[0x277D85DE8];
+  workQueue = [(HMDCameraRecordingSession *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v8[0] = @"type";
+  v8[1] = @"motionActive";
+  v9[0] = @"MotionActive";
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:activeCopy];
+  v9[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  [(HMDCameraRecordingSession *)self _writeEvent:v7];
 }
 
 - (void)handleFragment:(id)fragment
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   fragmentCopy = fragment;
   workQueue = [(HMDCameraRecordingSession *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1976,8 +2012,8 @@ LABEL_18:
       data = [cameraVideoInitFragment data];
       data2 = [fragmentCopy data];
       v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDCameraRecordingSession currentFragmentNumber](self, "currentFragmentNumber")}];
-      v52 = v11;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
+      v51 = v11;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
       v13 = [v8 initWithInitializationSegment:data separableSegment:data2 sequenceNumbers:v12];
 
       sessionActivity = [(HMDCameraRecordingSession *)self sessionActivity];
@@ -2006,8 +2042,8 @@ LABEL_18:
       *buf = MEMORY[0x277D85DD0];
       *&buf[8] = 3221225472;
       *&buf[16] = __hmiActivityZonesFromActivityZones_block_invoke;
-      v54 = &__block_descriptor_33_e53___HMICameraActivityZone_16__0__HMCameraActivityZone_8l;
-      v55 = activityZonesIncludedForSignificantEventDetection;
+      v53 = &__block_descriptor_33_e53___HMICameraActivityZone_16__0__HMCameraActivityZone_8l;
+      v54 = activityZonesIncludedForSignificantEventDetection;
       v22 = [activityZones na_map:buf];
       allObjects = [v22 allObjects];
 
@@ -2058,13 +2094,11 @@ LABEL_18:
   objc_autoreleasePoolPop(v42);
   [delegate session:selfCopy4 didEndWithError:0];
 LABEL_20:
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configure
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   camera = [(HMDCameraRecordingSession *)self camera];
   hapAccessory = [camera hapAccessory];
   home = [hapAccessory home];
@@ -2103,15 +2137,13 @@ LABEL_20:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v22;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Can't configure recording session because home reference is nil", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v22;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Can't configure recording session because home reference is nil", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 id __38__HMDCameraRecordingSession_configure__block_invoke(uint64_t a1, void *a2)
@@ -2178,14 +2210,14 @@ id __38__HMDCameraRecordingSession_configure__block_invoke(uint64_t a1, void *a2
   stateDump2 = [timelapseClipUploader stateDump];
   [dictionary setObject:stateDump2 forKeyedSubscript:@"Timelapse Clip Uploader"];
 
-  v11 = [dictionary copy];
+  v11 = objc_msgSend_copy(dictionary);
 
   return v11;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -2193,17 +2225,16 @@ id __38__HMDCameraRecordingSession_configure__block_invoke(uint64_t a1, void *a2
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = selfCopy;
+    v9 = v6;
+    v10 = 2112;
+    v11 = selfCopy;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Deallocating recording session: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDCameraRecordingSession;
-  [(HMDCameraRecordingSession *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDCameraRecordingSession;
+  [(HMDCameraRecordingSession *)&v7 dealloc];
 }
 
 - (HMDCameraRecordingSession)initWithWorkQueue:(id)queue camera:(id)camera hapAccessory:(id)accessory home:(id)home localZone:(id)zone configuredFragmentDuration:(double)duration timelineManager:(id)manager factory:(id)self0
@@ -2383,10 +2414,9 @@ LABEL_20:
 
 void __40__HMDCameraRecordingSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v53_238725;
-  logCategory__hmf_once_v53_238725 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v53_238725;
+  logCategory__hmf_once_v53_238725 = v0;
 }
 
 @end

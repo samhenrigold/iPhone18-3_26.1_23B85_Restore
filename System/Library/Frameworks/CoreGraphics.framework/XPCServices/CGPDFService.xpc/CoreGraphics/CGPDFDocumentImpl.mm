@@ -115,8 +115,7 @@ LABEL_11:
 
 void __29__CGPDFDocumentImpl_getInfo___block_invoke(uint64_t a1)
 {
-  v2 = *(*(a1 + 32) + 24);
-  v3 = CGPDFDocumentCopyInfoDictionary();
+  v2 = CGPDFDocumentCopyInfoDictionary();
   (*(*(a1 + 40) + 16))();
 }
 

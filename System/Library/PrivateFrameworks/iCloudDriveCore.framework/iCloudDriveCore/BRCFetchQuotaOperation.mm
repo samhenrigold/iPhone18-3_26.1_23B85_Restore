@@ -36,19 +36,19 @@
 
 void __30__BRCFetchQuotaOperation_main__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = brc_bread_crumbs();
   v7 = brc_default_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 134218498;
-    v12 = a2;
-    v13 = 2112;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
-    _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] fetched quota %llu - %@%@", &v11, 0x20u);
+    v10 = 134218498;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
+    _os_log_debug_impl(&dword_223E7A000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] fetched quota %llu - %@%@", &v10, 0x20u);
   }
 
   v8 = *(a1 + 32);
@@ -62,8 +62,6 @@ void __30__BRCFetchQuotaOperation_main__block_invoke(uint64_t a1, uint64_t a2, v
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a2];
     [v8 completedWithResult:v9 error:0];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

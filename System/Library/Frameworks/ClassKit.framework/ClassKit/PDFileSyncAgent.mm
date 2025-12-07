@@ -53,7 +53,7 @@
 
 + (id)ubiquitousContainerURL:(id *)l
 {
-  v4 = sub_10003E1B4();
+  v4 = sub_10003E1B4(PDAccountInfo);
   v5 = v4;
   if (v4)
   {
@@ -88,7 +88,7 @@
 
   sub_10003E328(PDAccountInfo, 0);
   [CLSUtil postNotificationAsync:"com.apple.progressd.accountChanged"];
-  v9 = sub_10003E1B4();
+  v9 = sub_10003E1B4(PDAccountInfo);
 
   if (v9)
   {
@@ -534,7 +534,7 @@ LABEL_9:
 - (void)deleteBackingStoreWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = sub_10003E1B4();
+  v5 = sub_10003E1B4(PDAccountInfo);
   v6 = self->_asset;
   database = self->_database;
   objectID = [(CLSAbstractAsset *)v6 objectID];
@@ -589,8 +589,7 @@ LABEL_20:
   if (([(CLSAbstractAsset *)v6 isStaged]& 1) == 0)
   {
     v30 = [(CLSAbstractAsset *)v6 URL];
-    path = [v30 path];
-    v32 = objc_claimAutoreleasedReturnValue();
+    v32 = path = [v30 path];
     v33 = [NSError cls_createErrorWithCode:341 description:v32];
     completionCopy[2](completionCopy, 0, v33);
 
@@ -1304,7 +1303,7 @@ LABEL_16:
   v19 = sub_100055764;
   v20 = sub_100055774;
   v21 = 0;
-  v4 = sub_10003E1B4();
+  v4 = sub_10003E1B4(PDAccountInfo);
   v5 = (v17 + 5);
   obj = v17[5];
   v6 = sub_1000E0F2C(PDFileManager, v4, &obj);
@@ -1350,7 +1349,7 @@ LABEL_16:
   v19 = sub_100055764;
   v20 = sub_100055774;
   v21 = 0;
-  v4 = sub_10003E1B4();
+  v4 = sub_10003E1B4(PDAccountInfo);
   v5 = (v17 + 5);
   obj = v17[5];
   v6 = sub_1000E0F2C(PDFileManager, v4, &obj);
@@ -1396,7 +1395,7 @@ LABEL_16:
   v56 = sub_100055764;
   v57 = sub_100055774;
   v58 = 0;
-  v7 = sub_10003E1B4();
+  v7 = sub_10003E1B4(PDAccountInfo);
   v8 = v54;
   v52 = v54[5];
   v9 = sub_1000E0F2C(PDFileManager, v7, &v52);
@@ -1657,7 +1656,7 @@ LABEL_16:
       objc_storeStrong(v16, obj);
       if (v17)
       {
-        v18 = sub_10003E1B4();
+        v18 = sub_10003E1B4(PDAccountInfo);
         v19 = v18;
         if (v18)
         {
@@ -2252,269 +2251,104 @@ LABEL_20:
 - (void)downloadCloudKitPrimaryFileWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x3032000000;
-  v54 = sub_100055764;
-  v55 = sub_100055774;
-  v56 = 0;
-  asset = self->_asset;
-  objc_opt_class();
-  objc_opt_isKindOfClass();
-  database = self->_database;
-  v7 = objc_opt_class();
-  objectID = [(CLSAbstractAsset *)self->_asset objectID];
-  v9 = [(PDDatabase *)database select:v7 identity:objectID];
-  v10 = v52[5];
-  v52[5] = v9;
-
-  if (v52[5])
-  {
-    v11 = sub_10003E1B4();
-    v50 = 0;
-    v12 = sub_1000E0F2C(PDFileManager, v11, &v50);
-    v13 = v50;
-    if (v12)
-    {
-      brItemID = [v52[5] brItemID];
-      v15 = brItemID == 0;
-
-      if (v15)
-      {
-        objectID2 = [v52[5] objectID];
-        v25 = [NSError cls_createErrorWithCode:2 format:@"Cannot prefetch primary file for asset '%@', its brItemID is nil!", objectID2];
-
-        [(PDFileSyncAgent *)v25 cls_log:CLSLogAsset];
-        [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v25];
-        completionCopy[2](completionCopy, 0, v25);
-        v13 = v25;
-      }
-
-      else
-      {
-        filenameForCKContentStoreCache = [v52[5] filenameForCKContentStoreCache];
-        v42 = [v12 URLByAppendingPathComponent:? isDirectory:?];
-        v16 = +[NSFileManager defaultManager];
-        path = [(PDFileSyncAgent *)v42 path];
-        v18 = [v16 fileExistsAtPath:path];
-
-        if (v18)
-        {
-          v19 = [v52[5] URL];
-          v20 = [v19 isEqual:v42];
-
-          if ((v20 & 1) == 0)
-          {
-            [v52[5] setURL:v42];
-            if (![(PDFileSyncAgent *)self updateAssetIfExists:v52[5]])
-            {
-              CLSInitLog();
-              v21 = CLSLogAsset;
-              if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-              {
-                objectID3 = [v52[5] objectID];
-                *buf = 138412290;
-                selfCopy = objectID3;
-                _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "unable to update URL of an asset '%@'", buf, 0xCu);
-              }
-            }
-          }
-
-          CLSInitLog();
-          v22 = CLSLogAsset;
-          if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_INFO))
-          {
-            *buf = 138412290;
-            selfCopy = v42;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "downloadCloudKitPrimaryFileWithCompletion returning URL from cache: '%@'", buf, 0xCu);
-          }
-
-          [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:1 error:0];
-          (completionCopy)[2](completionCopy, v42, 0);
-        }
-
-        else
-        {
-          objc_initWeak(&location, self);
-          v26 = self->_database;
-          objectID4 = [v52[5] objectID];
-          v38 = sub_10015CF38(v26, objectID4);
-
-          v39 = sub_1000716B8(self->_database);
-          CLSInitLog();
-          v28 = CLSLogAsset;
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
-          {
-            objectID5 = [v52[5] objectID];
-            *buf = 134218242;
-            selfCopy = self;
-            v61 = 2112;
-            v62 = objectID5;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "agent <%p> downloadCloudKitPrimaryFileWithCompletion calling fetchRecordsForDownloadingWithZoneName for asset '%@'", buf, 0x16u);
-          }
-
-          assetDownloadOperations = self->_assetDownloadOperations;
-          brZoneName = [v52[5] brZoneName];
-          brOwnerName = [v52[5] brOwnerName];
-          parentObjectID = [v52[5] parentObjectID];
-          parentEntityType = [v52[5] parentEntityType];
-          brItemID2 = [v52[5] brItemID];
-          v58 = brItemID2;
-          v33 = [NSArray arrayWithObjects:&v58 count:1];
-          v57 = @"asset";
-          v34 = [NSArray arrayWithObjects:&v57 count:1];
-          v47[0] = _NSConcreteStackBlock;
-          v47[1] = 3221225472;
-          v47[2] = sub_10005ABE8;
-          v47[3] = &unk_100203600;
-          objc_copyWeak(&v48, &location);
-          v43[0] = _NSConcreteStackBlock;
-          v43[1] = 3221225472;
-          v43[2] = sub_10005ADFC;
-          v43[3] = &unk_100203668;
-          objc_copyWeak(&v46, &location);
-          v45 = &v51;
-          v44 = completionCopy;
-          sub_100128488(assetDownloadOperations, brZoneName, brOwnerName, parentObjectID, parentEntityType, v39, v33, v34, v38, v47, &stru_100203640, v43);
-
-          objc_destroyWeak(&v46);
-          objc_destroyWeak(&v48);
-
-          objc_destroyWeak(&location);
-        }
-      }
-    }
-
-    else
-    {
-      CLSInitLog();
-      v23 = CLSLogAsset;
-      if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_ERROR))
-      {
-        *buf = 138543362;
-        selfCopy = v13;
-        _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "downloadCloudKitPrimaryFileWithCompletion exiting with error: '%{public}@'", buf, 0xCu);
-      }
-
-      [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v13];
-      completionCopy[2](completionCopy, 0, v13);
-    }
-  }
-
-  else
-  {
-    v13 = [NSError cls_createErrorWithCode:2 format:@"Cannot download primary file for nil asset."];
-    [(PDFileSyncAgent *)v13 cls_log:CLSLogAsset];
-    [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v13];
-    completionCopy[2](completionCopy, 0, v13);
-  }
-
-  _Block_object_dispose(&v51, 8);
-}
-
-- (void)downloadCloudKitThumbnailWithCompletion:(id)completion
-{
-  completionCopy = completion;
   v50 = 0;
   v51 = &v50;
   v52 = 0x3032000000;
   v53 = sub_100055764;
   v54 = sub_100055774;
   v55 = 0;
-  asset = self->_asset;
   objc_opt_class();
   objc_opt_isKindOfClass();
   database = self->_database;
-  v7 = objc_opt_class();
+  v6 = objc_opt_class();
   objectID = [(CLSAbstractAsset *)self->_asset objectID];
-  v9 = [(PDDatabase *)database select:v7 identity:objectID];
-  v10 = v51[5];
-  v51[5] = v9;
+  v8 = [(PDDatabase *)database select:v6 identity:objectID];
+  v9 = v51[5];
+  v51[5] = v8;
 
   if (v51[5])
   {
-    v11 = sub_10003E1B4();
+    v10 = sub_10003E1B4(PDAccountInfo);
     v49 = 0;
-    v12 = sub_1000E0F2C(PDFileManager, v11, &v49);
-    v13 = v49;
-    if (v12)
+    v11 = sub_1000E0F2C(PDFileManager, v10, &v49);
+    v12 = v49;
+    if (v11)
     {
-      thumbnailFilenameForCKContentStoreCache = [v51[5] thumbnailFilenameForCKContentStoreCache];
-      v14 = [v12 URLByAppendingPathComponent:? isDirectory:?];
-      v15 = +[NSFileManager defaultManager];
-      path = [(PDFileSyncAgent *)v14 path];
-      v17 = [v15 fileExistsAtPath:path];
+      brItemID = [v51[5] brItemID];
+      v14 = brItemID == 0;
 
-      v18 = v51[5];
-      if (v17)
+      if (v14)
       {
-        thumbnailURL = [v18 thumbnailURL];
-        v20 = [thumbnailURL isEqual:v14];
+        objectID2 = [v51[5] objectID];
+        v24 = [NSError cls_createErrorWithCode:2 format:@"Cannot prefetch primary file for asset '%@', its brItemID is nil!", objectID2];
 
-        if ((v20 & 1) == 0)
-        {
-          [v51[5] setThumbnailURL:v14];
-          if (![(PDFileSyncAgent *)self updateAssetIfExists:v51[5]])
-          {
-            CLSInitLog();
-            v21 = CLSLogAsset;
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-            {
-              objectID2 = [v51[5] objectID];
-              *buf = 138412290;
-              selfCopy = objectID2;
-              _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "unable to update thumbnailURL of an asset '%@'", buf, 0xCu);
-            }
-          }
-        }
-
-        CLSInitLog();
-        v22 = CLSLogAsset;
-        if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_INFO))
-        {
-          *buf = 138412290;
-          selfCopy = v14;
-          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "downloadCloudKitThumbnailWithCompletion returning thumbFileURL from cache: '%@'", buf, 0xCu);
-        }
-
-        [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:1 error:0];
-        completionCopy[2](completionCopy, v14, 0);
+        [(PDFileSyncAgent *)v24 cls_log:CLSLogAsset];
+        [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v24];
+        completionCopy[2](completionCopy, 0, v24);
+        v12 = v24;
       }
 
       else
       {
-        brItemID = [v18 brItemID];
-        v25 = brItemID == 0;
+        filenameForCKContentStoreCache = [v51[5] filenameForCKContentStoreCache];
+        v41 = [v11 URLByAppendingPathComponent:? isDirectory:?];
+        v15 = +[NSFileManager defaultManager];
+        path = [(PDFileSyncAgent *)v41 path];
+        v17 = [v15 fileExistsAtPath:path];
 
-        if (v25)
+        if (v17)
         {
-          objectID3 = [v51[5] objectID];
-          v35 = [NSError cls_createErrorWithCode:2 format:@"Cannot download thumbnail file for asset '%@', its brItemID is nil!", objectID3];
+          v18 = [v51[5] URL];
+          v19 = [v18 isEqual:v41];
 
-          [(PDFileSyncAgent *)v35 cls_log:CLSLogAsset];
-          [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v35];
-          (completionCopy)[2](completionCopy, 0, v35);
-          v13 = v35;
+          if ((v19 & 1) == 0)
+          {
+            [v51[5] setURL:v41];
+            if (![(PDFileSyncAgent *)self updateAssetIfExists:v51[5]])
+            {
+              CLSInitLog();
+              v20 = CLSLogAsset;
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+              {
+                objectID3 = [v51[5] objectID];
+                *buf = 138412290;
+                selfCopy = objectID3;
+                _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "unable to update URL of an asset '%@'", buf, 0xCu);
+              }
+            }
+          }
+
+          CLSInitLog();
+          v21 = CLSLogAsset;
+          if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412290;
+            selfCopy = v41;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "downloadCloudKitPrimaryFileWithCompletion returning URL from cache: '%@'", buf, 0xCu);
+          }
+
+          [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:1 error:0];
+          (completionCopy)[2](completionCopy, v41, 0);
         }
 
         else
         {
           objc_initWeak(&location, self);
-          v26 = self->_database;
+          v25 = self->_database;
           objectID4 = [v51[5] objectID];
-          v39 = sub_10015CF38(v26, objectID4);
+          v37 = sub_10015CF38(v25, objectID4);
 
-          v42 = sub_1000716B8(self->_database);
+          v38 = sub_1000716B8(self->_database);
           CLSInitLog();
-          v28 = CLSLogAsset;
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v27 = CLSLogAsset;
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
           {
             objectID5 = [v51[5] objectID];
             *buf = 134218242;
             selfCopy = self;
             v60 = 2112;
             v61 = objectID5;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "agent <%p> downloadCloudKitThumbnailWithCompletion calling fetchRecordsForDownloadingWithZoneName for asset '%@'", buf, 0x16u);
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "agent <%p> downloadCloudKitPrimaryFileWithCompletion calling fetchRecordsForDownloadingWithZoneName for asset '%@'", buf, 0x16u);
           }
 
           assetDownloadOperations = self->_assetDownloadOperations;
@@ -2525,18 +2359,25 @@ LABEL_20:
           brItemID2 = [v51[5] brItemID];
           v57 = brItemID2;
           v32 = [NSArray arrayWithObjects:&v57 count:1];
-          v56 = @"assetThumbnail";
+          v56 = @"asset";
           v33 = [NSArray arrayWithObjects:&v56 count:1];
-          v44[0] = _NSConcreteStackBlock;
-          v44[1] = 3221225472;
-          v44[2] = sub_10005B9C0;
-          v44[3] = &unk_100203668;
+          v46[0] = _NSConcreteStackBlock;
+          v46[1] = 3221225472;
+          v46[2] = sub_10005ABE8;
+          v46[3] = &unk_100203600;
           objc_copyWeak(&v47, &location);
-          v46 = &v50;
-          v45 = completionCopy;
-          sub_100128488(assetDownloadOperations, brZoneName, brOwnerName, parentObjectID, parentEntityType, v42, v32, v33, v39, &stru_1002036A8, &stru_1002036C8, v44);
+          v42[0] = _NSConcreteStackBlock;
+          v42[1] = 3221225472;
+          v42[2] = sub_10005ADFC;
+          v42[3] = &unk_100203668;
+          objc_copyWeak(&v45, &location);
+          v44 = &v50;
+          v43 = completionCopy;
+          sub_100128488(assetDownloadOperations, brZoneName, brOwnerName, parentObjectID, parentEntityType, v38, v32, v33, v37, v46, &stru_100203640, v42);
 
+          objc_destroyWeak(&v45);
           objc_destroyWeak(&v47);
+
           objc_destroyWeak(&location);
         }
       }
@@ -2545,125 +2386,280 @@ LABEL_20:
     else
     {
       CLSInitLog();
-      v23 = CLSLogAsset;
+      v22 = CLSLogAsset;
       if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        selfCopy = v13;
-        _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "downloadCloudKitThumbnailWithCompletion exiting with error: '%{public}@'", buf, 0xCu);
+        selfCopy = v12;
+        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "downloadCloudKitPrimaryFileWithCompletion exiting with error: '%{public}@'", buf, 0xCu);
       }
 
-      [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v13];
-      (completionCopy)[2](completionCopy, 0, v13);
+      [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v12];
+      completionCopy[2](completionCopy, 0, v12);
     }
   }
 
   else
   {
-    v13 = [NSError cls_createErrorWithCode:2 format:@"Cannot download thumbnail file for nil asset."];
-    [(PDFileSyncAgent *)v13 cls_log:CLSLogAsset];
-    [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v13];
-    (completionCopy)[2](completionCopy, 0, v13);
+    v12 = [NSError cls_createErrorWithCode:2 format:@"Cannot download primary file for nil asset."];
+    [(PDFileSyncAgent *)v12 cls_log:CLSLogAsset];
+    [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v12];
+    completionCopy[2](completionCopy, 0, v12);
   }
 
   _Block_object_dispose(&v50, 8);
 }
 
-- (void)fetchCloudKitStreamingURLWithCompletion:(id)completion
+- (void)downloadCloudKitThumbnailWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_100055764;
-  v39 = sub_100055774;
-  v40 = 0;
-  asset = self->_asset;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = sub_100055764;
+  v53 = sub_100055774;
+  v54 = 0;
   objc_opt_class();
   objc_opt_isKindOfClass();
   database = self->_database;
-  v7 = objc_opt_class();
+  v6 = objc_opt_class();
   objectID = [(CLSAbstractAsset *)self->_asset objectID];
-  v9 = [(PDDatabase *)database select:v7 identity:objectID];
-  v10 = v36[5];
-  v36[5] = v9;
+  v8 = [(PDDatabase *)database select:v6 identity:objectID];
+  v9 = v50[5];
+  v50[5] = v8;
 
-  v11 = v36[5];
-  if (v11)
+  if (v50[5])
   {
-    originalFilename = [v11 originalFilename];
-    v13 = originalFilename == 0;
-
-    if (v13)
+    v10 = sub_10003E1B4(PDAccountInfo);
+    v48 = 0;
+    v11 = sub_1000E0F2C(PDFileManager, v10, &v48);
+    v12 = v48;
+    if (v11)
     {
-      v24 = [NSError cls_createErrorWithCode:2 format:@"Asset must have originalFilename to fetch a valid streaming URL."];
-      [v24 cls_log:CLSLogAsset];
-      [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v24];
-      (*(completionCopy + 2))(completionCopy, 0, 0, v24);
+      thumbnailFilenameForCKContentStoreCache = [v50[5] thumbnailFilenameForCKContentStoreCache];
+      v13 = [v11 URLByAppendingPathComponent:? isDirectory:?];
+      v14 = +[NSFileManager defaultManager];
+      path = [(PDFileSyncAgent *)v13 path];
+      v16 = [v14 fileExistsAtPath:path];
+
+      v17 = v50[5];
+      if (v16)
+      {
+        thumbnailURL = [v17 thumbnailURL];
+        v19 = [thumbnailURL isEqual:v13];
+
+        if ((v19 & 1) == 0)
+        {
+          [v50[5] setThumbnailURL:v13];
+          if (![(PDFileSyncAgent *)self updateAssetIfExists:v50[5]])
+          {
+            CLSInitLog();
+            v20 = CLSLogAsset;
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            {
+              objectID2 = [v50[5] objectID];
+              *buf = 138412290;
+              selfCopy = objectID2;
+              _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "unable to update thumbnailURL of an asset '%@'", buf, 0xCu);
+            }
+          }
+        }
+
+        CLSInitLog();
+        v21 = CLSLogAsset;
+        if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          selfCopy = v13;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "downloadCloudKitThumbnailWithCompletion returning thumbFileURL from cache: '%@'", buf, 0xCu);
+        }
+
+        [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:1 error:0];
+        completionCopy[2](completionCopy, v13, 0);
+      }
+
+      else
+      {
+        brItemID = [v17 brItemID];
+        v24 = brItemID == 0;
+
+        if (v24)
+        {
+          objectID3 = [v50[5] objectID];
+          v34 = [NSError cls_createErrorWithCode:2 format:@"Cannot download thumbnail file for asset '%@', its brItemID is nil!", objectID3];
+
+          [(PDFileSyncAgent *)v34 cls_log:CLSLogAsset];
+          [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v34];
+          (completionCopy)[2](completionCopy, 0, v34);
+          v12 = v34;
+        }
+
+        else
+        {
+          objc_initWeak(&location, self);
+          v25 = self->_database;
+          objectID4 = [v50[5] objectID];
+          v38 = sub_10015CF38(v25, objectID4);
+
+          v41 = sub_1000716B8(self->_database);
+          CLSInitLog();
+          v27 = CLSLogAsset;
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+          {
+            objectID5 = [v50[5] objectID];
+            *buf = 134218242;
+            selfCopy = self;
+            v59 = 2112;
+            v60 = objectID5;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "agent <%p> downloadCloudKitThumbnailWithCompletion calling fetchRecordsForDownloadingWithZoneName for asset '%@'", buf, 0x16u);
+          }
+
+          assetDownloadOperations = self->_assetDownloadOperations;
+          brZoneName = [v50[5] brZoneName];
+          brOwnerName = [v50[5] brOwnerName];
+          parentObjectID = [v50[5] parentObjectID];
+          parentEntityType = [v50[5] parentEntityType];
+          brItemID2 = [v50[5] brItemID];
+          v56 = brItemID2;
+          v31 = [NSArray arrayWithObjects:&v56 count:1];
+          v55 = @"assetThumbnail";
+          v32 = [NSArray arrayWithObjects:&v55 count:1];
+          v43[0] = _NSConcreteStackBlock;
+          v43[1] = 3221225472;
+          v43[2] = sub_10005B9C0;
+          v43[3] = &unk_100203668;
+          objc_copyWeak(&v46, &location);
+          v45 = &v49;
+          v44 = completionCopy;
+          sub_100128488(assetDownloadOperations, brZoneName, brOwnerName, parentObjectID, parentEntityType, v41, v31, v32, v38, &stru_1002036A8, &stru_1002036C8, v43);
+
+          objc_destroyWeak(&v46);
+          objc_destroyWeak(&location);
+        }
+      }
     }
 
     else
     {
       CLSInitLog();
-      v14 = CLSLogAsset;
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v22 = CLSLogAsset;
+      if (os_log_type_enabled(CLSLogAsset, OS_LOG_TYPE_ERROR))
       {
-        objectID2 = [v36[5] objectID];
-        *buf = 134218242;
-        selfCopy = self;
-        v45 = 2112;
-        v46 = objectID2;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "agent <%p> fetchCloudKitStreamingURLWithCompletion calling fetchRecordsForStreamingWithZoneName for asset '%@'", buf, 0x16u);
+        *buf = 138543362;
+        selfCopy = v12;
+        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "downloadCloudKitThumbnailWithCompletion exiting with error: '%{public}@'", buf, 0xCu);
       }
 
-      objc_initWeak(buf, self);
-      v16 = self->_database;
-      objectID3 = [v36[5] objectID];
-      v26 = sub_10015CF38(v16, objectID3);
-
-      v27 = sub_1000716B8(self->_database);
-      assetDownloadOperations = self->_assetDownloadOperations;
-      brZoneName = [v36[5] brZoneName];
-      brOwnerName = [v36[5] brOwnerName];
-      parentObjectID = [v36[5] parentObjectID];
-      parentEntityType = [v36[5] parentEntityType];
-      brItemID = [v36[5] brItemID];
-      v42 = brItemID;
-      v22 = [NSArray arrayWithObjects:&v42 count:1];
-      v41 = @"asset";
-      v23 = [NSArray arrayWithObjects:&v41 count:1];
-      v33[0] = _NSConcreteStackBlock;
-      v33[1] = 3221225472;
-      v33[2] = sub_10005C180;
-      v33[3] = &unk_100203600;
-      objc_copyWeak(&v34, buf);
-      v29[0] = _NSConcreteStackBlock;
-      v29[1] = 3221225472;
-      v29[2] = sub_10005C394;
-      v29[3] = &unk_100203710;
-      objc_copyWeak(&v32, buf);
-      v31 = &v35;
-      v29[4] = self;
-      v30 = completionCopy;
-      sub_100128740(assetDownloadOperations, brZoneName, brOwnerName, parentObjectID, parentEntityType, v27, v22, v23, v26, v33, &stru_1002036E8, v29);
-
-      objc_destroyWeak(&v32);
-      objc_destroyWeak(&v34);
-
-      objc_destroyWeak(buf);
-      v24 = 0;
+      [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v12];
+      (completionCopy)[2](completionCopy, 0, v12);
     }
   }
 
   else
   {
-    v24 = [NSError cls_createErrorWithCode:2 format:@"Cannot get streaming URL for nil asset."];
-    [v24 cls_log:CLSLogAsset];
-    [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v24];
-    (*(completionCopy + 2))(completionCopy, 0, 0, v24);
+    v12 = [NSError cls_createErrorWithCode:2 format:@"Cannot download thumbnail file for nil asset."];
+    [(PDFileSyncAgent *)v12 cls_log:CLSLogAsset];
+    [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v12];
+    (completionCopy)[2](completionCopy, 0, v12);
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v49, 8);
+}
+
+- (void)fetchCloudKitStreamingURLWithCompletion:(id)completion
+{
+  completionCopy = completion;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_100055764;
+  v38 = sub_100055774;
+  v39 = 0;
+  objc_opt_class();
+  objc_opt_isKindOfClass();
+  database = self->_database;
+  v6 = objc_opt_class();
+  objectID = [(CLSAbstractAsset *)self->_asset objectID];
+  v8 = [(PDDatabase *)database select:v6 identity:objectID];
+  v9 = v35[5];
+  v35[5] = v8;
+
+  v10 = v35[5];
+  if (v10)
+  {
+    originalFilename = [v10 originalFilename];
+    v12 = originalFilename == 0;
+
+    if (v12)
+    {
+      v23 = [NSError cls_createErrorWithCode:2 format:@"Asset must have originalFilename to fetch a valid streaming URL."];
+      [v23 cls_log:CLSLogAsset];
+      [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v23];
+      (*(completionCopy + 2))(completionCopy, 0, 0, v23);
+    }
+
+    else
+    {
+      CLSInitLog();
+      v13 = CLSLogAsset;
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      {
+        objectID2 = [v35[5] objectID];
+        *buf = 134218242;
+        selfCopy = self;
+        v44 = 2112;
+        v45 = objectID2;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "agent <%p> fetchCloudKitStreamingURLWithCompletion calling fetchRecordsForStreamingWithZoneName for asset '%@'", buf, 0x16u);
+      }
+
+      objc_initWeak(buf, self);
+      v15 = self->_database;
+      objectID3 = [v35[5] objectID];
+      v25 = sub_10015CF38(v15, objectID3);
+
+      v26 = sub_1000716B8(self->_database);
+      assetDownloadOperations = self->_assetDownloadOperations;
+      brZoneName = [v35[5] brZoneName];
+      brOwnerName = [v35[5] brOwnerName];
+      parentObjectID = [v35[5] parentObjectID];
+      parentEntityType = [v35[5] parentEntityType];
+      brItemID = [v35[5] brItemID];
+      v41 = brItemID;
+      v21 = [NSArray arrayWithObjects:&v41 count:1];
+      v40 = @"asset";
+      v22 = [NSArray arrayWithObjects:&v40 count:1];
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_10005C180;
+      v32[3] = &unk_100203600;
+      objc_copyWeak(&v33, buf);
+      v28[0] = _NSConcreteStackBlock;
+      v28[1] = 3221225472;
+      v28[2] = sub_10005C394;
+      v28[3] = &unk_100203710;
+      objc_copyWeak(&v31, buf);
+      v30 = &v34;
+      v28[4] = self;
+      v29 = completionCopy;
+      sub_100128740(assetDownloadOperations, brZoneName, brOwnerName, parentObjectID, parentEntityType, v26, v21, v22, v25, v32, &stru_1002036E8, v28);
+
+      objc_destroyWeak(&v31);
+      objc_destroyWeak(&v33);
+
+      objc_destroyWeak(buf);
+      v23 = 0;
+    }
+  }
+
+  else
+  {
+    v23 = [NSError cls_createErrorWithCode:2 format:@"Cannot get streaming URL for nil asset."];
+    [v23 cls_log:CLSLogAsset];
+    [(PDFileSyncAgent *)self queued_notifyDownloadCompleted:0 error:v23];
+    (*(completionCopy + 2))(completionCopy, 0, 0, v23);
+  }
+
+  _Block_object_dispose(&v34, 8);
 }
 
 @end

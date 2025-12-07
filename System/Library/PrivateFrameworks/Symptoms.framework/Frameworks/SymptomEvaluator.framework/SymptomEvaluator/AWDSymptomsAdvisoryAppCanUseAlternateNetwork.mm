@@ -1,8 +1,11 @@
 @interface AWDSymptomsAdvisoryAppCanUseAlternateNetwork
 - (BOOL)isEqual:(id)equal;
+- (id)bailOutOfAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deliberationAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)rationaleAsString:(int)string;
 - (int)StringAsBailOutOf:(id)of;
 - (int)StringAsDeliberation:(id)deliberation;
 - (int)StringAsRationale:(id)rationale;
@@ -68,6 +71,21 @@
   *&self->_has = *&self->_has & 0xFFBF | v3;
 }
 
+- (id)bailOutOfAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898DFE8[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsBailOutOf:(id)of
 {
   ofCopy = of;
@@ -122,6 +140,26 @@
   *&self->_has = *&self->_has & 0xFF7F | v3;
 }
 
+- (id)deliberationAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"Allowed";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"NotAllowed";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDeliberation:(id)deliberation
 {
   deliberationCopy = deliberation;
@@ -168,6 +206,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFEFF | v3;
+}
+
+- (id)rationaleAsString:(int)string
+{
+  if ((string - 1) >= 7)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898E000[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRationale:(id)rationale
@@ -462,7 +515,6 @@ LABEL_14:
   toCopy = to;
   if ((*&self->_has & 8) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -474,7 +526,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    bailOutOf = self->_bailOutOf;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -494,7 +545,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  deliberation = self->_deliberation;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -509,7 +559,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  rationale = self->_rationale;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -524,7 +573,6 @@ LABEL_9:
   }
 
 LABEL_20:
-  wwanUsage = self->_wwanUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -539,7 +587,6 @@ LABEL_10:
   }
 
 LABEL_21:
-  wifiUsage = self->_wifiUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -554,7 +601,6 @@ LABEL_11:
   }
 
 LABEL_22:
-  altUsage = self->_altUsage;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -569,12 +615,10 @@ LABEL_12:
   }
 
 LABEL_23:
-  allFlows = self->_allFlows;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_13:
-    jumboFlows = self->_jumboFlows;
     PBDataWriterWriteUint64Field();
   }
 

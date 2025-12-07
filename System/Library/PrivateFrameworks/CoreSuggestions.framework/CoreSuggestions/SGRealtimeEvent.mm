@@ -1,5 +1,10 @@
 @interface SGRealtimeEvent
++ (id)realtimeEventForCanceledEvent:(id)event eventIdentifier:(id)identifier harvested:(BOOL)harvested;
++ (id)realtimeEventForDuplicateEvent:(id)event eventIdentifier:(id)identifier harvested:(BOOL)harvested;
 + (id)realtimeEventForExtractionExceptionWithSourceMessageId:(id)id;
++ (id)realtimeEventForNearDuplicateEvent:(id)event harvested:(BOOL)harvested;
++ (id)realtimeEventForNewEvent:(id)event harvested:(BOOL)harvested;
++ (id)realtimeEventUpdateToEvent:(id)event withNewValues:(id)values harvested:(BOOL)harvested;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToRealtimeEvent:(id)event;
 - (NSString)description;
@@ -167,6 +172,54 @@ LABEL_14:
   v4 = [[SGRealtimeEvent alloc] initWithState:6 event:0 eventIdentifier:0 harvested:0 sourceMessageId:idCopy];
 
   return v4;
+}
+
++ (id)realtimeEventForNearDuplicateEvent:(id)event harvested:(BOOL)harvested
+{
+  harvestedCopy = harvested;
+  eventCopy = event;
+  v6 = [[SGRealtimeEvent alloc] initWithState:5 event:0 eventIdentifier:eventCopy harvested:harvestedCopy];
+
+  return v6;
+}
+
++ (id)realtimeEventForDuplicateEvent:(id)event eventIdentifier:(id)identifier harvested:(BOOL)harvested
+{
+  harvestedCopy = harvested;
+  identifierCopy = identifier;
+  eventCopy = event;
+  v9 = [[SGRealtimeEvent alloc] initWithState:4 event:eventCopy eventIdentifier:identifierCopy harvested:harvestedCopy];
+
+  return v9;
+}
+
++ (id)realtimeEventUpdateToEvent:(id)event withNewValues:(id)values harvested:(BOOL)harvested
+{
+  harvestedCopy = harvested;
+  valuesCopy = values;
+  eventCopy = event;
+  v9 = [[SGRealtimeEvent alloc] initWithState:2 event:valuesCopy eventIdentifier:eventCopy harvested:harvestedCopy];
+
+  return v9;
+}
+
++ (id)realtimeEventForCanceledEvent:(id)event eventIdentifier:(id)identifier harvested:(BOOL)harvested
+{
+  harvestedCopy = harvested;
+  identifierCopy = identifier;
+  eventCopy = event;
+  v9 = [[SGRealtimeEvent alloc] initWithState:3 event:eventCopy eventIdentifier:identifierCopy harvested:harvestedCopy];
+
+  return v9;
+}
+
++ (id)realtimeEventForNewEvent:(id)event harvested:(BOOL)harvested
+{
+  harvestedCopy = harvested;
+  eventCopy = event;
+  v6 = [[SGRealtimeEvent alloc] initWithState:1 event:eventCopy eventIdentifier:0 harvested:harvestedCopy];
+
+  return v6;
 }
 
 @end

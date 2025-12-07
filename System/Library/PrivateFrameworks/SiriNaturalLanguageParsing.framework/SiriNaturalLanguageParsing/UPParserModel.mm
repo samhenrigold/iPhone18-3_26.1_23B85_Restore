@@ -13,7 +13,7 @@
 
 - (id)predictionFromQuery:(id)query preprocessorOutput:(id)output error:(id *)error
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   outputCopy = output;
   v9 = SNLPOSLoggerForCategory(7);
@@ -39,84 +39,84 @@
   v16 = [(UPSharedEntityResolution *)v14 initWithMatchingSpans:spans];
 
   spanLabelsTensor = [outputCopy spanLabelsTensor];
+  v31 = 0;
   v32 = 0;
   v33 = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v31, *spanLabelsTensor, *(spanLabelsTensor + 8), (*(spanLabelsTensor + 8) - *spanLabelsTensor) >> 3);
   v34 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v32, *spanLabelsTensor, spanLabelsTensor[1], (spanLabelsTensor[1] - *spanLabelsTensor) >> 3);
   v35 = 0;
   v36 = 0;
-  v37 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v35, spanLabelsTensor[3], spanLabelsTensor[4], (spanLabelsTensor[4] - spanLabelsTensor[3]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v34, *(spanLabelsTensor + 24), *(spanLabelsTensor + 32), (*(spanLabelsTensor + 32) - *(spanLabelsTensor + 24)) >> 2);
   embeddingsTensor = [outputCopy embeddingsTensor];
+  v25 = 0;
   v26 = 0;
   v27 = 0;
-  v28 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v26, *embeddingsTensor, embeddingsTensor[1], (embeddingsTensor[1] - *embeddingsTensor) >> 3);
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v25, *embeddingsTensor, *(embeddingsTensor + 8), (*(embeddingsTensor + 8) - *embeddingsTensor) >> 3);
   __p = 0;
+  v29 = 0;
   v30 = 0;
-  v31 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, embeddingsTensor[3], embeddingsTensor[4], (embeddingsTensor[4] - embeddingsTensor[3]) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, *(embeddingsTensor + 24), *(embeddingsTensor + 32), (*(embeddingsTensor + 32) - *(embeddingsTensor + 24)) >> 2);
   utterance = [queryCopy utterance];
-  [(UPParserModel *)self forwardWithSpanLabels:&v32 embeddings:&v26 utterance:utterance];
+  objc_msgSend_forwardWithSpanLabels_embeddings_utterance_(self);
 
   if (__p)
   {
-    v30 = __p;
+    v29 = __p;
     operator delete(__p);
   }
 
-  if (v26)
+  if (v25)
   {
-    v27 = v26;
-    operator delete(v26);
+    v26 = v25;
+    operator delete(v25);
   }
 
-  if (v35)
+  if (v34)
   {
-    v36 = v35;
-    operator delete(v35);
+    v35 = v34;
+    operator delete(v34);
   }
 
-  if (v32)
+  if (v31)
   {
-    v33 = v32;
-    operator delete(v32);
+    v32 = v31;
+    operator delete(v31);
   }
 
   v20 = -[UPParserModel _resultFromInferenceResult:query:outputTokens:resolver:sharedEntityResolution:](self, "_resultFromInferenceResult:query:outputTokens:resolver:sharedEntityResolution:", buf, queryCopy, [outputCopy outputTokens], -[UPLoadedModelConfiguration resolver](self->__loadedModelConfiguration, "resolver"), v16);
-  if (v48)
+  if (v47)
   {
-    v49 = v48;
-    operator delete(v48);
+    v48 = v47;
+    operator delete(v47);
   }
 
-  if (v46)
+  if (v45)
   {
-    v47 = v46;
-    operator delete(v46);
+    v46 = v45;
+    operator delete(v45);
   }
 
-  if (v44)
+  if (v43)
   {
-    v45 = v44;
-    operator delete(v44);
+    v44 = v43;
+    operator delete(v43);
   }
 
-  if (v42)
+  if (v41)
   {
-    v43 = v42;
-    operator delete(v42);
+    v42 = v41;
+    operator delete(v41);
   }
 
-  if (v40)
+  if (v39)
   {
-    v41 = v40;
-    operator delete(v40);
+    v40 = v39;
+    operator delete(v39);
   }
 
   if (*buf)
   {
-    v39 = *buf;
+    v38 = *buf;
     operator delete(*buf);
   }
 
@@ -135,123 +135,121 @@
     _os_log_impl(&dword_22284A000, v23, OS_LOG_TYPE_DEFAULT, "END UaaP Prediction", buf, 2u);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)_candidateForBeamSequence:(const void *)sequence utterance:(const void *)utterance outputTokens:(const void *)tokens resolver:(void *)resolver sharedEntityResolution:(id)resolution
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   resolutionCopy = resolution;
   intentVocabPath = [(UPLoadedModelConfiguration *)self->__loadedModelConfiguration intentVocabPath];
-  std::string::basic_string[abi:ne200100]<0>(v57, [intentVocabPath UTF8String]);
+  std::string::basic_string[abi:ne200100]<0>(v56, [intentVocabPath UTF8String]);
   bioLabelsVocabPath = [(UPLoadedModelConfiguration *)self->__loadedModelConfiguration bioLabelsVocabPath];
   v14 = bioLabelsVocabPath;
-  std::string::basic_string[abi:ne200100]<0>(&v59, [bioLabelsVocabPath UTF8String]);
-  memset(v61, 0, sizeof(v61));
-  std::vector<nl_featurization::Token>::__init_with_size[abi:ne200100]<nl_featurization::Token*,nl_featurization::Token*>(v61, *tokens, *(tokens + 1), 0xAAAAAAAAAAAAAAABLL * ((*(tokens + 1) - *tokens) >> 4));
+  std::string::basic_string[abi:ne200100]<0>(&v58, [bioLabelsVocabPath UTF8String]);
+  memset(v60, 0, sizeof(v60));
+  std::vector<nl_featurization::Token>::__init_with_size[abi:ne200100]<nl_featurization::Token*,nl_featurization::Token*>(v60, *tokens, *(tokens + 1), 0xAAAAAAAAAAAAAAABLL * ((*(tokens + 1) - *tokens) >> 4));
 
-  v50 = *(sequence + 2);
+  v49 = *(sequence + 2);
+  v50 = 0;
   v51 = 0;
   v52 = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v50, *(sequence + 7), *(sequence + 8), (*(sequence + 8) - *(sequence + 7)) >> 3);
   v53 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&v51, *(sequence + 7), *(sequence + 8), (*(sequence + 8) - *(sequence + 7)) >> 3);
   v54 = 0;
   v55 = 0;
-  v56 = 0;
-  std::vector<std::optional<unsigned long>>::__init_with_size[abi:ne200100]<std::optional<unsigned long>*,std::optional<unsigned long>*>(&v54, *(sequence + 13), *(sequence + 14), (*(sequence + 14) - *(sequence + 13)) >> 4);
-  nl_featurization::postprocessing::base::postProcessBaseModel(v57, &v50, &v47);
+  std::vector<std::optional<unsigned long>>::__init_with_size[abi:ne200100]<std::optional<unsigned long>*,std::optional<unsigned long>*>(&v53, *(sequence + 13), *(sequence + 14), (*(sequence + 14) - *(sequence + 13)) >> 4);
+  nl_featurization::postprocessing::base::postProcessBaseModel(&v46, v56, &v49);
   v15 = SNLPOSLoggerForCategory(3);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134217984;
-    *&buf[4] = 0x4EC4EC4EC4EC4EC5 * ((v49 - v48) >> 3);
+    *&buf[4] = 0x4EC4EC4EC4EC4EC5 * ((v48 - v47) >> 3);
     _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_DEBUG, "%ld", buf, 0xCu);
   }
 
   sequenceCopy = sequence;
-  v45 = 0;
-  v46 = 0uLL;
-  v16 = v48;
-  v17 = v49;
+  v44 = 0;
+  v45 = 0uLL;
+  v16 = v47;
+  v17 = v48;
   while (v16 != v17)
   {
-    u16Substring(utterance, *(v16 + 16), *(v16 + 24), &v44);
-    uaap_orchestration::resolution::Resolver::lookupSemanticValueForLabel(resolver, (v16 + 32), &v44, &__p);
-    if (v43 == 1)
+    u16Substring(utterance, *(v16 + 16), *(v16 + 24), &v43);
+    uaap_orchestration::resolution::Resolver::lookupSemanticValueForLabel(resolver, (v16 + 32), &__p, &v43);
+    if (v42 == 1)
     {
       v18 = *(v16 + 16);
       *buf = *v16;
-      v63 = v18;
+      v62 = v18;
       if (*(v16 + 55) < 0)
       {
-        std::basic_string<char16_t>::__init_copy_ctor_external(&v64, *(v16 + 32), *(v16 + 40));
+        std::basic_string<char16_t>::__init_copy_ctor_external(&v63, *(v16 + 32), *(v16 + 40));
       }
 
       else
       {
         v19 = *(v16 + 32);
-        v64.__r_.__value_.__r.__words[2] = *(v16 + 48);
-        *&v64.__r_.__value_.__l.__data_ = v19;
+        v63.__r_.__value_.__r.__words[2] = *(v16 + 48);
+        *&v63.__r_.__value_.__l.__data_ = v19;
       }
 
       v25 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::basic_string<char16_t>::__init_copy_ctor_external(&v65, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
+        std::basic_string<char16_t>::__init_copy_ctor_external(&v64, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v65 = __p;
+        v64 = __p;
       }
 
-      v66 = 1;
+      v65 = 1;
       v26 = *(v16 + 96);
-      v67 = *(v16 + 88);
-      v68 = v26;
-      v27 = v46;
-      if (v46 >= *(&v46 + 1))
+      v66 = *(v16 + 88);
+      v67 = v26;
+      v27 = v45;
+      if (v45 >= *(&v45 + 1))
       {
-        v28 = std::vector<nl_featurization::postprocessing::LabelledSpan>::__emplace_back_slow_path<nl_featurization::postprocessing::LabelledSpan>(&v45, buf);
+        v28 = std::vector<nl_featurization::postprocessing::LabelledSpan>::__emplace_back_slow_path<nl_featurization::postprocessing::LabelledSpan>(&v44, buf);
       }
 
       else
       {
-        std::vector<nl_featurization::postprocessing::LabelledSpan>::__construct_one_at_end[abi:ne200100]<nl_featurization::postprocessing::LabelledSpan>(&v45, buf);
+        std::vector<nl_featurization::postprocessing::LabelledSpan>::__construct_one_at_end[abi:ne200100]<nl_featurization::postprocessing::LabelledSpan>(&v44, buf);
         v28 = v27 + 104;
       }
 
-      *&v46 = v28;
-      if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v65.__r_.__value_.__l.__data_);
-      }
-
+      *&v45 = v28;
       if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v64.__r_.__value_.__l.__data_);
+      }
+
+      if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v63.__r_.__value_.__l.__data_);
       }
     }
 
     else
     {
-      v20 = v46;
-      if (v46 >= *(&v46 + 1))
+      v20 = v45;
+      if (v45 >= *(&v45 + 1))
       {
-        v23 = 0x4EC4EC4EC4EC4EC5 * ((v46 - v45) >> 3) + 1;
+        v23 = 0x4EC4EC4EC4EC4EC5 * ((v45 - v44) >> 3) + 1;
         if (v23 > 0x276276276276276)
         {
           std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
         }
 
-        if (0x9D89D89D89D89D8ALL * ((*(&v46 + 1) - v45) >> 3) > v23)
+        if (0x9D89D89D89D89D8ALL * ((*(&v45 + 1) - v44) >> 3) > v23)
         {
-          v23 = 0x9D89D89D89D89D8ALL * ((*(&v46 + 1) - v45) >> 3);
+          v23 = 0x9D89D89D89D89D8ALL * ((*(&v45 + 1) - v44) >> 3);
         }
 
-        if ((0x4EC4EC4EC4EC4EC5 * ((*(&v46 + 1) - v45) >> 3)) >= 0x13B13B13B13B13BLL)
+        if ((0x4EC4EC4EC4EC4EC5 * ((*(&v45 + 1) - v44) >> 3)) >= 0x13B13B13B13B13BLL)
         {
           v24 = 0x276276276276276;
         }
@@ -261,41 +259,41 @@
           v24 = v23;
         }
 
-        v64.__r_.__value_.__r.__words[0] = &v45;
+        v63.__r_.__value_.__r.__words[0] = &v44;
         if (v24)
         {
           std::__allocate_at_least[abi:ne200100]<std::allocator<nl_featurization::postprocessing::LabelledSpan>>(v24);
         }
 
         *buf = 0;
-        *&buf[8] = 8 * ((v46 - v45) >> 3);
-        v63 = *&buf[8];
+        *&buf[8] = 8 * ((v45 - v44) >> 3);
+        v62 = *&buf[8];
         std::allocator_traits<std::allocator<nl_featurization::postprocessing::LabelledSpan>>::construct[abi:ne200100]<nl_featurization::postprocessing::LabelledSpan,nl_featurization::postprocessing::LabelledSpan const&,0>(*&buf[8], v16);
-        *&v63 = v63 + 104;
-        v29 = *&buf[8] + v45 - v46;
-        std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nl_featurization::postprocessing::LabelledSpan>,nl_featurization::postprocessing::LabelledSpan*>(&v45, v45, v46, v29);
-        v30 = v45;
-        v31 = *(&v46 + 1);
-        v45 = v29;
-        v41 = v63;
-        v46 = v63;
-        *&v63 = v30;
-        *(&v63 + 1) = v31;
+        *&v62 = v62 + 104;
+        v29 = *&buf[8] + v44 - v45;
+        std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<nl_featurization::postprocessing::LabelledSpan>,nl_featurization::postprocessing::LabelledSpan*>(&v44, v44, v45, v29);
+        v30 = v44;
+        v31 = *(&v45 + 1);
+        v44 = v29;
+        v40 = v62;
+        v45 = v62;
+        *&v62 = v30;
+        *(&v62 + 1) = v31;
         *buf = v30;
         *&buf[8] = v30;
         std::__split_buffer<nl_featurization::postprocessing::LabelledSpan>::~__split_buffer(buf);
-        v22 = v41;
-        v21 = v43;
+        v22 = v40;
+        v21 = v42;
       }
 
       else
       {
-        std::allocator_traits<std::allocator<nl_featurization::postprocessing::LabelledSpan>>::construct[abi:ne200100]<nl_featurization::postprocessing::LabelledSpan,nl_featurization::postprocessing::LabelledSpan const&,0>(v46, v16);
+        std::allocator_traits<std::allocator<nl_featurization::postprocessing::LabelledSpan>>::construct[abi:ne200100]<nl_featurization::postprocessing::LabelledSpan,nl_featurization::postprocessing::LabelledSpan const&,0>(v45, v16);
         v21 = 0;
         v22 = v20 + 104;
       }
 
-      *&v46 = v22;
+      *&v45 = v22;
       v25 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
       if ((v21 & 1) == 0)
       {
@@ -309,60 +307,58 @@
     }
 
 LABEL_33:
-    if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v44.__r_.__value_.__l.__data_);
+      operator delete(v43.__r_.__value_.__l.__data_);
     }
 
     v16 += 104;
   }
 
   v32 = *sequenceCopy;
-  v33 = [UPUtilities stdU16ToNSString:&v47, v61];
+  v33 = [UPUtilities stdU16ToNSString:&v46, v60];
   *&v34 = v32;
-  v35 = [(UPParserModel *)self _candidateForUtterance:utterance probability:&v45 labelledSpans:v33 intent:resolutionCopy sharedEntityResolution:v34];
+  v35 = [(UPParserModel *)self _candidateForUtterance:utterance probability:&v44 labelledSpans:v33 intent:resolutionCopy sharedEntityResolution:v34];
 
-  *buf = &v45;
+  *buf = &v44;
   std::vector<nl_featurization::postprocessing::LabelledSpan>::__destroy_vector::operator()[abi:ne200100](buf);
-  *buf = &v48;
+  *buf = &v47;
   std::vector<nl_featurization::postprocessing::LabelledSpan>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v47.__r_.__value_.__l.__data_);
+    operator delete(v46.__r_.__value_.__l.__data_);
   }
 
-  if (v54)
+  if (v53)
   {
-    v55 = v54;
-    operator delete(v54);
+    v54 = v53;
+    operator delete(v53);
   }
 
-  if (v51)
+  if (v50)
   {
-    v52 = v51;
-    operator delete(v51);
+    v51 = v50;
+    operator delete(v50);
   }
 
-  *buf = v38;
+  *buf = v37;
   std::vector<nl_featurization::Token>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (v60 < 0)
+  if (v59 < 0)
   {
-    operator delete(v59);
+    operator delete(v58);
   }
 
-  if (v58 < 0)
+  if (v57 < 0)
   {
-    operator delete(v57[0]);
+    operator delete(v56[0]);
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 
   return v35;
 }
 
 - (id)_resultFromInferenceResult:(const void *)result query:(id)query outputTokens:(const void *)tokens resolver:(void *)resolver sharedEntityResolution:(id)resolution
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   resolutionCopy = resolution;
   v9 = SNLPOSLoggerForCategory(7);
@@ -371,7 +367,7 @@ LABEL_33:
   v11 = SNLPOSLoggerForCategory(7);
   v12 = v11;
   spid = v10;
-  v40 = v10 - 1;
+  v38 = v10 - 1;
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
@@ -386,128 +382,124 @@ LABEL_33:
   }
 
   utterance = [queryCopy utterance];
-  [UPUtilities nSStringToU16String:utterance];
+  objc_msgSend_nSStringToU16String_(UPUtilities);
 
   beamMaskInput = [(UPLoadedModelConfiguration *)self->__loadedModelConfiguration beamMaskInput];
   v16 = 0xAAAAAAAAAAAAAAABLL * ((beamMaskInput[1] - *beamMaskInput) >> 3);
-  v51 = 0;
-  v52 = 0;
-  v53 = 0;
-  std::vector<double>::reserve(&v51, v16);
+  v47 = 0;
+  v48 = 0;
+  v49 = 0;
+  std::vector<double>::reserve(&v47, v16);
   v17 = *(result + 3);
   v18 = *(result + 4);
   while (v17 != v18)
   {
     *buf = *v17;
-    std::vector<double>::push_back[abi:ne200100](&v51, buf);
+    std::vector<double>::push_back[abi:ne200100](&v47, buf);
     ++v17;
   }
 
   v20 = *tokens;
   v19 = *(tokens + 1);
-  beamMaskInput2 = [(UPLoadedModelConfiguration *)self->__loadedModelConfiguration beamMaskInput];
-  v45 = beamMaskInput2[4];
-  v44 = beamMaskInput2[3];
-  v41 = 0xAAAAAAAAAAAAAAABLL * ((v19 - v20) >> 4);
-  memset(v50, 0, sizeof(v50));
+  [(UPLoadedModelConfiguration *)self->__loadedModelConfiguration beamMaskInput];
+  v39 = 0xAAAAAAAAAAAAAAABLL * ((v19 - v20) >> 4);
+  memset(v46, 0, sizeof(v46));
   if (v19 != v20)
   {
-    if (v41 <= 0xAAAAAAAAAAAAAAALL)
+    if (v39 <= 0xAAAAAAAAAAAAAAALL)
     {
-      v59 = v50;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<double>>>(v41);
+      v55 = v46;
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<double>>>(v39);
     }
 
     std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
   }
 
   *buf = 0.0;
-  v57 = 0;
-  v58 = 0;
-  std::vector<double>::reserve(buf, v41);
-  beamMaskInput3 = [(UPLoadedModelConfiguration *)self->__loadedModelConfiguration beamMaskInput];
-  nl_featurization::beam_search::beamSearch(&v51, v50, buf, beamMaskInput3, beamMaskInput3 + 3, beamMaskInput3 + 6, (beamMaskInput3 + 9), (beamMaskInput3 + 14), __p, 5uLL);
-  v23 = SNLPOSLoggerForCategory(3);
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v53 = 0;
+  v54 = 0;
+  std::vector<double>::reserve(buf, v39);
+  beamMaskInput2 = [(UPLoadedModelConfiguration *)self->__loadedModelConfiguration beamMaskInput];
+  nl_featurization::beam_search::beamSearch(&v47, v46, buf, beamMaskInput2, beamMaskInput2 + 3, beamMaskInput2 + 6, (beamMaskInput2 + 9), (beamMaskInput2 + 14), __p, 5uLL);
+  v22 = SNLPOSLoggerForCategory(3);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    *v60 = 134217984;
-    *&v60[4] = (__p[1] - __p[0]) >> 7;
-    _os_log_impl(&dword_22284A000, v23, OS_LOG_TYPE_DEBUG, "Number of BEAM sequences = %lu", v60, 0xCu);
+    *v56 = 134217984;
+    *&v56[4] = (__p[1] - __p[0]) >> 7;
+    _os_log_impl(&dword_22284A000, v22, OS_LOG_TYPE_DEBUG, "Number of BEAM sequences = %lu", v56, 0xCu);
   }
 
-  v24 = [MEMORY[0x277CBEB18] arrayWithCapacity:(__p[1] - __p[0]) >> 7];
+  v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:(__p[1] - __p[0]) >> 7];
   for (i = __p[0]; i != __p[1]; i = (i + 128))
   {
-    v26 = SNLPOSLoggerForCategory(3);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+    v25 = SNLPOSLoggerForCategory(3);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
-      nl_featurization::beam_search::BeamSequence::toString(v60, i);
-      v27 = v61 >= 0 ? v60 : *v60;
-      *v62 = 136315138;
-      v63 = v27;
-      _os_log_impl(&dword_22284A000, v26, OS_LOG_TYPE_DEBUG, "Processing BEAM sequence: %s", v62, 0xCu);
-      if (v61 < 0)
+      nl_featurization::beam_search::BeamSequence::toString(i);
+      v26 = v57 >= 0 ? v56 : *v56;
+      *v58 = 136315138;
+      v59 = v26;
+      _os_log_impl(&dword_22284A000, v25, OS_LOG_TYPE_DEBUG, "Processing BEAM sequence: %s", v58, 0xCu);
+      if (v57 < 0)
       {
-        operator delete(*v60);
+        operator delete(*v56);
       }
     }
 
-    v28 = [(UPParserModel *)self _candidateForBeamSequence:i utterance:&v54 outputTokens:tokens resolver:resolver sharedEntityResolution:resolutionCopy];
-    v29 = SNLPOSLoggerForCategory(3);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+    v27 = [(UPParserModel *)self _candidateForBeamSequence:i utterance:&v50 outputTokens:tokens resolver:resolver sharedEntityResolution:resolutionCopy];
+    v28 = SNLPOSLoggerForCategory(3);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
-      annotatedString = [v28 annotatedString];
-      *v60 = 138412290;
-      *&v60[4] = annotatedString;
-      _os_log_impl(&dword_22284A000, v29, OS_LOG_TYPE_DEBUG, "Produced candidate: %@", v60, 0xCu);
+      annotatedString = [v27 annotatedString];
+      *v56 = 138412290;
+      *&v56[4] = annotatedString;
+      _os_log_impl(&dword_22284A000, v28, OS_LOG_TYPE_DEBUG, "Produced candidate: %@", v56, 0xCu);
     }
 
-    [v24 addObject:v28];
+    [v23 addObject:v27];
   }
 
-  v31 = SNLPOSLoggerForCategory(7);
-  v32 = v31;
-  if (v40 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+  v30 = SNLPOSLoggerForCategory(7);
+  v31 = v30;
+  if (v38 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
   {
-    *v60 = 0;
-    _os_signpost_emit_with_name_impl(&dword_22284A000, v32, OS_SIGNPOST_INTERVAL_END, spid, "UaaP Post-Processing", "", v60, 2u);
+    *v56 = 0;
+    _os_signpost_emit_with_name_impl(&dword_22284A000, v31, OS_SIGNPOST_INTERVAL_END, spid, "UaaP Post-Processing", "", v56, 2u);
   }
 
-  v33 = SNLPOSLoggerForCategory(0);
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+  v32 = SNLPOSLoggerForCategory(0);
+  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
-    *v60 = 0;
-    _os_log_impl(&dword_22284A000, v33, OS_LOG_TYPE_DEFAULT, "END UaaP Post-Processing", v60, 2u);
+    *v56 = 0;
+    _os_log_impl(&dword_22284A000, v32, OS_LOG_TYPE_DEFAULT, "END UaaP Post-Processing", v56, 2u);
   }
 
-  v34 = [UPResult alloc];
+  v33 = [UPResult alloc];
   uuid = [queryCopy uuid];
-  v36 = [(UPResult *)v34 initWithCandidates:v24 queryUUID:uuid];
+  v35 = [(UPResult *)v33 initWithCandidates:v23 queryUUID:uuid];
 
-  *v60 = __p;
-  std::vector<nl_featurization::beam_search::BeamSequence>::__destroy_vector::operator()[abi:ne200100](v60);
+  *v56 = __p;
+  std::vector<nl_featurization::beam_search::BeamSequence>::__destroy_vector::operator()[abi:ne200100](v56);
   if (*buf != 0.0)
   {
-    v57 = *buf;
+    v53 = *buf;
     operator delete(*buf);
   }
 
-  *buf = COERCE_DOUBLE(v50);
+  *buf = COERCE_DOUBLE(v46);
   std::vector<std::vector<unsigned long>>::__destroy_vector::operator()[abi:ne200100](buf);
-  if (v51)
+  if (v47)
   {
-    v52 = v51;
-    operator delete(v51);
+    v48 = v47;
+    operator delete(v47);
   }
 
-  if (v55 < 0)
+  if (v51 < 0)
   {
-    operator delete(v54);
+    operator delete(v50);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
-
-  return v36;
+  return v35;
 }
 
 - (UPInferenceResult)forwardWithSpanLabels:(SEL)labels embeddings:(UPGenericTensor *)embeddings utterance:(UPGenericTensor *)utterance
@@ -550,12 +542,12 @@ LABEL_33:
   }
 
   uaap::EspressoModule::executePlan(parserEspressoModule);
-  std::string::basic_string[abi:ne200100]<0>(v42, "intent_softmax");
-  std::string::basic_string[abi:ne200100]<0>(v40, "bio_labels_softmax");
-  std::string::basic_string[abi:ne200100]<0>(v38, "group_labels_softmax");
-  uaap::EspressoModule::getOutput(parserEspressoModule, v42, buf);
-  uaap::EspressoModule::getOutput(parserEspressoModule, v40, v31);
-  uaap::EspressoModule::getOutput(parserEspressoModule, v38, v27);
+  std::string::basic_string[abi:ne200100]<0>(&v42, "intent_softmax");
+  std::string::basic_string[abi:ne200100]<0>(&v40, "bio_labels_softmax");
+  std::string::basic_string[abi:ne200100]<0>(&v38, "group_labels_softmax");
+  uaap::EspressoModule::getOutput(buf);
+  uaap::EspressoModule::getOutput(v31);
+  uaap::EspressoModule::getOutput(v27);
   *&retstr->var0.shape.__begin_ = *buf;
   retstr->var0.shape.__cap_ = *&buf[16];
   v16 = *v36;
@@ -645,17 +637,17 @@ LABEL_33:
 
   if (v39 < 0)
   {
-    operator delete(v38[0]);
+    operator delete(v38);
   }
 
   if (v41 < 0)
   {
-    operator delete(v40[0]);
+    operator delete(v40);
   }
 
   if (v43 < 0)
   {
-    operator delete(v42[0]);
+    operator delete(v42);
   }
 
   return result;

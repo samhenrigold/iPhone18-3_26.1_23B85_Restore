@@ -116,32 +116,32 @@
   if (index)
   {
     indexCopy = index;
-    objc_msgSend_loadSpecDictionary(self, a2, index, v3, v4);
+    objc_msgSend_loadSpecDictionary(self, a2, index, v3);
     if (indexCopy >= ((*(qword_27CFB5630 + 8) - *qword_27CFB5630) >> 3))
     {
-      v7 = 0;
+      v6 = 0;
     }
 
     else
     {
-      v7 = *(*qword_27CFB5630 + 8 * indexCopy);
+      v6 = *(*qword_27CFB5630 + 8 * indexCopy);
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 + (id)englishFunctionNameFromFunctionIndex:(unsigned __int16)index
 {
-  v5 = objc_msgSend_functionSpecForFunctionIndex_(TSCEFunctionSpec, a2, index, v3, v4);
-  v10 = objc_msgSend_functionName(v5, v6, v7, v8, v9);
+  v4 = objc_msgSend_functionSpecForFunctionIndex_(TSCEFunctionSpec, a2, index, v3);
+  v8 = objc_msgSend_functionName(v4, v5, v6, v7);
 
-  return v10;
+  return v8;
 }
 
 + (id)functionSpecForFunctionName:(id)name
@@ -149,31 +149,31 @@
   nameCopy = name;
   if (nameCopy)
   {
-    objc_msgSend_loadSpecDictionary(self, v4, v5, v6, v7);
-    v16 = objc_msgSend_objectForKeyedSubscript_(qword_27CFB5610, v9, nameCopy, v10, v11);
-    if (!v16)
+    objc_msgSend_loadSpecDictionary(self, v4, v5, v6);
+    v13 = objc_msgSend_objectForKeyedSubscript_(qword_27CFB5610, v8, nameCopy, v9);
+    if (!v13)
     {
-      v17 = objc_msgSend_currentLocale(MEMORY[0x277D81228], v12, v13, v14, v15);
-      v21 = objc_msgSend_functionNameForLocalizedString_(v17, v18, nameCopy, v19, v20);
-      v16 = objc_msgSend_objectForKeyedSubscript_(qword_27CFB5610, v22, v21, v23, v24);
-      if (v16)
+      v14 = objc_msgSend_currentLocale(MEMORY[0x277D81228], v10, v11, v12);
+      v17 = objc_msgSend_functionNameForLocalizedString_(v14, v15, nameCopy, v16);
+      v13 = objc_msgSend_objectForKeyedSubscript_(qword_27CFB5610, v18, v17, v19);
+      if (v13)
       {
-        v28 = MEMORY[0x277D81150];
-        v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v25, "+[TSCEFunctionSpec functionSpecForFunctionName:]", v26, v27);
-        v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v31, v32);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v34, v29, v33, 307, 0, "functionSpecForFunctionName: expects US function names, but %@ (US is %@) was passed in.", nameCopy, v21);
+        v22 = MEMORY[0x277D81150];
+        v23 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "+[TSCEFunctionSpec functionSpecForFunctionName:]", v21);
+        v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v24, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v25);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v22, v27, v23, v26, 307, 0, "functionSpecForFunctionName: expects US function names, but %@ (US is %@) was passed in.", nameCopy, v17);
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v35, v36, v37, v38);
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v28, v29, v30);
       }
     }
   }
 
   else
   {
-    v16 = 0;
+    v13 = 0;
   }
 
-  return v16;
+  return v13;
 }
 
 + (id)functionSpecForOperator:(int64_t)operator arguments:(int)arguments
@@ -183,31 +183,31 @@
     goto LABEL_5;
   }
 
-  objc_msgSend_loadSpecDictionary(self, a2, operator, *&arguments, v4);
+  objc_msgSend_loadSpecDictionary(self, a2, operator, *&arguments);
   if (arguments == 2)
   {
-    v17 = qword_27CFB5620;
-    v11 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v7, operator, v8, v9);
-    v15 = objc_msgSend_objectForKeyedSubscript_(v17, v18, v11, v19, v20);
+    v14 = qword_27CFB5620;
+    v9 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v6, operator, v7);
+    v12 = objc_msgSend_objectForKeyedSubscript_(v14, v15, v9, v16);
     goto LABEL_7;
   }
 
   if (arguments != 1)
   {
 LABEL_5:
-    v16 = 0;
+    v13 = 0;
     goto LABEL_8;
   }
 
-  v10 = qword_27CFB5618;
-  v11 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v7, operator, v8, v9);
-  v15 = objc_msgSend_objectForKeyedSubscript_(v10, v12, v11, v13, v14);
+  v8 = qword_27CFB5618;
+  v9 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v6, operator, v7);
+  v12 = objc_msgSend_objectForKeyedSubscript_(v8, v10, v9, v11);
 LABEL_7:
-  v16 = v15;
+  v13 = v12;
 
 LABEL_8:
 
-  return v16;
+  return v13;
 }
 
 + (BOOL)isModeEnabled:(unsigned __int16)enabled functionIndex:(unsigned __int16)index
@@ -228,9 +228,9 @@ LABEL_8:
 - (TSCEFunctionSpec)initWithFunctionName:(id)name minArgs:(unint64_t)args maxArgs:(unint64_t)maxArgs repeatingGroupSize:(signed __int16)size nonRepeatingArgsAtEnd:(unsigned __int16)end functionOperator:(int64_t)operator fanoutOptions:(unsigned int)options mayHaveBeenImplicitIntersection:(BOOL)self0 shipVersion:(int)self1 arguments:(const void *)self2 functionIndex:(unsigned __int16)self3
 {
   nameCopy = name;
-  v47.receiver = self;
-  v47.super_class = TSCEFunctionSpec;
-  v21 = [(TSCEFunctionSpec *)&v47 init];
+  v42.receiver = self;
+  v42.super_class = TSCEFunctionSpec;
+  v21 = [(TSCEFunctionSpec *)&v42 init];
   v22 = v21;
   if (v21)
   {
@@ -249,28 +249,28 @@ LABEL_8:
     v22->_shipVersion = version;
     v22->_fanoutOptions = options;
     v22->_mayHaveBeenImplicitIntersection = intersection;
-    v28 = *p_arguments;
+    v27 = *p_arguments;
     var0 = v22->_arguments.var0;
     if (*p_arguments != var0)
     {
-      v30 = 0;
+      v29 = 0;
       do
       {
-        v31 = *v28;
-        objc_msgSend_setIndex_(v31, v32, v30, v33, v34);
-        objc_msgSend_setFunctionSpec_(v31, v35, v22, v36, v37);
-        objc_msgSend_setupArgAccessor(v31, v38, v39, v40, v41);
-        ++v30;
+        v30 = *v27;
+        objc_msgSend_setIndex_(v30, v31, v29, v32);
+        objc_msgSend_setFunctionSpec_(v30, v33, v22, v34);
+        objc_msgSend_setupArgAccessor(v30, v35, v36, v37);
+        ++v29;
 
-        ++v28;
+        ++v27;
       }
 
-      while (v28 != var0);
+      while (v27 != var0);
     }
 
     v22->_functionIndex = index;
-    objc_msgSend_loadRepeatingArguments(v22, v23, v24, v25, v26);
-    objc_msgSend_markAsPermanent(v22, v42, v43, v44, v45);
+    objc_msgSend_loadRepeatingArguments(v22, v23, v24, v25);
+    objc_msgSend_markAsPermanent(v22, v38, v39, v40);
   }
 
   return v22;
@@ -299,9 +299,9 @@ LABEL_8:
 
 - (id)localizedFunctionNameForLocale:(id)locale
 {
-  v5 = objc_msgSend_localizedNameForFunction_(locale, a2, self->_functionName, v3, v4);
+  v4 = objc_msgSend_localizedNameForFunction_(locale, a2, self->_functionName, v3);
 
-  return v5;
+  return v4;
 }
 
 + (id)unsupportedFunctionNameForLocale:(id)locale
@@ -309,60 +309,60 @@ LABEL_8:
   localeCopy = locale;
   if (!localeCopy)
   {
-    v7 = MEMORY[0x277D81150];
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "+[TSCEFunctionSpec unsupportedFunctionNameForLocale:]", v4, v5);
-    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v10, v11);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v7, v13, v8, v12, 490, 0, "invalid nil value for '%{public}s'", "locale");
+    v6 = MEMORY[0x277D81150];
+    v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v3, "+[TSCEFunctionSpec unsupportedFunctionNameForLocale:]", v4);
+    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v8, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v9);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v6, v11, v7, v10, 490, 0, "invalid nil value for '%{public}s'", "locale");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v14, v15, v16, v17);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v12, v13, v14);
   }
 
-  v18 = objc_msgSend_localizedStringForKey_value_table_(localeCopy, v3, @"Unsupported", &stru_2834BADA0, @"TSCalculationEngine");
+  v15 = objc_msgSend_localizedStringForKey_value_table_(localeCopy, v3, @"Unsupported", &stru_2834BADA0, @"TSCalculationEngine");
 
-  return v18;
+  return v15;
 }
 
 - (id)localizedToolTipStringForLocale:(id)locale
 {
-  v5 = objc_msgSend_localizedToolTipForFunction_(locale, a2, self->_functionName, v3, v4);
+  v4 = objc_msgSend_localizedToolTipForFunction_(locale, a2, self->_functionName, v3);
 
-  return v5;
+  return v4;
 }
 
 - (id)displayStringForLocale:(id)locale
 {
-  v9 = objc_msgSend_localizedFunctionNameForLocale_(self, a2, locale, v3, v4);
-  if (!v9)
+  v7 = objc_msgSend_localizedFunctionNameForLocale_(self, a2, locale, v3);
+  if (!v7)
   {
-    v9 = self->_functionName;
+    v7 = self->_functionName;
   }
 
-  if (objc_msgSend_isEqualToString_(v9, v6, @"/", v7, v8))
+  if (objc_msgSend_isEqualToString_(v7, v5, @"/", v6))
   {
-    v13 = TSUOperatorStringDivision();
+    v10 = TSUOperatorStringDivision();
   }
 
   else
   {
-    if (!objc_msgSend_isEqualToString_(v9, v10, @"*", v11, v12))
+    if (!objc_msgSend_isEqualToString_(v7, v8, @"*", v9))
     {
       goto LABEL_8;
     }
 
-    v13 = TSUOperatorStringMultiplication();
+    v10 = TSUOperatorStringMultiplication();
   }
 
-  v14 = v13;
+  v11 = v10;
 
-  v9 = v14;
+  v7 = v11;
 LABEL_8:
 
-  return v9;
+  return v7;
 }
 
 - (void)loadRepeatingArguments
 {
-  v4 = 40;
+  v3 = 40;
   if (self->_repeatingGroupSize >= 1 && self->_repeatingArguments.__begin_ == self->_repeatingArguments.var0)
   {
     p_repeatingArguments = &self->_repeatingArguments;
@@ -370,153 +370,153 @@ LABEL_8:
     p_arguments = &self->_arguments;
     begin = self->_arguments.__begin_;
     var0 = self->_arguments.var0;
-    v78 = 0;
-    v79 = 0;
-    v80 = 0;
-    v10 = 0x277CCA000uLL;
+    v65 = 0;
+    v66 = 0;
+    v67 = 0;
+    v9 = 0x277CCA000uLL;
     if (repeatingGroupSize >= 9)
     {
-      v11 = MEMORY[0x277D81150];
-      v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEFunctionSpec loadRepeatingArguments]", v2, v3);
-      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v14, v15);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v17, v12, v16, 533, 0, "I don't think we ever use higher than 2, actually, certainly not repeatingGroupSize: %hd", self->_repeatingGroupSize);
+      v10 = MEMORY[0x277D81150];
+      v11 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEFunctionSpec loadRepeatingArguments]", v2);
+      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v13);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v10, v15, v11, v14, 533, 0, "I don't think we ever use higher than 2, actually, certainly not repeatingGroupSize: %hd", self->_repeatingGroupSize);
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19, v20, v21);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v16, v17, v18);
       LOWORD(repeatingGroupSize) = self->_repeatingGroupSize;
     }
 
-    sub_22146688C(&v78, repeatingGroupSize);
-    v25 = var0 - begin;
-    v26 = self->_repeatingGroupSize;
-    if (v26 >= 1)
+    sub_22146688C(&v65, repeatingGroupSize);
+    v21 = var0 - begin;
+    v22 = self->_repeatingGroupSize;
+    if (v22 >= 1)
     {
-      v27 = 0;
-      v28 = v25 - (self->_nonRepeatingArgsAtEnd + v26);
+      v23 = 0;
+      v24 = v21 - (self->_nonRepeatingArgsAtEnd + v22);
       do
       {
-        if (v28 >= v25)
+        if (v24 >= v21)
         {
-          v29 = MEMORY[0x277D81150];
-          v30 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "[TSCEFunctionSpec loadRepeatingArguments]", v23, v24);
-          v34 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v31, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v32, v33);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v29, v35, v30, v34, 542, 0, "origArgIndex out of bounds: %lu", v28);
+          v25 = MEMORY[0x277D81150];
+          v26 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "[TSCEFunctionSpec loadRepeatingArguments]", v20);
+          v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v27, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v28);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v25, v30, v26, v29, 542, 0, "origArgIndex out of bounds: %lu", v24);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v36, v37, v38, v39);
-          v10 = 0x277CCA000uLL;
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v31, v32, v33);
+          v9 = 0x277CCA000uLL;
         }
 
-        if (v28 >= self->_arguments.var0 - self->_arguments.__begin_)
+        if (v24 >= self->_arguments.var0 - self->_arguments.__begin_)
         {
           sub_2211E631C();
         }
 
-        v40 = p_arguments->__begin_[v28];
-        v81 = objc_msgSend_copy(v40, v41, v42, v43, v44);
-        objc_msgSend_setIndex_(v81, v45, (v26 + v28), v46, v47);
-        objc_msgSend_setupArgAccessor(v81, v48, v49, v50, v51);
-        sub_22146691C(&v78, &v81);
+        v34 = p_arguments->__begin_[v24];
+        v68 = objc_msgSend_copy(v34, v35, v36, v37);
+        objc_msgSend_setIndex_(v68, v38, (v22 + v24), v39);
+        objc_msgSend_setupArgAccessor(v68, v40, v41, v42);
+        sub_22146691C(&v65, &v68);
 
-        ++v27;
-        LOWORD(v26) = self->_repeatingGroupSize;
-        ++v28;
+        ++v23;
+        LOWORD(v22) = self->_repeatingGroupSize;
+        ++v24;
       }
 
-      while (v27 < v26);
+      while (v23 < v22);
     }
 
     nonRepeatingArgsAtEnd = self->_nonRepeatingArgsAtEnd;
     if (self->_nonRepeatingArgsAtEnd)
     {
-      v53 = 0;
+      v44 = 0;
       do
       {
-        v54 = v4;
-        v55 = v25 + v53 - nonRepeatingArgsAtEnd;
-        if (v55 >= v25)
+        v45 = v3;
+        v46 = v21 + v44 - nonRepeatingArgsAtEnd;
+        if (v46 >= v21)
         {
-          v56 = MEMORY[0x277D81150];
-          v57 = objc_msgSend_stringWithUTF8String_(*(v10 + 3240), v22, "[TSCEFunctionSpec loadRepeatingArguments]", v23, v24);
-          v61 = objc_msgSend_stringWithUTF8String_(*(v10 + 3240), v58, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v59, v60);
-          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v56, v62, v57, v61, 555, 0, "origArgIndex out of bounds: %lu", v25 + v53 - nonRepeatingArgsAtEnd);
+          v47 = MEMORY[0x277D81150];
+          v48 = objc_msgSend_stringWithUTF8String_(*(v9 + 3240), v19, "[TSCEFunctionSpec loadRepeatingArguments]", v20);
+          v51 = objc_msgSend_stringWithUTF8String_(*(v9 + 3240), v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v50);
+          objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v52, v48, v51, 555, 0, "origArgIndex out of bounds: %lu", v21 + v44 - nonRepeatingArgsAtEnd);
 
-          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v64, v65, v66);
-          v10 = 0x277CCA000;
+          objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v53, v54, v55);
+          v9 = 0x277CCA000;
         }
 
-        if (v55 >= self->_arguments.var0 - self->_arguments.__begin_)
+        if (v46 >= self->_arguments.var0 - self->_arguments.__begin_)
         {
           sub_2211E631C();
         }
 
-        v67 = *(&p_arguments->__begin_[v25] + v53 - nonRepeatingArgsAtEnd);
-        v4 = v54;
-        v68 = *(&self->super.super.isa + v54);
-        v73 = objc_msgSend_index(v67, v69, v70, v71, v72);
-        objc_msgSend_setIndex_(v67, v74, (v73 + v68), v75, v76);
+        v56 = *(&p_arguments->__begin_[v21] + v44 - nonRepeatingArgsAtEnd);
+        v3 = v45;
+        v57 = *(&self->super.super.isa + v45);
+        v61 = objc_msgSend_index(v56, v58, v59, v60);
+        objc_msgSend_setIndex_(v56, v62, (v61 + v57), v63);
 
-        ++v53;
+        ++v44;
         nonRepeatingArgsAtEnd = self->_nonRepeatingArgsAtEnd;
       }
 
-      while (v53 < nonRepeatingArgsAtEnd);
+      while (v44 < nonRepeatingArgsAtEnd);
     }
 
-    if (p_repeatingArguments != &v78)
+    if (p_repeatingArguments != &v65)
     {
-      sub_22116CF34(p_repeatingArguments, v78, v79, v79 - v78);
+      sub_22116CF34(p_repeatingArguments, v65, v66, v66 - v65);
     }
 
-    v81 = &v78;
-    sub_22107C2C0(&v81);
+    v68 = &v65;
+    sub_22107C2C0(&v68);
   }
 }
 
 - (id)argumentSpecForIndex:(unint64_t)index
 {
   begin = self->_arguments.__begin_;
-  v6 = self->_arguments.var0 - begin;
-  v7 = v6 - self->_nonRepeatingArgsAtEnd;
-  if (!v7)
+  v5 = self->_arguments.var0 - begin;
+  v6 = v5 - self->_nonRepeatingArgsAtEnd;
+  if (!v6)
   {
-    v8 = 0;
+    v7 = 0;
     goto LABEL_14;
   }
 
-  v9 = index - v7;
-  if (index >= v7)
+  v8 = index - v6;
+  if (index >= v6)
   {
     repeatingGroupSize = self->_repeatingGroupSize;
     if (repeatingGroupSize < 1)
     {
-      v27 = v7 - 1;
-      if (v6 > v27)
+      v24 = v6 - 1;
+      if (v5 > v24)
       {
-        v10 = &begin[v27];
+        v9 = &begin[v24];
         goto LABEL_13;
       }
     }
 
     else
     {
-      v12 = v9 % repeatingGroupSize;
+      v11 = v8 % repeatingGroupSize;
       p_repeatingArguments = &self->_repeatingArguments;
-      v14 = self->_repeatingArguments.__begin_;
-      v15 = self->_repeatingArguments.var0 - v14;
-      if (v9 % repeatingGroupSize >= v15 >> 3)
+      v13 = self->_repeatingArguments.__begin_;
+      v14 = self->_repeatingArguments.var0 - v13;
+      if (v8 % repeatingGroupSize >= v14 >> 3)
       {
-        v16 = MEMORY[0x277D81150];
-        v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEFunctionSpec argumentSpecForIndex:]", v3, v4);
-        v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v19, v20);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v22, v17, v21, 578, 0, "translatedIndex out of bounds: %lu", v12);
+        v15 = MEMORY[0x277D81150];
+        v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEFunctionSpec argumentSpecForIndex:]", v3);
+        v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v18);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v15, v20, v16, v19, 578, 0, "translatedIndex out of bounds: %lu", v11);
 
-        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25, v26);
-        v14 = p_repeatingArguments->__begin_;
-        v15 = p_repeatingArguments->var0 - p_repeatingArguments->__begin_;
+        objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v21, v22, v23);
+        v13 = p_repeatingArguments->__begin_;
+        v14 = p_repeatingArguments->var0 - p_repeatingArguments->__begin_;
       }
 
-      if (v15 >> 3 > v12)
+      if (v14 >> 3 > v11)
       {
-        v10 = &v14[v12];
+        v9 = &v13[v11];
         goto LABEL_13;
       }
     }
@@ -525,60 +525,60 @@ LABEL_17:
     sub_2211E631C();
   }
 
-  if (v6 <= index)
+  if (v5 <= index)
   {
     goto LABEL_17;
   }
 
-  v10 = &begin[index];
+  v9 = &begin[index];
 LABEL_13:
-  v8 = *v10;
+  v7 = *v9;
 LABEL_14:
 
-  return v8;
+  return v7;
 }
 
 - (id)argumentSpecForIndex:(unint64_t)index numArgs:(unint64_t)args
 {
-  v5 = args - self->_nonRepeatingArgsAtEnd;
-  if (v5 <= index)
+  v4 = args - self->_nonRepeatingArgsAtEnd;
+  if (v4 <= index)
   {
     p_arguments = &self->_arguments;
     begin = self->_arguments.__begin_;
-    v9 = self->_arguments.var0 - begin;
-    v10 = v5 + ~index;
-    v11 = v10 + (v9 >> 3);
-    if (__CFADD__(v10, v9 >> 3))
+    v8 = self->_arguments.var0 - begin;
+    v9 = v4 + ~index;
+    v10 = v9 + (v8 >> 3);
+    if (__CFADD__(v9, v8 >> 3))
     {
-      v23 = v9 >> 3;
+      v20 = v8 >> 3;
     }
 
     else
     {
-      v12 = MEMORY[0x277D81150];
-      v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEFunctionSpec argumentSpecForIndex:numArgs:]", args, v4);
-      v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v14, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v15, v16);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v12, v18, v13, v17, 602, 0, "Expected to be within _arguments bounds");
+      v11 = MEMORY[0x277D81150];
+      v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSCEFunctionSpec argumentSpecForIndex:numArgs:]", args);
+      v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v13, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFunctionSpec.mm", v14);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v11, v16, v12, v15, 602, 0, "Expected to be within _arguments bounds");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20, v21, v22);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19);
       begin = p_arguments->__begin_;
-      v23 = p_arguments->var0 - p_arguments->__begin_;
+      v20 = p_arguments->var0 - p_arguments->__begin_;
     }
 
-    if (v23 <= v11)
+    if (v20 <= v10)
     {
       sub_2211E631C();
     }
 
-    v6 = begin[v11];
+    v5 = begin[v10];
   }
 
   else
   {
-    v6 = objc_msgSend_argumentSpecForIndex_(self, a2, index, args, v4);
+    v5 = objc_msgSend_argumentSpecForIndex_(self, a2, index, args);
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)acceptsFunctorAtIndex:(unint64_t)index numArgs:(unint64_t)args
@@ -599,74 +599,74 @@ LABEL_14:
     return index + 1 == args;
   }
 
-  return objc_msgSend_functionIndexUsesThunks_(TSCEFunctionSpec, a2, functionIndex, args, v4);
+  return objc_msgSend_functionIndexUsesThunks_(TSCEFunctionSpec, a2, functionIndex, args);
 }
 
 - (int)accessorModeForArgumentIndex:(unint64_t)index
 {
-  v5 = objc_msgSend_argumentSpecForIndex_(self, a2, index, v3, v4);
-  if (!v5)
+  v4 = objc_msgSend_argumentSpecForIndex_(self, a2, index, v3);
+  if (!v4)
   {
     return 1;
   }
 
-  return objc_msgSend_accessorMode(v5, v6, v7, v8, v9);
+  return objc_msgSend_accessorMode(v4, v5, v6, v7);
 }
 
 - (char)preferredTypeForArgumentIndex:(unint64_t)index
 {
-  v5 = objc_msgSend_argumentSpecForIndex_(self, a2, index, v3, v4);
-  if (v5)
+  v4 = objc_msgSend_argumentSpecForIndex_(self, a2, index, v3);
+  if (v4)
   {
 
-    LOBYTE(v5) = objc_msgSend_argumentType(v5, v6, v7, v8, v9);
+    LOBYTE(v4) = objc_msgSend_argumentType(v4, v5, v6, v7);
   }
 
-  return v5;
+  return v4;
 }
 
 - (id)nativeSyntaxStringForArgument:(int)argument
 {
-  v5 = objc_msgSend_argumentSpecForIndex_(self, a2, argument, v3, v4);
-  if (v5)
+  v4 = objc_msgSend_argumentSpecForIndex_(self, a2, argument, v3);
+  if (v4)
   {
-    v5 = objc_msgSend_nativeSyntaxString(v5, v6, v7, v8, v9);
+    v4 = objc_msgSend_nativeSyntaxString(v4, v5, v6, v7);
   }
 
-  return v5;
+  return v4;
 }
 
 - (int64_t)modeNumberForLocalizedString:(id)string argumentSpecIndex:(unint64_t)index attributeMax:(int64_t)max locale:(id)locale
 {
   stringCopy = string;
   localeCopy = locale;
-  v18 = objc_msgSend_argumentSpecForIndex_(self, v12, index, v13, v14);
-  v19 = 0x7FFFFFFFFFFFFFFFLL;
-  if (v18 && (max & 0x8000000000000000) == 0)
+  v16 = objc_msgSend_argumentSpecForIndex_(self, v12, index, v13);
+  v17 = 0x7FFFFFFFFFFFFFFFLL;
+  if (v16 && (max & 0x8000000000000000) == 0)
   {
-    v19 = 0;
-    v20 = 0;
+    v17 = 0;
+    v18 = 0;
     while (1)
     {
-      v21 = objc_msgSend_indexForModeNumber_locale_(v18, v15, localeCopy, v16, v17, v20);
-      v24 = objc_msgSend_localizedModeNameForModeIndex_locale_(v18, v22, v21, localeCopy, v23);
-      v28 = objc_msgSend_caseInsensitiveCompare_(stringCopy, v25, v24, v26, v27);
+      v19 = objc_msgSend_indexForModeNumber_locale_(v16, v14, localeCopy, v15, v18);
+      v21 = objc_msgSend_localizedModeNameForModeIndex_locale_(v16, v20, v19, localeCopy);
+      v24 = objc_msgSend_caseInsensitiveCompare_(stringCopy, v22, v21, v23);
 
-      if (!v28)
+      if (!v24)
       {
         break;
       }
 
-      v19 = ++v20;
-      if (v20 > max)
+      v17 = ++v18;
+      if (v18 > max)
       {
-        v19 = 0x7FFFFFFFFFFFFFFFLL;
+        v17 = 0x7FFFFFFFFFFFFFFFLL;
         break;
       }
     }
   }
 
-  return v19;
+  return v17;
 }
 
 - (id).cxx_construct

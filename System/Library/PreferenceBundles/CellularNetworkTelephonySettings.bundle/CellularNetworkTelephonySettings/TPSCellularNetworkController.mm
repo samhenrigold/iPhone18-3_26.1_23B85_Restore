@@ -215,24 +215,24 @@ LABEL_10:
 - (id)networkItemAtIndex:(int64_t)index
 {
   networkItems = [(TPSCellularNetworkController *)self networkItems];
-  v5 = networkItems;
-  if (index < 0 || [networkItems count] <= index)
+  v6 = networkItems;
+  if (index < 0 || (networkItems = [networkItems count], networkItems <= index))
   {
-    v7 = TPSCellularNetworkLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = TPSCellularNetworkLog(networkItems, v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_2FB0(index, v7);
+      sub_2FB0(index, v8);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v6 = [v5 objectAtIndexedSubscript:index];
+    v7 = [v6 objectAtIndexedSubscript:index];
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)selectNetworkItemAtIndex:(unint64_t)index
@@ -242,12 +242,12 @@ LABEL_10:
 
   if (v6)
   {
-    v7 = TPSCellularNetworkLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = TPSCellularNetworkLog(v7, v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Requesting manual selection of network %@.", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Requesting manual selection of network %@.", &v11, 0xCu);
     }
 
     registrationController = [(TPSCellularNetworkController *)self registrationController];
@@ -275,13 +275,13 @@ LABEL_10:
 
   if (registrationController == controllerCopy)
   {
-    v6 = TPSCellularNetworkLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = TPSCellularNetworkLog(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = objc_opt_class();
-      v7 = v10;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling networks changed delegate callback.", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = objc_opt_class();
+      v9 = v12;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%@ is handling networks changed delegate callback.", &v11, 0xCu);
     }
 
     networks = [controllerCopy networks];
@@ -296,13 +296,13 @@ LABEL_10:
 
   if (registrationController == controllerCopy)
   {
-    v6 = TPSCellularNetworkLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = TPSCellularNetworkLog(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = objc_opt_class();
-      v7 = v10;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "%@ is handling networks selection information changed delegate callback.", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = objc_opt_class();
+      v9 = v12;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "%@ is handling networks selection information changed delegate callback.", &v11, 0xCu);
     }
 
     networkSelectionInfo = [controllerCopy networkSelectionInfo];

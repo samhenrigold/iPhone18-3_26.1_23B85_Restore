@@ -1,9 +1,12 @@
 @interface BRDiskCheckerFilesystemDirectory
+- (BOOL)_isMissingShareAliasAtFileURL:(id)l isDocument:(BOOL)document;
 - (BRDiskCheckerFilesystemDirectory)initWithURL:(id)l parentIsShared:(BOOL)shared db:(id)db;
 - (id)_countOfShareAliasesNotOnDisk;
 - (id)_filesystemIdentifierFromURL:(id)l isDocument:(BOOL)document;
 - (id)_lookupInjectionFromFileURL:(id)l isDocument:(BOOL)document;
+- (id)generateTelemetryErrorEventsWithMetrics:(id)metrics itemID:(id)d zoneMangledID:(id)iD enhancedDrivePrivacyEnabled:(BOOL)enabled;
 - (void)_addDocument:(id)document;
+- (void)_processSharingInfoAtURL:(id)l isDocument:(BOOL)document isSharedToMeTopLevelItem:(BOOL *)item shareAliasIsMissing:(BOOL *)missing;
 - (void)addSubdirectory:(id)subdirectory;
 - (void)addSymlink:(id)symlink;
 @end
@@ -304,6 +307,130 @@ LABEL_17:
   return v7;
 }
 
+- (BOOL)_isMissingShareAliasAtFileURL:(id)l isDocument:(BOOL)document
+{
+  documentCopy = document;
+  lCopy = l;
+  v7 = [(BRDiskCheckerFilesystemDirectory *)self _lookupInjectionFromFileURL:lCopy isDocument:documentCopy];
+  if (v7)
+  {
+    v8 = [(BRCPQLConnection *)self->_db fetch:@"SELECT ci.item_id, cz.zone_owner, cz.zone_name FROM client_items AS ci INNER JOIN client_zones AS cz ON ci.zone_rowid = cz.rowid WHERE %@", v7];
+    if ([v8 next])
+    {
+      v9 = [v8 objectOfClass:objc_opt_class() atIndex:0];
+      v10 = [v8 stringAtIndex:1];
+      v22 = [v8 stringAtIndex:2];
+      v11 = [[BRMangledID alloc] initWithZoneName:v22 ownerName:v10];
+      [v8 close];
+      itemIDString = [v9 itemIDString];
+      v13 = [NSString unsaltedBookmarkDataWithItemResolutionString:itemIDString serverZoneMangledID:v11];
+
+      v14 = [(BRCPQLConnection *)self->_db numberWithSQL:@"SELECT 1 FROM server_items WHERE item_alias_target = %@ AND item_type = 3", v13];
+      bOOLValue = [v14 BOOLValue];
+      if ((bOOLValue & 1) == 0)
+      {
+        v21 = brc_bread_crumbs();
+        v16 = brc_default_log();
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        {
+          path = [lCopy path];
+          fp_obfuscatedPath = [path fp_obfuscatedPath];
+          *buf = 138412546;
+          v24 = fp_obfuscatedPath;
+          v25 = 2112;
+          v26 = v21;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARNING] Share alias is missing for %@%@", buf, 0x16u);
+        }
+      }
+
+      v17 = bOOLValue ^ 1;
+    }
+
+    else
+    {
+      v9 = brc_bread_crumbs();
+      v10 = brc_default_log();
+      if (os_log_type_enabled(v10, 0x90u))
+      {
+        sub_100007580();
+      }
+
+      v17 = 0;
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
+}
+
+- (void)_processSharingInfoAtURL:(id)l isDocument:(BOOL)document isSharedToMeTopLevelItem:(BOOL *)item shareAliasIsMissing:(BOOL *)missing
+{
+  documentCopy = document;
+  lCopy = l;
+  if (!self->_isShared)
+  {
+    v11 = [(BRDiskCheckerFilesystemDirectory *)self _lookupInjectionFromFileURL:lCopy isDocument:documentCopy];
+    v12 = [(BRCPQLConnection *)self->_db fetch:@"SELECT ci.item_sharing_options, cz.zone_owner FROM client_items AS ci INNER JOIN client_zones AS cz ON ci.zone_rowid = cz.rowid WHERE %@", v11];
+    if ([v12 next])
+    {
+      v13 = [v12 intAtIndex:0];
+      v14 = [v12 stringAtIndex:1];
+      v15 = v14;
+      if ((v13 & 4) != 0)
+      {
+        if ([v14 isEqualToString:CKCurrentUserDefaultName])
+        {
+          ++self->_recursiveSharedByMeCount;
+        }
+
+        else
+        {
+          if (item)
+          {
+            *item = 1;
+          }
+
+          if ([(BRDiskCheckerFilesystemDirectory *)self _isMissingShareAliasAtFileURL:lCopy isDocument:documentCopy])
+          {
+            if (missing)
+            {
+              *missing = 1;
+            }
+          }
+
+          else
+          {
+            ++self->_recursiveShareAliasCount;
+          }
+        }
+      }
+    }
+
+    else
+    {
+      v16 = brc_bread_crumbs();
+      v17 = brc_default_log();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      {
+        path = [lCopy path];
+        fp_obfuscatedPath = [path fp_obfuscatedPath];
+        lastError = [(BRCPQLConnection *)self->_db lastError];
+        *buf = 138412802;
+        v22 = fp_obfuscatedPath;
+        v23 = 2112;
+        v24 = lastError;
+        v25 = 2112;
+        v26 = v16;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARNING] Failed to get sharing options for %@ - %@%@", buf, 0x20u);
+      }
+    }
+  }
+}
+
 - (void)_addDocument:(id)document
 {
   documentCopy = document;
@@ -382,6 +509,195 @@ LABEL_17:
       self->_recursiveItemCount += [subdirectoryCopy recursiveItemCount];
     }
   }
+}
+
+- (id)generateTelemetryErrorEventsWithMetrics:(id)metrics itemID:(id)d zoneMangledID:(id)iD enhancedDrivePrivacyEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  metricsCopy = metrics;
+  dCopy = d;
+  iDCopy = iD;
+  if (self->_childHasProblem)
+  {
+    v13 = 0;
+    goto LABEL_24;
+  }
+
+  v13 = objc_opt_new();
+  childCount = [metricsCopy childCount];
+  if (childCount)
+  {
+    v15 = childCount;
+    directChildCount = self->_directChildCount;
+    childCount2 = [metricsCopy childCount];
+    longLongValue = [childCount2 longLongValue];
+
+    if (longLongValue != directChildCount)
+    {
+      v41 = self->_directChildCount;
+      childCount3 = [metricsCopy childCount];
+      v43 = v41 - [childCount3 intValue];
+
+      v44 = brc_bread_crumbs();
+      v45 = brc_default_log();
+      if (os_log_type_enabled(v45, 0x90u))
+      {
+        debugItemIDString = [dCopy debugItemIDString];
+        path = [(NSURL *)self->_url path];
+        fp_obfuscatedPath = [path fp_obfuscatedPath];
+        v66 = self->_directChildCount;
+        childCount4 = [metricsCopy childCount];
+        *buf = 138413314;
+        v79 = debugItemIDString;
+        v80 = 2112;
+        v81 = fp_obfuscatedPath;
+        v82 = 1024;
+        v83 = v66;
+        v84 = 2112;
+        v85 = childCount4;
+        v86 = 2112;
+        v87 = v44;
+        _os_log_error_impl(&_mh_execute_header, v45, 0x90u, "[ERROR] Direct child count mismatch for %@ at %@ (%d vs %@)%@", buf, 0x30u);
+      }
+
+      itemIDString = [dCopy itemIDString];
+      v40 = [AppTelemetryTimeSeriesEvent newChildCountMismatchEventWithZoneMangledID:iDCopy enhancedDrivePrivacyEnabled:enabledCopy itemIDString:itemIDString magnitude:v43];
+      goto LABEL_23;
+    }
+  }
+
+  recursiveChildCount = [metricsCopy recursiveChildCount];
+  if (recursiveChildCount)
+  {
+    v20 = recursiveChildCount;
+    recursiveItemCount = self->_recursiveItemCount;
+    recursiveChildCount2 = [metricsCopy recursiveChildCount];
+    longLongValue2 = [recursiveChildCount2 longLongValue];
+
+    if (longLongValue2 != recursiveItemCount)
+    {
+      v46 = self->_recursiveItemCount;
+      recursiveChildCount3 = [metricsCopy recursiveChildCount];
+      v48 = v46 - [recursiveChildCount3 intValue];
+
+      v49 = brc_bread_crumbs();
+      v50 = brc_default_log();
+      if (os_log_type_enabled(v50, 0x90u))
+      {
+        debugItemIDString2 = [dCopy debugItemIDString];
+        path2 = [(NSURL *)self->_url path];
+        fp_obfuscatedPath2 = [path2 fp_obfuscatedPath];
+        v67 = self->_recursiveItemCount;
+        recursiveChildCount4 = [metricsCopy recursiveChildCount];
+        *buf = 138413314;
+        v79 = debugItemIDString2;
+        v80 = 2112;
+        v81 = fp_obfuscatedPath2;
+        v82 = 1024;
+        v83 = v67;
+        v84 = 2112;
+        v85 = recursiveChildCount4;
+        v86 = 2112;
+        v87 = v49;
+        _os_log_error_impl(&_mh_execute_header, v50, 0x90u, "[ERROR] Recursive child count mismatch for %@ at %@ (%d vs %@)%@", buf, 0x30u);
+      }
+
+      itemIDString = [dCopy itemIDString];
+      v40 = [AppTelemetryTimeSeriesEvent newRecursiveItemCountMismatchEventWithZoneMangledID:iDCopy enhancedDrivePrivacyEnabled:enabledCopy itemIDString:itemIDString magnitude:v48];
+      goto LABEL_23;
+    }
+  }
+
+  sharedByMeRecursiveCount = [metricsCopy sharedByMeRecursiveCount];
+  if (sharedByMeRecursiveCount)
+  {
+    v25 = sharedByMeRecursiveCount;
+    recursiveSharedByMeCount = self->_recursiveSharedByMeCount;
+    sharedByMeRecursiveCount2 = [metricsCopy sharedByMeRecursiveCount];
+    longLongValue3 = [sharedByMeRecursiveCount2 longLongValue];
+
+    if (longLongValue3 != recursiveSharedByMeCount)
+    {
+      v51 = self->_recursiveSharedByMeCount;
+      sharedByMeRecursiveCount3 = [metricsCopy sharedByMeRecursiveCount];
+      v53 = v51 - [sharedByMeRecursiveCount3 intValue];
+
+      v54 = brc_bread_crumbs();
+      v55 = brc_default_log();
+      if (os_log_type_enabled(v55, 0x90u))
+      {
+        debugItemIDString3 = [dCopy debugItemIDString];
+        path3 = [(NSURL *)self->_url path];
+        fp_obfuscatedPath3 = [path3 fp_obfuscatedPath];
+        v68 = self->_recursiveSharedByMeCount;
+        sharedByMeRecursiveCount4 = [metricsCopy sharedByMeRecursiveCount];
+        *buf = 138413314;
+        v79 = debugItemIDString3;
+        v80 = 2112;
+        v81 = fp_obfuscatedPath3;
+        v82 = 1024;
+        v83 = v68;
+        v84 = 2112;
+        v85 = sharedByMeRecursiveCount4;
+        v86 = 2112;
+        v87 = v54;
+        _os_log_error_impl(&_mh_execute_header, v55, 0x90u, "[ERROR] Shared-by-me count mismatch for %@ at %@ (%d vs %@)%@", buf, 0x30u);
+      }
+
+      itemIDString = [dCopy itemIDString];
+      v40 = [AppTelemetryTimeSeriesEvent newShareCountMismatchEventWithZoneMangledID:iDCopy enhancedDrivePrivacyEnabled:enabledCopy itemIDString:itemIDString magnitude:v53];
+      goto LABEL_23;
+    }
+  }
+
+  sharedAliasRecursiveCount = [metricsCopy sharedAliasRecursiveCount];
+  if (sharedAliasRecursiveCount)
+  {
+    v30 = sharedAliasRecursiveCount;
+    recursiveShareAliasCount = self->_recursiveShareAliasCount;
+    sharedAliasRecursiveCount2 = [metricsCopy sharedAliasRecursiveCount];
+    longLongValue4 = [sharedAliasRecursiveCount2 longLongValue];
+
+    if (longLongValue4 != recursiveShareAliasCount)
+    {
+      v34 = self->_recursiveSharedByMeCount;
+      sharedByMeRecursiveCount5 = [metricsCopy sharedByMeRecursiveCount];
+      v36 = v34 - [sharedByMeRecursiveCount5 intValue];
+
+      v37 = brc_bread_crumbs();
+      v38 = brc_default_log();
+      if (os_log_type_enabled(v38, 0x90u))
+      {
+        debugItemIDString4 = [dCopy debugItemIDString];
+        path4 = [(NSURL *)self->_url path];
+        fp_obfuscatedPath4 = [path4 fp_obfuscatedPath];
+        v69 = self->_recursiveShareAliasCount;
+        sharedAliasRecursiveCount3 = [metricsCopy sharedAliasRecursiveCount];
+        *buf = 138413314;
+        v79 = debugItemIDString4;
+        v80 = 2112;
+        v81 = fp_obfuscatedPath4;
+        v82 = 1024;
+        v83 = v69;
+        v84 = 2112;
+        v85 = sharedAliasRecursiveCount3;
+        v86 = 2112;
+        v87 = v37;
+        _os_log_error_impl(&_mh_execute_header, v38, 0x90u, "[ERROR] Share alias count mismatch for %@ at %@ (%d vs %@)%@", buf, 0x30u);
+      }
+
+      itemIDString = [dCopy itemIDString];
+      v40 = [AppTelemetryTimeSeriesEvent newShareAliasCountMismatchEventWithZoneMangledID:iDCopy enhancedDrivePrivacyEnabled:enabledCopy itemIDString:itemIDString magnitude:v36];
+LABEL_23:
+      v56 = v40;
+
+      [v13 addObject:v56];
+    }
+  }
+
+LABEL_24:
+
+  return v13;
 }
 
 @end

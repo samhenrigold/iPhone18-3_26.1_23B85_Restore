@@ -99,7 +99,7 @@
 
 - (void)drawRect:(CGRect)rect
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   CurrentContext = UIGraphicsGetCurrentContext();
   _labelFont = [(CertInfoDescriptionCellContentView *)self _labelFont];
   _valueFont = [(CertInfoDescriptionCellContentView *)self _valueFont];
@@ -108,12 +108,12 @@
   {
     v8 = v7;
     v9 = 0;
-    v23 = unk_2433CA350;
-    v24 = xmmword_2433CA340;
+    v22 = unk_2433CA350;
+    v23 = xmmword_2433CA340;
     v10 = 8.0;
     do
     {
-      v11 = [(NSArray *)self->_labelsAndValues objectAtIndex:v9, v23, v24];
+      v11 = [(NSArray *)self->_labelsAndValues objectAtIndex:v9, v22, v23];
       v12 = [(NSArray *)self->_labelsAndValues objectAtIndex:v9 + 1];
       [v11 _legacy_sizeWithFont:_labelFont];
       v15 = v14;
@@ -128,20 +128,20 @@
       }
 
       *components = xmmword_2433CA320;
-      v28 = unk_2433CA330;
+      v27 = unk_2433CA330;
       CGContextSetFillColor(CurrentContext, components);
       [v11 _legacy_drawInRect:_labelFont withFont:4 lineBreakMode:{96.0 - v16, v10, v16, v15}];
       v17 = &self->_sizes[v9 / 2];
       width = v17->width;
       height = v17->height;
-      v30.origin.x = 96.0 - v16;
-      v30.origin.y = v10;
-      v30.size.width = v16;
-      v30.size.height = v15;
-      v20 = CGRectGetMaxX(v30) + 10.0;
-      *v25 = v24;
-      v26 = v23;
-      CGContextSetFillColor(CurrentContext, v25);
+      v29.origin.x = 96.0 - v16;
+      v29.origin.y = v10;
+      v29.size.width = v16;
+      v29.size.height = v15;
+      v20 = CGRectGetMaxX(v29) + 10.0;
+      *v24 = v23;
+      v25 = v22;
+      CGContextSetFillColor(CurrentContext, v24);
       [v12 _legacy_drawInRect:_valueFont withFont:4 lineBreakMode:{v20, v10, width, height}];
       if (v15 >= height)
       {
@@ -160,8 +160,6 @@
 
     while (v9 < v8);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)layoutSubviews

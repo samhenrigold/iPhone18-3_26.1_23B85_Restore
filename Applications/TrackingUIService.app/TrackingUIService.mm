@@ -1,20 +1,20 @@
-void sub_1000017D8(uint64_t a1, unint64_t *a2)
+void sub_1000017D8(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-id sub_100001A28()
+id sub_100001A28(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 unint64_t sub_100001A84()
@@ -75,7 +75,6 @@ uint64_t sub_100001F7C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -98,24 +97,23 @@ unint64_t sub_100001FC4()
 
 void sub_1000021B4()
 {
-  v7.receiver = v0;
-  v7.super_class = type metadata accessor for TrackingActivitySystemApertureElementViewController();
-  objc_msgSendSuper2(&v7, "viewDidLoad");
+  v6.receiver = v0;
+  v6.super_class = type metadata accessor for TrackingActivitySystemApertureElementViewController(0);
+  objc_msgSendSuper2(&v6, "viewDidLoad");
   v1 = *&v0[OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_expandedView];
-  v2 = *&v0[OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_dockCoreManager];
   swift_unknownObjectWeakAssign();
   [*&v0[OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_recordingIconView] setHidden:1];
-  v3 = [v0 view];
-  if (v3)
+  v2 = [v0 view];
+  if (v2)
   {
-    v4 = v3;
-    [v3 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v3 = v2;
+    [v2 setTranslatesAutoresizingMaskIntoConstraints:0];
 
-    v5 = [v0 view];
-    if (v5)
+    v4 = [v0 view];
+    if (v4)
     {
-      v6 = v5;
-      [v5 addSubview:v1];
+      v5 = v4;
+      [v4 addSubview:v1];
 
       return;
     }
@@ -381,28 +379,23 @@ void sub_100002B90(uint64_t a1, uint64_t a2, uint64_t a3)
     v5 = Strong;
     v6 = objc_opt_self();
     v7 = OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_activeConstraints;
-    v8 = *&v5[OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_activeConstraints];
     sub_100003F10(0, &qword_100011798, NSLayoutConstraint_ptr);
 
     isa = Array._bridgeToObjectiveC()().super.isa;
 
     [v6 deactivateConstraints:isa];
 
-    v10 = *&v5[v7];
     *&v5[v7] = a3;
 
-    v11 = *&v5[v7];
+    v9 = Array._bridgeToObjectiveC()().super.isa;
 
-    v12 = Array._bridgeToObjectiveC()().super.isa;
-
-    [v6 activateConstraints:v12];
+    [v6 activateConstraints:v9];
   }
 }
 
-uint64_t sub_100002CB8(uint64_t a1)
+uint64_t sub_100002CB8(uint64_t a1, uint64_t a2)
 {
   v2 = *(a1 + 32);
-  v1 = *(a1 + 40);
 
   v3 = swift_unknownObjectRetain();
   v2(v3);
@@ -544,7 +537,7 @@ LABEL_14:
   type metadata accessor for EmptyActivityAccessoryView();
   *&v4[v51] = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v52 = OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_expandedView;
-  type metadata accessor for ExpandedTrackingView();
+  type metadata accessor for ExpandedTrackingView(0);
   *&v4[v52] = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v53 = OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_dockCoreManager;
   *&v4[v53] = [objc_allocWithZone(type metadata accessor for DockCoreManager()) init];
@@ -559,7 +552,7 @@ LABEL_14:
   }
 
   v59.receiver = v4;
-  v59.super_class = type metadata accessor for TrackingActivitySystemApertureElementViewController();
+  v59.super_class = type metadata accessor for TrackingActivitySystemApertureElementViewController(0);
   objc_msgSendSuper2(&v59, "initWithNibName:bundle:", v54, a3);
 }
 
@@ -697,12 +690,12 @@ LABEL_13:
   type metadata accessor for EmptyActivityAccessoryView();
   *&v2[v49] = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v50 = OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_expandedView;
-  type metadata accessor for ExpandedTrackingView();
+  type metadata accessor for ExpandedTrackingView(0);
   *&v2[v50] = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
   v51 = OBJC_IVAR____TtC17TrackingUIService51TrackingActivitySystemApertureElementViewController_dockCoreManager;
   *&v2[v51] = [objc_allocWithZone(type metadata accessor for DockCoreManager()) init];
   v56.receiver = v2;
-  v56.super_class = type metadata accessor for TrackingActivitySystemApertureElementViewController();
+  v56.super_class = type metadata accessor for TrackingActivitySystemApertureElementViewController(0);
   v52 = objc_msgSendSuper2(&v56, "initWithCoder:", v54);
 
   if (v52)
@@ -713,11 +706,11 @@ LABEL_13:
 id sub_100003C2C()
 {
   v2.receiver = v0;
-  v2.super_class = type metadata accessor for TrackingActivitySystemApertureElementViewController();
+  v2.super_class = type metadata accessor for TrackingActivitySystemApertureElementViewController(0);
   return objc_msgSendSuper2(&v2, "dealloc");
 }
 
-uint64_t type metadata accessor for TrackingActivitySystemApertureElementViewController()
+uint64_t type metadata accessor for TrackingActivitySystemApertureElementViewController(uint64_t a1)
 {
   result = qword_100011888;
   if (!qword_100011888)
@@ -728,12 +721,11 @@ uint64_t type metadata accessor for TrackingActivitySystemApertureElementViewCon
   return result;
 }
 
-uint64_t sub_100003DA8()
+uint64_t sub_100003DA8(uint64_t a1, uint64_t a2)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v3 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     return swift_updateClassMetadata2();
   }
 
@@ -749,9 +741,6 @@ uint64_t sub_100003E78()
 
 uint64_t sub_100003EB0()
 {
-  v1 = *(v0 + 16);
-
-  v2 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 32, 7);
 }
@@ -763,12 +752,11 @@ uint64_t sub_100003EF8(uint64_t a1, uint64_t a2)
   *(a1 + 40) = v2;
 }
 
-uint64_t sub_100003F10(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100003F10(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -781,13 +769,12 @@ uint64_t sub_100003F5C()
 {
   v0 = sub_100001F7C(&qword_1000118A8, &qword_100006A18);
   v1 = *(v0 - 8);
-  v2 = (*(v1 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
   __chkstk_darwin();
-  v4 = &v6 - v3;
+  v3 = &v5 - v2;
   WindowGroup.init(id:title:lazyContent:)();
   sub_100004140();
   static SceneBuilder.buildBlock<A>(_:)();
-  return (*(v1 + 8))(v4, v0);
+  return (*(v1 + 8))(v3, v0);
 }
 
 int main(int argc, const char **argv, const char **envp)
@@ -827,7 +814,6 @@ uint64_t sub_1000041A4(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -835,11 +821,11 @@ uint64_t sub_1000041A4(uint64_t *a1, uint64_t *a2)
   return result;
 }
 
-id sub_100004328()
+id sub_100004328(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ActivitySecureWindow();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = type metadata accessor for ActivitySecureWindow();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 void sub_100004380()
@@ -861,7 +847,7 @@ id sub_100004444()
 
   else
   {
-    type metadata accessor for TrackingActivitySystemApertureElementViewController();
+    type metadata accessor for TrackingActivitySystemApertureElementViewController(0);
     v4 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) init];
     v5 = *(v0 + v1);
     *(v0 + v1) = v4;
@@ -874,7 +860,7 @@ id sub_100004444()
   return v3;
 }
 
-uint64_t type metadata accessor for TrackingActivityPlatterSceneDelegate()
+uint64_t type metadata accessor for TrackingActivityPlatterSceneDelegate(uint64_t a1)
 {
   result = qword_100011980;
   if (!qword_100011980)
@@ -885,12 +871,11 @@ uint64_t type metadata accessor for TrackingActivityPlatterSceneDelegate()
   return result;
 }
 
-uint64_t sub_1000046CC()
+uint64_t sub_1000046CC(uint64_t a1, uint64_t a2)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v3 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -1010,193 +995,192 @@ id sub_100004BC0()
   return result;
 }
 
-id sub_100004C10(double a1, double a2, double a3, double a4)
+id sub_100004C10(double a1, double a2, double a3, double a4, uint64_t a5, uint64_t a6)
 {
   ObjectType = swift_getObjectType();
-  v10 = OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_appIconImageView;
-  *&v4[v10] = [objc_allocWithZone(UIImageView) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
-  v11 = OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_trackingLabelView;
-  *&v4[v11] = [objc_allocWithZone(UILabel) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
-  v12 = OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_cancelButton;
-  *&v4[v12] = [objc_allocWithZone(UIButton) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  v12 = OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_appIconImageView;
+  *&v6[v12] = [objc_allocWithZone(UIImageView) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  v13 = OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_trackingLabelView;
+  *&v6[v13] = [objc_allocWithZone(UILabel) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  v14 = OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_cancelButton;
+  *&v6[v14] = [objc_allocWithZone(UIButton) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   static UIButton.Configuration.filled()();
   swift_unknownObjectWeakInit();
-  v15.receiver = v4;
-  v15.super_class = ObjectType;
-  v13 = objc_msgSendSuper2(&v15, "initWithFrame:", a1, a2, a3, a4);
+  v17.receiver = v6;
+  v17.super_class = ObjectType;
+  v15 = objc_msgSendSuper2(&v17, "initWithFrame:", a1, a2, a3, a4);
   sub_100004D58();
 
-  return v13;
+  return v15;
 }
 
 void sub_100004D58()
 {
   v1 = v0;
-  v2 = (*(*(sub_100001F7C(&qword_100011A60, &unk_100006B00) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  sub_100001F7C(&qword_100011A60, &unk_100006B00);
   __chkstk_darwin();
-  v75 = &v69 - v3;
-  v4 = type metadata accessor for UIButton.Configuration.CornerStyle();
-  v73 = *(v4 - 8);
-  v74 = v4;
-  v5 = *(v73 + 64);
+  v73 = &v67 - v2;
+  v3 = type metadata accessor for UIButton.Configuration.CornerStyle();
+  v71 = *(v3 - 8);
+  v72 = v3;
   __chkstk_darwin();
-  v72 = &v69 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v70 = &v67 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   [v0 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v7 = *&v0[OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_appIconImageView];
-  [v7 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v7 _setContinuousCornerRadius:4.0];
-  [v7 setClipsToBounds:1];
+  v5 = *&v0[OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_appIconImageView];
+  [v5 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v5 _setContinuousCornerRadius:4.0];
+  [v5 setClipsToBounds:1];
   if (qword_100011638 != -1)
   {
     swift_once();
   }
 
-  v8 = qword_100011A00;
-  v9 = String._bridgeToObjectiveC()();
-  v10 = [objc_opt_self() systemImageNamed:v9 withConfiguration:v8];
+  v6 = qword_100011A00;
+  v7 = String._bridgeToObjectiveC()();
+  v8 = [objc_opt_self() systemImageNamed:v7 withConfiguration:v6];
 
-  if (v10)
+  if (v8)
   {
-    [v7 setImage:v10];
+    [v5 setImage:v8];
 
-    v11 = objc_opt_self();
-    v12 = [v11 systemGreenColor];
-    [v7 setTintColor:v12];
+    v9 = objc_opt_self();
+    v10 = [v9 systemGreenColor];
+    [v5 setTintColor:v10];
 
-    [v1 addSubview:v7];
-    v13 = *&v1[OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_trackingLabelView];
-    [v13 setTranslatesAutoresizingMaskIntoConstraints:0];
-    [v1 addSubview:v13];
-    v70 = objc_opt_self();
-    v14 = [v70 systemFontOfSize:18.0 weight:UIFontWeightMedium];
-    [v13 setFont:v14];
+    [v1 addSubview:v5];
+    v11 = *&v1[OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_trackingLabelView];
+    [v11 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [v1 addSubview:v11];
+    v68 = objc_opt_self();
+    v12 = [v68 systemFontOfSize:18.0 weight:UIFontWeightMedium];
+    [v11 setFont:v12];
 
-    v15 = [v11 whiteColor];
-    [v13 setTextColor:v15];
+    v13 = [v9 whiteColor];
+    [v11 setTextColor:v13];
 
-    v16 = objc_opt_self();
-    v17 = [v16 mainBundle];
-    v18._countAndFlagsBits = 0xD000000000000017;
-    v76._object = 0x8000000100007870;
-    v19._countAndFlagsBits = 0xD000000000000029;
-    v19._object = 0x8000000100007820;
-    v18._object = 0x8000000100007850;
-    v76._countAndFlagsBits = 0xD00000000000003FLL;
-    NSLocalizedString(_:tableName:bundle:value:comment:)(v19, 0, v17, v18, v76);
+    v14 = objc_opt_self();
+    v15 = [v14 mainBundle];
+    v16._countAndFlagsBits = 0xD000000000000017;
+    v74._object = 0x8000000100007870;
+    v17._countAndFlagsBits = 0xD000000000000029;
+    v17._object = 0x8000000100007820;
+    v16._object = 0x8000000100007850;
+    v74._countAndFlagsBits = 0xD00000000000003FLL;
+    NSLocalizedString(_:tableName:bundle:value:comment:)(v17, 0, v15, v16, v74);
 
-    v20 = String._bridgeToObjectiveC()();
+    v18 = String._bridgeToObjectiveC()();
 
-    v71 = v13;
-    [v13 setText:v20];
+    v69 = v11;
+    [v11 setText:v18];
 
-    v21 = *&v1[OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_cancelButton];
-    [v21 setTranslatesAutoresizingMaskIntoConstraints:0];
-    v22 = [v16 mainBundle];
-    v77._object = 0x8000000100007910;
-    v23._countAndFlagsBits = 0xD00000000000002DLL;
-    v23._object = 0x80000001000078B0;
-    v24._object = 0x80000001000078E0;
-    v77._countAndFlagsBits = 0xD00000000000004DLL;
-    v24._countAndFlagsBits = 0xD000000000000020;
-    NSLocalizedString(_:tableName:bundle:value:comment:)(v23, 0, v22, v24, v77);
+    v19 = *&v1[OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_cancelButton];
+    [v19 setTranslatesAutoresizingMaskIntoConstraints:0];
+    v20 = [v14 mainBundle];
+    v75._object = 0x8000000100007910;
+    v21._countAndFlagsBits = 0xD00000000000002DLL;
+    v21._object = 0x80000001000078B0;
+    v22._object = 0x80000001000078E0;
+    v75._countAndFlagsBits = 0xD00000000000004DLL;
+    v22._countAndFlagsBits = 0xD000000000000020;
+    NSLocalizedString(_:tableName:bundle:value:comment:)(v21, 0, v20, v22, v75);
 
-    v25 = String._bridgeToObjectiveC()();
+    v23 = String._bridgeToObjectiveC()();
 
-    [v21 setTitle:v25 forState:0];
+    [v19 setTitle:v23 forState:0];
 
-    v26 = [v21 titleLabel];
-    if (v26)
+    v24 = [v19 titleLabel];
+    if (v24)
     {
-      v27 = v26;
-      v28 = [v70 systemFontOfSize:18.0 weight:UIFontWeightMedium];
-      [v27 setFont:v28];
+      v25 = v24;
+      v26 = [v68 systemFontOfSize:18.0 weight:UIFontWeightMedium];
+      [v25 setFont:v26];
     }
 
-    [v21 addTarget:v1 action:"cancel" forControlEvents:64];
-    [v1 addSubview:v21];
+    [v19 addTarget:v1 action:"cancel" forControlEvents:64];
+    [v1 addSubview:v19];
     if (qword_100011640 != -1)
     {
       swift_once();
     }
 
-    v29 = qword_100011A08;
-    v30 = OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_cancelButtonConfiguration;
+    v27 = qword_100011A08;
+    v28 = OBJC_IVAR____TtC17TrackingUIService20ExpandedTrackingView_cancelButtonConfiguration;
     swift_beginAccess();
-    v31 = v29;
+    v29 = v27;
     UIButton.Configuration.baseBackgroundColor.setter();
-    (*(v73 + 104))(v72, enum case for UIButton.Configuration.CornerStyle.capsule(_:), v74);
+    (*(v71 + 104))(v70, enum case for UIButton.Configuration.CornerStyle.capsule(_:), v72);
     UIButton.Configuration.cornerStyle.setter();
     swift_endAccess();
-    v32 = type metadata accessor for UIButton.Configuration();
-    v33 = *(v32 - 8);
-    v34 = &v1[v30];
-    v35 = v75;
-    (*(v33 + 16))(v75, v34, v32);
-    (*(v33 + 56))(v35, 0, 1, v32);
+    v30 = type metadata accessor for UIButton.Configuration();
+    v31 = *(v30 - 8);
+    v32 = &v1[v28];
+    v33 = v73;
+    (*(v31 + 16))(v73, v32, v30);
+    (*(v31 + 56))(v33, 0, 1, v30);
     UIButton.configuration.setter();
-    [v21 setContentVerticalAlignment:3];
-    [v21 setContentHorizontalAlignment:3];
-    v75 = objc_opt_self();
+    [v19 setContentVerticalAlignment:3];
+    [v19 setContentHorizontalAlignment:3];
+    v73 = objc_opt_self();
     sub_100001F7C(&qword_100011790, &unk_1000069B0);
-    v36 = swift_allocObject();
-    *(v36 + 16) = xmmword_100006AA0;
-    v37 = [v7 leadingAnchor];
-    v38 = [v1 leadingAnchor];
-    v39 = [v37 constraintEqualToAnchor:v38 constant:25.0];
+    v34 = swift_allocObject();
+    *(v34 + 16) = xmmword_100006AA0;
+    v35 = [v5 leadingAnchor];
+    v36 = [v1 leadingAnchor];
+    v37 = [v35 constraintEqualToAnchor:v36 constant:25.0];
 
-    *(v36 + 32) = v39;
-    v40 = [v7 topAnchor];
-    v41 = [v1 topAnchor];
-    v42 = [v40 constraintEqualToAnchor:v41 constant:30.0];
+    *(v34 + 32) = v37;
+    v38 = [v5 topAnchor];
+    v39 = [v1 topAnchor];
+    v40 = [v38 constraintEqualToAnchor:v39 constant:30.0];
 
-    *(v36 + 40) = v42;
-    v43 = [v7 widthAnchor];
+    *(v34 + 40) = v40;
+    v41 = [v5 widthAnchor];
+    v42 = [v41 constraintEqualToConstant:51.0];
+
+    *(v34 + 48) = v42;
+    v43 = [v5 heightAnchor];
     v44 = [v43 constraintEqualToConstant:51.0];
 
-    *(v36 + 48) = v44;
-    v45 = [v7 heightAnchor];
-    v46 = [v45 constraintEqualToConstant:51.0];
+    *(v34 + 56) = v44;
+    v45 = [v5 bottomAnchor];
+    v46 = [v19 topAnchor];
+    v47 = [v45 constraintEqualToAnchor:v46 constant:-30.0];
 
-    *(v36 + 56) = v46;
-    v47 = [v7 bottomAnchor];
-    v48 = [v21 topAnchor];
-    v49 = [v47 constraintEqualToAnchor:v48 constant:-30.0];
+    *(v34 + 64) = v47;
+    v48 = v69;
+    v49 = [v69 centerYAnchor];
+    v50 = [v5 centerYAnchor];
+    v51 = [v49 constraintEqualToAnchor:v50];
 
-    *(v36 + 64) = v49;
-    v50 = v71;
-    v51 = [v71 centerYAnchor];
-    v52 = [v7 centerYAnchor];
-    v53 = [v51 constraintEqualToAnchor:v52];
+    *(v34 + 72) = v51;
+    v52 = [v48 centerXAnchor];
+    v53 = [v1 centerXAnchor];
+    v54 = [v52 constraintEqualToAnchor:v53];
 
-    *(v36 + 72) = v53;
-    v54 = [v50 centerXAnchor];
-    v55 = [v1 centerXAnchor];
-    v56 = [v54 constraintEqualToAnchor:v55];
+    *(v34 + 80) = v54;
+    v55 = [v19 centerXAnchor];
+    v56 = [v1 centerXAnchor];
+    v57 = [v55 constraintEqualToAnchor:v56];
 
-    *(v36 + 80) = v56;
-    v57 = [v21 centerXAnchor];
-    v58 = [v1 centerXAnchor];
-    v59 = [v57 constraintEqualToAnchor:v58];
+    *(v34 + 88) = v57;
+    v58 = [v19 widthAnchor];
+    v59 = [v1 widthAnchor];
+    v60 = [v58 constraintEqualToAnchor:v59 constant:-50.0];
 
-    *(v36 + 88) = v59;
-    v60 = [v21 widthAnchor];
-    v61 = [v1 widthAnchor];
-    v62 = [v60 constraintEqualToAnchor:v61 constant:-50.0];
+    *(v34 + 96) = v60;
+    v61 = [v19 heightAnchor];
+    v62 = [v61 constraintEqualToConstant:51.0];
 
-    *(v36 + 96) = v62;
-    v63 = [v21 heightAnchor];
-    v64 = [v63 constraintEqualToConstant:51.0];
+    *(v34 + 104) = v62;
+    v63 = [v19 bottomAnchor];
+    v64 = [v1 bottomAnchor];
+    v65 = [v63 constraintEqualToAnchor:v64 constant:-30.0];
 
-    *(v36 + 104) = v64;
-    v65 = [v21 bottomAnchor];
-    v66 = [v1 bottomAnchor];
-    v67 = [v65 constraintEqualToAnchor:v66 constant:-30.0];
-
-    *(v36 + 112) = v67;
+    *(v34 + 112) = v65;
     sub_100003F10(0, &qword_100011798, NSLayoutConstraint_ptr);
     isa = Array._bridgeToObjectiveC()().super.isa;
 
-    [v75 activateConstraints:isa];
+    [v73 activateConstraints:isa];
   }
 
   else
@@ -1205,7 +1189,7 @@ void sub_100004D58()
   }
 }
 
-uint64_t type metadata accessor for ExpandedTrackingView()
+uint64_t type metadata accessor for ExpandedTrackingView(uint64_t a1)
 {
   result = qword_100011A50;
   if (!qword_100011A50)
@@ -1216,12 +1200,11 @@ uint64_t type metadata accessor for ExpandedTrackingView()
   return result;
 }
 
-uint64_t sub_100005A78()
+uint64_t sub_100005A78(uint64_t a1)
 {
   result = type metadata accessor for UIButton.Configuration();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {

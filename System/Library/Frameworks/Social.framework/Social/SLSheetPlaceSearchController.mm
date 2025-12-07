@@ -31,14 +31,14 @@
 
 - (void)searchWithSearchString:(id)string
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
-  _SLLog(v3, 6, @"Cancel previous fetch");
+  _SLLog(v3, 6, @"Cancel previous fetch", v7, v8, v9, v10, v11, v28);
   [(SLSheetPlaceSearchController *)self cancelSearch];
   placeDataSource = [(SLSheetPlaceSearchController *)self placeDataSource];
-  _SLLog(v3, 6, @"Initate new place search on %@ with search string %@");
+  _SLLog(v3, 6, @"Initate new place search on %@ with search string %@", v13, v14, v15, v16, v17, placeDataSource);
 
-  [MEMORY[0x1E69DC668] shouldShowNetworkActivityIndicatorInRemoteApplication:{1, placeDataSource, stringCopy}];
+  [MEMORY[0x1E69DC668] shouldShowNetworkActivityIndicatorInRemoteApplication:1];
   self->_isSearching = 1;
   objc_storeStrong(&self->_searchString, string);
   self->_retryCount = 0;
@@ -51,14 +51,14 @@
       [(NSTimer *)delayTimer invalidate];
     }
 
-    _SLLog(v3, 6, @"Scheduling delayed place fetch");
-    v8 = MEMORY[0x1E695DFF0];
-    v13 = @"searchString";
-    v14[0] = stringCopy;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
-    v10 = [v8 scheduledTimerWithTimeInterval:self target:sel_performDelayedFetch_ selector:v9 userInfo:0 repeats:0.5];
-    v11 = self->_delayTimer;
-    self->_delayTimer = v10;
+    _SLLog(v3, 6, @"Scheduling delayed place fetch", v18, v19, v20, v21, v22, v29);
+    v24 = MEMORY[0x1E695DFF0];
+    v30 = @"searchString";
+    v31[0] = stringCopy;
+    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v26 = [v24 scheduledTimerWithTimeInterval:self target:sel_performDelayedFetch_ selector:v25 userInfo:0 repeats:0.5];
+    v27 = self->_delayTimer;
+    self->_delayTimer = v26;
   }
 
   else
@@ -89,40 +89,40 @@
 - (void)performDelayedFetch:(id)fetch
 {
   fetchCopy = fetch;
-  _SLLog(v3, 6, @"Performing delayed place fetch");
+  _SLLog(v3, 6, @"Performing delayed place fetch", v6, v7, v8, v9, v10, v13);
   userInfo = [fetchCopy userInfo];
 
   placeDataSource = [(SLSheetPlaceSearchController *)self placeDataSource];
-  v7 = [userInfo objectForKeyedSubscript:@"searchString"];
-  [placeDataSource fetchPlacesWithSearchString:v7];
+  v12 = [userInfo objectForKeyedSubscript:@"searchString"];
+  [placeDataSource fetchPlacesWithSearchString:v12];
 }
 
 - (void)placeManager:(id)manager updatedPlaces:(id)places
 {
   self->_isSearching = 0;
   placesCopy = places;
-  _SLLog(v4, 6, @"Place manager updated places for search controller %@");
-  [(SLSheetPlaceSearchController *)self setSearchResults:placesCopy, placesCopy];
+  _SLLog(v4, 6, @"Place manager updated places for search controller %@", v7, v8, v9, v10, v11, placesCopy);
+  [(SLSheetPlaceSearchController *)self setSearchResults:placesCopy];
 
   searchResultsTableView = [(UISearchDisplayController *)self->_searchDisplayController searchResultsTableView];
   [searchResultsTableView reloadData];
 
-  v8 = SLSocialFrameworkBundle();
-  v9 = [v8 localizedStringForKey:@"FB_PLACE_SEARCH_NO_RESULTS" value:&stru_1F41EC300 table:@"Localizable"];
-  [(UISearchDisplayController *)self->_searchDisplayController setNoResultsMessage:v9];
+  v14 = SLSocialFrameworkBundle(v13);
+  v15 = [v14 localizedStringForKey:@"FB_PLACE_SEARCH_NO_RESULTS" value:&stru_1F41EC300 table:@"Localizable"];
+  [(UISearchDisplayController *)self->_searchDisplayController setNoResultsMessage:v15];
 
-  v10 = MEMORY[0x1E69DC668];
+  v16 = MEMORY[0x1E69DC668];
 
-  [v10 shouldShowNetworkActivityIndicatorInRemoteApplication:0];
+  [v16 shouldShowNetworkActivityIndicatorInRemoteApplication:0];
 }
 
 - (void)placeManager:(id)manager failedWithError:(id)error
 {
   errorCopy = error;
-  v12 = errorCopy;
+  v18 = errorCopy;
   if (self->_isSearching && self->_retryCount <= 2 && self->_searchString)
   {
-    _SLLog(v4, 6, @"Retrycount is %i, retrying place fetch");
+    _SLLog(v4, 6, @"Retrycount is %i, retrying place fetch", v7, v8, v9, v10, v11, v17);
     ++self->_retryCount;
     placeDataSource = [(SLSheetPlaceSearchController *)self placeDataSource];
     [placeDataSource fetchPlacesWithSearchString:self->_searchString];
@@ -132,15 +132,14 @@
   {
     self->_retryCount = 0;
     self->_isSearching = 0;
-    v11 = errorCopy;
-    _SLLog(v4, 3, @"Failed place search with error %{public}@");
-    [(SLSheetPlaceSearchController *)self setSearchResults:MEMORY[0x1E695E0F0], v11];
+    _SLLog(v4, 3, @"Failed place search with error %{public}@", v7, v8, v9, v10, v11, errorCopy);
+    [(SLSheetPlaceSearchController *)self setSearchResults:MEMORY[0x1E695E0F0]];
     searchResultsTableView = [(UISearchDisplayController *)self->_searchDisplayController searchResultsTableView];
     [searchResultsTableView reloadData];
 
-    v9 = SLSocialFrameworkBundle();
-    v10 = [v9 localizedStringForKey:@"FB_PLACE_SEARCH_SEARCH_FAILED" value:&stru_1F41EC300 table:@"Localizable"];
-    [(UISearchDisplayController *)self->_searchDisplayController setNoResultsMessage:v10];
+    v15 = SLSocialFrameworkBundle(v14);
+    v16 = [v15 localizedStringForKey:@"FB_PLACE_SEARCH_SEARCH_FAILED" value:&stru_1F41EC300 table:@"Localizable"];
+    [(UISearchDisplayController *)self->_searchDisplayController setNoResultsMessage:v16];
 
     [MEMORY[0x1E69DC668] shouldShowNetworkActivityIndicatorInRemoteApplication:0];
   }

@@ -1,9 +1,46 @@
 @interface HFTriggerUISummary
+- (HFTriggerUISummary)initWithTrigger:(id)trigger inHome:(id)home forceDisabled:(BOOL)disabled;
+- (HFTriggerUISummary)initWithTrigger:(id)trigger inHome:(id)home forceDisabled:(BOOL)disabled ignoringDisabled:(BOOL)ignoringDisabled;
 - (void)_getTriggerName:(id)name home:(id)home;
 - (void)_updateWithTrigger:(id)trigger inHome:(id)home forceDisabled:(BOOL)disabled ignoringDisabled:(BOOL)ignoringDisabled;
 @end
 
 @implementation HFTriggerUISummary
+
+- (HFTriggerUISummary)initWithTrigger:(id)trigger inHome:(id)home forceDisabled:(BOOL)disabled
+{
+  disabledCopy = disabled;
+  triggerCopy = trigger;
+  homeCopy = home;
+  v13.receiver = self;
+  v13.super_class = HFTriggerUISummary;
+  v10 = [(HFTriggerUISummary *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(HFTriggerUISummary *)v10 _updateWithTrigger:triggerCopy inHome:homeCopy forceDisabled:disabledCopy ignoringDisabled:0];
+  }
+
+  return v11;
+}
+
+- (HFTriggerUISummary)initWithTrigger:(id)trigger inHome:(id)home forceDisabled:(BOOL)disabled ignoringDisabled:(BOOL)ignoringDisabled
+{
+  ignoringDisabledCopy = ignoringDisabled;
+  disabledCopy = disabled;
+  triggerCopy = trigger;
+  homeCopy = home;
+  v15.receiver = self;
+  v15.super_class = HFTriggerUISummary;
+  v12 = [(HFTriggerUISummary *)&v15 init];
+  v13 = v12;
+  if (v12)
+  {
+    [(HFTriggerUISummary *)v12 _updateWithTrigger:triggerCopy inHome:homeCopy forceDisabled:disabledCopy ignoringDisabled:ignoringDisabledCopy];
+  }
+
+  return v13;
+}
 
 - (void)_updateWithTrigger:(id)trigger inHome:(id)home forceDisabled:(BOOL)disabled ignoringDisabled:(BOOL)ignoringDisabled
 {

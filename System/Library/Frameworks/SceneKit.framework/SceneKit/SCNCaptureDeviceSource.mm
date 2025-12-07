@@ -46,16 +46,17 @@
 
 - (id)metalTextureWithEngineContext:(__C3DEngineContext *)context textureSampler:(__C3DTextureSampler *)sampler nextFrameTime:(double *)time status:(id *)status
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   objc_sync_enter(self);
   if (!self->_captureSession)
   {
-    v20 = 0;
-    v13 = [objc_alloc(MEMORY[0x277CE5AD8]) initWithDevice:self->_captureDevice error:&v20];
-    if (v20)
+    v25 = 0;
+    v16 = [objc_alloc(MEMORY[0x277CE5AD8]) initWithDevice:self->_captureDevice error:&v25];
+    v18 = v16;
+    if (v25)
     {
-      v14 = scn_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v19 = scn_default_log(v16, v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [SCNCaptureDeviceSource metalTextureWithEngineContext:textureSampler:nextFrameTime:status:];
       }
@@ -63,27 +64,28 @@
       goto LABEL_10;
     }
 
-    v18 = objc_alloc_init(MEMORY[0x277CE5B38]);
-    self->_captureSession = v18;
-    [(AVCaptureSession *)v18 addInput:v13];
+    v23 = objc_alloc_init(MEMORY[0x277CE5B38]);
+    self->_captureSession = v23;
+    [(AVCaptureSession *)v23 addInput:v18];
 
     [(AVCaptureSession *)self->_captureSession commitConfiguration];
     [(AVCaptureSession *)self->_captureSession startRunning];
   }
 
-  RenderContext = C3DEngineContextGetRenderContext(context);
+  RenderContext = C3DEngineContextGetRenderContext(context, v9);
+  v12 = RenderContext;
   if (!self->_data.videoOutput)
   {
-    v10 = objc_alloc_init(MEMORY[0x277CE5B60]);
-    v11 = *MEMORY[0x277CC4E30];
-    v23[0] = *MEMORY[0x277CC4E08];
-    v23[1] = v11;
-    v24[0] = MEMORY[0x277CBEC38];
-    v24[1] = &unk_282E0FBE8;
-    [v10 setVideoSettings:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v24, v23, 2)}];
-    [v10 setSampleBufferDelegate:self queue:-[SCNMTLRenderContext resourceQueue](RenderContext)];
-    [(AVCaptureSession *)self->_captureSession addOutput:v10];
-    self->_data.videoOutput = v10;
+    v13 = objc_alloc_init(MEMORY[0x277CE5B60]);
+    v14 = *MEMORY[0x277CC4E30];
+    v28[0] = *MEMORY[0x277CC4E08];
+    v28[1] = v14;
+    v29[0] = MEMORY[0x277CBEC38];
+    v29[1] = &unk_282E0FBE8;
+    [v13 setVideoSettings:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v29, v28, 2)}];
+    [v13 setSampleBufferDelegate:self queue:-[SCNMTLRenderContext resourceQueue](v12)];
+    RenderContext = [(AVCaptureSession *)self->_captureSession addOutput:v13];
+    self->_data.videoOutput = v13;
   }
 
   mtlTextureForRenderer = self->_data.mtlTextureForRenderer;
@@ -95,8 +97,8 @@
 
   if (!self->_data.var0)
   {
-    v19 = scn_default_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v24 = scn_default_log(RenderContext, v11);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       [SCNAVPlayerSource metalTextureWithEngineContext:textureSampler:nextFrameTime:status:];
     }
@@ -109,14 +111,14 @@ LABEL_10:
   textureCache = self->_textureCache;
   if (!textureCache)
   {
-    device = [(SCNMTLRenderContext *)RenderContext device];
-    v21 = *MEMORY[0x277CC4D50];
-    v22 = &unk_282E0F8E8;
-    CVMetalTextureCacheCreate(0, 0, device, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1], &self->_textureCache);
+    device = [(SCNMTLRenderContext *)v12 device];
+    v26 = *MEMORY[0x277CC4D50];
+    v27 = &unk_282E0F8E8;
+    CVMetalTextureCacheCreate(0, 0, device, [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1], &self->_textureCache);
     textureCache = self->_textureCache;
   }
 
-  SCNVideoTextureSourceCreateMetalTexture(&self->_data, RenderContext, textureCache);
+  SCNVideoTextureSourceCreateMetalTexture(&self->_data, v12, textureCache);
   *status = 257;
   mtlTextureForRenderer = self->_data.mtlTextureForRenderer;
 LABEL_15:
@@ -139,8 +141,8 @@ LABEL_15:
 
   else
   {
-    v9 = scn_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = scn_default_log(0, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [SCNAVPlayerSource metalTextureWithEngineContext:textureSampler:nextFrameTime:status:];
     }

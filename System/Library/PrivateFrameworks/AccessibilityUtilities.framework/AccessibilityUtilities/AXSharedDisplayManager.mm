@@ -38,17 +38,18 @@ void ___AXSharedDisplayManager_block_invoke()
 
 void ___AXSharedDisplayManager_block_invoke_3()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (MEMORY[0x18CFF15A0]())
   {
     v0 = AXLogDisplay();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+    v1 = os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT);
+    if (v1)
     {
-      v1 = _AXSharedDisplayManager();
-      v2 = [v1 coreAnimationMainDisplay];
-      v3 = 138412290;
-      v4 = v2;
-      _os_log_impl(&dword_18B15E000, v0, OS_LOG_TYPE_DEFAULT, "Did finish initializing AX DisplayManager: %@", &v3, 0xCu);
+      v2 = _AXSharedDisplayManager(v1);
+      v3 = [v2 coreAnimationMainDisplay];
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_impl(&dword_18B15E000, v0, OS_LOG_TYPE_DEFAULT, "Did finish initializing AX DisplayManager: %@", &v4, 0xCu);
     }
   }
 }
